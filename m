@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794872411;
-	b=FB5pgoByVpDFb96u7hW51sVPeGdhDl4PRn2V+wb3nixSrJ0+JXTcDcNbkaiXBRR3x6cy
-	 ZhWeB7AsOxcUGmCuxMzlM4GtQ2EhnyNtPeYBpwAkZDeut9giQA3X71qtOiAQyW+XjxuPZ
-	 FfOfYb3dUGlawLUembAXCCeGIgWqcpJP4XNUIWEVYm2x+Pip15sbBb6Xjl/vxJCMQkr7S
-	 sSktH6RFU58iB+u0TILjr8HsydCMQni5atZJlJv72SG5TU1PPzG3fvHUgpMzGP+AHDjYX
-	 +AFkqPg+xqAbqQAZLnZr+0d9NEmx2BWmf4s+gYATNXYYNeBl2AgcLnLLV6tsKoRpmZA==
+	t=1794872519;
+	b=MsEbxbIDbVy41CGbiTlJuwHJILIgPVVYt9JukSCNViffSRwNggciv7PeepCvbODFaQrx
+	 3ljnBvpyJXayU2IGg6Eds5dOj6mLJuUmf/hwQRyREs2lubDTGCwvIzdOLD4H/KQrZZoWF
+	 lRon7B51CuJesBKs2kNSS0uGuBYP3Vi3vxVE19PiSj/gdmGMEVFisQH6dPI3D8p1AaGgu
+	 XJ0ea5zvi3ZfScL8jjNp5ukB9ocaXhflqKHYegUjLH4z/xFbgbc39OX2CxBiUnMP+8Ti3
+	 NaeDkdpmyplmrJHOYhKir+q1F8h1ph/DaShXzIal4pMu3gtQ0Ey1FBNWSHeN3FBh9AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872411;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=9GzQqN9C4tUUY50++Ccr1EqxmPJKMHeJ+ACKBWOxuPc=;
-	b=RYtOKrio94R6bcwe5dmqUQi+cM1NFmz5JiHsTvnG5NbtEhaCYOb6ox3TcG0oS8Bydgga
-	 coIxS3Mck16wVG2z5gw1Lp04JjVbXJlz9yVxNvCL35eMp7JeCCbzuNH6PK/f2FqRPe1xf
-	 y0Urw/EmTHkoxQsBgIxx+bog2aSEzXUM4PGU4dDBYmXyoC5e/J7fKpvbBLvEahGkUkz6u
-	 z+8Rke+jAo3VB/5/QKUSiH4IqYEY9vSga7+wnmTT8gbFS+/vDHrAMue1yNTyAbNbxiply
-	 hmYGaC4PVE6GZykuxBYXdo9n6+dwPWz0xv5wlzYM+VCb/NfOKAfB+SekS/W7yixOF3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872519;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LfK0P8wpQhjKU73faMZJ7aS0+N+WOnHsL569QrZcsKU=;
+	b=SQwQG1ohSWV/yDukknuxog3nxwDMq8PP9t46Q6cl3FZZTIPidOKSAxVHXxkOi/ttDA2g
+	 0pI5+4wkAmHm25ggRPY9eaKSG1bLb6bbQ19lgwkqMhla6HntgHm+nPE2jZFew3HPcqA27
+	 pVeJ2BTB7lt7u4rRXGgGb9Zb7GIWj4mV2ezm6oMXKd4dTKsfd6stvmOSFJ32WXca3qPEQ
+	 jWhffIYyFSoyNk5YK/Niq+BIGBPAe35vtUgPZIyuyxJiCYrIT3nLSMPv1M7duP+k8Gh9X
+	 o2yQuezCsPUUP7V0uHICJk3U/L2QJLUWg/Uzx0yYDnlfzvd0dtLDzPHLoUBW06eLkPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xj4unxS/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JdtTDxg2;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521BF606A893;
-	Mon, 16 Nov 2026 23:40:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05D0606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:41:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D05D0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xj4unxS/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C001F000C7;
-	Mon, 16 Nov 2026 23:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794872411;
-	bh=9GzQqN9C4tUUY50++Ccr1EqxmPJKMHeJ+ACKBWOxuPc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Xj4unxS/rxg5vxfGApfZ9BwrIpuqHufMfiIXUzjCZqV2Avy0yBHIxqLFqrOnb14kc
-	 C+dkrh7BlI0BkxpXdu/bPjMuVixFO6sswdYJU8ZrdSSfCNSRD+NTBtYvX8+mxeYCCm
-	 MMuCbgsXtlA2sGeA5/23/NKluELTQ6S7dtQqPBNFtPvcpPY0cCNluL43Sd6ll03mfB
-	 BenkyoT8K6WOXfrSK0/gfkBcMJOuQ9/kvXv2neslma6D0zhOMNB29H+DDSjDqjEGhj
-	 n7mYtWgTGyjj0Kd4K16r5g27YnTM9WfXtl5vqJMpb3KCBIEzBHhSyEgwa8vIT6enjO
-	 +HJFsUF/KAC3A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F14B0391B059;
-	Mon, 16 Nov 2026 23:40:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JdtTDxg2
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so688243766b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:41:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794872516; x=1795477316; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LfK0P8wpQhjKU73faMZJ7aS0+N+WOnHsL569QrZcsKU=;
+        b=JdtTDxg2OshVl5HbGUg/g/K8tqtpzSXsRw+dWKvLKKXmTrDoJenmWSadRI/ljuJccf
+         7wk0mZn38OFN2LDLLbyGrlHWWq6f5pwNt2qbKdRXPXUQMeSDZjij66Y9MaJPPfn34Nrm
+         n2hV7TprcOLQ34PZpxKvGrWxA2Qjg+J+mm+F7BysHJoYt0ZpHVZ0VRkSH1EH3JJ42tde
+         7P2cLOnRkwBjiOlI28fM/z9y1dUJVzdkS5+UnzrzIryL6R8xGgDH4deKFO+FPqqo5759
+         MfozIS3U46rx+lkCDA8uTpidJQmKhl3cp2CAliW7D+h+kNkntoC6DR728pbgrgLn+jDF
+         4WTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794872516; x=1795477316;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LfK0P8wpQhjKU73faMZJ7aS0+N+WOnHsL569QrZcsKU=;
+        b=0bs2jDGWPZz4Ho4vuI9ue0lIFixhmqrF9dRVYB8h2AI6mV5Ju0rx7P/4KpOC9faS/U
+         +9RiIt3QB+N8hCj7orRlUeLVi5GToLVaWKqIFvF4z+J+xiWanmw0Cq6Kbg9AUKrh3w/8
+         rN8IBWKRQAcQxfz8QdLJTz3yWfPd773DZYPIHESw2oeDTcvs8kMky0WAFEQmBWWXcroY
+         hN2bxDzDlthoZVF9GNMptM1HiSlx75xiXa7O/R90560uTrmis28Z1SRhd6R4Owg3WFeO
+         dXv2XvdVQLqIsuiYJEaA03w3cpaKykBpG9/c2qXp9g0ZVHhvPukQJnGjEpZ0zfAIVRxJ
+         utTA==
+X-Forwarded-Encrypted: i=1; AL+hErEAweeYTUnA04aA4XUtBkHVrh0ZPg/n4Apb/P0ScUlFxUC2vosaBBN6Iw7L59yfhzYN6mXKeLzA1O3PLN8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TyUihkGRrIUZcIxq4povJb2K+Pxuafo9lqLB0b9CsYrtx4Kmk
+	gGimx68h5dhKptLXSuOp5m5Bgzel6bzfMFdswnRc1VbjCyadKnCFyygd+guEkDdwAPI=
+X-Gm-Gg: AYBFou1NXdL9qjobCJka2G/+/6S0KsyffQX29RJz/OcEo+ktAenwu9tWx5BTLu/5PFv
+	kwriRtkDchyyAbjQJJyfbe8xOVx4K3VeEwHv7pD9P9hr2hkPwOFmW1GbSU++R3F1Hf92k0sebr2
+	3Ld4gdti0JUndRaytX0ESmhHTdKBqowL6In29nVwOR77I2i9gPdj5BbTxrJ1e9fTZHq0Yj3Gd3z
+	/27utWoY3/qf9vy7QD1yM7XKgvH3Ju79ztJwNF/MOZOHMC3XT8FKxQhNwc6IvCsHRWj4pygM3L8
+	+afxkC2NDyhrrt14zUQIGxHFfIGaQyD+nucO6fkaS4vhcT/BFUOabhfisAtg/lzdeGLsHPvDPK+
+	7dripYuAYPLhieDo2HdpUki21sMU1xnsjRybyWTKAdqFbdbY01vdRsi7rKIZ/+6u9ICbqh4+xX2
+	gYuQumw/W4akvbG/XD7CdyubZ/7MSNEisUL/4shqnxNFCNm65f+gnkA5R+8h0U4nb5OJsPfQwlS
+	Xc9snK5acznx35AJ3RoovS8M1R5s+8+hccQQqw1uT4h5QVc8RdRpFQGQLi2AGipUdGH98taV1Ch
+	vqpZoDs9GpZGdrCYPIsKV4WSyEY7ewE4ITI/aRdPk6N9
+X-Received: by 2002:a17:907:3e13:b0:c2e:3ed7:7db4 with SMTP id a640c23a62f3a-c5096340feamr1038815166b.23.1794872516213;
+        Mon, 16 Nov 2026 15:41:56 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac2550e1sm1103294a91.3.2026.11.16.15.41.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 15:41:53 -0800 (PST)
+Message-ID: <fc1f9f58-71ad-410e-bf03-8b27e607ab76@suse.com>
+Date: Tue, 17 Nov 2026 10:11:46 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +92,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] btrfs: assemble a multi-device root filesystem
+ without an initrd
+To: Ismael Luceno <ismael@iodev.co.uk>, linux-kernel@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ Christian Brauner <brauner@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261116224316.11237-10-ismael@iodev.co.uk>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261116224316.11237-10-ismael@iodev.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] ipv6: ioam6: do not modify shared tuninfo
- eh.nexthdr
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179487240952.241382.3388765976328461502.git-patchwork-notify@kernel.org>
-Date: Mon, 16 Nov 2026 23:40:09 +0000
-References: <20261112-ipv6_ioam_lock-v4-1-89e3381be525@kylinos.cn>
-In-Reply-To: <20261112-ipv6_ioam_lock-v4-1-89e3381be525@kylinos.cn>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: justin.iurman@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, liuhangbin@kylinos.cn,
- netdev-bot+sashiko@kernel.org
 
-Hello:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 12 Nov 2026 13:46:44 +0800 you wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
+在 2026/11/17 09:13, Ismael Luceno 写道:
+> A multi-device btrfs root filesystem is normally assembled by the device
+> scanner that an initrd runs before mounting the root.
+
+What is the problem here?
+
+Is generating an initramfs really that complex?
+
+Multi-device filesystems/storage solution requires initramfs to do the 
+scan, no matter if it's btrfs or device-mapper, it's already the common 
+knowledge.
+
+I just see no strong reasons to do this at all.
+
+And Sashiko is already reporting over 10 high level problems, which is 
+not a good sign either.
+>  Without an initrd
+> nothing runs that scanner, so the root mount names a single device and
+> the rest of the array is left out.
 > 
-> ioam6_do_inline() and ioam6_do_encap() stored the next header into
-> the shared ilwt->tuninfo template and then memcpy()ed it into the
-> skb. The lwtstate is used from multiple CPUs without locking, so
-> another packet can overwrite eh.nexthdr between the store and the
-> memcpy.
+> This series lets btrfs assemble such a root filesystem in the kernel:
 > 
-> [...]
-
-Here is the summary with links:
-  - [net,v4] ipv6: ioam6: do not modify shared tuninfo eh.nexthdr
-    https://git.kernel.org/netdev/net/c/5aac571d9190
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+>    * mount devtmpfs on the initial root before the root filesystem, so
+>      device nodes exist to open the other devices by name (init);
+>    * let a filesystem tell whether it is mounting the root device and read
+>      rootwait, and resolve root=UUID=/root=LABEL= values that name the
+>      filesystem rather than a partition (init/VFS);
+>    * scan all block devices for the remaining members of a btrfs root
+>      filesystem, and wait for all of them to appear before mounting.
+> 
+> The scan and wait are gated on CONFIG_BTRFS_ROOT_SCAN (default y) and
+> only act on the root mount when the user asked for it with rootwait, so
+> non-root mounts and systems without the option are unchanged.
+> 
+> 
+> Ismael Luceno (8):
+>    btrfs: add config options for the root device scan
+>    init: mount devtmpfs before the root filesystem
+>    init: let filesystems ask whether they are mounting the root device
+>    btrfs: add a helper to scan all block devices
+>    btrfs: wait for the root filesystem to have all its devices
+>    Documentation: btrfs: document waiting for the root filesystem devices
+>    init: let a filesystem resolve a root device by UUID or label
+>    btrfs: resolve root=UUID= and root=LABEL=
+> 
+>   Documentation/filesystems/btrfs.rst |  31 +++++
+>   fs/btrfs/Kconfig                    |  25 ++++
+>   fs/btrfs/super.c                    | 165 +++++++++++++++++++++++
+>   fs/btrfs/volumes.c                  | 196 ++++++++++++++++++++++++++++
+>   fs/btrfs/volumes.h                  |  25 ++++
+>   fs/filesystems.c                    |  37 ++++++
+>   include/linux/fs.h                  |  10 ++
+>   include/linux/root_dev.h            |  14 ++
+>   init/do_mounts.c                    |  51 +++++++-
+>   9 files changed, 553 insertions(+), 1 deletion(-)
 
