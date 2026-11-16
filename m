@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794865755;
-	b=t2L36O9ZGdXfv16j/7W7ZTZTaHZ+xx9yKCPtaA8BbfCqw3C82UUcT5ZBwxYQzlA+6CC+
-	 Fv04INYkiGVyMhqa9wrYsgaGjOaf63AF1/t9kbR7oOUIAuN62P1Hg5GcqUkyr+NS24r5Z
-	 IAOyaD+KcBKzs1RFUC2Liy0xgEB03ZY1kMh3KZczyoRNRdN0MB4V4IAdT/iDHNe5H8tRA
-	 mSsLCqTKwbycQZSZAGkSIr14UZlicoctZ13BebD2zwq95/Uj4Q1YlYeGTO7iNh8A/iJMv
-	 gQe1oVk2+nzc8OlhP0Wa8Hn1TafwmNhjyQgXEKrXw9ThYbqL0fIO2JILqZhj/ExLfiA==
+	t=1794865776;
+	b=akLKgac1rJ3JEjjjcVx6F4udE9oU/IW6wl/WMWlrrXlYFBUTGBtkRE9Lqn39+jEPkuBN
+	 UUSwpTx5AFdE4pJ2xQspKNXOWusk1uL1TAaV8byUR0NmH30teqa4P7AJU7tP6vUdWIJnb
+	 0vPVtwtSMb3Ct/Wt6YZJvWuGaYEgYdXMzm4JQ7q5U5MYYuJ24+7XZJCMQnNDt33/xOqEC
+	 hySjS01BC76EjY5SPx1BHcWsttOT2UYdl16UlXw3KOOqhJlQthqkctT8c+G76VUHg3/83
+	 aKanrxLOjsAYswuB4IDIv2svzlqJ9MRguYMc6Ccx/50CjfMHHrL2KHz1DV0ub4oSMGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794865755;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yJuKOBNNYnk1ty+KHw/zCYtkc5H0NaB5Yj6zALlwHps=;
-	b=xPBD1qv6jf2VN7Z6MZPIGACRJiXPE3JpUbM7t4QRRnU+s5qAXtc0LxlzWvV9zUN6SuJS
-	 bL7Ppf+H1RXXjmWgucwWXBdK3bSmSrU7ky8Y7s8iP5iaj2vArQbzm5KAPGu8aLjmLdRB6
-	 TEAjaMT2bqUrAuLplZwhkGwKcxmWCRjaup3TuefQXEnWQl5/8Y4mPj8NM0OWjBXM5qI9m
-	 LYyV4FvgDIMIbpEYxglwpFZ3LIpLXLfeyvJBm0ugM5PbSaeVVplgFd/Nza8Nx3m85SURD
-	 I1DDUsZLnzJ3WdjiRXCx+I1HicKKNRHqbLhGmvkVJsA56OLX8fci7TXju4k7li9wFmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794865776;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uakBzQHpnruk0tRar0RXS2ZBRRSBv/kAwPvqULpDtWY=;
+	b=X6/W9tRpyqmNeYmhwqg2ZKA/QggcFrAEQ6nW3ULFug8Cxs54nCdSqXNVpHyEKTK7RO1t
+	 oJ0Ra++2hJrki9zD7G26UWuM4jYVLn/9KYasSoq6A889JKh1813GI1t0gjbOt0pQwCw0S
+	 TvTcV8Pdo4dNYg54Ll0VQpbZEXLv1MB5MztN4rseS+uOdcgLQf0gl5c38tMN//n1W0tgF
+	 jHYjz5d4TK5aBJf5nJOoUp3vx/3xEcHmdPF8/nqLbgxQ0vRzw8jGTAeGsR2uq520a2zih
+	 IYJD8lZ/SZTUk11NOv+jSfcFzMlnFCei+MBtDiKQBcmrMeHSIduoxBQeiawFVm3aetg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="J1UhoB/9";
-	arc=none smtp.remote-ip=91.218.175.67
-Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E+hjxuO7;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E1F606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05E1F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88295606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88295606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=J1UhoB/9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Oi5wYhbLjwdZu+R9/Qn3xoP1Vc2SrBmiTpo0zBudxz0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794865747; v=1; x=1795470547;
- b=J1UhoB/9/+fOB3vHOjJ5A4h6AVVjN3hYuRW08wofnUttUirmkSUBjzTI6JlepQw2+2X8w00F
- qbZoCe52zWoPnLFc3Tah3Vv8LNItCZodcMUgTslNN0BgB9TMjL9NpL/PcPghH8Msfwhbw/cAVm7
- eU/6cwrzJKyL4Rkbhdesh5p0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5853fed9c1d37e21;
-	Mon, 16 Nov 2026 21:49:07 +0000
-X-Mizu-Trace-ID: 5853fed9c1d37e21
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2e6d98fe-527f-4188-bca0-c9db1ad92bce@linux.dev>
-Date: Mon, 16 Nov 2026 13:49:02 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E+hjxuO7
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so14623605e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:49:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794865775; x=1795470575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uakBzQHpnruk0tRar0RXS2ZBRRSBv/kAwPvqULpDtWY=;
+        b=E+hjxuO7iKRJ3ueT3ZvIUPsmnnATLyhItSygXKlGMjYCVBAqIsaxwYyBS7WtFRNa2d
+         FAyI4n8S0MnvngzX2NIilIZ6REX3+ej4wliGoq9olX7jUaOUFnuZ6NHbnreJikmMa+zC
+         dfQheHijyPWjUdisMEUTyhIQIVkWbdVf71/CNoC7acdTDXKyrdqVSPdu3M7Caw81xUYq
+         qiRaDxGxbjmmUVNcXVoZr+Rd8b5ut9GexxUR6Gsm+22VM+jEwktVh36jLU1BvMx0GFpS
+         8Y+B19/v67a7W0WhIKz8UBqhq5DYijPx4bPUC+m/Gq1Hb3lYD9ewQ2XytPivwRA1VYzf
+         CnwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794865775; x=1795470575;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uakBzQHpnruk0tRar0RXS2ZBRRSBv/kAwPvqULpDtWY=;
+        b=ZnM843++QW3g2WaR3wGOtdrIS24f+f5dqbyn7EwnHYW9TFWlGNTEywa+3+P5RfTxDF
+         IH6bUpfdxvYH/H8ksOUWdT7Y3IiUHetYQCYcd9vqE32SzcedJyXDSljyoT4DTLR6Fo9n
+         JvT7DHsbSmDgRYYLddpJdHdl69yZGtBvhNKgwivN1Qa9ucNorLGnTXROzUQ44iTV3R2q
+         8WbxXCvlizid7dhSrYVXMtncdbA9FDQ7fkjzCe4z0F2+11JAQbDDGJ+6p3xxGBzoDxf8
+         vHujTqfPbkvyX2QSuhIjRZgchCNJz2AFlLD35sVknTXnvrCwI5XmPgz++SCEx+Boa5ys
+         K5sQ==
+X-Forwarded-Encrypted: i=1; AL+hErExDAB7VUw+2vqVE0RKZshbncZ9oZUhMuhbSbEBtdHQAWcSEs27BmONrtgrsi9ym0K4jk2V4N5YeHtRuVU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fHzW7jbO/pFzXrI4JYmJzV8np4TtUV/9uo0YiYUWOIIzND/rT
+	ZJPo6iwD9ubqyOIGHlyELCmaY5myTsvNVe5naL6GG5yJ1bEDUjrwgszM
+X-Gm-Gg: AYBFou3NpaMu+QyTeV0wMjm1CFbOPewiOJRiSVdH8SrkX1DI+GclFgc45KTAUtfMivo
+	iKCmQ0WHT2kSU4/P6F16dspjVBz8CntuxuUXW1WvAJruLSTrml/wcqa3yhngU/yHJXJzkBECcYY
+	p+7m+QRFOtxA/690lAqDEAmdsjy7t7PJakDGewPKWN85U3h1m+tG6rYGzMGHhVj91xKUo66RKNw
+	W7WW8qMb3ncdVS2acWsBHM69x68axsuYpQCQlXPr1LCvnkj2AESBwcQQPiMuR/P6wyGcVMhZaxq
+	ByDnJwuIGO6/S1XVsvjGE1fSUMk7gckiISF98JVp9Gjqyk4LHDZIlsHmWfRT/qj24I0uWW80E4U
+	I6O1VXiaszfv0Fys9BRQXEGEHEbiPdlw0tGoon5utCBKSC6GcT0iZvSEV/I0KMjx1XL+VJuEbao
+	TU+FM3WM2TDlHxTauveIcNrxxZ8JtNT+e6D6YAhsEPaO7ZUVXOfujQphDyL+IZilb+HltBYDlQr
+	UgKFLxtPD9QRtTzYg+pspGKcBllhQo+pVvfstyS3EAjMlCcC1W/CUX5RqbfLJJcNtTzXg82CxS4
+	6ouijgcqNgDdxM/PHaj712ZfzMiBOIZgWe8=
+X-Received: by 2002:a05:600d:2:b0:4ba:761:c0c5 with SMTP id 5b1f17b1804b1-4bb55a581e6mr192961515e9.5.1794865774974;
+        Mon, 16 Nov 2026 13:49:34 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f7eecsm30265735e9.3.2026.11.16.13.49.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 13:49:34 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH rtw-next v11 3/3] wifi: rtw88: time the countdown downloads from the TBTT
+Date: Mon, 16 Nov 2026 22:49:33 +0100
+Message-ID: <20261116214933.1569681-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <781999FE-B0CB-4D6E-8A1B-06A38082202F@linux.dev>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,113 +100,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] local_lock: do not put btf_type_tag on the lock
- guard type
-To: Chris Down <chris@chrisdown.name>
-Cc: dennis@kernel.org, tj@kernel.org, cl@gentwo.org, peterz@infradead.org,
- mingo@redhat.com, will@kernel.org, boqun@kernel.org, longman@redhat.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- ast@kernel.org, andrii@kernel.org, daniel@iogearbox.net, acme@kernel.org,
- yonghong.song@linux.dev, eddyz87@gmail.com, martin.lau@linux.dev,
- nathan@kernel.org, ndesaulniers@google.com, morbo@google.com,
- justinstitt@google.com, llvm@lists.linux.dev
-References: <20261110012235.1024461-1-vineet.gupta@linux.dev>
- <20261110012235.1024461-3-vineet.gupta@linux.dev>
- <20261113115810.cd33f9ed58c02dd9@chrisdown.name>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261113115810.cd33f9ed58c02dd9@chrisdown.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 11:58 AM, Chris Down wrote:
-> Hi Vineet,
->
-> Vineet Gupta <vineet.gupta@linux.dev> writes:
->> 	typedef local_lock_t __seg_gs
->> 	__attribute__((btf_type_tag("percpu"))) lock_local_lock_t;
->>
->> 	typedef struct { local_lock_t __seg_gs
->> 	__attribute__((btf_type_tag("percpu"))) *lock; } class_local_lock_t;
->>
->> Both put the tag on local_lock_t, an aggregate: the first on a typedef of
->> it, the second on the pointee of the guard's member.
-> The typedef is the aggregate case, and it's the only one of the two that
-> GCC warns about. But the second one is just the "T __percpu *p" spelling
-> that 1/2 keeps the tag for. _T->lock really is a pointer to per-cpu memory,
-> since local_lock() passes it to this_cpu_ptr(). So the tag is correct
-> there. This patch drops it from the guard's lock member and the
-> constructor's argument as well, not only from the typedef. I think it
-> should keep the tag on those two and only drop it from the typedef.
+Hi Luka,
 
-Yes you are right, the patch conflated them. And although the warning is 
-same as in patch 1, there typedef is actually involved
+> Could the next step wait for a TBTT that can send the first download,
+> including when the first work has missed its scheduled one?
 
+Yes. In v12 each step reads the TSF after its download and queues the
+next one 10 ms after the first TBTT at least 10 ms away, so every count,
+the first too, has a TBTT. A step that would run less than 5 ms after
+a TBTT or less than 10 ms before one waits until 10 ms after that TBTT.
 
->> Every variant of an
->> aggregate shares one DIE, so there is nowhere to record it, exactly as for
->> DECLARE_PER_CPU() of a struct. clang writes the annotation into DWARF
->> without complaint, but pahole does not translate it from that position,
->> so with today's toolchains it reaches BTF from neither compiler.
-> That's true of the typedef, but not of the member. With clang 23 and
-> pahole 1.32 the lock member comes out as PTR -> TYPE_TAG 'percpu' ->
-> local_lock_t, the same as any other per-cpu pointer.
+With the first work held back by 90 to 100 ms and a count of 2, v11
+switched without any CSA beacon in 10 of 12 tries. With v12 and the
+first work held back by 95 ms, every count went out in 48 of 50
+switches with counts 2 and 5 on an RTL8821CU, an RTL8822BU and an
+RTL8822CE; in the other two one count is missing in the capture.
 
-Yep it was wrong for the member. My config was lacking 
-CONFIG_CONTEXT_ANALYSIS_TEST and hence it missed this part.
-
-> For the typedef, clang 23 puts the annotation on the typedef's own DIE, as
-> you say, so there is somewhere to record it. It's only pahole that doesn't
-> pick it up yet. You also mentioned GCC patches for type tags on typedefs
-> in the pahole thread [0]. Once those land, does this warning go away?
-
-Correct, although [0] you referred to is a different, likely won't fix.
-The fix you have in mind is PR125888 [1] and the patches are here [2]
-This addresses the For BTF, as you say, pahole doesn't convert 
-annotation from a typedef DIE so the
-
->> Unlike the per-cpu declarations this changes no BTF at all. A tag in that
->> position was never recorded, so there is nothing to remove, and the one
->> percpu TYPE_TAG that does reach a local_lock type comes from those casts,
->> which keep it. An x86 defconfig built with clang is identical with and
->> without this patch: 152551 BTF types and a 6828300 byte .BTF either way,
->> and .text is unchanged. The patch removes a GCC diagnostic and no more.
-> The defconfig BTF only stays the same because nothing in a defconfig uses
-> these guards. lib/test_context-analysis.c is the only user in the tree.
-> With CONFIG_CONTEXT_ANALYSIS_TEST=y, class_local_lock_t,
-> class_local_lock_irq_t, class_local_lock_irqsave_t and
-> class_local_lock_nested_bh_t all lose the percpu tag on lock with this
-> patch applied.
-
-Yep I was missing that.
-
-> Nothing in BPF looks at those types today, so this doesn't break anything.
-> But it does remove correct annotations to get rid of a warning that is
-> only ever caused by the typedef itself. When the guards were added, the
-> type was only ever used as _type *. The typedef came later with
-> 3931d4b98039 ("cleanup: Basic compatibility with context analysis"). If
-> GCC isn't going to accept the tag on a typedef, could this be limited to
-> that typedef in cleanup.h instead, so the guard's pointer keeps its tag?
-> As far as I can see, lock_##_name##_t is only ever used through a
-> pointer, in DECLARE_LOCK_GUARD_1_ATTRS().
-
-I think GCC supporting them seems like a reasonable ask - fixes have 
-been posted, lets see.
-
-But to recap, I will drop this patch since it only needs to handle the 
-warning which can't be fixed in source and relies on the GCC fix.
-
-The point of this series was to do any needed kernel source changes 
-which can't be addresses in GCC.
-e.g. PR128480 [3] was deemed invalid/wont-fix on GCC side.
-
-> [0] https://lore.kernel.org/r/252c53f3-3f06-40f4-9cd3-795eb298687c@linux.dev
-
-[1] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=125888
-[2] 
-https://inbox.sourceware.org/gcc-patches/20261112191815.884167-1-vineet.gupta@linux.dev/
-[3] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128480
-
-Thanks again for chiming in.
--Vineet
+Thanks,
+Mehmet
