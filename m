@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794799837;
-	b=1iSJQBbCt+Q4DPa/5fejHEcyW//Pm+Cdde5WgU2HWD+zBz0XhuaB+gYEI4EmrmhyHBow
-	 1X90fZlRFuUz6y/Yp4WFXKz8uVCpOtGwGRebPM0lw6oN969Y5P3xmuJJvqjCDCR8Ydm3c
-	 G69Tt3VUNqBlmfuss2vy+uXrBTBKmx4H8hYdeZUvFc8eqEy7hhIRCBjvD6sKUtryzeTy2
-	 nJkz24G5Tnhd2daBHpO64chlMdrLgYnFygJn5RRtQfDoV/E/264J1sO/pvpTGk7joeq+0
-	 3XzqBkpn6HR6fLBmok7hT/NEcM+NkvNcrMwF7rp3+/WJxdbc4akokVt0Prb/4E9abxQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794799837;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EbvHpp+DKB9Zn3Fe95YeqAT/79gj7Jwj0DQknuaYym4=;
-	b=z+ic4AtQHMvRJaCzrZ2lWu0CX6hgHCZXnvgmxQfIgBefDD+ydr6j9p5TQ6z7VFxak93R
-	 APh7FEdlB2tqDg8I0zkD4PpQLb1KBsivol9Yupt7IC1Op6C1mKyk9PBN+rhc1869cwO4i
-	 YNkrlwz0OenLWOhz/gS/KRgBsVo08uJyOpgSytrrC5trOLnj13nvfWstyGIXVo+7YflnC
-	 lix1n3hHaKx57/wmqYyUqKUFxhZQWUCUPllN2WKDcQOqnO+ova2oS89Le0SDQCb/AwjmP
-	 nrFu0Myb2X34T0NH4Znfhj8I+6s2MMkJwlfVHKV/2pRRLvTetOQyCAOF3YeQ/S3ZYRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fY1BliL+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794799898;
+	b=vnB2DJESlNCBPpLSg1EbIYuoJ7qFNBzT1K38/Em2jGuSSKE8Rfc0Ml082zJAN4XhyJ7D
+	 j99bbBvCg4YABkrQ/dkSjNHYUWfjoHkW9tefrlWtk6LcqW5Tm7DYrHHsKiwfdJYAS5ZUP
+	 5IX0kDEgqKFNs9/ivZ6W8FUwDmRaKvtzUjtb5zynEgtiY2OAcxkaT6afF8pL4ugNYaBXP
+	 LYqNb+bCH7+ie0+hhk818XSRqhTNovPBflJ1uo2OIaASrqicriEzhr/YZTvTqQ99OJ2iz
+	 iTfBNAq1Kb9TEnkU88YHjcWqeBw+/XWpz5QJQt7JjBqBgpsjwVG493un2dz1Pzo4JzQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794799898;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=pGgUABsNoxr3lMr42Lg/Dv10ONV9Iv1MysSuC98ImUg=;
+	b=o6XeRLPp4PXCcbdW2U+8ErqD8Ry3my3HxzNKVLH8u8gsReKYROqGWw70336lyLotp0tv
+	 cbGrpi6q1IRY70pgm4jenpe4WoXURp3LBNthwtJQRN3dOJQjCVPoGhXVQGycNs9A6kOf3
+	 SbiRdLiPvJBzje09rn6UgVnnPt0LyYH+VENZLJbmregqUTJF3Bn5wyCMBI2FVduwpK6EC
+	 jE2IoKBw7tpafgkEw7loyJp+9smVrD6bg2Ss1Ofu3ZFR7HI3eGT47xwCyYPNItcR3wgVB
+	 PxOzRW9ppP5CenhdREuQ+h59S043CJOhOE0o2Ry29JPiKWnQWw9xuyDH2UPI9T+d+aw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WFbm1n7u;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD952606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD952606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A249606A31C;
+	Mon, 16 Nov 2026 03:31:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A249606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fY1BliL+
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c50ac25cdd4so253238266b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:30:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794799835; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dSm/81xsh2himiZQfQPSn2mMn/ri4KCDsuc1eYCrU9GcbdiSjIbM+DPjeMh2RfBXcR
-         oixe5sSQw6ibvXvtXX2ZvVCHSu0MXGO1bEwNMSI2grB5UpwqTNdjy2A2cfBkl3xhjKuu
-         ZvaFFHwNFsyvUICzXNENNLz7b8yUFsd2rPqR6Vsc8l5yWptPLo1JAPkvfdw82mkIzmot
-         JpL/ltf8cnHbUhC0+rLRJ/HpsnE0R/dqKog4LJzi8CY2OYREZlqF36wLOdgKCXek9UUL
-         uRee0h2naCFw4hrlUZRj+cMM7AHcuS8XuC0a9FGui/5ZftQXCyOYBVVgHKpnBcjHEXk2
-         kgTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EbvHpp+DKB9Zn3Fe95YeqAT/79gj7Jwj0DQknuaYym4=;
-        fh=nWkt3Tm24IDMWrQ4CLLNydBm+Aa3XTfHsubXJYV8YSw=;
-        b=YvmTmRnlP/QODjVaUyxi2R5oQq9jY0psykxLo4e+I6utavSqNyRkxFlwlyyPajjx92
-         1Hl89+z8KiNHhloGkt2HjBP/Bnyl+BzHpU9hlaAzPRcRnFrLHeGnE6u5mwe6p0qMelQJ
-         nm41PsZOQrfOXWa9xm7G9C80Irc8VaAFtZFm42hvbA9QD4qkFKfuii7C0LvjTtdYUcYT
-         RCvNEJG+AjqEi1Nhc5DVFd1fVgssV/r0QqY7LKsBxIQ2uz72SqXXZ9vfvIHQ5BO1EzIQ
-         Uu9ERJTc2q3hl8J0SKEORzmODQwiTEWKfMC3PIjob+ahbv/QJDaLvTFsYXu36hYMHVgE
-         2voA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794799835; x=1795404635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EbvHpp+DKB9Zn3Fe95YeqAT/79gj7Jwj0DQknuaYym4=;
-        b=fY1BliL+9zdQv8nZG93UnuIRJP9g3H679zNhHC4NgeKVWInAENp2suO49I3jAkA8L3
-         FXTOks3vWrDcjYzIzkNXRce4GaaNqE68ugazs+0cn/ijOr2h4JH1hr9oZ4Syek/qFKNY
-         0ME32RZb8j9NExJJdycfEEwEE+/gOYvP3jHr84wnZvmGdg7AMR/HHYBHaS2m7USUTIDN
-         TqrtT6tSAC7QOREjfQuQYWAn4kdH3E+NR8y+nCGsgxMEvE+nC4EHrhmzsQH8xZHzUtup
-         TB6W9hWqpz0Dp/FT49c64jiCmFBkWOkMDhvh7I83h3U2uHvSXtchqE/ltHGf9YVVEyGj
-         /29A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794799835; x=1795404635;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EbvHpp+DKB9Zn3Fe95YeqAT/79gj7Jwj0DQknuaYym4=;
-        b=xNkdhE8RKOiGbJBLKiKZhoMO2ufx1pTeOhAu+NAOfWjeizBF9lxdLd6mR3cLFOaI74
-         HZOll+wpw4ojh22h6xT/X7uSSg+lVYV1kUfe/y/qjVqZawiOW/y/s+ZfgkfY6j1zCfMt
-         ju3KN4VjKYOyN9aLiSF562vFbbvHaIsWECRbTHpNNcRveKfmnzwp53lgJt30QXzYXYUy
-         MYSIQFuj22V6MyLwmwyG23K3PAR5YKeGBnCc0+pxieRQB6Ao9AqfK4g3K1fA3MkoWX0f
-         3jSqllrybFJFDWsSpprCiD2xsbFPA8wPZVvwSftg0YxmHYj/zWzRD3Rslds8uBc/wivR
-         HdZg==
-X-Forwarded-Encrypted: i=1; AL+hErFC1RKJ4cmEld4v1ouo6E2O8m1PYI3xzRLbunDwZFP4plVN+rOJv6DimEaSQ10K9+Ht2V/oNlg6pwxaqEY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8s3dXb4eMdIWnf3vwVBEREUfQcsro34ZaWsn++0YyFy6h6sNJJ
-	AsUJ79L/CNIuGhBnKA1/HhVx9ZX5k+WSFXVoQHwh57owr0tp5+yyQZsaUxA70uCDc4EV1w3SDJ9
-	nx/cBL99cINK3aXDzeJwwXP8ASTcYlzg=
-X-Gm-Gg: AYBFou3Xqp6iBekk8MnmhCVV8exkIixGCZNFHI6kXqqgOK/Df2cT9gEaTVPU4eqSzTB
-	W+rEtZQ2n2Zmr4WwtI/ars1I9egx9M9Tw/Pfl26VLD347Cm+/BlOH5DLecBmEnuEjENfxSDRgnU
-	/d7QiO5Qm9e7VHMEqzgh6j4tWBQ2qb9l+H+NTpob26uTtaOEDleQ28PRPYSiXe+1Fd1wPeVaPyp
-	Ezf1o9cNP2iAK+85FzOPb6JhqfhjCgCnVJx/FFoZ/jokd9Ih513uymGF3s8z2PqUiu6vC9khGls
-	ihPkjMO8MO9rLfRMV14FSJPGks6oazt7puuFT57gdr54lhRo0pcIFScoo3gx1JzWeF/1DIgOFaE
-	cTmXZtx5r6w3g6+S0fRe1099SUeVi44PGj1f5Q/iGRfI8wVXcG0wJCOfYi5O9nlcYEPa5TQ==
-X-Received: by 2002:a17:907:ea6:b0:c46:7ec3:fde7 with SMTP id
- a640c23a62f3a-c50963da4damr741558066b.31.1794799835006; Sun, 15 Nov 2026
- 19:30:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WFbm1n7u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794799898; x=1826335898;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=oes9flJ0JSpo5x3wjxFPFFH+FdhIg1fmD+pwTGOuot4=;
+  b=WFbm1n7upC67HiIEMz/ANC0IJsC/R73jqniRmajAN031SY7ExSjUiMX6
+   IzbcDu9Dj4WN7750PSQiIx9vfItJWtnZALurpMuMEcimOdzseffEO3sMp
+   Zqm2tEk4jF3VFeW75dySL2+0+vff26lbUSPVmvSApJrH74HtJsSSFI32i
+   ac8RjzXA5Knn9BpCxAzikkCgfILEFngW/EJdOjXoIm68Lzc/M13dxALTw
+   MQ2a54NpUTtreOdfW3owDWOAifjT7uIRPhCWINsijvZtTIbTvneuxYTvf
+   4L3TwcRohT29Ezh3H2LjVVNAasAW2IfyFot/96YBUbh0G3TS5DwSZKElL
+   w==;
+X-CSE-ConnectionGUID: eg3IhqDSQ3uxrxkaUsF+1Q==
+X-CSE-MsgGUID: tsgfk9WzRBGrkW70dPqQjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3541509"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3541509"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 19:31:37 -0800
+X-CSE-ConnectionGUID: U3CPZAHtQJOFgrVN9p5TRw==
+X-CSE-MsgGUID: S4IDXWZYQEaFRwmBtWMK9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="11217156"
+Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 19:31:32 -0800
+Message-ID: <57c85edf-8400-4b45-9a64-5eddc0d29134@linux.intel.com>
+Date: Mon, 16 Nov 2026 11:31:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,74 +72,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794666741.git.lianux.mm@gmail.com> <fbb87083afcc51fce533308d723edc55263bdf06.1794666741.git.lianux.mm@gmail.com>
-In-Reply-To: <fbb87083afcc51fce533308d723edc55263bdf06.1794666741.git.lianux.mm@gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Mon, 16 Nov 2026 11:29:58 +0800
-X-Gm-Features: AclHuK9SY3SoH2arw4UJU6ntA6zZEp479wBVJLO_t_nMFXkiHdyE_Stm0Vxwk-U
-Message-ID: <CAMgjq7BE_i5FxYFrzSfnNsysBQ8UQzcULRo7AD985_1o27-jDg@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 18/18] mm/swap: redistribute queue readers after
- membership changes
-To: Lian Wang <lianux.mm@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Jihan LIN <linjh22s@gmail.com>, Kunwu Chan <kunwu.chan@linux.dev>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Thomas Gleixner <tglx@kernel.org>, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v7 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
+ domain ids
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20261110040828.1774343-1-skhawaja@google.com>
+ <20261110040828.1774343-11-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261110040828.1774343-11-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 14, 2026 at 10:53=E2=80=AFPM Lian Wang <lianux.mm@gmail.com> wr=
-ote:
->
-> Adding a device to an existing priority ring reuses the per-CPU reader
-> storage. A ring that previously contained one device can therefore keep
-> every CPU at the old common starting offset after peers are added.
-> Deleting devices or rings can likewise leave offsets and quotas that
-> describe the previous membership.
->
-> Reset the valid per-CPU ring offsets and quotas after peer insertion and
-> every nonempty deletion. Run the initialization helper under the topology
-> writer, which excludes allocation walks, without allocating new reader
-> storage or adding selector hot-path work.
->
-> Use cpu-id modulo placement for a fresh best-effort rotation across all
-> valid rings. This does not move existing slots or guarantee strict balanc=
-e
-> for every active CPU subset. Mask and availability transitions do not
-> trigger the topology reset.
->
-> Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
+> During boot fetch the preserved state of IOMMU unit and if found then
+> restore the state.
+> 
+> - Reuse the root_table that was preserved in the previous kernel.
+> - Reclaim the domain ids of the preserved domains for each preserved
+>    devices so these are not acquired by another domain.
+> 
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 > ---
->  mm/swapfile.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 0c192844b121..eb2128132455 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -497,6 +497,7 @@ static int swap_queue_add(struct swap_info_struct *si=
-,
->         spin_unlock(&swap_queue_update_lock);
->         memalloc_noreclaim_restore(noreclaim_flag);
->         kfree(old_ring);
-> +       swap_queue_reset_readers();
->         return 0;
->
->  failed:
-> @@ -569,6 +570,8 @@ static void swap_queue_del(struct swap_info_struct *s=
-i)
->                         swap_queue_install_readers(NULL, 0);
->         }
->         spin_unlock(&swap_queue_update_lock);
-> +       if (swap_queue_len)
-> +               swap_queue_reset_readers();
->
->         kfree(old_ring);
->         kfree(old_queue);
->
+>   drivers/iommu/intel/iommu.c      |  57 ++++++++++---
+>   drivers/iommu/intel/iommu.h      |  14 ++++
+>   drivers/iommu/intel/liveupdate.c | 139 +++++++++++++++++++++++++++++++
+>   3 files changed, 197 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 6c86c155d12b..a83971368bef 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -987,6 +987,8 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
+>   
+>   static void release_dmar_iommu(struct intel_iommu *iommu)
+>   {
+> +	intel_iommu_handle_drhd_restore_failure(iommu);
+> +
+>   	/*
+>   	 * All iommu domains must have been detached from the devices,
+>   	 * hence there should be no domain IDs in use.
+> @@ -1452,7 +1454,7 @@ static void intel_iommu_init_qi(struct intel_iommu *iommu)
+>    * Returns 0 when the ID is reserved, was already reserved, or cannot be
+>    * re-assigned, and a negative errno for a genuine allocation failure.
+>    */
+> -static int reserve_domain_id(struct intel_iommu *iommu, int did)
+> +int reserve_domain_id(struct intel_iommu *iommu, int did)
+>   {
+>   	int ret;
+>   
+> @@ -1743,12 +1745,16 @@ static int copy_translation_tables(struct intel_iommu *iommu)
+>   
+>   static int __init init_dmars(void)
+>   {
+> +	struct iommu_hw_ser *iommu_ser;
+>   	struct dmar_drhd_unit *drhd;
+>   	struct intel_iommu *iommu;
+>   	int ret;
+>   
+>   	for_each_iommu(iommu, drhd) {
+> +		iommu_ser = iommu_get_restored_state(iommu->reg_phys,
+> +						     IOMMU_SER_TYPE_INTEL);
+>   		if (drhd->ignored) {
+> +			intel_iommu_handle_drhd_restore_failure(iommu);
+>   			iommu_disable_translation(iommu);
+>   			continue;
+>   		}
+> @@ -1766,7 +1772,9 @@ static int __init init_dmars(void)
+>   		}
+>   
+>   		intel_iommu_init_qi(iommu);
+> -		init_translation_status(iommu);
+> +
+> +		if (!iommu_ser)
+> +			init_translation_status(iommu);
+>   
+>   		if (translation_pre_enabled(iommu) && !is_kdump_kernel()) {
+>   			iommu_disable_translation(iommu);
+> @@ -1775,14 +1783,18 @@ static int __init init_dmars(void)
+>   				iommu->name);
+>   		}
+>   
+> -		/*
+> -		 * TBD:
+> -		 * we could share the same root & context tables
+> -		 * among all IOMMU's. Need to Split it later.
+> -		 */
+> -		ret = iommu_alloc_root_entry(iommu);
+> -		if (ret)
+> -			goto free_iommu;
+> +		if (iommu_ser) {
+> +			intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
 
-Makes sense, thanks!
+What happens if the incoming kernel is booted with intel_iommu=off?
 
-Reviewed-by: Kairui Song <kasong@tencent.com>
+intel_iommu_init() calls intel_disable_iommus() before reaching this
+restore path. A preserved device may still be issuing DMA, which would
+then bypass translation.
+
+Could we detect preserved IOMMUs and force VT-d on in that case? We
+should also ensure that the ACS configuration for preserved devices and
+their upstream bridges remains consistent with the previous kernel.
+
+Thanks,
+baolu
