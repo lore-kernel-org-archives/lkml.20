@@ -1,106 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853503;
-	b=PG6FWZkeI/UMGLriWr7C0FMFN0FHFBZEYoteINOz4uNwiV8ZYMsFAH2J+h5RLU530Ut0
-	 oFZvKqUkiCpkR+HLb/PGFnsspFN0DqytOBqSvYgxnfM/Ij9JdtCmS6RzatQybDV/Q1qjy
-	 0NPxya/ZQodKDGAZVhafXcAcTDxNe2ETjbHydLJkxXju8+WVrt4TJ5bM40g/50qf+ivMI
-	 FzJwaQZ5O4+xRbrXwKIvfCGEDBjMpw60oB6n8YDJFYPjErPM1xu4S9wjVaEcrdbzFUkd8
-	 eTbZJa8ZjyiOswRo0b5b4sdyAEGMhxM69ArdWVMtI6YezMwnJJTtDCyVjZn9gemMgfQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853503;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794853536;
+	b=XK3FTY8b2Xuq8TEpud2PGoxdurnIeZu23qqNE27w2XYFOIChiY8AsuiDDli5OXjJvb69
+	 WlNHcpX0r6OIZ9WP3sChM9P1gOflzXyMMZR55g9u1XNlYKKYCBdLvmAO930ZKRXgUCyfT
+	 EeFOelgmvnVQeEXFpzX/2ue2kp70DEDL5XPJEAmVxWHLZt3+a0/l1uO/a6X3j1bKxsB4b
+	 mp26itMD5kiz/Odvox2EFaV0cE8Ju9espudxl79HTDgYu3SfaHwPRCgROpBHBmAhA8VUW
+	 /1Okk0FQALj32TOU/kUBPTLdSH3y+Fnx+YzilQdqTdbgDesgGX8mhLsIXjv9pWAMCbw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853536;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=RxveffzrPQLFyll9ZgjwqbKKHagqTYrppHHKXVLfEqU=;
-	b=LxOSJR65C/v6UkKWnJ45h3LOAHZ9AHPfVJKxGr8JNMCKomFx9VleuO1kU16rWJ2noZ77
-	 7OX2IhiiecqM301c3VHHrM0/kAr4rjrDSnF2/OD2Nqrzgov0ofasNWDbAkIKEaZWMPvEH
-	 2pBQphtjgL5pBH7Ya4PMt1iGkYZaFVRraJEChnJw7b5G7+F/mYrYBHWCNq0k7CXWJi+wu
-	 JsZzFcytwvNcNQs5FEXEPg+KuIWbcuJtgObvGtKBObLC0oYcAyqjHu0mYROLnsh0dZ+vs
-	 NViQwiqxd/UlHnO/GC74JCB7FTis8mSewetZMH2oBA+Ipt8zM8sfGDjnHZe9te8H5Ag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=A2luHTnB;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MmvRB3XET/e4SxvoROlmDCe5qG23SqnwRokKlHMZoeQ=;
+	b=ntEsiEO6Lm2EAd7lcbOsZbuqrERObFAZThSHltgBI/2kWYKz5tet20pcsPhzuHrLjClR
+	 GYHh4Oh6+Qz/0eWxQHGrH7p9zBkNH9+H5PlCRyxECt7CIjAqc+5oVQJW6RhXQMPliG1Su
+	 hcqAox9qJXO88SoDwC7kzOPRFmozQa1i5YF5bZ3Or1lVupO2tA7zpNjw9pC+yaFm5AoBc
+	 F0Him7HP6PXfSLo4d+8JYA0X4wDwXSyicnwVlmvc5xONX+lu9doIPr5ozOp5rc29DXjKJ
+	 tXoyL/I10uIHA4FkBgnrVJ7oCaM4kc4MxBDdYdjAadWeAG/229jrFPY9vSsSZMcI3kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lV49A7wz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D331606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:25:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D331606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2ABB606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:25:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2ABB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=A2luHTnB
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2efc4a84e75so3805ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:25:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lV49A7wz
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14b6ac47eso303607e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:25:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794853534; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hZXLBYfIFW5kr80rUCGEIGPGdgaGPzQ4fJxOgs92El5aPX0FV88BW8VTUq14Nf3Hch
+         tdR3kKyq8pNC7wkFbHd5OPo7k+kCPe7TDebZ7U9SC/LHN9MmCCbpTxYwveV4EEL3NyW6
+         vSiGefUK41z/SRsUe60farlggqQO+r7jOPD1flMF3OzOaxiZET+pShEOuqvSYzna91MV
+         +mzIygOGCqcc7xEGJ4oewvXddzzPsokDnjAUEazX2fPkPzRaRuq3j+XejZJTTA/own4w
+         tTDsbJGOUgryPyp4QHXIAdGAnrejzJx8GmNa/tAqlwslsTns4pLhSYu6ZLtx8dWXYgkC
+         rSyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MmvRB3XET/e4SxvoROlmDCe5qG23SqnwRokKlHMZoeQ=;
+        fh=cdRF87dPHmb9V//MNEdB8DoOscSuzSjlyBDGfsyDbCI=;
+        b=h9XYhc1geY7GNWmnKfuB4M/h7wP+S83v/kAdChqg2zDn+sRixH/R7CXNx8cZl1eilx
+         dvYQkC2lVXlzYDZY6ngLmNuaBn15bShDxEYP0VGMLLq9Ly194IxmUCYYyTVOmO0k+5h/
+         UNY6QwcroWm6OfR+wV2zrjFQCd/UCphYh1MZBFV0DkzfC0xGcc4Pj1NFdmYd6PlR8KRk
+         E32WWOxh9FHTWmpVZ1YefumbuuHO42rKviBqn0r8qV/1hbUFnStzOvublF1JaYRIYdr1
+         z9VN8SuFI/CARoRs1mv+7TD8X51bhYbocjy8luEwruoSxll0oLamTPKxqPegTr2Tx9oO
+         nSSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794853502; x=1795458302; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RxveffzrPQLFyll9ZgjwqbKKHagqTYrppHHKXVLfEqU=;
-        b=A2luHTnBzkGSMF2SIgDNxeNTW+bNvFUE0N2jlRcqRczmzdfRdcN9yBTceU4GEI6kAn
-         hfRh+Bi3fIaAUEv1QVrJENm5Lqq0t375pPznAk7/OIdgG1YibB+Qs3xumwqfJ8g5nd0k
-         6tGPIUAOHCegV3iOa0V9fxGubHoApxuoEM/xrOxhuTpgwO4kS8hLv9/rEbNyLdYr4kiE
-         746Q8+8rNxbMY4cUu2/EQeyEGKWNs2kMUNjwXx3+b/QQq+OLETf+jHbn0FbHZVV6KC/A
-         SGedSkLiSxOSdLSFaZk4mkqZi5tkVkbnF9iMk5R+t6kAJqe3URHpGr8RZe+HWd/gWgpK
-         n6lA==
+        d=gmail.com; s=20260707; t=1794853534; x=1795458334; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MmvRB3XET/e4SxvoROlmDCe5qG23SqnwRokKlHMZoeQ=;
+        b=lV49A7wzomsZqR8kiAhUUO4KY4cqfBghHi42jDCtjLcwddNEXzn3+we0WVIyLa6NaM
+         rEDvFzIWrRI2EyUL/1o0NkWi3J0I/p+1J2TBujOoaCJUN8rl+D0d2O9hfhf5jmEM6mYL
+         UZq3v2IMxgOMAKYJuy/HcP2nEtUJ4O9Rcc3RzZ+Z2ZWcCmDqPbpldH6xI81uZAm+bL2+
+         OEzheyX2lOblF/iXoDIEj5mk0IG2eLCxXJEL6IFYaBMResQ9FFej3cKhX5uTPvIbrQOb
+         NpfyZVdr+i4exhyG0A425X+83YzxPpbTlLmUI7gvjyXN4BmWCl01eI5DrD5m6+StZzqf
+         7Amg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853502; x=1795458302;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RxveffzrPQLFyll9ZgjwqbKKHagqTYrppHHKXVLfEqU=;
-        b=uGBFWCuzkVfRqAq3FBPbkyc1xZM41LKjmtUB44A/TCO7mMaVxMnvNE7nqzMmUcxEsV
-         g2hy1FdDZ0LMbFtolmNOelCI5LJdFenSgqL8pt6tgDhRwchC5546+P+nYVLfki806NVE
-         TmdRRBN5nUUhYG2fx2sanoENt8HyD8wYsl6ucTFe72DLiH0MEqVXRCRb8FOMU8jN4wyD
-         Qw2xpI7OhQjAl7LgXRz/k0ymosv4FNGghhJ8PdAwdrXO658uHbt+6MA4EG0mdHgQbHE3
-         K74uaHSqiTqR5NrWlkAnSa1t4KCWaM6dRjS9FgQsFgNbCBhLoqY2z9FYP5nPm/3tjivl
-         4sWw==
-X-Forwarded-Encrypted: i=1; AL+hErF/LJThWGaiswpMrxy7RgPQ7vTvyxmgRj8rxA7v9TdiEm9St0lW7X2hz5sWqQisuQCvGDKQPNM3ygr/1s0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+z30wKrEKODIlmcJGGcbkvlnw8+Kspe0G8lzY8HYOhWOETf3zr
-	Cnh4ZJ0rClA0JFOSBUqdMu+f0M485hxGU5JTssT2NX69YrZImcxh8ltGnq0b43x5sg==
-X-Gm-Gg: AZFdTZdbvTpQoRN/gNB0h2UJC6KLPdbetXGlBJxyMP99Wh+vwQTWzeWJR3mpMvl5y4B
-	rOe0ekdOVGZUBbJ4mZpuuGAmdPHa7FXeMQZ5FwPLNQpZU2wTxUDLmwbjoIArZGxnqEbEtRDFJq3
-	4oZHFF1mC5F1m9W7PQ7Bb9nH2yUKUswTZmhw1yFMqv3yMJWLSH3pbCkoQRtIwDn+wm+HKIL2H8t
-	pPRTyhjfWnH/3WQG5w0djmYNfNn6EsnQKM7xI8PVUGons60EDT8w3sYwFoPFbehgtxhXHkLML6+
-	3zzyh5/05VbuFnhxsYDUnxG4gjzYlhPcsPTdM7mBcT77+7zjk+rGm5K9XObRK7CjAI/wvSwGJyc
-	/VhilG/FLe756tCurt45xF3qF1aiQsxLpT08CE4Kbw+BdRYc9PZw49qF9ioqzXAsM4Mijo7nk+2
-	uJ7N19H6RKBNgFmLrw0Ku9dEBSy6nwqrfPSbeE5sVZ1njJTa8qpU4W10fOUuVpGVgNm3ujJu15K
-	EWMGI/N+8THFuIrEDDnbzO0yL3zJW7n6uhozrvdyT17PvdowZvjxZfWwISq1XFZ1bZxFIBuALFP
-	dbjhssCYH75HSswMQVwTJs/IvAC8Qq5PvaRlJu5PmveDjuBpnYOU9aasYb6FkUngt5aXwaGCRrD
-	ORm28CKSJPFRwMPWQcYV1wg==
-X-Received: by 2002:a17:902:f68e:b0:2e9:73e0:2a6e with SMTP id d9443c01a7336-2ee2b19e019mr7765275ad.17.1794853502041;
-        Mon, 16 Nov 2026 10:25:02 -0800 (PST)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac70ea45sm296668a91.17.2026.11.16.10.25.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:25:01 -0800 (PST)
-Date: Mon, 16 Nov 2026 18:24:57 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: David Matlack <dmatlack@google.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>, 
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, kvm@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-pci@vger.kernel.org, Alex Williamson <alex@shazbot.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Josh Hilke <jrhilke@google.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Leon Romanovsky <leon@kernel.org>, Logan Gunthorpe <logang@deltatee.com>, 
-	Matt Evans <mattev@meta.com>, Matt Evans <matt@ozlabs.org>, 
-	Mina Almasry <almasrymina@google.com>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Vipin Sharma <vipinsh@google.com>
-Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
-Message-ID: <avtI--OIZu5E5sma@google.com>
-References: <20261111192411.4133780-1-dmatlack@google.com>
- <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
- <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
- <20261115231946.GB1239159@nvidia.com>
- <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1794853534; x=1795458334;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MmvRB3XET/e4SxvoROlmDCe5qG23SqnwRokKlHMZoeQ=;
+        b=V4ux9Zcv9QJ8jBkN2qXufgLcUvbQ1pQT0tws1Um/z64L2I1FLJw+bIdhEicrkKoxj9
+         nT2lkUr3qBAPXGci4O9w+MQpEeTrnQDCuFeMy+SQNyHJ4LRAAGWfwxmDnGXrNlGMUPVr
+         fUO8acNvx76nWegPQSNxEGJrbFaGVDZ54IGaBVAvv4zEkNL+WrdgP2KY314xYZyzlRSw
+         FtpPPFbqPytxlQZa8ix7d1xEkeUT26mxcQrdyVhk6ZZkA4+JM3jk+xkmP/1xWF5fSawD
+         CKvFKyrfQELfcpZoQkZAJrWaepyE8IvfH5qI5ak5tMse3KkocGvHfM5wbiCi40zPfDPS
+         PG1w==
+X-Forwarded-Encrypted: i=1; AL+hErFqUyVD4FzudAJmeyT1AUXLwb+Bgd4c3rxoExkFp4dEP4vFh2cUEhOjU8Av/AjyF99MmmdPZsFhim80owE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nW9oQW1FO2gEOmLTuzZ/phED76Vq3/XGsIfNXMNMxfjI1BVBc
+	sZv9lhFS7X9QWhJA6G871qMGveHOzQaWdQbkUUr/naHrzzv4afmxHVw4PwK4YdBuLpDzHFV/nUy
+	WY7TAgAc6M3fFOgbPi8pPzzmYkxZD1Ub4nQ==
+X-Gm-Gg: AYBFou3Xt+WXwEG7vjBsY3/IskK9YE0YueD7LEHmYw1a/HJgv1Ztlyc8CGLgEdngJTb
+	FPEmTmBi3wHFDaUptEf4Lq6WkUT0nCxTtGBf9Z/QDmEDVTP3a8Q8eaNk6j/Jbu82nl65KtOOcA/
+	rkKgp9o5H0Uscco9fFqDRpfGSICKAeF4Hbu6frhiXHFhPuApWJdoJ+O0YtAZpJBAdJkjIw2brnX
+	yc0OXS6I50F8ZeLJc+oaZTOz2OX/XOcGP6bsSYwvdGKMlQCha+BV1dGgUcQIXGPUwN9eH0CoUgg
+	XuBR0JXqwYAymOTVKp32dhAWUkl9fl/3QVyIR6c/boK8jFjK1bGYwqfzIb2zo0W4tj1BDg5aYDU
+	qLnkI14rhWmo2e98NTzJrL06xSrJCXtq+NfoWOVJcsTf/tqtbXBZaF9APAg/rOXnyq2rcIg/omU
+	Ndm6bJRR+0x8S2p5A/3gTcuZRZK1nLUCwc3d2njZhfjM/Sy/aGhlf6CbkS0RlZqYnmtKUbhEbfq
+	1ODN8nK7wFzpr9Y/9lUf8vwr3j/TIS3+K3EhFOwZLdEToA2AElZ+wPlP1RaHR12t9zJ8srN+Eqc
+	CWf/n7ZUiJSeL3ZCgdM=
+X-Received: by 2002:a05:6512:3d20:b0:5c1:4a47:b86b with SMTP id
+ 2adb3069b0e04-5c1709e0a05mr4430696e87.3.1794853533682; Mon, 16 Nov 2026
+ 10:25:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,44 +107,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
+References: <20261111205204.481923-1-afd@ti.com> <20261111231053.529616-1-afd@ti.com>
+In-Reply-To: <20261111231053.529616-1-afd@ti.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 16 Nov 2026 19:25:22 +0100
+X-Gm-Features: Aa3M54rVRyf4es6TqziTYOUJHmL_VeIv9Dh3QTOWmj0uc-rB_srLGsXruXgTUXQ
+Message-ID: <CANiq72my47EZMwqQ7+esPjYv4rcuawhXJVuptPUF-SOWWe5c6g@mail.gmail.com>
+Subject: Re: [RFC PATCH v2] rust: i2c: Remove use of bindings::i2c_match_id
+To: Andrew Davis <afd@ti.com>
+Cc: Igor Korotin <igor.korotin@linux.dev>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 10:02:56AM -0800, David Matlack wrote:
->On Sun, Nov 15, 2026 at 3:19 PM Jason Gunthorpe <jgg@nvidia.com> wrote:
->>
->> On Thu, Nov 12, 2026 at 01:47:03PM -0800, David Matlack wrote:
->> > On Thu Nov 12, 2026 at 12:35 PM PST, Alex Mastro wrote:
->> > > Hey David,
->> > >
->> > > On Wed, Nov 11, 2026 at 07:24:04PM +0000, David Matlack wrote:
->> > >
->> > >>     Is requiring userspace to re-issue IOMMU_IOAS_MAP_FILE the expected
->> > >>     uAPI behavior?
->>
->> Yes. Even if we wanted to the locking is doesn't allow trying to do it
->> automatically.
->>
->> > The way I designed the P2P selftest support requires 2 things:
->> >
->> >  (A) initiator: A device that has a VFIO selftests driver.
->> >  (B) target: A device that can provide a memory BAR (vfio_pci_find_mem_bar()).
->> >
->> > So far I haven't found a single device that can do both. But you are
->> > right that theoretically a single device could satisfy both
->> > requirements.
->>
->> mlx5 can do both
+On Thu, Nov 12, 2026 at 12:11=E2=80=AFAM Andrew Davis <afd@ti.com> wrote:
 >
->Looks like GPUs and NVMe can do both as well.
+> Well Sashiko suggested I take the easy way and just re-use a different C
+> function instead of trying to open-code the loop in Rust. The C function
 
-AFAIU the memory BARs for GPUs would need initialization. The internal
-VRAM needs to be exposed (mapped) to the BARs.
+I noticed this series while going through Lore threads, and yeah, it
+is generally better to avoid re-implementing logic in Rust if a
+suitable function already exists in C in the subsystem (unless there
+is a good reason to not do so, of course).
 
-Do you think we should have a P2P device "setup" step that can be
-implemented for various types of devices?
+By the way, while the maintainers may already know about the removal,
+I would suggest adding a Link: or commit reference to the patch
+removing that C function, i.e. to give context for others.
 
-Thanks,
-Sami
+I hope that helps!
+
+Cheers,
+Miguel
