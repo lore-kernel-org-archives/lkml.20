@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857458;
-	b=0wJvvg5W3p/9GhYsxhftMm0ryxYpkWLg4qADlM6EsHwQRirmtTT3kTpK9BN01EtHjUBt
-	 2bgxwPVfbgTyuPJItil28CbAoNBELGJfz5FpkSVL85BPwqqrW83ul9UZvau/XLXzCz2mz
-	 t4YkJ7SZUbf16wtFeWG6FfWC48cBAMVfgRUtJ6rfcsRZuVnVul8ukhsLSs+AHcC6PIlbk
-	 9qu9Su3fqaLJtqcZ7Wds4a1UwqbqMEjVAdlHDVmDxj74HrsudLqyKRXPkaFRBXaTpixxd
-	 W0znLfiJZ61ncHfmXcBtL5xzV+oorTdqXnf1pA6qSVSkfXqRp4CKivA1BAjZMcUr1Nw==
+	t=1794857467;
+	b=eD/4OlNhaHCBEgBnSN/UDKXcbPE7m1k8sQrm6RgQdnBdaACGUdtYSYmQo4blizdp7Iv8
+	 C/QG6V1n6NmNL80BYVimRhoYJnaem9hRUBzyhlAJVPBQ9BTiW90XN2bTX5ArTsNNcVMM7
+	 psAJUOiR8YVp4zQpqeb+6Wqmxgv+iV/o2RtpYYzruRW7bFpaV6tb1O4FmzWwWxkCkeeYH
+	 rrIV7UoDmOLfA0/I/T7ZMtLxRx7jde01AqNDHYAX9cYvlsSIvsbUMeX44fSO3ZGsKfOQU
+	 CabO3vZdQUJ3+X1QjRKMV3J5J737DuaDafnOYLQ8MY5hVy8K8M0y2tTxSYGAAHZM09A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857458;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID;
-	bh=lzvwW5tTbxZZA1/V667Y0rWWpCLHqJJkJOsCn97Pqzg=;
-	b=Z/0ZwKhkjDkXOq8I12eSjERimjS8JpEn1ZFvtzlSY51nIEtGSFXdAI8hWJqRTPHaP3jk
-	 ZWvrhwZKFk5drv2GUr3JCl9Wh5tRqCDiB5GjortbYYFJvAaHpUHrK7NdxVTw9kgPEg7Sm
-	 qvkGakdzj4/BOHUmavyb1pgGE28Pl4L26A0xURYsK0xRagoa8u/LTHU2D4NDS3ANxGVrI
-	 AbW5ha34gzqUlBguHV3DMj38CdpNNYkbrzUlJdCgaQQaFZfBaVmrxpZf9VjJHyZ5ewN5/
-	 efH4kxinuDvhORznZPnTvGGHu8tuBx09Ct6sQE3vfPuckDnTGsWQLu6qgx7SIBNddpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857467;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ixv40pUJ5hyTAry5bSwRv503Fc0hNYjPvW+LeFM9yPM=;
+	b=AHGsBBkkP2Jr+ysq6EzkkpzHThw538ZJxjO2xciIy7a/gE2RYCzjL5R2U+f4We9jxKns
+	 qnKm1OuGygvTIC5gyKKQea5mDg8SvIrUV9JcQYRYeNeQXBFBYHZkKC8OS/3hc325DvuWE
+	 1+N2fvCDU3J9RaUB6wzqgSJPJVzi/hjh965TFPxTp6QZEJmkycb0cjDf4tVxeU9yrJ4jg
+	 0EIJlWmQ7fzB9ONT9dmekvojlbWSdxTDN4bVDfHekg14ZQ1L4bGcc3jHuW52TWHa+J/hd
+	 hDQ61fjVbSceN049BVlbdz+G9ddKeWFZ4ESl2AhbKuEMt4HQGRkv7xc6gUjgSeyHFlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uEy1AElb;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hcSQWVLg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FDA606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:30:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FDA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82C8606A31C;
+	Mon, 16 Nov 2026 19:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uEy1AElb
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so23384705e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:30:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794857456; x=1795462256; darn=vger.kernel.org;
-        h=message-id:references:in-reply-to:subject:cc:to:from
-         :content-transfer-encoding:mime-version:content-type:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lzvwW5tTbxZZA1/V667Y0rWWpCLHqJJkJOsCn97Pqzg=;
-        b=uEy1AElbgSN0iCbkHQHkrKmNsM5r3ifbSQ7MflZws670z1/j3XYQdOz48yxOPyaL4s
-         OnMA9u0AM8XheCSCp8GjPpfa5hoNvGLyi7CE+UX9NUMjl6r6ZC5HI+l3oD47WctQ3f1P
-         HU/MyiF8UH1zBhaoAkpuLOEPKzEnNw5Tty4ZE7srT+EqGmxJAvHbXGoF7UQ5Qs1ZDP0n
-         2MZzc9shFf8oMnwKbQXiwfMTswA7/x+mAcIxIg7bugBCUJkoMA2SWLcfaoKaSg/vuDTu
-         nx7esPZ9gdHvzYV0id1z6Ih+czIMOqDs+cNZLXPdITpR4tEbhO10xHpHvCBiQPRAycBM
-         PMfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794857456; x=1795462256;
-        h=message-id:references:in-reply-to:subject:cc:to:from
-         :content-transfer-encoding:mime-version:content-type:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lzvwW5tTbxZZA1/V667Y0rWWpCLHqJJkJOsCn97Pqzg=;
-        b=R24pujltwCzPuJk4Ef7W/UJt3BWl0fBwf4/TZQWjrje19DLmAbB/y0/oLPBNMyeSsX
-         fwzThdVSV0NVDDGMmAppFugLP7WhVuwD1frypO9mQsonCsMbeOh1L//+Cpfyk1zB4GwQ
-         siv06CbUZccBwCoPnEuRlM+DZ19ypRnShvOV5ix7FVRzbhQf+I8xYkwtWau22f9vPsuT
-         gXiKuWscAcTdHcHZ4o7qtGW/xi1ytMc43sEV8g2UtUCWjXSNd1bBbu9wHS58CKAHrx3Z
-         u5qjT+D0v0iefNirwBnpiBNJDH4nfAEYhF63uUNnuFIwTAxBDq1/zOyfSmXAfhPK2Oe0
-         VGkA==
-X-Forwarded-Encrypted: i=1; AL+hErH/QVYUNKbpFpqRXg1tuTMwXw8Rj58Z/wzhI7lnDgSMvsbdk24JYCmB5GQu4gK2b7Va31AWjCliJJUgq3Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8d3G258ojKokGCcYEp9sHFCHdNwe1i6N8P/aZs6X+5HG4rDJcd
-	/N6jYhmep4DS2p0cUzsqbvhsoTyfTf5NB1xHG8po7skiS+QWasEWlOIU
-X-Gm-Gg: AYBFou0e1UTJrhCQNglKFXqoJamxhyKHmMauyOUPv4A9DUXAdJDfBjn5fQXSj13xz2g
-	/bD7p1CvjcXEIX1VwHOx9A/11GNYCRizkd3OHL1+B2nX0p0CRaJbxjqmwcEpJo0SL0nfcMjH+aM
-	uuTg/WkWjJwq6jZUmQTjnyI5+TnNPI76/RqgJJhcZmAofcgz3rJqvfaFD2QdmHT3knwJEW4w18V
-	wsaXd8yUo9qP95jd/Z6IgpQ3qbZhcXpEwt1pZQTRoXftPspeidUUsSweEv4a8ppNg4I2OAGsc7H
-	IKy6fHkhbgbKfe9jDvhi1E3gffDBV6N1QfmPUS5YGHL8ZaLFxU7hySPiAgTw+EXUIhpdLi7iwdl
-	jKa/0EGxVXWp7kKPN7t7EionkPuTbdVNgygvZ09KgeDw9R2JkQ4y040nC7xa+kgAqHd+k2/sZON
-	c2x7MkPhZq/2k3kj3e1qguvwRPqlqM9n9fUV3P5Ku50zmDSLBbxpMxDj3kKZz8qa//T5I0T6XWC
-	VMwBrhcIEj9/lAqwNgICHKWq7BfmbVfs80W+sZpSnaquNE39q+A/TqW
-X-Received: by 2002:a05:600c:428c:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4bb55aabd53mr158518805e9.29.1794857456017;
-        Mon, 16 Nov 2026 11:30:56 -0800 (PST)
-Received: from [127.0.1.1] ([196.237.227.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783854cesm16318555e9.1.2026.11.16.11.30.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:30:55 -0800 (PST)
-Date: Mon, 16 Nov 2026 11:30:55 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hcSQWVLg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046E41F000C4;
+	Mon, 16 Nov 2026 19:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794857467;
+	bh=ixv40pUJ5hyTAry5bSwRv503Fc0hNYjPvW+LeFM9yPM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hcSQWVLgDuKYy8lFekchnAxAEDaIwGiZMFOPSCc9fa+nR7NhTopjPj3lRZTKKoWl3
+	 jzwXj9/yvB+ok2SbjbQxlZ/kCVE0mshHxDWCP6mtaHv+dOgT35JBrzspmpqphFrKYw
+	 ltsNN0qDEJT9w1tdNYmomWVjTS855w0uqM5QGCD4dsRzbwTMAfVimWKSNR/g9QLEgH
+	 OJVCDi3D20HilL4GKEx/Ulalp5VqeNVzYQRfXd7BKQzQ42oS453uFvVXpUABHOJn7C
+	 fzcvAAX9vNQ6zsGaFCbUu5kYtt93O5xChcttr4YPucT9mc9B2SWcXDtKqyTSCfUYhp
+	 pqrvK6MDmVZoA==
+Message-ID: <sashiko-outbox-217566@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 21/37] sched: Make deadline policy and affinity
+ changes wait for a cpuset attach
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261116190549.230119-22-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+ <20261116190549.230119-22-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 19:31:06 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,33 +60,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Daniel Carter <yass27106@gmail.com>
-To: srinivas.kandagatla@oss.qualcomm.com
-Cc: broonie@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, yass27106@gmail.com
-Subject: Re: [PATCH v3 3/4] ASoC: qcom: lpass macro / soundwire: asynchronous
- probe with clock retry
-In-Reply-To: <efa3cc40-15ff-44e2-b783-333306bc4ee4@oss.qualcomm.com>
-References: <efa3cc40-15ff-44e2-b783-333306bc4ee4@oss.qualcomm.com>
-Message-ID: <312911d6ca094b94b90264688aeb9df7@gmail.com>
 
-SGkgU3JpbmksCgpUaGFua3MgZm9yIHRoZSByZXZpZXcsIGFuZCBmb3IgdGhlIFJldmlld2VkLWJ5
-IG9uIHRoZQpjbGtfcHJlcGFyZV9lbmFibGUoKSBmaXggKENjOiBzdGFibGUgd2lsbCBiZSBhZGRl
-ZCBpbiB0aGUgcmVwb3N0KS4KClRvIGFuc3dlciB5b3VyIHF1ZXN0aW9uIGFib3V0IHRoZSByZXRy
-eSBwYXRjaDogb24gdGhlIEFzdXMgVml2b2Jvb2sgMTYKWDE2MDdRQSAoWDFQNDIxMDApLCB0aGUg
-Ym9vdCBzaG93ZWQgdGhlIExQQVNTIG1hY3JvIGFuZCBTb3VuZFdpcmUKZGV2aWNlcyBuZXZlciBj
-b21pbmcgdXAsIHdpdGggdmFfbWFjcm8gbG9nZ2luZyAicWNvbSxkbWljLXNhbXBsZS1yYXRlCmR0
-IGVudHJ5IG1pc3NpbmciIGFuZCB0aGUgYXVkaW8gREFJcyBzdGF5aW5nIGRlZmVycmVkLiBNeSBk
-aWFnbm9zaXMgYXQKdGhlIHRpbWUgd2FzIHRoYXQgdGhlaXIgY2xvY2sgcHJvdmlkZXJzIHJlZ2lz
-dGVyZWQgbGF0ZSBhbmQgbmV2ZXIKdHJpZ2dlcmVkIGEgZGVmZXJyZWQtcHJvYmUgcmV0cnksIGhl
-bmNlIHRoZSByZXRyeSBhdHRlbXB0LiBUaGF0IHBhdGNoCmlzIG5vdyBkcm9wcGVkOiBmb2xsb3dp
-bmcgdGhlIHJldmlldyBpdCBiZWNhbWUgY2xlYXIgdGhlIGRyaXZlciBjb3JlCmRvZXMgcmV0cmln
-Z2VyIGRlZmVycmVkLXByb2JlIHJ1bnMgd2hlbiBzdXBwbGllcnMgcmVnaXN0ZXIsIHNvIHRoZQpo
-YWNrIHdhcyBhaW1lZCBhdCB0aGUgd3JvbmcgdGhpbmcuIFRoZSBhY3R1YWwgZml4ZXMgd2VyZSBp
-biB0aGUgZGV2aWNlCnRyZWUgLSB0aGUgbWlzc2luZyBxY29tLGRtaWMtc2FtcGxlLXJhdGUgYW5k
-IHZkZC1taWNiLXN1cHBseQpwcm9wZXJ0aWVzIG9uIHRoZSBWQSBtYWNybywgcGx1cyB0aGUgdW5w
-b3B1bGF0ZWQgcG1jODM4MF82IGNsdXN0ZXIKUE1JQyAtIHdoaWNoIHdlbnQgaW50byB0aGUgY3Vy
-cmVudCBzZXJpZXMgKHBhdGNoIDIvMykuCgpCZXN0IHJlZ2FyZHMsCkRhbmllbCBDYXJ0ZXIK
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] sched: broken cpuset rollback in __sched_setaffinity() with
+  SCA_DL_NOWAIT
+--
+
+commit 9d195b268d19186fd430b17e56b76c3ac49f0d39
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+
+sched: Make deadline policy and affinity changes wait for a cpuset attach
+
+This commit introduces cpuset_lock_no_attach() and SCA_DL_NOWAIT so that
+SCHED_DEADLINE policy changes in __sched_setscheduler() and affinity
+changes in sched_setaffinity() wait for an in-progress cpuset attach to
+finish.
+
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 2a964286a7cd0..52c291de384e7 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3195,6 +3195,16 @@ static int __set_cpus_allowed_ptr_locked(struct ta=
+sk_struct *p,
+>  		goto out;
+>  	}
+> =20
+> +	/*
+> +	 * sched_setaffinity() tested the policy with no lock, and did not
+> +	 * wait for a cpuset attach in progress. @p became a deadline task
+> +	 * since: let the caller wait and try again.
+> +	 */
+> +	if ((ctx->flags & SCA_DL_NOWAIT) && task_has_dl_policy(p)) {
+> +		ret =3D -EAGAIN;
+> +		goto out;
+> +	}
+> +
+>  	/*
+>  	 * Check under the same lock that __sched_setscheduler() holds for
+>  	 * its admission test, so that p cannot become SCHED_DEADLINE
+> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+> index 4f47b17151ed9..70b364b4f82dd 100644
+> --- a/kernel/sched/syscalls.c
+> +++ b/kernel/sched/syscalls.c
+
+[ ... ]
+
+> @@ -1318,13 +1324,31 @@ long sched_setaffinity(pid_t pid, const struct cp=
+umask *in_mask)
+>  		return -ENOMEM;
+>  	}
+> =20
+> -	ac =3D (struct affinity_context){
+> -		.new_mask  =3D in_mask,
+> -		.user_mask =3D user_mask,
+> -		.flags     =3D SCA_USER,
+> -	};
+> -
+> -	retval =3D __sched_setaffinity(p, &ac);
+> +	/*
+> +	 * Wait for a cpuset attach in progress before changing the affinity
+> +	 * of a deadline task. cpuset_can_attach() reserved the bandwidth of
+> +	 * the task for the CPUs it moves to, and cpuset_attach() moves it
+> +	 * there. A new affinity in between could change those CPUs.
+> +	 *
+> +	 * The policy is tested here with no lock. A task that becomes a
+> +	 * deadline task after this test is found under its runqueue lock,
+> +	 * with SCA_DL_NOWAIT. Wait and try again then.
+> +	 */
+> +	for (;;) {
+> +		dl =3D task_has_dl_policy(p);
+> +		ac =3D (struct affinity_context){
+> +			.new_mask  =3D in_mask,
+> +			.user_mask =3D user_mask,
+> +			.flags     =3D SCA_USER | (dl ? 0 : SCA_DL_NOWAIT),
+> +		};
+> +		if (dl)
+> +			cpuset_lock_no_attach();
+> +		retval =3D __sched_setaffinity(p, &ac);
+> +		if (dl)
+> +			cpuset_unlock();
+> +		if (dl || retval !=3D -EAGAIN)
+> +			break;
+> +	}
+>  	kfree(ac.user_mask);
+> =20
+>  	return retval;
+
+[Severity: Medium]
+Can SCA_DL_NOWAIT cause the cpuset race rollback in __sched_setaffinity()
+to fail and leave p->cpus_mask and p->user_cpus_ptr un-restored?
+
+When p is initially not a deadline task, sched_setaffinity() passes
+SCA_DL_NOWAIT without holding cpuset_mutex.  If the first
+__set_cpus_allowed_ptr() succeeds while a concurrent cpuset update narrows
+cpus_allowed and another thread changes p to SCHED_DEADLINE, the recovery
+path in __sched_setaffinity() clears SCA_DL_CHECK but leaves SCA_DL_NOWAIT
+set:
+
+kernel/sched/syscalls.c:__sched_setaffinity() {
+    ...
+	cpuset_cpus_allowed(p, cpus_allowed);
+	if (!cpumask_subset(new_mask, cpus_allowed)) {
+    ...
+		ctx->flags &=3D ~SCA_DL_CHECK;
+		__set_cpus_allowed_ptr(p, ctx);
+		retval =3D -EINVAL;
+	}
+    ...
+}
+
+CPU0                                  CPU1
+sched_setaffinity(p)
+  dl =3D false (SCA_DL_NOWAIT set)
+  __sched_setaffinity(p, &ac)
+    cpuset_cpus_allowed(p, ...)
+    __set_cpus_allowed_ptr(p, ctx)
+      sets p->cpus_mask =3D new_mask
+      swaps p->user_cpus_ptr
+        with ctx->user_mask
+                                      cpuset narrows p's cpus_allowed
+                                      sched_setattr(p, SCHED_DEADLINE)
+    cpuset_cpus_allowed(p, ...)
+    !cpumask_subset(new_mask, ...)
+    ctx->flags &=3D ~SCA_DL_CHECK
+    __set_cpus_allowed_ptr(p, ctx)
+      SCA_DL_NOWAIT && dl_policy
+      returns -EAGAIN (ignored)  <-- rollback skipped
+    returns -EINVAL
+  kfree(ac.user_mask)
+
+Because the second __set_cpus_allowed_ptr() aborts with -EAGAIN and its
+return value is ignored, p->cpus_mask is left containing CPUs outside the
+task's cpuset cpus_allowed, and the rejected user_mask remains installed
+in p->user_cpus_ptr while the previous user_cpus_ptr is freed.
+
+Clearing SCA_DL_NOWAIT alongside SCA_DL_CHECK before the recovery
+__set_cpus_allowed_ptr() call would allow the rollback to complete.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
+19-1-mathieu.desnoyers@efficios.com?part=3D21
