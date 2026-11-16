@@ -1,110 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796700;
-	b=vsoZh8Mx03tVF+mBi7/7BIkYiKT6CnZtn2w2FgtBYa3MHwREFHi0w+u1MNwcevIn0HbI
-	 W55dFHIlOvHJ3pGyo6HhZ1yMRiTEgmoslADymZyenb9t3EuPA568KK8bpj4bNSpfLIgXr
-	 Ix8PB/bPblIguotiylB9jx2aL+qrSEhPgXPFNLcHX9XceU5VlQLm2hHl8V607jaG16C+r
-	 ZX2C32Mz58tpLpo+ExBnLKLMNDRphLzdSmKmKl/FHQI23O2NhqfkJhrJRVJnsnyb/sTsY
-	 523ImGqLM2yX/Rbrj9kGi/NinTDTz+TniSmXm4+gZ59RL0EG9sLkMl4KjvFigXPwzeQ==
+	t=1794796713;
+	b=KaBXD4kxS7OJQtmUvOMGVLNsRgzPVk7ou/cmvdgMrq6djGlIjRstMvV5xR5Z/DsjU7FL
+	 sLRiBelgRjgrYGkHoRBuNlc8+nCA41XhRX+GfuHnyVIIsJrQB3PCKMzech6AqSZ3aF7nY
+	 ntEV0ubQcLJCfa5f29YyJLI62vPZQ4eGDfYb8MD7u+rx/bv4usDw7HEYSl7uB/gUyV19X
+	 jfwUa3KIkka1DRIKR31PgTwumQQZl9HjG6geMW0WQPRbG6hmtg0L/fIbieA+myLsob3rN
+	 yYrhMl3xOPuCKQl+nxiYOEQCniVV3F7Gjzv4rUONP0aSiax7x5TsGxRjxwvrUACHChQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796700;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=;
-	b=SQ2ERt9xRztvck0a7wnxtZUOLDPNlOIX5GYtL5D1gvmDi+nFdhMZxkIBog/TxUrMONTm
-	 yRUrWuT6rhVnoSgcU3DD5IfLgAeLP91aXKf9GG6IUCN6IKd54HdVZawx1R/YNiA4V7ypF
-	 JiMh/P1G/I6kIO3bKrJSgLuTRFFVbS9Lc/sLy0NgzON8EeyLdClzjn+wtzFIM9cikP5XW
-	 Sl7GIoLuD1WOMxMOs/TLJJj347cYNW9EcDvB2DDtO5gVTbbpK+GDsvWGy7KYV4I/oXJDK
-	 W/AnXfSLdHifQQdoOeFkfQVoXJEk/fRLxefguKQK6cinxQ62SPSAmWYs54PNxqOcoMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796713;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qki0Y/66321dP01vB4kHxhZ1QZpjMAJFxKp7bhSMeio=;
+	b=35mzqJArRzvXTCuHfgjaGJ8W28lI980C8G+pM14jSRoqbd3XR5tycxryu2vLLRDyXtyq
+	 sPo8l4tPIks3CBR6NPIxhPkFRjWK3BFjMwltu6tfNv7XHclB7ZMsPrrmPMCF+7+9KmSUQ
+	 oSOihTUiGsB1AE2OVca/LijhdbzHE2L1DQVxLF/qAvOyXfO90YJGejvGTY1g3fYjXfV8V
+	 6H80RuZF+Kkj5MfDAYor3nysVBK9A+uv/SpeCN/ja4GEFvfeJx03X2XWC/VdA3pnF9+UE
+	 AqMx7Slqzd6ZZ2rm7JtGJA3J0m3+oKL+Te+z7t9xhlLBa89fnRcZjx8rZy8a7IbQIMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WJrJOScF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L2MJ+PvC;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=analogixsemi.com.cn;
+	spf=pass smtp.mailfrom=analogixsemi.com.cn;
+	arc=none smtp.remote-ip=115.124.28.103
+Received: from out28-103.mail.aliyun.com (out28-103.mail.aliyun.com [115.124.28.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2426D606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2426D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WJrJOScF;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L2MJ+PvC
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG1L26v3787310
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:38:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=; b=WJrJOScFWbmhsj6y
-	AXFvn9SBm43IzYWGZMwIAmxaGxjIXxdlt9wkxfaTSbQ7E07Q0BxLROlUAfuguA80
-	EmRTzEg/vKjuBQwh6zpA3hekDlZWsN4v97sul0/C/d3k+hiHtr6ZpjPb5W7rnR9h
-	cnJr2qP0IUs0zf5SZEytlzqfqrfUp5LKlRQXplO16NMFIyoV72mI7tBcyJ+9Kzsh
-	XCez1LSHjOKwOQr/TscCiudCBtJdt903ne639VG+gBHMZ4Z2RAuB4fmBINzLHpvQ
-	ivVLHIJWMnuTCc+nVuR4SNNNoosywSJYae8TVupwaAtor8SM22VnlQjRgUUtsf+1
-	OH+qUw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhkwcbes-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:38:19 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9493e89d4f9so556870785a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:38:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794796698; x=1795401498; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=;
-        b=L2MJ+PvCZq5kFb18qBpX7JTf0iQ8hVlYPEUP3yAq2FqFXfkLwDPiclDCRp6/QN6zhv
-         ZEUK0xDimgat9/EIfD91bkycRHWIboTNAspoit94Oyrb3aWc3UTfVXQvZ623C4ywwLCr
-         Q+ESN0ac8BwAafWDY6zl+TUr0PZ3Bz7FcGjs2yi6WnYGyzvMi0OMa3K3XP8SCv2MctlS
-         yyGmsPxn3HBJVR90AvfjECN9HgIooxR2mqDHg1JORqCX3z3s1RNFP8XTNjIr1Bkvqk4z
-         B3c4IXsVnuHIMiU2K256jDt6IRChLUxFFD0Edjxi/RHx3SnNN3oVsh60CY9jfpXzfD/J
-         VL2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794796698; x=1795401498;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=;
-        b=VkWJj+c3022TAZPQrT3lZeNQX7Oyi5UJS3AzppCrHqScldn80/N6O4Ij93xSaiUQxG
-         bGkIOnAMZNez8UMT2OhagIZ1W/1KyfJ1AZ7wTz6c8g4RyRzjHjR1rZhPNWZ+rkydq25I
-         NlMMhS/f9eyxvIYrH3jOFKnrALy5bhOJiYVGBaXkOQrJCfiRwpa7lWLlX+fmTL6/kn1y
-         jxwN1TMcBNydnBQsQ+L+yYhp4B7UKsJUW/Qmbn3D/5bCBE2L9D0P/fJ8QHBvqxpK6f2v
-         RFUYtt+4Edua3dyyP5uUfLK/4oxZUHRCQvJCsLnoeappuk7fIEupWaGuuoAZz18B6ikG
-         UmJQ==
-X-Forwarded-Encrypted: i=1; AL+hErEIQy8DCWPZ0/JVDFlWjHxvyA6MfbWuHVcPkCPDGl6gdabRO//TC3iCXM4BcSk67v1edWSYW8qHp6d4jes=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XdGaTeATVxb0pP0HZCV/oTDgG4DPs699M1qhfPrnGfiujpqk4
-	cW5FYVCKp52++OWVkYmMf45Mr+4yJ3yNoBzqf/nevpFQBMgXojDOO6qyYHBSVbL8cGzk8kObliQ
-	nbDQLAhRJc0YJx+K6Y4QJk1EWLe31PLwAjdRdjWkxl8RZzqGWH1gP14zsfvcgtLFWDxY=
-X-Gm-Gg: AYBFou3llCuqtrCWKMm4zLofRw6veGqDOPHnuGD6NJDeB9K/lxjHgqvTDNa6dGatbWR
-	fzGuaEwe782CbYBQR0OTh56EEhVZbnhEvo6iN7D9mpPm0rn83Gxt096f6JXre4vcxxE2TAdO6lh
-	THtaD69mcI0IkxxGV4RUaJt5P14DFI2aOhBYYyP6tfoGPBTmXaTDA0/DMTsLn2Kb+UoNjG+5jE1
-	jwnaDr+GLIxA9CFT3VIbubSZB0pUnvKYUppdky6KS5+5CgiOLXI6bluKicGZFZ7hmolaxiQGhIC
-	xeDt54La+QsTl2B9ST5FYc0IJ7D9BWMWb1UfofZgvDN/pGwNeQNmyYTFkmv7bL4QBVHRz3C8ZGm
-	cn/4zrNzkd5FKcWWHkx+gmTL7ZCMwuCFVvSLPH5v0Rc8XOcsFrNw/0w+hnDo9NUt+RftzTvyYBh
-	J84JO5/oH5iaLs+xSf8UM2P62BEYChiJ+3Tw==
-X-Received: by 2002:a05:620a:370e:b0:949:7502:6a8 with SMTP id af79cd13be357-94975020921mr471817985a.56.1794796698210;
-        Sun, 15 Nov 2026 18:38:18 -0800 (PST)
-X-Received: by 2002:a05:620a:370e:b0:949:7502:6a8 with SMTP id af79cd13be357-94975020921mr471814785a.56.1794796697746;
-        Sun, 15 Nov 2026 18:38:17 -0800 (PST)
-Received: from [10.38.240.54] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9497a4f1bccsm186560185a.36.2026.11.15.18.38.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 18:38:16 -0800 (PST)
-Message-ID: <d784b5e9-af98-40a2-8670-6c12208983dd@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 10:38:07 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C07606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C07606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=analogixsemi.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analogixsemi.com.cn
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;BR=01201311R811S97rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0121792-0.000476797-0.987344;FP=11113094396180450457|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=anx-upstream@analogixsemi.com.cn;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.k2fyIyE_1794796690;
+Received: from anxtwsw-Precision-3640-Tower.ANALOGIXSEMI.COM(mailfrom:anx-upstream@analogixsemi.com.cn fp:SMTPD_---.k2fyIyE_1794796690 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 16 Nov 2026 10:38:21 +0800
+From: Xin Ji <anx-upstream@analogixsemi.com.cn>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: bliang@analogixsemi.com,
+	qwen@analogixsemi.com,
+	fshao@chromium.org,
+	Xin Ji <xji@analogixsemi.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: anx7625: switch to drm_edid_read_custom()
+Date: Mon, 16 Nov 2026 10:37:40 +0800
+Message-Id: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,93 +65,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 01/23] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- SM8750 CSI2 PHY
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
- <20261114-add-support-for-camss-on-sm8750-v7-1-8ff2a11835f6@oss.qualcomm.com>
- <20261114-voracious-capable-guan-99cacf@quoll>
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-In-Reply-To: <20261114-voracious-capable-guan-99cacf@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAxMCBTYWx0ZWRfX5kzvi7qgRFlo
- wodo2tYKohbqZ0l7eqkVSZSaHaPnG+2ZwOQ+zyLym8uD4TeS2+O3xh9QV/QADVasw69Pvj3JjsV
- PUrOHFTTJKhqFYdffj9FDihyK54sR/XYU3jQsHw4sCpGNUxlmSIzlCFIwRpFaRNRfKcg92qGj8b
- NTcMVBGBjo8R8rJ0Te5mELnh6wUX5GP5yjxZ1j05awLNevPRb3l52m9t9IsPMl1Bp5ojP6KjSXs
- aDeHUxQuQv+mq1roqYR4mBUv5vr1nMcK8lTGtc4KBCDpaYDAjsgJtoxZ2gfemn9Kxrbj4czoz4p
- jd0ZdKfCIvCl1LlXQnSDbCcD9MFWV5CFKYpwIIFarCAWbP/ECShc9ifSiE0NzmLBDyQV5/rVD4n
- p89Njn43irPWs96HOFHeo4gUG9cHEwDCfFeHY9eH8EZ/YtsZJxQTbDpw9WCqsCsk+MkBYs9vKHr
- 2CKDg2nqwnOX3NVarMQ==
-X-Authority-Analysis: v=2.4 cv=YPYKWhGx c=1 sm=1 tr=0 ts=6afa6c9b cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=4xkCrKK1q9XhPcYNJToA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: VTVlDHiNz7L2tfVxVKspTZBM383w4XqF
-X-Proofpoint-ORIG-GUID: VTVlDHiNz7L2tfVxVKspTZBM383w4XqF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAxMCBTYWx0ZWRfX2vgZEhL9Qoyh
- 7O9kf871m97K5z5bhmut2e/eww99qozXjNWTEppgjYPhKIp3846iPt0+nWdTdmgoCZeey2HRJpM
- 3lcM/kEdMxZWlhEcyFVrFNiS7FttF/8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160010
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+From: Xin Ji <xji@analogixsemi.com>
 
-On 11/15/2026 2:11 AM, Krzysztof Kozlowski wrote:
-> On Sat, Nov 14, 2026 at 07:29:18PM +0800, Wenmeng Liu wrote:
->> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
->>
->> The SM8750 camera subsystem has six CSI2 D-PHY blocks. Describe them
->> with a standalone "qcom,sm8750-csi2-phy" compatible, so the CAMSS
->> binding can instantiate the CSIPHY nodes as separate phy devices.
->>
->> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
->> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->> ---
->>   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 1 +
->>   1 file changed, 1 insertion(+)
-> 
-> Does not apply, so should be squashed with dependency. Why having it
-> separate?
+Currently, sp_tx_get_edid_block() only reads the base block extension
+count at 0x7e and ignores CTA-861 HF-EEODB overrides in block 1. On
+displays using HF-EEODB, the driver only reads 2 blocks, which
+drm_edid_valid() then rejects due to the size mismatch.
+Switch to drm_edid_read_custom() with a per-block read callback so DRM
+core handles block count discovery (including HF-EEODB and >4 blocks)
+and validation automatically.
 
-Since Bryan is about to apply the dependent bindings and driver changes, 
-I kept them separate rather than squashing them into this series. I'll 
-rebase this series once the KNP series has been applied.
+Signed-off-by: Xin Ji <xji@analogixsemi.com>
+---
+ drivers/gpu/drm/bridge/analogix/anx7625.c | 172 +++++-----------------
+ drivers/gpu/drm/bridge/analogix/anx7625.h |   4 -
+ 2 files changed, 33 insertions(+), 143 deletions(-)
 
-Thanks,
-Wenmeng
-
-> 
-> Best regards,
-> Krzysztof
-
-
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index c3af88e14f8b..eb503be005e0 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -1022,27 +1022,6 @@ static int sp_tx_aux_rd(struct anx7625_data *ctx, u8 len_cmd)
+ 	return (ret | wait_aux_op_finish(ctx));
+ }
+ 
+-static int sp_tx_get_edid_block(struct anx7625_data *ctx)
+-{
+-	int c = 0;
+-	struct device *dev = ctx->dev;
+-
+-	sp_tx_aux_wr(ctx, 0x7e);
+-	sp_tx_aux_rd(ctx, 0x01);
+-	c = anx7625_reg_read(ctx, ctx->i2c.rx_p0_client, AP_AUX_BUFF_START);
+-	if (c < 0) {
+-		DRM_DEV_ERROR(dev, "IO error : access AUX BUFF.\n");
+-		return -EIO;
+-	}
+-
+-	DRM_DEV_DEBUG_DRIVER(dev, " EDID Block = %d\n", c + 1);
+-
+-	if (c > MAX_EDID_BLOCK)
+-		c = 1;
+-
+-	return c;
+-}
+-
+ static int edid_read(struct anx7625_data *ctx,
+ 		     u8 offset, u8 *pblock_buf)
+ {
+@@ -1123,18 +1102,16 @@ static int segments_edid_read(struct anx7625_data *ctx,
+ 	return ret;
+ }
+ 
+-static int sp_tx_edid_read(struct anx7625_data *ctx,
+-			   u8 *pedid_blocks_buf)
++static int anx7625_get_edid_block(void *data, u8 *buf, unsigned int block, size_t len)
+ {
++	struct anx7625_data *ctx = data;
+ 	u8 offset;
+-	int edid_pos;
+-	int count, blocks_num;
+-	u8 pblock_buf[MAX_DPCD_BUFFER_SIZE];
+-	u8 i, j;
+-	int g_edid_break = 0;
+-	int ret;
++	int ret, i;
+ 	struct device *dev = ctx->dev;
+ 
++	if (len != EDID_LENGTH || block > 255)
++		return -EINVAL;
++
+ 	/* Address initial */
+ 	ret = anx7625_reg_write(ctx, ctx->i2c.rx_p0_client,
+ 				AP_AUX_ADDR_7_0, 0x50);
+@@ -1147,85 +1124,18 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
+ 		return -EIO;
+ 	}
+ 
+-	blocks_num = sp_tx_get_edid_block(ctx);
+-	if (blocks_num < 0)
+-		return blocks_num;
+-
+-	count = 0;
+-
+-	do {
+-		switch (count) {
+-		case 0:
+-		case 1:
+-			for (i = 0; i < 8; i++) {
+-				offset = (i + count * 8) * MAX_DPCD_BUFFER_SIZE;
+-				g_edid_break = edid_read(ctx, offset,
+-							 pblock_buf);
+-
+-				if (g_edid_break < 0)
+-					break;
+-
+-				memcpy(&pedid_blocks_buf[offset],
+-				       pblock_buf,
+-				       MAX_DPCD_BUFFER_SIZE);
+-			}
+-
+-			break;
+-		case 2:
+-			offset = 0x00;
+-
+-			for (j = 0; j < 8; j++) {
+-				edid_pos = (j + count * 8) *
+-					MAX_DPCD_BUFFER_SIZE;
+-
+-				if (g_edid_break == 1)
+-					break;
+-
+-				ret = segments_edid_read(ctx, count / 2,
+-							 pblock_buf, offset);
+-				if (ret < 0)
+-					return ret;
+-
+-				memcpy(&pedid_blocks_buf[edid_pos],
+-				       pblock_buf,
+-				       MAX_DPCD_BUFFER_SIZE);
+-				offset = offset + 0x10;
+-			}
+-
+-			break;
+-		case 3:
+-			offset = 0x80;
+-
+-			for (j = 0; j < 8; j++) {
+-				edid_pos = (j + count * 8) *
+-					MAX_DPCD_BUFFER_SIZE;
+-				if (g_edid_break == 1)
+-					break;
+-
+-				ret = segments_edid_read(ctx, count / 2,
+-							 pblock_buf, offset);
+-				if (ret < 0)
+-					return ret;
+-
+-				memcpy(&pedid_blocks_buf[edid_pos],
+-				       pblock_buf,
+-				       MAX_DPCD_BUFFER_SIZE);
+-				offset = offset + 0x10;
+-			}
+-
+-			break;
+-		default:
+-			break;
+-		}
+-
+-		count++;
++	DRM_DEV_DEBUG_DRIVER(dev, "Read EDID block %u, len %zu\n", block, len);
+ 
+-	} while (blocks_num >= count);
++	for (i = 0; i < len; i += MAX_DPCD_BUFFER_SIZE) {
++		offset = (block & 1) * EDID_LENGTH + i;
++		if (block < 2)
++			ret = edid_read(ctx, offset, &buf[i]);
++		else
++			ret = segments_edid_read(ctx, block / 2, &buf[i],
++						 offset);
+ 
+-	/* Check edid data */
+-	if (!drm_edid_is_valid((struct edid *)pedid_blocks_buf)) {
+-		DRM_DEV_ERROR(dev, "WARNING! edid check fail!\n");
+-		return -EINVAL;
++		if (ret < 0)
++			return -EIO;
+ 	}
+ 
+ 	/* Reset aux channel */
+@@ -1235,7 +1145,7 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
+ 		return ret;
+ 	}
+ 
+-	return (blocks_num + 1);
++	return 0;
+ }
+ 
+ static void anx7625_power_on(struct anx7625_data *ctx)
+@@ -1958,37 +1868,6 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
+ 	return ret;
+ }
+ 
+-static const struct drm_edid *anx7625_edid_read(struct anx7625_data *ctx)
+-{
+-	struct device *dev = ctx->dev;
+-	u8 *edid_buf;
+-	int edid_num;
+-
+-	if (ctx->cached_drm_edid)
+-		goto out;
+-
+-	edid_buf = kmalloc(FOUR_BLOCK_SIZE, GFP_KERNEL);
+-	if (!edid_buf)
+-		return NULL;
+-
+-	pm_runtime_get_sync(dev);
+-	_anx7625_hpd_polling(ctx, 5000 * 100);
+-	edid_num = sp_tx_edid_read(ctx, edid_buf);
+-	pm_runtime_put_sync(dev);
+-
+-	if (edid_num < 1) {
+-		DRM_DEV_ERROR(dev, "Fail to read EDID: %d\n", edid_num);
+-		kfree(edid_buf);
+-		return NULL;
+-	}
+-
+-	ctx->cached_drm_edid = drm_edid_alloc(edid_buf, edid_num * ONE_BLOCK_SIZE);
+-	kfree(edid_buf);
+-
+-out:
+-	return drm_edid_dup(ctx->cached_drm_edid);
+-}
+-
+ static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
+ {
+ 	struct device *dev = ctx->dev;
+@@ -2647,10 +2526,25 @@ static const struct drm_edid *anx7625_bridge_edid_read(struct drm_bridge *bridge
+ {
+ 	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
+ 	struct device *dev = ctx->dev;
++	const struct drm_edid *drm_edid;
+ 
+ 	DRM_DEV_DEBUG_DRIVER(dev, "drm bridge get edid\n");
+ 
+-	return anx7625_edid_read(ctx);
++	if (ctx->cached_drm_edid)
++		return drm_edid_dup(ctx->cached_drm_edid);
++
++	pm_runtime_get_sync(dev);
++	_anx7625_hpd_polling(ctx, 5000 * 100);
++	ctx->cached_drm_edid = drm_edid_read_custom(connector,
++						    anx7625_get_edid_block,
++						    ctx);
++	drm_edid = drm_edid_dup(ctx->cached_drm_edid);
++	pm_runtime_put_sync(dev);
++
++	if (!drm_edid)
++		DRM_DEV_ERROR(dev, "Fail to read EDID\n");
++
++	return drm_edid;
+ }
+ 
+ static void anx7625_bridge_hpd_enable(struct drm_bridge *bridge)
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.h b/drivers/gpu/drm/bridge/analogix/anx7625.h
+index 957d234ec07c..55615ad274f2 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.h
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
+@@ -424,10 +424,6 @@ enum audio_wd_len {
+ 
+ #define MAX_DPCD_BUFFER_SIZE	16
+ 
+-#define ONE_BLOCK_SIZE      128
+-#define FOUR_BLOCK_SIZE     (128 * 4)
+-
+-#define MAX_EDID_BLOCK	3
+ #define EDID_TRY_CNT	3
+ #define SUPPORT_PIXEL_CLOCK	300000
+ 
+-- 
+2.25.1
 
