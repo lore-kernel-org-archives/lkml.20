@@ -1,72 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839614;
-	b=LvUNwLkgdbJXH+QNV5Y7S5ivgQGig1AFMHZSPfaP2vHCfz4aYTUDpByeSu62uQeB5+Vt
-	 a+jPbgm+dERbpB62l9NfrMXOqK8EU1GmLIYzG2L/xyENCliO66RBG7LvR2i9nqU+FpfCE
-	 wO5CUJcoXwuWFWnZ4X6xQ7maH5QtCroTt+tEeQFLGMtr+9wgNRg7JNuDLORRY4Y+KvSDN
-	 6Orgb1aACoknUGMWgUsNE3yf2a1y27b09jxsKpBXJJ4BlqBhJSgpe9WioeFSCa87u9INp
-	 nP0TPchzAswNQybQ1tPr6TPj9POinkZ8Oj0eTCeZ+0Hkwn0HpQSE6atDY6ZbsCnFIsA==
+	t=1794839625;
+	b=2EupDttnp1XUVs5N72DznPFRyzK2SPcou20alfMKc+10c0Zh0eNxSG3Z/Kc+UMDGEqj2
+	 rZ14gYCLWJUix9PecvqCc0buOyk1h6lWQRPmePdLWQUtCDzpbUqjvwK/WYeEqDtrclXNt
+	 CM/OIB40HxuYM0nRo6XD3O1TqQQqgrREPNkPnWBGc/dneehW4j58WsPnjwDiEHhtpueQe
+	 dr7F/kqLXt6H+P+OefNGOHPNH7NfmqfiSmysn6HAIbwco+bBR/ZaW2He0bOW01Ga7e7OC
+	 Z2GgUSXJDAogRtZEG7GC3W81jrh1IB8sD6iY4Wm0dzfCvJjZ869BlFdOq9Tim9AcZKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839614;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=eWN9VxlSagJpciYGf6Tpt2UmBrCmiHzGp8LBUP4VuqY=;
-	b=jqDOQZvuMs3rbJHEwd8VCPBIuCMH+MLHBtNfarQBkf5fvzMe9cQG6xUt48GQL9Rxf7sd
-	 Q+71ZMuLwYJSdWunGjq2I1GxT3YVXsms4S1IPanybmVqUlo0nREK9PFLuUxGhDK8tIINt
-	 ZMaPCG0DPF9HMUuROfRtxuC2xk64hB2y013r6pwkAu5M8+eerFrRIHhqKcRheXQ4BdQYE
-	 AQiULuChcbKmnhuvTSQ9a8qFP9pGb3DUmtMoN7GlEsAs9R4Dgq3umW4VLHms7LsqOpfUH
-	 5okgsBggAHQzAZEuEvogNk1rzbDnQ7Zep438QaHO9CfcLsPinwMtv+ePL+XnnGQ8SVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839625;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gK7mnV0K5J5AZlPsKO/qnVm94znB+xyRhSHaNfoCvBE=;
+	b=N+BtD+sR5BNwPVc+iFYhLgJSBoi4xmqz1+7jMrjdn/rTM9fT9Cd+2GoITxV6xkEWvmBJ
+	 w80QUkZgDyF2rTRweTLx+ZtfoAjRJDWVpJ4rKDRnNmPq4L6cULN2ryRCnG8CogqfGECDT
+	 8n2a/PfI8VrpwSN5WMihzLaFPlwLDfsgl8CbEcpnR7/9dITDQW6WALv3JiJcCJq4S4U8s
+	 kmgohUzNrVExQRUQCJ6r4/F0ngVBwLjZrBGLXxed3WGygg8PXreLw0fYU4uSQU35Oldnd
+	 kST+I1EZj/R7gSIbbkoOspIkkCtyM93+DHMmTzuDy44VA0CYhQy61Y+0saZ+We3pmZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=BNpAvLlO;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUQWunDC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70597606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70597606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB580606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=BNpAvLlO
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id SvLZx5h7HJFmFSxm1xA0tg; Mon, 16 Nov 2026 14:33:33 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Sxm1x9i1UYskhSxm1xer8s; Mon, 16 Nov 2026 14:33:33 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6afb143d
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=8b9GpE9nAAAA:8
- a=XsaZBAPq8O9JtFREHzgA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=eWN9VxlSagJpciYGf6Tpt2UmBrCmiHzGp8LBUP4VuqY=; b=BNpAvLlOurwf
-	3LgJPqnold/sZVJy9vXOgNltgq9B4FbhjsKofAbpypNFegkbnEvRiOSZRUXQQSmUfieDLK4rrnMB3
-	qg5b1Oy4QwWuLVo4mFzUwRDQyMxdj8RVzISrwkkPMNIGhN9342SHYRgueC/mk+lXrtnTFFpZ6w3Ep
-	0USfwNuhMSwYF9AhLQCFPGrglnJucTYd2b1OLR9JChcKwnThx1Hg5ZQfzqfIrEnyjAwClekYsBxoF
-	17KL+s1Ny9ePpskh/+jB/ywdoZze/jGv2E8L9CDjxHmK0kCWwtsFSGefA+GnvmVL8EKM31LA+MgQh
-	887QTBUhLjMzIBrBvflc3Q==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:60928)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxlz-00000003swq-1hLl;
-	Mon, 16 Nov 2026 20:03:31 +0530
-Message-ID: <32157be8-28c1-403d-8485-96c1fe4543ef@roeck-us.net>
-Date: Mon, 16 Nov 2026 06:33:29 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUQWunDC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FD11F000C5
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794839625;
+	bh=gK7mnV0K5J5AZlPsKO/qnVm94znB+xyRhSHaNfoCvBE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oUQWunDCwyheDaHGiEVDZgcG4hWfvsWBs2QCkprHpw8MX67IaQUh2iYSe01vKYcAH
+	 EiRQNzEtK5tKIf6j8E4MlHfl3jf8dNN03Hc5lbVcGvnw4Jda8WVhVo1oNXwJqApcpX
+	 RpflSVlxikJEz+X+bPL3IK4vT/rAhmByDUcNfqz8ZRFSXPaUjxmkPJ1lrSk8VVXwtt
+	 q1RnPDMxR7G+ThyE+k2pFnJPuXnU9O1vGElAalCLXPIyy4wsDXwd5ZEigUML0BDXjj
+	 qVLD+Sy9Pt/E4BE2q/MsnLjD03qq2T1D99uUJcaNHKDE8I25RHxUEMZBZf0IZjafkf
+	 Vdu56iSZ33gYQ==
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6b19e291cc6so4239389eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:33:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHGEHe2Z9ykFymsazw9Pb/QaeMNB3005LKR36fG5RQ98hSB+2VPC/KnUR4BS/WEgLB/ulK/yS01tJD3dWA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8b07Hlk86RP5TXyyOuEQoeOoPtfjOqCETs0JcY1Fnj0gYi8MOB
+	hEgSyzKGMncLtLeILATsWYRikVdsIW7TVow52peFnB/Ds6/dmCJqEy8OrEI0kE3hkp9F+W36G/b
+	euaM1GZd/4yuZ+EkZX9QCIVNqE7FNV3A=
+X-Received: by 2002:a05:6820:c2c2:10b0:71a:facc:5a37 with SMTP id
+ 006d021491bc7-71afacc602amr779012eaf.63.1794839624591; Mon, 16 Nov 2026
+ 06:33:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,126 +59,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/15] ARM: stm32: enable arm smc watchdog on
- stm32mp1xx
-To: Antonio Borneo <antonio.borneo@foss.st.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- Amelie Delaunay <amelie.delaunay@foss.st.com>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
- <20261116132416.1184447-7-antonio.borneo@foss.st.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261116132416.1184447-7-antonio.borneo@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxlz-00000003swq-1hLl
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:60928
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 81
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMxyHcwcwUHZ7JmfqcSExbShdSPeW+Oic0GyhLley505OZ5O3oAL+RCMvXFf8A/EmpbnkYNkfhvX/lSi9+8A3UNA7p3YKFE26neCpLy/WFQRBx7clu0Z
- r82OiS0ur81QZo8fLawk4XN/PkbvEtbSoj9EPgYFoZmEcbrSDgqNYiiPmiPob1PcMlzXrRemsnMF9sYUOqv0AC7F4EjRnUJJX4SXMaichVUeKPatGIf1RB0u
+References: <20261116-cs75xx-gpio-v4-0-ad80a944e966@gmail.com> <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
+In-Reply-To: <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 16 Nov 2026 15:33:23 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnkP2MHE5MTggjqti2qxMvm=KCs+XeoNsrUtXbRSZfhFg@mail.gmail.com>
+X-Gm-Features: Aa3M54rzZJA3A38fzb3Px9Gx86UMNQxM77NnKlrXCliGaLoeMKhrWBrxmYmn9Sg
+Message-ID: <CAD++jLnkP2MHE5MTggjqti2qxMvm=KCs+XeoNsrUtXbRSZfhFg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] gpio: Add Cortina Systems CS75xx GPIO driver
+To: filipp.dunsky@gmail.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/26 05:24, Antonio Borneo wrote:
-> The watchdog IWDG1 is secure by default on STM32MP1xx SoCs.
-> On boards that keep it secure, Linux must use the arm,smc-wdt
-> driver to ping it.
-> 
-> Enable the driver for mach-stm32 when ARCH_MULTI_V7 is enabled.
-> 
+On Mon, Nov 16, 2026 at 3:08=E2=80=AFAM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-As mentioned before, that doesn't just enable it for STM32MP1xx SoCs,
-it force-enables it for all boards running ARCH_MULTI_V7. It also
-goes well beyond the current scope of "if ARCH_MULTI_V7" configurations.
-I would suggest NACK for that reason, but that isn't my call to make.
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>
+> Add a driver for the GPIO banks of the Cortina Systems CS75xx SoCs. The
+> data and direction registers are handled by gpio-mmio; each bank has its
+> own interrupt with level and edge triggers, both edges are emulated by
+> flipping the polarity.
+>
+> A pin only works as a GPIO when the pin mux in the global control block
+> selects the GPIO function. That is not part of the GPIO controller and
+> is left to the boot loader until there is a pin controller driver.
+>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Guenter
+Looks good, use nice helpers and all.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> ---
->   arch/arm/mach-stm32/Kconfig | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
-> index 4ac3384e397aa..de09b2afa0f2e 100644
-> --- a/arch/arm/mach-stm32/Kconfig
-> +++ b/arch/arm/mach-stm32/Kconfig
-> @@ -13,6 +13,8 @@ menuconfig ARCH_STM32
->   	select RESET_CONTROLLER
->   	select STM32_EXTI if ARM_SINGLE_ARMV7M
->   	select STM32_FIREWALL
-> +	select WATCHDOG if ARCH_MULTI_V7
-> +	select ARM_SMC_WATCHDOG if ARCH_MULTI_V7
->   	help
->   	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
->   	  cores. Note that support for the earlier Cortex-M based variants
-
+Yours,
+Linus Walleij
