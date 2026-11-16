@@ -1,115 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866816;
-	b=qfEE26K8zhc+0XszxkhMuZ07PUATp/IITX7O3zuNq8JUP2IFKj7DSix/YiHaVTKUEkK3
-	 hAh386NaUHPCOpBk7LLf1fm3I/Bll21pEfm70+LCMAfPCJdtJblWmMhF3PGonXxee0C6T
-	 ffyoi+DG47gcSFpP1+H/XExV2Uxd4Uulgf0Bitur7tHXcOL0V5yrLrcr/AsGPjj4gl4Uv
-	 Q3JehtGHURZmxG7Bsrrv3/vD+OmF9cJwaWRw7MH6LOTSNlgcFbUTjz3TbgByUrLPut+YO
-	 w93j/2WEhvt5A2P5YDTNN9X1CJ5FmaSJXW6nBdZXq7ND35jER6ZqVmoHPaSQgq0n3iw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866816;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vsc7QdWwKgQ0PfQnJbRw/cR4lUlNXyZF39QitBUyknA=;
-	b=3StF97M9sZH1Yrf+YujJ+Le+/enbtSP/ZvLjwjrfQBoJNLkck3WnbYBirZFznHDqe4l4
-	 XTFJ0HiTogzIs7QoI8MDnkLE8iSODII1L+mERUyH/IG3PFydFNuoU/VbgqUwulODfPPM5
-	 LNDapvLKWZLB34aLkIYLq0LuLxTVENiwe58MLvhD+Mhvf077jsqkC354cH4buH0R4OLqx
-	 H5c8jMzUJvvlBLYkqkc8hZhoBP1K9/vKCWEcQJ+5JJhhATv3DAi0B2ADwb3tlL44usNzU
-	 wiuw6P3ofkKIXt7feAmUKtd7E29IbJPGvehDVnynEGyPJxM+cHmQvuaOuHFCImwoXAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Of763eXj;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hV8+IW5E;
-	arc=none smtp.remote-ip=202.12.124.159
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794866859;
+	b=Pd+c1g4d0IgCbaPO2+QI4T8R1+NhDYNCwMGznVmGR38PGhB88fy4DnUgE/khvWfsOJs4
+	 vmSDU4IedhBc7noxUJS31dxf3RIoQw4MdYzRfthu6JaW5tHFj5KWhuPfJYBr8BNmC31TM
+	 5xihlYI2Vbxf6WZn1cfHPZgqmYyRBfqv8nxvcI5+kUNNWvfSUjB+DnJQfrYfNaQIMhU6X
+	 L032KtaK+PIlnukIkkGzoDu6qNNdaXyLOKNnZUba52sPSlFjglnsCdRHcsPqOWLY2tl3w
+	 OxxnkksqKRpxiuZg3+osLnaToymYheI2KIYfgbxLbeDn0rc7N77cpnlHZgQlR3fCZRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=bvHNWn/Ypwuuq8M1xLdD8fENdsng8rJJBmTIjt87Kp0=;
+	b=pjxiDZa+scLUtW5R17KsDkh/OwLtMZOg/UXksx2+cWRmxfwZ3j/G8x//TF8H3c9w7dUH
+	 awW+LR7KTDXdUcnW/8qbnkeLDL2HRWiWGhXGjI+fgSyrGd3d53vCHrsiauu+vnp8vh8Kf
+	 aYkkFTAQ3yARO4zCSC1JfE2Lq3SyGA2gLwQ3cNO+awqXZLeoxS2uqdb0SiNExhCeX3kRS
+	 chD/i8HK5oDKwVhFLYOH8L6Pfah+BzULwwU1EhO6UcakG1VQIsn3Z7+cSFuPLZkNrkxjP
+	 j9qzxC491gAZXX95yUXu1SfT25wDQiZRDq3lwFynlMu2SceGLXjPSkkk/4fie7xdGhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TkxzOX4a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0AC606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:06:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B0AC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969A1606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:07:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 969A1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Of763eXj;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hV8+IW5E
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CDB897A0187
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:06:54 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-04.internal (MEProxy); Mon, 16 Nov 2026 17:06:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794866812;
-	 x=1794953212; bh=vsc7QdWwKgQ0PfQnJbRw/cR4lUlNXyZF39QitBUyknA=; b=
-	Of763eXjGwumyQnteF7BPt3bSNwJYxBYa3Ev1ubdkMJgbxaDdyDoru+KwDpp6Kjn
-	3J15TwralibmvGbLxoB3jUprbfD7dOWhF8Wqd8kcvonwj1zXOkqANlBgWWBl6H+Q
-	x4vdUKkz4Gvqjw3Tbuh95SnOOKujzgd6j2HkoINlXyJra1g81L1/zLzJKZXPElsY
-	0HATUZQYE5DkKZ+zFpiEpR4XmLfeOqqX22p1lGqL8GG5S3+3/fAgtxKDyTdftSoW
-	gPO0yG1IyurAh6KLuhD4Zfx+0NpgPBgtiFvpnS5hKQN1teBhbVnrWInR/cU4BPbC
-	cYyWQ+R3W4J6cAqM29uVFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794866812; x=
-	1794953212; bh=vsc7QdWwKgQ0PfQnJbRw/cR4lUlNXyZF39QitBUyknA=; b=h
-	V8+IW5EzZMBpWZZTLRayaQ8zWdy176E6AWKIuX5tgYoiYi1MNvSkv/iCUXnlZHEP
-	idK5efB5kS1shjR6b7B81P8t/yto4ZAaO0RV8OEFXPB44Xeq6TjhqdhOU2yn6ulS
-	Z4h51SETI2MAflXkLbVjqUn0J0tkyCdGCBZ4ci/C7nsGmBVzuPmdrkkI9QYKqCL+
-	J26AGHPzCwTUAoUC3eEjZSkr0YzGUPHUQBKPgCsl3FtHWzWE8b8Z78m6g3Ms9O+L
-	vynSMUU+Py7/6iH94n0b7mQXSs+9OxovbcugYKyDtpGnWVj/8bsw4xM/qaNAxpag
-	TALzoPDk3HK4x3ewFDA0A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794866812; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:F2gkJt8rUKeW9XGl1nnd/FsBp+BCM7/T4RWEJrXyNypOZDZ
-	6kOM5sTsprz1g1ZGbqBXSuN5+8GLqVSbfay0Vfbj2O29fxyUXzp84RaBIq1SrQtO
-	LND0gPqD2ujmR6LX/GSztnVx1mRbT6zflpwuT0VlrPHpXrMIITov8Iiw/w6kFsir
-	4gAUVcwUibf6oiFj+zLyZLm02euJuOjxC2qJcDqdQjH3Ayu8+SDHePFcowKdMpst
-	ly5d8ajJ9ba5xz1zh7wsOvUIvirPZcdSy/Kje2VqTvYSPgsXBUlOgOxkwg49jHTg
-	1lng4vq2qoSaNY6mxqTYfpJwvEoQC36CT3RXRRQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:UyL/Iv80/j5QV7yVFqfIl7cbPB/ppw8/4Va7FOuu8EU=:4j/DMfnc0hdTWO0CRI7hD4D97WMBwHIteEaLnc8xQz0=;
-X-ME-Sender: <xms:fH77alNur4u4gJACJ3d_TMQmPcdiHMYoedMX3HflSe1a2NtCi8Sb4A>
-    <xme:fH77aob-_vh4Rr8wAU_WoP_xrpMzSFwmm1saRTZ_XL3R91JmBhSNr3UOvUOl0ayia
-    K4enhEgrJFY3CJmjkaWlgz9zCdBuvPzHREMNSd51u7msJTON_7zZRof>
-X-ME-Received: <xmr:fH77akAzqlWoIEgg5PMO5UDMjqPJDq6_BT_lEjo4nHnJUap_X7LKvzx6wKuWB7S8eR3-W-xq2CzZ04ZVkmRtAWU1TUIR0hiP>
-X-ME-Proxy-Cause: dmFkZTFtc41ee/Iidnc/YKyFRrlcbY0qjv7vqTZLN5qT1G/s1A6ODY0jpLG7OyEpYUVtYp
-    rxrHQVSxWkmpyGRsz9lunc8LDSpBqe9tsIONdlQ3MpDcLVxPNBosQA61pMRunTuvOsWRK0
-    XlAqabvwAjhMKyQyDzm/UFdyEHNWaCwCwWjvl882gkJh451mUafQaBB0yDkAGs/9YPYQL3
-    i8GF1w5NLrcOdAemY4lV9Xqv5dH9DyE3gxX++6KPQ6gVwc508qBf7RvoV4KaDZBU2lGdzt
-    VawjCYAbC2Usre/a6pEIEddTaKECceSLt9P6H40e0jaAAEzuItvughm0hzu6r4rd8RJ1QZ
-    oM4+bIXmMb6cDj57o0CGr6UGHVlHQdBL9mALTfZc5kC48fbdUaH357WhcWWQ7CAqrKDByh
-    wsCzY41+N+Auu28QIaqd6IuuLgK8Uu0+VdAnBNh3EUtmD1gPqlYqgeY6oWwsGhYMp+Gabt
-    SoZ2SEVwMaT6KRBp8lEv4OYdZpP5e6KK4TTlaT8uDUFFpRmlkdmk4haJI0fKtQlTlsEz6p
-    dXmLLIy5ZPD5zDt1GpwH6ywPe04dh8fW5w2QYI6X9KyRsb99oplKk6oIh2GFc0dsIE39LK
-    90vn+8HI9Zehkdy1WNoCmZ3uIDeB53vY2RBOKm9ZSRq5S21pjy0Wv1FBnU/A
-X-ME-Proxy: <xmx:fH77auEhFXkbc64TI9i3tVfon4gv-mH-eP6aOB-13zMl7bwebge5_w>
-    <xmx:fH77anOdhv6zpDgUCj-lZBLkMKmoj0__a5uS7gasdEY2qNdhCtIH6Q>
-    <xmx:fH77ani7feRs8uW4UmJVeNoy82Mq0tUG2hfzPrSGsVZAbUI8EsqC-w>
-    <xmx:fH77av0p6DYMXP-WghMsthNo2C6TSJno4dSPXYvRcchbOGsU7nIDJg>
-    <xmx:fH77auSSAO8p553AhlbtJ0V_FAzfA9yDLSSecJfHSRRMfdLsovFEBgzc>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 17:06:50 -0500 (EST)
-Message-ID: <2ed04104-e061-47e4-914e-3a2b35b214dc@pobox.com>
-Date: Mon, 16 Nov 2026 14:06:49 -0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TkxzOX4a
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b869ea8224so352a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:07:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794866857; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RyF8BNPP0ABw4gTnb/wrggI4Cc5GO5ZMZfwQ+W4C4q5LOQEKnlU7XsRpmTB19L+GP0
+         psGrsb8xcbw9g8lkUWShxy2HpJrAEvXgNYXsCOC2S7KnpVVToMphwKMB6/ljHzRPSuir
+         mjo0lhYPFvEjtVv7TeuJZE9TZwrCGgmAcfXFFeM73t+2hyWITXGRo+2R+VEH/Ko6eLpO
+         56afgranphjkROnzQnYITi6t7XyBO2k/+GVGFFtg9GvlYZHGqRbG8euRi8msK7N844gY
+         FjIrmY6dgIZnKbJt0/26G/K4pabiOju8C6bnR9h7k3vIB8sMupvuL2K6ooTXfcaC9ZYF
+         dylQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bvHNWn/Ypwuuq8M1xLdD8fENdsng8rJJBmTIjt87Kp0=;
+        fh=zDZR4BTV/vCvsgCKxTVdn61HCqiKWxvWqQnnc1Y4PeU=;
+        b=nqRSNDneRerkVvQ0CBYT1mAlNT6+9bsnrudbejz5EudY29LkDP+QZOr1MoMoYkCici
+         YR3YG4b/MOT+4fqT1QRjufmQMGK0G/p6gC3/iH35Wj/dX3O0P42k7zBk4p0DS57pbP5R
+         dq193cl9fN5zETTv2AYsUAbIDo8nz1NsfKmGDBo1KKJnSCgpX6TzOXLHU7BD1lnqf2xb
+         geQrfePZKX3IXPgLwEeDjQL2pvbkGAts//voBM/+2PSTo6FH8+1LD/arei0T23YeW0Av
+         K64hs6PUWTctaht6BF3jTU5VWVdnOr1vZ0vLSnLai49UK89iL3/TPTEaiQoNXISZZGIG
+         zZuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794866857; x=1795471657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bvHNWn/Ypwuuq8M1xLdD8fENdsng8rJJBmTIjt87Kp0=;
+        b=TkxzOX4aoiWaACUOFc/kBTx4IkhPC7hWIyIuHNSS9HAldz5HFGU4mwK8+vifExWweO
+         yvtGROP/WTYByvnFZch4aqyll7KoCPzVmpJlD9qBWnV36MzoD/Zjs4kl7x1CdAgx0NlM
+         oYGaAlntwuY8Ca9LOSaWqL8aKhpyV1wAwFyfU+ztOpypXVEgr4nKcSKmA2Yy/eMoCUg8
+         2Pd1lofaBdLsK4LTkzukVrXj6onlR9E0PI619s2nBbUn4TmgtVVPcRxfFHZaimXx4Kpa
+         S3zywiWQz/XmsIHwDtbPV9cH7SRNwvSwrFY5vqGRWIIAeWwHhgX9No9VXyRz5mH6Nuft
+         TE0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794866857; x=1795471657;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bvHNWn/Ypwuuq8M1xLdD8fENdsng8rJJBmTIjt87Kp0=;
+        b=TmWC5rMIIIhX5HIa8LTdQoznBKwN7D2hdIdYuxj49iZpUxbmUDyLjqVX2u9iHbH7Zk
+         kvgbipeNGM5iAXui59VB9IMsz4/zZm/ByC2aPj0VGHjNljgZhixu/V35A9QJTcUOQu9m
+         Y6IFwXnQL80zl2sqcO/j1Ymor46DLoMa2swk4cUuvUZiOXL3CHvL8xYha4+ZpbUXG6Oc
+         IwQdBJeBSLYWUTvdBSLQ/6wx/UdgQuKcVCobRlXGO+JCXau7OrJ7GUim7aau80OaQjao
+         mPWl/XLUn/XyfGtSoJWavI252L1jqGS/7aP6eEYQGZGhjOW8TpMq07hrm/85Riqh8q5K
+         rHHw==
+X-Forwarded-Encrypted: i=1; AL+hErGHmQDzJYUEuneDtyG0eA0ABHbb8FKbQ4fWkZvBcFBjQLe/fqAqwdfSkpO1I9jJDrF3wY891+p+9Sv/kNg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MdgDGCpp2di0YsLIZWeWdlsivWXdISrTDJrkpk19jgwJg6FL5
+	GJV6nMmzoCcIQ0kNb1GUnL8/AXwJWwVwwLBHYBQ0HjnKGF3lim6cAQ3HLqm4ZfhLUIZdsQPjMDB
+	y75h5n5q1NCihGW8rqJaR49JMcNyIA1JYQaQOVmvU
+X-Gm-Gg: AYBFou1e6IaChiW/kV9Az/ZwIe9FAiDh8ioG+81CqdN0yBPztBJckkbW2uZhZd2zC2E
+	ImOphqj6Gtudsq1Qy18k3fDdzUzkR0oLtMtAme/qLYB3bHoDqy7eKpiBoPAisf8ErWVcxZv3w/I
+	Xmjqn7a6CETj8ZVZxwjNb3LFWXwWTug1EYVeaCcobX7BcqMyIZ95izgncUlto1i8lVCePE6sm+e
+	Y8TPdbC9YsE3IzKNGN1+4sRHl7Bk9Njt5omP8hX5kci7hLEL6Ls2vDFmDe15Gp8j29vDT5NOW/T
+	7EwLUzkajOuIKK7Br6o9qnXCSgA75PAFggriD3xKyV/ZbIghgtk8EMNFqVkAsG8hAqnNOgScPKI
+	3049b7x2K8b7SjjTJyLbMaM9UpCdlK5PisRhJuTopYQX5zIMvtm7FB9Wa4xa/aPXpDQ==
+X-Received: by 2002:a05:6402:21d6:b0:6b7:bff7:bbac with SMTP id
+ 4fb4d7f45d1cf-6b85b5510f7mr20666a12.6.1794866856424; Mon, 16 Nov 2026
+ 14:07:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,50 +104,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation:
- 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 -
- 0xffffffffc0477fff PFN 109c1f and WARNING at arch/x86/mm/pat/set_memory.c:665
- __change_page_attr_set_clr+0xf62/0xfb0
-To: Sasha Levin <sashal@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, regressions@lists.linux.dev,
- Salvatore Bonaccorso <carnil@debian.org>
-References: <avdb9EPXBv2hRCzQ@eldamar.lan>
- <draft-agent5-0008-re-pat-wx-regression-612@kernel.org>
- <2e149d01-c932-42d3-9698-c1555e542cb1@pobox.com> <avpUlHHaimEE_Rib@laps>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <avpUlHHaimEE_Rib@laps>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261116020504.4051796-1-chullee@google.com> <9d58cbf3-e0cc-41b8-8958-df8abd505524@acm.org>
+In-Reply-To: <9d58cbf3-e0cc-41b8-8958-df8abd505524@acm.org>
+From: Daniel Lee <chullee@google.com>
+Date: Mon, 16 Nov 2026 14:07:24 -0800
+X-Gm-Features: AclHuK9nG0sgRz_IDHuGpKLsvCg91L-4oJRDfBo0bTPftq8WaH6t570Q_2Ba8YM
+Message-ID: <CALBjLoCzDbRg9EO=iJir3WqK5bpQZqTbc9X-hoP823oDUDwUeQ@mail.gmail.com>
+Subject: Re: [PATCH v3 RESEND] ufs: sysfs: Add WB partial flush mode support
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com, 
+	alim.akhtar@samsung.com, avri.altman@sandisk.com, tanghuan@vivo.com, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/15/26 4:55 PM, Sasha Levin wrote:
-> On Sun, Nov 15, 2026 at 03:16:20PM -0800, Barry K. Nathan wrote:
->> On 11/14/26 9:42 AM, Sasha Levin wrote:
->>> On 2026-11-13, Salvatore Bonaccorso<carnil@debian.org> wrote:
->>>> One followup to this. Reverting
->>>>
->>>> Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
->>>> Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
->>> Thanks for testing. Queued reverts of both for 6.12.
->>
->> I see that in the current stable-queue (commit
->> 3b8ff7f280433e6fb085dbc4f44ac6a138f352a0, "Fixes for all trees"),
->> these two reverts are queued in staging-6.12, not queue-6.12, so
->> queued up for 6.12.119 not 6.12.118 as far as I can tell.
->>
->> I don't know if this was some kind of oversight or if it's
->> intentional, so I just wanted to bring it to your attention.
-> 
-> It's intentional. I don't want to play with the queue right before the release,
-> and we've already shipped this regression so there's no reason to rush.
+On Sun, Nov 15, 2026 at 7:02=E2=80=AFPM Bart Van Assche <bvanassche@acm.org=
+> wrote:
+>
+> On 11/15/26 6:05 PM, Daniel Lee wrote:
+>  > +What:
+> /sys/bus/platform/drivers/ufshcd/*/attributes/wb_partial_flush_mode
+>  > +What:               /sys/bus/platform/devices/*.ufs/attributes/wb_par=
+tial_flush_mode
+>  > +Date:               June 2026
+>  > +Contact:    Daniel Lee <chullee@google.com>
+>  > +Description:        This entry controls Extended WriteBooster partial=
+ flush
+> modes.
+>  > +
+>  > +            =3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  > +            "none"   No partial flush
+>  > +            "fifo"   FIFO mode
+>  > +            "pinned" Pinned mode
+>  > +            =3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  > +
+>  > +            The attribute is read-write.
+>
+> Please update the Date: field across the new ABI entries (June 2026 has
+> passed).
+>
+> Also, please drop the quotes around "none", "fifo", and "pinned" to match
+> the other string attributes in this file (such as wb_resize_hint,
+> wb_resize_status, and hid/state), since literal quotes are neither emitte=
+d
+> nor accepted.
+>
+>  > +Description:        This entry configures the maximum size in Allocat=
+ion
+> Units reserved for the
+>  > +            WriteBooster FIFO Buffer size.
+>  > +            The attribute is read-write.
+>  > +
+>  > +What:               /sys/bus/platform/drivers/ufshcd/*/attributes/wb_=
+cur_fifo_size
+>  > +What:               /sys/bus/platform/devices/*.ufs/attributes/wb_cur=
+_fifo_size
+>  > +Date:               June 2026
+>  > +Contact:    Daniel Lee <chullee@google.com>
+>  > +Description:        This entry shows the current size in Allocation U=
+nits
+> of the WriteBooster FIFO
+>  > +            Buffer size.
+>  > +            The attribute is read only.
+>
+> Minor: please drop the redundant trailing "size" in "WriteBooster FIFO
+> Buffer size" in both descriptions above.
+>
+>  > +What:               /sys/bus/platform/drivers/ufshcd/*/attributes/wb_=
+pinned_avail_pct
+>  > +What:               /sys/bus/platform/devices/*.ufs/attributes/wb_pin=
+ned_avail_pct
+>  > +Date:               June 2026
+>  > +Contact:    Daniel Lee <chullee@google.com>
+>  > +Description:        This entry shows the percentage of available spac=
+e
+> remaining in the
+>  > +            Pinned WriteBooster buffer.
+>  > +            The attribute is read-only.
+>
+> Per JESD220G Table 14.28 (IDN 43h,
+> bPinnedWriteBoosterBufferAvailablePercentage),
+> this value is reported in 10% granularity (00h: 0%, 01h-09h: 10%-90%,
+> 0Ah: 100%), not 0-100%. Please document the 10% granularity so userspace
+> does not misinterpret 0x0000000A as 10%.
+>
+>  > +What:
+> /sys/bus/platform/drivers/ufshcd/*/attributes/wb_pinned_cumulative_write_=
+size
+>  > +What:
+> /sys/bus/platform/devices/*.ufs/attributes/wb_pinned_cumulative_write_siz=
+e
+>  > +Date:               June 2026
+>  > +Contact:    Daniel Lee <chullee@google.com>
+>  > +Description:        This entry shows the total cumulative size of dat=
+a
+> written to the
+>  > +            Pinned WriteBooster buffer.
+>  > +            The attribute is read-only.
+>
+> Please state the unit here: per JESD220G Table 14.28 (IDN 44h), this valu=
+e
+> is in units of 10 MB (and saturates at 0xFFFFFFFF).
+>
+>  > +What:               /sys/bus/platform/drivers/ufshcd/*/flags/wb_unpin=
+_enable
+>  > +What:               /sys/bus/platform/devices/*.ufs/flags/wb_unpin_en=
+able
+>  > +Date:               June 2026
+>  > +Contact:    Daniel Lee <chullee@google.com>
+>  > +Description:        This entry controls the Pinned WriteBooster unpin
+> enable flag (fUnpinEn).
+>  > +
+>  > +            =3D=3D=3D=3D=3D=3D
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  > +            0        Unpin Disable: pinned data is not flushed by Wri=
+teBooster
+>  > +                     Buffer flush operation.
+>  > +            1        Unpin Enable: pinned data is flushed by WriteBoo=
+ster
+>  > +                     Buffer flush operation.
+>  > +            =3D=3D=3D=3D=3D=3D
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  > +
+>  > +            The attribute is read-write.
+>
+> ufs_sysfs_flag_show() emits "false" or "true" via str_true_false(flag),
+> not 0 or 1, while ufs_sysfs_flag_store() accepts any kstrtobool() value
+> (0/1, false/true, n/y, off/on). Please update this description so it
+> accurately reflects what reading returns and what writing accepts.
+>
+>  >  static inline bool ufshcd_is_wb_flags(enum flag_idn idn)
+>  >  {
+>  > -    return idn >=3D QUERY_FLAG_IDN_WB_EN &&
+>  > -            idn <=3D QUERY_FLAG_IDN_WB_BUFF_FLUSH_DURING_HIBERN8;
+>  > +    return (idn >=3D QUERY_FLAG_IDN_WB_EN &&
+>  > +            idn <=3D QUERY_FLAG_IDN_WB_BUFF_FLUSH_DURING_HIBERN8) ||
+>  > +           idn =3D=3D QUERY_FLAG_IDN_WB_UNPIN_EN;
+>  > +}
+>
+> Per JESD220G Table 14.26, fUnpinEn (13h) has Type "D" (device-level,
+> addressed with INDEX =3D 00h and SELECTOR =3D 00h per Note 1), unlike fla=
+gs
+> 0Eh-10h which are "A/LU/0 or D" (Note 4). Including
+> QUERY_FLAG_IDN_WB_UNPIN_EN here will send a non-zero INDEX when
+> WriteBooster uses an LU-dedicated buffer on a non-zero LUN. Please leave
+> ufshcd_is_wb_flags() unchanged.
 
-OK. Thanks for explaining!
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Thanks for pointing this out.
+
+By the way, the name ufshcd_is_wb_flags() is a bit confusing with the
+addition of
+Type "D" WB flags and attributes, so it might be good to rename it to
+ufshcd_is_lu_wb_flag().
+
+For v4, I will keep the exisiting names as requested.
+
+>
+>  >  static inline bool ufshcd_is_wb_attrs(enum attr_idn idn)
+>  >  {
+>  > -    return idn >=3D QUERY_ATTR_IDN_WB_FLUSH_STATUS &&
+>  > -            idn <=3D QUERY_ATTR_IDN_CURR_WB_BUFF_SIZE;
+>  > +    return (idn >=3D QUERY_ATTR_IDN_WB_FLUSH_STATUS &&
+>  > +            idn <=3D QUERY_ATTR_IDN_CURR_WB_BUFF_SIZE) ||
+>  > +           (idn >=3D QUERY_ATTR_IDN_WB_PFM &&
+>  > +            idn <=3D QUERY_ATTR_IDN_NON_PINNED_WB_MIN_SIZE);
+>  >  }
+>
+> Same issue here. Per JESD220G Table 14.28:
+> - 3Fh (bWriteBoosterBufferPartialFlushMode),
+>    42h (dPinnedWriteBoosterBufferCurrentAllocUnits),
+>    43h (bPinnedWriteBoosterBufferAvailablePercentage), and
+>    44h (dPinnedWriteBoosterCummulativeWrittenSize) are Type "D" (INDEX =
+=3D
+> 00h).
+> - Only 40h, 41h, 45h, and 46h are "A/LU/0 or D" (Note 15).
+>
+> Please restrict ufshcd_is_wb_attrs() to the LU-indexed attributes
+> (1Ch-1Fh, 40h-41h, and 45h-46h).
+>
+>  > +static ssize_t ufs_sysfs_attr_store(struct device *dev,
+>  > +    struct device_attribute *attr, const char *buf, size_t count,
+>  > +    enum attr_idn idn)
+>  > +{
+>  > +    struct ufs_hba *hba =3D dev_get_drvdata(dev);
+>  > +    u8 index =3D 0;
+>  > +    u32 value;
+>  > +    int ret;
+>  > +
+>  > +    if (kstrtou32(buf, 0, &value))
+>  > +            return -EINVAL;
+>
+> Since ufs_sysfs_attr_show() supports 64-bit attributes via
+> ufshcd_is_qword_attr(idn), please either support ufshcd_is_qword_attr(idn=
+)
+> here as well or guard against it (e.g. WARN_ON_ONCE) so a future
+> UFS_ATTRIBUTE_RW() user for a 64-bit attribute cannot silently issue a
+> 32-bit query.
+>
+>  > +    ufshcd_rpm_get_sync(hba);
+>  > +    ret =3D ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
+>  > +            QUERY_ATTR_IDN_WB_PFM, ufshcd_wb_get_query_index(hba), 0,=
+ &value);
+>  > +    ufshcd_rpm_put_sync(hba);
+>
+> Since QUERY_ATTR_IDN_WB_PFM (3Fh) is Type "D" per JESD220G Table 14.28,
+> please pass 0 instead of ufshcd_wb_get_query_index(hba) here and in
+> wb_partial_flush_mode_store().
+>
+> Also, unlike wb_resize_hint / wb_resize_status / wb_resize_enable, none o=
+f
+> the new entries check hba->dev_info.ext_wb_sup
+> (wExtendedWriteBoosterSupport:
+> BIT(1) for FIFO Partial Flush Mode and BIT(2) for Pinned Partial Flush
+> Mode per JESD220G Table 14.4, plus hba->dev_info.b_presrv_uspc_en for
+> Pinned mode per Section 13.4.18.7). Should we define those capability bit=
+s
+> in include/ufs/ufs.h and check them (returning -EOPNOTSUPP or hiding
+> unsupported attributes via .is_visible) rather than waking the device and
+> issuing unsupported queries on devices without these features?
+
+Agreed. I will define them and return -EOPNOTSUPP when unsupported (matchin=
+g
+wb_resize_hint / wb_resize_status / wb_resize_enable).
+
+Thanks,
+Daniel
+
+>
+>  > +    QUERY_ATTR_IDN_PINNED_WB_CUMMULATIVE_WS =3D 0x44,
+>
+> Please spell this CUMULATIVE (single 'M'), matching the sysfs attribute
+> name wb_pinned_cumulative_write_size and JESD220G Section 13.4.18.7.2.
+>
+> Thanks,
+>
+> Bart.
