@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826947;
-	b=dHyHl+F/8Eomf5AgKAcpTeFIafRj6z742phTToDTa2N+PwKNn61q+EAv6Uq83TuuFJRO
-	 bl71+o3fonhmQVZwDh6I8JwdqK9HDKoWmo7vZx+ShYDQVfElvJ69tXpFXDcVrTfiuKWPW
-	 FlpbLdbi0UzSoErKdgMPacmNCji5k8hLmhkJvJ19tvuWxKtd05O1PtXLBvU5n1tkZWVYf
-	 04qFYV6f6+LIkTqo22LRlHfdFDjr1n6oHzlfWpl0iwUWVGouMGpfB2NC4Fy6pDv0w5MjZ
-	 obYYA6kaXbMoBHRyexRKa+EUEbxHK7g8Xl0US0zJz81Otu1c3c0m1nWt4dHpgJrUb+w==
+	t=1794826975;
+	b=NyzrZYRMBIwHC7cXklr0l8EM3+NKs+Ure4Z+ohiwgMrW+3CrmEuUofQWPV+nUpJ9mEj9
+	 Q8UlSd0gvYz9yBVSqTlNx7mUbZHFsNCiw/TXOlSHmM6KcUTmUSawc9sVdeEHgOSf2CBjY
+	 SxJdJvV9BzVvuZnEtQlQ7fGlliVaev0wzaimMzKlHXGoiwKnTOhPwl/bufShthVRseI5V
+	 FuvxR8/1d4c9tWjsE2dT1qdUNGEieNutzOz2Dr7jEcEMrn/vuSzv68VVIqVVBBBe/1hsM
+	 oyvEuwyiiXglDXchSZOANqI5prY+hocKMw/vQfrPjqvIcQN1a+qhOV/TNddwd2JSO0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826947;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=fbslNd3drHHXdMZ3SmMIJ91FrgxUIwHvL4BXMdGp/Uo=;
-	b=pTuxsTOql5cb+s4oYmIbHFfZp2XG1QHQEUdIxew11XTryyC2tvPjdLMKexeC+ZKZOeTe
-	 30ET5s24fxZzS/PKtSBGavVwEH2yt7WDPmbGjQOmbzq0L7+gn5CrW2a2huOxmqbSTwAxG
-	 dVOuMAB5nLR1Isp6P4nDqzSYmcF+JYDwzSlv5AaPGoPjZMtVeoKUWArMTz8fqTB5y1r+y
-	 E/mpriaMsA3kfERUjxiLTDrrEKOiOYdSrC7nM3RCGp8A/uyvv47Yl0VQU7+NafGMCGzJb
-	 KY0bnePFYNc6hdi7I9jLID60W0g7DvvJ6f0hC2iu0Br4UxzoGpfhfaFUnUCLZCnCAyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826975;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bNV2fv5l405CqkXTgWu59K3HR6/f7q0GR5+FH0usqwo=;
+	b=P5PcPjyzIc0ssUf4L2WIfooPjDEclF/NzIA6HKqd+LljsNQ4Ivh3OHH+g+cYxilN792V
+	 Btk9CsNLrb5Tynzh97Ked6syXnPQlfWcMY5GH6tqNzfu8kv1bdLJUwPEqLVZOfqwwt7YX
+	 5FLAVtjxIKc0NJoLk0EZNVL20D0R8zK4rXtFk4ITFOmDorMZ75XQw20+ijclAxDa7XXoL
+	 lw5/i6EKSA1euYldefCnQkN5zhSkphzrMbGb5vCZtFfwMP/1kUQNKFys6tyGef4F82sFv
+	 sbpx1TmgtgdeoEa1mqCpKN7CyIiZyxMPVEPqEfZUz3dEwWGcjyVBIghhMg3+Chrkkfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jZOKdi7K;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LMZ6RrSI;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC58606A323;
-	Mon, 16 Nov 2026 11:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC58606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB89D606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:02:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB89D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jZOKdi7K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794826947; x=1826362947;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=BgQGjvsGetNCeWTgsXLX+2aStyhCeaIaL32CbGMUq5I=;
-  b=jZOKdi7KgAJTmZuROUqUURbD5lwCREp2DY9qPfj+8RjVRQyrVDI2Q2Nq
-   Cex8reBXpdpyRN6u1WIlqtzDlYtylhhO7gD5Cqd4/uuV30A4ztcQZsnND
-   EPvlCYu1FoiroYCbz04/JGBaYqAaPFYfR8WoKt6W0YQGd1bL0V5/Y3SS2
-   82wsGGF39uAS40QGH1k7o4I1kFfGz5w8uTk/oKM5910PXy5lYeSxncdqJ
-   QthqMO2/p99hptD+XsaB3Iel7d1S9PGpiR1awjrlXHq89VoCsrH4cGbd3
-   N9qwCF03IXTQfyeaiyfYlzrl5243LrYM3uAWLKEJDF+b7KNoRjF/7+Wmr
-   g==;
-X-CSE-ConnectionGUID: ULCfbSXmRYOSsr9WHh6sGw==
-X-CSE-MsgGUID: BFC+J1TaQmGjegbVdLkEXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3412272"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3412272"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:02:24 -0800
-X-CSE-ConnectionGUID: x18G0ssNTZi+O4LeiyCT1Q==
-X-CSE-MsgGUID: LrhFTd4iQnu1GyhO+DCyYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9709628"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:02:21 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 16 Nov 2026 13:02:18 +0200 (EET)
-To: lirongqing <lirongqing@baidu.com>
-cc: Hans de Goede <hansg@kernel.org>, 
-    Kristen Carlson Accardi <kristen.c.accardi@intel.com>, 
-    Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-    Tero Kristo <tero.kristo@linux.intel.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86/intel/tpmi: Clean up CPU mappings on
- offline
-In-Reply-To: <20261114142914.2595-1-lirongqing@baidu.com>
-Message-ID: <d5f8b43f-5d42-62bc-b233-9645a3708472@linux.intel.com>
-References: <20261114142914.2595-1-lirongqing@baidu.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LMZ6RrSI
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-380b40312e2so47357eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:02:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794826974; x=1795431774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bNV2fv5l405CqkXTgWu59K3HR6/f7q0GR5+FH0usqwo=;
+        b=LMZ6RrSImd48pHOJIHhBHVrBcPACVhRDjWCcCZfFuoZSScBeEnhHRVlK/IUeg98XyT
+         RZdiiAT621b2taev2kFq5QdbyLw1uk1mQEYaAmEEJ3icRUESsp0tMk4yb8/dvT6dCq0h
+         You04Ua+2g1vrOknhObEc4EPKrVR8qrqYNO8k1lAmfA2m4dg8RpqhIxpEHEaSpEBwwtG
+         YnqYV319L0y+2WsPWUFYPhzEDzF4bQNpy+3BiHOo19mmvTbwTm0NKfuYBvZvJhcTjmfv
+         D6dHV4jLSwHzUb7s4CbLIkmfA/Y17OZdIcR7bf6GJnctSW9IHLn/onUni5aIBS31n//K
+         b/0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794826974; x=1795431774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bNV2fv5l405CqkXTgWu59K3HR6/f7q0GR5+FH0usqwo=;
+        b=tAoryNY5jXTdGhQR98KZma5zo67HDNM0DtRizVjcDUW5OoOjiJ2vi7P664sbOMbcuV
+         n8pDlBW3B9mX8uIk+7hI9uvGmtJ93TsAaz5yaxzJnAAbvJoFlK2lxrW8QRGLXUytcpIK
+         OPAB/D1n6+Hsp/9DWYFWt3vsPWa6jTFAK9oL5uFqFe4s1xV2nptS4a4fqi2iDS5mX8w4
+         KhdgJIuopPG9pWlox6JIwZ15Da5WQzXpnt86cYymCOeP6rs0p3ry7TMWLiWLtzKu0rRX
+         LPbb+HYtEn6WU01gIYvzFFG0LuqFW/XTtFEAq6eHlqv+kENbi1ao5gHM8ZyuBgaye6CR
+         tSNQ==
+X-Forwarded-Encrypted: i=1; AL+hErGSGUsBc/x0iSSHyU8DNLWkU19bvqCBqpJfiqCBXDeefjt0Im6R9K9dHrfkdoPK2EdCpSw0GlWVlWgPSH8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oSnuXQPZr1QcXxAgIHpndPBDtXkfMUeJj3BrvM+U42EYzpq5s
+	p5W31MIil3PADnphqWEcKQAG5ir7JuyS2JnDy4T/Cxb8kU8WlvDdWQDq
+X-Gm-Gg: AZFdTZcN+kiE0pRpHWPX52mCMMkJ8yaa6z3j/s3LGzfFryVl7A0MZkrFG9GByJNyD8I
+	Ymf8euerCM2ccMApAmBkAo0uI/S8wOb3D6V8fW5gLaJzs81lxtwF6tCUkbIykBoCmKx2N5d3q6D
+	XXggA8LSzOpYulZkR0kVhg2mDc+Ty9x0PTHTXorwQx9HBPn9SuVsXmc4/0tNO0s4048ykKyDH+y
+	0CtWbgbMM0ODGh6KyyMUN34E75dkCYepNf3l/A3PKwAfVrajwjObk9iyM8VkU7o95zBtDEh1xK8
+	IwMXE1+zqPJ0gC2XPm2cZ6STcG8kN/hSoW9Cm2EOWvRCdPeb3dNnNgoViF0RQV52K/hPUI3SbG8
+	GkXBTZrkLaTMNYnv3slqH8qohHfHASAemK2929FxqW+EPDqYBy5ZcVSgZGvKE3WUjZIQCHWW4LC
+	NB1kFVOQvTYeqipNSUdOqaPffDXjS3L3C49j+CCmPtsWiBmxD+00XZBGg3Nd505EUQxAGU/9vrz
+	ARQoLz35BV6WmvkZB/y1O0gj8O2o5z1LrnI/CkUE1JOtCq78sg2pd3oHY6Ck2hpZdwDoxGgNmBA
+	V0wscEMfCtrXi915cCHl++YZjbk8Htf8rakRcaP3ti4WTwfdM5ACOLehhnweL4pha7K8soMsere
+	02PL8ubys9C0/4TLiD9/+CnpwpkAOMIB2/DkP57Da9/fC
+X-Received: by 2002:a05:7300:bf9c:b0:375:370e:f1ff with SMTP id 5a478bee46e88-379671238f1mr9906182eec.35.1794826973517;
+        Mon, 16 Nov 2026 03:02:53 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm51018182eec.8.2026.11.16.03.02.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:02:53 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH] ASoC: atmel: mchp-pdmc: Clear busy_stream in hw_free()
+Date: Mon, 16 Nov 2026 18:02:12 +0700
+Message-ID: <20261116110212.522478-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,92 +105,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Sat, 14 Nov 2026, lirongqing wrote:
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-> From: Li RongQing <lirongqing@baidu.com>
-> 
-> The driver adds each online CPU to tpmi_cpu_hash and to its power domain
-> mask. Neither entry is removed when the CPU goes offline, so the next
-> online transition calls hash_add() on an hlist node that is still
-> linked, corrupting the hash list.
-> 
-> Register an offline callback that removes the hash entry and clears the
-> CPU from its power domain mask.
-> 
-> The TPMI feature does not depend on CPU online/offline and can update the
-> MMIO area while a CPU is offline. There is currently no consumer that
-> reads the mapping data of an offlined CPU; if such a use case appears,
-> retaining the offline mapping can be added on top.
-> 
-> Fixes: 17ca2780458c ("platform/x86/intel: TPMI domain id and CPU mapping")
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> ---
-> Changes in v2:
-> 
-> - Add Acked-by from Srinivas Pandruvada
-> - Rename the title
-> - Add a new line after guard()
-> 
->  drivers/platform/x86/intel/tpmi_power_domains.c | 20 +++++++++++++++++++-
->  1 file changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/intel/tpmi_power_domains.c b/drivers/platform/x86/intel/tpmi_power_domains.c
-> index ebe052c..457abac 100644
-> --- a/drivers/platform/x86/intel/tpmi_power_domains.c
-> +++ b/drivers/platform/x86/intel/tpmi_power_domains.c
-> @@ -220,6 +220,24 @@ static int tpmi_cpu_online(unsigned int cpu)
->  	return 0;
->  }
->  
-> +static int tpmi_cpu_offline(unsigned int cpu)
-> +{
-> +	struct tpmi_cpu_info *info = &per_cpu(tpmi_cpu_info, cpu);
-> +	int index;
-> +
-> +	if (hlist_unhashed(&info->hnode) || !tpmi_domain_is_valid(info))
-> +		return 0;
-> +
-> +	index = info->pkg_id * MAX_POWER_DOMAINS + info->punit_domain_id;
+busy_stream is set in hw_params() but only cleared in remove(), so the
+"Audio Filter" and "SINC Filter Order" controls keep returning -EBUSY
+after the first hw_params().
 
-Hi,
+Add a hw_free() callback that clears busy_stream, to balance hw_params(),
+and drop the reset from remove().
 
-I've taken this patch into the review-ilpo-next branch.
+Fixes: 2ed1a4a5c005 ("ASoC: atmel: mchp-pdmc: Retain Non-Runtime Controls")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/atmel/mchp-pdmc.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-...But could you make another patch on top of it which adds a helper for 
-this index calculation (from the tpmi_cpu_info struct, the one in 
-tpmi_get_linux_die_id() seems to not have it so it can be left as is).
-It seems to be repeated a few times and is quite long, online func even 
-calculates it twice.
-
+diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
+index 039b2eba0d9d..8b55d864f3d5 100644
+--- a/sound/soc/atmel/mchp-pdmc.c
++++ b/sound/soc/atmel/mchp-pdmc.c
+@@ -614,6 +614,15 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++static int mchp_pdmc_hw_free(struct snd_pcm_substream *substream,
++			     struct snd_soc_dai *dai)
++{
++	struct mchp_pdmc *dd = snd_soc_dai_get_drvdata(dai);
++
++	atomic_set(&dd->busy_stream, 0);
++	return 0;
++}
++
+ static void mchp_pdmc_noise_filter_workaround(struct mchp_pdmc *dd)
+ {
+ 	u32 tmp, steps = 16;
+@@ -748,6 +757,7 @@ static const struct snd_soc_dai_ops mchp_pdmc_dai_ops = {
+ 	.set_fmt	= mchp_pdmc_set_fmt,
+ 	.startup	= mchp_pdmc_startup,
+ 	.hw_params	= mchp_pdmc_hw_params,
++	.hw_free	= mchp_pdmc_hw_free,
+ 	.trigger	= mchp_pdmc_trigger,
+ 	.pcm_new	= &mchp_pdmc_pcm_new,
+ 	.auto_selectable_formats	= &mchp_selectable_formats,
+@@ -1121,8 +1131,6 @@ static void mchp_pdmc_remove(struct platform_device *pdev)
+ {
+ 	struct mchp_pdmc *dd = platform_get_drvdata(pdev);
+ 
+-	atomic_set(&dd->busy_stream, 0);
+-
+ 	if (!pm_runtime_status_suspended(dd->dev))
+ 		mchp_pdmc_runtime_suspend(dd->dev);
+ 
 -- 
- i.
-
-> +
-> +	guard(mutex)(&tpmi_lock);
-> +
-> +	cpumask_clear_cpu(cpu, &tpmi_power_domain_mask[index]);
-> +	hash_del(&info->hnode);
-> +
-> +	return 0;
-> +}
-> +
->  static int __init tpmi_init(void)
->  {
->  	const struct x86_cpu_id *id;
-> @@ -249,7 +267,7 @@ static int __init tpmi_init(void)
->  
->  	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
->  				"platform/x86/tpmi_power_domains:online",
-> -				tpmi_cpu_online, NULL);
-> +				tpmi_cpu_online, tpmi_cpu_offline);
->  	if (ret < 0)
->  		goto free_domain_map;
->  
-> 
-
--- 
- i.
+2.43.0
 
