@@ -1,83 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845691;
-	b=A6V6Daw8avH3ZJ25Oqdbt54hJZlCNDad3v2Jt7ZPSYuyxPEwgSC6/K8k/JojV2NwVEjl
-	 Irp+n+jq/hBY3H2PXuxftGsZkOZ145gmqgSR7UiXrylJlp0Y2+DSotQd6jJ4kjILWx638
-	 cU0nVAsOtEanmTuBR8o+O51GwvgG2IhFZdKYVAyE7f2z67sGQuCkvyAbcrpaUfGke+J9w
-	 JoX72wUirNkrDlh7F7fhyLKU590+bu9vi6SMoEzXuYlNzP0omIqnugxzP3banqh/hmHnW
-	 OPW7H8okMRujxAANXO1kDdXZM+blTjeGVmEpwKVnlNXPAwXO/lUsju7GLR1Mcf+0sCw==
+	t=1794845704;
+	b=zQl/PlYatqkozFcP7QYHiIcU9LSgNEgsnKTzyZdxBTt/a/PwZ8L/I0uveG+PUzEcD39O
+	 VYWapGTMOMzs87RKVRpbL9If7O13RdsApb3KRQghV4FiLpw9sSEd6VdaoMO18PaBZPoFZ
+	 B38bpnElO6A5+G3ryX6/Uo+kNrkPtVho9BNkNKqP/aX3x1XUuuyXSqclpIxLYmA9Ym/lz
+	 nDc8XfxC0wsNX5IbRrwtIivwEDh1bmk1hMr3K1vqGAyHTcCMvFwJM1ICSvT9OZysswqwi
+	 EPFqUymFF4V0D6iB0KmAwP240bM2WNGnfonZJMs9AlSo1Y2ws3Zo1V6ZjhPD+cfs+VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845691;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845704;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=N7wQpVQ+bTcbptKNuYSOq1g/ZGresd4OfMg6HHxOoag=;
-	b=RX8QLb9pWMvQm0PAgPUaNZ3HJYdfH89kxUh/hXkLKKo98wOGTcmRmam4NZx5OhkJv7UE
-	 8ZdWE6PJSt8fjnpH07aC8jCBDR6e9rDXnLh5jHokWg9vuNmqrIQt4SXT2lRXaCMuz+8is
-	 RFWQYr9yIj4qcBaNASyhjQSaSa271z3wh4cCYGB2f4NwPqxdlHgSySWDZZhW6DK4pOnW2
-	 NIg7GKng1j7jECQ4gDGD+sxr6PKyujtpShIfmt8sZ/SqKKQjEA1CUWGkFQIlukhgduyWJ
-	 UnUYVDUMgdYiXwTSVuapsylBpCbutK38OXt7ZXNoB9kLqdhTGWHB2KMYDLyvk3jw+Ew==
+	 Content-Disposition:In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=FmmXWVdRKlPeYvexviwuw46I9mYN5w7ULuP4BQ7wPos=;
+	b=3OScXO5limReP/aJ3W4Ynk1Ow5QvUP2chqIXEdlkcHdLpjJut3KCaAtpq2hnC/tsNz1a
+	 qvYnLvj5SQyXiNIflWBUx4kClw8Xo/l3UeNUqA6utitjQNeNbdITSmABg8t6J+2FVWGVk
+	 d7UXhCPOi6kp1TGkWpgR5Qwu+uu7GMFwSK14edqlhlgw9ftkdeXtO4P134Hq5FVTzLT/3
+	 J1oNZL3ZA0xCAp2dmSLNXWiYFZ/ghIiyOFUazmno7XWwVvPYhF0g0srmEPvjCMYa4umD8
+	 guaUO9hSXO/wmBaPG/oFblje5o+I3s4wkuiyf6owi5YzPq3dIjDkg08IqgICC9KCB7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="EW4/4GAX";
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD2D606A322;
-	Mon, 16 Nov 2026 16:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BD2D606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BMwjrUJ8;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60037606A31C;
+	Mon, 16 Nov 2026 16:15:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60037606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EW4/4GAX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794845692; x=1826381692;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2qWksjfKSQubdHdo66uJX986+dh3EH0BJB8sxwmWIKc=;
-  b=EW4/4GAXaSvLd8buqlvrcAdPkO0blXK9jSlG9ZhlMbOv3IgRzoUpmCl3
-   6J0qPwEUCoE4YICX2PI6lYMDgrltkOFV4ZQdfiTRGaMVlUKOa6k7itPLG
-   7dmmZtl3PontzT7DObsjx4EkeMcUXaoC2SeCzao0yW907IV7uduEU2JYu
-   ZXWS05FMPoOxw4ytVDi9TWfUcgg+EicRcw2fugAKuD+GOAwFayLGep/DM
-   Og4hKXCAKW5XTx1AUenFYhY+DsbWmeN2PXBS4Ko2j2U8WEqDgFjPGUknP
-   7RliuWXT0HWlS5uZaEyFwLVqu0+QKEVPIEuTawvtzCFl4zBG1qEEacmzS
-   g==;
-X-CSE-ConnectionGUID: 4eNOjWQLQA6VSJu3JluYww==
-X-CSE-MsgGUID: 0ZAjSXMDST+CsYdJXgtU5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3479439"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3479439"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:14:51 -0800
-X-CSE-ConnectionGUID: 4FKOGO9wT5yTDyoPEq7VnA==
-X-CSE-MsgGUID: 5f7Ksyp+Q8mrRdhLO+8XeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9990259"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:14:47 -0800
-Date: Mon, 16 Nov 2026 18:14:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Viresh Kumar <vireshk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Dan Williams <djbw@kernel.org>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v8 5/6] dmaengine: dw: calculate residue in the status
- getter
-Message-ID: <avsr9Xy9WR-C7VzD@ashevche-desk.local>
-References: <20261116-submit-dw-dma-synchronize-v1-v8-0-4a82d64fcd1a@gmail.com>
- <20261116-submit-dw-dma-synchronize-v1-v8-5-4a82d64fcd1a@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BMwjrUJ8
+Received: from localhost (unknown [167.220.233.38])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 0C0E620B716A;
+	Mon, 16 Nov 2026 08:14:55 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0C0E620B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794845696;
+	bh=FmmXWVdRKlPeYvexviwuw46I9mYN5w7ULuP4BQ7wPos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BMwjrUJ8gREvhRz6TqItstvkqCYyX88nhBpGsvhwPxOyFbv3LfPodU67TrXzZlRlb
+	 NKuDoRcxpoWH2sxURRQKNjRtojtj2qUmZVL1/wu4FYKNSds1wy37ii13K5vjO8S4tT
+	 nrwtk5aGg2V3ivpvQTcL5u8g96GhH/55fnPafd8s=
+Date: Tue, 17 Nov 2026 00:14:59 +0800
+From: Yu Zhang <zhangyu1@linux.microsoft.com>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Wei Liu <wei.liu@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>, 
+	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
+	Michael Kelley <mhklinux@outlook.com>, Jason Gunthorpe <jgg@ziepe.ca>, iommu@lists.linux.dev, 
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iommu/hyperv: Keep a new domain's page tables if
+ it cannot be deleted
+Message-ID: <3gb5f2c2v3tkpuggzybek5nhmcv3zjgjjyaxtohsdjujrb5gbw@oki5fmryytxf>
+References: <20261112195710.1417744-4-oss.patchbox@gmail.com>
+ <20261112195710.1417744-6-oss.patchbox@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,51 +66,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116-submit-dw-dma-synchronize-v1-v8-5-4a82d64fcd1a@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261112195710.1417744-6-oss.patchbox@gmail.com>
 
-On Mon, Nov 16, 2026 at 03:52:33AM -0700, James Hilliard wrote:
-
-> Calculate hardware-LLP residue while looking up the requested cookie under
-> the channel lock. The descriptor scanner updates cached residue only when
-> no transfer-complete event is pending. If a status query completes the
-> current transaction and starts the next one, that new transaction's cached
-> residue has not been initialized and a query for its cookie reports zero.
+On Thu, Nov 12, 2026 at 02:57:00PM -0500, Yuho Choi wrote:
+> When hv_iommu_domain_alloc_paging() fails to configure a new device
+> domain, hv_create_configure_device_domain() deletes the domain again,
+> and the caller then frees the page tables with pt_iommu_deinit(). If
+> the delete fails as well, the hypervisor still has the domain, which
+> may already point at the page tables, and they are freed anyway.
 > 
-> Have dwc_get_hard_llp_desc_residue() return a local residue value from a
-> fresh LLP snapshot. Keep the persistent residue field for software-LLP
-> block accounting, subtracting the current block's progress when reporting
-> status. The descriptor scanner continues to advance software-LLP blocks
-> and complete cookies from RAW.XFER, including for polled transfers.
+> Create and configure the domain in hv_iommu_domain_alloc_paging()
+> itself, and leak the page tables and the domain when the delete fails,
+> as hv_iommu_paging_domain_free() does.
+> 
 
-...
+My understanding is that, for the newly created domain, current Hyper-V
+implementation does not adopt the supplied stage-1 page table root if
+HVCALL_CONFIGURE_DEVICE_DOMAIN fails. Therefore, a failed configuration
+does not leave these page tables referenced. It is different than the
+hv_iommu_paging_domain_free() case.
 
->  	desc = dwc_find_desc(dwc, cookie);
->  	if (desc) {
->  		if (desc == dwc->desc) {
-> -			residue = desc->residue;
-> -			if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags) && residue)
-> +			if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-> +				residue = desc->residue;
->  				residue -= dwc_get_sent(dwc);
-> +			} else {
-> +				residue = dwc_get_hard_llp_desc_residue(dwc, desc);
-> +			}
+But I'm OK with keeping this as defensive error handling. Could you update
+the commit message(the comment above hv_delete_device_domain() as well) to
+distinguish that motivation from the behavior of the current implementation?
 
-It can be written in a shorter form
+B.R.
+Yu
 
-			if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags))
-				residue = desc->residue - dwc_get_sent(dwc);
-			else
-				residue = dwc_get_hard_llp_desc_residue(dwc, desc);
-
->  			if (test_bit(DW_DMA_IS_PAUSED, &dwc->flags))
->  				*status = DMA_PAUSED;
->  		} else {
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Fixes: 2690d4156b51 ("iommu/hyperv: Add para-virtualized IOMMU support for Hyper-V guest")
+> Reported-by: Jacob Pan <jacob.pan@linux.microsoft.com>
+> Closes: https://lore.kernel.org/all/20261105141427.00005946@linux.microsoft.com/
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> ---
+>  drivers/iommu/hyperv/hv-iommu-guest.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/hyperv/hv-iommu-guest.c b/drivers/iommu/hyperv/hv-iommu-guest.c
+> index aa1db9db1e97..ef486ffa0be4 100644
+> --- a/drivers/iommu/hyperv/hv-iommu-guest.c
+> +++ b/drivers/iommu/hyperv/hv-iommu-guest.c
+> @@ -540,10 +540,18 @@ static struct iommu_domain *hv_iommu_domain_alloc_paging(struct device *dev)
+>  	settings.page_table_root = pt_info.gcr3_pt;
+>  	settings.flags.first_stage_paging_mode = pt_info.levels == 5;
+>  
+> -	ret = hv_create_configure_device_domain(hv_domain, &settings);
+> +	ret = hv_create_device_domain(hv_domain);
+>  	if (ret)
+>  		goto err_pt_deinit;
+>  
+> +	ret = hv_configure_device_domain(hv_domain, &settings);
+> +	if (ret) {
+> +		/* See hv_iommu_paging_domain_free() */
+> +		if (hv_delete_device_domain(hv_domain))
+> +			return ERR_PTR(ret);
+> +		goto err_pt_deinit;
+> +	}
+> +
+>  	return &hv_domain->domain;
+>  
+>  err_pt_deinit:
+> -- 
+> 2.43.0
+> 
