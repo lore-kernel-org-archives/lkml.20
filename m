@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833472;
-	b=Cfsxj0GbmMllqrsX8n0RDB/EbZD5zd9pffccVosWqRcVlq1/lgyxeWxA02AAkBhOTEWn
-	 0VE2jcw9ZeHYG26NOHJHzuCFOyntJQyDBxFFIGnLeyk+KjaXZPi/43yeJAg+kI/PJHl7Z
-	 WClnqbVpRX3sE709ZtquB3Yafm5bkOXV1IIq02VvRVov6srBlD15jyQCjEs7p3bwrABYa
-	 Bm48H5imr9MgQLuo8TuKa2HQ29yuTVFRDoEPwYMDupZcpQ4sy4pxp639LynplSPCWceYc
-	 8CpWVwKh1V0YKlypi4tRt1IEvdlnZPGr20gFv/+h+hZnYCPbE9R95/lN0gbk/Zs9O8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833472;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=5xHBFppUVHV4HNvR3vDRdni4/jes3Ic2tEjvoC3RH0M=;
-	b=YdnpQFQVLvQ5MV4cjjk2mIWDTJMwqCRZz3rghJdwnQW607hWcuFg1NfXYSOr+seJ0GZa
-	 QaTNqMwgNVxDXXmn4J6Ab9mvOYcSnniwHqGHG8Riy9AQ7Iq6HeTlbUPvVPBXS5b5TRomG
-	 XXMlobuXmTk5tcF8J+hJBpHlFmqQy4N31oZMcXGG2WT7QZu7qAAfAt7XB+RvZr8AmeeuJ
-	 vjoeV7RRHiabVsUbp8NJJbpdZGrsFVB7kOUQoo0Ky83HbK15A0AlhLoEwaokMXaRbvJwG
-	 dgrlSkMt+LYRV8GFcw+Tta0UPCzd4M3uWmlkMBFCZyw5vJTLW7zbRaCMaxjzrUXzmrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlGCBZ6y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794833469;
+	b=Ftz7SJBdwlttpZuizKK9bmB1qhNXwZ8LbI6HgbvY1UOCmbMrx7x+9rRqyLfKLWaP2Jsy
+	 zQsBVOfyoyIS4tPjrP7g77NRI6i5nVCO5rgxZfg9mKg17jIGD0dJRbDd4qO+Pw0QfaeJ0
+	 S4YeCAZwhDAVEWyGXvpIMDBcxxEgwDB7x+fpfMWHEZx3/pyfUcXzSHeiaL8b4zXvny/5m
+	 pDPwZNI7JEZ69N3wN14eVb29A034lGnBmraJKdLXXZ0541B9OG52EYFVvM7AOPLb60lab
+	 swiBlAdgQTwr7PrESsbW1Jzo1ywcSxwKPu/t7Zm5CK7zJN8SCrMsByVpJwsx9FJRWFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833469;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aMNNkFGAX04I4nDB/kvsKnTIayvtZmcRz9qtXTbAeDQ=;
+	b=xs1nGD4D3k99szA2F6hoZ0aeCdKFG2OTZb00cY5/qN5SaqPXkRf0/X5YjMV7HoP6iwZv
+	 gN0JYsW83w4aMle3mvS/VBUQNbdkObDKMfRVpshkRkEdYkj8Zdi6KAjLSp0oUktjHLms+
+	 mtb8F962yUGftT0wqh7k+SwD2HZWlABHveevsSEq2KHcw8WsG5O2sqBNajjPtXHQxAEPm
+	 WkANSo1R0Eds9DT6u334HNMvDUSRBya81iyZbfj6HfcLcyPYAu9SUiztzdZslxur9XERd
+	 kf+bZzF1ARJcYw/ZX2e+HWCpSSPOggFGl+tVkitQ9amOPAjJdSE9LZRbzgXiiwC06Tw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EeDxi68a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.64
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011064.outbound.protection.outlook.com [52.101.57.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BECD606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F29A606A329;
+	Mon, 16 Nov 2026 12:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F29A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlGCBZ6y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B191F000C7;
-	Mon, 16 Nov 2026 12:51:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794833472;
-	bh=5xHBFppUVHV4HNvR3vDRdni4/jes3Ic2tEjvoC3RH0M=;
-	h=From:To:Cc:Subject:Date;
-	b=ZlGCBZ6yhztTXNzbbfN08JXQ6m30cr75RuReTaLIGWgBCCMtM1v7Rj32p+1oeC4ef
-	 xgme6vsGCzE0eR2TGERDKlDEzYp/wBMHP4FYWuf6LHe+lOlYcU6wgb/xBGskg5qxmo
-	 NkhC7kcJA5FTpyiO9V1aufQuDCwxZSopq5VqHJOImxnDLMBR1vK8rbC5Bku/bVCXiw
-	 yTBi+46vn8SBbmNf3y/uWAMYdRoqkyLk24vlDOb/CrOgAz4mAfbI3mULZ0+aSjIXox
-	 jA4sFc4nFqHenMlaMdKuBxZWwCvGP4FIV7VHZUtBLnbERScfzeBhQ4f6zAu3LYQmRh
-	 tj6M7cqSIbmYw==
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8389D198004A;
-	Mon, 16 Nov 2026 07:51:06 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Mon, 16 Nov 2026 07:51:08 -0500
-X-ME-Sender: <xms:Ofz6ajKGi-X3jrgLMd12rdNp3fEvecamOEj-HUgvHsXUaZVCiAPVPw>
-    <xme:Ofz6aoPGwRBdXB63pE_mniPN_TUwrC6irH0zPC-jVqHXw0mwobNOJ8P4X2P7wQTFg
-    -oaOBeA4OUlhue7-c1_5Qz7d8jgLSNz-u3DJhKMXQ-2vDQK5CJKXQ>
-X-ME-Received: <xmr:Ofz6auoMJwy7Rqt0JNUnExyTxSv5799QbTomQ-7YVSpbRMW_qzVv3dFLwT0>
-X-ME-Proxy-Cause: dmFkZTE81wmFDrSq7hBgv083nzoG+m9zbOWdSu2gLPKKFYVXMtj2dmcdV2VRHTY7FFdWZ5
-    KAqfVW3zYEJDYzwJtR6qiQo8TSqK4b4DsJij8CdJh9XrRBFZnf18lYTf1BRUzRm3b/3V7k
-    ckTxzBT28MFV9Aezj8nAL+v5Afv1n0vsDIGyN60yP1wr9KSaoDKw0agCZNLQGW+hkv377X
-    IjMj1+OYAmo6uxrOgjj1mAN5+8MpmjqmhSkACFDOVXTBL9IDiXFt/tskh1tJxMUw91QwV4
-    TdH6hMPgC5yO3Hdl4jxhhXF5ZyCnLvnpr0xgyVvgmOfwiEA6Gx7ej4dG6esk2Hi1xUs1Tt
-    x9dlbdSpF+V0mrHeE3MJFQW4FjDXpB8F67KfyLl/qGPM5/ze+5+rN+eH3W+M+t4zFMHe8G
-    W/udIbSaH7zd+BW1rXk82g2iigYs/i7NZl6kJlxBax9Kq9n2DPCmlkjRJgfzn60yQBkNdb
-    nyUdhCXGUPPzJdJcBogRBPAbeuEVj0IZjrf+iDG/RW8RHT30BGQ9/MnlL0gc1WMA60qB1m
-    doNXxiepGbcXgfcEkbEcIdYicYy5KvULHB0snYErY7qFQrZyHLzXSws/TcYhFSDyUxAVXk
-    BDvddyoF+OTF/hA2TaBhlBl5es5P7JzerLFPGuUoMAyJjWy6Z+Vd6UP3EQNg
-X-ME-Proxy: <xmx:Ofz6aqEBzWhYNYkENI6YPTK9WPx5fTmYqU1X9OThYH8rDkDRio0hYA>
-    <xmx:Ofz6ajITfQuzazPoE0crofU--US0djui4cX2mKYleTRiy2M7h-FyTQ>
-    <xmx:Ofz6aviw3Lsgh9wkXYsSqPRXS-D2FSGE7y2J5Vyyr5c4zanGFntyGQ>
-    <xmx:Ofz6at6BWqMOffxLCUc1AE3y_PvJrjTN-BB-95s3Tnmbinm8bO-38w>
-    <xmx:Ovz6akPxPAzoNx6VLl5yoXxEOPaU16cOua4XdkY1zOOnCxarF09l38ER>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 07:51:05 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Harry Yoo <harry@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v3 0/3] mm: make watermark checks honour ALLOC_NOFRAGMENT
-Date: Mon, 16 Nov 2026 12:50:58 +0000
-Message-ID: <20261116125103.2894162-1-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EeDxi68a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s34WermatOTgBCy34RZqtv9s8/gVkc0dnRBgdjPTLQlGiQMa+G5KLAXM0mgyy/6xIG9yL2kgcC51gP5kanfzpWa6IGFAqZ3Bqy0YOIu9laMS0KfVD6TVfiWLTWLeWuQCnhU9l1StaCLTf07qzlto5FlO4ILBwT8ySOFsvBmwgjRFtu1lzPRx4HxZuKB5Ff/v1Eb6ldUDbWRt+6pHoa4oWaHzWYQn5iBEvTUzm8jlSFzTOrB8GI9igpZkr97hDRidu82nYAl3aOOS4MioPlVv+em6piP6HYEdfGRJaEz3RdSoPHVVq9PrMt/CTgsfaC726ldQSty9LpldN0uOFQuhbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aMNNkFGAX04I4nDB/kvsKnTIayvtZmcRz9qtXTbAeDQ=;
+ b=lnG4RQUi8/uhbEZ5GUxD4i/C8Wt2G01ktR+/qcq7cYI9s47X6JDxXDgebnnojtKyScx+TPZ+msFf0UjT8P4iD7WnjiM0zx7SiOkLypC6qVMIwEZW83h4rZ0rIQo5Ban8Nihn9PQY1ofKSkb5hg0OrvbqiheTj6MZrNB32BdVUBcbTL9xXwy7loj4hYCNny6Fw24HfNgJsd118pYCix8rGWYtJHQAQqBx0TXfDhNC5U7cFhM/kYb9449MmGmcv3Bb/st7N7tDiVDXg/v3nmBj8GaGP15G6fu5Lvuf09WR8b2uiNJBAZSl7q8z28PxLfVS5U3wRuPoVgm1eeZetUt2qQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aMNNkFGAX04I4nDB/kvsKnTIayvtZmcRz9qtXTbAeDQ=;
+ b=EeDxi68aQKVMgW64+h7M7ci8UPPnQzvbOdAmWsm3G6WsDiVfHZIdNUdK6+DN3g6gyAOlVgHuiV+ECwd2mGz48HJfSJ9ouq0vLLA+bumU/7U/+pkd2cgVPAolgaIWvDiuYqsvRT8Uue1CZPrkcMWatzt5HfT05r5rHuzv0R1HydSQ0Fx6ckNq44TMRLlr8Drb0NZmsSR1sJqHjcdvFGc+xeYrtuLdNKjYa7GQygZjx2uukyjCU1/9CNvRM/pqOkkeNaabEKoMrIyFFTpD/VisJYnBgcQyQHDcXtLevIWfkdmrV9L8oqv5fUIqXcqyJA4x6XjNQcYZ3M4D5i3Au7XK4Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
+ by DS5PPF7671D5CC0.namprd12.prod.outlook.com (2603:10b6:f:fc00::653) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 12:51:04 +0000
+Received: from LV8PR12MB9407.namprd12.prod.outlook.com
+ ([fe80::208b:424e:47e9:8a96]) by LV8PR12MB9407.namprd12.prod.outlook.com
+ ([fe80::208b:424e:47e9:8a96%4]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 12:51:04 +0000
+Date: Mon, 16 Nov 2026 14:50:56 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: leonard@lausen.nl, netdev@vger.kernel.org, dsahern@kernel.org,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, pablo@netfilter.org,
+	fw@strlen.de, phil@nwl.cc, shuah@kernel.org, daniel@iogearbox.net,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 1/2] ipv6: honor prefix-length suppression in raw
+ FIB lookups
+Message-ID: <20261116125056.GA275796@shredder>
+References: <20261115114434.10343-4-leonard@lausen.nl>
+ <179482978100.3136.17418106822071501090@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179482978100.3136.17418106822071501090@kernel.org>
+X-ClientProxiedBy: MR1P264CA0203.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:57::18) To LV8PR12MB9407.namprd12.prod.outlook.com
+ (2603:10b6:408:1f9::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,302 +101,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9407:EE_|DS5PPF7671D5CC0:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5cd978e-d88e-42f0-d59b-08df43e04634
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|11063799006|4143699003|56012099006|261021121427099003|261009223027099003|261102123227099003|261026121527099003|20052099010|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	z+EIwRz4oI42Yo52ZvHdZBL5+9WpHNJ862ewagWt9ab1Aw8lXtuu53r1uu4TW/a9BFsEYj4pAYMc57pZGfYTW4/werdLy6CWFG9iPM3SfYwLX7QNHVOPojLRC9Dc0nMMQ24BUDZNu7JlD+k3R4v1kVeJZSmwVsKjqOvYi2F7uj5eyzGQppVguN9AsYDpdZ4dXwWs670hWoCjbywRkJuMmya520uJwoTbKhpKrtAoUHuMDa41vBb/nofGPdwDmrw1zuFTM9xxATRld5Kxi2hyINVJOV4BkFDjXPr36K9RmDViewVsbla2ooBc8jXszkimlfcVQ0VkpJvKt3XaLgtMMkPnCrQUKM2JRLzd1uhVdgHd0VTCfZSoqLG1ILs1stmIXiQFIpqj9wbLNC1ndyr9dSJ7pbwqLPool3+VWX58qvkl9eBiFzTP1PeIdALDLr4LGiEG63ViCPQBrPCBXUhaaBCgmoAtotYnhMkqn1FaLPCXZQZpmzTIFP+ZIF1OB+uiE+1MpuVLHKX5EKshdDNmO9vavB+PsNHASj15okJWkeItbKoe22O0qcKmXMG9bOXLtBWIiFxnNIERlT9KX4LR+vMW2nyUZAckASeWzG+wmYSlblPkYohbNJmSr1Ft7cIV4Cz9MQXpU5Y3AkRdpD8q7kZIv+K/3/LRPCcX7Rz25Zc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9407.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261026121527099003)(20052099010)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Ty3pQTLlQ8BBSseTmbuAoSSdD7yjPMA8wWWjD3zrikhTgeKOihsXlr1mPH+I?=
+ =?us-ascii?Q?0rSU2sWq3Hkh69b8nrzWbCWi1TnzH3qxHdK1w8ysRCKCTD4HchcM7COUeI/T?=
+ =?us-ascii?Q?h76GVyTrjfwaJzk5F3zyqJSwggu5Sv+wMpTkUBe77T1FGd+dWGKsKK1xYaVo?=
+ =?us-ascii?Q?ub2QObrCwUqfdkdAsSJSC95hLHNeSKNB63evw50r/K5Z3binYsLIOcSG5IUY?=
+ =?us-ascii?Q?kEWW/4IXudN3CwBOCJ3Env4NzeBY+nWBpt5znO9htZ02gkzQP7RqNeMujL5w?=
+ =?us-ascii?Q?mWQl+/BET88bvvcYiB1FuYxOyB86hvNOO3i8OKlIv4LO6LJ+7++Glmaz06UA?=
+ =?us-ascii?Q?5W7tQdA+irfz95/vmNobawg69MCqvoibdcrcug9VVVs0cGePBrxvX0si4YOd?=
+ =?us-ascii?Q?PFMmT0iMNu9G0aRilhyKt0Ti3pfVcMl64H6grd/kfmGcnmpbBsGpwiJARnEr?=
+ =?us-ascii?Q?QCj7LLOLl50rsLUfZKxiRhhjiZ3pSVhlzBpS1nxCF4G+AZqtLUd2nGNKOtfM?=
+ =?us-ascii?Q?OBz/DGgdYbIOMX+m/rjHopQ/0lib1/SoDLcMMVthIGlAaUKvSS9kPOY6QzEc?=
+ =?us-ascii?Q?Jt0QsaarslrLlTVoXbMcM1xJreMXkCp3aJy17/B040yNo0E0P/mtbasuEabk?=
+ =?us-ascii?Q?32A2RbATS84pm0V86M5dOb5AHc0JKCSrunYAgN6zP8R2DMGB7JljyBZ8ZM0o?=
+ =?us-ascii?Q?h3r89szHcs91pP5aIQeYCjawNUKiQPD4C7SGGCHe/ZHAyRYArHFa+Hw0kTJc?=
+ =?us-ascii?Q?24MqfCOCndTnRN3e4UCsFCwqINZTNDfAnGL+Ktt0no8wxP8sTQ9webjWa2jd?=
+ =?us-ascii?Q?P+Pyv8dmWt8L9/MlzVsR9Aft9vVXe5jS90wR856MjO1B0Zq+a47zoa3GRXow?=
+ =?us-ascii?Q?6bnhnkEQo80mBFiKOSXhvL6Sb0TGBOJegRYMrlImPHycm8HbUYQKi67lKH3y?=
+ =?us-ascii?Q?bNd+BM5JK22lnYOrZ/5Y0KBrasoIfuSaOyH3mZKk/s9Ed+cgRtg0TQoJ5LIL?=
+ =?us-ascii?Q?ARutAdIIRjCwqinS2JKx8znzU4Cs8qm5Ohez/d0o+xAAE014eIu7mvuNnyvU?=
+ =?us-ascii?Q?FXV+V3SbqNav5Rt2pJb+LbQJohNaYu4ctkjPG4qLAUbdNgg05qzRglyBhIgN?=
+ =?us-ascii?Q?U5YHsxE8A1mRGmTHdGYEnKMy3rWynwaP6F3h8iSvwRhDPxKXlvElG21jQXNV?=
+ =?us-ascii?Q?ugrlzp9TiMf1/c7oOzPyZsQHsuMYjPVjRlcVdUCovkkB/zEWtw4dLnTNld+X?=
+ =?us-ascii?Q?GjoE2DIiI9+DhfyuVhKa4E0tRiZ9WkyU/A2MG+9vqNgt30rMZmmcaNaxOROB?=
+ =?us-ascii?Q?6aOZGVEuEuXvG3R2qke4YtcSErwcplOC0I+xC90WCd6yL+0neT7OtPLh7mwK?=
+ =?us-ascii?Q?M0RiEOpoGxLbj7bHVouj4IEmvsvOyfkDhgKpk/iOHMe4R3kOJNRyzqZqUZFK?=
+ =?us-ascii?Q?L1lV2ZeQT6fDvgGtz5CdR8/69zX4r98LylhVow9Jcy4wsV+niHw0ONOTQ3W4?=
+ =?us-ascii?Q?nyVMqkOLLfln5nKZ8OJAksZyJOz3D8kYPS7Lth/4W2QXoZhDfEQUXFzkHyv4?=
+ =?us-ascii?Q?JhR7hDP9QDu5e9bxL3bHeFM9lkEartsxtaGtd2mAPcQRn4NAPr2evhqhTzbd?=
+ =?us-ascii?Q?cBLy8o983RjsG2qNA+wa6AFZ495AUhKU3MvPLF7MIxCo7Ck2kiPr1V2Ojouj?=
+ =?us-ascii?Q?SGgN87W3nCUOHi+2bRnptEZAINvClys3F/oQ0IAwFSaJrC3w?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5cd978e-d88e-42f0-d59b-08df43e04634
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9407.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:51:04.1814
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D5i1p5U6ZBjRUFBPJxW53J15xI0FlHw8XDjdTsT8pE85t7VjBMXhA0SDBqnBdhW3hxe5pO9Yf8Yz0dpK47khwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7671D5CC0
 
-With defrag_mode, 64K mTHP faults under memory pressure stall in
-compaction 18 times as often as without it, and get about a third of the
-folios.  Dev Jain reported it [1].
+On Mon, Nov 16, 2026 at 11:49:41AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> > diff --git a/net/ipv6/fib6_rules.c b/net/ipv6/fib6_rules.c
+> > index 0ffd7b47a0460..ceb4180bcf2f8 100644
+> > --- a/net/ipv6/fib6_rules.c
+> > +++ b/net/ipv6/fib6_rules.c
+> > @@ -283,9 +283,16 @@ INDIRECT_CALLABLE_SCOPE bool fib6_rule_suppress(struct fib_rule *rule,
+> >  						struct fib_lookup_arg *arg)
+> >  {
+> >  	struct fib6_result *res = arg->result;
+> > -	struct rt6_info *rt = res->rt6;
+> > +	struct rt6_info *rt;
+> >  	struct net_device *dev = NULL;
+> >
+> > +	if (arg->lookup_ptr == fib6_table_lookup) {
+> > +		/* Raw lookups report reject routes without an error. */
+> > +		return !(res->fib6_flags & RTF_REJECT) &&
+> > +		       res->f6i->fib6_dst.plen <= rule->suppress_prefixlen;
+> > +	}
+> 
+> [Severity: Medium]
+> 
+> Can the raw and dst paths now disagree for a destination that has a
+> cached exception route?
 
-The high-order watermark check counts free pages of every migratetype.
-With defrag_mode, every slowpath allocation is ALLOC_NOFRAGMENT, and a
-request below pageblock_order cannot take free pages from another
-migratetype's pageblock.  Under pressure, that is where the large free
-pages end up.  Two callers act on the wrong answer:
+Yes, and I already mentioned this here:
 
-  - direct compaction's up-front check returns COMPACT_SUCCESS without
-    compacting, so compaction is never deferred;
-  - direct reclaim for a costly order stops early, having freed little.
+https://lore.kernel.org/netdev/20261115154639.GA4121811@shredder/
 
-Patches 1-2 give the check the request's migratetype and make it skip
-the free lists the request cannot take.  Patch 3 tells direct reclaim
-that the allocation is ALLOC_NOFRAGMENT.
+[...]
 
-Dev's benchmark in a 7G VM with only 64K mTHP enabled, medians of 15
-runs:
+> Should the dst branch use the parent FIB entry's prefix length for
+> RTF_CACHE routes (via rt->from), so that both paths agree? That would also
+> be closer to what fib4_rule_suppress() does for IPv4. If not, could the
+> commit message document this divergence?
 
-                              defrag_mode=0  defrag_mode=1  defrag_mode=1
-                                                            + series
-    compact_stall                      1690          30669          7366
-    64K faults allocated              20750           7391         20129
-    64K faults falling back to 4K       725          13832          1339
+The dst branch should be fixed to derive the prefix length from the FIB
+entry and I will take care of it, but it shouldn't be done in this
+patch. The patch is doing the right thing and using the FIB entry in
+the "raw path".
 
-defrag_mode=1 still compacts more than defrag_mode=0.  That is by design,
-as it keeps 64K faults out of unmovable and reclaimable pageblocks [2].
-With the series, defrag_mode=0 is unchanged at 20698 64K faults
-allocated.
-
-Based on page_alloc/for-7.5/misc.  Two trivial conflicts with other trees:
-
-  - v7.4-rc2 changed the trace_reclaim_retry_zone() call next to patch
-    2's change in should_reclaim_retry();
-  - mm-new moved struct scan_control to mm/vmscan.h, where patch 3's
-    new field goes.
-
-v3:
- - Patch 1: declare the watermark functions in mm/page_alloc.h; rewrite
-   the comment above __zone_watermark_ok() and the changelog
-   (Vlastimil, Harry)
- - Patch 2: plainer comments in should_reclaim_retry() and
-   __compact_finished()
- - Patch 3: pass alloc_flags to try_to_free_pages() (Vlastimil)
- - Rebased onto page_alloc/for-7.5/misc
-
-v2:
- - Patch 2 changelog: describe what the fast path change does to pages
-   on the per-cpu lists (Andrew); drop the should_reclaim_retry()
-   paragraph
- - Patch 3 changelog: say that the benchmark baseline already has the
-   high-order check honouring ALLOC_NOFRAGMENT (Andrew)
- - Rebased onto v7.4-rc1
-
-v2: https://lore.kernel.org/all/20261102093939.3340540-1-kas@kernel.org/
-v1: https://lore.kernel.org/all/20261028132638.2560361-1-kirill@shutemov.name/
-
-[1] https://lore.kernel.org/all/4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com/
-[2] https://lore.kernel.org/all/auCDnqJc7fsBpUW2@thinkstation/
-
-Kiryl Shutsemau (Meta) (3):
-  mm: page_alloc: add a watermark check that knows the migratetype
-  mm: page_alloc: make the high-order watermark check honour
-    ALLOC_NOFRAGMENT
-  mm: vmscan: tell direct reclaim the allocation is ALLOC_NOFRAGMENT
-
- include/linux/mmzone.h |  3 --
- mm/compaction.c        | 16 +++++++----
- mm/internal.h          |  3 +-
- mm/page_alloc.c        | 62 ++++++++++++++++++++++++++++++++----------
- mm/page_alloc.h        |  8 ++++++
- mm/vmscan.c            | 24 ++++++++++++----
- 6 files changed, 88 insertions(+), 28 deletions(-)
-
-Range-diff against v2:
-1:  ed3ef9f9fd13 ! 1:  e3c2bded052a mm: page_alloc: add a watermark check that knows the migratetype
-    @@ Metadata
-      ## Commit message ##
-         mm: page_alloc: add a watermark check that knows the migratetype
-     
-    -    The high-order check in __zone_watermark_ok() accepts a free page of any
-    -    migratetype.  Under ALLOC_NOFRAGMENT, a request below pageblock_order can
-    -    only take a page of its own migratetype or claim a whole free block, so
-    -    the check can pass when the allocation cannot succeed.
-    +    For a high-order request, __zone_watermark_ok() accepts a free page of
-    +    any migratetype.  An ALLOC_NOFRAGMENT request below pageblock_order can
-    +    take a page of its own migratetype or claim a whole free pageblock, but
-    +    not steal from another migratetype's pageblock.  So the check can pass
-    +    for an allocation that is going to fail.
-     
-    -    Telling those apart needs the request's migratetype, but not every check
-    -    wants them told apart.  A check whether an allocation can be served now
-    -    has to count only the pages it can take.
-    +    To tell these apart, the check needs the migratetype of the request.
-    +    Add __zone_watermark_ok_mt(), which takes it, and use it where the
-    +    caller asks whether this allocation can succeed:
-     
-    -    A check whether there is enough free memory counts every migratetype:
-    -    kswapd and kcompactd balancing a zone, order-0 thresholds, the
-    -    slowpath's forecast whether reclaim and compaction can still make
-    -    progress.  Reclaim and compaction work across migratetypes to free whole
-    -    pageblocks.
-    +      - zone_watermark_fast();
-    +      - the recheck after node reclaim in get_page_from_freelist();
-    +      - compaction_suit_allocation_order().
-     
-    -    Move the body of __zone_watermark_ok() into __zone_watermark_ok_mt(),
-    -    which takes the migratetype as well, and make __zone_watermark_ok() a
-    -    wrapper around it for the second kind of check.  These use the new
-    -    function:
-    +    Other callers keep __zone_watermark_ok(), which counts every
-    +    migratetype.  kswapd and kcompactd balance the zone as a whole.
-    +    should_reclaim_retry() asks whether the allocation could succeed if all
-    +    reclaimable pages were freed, and compaction can then free a whole
-    +    pageblock for it to claim.
-     
-    -      - the allocator fast path, zone_watermark_fast();
-    -      - its recheck after node reclaim in get_page_from_freelist();
-    -      - compaction's up-front check, compaction_suit_allocation_order().
-    +    kcompactd passes MIGRATE_MOVABLE to compaction_suit_allocation_order().
-    +    It never sets ALLOC_NOFRAGMENT, so the value is not used.
-     
-    -    Declare both in mm/internal.h: nothing outside mm uses them.
-    +    Nothing outside mm/ uses __zone_watermark_ok().  Move its declaration
-    +    to mm/page_alloc.h, next to the new one.
-     
-    -    Nothing reads the migratetype yet: no functional change.
-    +    Nothing reads the migratetype yet, so there is no functional change.
-    +    Preparation for making the high-order check honour ALLOC_NOFRAGMENT.
-     
-    +    Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-         Tested-by: Dev Jain <dev.jain@arm.com>
-         Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-     
-    @@ mm/compaction.c: static void kcompactd_do_work(pg_data_t *pgdat)
-      			continue;
-      
-     
-    - ## mm/internal.h ##
-    -@@ mm/internal.h: extern int min_free_kbytes;
-    - extern int defrag_mode;
-    - 
-    - void setup_per_zone_wmarks(void);
-    -+bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
-    -+			 int highest_zoneidx, unsigned int alloc_flags,
-    -+			 long free_pages);
-    -+bool __zone_watermark_ok_mt(struct zone *z, unsigned int order,
-    -+			    unsigned long mark, int highest_zoneidx,
-    -+			    unsigned int alloc_flags, long free_pages,
-    -+			    int migratetype);
-    - void calculate_min_free_kbytes(void);
-    - int __meminit init_per_zone_wmark_min(void);
-    - 
-    -
-      ## mm/page_alloc.c ##
-     @@ mm/page_alloc.c: static inline long __zone_watermark_unusable_free(struct zone *z,
-       * one free page of a suitable size. Checking now avoids taking the zone lock
-    @@ mm/page_alloc.c: bool __zone_watermark_ok(struct zone *z, unsigned int order, un
-      }
-      
-     +/*
-    -+ * For checks that are not about serving one allocation now: kswapd and
-    -+ * kcompactd balancing a zone, order-0 thresholds, forecasts whether
-    -+ * reclaim and compaction can still make progress.  They count free pages
-    -+ * of every migratetype: reclaim and compaction work across migratetypes
-    -+ * to free whole pageblocks.
-    ++ * Return true if free base pages in the zone are above 'mark' regardless
-    ++ * of migratetype. Use it to check whether the zone as a whole has enough
-    ++ * free memory. Use __zone_watermark_ok_mt() instead to check whether a
-    ++ * particular allocation can be served.
-     + */
-     +bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
-     +			 int highest_zoneidx, unsigned int alloc_flags,
-    @@ mm/page_alloc.c: get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int
-      				continue;
-      		}
-      
-    +
-    + ## mm/page_alloc.h ##
-    +@@ mm/page_alloc.h: extern bool free_pages_prepare(struct page *page, unsigned int order);
-    + 
-    + extern int user_min_free_kbytes;
-    + 
-    ++bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
-    ++			 int highest_zoneidx, unsigned int alloc_flags,
-    ++			 long free_pages);
-    ++bool __zone_watermark_ok_mt(struct zone *z, unsigned int order,
-    ++			    unsigned long mark, int highest_zoneidx,
-    ++			    unsigned int alloc_flags, long free_pages,
-    ++			    int migratetype);
-    ++
-    + struct page *__alloc_frozen_pages_noprof(gfp_t gfp, unsigned int order, int nid,
-    + 		nodemask_t *nodemask, unsigned int alloc_flags);
-    + #define __alloc_frozen_pages(...) \
-2:  3347b0a24b0e ! 2:  c991756a139a mm: page_alloc: make the high-order watermark check honour ALLOC_NOFRAGMENT
-    @@ Commit message
-         With defrag_mode, every slowpath allocation carries ALLOC_NOFRAGMENT.  A
-         request below pageblock_order may take a page of its own migratetype or
-         claim a whole free block, but not steal from another migratetype's block.
-    -    The high-order part of the watermark check still accepts a free page of
-    -    any migratetype.
-    +    For a high-order request, the watermark check still accepts a free page
-    +    of any migratetype.
-     
-         Under memory pressure, movable allocations take free movable pages as
-         soon as reclaim frees them.  Free space in unmovable and reclaimable
-    @@ mm/compaction.c: static enum compact_result __compact_finished(struct compact_co
-      			!free_area_empty(area, MIGRATE_CMA))
-      			return COMPACT_SUCCESS;
-      #endif
-    -+		/* Under ALLOC_NOFRAGMENT it may only claim a whole block */
-    ++		/* An ALLOC_NOFRAGMENT request may only claim a whole block */
-     +		if ((cc->alloc_flags & ALLOC_NOFRAGMENT) &&
-     +		    order < pageblock_order)
-     +			continue;
-    @@ mm/page_alloc.c: should_reclaim_retry(gfp_t gfp_mask, unsigned order,
-      		/*
-      		 * Would the allocation succeed if we reclaimed all
-     -		 * reclaimable pages?
-    -+		 * reclaimable pages?  Count free pages of every migratetype:
-    -+		 * reclaim and compaction work across migratetypes to free a
-    -+		 * whole pageblock, which the allocation can then claim.
-    ++		 * reclaimable pages?  Count free pages of all migratetypes.
-    ++		 * Compaction can then free a whole pageblock for the
-    ++		 * allocation to claim.
-      		 */
-      		wmark = __zone_watermark_ok(zone, order, min_wmark,
-     -				ac->highest_zoneidx, alloc_flags, available);
-3:  0ecbcc5f5fb0 ! 3:  fd8bb9835186 mm: vmscan: tell direct reclaim the allocation is ALLOC_NOFRAGMENT
-    @@ Commit message
-             64K faults allocated              20750          11538         19759
-             64K faults falling back to 4K       725           9945          1664
-     
-    -    Pass ALLOC_NOFRAGMENT from the allocation down to try_to_free_pages().
-    -    Both checks then ask __zone_watermark_ok_mt() for a free page the
-    -    allocation can take, and an order-4 direct reclaim frees 40 pages on
-    -    average.
-    +    Pass the allocation's alloc_flags down to try_to_free_pages(), and
-    +    record ALLOC_NOFRAGMENT in scan_control.  Both checks then ask
-    +    __zone_watermark_ok_mt() for a free page the allocation can take, and an
-    +    order-4 direct reclaim frees 40 pages on average.
-     
-         Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
-         Reported-by: Dev Jain <dev.jain@arm.com>
-    @@ mm/internal.h: void folio_mark_lazyfree(struct folio *folio);
-      unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
-     -				gfp_t gfp_mask, const nodemask_t *mask);
-     +				gfp_t gfp_mask, const nodemask_t *mask,
-    -+				bool nofragment);
-    ++				unsigned int alloc_flags);
-      unsigned long lruvec_lru_size(struct lruvec *lruvec, enum lru_list lru,
-      			      int zone_idx);
-      
-    @@ mm/page_alloc.c: __perform_reclaim(gfp_t gfp_mask, unsigned int order,
-      
-      	progress = try_to_free_pages(ac->zonelist, order, gfp_mask,
-     -								ac->nodemask);
-    -+				     ac->nodemask,
-    -+				     alloc_flags & ALLOC_NOFRAGMENT);
-    ++				     ac->nodemask, alloc_flags);
-      
-      	memalloc_noreclaim_restore(noreclaim_flag);
-      	fs_reclaim_release(gfp_mask);
-    @@ mm/vmscan.c: struct scan_control {
-      	/* One of the zones is ready for compaction */
-      	unsigned int compaction_ready:1;
-      
-    -+	/* The allocation cannot fall back to other migratetypes' blocks */
-    ++	/* The allocation may not steal from other migratetypes' blocks */
-     +	unsigned int nofragment:1;
-     +
-      	/* There is easily reclaimable cold cache in the current node */
-    @@ mm/vmscan.c: static bool throttle_direct_reclaim(gfp_t gfp_mask, struct zonelist
-      unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
-     -				gfp_t gfp_mask, const nodemask_t *nodemask)
-     +				gfp_t gfp_mask, const nodemask_t *nodemask,
-    -+				bool nofragment)
-    ++				unsigned int alloc_flags)
-      {
-      	unsigned long nr_reclaimed;
-      	struct scan_control sc = {
-    @@ mm/vmscan.c: unsigned long try_to_free_pages(struct zonelist *zonelist, int orde
-      		.may_writepage = 1,
-      		.may_unmap = 1,
-      		.may_swap = 1,
-    -+		.nofragment = nofragment,
-    ++		.nofragment = !!(alloc_flags & ALLOC_NOFRAGMENT),
-      	};
-      
-      	/*
-
-base-commit: 3a99594e62fce8c646e8aac01d38af16d6833a40
--- 
-2.54.0
-
+Not sure we need to overload the commit message with this info. Maybe
+under the '---'.
