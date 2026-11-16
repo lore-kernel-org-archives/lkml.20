@@ -1,102 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794861418;
-	b=MhoNA/UwhQH2kEaDjAStp9gXFRbIwVlWrv6z6OYCNFbxAT3MNpNNDmPJchueBCdnS5nk
-	 ssMkmyfvkZMyCSDanz6WVAj+o/g3Jtwr9SRehiNQpbu3nvzBuWwqveeuApm/FT3MYf5nM
-	 kRBxi7tksLsjOYWv6Dsu4gJOYCxHFkwFI/RugnFOc4pGZOWhf4mtAh/nox6jhz5ufX1we
-	 eCUxK5mYauln2kiVUEhGUaITBWgjlP+BHYF5fa6spse7/61sIG40yOMVTpNlxVphnYbFk
-	 131tQ7BQZMjsItYM0vw7C04wBCk+InEJnfLEv09JBC1U3l7uO3s3FR4rabro7uqCnKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861418;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tJTXcb4kfDqNpUGLwGWYlWQVn6Sv/SOC+HXp4SSgoC8=;
-	b=CtQRU5YswtK9oSZD5uMRGf5g/+C4QN7XhHndZ1RYgYa7d3KZyJMByzHtILSAM8z+Cbiu
-	 UFkz0x6/SxCCz0rXz0ZOMcudOHfDqofx+SJLNZDvC2yKiK7hHK2oMs2YABdcOJD2mdL5r
-	 ywbEQom/H0E8a9o9vkcQA9057M8aGrGr7xowZZa0CZCJRJJ3XsfHHNd3ySMuz7fKSZ4nG
-	 j1CmUM/R7vY91n9LEEocNH6HGQ73HK45dtn+Df6Qs+Me2NRNSSox+o3vMVuhpJkewgS7U
-	 mbjqIU7CW2xNU3I2Ye/3TW46S1l0n9L/FnSI/e8RaWGn4V9dpmJ/HRHDwcYtizG/Emw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="n2drT/mh";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794861449;
+	b=bA7YkxqM2eKvRsRaT6l+d9Xo2x2tjGs7DC+fif8vPE9bS4qGKeui7MA1mziw2kaTmNUM
+	 dgZBViz7ZiU/YHBfFgsqjReFyXUTXKaukwayqfH7+oTAXUMrpywuahflHTC1YyzqIhNdA
+	 Bn+UuN58Q7rOoQu2raN/i9eVenP5TcrJyRDQ5kuQ991tyeTfKZYczAJZY8iJEhwaOZQRP
+	 K+9MURII10wmt9f0PWi0+zQriCJatJVonslxKTfVXJlXMmxb41/o7dEGUEfnE5hB38kN4
+	 DMR1nZ1hUclQbviNZQDH9dluSD1v7gwsC6JiEgkwvephgm8vAhMxstfwvNMcmh0FADA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861449;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=YVbblNjtTs13Z97PdCw2KBjDlkIPD+IChpKyCjLOTc8=;
+	b=nbnxDC5VtT0pk6kMwfGQt1aYuo6zqwm2MTOna9VlUyr0nWxSS2KjNA0K8MDyGVUY02g9
+	 kr7peuESgaKYc/6TTQf+BND+34Y1Jycoy7WoUKc7FRNnKPpxdnjPcXrFkTz3GQ4tDflo+
+	 Tk28KtHB1giLGspUG7cLjriC8NUYxxrG1L1VbsomlZEIKtkqgRgDhTSUYOdisYW3Adm8n
+	 T8TtejWeK990VO7JdN2ifJ3btYHFPA92pGE1GhxnvwzuODzBjR8e/swL3R5ulAL+JR+k3
+	 CGbSiL1Y5K76lgclwapdvguMi4JRoBQr5J5sY/u0V2hkaAl4+JD3J7rsWCide5oo8fQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XjVceYwr;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E914606A339
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:36:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E914606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB13606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAB13606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n2drT/mh
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-49412eb1474so1992271f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:36:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794861417; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mew4x9FCprSBKhjqImA6vD1qg+e2LpTSEJscWO1DU5ECbQHgNV/9ia0wh1oSltenk6
-         cDGxMyJeBuNoyTcrANbOLi8JGo0Q4FBZl6J27eyix7d2PWt+10igsll5rjHFpfl7DdQe
-         +8o7RREYXVCgjiRupUC8eJP6N7yaA3rUymuAE5pcEOFgoaH8qrBnBcddZbGTg/ZfWsRw
-         2aJ4WBtAahVVsswhIVqlWXpgYKBh3clf0QCyvAslzbMAjj2xoAMC6wr9cw9h/ZXN4wsf
-         lLhu1TiEca+Zdzh1eu3eBPDOZKrjZ6LyD8Y7z8KzdpqLCLFMJ4Chv7HDEWiO0TVb1Fgs
-         4xbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tJTXcb4kfDqNpUGLwGWYlWQVn6Sv/SOC+HXp4SSgoC8=;
-        fh=bH87Be0vNH25iXDDBsJOewEktyVit66doqDNo0RIiZg=;
-        b=PVTcvVhz8PtYCOvaH9zmjrfZvMu7/iLKb4XScS8y4I9twfeUnKjhGhHWcFRpTS/7nJ
-         tVdlAXmzDxnmTkBzMNDCIxRauNtgWySmWLcnZW8irSHqysFGME7TZvCMV8h4yIj6ha8j
-         qf/FgVySm3mNA7/XPwDCHbavyQwekuqfwcsrJ9qXUjgqAARbNPVbTthAAJQgFnrEjntl
-         e6G1bznwgVEPyoFgORRqsoWWdSHARZqC02ijLifltSTvSE4AYGBYQCTMXMjE8LNBFMBg
-         fCFRTkBE+IQNpGfFYcgIo8t4g6bp2PwUWoobwtUK5jeQAFTdTxlVCafZEnQfbZvXOBEr
-         T8Lw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794861417; x=1795466217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tJTXcb4kfDqNpUGLwGWYlWQVn6Sv/SOC+HXp4SSgoC8=;
-        b=n2drT/mhhgU/2lCos8u7b+woLM0sWZOmBLQoW26YoEAOxN2e6MGx8TJKJ2dpNfQD97
-         nn0EKC8O752fhDhPWOjv33kQV3jTaFO4v00NYwv77I8dOM8ikdZDAku2LmHat8yVDZvQ
-         7GAj0yi5uAMNfNgtzsW1TV2eTbBxVFidisA4bBp5Q77XzIPYACgn28a1J7ZaAiTpBVvs
-         K2jw7BKofCa6HnvmVlTjCOPECeIVrG3D5wwi4RyqeCW8OwtUS2Ktgct8WzTZTsxhXLoS
-         aX1Jj3i4aA3HoqoUHJj+ejsV+Q2L6VPly3hHDbUSbHYQJYNH7N42pQmsSiZ5VzYHBpip
-         UUkQ==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XjVceYwr
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso3767451a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:37:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794861417; x=1795466217;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794861448; x=1795466248;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tJTXcb4kfDqNpUGLwGWYlWQVn6Sv/SOC+HXp4SSgoC8=;
-        b=FZ9YHBhB4PVgKycKuqOCTsE2qKCkQYvNlYWZGw2prPP5p5kg6P9xoqjmEfQGcJYg0Q
-         peECtVYV0NmNKBK/naD17CAq57g5yq30HY4zOGY1MMOv3aQZb5Eo4DQsbHncufsonAUb
-         nAYvJjKslmYGQUIsCEuzDcZSSpw/4v+PPPMoH7WHCvdUyPPrRq5stuaCc0CEgEpT7tR1
-         OPAHeDziOYfNdp2Q8E9FeodqehILk7lfdmGzZZIKceLAPW6yAQjO+VkBW0pKEukLq4+V
-         nujuJfc/yP7VJY6lvRApd9tFhBpoLiqVGy4lPSZ2+bBQOUBEYwiopLBJwJHJnGSWMndp
-         Sz0Q==
-X-Forwarded-Encrypted: i=1; AL+hErElA8bNugTfl2KZ+19/RhaSsOVypBDQgObnOd5PVtktDP9qOQylGS9SuKpdnK7ucb/Og/qRaBbb0//0EM8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kK9siirgOHfw0LHf3cq4bI4Et/mmWQiGNG8VyaHgp4kNiS96a
-	rHVpUSWgYBo33f7GzvNa1kdPeTlglFwd0u1jqg35bf6ztJ2tSCEVtWcTwmy85QsrPSWAlYpnjBA
-	tCulUT09uIbiNOyKGW0RGA1d2OJCipv1QRD67UpY=
-X-Gm-Gg: AZFdTZe+k7e+xsSODs2v4BISFFgKLLA47CNzXpnECbPbGz89Nj8bOfQ2x9hf15cRqqf
-	8OISLml0kw6pyc3bfGz12CZ1BqJyrctG+Au/nTd3Gvf2O31PtOxhcHoV0n8rPq/qKSKcr2UBJqj
-	3vmrx9VXUUmGBzXmt4/qGQMfxpNzdcL9eP4ifdFnSE5HUI5q4NYXgP1MHkLX1fq5VAY39Lv5Vaj
-	9LYiSm13eAGQLFXtRDcdvcqZ9/dBUuVwisqJCgciMJ8YZYhGPdF3gm20uJ5O6yQd+kXm/yy8Yb/
-	tjTVsQKjVI9iM9wSVN5WLklgtfcz8v7OwFeoDw3LbwV6vmyeuhlpKV2EUM6JQ18vxM+yTFc+p/t
-	KJvzvO4NPk59ffFjLbNWiOmyLwOTmMvXNk98Kwr/AeXaYh1MLNxNi05Fx0u3NMteHOaqu5HbtuN
-	5K3evNZkATJYqMaA7eY85q0fZr2F1PEFAeP5dkQpTEThjPSUITr09pw0kPNZlC2hI6A+yBn5hTl
-	1VCa3QnlkC0nmrTCXYPOPE36sLpNyb7k98YykzPmf81PQ+dMi//sQ==
-X-Received: by 2002:a05:6000:4918:b0:492:b1c5:6db4 with SMTP id
- ffacd0b85a97d-49c723fc793mr23702531f8f.26.1794861416243; Mon, 16 Nov 2026
- 12:36:56 -0800 (PST)
+        bh=YVbblNjtTs13Z97PdCw2KBjDlkIPD+IChpKyCjLOTc8=;
+        b=kXWPfVR1nnRf8T0udi2PC/pN+fGzppUzvr1VBQ2Ig6Rw+z6PEwoD5ZHYiqO06Xr34A
+         /BJE4lu0WZUZCg3HkQGFvQCVrS316vSsLI8RbubbpzFdk6NWZBTgbuzHgFy0U1yy+3iu
+         YDJ1jgF3bkv8AdpRjzSs3+9ZRE1ORmA24y3QY/YNoP8OBJzdpohhITAAforUhp50hzFS
+         X3a9unwl57zPQ0/WLKbd1H9q5VoRRV4nYi3eyqlkf47h/IRKdhW0fokjOC7QLOQCzLCk
+         LexQ8s31fLNLhOLHSqLvolUiD9yfOE73AaiVtKmeIqOFhC8dxza5fv/ODSQizYGoqZk5
+         0G5A==
+X-Forwarded-Encrypted: i=1; AL+hErF9pLg4Ml2JW1fSrsb7ss8YjRgm1+zPwVhJPNuFZk0biUzGWYWdmJp9K/RfILy0P8wXn/xJmNT0+rGPPhk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8l1O401OU7bv876EBJ9JOCGA/X2V8+MPpr8NrTjYFjEs+kC8oZ
+	KkUrUrhYD18/OlqWHqA4utYiDwnIi04eS1W+eOjE4KHQgTFSfTg3FBUb/BT9uxRfubRlaWnSDNX
+	yTA7nDGWZsecNnm9hj9YMiLo+M+78WOXpg1xHxir6OqDFS/J/FNunYN1aVzPwkk3OGKsAv2wpv9
+	T1Gy07P4gOTv7NF9Qp80EP0rouMCXVDdATTVeozc7dfldVjglD2b3q1Rw51DCQa5xKIZGwqQeRS
+	OI7sx7uXtUv4l9eI8cf7pn+zg==
+X-Gm-Gg: AZFdTZeKTa7CvWWASE9KQJGFKH04F2NEHgQTRIbgliEdKumbeIHFDooFN1KXLNo6F6N
+	s0nq85Kl8Fh5vdF1DIKVt5AK25YrocuXbCEqjyO1u2Vaa/XFoPDkmkEQCWiLBZeR0qubQiLzlM4
+	wDcI/OE1J/LQLGjqKykAuvKyM+2HUCtnGyU1iu3uwl/M2Rjobb98uJr8IW510hpRbFaR/LaWGbJ
+	AevU74PBcqJLy8Bov5QkqLRSUF1XfK8rbjWvW7t1yq+XO9rQeAX6maB9qYc+okzjQuG4WNtgLXI
+	Gssje9mPtKOR8pGxyWU9RIH88FYSyLCXWBzaT6861zEo3/tXHcz3Prh0Eox6ns/279jUDYtV7wI
+	1INhJFobUX3FdIhDTnqDl1UUsJQNh9s8pnmkJT6CCYB5Hy5SGgLZKac+3R+BBkQLykU6+P6se1j
+	qyzNEgDJ3PLLpI2y7gouJ5Yd1GRXnN7Bb/9zX9LcM=
+X-Received: by 2002:a17:90b:2fce:b0:3ac:9f24:44be with SMTP id 98e67ed59e1d1-3b1b0b93822mr11997909a91.29.1794861447884;
+        Mon, 16 Nov 2026 12:37:27 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3abe1c098sm345084a91.5.2026.11.16.12.37.27
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 16 Nov 2026 12:37:27 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-38131260a5dso306271eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:37:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794861446; x=1795466246; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YVbblNjtTs13Z97PdCw2KBjDlkIPD+IChpKyCjLOTc8=;
+        b=XjVceYwrfAgpEEB+p0FTO/pKtIYXh4lgnCCw9NOd1uFD4l5nuY6Cir6ez9JdKQZ0Gn
+         8X2ZvAC41KvSL+JdnuXTXFYdUwvWRcFUgfeXL293dkhj+5lKeSBb3ydIezKtkKHG5wIl
+         0VZawNkspPmJmd/+hBu7Nn5wVsRFXOr8Qwl5c=
+X-Forwarded-Encrypted: i=1; AL+hErF//X1DNEpDG1LhDHgS0tCGU4N2DPQhf0Vxp38caljvJEVZkj1hLoi+/apiAXZ2ctYe45su8D7Afd30W0s=@vger.kernel.org
+X-Received: by 2002:a05:7300:d589:b0:36d:dd5a:4528 with SMTP id 5a478bee46e88-37966387cbemr12214379eec.7.1794861445657;
+        Mon, 16 Nov 2026 12:37:25 -0800 (PST)
+X-Received: by 2002:a05:7300:d589:b0:36d:dd5a:4528 with SMTP id 5a478bee46e88-37966387cbemr12214351eec.7.1794861444883;
+        Mon, 16 Nov 2026 12:37:24 -0800 (PST)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-380d5135221sm1965764eec.24.2026.11.16.12.37.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 12:37:24 -0800 (PST)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Yossef Osman <Yossef.Osman@proton.me>,
+	Aditya Garg <aditya.garg@linux.dev>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>
+Subject: Re: [PATCH] wifi: brcmfmac: keep ARP and ND offload off on the BCM4364
+Date: Mon, 16 Nov 2026 21:37:17 +0100
+Message-ID: <20261116203719.281605-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261104151620.70671-1-dev@deq.rocks>
+References: <20261104151620.70671-1-dev@deq.rocks>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,62 +117,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116192638.233125-1-mathieu.desnoyers@efficios.com> <20261116192638.233125-4-mathieu.desnoyers@efficios.com>
-In-Reply-To: <20261116192638.233125-4-mathieu.desnoyers@efficios.com>
-From: John Stultz <jstultz@google.com>
-Date: Mon, 16 Nov 2026 12:36:43 -0800
-X-Gm-Features: Aa3M54rY3899nRZqbPjomLbyfBxKQS4NldLCQkCR8AmmwfZuDgTEli0Ny-YYWrg
-Message-ID: <CANDhNCoALeuVrkVozbRdn9f-aOLuAfBhP4pZ8eecH1Qsnd0Jww@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 3/8] sched/proxy: Stop the chain walk when the
- blocked_on chain is a cycle
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	connoro@google.com, arighi@nvidia.com, akpm@linux-foundation.org, 
-	shuah@kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Mon, Nov 16, 2026 at 11:26=E2=80=AFAM Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->
-> find_proxy_task() follows the blocked_on chain from the donor to a task
-> that can run. It holds the rq lock, with interrupts off. It has no bound
-> on the number of steps.
->
-> The walk relies on the chain having an end. The ww_mutex die and wound
-> paths clear blocked_on for that reason. Their comments say that circular
-> blocked_on relationships would not resolve otherwise. But two tasks that
-> take two plain mutexes in opposite orders deadlock for good. Once both
-> are on one runqueue, the walk goes around the cycle forever.
->
-> Without proxy execution, such a deadlock leaves two tasks asleep, and
-> the hung task detector can report them. With it, the CPU locks up with
-> its rq lock held. Other CPUs would then block on that lock. In a test
-> with two CPUs, the guest stopped without a message.
->
-> Fix this by detecting the cycle. The walk remembers the task it met at
-> its last step that is a power of two. When it meets that task again, it
-> stops the donation and deactivates the donor. The donor then sleeps on
-> its mutex, as without proxy execution.
->
-> Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_pr=
-oxy_task()")
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+On Wed, 4 Nov 2026 16:16:20 +0100, Andre Eikmeyer <dev@deq.rocks> wrote:
+> brcmfmac enables the firmware's ARP and IPv6 ND offload (ndoe) whenever
+> the interface is up and not promiscuous. On the Apple firmware for the
+> BCM4364, ndoe makes IPv6 downloads collapse.
+
+[...]
+
 > ---
->  kernel/sched/core.c | 26 +++++++++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
+>  .../net/wireless/broadcom/brcm80211/brcmfmac/core.c    | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
+> @@ -103,6 +104,15 @@ void brcmf_configure_arp_nd_offload(struct brcmf_if *ifp, bool enable)
+>  		return;
+>  	}
+>
+> +	/* With ND offload on while awake, the Apple firmware for the BCM4364
+> +	 * makes IPv6 downloads drop to low rates. macOS runs ARP and ND
+> +	 * offload only in sleep, keep both off on this chip.
+> +	 */
+> +	if (enable && ifp->drvr->bus_if->chip == BRCM_CC_4364_CHIP_ID) {
+> +		brcmf_dbg(TRACE, "Skip ARP/ND offload enable on BCM4364\n");
+> +		enable = false;
+> +	}
+> +
+>  	if (enable)
+>  		mode = BRCMF_ARP_OL_AGENT | BRCMF_ARP_OL_PEER_AUTO_REPLY;
+>  	else
 
-So this looks like it duplicates the following two changes in my series:
-  https://lore.kernel.org/lkml/20261023220431.1106611-6-jstultz@google.com/
-  https://lore.kernel.org/lkml/20261023220431.1106611-7-jstultz@google.com/
+A few comments:
 
-And I've recently found there's a few other spots that we need to
-bound chain walking (though I believe those additional cases are still
-out of tree in the full proxy-exec series).
+1) The measurements only implicate ndoe. Do you have data showing arpoe
+also needs to be off? Otherwise please limit this to ND offload.
 
-thanks
--john
+2) The commit message says this is an issue of the Apple firmware, but the
+check is on the chip ID only. The same chip IDs are also used with other
+firmware builds and boards (WCC/non-Apple), which would lose the feature
+needlessly. Please restrict the quirk to the affected platform, e.g. with
+the Apple board type (settings->board_type) or a per-firmware quirk, or
+move it to the vendor feat_attach callback instead of a chip check in
+this helper. The same applies to the other chip ID quirks of this batch
+(txbf and FWAUTH).
+
+3) This looks like a bug fix. Please add a Fixes: tag and Cc: stable (as
+Aditya suggested), and mark the target tree in the subject.
+
+[...]
+
+Regards,
+Arend
