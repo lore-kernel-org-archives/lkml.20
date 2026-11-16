@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851346;
-	b=JEhGvi7K1xmm1tHS/PqaY48LUhcbeE0xGW0ycd5hBSoVFDwwaQT1LD1gaYRPo3Z/9os5
-	 9s7MS0zybQwJQuwphAPFXadGsqBRaMLA+eykCyEUfWrjj5rEmGMWka8rTxHgLCeo/CwfQ
-	 jM3BYSZjlBL7X7/6HI5Q/bf2FsccVH8b/oEopU7wBesjlrS3qDSqLfEpPjILSm2mxUc/g
-	 viOO6sNLpQd2G9AjVPtLbjXGDlanr91TKZXTpnnFr52HrJUYlkl5X4ktrrnUZPIASgyum
-	 4u4ePCNzat9aDPvzFWmGwPJ/HPMigW5aPJu/DVZt1i2AvFIBK2xPNanBX3245TnopDQ==
+	t=1794851348;
+	b=qdvt+QICU2vheyc/C+402WYGynszq8DWaAE5olYdUVrvzNLs3hQZnJiyp0c3YWL2STxb
+	 rHSQpOLWmfIlHyXoHZymGMzmuT1A0aKVjrN4FO5t6Iq5h6aGhCcLCc9JtkA7UQ8QZsLyj
+	 nBEZ+Pbk1qoDNaFdNmJbgs8pw+kScRPZMpBB8Mo4tz3nWLzpT8sr4xHByLqtGpYLKVco7
+	 +EP9NV7X1czmHA4tAwjywDTlixDkzpIcNUXiJKZqhSL+nB/Yx5ny9iGfvYVXVebRikqPT
+	 5jtv3VZ27OiwWFxVjG9i7LxsclTNg/KG48EVcJKfJ49H2gcb163oIRNt2VK3AYwYZUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851348;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Hs8L4oSM/KeHXo/QqE3JZ5ZtUqINEGmmyvGUPLPWHqk=;
-	b=4qkIii7Ndz9Huvy/GEwXTrAQ7Auck73h80QDgVsUEHwbJ5lWHR8badfp0XbrVbUKMbSm
-	 gfNKaGIMP6W5NQGop0bJ62ha3zYpQYhqKYVbjWceYi/kscdGZF+6/mfS4IPWjEV/yzx2z
-	 XyZskkWFu1rfWvCie2b2o9JFZ37FApmIpP34jfLcZXLImFXUvt3Z7exUSEm+H4it0fx4v
-	 wsfEWJoUjW6D+lh2lGZ5C9toV2y/uJ+JMxxefvbvnJI8IYHeZn4DwTvwY1pUCAR8ijzxI
-	 HypXGz3vcgGtcQ2lW5cwbG46ewgL6o/d1e7WrrTE2BlFFREXYkth9cPvViU/hTmUzHQ==
+	bh=2IV0caWw5X57FnYB/7TWC5HUa1dH8csEfJ58yIfXqSw=;
+	b=0/MpLf/JUenfAdSKVrdLOoxnaZwmT1r+UBnAb0by4QbHIRyk7pprDokvo46qNwXBUdUS
+	 7Ql0JIs4LmqIv31NPGwrQuQOpA4PQu50LcAsSAquE+e4NdQXCSAStgqC9XNGpxk9xjX1X
+	 aOfuRpE6dsJGiUyjNOch+OqAvkC1YwPcNnI3FhP0y7XIQ/nwliRuVL9VT5Sc+Xbx0v5f7
+	 p+/IUKzq6d9es0dkXAfObK8LxGMgADQN4yPfRKoRAmU4C2XAPC0weNI364ye1Rpta8dT8
+	 9wFr8+632vhat6I8teuDU9ji2mXXjBS7IOTf7uAtBpImSl8EX7fBeSgZE15MK3Upgsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=phrozen.org;
 	spf=pass smtp.mailfrom=phrozen.org;
@@ -24,17 +24,17 @@ Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D10E606A32A;
-	Mon, 16 Nov 2026 17:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D10E606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC013606A33F;
+	Mon, 16 Nov 2026 17:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC013606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
 Received: from [2a04:4540:1403:e6fc:5f71:2c1e:7d62:945f] (helo=bertha10..)
 	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <john@phrozen.org>)
-	id 1xT0pB-004GcH-1l;
-	Mon, 16 Nov 2026 18:49:01 +0100
+	id 1xT0pE-004GcH-01;
+	Mon, 16 Nov 2026 18:49:04 +0100
 From: John Crispin <john@phrozen.org>
 To: Lorenzo Bianconi <lorenzo@kernel.org>,
 	Lee Jones <lee@kernel.org>,
@@ -58,9 +58,9 @@ Cc: Ahmed Naseef <naseefkm@gmail.com>,
 	upstream@airoha.com,
 	Weifeng.xu@airoha.com,
 	zhengping.zhang@airoha.com
-Subject: [PATCH v3 1/9] pinctrl: airoha: make gpio register layout per SoC
-Date: Mon, 16 Nov 2026 18:48:46 +0100
-Message-Id: <20261116174854.342912-2-john@phrozen.org>
+Subject: [PATCH v3 7/9] dt-bindings: mfd: airoha: add AN7589 GPIO system controller
+Date: Mon, 16 Nov 2026 18:48:52 +0100
+Message-Id: <20261116174854.342912-8-john@phrozen.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261116174854.342912-1-john@phrozen.org>
 References: <20261116174854.342912-1-john@phrozen.org>
@@ -75,196 +75,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GPIO register layout is fixed to 64 pins in two 32 pin banks and
-four 16 pin direction banks. Every SoC uses the single static
-airoha_gpiochip_regs and the compile time AIROHA_NUM_PINS.
-
-Move the layout into the match data. The gpiochip register table
-carries its own pin count, and the five existing SoCs point at the
-shared 64 pin table.
-
-No functional change for the existing SoCs.
+Document the AN7589 GPIO system controller. It is a syscon with the
+pin controller as its child node. The block also holds the PWM
+controller, which a later series adds as a second child.
 
 Signed-off-by: John Crispin <john@phrozen.org>
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 ---
-Changes in v2:
-- Add the Acked-by of Lorenzo.
+Changes in v3:
+- New patch, split out of the pinctrl binding (Lee, Conor).
+- Name the PWM controller, the second child of the block, in the
+  commit message (Conor).
 
- drivers/pinctrl/airoha/airoha-common.h  |  6 +++++-
- drivers/pinctrl/airoha/pinctrl-airoha.c | 14 ++++++++------
- drivers/pinctrl/airoha/pinctrl-an7563.c |  1 +
- drivers/pinctrl/airoha/pinctrl-an7581.c |  1 +
- drivers/pinctrl/airoha/pinctrl-an7583.c |  1 +
- drivers/pinctrl/airoha/pinctrl-en7523.c |  1 +
- drivers/pinctrl/airoha/pinctrl-en7528.c |  1 +
- 7 files changed, 18 insertions(+), 7 deletions(-)
+ .../mfd/airoha,an7589-gpio-sysctl.yaml        | 66 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 67 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
 
-diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/airoha/airoha-common.h
-index 16f7abcdfb83..850e733db15a 100644
---- a/drivers/pinctrl/airoha/airoha-common.h
-+++ b/drivers/pinctrl/airoha/airoha-common.h
-@@ -89,6 +89,7 @@ struct airoha_pinctrl_conf {
- };
- 
- struct airoha_gpiochip_regs {
-+	unsigned int ngpio;
- 	/* gpio */
- 	const u32 *data;
- 	const u32 *dir;
-@@ -99,6 +100,8 @@ struct airoha_gpiochip_regs {
- 	const u32 *edge;
- };
- 
-+extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
+diff --git a/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml b/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+new file mode 100644
+index 000000000000..0785b61bdda3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/airoha,an7589-gpio-sysctl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- struct airoha_pinctrl_confs_info {
- 	const struct airoha_pinctrl_conf *confs;
- 	unsigned int num_confs;
-@@ -126,7 +129,7 @@ struct airoha_pinctrl {
- 	struct regmap *regmap;
- 
- 	struct gpio_chip gpiochip;
--	struct airoha_gpiochip_regs *gpio_regs;
-+	const struct airoha_gpiochip_regs *gpio_regs;
- 	unsigned int num_irq_pins;
- };
- 
-@@ -134,6 +137,7 @@ struct airoha_pinctrl_match_data {
- 	const char *chip_scu_compatible;
- 	const char *pinctrl_name;
- 	struct module *pinctrl_owner;
-+	const struct airoha_gpiochip_regs *gpio_regs;
- 	const struct pinctrl_pin_desc *pins;
- 	const unsigned int num_pins;
- 	const struct pingroup *grps;
-diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
-index 52a768c859b7..b50108826d8d 100644
---- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-+++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-@@ -94,7 +94,8 @@ static const u32 irq_edge_regs[] = {
- 	REG_GPIO_INT_EDGE3
- };
- 
--static struct airoha_gpiochip_regs airoha_gpiochip_regs = {
-+const struct airoha_gpiochip_regs airoha_gpiochip_regs_64 = {
-+	.ngpio = AIROHA_NUM_PINS,
- 	.data = gpio_data_regs,
- 	.dir = gpio_dir_regs,
- 	.out = gpio_out_regs,
-@@ -102,6 +103,7 @@ static struct airoha_gpiochip_regs airoha_gpiochip_regs = {
- 	.level = irq_level_regs,
- 	.edge = irq_edge_regs,
- };
-+EXPORT_SYMBOL_GPL(airoha_gpiochip_regs_64);
- 
- static int airoha_convert_pin_to_reg_offset(struct pinctrl_dev *pctrl_dev,
- 					    struct pinctrl_gpio_range *range,
-@@ -207,7 +209,7 @@ static void airoha_irq_unmask(struct irq_data *data)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
- 	struct airoha_pinctrl *pinctrl = gpiochip_get_data(gc);
--	struct airoha_gpiochip_regs *gpio_regs = pinctrl->gpio_regs;
-+	const struct airoha_gpiochip_regs *gpio_regs = pinctrl->gpio_regs;
- 	u8 offset = data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
- 	u8 index = data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
- 	u32 mask = GENMASK(2 * offset + 1, 2 * offset);
-@@ -244,7 +246,7 @@ static void airoha_irq_mask(struct irq_data *data)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
- 	struct airoha_pinctrl *pinctrl = gpiochip_get_data(gc);
--	struct airoha_gpiochip_regs *gpio_regs = pinctrl->gpio_regs;
-+	const struct airoha_gpiochip_regs *gpio_regs = pinctrl->gpio_regs;
- 	u8 offset = data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
- 	u8 index = data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
- 	u32 mask = GENMASK(2 * offset + 1, 2 * offset);
-@@ -261,7 +263,7 @@ static void airoha_irq_ack(struct irq_data *data)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
- 	struct airoha_pinctrl *pinctrl = gpiochip_get_data(gc);
--	struct airoha_gpiochip_regs *gpio_regs = pinctrl->gpio_regs;
-+	const struct airoha_gpiochip_regs *gpio_regs = pinctrl->gpio_regs;
- 	u8 offset = data->hwirq % AIROHA_PIN_BANK_SIZE;
- 	u8 index = data->hwirq / AIROHA_PIN_BANK_SIZE;
- 
-@@ -379,7 +381,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
- 	gc->set = airoha_gpio_set;
- 	gc->get = airoha_gpio_get;
- 	gc->base = -1;
--	gc->ngpio = AIROHA_NUM_PINS;
-+	gc->ngpio = pinctrl->gpio_regs->ngpio;
- 
- 	girq->default_type = IRQ_TYPE_NONE;
- 	girq->handler = handle_bad_irq;
-@@ -831,7 +833,7 @@ int airoha_pinctrl_probe(struct platform_device *pdev)
- 	pinctrl->desc.pins = data->pins;
- 	pinctrl->desc.npins = data->num_pins;
- 
--	pinctrl->gpio_regs = &airoha_gpiochip_regs;
-+	pinctrl->gpio_regs = data->gpio_regs;
- 
- 	err = devm_pinctrl_register_and_init(dev, &pinctrl->desc,
- 					     pinctrl, &pinctrl->ctrl);
-diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/airoha/pinctrl-an7563.c
-index f011c6c9ccce..6a2a307807e3 100644
---- a/drivers/pinctrl/airoha/pinctrl-an7563.c
-+++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
-@@ -1063,6 +1063,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
- 	.chip_scu_compatible = "airoha,en7581-chip-scu",
- 	.pinctrl_name = KBUILD_MODNAME,
- 	.pinctrl_owner = THIS_MODULE,
-+	.gpio_regs = &airoha_gpiochip_regs_64,
- 	.pins = pinctrl_pins,
- 	.num_pins = ARRAY_SIZE(pinctrl_pins),
- 	.grps = pinctrl_groups,
-diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/airoha/pinctrl-an7581.c
-index bfb777594811..6bec1d44b8a0 100644
---- a/drivers/pinctrl/airoha/pinctrl-an7581.c
-+++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
-@@ -1435,6 +1435,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
- 	.chip_scu_compatible = "airoha,en7581-chip-scu",
- 	.pinctrl_name = KBUILD_MODNAME,
- 	.pinctrl_owner = THIS_MODULE,
-+	.gpio_regs = &airoha_gpiochip_regs_64,
- 	.pins = pinctrl_pins,
- 	.num_pins = ARRAY_SIZE(pinctrl_pins),
- 	.grps = pinctrl_groups,
-diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/airoha/pinctrl-an7583.c
-index 1cd0f442ddc1..2689bbd9ebba 100644
---- a/drivers/pinctrl/airoha/pinctrl-an7583.c
-+++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
-@@ -1465,6 +1465,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
- 	.chip_scu_compatible = "airoha,en7581-chip-scu",
- 	.pinctrl_name = KBUILD_MODNAME,
- 	.pinctrl_owner = THIS_MODULE,
-+	.gpio_regs = &airoha_gpiochip_regs_64,
- 	.pins = pinctrl_pins,
- 	.num_pins = ARRAY_SIZE(pinctrl_pins),
- 	.grps = pinctrl_groups,
-diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/airoha/pinctrl-en7523.c
-index b0c5e60f0aeb..1589acef683f 100644
---- a/drivers/pinctrl/airoha/pinctrl-en7523.c
-+++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
-@@ -1107,6 +1107,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
- 	.chip_scu_compatible = "airoha,en7523-chip-scu",
- 	.pinctrl_name = KBUILD_MODNAME,
- 	.pinctrl_owner = THIS_MODULE,
-+	.gpio_regs = &airoha_gpiochip_regs_64,
- 	.pins = pinctrl_pins,
- 	.num_pins = ARRAY_SIZE(pinctrl_pins),
- 	.grps = pinctrl_groups,
-diff --git a/drivers/pinctrl/airoha/pinctrl-en7528.c b/drivers/pinctrl/airoha/pinctrl-en7528.c
-index f6c8f834421f..9854e9530219 100644
---- a/drivers/pinctrl/airoha/pinctrl-en7528.c
-+++ b/drivers/pinctrl/airoha/pinctrl-en7528.c
-@@ -1155,6 +1155,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
- 	.chip_scu_compatible = "econet,en7528-chip-scu",
- 	.pinctrl_name = KBUILD_MODNAME,
- 	.pinctrl_owner = THIS_MODULE,
-+	.gpio_regs = &airoha_gpiochip_regs_64,
- 	.pins = pinctrl_pins,
- 	.num_pins = ARRAY_SIZE(pinctrl_pins),
- 	.grps = pinctrl_groups,
++title: Airoha AN7589 GPIO System Controller
++
++maintainers:
++  - John Crispin <john@phrozen.org>
++
++description:
++  Airoha AN7589 SoC GPIO system controller which provides a register map
++  for controlling the GPIO and pins of the SoC.
++
++properties:
++  compatible:
++    items:
++      - const: airoha,an7589-gpio-sysctl
++      - const: syscon
++      - const: simple-mfd
++
++  reg:
++    maxItems: 1
++
++  pinctrl:
++    type: object
++    $ref: /schemas/pinctrl/airoha,an7589-pinctrl.yaml
++    description:
++      Child node definition for AN7589 Pin controller
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    system-controller@1fbf0200 {
++      compatible = "airoha,an7589-gpio-sysctl", "syscon", "simple-mfd";
++      reg = <0x1fbf0200 0x100>;
++
++      pinctrl {
++        compatible = "airoha,an7589-pinctrl";
++        airoha,iomux = <&iomux>;
++
++        interrupt-parent = <&gic>;
++        interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
++
++        gpio-controller;
++        #gpio-cells = <2>;
++
++        interrupt-controller;
++        #interrupt-cells = <2>;
++
++        mmc-pins {
++          mux {
++            function = "emmc";
++            groups = "emmc";
++          };
++        };
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9d67ef6b4531..2041a8aed28f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22137,6 +22137,7 @@ PIN CONTROLLER - AIROHA
+ M:	Lorenzo Bianconi <lorenzo@kernel.org>
+ L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
++F:	Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+ F:	Documentation/devicetree/bindings/pinctrl/airoha,an7589-pinctrl.yaml
+ F:	Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
+ F:	drivers/pinctrl/airoha/pinctrl-airoha.c
 -- 
 2.34.1
 
