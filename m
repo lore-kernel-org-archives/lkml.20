@@ -1,73 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832309;
-	b=Ot0+dyrNTRW9Ly0Yf1BqeMvjjBireCD4NfIogsd0WLu+V/tc9sDccbxOl0CLSUb4rgzg
-	 KMqAJkFdj0I6+3hBr1heRlLKA0rJEdGRA8JNeAHFe/JvN9JqWIoSbCu9T9eYJ2HEtHsxT
-	 gbTVFD2fCcbisDXJUl3MtFIzpneY8ZCpwERs6iIBmSRUWmxrwsHUi+Rruj+6U3GHmbhj6
-	 zD1Gsi/c1mkXY5Rx+9Z8Mdxvgd2YobIMjx0r7GmV/GbVx0b8O4/gPSj4Wrmyi45gLVlb+
-	 e9IXZ76a8tEEfVeS6EIkQc/sJ8mFCF0Lf0UTPKhL9rnwgjcKsbtDMT88kLGIdobZ3Fw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832309;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Language:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=rwmmgtDh2eN4LpVrsK7ls3CDYxuyy9JTkH68hg98ZZw=;
-	b=VmFzvNwID1sx8VvIKqK01nnrkalEXHIgbsyci9bJ0xKjJoftghUqJY8KO4fCdYWsto3r
-	 iMN0D1JTK1CRsEELilDOADPuEUhXW6N6nRjSU0ifyEb0DjERIZ4PbiKl7aC+PeMdwZykU
-	 AnvjMT7UVL4D4O3T2Uj8JlEoWJiB8Lt2ET+MX4jHfFJ2IgSF8pOJWUaYSt2FKHgJJwncj
-	 u8HF/jPniIp8qJ+y2AmFG9BbnDPNOjWjyF0JUgyw64plba5EmYrtO7WI55u/hW4vc674j
-	 vvB9ld2IVKnaPoBOYMIqS8hVfDNo/ZBb6+9IoFOg3xeywkTlyHWEbul6rzrOh5FNIhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Af+L+Bhf;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.104
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794832318;
+	b=BF+KGKfH7nUTn4iyvGJVuASe8PcTTOdJzbPD+qPIhC8iBwe2KmthFboVuBnfRVOZBRTI
+	 4iQRxxDzJm5cn0W75+76+bGR3JnTeQN+cZl3O9yoebmgiO/cdlFC9+UKSB/F7U/iQk9gc
+	 30wlOlTzP4K9ZzHYyAqMfrz34XD3WWel0suyIAkyMWHAPAKau2MT/jNXaD+1xyJCcelhE
+	 FJ1Kn8QZcH8PuenDAAjYy+87KRo7Y1AaGyaBE6w0Uycuo4MiQDJgVSJ2+wjexeu7FNjvM
+	 N+v0YeukwP2p16ux3dhI+l+dg1h3ohN14RTyAD6jBLBYpebh3jl2a7grct95/gmQxgA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832318;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=u+MJ2UAgWlLd4u7ouaduPW/8nG6ijzHdsulNJMWKwIE=;
+	b=YvS2/PaZSYr30lPtxQx5bm3IX5lJVqzbfIyfMvaVwQ1Jb4MHFlm7620cvD8MPkHik2fv
+	 iGODeU41G5QabMZQmPgZHTNcOGWJWx5/MofpSI5YBtVsG+zUAD4D2xKAKqzRoYJwSqEeA
+	 +lWJ4Et+cmW7T1iRA4tobaOtTHbwQnmABam6rRGCJTR3vyZqC0w+Nb8ymEMMpKYBWvG1C
+	 dgDAmK05SCKdGIz/S+Mf1s6Pl/KbXTOSBzVI0ZuoQyJLJSkllfsSYd3l2O4llq3n6iDj3
+	 +mf/hhTbowEcH8buan+0wjMcr5PE5hIiRG1uVdRYcVV49I8a6PZT9b/mZsi4o2XXx0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.104
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023104.outbound.protection.outlook.com [40.107.44.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A06606A33A;
-	Mon, 16 Nov 2026 12:31:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A06606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Af+L+Bhf
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=rwmmgtDh2eN4LpVrsK7ls3CDYxuyy9JTkH68hg98ZZw=;
-	b=Af+L+Bhfhha7Ev+VvSiyLLUQRR/SYDcDaqvoxdvE8cdSSDC7VwwRRcrMiAC9ViVYw1n1S5bcE
-	I0VUnw4xacmSHo/XQxPflBar6M1/mlscmzq261hMg69gl8zU5QsVttnOB3t61r9te9VDaXcI1eK
-	OH+aBXqOQvMz9hoW8T/FLFs=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jSnKS2hkYz1prKT;
-	Mon, 16 Nov 2026 20:31:24 +0800 (CST)
-Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
-	by mail.maildlp.com (Postfix) with ESMTPS id 29B984057D;
-	Mon, 16 Nov 2026 20:31:36 +0800 (CST)
-Received: from [10.174.178.219] (10.174.178.219) by
- whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 16 Nov 2026 20:31:34 +0800
-Subject: Re: [PATCH v2 2/3] kselftst/arm64: Test NT_ARM_SVE FPSIMD format
- writes on non-SVE systems
-To: Mark Brown <broonie@kernel.org>
-CC: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
-	Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Oleg
- Nesterov <oleg@redhat.com>, Mark Rutland <mark.rutland@arm.com>, David
- Spickett <david.spickett@arm.com>, Thiago Jung Bauermann
-	<thiago.bauermann@linaro.org>, Luis Machado <luis.machado.foss@gmail.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-References: <20251015-arm64-sme-ptrace-sme-only-v2-0-33c7b2f27cbf@kernel.org>
- <20251015-arm64-sme-ptrace-sme-only-v2-2-33c7b2f27cbf@kernel.org>
-From: Zenghui Yu <yuzenghui@huawei.com>
-Message-ID: <e5b40037-8314-9ad2-91e0-9347109bed31@huawei.com>
-Date: Mon, 16 Nov 2026 20:31:32 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE32606A31C;
+	Mon, 16 Nov 2026 12:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CE32606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OWHX5o1MVEfVcZT7+JA1/GDRm8SQCL1CcODeTkHVDfSS5jAGXNSLEvjK/aggTCEqv4dyuY2VYsiLuioRw9hdZ9JQ2i2tpZjyRbnUQUA84u0MORmqHTQqwP5NCpYo3Zsa8YGLKToC0jdlGH2dyVPFxUYg5hth6KV+h9IDXy4M1v4h7CwiCrB6tuDSEUPwI1tfMdDsUyJGtuwmIO3flUp++JTDw7IBdzUeI1zZZ93uLefezNgmQ1piY21CFMMSdn5wd+J3jdAXQPnCZSHb/Bu51HkS12nwrUwWjRK7vcmBkO053P88h2vQKUnOMT9pmqTKn5XmKGs2X4L2jWA2j+hPAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u+MJ2UAgWlLd4u7ouaduPW/8nG6ijzHdsulNJMWKwIE=;
+ b=lWJlV7NO0BvyJfdhjrGAdNzwPxJ18yW+zgbss5EhBw9HSylyJTNKWLcmXjALXilYPhARRT5I9YTs9db1Qud1v0JuTTUhRfeYHwCZKqLaywC3bxciW5c8nsyfZAwlozAGf+02BsEkZ9ahmOdMoqtpY9BXrESfaxQ+RyEwKW8Sxk9oMtT/WoGB2HMNoHcpCawu/H6VJV4YCWT6Az566baUyra88Lfar9KkIqN1PScveVFGdGEYvE1oblakZvHCQdSGK8cUMti1z/YdeiaHr4QVvdBG7qog4fsGFvOhlyUn0i40ER4LDMhQs0K+Odi7nu4pdqYn9vrUr1VvrDfUTfPCyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR02CA0022.apcprd02.prod.outlook.com (2603:1096:990:76::7)
+ by SEZPR06MB5117.apcprd06.prod.outlook.com (2603:1096:101:4d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
+ 2026 12:31:54 +0000
+Received: from SG1PEPF000082E3.apcprd02.prod.outlook.com
+ (2603:1096:990:76:cafe::2e) by JH0PR02CA0022.outlook.office365.com
+ (2603:1096:990:76::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
+ 16 Nov 2026 12:31:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E3.mail.protection.outlook.com (10.167.240.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 16 Nov 2026 12:31:53 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 8A8F4427EFC6;
+	Mon, 16 Nov 2026 20:31:51 +0800 (CST)
+Date: Mon, 16 Nov 2026 20:31:50 +0800
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: Brian Masney <masneyb@kernel.org>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
+Subject: Re: [PATCH v3 2/5] clk: cix: Handle Sky1 AUDSS DMA interrupt gates
+ as an irqchip
+Message-ID: <avr3tuaSUxAZObcz@ubuntu>
+References: <20261106013520.1134450-1-Jelly.Jia@cixtech.com>
+ <20261106013520.1134450-3-Jelly.Jia@cixtech.com>
+ <179443508445.1143992.8301638068435530250.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,100 +103,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20251015-arm64-sme-ptrace-sme-only-v2-2-33c7b2f27cbf@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemo200006.china.huawei.com (7.152.185.252)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179443508445.1143992.8301638068435530250.b4-review@b4>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E3:EE_|SEZPR06MB5117:EE_
+X-MS-Office365-Filtering-Correlation-Id: fecade71-5377-46db-3237-08df43dd9896
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|23010399003|82310400026|10067099003|4143699003|56012099006|261026121527099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	YXqvfzh8zsvmqNJzGZ6AW2rLm0OMyp6T8tbPiE1+XRrzYMcgf2chHBx/O4dpFqGV+Ekz7E5q4pdDsgxIQffnS0KuA7Aq2J0nNGr/NVXIASqZmJwHUZ6wNtNWvwjYLbjv8ITFwBLN//7XnV8GBY46G6sCJOLkFgMyEgtKWbCCG0GsG2AITlW9ic1OwBkuFpZfTVBryrJlLuRmGF4Ixvjap/1qOuF/wdbyIcZjUmVmbKdiI3EY1HjkCRfXxu1Gu/yyKS9jQms9Rg6PaYwR2q/GUyALlNisT3kmT8Uket8rvYYqDYAB2EGk+aHavR30KTqldyLi7sN84So1pGs1Y5Ux1mr1A/R/eTfyQWckbq6sd2z9/y2LzSU+5eVEALLny/uA/abAZN/Pv8TToIzPIrD0GWtYqAFqup9xjSc/SsxYL+cu3i/CjLkD+KCz5+5VIGEvQfB1u7zMLYNT1OSyM+P4oJowWgoS43X3dcUDpEiQWQMnewNDmhRkZMoKsErWxpwzQGbG9+gHWzVBEh4Cc/8xerroaRZdcQQZ+hk6vJfLNPROknpK+hOCjv5C7gdolXIMZP4NqHNWOoPYO9tL4F2VxbHkh93bEUYiRO4fdeYauKPpfYxfrvuUktZ6pCAM5kNUl3TZgJIFJIZta6FWm79Z9p8Hf+HDaKbZTCDazvcmEtsqMnlkguC3VkHeCl82N4ZT
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(4143699003)(56012099006)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kuFTGtok5FwWoA9fEtzvZDh+n60Fuh5sxCVM/Fg4Qe3ShDgvTfUK3qJqI/OCp1tSk8ljsvlDhb7dHDm6NtkkT8jNk0U0//ad4AnRtjbOBDroXgu2ogWnUEpm0RAkH3dYO2TypuucuDjM1yawPgQih9jXvZcoaxqwRJbd3wHVWwjfrDZMpLloYjgR+pn+fsBQ3wA7oiQlyj6hW/1J+aBSeYaoVZrdCtenD7UhCo9FbPlSBKK7e/5W+a5/ZbO49VFT3KBmNvXoDpCWfW/Ma7VbuhJ6eFNLqtsVCv7QLOazlXoqs+2O12MHLM51x28fjsHSwxXvK/hpWIvzrmQv+wjWRjP5fwQwR0WLBRnNg4z33RaGItn/2+qiyayqUsLny2AUYpcxnh5jY9jMjWoMJOjZuNlwxuAkcqqtWo7GtvNf2QjDAFHFmLe07mMy6oBRD8j3
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:31:53.2846
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fecade71-5377-46db-3237-08df43dd9896
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E3.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5117
 
-On 2025/10/16 1:56, Mark Brown wrote:
-> In order to allow exiting streaming mode on systems with SME but not SVE
-> we allow writes of FPSIMD format data via NT_ARM_SVE even when SVE is not
-> supported, add a test case that covers this to sve-ptrace.
-> 
-> We do not support reads.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  tools/testing/selftests/arm64/fp/sve-ptrace.c | 61 +++++++++++++++++++++++++++
->  1 file changed, 61 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/arm64/fp/sve-ptrace.c b/tools/testing/selftests/arm64/fp/sve-ptrace.c
-> index e0fc3a001e28..f44d44618575 100644
-> --- a/tools/testing/selftests/arm64/fp/sve-ptrace.c
-> +++ b/tools/testing/selftests/arm64/fp/sve-ptrace.c
-> @@ -394,6 +394,58 @@ static void ptrace_sve_fpsimd(pid_t child, const struct vec_type *type)
->  	free(svebuf);
->  }
->  
-> +/* Write the FPSIMD registers via the SVE regset when SVE is not supported */
-> +static void ptrace_sve_fpsimd_no_sve(pid_t child)
-> +{
-> +	void *svebuf;
-> +	struct user_sve_header *sve;
-> +	struct user_fpsimd_state *fpsimd, new_fpsimd;
-> +	unsigned int i, j;
-> +	unsigned char *p;
-> +	int ret;
-> +
-> +	svebuf = malloc(SVE_PT_SIZE(0, SVE_PT_REGS_FPSIMD));
-> +	if (!svebuf) {
-> +		ksft_test_result_fail("Failed to allocate FPSIMD buffer\n");
-> +		return;
-> +	}
-> +
-> +	/* On a system without SVE the VL should be set to 0 */
-> +	memset(svebuf, 0, SVE_PT_SIZE(0, SVE_PT_REGS_FPSIMD));
-> +	sve = svebuf;
-> +	sve->flags = SVE_PT_REGS_FPSIMD;
-> +	sve->size = SVE_PT_SIZE(0, SVE_PT_REGS_FPSIMD);
-> +	sve->vl = 0;
-> +
-> +	/* Try to set a known FPSIMD state via PT_REGS_SVE */
-> +	fpsimd = (struct user_fpsimd_state *)((char *)sve +
-> +					      SVE_PT_FPSIMD_OFFSET);
-> +	for (i = 0; i < 32; ++i) {
-> +		p = (unsigned char *)&fpsimd->vregs[i];
-> +
-> +		for (j = 0; j < sizeof(fpsimd->vregs[i]); ++j)
-> +			p[j] = j;
-> +	}
-> +
-> +	ret = set_sve(child, &vec_types[0], sve);
-> +	ksft_test_result(ret == 0, "FPSIMD write via SVE\n");
-> +	if (ret) {
-> +		ksft_test_result_skip("Verify FPSIMD write via SVE\n");
-> +		goto out;
-> +	}
-> +
-> +	/* Verify via the FPSIMD regset */
-> +	if (get_fpsimd(child, &new_fpsimd)) {
-> +		ksft_test_result_skip("Verify FPSIMD write via SVE\n");
-> +		goto out;
-> +	}
-> +	ksft_test_result(memcmp(fpsimd, &new_fpsimd, sizeof(*fpsimd)) == 0,
-> +			 "Verify FPSIMD write via SVE\n");
-> +
-> +out:
-> +	free(svebuf);
-> +}
-> +
->  /* Validate attempting to set SVE data and read SVE data */
->  static void ptrace_set_sve_get_sve_data(pid_t child,
->  					const struct vec_type *type,
-> @@ -826,6 +878,15 @@ static int do_parent(pid_t child)
->  		}
->  	}
->  
-> +	/* We support SVE writes of FPSMID format on SME only systems */
-> +	if (!(getauxval(AT_HWCAP) & HWCAP_SVE) &&
-> +	    (getauxval(AT_HWCAP2) & HWCAP2_SME)) {
-> +		ptrace_sve_fpsimd_no_sve(child);
-> +	} else {
-> +		ksft_test_result_skip("FPSIMD write via SVE\n");
-> +		ksft_test_result_skip("Verify FPSIMD write via SVE\n");
-> +	}
+Hi Brian,
 
-I haven't read the patch in detail, but it seems that we should update
-EXPECTED_TESTS accordingly.
+> The irqchip driver doesn't belong in the clk subsystem, and it needs to
+> go in the irqchip subsystem. You can use the auxilary device like what's
+> done for the reset driver today.
+
+Thanks, I'll move the IRQ implementation into a new auxiliary driver under
+drivers/irqchip/, following the existing reset driver pattern.
+
+The clock driver will register the auxiliary device, and the IRQ driver
+will use the parent's regmap and the same CRU DT node. No new DT node or
+changes to reset-sky1-audss.c are needed. I'll preserve the CRU power and
+IRQ quiescing protections when splitting the implementation.
+
+I'll include this in the next revision.
+
+Best regards,
+Jelly
