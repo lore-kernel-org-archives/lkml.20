@@ -1,73 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794837048;
-	b=KnNZefuiT2XScfAhXv18xkytO3bvJZyaYsd22gS8ZlAQwzX9NeJXvY+0nXh4njNBGzcn
-	 hqT/cZNEogEbQbKwKOeQ5yqyLhAkoSnkMSlR2PcuULtyuPVX2WTRuu0EzQnxEM/8ZdRAf
-	 sw8kSd8e7jB8VOwiukfwtDHlHY31DURl31KR+tqQUBUH4jgH4Kpxyq+ikgQiRJ82TDfrs
-	 JByXDfo6bWvFW0n+46HkicUu04Haz5BMaKHmO53uJt6ZADTkJQ24MW6CRX9oYqMIqbjN/
-	 fy+mbeuxtNLa6CpKmNYdANUCL57C5iLbKdM+D1Z8gst/eppPPTcT9XpSpOiKbBdGsGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837048;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received;
-	bh=BdaOVyXp5FLYqf2KnPEJmOT9duRu5mqSEItjrHOef1s=;
-	b=fi8UzUkuMSkfjWJoO65EzEm04C8xibok9zgjqpLMdH273zc1X7bjl42ij+MkAxOhy2mm
-	 czapEY/v+ygDd7BUZAuLwhEP1uXrilxrssZ2TNbNtDiMe0DsmqvqoOkCXyoR19foHFprl
-	 jDwjkJlCP57c5bvK098kzbn7VEoRRqFOJ6dv8HU0LQ0gzRbj+F0XBD7ckos7/sabWhJ0b
-	 el7oTg4mTTPEJ0sK14Rk4hTH/4wxstf0QsXNqD5yKxAzEe74DR/eBQvergaHANn7fsHze
-	 E7LIb+ezOi12VS7dF+TNYrt1Wctm0oZwdqKeyEmYAB/X83nfmVnAYN34wIS4aATOzrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=guI2+Gdo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794837039;
+	b=utm2YPXSrvqtVCnHG0nhxh54esZ7wHThRKOQxj0KhV2igif19BxcQ00pW7wXPi00M+B2
+	 mlC88WqvOTgJclGzsiMKIugpJYDmrOUZ4xMfCKXrY44H1tQphuHYUTtS71x/M1uI8kYb2
+	 JCICbv1/LiP5IHDfAqJEeucTXdKA2sBYovftmzopVINPfiQU3z+1yJv9YJ9WI/froPOio
+	 mhVolB9dMOdw+ta9P8mROQ2pg1BZkBkFu24pGJZ79R46a/axH/TiNb0MK+F22g5Cfb0Rx
+	 SSfrIEdwwu6R2+Xxc/sg7vA7+JEmkAk/9jFxNmfkL7SZ8CHFsSopGCcsZY3afHCkWHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837039;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/3e3TImcCJs1Ha+JQOqG/r2t+apyd9H8tJkNWnphjK4=;
+	b=V76eKd4cZYTXrRIf4G11rvnG4KHZ50J7k8kNBcZc3DKCP0+Z8lTExQlvBOe2Nyhsn4M2
+	 pJzGSZXqu1Pfo1xIpm0A/nZUq5kpgm5T4mo4OLTmc4p3G05eqdWcG0xKFRTBhr8yIUTtZ
+	 As9JAKEAOcntMLzzou/p5QWDYO62iBq0KmZhqfRZOkErz276Yw9OjVoVX12Xal3BtPhnd
+	 ioHL/QWeCT+VXcCpEcTjm5FJbtlaPz7g3RLQbXh+6Rfqh4unWIyJkocWGrmh2Fkl8KnJE
+	 qRMGgvXU2S5SpDSLgGM7Yga7PMOiNl8HgUpwFtHtgeyd+HYZ1yL5Ei97LXQsn0B0a4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FnbMR3k/";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9B760A3839;
-	Mon, 16 Nov 2026 13:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F85B606A8BF;
+	Mon, 16 Nov 2026 13:50:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=guI2+Gdo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794837048;
-	b=WocF5fKnoLtxL7HOsOPm3ZzcjMD+riPWYJtMXls+ZYOf6JuzBhhMrOjeq/NoY8eQl5Uo
-	 tJWhHhGCiL7zitN09JgkMJf1Md5eQlFK1JXMl0rtIHonXuznnY5sKH4RC7rphV9ER5kla
-	 Zb4LCPJGLBGf0X9pv4sa9B3obmuXRlWJgXIO8OZCFSQynoYFtlUJF9hrwccbR+ZYNGVnW
-	 gDIzIHirUxdTv0kUwEa7T8gIwECcxJUmTa0TxKwbdXbLKI3ei3MFfw2qEvC0OVyHQ9P4z
-	 fpMBFwsuMyQVWT+h+Hbg+518ULmwBp1u6STD+wM0xhMuhnf9f81s72hKF5DaZC5Qdaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794837048;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=BdaOVyXp5FLYqf2KnPEJmOT9duRu5mqSEItjrHOef1s=;
-	b=RlAo8jhz49zA8YqV+Acgek6cRjanhQATBXPr/K19bUYf/mFHQlKeBX/ES5fU4qfVMwcr
-	 OeK+VQp4NPplmPzu+1PEPb62rB5e7e/bDK+mUaWpP102M7bV4+d56kyDp/10v129yMzvv
-	 d8yhBVWfMOV4W+VGdad7bIL01rUN1chEgA9V3Pn8tKgIjaPkh+X5H67yIg6YbYyA5iXQP
-	 Ocn8WtZ2XDAZtHqaWvvNnDuGDtko/BmGhc3N3ztqkpQWT0yv4GtHsmYKg2xF9aidTkkMs
-	 KtCH9QTz3dPcaNFxcMEEoiA7gGQlMRvyAn6Oo5EOk1t9Z7nUxqo+00cmL6GvNiWh3Eg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 588F51F00927;
-	Mon, 16 Nov 2026 13:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794837048; bh=BdaOVyXp5FLYqf2KnPEJmOT9duRu5mqSEItjrHOef1s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=guI2+Gdob8akQ+b3nPRpC2nRowKBxaSPaJKl5eCyIe7Z8uTJ4vTKJT7efDLRyrTbZ
-	 BMcxskls/wTfoKtjHVyOr/TSMupEZkH2zZU6rapRV9a0RHP/WqPjHiqXixIPIAvU1F
-	 MxeyWRmAPidPQvZyXp6KVmt1Wpyf0Ft3yTRgLOfA=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 61BC14A4AF;
-	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 16 Nov 2026 14:50:29 +0100
-Subject: [PATCH v4 8/8] media: i2c: ov9282: harmonize dev_err_probe usage
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FnbMR3k/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4631F000CA;
+	Mon, 16 Nov 2026 13:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837039;
+	bh=/3e3TImcCJs1Ha+JQOqG/r2t+apyd9H8tJkNWnphjK4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FnbMR3k/s1857WfSWh6tB9WVVi7dyXHR6AtKTHY8lgxg48vmtBjWsrOcT5gNOxYNh
+	 efyOBtSbehimVZruZ2K5iLWS9cBvHXWZOEVTPLkYu/BMgpSa9kaeh8/eEVbO67rROk
+	 OKmNONRqKaLYfByF8V0TAOsBY+NoS4JSrx4wcRBMRuBjzmb8mwVEFPZ/R+L36mVvUI
+	 lfOZjeL3v10Wd00CNtaNnR4w/XX5qbuBanlg0VwDjkYwymDn7ezV2R07mTClvdT/o6
+	 OOnYXOjg1IukP94opXGL85q6++NCt1EP6lHe5qk1/iKaHTgFQZOzh7A29ZSt+8nzjz
+	 /jpOhYmHUwrBA==
+Subject:
+ Re: [PATCH net 2/2] selftests: net: check UDP tunnel GRO virtio offsets
+From: netdev-bot+sashiko@kernel.org
+To: bryon@fryer.io
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ horms@kernel.org, jasowangio@gmail.com, kuba@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ pabeni@redhat.com, shuah@kernel.org
+Date: Mon, 16 Nov 2026 13:50:37 +0000
+Message-ID: <179483703798.3136.17536195102947528618@kernel.org>
+In-Reply-To: <20261112030708.1915665-3-bryon@fryer.io>
+References: <20261112030708.1915665-3-bryon@fryer.io>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,139 +64,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ov9282-fixes-v4-8-f78e5d415c6f@linux.dev>
-References: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
-In-Reply-To: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
- "Paul J. Murphy" <paul.j.murphy@intel.com>, 
- Martina Krasteva <martinax.krasteva@intel.com>, 
- Richard Leitner <richard.leitner@linux.dev>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Jacopo Mondi <jacopo@jmondi.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794837042; l=3822;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=I9wIotiDTkl96sFViOGUNgag5B0Xx3xLSgKVKQsqlMk=;
- b=YRYTfid65uRKmyEondGLxzffkljQaE0lv8WEBidq1T+J6ypZU/yQSqaem40OF4BbsQ5ah5uH4
- /fqlBpGRQG+AdTTnfWNhTMMG9kizoFLFLXFmANmhqM6w3hytHlJ6uZX
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
 
-Use dev_err_probe() for all error messages during probing. This ensures
-there's a common "look-and-feel" in the drivers source code as well as
-the system log.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
- drivers/media/i2c/ov9282.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 01a9144cf8df3..a4407466205b0 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -1079,9 +1079,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
- 	ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
- 						     GPIOD_OUT_LOW);
- 	if (IS_ERR(ov9282->reset_gpio)) {
--		dev_err(ov9282->dev, "failed to get reset gpio %pe",
--			ov9282->reset_gpio);
--		return PTR_ERR(ov9282->reset_gpio);
-+		return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
-+				     "failed to get reset gpio\n");
- 	}
- 
- 	/* Get sensor input clock */
-@@ -1097,8 +1096,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
- 
- 	rate = clk_get_rate(ov9282->inclk);
- 	if (rate != OV9282_INCLK_RATE) {
--		dev_err(ov9282->dev, "inclk frequency mismatch");
--		return -EINVAL;
-+		return dev_err_probe(ov9282->dev, -EINVAL,
-+				     "inclk frequency mismatch\n");
- 	}
- 
- 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
-@@ -1114,16 +1113,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
- 		bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
- 
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
--		dev_err(ov9282->dev,
--			"number of CSI2 data lanes %d is not supported",
--			bus_cfg.bus.mipi_csi2.num_data_lanes);
--		ret = -EINVAL;
-+		ret = dev_err_probe(ov9282->dev, -EINVAL,
-+				    "number of CSI2 data lanes %d is not supported\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
- 		goto done_endpoint_free;
- 	}
- 
- 	if (!bus_cfg.nr_of_link_frequencies) {
--		dev_err(ov9282->dev, "no link frequencies defined");
--		ret = -EINVAL;
-+		ret = dev_err_probe(ov9282->dev, -EINVAL,
-+				    "no link frequencies defined\n");
- 		goto done_endpoint_free;
- 	}
- 
-@@ -1354,8 +1352,8 @@ static int ov9282_probe(struct i2c_client *client)
- 
- 	ret = ov9282_parse_hw_config(ov9282);
- 	if (ret) {
--		dev_err(ov9282->dev, "HW configuration is not supported");
--		return ret;
-+		return dev_err_probe(ov9282->dev, ret,
-+				     "HW configuration is not supported\n");
- 	}
- 
- 	ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
-@@ -1366,12 +1364,12 @@ static int ov9282_probe(struct i2c_client *client)
- 	ret = ov9282_power_on(ov9282->dev);
- 	if (ret)
- 		return dev_err_probe(ov9282->dev, ret,
--				     "failed to power-on the sensor");
-+				     "failed to power-on the sensor\n");
- 
- 	/* Check module identity */
- 	ret = ov9282_detect(ov9282);
- 	if (ret) {
--		dev_err(ov9282->dev, "failed to find sensor: %d", ret);
-+		dev_err_probe(ov9282->dev, ret, "failed to find sensor\n");
- 		goto error_power_off;
- 	}
- 
-@@ -1381,7 +1379,7 @@ static int ov9282_probe(struct i2c_client *client)
- 
- 	ret = ov9282_init_controls(ov9282);
- 	if (ret) {
--		dev_err(ov9282->dev, "failed to init controls: %d", ret);
-+		dev_err_probe(ov9282->dev, ret, "failed to init controls\n");
- 		goto error_power_off;
- 	}
- 
-@@ -1394,7 +1392,7 @@ static int ov9282_probe(struct i2c_client *client)
- 	ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
- 	ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
- 	if (ret) {
--		dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
-+		dev_err_probe(ov9282->dev, ret, "failed to init entity pads\n");
- 		goto error_handler_free;
- 	}
- 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In the gro_on variant, TEST_F(tun_vnet_gro,
+  outer_transport_header) in tools/testing/selftests/net/tun.c reports…
+- [Low] In TEST_F(tun_vnet_gro, outer_transport_header)
+  (tools/testing/selftests/net/tun.c), `len` is an `int` that holds the…
+
+--
+
+selftests: net: check UDP tunnel GRO virtio offsets
+
+This adds a tun_vnet_gro fixture to the tun selftest. It writes Geneve/TCP
+frames into a NAPI TAP, bridges them to a second virtio-header TAP, and
+compares the exported tunnel offsets and checksum fields of the GRO
+aggregate with the parsed wire headers. A gro_off variant is used as a
+packet integrity control.
+
+> diff --git a/tools/testing/selftests/net/tun.c b/tools/testing/selftests/net/tun.c
+> index 34de2580e32ec..192b3e0c0d172 100644
+> --- a/tools/testing/selftests/net/tun.c
+> +++ b/tools/testing/selftests/net/tun.c
+
+[ ... ]
+
+> +TEST_F(tun_vnet_gro, outer_transport_header)
+> +{
+> +	uint8_t input[GRO_BUFFER_SIZE], output[GRO_BUFFER_SIZE];
+> +	unsigned int seen = 0, aggregates = 0, records = 0;
+> +	/* Bound the wait even if forwarding fails or packets are lost. */
+> +	int64_t deadline = gro_milliseconds() + GRO_RECEIVE_TIMEOUT_MS;
+> +	struct pollfd pfd = { .fd = self->fd[1], .events = POLLIN };
+> +	int i, len, frame_len, ready;
+
+[ ... ]
+
+> +		ASSERT_NE(pfd.revents & POLLIN, 0);
+> +		ASSERT_LT(records++, 128);
+> +		len = read(self->fd[1], output, sizeof(output));
+> +		ASSERT_GE(len, TUN_VNET_TNL_SIZE + ETH_HLEN);
+> +		frame_len = len - TUN_VNET_TNL_SIZE;
+
+[Severity: Low]
+Can a failed read() get past this assert? len is an int, but
+TUN_VNET_TNL_SIZE is sizeof(struct virtio_net_hdr_v1_hash_tunnel), so the
+right-hand side is a size_t. __EXPECT() keeps the type of each operand:
+
+	__typeof__(_expected) __exp = (_expected);
+	__typeof__(_seen) __seen = (_seen);
+	if (!(__exp _t __seen)) {
+
+That means a -1 from read() is compared as SIZE_MAX, and the assert passes.
+
+read() can fail even after poll() reports POLLIN. tun_do_read() dequeues
+the skb and calls tun_put_user(), which can return -EINVAL from
+virtio_net_hdr_tnl_from_skb(). The skb is freed either way:
+
+drivers/net/tun.c:tun_do_read() {
+    ...
+	ret = tun_put_user(tun, tfile, skb, to);
+	if (unlikely(ret < 0))
+		kfree_skb(skb);
+    ...
+}
+
+When that happens, frame_len goes negative. The later ASSERT_GE(frame_len,
+...) checks against size_t or unsigned operands pass for the same reason.
+
+On the first iteration, output[] is uninitialized stack memory. The MAC
+memcmp() then most likely mismatches and the error is dropped by the
+continue. On later iterations the stale previous frame is parsed until the
+tot_len check fails with a misleading message.
+
+The test still fails in the end because seen never reaches 0xff, but the
+real errno is never reported. Would an ASSERT_GE(len, 0) before this check,
+or an (int) cast on the size, give a clearer failure?
+
+[ ... ]
+
+> +		if (!variant->gro || vh->gso_type == VIRTIO_NET_HDR_GSO_NONE) {
+> +			ASSERT_EQ(vh->gso_type, VIRTIO_NET_HDR_GSO_NONE);
+> +			ASSERT_EQ(segments, 1);
+> +			ASSERT_EQ(le16toh(vh->gso_size), 0);
+> +			ASSERT_EQ(gro_build_packet(input, first), len);
+> +			ASSERT_EQ(memcmp(frame, input + TUN_VNET_TNL_SIZE, frame_len), 0);
+> +			continue;
+> +		}
+
+[ ... ]
+
+> +	ASSERT_EQ(seen, (1U << GRO_PACKETS) - 1);
+> +	if (variant->gro && !aggregates && _metadata->exit_code != KSFT_FAIL)
+> +		SKIP(return, "No multi-segment GRO aggregate observed");
+
+[Severity: Medium]
+Does this match the commit message? The commit message says:
+
+  Require a multi-segment GRO aggregate ... No output or no merge is not
+  a pass.
+
+In kselftest_harness.h, SKIP() is documented as forcing a "pass" after
+reporting why the test is skipped. It sets _metadata->exit_code to
+KSFT_SKIP, which appears as "ok ... # SKIP" in the TAP output.
+
+In the gro_on variant, the GSO_NONE branch above accepts unmerged frames
+after only an integrity check. Those frames never reach the
+outer_th_offset and inner_nh_offset checks. virtio_net_hdr_tnl_from_skb()
+only fills those fields for SKB_GSO_UDP_TUNNEL or SKB_GSO_UDP_TUNNEL_CSUM
+skbs, which means only for aggregates.
+
+Suppose Geneve GRO stops merging, or the tunnel GSO export path stops
+producing tunnel GSO skbs. All 8 packets would then arrive as valid
+singles, seen would become 0xff, aggregates would stay 0, and the test
+would report SKIP.
+
+Wouldn't a regression in the path this test targets then look like an
+environment skip instead of a failure? Should the gro_on variant fail
+here instead?
 
 -- 
-2.53.0
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112030708.1915665-1-bryon%40fryer.io
