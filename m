@@ -1,93 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844985;
-	b=VG5leCutDY2WAJ9ZfjoL3jLkoMIuXhGqV8dKoWbBkmixrpjKUTE9PPWuuq6SS803qgCp
-	 rFxZqPxNHv16m/yzYRIvOdjCi48yJQgFmGAHu7LnG0c2YYBC1qNgZ5juJxTTpNHUBHnsa
-	 NRrJcHp/Zv1HdjHtuqdmTzaCZBoXJtm9+NtQEjvA1JYpeif/d6xDxggEy4jU6sy9cZ8Qw
-	 eibNM6AIW/7sFV0/LCi30XomBGZxsrwIjPfI73WrzA/bfSWjsHz78UrJfBawOMH2X3aDC
-	 735UgX/2yVlXud8MD0+yxdvdHxh8yUM3JZsKrEb1HB4ShdlxRGYiwur2dcprxlthigg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844985;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=7fP1rRVkXld1lGnzw+N3RAk1uoc6VsTel5zPXTXS+kE=;
-	b=LERjYH062AQZkdvwtUnNFqykQuyKY6pXGcX1kk5n/4/Q1LEj0q/rD0gkKR8H/0XsngcC
-	 tZBSGYzRyQAbTqDsXd+Xb7QbGy7BYauSlOSWMtxaagj/aja1Nqo09sVtm2NvgXF3e9l+B
-	 dbCuE0a/uMfRIXu4M/NE4A1LUljs18Mg7JjzMqizLxMtxojzXOsTDboiIyG5Rebp3r6FF
-	 jRuBW+4kSQ12i6YWGYqHS9jpO0VkweNyDPbqsKrIzdRuBxQpmGlmyQiXjFIAEdSoCohg/
-	 s4hk6WeXBUhENSfBGV5ULrzTBt9IQBQNtKmzH1sWLzjRWSFJ8PWnezt1UVwdmgBj5VA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=u5FrU8S7;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=u5FrU8S7;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794844991;
+	b=si1etzq3W3wEDKczDrNkalT/g15X9WMTm80wrkmIydvCvptp3JYdbz5QJ5iYzrWzgFVj
+	 CHiFQZOWzDacHX9gvUA6KfNslZUmv4duOIlf3DpQhygd08R592ud1x882ErZkNpfSLYas
+	 dgAyGJzbQaAPc3Y5T76kx2E24R7oaGs2GjAI3rNn0lLbc7qf8E3mySzFwcjnrIzzMbh7I
+	 90NnwdMaqTuDKwBpP1fOgJHF8+W8AO3z/vc9TkUEdhtYQyP3eyUUzMzouqs/BcGNujaQJ
+	 H3n6hj99HfAlF2crpAUsHs4E8WOcOy+HXqBmyERXJmIPjbTvRrLDdLm3+PvyK1ulCwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844991;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=75pkuYW/tk7J9Bw8nfex7DohVw3/gs/HE93Gq8puzEQ=;
+	b=RyGp6LN8R/o4IPMXse0KbEeQM7OgeN1dgdeqgw0JUC0KNhUXIQH1qbq0GtQvFhDqE1qi
+	 yQPdCPa4d24XWu2HSIFnsgd6UdBE5RRwVsNf4j1vNDLDE/rgnFk753IddetiOR3dD5c5x
+	 HwrQFq2Eh8BJJGcAV5aYRfLVtNGkmDn88bwltrK7SuUZS7xqywoJZdzqDXEhLb9Gf7ge7
+	 elFScRKUVhabKGs/DVX9W5eYtsfHz+En4TXmOTaHyWmQN+MznD21pTwdrnq3agi0j/aHI
+	 IG4lR/HXPOezcAPosmmkpyS46Yov9xwhqAm2RFBa4TQsWBZg3QXLLpYUIRPlCv1L8rw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j5+qfPZW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02954606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02954606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A299B606A330
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A299B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=u5FrU8S7;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=u5FrU8S7
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 24DA622310;
-	Mon, 16 Nov 2026 16:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794844983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=7fP1rRVkXld1lGnzw+N3RAk1uoc6VsTel5zPXTXS+kE=;
-	b=u5FrU8S7QMY9fMo70nHZMKA5tLcflnnpNFnxi7Zx8ePGfGNzODw0TGQWKX6QuGv1hGngUD
-	vUeAKbrBgxMWeNmaL1YZ0vxsao4OJ5L5+rDrTOX9QNGPzjam2PVWSY+lUEJVFQiwG91lOg
-	ZKtDzKT5aegZond/f9csG5PzkMUd7vc=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794844983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=7fP1rRVkXld1lGnzw+N3RAk1uoc6VsTel5zPXTXS+kE=;
-	b=u5FrU8S7QMY9fMo70nHZMKA5tLcflnnpNFnxi7Zx8ePGfGNzODw0TGQWKX6QuGv1hGngUD
-	vUeAKbrBgxMWeNmaL1YZ0vxsao4OJ5L5+rDrTOX9QNGPzjam2PVWSY+lUEJVFQiwG91lOg
-	ZKtDzKT5aegZond/f9csG5PzkMUd7vc=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 867431334C;
-	Mon, 16 Nov 2026 16:03:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Nz6MFzYp+2pYUwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 16:03:02 +0000
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Drew Fustini <fustini@kernel.org>
-Subject: [PATCH v4 0/5] x86/msr: Drop 32-bit interfaces of native MSR functions
-Date: Mon, 16 Nov 2026 17:02:54 +0100
-Message-ID: <20261116160259.1579333-1-jgross@suse.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j5+qfPZW
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ea7190aea1so12839345ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:03:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794844990; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hYt+m4VPtVojFqUx8CnWG9t0ryfPjjWVS0DIqEVADFtsFIRrwAju1BqtGB1AVbmb3B
+         f6UldPnlHHn4MBpnSH7u2qny6ce3JuCQsJzffzCV8HM2lIG0OwZadox4BQ0KLmRcdWij
+         tr6utlISbrGvEEOSK4Dq6od72tA30FxOLJh6wbiqaRPqM56L82LZxexzYRhrREtSDFIj
+         Zh1r3M98jufXefo7nuwDrTdumlbvB9QEymzFSNL90nQsBj6FydjR5VjWs2nAi2ycVa3J
+         GUOP2GXrBofKx+lUrLk6rtymltltzmW6ErOxEvNoOhNWKx+w0o41JGRy4OwPQLUe3cIc
+         X09g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=75pkuYW/tk7J9Bw8nfex7DohVw3/gs/HE93Gq8puzEQ=;
+        fh=HCOyx9MCTyWX5qczS2MPKWQHqAwXuWjcOZTo7DzouJc=;
+        b=NHScEDVOU1KRgXP3EOewUWyrJQTVndvfNG/VLhab0GwoSUqGN0JXQ+V6eItRcjponp
+         OudjdmbVNMCVjP3tMvR0Ey6uishSTM/4pgfQ+kp4znR3rhez8QdMPEEpxeswEuiUZp3j
+         KbIGQehGXo14S9NNJpALNbhJyroc3ctSR9IoPTuaKryCe/Hp/hurfBq4ysbwRyMHg1Rl
+         JahiQtFUAHioPJxD+bo1lfq5ockrP5GIgkzjj7h3lsgeCmozH5RUqAfhhqYU7D5gNzsE
+         BRynDzU/jb7ywF7Twk+Na766AKoZmSeGA7KbGrUI+M1NmgRWiK4e6mY4QtmjC5g6d41x
+         Z1eQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794844990; x=1795449790; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=75pkuYW/tk7J9Bw8nfex7DohVw3/gs/HE93Gq8puzEQ=;
+        b=j5+qfPZWt2MiR9AwyGnuSWff4kqLNf2XZOiwJnxZ+Fv0u1xxF4OIzba8auw2DFGria
+         RUb2lc0JvJCxRj6Sp5wd8n8GN+fVHAzINHu4GRUl3yu2yHMI501c4wW2crgydaFx3jsE
+         lSM2odqPpPWNXbrGAKXoPpmlZw5EaXH1hh87buKYcgSywRmFBtM4pSnPlvXkBQe4++xh
+         0bQTuOm9SoWLQT8EZjRSo/DtXDY558fBXgN3Z+o+1TrHGsvMJ7HiAuWun66rYU1dHnWs
+         VXb+7U5JpdSFegGhqgYMC5nLUFcvstgH/6u4ood/1y0JA3IoK1AR6cJ1RlH2vVzkS7hV
+         zBeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794844990; x=1795449790;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=75pkuYW/tk7J9Bw8nfex7DohVw3/gs/HE93Gq8puzEQ=;
+        b=X+tc6bCwhZ/5FI79Hh9Vb9Ct/S0PiiaCqitghzMuVSfsvt/B3PbpjI8qItmNxwtptx
+         uRXanikE0eUguF3mIpflIUIolulW0viD6/lSFPFVP4dquzaQIYqHDiVhSOYyUmBrfOt+
+         bGZ05jIiDupwaKJO4snQmNkN1FYS5L87fl9U4z0esX89QKOc5Eca4Zq/99+nTvDtXXb/
+         Rmi1R6Kw3xLzuYpSekrLK5c3UKuaOrfcNeiwpkvHLg+34Oe3TFxnZyEXClHAK1Blz1nX
+         /VTJkz0MoZ9m21HZwN2A/SXh5Cis8D2gnxOqMVMkhce2B6lkUPuguHLijGOe42e+IWkq
+         Odrg==
+X-Forwarded-Encrypted: i=1; AL+hErHMvHBvgOHqJph0GAkZOocqJgx9QZuRu2p7UTcLdN36Uqn4zNO2S6ddu8U64RQmcLX5qDbL0V+C/2qsEw8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fjciViGf3wce5bUT5U3crTHkyVmSsRtLwgGVCO5p3LSYJoN/S
+	uyU4Rq7G8+s2L6U5P3bC5k8qBO0YroPTKXvn+W/dNFJwHrzZxDwQqa1RpkcmILJjbqOvcd42cOS
+	3eLUDVZa+96mewy60X0SfPiQXcu6pRp8=
+X-Gm-Gg: AZFdTZctF1mP4PyHGMfZhVMNkb6KR2KsUjPmyP8zxYpPMlES/grTTB2Q8klVCHxNhSo
+	mGUv7HIV7Dg19KhJYCke4b4Q3h7VWnjAWRj2w03YprDn3Sl4Jr16yJeCiKaZtaAbDbjgQKz4KLS
+	OhE9ssTDezJftlPM5cPlkG5Wgneh6VJuOTpOKVUOphUaNJeOhcwTakMozQJSqBsPeaQabhM1aLE
+	FSVPokQDZb4v6gJiI7iezNlnsg60AzTlaiZX/MBgnljjY98yVEcOBarXNzlpT0nv1E+zdFvKXmA
+	uJDN/s1aPXJKWRMFaOBgKj6yht8tRVNAI0RYt2AO/hW+r6bYB0ncCps4f52zcglMaOvZHJ4vM/v
+	sz92HFXKEWpPA7GEnFwWWKlo31VUP8mmetkQ/sMIqg4qhCejTdlUnFIEbtnhwiLY8zayfadpRp3
+	ROBBV3H4nOjYF/TgmWn5q+vlg30Q5QL/UhgI1DpnNJ2WB6cvHKZ6MJqbC7
+X-Received: by 2002:a17:903:3c0c:b0:2ef:d952:4a70 with SMTP id
+ d9443c01a7336-2efd9524f10mr160655ad.15.1794844989621; Mon, 16 Nov 2026
+ 08:03:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,67 +104,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+References: <avsfpHqbu_rdmOrf@sirena.org.uk>
+In-Reply-To: <avsfpHqbu_rdmOrf@sirena.org.uk>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Mon, 16 Nov 2026 08:02:56 -0800
+X-Gm-Features: AclHuK8Zde0ypoKNoy9FjTToivHq-RePvO_-KQS7SMLakIHz2MwjMtcG0NQBgHE
+Message-ID: <CAADnVQKjK2ezTcTUfQLACJDBLzhy=aBvoiK7L1cqKmb5RE40CA@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the bpf tree with the origin tree
+To: Mark Brown <broonie@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>, 
+	Networking <netdev@vger.kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Sergei Nizovtsev <snizovtsev@cloudlinux.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Switch all users of the 32-bit native_*() MSR access functions to the
-64-bit ones and drop the 32-bit interfaces.
+On Mon, Nov 16, 2026 at 07:22 AM Mark Brown <broonie@kernel.org> wrote:
+> Hi all,
+>
+> Today's linux-next merge of the bpf tree got a conflict in:
+>
+>   kernel/bpf/bpf_lsm.c
+>
+> between commit:
+>
+>   ea8c4b37b8809 ("bpf: don't mark namespace_init and namespace_free arguments as trusted")
+>
+> from the origin tree and commit:
+>
+>   ab86b62012b9e ("bpf, lsm: Mark backing_file_alloc/free LSM hooks as untrusted")
+>
+> from the bpf tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+>
+> diff --cc kernel/bpf/bpf_lsm.c
+> index 468e63dbd922d,f39a3766f2245..0000000000000
+> --- a/kernel/bpf/bpf_lsm.c
+> +++ b/kernel/bpf/bpf_lsm.c
+> @@@ -411,8 -411,8 +411,10 @@@ BTF_ID(func, bpf_lsm_bpf_map_free
+>   BTF_ID(func, bpf_lsm_bpf_prog_free)
+>   BTF_ID(func, bpf_lsm_file_alloc_security)
+>   BTF_ID(func, bpf_lsm_file_free_security)
+>  +BTF_ID(func, bpf_lsm_namespace_init)
+>  +BTF_ID(func, bpf_lsm_namespace_free)
+> + BTF_ID(func, bpf_lsm_backing_file_alloc)
+> + BTF_ID(func, bpf_lsm_backing_file_free)
+>   #ifdef CONFIG_SECURITY_NETWORK
+>   BTF_ID(func, bpf_lsm_sk_alloc_security)
+>   BTF_ID(func, bpf_lsm_sk_free_security)
 
-Based on the series "x86/msr: Drop 32-bit MSR interfaces" [1].
-
-[1]: https://lore.kernel.org/lkml/20261116150208.1572254-1-jgross@suse.com/T/#md59eab1d0c8b23a3184cbab408629c86f95e8419
-
-Changes in V2:
-- small fix in patch 1
-- rebased
-
-Changes in V3:
-- another small fix in patch 1
-- rebased
-
-Changes in V4:
-- another small fix in patch 1
-- rebased
-
-Juergen Gross (5):
-  x86/msr: Switch users of native_wrmsr() to native_wrmsrq()
-  x86/msr: Remove native_wrmsr()
-  x86/msr: Switch users of native_rdmsr() to native_rdmsrq()
-  x86/msr: Remove native_rdmsr()
-  x86/msr: Switch native_wrmsrq() from macro to inline function
-
- arch/x86/coco/sev/internal.h              |  7 +------
- arch/x86/include/asm/microcode.h          |  6 +-----
- arch/x86/include/asm/msr.h                | 16 ++++------------
- arch/x86/kernel/cpu/intel.c               |  6 +++---
- arch/x86/kernel/cpu/microcode/amd.c       |  4 ++--
- arch/x86/kernel/cpu/microcode/core.c      |  4 ++--
- arch/x86/kernel/cpu/resctrl/pseudo_lock.c |  4 ++--
- 7 files changed, 15 insertions(+), 32 deletions(-)
-
--- 
-2.56.0
-
+Thanks. The resolution is correct.
