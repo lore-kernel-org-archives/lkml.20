@@ -1,33 +1,33 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.130.186.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855726;
-	b=093FDjmo5hU/xS0SWNKU1QAid/bl+YcJJ59qS6ZHA+BeLVxtlmlHztEHdFq7zjMLZzEG
-	 9/oxcnNs7au6SbFPf9N8XQBjn4Xh2dYY7LcedLEJE8rj1cPW6BCOKbA3UYDjf/p2lpund
-	 1yec4WytY6Rl/2r04OfMzgSBCL4qv1nGyFvYUYH474IVPyhKp9es2EUjodan+6eNS/T7C
-	 AO+nPUIp/h5qydO1xYbY8R7/MMo6imE15Rx/OsSJWrEKDWlQdtWTcXHq3W1VyItBqKp4y
-	 +P+FugtuPS+F0LeNDdkJ+jPf+EeYo5ulUQpF9SLfyjYMgu6YG10GlQVBU6490PodmyQ==
+	t=1794855724;
+	b=tun4bTL/vHUdbCVAnJJ2a/l6XXVa6nXCoRsjTZxs8YbD6Pzgb0fWmHZcldNqnYUXT39v
+	 mttZxpvN0ZwfitgTv7XmFtwdUmnXRwngweLUB6s8jNiKcd4jZ4F6HnYyBmf6FYCyXjAXW
+	 pSCWPLUTzb66Od0Y9pOBMiQO+UqipISeyAHBqhQ6/tkChg7L1QZrsVsKK3TDzjhgYUZ9R
+	 OvagTVrDZSDg8wg5gpy3lwVbvK/JnSd7akoHxQ1qNpf2LSsVPMRL0dasw76Opi8LVj97B
+	 s68fKCvaTA/loXBdWKE7rpD2AcHl6UqbPqcXI5PYX0qs4h5QfObr73+4T3lyNydTQeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855726;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855724;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8GN4qtXPr0ygX2MVBuFNyGfBP+HwmL+0Uf8u2OXneSY=;
-	b=jQMm7cE8NvEWUrEV6tkZDpM8Aqw0h6TqFi+IV9K1hhkM5W0oGymAzPNGfOqnL903ar7w
-	 Eb2Y891hy2+GhDX2rID89A7uWxfQ4CVeRWg6hYIEe3bGb+181QAxZi5/RBypORbDU+CMP
-	 /L2fv9WPAcnZnEl4fhuspXAS8xcjphy12f9+pZrrqGCXE366CbFpxCfaISucUutDXLfOw
-	 /YTQbM8N1/tD7JMWsmS+649VY2MOv1SStG1n1oJi5Ec6QzGguTuNX/2+7ZZuPhkPsN68H
-	 esskAbx5EHqlA5dLlkACbwOfa+INDArikUetk0zMwoP05NzycsLTSp8O+QwFWP6+HyQ==
+	bh=vaWafyUkOS/8YTt9cOHijjPOAd9VaKJvFlrm0CGGQzo=;
+	b=1pR17WTvNm/QjtUDCH+rRzH25Vf28owmeAI8sp/J2yvkZiHxZ+Mr4vfi+gRPpBQeefmh
+	 xAtl1uOZIbWzIxYf408Py6EwR7bm7rNxKnPEK/cKsGpUAKWOjBrspmXNjfzqQcDJaBrKa
+	 ZbXy5WzSubYoww5Jsz8XGrIPDzQtVLKVpbqNBrFiwNB6qlXUmwNGCxIlz2HjpOtfgM3vu
+	 9VqzHsYVNkIkmfCrJzZi5/Nnh+cooMCrF2YFhznVg+b04Zwpg3/YpFUhNN+H/A1VRC5UP
+	 OS4ciK7M+61bmc6ZaGRlc0woivAq8Y1hPqvqNp30D2SQM6DrTApCEOlD7CtVDbTf/5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=hardeman.nu;
 	spf=pass smtp.mailfrom=hardeman.nu;
 	arc=none smtp.remote-ip=94.130.186.121
 Received: from thor.hardeman.nu (thor.hardeman.nu [94.130.186.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A98606A8A1;
-	Mon, 16 Nov 2026 19:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5A98606A8A1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75ED9606A323;
+	Mon, 16 Nov 2026 19:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75ED9606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardeman.nu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardeman.nu
 Received: from thor.hardeman.nu (thor.hardeman.nu [IPv6:fd27:2a41:8fcb:2::a])
@@ -36,41 +36,41 @@ Received: from thor.hardeman.nu (thor.hardeman.nu [IPv6:fd27:2a41:8fcb:2::a])
 	 client-signature ECDSA (secp384r1) client-digest SHA384)
 	(Client CN "thor.hardeman.nu", Issuer "Hardeman Internal Mail Relay CA" (verified OK))
 	(Authenticated sender: nullmailer@odin.hardeman.nu)
-	by thor.hardeman.nu (Postfix) with ESMTPSA id 4jSy0958m0zFq2Z;
-	Mon, 16 Nov 2026 20:02:01 +0100 (CET)
+	by thor.hardeman.nu (Postfix) with ESMTPSA id 4jSy076GnPzFpkF;
+	Mon, 16 Nov 2026 20:01:59 +0100 (CET)
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardeman.nu;
-	s=202608-ed25519; t=1794855721;
+	s=202608-ed25519; t=1794855720;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8GN4qtXPr0ygX2MVBuFNyGfBP+HwmL+0Uf8u2OXneSY=;
-	b=2JRrRe2jbhGX/xeLIS6QTgXHTqqpqNWWpZbWH7gfCKgnbnwVApDJLDmIM1bgTulE2B1Bjy
-	tOiSt7FtXRpeFbDA==
+	bh=vaWafyUkOS/8YTt9cOHijjPOAd9VaKJvFlrm0CGGQzo=;
+	b=BeDZ9cbM22udIDEJ+12YLoYEL7nsOGcO0+sK32EI+mKuAAhoBLilNAQ76T3dUJBVydoDq4
+	HMyED7IHy8XKUuAA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hardeman.nu; s=202608-rsa;
-	t=1794855721;
+	t=1794855720;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8GN4qtXPr0ygX2MVBuFNyGfBP+HwmL+0Uf8u2OXneSY=;
-	b=aNj2xxt8nu/uTNdYRWZGQ5QIv26mAV9hDJRVQM+CTeNoQ4mmYCFIOMr2NkK74INWJMEP/J
-	u3aqspkvtE2RG0C58yNpIw9nCLOOjKBz/1K2T7vQyehxEHRzVFDTkdFVvwQ+WTsMpYAzym
-	j5w/zSCIIy43sp5FuQlt90SveLTDbuAqAlgFDsxCR4OE3IhcQjnhn7JP1vp3UD3mDCccjM
-	OUwX3Vi/WgeIgl6AkWeDnsFiEB3OYUjR3sdL1RYB66DBseV6LTUtYiZoAjoNVrls083wsx
-	V4YeD8egMUjVrJK4RkjXmPhqW2VN49z9pSAWcqjZtsSbbSP+5FQTgNC3JaNV0g==
+	bh=vaWafyUkOS/8YTt9cOHijjPOAd9VaKJvFlrm0CGGQzo=;
+	b=FTs3Npgj0DBWDzwCIM4LjmNESvvkbAqAH0N+zBSU20KPOhIcU7jEIgvoXpkphCwVW9Hidt
+	DRcUmnd86G9YWgpCrnQp7QufUbL6DIiFAV9lhrihqCwlWTAwo8N/tqBf3d5rGKn8GR2c2o
+	WEvdD/06dFZMvpXXuJSyEweUGYU4sp/htgvU0+wA4qysqV3ldyylEHW9fCbF3jpwjjVFDv
+	MsRyu+FL/dWNDNSNYnX58N0TqdFtR4wqN/qjxA+0Lpca2+aaou1VMAVNbKqfOXB7IdWxjr
+	qx+J5ggNh1gFl3I4C2nYYWQzaLEU2eRp+6MZRgo86ERMV1gEYE2v7ginBSI7SA==
 Received: from odin.hardeman.nu ([fd27:2a41:8fcb:2::a])
 	by thor.hardeman.nu with ESMTPSA
-	id LinOKClT+2oY9CgAWTs42w
-	(envelope-from <david@odin.hardeman.nu>); Mon, 16 Nov 2026 20:02:01 +0100
-Received: (nullmailer pid 2736564 invoked by uid 2002000001);
+	id DGOGMidT+2rw8ygAWTs42w
+	(envelope-from <david@odin.hardeman.nu>); Mon, 16 Nov 2026 20:01:59 +0100
+Received: (nullmailer pid 2736567 invoked by uid 2002000001);
 	Mon, 16 Nov 2026 19:01:58 -0000
 From: =?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>
 To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>, Alastair D'Silva <alastair@d-silva.org>, Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, Bitterblue Smith <rtl8821cerfe2@gmail.com>, =?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>
-Subject: [PATCH rtw-next 1/5] wifi: rtw88: sdio: cache the free TX page counts of the 88xx chips
-Date: Mon, 16 Nov 2026 20:01:41 +0100
-Message-ID: <20261116190145.2736364-2-david@hardeman.nu>
+Subject: [PATCH rtw-next 2/5] wifi: rtw88: sdio: aggregate TX frames of the 88xx chips
+Date: Mon, 16 Nov 2026 20:01:42 +0100
+Message-ID: <20261116190145.2736364-3-david@hardeman.nu>
 In-Reply-To: <20261116190145.2736364-1-david@hardeman.nu>
 References: <20261116190145.2736364-1-david@hardeman.nu>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -85,300 +85,302 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Before every transfer, rtw_sdio_check_free_txpg() reads the three
-REG_SDIO_FREE_TXPG registers of the RTL8822BS, RTL8822CS and RTL8821CS
-to see whether the frame fits. That is three register reads per frame,
-more bus time than the transfer of a small frame takes, and the main
-reason why the RTL8822CS sends at only about a third of the rate it
-receives at.
+The 88xx chips accept several frames in one transfer: the first TX
+descriptor carries the number of frames in DMA_TXAGG_NUM and every frame
+starts 8 byte aligned, as for USB TX aggregation. Realtek's driver sends
+up to about 32 KiB per transfer this way. rtw88 sends one frame per
+transfer, so a full sized frame costs a CMD53 and its interrupts, and
+the RTL8822CS cannot get near its PHY rate.
 
-The chip only ever frees pages, so counts read earlier and reduced by
-every transfer since then never exceed what is free. Keep the counts,
-reserve each transfer's pages from them, and read the registers again
-only when they say the frame does not fit, as the RTL8723BS path does
-and as Realtek's driver does for these chips. Pages are taken from the
-queue's dedicated pages first and then from the public ones, and the
-management queue, which goes to the extra FIFO on these chips, has its
-own count.
+When an AC queue holds more than one frame, copy up to 32 frames or
+20 KiB of the same access category into a buffer and send them with one
+transfer. The chip rejects aggregates that mix access categories; an AC
+queue only holds one, but the queue select of each frame is checked to
+be sure. Every frame is charged its own pages and output queue entry,
+so the aggregate is shrunk until it fits what is free. A frame too big
+for the buffer is sent on its own, as before.
 
-The same registers report the free entries of the AC output queue;
-track them too, one per frame of an AC queue, so that a later change can
-send several frames per transfer without overrunning it.
-
-tx_credit_lock is held from the reservation until the transfer is done,
-so the counts are never read back while a transfer they were reduced for
-has not reached the chip yet. They are read again after start and stop,
-and after a failed transfer.
+The RTL8723BS and the other chips with an 8051 MCU keep sending one
+frame per transfer.
 
 On a NanoPi R76S (RTL8822CS, SDR104) acting as an AP, TCP throughput to
-a client goes from about 87 to about 100 Mbit/s, and from the client from
-about 160 to about 185 Mbit/s.
+a client goes from about 100 to about 220 Mbit/s, and from the client
+from about 185 to about 245 Mbit/s. Realtek's driver reaches about 183
+and 265 Mbit/s on the same setup.
 
 Signed-off-by: David Härdeman <david@hardeman.nu>
 ---
- drivers/net/wireless/realtek/rtw88/sdio.c | 201 ++++++++++++++++++----
- drivers/net/wireless/realtek/rtw88/sdio.h |   3 +
- 2 files changed, 170 insertions(+), 34 deletions(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 181 +++++++++++++++++++++-
+ drivers/net/wireless/realtek/rtw88/sdio.h |   6 +
+ 2 files changed, 180 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index ecd4d751c05..49d733a5104 100644
+index 49d733a5104..17a4c3037d7 100644
 --- a/drivers/net/wireless/realtek/rtw88/sdio.c
 +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -675,6 +675,135 @@ static atomic_t *rtw_sdio_8723bs_free_txpg(struct rtw_dev *rtwdev, u8 queue)
- 	}
+@@ -919,16 +919,16 @@ static void rtw_sdio_8723bs_consume_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 		atomic_set(&rtwsdio->free_pg_pub, 0);
  }
  
-+/*
-+ * The other chips with a non-8051 MCU (RTL8822BS, RTL8822CS, RTL8821CS) report
-+ * their free pages in three registers, one 12 bit count per FIFO, and the
-+ * free entries of the AC output queue in the third. Reading them for every
-+ * transfer costs three register reads, more bus time than the transfer of a
-+ * small frame. The chip only frees pages and entries, so counts read earlier
-+ * and reduced by every transfer since then never exceed what is really free:
-+ * keep them and read the registers again only when they say a transfer does
-+ * not fit.
-+ */
-+static void rtw_sdio_88xx_sync_free_txpg(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+	u32 free_txpg[3];
-+
-+	lockdep_assert_held(&rtwsdio->tx_credit_lock);
-+
-+	free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
-+	free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
-+	free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
-+
-+	atomic_set(&rtwsdio->free_pg_high, free_txpg[0] & 0xfff);
-+	atomic_set(&rtwsdio->free_pg_normal, (free_txpg[0] >> 16) & 0xfff);
-+	atomic_set(&rtwsdio->free_pg_low, free_txpg[1] & 0xfff);
-+	atomic_set(&rtwsdio->free_pg_pub, (free_txpg[1] >> 16) & 0xfff);
-+	atomic_set(&rtwsdio->free_pg_extra, free_txpg[2] & 0xfff);
-+	atomic_set(&rtwsdio->tx_oqt_free, (free_txpg[2] >> 16) & 0xff);
-+
-+	rtwsdio->free_txpg_valid = true;
-+}
-+
-+static void rtw_sdio_88xx_invalidate_free_txpg(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	guard(mutex)(&rtwsdio->tx_credit_lock);
-+
-+	rtwsdio->free_txpg_valid = false;
-+}
-+
-+static atomic_t *rtw_sdio_88xx_free_txpg(struct rtw_dev *rtwdev, u8 queue)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	switch (queue) {
-+	case RTW_TX_QUEUE_BCN:
-+	case RTW_TX_QUEUE_H2C:
-+	case RTW_TX_QUEUE_HI0:
-+		return &rtwsdio->free_pg_high;
-+	case RTW_TX_QUEUE_VI:
-+	case RTW_TX_QUEUE_VO:
-+		return &rtwsdio->free_pg_normal;
-+	case RTW_TX_QUEUE_BE:
-+	case RTW_TX_QUEUE_BK:
-+		return &rtwsdio->free_pg_low;
-+	case RTW_TX_QUEUE_MGMT:
-+		return &rtwsdio->free_pg_extra;
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static bool rtw_sdio_queue_is_ac(u8 queue)
-+{
-+	return queue <= RTW_TX_QUEUE_VO;
-+}
-+
-+static bool rtw_sdio_88xx_txpg_fits(struct rtw_dev *rtwdev, atomic_t *dedicated,
-+				    u8 queue, unsigned int pages,
-+				    unsigned int frames)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	if (atomic_read(dedicated) + atomic_read(&rtwsdio->free_pg_pub) < pages)
-+		return false;
-+
-+	/* every frame of an AC queue takes an entry of the output queue */
-+	if (rtw_sdio_queue_is_ac(queue) &&
-+	    atomic_read(&rtwsdio->tx_oqt_free) < frames)
-+		return false;
-+
-+	return true;
-+}
-+
-+/*
-+ * Reserve the pages and output queue entries for a transfer of @frames frames
-+ * needing @pages pages, from the queue's dedicated pages first and then from
-+ * the public ones, as the chip charges them. The caller holds tx_credit_lock
-+ * until the transfer is done, so that the counts are never read back from the
-+ * chip while a transfer they were already reduced for has not reached it.
-+ */
-+static int rtw_sdio_88xx_reserve_txpg(struct rtw_dev *rtwdev, u8 queue,
-+				      unsigned int pages, unsigned int frames)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+	atomic_t *dedicated;
-+	unsigned int taken;
-+
-+	lockdep_assert_held(&rtwsdio->tx_credit_lock);
-+
-+	dedicated = rtw_sdio_88xx_free_txpg(rtwdev, queue);
-+	if (!dedicated) {
-+		rtw_warn(rtwdev, "Unknown mapping for queue %u\n", queue);
-+		return -EINVAL;
-+	}
-+
-+	if (!rtwsdio->free_txpg_valid ||
-+	    !rtw_sdio_88xx_txpg_fits(rtwdev, dedicated, queue, pages, frames))
-+		rtw_sdio_88xx_sync_free_txpg(rtwdev);
-+
-+	if (!rtw_sdio_88xx_txpg_fits(rtwdev, dedicated, queue, pages, frames)) {
-+		rtw_dbg(rtwdev, RTW_DBG_SDIO,
-+			"Not enough free pages (%u needed, %u free) or output queue entries (%u needed, %u free) in queue %u\n",
-+			pages, atomic_read(dedicated) +
-+			atomic_read(&rtwsdio->free_pg_pub), frames,
-+			atomic_read(&rtwsdio->tx_oqt_free), queue);
-+		return -EBUSY;
-+	}
-+
-+	taken = min_t(unsigned int, pages, atomic_read(dedicated));
-+	atomic_sub(taken, dedicated);
-+	atomic_sub(pages - taken, &rtwsdio->free_pg_pub);
-+
-+	if (rtw_sdio_queue_is_ac(queue))
-+		atomic_sub(frames, &rtwsdio->tx_oqt_free);
-+
-+	return 0;
-+}
-+
- static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
- 				    size_t count)
+-static int rtw_sdio_write_to_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
+-				  enum rtw_tx_queue_type queue, u32 txaddr,
+-				  size_t write_size)
++static int rtw_sdio_write_buf_to_port(struct rtw_dev *rtwdev, void *buf,
++				      enum rtw_tx_queue_type queue, u32 txaddr,
++				      size_t write_size)
  {
-@@ -727,40 +856,8 @@ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
- 		/* add the pages from the public queue */
- 		pages_free += (free_txpg >> 24) & 0xff;
- 	} else {
--		u32 free_txpg[3];
--
--		free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
--		free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
--		free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
--
--		switch (queue) {
--		case RTW_TX_QUEUE_BCN:
--		case RTW_TX_QUEUE_H2C:
--		case RTW_TX_QUEUE_HI0:
--			/* high */
--			pages_free = free_txpg[0] & 0xfff;
--			break;
--		case RTW_TX_QUEUE_VI:
--		case RTW_TX_QUEUE_VO:
--			/* normal */
--			pages_free = (free_txpg[0] >> 16) & 0xfff;
--			break;
--		case RTW_TX_QUEUE_BE:
--		case RTW_TX_QUEUE_BK:
--			/* low */
--			pages_free = free_txpg[1] & 0xfff;
--			break;
--		case RTW_TX_QUEUE_MGMT:
--			/* extra */
--			pages_free = free_txpg[2] & 0xfff;
--			break;
--		default:
--			rtw_warn(rtwdev, "Unknown mapping for queue %u\n", queue);
--			return -EINVAL;
--		}
--
--		/* add the pages from the public queue */
--		pages_free += (free_txpg[1] >> 16) & 0xfff;
-+		/* the other chips use rtw_sdio_88xx_reserve_txpg() */
-+		return -EINVAL;
- 	}
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	bool bus_claim;
+ 	int ret;
  
- 	pages_needed = DIV_ROUND_UP(count, rtwdev->chip->page_size);
-@@ -889,6 +986,32 @@ static int rtw_sdio_write_port_8723bs(struct rtw_dev *rtwdev,
- 	return 0;
+-	if (!IS_ALIGNED((unsigned long)skb->data, RTW_SDIO_DATA_PTR_ALIGN))
+-		rtw_warn(rtwdev, "Got unaligned SKB in %s() for queue %u\n",
++	if (!IS_ALIGNED((unsigned long)buf, RTW_SDIO_DATA_PTR_ALIGN))
++		rtw_warn(rtwdev, "Got unaligned buffer in %s() for queue %u\n",
+ 			 __func__, queue);
+ 
+ 	bus_claim = rtw_sdio_bus_claim_needed(rtwsdio);
+@@ -936,8 +936,7 @@ static int rtw_sdio_write_to_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	if (bus_claim)
+ 		sdio_claim_host(rtwsdio->sdio_func);
+ 
+-	ret = sdio_memcpy_toio(rtwsdio->sdio_func, txaddr, skb->data,
+-			       write_size);
++	ret = sdio_memcpy_toio(rtwsdio->sdio_func, txaddr, buf, write_size);
+ 
+ 	if (bus_claim)
+ 		sdio_release_host(rtwsdio->sdio_func);
+@@ -950,6 +949,14 @@ static int rtw_sdio_write_to_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	return ret;
  }
  
-+static int rtw_sdio_write_port_88xx(struct rtw_dev *rtwdev,
-+				    struct sk_buff *skb,
-+				    enum rtw_tx_queue_type queue, u32 txaddr,
-+				    size_t write_size)
++static int rtw_sdio_write_to_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
++				  enum rtw_tx_queue_type queue, u32 txaddr,
++				  size_t write_size)
++{
++	return rtw_sdio_write_buf_to_port(rtwdev, skb->data, queue, txaddr,
++					  write_size);
++}
++
+ static int rtw_sdio_write_port_8723bs(struct rtw_dev *rtwdev,
+ 				      struct sk_buff *skb,
+ 				      enum rtw_tx_queue_type queue, u32 txaddr,
+@@ -1760,6 +1767,148 @@ static void rtw_sdio_indicate_tx_status(struct rtw_dev *rtwdev,
+ 	ieee80211_tx_status_irqsafe(hw, skb);
+ }
+ 
++/* the access category of a data frame's TX descriptor queue select (TID) */
++static u8 rtw_sdio_skb_qsel_ac(struct sk_buff *skb)
++{
++	static const u8 tid_to_ac[] = {
++		IEEE80211_AC_BE, IEEE80211_AC_BK, IEEE80211_AC_BK,
++		IEEE80211_AC_BE, IEEE80211_AC_VI, IEEE80211_AC_VI,
++		IEEE80211_AC_VO, IEEE80211_AC_VO,
++	};
++	struct rtw_tx_desc *tx_desc = (struct rtw_tx_desc *)skb->data;
++	u8 qsel = le32_get_bits(tx_desc->w1, RTW_TX_DESC_W1_QSEL);
++
++	return qsel < ARRAY_SIZE(tid_to_ac) ? tid_to_ac[qsel] : U8_MAX;
++}
++
++static unsigned int rtw_sdio_agg_pages(struct rtw_dev *rtwdev,
++				       struct sk_buff_head *agg)
++{
++	unsigned int pages = 0;
++	struct sk_buff *skb;
++
++	/* the chip charges every frame of an aggregate its own pages */
++	skb_queue_walk(agg, skb)
++		pages += DIV_ROUND_UP(skb->len, rtwdev->chip->page_size);
++
++	return pages;
++}
++
++/*
++ * Send several frames of an AC queue with one transfer, for the 88xx chips:
++ * each frame, TX descriptor and payload, starts 8 byte aligned and the first
++ * descriptor carries the number of frames, as for USB TX aggregation. This
++ * saves a transfer, and its interrupts, per frame. The chip takes the frames
++ * of one access category only, which an AC queue holds anyway, but check the
++ * queue select of every frame to be sure.
++ *
++ * Returns 0 when frames were written, 1 when the queue was empty, -E2BIG when
++ * the first frame does not fit the buffer and another negative errno when
++ * the write failed. In both error cases the frames are back in the queue.
++ */
++static int rtw_sdio_process_tx_agg(struct rtw_dev *rtwdev,
++				   enum rtw_tx_queue_type queue)
 +{
 +	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+	unsigned int pages;
++	struct sk_buff_head *list = &rtwsdio->tx_queue[queue];
++	struct rtw_tx_pkt_info pkt_info = {};
++	u8 *buf = rtwsdio->tx_agg_buf;
++	struct rtw_tx_desc *tx_desc;
++	size_t len = 0, write_size;
++	struct sk_buff_head agg;
++	unsigned int num = 0;
++	struct sk_buff *skb;
++	u8 ac = U8_MAX;
++	u32 txaddr;
 +	int ret;
 +
-+	/* the chip charges pages by frame length, not by the padded transfer */
-+	pages = DIV_ROUND_UP(skb->len, rtwdev->chip->page_size);
++	__skb_queue_head_init(&agg);
 +
-+	guard(mutex)(&rtwsdio->tx_credit_lock);
++	while (num < RTW_SDIO_TX_AGG_MAX_NUM) {
++		skb = skb_dequeue(list);
++		if (!skb)
++			break;
 +
-+	ret = rtw_sdio_88xx_reserve_txpg(rtwdev, queue, pages, 1);
-+	if (ret)
-+		return ret;
++		if (!num) {
++			if (skb->len > RTW_SDIO_TX_AGG_MAX_SIZE) {
++				skb_queue_head(list, skb);
++				return -E2BIG;
++			}
++			ac = rtw_sdio_skb_qsel_ac(skb);
++		} else if (ALIGN(len, 8) + skb->len > RTW_SDIO_TX_AGG_MAX_SIZE ||
++			   rtw_sdio_skb_qsel_ac(skb) != ac) {
++			skb_queue_head(list, skb);
++			break;
++		}
 +
-+	ret = rtw_sdio_write_to_port(rtwdev, skb, queue, txaddr, write_size);
-+	if (ret)
++		len = (num ? ALIGN(len, 8) : 0) + skb->len;
++		__skb_queue_tail(&agg, skb);
++		num++;
++	}
++
++	if (!num)
++		return 1;
++
++	mutex_lock(&rtwsdio->tx_credit_lock);
++
++	/* shrink the aggregate until it fits the free pages and entries */
++	for (;;) {
++		ret = rtw_sdio_88xx_reserve_txpg(rtwdev, queue,
++						 rtw_sdio_agg_pages(rtwdev, &agg),
++						 num);
++		if (!ret)
++			break;
++		if (ret != -EBUSY || num == 1)
++			goto err_requeue;
++
++		skb_queue_head(list, __skb_dequeue_tail(&agg));
++		num--;
++	}
++
++	len = 0;
++	skb_queue_walk(&agg, skb) {
++		len = ALIGN(len, 8);
++		memcpy(buf + len, skb->data, skb->len);
++		len += skb->len;
++	}
++
++	if (num > 1) {
++		tx_desc = (struct rtw_tx_desc *)buf;
++		le32p_replace_bits(&tx_desc->w7, num,
++				   RTW_TX_DESC_W7_DMA_TXAGG_NUM);
++		pkt_info.pkt_offset = le32_get_bits(tx_desc->w1,
++						    RTW_TX_DESC_W1_PKT_OFFSET);
++		rtw_tx_fill_txdesc_checksum(rtwdev, &pkt_info, buf);
++	}
++
++	txaddr = rtw_sdio_get_tx_addr(rtwdev, len, queue);
++	write_size = sdio_align_size(rtwsdio->sdio_func, len);
++	memset(buf + len, 0, write_size - len);
++
++	ret = rtw_sdio_write_buf_to_port(rtwdev, buf, queue, txaddr,
++					 write_size);
++	if (ret) {
 +		/* the pages may or may not have been used, read them again */
 +		rtwsdio->free_txpg_valid = false;
++		goto err_requeue;
++	}
++
++	mutex_unlock(&rtwsdio->tx_credit_lock);
++
++	while ((skb = __skb_dequeue(&agg)))
++		rtw_sdio_indicate_tx_status(rtwdev, skb);
++
++	return 0;
++
++err_requeue:
++	mutex_unlock(&rtwsdio->tx_credit_lock);
++
++	while ((skb = __skb_dequeue_tail(&agg)))
++		skb_queue_head(list, skb);
 +
 +	return ret;
 +}
 +
- static int rtw_sdio_write_port_generic(struct rtw_dev *rtwdev,
- 				       struct sk_buff *skb,
- 				       enum rtw_tx_queue_type queue, u32 txaddr,
-@@ -933,6 +1056,10 @@ static int rtw_sdio_write_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
- 		return rtw_sdio_write_port_8723bs(rtwdev, skb, queue, txaddr,
- 						  write_size);
+ /*
+  * Send one frame from @queue. Returns 0 when a frame was written, 1 when the
+  * queue was empty and a negative errno when the write failed, in which case
+@@ -1773,6 +1922,13 @@ static int rtw_sdio_process_tx_queue(struct rtw_dev *rtwdev,
+ 	u16 q_map;
+ 	int ret;
  
-+	if (!rtw_chip_wcpu_8051(rtwdev))
-+		return rtw_sdio_write_port_88xx(rtwdev, skb, queue, txaddr,
-+						write_size);
++	if (rtwsdio->tx_agg_buf && rtw_sdio_queue_is_ac(queue) &&
++	    skb_queue_len(&rtwsdio->tx_queue[queue]) > 1) {
++		ret = rtw_sdio_process_tx_agg(rtwdev, queue);
++		if (ret != -E2BIG)
++			return ret;
++	}
 +
- 	return rtw_sdio_write_port_generic(rtwdev, skb, queue, txaddr,
- 					   write_size);
+ 	skb = skb_dequeue(&rtwsdio->tx_queue[queue]);
+ 	if (!skb)
+ 		return 1;
+@@ -1878,6 +2034,15 @@ static int rtw_sdio_init_tx(struct rtw_dev *rtwdev)
+ 
+ 	mutex_init(&rtwsdio->tx_credit_lock);
+ 
++	/*
++	 * TX aggregation relies on the free page and output queue counts
++	 * that only the non-8051 chips keep; without the buffer, frames are
++	 * sent one by one.
++	 */
++	if (!rtw_chip_wcpu_8051(rtwdev))
++		rtwsdio->tx_agg_buf = kmalloc(RTW_SDIO_TX_AGG_MAX_SIZE +
++					      RTW_SDIO_BLOCK_SIZE, GFP_KERNEL);
++
+ 	for (i = 0; i < RTK_MAX_TX_QUEUE_NUM; i++) {
+ 		skb_queue_head_init(&rtwsdio->tx_queue[i]);
+ 		rtwsdio->tx_queue_stopped[i] = false;
+@@ -1892,6 +2057,7 @@ static int rtw_sdio_init_tx(struct rtw_dev *rtwdev)
+ 	return 0;
+ 
+ err_destroy_wq:
++	kfree(rtwsdio->tx_agg_buf);
+ 	mutex_destroy(&rtwsdio->tx_credit_lock);
+ 	destroy_workqueue(rtwsdio->txwq);
+ 	return -ENOMEM;
+@@ -1909,6 +2075,7 @@ static void rtw_sdio_deinit_tx(struct rtw_dev *rtwdev)
+ 	for (i = 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
+ 		ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i]);
+ 
++	kfree(rtwsdio->tx_agg_buf);
+ 	mutex_destroy(&rtwsdio->tx_credit_lock);
  }
-@@ -1067,6 +1194,9 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
- 			return ret;
- 	}
  
-+	if (!rtw_chip_wcpu_8051(rtwdev))
-+		rtw_sdio_88xx_invalidate_free_txpg(rtwdev);
-+
- 	rtw_sdio_enable_rx_aggregation(rtwdev);
- 
- 	if (rtw_is_8723bs(rtwdev)) {
-@@ -1083,6 +1213,9 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
- static void rtw_sdio_stop(struct rtw_dev *rtwdev)
- {
- 	rtw_sdio_disable_interrupt(rtwdev);
-+
-+	if (!rtw_chip_wcpu_8051(rtwdev))
-+		rtw_sdio_88xx_invalidate_free_txpg(rtwdev);
- }
- 
- static void rtw_sdio_deep_ps_enter(struct rtw_dev *rtwdev)
 diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
-index 6e7e6009744..57890533eec 100644
+index 57890533eec..ab366f82d92 100644
 --- a/drivers/net/wireless/realtek/rtw88/sdio.h
 +++ b/drivers/net/wireless/realtek/rtw88/sdio.h
-@@ -178,7 +178,10 @@ struct rtw_sdio {
- 	atomic_t free_pg_normal;
- 	atomic_t free_pg_low;
- 	atomic_t free_pg_pub;
-+	atomic_t free_pg_extra;
+@@ -148,6 +148,10 @@
+ 
+ #define RTW_SDIO_DATA_PTR_ALIGN			8
+ 
++/* TX aggregation of the 88xx chips: at most this much per transfer */
++#define RTW_SDIO_TX_AGG_MAX_SIZE		(20 * 1024)
++#define RTW_SDIO_TX_AGG_MAX_NUM			32
++
+ struct sdio_func;
+ struct sdio_device_id;
+ 
+@@ -182,6 +186,8 @@ struct rtw_sdio {
  	atomic_t tx_oqt_free;
-+	/* the non-8051 chips' counters hold what the chip last reported */
-+	bool free_txpg_valid;
+ 	/* the non-8051 chips' counters hold what the chip last reported */
+ 	bool free_txpg_valid;
++	/* TX aggregation buffer of the non-8051 chips, under tx_credit_lock */
++	u8 *tx_agg_buf;
  	/* one writer at a time between the credit check and the accounting */
  	struct mutex tx_credit_lock;
  };
