@@ -1,155 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794802881;
-	b=NrDFIZxsrWdAvfClnSdyg+E9xQZuacMfSilvhM/PklQVRgtGWzrc7+ahm2tTLAap3oY8
-	 saqdk7BwegHvoiUEQIl/l7LihOhcL5JSQQ/QD2Mgm646rpAtiwIP6SdRLuLzP1zn8Tizj
-	 Gu/6GXGgZ6zApbq4cBm87kFpt3nnJHIzFM6Auyr0Iz1mzuO0IB3jUuK7+OvoIRR9mnX+o
-	 GPu/0THAuBoqv7nsQe/V58pqvmJohAS172f9aT52HQgkQuuaoeLnvvav2CwI5GwBuykhQ
-	 LA9pciPVcRxqM34AJUDTkUbUrPi0byGinc3jiRMRemytr+Mq9fHTnSZaQ+bs8UFXyUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802881;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UNTs0iudAk6johPXC22HjrNChEzWz7mPNUCIxBX/j1Q=;
-	b=oYX8MO2C0XkDZYZKz3jd9x1VJ1oe+sBtkLkoVEZzv6MKwZqB/X1qBTEkm86dgcfEtRuJ
-	 LlykfM604oFoN2G4CIoSARFj9fGOFJtvdy9lFR+xFNLbSOkG9m6gZR14YFwvoX6ponAJf
-	 35Tz4FkY3uMBRtXYASvqTxppsyQ7Bkriucfiv7AIEyvXUYJh8BCCAo038MWQfw6yeOEAU
-	 Oxk4iDIk8Z1Q/UhL+UmihIkD/5u59R+IOU4pbyR2PEzmGVH5ZQn3OHeMMmC/lSZHJIl6Q
-	 smkhfeCN2x0qwPGnxAXh8sOTea0pf5a8eKgDaZeKK5c+JSvAf6+0Ag+BMqqmkyDVCcQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PPfDXmqY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.31
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011031.outbound.protection.outlook.com [40.107.208.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794802921;
+	b=0FlrkAprzOYRPKZVJz3jt6uVSmIfDhO+k2PtCNnYQN1GAI82dnWsYVrSZKhKxizi+dgm
+	 Rh+NSUmoiW3s0DZkX2BTei3Z2spYYt8Ebpwmx1d0hIZtTnoaZJgz+3p1YzVrXY/VGQlGc
+	 TUSMM5TW4oh9IEqBn64Of/5d41PuVcYOOP/dTICU6opXWb5x5rslmKQaaRcU3ysxsza0x
+	 s9PNmKlDJtCWe45hgHDiKaNTztngA/MuqUxWTod1gGUQB+sBYVx8TGj9wh8BMXW0BlbSf
+	 KjXYDeaCpIyd7Wh6PnhWAgPIWqBR1meh9Jd4P+1lqz+AeR+8ERRS3dk9hdI7gzVutYQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802921;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=mAiC+0hT+OAYgDZe7uQXWa25nna0BFe7OezHBcr8Cmo=;
+	b=05Sxs73VkxDWvuCnkR0E6nz+WItsnt00Wzo0vhvV3yyH8MD8mmlvKNdUc22P/MWFfdwh
+	 +qX6BFEjkAKIIc+qa6K3O/lun4GynUUoRJx9jnYWltkGjwv558K5J/Cw8SBXR5DEEFv9w
+	 e1TJiG0SbbXY8FW2fMcA8UNCmFtTQYnxU9BdN9PWG0QjjDBtrlpkg7Sd3DY4dLlKawBF1
+	 wPH6QGS3l2+LUramJbNuwKfXDDDSdq7qB/jCZ07Byx3HQoNRcIrPFr2Utek5UGDY53rst
+	 sWmeNWJnJs7QhIS5JhBLv+nC5yZlICEOm10FvFo30z7F4QlwDLEarNlUjVJ7OXZCdCA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PUtI0MnS;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F48F606A31F;
-	Mon, 16 Nov 2026 04:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F48F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B919606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B919606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PPfDXmqY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tEwnOWAIEWRVAY9llrO6TMMJfxi7U4aSMhRDGAO3jpGyspOsFry1fkXGKEE3sYbGwbMGSsC7tNGVtOonBzlInDEnSSn3vTmaf67xCAPO+NE42hUDdG6IVcfiUo8J7Buc5QOsAY7eKgiw/6BgSWhqQF/pZb+sr5pTK85Z+7BK0EVmofQXAcd2bJSIuuQPjACj2bh+oBQf8CC14woYrHtFKpoej9jbCwhzckPNQTaLPhw8lECzuc/W4wOMiE2KHd0zFtNup+hT6r5CGVnjbfmnBSdKEwAUBcZkkrGZvylXP5igFx+2JqWbCjSqfxZ9ab/gETc9EIQXqWiE4bBRfzehqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UNTs0iudAk6johPXC22HjrNChEzWz7mPNUCIxBX/j1Q=;
- b=R9nFfIoCoAkOf738V1o+BMX0fqXeBpQAjroK8CaKercW4YGBKzssi3H7upLS4cBgzLdklm9ZNy5+oFZcBotzhW75FpB67x22QME+zaj2KtnOP+PeWyQCxsnAzXky9NofVU6STDUjqD+vaiRMOOPoiqkxLzPM5GMrZlt4IddSBAET+XPsos4Cd4eMerM0PMuvyZnDllqob+/OSd7g7tVnu0/2IyXFDJszRyd79lTOYJuTkWIUfDlKT9haE7t5NDrVTWVSuQWWrXK6dGRRBUAxnPxe5fskF3WrUUlCQ5jQ6/mrvQsMPZNHYiOebj+6OPaqlU18o2GlLcEoIYvAP+6/Mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UNTs0iudAk6johPXC22HjrNChEzWz7mPNUCIxBX/j1Q=;
- b=PPfDXmqYt4uh1E3uqISzzIzaZ7p670SYkozGB4Chof2ChpZsjaAwHyjaYmwwKo3xtFbvuseCqrXEP+zOgngM1kHCaCyxuIGJhmcLxywDSqXCeG94k2+5xoXim1Oibu8O3OWNzXiFscGuGKUTgIccc76LnraAe6JKsRpk6UEipmk=
-Received: from DS7PR12MB9503.namprd12.prod.outlook.com (2603:10b6:8:251::15)
- by SJ0PR12MB6709.namprd12.prod.outlook.com (2603:10b6:a03:44a::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 04:20:18 +0000
-Received: from DS7PR12MB9503.namprd12.prod.outlook.com
- ([fe80::62c0:6aa0:897c:44d9]) by DS7PR12MB9503.namprd12.prod.outlook.com
- ([fe80::62c0:6aa0:897c:44d9%6]) with mapi id 15.21.0592.010; Mon, 16 Nov 2026
- 04:20:18 +0000
-From: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: "Simek, Michal" <michal.simek@amd.com>, "Potthuri, Sai Krishna"
-	<sai.krishna.potthuri@amd.com>, David Lechner <dlechner@baylibre.com>,
-	=?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
-	<andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "amitrkcian2002@gmail.com"
-	<amitrkcian2002@gmail.com>
-Subject: RE: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on
- shutdown
-Thread-Topic: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on
- shutdown
-Thread-Index: AQHdasTDSAdlz8iPsUOqJ3pxwY8M6rcjSwoAgAii2YA=
-Date: Mon, 16 Nov 2026 04:20:18 +0000
-Message-ID:
- <DS7PR12MB95038F6C18B71F2BC5073552DC7C2@DS7PR12MB9503.namprd12.prod.outlook.com>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-	<20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
- <20261107233244.63c35375@jic23-hlaptop>
-In-Reply-To: <20261107233244.63c35375@jic23-hlaptop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-13T11:25:39.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB9503:EE_|SJ0PR12MB6709:EE_
-x-ms-office365-filtering-correlation-id: 91a345c5-565e-4780-39fb-08df4398ebdf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|38070700021|10067099003|5023799004|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261102130727099003|261102123227099003|261009221227099003|261009223027099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- qPNrJWhB6PYCVCfNP9s0JSObH1ibatd7XfxxEy4DEOqA0UXNUCpqZ1FbfaYqRukY4MLynpnDq5txOE8JoaLPzk9so0svLEANVx3wuSaihJAjpYDtUkJO3vRIoZxpC02sjvUCGic8MH4pvIOv17QOupR4KzBhpV6mqe79op+qFbhvnaBC4wGOLtnVXj3euYYJ6pcsMhJ4TEIIs9GmAH87vdrUG0SpDCN7FlLUL+2S2S7OPLhrOlVCqjacihw3C4In/IDjI3ET+8JqlEs2oYFhM5nBb/8lALzqGEeqL5yj74ka8q2w3y8RDY+bXN/ACnifCbyjR+GoHw2hMB8IfknpHUs56FBbXxrS68SKV5W0mLgxllabM8F4I+tyVrP7acfMMdhJeZ/rXk5rH3bB0L3n4A0TdZDPOGMiOBYDaudfMoJjuu88YwFTqFqPmgrr2j35nGXbgUn48ZkFpyYJKN9WeC3q5R1z3lR3lmhX1WDJvQtdQKwhnVtZu7S2fT02X2mq/fS65W6cXQQxKCkIZQuF8Z8YhT2Gn84zshGP4WVMFxiSfQf7eaYR0feKgaA7RarIwiEH60BPSp1CeY8MLYpe5iOh/eGJPxxPhWnhQXSMWyasJ9I+8kTmfsHN+Q1cqkl+FR1E3qmLLT7DVPZP37ocJrrrswPBN3hy9fTYEFPlSShmyUagcfR1ZEWkbEEeaKQwfmOfE+TaJKj31Z59DiLodBGrgGzrhkbD34C/pwi8gYg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9503.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(38070700021)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009221227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?oZpaqE/1/2HFYJyaCct2DAbEJaPm/JJuDIApPG5gMqJWJ2I4SmvZ+qMIav?=
- =?iso-8859-1?Q?sUvLnEngnrhwmF+07eTOaSqxvQxL1PB9+NNkM5TDZTCfrN/LSYglDYHlc7?=
- =?iso-8859-1?Q?it9Pe93+NYnohdBLHpA//qf/FdMtdO4XAvU4+JL+TSGa8ntCMXOqP24l5Q?=
- =?iso-8859-1?Q?CgrzKnZSfId3oE838/CbutEbW/8csZBe+04ymsdmlAuuNKgpcqmdi+fc8w?=
- =?iso-8859-1?Q?/BdmQkBWyUHNwFwjwMdCFSafeNciwuiEr53FXmCbisVqdJ4JojDxF0jvJ+?=
- =?iso-8859-1?Q?msj6pCEJDTatgOUTgelmx6TwmF+EpXItCmQ1Vy65MWHlLrngfBwc0+xPLq?=
- =?iso-8859-1?Q?EHt3hLQVHLet5os5Yv/I6g4P9qqGbnkC9PNGSQfRAmS/0vocZGFM52lsD5?=
- =?iso-8859-1?Q?Ik4efvqfT+lk7iXA9ULqS5Lo0rj/GggFi2GXGTJAd+bUXfwYQL2hhNiXuB?=
- =?iso-8859-1?Q?oivacHBRnYBlbi/ub+4mojIS8LRWLtwHulTczRpHMCrmMcdl6b/hOQn23I?=
- =?iso-8859-1?Q?KCr17u/+96pZGjUaQGoEWK/fdMg5eI/FRPjG4VWE0Y6xOyUASCTUxJgUrw?=
- =?iso-8859-1?Q?BdLxzeO9NLGf6xBYxM4oxAX/po9boW9NOI/jFSgnpQwDuWKnKggd8usLk2?=
- =?iso-8859-1?Q?XW9h9prRUr06rofGU/qnEgPaxhrcJOXX7X2+f9lTWljgFjzeXtoTcTJITg?=
- =?iso-8859-1?Q?HqgmUmKwdW3VwbTZoni6iGuyrVYHsrOxD67DesZyXPBm8Mc+aQCDyuMIMd?=
- =?iso-8859-1?Q?7BXyKw+CG55dycNIzS1M1xPMoZMqxvIxYJgbI6QR8El8Ai5dMSmyVZX9Ns?=
- =?iso-8859-1?Q?EN2uEzvwRCd7DUve2LW/6RAE9Kn3DBRCqY421lqQ873HtnJRjKMN4/civ2?=
- =?iso-8859-1?Q?pQubsHvbwVafIC7r82eFHYYWG8Q9v/MIHjHHNILLMINCiNVpJL3C7Sul3k?=
- =?iso-8859-1?Q?YabpI9u6fGY3J+H4ROJjBrM8Nkd/ybyaqWcs0SWrJvD+3fPeTKgTmG2jHJ?=
- =?iso-8859-1?Q?mokObTOwdS5X5A9nBXEAvIT7rzV1Gx4eIp56KebjjPQINptnRURsiSuV0n?=
- =?iso-8859-1?Q?+4/XI37Lw5Cx9S7wTWIGPAq+gGmlgDbfO1tuI47bEphQt/l+R8BvXcowL+?=
- =?iso-8859-1?Q?wwdABhK5wl8Th4MlJ/i6A1kja4sAS5oSSk29wQpa/3FSNmxQ3s76D6nlbF?=
- =?iso-8859-1?Q?p4EXyWtdJzm6PQhG+5Yszpa8bocFacbLk3XJjtvWZU7cnuCguTZiSRb0wz?=
- =?iso-8859-1?Q?zuH0MZ2Is8BUCuEX41qAoBAHBqN7oppdH9XfXByZcOqNP6NeeuzfKOnp72?=
- =?iso-8859-1?Q?xhS0xEDn0+D4GzWG7o/xBFELDjEEktfiLofdt1NF/5x49RZidcmCBJhdOy?=
- =?iso-8859-1?Q?RKm1gj+0mpjg/6WWbhU2qIcoRygu0FoEG4BwavATaHIbDK2X+6BJfqL5Jb?=
- =?iso-8859-1?Q?e06ON+GrDZSc/gDH4ecuOQFEgRgu4pS3JmGJYX+ZSX4JHS8yBA89JmgY/b?=
- =?iso-8859-1?Q?5W3omtUgoQDGY3eV49VEs/La9diDQZ0UbGG9Rt2awh+dhhT3jvMgO3wZdz?=
- =?iso-8859-1?Q?kdmO+Q5hRxpuMCQGmWTav/VuYE58/p/ORLyhIAIALBIj/SCTbCzEARJZUJ?=
- =?iso-8859-1?Q?McPyYKxB+pmY4YZTyiwVGaMYpKc/HbOaalfA8aAQB8HmdRvJPoiTuZqUGv?=
- =?iso-8859-1?Q?tJz74q83k5eVd82L81vyDlDHE+KIDR7uZwxAEc4jNLB+BzjQ9JkhwVMedO?=
- =?iso-8859-1?Q?4O595Bvrb+iZYD/duNxlMhfMMDmvfOnZyVkX/U389KgHzQ?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PUtI0MnS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794802919;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mAiC+0hT+OAYgDZe7uQXWa25nna0BFe7OezHBcr8Cmo=;
+	b=PUtI0MnSiXkeUUC5O9hkWBe7xD25pg1DNAOwMMbVRR1Vac7tcqk/XYrZFnLyGp7uww1Hf9
+	uMSl6/bI/TxX1yEmSY+u54PMNm5RbfU4B05EThi0kkPKcDnaPfDtZ8Yn6L1HlQFuRzUVy4
+	XVCWIVepc6r6oCarcKnSSO3mLLONfFg=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-467-oB_zzBfpP8-TC5JepjMO-g-1; Sun,
+ 15 Nov 2026 23:21:52 -0500
+X-MC-Unique: oB_zzBfpP8-TC5JepjMO-g-1
+X-Mimecast-MFC-AGG-ID: oB_zzBfpP8-TC5JepjMO-g_1794802911
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 988661800476;
+	Mon, 16 Nov 2026 04:21:50 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9BFBA1956095;
+	Mon, 16 Nov 2026 04:21:48 +0000 (UTC)
+Message-ID: <e8ce51c8-3cf5-4d43-85e1-e8090bced4c8@redhat.com>
+Date: Sun, 15 Nov 2026 23:21:47 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -159,154 +71,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9503.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91a345c5-565e-4780-39fb-08df4398ebdf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 04:20:18.0861
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: I+lpRVfT18YNIewRbJjK9nc0wLEZXPH16RMD4l0O1luI1sKv8OWnGqo/JpEUc/drapkAdxd3L1Y5mLGAL1Cz0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6709
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v4 3/6] cgroup/cpuset: Check remote partition
+ underneath before making an invalid partition valid
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116012330.2271010-1-longman@redhat.com>
+ <20261116012330.2271010-4-longman@redhat.com>
+ <8c126892-8e4d-4bfe-9f3f-bc1e1a72338d@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <8c126892-8e4d-4bfe-9f3f-bc1e1a72338d@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-AMD General
-
-Hello Jonathan,
-
-> -----Original Message-----
-> From: Jonathan Cameron <jic23@kernel.org>
-> Sent: Sunday, November 8, 2026 5:03 AM
-> To: Mahapatra, Amit Kumar <amit.kumar-mahapatra@amd.com>
-> Cc: Simek, Michal <michal.simek@amd.com>; Potthuri, Sai Krishna
-> <sai.krishna.potthuri@amd.com>; David Lechner <dlechner@baylibre.com>; Nu=
-no
-> S=E1 <nuno.sa@analog.com>; Andy Shevchenko <andy@kernel.org>; Rob Herring
-> <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley
-> <conor+dt@kernel.org>; linux-iio@vger.kernel.org; devicetree@vger.kernel.=
-org;
-> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
-> amitrkcian2002@gmail.com
-> Subject: Re: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on s=
-hutdown
+On 11/15/26 10:47 PM, Ridong Chen wrote:
 >
-> On Mon, 2 Nov 2026 17:51:09 +0530
-> Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com> wrote:
 >
-> > Interrupt teardown is registered with devm_add_action_or_reset(), so
-> > sysmon_disable_interrupts() runs when the driver is unbound but not
-> > when the system shuts down: device_shutdown() invokes only the
-> > driver's .shutdown callback, which this driver does not implement.
-> >
-> > The device is therefore left with its alarm interrupts enabled in
-> > hardware once Linux has stopped servicing them.
-> >
-> > Add a .shutdown callback performing the same teardown, so the device
-> > is quiesced before control is handed on. The helper lives in the core
-> > module, so it is exported for the platform front-end. It skips a
-> > device described without an interrupt, which never set up interrupt
-> > handling.
-> >
-> > Disabling the interrupts at shutdown is safe to have and not a must
-> > have requirement for shutdown.
+> On 11/16/2026 9:23 AM, Waiman Long wrote:
+>> When re-evaluating an invalid local partition via partcmd_update,
+>> update_parent_effective_cpumask() does not check whether a descendant
+>> remote partition is using its exclusive CPUs, promoting the cpuset to a
+>> valid partition root over the remote partition. This condition should 
+>> only
+>> be possible if parent is the top_cpuset and exclusive_cpus isn't empty.
+>>
+>> This leaves an active remote partition underneath a valid
+>> local partition root with overlapping exclusive CPUs, breaking
+>> scheduler domain partitioning and triggering warnings in
+>> compute_partition_effective_cpumask() and generate_sched_domains().
+>>
+>> Fix that by checking the effective_xcpus against subpartitions_cpus
+>> when an underneath remote partition is possible to make sure that all
+>> the exclusive CPUs are available before allowing the invalid partition
+>> to be switched back to valid.
+>>
+>> Also make sure that effective_xcpus is non-empty before swtiching an
+>> invalid partition back to valid.
+>>
+>> Add a test case in test_cpuset_prs.sh to verify that an invalid 
+>> partition
+>> with a remote partition underneath cannot be switched back to valid
+>> with a hotplug event.
+>>
+>> In the special case when the last active CPU in the top_cpuset partition
+>> is offlined, the hotplug code will empty subpartitions_cpus and let the
+>> existing local partition to compete for the exclusive CPUs again. If
+>> there is an invalid local partition above a remote partition and that
+>> invalid local partition is able to switch to a valid partition, the 
+>> remote
+>> partition below will now share some the of exclusive CPUs violating the
+>> CPU exclusivity rule. This special case will be handled in a later 
+>> patch.
+>>
+>> Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Link: 
+>> https://sashiko.dev/#/bug/linux-47715b89-d5fb-4731-b7c9-070773c6ff75
+>> Signed-off-by: Waiman Long <longman@redhat.com>
+>> ---
+>>   kernel/cgroup/cpuset.c                        | 42 ++++++++++++-------
+>>   .../selftests/cgroup/test_cpuset_prs.sh       |  4 ++
+>>   2 files changed, 30 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 195d4e3a283c..81481fa62cfe 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -2029,11 +2029,7 @@ static int 
+>> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>            * tasks_nocpu_error() with this very mask, and a failing
+>>            * write is routed to partcmd_invalidate instead.
+>>            */
+>> -        if (is_partition_invalid(cs)) {
+>> -            adding = false;
+>> -            deleting = cpumask_and(tmp->delmask,
+>> -                    newmask, parent->effective_xcpus);
+>> -        } else {
+>> +        if (is_partition_valid(cs)) {
+>>               cpumask_andnot(tmp->addmask, cs->effective_xcpus, 
+>> newmask);
+>>               adding = cpumask_and(tmp->addmask, tmp->addmask,
+>>                            parent->effective_xcpus);
+>> @@ -2041,6 +2037,17 @@ static int 
+>> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>               cpumask_andnot(tmp->delmask, newmask, 
+>> cs->effective_xcpus);
+>>               deleting = cpumask_and(tmp->delmask, tmp->delmask,
+>>                              parent->effective_xcpus);
+>> +        } else {
+>> +            deleting = cpumask_and(tmp->delmask,
+>> +                    newmask, parent->effective_xcpus);
+>> +
+>> +            /* Check if a remote partition may be underneath */
+>> +            if ((parent == &top_cpuset) &&
+>> +                !cpumask_empty(cs->exclusive_cpus) &&
+>> +                cpumask_intersects(tmp->delmask, subpartitions_cpus)) {
+>> +                part_error = PERR_REMOTE;
+>> +                deleting = false;
+>> +            }
+>>           }
+>>             /*
+>> @@ -2107,34 +2114,37 @@ static int 
+>> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>           } else if (is_partition_invalid(cs)) {
+>>               struct cgroup_subsys_state *css;
+>>               struct cpuset *child;
+>> -            bool exclusive = true;
+>>                 /*
+>>                * Convert invalid partition to valid has to pass the
+>> -             * cpu exclusivity test when cpuset.cpus.exclusive is
+>> -             * empty as well as the housekeeping check.
+>> +             * following tests:
+>> +             * 1) housekeeping CPU conflict check
+>> +             * 2) cpu exclusivity test when cpuset.cpus.exclusive is
+>> +             *    empty.
+>> +             * 3) if parent is top_cpuset, none of the effective_xcpus
+>> +             *    (tmp->delmask) are in subpartitions_cpus, if not a
+>> +             *    remote partition may be underneath.
+>>                */
+>>               if 
+>> (prstate_housekeeping_conflict(cs->partition_root_state,
+>>                                 parent_prs, tmp->delmask, NULL)) {
+>>                   part_error = PERR_HKEEPING;
+>> -                goto write_error;
+>> -            }
+>> -            if (cpumask_empty(cs->exclusive_cpus)) {
+>> +            } else if (cpumask_empty(cs->exclusive_cpus)) {
+>>                   rcu_read_lock();
+>>                   cpuset_for_each_child(child, css, parent) {
+>>                       if (child == cs)
+>>                           continue;
+>>                       if (!cpusets_are_exclusive(cs, child)) {
+>> -                        exclusive = false;
+>> +                        part_error = PERR_NOTEXCL;
+>>                           break;
+>>                       }
+>>                   }
+>>                   rcu_read_unlock();
+>> +            } else if ((parent == &top_cpuset) &&
+>> +                   cpumask_intersects(tmp->delmask, 
+>> subpartitions_cpus)) {
+>> +                part_error = PERR_REMOTE;
+>>               }
+>> -            if (exclusive)
+>> +            if (!part_error)
+>>                   deleting = !cpumask_empty(tmp->delmask);
+>> -            else
+>> -                part_error = PERR_NOTEXCL;
+>>           }
+>>       }
+>>   @@ -2155,7 +2165,7 @@ static int 
+>> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>               break;
+>>           case PRS_INVALID_ROOT:
+>>           case PRS_INVALID_ISOLATED:
+>> -            if (!part_error)
+>> +            if (!part_error && deleting)
+>>                   new_prs = -old_prs;
+>>               break;
+>>           }
 >
-> So what is disadvantage of not doing it?  Otherwise, why have the complex=
-ity of
-> doing so?
+> Nit: deleting is always true when part_error is 0, so this check
+> doesn't change anything. It's fine to keep it as a safeguard, but
+> then the changelog shouldn't describe it as a fix.
 
-I couldn't find any strong disadvantage of not doing it. I will drop this p=
-atch
-in next series.
+tmp->delmask can be empty and deleting will be set to false in this 
+case. Of course, we should not activate an invalid partition root with 
+empty effective_xcpus.
 
-Regards,
-Amit
+
 >
-> J
-> >
-> > Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-> > ---
-> >  drivers/iio/adc/versal-sysmon-core.c | 19 +++++++++++++++++++
-> >  drivers/iio/adc/versal-sysmon.c      |  6 ++++++
-> >  drivers/iio/adc/versal-sysmon.h      |  1 +
-> >  3 files changed, 26 insertions(+)
-> >
-> > diff --git a/drivers/iio/adc/versal-sysmon-core.c
-> > b/drivers/iio/adc/versal-sysmon-core.c
-> > index 6595d07038c1..d39aaba9a8b6 100644
-> > --- a/drivers/iio/adc/versal-sysmon-core.c
-> > +++ b/drivers/iio/adc/versal-sysmon-core.c
-> > @@ -1000,6 +1000,8 @@ int devm_versal_sysmon_core_probe(struct device
-> *dev, struct regmap *regmap)
-> >     if (!indio_dev)
-> >             return -ENOMEM;
-> >
-> > +   dev_set_drvdata(dev, indio_dev);
-> > +
-> >     sysmon =3D iio_priv(indio_dev);
-> >     sysmon->regmap =3D regmap;
-> >     sysmon->temp_oversampling =3D 1;
-> > @@ -1050,6 +1052,23 @@ int devm_versal_sysmon_core_probe(struct device
-> > *dev, struct regmap *regmap)  }
-> > EXPORT_SYMBOL_NS_GPL(devm_versal_sysmon_core_probe,
-> "VERSAL_SYSMON");
-> >
-> > +/**
-> > + * versal_sysmon_shutdown() - Disable SysMon interrupts on system
-> > +shutdown
-> > + * @dev: SysMon device
-> > + *
-> > + * Interrupt teardown is a devm action, which runs on driver unbind
-> > +but not
-> > + * on system shutdown, so disable the interrupts here as well.
-> > + */
-> > +void versal_sysmon_shutdown(struct device *dev) {
-> > +   struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> > +   struct sysmon *sysmon =3D iio_priv(indio_dev);
-> > +
-> > +   if (sysmon->irq > 0)
-> > +           sysmon_disable_interrupts(sysmon);
-> > +}
-> > +EXPORT_SYMBOL_NS_GPL(versal_sysmon_shutdown,
-> "VERSAL_SYSMON");
-> > +
-> >  MODULE_LICENSE("GPL");
-> >  MODULE_DESCRIPTION("AMD Versal SysMon Core Driver");
-> > MODULE_AUTHOR("Salih Erim <salih.erim@amd.com>"); diff --git
-> > a/drivers/iio/adc/versal-sysmon.c b/drivers/iio/adc/versal-sysmon.c
-> > index 529d0486c9f9..4d5e3d14cf15 100644
-> > --- a/drivers/iio/adc/versal-sysmon.c
-> > +++ b/drivers/iio/adc/versal-sysmon.c
-> > @@ -71,6 +71,11 @@ static int sysmon_platform_probe(struct platform_dev=
-ice
-> *pdev)
-> >     return devm_versal_sysmon_core_probe(dev, regmap);  }
-> >
-> > +static void sysmon_platform_shutdown(struct platform_device *pdev) {
-> > +   versal_sysmon_shutdown(&pdev->dev);
-> > +}
-> > +
-> >  static const struct of_device_id sysmon_of_match_table[] =3D {
-> >     { .compatible =3D "xlnx,versal-sysmon" },
-> >     { }
-> > @@ -79,6 +84,7 @@ MODULE_DEVICE_TABLE(of, sysmon_of_match_table);
-> >
-> >  static struct platform_driver sysmon_platform_driver =3D {
-> >     .probe =3D sysmon_platform_probe,
-> > +   .shutdown =3D sysmon_platform_shutdown,
-> >     .driver =3D {
-> >             .name =3D "versal-sysmon",
-> >             .of_match_table =3D sysmon_of_match_table, diff --git
-> > a/drivers/iio/adc/versal-sysmon.h b/drivers/iio/adc/versal-sysmon.h
-> > index a1ac3289719c..a21dacc13471 100644
-> > --- a/drivers/iio/adc/versal-sysmon.h
-> > +++ b/drivers/iio/adc/versal-sysmon.h
-> > @@ -122,5 +122,6 @@ struct sysmon {
-> >  };
-> >
-> >  int devm_versal_sysmon_core_probe(struct device *dev, struct regmap
-> > *regmap);
-> > +void versal_sysmon_shutdown(struct device *dev);
-> >
-> >  #endif /* _VERSAL_SYSMON_H_ */
+> Typos in the changelog: "swtiching", "share some the of".
+>
+Will fix that in the next version.
+
+Thanks,
+Longman
+
+> Otherwise,
+>
+> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+>
+>
+>> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh 
+>> b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+>> index 1397ec428c46..81f0eecaca80 100755
+>> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+>> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+>> @@ -563,6 +563,10 @@ TEST_MATRIX=(
+>>       " C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      . .     0 
+>> A1:1-2|A2:3-4|A3:5-6 \
+>>                                          A1:P1|A2:P1|A3:P2 5-6"
+>>   +    # A hotplug event will not incorrectly activate an invalid 
+>> partition with
+>> +    # a remote partition underneath.
+>> +    "  CX1-4  C3-4:P1   .      .      P1   O1=0     . .     0 
+>> A1:2|A2:3-4 A1:P-1|A2:P1"
+>> +
+>>       #
+>>       #  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail 
+>> ECPUs Pstate ISOLCPUS
+>>       #  ------ ------ ------ ------ ------ ------ ------ ------ ---- 
+>> ----- ------ --------
+>
 
