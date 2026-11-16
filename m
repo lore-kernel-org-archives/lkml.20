@@ -1,81 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794856223;
-	b=1g2jFuIl9XUZN2TSlrixd8chgxoe8mWSipLGy+mG1ZRXcYh/q6+wz/TNQcK/DKWnDYm0
-	 GbTq4ZfocumxC/fQ2wlTqqz8U7OJkr+bFQIztfUauU68uLGfCgVrlVgjPTLkiHCb23j9F
-	 i0J1cMXtoJCB91fFkB7/YEtWZeSwP6TzhKzJ9O3cSdr+XqFeXex1robKIR7UntHKSFgi3
-	 j4Gk/BHHP6/fvHyFGVVTQDAwbiBqFwnqLgIPoLtI+vbEdzJKfs9bu9WGZiEMDRfRwJIDP
-	 OCh7J+pEMUuT71RYXVHzkyuLrlqmYBcy8jT4RRblklCa2z7UPBPUcaRS3HgmWepLPyA==
+	t=1794856224;
+	b=sGhcfAW6IFNUxrh2fmDrlqXvd7Khqu9d8O68fMTTDAjIiDW/SEVx5s5fql079qidKBfr
+	 CAVKd20pgnyhNKsRvJU+MJOQB75+DR2TrBYyfEAGB6vke3yY7JqyCr3V12Me09MaKca5h
+	 9vg5n2/w/zwsJhIwfw9jDs1ss2+hGpmgNV6DFVXfyHALmGI/bCKUIRsMmd6yeyLy9SZEN
+	 mWOu8b4ebTh8qxCVzOtWlAmKca6JrHUr8cP1Y9LZ/A8oZGng7AjJsHEB2Kteitw0XzWVo
+	 zUHLIX7Oi3qLa2gQuKfikP+oz0A+P8BInb4jm/Z2R/xXNbiX79CrwC2IdqGYXfvpyEw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794856223;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=DQtxOkRhL1RVehvg9axGf3bpjjO1a8C4ieQHWmTRLjQ=;
-	b=ha6LDc0yKhM58qsWcbx4IPmRUKJvF6LTG0stjip6Fp2X7lmNSKa0QbQR2tccImvrx5JY
-	 YIrFvH6it/l58ZZGSE1DbL0KNl452kVj46zQN0V+y+nntn85LYbuXUK0NEtjkX2ybXVGg
-	 AortT/DfoDqqrMv/Iv3i9Gb3LiC4fE6tteDlpAud4L38am4cq28QedgRHo6yqgG0W3KJC
-	 DVnCzWU0DnpuzqxwIL3ahol2GwrVtpwUUf+szofZQCNsly1WYVW78Bn+T7hge64A5bpPT
-	 +CGsZ9m4mH9TwNnVbbpWGXJMzMMn2ZkYRFFhTCyM4pnYEoFCGCXS86kl5tMDDkRfVdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794856224;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5ymyID5yWGQWOMH6t/cr1gAlkP/MvA7c8+VMex67FU4=;
+	b=ie7P4t6BHPfJGngmkAzezZdzcmk48KIc7hoSsHSBQML+FIpJmA1D4KQC8CWh9MSUev39
+	 WTLQ0gIFknevYjAmK9HOA2URmXK/SVsdyr5Q4Lz1igfnp5SjvaeHoQqD+rGtmuvfyPONM
+	 L33NEcrcbE7/i2YBIXEKaVQ/QhzhYknqBVXjP7oIic87JZHcnhdmWsvvI7OZbmAwTpH8c
+	 2ikGIix9pUay9VDIhnW35qii4V5Lk3okFvdsN3Z2l3i9GBKN/1iitG+2TL6PTlGOii9yp
+	 XpQiNFpsjCHaCkVvMW9mqI5qLeElWBqC5co4X0cL94CWP9nLkUeBEFlT1zvM31ZXzrQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Yx2ZXVk3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjG0ezQZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB37606A887;
+	Mon, 16 Nov 2026 19:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjG0ezQZ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794856224;
+	b=qULEkZaU5EZ4gCL0jcBG1du68dm/Zj+llvss1dyvXrtsvPIl7z5EK+w7SPY2iIVCYImI
+	 oAy0zAQ8th1fMZey5YTLvamcckHJFy78AIVEzvdVFwXsvd9B63HuZqEBRrL2UweOYNln7
+	 AwIrhvw1yjOjzao3zaQuQRzITh1umewYZ8lBj8TmKFKxfp+Z+QIWtHbtfnvkL91BeSYtv
+	 5baQQstGdeey3z50kLGx7LuGBlcXds2xPRwJ+UYjaE+RxPZuNxYlUzIz6Lv0BCOqz5Dbm
+	 +JvwQYHTS4UQDhirZsDB2EDR7j7uoLwVqH+rhjkCM+HoI8ikqpx+sFqOP6wbYUEnNxw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794856224;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5ymyID5yWGQWOMH6t/cr1gAlkP/MvA7c8+VMex67FU4=;
+	b=WCR0tHxqCbdsOgi6nM6eL+GVxCoP0GG5VFnc2bDwTgjArIq1s8C+kBkIxhrzu1pxkbgK
+	 juDd23skSRDmbinkId380IXd0nOwb/RfShuWnH249lCyTPkS91C2lvXei1gUhX2BdONrW
+	 gruFC9hqiqBTIUdaDvZN2NSIUTmfqcnM4HKsRE/TxqumtLIJwGaPirI9owKzLZdWwXUHp
+	 n40ENBqOUt6V7YrXMEdDG+/az1ujZcYq17ELYmgoleeBrsVmumKhRNUekttqwyZkuL8c/
+	 dVVt4WECwgehXs81corz0L9gLfiAWcfs32u8m/etHxveZEGs5YI0snmw7p8pCY18J/A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D313B606A31C;
-	Mon, 16 Nov 2026 19:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D313B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Yx2ZXVk3
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B5454202929;
-	Mon, 16 Nov 2026 20:10:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794856215;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=DQtxOkRhL1RVehvg9axGf3bpjjO1a8C4ieQHWmTRLjQ=;
-	b=Yx2ZXVk3ijNnjMRg1eSwL8bpznTXbuWWLryvGxXFPwCHhksGSus6JCoQDZw6yfNQuqZwbr
-	9E+sdq6qjGf3S5NNgEHXUq/3qAVJVQg5OGc43VklpYcxActEqU9AQYfNI+3/zBhpvftGAD
-	JnhoGaCOSzFBsUTCdGFmZPncL7zlvs9t9Kxa/MZC+noRtymz5X2WGLxtLtkdB2evA22Uit
-	yfYfgGg61tqELvD51FFEEWJI6bnP+vnkET9ODCMD1Q6tayGLe8aAZ/KqwyU2/lQtuin6Ll
-	xaSQnupXNyOzBIiiKFtc0EBgn7HdynNT7P70P1IE4btgaW+qEHi9jtKD0TAmgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794856215;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=DQtxOkRhL1RVehvg9axGf3bpjjO1a8C4ieQHWmTRLjQ=;
-	b=PsoaB64ZWk0YQ4Ixh23y6ujtVOT4tef8pYNCWJFahX+I48pYWiilgYHmhU68QBQ//rTsvA
-	YJ267fQt+fq4pLFxbrY3UIvJXxKUveyentLYOAbx3reS8vXRkaKRQq4RX2r9JSwaufxOp8
-	ZRrFV226je6WrIGJIUVPNO5GpO7CQ4ebITOEqN00weeuO5IbWHyJtwx6Gq0XlmcSZxNi3P
-	z1jkl8swi8Tz6TOom0e6CSkbfl8D3O/Jg0HdOuyTarHArZyiRaHcsoSNRWJTjuclQS7M5w
-	ubj2s+ohSqa2EJFT5giuplGn+ZsnrqwvCnQ/NT64TJRhD1lufVRsWSLpp0tCSA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794856215; a=rsa-sha256;
-	cv=none;
-	b=L9yAkcxgR7xY40Phlwt4+0GmJyoyQ1z2gXm7HtuYtA8vXlkqvfId4oMsoNwI5iG8Ea2NvT
-	HpPNI3kUoAGWEUi0h/rQ6xiZbFzZiMiNbi7wRqR3s/zjHkAeYLrDPJts+pJd56hfewGf4s
-	x71urLx35SK6xiw63CrKCoJiKNjcsOs4dFvsT+QZvaHaIZAWTUdfG/IlDma7avE8dbrpzU
-	o6Us9RoPddaJH0KIOzu8o3EmijkQ/rqSSbrClljOlgUlLXpx7Y4E657PW10F4Kxn3VQ/FP
-	5X0qLme/gdQDbQ3C2HfYZWsN9e+Mke3oeUhFeLlcM5z1sQ/GKUOTOK1scbB7Kg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id AA048380329; Mon, 16 Nov 2026 20:10:15 +0100 (CET)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-Subject: [PATCH net-next v3 00/10] net: dsa: realtek: rtl8365mb: DCB
- ingress QoS offload
-Date: Mon, 16 Nov 2026 20:10:11 +0100
-Message-Id: <20261116-rtl8365mb-dcb-ingress-v3-0-657f5fdb4db7@pengutronix.de>
+	by smtp.kernel.org (Postfix) with ESMTPS id 222E61F000CF;
+	Mon, 16 Nov 2026 19:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794856224;
+	bh=5ymyID5yWGQWOMH6t/cr1gAlkP/MvA7c8+VMex67FU4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=bjG0ezQZ+fnVbyojelDEgz9QF/RbN+Yvuh+moB7bWehPFGvQav/M1aSWiOVb6aa7T
+	 Jt2RkbSVdU4/NwYpwtqI7jizCRHdG8/C7k7KFsMQjfPgVyG42R55pw8SLAynV/wN3M
+	 kLji8rzA1sg9eYV1eLaH7/L6R3SXxmrTOe3FhejTWK7eygJWzMDSnoS5R3wNGm0Dxn
+	 XdXCSQw6Tom9dwmIcxIerhEtv4VojIOKt4Ah6oSQp0hyGI/gwKhtW4Ae+Dr5tup3fr
+	 IIwoAREYzAmrkH0Ra3PQO57MQ8MZiQep63l5nurq5iLJIQ/o0keqqvck/1rbMV6Sfu
+	 bhEAiFfrfnKXg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C02F14A5A9;
+	Mon, 16 Nov 2026 19:10:20 +0000 (UTC)
+From: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
+Date: Mon, 16 Nov 2026 19:10:09 +0000
+Subject: [PATCH 6/6] Docs/ABI/damon: update for sz_ops_filter_passed_last
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,72 +83,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-damon-sz-ops-b4-v1-6-1cffe7227e6d@uber.com>
+References: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
+In-Reply-To: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
+To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, 
+ Mattathias Pinchover <mattathias.pinchover@uber.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794856219; l=1281;
+ i=mattathias.pinchover@uber.com; s=20261113; h=from:subject:message-id;
+ bh=90a1wbT2PC+F+rhsnr9WMD8Unb+N/GP+Z2kT1pcYBmY=;
+ b=hi4tgZIxtxR6RtG6s3uQhhJYxlS2HNzATbhpnuiqcnw5erFek5+RS0MAPJiH9qov+piDgHtK6
+ oCziTYlozDbCijoYbcVkeCIhYexh+1IIvvma8bp8NvnmpRTf9a0dgFu
+X-Developer-Key: i=mattathias.pinchover@uber.com; a=ed25519;
+ pk=6Bh6OEwWiU6dpON0CVcoipq8fXtEgvhsM1Tmm9CTmtY=
+X-Endpoint-Received: by B4 Relay for mattathias.pinchover@uber.com/20261113
+ with auth_id=1515
+X-Original-From: Mattathias Pinchover <mattathias.pinchover@uber.com>
+Reply-To: mattathias.pinchover@uber.com
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABRV+2oC/zWMQQrCMBBFr1Jm7WCaYFGvIl1Mkmk7YEZJQimU3
- t0ouHz8/94OhbNwgXu3Q+ZViry0gTt1EBbSmVFiY7DGDn1vbpjr8+qGS/IYg0fROXMpaCKx68n
- YYCZo7jvzJNuv+wDlispbhbEtngqjz6Rh+XYjrZzw/zgnEoXj+ACP7QcYlwAAAA==
-X-Change-ID: 20261109-rtl8365mb-dcb-ingress-0dae31a02c0f
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, 
- Luiz Angelo Daros de Luca <luizluca@gmail.com>, 
- =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Oleksij Rempel <o.rempel@pengutronix.de>
-X-Mailer: b4 0.14.2
 
-Add ingress QoS offload for the RTL8365MB switch through the dcbnl app
-interface: a per-port default priority, PCP trust and DSCP trust. The
-mapping helpers go to net/core/ieee8021q_helpers.c so other drivers
-can share them.
+From: Mattathias Pinchover <mattathias.pinchover@uber.com>
 
-Two changes are visible to users. The driver now rejects a devicetree
-port that the chip does not have. With a default priority set, an
-untagged frame that leaves a VLAN-tagged port carries that priority as
-its PCP.
+Update DAMON ABI document for the newly added DAMOS stat file,
+sz_ops_filter_passed_last.
 
-Tested on an RTL8365MB-VC with eight queues.
-
-ETS scheduling and CPU-tag pre-classification will follow in separate
-series.
-
-v2:
-https://lore.kernel.org/r/20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de
-v1:
-https://lore.kernel.org/r/20261002115850.962676-1-o.rempel@pengutronix.de
-
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
 ---
-Oleksij Rempel (10):
-      net: ieee8021q: print traffic type and queue count with %u
-      net: ieee8021q: add pcp_to_tt()
-      net: ieee8021q: clarify the tt_to_tc() traffic-class mapping
-      net: ieee8021q: add tt_to_pcp()
-      net: dsa: realtek: rtl8365mb: describe the ports of each chip
-      net: dsa: realtek: rtl8365mb: store the egress queue count per chip
-      net: dsa: realtek: rtl8365mb: add QoS baseline and DCB default prio
-      net: dsa: realtek: rtl8365mb: program the PCP of untagged frames
-      net: dsa: realtek: rtl8365mb: offload DCB apptrust
-      net: dsa: realtek: rtl8365mb: report the DCB DSCP-to-priority map
+ Documentation/ABI/testing/sysfs-kernel-mm-damon | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- drivers/net/dsa/realtek/Kconfig          |   1 +
- drivers/net/dsa/realtek/Makefile         |   5 +-
- drivers/net/dsa/realtek/realtek.h        |  33 ++
- drivers/net/dsa/realtek/rtl8365mb_main.c |  69 ++++-
- drivers/net/dsa/realtek/rtl8365mb_qos.c  | 508 +++++++++++++++++++++++++++++++
- drivers/net/dsa/realtek/rtl8365mb_qos.h  |  33 ++
- drivers/net/dsa/realtek/rtl83xx-qos.c    | 210 +++++++++++++
- drivers/net/dsa/realtek/rtl83xx-qos.h    |  20 ++
- include/net/ieee8021q.h                  |  21 +-
- net/core/ieee8021q_helpers.c             | 103 ++++++-
- 10 files changed, 981 insertions(+), 22 deletions(-)
----
-base-commit: 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
-change-id: 20261109-rtl8365mb-dcb-ingress-0dae31a02c0f
+diff --git a/Documentation/ABI/testing/sysfs-kernel-mm-damon b/Documentation/ABI/testing/sysfs-kernel-mm-damon
+index 4acb2015c2f4..92348178e48a 100644
+--- a/Documentation/ABI/testing/sysfs-kernel-mm-damon
++++ b/Documentation/ABI/testing/sysfs-kernel-mm-damon
+@@ -623,6 +623,13 @@ Contact:	SJ Park <sj@kernel.org>
+ Description:	Reading this file returns the total size of memory that passed
+ 		DAMON operations layer-handled filters of the scheme in bytes.
+ 
++What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/schemes/<S>/stats/sz_ops_filter_passed_last
++Date:		Nov 2026
++Contact:	SJ Park <sj@kernel.org>
++Description:	Reading this file returns the size of memory that passed DAMON
++		operations layer-handled filters of the scheme in bytes, in the
++		last apply interval of the scheme.
++
+ What:		/sys/kernel/mm/damon/admin/kdamonds/<K>/contexts/<C>/schemes/<S>/stats/qt_exceeds
+ Date:		Mar 2022
+ Contact:	SJ Park <sj@kernel.org>
 
-Best regards,
 -- 
-Oleksij Rempel <o.rempel@pengutronix.de>
+2.54.0-uber3
+
 
