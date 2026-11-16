@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794861663;
-	b=A/QZORe9dnDoXEmVp51oZY21duwvCTYDi3YHk/ISR9ZOIWgWVyZJbcvvzW9wFSjje2FN
-	 KchG5JE/tO3xSgpcvCPFC3R2I8ZpfuBM4J2mSqyN8f5djnZ5Dm/cxfaDRdMeCS2pL9yAZ
-	 0Nv9Ed8rnbAigXcLINjj+zri2qqPvI3WpDDR16jLlbzHORabY6798QMFODzfzDtiQwPmG
-	 vWw3ZeL3ZqtnOAIHiTfYFeWf+H4fzhhQGKJm679g4sPl5VOkayWN+5F+NdQwBqvodyqSw
-	 7sn1ZalEZyh1VZ38X0cbg3lVZvxdm5RZtKJQ+XMoypg8OCJal/M/9OC5QRqr9eNGwiw==
+	t=1794861665;
+	b=c+4MetsljzPIn3GMp6y4UuhU7J5l+1NIuIaMc13Zf2FXx785oJ5YGcHqHODGSO/XYOYO
+	 /0FZiBj3BUwYJkvp9PT0UvW5CSqU82LqB6mZMHZ0SVJMc4tGJs4BIpqnPsUzl+nRg6uDI
+	 dtBuG9V5M7TmGiX/lltuzqWKYuj6euRF3A9GCj3BT1i6225akXPiUidGDONfF39dktN18
+	 CxpcGGNltKfAMWqFovud2OXwmgJ3P7Y4EMwyysbXTKDGUN7j0B5OXrSma3g0V9ACjjd/j
+	 z9ei7rUhCpxjOWpLfn9WTxdp69+sW4AOwR5CvQy1QqTY5e4qza3W59PpeqgP7EMgq9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861665;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qsAuHpeK88xiJOqOPnGB32buPpp/uRAvzb9s3d+OSJg=;
-	b=g5sIDsG3DyzeYxsSWmN/9wI71/eLo27OSUvf2kZGxLE+uwbOfLLYr9SSdH5h0yPvdLhT
-	 e6BNW7pD/fRxSt0AS42IsHSwITgmXff6pR6qQjsH7CKNgTs0qwbfHteGs3FBiu2rB4Q4G
-	 0yeD4DtXtxQ6jAimZ0esnzynmSD7s5jyEsA2zjAjWKTYUhl8Qx7WAdInZexOXitd+qkkE
-	 CSTGLigQI+CBZeFSphlrrMCIyiYDvuBHc48iXsX6Vk/0/5BDLQFSm8VvcH3ulSVQB9Ph5
-	 wMwlK1Af4266PdNpg39q7gJP6ecspMNSAzm+uuaC5IojK0/ANj1357QLbonE1axlyhA==
+	bh=heu0s5zjpk0XxoTZwlmNXaLWRfZMoSQ9VqcGdYp9bZk=;
+	b=luUMTFrTG55+4dBuCFU5PzgK6FT6VOZpO5C5B3tGXeamGKLoonZmRuo5llyKn4coNpD9
+	 hDBmi09eyIErjhKB1OZcoUsu090WyYvNTMvmA9cywRL6Ck9SBwc5NIO8int+rmIErp0b3
+	 dCtz52cmsgRIXopaSghrDYY2rwX80k/KeSF1X/FSUiix8Sz/FbtB5iAccPzU092cjPgQG
+	 RWK3dfIOZfAo6Vw22n/5kG1ruqpKAsg1d4kEZso/DKksLAzDJOqoiqReW6ukQcv42pJJT
+	 mEbNANV4qlQWLEyGmBQpRMfLjmBOTp3Aigxf1sLabyWJAoLz9lexuDQMqVnB2OTcXkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BFalh5K1;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XW/dZMRp";
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2CD606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:41:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B2CD606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99A4606A887
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99A4606A887
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BFalh5K1
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06e79e152so1898143b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:41:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XW/dZMRp
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso2137835a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:41:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794861662; x=1795466462; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794861663; x=1795466463; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qsAuHpeK88xiJOqOPnGB32buPpp/uRAvzb9s3d+OSJg=;
-        b=BFalh5K1fJnVTgGbTTwXxlSkb8rqVoe8PZ7HShQFHdQtO7g4CK75+sfkRVEe13qjxB
-         vTE+lPqrTwbrqNasqet/y6PQMWjvxuV/RQSwsmSoGq2OdOOUnyyAb6Xar8FQmQGmvKSI
-         Bch1CDtUTPs3reYQ+ceU+PoZ8ad3N+s5RdmtoDDjJ3OAY3JuqQ0OkloJ/U3zmwIZjHGP
-         7WaWLsE90y0jOocENm7PLCcZU9nV0fZBnASZOG2NnbTMX2pp1xGGNDxopISyciU32uYl
-         lURcSAHPrFFiXZVJUiGdPXZgqAkjpud6DogXUmF87l6mTVDfBX2FharuAJy4NqX9G53o
-         QdWQ==
+        bh=heu0s5zjpk0XxoTZwlmNXaLWRfZMoSQ9VqcGdYp9bZk=;
+        b=XW/dZMRpYlcTMu3EK5fSAbGYbpIvwUxofNRmsrggNENF52WOYMEOqdSHk+D2OaaOmO
+         uFctrmRrGm/RS1XymcFwob3WMbppd53CfcFNnH6j89Gg/MdgXfS4qtYqm4AgXGfWrqXF
+         8EQb62+eggNC3Wwj+9lv6sNkyaWsCLW/MJhC+nCNR/uQ6ogG90VnZBaurMlqWLbNxMPM
+         lKvmTE1LWUvo8HHxUQFxjQC+wD4rfoFJnh+MP6603Kv2Mzd5FGS2drEa9OyiERLEg+BO
+         EpyRgfGjwLikmUBSQkAxNAhITlo2bOJ2QZCWUHQzZxjUleJNZ8gOexj72hz4jnlNvAzH
+         X16A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794861662; x=1795466462;
+        d=1e100.net; s=20260707; t=1794861663; x=1795466463;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qsAuHpeK88xiJOqOPnGB32buPpp/uRAvzb9s3d+OSJg=;
-        b=xZQ3XsWzp7Z9xKnAD+c2cIB+GkglfhndlR9dja6Z+kOaCznNFKOCEpk4CW8mbfGt6s
-         Hhiq284Wj0ON3kNlFQOl2H6dKxKG+NZ9/6eGxI2ynZcIr+by7OV9SJGAPcdLHV/8xQqG
-         e3CKbLaYoj86QIc9ZAcLRsnQUZUgWMP8+1LOTKWV0URB/xPNz1+KtnNQzrkKml4hecLe
-         qt1bQq9u/GcBCIWzNAD9HchaXWRpVtChUbceUILju/ZZihgGo9dWfv8dMpY8Xu3wp0yz
-         zvbrobxjLszFcuiu7pBsgcm+DNeWNZCG9LmKDyFYZrrUUq3+55oShOq527J6kO+PIJnE
-         sH6A==
-X-Forwarded-Encrypted: i=1; AL+hErFB/3grKRUO7aGwiMjwCES5G/XdQ6xbHcXDu14xBlVPejrQgmQY+3cDelO/9/qovpYIfZDb0LBmSBUpDJk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4VnFluCIRRWrpcHvqQO7vTfaQya1jTfUcaagQQpYazG5aZwHN
-	tbb4hryEt6NPF7QcLOTvFuCt2HBePj9RTh2eeTjyynYZm3tqhlPQh3o8
-X-Gm-Gg: AZFdTZdfw2TPRereka0FHO7gwTP7ny1KAC8sNwHjpCIL3upmKQUog6I96fmISVaWtIY
-	a9PoBDW9bQ9m0LCEG8HALqQb3kl+9IeK5soR1lhRHfzKnveK3VAr2qoMaD3JmALgbTbvfFadbu+
-	0iaQ+ef4MZA44Yw6lnx0LRgs4x7eR7Ch4EsQBLgj2vZs2efHjCE63kZLYmHdyr4KQS/yY39Rqun
-	X1fXvQTNq9QRTGc9hBHDsUassFwWrbI4E8WHlQ5jDmtiXJSBs+KKnUfLUQGD+91uo+OHuG+blB2
-	MiUUErich5HfLpw/hAefW2uCFUXYf2WEAhOlySvpLxpCwLMF5EekYout2sUDIXKn1CPV0dBo2L+
-	3PmdxZI7M6T7cv72M70m+hc+RmaeVtvZ3lRYCo2g+5a3R2MTZqk+DMRsMORm8heCQdodkmgwMwY
-	ZhO/ZrCLZKOV1AIfAH96bNOiqNEGM9YeW1uRlZfPefuj2Ud7tH4xRj2wuBZPZOdmyS7SQHiVLMe
-	ATXwkuB3+c99J4p5whUCNzkPWWilWoR22dfTLmyxXLxHABqqrmHEH7T3q5VGh0mzLnlsxvx5wAD
-	mqP4PVKMNuWlyaFRTt19/b/dZiQ53mtnkfxsqNMkG/6HebD0YI/iyT4zqQanRF72hOgfJZIPrAo
-	CfEKqTID5nSEDDXxBTIACZuBtKMOG2kc98SFyzYR+kUU/DgQerdPfWHtvxUBZZIh98Ug4krXomV
-	gNSK+U4YkSS+dIBOb3zw8bMh0=
-X-Received: by 2002:a17:902:c410:b0:2e9:3dd0:c7d with SMTP id d9443c01a7336-2ee0da7f48cmr101188275ad.20.1794861662240;
-        Mon, 16 Nov 2026 12:41:02 -0800 (PST)
+        bh=heu0s5zjpk0XxoTZwlmNXaLWRfZMoSQ9VqcGdYp9bZk=;
+        b=MgBkrNZ6gKRlpoBtVtS7pr4b9N1CaWXTDLMX6fAFDy+PYpK+6/LXWL/5guUNxG51KH
+         NeoxvUt4VzyVNqLdISxDJGWkUAttya9Lf3pmLi8BYBog4V2ufFO0MLkLWomim8Uqxn9Y
+         6Kam26SV1txd5zqW5TlwETCwl/Y2cRCiAVJG8qaSfd5GM4pEAqlGfq38Alwjf0gGoUD8
+         vndwtsxu2UywiDQdkbRJaFOvBUo8hlnmwFoOzIsISUGD/HiFJvbpqAqvaL6B3o3C7DCv
+         tKTFHBJHC47bdO770vKVP+xCDR5OZXHEtDuhGhx2umOVXVMn2MM1Vt5bw+V7g0U5bd28
+         2EvQ==
+X-Forwarded-Encrypted: i=1; AL+hErElo8Qa/eykcRFyecJ+/NBdxMca4P9qYk+r0WLgqxAB30IIJ+frS+EulOsDlnRWJcbtTIpqCBWRh4tp0WU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PY94mVlKY8zKGB4Q1nKxM6ymvrKMo23YmpUIESQdEw9/8/UkU
+	uoZ3wfjdZt0rh/enrpuV+DIgTf+rawr8pmLANr+V7Ke5xnnFY9IUx1+/
+X-Gm-Gg: AZFdTZdrtcpZcStoNJbtXILza7RoSSDSAmoptV5pLubrR8io10ouCKbGHEcuBZxVl1j
+	WLUCjb7kytiDpuuxJHSI+IVqVN6hWSsXaXE1HycdsbpmAA142/NyHj2FUpQDSbC/exJ+JTqoBaj
+	ee1nvs62bhQlLpYN2kkGDRZ58mpH0TfkX84wbFMFLGWyk4h+Wbw+rJIZGxx/0DrFOtw/0z9bk4j
+	Fkef39l6Ulh3uJYsbk/OyBflvpfWPXll/CMbX6oR4i7lUNXrd+yPv9HNPtr2LvQMQqEjYmx5S7S
+	auJg/XcZQib3W0Zd8RZXYil9xjXM7ydR+s5Xccop+0MHdGkwQ+VLCCc/SkZUmHlsAb/J+NnVHUA
+	/SO3NNsn3z4FlyCnxD54mxbuV2HaVqaRGuL7CYpmYoOFVKVVVEYZ5pL7b0rtRPyAjKUX1JjLpUV
+	dyj951RViFwpsClzX3fuzP5U9SjY01IcXh/fgZL4YsVuCxCHFFnrO6G1I4usHgsQj8h17wQeLm7
+	GH7wSuZo4CQ8o9QKWTSyKpIHfrZD8ydvd+h8roDc9JkAJn5AqhTuFL5DWwgev7288Txq2Ls4Xog
+	AVUPO0lvQpMHLDeZPE/LFMY3jsRPqzMyFiPbOFpNLb+Qoax2gRKiR1BFnuFOL4PqK5VRHPYF7fa
+	WvaHE/vrjWTvYv5439V1VZDwbyjb+mH1dV6QMD2rQSwf9q1Ip99SY7Ls9tKYDnI8BlcOYxSGxF1
+	z+38w=
+X-Received: by 2002:a17:90a:c88b:b0:3ae:6fda:78b1 with SMTP id 98e67ed59e1d1-3b1b0b6049emr10406718a91.43.1794861663475;
+        Mon, 16 Nov 2026 12:41:03 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a87202sm3833645ad.58.2026.11.16.12.41.00
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a87202sm3833645ad.58.2026.11.16.12.41.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:41:01 -0800 (PST)
+        Mon, 16 Nov 2026 12:41:02 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Stuart Hayes <stuart.w.hayes@gmail.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -89,9 +89,9 @@ To: Stuart Hayes <stuart.w.hayes@gmail.com>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/4] platform/x86: dell: dcdbas: Actually wait for the host control SMI
-Date: Mon, 16 Nov 2026 12:40:49 -0800
-Message-ID: <62690b76d5cb95113b01092c8e3944fbb21a0922.1794861287.git.rosenp@gmail.com>
+Subject: [PATCH v2 2/4] platform/x86: dell: dcdbas: Suppress bind attributes of the platform driver
+Date: Mon, 16 Nov 2026 12:40:50 -0800
+Message-ID: <c3e83cad97cd52fe9ee130630ca4d7cae7f7f2de.1794861287.git.rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <cover.1794861287.git.rosenp@gmail.com>
 References: <cover.1794861287.git.rosenp@gmail.com>
@@ -106,114 +106,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For SMI types 2 and 3, host_control_smi() writes the command status as
--1, raises the SMI and then waits for the BIOS to change the status:
+The dcdbas platform device is created by the module itself and stays
+in use for as long as the module is loaded: dell-smbios-smm allocates
+its SMI buffers against it through dcdbas_smi_alloc() whether or not
+the driver is bound.
 
-	while (apm_cmd->status == ESM_STATUS_CMD_UNSUCCESSFUL) {
+Binding the driver again after an unbind also leaks state:
+dcdbas_check_wsmt() runs a second time and memremap()s the firmware
+SMI buffer again, overwriting bios_buffer and leaking the previous
+mapping.
 
-apm_cmd->status is a plain memory read, and neither outb() nor inb()
-tells the compiler that memory may have changed, so the compiler
-assumes status is still -1. The loop then has no side effects and its
-return value is not used, so it is removed entirely: in the generated
-code, the read of the control port is followed directly by the return.
-The kernel goes on to power off right after raising the host control
-SMI, without waiting for the BIOS to accept it.
+Unbinding or rebinding the device by hand is not useful, so hide the
+bind and unbind files.
 
-The type 1 wait polls the APM status port instead, in a loop that
-counts down TIMEOUT_USEC_SHORT_SEMA_BLOCKING iterations and relies on
-each inb() taking about a microsecond.
-
-Convert both waits to read_poll_timeout_atomic(), using READ_ONCE() for
-the status in memory and inb() for the status port, 1us apart for up to
-TIMEOUT_USEC_SHORT_SEMA_BLOCKING microseconds as the name suggests, and
-return its error. That is -ETIMEDOUT rather than -ETIME, but both
-callers ignore the return value. With the delay plus the port read, the
-type 1 worst-case wait grows from about 10ms to about 20ms, which only
-matters when the BIOS never answers.
-
-This removes the last users of num_ticks and EXPIRED_TIMER.
-
-Fixes: 90563ec4129f ("[PATCH] dcdbas: add Dell Systems Management Base Driver with sysfs support")
+Fixes: 12c956c4f32e ("firmware: dcdbas: Add support for WSMT ACPI table")
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/platform/x86/dell/dcdbas.c | 28 ++++++++++++++--------------
- drivers/platform/x86/dell/dcdbas.h |  1 -
- 2 files changed, 14 insertions(+), 15 deletions(-)
+ drivers/platform/x86/dell/dcdbas.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/platform/x86/dell/dcdbas.c b/drivers/platform/x86/dell/dcdbas.c
-index 678f44252a45..69365627fd8f 100644
+index 69365627fd8f..cd72f8c29a86 100644
 --- a/drivers/platform/x86/dell/dcdbas.c
 +++ b/drivers/platform/x86/dell/dcdbas.c
-@@ -20,7 +20,7 @@
- #include <linux/cpu.h>
- #include <linux/gfp.h>
- #include <linux/init.h>
--#include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <linux/kernel.h>
- #include <linux/mc146818rtc.h>
- #include <linux/module.h>
-@@ -377,9 +377,9 @@ static int host_control_smi(void)
- 	struct apm_cmd *apm_cmd;
- 	u8 *data;
- 	unsigned long flags;
--	u32 num_ticks;
- 	s8 cmd_status;
- 	u8 index;
-+	int ret;
- 
- 	apm_cmd = (struct apm_cmd *)smi_buf.virt;
- 	apm_cmd->status = ESM_STATUS_CMD_UNSUCCESSFUL;
-@@ -407,12 +407,12 @@ static int host_control_smi(void)
- 		spin_unlock_irqrestore(&rtc_lock, flags);
- 
- 		/* wait a few to see if it executed */
--		num_ticks = TIMEOUT_USEC_SHORT_SEMA_BLOCKING;
--		while ((s8)inb(PCAT_APM_STATUS_PORT) == ESM_STATUS_CMD_UNSUCCESSFUL) {
--			num_ticks--;
--			if (num_ticks == EXPIRED_TIMER)
--				return -ETIME;
--		}
-+		ret = read_poll_timeout_atomic(inb, cmd_status,
-+					       cmd_status != ESM_STATUS_CMD_UNSUCCESSFUL,
-+					       1, TIMEOUT_USEC_SHORT_SEMA_BLOCKING,
-+					       false, PCAT_APM_STATUS_PORT);
-+		if (ret)
-+			return ret;
- 		break;
- 
- 	case HC_SMITYPE_TYPE2:
-@@ -441,12 +441,12 @@ static int host_control_smi(void)
- 		cmd_status = inb(PE1400_APM_CONTROL_PORT);
- 
- 		/* wait a few to see if it executed */
--		num_ticks = TIMEOUT_USEC_SHORT_SEMA_BLOCKING;
--		while (apm_cmd->status == ESM_STATUS_CMD_UNSUCCESSFUL) {
--			num_ticks--;
--			if (num_ticks == EXPIRED_TIMER)
--				return -ETIME;
--		}
-+		ret = read_poll_timeout_atomic(READ_ONCE, cmd_status,
-+					       cmd_status != ESM_STATUS_CMD_UNSUCCESSFUL,
-+					       1, TIMEOUT_USEC_SHORT_SEMA_BLOCKING,
-+					       false, apm_cmd->status);
-+		if (ret)
-+			return ret;
- 		break;
- 
- 	default:
-diff --git a/drivers/platform/x86/dell/dcdbas.h b/drivers/platform/x86/dell/dcdbas.h
-index a05d7f667586..d5ad2363dd9e 100644
---- a/drivers/platform/x86/dell/dcdbas.h
-+++ b/drivers/platform/x86/dell/dcdbas.h
-@@ -42,7 +42,6 @@
- #define MAX_SYSMGMT_LONGCMD_SGENTRY_NUM		(16)
- 
- #define TIMEOUT_USEC_SHORT_SEMA_BLOCKING	(10000)
--#define EXPIRED_TIMER				(0)
- 
- #define SMI_CMD_MAGIC				(0x534D4931)
- #define SMM_EPS_SIG				"$SCB"
+@@ -708,6 +708,7 @@ static void dcdbas_remove(struct platform_device *dev)
+ static struct platform_driver dcdbas_driver = {
+ 	.driver		= {
+ 		.name	= DRIVER_NAME,
++		.suppress_bind_attrs = true,
+ 	},
+ 	.probe		= dcdbas_probe,
+ 	.remove		= dcdbas_remove,
 -- 
 2.56.1
 
