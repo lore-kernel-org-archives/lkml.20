@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794861695;
-	b=waMMgw+ccMVvhucbyVdx17aINJ51j7uvu1ZVoRQcNBYzjK7xVKJysqpwOMJWttLCzFjj
-	 QYGqVfbgrfFixcz9rJFDDMOTBr31ayhzSC7g8mkU0x/wMQoZG9Efu2HbISZ71c0uX6BNO
-	 vdb1t39NKUsPQRMbM1a1x5L6RqtLufjCgvFbrW2AT5v4z91sYlCnxRBVVF+StkRHDsm+R
-	 76Bl8Hrgp+mAO9mjH6RyYR2hBshAAJPS6mRTiabBXmNf/EN0v65Da2fpSo0idekcynpYI
-	 xS+XlZAoEZneKb0W10KDMUuSSe5SOhvdqEHQfVgZYKHqO6HocUcSfMDKXLdRwrJGdQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861695;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=42gPF7+Sqfz7dUAfpkhFkb2az57AMCqoFi+goWrCla4=;
-	b=tI3uup1tBPgyLMqb7C17u9nAfVemKGSo5Y2hcWgN8z//XBEa8cDOCYk177+B6aq05fp1
-	 gmn3oz1LAywgzcfATE9YcDchER/ey8tOqA6YgT2vMSucpANvDqWgAZGcT8IpcRSDVtrFq
-	 5uj7AbO7a+mt/wgY9HrJxHd12fu00eRTf4xjb5DtHi+Lek/woNoacchMhObPqWwn9lTpl
-	 yCEA6nCYFL9cASkim/HFw05nvK9ROympMN+tCmj5l1Rv7ffbacDiUvBEvTK+7VZi28FLQ
-	 6xecbJmc0LtKR2HF5sdy20Zwy19XfXHuqB0yPc8bXT8PoMFTN0j845zGsl83XcHbAeg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZR+Yzdz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794861756;
+	b=YNFl9W3a8W9757I2kSEBgFCQjMNzqkEsTbojOPf52fHF9JWRwsXOFM1g6DS37pWGSE9z
+	 /LAzD1SfcONw/Dh3+pJdaHj2UbotOGWRw9LT0fsxl36+RVhMImluqte1K6IraQn3pHBt3
+	 fHZsRJ4vw5g3353N6v5IZrqZ22OxIntt+xcwcC6mpbAuDqfJVm02pIH85qhG6/16GEZo/
+	 nKyD1E8XSe6jB70oss1acEazaYxH55tRPpa4dNXxmkaMae/k2z46FAnlBx7XPunPuBrdL
+	 LRoDj7vtiW8GPR9GWJqz06IV9THwxVBzyVZsA+NVMqmxxy2G60J7vNXW/j+Iw7eCE3w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aWqXxtJLKXeybdceYaRwLVhgGOYueeF5/iioy3h/sBM=;
+	b=lBjfdH2XdHiLfHQ0IREM0yrniwWYtnfmeymoisgXFVDEMmtyYgeyLYezvwO9M7pTaL9n
+	 Piahjti2W0XH05nb/5tqPe2BmW9RWGf7ZnT1Abzf7gmsnOMOoY2B8BQRqdhwQt4fr+W6E
+	 6BdtUwef7ZinH4q+TvRDIivK4yLW23vT/JDN2Zl7Qt1fZX1V8dM1nOoXCGAuLNRMLfZKk
+	 bR9lx3BwtL4LH3S1g9kjS8ua/kyRhkRLW5Pv5SlYt6yInDSk1SUznl2EYnYYryhWgLRdn
+	 6Jr65fP9bssa3jqS/d1CvFlEo/gY4iKVYz4Ug9msHG2QS6FQ6JJ+NYfWTAc72GE4jhg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OH1BUmHd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6FB606A32A;
-	Mon, 16 Nov 2026 20:41:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1C6606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:42:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD1C6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZR+Yzdz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB67D1F000C4;
-	Mon, 16 Nov 2026 20:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794861694;
-	bh=42gPF7+Sqfz7dUAfpkhFkb2az57AMCqoFi+goWrCla4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XZR+YzdzGO8kVm1OoLFC+f+Dc95f7eCsQkumaGTHmg46QgC1RHKc55NADhs5GT8xe
-	 h1G7GZsdMliehYDsulEjZdhbQOJzr+jQfOoq4CXYuOTz7ZpI3IrTzB3E8WtiEyeCND
-	 brq71AhDljpkwZvMPQjgVtqfOSbjmpBoE+mghLi23aNhR9keyfcgozSmkmi9I4qRoY
-	 qomtiIQ4mg0hnrCh8+YwwJSvl8oq6czuT/JJFq1Xh4uUQzGB4p6rsyijFjBKXMdDbT
-	 oCqWv4pZh7+5gE21Rso7ENLYh30obWrZF/K28c2ExWTKosNjVbePQOnZAFn3I+oatl
-	 RA9rGyx5oJ7qQ==
-Message-ID: <20f100af-c831-4e37-8077-50f6366f323a@kernel.org>
-Date: Mon, 16 Nov 2026 21:41:22 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OH1BUmHd
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so15675585e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:42:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794861754; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HmtFW0X3ZDGWzQqa2tdRT97lq0qG87bu04RYMoRqerPh0whlgn0xZ9dzRW78TWfHCL
+         Po4NF60WwyTMGgXs6AB7AOMZH+1tJVDPjlmr6XC8IrZ8spnpaWN1r7YGUSwwdn41lgqj
+         arKl1Z9/opAhEQWZScxqdAkx94/qoN6GYWTu+6i6YxCfYbEKA9BMcnijSAHaifO6YTtW
+         p5jZzcO0+MGox+Dnk+fHWHMVzQBE5NRiGrvqNzad94WfydNdh/XsWmIOWv8MhYQAVM9s
+         qtFhIP4BTsqQ4NJ+7GU6qu+tcZu6IabJdZVgk5uAcywgvg5uaNRNrY27/xWha5kfJjWY
+         5n+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aWqXxtJLKXeybdceYaRwLVhgGOYueeF5/iioy3h/sBM=;
+        fh=Qjh/k1/MQmTbJnd+dooULWEoQEUwioXXTfVgBXWW6Do=;
+        b=RSTXSoKL9CvHUYgVeBFNYzw85durfC7lFsA4NqlpypeAuUCizskRrp92e/2R1sgPfE
+         tSApmQaualcQHZ5aA40RxeV0Xy1rwCvDwb8UbkOOqNOSfTsH2Z4PvT3sIGAB8CIE4XVp
+         sh4PD8tR0Ui1OOCQ/tScjHuR5mMidOUDfl3AlXn5us9zTlM1b8Z5WiVqqFiZoqJuO6GK
+         SB73nBMRLqyXp4ZyXu5E3R9vIFggnZzh0q/AgrDG5O48H0TVZVySjzDrcBfF5QGGAd2D
+         LpFniNSFuG+KTb6Diaog6bZfpNhMBm2aV+Ea6BRtm2M2Ns+OE3MKzOzA1DtEit/+H7GH
+         wg5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794861754; x=1795466554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aWqXxtJLKXeybdceYaRwLVhgGOYueeF5/iioy3h/sBM=;
+        b=OH1BUmHdkLVvo5XqEhrxPrfinhRJCfHDY1Ua7J137Jymq0ov1k98UfeqrH98bSmMk/
+         l9prjLcCD2f/CMQtMRY3T8XpEh7Q2XBigRGpf9kONp1ztl+XCk36TgtgvFZ8q0doH6/u
+         IsIJ6t+TJ50L1z476FiVSvkw13iceswQlBRjSVvQGI+vrTVCz2StTytHEsIqm1iRigos
+         NuNDnm/mMHuSvxgtkZ1lPfE+2QJZU+5ClgF2ZdAkYPVnqKnuIROoKuTQMHU99DzCeI7c
+         zSMlQQtHNJFONlKnMN7vVYPDTY+5tJGA0J4kVVNQ0ZChtFvFdJggsx0ZRzl3Vyw/BH7Q
+         egOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794861754; x=1795466554;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aWqXxtJLKXeybdceYaRwLVhgGOYueeF5/iioy3h/sBM=;
+        b=c7Lp+676QIzaij0KpjUmAV9yPT978/bvsG840lG9kPuJcuDHdoZm/UM7RRvtewKAkB
+         X/7JLAIra7V9gMM3dPX8quUo8Dssg5vf4J+CJOIMFaIwMMLsrqvFJCBiG/C72MEYci5I
+         IA1Szwxj6iePUkPuqxR1oadfsUrYkf8wBLjexWFyG9cTWIxgTcD8CPRnblxRH7HPm1x7
+         yfhBx3jCxoPCh9lsDjAZTleK3q8drXWaXg0wJ9i95yXWx08vvIxsk542zqZniqVhpZTB
+         5z/fhuF+mqaOPjz9yiIy3rFYPpyZA/fvsnZCdByF6t+GueLBLfA7CVapBysM56SZRyu+
+         bUHw==
+X-Forwarded-Encrypted: i=1; AL+hErEEciNjBSSpDCjQXHT/wFfEstmQcqDzxbIwhkXRXqdhCA0Fx4S9JBUVSK+5hKehpeIgDA+nMus8hmqwNYs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rnn+/OXE8Pd/xJR+GuzYC+g+RtNWSV0EbbSh00xgQ4fWC3chb
+	IgGNDuY1IqqKC1NtHDLHGRgyAiforci/NxlDwN5G+H3/CYyJ4t6BErfWRFP61rNGJlL8tDsbzL7
+	BLS2T1h66QNzfkyc4/WdwP3H7r/3JrIIn+rs5ESM=
+X-Gm-Gg: AYBFou3D+osn/oZNjeqyTTE3mO/JXRJqDzg7XRT3JmiHedXX0JqY6lRkOIs0FZxpZmE
+	d3Mf/6Q4StXcNFTv/ajwbAdjLd6LWo3k2Q3dGnGuaMXU/wOHwYFqZh5taPPMXmoFquVXeLOEFlv
+	n092zOWtvu0v/liytWk5te5Bz/Jgy1FLagLqChAie0p4y+75tmcbYMPkKCKw88psHeJZKmbiknX
+	+iJXyTXm2d/jy+CzJ87ZTRi6dy7+pY/FN0JK3VViRYaF1LbeoW1UP+HwUva7CqCFvVT/IpgxMe7
+	NSVlGt60kbugmTbUvnwdPgEsVrsrE3vXI9MooWPyJzUSnaXZ5nO3a6GbSaWw34FqXV3F9A289dy
+	F3uf14UwwY1dNYoSy1vVYKJOFFc0wCe3WNpj5Wq+ruY2oyHhHzevPMz/MOsNaUKPA2r95yHRVck
+	gy3UNmhA988bTktyNBp/Ot2voKYC0K7AKclX2FwM9NWBx/r6QIDwSYhFs78wj0DA8AK0Q5EpHGd
+	V4T/EySyThB4kLRCBPX7dzX0wHH4uiUoAZyMA1DxnonD4+nVGJEJQ==
+X-Received: by 2002:a05:600c:524a:b0:4bb:6cef:d14b with SMTP id
+ 5b1f17b1804b1-4bb6cefd40dmr114558095e9.2.1794861753742; Mon, 16 Nov 2026
+ 12:42:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,130 +106,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/9] mm/mremap: resolve uffd state when the context is
- dropped, not during the move
-To: Tal Zussman <tz2294@columbia.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-7-4397a0196479@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261116-uffd-state-fixes-v2-7-4397a0196479@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261116192638.233125-1-mathieu.desnoyers@efficios.com> <20261116192638.233125-5-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20261116192638.233125-5-mathieu.desnoyers@efficios.com>
+From: John Stultz <jstultz@google.com>
+Date: Mon, 16 Nov 2026 12:42:21 -0800
+X-Gm-Features: Aa3M54p9MomemKYMLSYPkFUiZv-e1UrVLPxsl86D1ig5CGhfzaTiBH_yWzJWZKs
+Message-ID: <CANDhNCpQ-fyUJRCy_6twENoAy+1yGHaWN8dHw7VbUz6Qn7wqhw@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 4/8] sched/proxy: Tell the class about a proxy migration
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	connoro@google.com, arighi@nvidia.com, akpm@linux-foundation.org, 
+	shuah@kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/26 21:02, Tal Zussman wrote:
-> Without UFFD_FEATURE_EVENT_REMAP, the new VMA of an mremap() is not
-> registered with userfaultfd, so the uffd state of its entries is cleared
-> while they are moved. If the move fails halfway, the entries are moved
-> back into the old VMA, which is still registered, without their uffd
-> state. Writes and accesses to them are then no longer reported.
-> 
-> To fix it, leave the entries alone during the move and clear the uffd
-> state of the new VMA in mremap_userfaultfd_prep(), right before dropping
-> the context, like unregistering does. This walks the page tables of the
-> new VMA a second time.
-> 
-> This is done with userfaultfd_clear_ptes(), which also makes the PTEs
-> writable again where that is safe. That removes a spurious write fault
-> per protected page on private anonymous memory, but adds spurious write
-> faults on shmem and hugetlb, as change_protection() makes writable pages
-> that were never protected read-only. UFFDIO_UNREGISTER and
-> UFFDIO_WRITEPROTECT already behave this way. This will be fixed in
-> change_protection() separately.
-> 
-> The entries no longer need per-entry handling during the move, so drop
-> uffd_supports_page_table_move() and clear_uffd_wp_pmd(). Whole page
-> tables of these VMAs can be moved again.
-> 
-> Fixes: 0cef0bb836e3 ("mm: clear uffd-wp PTE/PMD state on mremap()")
-> Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+On Mon, Nov 16, 2026 at 11:26=E2=80=AFAM Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>
+> find_proxy_task() moves a blocked donor to the runqueue of the mutex
+> owner. proxy_set_task_cpu() does this with __set_task_cpu(), so that it
+> can keep p->wake_cpu, the CPU the donor returns to.
+>
+> But __set_task_cpu() skips what set_task_cpu() does around it:
+> - the migrate_task_rq() method of the class;
+> - the migration count and the perf event;
+> - the sched_migrate_task tracepoint.
+>
+> For a fair task, the dequeue on the old runqueue detaches its load.
+> migrate_task_rq_fair() would then reset last_update_time, which makes
+> the enqueue on the new runqueue attach the load. Without that call, the
+> load is attached nowhere. When the donor is woken, the return migration
+> goes through set_task_cpu(). It removes that load from the owner's
+> runqueue, which never got it.
+>
+> So each round trip of a donor lowers the load and the utilization of
+> the owner's runqueue. In a test, a CPU with two tasks that never sleep
+> showed a mean util_avg of 195, where 1024 is expected. schedutil would
+> then pick a low frequency for a CPU that is fully busy, and the load
+> balancer would see that CPU as nearly idle.
+>
+> Fix this by doing in proxy_set_task_cpu() what set_task_cpu() does
+> around __set_task_cpu(). Tracers and perf now see a proxy migration as
+> a migration, and nr_migrations counts it.
+>
+> migrate_task_rq_dl() moves the bandwidth of a task that migrates to
+> another root domain. "sched/deadline: Move a task's bandwidth to the
+> root domain it runs in" added that. A proxy migration must not do it:
+> the task does not run where it is queued. So make migrate_task_rq_dl()
+> leave the bandwidth of such a task in its root domain. If its wake-up
+> then picks a CPU of another root domain, the bandwidth moves at that
+> time.
+>
+> Fixes: b049b81bdff6 ("sched: Handle blocked-waiter migration (and return =
+migration)")
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 > ---
+>  kernel/sched/core.c     | 13 +++++++++++++
+>  kernel/sched/deadline.c |  8 +++++++-
+>  2 files changed, 20 insertions(+), 1 deletion(-)
+>
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 24105eeeb3c7..5d82c343662f 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -6967,6 +6967,19 @@ static inline void proxy_set_task_cpu(struct task_=
+struct *p, int cpu)
+>          * was previously runnable.
+>          */
+>         wake_cpu =3D p->wake_cpu;
+> +       /*
+> +        * Tell the class and the tracers about the migration, as
+> +        * set_task_cpu() does. The fair class then attaches the load of =
+@p
+> +        * to the new runqueue. Without that, the return migration remove=
+s
+> +        * load that the runqueue never got.
+> +        */
+> +       trace_sched_migrate_task(p, cpu);
+> +       if (task_cpu(p) !=3D cpu) {
+> +               if (p->sched_class->migrate_task_rq)
+> +                       p->sched_class->migrate_task_rq(p, cpu);
+> +               p->se.nr_migrations++;
+> +               perf_event_task_migrate(p);
+> +       }
+>         __set_task_cpu(p, cpu);
+>         p->wake_cpu =3D wake_cpu;
+>  }
 
-VMAs should be write-locked, so nobody should stumble over it and walk page tables.
+So I've got a pending fix from Yu-Ting in my tree (apologies for the
+gerrit link, I've not cleaned up and pushed my tree out yet) that I
+believe duplicates the bit above:
+  https://r.android.com/4410518
 
-Rmap walkers can stumble over entries, because only the page table locks protect
-us here. With your change, that's now actually consistent while doing the move.
 
-I assume there is now a short period in time where the PTE bits don't match the
-VMA flags for an RMAP point of view, essentially in-between clearing uffd state
-from the VMA and clearing uffd-wp bits.
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 3b62ee43c209..d14ce3615ba6 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -3030,8 +3030,14 @@ static void migrate_task_rq_dl(struct task_struct =
+*p, int new_cpu)
+>          * the bandwidth. A mask can hold CPUs of two root domains, and
+>          * select_fallback_rq() can widen it. Move the bandwidth there, a=
+s
+>          * dl_task_offline_migration() does for a throttled task.
+> +        *
+> +        * Not for a task that is blocked on a mutex and only queued for
+> +        * proxy execution. It does not run on the new CPU, so its bandwi=
+dth
+> +        * stays in its root domain. If its wake-up then picks a CPU of a=
+nother
+> +        * root domain, the bandwidth moves at that time.
+>          */
+> -       if (unlikely(dl_task_bw_elsewhere(p, new_cpu)))
+> +       if (unlikely(dl_task_bw_elsewhere(p, new_cpu)) &&
+> +           !(p->is_blocked && task_on_rq_migrating(p)))
+>                 dl_task_move_bw(p, new_cpu);
+>
+>         if (READ_ONCE(p->__state) !=3D TASK_WAKING)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I may need to pull this bit in separately.
 
--- 
-Cheers,
-
-David
+thanks!
+-john
