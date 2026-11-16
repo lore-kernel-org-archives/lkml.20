@@ -1,87 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830711;
-	b=Rbh5nsFWDwhaxhJkBLSdCo8U4KdoUpdpPqH7zCVlTB+Zdq6KKt/qivJLNjqQMwff9G6q
-	 hkuwpwzkL0Rb6VNlhLsZeSdup2vPsocTutBkxVhSyvBmd+5X/avMefdVVEEZJgCPnbV1n
-	 ZniM/9ALMAiG5L5K8PZDZxBVQGH1HnZvhUy2i8jRHBcxIXzovewF/HPx244uFbX1hUH7p
-	 862WUKa/1qOu9G8+T9KViF7jiYyZ+ebxhMWIGig0/k3qHfWoyr++qQpYYZ1P8wFm1A66A
-	 j7E01QNdcgy908DPVir1gzd7iMfySwOzJuwbgBFaY/AqHvlQWC62DrWbm6IgVq2maLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830711;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=VYUe/l4RIY9zH7+9afsTD0+fo46RXtszjVF6GN9zfxw=;
-	b=KRXaeF5DT8YWwFahYt/X9ak3ekJJS2qwfmVY93T8zSwTkIHNThvoLC7C59DK91urE2SZ
-	 79hFzneydQEP9VukjWIas1kpucSu6bw7CCdrrCHWNYvSMwy6iGGo9sT4Cz7W9wWVhAL/j
-	 U5lmQ68pEXIassYbHe+RxV5+FlUfiywY4FmVttOqo5yG5HiPBr5Q5/MtnuEDbRha4ngjz
-	 RSN580z2v2XaVV6dkpjYYVyhz5wpvaN3SjVfkehtAzIJ1dSWtc3iYZTAfdBl98hlytQwO
-	 sI1jlvTe93mmXq8aSGxfVOC64w3SEM2HKmnszzNe5FRtAzJeVBFVspJn7LJlYjLREsg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T6EeJ9Pa;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794830723;
+	b=UOkRt85+XYChrW13uJj2auZ7pWob29ZuV6nR7N7r7AzUhL00hN5PEiTqhmqSKmz906yV
+	 6+L248xjahvL7F0RuxUFYPg5hI1rqnLHRQrR6rmba7NGTOL2nHuvCIMT1RJyB/qBkLWi1
+	 wUksw4B41zfoYc+VtLyffMJVzNyAGzFWKV5GLGsTfPXCql4fhAIlgw+Q3+AQD+mFVAwgD
+	 bl0prtqRYHKfQuX9NDwpDsV/s19/GriSCjjHOJZX9Q3wWxrYAliQMDUNJXdEUQ0/HaaID
+	 Vq8iF/ol3qabVIjiQTXsUc+UpKROrOiGyjGs4De65fHSNQMKURjI9VOfsdPWDAJ0XEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830723;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=myLB4OwHBzyw4fpYYsjbE0atdhucZNjAIWIIh+XxrN4=;
+	b=PHAJ2B7HFn98khjcqP56hTgs+0PJUjdPjUsoYSYhI54c+lxpiwND+XyFFZ2/Z/fX2Kn3
+	 aH5fi7pN67l9OHs8Vj79A03zt2kgXBprJa7uQRS6V5xWos7lxI1FbyQ8ZyYmw2XweMp/y
+	 oAnYk+O1bNv94V1A7EyYH60wDa1QF4VMvTJukFOQPgh1PbpRFsi4dRVsIS9aE2kbEDTHy
+	 hqImzCUpfHSRonEveQC8wceo1xxb0MR4hQh0P8xrn5KZRXw6ruKZhxYSHCJ8dr0fcr5IN
+	 WKS2FlZ5GfDDVK4NHLYQPGMxSpndAryvht6S9HpDhsHZSFxjmvHxCzyACUFLbFnkefA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ce6XbNuH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13328606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:05:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13328606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B7E606A31C;
+	Mon, 16 Nov 2026 12:05:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23B7E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T6EeJ9Pa
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67be9601f31so3222028d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:05:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794830710; x=1795435510; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VYUe/l4RIY9zH7+9afsTD0+fo46RXtszjVF6GN9zfxw=;
-        b=T6EeJ9PaMBT3ukrD7L64i1bKMgYBRmIR5xyN69aImlgmZuYWirfkA2Oz6CXYKDQCRb
-         pmHaRMgxKWbkhV8LLR3+gPYxNAFS/029N1y4ivsd8+NFgxre34Dw5z12rqreIllKDb+4
-         wrncmykRr/dmk313uk8oxOSWoUTf2wINN3PN3PGCh7o0xIoxfekxEVsMUHzIrLF5kHCJ
-         IVIB3026ZMQgE3lVnJfRRuvvs6OIIgsppqihUfEqubngiNp6vpLPlWjDaqn0a/n9idB/
-         ORQkPHO3nzi8Ho0zUcrsmXNHZgkRgIKmbkjaT0ZnmMVqC0aUvtdvkhxqpVq+HhKU5G/1
-         VmMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794830710; x=1795435510;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VYUe/l4RIY9zH7+9afsTD0+fo46RXtszjVF6GN9zfxw=;
-        b=vUjrjJ7j+i4bVT81PboGhVijfh/xy1qjUkmUVEXInMHyHDSCELKqlmPrkPBWJTxzyO
-         5XysuA5eC332ECg/f1moRR5msABBD0a9wt7prqMSIo7/guqBCFjqyIv2kZpITsWugtXK
-         CAH/zjdSQp44M5Gns/tkG4PnZcH9JCbKt2/DlR/ty8mmX+7FQ3IFscxqBy9TQCmP//wG
-         MsygoXkfLuz/NVo1XCVf2Jree/bkPNcf72pf6LJ8a4N5QuFUA0oDjaaxAOnQsEC40zCO
-         dxfmoXQGWXdY1e2wGXZjBcIUqiZxZAACzbWuelP/P6WoBBQ9q8ZcSbv/9g9HvNrLuUQY
-         PwzQ==
-X-Forwarded-Encrypted: i=1; AL+hErFFjJPjjT8ptsZyjKA5X6PVmcnNiJ7VCny2NB6auLYOpmwr96mQOhMbt3kfhEnUocjLw2sJgHE04rk6HsU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tFtDEa1Xnr0WQNnvouyIaE21wHc5Eb0otRLOm2Lo3ewAX5+nb
-	Iz++/2wNRWqtjxsnYjDBolepi+U9RancdUenPucJhGXGKTmOjgL+7IiT
-X-Gm-Gg: AZFdTZcvBmNkIiCXZMEK4LYmibfN8QulD5/YJvrg9plJX6sgeo6oc9sVIXzelSKJC/M
-	r71NIqAN3gUIf70D/eBAP1wkMgwb5kAqZ57mZY59EdWM/m7Sj1nqkudfeNZYk5Me/kxYCFNdz4h
-	mYEHwO2dXgqh1h3/LIFRFOrE3FqI/0OqMs4zoBwJt5gnmUhjyHl6M2mqXK2n/8UmcClZ4mq8t3O
-	/VDiMTFy9rGcVziyqUONkR06CWE5SkNkxpkw0Ec38IHgC4GFvDU9uv9YqzOTxhHu+tgClDF0y3S
-	ALMW/SfzXLPtM7LPxAfPwtFgl+/ZA3J0USWC94P4NX/OFzrLLHmyET96BQTqbDSSeq1c4lnxAFm
-	4GdW5NVBbeSeCrgN5zjZ3XiDaRaxhe8ByhE4hex6yaSiyxP2Dc5U29vQMJwJoPJZ6IgceS4wYkr
-	cq6nt4ZXxMcDx62ZVo85NwixEDXhwxzzZ41LzcFJ/2Xw41QRv9zKKR8lHp4BLH5c+OttEfCFled
-	UXCWOx9ZKi2gcvbLfCEeq1KFQQVHLM4IOXeywNdctd40UZhkp9dlbjBHXrsXwg+wJh/mwwQSAnB
-	ugpFfO7n8P1v0Vlo/kXI2QZ8QPk=
-X-Received: by 2002:a05:690c:e3c9:b0:8b0:a7d5:8595 with SMTP id 00721157ae682-8b4aa2f370cmr47484987b3.51.1794830709929;
-        Mon, 16 Nov 2026 04:05:09 -0800 (PST)
-Received: from localhost ([2a03:2880:30ff:44::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7eeaf9sm83076217b3.4.2026.11.16.04.05.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:05:08 -0800 (PST)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Mon, 16 Nov 2026 04:04:40 -0800
-Subject: [PATCH net-next v4 5/5] selftests: drv-net: psp: add rekey tests
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ce6XbNuH
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 53F71200563;
+	Mon, 16 Nov 2026 13:05:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794830720;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=myLB4OwHBzyw4fpYYsjbE0atdhucZNjAIWIIh+XxrN4=;
+	b=Ce6XbNuH5brNZhdbUzFVfiOQWZuIors5ZDiGHZbq0H7heC+CJAV03821lq6MmKMKV9XoZD
+	BTyf9IhZYlJxqCbCfj9XlRAWZ25crA3wkkrruTuzS45AeOipgjY5dQtNIRhtYHeVgoV/7n
+	XnI5zPCkBK/VI/AbcJkZm2uNVq7BbbJWYKiLFyKWmuh4wkYKksrl86rP+pQTceQgZiykWj
+	7DpmecXjt1ilPM8a816IguIp1drfqcEEUmQgGsBR2OZTXDZsCJvBotLDRGz//ie1/p8ktC
+	Fqu2BM+hQ/dp7KTph2vh5zncXCsFO7V9mfK9M9j3N2ObQh+xQLR/SsqZzXnq3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794830720;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=myLB4OwHBzyw4fpYYsjbE0atdhucZNjAIWIIh+XxrN4=;
+	b=SMy3PkaQYVUKR3rltjraWfns01w0zxrh9UgoUXYbVER4fulioewJUvI9H7vYBvbQXRz133
+	h8OLDsjkvu8BUAsQq5pQ526HlxcQ3eH+Ii4QcIq8wUwH8PlHSHnr6NTzaL9UBqpaecEGwg
+	cYFaelKZmN1RSfbtxG0axVPYwDTz3Vgl9Whds07omSbRVx8uojIljS2lfukkqrd+6TtTb1
+	IgtoLxJP9UNJIey3UyZmjSC2IQh/RcqkNcVcBfU+8EjNTQAHQAOrNbjCxyQazF0A66JvrE
+	7YtIVB7xsnF0TsMZpxdrzNEjix/6/X49PdJcA+Vbj4Q1wMosFZ0vxEz7EjtkxA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794830720; a=rsa-sha256;
+	cv=none;
+	b=d631/ZkM9Ikmiwd4yVTINxrLF6GTwIFVHvDISAG5stxcDBhx3DcAIr4AojkGqcqbZcKHmd
+	ICnxsKWCkTPL1FbddoK8od4Gd+MTDwER6NEHyPxDpxIlS7egWdkCQxSoo+VvSsXAavRymC
+	lJSxacXKlycJhl0KgiRrP5VmA/2yjMYTHmOKcbANRhCB5asKesMZiiwjt/E7JvBw7rz1yy
+	/Js0i3NVVdlqGwqDOIKMBiMLBDaU2m2yx5hNobeKGGJs9MzxqTa+Egj8bMwle+yWUzZNJW
+	4Q2GyXcj6h69uwhjChMx14tONM5vda/T21KFVM79pE7cHpDRLBlIjYGRRuomvw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <782e5c69196cd5618841abeadb1563d67f6e93a7.camel@pengutronix.de>
+Subject: Re: [PATCH v2 07/13] reset: add Synaptics SL2610 reset controller
+ support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Catalin Marinas	 <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland	 <mark.rutland@arm.com>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>,  Stephen Boyd <sboyd@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>,
+ Linus Walleij <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Date: Mon, 16 Nov 2026 13:05:20 +0100
+In-Reply-To: <20261115102401.3520-8-jszhang@kernel.org>
+References: <20261115102401.3520-1-jszhang@kernel.org>
+	 <20261115102401.3520-8-jszhang@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,520 +101,298 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-psp-v4-5-1a599df2aefa@gmail.com>
-References: <20261116-psp-v4-0-1a599df2aefa@gmail.com>
-In-Reply-To: <20261116-psp-v4-0-1a599df2aefa@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Donald Hunter <donald.hunter@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Willem de Bruijn <willemb@google.com>
-X-Mailer: b4 0.13.0
 
-Add testcases for rekeying psp connections.
+On So, 2026-11-15 at 18:23 +0800, Jisheng Zhang wrote:
+> Support the SoC and MCU reset controls exposed by the SL2610 system
+> controllers. Match the MFD-created platform devices, use the parent
+> syscon regmap and register each reset provider against the parent DT node=
+.
+>=20
+> Handle both pulse resets and sticky resets with assert/deassert controls.
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  MAINTAINERS                  |   1 +
+>  drivers/reset/Kconfig        |  13 ++
+>  drivers/reset/Makefile       |   1 +
+>  drivers/reset/reset-sl2610.c | 224 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 239 insertions(+)
+>  create mode 100644 drivers/reset/reset-sl2610.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index eae1493485ee..1bd3b2f39865 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3812,6 +3812,7 @@ F:	Documentation/devicetree/bindings/soc/synaptics/
+>  F:	arch/arm/boot/dts/synaptics/
+>  F:	arch/arm/mach-berlin/
+>  F:	arch/arm64/boot/dts/synaptics/
+> +F:	drivers/reset/reset-sl2610.c
+>  F:	drivers/soc/synaptics/
+>  F:	include/dt-bindings/clock/syna,sl2610.h
+>  F:	include/dt-bindings/reset/syna,sl2610-reset.h
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index eda9c698a95f..98e973a8798c 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -358,6 +358,19 @@ config RESET_SUNXI
+>  	help
+>  	  This enables the reset driver for Allwinner SoCs.
+> =20
+> +config RESET_SL2610
+> +	tristate "Synaptics SL2610 Reset Driver"
+> +	depends on ARCH_BERLIN || COMPILE_TEST
+> +	depends on OF && HAS_IOMEM
+> +	select SOC_SL2610_SYSCON
 
-Tests include coverage for different cases where rx-assoc and tx-assoc
-should fail based on mismatched psp version and psp state.
+Why is this select needed?
 
-Add rpc endpoints for tx-assoc, rx-assoc, and key-rotate netlink calls
-to the psp_responder.
+> +	help
+> +	  Support the reset controllers in the SoC and MCU system control
+> +	  blocks of Synaptics SL2610 SoCs. Both pulse and sticky reset lines
+> +	  are supported.
+> +
+> +	  To compile this driver as a module, choose M here. The module will
+> +	  be called reset-sl2610.
+> +
+>  config RESET_TENSTORRENT_ATLANTIS
+>  	tristate "Tenstorrent atlantis reset driver"
+>  	depends on ARCH_TENSTORRENT || COMPILE_TEST
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index 489fafd6bbe3..d28276a4f2ea 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -42,6 +42,7 @@ obj-$(CONFIG_RESET_SCMI) +=3D reset-scmi.o
+>  obj-$(CONFIG_RESET_SIMPLE) +=3D reset-simple.o
+>  obj-$(CONFIG_RESET_SKY1) +=3D reset-sky1.o
+>  obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
+> +obj-$(CONFIG_RESET_SL2610) +=3D reset-sl2610.o
+>  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
+>  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
+>  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
+> diff --git a/drivers/reset/reset-sl2610.c b/drivers/reset/reset-sl2610.c
+> new file mode 100644
+> index 000000000000..1ca58d5a3e71
+> --- /dev/null
+> +++ b/drivers/reset/reset-sl2610.c
+> @@ -0,0 +1,224 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 Synaptics Incorporated
+> + *
+> + * Synaptics SL2610 reset driver
+> + *
+> + * Author: Jisheng Zhang <jszhang@kernel.org>
+> + */
+> +
+> +#include <dt-bindings/reset/syna,sl2610-reset.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +
+> +/* SL2610 ACPU subsystem */
+> +#define SL2610_GBL_PERIFRESET			0x350
+> +#define SL2610_GBL_PERIFSTICKYRESET		0x360
+> +#define SL2610_GBL_APBPERIFRESET		0x370
+> +#define SL2610_GBL_TOPSTICKYRESET		0x378
+> +#define SL2610_GBL_AVIOSTICKYRESET		0x37c
+> +
+> +/* SL2610 system subsystem */
+> +#define SL2610_SMGBL_STICKYRST0			0x400
+> +
+> +#define to_sl2610_reset_priv(p)	container_of((p), struct sl2610_reset_pr=
+iv, rcdev)
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
----
-v4:
-- reuse _recv_careful() and _req_echo() now in net-next instead of
-  redefining them
+Turn this into an inline function, please.
 
-v3:
-- drop test for rx rekey rejected without a device key rotation
-- fail fast in _recv_careful() if the peer closes the connection
-- in the basic rekey tests, run traffic across a rotation before the
-  rekey, and rotate again after it to verify the new key is in use
-- drop unneeded key rotation from rekey_rx_version_mismatch()
-- carry the key length in the responder's assoc message instead of
-  deriving it from the version
+> +
+> +#define SL2610_RESET(id, reg, bit, sticky)[id] =3D { reg, BIT(bit), stic=
+ky }
+> +
+> +struct sl2610_reset_cfg {
+> +	u32 reg;
+> +	u32 bit;
+> +	bool sticky;
+> +};
+> +
+> +struct sl2610_reset_data {
+> +	const struct sl2610_reset_cfg *cfgs;
+> +	size_t num;
+> +};
+> +
+> +struct sl2610_reset_priv {
+> +	struct regmap *regmap;
+> +	const struct sl2610_reset_cfg *cfgs;
+> +	struct reset_controller_dev rcdev;
+> +};
+> +
+> +static const struct sl2610_reset_cfg sl2610_reset_cfgs[] =3D {
+> +	SL2610_RESET(RST_SOC_SDIO0, SL2610_GBL_PERIFRESET, 2, false),
+> +	SL2610_RESET(RST_SOC_USB0, SL2610_GBL_PERIFRESET, 4, false),
+> +	SL2610_RESET(RST_SOC_EMMC, SL2610_GBL_PERIFRESET, 5, false),
+> +	SL2610_RESET(RST_SOC_GETH0, SL2610_GBL_PERIFRESET, 6, false),
+> +	SL2610_RESET(RST_SOC_SDIO1, SL2610_GBL_PERIFRESET, 7, false),
+> +	SL2610_RESET(RST_SOC_USB1, SL2610_GBL_PERIFRESET, 8, false),
+> +	SL2610_RESET(RST_SOC_GETH1, SL2610_GBL_PERIFRESET, 9, false),
+> +	SL2610_RESET(RST_SOC_USB0PHY, SL2610_GBL_PERIFSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_USB0CORE, SL2610_GBL_PERIFSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_USB0MAHB, SL2610_GBL_PERIFSTICKYRESET, 2, true),
+> +	SL2610_RESET(RST_SOC_USB1PHY, SL2610_GBL_PERIFSTICKYRESET, 3, true),
+> +	SL2610_RESET(RST_SOC_USB1CORE, SL2610_GBL_PERIFSTICKYRESET, 4, true),
+> +	SL2610_RESET(RST_SOC_USB1MAHB, SL2610_GBL_PERIFSTICKYRESET, 5, true),
+> +	SL2610_RESET(RST_SOC_UART0, SL2610_GBL_APBPERIFRESET, 0, false),
+> +	SL2610_RESET(RST_SOC_UART1, SL2610_GBL_APBPERIFRESET, 1, false),
+> +	SL2610_RESET(RST_SOC_UART2, SL2610_GBL_APBPERIFRESET, 2, false),
+> +	SL2610_RESET(RST_SOC_UART3, SL2610_GBL_APBPERIFRESET, 3, false),
+> +	SL2610_RESET(RST_SOC_I2C0, SL2610_GBL_APBPERIFRESET, 4, false),
+> +	SL2610_RESET(RST_SOC_I2C1, SL2610_GBL_APBPERIFRESET, 5, false),
+> +	SL2610_RESET(RST_SOC_SPI0, SL2610_GBL_APBPERIFRESET, 6, false),
+> +	SL2610_RESET(RST_SOC_SPI1, SL2610_GBL_APBPERIFRESET, 7, false),
+> +	SL2610_RESET(RST_SOC_SPI2, SL2610_GBL_APBPERIFRESET, 8, false),
+> +	SL2610_RESET(RST_SOC_SPI3, SL2610_GBL_APBPERIFRESET, 9, false),
+> +	SL2610_RESET(RST_SOC_APBTIMERS, SL2610_GBL_APBPERIFRESET, 10, false),
+> +	SL2610_RESET(RST_SOC_APBSYSCNT, SL2610_GBL_APBPERIFRESET, 11, false),
+> +	SL2610_RESET(RST_SOC_APBWDT, SL2610_GBL_APBPERIFRESET, 12, false),
+> +	SL2610_RESET(RST_SOC_APBGPIO, SL2610_GBL_APBPERIFRESET, 13, false),
+> +	SL2610_RESET(RST_SOC_APBDMA, SL2610_GBL_APBPERIFRESET, 14, false),
+> +	SL2610_RESET(RST_SOC_GPUCORE, SL2610_GBL_TOPSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_NPUCORE, SL2610_GBL_TOPSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_AVIOAIOG, SL2610_GBL_AVIOSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_AVIOVPPG, SL2610_GBL_AVIOSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_AVIOVIPG, SL2610_GBL_AVIOSTICKYRESET, 2, true),
+> +};
+> +
+> +static const struct sl2610_reset_cfg sl2610_system_reset_cfgs[] =3D {
+> +	SL2610_RESET(RST_SM_ADCCORE, SL2610_SMGBL_STICKYRST0, 0, true),
+> +	SL2610_RESET(RST_SM_ADCPRST, SL2610_SMGBL_STICKYRST0, 1, true),
+> +	SL2610_RESET(RST_SM_CAN0PRST, SL2610_SMGBL_STICKYRST0, 2, true),
+> +	SL2610_RESET(RST_SM_CAN0SRST, SL2610_SMGBL_STICKYRST0, 3, true),
+> +	SL2610_RESET(RST_SM_CAN1PRST, SL2610_SMGBL_STICKYRST0, 4, true),
+> +	SL2610_RESET(RST_SM_CAN1SRST, SL2610_SMGBL_STICKYRST0, 5, true),
+> +	SL2610_RESET(RST_SM_GPIOPRST, SL2610_SMGBL_STICKYRST0, 6, true),
+> +	SL2610_RESET(RST_SM_GPIOSRST, SL2610_SMGBL_STICKYRST0, 7, true),
+> +	SL2610_RESET(RST_SM_I2CM0PRST, SL2610_SMGBL_STICKYRST0, 8, true),
+> +	SL2610_RESET(RST_SM_I2CM0SRST, SL2610_SMGBL_STICKYRST0, 9, true),
+> +	SL2610_RESET(RST_SM_I2CM1PRST, SL2610_SMGBL_STICKYRST0, 10, true),
+> +	SL2610_RESET(RST_SM_I2CM1SRST, SL2610_SMGBL_STICKYRST0, 11, true),
+> +	SL2610_RESET(RST_SM_I3CPRST, SL2610_SMGBL_STICKYRST0, 12, true),
+> +	SL2610_RESET(RST_SM_I3CSRST, SL2610_SMGBL_STICKYRST0, 13, true),
+> +	SL2610_RESET(RST_SM_PDMPRST, SL2610_SMGBL_STICKYRST0, 14, true),
+> +	SL2610_RESET(RST_SM_PDMSRST, SL2610_SMGBL_STICKYRST0, 15, true),
+> +	SL2610_RESET(RST_SM_PVTHSRST, SL2610_SMGBL_STICKYRST0, 16, true),
+> +	SL2610_RESET(RST_SM_PVTPRST, SL2610_SMGBL_STICKYRST0, 17, true),
+> +	SL2610_RESET(RST_SM_PWMPERIRST, SL2610_SMGBL_STICKYRST0, 18, true),
+> +	SL2610_RESET(RST_SM_PWMPRST, SL2610_SMGBL_STICKYRST0, 19, true),
+> +	SL2610_RESET(RST_SM_SPIMPRST, SL2610_SMGBL_STICKYRST0, 20, true),
+> +	SL2610_RESET(RST_SM_SPIMSRST, SL2610_SMGBL_STICKYRST0, 21, true),
+> +	SL2610_RESET(RST_SM_SPISPRST, SL2610_SMGBL_STICKYRST0, 22, true),
+> +	SL2610_RESET(RST_SM_SPISSRST, SL2610_SMGBL_STICKYRST0, 23, true),
+> +	SL2610_RESET(RST_SM_UART0PRST, SL2610_SMGBL_STICKYRST0, 24, true),
+> +	SL2610_RESET(RST_SM_UART0SRST, SL2610_SMGBL_STICKYRST0, 25, true),
+> +	SL2610_RESET(RST_SM_UART1PRST, SL2610_SMGBL_STICKYRST0, 26, true),
+> +	SL2610_RESET(RST_SM_UART1SRST, SL2610_SMGBL_STICKYRST0, 27, true),
+> +	SL2610_RESET(RST_SM_UART2PRST, SL2610_SMGBL_STICKYRST0, 28, true),
+> +	SL2610_RESET(RST_SM_UART2SRST, SL2610_SMGBL_STICKYRST0, 29, true),
+> +	SL2610_RESET(RST_SM_UART3PRST, SL2610_SMGBL_STICKYRST0, 30, true),
+> +	SL2610_RESET(RST_SM_UART3SRST, SL2610_SMGBL_STICKYRST0, 31, true),
+> +};
+> +
+> +static const struct sl2610_reset_data sl2610_reset_data =3D {
+> +	.cfgs =3D sl2610_reset_cfgs,
+> +	.num =3D ARRAY_SIZE(sl2610_reset_cfgs),
+> +};
+> +
+> +static const struct sl2610_reset_data sl2610_system_reset_data =3D {
+> +	.cfgs =3D sl2610_system_reset_cfgs,
+> +	.num =3D ARRAY_SIZE(sl2610_system_reset_cfgs),
+> +};
+> +
+> +static int sl2610_reset_assert(struct reset_controller_dev *rcdev,
+> +			       unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (!cfg->sticky)
+> +		return -EINVAL;
 
-v2:
-- add tests for rekeys rejected due to psp state and version mismatch
-- add test for rx rekey rejected without a device key rotation
-- add rx-assoc, tx-assoc, and key-rotate rpcs to psp_responder
----
- tools/testing/selftests/drivers/net/psp.py         | 237 ++++++++++++++++++++-
- .../testing/selftests/drivers/net/psp_responder.c  | 119 +++++++++++
- 2 files changed, 353 insertions(+), 3 deletions(-)
+The core uses -ENOTSUPP for this.
 
-diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
-index ce0ab6666603..bd0283f9c9c0 100755
---- a/tools/testing/selftests/drivers/net/psp.py
-+++ b/tools/testing/selftests/drivers/net/psp.py
-@@ -28,6 +28,10 @@ from lib.py import ip
- TCP_ULP = 31
- 
- 
-+_PSP_MAX_KEY_LEN = 32
-+_PSP_ASSOC_MSG = f'!IBB2x{_PSP_MAX_KEY_LEN}s'
-+
-+
- def _get_outq(s):
-     one = b'\0' * 4
-     outq = fcntl.ioctl(s.fileno(), termios.TIOCOUTQ, one)
-@@ -80,6 +84,33 @@ def _close_psp_conn(cfg, s):
-     _close_conn(cfg, s)
- 
- 
-+def _recv_all(s, target):
-+    data = b''
-+    while len(data) < target:
-+        chunk = s.recv(target - len(data))
-+        if not chunk:
-+            raise KsftFailEx(f"peer closed after {len(data)} of {target} bytes")
-+        data += chunk
-+    return data
-+
-+
-+def _remote_rx_assoc(cfg):
-+    _send_with_ack(cfg, b'rx assoc\0')
-+    msg = _recv_all(cfg.comm_sock, struct.calcsize(_PSP_ASSOC_MSG))
-+    spi, version, key_len, key = struct.unpack(_PSP_ASSOC_MSG, msg)
-+    return version, {'spi': spi, 'key': key[:key_len]}
-+
-+
-+def _remote_tx_assoc(cfg, version, rx):
-+    msg = struct.pack(_PSP_ASSOC_MSG, rx['spi'], version, len(rx['key']),
-+                      rx['key'])
-+    _send_with_ack(cfg, b'tx assoc\0' + msg)
-+
-+
-+def _remote_key_rotate(cfg):
-+    _send_with_ack(cfg, b'key rotate\0')
-+
-+
- def _spi_xchg(s, rx):
-     s.send(struct.pack('I', rx['spi']) + rx['key'])
-     tx = s.recv(4 + len(rx['key']))
-@@ -126,7 +157,10 @@ def _recv_careful(s, target, timeout=2):
-     end = time.monotonic() + timeout
-     while time.monotonic() < end:
-         try:
--            data += s.recv(target - len(data), socket.MSG_DONTWAIT)
-+            chunk = s.recv(target - len(data), socket.MSG_DONTWAIT)
-+            if not chunk:
-+                raise KsftFailEx(f"peer closed after {len(data)} of {target} bytes")
-+            data += chunk
-             if len(data) == target:
-                 return data
-         except BlockingIOError:
-@@ -150,6 +184,21 @@ def _check_data_outq(s, exp_len, force_wait=False):
-     ksft_eq(outq, exp_len)
- 
- 
-+def _psp_txrx(cfg, s, rounds, sent=0):
-+    """Send data both ways, and return the total bytes sent to the peer"""
-+    sent += _send_careful(cfg, s, rounds)
-+    _check_data_rx(cfg, sent)
-+    _req_echo(cfg, s)
-+    return sent
-+
-+
-+def _require_version(cfg, version):
-+    """Skip the test unless the device supports the given PSP version"""
-+    name = cfg.pspnl.consts["version"].entries_by_val[version].name
-+    if name not in cfg.psp_info['psp-versions-cap']:
-+        raise KsftSkipEx("PSP version not supported", name)
-+
-+
- def _get_stat(cfg, key):
-     return cfg.pspnl.get_stats({'dev-id': cfg.psp_dev_id})[key]
- 
-@@ -510,6 +559,186 @@ def _data_basic_send(cfg, version, ipver):
-     _close_psp_conn(cfg, s)
- 
- 
-+def _rekey_rx(cfg, s, version, sent):
-+    """Rekey the Rx direction, running traffic after each step"""
-+    rx_assoc = cfg.pspnl.rx_assoc({"version": version,
-+                                   "dev-id": cfg.psp_dev_id,
-+                                   "sock-fd": s.fileno()})
-+    sent = _psp_txrx(cfg, s, 1, sent)
-+
-+    _remote_tx_assoc(cfg, version, rx_assoc['rx-key'])
-+    return _psp_txrx(cfg, s, 1, sent)
-+
-+
-+def _rekey_tx(cfg, s, sent):
-+    """Rekey the Tx direction, running traffic after each step"""
-+    version, tx = _remote_rx_assoc(cfg)
-+    sent = _psp_txrx(cfg, s, 1, sent)
-+
-+    cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                        "version": version,
-+                        "tx-key": tx,
-+                        "sock-fd": s.fileno()})
-+    return _psp_txrx(cfg, s, 1, sent)
-+
-+
-+def rekey_rx_incomplete(cfg):
-+    """Test rejecting Rx rekey until the PSP connection is established"""
-+    psp_ver = 0
-+    _init_psp_dev(cfg)
-+
-+    with _make_lo_conn() as s:
-+        assoc = cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                    "dev-id": cfg.psp_dev_id,
-+                                    "sock-fd": s.fileno()})
-+
-+        # Reject rekey before Tx state is configured.
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                "dev-id": cfg.psp_dev_id,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EBUSY)
-+
-+        cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                            "version": psp_ver,
-+                            "tx-key": assoc['rx-key'],
-+                            "sock-fd": s.fileno()})
-+
-+        # Reject rekey until authenticated PSP traffic has been received.
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                "dev-id": cfg.psp_dev_id,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EBUSY)
-+
-+
-+def rekey_tx_incomplete(cfg):
-+    """Test rejecting Tx rekey until the PSP connection is established"""
-+    psp_ver = 0
-+    _init_psp_dev(cfg)
-+
-+    with _make_lo_conn() as s:
-+        assoc = cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                    "dev-id": cfg.psp_dev_id,
-+                                    "sock-fd": s.fileno()})
-+
-+        cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                            "version": psp_ver,
-+                            "tx-key": assoc['rx-key'],
-+                            "sock-fd": s.fileno()})
-+
-+        # Reject rekey until authenticated PSP traffic has been received.
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": psp_ver,
-+                                "tx-key": assoc['rx-key'],
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EBUSY)
-+
-+
-+def rekey_rx_version_mismatch(cfg):
-+    """Test rejecting an Rx rekey whose version does not match socket state"""
-+    _init_psp_dev(cfg)
-+    _require_version(cfg, 1)
-+
-+    s = _establish_psp_conn(cfg, 0)
-+    try:
-+        _psp_txrx(cfg, s, 1)
-+
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": 1,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EINVAL)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+def rekey_tx_version_mismatch(cfg):
-+    """Test rejecting a Tx rekey whose version does not match socket state"""
-+    _init_psp_dev(cfg)
-+    _require_version(cfg, 1)
-+
-+    s = _establish_psp_conn(cfg, 0)
-+    try:
-+        _psp_txrx(cfg, s, 1)
-+
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": 1,
-+                                "tx-key": {'spi': 0x12345678,
-+                                           'key': b'\xa5' * 32},
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EINVAL)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+def _get_psp_ver_variants():
-+    for ver in range(4):
-+        yield KsftNamedVariant(f"v{ver}", ver)
-+
-+
-+@ksft_variants(_get_psp_ver_variants())
-+def rekey_rx_basic(cfg, version):
-+    """Test rekeying the Rx key of an established connection"""
-+    _init_psp_dev(cfg)
-+
-+    s = _establish_psp_conn(cfg, version)
-+    try:
-+        data_len = _psp_txrx(cfg, s, 1)
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        data_len = _psp_txrx(cfg, s, 1, data_len)
-+        data_len = _rekey_rx(cfg, s, version, data_len)
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        _psp_txrx(cfg, s, 1, data_len)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+@ksft_variants(_get_psp_ver_variants())
-+def rekey_tx_basic(cfg, version):
-+    """Test rekeying the Tx key of an established connection"""
-+    _init_psp_dev(cfg)
-+
-+    s = _establish_psp_conn(cfg, version)
-+    try:
-+        data_len = _psp_txrx(cfg, s, 1)
-+        _remote_key_rotate(cfg)
-+        data_len = _psp_txrx(cfg, s, 1, data_len)
-+        data_len = _rekey_tx(cfg, s, data_len)
-+        _remote_key_rotate(cfg)
-+        _psp_txrx(cfg, s, 1, data_len)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+@ksft_variants(_get_psp_ver_variants())
-+def rekey_both_sides(cfg, version):
-+    """Test rekeying both directions"""
-+    _init_psp_dev(cfg)
-+
-+    s = _establish_psp_conn(cfg, version)
-+    try:
-+        data_len = _psp_txrx(cfg, s, 10)
-+
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        _remote_key_rotate(cfg)
-+
-+        # first, rx then tx
-+        data_len = _rekey_rx(cfg, s, version, data_len)
-+        data_len = _rekey_tx(cfg, s, data_len)
-+
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        _remote_key_rotate(cfg)
-+
-+        # now, tx then rx
-+        data_len = _rekey_tx(cfg, s, data_len)
-+        _rekey_rx(cfg, s, version, data_len)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
- def __bad_xfer_do(cfg, s, tx, version='hdr0-aes-gcm-128'):
-     # Make sure we accept the ACK for the SPI before we seal with the bad assoc
-     _check_data_outq(s, 0)
-@@ -1203,7 +1432,8 @@ def main() -> None:
-                                                           cfg.comm_port),
-                                                          timeout=1)
- 
--                cases = [data_basic_send, data_mss_adjust]
-+                cases = [data_basic_send, data_mss_adjust,
-+                         rekey_rx_basic, rekey_tx_basic, rekey_both_sides]
- 
-                 if has_cont:
-                     cases += [
-@@ -1219,7 +1449,8 @@ def main() -> None:
-                     ]
- 
-                 ksft_run(cases=cases, globs=globals(),
--                         case_pfx={"dev_", "data_", "assoc_", "removal_"},
-+                         case_pfx={"dev_", "data_", "assoc_", "rekey_",
-+                                   "removal_"},
-                          args=(cfg, ))
- 
-                 cfg.comm_sock.send(b"exit\0")
-diff --git a/tools/testing/selftests/drivers/net/psp_responder.c b/tools/testing/selftests/drivers/net/psp_responder.c
-index 411a23be78d5..669956e0d7a4 100644
---- a/tools/testing/selftests/drivers/net/psp_responder.c
-+++ b/tools/testing/selftests/drivers/net/psp_responder.c
-@@ -5,6 +5,7 @@
- #include <sys/poll.h>
- #include <sys/socket.h>
- #include <sys/time.h>
-+#include <arpa/inet.h>
- #include <netinet/in.h>
- #include <unistd.h>
- 
-@@ -23,6 +24,7 @@ static bool should_quit;
- struct opts {
- 	int port;
- 	int ifindex;
-+	int devid;
- 	bool verbose;
- };
- 
-@@ -141,6 +143,108 @@ static void send_str(int sock, int value)
- 	send(sock, buf, ret + 1, MSG_WAITALL);
- }
- 
-+struct assoc_msg {
-+	__be32 spi;
-+	__u8 version;
-+	__u8 key_len;
-+	__u8 pad[2];
-+	char key[PSP_MAX_KEY_LEN];
-+};
-+
-+static void
-+handle_rx_assoc(struct ynl_sock *ys, int data_sock, int comm_sock)
-+{
-+	struct assoc_msg msg = {};
-+	unsigned int key_len;
-+	__u32 spi;
-+
-+	if (data_sock < 0) {
-+		fprintf(stderr, "WARN: rx assoc but no data sock\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	if (rx_assoc(ys, &spi, msg.key, &key_len, data_sock)) {
-+		fprintf(stderr, "ERROR: rx_assoc() failed\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	msg.spi = htonl(spi);
-+	msg.version = psp_vers.rx;
-+	msg.key_len = key_len;
-+	send_ack(comm_sock);
-+	send(comm_sock, &msg, sizeof(msg), MSG_WAITALL);
-+}
-+
-+static void
-+handle_tx_assoc(struct ynl_sock *ys, char *data, int data_sock, int comm_sock)
-+{
-+	struct assoc_msg msg;
-+
-+	if (data_sock < 0) {
-+		fprintf(stderr, "WARN: tx assoc but no data sock\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	memcpy(&msg, data, sizeof(msg));
-+	if (msg.key_len > PSP_MAX_KEY_LEN) {
-+		fprintf(stderr, "ERROR: tx assoc key too long\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	if (tx_assoc(ys, msg.version, ntohl(msg.spi), msg.key, msg.key_len,
-+		     data_sock)) {
-+		fprintf(stderr, "ERROR: tx_assoc() failed!\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	send_ack(comm_sock);
-+}
-+
-+static int rotate_key(struct ynl_sock *ys, int devid)
-+{
-+	struct psp_key_rotate_rsp *rsp;
-+	struct psp_key_rotate_req *req;
-+
-+	req = psp_key_rotate_req_alloc();
-+
-+	psp_key_rotate_req_set_id(req, devid);
-+
-+	rsp = psp_key_rotate(ys, req);
-+	psp_key_rotate_req_free(req);
-+
-+	if (!rsp) {
-+		perror("ERROR: failed to rotate key");
-+		return -1;
-+	}
-+
-+	psp_key_rotate_rsp_free(rsp);
-+
-+	return 0;
-+}
-+
-+static void
-+handle_key_rotate(struct ynl_sock *ys, struct opts *opts, int comm_sock)
-+{
-+	if (opts->devid < 0) {
-+		fprintf(stderr, "WARN: key rotate but no PSP device\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	if (rotate_key(ys, opts->devid)) {
-+		fprintf(stderr, "ERROR: rotate_key() failed\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	send_ack(comm_sock);
-+}
-+
- static void
- run_session(struct ynl_sock *ys, struct opts *opts,
- 	    int server_sock, int comm_sock)
-@@ -233,6 +337,9 @@ run_session(struct ynl_sock *ys, struct opts *opts,
- 			match;						\
- 		})
- 
-+#define cmd_w_msg(_name, _type)						\
-+		(off >= sizeof(_name) + sizeof(_type) && cmd(_name))
-+
- 			do {
- 				consumed = false;
- 
-@@ -247,6 +354,16 @@ run_session(struct ynl_sock *ys, struct opts *opts,
- 						fprintf(stderr, "WARN: echo but no data sock\n");
- 					send_ack(comm_sock);
- 				}
-+				if (cmd("rx assoc"))
-+					handle_rx_assoc(ys, data_sock,
-+							comm_sock);
-+				if (cmd_w_msg("tx assoc", struct assoc_msg)) {
-+					handle_tx_assoc(ys, buf, data_sock,
-+							comm_sock);
-+					__consume(sizeof(struct assoc_msg));
-+				}
-+				if (cmd("key rotate"))
-+					handle_key_rotate(ys, opts, comm_sock);
- 				if (cmd("data close")) {
- 					if (data_sock >= 0) {
- 						close(data_sock);
-@@ -277,6 +394,7 @@ run_session(struct ynl_sock *ys, struct opts *opts,
- 				}
- 				if (cmd("exit"))
- 					should_quit = true;
-+#undef cmd_w_msg
- #undef cmd
- 
- 				if (!consumed) {
-@@ -472,6 +590,7 @@ int main(int argc, char **argv)
- 		}
- 	}
- 	psp_dev_get_list_free(dev_list);
-+	opts.devid = devid;
- 
- 	if (opts.ifindex && devid < 0)
- 		fprintf(stderr,
+> +
+> +	return regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static int sl2610_reset_deassert(struct reset_controller_dev *rcdev,
+> +				 unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (!cfg->sticky)
+> +		return -EINVAL;
 
--- 
-2.52.1
+This could just return 0.
 
+> +
+> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static int sl2610_reset_reset(struct reset_controller_dev *rcdev,
+> +			      unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (cfg->sticky) {
+> +		regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
+> +		usleep_range(10, 15);
+> +		return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +	}
+
+Why is this needed? Could you just return -ENOTSUPP?
+
+> +
+> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static const struct reset_control_ops sl2610_reset_ops =3D {
+> +	.reset	=3D sl2610_reset_reset,
+> +	.assert =3D sl2610_reset_assert,
+> +	.deassert =3D sl2610_reset_deassert,
+> +};
+> +
+> +static int sl2610_reset_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *parent_np =3D pdev->dev.parent->of_node;
+> +	struct sl2610_reset_priv *priv;
+> +	const struct sl2610_reset_data *data =3D
+> +		(void *)platform_get_device_id(pdev)->driver_data;
+> +
+> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->regmap =3D syscon_node_to_regmap(parent_np);
+> +	if (IS_ERR(priv->regmap))
+> +		return PTR_ERR(priv->regmap);
+> +
+> +	priv->rcdev.owner =3D THIS_MODULE;
+> +	priv->rcdev.ops =3D &sl2610_reset_ops;
+> +	priv->rcdev.dev =3D &pdev->dev;
+> +	priv->rcdev.of_node =3D parent_np;
+> +	priv->rcdev.of_reset_n_cells =3D 1;
+
+Please don't set of_reset_n_cells. This is ignored since of_xlate is
+not set. reset_controller_register() already sets fwnode_reset_n_cells
+to 1 by default.
+
+regards
+Philipp
