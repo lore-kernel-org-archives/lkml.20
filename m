@@ -1,71 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822974;
-	b=qxs5DG62/oG7X/q5RsRzis0VhL64KiR5VkbDhslmDG+uqpBlkzPeBhyH6JH1GP9YmheX
-	 SVg3vZtHqe1mrzYMNwPmdS/na6751aH2zgyW018ttRyUGFAKA5jNyibVrTmQ5sw4twb5p
-	 t6+qjOHlwYJDNA/E+G0Qq6K5jw07ZcjKSEb2Gq3TRI4/GXivVdWV9HX878wuvbuzOTpan
-	 /7Dg/Z433QK11l/RkQIKVu2IGjAkge7xDPIMzdI2xYeQybMDr5iMhelP2x+tljIvXlrX9
-	 sPotZ/t0rWXlCdsRQS/yjenxU+Wc3h7fTibxDzAXjcr12RALIMsNQMvzdrKprCLWVyw==
+	t=1794822979;
+	b=pgVLgubxYx0Wk2FToKtnduRhOAapKLXLLbI4denhQ8YbemVVH1RPA0DvjOsTlpnVK/Mu
+	 TauU/QDNnh7SHN3VrI7eqYxf5Rjc6hUK7g0iFHfb++pCxkzlHhzbRsGThRlP+T+ZLAFy2
+	 DecDY9JEs0UbLAS6v59meAvBQ/bXBjBS6eLqjDKYJ0kzrLD3kF0jv16dxBjmhkm79ttk4
+	 CjMaC6aosyIfLXzLNc0eUr0DqquAzKD+uJlUHMTT2NAjhmY672DyUdk6dxv1MVTYrutnU
+	 bbtsy1892XCJcD4REZW1JQ9MQIXjGz8wU4iQlsngP5h+aRYSjA4aT7nDxa2lLxjoypA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822979;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=sz/ytHr9Wpa7WqWlf+C0CzGHrGjRm0Wk6TtL0RaWyWU=;
-	b=Zia2VX1+7IaLY8Njtv3DHtsBPmz+nlgE1YZbCqj4vicVGPGaTNOPm8rnOxUImVEQajW9
-	 yg+URns/5bKvE310wKDQDWXQ4xdYAIJgAd7rXtWOOHWgrj3v/hW20ryjfrE93hTudfdSI
-	 7+MIYChHPMuKZSNv9PrnR0paVAPsIIjKLr7ab7z/1HS2p0CzN4j/jRx6s5HxzNPlNq8Ca
-	 JhDO4cKdFGrayf5HMDnntPgGTrLUvUT53HCenf39mPSp/MqI22RVUEbTZ4qVmKuI7vTSI
-	 EceaUTG8z77K/p4TnfOJwVozzyRqJayDlcThWJdIzT54kmp4uwS4MnmnC02xklbagWQ==
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=UH0bWnACNzDflP3qTpTK60pPAUWOTD6CtY3JFDChnAI=;
+	b=DjHTiwDNW8KZvVKAkl1gmFTofLcrGc7tbEXMwkPInyYSUbpOL4DeGvv5tV6n+a6jusfP
+	 zjZoaHDqj1Z8Rkjqm7cxKUSY0VKGV9NrrCAbWEGBHvR6J/pSTO/htyaBq96ibUGh0MnE/
+	 LDc3PenooKBN+DNpa48FiOOUsFkSOhEu2sYTnlxYigKup+UqMcxRSXbtYB+Rru7bFfBog
+	 Pmm4hBlVtKbJMYLmK0HQ2mqqPu67DBq5Ch408G5jjQ/yfgMMIFQjFT4UWP3vWQwO6Vy0G
+	 tL6MG+PFm7E1yXZf67GhwTw/skKVuzPSZ662x2iAYSUZi/H9KYT+eHC6paO4IkddhnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=uBbefQ0w;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=JtfDGeuc;
 	arc=none smtp.remote-ip=68.232.153.233
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78817606A323;
-	Mon, 16 Nov 2026 09:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78817606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C228A606A337;
+	Mon, 16 Nov 2026 09:56:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C228A606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=uBbefQ0w
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=JtfDGeuc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794822971; x=1826358971;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=nvsMJYaVVCe8GxHgCBUgUEMBnbsD36LbAm5VEdFo2io=;
-  b=uBbefQ0wu1fBjX9YcYWgzs4ge5VlBstkFsgL/gaV+2PQ0wgIIEUHNbeY
-   JVI69qjKkfF03FpwvlYRNZkHXdSLhbLRQeHBBjA52eFoo5eK7m2W2emTS
-   sboCM/2n6Q52pdbO1D4+ZXG3uKIK4QHW7VEhoD7j/lsoo7N+rEKIh9JRJ
-   pxTV6FqHL61hT+SBLUZXl1YtiE74YN+HG7XIkw8Tpp6rgR4XwAUvQQ9WQ
-   vzBpPFd/+4IijnqL6DZFpfeUgspOw6Eyuq6oMf1wfpjK10zAkNakes63a
-   7F5ScaBmwzU1aPJS2PiiPxHI1eL2hNl9q9zHNw3w7zITfwS+lob4ttEIe
-   Q==;
-X-CSE-ConnectionGUID: 6W+TpeuWTm6cWV37+MGgNQ==
-X-CSE-MsgGUID: 2mX59DyTSo2Y1iw3w/9lgg==
+  t=1794822986; x=1826358986;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=e5zGi3wEIQJPvBLV+DurPYuglqNx2l0a2BJwxi89I1c=;
+  b=JtfDGeucClq7Wi0OhG686QVYO9vVA4lrgsfrbasHp9MnaMW/xpwIoCmG
+   CxUCZTaG2foM5/z6n5YSd5VE0fkdZ+OYQyyIX1dW1Zi47HjqYubSM2Jdt
+   dTs/2W69ezcf0yRKEocwJL5GQUdQ+OgnqdsidSiEddz9uBT+NtItOi81P
+   UqzWTYp5HPS++0+6YZBwq55DalBBfrHyYbCBSj+jCK2m9ucjjD6K1zQ2w
+   bKLO9wfJ6coF1qZs7Y9gqkbb+uHzMzMfcS2ohj7tugbYlSoREPc8QkY/R
+   oMcpfwqT+wPSbe20K0TrFEV3rid93bwcTqU2X2VCkgn2Gt07R6WOZo2Qk
+   w==;
+X-CSE-ConnectionGUID: hITfFtwUT4GP9a0u1ydGHA==
+X-CSE-MsgGUID: M39AjVtWSfeJYe9QfLiirg==
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="77268192"
+   d="scan'208";a="297975481"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:56:10 -0700
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:56:26 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
  chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Mon, 16 Nov 2026 02:56:12 -0700
+ 15.2.2562.56; Mon, 16 Nov 2026 02:56:17 -0700
 Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 16 Nov 2026 02:56:09 -0700
+ 15.1.2507.58 via Frontend Transport; Mon, 16 Nov 2026 02:56:15 -0700
 From: Daniel Machon <daniel.machon@microchip.com>
-Subject: [PATCH net 0/2] net: sparx5/lan969x: fix RX ring stall on frames
- from inactive ports
-Date: Mon, 16 Nov 2026 10:56:03 +0100
-Message-ID: <20261116-sparx5-rx-inactive-port-v1-0-343d8bab58bb@microchip.com>
+Date: Mon, 16 Nov 2026 10:56:05 +0100
+Subject: [PATCH net 2/2] net: lan969x: fix RX ring stall on frames from
+ inactive ports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,10 +76,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADPT+moC/x3MMQqAMAxA0atIZgNGsaBXEYdqU81SS1qkIN7d4
- viG/x9IrMIJ5uYB5VuSXKGC2gb204aDUVw19F1viMhgilbLiFpQgt2z3Izx0ozOm864wU8bWah
- 1VPZS/vMCgTOs7/sBXPOqum4AAAA=
-X-Change-ID: 20261116-sparx5-rx-inactive-port-df606d3f9b1a
+Message-ID: <20261116-sparx5-rx-inactive-port-v1-2-343d8bab58bb@microchip.com>
+References: <20261116-sparx5-rx-inactive-port-v1-0-343d8bab58bb@microchip.com>
+In-Reply-To: <20261116-sparx5-rx-inactive-port-v1-0-343d8bab58bb@microchip.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
 	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
 	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
@@ -89,34 +87,60 @@ CC: Zhang Hewei <memoriaru@foxmail.com>, <netdev@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
 X-Mailer: b4 0.14.3
 
-On Sparx5 and lan969x, a received frame whose source port does not map
-to an active port is never consumed from the FDMA RX ring: the NAPI poll
-stops on it, and finds the same DB again on every following poll.
+If the source port of a received frame does not map to an active port,
+or build_skb() fails, lan969x_fdma_rx_get_frame() returns the page to
+the page_pool and returns NULL, and the NAPI poll loop breaks without
+advancing past the DB. The DB keeps its DONE bit, so every following
+poll returns the same page to the page_pool again, and RX stops on all
+ports.
 
-Patch 1 fixes Sparx5, where the same skb grows on every poll until
-skb_over_panic().
+Drop the frame and advance past the DB like for any other frame, and
+replace the WARN_ON() with a ratelimited error, as the source port comes
+from the hardware.
 
-Patch 2 fixes lan969x, where RX stops on all ports.
+Confirmed on lan969x (EV23X71A) with a kernel modified to give received
+frames an out-of-range source port, which stopped RX on all ports. The
+fix was tested the same way: only the bad frames are dropped.
 
-The issue was reported by Zhang Hewei, and these patches replace his
-series [1]. Tested on Sparx5 and lan969x.
-
-[1] https://lore.kernel.org/netdev/tencent_D2451CD0D7B4B812CEBADB56DC722BC33406@qq.com/
-
+Fixes: d84ad2c0d80c ("net: lan969x: add FDMA implementation")
+Reported-by: Zhang Hewei <memoriaru@foxmail.com>
+Closes: https://lore.kernel.org/netdev/tencent_ACC296C1F221C304053BD0F1F4B0D2C2BA06@qq.com/
 Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 ---
-Daniel Machon (2):
-      net: sparx5: fix RX ring stall on frames from inactive ports
-      net: lan969x: fix RX ring stall on frames from inactive ports
-
  drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c | 11 ++++++-----
- drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c          | 12 +++++++++---
- 2 files changed, 15 insertions(+), 8 deletions(-)
----
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
-change-id: 20261116-sparx5-rx-inactive-port-df606d3f9b1a
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Best regards,
+diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
+index 053d125eda658..fd532c89f9110 100644
+--- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
++++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
+@@ -113,8 +113,11 @@ static struct sk_buff *lan969x_fdma_rx_get_frame(struct sparx5 *sparx5,
+ 	sparx5_ifh_parse(sparx5, page_address(page), &fi);
+ 	port = fi.src_port < consts->n_ports ? sparx5->ports[fi.src_port] :
+ 					       NULL;
+-	if (WARN_ON(!port))
++	if (!port) {
++		dev_err_ratelimited(sparx5->dev, "Data on inactive port %d\n",
++				    fi.src_port);
+ 		goto free_page;
++	}
+ 
+ 	skb = build_skb(page_address(page), fdma->db_size);
+ 	if (unlikely(!skb))
+@@ -258,10 +261,8 @@ int lan969x_fdma_napi_poll(struct napi_struct *napi, int weight)
+ 			break;
+ 
+ 		skb = lan969x_fdma_rx_get_frame(sparx5, rx);
+-		if (!skb)
+-			break;
+-
+-		napi_gro_receive(&rx->napi, skb);
++		if (skb)
++			napi_gro_receive(&rx->napi, skb);
+ 
+ 		fdma_db_advance(fdma);
+ 		counter++;
+
 -- 
-Daniel Machon <daniel.machon@microchip.com>
+2.34.1
 
