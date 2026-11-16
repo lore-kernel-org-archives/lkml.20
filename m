@@ -1,85 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841119;
-	b=sqnNRmmz8W9Osbv7MmAs5Eshto1rwaXQfCvnHKPrTQm+bMxSh5v/V8AWfuwpf3+JtOWl
-	 SdgPUpccCUenTp36qvQvQust+iSbZ53RjbUshLndB/HLWfOQS7JtUeOcGwXOak4ie8jg/
-	 Vw9V73pPd864sT4bmT88f61t6KEwv5n10vvwdcMTinL/3ME7ZRHzhvnsY8Ah0sASRG24v
-	 hhwOrPk3Jb4bKW0D+zJ2gVa/W8iG1Jmn6Tzdd9PbuzR3BUp5lyPTgzoSUyECZcNnALNza
-	 L/A1lIMH4HD1jR2YICpOdTAaFATZsc8BrnKjQayzTWvXKA2bxjwhUdhzxzyf4p8O+9Q==
+	t=1794841122;
+	b=3vmdDgv11PVK/U306/S3UGRzofiixqAm+JvQPBRDB1TC8kISub/1wca33KJ+fV9snlat
+	 sXc8XGwO8luvhIdvz2fNvx5txBUARNyREH4tDqj8iGpCwlOZqOHkYZyVj4icco7APLnbz
+	 ooSHFVkw8QEQ950fDBui3y7g20LoJzPtsu440Wqkjj6i4jaNQOfYt75DPx4euAuui0+c2
+	 VGKE7Y1yX36NIirP8c3cb563wEvj0l1VUZ7FVcatE+uUyysxQy5J/Ob3nZH/tbUiIZVcq
+	 e2PEvXmm/78FXw5TfpPa4rtoARF6v94TU5AbIXLg1kynURNa3mKrO8cdrt0DLV1XOUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841119;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=SfHYqP/pPKPSLMNVoIqnPXnOAyAQwBTQuGj/nWRAdUU=;
-	b=mlT9ga3dztb+BAhR5FXHzhgM6JhxkTLmvIuiBKfKjP75WRY0g7Deg/+I4ZoCVEqIWyIc
-	 c14LnkrCzVKyClYJswIpWONLFPTRg9jPhaNJ97PDXB/7xtVykOy4BCNIhdwgzYFIkTftY
-	 3IH/eQynf/+VFDdFk47afw8qOQSweQbibI40JxXPgSfNuxXGi3j3fZmCMyBSJra2P0nLX
-	 QuJD4v/FXsg+ohFaYmnGSiHTuGaFwmbC1spSzl82GPTYlewukKENV6gSvEZT6akllo7uN
-	 5Vx6f16JjJy1cDTDzIMXiawVN6PTVUZ7gKIznNszkwrVwAwc+EioOmQ5zKTlTGM6KYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841122;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fNYP6nVvRxqwPGp7tM8Nr2Iha6DD2mGej6Jc0Znc4jA=;
+	b=m71/W97TEQ5K5cj/ksFJERFRumHZnLhA7qLkm9R1juXHbhL9RGQ6hFbHUbwwRIkvTCqG
+	 HxPDCIQC8TPmL9ZGk2GoC7PuWAaeTZBtFiysg0amgpICv6ZZWINhfwIX6t0slcHpIAAsG
+	 EQwd0skB6iiiVt7xAi/5sDGZ7yQgjMIfpaeWjM765z6DXPHCe13JDf8EwjBODcLLXdznB
+	 XlONVQfXja+lHYofNTKnXfNp6rjDIba/N9GPcvxJKq1cT3VE8VPmGbarS1K5kIg+OYPqz
+	 U5GwpJCk140MqFifHTo1Dil2TZG1Rys9DMcq7Zm0OFBf/39en56iJbfK/QpE+7uFEMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kbBtXG6m;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=Aw0Q0zSp;
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458D1606A330;
-	Mon, 16 Nov 2026 14:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 458D1606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4D3606A8A9;
+	Mon, 16 Nov 2026 14:58:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D4D3606A8A9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kbBtXG6m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794841114; bh=SfHYqP/pPKPSLMNVoIqnPXnOAyAQwBTQuGj/nWRAdUU=;
-	h=From:To:Cc:Subject:Date;
-	b=kbBtXG6m4KPDCMWsjIjHHKzUorVGAMNZ1UBTsIWpogttW2S3emIIr/vIPe0YJDgrT
-	 9NxH/NaKVKd7ZutGMGCcvIiTdJFKikZRmTxQ+8ydewoJG7cJE/TxYpoh09MOoONFiq
-	 x+f9jhUQ7dDUOAuPef87Yi77iX8nEtH/Rch/Zkw8=
-Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:2979:aa1c:9ec4:8698])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id E9E14C42; Mon, 16 Nov 2026 22:58:30 +0800
-X-QQ-mid: xmsmtpt1794841110t8q3g5kej
-Message-ID: <tencent_50E9A78F95855D54DA67136F3D8520017F0A@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+NsHQm9vJZQmptPt9GNOWxD7iXpUcoo6loT44SU0DGu20yE//hU
-	 WFcWzvlaGkLBImrkL9KDoiHzZzP9Ht/I0qvvW2TRNhiuLm40REdTLSe0Cc7LlZKuHLcWOsFR2p3O
-	 Ss28vXoJW4If57TbxRGFHiHK49ekTEFt057Vq88BOncxhtYP9k0hSd8r6DIP0l29BxkUS6ePlcg5
-	 WnIYbRLn4fduWpn7ss7i0YQT3ArOP7i90rOp/o5Hh1d/3Fig9GV+j0dRtcHg8RJhRHXUYa7/HN7d
-	 C0g1y+AyXYaipv/htE1vsX30e850cJX4ORFaxRP2IDUu7s/NZzJJwB6tx7t3nJoRBln2mzIEaWKj
-	 CC43A8wrI0N0sL5vDkWvaXprAN9KVZxmaZlo4jjovu/YmOJ2tTwPBcX7vpbXHFX89bz/xM4I2Db/
-	 Ss8/AU4KZ01Qtpdu2kwoxslBhuT0lL8MLZmtj3vC+f/cujJHH1Y4TwbWhcPN1NrVdxszGTr7S2S4
-	 TqBK2FYddrfT2eELCza2osW8Aguv5msfOL/HVzUXxcd5gfyAhuaxSkvr+2bn+o4uIT0NpKKzEOaQ
-	 z7G63qFSPuC1KN7X18Vj8igVgtMN/sOz1pLCpcYejCms2vEAaQV9pH0+sBmMO2mR541jXepM6AaN
-	 7ZF0neDd5y+KRIzxl9+Kp5DrF4MU5kVAHWa7lpJX+gl+rCfzltrhL1q6UXRekySHuIUlTebc/mdN
-	 odJoYTYYFCTvSqxa7fHggqlN4zTmtiIZXJmsHlLce65vPtU1/KL5UeX4cVAKU7cJ2S7nQoCJfYfN
-	 Pd3dUVkelvTqVp4zMTBoTsOAovPHQRFaw76HQHgFxmDB0CoX6fCNNnmv8C+Qx1naZ6ElciorN71f
-	 x3J1H6FyGWE8A/x/pYvaYeMWZbmNN23/ziN6ASg8laOU9M3L97zArkXIYwYR7L4tKOk8hhbftknb
-	 1qvzbEsajlkueHPY2GO9LbI7RjZAfDnsbFxPPu/DIPHqOWHUM+M+YBrHMAIofRCtqeMfgDUv1Vbi
-	 s/17i/PURSksKpLu586xGt/JvxS4V60kHuNLop8KEHH2kiGaqZyS6d10Hg6NtNBuxLEl5HP7W2z7
-	 X7M0XjpM9harDlPHBIO0yfx/D4IQ==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Hang Nan <2122295973@qq.com>
-To: netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev,
-	matttbe@kernel.org,
-	martineau@kernel.org,
-	geliang@kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kuniyu@google.com,
-	willemb@google.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	2122295973@qq.com
-Subject: [PATCH net v5 0/3] mptcp token hash ordering and token 0 lookups
-Date: Mon, 16 Nov 2026 22:58:26 +0800
-X-OQ-MSGID: <20261116145829.96849-1-2122295973@qq.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=Aw0Q0zSp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1794841121;
+	bh=2TMsT4OVc4sp3OPhBOTrfBghYpamHYgE3s1CFvg1zYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From;
+	b=Aw0Q0zSptqmYNbyqP8019WOG1/8FqilaE/5ARuKDNqEylY1EIHBd4bpRxabQWGzEt
+	 uCEFdq/w/le8oD99HYu2qN2vx2nfnuJRROPWpp76U/PzUotBZciZYcdNOYTy44tCWp
+	 x7puOSjOr2Kjf7mUvoonE06lWHBi3A2TTHtyIVCr7i4BsQSb7Dla1ewnW5F8S2DGuw
+	 FKUFW3vp1wdf/OIXrHNOW2YAB21cH6C5Ug8j6yPg3QwnDRNmVzHNzbXsoro8JXx68S
+	 9vPpPiEaNTSoqBj1hsvBns+6QJSiJ/aEbSmzA0VIz/WA4pZBbYNyAHCVMYVs/JUawO
+	 osiKN+5m+DBVw==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id 6A410814D2; Mon, 16 Nov 2026 14:58:41 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: me@ziyao.cc,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Nespolino <g.nespolino@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] net: stmmac: dwmac-motorcomm: quiesce the device at shutdown
+Date: Mon, 16 Nov 2026 11:58:20 -0300
+Message-ID: <20261116145820.3005689-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <avsTEglKKD_wl_Fi@pie>
+References: <20261116091757.1656602-1-magnusleatti@kernelriot.com> <20261116091757.1656602-2-magnusleatti@kernelriot.com> <avsTEglKKD_wl_Fi@pie>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,70 +78,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: NanHang <2122295973@qq.com>
+Hi Yao,
 
-This series restores acquire ordering for the mptcp token lookup and fixes
-two pre-existing defects in that hash table which ordering alone cannot
-cover.
+On Mon, Nov 16, 2026 at 02:33:17PM +0000, Yao Zi wrote:
+> I think this is abusing the API, and all the other changes in this patch
+> are working around its side effects. So here's my NAK.
 
-Patch 1 converts mptcp_token_get_sock() and mptcp_token_iter_next() to
-refcount_inc_not_zero_acquire().  These sockets live in a
-SLAB_TYPESAFE_BY_RCU slab, so the re-check of msk->token and sock_net()
-after the increment only rejects a recycled socket if those loads are
-ordered after the increment; without the acquire they can be satisfied
-before it, against the previous owner's contents.
+Hmmm... Fair. stmmac_suspend() is the PM callback, and the other two
+hunks are only there because I call it outside of PM. I will kill that
+approach.
 
-Patch 2 rejects token 0 in mptcp_token_get_sock().  Token 0 is never
-assigned, but it is what mptcp_token_destroy() stores into a socket being
-torn down, and what a freshly allocated msk holds until it is hashed.
-For a lookup for token 0 both validations compare 0 with 0 and accept
-such a socket; the token is copied from the wire by mptcp_parse_option(),
-so a peer can ask for it.  The join path then uses the result, including
-msk->pm.anno_list, which is initialised only later.
+> We do want to fix the problem though to ensure the device is stopped
+> upon shutdown, especially iirc, many YT6801 NICs in addon card form are
+> totally supplied by 3v3aux, thus S5 alone won't reset the NIC reliably.
 
-Patch 3 makes mptcp_token_iter_next() re-read the token after the
-increment and drop the socket unless it is non-zero and still hashes to
-the slot being walked, so a socket recycled in the same network namespace
-is not handed to mptcp_diag or the userspace path manager before it is
-initialised.
+I didn't know about the 3v3aux cards. Both of my boards have the chip
+soldered down, and on the N3350 one it keeps its register state across
+S5 as well.
 
-None of the three has a runtime trigger.  Patch 1 is argued at the
-instruction level (on arm64 the CAS becomes CASA; on x86-64 both variants
-compile to the same lock cmpxchg) and KCSAN cannot observe it, since it
-does not model reordering of marked accesses.  Patches 2 and 3 are static
-arguments; patch 2 now carries a KUnit case that fails without the guard,
-which is as far as the state can be constructed without the race.
+> But this should be done in a cleaner way.
 
-v1 -> v2:
- - Point the Fixes: tags at the commits that introduced each lockless
-   lookup instead of at the refcount consolidation (sashiko review).
+I can only see two ways to do it, which one should we go for in v2?
 
-v2 -> v3:
- - Rewrite the rationale of the ordering patch: the acquire pairs with
-   the SLAB_TYPESAFE_BY_RCU reuse window published by
-   sock_init_data_uid(), not with mptcp_token_destroy() (sashiko review).
- - Add the token 0 and iterator patches, reported by the same review.
+ 1) In the glue only. Take RTNL, netif_device_detach(), and dev_close()
+    if the interface is running. No PM callback, so no PME to undo and
+    no guard for a failed resume.
 
-v3 -> v4:
- - Drop "net: core: take the reuseport migration reference with acquire
-   ordering".  reuseport_migrate_sock() does not validate anything after
-   the increment, and the listener state that could be raced is re-checked
-   under queue->rskq_lock in inet_csk_reqsk_queue_add(), so the acquire
-   orders nothing there (sashiko review).
+ 2) A helper in the stmmac core that stops the device for shutdown,
+    which the PCI glues can call.
 
-v4 -> v5:
- - Add a KUnit case for the token 0 guard, as asked by netdev-bot+sinfo.
+Patch 2 adds one constraint though. For the chip to wake from S5 the PMT
+register has to be armed and the PHY has to stay up at power-off. That
+is what stmmac_suspend() did for me. With 1) the glue has to arm PMT by
+hand after closing the device, and I have not tested that yet. With 2)
+the helper can do it the way the suspend path does.
 
+Maxime, would you take a helper like 2) in the core, or should this
+stay in the glue?
 
-Hang Nan (3):
-  net: mptcp: take token lookup references with acquire ordering
-  net: mptcp: reject token 0 in mptcp_token_get_sock()
-  net: mptcp: verify the token slot in mptcp_token_iter_next()
+I'll hold v2 until I know which way to go :)
 
- net/mptcp/token.c      | 13 ++++++++---
- net/mptcp/token_test.c | 51 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 61 insertions(+), 3 deletions(-)
+Again, thanks for answering so quickly!
 
--- 
-2.47.3
+Magnus
 
+pw-bot: cr
