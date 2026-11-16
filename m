@@ -1,116 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794855973;
-	b=Su0urwbcJ3ZoSeNlyjX/0fUch9IesbUMgqjDyGfuT37CtRS7sVc/1hUOupgtV5I/BBLX
-	 WwBUq7JdC38wLDC2oombHbF/LfOo2kn0JMTYV7VibQiv0GunW3fuwOIJV33sZSm9Ik17N
-	 +e7Jph9s+zTjMao8JXe1mV46g6jK2Z5wQOyOO+DTUP/mmpPlMORUy6HIoEZolfkFEvHsr
-	 p9Mm0KrroHV6nENbGi4ylyq4Y0FSeoVFF/nrqAEgwaACXGr6FNiyv2j+w9xvaH/oyt5nI
-	 jrywajX+B3HffIzIXqFZ/NGN1MzZ5ajMxOQG9XC4T0AbIWeDkBSWRSx5ofRdbLUyqIQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=u7No3UJl4Oq3j9N85cRZ8bqex6Irn/4DgGTcRHLjaC/WMRVUJEUbFOtmzj77TzxPIO6B
+	 X2DsHu6hcrQxYKgtD8Pj18Xqu5dw2rBBFMgF496ViCOXRsCQue8cm0C1jMFfCSIU7B/zG
+	 r21Q+FJT5EJkjK7GDnXpN6dHSrBFv6Ez8lzI4YTn6XazJkYjac9L+rFTbl8ZYWC6CYAYk
+	 gA+xXDBLtLDwjV/bYoHFUuev7RnPKP+x59G2N7Z6lE8M1hKQQ+XQ8rYn5i1kBFmnQbGbx
+	 DkoedQ9P1YmEcDleDqRTeZHyK5YcmMGnETPJEclR4ZkzemqVgcJ9QlQSZfQ7KT9fHug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794855973;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oTa0jRXAcAEZGOOg9O66CQ7hjTflUS30dW2gfCinjyU=;
-	b=DuwyRAewrduWRLejy9t2EAm9vl9MEsIdp4I52/XmglNXT/zfopACdY0DU5GwZ0+EStdo
-	 JnD9XVkd7qVvHdrUvxnqG1PFtJ38fjpFXIMSIvrUJiiFiTFDfeujQOSY5AXmotHqGuV7T
-	 RJYJZIr52ZX1VADV3qbIPRtS/m3JLUbhPfORA4ET0ru47nS9RvizELkjWTWNg2Fh+txYq
-	 I8Zk7jxGim5/u6a1wE+KEd4688i+mVP0CoiNAGWSZUpo4BUTa/lQIUGdGM4I405Ra09Ua
-	 PUArsoVBdCr+x/2V8PRq/eEKiVpUsy//JiroOa/dRjdIWFTODHVaVWpXXbDxE7tRq5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=O7nQhY8o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.4
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011004.outbound.protection.outlook.com [52.101.62.4])
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ARreNfLSGdkmUn1/Vdh/VVG3o7GBC6q78tEMx8/VVx4=;
+	b=WYunN3sirj0p9l9VK7zQFLcJiW16cOGVHeWXHvmcjdy6Leglrcv+/xtL9vfglWQldGWr
+	 h9EgbuXyjgjvbCJZbkutvLIqQdQOE/Qmq1vilSRCD/QK5wH4TinibUASn3RI60/XfnVeb
+	 /KMoc4n+ren+mPSHfYaetsfzengwfU9ieZYFhPPvuXc0LWp4NvdHc/lmYo2u91eHQCqO3
+	 ftnETr3qq0Cd+4sEJlh+vZzKQcfUMaRZEIDe90zxsBKhajCc7HZ8qgVyu3lfOMO4q65dT
+	 Gzq9OYHmzOIn9epPv9PVYhjko6ulcwJ9NPJjVoRS1jIIFSoZu5Uw9ItaFjgGLPJLzzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Un372Sv0;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECC3606C57C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:06:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECC3606C57C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F420860A260D;
+	Mon, 16 Nov 2026 19:06:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F420860A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=O7nQhY8o
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tC7PAvzRO560HpMVnEAThaaUHS+Q5ovsq2KT46wGOSK9R9HNuVWQWQUuQrFl2W6IfFm59UMRHaJQD8MBA6m1fTI3PfJINssJQm9h/IKi+Li9rXPA3w6tE+hGaGRM4tK6RzuSvWMoCHE+qfcimrG7P4pC47wjNjAln3AfNf0bOx1FKi4xTCBNmFowdgaptDO5t0d0mI7uMlQ1P5Z38QhuujfYgza2ucU68RlkM55WCaSNhuwBIuLz3IKdI3PLIoXgXg9py2D9rBHI4Bs2C65cqIh/eWXlSOuRai9uGhajGfMECdE9h6fJQDlmqiNeCZQc8XZttgQ4l2UjFUoyheR33Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oTa0jRXAcAEZGOOg9O66CQ7hjTflUS30dW2gfCinjyU=;
- b=Kc22oriH4ovHSmPZ3NW/b7qfdpyPNcsjKa831InkTVD+95qnZ9c24a10NLKEwGp05KDZoWnQ6rsD+mkx8fH11OnGAaJrKLrT+NqGRtfU7rrXCQH5MR3+szEocjn2HCAixG2KFbG1LcPxQ850SuJu9yPTEAg1AY/XHacn/f91rBFjFngP01PZb8W2kS8oaHxAnO6q4epJeahD2Mmq8HTiXIhML0PbA+m0oZYgDO/TD5QAafFaTm0JkAYd+Doedqf6m2y4VRuWTxBMgFUCPZbPyPoPk6JQXHvadeXeyDcGrAs104OeMnxPZiXoY7ri8W8+V85oFQ5mVdqDi8u4uZdJ6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oTa0jRXAcAEZGOOg9O66CQ7hjTflUS30dW2gfCinjyU=;
- b=O7nQhY8orjHoBbNX9uF5PclI0OnMYDJZDgtRSdwEsoSe8lO8wPgy3Akf8o1eBNqTCfrFCqc5xKr1ft1H75r7oz3yE0MJoo++MBSr1ixzhltJBN5D/4cuGg2I7z3fhSVnnQXj98eTop0vMQBgE0ZCZsHCm+MDYV4xKeJwk1HCzFX3jKuW8NT9HAWH1hulQa4IPJbiHpyxeeZOwwZF9aHWrNzytKhKeWdyV4UoBY40g7F56wiFXDmo8n2eKucueUKSXddfFYb0hs74lbu9CFnHGoL5es+dGn9ptjkHDNFSkNXHP4aeAU/tmuQ22l+yojlIixqD9lCvAnl0FJf2uAhwXQ==
-Received: from CH2PR18CA0030.namprd18.prod.outlook.com (2603:10b6:610:4f::40)
- by CH3PR12MB8354.namprd12.prod.outlook.com (2603:10b6:610:12f::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 19:05:22 +0000
-Received: from LV8PEPF0000005E.namprd02.prod.outlook.com
- (2603:10b6:610:4f:cafe::a9) by CH2PR18CA0030.outlook.office365.com
- (2603:10b6:610:4f::40) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 19:05:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- LV8PEPF0000005E.mail.protection.outlook.com (10.167.245.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 19:05:21 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 11:04:59 -0800
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 11:04:58 -0800
-Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
- Transport; Mon, 16 Nov 2026 11:04:57 -0800
-Date: Mon, 16 Nov 2026 11:04:54 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: John Garry <john.garry@arm.com>
-CC: <will@kernel.org>, <jgg@nvidia.com>, <robin.murphy@arm.com>,
-	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
-	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
-	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
-	<leitao@kernel.org>, <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v12 06/12] iommu/arm-smmu-v3: Disable the EVTQ and the
- PRIQ in a kdump kernel
-Message-ID: <avtT1pIptUUm23Qg@nvidia.com>
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <325a9bb2908f4a163dd3a82099341dbac4ad304f.1793593923.git.nicolinc@nvidia.com>
- <87102de8-0abf-4d33-a43b-85a83ab29ac4@arm.com>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Un372Sv0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794855955;
+	bh=ARreNfLSGdkmUn1/Vdh/VVG3o7GBC6q78tEMx8/VVx4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Un372Sv0goyNRzCA4K7PqIJJqok0TqWKRa6bHOH4nMM4nXNBsbUutp1GsekIQ4QN4
+	 8kJmbw54etiChAH5tKRXuESORKJeZ+xzWmhgpIv9n301UJGdg7h9wPRxQjlbUqLx1s
+	 rcDvzdr4DUPpbrvwnMHit5vyXT8BylqcvZ1LiwRPrhMHFd5mqRhLgzgTKVKZt/hPyx
+	 KxGQ1nHEmpRJt4z1dgpplhv0W+qn6NkeCVgRzDbU96aeIdUi+jAP16CpPlPZyLvZr7
+	 EuYk2HjgVwKvFwZVf0QLZlQEBK1iF5ectc6XfafDG06WuSGojTgTIlRAORFvsFY/ii
+	 xnAONtnKlN4pg==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4g3NgfzQD4;
+	Mon, 16 Nov 2026 14:05:55 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v6 10/37] sched/deadline: Reset the donor's runtime at a deboost in the class
+Date: Mon, 16 Nov 2026 14:05:22 -0500
+Message-Id: <20261116190549.230119-11-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,65 +95,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <87102de8-0abf-4d33-a43b-85a83ab29ac4@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005E:EE_|CH3PR12MB8354:EE_
-X-MS-Office365-Filtering-Correlation-Id: 508fa863-826b-4fc1-feba-08df4414904a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|23010399003|36860700016|10067099003|11063799006|4143699003|56012099006|261022075727099003|261021121427099003|261021135927099003|261022105027099003|261026140227099003|261102123227099003|261028144727099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	vct+bDQsEF+zRqGrkvtmgghocmoCtMubzw/S2jMRi+fQn4q/UNk+m+3ko5ZB8y0RF1eN6wqUCwCZzAKMAPjTgiCaDk6SPOpj7jO64olLILrEXimQzi2bCSsfmi74qiSvy3Dab+FdoalKh+TO6K/G3KNGnAUVuTVgk2Bcf5jwji6a+J2/pRjrL6a3BVmO6rIw03tURXizqXEJpgzi8cK0P3CznPmOScInGF36UJoRI9HhVsZFTq+tsKx09LhMHwrZwTglvPaEQHPBBtUfiRJVakHtsEnz1Oqmxg1SFQQgVLlQu3rubYNAmj7S6nPeVzXln0QmrGeGaBVkiKrUr4MpCkXefGUTRBBPNdMFgcfpjBZ6TGeqN/EUrPB1Lc4lCUasey0dMQvzq3/1cQgqdLmaUEMxR94bIbFgHKtYbmNu3Yzp94egxXw1hWmkiJyvWeNOcSJqRjalY9bfF/EzmAW2vbxjDqFC+bk+NlWRZi3WL6vLYy/2kjoWTJYO4gtmqwedyS3wEUzDeR9tNbPxG6mCAFx1EQD25jS489/MM+7bPsI6Z/A47bO0mzQXUhYmwaO5D8iryZhi0bPpuRne4SQDc1t1Rqo3IB6zbz7jvxgWNLOrKeGbLJbhL3JELlXQ9UIH8C3hY+FVjzPd+zAi1SuagTn8Nwj50tyNr5nQay/aD3V4fcInI5uhg6dZBQEWcLuyLhQZJy83gkkloohw8RVYtA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(23010399003)(36860700016)(10067099003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261021121427099003)(261021135927099003)(261022105027099003)(261026140227099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	iIWT+qNL9yfW/Q5+H+g5Bd4xgkUFKqWjo57E54dSf4e0gO85y1MGMsCB29g0aRl6r0Q45eJ3V7DnikVs0bg7Q5FZxe3i99Buqhhx9o2iB2tbM7y148mqay6YrsO3ZnuKuFbQEZxO1tEQXwpsixq+4k7vaeodLW1XWzFARMULRpITbxzH2cODClNiD2czJWUqQX+54exIaPN7rw0Y8Q+4P0gLPFB8Vf5JCVPARnmEoINxfIZAg3gDHP2TRoAwarGACM0oND0pM2sHK4n0XCODr+kncXgzXNB+lPSfm1q7Z81sG8VsGfVU8NCShEM1ITUr0Nfs25UhgHE8u3H87EBNsDhnvUrU3tkdIFWt+OVdJmyqW9K87XhP9Oq8T8nyqbnV5aKehchPEUjWo1An+6/HCtt8SpHYo6Gmg1KYNIFp4cr8KtpkQNnPIUaoJ30+RLY1
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 19:05:21.8841
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 508fa863-826b-4fc1-feba-08df4414904a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8354
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 11:08:49AM +0000, John Garry wrote:
-> On 11/2/26 05:19, Nicolin Chen wrote:
-> > A kdump kernel cannot use either queue.
-> 
-> I'd say a "kdump kernel cannot use either queue without potential problems".
+A task boosted by a deadline waiter, its donor, runs on the donor's
+reservation. Commit 2d3d891d3344 ("sched/deadline: Add SCHED_DEADLINE
+inheritance logic") uses the waiter's parameters "during the whole
+period it holds the pi-lock".
 
-OK.
+A boosted task that runs out of runtime is not throttled.
+replenish_dl_entity() refills it from the waiter's parameters: it adds
+the waiter's runtime, and moves the deadline by the waiter's period.
+From then on, the runtime and the deadline of the task are not those of
+its own reservation.
 
-> > @@ -5573,6 +5570,15 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
-> >   	if (arm_smmu_sva_supported(smmu))
-> >   		smmu->features |= ARM_SMMU_FEAT_SVA;
-> > +	/*
-> > +	 * A kdump kernel wants neither queue: the crashed kernel's CDs and page
-> > +	 * tables might be corrupted, spamming events, and page requests cannot
-> > +	 * be served. A disabled queue discards new records without raising any
-> > +	 * global error.
-> > +	 */
-> > +	if (is_kdump_kernel())
-> > +		smmu->features &= ~(ARM_SMMU_FEAT_EVTQ | ARM_SMMU_FEAT_PRI);
-> 
-> It's less than ideal that we unconditionally set ARM_SMMU_FEAT_EVTQ at the
-> beginning of this function, and then here conditionally unset it. Can we
-> just conditionally set it once?
+A task that leaves the class at its deboost does not keep them.
+"sched/deadline: Reset the deadline and the runtime with the parameters"
+resets them for a task with no parameters. For a task with parameters,
+they are cleared with the parameters at its 0-lag time.
 
-I see the opposite. Conditionally setting would need two pieces of
-comments. It's neater to have it here right before:
+But the boosted task can be a SCHED_DEADLINE task itself, when the
+waiter has an earlier deadline. It stays in the class at its deboost.
+rt_mutex_setprio() only resets dl.pi_se. enqueue_dl_entity() keeps a
+deadline that is ahead. So a task that was refilled keeps the waiter's
+runtime and deadline after the unlock. A task that sched_setattr() makes
+SCHED_DEADLINE while boosted ends its boost the same way.
 
-	if (is_kdump_kernel())
-		arm_smmu_device_kdump_probe()
+In one period, the task can run what the waiter left on top of its own
+runtime. Other deadline tasks can miss deadlines.
 
-Nicolin
+Fix this by recording that refill in a new flag, dl_donor_refill. If
+the boost ends in the class with the flag set, start a new period at
+the deboost. The next enqueue is too late for a task blocked on another
+rt_mutex: the chain walk copies its deadline into its waiter first.
+
+The task can still hold a lock that another deadline task waits on. The
+new deadline can be later than that waiter's. rt_mutex_setprio() then
+boosts the task again.
+
+A task that was not refilled keeps its runtime and its deadline. They
+are those of its own reservation. A new period there would give it a
+full runtime at every contended unlock.
+
+The Sashiko AI review of the fourth posting found the sched_setattr()
+case. Four cases of deadline_bw_test, added later in this series, test
+this fix: deboost_in_class_resets_period, deboost_blocked_keeps_order,
+deboost_after_donor_refill and deboost_keeps_own_runtime.
+
+In deboost_after_donor_refill, an owner of 5ms every 100ms runs 8ms with
+the lock. Its donor is a task of 2ms every 10ms. A deboost that tests
+the runtime against dl_runtime, in place of the flag, misses this
+refill: it leaves less than dl_runtime. The owner then held less than
+1ms after the unlock, in 3 guests of 3. With the flag, it holds its own
+5ms.
+
+Fixes: 2d3d891d3344 ("sched/deadline: Add SCHED_DEADLINE inheritance logic")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+---
+ include/linux/sched.h   |  6 ++++++
+ kernel/sched/core.c     | 16 +++++++++++++---
+ kernel/sched/deadline.c | 37 +++++++++++++++++++++++++++++++++++++
+ kernel/sched/sched.h    | 10 ++++++++++
+ kernel/sched/syscalls.c |  2 +-
+ 5 files changed, 67 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index e4f6323d7855..96b498f79484 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -683,6 +683,11 @@ struct sched_dl_entity {
+ 	 * @dl_overrun tells if the task asked to be informed about runtime
+ 	 * overruns.
+ 	 *
++	 * @dl_donor_refill tells if a boosted task had its runtime refilled
++	 * from the parameters of its donor. Its runtime and deadline are
++	 * then not those of its own reservation. The end of the boost
++	 * clears it.
++	 *
+ 	 * @dl_server tells if this is a server entity.
+ 	 *
+ 	 * @dl_server_active tells if the dlserver is active(started).
+@@ -711,6 +716,7 @@ struct sched_dl_entity {
+ 	unsigned int			dl_yielded        : 1;
+ 	unsigned int			dl_non_contending : 1;
+ 	unsigned int			dl_overrun	  : 1;
++	unsigned int			dl_donor_refill   : 1;
+ 	unsigned int			dl_server         : 1;
+ 	unsigned int			dl_server_active  : 1;
+ 	unsigned int			dl_defer	  : 1;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 5ed660f099a5..a22df8b43a1a 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7834,16 +7834,26 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
+ 				p->dl.pi_se = pi_task->dl.pi_se;
+ 				scope->flags |= ENQUEUE_REPLENISH;
+ 			} else {
+-				p->dl.pi_se = &p->dl;
++				dl_deboost(&p->dl);
++				/*
++				 * dl_deboost() can start a new period. Its
++				 * deadline can then be after the top waiter's.
++				 * Boost the task again then.
++				 */
++				if (pi_task && dl_prio(pi_task->prio) &&
++				    dl_entity_preempt(&pi_task->dl, &p->dl)) {
++					p->dl.pi_se = pi_task->dl.pi_se;
++					scope->flags |= ENQUEUE_REPLENISH;
++				}
+ 			}
+ 		} else if (rt_prio(prio)) {
+ 			if (dl_prio(oldprio))
+-				p->dl.pi_se = &p->dl;
++				dl_drop_boost(&p->dl);
+ 			if (oldprio < prio)
+ 				scope->flags |= ENQUEUE_HEAD;
+ 		} else {
+ 			if (dl_prio(oldprio))
+-				p->dl.pi_se = &p->dl;
++				dl_drop_boost(&p->dl);
+ 			if (rt_prio(oldprio))
+ 				p->rt.timeout = 0;
+ 		}
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dd48f74412b8..1f3da0e0a698 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -93,6 +93,38 @@ static inline bool is_dl_boosted(struct sched_dl_entity *dl_se)
+ {
+ 	return pi_of(dl_se) != dl_se;
+ }
++
++/*
++ * Record that @dl_se had its runtime refilled from the parameters of its
++ * donor, if it is boosted.
++ */
++static inline void dl_note_donor_refill(struct sched_dl_entity *dl_se)
++{
++	if (is_dl_boosted(dl_se))
++		dl_se->dl_donor_refill = 1;
++}
++
++/*
++ * End the boost of @dl_se, whose task stays in the class. If the boost
++ * refilled its runtime from the donor's parameters, start a new period
++ * now. The next enqueue is too late for a task blocked on another
++ * rt_mutex: the chain walk copies its deadline into its waiter node
++ * first. Without a refill, the task keeps the runtime and the deadline
++ * of its own reservation.
++ *
++ * The caller holds the rq lock and the pi_lock of the task, and has
++ * updated the rq clock.
++ */
++void dl_deboost(struct sched_dl_entity *dl_se)
++{
++	struct rq *rq = rq_of_dl_se(dl_se);
++
++	if (dl_se->dl_donor_refill) {
++		dl_se->deadline = rq_clock(rq) + dl_se->dl_deadline;
++		dl_se->runtime = dl_se->dl_runtime;
++	}
++	dl_drop_boost(dl_se);
++}
+ #else /* !CONFIG_RT_MUTEXES: */
+ static inline struct sched_dl_entity *pi_of(struct sched_dl_entity *dl_se)
+ {
+@@ -734,6 +766,7 @@ static inline void replenish_dl_new_period(struct sched_dl_entity *dl_se,
+ 	/* for non-boosted task, pi_of(dl_se) == dl_se */
+ 	dl_se->deadline = rq_clock(rq) + pi_of(dl_se)->dl_deadline;
+ 	dl_se->runtime = pi_of(dl_se)->dl_runtime;
++	dl_note_donor_refill(dl_se);
+ 
+ 	/*
+ 	 * If it is a deferred reservation, and the server
+@@ -842,11 +875,15 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
+ 	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
+ 		dl_se->deadline = rq_clock(rq) + deadline;
+ 		dl_se->runtime = runtime;
++		dl_note_donor_refill(dl_se);
+ 	}
+ 
+ 	if (dl_se->dl_yielded && dl_se->runtime > 0)
+ 		dl_se->runtime = 0;
+ 
++	if (dl_se->runtime <= 0)
++		dl_note_donor_refill(dl_se);
++
+ 	/*
+ 	 * We keep moving the deadline away until we get some
+ 	 * available runtime for the entity. This ensures correct
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 92134ce326a4..d87296abec4c 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -356,6 +356,16 @@ extern int  sched_dl_global_validate(void);
+ extern void sched_dl_do_global(void);
+ extern int  sched_dl_overflow(struct task_struct *p, int policy, const struct sched_attr *attr);
+ extern void __setparam_dl(struct task_struct *p, const struct sched_attr *attr);
++#ifdef CONFIG_RT_MUTEXES
++extern void dl_deboost(struct sched_dl_entity *dl_se);
++
++/* End the boost of @dl_se. The caller holds the rq lock of its task. */
++static inline void dl_drop_boost(struct sched_dl_entity *dl_se)
++{
++	dl_se->pi_se = dl_se;
++	dl_se->dl_donor_refill = 0;
++}
++#endif
+ extern void __getparam_dl(struct task_struct *p, struct sched_attr *attr, unsigned int flags);
+ extern bool __checkparam_dl(const struct sched_attr *attr);
+ extern bool dl_param_changed(struct task_struct *p, const struct sched_attr *attr);
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 9b04e77297ae..f346176f1ba1 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -310,7 +310,7 @@ static inline void __setscheduler_dl_pi(int newprio, int policy,
+ 	 * the class. Drop its boost then, as rt_mutex_setprio() does.
+ 	 */
+ 	if (!dl_prio(newprio))
+-		p->dl.pi_se = &p->dl;
++		dl_drop_boost(&p->dl);
+ }
+ #else /* !CONFIG_RT_MUTEXES */
+ static inline void __setscheduler_dl_pi(int newprio, int policy,
+-- 
+2.47.3
+
