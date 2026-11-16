@@ -1,110 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815360;
-	b=CPbHFm+5C3h5Rmh2FvBMlD8UuILZHGvKJlqy/zppSfwaXv9K4UWnNY9RHfbJdGA4VYdx
-	 nAnRd5Dyv/qgqla98gZkUF8vblnc722yGYL2mINkCycUm+FNl1j8pzZy7dt0pG0rcSKhk
-	 IApnj8nV53M51XEX2Cnh0flhGbD30Xr4GkE+xdesZj9yvK7OvVjY7I5w7iIJK8wMITgYw
-	 SHM5D+o8oSbVo6H8uZ6gxhbuGAGes+miOSyXkVrDwxbcdGUWKLjaTARJ+lat7eJ9RhGwS
-	 MoBhDQ80X2IufSjP94ObwzZ3MFrsyDtFXkAbq991dn1EQRrwCH1KTLvmZQO4y3/I7gA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815360;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=qfEwEGdsfpaSsQ0CV8iU4w1B9JOv1XHHo5P0ONr0dGk=;
-	b=OAsqL0dDtDsbu/QJljO2WdjUW+2CJG9A6wZqPTgRhyRy0/zXCRObMmLwrnHqDp/3bpXp
-	 n7aUEBhomHlaWtXaE+T/uib0I4X4jf6El/FJWYVFetn2sK7uYlIshABEOhwRCmM4z4e/1
-	 bVgzbBkzlfrolx/vEgSaasA+F7wA8UxjUA7HvYlePcBnXD2QoWCPxn+SXCOLwgO2O1U+T
-	 kx3JuwVufYJrrLBufeHwfGFvmx4c9UJMkA799czW3n1JOgE/4X5jVXrXhvcrJHOJec94s
-	 WE+QGAxRABURnbzkK+nC2Rj05P1pVkRn3H/r/A5KTO34sSVYOyn1qOcqeQA5XboE4nw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UslJmPZB;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.85
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794815395;
+	b=4o9B3itpAqj4N1YPUTS28miEmN/RcncdoLhPz31xPOww0P0lFaBg3MFHxGspoclvmzkt
+	 94IinK/kwrvaaq7+swa8XCDvqJpshtcSAztdwXSw3ok1f5zOPI1q6aWJDhhZHXoXx+dX2
+	 W4OagMejM3u+lhU5XQo+iTvlO0vKDNS10QJMMI4RB0tTc5lwnbuwOW9xvkEdV7alvRvle
+	 w+uwgV7u3wHNZ1tIvF4ym5kZhmq7H1Mal+W1F2NBJXIeHQ6UYWEBbPaF4ibD6j32ibi3M
+	 mDaqr+oqF1KQvTs9iNCcPH5H4XqeQ4gnjoG1eA/fGawPUbwAHRP5QbzEbSQs6Fa1wJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815395;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ptb79H7NnHqDgXgBzBkoGDfz7LVGTssqEFe27NfLkIM=;
+	b=KjyE3PVANO4Q2K9fqln+4bvs1eTb6XPM3lB3fMylJkq99dTsw8GzJWLZ67jbp70fF+JP
+	 7LSHwltTPaNI9yxN67JLyLljAjOcNQnPQUN0MhoN5cBZwAnPI+DjBNBplSKPhMcR4a/Dm
+	 JP4hQEpYBtagpBjLxpj/sOiXrZI90oLZmuO4ofJOj8GyD6cJWzbZftrWCLREcSnDphNeM
+	 HfwtBIKTFJ5Z1R5uH8fdQxT7XZkrk+MRkkUylR87ba61hGFC45EFVoAQQIkDZX5Slz8LO
+	 Bh42rutnExp3tx6KJyOuOgHUhU9PyGJhvDj7LOY8HZFB4PeA8G1nZbYUHfYJl/j3QDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=vaisala.com;
+	spf=pass smtp.mailfrom=vaisala.com;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=qAW8Zb9e;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.85
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020085.outbound.protection.outlook.com [52.101.84.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C899F606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C899F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C008C606A329;
+	Mon, 16 Nov 2026 07:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C008C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UslJmPZB
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso1118433a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:49:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815359; x=1795420159;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qfEwEGdsfpaSsQ0CV8iU4w1B9JOv1XHHo5P0ONr0dGk=;
-        b=zn0NpKFAfS0r1ikkc0Phr7o/+0+jjlYdDHHWx3NnxxtGUXiTwOuJJ+I1PrEJgH4S3Y
-         aneJ3CjNliMt3e2qjQsCKstKiNA4UrMQwojLUTWX66enM59/y8MRkSUrzCT82f74Z7dV
-         dHno6gPKQA+vZVMWwg95ZTxnX8vU2nY46GezdiFbBF1kgdK14Uw3tXHIZ/SmSsfzDWUm
-         Oks9knNUFhxCd/hIHyXAYkVkfcAzVo9tF8mJjaHwKnXzcZfwGy4V+imXeKCp+rbx3xaC
-         WGwwINp0fXPs4viPpaGlBzR4rrPd1a0NVLdH7OxPgYw99IPLeJPqo0NeRMzocQWA3tEh
-         Z9+Q==
-X-Forwarded-Encrypted: i=1; AL+hErHZWIon4cs6vSTt9OXUJj/p4Sa+uJLD9ANFZSummGjTaamb5ngjsQkjOmbtZrKRR5uQuz2+LNPPoEBcy0Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4dfrZi4NLbmi6UlMaHCI4H/YBfKHDBMoga8PiQF9hk8i5S7sT
-	CxXdsjASeqxc9CKQHzRgmF1BaESPPlWJMIUveHFHr1lMGyTRt0tsgVtrxfo/R0h0kHwkN3+8j3h
-	aFBgb024rGIoEVvh6RpQMk0APwqXiOuiLSDCztzddXH8r9QZDnkyS1P9oagj67pCQUX38YefkVL
-	vDa4foU+Hq2GaNwGAyss/qBHePjCKGVUR8U/bSM6C0ZxdqUR1phtTLPeVpDNjL6esOPet+mk0X4
-	6mQUO9JXyIyQqa6pDKnYgOq
-X-Gm-Gg: AZFdTZd1Dz9klljlm/TfvKJJPb2g1BlI+W5Z8jYAwIfRqs30mYFmQc73LQA2zTwBcFc
-	oKrstelpI+RRxWlJwCfRGI5nKcxkIxYnOk5112ahDhx0HXAUvzJgRrXhH8nShkQM4pbjIrs7upI
-	QRGre/ywHGq9Ae+oUTu3eyH0yzTRyeknVQYa1sLgl318dTGDOKG5UPCNJN03hbgmOH5MexgKnTn
-	jOXsG8yj7UFDftZU2EbJ2T71A2L62BxbvwhlvLrozYyhJ0a6/DdNb3nkazCw2UHdiD82oxQS3d4
-	YqJd2owHPwFTg5nY/uOCNiAELlqKlqQIWhPjGKMlgoK9i/VEaglQq4LaOSKFVn5X94pfvfngJLu
-	bbCsMeiy6gciqg4nX8G4VPOW3fPqOreCYf5wlX+vg27LfM9KKQHuxAQQ0tQVjX7T9EafSRJDtZ2
-	1mHGSmt9c15DxF7j+GzuqmkXyHbWvEr6TmQRV/6QG2
-X-Received: by 2002:a17:90b:4a88:b0:3b0:a7b5:c037 with SMTP id 98e67ed59e1d1-3b1b07fecf9mr9422262a91.1.1794815359091;
-        Sun, 15 Nov 2026 23:49:19 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae9bbffcsm11288596a91.8.2026.11.15.23.49.18
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 15 Nov 2026 23:49:19 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ec6cd898eso67490406d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:49:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794815358; x=1795420158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qfEwEGdsfpaSsQ0CV8iU4w1B9JOv1XHHo5P0ONr0dGk=;
-        b=UslJmPZBBMWxXiIGaZ+wfVp2KPNXzFws9P0FePRAxwQZGpES3oH8a8jKyUUTE1fnm4
-         rbYJ6AAVmTsjKY0F+DYCGYOB13q+Ww1bf1uA8nQ7RJG5DPLZ7LLj5YvrKmWnYkJrses5
-         sqOjGIX7dGOPOe0Pf91azz3xovi59t/wuqcFM=
-X-Forwarded-Encrypted: i=1; AL+hErFq2ue1jLpw7+GdD/7Bh69I7TXJhc8rn2o6GKpMFFdNlMeAdZMsTclHsDDwSpXPegVhvU2vI0RPMMeiyYQ=@vger.kernel.org
-X-Received: by 2002:a05:6214:4b10:b0:91e:f04a:b237 with SMTP id 6a1803df08f44-91f242135efmr158105606d6.39.1794815358071;
-        Sun, 15 Nov 2026 23:49:18 -0800 (PST)
-X-Received: by 2002:a05:6214:4b10:b0:91e:f04a:b237 with SMTP id 6a1803df08f44-91f242135efmr158105406d6.39.1794815357480;
-        Sun, 15 Nov 2026 23:49:17 -0800 (PST)
-Received: from bld-ams-bvg-44.ams.broadcom.net ([192.19.176.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f8319d44bsm36603646d6.4.2026.11.15.23.49.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:49:16 -0800 (PST)
-From: Stefan Chulski <stefan.chulski@broadcom.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stefan Chulski <stefan.chulski@broadcom.com>,
-	Ilya Lifshits <ilya.lifshits@broadcom.com>
-Subject: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the ksmbd-io workqueue
-Date: Mon, 16 Nov 2026 08:48:49 +0100
-Message-ID: <20261116074849.475815-1-stefan.chulski@broadcom.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=qAW8Zb9e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eKLX/rsOh6ES8xvp/RIMECZNrb9t8gkS27bpvKvuG3EETMBziLi6WfYPs4swXzz094dHpBbOE3pQJENSR3lV5lMAUZo6/iBI5zBUFSe6vmyRW7SHPx/kUqWWOumh5WfpUihBiK3JHMKGC9rmukD+DDVyGUdpZ1++M/+OebCEP7f/SOXua6nQPrkzC8NYo7VMr59e3Ms5lB+HRK9xHeqbVhk8ESotX7q8253Q+EqqFberfZOQXjcE6Np+zBLJDlfu/30KvPqemBqE/lY/vxYAYoUY5Bs8JM8DFvyWz0wKcuFgRLX5RH2Hl+u637gWAagwi+ryWuTvncUmLlzjyCZ5HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ptb79H7NnHqDgXgBzBkoGDfz7LVGTssqEFe27NfLkIM=;
+ b=a1YTqaZC4Foafh4wpgloTq2w6KNO2CUFqlNNdlPUWshW43UcSZUwMdcqGRb+cVtQyN7GUYR5uP7FF4Huvlsxbzrv5szbtd7DIL4yA/1JQqz7pKHH6XtMt1ewQy79EMJ8FlOk1CBrmIyWZ2v863g8L66BROiD3TJ1MeoFb/Jla4CjXalMs6dM3AUsJTrg2BZQQMWgAMkunaeUTI5yAxJNejNkCq6nMrTYIhpMN5zN3q8HGR4aEeLr4JGLyGkeYAyieu8IINbRcvDMCCSMH6ZuUa1hPrUcXDNL8B5eW4CE+utR9tqfhSLT8O5AWS3IH2s23JrQTaNYP4zFj18WyF11oA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ptb79H7NnHqDgXgBzBkoGDfz7LVGTssqEFe27NfLkIM=;
+ b=qAW8Zb9eTdsj40xsVUQE6V/Jk9qxOMerwchj6B3fkjoNN/R+8q+ZGLeZdEs4N6CnUsAEKVNuJH0xzylTR71FUv+8Dx63isslbQW2r7gR34CM+cOetK6BBhJEbLt4vXH2Ix4OpK+Pb/wllX0DU9AfRdnqw3JrEYAtut3wt9h5deFOVFT/+TC67+f08WB1DcRX/2SHEzUHe9Gpa6UfDzqZyw4WVxjeJFCKhQ4aDXk4dJYDmS+LRGPn3GdUYjLXi3ZQrqZUHiohb2FyoSUzmxknDPhavB0ztsn4EXJKHQ2WQ1hDBwLB37B1TRGSX3MHB9tOED+N2JZM2uwT8RrV7wnqzg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
+ by MI7PR06MB334843.eurprd06.prod.outlook.com (2603:10a6:290:108::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 07:49:47 +0000
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 07:49:47 +0000
+Message-ID: <4038c504-0f04-49a5-a9ef-2dd881b7d653@vaisala.com>
+Date: Mon, 16 Nov 2026 09:49:45 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] serial: core: do not touch the port after dropping
+ the last reference
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+References: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
+ <20261112-serial-core-remove-deadlock-v2-2-d3ee4ccec37a@vaisala.com>
+ <avXOArIk9Cep-rCI@hovoldconsulting.com>
+Content-Language: en-US
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+In-Reply-To: <avXOArIk9Cep-rCI@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: OS6P279CA0149.NORP279.PROD.OUTLOOK.COM
+ (2603:10a6:e10:3a::6) To PA2PR06MB9176.eurprd06.prod.outlook.com
+ (2603:10a6:102:407::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,84 +101,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|MI7PR06MB334843:EE_
+X-MS-Office365-Filtering-Correlation-Id: adab8142-10b2-470e-3c80-08df43b62fb0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|4143699003|56012099006|5023799004|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	BQaA513Pt8Kcq9RfmjDFVTXZQsksRR+xN+3IG22xD7wOfnlpCNMM7cNM4WRd1TCjBkf6P1WGWSp4cayYeYhkN5q8JgrzeBHXyvomiVFRu0xlcBPvk5xJ3hrG+xjlhovrMj9gUjvEemsxqn0ndj9MLCi5fQZMPOMhTT5kHnzIT8DCQSBkBCZQobsEOVmFWL/PES6H0fplmBzjfmQ4ANkNl6CS+kWSmHFWGaj31lhqT1jUZN0XwZoVti48bp5fxQ246QYXCmrsL3AbrbU+HTCdrE1vR9UZ36Rl1ONJbiqZ72ceApSp6sZ/BhmZ+qKlDaoAB7mvI2a/lXbBkox5ntNZvgKWJ30sdQcezQw27MXSGt18c0RPgK/Bre1KqS198aeORKZWjPkY1XBTduHQYCT923tapHfTC+9uai18EaY7Y9rfOMnnar4qlMwJrxBFsorF1pjOXwzgBcQWGpzDm0pu8ql1e7mSYC9OleUkD5hvhbxGnDpLEhTZmr/+3rTEtuGzRb4bBR6on2oTEvgqeoSwmIyU7qXSzfoEYXRp9l00RIRfT75DHrU+7+ImRdI8Cy65tXp6HpE5q5qvmWL2nXN0kdQHhD9l09Xeqwajind8b2S90CJbl70MB7m0zjWQVhIFWhv3jrEh9dexvRqx7if3HdqtFrf0ubiHikAL4F7157g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(4143699003)(56012099006)(5023799004)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bzMrak5meHRHM0p6Q3J5R1d6OGFFQ1FpM0JZdTFINkV3bXE3SzVxSG9vdEh5?=
+ =?utf-8?B?ZnROUFhPZEtmVWp6UFFxMlF4ZUowZGxZdDBmRzhjTVZVZFhEL2V3cmlyNTAx?=
+ =?utf-8?B?Q1JucWQ0aldrZTBHMklBZUY3cENDR2pqbkkwSjQ2c1NManZCMkRMd25BTVVy?=
+ =?utf-8?B?VzJUV29EeUlqVWVNYnFERC9hWVJWSElDK0RzUUdYWDhzd0FxTVB1blIyWHBR?=
+ =?utf-8?B?VEhiL1pmVHdKMjg5M2Ruby90MWdYZ215TEFET2lWd3A1eTlWdFNVemFkSTda?=
+ =?utf-8?B?bW1JQ0ZrQVZQT21kSmtGcE9YcE9zSWxMMks3NFZ3YXNnQjc4UzE4NEhJRVhx?=
+ =?utf-8?B?b01LVFZhQk9BZFc5Z2hZdncrUUlHeVhOL3ozRVZTdFRPdk5QTTFoZ1Z3UUxo?=
+ =?utf-8?B?QzBrSnlqbGo4N2VOWHFSK1R0L0VCUHZzY0JjWStEOW1xazJLQnlkRCttQ2Rr?=
+ =?utf-8?B?UjJ1NTlKZDVIMW9hNEZkOExoaC9KczVNVTA2bFhDMDE1VmFRbFY5enNnRllK?=
+ =?utf-8?B?M3BjWUZRRC9PUnRkcHd5cnhpakV3aWYwRVZwcVkzT3RaTlJnWk9MN2tVS1hq?=
+ =?utf-8?B?a0xDK1NFK0I1MnRmVUJkYXg5UE91b3c5WWppQ2RPQU5Kd3d1N1l0S0tGeCtV?=
+ =?utf-8?B?cHJGTUdnL2xIa05vM3ZjcGU4S2dVWVBKTXBXOXl0cU50aEM5NWJhcDgzdGtv?=
+ =?utf-8?B?bkpjelB5Vkk0UzBmMkJ2ZFVya3hDZzFmMW4vUGRvTVY3S2tIRkZ2L0NDUXcr?=
+ =?utf-8?B?YUlldDNxRjN3ZFFGUHdVMGVhVlJHVVZENEovOGIwK1lUeXV5WktlMXRVVXJF?=
+ =?utf-8?B?RXVLRlpjdHM2KzluZ3RHcTNFdnFFNGsrTm5VNUpnakN3TkladDJPc3Bicmhk?=
+ =?utf-8?B?SUV2eFlUaHdqQzZpN1NJMjYvYXA1RmV6SnhkODFCUHZ3SHcvREl1aG91N2Ev?=
+ =?utf-8?B?bmVncU95YVlwMjdsSzBxWjFIOExqeXdRbWNGaUdVZ0dkSjU5eUhTZkJuZFha?=
+ =?utf-8?B?VWwzM2tVS3ZhMVVDcVBkb3hJM05hcE5kVTdLbUp2dU9TaWVjQnlWY3g1ZzVG?=
+ =?utf-8?B?UDVkYnpmRTRIYkdscmRLV3cyY0VBYndVSDl1dXdaOVBTT0h1N0Q2RFVOeXI4?=
+ =?utf-8?B?bnJPMnFodEk0QlBLd0lxWHVGOWdDbzNIVk9YVi9aOGZma0NsKytYdkZRd21R?=
+ =?utf-8?B?Tm14ZlpZRzdhK2RsMCtTcjFUaDFRK3NUOXdQajlHR0ZEMGUxZVJpR2hlWnZv?=
+ =?utf-8?B?RGpDMlVrUGVpSlU0V0toUUdsV2g1ejc2RkErSExTYkYrUklPTC94MWYyTjJ6?=
+ =?utf-8?B?Uk5JRjF4MlhHWU9WNElxNW5qeXNLVzJiK0s1WDY4STZWano2dzZDYTV4aWJI?=
+ =?utf-8?B?TW9zWUpOZXBvaituTWNHTVVKRG13QzFDQ0NxVUhDaEZvd2hkckk0UC9CUHhp?=
+ =?utf-8?B?NVE1L3JvTkZVZ2VvV25ndVZRdXFhdWlIVW9mWWQ4WXN3RjB0cUdYdGphSTA3?=
+ =?utf-8?B?Ym9hRlUvdDBzRzVzVnorb2dkZlhlb2Q1KzRudnJVMmdsZ01weS9WRkFqeTcx?=
+ =?utf-8?B?dVpCc0xOR3JESHhlSDNRY1hUcS9sVnQxVlBvYjNFM2NoSWhndkRBUVpDeEdn?=
+ =?utf-8?B?cTBWcnlDNWh6UlFER241WUd3bk5Tb2dUZm84YmhiUUF3Vk1ueVdxcWY0VUxB?=
+ =?utf-8?B?akVOVWNMaFNaeWt0NThJek1UNXhPTDU3UUlJRU8vYVdpOUhLOS9YaVI4Mmll?=
+ =?utf-8?B?STN4eTBPK2YyNG5td1N3aTMzL3g3TEplTHZWTHJFRHpmczltWTlKVGU3eFJG?=
+ =?utf-8?B?OG5lTmZnRjBsTUloeW1NNWZpS3hrSk5aSEJBYTFNTjVMdGJDVnowYi91VFQr?=
+ =?utf-8?B?ei9hcVdlN2wzVXVxNDlNeEhZSGhIL01Zd2U4SWNvUEtVcVRzME9hVXNwbFlv?=
+ =?utf-8?B?bmtMcGg5ZWpJeldPWHAyU1JVTHFsYTZXNXh2Y202U1hPT3Q4QW1DQ0FOMUta?=
+ =?utf-8?B?b1V0NjRwRDlUVk1mRzIrOTIyK05yN3lsVmFHbVpibnJOajczQ1JIOXQ1dW9h?=
+ =?utf-8?B?SW9IelNRd1JTZ3VvY1lSWTJpaWJBR1V1ZkFOSlNXMEs3UHZGcW10Y1lLZGFQ?=
+ =?utf-8?B?SnJyaVZscCtXMUcyKzBhbzE5aUk4NFpvblhyUkxPY1RkK0pYKzVyUEh6TjdV?=
+ =?utf-8?B?Q3hmelNQVmdndStVYUVTaHRGQ2pxWlBtdDFKSnFjbEhpK2h0eGRhUFNrUnl2?=
+ =?utf-8?B?c25VS0hWTnZKYXQ3VFJJVkY5d2JRTGJaYTMycTRYWVF2M0JPVjV4MnJyZlM3?=
+ =?utf-8?B?ODREODRBdU5hSkNqaU5ZYmd1NE9hdGMxUGRRS1orakZjb3U5MmhPenNBSDl4?=
+ =?utf-8?Q?TWNJJRYZeEcLsDQg=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adab8142-10b2-470e-3c80-08df43b62fb0
+X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 07:49:47.4775
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uN1h2TJQDRF77K/LJYkR6cg3MdRszpE1QgHD3tfmsjx5DxV75KwT9y+J1E3xCYIPu2yCOu0qL0RDJerViYweiSUc6sRG9tOV5n+Qi8HZA6g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR06MB334843
 
-The "ksmbd-io" workqueue has always been per-CPU. Commit 69635d7f4b34
-("fs: WQ_PERCPU added to alloc_workqueue users") only made that
-default explicit as part of the treewide transition to unbound-by-default;
-it was not a ksmbd-specific decision.
+On Thu, Nov 12, 2026 at 03:32:34PM +0100, Johan Hovold wrote:
+> On Thu, Nov 12, 2026 at 04:37:28AM +0000, Tapio Reijonen wrote:
+> >  static inline void uart_port_deref(struct uart_port *uport)
+> >  {
+> > -	if (atomic_dec_and_test(&uport->state->refcount))
+> > -		wake_up(&uport->state->remove_wait);
+> > +	struct uart_state *state = uport->state;
+>
+> Hmm. Don't we also need a READ_ONCE() here to prevent the compiler
+> from doing something silly?
 
-Per-CPU work keeps request processing on the CPU that queued it, which
-is good for cache locality, but it also runs work on CPUs that were
-isolated from workqueue noise (isolcpus=, nohz_full=) and prevents the
-scheduler from placing blocked or long-running workers elsewhere.
-Which behaviour is better depends on the workload and platform.
+Yes. Nothing writes uport->state once the port has been added, so I
+wrote it as a plain load. But the point of the patch is that the load
+must not happen after the decrement, and only READ_ONCE() rules out a
+reload there. I'll send a v3 with
 
-Add a boolean use_unbound_wq module parameter. It defaults to false, so
-behaviour is unchanged unless it is set; when true, "ksmbd-io" is
-allocated with WQ_UNBOUND instead of WQ_PERCPU. The "ksmbd-break"
-workqueue is already WQ_UNBOUND and is not affected.
+	struct uart_state *state = READ_ONCE(uport->state);
 
-Document the parameter in ksmbd.rst.
+and keep your Reviewed-by unless you object.
 
-Signed-off-by: Stefan Chulski <stefan.chulski@broadcom.com>
----
- Documentation/filesystems/smb/ksmbd.rst | 6 ++++++
- fs/smb/server/ksmbd_work.c              | 9 ++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/filesystems/smb/ksmbd.rst b/Documentation/filesystems/smb/ksmbd.rst
-index 728cfca13205..a045ed6db9b3 100644
---- a/Documentation/filesystems/smb/ksmbd.rst
-+++ b/Documentation/filesystems/smb/ksmbd.rst
-@@ -158,6 +158,12 @@ How to run
- 
- 	$ sudo modprobe ksmbd.ko
- 
-+   - Optional module parameter ``use_unbound_wq`` (default ``0``) makes ksmbd
-+     use an unbound workqueue instead of a per-CPU one for request
-+     processing, e.g. when CPUs are isolated (``isolcpus=``, ``nohz_full=``).
-+
-+	$ sudo modprobe ksmbd use_unbound_wq=1
-+
- 5. Start ksmbd user space daemon
- 
- 	$ sudo ksmbd.mountd
-diff --git a/fs/smb/server/ksmbd_work.c b/fs/smb/server/ksmbd_work.c
-index 6e5122e2d6fc..0447b2da84d5 100644
---- a/fs/smb/server/ksmbd_work.c
-+++ b/fs/smb/server/ksmbd_work.c
-@@ -7,6 +7,7 @@
- #include <linux/mm.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
-+#include <linux/moduleparam.h>
- 
- #include "server.h"
- #include "connection.h"
-@@ -18,6 +19,11 @@ static struct kmem_cache *work_cache;
- static struct workqueue_struct *ksmbd_wq;
- static struct workqueue_struct *ksmbd_break_wq;
- 
-+static bool use_unbound_wq;
-+module_param(use_unbound_wq, bool, 0444);
-+MODULE_PARM_DESC(use_unbound_wq,
-+		 "Use an unbound workqueue for request processing (default: false, per-CPU)");
-+
- static int ksmbd_reserve_iov(struct ksmbd_work *work, int need_iov_cnt)
- {
- 	struct kvec *new;
-@@ -108,7 +114,8 @@ int ksmbd_work_pool_init(void)
- 
- int ksmbd_workqueue_init(void)
- {
--	ksmbd_wq = alloc_workqueue("ksmbd-io", WQ_PERCPU, 0);
-+	ksmbd_wq = alloc_workqueue("ksmbd-io",
-+				   use_unbound_wq ? WQ_UNBOUND : WQ_PERCPU, 0);
- 	if (!ksmbd_wq)
- 		return -ENOMEM;
- 	ksmbd_break_wq = alloc_workqueue("ksmbd-break", WQ_UNBOUND, 0);
--- 
-2.54.0
-
+Tapio
