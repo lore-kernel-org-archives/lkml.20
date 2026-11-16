@@ -1,74 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794809148;
-	b=4Sa5dcb+Hmi3NWNZ380MCPveheTlYu5VzhHWmzd/281ju1oitOPknxC9wZNfLjuEr26K
-	 KUqbD1u4zWTHM4ZD/ZqehbgL3icPLE9WtOIkif9cx6fKBKFKdiCAPCjZKxgG271QThGO/
-	 B/y/IXhZZIqPVp4W3wlY9xzok1+MGYHhZ5hoFHLkDe5rpWWF02RepW+2Fdcb8FPB7DZ4y
-	 X9CxcatSowVxzdaiCHIqEyxkwehO87/eBL7THSkT8y/zi/9WyrJMqNa9ldiCW7lB/oQNh
-	 cOK73+GaHhXqzyJKKVPbIpkZijPSnimovq5FdEN3FhlAGkyuun8oUC6hXTlJlQB8EDg==
+	t=1794809153;
+	b=nv3aLjaOaskDoE7yLOr6OBYf7fRJ0UmDXEzJMKd9GDR3mmSDbjPTeidq1SZff/eFa5eQ
+	 BREBsHvrSL4/RXh77dp/+/5bFXw1Cw3MUq/9MkkziBy/EOFyFyGQz3NXNV2CIgCGMvdxA
+	 jDnu6rQec8UnjHkWvnurbRp5nHBBpOuppgmamNd2MjxVZH2weIXEAb09G9b9ZEtog6so1
+	 TYN6FDLUJooFd+zTwl7NJjZmWiT1TFWCUIHI6+UVQkDZ2jFM6spFyKjrgFNWLGZRW4Kci
+	 ygyFTFMTVLFzoHRTbztjeMSFD2x8V1xQYLRm4JD75IxxCUY5F0QD9vLpN9iLyJxEzDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794809148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794809153;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=VxeJ0eYDI9bUsoMfqQL5T9DNJtEQCXilOCSddN1Abc8=;
-	b=Nge7fBTiEU8biq9XWovAH5CcV+DbvfMB00i6AFrSBti05zK7Kf0yM9HOza0aR6iNK3tq
-	 THPZQYrbUTmR5Y5RkSPkFWkcIQ9FYRIKTQEYWuSGp3XaJ0V+l4RiwAc3Wt+vYGBNWpDmR
-	 nFc2Bu4AuZXl6mq6zEtW2V1p6ricMVZELrm7Y5N02lLm4p5SNv3IVSZPFu3UxmJuQNksQ
-	 WiP3qYnPbwJvFHFSakTSNHDa0zU4vGsfPdkTAoHHIRMYEFDvlHgyHWo1v5myvPuWavxQM
-	 1YO+/KpDTsCX9P+tzYWGMoTLD05MT4uY8w9MX54b3+UgdyHp0gHE3VtENzAVPTHLlfg==
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=O198CPW1uAaL8ZuxNOIKDhpKphZLHhNKDxw7j7vMfOo=;
+	b=Z1zJ0sHc8Tt4SfFwkD3Di0BcZUCVeeX9LBnzV56D967Egc/VnpJXqnG3CqaZs02WwxlE
+	 2YIgxIO4djdPFjRPWsSQcQJY+V511dF3Zqzg7/P7bdkMdbwaUTwyUPC5kcnFyHdrvli3Y
+	 vrRUr2BBcdcUGE34KmLtPcrUP7DfSP3GhFEsCkOLiTDhqvIWAhwWitfOVrP7W+NomSoeG
+	 YqFmCQL+YMWLVxf9ySer6eNEH8Hvu1yMWN8u23b+H8nMBLExRGFM2JVk1G8kxXeDaV4D9
+	 9MrXNyrB+inXcP29fVIHc+S/A1gb9zbPAg7S8471WpOiA9RAScmdK5eC0GFWFJgRB8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="1Nvzi/lE";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uHo99YUU;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yLgzdbZL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="uYm9K/rO";
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E23606A337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730AC606A89D;
 	Mon, 16 Nov 2026 06:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71E23606A337
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 730AC606A89D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1Nvzi/lE;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uHo99YUU
-Date: Mon, 16 Nov 2026 06:05:41 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yLgzdbZL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uYm9K/rO
+Date: Mon, 16 Nov 2026 06:05:43 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794809143;
+	s=2020; t=1794809144;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VxeJ0eYDI9bUsoMfqQL5T9DNJtEQCXilOCSddN1Abc8=;
-	b=1Nvzi/lEM5kYo3EWMjMX+lmd34akz8BowfYDq/5da0/R0NvErDdaa9EnEDnOksCjrqME5c
-	E//ghT79mX4nHUgEWL0v1SopS/jNyXkKz4I8xrJLf+oHR6jFOiIsch1/TW382YYnmI9s0E
-	5R8fVyKe+HIsCy7z9RxHHaxyX/itTYWzbmi51I9VSCZUn+/fA6RJE+jB5EW1jnabHCZEJN
-	JuHVAnd+wUUPIXkOlvbKngzxBkhP4cnA97M8sfyMFWHCD5t8shH/WGNECUcWPHf5Wb3mFm
-	JH5EC6DlHM5kSDwlAYUGW1g05ITb32SjOkUm/IkPxWjyXlmzwVZSYRtqGP/Bow==
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=O198CPW1uAaL8ZuxNOIKDhpKphZLHhNKDxw7j7vMfOo=;
+	b=yLgzdbZLo6s4eX0dYmJgnFHNgOgkmg+6Uy9Y369zL4hMf1h9EONOX8SYw+K9l4WRDvX7jQ
+	cRboULpnu4gYpsFDTYKaiEcROPyFsbeG3Vsa87crbIY1qsbo3/suMdLfCodx6Y7zTETi/X
+	tYdpsq7vJgE9oLIfE68kSF/iyAnk8a/AsDVNh8gIIHX4B/YhS9cEfJqFsTduR0sCe8jSgY
+	Fk1scsT3rS0QYeoAIKGmT91zkGFB0OZN3/DAu/Nt4az/rZIGaF/5gPVtxixnKoGQalKck3
+	EvzHkZ0SnJx8I72d+D7PMYrSoQAs3+FVDcIUGl7VdP9ddt1DxIxV4BRBj+EbiA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794809143;
+	s=2020e; t=1794809144;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VxeJ0eYDI9bUsoMfqQL5T9DNJtEQCXilOCSddN1Abc8=;
-	b=uHo99YUUTguN4/xUzxLPJIVXqivjtQ8GTp9VZTLi6UyoO6rud6fiWX+BcjxhSjzDmwcaA8
-	8688CezDXICXzECw==
-From: "tip-bot2 for Tony Luck" <tip-bot2@linutronix.de>
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=O198CPW1uAaL8ZuxNOIKDhpKphZLHhNKDxw7j7vMfOo=;
+	b=uYm9K/rOnJDc8qlYX6z+HlrUs7vZHVhITkDOaFNpzr8+bufoxacZwrLqM/jjoyvtKpbxx1
+	j6Uuz70Fk4vgqXBQ==
+From: "tip-bot2 for Nathan Chancellor" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/cpu: Add Intel Coral Rapids and Razor Lake CPU models
-Cc: Tony Luck <tony.luck@intel.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+Subject: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261113174145.13513-1-tony.luck@intel.com>
-References: <20261113174145.13513-1-tony.luck@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,7 +73,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179480914117.3191731.3872201224526558909.tip-bot2@tip-bot2>
+Message-ID: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -88,50 +83,80 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/urgent branch of tip:
 
-Commit-ID:     303c7c0e5ae5ac9685db11a4afaf5fa217a852db
-Gitweb:        https://git.kernel.org/tip/303c7c0e5ae5ac9685db11a4afaf5fa217a=
-852db
-Author:        Tony Luck <tony.luck@intel.com>
-AuthorDate:    Fri, 13 Nov 2026 09:41:45 -08:00
+Commit-ID:     2946884aff3d0e67227df3b4d3bcd9c3357a3b78
+Gitweb:        https://git.kernel.org/tip/2946884aff3d0e67227df3b4d3bcd9c3357=
+a3b78
+Author:        Nathan Chancellor <nathan@kernel.org>
+AuthorDate:    Sun, 15 Nov 2026 21:30:43 -07:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 15 Nov 2026 21:32:23 -08:00
+CommitterDate: Sun, 15 Nov 2026 20:43:50 -08:00
 
-x86/cpu: Add Intel Coral Rapids and Razor Lake CPU models
+x86/build: Do not allow X86_NATIVE_CPU to be enabled when compile testing
 
-November 2026 "Intel Architecture Instruction Set Extensions and Future
-Features" published the model numbers for the upcoming Coral Rapids server and
-four Razor Lake (two desktops, two mobile).
+When cross compiling x86_64 from an aarch64 machine using clang with
+CONFIG_X86_NATIVE_CPU enabled (such as when using allmodconfig), there may be
+a slew of warnings from each .c file, which makes it nearly impossible to find
+real issues.
 
-Signed-off-by: Tony Luck <tony.luck@intel.com>
+  '+crc' is not a recognized feature for this target (ignoring feature)
+  '+fp-armv8' is not a recognized feature for this target (ignoring feature)
+  '+lse' is not a recognized feature for this target (ignoring feature)
+  '+neon' is not a recognized feature for this target (ignoring feature)
+  '+sha2' is not a recognized feature for this target (ignoring feature)
+  '+sha3' is not a recognized feature for this target (ignoring feature)
+  '-rand' is not a recognized feature for this target (ignoring feature)
+  '-sme' is not a recognized feature for this target (ignoring feature)
+  '-sme2' is not a recognized feature for this target (ignoring feature)
+  '-sve' is not a recognized feature for this target (ignoring feature)
+
+Internally, clang expands '-march=3Dnative' into a list of target features to
+enable based on the detected CPU. The x86 part of the clang driver notes
+
+  // FIXME: Reject attempts to use -march=3Dnative unless the target matches
+  // the host.
+
+which was first added by the initial '-march=3Dnative' support in clang in 20=
+09=C2=B9
+(other architecture drivers appear to have a similar problem).  Due to the la=
+ck
+of validation that the host CPU is an x86_64 CPU, '-march=3Dnative' is expand=
+ed
+using the aarch64 host CPU's target features, which are unrecognized by the x=
+86
+backend.
+
+While this should obviously be fixed in the compiler, this does not help
+currently released toolchains that have this issue. As a simple workaround th=
+at
+makes sense regardless of the toolchain issue, only allow CONFIG_X86_NATIVE_C=
+PU
+to be enabled when CONFIG_COMPILE_TEST is not set (i.e., the user intends to =
+run
+the kernel, not just build it), which will exclude it from allmodconfig.
+
+  =C2=B9https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d4=
+56dec2518e4944c
+
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to =
+locally optimize the kernel with '-march=3Dnative'")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://patch.msgid.link/20261113174145.13513-1-tony.luck@intel.com
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20261113-x86-no-march-native-on-non-x86_64-v1=
+-1-cbc8b096d1c4@kernel.org
 ---
- arch/x86/include/asm/intel-family.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/x86/Kconfig.cpu | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/include/asm/intel-family.h b/arch/x86/include/asm/intel=
--family.h
-index 66d964a..2a5761d 100644
---- a/arch/x86/include/asm/intel-family.h
-+++ b/arch/x86/include/asm/intel-family.h
-@@ -129,6 +129,8 @@
-=20
- #define INTEL_DIAMONDRAPIDS_X		IFM(19, 0x01) /* Panther Cove */
-=20
-+#define INTEL_CORALRAPIDS_X		IFM(19, 0x08)
-+
- #define INTEL_BARTLETTLAKE		IFM(6, 0xD7) /* Raptor Cove */
-=20
- /* "Hybrid" Processors (P-Core/E-Core) */
-@@ -159,6 +161,11 @@
- #define INTEL_NOVALAKE			IFM(18, 0x01) /* Coyote Cove / Arctic Wolf */
- #define INTEL_NOVALAKE_L		IFM(18, 0x03) /* Coyote Cove / Arctic Wolf */
-=20
-+#define INTEL_RAZORLAKE			IFM(18, 0x06)
-+#define INTEL_RAZORLAKE_L		IFM(18, 0x07)
-+#define INTEL_RAZORLAKE_U		IFM(18, 0x09)
-+#define INTEL_RAZORLAKE_S		IFM(18, 0x0A)
-+
- /* "Small Core" Processors (Atom/E-Core) */
-=20
- #define INTEL_ATOM_BONNELL		IFM(6, 0x1C) /* Diamondville, Pineview */
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366..32d22cb 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
++	depends on !COMPILE_TEST
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
