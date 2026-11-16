@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794824946;
-	b=BLrKsvGvHFQt1HDt7SJNHiIYfCMT5aiiHTZop9+D/ZO4Yanz2VlNT/3p7c0u4idTWvm3
-	 76sihxIpdCt6Hr5nQ76OJ1IZcv0NjPoachD3cp2HDm6x15Y+YUTZj7Og6gLWxj6pIDCkc
-	 ZzwezZLqUw0ALfeQpcDMFCPfC/etyaFd00z761ZOfAz4IVfR9xDk6i08DZoUjSLD/u9S0
-	 SznL8xykETnxF6CF2qCCKihfuwo7Jge/GSMDfAT+lipR/PxhK33b0GRmNUQPV9BTcV35B
-	 utdT2cZfRzx8GTSGyPybh7VrAsvQEwtt66/ROaseVHarZKy/bvAlKaDO1dkIFEYxsLg==
+	b=4CNuN9DxbPTFjUww4MG5xbbJk0LtwQP0V+UGGXvqiToVJYKu084IHA+2QKq75Iow8woP
+	 lfot+8f5Nc/vQaNfPkONS4Uji/yz/rmLNHScZsyIb0fe8fsSpVtzQPHBdfVfIU/MRXbIA
+	 WOo/3Eu4UgVBE4qO9ILb6DxKnLmiDE3PQ4WmfdZejDcYkvoYW3S0Sxhql24xpAqbvidkR
+	 zrdKn8Sbj3MJN21CGMr1Y4ql6msP3IrSESzAJj1DwL0z5FyEz9vfLgWlBfLWd0wVfDhSj
+	 0t0qsFvW+1KDNVxDo4gEfFxJ2Fe0rgqdFuNurtfeg2YPh5pxWL1wDEzZvS4xO53RuZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794824946;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=B/X4pFUER3BjjgRE2JYjOFuKnCPfd8nH8P99ehyPdKc=;
-	b=JhQF7uDLewd7g/91Gzrum9XyyZgwzqmfzTcftI/qgAjS6FYdggq2oMn4zu5adOxIsymZ
-	 9pn5od4tYi9F0TWK7S+cpHydR6Qj+BSyQXo8+poTcP40pvhx7DSQ3ZfUQYexCvjsNHvYZ
-	 sNLKemOQl7HTKSajPZ0T/1TTj83m/Q3f+A5nu6wom/wUAPuGMR2wIxo411RxAqqNO3xUC
-	 Ha5N8WbtHl8+jrcm+ZHnYzbMVnlWiLoRzuU8beqz+eusi6/sW8FguX+Pn9OVKyMtJL9IU
-	 +VRdollPfXpmYo+21gx/T3TScj0ZqiL+FIPoGpOrSX+NaAbHBZNd9xzwxvbHowjQVhg==
+	bh=3Id0hsgYyF1MNWyUmbOw9PnJtuPWJdtHxVZgRs+q9NQ=;
+	b=dqsoWSg0BJSpkJuWt2bwr0gXdJeh2TT6ZrY28Krr0sPt/DmgK3AA7TkVGnmFnSn92vam
+	 SDhGM5fY7DLPgUf62wvc3iQZZjetBbzqv+xumTzSa6hPKF7I4EMahWseq5S45A/2UFbDZ
+	 mZjvdeuuYKgJHGqUVSYpMZuEYDebFsHTWGZXeRvLBH5X8xJYS9HyE99/VxkDZjPi6E8Y3
+	 Lq5crFLRAQLu1m8XnFrDs8rZRMogkUzzavDAjbvFnoTwhK2oLenRoF2pJgspYpdR19WKk
+	 oBd8jN4nUiQsCU4ZrPo2Jt9AD8ETGoyGitsWWvktsieocZhHNfjUYRHFtCanETHk/rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=yinhe.ht;
 	spf=pass smtp.mailfrom=yinhe.ht;
-	dkim=pass header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=RNJ9n4TX;
-	arc=none smtp.remote-ip=115.124.28.97
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+	dkim=pass header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=K8PgSRxY;
+	arc=none smtp.remote-ip=115.124.28.49
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE34606A32F;
-	Mon, 16 Nov 2026 10:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE34606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B28B606A31C;
+	Mon, 16 Nov 2026 10:29:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B28B606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yinhe.ht
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yinhe.ht
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=RNJ9n4TX
+	dkim=pass (2048-bit key, unprotected) header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=K8PgSRxY
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=yinhe.ht; s=default;
-	t=1794824937; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=B/X4pFUER3BjjgRE2JYjOFuKnCPfd8nH8P99ehyPdKc=;
-	b=RNJ9n4TXhoY+eFhbqTsBQDZ1KZJZ0uFo7PBoRlW17R2BYt78dctV/O+s3oAUIEBOjVulKcSri8YAd2hs04J+NOZAi++F/Ie0qJHYOZyLjFQNveSHfL5kXkfhtKppz3iI95QFJfV1+3Zvqr3H0XhqSTG1COgRF6eyC6RrX3x7ljnhxxQRIlMB4No5GDhjs/PPtTSHZvcWlHOhpy8+FvaYOh3jph27TtVwZdc4Fi6ixRquWTWKoFe2zBOyC5HH2MIxudCdulTarWJfZ2WxUEhh9jTSBOsDrQ1PXWYQur2Dv42rEnzxwiScFatpU3ku8nGmIEttIHGEQ6Lx60dhLZ7Xlw==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07444172|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00233692-9.41925e-05-0.997569;FP=17156062801562223770|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=chunyuzhiqiang@yinhe.ht;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.k35E.g1_1794824936;
-Received: from galx..(mailfrom:chunyuzhiqiang@yinhe.ht fp:SMTPD_---.k35E.g1_1794824936 cluster:ay29)
+	t=1794824936; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=3Id0hsgYyF1MNWyUmbOw9PnJtuPWJdtHxVZgRs+q9NQ=;
+	b=K8PgSRxYBdsQjORV7zVmjy7D10nyNP9yKHx+r/N2gCIwO9wz2jrRWwilN3uhEjGcgs73KANmQdAUED99mHjO/TijAtHdkXy5c99Pq3d25fMvz0OAMijDznuNCf/ks71MpWoekoIUuJ7HOaE1UQPctnxLqHIkqvflPjpRzUFI6dYr+JvldyK8zyysSS9CsKXWdoKPZVgSnT+DJKofgD9kA88gBW8CanJFYf3RQs7S2iK8kIyLjKPtQDd0TxYZg0OaO8AnOIDtos9pZaKS6MhCUVWv6/9O5mLIxuvb4cN5FKQDJzBmtMptuWT3XS11u27WWBTgtSO3dsnuSO78eQiy3w==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07452955|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0661257-0.00124372-0.932631;FP=7823091585212073403|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=chunyuzhiqiang@yinhe.ht;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.k35E.fC_1794824935;
+Received: from galx..(mailfrom:chunyuzhiqiang@yinhe.ht fp:SMTPD_---.k35E.fC_1794824935 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Mon, 16 Nov 2026 18:28:56 +0800
+          Mon, 16 Nov 2026 18:28:55 +0800
 From: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
 To: Kees Cook <kees@kernel.org>,
 	Srinivas Kandagatla <srini@kernel.org>
@@ -51,12 +51,10 @@ Cc: Tony Luck <tony.luck@intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	linux-spi@vger.kernel.org,
 	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>
-Subject: [RFC PATCH 2/3] nvmem: at25: support panic writes for FRAM
-Date: Mon, 16 Nov 2026 18:23:56 +0800
-Message-ID: <20261116102357.4127825-3-chunyuzhiqiang@yinhe.ht>
+Subject: [RFC PATCH 0/3] pstore: add an NVMEM backend with panic writes
+Date: Mon, 16 Nov 2026 18:23:54 +0800
+Message-ID: <20261116102357.4127825-1-chunyuzhiqiang@yinhe.ht>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116102357.4127825-1-chunyuzhiqiang@yinhe.ht>
-References: <20261116102357.4127825-1-chunyuzhiqiang@yinhe.ht>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,98 +66,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement reg_write_panic for FRAM devices.  FRAM has no write cycle, so
-the WREN and WRITE commands can be issued directly with spi_sync_atomic()
-instead of the sleeping spi_mem path.
+This series builds on the SPI panic atomic transfer series sent
+separately.  It is not standalone: patch 2 uses spi_sync_atomic() and the
+pstore panic path depends on the controller implementing transfer_atomic().
 
-EEPROMs still need status polling and are not supported here.  The
-callback is only registered for FRAM.
+The target system has no retained RAM.  A SPI FRAM is the only persistent
+store, and the crash log must reach it before the next reset.  Existing
+pstore backends do not fit: pstore/blk needs a block device, mtdpstore
+needs an MTD device, and the new spi-mem panic write path requires
+exec_op() plus a native chip select.  The FRAM here is an NVMEM device on
+a GPIO chip select.
 
-This patch was prepared with AI assistance; the submitter must review it
-before submission.
+Patch 1 adds a panic write callback to nvmem_config and a matching
+nvmem_device_write_panic() consumer API.  The callback must not sleep,
+allocate, use DMA, wait for interrupts or touch a GPIO that may sleep.
+
+Patch 2 implements the callback for FRAM in the at25 driver.  FRAM has no
+write cycle, so the WREN and WRITE commands are issued directly with
+spi_sync_atomic().  EEPROMs still need status polling and are rejected.
+
+Patch 3 adds a pstore/zone backend for NVMEM devices.  The device is
+selected by name, the pstore area is described by offset and total_size,
+and the zone sizes are module parameters with Kconfig defaults matching
+pstore/blk.  Normal writes use the regular NVMEM path; panic writes use
+nvmem_device_write_panic().  This avoids a private pstore-fram driver and
+a new devicetree binding, and reuses the existing at25 FRAM support.
+
+Testing:
+
+  - the changes compile on x86 with COMPILE_TEST and on arm64;
+  - qemu boots with the backend built in and the SPI mock test still
+    passes;
+  - a runtime test with a mock NVMEM provider and the full panic path on
+    i.MX8QXP are still pending.
+
+Questions:
+
+  1. Is the panic write operation at the NVMEM level the right layer, or
+     should pstore talk to the SPI device directly?
+  2. Is reg_write_panic in nvmem_config acceptable, or should it be a
+     separate provider operation?
+  3. Is selecting the NVMEM device by module parameter acceptable, or is
+     an NVMEM cell/devicetree nomination preferred?
+  4. Should the backend live in fs/pstore or drivers/nvmem?
+
+This cover letter and the patches were prepared with AI assistance; the
+submitter must review them before submission.
+
+Thanks,
+ChunYuZhiQiang
 
 Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
----
- drivers/nvmem/at25.c | 59 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
 
-diff --git a/drivers/nvmem/at25.c b/drivers/nvmem/at25.c
-index bc2cfb75d..230e78c62 100644
---- a/drivers/nvmem/at25.c
-+++ b/drivers/nvmem/at25.c
-@@ -328,6 +328,63 @@ static int at25_ee_write(void *priv, unsigned int off, void *val, size_t count)
- 	return status;
- }
- 
-+/*
-+ * FRAM has no write cycle, so a single WRITE command can be issued from
-+ * panic context.  EEPROMs need status polling and are not supported here.
-+ */
-+static int at25_ee_write_panic(void *priv, unsigned int off, void *val,
-+			       size_t count)
-+{
-+	struct at25_data *at25 = priv;
-+	struct spi_device *spi = at25->spimem->spi;
-+	struct spi_transfer xfers[3] = { };
-+	struct spi_message msg;
-+	u8 wren = AT25_WREN;
-+	u8 cmd[EE_MAXADDRLEN + 1];
-+	size_t cmd_len;
-+	unsigned int i;
-+	int ret;
-+
-+	if (unlikely(off >= at25->chip.byte_len))
-+		return -EFBIG;
-+	if ((off + count) > at25->chip.byte_len)
-+		count = at25->chip.byte_len - off;
-+	if (unlikely(!count) || count > UINT_MAX)
-+		return -EINVAL;
-+
-+	cmd[0] = at25_instr(at25, AT25_WRITE, off);
-+	for (i = 0; i < at25->addrlen; i++)
-+		cmd[i + 1] = off >> (8 * (at25->addrlen - i - 1));
-+	cmd_len = at25->addrlen + 1;
-+
-+	xfers[0].tx_buf = &wren;
-+	xfers[0].len = sizeof(wren);
-+	xfers[0].cs_change = 1;
-+	xfers[0].bits_per_word = 8;
-+	xfers[0].speed_hz = spi->max_speed_hz;
-+
-+	xfers[1].tx_buf = cmd;
-+	xfers[1].len = cmd_len;
-+	xfers[1].bits_per_word = 8;
-+	xfers[1].speed_hz = spi->max_speed_hz;
-+
-+	xfers[2].tx_buf = val;
-+	xfers[2].len = count;
-+	xfers[2].bits_per_word = 8;
-+	xfers[2].speed_hz = spi->max_speed_hz;
-+
-+	spi_message_init(&msg);
-+	spi_message_add_tail(&xfers[0], &msg);
-+	spi_message_add_tail(&xfers[1], &msg);
-+	spi_message_add_tail(&xfers[2], &msg);
-+
-+	ret = spi_sync_atomic(spi, &msg);
-+	if (ret)
-+		return ret;
-+
-+	return count;
-+}
-+
- /*-------------------------------------------------------------------------*/
- 
- static int at25_fw_to_chip(struct device *dev, struct spi_eeprom *chip)
-@@ -545,6 +602,8 @@ static int at25_probe(struct spi_mem *mem)
- 	at25->nvmem_config.base_dev = &spi->dev;
- 	at25->nvmem_config.reg_read = at25_ee_read;
- 	at25->nvmem_config.reg_write = at25_ee_write;
-+	if (is_fram)
-+		at25->nvmem_config.reg_write_panic = at25_ee_write_panic;
- 	at25->nvmem_config.priv = at25;
- 	at25->nvmem_config.stride = 1;
- 	at25->nvmem_config.word_size = 1;
+ChunYuZhiQiang (3):
+  nvmem: add panic write support
+  nvmem: at25: support panic writes for FRAM
+  pstore: add nvmem backend
+
+ drivers/nvmem/at25.c           |  59 +++++++++
+ drivers/nvmem/core.c           |  44 +++++++
+ drivers/nvmem/internals.h      |   1 +
+ fs/pstore/Kconfig              |  64 +++++++++
+ fs/pstore/Makefile             |   3 +
+ fs/pstore/nvmem.c              | 230 +++++++++++++++++++++++++++++++++
+ include/linux/nvmem-consumer.h |   9 ++
+ include/linux/nvmem-provider.h |   3 +
+ 8 files changed, 413 insertions(+)
+ create mode 100644 fs/pstore/nvmem.c
+
 -- 
 2.47.3
 
