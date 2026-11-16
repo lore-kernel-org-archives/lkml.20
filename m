@@ -1,95 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794806897;
-	b=2jURT8bTHfSGW68LpL7YdOIogPSyOe+O9nuMgcteC4mQBpox49/ItOHglK8eNMg0Y/Xx
-	 sJNotNg/f1EYbC8PYQVF20gFl4eNTfRcp1NWra7PKYn+HQKZHiT2s266OVI7YDTYOEI/1
-	 hzHsAGv2BUNJBHrk3Djfe72uhS1xrPltXDIyhgx+4vwQthYR2QxuEAcY2hdzfZCM3XSiq
-	 wDvHibn2SU3k7NBe+mIIGRHzrp0XL52xnr9/eLXzQMotn6vSNE/Qa/OMb5+bLUiHcce97
-	 Ymcwix7lkmZgo0A6MYPv3c0HSg4qk3601+pVrEjYq6XhhAOEoXE7ZPWexeOeTcCkANw==
+	t=1794806946;
+	b=gRFIEC6jZZmBaQxZu3xnX6zNLZsLo3iHXSE5JQH1ClIWWuSP3dKIwMi+l6x6fu1oQS5q
+	 SBx9R20INIW1z2nAW98pXyDHfH4A1eikRYfuHXzmgi/0SpNG1pHSR5h97BWTDUPX7/+xg
+	 TQUct+J3l9rECL7VQjdTERzSOkSiudsbeunHclW2siaY2JzyAknZtyRDKnVxMueNeu38t
+	 8/0jJ/XJLxjaNO8QSC+vHZt2M3jz4Okv7mC6K4XFLAJnvlkLf9QLwBPUwG3LOTLsEgIzu
+	 LK2zbLTUcHutVHw6/Kr8Bc1wVILdA7wzVmjdZDsq1ecyrfv+xAw2WGzvoGJ8xeKvB+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794806897;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=uaq0BVEvOHoY5FVUN84HI4rX3Wfh/nMm0wJPKthJRRM=;
-	b=H942O/vxjIlbuaWvQIDZ8MXiP99qPJoyL0O0t0gZqQPLahTPEz2DzTv416XTAWwUUj4r
-	 bvWBf7on4xTxV194pcRvau9GXIIZkGtmBwwFKkGlXigpwatS4996IfNtK/Y/7R791om5b
-	 jdFkUXWV2rp1LAIY/x0fVlmVaRkZ1KL28EM5UVAr+FiO9h3P5Xdtxk39076bXFte+aTrN
-	 8cA5m7PA/UP53Y4FBswBW6fQ95iZCInio9P0yQnvHv8iV1jtDwAJjvM9SeG46fYJ04hRl
-	 YhnqXfRaiNe6rpY75bbP8NVDrVfUtaOWBOPNFI9aiZheD7NVIXSpQp3lf4mz6DAynZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794806946;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:CMS-TYPE:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
+	 References;
+	bh=U5PQg/K60zOvaI9X1XNSQFLTUzY3suF9si7SMaK+wro=;
+	b=ZVNuO72VqTHmKjKzyxLEfLV6xqogJbFhWoYa8479NV8illHHN30ZtrKym2O/GlnxCb/Y
+	 /uURsqNjOEVCgyhvEXYzYLVzReKausMLBAZJCwTRb/yiB7s0AIn3F2Mp1x4HIkD/4rbno
+	 vken2Y/PRrbJw2p3kz6aEX0MTuedHBNXt9RuiDZ+n0P9KZMxceGihqKYD9gvEBJc/DuQ7
+	 XElbTgtgnaPXsjT62njcTM8t5LRG8NUltNKVsTauTa8eEZEXLrJL5oZOM9zyq3R1Ci4wI
+	 Xcx0mvC4655FQ+E0j4wmU0jqMujByUjv8Aj9L4tX55Ujm9LUDO4zTBU+zVUW989kOPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nfNXMyLy;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LDjlDuy6;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADCF606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ADCF606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29D9606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D29D9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nfNXMyLy
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e10a70540so1591265f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:28:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794806895; x=1795411695; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uaq0BVEvOHoY5FVUN84HI4rX3Wfh/nMm0wJPKthJRRM=;
-        b=nfNXMyLyzYCOxqnv5YneIQqn9o9PKyZMvKb/72zsc8yR9ffHUafkRyNJpPTCIho3Ez
-         IbwGAdp2na0IdGWo46qiQPHJft1f0FL1bRL9BtGmTw4sALTtbghViiF07Bxjlerhaa+q
-         XK9Ce1hUAGa3/GekwQ6n++7gCUkBqwvsVYKx1Iw5aPhqHZlutn3iDAcKk5e9EGpQq6Fx
-         Sk9Uq3ZagpqReMNXFpmPvnQYexxhq7g793HNVPr1ALZk1QpG+PAjwg2uCv5i319EesNV
-         Q+J9EcPB97AaO+6Z6aXyyjz0KhqDH9NJFS46FHIL9dDjS7JtkUNw0a7CX3wK4IpS6Zgp
-         tKHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794806895; x=1795411695;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uaq0BVEvOHoY5FVUN84HI4rX3Wfh/nMm0wJPKthJRRM=;
-        b=EBwYkIj0pf4123ax80cPrqxPJ0RZY1uO3YB+RWuy2mullGFCaco7qU32SC6RaJa8yX
-         aV6CUtN6cwfT8afk7scylp+uJDOyLjxjVBr/UaImuxZQw6rvmB+AsRI3uUCi8Lnt+zVg
-         mYE8mGo0bgNBe2sV8Rp/hbGBUkqz7JrfG9oRY0Kspng3o09yE4Csu2y65licuPzdEMYe
-         bOIrrYjUbb81KasUbEwDlY8RBVxCHuK8v2o3rKq5zODIajY83VWsmtXxkpc7npPDq1HW
-         amzXFfixyg5wTX263hvCbSMbALs87wm5UmIdvGhJ9YNqAvAsCl0tr8/tt9JKT2c7snes
-         Ojcg==
-X-Forwarded-Encrypted: i=1; AL+hErFoXI5JtFpSTAHRo92ZELs6oO9Aeo6BY9mg2uFllRgMEXFaTNtvggEHObWFhzWilxz3TXW+Z6QWq6sTRmE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tF74Oji4A2TFXwIFrjpN6nR/fazFGwphA+kWzIoS24BhQJ1IK
-	HoVe5xmhA5Z0YJsIQCDbTOCrqBu2B+mz8DazcIYAkInXS1Ak55VTDb+VMsoC17B97ssfS6dQ
-X-Gm-Gg: AYBFou0Y+88ogy8y7S2WL6YCx22sssXv0cHyUdH8/wTieZwVWozmoMRcRCjAeHOsg2G
-	3Qwlvgu4jk/nOwNjut1s6pZINtsQ/37RSFiTSV8DxkAq+CB5XeMlK0HW1AwV8cbJlIiCtk3ljLe
-	EntK3vmU0gtebV0XQNlzCaARAFplJCZSk3fZQ3fKhPIobVYyZVFZxMwFqgyBc4MB3IonkdQfIoV
-	z4iUxfJzwr7WZU7UqDu3WuMaLkABXk3ofIFKJDAbLbnzWz9Uq9AZ02Ye++3ZA9jNFO42gGFUZHh
-	qQsbvU/HFGxs1Ql7Wx701x11V1tEZwmttLSQ3q6Ndsk9+UeBMVkyhoXIQJFinQqRe/bhrDnGCAj
-	ib7XZH/o0Pw8YQDRASNMQhXPrR7MyS38bVewPZ2iPD4GimxXvN7e2Gy9CFy96lZeBpL7mZhe7sp
-	BtSKDFrAtY7CIHgtz0puVwhjeYKOLKxXZLD1OQZOEy4uPAR/RgUC1vbCZLj6yA8rZowWHCHezYR
-	gmt9NCK2myAhrs2D/Yz/bTwQwRe9cPk5Z0Mv7XUL5YbUjuj7cvoHdlXf4qfss+jJpA4jAYRxB5s
-	HRQGJQr/b1cTMlU/jLbYV7sWFk+wPXG8TgKr50G9cpJX5Dv3M8gBVAOxWZNZ7rUBK2DZKpNtmUQ
-	48YF0i82ahGkxePSc8TWp1XhxJKwVprS9xxxInTU1m+F3Mz2BmXJjNIer665IujJ7rW0=
-X-Received: by 2002:a5d:64c8:0:b0:492:a72:92fc with SMTP id ffacd0b85a97d-49c740bcfa2mr19526408f8f.44.1794806895504;
-        Sun, 15 Nov 2026 21:28:15 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60da11c5sm18757547f8f.54.2026.11.15.21.28.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 21:28:14 -0800 (PST)
-Date: Mon, 16 Nov 2026 08:28:11 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Priyanshu Singh <singhpriyanshu9838@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Oscar Alejandro =?iso-8859-1?Q?S=E1nchez?= Lucero <aleszlucero@gmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: octeon: fix asymmetric output buffer pool
- accounting
-Message-ID: <avqUa87gQnzKyVF3@stanley.mountain>
-References: <20261113231622.17907-1-singhpriyanshu9838@gmail.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LDjlDuy6
+Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261116052857epoutp03e7b8fd5d996c71697d91242f6f07658e~ob2ZkiwHf0631706317epoutp03f
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:28:57 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261116052857epoutp03e7b8fd5d996c71697d91242f6f07658e~ob2ZkiwHf0631706317epoutp03f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794806937;
+	bh=U5PQg/K60zOvaI9X1XNSQFLTUzY3suF9si7SMaK+wro=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=LDjlDuy6ho4cioLZw1y2jCQLhdCvlOlEwdlePpt4j89dOSco/kU18BYm04Zxfha+y
+	 kdk4IJUJR4yMVjsHaCIDYashuTTTZ9xyDwZ2vKvHqpgHLCdFeIwQqYH5Tw6KqF4twe
+	 AjlARD5LPqHCBTDwK1qR9RMAvM3+7IKfY8OXbF24=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas1p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261116052856epcas1p3918ff298c297b56faa97959b1da0b813~ob2ZWU7bb2735427354epcas1p36;
+	Mon, 16 Nov 2026 05:28:56 +0000 (GMT)
+Received: from epcas1p4.samsung.com (unknown [182.195.38.195]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jSby02zj4z3hhT3; Mon, 16 Nov
+	2026 05:28:56 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas1p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9~ob2YgxVEN1801918019epcas1p4T;
+	Mon, 16 Nov 2026 05:28:55 +0000 (GMT)
+Received: from VDBS1420.vd.sec.samsung.net (unknown [168.219.244.32]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261116052855epsmtip26e2c05f4d73416da30deab5e21cd0249~ob2YeU5m23106931069epsmtip2L;
+	Mon, 16 Nov 2026 05:28:55 +0000 (GMT)
+From: Gichoon Han <gichoon.han@samsung.com>
+To: Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+Cc: Takashi Iwai <tiwai@suse.de>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Gichoon Han <gichoon.han@samsung.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
+ length underflow
+Date: Mon, 16 Nov 2026 14:28:51 +0900
+Message-Id: <20261116052851.2272125-1-gichoon.han@samsung.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,33 +80,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113231622.17907-1-singhpriyanshu9838@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 101P
+cpgsPolicy: CPGSC10-702,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9
+References: <CGME20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9@epcas1p4.samsung.com>
 
-On Fri, Nov 13, 2026 at 11:16:22PM +0000, Priyanshu Singh wrote:
-> In cvm_oct_configure_common_hw(), when CVMX_FPA_OUTPUT_BUFFER_POOL differs
-> from CVMX_FPA_PACKET_POOL, 1024 output buffers are allocated and added to
-> the hardware Free Pool Allocator (FPA) pool. However, in cvm_oct_probe()
-> (err_tx:) and in cvm_oct_remove(), cvm_oct_mem_empty_fpa() is called with
-> 128 instead of 1024 as the expected buffer count.
-> 
-> This asymmetric accounting causes cvm_oct_free_hw_memory() to report a
-> false warning ("Freeing of pool 2 had too many buffers (-896)") upon
-> draining the pool.
-> 
-> Define CVM_OCT_NUM_OUTPUT_BUFFERS in ethernet-defines.h and use this
-> constant across cvm_oct_configure_common_hw(),
-> cvm_oct_probe(), and cvm_oct_remove() to ensure symmetric allocation
-> and deallocation.
-> 
-> This was found via manual code inspection and is compile-tested only.
-> 
-> Signed-off-by: Priyanshu Singh <singhpriyanshu9838@gmail.com>
-> ---
+sitd_complete() computes the received length of a split isochronous
+packet as desc->length - SITD_LENGTH(t), where SITD_LENGTH() is the
+"Total Bytes to Transfer" count the controller leaves in the siTD.
+Nothing checks that this remaining count is not larger than what was
+programmed.  If the controller reports a larger value, the unsigned
+subtraction wraps and the class driver gets an actual_length of
+nearly 4 GiB for a packet that can hold at most 1023 bytes.
 
-This needs a Fixes tag.
+This was seen on an ARM32 system (vendor 5.4 kernel; this code is
+unchanged in mainline) with a full-speed UAC1 microphone behind a
+high-speed hub.  snd-usb-audio trusted the value and read far past
+the URB transfer buffer:
 
-regards,
-dan carpenter
+  Unable to handle kernel paging request at virtual address e8756000
+  Internal error: Oops: 7 [#1] PREEMPT SMP ARM
+
+The register state at the fault is only consistent with a wrapped
+actual_length coming from this path.
+
+snd-usb-audio now rejects such packets (commit eed0e9583a29 ("ALSA:
+usb-audio: Drop capture packets with bogus actual_length")), but as
+noted when that was applied, the bug really lies in the host
+controller driver, and other class drivers trust actual_length too.
+
+Treat a remaining count larger than the programmed length as a
+protocol error instead of reporting a wrapped length.
+
+Link: https://lore.kernel.org/r/87se19ufoi.wl-tiwai@suse.de
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
+---
+Compile-tested only (ARM32, W=1) on linux-next.  I could not capture
+the siTD contents on the affected hardware; the wrapped value is
+inferred from the oops above.
+
+ drivers/usb/host/ehci-sched.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
+index 57d07d1c2dfa..12a10248a4b6 100644
+--- a/drivers/usb/host/ehci-sched.c
++++ b/drivers/usb/host/ehci-sched.c
+@@ -2241,6 +2241,10 @@ static bool sitd_complete(struct ehci_hcd *ehci, struct ehci_sitd *sitd)
+ 	} else if (unlikely(t & SITD_STS_ACTIVE)) {
+ 		/* URB was too late */
+ 		urb->error_count++;
++	} else if (unlikely(SITD_LENGTH(t) > desc->length)) {
++		/* controller claims more left than was programmed */
++		urb->error_count++;
++		desc->status = -EPROTO;
+ 	} else {
+ 		desc->status = 0;
+ 		desc->actual_length = desc->length - SITD_LENGTH(t);
+
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+-- 
+2.25.1
 
