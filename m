@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851543;
-	b=pG98uKxJz7D0ZRZGDJEntRE7OdISK2AEKU4fYEKsmYPDd0HAhEUzxXq8vXcCz+XFmlfz
-	 8TAOjZrplPA9n/mUKEcDluea7+oIKY0I/SY1x4sQgPXquHHP2VaOybHPqjnxWZdijU6aR
-	 IKoFuo/hYbrKu6s4XO2BnF5fH+fDZA15jUJJdQGjHOzrZt9arjuyegCWdHS8aF1RW4gXC
-	 A+kOAz+W7d44A+QMGI0FZF7VxrOnYh2yRp5YZK/4nxQi22N6H7pK0nJDcNTIiWe3u39lB
-	 YbFIuNCYk3XBILCESZe2Wgte3xdjqlsl8coj4pXvSw6mAzcPQYKoVsw0gzs+NafI+7A==
+	t=1794851538;
+	b=0f/JBe728uFZi1SvT7W+5CPUSBeZhun8MP77pfBi0KSZh3qXyZmO5XQKzvFklcGBHe7P
+	 zT8bAv6dpDm9CZOLIKvdRtqzmowXqLQVOklYyY+zjfgslORzGyKFUeI/MJ4AnG4touG3p
+	 AV/hNms//3xj4Tpc3fPYnTcA52VHtSwv6SVdTjrDTj4epRMYvlEeShuCi1ASE8AbYOr3M
+	 XrVAV22CSOjjtP0v21AriKn+GbtiJ6pJn6YGF9phYp8zAhHFKw8LNKg7KoBUdiRBJyPB9
+	 An5Gef/Ph9b2eg5GJ1tS5MO/Jagyj4RcyGm4sIYgENcRtTkm5CkjKzZgg3PmsnqBqBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851538;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=mLXA5MYZQzhnIjUN4es5XUBRMGwezqL22aWBvXkcOLc=;
-	b=dZRWPIeFBUDEH+wUsjAbvPDaXa8+qJHD1nO04RMxB3BwWTATgi9k3xphlCUFsNSvcsYO
-	 LtpnZAPq96hL18B8IlGGF6hA4A/nTZmuBUaN4jV+DMCAQS5FSEhmoQPERNreESx6KrBl6
-	 m8siUexEGpcF/Ekm0W/UW/+RLguCKP5skovc0sqSEQZSlXUAlQ1bO6+RfItw+MAW4WZTO
-	 aN2gv8odZ+BI2Smu29Mf8ZFuMFoclnCypEwHdOvcRuOECQ7sygqa/CYeKx0hQTBHaqBEj
-	 MvMvuVVxIF+962oES81nxVGNnGrtiCSekjN7Y7soCPByBPYxqDFrsbTrW9+kCD6mw6w==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=433xRDin6SERxQl4zr7qCG8UKdvmvBEfHT10lpucpws=;
+	b=m0x3oQftkAEn/sNrMvncczg3NWIxt3VxdBqkhUTSMzeUrilVwW/bXZeDnwUDtWMfT9sF
+	 7ZXWZj0NsMATNAvY0D4M2KEZ64BmuIoizVQHoTXs//x49FwWnaxUi8zQSqNjLA9H3F2Rf
+	 Qcv/9sjvAf32wvGbKWZZs6rymm8c/2Fu/yLXtuKs5P9kO/wQ6Aisi7lGVaiiqe0NgHiF2
+	 PcSba4p/Dxm6urje/4o1HDuuF2Pxa5Tat2rX7KVYUYl8xM9lXVoH2KFqFqayxftKN/idy
+	 m7b7xRfgX0MkZSbcttzX2ChzhJRHUsqk2Mk+xEKSRDsBNMlQdNJJMk7wa9CyBp4musw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Clfk5jH8;
-	arc=none smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WiiQQwfv;
+	arc=none smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24F0606A8A2
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24F0606A8A2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11CB606A89B
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C11CB606A89B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Clfk5jH8
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ae25c846edso30888261fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:16 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WiiQQwfv
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso4680449e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794851535; x=1795456335; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mLXA5MYZQzhnIjUN4es5XUBRMGwezqL22aWBvXkcOLc=;
-        b=Clfk5jH8durmCpYxgXWONWZnvGvbgI3g7xEo51hDcgnjL8gE+wlgNoDySxVR+CfOqB
-         v5e3U21vbHUsh7d31kO+GQBco2jwfY0vpjNUm3GppwvpIVEZajTOpAbK7mHZ9qn9k9Pw
-         EGBcuFmTnL/f5KUsdfrD5IYVeS2r0/U6VmBnw=
+        d=chromium.org; s=google; t=1794851534; x=1795456334; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=433xRDin6SERxQl4zr7qCG8UKdvmvBEfHT10lpucpws=;
+        b=WiiQQwfv3C1J+lYmCRVn+Rk4GZnRw+IphmS2VK6qOyfRA9YY4ipM2WuKUKlkI6ba/x
+         2YqiFMyz00ABeyanHS/PS6TJRsN+Jj6RJHC4wnTyEbZxoEImDq411q8IKSuqnxrPQVv9
+         Dc0l68dIxEIbm6whSJpHoVtUMz2t/3JXQhY74=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851535; x=1795456335;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mLXA5MYZQzhnIjUN4es5XUBRMGwezqL22aWBvXkcOLc=;
-        b=UkvHcmCIVxNJKy64CQ18w6y5i9E6lpNW2F5I2yCj4H5zHNwoa5d/hoZIEXek/cx1Na
-         jJ3yvn2I5FpRNpDzWrJ6cPvSsj78VlH7m8StQtVjJAnt1ecGvXGKDPe6aMmNXaMSNsp8
-         F/norwwenAHGJQgpKMLpA7GlnTYMH8/FfMmPabOcrBE+VtxOJ9shS4ZtRRyZmfAwlufo
-         U8K1QJLA2WksWlz4pJ6EGPDhtT1U+D1B04aZRXNBhelSW+jAhLSkFrQRpDrZK0fkgao6
-         TjHApBHfm85iEvkch+CYotj9cL+7jmeGrZp5WpiGIo8dFglBWi9uR6v6RIIDsPS6zd1/
-         5sdA==
-X-Forwarded-Encrypted: i=1; AL+hErGJxswixbdDJNxbOjtcM6UBOlhVC+Sg3OG7GYIpV4XxsgwumL/ocTjk2msu2nzfW4dOUNLTrKIi3Qu0Y7Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/x1Kk6MytdVeSpgRhe7vL7geT1se2VaZCqptidg+ZkZxTZFYiu
-	skAgK3ppyZJ0YpUcRXh5IeK8/SnbyYHROoTNc9U8NYP8G6KOPJcn5NzpjISRDGU8RQ==
-X-Gm-Gg: AYBFou1IcwR1KVeKW8NK9Ku26UamWztq2VJpRoW+wWhm3roPZM7i1ye4fp9mtdnuoN3
-	cK0l/BVNGBTZdBMaMsY92kzEio3DSfca9QAGLlmt8zzutBAUCGIFL1iJfUlBKzcIpVAe9iOfvdy
-	KKYsu25wmAnevZtYy0BJPI4ZtpFmExjuBAzPftXntsMp07NkFHPwmjtEnRwXXFYmqCyRHVTx3OG
-	qds7YA+WyD6lT2QKGwmQdoog83xWdBGTx9sBaraNKJbwFTIRk+bTQKT6az18OusQBo+okNREBnI
-	oarXoGzQd9u0qWtcuo+LU4b+crwEdGU928gvuYJOfB1lT6el7/kSEVdKLBGyK1xg5n8SgCswDt4
-	XTHgwZEiquUIEOYgV6wg3kCtTIeVMuBOJzmZbrYh8D4ARNi5S3PyuC0pkcwdHu+b87EEFJGC689
-	LYOZCOUHzs3ooCzhIALSbm8mD09Fwqq40ycT4e8TH9AqkI9fchcPUyfSU9SmcHjc64DkGUmfa9j
-	R1f8ibrIFLCCZFgtu4SnvDq9EaZeRvTy4Qif1ns+BuKA1mnhEsRF0mbe72VaPNOHXJqHFyHBrct
-	rQU9fjIQypwVFSKDvxT6qHRT/VU2EsiuDj8nTe5S3LV/hIu9CauZ+8pOaeF3JP9C7upDrB5o3MW
-	WM7vfoq6REA==
-X-Received: by 2002:a05:6512:131c:b0:5bf:ddd7:8896 with SMTP id 2adb3069b0e04-5c1706062aemr3775316e87.7.1794851534902;
-        Mon, 16 Nov 2026 09:52:14 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794851534; x=1795456334;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=433xRDin6SERxQl4zr7qCG8UKdvmvBEfHT10lpucpws=;
+        b=tW72/iT9LMN2+3FBddLoPYFOeRCJ4Hnza67iIGgoB/61e/WzfOwnGYLXve9Nm6GYJt
+         ZRsF5X3fPxSK449dvnu5qbM2gv9o8axgkxXNCWiPDft3b6cvYO5eV9CeWrlIuvbJg/B5
+         +ucUOtdm/E7LChg1En9KLzt9/x5FRNDmcaT6UWiSqB3hN9lbCYWSwxi31DFybmZ1X01D
+         11OsZucIwB0jjKaSpY3wJ1pvDHTMa9wMVehsnjLzmVKTMqWWVQKJqEmjaQIiAC9V8jZz
+         WpaWjaO+ukMsa74FcTzDn3QDaRiBU+uMxfQD96WLl68tI2yosBkRV8T18PLoyX6StxS8
+         3R+g==
+X-Forwarded-Encrypted: i=1; AL+hErEAf3eudtMRlJhKmbMfXLiJiv4CMOuQEcTTROHGIVqa0PNCoXj0NZ9bKDRqsV4Uhmeb2p1lvW37UvhE9EI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zNoW8YUfMm2V5BtJ5QbO+L3k5zcIdgAR5gc4RziSL1gZmqlpM
+	yZ40ttnC3id1NrVAuYSPdvpZLR3+w+cMBVhxz84kVRYX7XmeKvp8cFjcoudw9tdmAg==
+X-Gm-Gg: AYBFou07U/iXPtFUEjZBdHYOHXSI7cqtpGCF44rftyA1SJ0AAEleJkrEsLKa8Pag9Ez
+	O4yJH9LcbN/ZEOb3GqSU2N6wQomYXAU7BWZUFAsnVVck/ecdGmAW8jRVX8pI0PotyUfNR81YjQi
+	KLEC++GequBf1zVsGeAZJrljQgGUDTn1SdrpcNOjpnb34Y5/ISF+qErTLBCY3b2l1VE+E9Y4caa
+	IZfEHMAZD/4aqRPzmZPWv9fxDifPJpSSTG/6/WpAgOv/PqTakG4Pko+X5p18Jj/BJed9Mpo6W2k
+	fd7gxjerBoO/O2O162qqmnOZevde4vJ6LeJ1+Oo/crBerjpgSygGj40gi/6Z4tguNLyBqLKcWCU
+	drVw2Ip0Cow6zJTNI+weIGb8uK+yEOEBKDr93g4XgHjbnUte3e0MrgjMcXoqZ2oWA8wWgL+c1bO
+	CHJPMzA6DS79nrs3kwP5lfxL+xJlWkXPjqSMgyWpOvzQm/8flflOosjmP3b4WJtY2KN3U8VRG49
+	dqcKM5yN6LNXolg0gGwCB3xuP9R2GY67J1I7EdZTVGBl/L3ZYWdm9Qa+Nsn486AaO56PEtxW4qI
+	49j7Gp3GobkAKSw+OKdtoVVY5SbdKirKxHrJ1+nSblF+CrKJo9gjQSPILGRfVQ2AOp9IVSEbLc5
+	x0G+Jml7y5A==
+X-Received: by 2002:a05:6512:2214:b0:5c1:57f7:f4f with SMTP id 2adb3069b0e04-5c170b36a78mr4191576e87.43.1794851533981;
+        Mon, 16 Nov 2026 09:52:13 -0800 (PST)
 Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.14
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:52:14 -0800 (PST)
+        Mon, 16 Nov 2026 09:52:13 -0800 (PST)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 17:52:08 +0000
-Subject: [PATCH v2 1/6] media: uvcvideo: Reject payloads with a short
- header
+Subject: [PATCH v2 0/6] media: uvcvideo: Improve checks for payload header
+ size
+Date: Mon, 16 Nov 2026 17:52:07 +0000
+Message-Id: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,9 +92,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-uvc-shortmeta-v2-1-62d4a8176fb8@chromium.org>
-References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAMdC+2oC/3XMQQ6DIBCF4auYWZdGiAXtyns0LiyMMgulGZC0M
+ d691H2X/0vet0NEJoxwr3ZgzBQprCXUpQLrx3VGQa40qFppKaUWW7Yi+sBpwTQKc7P2qU1tXOe
+ gfF6ME71P7zGU9hRT4M/JZ/lb/0lZilo0rbETNmoa2663nsNC23INPMNwHMcXyoY3160AAAA=
+X-Change-ID: 20261116-uvc-shortmeta-75ccb6707d9d
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Hans de Goede <hansg@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -103,98 +104,59 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-The UVC header starts with a byte containing the length of the header
-itself, and then a byte indicating which optional fields are present in
-the header.
+Payload header length checks against the PTS/SCR flags are scattered
+through the driver, with different behaviour in each place, and
+uvc_video_decode_meta() lacked the check altogether, which could lead to
+out of bounds reads.
 
-Currently, uvc_video_stats_decode() checks that the header is big enough
-to contain the optional fields, uvc_video_clock_decode() only checks the
-packet size (allowing payload data to be read as timestamps), and
-uvc_video_decode_meta() fails to check it altogether (leading to
-out-of-bounds reads).
+Validate the header length once in uvc_video_decode_start(), dropping
+non-compliant packets with a warning, and remove the now redundant
+checks.
 
-Instead of adding the same check again and again, check the header
-earlier in uvc_video_decode_start(), dropping non-compliant packets with
-a warning.
+While doing that, I also spotted an unaligned and OOB access in a debug
+message, and two places in stats and clock decode that used the minimum
+header size instead of bHeaderLength when checking if a packet contains
+payload data. Fix those and factor out header timestamp parsing into a
+new uvc_video_parse_pts_stc_sof() helper.
 
-Note that this changes the behaviour for non-compliant devices: until
-now, the payload data of such packets was still copied into the video
-buffer, now it is dropped together with the header. On bulk endpoints,
-the rest of the payload is skipped as well.
+I have used an LLM to review the code and commit messages.
 
-Reported-by: Sinan Turunc <enscrpt@pm.me>
-Closes: https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me/
-Fixes: 66847ef013cc ("[media] uvcvideo: Add UVC timestamps support")
-Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
-Cc: stable@vger.kernel.org
+This work was triggered by:
+https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me
+
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/uvc/uvc_video.c | 24 +++++++++++++++++++++++-
- drivers/media/usb/uvc/uvcvideo.h  |  1 +
- 2 files changed, 24 insertions(+), 1 deletion(-)
+Changes in v2:
+- Validate the header length once in uvc_video_decode_start() and drop
+  non-compliant packets, instead of adding more scattered checks
+  (Laurent).
+- Drop "Check header length in uvc_video_clock_decode()", now covered by
+  patch 1.
+- New patches fixing stats and clock decode to use bHeaderLength
+  (data[0]) instead of the minimum header size when checking for payload
+  data.
+- New patch removing the now redundant checks in clock and stats decode.
+- New patch adding uvc_video_parse_pts_stc_sof() to factor out header
+  timestamp parsing (inspired by Laurent's review).
+- Link to v1: https://lore.kernel.org/r/20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index a92a986ab714..e801874e272e 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -553,6 +553,18 @@ static inline u16 sof_diff(u16 a, u16 b)
- 	return (a - b) & 2047;
- }
- 
-+static unsigned int uvc_video_min_header_len(u8 header_info)
-+{
-+	unsigned int min_header_len = 2;
-+
-+	if (header_info & UVC_STREAM_PTS)
-+		min_header_len += 4;
-+	if (header_info & UVC_STREAM_SCR)
-+		min_header_len += 6;
-+
-+	return min_header_len;
-+}
-+
- static void
- uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
- 		       const u8 *data, int len)
-@@ -1192,7 +1204,9 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 	 * Sanity checks:
- 	 * - packet must be at least 2 bytes long
- 	 * - bHeaderLength value must be at least 2 bytes (see above)
--	 * - bHeaderLength value can't be larger than the packet size.
-+	 * - bHeaderLength value can't be larger than the packet size
-+	 * - bHeaderLength value must be large enough to contain the PTS and
-+	 *   SCR fields signalled in bmHeaderInfo.
- 	 */
- 	if (len < 2 || data[0] < 2 || data[0] > len) {
- 		stream->stats.frame.nb_invalid++;
-@@ -1200,6 +1214,14 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 	}
- 
- 	header_len = data[0];
-+	if (header_len < uvc_video_min_header_len(data[1])) {
-+		uvc_warn_once(stream->dev, UVC_WARN_SHORT_HEADER,
-+			      "UVC non compliance: payload header length %u is shorter than expected (flags 0x%02x), dropping packet.\n",
-+			      header_len, data[1]);
-+		stream->stats.frame.nb_invalid++;
-+		return -EINVAL;
-+	}
-+
- 	fid = data[1] & UVC_STREAM_FID;
- 
- 	/*
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index af8cef94ffff..278c7b0e535c 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
- #define UVC_WARN_PROBE_DEF	1
- #define UVC_WARN_XU_GET_RES	2
- #define UVC_WARN_QUERY_CTRL	3
-+#define UVC_WARN_SHORT_HEADER	4
- 
- extern unsigned int uvc_clock_param;
- extern unsigned int uvc_no_drop_param;
+---
+Ricardo Ribalda (6):
+      media: uvcvideo: Reject payloads with a short header
+      media: uvcvideo: Fix unaligned and OOB access in uvc_video_decode_meta()
+      media: uvcvideo: Use bHeaderLength for payload size in stats
+      media: uvcvideo: Use bHeaderLength to detect empty packets in clock decode
+      media: uvcvideo: Remove redundant payload header length checks
+      media: uvcvideo: Add uvc_video_parse_pts_stc_sof()
 
+ drivers/media/usb/uvc/uvc_video.c | 173 +++++++++++++++++---------------------
+ drivers/media/usb/uvc/uvcvideo.h  |   4 +-
+ 2 files changed, 78 insertions(+), 99 deletions(-)
+---
+base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
+change-id: 20261116-uvc-shortmeta-75ccb6707d9d
+
+Best regards,
 -- 
-2.56.0.679.gc527c65306-goog
+Ricardo Ribalda <ribalda@chromium.org>
 
