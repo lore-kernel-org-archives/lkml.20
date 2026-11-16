@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794784911;
-	b=fR7m4Jmeg7MpI8PBj3QziKodKJNl6PDSrQ7J78biRiQtZbF7/jfXfGDghwyPTVsmut/3
-	 15kFrb9QRUkK27TOFyCCwzLQYOsZysSQKyYySbq3y+9lKimdgXE+bT8iz0pg6Bvq5+sqV
-	 RstFvTleiWWRaRnOrK6PiI7u12yTkC4H7gB5CdXgZxfD0ZwHuW3ZChKnRoG2LOAA1Pp0L
-	 HO+Ozmhya3NU+dmw9T/egTh/s6IGRXWRhlYv3GqgYsKR3hH768JSORJW2VBp36zTPNBq1
-	 P4NIX6MImKy7zv05Ox/9w12RzY8iTiWhMJaqyxlUCH7C8eiSoXbYqkz3h34om9tiZkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794784911;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xhDC19L8bxetJWEOwt8UJ+2i0dljJZjZERjlDf4H2rw=;
-	b=AWCy2bhqeKeCovpvN3B5TeHA4WCV+7+vDckImWNzwB10yBCCi0Su0k5EFLeR1ezDrca4
-	 tx7+rs+JH/eW+RQh548oU5mqvwDl0xFbkeFZrfn8mVI0eWySWaN2PBr7SRrnTnTgtdtju
-	 G9AGciQdns4gXVSc2GkSGyGETBtFFOv1B+NnTeU/XKQRzyxGQo36Lf49R1je9Gzt1GNkW
-	 EfeJkTJvuht7FSke3Y3+13kM94qaA2O9xCAYasKdltbVmVVIJ3TfR9pxf+4/9Lt+8gN47
-	 36S3nGekMfBLZjk7AnNFpufzw2AyrSD/nelnD3kNyMq2Gn9uvD/d6zBgGcz0/q3GgDg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fUMPf3ZX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.57
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011057.outbound.protection.outlook.com [52.101.57.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794784924;
+	b=EvuFqvdugZj7KoSb/nfUb4fhbbwra5VaecQ5ESMqqtDvDkpgkBDXtsymSAC/95yVEaNY
+	 gZd+hNUpAdmIlFLDF1K9A3idaXUrIMkgbmAwX0IXN2jApDQLPhW9++57yDlYgDq0Bbk+G
+	 O54WUuaJQvhVGcTSOJIK/Wl+sPzNWRCIzFZNNAUTWny4hc1B3Drd7beUQM2sPOey6G8sP
+	 iStzwbBUjSUepX2yP0gMbn58gSC/fu/Mlv/ZsqIE2J6c+KsIGX/+uOxdB9O5Da4jlR8Wy
+	 eSe4lcFyLwfWqRw9ZXXXGmb2jVvMWoxrqiG2fqpfj3fpQ89dIysiCH3WU4COmf1XWbQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794784924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zAejWuLH6A6kWbjxkZ2dzmDOuVhvhpj01tnf5xLhIOA=;
+	b=E7kgyV4dHsLdAne8Nkvu6tVROBXxINkCm/Cx9AZKOOEVBegb0g07L9hx0Bs6TY2Au01V
+	 Cs/+6uIxcN6tVtJC71sxiE0IipLGTqrrHCv9A4bxJSdCmVTUgb1FjZVJyPTIxNnZB0nUe
+	 idbhyBmPivJz0OCu7dTYTVP2t64J7nGOKO5Vj9A2LNRZoUXvpuKCDTPDVvR+YK+KEPT2a
+	 ObQRU+j7e00iGumRs65mWkGdGif6JzPZ4phyqtk9EJOlNmuQpZ1Nefig8AED822WwXCkL
+	 eA44+UFG5IdYLZT/mBlaChkaFIALQUwFTwhvBwT3GP6H7owxuZUb44XzajGnfwnSfTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L78fOILN;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDF6606A31F;
-	Sun, 15 Nov 2026 23:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDF6606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655E9606A33F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 655E9606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fUMPf3ZX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e59+uSck3V6RDo5TQWOoJsYfz9osy5Nzo54ogUC+y/gpNVlX2gCjLomvptMD1umIUmtIkLd64L5C2MFFMpP2jdp0WaQ7C8e7czwZ4p9r/67V3PJpCPttD0YGhvcFWKeEScb+teXCouIhGAGzqkkZpkzdeSAVT8sY/K2iR3IizLABlOCzxkP1vwiJGPrGDy1d6zILTkoK9sCr1qW+/VNSGvkcjs8u6HVYiK+jQFRfkOWW35FQHxACZ/CWasQkdbChkmxBxGdQ+n7MmKG1wY4eKgKhUd+psc6tjioBX9Q0Qood1Q1eAb0erqpdinq60CwkdVx3UtwopL184DDPdFHozg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xhDC19L8bxetJWEOwt8UJ+2i0dljJZjZERjlDf4H2rw=;
- b=NLKuihxEQyoLRo1FrYs6pwW+Aq5CWHeRGCAngziJYVdhr8L5783Q8P+9LBinj1d+Nt8bpYCAnfqWARut97liEUTmomktc5cjfYt11AKy0SavE+R/FXDi5sH5lNMSZdqDc9686+NJigEszkFL3sp0M7El88ROGP9Z+4rD3znE6A8jz558sEXazs+fAdcqF4Bq4Zpo4qfhzQH1N0wSgoj8LmN+alxXw/2xYtipl+V6fSgNlUTYFRfW7n9I4wuPO1GPId+UL34i4Rim2zRZIPU9eSTBV011YDyO5pEAAuroBXh4c94fNxqTSGZUExQ6qcw4/ZiJBUtIUzyRs87yz3HA5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhDC19L8bxetJWEOwt8UJ+2i0dljJZjZERjlDf4H2rw=;
- b=fUMPf3ZXeWHouh7tWV9HWX3STF7dn0fGEauUnGh7Y+kWbasSlyrGwwCPmP98xGrmfO7veLbWRW91A+ECoZBYHzs65Kg74dr588Mn2ifrwVjUKwLXPyLKIyCH4sbld0g0fmbLDmBDqTK7eWuqpQYmJ2wV8xRsKVium8tvMQlJDbsrUF5W4tqBdNkJbrF3mPZF9b6GgSOA2QrBrZF7+uxDiDV+AF3tgJbMo2imCKZT3ZFzMy4ryw+tRgk/chbKfjakfs6Hcj1D8NvN33+42b3fvr3qkdWFZzDe+OLjLig1LRxRx6ms6Ayy6FQjYguaNjivrpSKfWSxk0c+0j5mALa2SA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by CH3PR12MB7595.namprd12.prod.outlook.com
- (2603:10b6:610:14c::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Sun, 15 Nov
- 2026 23:21:43 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0615.013; Sun, 15 Nov 2026
- 23:21:43 +0000
-Date: Mon, 16 Nov 2026 10:21:33 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Balbir Singh <balbirs@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 09/13] mm/migrate_device: fix use-after-free of the anon
- rmap
-Message-ID: <avo-M-Fq2jznQMYU@nvdebian.thelocal>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
- <avTzHDlCiaNSzhtX@nvdebian.thelocal>
- <avYNv-bmQAGE0ktf@gremlin>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avYNv-bmQAGE0ktf@gremlin>
-X-ClientProxiedBy: SYYP282CA0009.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:b4::19) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L78fOILN
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-492f0a1b685so2042462f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:22:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794784923; x=1795389723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zAejWuLH6A6kWbjxkZ2dzmDOuVhvhpj01tnf5xLhIOA=;
+        b=L78fOILNmFl2yRucuBd+RTaXWGuOJvcIykScC6o4ql3NvgDtxFGSzvX7Wb/mtz1gB+
+         VvaUY7a1I3RjWNeLCZPU5TYNEbggTLRKhVo5HzyHvA8mEYBsCXX1Do1SMe6lOraR0yq2
+         YsZczkGxxNJ7SwdmGEVRjrgeFxTY5GIJf/h9eu4rnRPyKFrJPkRH4VP4WjVUgAm1s2kI
+         wIaZ8A0Ymt/FxMFyg5/Hq8uZrKPvAGYW+39fg/TNnXdk1kdJGJ+7erQ48zxTdAY3/+S/
+         mSiUuFj7yJ3nw5LFjtA24ETQM6Rb/xq+GSOodQMTAtS7v534rN3gvysBU4hcu2/y33TF
+         Q7rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794784923; x=1795389723;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zAejWuLH6A6kWbjxkZ2dzmDOuVhvhpj01tnf5xLhIOA=;
+        b=tukXc2B9nZyFSCHlAq78lGK/pbB9B+cOURJDaP2QuXhyf3GHpJ6112mMUvfIhMYy+p
+         UZSq6WZrfeFAA4Io+lxM9iE+QtGteqjACMwo9YT2XYlkbDPeS5kD56CK9aUIqqvjQaMk
+         CljFaoX5PmPkCO1u90LlQzfge6eFm+fZtvB0CTecmOtNXk8JA9VvVM11Jp6UWUYPR+9+
+         EqagsYhsRsRxHffhpXHjJ2kolDLVzhXg48LwArrIYA7YwAw9rMKwozvOmhkPoLom+3A7
+         8vBq8GvJKPivvUTbmSQMuRVaFyqcDFsb7fmwUlPeSlfaF0JCp4v9UKfJO9pgvw7bDXSs
+         2slw==
+X-Forwarded-Encrypted: i=1; AL+hErFKCkNIoaVPnkOjtThngv/ojRntlMKvV8GEbeo6+UDonD3yibn5jKoBqPKQBtOv+mAdYcbTOMANRY5HMlM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/P9ha06O5WKOdAyAYnGAp/Q9fCFkBVZVaQ9Tsqbz5OfmZMOFU4
+	uCwH+EiyNyth5BLwlVwwOr4pkYiBB0QMMRb/2aCrBGPr73u7lljm+uQn
+X-Gm-Gg: AYBFou1B7phqNKQi2wSbTmxWPU8EeH0s9+2hHyCL9Z6RILKh5zYczJ8KrU37+ZeLucP
+	grS6VclnUBzYZjvY4GXojlvsKplyCZVNIrFv8RNL53iyoDbkkSuKB37sZhCVb/dCJ3amMAunOKy
+	ZXW7DNncW7oBVbPJqa/TONjUIrndzRQ8qVoL8h49i8Wmc/uamQ8OkkpBZ7VZfoprxDs5v4koSRa
+	S/E7bxf1Qqyz/wHaScea3LGKTucK0eieQWLEnnxp0Dd8Rab2TNsT4kgdqfgfnPvpU/8JdGmaLvd
+	MChF6bvPghNgQAQWoy3qNMnQ7MCjGMnKM/O0NAAvu/+JxdGazdVxN8NbRV24dYenKR1yl6bJCsY
+	qbT9H2Mg/Knb9Q8+sIcdp5JonRlrVe9DcYtCpHzTCDouLHL+2BpbGSLIaJnLVy3KFkK9Bkt6jou
+	7EZj+U0KtzjBBincjbWOArmO/sa3Oxdk2Y7IQ8NP0Oa/RKgm2S8M9vaCCI1QzHFIxutHUBEBkzA
+	2t0YNXK+9AFQZC0OETdlXg3konlsf3UHbUiEm7V3H1gBE/mg1c0g32d4SLpOa93G3s4o1XiPBzm
+	BTqMAqAqV2eA4BQ8Bq0uxYca4CAJlBfl03zgRu03dXyEVgU/MhMmnZk=
+X-Received: by 2002:a05:600c:83c5:b0:4a7:7d22:c50c with SMTP id 5b1f17b1804b1-4bb55a23b36mr182171115e9.2.1794784922517;
+        Sun, 15 Nov 2026 15:22:02 -0800 (PST)
+Received: from ingenieria31.oficinasStQ.local ([79.117.0.220])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571f976esm127920955e9.3.2026.11.15.15.21.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 15:22:01 -0800 (PST)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Helge Deller <deller@gmx.de>,
+	Peter Jones <pjones@redhat.com>
+Cc: Francesco Valla <francesco@valla.it>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-efi@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-embedded@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 0/6] Add splash DRM client
+Date: Mon, 16 Nov 2026 01:21:50 +0100
+Message-Id: <20261116002156.1027726-1-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,77 +116,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH3PR12MB7595:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd15c9bf-e0db-457d-a6f1-08df436f35ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Ldn5Gt8fFsZaBbWUVqOxvD2WY36F5utiSx/+A5cInEsNArf1Y1egMFV9mHvxigO9sZ/4LjIHoTg+Bj7E7Ti5WvAKob6PS9cBiMdDeXS1tC5PwWS+pDnKpWjw+VYXMqeGcjMkgelGQUZyEylS5ZsAb8JR9BLTWFLlZKPstJ1dByHDg3pEbEjL6brcoSbc5l15aUdRLzwoa2l9UhnHXFIWWeCkJW+33crEFjETRtzPyotkCzLvXZj0E2/uLe5HESaqF88Jk285cKT5IIK233HjBq1hXvOimTj1zfJ3Yl23SLI6KCRZxY/Bc9q9nN4DIaXZRGYgA/bQqwwJPsSqn4WnB16IyN57wueCiUghPiVbhaIiZlrCp4LWN4Sq+QvbldzyjqSwUKWE976QpPjyJBW93VzaDOt9GWTTLIZGJmiBaWXUSkEbBMKXF0bHMuvHDlzI02g4CIUP1GTbIChrmkUqpEvKvEbPLEWrxlq0bbKkJs3e+It1P/PCpoQZqn6hb9RDg9bZAkhjqFkIzNOsPCnVYsrWdiB9q/yWB/hpOJcWHU0jtB/UdPHJAGl7Bo+uwLRr+NSAzKCl1Pc6yAVOynCiBmZgF66i6ouVf9dc9Wm1lV9Z5SQ6M66eHvAey6ynDW7FOxkmKaDqgsARNabZ84HwG0STVlP42tNJJOwokAoNYIU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB598757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5RgADQErEK89JKfnoSX0jjUeUzCc0jLD4O9MB7I1xGJc6Yc+mZNTKwC9YlVJ?=
- =?us-ascii?Q?3WfpBRAF39I4saNxgbBamPWWI1nK4ddWE1rXJzYd8QsuPH74ewOkeQYvXgvw?=
- =?us-ascii?Q?TFBk4mvlVQNbNutL66kTBuTfwqawzt0VXd/gBownM0ulFKjN3Yrhn+6/rOcj?=
- =?us-ascii?Q?vDROCwAR2AM2jkTVNl+UzhbPECSwQUegQj7ombBGMKxtCNtMm4COg8QJdx9J?=
- =?us-ascii?Q?1U+VH2Wk4Ut8wLNID19/zp4kdfjy/s4QwkIVZGooR1vHf/KaHmq3nTQ06TR5?=
- =?us-ascii?Q?cbB45CjLx5C3pzXTKAghvy4ZtW3WnybECFFYk1bHJGYInY4WPZiF1UgV2oZD?=
- =?us-ascii?Q?6mnHXjTJDZIS25v0owHdEwEJLvlJnl10XnFHrFGrmjhDCqx5peqjMVzUJiqC?=
- =?us-ascii?Q?9oRHRjeTnS5GYnPzr8W08cr3sYC4YfMnZnHrepvRCkskSVtcflpbsiZoHS8+?=
- =?us-ascii?Q?7vAPNnZdJ1PZly6I9suzp+yPwFaU4ytBQ5TT6b/h5ZFelDPk5GePqvtWaEoP?=
- =?us-ascii?Q?RIxleCSjzkUFUXJlwcCViNDwMtyPwvVCDKakqRh+TlL9Ooh77s5jLI+iqjdn?=
- =?us-ascii?Q?hlJZWNDbRlefwVYpqXz8ES5AqP7mTRgEESj7XFdXxeYiAZVekHACkmKbrRoQ?=
- =?us-ascii?Q?ESdAgKQMpi3N6TRuZXd9G++siOzqNcXYXIB+jG5Tw2Rk5jWPEsv3pGywZNDf?=
- =?us-ascii?Q?SQIWd0TLrDqYgc/x9f2GJGD/mxJgvaIAztC+cTUl6f7+BFvnabT0FLdwXY4V?=
- =?us-ascii?Q?xgnXpSrED4VFdmQy8CzKsy5pH0XNfjJNvOp0+EDnul9reKbx1JdbGogXYIr7?=
- =?us-ascii?Q?3g4a1cJALNsdQnkoiTffuGJCd9obbsFX+4AQH8dxMvKCWyZq/HC3t8/2HeY0?=
- =?us-ascii?Q?C4218hGnJ0JtrpeU/q/qIa3pkbncJDIzbt0ae4nzJYMCqDDLp1F66TMl0+Fs?=
- =?us-ascii?Q?cxthXHzPq/+oQbyT3Wv5gMOWxZiQyFlzm0Ilo/JnSiGFAP9ZPnOEUfDOaJl6?=
- =?us-ascii?Q?KYpjfwUF97MNZYwfJDnrxTlwcJgD/DNcikTbXnuicOk7U+pR6uFymdKaFIFZ?=
- =?us-ascii?Q?y9NA8CQ7v1D2ep1rd6wfHZKDyx35ymNg+zvaxvsQD1Hn54M4zDKtnD6e9PO7?=
- =?us-ascii?Q?yt3qIEND7RJL2C1jjYUHjvCa4trcr9ol8djfZDVDY+G5pHA3C9xMQZBj8bT9?=
- =?us-ascii?Q?+XT66Pp1xW6mwOLvhb3EqVOB/ivLnSleYOlnNJ73DegIJMv724QqiO6D6M/C?=
- =?us-ascii?Q?JQiDC/MijwwDzjqNtDy+43rHNOYtrpDNSI6aRpdL/k2TK9mrFwyD5IK8UG+s?=
- =?us-ascii?Q?kGlAckrMtK8rdhTIiUipNbxwH1Czggy0WUmZtz++qhkbUjbVwx5zi1F39Qf/?=
- =?us-ascii?Q?llusniWxLhvKSR1Zj/gKwb3gfFoR+LrHVZrflwNhZfVKpZzuQNdJA/vdUcsM?=
- =?us-ascii?Q?CuVZAKBpaKNfdicmD2AEK3xuXsHy3Tw9mIHUPEm1VtwdlD/mq8qrX02FY45J?=
- =?us-ascii?Q?sWEgIh/HR0B95TuY9OmyjG1glZMWrRU6LkUhsCJ776pxyhIQNzqy8kN+9oPR?=
- =?us-ascii?Q?xI4sKjxspFCe93LxxrfdB45bHbsWI7a+y2dcbXG3opSP0EkpwHTZKQ2ATtVA?=
- =?us-ascii?Q?pSLtmlIggfHkb9wf6o4LTjr98YMXop+7adz6FDB/e2NtM01VY4kIYnGZSqx7?=
- =?us-ascii?Q?PVQmhl9b2e83dQVaAqdhJ+BmUdp/ev7V3RfmwD7zsWplukd3q7m7ih7aTVS+?=
- =?us-ascii?Q?KQx449ssfw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd15c9bf-e0db-457d-a6f1-08df436f35ab
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 23:21:43.1733
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SN98nuiA4iicw1IRtXOLEv54/+93GHmXFi08tWPo+10n53L7df4xCK/jeiw94P9EdciOQ2kjCUWj8KDHg3grZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7595
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-13 at 06:05 +1100, "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote...
-> On Thu, Nov 12, 2026 at 10:04:10AM +1100, Alistair Popple wrote:
-> > > Resolve this by pinning the anon rmap of each folio which possesses one in
-> > > migrate_device_range(), migrate_device_pfns() and
-> > > migrate_device_coherent_folio() before its PTEs are replaced, and
-> > > unpinning it once the walk is done.
-> >
-> > I was going to ask why this wouldn't also be an issue for migrate_vma_setup()
-> > which does something similar. But in that case mmap_lock is held across setup
-> > and finalize which I guess is what saves us there?
-> 
-> Yeah, exactly.
+This is the seventh version of the splash client, which I took over from
+Francesco with v4. As Thomas suggested [1], it holds only the part that
+can go in now: patches 1 to 6 and 8 of v6, with the MAINTAINERS entry
+squashed into the patch that adds drm_splash.c. The device tree source
+and its binding, the placement and rotation, and the connector
+orientation will follow as a separate series on top of this one.
 
-Good. That confirms my understanding so:
+The client draws a splash on every output, including those plugged in
+later, until userspace takes over. The image comes from the EFI BGRT or,
+failing that, from a BMP loaded as firmware, named at build time
+("drm_splash.bmp" by default); with neither, only the background is
+drawn, in a colour set at build time. A BGRT image is drawn at the table
+offsets, a BMP loaded as firmware is centred. A BGRT whose ACPI 6.2
+orientation bits are set is skipped for now; turning it comes with the
+rotation in the later series.
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Changes since v6
+----------------
 
-> --
-> Cheers, Lorenzo
+From the reviews of v6 [1]-[6]:
+
+  - MAINTAINERS: I am listed as M: and Francesco as R:, in patch 4
+    (Thomas [2], Francesco [3]).
+  - The firmware source is DRM_SPLASH_SRC_FW, and its Kconfig options
+    DRM_CLIENT_SPLASH_SRC_FW and DRM_CLIENT_SPLASH_FW_NAME, since the
+    BGRT is a BMP too (Thomas [4]).
+  - The drm_splash_fw_load() stub returns 0 (Thomas [5]), and
+    drm_splash_image_load() does not call it when the firmware source is
+    disabled.
+  - Thomas, I have kept your Reviewed-by on patch 4, as you said [6].
+
+From sashiko's review of v6 [7], and further review:
+
+  - Patch 4: restore leaves the commit to the work, which draws whatever
+    is missing first, so a restore that comes while the device is
+    suspended is no longer lost [7]; a forced restore stays forced across
+    suspend, and the work commits even when no scanout is left.
+  - Patch 4: a hotplug while userspace has the display waits for the
+    next restore, as fbdev does; only a lack of memory makes the image be
+    drawn again; unregister cancels the work before it looks for a
+    firmware request, which the work can now make too; the tile group id
+    is read under mode_config.mutex, which an EDID update holds while it
+    changes or frees the group.
+  - Patch 2: the image address and size are 0 when efi_bgrt_has_image()
+    says there is no image, so that they never disagree on kernels with
+    32-bit physical addresses.
+  - Patch 3: the comment on the DIB header says that a negative width is
+    invalid.
+
+Testing
+-------
+
+  - QEMU versatilepb (pl111, 16 bpp): no image, and the BMP loaded as
+    firmware, compared pixel by pixel.
+  - x86-64 with OVMF: the BGRT through the new accessors; with
+    CONFIG_DRM_CLIENT_SPLASH_SRC_FW=n, with and without a BGRT
+    (bgrt_disable), the background alone and no error.
+  - i386 without PAE on 32-bit OVMF, with the BGRT replaced from the
+    initrd so that it points above 4 GiB: the background alone.
+  - QEMU virt arm64 (virtio-gpu, 32 bpp) with KASAN and kmemleak: the
+    driver bound and unbound repeatedly, a crafted bitmap offset, and
+    the firmware arriving only after the unbind; no reports. With
+    lockdep too, over several outputs, tiled displays and the bind
+    cycles: no reports.
+  - Several outputs, one of them off, and tiled displays from 2x1 up to
+    3x3, 4x2 and 2x4 tiles, in several CRTC orders, simulated with
+    DisplayID tiled topology EDIDs on virtio-gpu heads. The layouts with
+    more than one row and column need a fix to the client modeset code
+    that is not part of this series.
+  - The error paths, with a debug patch forcing them: buffers and formats
+    that fail on one output, work queued while suspended, a restore
+    during suspend or with a master, a hotplug with a master, a fill that
+    fails, a firmware request made by the work and raced against the
+    unbind; no WARN or KASAN report in any of them.
+  - An AM335x board (tilcdc, 16 bpp), booting over TFTP and NFS, with
+    the BMP built in and from an initramfs, an 8 bpp BMP that is
+    rejected, and 5 unbind and bind cycles of tilcdc, checked by reading
+    the scanout buffer back.
+  - W=1 and sparse clean; every patch builds on its own on arm and
+    x86-64; checkpatch --strict clean apart from a quoted modpost line in
+    patch 2 and the MAINTAINERS reminder on patch 3, whose new header
+    FRAMEBUFFER LAYER already covers.
+
+Open questions
+--------------
+
+  - Unbinding waits for a pending firmware request, as it cannot be
+    cancelled and its callback uses the splash, and it waits under the
+    device's clientlist_mutex. Normally the request is long over; with
+    the sysfs fallback it can take up to the loading timeout. Not
+    waiting would mean giving the callback its own refcounted object;
+    I can do that as a follow-up.
+  - The BGRT offsets are for the mode the firmware drew in. When KMS
+    picks another one, the x86 check taken from efifb leaves the screen
+    without a logo, and elsewhere the logo lands off centre. The offsets
+    could be used only when the scanout matches the firmware's
+    framebuffer, and the image centred otherwise.
+  - The splash is a DRM client, so a device using it has no fbdev
+    emulation and no /dev/fb0.
+
+Based on drm-misc-next-2026-10-23 (cf5d8e390e2a).
+
+[1] https://lore.kernel.org/all/066197a1-aa2b-455b-84d8-4e2215fad764@suse.de/
+[2] https://lore.kernel.org/all/ed28619d-6ca7-46aa-82c0-c83f30a836e3@suse.de/
+[3] https://lore.kernel.org/all/avTjrfIEPgyvPDti@bywater/
+[4] https://lore.kernel.org/all/8eaf9955-485f-4908-bb65-1e0c3184fb36@suse.de/
+[5] https://lore.kernel.org/all/c2cbc13a-a58d-4c0b-87ac-62daa6de6fba@suse.de/
+[6] https://lore.kernel.org/all/4762a951-5b37-4e7a-8569-f55a4683c912@suse.de/
+[7] https://lore.kernel.org/all/sashiko-outbox-186719@kernel.org/
+
+v6: https://lore.kernel.org/r/20261027135342.2003632-1-maximpedraza@gmail.com
+v5: https://lore.kernel.org/r/20261013093243.505776-1-maximpedraza@gmail.com
+v4: https://lore.kernel.org/r/20261001195847.141192-1-maximpedraza@gmail.com
+v3: https://lore.kernel.org/r/20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it
+v2: https://lore.kernel.org/r/20260106-drm_client_splash-v2-0-6e86a7434b59@valla.it
+v1: https://lore.kernel.org/r/20251027-drm_client_splash-v1-0-00698933b34a@valla.it
+
+Màxim
+
+Francesco Valla (2):
+  drm: client: add splash client
+  drm: docs: remove bootsplash from TODO
+
+Màxim Pedraza Padilla (4):
+  drm/clients: Kconfig: indent DRM_CLIENT_DEFAULT with tabs
+  efi: bgrt: add accessors for the boot graphics
+  fbdev: efifb: move the BMP headers to <video/bmp.h>
+  drm/client: splash: pick the image source in one place
+
+ Documentation/gpu/todo.rst                    |   17 -
+ MAINTAINERS                                   |    8 +
+ drivers/firmware/efi/efi-bgrt.c               |   76 +-
+ drivers/gpu/drm/clients/Kconfig               |   80 +-
+ drivers/gpu/drm/clients/Makefile              |    1 +
+ drivers/gpu/drm/clients/drm_client_internal.h |    9 +
+ drivers/gpu/drm/clients/drm_client_setup.c    |    8 +
+ drivers/gpu/drm/clients/drm_splash.c          | 1060 +++++++++++++++++
+ drivers/video/fbdev/efifb.c                   |   49 +-
+ include/linux/efi-bgrt.h                      |   39 +-
+ include/video/bmp.h                           |   40 +
+ 11 files changed, 1330 insertions(+), 57 deletions(-)
+ create mode 100644 drivers/gpu/drm/clients/drm_splash.c
+ create mode 100644 include/video/bmp.h
+
+
+base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+-- 
+2.39.5
+
