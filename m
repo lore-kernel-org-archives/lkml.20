@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802570;
-	b=zCfmdgz55wGuHVGuDGVz/G8vWbdJokl3Y9OSRnUVrsAZbNEccV7zIJGjAvbQzdh8JE7N
-	 hQJQfy8wNGUoVmR5mDXAn5bCXpVf8K7EAJjiUPmiyol+dksCpMGXh+lSDbfRzSpNfOLp/
-	 oNjXIXVyavnJ4xZyFtFZLOIHmz4hZESyzS9894q7BYTm67np+/wdGmjPVGGw0QPLYusnM
-	 CZiUanbu6PJ4Q0cDN/s44FyQkoB9GOEW8p7g7GS93BtMVVZlGb4EcgVHmCxfNhRz3ernF
-	 JMMeE44nkNOPAgrt3xo3gWopNy8V/Us0fmkVhEHjFRX6pxTNl8eFfsI5Lm/DjlV5PEQ==
+	t=1794802577;
+	b=5C4pqOq9fAByrV+Ja0zke3mLJVNjP+ta++bW+TNIxnI6YtM7wFiLgQE/LHUMiipxw/aT
+	 /+3IqHK5rpmTwytnYmqG/WbCLRDh1xIH8+Uq+Na4QAxDA6ZyNO/ZXmh1w8JIU9641BG9Q
+	 NLyo71/4/a4k/sn8XrF5y9OdrKv2pCYP+aEcfE5mzKhThae+60k6XAf5wFXyxtD1QPVSM
+	 Cno0E0jUqwO9mTR3abjW2BHX5vdK7ezouVdIarMf2L77t9nUNj3oH0KMRrRf/+bwjkk/6
+	 mMy29PuP5aTiA8Cuxm+cj3kyw5iFE0IN5TRFg+R4AS42S4Dh43SMDxg469Ma4WSHlSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802570;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=7gT2JuiYFAN6v3dLuKfgKvKI5F6TdDS5679fODV4+m0=;
-	b=3RkwIT4yv+C0SA+myMScaXFZ2Tw6iqr8V9LQj3BiQ8FVWElvbtRWG0IHFMPpxSDfdfgM
-	 FIvzjx9nP1HHNe2G01rfPAJokuQx87rYUqZLiZnMEJ/oCElvZLF4v6q4b3HKYzAuQMX3m
-	 zjBUPPH4lrK/SGzE19H8DsW418s47GTkMkj6XWGydixR/66f4bA/PoRj5BKDvlPVmOeQG
-	 JvybTDXkato8QDH5oXSHz/rMGqkxwVn9W6gfIyXdUVRG8Ip1DIRoe7SN4Tfusk982gis4
-	 De38komL04phUMulkOoax5Uhx/rdLEgvBGcNCFNC4sCDUO2AMkwydvNjh8upFN3tm2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802577;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=pjmbWb2Lje8tGPxgjuae32cwUfNa7HeNQCPIdazfluI=;
+	b=A67+mxKXLWN1iKY+WUfqN7X51Elg21ru7e0p087Bd8khiwPwNqKuj28//lTX5/nUS3jS
+	 EnqIvOlfKwLCMf/hSuvlKkQvMK2DGklIX8lBLurh1xr6rWY1sV/cq7w6s+bjNhMJuE5GB
+	 RV+U5yiSqcoz+fQbQCxpy4fEko81CpafDcjJUO6lM28NpNry61XezU3zmbyd24QQOwz1X
+	 r/sdwKJVh6ZEshOVOCxZL+cS8KKGeQVBr4rcl4ixa9T3o8hM1ZbvCRgmSvq7a9arKPdsR
+	 +IgEU5y0vQJgAWH4XAY8uechOpMOF8L09IMF3hLxeqDDXqZNMbNFWIxWiYdLM6yikCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l5EctVU3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FC7D606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:16:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC7D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Mu48bp44;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91DC606A31F;
+	Mon, 16 Nov 2026 04:16:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91DC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l5EctVU3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B1CFC1476;
-	Sun, 15 Nov 2026 20:16:04 -0800 (PST)
-Received: from [10.163.155.94] (unknown [10.163.155.94])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A34E73F632;
-	Sun, 15 Nov 2026 20:16:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794802567; bh=07M/qatRqX8GlvVNpZ3BxRX/Cpixfubu9N9NgYkUMYc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=l5EctVU3pqdnc7UTBpxl7faldAhr1+sj1M1TgRsDoWwuRaD2Ni+NCqfZXSPrBLEV9
-	 nliJLVvf2ZoEHEcuVd2Fib4wJkUcAwjA1hb95cFt3SEwx8elzzBENTxWTjUGc1ZINv
-	 yMczDVQGRVCg2Py6/j4qGFIHtEmai+BzkruYIMuQ=
-Message-ID: <253a1587-0f76-4013-babc-f7c9c0295eee@arm.com>
-Date: Mon, 16 Nov 2026 09:45:58 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Mu48bp44
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=pj
+	mbWb2Lje8tGPxgjuae32cwUfNa7HeNQCPIdazfluI=; b=Mu48bp44yXnW2arbmH
+	olSwt92HnUyG67sWgxVf2s9ynhCCHI+NlSS7IKQlYmkJRkirs7TDb8lOqPhVjlX+
+	ahMvtGOq6HeAUQKYDnld7VhhpROm5Pw4EWgV1OAcKI9O5s+5kbR+I6ZMG+mgcApp
+	DqB5HZszm0/iF6PWJ2kHhZtSk=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXP_Nng_pq40UOIg--.4498S2;
+	Mon, 16 Nov 2026 12:15:36 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] wifi: brcmfmac: drop glom superframe on header parse failure
+Date: Mon, 16 Nov 2026 12:15:34 +0800
+Message-ID: <20261116041534.24-1-shxzhaosr@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009072232.18-1-shxzhaosr@163.com>
+References: <20261009072232.18-1-shxzhaosr@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,84 +65,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/9] mm/vmalloc: BUG_ON() on an unaligned range in
- __vunmap_range_noflush()
-To: Hao Ge <hao.ge@linux.dev>, Uladzislau Rezki <urezki@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20261110112546.261415-1-hao.ge@linux.dev>
- <20261110112546.261415-6-hao.ge@linux.dev> <avWtxcH2mKw7dgbp@milan>
- <cea5d9af-435a-4708-a937-59c7cbcb169e@linux.dev>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <cea5d9af-435a-4708-a937-59c7cbcb169e@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXP_Nng_pq40UOIg--.4498S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF43ur4ftw17uryUZry5Jwb_yoW8KF45p3
+	y0gFWYkr4DAr4rCrWxAF1IkFyFqa1jya4UKFW8Wa4fuF4rArn3tr409Fy2gr1jyr4qk3sF
+	qFWSvFnxJr9FgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j4zuAUUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7QhUkmr6g2igjgAA32
 
+brcmf_sdio_rxglom() uses rd_new.len_nxtfrm and rd_new.dat_offset
+right after the superframe brcmf_sdio_hdparse() without checking
+errcode.  On parse failure those fields are either uninitialized
+(the early -ENODATA/-EIO/-EPROTO returns) or hold a rejected value
+(the -ENXIO bad-offset return), so bus->cur_read.len gets garbage
+and skb_pull() runs with a garbage length.
 
+Check errcode first and drop the superframe with the same cleanup
+used for a bad subframe below.
 
-On 16/11/26 8:51 am, Hao Ge wrote:
-> 
-> 
-> On 2026/11/12 20:15, Uladzislau Rezki wrote:
->> On Tue, Nov 10, 2026 at 07:25:42PM +0800, Hao Ge wrote:
->>> The PTE loop of the unmap path stops only at addr == end.  With an
->>> unaligned end addr never lands on end, so the loop walks past the
->>> range and keeps clearing.  With an unaligned start the loop begins
->>> in the page containing start, which extends below the range.  Either
->>> way the unmap clears the mappings adjacent to the range, and that is
->>> nearly impossible to debug afterwards.
->>>
->>> vmap only installs page-aligned, page-granular mappings, so an
->>> unaligned unmap request is never a legitimate teardown, and there is
->>> no way to tell which pages the caller meant.  Check addr and end at
->>> the entry of __vunmap_range_noflush() and bug out before any PTE is
->>> cleared.
->>>
->>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>> ---
->>>  mm/vmalloc.c | 2 ++
->>>  1 file changed, 2 insertions(+)
->>>
->>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->>> index 86fbb1d2b27a..0565cbfe325c 100644
->>> --- a/mm/vmalloc.c
->>> +++ b/mm/vmalloc.c
->>> @@ -518,6 +518,8 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
->>>  	pgtbl_mod_mask mask = 0;
->>>  
->>>  	BUG_ON(addr >= end);
->>> +	BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
->>> +
->>>  	pgd = pgd_offset_k(addr);
->>>  	do {
->>>  		next = pgd_addr_end(addr, end);
->>> -- 
->>> 2.25.1
->>>
->> I am not sure this is good to stop machine at all. WARN_ON_ONCE()
->> and return?
-> 
-> Folks tend to dislike BUG_ON. Dev suggested switching to this when I sent out v3.
-> That's fine. After all, nobody has hit this so far. I'll switch it to WARN_ON_ONCE
-> for the next version.
+Fixes: 9d7d6f95bda1 ("brcmfmac: streamline header parse code of sdio glom read")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+---
 
-To clarify I had suggested the actual check, not the BUG_ON, I thought it is a
-well-known fact in mm now that BUG_ON is not to be used : )
+Changes in v3: add the Fixes tag and Cc: stable as requested by
+Arend van Spriel.  Re-verified against current wireless.git main and
+wireless-next main: applies with no offset and no fuzz, and
+build-tested with CONFIG_BRCMUTIL=m CONFIG_BRCMFMAC=m
+CONFIG_BRCMFMAC_SDIO=y (baseline and patched both compile clean,
+0 warnings, including a W=1 pass).  No code change.
 
-> 
->>
->> --
->> Uladzislau Rezki
+Changes in v2: check errcode before sdio_release_host() so the
+cleanup runs under the already-claimed host, avoiding the extra
+release/claim cycle (suggested by Arend van Spriel).
+
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index cea52d4..d30468c 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -1649,6 +1649,17 @@ static u8 brcmf_sdio_rxglom(struct brcmf_sdio *bus, u8 rxseq)
+ 		sdio_claim_host(bus->sdiodev->func1);
+ 		errcode = brcmf_sdio_hdparse(bus, pfirst->data, &rd_new,
+ 					     BRCMF_SDIO_FT_SUPER);
++		if (errcode) {
++			/* Superframe header is bad; rd_new fields are not
++			 * valid here. Drop it like a bad subframe below.
++			 */
++			brcmf_sdio_rxfail(bus, true, false);
++			bus->sdcnt.rxglomfail++;
++			brcmf_sdio_free_glom(bus);
++			sdio_release_host(bus->sdiodev->func1);
++			bus->cur_read.len = 0;
++			return 0;
++		}
+ 		sdio_release_host(bus->sdiodev->func1);
+ 		bus->cur_read.len = rd_new.len_nxtfrm << 4;
+ 
 
