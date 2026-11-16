@@ -1,107 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827462;
-	b=ZlouBlyqwifJIig2bDrdJVZbbdK4C7VbzCmVc0+Ke4slZPEeeRCA0/AW4tq914oZo2x3
-	 /d/huhThCtLmjelkt8cMGfnd+rSXC46Q2bkRsy5clhy0ZBibtFSpDDTy3jgt0Z+NfKnUa
-	 wUYPLR/uA3yeXHFYwdJ/GzncgDO1iqns/fwH1I1R+LZP3dQTS4RYq8nZdW2u+OBD941j8
-	 W/Qtu9JN15MHa6KuFcb2q+wT+2DcgM2ccHcfu2dlgmVmuH82sVKTuP3yYm+2VLNCLXGse
-	 7WISgwDiT76BhRO7Ab/tppYNFgaDDcLEP3S/geW/9RHFgXt+IXstonIimzoWb+IRTUw==
+	t=1794827454;
+	b=Fhu7n+IxiXZFiYYNxp6fmcgD3HcFLxeEY15uCBMQ8CUb0zjD/05yUWkcSnAmYOBUKRTD
+	 VInhTZ5mrTynau0AndkwSPGtMUU/xug+bQ5qSNqcSYTH07+R49A/KxT5p0Ua3DTMAyTiM
+	 xGLCfBixdutukVS5YlGMG6Nsz7DlKo1zlD97WV0M3FXyHyHbXRPM/Kr4NMyk8zoQ/stmt
+	 5RG+ehr6+fHoqo250YTLx/gnUanvdtO+vY3x0MEDwuwxEiiUXK/9IMfxlu2VGhqBZh9Hb
+	 akBCbI/HzMRsj8387XVG2cMu9M7gQGuVOagKbZWU/DSpls8fOZeYWLQ2mooFv3dPfyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827462;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rzDRDu7/JODZwbuavobSKTv49NxzFkRfd84aGaTT9+E=;
-	b=dz2H7Oz54cNlNfJWW1LgWFOJDL92gvFRdVdgkZ0e+0ISw03E1uW4u96LLGuRLruG7/51
-	 QIaZLgi5GnQD/ATAgqXcvGH+Ep8+8H/lOY95Jv4V7QfkbDq52uEcxm9flMbP1xoj6rvoK
-	 M20Z11PeiSyNOA5vFTBpI9f6V0EHP/FIqQ+geT0O4fR9V8Q6JzZHD93Kkxxqa69I3e3XA
-	 C4Ef/pdNfkkHTAd6AE6bhxEUIM/x8A70GQe8Go4zaEq7cWf/UwTV7a13qyD6uQUlS5E0K
-	 LGkB8zBnCGVrxlzVGGCG55fjiVHsP23qniNILHg2pE+u8ili+QaK8I3FZOddMOUiURQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827454;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BY87H/RnXilQq13XAhtvlglG6136WbkekRPXJvo2I3U=;
+	b=s+k//LAOGv22X8fclpoZMjvu3uPFshH5VexG7uQL4NqaSBr44WS8zmnySYxf0hGbTQTD
+	 q+RPLc7odXiLath/8jAWaH0fkKZoFH4NZuuuxlyheeohy7Ie/Z0CQ0G9PoW3FVuiFW/H6
+	 gQSUkt+E+5a87lLaT7zGV3Yvnv0d1wTCMNP1/njanX0LSrEZtaq2nxPTXgeZN1zDDRuJj
+	 OMxhNeSY95nSonQM7GWF8X7RjjgeyiyadCdU8YeWXisjDfD+sBpMd+ViErqM0jv8ApK8C
+	 tNXKDZOvTiS9X0lwnYDxr+dU8uQlmLYPUtxsX//HLbttdmwrLWYx7OPD+cP/GhJ+2Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZtYDDyN;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tsq4iuTK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA556083781
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:11:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CA556083781
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EB460A6F54;
+	Mon, 16 Nov 2026 11:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZtYDDyN
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b3a42a4bcdso34849a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:11:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794827461; x=1795432261; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rzDRDu7/JODZwbuavobSKTv49NxzFkRfd84aGaTT9+E=;
-        b=FZtYDDyNbIjuUUoA3QzBBqqfv8lLw3rZlhyluQN2H52/PSXZFPJPkFTfUMsWLpVcZB
-         +/f7W3mjC8sThyJJEcQQ91j2NdvFAztL1ncVMMk6UXuT9opRL/PYqTvivGY0P89LqggE
-         Y1/qTrI6JWRwkjMo5niHIqxeAFeDgJoU37ZmlzjAZF8T4v0I0JsCPwDaWCUdyOBoZxEq
-         +HQY9SQaicWAwcUlZKP4H/glriZRjHz2Z8mMw6cahYt8YTsJF5t/75KMo9oWAD+f6PbF
-         PFW+qoQp8ahdR1jTbstdRagOq1ph7sTAUAOrkMuQuTON7rNiDbqbs2cF9esIAzxWDE3w
-         o8Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794827461; x=1795432261;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rzDRDu7/JODZwbuavobSKTv49NxzFkRfd84aGaTT9+E=;
-        b=V6KF5busjDKlV7FybSIbRtXn+rvjG3UQ4LVEDb8rXxFaLUmKcKAn4sOTvO7zcIVJPO
-         vEknUqB52zZRZSJZDO4VlDbJ9+bD3bkxETyADB+ObgoQuLrYbzHaYcRv81oRvNO9T8eQ
-         12lZWX7fGbk9kqkuFt3VmrMmnW7J/gD3q9uqRagb1oiZkk6BvFQEtUi3QC2E0L8ZaUzc
-         DUixBQb1En5RndOfJ+eAyAAd9E7xz+bCKELyoekZOnaSa60boGB+Nr5DkIrM90G+Stki
-         DTOxdZBlsTmVWkIklZoe2dM97D6yNpXVufzmUa7HBhIZuALucZ0ernogxrnPAY+M269H
-         MvSw==
-X-Forwarded-Encrypted: i=1; AL+hErG/Ftf9HHwTLnB7iMgKdv2HRS6nDADrHjenQF8nTKmmtP1VtzhKSRiIK2r5Xv4wGLEf7wuXS20cBN0ssxs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86GODvL4fHA56hscZ6Kar/83cglKCE5BLqn+W+Uv7FsqhSGK4Q
-	hvvFu/I6epfUFzdZAIdRbCVTPPiONCPbfHWUy5iV5K4tHPbGDXMHTmtD
-X-Gm-Gg: AZFdTZd+7kffWdQ3hox3QYbU36Ucw2Vo9nQzQdmUdu40lGpzRuZ+ixmQch2g2vAk3oW
-	BVXcy2kDxEeC6gxeo6RgRPu7tC41PSiNRduJKOxI0W8M22rqcExaDFN6kpqv2QR7hZlfXfEKZ8L
-	lxo5bkbdcyZrijeIzgTPBHTqYJrizt4f+1sRx0SQkD/sxXJe6zLT6GsWdU16stZFbLUuSPt+6iH
-	3WViRJsAJ5sKQqiRhjQoLkzHZuv/GBeRxAfnw/LBV+oV5UmpExzeB/xkQ9LIZWY/+5dLIm+9oP/
-	pHM5FhXeZo/SqPBHFgK7Ku9WnyAeN9TU4k88St0vP9si5FabV7Js1k27DcpDGDGpzabLUjAuWqI
-	dmgLuFX3oLubiGqrYYmf6A58bajA9War/I/UP7QJhhLvg8/DooNhQLX+9ogNC8qi6sqV1UlXglE
-	3J/bnAXEt7SWzbAQmQXGiFAjU1zAESoJaxzADTXBSX4dcjYbJ8r6y7m9V2roFbdhn1dfgKqRN4j
-	v4pQX9403sR667RUCscWMU5q6KkDuNi0SOkKF8prn/qfS5E+rDKHAhd2uLFBa66QCJF6zGI6Ban
-	PIv882pbKj/uHi0XwQPe9LA3Q9UTeb3QePVW6h7Z9y0nb6S9Wt7R9zzHhLYVZXRsboTRQO6pH3U
-	VQjbO0D+c9xpzAMY=
-X-Received: by 2002:a17:90b:588b:b0:3b0:9984:18c9 with SMTP id 98e67ed59e1d1-3b1b09f37ccmr8454898a91.11.1794827461360;
-        Mon, 16 Nov 2026 03:11:01 -0800 (PST)
-Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b1e9ef15sm9162815a91.0.2026.11.16.03.10.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 03:11:00 -0800 (PST)
-From: Lian Wang <lianux.mm@gmail.com>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Jihan LIN <linjh22s@gmail.com>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [RFC PATCH v4 00/18] mm/swap: introduce priority queues for swap device allocation
-Date: Mon, 16 Nov 2026 19:10:30 +0800
-Message-ID: <20261116111044.28724-1-lianux.mm@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAMgjq7Cq5OQWdompBbEpyJTG3PhtdSLFUdb_Dtht3qH+u5HVhw@mail.gmail.com>
-References: <cover.1794666741.git.lianux.mm@gmail.com> <CAMgjq7Cq5OQWdompBbEpyJTG3PhtdSLFUdb_Dtht3qH+u5HVhw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tsq4iuTK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416851F000C5;
+	Mon, 16 Nov 2026 11:10:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794827454;
+	bh=BY87H/RnXilQq13XAhtvlglG6136WbkekRPXJvo2I3U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Tsq4iuTKRhulkomOLwfJCGY7RSUTospv3OqWJbcYQQFjEoKupjSCxw6Yy3rPq4pB9
+	 +LrXvKA4rBly7ufMqZGGURI/PkATv40fMYkjtpqcL/tNHRyeTByFbJTZmujbH0d7/Q
+	 HXCq2zQGevHC5tGi3GM/YXAFadxr211gKZs+efK2OMgZEBHzheaSEy+WXOjCe8RO5r
+	 TJ2bRHJjwjB/ITjzevhBLxBTbfuTMUOIvIjO5xZFZMBmnzadWnSvOl1+uUswfItRJz
+	 cvn+ZB4G6vMTJzmJfSaWRJJZDIQQXhCz05Bm/gc8LbBO51UdG9XgtkJRygpVExqJdR
+	 0R8YByohYWTAQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 16 Nov 2026 12:05:12 +0100
+Subject: [PATCH RFC v3 39/44] target: fileio: refuse files on pseudo
+ filesystems as backing files
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,31 +53,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-work-loop-pseudo-v3-39-8cbbea1cf34f@kernel.org>
+References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+In-Reply-To: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
+ target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+ apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
+ netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+ linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+ Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kselftest@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Sashiko <sashiko-bot@kernel.org>, Chris Down <chris@chrisdown.name>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2223; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=11gfWGw/ZwPDfVFtqD+CkdePFs+glK5xVNQbp3ek2T8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9etzj8cs54I/rlC7xuCARluu5a1aodKvyswTvkD6zv
+ 1dfVPVMRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETirBj+e2jMajfMFJqpekRG
+ aqlo40Pe5TUVy7c/+DD7XlLpsaZOLoa/knzXPN++Mv3K99Ndbp9ymKjRnUWue9I2sb1mqWq5pLu
+ bHQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Hi Kairui,
+fd_dev_name can name any file including files on procfs or sysfs. The
+initiator then gets to read and write kernel interfaces through the LUN
+with kernel credentials. Refuse files on pseudo filesystems just like
+loop does by switching to file_check_backing().
 
-On Mon, 16 Nov 2026 11:52:30 +0800 Kairui Song <ryncsn@gmail.com> wrote:
+Do the same for the protection file. With DIF protection enabled the
+fileio backend keeps the protection information in a second file. It is
+named like the backing file with ".protection" appended and
+fd_init_prot() opens it by path. Whatever that path leads to was taken
+without any checks.
 
-> Thanks for the updates!
-> 
-> Nice, but what does n/arm mean?
-> 
-> It's worth mentioning that the global cluster cache is gone, so tiered
-> allocation will have a much better performance.
-> 
-> It seems the sashiko review is all green, which is great, let's hear
-> what the others think about this.
+Note that the helper only accepts regular files and block devices as
+backing file and only regular files as protection file. So far the
+backing file could be anything with ->read_iter() and ->write_iter()
+including character devices and FIFOs.
 
-Thanks for the feedback. By n/arm I meant the number of runs per kernel:
-12 builds for each memory limit, and one BRD invocation. I'll use a
-clearer table heading.
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-206765@kernel.org
+Reviewed-by: Chris Down <chris@chrisdown.name>
+Tested-by: Chris Down <chris@chrisdown.name>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/target/target_core_file.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-I'll tidy up the cover letter to make the motivation and scope clearer,
-including how removing the global cluster cache helps tiered allocation.
-Once I've collected the remaining feedback, I'll fold the changes into
-the next version and drop the RFC tag.
+diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
+index a5391e57e9aa5..c747cc4a647ff 100644
+--- a/drivers/target/target_core_file.c
++++ b/drivers/target/target_core_file.c
+@@ -145,8 +145,8 @@ static int fd_configure_device(struct se_device *dev)
+ 	}
+ 	fd_dev->fd_file = file;
+ 
+-	if (!file->f_op->read_iter || !file->f_op->write_iter) {
+-		pr_err("FILEIO: %s lacks ->read_iter or ->write_iter\n",
++	if (file_check_backing(file, FMODE_READ | FMODE_WRITE, S_IFBLK)) {
++		pr_err("FILEIO: %s can't be used as a backing file\n",
+ 		       fd_dev->fd_dev_name);
+ 		ret = -EINVAL;
+ 		goto fail;
+@@ -861,6 +861,12 @@ static int fd_init_prot(struct se_device *dev)
+ 		ret = PTR_ERR(prot_file);
+ 		return ret;
+ 	}
++
++	if (file_check_backing(prot_file, FMODE_READ | FMODE_WRITE, 0)) {
++		pr_err("FILEIO: %s can't be used as a protection file\n", buf);
++		filp_close(prot_file, NULL);
++		return -EINVAL;
++	}
+ 	fd_dev->fd_prot_file = prot_file;
+ 
+ 	return 0;
 
-Best regards,
-Lian Wang
+-- 
+2.53.0
 
