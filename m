@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815147;
-	b=MT1Mrotss3R3XFnSdptY5QLPe0Y5UzkRfUXg/SoL2w9wKGvsA2JYTn6YR7UFsm91LQi+
-	 kUHsu7YJhG0zchzsTj1ictEn4Fo3On5WeorviUhrSyjRm0oTs+oOZxJJtXSncjjSlz/1/
-	 pCFUQokrsmRWtXoJ5zXQ/TciPfs1L57gFZru47YIYKzqjKfaQbu/OtX5M0PV+mOYipnLx
-	 ksX/0G3DIO1ec81Qk5eGIUxldrVSVWjS2SuSmbSotheD6m/tLn1Atm6e5jKhEAdg48cUB
-	 txH8BZPGkU0NTcDOGeLgRb6BohiHoT9LjsD3kOIIutVIRmuE4BoR6ubPI2q1QzQb1/A==
+	t=1794815167;
+	b=4Bw7BeoDYMqpN3dB9lK1LHHWkmD2Wl3iOAZF/LvF0tasPAcnSnL8C1n+onTZqZan/63E
+	 McoWhg53gSmQ36aeEBSqK0Yg7ETonmEUeHGqfo09xlKQzVqgbGLBSHmCs+U46o/1vnNd2
+	 1iHZpECgedMXNeFKOVCckcc9AthB1riUhtwAmQhEEFGvO+BwrvvldL5a1UWpgP/Bs0zKO
+	 uYmcCaDeaYSHlV7EOqQnT8jY+ARZmmuCIgpkeeBEPMkyriLQICCTv+fX8hf1z5a0g8yom
+	 vcTuzrM1ca4rCP4Ixj6khvFmzgDYAvPfpR0raJ37TdcLctr6He0hBaUtuMnI8pXGSyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815167;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=FfDXuzsHPVrTMdoIwxFgyyM/14PPW5/I3xDDSYPQi5A=;
-	b=x4VJ+2WXdaoUfkx+zxu/aD/I+HblNupW3IMuo1apThcUpCmOmhqJr+jG6Ic6ijZ+JIgh
-	 2cyjMQb0hDwX+JWU4ddC3ug8WS+DQUy3i0kiioVck7KPXuQA5ksK95O5OUOpALdVdMmFt
-	 UW6RHZoNyTfcXAjjIoNPDeInyqMlSSNONKB/omxJO4e87AtqsPcojucZ4FHc3aXSF+rHn
-	 AgOuxuEOHIriUx1HtCMDWrhDEYKN7gQ/VqY01Q727NF8yuR22WXdwQkbEypMaK4RAO4Ij
-	 DSr+Bi0J+cQLO2rJDwIgrQkDSDW2fiAcJjDX27VTosxyDgwQqawZG5NO+8wR0be81eQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FSln3GJdyilcSJoNNwMauSr6iNLe8w//JR+9QfO7bhg=;
+	b=lTBcoiL28CES5VQUMwyzdNsjYp6eEJLEuidWPkAgszaKTJMVU42KgqT06iIqf9q7WwWC
+	 3o2pluzMxDAYPN/lK5UKHDfDjJFJqXQx/HKkXhetUAsZOToeF5pfL0DEEJ9XVWxKGaWIs
+	 WjTk0nKTqqxrPlfXyojJzUjiY3Dq81Zn1iyU1IHQBD4PVj0/vs+Dkvdik+KnJpoeVSv4J
+	 2NrRtVxsryPHaebboaVLAxI79y4skMbnG80+IwUubfix6rOBG5aBXBKFTqjcTm3Q2O/ZA
+	 RxS33EaXPrfMFAaxe9q3L/1LmYm1SQL9HTPPNbs0KM9zWV9fnEInUNOXAtEjJYRWVHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gfpOAfsO;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O9ebPlG0;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB1260A3812
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCB1260A3812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61714606A339
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61714606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gfpOAfsO
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a3451ea93so3258298eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O9ebPlG0
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e987a2ba0cso16939825ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:46:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794815146; x=1795419946; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FfDXuzsHPVrTMdoIwxFgyyM/14PPW5/I3xDDSYPQi5A=;
-        b=gfpOAfsOQmf00LUm0FatQASOf8w6UeXxal5z0CPNuskqx3DXqq4VlwUcZHqhiPzN4G
-         TtNU+egsPs0HUMsywGmE7E/UssxsXDHqcyfI8ck6xyFVDmGR6ELA3tGXbtJPCl3Zd1WQ
-         KsTpwZHPohm5Z9Cy89Q1/+jZuL3LX5dzd3xvUOPK6pkyODc5CqfUSjL1Qz5IAfTwbIU5
-         LKujT5GSu8XYFIPuX4XbvzrTjNPkaXHDnE7afbyurQN8wAxNjuPepp50BeEOTojWNMgh
-         vUxf6LBwu7/wixpfW2RikN1EQP+ff5yDwxv6/dSRqVcS/I/MupwOIiOuXaBjydIr/ug5
-         3uQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815146; x=1795419946;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794815167; x=1795419967; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FfDXuzsHPVrTMdoIwxFgyyM/14PPW5/I3xDDSYPQi5A=;
-        b=g/K+u69tDr3vgTLv+S30QSWsKhvROVbh4gHFiJVo0Oy7A0wETChLkD2ob50ppUaz/O
-         0l44xP89zXGEG9yyZVxxqqJ9YZKJMhBBGNo8ZE+45Ma7lIH4rvBnVlIxOcQmKSW8N2UF
-         c+uUj1/YrKBo3Dzg4Bn3NuxEnucMYHULyEvEcnnda/7uSlS1OjxVk0UjgHTFeE7ttvGW
-         mBHGeyeAXw4/fDYFg6bKHGh18Z+ypcyGA/qRwA1bGchHpFHiFiy7uBwrYnwO5grNauU9
-         9+wFEtcO72lO/HLV9lCfgt7CK6Rxv4IUdY8WQ5FXs9Ph4Om/xWCGlyKd/Rd5+9ornA47
-         R6cQ==
-X-Forwarded-Encrypted: i=1; AL+hErEBvywwLAnV78n/UATyq2h5foc+HP9z8ZZoHkqzbQSglcQeJ0XCJG4eOn9Eab+95vur8XKxXom+fb1xru4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kX/8pCJExZ04L375kyDpzqCKbEdAS2l8/+NGVhZm1idu94yZP
-	mxx7qHY6+ZkeYOjEzjVaxB8ko5Q4Gk5SJXjTMWNfxEikzQsKmYZUmjtuS0NiPG6AAOJma7dyh6Z
-	3bzSy39S1HA==
-X-Received: from dleh20.prod.google.com ([2002:a05:701b:4354:b0:1b3:befc:72bc])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea81:20b0:155:7721:3a4c
- with SMTP id a92af1059eb24-1b50312b26emr9162535c88.35.1794815145774; Sun, 15
- Nov 2026 23:45:45 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:44:14 -0800
-In-Reply-To: <20261116074414.3174737-1-irogers@google.com>
+        bh=FSln3GJdyilcSJoNNwMauSr6iNLe8w//JR+9QfO7bhg=;
+        b=O9ebPlG0Ls7i+E5Gm6i+9CQPALSK0CP62IX+8iRnrZXehTO3K1ciRUFmv/l56ogw5x
+         G8/dr58UAY/4mlTAhUO9Mlrzluf3bWofaL41Y/Kz0LLkkLCbPWoNB3IklpJKNUd+5oUV
+         r/fKLW+MQyX8BvynueVDi9b80lfHKHlz27s8otIDRwl4b1Xu8mc86irlndZ5oj/VVXfd
+         00QVC4MucxHF/JRgU6wxNH9nb75udF6rhWDtPPVpCjixLkEuqvM4I0xGG4Gi6+GNVcay
+         8L/wsIhT8okv/gmnAn5qCBoymH5SUs37mvbLaQDLCO6cI6wtyD6ZlqXPtX+H1ZQxZ7yl
+         30eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794815167; x=1795419967;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FSln3GJdyilcSJoNNwMauSr6iNLe8w//JR+9QfO7bhg=;
+        b=iVgQFNQrwj1Yp1Ku9SNL+vSTAbsmm5Ib0+3fgpTTFk6la/ilcQVUGvoq/oToLCl7Lv
+         UB1y9gaO2lfygB2hWTqfCNuaq26t7PiEaoGV9ShTtfFKPPbrZF2FcanMkWfvR57grWUV
+         mA7UCOJe2wN5/kX4SGR4riXk5WUZ7XNbDTs9AiihGtwRnoaVXJCPBaVFbe8rKoFjGlhE
+         pGpEFGw+XjDqZl5lOq0sut8hU5heNQ3aQJIupNkcS1PfByLUebA4wkl2hxw8IaTUwFK+
+         yWeMm5CGTTaqDeMY2NzWMqelSkKGZ4I2RS0tBXgfbP5UBmjsn+AyFGaUrFONzQwmLOPj
+         Mgew==
+X-Forwarded-Encrypted: i=1; AL+hErGS3NBIc5sEalVsOMkp0Qp2hArUmhlCukPTF9sLzCrYb8kjq96wOK/PMJp54YC/4y75TnuvizeEbNTpRDU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6N3lOxqFq1zha/QzWHkN9F6xDzeyp1jLnZHgJHnDbmYIMQ5dC
+	3dr5ruzWRhmq4mufZ3cGe9qrJ2WC9P0o6VDosTjwjVKFUfe1GEZc6r/t
+X-Gm-Gg: AYBFou0iiu1zMBuVMiLtCptsaQa2kkEECYEH2rLOyZo7Opfrx3FdTNBn2re17GI6K0p
+	foEaAptNGBwGuqA7NxfrAZ/5rj+cqDwboNrqailNdHkgUwJ+OKGb6cvmdUb7Uebf5dXjOycQvPP
+	Lw8X1oKfJBeKt4fSprEMXdHhvZC4cL74E5Li+KarZe+n5maWOpx+7vrJCXZeVebVWM08OK1nF3f
+	qGgYOHlIsBu9i4FT/b977Eak/V+KfTwft5ZxjjLQiWpg9qZfw0/sBLyJt82LqDBOA0HR6+LnlpG
+	OlLN8x7ozOeCClaulD47f2KrsEzSfjBpuUp1sUN2vy7m+ZxiEYjUllOimhtN3p1Cklmotfm8yaF
+	9heqAdfdS7rEWCgnJJpjO0Uo0jay9flLSZbJhntOCjUr0uaa96ubx3nbnONC+bNjbem6SpB8XYS
+	rT4tUNdtGxLAxveu0MKwd8h8e1NIBkVRQ+wqDHowBbvHtsu5cWKQZ/DofzYKt68Lp9InPfeVfQU
+	mi15lA/b1v+SziaWUv2H5WvBelP1iJ57x9bJGxxYRgjzV7Ch+sAwbxTCtfkE6CS3WcjbRUMXBGL
+	MJejSELXY+HF4pbihcswlxowQc3iyWlZvq36Ejh08tWlEaLoR7ALXFsS
+X-Received: by 2002:a17:903:22d2:b0:2ed:1df2:8b36 with SMTP id d9443c01a7336-2ee0dbe68ecmr99007235ad.33.1794815166560;
+        Sun, 15 Nov 2026 23:46:06 -0800 (PST)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f868231sm32620695ad.50.2026.11.15.23.46.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:46:06 -0800 (PST)
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: Jan Kara <jack@suse.cz>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ext4: stop verify_reserved_gdb() one entry short of the block
+Date: Mon, 16 Nov 2026 15:45:44 +0800
+Message-Id: <20261116074544.2497315-1-kaixuanli0131@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <mlx7il3nok35qeppdkafrqgztvazj3fc44xrp2umziye5ox24m@xwg43blfi3jn>
+References: <20260919113940.1823559-1-kaixuanli0131@gmail.com> <mlx7il3nok35qeppdkafrqgztvazj3fc44xrp2umziye5ox24m@xwg43blfi3jn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,318 +102,17 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261116074414.3174737-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116074414.3174737-20-irogers@google.com>
-Subject: [PATCH v3 19/19] perf test: Add inject --sample-buildids and record
- --buildid-offset shell tests
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Leo Yan <leo.yan@linux.dev>, Dmitry Vyukov <dvyukov@google.com>, 
-	"Steinar H . Gunderson" <sesse@google.com>, Stephen Brennan <stephen.s.brennan@oracle.com>, 
-	Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add shell tests verifying perf inject --sample-buildids (with basic
-samples, callchains, pipe mode, and kernel samples) and perf record
---buildid-offset across per-thread, system-wide, workload, and callgraph
-modes.
+Hi Ted,
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/shell/inject_bid_offset.sh | 179 ++++++++++++++++++++
- tools/perf/tests/shell/record.sh            |  74 ++++++++
- 2 files changed, 253 insertions(+)
- create mode 100755 tools/perf/tests/shell/inject_bid_offset.sh
+Gentle ping on this one. Jan reviewed it on Oct 21:
 
-diff --git a/tools/perf/tests/shell/inject_bid_offset.sh b/tools/perf/tests/shell/inject_bid_offset.sh
-new file mode 100755
-index 000000000000..9be2e3323558
---- /dev/null
-+++ b/tools/perf/tests/shell/inject_bid_offset.sh
-@@ -0,0 +1,179 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# perf inject --sample-buildids test
-+
-+set -e
-+set -o pipefail
-+
-+shelldir=$(dirname "$0")
-+# shellcheck source=lib/perf_has_symbol.sh
-+. "${shelldir}"/lib/perf_has_symbol.sh
-+
-+sym="noploop"
-+
-+skip_test_missing_symbol ${sym}
-+
-+temp_dir=$(mktemp -d /tmp/perf-test-bid-offset.XXXXXXXXXX)
-+
-+prog="perf test -w noploop"
-+[ "$(uname -m)" = "s390x" ] && prog="$prog 3"
-+err=0
-+
-+cleanup() {
-+	local exit_code=${1:-$?}
-+	trap - EXIT TERM INT
-+	if [ "${exit_code}" -ne 0 ] || [ "${err}" -ne 0 ]; then
-+		echo "Test failed! Preserving temp directory: ${temp_dir}"
-+		exit 1
-+	fi
-+	if [[ "${temp_dir}" =~ ^/tmp/perf-test-bid-offset\. ]]; then
-+		rm -rf "${temp_dir}"
-+	fi
-+	exit 0
-+}
-+
-+trap_cleanup() {
-+	local exit_code=$?
-+	echo "Unexpected signal in ${FUNCNAME[1]}"
-+	cleanup ${exit_code}
-+}
-+trap trap_cleanup EXIT TERM INT
-+
-+compare_script() {
-+	local orig=$1
-+	local bid=$2
-+	local msg=$3
-+
-+	perf script -F -ip -i "${orig}" > "${temp_dir}/script_orig.txt"
-+	perf script -F -ip -i "${bid}" > "${temp_dir}/script_bid.txt"
-+
-+	if [ ! -s "${temp_dir}/script_orig.txt" ]; then
-+		echo "${msg} [Failed - empty perf script output]"
-+		err=1
-+	elif ! diff -q "${temp_dir}/script_orig.txt" "${temp_dir}/script_bid.txt"; then
-+		echo "${msg} [Failed - perf script output differs]"
-+		err=1
-+	else
-+		echo "${msg} [Success]"
-+	fi
-+}
-+
-+compare_report() {
-+	local orig=$1
-+	local bid=$2
-+	local msg=$3
-+
-+	perf report -i "${orig}" --stdio | grep -v '^#' > "${temp_dir}/report_orig.txt"
-+	perf report -i "${bid}" --stdio | grep -v '^#' > "${temp_dir}/report_bid.txt"
-+
-+	if ! diff -q "${temp_dir}/report_orig.txt" "${temp_dir}/report_bid.txt"; then
-+		echo "${msg} [Failed - perf report output differs]"
-+		err=1
-+	else
-+		echo "${msg} [Success]"
-+	fi
-+}
-+
-+test_basic() {
-+	echo "Test basic build id offset injection"
-+	local data="${temp_dir}/perf.data.basic"
-+	local data2="${temp_dir}/perf.data2.basic"
-+
-+	perf record -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
-+	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
-+
-+	compare_script "${data}" "${data2}" "Basic injection"
-+}
-+
-+test_callchain() {
-+	echo "Test Callchain build id offset injection"
-+	local data="${temp_dir}/perf.data.callchain"
-+	local data2="${temp_dir}/perf.data2.callchain"
-+
-+	perf record --call-graph fp -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
-+	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
-+
-+	compare_script "${data}" "${data2}" "Callchain injection"
-+}
-+
-+test_pipe() {
-+	echo "Test pipe mode build id offset injection"
-+	local data="${temp_dir}/perf.data.pipe"
-+	local data2="${temp_dir}/perf.data2.pipe"
-+
-+	perf record -e task-clock:u -o - ${prog} 2>/dev/null | tee "${data}" | \
-+		perf inject --sample-buildids -o "${data2}" >/dev/null 2>&1
-+
-+	compare_script "${data}" "${data2}" "Pipe mode injection"
-+}
-+
-+test_report() {
-+	echo "Test perf report consistency"
-+	local data="${temp_dir}/perf.data.report"
-+	local data2="${temp_dir}/perf.data2.report"
-+
-+	perf record -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
-+	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
-+
-+	compare_report "${data}" "${data2}" "Report consistency"
-+}
-+
-+test_pipe_report() {
-+	echo "Test pipe mode perf report consistency"
-+	local data="${temp_dir}/perf.data.pipe_report"
-+	local data2="${temp_dir}/perf.data2.pipe_report"
-+
-+	perf record -e task-clock:u -o - ${prog} 2>/dev/null | tee "${data}" | \
-+		perf inject --sample-buildids -o "${data2}" >/dev/null 2>&1
-+
-+	compare_report "${data}" "${data2}" "Pipe Report consistency"
-+}
-+
-+test_kernel() {
-+	echo "Test kernel build id offset injection"
-+	local data="${temp_dir}/perf.data.kernel"
-+	local data2="${temp_dir}/perf.data2.kernel"
-+	local kprog="dd if=/dev/urandom of=/dev/null bs=1M count=50"
-+
-+	# Not all systems allow kernel profiling, so we check if it succeeds first
-+	if ! perf record -e task-clock:k -o "${data}" ${kprog} >/dev/null 2>&1; then
-+		echo "Kernel injection [Skipped - permissions or support missing]"
-+		return
-+	fi
-+	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
-+
-+	compare_script "${data}" "${data2}" "Kernel injection"
-+}
-+
-+test_record_buildid_offset() {
-+	echo "Test perf record --buildid-offset consistency"
-+	local data="${temp_dir}/perf.data.record_orig"
-+	local data2="${temp_dir}/perf.data2.record_bid"
-+
-+	perf record -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
-+	# We must have the binaries in .build-id cache, which the first record does natively.
-+	# Now record with --buildid-offset.
-+	if ! perf record --buildid-offset -e task-clock:u -o "${data2}" \
-+	    ${prog} >/dev/null 2>&1; then
-+		echo "Record --buildid-offset consistency [Skipped - not supported by kernel]"
-+		return
-+	fi
-+
-+	# Verify symbolization resolves the workload symbol
-+	if ! perf report -i "${data2}" --stdio | grep -q "${sym}"; then
-+		echo "Record --buildid-offset consistency [Failed - missing ${sym} in perf report]"
-+		err=1
-+	else
-+		echo "Record --buildid-offset consistency [Success]"
-+	fi
-+}
-+
-+test_basic
-+test_callchain
-+test_pipe
-+test_report
-+test_pipe_report
-+test_kernel
-+test_record_buildid_offset
-+
-+cleanup ${err}
-diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/record.sh
-index e4789e2bcf43..80cee3eedcc3 100755
---- a/tools/perf/tests/shell/record.sh
-+++ b/tools/perf/tests/shell/record.sh
-@@ -740,6 +740,79 @@ test_ratio_to_prev() {
-   echo "Basic ratio-to-prev record test [Success]"
- }
- 
-+check_buildid_offset() {
-+  perf report --header -D -i "${perfdata}" 2>/dev/null | grep -q "BUILD_ID_OFFSET"
-+}
-+
-+test_buildid_offset() {
-+  echo "buildid-offset test"
-+  local ret=0
-+  perf_record_with_retry "${perfdata}" "check_buildid_offset" "perf test -w thloop" \
-+    --buildid-offset || ret=$?
-+  if [ $ret -eq 2 ]; then
-+    echo "buildid-offset test [Skipped not supported]"
-+    return
-+  elif [ $ret -eq 1 ]; then
-+    echo "buildid-offset test [Failed missing output]"
-+    err=1
-+    return
-+  fi
-+
-+  # Expand test coverage
-+  ret=0
-+  perf_record_with_retry "${perfdata}" "check_per_thread" "perf test -w thloop" \
-+    --buildid-offset --per-thread || ret=$?
-+  if [ $ret -ne 0 ]; then
-+    echo "buildid-offset test [Failed per-thread]"
-+    err=1
-+    return
-+  fi
-+
-+  ret=0
-+  perf_record_with_retry "${perfdata}" "check_system_wide" "perf test -w thloop" \
-+    --buildid-offset -aB --synth=no || ret=$?
-+  if [ $ret -eq 2 ]; then
-+    echo "buildid-offset system-wide [Skipped not supported]"
-+  elif [ $ret -ne 0 ]; then
-+    echo "buildid-offset test [Failed system-wide]"
-+    err=1
-+    return
-+  fi
-+
-+  ret=0
-+  perf_record_with_retry "${perfdata}" "check_workload" "perf test -w thloop" \
-+    --buildid-offset || ret=$?
-+  if [ $ret -ne 0 ]; then
-+    echo "buildid-offset test [Failed workload]"
-+    err=1
-+    return
-+  fi
-+
-+  case $(uname -m)
-+  in s390x)
-+       cmd_flags="--call-graph dwarf -e cpu-clock";;
-+     *)
-+       cmd_flags="-g";;
-+  esac
-+
-+  if ! perf record --buildid-offset -o "${perfdata}" $cmd_flags \
-+    perf test -w brstack > /dev/null 2>&1
-+  then
-+    echo "buildid-offset test [Failed callgraph record]"
-+    err=1
-+    return
-+  fi
-+
-+  if ! perf report -i "${perfdata}" 2>&1 | grep -q "${testsym2}"
-+  then
-+    echo "buildid-offset test [Failed callgraph missing symbol]"
-+    err=1
-+    return
-+  fi
-+
-+  echo "buildid-offset test [Success]"
-+}
-+
- # raise the limit of file descriptors to minimum
- if [[ $default_fd_limit -lt $min_fd_limit ]]; then
-        ulimit -Sn $min_fd_limit
-@@ -760,6 +833,7 @@ test_precise_max
- test_callgraph
- test_acr_sampling
- test_ratio_to_prev
-+test_buildid_offset
- 
- # restore the default value
- ulimit -Sn $default_fd_limit
--- 
-2.56.1.703.gf848ed807c-goog
+Reviewed-by: Jan Kara <jack@suse.cz>
 
+It still applies cleanly to v7.4-rc3. Would you take it through the
+ext4 tree, or should I resend it with the tag folded in?
+
+Thanks,
+Kaixuan
