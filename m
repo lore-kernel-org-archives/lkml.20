@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834846;
-	b=OP4j/bcN8PwFtv+luGG7Exopj64EN3Nqxb1x8Nc3JZhJdUkjVP6ldbKdJRjMfBUx/rug
-	 r0UWdNpLeoyglbmP9Zc4YUXOu8M16qcQVpeFFp7dtyMFlpk0d3hjzDWOVLyCMxUlXM9Dc
-	 18A0g4iyY3Xeu0D/2T2pOVJdRBOeFN6aWsh72sNIxkvtBbQt0JRE7IBQ748QLlWuQTaGY
-	 SI8noQDKo20RCj0eFjLk+NepyrKpQ/2XUBmBkL1JXzze+R4Vbs6AAREuDI3F74BHan8Ni
-	 6sk6n5Gomxg3qq4Cdr/m93NzCKOFizAjBqcSW+h71fZbpee/t12CSHjEEN1zus8Gszg==
+	t=1794834877;
+	b=5VrTlZk5gASCnZjYVLgbl6ljYynKEiWYXR0TG3fRqeE+9Ly+JMJczs/BK1yiJQbHf+69
+	 GX0ywCP97Y5zJKjSpaxBrYOUYEsufu2DCXG8BRJfFRjyJFK1If/dfGEWYdNoDaZBTVwUH
+	 zcyO+UPvvgEur08+Fj7RgrW0trggYDg3A0iv/QPlz5LPUGc6NycthOKIQAcPDdpNMmtrI
+	 tWP+Wv+NsoyOKdGncSN4FZSEPFsQYfSAD4v9D5SBq9M9FoSncnDIZ8BKNYZVmS4n5/dUz
+	 VD14BLrPIvUdvuzl1CkMncuyQWPJh4ke66zVe/paRfvsa7Wq+dG3ACWjbv1H5UAy+5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834846;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834877;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=hr//QxhiAx1Aj8NaG0eoqYbwb6w65Ib840EPiIpz2UJPQdiLLq2uEnPc8qRW+bhmocC3
-	 68GYiS9KSWQYqJiNlMCbW9ty6dw6VcR0p/Uc0gMwkjbnlOlU+NLK9BzzZayMz44ahNeDm
-	 jrLEArmDoj5hmErm5ueIbICxX58+eGolLzb+Oni5MjJUxIqoUugi7cX1uHRzBWtyjy6gp
-	 SRgn64WELDWnbLlSamxtFvM4XQ8f4wQfHISHzdCxcJbZk26cHh3VdeyrdxS9QfWNVhVNa
-	 dFQDdjXwj9/NmGeFegbknTiBMjEg4oVwW9PCW/mt4YajF1/Zr3EKVoUekcBO/KnFZ1w==
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gwIQSjAgmrohgv46z/uvziUsW9H4Stxc5qYNQgZcgNk=;
+	b=lqcWlL54zr0Arc3c/Z0MzNcKtoyxpH27awZdTEI/ZgxJkGKne8/0/z5KFbwfHQurFo1k
+	 ffJMax1ao3pz62GmAHESYmPeFATB8bTta1eEx6fyq97HzULtT3zGYVr4kOUanvMoId8QE
+	 2XhwniV58dChHPIV9Wlryn80NmhdWEYI+08TEcxa2kfD4D/4Sm231R6CZAK4SPv1rF880
+	 r1Zx6m3W0vmQy9UeAOeHUCQOt3Hv3wcC6YnynXIN61psjMGnK+zdNL+PEFfvwNormgIBm
+	 fA7vVKcc18mUfI3YP6KfU2g+Ihv4wD0Vmxms8QcsDBaki7Xc66G28cwewgiLmBCryjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/UriHDLT";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/UriHDLT";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fGLJmdhL;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1C4606A329;
-	Mon, 16 Nov 2026 13:14:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC1C4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B03606A323;
+	Mon, 16 Nov 2026 13:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B03606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/UriHDLT;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/UriHDLT
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 342082227B;
-	Mon, 16 Nov 2026 13:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794834844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=ge5B3BuhYHXLUUA0JptT1fuMmK2fIyQRBlBbkLe5iP1FVc3OEd0ejnKlZc+ceDiibQ0hgM
-	SA+sCF4v3SxoT4tA4WXsHvVUWDAjyJ85msUa+4P5Il2eEmHTzYungj9K/MlkGl2tXrvhyH
-	+NSZxDcIYvriE/byAr13XLt+bLariQo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794834844;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=/UriHDLTlNk2T+Cwf4CDo4p9g0KiCUlMtFrs0hPKknPGohUHrw4I4RR6SVZ87yf8Yw7fN7
-	/4V5KpFXOweIlRAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794834844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=ge5B3BuhYHXLUUA0JptT1fuMmK2fIyQRBlBbkLe5iP1FVc3OEd0ejnKlZc+ceDiibQ0hgM
-	SA+sCF4v3SxoT4tA4WXsHvVUWDAjyJ85msUa+4P5Il2eEmHTzYungj9K/MlkGl2tXrvhyH
-	+NSZxDcIYvriE/byAr13XLt+bLariQo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794834844;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=/UriHDLTlNk2T+Cwf4CDo4p9g0KiCUlMtFrs0hPKknPGohUHrw4I4RR6SVZ87yf8Yw7fN7
-	/4V5KpFXOweIlRAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0B16F1334C;
-	Mon, 16 Nov 2026 13:14:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +4lPNpsB+2rMGAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 13:14:04 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id A700424E0E; Mon, 16 Nov 2026 14:14:03 +0100 (CET)
-Date: Mon, 16 Nov 2026 14:14:03 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
-	target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 08/17] loop: take freeze protection for discard and
- write zeroes
-Message-ID: <mmuho3sjwkzcsibntmqp4phwfo63a2hkzfy34qes6zlhztehgg@e5t5igmvtboa>
-References: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
- <20261116-work-fs-frozen_writes-v2-8-ecc4a2aac40e@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fGLJmdhL
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGCQfFg3275085;
+	Mon, 16 Nov 2026 13:14:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=gwIQSjAgmrohgv46z/uvziUsW9H4St
+	xc5qYNQgZcgNk=; b=fGLJmdhLILhwAIv4j8i51rvXGG8/eNzt9gb93j6mBTEBbK
+	dr9zZwCv97T24dtHfM94xREcX3+aKPtP9wSwXF/RYEST0kL9alvROR9BqBppnl2Y
+	Py6UWAzCCe5zgTmACEfSlOuFom0WVAq0fL2J+2zoDhUx4iXRrz7Dzi8PimlS+Svh
+	gHVNxQgX+q3r/BIU3cHCylHp/XuPky7P0WrxmMnbd+jUbUb1JZOe3bVzAsNbNdb5
+	Dyyl5/rvqQilCiW9rcTmmI51JcDDV9ZnKPJ9qoFDrlAyABySxPGxSLQd6x+ldlq1
+	HxQWGbI+qVQp/wefAgW7nIJgXo3XryHybMDuJgBQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxfc4wug8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 13:14:30 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGD54Wj3095317;
+	Mon, 16 Nov 2026 13:14:29 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02df81mt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 13:14:29 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AGDEEMA49152358
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 16 Nov 2026 13:14:15 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E00912004D;
+	Mon, 16 Nov 2026 13:14:14 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6DB6E20040;
+	Mon, 16 Nov 2026 13:14:14 +0000 (GMT)
+Received: from osiris (unknown [9.111.42.169])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 16 Nov 2026 13:14:14 +0000 (GMT)
+Date: Mon, 16 Nov 2026 14:14:13 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 3/5] s390/vmlogrdr: Replace get_zeroed_page() with
+ kzalloc()
+Message-ID: <20261116131413.125125Dde-hca@linux.ibm.com>
+References: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
+ <20261108-s390-char-ready-v1-3-3db507722530@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,89 +101,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116-work-fs-frozen_writes-v2-8-ecc4a2aac40e@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.80
+In-Reply-To: <20261108-s390-char-ready-v1-3-3db507722530@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfX/fdih8WgGQhG
+ jOfi1MqUMuov2gWwbK6kHEo1VECgIxQr/XcfWHx7F+iYkp/ZcD6+qo+/K+f4hduQxMveDwFO/Od
+ pd4SN3RQsxuQAWykn98iUX6Y0VKF3O0=
+X-Authority-Analysis: v=2.4 cv=Fu6QbGrq c=1 sm=1 tr=0 ts=6afb01b6 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=ZkP2uM1e78bCdjAPzXEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfX5VTGSNFez0bq
+ CqFE6XiJsS626wCkBj54n+CH4i1Wn/jwkptv34rleICn9aU6pJ6z6KG4JDAXe1i9en4tcoH0kZi
+ N9t20LnzVMlWFtgBkqEjzgdNPU0JZC25wlp215SB6r3C+zWAOBoO0xOSbIiP9bxsWXOE5yVh9dL
+ Cz9ks/z3qGUOL3uQn/lHIDzgLJq+cUjqhgxPIfhkMkM5YWHI9j9V+JWRNXXvDp6Mep24zZ1aWLT
+ 1waDNoRaLEHXv3mFaaMJKxM71UezXWpymL9Q+KCW5DHtHXQ32IJcnLcHvWQm7gW3J/lovL85fo9
+ IXr1Q57zK45cIH5TNvKrv48C8b76aucMxBptmsynfz7Ad9AE/1YAuzyFFFAnuE6bXDTvShySVt2
+ yr+9+7nkvXT2wZK5zTh/h8w2g2SUQK5pMJx1GWMVb1/++UM5eXEuWLntJud/8p6SXBqoRwRv5u5
+ BLQAhSldzw00Kx3DMGw==
+X-Proofpoint-GUID: -Drmaw-J5hcCDtW7D2vEHl2U39VrLlau
+X-Proofpoint-ORIG-GUID: -Drmaw-J5hcCDtW7D2vEHl2U39VrLlau
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160051
 
-On Mon 16-11-26 12:03:48, Christian Brauner wrote:
-> Discard and write zeroes requests end up in lo_fallocate() which calls
-> ->fallocate() of the backing file directly. That skips the freeze
-> protection vfs_fallocate() would have taken. So they go straight
-> through to a filesystem that is frozen. With the backing file on ext4:
+On Sun, Nov 08, 2026 at 10:49:00AM +0200, Mike Rapoport (Microsoft) wrote:
+> vmlogrdr_init() allocates the buffers used to receive z/VM system
+> service records via IUCV.
 > 
->   WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#3: kworker/u16:1/44
->   Workqueue: loop1 loop_rootcg_workfn
->   Call Trace:
->    <TASK>
->    __ext4_journal_start_sb+0x7a/0x470
->    ext4_dirty_inode+0xa1/0x120
->    __mark_inode_dirty+0x154/0x1110
->    file_update_time_flags+0x3ab/0x4b0
->    ext4_fallocate+0x286/0x3440
->    lo_fallocate+0x13e/0x290
->    loop_process_work+0x486/0xe70
->    process_one_work+0x946/0x1820
->    worker_thread+0x4f1/0xd60
->    kthread+0x364/0x460
->    ret_from_fork+0x525/0x770
->    ret_from_fork_asm+0x1a/0x30
->    </TASK>
+> These buffers can be allocated with kmalloc() as there's nothing special
+> about them to go directly to the page allocator.
 > 
-> Take freeze protection around ->fallocate() like vfs_fallocate() does.
+> kmalloc() provides a better API that does not require ugly casts and
+> kfree() does not need to know the size of the freed object.
 > 
-> Fixes: dfaa2ef68e80 ("loop: add discard support for loop devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+> Performance difference between kmalloc() and __get_free_pages() is not
+> measurable as both allocators take an object/page from a per-CPU list for
+> fast path allocations.
+> 
+> For the slow path the performance is anyway determined by the amount of
+> reclaim involved rather than by what allocator is used.
+> 
+> Replace use of get_zeroed_page() with kzalloc() and free_page() with
+> kfree().
+> 
+> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > ---
->  drivers/block/loop.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-> index a3325ceab484a..d2f29aadabcc1 100644
-> --- a/drivers/block/loop.c
-> +++ b/drivers/block/loop.c
-> @@ -259,7 +259,8 @@ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
->  	if (!bdev_max_discard_sectors(lo->lo_device))
->  		return -EOPNOTSUPP;
->  
-> -	ret = file->f_op->fallocate(file, mode, pos, blk_rq_bytes(rq));
-> +	scoped_guard(file_write, file)
-> +		ret = file->f_op->fallocate(file, mode, pos, blk_rq_bytes(rq));
->  	if (unlikely(ret && ret != -EINVAL && ret != -EOPNOTSUPP))
->  		return -EIO;
->  
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  drivers/s390/char/vmlogrdr.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
