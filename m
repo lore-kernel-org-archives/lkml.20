@@ -1,58 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820943;
-	b=jG0llurG1JZgfhNUQtlJ5tcPiIH+NNOQCo4XqeQOZDE/EhOje6DvovzTrLP3p/7OnKID
-	 mV80AtH+Xqi2qofT+Z75/+4Ue4zuZIum1lzzKMx4vmZ/QE6MewjxcwlA1vg2yNJVFQBwb
-	 4XwL1Cz6P2u7Uxnr0OIQ3r2NiJBmFaDZsrrqKYIAECcwQi386fbhLSYihmUbMyA7oRkaB
-	 t1Hyz1AZzRUmbkJ+Vkh5ClEC1YfFwaUz8ycmOsyeCP6VR9IwtmN+uv+f/jG6n4oX1FxWQ
-	 0C3MKnafDibOvu1Ihd2f71L4WMFHlqKaxjeM+j7ZSHIQCPrVFWsVtg8F7sArsubXgcQ==
+	t=1794820953;
+	b=QHhhX2Xg1iqwnCTm3zKmZG3VtJV8a7rCkYlZZlKsa7k2QcWlUWjLP+XXkTkD+7MJIcMX
+	 a/wl5JpzddEWuW/wUt9/wuM3gr3xrFr6+2PYtB3Jg2uKRRxgW8MnuZIGFBRawCnzowbrg
+	 OjBDAydJ4xyXERsB+nI4k8v8xTUScy2iMsBOHP798L647hrpPjxeTPcS+/L0T+mLzeRUx
+	 G0iMPC0IuFZVtqy6QWLyHJKilbZXTM9HL+2UxBOgiL2uw1Di49kIM4UfOn01xMoewv5fL
+	 kIV7w9UKOrwposv4tA9hmxMqwKpeT0VDWwQi6ddWBIJlbfctwkgUeaX9PoPAuhMC/aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820943;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=Y6QRPXFup/9XWuMG6qmhWGclh7A4WKa63q/MtCTrYJ4=;
-	b=T/b011UwLav+9wM35noG3BvaSpQv/MsEqNVchokoVhOExyY6NYdluLd/VQiqWl3OiFiw
-	 mMcGR+jYgWXICfhqqpOa/kwTMoX1w5irsgixwUTDv/2fOYnpC8YVEVE/tmAs8BENiUnkP
-	 OTiDHPgA4q9fLm4Y/0tSVu3VDsWKeceIAqBX886jg0lZC3BCJ59Fjvo5Udzd91BXmx2AT
-	 DBE8w6R36A2cyEuzSm6NxYI/sw0Ma1IcjMfhDF3u/YhUnsEMVKZxqwuSTVKtuf38xxVH4
-	 Pdv1/SGPpFZxfvn+KtaKGnNYjYkySQU4jgUn3YmFAEa5A9MApVwwHsZvWFF43Qn4N5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820953;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=k7leMxQfqf8PPrgW+Q3IBRWJMlU+OBdpAzRmEk7fea4=;
+	b=jJJag0Y9LGUAeyPVqAuB+ZJYbc1pJvW20GkJuFhFRlq62Lf3bkvEkwDcK3hoxQtGBPyN
+	 NGk7QYTKPuriVwvKSKCZ7kIM0I/5WuDdIo/9IU+s5bmJIcmMPTDw75LbZgp40EvqoJGrI
+	 t+cFFENwLz23T/uQbTnmJlAhGLHVvk5klZH7TVWMT9rDjO23e+lZaMrAXgxyX3Pc27iXF
+	 5iwwLMh6cvWeDC4DjEVn8UsNKonfnMEaAFtrRdu13Q6PZ+LNAXfrBbPn5vjqIrSmFfJdM
+	 xE2b63B19ouNclvu0zk+T4Ic61Sh/M8w73tgyvZSrWIKcsYfZiPAN5hUbBCw8yKYntQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="kQBYJq/y";
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=umCfM3bE;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54FE606A32C;
-	Mon, 16 Nov 2026 09:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54FE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158BA606A31C;
+	Mon, 16 Nov 2026 09:22:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 158BA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kQBYJq/y
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=umCfM3bE
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jSj7F4j94zMlJh;
-	Mon, 16 Nov 2026 10:22:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794820937;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y6QRPXFup/9XWuMG6qmhWGclh7A4WKa63q/MtCTrYJ4=;
-	b=kQBYJq/yUy5/67zh6X5VKjbF2EPNVuL/az7R+I8hZi2PJrrGifKhxhPOQjSYdRU29UiL9l
-	OL3jqqLS3ihMDxzW0WVnKYFOZeACvbzOEds8kr7LHYW/ExcwfNrtllrjRXEVrgEAamCTRi
-	PEuVk8SaPzrocXohnkfowet0qnQQe7ODvEor3Yo8mhoH0tko8d9jR5lIUAPljsrkYRt1nK
-	9eQAZXo1toqrt3FJCzhGC9nv3dY8OCWUR45hCP/71vq+h1GSX9dcrGv4bRp3EribvaEXOY
-	pIxk8blwuv39NVwSj9KbnVhyH9oLVye0k4Kzi4bcqOxU4MJIbQeuoIK/8G2Hsg==
-Message-ID: <fd865483-1485-4042-b938-2012eaa65043@mailbox.org>
-Date: Mon, 16 Nov 2026 10:22:14 +0100
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jSj7Q2J2Gz52SFw;
+	Mon, 16 Nov 2026 17:22:26 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794820946;
+	bh=fyvZnV/+CL7Bbw0SbXZ+6H+Qa+U3QCb633XuJdxKUdU=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=umCfM3bEtUEyso1Ya9lKRjim8CsOCwE9rWZRW27iBXuva6qUoRV/T56MvCwdHTn5n
+	 W24TiCDzJTaTvWKXSIcMi2yBdH2qpUev5UyVETlFIcsRvLsugaZM0LH+yINFA9QFbp
+	 hHSm+gVVVXKjukExVJ73HIsEww7h1n7pdJTWhV31EynE2qsYoEJW4aCVb5vAzQdsfW
+	 rAUkmXwsDdr1jK/x//c0qi0202+qa7TVt5PJtqKXZZDXIXoLf9B9xbecNv5jEbyicz
+	 MFCO5ib50ov+hkZAZPfTXiBgacTqoQn21lLShn2QySsowfcBtwKN/+4kRseB4pm+4p
+	 a499QE6PPrZwg==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6AG9MHZl099726;
+	Mon, 16 Nov 2026 17:22:17 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 16 Nov 2026 17:22:20 +0800 (CST)
+X-Zmail-TransId: 2afb6afacb4c398-4cb53
+X-Mailer: Zmail v1.0
+Message-ID: <20261116172220285RZF6Zcof9cL_fYGhfKKyA@zte.com.cn>
+In-Reply-To: <34da61f7-c1c9-4a40-8ce3-fde8c03d0199@kernel.org>
+References: 20261110232903548MKw1ilhZfMJtzbTnK9nSv@zte.com.cn,34da61f7-c1c9-4a40-8ce3-fde8c03d0199@kernel.org
+Date: Mon, 16 Nov 2026 17:22:20 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,62 +72,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ALSA: doc: cs35l56: Point to kernel.org firmware
- repository
-To: linux-sound@vger.kernel.org
-Cc: David Rhodes <david.rhodes@cirrus.com>, Jaroslav Kysela <perex@perex.cz>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 5f70c5e78e4e3c85d5b
-X-MBO-RS-META: jx3otgz355xkrtsxxwdwbsfbnfho5qyn
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <krzk@kernel.org>, <linux-gpio@vger.kernel.org>
+Cc: <linusw@kernel.org>, <brgl@kernel.org>, <linux-kernel@vger.kernel.org>,
+        <andrew@codeconstruct.com.au>, <wbg@kernel.org>,
+        <florian.fainelli@broadcom.com>,
+        <bcm-kernel-feedback-list@broadcom.com>, <jelonek.jonas@gmail.com>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MiAxLzRdIGdwaW86IGFzcGVlZC1zZ3BpbzogcHJvcGFnYXRlIElSUSBzZXR1cCBlcnJvciBpbiBwcm9iZQ==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6AG9MHZl099726
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 16 Nov 2026 17:22:26 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AFACB52.000/4jSj7Q2J2Gz52SFw
 
-On 9/14/26 5:12 AM, Marek Vasut wrote:
-> Use the primary mirror of linux-firmware at kernel.org.
-> No functional change.
-> 
-> Fixes: 088fb4ee17fc ("ALSA: doc: cs35l56: Add information about Cirrus Logic CS35L54/56/57")
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: David Rhodes <david.rhodes@cirrus.com>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: linux-doc@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-sound@vger.kernel.org
-> Cc: patches@opensource.cirrus.com
-> ---
->   Documentation/sound/codecs/cs35l56.rst | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/sound/codecs/cs35l56.rst b/Documentation/sound/codecs/cs35l56.rst
-> index b3f8c1c238518..4a246f535d260 100644
-> --- a/Documentation/sound/codecs/cs35l56.rst
-> +++ b/Documentation/sound/codecs/cs35l56.rst
-> @@ -50,7 +50,7 @@ DSP. Firmware files are essential to enable the full capabilities of the
->   amplifier.
->   
->   Firmware is distributed in the linux-firmware repository:
-> -https://gitlab.com/kernel-firmware/linux-firmware.git
-> +https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/
->   
->   On most SoundWire systems the amplifier has a default minimum capability to
->   produce audio. However this will be
+Hi Krzysztof,
 
-Is there anything left over to do with this change ?
+Thank you for the direct reply. You are right about the patch, and you
+are right about the wider pattern. I was wrong on both, and I am
+responsible for them.
 
-Thank you for your help !
+I cannot show how the parent interrupt controller could defer probing,
+and stable was not justified for this change. I should have established
+that before sending it. I am withdrawing it (v2 1/4); there will be no
+v3.
+
+As I wrote in my reply to Gregory Price:
+
+  https://lore.kernel.org/all/20261115051526117H0NSID837XMXH6qUeh_JS@zte.com.cn/
+
+I sent too many patches, across too many subsystems, faster than I could
+properly judge them. I started from the belief that finding defects with
+an LLM and sending the patches was a contribution to the community, and
+I did not weigh the review time every submission takes from maintainers,
+including the ones that are rejected. The mm patches were the clearest
+example: they were noise, and the cost to you and the other maintainers
+was real. I used an LLM to help find and draft these submissions; I was
+the one who decided to send them, so the responsibility is mine.
+
+I will not send another patch until I can state a reachable trigger and
+a user-visible effect, and I will hold myself to that bar. I do want to
+contribute to the Linux community, and I understand that this means
+reducing the review burden I create, not adding to it. I am sorry for
+the time this has cost you, and I will not waste maintainers' time
+again.
+
+Thanks,
+Shao
