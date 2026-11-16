@@ -1,68 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794799898;
-	b=vnB2DJESlNCBPpLSg1EbIYuoJ7qFNBzT1K38/Em2jGuSSKE8Rfc0Ml082zJAN4XhyJ7D
-	 j99bbBvCg4YABkrQ/dkSjNHYUWfjoHkW9tefrlWtk6LcqW5Tm7DYrHHsKiwfdJYAS5ZUP
-	 5IX0kDEgqKFNs9/ivZ6W8FUwDmRaKvtzUjtb5zynEgtiY2OAcxkaT6afF8pL4ugNYaBXP
-	 LYqNb+bCH7+ie0+hhk818XSRqhTNovPBflJ1uo2OIaASrqicriEzhr/YZTvTqQ99OJ2iz
-	 iTfBNAq1Kb9TEnkU88YHjcWqeBw+/XWpz5QJQt7JjBqBgpsjwVG493un2dz1Pzo4JzQ==
+	t=1794799920;
+	b=EHGYKamdkbhsVYjyGfoY9v/CXfAn62Ln2VCuWGrFhszkzSac01zvNpazGmpr6O7mKXOv
+	 iz6jS/Q9CSi/8TwktWgTiQ575vnSWI35nTnlLgdNwNz7l4hLECmAO+WvpBSHG4ZpG3O/r
+	 6GGwOSS+MakbRwepQNxGishO7kbSQxM5MYLWAvwIhZKEuZBGSnATJRg7edUM4uvLTBqHg
+	 wbCwYzv7XATSDixtHSalD22gGx7M+LRI/mXanfGVq3MK0kprLoSDN4NpfmrgoNJiAshlv
+	 UFoO80s9FEEUy6uO0w+8ChNEgvJuwx2XQ563nvT1nhcuvcoBIO8xSr0e1mYTml0op5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794799898;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=pGgUABsNoxr3lMr42Lg/Dv10ONV9Iv1MysSuC98ImUg=;
-	b=o6XeRLPp4PXCcbdW2U+8ErqD8Ry3my3HxzNKVLH8u8gsReKYROqGWw70336lyLotp0tv
-	 cbGrpi6q1IRY70pgm4jenpe4WoXURp3LBNthwtJQRN3dOJQjCVPoGhXVQGycNs9A6kOf3
-	 SbiRdLiPvJBzje09rn6UgVnnPt0LyYH+VENZLJbmregqUTJF3Bn5wyCMBI2FVduwpK6EC
-	 jE2IoKBw7tpafgkEw7loyJp+9smVrD6bg2Ss1Ofu3ZFR7HI3eGT47xwCyYPNItcR3wgVB
-	 PxOzRW9ppP5CenhdREuQ+h59S043CJOhOE0o2Ry29JPiKWnQWw9xuyDH2UPI9T+d+aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794799920;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=QbnteX2l0Jb6TmLxEnzbnWrqpp3+eF3+v/z+RV2T9cc=;
+	b=m6IVCwYp6T5UYTmAS5R016FV2jxBxCIW6Jafw2KreXp2xWOrFjibPX1yokSU+ywYNPWa
+	 u6w6ANf5V5+uZn7rFSAMN+nHgXnCyhz9DacVVka+4n/QPqmXPQCjjkRsDzF5vH7ZDNrGq
+	 ZImn0+g0FnUR0Gie7kogjWt3B6e9QbKtIPsqiDcFpHlMZ+YHByYLrptr0rVy6ifUMBsk7
+	 1xYif90xfr3K4ZophNQMZWNmD7GMO3hAGez9x6PchdJLdD10HJK6dFxdze/dpSFQAGTFZ
+	 xiNY/z4+q8G/4fFYu2NbhWVE/P6T6fnjQPEFPwc0YqM3ZrzCQyMmZpKhp2Zei6aJUJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WFbm1n7u;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ERc/RIxY";
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A249606A31C;
-	Mon, 16 Nov 2026 03:31:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A249606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA631606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:31:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA631606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WFbm1n7u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794799898; x=1826335898;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=oes9flJ0JSpo5x3wjxFPFFH+FdhIg1fmD+pwTGOuot4=;
-  b=WFbm1n7upC67HiIEMz/ANC0IJsC/R73jqniRmajAN031SY7ExSjUiMX6
-   IzbcDu9Dj4WN7750PSQiIx9vfItJWtnZALurpMuMEcimOdzseffEO3sMp
-   Zqm2tEk4jF3VFeW75dySL2+0+vff26lbUSPVmvSApJrH74HtJsSSFI32i
-   ac8RjzXA5Knn9BpCxAzikkCgfILEFngW/EJdOjXoIm68Lzc/M13dxALTw
-   MQ2a54NpUTtreOdfW3owDWOAifjT7uIRPhCWINsijvZtTIbTvneuxYTvf
-   4L3TwcRohT29Ezh3H2LjVVNAasAW2IfyFot/96YBUbh0G3TS5DwSZKElL
-   w==;
-X-CSE-ConnectionGUID: eg3IhqDSQ3uxrxkaUsF+1Q==
-X-CSE-MsgGUID: tsgfk9WzRBGrkW70dPqQjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3541509"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3541509"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 19:31:37 -0800
-X-CSE-ConnectionGUID: U3CPZAHtQJOFgrVN9p5TRw==
-X-CSE-MsgGUID: S4IDXWZYQEaFRwmBtWMK9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="11217156"
-Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 19:31:32 -0800
-Message-ID: <57c85edf-8400-4b45-9a64-5eddc0d29134@linux.intel.com>
-Date: Mon, 16 Nov 2026 11:31:29 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ERc/RIxY
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b24f4b15c4so919189c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:31:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794799919; x=1795404719; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QbnteX2l0Jb6TmLxEnzbnWrqpp3+eF3+v/z+RV2T9cc=;
+        b=ERc/RIxY2S+iijnFuJRf7WxuUXnbOU13f1iLkWLamCJZMLTwSUsYa1XGt4TxAqhiGm
+         NGjmzYjQVJLxAClTkWEGcXp132ZnnsraZKxuptxOXMIfkATkIhGz4o7ZVWx9aYQTEc+o
+         Gezuh6l5bESkTv83LfXLlx8RS7NyJnvuhhRoCb8us47fZtRO1hS0O1XVK6Qfr0pfk9iq
+         LP+NpvWIYGEnCbykbaoL5wruuUUYAvhNjZlDdKR9sRQKiizVd3cPh876Zn5OAIdT6DH1
+         QqWY4dt64XKpQ7EBmx5cYePHVIRlgLD/dRT+fLRnjSYl8cv6SzYmiaE0j8/Wp3nbtdlf
+         rK5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794799919; x=1795404719;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QbnteX2l0Jb6TmLxEnzbnWrqpp3+eF3+v/z+RV2T9cc=;
+        b=jnck+6yGD+vbHkGkmIJBQq06qfJpxPfCEr0ULX14AUFSfUvoU0xwRong+cKiuyZLI5
+         gp8VnBYiwdB6L6/Jp96Fl8jqQ4VEnaly6U3XYSBitehRrtv8UMj2vNNvSJm/p97ANd/Z
+         RBq+VAre7MOLj+15EA/w3PzJLWi0M56GAgTJBOxQjWx3escZY0xmdOebfor9hB0X9GEa
+         6KsLYqKxKmRQRNOFf1FRn3MT9+RgzRede1rT+hWIpVhy2FPjILrg/oiHBZdALiEej46v
+         cLG46l+Th00rMNYSanGFaYwwul+fyAlmv7EVHevr79qIyMGMVzO5yf+co7CgrKFjJs0s
+         ckKQ==
+X-Forwarded-Encrypted: i=1; AL+hErHNQ1Ow+J2iNLff+vrIpnJWitrzv6wsmzDeSHhpGCVyIjNE9qa8MzNW20UHnYRJ8jFf4JdIQnMOyGnzzWw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6mjHwiDISPCEu4MU1dUxAxGoP7JlfGwr6D7P2gdJnssygZTjS
+	HLLJm2gFy8whUaSBgpq8QoB/2qX+ACVv7KZuOtQ18Bh9rB5/mXWykIlM
+X-Gm-Gg: AYBFou2XgXmE1jplqpu/B+czvfAP9I1mPepde7MntgHTo/gfwsbpBdB2r6flDSmsTJz
+	yDzbPN6MN6JNA1nMyIbRRbfSIJqmMzCf9TcwkwF02xlyn1fsUw96mhkEeHaSSfIf80pDJIM4aVw
+	ImgvFTQzSHMrLb1PJU7xB9W0fVz+1I+1AKZM9/pX6RripqzVKf/qdeTx0gNL7GXGlJpO6DnQdJA
+	rGFYJ7GPzUclWeQ33hZlasDNJ/kP+EzjuhP4vUzXHTqklgy7JDeDiudsSKNlrVq331gzd4NAKXA
+	2mS1np54mV19kjcSC3mHOde0SWtrfrSK7RDjrkZHNNZhaAnCc8zur8aaC3HTT3rHMS5NNunDewb
+	i6RuVuykXo9Xu01wcvpCxTLVmP5nUSTRMlnwbkmUgLb8dibKpPFzxRWLVIMmJUh9NJv9vqmidt+
+	jkc+xBOFQkwwzbhX/pumXvNRAYTJhd73lBWyTnC8b+dPq3GGcFWHcWxeCCLX8AOMRaFuBX1E4IQ
+	j5UnQuh2ghpkEZwCCbSrvKbC/OSkN6TcEI5WJcGtUHmsw0cQOUt+TzxdIcaAAdks4Z4Ums1uh8x
+	2RZDindkAkBstcl65pNNlroF2TqavmtBMDauiSOs0Y5DOVDU
+X-Received: by 2002:a05:701b:4294:10b0:1b3:b3d5:566f with SMTP id a92af1059eb24-1b5030990dbmr8883780c88.11.1794799918907;
+        Sun, 15 Nov 2026 19:31:58 -0800 (PST)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm27456340c88.12.2026.11.15.19.31.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 19:31:58 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH] powerpc/xmon: Avoid unsequenced accesses to tsk in show_task()
+In-Reply-To: <20261115-xmon-wunsequenced-v1-1-42ae3fe45bf4@kernel.org>
+Date: Mon, 16 Nov 2026 08:54:13 +0530
+Message-ID: <1p8l8nmq.ritesh.list@gmail.com>
+References: <20261115-xmon-wunsequenced-v1-1-42ae3fe45bf4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,121 +92,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v7 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
- domain ids
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261110040828.1774343-1-skhawaja@google.com>
- <20261110040828.1774343-11-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261110040828.1774343-11-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
-> During boot fetch the preserved state of IOMMU unit and if found then
-> restore the state.
-> 
-> - Reuse the root_table that was preserved in the previous kernel.
-> - Reclaim the domain ids of the preserved domains for each preserved
->    devices so these are not acquired by another domain.
-> 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+Nathan Chancellor <nathan@kernel.org> writes:
+
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], an instance appears in show_task(), which can
+> break the build with CONFIG_PPC_WERROR=y / CONFIG_WERROR=y / W=e:
+>
+>   arch/powerpc/xmon/xmon.c:3262:3: error: unsequenced accesses to volatile qualified 'tsk' [-Werror,-Wunsequenced]
+>    3261 |         printf("%16px %16lx %16px %6d %6d %c %2d %s\n", tsk,
+>         |                                                         ~~~
+>    3262 |                 tsk->thread.ksp, tsk->thread.regs,
+>         |                 ^
+>
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+> function call is indeterminately sequenced, meaning any side effects in
+> the arguments are unsequenced.
+>
+> tsk was made volatile in commit a2305e3de819 ("powerpc: mark local
+> variables around longjmp as volatile") to ensure its value in
+> show_tasks() was properly restored after returning from a potential
+> longjmp(). Aside from that, the value is not being modified through
+> other means, so rename the volatile parameter and add a local variable
+> named tsk to hold its value throughout show_task(), clearing up the
+> warning.
+
+Yes. Reading vol_tsk into tsk (local variable) in show_task() function,
+doesn't cause any functional change and also fixes the unsequenced
+volatile accesses as you described.
+
+>
+> Cc: stable@vger.kernel.org
+> Fixes: a2305e3de819 ("powerpc: mark local variables around longjmp as volatile")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2199
+> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 > ---
->   drivers/iommu/intel/iommu.c      |  57 ++++++++++---
->   drivers/iommu/intel/iommu.h      |  14 ++++
->   drivers/iommu/intel/liveupdate.c | 139 +++++++++++++++++++++++++++++++
->   3 files changed, 197 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index 6c86c155d12b..a83971368bef 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -987,6 +987,8 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
->   
->   static void release_dmar_iommu(struct intel_iommu *iommu)
->   {
-> +	intel_iommu_handle_drhd_restore_failure(iommu);
-> +
->   	/*
->   	 * All iommu domains must have been detached from the devices,
->   	 * hence there should be no domain IDs in use.
-> @@ -1452,7 +1454,7 @@ static void intel_iommu_init_qi(struct intel_iommu *iommu)
->    * Returns 0 when the ID is reserved, was already reserved, or cannot be
->    * re-assigned, and a negative errno for a genuine allocation failure.
->    */
-> -static int reserve_domain_id(struct intel_iommu *iommu, int did)
-> +int reserve_domain_id(struct intel_iommu *iommu, int did)
->   {
->   	int ret;
->   
-> @@ -1743,12 +1745,16 @@ static int copy_translation_tables(struct intel_iommu *iommu)
->   
->   static int __init init_dmars(void)
->   {
-> +	struct iommu_hw_ser *iommu_ser;
->   	struct dmar_drhd_unit *drhd;
->   	struct intel_iommu *iommu;
->   	int ret;
->   
->   	for_each_iommu(iommu, drhd) {
-> +		iommu_ser = iommu_get_restored_state(iommu->reg_phys,
-> +						     IOMMU_SER_TYPE_INTEL);
->   		if (drhd->ignored) {
-> +			intel_iommu_handle_drhd_restore_failure(iommu);
->   			iommu_disable_translation(iommu);
->   			continue;
->   		}
-> @@ -1766,7 +1772,9 @@ static int __init init_dmars(void)
->   		}
->   
->   		intel_iommu_init_qi(iommu);
-> -		init_translation_status(iommu);
-> +
-> +		if (!iommu_ser)
-> +			init_translation_status(iommu);
->   
->   		if (translation_pre_enabled(iommu) && !is_kdump_kernel()) {
->   			iommu_disable_translation(iommu);
-> @@ -1775,14 +1783,18 @@ static int __init init_dmars(void)
->   				iommu->name);
->   		}
->   
-> -		/*
-> -		 * TBD:
-> -		 * we could share the same root & context tables
-> -		 * among all IOMMU's. Need to Split it later.
-> -		 */
-> -		ret = iommu_alloc_root_entry(iommu);
-> -		if (ret)
-> -			goto free_iommu;
-> +		if (iommu_ser) {
-> +			intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
+>  arch/powerpc/xmon/xmon.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
 
-What happens if the incoming kernel is booted with intel_iommu=off?
+So, LGTM. Feel free to add:
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-intel_iommu_init() calls intel_disable_iommus() before reaching this
-restore path. A preserved device may still be issuing DMA, which would
-then bypass translation.
-
-Could we detect preserved IOMMUs and force VT-d on in that case? We
-should also ensure that the ACS configuration for preserved devices and
-their upstream bridges remains consistent with the previous kernel.
-
-Thanks,
-baolu
