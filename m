@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846920;
-	b=sDm3oOtztqSeQ6CKCCCSE/uOYEsNtsv8E4SZlxGGeMiyxnfO+KpOBg5HlZnheEXkCN/X
-	 Xng3X01SGn9gElLyC8Xw5592W1QNAyy5lOwb+gFu46qtk6yxRw8lb7f454RnqrgKKgWFS
-	 VSjY5zCIeTjEuqC3+i2LZLXnhl2CgyaYNo/3UJLyf+pS5y2/1MyuTBA6KRbgVtQjdEVRm
-	 +BF5N2aMZ/Gs2KwFa0FpFLAM/cxdL1Y8kPbiGZiMZer6bsuXeJ2pXyIAHeyHNFsryS50b
-	 NoY/0VFiGESccMaCUKMXWG/VDOL8+Pd7VlF+qw/A0iJEuNxC/DtEChqEX9aWW++FNWw==
+	t=1794846983;
+	b=4iObKEHAD/my0l0q2BZht8DPJhwvPbHm3EluQywFH6xe0fe4Fs0P0NEbjeFFeC66k2VF
+	 J3nhZeiq0hIDqysDobyakTUrF9NUCrDXFtqNFqWYrJnDxSoYIEyktt9It1GIXtRRFe+h+
+	 UWlLA4fY9kT8uidYewqK/IqGsexfpPCBi4gcpl8z+VlrRST6sIffNbr9I+oerjj7vZldJ
+	 OsCM3/XUxWZuFgU+GsX7pkO27+5g2jkzDtvo/4rARsnY4+O2wCghcWpm7xNlAa8UPvMS5
+	 bnt8kSmkt6NjZM78SW6aAJ1Cpow54qbVJOiRO+6278KBPCqZ6FEynoJba991xZoy7Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846920;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=r5btRg3TqToxM2rgsequ5t5+wR9SSFwRBSngheUfYuQ=;
-	b=K3orMbZO4hJiI6IS5QGTGGeZ6JT2RnKCVtJ5+vOM1eJN3E5OquqBgPcAr0dtSZpLUZLH
-	 i69UjTYl2ILEyCdElC+gOUQRimHav6HSf+3bnw20LOzcfMpvV8Z2VOltfWp+IK2Y3YNEm
-	 /fs2A35HVpazuPufpk4rF93P/1A8XRdNTFcwLZjPGpip25rw7K95X15xusq6hXshBhCyl
-	 RSCylt39U9THdn9wKz4EEjxCx+0zYuTapIvs/0BNOpUYpexAtGjGuddJnZZLd6syz/FOI
-	 DYB3aq7Dgfg0BvzEKEUg0FsNidyGPEw0BSN79MAp86e5td0U8ZBFaAX2MO3Q3JvvqDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846983;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=I7Ca8ICpTz7JsnZNb3hwa55ByTirk5R6wmAQCfjrTFE=;
+	b=OKtrGAHRJMdvQPjPLTuXxO8utITLRdZ2+4bSdUIKGeUyPDAax+c7ePGp5xFax++bCn4W
+	 yRbyihx8H4+OrIyy3WSTw/sVvC1/9AWbB7lCGe4vcbjyuH30ApGOOUOzxkDA+aeyTT3eS
+	 CANbdQTHzxo0U7+Mp9WlKjn8aTOaf+x90qYt7oH+RYzgGhYduUBxOIoUP6WsBxIxIwR7Q
+	 q/k4E0+kJYUAlcEIxD04PAJL2vUI+w8lDOeAfeMrm60gd/DDuVrpDvXy44452V4tQmn9M
+	 Tcb+4I7hIZKGuk3+ib0AkHQqIFQEPfTylQ0PMGlYuAeOCW5Fo4kvd1rQNSNWYrw3/RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Xk6E4nnr;
-	arc=none smtp.remote-ip=79.135.106.111
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKmxykhl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFC9606A323;
-	Mon, 16 Nov 2026 16:35:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FFC9606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB28606A31C;
+	Mon, 16 Nov 2026 16:36:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Xk6E4nnr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1794846917; x=1795106117;
-	bh=r5btRg3TqToxM2rgsequ5t5+wR9SSFwRBSngheUfYuQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Xk6E4nnrh1qqQIBubbt5QkfjQZp7wzIPAO15gzxc1NcVsh1Ysygbd0L2R/LQDxUF2
-	 2qkP+nSvhpMQ70O5lkRal+kIpg1hnU8hf64/rfZY9dQTX/gIu7tp2V5sLreRSWX1wJ
-	 xwY+WmgOVNax40SN0vEtMcyN1Ho6U/cdAUAvOfHkeJBV6JX+PYuYdYp5PtOHa0DBnf
-	 e8kwHtNtizLiXdABT2xJslBmz1D38nYe7KNjMUmxc8zegzfURuBnt2WR/2gp/+e1E0
-	 dAmaBxXJGPS57yiyxYrzEamf/hGcX53Lf83mX6quVEYmHDWD7W9XmHlVqt6lVgztxl
-	 /T1xA8xJTgjyQ==
-X-Pm-Submission-Id: 4jStkq4QFYz2ScWg
-From: Michael McAllister <me@michaelmcallister.org>
-To: markus.probst@posteo.de, luiz.dentz@gmail.com, marcel@holtmann.org
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- [PATCH v2] Bluetooth: hci_mrvl: Leave the serdev port lifetime to hci_serdev
-Date: Mon, 16 Nov 2026 16:35:14 +0000
-Message-ID: <179484691454.54083.14464729860702732145.marvell-serdev-v2@michaelmcallister.org>
-In-Reply-To: <179467295519.97469.5747232754111917783.marvell-serdev-v1-1@michaelmcallister.org>
-References: <179467295518.97469.12346516231160594592.marvell-serdev-v1-0@michaelmcallister.org>
- <179467295519.97469.5747232754111917783.marvell-serdev-v1-1@michaelmcallister.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKmxykhl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E0E1F000C4;
+	Mon, 16 Nov 2026 16:36:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794846982;
+	bh=I7Ca8ICpTz7JsnZNb3hwa55ByTirk5R6wmAQCfjrTFE=;
+	h=Date:From:To:Cc:Subject;
+	b=QKmxykhllu4ofrdbtovDSfpr5Ekq8pjrOZJqEirhXQi0jsPF/E26Xytx5YMtJVJH6
+	 gc7GfSZrKV3S29xvE2WI+HfO09eNdbu+VLsEzA2wlTT7LkZ64BdjO/7rrTZF8/XGwL
+	 fLWhwk06xmOM4XEGi0v64/nwps+GUk4NqpqCbWsYQ1IhQ3Sbcj2m1GAkC9yoZ5ugp0
+	 zfW7TtgzUSN7Bz0anW7Dv6KyjR6YJSmtidSHuiaCwbdaOZ3KGqouBbygyQfJ3aENOS
+	 6b0dIm1MbeNkJPplVblF6L7pbaRSR6QXGdl4OJrcgz9N5qlNLyQC7DV56xDTQZXhbu
+	 x7s7inLluuS1w==
+Date: Mon, 16 Nov 2026 16:36:18 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Kees Cook <kees@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Subject: linux-next: manual merge of the v4l-dvb tree with the origin tree
+Message-ID: <avsxAvgy5sbJWl4y@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,73 +58,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gmYpxAH5QGuzAVPI"
+Content-Disposition: inline
 
-hci_uart_register_device_priv() opens the port before calling mrvl_open(),
-so Marvell opens it twice. Likewise, mrvl_close() closes it before the
-transport closes it again during unregister or registration error cleanup.
 
-Remove the extra calls and let hci_serdev own the port lifetime. This also
-avoids failing probe when serdev rejects a second open with -EALREADY.
+--gmYpxAH5QGuzAVPI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: be70e5e774a6 ("Bluetooth: hci_mrvl: Add serdev support")
-Reported-by: Markus Probst <markus.probst@posteo.de>
-Closes: https://lore.kernel.org/341e56b1ff7d8a5b109e26e30dfed61faa54d603.camel@posteo.de/
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
-Hi Markus,
+Hi all,
 
-This just drops the non-standard trailer that checkpatch flagged. No
-code changes from v1; still looking for a test on Marvell hardware.
+Today's linux-next merge of the v4l-dvb tree got a conflict in:
 
-Thanks,
-Michael
+  drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
 
-Changes in v2:
-- Drop the Assisted-by trailer. AI assistance was used for v1.
+between commit:
 
- drivers/bluetooth/hci_mrvl.c | 14 --------------
- 1 file changed, 14 deletions(-)
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
 
-diff --git a/drivers/bluetooth/hci_mrvl.c b/drivers/bluetooth/hci_mrvl.c
-index 5798a8db0..def19907c 100644
---- a/drivers/bluetooth/hci_mrvl.c
-+++ b/drivers/bluetooth/hci_mrvl.c
-@@ -57,7 +57,6 @@ struct hci_mrvl_pkt {
- static int mrvl_open(struct hci_uart *hu)
- {
- 	struct mrvl_data *mrvl;
--	int ret;
- 
- 	BT_DBG("hu %p", hu);
- 
-@@ -75,17 +74,7 @@ static int mrvl_open(struct hci_uart *hu)
- 
- 	hu->priv = mrvl;
- 
--	if (hu->serdev) {
--		ret = serdev_device_open(hu->serdev);
--		if (ret)
--			goto err;
--	}
--
- 	return 0;
--err:
--	kfree(mrvl);
--
--	return ret;
- }
- 
- static int mrvl_close(struct hci_uart *hu)
-@@ -94,9 +83,6 @@ static int mrvl_close(struct hci_uart *hu)
- 
- 	BT_DBG("hu %p", hu);
- 
--	if (hu->serdev)
--		serdev_device_close(hu->serdev);
--
- 	skb_queue_purge(&mrvl->txq);
- 	skb_queue_purge(&mrvl->rawq);
- 	kfree_skb(mrvl->rx_skb);
--- 
-2.39.5
+=66rom the origin tree and commit:
 
+  03ec4aa9817b2 ("media: synopsys: hdmirx: free the driver data when the la=
+st user is gone")
+
+=66rom the v4l-dvb tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+index 713aa95be8179,a241761b1bcd9..0000000000000
+--- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
++++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+@@@ -678,13 -678,9 +678,9 @@@ static void hdmirx_plugout(struct snps_
+  	hdmirx_writel(hdmirx_dev, PHYCREG_CONFIG0, 0x0);
+  	cancel_delayed_work(&hdmirx_dev->delayed_work_res_change);
+ =20
+- 	/* will be NULL on driver removal */
+- 	if (hdmirx_dev->rgb_range)
+- 		v4l2_ctrl_s_ctrl(hdmirx_dev->rgb_range, V4L2_DV_RGB_RANGE_AUTO);
+-=20
+- 	if (hdmirx_dev->content_type)
+- 		v4l2_ctrl_s_ctrl(hdmirx_dev->content_type,
+- 				 V4L2_DV_IT_CONTENT_TYPE_NO_ITC);
++ 	v4l2_ctrl_s_ctrl(hdmirx_dev->rgb_range, V4L2_DV_RGB_RANGE_AUTO);
++ 	v4l2_ctrl_s_ctrl(hdmirx_dev->content_type,
++ 			 V4L2_DV_IT_CONTENT_TYPE_NO_ITC);
+ =20
+  	hdmirx_dev->plugged =3D false;
+  }
+@@@ -2941,6 -2937,16 +2937,16 @@@ static int hdmirx_register_audio_device
+  	return 0;
+  }
+ =20
++ /* Runs when the last user of a device node is gone, possibly after remov=
+e() */
++ static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
++ {
++ 	struct snps_hdmirx_dev *hdmirx_dev =3D
++ 		container_of(v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
++=20
++ 	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
++ 	kfree(hdmirx_dev);
++ }
++=20
+  static int hdmirx_probe(struct platform_device *pdev)
+  {
+  	struct snps_hdmirx_dev *hdmirx_dev;
+@@@ -2950,7 -2956,7 +2956,7 @@@
+  	struct v4l2_device *v4l2_dev;
+  	int ret;
+ =20
+- 	hdmirx_dev =3D devm_kzalloc_obj(dev, *hdmirx_dev);
++ 	hdmirx_dev =3D kzalloc_obj(*hdmirx_dev);
+  	if (!hdmirx_dev)
+  		return -ENOMEM;
+ =20
+@@@ -2960,23 -2966,25 +2966,25 @@@
+  	 */
+  	ret =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+  	if (ret)
+- 		return ret;
++ 		goto err_free;
+ =20
+  	hdmirx_dev->dev =3D dev;
+  	dev_set_drvdata(dev, hdmirx_dev);
+ =20
+  	ret =3D hdmirx_parse_dt(hdmirx_dev);
+  	if (ret)
+- 		return ret;
++ 		goto err_free;
+ =20
+  	ret =3D hdmirx_setup_irq(hdmirx_dev, pdev);
+  	if (ret)
+- 		return ret;
++ 		goto err_free;
+ =20
+  	hdmirx_dev->regs =3D devm_platform_ioremap_resource(pdev, 0);
+- 	if (IS_ERR(hdmirx_dev->regs))
+- 		return dev_err_probe(dev, PTR_ERR(hdmirx_dev->regs),
+- 				     "failed to remap regs resource\n");
++ 	if (IS_ERR(hdmirx_dev->regs)) {
++ 		ret =3D dev_err_probe(dev, PTR_ERR(hdmirx_dev->regs),
++ 				    "failed to remap regs resource\n");
++ 		goto err_free;
++ 	}
+ =20
+  	mutex_init(&hdmirx_dev->phy_rw_lock);
+  	mutex_init(&hdmirx_dev->stream_lock);
+@@@ -3031,11 -3039,12 +3039,12 @@@
+  		goto err_pm;
+  	}
+  	hdmirx_dev->v4l2_dev.ctrl_handler =3D hdl;
++ 	hdmirx_dev->v4l2_dev.release =3D hdmirx_v4l2_release;
+ =20
+  	ret =3D v4l2_device_register(dev, &hdmirx_dev->v4l2_dev);
+  	if (ret < 0) {
+  		dev_err_probe(dev, ret, "v4l2 device registration failed\n");
+- 		goto err_hdl;
++ 		goto err_pm;
+  	}
+ =20
+  	stream =3D &hdmirx_dev->stream;
+@@@ -3071,10 -3080,16 +3080,16 @@@ err_unreg_video_dev
+  	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+  err_unreg_v4l2_dev:
+  	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+- err_hdl:
+- 	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
++ 	hdmirx_disable(dev);
++ 	v4l2_device_put(&hdmirx_dev->v4l2_dev);
++=20
++ 	return ret;
++=20
+  err_pm:
+  	hdmirx_disable(dev);
++ 	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
++ err_free:
++ 	kfree(hdmirx_dev);
+ =20
+  	return ret;
+  }
+@@@ -3095,16 -3110,13 +3110,13 @@@ static void hdmirx_remove(struct platfo
+  	hdmirx_disable_irq(dev);
+ =20
+  	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+- 	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+  	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+ =20
+- 	/* touched by hdmirx_disable()->hdmirx_plugout() */
+- 	hdmirx_dev->rgb_range =3D NULL;
+- 	hdmirx_dev->content_type =3D NULL;
+-=20
+  	hdmirx_disable(dev);
+ =20
+  	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
++=20
++ 	v4l2_device_put(&hdmirx_dev->v4l2_dev);
+  }
+ =20
+  static const struct of_device_id hdmirx_id[] =3D {
+
+--gmYpxAH5QGuzAVPI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7MQEACgkQJNaLcl1U
+h9D8NAf/UKfmBrEWQMns1XD1B2tguwKtqbE0asrarfkonBQ27A2alh7hWHl0B0OY
+MlACi2YatPbaT1e7yho8pR6Uhnr6ko9Fs8TWj1lXWQO7MnobfMagoDwynMDJfHnm
+BGsb5TdVL8IOIxNhg4D8/gALX8f0xf9GvSU+fWcFAyZ0dJN4WnJdqwpzZ9EMPNmi
+Zl1TcDmyLdImzfPCgs0mH+o6cNVE9dMONqKwqKJSvMml87L9lz5jZA4YaQR0ai/3
+fHfJqM8qGQxP05ixyQnkefeWOm9nb0VMOkMAmWmcQ+xvegDVpQa7cIO2kvez41xJ
+91tUq3fA+B0qsOKf9ulxQc+w1lmyyw==
+=f0VI
+-----END PGP SIGNATURE-----
+
+--gmYpxAH5QGuzAVPI--
