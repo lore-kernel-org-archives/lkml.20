@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844364;
-	b=a2nx71pavE8Rjnw4tG5dSXeNhc/X2K2ZPatjj6sPPfKVHMQYwgDvkWhb0Ymp0psrR/Re
-	 meS3t6G87JrGOM2EljPBxfWcBNAfWQk1+hM04BpnMk8EJeGbzPD3Usa5Vjqqip1KSz0RA
-	 BaxxIuAXMFk+w1307uL8utVC96gk0mxV8trVxTaPt020iCcbmNZsopeJz5syHDhIdF4f1
-	 knLjJ1dY5+GU5WHlespXh1axCDjTPADVR5GSFj6sSSfP+hQ3qTWly54PEYgyPM8KmxBOP
-	 mY7Bo7Qz7WkUjq3v+bx9ErFTm3kTzFW6bUWxQUmJXLZaXE+9yGDjB2xVffFN6tRgzew==
+	t=1794844367;
+	b=yG22miDZu3g6qrPFu1/xv5kUkxAdokNqavFG8Lx0PmjxBaJj/5Hci9AKSOvbiFacJHBT
+	 Jr8BjsirLH7tNBqUIRVKdKs2cIBzP6z9+OHgeH7uelqMgHH41uH9dti3Xzlm1YBeQcTDK
+	 BT9i+5XqR166Nzc3bPqb9yRIufK2L76aueIxO6WQ97xN8mj79QEyJxW23WC9yOKVABnYP
+	 /YPdztqiEH+BwMMxH5CsIS98YAXG6t3iQTr4prLPvnlI/n4WgJguKG30l8UfKjBWU9fN8
+	 14GdfbxsEs9Jear2WTyvQlWffMkA9ly8K8jQOI8V7Dl4oLOmR4Xavxu+VWD9muL6Sag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844367;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=QDyYkUmfpanWYfs1xNZAc9qQPy7rIkSttuybi4FRhxU=;
-	b=y10kl0otkebmUH3BLXWGrQmJo3EE+9Y7ACu3wsSp73l6GG+fK1/dAdXWVA23P+rx5CfB
-	 lOFfn1H8x0BBCJrrvVBoTXLMPq2DQumk7W+LOp474qfPvp6CC8FgGZXUBrmBeD/+BLn04
-	 xB9BIOFMhcdR5lI91hdbovSDd5K2ASrh8P6MbuACPKMAHwfSfrIouWJKYHyWHcT8kGpIp
-	 iiIXOEiLD+0tJzrSaEMaOeOnKaK/LMGTabRSdDw98n6XnYFrJ7pI6VRNEBoVL61ugxd3M
-	 gr/rkqHR3rv3Ci7tB35B9Kws3cCXZv9UFyfVan6cT8zHr4xsh8zUt29YlZ+18oiF7KQ==
+	bh=f09LbFbzsrP+5JEKU6LsA1tqG6izYEkt3fstb0HirUw=;
+	b=wV6YIqeKkfQk5xOJHjk19I0N5oIvmEp7vm/RdjMZy1w3Haxe6599KXyv+k+atugEpfAH
+	 4gP/i3DwNRQt7fiukop9pA1aWqAqjb7Xg+jEpmwzLUsKwsyAE0+jC6BNH0wojnqqiwCw3
+	 iawtLm2IHuKEFEMPlHzU5ZhDyzn2NuTuaPpgOpaZOeDO1OwsNv7NrtcLlhqslkLhtrmlE
+	 d//gt5hiZeWcKNbJzMWjtoQp3//4kiz3UpMwFzTRSEJFiF+5hHrse1xsE60hLNeUhg8jF
+	 YWDt2q/1qw/7elUnj4DVBeVTVdNzi+GnlGNc6hDcQgtGsgYDAOa+cpaZyor5PJIlaDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPuBUv59;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNcsmVze;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCF8606A339
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FCF8606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571B9606A88E
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:52:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 571B9606A88E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPuBUv59
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so23270175e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:52:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNcsmVze
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49412eb1474so1804947f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:52:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794844363; x=1795449163; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794844366; x=1795449166; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QDyYkUmfpanWYfs1xNZAc9qQPy7rIkSttuybi4FRhxU=;
-        b=TPuBUv59aP5Iek4e+LZRbmINU5X2lwItOeX97cr0zQ7tCCg4EmShKPR1bQ439G86Re
-         btTcFmrzUj9diZFRcdVIPfGyDYXP3jFzX6NUgYpFc9FPncJO2KnizSxdvHxCSPoMqQxU
-         11Lr82gGUPtSefS/5xcAqq7oSjMFOM+IPorE3O4+0/qBp2JThFdm54l/0mMbp/QdbmlX
-         iXrNAQMHx3totq6jo+EXCNreVU3b56/09LOam3kLv3nMTG6Sa7ciAXVNAuee+i3E/sHG
-         UVxTG17Cb7MapVAfnc+qFAgSLpsF/KhlMIJ867FGPwIzEXpqST/dVtjSj4GMHZROc9WE
-         xjWA==
+        bh=f09LbFbzsrP+5JEKU6LsA1tqG6izYEkt3fstb0HirUw=;
+        b=oNcsmVzeYE7WPt+i300Bb/xG/YCYgIbXz1N9KfmiGgj6pexjhk9cxnRBOoYpA22Oxm
+         ovQfoWyNHXpHWZ6OoTmOuYUxZBLtIE+PbC/KzOOqzQVWYuboRV1at0V8t27bj5isYtY5
+         1A9F2SrbMZyPNrF0R34fmWWEYSUVF7IXBoRbiY6DArpHWd2z+M1+ddaeGxpF8Y4T0bXC
+         TX2uXvAEx9PDlAmNxdSEZ1e9gnx82GGC0SMPeZOg26I8b8CW9J72fAkk2Qtl2mNPBfkB
+         7zlSIUN8Rw1JOU/Xyk5O8mhHJkP8MhByxX4l7ObQH8VPs0B9WkLNHvHsmiHL1nyDnb4f
+         cHOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794844363; x=1795449163;
+        d=1e100.net; s=20260707; t=1794844366; x=1795449166;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QDyYkUmfpanWYfs1xNZAc9qQPy7rIkSttuybi4FRhxU=;
-        b=2WDPZF2r5nr5oK0UD2Pm8JvcyMOkcAGJ1Pg0XtzCPZGYmmEC9il+y6AHKSkDPvo5oi
-         x/4awZI6V/Lub3wCW7pXchjnVkcXcSX0FTcNH9BtSnug3snacfz9ZP4IyJY2y4bZPVwX
-         ToisbYpm724vgkY8jF8LIwa1QxGabdYC3ocxwW7bdeKVULIZBmG39M/wBa1uprDqLj2A
-         I3loSKatyGJlKyfSP1gUtptsdOGITJGZZJc8wocMjPX0jkcdADv6R+wtb79mPg3BW6qR
-         nIy2In+m5SUQKcnsueL/QHUG+O8/d0rfao28i6LPnGG6X+MrKuF/SqG0Shw3br8jAsaZ
-         xYWg==
-X-Forwarded-Encrypted: i=1; AL+hErFIvwkSEgjav83m4G16bjeIfHG8WYVnBjtCMgvUAMWRRu3CS/SamfzeJIvsAeYqcSS6iBDa001mHTHdwVc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80FPeLoCXaNeRAdqwO14j6/Gqq1X/whHRr0lxp4OEgnhC2rn0t
-	s0mp5OgvmMiH07Dky6PQM7YgLfCOeBB8huXxHXE5wLh+axCOx4jlQPeU
-X-Gm-Gg: AYBFou0N5krkYz8TOu1bLmT4AZWkLi464H94FM3Aagbxm9egKD/tVB4IHQ5aARPkZLT
-	3vFh27/S6U9A+BRutwD2awE2ag1y+jQ1qCJmRKqxPTNSTJP8rwPQ3Q7bAUvmHuo+9tbh2l9B2c1
-	13KxrfyDGkGstntX/gfVPh2cQwurzDBVzFzJWoj+20aTqeN+pUkYTCJtFkxLl9d3GJvzYK7icc3
-	QaikGkui81Om40NBSduyac3Atn6GcrS4Hw05mXBze0rP0OkPVbxmDY/aVhczcevrsRxzvM2vW2W
-	5+6kQP6BqoPYk59L/uZaTYXg+lP9rZ/FNJU6zt8g2hOySvM7dPx1REJPCiGRqRn/QME+S1X0poW
-	Sep5QADtYUwJAWywwyUmd1pbZ4gJkD6ZuKF4hqlCay9uNzRl0/aVOpHCGGoj+Dn/lbdg2bg3Ge5
-	gWDjHF5NtnTEJLuOcdYY2GCHk+AIGwH9a4r3a9GkvZKTMJklKhTW6RMSrUaq8e+70uGii1iN+oo
-	SrE+wCMLmOluy60AbORtCwanuq3vvCOpYdvWFSYcNcv1IxWEDlTkPn/yAktK1+/PVs7V5XKbZk6
-	kdy03MjtNYpcvDSiH5+t0sWS4f/PMhJmXF/iULl32+342VxAdSbvR3OmO2G1zGXJGUa9bkHqadh
-	VNJ1+jG3+/MKw1WOQ2RS6VRMlKQ7MOc0z5vncXgT7
-X-Received: by 2002:a05:600c:1daa:b0:4a2:59:f568 with SMTP id 5b1f17b1804b1-4bb55a481ccmr224438855e9.14.1794844362733;
-        Mon, 16 Nov 2026 07:52:42 -0800 (PST)
+        bh=f09LbFbzsrP+5JEKU6LsA1tqG6izYEkt3fstb0HirUw=;
+        b=JuYnqn5bFz5G2HmP0Tb9xv9hVcnbNQiRVjqmkJ6T8qfvxtkS1seIRoNv+b/sOVXV6s
+         0FNKP1wos3JRJYCE40mDVZnwdG7tGBnRhp7/3bjRxk/hMnKTNKNTknJrLVLIGtze8A9P
+         Jov5u8YiEOqDmMRVIw6pRUITZbe02RCZkZi8asb3I8wUFOdAzJ6QGs/Ark8moVduZ9HD
+         N3+vh/rbr7GJuDW+zE0oaVGFgGWbajMTx+PIAk58WmemSbsUWn03UiMNu0pirumEmcN1
+         Frg1K+soK8Lf9Z15lFYcjfCPCklY24KwP3E2cHk4LVawsxawVF4bvIWwk+dD64NH8eDM
+         dC1g==
+X-Forwarded-Encrypted: i=1; AL+hErEGFlecYwEYOCbyp3BPCHv8De3Zj+iTSDvWaFNdwoASAPs9y8SVUfXSylNbcw62NIzKpfVR2/up2eqS4Sw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Vteq07boa5oRoA7J+txNMonoYRtkJtp+fmiR5f2w04VOoxH7W
+	TQfjwEYFmS2u0/El6sEJhG6kSISRYIZD+dh7TzyujbitbisAc8/p9k4O
+X-Gm-Gg: AYBFou0qpHOLj7Bg/M3Fx/30zxhiIntmDCgrbEItnJvnNm5Dunjv4fSTkyRsPNwmD4E
+	ghYDTGVR5vrmOJkK+Rc27smdLDw/lHmtJl9Wr4MEaoLZvGfvppq9RvtVgeFop5wOsusvdRHEBT8
+	imtvwpFxW4ccA+k40JdrKbRttNocy6S8nyopD+iRToA5jL5ug+XkZ+HeX1qG35gLZnNCglQ1xKY
+	R2IidNIX2axYqVAZqH4pmiOWjpe2bbGNY5ux4O3lvATTQKWQLLahzCn1KGd55pOi3FvjV4PKCK0
+	4I7l5GECLXB4RdWbYhL5qgjZipbDdQkXPTYXFPXMusPis9t0zoHvTrvP8LByu2ljN9eOgO+Kr7p
+	W3TreO4umAw+8/Uutynv5sHZY+hqm8DUR8AzHByleGBl5P8tbBn269+0GSHm8Hrc9FQCd/DMcIx
+	jpB07zxuXtnv/5WKzPcqnQzoTaBmucmv2dp8eyKmUwJdM0uYPYZ1n8sbElfr1ScCE6V8o0t5+Jn
+	/3er0s0KFYalp8WRfdt0ScQuPysOcy/iH2nEWrNrPmW+OjOVmnJqpQdCKd1hxnobmCJ0+0euPwB
+	q7AxyxF/WRaPBKUXyC+dcw1HmGby03YE6Do7U++2mJPyacH5b7DiZJo/hFoVcGhzx3N8zZS9H1E
+	Y14x3f0xe1QYlMO2w3f3N1ziJ06u7kuijS+ZEGHiB+7zNk/wsmDw2XKagY6InXg==
+X-Received: by 2002:a05:600c:3f0d:b0:4bb:7757:fe58 with SMTP id 5b1f17b1804b1-4bb7757ff82mr18309875e9.19.1794844365564;
+        Mon, 16 Nov 2026 07:52:45 -0800 (PST)
 Received: from B87454BG30364.retailmedia.com (284035233.box.freepro.com. [82.96.134.200])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae501bsm321279415e9.10.2026.11.16.07.52.41
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae501bsm321279415e9.10.2026.11.16.07.52.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 07:52:42 -0800 (PST)
+        Mon, 16 Nov 2026 07:52:43 -0800 (PST)
 From: Erwan Velu <erwanaliasr1@gmail.com>
 To: Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
@@ -90,9 +90,9 @@ Cc: Carlos Bilbao <carlos.bilbao@kernel.org>,
 	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Erwan Velu <e.velu@criteo.com>
-Subject: [PATCH v2 3/5] platform/x86/amd/hsmp: Expose socket attributes from the platform driver
-Date: Mon, 16 Nov 2026 16:51:45 +0100
-Message-ID: <20261116155147.769630-4-erwanaliasr1@gmail.com>
+Subject: [PATCH v2 4/5] platform/x86/amd/hsmp: Add pwr_current_active_freq_limit_source_raw
+Date: Mon, 16 Nov 2026 16:51:46 +0100
+Message-ID: <20261116155147.769630-5-erwanaliasr1@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261116155147.769630-1-erwanaliasr1@gmail.com>
 References: <20261116155147.769630-1-erwanaliasr1@gmail.com>
@@ -109,278 +109,85 @@ Content-Transfer-Encoding: 8bit
 
 From: Erwan Velu <e.velu@criteo.com>
 
-The platform driver creates bare socketN attribute groups on the
-amd_hsmp platform device, which only hold metrics_bin. On systems
-without the HSMP ACPI object, attributes such as
-pwr_current_active_freq_limit are therefore missing, although the
-driver can send the same HSMP messages as the ACPI one.
+pwr_current_active_freq_limit_source reports the active frequency limit
+sources as a list of names, one per line, which metrics exporters have
+to parse and map back to a value.
 
-Register the amd_hsmp class socketN devices from the platform driver,
-as children of the amd_hsmp platform device, and drop the socketN
-attribute groups they replace. The socket devices carry
-hsmp_sock_groups, metrics_bin included, so all the per-socket
-attributes are now available under /sys/class/amd_hsmp/socketN/.
+Add pwr_current_active_freq_limit_source_raw, reporting the same source
+bitmask as a single hexadecimal value. Exporters only need a plain
+integer conversion, and its interpretation can be centralized in the
+monitoring stack, e.g. with Grafana value mappings, instead of being
+decoded on each server.
 
-As class devices, they are placed by the driver core in an amd_hsmp
-glue directory below their parent, i.e. in
-/sys/devices/platform/amd_hsmp/amd_hsmp/socketN/. To keep the existing
-/sys/devices/platform/amd_hsmp/socketN/metrics_bin path working, add a
-socketN symlink from the platform device to each socket device.
-
-As the socket devices and their symlinks are now the only way
-metrics_bin is exposed, failing to create one fails the probe. They are
-torn down by a devres action added after hsmp_pltdrv_release(), so they
-are gone before the socket array they reference is released.
-
-Systems running HSMP protocol version 7 or later with the platform
-driver (Family 1Ah model 0x00-0x0F without the HSMP ACPI object) now
-see metrics_bin, as with the ACPI driver: reads return -EOPNOTSUPP and
-point userspace to HSMP_IOCTL_GET_TELEMETRY_DATA, as the version 7
-table does not fit in a sysfs binary attribute. It used to be hidden
-there.
-
-On a single socket Zen4 (Family 19h) server probed by the platform
-driver, this gives:
-
-  $ ls -l /sys/devices/platform/amd_hsmp/
-  drwxr-xr-x amd_hsmp
-  ...
-  lrwxrwxrwx socket0 -> amd_hsmp/socket0
-  $ ls -l /sys/class/amd_hsmp/
-  socket0 -> ../../devices/platform/amd_hsmp/amd_hsmp/socket0
-  $ cat /sys/class/amd_hsmp/socket0/pwr_current_active_freq_limit
-  3100
-
-This system runs HSMP protocol version 5, so metrics_bin is not
-visible, as before this change.
+The bit assignment is defined by the HSMP specification and is stable:
+new limit sources are only appended, existing bits never change meaning.
+A given value therefore has a single interpretation, whatever the
+platform or kernel version it comes from.
 
 Assisted-by: claude-opus-5-5
+Acked-by: Carlos Bilbao <carlos.bilbao@kernel.org>
 Signed-off-by: Erwan Velu <e.velu@criteo.com>
 ---
- Documentation/arch/x86/amd_hsmp.rst  |   8 +-
- drivers/platform/x86/amd/hsmp/plat.c | 155 +++++++++++----------------
- 2 files changed, 67 insertions(+), 96 deletions(-)
+ Documentation/arch/x86/amd_hsmp.rst   |  4 ++++
+ drivers/platform/x86/amd/hsmp/sysfs.c | 18 ++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
 diff --git a/Documentation/arch/x86/amd_hsmp.rst b/Documentation/arch/x86/amd_hsmp.rst
-index f145ea12af99..c4459a9dddc6 100644
+index c4459a9dddc6..6156d50362cf 100644
 --- a/Documentation/arch/x86/amd_hsmp.rst
 +++ b/Documentation/arch/x86/amd_hsmp.rst
-@@ -75,14 +75,18 @@ e.g. /sys/devices/platform/AMDI0097:00/amd_hsmp/socket0/. For backward
- compatibility, the files are also available directly under
- /sys/devices/platform/AMDI0097:0X/.
+@@ -121,6 +121,10 @@ Following sysfs files are available at /sys/class/amd_hsmp/socket%d/.
+   in MHz.
+ * pwr_current_active_freq_limit_source: Source of current active frequency
+   limit.
++* pwr_current_active_freq_limit_source_raw: Source of current active
++  frequency limit, as a hexadecimal bitmask. Bits 0 to 7 are, in order:
++  cHTC-Active, PROCHOT, TDC limit, PPT Limit, OPN Max, Reliability Limit,
++  APML Agent, HSMP Agent.
  
-+With the plat driver, the socket devices are children of the amd_hsmp
-+platform device, i.e. /sys/devices/platform/amd_hsmp/amd_hsmp/socket%d/.
-+For backward compatibility, /sys/devices/platform/amd_hsmp/socket%d is a
-+symlink to it.
-+
- 1. Metrics table binary sysfs
- 
- AMD MI300A MCM provides GET_METRICS_TABLE message to retrieve
- most of the system management information from SMU in one go.
- 
- The metrics table is made available as hexadecimal sysfs binary file
--under per socket sysfs directory created at
--/sys/devices/platform/amd_hsmp/socket%d/metrics_bin
-+/sys/class/amd_hsmp/socket%d/metrics_bin
- 
- Note: lseek() is not supported as entire metrics table is read.
- 
-diff --git a/drivers/platform/x86/amd/hsmp/plat.c b/drivers/platform/x86/amd/hsmp/plat.c
-index c3dc7c9f45ac..edcfe82aab2a 100644
---- a/drivers/platform/x86/amd/hsmp/plat.c
-+++ b/drivers/platform/x86/amd/hsmp/plat.c
-@@ -12,7 +12,6 @@
- #include <asm/amd/hsmp.h>
- 
- #include <linux/acpi.h>
--#include <linux/build_bug.h>
- #include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/dev_printk.h>
-@@ -48,98 +47,6 @@ static int amd_hsmp_pci_rdwr(struct hsmp_socket *sock, u32 offset,
- 	return amd_smn_hsmp_rdwr(sock->sock_ind, sock->mbinfo.base_addr + offset, value, write);
+ ACPI device object format
+ =========================
+diff --git a/drivers/platform/x86/amd/hsmp/sysfs.c b/drivers/platform/x86/amd/hsmp/sysfs.c
+index 94670c8e689b..5615b0385477 100644
+--- a/drivers/platform/x86/amd/hsmp/sysfs.c
++++ b/drivers/platform/x86/amd/hsmp/sysfs.c
+@@ -282,6 +282,21 @@ static ssize_t hsmp_freq_limit_source_show(struct device *dev, struct device_att
+ 	return len;
  }
  
--static ssize_t hsmp_metric_tbl_plat_read(struct file *filp, struct kobject *kobj,
--					 const struct bin_attribute *bin_attr, char *buf,
--					 loff_t off, size_t count)
--{
--	struct hsmp_socket *sock;
--	u16 sock_ind;
--
--	sock_ind = (uintptr_t)bin_attr->private;
--	if (sock_ind >= hsmp_pdev->num_sockets)
--		return -EINVAL;
--
--	sock = &hsmp_pdev->sock[sock_ind];
--
--	return hsmp_metric_tbl_read(sock, buf, count);
--}
--
--static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
--					 const struct bin_attribute *battr, int id)
--{
--	u16 sock_ind;
--
--	sock_ind = (uintptr_t)battr->private;
--
--	if (id == 0 && sock_ind >= hsmp_pdev->num_sockets)
--		return SYSFS_GROUP_INVISIBLE;
--
--	if (hsmp_pdev->proto_ver == HSMP_PROTO_VER6)
--		return battr->attr.mode;
--
--	return 0;
--}
--
--/*
-- * AMD supports maximum of 8 sockets in a system.
-- * Static array of 8 + 1(for NULL) elements is created below
-- * to create sysfs groups for sockets.
-- * is_bin_visible function is used to show / hide the necessary groups.
-- *
-- * Validate the maximum number against MAX_AMD_NUM_NODES. If this changes,
-- * then the attributes and groups below must be adjusted.
-- */
--static_assert(MAX_AMD_NUM_NODES == 8);
--
--#define HSMP_BIN_ATTR(index, _list)					\
--static const struct bin_attribute attr##index = {			\
--	.attr = { .name = HSMP_METRICS_TABLE_NAME, .mode = 0444},	\
--	.private = (void *)index,					\
--	.read = hsmp_metric_tbl_plat_read,				\
--	.size = sizeof(struct hsmp_metric_table),			\
--};									\
--static const struct bin_attribute _list[] = {				\
--	&attr##index,							\
--	NULL								\
--}
--
--HSMP_BIN_ATTR(0, *sock0_attr_list);
--HSMP_BIN_ATTR(1, *sock1_attr_list);
--HSMP_BIN_ATTR(2, *sock2_attr_list);
--HSMP_BIN_ATTR(3, *sock3_attr_list);
--HSMP_BIN_ATTR(4, *sock4_attr_list);
--HSMP_BIN_ATTR(5, *sock5_attr_list);
--HSMP_BIN_ATTR(6, *sock6_attr_list);
--HSMP_BIN_ATTR(7, *sock7_attr_list);
--
--#define HSMP_BIN_ATTR_GRP(index, _list, _name)			\
--static const struct attribute_group sock##index##_attr_grp = {	\
--	.bin_attrs = _list,					\
--	.is_bin_visible = hsmp_is_sock_attr_visible,		\
--	.name = #_name,						\
--}
--
--HSMP_BIN_ATTR_GRP(0, sock0_attr_list, socket0);
--HSMP_BIN_ATTR_GRP(1, sock1_attr_list, socket1);
--HSMP_BIN_ATTR_GRP(2, sock2_attr_list, socket2);
--HSMP_BIN_ATTR_GRP(3, sock3_attr_list, socket3);
--HSMP_BIN_ATTR_GRP(4, sock4_attr_list, socket4);
--HSMP_BIN_ATTR_GRP(5, sock5_attr_list, socket5);
--HSMP_BIN_ATTR_GRP(6, sock6_attr_list, socket6);
--HSMP_BIN_ATTR_GRP(7, sock7_attr_list, socket7);
--
--static const struct attribute_group *hsmp_groups[] = {
--	&sock0_attr_grp,
--	&sock1_attr_grp,
--	&sock2_attr_grp,
--	&sock3_attr_grp,
--	&sock4_attr_grp,
--	&sock5_attr_grp,
--	&sock6_attr_grp,
--	&sock7_attr_grp,
--	NULL
--};
--
- static inline bool is_f1a_m0h(void)
- {
- 	if (boot_cpu_data.x86 == 0x1A && boot_cpu_data.x86_model <= 0x0F)
-@@ -222,9 +129,49 @@ static void hsmp_pltdrv_release(void *data)
- 	hsmp_pdev->sock = NULL;
- }
- 
-+/*
-+ * The amd_hsmp class devices live in an amd_hsmp glue directory below the
-+ * platform device, i.e. /sys/devices/platform/amd_hsmp/amd_hsmp/socket%u.
-+ * /sys/devices/platform/amd_hsmp/socket%u used to be a plain attribute group
-+ * holding metrics_bin, so keep that path working with a symlink to the socket
-+ * device.
-+ */
-+static int hsmp_pltdrv_sock_dev_register(struct device *dev, struct hsmp_socket *sock)
++static ssize_t hsmp_freq_limit_source_raw_show(struct device *dev,
++					       struct device_attribute *attr, char *buf)
 +{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
 +	int ret;
 +
-+	ret = hsmp_sock_dev_register(dev, sock);
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
 +	if (ret)
 +		return ret;
 +
-+	ret = sysfs_create_link(&dev->kobj, &sock->sysfs_dev->kobj,
-+				dev_name(sock->sysfs_dev));
-+	if (ret)
-+		hsmp_sock_dev_unregister(sock);
-+
-+	return ret;
++	return sysfs_emit(buf, "0x%04lx\n", FIELD_GET(FREQ_SRC_IND_MASK, data));
 +}
 +
-+static void hsmp_pltdrv_sock_devs_release(void *data)
-+{
-+	struct device *dev = data;
-+	struct hsmp_socket *sock;
-+	u16 i;
-+
-+	for (i = 0; i < hsmp_pdev->num_sockets; i++) {
-+		sock = &hsmp_pdev->sock[i];
-+		if (!sock->sysfs_dev)
-+			continue;
-+
-+		sysfs_remove_link(&dev->kobj, dev_name(sock->sysfs_dev));
-+		hsmp_sock_dev_unregister(sock);
-+	}
-+}
-+
- static int hsmp_pltdrv_probe(struct platform_device *pdev)
- {
- 	int ret;
-+	u16 i;
+ static const struct bin_attribute  hsmp_metric_tbl_attr = {
+ 	.attr = { .name = HSMP_METRICS_TABLE_NAME, .mode = 0444},
+ 	.read = hsmp_metric_tbl_acpi_read,
+@@ -315,6 +330,8 @@ HSMP_DEV_ATTR(pwr_current_active_freq_limit, HSMP_GET_SOCKET_FREQ_LIMIT,
+ 	      hsmp_freq_limit_show, 0444);
+ HSMP_DEV_ATTR(pwr_current_active_freq_limit_source, HSMP_GET_SOCKET_FREQ_LIMIT,
+ 	      hsmp_freq_limit_source_show, 0444);
++HSMP_DEV_ATTR(pwr_current_active_freq_limit_source_raw, HSMP_GET_SOCKET_FREQ_LIMIT,
++	      hsmp_freq_limit_source_raw_show, 0444);
  
- 	hsmp_pdev->sock = devm_kzalloc_objs(&pdev->dev, *hsmp_pdev->sock,
- 					    hsmp_pdev->num_sockets);
-@@ -252,6 +199,27 @@ static int hsmp_pltdrv_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	/*
-+	 * Added after hsmp_pltdrv_release() so that devres removes the socket
-+	 * devices before the socket array they reference is released.
-+	 */
-+	ret = devm_add_action_or_reset(&pdev->dev, hsmp_pltdrv_sock_devs_release, &pdev->dev);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * The socket devices and their symlinks are the only way this driver
-+	 * exposes metrics_bin, so failing to create one fails the probe.
-+	 */
-+	for (i = 0; i < hsmp_pdev->num_sockets; i++) {
-+		ret = hsmp_pltdrv_sock_dev_register(&pdev->dev, &hsmp_pdev->sock[i]);
-+		if (ret) {
-+			dev_err(&pdev->dev, "Failed to register HSMP socket%u device: %d\n",
-+				i, ret);
-+			return ret;
-+		}
-+	}
-+
- 	ret = hsmp_misc_register(&pdev->dev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to register misc device\n");
-@@ -272,7 +240,6 @@ static struct platform_driver amd_hsmp_driver = {
- 	.remove		= hsmp_pltdrv_remove,
- 	.driver		= {
- 		.name	= DRIVER_NAME,
--		.dev_groups = hsmp_groups,
- 	},
+ static struct attribute *hsmp_dev_attr_list[] = {
+ 	&hattr_c0_residency_input.dattr.attr,
+@@ -331,6 +348,7 @@ static struct attribute *hsmp_dev_attr_list[] = {
+ 	&hattr_clk_fmin.dattr.attr,
+ 	&hattr_pwr_current_active_freq_limit.dattr.attr,
+ 	&hattr_pwr_current_active_freq_limit_source.dattr.attr,
++	&hattr_pwr_current_active_freq_limit_source_raw.dattr.attr,
+ 	NULL
  };
  
 -- 
