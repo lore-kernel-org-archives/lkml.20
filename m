@@ -1,129 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855860;
-	b=nNhuagMuuBKR0OR8agac76gvbAwNJlasVWbcg6PUY6fHkfURaxNYIw27dL2obkKkceYq
-	 fUOf7HCVTddQL44K7gSAj4mr8Kp8Lh6z5qh9pbEQXzUbpuap2HTWDpBSGk1aXA8iA+E3G
-	 1ZcX1zlaf22jE2aO2BPg6wYysvKl8JPfGO8Bi4cC0qrXW8zdesDJYFNNfrWqbyG+CE9vf
-	 MnAAVwcS+CKSEPwn0fVZ0gZTfJ1dpc9bp5ak/MFUxh0mn7tgXBPBY8cytWR1qfMsZySS5
-	 TQP1gKz3QokjxvLJ8eI+vRnd5aIfiaM9dmPrKnvFU72NanRj1Q8qOdsMY1uSZPDwQoA==
+	t=1794855954;
+	b=pY+X/nmjknrLVN28REWGwOeOD4xm3eBZM27XrdtZLJ+v8HMryPJj6qAbbEKinTyouAJi
+	 pFvXH5Jq8pJeceD8naOpU5O2KKeJzqXDVykKo72dy71okvxgoJJ70s8tJRdT25ANH6M8e
+	 dFVh3pkUaxVwSKrwvSe8YZXy05eAYZp0Tp7bCixtCJ4iAgFHfEnHHtL2CE9YaKw0eM01q
+	 fzh/B0jQ5D8I9K+xhxi9y3ygOujiHif8Rgsw1rvdrdWkuOQF3x+f5n4k+w6HiI5UfB7Du
+	 I30Al5ah6NGi0yO1feWFtsKMjHtaDq4tDBEDpzxU3xask69ptEr31hpkUX6j39XxM4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855954;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=WvOfbKHC1YhEa2QpW290x7cG/RSkj9nU3s9Pf1uScWc=;
-	b=GdGnPVGf+EqoMI/dQBoaaDAbgiCa+PmTa6cmXYHuBMkLJ+1CJ6OTm7hxnlHtZOVWxl/O
-	 UwB4KzGesUPmOHXjT3SrbuAQ+3myuNfK5vAD+rtWPql6r2tWvJfRs2U/NlflZHIiRVMoA
-	 yPl062iE9hniZONSY2v8CmLKcxSsB3JxwSqbtJ4uSZHZV74t/jnD0qucYBUbU7DVxeLND
-	 RyslpkPVkGtYVBTnQzZi9JiBofYwvilPP0QIi0OhPCOopfizS5D6iMPV0YYtvzuhTwfpi
-	 HoYKH+yLZaJZLbJ2W36EIQiqX4j6Iq88MrAMW4Pz7owU0BMoetV99V/akCDpiYZCbFw==
+	bh=uxQMYwwz7yNG5xs6CvbpRYX33to4uhawWZVBwJyeiY8=;
+	b=MFRXzLErObtxgkToCyQxS2wbUUwJzQoZCDWcu+PlGQ7BSTCV9Od3lV1miKr1Yinv87Se
+	 VSSo7maM00ndCBwlC0zElrwlDC939gOVdTWi4pbwPBjx7reukveXueZcha6cnN6NA1/mL
+	 97zn+ZDeSAumS4edRadVZV6CwPwNluJN5if0qwAMpg+XKVSeUbr86WBQf2xj4v2qiylxi
+	 Jep8WNFP5eB9U4uFdE3e/a/0OSOGeK+NcW5b6t4agRxRZt0WbzbVMO0PepdDhflIVtv50
+	 MM8a5E56Kc3gZHJv8UbP2KeKBxnYqtiXGB366dqHW0cKEG7n3lIStKLVPExgxE9ngCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=cV6xCUYW;
-	arc=none smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wkCiVxsZ;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC1B606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBC1B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38588606A33E
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38588606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=cV6xCUYW
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53669f7b518so50537531cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:04:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wkCiVxsZ
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f758312e0so1066124eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:05:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794855859; x=1795460659; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794855952; x=1795460752; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WvOfbKHC1YhEa2QpW290x7cG/RSkj9nU3s9Pf1uScWc=;
-        b=cV6xCUYW6Nj32ATgj9pR3hPHUcXMAswfWFmbofUn9Kj8O2h0vBxKz+gKkblkAcoZs4
-         3Sksf2uZJcrqFHnWfbGA31BNzwsf2S1dv95GJqgZVMfFGYLSB6zg6g2Fr+yuwov/in3t
-         kzMGwphN2MWZmbFV+wYJtbSpA7Il47XDSpoenMocuugAiDnZMkgQe82N6D/LNCvFdxrw
-         g4Vs+tRlvNQP2aXotTXnhkPG5j8fWm0uVGtEmoX6U112LRHDjo2Qmq5iAcSLMow6gR3a
-         CP6w8W/FgL6u2p7O81zc788TpdcCz8lIWVKQDNRHCpvZKfTuZAAb/gE598LmoW33C074
-         z1Cw==
+        bh=uxQMYwwz7yNG5xs6CvbpRYX33to4uhawWZVBwJyeiY8=;
+        b=wkCiVxsZ6dJT02YF60E5go+iS1uyByIAi7dM39R8hfN2KdWodcwN4LA5PYh5w1Y2RO
+         0oEX/oaMFSNIXOhVSgjowRzIXkNrbgvC7zuo913NFM/QN9FiJg9pOzfCTYAj6NdufAzy
+         dwOchWL3Qoq2OVVXg3CD0fSWKaCEO+AQW2ZH8OQdrXc5b1TS6i2JaehpQJwD9uJbGIdh
+         Ri53AOvxyV0G6wP6ruvFbyhQz8XWO0IPZJfinIU427eGNMq8CZv5XOLaHhIFc6JrGGnS
+         wXx9T0oD6FlyJNHMyG1w/aRdL/61IGlr5AQOOQ+Azz0TK+RmM5LgSOr2y1kMNme0x4Y9
+         POEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855859; x=1795460659;
+        d=1e100.net; s=20260707; t=1794855952; x=1795460752;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WvOfbKHC1YhEa2QpW290x7cG/RSkj9nU3s9Pf1uScWc=;
-        b=yEVNaxSxz2uyalkse9egyc1dseg8ORcdpCFCD/Tk4k/X7kKXKe1yxAJ1yqBP98gs67
-         uqHI9mNtfyUJ98DJAQ11t41VKKnp/kN6PZL7MqHxhA8KcfApwy/xIKOKbXfAgoEJzoq3
-         q5UeWeoJ8sZr1VGTVat3JZfve1Y/hCP/MU0dBzRpz7hhTqxKMHye0BNkFRgGqEbmmtCt
-         XuWxpTkYaRT5EzHKKCWMEG23WP/93LcQ4CgtKIwy4mnRlxd5GNFhT9GlM8RWw4pKFX8K
-         eM+ZfgLFFkUeSJxCs3VA7Vu64BOI7Jm3m6Ge9+9NjgmWetE7vUN8xzHUvkKIgLYwgLho
-         ZJUQ==
-X-Forwarded-Encrypted: i=1; AL+hErFlhB/04ZLvNQpBV7PJJ8tVn2zgb4XG2wnVUKk41jeKkDKVPSgKtJ/RgCv3jgnzIx93LHLl+eyMT7RYmZE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xiDV+eWkzC/tXvWUEvIPdkjQe6fOSBCslHfAQfqvpwkqiltT7
-	+HuPOTBjERjixnQ6qSiqsHAD7LnGocvOkx3LnxTiZ3WiKwVaXGfGP8QL+cpFkfSwpQs=
-X-Gm-Gg: AYBFou3TequZ8A9ltKndmAWALaA8dk5CBPJbNJBxKdCe+XoRUpxD8qZdoKp5qtxKwwX
-	aMplHc/N+1oUWoFWdhjokYxedLzwZax1vRsB5BeV1xN31/5TTC7Zan+XhN4JJUEVl4KFnpJnEAO
-	miFmIjJ61/uqJQfhmxDujFncmUYD/W9Rcc8voIa4vFAlPC9KJ+DDqDacQWj8UbFQqk37jsHGTSO
-	/7AYcap6QuIShMyAASgh/J1LHvm+VC160JKpZh0rgzr3omH+XXIHERzm96Py+URKF2f3jlgTKFn
-	sci2k+x1gZmH7I0//IcnioZVNG0lYJTvnZYgcbAmJ4lxcYk1InEtvVvA07ZHNZARFfd4UpwO1A3
-	tOdnBqCPuslNfqO9g+gDIsfbMYGPnp8cpRMVutc21e/y3sCl81G9v756PYeYeqoldqZa5l7FOd1
-	bpQemxkJZV1f77Fw45CvKX08GYfbFejWJbkoyXgWKyuEN+azltXNje1t9s8XuuyXt017OZQPOcH
-	zodFcNgpXt3EOaW87sC0XVyy12AY6YnrLPKZjVZn0WinL1wuHmIvTiYGgD+VYLPwEJj7Qo03z/n
-	FkbOCw==
-X-Received: by 2002:a05:622a:124b:b0:536:9140:e2be with SMTP id d75a77b69052e-55ac948cc41mr174359441cf.74.1794855858824;
-        Mon, 16 Nov 2026 11:04:18 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad1b13917sm87667361cf.29.2026.11.16.11.04.17
+        bh=uxQMYwwz7yNG5xs6CvbpRYX33to4uhawWZVBwJyeiY8=;
+        b=uzemv7uBduO3DxoVOSxD/dNW4trLFXLEChh2ftkJt30glnf+PUm7QPUoT1KXgFaOp8
+         L0IkCfcQUgNezQYINdFG4BcMptP3IOGDM4MReVV2Ra/5XAgxhBB7WsR8f1hC3+PNfov4
+         uS29nJXI3eUEhudxNgokmL1M0u2O5FS9988KOtufDywsbGPtf7ypxpZVo1MYkeC07UsX
+         1Co0mOYbaHf3SSGHBYwaVl8BIFn2ATEoujDqjmptsY4CCl2mwh/w3pPQEpDCEst2JKiw
+         R1Iqiso5oTm3t/+nrymVQtui/8d/GUdzem9CyMRH8Fy2S0CpX/fgvLx1Dj3TeLjItkJ8
+         80Eg==
+X-Forwarded-Encrypted: i=1; AL+hErFx2D4PFGDbkQjlwY2Mw0Xsa1uAgxCTY2Mdxx1YL4uGvA11VOo4jAGd+jro3yYi+JEUsEGuZKDPpt1J9hE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MoA+DumDf8idGsYIbDJAdZZrCjW2dLITXIEqT476KmrNhLm1f
+	HLIZYnw+5SruBi44yQRwjbWyasW60cFypyix/2/zFTDmPpc49K/v2OgI
+X-Gm-Gg: AYBFou3HzOIKi6cuvzX9FNWJC1rcuR3cQQrabEc+hwWkTcybelYgTPEP66ztISYaNCB
+	OrsnhtQvkUFYI6dzUmdbXI/z3raV98A1fXlOcXiPEDP4+X9N2GAR1WKMo+pSiJ1UBXlcBPoxbJx
+	OuSaeY8ALEjw9Rg4BOLQBFrghxgJvd0hGOx0EAJqYY//n1aQvSyuFHS2IS+V3LwpgyNWQBXuzOI
+	cryLPFwI0mzJZ/pSl23A5ih2snqJ/6ntHq6nq0oDFLmAao06ZF8kr72VnUbP45rmp6zWHVfKeIB
+	mHAUhqNH5BXn+GQ6ipMzvUw2N0YqXtroZztTiiy1HlWEC0YnEQe8F22atcvgLVSQX+HTDf7ouFq
+	suZIeM28G0PotPsEbE8D7MqZ5lh8zYpRgArGN1LARqgKUQ41EbLLSk5jRMvYbPePPsUyjRDK9iv
+	XpycqChf2gYVg8LqxiMFDnNCQkvx/PZytpgtR6zxopbJMkyIkNW1zQi+QhCg6VaKbw+GyRtoDBZ
+	UdOH4JCYWdKzl4RF2DsDAWRWXkSKvzZVk/zhWOK3drD/6fvMSdr2Xc4Z6LAkvRSqlCSN997RsWx
+	rCve1W0AoQxW3aWjcg4qR08=
+X-Received: by 2002:a05:7023:a4c:b0:196:bf5f:8bb with SMTP id a92af1059eb24-1b5030f8a56mr10239944c88.45.1794855952028;
+        Mon, 16 Nov 2026 11:05:52 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:6c::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e195sm38806416c88.8.2026.11.16.11.05.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:04:17 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xT201-0000000AFsj-03Yl;
-	Mon, 16 Nov 2026 15:04:17 -0400
-Date: Mon, 16 Nov 2026 15:04:17 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Kameron Carr <kameroncarr@linux.microsoft.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev
-Subject: Re: [PATCH v2 18/19] PCI: Replace untrusted state with device trust
-Message-ID: <20261116190417.GD2299285@ziepe.ca>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
- <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
- <193e4130-9c2f-4a0f-b218-f5fcf0b3d508@linux.microsoft.com>
+        Mon, 16 Nov 2026 11:05:51 -0800 (PST)
+Date: Mon, 16 Nov 2026 11:05:08 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	Willem de Bruijn <willemb@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Pavel Begunkov <asml.silence@gmail.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>
+Subject: Re: [PATCH net-next v5 2/3] net: prevent mixing frags from different
+ memory providers or bindings
+Message-ID: <avtRYLif2GvfuAmu@devvm16445.scu0.facebook.com>
+References: <20261115004003.3695475-1-almasrymina@google.com>
+ <20261115004003.3695475-3-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,73 +104,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <193e4130-9c2f-4a0f-b218-f5fcf0b3d508@linux.microsoft.com>
+In-Reply-To: <20261115004003.3695475-3-almasrymina@google.com>
 
-On Mon, Nov 16, 2026 at 10:46:25AM -0800, Kameron Carr wrote:
-> > @@ -1738,24 +1738,24 @@ static void set_pcie_cxl(struct pci_dev *dev)
-> >  
-> >  }
-> >  
-> > -static void set_pcie_untrusted(struct pci_dev *dev)
-> > +static void pci_set_default_trust_policy(struct pci_dev *dev)
-> >  {
-> > -	struct pci_dev *parent = pci_upstream_bridge(dev);
-> > +	struct pci_dev *parent = pci_physfn(dev);
-> > +
-> > +	if (parent == dev)
-> > +		parent = pci_upstream_bridge(dev);
-> >  
-> >  	if (!parent)
-> >  		return;
+On 11/15, Mina Almasry wrote:
+> Prevent coalescing, shifting, or appending skb fragments from
+> incompatible memory providers or different devmem bindings.
 > 
-> Hi Leon,
+> Add skb_net_iov_provider(), skb_mem_provider_compat(), and
+> skb_frags_can_coalesce() to check readability and fragment provider
+> compatibility (net_iov_owner(niov) for devmem, niov->desc.pp for other
+> net_iov providers such as io_uring zcrx, and NULL for page-backed skbs)
+> across skb_try_coalesce(), skb_shift(), skb_gro_receive(),
+> skb_gro_receive_list(), tcp_skb_can_collapse(), and
+> tcp_skb_can_collapse_rx().
 > 
-> The default policy here works for physical hierarchies, but there's no
-> opportunity for a paravirtual host bridge to participate in the trust
-> resolution when the host bridge driver itself knows the appropriate
-> trust level for a device.
-
-HW doesn't really "know" the trust level, it can suggest a default but
-the kernel command line and userspace should always be able to
-override it.
-
-> My scenario is pci-hyperv in a confidential VM with a paravisor. The
-> paravisor is inside the guest's trust boundary and owns TDISP. It locks,
-> attests and accepts the device, then answers a VMBus query describing
-> which BAR ranges are private and whether the device's DMA may target
-> private memory. Before a driver can bind pci-hyperv has to:
-
-Sounds like a user in such an environment just wouldn't use the trust
-level mechanism at all.
-
-What use do you see for enabling trust level but having all the
-devices unattestable and accepted already?
-
-Your bigger issue is the below:
-
->   - query the paravisor,
->   - refuse to operate the device if the query failed or if the response
->     is invalid,
->   - decide whether the device may operate.
+> Also add net_devmem_skb_binding() and use it in tcp_sendmsg_locked(),
+> zerocopy_fill_skb_from_devmem(), and validate_xmit_unreadable_skb() so
+> TX skbs cannot mix different devmem bindings or transmit non-devmem
+> unreadable frags on DMA TX devices. Reject converting linear head_frag
+> payloads into page frags on unreadable skbs in skb_try_coalesce() and
+> skb_gro_receive(), and propagate skb->unreadable and compare
+> skb_frag_netmem() in tcp_clone_payload().
 > 
-> The modular host bridge driver in this scenario needs a hook to be able
-> to participate in trust resolution.
+> Update netmem_ref_test_net_iov and netmem_ref_test_try_coalesce so their
+> target skbs carry a compatible unreadable net_iov frag before shifting
+> or coalescing.
 > 
-> I'm also looking for the right place to setup MMIO and configure DMA
-> in my scenario. Let me know if you have guidance.
+> This issue was found by manual code inspection and LLM review; it was
+> not triggered in production. Verified with the net_core KUnit test
+> suite; not tested on real hardware.
+> 
+> Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
+> Fixes: bd61848900bf ("net: devmem: Implement TX path")
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  include/linux/skbuff.h | 55 ++++++++++++++++++++++++++++++++++++++++++
+>  include/net/tcp.h      |  5 ++--
+>  net/core/datagram.c    |  4 +--
+>  net/core/dev.c         | 14 ++++-------
+>  net/core/devmem.h      | 22 +++++++++++++++++
+>  net/core/gro.c         | 16 ++++--------
+>  net/core/net_test.c    | 42 +++++++++++++++++++++++++++-----
+>  net/core/skbuff.c      | 24 +++++++-----------
+>  net/ipv4/tcp.c         |  3 ++-
+>  net/ipv4/tcp_output.c  |  4 ++-
+>  10 files changed, 142 insertions(+), 47 deletions(-)
+> 
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 1d6832878930..867e3ab17c17 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -3770,6 +3770,61 @@ static inline void *skb_frag_address(const skb_frag_t *frag)
+>  	return page_address(skb_frag_page(frag)) + skb_frag_off(frag);
+>  }
+>  
+> +/* Return an opaque pointer identifying the memory provider instance of @skb's
+> + * net_iov fragments:
+> + * - For devmem (NET_IOV_DMABUF), net_iov_owner(niov) (&binding->area, 1:1 with
+> + *   the binding across RX queues and TX).
+> + * - For other net_iov providers (e.g., io_uring zcrx), niov->desc.pp (shared
+> + *   across all areas of an io_zcrx_ifq).
+> + */
+> +static inline void *skb_net_iov_provider(const struct sk_buff *skb)
+> +{
+> +	struct net_iov *niov;
+> +
+> +	if (skb_frags_readable(skb) || !skb_shinfo(skb)->nr_frags)
+> +		return NULL;
+> +
+> +	niov = skb_frag_net_iov(&skb_shinfo(skb)->frags[0]);
+> +	if (!niov)
+> +		return NULL;
+> +
+> +	if (net_is_devmem_iov(niov))
+> +		return net_iov_owner(niov);
+> +
+> +	return niov->desc.pp;
+> +}
+> +
+> +/* Return true if the memory providers of @skb1 and @skb2 are compatible
+> + * for coalescing. For any struct page-backed provider (the buddy allocator
+> + * or a future provider handing out struct pages), coalescing is assumed
+> + * feasible. For net_iov-backed providers, the provider instance pointer
+> + * must match.
+> + */
+> +static inline bool skb_mem_provider_compat(const struct sk_buff *skb1,
+> +					   const struct sk_buff *skb2)
+> +{
+> +	/* Check skb_frags_readable() first to reject readable/unreadable
+> +	 * mismatches and avoid chasing frags[0] and struct net_iov when
+> +	 * only one skb has unreadable frags.
+> +	 */
+> +	if (skb_frags_readable(skb1) != skb_frags_readable(skb2))
+> +		return false;
+> +
+> +	return skb_net_iov_provider(skb1) == skb_net_iov_provider(skb2);
+> +}
+> +
+> +static inline bool skb_frags_can_coalesce(struct sk_buff *to,
+> +					  struct sk_buff *from)
+> +{
+> +	if (to->pp_recycle != from->pp_recycle)
+> +		return false;
+> +
+> +	if (skb_zcopy(to) || skb_zcopy(from))
+> +		return false;
+> +
+> +	return skb_mem_provider_compat(to, from);
+> +}
+> +
+>  /**
+>   * skb_frag_address_safe - gets the address of the data contained in a paged fragment
+>   * @frag: the paged fragment buffer
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 25d11fab1b03..bf5f28e52fca 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -1275,14 +1275,15 @@ static inline bool tcp_skb_can_collapse(const struct sk_buff *to,
+>  		      mptcp_skb_can_collapse(to, from) &&
+>  		      !skb_cmp_decrypted(to, from) &&
+>  		      skb_pure_zcopy_same(to, from) &&
+> -		      skb_frags_readable(to) == skb_frags_readable(from));
+> +		      skb_mem_provider_compat(to, from));
+>  }
+>  
+>  static inline bool tcp_skb_can_collapse_rx(const struct sk_buff *to,
+>  					   const struct sk_buff *from)
+>  {
+>  	return likely(mptcp_skb_can_collapse(to, from) &&
+> -		      !skb_cmp_decrypted(to, from));
+> +		      !skb_cmp_decrypted(to, from) &&
+> +		      skb_mem_provider_compat(to, from));
+>  }
+>  
+>  /* Events passed to congestion control interface */
+> diff --git a/net/core/datagram.c b/net/core/datagram.c
+> index ecc30a6f8302..88cc0a6c62f6 100644
+> --- a/net/core/datagram.c
+> +++ b/net/core/datagram.c
+> @@ -712,8 +712,8 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
+>  	size_t virt_addr, size, off;
+>  	struct net_iov *niov;
+>  
+> -	if (i && skb_frags_readable(skb))
+> -		return -EFAULT;
+> +	if (i && net_devmem_skb_binding(skb) != binding)
+> +		return -EMSGSIZE;
+>  
+>  	/* Devmem filling works by taking an IOVEC from the user where the
+>  	 * iov_addrs are interpreted as an offset in bytes into the dma-buf to
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index a230ecce9327..51f5e4800eee 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
 
-Well, you are very far outside what Linux expects for a CC flow, and
-these special requests conflict with the arch code flows we need to
-have.
+[..]
 
-So, I don't know. Maybe somewhere in the arch code hyperv can hook and
-say the device is special? You'll have to see when we get more of the
-CC stuff layed out.
+> @@ -4175,8 +4175,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
+>  static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+>  						    struct net_device *dev)
+>  {
+> -	struct skb_shared_info *shinfo;
+> -	struct net_iov *niov;
+> +	struct net_devmem_dmabuf_binding *binding;
+>  
+>  	if (likely(skb_frags_readable(skb) ||
+>  		   dev->netmem_tx == NETMEM_TX_NO_DMA))
+> @@ -4185,14 +4184,11 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+>  	if (dev->netmem_tx == NETMEM_TX_NONE)
+>  		goto out_free;
+>  
+> -	shinfo = skb_shinfo(skb);
+> -
+>  	/* All net_iovs in an unreadable skb share the same binding. */
+> -	if (shinfo->nr_frags > 0) {
+> -		niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
+> -		if (net_is_devmem_iov(niov) &&
+> -		    (net_devmem_iov_binding(niov)->direction != DMA_TO_DEVICE ||
+> -		     READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev))
+> +	if (skb_shinfo(skb)->nr_frags > 0) {
+> +		binding = net_devmem_skb_binding(skb);
+> +		if (!binding || binding->direction != DMA_TO_DEVICE ||
+> +		    READ_ONCE(binding->dev) != dev)
+>  			goto out_free;
+>  	}
+>  
 
-Though, FWIW, I don't like it at all as a model. Denying the tenant
-the ability to directly attest the HW is far away from what I'd
-consider as necessary for CC.
+Should we limit this patch to the real fixes only? This part does
+not look essential. validate_xmit_unreadable_skb already does skb_frags_readable
+check above, it already does nr_frags > 0 check here...
+so why go through the same stuff again via net_devmem_skb_binding?
 
-Jason
+If you want, maybe move this to a separate patch at least? And do
+something like:
+
+binding = net_devmem_skb_binding(skb);
+/* I hope likely() below properly unwraps net_devmem_skb_binding similar
+ * to existing likely(skb_frags_readable) case... */
+if (likely(!binding)) goto out;
+if (dev->netmem_tx == NETMEM_TX_NO_DMA) goto out;
+if (dev->netmem_tx == NETMEM_TX_NONE) goto out_free;
+if (READ_ONCE(binding->dev) != dev) goto out_free;
+return skb;
+
+And call it cleanup with no fixes tags.
