@@ -1,89 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794854804;
-	b=319AalM9Trob/Xx5jBKL1NTBvGkH7WlJih4z+VU1QJB92I6YsselIwyN+uz/L8COWZxe
-	 CntD8YpnY/M9ZUF5+GpLTPq04lR4Vl2hLtpgNA80s+6b0NjwiOaDWzJL4VOgO4L+8sJuJ
-	 quPaz39yaY7bOGHrddloQwngfKYtJYx/Y2nvPdZ22FlBzVf3+GrNcs9+0Fiy3hzg07EuM
-	 5sjwfiY8ARKiYXAXbrZniv2TKbQ41j8npPijCnvwrsqfpwsVf1/PjyKWGQ52oF+Cm8QiF
-	 8Mku6AHHUbw8dbG2tKtXfsjL8o7lwsVOvWpNNNCDPQF6+M73NgjV5l5AEg/n0DF8B+A==
+	t=1794854858;
+	b=LM6ScORIMWWrNwFy7sLGaIZ+tEEJeDgIXEzwe/1SCbv8oXRF4JXoYHuW6TEesaqmYJGt
+	 W4AKkeRP4KTd1lVJk5Z91NpZA8iWzx61PGsNEzStZZabS8bUEGS/2MmRmfjHvoR9ZeHU3
+	 7OsJ+qD79O/hLUKakf/AXeoRQuUGYICoIVA3ExqpnkVBSwDfH5rkhJ53eq1m8A4xC7Zh+
+	 IwQBNB5+PDkdIbOtfGifdzlxEeYU6qX5KOwIGCjbdEUfVaxKKIwz2pms9QPuCbDzW123H
+	 TjWO9qDq40SpDUKI4MfR7pj7a8gznnLLKwoogwvDih2VzQiy3vgp1z8jQ2LvuZeoJdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=/AVctQ+aR6nnVUb3bzlRRJ+51PbpL8MX28yvtpVethA=;
-	b=1/2hWxkPNF2jaTVfl2Z1pimvUi21/QrKD42ptlDliygSFWLvtW7MkMPm2pc2OdwMO5fJ
-	 rT+Qvu+Mbuigyxv5sLgT8L1dmMOXloV8dX+A0411Gvcg277Y960zqxY7StqpzeBBd7cN4
-	 5iHCWx9v9DjIBMK9oHoNEhVPX+CE8+dpEkfhYp4x0h/0YBzQxzmSw5mw8SdoRBkC7kl4F
-	 2tlyw4viMaxmIEXfd/XS1MY+7NK8cFrRmEVRyopqmm2sR5PnOf3ITBOmfyVT5rKhdQNYp
-	 1HZRMTpqEsgelSHPOY1kIDUKMwb5hEwO0mqhZpK+Vv5tp7+6FSPW9Yy4PRhS6/lwS7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854858;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wJnv0bUBCxxkF+5/me8K4UOGEYnfBL17cIYCxZ8KEYI=;
+	b=qLYfe1o5/qmIrgSDeri+RbYntgIpiYW6xgqOmPUW9m9qk8BwamKoKb0xEKTyOstyNCgp
+	 kAbxc7QGDGd6JbnoiLNbU0j/e8P17ENYKpDZCXlu/EvcQLPbkxpzethYoApxcm6R7GDYW
+	 HkUlEVjD1rQK/19CcqOVpNoum+Txr3JbN01udD0KPrADdD2I4brNg+y9lhQiqBRqB6YbO
+	 U9sM0/obcsxJNiUjhXp16CRDzFVHTlC6F26a3N1ZqCSAJSZqqwmatXzlZIXHhV5u3aAsy
+	 nY66PG87zL9lqDjuTX4MKyGqOBydE0T9N4sFo8zFDcy5AHXA+JtFL1iXd5Cbb2+1hRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lSiQx4S3;
-	arc=none smtp.remote-ip=74.125.231.75
-Received: from mail-oa2-f11.google.com (mail-oa2-f11.google.com [74.125.231.75])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QxEl4S5O;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NgfD96A7;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D67C606A88B
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:46:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D67C606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB50606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:47:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB50606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lSiQx4S3
-Received: by mail-oa2-f11.google.com with SMTP id 586e51a60fabf-4a77fe1bc0bso1354216fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:46:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QxEl4S5O;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NgfD96A7
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGKAVF3693036
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:47:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=wJnv0bUBCxxkF+5/me8K4UOG
+	EYnfBL17cIYCxZ8KEYI=; b=QxEl4S5OwYMBpJm14GkNo3mBViG3j7eEQ/LGc+WE
+	ytCLEnQDJL4woYbp6IQMvawY0wRDPCaG8f1OwZwJCTOe0/RhhFzYcF/cozvxBk5O
+	X/mr2nuazmHjLDSofV1kyyz+sPD3UQQAbhcRjo3ecxCf5eMi8+9VZ2FCQZC9sj6E
+	DHt7v5sa+p9xm85raphrjgxy+XPWab7ZL6IUkYq9IZ6lBWWoUycI1ZVtbXqEICsm
+	8lEBbum1Pax0R0OZUDqX4oCepPmiqvrjpmuakI4gPbC8wN9LdIlAjn6zOz3b0cd2
+	4pWbKf5SCmIReL6zYQI/MdCRQ2u/WxN8FSEn6dtrOV4J3w==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j01f81kd8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:47:36 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-37158b53d06so72776eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:47:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794854803; x=1795459603; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/AVctQ+aR6nnVUb3bzlRRJ+51PbpL8MX28yvtpVethA=;
-        b=lSiQx4S3Xo9G/OM+t4saP8wp4415tQJEz+Wfn3TbxnoXXxpJxsHJkv8On5xYqoadZ0
-         Hggria6KMnIzhATUsM2DWE88zVbX2twjyN4wWSbpO738qoPpb4UW2K1SH/3Q+3tYit70
-         rJ39CRP7zu/7PTBX3J+Y/SD66bCjHFTkLSBUjhIh9R5kG4mCFC4BiwnrnW+VoMNN8f6c
-         FmPFMFm6Cc9GzyRlvERTperbKv5QtzAescXvz0RNKF7HqBGt29y89LGB6r34zmyCvstY
-         cUt7OyRB/C3ggMxavuAF0udge2NJwDJkmBR2yAnqHGvwnMdkAtbi5FArr6bpi1M3X1lQ
-         SF7Q==
+        d=oss.qualcomm.com; s=google; t=1794854856; x=1795459656; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wJnv0bUBCxxkF+5/me8K4UOGEYnfBL17cIYCxZ8KEYI=;
+        b=NgfD96A7ObdMBQKuZrOuw3vLEcq52bi/tzatQAI/9IFNeipRgePfCpEEn3U40xgi7B
+         2hfaZnbpsnnYl2vKEC7FCpdoQgGrUVnshKmUNwJkNQaCXN7294YsUzMk56ceVUE2+bm3
+         S/QJcCiXUNJ/bw9wF1+JfxBGhLCbtCyOfg7nr+TkR15qOzUZ/5crBf/eWto3YBkqUGzc
+         f6pjsRMB+8Sj0KYpDb1YOY/D3TM3WNNZfa60GbMAMI4Vl0QQjSFRGUA8g7RdviwUNp0R
+         7G5ty+M5/9X1cPEBCf9BR792I1oYhp2IvaWqnam+PlFDxesJPPaP0YCGwRmwQzUfUv1e
+         xP5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794854803; x=1795459603;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794854856; x=1795459656;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/AVctQ+aR6nnVUb3bzlRRJ+51PbpL8MX28yvtpVethA=;
-        b=wJHNY8ReP9nqFpFgOYuXDhq4fcYorhtioqCY+UOpKlQVd95zEnnAiuDwZ9lnZqs4nP
-         S/iFF+5WMuGl5VCrGNax7aQIbaHcbqFJUjfC2W3GiCTTdwLkr6A0WWsj5DUo7OWrbS0h
-         fP5Ie5/LupgSX1IQeugjzvYCkMZ19saQpEdcdNHeezy/6Rgwr698qasWq9spchW2/gac
-         qTc3hn5ZHPY9izuFBPzW6rS2n3K/fE77B6QXP1ZQWlepSXZzRdR9Bm6DjJ51BkebEqBE
-         zjD8j8fWq1KQBjoRUibYw0a+vx5LFuCEdXJZ6pgojl5FoHVBd1L0SzH4CkErX1zbOFNo
-         G/5w==
-X-Forwarded-Encrypted: i=1; AL+hErFGhytSxeFRJbn9/6Tf0fqJaZ62Vjt4RhDSZFam0ppUVu8cuNzH9bmNSjkNIsOMBROaneAhJDk4XQ0yINI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hX3I3SHcB6G6F3x6GMkI++A+BjCAwqVnOiwkPEoQzX9EW71ue
-	IcCy31KHBgPFrLabYgC1ORJHMap7szNoMPr67nBRaA085tt91obUhuuU
-X-Gm-Gg: AYBFou08qY+QNWJ4zXc4t0kIxUfuag19o/qrR8PnsUHZzD/sdwSktGO6fV28T+TEEOR
-	WRhnnHjLvxhFdaQd7PSStiAqBrN+DE8ctnAeVRFtgeXR3eLXThV4a+52jC1xh4B8bpNXQ90HtU2
-	m2TCUbVDgNVj64EP62HAQRr+JP7LgYA/3H77k68ZPzILx1qK3xzUYMWOZ6+QHradFh+uBsz0ppT
-	Be2uCSk5IQQ4oKuvZG3z5I4DRiMjS5L0L9cHa5owCZHwcMxAEqy3qJpP+M4lugU3QJKCOymmH5P
-	tpRGhJQ8/kiP1OjCLDqSe1PB5vn5g+rRcRHDYLuDq4Tog4imYJsJ/bMa3HRIOiN8bpmGR9YpejD
-	+9a7Xq96x/k+pNDTO5uAzvwvW3EyhxsNKDGi42s+Z48n6jCbMNBDnUcJyMZntaG1yQmx67wPAt8
-	AIyAq/eJYYoJVrorqy9+NojEXMxfql1QOE9UL7UVU2MCEw7Nf3cKb6olV7RJKO1mOeQ941hB+W2
-	qYKU1SVTFaPvQ6yIyX8z58NmrTQtK30DmI0eaBBted/GIqZfYjFOCqbLCUBGFIpdQPqyxk5ZTbv
-	qCVEmd44T+P8VN/TMq1F5U/kIzCAMDaAoMYJOLaDtBHbzz2mPUdyKeJdkDs/Ehlbgc4qqZw/M0H
-	1NQ3weMHwOSHU+8OaJDE=
-X-Received: by 2002:a05:6870:1794:b0:448:c946:9ae1 with SMTP id 586e51a60fabf-4afdf492de7mr9534453fac.18.1794854803469;
-        Mon, 16 Nov 2026 10:46:43 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe242b670sm7210735fac.17.2026.11.16.10.46.40
+        bh=wJnv0bUBCxxkF+5/me8K4UOGEYnfBL17cIYCxZ8KEYI=;
+        b=ahc1YySk9lxKBl++xiSRbeN7FC8l781tvae2yBPXqtv9MzUSRenhYKtDm3CKkhSJDQ
+         bGdCnzeMosDZan9+rZ2ztL79mbas2thShyguBYw9suRtLMr2JHMH3IeU1wwjv8wnBye6
+         EqgrEfazgVFQKz/VFRGT7eyXrB65hzstLh7LCl8hV73dgMBOcupV8/HxJchCg4TXNcQY
+         qWrrcyITDSMUo4OXZ2UrCovs6GmLov6cEarIJDfB0srNdWb6wygiUkLuNRcGv2ACCj5o
+         CVGilrSdPv8zlEirC4dXdaYon8mMKfWAdznNkMpd+SQiPZdUmQputVHqpKx7XsUIkSen
+         oGmg==
+X-Forwarded-Encrypted: i=1; AL+hErFNytbaDskVPLSFIWp/anAx7TGjZZh3OxOmpLRxYSmqOy4vALdmkhO1OlI4wONei2x1O6CZH6FUxp5fd/I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sL1fWPWnyM28CvD3PjsGOscDRTSsMc/uLnkcXC0kWarJ3zcVB
+	/T5q3jWiPwt3ENlxDR01nWIzRs7FVx7pwAzMn7V+SBI6P4gTXLIXxlcQ0zHj5lMpMSn7p3QexEC
+	EPep3s4NivT3uPUDXhXpny5ZLM2/LOteRZLtzoNzcc7REJ9gfyCjUfT0ms1hw3gebwhc=
+X-Gm-Gg: AZFdTZfff6couZAZ6UOn91CY26kG8lcSmr6jpk4Jv8c1duiHFsYzydDAu/kxeo1AMxv
+	VhjRQNES/ihaUOwFAknJAUfQpvlZqpWgFEIWG7lvF2ezDkqoLIbvPR49y9H4zC6quGoT8GGQcCh
+	7omublsIM1olv+RQdb82kkXYp9p9FUhw5D7KQAyDFWYQ7plh/WzmtN986GlLF3Q4craZoMpsAzq
+	AC/IKme7fAHsABpzjLu+SbQQCGUGUXQQZ8jNg3TVsxQXQLjtTrdnyCJWb92g/lXBTNrxP6Dp8RA
+	/sX6sAIbku5EOs2BeHTm762bXWpsQFOhTni+zE2x3+WoTn3dxh4Z8OKxHbpREOenkETfx3zyv/S
+	DsJhnGKhClHPPyejD77uEx8bH01HJEH7SyB346fjPIoQeRw9RUuyMUxV7h+TUQrYackWTmwMQFe
+	9K
+X-Received: by 2002:a05:7300:e922:b0:381:120a:c7e6 with SMTP id 5a478bee46e88-381121a0e13mr291433eec.26.1794854855596;
+        Mon, 16 Nov 2026 10:47:35 -0800 (PST)
+X-Received: by 2002:a05:7300:e922:b0:381:120a:c7e6 with SMTP id 5a478bee46e88-381121a0e13mr291406eec.26.1794854854961;
+        Mon, 16 Nov 2026 10:47:34 -0800 (PST)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm34761572eec.22.2026.11.16.10.47.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:46:42 -0800 (PST)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Mon, 16 Nov 2026 12:46:34 -0600
-Subject: [PATCH v3 2/2] rtc: mt6397: provide the 32 kHz output as a clock
+        Mon, 16 Nov 2026 10:47:34 -0800 (PST)
+Date: Tue, 17 Nov 2026 00:17:27 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Subject: Re: [PATCH v2 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS PAS
+ parameters
+Message-ID: <20261116184727.oscwnaurivcxrg5b@hu-mojha-hyd.qualcomm.com>
+References: <20261015-oob-support-glymur-v2-0-715435f52dd7@oss.qualcomm.com>
+ <20261015-oob-support-glymur-v2-4-715435f52dd7@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,205 +128,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-rbrue-suez-upstreaming-mt6397-rtc-32k-v3-2-179145eb7e89@gmail.com>
-References: <20261116-rbrue-suez-upstreaming-mt6397-rtc-32k-v3-0-179145eb7e89@gmail.com>
-In-Reply-To: <20261116-rbrue-suez-upstreaming-mt6397-rtc-32k-v3-0-179145eb7e89@gmail.com>
-To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
- Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Eddie Huang <eddie.huang@mediatek.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-rtc@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794854794; l=4985;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=5Ww9Gje6b1XRBnVHPbGKqTnDhZK8UEbEzy3EbOlGhe8=;
- b=0RKmfCD3eY+/9AN9a1rhsVOFhEDM/PpOvKN0oMv1Ca3hnbVA3HFzfLgmOVAArB7TAbJEd394l
- xnjgKaYm14uBsCI5inKdYxKpwUyUOaFw96x0xaydSQa3fLA0llXYaqC
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-oob-support-glymur-v2-4-715435f52dd7@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA3NCBTYWx0ZWRfX3luEqNbgdCFm
+ 9ga8doBPnP6e2fex7g5z1Ry6jpZt//8rWOMqoL/u1iXeqXXAc4XETAiln/EqW2afm6CWe3abp47
+ Fz+L6trZHpST7jxWIGNl3Rc+X7fR4cBwo8GNANDFS9JXkTamDhHYys1U0gl+lLPRmJ3cpNU+UZ4
+ HcGtIHXYcery0MTUjtbwd0k/YbQP+ZnxLN2LQ3C0eUKAIw4eLvHHGPbILL+TBZJxvvlOHjlsfxY
+ bME3Z1eAmmFRU8jFQRU65yj/3knRbyfTVJZc4QedEdhoVMZmsc/GEIx1102EgUW49o9ewAeXq4j
+ xLLwyPDZzqmIbzhZgAACRXH4tH74brf3I2mwa2/r0KikSS/f2pWb8BfBiSGtv45fmv998javyLt
+ qZ2/6vOZvi+H4mOJstBjRgBcym73uBX0AxNEoAhNP7ngezLFtR4xu3HUWz5qlX22Zfb4e0lxXa8
+ hzqeEi3C1B8kQLAC6AA==
+X-Proofpoint-GUID: RSHjPRwPAObdCVUg0BxfL87dcFADhuaC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA3NCBTYWx0ZWRfX4+i+jnVSpSuE
+ 2WGvre9u/jEJ6sbfG8XH256mJXtKy4VzkaU9Gz5UAwzUvQNADYHkSuwtQUSOuRtJJuMRAbpnEVO
+ Ory8EmL6cZH24fJBYE6F63gb4P2rrws=
+X-Proofpoint-ORIG-GUID: RSHjPRwPAObdCVUg0BxfL87dcFADhuaC
+X-Authority-Analysis: v=2.4 cv=VMpIDNPX c=1 sm=1 tr=0 ts=6afb4fc8 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=HDZkkxcUch80iLduT3YA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ spamscore=0 adultscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160074
 
-The RTC's 32 kHz output is gated by RTC_CON.F32KOB, which the vendor
-kernel clears before it powers the Wi-Fi/Bluetooth combo chip. Mainline
-never touches it, so on a board whose bootloader leaves it set, such a
-chip has no sleep clock and does not come up.
+On Thu, Oct 15, 2026 at 11:25:52AM +0530, Anvesh Jain P wrote:
+> The OOBMSS consists of separate OOB-TEE and OOB-NS Zephyr subsystems,
+> each with its own firmware, DTB, and dedicated PAS ID. Add support for
+> the OOBMSS PAS loader on Glymur platforms.
+> 
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index 374cafd04b62..ecefc6a72fd2 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -2080,6 +2080,30 @@ static const struct qcom_pas_data glymur_soccp_resource = {
+>  	.needs_tzmem = true,
+>  };
+>  
+> +static const struct qcom_pas_data glymur_oobmss_resource = {
+> +	.crash_reason_smem = 669,
+> +	.firmware_name = "oobmss_tee.mbn",
+> +	.dtb_firmware_name = "oobmss_qc_dtb.mbn",
+> +	.secondary_firmware_name = "oobmss_ns.mbn",
+> +	.secondary_dtb_firmware_name = "oobmss_oem_dtb.mbn",
+> +	.pas_id = 0x42,
+> +	.dtb_pas_id = 0x43,
+> +	.secondary_pas_id = 0x44,
+> +	.secondary_dtb_pas_id = 0x45,
+> +	.proxy_pd_names = (char *[]){
+> +		"cx",
+> +		"mx",
+> +		NULL
+> +	},
+> +	.ssr_name = "oobmss",
+> +	.sysmon_name = "oobmss",
+> +	.ssctl_id = 0x21,
+> +	.auto_boot = true,
+> +	.early_boot = true,
+> +	.needs_tzmem = true,
+> +	.decrypt_shutdown = true,
+> +};
 
-Register the output as a clock when the RTC node has #clock-cells, so
-the chip's power sequence can enable it.
+You can move this alphatically before glymur soccp .
 
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/rtc/rtc-mt6397.c       | 88 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/mfd/mt6397/rtc.h |  6 +++
- 2 files changed, 94 insertions(+)
+With that change
 
-diff --git a/drivers/rtc/rtc-mt6397.c b/drivers/rtc/rtc-mt6397.c
-index 5afdb707a5b5..d24f0ccc132c 100644
---- a/drivers/rtc/rtc-mt6397.c
-+++ b/drivers/rtc/rtc-mt6397.c
-@@ -6,6 +6,7 @@
- 
- #include <linux/array_size.h>
- #include <linux/bitfield.h>
-+#include <linux/clk-provider.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/mt6397/core.h>
-@@ -318,6 +319,87 @@ static int mtk_rtc_nvram_write(void *priv, unsigned int offset, void *val,
- 	return ret;
- }
- 
-+#ifdef CONFIG_COMMON_CLK
-+static int mtk_rtc_clkout_set(struct clk_hw *hw, bool on)
-+{
-+	struct mt6397_rtc *rtc = container_of(hw, struct mt6397_rtc, clkout);
-+	int ret;
-+
-+	mutex_lock(&rtc->lock);
-+	ret = regmap_update_bits(rtc->regmap,
-+				 rtc->addr_base + rtc->data->control_reg,
-+				 RTC_CON_F32KOB, on ? 0 : RTC_CON_F32KOB);
-+	if (!ret)
-+		ret = mtk_rtc_write_trigger(rtc);
-+	mutex_unlock(&rtc->lock);
-+
-+	return ret;
-+}
-+
-+static int mtk_rtc_clkout_prepare(struct clk_hw *hw)
-+{
-+	return mtk_rtc_clkout_set(hw, true);
-+}
-+
-+static void mtk_rtc_clkout_unprepare(struct clk_hw *hw)
-+{
-+	mtk_rtc_clkout_set(hw, false);
-+}
-+
-+static int mtk_rtc_clkout_is_prepared(struct clk_hw *hw)
-+{
-+	struct mt6397_rtc *rtc = container_of(hw, struct mt6397_rtc, clkout);
-+	u32 control;
-+
-+	if (regmap_read(rtc->regmap, rtc->addr_base + rtc->data->control_reg,
-+			&control))
-+		return 0;
-+
-+	return !(control & RTC_CON_F32KOB);
-+}
-+
-+static unsigned long mtk_rtc_clkout_recalc_rate(struct clk_hw *hw,
-+						unsigned long parent_rate)
-+{
-+	return 32768;
-+}
-+
-+static const struct clk_ops mtk_rtc_clkout_ops = {
-+	.prepare = mtk_rtc_clkout_prepare,
-+	.unprepare = mtk_rtc_clkout_unprepare,
-+	.is_prepared = mtk_rtc_clkout_is_prepared,
-+	.recalc_rate = mtk_rtc_clkout_recalc_rate,
-+};
-+
-+/* The 32 kHz output the PMIC drives to other chips, such as a combo chip */
-+static int mtk_rtc_register_clkout(struct device *dev, struct mt6397_rtc *rtc)
-+{
-+	struct clk_init_data init = {
-+		.name = "mt6397-rtc-32k",
-+		.ops = &mtk_rtc_clkout_ops,
-+	};
-+	int ret;
-+
-+	if (!of_property_present(dev->of_node, "#clock-cells") ||
-+	    !rtc->data->control_reg)
-+		return 0;
-+
-+	rtc->clkout.init = &init;
-+
-+	ret = devm_clk_hw_register(dev, &rtc->clkout);
-+	if (ret)
-+		return ret;
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
-+					   &rtc->clkout);
-+}
-+#else
-+static int mtk_rtc_register_clkout(struct device *dev, struct mt6397_rtc *rtc)
-+{
-+	return 0;
-+}
-+#endif
-+
- static int mtk_rtc_probe(struct platform_device *pdev)
- {
- 	struct resource *res;
-@@ -381,6 +463,11 @@ static int mtk_rtc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ret = mtk_rtc_register_clkout(&pdev->dev, rtc);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to register the 32k clock\n");
-+
- 	nvmem_cfg.priv = rtc;
- 
- 	return devm_rtc_nvmem_register(rtc->rtc_dev, &nvmem_cfg);
-@@ -417,6 +504,7 @@ static const struct mtk_rtc_data mt6358_rtc_data = {
- 
- static const struct mtk_rtc_data mt6397_rtc_data = {
- 	.write_trigger_reg = RTC_WRTGR_MT6397,
-+	.control_reg = RTC_CON_MT6397,
- };
- 
- static const struct of_device_id mt6397_rtc_of_match[] = {
-diff --git a/include/linux/mfd/mt6397/rtc.h b/include/linux/mfd/mt6397/rtc.h
-index 44d2b2cb1ff7..986b3aaaeb35 100644
---- a/include/linux/mfd/mt6397/rtc.h
-+++ b/include/linux/mfd/mt6397/rtc.h
-@@ -9,6 +9,7 @@
- #ifndef _LINUX_MFD_MT6397_RTC_H_
- #define _LINUX_MFD_MT6397_RTC_H_
- 
-+#include <linux/clk-provider.h>
- #include <linux/jiffies.h>
- #include <linux/mutex.h>
- #include <linux/regmap.h>
-@@ -22,6 +23,9 @@
- #define RTC_WRTGR_MT6397       0x003c
- #define RTC_WRTGR_MT6323       RTC_WRTGR_MT6397
- 
-+#define RTC_CON_MT6397         0x003e
-+#define RTC_CON_F32KOB         BIT(5)
-+
- #define RTC_IRQ_STA            0x0002
- #define RTC_IRQ_STA_AL         BIT(0)
- #define RTC_IRQ_STA_LP         BIT(3)
-@@ -72,6 +76,7 @@
- 
- struct mtk_rtc_data {
- 	u32                     write_trigger_reg;
-+	u32                     control_reg;
- };
- 
- struct mt6397_rtc {
-@@ -83,6 +88,7 @@ struct mt6397_rtc {
- 	int                     irq;
- 	u32                     addr_base;
- 	const struct mtk_rtc_data *data;
-+	struct clk_hw           clkout;
- };
- 
- #endif /* _LINUX_MFD_MT6397_RTC_H_ */
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
 -- 
-2.56.0
-
+-Mukesh Ojha
