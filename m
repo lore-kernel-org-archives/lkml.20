@@ -1,67 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817332;
-	b=OX2oGWM/zyYQLNUHD5SFjoqIpQuL5g5nH1dCpkKxK+FpxFr8Yx4ATc8dbhIczdoswzES
-	 XYwodNBx2KvNZ06hOrGi7OqJ8rCuvByZRIIYJODeAFdRXS7NKQprEeZFKrc2YdgjRRoIJ
-	 vh9yORrUBXHYipwHgk4SzjUY/hxYtyexsc/m5dI0V8WmBIdRKzpomSxiT0w5P5fu738eH
-	 HR8qghzMs6FnQf0IXHHK8oTKgBhat/yYsXz2helx4GEkO2i0QYf6+chXop4W8wJ3htN4y
-	 fEc5PG1n/Tmm5oRm8UYLvuRJrHPN11BShQohfj5c8kIkdcWCxLP8x7G9yJVoEvo1EfA==
+	t=1794817378;
+	b=ohPdWe1B3HEJbCpd1+kTqC4h9yQejV+CJ8vAwmPJA++tbD9Mdg3PdVrp9fPA5NlegXli
+	 AYGK98/OtzaB6PR234nDgZ9kA6Fr5q7bt8a2L+C9CPuNxmY2fNyl//ixICfjmMr8xtnpb
+	 Ruido6JBXPvNgxbtuGGLiym+tOoNWwApeTECqNZcEnGFelrkYdoMCGkBob3ifQuNQCDgW
+	 HhWFBT7YG9Ba8R1r8FbUlNWK+Lx7eav7x89RTSM6XG3opR97fQAYkM9yU3TJrkhQwyp8U
+	 w3MdSXkz65wK1099T3O8OID2BQ8n9ONao7SWlI1cJHueptNyoUBp7Mh5jFzasBneLPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817332;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=gfIacyhfnvssNjldJA8LhzYaZPtCvyfmo//br/NPqo0=;
-	b=5lauU6q68LLYhNKni1rv/oOaiD2AklDFxuZp+iNItCOdw1P1nHNEqN4MFCkXXop76LPp
-	 6Kc73SUGzx6lc28qTB+uKBtYYObdbT4lCuSG3bE0AIJ7PPz4SP2v0u3ytmf2LwWcetqql
-	 ohCTEHLQgrDupr+MuRwpY5TG8JZD1jPFX6fZa7+unINVcGBahUTCNLthBN7VJEughQPWX
-	 wAajqVdqwEDMzzMvdAihReQor64qzvVCc3rKHc63wboPIRMaxsD0jWJCbp+bzzZ+Twvc8
-	 N+6i8GrBg6UWXwMEHPe3NNILSO+1T+3t4E6hYnjLa+i66II6zruGC0KwiCTpEe014lQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817378;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=SA3wJMcSvgLciHKLiFhqcGeaGA7trH4v+qny7bHE/Vs=;
+	b=lXE+SlPk7WC+ruMMi28mrNWomOA8F77zBBHTCq3uUhxWJKa2oHWHawOP+xy2Ol5mWRBQ
+	 3auZXhXLJBZlnRmI7uTgyO+toP4BQTzwQt0/t77hXDVQAm8LqUptG4eIYfXAaMjF5Vlvm
+	 u7yIjdP7KkH5OImafyz1kOw541tC4H7SeeZCwHiwbFiev57JsBabVJpOZmo8Xt03S0dKp
+	 GVY0tJCHMv8NaM/74/DYBSzi7z9VGA0FmVJSeQMnhekfTgifOh8hGC1qNd/Cbqr4p3ypI
+	 vlg+A9d5vUPVRF/h6ayfKJ1lWX61cPoa2a8m30b/9pQUGMNG/AiLkMhm8HTE56iiU9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=El89g0hy;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KiKLIb91;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD32606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:22:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DD32606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D13606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:22:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47D13606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=El89g0hy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794817331;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gfIacyhfnvssNjldJA8LhzYaZPtCvyfmo//br/NPqo0=;
-	b=El89g0hyPGn/zlEeNfbeYE45O3hkiw9kcuSbCfwg/Qx2B41YaWMKcLSGBrmi+MRJ0avO52
-	hP5bN9DcEmoP0vllBtLnRN8UOmBqD6RusMNJX1QoMVWUjNKMW8QWSAXz8tV8peAvzCAknv
-	wtRsScT3+j3LHek/YP12NO/molM4eN4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-644-YeG4u82aP8Of6FAvye7dWw-1; Mon,
- 16 Nov 2026 03:22:09 -0500
-X-MC-Unique: YeG4u82aP8Of6FAvye7dWw-1
-X-Mimecast-MFC-AGG-ID: YeG4u82aP8Of6FAvye7dWw_1794817326
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B8B61180036E;
-	Mon, 16 Nov 2026 08:22:05 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9625C1956088;
-	Mon, 16 Nov 2026 08:21:58 +0000 (UTC)
-Message-ID: <2770a801-e889-4181-84ef-d1846d6c9e15@redhat.com>
-Date: Mon, 16 Nov 2026 09:21:57 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KiKLIb91
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794817377; x=1826353377;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=O1L8h3NEx3yA1s8x4uzwJS9iETCqz0gdQxeq2seZUqM=;
+  b=KiKLIb91/GhLgqxQ8ee/fq+6gMCRiCPrZvs/ojxCuiCnmCZwBN0v0pd3
+   BWU6dnp1pYsVd5kabBT/jPdl5UWRd8ysN7Ux5nDy/VPo+RmY4aOYFD+pL
+   V9NzfPaRhFv+GWk7gtSBvrAy/p3ID1WBBUS/mw+iSz1F6BCraUJJalm7w
+   tvoINGuRU2r91UP0ujS4nTgrpXPpUay5vLvWdnlo9Arz6MrK8hGVGNdd5
+   qYvztO7PDmNO4L9HaM+6XHO4iXvBm4THmab0wiyo4vZJmYt5hN5qAnL2d
+   UsHyJTqhfK3OYwUDGbZtH/Ekv/bXF8BQfHaSgew5tky92DVZwpYBVoXl0
+   g==;
+X-CSE-ConnectionGUID: SFekacVORfOGigP+QlVLnQ==
+X-CSE-MsgGUID: sdFaVj87QNWY8pRpbnKV+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3419571"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3419571"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:22:41 -0800
+X-CSE-ConnectionGUID: nUfQzrmMTG+XPASCMlSzIQ==
+X-CSE-MsgGUID: 1hcpVIeoQzuVHhcH9Xt8ZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9679545"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:22:38 -0800
+Date: Mon, 16 Nov 2026 10:22:36 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH v1 2/4] regmap: Drop never used devm_regmap_*_free() APIs
+Message-ID: <avq9TEa4l2xsHKFj@ashevche-desk.local>
+References: <20261110093820.454682-1-andriy.shevchenko@linux.intel.com>
+ <20261110093820.454682-3-andriy.shevchenko@linux.intel.com>
+ <179442294226.513646.6459407661987242086.b4-review@b4>
+ <avVjKPairv4zkB4o@ashevche-desk.local>
+ <ec267c4b-2412-4da0-a46d-d9ca8810d093@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,67 +84,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 4/9] dpll: convert dpll_lock to rwsem
-From: Ivan Vecera <ivecera@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Min Li <min.li@microchip.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- Grzegorz Nitka <grzegorz.nitka@intel.com>,
- Karol Kolacinski <karol.kolacinski@intel.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
- Petr Oros <poros@redhat.com>
-References: <20261111164021.273409-1-ivecera@redhat.com>
- <20261111164021.273409-5-ivecera@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20261111164021.273409-5-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ec267c4b-2412-4da0-a46d-d9ca8810d093@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Sashiko reviewed v2 only on its dashboard [1], with low severity
-findings, so I am answering them here.
+On Fri, Nov 13, 2026 at 05:52:43PM +0000, Mark Brown wrote:
+> On Thu, Nov 12, 2026 at 08:56:40AM +0200, Andy Shevchenko wrote:
+> > On Wed, Nov 11, 2026 at 06:49:02PM +0000, Mark Brown wrote:
+> 
+> > > I tend to think that if we have allocation functions we should have
+> > > matching release functions, this avoids cross tree annoyances and bugs
+> > > due to people using inappropriate release functions which actually
+> > > exist rather than adding the ones they should use.
+> 
+> > In general yes, but for devm_*() it makes not much sense as proven by dozens
+> > of dropped "release/free" type of devm_*() calls in the past. Also as commit
+> > message says for more than 10 years nobody used it even once. What does make
+> > you think there eventually be at least a single user?
+> 
+> Some of those release/free of devm issues are people intentionally doing
+> a free and using the wrong function to do so, the main use case is
+> enumerating something and deciding that some of the functionality is not
+> usable so freeing the state for that functionality so you're not wasting
+> memory carrying it around unused.
 
-[1] 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111164021.273409-1-ivecera%40redhat.com
+No objection on this in general, but for the mentioned APIs in this patch it's
+not the case. Nobody *ever* used them. Why do you think we should keep a dead
+code?
 
- > This isn't a bug, but zl3073x_dpll_input_pin_ref_sync_set() in
- > drivers/dpll/zl3073x/dpll.c still uses the old global serialization to
- > justify dropping zldpll->lock:
-[...]
- > Could this comment be updated in this patch, along with the dpll_lock
- > reference in zl3073x_dpll_changes_check()? The later patch "dpll:
- > zl3073x: update locking comments" rewrites both. The stale comment only
- > exists between this patch and that one.
+As for the memory side, we can also have a documentation that may list the
+commit IDs and APIs where they were being deleted, so if one is interested
+to resurrect them it can be done easily, however the quick universal method
+is `git log -G ... -- include/linux/`. Ex:
 
-Right, both comments are stale between this patch and patch 7, which
-rewrites them. The code is correct at every commit, because all channels
-of a chip share one domain. The new comments hold from patch 3 on, so if
-a respin is needed, I will move patch 7 before this one.
+  git log -G devm_gpio_free -- include/linux/
+  commit 2b038e786f8338a3bc22d791000753e0ec113e00
+  Author: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  Date:   Wed Jun 22 20:28:42 2022 +0300
+  ...
 
- > Pin requests now run with dpll_lock held for read and pin->domain->lock.
- > Take a fwnode pin registered on a DPLL from a different domain. Can that
- > DPLL's device callbacks now run without its own domain lock?
-[...]
- > Would it be better to put that check in before this conversion, or in
- > the same patch, so this gap never exists?
 
-Right, between this patch and patch 6 nothing rejects such a
-registration. As you note, no in-tree driver registers a pin of another
-domain with .measured_freq_get, so no commit of the series can hit it
-with in-tree drivers. If a respin is needed, I will move the check of
-patch 6 before this patch and keep its tests in the KUnit patch.
+(and using specific folder speeds that up a lot).
 
-Thanks,
-Ivan
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
