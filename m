@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839156;
-	b=gtiFRJztWfEiMYuW3QRDop7OIwHpuSOiAqGvmBS1EsqHJLwzBzVuQ83/+NRy/cvqJ26X
-	 P+D86ntxI01NbBnSa6rqDvvNMta9AxmY3DFxeTfzJ7Ogp+j2vP3G35NH64VD7LyDJojlc
-	 BWTOiMMY3xQ0iQcuxXQXCNeVl45Hcg+j1aNDNZ+EzABycHxe89tg6vr855SLTSPAxa6M6
-	 QYqouWNav1YINSn81Wtos7+Gi1Alo37R/QWXvRUTFTDJOsLRxddXKGwktPIPkdvv0QHuH
-	 tAlgOqriw2WAIjvxon9lQCNJ0E5R8yvcautYUiHNahIF4hlXJJz0mOy3mizC8rjuwMA==
+	t=1794839158;
+	b=XaGRnoFVKC8UYxmZHGhhzVevwPymNcnaPRh8xkgDQaNmDEW2db8U4e8hVMWQvn9CeogA
+	 wnKhNRr/afc834zzJbFRJBNxXfp8tYakMElVDfbDsj2ggsFrRen/5KLyzevXIy5ZyhdQP
+	 nNCPAUN4ik97vyplKFmXoJ9TTM1FKOTqjf3uojZ0lQ9ESOJtLG1N/TN4nIjWpXDwNHd6C
+	 P1z1vwcuj4thqfaKQmNiuFQzv3AYnd+u2X6AXCyX7N0zWjLdC5jNRiu2SYz1Pq6AwDjt/
+	 Yc9UqGE08SUVW9g1j+uDYWCOyzyMy1lINVmGYeQCMb0OsGTpQ7+N+cWNfzeqAsmfWiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839156;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pEFh2wPZQpup6AZ9YhdJSve3FCh4nhgpe999E3sblJs=;
-	b=sP1OFViyzEBHOFt30Gp9sBBu/QEaWfZ8o/7QnAV9GnHp1HHc9QS26VYhgv4JK8EVhKNt
-	 iZUyJuquWkJiAOsF5JJWKBzIcStMbopyK/QiChG7LHV4J5eXvFrinSPhI0+NI2CT/mn4W
-	 2MNKAo6uFEV3XPy+9ZrSM0UOUpn+Re7wmrKWEnqD2p9Mj79Kp8C7cgvj6NoLoBCzwgFw7
-	 l5NCjyfL6pH23Tpd4VpW3dFw2fXXzFyYQqB3HaYp51fLYfGyDgwIpeZaV4fPCb0M7l0FI
-	 69x7eSdvO11vpVusgOQ37EjonhP43XTNgoROxs+6LMNSfJJg6Sd2yoLXyEoiBq2IbLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839158;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3tsuMG36yW2/wCTC0oKqM0f6Cdxqx1im/se83C0BA1A=;
+	b=rMo6ILqGiC4QhafnpMhPFw25yCVzzm4n441iazMoKk8TzER4VJqBZqj5Yg1vUaMrxByb
+	 a6xtsF1bT2W+leIou7fSvTq2SYlV2/SBlVpTYuKjyl+/C3xCMiVE+vX9AxX04rQdK4NJ3
+	 5V4mJH6CDRymy/ZC3UvyXQ/KcY94bam4EZsRyw/asEsZ0duWU+PfE3To979TlWI06qu4L
+	 uc04RLfdupfX+NNVAVeNr0HQCyXnVIra7bKS5dbCuTru0aoQWemJBG18n252VxeyqG5Jv
+	 qJI9VVIuzQ9PIpF7OaDt4gBR/S/IgzSkjIg13NCeR+P6TqzPhtbvLl2BjnW3kgKo1Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=VtL5M3ji;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=H7aHhzDm;
+	arc=none smtp.remote-ip=95.215.58.31
+Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D715606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:25:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D715606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE9B606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:25:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EE9B606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=VtL5M3ji
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794839152; x=1795098352;
-	bh=pEFh2wPZQpup6AZ9YhdJSve3FCh4nhgpe999E3sblJs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=VtL5M3jiObas39sbwRthDGa88ktTFadUDDTlhBE3qiE/mSzpRWCge1mqnmWsZ5lGK
-	 Q1ikVHd9Ah898iRZLT5nRlLpz3WiRR3hCFlFHF5q1jLCQ2272UIAqgc40EIYEZ1dCF
-	 hSQKUhWkTr3utEAAicxfOMNoujskqmSKmol1stq2g5BUUWWOi2mIBJ1P98yAB1wo6W
-	 gGec7yQw0YoZTFHHq6k3a7Gg3zr5+EOthKC1W1FT8HGkVrAj2/wrB5cb0+ZtEd/sdM
-	 4XgjJ7oTk3TdegX9KcmI06K7Zch1ZqRWrLd0xYoCQYqiUMXC25HK3obQGvQtOqQ+1e
-	 qeze9KvQEXjhA==
-Date: Mon, 16 Nov 2026 14:25:47 +0000
-To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
-From: Devin Christensen <dchristensen8@proton.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, rafael@gexdigital.net
-Subject: [PATCH 0/2] ALSA: hda/ca0132: Fix AE-5 strip color glitch and add on-card LEDs
-Message-ID: <20261116142542.4178770-1-dchristensen8@proton.me>
-In-Reply-To: <87qzgkyi5l.wl-tiwai@suse.de>
-References: <20261116140237.4137662-1-dchristensen8@proton.me> <87qzgkyi5l.wl-tiwai@suse.de>
-Feedback-ID: 45895322:user:proton
-X-Pm-Message-ID: bc18f016753c5400f84a94010f3bc794ab04e3e6
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=H7aHhzDm
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/GTg9hL5xuUl9myEXN9GO4riPpvpZqScq4U+gn+DN4w=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794839155; v=1; x=1795443955;
+ b=H7aHhzDmNuOVbrR2uVic9KsMcERt/ih2Cx4FkJPaLyaUVTsSxiKfM+jb7bUyCJfEJUP4SUhj
+ Uh5Utmc2dMUQOXnm1rpI0s06K3T5CADKRgAQRdhFvgHvjNhzCmXnmEn09IXAOjrLB/Ne7D6BJwT
+ rkMYssG9Hi13ChX/HTEM7KGKIiziAPyHZAJaM5tEhmAw9hqNwDLWg9FQ6Z7NQq9tXflndT1WGe9
+ lWptL9r7rEPR50QwUJ0Afvy6mFnlYCgD3OTmReLeuoud8pAGFpUDm6t8s2CYfOBOQPhSlMXocFe
+ JH2QHfUgdm3rZVWelcrcgjRBOu3bTQrEF4cfzk54ZbG0Q==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f3254909706c970a;
+	Mon, 16 Nov 2026 14:25:55 +0000
+X-Mizu-Trace-ID: f3254909706c970a
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 22:25:46 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] docs/zh_CN: update maintainer/configure-git.rst
+Message-ID: <avsSapW0-wS_gEsz@wyuan.org>
+References: <20261109-configure-git-v3-0-d7807bb8e8c7@wyuan.org>
+ <476202a2-26a7-4b6b-a7d5-ba8e586371bb@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,27 +69,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <476202a2-26a7-4b6b-a7d5-ba8e586371bb@hust.edu.cn>
 
-Split into a 2-patch series per Takashi's review:
+On Mon, Nov 16, 2026 at 10:20:46PM +0800, Dongliang Mu wrote:
+> 
+> On 11/9/26 5:28 PM, Weijie Yuan wrote:
+> > Update the translation of two files:
+> > 
+> > 1) maintainer/configure-git.rst
+> > 2) maintainer/pull-requests.rst
+> > 
+> > I only update the first one in v1. However, I find a reference of
+> > pull-requests.rst in configure-git.rst is in English, while we've had a
+> > Chinese one. So, update both this time.
+> > 
+> > Note that there're warm tips from checkpatch,
+> > 
+> > checkpatch.pl: :6: WARNING: 'Link:' should be followed by a public http(s) link
+> > checkpatch.pl: Documentation/translations/zh_CN/maintainer/pull-requests.rst:118: WARNING: Do not use whitespace before Signed-off-by:
+> > 
+> > .. which are caused by a 'Link:' in the commit message and a sample Sob
+> > trailer.
+> > 
+> > ---
+> > Changes in v3:
+> > - Put "update to commit section" at the end of commit message in both.
+> > - Rebase to d48723711bae (Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux, 2026-11-06)
+> >    Alex's docs-next HEAD now.
+> > - Link to v2: https://patch.msgid.link/20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org
+> > 
+> > Changes in v2:
+> > - Remove the SPDX identifier, see details and reasons in the thread of v1.
+> > - Add a new translation.
+> > - Link to v1: https://patch.msgid.link/20260823-configure-git-v1-1-3c65eefcc585@wyuan.org
+> > 
+> > To: Alex Shi <alexs@kernel.org>
+> > To: Yanteng Si <si.yanteng@linux.dev>
+> > To: Dongliang Mu <dzm91@hust.edu.cn>
+> > To: Jonathan Corbet <corbet@lwn.net>
+> > To: Shuah Khan <skhan@linuxfoundation.org>
+> > To: Randy Dunlap <rdunlap@infradead.org>
+> > Cc: linux-doc@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > 
+> > ---
+> > Weijie Yuan (2):
+> >        docs/zh_CN: sync maintainer/configure-git with upstream
+> >        docs/zh_CN: improve maintainer/pull-requests translation
+> > 
+> >   .../zh_CN/maintainer/configure-git.rst             |  48 ++------
+> >   .../zh_CN/maintainer/pull-requests.rst             | 127 +++++++++++----------
+> >   2 files changed, 77 insertions(+), 98 deletions(-)
+> > 
+> > Range-diff versus v2:
+> 
+> You need to tell your agent to forget about the range-diff.
 
-- Patch 1 is a standalone fix for the external WS2812 strip color
-  corruption glitch during rapid updates, targeted for 7.4-rc (carries
-  the Fixes tag).
-- Patch 2 adds ALSA card control support for the 5 on-board APA102
-  RGB LEDs, targeted for 7.5.
+Sorry, I realized immediately that I forgot to change my template for b4
+cover letter after sending out this. Now deleted.
 
-Thanks,
-Devin
+--- a/.b4-cover-template
++++ b/.b4-cover-template
+@@ -4,8 +4,6 @@ ${cover}
+ ${shortlog}
+ 
+ ${diffstat}
+-
+-${range_diff}
+ ---
+ base-commit: ${base_commit}
+ change-id: ${change_id}
 
-Devin Christensen (2):
-  ALSA: hda/ca0132: Fix AE-5 LED strip color corruption during animation
-  ALSA: hda/ca0132: Add Sound BlasterX AE-5 on-card RGB LED support
-
- sound/hda/codecs/ca0132.c | 151 +++++++++++++++++++++++++++++---------
- 1 file changed, 116 insertions(+), 35 deletions(-)
-
---=20
-2.56.0
-
+Thanks.
