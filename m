@@ -1,48 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824293;
-	b=Y3Th3D6U8uhW12uvh7WV9raRl97Wd05Fp/zRfRNNIPoO1+alpOlt11I3ZVpRHAvpCFoL
-	 XxWd2Sq9gnnA2SndymTcT1qlBJzGlD0a/tieXbZqUSB+5knda3v7E1MYhudkSN8Wax2ZW
-	 GeobhwJ4yG6qrg6U/UQZpLBOYdo9cX523a2st+ApiALkH2myNucJyjHLAmKyz4fBlzJHF
-	 rWEhS/kdI8vIH5P9Ef6Jrvwafjpx4GRoJ0BzLjwStpNMDhs+0twnJ62+QNFM4uDYI/BhQ
-	 I/PW7Wbuqy1Af5LGRdHINoQhBM7oT6KTxHzPZaVsnFdXufAjPLiD0eM612M1Z/EKo8A==
+	t=1794824291;
+	b=INoqYpebH+VdXQaTH7ECSk/puxn5TkUF1CxqQ+Y4KUfQfw7Hg3dbfJxFrwvEq5X8fNtJ
+	 8KkZH2L1wl76tEPNxLNt6D+NFw8mzKu6BOQ/VhWwvKrksV0H2nxLBnVL4/57p0l0gWLPZ
+	 rjkiaUiysw7ypi0HyEiPk9qQbl73yPGoDvgVta5bFGqGIRt4Ha6xlJYESLvRmYfWN+LCj
+	 Q0xNYn6oApslvVJHhe7YLooQv9d09eGGWfovDMhUweMM2KICeaqChZ6nNgAVkpyxmDqKj
+	 s2FT1wFFZ86JcDrVpd66pLAc4B4b+9FQWuk7TbCi3QpzQKFsXdR/iNMwP5pjcfZzUAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824293;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=gaVuKFdtIle7JKOMDQ/wcXTfl8tFDx4LliF2md1UKpw=;
-	b=Yl+vRtRlO/PmG4DjQ6ArJ2rPkMcL86N7nDaVE73QjzbY8J+4n72uhCEFkKK8fDtDnGmo
-	 zsVETCkZQ7kOWzOLzxiLMVdcCEkllgGFvTqx+4DUuHcQQ2wZ258K0LdFNeH5EGwMDfLhR
-	 Wcj5P7Z5nDr0EbNuNne9ciDVE+vLcpwCqqZHaLU7PCK1PeH7sQg8E1zB65s95EhZMZP9L
-	 /QMnXOsalR6rJKWd1QBx+TkVug0nskEyX26j6nJzpIQU9ohJgJQ4tImEVQLBzttzuZa+/
-	 LV+XrSUtyqXJsHnuOwA19Ty/Ya7qhpujfxrF3uz52h9JCZSTyLpTDR4rmThogfy5E9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824291;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=d8ZOa6Ph/zg8me6HR9Oexa2iZrXd/vZL36FKgzFT1zw=;
+	b=P1pVgGip13+gLKbOKvj7EC2OhY3YC0OW+6bp1u67GXDIH+cLwQD4dwhst8GHcTz2CETs
+	 NmsY7+WGcRiY13w8urhJiRJ2Z+rT26hdaK35a1KKU1+p8IDfdh2wLYQ5wMIp3SU/PXMWb
+	 kFr9UIOi6libjsWc6osN+DMDy7nFSr6vZlkTl5HJGmRlI7uepPKyNfU/E7gaxJiYn5IIz
+	 gDpOCSicFxXCpzuomnBolv3ij9o655u+gR7tGlHTUS4atQrzspgVqlG50htqDbOMk5WCj
+	 XjqO3fTM4ju0/boTQdLF8WlbUA42f5JejTmvqkSdTJVoViMEsITT38GLh11r1QJrbpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kS6UdBKN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4NN1M6X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E926A606A336;
-	Mon, 16 Nov 2026 10:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kS6UdBKN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B4E81F000C5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A1F606A32A;
 	Mon, 16 Nov 2026 10:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4NN1M6X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD24A1F000C4;
+	Mon, 16 Nov 2026 10:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824292;
-	bh=gaVuKFdtIle7JKOMDQ/wcXTfl8tFDx4LliF2md1UKpw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kS6UdBKNRiz6+pU4ndVMPIn6Gy3EXHZWifC79HLVWf3YBVT9yormhp9TNfzmQMmc/
-	 2CZw0AqFdyTJVs/UzlOnSqByVjAZdpQielYdGZoGLQCY3BstmAtjQF32oiXfxKNxYY
-	 TUQh6IdLj89A4F3EgHRh2aS0LIg9WokgM+jBPW2XB1SlONOKLMsVkleztZkvp6HIR+
-	 hWMkinrDWVvpYxTn9OuhyuAKikKc5U2NI7jRi/7zHti58yREHE/oLRc9PkTs8VOH0T
-	 b9q2MuH3lBAPKWdCvtve5ahyMV7Asck5EZita4YJbct1udes+2ZVKDCiYugR8ETuaG
-	 anubmRpUTkARw==
+	s=k20260515; t=1794824290;
+	bh=d8ZOa6Ph/zg8me6HR9Oexa2iZrXd/vZL36FKgzFT1zw=;
+	h=From:Subject:Date:To:Cc;
+	b=a4NN1M6Xry58G6kL3qkJJpj4e2sjuqXIJOAd1GXtXycZ5FbRCjxD8DTtBniF4s32D
+	 Ekro778HzYS6UqUMvVk7Q+wCAwDbpiO4soLPdHZ/cg4hdX8Gocfj2hFOXJo+geHSIq
+	 PmwPb7FE3BCKv/sjxGm7sjK5tSySluK+JauDtKlN8XC0eI/cR5ea4Yo8d8vWLi71c5
+	 HG2gzxZ2GGQ7KZwVXZUb3H9SQrKKpVi05P5M1m9O52ddkNeQlB1Gji1/xgBE7Jatk1
+	 s/PYqVL824zTfjUDizeibfzJCCqhcEmyQI8tKhnWVQkrb3JyC4NCzj7l3fq4TH3RiW
+	 y5vzGxMlHi6kw==
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 11:18:07 +0100
-Subject: [PATCH 1/3] ARM: dts: ux500: Rename power domains node
+Subject: [PATCH 0/3] ARM: dts: ux500: Convert EPOD consumers to power
+ domains
+Date: Mon, 16 Nov 2026 11:18:06 +0100
+Message-Id: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,9 +56,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ux500-powerdomain-dts-v1-1-e0f4459c3ab1@kernel.org>
-References: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
-In-Reply-To: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+1AImolV5EuEjPVWTSRpLaCe
+ Heh7wDvRJWiUuHoRJGvVs0JjmxDmFefFmGNcITWtIO1duD96I3hLf+kxPz2mjh+Kvf+4bsuRBN
+ GQUPYirz0+L/T87puFC2/omcAAAA=
+X-Change-ID: 20261116-ux500-powerdomain-dts-5a7a44bd0b8e
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
@@ -64,29 +67,26 @@ Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-pm@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.16.0
 
-This matches the naming used in the binding document
-Documentation/devicetree/bindings/power/power-domain.yaml
-It's most logical to call it a power controller.
+Rename the Ux500 power-controller node, assign the CPU and peripheral
+domains, and remove the legacy DB8500 EPOD regulator nodes and supplies.
+
+The companion genpd, binding and driver conversions are queued in
+other trees to distribute this task.
 
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- arch/arm/boot/dts/st/ste-dbx5x0.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Linus Walleij (3):
+      ARM: dts: ux500: Rename power domains node
+      ARM: dts: ux500: Add power domains
+      ARM: dts: ux500: Remove DB8500 EPOD regulators
 
-diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-index 912d2505318e..5b2b4527a472 100644
---- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-+++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-@@ -343,7 +343,7 @@ pmu {
- 			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
- 		};
- 
--		pm_domains: pm_domains0 {
-+		pm_domains: power-controller {
- 			compatible = "stericsson,ux500-pm-domains";
- 			#power-domain-cells = <1>;
- 		};
+ arch/arm/boot/dts/st/ste-dbx5x0.dtsi | 156 ++++++++++++-----------------------
+ 1 file changed, 53 insertions(+), 103 deletions(-)
+---
+base-commit: 64e2ab0ca7ac63f876e5de06300b6f033baf5e35
+change-id: 20261116-ux500-powerdomain-dts-5a7a44bd0b8e
 
--- 
-2.56.0
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
