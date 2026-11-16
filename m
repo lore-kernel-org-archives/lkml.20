@@ -1,106 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803668;
-	b=E76pe8mkKgFBcqjyPUSrG0fFxToLEwrvA1Hk3yIJtGXT0M3YRyDxIoj7O38lTd0ejfXi
-	 0yau4BCdkzko5DwF1XGzEzw36gS8tRRWxV/Fubrs76S51FTIsMjdQKByoZVdS4uuBqOPw
-	 YWBln4VxMhuY3K183EpZOe57MhP7t/kN8LbUhhoq41AHlyysvXo22nBVPhzTPXuPyP1a1
-	 D1i+iJdXehdslldndnVSd8gz5U4NklW60YGhLzAHL1SqtUCrZUv+5auTWnEjuOeRIBM7U
-	 N4aq9yjiDMrvCpONzcU/5srto6V9DmPKQW4LFWKAEFrej5Qqdz5a3KzPxfYomIE0OvA==
+	t=1794803679;
+	b=i1lxmlaJkSfI/gW87bfZ1zr+Ng708gHT+jz7cOtfiaWBKCxVEmIas4zuGp3LteQ8alj8
+	 fZwywE/sk5cBJUKc/rNDxEBBwHhwFcjoOcgylcydpQ1zPd6MgCnECXyDXAxs+gPnGhFAV
+	 /XU2lsMLJIvn9ERA0Dnok4uQiunBw3ZJNTjyGyT70H5QgnBGoy59SoyX/m8T4Xz5ErZuj
+	 ZNohw3L0XrBrEqvez3EkKI6phUzo2D3WSkFbP1twEd+v67lNYAap6ps6PtOHaOSKyx4w3
+	 dkYuTjBr9U1xBhCAGTru6dg/Enl/aHF3HJAkh3iyIOkzgCy2ZNMLkuJXmj+isH9xL8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803668;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=yb0ouDgf9S/OdWev3vcVfqdIAaKZrYAoDUUyKNG3AEU=;
-	b=oVBreR8GWRC+Aj5ElZC7XB4NDv4r68yQNYzD01vjHj7JkFZDwiGkgG3Gwd7Uheqe9C9w
-	 9TYFOV95Fwp6bpY3rBB9hG6/sbKblduPkFIzsZPW0TKVkImf1s7XBt5rf5SkyvXtdhW4u
-	 vblF94p6+VxP5B25+ASAUSrJht2e+JlRpzgnMBX/Ja15JFjE3ZiLyFcPABq0Hvxq5UbpU
-	 vZVgUYOUugl7hY331KOoTjeDMEcsyHkNtAaXqqCyFbmRmfSzeh7oqtDdvKPiiyKCe+4uR
-	 sPjTDMP3lcZZ6+nHknREjD6mactAIoFZUPDz7khVUB3BkVBCGdDUgwX0adviO77oQow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803679;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
+	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=ojR2X/nGEgb9gsblJll4owlj0mkhyqJx4EjWxmqLP3U=;
+	b=jZtI5r7ze9aFYURNdSAmK+EH69ra5dKsumJzajVNFjcBa6ERuhUNSKlazHKeYomzgVBc
+	 jfPxIXmEybajlKIa+RX+qgEZlVW2JX0a41rjPniCYyRsEMaPUS0ONsj+YVFT9Eq4On5Pc
+	 9VHOrV7CQpOQh4f+E95yQ0J01yegP6v2pwnE7X3WDSew4LhqXOUogV0XQLrofDvcObUgM
+	 /z/pP50kAvvuIQeopu8lk4BcyqjU938dK+mz257s0oVezaLLVfKcl6ht2QHb+mnZnR+bJ
+	 ebgK9PDuCAikBA4S4lGjSzdALs/HKuM4UCJfU+YRhrS+fjjlYB6TaLO0RyVFdYjduow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Hf3+VtbD;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD17B606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:34:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD17B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	dmarc=pass header.from=uniroma2.it;
+	spf=pass smtp.mailfrom=uniroma2.it;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=JcEc2Cmg;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=SjoLTgus;
+	arc=none smtp.remote-ip=160.80.4.39
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.39])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4A87606A31C;
+	Mon, 16 Nov 2026 04:34:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4A87606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Hf3+VtbD
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1aefd1bf74aso2245494c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:34:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794803667; x=1795408467; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yb0ouDgf9S/OdWev3vcVfqdIAaKZrYAoDUUyKNG3AEU=;
-        b=Hf3+VtbDTfzgXLI/sO1VMbmiG3HjPWLPXQC9K/x0cUqbiQ8byVDXCgJVkDqWGH94aR
-         b30c7OGKR5Ve2w8uFEu7hCMIH5aAu5hXb4FYyBCKKc8AKtr3mECcpxs948DTD0bMi/BB
-         Zn5fcARDQKEQQ52hBvf9q416lDQQd52msqG+E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794803667; x=1795408467;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yb0ouDgf9S/OdWev3vcVfqdIAaKZrYAoDUUyKNG3AEU=;
-        b=LjUqSYl8goj8pqGM75Tn83I6XY8VOLpwe/aQ3yN9X9EXGy/70Ua0uOI64Kj0QPRPfF
-         0neBhgNEqT9FmF4BwWYxrxqXvhoRBmBuiShpB7myLofBcWlPaAuKTGNdkt6YNIWojaAd
-         wwDaNkosI9uVyo84XgKxA5PtbChXSp4JSDYYj9OWhKxrDInKgRxQFWghn+TPYAdnmiEL
-         ZA+461987YRnHGueqiRsd6stmDZDDjENasHEf+i2YQ51BZA9VQ1VaXWmcE7mj/IWJReY
-         jfN2HHigx0Dx/Jkif3k+aeb1ASlSU5qgX8f1Az1XcZJPf5wacLVLtv1/f36bJv0cpuJR
-         0Wfg==
-X-Forwarded-Encrypted: i=1; AL+hErEdGVmspXIXo1prLFejWesHrKnGFzfpmcyhcBKl4bZkRUp6KgJ+DA+0jMAIqx3Ol2GlN+gV36EKcWIi3yk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZklAqDo2ERJfbVKoF+vw3U9VtE2SNYG7KGnwTIFopFK0u9KvV
-	gdhgZTuyHyZx/j/7qrS13EQXuKasM/DgQioH3DXJnjl5a9OSTchu0TnktDlIs9+KglU=
-X-Gm-Gg: AYBFou3QjLkPSfNplXpUjc+zLd4HiBhhU47IwBU26m5Gp9t8Fv9T8Hv+u1FvsVcL4n2
-	DMJlNTqPphLB33FVZEdKSAV5cBKowaKhT6UQnwB4qeexOyCDg/Fa8Rj5fIib8bvYWeOb8WgrwXN
-	TtXyrOr50bIPJ7Dn4LrW6D+bMb+ffGrKx7NKquX3fq/JHi2I6QWrB3YLQ7jXm8PEhOrw6SgkvWX
-	4nQvqK1SfW5mEJ60hxI4pKM1oLu+EIShg66D8WjKX0shXd9yJmb0ApQktAM9DYhOzb4wJVI/ubn
-	pU/GUN7Epl/Wj9hZqBtve2mYMsWF0tiCm+eiEN5BoluH4s84SlUjfJ//6m/NSNocldo9PcAxWDE
-	EbbcbrzlTXo3qy+9Dc3cWHhgxUZHUti6htkU+K1nlRvc5IeXL8xvG0FEYoYmhXr7i5PaSwSsuIe
-	ui0OZlt3JPBtsgG55mm0qem82UK0PuE7NYDcMBcsS5XrqcwoytdbSnoMzuQeN62lUsNWq3cKZIx
-	WZQDxhhPwbVorcrJD1B3h1VLygWNMH9d0H6okfXZ7kI1P8gJhXjUWGhs0NlmW7JmBpxygTeOSy5
-	2GeajRX1B1ASOzK8m+PZKYvBiLK+hJ2MDUZZKMgtKoECCH8/JEXVjhE6wFVCdHAz2hqG9KgesDn
-	IKM2dbRMALEf0QhLr6FzuKsgD5v1YWBnAv2xmqdN3l6FPfFBJ+VyLFUGaX+u5sqTzgd/QvBcDD2
-	qoIP2xP//7Zvr6DbSiN7p0bfjC7PDkjA0c/f6mDOCKu35L+nZSgG68TNlNe5mcfuTU
-X-Received: by 2002:a05:7022:b0c5:b0:181:6b8:31f1 with SMTP id a92af1059eb24-1b4f5f3475fmr11110443c88.10.1794803667022;
-        Sun, 15 Nov 2026 20:34:27 -0800 (PST)
-Received: from [172.18.0.2] ([172.56.232.151])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm38362148c88.9.2026.11.15.20.34.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 20:34:26 -0800 (PST)
-Date: Sun, 15 Nov 2026 20:34:21 -0800
-From: Chris Down <chris@chrisdown.name>
-To: tarunsahu@google.com
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org,
-	will@kernel.org, David Matlack <dmatlack@google.com>,
-	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com,
-	loganodell@google.com, arnd@arndb.de, dwmw2@infradead.org,
-	baolu.lu@linux.intel.com, Bjorn Helgaas <bhelgaas@google.com>,
-	oupton@kernel.org, alex@shazbot.org, gle.com@google.com, pbonzini@redhat.com,
-	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com,
-	joro@8bytes.org, kvmarm@lists.linux.dev, linux-pci@vger.kernel.org,
-	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org,
-	kvm@vger.kernel.org, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, skhawaja@google.com, sagis@google.com,
-	linux-arch@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 05/19] kho: Add feature header for fine-grained ABI
-	compatibility
-In-Reply-To: <9huz5wy4tufo.fsf@tarunix.c.googlers.com>
-References: <20261110050202.529473-1-tarunsahu@google.com>
-	<20261110050202.529473-6-tarunsahu@google.com>
-	<DMRMLZSZ0LAZ.D4P70QWX0IHB@soleen.com>
-	<9huz5wy4tufo.fsf@tarunix.c.googlers.com>
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=JcEc2Cmg;
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=SjoLTgus
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 6AG4YB0H029941;
+	Mon, 16 Nov 2026 05:34:16 +0100
+Received: from lubuntu-18.04 (unknown [160.80.103.126])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id EFC45120755;
+	Mon, 16 Nov 2026 05:34:07 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1794803648; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ojR2X/nGEgb9gsblJll4owlj0mkhyqJx4EjWxmqLP3U=;
+	b=JcEc2Cmg4f60Qwjcttf/BvtwrzeeQbXDapORG5umBA17kcYCksuDmlT2yIqYsJVlDPCuv1
+	S1RfyMi4tz3mGXBA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1794803648; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ojR2X/nGEgb9gsblJll4owlj0mkhyqJx4EjWxmqLP3U=;
+	b=SjoLTgusQH5+AKOL9dXTwwQGYgKPlr5SKQU/HfH4kprnEZAwcGwkxXgJqr5K+ZTWJnPwKx
+	p5H1tO389+8jxS1Hj6SqX2J//C3MyBRZz3K0LJ+TfgKLq8+x+Mku0e3BpYkVIa410Wik1F
+	ssTRqLYyryypc3bjkvrzu+t+I+FVBgf2d2c4UcG9x/BE5Uj6ZpIg5sVIclPoY+3LhMBl3l
+	aaJvnDZFrpt7JkozwGESz4U2zOy6Zbh7CzCDbFkzL5lmUwzSQ6503W7hVXAQ6aRJ1ZOobd
+	Q7e4VBeQS5k89wElqQFP/gdy8vs+jZ5zHWISHZT+h7mSgx1TZ3WFCMJOJUYy+Q==
+Date: Mon, 16 Nov 2026 05:34:07 +0100
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Shuah Khan
+ <shuah@kernel.org>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        Hangbin Liu <liuhangbin@kylinos.cn>,
+        Stefano Salsano <stefano.salsano@uniroma2.it>,
+        Andrea Mayer
+ <andrea.mayer@uniroma2.it>,
+        Andrea Mayer <andrea@common-net.org>
+Subject: Re: [PATCH net-next v3 4/5] selftest: seg6: explicit cleanup for
+ SRv6 End PSP test
+Message-Id: <20261116053407.53b79a5dceef802586952e96@uniroma2.it>
+In-Reply-To: <20261112-srv6_flavors_endx-v3-4-c9177bbbd965@kylinos.cn>
+References: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
+ <20261112-srv6_flavors_endx-v3-4-c9177bbbd965@kylinos.cn>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,31 +91,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Message-ID: <20261115203421.38c206b35f5b12e6@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-Hi Tarun,
+On Thu, 12 Nov 2026 17:27:59 +0800
+Hangbin Liu <hangbin.liu@linux.dev> wrote:
 
-tarunsahu@google.com writes:
->Techinically this is just for readability.
+> The End PSP tests install policy and localsid state but rely on the
+> global namespace teardown to remove it. That leaves flavor-specific
+> state behind once more tests share this script.
 >
->WDYT?
+> Use defer and defer_scopes_cleanup to remove the PSP specified
+> configurations. i.e.
+>
+>   * cafe::1, cafe::1:e9, cafe::2, cafe::2:e9 route and proxy on rt1, rt2
+>   * fcbb:0::x0e9 End next-csid,psp policies on rt 1,2,3,4
+>   * fcff:x::0ef1 End psp polices on rt 1,2,4
 
-It doesn't help readability in the generated docs, though. kernel-doc
-splits the parameter list on the comma inside the macro, so
-kho_preserve_vmalloc() comes out as
+Hi Hangbin,
 
-     int kho_preserve_vmalloc (void *ptr, DECLARE_KHO_SER_HDR(kho_vmalloc# *fhdr))
+A few nits on the message:
+- The code uses defer_scope_pop, not defer_scopes_cleanup.
+- The NEXT-C-SID End SIDs are fcbb:0:x0e9::/48, not fcbb:0::x0e9.
+- "polices" is a typo.
+- The subject prefix is "selftest: seg6:", while the other selftest
+  patches of the series use "selftests: seg6:".
 
-and the struct memfd_luo_ser and struct luo_session_ser definitions in the
-ABI docs end up with a member like
+>
+> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> [snip]
+> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> index 0ed5bfe99029..374b43661c28 100755
+> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> @@ -759,6 +759,8 @@ setup_rt_endpoint()
+>  		add "${sid}" table "${LOCALSID_TABLE_ID}" \
+>  		encap seg6local action ${behavior_cfg} \
+>  		dev "${DUMMY_DEVNAME}"
+> +	defer ip -netns "${nsname}" -6 route \
+> +		del "${sid}" table "${LOCALSID_TABLE_ID}"
+>  }
+>  
+>  # Add an SRv6 Endpoint behavior to each router of a Policy element <nodeid:op>.
+> @@ -801,10 +803,16 @@ setup_rt_host_proxy()
+>  	ip -netns "$(get_rtname "${rt}")" -6 neigh add \
+>  		proxy "${IPv6_HS_NETWORK}::${hs}" \
+>  		dev "${RT2HS_DEVNAME}"
+> +	defer ip -netns "$(get_rtname "${rt}")" -6 neigh del \
+> +		proxy "${IPv6_HS_NETWORK}::${hs}" \
+> +		dev "${RT2HS_DEVNAME}"
+>  
+>  	ip -netns "$(get_rtname "${rt}")" -6 neigh add \
+>  		proxy "${IPv6_HS_NETWORK}::${hs}:${func}" \
+>  		dev "${RT2HS_DEVNAME}"
+> +	defer ip -netns "$(get_rtname "${rt}")" -6 neigh del \
+> +		proxy "${IPv6_HS_NETWORK}::${hs}:${func}" \
+> +		dev "${RT2HS_DEVNAME}"
+>  }
+>  
+>  # This helper function builds and installs the SID List (i.e. SRv6 Policy)
+> @@ -882,6 +890,8 @@ __setup_rt_policy()
+>  		add "${IPv6_HS_NETWORK}::${dst}" \
+>  		encap seg6 mode inline segs "${policy}" \
+>  		dev "${DUMMY_DEVNAME}"
+> +	defer ip -netns "${in_nsname}" -6 route \
+> +		del "${IPv6_HS_NETWORK}::${dst}"
+>  }
+>  
+>  # see __setup_rt_policy
 
-     DECLARE_KHO_SER_HDR(kho_vmalloc folios_fhdr;
+If you agree to keep the proxy entry in __setup_rt_policy(), as
+proposed on patch 3, its defer can go next to the defer of the route.
+Something like:
 
-I'd go with Pasha's suggestion and use struct kho_ser_hdr directly. The
-pointer can then say which payload follows it with a comment.
+	ip -netns "${in_nsname}" -6 route \
+		add "${IPv6_HS_NETWORK}::${dst}" \
+		encap seg6 mode inline segs "${policy}" \
+		dev "${DUMMY_DEVNAME}"
+	defer ip -netns "${in_nsname}" -6 route \
+		del "${IPv6_HS_NETWORK}::${dst}"
 
-Chris
+	ip -netns "${in_nsname}" -6 neigh \
+		add proxy "${IPv6_HS_NETWORK}::${dst}" \
+		dev "${RT2HS_DEVNAME}"
+	defer ip -netns "${in_nsname}" -6 neigh \
+		del proxy "${IPv6_HS_NETWORK}::${dst}" \
+		dev "${RT2HS_DEVNAME}"
+
+> @@ -1460,11 +1470,13 @@ set +e
+>  router_tests
+>  host2gateway_tests
+>  
+> +defer_scope_push
+>  set -e
+>  setup_end_flv_psp
+>  set +e
+>  host_srv6_end_flv_psp_tests
+>  host_srv6_end_flv_next_csid_psp_tests
+>  host_srv6_end_flv_consumed_srh_tests
+> +defer_scope_pop
+>  
+>  print_log_test_results
+
+setup_hs_lo_addr() has no defer. The loopback addresses cafe::1:e9
+and cafe::2:e9, and the routes that setup_hs_lo_addr() adds on rt-1
+and rt-2, stay after defer_scope_pop. Only the End PSP scenario uses
+them. Could setup_hs_lo_addr() defer their removal too, like the
+Policies? Something like:
+
+	ip -netns "${hsname}" addr add "${addr}/128" dev lo nodad
+	defer ip -netns "${hsname}" addr del "${addr}/128" dev lo
+
+	ip -netns "${rtname}" -6 route \
+		add "${addr}" \
+		via "${IPv6_HS_NETWORK}::${hs}" dev "${RT2HS_DEVNAME}"
+	defer ip -netns "${rtname}" -6 route \
+		del "${addr}"
+
+Thanks,
+Andrea
