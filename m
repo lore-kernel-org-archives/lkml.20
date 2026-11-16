@@ -1,90 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794844349;
-	b=rhcY1zE8CSWH1jaNMcNwEPN1I8vk2VrMHXHBYcJg5p/wzoAvfQwWjZSHmWTmj9NM3R9v
-	 tYkh39G5vLCTfs/q/s8RaZSkLAPdU74t1hbd5ZmKaogVq/gOGtYu1Ua2OyP+ZAwDbE8rN
-	 HBdorplwXh8crIRaEW51GtgZkg4csim81PIURQwF9OO4RbeT41o65OG3HVAJI9UWg6Dtv
-	 wiJIc24PqaFonJdq8U4+z5Fqze1O+bnk2qgs4yewrd5V1IGsvotPtyHxY6R9z9AGufk1p
-	 ua6/7pcEWt1TSCwkBHRTF2+FbIrCCo36U0oiFydq/SNw0IkcUJrUPF7jaQZO11VGfHQ==
+	b=IrUC/Vpf2OEeIyospG46adQ4vAsdV1611fVDI2WnHBtT4DZwAKR36qg9PMtRHyAIpzIw
+	 GLm8Tg21qFBlDsRI7rAXRTLVFaiZmW4CXV7ps79Ss7UyFoIHZLe66olOovR9bitSw5PFq
+	 xj5yoQt1d6ogVQ3dmW3h8JWQsVojkYsJWDCknkFpgoVDDsHUzywz7FUBkTbi4q7uYrLz1
+	 LnDX+JH2KZejVSadsrke8H8Q2OcG2JvaAiEdtdwuBReQO8BSl9HbkAkluc5etyEBfTkEk
+	 t4XIIMOHvm2ywWKtMYd5FlskOgKhMF5+mUivIGAV3DOtGtJFEUheOmvrobNGjUZDDSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794844349;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=nMJerJcoZ1Adnfr1+PAoZtyg0oa83iJzpuYf4Q3jisk=;
-	b=fABsnlHXQk8e4METhwNMhBff3k4luca2UiAXEj+2UN/MqTrhaV+2W9WXEzSsS2GzZ4qW
-	 XXafhpTacetKjdGLuQQWGKhVZnr3t6/ivX9F6CR4pUKin94amNQsoLQWTt1b+lZ9UyGS+
-	 w83x1RrDwoVD1PLCifJFMq8XnIJhuKy7BJw0RTiTGsNwJVt8HNuO961PQNIUX6AGacrzR
-	 nRr55dfeSc2D0lt/vma0RREIIfqtVx30Mrj6V3R27FZqfc+N2ptiftYTI9FrF2KCYKq4T
-	 7N3Ohw93cdc/gwNgFDA0nQGo+YA/rggpI2O+TJG1IfMwbezWtvHqvP7spDHQxKESeJA==
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=WPIgPkplQXYcdgIP2HZXNUASrSQ30h2/EQrrK2TSh2g=;
+	b=ND1cdTkpqm3uwq/glFgLFs6SsoapjFhaMVNsuZtUKAT84gjm9qdIQ8gcLndh+nbOqdQK
+	 2hk2ISWPo+LrtTQcGYcsq2nnm3jGRjpdHtCpWxxt8bYGZ9OZuuwxZPgihjlryomKENaqP
+	 Qhx+kihiwLQ+a/C18E5eVaUVkcXpETtrWc2KfedhYQ1leNNYK0jgddjSK2AZHBKMXji/3
+	 55Dh0ZH73A2gHxLhAruNs4tFluq22N4Img03i3BfExaaXbEKPYz35CV3IMMK6NNHoq39s
+	 le0UsAP+NmEqR8PWtskkBsH8GFdXXelDotG8fSlfYbcZ271k3HfGYwoRrCLy4FM2A9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cqf/PBWs";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xxGaSkpO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bqJxEwMP;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C198606A31C;
-	Mon, 16 Nov 2026 15:52:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAB3606A323;
+	Mon, 16 Nov 2026 15:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CAB3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cqf/PBWs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD2F1F000CA;
-	Mon, 16 Nov 2026 15:52:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794844348;
-	bh=nMJerJcoZ1Adnfr1+PAoZtyg0oa83iJzpuYf4Q3jisk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Cqf/PBWsD5IxBgQxvgBiY9kTywVx12SlTwTmXTT8ukWkQsTUR+izYk5U8YFXU36Ny
-	 VuKt687MkawSeh2PId4bqFbRWi9sMgwfnI/JSJjTIU/6KxVcy/AK8qf7rn+hv6trfk
-	 Ee1pyTLlidS19SxOPSpjOIH4gugO1s5gd0mmAVUM5KUUf9dnwJ+bAvl3mUcDP9cXGz
-	 X00xd/pchyAyodSkPV0qGH695K9NxXc1WkmuaQ+sFB/uhm3L44RMtQbd4LJlTnKyog
-	 9tmHrt1kljrQB9N0o1IIRZoyH9U1+vjGQIjU/c8DxKA/xTbNd2EoCf0s7ezT62PTkl
-	 Ppm6trUfqKBRQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev
-Subject: Re: [PATCH 17/17] PCI: Replace untrusted state with device trust
-In-Reply-To: <20261116132046.GI2532299@ziepe.ca>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
- <20261105-device-trust-core-v1-17-1e536825b4eb@nvidia.com>
- <yq5amrr8yldi.fsf@kernel.org> <20261116132046.GI2532299@ziepe.ca>
-Date: Mon, 16 Nov 2026 21:22:11 +0530
-Message-ID: <yq5aa4n8ydsk.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xxGaSkpO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bqJxEwMP
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794844347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WPIgPkplQXYcdgIP2HZXNUASrSQ30h2/EQrrK2TSh2g=;
+	b=xxGaSkpOIXcLNPTFf6AkudcAhEr78jeua8vlh/m7m1mxCzy5+2QevqqUFGNwx2hkLUG8D7
+	TEM5gRnnLL7STjx78ypyEgHSv1/ax2kOR1fCtMZO1dMQbgjAuAYkavj6Sy7Rhb1ouJYLe2
+	tW3NR94LXsr3jmRZRUWXsWTLaDKOO5vOr/u+52EODWHl0q0ZGxxrHDPESeh7B3DDRc6Se0
+	t8b5M4Ki8QbLlikW8ZmnA/oI7qUHDxc9ujiks0qXnuX+buv9kX0RKnRJn7oAK5zd2Sf3Cl
+	UMPAoLtJMYY0zjt11Oea0ORMysOzGTKfGOMDZXLcgtKW0domVcJ++vWDfaC0dw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794844347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WPIgPkplQXYcdgIP2HZXNUASrSQ30h2/EQrrK2TSh2g=;
+	b=bqJxEwMPxKYdmx2Eo+k88h/knBfiFt4y1s/FS+gZ/VQINVWcad+mfRbyLysUGRy5CiPr1A
+	l3QNcb1iXzwkpIBw==
+To: Breno Leitao <leitao@debian.org>, pmladek@suse.com, kuba@kernel.org,
+ gustavold@gmail.com
+Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
+ netdev@vger.kernel.org
+Subject: Re: [RFC] netconsole: plan for a safe atomic write
+In-Reply-To: <avcI9gVR7brRHQSQ@gmail.com>
+References: <avcI9gVR7brRHQSQ@gmail.com>
+Date: Mon, 16 Nov 2026 16:58:26 +0106
+Message-ID: <87h5hgyds5.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,50 +74,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+Hi Breno,
 
-> On Mon, Nov 16, 2026 at 06:38:25PM +0530, Aneesh Kumar K.V wrote:
->> > +static inline bool
->> > +pci_dev_default_is_restricted(const struct pci_dev *pdev)
->> > +{
->> > +	enum device_trust_policy policy = READ_ONCE(pdev->dev.trust_policy);
->> > +
->> > +	return policy == DEVICE_TRUST_POLICY_DISABLED ||
->> > +	       policy == DEVICE_TRUST_POLICY_ADVERSARY;
->> > +}
->> > +
->> 
->> Could you clarify how this series will work alongside device acceptance
->> and private-memory access?
->> 
->> In particular, what should callers of device_cc_accepted() use under
->> this model?
+On 2026-11-13, Breno Leitao <leitao@debian.org> wrote:
+> netconsole is CON_NBCON_ATOMIC_UNSAFE, so write_atomic() only runs at
+> the very end of panic. There is a desired to have called safe atomic
+> printing[1].
 >
-> Who is calling device_cc_accepted? I thought we were keeping that
-> internal to the DMA PI?
+> This is the plan I would like to agree on before posting patches:
 >
->> My understanding is that trust describes the operating
->> policy, not TDISP acceptance or DMA access to private memory.
->
-> Right.
->
->> Therefore,
->> neither FULL nor ADVERSARY alone indicates whether a device can access
->> private memory?
->
-> Right.
->
-> Once you turn on TDISP you effectively activate DMA, just like turning
-> on the IOMMU.
->
+> 1. Now that we have one console per target, use one lock per
+>    console/target.
+>    - printk holds the target's device_lock around write_thread(),
+>      write_atomic() runs under the console ownership, and stopping
+>      a target takes both. target_list_lock and the cleanup list go away:
+>      the list changes under dynamic_netconsole_mutex and RTNL, and is
+>      walked under either.
 
+This synchronizes the console against itself and the user interface
+(netconsole configuration). IIUC it does not provide any synchronization
+against non-netconsole usage of the port.
 
-We considered two options for doing this:
+> 2. A per-target field to track atomic writes.
+>    - In that mode, skbs come only from a pool popped without a lock and
+>      refilled through irq_work.
 
-1. Via the ->accept() callback in pci_tsm_ops.
-2. Via pci_dma_configure(), based on a combination of device trust and device acceptance.
+IIUC the risk here is that the garbage collector is deferred and there
+may not be skbs available. In that case, what do you expect to happen?
+The printk record is dropped? Or the console disables itself from printk
+flushing until some (hopefully) later time when skbs are ready and it
+can enable itself, thus resuming the flush?
 
-If I understand correctly, you are suggesting that we stick with the
-former?
+> 3. A try-once netpoll transmit, as Jakub outlined [2]:
+>    - One HARD_TX_TRYLOCK, then busy, with no polling, freeing or
+>      wakeups, which can deadlock under rq->lock[3].
+>    - It refuses when this CPU owns the queue (netif_tx_owned()), is in
+>      the device's NAPI poll (netpoll_owner_active()), or is in NMI on
+>      PREEMPT_RT.
 
--aneesh
+Same question. What happens when the trylock fails or it refuses?
+
+As I have mentioned before [4], UART atomic printing uses the console
+ownership to synchronize against _all_ port activity. What if the
+_xmit_lock had console ownership underneath it (only for txq's shared
+with a netconsole)? Then it would be enough to acquire console
+ownership.
+
+See, for example, include/linux/serial_core.h:uart_port_trylock().
+
+> This does not make ndo_start_xmit() safe, so the flag stays until
+> drivers can opt in to atomic transmit.
+
+IIUC it makes it safe, but not reliable. It is more reliable than
+kthreads, which can still be considered a win.
+
+> It is still unclear to me whether write_atomic() should depend on the
+> context (regular NMI/panic): 
+>  * For regular NMI use the try lock as best effort
+
+HARD_TX_TRYLOCK() is not NMI-safe.
+
+>  * Ignore the locks only in the final panic flush. (unclear if this is
+>    an option)
+
+As a final unsafe flush before an infinite loop, this is always an
+option.
+
+John
+
+> [1] https://lore.kernel.org/all/874ie4y5mw.fsf@jogness.linutronix.de/
+> [2] https://lore.kernel.org/all/20260617132127.645534d1@kernel.org/
+> [3] https://lore.kernel.org/all/20260610183621.3915271-1-vlad.wing@gmail.com/
+
+[4] https://lore.kernel.org/all/87tsr1m6y5.fsf@jogness.linutronix.de/
