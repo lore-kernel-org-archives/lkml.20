@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794864259;
-	b=lMlRgbi9dyakIZuTydghbgH2onLR4rXgVwrjfvnGQChi1NOd0CmfNJraZcqYjuZ4UsHV
-	 hg5oCrjw/6Zt5usiMQkWY0ImyOKk+yyL24/RjQ2i45GAVIIxr6b8/leU63/eUwYNCakb8
-	 wMWdf/cfQkPSv3J1K4LsztMY70JJn/FcyFFNKdywmJeF+do2BcErAM4XszPbqXbdJ2k2B
-	 GmfehFJ6z3J3MbqGL1bW0fkfEUqYch2+Z0UxspiHEP7m4acul3MnzRZnpGsAWkJij72Nb
-	 VxhvShaE0WcnblNFNsrVsnMwXkCj5tUzClXEeB/WNtBB8LDwRG8KNJqQYqrGasNRHvg==
+	t=1794864268;
+	b=uFWfZI+mbGl+K+cfoIY550hhyZBmzN1/GqFLhEiCvfI9fbcH4NiIYHzSLfekwyNUCDeN
+	 FeoSgXeIyCEGH0mZJP3hjRzxhR7a9fEPZFbwAdHOeJ7OpMMrQm3ni8B76WAAULM8IQCQr
+	 oePSTYSqx54sK4eM/hPkq5tI2HcFvpAX2DUM0sk9WZp0ZPN9xaQ4RF/tepB4O8qAd8cZ1
+	 FpXz1Z2sRsllvGoW+Y9jra1dZBTIN32X1DlKh6ijhlfHvMu0gGHRgPzKTKG6t0StOCwBO
+	 SY2llfqONdTkN1BBXwLVB09H0+F9NzNb+82BWQ0I5iIc7IGU8ESGtLlz4i6P48DzE8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794864259;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nF1lgddmXzEwbIQR/XI4AlniU/W1R7lMyZGbYZTGFus=;
-	b=gGmA6N9V5BletvNZSnbuf+/R8LHpX4OfFwQxASQx46BjscGXPbb5Lwq6HdX+1NmMAStR
-	 jEvBonyLYAM6yzt7mZ7RON292Ef1vLWQpw28mZPVwMe1HCWBbxB2V8v3fRyUzL+GC/HOG
-	 i+ZF4w+RWiT+1NCrDt8Q+YEongBFOnVuo7QpedFMCeenoujhf64sFgpMjzBBvuXDugXZq
-	 5BcFmJa/bkXddbyst/VbwpckE64FXKCliG7cBQ9QEex9X2Md+kOL/oxPZwfxYRoDB/DmO
-	 SegTZsFMUeSuuxp/ljxt6KxgXH3ss2oxPTm1FNA2qpPuaek38ZSRiBjrExBqP5uPAEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794864268;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=SVbBJIE0UBMoZDDXFUbCowdBxaKmTm3xtl/vwOrYCpo=;
+	b=URhRSsCbDouXTPvPfwfc9A9lyZ9LM7+7tkFJwINMf7DOuonUGSOXOadkYtHLuCHDCFl5
+	 PxJubXyit8xXv8Vqa6MCr5TLTPvFBJHnfYOxSVMa1mGOq5hOcGAmmblMrh8+Jtw4NxrAb
+	 dZ8OEI6k7idiLeY/PcNSfxKMT+pLB+GWmqgcNUkleh9Xon44v+gcigPEFGUuPb1pymEDT
+	 W2HQxh8RqXU52EVIFMIdvE7e37OHQjMZ7pW957zwYpYMc2g5bB7Jh/FQuqtZGZzoPINQG
+	 ETrod5P4ldFOhmoX/uDg2WYe/MrgaOynSwPRZGE8U4lsZdR9Lg48h+bH4EnVVErgWDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej4Qwmji;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=juy0Ini1;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD5E606A330;
-	Mon, 16 Nov 2026 21:24:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83853606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:24:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83853606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej4Qwmji
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A8C1F000C4;
-	Mon, 16 Nov 2026 21:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794864259;
-	bh=nF1lgddmXzEwbIQR/XI4AlniU/W1R7lMyZGbYZTGFus=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ej4Qwmjiv120TbNI1IHtoi9NfN04FA13r3fMfGhYwts70KjNoKyZ5l9GzpgsnTXen
-	 TO4I7Dgx3iSPXcYJ/0N+NsR25GTsowwGmz2pTqjLd+1Uf//8/TGjK6KpmYmmHbXSnN
-	 tGu8eqwuDqsseHjzGdY0amctDPXOygpcXhw2NXQrABhjn/ar0a4mtbGERwa9r//wdr
-	 8U2ik8CS6FQivmbt5HkmBrHv4+MvKPBhrzdGN78zaOjtI57wjPN9FBHddyzyBv94Wa
-	 9Ay9vYq8sqe+tYMcp10+2irslI3wzC1YNB+vjGiayeUY5vEKbVkukoe6T+YP6srTbm
-	 4wIcSMe3uTSmA==
-Message-ID: <c99b891f-05fb-4629-b439-ac3828a4ea0a@kernel.org>
-Date: Mon, 16 Nov 2026 15:24:18 -0600
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=juy0Ini1
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso1606983f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:24:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794864266; x=1795469066; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SVbBJIE0UBMoZDDXFUbCowdBxaKmTm3xtl/vwOrYCpo=;
+        b=juy0Ini1YCCl1DbqXHd9Am/uDxlGe4PFtG8GyDtQM8Yy9fqEcKuyZCICFaQv0iQXET
+         MyHh/WhuPMcqOVXnKk6qJ5TVHBCO6xMMlTCnVGdITFJg/lS6vQxgH4lg4cUp4p1GlYVp
+         ihdw0RrKSjzIDIyOO9eGusBtzL5aQg7+n5GXl8R2HMOHo2eK3o6Rv3NtsX0+QTf4q3Zf
+         TAG6JVMp2Lv9ACtz5tf4kIQq88jSD5E/bAGRX+s4McU+XiYW8lBnBr11zLMsfD4SKCG+
+         P8+tiYvPyyQZKtBEZMVxF+5ox7ZrVBsXl6rDYZMikOONvIAriDSdYHGbAeZmUTjk9vOf
+         VeWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794864266; x=1795469066;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SVbBJIE0UBMoZDDXFUbCowdBxaKmTm3xtl/vwOrYCpo=;
+        b=xJNt8NYKD6hFDjDDvEfrxO/2tnafn9MEiD2TiY32qdqupUC8v+nn17XjquFW6Wg62A
+         p8P9QUdWtBBJCgEDgZM6BZewxhr2SbskkcmDXEZbW+n2HGcBFXTd+ETfKjjIm9qBUN1B
+         xzwqOR0xPWaQHrjfd24HY/LFE5ItSNR/5A/v62q7IGC5vOoluWuYvos7BZqHwcz6TOSD
+         Y6EgkWLVN1eGDrNW4fApoyuqdIP/MfMltWsuAHjKwvBjnU4RAUFkoFsvR8qDncyulCiM
+         9nKMxUAzrZkAbVdYOIrB7XgObB2S0+qZZ1NoDucuyGgwC9eLZ+K5aIjSeub04NITkJvQ
+         cHsQ==
+X-Forwarded-Encrypted: i=1; AL+hErEWf+C69Ms1OzwFc4iC2EJjk5AlJN7buyhnDETbeocRE2/RDEgUYB3fL5hsSNF6fpz2OHwaweHfX+txU04=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QvLr8vDl39HOMO2OLkjpNiaQxFH7PZzgMoovGDkEARCEFSiWn
+	OwIbyNr3N2a+wEf9ISbVQbLlAMVIh9Ae9GD0qlxRevwpt1ZqeQ6QYguU
+X-Gm-Gg: AZFdTZdmcrR+o5yycks42xHiKVqn3HGUjkgPjYoMaoitmrfe5nF4BV7pGnyF3v8ifvA
+	YVRFSzzaV9FuSa6YTP75zGdH4Z5D1dPPtMF+SzhkoK5cHHESxUsu8X+hnTrQ8699y5LLp471SKe
+	NSDkLBUyC/AVNSFtrwERmxitwm+CHLC/VHmi5ojy2aIInLRUWSydmRmJcA3wr2j9Hky6mJlu9tA
+	zil4rg7BYg0HGPkvFDJZ8UZbk2fcIdpQMbM+dIF6nuHxdSlNPSe2uVNnbMb03fTkG3+Ka3G8BJr
+	CxfCAFeCoi69CKruQFbCSBek/+kKZFIgOFtofFoM/4MlZG2dTgiMU2aTCESQHqgGF2M3575UYS6
+	pWfFXGb4Ywt3Vve2zwzLJzHCDkzF4YGKAVpkIOmC1VWo4dVrNuQc4UmvsVoVfuP9WARc4Ne4ZVy
+	Euo+SmnvnfLdaREH1azjmO1Pzgf77Wg0CDYROFvf59etG9TBnzkfiJq1RpvQITOIkhW/MPCFkp+
+	KAmso+D7x0t+GqDm75K/Zh88IAX4eR0AL9X/JK4yUeq2rDFh7e/gRgds5opV8XJ3nPMSIFg4an+
+	jDhZPeieWACWDny9/IpwbQI+w8aKPBv8C9NMyXtW
+X-Received: by 2002:a05:6000:41d7:b0:492:b5d9:f627 with SMTP id ffacd0b85a97d-49c7353c794mr23553821f8f.46.1794864266042;
+        Mon, 16 Nov 2026 13:24:26 -0800 (PST)
+Received: from [192.168.10.105] ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a2f61c0989sm2414728f8f.48.2026.11.16.13.24.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 13:24:24 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Subject: [PATCH v2 0/5] Add RPMh and global clock controller support for
+ Qualcomm Halliday (SXR2250P)
+Date: Mon, 16 Nov 2026 21:24:18 +0000
+Message-Id: <20261116-halliday-clk-v2-0-28208928da36@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,120 +93,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] crypto: ccp - unwind PSP sub-devices on partial
- psp_init() failure
-Content-Language: en-US
-To: Kim Phillips <kim.phillips@amd.com>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S . Miller" <davem@davemloft.net>,
- Rijo Thomas <Rijo-john.Thomas@amd.com>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261116203622.615371-1-kim.phillips@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261116203622.615371-1-kim.phillips@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIJ0+2oC/1WNyw6CMBBFf4XM2pq2KAFX/odh0ccAowVMi0RC+
+ u8WjAuXJzn33BUCesIAl2wFjzMFGocE8pCB6dTQIiObGCSXhRC8ZJ1yjqxamHEPlhdSVLw5NWd
+ rIU2eHht677lb/eXw0nc009bYjI7CNPpl/5vF5v3S1X96FowzyU2uVamRa3tte0XuaMYe6hjjB
+ xff0P66AAAA
+X-Change-ID: 20261108-halliday-clk-362190f4f5dd
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Stanislav Aleksandrov <lightofmysoul@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794864262; l=2616;
+ i=lightofmysoul@gmail.com; s=20261108; h=from:subject:message-id;
+ bh=1wKNlxbUO05hN5xuomY/VWb202BKFBlZseityHzBS6g=;
+ b=QLeMRLS3lJhKq/slwW2g7GS+lXLf7jP40aImaALzbPkpD1trwZ+XOVRhn6iAC4ieIOkTp5e6j
+ v7kaITBUy8mAfz7eyrfabPUk1zp5iwyVBaDR5tE9u/x4K+DSeNrTXCG
+X-Developer-Key: i=lightofmysoul@gmail.com; a=ed25519;
+ pk=jeRUlfmkhE53CJPoeIIXgu7rTE0ybDRH0HQrEwbydzg=
 
+Add the RPMh clocks and the Global Clock Controller of the Qualcomm
+Halliday SoC.
 
+The GCC has the clkref_en gates on the outputs of the QREF block, whose
+supplies are shared with the UFS PHY. Patch 4 lets drivers built on
+qcom_cc_desc register clk_ref clocks next to their other clocks, so
+that the GCC can vote for those supplies.
 
-On 11/16/26 14:36, Kim Phillips wrote:
-> psp_init() initializes sub-devices sequentially but returns immediately
-> on the first failure, leaving earlier sub-devices registered. Its caller
-> psp_dev_init() then sets sp->psp_data = NULL, so the later
-> psp_dev_destroy() on unbind bails out early and never unregisters them.
-> 
-> Non-devm resources such as the /dev/sev and /dev/dbc character devices
-> stay globally visible while their devm-allocated backing structures are
-> freed by the driver core, giving a use-after-free if userspace opens the
-> orphaned device.
-> 
-> Add reverse-order unwind labels to psp_init() so each sub-device is torn
-> down before the error is propagated. Every *_dev_destroy() is already
-> NULL-guarded on its own psp->*_data pointer, so skipped or unreached
-> sub-devices are no-ops.
-> 
-> sp_init() continues to ignore the psp_dev_init() return value on
-> purpose: a PSP failure must not fail the probe, as the CCP can still
-> initialize successfully.
-> 
-> Fixes: 33960acccfbd ("crypto: ccp - add TEE support for Raven Ridge")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-0de87f0c-0f5a-4dad-8ef1-f49844eb4cce
-> Cc: Tom Lendacky <thomas.lendacky@amd.com>
-> Cc: Rijo Thomas <Rijo-john.Thomas@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
-> ---
-> v1: https://lore.kernel.org/linux-crypto/20261021215716.1076732-1-kim.phillips@amd.com/
+Halliday (SXR2250P / Snapdragon XR2+ Gen 2) is the SoC in the Samsung
+Galaxy XR headset. The DT changes follow in a separate series.
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+The series is based on v7.4-rc1, like clk-for-7.5. Patch 4 conflicts
+with commit 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to
+the devm_kmalloc_obj() family") in v7.4-rc2, which touches
+qcom_clk_ref_register(): the resolution is to take that function from
+this series.
 
-> 
->   drivers/crypto/ccp/psp-dev.c | 23 ++++++++++++++++++-----
->   1 file changed, 18 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/crypto/ccp/psp-dev.c b/drivers/crypto/ccp/psp-dev.c
-> index b14ce51065d5..3d9341c2876d 100644
-> --- a/drivers/crypto/ccp/psp-dev.c
-> +++ b/drivers/crypto/ccp/psp-dev.c
-> @@ -207,19 +207,19 @@ static int psp_init(struct psp_device *psp)
->   	if (!psp_check_tee_support(psp)) {
->   		ret = tee_dev_init(psp);
->   		if (ret)
-> -			return ret;
-> +			goto e_sev;
->   	}
->   
->   	if (!psp_check_sfs_support(psp)) {
->   		ret = sfs_dev_init(psp);
->   		if (ret)
-> -			return ret;
-> +			goto e_tee;
->   	}
->   
->   	if (psp->vdata->platform_access) {
->   		ret = platform_access_dev_init(psp);
->   		if (ret)
-> -			return ret;
-> +			goto e_sfs;
->   	}
->   
->   	/* dbc must come after platform access as it tests the feature */
-> @@ -227,15 +227,28 @@ static int psp_init(struct psp_device *psp)
->   	    psp->capability.dbc_thru_ext) {
->   		ret = dbc_dev_init(psp);
->   		if (ret)
-> -			return ret;
-> +			goto e_platform_access;
->   	}
->   
->   	/* HSTI uses platform access on some systems. */
->   	ret = psp_init_hsti(psp);
->   	if (ret)
-> -		return ret;
-> +		goto e_dbc;
->   
->   	return 0;
-> +
-> +e_dbc:
-> +	dbc_dev_destroy(psp);
-> +e_platform_access:
-> +	platform_access_dev_destroy(psp);
-> +e_sfs:
-> +	sfs_dev_destroy(psp);
-> +e_tee:
-> +	tee_dev_destroy(psp);
-> +e_sev:
-> +	sev_dev_destroy(psp);
-> +
-> +	return ret;
->   }
->   
->   int psp_dev_init(struct sp_device *sp)
-> 
-> base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
+This work was made together with Claude, ChatGPT and Gemini.
+Reviewed and tested on my Galaxy XR.
+
+Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+---
+Changes in v2:
+- common: Return a NULL clock, not -EINVAL, for a protected clk_ref
+  with an ID above the last regmap clock (Sashiko)
+- common, clk-ref: Use devm_kzalloc_obj() and devm_kzalloc_objs() for
+  the clk_ref allocations
+- gcc-halliday: Reuse the wrap0 S0 frequency table for wrap1 S0/S1
+  (Sashiko)
+- Link to v1: https://patch.msgid.link/20261109-halliday-clk-v1-0-20c3ba8be0bd@gmail.com
+
+---
+Stanislav Aleksandrov (5):
+      dt-bindings: clock: qcom: document the Halliday RPMh Clock Controller
+      clk: qcom: rpmh: Add support for RPMh clocks on Halliday
+      dt-bindings: clock: qcom: document the Halliday Global Clock Controller
+      clk: qcom: common: Register clk_ref clocks from qcom_cc_desc
+      clk: qcom: Add support for Global clock controller on Halliday
+
+ .../bindings/clock/qcom,halliday-gcc.yaml          |   84 +
+ .../devicetree/bindings/clock/qcom,rpmhcc.yaml     |    1 +
+ drivers/clk/qcom/Kconfig                           |   11 +
+ drivers/clk/qcom/Makefile                          |    1 +
+ drivers/clk/qcom/clk-ref.c                         |   90 +-
+ drivers/clk/qcom/clk-rpmh.c                        |   22 +
+ drivers/clk/qcom/common.c                          |   68 +-
+ drivers/clk/qcom/common.h                          |    9 +
+ drivers/clk/qcom/gcc-halliday.c                    | 3533 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,halliday-gcc.h      |  249 ++
+ 10 files changed, 4016 insertions(+), 52 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-halliday-clk-362190f4f5dd
+
+Best regards,
+--  
+Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
