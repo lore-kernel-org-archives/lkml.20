@@ -1,112 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794869331;
-	b=tVnStTmZKGRPEGyXSk0o8/D8f+pJjUX1P/H8STUE3bX8h9l86P9gSasBg1cQr9Od8DcJ
-	 dppRZzzCOLs70YqPPqlQWEwUqPa3mpp7Oer42d9IkTIcqo4GzupQ2nTthkxc/STlu/jue
-	 VrrASmYqghWH78EuYbnyyCh2TwcgqZAMrenQuAqLSC31gN4Z1ER60fYaMRTY3rFNTGKgg
-	 dGG3NXffzokq2Be/X9x3ApjPgYBLTy697QYvc7pEQ9z+a+2mDF0DPlwVA6xuYkUPJx7Fn
-	 1KHnE7wmoBo+Z4xbCgE6Oe10ngoRKZODQ1QrM7TRhMDmoooTvEOJCoZ5Rq2XTqrF5lQ==
+	t=1794869435;
+	b=fO//W5EQt5CfvAMG5p8Ivky97DDKpeuyZTuScpntEVi/SKRCLUmkM/qRmkAvwN4qeuZD
+	 EhYhVmz4HGq8FFhJ8uK/nzQeTy4DapV0f8QVueD/lbepJXmQ5a+hjcGGzl7//7g1y4MuS
+	 XLnFj06i8/BTYmCuoW8GEEFTJU5baeI9+q40SeT0stbVdPaCgT59sUt7UOnkT6HQ5GIJi
+	 JpVbbpJLq1qqyiAmRcJqKl9WgsbmE7eh8TaeWSSnjZ2jvG+AsVXCya46CYYs8//lPB4wO
+	 2xHlqhWmQzzns8SQhPbAVe/Ec4ai0+A6O93QxKnexIzBjM3seImtNA6PEU6ZgHJ243A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794869331;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=60pDhYqz+P/R0qO3ME/ENMTcAYUA1szCxs7zb9TkRHQ=;
-	b=GBgviKhgd1pPI/8sSbeSMgOQ5G7aUonbXCitFZUr7ZqtyNfz1aiRbzXii5Uep9STfLGS
-	 C4pRlpi6ScQUWpVPxZQyjUXRJTBcsrd6aV9w6xhXtt+YTpT+K6sllnXHe3m8EPlPElHIp
-	 bxG+gIu73ah78LcrDLOxQsOTxiSvwXSn6k8/PLa/ZfMOQgsGoEoJvNa8gCal/F56kCiJS
-	 iSYRHYHI9MxiGAmRgDo808vHAYuNsfqqj+opfnD3FyPM/1mSahLfWr3F847BrJKpTv8aL
-	 6gkVx0kp2bhk2GIOVUZeaVL8QvYpKYZhDasdngEZaF1nzkvmoqXCF7JFqYMUL2o0W1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869435;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=FRTZ0UZ+O5UMbm2peSSpDUxiOixTmh4Ad8SIaAVLsT8=;
+	b=Krj2QblP+57w+9GoYtO84R6A/89Q3xVIs8Rg9EWpzFneyl4y7/xxVBKyJ0mXjPmEV5sj
+	 ZzAQdbjOzmPsSIwI2DrDS7meNXNLAuM7n4dXUNaL4YZUKPtpv2q5g5Pf/rJS0Z5tqVBTX
+	 YZOAF8Whnv5SVXa5x4O9sBhOeXdCu69UfX38yMnWDTD5v1sn1yD1y6puW6kpGTA4aocyl
+	 tG3wf95I60DUBI05CG7sl4w4QdsBz3ZCqBfw9VlZPF/kLZqPyKc1MbvvZ+sW6hMSXXHHW
+	 UtkpdJIuznJD8Ii2/cn7gYlETwYUdRTSS2vmSrYZf6sMiw410ABHg/j0p/slEhtc6iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=k1WbxU0l;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=1v6bl3wp;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b="Sm77vU/r";
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b="NoaC/YnX";
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CF3606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:48:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0CF3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4958606A31C;
+	Mon, 16 Nov 2026 22:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4958606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=k1WbxU0l;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=1v6bl3wp
-Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYgQQ4121227
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:48:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=60pD
-	hYqz+P/R0qO3ME/ENMTcAYUA1szCxs7zb9TkRHQ=; b=k1WbxU0lT18UNmrfrowr
-	y8lYOCZNHg2XrgLX4thXOcJ3RlUAb8SxGwHDhC8PUYAt217320UMYud3I5p4Srfm
-	6QU4bFrowB3M0GGpHY1i5fHPKf0r/2A/9nafA3zaQt4eIk332NNa8mXs7Bbdw50x
-	GZfTUn8r8CbEoyvCeZsHbO1sHQ1MFAUp2W75qr4SM59U+9IXrFDIarJ25YOFlOs5
-	KSCyZBiQBywR8GQ/XJWEMnvcwGuVYsylasbbZEMQF23euFbKRbjtpOxTwhgLeF+L
-	abnUcCxQdOEPOXg7VbMNASQC3fjzwuBCdtIrhjHTxJ/l9hgbTjBWUHePsKCTXmaF
-	AA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j0598uphk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:48:49 -0500 (EST)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2005ce21so730419685a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:48:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794869329; x=1795474129; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=60pDhYqz+P/R0qO3ME/ENMTcAYUA1szCxs7zb9TkRHQ=;
-        b=1v6bl3wp+bhTl3341mBPh+f6SHAGIDaLKD1bTfrwn/id8e/eHOeAbYeWhj8Q2nIpPX
-         IWXvyO1G3msOQzCIxxGA/aDRe3WDDDjFpb1RkZP0q634agN8YoMfBAzm3SKWXPQTtREP
-         yFTCBeSQNSISyoAnIqaeDIdGiswTbVopqQaDLTZWPffPcaM9X5kTNKhs5rHOlV9y7Jov
-         cu6nTxvDZq/tWW2KHOVk14QvsYIavpnWX/PKB6lLU+PwnsEB6adsQDEF+N8SZjR7PFi5
-         5+j7l9u3C4avaWiHQirZWTNupyMrtHWQ561bYN8a2ZopBXAsQFY29ljAQ2+mMR8r+Tdf
-         H9Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794869329; x=1795474129;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=60pDhYqz+P/R0qO3ME/ENMTcAYUA1szCxs7zb9TkRHQ=;
-        b=ddTh44I51icktqT3B/BMXjdYpOJCLmkIy6dpUETv5lJcfMYlQ21WM9d9S+Kw6ds02q
-         XDlZvacEg8mAKl+m2HqLjtnqmJ2hvdnjK/6dxS3wZhe3L9YUiDrhJNZKzSoPQHcOiONM
-         rqpTszoVDzjw7/1ZYpT0E5G5SFuj1jf4Rws286TSTgM8Lo6Ppm3zLGI3pf53vEjfOst9
-         KJSumikwBO1KR1QFt3zP/jYN4ghPoIT2Rpbp2wq7zgYsKvbX/EUFFLSqwT9QWfglgE/U
-         wB25ynnZUQ3nj3C3fdmUXaDpEI+xU/LLMGabcFi0U5+mzYm5FG6qQti8qO3WdOMuhN3c
-         ooSg==
-X-Forwarded-Encrypted: i=1; AL+hErE0t1ns0DTyDObrKLQW71mYFFatLDWMhr/jmrdte1OIVoJz88ZcjyQhpQTzn6XRAqOFq2k0BenSUW+bkJY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SsqJJ41gJL3oPVtSAZniEnkKJLpSMP8oqQb1lj9SgvXzWbOyS
-	fLgXXD5QVCRG++cQMtUH00B9aMZSh0gbv0ku/bP1wBqykpugO+p4jd8Om0hYyld31mqPBnHR9WU
-	VVUhKY4EnB93SST9nZ7TnjjZZlOyPfiEFJekg+VqWixYUhYNOm4zaRFJND+DE7g==
-X-Gm-Gg: AYBFou1Z5tDIcplK7CtbwBh+XOU70sqrvPFGpCDvlgiHhTy4JJxpH5Nlqi/sUF79vTi
-	cP7ANxBdyVL+JRisdNpopYWkeJM1UHqZK/zKZbZ+/CeiKhObEFZhYpnRDALZRn2+ofssxjuVR6s
-	FdH6R174dMZqc2UvjyTddfwJvi4rjplvHJBjzRRhq9VjsUDctRDVIvE/bm8r+2aRiVCvGG6pHio
-	dwj3GYkw0Lzjref8ZqsdM7/Qt/TTJMltkxDEai3bixm9Lq2FsOpx8Wuf3K9qL8pmRMzz87pkTdH
-	y7c7GKExpSR5MLmX69Ny8OWDUbRboi1dDtoYXulBC0SqzPU4VaGHCEpUvBenPi2rxG3mUHcnaaV
-	hVZ0K8tZBCNBQd22sXkzUkwSFD5RpkkPMNk3NL3F6M5sjtkSBVJYBkNFg+Z9jTJFwJzoGFdn5m3
-	7pZnOXKCzjplt+zvpRgUGQ/oPL
-X-Received: by 2002:a05:620a:2b89:b0:949:7781:6a31 with SMTP id af79cd13be357-94977816f98mr830657685a.76.1794869328824;
-        Mon, 16 Nov 2026 14:48:48 -0800 (PST)
-X-Received: by 2002:a05:620a:2b89:b0:949:7781:6a31 with SMTP id af79cd13be357-94977816f98mr830652185a.76.1794869328428;
-        Mon, 16 Nov 2026 14:48:48 -0800 (PST)
-Received: from [10.207.2.125] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c804f9esm954860185a.11.2026.11.16.14.48.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 14:48:48 -0800 (PST)
-Message-ID: <cc8daec0-c3e5-45be-9af0-d58719a43953@columbia.edu>
-Date: Mon, 16 Nov 2026 17:48:46 -0500
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=Sm77vU/r;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=NoaC/YnX
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Date:Subject:From; t=1794869432; bh=FRTZ0UZ+O5UMbm2peSSpDUx
+	iOixTmh4Ad8SIaAVLsT8=; b=Sm77vU/r7NfX+5HnVXq1nuqVkjmtScptK3wHFoEULPZxXDB0Cc
+	n6RVdeMggm29fJWwtFCPz70nN8goey/qhaBA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Date:Subject:From; t=1794869432; bh=FRTZ0UZ+O5UMbm2peSSpDUx
+	iOixTmh4Ad8SIaAVLsT8=; b=NoaC/YnX38nou3GqsnFmEyfLDFVgDaZ8p4gkesAUrSctYCi7a4
+	cDn0WmO1qnSKYJNOELvtlcEC4AKFHv32ZA9znHVuEbaeHFIvCURWmxWQNMeSSokOEWPaIYE8k4U
+	CmLi6cQdKUGZfx/L28icGGIsB3MsE7M9zaUlArehzdrMHvKqBhB/SWmIVvTvEaUI2IPVqKONY8u
+	8UxwCc7A0m71j/XOjqS4Qf3BLZs83iLABmuqc6wvMJZmCOfyJTCL2WFvL/cJIGGv129HKV4FwZv
+	1Lq8i+r19TvUnhHjM+ZhYCaucZJ8RQzk74b7VRfLUYMGMsNHtttVLfQI45rnGTtoZfw==;
+From: erebion <erebion@erebion.eu>
+Subject: [PATCH v5 00/12] Enable more nodes for the Xperia 10 III
+Date: Mon, 16 Nov 2026 23:50:30 +0100
+Message-Id: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,120 +60,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] fs/proc/task_mmu: write-protect device-private
- THPs in PAGEMAP_SCAN
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-        James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        Michal Hocko <mhocko@suse.com>,
-        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
-        Ying Huang
- <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-5-4397a0196479@columbia.edu>
- <38750bd8-6bb3-40f9-901c-44cef40a9de7@kernel.org>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <38750bd8-6bb3-40f9-901c-44cef40a9de7@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 4HPmFL2_9Rm4XJ2x-G-9_W1CveZzMucG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA5MCBTYWx0ZWRfX1AKQ/r66czAv
- Jru/uS4VK8YN4Tp1zdthiPOw7AqPZJ7q4BvXse6ERZtH8cLqmiRC9Wt61tOoWzid28ZASdGbT4U
- 99Cf+K0fXxQE6VRL8BSFtYk5OXFazFfPwXRWM+59H8H1c7rRB/wm
-X-Proofpoint-GUID: 4HPmFL2_9Rm4XJ2x-G-9_W1CveZzMucG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA5MCBTYWx0ZWRfX+H+k1365mTlU
- RFsGa6AtPsEWX6n6rPig47ryfXip1jCO5T2faWB649FvWAsUi8CgPbCdHzCSrvUdLGZOdW+Dre+
- OajqUJonkJYgrFODCuWMlWfE+x1PHv7OvvHlp1MO2i+yVAxr9KV8KheMcJ46VfXlou9mlDAxoPV
- 9X9bhQs1JSAn0Cq/PaPv+7+0GXtrA86ytgcETUpVoiC/X7Bk+dZJA4dk8MiAHh3TdTZz5J+HPlI
- rZv1B8r59tdQnWaXOh8qZjREj1mgjNhLTsz4Dx93lCQOcE1TYBFy0mRLQFHiaY818hmb2I2nm1o
- yOd9cdibQeLSierK1IKDnEoTp3Hr/4Q615/Esu3fhAKKpxvcZnSrJajFKMHOa3QJFKQOC+fzdVz
- kNntg9GEyPXOx9zH7cBXLaI/7ST66uNOcSpF2oAfubGfO0kkbU0yMvYJ0fBoXtZ5x7fQBm3ukpV
- hrXND4+eTeRSPqGuLLQ==
-X-Authority-Analysis: v=2.4 cv=ZOpCCn7b c=1 sm=1 tr=0 ts=6afb8851 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
- a=tHa68p0SAAAA:8 a=qGNAzR1j6OtaQhhBgNgA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=ufIsyHvWW7FwcMbVRpPq:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=10 bulkscore=10 impostorscore=10 spamscore=0
- suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160090
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XP3U7DMAwF4FeZck2m2Gn6syveA3FRJx4LUteSt
+ NXQ1HfH6xACrRKXVo4/n1xV5hQ5q8PuqhLPMcf+LIN72il/as9vrGOQWaHB0tTY6CFcEKyehjw
+ mbjttdTBUm2NVNORIyd6Q+Bgvq/nyep/zRO/sxxv0nUj8Mcmx8R5T1GbWvu+6OB52c7W3OnlQt
+ +1TzGOfPteCM6zhtUuD5UaXGbTRIK8eanIewrNcIvnTnqeVm/FfAoWgogRky+Rs+UDYHwLA4BZ
+ hhfDBW+KmDOiqB6L4RcjuBlEIUZAB70xbI/g/xLIsX2e5Rbi6AQAA
+X-Change-ID: 20260829-pdx213-upstream-3-d0b80f749b5b
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ phone-devel@vger.kernel.org, erebion <erebion@erebion.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794869432; l=4197;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=B6kkZUwaP6FohDG2oMa6B64oG+I7IHAtHRL6P3bj/+E=;
+ b=WlJVwIV1K2qaE4D/gTcTEsiShpIVngO8dbB221L0mtm2FAyaXH+5OLZhYs25r1UuoMO2wlZ0T
+ OoxHBlLfH7DBn+3RR0miXE8Jzxo9L4uNNIrfr2LV1qYcmbwJds88RrS
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-On 11/16/26 3:26 PM, David Hildenbrand (Arm) wrote:
-> On 11/16/26 21:02, Tal Zussman wrote:
->> PAGEMAP_SCAN with PM_SCAN_WP_MATCHING write-protects a huge PMD through
->> make_uffd_wp_pmd(), which handles a present THP and a migration entry
->> but does nothing for a device-private THP. The PMD never gets the uffd
->> bit.
->> 
->> pagemap_thp_category() reports a non-present PMD without the uffd bit as
->> written. A user tracking writes with async uffd-wp therefore sees every
->> page of a device-private THP as written on every scan, whether it was
->> written to or not. This requires a driver that migrates THPs to device
->> memory.
->> 
->> A device-private PMD must be write-protected like any other huge PMD. To
->> fix it, pass any valid PMD softleaf entry to set_uffd_wp_softleaf_pmd(),
->> not only a migration entry. It downgrades a writable entry and sets the
->> uffd bit. When the THP migrates back, set_pmd_migration_entry() carries
->> the uffd bit over to the migration entry, so the write protection is
->> kept.
->> 
->> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
->> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
->> ---
->>  fs/proc/task_mmu.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->> 
->> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
->> index ee7f509d376e..013eeea7d1a3 100644
->> --- a/fs/proc/task_mmu.c
->> +++ b/fs/proc/task_mmu.c
->> @@ -2520,7 +2520,7 @@ static void make_uffd_wp_pmd(struct vm_area_struct *vma,
->>  		old = pmdp_invalidate_ad(vma, addr, pmdp);
->>  		pmd = pmd_mkuffd(old);
->>  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
->> -	} else if (pmd_is_migration_entry(pmd)) {
->> +	} else if (pmd_is_valid_softleaf(pmd)) {
->>  		pmd = set_uffd_wp_softleaf_pmd(pmd);
->>  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
->>  	}
->> 
-> 
-> This really should be squashed int #3 I think. Or what's the reason for keeping
-> this separate?
-> 
+Enable some more nodes for the Xperia 10 III.
 
-I viewed them as separate bugs with different Fixes: targets, one from v6.7 and
-one from v6.19, so it seemed reasonable to keep them separate. But patch 3 handles
-device private entries already anyways, so I can squash this in.
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+Changes in v5:
+- sort some nodes alphabetically
+- fix firmware paths to use codename "lena" instead of "pdx213" for consistency with other device trees
+- PM6150L thermals: fix commit message after removing RFC_CAM_THERM in v4
+- Link to v4: https://patch.msgid.link/20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu
+
+Changes in v4:
+- &pm6150l_flash: fix extra zero for led-max-microamp value accidentally added in v3 (this was setting the max value 10x to high), remove Lua's Reviewed-by
+- rename touch-en-regulator patch: fix rebase mishap and remove a regulator that's not part of this patch series, remove Konrad's Reviewed-by
+- IPA: remove redundant properties that are now set in sm6350-lena board DTS, remove Luca's Reviewed-by
+- fix pm7250b thermals after a rebase mishap
+- pm8350: disable PON, as pm6350 already has it enabled, remove Konrad's Reviewed-by
+- rear_cam_sensor: fix gpio to use correct one
+- remove includes that aren't actually used
+- re-order alphabetically: &pm6150l_adc before &pm6150l_gpios
+- remove a superfluous tab at the closing brace of rear-cam-flash-therm@2
+- enable remaining i2c busses: fix rebase mishap
+- fix firmware paths to use upper-case "Sony" instead of lower-case "sony" for consistency with other DTs, reset Luca's Reviewed-by
+- remove rear_cam_sensor, as it does not work and I haven't found the issue, will submit later when I get it actually working
+- Link to v3: https://patch.msgid.link/20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu
+
+Changes in v3:
+- re-order some properties, generic properties first, then qcom,*
+- &pm6150l_flash: fix led-max-microamp value
+- rename touch-en-regulator to regulator-touch-en (to keep any future fixed-regulator sorted together as well)
+- Bluetooth: remove incorrect property that does not exist
+- Bluetooth, &qup_uart1_cts: do not overwrite a bias-disable with bias-bus-hold as it is not necessary
+- &pm7250b_vbus: fix regulator-max-microamp value
+- Remove comment from reserved-memory as suggested by Konrad Dybcio
+- Squashed the patch enabling IPA into the one enabling ADSP, CDSP & MPSS, as suggested by Luca Weiss (therefore not adding the Reviewed-by from Konrad Dybcio)
+- Configure thermals for PMK8350, PM7250B, PM650L as used in pdx213
+- Enable remaining i2c busses
+- Link to v2: https://patch.msgid.link/20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu
+
+Changes in v2:
+- Remove panel_reset_pin that shouldn't be part of this patch series
+- Remove incorrect reg from mpss
+- Fix conflicting bias pinctrl, as pinctrl nodes from sm6350.dtsi already contain a bias-* property
+- Fix incorrect unit name in &pmk8350_vadc
+- Link to v1: https://patch.msgid.link/20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+erebion (12):
+      arm64: dts: qcom: sm6350-lena: Add flash LED
+      arm64: dts: qcom: sm6350-lena: rename touch-en-regulator
+      arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
+      arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP, IPA & MPSS
+      arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+      arm64: dts: qcom: sm6350-lena: Enable wifi
+      arm64: dts: qcom: sm6350-lena: Enable PM7250B
+      arm64: dts: qcom: sm6350-lena: Enable PMK8350
+      arm64: dts: qcom: sm6350-lena: Add PM7250B thermals
+      arm64: dts: qcom: sm6350-lena: Add PMK8350 thermals
+      arm64: dts: qcom: sm6350-lena: Add PM6150L thermals
+      arm64: dts: qcom: sm6350-lena: enable remaining i2c busses
+
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 457 ++++++++++++++++++++-
+ 1 file changed, 456 insertions(+), 1 deletion(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260829-pdx213-upstream-3-d0b80f749b5b
+
+Best regards,
+--  
+erebion <erebion@erebion.eu>
+
