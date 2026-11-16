@@ -1,86 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794800800;
-	b=PgsAfZPqTHI7663p/65McYVXIMKOLY40s7wbRpfvm6BvitdPlI2+iQnv6wBvHIHkG1C6
-	 al5Fp4wOmbhkzzBxTs1gJKc4PBi4NUjYjg1kKDa9gCKUDBMf1yN/AlfgsPH3GRcMmW1cS
-	 Lx2jaRcmwmwjUt4SEaObDQW5Y1hcAxkqy+3W1A3vKFR32HMkaoJtcyQIfhLk7UeouqVd8
-	 26/4Z8C9xdJlU71Z3KY6kHF5+eo+gkt4rVBw1hQTWW85cMLr/Yi3JOh/POq/d2qEh48tR
-	 hjYchDSlK7jIP74YATt41mMx3gtHTzRHQ8ZtbiP6DJ0M5mYDJlOpRMZSoY8wHbgQiwQ==
+	t=1794800805;
+	b=kTyieB7IOCkEks4wXI0NGBETK6naDi1yT7B9321nti7fEXklOmEh55IM49n1JTFOzGy1
+	 jFoECWf8itxx9FV6eoUrY3xieWwGg4E/jPZbQ9ulCw1kx1Z9wUxC7QpKUFW9JsSUZyfRf
+	 fAZb6kh5SpYAVKH4xYMWKe7ei4j8naFfgqprFd/Bl2ZzF1kewE4vT8t4U3hJtGsQub16u
+	 k9Hx9wiuv/rg9tRSGF1EQ/4BUoEqjFbVnFR5E2Fb2q4qP7wUVWWYf1b/RdFuhQzeZnChc
+	 3IXy75oqVecv1rzJE3urXzIG/fG051E2PqITmVGTwNQdrFtbm2XXmNoIoCGXJDGTFDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794800800;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=bMYoHdwDS6ERXR7o6vJNjrN/UznMDiuh92Nc95EJc+g=;
-	b=YfuE0RnQqwokkfb1nbMkcxz8QDY+S19GT9r+PMOYnk+H4OOPKX24JwAx6qH9kOBs+l/3
-	 8R1ofnjRfGpYmpje5u2r15+/wAUvvQ/Ut9fJSvLuX/WibEFyi0rkO2biXiLms6rOTp3Se
-	 hEQIpi5JW5RHuwMzQm5SfA+F+OaR0eDgSBcCWJw61y9T9Xuw4nYT0yx+HpejKk6+mCJaT
-	 HOb9cPziKWNo+yeDhghtHOLHyBWuV10bocn0aNGx505KdcmXJMlZIUEj9XSunMoGZYAeZ
-	 0K5I8XTFmEBjuaEAv2ZNx1G23/oCpNbFhMFsJUpqwN7Nd0hYpmk/Sl0CgP36p7wdiUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794800805;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YJ1mNVMyZabp1br/F4JAZ2tJtuCT1244HZFw9YvsAww=;
+	b=K96xYIwnx+6QNQrQK6XIKr4U4/hMIPf0uY/g8+Jhz3iDSTE2VCaEx1jPr0ykSZG0kPAt
+	 +Ncx9UWb3st+4zxGh/7AShj0jf6T/iZnUc+gupD6f/SoXPKwFjuM+9HgZ4uJCEqUHyX63
+	 55JcLYsPjIYNGHyy5yFI97ZuzIQlyo2TOf+oHEqTmJ/cH5F63FTOGSB91tfT5y2YlZqxO
+	 S7Ke7/ofkEbkGO8iixZpKQM90vRkl3fgJQLZuyF2RHnBrv7jtFtaQ/2WyzJEUAnIrLPe8
+	 xeENdWINRJvhIJnRGRXfwedzlJ+zvYLXT4Xr4jZyoy4EJADl67QPgGzBWtjfA98czHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kly64OCI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5438606A335;
-	Mon, 16 Nov 2026 03:46:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5438606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 4d4ec16ce17011f19a56ed5b684f684d-20261116
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
-	SA_UNTRUSTED, SA_LOWREP, SA_EXISTED, SN_EXISTED, SPF_NOPASS
-	DKIM_NOPASS, DMARC_NOPASS, UD_TRUSTED, CIE_BAD, CIE_GOOD_SPF
-	CIE_UNKNOWN, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:981e35df-7e09-4fc2-b70e-c289b82f6c20,IP:10,
-	URL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:35
-X-CID-INFO: VERSION:1.3.19,REQID:981e35df-7e09-4fc2-b70e-c289b82f6c20,IP:10,UR
-	L:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:35
-X-CID-META: VersionHash:7db8b62,CLOUDID:0196c6742fcb74d94cd1383e5144a5f1,BulkI
-	D:26111611463290TSEWKU,BulkQuantity:0,SF:10|38|66|78|81|82|102|127|136|153
-	|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:11|94|82|1,Fi
-	le:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
-	DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4d4ec16ce17011f19a56ed5b684f684d-20261116
-X-User: xiongxin@kylinos.cn
-Received: from localhost.localdomain [(175.2.56.187)] by mailgw.kylinos.cn
-	(envelope-from <xiongxin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1437984618; Mon, 16 Nov 2026 11:46:27 +0800
-From: Xiong Xin <xiongxin@kylinos.cn>
-To: rafael@kernel.org,
-	lenb@kernel.org,
-	pavel@kernel.org,
-	james.morse@arm.com,
-	hch@lst.de
-Cc: will.deacon@arm.com,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiong Xin <xiongxin@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 1/4] PM: hibernate: reset clean_pages_on_read after load_image()
-Date: Mon, 16 Nov 2026 11:46:16 +0800
-Message-Id: <20261116034619.36218-2-xiongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261116034619.36218-1-xiongxin@kylinos.cn>
-References: <20261116034619.36218-1-xiongxin@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933BB606A333;
+	Mon, 16 Nov 2026 03:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kly64OCI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8589E1F000D4;
+	Mon, 16 Nov 2026 03:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794800805;
+	bh=YJ1mNVMyZabp1br/F4JAZ2tJtuCT1244HZFw9YvsAww=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Kly64OCI8u0YOzfJ3KkFUjzjY9/oCCgvs7Qro7mZZqYKTHKpnoC5uGX1Rpwhd+SXf
+	 HH1w2qOaZ0hpzL6+qIACz88XVTlmWNI2D7SxKEFXNNyUYgKlxwn1vRMh9lDV8qbjd1
+	 WxOI2VSw+JnjDB8nR/RygHvMuGG6Ck6AOZc3f9p28nlOYeTgROpryqfniTAowxI+0c
+	 460ZcnvzWcehLit5AZOi9qt86BOPDlMP3YpfZVR3OGii6sq9tvfZ2+bRaYBo3DBAAD
+	 Axn27+l7+7ktiBfgk15e98LEXUmWWAp7I+pEgSiLlOZ+MrXeaydJiSNwj6n+hB6hP6
+	 rTm4T8YnK1DYQ==
+From: Yixun Lan <dlan@kernel.org>
+Date: Mon, 16 Nov 2026 03:46:21 +0000
+Subject: [PATCH v8 1/2] scsi: ufs: spacemit: dt-bindings: Add UFS
+ controller for K3 SoC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,56 +53,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-08-k3-ufs-support-v8-1-e3b256972dd4@kernel.org>
+References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+In-Reply-To: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, 
+ Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2684; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=lq7HN+yl+xEkMLtEEKnMH3G+5GAH8dyxymmhnH9G6cI=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBq+nyT7EcJCAZomdNFEpBFIh5+sKoiEI/dOwtd0
+ 3hUHV9Bre+JAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCavp8kxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+2a2w//UliqU4JD81DH5VKfrYO2TAaExY2y94lNVWcBZ2STG2SfncFIeet0k
+ YRAPb9BlkTz57uluVIJu+NoJMsgjm5U6c8Xlgpvxgif11VRRcMsoSsmNUWgyuu0QgmoQI0W26Nh
+ gF4AJIukGct/3kuA9PEFu8Jmolf5dtdBqzcouMZyoyNnyWBn1E3FR2pMFjj/97EE8FpKUyVDBpd
+ 5GEid2sPRf+tVr0mk0FlUYpNA7sMRjIhKJZwsc3KWjy3vDIbuBJNa+4t9LCLz2okVdLBuDvHJjG
+ EffZwh90z8TmZek4/zcvbcIaqClhXH0TUXOBSn/SFGbSxrBLQlkXJ3JNK9CREykfLuzpTUDrnZA
+ pjsdKTUbc4gtBZ7iWsJC9ahs8b/ibVbR000eMHWvg3ERgiZHteYP9oIbiq35oDHyoqYvEEKTEOa
+ cEczPbApLoc4zZPmCRceFKkBNCwFVz1AI3shdcKzXMjtfmK/KD/HB7FvIWTUukEBjhgRbAMzTnw
+ hISNTXDxmv0AXcotpR1QRGY0zFI/li77JKvT9OSHsWC51789esOmexI/fJrpaS9XHy0xSes8WRt
+ jRDAJeZpj7DN/pHcBifrtQ8Y71Zt0agS40gC3W8AWshVnfkQuwctmuvjNEaaqWKtBrIP2EWsbJ+
+ NY1NIKvmEU+aaxccMhXVNTxhUJWD8A=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-load_image() sets clean_pages_on_read but nothing clears it.  If a
-nocompress resume attempt fails and a compressed resume follows in the
-same boot, the stale flag makes hib_end_io() call flush_icache_range()
-from interrupt context for the reused ring pages of
-load_compressed_image(), triggering the WARN_ON_ONCE(!in_task()) in
-smp_call_function() on ARM64.
+Document the compatible for UFS (Universal Flash Storage) Host Controller
+which found in SpacemiT K3 SoC chip. Its features are listed below:
 
-Reset the flag before load_image() returns, so that it cannot leak
-into a later compressed resume.
+- Compliant with MIPI UniPro v1.61 specification.
+- Compliant with M-PHY v3.0 specification.
+- Compliant with UFS HCI v2.1 specification.
+- Supports up to 2 Tx and 2 Rx lanes, up to HS-GEAR3 5.8 Gbps per lane.
+- Supports standard low-power hibernate to reduce power consumption.
 
-Also clear it once the load is known to have failed, so that the bios
-still in flight do not trigger the same interrupt-context flush during
-the final drain.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Yixun Lan <dlan@kernel.org>
 
-Fixes: f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages restored in-place")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260926032416.467937-1-xiongxin%40kylinos.cn
-Signed-off-by: Xiong Xin <xiongxin@kylinos.cn>
 ---
+Changes in v8:
+- rename to "ref_clk" clock
+  UFS core will search specific "ref_clk" clock, retrieve the frequency,
+  and then set bRefClkFreq, see ufshcd_parse_dev_ref_clk_freq() and
+  ufshcd_set_dev_ref_clk(). It will also set keep_link_active feature.
 
-New in v3, split from the single-patch v2 per review feedback from
-sashiko, as it also fixes the stale clean_pages_on_read path on its
-own; it now also covers the final drain of a failing load.
- kernel/power/swap.c | 4 ++++
- 1 file changed, 4 insertions(+)
+  to Krzysztof, please note, I've kept the Reviewed-by in this version
+even with clk name change, let me know if you have any objection.
+---
+ .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml | 56 ++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-diff --git a/kernel/power/swap.c b/kernel/power/swap.c
-index c78f1593600b..7f3cc2cc5cca 100644
---- a/kernel/power/swap.c
-+++ b/kernel/power/swap.c
-@@ -1125,6 +1125,9 @@ static int load_image(struct swap_map_handle *handle,
- 				nr_pages / m * 10);
- 		nr_pages++;
- 	}
-+	/* Stop flushing pages on load failure. */
-+	if (ret < 0)
-+		clean_pages_on_read = false;
- 	err2 = hib_wait_io(&hb);
- 	hib_finish_batch(&hb);
- 	stop = ktime_get();
-@@ -1137,6 +1140,7 @@ static int load_image(struct swap_map_handle *handle,
- 			ret = -ENODATA;
- 	}
- 	swsusp_show_speed(start, stop, nr_to_read, "Read");
-+	clean_pages_on_read = false;
- 	return ret;
- }
- 
+diff --git a/Documentation/devicetree/bindings/ufs/spacemit,k3-ufshc.yaml b/Documentation/devicetree/bindings/ufs/spacemit,k3-ufshc.yaml
+new file mode 100644
+index 000000000000..2d1b066b4187
+--- /dev/null
++++ b/Documentation/devicetree/bindings/ufs/spacemit,k3-ufshc.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/ufs/spacemit,k3-ufshc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SpacemiT K3 SoC UFS Host Controller
++
++maintainers:
++  - Yixun Lan <dlan@kernel.org>
++
++properties:
++  compatible:
++    const: spacemit,k3-ufshc
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 2
++
++  clock-names:
++    items:
++      - const: axi
++      - const: ref_clk
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++
++allOf:
++  - $ref: ufs-common.yaml
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/spacemit,k3-clocks.h>
++    #include <dt-bindings/reset/spacemit,k3-resets.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    ufs@c0e00000 {
++        compatible = "spacemit,k3-ufshc";
++        reg = <0xc0e00000 0x40000>;
++        clocks = <&syscon_apmu CLK_APMU_UFS_ACLK>,
++                 <&syscon_apmu CLK_APMU_UFS_REFCLK>;
++        clock-names = "axi", "ref_clk";
++        resets = <&syscon_apmu RESET_APMU_UFS_ACLK>;
++        interrupts = <135 IRQ_TYPE_LEVEL_HIGH>;
++        lanes-per-direction = <2>;
++    };
+
 -- 
-2.25.1
+2.56.0
 
