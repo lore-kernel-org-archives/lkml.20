@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816166;
-	b=fNJ3XxXyl5YEseG/wVL0x1e+HPDs/sYaytI/prbNmMw1Rlkzy32fQ1vXKUkWXUAE6zH5
-	 Gi3Na2ekjEq/cxOoEh3FPXiM2G3wzwB6x8FvNj+3GhJwxcB4siG4C0XimE2cnSz6FlF2y
-	 GZjSB8sxboQYhc3TDqSsRMyAKrG79jvo4iTEjKvXuaVc6Foe+cEanZtU/yEAbS+P+JGkb
-	 uWvFgqaMJzst1VRi0GcND1fe81xxcDfOIrl1rVa3bCSyIDnK06HoGy8/sEBbjO5QhmIUc
-	 /pM0t2BWcAbZi6Ee02P0Rz7f11OcKRrzh5FU1JeERk3jXgw/uFpHqvmrqTHS+QFY4Tg==
+	t=1794816256;
+	b=QlCTAYwgG4XO9JhMloytePTGjpWD2U/pik8p+Ars8KbAZojzMc3hNXUamcaCK/5ww5Qf
+	 F41JzxGx0VpGkRJDLBEAVqVM2WaorOab58MF4/yY1ysKJeMVk8Mcz3zoqWA8LfM9HEXrk
+	 esPt8Q1nimjnK1PLT1rRwPt0ZCNFghKBJKfvr4kLk6ES5ZvNy0R2sjJMcq4QMIKD7LfEi
+	 aZQwlh/6DKatCETF1Jl4luQOsT3bg+qFfZADkA3FqSA/WSsdsB85+OVEhJnIB4yNLR6vc
+	 FAk8TiI3aYPE4/puBPpXmhO9bhnxaDByGXzcGu1IFaVLRVhzBGPBE6o7hTb3HJv76lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816166;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=279Hmw0WZmFW6md53ZRBIRk2MyfOqBqEG67/CplP9MQ=;
-	b=pQEcSD3epz5DwZC4+Ydv6j/Nc/xYHr9b7y7LTaABgNWdwv2vV6PtYUt4o8kTHUlG2Qe8
-	 TrvzqCJL+Mx+gYCD9iY7f/s93FAXu7mC5jnp49KL1OggOinrxemQxbXybqewSqkucP8nR
-	 Ug3HMUG0olU6EiEflAJquGodDB7zjrPXgEv1K4ogathLVdsBkSTSSRNd//g3VuBZPu3xg
-	 iZ1lMCScbsA/NVXIcugp74JxUjYPkuGwehk8XynutToloA0RDcxAtKQg+7/6clqHOXHEL
-	 45R7KBWqYr/c9FBsOpr/R8B25GiU6iQ4+eT+upE1cE27NIESAPU4AEGP4pJIu6S0XYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816256;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=s1qjuKYUc83awRoMLtt3OYHBYrmVYF5F4XNJVMk1IZ8=;
+	b=m4H57nGqvHGzhmGOA1J3RjtNi08sV5M4Wv2bXq7KTyskruzSSqvKYILHu4I0dQRep6Jb
+	 ih3Fqcuog+kZPm/M+K2f81syrUOMA62pd2Bn8yn+aUMAa0o/I6qbvOOUK1qNviXw0Cp1g
+	 2ylWrvvTY2DVMeY+uzIrwt6zLNb2D4SURAglR9IYPT/cByO8oUFOu66eh88McFaXy/+ri
+	 X+zCCa3/3BmzOgxHW3A7Yhv5mfZUCNJpRV1BoQ8UdRh4MhxQXAJrOSPMUkfzJGW+xl2ku
+	 Gfhl2pM1X31IyvMR72d1HePdyYoHlngNxbYugwewbusMnNwgLPiRkOoyFqygyxZ4smw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUma0mk4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AuUAkWbD;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F912606A32F;
-	Mon, 16 Nov 2026 08:02:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B120C606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B120C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUma0mk4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9061F000C6;
-	Mon, 16 Nov 2026 08:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794816166;
-	bh=279Hmw0WZmFW6md53ZRBIRk2MyfOqBqEG67/CplP9MQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UUma0mk4D7xxm2OAtXyYwW7rpkjARX0kNBWwVSiqQjcyRuWB5qKPYW1KMMxmLso37
-	 dUtqw3NrysP06us9HNvNCxshj6lhk2z4nGh/Gy9wt3y9V0YV8aNc1nlccZ/w34DT12
-	 lDeWWTwep2ESDuqYYapsv9YR6/f/v/TMxpT42/WqJimg7KwZR7ABBJGev9nKM6jbJK
-	 kDfS4B10NF+j5/wXYVCEmJnMnkZ9+vp86iHF0q6oYVw72aui7x35u2cixV50J22PEE
-	 5JGlmKI6Y2Oebt8XsrDxDqcvuVmlsE/8jDJ2BNHX+mWrO/Sm9utGUnihIGGfC8+9cp
-	 Hxws0XhJn7GEA==
-Message-ID: <34da61f7-c1c9-4a40-8ce3-fde8c03d0199@kernel.org>
-Date: Mon, 16 Nov 2026 09:02:40 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AuUAkWbD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794816254;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=s1qjuKYUc83awRoMLtt3OYHBYrmVYF5F4XNJVMk1IZ8=;
+	b=AuUAkWbD3/r3IthzJ+6d4nabSt1cUneTQlU/lMd8+s2L+g4gvFZgO9IH1Md2kDNla3RsbR
+	S5KFcdRNga7wwXYTduIGVm9lOflJivi6YS9n/VEKwS4eP5mhngw1aevslk0X3Lree/4hzF
+	vmz9615Bcf4zsKk0RDD4CFZFGsl5VCA=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-588-4egDlCWUOdG0WMuYkWiqUQ-1; Mon,
+ 16 Nov 2026 03:04:11 -0500
+X-MC-Unique: 4egDlCWUOdG0WMuYkWiqUQ-1
+X-Mimecast-MFC-AGG-ID: 4egDlCWUOdG0WMuYkWiqUQ_1794816250
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5CE5918004F6;
+	Mon, 16 Nov 2026 08:04:10 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B5B9618004FF;
+	Mon, 16 Nov 2026 08:04:08 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH] wifi: ath12k: fix crash on unbind when board data is not found
+Date: Mon, 16 Nov 2026 09:04:04 +0100
+Message-ID: <20261116080404.93529-1-jtornosm@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,90 +76,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] gpio: aspeed-sgpio: propagate IRQ setup error in
- probe
-To: shao.mingyin@zte.com.cn, linusw@kernel.org, brgl@kernel.org,
- linux-gpio@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, andrew@codeconstruct.com.au,
- wbg@kernel.org, opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, jelonek.jonas@gmail.com
-References: <20261110232903548MKw1ilhZfMJtzbTnK9nSv@zte.com.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261110232903548MKw1ilhZfMJtzbTnK9nSv@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 10/11/2026 16:29, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> aspeed_sgpio_probe() ignores the return value of
-> aspeed_sgpio_setup_irqs().  That function returns the result of
-> platform_get_irq(), so on failure - in particular -EPROBE_DEFER while
-> the parent interrupt controller is still probing - the driver carries on
+When QCN9274 boots without the required board data in board-2.bin
+(e.g. board ID not supported in the default linux-firmware package),
+the QMI firmware initialization fails during board data loading:
 
-How parent controller can defer probing?
+  ath12k_wifi7_pci 0000:07:00.0: failed to fetch board data for
+    bus=pci,qmi-chip-id=0,qmi-board-id=4102 from
+    ath12k/QCN9274/hw2.0/board-2.bin
 
-This is on of many LLM slops this user sent (and then replied with LLM
-replies, so we are talking with a meat proxy).
+Without this fix, unbinding the device crashes with a page fault in
+mhi_queue and duplicate sysfs entries, and the only recovery is a
+reboot:
 
-See https://lore.kernel.org/all/avibe0HG4ssUUuBX@gremlin/ and many others
+  sysfs: cannot create duplicate filename '/bus/mhi/devices/mhi0_IPCR'
+  Workqueue: mhi_hiprio_wq mhi_pm_st_worker [mhi]
+  Call Trace:
+   sysfs_warn_dup.cold+0x17/0x23
+   sysfs_do_create_link_sd+0xe3/0xf0
+   bus_add_device+0x9a/0x200
+   device_add+0x3d4/0x750
+   mhi_create_devices+0x15f/0x270 [mhi]
+   mhi_pm_mission_mode_transition.isra.0+0x20f/0x2b0 [mhi]
+   mhi_pm_st_worker+0x26a/0x2d0 [mhi]
 
-> and registers the gpiochip with no interrupt support, and the deferred
-> probe is never retried, leaving GPIO interrupts permanently broken.
-> 
-> The "interrupts" property is mandatory for this device, so propagate the
-> error from probe.
-> 
-> Fixes: 7db47faae79b ("gpio: aspeed: Add SGPIO driver")
-> Cc: stable@vger.kernel.org
+Fix by:
+- Setting ATH12K_FLAG_QMI_FAIL when firmware_ready() fails in the
+  FW_READY event handler.
+- Using ATH12K_MHI_FORCE_POWER_OFF when QMI_FAIL is set, to skip
+  the MHI_STATE_RESET that triggers QCN9274 firmware auto-restart.
+- Replacing ath12k_pci_power_down() in the QMI_FAIL cleanup path
+  with a direct ath12k_mhi_stop() (guarded by MHI_POWER_ON state)
+  followed by ath12k_pci_sw_reset() for clean firmware state on
+  re-bind.
 
-Nothing for stable really.
+With this fix, the user can install the correct board-2.bin from the
+manufacturer, unbind and bind the device, and it initializes
+successfully without rebooting.
 
+Tested on QCN9274 hw2.0 with unsupported board ID (0x1006) in
+default board-2.bin.
 
-Best regards,
-Krzysztof
+Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+---
+ drivers/net/wireless/ath/ath12k/mhi.c | 2 ++
+ drivers/net/wireless/ath/ath12k/pci.c | 4 +++-
+ drivers/net/wireless/ath/ath12k/qmi.c | 3 +++
+ 3 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/mhi.c b/drivers/net/wireless/ath/ath12k/mhi.c
+index ee87f00bc5de..4290a4540351 100644
+--- a/drivers/net/wireless/ath/ath12k/mhi.c
++++ b/drivers/net/wireless/ath/ath12k/mhi.c
+@@ -507,6 +507,8 @@ void ath12k_mhi_stop(struct ath12k_pci *ab_pci, bool is_suspend)
+ 	 */
+ 	if (is_suspend)
+ 		ath12k_mhi_set_state(ab_pci, ATH12K_MHI_POWER_OFF_KEEP_DEV);
++	else if (test_bit(ATH12K_FLAG_QMI_FAIL, &ab_pci->ab->dev_flags))
++		ath12k_mhi_set_state(ab_pci, ATH12K_MHI_FORCE_POWER_OFF);
+ 	else
+ 		ath12k_mhi_set_state(ab_pci, ATH12K_MHI_POWER_OFF);
+ 
+diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
+index dbd960f88d38..bbd1f868295d 100644
+--- a/drivers/net/wireless/ath/ath12k/pci.c
++++ b/drivers/net/wireless/ath/ath12k/pci.c
+@@ -1741,7 +1741,9 @@ static void ath12k_pci_remove(struct pci_dev *pdev)
+ 	ath12k_pci_set_irq_affinity_hint(ab_pci, NULL);
+ 
+ 	if (test_bit(ATH12K_FLAG_QMI_FAIL, &ab->dev_flags)) {
+-		ath12k_pci_power_down(ab, false);
++		if (test_bit(ATH12K_MHI_POWER_ON, &ab_pci->mhi_state))
++			ath12k_mhi_stop(ab_pci, false);
++		ath12k_pci_sw_reset(ab_pci->ab, false);
+ 		goto qmi_fail;
+ 	}
+ 
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index 817bd820623d..5fc4ce4bae6f 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -4095,6 +4095,9 @@ static void ath12k_qmi_driver_event_work(struct work_struct *work)
+ 			if (!ret)
+ 				set_bit(ATH12K_FLAG_QMI_FW_READY_COMPLETE,
+ 					&ab->dev_flags);
++			else
++				set_bit(ATH12K_FLAG_QMI_FAIL,
++					&ab->dev_flags);
+ 
+ 			break;
+ 		case ATH12K_QMI_EVENT_HOST_CAP:
+-- 
+2.56.0
+
