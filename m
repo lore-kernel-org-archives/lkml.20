@@ -1,101 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848925;
-	b=oVyhzQbj6IalzQdJ4CmwLmWxDcE5kxCya2S9ufBB0Jr5Wi6ywT3kRh64wQNhJoz+AuOA
-	 1kPunkoCOj39BsYOMPlSxYVLSie+UJbNwQsFhD5Sm4+kZkOOSueWuzE3xy6DkvQ4+iga5
-	 qixPriwUzLghwYH2GLuQOKkOhjB8jh2WG8KMCAil4KN8Bb6DwiSwzoYILW8BkG8KLrU+z
-	 bw4VC6jrTKNphO7Xtmp44x7GatQ+BSsEsCm/TeqdBHZKcr4g4gANqon2EleGFPWEqoi/f
-	 4YHl6LTzssQhvBITEJR82ivbd4brS427bSdulOumQS79puE90twoYh/+DIdJP3rhVIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848925;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CDIoL1Mdtc5iZZQDcJSLwb4fY5hsODpxKgBTEdTd3vY=;
-	b=CMX2WFFewdfB3Bya3y8KhbDkR5y6bbP5O29r5BM5axNqJgQ4fbcW6aBUCFer2bQq5Ep+
-	 pkJ3nm1NtlrqwhxKyTO8lFwiy8RbbGkP62ahHAvtR0iealY5Y1LiBX7vD4KtdJ2vtHoce
-	 Syykh5FDxiZUWOeKpytyHn/ty4fcdLI3Vb6bT1nRSUJyP4PtCg7dwmVWxSz5LbMiO0drn
-	 GZtAlamu3EJX5mlq4tPX/nLgNLwY1e23p0z55QjBnN8FzR77Mgme2PUhpCnHe4VJUWKHu
-	 irpTVxiF0MpLs/firZhqmkWE0sTgTw7W6yKuXcDoYTGDDsYcU9Nd8iPABZBvo75qPKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tjc0ItRs;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794848941;
+	b=1sey/I2E6tsjEB4TzZBE1+oE/GZI4ya1cnHo+bqSmR/ysMCkbfK8S8wE8XPtdTWCxZD4
+	 7svdv+wz3vYEUOIMZmWYCd47IkLRY2afwfbq4Xlmv02q8Nt/slZr/wRtF2UrUAURHaUAq
+	 zIgnkUrmAVglkOx7WlGwwGj/w1kcjaRp8mQrX4NJSTWIOk2NylmD9fnXvyG0xXeua0p/y
+	 rj0lRMQzBDSI5BqKkGJrYGjtRyUuL4rfaMFU2oyOqbNmT2QW4B2yfAwSDaSPlm76RT565
+	 pFGxFMzFq6JZcyx9hypPucOCZeU+oenvOcR2ToZv6jlQTVoyQC/kw/eAc4Tqacm0WpA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848941;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=JqUBdWEUZtg7cdGQ7X46yjwUJFtABI81NDN5ExhM/Eo=;
+	b=YnBgj8rkFheOZiMadkQwBR80Sn8LLNYUrFkuyMxBQRDk6O2galaSR1PfFbKUHu2kRg0w
+	 iopw+8gc1cYQg1xvpe5BJy8ffZcDez2cYh3lx5cbiuj5JFUnoy0WAdh+o4Nx17Qj3Vi2p
+	 h+1do/FepdY0i9GrnyHyHSfMvUVHZn8U5bSkICZsNi9lbXv8ReQvWEgnyvYjHQsankq8k
+	 f/9SIUQKlc8xAwaUEafduDLsW2YTROneIwe85qCfMzpShWjipJpm2uKYEoh9/renxi7mF
+	 TArHmPHEh+pUTN/cASTPGTtPYTgQ7/H6ijd1bD9+dv3+R82Knvj/sIz5+QqLrlWjP+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=f5MaqDxy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.6
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013006.outbound.protection.outlook.com [52.101.83.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A81606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96A81606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3FA606A31C;
+	Mon, 16 Nov 2026 17:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E3FA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tjc0ItRs
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso3602003a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:08:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794848925; x=1795453725; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CDIoL1Mdtc5iZZQDcJSLwb4fY5hsODpxKgBTEdTd3vY=;
-        b=Tjc0ItRsiNh1Ydt0eH21UKlLI5UTGiv3uUB5nJmX9NZGSnd0wwtR4q4QBCUY0H1JIo
-         9dZf5fh8Zj62SEOjq80jNWWUr+zaN9XedMQ/8UO7vDiyXdTm5sch3gI+BGiSB0hnuOEp
-         Be3ZbKtXmpCVvSSOPKrdlXXZSUgyIMnFtTIbhk0X2IL2PAX0ZgZSxhsh2msvjdPaHksO
-         4wxZfMpR+vDTyVwb33P/nfLJ3m1h0yCr8lTC5lKRqlyFw7K8X7dsBAHFO+00rJo9KZWE
-         repFeAcED5nKlxa7zpK8NnjuuG7PitB4FHB2whfJuUe/ny2jRnVJrkfiPrXJnUhCIjNH
-         FHIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794848925; x=1795453725;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CDIoL1Mdtc5iZZQDcJSLwb4fY5hsODpxKgBTEdTd3vY=;
-        b=iMpSGpUb6HFTDjDr9F+aSmtiDe2pgyjD9EVXTF7Ca3SIcGOr0nCwNdU2HirxSutD7Y
-         AfWvBNIwVTn1UG+BsnUWJZIHXxGIkRl8OUPvcqDE6uDDXb+nzbl+mVCIFOgfyHIUMIUJ
-         NkZfq3twN9dmAbUkQyGTWfE5oxGzJFakBYXpQWvwr/oQh2LJBhnggwrJKsphtqvvgi44
-         slOB8qeedbI53UJlbtIu/sp9S6JShupreur/DhNB1VR0ck5oZpr1dtmBhTPeLHslOzda
-         Nf/rToQMp/jLlUO6FBR0VIllMpxqZba7V0i9M6B7x+Z8veiW/ifsBk6RYxGAs8HaOOpt
-         +HVw==
-X-Forwarded-Encrypted: i=1; AL+hErHyeLuUN4TXXfNat9PyDF0QYW1XxsZaCFm4yAEIGCK04nlSpdPLZJlYvTQEiGZKnyV7idzi5yeCNbH+N5c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rXW6fg5Za0iNOaPsTtg3v5rWtjEHtxkob03rfAcost7PK6Bu6
-	k7q0l9+dwJ5LVRgwY3VNN++uoptD1IjI7OGZTYmSSzdRiKBmv6N4aa31
-X-Gm-Gg: AZFdTZdxAcdzfF9DsaZ2n+gJrVwZyqoAYClQ3mM3Nx1gr9/toaf4wg7RYMHPaQRcIyu
-	qmSuWrdsQuVFYi3GRJ/efZEW9p885Gr0W8LX5YFep29DOF4oUvbwxkiZTzRXKqHHyDFJXC+MwKp
-	ZZ1hyvqVyMQrDA2DJHOPOFwKJvJQCDKrj++dlHN+ApugmllRACL3pm3uUZR11y8H6DWGLdAeqV8
-	hCbQOqdhArhLaZGx72fsoVoGHG5skqEEr7iVZvkd9BlzcH1zEkne43Yz+SDz1Ph43O3i8qESy4Y
-	CgrXqyhIanUhzuNPusvueYLRybZLWRzipyGECAMiFvphuMH1luk4W5RJyRnvDgwmBMwS2yWI6/Y
-	EdC2mHwjDOI5y7inuSj/wT6bl1oFDirsjWkQJ8C11RZyrfVIoGPy7Z00sALnxLMX5S44U8zIegb
-	jiH7aBgtnGenQHKm9R7s9BjVYFWVTIcMNq6Im/t0BxdTCzuomnLxeolCRMQsdk6+HM07RXpVDWC
-	Ua1we4E1ciPV9U5eoTqzlkbYhK39VZblShiSX7tFkRHyBiBqyg7+Fi7vWOwuAUoiADAmWfgSSQu
-	AnqyzXf8UxJ3DoYZy++u9scIHT2prcAeOVJSAaG1mVBQ88s72j1HwmOEJPNr2h7DL9KJNjY3mw=
-	=
-X-Received: by 2002:a17:90b:3146:b0:3b0:9a13:c5d5 with SMTP id 98e67ed59e1d1-3b1b0b57dd8mr10208977a91.16.1794848924812;
-        Mon, 16 Nov 2026 09:08:44 -0800 (PST)
-Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abbad610sm150901a91.2.2026.11.16.09.08.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:08:43 -0800 (PST)
-From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dan Carpenter <error27@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH v2 3/3] media: atomisp: Remove unused hmm_flush()
-Date: Mon, 16 Nov 2026 17:08:13 +0000
-Message-ID: <9afbe32e2a98cc194d84f26e6fcfe452e2b09e5e.1794845230.git.chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
-References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=f5MaqDxy
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S9ne57/8wY0Hz8TLZfqTJ2wqQPWI4hTorunlyTPe1HBexBY594Yxb3mep1SLtuDWYdA1qBvcRiWuZgna35jbKEmyDKLSPgfazH5DH68iGw6xogx22eel4Y4hN0bjcdrsEO6s5cK8qgu29fCPqCAc7szpfP0fTWN9ztk8Wb9ApxZKfT8a9hYwy4Ek6k/GnfsjccG32+JuNqc5dK5jCyxn8g/puU9j3TUzloFSia4SV8GNp+1R2hOXG9RkJ3HOundcbv0KtGc0xiKPfGCzAGE1itK4cLT8ja0CIcKe026ZJTn6LbbxJrmHIgQew89RsPsdGnrWmHjNwP8FH0g9GmOaLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JqUBdWEUZtg7cdGQ7X46yjwUJFtABI81NDN5ExhM/Eo=;
+ b=Lm6Q4S0QzVL77p8zf0K8jzKsGRSQ4YjAp5J59avGk3x9ZYTMSMICdXYpiC615ogT1OHp6yMYkRg6cy8esFJDfOzm6cHVmZOrIMSoljfaXOAvnN3hKKK0lj24ul3Pl4MuhbpavkzTZjOr/+5GFNfU28uVvaBJ36gZNT6sdzi2Ss9bS+H5Bb3HDIfj+W4rKzKHrutET191ktA+fywR9D2VeNjXSqjEiOjw01GYK4tgccZF0kF4GQd+Lw+ZIJSXRn3fmGG1rhJY2zVrxLZsV5yW6MvFVADPIYx2+JIi9rymlDAdNXakgVwKV3ogdapQaDiBT1efloSS8qKvyPcxApBZzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JqUBdWEUZtg7cdGQ7X46yjwUJFtABI81NDN5ExhM/Eo=;
+ b=f5MaqDxy9xAENL7MOJyE3739tTbsn+Y5rGkWmWAjdh9pLWjk6Ipzc8IX1P/VP9jw6QifCoo10p8aJwDVFnouapL2SIwqQ1IFU64cM7KU1torDo4WlYUImboNt78lYA6ju3+xjdwwbgad1gx16FEoQAineetWSAr6w4k5dDgPzlLhiS1NpuHa9ScczavgcIU6wFegqyG1/Mn0jZWNqC7Z5L7MFcpQWxjtUYX4aJLDqzI29OppupyLNM60JBkBpQS9Kbk911XmUgJarbkaSlgr5AqezWRqelLkn1oZMoNY+mFcYevtKfQAKnLcIImF/HeZROW47fDi5sVpk/+tqRB9MA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GVXPR04MB11585.eurprd04.prod.outlook.com (2603:10a6:150:2c1::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 17:08:53 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 17:08:53 +0000
+Date: Mon, 16 Nov 2026 11:08:39 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v6 3/5] soc: fsl: guts: add the RCW override of the pad
+ muxes
+Message-ID: <avs4l1otw6ACW5P4@SMW015318>
+References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+ <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-3-fbdce4565a5c@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-3-fbdce4565a5c@free.fr>
+X-ClientProxiedBy: PH8P220CA0060.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,46 +109,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB11585:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6e92c89-fbbd-4ba4-5c59-08df44044a8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|366016|7416014|1800799024|18002099003|22082099003|6133799003|261009223027099003|3023799007|11063799006|56012099006|10067099003|4143699003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261102130727099003|41080700001|15866825006;
+X-Microsoft-Antispam-Message-Info:
+	o3zUSXeisgo3SYMzGcXJn/5ip7sTNXqa3gu+/gDsOl5rJb0rSUChDFkqaVnGXm+OalN/WFAFPTMI/l3ZeuDJSwxFLuBkfX0zaQcik4l7Yl+wh9b4FToPPuWAb/iW7018ddIwQJlLR4ub50qQUYdCYpe5sLttOhG2zQKIBkSrbxdlcqnyZlmaXlcnWiZZUv+6LVgSkmy5HHAf183S912u2pDBq41yAafW++KVxKI0Hl+MZh/72cZdB2+1jq0K7Xx/9VKO5HbuF69UW5KuqfYsw3xzfLImKH0IizX4fYLOfG/d6pPnVUy2UAG/VhaIuGRc2YCvp9MZ2p1ShlQvSahCgH3syeEzdGzkV4j0uq33FGRLOB8eKVfPzEgTM2bgqqCZlu+zrEbe+wIf6AfqIcZFdgexGBTRbG76BMHimeZ51Vbn4HtbxB/ln14CvpdKPVeWvoGlMEVm+uRdk8zD38sAy6urmnhcrw11WD57fn+EGhXIsHCP+L07AuG4WOZXjGz3mwLzUMAEmgu5otPgIA6bWiBQ7NkSE7QX4kJjdTf2EDUO+ibYoMdrIXU3de7jLWdjrtdvfIrgd7n58g18dpGp9j1BYzcXs0USrbB4MY989RQs1rMltHUuNNaIhFIyUGimbNXBbkn/0WNpXCL5e7PN3mB7Iva3nVienPv2a+TFVrya9IIeNbjgIwoSpi592/ZvWmFcwDHk5ttBmUjFf2Y79AcBo5xyzXQCGelZVhb+udbKZtc+8aY3CYUfkrb6M76f
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(366016)(7416014)(1800799024)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261102130727099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?euSB0UaB4LVoo+aPCs65gfmYpU9o+w1j7ZIYQyQLOtz7GPAQHt/Wam0Prkm9?=
+ =?us-ascii?Q?bggp4nIBkIb1xP+W0VHcY/0/Qq+btwCOSH6fSW9Hp39ynOMoBfgujOgXRUDI?=
+ =?us-ascii?Q?ybgFj6DHb36KCGfcnThdKc+I731VpllOGkcfPkO+4tJPenEsvd0m9LemmrXS?=
+ =?us-ascii?Q?ipVyUYY/hlSg9vpk83TuxAsMnaEia+7R4EzwRp554dFLb0E/MFJE5jX6aPXh?=
+ =?us-ascii?Q?jzn5rPtgQwZSx0ttS38in3q7AYu+QaYCNdbU39rG2k9IQwiJOZJuuCghZKIf?=
+ =?us-ascii?Q?5zR+xpCu00RkBL1cKO9lf/GbmluJTVs5i9TP2UYnwdXo0x8f0MJVe+w/4ysb?=
+ =?us-ascii?Q?gykUKACzHeV9mop/VRinWRcc3AODOQ6QCr/ZfJClLpyYtOZhk9IRGp9JE1Po?=
+ =?us-ascii?Q?IqV0gei58RN1DaGa76Jibl4mUSsaGSWdPBni3jA+jUkWZS4T3w7NgcAacx6o?=
+ =?us-ascii?Q?hlHd4Z6+mdHP0rWRYU/vKvvuDPGlyh5pgpZSklkboPe67+Kz31fzbdOrLe2i?=
+ =?us-ascii?Q?ddgDXvM6ZWYiR5svoyAMEtsqb8xXN77fXDefis2bkO1lvt+0CAUdxEYABucP?=
+ =?us-ascii?Q?lD0oPfHfthEyFezXK06/dYjSlEZDGGKap7I/8tQX5BYFrBfl9LOx3JXvJm/t?=
+ =?us-ascii?Q?l+BB7FKvw7C+kr2F0UtZ3xQPpISktRQ/6hM3N5G+Bq1b22SVrICB5pZQO8KO?=
+ =?us-ascii?Q?UisLTyDEnrJCh1SvAluxk2csQN57+9jACUHH8efoflY1XzYJZkaJHkOLk3Ca?=
+ =?us-ascii?Q?oAuqjCMxzisjDftgYAflrw0FSi7VVOD+ecSHC+pWuG/waJEwah13/U+0l88z?=
+ =?us-ascii?Q?nvrWmlYH0ULF5B0LbgLiTjO+Cm0zltyF/DTWG3nVb41vR7wG3XWhwbqcz2Z2?=
+ =?us-ascii?Q?/STqOIWxZhmI4VJ7MUoX3pWbIMfxGr2fjCeadHkOtpkB2Flnupc35ricub7C?=
+ =?us-ascii?Q?f81sWyB/UPay5fY1HqTmLcBymj2ZTV7/7o4/0nZSnfu6yvbwzOGLYWhVrjka?=
+ =?us-ascii?Q?nBLt4hACdNDu7fJ9A1He8Lf1YhMjQetuO5BPy5xTQ6bKNHmN7XLhyhxg9ciB?=
+ =?us-ascii?Q?BQGG4adONizRVZB4PeU3rgAlk+ch5niYs4cxsN/nmbPzBKysB5BiTWdU3Ym3?=
+ =?us-ascii?Q?00Bys/15t8cd6X8QS2Xx7MeruO2EPRqz0sigQdM+7+RwkLSmaNtEe7vq1KmR?=
+ =?us-ascii?Q?cp+xhigxB4zISA8GN+eXZ4AD0MFZvWAcV71gjopu2CEGxm+ZPh5AZL6QPn9H?=
+ =?us-ascii?Q?iVntluP7RbyeMG9Bfvz4q98lM4kJqlh7M9Oqt9I0Wy7d1jE7uXyrKThj7nL2?=
+ =?us-ascii?Q?9w2l2Po1HmFMCTcxjmyt/Dr03ubX7u1KMOKpV4YgU0XARtAgWtSFeors9fxn?=
+ =?us-ascii?Q?IYaO1CexSuTpPQrlC2Vv/4HKi5hY4hkExLIhLJED5RK7aDaZZrJ1+miOmz5i?=
+ =?us-ascii?Q?J8NE7j22xeuW4+y4bX5L+qwBsHHunD85FORCvZWTmHORIqWlA7CipBKuunhI?=
+ =?us-ascii?Q?EJfUiz8lAhQU57PjwRUeeab9wW2GWzreqf+7w38sZiaBtloWU20GL81wYPtX?=
+ =?us-ascii?Q?SrHbWJHQ7s3ghwu3x2HtPdETmI8p/ubL1brX49xX7/779cwFejyNVSWuirKr?=
+ =?us-ascii?Q?/jR1Es7MvIcthQ3YcjNU+YjZsOrBO4fsyBttu/81O2sKEPZewfhiOWlMAMzV?=
+ =?us-ascii?Q?Wl+vdQTjBr/fzfqyG1ZH9SVHWlCp48jFeX2ZjwDI67i9nMoDbYLBGbod4PHc?=
+ =?us-ascii?Q?zZaKquV73BPpsR7RnAnkxrn1f6g9R3QhCMwx/kqdfCM7Injwfddq?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6e92c89-fbbd-4ba4-5c59-08df44044a8c
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 17:08:53.3336
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zqoarN/hm837BD11RnM74vw6TIDDiJ6FGYd+F4Yt7y0Ut1BIe0dODpJPRMNaTRK1W3eQAJEE1PErQKGwoUdTHhXOCnWC5Ohel7az7oJhBBaQ+u0JqVQMbspNx0tYCPa9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11585
 
-hmm_flush() has no callers anywhere in the tree. Remove the
-unused function and its declaration.
+On Sun, Nov 15, 2026 at 02:27:33PM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+>
+> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
+> the pad-mux fields of the RCW, and for them only:
+>  - fsl_guts_pmux_read() reads the pad-mux fields of a status register
+>  - fsl_guts_pmux_override() changes pad-mux fields of one under
+>    rcwcr_lock and waits for the status register to follow
+>  - fsl_guts_pmux_override_supported() tells whether the SoC has pad-mux
+>    fields and whether the DCSR view of DCFG, which holds the override
+>    registers, is mapped
+>
+> Each SoC lists in its fsl_soc_data the fields that can be overridden,
+> per RCWSR: a register or a field outside of this list is refused, so
+> the SerDes protocols stay with fsl_guts_lane_set_mode(). The LX2160A
+> lists the pad muxes of RCWSR12 to RCWSR14 and of RCWSR27.
+>
+> Suggested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
 
-Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
----
- drivers/staging/media/atomisp/include/hmm/hmm.h | 1 -
- drivers/staging/media/atomisp/pci/hmm/hmm.c     | 6 ------
- 2 files changed, 7 deletions(-)
+You missed my tag?
 
-diff --git a/drivers/staging/media/atomisp/include/hmm/hmm.h b/drivers/staging/media/atomisp/include/hmm/hmm.h
-index a7aef27f5..545bb52c5 100644
---- a/drivers/staging/media/atomisp/include/hmm/hmm.h
-+++ b/drivers/staging/media/atomisp/include/hmm/hmm.h
-@@ -32,7 +32,6 @@ void hmm_free(ia_css_ptr ptr);
- int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes);
- int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes);
- int hmm_set(ia_css_ptr virt, int c, unsigned int bytes);
--int hmm_flush(ia_css_ptr virt, unsigned int bytes);
- 
- /*
-  * get kernel memory physical address from ISP virtual address.
-diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm.c b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-index f998b57f9..5dff2edb5 100644
---- a/drivers/staging/media/atomisp/pci/hmm/hmm.c
-+++ b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-@@ -262,12 +262,6 @@ int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes)
- 	return load_and_flush(virt, data, bytes);
- }
- 
--/* Flush hmm data from the data cache */
--int hmm_flush(ia_css_ptr virt, unsigned int bytes)
--{
--	return load_and_flush(virt, NULL, bytes);
--}
--
- /* Write function in ISP memory management */
- int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes)
- {
--- 
-2.43.0
+Acked-by: Frank Li <Frank.li@nxp.com>
 
+>  drivers/soc/fsl/guts.c   | 125 ++++++++++++++++++++++++++++++++++++++++++++++-
+>  include/linux/fsl/guts.h |   3 ++
+>  2 files changed, 127 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+> index 28361c63e26c..a4b767f1e297 100644
+> --- a/drivers/soc/fsl/guts.c
+> +++ b/drivers/soc/fsl/guts.c
+> @@ -53,6 +53,12 @@ struct fsl_soc_serdes_rcw_override {
+>  	int val;
+>  };
+>
+> +/* Pad-mux fields of the one-based RCWSRn, the ones that may be overridden */
+> +struct fsl_soc_pmux_mask {
+> +	unsigned int rcwsr;
+> +	u32 mask;
+> +};
+> +
+>  struct fsl_soc_data {
+>  	const char *sfp_compat;
+>  	u32 uid_offset;
+> @@ -62,6 +68,7 @@ struct fsl_soc_data {
+>  	int (*serdes_get_rcw_override)(int index, int lane,
+>  				       enum lynx_lane_mode lane_mode,
+>  				       struct fsl_soc_serdes_rcw_override *override);
+> +	const struct fsl_soc_pmux_mask *pmux;
+>  };
+>
+>  enum qoriq_die {
+> @@ -369,6 +376,110 @@ int fsl_guts_lane_set_mode(int serdes_idx, int lane, enum lynx_lane_mode lane_mo
+>  }
+>  EXPORT_SYMBOL_NS_GPL(fsl_guts_lane_set_mode, "FSL_GUTS");
+>
+> +static const struct fsl_soc_pmux_mask *
+> +fsl_guts_get_pmux_mask(unsigned int rcwsr)
+> +{
+> +	const struct fsl_soc_pmux_mask *pmux;
+> +
+> +	if (!soc.data || !soc.data->pmux)
+> +		return NULL;
+> +
+> +	for (pmux = soc.data->pmux; pmux->rcwsr; pmux++) {
+> +		if (pmux->rcwsr == rcwsr)
+> +			return pmux;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +/**
+> + * fsl_guts_pmux_read() - read the pad-mux fields of a RCW status register
+> + * @rcwsr: one-based index of the status register, as in RCWSR12
+> + * @val: the pad-mux fields read, the other fields of the register are 0
+> + *
+> + * Return: 0 on success, -ENODEV before the DCFG block is mapped, -EINVAL
+> + * when the register holds no pad-mux field on this SoC
+> + */
+> +int fsl_guts_pmux_read(unsigned int rcwsr, u32 *val)
+> +{
+> +	const struct fsl_soc_pmux_mask *pmux;
+> +
+> +	if (!soc.dcfg_ccsr)
+> +		return -ENODEV;
+> +
+> +	pmux = fsl_guts_get_pmux_mask(rcwsr);
+> +	if (!pmux)
+> +		return -EINVAL;
+> +
+> +	*val = fsl_guts_read(&soc.dcfg_ccsr->rcwsr[rcwsr - 1]) & pmux->mask;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(fsl_guts_pmux_read, "FSL_GUTS");
+> +
+> +/**
+> + * fsl_guts_pmux_override() - override pad-mux fields of the RCW
+> + * @rcwsr: one-based index of the RCWSR and RCWCR pair, as in RCWSR12
+> + * @val: the new value of the fields, in place
+> + * @mask: the fields to change
+> + *
+> + * Only the pad-mux fields that the SoC lists can be changed: a SerDes
+> + * protocol is changed with fsl_guts_lane_set_mode(), and the other fields
+> + * of the RCW are refused.
+> + *
+> + * The fields outside @mask keep the value the status register shows. The
+> + * override register is written and the status register polled until it
+> + * shows the result, as fsl_guts_lane_set_mode() does for a SerDes lane.
+> + *
+> + * Context: takes rcwcr_lock, shared with fsl_guts_lane_set_mode(), and
+> + * busy-polls the status register a bounded number of times. Does not
+> + * sleep, shall not be called from interrupt context.
+> + *
+> + * Return:
+> + * * 0 on success
+> + * * -ENODEV before the DCFG block is mapped
+> + * * -EOPNOTSUPP without a DCSR mapping of DCFG
+> + * * -EINVAL when @mask is not made of pad-mux fields of the register
+> + * * negative error otherwise
+> + */
+> +int fsl_guts_pmux_override(unsigned int rcwsr, u32 val, u32 mask)
+> +{
+> +	const struct fsl_soc_pmux_mask *pmux;
+> +	int err;
+> +
+> +	if (!soc.dcfg_ccsr)
+> +		return -ENODEV;
+> +	if (!soc.dcfg_dcsr)
+> +		return -EOPNOTSUPP;
+> +
+> +	pmux = fsl_guts_get_pmux_mask(rcwsr);
+> +	if (!pmux || !mask || (mask & ~pmux->mask))
+> +		return -EINVAL;
+> +
+> +	spin_lock(&soc.rcwcr_lock);
+> +	err = fsl_guts_rcw_rmw(rcwsr - 1, val & mask, mask);
+> +	spin_unlock(&soc.rcwcr_lock);
+> +	if (err)
+> +		pr_err("RCW override of RCWSR%u failed: %pe\n", rcwsr,
+> +		       ERR_PTR(err));
+> +
+> +	return err;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(fsl_guts_pmux_override, "FSL_GUTS");
+> +
+> +/**
+> + * fsl_guts_pmux_override_supported() - can the pad muxes be overridden?
+> + *
+> + * Return: true when the SoC lists pad-mux fields and the DCFG block is
+> + * mapped with its DCSR view, the second reg of the dcfg node, which holds
+> + * the override registers
+> + */
+> +bool fsl_guts_pmux_override_supported(void)
+> +{
+> +	return soc.dcfg_ccsr && soc.dcfg_dcsr && soc.data && soc.data->pmux;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(fsl_guts_pmux_override_supported, "FSL_GUTS");
+> +
+>  static u64 fsl_guts_get_soc_uid(const char *compat, unsigned int offset)
+>  {
+>  	struct device_node *np;
+> @@ -579,6 +690,18 @@ static const struct fsl_soc_data ls1028a_data = {
+>  	.num_serdes_lanes = 4,
+>  };
+>
+> +static const struct fsl_soc_pmux_mask lx2160a_pmux[] = {
+> +	{ 12, GENMASK(29, 0) },	/* IIC2..SDHC1_DIR */
+> +	{ 13, GENMASK(29, 0) },	/* SDHC2_DAT74..EVT43 */
+> +	{ 14, GENMASK(10, 0) },	/* EVT20..IIC1 */
+> +	{ 27, GENMASK(7, 0) },	/* EC1, EC2, USB_EXT, GTX_CLK, SDHC1_DS */
+> +	{}
+> +};
+> +
+> +static const struct fsl_soc_data lx2160a_data = {
+> +	.pmux = lx2160a_pmux,
+> +};
+> +
+>  /*
+>   * Table for matching compatible strings, for device tree
+>   * guts node, for Freescale QorIQ SOCs.
+> @@ -606,7 +729,7 @@ static const struct of_device_id fsl_guts_of_match[] = {
+>  	{ .compatible = "fsl,ls1088a-dcfg", .data = &ls1088a_data},
+>  	{ .compatible = "fsl,ls1012a-dcfg", },
+>  	{ .compatible = "fsl,ls1046a-dcfg", .data = &ls1046a_data},
+> -	{ .compatible = "fsl,lx2160a-dcfg", },
+> +	{ .compatible = "fsl,lx2160a-dcfg", .data = &lx2160a_data},
+>  	{ .compatible = "fsl,ls1028a-dcfg", .data = &ls1028a_data},
+>  	{}
+>  };
+> diff --git a/include/linux/fsl/guts.h b/include/linux/fsl/guts.h
+> index 8d5ffb985fee..ae245afeb7b9 100644
+> --- a/include/linux/fsl/guts.h
+> +++ b/include/linux/fsl/guts.h
+> @@ -142,6 +142,9 @@ int fsl_guts_lane_validate(int serdes_idx, int lane,
+>  			   enum lynx_lane_mode lane_mode);
+>  int fsl_guts_lane_set_mode(int serdes_idx, int lane,
+>  			   enum lynx_lane_mode lane_mode);
+> +int fsl_guts_pmux_read(unsigned int rcwsr, u32 *val);
+> +int fsl_guts_pmux_override(unsigned int rcwsr, u32 val, u32 mask);
+> +bool fsl_guts_pmux_override_supported(void);
+>
+>  /* Alternate function signal multiplex control */
+>  #define MPC85xx_PMUXCR_QE(x) (0x8000 >> (x))
+>
+> --
+> 2.43.0
+>
+>
+>
