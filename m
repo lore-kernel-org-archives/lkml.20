@@ -1,99 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794812429;
-	b=0aGWuK/GcbVx5gqoGpf/mJl+tYjtLK59vToNR01o1L6ZUW+X0g2hxLKz8wr2XOBTxwvl
-	 beBAROfGzgpzbQT6883XLTHNl+4ytga9WCLLMKnE/f5Yh29dSGqvCn+t3g53v0xVlTwO4
-	 8n8132d9e/mQrtx4g3rW6ktLksMbVEhjwZebK/qLssdW0M0sYQLW9PVquZQREZX6x19JO
-	 a6cMKYwIBabL777rGh3a/UARQMC2jRYe13iEqnm2FXlJx73EcMwQ+LLGY5Egc6dh34oWs
-	 K0COp8YJ0sBYv2LNJzE0vHSR4grw5EMJLCOqO/FDHakshiLXALaGCyjUUOpZrrVkOnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812429;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=5s1cMjlhSVoN+8pwAodz8Vnb1Cd7Y7PNKE3ORLQFJUQ=;
-	b=ULaiDkM9bdRKO47URj3pfCl49p6PzKXoTHh/oJgSAM09vAGqqT0w2EoGabTeJAdAUfBT
-	 JZaiIKhzSACUYqtam0hovvbTcaePiTtGlvcVjzaG0Yw4uWHmZuHVo9of0cInCbVtvTBv+
-	 Z8/sXa9tWGzm97ViqYrBUH5EWXhiNSzdCA4+PRqlTC7hTCPEQXC6ljfppLwYO+i4RenwP
-	 VG0gPZ0xCv7oJwFxgtaW0ma8CzRDqsUhnC4hAqdS/s8fX5ihloPj6m5ceEruuWwyvwb6Y
-	 HtH4DyWN77rzHDeJwjzESwjj0ws6jWeWzKNt9V92RfJJRWZIwLBM1WUFrUgA2EODUtw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aM8kJmic;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794812440;
+	b=yZkpF6e0dPucHnRQ/PxS/UO2K6RuPpNpNcUINwiZnY0xg2B2m5Bvro96Qtd1lBM3BrGN
+	 INOd0iwG9xesw1Uc01C0BrBsJaRLPG19NZOoxaazfCMBOXiHk7F7LH/vtiMx43LZH1FjQ
+	 8C9RV+GBX5ClnKqdnX1oQRU1GyT6cuAeguCGHJ9QQGJgIcRT2urPkXccLz04bmENW1/A6
+	 UG3UQSbY9lYk39N6g3wf5sqHKwD7Fj7zj/nG1Jael6nlvfnHKLiAXejB2TgWoIicbiduh
+	 y+S7wg7k+L/TNjaLLGAPuuzuoMBylfhW45VtO/IMloh4bwjLmJIe9gQQ/pyZM4wNsKQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812440;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=xB+BFyiBhg43vKmSg8qYqtNW6BXxNZFsoZ8jrkcXKtI=;
+	b=gBgium7XVFYTBKjRbzVT29VkAr526eYJThCj+PkRWClHJ7PGUuTqa/RtU1g+MVoixvC5
+	 RdArw1XhLev3CDOS6eCWEHrJw7pTc9VlDI5D/2D2VAboiVnj66XrUaWMZkxFMtWrB8KN6
+	 1Lg7fRDZXBjS3sDzg0Hh51oDvDCMeViKxjT39EjcCDL3Exab9sBQAAWd5tITqPGu90bhr
+	 V8NRrwR9PGVOFw0ia66zb7EiLHGGhd6EZs7z4qg/CoJUl3TuF5Cvcfo3hKV3DhXY2nB2l
+	 qgzwY0yUPGWFDhHuChPlX1qFiG+4C/KJr/mUIoxIKOo5g0b+I0rb61eEg+ZgoZ/BuTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=URK1A+aN;
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE30606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:00:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE30606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F70606A323;
+	Mon, 16 Nov 2026 07:00:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30F70606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aM8kJmic
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so3457339c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:00:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794812428; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lYCLV8wl/WdvhdZG+DG9RUJY6go1/n8H8akNmLTUQCyOn3cm2fFa1X0p0o+jsTfO0j
-         gUTiFFittGAwmY+eKZDBHOwwhsFKs3ajV+KB7tIrV5oYP6eWMS0p/FuskBnT7vobR7mw
-         +Wp2/DfGiGOi205Ba/k3SXyCp0ralsbCvCHyKksI3FEPUwqH0aNjVzXkhlJfQecZVRas
-         LMHKRaZFxRzfrQtRmEduB/EJzH79FCemNFC+TPJ/xNOknRyb2HzpNWQ5qIjoWwVaNrOt
-         /YxHItPB2Yw8lB/5TLvqMOKnGOnQUKNdig/3zxKDym5BH3qlhJ46KqNdlGgSBNjNxOF+
-         xYEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=5s1cMjlhSVoN+8pwAodz8Vnb1Cd7Y7PNKE3ORLQFJUQ=;
-        fh=huhff8r4zZI0GO9ATOKG+ugJSNYePadZcWkjDmFYSSI=;
-        b=g36QCdFdYgZU0Du8SeCAMCe+ne80rhn31HepotNwhMWZXp0zYt4oCGFgvWu9CJri23
-         Dazb4UpJ+kx1ShFKtNdjba98ztXTj+4gCf3XYEqYHOYNRGjsQMxdT4NqXC3M2rdLsyQy
-         H0QMeV3TQguAaHb9bThB4SZMJ+fEqUTjDOm70aJa7L2TMZVlavK7lBclo9SFyz48TqoU
-         8K30LlGdAyUbPfEQl5tUNkmxJPdfsPlNPaFJJaYTfrl1htHk/qyOf92xp9+5/gETMlLc
-         pSxJ/9EZzd3OUn7OxsGDEBVDUtniCU1zXAp0z48YL7hcKRelclVtD0L/936h6+XF4c9o
-         MWlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794812428; x=1795417228; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5s1cMjlhSVoN+8pwAodz8Vnb1Cd7Y7PNKE3ORLQFJUQ=;
-        b=aM8kJmicAjEEvAO8VJcw7Lk13a1P/J+UL1Ot0LwjE3UM44EQakokEW1GpWqoIgBL81
-         XEMKqZl0M7jEeIQzfSUnL/Wg2MVRMh99yiApeIgC52YdGoxRL0vtAgz+UQJuAi8R/eSw
-         rmQGfkDI0AdFt/ZMn0n3NonYDBJ3qBuu/yAFPVNCOWYn9wuduSeN0iQTAXuHA8pVqKF0
-         VkCZuTxZ3nneZ7x0B4h2DypFJQOmT/LB4IshGj9aMxQn2WlGRzjUQXs3mijOEtVOA7JT
-         oghcNRa8E/eN6VI3vzUHnpUbH1kNxpTVuphAtTQLzQzeIypTNtWlZWim3SGHtkcZapZM
-         xLng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794812428; x=1795417228;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5s1cMjlhSVoN+8pwAodz8Vnb1Cd7Y7PNKE3ORLQFJUQ=;
-        b=S+vkklasm3Kqxy7MyKNV8aH60Cp0BS0Frs3FAzgPLvAYynx6H7KObdsEVQ8PFwsxRC
-         uFLWrh8aMQhIgHz8hWsFaJWMh55Wb71Kt9DR0Mktb3GrfrP2mkAknoso745Genx8OoxS
-         oiMxC5APzW4Mw51qhbPvrOTHQtX0WYQRZTlWqA9v7M6ftqsLcNOHvmVl4/h3pXf8BfYL
-         SfcOlcSeEoCUl+vzcaLf0OlqJ++F3RT+2fr9wB7o3QHsC5x3X0+mIlPIpgu1IKstVi/2
-         CPysGAzovx/uuXn2kliUbKy3IIIlgK7izvVywP4YHEyTF5CKwtrkpqG3xWqnGG7rWt+f
-         CENQ==
-X-Forwarded-Encrypted: i=1; AL+hErErnNlEQqw0nETbvWVK1Y9w/ePh9rBSUJVhM3VGLZ53erciaEdqMoxGVVX1xExb/QulAhscRWkZJCo3jN0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bjHph8Lv2F5K+kLNNe6Djxkjb6AfUbMVCDnUInsUyHMEPw6vB
-	igRSRJaEht7YE3VuKYylf9eB3gusCvV3Q94fAvNcJuibkarEoRAWbSbOIbtxlFPEQe7Okj2DxL5
-	pYXFc+Hs1UkB0gR16wKK0ph2N3QfXWiMJHBrUJ6UpcqFi3DH13cK8DPrR2Kw=
-X-Gm-Gg: AYBFou18aRoa8ouRDxhI9WRYK4uaPosoQozb5gQkRJ5y8o34KfDaTRPXlF2FfO+4qF5
-	oJjmj6gvJO5IA1ggPYGLnCEAg5CPAHqJmXJ3o6G8s5/VFkoZ5sRSGt0yO79gZCwPq/gQDgjlq0q
-	2xmlvITAb+QuqxyrRLknrZk79oZKEMroV6FCV6F/p8Wg7Xffu669/JC1uJSZTFTrPbFMA5O+nPS
-	2T53WnHX/MjL8O7odgkRM4rpjTN5wl0w7RxdNickX92E1Wi90qE0gdbtzuMdojplD+MztE2a9h6
-	jFroXGN333cfXvdYh4QXLLtXzuLVlsIpcueqshxIEtq2ifbH1PA/iGodigtNzojYAtaksEUCs7H
-	hdNdKpkwLSNUZJYM+Vnlt/O76hTdragik3p1743fVKTuWgK+x4loMwDVaf95uTsg/88cL
-X-Received: by 2002:a05:7022:3a03:b0:1b3:755a:ec49 with SMTP id
- a92af1059eb24-1b503157e74mr10651080c88.40.1794812426897; Sun, 15 Nov 2026
- 23:00:26 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=URK1A+aN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794812399;
+	bh=xB+BFyiBhg43vKmSg8qYqtNW6BXxNZFsoZ8jrkcXKtI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=URK1A+aNbgmqzkfebTJo/cSldfDMGgGTXjXKBe0NseRqgSu8UhEL+eiAy/X+tALX9
+	 oGPiRdmGou/miOqacsumQ7H0w9o17QYJRNujBv7rHvvqkMV7L5/ntUb6Epsjy8FBVc
+	 gH6vsa5RiWxbRZ3XzXjPTPyGVIn6aqU4MWLQfYYo=
+X-QQ-mid: esmtpgz13t1794812381t4041da20
+X-QQ-Originating-IP: n004XmxgKogGDXiilDcoOCabJnUIn8l5kAG3eSkS40M=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 16 Nov 2026 14:59:39 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13267101832186099259
+EX-QQ-RecipientCnt: 10
+From: raoxu <raoxu@uniontech.com>
+To: mchehab@kernel.org
+Cc: luiz.von.dentz@intel.com,
+	pengpeng@iscas.ac.cn,
+	pmenzel@molgen.mpg.de,
+	brgl@kernel.org,
+	raoxu@uniontech.com,
+	sakari.ailus@maxwell.research.nokia.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: v4l2-event: Unblock DQEVENT after device unregister
+Date: Mon, 16 Nov 2026 14:59:38 +0800
+Message-ID: <C882A5D3FC331B7A+20261116065938.2035746-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,67 +74,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <auA7FdubFEDVPB7v@chrisdown.name> <CANpmjNMunLgXHRqXgW3LnniCX50CLbLYsE3DpY7h=cuvu2vSkA@mail.gmail.com>
- <20261114150201.d428c3847d573be1@chrisdown.name>
-In-Reply-To: <20261114150201.d428c3847d573be1@chrisdown.name>
-From: Marco Elver <elver@google.com>
-Date: Mon, 16 Nov 2026 08:00:00 +0100
-X-Gm-Features: AclHuK-F0k1P_2O2E2wygaMki6BhhjUtxnekVFOvFTlkQiN3eI7cLbmv5yhD7oA
-Message-ID: <CANpmjNNwaeFmVxfPsvdVSc33_DoF_Gcz9DpjGWf6PLD_GZwAyw@mail.gmail.com>
-Subject: Re: [PATCH] kfence: Allow selecting static keys mode at boot
-To: Chris Down <chris@chrisdown.name>
-Cc: Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	kasan-dev@googlegroups.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NPwdxSKNG61XtVeQFjBCp05K8CqgXIRWlm6XVis33V7IWi6PKn5OYXNR
+	QQKEC84XfmYMLshtdEtbHzGKtTPMyutZXz5zaUBGaZvOgtTumOSc6M0JjKJJpGwk8+I4I2C
+	d5YamO9RM8ptrk2NR6u0KfcO5zz3KOJ/tGDgjmGIzfTQa28jbpZ9FRqgXpdlMCZ0+QewdHk
+	B0sZeD3kLw/3J8IKzmq5YzKgKSu8a+XFsJcgUWal8cNco+oY9zokd2fjvDScJJjfWoF+wlO
+	hBF1FAJmd2K8IqYLV02dKyOBBR1AjPVQAIoBMEKpXLfcDkaYD6uJNEgS5i8BIWMRjA2hzXZ
+	FY6Y/xhf66DXv3aHo+ubSaT1qxZM53EOjiAB/r20VpuEJYyM0nNNbv1Q86gZm1lLGwTgmfe
+	QtZaBE/cND9q4S/JR2nWQH1/AKDmFo7+EKgXsk+oSBFff9q4lb3HRXpefGHbZViGNbt61lm
+	NMfj7cWB8+QKPdJsAWHzkZbKR00ClWKg2NBNUwYQDVPaYskr9aF81NK22tceCb2poUk0fOQ
+	2Pi2UaViDyLwfroxpGZwCoFsGBHpMpF1bHo+1ALlAxXYwLsqH14/XctWnPpg84uUAzwjHT6
+	hGOqrBpB/qjeJEqpULYBF9fet4ZKZuQeZjWwM3u5YltxUSZiI1LTHbJeQm3hAnj+bRzCTrN
+	pnRD2FKkGq3bPjr3vShzvcblQLu4MBxROODTFT69Qi+dRkPAEa2ygUBu9S3BY6P+/Vw5bsL
+	IuXeXiN7tL09/w3QJiIvQIw95xTMlnXESLitKMPTv45p177PPNJYJ4UZ+VVYf9A+R7v+R66
+	F3i5FNT3NmDZrZR4mIGa/4+kw7BZMlPiFot/yNoie/K9KgvlX7hiMhuVtOOhI7EvC0nJdqz
+	XdRN2wOs7HzwYNtkz9LvHxV5T4NwHJ6vvZsX/rlCVVT/yvWp60n3H0vOyVKXdgB23upmFkC
+	BEaQJUZfoe0xfp3LW9bWvjkeJVKL+gkZGsDqgpmo7Pxd2SIKYBblDnV0QP6V8W1k0F8i7Ky
+	bjH5WbRJOIjxlbQuflvm4TSa2EA2wApY6O4w6ovw==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On Sun, 15 Nov 2026 at 00:02, Chris Down <chris@chrisdown.name> wrote:
->
-> Hi Marco,
->
-> Marco Elver writes:
-> >On which systems have you found static keys to provide a significant
-> >improvement? Can you share benchmarks?
->
-> I don't have numbers that show a significant improvement. To be clear,
-> the hosts that use static keys have had it set that way since long
-> before I started looking at this, so it may well just be cargo culted
-> by now :-) Given that, I had a go at measuring the saving on its own.
-> It's there, but it's small.
->
->  From a quick check I did in an 8 CPU x86 VM, a
-> kmem_cache_alloc()/kmem_cache_free() pair takes 8.0ns in static keys
-> mode, which is the same as with KFENCE off. With the dynamic branch it
-> takes 8.4ns. A kmalloc()/kfree() pair takes 13.3ns in all three. Both
-> are the same with either branch layout.
->
-> So static keys saves about half a nanosecond per allocation at best, in
-> a loop that does nothing else. At a million allocations a second on a
-> CPU, that accounts for 0.05% of it.
+From: Xu Rao <raoxu@uniontech.com>
 
-Thanks for the investigation. On x86 I thought as much; I'm just not
-entirely sure about other architectures, and before deletion, that
-might need some investigation.
+A blocking VIDIOC_DQEVENT can remain asleep after its video device is
+unregistered. video_unregister_device() clears V4L2_FL_REGISTERED and
+wakes event waiters, but v4l2_event_dequeue() only waits for a nonempty
+event queue. A removal wakeup with no queued event therefore sends the
+caller back to sleep, potentially indefinitely in the absence of a
+subsequent event or signal.
 
-> >IMHO, I was thinking of deleting the CONFIG_KFENCE_STATIC_KEYS mode,
-> >because on most systems, it's not worth the complexity for the small
-> >(if any) performance improvement anymore.
->
-> I agree, and I think the numbers above are enough evidence for that.
-> Deleting it is better than this patch, because all we want is one kernel
-> across the fleet, and that gets us there with less code. I'm happy to
-> send the removal, if you'd like.
+Reproduce this by opening an event-capable node, subscribing to an event,
+draining pending events, clearing O_NONBLOCK and entering DQEVENT. Once
+the task is asleep in v4l2_event_dequeue(), unregister the node from
+another process. The ioctl must already be in progress: a new ioctl
+after unregister is normally rejected by the outer V4L2 file operations.
+Losing an input signal alone is insufficient if the node stays registered.
 
-While eventual deletion would be my preference, what you say here
-doesn't make sense. "One kernel across the fleet" does not necessitate
-deleting this Kconfig option from the upstream kernel. You control
-your .config, and the Kconfig option is default-off nor is anyone
-forced to enable it.
+This is reachable during legitimate use by an application with a thread
+blocked waiting for device events when the device is hot-unplugged or
+its driver is unbound. It does not require malformed input. Applications
+using nonblocking dequeue do not sleep at this wait point, and an event
+or signal can mask the problem. The frequency in real applications has
+not been measured; the runtime test below uses driver unbind rather than
+physical unplug.
 
-An intermediate step would be to e.g. not make
-CONFIG_KFENCE_STATIC_KEYS selectable on certain architectures where we
-are sure it causes more problems (global IPIs on systems with 100s of
-CPUs) than performance improvements. We could do that for x86, and I'd
-Ack that right away.
+This was reproduced with an ov9734 UVC camera (0408:1040).
+Subscribe to V4L2_EVENT_CTRL for
+V4L2_CID_BRIGHTNESS on /dev/video0, then unbind the camera's uvcvideo
+interface. Both video nodes disappear, but the blocked ioctl does not
+return. A representative trace, collected from the test program and
+/proc/256634/{status,wchan,stack}, is shown below (timestamps omitted):
+
+  DRAIN_EMPTY errno=2 type=3 id=0x980900
+  UNBIND_COMPLETE nodes=[]
+  # About three seconds after unbind:
+  Name: dqevent_test
+  State: S (sleeping)
+  wchan: v4l2_event_dequeue
+  [<0>] v4l2_event_dequeue+0xbc/0x140 [videodev]
+  [<0>] v4l_dqevent+0x20/0x30 [videodev]
+  [<0>] __video_do_ioctl+0x1cc/0x4b0 [videodev]
+  [<0>] video_usercopy+0x15d/0x700 [videodev]
+  [<0>] video_ioctl2+0x15/0x20 [videodev]
+  [<0>] v4l2_ioctl+0x50/0x60 [videodev]
+  # Only after the test sends SIGUSR1:
+  ret=-1 errno=4(Interrupted system call) signal=10
+
+All three original-handler trials needed the test signal to finish.
+There was no Oops or hung-task report: this is an interruptible wait.
+With the changed dequeue handler temporarily installed using livepatch,
+the same unregister test returned without a signal in all three trials:
+
+  UNBIND_COMPLETE nodes=[]
+  ret=-1 errno=19(No such device) signal=0
+
+Disabling and unloading the livepatch restored the original behavior.
+This comparison used the running test kernel, not a newly
+booted mainline kernel.
+
+Include the registration state in the wait condition. Attempt to dequeue
+an event after waking and return -ENODEV if the queue is empty and the
+device is unregistered. This also handles another waiter consuming the
+last event first. An in-flight call can still return a pending event;
+nonblocking calls, signal handling and mutex reacquisition are unchanged.
+
+Fixes: c3b5b0241f62 ("V4L/DVB: V4L: Events: Add backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/media/v4l2-core/v4l2-event.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
+index 9dd2aaa95a67..17d3c53c0d93 100644
+--- a/drivers/media/v4l2-core/v4l2-event.c
++++ b/drivers/media/v4l2-core/v4l2-event.c
+@@ -70,11 +70,14 @@ int v4l2_event_dequeue(struct v4l2_fh *fh, struct v4l2_event *event,
+
+ 	do {
+ 		ret = wait_event_interruptible(fh->wait,
+-					       fh->navailable != 0);
++					       fh->navailable != 0 ||
++					       !video_is_registered(fh->vdev));
+ 		if (ret < 0)
+ 			break;
+
+ 		ret = __v4l2_event_dequeue(fh, event);
++		if (ret == -ENOENT && !video_is_registered(fh->vdev))
++			ret = -ENODEV;
+ 	} while (ret == -ENOENT);
+
+ 	if (fh->vdev->lock)
+--
+2.50.1
+
