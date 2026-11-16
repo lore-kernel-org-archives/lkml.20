@@ -1,129 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862882;
-	b=zc7kLWMN4b/FuYYpUm4SiQoBHBfd7Y+1qGmsCgmnb9huYYM62neewAlRJgzPDoFnfmmt
-	 Cz4oICzY0ll9/sAYrCAJ8srZR8GsFhpswTuMql/BOT6qck6cSiSxzyDWKWQkRCY5c8p8y
-	 ln4s3vN0l5/5t1owru2M2vYI5/chShZw/RuldP6DJlgML9vWa1vqV2TtJiYrQW9QyAiuQ
-	 xVjsGknnJFUxMSb3KRS/nGlzi3qkIyDfza4hSSaxFX+PLNtGqnhQ1BuH1/rkAqof9w9CD
-	 6tHAoicKlZB66t+ZJ4klkjRvi3ePVBI8lFQVumbD0GWndUzrcaiZHbL6hcHbrBP4L6A==
+	t=1794862901;
+	b=TljRk0JNngU6bjKPDWzjx1Dk6wBUxysVx6TFHi9SIe+GXKCW7k3+nw1qZxpShHj/U4P2
+	 TPo2aY6VWfqC6scvX/fHUMifbQ7MZzC0qC86CzmPqCQXM3omVPeVRa2pRIvNHYpG5im2U
+	 4C6fxndZLRdM4LjTr2arVjGJyzSM+b4WPFAebPcfwnw+z6owbWw33fqw0Qb9aGE06jEjj
+	 4jOzfDwKq/rwwPmrsSVdUpIF20IBaHin4zZtgHhdxKWKkwc/icCqZ3aD5sTMNcLsFKJOD
+	 eijjDbypF7GqkqDjue3OaY5yNGE3yleIw/byOgnm79D8AfDkHcWLRsqLUgwhSq99ISw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862882;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SZoIL09apRESCSVy9LvCJwT2nl+8SSwpAsQe0tMlFOU=;
-	b=PFofwDK4gvQQBL79d7wRG/7fuq7seEqG0GetAV5PhT9/LGHrPyyjeCP7+D3kMRe1SQ3r
-	 z1FwWOB2ughUZA9AWq/AUHOaIIxFpH2+LLW16RUnhuPfWuCS6lAo+/9yRlbVz1vvl9axR
-	 GST13gSVvivgJ/TMF/+aA18YAWhbjcBMVbQpJdcvt+MsqDUVPyubPFVKJQ6pZV+cbZSMZ
-	 3D5L43C6pwS0KBrA2K8hthxo0ZObuBgTW8XySPIvT7htyx3dXrUs24xep+ARa7yatRf5z
-	 lfkGZue1DqPuO4EMBPakFzfriovKSO1FEuFGr8UVJrLlYXEe/cwbc2eWVzQYP7W7WRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862901;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=uJdfltHhZFAvsReHrsmgovSCjxHOC3yyFwbkaqSO30E=;
+	b=S0EdWX66wEuD4CrIn2Ovvged2/cxvvhAfyhYQ9T+qnXdHwguOvE4WmubAkNNWKwROiHW
+	 1ywyxAFvxJfllZ8GbKMMbd4r8aHn+ZLtm3EdLVXqGlT7jfKp96IrGGYn+v0x7CppkZROp
+	 hYyQHFsHht+2aiL0oUn6suc3zJV+I9j1irz7r9LOsUtE3m79S3nPqgiMc+KsFFDK26I5K
+	 Hwo+A+eGWnCGKGazmrOOzdb/7Ut7Z5DSTbaomAMbAYszS34Vrkb4UR/c+eUojJUiKHuDw
+	 /tZgAob4tAYZkVulhrCKD+AnSzwccKKA9crb3hfRxoZx+qwSpISTjN0ud5vR/e3xOcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L6uUzIuu;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UWmCt+L1;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b="BGKY/K5K";
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC91606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:01:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC91606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6043C606A33E
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6043C606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L6uUzIuu;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UWmCt+L1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794862881;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SZoIL09apRESCSVy9LvCJwT2nl+8SSwpAsQe0tMlFOU=;
-	b=L6uUzIuu9sGhWZiaXdVNhmWShvxtQC9UDHSuU/qCHzS0corWiFXBXbybYvNUI9qDheRkPF
-	R6EVj4NCJrY2qUO7YG8bWn9LWTbaSzdBmi2BTlOeIyQxHQtOz2bevupKBQbaszHX6VrPCD
-	UKlk/aTPNJYakgZ3hLi/CwIi+TUV0Tw=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-472-T6fhMzdJOfK7BDahJBTXIw-1; Mon, 16 Nov 2026 16:01:18 -0500
-X-MC-Unique: T6fhMzdJOfK7BDahJBTXIw-1
-X-Mimecast-MFC-AGG-ID: T6fhMzdJOfK7BDahJBTXIw_1794862877
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4bb66fc3aa6so20143945e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:01:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794862877; x=1795467677; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SZoIL09apRESCSVy9LvCJwT2nl+8SSwpAsQe0tMlFOU=;
-        b=UWmCt+L1yLojGLi1JJPb1er1CIug5BOIcWzK9D6Ki1BKVE5blUkly6BNf8C/uhOpPn
-         OeRlOd0MItNECGd4XYpI9Xhq7vpEE+XXYjG4Q4OQ9xuusdVvzgWsiKzgmwh53AzNbb4k
-         4SkvDtvRNqySsS3I9KoQVuqlf+35Jltx1PqUQySH46UOVT3C20wD3OAXVKvFKXxe6sWh
-         PS/fRs9lniuiBEcaLoflMIvKXU8K6y8HV92M+MBhgu0qgFvifZIG4EEn9qokPEbFXnMh
-         8bHHzTVNSZWTIn377zoLSKga96oDcjGBWFWDXMe3FUPVawEV79s+/uAJHzCy1pAgZkmu
-         lZ4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862877; x=1795467677;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SZoIL09apRESCSVy9LvCJwT2nl+8SSwpAsQe0tMlFOU=;
-        b=QZCa86NlhMkGM8O47elFCVSeqoLpYIOJbd5Qs3g1kjo975fHPL7QHOKZuucpzEm/QF
-         u9QBhZIjXUcF+e7CNYQf/eHIYrgZnH2c9C5WIvaqS0L5zL1+R9AneNQ3SUqUwalHkB3g
-         Pp14BmFwM8EY+m1lLBK3aju7NpWyCZxe8jgfU/iVVovbI5cZJsDwG9w+BageMc3UmAHU
-         B6UUNMEGz+mh8NZ5i4MlDhWSm7lW/SEa6zC8en4feTo7y5rC2aCBcVabFEJhgHWdV22l
-         9PBZsplflJO+VkCyXPvW5XHghMKtTZEjvZk4Q/EqL5irboNdBB6LqZH3EHnFPbNV87JI
-         Kn7w==
-X-Forwarded-Encrypted: i=1; AL+hErGkJODhAAoNMkiwMYtpe/945rTsIr0OmwgrYYL1Tqsm36idXGYrN9cnRdWQRvaRl0UABDbnAIJf85YelJU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GI3mqY6hJ3tKt3Xwhp6QisVLeRlx75OXJbEjJgTUAnu8LddMZ
-	Km5g0z2RPR+qhs8lAKpleGZQXB199Gic21C0E9wIBkqJzFimjGKo2XcCVCPDeRc39BQUOLA3wg8
-	Re1C0+NSEHSJo1CcY7zLwctpA4UTx7e9FXTVBLadPjt3nvku+PxaWO4ycgeWwDwiHhg==
-X-Gm-Gg: AYBFou07s4NTNgH5jp6UtC3NsXDndntAlHi3Q2v8Ax6PVzkWOkTTYd7k+KBtknB3+MH
-	zSmt0RxjFh1Vo4tO3qyV+0jARRUH7hpYyw/w5nFCJSeHipteBMkQBybCikkITuE719DAfnKKl41
-	kubKpJljL1OEOVey+XWnwxEX4IOys7JuwIk0eZsrRF7NFDc/k6a3Qxws9CVPNfC+ooLyt+ETC9W
-	3fUyH+6nTjepdxNtzlThZM7SnPmVAiR1zqeI61G5b29nbFZSC5aEmBjYQTuWJ9ej7uLtqzP4Jj6
-	k4mFbawaUA/Hfw7VOFlm70jQyv7qsW9/N/VW08W19POKc91bQ8L+3yFJrsBBdJPvDD8CyGLMVRo
-	GSKlieZEWc5mOurevDxaJ1cQvZbb92UeYQU97WaXPFg==
-X-Received: by 2002:a05:600c:e555:20b0:4ba:761:97a1 with SMTP id 5b1f17b1804b1-4bb55a50f1cmr166278365e9.14.1794862877131;
-        Mon, 16 Nov 2026 13:01:17 -0800 (PST)
-X-Received: by 2002:a05:600c:e555:20b0:4ba:761:97a1 with SMTP id 5b1f17b1804b1-4bb55a50f1cmr166277685e9.14.1794862876566;
-        Mon, 16 Nov 2026 13:01:16 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:151e:a200:7a96:1b15:81f:ebed])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7813fa23sm22454295e9.2.2026.11.16.13.01.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:01:15 -0800 (PST)
-Date: Mon, 16 Nov 2026 16:01:11 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Eric Dumazet <edumazet@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Liang Chen <liangchen.linux@gmail.com>,
-	Heng Qi <hengqi@linux.alibaba.com>, virtualization@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, kvm@vger.kernel.org, kernel@pengutronix.de
-Subject: Re: [PATCH net-next v5 6/9] virtio-net: assert header sizes
-Message-ID: <20261116160026-mutt-send-email-mst@kernel.org>
-References: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
- <20261112-v6-7-topic-virtio-net-ptp-v5-6-7ab67b572f4f@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=BGKY/K5K
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc
+	:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References; bh=uJdfltHhZFAvsReHrsmgovSCjxHOC3yyFwbkaqSO30E=; b=BG
+	KY/K5KvnCDFysVuRpMO+kWN727fUdTGksJQ1UTnyMNvTZzzUuEURJE/7tqThDTBp7bZBYOTa8AKI8
+	LnZddo+QYa9w8TiaLejx/aJAEip/w2/nJoyyjO9c6StSF0uSjOR9sdqXwvpM0EljYCX81Cl/711Zf
+	HoApVer98IjYj7lqoMQX8lUF1Reb7sg2xxpv2uqe3SKD7L0YSfDCa46Vx/2WM2JxPjeOUJa/3YGob
+	nUYw0cZKfgIJnmeVv+nWIH4oq73U6Ly97ZGDEgGteW9CpDbpiHLR0Pbr0XvA/sObg9tGZsJcLEKBu
+	CIOs45KGYA7ZuI2eYr94aLjvmgIpKHog==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn.surriel.com)
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xT3pS-00000007LIv-1d0B;
+	Mon, 16 Nov 2026 21:01:30 +0000
+From: Rik van Riel <riel@surriel.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Yuan-Hao Hsu <aa9736195201@gmail.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Peter Xu <peterx@redhat.com>
+Subject: [PATCH v5 0/8] mm/gup: walk and batch whole PTE tables in slow GUP
+Date: Mon, 16 Nov 2026 16:01:19 -0500
+Message-ID: <20261116210127.3837898-1-riel@surriel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,47 +73,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-6-7ab67b572f4f@pengutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:19:38PM +0100, Steffen Trumtrar wrote:
-> The header is cast from skb->cb and from device buffers, so its layout
-> must not change silently. Add static_asserts for the offset of tstamp,
-> the total size, the alignment, and that the header fits into skb->cb.
-> 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->  include/linux/virtio_net.h | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> index 2abd8a614a23f..e7776a37a486b 100644
-> --- a/include/linux/virtio_net.h
-> +++ b/include/linux/virtio_net.h
-> @@ -29,6 +29,17 @@ struct virtio_net_common_hdr {
->  	__le16 tstamp[4];	/* le64 TAI receive time in ns, 0 if none */
->  };
->  
-> +/*
-> + * The header is cast from skb->cb and from device buffers, the layout must not
-> + * change silently.
-> + */
-> +static_assert(offsetof(struct virtio_net_common_hdr, tstamp) == 32);
-> +static_assert(sizeof(struct virtio_net_common_hdr) ==
-> +	      offsetofend(struct virtio_net_common_hdr, tstamp));
-> +static_assert(__alignof__(struct virtio_net_common_hdr) == 2);
-> +/* virtio_net_common_hdr must fit into skb->cb */
-> +static_assert(sizeof(struct virtio_net_common_hdr) <= sizeof_field(struct sk_buff, cb));
-> +
->  static inline bool virtio_net_hdr_match_proto(__be16 protocol, __u8 gso_type)
->  {
->  	switch (gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
+Slow GUP resolves and commits one PTE per follow_page_pte() call, so
+__get_user_pages() restarts the pgd/p4d/pud/pmd descent and retakes
+the PTE lock for every page, and a PTE-mapped large folio (mTHP) pays
+one try_grab_folio() per subpage. The fast path already batches
+PTE-mapped large folios; the slow path does not.
 
+This series brings the slow path to the same shape in reviewable
+steps: three no-functional-change refactors (store, flush, return
+type), two splits of follow_page_pte(), huge-page count reporting,
+the multi-PTE walk, and finally the same-folio batch commit. The
+batch-length helper is shared with GUP-fast through an fpb_flags
+parameter selecting the scan.
 
-Waste of time. We know how to maintain stable UAPIs without this
-kind of stuff.
+Patches:
+ 1. break out gup_fill_pages() helper
+ 2. break out gup_flush_pages() helper
+ 3. convert follow_page_mask() to return a long
+ 4. split out folio grab-and-store helper
+ 5. break out gup_lookup_pte() helper
+ 6. return a huge page's full count from follow_page_mask()
+ 7. walk multiple PTEs per follow_page_pte() call
+ 8. batch contiguous same-folio PTEs into one refcount grab
 
-> -- 
-> 2.56.0
+Measured with mm/gup_test.c (PIN_LONGTERM_BENCHMARK), median get
+time over 16 iterations on a 256 MB MADV_HUGEPAGE region in a 4 CPU
+VM, folio sizes confirmed through the anon_fault_alloc counters
+(4100 folios at 64 kB, 128 at 2 MB):
 
+  gup_test -L -m 256 -n 65536 -r 16 -t
+                        before      after
+  4 kB base pages      2753 us     1178 us   (2.3x, patch 7)
+  64 kB mTHP           2946 us      231 us  (12.8x, patch 8)
+  2 MB THP (control)     72 us       71 us
+
+Patch 7's gain is the page-table descent that no longer restarts per
+page; patch 8 adds a further 5.9x on mTHP by committing each run with
+one refcount grab. Base pages share no folio and are unaffected by
+patch 8; 2 MB THP never reaches follow_page_pte(). With FOLL_TOUCH,
+folio_mark_accessed() drops from 512 calls to 32 over 2 MB of 64 kB
+folios (measured by Yuan-Hao Hsu), matching the huge-page and fast
+paths, which mark once per folio.
+
+This is based on 102d6c3d5892 (merge of "mm: gup: batch PTE-mapped
+large folios in gup_fast_pte_range()" from the gup-7.5-ptebatch branch
+of mm-core.git)
+
+mm/gup.c only: 347 insertions, 226 deletions.
+
+Suggested-by: David Hildenbrand <david@kernel.org>
+
+Changelog
+---------
+v4 -> v5:
+- Rebased onto 102d6c3d5892 (landed GUP-fast batching and the
+  folio-based unshare helpers); adapted to the store-only
+  gup_fill_pages() and gup_must_unshare(vma, flags, folio, page).
+- Split the store/flush extraction in two: new patch 2 breaks out
+  gup_flush_pages()
+- Dropped the "fill the pages array outside the pud/pmd lock" patch.
+  Separating of the fill and flush helpers made it possible to just
+  keep the (fast) fills inline, while keeping the (slow) flush
+  out of the loop, at the tail end of __get_user_pages()
+- Rewrote patch 8 around a shared gup_pte_batch_len() with an
+  fpb_flags scan selector; GUP-fast uses the same helper instead
+  of its inline scan and trim. (David Hildenbrand)
+- Read-only runs are trimmed to the pages needing no unsharing
+  instead of refused; the trim also covers runs of one page, which
+  the fast path relies on as its per-page unshare gate.
+- Renamed gup_grab_folio_pages() to gup_grab_fill_folio_pages().
+- Re-measured the benchmarks.
+
+Link: https://lore.kernel.org/r/20261102193026.3860700-1-riel@surriel.com [v4]
+Link: https://lore.kernel.org/r/20260811025157.1632867-1-riel@surriel.com [v3]
+Link: https://lore.kernel.org/r/20260801031540.2742891-1-riel@surriel.com [v2]
+Link: https://lore.kernel.org/r/20260730035350.1fc95dd8@fangorn [v1]
