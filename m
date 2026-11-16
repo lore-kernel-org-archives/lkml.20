@@ -1,92 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811008;
-	b=QsUKiWEgnGMsCI3vb/HdNANpniqPEecuzT2BG2Zq8Em9SMTN0WQimBjUuVqxqh+QqJtZ
-	 vWGHo1pcfD367cW/or2/JokYwDhOK9TaNAymCUhOlsZeefDbyI1zYlRWMKNSs1ZjylPLY
-	 25vPfnsNwMgOUFAf5iH/7kpMasBlNnixE4UaLEBNwwYLzwCdqmESbPzQcnIa8AcwjxTQQ
-	 Ud/7K9zF2Git6mwfvSgi8N4zEzkjpRHAK9b7TTa4W3TM2cLdyqjXU0ODbJao8nYwAzkix
-	 1OxVkXMS/lEVVRgKFLd8j3dYs2jYHED/IQ4sj0EOfbAAqH88mm7TvIttjKkULTOiHmQ==
+	t=1794811168;
+	b=z0faBIrRXmXP32IJrdeLl62T+o8KOHi74u4vTzX7M9MYDxvzhuOAZ0eEONy58tB8mxdN
+	 m052WQjFJY+TVhPc+i81iUo82CkLlD0oNgKGHgMaQ2oSOmVP6zOrHGDuAupT6dgNIkiWK
+	 HLVoda1GJp39EJpBltO3TuH+Yt9F66zuvMKFbwn/EPO0wavz8joRTpWN34tiWzInOxlYf
+	 UD0U08XHYmbw1hXlcFAtwb+AhMc7k2eL5DY619BFFpvfgLEMD4GFMbWpGjC2efqCWBCcN
+	 Pg49oRx7UYx8XtZWx9nyY3otZo2EIZku47PDP02raH8khaJcehB6bk4yf+QZk+On5dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811008;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WujFsV3gjG0i+ckuCGbgYSpPrbyh9VKnBFOmaysMMYs=;
-	b=GpyEo6ZYU7Vw4N5LOLdJsLpLfmAQ+/Zfb8i3m9Wdj7SNLOz6JU6IN/zGQUayq/ZPrv+X
-	 f33JG0z+9TbJXkYzBCwdvRE3PnpL0TV+FkVxKW1fNgK8ADqe6yssEE2cnSAaJ1fRqiL6n
-	 6gJ3Ol7qBFT6iHqxxdIT1Wze4trlKM+sHpSPQxFrfLhPl8+aiDzKejE00reEvEAH+HB2v
-	 UlD5uiQHz/PhXf4sKwpDuzMIpAnhqN/xGgLNeIFJ3arNvURsbTVv3nqoUIW8Z649x3BXU
-	 MTd5wjYv1f7Dw3JZTepyN46GcLyAi2QPD5WRgzu1b3Z7ExS/gnNlJbbqd5AlZLwQAjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811168;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8+iR4niHczic0KzJmA8oF+7h1DwHaTXrdYECxI6T5P4=;
+	b=0v0PGu1aqvLBvp3g2LI6fDuHxEd1TYfX+nqWGcaujfoS/SsZzGsyyE+CDIyi9JEG4+f7
+	 FEDXbflJtH+01xTVplNmvffB09s6Xywr4ActETgK7KNr3EQJ/jRykv+AlAI/+J3Oq7qJC
+	 T/e+P4V1H6iBLhoQC3VVL8MmeQKeJqqHQgRbfO3gh+qDpCVQo9wjuvANw8GXFWRslUxBv
+	 1aHNomr0SbVrLmiDYxcGQNxFIbLItgeNBGr+jiY34FptT4BAHw93r7K47kXPniCw7eRdk
+	 J/W4vyYR7A13hh67mtqDHQCiAm09Gp0O3+29qPQipBat+YfUxxQJyN4DT9/UQ61IP3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DW2igUsU;
-	arc=none smtp.remote-ip=91.218.175.82
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=MwblwEnl;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636A9606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 636A9606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A72A606A323;
+	Mon, 16 Nov 2026 06:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A72A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DW2igUsU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=x+ILKz6xxEiLKXXwh6DdV6s8+QRN9mKFDeJnW/pi2rE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794811005; v=1; x=1795415805;
- b=DW2igUsUcdPCFUbampoKKGdzYOJVukxdpiESWPBzpP/uohgZr3dixRx2p8TOgm95ukQmNXjg
- PZW5QoCDUrXNlEjvevxeCsh+Ehz83Unx1CEJiGF9oRJ6alKsSN6k+jxwsJIM0Fnu3ZcJ1zRyOjW
- IXk9rRaDpsbGGkf+D5yEngfM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 94084be275281595;
-	Mon, 16 Nov 2026 06:36:45 +0000
-X-Mizu-Trace-ID: 94084be275281595
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	apopple@nvidia.com,
-	byungchul@sk.com,
-	david@kernel.org,
-	gourry@gourry.net,
-	jannh@google.com,
-	joshua.hahnjy@gmail.com,
-	liam@infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	matthew.brost@intel.com,
-	mhocko@suse.com,
-	pfalcato@suse.de,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	ying.huang@linux.alibaba.com,
-	ziy@nvidia.com,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev
-Cc: Usama Arif <usama.arif@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] fs/proc/task_mmu: don't read young/dirty from a non-present PMD in smaps
-Date: Sun, 15 Nov 2026 22:34:57 -0800
-Message-ID: <20261116063624.1382944-4-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261116063624.1382944-1-usama.arif@linux.dev>
-References: <20261116063624.1382944-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=MwblwEnl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=8+iR4niHczic0KzJmA8oF+7h1DwHaTXrdYECxI6T5P4=; b=MwblwEnliTeyRsI0YjRVZgrHXR
+	yyQ7pmXkqc87VxwqOih58LWjUOrBxr2VQk190xsc7NakZFA8OOC4O+i4wwihOKjSCYu7IDRVctoMd
+	J2gQUXEasYYAfa81tHtXXCIa8U5iTXPOMTYv+Uxpvcv8+QDTCowl9PS+voUUTZLbU5S2oJFJj4fAR
+	Esdaq4ai2ndU6SsXRoTGtVUWrBmQux+1TZ9omxmhDNKuJIQGgX4gThBrMw6g/yLu9E27gkuFmLrZ7
+	TmWJmG2oSry9UfrJFGoM4XjZ7tVyg2EoV4P/hVkCl5kW0BGubx5srlpMquD4f0Bwc3UK8qjpldVt7
+	jEOaKbmw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xSqNC-00000001K0W-15xT;
+	Mon, 16 Nov 2026 06:39:26 +0000
+Message-ID: <2571c5d4-f7c9-43af-b6ef-12f7414d4709@infradead.org>
+Date: Sun, 15 Nov 2026 22:39:24 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,64 +58,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs: porting.rst: use literal string to avoid warning
+To: Bagas Sanjaya <bagasdotme@gmail.com>, Jan Kara <jack@suse.cz>
+Cc: linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-doc@vger.kernel.org
+References: <20260924183915.400588-1-rdunlap@infradead.org>
+ <hyk4puvpheleitf4kt74aamqex2ytuxpda2iki5bgzoteldf23@pccvy6sdmerx>
+ <avpzSippbZRkaki9@archie.me>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <avpzSippbZRkaki9@archie.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-smaps_pmd_entry() passes pmd_young(*pmd) and pmd_dirty(*pmd) to
-smaps_account() for every PMD, including softleaf entries (migration and
-device-private), where those bits encode the entry rather than
-accessed/dirty state. smaps_pte_entry() only reads them when the entry
-is present.
+Hi Bagas,
 
-On x86_64 the entry's offset is stored inverted across bits 9-58, which
-overlap _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
-device-private mapping is accounted as 2048 kB dirty, and lazyfree
-accounting is suppressed. pgtable_64.h also warns that the hardware can
-set the accessed and dirty bits on non-present entries by mistake.
+On 11/15/26 7:06 PM, Bagas Sanjaya wrote:
+> On Fri, Sep 25, 2026 at 11:32:43AM +0200, Jan Kara wrote:
+>> On Thu 24-09-26 11:39:15, Randy Dunlap wrote:
+>>> Avoid the docutils warning:
+>>>
+>>> Documentation/filesystems/porting.rst:1417: WARNING: Inline emphasis start-string without end-string. [docutils]
+>>>
+>>> by quoting the const pointer in literal quotation marks.
+>>> (Adding a space between the '*' and the '.' also works but it looks odd.)
+>>>
+>>> Reported-by: kernel test robot <lkp@intel.com>
+>>> Closes: https://lore.kernel.org/oe-kbuild-all/202609231806.ILZP6Fy0-lkp@intel.com/
+>>> Fixes: 025756ee7b47 ("fs: port mnt_idmap() and file_mnt_idmap() to const mnt_idmap")
+>>> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+>>
+>> Thanks! Looks good. Feel free to add:
+>>
+>> Reviewed-by: Jan Kara <jack@suse.cz>
+> 
+> I still see the warning on current docs-next, though. Has the patch not
+> been applied yet?
 
-Only read the bits when the PMD is present.
+This patch went thru the filesystem tree and was merged into mainline
+today (Sunday) - Linux v7.4-rc3.
 
-Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
----
- fs/proc/task_mmu.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 164b4efc5e093..ad9fdcdaa2c40 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1029,13 +1029,15 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	struct vm_area_struct *vma = walk->vma;
- 	bool locked = !!(vma->vm_flags & VM_LOCKED);
- 	struct page *page = NULL;
--	bool present = false;
-+	bool present = false, young = false, dirty = false;
- 	struct folio *folio;
- 
- 	if (pmd_none(*pmd))
- 		return;
- 	if (pmd_present(*pmd)) {
- 		page = vm_normal_page_pmd(vma, addr, *pmd);
-+		young = pmd_young(*pmd);
-+		dirty = pmd_dirty(*pmd);
- 		present = true;
- 	} else if (unlikely(thp_migration_supported())) {
- 		const softleaf_t entry = softleaf_from_pmd(*pmd);
-@@ -1055,8 +1057,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	else
- 		mss->file_thp += HPAGE_PMD_SIZE;
- 
--	smaps_account(mss, page, true, pmd_young(*pmd), pmd_dirty(*pmd),
--		      locked, present);
-+	smaps_account(mss, page, true, young, dirty, locked, present);
- }
- #else
- static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
 -- 
-2.53.1-Meta
+~Randy
 
