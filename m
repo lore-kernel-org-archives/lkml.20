@@ -1,104 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868123;
-	b=isTPTX4C1aabAyaLCF773ZQlHHOVaWeFbV3EZeZEiACLEXP3eAaFeOwm9N5WRvgkBzei
-	 at3vvBYBNk1PUmpc5eOZn8DaaQa44Z+IUipGlY3RxYx2VSP1WkL5jVx4/Nzc5t+HKuwPw
-	 xwvNp60Llzqr/ufYR5CeQDvB7GfRZO++K/hqVz2uuJOfQ4IWHURzw3KO1fro6rmMcx3NH
-	 NaawXiQtFyWZcoa/ZMhgsbra+FSveYbtvnOkbMkk0KrlKhoEMOxcI0HBiGeQI0THnjBLQ
-	 y7kxdXcoKIMSCsWitZOPNroroEnEJv+JBGYqpMhEUMYSQ9UD+dYfE0ZSdjugoPovz7A==
+	t=1794868196;
+	b=PFtYpjUFQglcd+IwNknRYf+XqTnQU26tSFzPIzsZMsSG6X3bq6LgZE1LphML2+8u32NE
+	 LKbeHqHf+eSmgGsmYUczu99LW+EfzJVBIqn/duo7RJFp96L+eklpKVM8+uj7wULazdDyt
+	 gSzepRyRH223Zgr1XskR/IEAeZ9hQHS4sl8lZpqeO+ebUpDk4Lwz3i7yxk8TmjORqZ9oO
+	 30Ss/avsaQQmlky2BLlRqtx+xjyXrvSPd38shXNtOYael4owOMugg4ECKFHBWAzmByq42
+	 261IvpOac0//dp+H+/9+K1hx4zyPRXiMYbmRhcZVzY4SuZ05DevFEO+MmjNUOpEL1BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868123;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EN+xjqjb98UaRHMjBVBOXaIhAP0+1stF7wDJi81/iGY=;
-	b=h3AGAeAB8gMWdhgyaDMclSAc/bt5lHMwNy2AYWuxOt26hRzJuwK3pLD0jDYPrxjFbV2q
-	 MCnNmpkqZP9ShFztYEWuscmOkPHMI4pVX9u/Yjxut2xrHmxOmvLMHgLjXsgrZhBTgCh2J
-	 feI9Ve9DS0/+xyYYPgcRzbed9/F9CpCTFrIPMKOKjDH25UtGs/gdoBFV50TPps+CzWWPb
-	 PqzVN4BVXLzhCp/Mdpk7JJ/qHeW61CCGt092nG0AjD4nbafG1qUUCalaMbq2+YZiKWEvO
-	 8EkkIMV+DH2MfHqr64yoBhapyZghDjA+mbXuHETDBNqDc/CTljNdS9OH7feHT1qkjOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868196;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Bm9xBoSUqXiPogzBseS8Tdzl6aaUQ0bs7ShMLPn4mTM=;
+	b=JdHfcSPxQRB3aHXtEV64otdo+BvYUrymW4u+TtRdPscqa7XrvjTkf7pScP4bnJICqvWS
+	 IjOWp66Q9+OpbSsHViWlaA6rtsEtuH7zr/0bZoUW7U0SMlGfoL74bwiSffO6jC/gPRcVS
+	 PMDVXZC2c/RIz7IRx3iSaznmZDnzllFMe+Gw7u/IzbCeBK58/2+dIpKi+ta/IY4xQJC1a
+	 19+3Y0od1p8V7neRk5IgntsFAshddJwp023W2HPZvUWus82mculXRk+GIfksBXevV4oTK
+	 hOGfJtTs3dL1TjEMWfbGtLL1DMJCjDU3k2Dk6ejo1j815Xyvh56H2b1NYREzKrt+1AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DS8ntiIb;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GjNbS/IG";
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A199E606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A199E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71570606A888;
+	Mon, 16 Nov 2026 22:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71570606A888
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DS8ntiIb
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so4223316f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:28:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794868121; x=1795472921; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EN+xjqjb98UaRHMjBVBOXaIhAP0+1stF7wDJi81/iGY=;
-        b=DS8ntiIbMjgXy/fvT72WvnhHCiEtVQV//0o1lwqzzhWXt7aHFAyu/GMtRGLqnS1Blt
-         T8TaHlU0utThuxFkOqTcEftXdmS2LuYBYZwSQ5bLwaNl7Ut5taROwUrxq6hHnsYgMHGP
-         g4IyihxhDqsdice7WXk9cdjmBlg96wWQ6Qox3lc2qgO+77waI0OBsG+AAZvYHfWTqxM4
-         /mSZaFGlukGthyhCm2HideTsMusaPabxjwykJ8PgEQpc175YRJfWrim+WreubP3xp5uj
-         P2neVj3C9zHdpHYsqrPtWDiDKL9Do6z4h4+nYbFKLMEakGe1GWOk+3bloZTjIKVOsy2t
-         orew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868121; x=1795472921;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EN+xjqjb98UaRHMjBVBOXaIhAP0+1stF7wDJi81/iGY=;
-        b=JupbozVefhB67B9CQ4FwsZcH6IlVFU4NdbBUX9joAuxrHosLjiX6Syx1pJt06e0UGK
-         NpwAZ0sFXbUPlnYBwre/Lyw7xMRu2XYkcscZduUXSEKg8PnpGJwMk+27KWfw0W4GHm+6
-         TNC2OH+ljHLyOmOEj4h6/Q77ATraf8YWfDpqkMovM4lvBkWSJYSyfLInLEOnLFCqVv4e
-         9nXNChWBVSBD9opTljuRxHbc27vsNUFfiLcOPt0Oxw+1u20KZ091eXWYTpzVwF6Fo1P/
-         ZqgERVGe2C3s84R5BAjsk1wbIRBhyeufJbkshk/T96G31FElBTP2u+cjD89JKocMEq25
-         f0rw==
-X-Forwarded-Encrypted: i=1; AL+hErEeQ5dJQz35SnPz9KOltYsDazbV0B9ce+HYLcF/srAf1cN6NCZLMJlCXMioKkrZc5MnkTl28Cv74+HdJOA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7myzEHgofPimi097pBfmzo0nXq3FSO7yT9DoXkpG2DTYshJJi
-	Mjkk/QOMBNFS1+4t+rnc95KzVxEQ+Q+7eh8cA0bazsFV5o037RMDP4KzjhyIA+a5
-X-Gm-Gg: AZFdTZe3Uu4YQVumteTp1f007QWOpUY355F+Vg642mU7qNC8ljFfLcHYhK84i0QdgDB
-	ixjdO53PSC63vVjfOuq8E92QSJlq9WytkR46+7Uy28Iuuo54VMkP8VQjKHj3MlTC8OoEHY5pDLU
-	lAtR253rTH8+g5oz4Gi4w+a3VsBH+++HNmtyBWlVYrZLYeuso8lZ+W3XflQzN7j7uXgu8/vXhwf
-	aAGM7PMYWm3OZ7sDbNK6/Zsln4CMvTBtUtVEMfiUAllEvvlvishvYPdC1rmZLO34rDEOq7vjEBR
-	NUjg3/1VPjADBnxmDxS64yj/djz9gEKYftBHLyPj1flpHTpTb4IfJ1dnEQHa2v0RwNBWvULOekG
-	7H4DaKUYOFQp8FwY3+ixFLcydb8GPcbYo8S4X2tOx1Uz7ZSrnYngzaQ5TMBzPvCvkmvr27SZmdF
-	Z1m+wwGIkkchArC+J4pIMKcwIxktZ4250UrDzuMbV1m2gTDRJLxx491Sn/m43vZcTpHMuy6mrv4
-	kaesYP+29rtPA+0oSXNsVJBf7PHlifKGUyaNe+lF1qz6okG8D60aLdVd9cp1TaPKormbvyT51Bu
-	ZINkKYakf7WXuvLYc6ZBw6+FFFPp3LMQELfR1ed7vY7VxtWKzvZth0IyjJkQXZzO9g==
-X-Received: by 2002:a05:6000:2513:b0:48e:47e6:fdfb with SMTP id ffacd0b85a97d-49c70ed7c9cmr23140856f8f.13.1794868121017;
-        Mon, 16 Nov 2026 14:28:41 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a32155283bsm2125683f8f.37.2026.11.16.14.28.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:28:40 -0800 (PST)
-Date: Mon, 16 Nov 2026 22:28:39 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, Borislav Petkov
- <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
- non-x86_64 hosts
-Message-ID: <20261116222839.4b4a04f2@pumpkin>
-In-Reply-To: <20261116191120.GC1036192@ax162>
-References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
-	<20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
-	<20261114204605.GA173332@ax162>
-	<20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
-	<CAKwvOd=f+ib1XVvFfiW2mF8NoWo1jr55fJo=QOuZCJmzQCVmtg@mail.gmail.com>
-	<20261116191120.GC1036192@ax162>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GjNbS/IG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794868192; x=1826404192;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=CIBoGHUqRxvT7KACmwHa4NEdtDCNVqveh0Sg1/4KzR4=;
+  b=GjNbS/IGSV41BHf9YH+xHUm/nzVBPQBmZn9EsXO4P1f4jkB2C6x9/UIs
+   +vC3UnWlWJSixeNimS/JFRXx5xNMreNEaNLk9STpG/TNu7iOuIRO3d/pI
+   ThI3PMuP5zoSAQyXCJvZIiU23FghVqWVTYdSHzaxTJ2S/L1C873KEkUP0
+   a4NP/8XjLWlErQEVKgYXav7Bz9y3vJ1wMwrnhaRTqNeaiG+FTFQFp18pd
+   FdCD5l8rpwRyVKJ8fHqVUS0EERX8dZTkOS0Fz8C1yjMHHTOFmXd7obfxc
+   +XUDqcPiaSMQdi16ldj93mHxms/9wVyXyDEWsg7Q9cpxu5it+XkMQdkaW
+   A==;
+X-CSE-ConnectionGUID: OsUcy8SiQPWbhxu1g7Z19w==
+X-CSE-MsgGUID: Zbfi80C+SH6kzD6cVdz0Tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3699613"
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="3699613"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:28:01 -0800
+X-CSE-ConnectionGUID: 4G80KSDwQo2+hcPa3oGVnQ==
+X-CSE-MsgGUID: /faUMfIfQK2I6qZPKnplcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="9704998"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.108.118]) ([10.125.108.118])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:27:59 -0800
+Message-ID: <740532e4-86f4-4113-9203-d23331fec246@intel.com>
+Date: Mon, 16 Nov 2026 15:27:57 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,46 +72,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7] cxl/core: Create EINJ debugfs files regardless of EINJ
+ init order
+To: Yongxin Yang <yangyongxin@kylinos.cn>, Davidlohr Bueso
+ <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <iweiny@kernel.org>,
+ Dan Williams <djbw@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ Hanjun Guo <guohanjun@huawei.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>,
+ Len Brown <lenb@kernel.org>, Li Ming <ming.li@zohomail.com>,
+ Robert Richter <rrichter@amd.com>, Ben Cheatham <benjamin.cheatham@amd.com>,
+ linux-cxl@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com>
+ <20261104061256.1449275-1-yangyongxin@kylinos.cn>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261104061256.1449275-1-yangyongxin@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Mon, 16 Nov 2026 12:11:20 -0700
-Nathan Chancellor <nathan@kernel.org> wrote:
 
-> On Mon, Nov 16, 2026 at 10:28:54AM -0800, Nick Desaulniers wrote:
-> > On Sat, Nov 14, 2026 at 12:58=E2=80=AFPM Borislav Petkov <bp@alien8.de>=
- wrote: =20
-> > >
-> > > (If it were me, I'd simply whack that native thing. It is such a wast=
-e of
-> > > energy). =20
-> >=20
-> > There's always KCFLAGS.  i.e. we _could_ remove it from the x86 build,
-> > and <whoever cares> could still do
-> >=20
-> > $ make KCFLAGS=3D"-march=3Dnative" ...
-> >=20
-> > (I'm agreeing with Boris here) =20
->=20
-> I have no objections to deleting X86_NATIVE_CPU but as Ingo notes in the
-> v2, people do use this and it is much more convenient for a regular user
-> to adjust this single configuration option in their local configuration
-> file than fiddling with KCFLAGS (potentially having to modify their
-> distribution's packaging file in the process).
 
-It would certainly also be nice to put something in the .config file
-(or at least in the obj directory) that selects the correct compiler
-for the kernel being built.
-Otherwise it is easy to forget to request a cross compiler (etc).
-(Maybe there is - but I've not found it.)
+On 11/3/26 11:12 PM, Yongxin Yang wrote:
+> The einj_types file under the CXL debugfs directory is never created when
+> cxl_core is built in.  cxl_core_init() runs at subsys_initcall level, while
+> einj_init() registers EINJ at device_initcall level, so the
+> einj_cxl_is_initialized() check in cxl_core_init() always sees EINJ as not
+> up yet and the debugfs_create_file() below it is never reached.
+> 
+> Change the file creation condition from EINJ being initialized to a compile
+> time check for ACPI_APEI_EINJ_CXL and return -ENODEV until EINJ is up.
+> 
+> The same check also guards the inject files under every downstream port
+> directory.  Gate that directory creation on CONFIG_ACPI_APEI_EINJ_CXL as
+> well, and check einj_cxl_is_initialized() in cxl_einj_inject() to reject
+> writes until EINJ is up.
+> 
+> Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+> Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
+> Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
 
-David
+Applied to cxl/fixes
+cab9eaa46f41
+Next time please create a new email thread per revision and not reply to the previous threads. Thanks.
 
->=20
-> > Nathan,
-> > Was there a bug on file against clang for this?  I can picture a fix
-> > in my head for this... =20
->=20
-> I am not sure I ever found one. I can file one later today.
->=20
+
+> ---
+> Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
+> Link: https://lore.kernel.org/all/7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com/
+> Link: https://lore.kernel.org/all/63e782a6-e33a-46ce-a455-5d207a60661f@amd.com/
+> Link: https://lore.kernel.org/all/1a5ceda1-f039-4946-b8d7-2bc97ed48c00@amd.com/
+> 
+> Changes in v7:
+> - Drop the RCH mention from the third paragraph, as suggested by Ben.
+> 
+>  drivers/acpi/apei/einj-cxl.c | 3 +++
+>  drivers/cxl/core/port.c      | 7 +++++--
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/acpi/apei/einj-cxl.c b/drivers/acpi/apei/einj-cxl.c
+> index e70a416ec925..22a7eb4dc75e 100644
+> --- a/drivers/acpi/apei/einj-cxl.c
+> +++ b/drivers/acpi/apei/einj-cxl.c
+> @@ -30,6 +30,9 @@ int einj_cxl_available_error_type_show(struct seq_file *m, void *v)
+>  	int cxl_err, rc;
+>  	u32 available_error_type = 0;
+>  
+> +	if (!einj_cxl_is_initialized())
+> +		return -ENODEV;
+> +
+>  	rc = einj_get_available_error_type(&available_error_type, ACPI_EINJ_GET_ERROR_TYPE);
+>  	if (rc)
+>  		return rc;
+> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+> index 625e4aa427db..a949228de936 100644
+> --- a/drivers/cxl/core/port.c
+> +++ b/drivers/cxl/core/port.c
+> @@ -806,6 +806,9 @@ static int cxl_einj_inject(void *data, u64 type)
+>  {
+>  	struct cxl_dport *dport = data;
+>  
+> +	if (!einj_cxl_is_initialized())
+> +		return -ENODEV;
+> +
+>  	if (dport->rch)
+>  		return einj_cxl_inject_rch_error(dport->rcrb.base, type);
+>  
+> @@ -819,7 +822,7 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
+>  	struct cxl_port *parent = parent_port_of(dport->port);
+>  	struct dentry *dir;
+>  
+> -	if (!einj_cxl_is_initialized())
+> +	if (!IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
+>  		return;
+>  
+>  	/*
+> @@ -2515,7 +2518,7 @@ static __init int cxl_core_init(void)
+>  
+>  	cxl_debugfs = debugfs_create_dir("cxl", NULL);
+>  
+> -	if (einj_cxl_is_initialized())
+> +	if (IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
+>  		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
+>  				    &einj_cxl_available_error_type_fops);
+>  
 
