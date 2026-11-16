@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803213;
-	b=00+AFOQmp5Npy5J4kNfxhjlWuoXQeEG8y7NI6LTlLcLtFok8eomiA2CVgMKsfGSDIATN
-	 PzQSutMk+uEWITwl0WlPCZIx1FmE7AOoTbzFeHfVvUfPhArtPJcJDOt3pha9HxJ6OiA+t
-	 Xf8jaNMlGRv5bEuTYu1XxCzaxJg5JOd5w/MJl5jMMesvLi3biEWQQrs8gtUvjEqRC3Q0i
-	 Ygc+BByVEyAaE9FUUCPDsbxMqsxbd+kSqYtIxi+XASkiA6zBjN7xtf2sPG3GOgAYqrNFg
-	 f3NAN8aFV2xHkCmgxEC/ArJZrJ1X6yAR+ce3GOXH9ZiVR6Lo/u378OG5ndy61zV/enA==
+	t=1794803251;
+	b=U44B6R3XmAjtEeMfU9BOSFuOD2ky4w1norqcoGzimHQcPt95LJ4pQPFoqb5bNENUu4yo
+	 5TGQKZBMNh/Eg5Y8HP+3fb/kP6dXb0WRXldiCSLuHM6B6KS3IbXcQphsYl5p9Cunu/GFp
+	 ypo+pOQuqLHyIfV+xsBw6yBaZx2e696G+x8o9h5N3eMAIwBPnqQx5FbYtZXbHeoB5BjFr
+	 p6UsVbDyVRjFYTXTXrQ70oZSIVVdqcdZ/FucffxBczT6dQrNWpJTMMdrcUFTcyi6cKUdi
+	 8tbyrPYnnuplZz9fNTxySSETVCK3RW2lJcI/wxlx32E4NftMApSBlYZQL4UaZiGnkiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803251;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ncn3Uh93DO1XOndirHgHGxexD/qxamHF0C1Hl9kfn8k=;
-	b=qcq3xvMQVA19JV6HObIxmgLseU/CaBOJj61ghrSAB9UqVPHax61ywORVy7lHwG5cA+4X
-	 EVSCaUrv3vjmNUQHppBkLr6pgb+maWKrGGiHsuwNS7yxrqQf5ASihC/MdW9itZRbFPkR9
-	 90khxEIDaXTqmHroT/1ipXXXWtRHm9kn1EZTOQEsU2R/4/A7vsn3u05iM9Cus13+95x7n
-	 negzAnHwQJeUDyaHqVTxNsI4DbGvseJbpzNoXBTdbj0D5C8qZaPBGu3dx3YBLLAxLTgkb
-	 vfkkyG4/33BLSHSpjTGdKEFY/B1CG0Op9pjPiWrc/pPFt/P5RnQUtHHSwyjdefNL6hg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L+vPKyAW8x8lk/lFIW4uRVkXgnzau8sRMCBsKJVkefc=;
+	b=k48/v2r+jlHfw51NdlUvnH58l26LoN2iLML7IrSvU19fLqbdG0zchJtCTvPJ+OXWRJYA
+	 DZYbadEaG0C5nmQgleJbJQWs8kK185CqhKZEG7vNWh3FXvhnIeggdWBC8IbYLSnc/GGNU
+	 JwDkddrqvnFKqJDlXL0nIKuOeIDjwXB8EAkX3vP/SiStG2XCBczXmC6mcQSNgV1URetWf
+	 KRUQK+6h7ygcr3Ymfiawg97BHMySPB+kyz/TKhm8Gahpn9WjCiJDVftazWID06iy/msxK
+	 KxidCNfRlbwpNcncVRnHScQZuihW8w/sWrP2fRQXj+Q8C0TgFA31BTRRvrDhWJvKNRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aP3Ww7e5;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R2LUE6NO;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBC8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBC8606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F038606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:27:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F038606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aP3Ww7e5
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36e795af1d4so2163252eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:26:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R2LUE6NO
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37986eb6fa2so3543608eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:27:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794803212; x=1795408012; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ncn3Uh93DO1XOndirHgHGxexD/qxamHF0C1Hl9kfn8k=;
-        b=aP3Ww7e50cv3jnIO7KWkHTl6lutK2933t8INJUv7OZZum7NzMaO/TWusjU69vIFEAu
-         yi/42o98IDYPrCmV0UJq29ozY99J+hGkHMUzX8PJSuAuzMpBBFHv/Nb3o08UMP/TcKll
-         WWGQFnoFi6iB80+ExcM9KFnRs3VUfRiZZKdRbc7uPaDnbw4JZhjOUtUiVzMuvjHo+YSO
-         MQzJ+8FRl9/acM8Mp2G3xcokg76/kjgxl0ckrWQfIMTYbotnCONzlONoeIefhFt8xMeP
-         DwW+Pm8fYWpVaSmpVX3QvU86JXOTV/TyTRrrv59KXVoxOSMg31TIql4uWIDNcw2jh1af
-         oVGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794803212; x=1795408012;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794803250; x=1795408050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ncn3Uh93DO1XOndirHgHGxexD/qxamHF0C1Hl9kfn8k=;
-        b=pYhZgyviQ4ghKaIX9TglhN9CxPpl45beJxjbK7AGiqkU2pmELYevx+bl8fIgF1Zf8I
-         /6cDGDZf+4Hlb6qNw8mFDekAayY83MgTqeNJn3RQvZD/qf+Z/474FNHnD5jvKUe6O1xF
-         QxOboUKevkcznkIL3VfAQSBRpm1dGyqOkejQ9JvC1QW2AbbO8hUV2PXef6fm7PqquijC
-         sVmZrEJzoPJmLaoFESJQ81gGxX1sXXzpgsmaNWQvAWm4U1IHT3EM4GEaAe42k2To7ekX
-         EyoKXWnWleSHMo7HnvJdf4NIKecr1dJMti+nOfHr6gWQn0yEgs3dGAA/VFh4YwNESyy7
-         t3/Q==
-X-Forwarded-Encrypted: i=1; AL+hErEO75xnOYz97ebutElFSPOX8TBOT0iP9ieUG2jTE/A3i4i5uQYCXy9u114r2xdZflyBC51Hh/IqfAxBcmc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mCxuuiXKqsWyPfbckZd82S6lFHyrGMfVA0xuRfu5K53Qtgu7g
-	ddWSHDJ32atL+yqG2aDlKuf3LmrgNd402pw1u5XLPWuU8jcx7Y6i1dkP
-X-Gm-Gg: AYBFou1er3h2rWzd506M91P4id+RKl3rLodXLurng7Rr1jkBUdg46PEDdvcOs2TWZt1
-	0uJxg7w+Gtov1WChXVbuLff/6xqwh64AHTgW2I8ktfmsgL+p+k5kggfm8NRQgd93cRz7j/99TwE
-	fo2wIF5Y7UsOnc23f/ihDHnlV91KyvNdmtW5fjz2rzvryk0h8p3xQNoSxou+3y+DL3L+47lVQew
-	0SnJ5hAdV3nZ+uswXrc6/jqIQZCkPYyWDUxYYMgnmHbWNsAjgZDMzwK/w5j398tvjBD9QD+ShHd
-	jH/0iklFvnoVXU3YYJ59wzzNrk+nBxL3hLyG7iF1LLM+dmEO28qMPE9F1sxBU4gXEKxKDqN9GCZ
-	cVIuT2lsx64nY6W/HlsdPgmL8uIZ9tpn318TMWOh7ggu6nIy12O7Do3AYyDdkrdA3usUrdJTBms
-	PgzY39Kp2tTxcgf8ucPim3mgpb+1q34JQoryz3h2iNbDmMTslhPl79e6sJSllQWSaKnignr97pj
-	EHQIKHt/alzV0TMXO2ZJJJUWoml3oV0EJ3QtYwOtIhhFkmNbFKc8H+fFRn5fwWXNgX1jLAvJ8ds
-	aqNQCa3S09X0eC9KAUjDpXXS5O3vQvTegdcWZVFu4amH6BH56d8QVhOOdoR+AAWmFfrvJ1kUnss
-	3CJRnss62ULaTWn1ZRb2NkxcMPRz0YYGqL3BQarWCUGEV
-X-Received: by 2002:a05:693c:63cd:b0:36d:be15:2dd6 with SMTP id 5a478bee46e88-379668667ccmr8906944eec.11.1794803212184;
-        Sun, 15 Nov 2026 20:26:52 -0800 (PST)
+        bh=L+vPKyAW8x8lk/lFIW4uRVkXgnzau8sRMCBsKJVkefc=;
+        b=R2LUE6NOj4PZSAUa2sdCAI45rv1OltN3TLI3chKU6BluHY9ktO6yP/9H6ftZTIJt8Z
+         oWF86MvvH7aocEe7Mt4yOqk4qLLHvsWGJUYe+8oTlpm17kLUjiBvZFKILB7lfsUmKSiB
+         qFKh/uHXmATEuCk46iisRKEL3c6XrFQGN1LxSfgrkpBkfa+CAeVfgHC/FWUC/TMrRUDI
+         vofYfkeED2kzh5G4fBCpANSSyG7KatgaYbvNJAx6l4VM+Ltm6kFzYQFgVGWkmkCzjcKS
+         CSgOs5R8+LIdsKsGdiyecYd5dYKDA4SuJJhpIWOYGFzLqZYauFBayn/WSVTtqLdME+Qp
+         04nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794803250; x=1795408050;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L+vPKyAW8x8lk/lFIW4uRVkXgnzau8sRMCBsKJVkefc=;
+        b=PDdCjScBC2XtmVQpnmQdbz1K9ruXpds1GUBxnuTFndY2JhkyAtdPC1anBKCGqxkdve
+         gLderztbqbDW7yIvSb2Jq+sO1TLtZbGbRJg++3B13KgpjVR4GK9aGrI42oAsMWzyvLAp
+         F7uj7tRSaMEGHQj7DHayvs8CZ7wL1VWgG/TGRtD2GpOl2aHBBS14vZP0XvMng0cZJwX4
+         6C3pEpYEy+4ZvyM+6MF6AUptJM/JFaBpVH3nGJTzfcDQnFCRk6lV5I0u12gTPhI+2+jP
+         L7rW3wm+5pNoEXkhhR96FnWHatuUKNR80R5PRD3E0GhW/cuMKnqIt5nfDZSgjaGZ4B56
+         KCtg==
+X-Forwarded-Encrypted: i=1; AL+hErG2W4Rnpa5ed3JMCQejggkYCMJu3z/YKOcyoEKJdsdP/Tk4TBatVW8wm+Ie7y7ChFGY3JRKWzWGRLuMV30=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Z/r/0QgiAKz/5QZMP7yv5S8kF2FcTXBWZ8CRtVwEv9S6FYDd0
+	2aVgaxgPMRdxkC8LGhwwTaWCSHKHueabPokqE5o8SaXvUYCur2J8owEy
+X-Gm-Gg: AYBFou0XY/fk7Qio43JaHxaC+UFJ5KRBAQNbNywuIHiYUOcyYa98AwFKr8/nj5QNPcw
+	HwFEo7ErH6VEBBBUCMy4ScGsNidgsZN2ARDqe0skBqJeY+e1z/ZjgDyVOO3jXiv0ROPMy4RgzFL
+	4VfJhYQQpnyRuszajeSsDhZMy1b8WiF1o5ivPOxMn6UVIPpwi2UTQu79L9PITxRqrXrfMoaKFdG
+	WsC5+DcMlAn4OedkSLAF23wfTMLSJikE/zvXp7Bp0rk3viwsmi9p9q+NiDKakHAR2qQ9ffiz7fk
+	82/8Uhs3WLJglKCadFAfaLDMKjUC5umNIO9Yb22CtR6UroLzww+erQV108HjOc+nXcCgXDJjSx1
+	oFd/5SInykAunhAnIucz2m0hKDA4vpCkbzEPRUgmwUqVQhcE2frZmXo41PwNBOmziU2SWKHirbR
+	7aqjZY/U3i8fuKcPC8lbbVihLO0UqDEBnnbAUN1gSG22u5wsHdQi7/ZjdznX3Zn68T38OI3L0CF
+	wPzbfPKs5PtOtvca0KyCvYaLeHdnTtyCYojSzBNeFMW/Y1W3nDVSs1+2CiMc3ZgBUwlWWPd20sZ
+	73DYKeWumJYE/etIkq773ez9RPLjI73ZVLUGtMrZ5KrX62tB+DVMJVSdqDQHeGtLwgJwirVOz27
+	ATsRRaNlbpBVNIDu/IZeX7wlau67aE0+Orq9uqbB56ZYS
+X-Received: by 2002:a05:7300:d584:b0:36f:3da8:dbc8 with SMTP id 5a478bee46e88-379679dfadamr9965275eec.31.1794803249582;
+        Sun, 15 Nov 2026 20:27:29 -0800 (PST)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm30053500eec.13.2026.11.15.20.26.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm30053500eec.13.2026.11.15.20.27.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 20:26:51 -0800 (PST)
+        Sun, 15 Nov 2026 20:27:29 -0800 (PST)
 From: phucduc.bui@gmail.com
 To: Mark Brown <broonie@kernel.org>,
 	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
@@ -91,10 +92,12 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 0/2] ASoC: atmel-classd: Improve clock and probe handling
-Date: Mon, 16 Nov 2026 11:26:31 +0700
-Message-ID: <20261116042633.497423-1-phucduc.bui@gmail.com>
+Subject: [PATCH v2 1/2] ASoC: atmel-classd: Simplify probe error handling
+Date: Mon, 16 Nov 2026 11:26:32 +0700
+Message-ID: <20261116042633.497423-2-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116042633.497423-1-phucduc.bui@gmail.com>
+References: <20261116042633.497423-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,33 +111,99 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Hi all,
+Use dev_err_probe() for clock acquisition and regmap initialization
+to suppress probe deferral logs and simplify error handling.
 
-This series simplifies probe error handling and fixes the 
-peripheral clock lifecycle management in the Atmel CLASSD driver.
+Also remove the unnecessary cleanup label, as all resources are
+managed by devm.
 
-Link v1 : 
-https://lore.kernel.org/all/20261113103727.30449-1-phucduc.bui@gmail.com/
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
 Change in v2:
-
- - Rebase the patches on the latest for-next branch after checking the 
-   Sashiko review page and discovering that the patches could not be 
-   applied cleanly.
  - Use dev_err_probe() for devm_regmap_init_mmio() error handling.
 
-Compile-tested only.
+ sound/soc/atmel/atmel-classd.c | 37 ++++++++++++----------------------
+ 1 file changed, 13 insertions(+), 24 deletions(-)
 
-Best regards,
-Phuc
-
-bui duc phuc (2):
-  ASoC: atmel-classd: Simplify probe error handling
-  ASoC: atmel-classd: Enable pclk during probe
-
- sound/soc/atmel/atmel-classd.c | 50 ++++++++++------------------------
- 1 file changed, 15 insertions(+), 35 deletions(-)
-
+diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
+index 746e6bbbf423..59490e9effab 100644
+--- a/sound/soc/atmel/atmel-classd.c
++++ b/sound/soc/atmel/atmel-classd.c
+@@ -547,18 +547,14 @@ static int atmel_classd_probe(struct platform_device *pdev)
+ 		return dd->irq;
+ 
+ 	dd->pclk = devm_clk_get(dev, "pclk");
+-	if (IS_ERR(dd->pclk)) {
+-		ret = PTR_ERR(dd->pclk);
+-		dev_err(dev, "failed to get peripheral clock: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(dd->pclk))
++		return dev_err_probe(dev, PTR_ERR(dd->pclk),
++				     "failed to get peripheral clock\n");
+ 
+ 	dd->gclk = devm_clk_get(dev, "gclk");
+-	if (IS_ERR(dd->gclk)) {
+-		ret = PTR_ERR(dd->gclk);
+-		dev_err(dev, "failed to get GCK clock: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(dd->gclk))
++		return dev_err_probe(dev, PTR_ERR(dd->gclk),
++				     "failed to get GCK clock\n");
+ 
+ 	io_base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(io_base))
+@@ -569,11 +565,9 @@ static int atmel_classd_probe(struct platform_device *pdev)
+ 
+ 	dd->regmap = devm_regmap_init_mmio(dev, io_base,
+ 					&atmel_classd_regmap_config);
+-	if (IS_ERR(dd->regmap)) {
+-		ret = PTR_ERR(dd->regmap);
+-		dev_err(dev, "failed to init register map: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(dd->regmap))
++		return dev_err_probe(dev, PTR_ERR(dd->regmap),
++				     "failed to init register map\n");
+ 
+ 	ret = devm_snd_soc_register_component(dev,
+ 					&atmel_classd_cpu_dai_component,
+@@ -593,29 +587,24 @@ static int atmel_classd_probe(struct platform_device *pdev)
+ 
+ 	/* register sound card */
+ 	card = devm_kzalloc_obj(dev, *card);
+-	if (!card) {
+-		ret = -ENOMEM;
+-		goto unregister_codec;
+-	}
++	if (!card)
++		return -ENOMEM;
+ 
+ 	snd_soc_card_set_drvdata(card, dd);
+ 
+ 	ret = atmel_classd_asoc_card_init(dev, card);
+ 	if (ret) {
+ 		dev_err(dev, "failed to init sound card\n");
+-		goto unregister_codec;
++		return ret;
+ 	}
+ 
+ 	ret = devm_snd_soc_register_card(dev, card);
+ 	if (ret) {
+ 		dev_err(dev, "failed to register sound card: %d\n", ret);
+-		goto unregister_codec;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-unregister_codec:
+-	return ret;
+ }
+ 
+ static struct platform_driver atmel_classd_driver = {
 -- 
 2.43.0
 
