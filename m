@@ -1,97 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829408;
-	b=rtBA/z17jk1NwofsYVZ/V9xrAdQqDseQP/y8al62YUykGJWL/fat0UhNpgZDOYg4ocCU
-	 DK3ApYzXnllc3oKyvcCxlQfeYs/FT/gT6+VCeAd6S4+opRn3WJ5mQ92g8BkDOt8Hads8M
-	 5rZvae907spn3Z7g05pDrY7p1SHXCidgOfLkZrIbCNtoDpyqxX4zs3K90O+MtDVZt2U5p
-	 cy7GY8z6yOfNqP1+0OIgo76RJ7VTsO2DkC8VShKxfkYGl1KoPPNrx8NR5U5b2ssC+DIbH
-	 uKq/qjUTuEWWnqjt4QP1GOrrPMSWsLlZftHeU3d3fh9RRfUo9mROy1imGM80ept7SUg==
+	t=1794829413;
+	b=qHTcswqJO5uSmjvQ+dQTTLeAw3Tsfg3/lo/UlawL9u1gaF4HY/WO3kLI5hrCDCt/GrAt
+	 3zOEtLto5dsLBF0eKCVjX/jBuGlS5vpWq7FFitReE9FSfIEDoWEh1vs3/Sb7vVfVzzRhT
+	 quoKY0um10YKO0KIChxeiw7oRJIIMSeiprjwBM1zCXYDA4f+KqHVKiATuUY47K4zM6aex
+	 odliQ/3O/Fydtp3FQm58i1XrTIpEYx2rhlAUB9A654JV2OpZZeg+ouPE9e3fAlUf//udi
+	 JSZkmisLNCQSKETxMAke+fNDans/FHocstf9BCVc2pplzD2KTXUGRDP1dIeJguNJQ9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KTQjOLscv7pBRUr3IFndTok2cp32yKjgkssaNhdisLI=;
-	b=PJAGGcByxm0WEHt+yST8UQJS+q9BlNW5d7kJXGstj//lZVGdnvaIAHbfFx+OBEhUL3EA
-	 quiT/EnoZLmShmrT1MR83r9gp5wY9X2mGgXOECj9euu3yhi4K2/ZqBCIFJ27Hry/ObtUg
-	 +tOTaiJrS4ermx8WaaRHF9Qh2KFEnegckXf1Iw5jzmqh9aBgrlZkUaCdm892v83NZ4G01
-	 OgGhqQtfP1S7jz1uiCovqm6qZVpRqEPXLzW6VCKacacNKEThYXR4xhRicosvMcgNDeiMj
-	 atB/b+vGqbrSUBryBtNTra+R5VP17VX5vpOkmkQj6ZZlnDIc93SWZPBwiH0xLqPzxmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829413;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=2Wj+yn8QlQUflfZuSQzQHgoH1oSaK3NVTLidTi2Td/o=;
+	b=i1Y/58CwyUoKhXRmMOHBqFkrwJg9yIdvCD9eqr1f5GhtIPEFrTxC9GYx87ma/Ydb4nK+
+	 Nq5HsPkE61t9EU2k2+umg3SKu8vfYHrWm+iYaovav9NksHhq2kWY4e2846tJxGLkBl9sb
+	 AO9ijK1VMx9DRDDnLQwsVVd6uzFik/XVjSgSYugrwtOBjiZ/eRYxViGEEvRV9G1DxV8lm
+	 0lrAa4OknEMK042KP+IMKXaQhTA6YdbSb/MhJ+hbyX87nE8/n4h3LYY2x42mJWP7Me8NB
+	 jEf8S61tDm57CzEVrUSCtxLN2P+B2l/1GH3YJkv/yQAUcfCG0tAiepd8sXyf1hyznTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sg23jUiE;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="KgYj/ayv";
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E0A606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:43:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E0A606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476FF606A32F;
+	Mon, 16 Nov 2026 11:43:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 476FF606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sg23jUiE
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b1535be329so2460895a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:43:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794829408; x=1795434208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KTQjOLscv7pBRUr3IFndTok2cp32yKjgkssaNhdisLI=;
-        b=Sg23jUiEtSUhNxETJE0Xvi1ElvGviFGzaUVdNxH50arx87z28doyXl7c88creDnFoI
-         RehL4ICNvs2NxeSLF9mjDOJlC+anDPzczR4hWhFa70j/XfGpd4vyMaD4532rrj1IRZE6
-         iyRwD+xFh17fD7ZDjuX5zrhB7Ptqmgbovqrcbup1K9FLRMSXkQ/oamJEQWc/jN0PAuar
-         yAoyLI4b2zFDBDqhauhw1xmkQ/SV1BhGeVDFqOjQWllik1EvfAwlg+2wXc7nxUY5vpCw
-         vDSvcfxPPp5nev4F800QhzTJqzgGZbISfGafkKZubaZ4zoIAaZ/TfjS92foHKkcCqt/4
-         nvgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794829408; x=1795434208;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KTQjOLscv7pBRUr3IFndTok2cp32yKjgkssaNhdisLI=;
-        b=HbUigzn8FaZXnbeI2ipYOK6LxpQLMCyG5QTuEutztfblF697k/RLtEpviLEEyqVZd6
-         TJmTWphVwEQMR4e3aD1lnxhU7mdksIOE2nNnJQOVI8aOTqKqLDDKdsouDTDna4TIXN/Q
-         1ZU/gph9YtQzPNXD76LgppMjzm+1Q/EwgELULOIBz6/wNUl3GDAJn3/0oJxCZkJTeChu
-         lTJm5oLWZQeZnjhcC8cy5UOWRMYNfzGTnPMEFcn8xjmcD3CmnKAyUqblEVLYMuNZ7ePC
-         PYoZL4fLtpcko32LgSCq7RTpzhW04uQpe2NpgFPLKHNMAiJGknjOLu70PnPq4u9C5b+2
-         WbZA==
-X-Forwarded-Encrypted: i=1; AL+hErHtI6bbuQSp32aw6SA0dZ+lz9xMj3Bh3L1NoPbBL/ljl7ROx/uEuy2fqKISDLojA+83NIEW3rYmCVPXskc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9C272sFpRfobXkfnKet1IsEqK17aEySCRO1N3bXcT68pR2rsdy
-	ZJZDx/5yD5JMeehxg/9M9JeiGy1rlJwHzhKKNqk1sfim/e4A3IhhHD4V
-X-Gm-Gg: AZFdTZcJSY+V5VBLfV3bRe6PD9LAdn0XDoejHhEDfGQ4h1hrTPnZp/5B0r5OZKkugHH
-	Vsn0OldOWmU8tjdPUoMzlTopOnJ0Q94JY7V1sTbBL5MFsBVlJ0LpfX9Xun+7pFuPZkLEXezi+BB
-	b5cgQK7MpKOyRSBCI8/BhU5ARAJ3ygHW2SQPxUhEUEd+uXUpfLToa98u6ZkNgOx6TXKijrfEE76
-	CE7+9QFbiamr308OsLrQVObMCo6nmU5yZVHIGtGDMBD+vQlBXVWZtHCRroUkNRh1mYSsv0SO60e
-	7Fx0ALQCNfvG2yDdPWfGNsQmPVeXRg6FOFk9WcJtEpASeRIK30O5kmEZVV7SP/1kem8nFFcBnrK
-	HFrSmKQZ+m0QEXtLUkXsTqbepKLxdk+fLZYjEOsjXWOgHE7eYvP/WN0jfk+QR71Lypj/NKPu8Hi
-	khNFB6ZHOmrcIws5BgsWaZu+Cx3Ao54hFRnFgadLycZ69kuZShmijkyYA/JizM0qPe4NgXZYsHq
-	w8e8EDWiOvPFTAndC/MEXH7jV70A06pgnJSAZF+wLIPDTCa3cLou0e/ihzMlZ696kHrLOX9Sbvt
-	F/dg97re9Kq5kmxE7yVId0vkoul/DYh2BrhBH30HjH04hfVcw+koZTjsuiLPZ7ApLxJfDcFiCQ=
-	=
-X-Received: by 2002:a17:90b:49:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3b1b081bbd8mr9740865a91.7.1794829407614;
-        Mon, 16 Nov 2026 03:43:27 -0800 (PST)
-Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1baaafdadsm14089519a91.13.2026.11.16.03.43.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:43:27 -0800 (PST)
-From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH 0/3] media: atomisp: remove unused functions
-Date: Mon, 16 Nov 2026 11:42:42 +0000
-Message-ID: <20261116114250.6587-1-chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KgYj/ayv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794829413; x=1826365413;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lBUzR8jSNFcECeOX/ponr8buD5Qli9Oi1aoxol1EQ0M=;
+  b=KgYj/ayvKgAuooITZwGTWq337Mu4/IGSihjOheb1WCfpdljYHehJl7vU
+   enBNh/On34zC1uAY3eCYSmz0LpA8cHO6lIrv3w9I1uLYn/wWDhrS8DY46
+   Rl9Lwdw1Ia0R9K0e1uZDpoL8RBJqT8LUa98UyyC/kS6gYRw/jxXgGM5wf
+   jK6SXjPMbt0PhJxy1zHXBZxPNC3UMF/TedO6rLnfD1JjEeezwm79R814G
+   gHlYJ8dwGr+YGhnH0ROdsg71f8M1HafMcmHo7O32rxUzwtioF8X+9DAs/
+   AZI+BHljI1TsSV0PJQMmGQBxEHcxkLFWHwXPK6T86g385eA749hdF1DRm
+   g==;
+X-CSE-ConnectionGUID: 3DWmaOhRSMOukomHyspUGA==
+X-CSE-MsgGUID: rKAsUs8UT3+SQzXnkQqpdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3591793"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3591793"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:43:32 -0800
+X-CSE-ConnectionGUID: NoyjPf8gS86H7Pja39udXA==
+X-CSE-MsgGUID: B5k3/gSbQOOmvdemGtUKaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="11421176"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:43:30 -0800
+Date: Mon, 16 Nov 2026 13:43:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Stuart Hayes <stuart.w.hayes@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Doug Warzecha <Douglas_Warzecha@dell.com>,
+	Andrew Morton <akpm@osdl.org>, platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] platform/x86: dell: dcdbas: Validate the WSMT buffer
+ description
+Message-ID: <avrsX3FsTveIu8fJ@ashevche-desk.local>
+References: <cover.1794633178.git.rosenp@gmail.com>
+ <e2f8ce920d1fe503bf8b506f3cea2a0b72187261.1794633178.git.rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,27 +84,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e2f8ce920d1fe503bf8b506f3cea2a0b72187261.1794633178.git.rosenp@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-These three functions have no callers anywhere in the tree. Remove
-them along with their declarations.
+On Fri, Nov 13, 2026 at 10:17:57PM -0800, Rosen Penev wrote:
+> dcdbas_check_wsmt() takes the address and size of the firmware SMI
+> buffer from an SMBIOS OEM string or from an EPS table in the BIOS area,
+> and sets
+> 
+> 	smi_buf.size = remap_size - 8;
+> 	max_smi_data_buf_size = smi_buf.size;
+> 
+> without checking that remap_size is larger than the 8 byte semaphore.
+> An OEM string such as "30[addr;0]" or an EPS table with
+> num_of_4k_pages == 0 makes the size wrap to almost 2^64, and smi_data
+> reads and writes can then access memory well past the mapping.
+> 
+> check_eps_table() also accepts a table with length 0, since the
+> checksum of zero bytes is zero, and then trusts the rest of it.
+> 
+> Reject buffers of 8 bytes or less, and EPS tables shorter than
+> struct smm_eps_table.
 
-Found via a tree-wide search for functions whose name appears only in
-their definition and prototype, and compile-tested under allmodconfig.
+Are they real or just based on the code reading?
 
-Avishek Chaulagain (3):
-  media: atomisp: Remove unused any_virq_signal()
-  media: atomisp: Remove unused get_sp_code_addr()
-  media: atomisp: Remove unused hmm_flush()
+> Fixes: 12c956c4f32e ("firmware: dcdbas: Add support for WSMT ACPI table")
+> Fixes: 47a94c551a74 ("platform/x86: dcdbas: Check SMBIOS for protected buffer address")
 
- drivers/staging/media/atomisp/include/hmm/hmm.h           | 1 -
- .../media/atomisp/pci/hive_isp_css_common/host/irq.c      | 8 --------
- .../atomisp/pci/hive_isp_css_include/host/irq_public.h    | 1 -
- drivers/staging/media/atomisp/pci/hmm/hmm.c               | 5 -----
- .../atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h  | 1 -
- .../staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c | 5 -----
- 6 files changed, 21 deletions(-)
+If they are only based on the code reading, I would drop these fixes tags and
+make commit message to sound that it's hardening of the existing code.
+
+...
+
+> +	/* The first 8 bytes are a semaphore, so there must be room after them */
+> +	if (remap_size <= 8) {
+
+Why '=' is here? We probably should rely on memremap() to complain on 0 length.
+
+> +		dev_warn(&dcdbas_pdev->dev, "found WSMT, but buffer size %llu is too small\n",
+> +			 remap_size);
+> +		return -EINVAL;
+> +	}
+
 
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
