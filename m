@@ -1,103 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.25
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794861400;
-	b=X/nFg7ceqSK74sQ3jlGm82CoBuXTaEf726cKA2J+M9AIvQ0GJaFKwL48H93EWy7RBZZ0
-	 LqA76DsOkcua3NWQQV2Z+AlNZ6/NZmz7v0/5v9HVV9CDgSEJf+g42oGncyD0qfyL7esWH
-	 r15UwWrFYpGRVGOOzyUMyFFOKvNxHAkr/qtfhLSTnjNoJaCPVuZaGWHFDIHSli45MmTfM
-	 YGa5caIkwRg46oyaTpxyIioMgXJt6Zxm3h/iGwpU4HLi0cI0o2nQJ6E+Ot+gfz70rVCPH
-	 6tC7KhDIrAZGDw74E6wGQotsnlS2kSwpsGh7r6x6B2MzUSsg7GFC0s1+DZuNogLHEZw==
+	t=1794861403;
+	b=FtjSReaW4vX/dMDYgWodC4NpA6wWdUyJj7RiO16tEiANijaATfJVXSLHnitEEZEjKqiU
+	 e+RxIyRmIKTnefuYffvTnOib5KxRrwvRn7ghli6Pu2CqcNQUKpY8s+EVVuDDNcfnGaLNT
+	 qWE6FO3x7CufrBA2houoLpOnRutbPuxBxQHCzfS9+42/twiNYUiOat5YNWYcz4pXP7bvm
+	 CABxGRrfjrZ2/ViqhCT0TEeXcQp52hG40SqAxIbS75zFtcifxHpqXyedTjCrEcBG5yIV1
+	 mH6bg0V4C/X1Q4bmd5Yj7Fn0i2Tdljxkpml8LVwSA5M3pqRK3wDbGXTcsf7wzMX9S6g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861400;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861403;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sX+v9G6hzaLjMmMn9k3h5RvzSsVbDIu4YJr4hJXYi+g=;
-	b=CGioUpai7jvklCMYBYMtbbWBLsGqDLYiLEyA3VtgBADhWj3ZyswqgZ6bQegLINGyHzai
-	 wVsgdT1F7EXBWhVzcZ8VnAv+Prm9wNkE8ZzqjIptl1VrBnYFMl/Rje5HnxxzhKPHO3azV
-	 RHW77PS8oNkR6vpBl7igirX+bfTEITjwziQkOnniICiVgj0FbxyGovRtRHV+InXtDBnep
-	 aHW7DMFXWQ1ps8O8qPlpMBFC3YpR9ItjJxA/Os8uzE92A6YfWCUFroSsJhXZn+2Co1pqM
-	 0etrqJsC59KRssI4XBxgwFdeFQfbL4+R3moOP7Q5t4NkB7yfvr//rk5FALVmJ7w9P6w==
+	bh=eeZOPO3QLfvWLA8CHiJx3zwNTnETF1XOOEPEFdBmXsM=;
+	b=hdX7T2MH/3w2ziNQtDdy2XodL9wRs+eyBsYWJCn2ZC5h0BGGSY+gFoTq3aYfZaKy2dgv
+	 pLPvr/DhdIfwxzGQDAkn31j+5Yyzl0ci4i4NnzvD324v4xzuDjCr/Cq/AoEA1cpbZrSpT
+	 d13Ihhn84uEXzxBrcu8+inCr3XTEAPkKchtR+DEAZw2c8ccO+56hKz6UtHej3vHp2T9Kr
+	 dpnYKSJisW5qPFBWzY59oBrpyqxnL4vednOCC1zzCXK2O90xhl6dRi95ybW8TrCwdqE9s
+	 JM5MypCNWaofJQgPVLDGo7aik1SUJKPz31+uqXkFfFF2cCMsBAPxEDB4hD3K6QNzEXA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=SzeQyD72;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.25
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=z0VoxvvV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.20
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012020.outbound.protection.outlook.com [40.107.200.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE31B606A882;
-	Mon, 16 Nov 2026 20:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE31B606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD9A606A33E;
+	Mon, 16 Nov 2026 20:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD9A606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=SzeQyD72
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=z0VoxvvV
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vbv97SYqw8cG1PBQXxSPaHJOJEKaEB4KqkdyyV4UChcLzfy/mmw8jHOVVOwGDYvPDAmc/0VlYsnJ1EI/B36T7+ZQvw4FkTg8+Xs7cngNLdaacjtTODBgN6W3aHVfGFuLic2lUVHSKWCnVpvYDbWzR6cAIOLoFaQE+QHe9R8SPaIHtgfhEJ/Hi/WDyUYqS9D1fib5y2GF5/hvW6WGhHTH9yXFEz6Sf/IDhkyvpRYNfjL1FP+NExn++RcBVRqPtS6vqocDNLTb+UdhpQoIVUIms5LCrmkl9UwZggsGUTwnR3D1m2lW1PzPTuBFRIXERGVbppqsQmibbJnKuDzRsKkvDQ==
+ b=UDv8T8hKUaoBXJDZbsXWXT2jnpJoSz3Pnsiin3uZpH8/zNYUwptWuqsaDY7oaMTB7DJRhvghK8SDqUlRVajMzs3wJbD3BjxgnxMk8vU9nFz0+CPtVVsZH2UZs1gz3jhBhguyM5TQFs5f9sfIYqPV5t9RSM+P3G6ew5Vky1sQHRH+VUVI/mvFWK1DjC5qBnKJsrFUmS1JpnSXQS79U7U9xZCbsT2M8r1w5BUUU0bcBOUDSwilUCdt6x1tmhHFltpUkdHdijflFY03Iw7gPVtMKbOgRNyBjtL7Ozc+okUl5lOSAK6vwldOvEMpw2bebuOFsHqE0zcTYjX7NF6zwiLrqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sX+v9G6hzaLjMmMn9k3h5RvzSsVbDIu4YJr4hJXYi+g=;
- b=GxwGqf66MNUTaLWq9+STScKmA7J/y1NZhkpQOvPTauLBKutNCs2dXJd0LHeLmxE3ByOwwdC9tuN/FOU8SJxasc9eDquEcqn1gQyHHh8IiwgclHJmlqfS2iaSUr2Ej7DLp9oh+XbmwC4ThBN40YMLXB8zQTbc6OlwFJxUEUMgaj6KtZOysAbcizAZoN5eWD9dObuxtSOOVIE57Qod13GErMzVF+jOCrjFN+7FoHGB4j7CuZA5w1gBQAXFNstdz22NXDt41KInjss3lepqIxjU6qDM6J+GhgmNRrB9ug/nGr2GImz/WmLVtORS0E9M4q0oVkC6h+gs/b4CYsWYtRDVvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=eeZOPO3QLfvWLA8CHiJx3zwNTnETF1XOOEPEFdBmXsM=;
+ b=aijQb12pxIOoFLH62LWo60FG+xFiXXJCo/2G+JSh9/nd2dZjF+8PJ6vGATM4UnLUtHrQUNaraMIc+OZzcxN5myKCRpzg13+fnt6H4a9/aFLc9nCLlzGQQZ8ysxsoq2qirLWclK9vjUeg992ibQEmR/tY+RszYYL82eS7PDytW7Dct1+uAOinBBETcD2KAIE2aCMjSPMXXZME0S48WZ2rj1OqxOZ2HEhcRgXrbVuqs+SP5ItfUwp9PDfCxJ93xeODoQ+SRPVJY/UENHnol1uLCBYcfY11/0NUg03lQhcYakBJmW2KUBBBY7+RzWkwhaBhC6c0N8O5nK1jad6cqgOasQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gondor.apana.org.au smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sX+v9G6hzaLjMmMn9k3h5RvzSsVbDIu4YJr4hJXYi+g=;
- b=SzeQyD72WjFp5Kit+8KIKQ7g70CiliBUk3x8dKuxDjeBYURRvbRWKi1OEcpHN/doVvlQC77f3pQXpmme9lMPJVVj38nxE4CtS9iB/sJTrP6A7mgRcrCx8pHCeoq7ELa7MGNtacPfDxy4BCE3SIpAjK56t3y4LmTq9H529WqbibeU2cUVtE5jx7Q+OYPOa3FoaT2VxehGMgFBl9EuefnhQ57TWCNcHD+C96eqhavRgQQnQMV5/uZtQA19Tcy2Esh7SAPmOnwsn0urDvPbxoLDuW6/2lpuaTW71W43PTcAnucUjAr5i2H5T5Sb/iN8byketJ0HwIez2AMWl88TcJ/lxQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by MIWPR04MB272002.eurprd04.prod.outlook.com (2603:10a6:290:e8::11) with
+ bh=eeZOPO3QLfvWLA8CHiJx3zwNTnETF1XOOEPEFdBmXsM=;
+ b=z0VoxvvVZc9IBUEZ+QtRD361Fmbbe9N00+oBJL/ro71EiXqy+/JNb5SvaQ04ovybE+nMYaKloKSxUt8tu6+EIBNpfMJbT6/U4qcMS+bX7wrONiOn1NfIdLBJaQ91b+tu5xyYbeVbbrKCZPoC4ZdzNUEO36fga86xb2JijfEoQeY=
+Received: from BYAPR21CA0029.namprd21.prod.outlook.com (2603:10b6:a03:114::39)
+ by IA1PR12MB6209.namprd12.prod.outlook.com (2603:10b6:208:3e7::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:36:36 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:36:36 +0000
-Date: Mon, 16 Nov 2026 14:36:25 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Golla Nagendra <nagendra.golla@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Harini Katakam <harini.katakam@amd.com>,
-	Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Abin Joseph <abin.joseph@amd.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, git@amd.com
-Subject: Re: [PATCH v5 4/4] dmaengine: zynqmp_dma: Add per-channel reset
- support
-Message-ID: <avtpSXEdyeWpghqd@SMW015318>
-References: <20261106-adma_per_channel_reset_v5-v5-0-f9990669362f@amd.com>
- <20261106-adma_per_channel_reset_v5-v5-4-f9990669362f@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-adma_per_channel_reset_v5-v5-4-f9990669362f@amd.com>
-X-ClientProxiedBy: PH0PR07CA0030.namprd07.prod.outlook.com
- (2603:10b6:510:5::35) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 20:36:35 +0000
+Received: from SJ1PEPF00002320.namprd03.prod.outlook.com
+ (2603:10b6:a03:114:cafe::af) by BYAPR21CA0029.outlook.office365.com
+ (2603:10b6:a03:114::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Mon, 16
+ Nov 2026 20:36:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002320.mail.protection.outlook.com (10.167.242.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 20:36:32 +0000
+Received: from dryer.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 14:36:31 -0600
+From: Kim Phillips <kim.phillips@amd.com>
+To: <kim.phillips@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, Herbert Xu
+	<herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
+	"Rijo Thomas" <Rijo-john.Thomas@amd.com>, Mario Limonciello
+	<mario.limonciello@amd.com>
+CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Sashiko
+	<sashiko-bot@kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH v2] crypto: ccp - unwind PSP sub-devices on partial psp_init() failure
+Date: Mon, 16 Nov 2026 14:36:22 -0600
+Message-ID: <20261116203622.615371-1-kim.phillips@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,116 +107,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MIWPR04MB272002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f9ab412-5571-413e-3136-08df44214f44
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002320:EE_|IA1PR12MB6209:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d09d3e1-5780-4955-0e61-08df44214d08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261022075727099003|261021121427099003|261026140227099003|261021123027099003|261022105027099003|261102123227099003|261028144727099003|261009223027099003|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|261022105027099003|10067099003|11063799006|56012099006|261021123027099003|261009221227099003|261021121427099003|261009223027099003|261026140227099003|261102123227099003|261026121527099003|261028144727099003|18002099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	XqfeV3KF5nykoBqm49lcMYmoUmewJi6q5g50i6Nas1gf2HbGzdubEmWjXuCDBYxHro1XpJA+Bo+BoooubDmJPsuj8r/5dFWOUEewFgo2qNti7VFs07j6okRW0Cp0Jl0gqX7N0S6PBFTM0vMhtfjHKBRghq+kZYLeEEeW33ShEdbRjZRZIuPAPmH8H1m7VgqadVIcGxdJXqr69ihMbOjBVelbf76IgvgUQXCGvfSyDOlSYLTq2P4PsUQP+7J6H7Bk6dtNDv61GgGAzlm9YoBE5q8D/kcKos7bT2TbWM4sDdz2IjwU9yrI9lNvc/KtqWkpObOQ5O0t3pYwJlYbpcx92hbNL5Ay7+EdxQNHgFJk8QMiBNNFMkuBLOzncYbhoDchVEpPnl7XjHJc2nUILdhAO1EPd38ewF5T55+Mam4Kv0p0squrnqL2IDtgJviEhJwzmvI7jD1ocsDLB7kT5GWVeV5YJwBI4z5QRZOiH8huw7G3XypBRbP07dFsWJvVdzSHSj0O+ykfTC+cJbfcldG3jGewdQxsdlAt+jwuD//kIYHyJRfcT+woPTEAQUaLLPrOucR7nbf5qrFHrgIQ7pxEnjd0IUb+SdS2Zf2EsAxwhDDYJloDF/4ZIJCeGUKqH8THFN6IE9vN53Y6ekEH/zFr2TZSsTXvzdl5YD0UFolt5YM=
+	6IkEuJCr7I00dAy/CDXk8JTNZ1Fo4+S1ioYJ+iJln1LE7kg/risYLPnXLU4xiiLM/tVWRvvzZp1t2uZrbGgT15ncsWI9t9bU5iOnv9uDyo24O2XTHwb9Z6M8XNxy52v8KiaUQDXeV2zRrdI+v/ZqlYf8z09zplTZ8fMDrMVyxP8Ak0UVAjzfKruXdzvHcNjwCLz/sw/J83Aq6DLzn9zOBj/Z8u3fxaIM6eeOcFQvApGGAzwT4naiVxSxIa/s83PS3WMm5wxRps9NeATW4Yi05jPnEGx6MXrkjsEw8EnpVxkeoVSdnTAo19inF9o46x4eD6nWFoyo5+6R0T1dIlaGrs5q4v3y/ZfK2T6ZhZxBr3OQ+potYIq2MBz2Py1WhGE02b1pktd5L82jJCoiMtPtWnimzLC5qPr6bwsK0DxTnOO9cm1QG3GVPypgQ8ms1fNYvy7AdWg7ShpEhj38JB6pj+ntOnTWBAdjT2Cpa6pK0D20dROab+j8wQoLD+rGRovaGGHwHafyvVYVjYN29HWfanY7vmZ+M7A68/A5tOxykfC2+Ricon756588n+NtpeccLMenAuEGoZ1pxPjxbSb3z+gI+zjrNhVL2wYEjsq3Y9EdSPfh2PE1c0IF3YxQpwuI25zM2bZytgLJV/fuPOCu+g==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261021121427099003)(261026140227099003)(261021123027099003)(261022105027099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(261022105027099003)(10067099003)(11063799006)(56012099006)(261021123027099003)(261009221227099003)(261021121427099003)(261009223027099003)(261026140227099003)(261102123227099003)(261026121527099003)(261028144727099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AplyKB7MV4FbcM5xlZwMVwxCjNOxJzeFJUeBeSbPMMb8owEn5lpRGPsrneMM?=
- =?us-ascii?Q?v7i36tV1Pk8z1KVqLZcCFNUCyPddHY1H9XVRywSrL0dmgJboq6i1MbgdQ8qu?=
- =?us-ascii?Q?k9AA0FFKKE/vpjcUGCuM87ldwmbg7wMIfUMjT3cwI9egF8J07CkpUfLUazQQ?=
- =?us-ascii?Q?QIrhwhEHFobks1ibNt9gnEPIVY+aZE8ttFploDvUxAHfNvlxIPBDCoGitTEC?=
- =?us-ascii?Q?E/ziXHNU3vDi5tvrhW83+mYgbitFnTh8EcwrJOCVMfjUglDIc89MwBwdIuPd?=
- =?us-ascii?Q?DYWDVFe/gxbszb0emmH6reGSaaOAvYi9NqxIQ4uJXL+YMnfAjSiidnLJZC72?=
- =?us-ascii?Q?J9M0mrQX5iR2VUBFVLZdT3+xw6Plgr/BqcOgUGfcxwAmVw78tZOnmNiOijYz?=
- =?us-ascii?Q?VmNxeIsZPRtCr8Z0fuCvyHA4xvUXuJQVvKUjEU4nI7Lxq1ZrJjuqxApTiSGs?=
- =?us-ascii?Q?TZh1mx0Tfy/Hg6+ZPAuhBXJp1+PZqBQ9llvS5Ayf7dk6Ng0akuDajpElIYKg?=
- =?us-ascii?Q?SZeWonowafX8E7b2acT1/gHIMR2Rgnc71EU+VIdD/x67IsRb56OZf43WUanG?=
- =?us-ascii?Q?1VP01zzaV1v0WCd2RBPdYWQlynKXNCVtS7EcOSpkCfAEImxP4UuER9zHRzn1?=
- =?us-ascii?Q?YBtPJaoSLM6q7mFMrIpTK+JJ1reqFiAtVKlvg9XmMZhxvlNbzyGo3peIid8a?=
- =?us-ascii?Q?HHsZFch7d1p6497Uue4tivROplco98s5vXn1LIgxA7kksua0xdiqsjvS/z3m?=
- =?us-ascii?Q?kpPTmpN3RMWl4fqg22n9zXhLrOywwLHK2lnaAnoe6kX11g3dL+ziVpXoS4K3?=
- =?us-ascii?Q?KDi58WD2qkUyTWQ3A8CsbchFTKfssvYgV9tthZLGEeGTXeeLTQm7tOhxaEiw?=
- =?us-ascii?Q?yr0h+OEH3BOSyCL7YEg95Rb4aAk5MeqqrEEsreQKo/wgARbmUoLzHLeAr2R2?=
- =?us-ascii?Q?Kyqd6vP4QQhUQIg0OU63Ql8abXQAfl2yexVHUmZAaLkj0p7ccu8Tg4E4P8cq?=
- =?us-ascii?Q?SENSjGcAAoyM0Nb0TwAV7vdRQi8lAp4BQZnOwiLkkbnBaBZ1D7GQsPT8Kytv?=
- =?us-ascii?Q?3G5rrnyaueVtdexWLBTJ12scEjEGmvY7lStrLHidR21GlRV5ThEgqXTzk6fG?=
- =?us-ascii?Q?jZr49lh/QUeExOp5lInjFZZtdNkXyq58rZAbHqwSevtsZ3J7FO4uDrF6d8av?=
- =?us-ascii?Q?bo7hdfjJTGMzltarz5b43tf70Mq7s1uc6j0J49f+88xz1FLkx/VLhzG3MX/j?=
- =?us-ascii?Q?OzO2JCXqyEq92Wr6tFitD19LC4S7HKal5Jvn48ruHgulDmUKj+vEXlepKVg4?=
- =?us-ascii?Q?ZsVFZLr7Dz2T3ctJXAj5OG0eXjBMsFQ0qV4DlUPWQy99WWk9uJTbCsLWrEq6?=
- =?us-ascii?Q?j1HPZeOs2+K7Vczrs4MPsVf1SlXOnz0eEnqADkwGqR0dDnuqwcTRDJ+mcgor?=
- =?us-ascii?Q?tORaKl2286KEgeg3GAevlq2RN6cGc4eSikwTDEu2ie/sUCVJjogT/25L6whr?=
- =?us-ascii?Q?FY0rGuqrfSbna4OHyStxC3H1Xnb424k50yTnQ6IcQgzSZHfZGUpyimnV1062?=
- =?us-ascii?Q?uswMTZW0f+/zyUnF7dfar0kSqTNpMYthsz7IadjaDupUsHBo0+mNm2rQD7yd?=
- =?us-ascii?Q?qzMLBCgTh11Jr/443viLV75b27Ukw3h5doEhZdQT0qBZ64Ygrhp1OxUjMQkP?=
- =?us-ascii?Q?ai4NUlulSxmrxeUpxnu4TKEuxYeVKOunLaqFkZwk6mr0CO5p2czvmSUTifnZ?=
- =?us-ascii?Q?juyMD03kZ4DiFjLiHcDesHKXcDGvul08U2GFnedqVfKI6U1jsq7f?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f9ab412-5571-413e-3136-08df44214f44
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:36:36.6510
+	sIPgZsKkkZ7UalOtI9jiZxdhDyEDeCKajNwfnuncbO+YnxfM8vMzO0iPHXcIUnfwRgbF7YfNGVhhJQ9tn98rMxdGAtyv3NmUjXiA5RjA2K7HW2EgxpOs8bxnFjgzw+e5udHSsyfuQJbCTsgLW5vtpfmKGDlaHI14EBzMVSUgQyPvt1CzRIU0oKXlrqPBiYKeyk9u7THk+O04VMzl4g0BI9O8vlSjUndxUypNsqHI239GUYRk9o5tA/+tb57jXvCp2sk9nuIx9Fjaoxd1k2xuR3WZ7sjmrTgqD6RJjyUD2JD+h3Lb0dFzBx3GPKLMj20qvUpOnw430LY/fNAAnwXLVrheWc0g4jL199jQXygImvndKgUEv0b2cZzVpGfUbwoZfKV6VbrkGp/Zgf8BZj9OdP9WEuUCIuOtcC9hwVIlomRBgQzEgaiIUkI8awXu8tzt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:36:32.5885
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zf3/kqePPboCzBgZycjJ1XiHM9XxxpGb0mXo+UV3f84GqJgejp95S3lZGnXCFlcy5VbE59GcWKFVcst7DITb+WzNVRxV1zuYRjYan9hU4ToAG2Ziq9OyoTUKz3269BeG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MIWPR04MB272002
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d09d3e1-5780-4955-0e61-08df44214d08
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002320.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6209
 
-On Fri, Nov 06, 2026 at 03:40:26PM +0530, Golla Nagendra wrote:
-> Versal Gen2 and Versal Net expose a dedicated reset line per ZDMA
-> channel. Trigger a reset pulse during probe using device_reset().
->
-> For Versal Net and Versal Gen2, reset is a required DT property, so
-> probe returns an error if the reset property is missing. For legacy
-> SoCs, the reset path is skipped.
->
-> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
-> ---
->  drivers/dma/xilinx/zynqmp_dma.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-> index cb0eb13f9b05..12696fa44c66 100644
-> --- a/drivers/dma/xilinx/zynqmp_dma.c
-> +++ b/drivers/dma/xilinx/zynqmp_dma.c
-> @@ -19,6 +19,7 @@
->  #include <linux/clk.h>
->  #include <linux/io-64-nonatomic-lo-hi.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
->
->  #include "../dmaengine.h"
->
-> @@ -937,6 +938,14 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
->  	if (IS_ERR(chan->regs))
->  		return PTR_ERR(chan->regs);
->
-> +	match_data = of_device_get_match_data(&pdev->dev);
-> +	if (match_data && match_data->has_reset) {
-> +		err = device_reset(&pdev->dev);
-> +		if (err)
-> +			return dev_err_probe(&pdev->dev, err,
-> +					     "failed to reset channel\n");
-> +	}
-> +
+psp_init() initializes sub-devices sequentially but returns immediately
+on the first failure, leaving earlier sub-devices registered. Its caller
+psp_dev_init() then sets sp->psp_data = NULL, so the later
+psp_dev_destroy() on unbind bails out early and never unregisters them.
 
-Use device_reset_optional() will simple code. Your binding already verify
-dts, needn't check again.
+Non-devm resources such as the /dev/sev and /dev/dbc character devices
+stay globally visible while their devm-allocated backing structures are
+freed by the driver core, giving a use-after-free if userspace opens the
+orphaned device.
 
-Frank
+Add reverse-order unwind labels to psp_init() so each sub-device is torn
+down before the error is propagated. Every *_dev_destroy() is already
+NULL-guarded on its own psp->*_data pointer, so skipped or unreached
+sub-devices are no-ops.
 
->  	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
->  	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
->  	chan->src_burst_len = ZYNQMP_DMA_MAX_SRC_BURST_LEN;
-> @@ -952,7 +961,6 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
->  		return -EINVAL;
->  	}
->
-> -	match_data = of_device_get_match_data(&pdev->dev);
->  	if (match_data)
->  		chan->irq_offset = match_data->offset;
->
->
-> --
-> 2.43.7
->
+sp_init() continues to ignore the psp_dev_init() return value on
+purpose: a PSP failure must not fail the probe, as the CCP can still
+initialize successfully.
+
+Fixes: 33960acccfbd ("crypto: ccp - add TEE support for Raven Ridge")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-0de87f0c-0f5a-4dad-8ef1-f49844eb4cce
+Cc: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: Rijo Thomas <Rijo-john.Thomas@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Kim Phillips <kim.phillips@amd.com>
+---
+v1: https://lore.kernel.org/linux-crypto/20261021215716.1076732-1-kim.phillips@amd.com/
+
+ drivers/crypto/ccp/psp-dev.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/crypto/ccp/psp-dev.c b/drivers/crypto/ccp/psp-dev.c
+index b14ce51065d5..3d9341c2876d 100644
+--- a/drivers/crypto/ccp/psp-dev.c
++++ b/drivers/crypto/ccp/psp-dev.c
+@@ -207,19 +207,19 @@ static int psp_init(struct psp_device *psp)
+ 	if (!psp_check_tee_support(psp)) {
+ 		ret = tee_dev_init(psp);
+ 		if (ret)
+-			return ret;
++			goto e_sev;
+ 	}
+ 
+ 	if (!psp_check_sfs_support(psp)) {
+ 		ret = sfs_dev_init(psp);
+ 		if (ret)
+-			return ret;
++			goto e_tee;
+ 	}
+ 
+ 	if (psp->vdata->platform_access) {
+ 		ret = platform_access_dev_init(psp);
+ 		if (ret)
+-			return ret;
++			goto e_sfs;
+ 	}
+ 
+ 	/* dbc must come after platform access as it tests the feature */
+@@ -227,15 +227,28 @@ static int psp_init(struct psp_device *psp)
+ 	    psp->capability.dbc_thru_ext) {
+ 		ret = dbc_dev_init(psp);
+ 		if (ret)
+-			return ret;
++			goto e_platform_access;
+ 	}
+ 
+ 	/* HSTI uses platform access on some systems. */
+ 	ret = psp_init_hsti(psp);
+ 	if (ret)
+-		return ret;
++		goto e_dbc;
+ 
+ 	return 0;
++
++e_dbc:
++	dbc_dev_destroy(psp);
++e_platform_access:
++	platform_access_dev_destroy(psp);
++e_sfs:
++	sfs_dev_destroy(psp);
++e_tee:
++	tee_dev_destroy(psp);
++e_sev:
++	sev_dev_destroy(psp);
++
++	return ret;
+ }
+ 
+ int psp_dev_init(struct sp_device *sp)
+
+base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
+-- 
+2.43.0
+
