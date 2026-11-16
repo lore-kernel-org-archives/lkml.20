@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855163;
-	b=kMW2CGJtAdEa7GJ6+2Ayk47afFgsWzwvZ1aHV47g6ei4FxOP4tfUJ3ObX/O5XbgE1aM1
-	 cvAg8dc2Nbl3KizwmucjYi6SivYrtDXwjtipZ0NFKxDitwMkNaivLfRxyLjYrhAQ0L2DT
-	 XZBg9V9EpDvlAgvG05zIYf8xKMknEiy0yp1tE8xJf+77i6wwl3+Bjz7l3q4ub9tAUQfwt
-	 YFTf+4wDzdItfrpM4nPb+y0pAjIkFiht5jUrfUKauTKUr770I131zTUGOawQieW6PWDOs
-	 Vccj7Gl/y6dMJSb0wwXU/u/1vmndmM6RL9RjFrlyXYpnt7qdOogvAVR8XeG9MxDhmcQ==
+	t=1794855164;
+	b=QF+Z6bwKCAqnmV94RrzNke2hiIlEuYbFW9muPQ69LVwSepVx8J3b/ZZKcBFDR9s99ekc
+	 PjI3oauPnmYL7G/6IJCqMq/jxTbcrY+QFGeYd94RhdWHh7Kyg0VNchA2xzPe6hxJZd3qz
+	 +I6wsenTj8I+yUQ4MCp2OgQ3BeLNzCPMcUMTDOcWkQ45eei3vcDCYLX6DboZo77HspN0u
+	 5TdcQaeRKzdsZgYj4NeEbyjLHCGHwUrs/2aiKJ6A12SM15PBXFPEY5BkG/QBplbYv58S6
+	 LrK6SEuGn0uJmfyi5Qw75qd2+N9HUDF1CvhBEvGnBMbcCjDLRZgrlmIzO36DBg7JE5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855163;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855164;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=+dkEPDVy0VHptq+I/g6JYGM++xkWiF4W9qF7n02UaTc=;
-	b=cAtDyA9SADMURM1Q+7EXBBKeB5dKIXuxkmWq20QS4E21gf0h3OWP8ypACv4VXughkmXN
-	 JjOOD0fSIytIPlwgMOajrXMwGfM0fYPhiq2goKTubs0otLVyELAyzjgjpZNigfu9fzHlh
-	 tPJ9foLZpVCx7pKS4N0sEel7lFLdNBJyfYi45cSKV4YS7h/jvpFCAdodMJ+qKA8czO91g
-	 HsimdQdQhPcvXKVnPAvRHVtGDC0hEWNcDlKZp4kqE+inkKLv1kbf55pOk5/blIDoNoD0f
-	 fqt4IITfdf0AfjauIuwhtxeyA1xA9E1//Nw4qQuibsBjxWQUX9AmQENmZjDFHFTwh9w==
+	bh=TJT4CBUbgD3xpezjgv+AsgOQys6XK1VUjumYM2wegeg=;
+	b=dMDJqZrgwLXyUD/GSmOajG2rIdEHs3QiJfLNXPVUWrbbHND9PBSYheqZ/bV+1fJWp+5P
+	 t3021LO0eapZVRGOmUbTaK2nTQXIgHv9cZFSyor20VWFZlqlclWgIpMABecbazCzzuNXS
+	 3IL4dGyzlOO4LT02ZMTBdb5mQduNDQWvAQ4UD5ELa+hhL+Ivg2/hXxDNrnQW1yhrqUqxA
+	 fHa2ZVVz6YcoX19p/DZpIArU8d75bdDxluKJPgJKzpIcA8+1J7s4TUUNvQGpGPxn/5YOQ
+	 THWChFdYdH4thNv3fh2Zmmj0Lb+cPkQZlm7FYnRAIPvpRAK3GasbD7+pBo5eNG7aggg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=je3WgVDS;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyLQ5Mgj;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDB2606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9691606A881
 	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:52:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BDB2606A888
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9691606A881
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=je3WgVDS
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so13804505e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:52:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyLQ5Mgj
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso24277235e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:52:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1794855162; x=1795459962; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+dkEPDVy0VHptq+I/g6JYGM++xkWiF4W9qF7n02UaTc=;
-        b=je3WgVDSzPP+yBl/FMyb5Ls3+qgwG4uKtiS8DhxigkQc1CiUz+8iqXekwQC9Nqc/Ly
-         J2Bh18ffkWFwmRFKjBu7wWkzXLqG284ER6IKGK+u4vi7odV1Jh4XWOGhF3bVN7DxOtRV
-         ybyhbxyMtoWl+Z+TxjjkNYt1EjFPWXSfkdlwmMZOqUtCjLv2/8YTei5FAlLJyz9bR2bd
-         ylSgkZc5DR/x5odsUu9sBA25XDkTZz0iFRPz0HrZeiMfFRXw/6dGdXbIsVazO55fxJRu
-         6f7WRlvGUBS3C+Rm06LrcaX2MC7JBL4/YyH8w6ihqgS+1WMhP/R9HLEprti2QkINEJ+4
-         17Cw==
+        bh=TJT4CBUbgD3xpezjgv+AsgOQys6XK1VUjumYM2wegeg=;
+        b=wyLQ5MgjxjsoQtM0gPvPL1Skkd0515VBuf3ATX7cSVOFqv7lRiIcZc7BgwfE0sTMaO
+         /t9N07vlpHHy+HJmr02ctplUm7MZXxDS2snEKADzh2UmP6NBAAPVGGm/f8C5fYwaPNnN
+         c2/ra2Ae/RiXgOWDUfc4ZN9jT8lfV9QfcCalHEQAADMZ9to500NgLfILGRrLQE2I5+RN
+         g4BZ/9sz4SVqB8Sb7xFgNDpxsTZuwdxsHegUN81spoQjGmmRG712Ajmwuku89CAIdq0J
+         6ymsuil6hEUD2qKazE/KPFYcB7iVeLz3wGu1E2HEJ37ml1QAxhm6dFxv7za9F5mTUtq4
+         Pq7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794855162; x=1795459962;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+dkEPDVy0VHptq+I/g6JYGM++xkWiF4W9qF7n02UaTc=;
-        b=H2wqwsyEX8p9i09Ta/fQL7OmkSWu6dDlBeF6hnBPJ2q4UI9dB8aUDqStlmLaICWd6R
-         Hh1rkvcvXeNP6BCtm82rDY3GkgiPT+XoYgxfUqKyiZWKHPvb+ZZV2akGkNYG2hB5/V1M
-         pptbTjDQhpTe4tui5BuJNeJue4Al4LBO4Otp/15oy17o8v2ktT+QE4CwfBmgZP1J/lRU
-         jaLoGIcY4VL65J30choOkY4vBtxYhTk89WhQa1hrgEiA9QiYmzSs9+FEpq1y7RJChLku
-         8cUNLnY7MHa4O32rNJZ0/H55rfQ2N+IldRCRfQWJBZ+tlqIk4EewxRccku8gTrO6HZXT
-         mNLg==
-X-Forwarded-Encrypted: i=1; AL+hErET0I/z54n9uDWhgPXIfA8cieolGTiLXu+eYtlXeSlEpwb4n4EMvbAhDf6v2k4jY/Pt3w69AKRFAhA6Ow0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2tVcYAPKjeaxLqc06mZMK5qYyp7sUw/oQpau9swb22ZjfLCID
-	pwcaGw63WgaLs+9RI2LQsPwRwx4p94anaEHNAIENiRXnsB30m1gDP7lEe8cZ4g==
-X-Gm-Gg: AYBFou016trvmhD7iUM16Y1I9iAlIHnreMNj/jfeTP/wSZA2bYJ7pm3dKYYlRVFbe3W
-	+rsup/0PFOW/AycEPTMmrkma97BowvNI3FUTEyLze/weLOfjR+ctMb3jtaeXa9B2/fUW5hmMZZ9
-	iN19L5L/GAILNOV+5u7R3bosEVeRkAyz82anMkEokIyE5q30b9HPSSaZWjQayjCCXtXNW0aUzoU
-	dkf2xbmI9+lSJyLwl/P72XGfKQVrxJrKQxLPaOoT+ngB8u3eiTpfJmbSpZDCGQxiaO81HPWm7bA
-	lmxtAkPy351Tomix5H9Tm6TukIbLH86nKEFlydqULKeehvlLVf2NPOM7WUv2ed3G/l6GTuqX827
-	4do4aPvlxLtfPIGECOYRBuBDr6C5Gn9rQ/tUzRvaqDn46ULXFRyFTwBGy9aI3+FdTWts86EBSq6
-	90w6IzhJX4uCCJzxP9eAEQSHoTbQn9BE4c/jmwMNviVnWDUPHz1mNnx2Zcv5yKO8Yr8Yrw/saMm
-	5iHisf6M1GmdL0Lt6jWHBXwEPmLEnYlJbMQEdE18jcCLa2WENPwBEEOHLyflC9DkfpXmwt5flnP
-	9NAhFv4KXeiCOM2UfN5TdGeePZUVzeKIOiQ7wrcRkB4l5N6LGMVJb/+0Vnd3VdWwgQ==
-X-Received: by 2002:a05:600c:8716:b0:4bb:6847:791f with SMTP id 5b1f17b1804b1-4bb68477becmr153891005e9.7.1794855161517;
-        Mon, 16 Nov 2026 10:52:41 -0800 (PST)
+        bh=TJT4CBUbgD3xpezjgv+AsgOQys6XK1VUjumYM2wegeg=;
+        b=ZWZlwBPuDHoAbpIjI51x40t/zxxsjLKzuEQtQM/ibpmY0H5bXuypOTCnCJgIYu316a
+         lsK5+W9TfXuGionZbRj/gp8y5t1EZfCfAZ10suD5DJGcjysiYPAn9n4NUZ8gJ+/7hPHv
+         fDI44YaCzYiE+wHKWmiCUEW4uUccLD0sOEvcCHBPEAG0/1ydCwdW5Kq2P3XodBaZ5zik
+         UBnnTc8hLjoUT2zSBNrvi7UjmyFcVsBZWQdqnsKqEpqx5O47S9XVxCRrUewmkpGGUb+l
+         VpU5Az2q69qiihL1uw6FGaf7mfj1bft05GtSbYoUHVXAHW3uc38WMJPNSi5JwD0Txohb
+         m3VQ==
+X-Forwarded-Encrypted: i=1; AL+hErE0M0xRHfK1mXsxpePIZGqLxeloq6+LfExCeqABlrTdNmtMW5/u7yG/b5Bb3pmuHS4/jM1gLmz5iL04tco=@vger.kernel.org
+X-Gm-Message-State: APuU4Z828oVT/XaCbfur8mGYsfnSppdVWaTjb/fo28bYGyVfMad8ouHP
+	BuQasaW+vuqPaiG++IygICYpHILmYdrOvKmwO3yB4HtUvHYe4Oij0+WuW1s6Gg==
+X-Gm-Gg: AYBFou12ivzs4/Bx5xYZOvr1AGY6pm5lq3l22/3ya7/9nYjhKUyzvkmL6TWshrYceN/
+	u3/nd6GsEAi27SzAeTbjjFLkbTWHozpBEmPz7Mn7qsTTpJiniNgr2mfK0aWcq/W+dKZUCIIAAGI
+	g9zUonD4mwb42Yp+bp33/GgxUpAiKVayNyOLJzLX8zLRkJmUpmeSafO+AlXqAMHa1ksGanu575p
+	vHxWpNqFAtYcGHDdn7EGM0roLgnPS3UcUAcdwvHk5mnIq5FwBnWv4sE3fqFI+ICcKNoMfN8z6Kj
+	4j+wJyFlqmdSzK87B1nE8DjY4sezrlMKfKQlR5nReHl31jG3irURoP5EG+jHe7J66cwx5NHXRd2
+	HHYNb6NvNXsEAKyWSCpkk0/vuKKha+VsYu8y9c5e1nHrv1ZVKMbmLBaJJjGCaq68BGlrhm3dqEw
+	a2GAkfeiTZtEHYLsRwppjl8xrqXRUV2s4OAE+XPO6lvyboYeCftcAlpTaGZzvyy9bgDq8lyS0TJ
+	zwQNV2b/x8EcOrNo2nk+Bysjx7DG0aD8LTZLWSsZMuYVv8yYgHCKEd575n+BBMdc7LMCsIwJNR5
+	uDIu1YR7ZkdIIFmVonc7vFw3y1+srZX7NrmHvFbV6ASF0/M675a69wPP1C+D9chYYGM=
+X-Received: by 2002:a05:600c:506:b0:4a1:f377:5c6c with SMTP id 5b1f17b1804b1-4bb55a5d6bbmr162373025e9.10.1794855162142;
+        Mon, 16 Nov 2026 10:52:42 -0800 (PST)
 Received: from [127.0.1.1] ([2a00:23c4:a702:d301:6889:eb24:5e57:83b1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm157961345e9.4.2026.11.16.10.52.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm157961345e9.4.2026.11.16.10.52.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 16 Nov 2026 10:52:41 -0800 (PST)
 From: Biju Das <biju.das.au@gmail.com>
-Date: Mon, 16 Nov 2026 18:52:39 +0000
-Subject: [PATCH v2 1/3] mmc: renesas_sdhi: Save and restore IOVS across
- suspend/resume
+Date: Mon, 16 Nov 2026 18:52:40 +0000
+Subject: [PATCH v2 2/3] mmc: renesas_sdhi: Make HS400 OSEL bit configurable
+ per SoC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-sdhi_hs400-v2-1-de41f7a7f330@bp.renesas.com>
+Message-Id: <20261116-sdhi_hs400-v2-2-de41f7a7f330@bp.renesas.com>
 References: <20261116-sdhi_hs400-v2-0-de41f7a7f330@bp.renesas.com>
 In-Reply-To: <20261116-sdhi_hs400-v2-0-de41f7a7f330@bp.renesas.com>
 To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
@@ -103,94 +103,114 @@ To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
 Cc: linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794855160; l=2510;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794855160; l=4095;
  i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=72pqcPIdoyFJ2Xiah39zI/T9p3oP+0sAL771H/Z26kQ=;
- b=wV2z4bmLlPvfIXA5O3yDQNxl/F2i0z1To8NyO+nf8XHyuNtIPuzzvtbuWwYqVlZBLcXJHXobJ
- kU7geJiQPgaBnivDoZx+xHwfaODHgMsKpzLl5akbKFG/FOS8dcMXYVi
+ bh=AnhaKOiPuDqc6xcLEGP7+1MeHlroB4vbW7YE9vOw010=;
+ b=c5atoYCQWPfqNKolpifzoMYk00fDB2d23uepR6WSvcjIje1VR13Q73QWr5S3+oLm6nLE6oHxN
+ gtTbd6VDSIMDnM6/wzMbjK2ycIwEimomYaSwy7GjWcGZMIwc10whUE1
 X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
  pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-The SD_STATUS register, specifically the IOVS (I/O Voltage Switch) bit, is
-not automatically restored after a suspend/resume cycle, causing the
-regulator to report an incorrect voltage on resume.
+RZ/G3L and R-Car both use SH_MOBILE_SDHI_SCC_TMPPORT2 but interpret
+its bitfields differently. R-Car uses BIT(4) (HS400OSEL) to control
+HS400 data output timing, while RZ/G3L uses the lower 16 bits for tuning
+delay and does not require the OSEL bit.
 
-Fix this by caching the CTL_SD_STATUS register value in the renesas_sdhi
-private struct at suspend time and writing it back during resume. The
-whole register is saved and restored, as IOVS shares it with other bits.
-The save/restore is only performed when a regulator device (rdev) is
-present, as the IOVS bit is only relevant in that context.
-
-Fixes: dcbce328d3a2 ("mmc: renesas_sdhi: Add suspend/resume hooks")
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v1->v2:
- * Added fixes tag
+ * No change.
 ---
- drivers/mmc/host/renesas_sdhi.h      |  2 ++
- drivers/mmc/host/renesas_sdhi_core.c | 26 +++++++++++++++++++++++++-
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ drivers/mmc/host/renesas_sdhi.h               | 1 +
+ drivers/mmc/host/renesas_sdhi_core.c          | 6 +++---
+ drivers/mmc/host/renesas_sdhi_internal_dmac.c | 2 ++
+ include/linux/platform_data/tmio.h            | 1 +
+ 4 files changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/mmc/host/renesas_sdhi.h b/drivers/mmc/host/renesas_sdhi.h
-index 4f8ed1d8efee..a93e613e9821 100644
+index a93e613e9821..8ae2ec04bd1f 100644
 --- a/drivers/mmc/host/renesas_sdhi.h
 +++ b/drivers/mmc/host/renesas_sdhi.h
-@@ -106,6 +106,8 @@ struct renesas_sdhi {
- 	struct reset_control *rstc_axim;
- 	struct tmio_mmc_host *host;
- 	struct regulator_dev *rdev;
-+
-+	u32 cache_sd_status;
+@@ -42,6 +42,7 @@ struct renesas_sdhi_of_data {
+ 	unsigned long sdhi_flags;
+ 	u64 clk_mask;
+ 	unsigned int max_divider;
++	u32 osel_tmpout;
+ 	u16 clk_div_mask;
  };
  
- #define host_to_priv(host) \
 diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/renesas_sdhi_core.c
-index 5e649ef20990..56286431fd2c 100644
+index 56286431fd2c..7dfcf7f970aa 100644
 --- a/drivers/mmc/host/renesas_sdhi_core.c
 +++ b/drivers/mmc/host/renesas_sdhi_core.c
-@@ -1465,6 +1465,15 @@ int renesas_sdhi_suspend(struct device *dev)
- 	};
- 	int ret;
+@@ -333,7 +333,6 @@ static int renesas_sdhi_card_busy(struct mmc_host *mmc)
+ #define SH_MOBILE_SDHI_SCC_SMPCMP_CMD_REQUP	BIT(24)
+ #define SH_MOBILE_SDHI_SCC_SMPCMP_CMD_ERR	(BIT(8) | BIT(24))
  
-+	if (priv->rdev) {
-+		PM_RUNTIME_ACQUIRE_IF_ENABLED(dev, pm);
-+		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+		if (ret < 0)
-+			return ret;
-+
-+		priv->cache_sd_status = sd_ctrl_read32(host, CTL_SD_STATUS);
-+	}
-+
- 	ret = pm_runtime_force_suspend(dev);
- 	if (ret)
- 		return ret;
-@@ -1494,8 +1503,23 @@ int renesas_sdhi_resume(struct device *dev)
+-#define SH_MOBILE_SDHI_SCC_TMPPORT2_HS400OSEL	BIT(4)
+ #define SH_MOBILE_SDHI_SCC_TMPPORT2_HS400EN	BIT(31)
  
- 	ret = pm_runtime_force_resume(dev);
- 	if (ret)
--		reset_control_bulk_assert(ARRAY_SIZE(resets), resets);
-+		goto err_assert;
-+
-+	if (priv->rdev) {
-+		PM_RUNTIME_ACQUIRE_IF_ENABLED(dev, pm);
-+		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+		if (ret < 0)
-+			goto err_pm;
-+
-+		sd_ctrl_write32(host, CTL_SD_STATUS, priv->cache_sd_status);
-+	}
-+
-+	return 0;
+ #define RZG3L_SDHI_SCC_HWADJ2_1_8V	0xff
+@@ -484,7 +483,7 @@ static void renesas_sdhi_hs400_complete(struct mmc_host *mmc)
  
-+err_pm:
-+	pm_runtime_force_suspend(dev);
-+err_assert:
-+	reset_control_bulk_assert(ARRAY_SIZE(resets), resets);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(renesas_sdhi_resume);
+ 	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2,
+ 		       (SH_MOBILE_SDHI_SCC_TMPPORT2_HS400EN |
+-			SH_MOBILE_SDHI_SCC_TMPPORT2_HS400OSEL) |
++			host->pdata->osel_tmpout) |
+ 			sd_scc_read32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2));
+ 
+ 	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_DTCNTL,
+@@ -621,7 +620,7 @@ static void renesas_sdhi_reset_hs400_mode(struct tmio_mmc_host *host,
+ 
+ 	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2,
+ 		       ~(SH_MOBILE_SDHI_SCC_TMPPORT2_HS400EN |
+-			 SH_MOBILE_SDHI_SCC_TMPPORT2_HS400OSEL) &
++			 host->pdata->osel_tmpout) &
+ 			sd_scc_read32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2));
+ 
+ 	if (sdhi_has_quirk(priv, hs400_calib_table) || sdhi_has_quirk(priv, hs400_bad_taps))
+@@ -1233,6 +1232,7 @@ int renesas_sdhi_probe(struct platform_device *pdev,
+ 		mmc_data->clk_mask = of_data->clk_mask;
+ 		mmc_data->max_divider = of_data->max_divider;
+ 		mmc_data->clk_div_mask = of_data->clk_div_mask;
++		mmc_data->osel_tmpout = of_data->osel_tmpout;
+ 		dma_priv->dma_buswidth = of_data->dma_buswidth;
+ 		host->bus_shift = of_data->bus_shift;
+ 		/* Fallback for old DTs */
+diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+index eaf21f93f5d3..37eeaa52f011 100644
+--- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
++++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+@@ -124,6 +124,7 @@ static const struct renesas_sdhi_of_data of_data_rcar_gen3 = {
+ 	.max_blk_count	= UINT_MAX / TMIO_MAX_BLK_SIZE,
+ 	.max_segs	= 1,
+ 	.sdhi_flags	= SDHI_FLAG_NEED_CLKH_FALLBACK,
++	.osel_tmpout	= BIT(4),
+ };
+ 
+ static const struct renesas_sdhi_of_data of_data_rcar_gen3_no_sdh_fallback = {
+@@ -140,6 +141,7 @@ static const struct renesas_sdhi_of_data of_data_rcar_gen3_no_sdh_fallback = {
+ 	/* DMAC can handle 32bit blk count but only 1 segment */
+ 	.max_blk_count	= UINT_MAX / TMIO_MAX_BLK_SIZE,
+ 	.max_segs	= 1,
++	.osel_tmpout	= BIT(4),
+ };
+ 
+ static const struct renesas_sdhi_of_data of_data_rz_g2l = {
+diff --git a/include/linux/platform_data/tmio.h b/include/linux/platform_data/tmio.h
+index 99b05c8c840a..501ca4355c34 100644
+--- a/include/linux/platform_data/tmio.h
++++ b/include/linux/platform_data/tmio.h
+@@ -72,6 +72,7 @@ struct tmio_mmc_data {
+ 	unsigned short			max_segs;
+ 	u64				clk_mask;
+ 	unsigned int			max_divider;
++	u32				osel_tmpout;
+ 	u16				clk_div_mask;
+ };
+ #endif
 
 -- 
 2.43.0
