@@ -1,48 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827404;
-	b=oCSjup1IwZNf+7VigGDC6SgExRiHHDpbhsglY9uzBPQM4ylLo+rMfKOU3y/Ym/z9YyyX
-	 gfuF95lkRyEDz/QhNqn205fr6g6TBzkW/Ff9PQuGPQxHIBPsuYT09gqF1j4aKK/PI4NPq
-	 FwB48xN5ng1XlzEFwiZUyiFOE6W9m6CbFP7b3y/fYWi5XAak1ppW01uoL9u5xC9hwrUvp
-	 1uonY6PvmLA9wUJ0zaZcFiNpII/XuBzfXlDYH9/YSU0GpsY3UJ3QeO+0DoyJ8cHRcsclb
-	 aF3bDGnbnmzIyTsiGPs+4dHvF7L5M64PR7VdzswecKhGtH5LTWHGRvOLgDQFE5YxTaQ==
+	t=1794827411;
+	b=LUUaXT1y8paGBLIt/AWofxQs4hjJw/C2L42FffP0iqazOJwer4n239wuOJM/SW0q8Dkf
+	 LTNnPgXxtCz8JEBoiqs3YEKH6/4aU3N1NQu+Ec/+PejZocFUGb3PXwCNLwE9GkxPJOUBJ
+	 Yr02l0QSp3/cXRcIZ6K25qDkzAgwtfBivEOoz9XWgNz0HeuoTeyJXH/+10AtFO45kyDPP
+	 odBEbr22CIHv3StU5fqDbMjl4hJ1WuUR7sEkk/UXSQf6rFiTmBg6rCvg6cpw2bn2nx5Sb
+	 utEbKJqIw5HwZhDbXGVtITViJ/A49Ch02XT78h5p0gm7POFRWi13byWqA3dmAIs0ikg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827404;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yVy0s500r+s0cQTnrdL3iNQJg4cLMTqv2Ys59F9WF6I=;
-	b=QSRa5XHn8ISXipRGRs2WXQMbgEFZEdwsTE/fItHQVvwx/Xi5kvqmc/3uKS8gny3Ugp2T
-	 RzTu7PoTpE1A8hylmP9ZRd6TfwT8vKBhgUJrmmzgBqmQQarByPvS1y8TmQG2Zmux2+++Z
-	 LkHq8fgqyhIuGj2F4ASqKwjdOfPDijfY9k3n0/YXViEIytLxuuwMzteFDQNMFWG5hDDfU
-	 lb6YobdakDlLJWq1TE1hSvHGJ9/sEPN8B4QhCKkwH1jLvlNQNPK7Yya9yQATJYVcPQuLJ
-	 Tj40LeeDEzcQgsDe4z+W2Dt3iMDSoqua1/8sc7OXmz/T4ymCcApf92FScKLPgpbwp/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827411;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RVmCKf70eEEgds5H1uF6AGyws+PKbUsScOYwDZol0jI=;
+	b=eOxfz8WggR/pE7wgLNV0SNvUU4bJPg9by+SF8YXnZ7Ml3qCK4ivwWVNEH8E/txcgk8Mt
+	 0sbRBEG0MDwtrnY3RymR496Jhorrr0UvT3VMYDbMfCEjmbVqnPVjP2igR5XxpItWFr5n+
+	 SIihqpSnkQ3ukqR/nAxCqTQcfW5tM2Gnv5VjKNG9J3cRp6OGKmN3/cKMUx+YGUHmG6uhU
+	 Wf76ffURDJs30Ukawke+JvIUqiEdvB/7/Q8goG8MnwHllJ3wJV6xHJgBhrdiKFzvLolil
+	 srVaHhczVHM7NRAHbfJsygYmAsouDUhGBGyKpDhY/RASw4obDnbC6QOuAzyx2WjtXSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGTpzw+u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2a8x4Ij;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AF260703E2;
-	Mon, 16 Nov 2026 11:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931BD6080643;
+	Mon, 16 Nov 2026 11:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGTpzw+u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1B01F000CC;
-	Mon, 16 Nov 2026 11:09:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2a8x4Ij
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FA51F000C7;
+	Mon, 16 Nov 2026 11:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794827403;
-	bh=yVy0s500r+s0cQTnrdL3iNQJg4cLMTqv2Ys59F9WF6I=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SGTpzw+uOaYvP/qWVmonGrGKiT2oLbT2udCcq4O82u3mG1fLwCQ9o8RLyYUJt4Z2Q
-	 dpAapsEVRxr6oLO/o2rGmqb9CAmt3ErlRs8wAxbEiyz6v0DU4LBOoVm5BMqcicnomC
-	 B8WEPz6Gu99rGym2zbIvLEILBo00aGvsodfuAxEMd8k/D48PrDTO0QuTGdS8US31n4
-	 Vg8bRB/rVTd/Yp5SFsM+N5GWLqI4Smmmis/xMColxtYtlNVNFPYfrZpPd5XgHFtufK
-	 ewpaVp+9XS6onapcIs28W27un4PxSx+n0soDqly36XgM/Z1PmufEv2uBMoEdpSk13h
-	 SXrkbTRXnHaqQ==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 16 Nov 2026 12:05:05 +0100
-Subject: [PATCH RFC v3 32/44] usb: gadget: gadgetfs: use fc_init_pseudo()
+	s=k20260515; t=1794827411;
+	bh=RVmCKf70eEEgds5H1uF6AGyws+PKbUsScOYwDZol0jI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a2a8x4IjQXkhMC1xZWG1AVMGBMTEmD20nU3hCnUhvZ2vMo4uVoX+r+vCY/Vqi1aM0
+	 a1IoeIh1W9cjCBm0tODJqaQmQjhGGoDNvz69Nsgl2n/uILPoLklFL5Tkz5iST4+LXh
+	 6b65l6TgLBipCAdAxf9qfyD7N8V84W7lT8kW54Oyx64yxTHLqesRullrtGyFnHgjVR
+	 yvsuzCCwjByMQwH53+E8LglmZAn4VUbpKSlYcOZsLXpcnivoAsGcOwGKZyZWvd9pwB
+	 xbP6AN/7RPoakTYBSouOUtAeXNnz/4j4gmKYInuyV9Xof84ezPkJW8Gr23jhK8Wu+3
+	 s8ZTmOdqoe4hQ==
+Date: Mon, 16 Nov 2026 12:10:05 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yanli Yang <yanli.yang@bedmex.com>
+Cc: linux-wireless@vger.kernel.org, 
+	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhirun Liu <zhirunliu@aicsemi.com>, 
+	Dijia Xu <dijiaxu@aicsemi.com>, Chunqiu Liu <chunqiuliu@aicsemi.com>, 
+	Liheng Wei <liheng.wei@bedmex.com>
+Subject: Re: [PATCH wireless-next v5 4/4] wifi: aic: Integrate the AIC8800
+ SDIO driver
+Message-ID: <20261116-pygmy-partridge-of-defense-e039a8@quoll>
+References: <179481380235.4.7388336477392853157@bedmex.com>
+ <179481380242.4.1693438763870948060@bedmex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,70 +62,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-work-loop-pseudo-v3-32-8cbbea1cf34f@kernel.org>
-References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
-In-Reply-To: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-mm@kvack.org, bpf@vger.kernel.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
- ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
- linux-kselftest@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chris Down <chris@chrisdown.name>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1030; i=brauner@kernel.org;
- h=from:subject:message-id; bh=u0nui1vhf/EmwTq6q2RWgl78HrRK/CPPLvMnc/CZqnI=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9etws9fufFq9729RbGXNDfxxYdCtSQifp+r0vMT801
- iTNP1vv21HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRn48YGT5xPd4gYXzpZPj6
- D6f+qX0Qv9TBUcF6ePfLds7DTysVTzQx/I8rXd4sEjq3bduNK/7X+v/Kqk9YyOWe3dsRZqm+TvT
- IXF4A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179481380242.4.1693438763870948060@bedmex.com>
 
-Initialize gadgetfs as a pseudo filesystem. This raises SB_I_PSEUDO and
-also SB_I_NOEXEC and SB_I_NODEV. gadgetfs never holds executables or
-device nodes.
+On Mon, Nov 16, 2026 at 03:23:22PM +0800, Yanli Yang wrote:
+> From: Zhirun Liu <zhirunliu@aicsemi.com>
+> 
+> Connect the AIC vendor directory to the wireless Kconfig and Makefile
+> so the complete AIC8800D80 and AIC8800D80N FullMAC driver can be selected.
+> 
+> Add the driver maintainers, reviewers and linux-wireless mailing list to
+> MAINTAINERS. Keep the parent build integration last so that intermediate
+> patches do not expose an incomplete driver configuration.
+> 
+> Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+> Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+> Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+> ---
+>  MAINTAINERS                   | 10 ++++++++++
+>  drivers/net/wireless/Kconfig  |  1 +
+>  drivers/net/wireless/Makefile |  1 +
+>  3 files changed, 12 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7336600952c8..4e327fd62b26 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -746,6 +746,16 @@ L:	linux-scsi@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/scsi/aic7xxx/
+>  
+> +AIC8800 WIRELESS DRIVER
+> +M:	Zhirun Liu <zhirunliu@aicsemi.com>
+> +M:	Dijia Xu <dijiaxu@aicsemi.com>
+> +M:	Chunqiu Liu <chunqiuliu@aicsemi.com>
+> +R:	Liheng Wei <liheng.wei@bedmex.com>
+> +R:	Yanli Yang <yanli.yang@bedmex.com>
 
-Reviewed-by: Chris Down <chris@chrisdown.name>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/usb/gadget/legacy/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
+So all these five people will be providing reviews, right? Just don't
+add random managers names?
 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index 7f6d8460152f9..8490e5d0351e1 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -13,6 +13,7 @@
- #include <linux/module.h>
- #include <linux/fs.h>
- #include <linux/fs_context.h>
-+#include <linux/pseudo_fs.h>
- #include <linux/pagemap.h>
- #include <linux/uts.h>
- #include <linux/wait.h>
-@@ -2223,6 +2224,7 @@ static const struct fs_context_operations gadgetfs_context_ops = {
- 
- static int gadgetfs_init_fs_context(struct fs_context *fc)
- {
-+	fc_init_pseudo(fc);
- 	fc->ops = &gadgetfs_context_ops;
- 	return 0;
- }
+> +L:	linux-wireless@vger.kernel.org
+> +S:	Maintained
+> +F:	drivers/net/wireless/aic/
 
--- 
-2.53.0
+Bindings as well
 
+> +
+>  AIMSLAB FM RADIO RECEIVER DRIVER
+>  M:	Hans Verkuil <hverkuil@kernel.org>
+>  L:	linux-media@vger.kernel.org
+> diff --git a/drivers/net/wireless/Kconfig b/drivers/net/wireless/Kconfig
+> index f4f969fdbc02..964e633898ca 100644
+> --- a/drivers/net/wireless/Kconfig
+> +++ b/drivers/net/wireless/Kconfig
+> @@ -19,6 +19,7 @@ menuconfig WLAN
+>  if WLAN
+>  
+>  source "drivers/net/wireless/admtek/Kconfig"
+> +source "drivers/net/wireless/aic/Kconfig"
+>  source "drivers/net/wireless/ath/Kconfig"
+>  source "drivers/net/wireless/atmel/Kconfig"
+>  source "drivers/net/wireless/broadcom/Kconfig"
+> diff --git a/drivers/net/wireless/Makefile b/drivers/net/wireless/Makefile
+> index fa3100ff3bf7..47b999e8014c 100644
+> --- a/drivers/net/wireless/Makefile
+> +++ b/drivers/net/wireless/Makefile
+> @@ -4,6 +4,7 @@
+>  #
+>  
+>  obj-$(CONFIG_WLAN_VENDOR_ADMTEK) += admtek/
+> +obj-$(CONFIG_WLAN_VENDOR_AIC) += aic/
+
+Why this cannot be previous patch? Why Makefile entry has to be a
+separate commit?
+
+>  obj-$(CONFIG_WLAN_VENDOR_ATH) += ath/
+>  obj-$(CONFIG_WLAN_VENDOR_ATMEL) += atmel/
+>  obj-$(CONFIG_WLAN_VENDOR_BROADCOM) += broadcom/
