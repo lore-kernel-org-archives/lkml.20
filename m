@@ -1,55 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859489;
-	b=ev39MSd/WkVpXKZcZVdhdF7czg0kXw2b5onwUlcTUjI16c/7skoNfufKI73crjD5hv4y
-	 oL4J06kfOk05vjX5KGngBiHPtwTS5bA58RnQ//zHZmO4ZHvWLHTTXgdfQjxhg60wlEyiG
-	 3GtCiQP+7THE62xbu/FxiHxX86n0LtOzg2iitTCWNteVHVhr9XCpWqAcOZRgNGu1HpALD
-	 w0bU2Ii1U60XYJBRiXyEw/uNRfZF4ZFfM0ndWnTu4+frtvaK2NmjlkNwPCn/EaRysCJDi
-	 HxyBGwJg+FEvXBz9r9Z34ER9Bx1MRum9P1rY+qBD1Ty3qTWR6vK0GIkII6BsmBpOpFA==
+	t=1794859498;
+	b=uxjFJK9LHJn42NfK7qW1I23ni37OWLNt0WXLeRkV9VcsWxe94mZX/1Oozw8eASu8mFZg
+	 ru3FkhxA3SjSY9qwi5cicw/kHgMQk/PBRUR1zd3tBuWxhEflaTEILUDSRk70ai9VmDwJO
+	 RvfMNaMWVZO9NyV2ZUj4iKGGMboXf6gxuWcC7UbmNF1945dEOvkA0sjp/9qVfUbrqp/Gl
+	 G9RFrtZGITvftP8hFGRYtfGpAAw6jddF5KyWd1oXVwjmVvj0+kDfJ67mgrs6Q743crHAB
+	 Kwt/YnidThgujY9+KsuTRMz8jFr130sV4Dpz11xWnd/qeewD4k3ola5QNxxJcMgHLtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859489;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l1O1HZxpH9G+QLlqP5hHi+3OIw9Mj+HNTrQPUqx/Be4=;
-	b=2TPFPTV6/42RXDt0GUfqiAvHaEXiuNVuQCORWO/jlIF7J9CT3gVhsuxAo/O/JbQPGG5O
-	 Uz17/4MGruxNk2oVAqcc/wtWblTOxx7/b5OQicKtbHQiMK+36Q5+Gf8vkT+ZLP6iJqW9+
-	 EfWnx6HWswfy9zbrbkwZC7WswRRTbY5wOdZS8UFvRlNWlg4vDGXJhfg68ENeQQ95krAPf
-	 EAiR4IdxhXaINqfuUmE4cXzK6vDR+7pVl2z05gLKTNeQob0MT910hHzLTxw7iFedQEtEk
-	 5HieK0ZUo18fFDW1MJSl2UcAZdDCmVcZ195jSzolVRagIAimrF9NQ11hyBuGCdUFurQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859498;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GpoVt9829rgvfoUhDyd+CedkZ9hCk1E54sZ/xm+5leo=;
+	b=cU6AaRefMyY+5byoWmDoz+7duntpDREPK/LmTB4JqL0LxexbAQ6X+BJH6cjZZFIUPUYW
+	 HE964gXAYGk7W0ZGqfZoD37dtdu0E/MpIsZfTZGp7GHVyZLkgNZfVKaLvqUH0pPFRJ+WN
+	 lsLJxUzypO6UPpNCpBNkWvH+sOJc+yo/R9je58JDinTGHAdh4HLVTFAyot5Qgjz7h999e
+	 9j69YIShJT7iHTFQ8fYEASqstLKimlxlwM1zzz0WO+SCywL6sC41IPcaRg66V4o/k3aR3
+	 sCCAToir9JXAvOk3Ze6R0FbZrz3hvTzbBjsY/wkZCrpapV01qWpVYaWq0azKXX1H2mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkckWrFr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AW+9ELtj;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CB8606A888
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B20606A888
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:04:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B20606A888
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkckWrFr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9CD1F00927
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794859489;
-	bh=l1O1HZxpH9G+QLlqP5hHi+3OIw9Mj+HNTrQPUqx/Be4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BkckWrFr9tlTlp2/HgpPCsgRrHm6mXU8p99lK6aelhAkoxLvDvNuiWQziNMeGdXAj
-	 +ORximax4Kex8zGBcBcLWA7p7CKV9BRI0/E6mJzfI5pYFuVb+PwdtAO/JsyonyJsW2
-	 H9m1Fi9w/PsSeALr7xQ6r4VNCuGhDwQctkoUf+hQ2LeN2Non0dX2OGoMlAUF+sfoFj
-	 kpV4XCB/24G1JAgcwXOpFi2PSO6i0vfEAYSHF4Y4E+aXIzKeh+z2RtfEq34pCDaTDX
-	 Ono/Fq8vnf1NZz9yx+v+8za/umYNM19GASNZEwWrouJqhd9Gv94SNGqlCiEdVQHum5
-	 XP0GuPlE40L1A==
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-98301b325c4so880489241.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:04:49 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGw39b1TC5qW9Sd11bZdY2lxVtl6aVlRg6Ux/8Dc6VclVse5wdlNWD1V1GAW3udd3MzbPuO8qEBpYu0FgM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FpalKNCxIOVqDjbHEBUawQLTF6BBfYNsf84O5omrgPqEXMCBF
-	fdfRVoWlh9qPOEZqL46HVaU7pgSWmEzoqk3evFLCttuSeM11wl+WGzC3C2+mlf1TxSDpaP8xppX
-	IfWJg1aTO8yn56P11ox+B6vdmGxwkzJs=
-X-Received: by 2002:a05:6102:3ec5:b0:7ce:645a:13a4 with SMTP id
- ada2fe7eead31-7d64d6f7957mr3166761137.20.1794859488504; Mon, 16 Nov 2026
- 12:04:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AW+9ELtj
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ee254f6eefso15905ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:04:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794859497; x=1795464297; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GpoVt9829rgvfoUhDyd+CedkZ9hCk1E54sZ/xm+5leo=;
+        b=AW+9ELtjY4IEAV6pWNtpVONxcUyWG1yHYWZbLXUGbgzEm2yjKYJh8P9AltAYWsNVaa
+         ljTLluOmvNNO5Ktf1kkokrkGXHcRFSEPKSCcab6HDNcgfrkiAJNvGlJT+MILjO2/zZfi
+         EPaiqp+1Rq4At1nG0vL/CFdtTSFH4HR2su0R9cF94vr1iekk2yPkoZq/dObQeslGeX5w
+         WRJvYunMLEK9y4YSEOkXrf36Acmp5DXe9dxco6fTC0SnfrHeBNfrKVTmN3HjVfkqidYx
+         O/IZKXpTqsjB9LT5k3NvFXtn0hczcGp3cIswieCv4nqnBD3zS/YLwnjiN4VMTpG6Fkl2
+         icMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794859497; x=1795464297;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GpoVt9829rgvfoUhDyd+CedkZ9hCk1E54sZ/xm+5leo=;
+        b=FayuFtWc80GixnGB1NN4Qlgmat7AX3ni9nIm1lOzas7F85wkj8naixA1YNrJhRlwJO
+         VhZxCJeE16Gh8cgu5dJokBUMl6RVic0zlhibNMxFks9JlnBkt8U0XtRTyPYKlkyHM92o
+         ZImYENxj4zvCgg1QKs+NoSJ6+CpZUDK1xZpR3C6tmz2dnuWmJ5ksBkV3aAdQ3ttVrN+v
+         8YSISKL/iYjDIbYhDsmw72nKpoZ3Q1F3JN8hZE75QhB7GQUlRLGFRls8NRbgXYtibjgh
+         MCVwj/QIh7Sg6sn1xdROM7r7StzLWZxYR6M0Ilmh3MH6HtHQ1nhuifsA7/wtvBxjTFsV
+         vuXg==
+X-Forwarded-Encrypted: i=1; AL+hErGNLLXDx0X43/jEnSPcKFBaIOl8L9pplcag5GKV3v9qzKWK259UInaOVE6H60FZsOcFo4E6JQkMEGL3GTg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Y7J3l+yYqoVvF+QnioINOnaVs9kXHGn+OZY4vXqkNMHmZ2ybu
+	Z24vXVUQb+nt4pxlWz4J2ifGAUkF36Dr5thMOFNmFbuN+u3azpB2SbkAL/D6qhfevQ==
+X-Gm-Gg: AZFdTZezn++Q+0BOdNBykuY7F4MyGH++3SvFhKELYX5K0cOQoTgrNQcE1HtLAYryeja
+	hUuMZu5rXSY+2bTKBGYAJxgMjTNpcaCOOgVyilliOXSzLo4HqanXofSaMHRGpinxu6LGOsfjbzW
+	ovyrGeW5sUJoT2A4+pT0Baz3bJ0aJVDXF0cgDOG1SrFYInl3+/0ECDYGXp3KQiDuPD89hZn3Ftw
+	jhwz9VfZOUC1F+F3XD9FTd5aQ9eaGwHZ9aE+pogoCIX8f8NqlUdVPIaqDh67+VDuxmw4RPxz26E
+	hENdvEE4K6y89ekNBHof35OfPiDewtP/Lrw1OnHQ3TDYSZavJKcwAXXaD1qfNv7xn4jL/sueuc8
+	uuU0DqEcODAGIMlG7AElZgPCYrLXSoindm4iZ7dRMyg/kanvt6jQKr7GcoGNqv+tcVc+s5T52MV
+	121LYh8mNcZtCjMeQqUgSyNnMrN2CmnP/AAibvAOinN0dP8ix0PSzb3aU3+tZbCHGU7Hm+/eKa6
+	9rtLnBge43uqkWeq1PpQMVtO/h/fhw0xxSwcKTIC9pgtLZSGs06r9k6iR/76mmVs/M/XJ23lK4N
+	quNTh3ImNwKQ3UrGvGAfO4i23ZvYMQXH6obtHXejz0Mvdzx79Hg1KFJop8FvZ06Nz2ftAywpL9M
+	T22BuqbASIaH4yhy/Rua/yA==
+X-Received: by 2002:a17:902:cec9:b0:2ea:4a1:e8a4 with SMTP id d9443c01a7336-2efdac96629mr683765ad.13.1794859496524;
+        Mon, 16 Nov 2026 12:04:56 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18adce4sm4599286a12.23.2026.11.16.12.04.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 12:04:54 -0800 (PST)
+Date: Mon, 16 Nov 2026 20:04:51 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v7 13/18] iommu/vt-d: Handle reattach of the restored
+ domain
+Message-ID: <avtOvPkcidH1RRST@google.com>
+References: <20261110040828.1774343-1-skhawaja@google.com>
+ <20261110040828.1774343-14-skhawaja@google.com>
+ <7ef6d626-4920-434f-bbd9-eda46e7ab780@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,83 +107,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106235904.1092712-1-tjmercier@google.com> <CABdmKX1gdOH8R6qyjw6XN5VdpAZKVR8NZ=R7Y9Db-BEhUrX-1Q@mail.gmail.com>
-In-Reply-To: <CABdmKX1gdOH8R6qyjw6XN5VdpAZKVR8NZ=R7Y9Db-BEhUrX-1Q@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 17 Nov 2026 04:04:36 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4w4rNzvaOK9f4D56opW7TtUWL_6srxJoyWXWDzhfgm4ug@mail.gmail.com>
-X-Gm-Features: Aa3M54q72RthsGLTye2AqvS3UPHJXHKdMiJkUDrG0cZhY05KIR-RudBK2Cdn7-Q
-Message-ID: <CAGsJ_4w4rNzvaOK9f4D56opW7TtUWL_6srxJoyWXWDzhfgm4ug@mail.gmail.com>
-Subject: Re: [PATCH] mm: workingset: compare shadow nodes node-wide without
- kmem accounting
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Qi Zheng <qi.zheng@linux.dev>, Dave Chinner <david@fromorbit.com>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jaewon Kim <jaewon31.kim@samsung.com>, 
-	Jaeseon Sim <jason.sim@samsung.com>, Youngchan Kim <ycshark.kim@samsung.com>, 
-	Dmitry Skiba <dskiba@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <7ef6d626-4920-434f-bbd9-eda46e7ab780@linux.intel.com>
 
-On Tue, Nov 17, 2026 at 1:40=E2=80=AFAM T.J. Mercier <tjmercier@google.com>=
- wrote:
+On Mon, Nov 16, 2026 at 03:38:14PM +0800, Baolu Lu wrote:
+>On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
+>>Reattach the restored domain to the preserved device using restored
+>>domain ID. While reattaching do not setup the context and PASID entries
+>>as those are preserved during liveupdate.
+>>
+>>Note that in this phase nothing clears IOMMU_SER_FLAG_INCOMING of the
+>>restored domain or the restored state of the device, so the restored
+>>domain cannot be replaced yet. Replacing it is left to a later phase.
+>>
+>>Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
+>>---
+>>  drivers/iommu/intel/iommu.c      |  28 ++++--
+>>  drivers/iommu/intel/iommu.h      |  14 +++
+>>  drivers/iommu/intel/liveupdate.c | 141 +++++++++++++++++++++++++++++++
+>>  3 files changed, 175 insertions(+), 8 deletions(-)
+>>
+>>diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+>>index b3402fd9fe75..95ec37554360 100644
+>>--- a/drivers/iommu/intel/iommu.c
+>>+++ b/drivers/iommu/intel/iommu.c
+>>@@ -3296,6 +3296,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
+>>  {
+>>  	int ret;
+>>+	if (dev_iommu_restored_state(dev))
+>>+		return intel_iommu_attach_restored_device(domain, dev);
 >
-> On Fri, Nov 6, 2026 at 3:59=E2=80=AFPM T.J. Mercier <tjmercier@google.com=
-> wrote:
-> >
-> > count_shadow_nodes() limits the number of xarray nodes holding shadow
-> > entries to 1/8th of the pages that could be using them. For a memcg, it
-> > counts the LRU and slab pages local to that memcg.
-> >
-> > With kmem accounting disabled (cgroup.memory=3Dnokmem), shadow nodes ar=
-e
-> > not charged to any memcg and __list_lru_init() makes the shadow_nodes
-> > list_lru non-memcg-aware, so all shadow nodes of a NUMA node are on a
-> > single list. shrinker_alloc() falls back to a non-memcg-aware shadow
-> > node shrinker, which shrink_slab() only invokes for the root memcg.
-> > count_shadow_nodes() therefore compares every shadow node on the NUMA
-> > node against the pages local to the root memcg.
-> >
-> > When most tasks run in child memcgs, the root memcg only holds a small
-> > fraction of all pages, so the shadow node limit derived from the root
-> > memcg page count is far below the number of shadow nodes on the NUMA
-> > node. Since the shrinker has seeks =3D=3D 0, every root shrink_slab() c=
-all
-> > trims about half of the "excess" shadow nodes. Most refault information
-> > is thrown away, so refaults of recently evicted file folios are not
-> > detected. Refaulted folios lose PG_workingset and the workingset_refaul=
-t
-> > and workingset_restore stats drop.
-> >
-> > In testing on devices with kmem accounting disabled, moving tasks from
-> > the root memcg into per-application memcgs dropped workingset_nodes fro=
-m
-> > ~37,000 to ~900 and raised workingset_nodereclaim 4.6x while
-> > pgsteal_file rose by ~12%.
-> >
-> > When kmem accounting is disabled, compare the shadow nodes against the
-> > whole NUMA node, as is done without memcg. Behavior with kmem
-> > accounting enabled is unchanged.
-> >
-> > Cc: Jaewon Kim <jaewon31.kim@samsung.com>
-> > Tested-by: Jaeseon Sim <jason.sim@samsung.com> # Galaxy A18 LTE
-> > Tested-by: Youngchan Kim <ycshark.kim@samsung.com> # Galaxy S27
-> > Tested-by: Dmitry Skiba <dskiba@google.com> # Pixel 10
-> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
+>How is the restored domain's type and page table format selected? I
+>don't see the allocation path using the preserved state to choose
+>between different domain type and page table format. Could this result
+>in a mismatch with the hardware configuration?
+
+The restored domain is always a paging domain allocated with the default
+flags, as only those can be preserved. With the default flags the driver
+picks the page table format from the IOMMU capabilities and
+configuration. These stay the same across a live update on the same
+machine, so the new kernel always picks the same format. I will record
+the default paging domain format in the preserved IOMMU state, and use
+it when allocating the restored domain to check if the formats match. I
+will also add sanity checks in the HWPT preservation for this.
 >
-> I'm guessing there aren't many other nokmem users?
+>>+
+>>  	device_block_translation(dev);
+>>  	ret = paging_domain_compatible(domain, dev);
+>>@@ -3426,7 +3429,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
+>>  	info->iommu = iommu;
+>>  	RB_CLEAR_NODE(&info->node);
+>>  	if (dev_is_pci(dev)) {
+>>-		if (ecap_dev_iotlb_support(iommu->ecap) &&
+>>+		if (!dev_iommu_restored_state(dev) &&
+>>+		    ecap_dev_iotlb_support(iommu->ecap) &&
+>>  		    pci_ats_supported(pdev) &&
+>>  		    dmar_ats_supported(pdev, iommu)) {
+>>  			info->ats_supported = 1;
+>>@@ -3531,12 +3535,16 @@ static void intel_iommu_release_device(struct device *dev)
+>>  	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>  	struct intel_iommu *iommu = info->iommu;
+>>-	iommu_disable_pci_pri(info);
+>>-	iommu_disable_pci_ats(info);
+>>+	if (!dev_iommu_restored_state(dev)) {
+>>+		iommu_disable_pci_pri(info);
+>>+		iommu_disable_pci_ats(info);
 >
+>Above changes are not needed for domain reattachment, right? My
+>understanding is that ATS and PRI are not supported for preserved
+>devices in this phase. If so, could they be split into a separate patch?
 
-Out of curiosity, is `cgroup.memory=3Dnokmem` commonly used
-on Android devices? If so, what's the rationale behind it?
+Yes the ATS/PRI should already be disabled for preserved device so this
+change is basically a no-op. I will remove this.
+>
+>>-	if (info->pasid_enabled) {
+>>-		pci_disable_pasid(to_pci_dev(dev));
+>>-		info->pasid_enabled = 0;
+>>+		if (info->pasid_enabled) {
+>>+			pci_disable_pasid(to_pci_dev(dev));
+>>+			info->pasid_enabled = 0;
+>>+		}
+>>+	} else {
+>>+		intel_iommu_detach_restored_device(dev);
+>>  	}
+>>  	mutex_lock(&iommu->iopf_lock);
+>>@@ -3544,11 +3552,15 @@ static void intel_iommu_release_device(struct device *dev)
+>>  		device_rbtree_remove(info);
+>>  	mutex_unlock(&iommu->iopf_lock);
+>>-	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
+>>+	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
+>>+	    !dev_is_real_dma_subdevice(dev) &&
+>>  	    !context_copied(iommu, info->bus, info->devfn))
+>>  		intel_pasid_teardown_sm_context(dev);
+>>-	intel_pasid_free_table(dev);
+>>+	if (!dev_iommu_restored_state(dev))
+>>+		intel_pasid_free_table(dev);
+>>+	else
+>>+		kfree(info->pasid_table);
+>>  	intel_iommu_debugfs_remove_dev(info);
+>>  	kfree(info);
+>>  }
+>
+>Thanks,
+>baolu
 
-As for the patch itself, it makes sense to me.
-
-Reviewed-by: Barry Song <baohua@kernel.org>
+Thanks,
+Sami
