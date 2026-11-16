@@ -1,50 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794827065;
-	b=Mp2w7l8puSqP3/mF7EOi+lC0EvA2gs2oy/OCov4A4yEuYtHGHgdcOggC0KZvLGtvLDFx
-	 0XCvFqOW1MT5GKYnKhJ9LXdGi1Ahod1onLqDJoBM/I8RMM7grpdXtmvimAU7xFMa8jWWa
-	 01ndclItPf2lv0VY0WmWVAbSkjzr3nr9UTjEFcrySVlXxfofvUq6CiMBGptfwfC9Zulw5
-	 OeuOIglFzgaM91DzhdgchTsEobJFFM5Xzr9my9PIh9Y67NnDgBiBzaGp+9NogYn/mDtKz
-	 Dya/fJjjNd05LyAvhBE9UAQFRcpjBTY9HW44lF7BShYnYJ1kDk3oHXcdGeawFqtdhGg==
+	b=anXaHWs/i1PWkh6/ykn5ZsGM/BZhW1fNH2P3wcAXNAeHfdCoEzFp3eWT+ZkqT4EZMkDU
+	 4oCL3bOIY8F9T0ArZHLjRNVKR9VygYpNaGNGCVVGGOZ7zfJFPHnuCUmhxf2uLP8q4ElfY
+	 lBhYKBng12L704KWwiQ+ShttOxb0+cLsGKkg+gRA2AfkD8KXW9YCyXNBDiyPCMijV7TKs
+	 iiR+9hqPi4K+r+ZHdNPgAYl+L3JYfp6p+bCzLBwC32m7j2+xJQHFnNoGu4pbQYHW2YPAD
+	 1M1jUzMREVtkNvUfSIO3qqwg3GWp+jAvVoOOC+R3kEzrO6cDEfhVXf0A1GT8cPMimmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794827065;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=K6hcsOKot76i6ofOuhnqMqhE4PYGjzAJldUZv2AbfjY=;
-	b=TZYjSp03rT+BhHwAj4k+bVnSSruv9QB2cqbeYrkt/vay3puYzYIsXEWTANx4zREiIf0c
-	 TDLOQSXShhPwQ/qU6NfrdnahhpaES3HY4LJsSLnd4iRT7Zxqt9MU5dJ6lIMU4+j3Yi00w
-	 yiWx3YqE9OZ9bmYljqx44ihORSPhK1DyM2wuUlZgG+jIpdSPYsSnT5XEPUAISs6MnCX2D
-	 ADmy6O8HgfjKfIeGIAx2Wn82pRJChEBFHtC6iKMXq6D9QRQ2AmKUqcelP8BfOIg2dIyP5
-	 EXHr1zObHA4sRK9oN5BULjo1puzSzVAdYDo6vNVulLxwgChhAy+S+9vdV8OsMiMzKdg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZX3pkyyq8Bg5+JdrpMjD7+301LPabJjTMnmRRo+l6ag=;
+	b=o6j5JeJnNuArvXsK8OZhJ9kFEswhZKrHnF3deFT7kldFzSHs0yFn9EefPR/RdoD6Dz77
+	 NxuQR+0BLCRnvUPYrHOvrt/8YKxuS8blj1LJDmN7v5seoX3G10k4AQMSkWc5UBCLDF0ae
+	 9rE6B8oWmeROobORVJfPsicj32U/pskrsmNniAsr3TXClAHsW2BB5rZbWPvJKacDbrHV5
+	 /KKYkM73o+lx5ya+90Ov266/4Un6uQBwRfd26oyef1RUqGQ6x7moYVDfpzeXFTv02So6s
+	 MuDe4LxiphlKH9nZNoeQwn9yy8rvoBZpZRBRQ5vgqpwN4zQ4ahFHETlJelj2Uh93gRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yv+83Ada;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2QwRpfm;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1331E606A323;
-	Mon, 16 Nov 2026 11:04:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BDF606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:04:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04BDF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yv+83Ada
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086591F000D1;
-	Mon, 16 Nov 2026 11:04:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794827064;
-	bh=K6hcsOKot76i6ofOuhnqMqhE4PYGjzAJldUZv2AbfjY=;
-	h=From:Subject:Date:To:Cc;
-	b=Yv+83AdaI+rMIF6ZcVumQESxSFqk/+q4KEQ/dNYe1vqGAjhO4UZuY0f32upeyeIcL
-	 U7luNKMRuAsOI84eZrIlAJi/zJYCE8A/tcPIQNVv+qkGeMR+iT2Qd/a23r3cWeRQU+
-	 uTSVeXg9wu6s2JknLRPylmOgOMgs4JvwAc752i150GOLDrUHLrkFmN2Gzfynarvx/9
-	 MQjhumagM8tTagR1n3h7iQmHaV8zyZ3rBpUM5zVesg7Yce9jIpL6WN2evAWJQVcUQz
-	 5lL6SvuerYCNW4EDL0oKuEOdAKrLTwc4zYsCSCXp8DAReNjFGyaadFvjQMB+WH5CwD
-	 iQFheHbOkWpOg==
-From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH v2 00/17] fs: take freeze protection for writes to backing
- files
-Date: Mon, 16 Nov 2026 12:03:40 +0100
-Message-Id: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2QwRpfm
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b244fb7fffso3722550c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:04:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794827064; x=1795431864; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZX3pkyyq8Bg5+JdrpMjD7+301LPabJjTMnmRRo+l6ag=;
+        b=g2QwRpfmwGB5TWDAlZZvXmNinfOofEPWk5srERQ0BuMMnTOOUXaWJgR+9EgUdf3XE6
+         DdNMo7bwh6ksjGKKaohwqdnwopsbnJ6GwE33gadHnxf5YiSITT9tExiV0k65iQnbastj
+         Zw0pg7D3MPnoiJREMFEkwkRe9+yTXXo0rsCcy/Ih8Pza2vxqfDxPp142d8zaUWVYMMGn
+         PXbBrn/C+F/oxbthSZ36MO3hQoROCG7KG4YazXCIGfN+6wh4MIpJ5LnY74sQpihrR64c
+         ik05r8WqXhi+1fC2NOxPewpJQV+9wjWAITHcCCrxleOS6AyIVmFMG6PM4tYj1ojQQXoX
+         zYqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794827064; x=1795431864;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZX3pkyyq8Bg5+JdrpMjD7+301LPabJjTMnmRRo+l6ag=;
+        b=q50UhburwzTAzIvSLu5Op93is5qBLB7FDN0lkPeSbIvGPlCM/6CLS2uyqzX0j+YboT
+         wj7NvfRtSkeOnasJdRk2s1tT6okw6zWFwYbxR7nTp6LpcCUWs4o/A0Vw6++FqWHGXfGi
+         hkHyGF6mTtkcFJCRiUni0o9meTz6XL6gLy/VloBleDnQXckkDDboVS0KSmIiEE7bPOUk
+         TRQDaqd5q91JDxE2EnKjUP7aypTkfmlxrPYARGd9NSxJyWZqTYMguKWVgrqZFlmhmczK
+         /UzYIs6rsDiAm1+Q+u87TTpyyXeFP9N9tNTFEqzx4j6AvqrcifVmVITA+98rv6PZcfpx
+         Y13Q==
+X-Gm-Message-State: APuU4Z+zlyCYrbw6tNYw0+TiFslhz0l0/gHFmcb5Tv0GGEdYrUFItUow
+	ur2xIJxzHQpQZlALOB2/mJ5p9Ee7BP8bc/d5rrspOH9BBLeILPFmjbpK
+X-Gm-Gg: AYBFou3ONliijMQw5lwJ+gfqt7P7z+zTZL4imivolnIEPVgFgYuk+R0uS9gHQpN2e2U
+	8YnFEP0tVIudi3yf+lO2XqsmVoPFxgyP0NM1Gg2m6TVp6jSoSK6r8+jZrKvoQEMlrifIN3nLCak
+	b6MDK5hOtuUbvaiLhWBeWjn/TSMB3p2tZitvJvjvEcOX2hiM+0RmpwUlN4Kj4a1egbq3noB10WK
+	y/yndTRqjInAG70x7yhFCiIdMFJphxUW0HyQ7o2j7L1AooCVrkADkxMV13MxYpE2QyGLs347kHO
+	QNJnqsAOiAwjHRgKjds62v/hkW33uXdlF5gEt8Qh/VvGholXor9zqNxWsgtlsy1m6jrj1BJD0jG
+	16JulmCHkX5edVsUa7+J/b45hiuVCbtuTRn0yfpf7Stx877ms41y+KkPJWUMNeaLsYJ6WXLLL0N
+	xMXFiCE5+dPI5VqDzwgCDdHHCHI62g6DTPOsyrYsAgZ6DFMkzZJ3E0aTquz0B9pfK+e9YIKs2iU
+	eePv/DKZaLDoaDsfanJoWYw+J5grnSxoFPpfij1o9yNSNPutEexAhr9B2Q7scowdXCson84OJCr
+	dA91yjdzaWsOEJjN1Ua+SzqvYSXt/o6UZ4CeDXH40J4nFmI=
+X-Received: by 2002:a05:7022:1e0d:b0:1b3:bae1:f5f3 with SMTP id a92af1059eb24-1b503068228mr8684015c88.6.1794827063915;
+        Mon, 16 Nov 2026 03:04:23 -0800 (PST)
+Received: from naki-PC.localdomain ([203.175.14.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm42999260c88.9.2026.11.16.03.04.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:04:23 -0800 (PST)
+From: nakixii <nakixii@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Barry Song <baohua@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Peter Xu <peterx@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>
+Subject: [RFC PATCH 09/16] mm: memcomp: batch unmap reserved large folios
+Date: Mon, 16 Nov 2026 19:01:15 +0800
+Message-ID: <20261116110122.309748-10-nakixii@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116110122.309748-1-nakixii@gmail.com>
+References: <20261116110122.309748-1-nakixii@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,110 +113,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOQQ6CMBBFr0K6toRWRHTlPQwxbZ1CxbRmBkEl3
- F2KceHC5Zv8eXkjI0AHxPbJyBB6Ry74GeQqYaZRvgbuzjMzmclCCLHmQ8CWW+IWwwv8aUDXAfE
- sl0ZtC6mtLtn8e0Ow7rF4j9WH6a4vYLooiwutCLhG5U0TT1GbWkp/tGkcxXHjqAv4XCp7EaXfo
- PxPUC94xu1GQSFMuSu1OLSAHq5pwJpV0zS9AYIJ+TH6AAAA
-X-Change-ID: 20261113-work-fs-frozen_writes-042ca762bfb8
-To: Jan Kara <jack@suse.cz>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
- linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
- linux-nfs@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3938; i=brauner@kernel.org;
- h=from:subject:message-id; bh=aJ8lkhUZfSAZD0d0zDSWnIQ89Aj8tUdfJ3u4ID7PtUE=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9eixbv91/Cx9PdNTthXsErvIYvLi4cEr/18tX/HtEJ
- pfvP/W+sKOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAie24w/A+ctEfepmXaNH6+
- fUv+voy9HejBG/Od15BdYyPzrWxh5+WMDKe+GJ5fa2TqoDH18nZZNmF57r7kO2y31r/wVrK0UDL
- h4QAA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-While testing the pseudo filesystem series I noticed that zloop, the
-nvme target's file backend and the fileio backend of the scsi target
-with fd_async_io=1 call ->write_iter() of their backing files without
-taking freeze protection. So their writes go straight through to a
-frozen filesystem. ext4 complains loudly:
+Batch uniform PTE runs only for reserved memcomp folios. Retain the
+single-PTE path for mixed protection, soft-dirty or exclusivity state.
+Acquire all token owners before clearing mappings and unwind the whole
+prefix when sharing or architecture checks fail.
 
-    WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0
+Keep TLB ordering, notifier scope and the native rmap completion
+context.
+Do not import the general lazyfree batching policy.
 
-Loop doesn't get it right for discard and write zeroes. Those end up
-calling ->fallocate() of the backing file directly. The fileio backend
-does the same for UNMAP. And zloop records its write pointers on flush
-with vfs_setxattr() which leaves freeze protection to the caller. So all
-of them modify a frozen filesystem just the same. Fix them too.
-
-Looking for more of the same turned up a few simple ones. coredump
-truncates the core file, overlayfs stores its uuid xattr on mount, nfsd
-truncates on OPEN and the BPF xattr kfuncs modify xattrs, all without
-freeze protection. Fix those as well. The ones that need more work in
-their subsystems I have reported separately.
-
-The fileio backend also frees its aio command in the completion handler
-while the filesystem may still be using the kiocb. KASAN catches ext4
-doing that for direct reads on v7.4-rc1. ext4 gets its own fix (cf. [1])
-but fileio should hold a reference across the submission like loop,
-zloop and fs/backing-file.c do.
-
-[1]: https://lore.kernel.org/r/20261113-work-ext4-dio_read_kiocb-v1-1-172a88be803c@kernel.org
-[2]: https://lore.kernel.org/r/20261116064654.GA2964@lst.de
-
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: nakixii <nakixii@gmail.com>
 ---
-Changes in v2:
-- Add kiocb_write_iter() and kiocb_end_write_iter() and use them for
-  zloop, the nvme target and fileio as per Christoph's suggestion.
-- Add a file_write guard and use it for loop discard and write zeroes
-  and fileio unmap.
-- Convert loop, vfs_iocb_iter_write() and fs/backing-file.c to the new
-  helpers.
-- Only complete the fileio target command when the last reference to
-  the aio command is dropped.
-- Link to v1: https://patch.msgid.link/20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org
+ mm/memcomp_rmap.h | 139 ++++++++++++++++++++++++++++++++++++++++++++++
+ mm/rmap.c         |  12 ++++
+ 2 files changed, 151 insertions(+)
+ create mode 100644 mm/memcomp_rmap.h
 
----
-Christian Brauner (17):
-      fs: add kiocb_start_write_trylock()
-      fs: add kiocb_write_iter() and kiocb_end_write_iter()
-      fs: add file_write guard
-      zloop: take freeze protection for writes
-      nvmet: take freeze protection for writes to files
-      target: fileio: don't free the aio command under the filesystem
-      target: fileio: take freeze protection for aio writes
-      loop: take freeze protection for discard and write zeroes
-      zloop: take freeze protection when recording write pointers
-      target: fileio: take freeze protection for unmap
-      coredump: take freeze protection for the truncate
-      ovl: take freeze protection when storing the uuid
-      bpf: fs/xattr: take freeze protection in the xattr kfuncs
-      nfsd: take freeze protection for the truncate on open
-      loop: use kiocb_write_iter()
-      fs: use kiocb_write_iter() in vfs_iocb_iter_write()
-      backing-file: use kiocb_end_write_iter()
-
- drivers/block/loop.c              | 13 ++++---
- drivers/block/zloop.c             | 12 +++++--
- drivers/nvme/target/io-cmd-file.c | 20 +++++++----
- drivers/target/target_core_file.c | 31 +++++++++++-----
- fs/backing-file.c                 |  8 ++---
- fs/bpf_fs_kfuncs.c                |  8 +++++
- fs/coredump.c                     |  6 ++--
- fs/nfsd/nfs4state.c               | 10 +++++-
- fs/overlayfs/util.c               |  8 +++--
- fs/read_write.c                   |  7 ++--
- include/linux/fs.h                | 75 +++++++++++++++++++++++++++++++++++++++
- io_uring/rw.c                     |  9 +----
- 12 files changed, 158 insertions(+), 49 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261113-work-fs-frozen_writes-042ca762bfb8
-
+diff --git a/mm/memcomp_rmap.h b/mm/memcomp_rmap.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..52cdd471ad70fc27372fa819fc8996d57a3f418e
+--- /dev/null
++++ b/mm/memcomp_rmap.h
+@@ -0,0 +1,139 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _MM_MEMCOMP_RMAP_H
++#define _MM_MEMCOMP_RMAP_H
++
++#ifdef CONFIG_MEMCOMP
++/*
++ * Unlike the newer generic lazyfree batching path, this backport only batches
++ * a reserved memcomp span. Mixed protection or exclusive bits stay on the
++ * existing single-PTE path. The caller owns folio lock, PTL and notifier scope.
++ */
++static bool memcomp_unmap_exclusive_uniform(struct folio *folio)
++{
++	bool exclusive = PageAnonExclusive(folio_page(folio, 0));
++	unsigned int i;
++
++	for (i = 1; i < folio_nr_pages(folio); i++) {
++		if (PageAnonExclusive(folio_page(folio, i)) != exclusive)
++			return false;
++	}
++	return true;
++}
++
++static int memcomp_share_anon_ptes(struct folio *folio, struct page *page,
++				   unsigned int nr)
++{
++	unsigned int i;
++
++	if (IS_ENABLED(CONFIG_HAVE_GUP_FAST))
++		/* Paired with the memory barrier in try_grab_folio(). */
++		smp_mb();
++	if (unlikely(folio_maybe_dma_pinned(folio)))
++		return -EBUSY;
++	for (i = 0; i < nr; i++)
++		ClearPageAnonExclusive(page + i);
++	if (IS_ENABLED(CONFIG_HAVE_GUP_FAST))
++		/* Paired with the smp_rmb() in gup_must_unshare(). */
++		smp_mb__after_atomic();
++	return 0;
++}
++
++/* 1: use the original actor; >1: complete batch; <0: restored, abort walk. */
++static int memcomp_unmap_ptes(struct page_vma_mapped_walk *pvmw,
++			      struct folio *folio, struct vm_area_struct *vma,
++			      enum ttu_flags flags)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	unsigned long address = pvmw->address, end, token;
++	unsigned int i, nr, got = 0;
++	struct page *page;
++	swp_entry_t entry;
++	pte_t first, old, swap;
++	bool exclusive;
++
++	if (!folio_memcomp_reserved(folio) || !folio_test_large(folio) ||
++	    !folio_test_anon(folio) || !folio_test_swapbacked(folio) ||
++	    folio_test_hugetlb(folio) || (flags & TTU_HWPOISON) ||
++	    !memcomp_unmap_exclusive_uniform(folio))
++		return 1;
++	first = ptep_get(pvmw->pte);
++	if (!pte_present(first) || pte_unused(first))
++		return 1;
++	page = pfn_to_page(pte_pfn(first));
++	nr = folio_nr_pages(folio) - folio_page_idx(folio, page);
++	end = min(pmd_addr_end(address, vma->vm_end), vma->vm_end);
++	nr = min_t(unsigned int, nr, (end - address) >> PAGE_SHIFT);
++	if (nr < 2)
++		return 1;
++	for (i = 1; i < nr; i++) {
++		if (!pte_same(pte_advance_pfn(first, i), ptep_get(pvmw->pte + i)))
++			break;
++	}
++	nr = i;
++	if (nr < 2)
++		return 1;
++	entry = page_swap_entry(page);
++	token = swp_offset(entry);
++	if (!is_memcomp_entry(entry) || !token || token > U32_MAX - (nr - 1))
++		return 1;
++	/* Each future PTE gets a real owner; failure unwinds the whole prefix. */
++	for (; got < nr; got++) {
++		if (!memcomp_entry_get(token + got))
++			goto refs_fail;
++	}
++	exclusive = PageAnonExclusive(page);
++	flush_cache_range(vma, address, address + nr * PAGE_SIZE);
++	old = get_and_clear_full_ptes(mm, address, pvmw->pte, nr, 0);
++	if (should_defer_flush(mm, flags)) {
++		for (i = 0; i < nr; i++)
++			set_tlb_ubc_flush_pending(mm, old, address + i * PAGE_SIZE);
++	} else {
++		flush_tlb_range(vma, address, address + nr * PAGE_SIZE);
++	}
++	if (pte_dirty(old))
++		folio_mark_dirty(folio);
++	update_hiwater_rss(mm);
++	for (i = 0; i < nr; i++) {
++		if (arch_unmap_one(mm, vma, address + i * PAGE_SIZE,
++				   pte_advance_pfn(old, i)) < 0)
++			goto restore;
++	}
++	if (exclusive && memcomp_share_anon_ptes(folio, page, nr))
++		goto restore;
++	if (list_empty(&mm->mmlist)) {
++		spin_lock(&mmlist_lock);
++		if (list_empty(&mm->mmlist))
++			list_add(&mm->mmlist, &init_mm.mmlist);
++		spin_unlock(&mmlist_lock);
++	}
++	add_mm_counter(mm, MM_ANONPAGES, -(int)nr);
++	add_mm_counter(mm, MM_SWAPENTS, nr);
++	swap = swp_entry_to_pte(entry);
++	if (exclusive)
++		swap = pte_swp_mkexclusive(swap);
++	if (pte_soft_dirty(old))
++		swap = pte_swp_mksoft_dirty(swap);
++	if (pte_uffd_wp(old))
++		swap = pte_swp_mkuffd_wp(swap);
++	for (i = 0; i < nr; i++)
++		set_pte_at(mm, address + i * PAGE_SIZE, pvmw->pte + i,
++			   pte_move_swp_offset(swap, i));
++	folio_remove_rmap_ptes(folio, page, nr, vma);
++	if (vma->vm_flags & VM_LOCKED)
++		mlock_drain_local();
++	folio_put_refs(folio, nr);
++	pvmw->pte += nr - 1;
++	pvmw->address += (nr - 1) * PAGE_SIZE;
++	return nr;
++restore:
++	/* Complete invalidation before set_ptes() may form a contpte range. */
++	flush_tlb_range(vma, address, address + nr * PAGE_SIZE);
++	/* Dirty/young aggregation is conservative; protection bits were uniform. */
++	set_ptes(mm, address, pvmw->pte, old, nr);
++refs_fail:
++	while (got)
++		memcomp_invalidate(token + --got);
++	return -EBUSY;
++}
++#endif /* CONFIG_MEMCOMP */
++#endif /* _MM_MEMCOMP_RMAP_H */
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 41f1b9f645a261021698d7972649264de391601f..874cf92c1096267a5524b29ab55cc10a901cbcb1 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -1656,6 +1656,8 @@ void folio_remove_rmap_pmd(struct folio *folio, struct page *page,
+ #endif
+ }
+ 
++#include "memcomp_rmap.h"
++
+ /*
+  * @arg: enum ttu_flags will be passed to this argument
+  */
+@@ -1737,6 +1739,16 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 
+ 		/* Unexpected PMD-mapped THP? */
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
++#ifdef CONFIG_MEMCOMP
++		{
++			int nr = memcomp_unmap_ptes(&pvmw, folio, vma, flags);
++
++			if (nr < 0)
++				goto walk_abort;
++			if (nr > 1)
++				continue;
++		}
++#endif
+ 
+ 		pfn = pte_pfn(ptep_get(pvmw.pte));
+ 		subpage = folio_page(folio, pfn - folio_pfn(folio));
