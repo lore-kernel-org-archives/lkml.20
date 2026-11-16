@@ -1,47 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835608;
-	b=oBSqAJ+fbn9aSEDu++NAyo9fuKQ7XZmOegGBV9F9FgQ+//rm9v5LubZwVx7Pg8wCDqvy
-	 oTb0Ez6Vu8XVq9KMB9WhH6lwBci/KbTe3ZPtNuHknJqrGCDvn+fuwY/3JdQszjfTRnGr4
-	 d6GE8t4vteP20SdI5qCvSjAwiQ58HMbga2e8HbeJBBF0xRFYHfElu4dl5ORu0knmYSB73
-	 OcILPBD+mIEEB/hcckWfiXsWzKya6O4UxmeXY2/rEvYkQ8Er6x59v5hVxP2SZNG0ZJx+c
-	 8ksTYz/ZyQl+soWzI6NNnd+WrsKyA4DW3Ws+dE/SvsiI2UNaaIcjzNBJ4v/JwLKjtPg==
+	t=1794835610;
+	b=hHa3F2YauPTW7fx7Q2hgFLmPWcBcitwZcJ+/ga2j4uIedMAa7DY8zYO0FdZWXvJsB3+W
+	 Qq3OauCI/NDeQ+0njOd5n0xKbsaTZaQrq/KEYqmkRvwAxfGRiZXPeXH/8K6BYvfezVdhW
+	 VoqfkKGE+xG+sbv0Qod3AF7CQsT6idURB6+6aJBNWCXoO03Teff+uVhl7la7xfn4qVGCU
+	 LdPhmwe9AjVq+pObp5bA8Y6RRpaouwlssuACn2ye61vaEduKtuV7IhwtDS1dQ8Ut2YtW9
+	 /IUBPfbtfVwuRBffNS09Ik0EpIZr4PQsnGo9I8hLBCGYyEPRImQXduyQ1AlWQg937pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835608;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OmQU/RjOnVBT06d12s8cxuLAC+RDONcNnr2qufwrZ+c=;
-	b=Wp8DquYP1XIR3Y/4pMLe+MDeSp27xXNbjnohB0oh3JSC9W+zqcW3aCq3ptpc+Wmpir0I
-	 RBkp6I3BmGDUAhJrGp3CNLgYRpqcFkgrzebanQ/olF8XVK54OlXf2u6VII8gxIBW86Gw3
-	 5HNn9lL7h2LFlOJNU7w3+o9TMB8MQ9w/goNvwqACbSTi0h2Uqk9vsRdexaHVmz3pdcqQB
-	 0KB+B4RrHGq3PZTHe2SanEIenk3NF8wvI/k2pf5eJNskbLWpdFFtWKSHPPmWFpKAw/YYC
-	 2R0cXx12qurQ/6aQpIM4YEk7pyIcRTcn1tS4okhvxw9eIWVOBdsBcdt+ruRUJRHFJdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835610;
+	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
+	 X-Forward-Email-Sender:X-Forward-Email-Version:
+	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
+	 X-Report-Abuse-To:Mime-Version:Content-Transfer-Encoding:Content-Type:
+	 Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=Qopof/KzEChronzbaNdRS8yRUwb7T04Bp6EAIGWAg3s=;
+	b=elKzTcQrR1tTPwWi+6eerHixpq4QPcn2OCUIPaIjAogfhqKBLKJZJbN7IeJh9lYeSnTB
+	 D4N91mdZF8EqzYveAAZVIWKUU8qpjDWrUr31UyU+pdfqe/GXgWAXFfLsri2FKA6dTm5pY
+	 AXXQH524G60ydJ5X/rf7jhXsJ3GeUDKTZEUnwoHbvMRc6FnKnxVf/og3H+8vbsYtCMlQJ
+	 atZBiHFCJaL/2oQNKWFROXNm5lU2TV35PBriQwhr3RhyefNpI1CmCmb7g28LuxDyjHOQ+
+	 wb1zAR6Bk0vDGAghDfUwd8MR/visBs0ojN8CSTS/6CUshrF4LAO3P//JXjKh1hmoAtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gj34zYbq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ubuntu.com;
+	spf=pass smtp.mailfrom=fe-bounces.ubuntu.com;
+	dkim=pass header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=KJc2bQ3C;
+	arc=none smtp.remote-ip=121.127.44.66
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AA8606A323;
-	Mon, 16 Nov 2026 13:26:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0D606A33D
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:26:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54A0D606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gj34zYbq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4D51F000C4;
-	Mon, 16 Nov 2026 13:26:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794835608;
-	bh=OmQU/RjOnVBT06d12s8cxuLAC+RDONcNnr2qufwrZ+c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Gj34zYbqeKH3qs/yFSyVDyM5YLJ8gBrOfymx63es1d44qr9o7f+wNDu0eEF/61uaT
-	 /n5nIPeT4+d7UgqUN3tpvQ6NObEGC7tPNPj7q96fnfsTb7mqzHu93xgYXog93tF4ni
-	 9AyOHqX3UmfnKFG63wjIfvu7BVTCAu3u1IF2PrptqV0qllCixwZlnmHTfBrXrx+1Xw
-	 9/LNlRyggbLYmP8yHN3jx3aAyYnzfvdF83oScgwmTg2praBYGasZ6Y+6y0/qkr8NJI
-	 saSHE7acAkPFrMm/YWq6OJfB1wwjTIQwZ9e+cqPTHIM7MoSETufulxOXJOFBP5/P8x
-	 qe5zoitvISDuQ==
-Message-ID: <4c3bf92c-2434-46e8-8a3a-ab34cc50c72d@kernel.org>
-Date: Mon, 16 Nov 2026 14:26:37 +0100
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=KJc2bQ3C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1794835603;
+ bh=Qopof/KzEChronzbaNdRS8yRUwb7T04Bp6EAIGWAg3s=;
+ b=KJc2bQ3CXrlbjNgV+d7q5odn1pt6I4/i2GPsj74FgWjAtF5ni3hlf9yRn+ix/HwXEiCpgTz+2
+ rLuy+P4/ZCP9ySyVFLGaunErAG7L31abAO+Eh8oFihk5hYMWOmtzZvrx9NRpYC6LM2KVkmCkBE4
+ 9xZHZyfkk7FnNaPMpmmxubnU7GZIbxtoUgkhBpbuBj/tRlpEilWp0rBTBpecP0ofXN/XYqt4s+9
+ E95CgM6yJRIbzSiG4gDr+yoU02ECvQjQK4FjkXPvAkDogTIVH5knseiDFdaZ/noVkL/zTcQSnwb
+ TIO7H8FSY88gbPzUuTVz0YmfuiMPuOaFRLOOn33abifg==
+X-Forward-Email-ID: 6afb048fb9d3ade89ee12d0f
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.19.26
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,136 +61,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dt-bindings: dma: qcom-gpi: Add QSPI protocol
- identifier
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
- <20261106-qspi_upstream_series-v1-2-21f43042dd60@oss.qualcomm.com>
- <20261109-wandering-miraculous-mamba-0cf21a@quoll>
- <2fc8f7ea-651e-466e-9346-c47e0a38c5bb@oss.qualcomm.com>
- <20261111-daring-salamander-from-tartarus-4c72bd@quoll>
- <c9427a03-8b45-4e35-a29d-7ebe30f07ed7@oss.qualcomm.com>
- <5b6e4031-4c52-4b67-82c2-0033d13b15d6@kernel.org>
- <0d4fa5af-e406-4761-aa58-534c3c6a043a@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <0d4fa5af-e406-4761-aa58-534c3c6a043a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Mon, 16 Nov 2026 08:26:37 -0500
+Message-Id: <DMWO4APJSZPS.16AA1EABR1AEJ@ubuntu.com>
+Cc: "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Sven Peter"
+ <sven@kernel.org>, "Janne Grunau" <j@jannau.net>, "Neal Gompa"
+ <neal@gompa.dev>, "Marc Zyngier" <maz@kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-perf-users@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <asahi@lists.linux.dev>, "Yuvan Shen" <yuvanshen09@gmail.com>, "Nick Chan"
+ <towinchenmi@gmail.com>
+Subject: Re: [PATCH 00/13] drivers/perf: apple_m1: Add M3/M4/A18 Pro Support
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Myria Sarvay" <myrialsarvay@gmail.com>, "Joshua Peisach"
+ <jpeisach@ubuntu.com>
+X-Mailer: aerc 0.21.0
+References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
+ <DMQ0CENBZQGW.L35BD1BXYE9Z@ubuntu.com>
+ <CAFTKyQziVo3COsPZSSZOaFs7R6HhXEWNHYfgTkjyACc7bkoBDw@mail.gmail.com>
+In-Reply-To: <CAFTKyQziVo3COsPZSSZOaFs7R6HhXEWNHYfgTkjyACc7bkoBDw@mail.gmail.com>
 
-On 16/11/2026 11:36, Jyothi Kumar Seerapu wrote:
-> 
-> 
-> On 11/12/2026 7:27 PM, Krzysztof Kozlowski wrote:
->> On 12/11/2026 14:47, Jyothi Kumar Seerapu wrote:
->>>
->>>
->>> On 11/11/2026 6:07 PM, Krzysztof Kozlowski wrote:
->>>> On Mon, Nov 09, 2026 at 08:03:29PM +0530, Jyothi Kumar Seerapu wrote:
->>>>>
->>>>>
->>>>> On 11/9/2026 7:12 PM, Krzysztof Kozlowski wrote:
->>>>>> On Fri, Nov 06, 2026 at 08:31:20PM +0530, Jyothi Kumar Seerapu wrote:
->>>>>>> Add QCOM_GPI_QSPI to identify QSPI (Quad SPI) channels in GPI DMA
->>>>>>> specifiers. Its value, 9, matches the GENI serial engine firmware
->>>>>>> protocol ID for QSPI.
->>>>>>
->>>>>> What is GENI serial engine firmware? How does the Linux rely on it that
->>>>>> we add bindings for it?
->>>>>
->>>>> Hi Krzysztof,
->>>>> GENI firmware runs on the serial engine’s programmable sequencers and
->>>>> implements protocols such as SPI and QSPI. Linux configures the engine and
->>>>> submits transfers to it.
->>>>> The existing GPI DMA specifier includes a client protocol ID. Linux programs
->>>>> this ID into the DMA channel and selects the corresponding descriptor
->>>>> format. QCOM_GPI_QSPI adds the QSPI protocol encoding 9 to that interface.
->>>>> I will clarify this in the commit description in V2.
->>>>
->>>> Does not really answer. I see no reason why GENI firmware needs ABI for
->>>> Linux.
->>>>
->>> This extends the existing GPI DMA binding, not a GENI firmware ABI.
+On Fri Nov 13, 2026 at 2:25 AM EST, Myria Sarvay wrote:
+> On Sun, Nov 08, 2026 at 12:32:46PM -0500, Joshua Peisach wrote:
+>> On Tue Nov 3, 2026 at 5:14 AM EST, Myria Sarvay via B4 Relay wrote:
+>> > This series adds support for the CPU PMU in the new M3, M4 and A18 SoC=
+s
+>> > presed in apple devices. These PMUs have new encodings for events, alo=
+ng
+>> > with larger codes for these events. All of these events are as Apple
+>> > describes them in the various kpep files found under /usr/share/kpep o=
+n
+>> > macOS 27. More events may exist, but we have no idea of their affinity=
+,
+>> > or what they actually count, so we don't include them here.
+>> >
+>> > These patches have been tested on my own M2 (t8133-j413) and M3
+>> > (t6031-j514c) devices, as well as by Yuvan on their M4 (t8132-j713)
+>> > device.
+>> >
+>> > If possible, the device tree changes should probably go through
+>> > apple-soc, as this is where the recently picked up M4 Pro/Max dts are.
+>> >
+>> > Tested-by: Yuvan Shen <yuvanshen09@gmail.com> # on t8132-j713
+>> > Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
+>> > ---
+>> > Myria Sarvay (12):
+>> >       dt-bindings: arm: pmu: Add Apple M3/M4/A18 Pro SoC CPU PMU
+> compatibles
+>> >       drivers/perf: apple_m1: Remove unused variables
+>> >       drivers/perf: apple_m1: Support per-implementation event size
+>> >       drivers/perf: apple_m1: Use macros for per-implementation init
+> functions
+>> >       drivers/perf: apple_m1: Add Apple M3 Series Support
+>> >       drivers/perf: apple_m1: Add Apple M4 Series Support
+>> >       drivers/perf: apple_m1: Add Apple A18 Support
+>> >       arm64: dts: apple: t603x: Add PMU Device Nodes
+>> >       arm64: dts: apple: t8122: Add PMU Device Nodes
+>> >       arm64: dts: apple: t604x: Add PMU Device Nodes
+>> >       arm64: dts: apple: t8132: Add PMU Device Nodes
+>> >       arm64: dts: apple: t8140: Add PMU Device Nodes
+>> >
+>> Maybe the folder should be renamed to 'apple_arm' or something like
+>> that?
 >>
->> OK, so it is not ABI for the firmware. Period. Let's stop discussing this.
->>
->>>
->>> The third argument of the DMA specifier in the dmas property selects
->>> the peripheral protocol. The GPI driver programs this value into the
->>
->> Yes, so the third argument can be value of 6 because it has no meaning
->> for the firmware.
->>
->> Again, follow standard DT bindings ABI rules, you don't get an exception.
-> 
-> The existing GPI DMA driver and binding uses its third cell to identify 
-> the client protocol. The driver takes that value from DT and programs it 
-> directly into the channel's SCRATCH_0 protocol field.
+> What do you mean by this? What folder are you referring too? If you mean
+> the device tree's, they're already under the arm64 folder, so apple_arm
+> seems redundant. If you mean the CPU PMU name, I get that, but I'm not
+> sure how to change that, given it's already hard coded with the config
+> option `APPLE_M1_CPU_PMU`. I feel like changing its name at this point
+> would cause backwards compatibility issues around kernel
+> configs/blacklists if people use them.
 
-So register value? Not a binding...
+Sorry, brain fart. I meant the file apple_m1, to consider splitting
+it up into multiple files. It's no big deal though :)
 
-> Its mandatory to maintain protocol ID-9 for QSPI.
-
-How can it be mandatory if we did not define in the bindings so far...
-
-> 
-> Other protocol IDs which are not part of upstream are for AFC (6), SPMI 
-> (7), HID_QSPI (8).
-
-
-
-Best regards,
-Krzysztof
+-Josh
