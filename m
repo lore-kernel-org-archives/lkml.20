@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833035;
-	b=VsUoWtpOQrDlONbuegC+XEa02y9kij9+o7nBqLRhu3M7Lpd6VPNU+dkaH8j90F5uzkl8
-	 gqYecsuhiCKzCdYh6onDBVV8WZHnbfOsOZ7QkRgpTd0b+cx2MNP7GH1gle5b95IRTcmzo
-	 nMszoe6y1+2OnwnC18S7Rsz3nZX2tQTMsAlBwkQeqXfu3Forc8DFt4EQS1o9k1tmYJJeA
-	 IricSX3J8TZTc7qgNGdAZd4D/k3SOG7CSO9tW7trJ4U/0mKXOrMaTVw7hKY/60LoYjVjq
-	 a04Uwk+0UF8j4UuyHh69kAMTSXXniRuebRBgmFROSEokE2eOGfJ17tpCDedixawkBgg==
+	t=1794833060;
+	b=iMQP0zxH8JEiu+IoGTU83YFccAYWxr4l60hL6sflAO3vBZHe2sqreMyR3JZKfKKqIlWP
+	 +DqeNvuSVB2v6GHnJ/16Jokxy5QNtYjxB6p/0kU4uZsRGNPspQ47P19WkK6OJyGgxG2gE
+	 0xMBOsm9QxMMLesk4WcinSuzlk4a7R4zhBzm5DpXSYrvSk0v4J2Oms9nF+CgzbQwj2RPE
+	 dIl58671+txJerwOLilrermsyN4yBJA4w5M577SWmZx/ZrA5in8UAnDjqS2Wf2YXj/cMf
+	 1W9yO+EsolEd+gKd77sOqalQhyYO1nblaP/5V2IA8oysXV+VyGmzRBHCqOxxZLMfhsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833035;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=wpFlzrIrccRBb09nbTumQVG+pnloIJ1MGRwlAqYwLS8=;
-	b=z6VjyKNTZJANsiydlkn48Q2XmZkRBEWlmVoostrm1hm2CjWL7dtFn7wezGOJCbeI1Ds9
-	 lkIdP9Bi2MMiCYaHo9R14YGAu/kfKbJcXT2x/jCUBiSjOLsH+YpxuYmfK75Ubr6WmtUZB
-	 EG59LvkdFFSGc+C1qzSg/74QQ+hFxh01rOpyKkaJ2TVIESyip5/57hO+pdei+/dmPMfhq
-	 JyG8KpgORJsBAWE/FxvtNyb9KNjFMG1uR8uu2J/rfLfIuBqanp7oG2zYLsDrDK4p0H+hQ
-	 zL7PdyPjSiyknKDbWAlcJVvFJ7b9LBOiNspddTeuqWwbWfsjSoj6VgId6l1XRWJjdlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833060;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HdBYWB42Ov1f7t5UzOhOjOd4BKScNXzBpb3W6636xpA=;
+	b=P1D0lC7PT0UPkCr6rA33wYRfrDVqxNsB72EFt7Ze1GGvfRGfWo4MxwjRUOA0VZC9t0tT
+	 gRXAPcegxaQqr7EzYUoU08J7cTrajFA0VJ0I4M65gAXYc10rrR5Dd8PZQpyxx0fVTvrS4
+	 FB4QCzI4xJEiCS0dgcr8MQ9O8njsJdsnqTyTIVLqTVukAhTphsNoQMY1X9szvUfBJ4clm
+	 8xO9QVS7TCwCiLlBQwCeu0DSJM3OCKxcb6kfpOs2QaLNiO1cDGH2X0ehrHpcb1DI8Y/eJ
+	 iMY34/nzGw3JkPqEgLWTFF+KPnw0BkB4j4AVX8Ua5ZeBfVb1Bcb/yMzxY1HBWXMRfhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B1qYTKua;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SBi8nsIQ;
+	arc=none smtp.remote-ip=95.215.58.87
+Received: from mta1.migadu.com (out-87.mta1.migadu.com [95.215.58.87])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FAD606A331;
-	Mon, 16 Nov 2026 12:43:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FAD606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5033E606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5033E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B1qYTKua
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794833034; x=1826369034;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=e/fGewoCIHvWr1eqxSqbEO97JXsjrMQSQlAG3kBwC3E=;
-  b=B1qYTKuaH+WDNmzdd3qMTt9dSuIBQ6UKMwOKdOfZqRcLKsNAe8XdAPZ9
-   6kzzBSQ27fLQAEAgE0F5E99qb5co4fxy4O9Zj5CMU/+GUyVPbtzQF1E7d
-   hOpW/HUdcdDYPyjaAZc3Y4EwXToxiXtkEgbTyqubdFIDGC2wpnEEdFpJ7
-   wFhHi+3pyjUR2N+BDOeEV38xvNazlrJRk1CcrfTbgXtsZh3bBjBMsgMOQ
-   jseKtVF81VEV+9CPPm6lRQ1FvUHr0gWlS+fduDZGjF2vmlnvVqNwlL+p0
-   BSQ0R1M9RpT41pmklZcKYlzuzEE3xd9r76297lWacNr+ulcaPLvCTQglx
-   A==;
-X-CSE-ConnectionGUID: EyiciNQeR4O7AHADjs/2CA==
-X-CSE-MsgGUID: axBTK53BSQakrq0fHQ5DIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3672668"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3672668"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:43:53 -0800
-X-CSE-ConnectionGUID: ZPrwjXWWQFCd3o2KbjnSGA==
-X-CSE-MsgGUID: 7ELcQbJtSnWGjjGaQ7OVlQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="10071365"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:43:48 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 16 Nov 2026 14:43:45 +0200 (EET)
-To: Alan Pluto <alanpluto@163.com>
-cc: platform-driver-x86@vger.kernel.org, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, derekjohn.clark@gmail.com, 
-    i@rong.moe, W_Armin@gmx.de, Hans de Goede <hansg@kernel.org>, 
-    corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-    LKML <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-    linux-api@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: lenovo-wmi-other: Add raw GetDataByPackage
- interface
-In-Reply-To: <20261116040532.154928-1-alanpluto@163.com>
-Message-ID: <94c2c7a7-b7b1-c0e9-754e-2ed9c37a2294@linux.intel.com>
-References: <20261116040532.154928-1-alanpluto@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SBi8nsIQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=t5dJVaGKrDmbOPD5DFRf/whdm1YuXTQu5zTjuKwHh4A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794833057; v=1; x=1795437857;
+ b=SBi8nsIQOJA45gIFRMHH2Ml12AHpKafEV6fzehZjssQob1eD04E8DSiHGJNRwbZzHOnxpAdU
+ 38ehjlTif7N09vwGwPXrZ3vrKTQL7/E+cIEJHT/WOuGeARKOwPLiiXPs7PAeqezV40PLL8SV0qX
+ zvBsGB2ZdjU4OWBfA1Gn94eQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 10d7ca4d1171aa70;
+	Mon, 16 Nov 2026 12:44:17 +0000
+X-Mizu-Trace-ID: 10d7ca4d1171aa70
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <01f0b173-dbd2-484e-8e53-f4a001af9acb@linux.dev>
+Date: Mon, 16 Nov 2026 20:44:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,542 +58,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v2] blk-throttle: Avoid unsequenced accesses to jiffies in
+ throtl_schedule_pending_timer()
+To: Nathan Chancellor <nathan@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>, Jens Axboe <axboe@kernel.dk>
+References: <20261115-blk-throttle-wunsequenced-v2-1-1d297c891b82@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20261115-blk-throttle-wunsequenced-v2-1-1d297c891b82@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 16 Nov 2026, Alan Pluto wrote:
 
-> Expose Lenovo Other Mode WMI GetDataByPackage, method 99, through a
-> root-only character device so userspace can access the raw firmware
-> interface. And document the interface.
+
+在 2026/11/16 11:37, Nathan Chancellor 写道:
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], two instances appear in
+> throtl_schedule_pending_timer(), which can break the build with
+> CONFIG_WERROR=y / W=e:
 > 
-> The upstream driver was build-tested with W=1 and checked with Sparse.
-> A backport using the five-argument wmidev_invoke_method() interface
-> was tested on Ubuntu 7.0.0-42 with Lenovo hardware. The upstream 7.4
-> driver has not been tested on hardware.
+>   block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+>     469 |                    expires - jiffies, jiffies);
+>         |                              ~~~~~~~  ^
+>   block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+>     469 |                    expires - jiffies, jiffies);
+>         |                              ~~~~~~~  ^
 > 
-> Signed-off-by: Alan Pluto <alanpluto@163.com>
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+> function call is indeterminately sequenced, meaning any side effects in
+> the arguments are unsequenced.
+> 
+> Add a local variable to hold the value of jiffies before the function
+> call so that there are no unsequenced side effects, clearing up the
+> warning.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 69df0ab030c9 ("blk-throttle: separate out throtl_service_queue->pending_timer from throtl_data->dispatch_work")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2191
+> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
 > ---
->  Documentation/ABI/testing/dev-tac             |  49 +++
->  .../wmi/devices/lenovo-wmi-other.rst          |   8 +
->  MAINTAINERS                                   |   1 +
->  drivers/platform/x86/lenovo/wmi-other.c       | 325 ++++++++++++++++++
->  4 files changed, 383 insertions(+)
->  create mode 100644 Documentation/ABI/testing/dev-tac
+> Changes in v2:
+> - Reuse value of jiffies in max_expire to avoid
+>   -Wunused-but-set-variable for j when CONFIG_BLK_DEV_IO_TRACE is
+>   disabled (Sashiko)
+> - Link to v1: https://patch.msgid.link/20261114-blk-throttle-wunsequenced-v1-1-d28ed5553ff3@kernel.org
+> ---
+>  block/blk-throttle.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/ABI/testing/dev-tac b/Documentation/ABI/testing/dev-tac
-> new file mode 100644
-> index 00000000000..a8be8e95e2d
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/dev-tac
-> @@ -0,0 +1,49 @@
-> +What:           /dev/tac[0-9]*
-> +Date:           November 2026
-> +Contact:        platform-driver-x86@vger.kernel.org
-> +Description:
-> +                Lenovo Other Mode WMI GetDataByPackage (method 99).
-> +                Each firmware WMI instance gets a misc character device with
-> +                mode 0600. Numbering follows allocation order, not necessarily
-> +                the firmware instance number. Registration does not probe
-> +                support for method 99. The parent is the bound WMI device.
-> +
-> +                Open with O_RDWR. One write submits one complete request of
-> +                1..100 raw bytes; shorter requests are padded with zeroes to
-> +                100 bytes. Empty and oversized writes fail with EINVAL without
-> +                calling firmware. Successful writes return the full submitted
-> +                length and execute two identical WMI calls for the BIOS
-> +                duplicate-call workaround. Request pairs through this
-> +                interface are serialized; calls made by other driver
-> +                interfaces are not covered by this serialization.
-> +                Evaluation failures abort the pair; the driver does not
-> +                automatically retry.
-> +
-> +                Each open file description owns its response. A write while
-> +                that response remains unread fails with EBUSY, including after
-> +                partial reads. A new open cannot read another open's response.
-> +                Descriptors shared by dup/fork share the same transaction;
-> +                applications must coordinate the complete write/read sequence.
-> +
-> +                Read returns little-endian u32 DataSize followed by exactly
-> +                DataSize data bytes. Response storage is erased when fully
-> +                read or closed. Further reads return EOF until a new successful
-> +                write. Before a successful write, or after a failed firmware
-> +                evaluation, reads return ENODATA. A zero-length read returns
-> +                zero without consuming data.
-> +
-> +                Requests are synchronous even with O_NONBLOCK. Seeking and
-> +                positional I/O are not supported. There is no ioctl interface.
-> +                A removed WMI device causes nonempty reads and valid writes
-> +                on existing descriptors to fail with ENODEV.
-> +
-> +                Firmware evaluation failures map to EIO. WMI marshalling
-> +                failures return the error reported by the WMI subsystem.
-> +                A truncated response or invalid DataSize maps to EPROTO.
-> +                Bad userspace memory maps to EFAULT. Failure does not imply
-> +                firmware had no side effects; never blindly resubmit commands.
-> +                Interrupted waits can return EINTR before firmware evaluation.
-> +
-> +                The WMI subsystem converts returned ACPI objects to a buffer.
-> +                This raw firmware interface may change device state. Use only
-> +                commands whose behavior and side effects are understood.
-> diff --git a/Documentation/wmi/devices/lenovo-wmi-other.rst b/Documentation/wmi/devices/lenovo-wmi-other.rst
-> index 011054d64ea..ec85fdeeb7a 100644
-> --- a/Documentation/wmi/devices/lenovo-wmi-other.rst
-> +++ b/Documentation/wmi/devices/lenovo-wmi-other.rst
-> @@ -33,6 +33,10 @@ under the following path:
+> diff --git a/block/blk-throttle.c b/block/blk-throttle.c
+> index c5e26551956a..8e58e50bce4d 100644
+> --- a/block/blk-throttle.c
+> +++ b/block/blk-throttle.c
+> @@ -453,7 +453,8 @@ static void throtl_dequeue_tg(struct throtl_grp *tg)
+>  static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
+>  					  unsigned long expires)
+>  {
+> -	unsigned long max_expire = jiffies + 8 * DFL_THROTL_SLICE;
+> +	unsigned long j = jiffies;
+> +	unsigned long max_expire = j + 8 * DFL_THROTL_SLICE;
 >  
->  Additionally, this driver also exports attributes to HWMON.
->  
-> +The driver also exposes GetDataByPackage (method 99) through a raw character
-> +device for each WMI instance. See Documentation/ABI/testing/dev-tac for the
-> +request and response format and its access restrictions.
-> +
->  LENOVO_CAPABILITY_DATA_00
->  -------------------------
->  
-> @@ -109,6 +113,10 @@ WMI interface description
->  The WMI interface description can be decoded from the embedded binary MOF (bmof)
->  data using the `bmfdec <https://github.com/pali/bmfdec>`_ utility:
->  
-> +The example below describes an older firmware revision and specifies a
-> +40-byte maximum input for GetDataByPackage. Newer firmware uses a 100-byte
-> +input, which is the size used by the raw interface described above.
-> +
->  ::
->  
->    [WMI, Dynamic, Provider("WmiProv"), Locale("MS\\0x409"), Description("LENOVO_OTHER_METHOD class"), guid("{dc2a8805-3a8c-41ba-a6f7-092e0089cd3b}")]
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 981eb3fdbef..84b1545f525 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15168,6 +15168,7 @@ M:	Derek J. Clark <derekjohn.clark@gmail.com>
->  M:	Rong Zhang <i@rong.moe>
->  L:	platform-driver-x86@vger.kernel.org
->  S:	Maintained
-> +F:	Documentation/ABI/testing/dev-tac
->  F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
->  F:	Documentation/wmi/devices/lenovo-wmi-other.rst
->  F:	drivers/platform/x86/lenovo/*
-> diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
-> index bd64e7b4466..c15b3a2a758 100644
-> --- a/drivers/platform/x86/lenovo/wmi-other.c
-> +++ b/drivers/platform/x86/lenovo/wmi-other.c
-> @@ -34,16 +34,23 @@
->  #include <linux/device.h>
->  #include <linux/export.h>
->  #include <linux/firmware_attributes.h>
-> +#include <linux/fs.h>
->  #include <linux/gfp_types.h>
->  #include <linux/hwmon.h>
->  #include <linux/idr.h>
->  #include <linux/kdev_t.h>
->  #include <linux/kobject.h>
-> +#include <linux/kref.h>
->  #include <linux/limits.h>
-> +#include <linux/miscdevice.h>
->  #include <linux/module.h>
-> +#include <linux/mutex.h>
->  #include <linux/platform_profile.h>
->  #include <linux/power_supply.h>
-> +#include <linux/slab.h>
->  #include <linux/types.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/unaligned.h>
->  #include <linux/wmi.h>
->  
->  #include <acpi/battery.h>
-> @@ -91,6 +98,9 @@ enum lwmi_feature_id_psu {
->  #define LWMI_FEATURE_VALUE_GET 17
->  #define LWMI_FEATURE_VALUE_SET 18
->  
-> +#define LWMI_DATA_PACKAGE_GET 99
-> +#define LWMI_DATA_PACKAGE_INPUT_MAX 100
-> +
->  #define LWMI_FAN_ID_BASE 1
->  #define LWMI_FAN_NR 4
->  #define LWMI_FAN_ID(x) ((x) + LWMI_FAN_ID_BASE)
-> @@ -115,6 +125,27 @@ enum lwmi_feature_id_psu {
->  
->  static DEFINE_IDA(lwmi_om_ida);
->  
-> +static DEFINE_IDA(lwmi_tac_ida);
-> +static DEFINE_MUTEX(lwmi_tac_lock);
-
-Please document what it protects.
-
-> +
-> +struct lwmi_tac {
-> +	struct miscdevice misc;
-> +	struct kref ref;
-> +	struct wmi_device *wdev;
-> +	u8 instance;
-> +	int id;
-> +};
-> +
-> +struct lwmi_tac_file {
-> +	struct lwmi_tac *tac;
-> +	/* Protects the per-open response and its position. */
-> +	struct mutex lock;
-> +	void *result;
-> +	size_t result_len;
-> +	loff_t position;
-> +	bool completed;
-> +};
-> +
->  enum attribute_property {
->  	DEFAULT_VAL,
->  	MAX_VAL,
-> @@ -1609,6 +1640,295 @@ static void lwmi_om_fw_attr_remove(struct lwmi_om_priv *priv)
->  	priv->ida_id = -EIDRM;
+>  	/*
+>  	 * Since we are adjusting the throttle limit dynamically, the sleep
+> @@ -466,7 +467,7 @@ static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
+>  		expires = max_expire;
+>  	mod_timer(&sq->pending_timer, expires);
+>  	throtl_log(sq, "schedule timer. delay=%lu jiffies=%lu",
+> -		   expires - jiffies, jiffies);
+> +		   expires - j, j);
 >  }
->  
-> +/**
-> + * lwmi_tac_free() - Free an unregistered endpoint after its last close
-> + * @ref: Reference belonging to the endpoint.
-> + */
-> +static void lwmi_tac_free(struct kref *ref)
-> +{
-> +	struct lwmi_tac *tac = container_of(ref, struct lwmi_tac, ref);
-> +
-> +	ida_free(&lwmi_tac_ida, tac->id);
-> +	kfree(tac->misc.name);
-> +	kfree(tac);
-> +}
-> +
-> +/**
-> + * lwmi_tac_open() - Allocate independent response state for an open file
-> + * @inode: Character device inode.
-> + * @file: File initially pointing to the registered miscdevice.
-> + *
-> + * The misc core serializes open against deregistration, so the registration
-> + * reference remains valid while the file acquires its own reference.
-> + *
-> + * Return: 0 on success, or -ENOMEM.
-> + */
-> +static int lwmi_tac_open(struct inode *inode, struct file *file)
-> +{
-> +	struct lwmi_tac *tac = container_of(file->private_data, struct lwmi_tac, misc);
-> +	struct lwmi_tac_file *state;
-> +
-> +	state = kzalloc_obj(*state);
-> +	if (!state)
-> +		return -ENOMEM;
-> +	mutex_init(&state->lock);
-> +	state->tac = tac;
-> +	kref_get(&tac->ref);
-> +	file->private_data = state;
-> +	return stream_open(inode, file);
-> +}
-> +
-> +/**
-> + * lwmi_tac_release() - Erase the response and drop the endpoint reference
-> + * @inode: Character device inode.
-> + * @file: File holding the endpoint state.
-> + *
-> + * Return: 0.
-> + */
-> +static int lwmi_tac_release(struct inode *inode, struct file *file)
-> +{
-> +	struct lwmi_tac_file *state = file->private_data;
-> +
-> +	kfree_sensitive(state->result);
-> +	mutex_destroy(&state->lock);
-> +	kref_put(&state->tac->ref, lwmi_tac_free);
-> +	kfree(state);
-> +	return 0;
-> +}
-> +
-> +/**
-> + * lwmi_tac_invoke() - Execute GetDataByPackage and retain the response
-> + * @state: Open file whose response buffer is empty.
-> + * @data: Zero-padded 100-byte input buffer.
-> + *
-> + * The caller holds state->lock and lwmi_tac_lock. The latter serializes call
-
-Please lockdep assert any locks that are expected to be held.
-
-> + * pairs across instances and keeps the WMI device valid during evaluation.
-> + *
-> + * Return: 0 on success, or a negative error code.
-> + */
-> +static int lwmi_tac_invoke(struct lwmi_tac_file *state, u8 *data)
-> +{
-> +	struct lwmi_tac *tac = state->tac;
-> +	struct wmi_buffer input = { .length = LWMI_DATA_PACKAGE_INPUT_MAX, .data = data };
-> +	struct wmi_buffer output;
-> +	u32 data_size;
-> +	int ret;
-> +
-> +	if (!tac->wdev)
-> +		return -ENODEV;
-> +	/*
-> +	 * Duplicated call required to match BIOS workaround for behavior
-> +	 * seen when WMI accessed via scripting on other OS.
-> +	 */
-> +	for (unsigned int call = 0; call < 2; call++) {
-> +		ret = wmidev_invoke_method(tac->wdev, tac->instance,
-> +					   LWMI_DATA_PACKAGE_GET, &input, &output, 0);
-> +		if (ret)
-> +			return ret;
-> +		if (!call)
-> +			kfree_sensitive(output.data);
-
-Why are you using _sensitive() variant extensively?
-
-> +	}
-> +	/* Validate DataSize before preserving the complete firmware response. */
-> +	if (output.length < sizeof(__le32)) {
-> +		ret = -EPROTO;
-> +		goto free_output;
-> +	}
-> +	data_size = get_unaligned_le32(output.data);
-> +	if (data_size > output.length - sizeof(__le32)) {
-> +		ret = -EPROTO;
-> +		goto free_output;
-> +	}
-
-Can't the new WMI interface do size checks for you?
-
-> +	/* Transfer ownership without another allocation after firmware ran. */
-> +	state->result = output.data;
-> +	state->result_len = sizeof(__le32) + data_size;
-> +	state->position = 0;
-> +	state->completed = true;
-> +	return 0;
-> +free_output:
-> +	kfree_sensitive(output.data);
-
-Please use __free() & no_free_ptr() instead.
-
-I suggest assign to a newly declared (mid-function) variable after the 
-loop as is recommended with __free() (see the long comment in cleanup.h 
-for details).
-
-> +	return ret;
-> +}
-> +
-> +/**
-> + * lwmi_tac_write() - Submit one complete TAC request
-> + * @file: Open TAC endpoint with independent response state.
-> + * @buffer: Userspace input bytes.
-> + * @count: Input size, from 1 to 100 bytes.
-> + * @ppos: Unused; TAC is a nonseekable request/response stream.
-> + *
-> + * Short inputs are zero-padded. An unread response must be consumed before
-> + * submitting another request. A failed firmware call is never retried here.
-> + *
-> + * Return: @count on success, or a negative error code.
-> + */
-> +static ssize_t lwmi_tac_write(struct file *file, const char __user *buffer,
-> +			      size_t count, loff_t *ppos)
-> +{
-> +	struct lwmi_tac_file *state = file->private_data;
-> +	u8 input[LWMI_DATA_PACKAGE_INPUT_MAX] = {};
-> +	int ret;
-> +
-> +	if (!count || count > sizeof(input))
-> +		return -EINVAL;
-> +	if (copy_from_user(input, buffer, count)) {
-> +		ret = -EFAULT;
-> +		goto clear_input;
-> +	}
-> +	ret = mutex_lock_interruptible(&state->lock);
-> +	if (ret)
-> +		goto clear_input;
-> +	ret = mutex_lock_interruptible(&lwmi_tac_lock);
-> +	if (ret)
-
-Please use ACQUIRE/ACQUIRE_ERR() for these, then you can return directly 
-below as unlocks will be done automatically for you. It will simplify the 
-code flow a ton here.
-
-> +		goto unlock;
-> +	if (!state->tac->wdev) {
-> +		ret = -ENODEV;
-> +	} else if (state->result) {
-> +		ret = -EBUSY;
-> +	} else {
-> +		state->completed = false;
-> +		ret = lwmi_tac_invoke(state, input);
-> +	}
-> +	mutex_unlock(&lwmi_tac_lock);
-> +unlock:
-> +	mutex_unlock(&state->lock);
-> +clear_input:
-> +	memzero_explicit(input, sizeof(input));
-
-?
-
-You really need to have a justification for these in the changelog if you 
-want to go there.
-
-> +	if (ret)
-> +		return ret;
-> +	return count;
-> +}
-> +
-> +/**
-> + * lwmi_tac_read() - Read only this open file's firmware response
-> + * @file: Open TAC endpoint.
-> + * @buffer: Userspace destination.
-> + * @count: Maximum number of bytes to return.
-> + * @ppos: Unused; the response position is protected by state->lock.
-> + *
-> + * Responses contain little-endian u32 DataSize followed by Data. Partial
-> + * reads advance the response position. Consuming the result erases its
-> + * storage immediately; subsequent reads return EOF until another write.
-> + *
-> + * Return: Bytes read, 0 at EOF or for zero @count, or a negative error code.
-> + */
-> +static ssize_t lwmi_tac_read(struct file *file, char __user *buffer,
-> +			     size_t count, loff_t *ppos)
-> +{
-> +	struct lwmi_tac_file *state = file->private_data;
-> +	ssize_t ret;
-> +
-> +	if (!count)
-> +		return 0;
-> +	ret = mutex_lock_interruptible(&state->lock);
-> +	if (ret)
-> +		return ret;
-> +	ret = mutex_lock_interruptible(&lwmi_tac_lock);
-> +	if (ret)
-> +		goto unlock;
-> +	if (!state->tac->wdev)
-> +		ret = -ENODEV;
-> +	mutex_unlock(&lwmi_tac_lock);
-> +	if (ret) {
-> +		kfree_sensitive(state->result);
-> +		state->result = NULL;
-> +		goto unlock;
-> +	}
-> +	if (!state->completed) {
-> +		ret = -ENODATA;
-> +		goto unlock;
-> +	}
-> +	if (!state->result)
-> +		goto unlock;
-> +	ret = simple_read_from_buffer(buffer, count, &state->position,
-> +				      state->result, state->result_len);
-> +	if (state->position == (loff_t)state->result_len) {
-> +		kfree_sensitive(state->result);
-> +		state->result = NULL;
-> +	}
-> +unlock:
-> +	mutex_unlock(&state->lock);
-> +	return ret;
-> +}
-
-Same comments as above.
-
-> +
-> +static const struct file_operations lwmi_tac_fops = {
-> +	.owner = THIS_MODULE,
-> +	.open = lwmi_tac_open,
-> +	.release = lwmi_tac_release,
-> +	.read = lwmi_tac_read,
-> +	.write = lwmi_tac_write,
-> +};
-> +
-> +/**
-> + * lwmi_tac_remove() - Unregister an endpoint and block further firmware calls
-> + * @data: Endpoint registered as a device-managed cleanup action.
-> + *
-> + * Stop new opens before waiting for an in-flight call pair. Existing files
-> + * retain the endpoint state, but their subsequent reads/writes return -ENODEV.
-> + */
-> +static void lwmi_tac_remove(void *data)
-> +{
-> +	struct lwmi_tac *tac = data;
-> +
-> +	misc_deregister(&tac->misc);
-> +	mutex_lock(&lwmi_tac_lock);
-> +	tac->wdev = NULL;
-> +	mutex_unlock(&lwmi_tac_lock);
-> +	kref_put(&tac->ref, lwmi_tac_free);
-> +}
-> +
-> +/**
-> + * lwmi_tac_add() - Register TAC endpoints independently of capability data
-> + * @wdev: Bound Lenovo Other Mode WMI device.
-> + *
-> + * No capability describes method 99, so registration does not probe firmware
-> + * support. Each firmware instance gets an endpoint; unsupported method calls
-> + * are reported to userspace when requested.
-> + *
-> + * Return: 0 on success, or a negative error code. Device-managed cleanup
-> + * unregisters earlier endpoints if a later registration or probe step fails.
-> + */
-> +static int lwmi_tac_add(struct wmi_device *wdev)
-> +{
-> +	unsigned int instances = wmidev_instance_count(wdev);
-> +	int ret;
-> +
-> +	for (unsigned int instance = 0; instance < instances; instance++) {
-> +		struct lwmi_tac *tac;
-> +
-> +		tac = kzalloc_obj(*tac);
-> +		if (!tac)
-> +			return -ENOMEM;
-> +		ret = ida_alloc(&lwmi_tac_ida, GFP_KERNEL);
-> +		if (ret < 0) {
-> +			kfree(tac);
-> +			return ret;
-> +		}
-> +		tac->id = ret;
-> +		kref_init(&tac->ref);
-> +		tac->wdev = wdev;
-> +		tac->instance = instance;
-> +		tac->misc.minor = MISC_DYNAMIC_MINOR;
-> +		tac->misc.name = kasprintf(GFP_KERNEL, "tac%d", tac->id);
-> +		tac->misc.fops = &lwmi_tac_fops;
-> +		tac->misc.parent = &wdev->dev;
-> +		tac->misc.mode = 0600;
-> +		if (!tac->misc.name) {
-> +			kref_put(&tac->ref, lwmi_tac_free);
-> +			return -ENOMEM;
-> +		}
-> +		ret = misc_register(&tac->misc);
-> +		if (ret) {
-> +			kref_put(&tac->ref, lwmi_tac_free);
-> +			return ret;
-
-Please add a rollback path to not duplicate.
-
-> +		}
-> +		/* Unregister before the WMI device and its managed state disappear. */
-> +		ret = devm_add_action_or_reset(&wdev->dev, lwmi_tac_remove, tac);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	return 0;
-> +}
-> +
->  /* ======== Self (master: lenovo-wmi-other) ======== */
 >  
 >  /**
-> @@ -1693,6 +2013,7 @@ static int lwmi_other_probe(struct wmi_device *wdev, const void *context)
->  {
->  	struct component_match *master_match = NULL;
->  	struct lwmi_om_priv *priv;
-> +	int ret;
->  
->  	priv = devm_kzalloc_obj(&wdev->dev, *priv);
->  	if (!priv)
-> @@ -1708,6 +2029,10 @@ static int lwmi_other_probe(struct wmi_device *wdev, const void *context)
->  	if (IS_ERR(master_match))
->  		return PTR_ERR(master_match);
->  
-> +	ret = lwmi_tac_add(wdev);
-> +	if (ret)
-> +		return ret;
-> +
->  	return component_master_add_with_match(&wdev->dev, &lwmi_om_master_ops,
->  					       master_match);
->  }
 > 
-> base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
+> ---
+> base-commit: ab43ec385580b8f8abf72d70fa3acbf4e4f098a5
+> change-id: 20261114-blk-throttle-wunsequenced-ccf308a23c1b
 > 
-
--- 
- i.
+> Best regards,
+> --  
+> Cheers,
+> Nathan
 
