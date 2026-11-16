@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821098;
-	b=EEsslvhYknEXjDqRJB5Me4k0UBJEUOOCuyoW4NgWotN9uFTG7F6v15OHd5uVpeg5IdVV
-	 NQW7CZOFftLv1irN8o7kfgvhYbXxw8q5QPD4FSixs6mcM23KYqj8W+QvXC2I6zk020h4M
-	 81pZhLlHKoWQX92BBT6QNIUTqzWBL95/67HDIyWX7IYkm/oJyEFdKMHeEWN3x57+Hrc6U
-	 4rbfzaEYv5wo3HfJnYiLvzxJPNO+ShpCJSusHpQUd67yMta2VZHsXC+60QRhNr6NCMZkq
-	 qCkMe1fomlNx1/cpxc7TjhSPMpNpK6YvnEHe/XE8SZ+xUtGovMaPtbyQZSY50I8jEfQ==
+	t=1794821101;
+	b=jSGaJGivkQeXPdBsUO/25Gjb2n6UBN99oy75qn+6+/2L50Ke3u4FfhPwoIu+gmESDbO+
+	 9lYz7IgEIRCfC1YmQhMAqasTQoB1lxk/j+hEZqDUl0igR8UJFRPrw9MbCn+G4MULptd7/
+	 xntjosIyPP4LZW8CqW6ew3n5VhJNViNwbJGo6K2wV1IsSPa4wmWhqbN9I6GxozRZmJ/gJ
+	 bsE0GerwDZQOTN6RU/jHoLhmIM4iED3ixS5BL/14xxje0IH6elMOHrRlUXFYbCVE+lDh8
+	 0ZD6xP9jawKd5yljoZpkbynhFrAru0lFO30N9v5StGMBbCpQ9buKiXqHpNqVLrdY/Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821101;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=OD644D4H+a0ZXJYlgxiiTnY1kkzCbvWk1YLCk3rxbKU=;
-	b=h/d5K8k+GWOPJZcRQUZHyO2itfZzo0upGghrVQxOpDIv5M6ZdVqiLWlFacs1NTFm0T+V
-	 4R+Mf9poTP/b1OhMRh6ILRu8lO30expGZav5XJ7FEHKRxx4rr2IY8FPnmQEupg4d3WH3J
-	 JS7t6TJ/jL6A3QY+tp1ARGfvsDxmXfyCOxSmSXoykOVK7m8mIjdxWsHtaZHS4EFCcemWS
-	 5lXd0eA0NvoCgigjEipPf2eVMVgQz1vdjIhgqdVNuyIRbR6zy2v/CG0ElLSk5XGve8ykq
-	 hutQx3i6MztHDXhNPM7h6efpKyvVj80yQk2IgYeLkXvTKavhSGuEtjA2NOryDY/qBMA==
+	bh=+kzbAXF6Q7HKw8jGGGgdN+4kZFhaf1FTj8cFnPCPCbk=;
+	b=2MI+wh9YcG7QfMTmtZ/w7SZWtXVYV3DnlHjiSNrWjhIqMbDxgDPS9PzkRqb2L1NBOYKx
+	 NA0PB090nT+VbmqyGVpDKiGea4CNpRHS6JuJoHM8CWg1yy2xeARjN6eItClThO8MD5iMU
+	 VgUpdduWft9clEI6yW25Urzm5PMoNMC2aq2jNi+7mgHH37yL+pInpBsG0VfLeXLtoUr7C
+	 SUM2kkOu0gBWgwN3uzLwXmcI2oeo6V/Iccp7JkR1Kg94n4vgCR2Xzs7qCOYXG6oDD2+jC
+	 iVHTIlnJko6nowPlOQIvlmdbSSplwgmtsqbaAYDnJIbz2Z9WxfejcJQINVrxPqyqkVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
 	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=LUWMPzOg;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=ZRiZttZg;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F360D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:24:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F360D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30E0606A336
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C30E0606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=LUWMPzOg
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37600b0db49so3760750eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:24:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=ZRiZttZg
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso3867046eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:25:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1794821097; x=1795425897; darn=vger.kernel.org;
+        d=is.s.u-tokyo.ac.jp; s=google; t=1794821100; x=1795425900; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OD644D4H+a0ZXJYlgxiiTnY1kkzCbvWk1YLCk3rxbKU=;
-        b=LUWMPzOgW5io1fePlO8evy7T9l3udKkwmMDkV7TL7j/fbYoR0NRRp3uVj6pbeI+aUU
-         gfKzw7/Uk0SV1axC6PEX5N3nG7CyUwm/Dwcz8S3brfsR6N4snhWmaFaL4ldu+sYLN0ks
-         s+kd3TZ583yrwtZZKLilrx8n/fPvN1qxDpSMMERnGSyPni6w8m0YCsJeXOdvCZCcBuei
-         TqfeW9CtQkq0Km4axUZ7QajWSxSEP+MntVadYBFt4kS0PRskn7GS6/NMNz6emBmk64Vy
-         nfCA8K3AoWA50kRrZzfZ71oei32BErCbIoC/H+pNLzkmpzecXoMnYhIMr4oRJPL0W63u
-         dcRw==
+        bh=+kzbAXF6Q7HKw8jGGGgdN+4kZFhaf1FTj8cFnPCPCbk=;
+        b=ZRiZttZgcfd62niaHc7feOuFxoxJnigtmUhpbCsLqYNjpOipU4Fr0UYiNcKTP09NAr
+         4pM+Chmj005G94afM6s2MpaNbRQmwPS+MUiAorRxSSlWZZ26uIo0cunIBCcDpMthecS/
+         LDaUiqyTPJZlHMFzL0kHjEz+9S2jMTW4T8mmJ1a1xPgYg+nq/CjaRPNrqS/brIryF9bx
+         7nia8eCgjgDGqPIM/75kYF2t6r2PAaOi2WGrmEDQqsXTXA7qdD7aizkaFeug7L+GId7R
+         kFAtWQ/t+eUBmV45hZ5UTVN8mWlkHe1HA/fVZYuboPydRb4AnekTfKygqPP9EBtsApf1
+         FjMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794821097; x=1795425897;
+        d=1e100.net; s=20260707; t=1794821100; x=1795425900;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OD644D4H+a0ZXJYlgxiiTnY1kkzCbvWk1YLCk3rxbKU=;
-        b=tjwUbJhoxa7ScKXqDS74/ELDDZ8ftbez2nFeA0lUQhb7FNiqWy2SSImZvOpmZFVqzZ
-         GY5xW6zhmxRoGtT4uZ/NJS40gT7Y3dF8eijce1XMGJz5SbTQBlAecKag/jWtza5Hhdcs
-         wxL4vC/C3Gc7T9c59XqqwF9uzD5CoYfWraVxdhJkRyMBS3YHdtHcTrpg+8I99ofLE+8U
-         2ctvB9TFfDGMihEl3VQyB1HGFweP1sbt8F1n0J/xk7UYF5+jDfCCq9VHJGXzSU/AZz+B
-         Xywh4c3llkesT/saRcU/vvRiueU3UnvhckVBG68q9GX+YO8OZvvIfzZQ3T8ZfplpqHcY
-         dBww==
-X-Forwarded-Encrypted: i=1; AL+hErHZnJC5a3fcu89jr7VkaudROTMzylYrDknHa8g2FWioNixvkl+4U1OiwjteR2KUEGNnyRiC9Ww8H/HQLEM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xhJK3j9tJrIqtQVUbdRXpqdxWod92vUVExr8Tm054pPJtfOQu
-	33s8VGCL9SbIhiutDBDNOP764HntQrfLPN7Qk0Zx9JfUoKcUvMFbFDn4MGSfESxYsQ==
-X-Gm-Gg: AZFdTZel/jdVURzy94RRFD11Myg64LrE4TtEdwKsH36bUZkseqZ5P8Rn1avy44vIMrn
-	ZDX32PCMzOnyk7lvOEjbIC/ev1tRWSVOZZxMvXZpbm8sUH5Erh1Tw/L53T+Oic9gcneFqEsE+6e
-	HWfkAwVx+9QhfEiidm1peRVFPN74cqzUzjKlQGKXSObg5fUWSQz5jdbzJnCCPpXIUErI5wX9P3K
-	XHfCFEkodraB42N/Q/DagLJbbQ288GatI/eVJX/544efSeYy89OnSyqwuL9hVsS1tJGOKpTWHgv
-	3dPEpeEVaYODs0AjDHYJt/0OaeJ7zEW3VcZBGPOTM5VphGsf/RC9UXswx2fzpHnCHrxWPAMKEy1
-	XKPg9y8otTxFcDGDVFxzEFxEuyFHw7dihd3fEOCQFoB5XhPyVOgKwc01O+P1MmhU1K/6oTlPRl4
-	hlYuPQC+NRbqDEhSfl6vA80sFJblIcKX+pTIHYCTkN74Eq8DFzPvhpM/tJryxUSCIt8WvDuZkUE
-	YTGEsHcU3TQkkYTtxVbdyCXybPIajFHo60yc1JqBzzT6GwWkCb8o6jjcWUTRT0evr06h8bqzPXx
-	fYcIV2XlY59LyYFux4DXi1UCWg6OBghUZeDFfId3yDZ5dHlCv6uCzgwXXbI=
-X-Received: by 2002:a05:7301:4718:b0:375:85ac:d14f with SMTP id 5a478bee46e88-377e10172d1mr11175901eec.14.1794821097026;
-        Mon, 16 Nov 2026 01:24:57 -0800 (PST)
+        bh=+kzbAXF6Q7HKw8jGGGgdN+4kZFhaf1FTj8cFnPCPCbk=;
+        b=jkif98zd29YiVZMrCkZduT9B7ktxNlBZko5DA/zv4C89oVJQzssFmVZbkF4BEnWE9W
+         Cdc2JbWgyF/RNH/tFXN8MDEyYFYUxUrkRThMxXn2MM2ROOFWpfP+1LeCvzBDJ9x938K/
+         VGBFlbv/9gHJ4C0OiOQkapexA0FlFM1fubovnW/BP8a78CKWbcWOjbtQYxGeGQhzSJl2
+         g4qzE67bnQrTGH8ypVkh15mj+LU2Z9yZ591gQsBFq91EDyqkuOyCtE2HVFl2cjimKZ5Q
+         LmmIBWV9m9RBHsUUd4RsUXoPXE6xmYM8GdsePFHvnXTu+7P3HsnpmEbEp8iv38eg37Zw
+         Iubg==
+X-Forwarded-Encrypted: i=1; AL+hErHxR2u35x5me99B0nHifrj2tLX9uuiq3NUHHQ+Ag76UtEhPQLYveIeNEXed1yf/sTOyJ0gzs/jhaZozwJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8m8DAvZObGtC4Kh2BsG1DIqrDXmddOeYLPYm08nSXOIe9zvSq/
+	wN0BT+s2jSZRSZrUKaZyU+QRalXb4lbNfWIkLv6DYrvLCySSX8RoyFqIVqxYD/btTg==
+X-Gm-Gg: AZFdTZdy2xh7rWYYzjVxMPyBzQijO9zqGB7GdSWfkd5iWahEMFINp89QPgcMyckevYK
+	ukd0z/j1dqsl2hVuOWLsqK6iuoMK4U1BWT+HNgaj2JnsnfG5WUOPbG2qhY4OMEhstH43ZmQgBjk
+	sQxeXBK3pDAHGKWEBU8o3egVjT2bIGe9vdH2AbNoIquJp7TbCVUOpizmC2m036axhTfjvIXG6u3
+	eJnflT/njDYLpNuZtbDXp0GFUO3fgCrWtHzjE1KrdUwUFCq8Kc1EVNU8SFiWU8Nm2j6MszzVwhM
+	f6F6h6EK+2wSWCQN/UkFoy46EIZ+S4z0gW/KppOOkNPW6uhGxVoBk5/cgk1IEJPfVmcUKIg4dwj
+	H5P9c1m8zxK7LE98IyUFnr+G0aBUvi+GlERTpvHcTX8r2TVuLagvgOdJ4iCDJVTHELiwT2Q8LqE
+	YAbhGgynsxwrXvFmiWHVnEFqFtoSJW1dPpmAkhueMByYDxgqZkjHGeHccsrWJjWw/4qZZFXTwN8
+	MIYgs89hs6ey+bJUD/PAR5YJciQwCWktApfvJL9rRRwZMFIh9Y6S81nIZ5Y3f4XqQnbuW75D43i
+	/CmsKhagGBdWS5gcNR8aRsMVnzSFuSDJmg7KpA==
+X-Received: by 2002:a05:7301:6184:20b0:36e:a179:85f2 with SMTP id 5a478bee46e88-379675fea57mr9358295eec.23.1794821099594;
+        Mon, 16 Nov 2026 01:24:59 -0800 (PST)
 Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm32056314eec.26.2026.11.16.01.24.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm32056314eec.26.2026.11.16.01.24.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:24:56 -0800 (PST)
+        Mon, 16 Nov 2026 01:24:59 -0800 (PST)
 From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 To: "Michael S. Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowangio@gmail.com>,
@@ -93,11 +93,10 @@ Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
 	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Michael Bommarito <michael.bommarito@gmail.com>,
-	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 3/4] virtio_net: keep reads of stats records within the reply buffer
-Date: Mon, 16 Nov 2026 18:24:44 +0900
-Message-ID: <20261116092445.3391334-4-lian@is.s.u-tokyo.ac.jp>
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>
+Subject: [PATCH net v3 4/4] virtio_net: report a failed stats command as an error
+Date: Mon, 16 Nov 2026 18:24:45 +0900
+Message-ID: <20261116092445.3391334-5-lian@is.s.u-tokyo.ac.jp>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116092445.3391334-1-lian@is.s.u-tokyo.ac.jp>
 References: <20261116092445.3391334-1-lian@is.s.u-tokyo.ac.jp>
@@ -112,75 +111,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__virtnet_get_hw_stats() only checks that each record of the statistics
-reply starts within the reply buffer, while virtnet_fill_stats() reads
-the whole payload of the record's type, so a record near the end of the
-buffer can make the driver read past it and report the heap bytes
-through ethtool -S and the per-queue netlink statistics.
+__virtnet_get_hw_stats() returns 0 when the VIRTIO_NET_CTRL_STATS_GET
+command fails, so ethtool -S reports every hardware counter as 0
+without the "Failed to get hw stats." warning.
 
-Fix this by reserving zeroed space of the largest ctx->size[] after the
-reply, so the buffer can hold any type of payload.
+Return -EINVAL instead, as virtnet_probe() does for
+VIRTIO_NET_CTRL_STATS_QUERY.
 
-Records of an unexpected size are still parsed, since every record
-starts within the reply and cannot cause out-of-bounds reads, and
-rejecting them with checks per type was judged costly to maintain [1].
+Claude Opus 5.5 was used to draft this patch. To test, the virtio-net
+device in QEMU was modified to offer device statistics and to fail the
+command. With this patch, ethtool -S triggers the warning.
 
-Claude Opus 5.5 was used to audit the driver and draft this patch. To
-reproduce, the virtio-net device in QEMU was modified to offer device
-statistics and to end its reply with a truncated receive record. On an
-unmodified kernel, KASAN reports:
-
-  BUG: KASAN: slab-out-of-bounds in virtnet_fill_stats+0x66d/0xf20
-  Read of size 8 at addr ffff8880036f5940 by task ethtool_stats/159
-  Call Trace:
-   virtnet_fill_stats+0x66d/0xf20
-   virtnet_get_hw_stats+0x5d6/0x7c0
-   virtnet_get_ethtool_stats+0x11b/0x920
-   ethtool_get_stats+0x150/0x1f0
-   dev_ethtool+0xaaa/0x1be0
-  Allocated by task 159:
-   __kmalloc_noprof+0x1b7/0x4a0
-   virtnet_get_hw_stats+0x25e/0x7c0
-  The buggy address is located 8 bytes to the right of
-   allocated 56-byte region [ffff8880036f5900, ffff8880036f5938)
-
-With this patch, the same reply triggers no KASAN report. The
-drivers/net/stats.py selftest passes when the device answers with
-well-formed records.
-
-Reported-by: Michael Bommarito <michael.bommarito@gmail.com>
-Link: https://lore.kernel.org/all/20260711150754.2918392-1-michael.bommarito@gmail.com/ [1]
 Reported-by: Jakub Kicinski <kuba@kernel.org>
 Link: https://lore.kernel.org/all/20261110001659.1654289-2-kuba@kernel.org/
 Fixes: 941168f8b40e ("virtio_net: support device stats")
-Cc: stable@vger.kernel.org
 Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 ---
 v3:
 - New patch.
 
- drivers/net/virtio_net.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/net/virtio_net.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index 498014773242..b9b6c915b6f3 100644
+index b9b6c915b6f3..185ac95b9b1b 100644
 --- a/drivers/net/virtio_net.c
 +++ b/drivers/net/virtio_net.c
-@@ -5071,7 +5071,13 @@ static int virtnet_get_hw_stats(struct virtnet_info *vi,
- 	if (!req)
- 		return -ENOMEM;
+@@ -4980,17 +4980,14 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
+ 	struct scatterlist sgs_in, sgs_out;
+ 	void *p;
+ 	u32 qid;
+-	int ok;
  
--	reply = kzalloc(res_size, GFP_KERNEL);
-+	/* virtnet_fill_stats() parses the whole payload of a record's type,
-+	 * so reserve zeroed space after the reply to hold any payload.
-+	 */
-+	reply = kzalloc(res_size + max3(ctx->size[VIRTNET_Q_TYPE_RX],
-+					ctx->size[VIRTNET_Q_TYPE_TX],
-+					ctx->size[VIRTNET_Q_TYPE_CQ]),
-+			GFP_KERNEL);
- 	if (!reply) {
- 		kfree(req);
- 		return -ENOMEM;
+ 	sg_init_one(&sgs_out, req, req_size);
+ 	sg_init_one(&sgs_in, reply, res_size);
+ 
+-	ok = virtnet_send_command_reply(vi, VIRTIO_NET_CTRL_STATS,
++	if (!virtnet_send_command_reply(vi, VIRTIO_NET_CTRL_STATS,
+ 					VIRTIO_NET_CTRL_STATS_GET,
+-					&sgs_out, &sgs_in);
+-
+-	if (!ok)
+-		return ok;
++					&sgs_out, &sgs_in))
++		return -EINVAL;
+ 
+ 	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
+ 		hdr = p;
 -- 
 2.56.1
 
