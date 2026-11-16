@@ -1,92 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794862053;
-	b=5koqae7rls0oD2QdEtcwgACU1KVcvRCmmFCUr3CUowRyCCFSpFvS06yuPBF5UKZ8tYxx
-	 4+u/nW4at3MUpaIvph57rMb/JyyojQWov28J3VxoXeX9RB/KAq+3LYy4VHh0KUBf9RBwF
-	 wkI6s7QupzJ0qEJHrrQDk5alMnSxkQZ+dp+7m9MuwzNHUWwzrvSCYpZWlTM62EyFOBkAp
-	 lBg8lM6ZY7e53X0c+KKmFAu6sYB4wS644DcETLKX0xQksu7p7TJ30JMc5CEI3C+pz00Ud
-	 Czd8UMaX2IKaGffxq6koifoZzHH3VkouY/A6qQQCRVHdAySFa+d0lO+qfSJT9fdrjoQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862053;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6r3zcdABF/6bVXYZsilaYdz3kHuOnMmADTwot0z1l1Y=;
-	b=aauiqTONtmFwXXkdJUBjBF0fICs6Ce5YDtYggCejaEX782+MBq7PBzOIIo9gZT3Sg/dC
-	 sct9YfQnpDxSPQHBGsHIhuYxKeXxAvAqNIZdmP9i02FerYwVhdWszjazl4BHo/fSmkcOO
-	 QEqVxIWUdRAQawFCf5ydAQ/mT9tQX8rVLu8WTz5tNP2jHPDq80+4XGZNkV2sgbqlRkqdg
-	 eC5gHQSsATX/MhhunMnNnd/45qv5BuQnMB//3bSyR2QDmKeXMIh+igZ6qeK5hipaMzQhk
-	 T1uAj8p140lymxPLbn3G2obCdtwV4DweuO8nCJlZeajAa1E687cRBlhlmgTgEgP7Aqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AULpy265;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.39
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010039.outbound.protection.outlook.com [52.101.84.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794862191;
+	b=A2m3i2mA/y5BhW8fDGiPSXovDXwGAhgZXjrqLGL62kzIiCyJaOlwEsznuzZd7IPRZWTm
+	 jaudUsAf7a0BczSHlUq0jKa18AfLe5t2rfqJA/i812EeouDfkaOtI5L60EUCLAKscJm6g
+	 vWTspFviLG+UzO0SHCokNTMcZ1qFmRGj+ym8r4PwZ+hIfkm1fkkwnVHbckfDa37WLbc/x
+	 3tYNiHjsNv5134AJvNnbQthVyefjcU2dkFnAcS/J465Rh4f8cSADPQ1MzgrWrfmAsO859
+	 cYQ85BJyo0Ry6zP66KBBkInS+71EZioFs+uJULLO/mgn0MaAtoezkBZwCdnoGSj4p0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iuEt++c/hh8n+6PRCKFVagfSRp6hOAJBlPen/z85MFY=;
+	b=h12DxKHig6+shqTagRLLzGcm3GpB+yugBiKbAc++JKAl/uLmwWQ5o2GySVI1uJ6PM2e1
+	 VSyUMwkS9jaeq5uunTAyh2aLPj+O+jjAWyWDELI09OgHfuZavL0vf6TPyP+nkrDEjm2aX
+	 NSlz/Z1sCtF66689DSwVEapeponla2Llbp0Nvrtwchxg+KW53sSBy6T3KHDSlSG5dPz1i
+	 SIgdOdeu8om9gAIGY2Wj36uOFipXQKqBPt4X94nmMRmgkxYAjI7rLfjJvkxwnp9tPoQ+X
+	 XBKbM563NeUkHHuWck6C22k2QhDesD8XiLkgwG/iBFLTwA1AIWYxGTUkKiE0wnf+BMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YPtBHnYS;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5209606A334;
-	Mon, 16 Nov 2026 20:47:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5209606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4EE606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB4EE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AULpy265
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W2lCQ8kLwUdMA7Z0NwfKxuN6qpqAhA9oOrE2aAHb7ZC/YQV0U58/AQO64aP5lzSjH6/CTQ+ychefXcvabmTsJ4eRAuhFinC8XbAgkrgOu2aD12/fpQgjbOLAfvUUoCYF4Rp0Uez2p9rdLfXq15Ap+P4Ln0Y/+Y9jHAXjEWukeJ6Vs182BUuC3romY3Cm7BPcELvKGi+AfSM+K5XZrDxgQmYrDV++wY31Ql6ftVYvkdrh2CnkJiaDZVxNVscRxQUJooDLh7mwc0yeRIJrsNNN9Q8SSTiDlqpnUFsYlztccQzJTztOlWug8bNBuz38FzUxRs7sdentkZcicDAry/f7yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6r3zcdABF/6bVXYZsilaYdz3kHuOnMmADTwot0z1l1Y=;
- b=nagLq178CJKvWCnwQEe6QmLVmm+Z0ucloe6qUGgglDdKRzP935+X7m/jDJnER7KoT8d6e6KoDCVbVr4YIeCMmMC3gUTfaxahNnn9sK8+yNlrwCaCnJU2pPyAQNvoeZsvbiOETelHnN0oIdMaohPxHTQXEjONS1ai2uGtt0BQ9e5Grbt3XsgDpgMiPW8HnLnr0lQ+PWM8EbIyDwu4NuGMxVBjpexxiANkFnu09/KmbA44jUzo2u1ptLVvnfK/LqzhRJ8MiSp2L1nCiH+wq1il4HHuj0T48tuC6ztEjgIBIndaiJy3Kng7UMLAcD3d3CmEsLUbwvr4nKAZ3eO9B+C+Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6r3zcdABF/6bVXYZsilaYdz3kHuOnMmADTwot0z1l1Y=;
- b=AULpy265ql50RJbmBvVG56xDRezcnP4A04wkEPYpUWE4FTje0DxUT4APBuD3Zkhh04PHkVokw+NPDTRHAwQBV2qeHJaZ0T2H1ogNs1XmkBi03Tdc94Q9Abw/SgmOfaIsdFC8Isuz9k0XPk+LLe953zOQCVPVDYmVHisP2QZU2RxlonEtmvoV4nvluhPaoj+uUJGREvkKdhvP09Ctxg2PWqq9vUYw8WXVAjKt+P5EiJJHpusCSyucnyoL6iRiswbHwBtMuIz3rEx52u+ClbmGkQVl/ZM/SwCXJZZZzayBDr4l7IhCS/DcfPisnYDxyikvscv7vzJ80auZ+Eu/8FPJXg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI2PR04MB10859.eurprd04.prod.outlook.com (2603:10a6:800:278::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:47:30 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:47:30 +0000
-Date: Mon, 16 Nov 2026 14:47:21 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: qcom: gpi: convert to subsys_platform_driver()
-Message-ID: <avtr2cOQj2K3C65W@SMW015318>
-References: <20261106-dma-gpi-subsys-v1-1-b37dcb4ba3c4@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-dma-gpi-subsys-v1-1-b37dcb4ba3c4@redhat.com>
-X-ClientProxiedBy: PH5P220CA0001.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YPtBHnYS
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b3b4944abeso1311750c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:49:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794862190; x=1795466990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iuEt++c/hh8n+6PRCKFVagfSRp6hOAJBlPen/z85MFY=;
+        b=YPtBHnYSuugUYdqNM4KEYh0qU+k9Wb5l+wT4VLqWZ+Pt7TPkmDl0bYJLRJ841uzfYg
+         /25dFJjIbSxQQCp9SUDmx+LeMNwpMSTnpDExjhtg4IxlsBqD5Qf4h+/CE4E1rbq7/42T
+         mmzBbtDMzJWc3PKYgNh+EZtl8W1wskf8vw2OW+xWQyhPS0QycyT7iO0nSHxTnkx8Stz/
+         o2UPVJwHrDIdIrcBPkQIXc3qWmIjcmY1Cydv/X8RwPgbbfgXerDN3xFA59yNJSsECC+8
+         JDEiUKY5zVbQURHtDLGpBY9gQMAbZDRJpN0UtiO70e4utj+DfVTpzW4MpUy2Zox7occb
+         BeMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794862190; x=1795466990;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iuEt++c/hh8n+6PRCKFVagfSRp6hOAJBlPen/z85MFY=;
+        b=SgH+n1EtTDH6l9qsZQEahpIhI1V1Y/Ord8N+rgTsvZmz1iWy0VdpjygK6d0SIk4zlj
+         xKzBnHcsLEY66M/FXaUJVoLQGBVyQhoCxiwcNvn8q2RYaoKgziyurhd1VfxbDUudWKj4
+         sh94AGjaPy4zMnFHIOZWffQyhKbSnaZluGeOA2K+KoZqYzrkSh7dkHSeXl/6yj0NSXMj
+         HCtNCgZwm+W0uN7lTU5hHOhoRGge+PVTfK382I7irHnqthKC6un5isKgKgenywW0YkGd
+         NOXpmrca4OCLjGMNr5zQho5UTWTKn4a41KS2i9o5UXgPPFcsPoSqOgw52I0o5acDpDmh
+         vorQ==
+X-Forwarded-Encrypted: i=1; AL+hErFJ0p6rxXtjQT8igFCdznAlA6ZZ2fggzSdvlz2xpAjNsZMtDNn3eUN4KBqQBVy1rBTTu7j8/9taWSW1jPQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NMEAE1mxLZ3OG5gGl815wb+roNQaiKf+OAi9OUDSubyflzvUW
+	RbsXG2iyKPcX3K32+tN5bXZ/Sph3x9XBa+GvEeEljJFzUMjmgES3EsVP
+X-Gm-Gg: AYBFou1lfjhKW/GmdMxFv7/Jcx7UjEd4bZM4ioLTJT6zTZ8gJLXykukyvyZztjkI/CF
+	Wk9LBxrs2Hc56oPsbKuVNcLyOCrM6W5fT1jCBPhrPh36uvrF3ssYLyiZFLopgmFoZL1lXc0btQr
+	CtLGp5j+emamZ/VIJI/MYAk62HTlbXp9stqc0Ad5hlOu2Z27m/UtfvGyKb0x3JCyxCgFrLSXFj+
+	Xp1UMveiHTdcX7C3naKxSTfc2gEZMaVfOFnmT/2Sfo96tQJtJ/pdAeqBq1kpq2fF+dXR/lIV5EA
+	4VaOYMqaQy7tE4FrufWncD9DyBQOSdR7Mk/bUkWeAJZKAhkKESIhb1LdZHXY/samjvJ5uA0vf5C
+	SSUlI1It4HINuqNrJxitoZlyXms5hEqUJaCqInwr5oDvIJtDlNop22UO+BUvRbhBOn5o5I4FPmg
+	hUpIV6nSmEakjNSr5PgBj5vrhtloNeoDbOzGrkCmfUA6kkZmYPmsQG5lyNfylonW+sAjHrV+pDR
+	t3w3HS2JfOJkiI22oBSAQcobwKQtvi2NFXZ5AuibMHKM2/tC97Dh4l6qoPaZ+8iVqbafTrCEzr9
+	hhQYb2vyt9kOE1jWUvWygHlfCTuT4ob7hdZ4+b0vcTbm05igBUfO0396Bf/jXF76FTATl4Q=
+X-Received: by 2002:a05:7022:b886:b0:1b3:b67e:9fcf with SMTP id a92af1059eb24-1b5030f29damr10878006c88.17.1794862189687;
+        Mon, 16 Nov 2026 12:49:49 -0800 (PST)
+Received: from hp-OMEN-Laptop-15-en0xxx.tailcef561.ts.net ([122.172.81.184])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379553316f2sm38153829eec.9.2026.11.16.12.49.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 12:49:49 -0800 (PST)
+From: Jayaraj Devaraj <jayarajdmit@gmail.com>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Greentime Hu <greentime.hu@sifive.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Rob Herring <robh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-pci@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jayaraj Devaraj <jayarajdmit@gmail.com>
+Subject: [PATCH] PCI: fu740: Check return value of clk_prepare_enable()
+Date: Tue, 17 Nov 2026 02:19:22 +0530
+Message-Id: <20261116204922.159384-1-jayarajdmit@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,102 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI2PR04MB10859:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b03d722-59f6-42a9-8d60-08df4422d4d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|23010399003|18002099003|22082099003|11063799006|10067099003|261026121527099003|261021121427099003|56012099006|261009223027099003|261102123227099003|261021123027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	Ggj3QENNCyHoDud+MV3Bx67937DpxvzshuHG/lKE5jzgjnaJcmLHNl3U10ysvNzct4hhEHnmyuXl9Ehmz2Wi5GID45JZi/l7Zh2umpcroxQ4Cp9rPlGvCAY67SXL2jt309WmwR+x4sclubk/Js6JpgS/KsrPnlPtxD691el9qK6rQ5fR2A+LoriAZg8vUwAhwQFtR9tciy9wEB3Nzhn9pvXn3v6E30cm1wmhkLtfLfkoeyKLUwB9SxjsdirXQjRLXBJ7+h2s/M1XLGj3r+eQmunr4RlzGUwVbQ5tit9WftPG1XHOcHx8o5v7p2OJeTWAGjfOdSuGxJqR8UrE5GDmN9y+k9BvvZwierWrhhxeFgwd3ZZmFmyCxIIq2JGrgzk1BHbX4S1WfYmZRaN9KgFAm9ysWt3gLuOk1ROQNUkqUUrqwQT9QbgwL22k6O/pM/1FGJnsOeSklQhEeshYqn2Sy7rTLScoO2b5QSndOEO1t7sK0Jevv2rlqMUWwCexj7iPpeBC2SvHUnbIXaHhicyoaQCIeplDjhna/gQHD9ARYjkUNxju7ph7nH+Calkj5I8JdXIXCYzdPlygTpeX05vTe8fcmG8lF+b8uLEH7gIppoLDGg0Rl92dChY5uAQ20rdRpjFzjVPkTMkyG8nJfmqof0hQwqxfKUxdIF59oNT0nww=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(261026121527099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?x8PiNLD7hdM0kKJ9D2X8sL22qPvOKwM3ZWGCokwi8AAxe8NB5l7OdFqhvOFS?=
- =?us-ascii?Q?LqyuT+FrBOZkte2e5lvWjQll2wmOxrPH69pnoJbS6FTzICSoRlGJ3Gb69wac?=
- =?us-ascii?Q?Evd4MQ0UW5mfDBMcSsrh2Xy6LctpJcoBOA6thutZgk59RvsirwQcPs6rTOoJ?=
- =?us-ascii?Q?J92z0vUsgs+B/Ev/F58iDXWeeiQKoFIooNFS9dlyoLYe46rw+18J6fTXBNQb?=
- =?us-ascii?Q?dmU80rcVja/iTmiMLOJ+oNr4jcT9yMeN7Ep9kf0EzWLS2NS4p0v/6iTG46T8?=
- =?us-ascii?Q?GpZtra3N+Akc3J+TPBbghyANCBfI6cmrfXnPSYStcxjL5e0xhyDL6C15HiSn?=
- =?us-ascii?Q?paxvWnJKIaKQZavGOqZudJaua5CvRIpeHfuaatLD2ZPptcnSSjX2HxDwmfsg?=
- =?us-ascii?Q?mk4B9oWJXDgOBsWZoKeKE/5ec4fQCBjjMayVyncZX8oivimVpuNlCZdYPAtN?=
- =?us-ascii?Q?MuHeaeuzaxDAllzST0ruEZISXRk22CPVKL+eR45LMnphFTffH5Hm/1y7HPjY?=
- =?us-ascii?Q?knVE6CmzLZ3L1L821icskxxAqS/WyAnGTQQDmaijhQzcQWa2J3BfVxVb6His?=
- =?us-ascii?Q?969i5G5t2XoqB2qGJabomXWzfSRoN7Sz94JHDSuFkDe2OlgRcE5E04vMioCA?=
- =?us-ascii?Q?6adZpr2o+oG52yr9PFsHbq6wBS7/W33u+J1VQvMc7SzcbBkvPfrKNVxRc989?=
- =?us-ascii?Q?VCv10xFavs9PR1CfU1gb+jtJNwBEVvb0k/BNmkm8Ec4Z6QB9YSHyLHiHhV+b?=
- =?us-ascii?Q?A2QYrbXRrMYbENr3R7hCcHfVUeUI/3KHWbAkzbJNL3TR12KMMG8lyNXm1lHM?=
- =?us-ascii?Q?dOgjvCtQDaqxImPtML29OMjRFzbz6LlM+JqrcmHJG7E6ce2n+5cGIkpB2bpU?=
- =?us-ascii?Q?gws8NLrpU7tG3Qa9aqIWno+kG7J5FeFhpPyNxFoBJkThrhKeW1zG0xPRKKQj?=
- =?us-ascii?Q?W2IPcpcJCzsMHE96hQX11M624O1jpPMZB/OcvC2thh2gj/2xWmiapW/xqSwL?=
- =?us-ascii?Q?E/ojCLJgLGCdp7uaxnuZpHLlFmUyDxvkI5t7O9OSxjRsPmHTl0n2AvBNZVUO?=
- =?us-ascii?Q?+ZL322KTZFq+qkW8DmUfPqvY0QXUnxy0SZECS2cc/8EBIh3qAYbIOihieIZq?=
- =?us-ascii?Q?ZBU7+DlfI1cu9SllbhAQZv6MMyiriDtb67mxjge4rvaMJTicZAEdhDQoXk93?=
- =?us-ascii?Q?6HnRqmboX+F1G3h1m27oyM2acrHvPCPzXOJYADi9+YxwhfcEodDKogO5mBHI?=
- =?us-ascii?Q?C+C4+7SVfMaj2gfIvVPf9q0RzaVJppHtRin10HNZtoa5FTtI7i5Q6aaYHFjC?=
- =?us-ascii?Q?5B4sNDOp3RDHX/o5DRKFfGtwrZ0Bm+uUT/wXsK2Ixa2dNIpMB796+blkdNE+?=
- =?us-ascii?Q?q3egtYONMHGP4ZrBJCVgEOkiFJorHiDMxgF28KEkSFngzRmzPJ0ZPoOzdF1f?=
- =?us-ascii?Q?SahqVZ7e248eevB92q8OM+nScn2v1e8Gk5jxbggCDKjVOUW0+dlC0I7/8lNz?=
- =?us-ascii?Q?gWMfDFKqGJv2kguRnfECZizE2Es720A67+nyt9evGVn2EvMHz3Fmi77mkSf3?=
- =?us-ascii?Q?wgi6kOut3QkmmyUqa+KpsfekIS8Sk9YnXSvDUVP6x0SYVXkjz7Af3zIxVj5k?=
- =?us-ascii?Q?IJiupu7U4IqTWeTeeClpf5kpq+OGRnCGpx4FGPCNPHREc1UipXgjgeGd9fm2?=
- =?us-ascii?Q?ZIGlYB0N3obKP6/wNToZsUUV9oZvBB5iOvv1zxN//t8q+r23U4nOM4BFwoxn?=
- =?us-ascii?Q?UVwhzDGN6LhxLwO6+omDqkn68jmwGIfxD1FfHyBDyvp6CiPu3z9I?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b03d722-59f6-42a9-8d60-08df4422d4d3
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:47:30.2222
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EKp3nz1qzh1qfqIG9GhQvDO8rbM8HhDmOQTwABxy4P/rpcG31zaJeEsJ34GOeJRNTEYSwAhELPMi4MmVWubN6VFsEGFQBCIu3m/6sboRwd5i5PgheAUA5UBlqHjlISwD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10859
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 08:00:18PM -0500, Brian Masney wrote:
-> Reduce boilerplate code in this driver and convert it over to use
-> the macro subsys_platform_driver().
->
-> Note that this driver is configured in the Kconfig to be a tristate,
-> the driver doesn't have suppress_bind_attrs set, and there is no __exit
-> function defined. This change will add an __exit function that
-> unregisters the platform driver.
->
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
-> ---
+fu740_pcie_host_init() ignores the return value of the second
+clk_prepare_enable() call on pcie_aux, so a failure to enable the
+clock is silently ignored and the controller is programmed anyway.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Check the return value and propagate the error.
 
->  drivers/dma/qcom/gpi.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-> index c41bfac65ddf..d6c76ce1846e 100644
-> --- a/drivers/dma/qcom/gpi.c
-> +++ b/drivers/dma/qcom/gpi.c
-> @@ -2325,11 +2325,7 @@ static struct platform_driver gpi_driver = {
->  	},
->  };
->
-> -static int __init gpi_init(void)
-> -{
-> -	return platform_driver_register(&gpi_driver);
-> -}
-> -subsys_initcall(gpi_init)
-> +subsys_platform_driver(gpi_driver);
->
->  MODULE_DESCRIPTION("QCOM GPI DMA engine driver");
->  MODULE_LICENSE("GPL v2");
->
-> ---
-> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> change-id: 20261106-dma-gpi-subsys-594acc21c25b
->
-> Best regards,
-> --
-> Brian Masney <bmasney@redhat.com>
->
+Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
+---
+ drivers/pci/controller/dwc/pcie-fu740.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-fu740.c b/drivers/pci/controller/dwc/pcie-fu740.c
+index 00ec69a09164..b2eded23b52c 100644
+--- a/drivers/pci/controller/dwc/pcie-fu740.c
++++ b/drivers/pci/controller/dwc/pcie-fu740.c
+@@ -270,7 +270,11 @@ static int fu740_pcie_host_init(struct dw_pcie_rp *pp)
+ 	/* Clear hold_phy_rst */
+ 	writel_relaxed(0x0, afp->mgmt_base + PCIEX8MGMT_APP_HOLD_PHY_RST);
+ 	/* Enable pcieauxclk */
+-	clk_prepare_enable(afp->pcie_aux);
++	ret = clk_prepare_enable(afp->pcie_aux);
++	if (ret) {
++		dev_err(dev, "unable to re-enable pcie_aux clock\n");
++		return ret;
++	}
+ 	/* Set RC mode */
+ 	writel_relaxed(0x4, afp->mgmt_base + PCIEX8MGMT_DEVICE_TYPE);
+ 
+-- 
+2.34.1
+
