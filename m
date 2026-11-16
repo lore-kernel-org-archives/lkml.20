@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839134;
-	b=tzljt02CcHhF9TkPl4q1GX9wnPaE6ng1ur7+M5cJ/cLGt/VdSoR7Agsr+RK8Fdbd37ek
-	 5lzV90FyGPqewMaPsr7QXFqXEyxIOrjFdhZZlhVGkZ5z3OnHmUdKuTb3oopzCQWh1WVFY
-	 xB4pbKz3/PYJisss4PIJB4xXYHrlXWVZJklMPEByBPEFAaQHDG5FradC63ggBFJ2u9JCH
-	 CHYGOdApq6MnUb0jUGBOJW1OSWBrUVi1+GsTEpDi0Ibyty34M/FLtOTpuhyzlPdUdOm+Z
-	 7itByrwcZjaCagtGKA4VjXky9I8c9YjTvIGJ1Csm4cHKSjG7zxd6iZhgTsIyOOnTW1Q==
+	t=1794839156;
+	b=gtiFRJztWfEiMYuW3QRDop7OIwHpuSOiAqGvmBS1EsqHJLwzBzVuQ83/+NRy/cvqJ26X
+	 P+D86ntxI01NbBnSa6rqDvvNMta9AxmY3DFxeTfzJ7Ogp+j2vP3G35NH64VD7LyDJojlc
+	 BWTOiMMY3xQ0iQcuxXQXCNeVl45Hcg+j1aNDNZ+EzABycHxe89tg6vr855SLTSPAxa6M6
+	 QYqouWNav1YINSn81Wtos7+Gi1Alo37R/QWXvRUTFTDJOsLRxddXKGwktPIPkdvv0QHuH
+	 tAlgOqriw2WAIjvxon9lQCNJ0E5R8yvcautYUiHNahIF4hlXJJz0mOy3mizC8rjuwMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839134;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=bnKc3IJSrt3IePIy9TsoCqbRk4dzHod7cZj0q0eSHH8=;
-	b=EO7HVDdWIHxCfm+cr7dK6Q1d02b6I748ye0Z5oc52vjadgDtxHvMghsSorlEmiiE/hpS
-	 V6uW5gzVAzlRdmw+p/XvUPuQeYGsMzH1GXib3T01t0LeyzUr97g/zRcCDazQmyi00hiq8
-	 LZAjRPAPhxfnbCjowNs92e2IJ//scrIX/QZ9EIqqNxsZ/aQeFDwDLvfENyPH7nNhAqoQM
-	 ziqmrEdhllA90xR/XZpjURnrGT6Fvx6F+ZP4o8fXa+rX3nG7GtzTR12tnAQKj92n0AIVz
-	 vvkblk0mXmbwG+l8Nc6+YBtmtwPgISCzrdpBKxmOqiJJizkmWDSimg/cwa8YECIZqDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839156;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pEFh2wPZQpup6AZ9YhdJSve3FCh4nhgpe999E3sblJs=;
+	b=sP1OFViyzEBHOFt30Gp9sBBu/QEaWfZ8o/7QnAV9GnHp1HHc9QS26VYhgv4JK8EVhKNt
+	 iZUyJuquWkJiAOsF5JJWKBzIcStMbopyK/QiChG7LHV4J5eXvFrinSPhI0+NI2CT/mn4W
+	 2MNKAo6uFEV3XPy+9ZrSM0UOUpn+Re7wmrKWEnqD2p9Mj79Kp8C7cgvj6NoLoBCzwgFw7
+	 l5NCjyfL6pH23Tpd4VpW3dFw2fXXzFyYQqB3HaYp51fLYfGyDgwIpeZaV4fPCb0M7l0FI
+	 69x7eSdvO11vpVusgOQ37EjonhP43XTNgoROxs+6LMNSfJJg6Sd2yoLXyEoiBq2IbLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0sk6mFXH;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=VtL5M3ji;
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D6E606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90D6E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D715606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:25:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D715606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0sk6mFXH
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id Sxe7xOHM04vCDSxeBxBhDF; Mon, 16 Nov 2026 14:25:27 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SxeBx9QNBYskhSxeBxeawZ; Mon, 16 Nov 2026 14:25:27 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6afb1257
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=gUJwKisUJcuna-pPN7wA:9 a=CjuIK1q_8ugA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=bnKc3IJSrt3IePIy9TsoCqbRk4dzHod7cZj0q0eSHH8=; b=0sk6mFXHdazpnAR1pwYEQWKC6I
-	X1E8ekQhO0z3VayxRm1NfHDKZPYKtSjVyBbOQ6BXgsKnbsaQijZg9Njwvi72ApNtUv8cSMNdGc4Vd
-	QyBkQyIPDzLAZFyuqMD232Y8huOEnhHlwlN1r/1BLq79zhy1fepUalqTHRZt7AQpgRJ/hNNVCJ4/W
-	+wjozLlctGicx/oK/1NIvMu3BrlohLbRxPWhx6Kl99HdJQN9Ph/a5KSW52HJ5bvDy+eWL6YxSlBW3
-	Pv6/DkmHUpcXaGr7B2cKNOjA017mfcKr12cerSqK+iWNmuAk3le8gG/O8AgxGgOr0CZNuR51nIbhz
-	RUC4xEhA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54554 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxe8-00000003nQw-0sPf;
-	Mon, 16 Nov 2026 19:55:24 +0530
-Date: Mon, 16 Nov 2026 06:25:23 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, linux-input@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 3/9] dt-bindings: watchdog: mediatek,mtk-wdt: Add
- compatible for MT6895
-Message-ID: <20ace44c-2385-4561-9e69-c6c7bd3a3fb6@roeck-us.net>
-References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
- <20261113-initial-mt6895-v2-3-4ab0aa9fa391@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=VtL5M3ji
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794839152; x=1795098352;
+	bh=pEFh2wPZQpup6AZ9YhdJSve3FCh4nhgpe999E3sblJs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VtL5M3jiObas39sbwRthDGa88ktTFadUDDTlhBE3qiE/mSzpRWCge1mqnmWsZ5lGK
+	 Q1ikVHd9Ah898iRZLT5nRlLpz3WiRR3hCFlFHF5q1jLCQ2272UIAqgc40EIYEZ1dCF
+	 hSQKUhWkTr3utEAAicxfOMNoujskqmSKmol1stq2g5BUUWWOi2mIBJ1P98yAB1wo6W
+	 gGec7yQw0YoZTFHHq6k3a7Gg3zr5+EOthKC1W1FT8HGkVrAj2/wrB5cb0+ZtEd/sdM
+	 4XgjJ7oTk3TdegX9KcmI06K7Zch1ZqRWrLd0xYoCQYqiUMXC25HK3obQGvQtOqQ+1e
+	 qeze9KvQEXjhA==
+Date: Mon, 16 Nov 2026 14:25:47 +0000
+To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
+From: Devin Christensen <dchristensen8@proton.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, rafael@gexdigital.net
+Subject: [PATCH 0/2] ALSA: hda/ca0132: Fix AE-5 strip color glitch and add on-card LEDs
+Message-ID: <20261116142542.4178770-1-dchristensen8@proton.me>
+In-Reply-To: <87qzgkyi5l.wl-tiwai@suse.de>
+References: <20261116140237.4137662-1-dchristensen8@proton.me> <87qzgkyi5l.wl-tiwai@suse.de>
+Feedback-ID: 45895322:user:proton
+X-Pm-Message-ID: bc18f016753c5400f84a94010f3bc794ab04e3e6
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,40 +64,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-initial-mt6895-v2-3-4ab0aa9fa391@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxe8-00000003nQw-0sPf
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54554
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 31
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCgxoQnLh8+Z1Nk3CtUwPabPGXi3jcq7exOkPxLjcII2d12DXb1Bcs5QIHIL49POHC9asYMfFIuGW6P4ian9I+duAEoCXNWwhBQP0e/BmKfj6M1u1TDW
- vPp4hFJ5UPOJNdd4NchaLC3Azy8gisrRQ0wwhWCIUzSw+b2BvZ0SAjp+M8DNsQGUFTDp+wm79YT76fBgl6rrIOqPsPoXwuqLaEIk0EWYG4b0gdmb5enBKFNi
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 10:04:59PM +0300, Alexander Letuchiy wrote:
-> Add a compatible string for the watchdog of the MediaTek MT6895
-> (Dimensity 8000/8100) SoC. It does not fall back to mediatek,mt6589-wdt,
-> which implies the MT6589 TOPRGU reset layout, as the MT6895 one is not
-> known yet.
-> 
-> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Split into a 2-patch series per Takashi's review:
 
-Applied.
+- Patch 1 is a standalone fix for the external WS2812 strip color
+  corruption glitch during rapid updates, targeted for 7.4-rc (carries
+  the Fixes tag).
+- Patch 2 adds ALSA card control support for the 5 on-board APA102
+  RGB LEDs, targeted for 7.5.
 
 Thanks,
-Guenter
+Devin
+
+Devin Christensen (2):
+  ALSA: hda/ca0132: Fix AE-5 LED strip color corruption during animation
+  ALSA: hda/ca0132: Add Sound BlasterX AE-5 on-card RGB LED support
+
+ sound/hda/codecs/ca0132.c | 151 +++++++++++++++++++++++++++++---------
+ 1 file changed, 116 insertions(+), 35 deletions(-)
+
+--=20
+2.56.0
+
