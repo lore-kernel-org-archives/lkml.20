@@ -1,91 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821009;
-	b=04u9rq/2cUO8m/x8WACBnGALdIP5GZ0Qh4s6eF6/wZYmjeVu2FmIp6Ilaee9LgOOSSQz
-	 pPlR+04ha3o4AaWsI5AitTQU1xL2IXZf6USUhl29w9tnPj5j+uKq2TmCWlFNJoizj2ahB
-	 9feAC8Ww0VYAUBQAZLe9E6j7IDu2SJrwEB4IKGk8jGamyCmo5wjCDBhiDsJJnU9Tc5yDL
-	 e4fwLdQVEaKuX+bgclomqTKEYY1u8fbmMsiymSHiGDHZjdxUGvXFR39sEh+HRkped+4wn
-	 6wL4OQHkevCyh/CPzeC8UgtO4cYQgH2DOLiuWaI+kL5cApbm8wvM6zDCFuB+CQoaJzA==
+	t=1794821015;
+	b=d9rvG6dptcjNN8vEV8or16ZbRDOHoISOTqzbywXv4TGmlkTuImEXnMKpxxPxtfD2U/Zf
+	 uEtjIVAiutAPu4ePqyc9RLMfCaUzpWNBk4KfKpxlKjyCHwZiOFJvI+sucWsyeskeyo+es
+	 mdhsVWbXhc+a++6icqapjFr4cd8I/ybFWSbgfHqyKDan4JYxyXL0Z+qYAWWTOw4prJXrj
+	 +fqJppxzLtr544IowqyKmdpz1VH9LuAJsW/fu7L5lZQvpPWEIIGDTMrQsz1SkJad9zi81
+	 bG+bGJOp2LYQHZpOxEdQgWgMzYLXjccPMAXfMEqzleG1xdGSy9qZ6z1++8Ysm9Rxo2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8Di33WShdwbsd6k1hBxIRZVPI/wZsEbgX0u8y5qE320=;
-	b=XQ5B8gp6ZeHbaXcXTPM1L8uRM55a4Rd2ziSaXVUmkTkZcNM6kfC9cA0hcED+y1uLte0X
-	 D+pcSSYg6dj8JvW/dUwGMr0w7/UNjVAo7s+80IAf5amVguE71+ctQwIr5RVl8a+LgqDXz
-	 E1UG0vQ/FOIHON77aiZB1z/1ya2O5bzD6UnOPwPx7CPWQFgDI7EOx9AAi51L9qItNBVoQ
-	 QJJgNtRH8gihTW/+zqPBehCObdC6cSRC0ukER2D+aqCwpFydBoO+tVjm5XFTZy1N5+ddD
-	 xg4U5p7jb0nit/0Zbz6CCFhuFos0vRXTW+tpoJ5RxTbrsnSixMvXlYM2QK/Ms1X1MEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821015;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=U7QGeUHPLaOKaTFmRwI4vSzvwc9pnqiaJV8xvo3ZyVo=;
+	b=mWIjz0Lr5FvP+23Lmc+z3bzzexbOTZtEZHcTaOxcPuqzaycj/4f3JP2E8IRGOlpXBo69
+	 7tAG2ujIVtqE5jyKFQa/dWDVHkZBYDel/wLVy46ug+tih2B8vo5CUFHRXqfpWoNR9DfKL
+	 3R418tNbdiwctlYcHLuBznCae1p2H6yZ23O9VNKHx9Cyc3Z8RC+wiM/M1ccsXRBYoe5/x
+	 cYWqqSYDgbbA8HvSOqh+kkyI8MCIVAZkzu1yrAu6xbmllVxxIzPHM3XENBGaAYornBYhY
+	 IjzNpnkdM8vLIPHNCg0PxoTJuThvPppu7fLPXF/pbkw+RGAFhMsMVbDge6imi16i/pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyJdSiG1;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EMsJFdki;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03433606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03433606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48263606A323;
+	Mon, 16 Nov 2026 09:23:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48263606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyJdSiG1
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed2b4348fcso10260005ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:23:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794821008; x=1795425808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Di33WShdwbsd6k1hBxIRZVPI/wZsEbgX0u8y5qE320=;
-        b=EyJdSiG1l2h+Qw6QXQI4AHp9x+efFXbaWsf23ACOXySlZe0TOjoqVsBCWPBsyBcoR9
-         sf+4UbiR5nLb1kqDIoosl/P0PdpUpz1BE1aQRTu5bT7VlCCg4iXwo5j3Pltpl3HkuRo0
-         GE8N+v9TgrxUzUfj44iac/geYD0aQ7juG2ugZ0HteyxOdyDfOzSDUa0vgy7a2E8t7Kt8
-         P36kmyYTtmKnT7Tw1u6Hx5uAy4TmY/9GuYZ2u3aekdILN1fvCLzrC+AGDRB4GB4aeXmg
-         aAd65yQ0dv/mxYlE8E+2Llj+n/z2yp+YtM5rf3OUKnWH+NhmDZOkqGcYAY01Z+kC96ku
-         9mhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794821008; x=1795425808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Di33WShdwbsd6k1hBxIRZVPI/wZsEbgX0u8y5qE320=;
-        b=vBWv7Xm09YmW3oBJL4LVHFovYbCnPmil1R6FoIoIMjsZ8+cTmij0MnmQCooYHo0zKT
-         x9hEvfRxIdV1weHfl52KsQ+7kjGKB9i1m+oJbdJ5Ftb7HIhLvRj59DTcFaSSld4KU7j7
-         ETzlR5dDnxwlqNza+KUKH3Li1ul+aO3tnhShCFO2Lj+tnKxkL6FbrPbo4MZPqj1zM0eh
-         nG15gfZs3nM3nzrOP8y8z1uMpuIOMqmEnVNPX1/YyY/9uup4a0l+oLge5Fxrim92Qjde
-         Z3GgzujimhMoD/andi7p9ZRZkOSgqF+oWMZdLVdrTYt9izYA/n8kkjp9WOv+f9L0h623
-         VlcQ==
-X-Forwarded-Encrypted: i=1; AL+hErFRrGYVecYfs6lvHvpytLA73BsTBjvupij1znub50Dowb1NGsuH6KaiKEODlco8gzCgmywxSQPkPc8I0No=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bKNxM4zPOP/khUJOgWM9OzbqIEj355GU4Qr9Zb/vBePuMR3u+
-	3+jAKVeCoKkW+kwEhcVlPmXh6OklJCDglLxFaQOYnlP5s1VDRetMDFn9
-X-Gm-Gg: AZFdTZeORK700Vz4zPke31RsxwYkOsWe88vrWPs79SMM3Xm3pLAn3iU4l+nhic13zh1
-	hUlK5bkCk3JzvrykANWTGSj553BUww3JY2gxM5qIfELwFK8tikWZqTP/IKDJ/XW0NJTkV77qav6
-	TmfZ4w+LjqKtHYJoqB8TqdQcMvpsxJnKb3zuRvDFUoMFFs5xzNCcjGbZep6OjbAmzsv6szXzL1u
-	/W+4x+Juo8nCT+salWGIwPxQ6XqROwASpZv+Amee+Ch2xZI8z3QVnnQg77qwFvuBoWxaZEt7TRs
-	lQZaQQDorfjZiZIILYAnoRxVCB4IjWgGts8gPeIV3BPTdF2NxNnOuCI+iy1yNsAyen0CPsmDpoq
-	h5MGw62koT/7pJUYtr0n6OVPdSqH7lhXJF/jW+Kpba/hEBUgBBaHutWbNsQuDg9pJ135D4twuhb
-	bK6NQdI7ifXa0Wmlgsua+clakUGkv9chPEMETs5WwwR4giWglshmWyHlaXT8yQTW5M+6kinSFOX
-	zDFu+v5Y9cXYhmK7rAMl54MEXrmxXNbZ0GaX6XyQApNNagVffFYVBcivxSQy/NJBdc8iq+a/xB5
-	4/fONUAYZKlQ/avkh8M0D5Y44ws3HTQmVKyjtCo6nFWqX/3MnHi18w==
-X-Received: by 2002:a17:902:e951:b0:2e5:54b9:6b5c with SMTP id d9443c01a7336-2ee0da98ceemr88257225ad.20.1794821007979;
-        Mon, 16 Nov 2026 01:23:27 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:90a:5f11:9056:5eea])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f7d99fasm35015195ad.35.2026.11.16.01.23.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 01:23:27 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Po-Hao Huang <phhuang@realtek.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EMsJFdki
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794821015; x=1826357015;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nGUJYj/3FEkggBBxupS2Xofdcl6yEIq2D4ZxSGaqdUc=;
+  b=EMsJFdkigzLsi6ZEeuIW2dcB/m6Jps55ShWQPeKbZB6BQnCR2mfPAz3b
+   77E93W5ooEuuc0+DdaB46xypCKSVOtoUoO9aJaQCFNKhwCsN8xWQy+NaG
+   feC8IV7wSZwr3xuSHJaIw+FvMSFZv6EFcRR09qCUlfYESraKtYjzN4jba
+   3M1IoYkLE3LD03r9d+k1YpoITz0QeMIJBGQCsg/rLn7GqxoIQwNO1/lWc
+   GUv/vLPW+MJuceAGlSc5NhoJRsQ3ZliEzy3Dl6spRomCedjr/cf799FiR
+   iz8LcfjQAujxntZSqJ/f2zIdvB5Fibt8w9XZtdKYggZCFuzysvOhWiy/7
+   Q==;
+X-CSE-ConnectionGUID: OqQqt/28ThaED4EDJP/eCg==
+X-CSE-MsgGUID: tv97WclHRnqWwsMB0ilEHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3580053"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3580053"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:23:35 -0800
+X-CSE-ConnectionGUID: L03AtofEQZiAP50YHomc3A==
+X-CSE-MsgGUID: 2p72z+SJSqyRVDyz+zkqRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9578043"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:23:31 -0800
+Date: Mon, 16 Nov 2026 11:23:28 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>,
+	admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rtw-next v2] wifi: rtw89: update PN state only from correctly decrypted frames
-Date: Mon, 16 Nov 2026 17:23:00 +0800
-Message-ID: <20261116092300.20414-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
+Subject: Re: [PATCH v3 2/2] iio: light: Add Capella CM3217 ambient light
+ sensor driver
+Message-ID: <avrLkP1IR449AwLy@ashevche-desk.local>
+References: <20261113-upstream-iio-cm3217-v3-0-c4d5b2485dff@tsv-stahl-riesa.de>
+ <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
+ <20261114012906.6f66edce@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,54 +90,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114012906.6f66edce@jic23-hlaptop>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-rtw89_core_skb_pn_valid() records the sequence and packet numbers of
-hardware-decrypted QoS data frames so that it can drop frames whose
-sequence number goes backwards while the PN advances. It runs before
-mac80211 discards frames with an ICV/MIC or FCS error and requires only
-hw_dec, so a frame that failed decryption still updates last_sn and
-last_pn. Such a frame need not come from the peer. One with an advanced
-sequence number and a PN between the recorded PN and the peer's next
-one makes the check drop the peer's following valid frames until their
-sequence numbers catch up.
+On Sat, Nov 14, 2026 at 01:29:06AM +0000, Jonathan Cameron wrote:
+> On Fri, 13 Nov 2026 20:59:00 +0100
+> Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
 
-Skip frames that rtw89_core_update_rx_status() does not report to
-mac80211 as decrypted, or reports with an FCS error.
+...
 
-Found by code review and not reproduced; compile-tested only.
+> > +static int cm3217_probe(struct i2c_client *client)
+> > +{
+> > +	struct device *dev = &client->dev;
+> > +	struct cm3217_data *data;
+> > +	struct iio_dev *indio_dev;
+> > +	u16 addr_lsb = CM3217_ADDR_CMD2_LSB;
+> > +	u32 reg[2];
+> > +	u8 cmd1, cmd2;
 
-AI assistance was used.
+Keep reversed xmas tree order.
 
-Fixes: bda294ed0ed0 ("wifi: rtw89: Drop malformed AMPDU frames with abnormal PN")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Changes in v2:
-- Keep the two existing conditions in place and append the three new
-  ones (Ping-Ke).
+> > +	int ret;
+> > +
+> > +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> > +	if (!indio_dev)
+> > +		return -ENOMEM;
+> > +
+> > +	data = iio_priv(indio_dev);
+> > +	data->client = client;
+> > +	i2c_set_clientdata(client, indio_dev);
+> > +
+> > +	ret = devm_mutex_init(dev, &data->lock);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = devm_regulator_get_enable(dev, "vdd");
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
+> > +
+> > +	/* Without a firmware node (e.g. sysfs new_device) use the fixed one */
+> 
+> I'd rather we handled that explicitly.
+> 
+> 	if (dev_fwmode(dev))
+> 
+> That way we can return an error if there is firmware but it's broken.
 
-v1: https://lore.kernel.org/r/20261115172754.35124-1-enderaoelyther@gmail.com
+I think here we want
 
- drivers/net/wireless/realtek/rtw89/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+	if (device_property_present()) {
+		...
+	} else {
+		addr_lsb = CM3217_ADDR_CMD2_LSB;
+	}
 
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 58ee5efc3b5e..ef6bb1a43cd3 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -3950,7 +3950,8 @@ static bool rtw89_core_skb_pn_valid(struct rtw89_dev *rtwdev,
- 	if (!ieee80211_is_data_qos(hdr->frame_control))
- 		return true;
- 
--	if (!desc_info->hw_dec || !desc_info->addr1_match)
-+	if (!desc_info->hw_dec || !desc_info->addr1_match ||
-+	    desc_info->sw_dec || desc_info->icv_err || desc_info->crc32_err)
- 		return true;
- 
- 	guard(rcu)();
+I really discourage people to check for FW node presence with dev_fwnode(dev).
+This is a corner case which is in most cases needs better granularity (like
+distinguishing the fwnode by type). But in general ideally it has not to be
+used at all.
 
-base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
+> > +	if (!device_property_read_u32_array(dev, "reg", reg, ARRAY_SIZE(reg)))
+> > +		addr_lsb = reg[1];
+
 -- 
-2.56.1
+With Best Regards,
+Andy Shevchenko
+
 
