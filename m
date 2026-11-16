@@ -1,67 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838788;
-	b=lZholywKJ39tK0/fmEYb5tRU5HoPk4dzazq7WxRW1OvcnkhvVzSSD5zBiWNbHLs8WTbV
-	 Addl2ROAArfDxos2FsHn8Bo9bZtS32gyd+nrOGkLTclvLlKIz3ooT0L2KUFDR/f46gRxI
-	 xiInhP6tTEWKzhV/BmnZWVkoihXSXaekb3/Z2szoSLYKgzLwMDkT+s3t5KiZFhSuaNyZy
-	 rFtDs5lgWVA1NsoRca8ItH+UjLlwdhqedDt7F9XI+dGDVGTD/YFr7s0DXfhexTWX3C0Sl
-	 I8KxFktqQ6PdvbitdRUyeZ/v/oY5Ym7LsJ1u7hUXg0TNOmitYzUXFovFYGTs6upyOrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838788;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KtO7Ht6jSpfSTlRd7xeD/Bac9rtM55oLiggt6Jv1YKw=;
-	b=UEXKWPhJ/Pnp1VeVJp6S3ST3+kwXKzY1zWZP6wD0LO/UBFrjhMvgS96Mzlm0rd7CUORO
-	 /XOP56FkphOSNgIlg53L2qt0wALsxwSmbHDqlr2sil9UQxmXCht10yZidT592SDeqvW6Y
-	 8YM+AJulBlFsHqAIASLWcSGCKABZToCzIOPOvrl5aE9KvBua9I/v7leGcwn3sO1T7iUOa
-	 ImkM5vzKjaZNxk4oiHLPEhkdsZudM2PY/78IKh+0RH2jOxMO1i5pPzvB5hbkon6QBJY01
-	 Zc+bV4cwWfYkDLHOL0sHJ7z/S7aIySzcBW5z+Od57gawaSUrypuT2KSjfox6SjyJSAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bIpAISeq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794838800;
+	b=CXdVfcqzlzVk9PJWpTyl6bpKR45ruS7SQCOQNKamFIUG93bveYnOxXeRsXCC4f5Tgr/3
+	 JtGu/VCvAxGcAku7dBPTYIoDyTlBkhSirRL8ikgPnrloil54VETvPAepI1kvQw9SvGKnB
+	 280qQ0mLgkTiKPuXUIpxJOZ6zM70nfNpcz/fymYg72hIzTMGDSDFkhOn8OczvXQqw0aVN
+	 d0bPiJP7iESvUqR7jff82o9OcQjpKXJr3SIUsAV2TzU4cQsPFR25gJyIQgUvBBhH7MSLz
+	 8c8P9Fro6OKMExSc/MkCdHyC5eLIL06xjbQONtP1m41d6v0GrTDOUUROFjBoO85PIRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838800;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NCkH8am+CesP32jpnMDJrTNEnxrT6Fp4c5piNhAYB/U=;
+	b=n1CwggK677eOqoekg6v1v8jjYAMEX+Oo/G9Qf6ZvvC0fmFoN3vDngm676xqULmlAtCSl
+	 4MIZxwQsHL57nBiY3CwriJMnCixC6/chREJW2TlrQG+7A4ZaW3yYuObgHLKb14awqdkB3
+	 g522px2vTcH7xQYeSzZjB87RQ8RRCNkdtNo6jJ7BOn9/KepLHufSlEFZPBN3rZwgh7xM7
+	 amSE8CHxuY3hNHlK2+Vvvb8RENFYsal36C21T9vOWII3R3W8TgSpBwZL/r/SouSBP1qGV
+	 WXuf7Ud61o4iQnOEX7DpHWLxLvTxQSHVFLBq03RjPHt9icjcfj+uFbEJdBUNnEGV4ug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=evFJZD34;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E660606A336;
-	Mon, 16 Nov 2026 14:19:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAE9606A31C;
+	Mon, 16 Nov 2026 14:19:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAAE9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bIpAISeq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FF71F00926;
-	Mon, 16 Nov 2026 14:19:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838787;
-	bh=KtO7Ht6jSpfSTlRd7xeD/Bac9rtM55oLiggt6Jv1YKw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bIpAISeqlviHKiMf061xdbJUrKqyYW0rUXfttF0N+nBmIz0okl1A/KisPJh+8/r2z
-	 CC3Jag/o4IV8Ms1Qzy0OHarA2IzLXvhKvPMHVTc9FFwiSvPRRYtMTTqzEcToy9IVlU
-	 exZh8rggxPsWCUp951e4YeVolyrmmg9Wee9Rx8X/ZO123DySYzuXw2fzDVFm4wDC8N
-	 BkmDWkM8KnhyGiVqGFDCTGJ0wUxcxavwhJYZEw8rZHLiKC/rOsYMqv28y4fPMunbJ5
-	 qk3Q2UBizg1RAT6o8n2b3aca2g+uV8ShHA/aPr+HVhbFrGnPUGzPfNijlqvMeO4Hdb
-	 Bk+PDAauMfgZQ==
-Date: Mon, 16 Nov 2026 16:19:44 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Pavel Popov <pavel.e.popov@intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Arnd Bergmann <arnd@arndb.de>, Lukas Wunner <lukas@wunner.de>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Jim Chow <jim.chow@broadcom.com>,
-	Radu Rugina <radu.rugina@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
-	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] PCI/P2PDMA: Move CONFIG_X86 #ifdef out of
- cpu_supports_p2pdma()
-Message-ID: <20261116141944.GS11319@unreal>
-References: <20261111234439.4098-1-pavel.e.popov@intel.com>
- <20261111234439.4098-3-pavel.e.popov@intel.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=evFJZD34
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6751205A1F;
+	Mon, 16 Nov 2026 15:19:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794838792;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NCkH8am+CesP32jpnMDJrTNEnxrT6Fp4c5piNhAYB/U=;
+	b=evFJZD34br3OHRs0gGoIN+b/2R+6bh75AQltPNP8tFO0JWQNsjG62pMtpQlF5V9xdYFYGj
+	S5yhRph0JWnoV08N8ZdqKs/jMY4bSvD1yk+b0aXuievN0Ci85r764WaPnInHAm3yW72JB9
+	dYCbw3bydaWeG447cz8CrxP5RYRDmETzW4vfN6j2VZtYKqphofTNivfiDKBDmyr28HJr3M
+	9lgB8dQk2vk9woBp2TwfFo9AMYjUS6MdiCulYGkpGU5fPy9cfneeDBD/WPcUauHDr9GGca
+	NKTbEQFYKt62uKZ/8WMf1U3FLG7R/VAI1SCU2ipLgVntRCWCa4qOR42FUnzP4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794838792;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NCkH8am+CesP32jpnMDJrTNEnxrT6Fp4c5piNhAYB/U=;
+	b=Zj6PSv0kJRMcMHZEcBfwXw94xSSQCsHIZCtHY5+oPxjC9aXb+sGhQHorDPbdXnbRXEhEb6
+	ImRa+232s3FiKWlt3PYBJ7+C+h5OfFYhO0Se3gveAA9ajSzLKl3Rl8+3Bezvm8tVhoU9ca
+	lKrzHQDUJBNGkRlIGdvQb1DfteFclD0icivAf6XX8JCXArz1hjtMV1hohESWd0/6fBDvrk
+	boygNFXeYdR57n8e9R5KPEREnyH9kLJ/H3uTNF6DaT4cSKHLgI6rpLiQrsAIiP+O0R+Rap
+	jSagc6yt3gnJPafwS8CRmPR/yaMIOoNOYGNSlbVMa+W+0QmXPMAwZf7ErgwKXQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794838792; a=rsa-sha256;
+	cv=none;
+	b=d7ZeHxQsS4YDHiBlEa1HicRjJ4TaeqsrvZbKkc6cEax65bXu3VE357E1zGztd2tUJ8wqa1
+	UQVLaHslp1LFBOmVu9KyepN1JX/uMFAi1ek85AhZu/mfufv9nZHgvWwfpRRV7V5S0FLtVG
+	0Mq6YDlFKlmW8MeMy3HhM+7cYFLDrvG50CuunNDJgitiFVcNrLou3FkTX8FzPBdnK4kyH1
+	ZD69w5WPNNPBKig5ZyZkSE09JzAzF7IDX0dhSiK00XoZAVvwemoRvD2+bKmvkvdzB8j80O
+	qMcfofvYQ5Dz0Upp2zECia7LNzbLrWcNrzhdojrhiBHmP+d4ylTJihudc0M5zg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
+	id A80F91BFA16; Mon, 16 Nov 2026 15:19:52 +0100 (CET)
+Date: Mon, 16 Nov 2026 15:19:52 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
+	Martin Tuma <martin.tuma@digiteqautomotive.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, Gustavo Silva <gustavograzs@gmail.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
+	Tomislav Denis <tomislav.denis@avl.com>,
+	Jorge Marques <jorge.marques@analog.com>,
+	Petre Rodan <petre.rodan@subdimension.ro>,
+	Dan Robertson <dan@dlrobertson.com>,
+	Jianping Shen <Jianping.Shen@de.bosch.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Maxwell Doose <maxwell@maxwelld.cc>,
+	Tomasz Duszynski <tduszyns@gmail.com>,
+	Esben Haabendal <esben@geanix.com>,
+	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Vasileios Amoiridis <vassilisamir@gmail.com>,
+	Abhash Jha <abhashkumarjha123@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Nishant Malpani <nish.malpani25@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH 33/35] iio: adc: ti-tsc2046: use default_trigger
+Message-ID: <avsRCJ3tsoQkoldG@pengutronix.de>
+References: <20261116014823.3132576-1-jic23@kernel.org>
+ <20261116014823.3132576-34-jic23@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,23 +115,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111234439.4098-3-pavel.e.popov@intel.com>
+In-Reply-To: <20261116014823.3132576-34-jic23@kernel.org>
 
-On Wed, Nov 11, 2026 at 04:44:38PM -0700, Pavel Popov wrote:
-> cpu_supports_p2pdma() has an #ifdef CONFIG_X86 block inside the
-> function body. Put the whole function under #ifdef CONFIG_X86 instead,
-> with a stub returning false for !CONFIG_X86.
-> 
-> No functional change.
-> 
-> Suggested-by: Logan Gunthorpe <logang@deltatee.com>
-> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
-> ---
->  drivers/pci/p2pdma.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
+On Mon, Nov 16, 2026 at 01:48:21AM +0000, Jonathan Cameron wrote:
+> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>
+> Set indio_dev->default_trigger rather than taking a reference to the
+> trigger in probe(). The IIO core now takes the reference during
+> iio_device_register(), so it is not leaked if probe() fails after
+> the trigger is set up. This particular driver has ordering that means
+> this leak doesn't occure. So this just removes a fragile ordering
+> constraint and enabled further rework on top.
+>
+> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Thanks,
-Reviewed-by: Leon Romanovsky <leon@kernel.org>
+Reviewed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+
+Thank you!
