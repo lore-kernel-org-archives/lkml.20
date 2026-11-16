@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866627;
-	b=A5n0/7twdLQFeVOEmoerAEWroWUTsYMQF/imcVdJnIf4iJLV3XA2IKvEY4Ms2pojmqX1
-	 jVCfzTXhh8Ij3+VHpAPFsD8XzJfvJW4bIB+LRFF4m0sWTf4wkhPNQIj0EZTXZOZ0wVjVa
-	 czI7ZWbXuVPASDZeN2geDklRWFTrzPlY2EfL3/SxCfw9J+FItoy3SrQjAyducE0hcP0kC
-	 frn6lfDwoacj3nVvbOl6Dw8JRp3D3ilUsdQYBgiaFP3ZX7E9kRbAurAXzK7Cm4hkdhp3d
-	 U98NQ1D7/QRWybba3hwGZ44EPMG91DCKILz4jWZjkDGfm5zDexnLajL80uJtVcgH1mA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866627;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=PizgZNC5pZ1OdAP1T1MlqaKvfqVNkGdpygwkEwMjJh8=;
-	b=ENCVA3L/ZvPKiDWPF8gwq946QpA8Oqg5YDXD9a9/K3XrT1rfUqiEiF0bwn7+h6QvVVdc
-	 0a+jlvoq/H3o5jzk25gCiV0Ccz/UvB0HieCNsTYinTJYvsGIOfu6MO72Y6mi8OyaqiI3U
-	 5azcbqCGmb8VE6l1ZXt9VXtpkBsGRdnWC+d8mg5DJGoVqdTBF/3pam8pzKfI/v76XxhUp
-	 L5wiecARQpRoX4mvVqo8CFOFoF7800+zJSWOu8zSLDagUpcyXSllT1p3EyTF2pZDHaCRW
-	 X6Ld78WffVJWVbxB62jEWyqP+PCngf+LdxQ1/YvDPbzSi2uN4Or0JLaP9+JPOdt9TLg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794866703;
+	b=jpG6y3MWu6yD99iTdEHFAgjrTOUfh8i8Jwgqh1goCGUO9CFhbX6fLWPgKisUoZWuKsll
+	 VNoaCWbBDjUfkphHnMRK7YsKPju/WsZFeTCXjEsP3bygDez0lIvFEPTpyHUottbrtmxMw
+	 mnQoAHV9S1OeqE7Pkv7EcFuzOQDMuJtTYl9lZ2CTJq/ntl+J5Ep4sTiB81NEiFGw/B/Ak
+	 cG3oMd8Ws8rMj3y6IVJ86FngXwhAxEuJ8VJu9PJQSmYK9p9u0AJesvXS3Fv81z2Vk3gQ8
+	 ffj3VSsGrBoUadXhfXxRRt4Bb/gjc4KrNY0YH17NjQotsIjr/Z63035/KcuxjFVAfFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866703;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kj54KKqus3DpCyZNB5aVCoc87sy3Q+Ne+YOlrdr6juM=;
+	b=vV+ELwUauXAxcXhKIhZMc4p8HZDtFH4E12EX+/Id8BXCJKXNF3HQcc91VmkF1DuBsmmo
+	 fj4Dc/tZQ1eEM9DJnQ1J3IcUFygnP6KFvKP9ban1gR1fd/Ua3yDmZmJBz2UIHaSnRy+RJ
+	 OUNGvYwooLzILhOzBTqqbVONrnI3owMctTILfgSYdctniIRbiiiO/PsjC2gGjZzkI01fk
+	 hSVqRqInfnE9ox1vk/lZXAI71VNXB0TTKDdWRI7jLrxGKVRaWeNaAjXEEBDhu//+zq/oo
+	 8/WB/c6vu93G1fZGByhQoC/fgraWfPT+7UehxWSIDSRfjTJSuMdFttGpIQJbERNR8dw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beANewO3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9F5606A31C;
+	Mon, 16 Nov 2026 22:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beANewO3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794866703;
+	b=0DxHhqG8tgzfzZAqyAtTmsWiSrY0T39GH/58i361qItLClOItKX1MuxzrOewDjAcOYZW
+	 0bU4MxEdKBxnXn0kwgB0SMD9v2Bb9ZxwAJ2otDF57e98mWlyjbmrfBKxJDRJaNaSdnKAl
+	 8HN5RRdR32QphjE9sZx/xMsWMsvlQA9bBrLAdzK9dnzmL56ZZonoBp3AScGqAgbR6rPQV
+	 PvrM42PuKSlA6+t8W1EMd5DYAq4KP31BwVYHKuV0qb7vlScvj2JQx3wmwBWAOgTTvfjSC
+	 +nFoGbWbAhvrytUFFVUO7eEkxrTvlLBQgVCrNtaYRpXhRKRN+6XHH7n1NIvyTWVjpMA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794866703;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kj54KKqus3DpCyZNB5aVCoc87sy3Q+Ne+YOlrdr6juM=;
+	b=dsGBJefMDB8clI4bf7Lri57QZse7m7QsPhFRbC1+PGZLEB07GmW3nBH5b7Rv2TqyR/t6
+	 bidLof+fSxWm10CoL4krf+K2u+RTTDceUpD16A6zqAyE4xoOLxmu7ryn3nHTiQeNGIkJT
+	 PlIHX0qigDIfH/9kQ3tl1Gxts5c6evDVuWuTpk7RFzPME2G1/c2MRzm2/cxNYFGowFHhH
+	 1YACgCnfk/a/ag1Xk5qpkPAx5XEkGlN9UJeiZf3KKMfqJAQ54VX6bVZexd5KL//4Sgh01
+	 /9lG1n3PTvNUlhwUi2t3xCcM2LXZjK5p0AREkz5/My1tA6Bc7xIJr9xYKaLUqmXpTCg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AE5606A88F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1AE5606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677bc4704cbso4048350d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:03:46 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866626; x=1795471426;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PizgZNC5pZ1OdAP1T1MlqaKvfqVNkGdpygwkEwMjJh8=;
-        b=rQfAuSG5i/cHuBMFM4RAo7DQ9KoMdlmWvE/x/JFtTYDcm0sMhRD+uPlofj0FOxzgXc
-         P8eVCJNIYQqokL9TQcMkGt+U76tFfQTZ1gDX63745O5yMFOlrCXcjywW35hcLZJ+vGmJ
-         +kcaU6RKjmn0794S+EFcTNOcpyGh6XQc1MKs6MBH+VHIr9yTOesEhlIp73g8B8AsBD1F
-         Rafc32oaRjC1hfPK1bGobNDHa03jdhdoK0hZzcUgQmXejQOKEFF6lgNufVOKRJhBHYPl
-         T844Da6KcP4wr/hbhSH3QcthF4UfZVWkBHA3eAEtvG/2d9DoZk3kWY8Fj/mTwsYig9kL
-         SB5Q==
-X-Forwarded-Encrypted: i=1; AL+hErFo9TYQr8dqTn+SejgZevSILwM8PFTphO+Foi4BFPppgXWWagqIUKl7gi8Sa0IlWryN3OQkOjuSF174mg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fM8PTEuSzaH1x3+f0cWU1TZS4eVCRVhCQ1r2qkqYLV8htq3GO
-	2xZI5a+ZGig9TDpSLgRsSiDMy0p/zc9+65mXGeFV7ycN3TBO/8d4GxXVno9mcxdEVoQ=
-X-Gm-Gg: AZFdTZd8o8j9sflLF6WjLHxmKmXmMJFhBMgXJabHzfu3T+q5R2C4vajkytA5pD2+mS4
-	IksbhNs8CBjm8ascwJVF+3IDDs+X02I4mFamN4lVgvIxA8Ep8neyyqybgML6e9V/UtdG9F9J+rZ
-	QzKjrUPCd3yqEX0l3UxMxFHtmBEVkPo+2petQRrUz9Ienzpt2ttZXnT67fQ74SxBMqeqyeyMgRZ
-	I30J8fPqWPAtPokrKga6f1UpwRSsVN1cYhxGl93n2o1sKS0YEQ0ErMUYtrUt+/yaJPYP/QgJKLT
-	Ujsc9Dp+UYQx03Z0EymukxVk5hbi+rhwYs8mxJN+9b8HCe/r9q0Lq44wI42wM+3NR6CcZpOjUMD
-	/joZqbklDoS+w735VR+sc2bl/MOeaftPCY6PJlZuQgaLjp1Ng8LLe/rtLzQmS8fRjKA85ga4lI3
-	UesL1yfZxG6GOZYgSIGpWuFcgShOx2nYzL5/y/CioCjRJHcCc7dtORsiPKzZYcydovslK0zA3Ry
-	vGpYPlJ8/CpkBa4VIUS5Ytebx144ktt8SFf4Epb4t215Rj3LTE/K3TlontPDnbvJfB74iQMPca7
-	KcpuF+H5VEmvXtQCKI8OU5GrqMkjYUvzuZeWxH3h+MLVqSQdFb5NXanSz7Ph83z3Z0IJEDh5q1z
-	XZBaEMj6YKIpwJPS3mtPisqlfyHMJVpT3sBA=
-X-Received: by 2002:a05:690e:1385:b0:67c:2462:b3c6 with SMTP id 956f58d0204a3-67d8972ec50mr6498893d50.101.1794866625778;
-        Mon, 16 Nov 2026 14:03:45 -0800 (PST)
-Received: from josephs-mac-mini.local ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a629a2dsm11133078d50.21.2026.11.16.14.03.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:03:45 -0800 (PST)
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 16 Nov 2026 17:03:22 -0500
-Subject: [PATCH 2/2] ASoC: ti: omap-mcbsp: Implement set_tdm_slot
+	by smtp.kernel.org (Postfix) with ESMTPS id 0167E1F000C4;
+	Mon, 16 Nov 2026 22:05:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794866703;
+	bh=kj54KKqus3DpCyZNB5aVCoc87sy3Q+Ne+YOlrdr6juM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=beANewO3s1pmjb0qOgZ4wUAGh5zA4YucQpCQdowV4m6aaQ0W2n/LDBMNx1bivzJPm
+	 YmLdKtvV2qJnvfrYVrCMhK75xsciy6MBrJAdOAxpyh7YoWGUfJ1NquiKMWecOvxQHS
+	 xaK8Uy6ggy+ZMJPMD5ccEbxVUUAvQ2Ud9WBzV/soEf5O+i73TpdFUD+oCtj+X1HD2T
+	 QxMbd3mn7IQW/GJVKU1rr/dTsMxUq72OCQRjK/oxo3NT9eMvOp2jflgYSyRfR2nSph
+	 8Ik4S0zW64jJ71H2Edo6jrgQYUa1P2Cn/yDkfkltZsxqJBc4hGR31zNn3/N05fit7e
+	 6yg+p5h664m4Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 779EC4A5D5;
+	Mon, 16 Nov 2026 22:05:02 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Mon, 16 Nov 2026 17:04:47 -0500
+Subject: [PATCH v3 1/4] dt-bindings: clock: Add Siflower SF19A2890 clock
+ manager
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,254 +84,168 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-sf19a2890-sysm-v3-1-b07bc7833a87@telaak.dev>
+References: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
+In-Reply-To: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866701; l=4233;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=1hE1zhMG0OtBg9FcIR+gI4NTYVaU3Uop5FjyhLMYHqg=;
+ b=1hTTtiHEqd2lgae1B60oM1HERoUGbTeh4h7cal186/Wp/vYkP+wKrZjSvz8dO6Lu9BnFyRWmI
+ dylTyV1FHpcA5WsYZKWfXmphWpkxQJs9LXwekQxBh+IOWJ6rUCUPl+J
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-omap-mcbsp-tdm-slot-v1-2-6c9f7aa45a29@telaak.dev>
-References: <20261116-omap-mcbsp-tdm-slot-v1-0-6c9f7aa45a29@telaak.dev>
-In-Reply-To: <20261116-omap-mcbsp-tdm-slot-v1-0-6c9f7aa45a29@telaak.dev>
-To: Jarkko Nikula <jarkko.nikula@bitmer.com>, Sen Wang <sen@ti.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.16.0
 
-As bit clock and frame provider, McBSP sizes the frame from the SRG
-input, the set_clkdiv() divider and the rate. Only a machine driver can
-call set_clkdiv(), so with simple-audio-card or audio-graph-card the
-divider stays 1 and the bit clock runs at the full SRG input: 96 MHz on
-OMAP3, a 2000-bit frame at 48 kHz.
+From: Joseph Telaak <joseph@telaak.dev>
 
-Implement set_tdm_slot() so these cards can ask for a frame of slots x
-slot_width bit clocks with dai-tdm-slot-num and dai-tdm-slot-width.
-hw_params() then picks the divider for the rate, and startup() offers
-only the rates the SRG input divides to within 0.1%, the IEC 60958 level
-II clock tolerance. McBSP sends a frame's words back to back, so
-startup() also limits the sample width to the slot width and the
-channels to the active slots, which must be the low ones, and refuses
-I2S or left-justified with other than two slots. This applies only when
-McBSP provides both clocks; without slots nothing changes.
+The clock manager of the Siflower SF19A2890 holds the SoC's PLLs and
+the muxes and dividers that derive the bus, CPU and peripheral clocks
+from them. The peripherals' own gates and resets are in separate
+blocks.
 
-Tested on an OMAP3630 board whose McBSP4 drives the I2S input of an
-ADV7513 with no MCLK, with 2 x 32-bit slots and adv7511 taking S32_LE:
-a left-only and a right-only 44.1 kHz tone each play at full level
-(96 MHz / 34 gives 44117.6 Hz), 48 kHz (0.8% off) and S16_LE are
-refused.
+The header is Chuanhong Guo's, from his SF19A2890 branch, and keeps his
+license. It drops the count at its end, and names the NPU clock
+CLK_MUXDIV_NPU_PE, without the _CLK suffix that no other clock has.
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- sound/soc/ti/omap-mcbsp-priv.h |   4 ++
- sound/soc/ti/omap-mcbsp.c      | 155 ++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 158 insertions(+), 1 deletion(-)
+ .../bindings/clock/siflower,sf19a2890-clk.yaml     | 57 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 +++
+ include/dt-bindings/clock/siflower,sf19a2890-clk.h | 27 ++++++++++
+ 3 files changed, 91 insertions(+)
 
-diff --git a/sound/soc/ti/omap-mcbsp-priv.h b/sound/soc/ti/omap-mcbsp-priv.h
-index 324c5d7d431d..7bd5a3f13a37 100644
---- a/sound/soc/ti/omap-mcbsp-priv.h
-+++ b/sound/soc/ti/omap-mcbsp-priv.h
-@@ -275,6 +275,10 @@ struct omap_mcbsp {
- 	unsigned int latency[2];
- 	int clk_div;
- 	int wlen;
-+	unsigned int slots;
-+	unsigned int slot_width;
-+	unsigned int tx_slots;
-+	unsigned int rx_slots;
+diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+new file mode 100644
+index 000000000000..9b72f14c2bd9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-clk.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Siflower SF19A2890 clock manager
++
++maintainers:
++  - Joseph Telaak <joseph@telaak.dev>
++
++description: |
++  The clock manager of the Siflower SF19A2890 holds the SoC's three PLLs
++  (CPU, DDR and common) and the clock muxes with dividers that derive the
++  bus, CPU and peripheral clocks from them. The peripherals' own clock
++  gates and resets are in separate peripheral clock and reset managers.
++
++  The clocks are defined in include/dt-bindings/clock/siflower,sf19a2890-clk.h.
++
++properties:
++  compatible:
++    const: siflower,sf19a2890-clk
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: 12 MHz oscillator
++      - description: 40 MHz oscillator
++
++  clock-names:
++    items:
++      - const: osc12m
++      - const: osc40m
++
++  "#clock-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - "#clock-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    clock-controller@19e01000 {
++        compatible = "siflower,sf19a2890-clk";
++        reg = <0x19e01000 0x800>;
++        clocks = <&osc12m>, <&osc40m>;
++        clock-names = "osc12m", "osc40m";
++        #clock-cells = <1>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..ce8d0596939c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25698,6 +25698,13 @@ N:	sifive
+ K:	fu[57]40
+ K:	[^@]sifive
  
- 	struct pm_qos_request pm_qos_req;
- };
-diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-index 6e0c7d7359f4..64d034f139a8 100644
---- a/sound/soc/ti/omap-mcbsp.c
-+++ b/sound/soc/ti/omap-mcbsp.c
-@@ -759,12 +759,117 @@ static int omap_mcbsp_hwrule_min_buffersize(struct snd_pcm_hw_params *params,
- 	return snd_interval_refine(buffer_size, &frames);
- }
- 
-+static const unsigned int omap_mcbsp_slot_rates[] = {
-+	8000, 11025, 16000, 22050, 32000, 44100, 48000, 64000, 88200, 96000,
-+};
++SIFLOWER SF19A2890 CLOCK DRIVERS
++M:	Joseph Telaak <joseph@telaak.dev>
++L:	linux-clk@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
++F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
 +
-+/*
-+ * The SRG divider that runs a frame of slots x slot_width bit clocks at
-+ * @rate, or 0 if none gets within 0.1% (IEC 60958 level II).
-+ */
-+static unsigned int omap_mcbsp_slot_div(struct omap_mcbsp *mcbsp,
-+					unsigned int rate)
-+{
-+	unsigned int bclk = rate * mcbsp->slots * mcbsp->slot_width;
-+	unsigned int div;
+ SILEAD TOUCHSCREEN DRIVER
+ M:	Hans de Goede <hansg@kernel.org>
+ L:	linux-input@vger.kernel.org
+diff --git a/include/dt-bindings/clock/siflower,sf19a2890-clk.h b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+new file mode 100644
+index 000000000000..94bbebd0c1cc
+--- /dev/null
++++ b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
++#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
++#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
 +
-+	if (!bclk || !mcbsp->in_freq)
-+		return 0;
++#define CLK_PLL_CPU		0
++#define CLK_PLL_DDR		1
++#define CLK_PLL_CMN		2
++#define CLK_MUXDIV_BUS1		3
++#define CLK_MUXDIV_BUS2		4
++#define CLK_MUXDIV_BUS3		5
++#define CLK_MUXDIV_CPU		6
++#define CLK_MUXDIV_PBUS		7
++#define CLK_MUXDIV_MEM_PHY	8
++#define CLK_MUXDIV_UART		9
++#define CLK_MUXDIV_ETH_REF	10
++#define CLK_MUXDIV_ETH_BYP_REF	11
++#define CLK_MUXDIV_ETH_TSU	12
++#define CLK_MUXDIV_GMAC_BYP_REF	13
++#define CLK_MUXDIV_M6250_0	14
++#define CLK_MUXDIV_M6250_1	15
++#define CLK_MUXDIV_WLAN24_PLF	16
++#define CLK_MUXDIV_WLAN5_PLF	17
++#define CLK_MUXDIV_USBPHY_REF	18
++#define CLK_MUXDIV_TCLK		19
++#define CLK_MUXDIV_NPU_PE	20
 +
-+	div = DIV_ROUND_CLOSEST(mcbsp->in_freq, bclk);
-+	if (!div || div > 256)
-+		return 0;
-+	if (abs_diff(mcbsp->in_freq / div, bclk) > bclk / 1000)
-+		return 0;
-+
-+	return div;
-+}
-+
-+static unsigned int omap_mcbsp_slot_rate_list(struct omap_mcbsp *mcbsp,
-+					      unsigned int *list)
-+{
-+	unsigned int i, n = 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(omap_mcbsp_slot_rates); i++)
-+		if (omap_mcbsp_slot_div(mcbsp, omap_mcbsp_slot_rates[i]))
-+			list[n++] = omap_mcbsp_slot_rates[i];
-+
-+	return n;
-+}
-+
-+/* Computed on each refine, so nothing is shared between the streams */
-+static int omap_mcbsp_hwrule_slot_rate(struct snd_pcm_hw_params *params,
-+				       struct snd_pcm_hw_rule *rule)
-+{
-+	unsigned int list[ARRAY_SIZE(omap_mcbsp_slot_rates)];
-+	unsigned int n = omap_mcbsp_slot_rate_list(rule->private, list);
-+
-+	return snd_interval_list(hw_param_interval(params, rule->var), n,
-+				 list, 0);
-+}
-+
-+/*
-+ * With TDM slots the frame is slots x slot_width bit clocks. McBSP sends its
-+ * words back to back, so a sample must fill its slot, channels go to the
-+ * first slots, and I2S/left-justified (one word per phase) need two slots.
-+ */
-+static int omap_mcbsp_slot_constraints(struct snd_pcm_substream *substream,
-+				       struct omap_mcbsp *mcbsp)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	unsigned int format = mcbsp->fmt & SND_SOC_DAIFMT_FORMAT_MASK;
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	unsigned int list[ARRAY_SIZE(omap_mcbsp_slot_rates)];
-+	unsigned int active = tx ? mcbsp->tx_slots : mcbsp->rx_slots;
-+	int ret;
-+
-+	if ((format == SND_SOC_DAIFMT_I2S || format == SND_SOC_DAIFMT_LEFT_J) &&
-+	    mcbsp->slots != 2) {
-+		dev_err(mcbsp->dev, "I2S/LEFT_J needs 2 slots, not %u\n",
-+			mcbsp->slots);
-+		return -EINVAL;
-+	}
-+	if (!active) {
-+		dev_err(mcbsp->dev, "no %s slots in the TDM mask\n",
-+			tx ? "TX" : "RX");
-+		return -EINVAL;
-+	}
-+	if (!omap_mcbsp_slot_rate_list(mcbsp, list)) {
-+		dev_err(mcbsp->dev, "no rate for %u x %u-bit slots from %u Hz\n",
-+			mcbsp->slots, mcbsp->slot_width, mcbsp->in_freq);
-+		return -EINVAL;
-+	}
-+
-+	ret = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS,
-+					   1, active);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_pcm_hw_constraint_single(runtime,
-+					   SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
-+					   mcbsp->slot_width);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Rates follow the current in_freq and slots */
-+	return snd_pcm_hw_rule_add(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
-+				   omap_mcbsp_hwrule_slot_rate, mcbsp,
-+				   SNDRV_PCM_HW_PARAM_RATE, -1);
-+}
-+
- static int omap_mcbsp_dai_startup(struct snd_pcm_substream *substream,
- 				  struct snd_soc_dai *cpu_dai)
- {
- 	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
- 	int err = 0;
- 
-+	if (mcbsp->slot_width &&
-+	    (mcbsp->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) ==
-+	    SND_SOC_DAIFMT_BP_FP) {
-+		err = omap_mcbsp_slot_constraints(substream, mcbsp);
-+		if (err)
-+			return err;
-+	}
-+
- 	if (!snd_soc_dai_active(cpu_dai))
- 		err = omap_mcbsp_request(mcbsp);
- 
-@@ -1020,7 +1125,15 @@ static int omap_mcbsp_dai_hw_params(struct snd_pcm_substream *substream,
- 	/* In McBSP master modes, FRAME (i.e. sample rate) is generated
- 	 * by _counting_ BCLKs. Calculate frame size in BCLKs */
- 	master = mcbsp->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK;
--	if (master == SND_SOC_DAIFMT_BP_FP) {
-+	if (master == SND_SOC_DAIFMT_BP_FP && mcbsp->slot_width) {
-+		/* startup() limited channels, width and rate to the slots */
-+		div = omap_mcbsp_slot_div(mcbsp, params_rate(params));
-+		if (!div)
-+			return -EINVAL;
-+		regs->srgr1	&= ~CLKGDV(0xff);
-+		regs->srgr1	|= CLKGDV(div - 1);
-+		framesize = mcbsp->slots * mcbsp->slot_width;
-+	} else if (master == SND_SOC_DAIFMT_BP_FP) {
- 		div = mcbsp->clk_div ? mcbsp->clk_div : 1;
- 		framesize = (mcbsp->in_freq / div) / params_rate(params);
- 
-@@ -1184,6 +1297,45 @@ static int omap_mcbsp_dai_set_clkdiv(struct snd_soc_dai *cpu_dai,
- 	return 0;
- }
- 
-+/*
-+ * With slots set, McBSP as bit clock and frame provider runs a frame of
-+ * slots x slot_width bit clocks and picks the divider per rate instead of
-+ * using set_clkdiv(). It sends a frame's words in order, so only masks of
-+ * the low slots work.
-+ */
-+static int omap_mcbsp_dai_set_tdm_slot(struct snd_soc_dai *cpu_dai,
-+				       unsigned int tx_mask,
-+				       unsigned int rx_mask,
-+				       int slots, int slot_width)
-+{
-+	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
-+	unsigned int max_width = mcbsp->pdata->reg_size == 2 ? 16 : 32;
-+
-+	if (mcbsp->active)
-+		return -EBUSY;
-+
-+	if (!slots) {
-+		mcbsp->slots = 0;
-+		mcbsp->slot_width = 0;
-+		return 0;
-+	}
-+
-+	if (slots < 0 || slots > 16 ||
-+	    (slot_width != 16 && slot_width != max_width))
-+		return -EINVAL;
-+	/* Masks must be contiguous from slot 0 */
-+	if ((tx_mask & ~GENMASK(slots - 1, 0)) || (tx_mask & (tx_mask + 1)) ||
-+	    (rx_mask & ~GENMASK(slots - 1, 0)) || (rx_mask & (rx_mask + 1)))
-+		return -EINVAL;
-+
-+	mcbsp->slots = slots;
-+	mcbsp->slot_width = slot_width;
-+	mcbsp->tx_slots = hweight32(tx_mask);
-+	mcbsp->rx_slots = hweight32(rx_mask);
-+
-+	return 0;
-+}
-+
- static int omap_mcbsp_dai_set_dai_sysclk(struct snd_soc_dai *cpu_dai,
- 					 int clk_id, unsigned int freq,
- 					 int dir)
-@@ -1291,6 +1443,7 @@ static const struct snd_soc_dai_ops mcbsp_dai_ops = {
- 	.set_fmt	= omap_mcbsp_dai_set_dai_fmt,
- 	.set_clkdiv	= omap_mcbsp_dai_set_clkdiv,
- 	.set_sysclk	= omap_mcbsp_dai_set_dai_sysclk,
-+	.set_tdm_slot	= omap_mcbsp_dai_set_tdm_slot,
- 	.auto_selectable_formats	= &mcbsp_mcbsp_selectable_formats,
- 	.num_auto_selectable_formats	= 1,
- };
++#endif /* __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H */
 
 -- 
 Git-155)
+
 
