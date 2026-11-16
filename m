@@ -1,53 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.77.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827270;
-	b=LHa9r/4lkHoQXZfPbHmUl/5Q6u84ruWgTzIM7C2fQi9smnmPplBjc3mUoWzs7LaHw4Zg
-	 wO8r6nFKfRwT70DuChbTBBM25q73urnRnG81uhJ//Esp/r4xYL21gAC7uXwztzWMpMPyG
-	 QX5GlUacUE/3w5ruAPiQi/obkxcLttTdCzm/nrcOmJPuYfgBrN4qtsrNvTLZ0tmLQs5DM
-	 jVqnKZ/Dfje/Uh5jCSd0dSX40sjf6Qke7sA5oGlEBlldgvlQn0nbpz/lTD5H6OT20FaTu
-	 komVgumt9wJH9h2sO1wwRNFyAz0oVaUccwXzko1/VJYrzacyqkyTakeATSxV9w1EeMg==
+	t=1794827277;
+	b=4tF7mR9P6cXleCybKD9S7Oz1lZHFy6LOf/hYhPhQqSGrwAjyUCk4/hQzxNeQz3JbxRES
+	 ees6/kMI6pZsPS+20A1iNYxyttkypog2GwStOptv9SEJGuBH9KtEsxr/YbYhlWkn8nvBT
+	 62sGUH4P04Yzm55n8tl6B1qPVIY16Jip9WVEi+SuOFvKKRirw55Jq50TTzN1HX4fSY68R
+	 si8OIwVxlykt42Ounoivyi8GstluEnsi7rFGVK4t/4my4mEG5iLtp/qqUcXn7AvW/PpuC
+	 1OElzt6YanippP+G/NbbN1d5VbuccKsfh8IfkURjD1fwByD1K/3m2GUz8EPbYYoPdYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827270;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=AuuueUIiwkc93LDarBEsBhq5sGdDfFqHHtz9HVXcZqw=;
-	b=rqltWloBSmVRvKRi0mg0lB8MuALuoW0djA1I91Z0dhB95DaE5aS15Gk1zvIpRIsuJ+W6
-	 2yBgAZTsSy2eqO3O0hmoMQ1gFbbub9vmhCZpXFFPCnYu/yBvxkmj4iN69hBas3qzXBrP5
-	 up6fJifUKjNyn8b2fsBy3GvNDZ+Tu5cYw7FSPPyfXSnUIasXGX8XHKB8yhliwKnkQXfpw
-	 QT0lv+O1FREzZSnRMusj8RITu+Kz2EcBDZgD7/bS5mHf58kjchzDh4J6gMQyfNC9iM5+z
-	 +3z2GMO+zJAg6TzZ8xLaZXlRbctbrizeYpoeBXYsE1gU7ZzE4rlY+PjqQdGwZCQ6tUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827277;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PqfeLGmjk4y0+kxRkxjSur2IdVXjx1oPYJuREevbBc0=;
+	b=RuCq7Z4K2cJNUwD+AEZhNNJ8uFs++oR946dv19ACXr1Iu4qfm1uwez9ocOELtnMuf0z8
+	 7aFoa8TtCf2kLIyyxVKONzJJXePXIQQLbDrQduDy1fk5QP2SwZqt6FvheWCQiJutsNOZ6
+	 o/tS0JfgyMUpAXkOxzZfnn+7v+h6wR2eCZuy8cSX9cgAEhSZHIbmKdPaAN2Ttxrz5COQi
+	 0psjbmpmiHrWQp+LWgzlk1oHLq88Gj8/RHj0fSBxdAXq/GgVdwRwJy+p4fi0QCG2mtVR/
+	 hjvTkbmpOBJoo3DQLBFo2K8V8RRAEIt2GFNAVGpm1+HGGKt2unm/+wuK9sWh8T8nYBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baryla.org;
-	spf=pass smtp.mailfrom=baryla.org;
-	dkim=pass header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=uwbzef0g;
-	arc=none smtp.remote-ip=217.182.77.61
-Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YvkLPRy/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA99606F1C6
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AA99606F1C6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=baryla.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baryla.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0C3606AB45;
+	Mon, 16 Nov 2026 11:07:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=uwbzef0g
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BEDF7746115;
-	Mon, 16 Nov 2026 11:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
-	t=1794827261; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AuuueUIiwkc93LDarBEsBhq5sGdDfFqHHtz9HVXcZqw=;
-	b=uwbzef0g2QXZyA3dVr90FFkjATPM75oti5Tjmajl52uOBOvCMsc9zK00rDHMc3f2qTx//0
-	nHMXvV8LWVlxQ8LOxYabolNEvQFpGLSwl3qq4foW0knZMA0EEv0LiZAQko6M3Fty/c64ZB
-	+W1xHieJw+2WGs3i/eX3MzQjiXg3y8/IRwIXlSKir1IRuT2pzy7J+D99MjOmuL8mxflmjT
-	P92Ob3gW5AmmBSYGN3vxq3kjmx/CVrXHLdPPXO4lsnGg3g/ChnAsn1FYguD7dAhefcJ8Ht
-	PCfrIW3W41adMtfBLrgGzJ/6KYhKqwcQGImcfJaOzxh5lwKFWac73zLd5kSPBw==
-From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-Date: Mon, 16 Nov 2026 12:07:32 +0100
-Subject: [PATCH 1/2] drm/amd/display: Skip the MST last link check for
- logical ports
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvkLPRy/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88D961F000C5;
+	Mon, 16 Nov 2026 11:07:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794827277;
+	bh=PqfeLGmjk4y0+kxRkxjSur2IdVXjx1oPYJuREevbBc0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YvkLPRy/TdN3pcwscLXBhpcduUBjYfqgxZuCJwXsSL+UDnogKKD+92Xz/+diWB7NI
+	 0mqTTOVlCiRH9R0uBfT3YiIB2BmI3UU7ll0jcE3kk2lC7TLroBC6Pkv/qkjCb2pKNw
+	 zDc5Qqdo1HgBsZBD3BoeHwLBK/Raft20V7BmIejOzs9J/6v/WXVyn+g9CQ2gGm+AqX
+	 J1BdMMjoyxnVFZYvSfydNC+8KMf09MmPJr+eYY10D9OpdtxnRAAZVeQJdaGrm0Le+R
+	 4Rzjk+4/AJ7X87jNNtb5qnMUVnAQtEquA0JDBGjIxtZx98uV2qTRkccJqkx7xTRA3w
+	 c7AFtct/ZdTHA==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 16 Nov 2026 12:04:48 +0100
+Subject: [PATCH RFC v3 15/44] tracefs: use fc_init_pseudo()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,85 +53,75 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-mst-logical-port-v1-1-6b446ebe75e7@baryla.org>
-References: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
-In-Reply-To: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Zaeem Mohamed <zaeem.mohamed@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
- Jerry Zuo <jerry.zuo@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-work-loop-pseudo-v3-15-8cbbea1cf34f@kernel.org>
+References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+In-Reply-To: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
+ target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+ apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
+ netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+ linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+ Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kselftest@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Alexander Mikhalitsyn <alex@amutable.com>, 
+ Chris Down <chris@chrisdown.name>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1157; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=jWsk7jA40wU8aE/ukx0Eq/KUmnvJ+ql3poj8uK0lOp0=;
+ b=kA0DAAoWkcYbwGV43KIByyZiAGr643Cha2aEDzogEHXFHDf4ItcyB4+yUL4ANkviCVs/P6sGm
+ 4h1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmr643AACgkQkcYbwGV43KI/pwEA638U
+ 1d15U79N804Xlrmzg1WVT0YbKUtsgjGXa9iRx+MA/RH2I1+OACZjxtKr5OTHN7a/GnbvmGcfgyl
+ DomehAAUO
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-[Why]
-For MST DSC without passthrough, dm_dp_mst_is_port_support_mode() reads
-DP_LINK_BW_SET/DP_LANE_COUNT_SET of the output port and rejects modes
-whose uncompressed rate exceeds that "last link". The value is read once
-and cached on the connector.
+Initialize tracefs as a pseudo filesystem. This raises SB_I_PSEUDO and
+also SB_I_NOEXEC and SB_I_NODEV. tracefs never holds executables or
+device nodes.
 
-A logical port (port number 8 and above) is the branch device's own
-internal sink, such as the panel of a monitor with a built-in MST hub.
-No DP link follows it, so its link configuration registers do not
-describe one. A Dell U3225QE behind a USB4 DP tunnel reports its
-internal link in DP_LINK_BW_SET/DP_LANE_COUNT_SET while that link is
-still training: right after a hotplug the read returns RBR x1
-(1257120 kbps), which prunes every 3840x2160@120 mode (28512000 kbps
-uncompressed, DSC required). After a monitor power cycle the same read
-happens before the channel coding is set, gives 0, and the modes are
-offered. Which of the two happens depends on timing. Once training
-completes the registers show HBR3 x4 (25142400 kbps), which is still
-below the uncompressed rate, so re-reading instead of caching would not
-help.
+SB_I_NOEXEC also refuses PROT_EXEC mappings. The only tracefs files
+that can be mapped are the ring buffers and __rb_map_vma() refuses
+VM_EXEC already.
 
-Since commit 0b0ff65d3ca1 ("drm/amd/display: Refactor stream
-validation"), a mode rejected by this check is retried as YCbCr 4:2:2,
-which fits without DSC. So instead of disappearing, the mode is offered
-as 4:2:2. Every atomic check then tries RGB first, fails, and logs
-"Mode Validation Warning: Viewport size failed validation."
-
-[How]
-Skip the last link check for logical ports. Physical ports keep it
-unchanged.
-
-Fixes: fa57924c76d9 ("drm/amd/display: Refactor function dm_dp_mst_is_port_support_mode()")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/6142
-Signed-off-by: Karol Baryła <git@baryla.org>
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Reviewed-by: Chris Down <chris@chrisdown.name>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ fs/tracefs/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 5697645ef7cc..b9ff0880d150 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -2066,9 +2066,16 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 			struct drm_dp_mst_port *immediate_upstream_port = NULL;
- 			uint32_t end_link_bw = 0;
+diff --git a/fs/tracefs/inode.c b/fs/tracefs/inode.c
+index 5020365ca7048..e04febd868eb4 100644
+--- a/fs/tracefs/inode.c
++++ b/fs/tracefs/inode.c
+@@ -12,6 +12,7 @@
+ #include <linux/module.h>
+ #include <linux/fs.h>
+ #include <linux/fs_context.h>
++#include <linux/pseudo_fs.h>
+ #include <linux/fs_parser.h>
+ #include <linux/kobject.h>
+ #include <linux/namei.h>
+@@ -510,6 +511,7 @@ static int tracefs_init_fs_context(struct fs_context *fc)
+ 	fsi->mode = TRACEFS_DEFAULT_MODE;
  
--			/*Get last DP link BW capability. Mode shall be supported by Legacy peer*/
--			if (aconnector->mst_output_port->pdt != DP_PEER_DEVICE_DP_LEGACY_CONV &&
--				aconnector->mst_output_port->pdt != DP_PEER_DEVICE_NONE) {
-+			/*
-+			 * Get last DP link BW capability. Mode shall be supported by Legacy peer.
-+			 *
-+			 * Skip logical ports: they are the branch device's own internal sink,
-+			 * so no DP link follows them and their link configuration registers
-+			 * do not describe one.
-+			 */
-+			if (!drm_dp_mst_port_is_logical(aconnector->mst_output_port) &&
-+			    aconnector->mst_output_port->pdt != DP_PEER_DEVICE_DP_LEGACY_CONV &&
-+			    aconnector->mst_output_port->pdt != DP_PEER_DEVICE_NONE) {
- 				if (aconnector->vc_full_pbn != aconnector->mst_output_port->full_pbn) {
- 					dp_get_link_current_set_bw(&aconnector->mst_output_port->aux, &end_link_bw);
- 					aconnector->vc_full_pbn = aconnector->mst_output_port->full_pbn;
+ 	fc->s_fs_info = fsi;
++	fc_init_pseudo(fc);
+ 	fc->ops = &tracefs_context_ops;
+ 	return 0;
+ }
 
 -- 
-2.56.1
+2.53.0
 
