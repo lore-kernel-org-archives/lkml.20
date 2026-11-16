@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803272;
-	b=hdnrjRKNBffOXUibkVxQ1oovMn3kXWFsawndCLpk9n/FuS4AzXVmCiVtPeD4XWpBd7DC
-	 rY4Tfux6YX2yvSov9uJTmW26qHGE4XG3Np0Wy+pgUKBI+CRD3ceKl/lfO2NmbeebjF4yL
-	 /oTvF0hFOLYGkTPQkpnqd3/jYhe9Tgcg8l7zhbDmXIddGnjt0l+fWnfHwJw6m8Cb9ktT1
-	 t46rToHcY58nDrrli0XdJBQH/cJgKfIONdf3jRGm5PRgExiTj5ODfTwBGe4CCsoXUwG3D
-	 Mj9nng9tn+ulnWZcfGxegMg0tir1tjNSzWVECCttVSHQyQDHWUpawpZNXomAu6mPHuQ==
+	t=1794803456;
+	b=otEYTUUrG5SIS4LgIDK9IInCje8gfKtx9fGAF2IU3IC1mXLZ/I0cT7PSxNw4WOdAJx2y
+	 sA9HJ5CUCPTuC0o2UFmPVL2wm5aEl3NN6q9vT23tUto4VTcyoibWpM4TqJc28DkYvrDkf
+	 G6PhtmZiatsvKYOmhlQ919c5gHGqqZtbutVWnM519lm1L1X8PpgWNXm5++W4HQeFot9Jn
+	 XSrKJ6NPGQcp/gJVW7LwU1aMD6pW6F23508GsoV7x17Y6JtGp6xGgSdpPBJZw5c+4B6oS
+	 kRAaNxjUT0S9HVb3dbpxn1wC/ue/dH8Bq8YPUSM1nR0rbvXJdBpj73INxGamGdiSISg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803272;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
-	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=eNtVYaFSoYJYpJd8ZF+kTOqpl3wUXqv0VIPKi7kdcO0=;
-	b=p40rcEMNpC3IE0Y3tIIbHaBVz/G8/wpOWAzoRbQXKExETHX9CoNMebK7noINCb9WdTko
-	 Yo3xySYUmKdzfGXnAje8x/DQCUa7mKwiMMXmo7kGqdrgWflEhB6Y2cqsH/rWgpIIiMqoz
-	 EHYljjKJrzb5yQit2RWgF2JXCEOeQl4P2y5A1zYNMw1v1yLdWZIuyOUv6ILlIMnzH1JTA
-	 ogeQz8vJvowgLwASnHgN+CEfZqJg7UFIlO72pIpEKEEVOFUViuX3bNlJYEhPxMUlLDT/o
-	 RxLZQsF7jTmzNhA3QCEV/+NYA9N0YkwWVTPu1v3TFSQ9WtUQM9e396nxUYCvijJxYjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803456;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=C2F8XmMQBpvU9tOSLyw0S9t+s3HjR8DCgLXTbQAMCKc=;
+	b=DMw85+gqK+mG0yNxkdZVumNBOnlfyod+DOOUrJG+yAUMiKkr9Nklhoq3tO38xD+SmqqF
+	 Uz9dTyXj1Y4UdlKAPeAxG5EqiIoG4NdDgfw48ONLtV5GhQFf5JSTvCYMbUkfWXA0AaRUw
+	 vI6TvbmKqyeobtaxi541OkIU+O9lES/45Nd1OJJhGFAnAwikNO5hbgDt67v8JT5ScHHBg
+	 aV0c29t4F9CKOt5mhxviZh6Y2uuHXdI1Eys9rsjmrjq3cl5uujzvFflHfANAvliHkwbKG
+	 Y3WIoKtZDAG98R6lqcS0axoM4SesO7uEF9xaH0hsb36Q0q2LVUbtWfz9ceIZHklDdsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniroma2.it;
-	spf=pass smtp.mailfrom=uniroma2.it;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=ydpnlOAO;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=W38B0z3a;
-	arc=none smtp.remote-ip=160.80.4.39
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.39])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C623606A31C;
-	Mon, 16 Nov 2026 04:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C623606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eTyw/UfJ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E26D606A31F;
+	Mon, 16 Nov 2026 04:30:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=ydpnlOAO;
-	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=W38B0z3a
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 6AG4R4F6029746;
-	Mon, 16 Nov 2026 05:27:09 +0100
-Received: from lubuntu-18.04 (unknown [160.80.103.126])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id EF21E120755;
-	Mon, 16 Nov 2026 05:26:59 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1794803220; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eNtVYaFSoYJYpJd8ZF+kTOqpl3wUXqv0VIPKi7kdcO0=;
-	b=ydpnlOAOtxb/e9yNfed9MY5lOi0Y/iO4uPfGZ6i+nbQUxgfr7iz2s1AGELvWpNIRpDi/3p
-	QMsP9bd/C+7j8iAA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1794803220; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eNtVYaFSoYJYpJd8ZF+kTOqpl3wUXqv0VIPKi7kdcO0=;
-	b=W38B0z3a7AJPGA6RtB9Dt3UY9w6Y9DyuDNEWYTfF5fgGLdsW9LLCMgS6tcv0//uLGEh+u6
-	bD9nHBn4Uvwg6wiIBP4YaKs8CZRXRjm1Na4lb3pjOvyUhXegPA4vCKCXMgZk1yAyNBtnHV
-	gnE2gZdWF7+07jJZnzZ0Cxry0swGuE3Sj7AXte47MtUe5jEFwZF6Gy02ZLHEBnI3GL9DEE
-	SCEMRSLu1VfAit89zH3PV2rrqfCWZ+37Lat3Tb+Xnw8TcCaVJidmXldZclqtUUiphNbDyM
-	I2j9KjW5UU3TfAci591PT/9K/YCmahrAJO6nhDSvqVWeOSS7BdywY0MikfWA/w==
-Date: Mon, 16 Nov 2026 05:26:59 +0100
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Shuah Khan
- <shuah@kernel.org>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        Hangbin Liu <liuhangbin@kylinos.cn>,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Andrea Mayer
- <andrea.mayer@uniroma2.it>,
-        Andrea Mayer <andrea@common-net.org>
-Subject: Re: [PATCH net-next v3 3/5] selftests: seg6: move SRv6 End PSP
- setup into its own helper
-Message-Id: <20261116052659.e8843a373807242737faeef0@uniroma2.it>
-In-Reply-To: <20261112-srv6_flavors_endx-v3-3-c9177bbbd965@kylinos.cn>
-References: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
- <20261112-srv6_flavors_endx-v3-3-c9177bbbd965@kylinos.cn>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTyw/UfJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6544E1F000C4;
+	Mon, 16 Nov 2026 04:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794803455;
+	bh=C2F8XmMQBpvU9tOSLyw0S9t+s3HjR8DCgLXTbQAMCKc=;
+	h=From:Date:Subject:To:Cc;
+	b=eTyw/UfJ/KiNzafSsG0UnX1Oa0ESGdI8qkbO8u+ZrQxYmdu+GfnDIG27Wqh+TWjc/
+	 R2bFpLAVNpEqFD7vIoIjh8H3+WoowH7a+mHQUD9AMwTas+GfUGluRrdPRFaBpL1Mzc
+	 Tqe0IjiZ+M6Fx2F15VC3IEHba8U4m309PfpTgFl9vUpERXN35K9nIJfpZNm2ZmPBN6
+	 29G04BuIwjv59HislwBXaO4/onFY/6gHjJDopV+GxKlU+DHhAOvYeg69SzOGpGLEzI
+	 Af9IdmsAVQt/HDli2+6GSz52s6bvkcsWJb/ecXI4YRez+bLw1oRas9lnwDq25xGhlr
+	 Oln7L69dEvl0Q==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Sun, 15 Nov 2026 21:30:43 -0700
+Subject: [PATCH v2] x86/build: Do not allow X86_NATIVE_CPU to be enabled
+ when compile testing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,160 +52,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+Message-Id: <20261115-x86-no-march-native-on-non-x86_64-v2-1-fb3f9634b1bc@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOTQ7CIBSEr9Kw9plCG4quvIdpDNBniz9gAElN0
+ 7sL9QQuv5nJzCwkoDcYyLFaiMdkgnE2A9tVRE/SjghmyExYzTiltIFZcLAOntLrCayMJiE4myV
+ brAtvQQjWNKoVshs6knteHq9m3jbO/Y/DW91Qx1JcEpMJ0fnPdiLRkvtnL1GgoJUWqj7wger2d
+ Edv8bF3fiT9uq5fBmweJeUAAAA=
+X-Change-ID: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3262; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=axCYzJiLRr+d6BQAO+BEztS8pV1010PYKmReuIhKqzQ=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/2r4L+Fp/k3ax01kTtV/3bHmUhMV+/Tp+/9Sy3m3q3
+ 1V/+TN3lLIwiHExyIopslQ/Vj1uaDjnLOONU5Ng5rAygQxh4OIUgIlYhDH8j1Gvk077unKuauft
+ zCymBT+/+mTGPTqwzEfPItzwavrMvYwMLellt9UY+Kau3c51XlLgT1jw/rPzK1Vn1u9Y065tzT+
+ bDQA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Thu, 12 Nov 2026 17:27:58 +0800
-Hangbin Liu <hangbin.liu@linux.dev> wrote:
+When cross compiling x86_64 from an aarch64 machine using clang with
+CONFIG_X86_NATIVE_CPU enabled (such as when using allmodconfig), there
+may be a slew of warnings from each .c file, which makes it nearly
+impossible to find real issues.
 
-> setup() installs both the base topology and the End PSP policies. That
-> couples general test setup with one specific flavor scenario and makes
-> it hard to add further flavor cases cleanly.
->
-> Extract the End PSP policy setup into setup_end_flv_psp() so flavor
-> tests can set up and later tear down independently (the matching
-> cleanup arrives in a following patch).
->
-> Run the block under set -e so a setup failure is treated as an error
-> instead of falling through into the connectivity checks. When deciding
-> to report the run as skipped, keep any failure already recorded by a
-> test, so a real failure is not converted into a skip.
+  '+crc' is not a recognized feature for this target (ignoring feature)
+  '+fp-armv8' is not a recognized feature for this target (ignoring feature)
+  '+lse' is not a recognized feature for this target (ignoring feature)
+  '+neon' is not a recognized feature for this target (ignoring feature)
+  '+sha2' is not a recognized feature for this target (ignoring feature)
+  '+sha3' is not a recognized feature for this target (ignoring feature)
+  '-rand' is not a recognized feature for this target (ignoring feature)
+  '-sme' is not a recognized feature for this target (ignoring feature)
+  '-sme2' is not a recognized feature for this target (ignoring feature)
+  '-sve' is not a recognized feature for this target (ignoring feature)
 
-Hi Hangbin,
-thanks for the v3.
+Internally, clang expands '-march=native' into a list of target features
+to enable based on the detected CPU. The x86 part of the clang driver
+notes
 
->
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> [snip]
-> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> index 157baa8ecb0b..0ed5bfe99029 100755
-> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> @@ -488,8 +488,9 @@ cleanup()
->  
->  	# check whether the setup phase was completed successfully or not. In
->  	# case of an error during the setup phase of the testing environment,
-> -	# the selftest is considered as "skipped".
-> -	if [ "${SETUP_ERR}" -ne 0 ]; then
-> +	# the selftest is considered as "skipped", unless a test has already
-> +	# recorded a failure.
-> +	if [ "${SETUP_ERR}" -ne 0 ] && [ "$ret" -ne "$ksft_fail" ]; then
->  		echo "SKIP: Setting up the testing environment failed"
->  		exit "${ksft_skip}"
->  	fi
+  // FIXME: Reject attempts to use -march=native unless the target matches
+  // the host.
 
-When a test has already failed and the setup then fails, the script
-exits with 1 and does not say that the setup failed. For example, with
-hs-2 -> gw failing and then an error in setup_end_flv_psp(), the last
-TEST lines in the log are:
+which was first added by the initial '-march=native' support in clang in
+2009 [1] (other architecture drivers appear to have a similar problem).
+Due to the lack of validation that the host CPU is an x86_64 CPU,
+'-march=native' is expanded using the aarch64 host CPU's target
+features, which are unrecognized by the x86 backend.
 
-    TEST: IPv6 Hosts connectivity: hs-1 -> gw                           [ OK ]
-    TEST: IPv6 Hosts connectivity: hs-2 -> gw                           [FAIL]
+While this should obviously be fixed in the compiler, this does not help
+currently released toolchains that have this issue. As a simple
+workaround that makes sense regardless of the toolchain issue, only
+allow CONFIG_X86_NATIVE_CPU to be enabled when CONFIG_COMPILE_TEST is
+not set (i.e., the user intends to run the kernel, not just build it),
+which will exclude it from allmodconfig.
 
-The End PSP tests did not run. Before this patch, the setup ran before
-any test, and cleanup() printed "Setting up the testing environment
-failed" on every setup error. Could cleanup() print it also in this
-case, keeping the exit code 1? Something like:
+Cc: stable@vger.kernel.org
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+Link: https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d456dec2518e4944c [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+Changes in v2:
+- Rather than checking if host == target, just make X86_NATIVE_CPU
+  depend on !COMPILE_TEST, which makes sense anyways (Borislav)
+- Link to v1: https://patch.msgid.link/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
+---
+ arch/x86/Kconfig.cpu | 1 +
+ 1 file changed, 1 insertion(+)
 
-	if [ "${SETUP_ERR}" -ne 0 ]; then
-		if [ "${ret}" -ne "${ksft_fail}" ]; then
-			echo "SKIP: Setting up the testing environment failed"
-			exit "${ksft_skip}"
-		fi
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366f0798..32d22cbf55bf 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
++	depends on !COMPILE_TEST
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
 
-		echo "FAIL: Setting up the testing environment failed"
-	fi
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
 
-	exit "${ret}"
+Best regards,
+--  
+Cheers,
+Nathan
 
-> @@ -785,6 +786,27 @@ setup_rt_endpoints()
->  	done
->  }
->  
-> +# setup proxy on route entries for hosts
-> +# args:
-> +#  $1 - ingress router that enforces the SRv6 Policy
-> +#  $2 - destination host whose addresses are proxied
-> +#  $3 - suffix of the address on the loopback of the destination host
-> +#       (i.e. cafe::<host>:<suffix>)
-> +setup_rt_host_proxy()
-> +{
-> +	local rt=$1
-> +	local hs=$2
-> +	local func=$3
-> +
-> +	ip -netns "$(get_rtname "${rt}")" -6 neigh add \
-> +		proxy "${IPv6_HS_NETWORK}::${hs}" \
-> +		dev "${RT2HS_DEVNAME}"
-> +
-> +	ip -netns "$(get_rtname "${rt}")" -6 neigh add \
-> +		proxy "${IPv6_HS_NETWORK}::${hs}:${func}" \
-> +		dev "${RT2HS_DEVNAME}"
-> +}
-> +
->  # This helper function builds and installs the SID List (i.e. SRv6 Policy)
->  # to be applied on incoming packets at the ingress node. Moreover, it
->  # configures the SRv6 nodes specified in the SID List to process the traffic
-> @@ -860,10 +882,6 @@ __setup_rt_policy()
->  		add "${IPv6_HS_NETWORK}::${dst}" \
->  		encap seg6 mode inline segs "${policy}" \
->  		dev "${DUMMY_DEVNAME}"
-> -
-> -	ip -netns "${in_nsname}" -6 neigh \
-> -		add proxy "${IPv6_HS_NETWORK}::${dst}" \
-> -		dev "${RT2HS_DEVNAME}"
->  }
->  
->  # see __setup_rt_policy
-> @@ -962,17 +980,29 @@ setup()
->  	setup_hs 1 1
->  	setup_hs 2 2
->  
-> -	# set up the loopback addresses of the hosts used by the Policies (i.c)
-> -	# and (i.d).
-> -	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
-> -	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
-> -
->  	# set up default SRv6 Endpoints (i.e. SRv6 End behavior)
->  	setup_rt_local_sids 1 "2 3 4"
->  	setup_rt_local_sids 2 "1 3 4"
->  	setup_rt_local_sids 3 "1 2 4"
->  	setup_rt_local_sids 4 "1 2 3"
->  
-> +	# testing environment was set up successfully
-> +	SETUP_ERR=0
-> +}
-> +
-> +setup_end_flv_psp()
-> +{
-> +	SETUP_ERR=1
-> +
-> +	# set up the loopback addresses of the hosts used by the Policies (i.c)
-> +	# and (i.d).
-> +	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
-> +	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
-> +
-> +	# setup proxy on route entries for hosts
-> +	setup_rt_host_proxy 1 2 "${END_CSID_PSP_FUNC}"
-> +	setup_rt_host_proxy 2 1 "${END_CSID_PSP_FUNC}"
-> +
->  	# set up SRv6 policies
->  	# create a connection between hosts hs-1 and hs-2.
->  	# The path between hs-1 and hs-2 traverses SRv6 aware routers.
-
-Before this patch, __setup_rt_policy() added the proxy entry together
-with the route of each Policy. With this patch, each scenario calls
-setup_rt_host_proxy() instead.
-
-In this v3, 4/5 deletes the proxies when the scenario ends, like the
-routes of the Policies. So I think the proxy entry can stay in
-__setup_rt_policy(), and in 4/5 its defer can go next to the defer of
-the route. What do you think?
-
-> [snip]
-
-Thanks,
-Andrea
