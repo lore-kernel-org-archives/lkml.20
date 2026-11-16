@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819467;
-	b=cuiN7/sH5CCyj70VuFG3u6K1uIDiQl3WwnUK6veVhYiYkyT88CY+KBPmkg+84j+Uzk2a
-	 5OUrWOoqbyEThOo6IO51h40BeFJwSGX5hX76z9lhKrhJaHo287MxJofTTXLlMLTqV+kCt
-	 CzBNUUlPBi4vOprsVXeRFzSngpDkSv62Evd7b+H2NG5TL/w7wil5dne1sKLzMUdxnnEex
-	 Q7ZN0D5pqZAYcim1eAWk9Mmb7XSBQsKs5bdFIR6bLihXPW5ENmkv5T15Gr83NSYQQor7q
-	 c3ehJrwJSfuRJ9L5yj2ahDURdGp5VKn4GkL6wQpF5wDokF90YZ6SILtnpTZIV2XSoJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819467;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:X-Mailer:Received:
-	 X-Lms-Return-Path:Cc:Subject:Mime-Version:Content-Transfer-Encoding:
-	 From:Content-Type:To:Date:X-Original-From;
-	bh=BTcZk/ysXO+x/psVKKTgMfCcFG9OUCtxSRwx0yIpMrg=;
-	b=J/qnzOJ8hoAWCE6UNTylY5jnQ44ExxFya6984OgYiQJO1CUZsk5THmsFQZ7I61bD3E6g
-	 j2RDBlTsqS6Gcfwjwr0rW2WLPEi5Vm0Asz4NrZiAWvs7MEofiW775RdwOR5w4re+HQQR2
-	 SpdIeKgIXJPaSuajG1ppnMM+4E48hnaSdxmJH8Y4NT1z157vj3mMZRCLCYdf2SE6otc6g
-	 0eI8pjbL7aDbG0LwRQD238BtD/sgRg8aATuZDeld/Gti7NbxPInvob/LOeeig0P8g5n3v
-	 bX28tM0loRInI4UYqM9C4GRAeDxWpgIraUIS8lx8FDpbnVYjW2Guf7OkOLxGMbH8ykQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=FXEdP6im;
-	arc=none smtp.remote-ip=209.127.231.39
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794819538;
+	b=g7ztKshynK3xmNZhycs1WRfrjP1VMZKTHp5nQOlwx4o5QAycbMXuHJPVK3BV45+2Zs7C
+	 pnZScq6Yz3DkWVeQgZ3I6QeNTPKK5GNLK3uQ2UNWFpVhJ/e2/LcFA/qKKWx4scPaJgZ1B
+	 AqpEkYETS3cuKF4GTtdSc/ncm6lSBEEMBTD6Q8nApO0jfKwO/hplv9naGdmV76TE+ONAV
+	 /pObxTn0y4CQX4ctR2sBlmU1gKdsxp+BwCREccaviy0fIz1dNPsO7K5Z6utoRkjPKOWH3
+	 6TKnnMI0bB3P90Z5EJnbYEKhZTjQsO80KCY5BVplpJyebxdleCf8uaTQAtSsv6FKjIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819538;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
+	b=PovfC+BtqLW88M4DDnQZ1OdPsFY+qYt2J0hFKhUKLaEeLo7hWfkEc05FgUdtc0u8fNXr
+	 RhiISIgTJilKtKOXlAQ9bK5UopfaMZNdrNXG0SYgWlzuMS5dKLPtryvnLGUUKzIOcF8wO
+	 yqREyNsS9z2sO20sXocxO+nm0JHSzLlBbuuJc7QC0EMXyyx9p5PT/D71OpGZScKmk20v7
+	 FQqazxoDCi5+FH5y201LMttvR6HDdE8Iq+6YjuIZgw68ka3fDB5nplJ1pNfKM6xG2B4kv
+	 +hi3j2c7filDP0NVLN6KaYBQDfHmYo0wXPPAh4w+pXNoAYvMijfWrk4NvKx8A2+NXwQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=epsE4sgY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.25
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012025.outbound.protection.outlook.com [40.107.200.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031E2606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 031E2606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224A7606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 224A7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=FXEdP6im
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794819454;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=BTcZk/ysXO+x/psVKKTgMfCcFG9OUCtxSRwx0yIpMrg=;
- b=FXEdP6imxUa80WWfC+36CeHIOP2D7V8thM9xwarmZts2uMZVhoct/Y7OADD7Ck5PPr6Q3D
- xjGB8BJWSsE/W2STuHBeHXve38RtKUI7ocAohE23bUOZkFijUtPn1Y15TvFazNmhFU5gNF
- er+fPmFd8/1AQasJb0jnUzQ6e88/EoJpYcqIskOPWir1+Ng3Wv9eGbNtXVxTmiF23v+qJL
- ZP2cUgAhbGPjLr7ea2cpwU3sDYoZWSX8KwDH6kgbK5EIo4MJAQumJvMJWJWlrk5GtQWgRO
- mXIfAfBx0yIA/q/8WzdFf24ImAlgu3QYwxXs7HjJ8nROVRiFU7hqlPTpJ+0m1A==
-Message-Id: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
-X-Mailer: git-send-email 2.43.0
-Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Mon, 16 Nov 2026 16:57:31 +0800
-X-Lms-Return-Path: <lba+26afac57c+450d40+vger.kernel.org+sandie.cao@deepcomputing.io>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Subject: [PATCH 0/5] riscv: dts: spacemit: enable WLAN and Bluetooth on DeepComputing FML13V05
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=epsE4sgY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ksgBYKB+YjvJHnGj7I/exvv2VERaTpRRq1RWrZ9iVC0aPewPfEq0plcl+2cByu/FBO/ZVAJn43vnu7s7D8SNGn1M+5gw0GqParHVpgdF2OYvMg9IZcArqMDy68wyhiyVk3M8SbihT0X4DOhQiu4aXY5ANYBRE5dy4I+nRUwa4e4mcRR6J7TWplc5U+tg9X8kAuyo+945vZKMFes5mLzV3YOmBFPpQTIR/TamgHF8lzZNE7tZViInVbzZcnUolXhIjtLua5QdbTl8ctgvqxxUdGpBJ0f6Yti4oSXN3UQF8gyeGGJPmbdnjaesPTkjvuNmBTgeEXGfVlbfRYVmuIJ0pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
+ b=yxSjxTUfQANr1D7rr2nbqO09QqHA/pvF2Dt3NqdGQCeHYbb4hKui1s53ZMzOp1d02OMdobpQ8T0RCK/nmvS0kbjOU6pEJ+8gHmKd5s7BKJutNoc7aGfFa0pz4vgi2zxgyJrK1Nbg0SZrkxJpP+CMgz52cVac/RN9ssC1uACHg6GkfED2b+OqQJKmoEr4BLL/ampE+d8ukoY2+UXaA2agVmYQlGBVi5eNe5P7DGm/R7YlwqkiV9yuViWk/XzAIy+2Ikgz08SsSe2yA7eE1HjSytbHj1nAmYgs9sYVBuy2VZa9e5dCXm1jwD2pXKBkS+Uxz9arC5HeM8ywwkLgiXktzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
+ b=epsE4sgYpJLqrAADpK+3LUrHgAExxfKLykSllJ+IkFmx3V606ZDVDkLxtQ+cc1SmpxS+dUBTMpVk0ygUom1GcpFxPYvexJzlnl0sdJFwQOrgUsmhHLTiHbMSeH6yjJUf217/9rYOaKbWlj7YdJnAGcnMGmCEU1WbXYd2H0iFmLM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
+ by LV0PR12MB392693.namprd12.prod.outlook.com (2603:10b6:408:608::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 08:58:55 +0000
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 08:58:55 +0000
+Message-ID: <085c307e-8671-4ac4-8bd4-b7e42fb69ae7@amd.com>
+Date: Mon, 16 Nov 2026 16:58:49 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] drm/amd/display: Leave self-refresh before an ABM
+ level update
+To: hugo@hsal.es, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Roman Li <Roman.Li@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
+Content-Language: en-US
+From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+In-Reply-To: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TPYP295CA0031.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::9)
+ To CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,53 +101,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-Date: Mon, 16 Nov 2026 16:57:25 +0800
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|LV0PR12MB392693:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6981028-6542-410f-4b02-08df43bfd7f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	9tRr1XGLAdSxUgHzMfPNP1aj0jR+TKk6lN+WVclxv0g6QpoPVq+AovoerBfADm+egzJ3YGwhRGtdto6AXMG4l41df3TH9y2hfBpTbqYQkSpEN8oE55CtMcP2v2PjiPJ64CNbrByjMH16AEaFxjwWWOP4tlzoW7CXpUt4fyzOjwD2zLf55FrokZZDeQj3mSCcdKMHsozatRUT4YXt//Kww1MOK+HRccdZiMzi9l0GHWWUmxRuw4zxHLliCHZE7MAUx4T0gwYWWICar9mG7D+woIwtn0d06iHcJ+OS9JFinOmHvGIf1HiWFIhCzAtTDGqQ2WhbNgIqJPAkHu13G2wqf3wLAtVbxwDab2421r96vKO4HO9a+Pmobe2L0vDssNiK29Nqll7qEABgmOfLPEJ8gv0QDUnEGYuNlFzK5UTJx8pNXq8Elwl5hK4/YXTw/F84w6c3N957RcjhymXoKAMdzQzATyLormqUOkjC0fQD1Ro4oSrFGPwxdn5IUKvytXVJ8jONY8ZMIuwstSE99gBLdJnXJQsxvVpoFpTEBn7PiNDOoiiXyjM7jNnZziyXGYfo/bZjY8BjA3nG9n5aPnuVUPFvmJVHZ7AG3fdckSrq+ig=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6132.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QlQyNkprenVsV0hqbUZ5eTVLNHJENVd1QllsRC9lMWI1Y2VFdVdmNlFQRHNk?=
+ =?utf-8?B?WUc2bUJBK1gxQXRjUW5HRmI0L0VCYlVSWTZEQytwNEE1bTZXRy8yV0QxL0ZG?=
+ =?utf-8?B?T09Ydmc2MGNSWU5kYk9FdXFMNXBaNXpzTFhzMnBrSU5kaEI4bjZjZDZ5eG5h?=
+ =?utf-8?B?eWk1cGVIU1lub3VZN1RDeEQwU2xJTVpYK1RTc1g0VkpGWXlhKzNhY2V0b2dT?=
+ =?utf-8?B?U2hOSWV3czI1NGlXOWlKVzhhU0RjcG4xSDNGQmdySmNvOXQ3dWNDSVhEY09l?=
+ =?utf-8?B?MkcxdXdLdXFMcU9POXpMdEN1RU5QSlhHekJmb0pDdjExMEFuWUVQS1B0U0t5?=
+ =?utf-8?B?b2FvQUxjYWlyM3BOdHhEWlNEZWxyeG9YeEJ6ZTBQNFE4TERzbnRxeHNVUWdv?=
+ =?utf-8?B?N2k2Ly9MaEhnQTFQK2lDR0pORmV0Wmc5d29VTWthTy9QT1RzRWJyM1ZFcUVC?=
+ =?utf-8?B?UWxjTVdWRW9rOG8rTEdtSEhUR1g3UlN5MTJOZTg3a1licDFBOWZ3RUVVRlRy?=
+ =?utf-8?B?N00wclp4QU9KcUtTdzkreVNIUDNHTmtHcnQyOHllc2ZmWnJvOHFLMUlrQnBp?=
+ =?utf-8?B?L1VoWUo1WFNIWWxrTVFkb3Z5bS9Yazc1M1JLcDZ6RWwzeGg5R3BZa3JnTGpv?=
+ =?utf-8?B?VEU4UzRTRmhEWkQwU21GWjJmLzIvbmk4dGJEeUdUMm1IZGxwc0w3QmtvSWZQ?=
+ =?utf-8?B?SlZqajVpTStjeVg1WWpJZnc4b2tsRVpYc2NPUGIrZmdLNEEwQWlTSjU0VUJE?=
+ =?utf-8?B?bEJvWC9JOVJzc2JLRUZJZzZOQlRhNUpTSm10cDhJME1VbVEvTk1ONnFGUVhM?=
+ =?utf-8?B?cXQ5MXhWT1VlNW05WUkrY1BUWEFibTFVOTVpK1kzb3IxZXpLanVDSk1kZGVP?=
+ =?utf-8?B?a2tjK1NvdTNlcis0c0FKWEdVUXA3WHJmL1hGYlMzTjdLcmlmRlpHM0RvdkpG?=
+ =?utf-8?B?SUFKTEYvYnR2eXdyNEMxZ1h6NjA1NWFORG14elNEdis0WldDU0Y1OWFweVRs?=
+ =?utf-8?B?QmJ2ZnNiTlFZT2JNL1hDOHl4M01LZWRzNFlNMVRsc0JnOGNJV0V1T1lpem1V?=
+ =?utf-8?B?bW5seFdwelAyUW92djNXbUV3cmlkWVEzY3RrMSs3Qmo4RlozdTFzRkVyVjNT?=
+ =?utf-8?B?My9RbWhpaGZRQW95QXhFemNhZzVlTHE1V0NBdFdsTVhZVjZXWXRNakJ4cW53?=
+ =?utf-8?B?NGQ2eXIvSXIveUJlZ1pIUkY3cmZvY25rN2NXTXFGZEgyNHN3bmtIUTNhWm56?=
+ =?utf-8?B?dWVLMitFZnNsN0hCQnhUSDBGc0loaHAwMTVpVXRmTE02R1VDMHVyU0Mxdm80?=
+ =?utf-8?B?K0JHaGJiVjFYSUJLdW5WSXAxTEJLdkFTVUl6ME9vVnVMZTNTY0dkdE44MHg3?=
+ =?utf-8?B?Y2xaWjI1SkxKSkNVZWMrNWF0cEVqclpmdEU2elNJQUQ3RUdWdkRXeVNjaGFu?=
+ =?utf-8?B?ZUduQVlWM3N5M25EWDBYQ2UxcWJnU09aL3JVakxEbzV3R3R0UjFSMTB6Wnda?=
+ =?utf-8?B?ZUFCYWR3dE1oOU9ETngveFhZVTZKaXBWMFFOdU10VVZ2RTE5S005UEo3L200?=
+ =?utf-8?B?OUdoNUlHTGZ5WlcxYnlHL0JqSnQ4dlNCQ3dWZ2RBU3VwTkd6VElnLzBWUEpZ?=
+ =?utf-8?B?QXcyMEFoTm9QbUpQSWpaeDdVWjlXa3lUZHdmdXFxRGF0ZW13NFJtbzUwbUll?=
+ =?utf-8?B?SVAwTFlKR2tVMExVcTJQNDZ1cytvbkJTQlNaLzhNZ3owYVlnak5ydGtaN1pF?=
+ =?utf-8?B?UW9wRTJVcXcraFhiZnlucTJpR1lqNHVlbWE3RDBZVG5tSXFWQitUYkZwM0Y3?=
+ =?utf-8?B?dlcxSlRVcTg1enB0QnFYVktKcjlYZHVNWENQeUZTeUF0eFJ2aHp6VTRqZVVE?=
+ =?utf-8?B?a0pXNm5uYWhWZGY2dkpWZko3VFo3bzBUTS96SDlmS0ZQamVSTno3ZHR5WEFX?=
+ =?utf-8?B?eHlROGNxWTI5VnJIMUpxdnZBT202Wmd2eXJtOGdiSTBzaEZTSGhxRlRFTEhZ?=
+ =?utf-8?B?dXFpMmZuMUV3KzY0Z0R0dWlpS0F6UyswMHJvSU05NTJEK0JqRHZGL05MTXo5?=
+ =?utf-8?B?MjZReW9jUHBNV0J6dklhWXF5UnhRREErSzZRQkZxVnBZbkw0OGJFSVNFZ1lW?=
+ =?utf-8?B?dGx2L1Bnek5mdUJNTWJka2lvSEdHM3hYbGNCb1EvWVlyK3VRMUZwNGYvSDFh?=
+ =?utf-8?B?YSttd0RvenVVcDNMVGFFbjRjRUJNZUsrY1pNd3M3TUlWSDlqOHJhUCs3eGhB?=
+ =?utf-8?B?TGF1L2YxQWZETmgvdHRiMEJRZGxJS3BSc0RGQTIwbjJ4OCtwVEhoZW5iRk5B?=
+ =?utf-8?B?dUdvY2tyTEVpSnMzTDBtaFdTRnRQMjJrWEphbU5HZ0xaNHhlSGpBUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6981028-6542-410f-4b02-08df43bfd7f0
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 08:58:55.3425
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ott+dpdstFe0hF1/h6zirjWnFGHTI22bIPwdTAOkrMOc1Eq4vEkrDGo/CyFqvpTOMEDPDY1uq74x3x7edM57sA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB392693
 
-This series updates the DeepComputing FML13V05 device tree to describes
-the console UART as 115200n8, add rfkill nodes for WLAN and Bluetooth,
-model the 3.3V supply of the WLAN module, and enable PCIe node.
+Thanks for v2.
 
-The series is based on next-20261113. The DeepComputing FML13V05 
-device tree depends on [1]. The PCIe driver depends on[2], which 
-in turn depends on [3] and [4]. The PCIe node depends on [5].
+For the series:
+Reviewed-by: Chenyu Chen <chen-yu.chen@amd.com>
 
-[1] https://lore.kernel.org/all/20261109033154.361399-1-sandie.cao
-@deepcomputing.io/
-[2] https://lore.kernel.org/all/20260929083755.458238-1-inochiama
-@gmail.com/
-[3] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/
-drivers/pci/controller/dwc/pcie-spacemit-k1.c
-[4] https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama
-@gmail.com/
-[5] https://lore.kernel.org/spacemit/20260727094726.890179-3-inochiama
-@gmail.com/
----
-Sandie Cao (5):
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add 115200n8 to
-    stdout-path
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add rfkill node for
-    WLAN
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add rfkill node for
-    Bluetooth
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add WLAN power
-    regulator
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: enable PCIe
+On 11/14/2026 3:40 AM, Hugo Sales via B4 Relay wrote:
+> [Some people who received this message don't often get email from devnull+hugo.hsal.es@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Writing panel_power_savings while the eDP is in PSR hangs DMUB on a
+> Cezanne laptop (DCN 2.1). An ABM level change on its own is a fast
+> update, so the new level reaches DMUB with the panel still in
+> self-refresh. Chenyu Chen confirmed the same on Renoir
+> 
+> Patch 1 adds helpers that tell whether a PSR or Replay event is already
+> set on a stream. Patch 2 is the fix. It sets the PSR and Replay
+> hw_programming events around the DC update that carries the new level,
+> and clears only the events it set. An event that a full update, a
+> modeset or a PSR SU dirty rect change set stays set, for that code to
+> clear. Patch 3 stops amdgpu_dm_commit_planes() from sending the same
+> level again after the connector update loop sent it, so one level change
+> leaves self-refresh once
+> 
+> "drm/amd/display: Don't force a modeset when the ABM level changes" [1]
+> sends property changes down this fast path, so it needs this series first
+> 
+> HDR metadata may have the same problem. When the HDR static metadata
+> changes while HDR stays on, the commit is a fast update too, and the
+> connector loop in amdgpu_dm_atomic_commit_tail() sends the new HDR
+> infopacket to DC with the panel still in self-refresh. I have no panel
+> with HDR and PSR or Replay to try it on, and the VRR and AVI infopackets
+> already reach DC the same way. Does an infopacket update in self-refresh
+> need the same pause?
+> 
+> v2:
+> - Clear the events right after the DC update, under dc_lock, instead of
+>   on the next fast commit (Chenyu)
+> - Only clear the events this update set, so an event that a full
+>   update, a modeset or a dirty rect change set in the same commit stays
+>   set
+> - Add amdgpu_dm_psr_event_is_set() and amdgpu_dm_replay_event_is_set(),
+>   with KUnit tests
+> - Send a changed level once per commit, so it leaves self-refresh once
+> 
+> v1: https://lore.kernel.org/r/20261031130002.2335615-1-hugo@hsal.es
+> 
+> [1] https://lore.kernel.org/r/20261102-abm-sysfs-commit-v1-2-e5addfd9539a@hsal.es
+> 
+> ---
+> Hugo Sales (3):
+>       drm/amd/display: Add helpers to check PSR and Replay events
+>       drm/amd/display: Leave self-refresh before an ABM level update
+>       drm/amd/display: Send a changed ABM level once per commit
+> 
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  83 +++++++++++++++--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  24 +++++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  25 +++++
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h   |   3 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  60 ++++++++++++
+>  .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        | 102 +++++++++++++++------
+>  7 files changed, 263 insertions(+), 36 deletions(-)
+> ---
+> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> change-id: 20261113-amdgpu-psr-abm-update-next-de20bc23b12c
+> 
+> Best regards,
+> --
+> Hugo Sales <hugo@hsal.es>
+> 
+> 
 
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 60 ++++++++++++++++++-
- 1 file changed, 59 insertions(+), 1 deletion(-)
-
-
-base-commit: 4bc415760dd40fcff23deb073333984dd15d418d
--- 
-2.43.0
