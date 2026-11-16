@@ -1,113 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835672;
-	b=Fajtfkz4kg9uIxnAwEdbqySdhzbBBZhhtJBbNlF7/y1FQi2UMrQDIzNAWafkmyRwuNwp
-	 bBrMDeB2fgxnRDhXuniCmk8i6xW0RyRFUdym+rvRj+6Ma7yKZjKSd1PseuV6RFaA1WvcN
-	 ukHLlLiBhAKPmYrD0MNmtxhuQ7CLH8F1nLPkc+EoaeWWpBtBC0ZH6scR2xzh5DpgHzmtq
-	 EeW/Td6/wNUzY5R+E9fd2ISyZVD6injs5FX2IdD3UOenLvVQ4NqZYjuQaJ/onQrC7HxsB
-	 +UmDLPU2BpCUZtpzbFfSXdm80QIlsxh7Ro7JBMskOaEVk8XqonXDbzheGfayqoO+UDw==
+	t=1794835743;
+	b=ZCPDLLDcl/9Y70USc2iCiVjgfrAtkPAktOft6x+aBVIpr8cG6HX7i+LIVesf/K2WU6Vj
+	 KUVcWvZMI3UXMR1G25gVbJH7iRjUMiJZxQ2hUIK2ezBh8Dr0r8GePLMf+WfFaTyCbALNM
+	 mqjCY1Qe7rwCSSFECq9IaknfT7xmYsTxGtrFKNWuWOE29C/4dfoe0sVNaALwegIkMTHl3
+	 zYKzg5Di0Ow50vNTYKl8GJ7sGNQIYCr/SUektE2Nt5PFo6l90yYmzKfo/VM6PAW0mfhGf
+	 uwdufLIsK9EXkdfX/7XYSzSNjqQlvR0x2QYzIiFzl4g+UWS/W5eWGvvFoeep3xadDtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835672;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=yB4vhmX8LJqMQXdmvmg7Cv+GYdpTkKp1iqoONUm0PhQ=;
-	b=jjOsQmVIpGCXf/q3JDZ6xuyjiZyEYa/GSF2yiy7GwuxuvvHQ1sMsczcg7+u9FGm3culq
-	 6Q4tpjFjeimrbfvp/hhRE1U2k3YW93XLdkSWJKt4IsEU8VOZpexVms4sOWJdneApqF1us
-	 qVBtikw+1ZyRop+LbI2cA92e2pFokADJvDXGXGUOaPkkukyzG9Hza7joKoXekgD3oaX/Q
-	 UmFT8tG4D2qRXHABO7EfwG8PuyJ1Op6RFYVQ1gqhEkHO3PMRtVCgrtKp5gU23DwRRUpwW
-	 lfgboRs39DS1GHmIEq17NPFyTGUYrMVUgPgCVDSGD9mkMzdrQ3fA4cGjaRI4CG+1uoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835743;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=uz1Gm9A0XmdWVhMUHrTk33lNXNmGWV8HEH3nc+Vkj8Y=;
+	b=4Ezu5zdgssf6fJmouuMI4YIKW5NWik3BoOSmw+E2eecxTpZgYH4lMnYhdRWcbZLZv4du
+	 tYHVB12cRoixcwr+Zu4+dqi0PoukY4brMmiFZndvTGk28l9wjW69Tn6RwPx4KbgS80y2N
+	 VuYUF7sqlf2n/T9ode+YAzgRKmfXDx2NoFwXCgXK5obLvSMA03kL8VKZAWBT4e+s7H9bk
+	 6r9AMiBwFooX5etVvqd6ZEpO+enotgpFDKERqg92XCTSkkHeiJIchOasvIVvFlYjguHU0
+	 Agou8rXqDQ49sM9N2LKc6ed0TeLW06YTMO7ZiFIRHJrAUmsEaSTIuZUunXaFpFXg/KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PQJ8cY6I;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fv4BcrXx;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b="jcG/ZE9b";
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FE5606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:27:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6FE5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D236D606A31C;
+	Mon, 16 Nov 2026 13:29:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D236D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PQJ8cY6I;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fv4BcrXx
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC19T7536601
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:27:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yB4vhmX8LJqMQXdmvmg7Cv+GYdpTkKp1iqoONUm0PhQ=; b=PQJ8cY6IVFPUisdL
-	3hEH2ASZpISmi62fScxpd9wwN2bM0hIreX+tjRrVyv55GzKOfCnB3D4XqloukzNJ
-	U5yDPoqGzeNX7LIApoSPR/01kxD59fWjFq8KK4zaFamwQ2rbit/leEr2nVxtI70/
-	NiIAc7+RZUCg6RGuvQkL8JAtrsS/oD7Ijvyk6GVZWlDyeBLVIlxjWrRb6FLOCTM8
-	WTO23OU9h/+bcyAvVE+B8qyEPVbS7MmGt+qqFL+Sij86ro/10bFbK+N0Y5/Rt1UI
-	qJNFsKklQxeAwT0nBK/rDNnub3mepxS9x3PjCmsvGnxWB5ipN7kUJIkj4lcZVkGc
-	Ba2fqw==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyyqggq5a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:27:51 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-862a543c4bcso1771363a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:27:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794835670; x=1795440470; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yB4vhmX8LJqMQXdmvmg7Cv+GYdpTkKp1iqoONUm0PhQ=;
-        b=fv4BcrXxvRpzQRUofQ3Z7uBe5A5z/e+1yQhRQQQimDIw4uEzIi7gGY7LejEgEfXa7Z
-         NlqmFKFioHUpc9TX2ft5D7dqAb8I/fqY2ldCFHrE59M6DQcXg42H57LE22J24jOUA6vn
-         cuezz9/tvv91lm58/23SbrYICIBsw8+KYHbNwn1xsLX1shEVHRPL7WDpAkoI0Uupy6wU
-         wXt+XPIvrIIJYnqN6EQhXwoQkihknMkq/kJiQrOS9T31FX7cDvXCWg+vXrdeWcy8gaVM
-         70YGtSbNO05ejXm3R8JDezOgCI5agXXEhoCj7ac3yhLZwskHKM6/Igmd86H52Nx5DiVB
-         6O1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794835670; x=1795440470;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yB4vhmX8LJqMQXdmvmg7Cv+GYdpTkKp1iqoONUm0PhQ=;
-        b=BTMEwDboVZmU0qoTHWenXOfS3K0HeFemH1MtLtaZHXB3E2sqzdFPNQctEnjxZeMLeg
-         AfOTT9kLYFtjBO5iqH0jxWQThVXrNClhimtFF6D/7ylZc8jo4rkGuLQ1QXcKGw5b1XQM
-         jdfz7rTCgaQ6mZClg9lhb7GTGOUZDS/pgD2IeszrYaOaWH8rHqBY16im36OWVbLbob9Q
-         iNnDUGCwhYvzGBBlytyPYDndHAXxFcXVXFj9C1u8gWkyXsZOJdrp6rjaiPLKdViNC8dv
-         H09ULfCdJlDFOdlNUsUK9TbnVbtKdOacptrGLloqmRx/oXpi/B+W+2cq3mvzowJiVY2Y
-         eHPA==
-X-Forwarded-Encrypted: i=1; AL+hErFW2UTLxAkDldEQT2nxCGU/dMwSgM7imgFMNuG/kLmTqoufZKz3WHrDQvamjVhrDSwcw/R12cp7KSJcYcw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HGQEhJ5C4qAOYcxW4NoEsJm1nFm5I+zwas9vgfCcQe+0qjv8V
-	HfJMVBcQRNtRiesuvbbl0zTeNILqxa8eZhG2zTBRM8EbGoHp7bu1pMAZkq3wq+7n5bgsLDmYrNP
-	b9sarMoD4ieTDfGpaqU9yrpmlFgmNj1Vryk8uyWULxlFRYyKNg0ttzJYKt9rNTtI4K1A=
-X-Gm-Gg: AYBFou3AKLJtnpKDHEmLahAdBIV9GzuPjBtNsIKJm1haVfes7veA5MvHKjYxUfLGnO3
-	JoeVoLg3Ufm+vUqwEdUdUTKpvO73ezsrXO+neSD1UZJ9q4YL+AcCVZNWGcJn7mpj8LWdFuWCeB8
-	xV69mcMZ26SU4kReV1VHZEf6V9wJF5kfOkGlygaZFMUj4OgTe/wfno/FkrbHwd/NdTus2P2r3sH
-	cS7NcEdc1eE1PHhjQxU1I1SVkSIVaKoxoZEsCE61yymquObtjBOk+9C1UT/zHCrF/PK48OfWo3H
-	aI98qdodPTt+PuxUUbtqHzJK3Es10RRP4lidmBGIhDLkF9Kf6HT3yU++KD6a6wEc15itX9Q1mKr
-	zXW0uFuk//wyVb2zBiCv5y4Jsx0zlENS1WG28SXOI7rMpy+0ObN23obFlTkPAuW63b6o5GxGymX
-	7YX6xaG5Q=
-X-Received: by 2002:a05:6830:230c:b0:822:a034:551f with SMTP id 46e09a7af769-86289738d61mr13675528a34.2.1794835670301;
-        Mon, 16 Nov 2026 05:27:50 -0800 (PST)
-X-Received: by 2002:a05:6830:230c:b0:822:a034:551f with SMTP id 46e09a7af769-86289738d61mr13675482a34.2.1794835669778;
-        Mon, 16 Nov 2026 05:27:49 -0800 (PST)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628813346esm10012527a34.17.2026.11.16.05.27.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:27:49 -0800 (PST)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 18:57:31 +0530
-Subject: [PATCH v3 2/2] misc: fastrpc: fix init ordering race in rpmsg
- probe
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=jcG/ZE9b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=uz1Gm9A0XmdWVhMUHrTk33lNXNmGWV8HEH3nc+Vkj8Y=; b=jcG/ZE9be7wxqnb+hjusfCFcQa
+	VkHKRP190nzrNWv1zQNgwt4ivNFACfEsPCQHH3GWpFCNFzSb7fEqxhIJi4JapiNoB0AQAq33Bk/c2
+	eKSJ0iN5+Ut4bZnvN4SVNdujch+9kU9MuhFRCqTzqWuaUwSEvzCAacdxn0UPypl4tW1Ikcdbryd1e
+	t+BT+kBu2OMImSN+sO1GshRrGekhBBsjKDEk4v8BpIOXWs3P1fU/6dXCwttJC2kyQ4eXY6j/Hsk9C
+	xYNARwYMiBNXjMzFSnVYa2xD9Ybyxiihw1lMSBa97c9ZhUJRC6k0N9uDn5lvOGDjxNTjMIRK6XuSQ
+	w+xkE45w==;
+Received: from laubervilliers-658-1-215-187.w90-63.abo.wanadoo.fr ([90.63.246.187]:46593 helo=archlinux)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <nicolas.bouchinet@oss.cyber.gouv.fr>)
+	id 1xSwlY-00000009cTC-2n36;
+	Mon, 16 Nov 2026 14:28:59 +0100
+Date: Mon, 16 Nov 2026 14:28:55 +0100
+From: Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Xiu Jianfeng <xiujianfeng@huawei.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH 0/2] lockdown: Prevent booting with lockdown enabled but
+ IOMMU disabled
+Message-ID: <avr31i6M5PqKk_Vf@archlinux>
+References: <20261102-lockdown-iommu-v1-0-00f3c2be4c9f@kernel.org>
+ <44ac3423-0a51-4562-816a-fea881511afa@huawei.com>
+ <a444421f-178b-49be-98b7-d34dfb147604@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,263 +75,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-fastrpc-probe-fixes-v3-2-3cd56d9d9a93@oss.qualcomm.com>
-References: <20261116-fastrpc-probe-fixes-v3-0-3cd56d9d9a93@oss.qualcomm.com>
-In-Reply-To: <20261116-fastrpc-probe-fixes-v3-0-3cd56d9d9a93@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Thierry Escande <thierry.escande@linaro.org>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794835655; l=7239;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=mOJ7uI/VgM/jFRF26pl7PPi21PfhoBVe9lFM4JnZ1wk=;
- b=TUVxdvAh6Qs1NQINSZTFShL3QR/eYlqzMRrD9L484wiSa5fYRDh3NLH40GPwMtKRkzvme0hmB
- KRBtbp1HU6sCJ+D4RVz9lr+UEbh65sdfnagAyW73vHQmfk0gS4lLXbT
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MyBTYWx0ZWRfXzVouZo7JfdOx
- Cc5cdL4HwhefUO2sW19r1YwhkWCpNspBF+BSpjo/eAotTrpio0obRu07YBerqN6QIonsLGEalMl
- hWdM2r8DsCaUJ85RaL/n2BuK7MewyCE=
-X-Authority-Analysis: v=2.4 cv=epRKXYpX c=1 sm=1 tr=0 ts=6afb04d7 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RafEaDNIwz_KoXd2q0MA:9 a=QEXdDO2ut3YA:10
- a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-ORIG-GUID: 4MiQFEU6k-FXW52UkZIHXozmabd03U57
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MyBTYWx0ZWRfX15rLK1jRQH+B
- HqkTgino+M8oasIvwVHq+wPfzKZh2vbS9hN+nQXz9xKLcNljiAX6e3UdTY8ODh+iDIxbMWrY7+7
- HFCAgikE1agedl1keKvUBO/RVWHo7xP8lKoY+qcoTo9FoIUJfnAMRkjhpwtHS3aCTnrFIReS6Mb
- IGwuuKUkTaavuuzMNFrqidsaZnng1VmKZrDT9os7cFoTPraa7kOPgpUOKDlVoNMjjfMzvTY/5cq
- LhJVLWWi4STyU1zI/g1UMgMtlrMC49sdAUBHTo4HK0orN8c1LsfkQ7cgN7fQRnb+dhT0X/baNac
- 5RHOYZGVg6Fi5CIDEUP3Y1f15umFqDmgm7GEmtg3yEbvJQEe09Bg9ZPk3BC2l97eBsJ0EdVSBck
- 6p5kfzQyvr9xbatHD/Qpucj47Zz6pUBsF+tNYQ8KWtw6I/MPf+J68j5fspyJHay++X9lHJEpExg
- Ycw92ZqwKYzXzHFy74Q==
-X-Proofpoint-GUID: 4MiQFEU6k-FXW52UkZIHXozmabd03U57
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160053
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a444421f-178b-49be-98b7-d34dfb147604@kernel.org>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: nicolas.bouchinet@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: nicolas.bouchinet@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-fastrpc_device_register() calls misc_register() which makes the device
-node visible to userspace. However, kref_init(), spin_lock_init(),
-INIT_LIST_HEAD(), dev_set_drvdata() and of_platform_populate()
-were all called after the switch/misc_register block, leaving a window
-where userspace can open the device and call fastrpc_device_open() on
-a partially initialised channel context.
+Hi Mario,
 
-On a concurrent open(), fastrpc_channel_ctx_get() calls kref_get() on
-a kzalloc-zeroed, never kref_init()'d refcount of 0, triggering:
+Thanks for your interrest in Lockdown.
 
-  refcount_t: addition on 0; use-after-free.
-  Call trace:
-   refcount_warn_saturate+0x120/0x148 (P)
-   fastrpc_device_open+0x204/0x258 [fastrpc]
-   misc_open+0xd8/0x1a0
+On Thu, Nov 12, 2026 at 01:27:50PM -0600, Mario Limonciello wrote:
+> On 11/11/26 01:30, Xiu Jianfeng wrote:
+> > On 11/2/2026 10:00 PM, Mario Limonciello (AMD) wrote:
+> > > Lockdown is a kernel LSM that restricts access to sensitive kernel
+> > > resources (e.g. /dev/mem, kernel modules, perf, tracing, kprobes,
+> > > BPF access to kernel memory). However, without IOMMU, any PCI/PCIe
+> > > device can perform DMA to arbitrary physical memory, effectively
+> > > bypassing all lockdown protections.
+> > > 
+> > > A malicious or compromised device can:
+> > >    - Read kernel memory directly (encryption keys, credentials, secrets)
+> > >    - Write to kernel memory directly (code patches, rootkits, backdoors)
+> > >    - Circumvent all lockdown LSM checks (which run inside the kernel)
+> > > 
+> > 
+> > Hi Mario,
+> > 
+> > Thanks for your contribution.
+> > 
+> > Let me first make my position clear: I'm not questioning the motivation
+> > behind this series -- "without an IOMMU, PCI/PCIe devices can DMA to
+> > arbitrary physical memory" is a real and legitimate concern. What I'd
+> > like to raise for discussion is: whether this class of problem should be
+> > addressed by lockdown in the first place. I'm honestly doubtful, so I'd
+> > very much welcome other people's views.
+> > 
+> > My doubt comes from a mismatch between the threat this series is trying
+> > to fix and the threat model lockdown was built around. Lockdown is, by
+> > design, a way to protect the boundary between UID 0 and the kernel: it
+> > came from the UEFI Secure Boot work, and it only limits the ways
+> > software can reach the kernel -- /dev/mem, module loading, kexec, device
+> > access via iopl/MSR/ACPI, and so on. The attacker it thinks about is a
+> > privileged user (root) on the system. The problem in this series,
+> > however, is about a malicious or bad hardware device, whose attack path
+> > lives at the bus/hardware layer rather than in the software access paths
+> > lockdown protects. To me, that looks like a different threat class with
+> 
+> I do agree with you; this is a different type of threat model that's being
+> addressed.
+> 
+> > a different owner.
+> 
+> The problem I see is that in today's day it's incredibly easy to hotplug an
+> external PCIe device and not "realize" that it's malicious.  For example if
+> I leave a dock on my desk and someone inserts malware into it
+> I might think it's perfectly fine.
+> 
+> The current mitigation that exists is that in the Linux ecosystem we don't
+> turn on PCIe tunneling "automatically" unless the IOMMU is active.
+> 
+> Nominally this happens by way of 'bolt' userspace writing a sysfs file after
+> it confirmed IOMMU was enabled both pre-boot and by the kernel.
+> 
+> But come back to me being a user.  If I have the IOMMU off already for
+> whatever reason I'm used to plugging in the dock and accepting the popup
+> asking me to authorize it.  Now a malicious device comes along, that's on me
+> to know about?
+> 
+> I feel it's not entirely out of the realm of possibility that such a
+> malicious device could subvert lockdown (let alone other bad things that can
+> happen).
+> 
+> Thus; lockdown is a very convenient tie in to claim security of the system
+> against both user and hardware attacks.
+> 
 
-Additionally, of_platform_populate() not having run means
-sesscount is still 0, so fastrpc_session_alloc() returns NULL and
-fastrpc_device_open() hits the error path which calls
-fastrpc_channel_ctx_put() on the already-bogus refcount. This
-triggers the free callback, kfree()-ing the channel context. A
-subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
-freed spinlock:
+One other scenario I can imagine without a physical access (but to be
+honest I'm not completely sure about me), is for a root attacker to
+write malicious firmware blob in `/lib/firmware` and somehow force the
+kernel to load it thanks to a `request_firmware` call. It might lead to
+an dangerous DMA configuration and then to the attack scenario you
+described.
 
-  Unable to handle kernel paging request at virtual address ffffcd5841510ca0
-  Internal error: Oops: 0000000096000047 [#1] SMP
-  Call trace:
-   queued_spin_lock_slowpath+0x414/0x5e0 (P)
-   _raw_spin_lock_irqsave+0x74/0x90
-   fastrpc_rpmsg_callback+0x4c/0xf0 [fastrpc]
-   qcom_glink_native_rx+0x6c4/0xf10
-   qcom_glink_smem_intr+0x1c/0x38 [qcom_glink_smem]
-  Kernel panic - not syncing: Oops: Fatal exception in interrupt
+If this scenario works it would need to be handled by Lockdown.
 
-Fix by moving all channel context initialisation (kref_init,
-spin_lock_init, INIT_LIST_HEAD, idr_init, dev_set_drvdata) and
-of_platform_populate() before fastrpc_device_register(), ensuring
-the struct is fully ready before the device node is visible to
-userspace.
+> > 
+> > It also does not look like a new question. The DMA-from-untrusted-device
+> > problem was discussed in detail on linux-kernel back in May–June 2020,
+> > in the "RFC Restrict the untrusted devices, to bind to only a set of
+> > 'whitelisted' drivers" thread:
+> >      https://lore.kernel.org/all/
+> > CACK8Z6E8pjVeC934oFgr=VB3pULx_GyT2NkzAogdRQJ9TKSX9A@mail.gmail.com/
+> > 
+> > The conclusion of that discussion, as I read it, is that device-level
+> > DMA threats are handled by the PCI/IOMMU line of defense -- the
+> > untrusted-device marking in the PCI core, IOMMU/ACS settings, and
+> > driver/device review -- not by lockdown. Interestingly, that thread also
+> >   shows that "with an IOMMU or without an IOMMU" is not a clean split in
+> > either direction: ATS and driver bugs can defeat DMA isolation even with
+> > an IOMMU in place, while ACS Translation Blocking can still help on
+> > systems without one. So if my reading is correct, "is there an IOMMU?"
+> > is not a good test here. It does not really stop the DMA attack this
+> > series worries about, and
+> 
+> Thanks for sharing.
+> 
+> > it goes beyond lockdown's original job.
+> 
+> Right.
+> 
+> > 
+> > Also worth noting: systems without an IOMMU are not rare. Many embedded
+> > boards and virtual machines have no IOMMU at all. Lockdown, meanwhile,
+> > is often enabled automatically in Secure Boot deployments, On such
+> > systems, a panic-on-no-IOMMU check would turn a normal setup into a boot
+> > failure.
+> > 
+I do agree with Xiu here, we must be very careful about it and figure
+out a solution which would not brick already deployed machines.
 
-Add err_depopulate label in the error path since
-of_platform_populate() now runs before misc_register(); a
-fastrpc_device_register() failure must call of_platform_depopulate()
-to clean up the compute-cb children.
+> > Given what lockdown is for and the earlier discussion, the problem of a
+> > device doing DMA without an IOMMU is probably not a problem for the
+> > lockdown LSM to address, and that it belongs with the PCI/IOMMU
+> > subsystems and platform policy instead.
+> > 
+> > I would welcome other views on this.
+> 
+> How would you feel about at least blocking the user from turning off IOMMU
+> (if it's present on the system) via the kernel command line while lockdown
+> was enabled?
+> 
+> Thinking about the case where most distros enable lockdown by default, this
+> will strenghten it's use without much downside that I can see.
+> 
+> At least on a properly configured system that contains an IOMMU it would
+> prevent a user from subverting lockdown with a malicious device during the
+> boot sequence.
 
-On CDSP/GDSP the secure node is registered before the non-secure one, so
-an application may already have opened the first node and hold a channel
-context reference when the second registration fails. Freeing the
-context with kfree() there would leave that user with a dangling
-pointer. Handle it like fastrpc_rpmsg_remove(): after the nodes are
-deregistered, clear rpdev, wake pending invocations with -EPIPE and drop
-only the probe reference with fastrpc_channel_ctx_put(), so the last
-holder frees the context. Move fastrpc_notify_users() above probe so it
-can be used there.
+I do agree with you, it could be a great addition. With Lockdown enabled
+as an early LSM (CONFIG_SECURITY_LOCKDOWN_LSM_EARLY), this might be
+feasible before boot parameter parsing. Lockdown already locks unsafe
+module parameters.
 
-Fixes: 965602eabb57 ("misc: fastrpc: separate fastrpc device from channel context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 82 ++++++++++++++++++++++++++++++--------------------
- 1 file changed, 50 insertions(+), 32 deletions(-)
+If I remember correctly on distro's that have a Lockdown patch that
+enables it if secure boot is enabled, it should also be called before
+early param parsing.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index da0b2333a3ca..0bbc1e00001c 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2542,6 +2542,18 @@ static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
- 				  cctx->vmperms, cctx->vmcount);
- }
- 
-+static void fastrpc_notify_users(struct fastrpc_user *user)
-+{
-+	struct fastrpc_invoke_ctx *ctx;
-+
-+	spin_lock(&user->lock);
-+	list_for_each_entry(ctx, &user->pending, node) {
-+		ctx->retval = -EPIPE;
-+		complete(&ctx->work);
-+	}
-+	spin_unlock(&user->lock);
-+}
-+
- static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- {
- 	struct device *rdev = &rpdev->dev;
-@@ -2551,6 +2563,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	bool secure_dsp;
- 	unsigned int vmids[FASTRPC_MAX_VMIDS];
- 	const struct fastrpc_soc_data *soc_data;
-+	struct fastrpc_user *user;
-+	unsigned long flags;
- 
- 	soc_data = device_get_match_data(rdev);
- 
-@@ -2599,6 +2613,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	data->poll_mode_supported = soc_data->poll_mode_supported ||
- 		of_machine_get_match(fastrpc_poll_supported_machines);
- 
-+	kref_init(&data->refcount);
-+	atomic_set(&data->ctx_seq, 0);
-+
-+	rdev->dma_mask = &data->dma_mask;
-+	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
-+	INIT_LIST_HEAD(&data->users);
-+	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
-+	spin_lock_init(&data->lock);
-+	idr_init(&data->ctx_idr);
-+	data->domain_id = domain_id;
-+	data->rpdev = rpdev;
-+	dev_set_drvdata(&rpdev->dev, data);
-+
-+	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-+	if (err)
-+		goto err_free_data;
-+
- 	switch (domain_id) {
- 	case ADSP_DOMAIN_ID:
- 	case MDSP_DOMAIN_ID:
-@@ -2607,7 +2638,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		data->unsigned_support = false;
- 		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
- 		if (err)
--			goto err_free_data;
-+			goto err_depopulate;
- 		break;
- 	case CDSP_DOMAIN_ID:
- 	case GDSP_DOMAIN_ID:
-@@ -2615,7 +2646,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
- 		err = fastrpc_device_register(rdev, data, true, domain);
- 		if (err)
--			goto err_free_data;
-+			goto err_depopulate;
- 
- 		err = fastrpc_device_register(rdev, data, false, domain);
- 		if (err)
-@@ -2623,26 +2654,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		break;
- 	default:
- 		err = -EINVAL;
--		goto err_free_data;
-+		goto err_depopulate;
- 	}
- 
--	kref_init(&data->refcount);
--	atomic_set(&data->ctx_seq, 0);
--
--	rdev->dma_mask = &data->dma_mask;
--	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
--	INIT_LIST_HEAD(&data->users);
--	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
--	spin_lock_init(&data->lock);
--	idr_init(&data->ctx_idr);
--	data->domain_id = domain_id;
--	data->rpdev = rpdev;
--	dev_set_drvdata(&rpdev->dev, data);
--
--	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
--	if (err)
--		goto err_deregister_fdev;
--
- 	return 0;
- 
- err_deregister_fdev:
-@@ -2651,23 +2665,27 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	if (data->secure_fdevice)
- 		misc_deregister(&data->secure_fdevice->miscdev);
- 
-+err_depopulate:
-+	/*
-+	 * A registered device node may already have been opened, so a user
-+	 * can hold a cctx reference. Drop only our reference instead of
-+	 * freeing the context directly.
-+	 */
-+	spin_lock_irqsave(&data->lock, flags);
-+	data->rpdev = NULL;
-+	list_for_each_entry(user, &data->users, user)
-+		fastrpc_notify_users(user);
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	of_platform_depopulate(rdev);
-+	fastrpc_channel_ctx_put(data);
-+	return err;
-+
- err_free_data:
- 	kfree(data);
- 	return err;
- }
- 
--static void fastrpc_notify_users(struct fastrpc_user *user)
--{
--	struct fastrpc_invoke_ctx *ctx;
--
--	spin_lock(&user->lock);
--	list_for_each_entry(ctx, &user->pending, node) {
--		ctx->retval = -EPIPE;
--		complete(&ctx->work);
--	}
--	spin_unlock(&user->lock);
--}
--
- static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- {
- 	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
+But taking this threat into account also brings other questions.
+i.e, a physical attacker with root access on a system where Lockdown is
+enabled and with a bootchain configured with shim+MOK is able to change
+kernel cmdline, generate a MOK and sign a compromised kernel
+binary. Thus defeating lockdown purpose.
 
--- 
-2.34.1
+In order to take the physical attacker into account, a securely
+configured bootchain where the kernel image can't be tampered with and
+where an attacker is not able to inject it owns certificates/hash in
+db/MOK is mandatory so that Lockdown makes sense.
 
+Orthogonally, we definitively should work on adding an updated
+documentation with Lockdown threat model and more information about what Lockdown locks.
+
+> > 
+> > > This series adds a two-phase check to prevent booting with lockdown
+> > > enabled and IOMMU disabled:
+> > > 
+> > > 1. Early check (in lockdown_lsm_init()): On x86, check the no_iommu
+> > >     flag, which is set early by the "iommu=off" kernel cmdline option.
+> > >     If lockdown is active and no_iommu is set, panic with a clear error.
+> > > 
+> > > 2. Late check (late_initcall): On all architectures, check
+> > >     iommu_is_available() which returns true if any IOMMU driver
+> > >     registered successfully. This catches cases where:
+> > >     - IOMMU hardware is absent on the platform
+> > >     - IOMMU was disabled by driver initialization failure
+> > >     - IOMMU was not detected (broken firmware, missing ACPI tables)
+> > > 
+> > > This follows the precedent set by s390 UV code which panics when
+> > > security cannot be guaranteed ("System security cannot be guaranteed
+> > > unless the system panics now").
+> > > 
+> > > This also adds a generic iommu_is_available() API in the IOMMU
+> > > subsystem, which is used by the lockdown check. Any IOMMU driver
+> > > that successfully registers will automatically call
+> > > iommu_set_available() from iommu_device_register().
+> > > 
+> > > Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> > > 
+> > > ---
+> > > Mario Limonciello (AMD) (2):
+> > >        iommu: Add iommu_is_available() API
+> > >        security: lockdown: Prevent boot with lockdown but no IOMMU
+> > > 
+> > >   drivers/iommu/iommu.c        | 48 ++++++++++++++++++++++++++++++++
+> > >   include/linux/iommu.h        | 14 ++++++++++
+> > >   security/lockdown/lockdown.c | 65
+> > > ++++++++++++++++++++++++++++++++++ ++++++++++
+> > >   3 files changed, 127 insertions(+)
+> > > ---
+> > > base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> > > change-id: 20261014-lockdown-iommu-08c763d9f91dd
+> > > 
+> > > Best regards,
+> > > -- 
+> > > Mario Limonciello <superm1@kernel.org>
+> > > 
+> > > 
+> > 
+> 
+
+Best regards,
+
+Nicolas Bouchinet
