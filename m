@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795779;
-	b=Z4U1ZjZbl+4AOSl+GAtxFGDwo+z1cKbo6IDVkm95p1DAXvl27Em2mjucUCrt9aBLcGCX
-	 63lsvLzaWPVNa4YXTFkzWNFbW5D1atwOkHTiQ6o+INAZFOtMPoyQWH0RNt6gx0UIqQeci
-	 iAIiuc/lGN05NwkOiST1XNKuy+kEduLfqgGOhpewwt4mkpzzc/WvNu8v1lrI5wxtngPDK
-	 Y/oicSAm/FnWiicwa0OEe76SYLgjgR+tv+atMXVOed81wnwySeLIvs4r1kqWjvGdW/fLd
-	 8MdRbOZZbwrsJpRb4w1WtvdootW/Vyu2WgndOzgp7lxgI0cPcCyf/AjnEu5zF083IYQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795779;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=H8v1n9Bkwfi2oQdq8IFxXuMktxhzrjIcOdZ4XCJh+I8=;
-	b=dnWfG/R0EnlauxipLtPw7hfr1nSxEcOK7LACfxnDV11Q4skW+lALQ/7LwDzkj6yUlq3i
-	 DI45cFukqCxxumURn8ml1XRNT6p+4cnun3sQUSCYuySpBZrH16dOH4KSXT01Pdnt4PQ2m
-	 Ah5r6l8DmFEZaJteimazdSdlbRhtl/K3HYMKm1We/AM79qgkrpuyL2YGoIRXIcp3g6hTj
-	 TClzaaD0oNmMxQum7QQpo66wsoYSRRicxC4pGvVUfJva1TFUY13uxMLMN04FQlpNPx6El
-	 HEFrnNuYrjKjo118+fDQ9QC/Iy4QTlcGa552zJYaxJ+lv4nU3mSvcqG5KH+7fK1Oamw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VolphhWn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794795824;
+	b=pzg709l/QTVwxEkGplhg1eKboi0lYy1T6WnVrsA4K7ltBITbFsIkpELbxedC/QTqsFvP
+	 Jw99W6tuQ+bNUYeVgIiiEB8Rxb2ihGUyucXHf3WZIKL6+/xhmy84pwVDOpAgXUUzNm9zg
+	 Y1Ft+emA52hR/o7srvixhC65z2Vn16hXfMCw5nLYxTRObwuLa9IBBzvT44L86AStaN1Bv
+	 Kke5+EvcabvmdVrUrJnnEFhMQu0XWS8Mp0Z9VZdb8RNxtZsYoZZajEv4RzFGNOf1rl42I
+	 MA4lYOq68TS3/z4ThgLzHvPOn6OsWFl+N1CeL8r7xPeHxsFcAxe89MYMvjeR6YHn/ng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795824;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=dz7cTZKRmd5e1YDqmF7k9Y/7wi6YrT3O/phywwy1Iak=;
+	b=NNW3vq51DrpQQruCMQuXJzM24oQvBSntuO77RFb0djRwAAox5WPOguNsp80rEBs7Nb6+
+	 C3pYdtQOfU4UEcV2sEks2n3EMaPoRAiWZEPuw96at9THu53z1xwH03pKBflR+LuBRJBmF
+	 yfKjioAOETMbJzL/fupqp4n/TBJAT09oFGBKVFX+l1GTJore2atWjHdpX6xFejCq92YHy
+	 DOAJEhslN/4vsIVIPJMJWgdxUqVR3B1FTrHBzy2MOIY32s/dO58DWcuyT115oCvm/+MeP
+	 WYQC98fijOHVkMksbFOr5wX5llorJ5JacvMkm3D3RWdamfs2MmKmj857paGhzSI3qag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H7HQuqWs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.41
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29071606A31C;
-	Mon, 16 Nov 2026 02:22:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E369F606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:23:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E369F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VolphhWn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CD11F000C5;
-	Mon, 16 Nov 2026 02:22:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794795778;
-	bh=H8v1n9Bkwfi2oQdq8IFxXuMktxhzrjIcOdZ4XCJh+I8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VolphhWnzeioav+c1Xc8VD5MPbdkZ4EJb2fyqE82O73RHyjWQGrTIO8s5m7lBK4Te
-	 CyGboMJ0YGEqmsTCX1MDTzDO8Pv/0tULCh3A+NQhMH9FMzS4nRh5IqX9B3fsqhxUd0
-	 pQefN9SQ05T+8XLFN5jjJjd1+pomiBznsOVUovlsJQMxpgG+FY8ZQELB874K/i22er
-	 QTAqAH6yDz3kalGDtoG3YPJjY0MGFGYkt7Ihy2h7WEyXFCoz5p1LfU9QsEntvlVDLB
-	 Bz00CWHnnXX19pCyDt3ey3iJhgoQm22px2cOqseMgbEgIdVfxVu518/ptspsvKavB5
-	 kNVQuwL7nBrDw==
-Subject: Re: [PATCH net] net: ethernet: sunplus: check budget before calling
- napi_complete_done()
-From: netdev-bot+sashiko@kernel.org
-To: janislacis06@gmail.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, wellslutw@gmail.com,
- linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 02:22:57 +0000
-Message-ID: <179479577764.3136.18033299607451586926@kernel.org>
-In-Reply-To: <20261114222744.535158-1-janislacis06@gmail.com>
-References: <20261114222744.535158-1-janislacis06@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H7HQuqWs
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7d2c8141dc6so2492905137.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:23:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794795823; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q/LHOiguwpu2ZPLqirCk1H7qWRBx3w7mlgGlnj+DXswrDJ4elc4ZdeN1pdwWR9r8D6
+         ++2le7/mmyNLy2b3dNTxX2wrWYBWTd27w1aWZC+XAvkyIeYDemDMLfVvqATi7zN51lWr
+         FzQ22OGWaeaeIgdUTNKmGXCimtUuY2FwtFLNUsFwuxSIIBLuZw+k86SCLZ+cAWfM0a5U
+         v1kuUsJONYZ8Y3fO/qziLnU+2KqIAuFherDmrB1LyzZ6AcaKukiWNZrd2d0Ioqa+I/xY
+         68zbl66R6HMcyBZRstx1L1E6dCmnIS4G9DXrjRxMOOs5pt7xeqdnhyeXgeb97oYjI6u+
+         S+Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dz7cTZKRmd5e1YDqmF7k9Y/7wi6YrT3O/phywwy1Iak=;
+        fh=OnwYGEIep0xU/JJuDRRYc/B09HaQQ3fSna9w0HCGa0s=;
+        b=i1zeCHFzSCytjrRzAZ6PulC+LqrR6p+j0IPvnMEGYURWmO0hzOYuxv/to25ywFVQX6
+         MezUDhout4P7CYV0gg+PvR+TPixyVNJ++UXypnxh5Bu0DYOwtl3aEbMQX4Jb83TiE/uW
+         0BmM2coToHNtzuwfwY6yjSbOapq5mV+fRD3Vb3hN0dAdTV+xGsjagdM/2hLJohfvsc9V
+         UIGxNfxbt1hboBzm+maMY8rsDpnslUkEf9ZuhzLlsjCjQXpYwAGfrkHpfGTlMQJB91/W
+         6VQS7mbbVru56X+Ieim+3bItP4qLCeIVkAPSO+Sf229nMFQxP9seIYR3gwCdNfTKExuR
+         WuCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794795823; x=1795400623; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dz7cTZKRmd5e1YDqmF7k9Y/7wi6YrT3O/phywwy1Iak=;
+        b=H7HQuqWsVzZsiIHC9hq/wCIUHRDK56xXHwtTvbfCDjE/9I6cDZIzEqYk41iMFBmPin
+         5hGYDCj3e9yKBZUnR6qUTAthcdwQzxvAJZqnCWfW9ioyRI/ONrA2XFv45HNdWX5wkRlb
+         yM16bgQZNKv3SBnNArIxXJLKJ70E1UbrBscAZxlAnR1hqZ6m5IRadCDvyUp/WsRjOiAZ
+         HgZVRByRzUagfCnCoL4TeYHqxoAVffyQHfWvlqKisQkQgNu0ipeJhsw+S/XjMXEos1c4
+         8m4bWMAFmJ7qpaxUZ4iZFMivoGIgoZMl1izfaPplxGRTtVszodJ4oPoss/nr39RVF4sL
+         2eEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794795823; x=1795400623;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dz7cTZKRmd5e1YDqmF7k9Y/7wi6YrT3O/phywwy1Iak=;
+        b=euutR3SmYS9RUDuXH/Y7WfTamY6JBjiBdf/aAyQ8CF5CqUTJUvVEO1d3yKDUPj77QF
+         M4U2fi9p07tghRo4cTxxvn55d5XFXS3ffy67trQgoBWgcEMWAVzf5UM/ssBuExLt6yWh
+         1woUQdh8bAdsV9a0oXCOEMyeWzGcuHQVqsxtv3R2+hagOQWD35uWLvzju11v544ko9ip
+         3qvXRd/zPMnaHbwHjWUlgDt+B8W4E/3kawd1/IiPzIMBz/uoGn5PCJJPpqHlU1j6ym20
+         M0HMGI0ZT4P8E1PZ51E2COK55vUOzHfdYejt3spX3PBpnxS+wAx32hwELeTtnkUG/mSM
+         UQqA==
+X-Forwarded-Encrypted: i=1; AL+hErHNS10AsKV6m6+cYz/T18dxrqp7n2M5IWOTYGplzSP4tIBE/058jLYb0c4QsSDLempu3l4i9MshFvjM0+M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99ANqH3Q2fN5LTKhMoLoRIAVyWI3N6trxKkbmpiIFg69IgG46Z
+	VdNF7Jp6Qr2AcSBlX+kYTNX+moZPofk34aENJY7ChG9YMWxRPRaFDwcTKNaOkHt3sWlCZ9e3262
+	4Vy158dFWe9yNlfIUQy1qoSDZDNxXE5A=
+X-Gm-Gg: AYBFou3vo547y0Hor0YuCIVh0P3i4Xo9TxPAwhDer8dR1s9XWCJ7FrLq+ZOwaLAWFgW
+	h/Zc76L6LypM7Qok/eLr2NpwYPKCC1T+KN8lNT8D6/lZ2JB2bb1LAuCMVnXmlUin1b6VREEo/Jw
+	u+cXPJCi6f1vddMbwaOusQOalglhwPyq0W1llIeEUYCk7iCmbwLYAdXAQhpQIs4N/xq5G8NGyUP
+	nvHVImA9K0DtjJjtBUX8mh4pMewrPNqi0U7U2bCctZJFSf/dmpnT7R5JTdGYug5I8T6faOS8SSw
+	vpWsb8+vLSlaCxMPcJPijQXIU7X1eTJfeBLmG0q2uj06UE/PNoQZ/1bGfiNaRZSAX09sfOi9qHN
+	Q1K8zXy4itjgg343WuVGo2dlewpOeXQ/THutbzwXKCPcUKAQOGVmBnFg1fhSzLXqLHg3rMu7wyb
+	BEL/bIQ2BI6/3138rVFSJhA8vrHC1bj++usJBKGiK8sm8vHge2/c4r0QeBwW3FgI2IUbUtg6+AR
+	CqK0C7FzFe/6vKSBl8VpKQ9IWdNdA==
+X-Received: by 2002:a05:6102:510f:b0:7ad:3ad3:997a with SMTP id
+ ada2fe7eead31-7d64d45ce68mr3458686137.5.1794795822798; Sun, 15 Nov 2026
+ 18:23:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,212 +106,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261115-submit-stmmac-rx-checksum-capability-v1-v1-1-ea26fa3689be@gmail.com>
+ <179479040161.3291.5723238689308327095@kernel.org>
+In-Reply-To: <179479040161.3291.5723238689308327095@kernel.org>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 15 Nov 2026 19:23:31 -0700
+X-Gm-Features: Aa3M54r7-r68gNu4ymZsCQOh8t93vqxjaKLCKDTADrWnDebXaQvgc4p-YSz5rsA
+Message-ID: <CADvTj4orHRWsBCitdUt5rMXisGK-yzjysvGZcgQj=cJ1y1vb=g@mail.gmail.com>
+Subject: Re: [PATCH net] net: stmmac: preserve RX checksum capability when
+ offload is disabled
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe CAVALLARO <peppe.cavallaro@st.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sun, Nov 15, 2026 at 5:53=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 1
+This was found while investigating RX checksum offload behavior on
+H616 and reviewing the shared setup and feature-filtering paths.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by LLM and not proven at runtime). If it was triggered
+>    please include the symptoms, like the stack trace or kernel messages.
 
-- [Medium] The patch uses `budget_left > 0` in spl2sw_rx_poll() as the
-  only sign that all work is done.
-- [Low] The commit message says what changes but not what goes wrong
-  today.
+The capability loss was reproduced in a source-extracted test using the
+actual GMAC, GMAC4 and XGMAC checksum callbacks with mocked MMIO and the
+relevant setup and feature-filtering logic.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  spl2sw_remove() frees the descriptor rings and buffers before it…
-- [High] This problem wasn't introduced by this patch, but
-  spl2sw_rx_poll() leaves a broken ring slot behind when it fails to…
+With the original code, disabling offload and following the reopen path
+clears plat->rx_coe. The feature filter then prevents offload from being
+enabled again. With the patch, the saved capability survives that
+sequence. A requested enable that fails hardware readback still clears
+the capability.
 
---
+>
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
 
-net: ethernet: sunplus: check budget before calling napi_complete_done()
+Tested on an Allwinner H616 board with an AC200 PHY.
 
-This commit replaces napi_complete() with napi_complete_done() in the
-spl2sw RX and TX poll functions. NAPI is only completed when budget_left
-is greater than zero. The RX/TX interrupt is only unmasked when
-napi_complete_done() returns true.
-
-> Sunplus drivers currently do napi_complete() after each rx/tx poll is
-> done without checking whether budget was exhausted or not. Interrupts
-> are also unmasked before the call to napi_complete().
-
-[Severity: Low]
-Can the budget actually be exhausted here in normal operation?
-
-spl2sw_probe() registers both NAPI instances with netif_napi_add(), so
-they use NAPI_POLL_WEIGHT (64). spl2sw_rx_poll() handles at most
-rx_desc_num[0] + rx_desc_num[1] = 32 descriptors per call, because the
-inner loop is bounded by num < rx_count. spl2sw_tx_poll() holds tx_lock
-and reclaims at most TX_DESC_NUM = 16 descriptors.
-
-That means budget_left is always > 0 for polls from net_rx_action(). The
-new check only changes anything for budget 0 (netpoll's poll_one_napi())
-or a small busy-poll budget.
-
-In those cases the old napi_complete() already did nothing, because
-napi_complete_done() returns false right away when NAPIF_STATE_NPSVC or
-NAPIF_STATE_IN_BUSY_POLL is set. The only visible effect of the old code
-was that MAC_INT_RX/MAC_INT_TX got unmasked while netpoll or busy-poll
-owned the instance.
-
-Could the commit message describe that actual impact, so the Fixes: tag
-and a stable backport can be judged?
-
-> I do not have the hardware necessary, this patch is not tested on real
-> hardware.
-
-This note is in the commit body rather than below the --- line, so it
-would end up in git history.
-
-> diff --git a/drivers/net/ethernet/sunplus/spl2sw_int.c b/drivers/net/ethernet/sunplus/spl2sw_int.c
-> index a37c9a4c281f0..1aada11429d4d 100644
-> --- a/drivers/net/ethernet/sunplus/spl2sw_int.c
-> +++ b/drivers/net/ethernet/sunplus/spl2sw_int.c
-> @@ -125,13 +125,14 @@ int spl2sw_rx_poll(struct napi_struct *napi, int budget)
->  			h_desc = comm->rx_desc[queue] + rx_pos;
->  	}
->  
-> -	spin_lock_irqsave(&comm->int_mask_lock, flags);
-> -	mask = readl(comm->l2sw_reg_base + L2SW_SW_INT_MASK_0);
-> -	mask &= ~MAC_INT_RX;
-> -	writel(mask, comm->l2sw_reg_base + L2SW_SW_INT_MASK_0);
-> -	spin_unlock_irqrestore(&comm->int_mask_lock, flags);
-> +	if (budget_left > 0 && napi_complete_done(napi, budget - budget_left)) {
-
-[Severity: Medium]
-Is budget_left > 0 enough to show that all RX work is done? Normal polls
-never bring it to 0, but spl2sw_rx_poll() can still stop while completed
-descriptors are pending.
-
-The first case is the high-priority early break in the low-priority loop:
-
-			if (queue == 1 && !(h_desc->cmd1 & RXD_OWN))
-				break;
-
-queue 1 is the last queue (RX_DESC_QUEUE_NUM == 2), so this goes straight
-to the completion check while new high-priority packets are waiting.
-
-The second case is a queue's inner loop stopping at the ring limit:
-
-		for (num = 0; num < rx_count && budget_left; num++) {
-
-Descriptors given back with RXD_OWN earlier in the loop may already have
-been refilled by the hardware.
-
-In both cases the poll returns less than budget, calls
-napi_complete_done() and clears MAC_INT_RX in L2SW_SW_INT_MASK_0 while
-work is still pending. Documentation/networking/napi.rst says a poll with
-outstanding work should return exactly budget and not complete.
-
-The cost depends on whether L2SW_SW_INT_STATUS_0 latches RX events while
-masked. If it does, this costs an extra interrupt round-trip. If it
-doesn't, the pending packets wait for the next RX event.
-
-Would it work better to track these more-work conditions explicitly and
-return budget in those cases, instead of relying on budget_left alone?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but spl2sw_rx_poll() leaves a
-broken ring slot behind when an RX buffer refill fails:
-
-spl2sw_rx_poll() {
-	...
-			new_skb = netdev_alloc_skb(NULL, comm->rx_desc_buff_size);
-			if (unlikely(!new_skb)) {
-				desc->cmd2 = (rx_pos == comm->rx_desc_num[queue] - 1) ?
-					     RXD_EOR : 0;
-				sinfo->skb = NULL;
-				sinfo->mapping = 0;
-				desc->addr1 = 0;
-				goto spl2sw_rx_poll_alloc_err;
-			}
-	...
-}
-
-The dma_mapping_error() branch does the same. Both jumps skip
-desc->cmd1 = RXD_OWN, so cmd1 keeps the stale completed status the
-hardware wrote, and nothing ever refills the slot.
-
-After 15 more packets on that queue, rx_pos wraps back to this slot. The
-RXD_OWN check doesn't stop the loop, and the stale status passes the
-port, length and error checks:
-
-			dma_unmap_single(&comm->pdev->dev, sinfo->mapping,
-					 comm->rx_desc_buff_size, DMA_FROM_DEVICE);
-
-			skb = sinfo->skb;
-			skb_put(skb, pkg_len - 4); /* Minus FCS */
-
-Can this call dma_unmap_single() on mapping 0 and then skb_put() on a
-NULL skb in the NET_RX softirq?
-
-There is also a second path. On a TX timeout, spl2sw_mac_soft_reset()
-calls spl2sw_rx_descs_flush(), which gives the slot back to the hardware
-with RXD_OWN set:
-
-			rx_desc[j].addr1 = rx_skbinfo[j].mapping;
-
-Could the hardware then DMA a received frame to bus address 0?
-
-One fix would be to keep the old buffer in the ring and drop the packet
-when the refill fails. Another would be to retry the refill on later
-polls and never treat a slot without an skb as completed.
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but spl2sw_remove() frees the
-rings that both poll functions use before it disables NAPI:
-
-drivers/net/ethernet/sunplus/spl2sw_driver.c:spl2sw_remove() {
-	...
-	comm->enable = 0;
-	spl2sw_mac_hw_stop(comm);
-	spl2sw_descs_free(comm);
-
-	/* Disable and delete napi. */
-	napi_disable(&comm->rx_napi);
-	netif_napi_del(&comm->rx_napi);
-	napi_disable(&comm->tx_napi);
-	netif_napi_del(&comm->tx_napi);
-	...
-}
-
-spl2sw_descs_free() frees the RX skbs and rx_skb_info arrays, frees the
-TX skbs in spl2sw_tx_descs_clean() without holding tx_lock, sets
-comm->tx_desc and comm->rx_desc[i] to NULL and frees desc_base with
-dma_free_coherent().
-
-unregister_netdev() and spl2sw_mac_hw_stop() don't stop a NAPI instance
-that is already scheduled. Only napi_disable() cancels the NAPI hrtimer.
-
-With napi_defer_hard_irqs and gro_flush_timeout set,
-napi_complete_done() keeps returning false and re-arms the timer.
-napi_watchdog() then schedules the poll again with no interrupt needed.
-Without those settings there is still a window if NAPI was scheduled just
-before ndo_stop masked the interrupts.
-
-If remove runs in that window, spl2sw_rx_poll() would do:
-
-			desc = comm->rx_desc[queue] + rx_pos;
-			cmd = desc->cmd1;
-
-with a NULL comm->rx_desc[queue], and spl2sw_tx_poll() would read
-comm->tx_desc[tx_done_pos].cmd1 the same way. A TX poll running at the
-same time as spl2sw_tx_descs_clean() could also call dev_kfree_skb_irq()
-on an skb that dev_kfree_skb_any() is already freeing.
-
-This patch doesn't widen the window, since normal polls still complete
-after one pass.
-
-Should napi_disable() for both instances move before spl2sw_descs_free()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114222744.535158-1-janislacis06%40gmail.com
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account.
+>
+> *IMPORTANT*: If you do repost (for other reasons) - please include
+> the relevant info in the cover letter or commit messages.
+> --
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
