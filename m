@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838173;
-	b=YLeuhgfQjI01BNSHO90+GdSKpy59KuLP9ARoBw9tNlQyI71HKZ5iotqY+qNBu455Ymn1
-	 21yT9wk3B7fWYjvkPDDZQKlq0dPg9ishLL2t4oN8uu/9Dj5d7hAA+UZ/eHl41upDpXlPA
-	 7CYglXhLPoEUn0dZmWERDw/PkS4V+4LdSvdPk3LcR+q0YkZbbMNgEay1G/mjCz/uGzqmo
-	 tg8sw/4ftqt6slKME/u1dUjJl86ghbmAP68dBtqyH6+nSc/SoIlLeup4ec0927vs1rsMa
-	 anI6vvojoGiGDdz82Z+7bxAxpB+rrc9KZPDY5vjPDqMhPdGStkxQtFJHsMDhWVTYENQ==
+	t=1794838207;
+	b=1A5kCZeFY4lmHX4auCK6zjir1gIRhWVS7lSb3PPlyf3tbUQoKlO/Zmzf5ukOAPy35erT
+	 fSFZYgDscfbKmc19Vuu2RHpX1jwhkqI085odXzC7XspdA0W9ZYS1sm6k5UvYYFi7PaviR
+	 zpPpD8ImiTaUhV7xDzq2lRG0i1GuJxeE+wQJ4opy78/Dcenw5jmHjj0VX6hW/o+hBskEY
+	 jyXJWUsY3HrYTp9sR1tcYG9F4qVPqY+CILE1n9oRU+jAa9grZiLplxu2nVIwQ6D8HiXA1
+	 v6eOU8nlo4a5SRpXRm78tcDomkfOxfNa93DLUrufp6zQwstnIirGd6mktjQQXN8lzkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838173;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838207;
+	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
+	 X-Forward-Email-Sender:X-Forward-Email-Version:
+	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
+	 X-Report-Abuse-To:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ODbtba7atbgNQaND0HX62oaqs2H7COUCt0tBvCUahf0=;
-	b=P7gT7DftxtdlpT4G/Fen3tPu3+0vsnrHVCxM9kIALUrevSsz/5lwkL0oXXTVlDTSB5qZ
-	 MuC6AJk+EfCXUnWKGOy30YzSS3CW6KmLulCeC5TXWfdAbCxRiB0heYPi2eOYznaf6Wh9H
-	 SvGw3LAjEOMGmf2e0BjTst8Xrlvt1SCcJrUSOvBK9u20ewRCWFpVe1zZEjHIsPpPEqYq/
-	 CwYfcKD6en8OiMO3bxtCKIXGZhQpM1N6UrnS6RyAgrtnqU+k6r1pbPiH18cCI5u8GMWhe
-	 tA4wRqR0swnz7DryNmtT8nQeP+kEDyrLJ0bi05hOhwuzhT7BCBDt8IlmSJ2vhIPSBNg==
+	bh=wwcoMw9z6tu5kf8Ai+tMBLjURMN0gJoh/na9XKBE2Ak=;
+	b=hyeU7EHIm9F3EjGOeaN4iCo6r5N9eNMbBS4NPwBa59W2vvFwH7smI1Ve6NQBRm6+zuHX
+	 IIjuJuheIemVmiMeiWuUYhn4GX+SdtsZOkPGCxmGwZGvuVUTtIcUx5HBuoUeTMym1K57q
+	 qiJq1l3AM5g41kzRfU3sQs55oJbsfl6uRj343Ch6Jqr0b/HheszT4/nLg/RLv6rrWp5II
+	 oHFvdwv9hUUykNhNLcp0QyLiYtjEb/FQVlPJ4hFjJgpcSGRpKkCHuwpIqTmBxXlhU6ECX
+	 0rNQ1sFHoBtZ0S6vsFt9lJ4lBDYAaPl3vCeuZQ38IAFdixzK0M2OEGaIPXNu5rxV/kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KasOAPd2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ovn.org;
+	spf=pass smtp.mailfrom=fe-bounces.ovn.org;
+	dkim=pass header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=U1TjaTKA;
+	arc=none smtp.remote-ip=149.28.215.223
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8D1606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:09:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DAA606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:10:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43DAA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KasOAPd2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD421F000C4;
-	Mon, 16 Nov 2026 14:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838172;
-	bh=ODbtba7atbgNQaND0HX62oaqs2H7COUCt0tBvCUahf0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KasOAPd2ZqBfMic3LAWzDkFoKWI99md4EQAz/7/NccCH7tQ7rZexyi03BqiAR1M8g
-	 fGA0Cd7JBSlImKIqJ9cBJ7Vnv/H86m8IrLdSPs6KlMX2b6yiIaUzfBnfXtPA/E0125
-	 QcnGxpksEHKM7lVbX/PEod3wPmIm6CZtbY80lPd8/lbbaN6vzhY/tfAQYgfXoAw466
-	 WMr7lJY9v4KN5aNYlF1cUcqFfKuELMgH7t5QVG77s6ysrIDl63TOBgEo9JXp4mnOTm
-	 0a5lbgLOpY8CbatxJ7SwPUxD/H3rEkLeUXS5p4W23n6PBJgXXVg5wexwwG5BBoyGjW
-	 YtG2Byy1jZclw==
-Message-ID: <41f77b04-432f-40c8-96da-6a8be69a730f@kernel.org>
-Date: Mon, 16 Nov 2026 15:09:25 +0100
+	dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=U1TjaTKA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: Autocrypt: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID; q=dns/txt; s=fe-13eddc7e57; t=1794838199;
+ bh=wwcoMw9z6tu5kf8Ai+tMBLjURMN0gJoh/na9XKBE2Ak=;
+ b=U1TjaTKARUBEVh+/c/YreSYZZ2mUPGR3ihnaH63pDFvQLDiUY0THo3NB6j5lezg4L6U5oN5hq
+ k541p8wuZ5OKSHpqv3pR/Gy8jUqYloEwfUfoxlCWYPC3msw6P7QE5Cj3Ysfp0g9fEusMtrBIlYG
+ bURKd6k9QtSVhgYXQ1RJ9yA=
+X-Forward-Email-ID: 6afb0eb57cafac71428bedd7
+X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.19.26
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <32ccacbe-e0fc-4cb8-a6c0-a0446b4f7ce1@ovn.org>
+Date: Mon, 16 Nov 2026 15:09:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,97 +64,228 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
- sizes
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
- ljs@kernel.org
-Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
- harry@kernel.org, jannh@google.com, lance.yang@linux.dev,
- qi.zheng@linux.dev, pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
- <16bb1a14-04f4-4524-9882-20d452175a3d@kernel.org>
- <d1856861-62d7-4bc0-a8b7-39ccfc064f34@linux.alibaba.com>
- <9e66d5f7-ee81-4204-8d62-b06d26a00623@kernel.org>
- <01d59bbc-46d4-4da2-805c-bf540d50eb37@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH net v3] net: openvswitch: make transport checksums
+ writable
+To: Kyle Zeng <kylebot@openai.com>, dev@openvswitch.org
+Cc: netdev@vger.kernel.org, aconole@redhat.com, echaudro@redhat.com,
+ i.maximets@ovn.org, davem@davemloft.net, kuba@kernel.org,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261113232158.61174-1-kylebot@openai.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <01d59bbc-46d4-4da2-805c-bf540d50eb37@linux.alibaba.com>
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <20261113232158.61174-1-kylebot@openai.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/16/26 14:34, Baolin Wang wrote:
+On 11/14/26 12:21 AM, Kyle Zeng wrote:
+> OVS can still rewrite an IP address after transport-header extraction
+> fails. The checksum helpers check skb->len, which includes non-linear
+> data, before directly accessing the L4 checksum. If the transport header
+> was not pulled into the linear head, the checksum update can read or
+> write beyond it.
 > 
+> Call skb_ensure_writable() before IPv4 TCP/UDP and IPv6 TCP/UDP/ICMPv6
+> checksum updates. Save the original addresses and reload header pointers,
+> since even a failed pull can move the skb head.
 > 
-> On 11/16/26 8:03 PM, David Hildenbrand (Arm) wrote:
->> On 11/16/26 04:44, Baolin Wang wrote:
->>>
->>>
->>>
->>> I hope we can merge this fix first if no other objections. As I replied
->>> to Barry, whether to set TTU_SYNC for small folios should be done in a
->>> separate patch (this is a pre-existing issue) with proper measurement
->>> (though it may be hard to measure the actual impact). What do you think?
->>
->> Can you update the patch description to include some of the performance aspects
->> and planned next steps?
+> Keep failures nonfatal to preserve the existing policy of rewriting IP
+> addresses when the transport header is unavailable. A failed pull or
+> unshare may leave a stale checksum or CHECKSUM_PARTIAL seed; the receiver
+> may discard the packet.
 > 
-> Sure.
+> The issue was found by an LLM.
 > 
-> However, regarding performance aspects, I'm not sure what kind of 
-> testing you expect. Since this fixes a uncommon concurrent race, do you 
-> want performance data under that race condition, or impact on common 
-> paths like try_to_unmap/try_to_migrate()?
+> Fixes: ccb1352e76cf ("net: Add Open vSwitch kernel components.")
+> Fixes: 3fdbd1ce11e5 ("openvswitch: add ipv6 'set' action")
+> Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+> v3:
+> - Select source and destination addresses with booleans instead of
+>   calculating offsets. Keep the saved IPv6 address across head movement.
+> - Remove the redundant IPv6 fragment check and correct tab alignment.
+> - Move testing details below the separator and clean up attribution.
+> 
+> v2: https://lore.kernel.org/r/20261107040238.27606-1-kylebot@openai.com
+> v1: https://lore.kernel.org/r/20261030042304.74291-1-kylebot@openai.com
+> 
+> I have a reproducer for this issue and can share through DM.
+> 
+>  net/openvswitch/actions.c | 77 +++++++++++++++++++++++++--------------
+>  1 file changed, 49 insertions(+), 28 deletions(-)
+> 
+> diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+> index 12e339cbf791..3b10b3fbadc3 100644
+> --- a/net/openvswitch/actions.c
+> +++ b/net/openvswitch/actions.c
+> @@ -319,20 +319,22 @@ static int pop_nsh(struct sk_buff *skb, struct sw_flow_key *key)
+>  	return 0;
+>  }
+>  
+> -static void update_ip_l4_checksum(struct sk_buff *skb, struct iphdr *nh,
+> -				  __be32 addr, __be32 new_addr)
+> +static void update_ip_l4_checksum(struct sk_buff *skb, __be32 addr,
+> +				  __be32 new_addr)
+>  {
+> -	int transport_len = skb->len - skb_transport_offset(skb);
+> +	struct iphdr *nh = ip_hdr(skb);
+>  
+>  	if (nh->frag_off & htons(IP_OFFSET))
+>  		return;
+>  
+>  	if (nh->protocol == IPPROTO_TCP) {
+> -		if (likely(transport_len >= sizeof(struct tcphdr)))
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct tcphdr))))
+>  			inet_proto_csum_replace4(&tcp_hdr(skb)->check, skb,
+>  						 addr, new_addr, true);
+>  	} else if (nh->protocol == IPPROTO_UDP) {
+> -		if (likely(transport_len >= sizeof(struct udphdr))) {
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct udphdr)))) {
+>  			struct udphdr *uh = udp_hdr(skb);
+>  
+>  			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+> @@ -345,32 +347,34 @@ static void update_ip_l4_checksum(struct sk_buff *skb, struct iphdr *nh,
+>  	}
+>  }
+>  
+> -static void set_ip_addr(struct sk_buff *skb, struct iphdr *nh,
+> -			__be32 *addr, __be32 new_addr)
+> +/* May move the skb head; callers must reload packet pointers. */
+> +static void set_ip_addr(struct sk_buff *skb, __be32 new_addr, bool saddr)
+>  {
+> -	update_ip_l4_checksum(skb, nh, *addr, new_addr);
+> -	csum_replace4(&nh->check, *addr, new_addr);
+> +	__be32 old_addr = saddr ? ip_hdr(skb)->saddr : ip_hdr(skb)->daddr;
+> +
+> +	update_ip_l4_checksum(skb, old_addr, new_addr);
+> +	csum_replace4(&ip_hdr(skb)->check, old_addr, new_addr);
+> +
+>  	skb_clear_hash(skb);
+>  	ovs_ct_clear(skb, NULL);
+> -	*addr = new_addr;
+> +
+> +	if (saddr)
+> +		ip_hdr(skb)->saddr = new_addr;
+> +	else
+> +		ip_hdr(skb)->daddr = new_addr;
+>  }
+>  
+>  static void update_ipv6_checksum(struct sk_buff *skb, u8 l4_proto,
+>  				 __be32 addr[4], const __be32 new_addr[4])
+>  {
+> -	int transport_len;
+> -
+> -	if (l4_proto == NEXTHDR_FRAGMENT)
+> -		return;
+> -
+> -	transport_len = skb->len - skb_transport_offset(skb);
+> -
+>  	if (l4_proto == NEXTHDR_TCP) {
+> -		if (likely(transport_len >= sizeof(struct tcphdr)))
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct tcphdr))))
+>  			inet_proto_csum_replace16(&tcp_hdr(skb)->check, skb,
+>  						  addr, new_addr, true);
+>  	} else if (l4_proto == NEXTHDR_UDP) {
+> -		if (likely(transport_len >= sizeof(struct udphdr))) {
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct udphdr)))) {
+>  			struct udphdr *uh = udp_hdr(skb);
+>  
+>  			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+> @@ -381,7 +385,8 @@ static void update_ipv6_checksum(struct sk_buff *skb, u8 l4_proto,
+>  			}
+>  		}
+>  	} else if (l4_proto == NEXTHDR_ICMP) {
+> -		if (likely(transport_len >= sizeof(struct icmp6hdr)))
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct icmp6hdr))))
+>  			inet_proto_csum_replace16(&icmp6_hdr(skb)->icmp6_cksum,
+>  						  skb, addr, new_addr, true);
+>  	}
+> @@ -396,16 +401,28 @@ static void mask_ipv6_addr(const __be32 old[4], const __be32 addr[4],
+>  	masked[3] = OVS_MASKED(old[3], addr[3], mask[3]);
+>  }
+>  
+> +/* May move the skb head; callers must reload packet pointers. */
+>  static void set_ipv6_addr(struct sk_buff *skb, u8 l4_proto,
+> -			  __be32 addr[4], const __be32 new_addr[4],
+> +			  const __be32 new_addr[4], bool saddr,
+>  			  bool recalculate_csum)
+>  {
+> -	if (recalculate_csum)
+> -		update_ipv6_checksum(skb, l4_proto, addr, new_addr);
+> +	struct ipv6hdr *nh = ipv6_hdr(skb);
+> +	__be32 old_addr[4];
+> +
+> +	if (recalculate_csum) {
+> +		memcpy(old_addr, saddr ? &nh->saddr : &nh->daddr,
+> +		       sizeof(old_addr));
 
-Right, I think you had some numbers here that would be worthwhile to include:
+We should add a comment here or maybe at the top of update_ipv6_checksum()
+function saying that neither addresses should point inside the skb.
+Otherwise it's not obvious why this copy is necessary.
 
-https://lore.kernel.org/r/453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com
+> +		update_ipv6_checksum(skb, l4_proto, old_addr, new_addr);
+> +		nh = ipv6_hdr(skb);
+> +	}
+>  
+>  	skb_clear_hash(skb);
+>  	ovs_ct_clear(skb, NULL);
+> -	memcpy(addr, new_addr, sizeof(__be32[4]));
+> +
+> +	if (saddr)
+> +		memcpy(&nh->saddr, new_addr, sizeof(__be32[4]));
+> +	else
+> +		memcpy(&nh->daddr, new_addr, sizeof(__be32[4]));
 
--- 
-Cheers,
+Can we use size of the fields instead of hardcoding the type?
 
-David
+Best regards, Ilya Maximets.
