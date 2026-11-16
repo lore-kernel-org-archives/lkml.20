@@ -1,149 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.137
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794794979;
-	b=gtvY4J2wdqf2q7sD/9KctzfP8OcubtgG+9WQsxGdKYpfqainWw/EgaKpc95nAhpxm3CV
-	 bU/Uo24yTu3Ny9i0kArI7ywWlcRTRINCzhg+QAoOlUNu6SMS1zVcEuPGDJ1CERm8lMyIT
-	 a3LhFqtEe1rtA1i9slXDea5RSmgh0j4ZsUHb0TB06qElPPRbrhh5SNl+V4czyqJZwodTp
-	 wfziewxZnuwzStYTcVoo6/k3NZAeZwD3hVPBLMYlNPglwC6qhsU79NtGDI06KI4T6JOcu
-	 9tzeBQaUjpaRgISxWtkyDpQDdC6dDaQy2AivAJKFypZJa/fV4fzXNn58vdRn7eIFYHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794794979;
-	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=kguvMeAG+734dMSclFesJD0PaWewOZbvdI/0UhPwtJE=;
-	b=34LFnnAh+1eNaA65B/wN3YXZ4EqsxABsFDghr/dhO54Lv/vZd4cTW8Mb2lmCSeOl3ZDW
-	 LsE+r8nJzjP5ETyu4P5AY7a+NAdfUaHqvhYpUNiSWfhSM/kETSUYuUF6tMMKLWE6tUJR1
-	 rWorhByTfe3Vn6iLxuWZp1aYkZxPXl9KyaDBU5zC0AEIhTn2EwWuIGvzefl4Zjgtam4/g
-	 GD6yAHy8GLI2TaRL7OsAcvf++4w6oxxHbTM7D43K0TBhDmH9BlJaBRlt7ZV4DJwQf7a5g
-	 Wan0RjW4Hbge82PFZWwwhWhfTs+cirq/LpupOMC3SUsMGSP/zEIZJNSV3185vwJFl8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.137
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2137.outbound.protection.partner.outlook.cn [139.219.146.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794795022;
+	b=0pe6BrfXialJFq0fAqiJpG2LIlmF+rP89nBbmJsQlcSzHj8xmWIMdYwcBfNw4ddL+VMT
+	 jD+gU2uVY8xNENm3fU6hf5vSYJ4/PL0ltN/quRjQ3TL8keIvm3upalSOxO3Ruo7OXfz5t
+	 d4AnzPxLI9uW19tovwfAOeMJxzFmCKAjV7X6jNGr3nmh0Dx4jWnkBz9Xbsk3XBb1/AVJk
+	 gjVxqzH0nHlany3ye7vbePmSRt0A9SiWiKnF+R7tUepfcT5IiviadB86uJhGTVBEaZl0I
+	 w8CsaGXwbHNTuu0ptEV3wm1gy4PZx5Bs7CI4tIrPhiBDplR1/tkEAkkgQAktvG079Xw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795022;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=FOQCOXYeXbucCUc6di4An4mzFdK/dc1J0LsVT48kVUc=;
+	b=fPWDfF6u8JfxV3MB8pZjKSmRToPmLxlnKI0htOGZrvaJtCKl0vKDVn+zy30qr6Ycgj4n
+	 TzWgWXkpSOOgTku8rCgChJmOn5k0e0cZfb8ra4qEQ8JqAjOsuaZc49mGygExtDdNRqYCq
+	 Oo9RJQ0ANxtkYWRISMk3hGJDo3TnrMAY1X9JqC3IGrHZQwNGopE7XApzra1Xom/IxKWN5
+	 ubyOV6DFtB7uqUx7kKpkzbuilYLB6YYCraQUjxl35v2yAXUihLOFRT1PyLj6R8wcoIaE7
+	 BkB85RfbGiBRXb20i/4Y1gHkpA+W2mRxJxSV57YkyGwfvaVgBnDS7YM018OoIzEhM7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmSytaER;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B74606A31C;
-	Mon, 16 Nov 2026 02:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30B74606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LXchSpeCxj6SKS3obDqtTt+ov7DPeOp8wTgO63dW0HyF3HX+xuSZe8tY8+JlNbaeMhYaO5HlRSbJMTsygvda47ZNDdSfF3GQMKgBt5uie5XujrCj9vq/65g8/bU/fsw6HGN/lHrnmXHzmW4B0myMQJJJaUpY9wiNGW360KY0/ivMbVg7CKeict1ndMHLIer3eaWjvvjuvt6ynH1O4boeEAGV5WCt9WhzJxnu5x8rYbawuJHKlzZvVs1OWZN+hJ07R/8yxJ3n2f5HNqOXObMPQ/rxxVLvtid+5Y3XOvernloPWpoERHFP7LMhGW8zfh2R49w6JJOyeVTlQiuRxRONog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kguvMeAG+734dMSclFesJD0PaWewOZbvdI/0UhPwtJE=;
- b=SZ/uIKu5Caa56N1KIpsNeyF8hxrb5b1oRN8uhYlNKsyEzTMDJyK5sKSQ5V33uOpkzM4PmtVXQ7GzqFbUgh/PrN1RaymcajuB561dNc2u2o0FEPeakXYnNfX2CsnuPKEch3QZycbdyDakBNRXvI5tF+eiGG/Ast/3dEHHvwFliNSvRiQ1KC9Hv/lxLmTT00HzQI9j/6bjU9E+nRv+c/DLLsZiQq5+oyEd3LhKzsCB3x+rbdvCbgTM3vEEUIPk53H5FM2eW7f/YKJgRxj0/hofvobWSxYOjiFCB3PPz+Vh21xXsIfedxfAl//CfKtdCwaLh7hZyE4X5T7QEGL1+Op3nQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1266.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
- 2026 02:09:25 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0615.009; Mon, 16 Nov 2026 02:09:25 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-CC: Brian Masney <bmasney@redhat.com>, Jerome Brunet
-	<jbrunet+clk@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v1 4/6] clk: starfive: Add JHB100 System-0 clock generator
- driver
-Thread-Topic: [PATCH v1 4/6] clk: starfive: Add JHB100 System-0 clock
- generator driver
-Thread-Index: AQHdWv1vtBCSUoJXt0O7bBKqPZrfnbcvYmMAgADGoYA=
-Date: Mon, 16 Nov 2026 02:09:25 +0000
-Message-ID:
- <ZQ4PR01MB1202E4FEAE49C1FFC4705897F27C2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20261013102707.9207-1-changhuang.liang@starfivetech.com>
- <20261013102707.9207-5-changhuang.liang@starfivetech.com>
- <179475230833.3873592.8310507156583636155.b4-review@b4>
-In-Reply-To: <179475230833.3873592.8310507156583636155.b4-review@b4>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1266:EE_
-x-ms-office365-filtering-correlation-id: e2d3495c-6428-4ac6-5d51-08df4386a32b
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|38070700021|261021133027099003|56012099006|10067099003|4143699003|261022105027099003|261022075727099003|261021130227099003|261026140227099003|261026121527099003|261026135527099003|261022115727099003|261021121427099003|261026130827099003|261021135927099003|261028144727099003|261022113327099003|261102123227099003|261021123027099003|261009223027099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- WQn0VZ7nSiaJ63XcFkCAnjAOzmXUG7IfgenJte0QHyfxapnWzF5880piP8XTbJ0Lgg5epk/CtKvET6O0eDT8iOt/b/iC9G2GjNDXXiq0O81obIABFY52FVkuJCwhuWyVCQfomJ2Deu/meCUqtz87BGv9UMObvjO1vfXJTC2CyfyTj3kFOpMil2j2DF0Np0sf367PTOS0QWWtRQCgboLrLafibpWQiESqshBF3kz08dF+N1E3PwjUROR171rJoWK51xy7QMTqujRH5TGjQG3brRv8O9Jf2vq9leiSKc3lzVp5ww8P7WgtnqAmguAQqDvve525Oc1ikTke/E/uG5RNAHW9Y2bPaJnsCmqTalMtLxRD8aNnyYJScGQ+bVF+tOR4ZqDHocEne7M0gpmfLeVycRj7OvJynblGEpGscg7P6MFY6U8yjdDEejqEA2hHdvHUNYcR+jBVpTdlz/nFj5yRAoXNoB+0MStTJYCbAMo0X33nQ1S0zizi8UmfTvX3pKq7pQNqfQXN90dwuXLyeBV1jnKqeY7KCYtAQtA406MREsVdd9dmnfo0+M22GUBf37KD
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(38070700021)(261021133027099003)(56012099006)(10067099003)(4143699003)(261022105027099003)(261022075727099003)(261021130227099003)(261026140227099003)(261026121527099003)(261026135527099003)(261022115727099003)(261021121427099003)(261026130827099003)(261021135927099003)(261028144727099003)(261022113327099003)(261102123227099003)(261021123027099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?T0p4V3hHei8zb3RsMEd1WmE3RVZ1M2ZZZU9pcnZ1eUdiUXdKRGkzZmprZ09w?=
- =?utf-8?B?WHcxZWh3d1JycEZvR1kyTC82ZDdOQ21NOXh6Mmdqb1I0Mk1yMzhBSVVhMGxr?=
- =?utf-8?B?YzArYXlaQUJyUFVreGtUNjNMU1J2NHIzaG84Z1M4RVVzQm1LN3hTSS9qSGU4?=
- =?utf-8?B?TnpUN1M3YWxrZW43ZS9mSVMySW1rQmJzWTdpQmhsZ280WjhPbEZabkdrUWJP?=
- =?utf-8?B?QVlmUForZWtSNm1oaVYvWnArY1JJaUk4dXlVeFJsV1MyaGJSTzlObmFWZVZL?=
- =?utf-8?B?WWRUc2FyaEM4Y3U0c2JoY2R3MXhRSHorMFZJbUk1SXVIRnNabVBlSHZqalZz?=
- =?utf-8?B?RDRUZHhRSGszRUR3VTlvRzJIYURIMEJ5Rkl1RjUvZVNIQU5jamhqdVJucHM4?=
- =?utf-8?B?aWhWQiszRU9xVWFOZ2U0eHRZeHUwQUR1cGMyQ1RhUW5ueVdiUmV6L1RMcENF?=
- =?utf-8?B?RjRDNnFsMEJIZWU1RHVlZUNHRXFicDVCajhFcFM1eWFHeE90bTNJMFhmRW5r?=
- =?utf-8?B?M1RjY0ZZNGJxZnRCOVBYbzhUOUg4ZWw0STEwcVFwbzNZNTdxYUtPR1h2STB0?=
- =?utf-8?B?QUFJdFVVRU5Dc3NONE9nL1ZNd2NaV0dnUmQ2WnJjTXBsRDZYNnRVVGxRZXBB?=
- =?utf-8?B?Q0hnV040YXRNZ1JMVG54UGdlWlVNZ091cFZDV1M1eEJ5dVM5cmFnVERlekM1?=
- =?utf-8?B?N3F6eXhNSVpvdnkremE2c3lmUnRrSXpmbVAxQXFzcytzaDdjQThXMFBiZGVy?=
- =?utf-8?B?OUM0RzI3NmVHa3NvQU80WFRab3c2UHJIT1JTZUJsUW1LTWthN2RoT2JiTWZt?=
- =?utf-8?B?cng2YUpHZ2ZNQlVndG9PN1NmNGpZc0hlbHFIdE95eDh5dmVSWnBrK255MVVY?=
- =?utf-8?B?d1VVRHVmM01MMUJ6cUJCVkhSRDNlWFJhdlljbGUxbmtJMTdQc21RUHJoY2VZ?=
- =?utf-8?B?bjV2cXQvWTVnTHI5ejRtZktWdzBIM2NLNFZtRXUxVGY2VGdFSStveUlnVnlU?=
- =?utf-8?B?OFlhUVZoZVhDdmQvbENSTFlZNThSRTFnTUVHV3ptL25WNk5pUVFlYkVBYk1u?=
- =?utf-8?B?cTcxOU9td00rWWIxRFJhd0hOZU90NjFSRW1GYWNCQVR6QlRESnkxSlRJaml2?=
- =?utf-8?B?TUJGcTFBSGUyT1kyUWhmMUNpZENsQzBhZUZxeVh0S2FNSSsycXZuS2xLcHpq?=
- =?utf-8?B?OHFzVUIxamxWd0ZING9sYmxzb2xybWZPbFJldTY5b1lIS0R3Y3liZGRVT1NK?=
- =?utf-8?B?c2N5cU5NYldna3ZNRGtheHRROWNmZjBld1R3OU9HaGI0T1R4M1N1SFlQcU1r?=
- =?utf-8?B?RmpTTlB1Ym5WbUs3R1hSSnQ2VnpoL3FxbXA5cmZ5N1grQUcvdTBNUFU4YVZE?=
- =?utf-8?B?QXZ3cktkeldvSXBNcHE4N0lKcjJTc2NEajB4NDM3bDFMc1hVZmtielVuMTFR?=
- =?utf-8?B?UUlJOTByYUJOOVBkU09mTW5OVndhWUQ1L05vQ2tmYXcxM2xWOUpqbXlNdk1S?=
- =?utf-8?B?c1oza1k4c01oLzZUSU5vZkdnMlBxazYxZ3VUQnN6SGFZZnFkQVJsZWMrM2s1?=
- =?utf-8?B?QUh1dld4c290clNNZ254LzNZbXRjMG9DaEFFUi81T29PRTNZQ0Rod1E1bVF4?=
- =?utf-8?B?cVJTM0hPRTluVnp1RXp5UHREaG5DQjF3Y2NraDB6MmZHeHBQVC96YjRvNmta?=
- =?utf-8?B?ZldzRDhIMkFidzNMSDh5aDhtNXJuUGtxZEM3K2VIV3dmYW4yUVRzelJ5R1FH?=
- =?utf-8?B?TnZZWXJ1RXE3c292aEZKM0FYRVpyYkxUbm5rdVJtMEFHTmpoeGpNNWFJVnZM?=
- =?utf-8?B?RW1FVWFXU2U3OXhPMmdScDQvZ0ZXT3Y3RmQvVSsrRmgwOW5kSm1rcGNuWCs4?=
- =?utf-8?B?SjEyVHZ4NWJIY3NhcHozanMxSjNieGpwakR3aWp5N0NGdlRnSzJzUkpjb1Zw?=
- =?utf-8?B?T2xYYkVkSGpMNE5iMEZZdzFvTnZUY2tFeVZ4cWhrU0NNVm1TSll5MVhrWE9Y?=
- =?utf-8?B?MnYvcFVZeXhFcmRMTFhTZEx0WUhULzNBZ3Nmd2tMZjdtMTFadTE2S2h0ejl6?=
- =?utf-8?B?RWsxZVRFb1JPOGgyS0xPemp3NHZocS9hSzdvckgrb0JxNTRHZjlZM2ZpcUw2?=
- =?utf-8?B?TmY0amZuK2poTEpWblRsaUdnT29PbHpTbW5ZYitSVklJa1pJdnRBalI2U1pr?=
- =?utf-8?B?SzNvN2JPY0QvMWo5NkYvaWM1Y0QxOHhVbnhsNTdRRHA2WDhRMmdSazV0TDNX?=
- =?utf-8?B?OXlOekw3TWorb0RoVlBwTk1CUDNHT2ZkZEdKQWcyMDZqdytJRFd4elFOQXEv?=
- =?utf-8?B?SHlXZ0hQOGpaaTBaZnNnNFVNNXlkcFZPWjFIc1R3ZUxuWkpPazM3NDdEc0Yw?=
- =?utf-8?Q?MghtDxiBTe4nhX5E=3D?=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4600F606A31C;
+	Mon, 16 Nov 2026 02:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmSytaER
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1A01F000C4;
+	Mon, 16 Nov 2026 02:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794795021;
+	bh=FOQCOXYeXbucCUc6di4An4mzFdK/dc1J0LsVT48kVUc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SmSytaERJJZKAoScVToOmJHn7wIl/YH9Rzid+Hy7Y1M9+jH/ZJJeqbwqdzKNt1Qyq
+	 M68fmOqECtoiZSbb4okoXJadOwtUt1K9Ok4Cfxn8CQvIvrD3Ns7IFwUy5aixGMfiW1
+	 KIiX5pivzboSKSLnPe5rQgfRmN4qgxUMYLl+E1fZ5EeDjxyKy1E+mOKZuJTDHnOv7S
+	 AmCGWTdqKcrkV3UBcYljHCSbObSYRaBNQvvZgY8nF/oY39j6TJ6JyQpY/PsGXOwapF
+	 ZAV4khViwVxnUxlZ2Oy6Ud6RZEL26/myAGxF46TXLuuXn6izkLpXd27n7H7+GuReda
+	 LRtyBq5h6aZ6A==
+Subject: Re: [PATCH net] hv_netvsc: fall back to one queue when a sub channel
+ fails to open
+From: netdev-bot+sashiko@kernel.org
+To: julius@bairaktaris.de
+Cc: netdev@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ ernis@linux.microsoft.com, stephen@networkplumber.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 02:10:20 +0000
+Message-ID: <179479502052.3136.1055457822557870206@kernel.org>
+In-Reply-To: <20261114220358.5429-1-julius@bairaktaris.de>
+References: <20261114220358.5429-1-julius@bairaktaris.de>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -153,99 +66,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2d3495c-6428-4ac6-5d51-08df4386a32b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 02:09:25.1809
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GVoLtPz40MfCa+D0aRbPU1tHGHMDqT9SiZUkLvqS0RUWNWrk4I1HzINr74vQ0URND9AZG12vtuuIX2oEwmWuR19Fe0sq0vZNQZHjcE/1u96XGFoA/2XQPwPMwwbAjU2b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1266
 
-SGksIEplcm9tZQ0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCj4gPiBBZGQgc3VwcG9ydCBm
-b3IgSkhCMTAwIFN5c3RlbS0wIGNsb2NrIGdlbmVyYXRvciAoU1lTMENSRykuDQo+ID4NCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBDaGFuZ2h1YW5nIExpYW5nIDxjaGFuZ2h1YW5nLmxpYW5nQHN0YXJmaXZl
-dGVjaC5jb20+DQo+ID4gLS0tDQo+ID4gIE1BSU5UQUlORVJTICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8ICAgNyArDQo+ID4gIGRyaXZlcnMvY2xrL3N0YXJmaXZlL0tjb25maWcg
-ICAgICAgICAgICAgICAgICB8ICAxMCArKw0KPiA+ICBkcml2ZXJzL2Nsay9zdGFyZml2ZS9NYWtl
-ZmlsZSAgICAgICAgICAgICAgICAgfCAgIDIgKw0KPiA+ICAuLi4vY2xrL3N0YXJmaXZlL2Nsay1z
-dGFyZml2ZS1qaGIxMDAtc3lzMC5jICAgfCAxNDggKysrKysrKysrKysrKysrKysrDQo+ID4gIDQg
-ZmlsZXMgY2hhbmdlZCwgMTY3IGluc2VydGlvbnMoKykNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0
-IGRyaXZlcnMvY2xrL3N0YXJmaXZlL2Nsay1zdGFyZml2ZS1qaGIxMDAtc3lzMC5jDQo+ID4NCj4g
-PiBkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9NQUlOVEFJTkVSUyBpbmRleA0KPiA+IDkzYWJi
-YjMxNTA2NS4uZjY2OTk4ZThlYjY0IDEwMDY0NA0KPiA+IC0tLSBhL01BSU5UQUlORVJTDQo+ID4g
-KysrIGIvTUFJTlRBSU5FUlMNCj4gPiBAQCAtMjY4MzcsNiArMjY4MzcsMTMgQEAgRjoNCj4gCURv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9waHkvc3RhcmZpdmUsamg3MTEwLXVzYi1w
-aHkueWFtbA0KPiA+ICBGOglkcml2ZXJzL3BoeS9zdGFyZml2ZS9waHktamg3MTEwLXBjaWUuYw0K
-PiA+ICBGOglkcml2ZXJzL3BoeS9zdGFyZml2ZS9waHktamg3MTEwLXVzYi5jDQo+ID4NCj4gPiAr
-U1RBUkZJVkUgSkhCMTAwIENMT0NLIERSSVZFUlMNCj4gPiArTToJQ2hhbmdodWFuZyBMaWFuZyA8
-Y2hhbmdodWFuZy5saWFuZ0BzdGFyZml2ZXRlY2guY29tPg0KPiA+ICtTOglTdXBwb3J0ZWQNCj4g
-PiArRjoJRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Nsb2NrL3N0YXJmaXZlLGpo
-YjEqLnlhbWwNCj4gPiArRjoJZHJpdmVycy9jbGsvc3RhcmZpdmUvY2xrLXN0YXJmaXZlLWpoYjEq
-DQo+ID4gK0Y6CWluY2x1ZGUvZHQtYmluZGluZ3MvY2xvY2svc3RhcmZpdmUsamhiMSouaA0KPiA+
-ICsNCj4gPiAgU1RBUkZJVkUgSkhCMTAwIEVYVEVSTkFMIElOVEVSUlVQVCBDT05UUk9MTEVSIERS
-SVZFUg0KPiA+ICBNOglDaGFuZ2h1YW5nIExpYW5nIDxjaGFuZ2h1YW5nLmxpYW5nQHN0YXJmaXZl
-dGVjaC5jb20+DQo+ID4gIFM6CVN1cHBvcnRlZA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Ns
-ay9zdGFyZml2ZS9LY29uZmlnDQo+ID4gYi9kcml2ZXJzL2Nsay9zdGFyZml2ZS9LY29uZmlnIGlu
-ZGV4IDUxNzE2NjU1NTU0Zi4uY2IyNDZhZTEyYzA4IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMv
-Y2xrL3N0YXJmaXZlL0tjb25maWcNCj4gPiArKysgYi9kcml2ZXJzL2Nsay9zdGFyZml2ZS9LY29u
-ZmlnDQo+ID4gQEAgLTcyLDMgKzcyLDEzIEBAIGNvbmZpZyBDTEtfU1RBUkZJVkVfSkg3MTEwX1ZP
-VVQNCj4gPiAgCWhlbHANCj4gPiAgCSAgU2F5IHllcyBoZXJlIHRvIHN1cHBvcnQgdGhlIFZpZGVv
-LU91dHB1dCBjbG9jayBjb250cm9sbGVyDQo+ID4gIAkgIG9uIHRoZSBTdGFyRml2ZSBKSDcxMTAg
-U29DLg0KPiA+ICsNCj4gPiArY29uZmlnIENMS19TVEFSRklWRV9KSEIxMDBfU1lTMA0KPiA+ICsJ
-Ym9vbCAiU3RhckZpdmUgSkhCMTAwIHN5c3RlbS0wIGNsb2NrIHN1cHBvcnQiDQo+ID4gKwlkZXBl
-bmRzIG9uIEFSQ0hfU1RBUkZJVkUgfHwgQ09NUElMRV9URVNUDQo+ID4gKwlzZWxlY3QgQ0xLX1NU
-QVJGSVZFX0pINzFYMA0KPiA+ICsJaW1wbHkgUkVTRVRfU1RBUkZJVkVfSkhCMTAwDQo+ID4gKwlk
-ZWZhdWx0IEFSQ0hfU1RBUkZJVkUNCj4gPiArCWhlbHANCj4gPiArCSAgU2F5IHllcyBoZXJlIHRv
-IHN1cHBvcnQgdGhlIHN5c3RlbS0wIGNsb2NrIGNvbnRyb2xsZXIgb24gdGhlDQo+ID4gKwkgIFN0
-YXJGaXZlIEpIQjEwMCBTb0MuDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2xrL3N0YXJmaXZl
-L01ha2VmaWxlDQo+ID4gYi9kcml2ZXJzL2Nsay9zdGFyZml2ZS9NYWtlZmlsZSBpbmRleCAxOTlh
-YzBmMzdhMmYuLmQyYmE4M2Q3ZDAyYw0KPiA+IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvY2xr
-L3N0YXJmaXZlL01ha2VmaWxlDQo+ID4gKysrIGIvZHJpdmVycy9jbGsvc3RhcmZpdmUvTWFrZWZp
-bGUNCj4gPiBAQCAtMTAsMyArMTAsNSBAQCBvYmotJChDT05GSUdfQ0xLX1NUQVJGSVZFX0pINzEx
-MF9BT04pCSs9DQo+IGNsay1zdGFyZml2ZS1qaDcxMTAtYW9uLm8NCj4gPiAgb2JqLSQoQ09ORklH
-X0NMS19TVEFSRklWRV9KSDcxMTBfU1RHKQkrPSBjbGstc3RhcmZpdmUtamg3MTEwLXN0Zy5vDQo+
-ID4gIG9iai0kKENPTkZJR19DTEtfU1RBUkZJVkVfSkg3MTEwX0lTUCkJKz0gY2xrLXN0YXJmaXZl
-LWpoNzExMC1pc3Aubw0KPiA+ICBvYmotJChDT05GSUdfQ0xLX1NUQVJGSVZFX0pINzExMF9WT1VU
-KQkrPQ0KPiBjbGstc3RhcmZpdmUtamg3MTEwLXZvdXQubw0KPiA+ICsNCj4gPiArb2JqLSQoQ09O
-RklHX0NMS19TVEFSRklWRV9KSEIxMDBfU1lTMCkJCSs9DQo+IGNsay1zdGFyZml2ZS1qaGIxMDAt
-c3lzMC5vDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2xrL3N0YXJmaXZlL2Nsay1zdGFyZml2
-ZS1qaGIxMDAtc3lzMC5jDQo+ID4gYi9kcml2ZXJzL2Nsay9zdGFyZml2ZS9jbGstc3RhcmZpdmUt
-amhiMTAwLXN5czAuYw0KPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+ID4gaW5kZXggMDAwMDAw
-MDAwMDAwLi5kZDRkNjVmNGU2ODINCj4gPiAtLS0gL2Rldi9udWxsDQo+ID4gKysrIGIvZHJpdmVy
-cy9jbGsvc3RhcmZpdmUvY2xrLXN0YXJmaXZlLWpoYjEwMC1zeXMwLmMNCj4gPiBAQCAtMCwwICsx
-LDE0OCBAQA0KPiA+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPiA+ICsv
-Kg0KPiA+ICsgKiBTdGFyRml2ZSBKSEIxMDAgU3lzdGVtLTAgQ2xvY2sgRHJpdmVyDQo+ID4gKyAq
-DQo+ID4gKyAqIENvcHlyaWdodCAoQykgMjAyNCBTdGFyRml2ZSBUZWNobm9sb2d5IENvLiwgTHRk
-Lg0KPiA+ICsgKg0KPiA+ICsgKiBBdXRob3I6IENoYW5naHVhbmcgTGlhbmcgPGNoYW5naHVhbmcu
-bGlhbmdAc3RhcmZpdmV0ZWNoLmNvbT4NCj4gPiArICoNCj4gPiArICovDQo+ID4gKw0KPiA+ICsj
-aW5jbHVkZSA8ZHQtYmluZGluZ3MvY2xvY2svc3RhcmZpdmUsamhiMTAwLWNyZy5oPg0KPiA+ICsj
-aW5jbHVkZSA8bGludXgvaW5pdC5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2
-aWNlLmg+DQo+ID4gKw0KPiA+ICsjaW5jbHVkZSAiY2xrLXN0YXJmaXZlLWpoNzF4MC5oIg0KPiA+
-ICsNCj4gPiArLyogZXh0ZXJuYWwgY2xvY2tzICovDQo+ID4gKyNkZWZpbmUgSkhCMTAwX1NZUzBD
-TEtfT1NDCQkJSkg3MVgwX0VYVF9DTEsoMCkNCj4gPiArI2RlZmluZSBKSEIxMDBfU1lTMENMS19Q
-TEwwCQkJSkg3MVgwX0VYVF9DTEsoMSkNCj4gPiArI2RlZmluZSBKSEIxMDBfU1lTMENMS19QTEwx
-CQkJSkg3MVgwX0VYVF9DTEsoMikNCj4gPiArI2RlZmluZSBKSEIxMDBfU1lTMENMS19QTEwyCQkJ
-Skg3MVgwX0VYVF9DTEsoMykNCj4gPiArDQo+ID4gK3N0YXRpYyBjb25zdCBjaGFyICogY29uc3Qg
-amhiMTAwX3N5czBfZXh0X2Nsa1tdID0gew0KPiA+ICsJIm9zYyIsDQo+ID4gKwkicGxsMCIsDQo+
-ID4gKwkicGxsMSIsDQo+ID4gKwkicGxsMiIsDQo+ID4gK307DQo+IA0KPiBUaGVzZSBhcmUgdGhl
-IGhhY2tpc2ggcGFydCBJIHdhcyByZWZlcnJpbmcgdG8uDQo+IA0KPiA+ICsNCj4gPiArc3RhdGlj
-IGNvbnN0IHN0cnVjdCBqaDcxeDBfY2xrX2RhdGEgamhiMTAwX3N5czBjcmdfY2xrX2RhdGFbXSA9
-IHsNCj4gPiArCS8qIGJtY3BjaWVycCAqLw0KPiA+ICsJSkg3MVgwX19ESVYoSkhCMTAwX1NZUzBD
-TEtfQk1DUENJRVJQX05DTk9DX01BSU4sDQo+ICJibWNwY2llcnBfbmNub2NfbWFpbiIsIDYsDQo+
-ID4gKwkJICAgIEpIQjEwMF9TWVMwQ0xLX1BMTDApLA0KPiA+ICsJSkg3MVgwX19ESVYoSkhCMTAw
-X1NZUzBDTEtfQk1DUENJRVJQX05DTk9DX0NGRywNCj4gImJtY3BjaWVycF9uY25vY19jZmciLCAx
-MiwNCj4gPiArCQkgICAgSkhCMTAwX1NZUzBDTEtfUExMMSksDQo+ID4gKwlKSDcxWDBfX0RJVihK
-SEIxMDBfU1lTMENMS19QQ0lFX1JFRl9DTUwsICJwY2llX3JlZl9jbWwiLCAyNCwNCj4gPiArCQkg
-ICAgSkhCMTAwX1NZUzBDTEtfUExMMCksDQo+ID4gKwlKSDcxWDBfR0FURShKSEIxMDBfU1lTMENM
-S19CTUNQQ0lFUlBfTkNOT0NfREFUQV9JTklULA0KPiAiYm1jcGNpZXJwX25jbm9jX2RhdGFfaW5p
-dCIsDQo+ID4gKwkJICAgIDAsIEpIQjEwMF9TWVMwQ0xLX0JNQ1BDSUVSUF9OQ05PQ19NQUlOKSwN
-Cj4gDQo+IEkgdGhpbmsgdGhlIHY2IHRoYXQgY2FtZSBiZWZvcmUgdGhpcyBoYWQgYSBidW5jaCBv
-ZiBjcml0aWNhbCBjbG9ja3MuIE5vbmUgb2YNCj4gdGhvc2Ugd2VyZSBjcml0aWNhbCBhZnRlciBh
-bGwgPw0KPiBZb3UgZGlkIHRlc3Qgd2l0aG91dCBwYXNzaW5nIGNsa19pZ25vcmVfdW51c2VkIGlu
-IHRoZSBib290IGFyZ3VtZW50cyA/DQoNClllcywgSSB0ZXN0ZWQgaXQgd2l0aG91dCBwYXNzaW5n
-IGNsa19pZ25vcmVfdW51c2VkLCBhbmQgdGhlc2Ugc2hvdWxkIG5vdCBiZWNvbWUgDQpjcml0aWNh
-bCBjbG9ja3MuDQoNCkJlc3QgUmVnYXJkcywNCkNoYW5naHVhbmcNCg==
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
+
+Critical: 0 · High: 2 · Medium: 3 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new check calls rndis_subchannel_opened()
+  (drivers/net/hyperv/rndis_filter.c:1281-1286), which reads…
+- [High] rndis_set_subchannel() lowers nvdev->num_chn to 1 +
+  num_subchannels from the host reply (rndis_filter.c:1350-1351).
+- [Medium] The commit message says the device keeps one queue after the
+  fallback 'until the channel count is raised with ethtool -L'.
+- [Medium] The new fallback leaves the RSS indirection table
+  (ndc->rx_table) as rndis_filter_device_add() filled it, for the…
+- [Medium] On the new fallback path, the sub channels that did open stay
+  in CHANNEL_OPENED_STATE with onchannel_callback = netvsc_channel_cb,…
+
+--
+
+hv_netvsc: fall back to one queue when a sub channel fails to open
+
+After waiting for the sub channels, rndis_set_subchannel() now checks
+that each one reached CHANNEL_OPENED_STATE. If any did not, it disables
+the NAPI of the ones that opened and returns -EIO, so callers fall back
+to the primary channel. The fallback in netvsc_attach() now also deletes
+the sub channel NAPIs and sets the real tx/rx queue counts to 1.
+
+Link: https://github.com/microsoft/WSL/issues/41622
+
+> The device keeps one queue after the fallback, also across later
+> reconfiguration, until the channel count is raised with ethtool -L.
+
+[Severity: Medium]
+
+Can the channel count be raised with ethtool -L right after the
+fallback?
+
+Both fallback paths, in netvsc_attach() and netvsc_subchan_work(), set
+nvdev->max_chn = 1. netvsc_get_channels() then reports max_combined as
+nvdev->max_chn, and netvsc_set_channels() rejects the request:
+
+drivers/net/hyperv/netvsc_drv.c:netvsc_set_channels() {
+    ...
+	if (count > nvdev->max_chn)
+		return -EINVAL;
+    ...
+}
+
+So "ethtool -L ethX combined 16" would fail with -EINVAL.
+
+max_chn is only recomputed from OID_GEN_RECEIVE_SCALE_CAPABILITIES in
+rndis_filter_device_add(). That means an unrelated detach/attach cycle,
+such as an MTU change, has to happen first. A plain down/up does not
+recompute max_chn. The test below the cut did an MTU change before
+ethtool -L, which may have hidden this.
+
+Should the commit message say this, or should the fallback leave
+max_chn at the value the host advertised?
+
+> diff --git a/drivers/net/hyperv/netvsc_drv.c b/drivers/net/hyperv/netvsc_drv.c
+> index 1d43c73fd73f1..ffa5999dc576c 100644
+> --- a/drivers/net/hyperv/netvsc_drv.c
+> +++ b/drivers/net/hyperv/netvsc_drv.c
+
+[ ... ]
+
+> @@ -1034,8 +1034,13 @@ static int netvsc_attach(struct net_device *ndev,
+>  
+>  		/* if unavailable, just proceed with one queue */
+>  		if (ret) {
+> +			for (i = 1; i < nvdev->num_chn; i++)
+> +				netif_napi_del(&nvdev->chan_table[i].napi);
+> +
+
+[Severity: High]
+
+Can this loop skip some of the NAPIs that rndis_filter_device_add()
+added?
+
+rndis_filter_device_add() calls netif_napi_add() for
+chan_table[1..N0-1], where N0 is the requested num_chn. Before the new
+-EIO return, rndis_set_subchannel() lowers num_chn to the count the
+host granted:
+
+	nvdev->num_chn = 1 +
+		init_packet->msg.v5_msg.subchn_comp.num_subchannels;
+
+The check before this only rejects a count larger than requested, so
+the host can grant k < N0-1 sub channels. If one of those k then fails
+vmbus_open(), this loop only deletes NAPIs 1..k. So does the same loop
+in netvsc_subchan_work(). num_chn is then forced to 1, and
+netvsc_device_remove() also only walks i < num_chn.
+
+That leaves NAPIs k+1..N0-1 on ndev->napi_list after kfree(nvdev) frees
+the netvsc_device that holds them. Could a later netif_napi_add(), a
+netdev-genl NAPI dump or free_netdev() then walk freed memory?
+
+The success path has had the same mismatch for a long time. However,
+the commit message says this patch fixes the fallback not deleting the
+sub channel NAPIs. The new -EIO return also turns what used to be a
+hang into a free of nvdev with NAPIs still on the list.
+
+Would it help to track the count that was actually passed to
+netif_napi_add()?
+
+>  			nvdev->max_chn = 1;
+>  			nvdev->num_chn = 1;
+> +			netif_set_real_num_tx_queues(ndev, 1);
+> +			netif_set_real_num_rx_queues(ndev, 1);
+>  		}
+>  	}
+>  
+> diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
+> index 9622513275069..fe5acce0bb06b 100644
+> --- a/drivers/net/hyperv/rndis_filter.c
+> +++ b/drivers/net/hyperv/rndis_filter.c
+> @@ -1278,6 +1278,31 @@ static void netvsc_sc_open(struct vmbus_channel *new_sc)
+>  		wake_up(&nvscdev->subchan_open);
+>  }
+>  
+> +static bool rndis_subchannel_opened(struct netvsc_device *nvdev, int i)
+> +{
+> +	struct vmbus_channel *chn = nvdev->chan_table[i].channel;
+> +
+> +	return chn && chn->state == CHANNEL_OPENED_STATE;
+
+[Severity: High]
+
+Can chn already be freed by the time this reads chn->state?
+
+netvsc_sc_open() sets nvchan->channel = new_sc before vmbus_open() and
+leaves it set when the open fails. The netvsc driver holds no reference
+on the channel. Here rndis_set_subchannel() holds only RTNL, not
+vmbus_connection.channel_mutex or rcu_read_lock().
+
+vmbus_open() can fail because the host rescinds the channel during the
+open. In that case __vmbus_open() returns -ENODEV, and its error path
+ends with:
+
+	newchannel->state = CHANNEL_OPEN_STATE;
+	return err;
+
+After netvsc_sc_open() returns, probe_done is set, and
+vmbus_onoffer_rescind() can take the sub channel branch:
+
+drivers/hv/channel_mgmt.c:vmbus_onoffer_rescind() {
+    ...
+		mutex_lock(&vmbus_connection.channel_mutex);
+		if (channel->state == CHANNEL_OPEN_STATE) {
+			/*
+			 * The channel is currently not open;
+			 * it is safe for us to cleanup the channel.
+			 */
+			hv_process_channel_removal(channel);
+    ...
+}
+
+This ends in:
+
+hv_process_channel_removal()->free_channel()->kobject_put()->
+    vmbus_chan_release()->kfree_rcu(channel)
+
+open_chn has already been incremented for this channel. The waiter can
+still be blocked on other sub channels, and each of their vmbus_open()
+calls needs a host round trip. By the time this check runs, the channel
+may already be freed.
+
+The result then depends on what the freed memory holds. The failed
+channel could be treated as opened, which brings back the original
+hang. Or rndis_disable_subchannels() could call napi_disable() a second
+time on a NAPI that netvsc_sc_open() already disabled. That call never
+returns, and RTNL is held.
+
+Would it be safer for netvsc_sc_open() to record the result of the open
+in driver-owned state before atomic_inc_return()? For example, it could
+clear nvchan->channel on failure or set a per-nvchan flag.
+
+> +}
+> +
+> +/* Disable the NAPI of the sub channels that opened. netvsc_sc_open()
+> + * already disabled it on the others.
+> + */
+> +static void rndis_disable_subchannels(struct net_device *ndev,
+> +				      struct netvsc_device *nvdev)
+> +{
+> +	int i;
+> +
+> +	for (i = 1; i < nvdev->num_chn; i++) {
+> +		if (!rndis_subchannel_opened(nvdev, i))
+> +			continue;
+> +
+> +		netif_queue_set_napi(ndev, i, NETDEV_QUEUE_TYPE_TX, NULL);
+> +		netif_queue_set_napi(ndev, i, NETDEV_QUEUE_TYPE_RX, NULL);
+> +		napi_disable(&nvdev->chan_table[i].napi);
+
+[Severity: Medium]
+
+What happens to the vmbus channels of the sub channels that did open?
+
+They stay in CHANNEL_OPENED_STATE with netvsc_channel_cb() registered
+and their ring buffers still allocated. Their NAPI is disabled here and
+then deleted by netif_napi_del() in netvsc_attach() or
+netvsc_subchan_work().
+
+__netif_napi_del_locked() leaves NAPI_STATE_SCHED set, so
+napi_schedule_prep() in netvsc_channel_cb() always fails:
+
+drivers/net/hyperv/netvsc.c:netvsc_channel_cb() {
+    ...
+	if (napi_schedule_prep(&nvchan->napi)) {
+		/* disable interrupts from host */
+		hv_begin_read(rbi);
+
+		__napi_schedule_irqoff(&nvchan->napi);
+	}
+}
+
+The inbound ring is never drained. Any recv buffer sections the host
+places on these channels are never completed.
+
+A sub channel also cannot be closed on its own, because
+vmbus_disconnect_ring() has:
+
+	if (channel->primary_channel != NULL)
+		return -EINVAL;
+
+So these channels and their high-order ring buffers stay armed with no
+consumer until the next detach closes the primary channel. That memory
+stays allocated under the same memory pressure that caused the
+fallback.
+
+If the host sends RX traffic on these channels, could it be dropped
+and leak recv buffer sections? Could that starve RX on the primary
+channel too?
+
+> +	}
+> +}
+
+[ ... ]
+
+> @@ -1329,6 +1354,19 @@ int rndis_set_subchannel(struct net_device *ndev,
+>  	wait_event(nvdev->subchan_open,
+>  		   atomic_read(&nvdev->open_chn) == nvdev->num_chn);
+>  
+> +	/* open_chn also counts the sub channels that failed to open. They
+> +	 * have no ring buffer and a disabled NAPI, so fall back to the
+> +	 * primary channel.
+> +	 */
+> +	for (i = 1; i < nvdev->num_chn; i++) {
+> +		if (!rndis_subchannel_opened(nvdev, i)) {
+> +			netdev_warn(ndev, "sub channel %d is not open, using one queue\n",
+> +				    i);
+> +			rndis_disable_subchannels(ndev, nvdev);
+> +			return -EIO;
+
+[Severity: Medium]
+
+Does this early return leave ndc->rx_table pointing at queues that no
+longer exist?
+
+rndis_filter_device_add() fills rx_table for the requested channel
+count:
+
+	if (!netif_is_rxfh_configured(net)) {
+		for (i = 0; i < ndc->rx_table_sz; i++)
+			ndc->rx_table[i] = ethtool_rxfh_indir_default(
+						i, net_device->num_chn);
+	}
+
+This return skips rndis_filter_set_rss_param(). Neither netvsc_attach()
+nor netvsc_subchan_work() resets rx_table when it sets num_chn = 1, so
+netvsc_get_rxfh() would report queues that do not exist.
+
+A key-only update (ethtool -X ethX hkey ..., so rxfh->indir is NULL)
+skips the indir[i] >= num_chn check in netvsc_set_rxfh() and goes
+straight to:
+
+	return rndis_filter_set_rss_param(rndis_dev, key);
+
+rndis_set_rss_param_msg() then copies the stale table to the host
+unchanged:
+
+	for (i = 0; i < ndc->rx_table_sz; i++)
+		itab[i] = ndc->rx_table[i];
+
+Could the host then steer RX flows to the sub channels that this patch
+leaves open on vmbus but never polls, so those flows are silently
+dropped?
+
+The stale rx_table after a fallback existed before this patch. What is
+new is that it can now point at sub channels that are open but not
+polled.
+
+The commit message only says the driver falls back to the primary
+channel. It does not mention that the opened sub channels stay open, or
+how rx_table is handled.
+
+> +		}
+> +	}
+> +
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114220358.5429-1-julius%40bairaktaris.de
