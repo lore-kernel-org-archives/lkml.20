@@ -1,73 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870009;
-	b=DtZ7Rl1jtRowrQl4RG+jC4zDdp0Vcaw8CtCwqg+MZ3qhcZDGaoROHIrU12VnZfQM5U3h
-	 vtYQLkfBFXXfyWW74ALMMEDaIojBKdOGnyagK+QM+ZSeCSVQvILj9WLMd3nIR/oFFwUaK
-	 WryY0ud8AB/PVpVbmw8mUh1lSOgcRSwUBlKhcV2hjC1M9iYy46nby7u5mPCqbHMgOzzh+
-	 3E0rJiUg1tPWH7S4HWkdfiwK2vGF4GmgTvl//jhBmIbEd9pL7vXR4FVqAIOKx0BkNRBrF
-	 0sllWMsnzNta4ycxqRN3zmfsddAK3Y4AX4+LahNUWNoHTb6AQJ9oQiowUjXqHczJB3A==
+	t=1794870010;
+	b=xPuJOPaFaygYmSZiB/jjjxPVJcFAu8ydUMpcNBQJ12EcZwFw0S534O1kgqqfgYgW0OtO
+	 qGVEnHVZj5AYH2wN5/83r+mss7ZS/J2uBTXNZp6+q9F4ixS111rA6AErxErFmWuovmQbp
+	 eFzyNYZLhcUgVGbA8S7+Ipx4qP1M7Snsfz0NNDUmjyq8ea5fj5xnE4CGZyRg2Fzvf4wzr
+	 mrbYXml4XZ04V5eOlvI3hD/bL9r0/KDEnjjCGcZDy9LzmPIsAZfgv97zEn+3lgI6q7kbS
+	 blfOi2919lFaKqIKCz+ckT+yoQkeIrUF7l/TAOVjpdtO4P5OaYq2v4xKU2no0/zSr2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870010;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=WUolhYDZbslOOIbkyOEoOPPNwXhWzrlgPsJ43aUqTJk=;
-	b=sFYKY/myfLSBcbLo0wnCzAc48iXutGKL7+a4dASBDDvTFQQI9HcwPjNMahSc5LAmkZXy
-	 M7QpF3OJ4tXhXF8G1bCQSv+M9rEghw+fSlO3YWODOQZNCpDBSnDqvU1iTdzsltai4Sbp4
-	 IglFNG5oFmeUFczuteoQ2tppZzUbIqxGG6sp5r6y92bXFr3Vx8K348H2pe5eCA674E+Pe
-	 55j6vpNaehDOlZKIGdb7GLhnyKODvt2Ia0bfTtTlLXSkXiluQeFCObDZtaK/TiQW7kcfW
-	 KNaZnSVvsZ0bUZPsy7Rrt2Ve1xQxEFO4MLHuVwLyGWfETq8+LsYtzoKQvNpT3+Q7p9Q==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=qec2792BZT8xMgh2a+hcg7RSIyutDzwTcHaSiTYIrKU=;
+	b=h4o5NThmHhCx9rBotz00dmZZu2AwemdiDyTeTVwskzHmnm6+/UHw7yjQsrmzXjP2T6Hw
+	 8yW78k5Ifzl+N+JbSfe9QadNrf+gENLjjzckv8WUVRaTxuX10ojeiOEDLzd7Em2L2kAAM
+	 HvBsJrAMgyAB6qwEDDsba45OQBlsJARdubCUHModKgDPwnoof/YTs+a+yUZU9O/XBwjWg
+	 FMJQNwkrFSxmETZzMqUdLsJGIM6L+crbsqPsyQurh2u0vo8FlO2pDjrEjYevMT/wSn0BX
+	 UOWjkaduSr7CwbnJC8ceKjBQXBubj395beSV42KzIn+VjqN0BqCwmtGYJuCTW5bkHlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B100E606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B100E606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE9A606A339
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBE9A606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b4d86f5328so10794837b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:00:08 -0800 (PST)
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b30cbfa628so32515137b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:00:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870008; x=1795474808;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WUolhYDZbslOOIbkyOEoOPPNwXhWzrlgPsJ43aUqTJk=;
-        b=YpkXx+tjFpZO85+4u8VV5/5wH8gb4aOypsi21w585yR+x/TDsGX6OYaw8BfJB4XdRq
-         mgXYM8nqCFxqgEkDuRC2MaQk3lvBl6Lr9Z9Mo7O1wQQQBmFMMrFPfm5i1IPYzV/CYZGH
-         il/cXUGh1KucdLeBi5YcdltJRCinFOkG4ozqP2T6x8jr1iejXPjMrUVMRUyNvYfvYgVW
-         bvg+DnqVvHJ5Wsv674MGe8FFlpfU9SOO05Y8Lq4Zk038vxojtIgzxCSMNR88/NM1cl0J
-         qA6jVIYy46R9YfSKwCqB9y3pBmAjq+ZXXeob++YmarGREBeoA2HHFJh38MTMv6mBhgPZ
-         JTUw==
-X-Forwarded-Encrypted: i=1; AL+hErE+1yeRA50GxXEJ/l4/yqUvzhTvXdCGyq3BqwvWXL+S+UyxZsWLTW5kimRrTuC4zTXtyU4bbczuAvrgx+s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8a44tr0jVXex7DpsEIzbWZNSmOVq95MwO/w0P9Yj6bTTsNdU+M
-	cdJo51O8VZWOqdnjchslV68A+t7Ftw93s7Lpn/VzhxuNzTaYAdK4U1Kp
-X-Gm-Gg: AZFdTZdyVWSz1dr28VOqZ/JScbPqj07ulmB3cgfla2G3/2U+Pe2b8QjQfVGyGLXjRGg
-	C6jDbj9nMR1cPqYMqDEor0B8QZeA9I+nVD7JTdkBkiV89MLi6Cx7TepZIUzlPFfM8P/u0j5wT4w
-	YrJWWd2l5CEbFH4w+rjLvIDFaEMiw19XozjBLOIwf7W+tiZgNAS9JbtffMa8gJkip0366Y6nAvj
-	yGiCEw1cWTXDGyHN5XpJ+aGfJc/BPYgmcQWvnZow1RY7/xoKjeIo9JbhTnwCTG63Y9dmvOnRFSq
-	urLyU9y3wNc0I0INuwn8J1vHhlJ6XRM0UvrYfjdIA/4c9qklc9lN8wwbo2Ag7PY+X8HJPSdS2Xr
-	/pEazoR4hDbIGjrjH0Zu09ut1v0j2NtROxABWrRMlv72GBFWO1SR7dJc9OcQSBD7bV57Pzvxh5M
-	kkCwU7GGVTU8JMhADljsKwM4QuUqQBKfhsy0mR7ht+VjA5q7PiIE22u+bPXGzHZyNG2oXVq9ayc
-	ft6uOnNxQnOTPOyEdP67l15ta38NyH9o8+3VtUylJAoGrFtjnLSy0+r0rNLgnY/XwSgQEkderts
-	FM4bz5bVYyX4QWm65djW0lol8ywDGf78jNYDsPLJPQN9g4Xbu73YaSGyyCJqxu6NVeKs3ZrLIAh
-	p7PrkcAZ8ssHgGp9rWTlqFIdmyQ+HGaZwiscrVL524pykT5TW6y0iRw==
-X-Received: by 2002:a05:690c:e3ed:b0:8b0:89ea:6aca with SMTP id 00721157ae682-8b4aa0d0116mr67609057b3.6.1794870007633;
-        Mon, 16 Nov 2026 15:00:07 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794870009; x=1795474809;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qec2792BZT8xMgh2a+hcg7RSIyutDzwTcHaSiTYIrKU=;
+        b=hIB6Gm4h2Z0xynihxdgKNWKrB6aqgHc+m4otT+W3GfIJMBlB65zU2PNnnFwwSE/Xnc
+         Ya0VG1VzcXobMGFX9xBBRyjyuRo/keumtE0YQcGPBkqUS/MOZv5tYnM/dQ69GvtzdVhy
+         pAIWp4oTJf+Yt53l31MDLBfcUAEyCIv1SqGesTSdxoP3BBnAKSIBE0BWJTfFybbocFhu
+         z7702VL0jWs1bSLlB66b/1CINcVkOiUqnu5XXHfYgGxoth1M8qS8bc1soia51AbSgD+N
+         cPFkucijEWLqk5q4HKGU5hi4ulal8PoqLUI4OgDp3N4oiSQdBoPSsxvdZnVhGJrFTHqn
+         BHCg==
+X-Forwarded-Encrypted: i=1; AL+hErENYLGeffF4hkzeeBlygGgfRwqrsB8oHl++f+AbkKfc4kVq7aQxhyQJEDC5WQbZ65MDZHR2XziyiUduil8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88HzO9x0erUTDGwC7NrFEQCFD0/WzKbsEVhMikEbgiccnU0pgP
+	BTlOsLmmJHJ4xvitWDsn4dfuvwUr7NNNToFm1A2cuCvcr1vEvBAbAQds
+X-Gm-Gg: AZFdTZc4zvtuIIdiwlAGk3+JkYNU7GIvZTl9nf8FPLWFGcLGn0sdafGOMqjuFhBVIsn
+	lj0j8D1G3oOoI/UOY9tg2SHAC3Fs7+vvs2dAUVbkAaJx41g6XxuovRHrE5AAPGSv4saq7mf0f34
+	C80xAd6wXUR/PX5IyCz9NdogdNP/TVWKSxrvfh+PTpy/LXYlGHv6b/xNBj8ixi0aHKFH1ZRi19/
+	VqsB3hsibk85waKXXffjG+dIAupnGEZw3u5Z/laz/mu6IdJ8qa5uEB1LTFBD1wiR1UvuDXczXvA
+	x19Fu9yN8sLe+B9c84WZLGbjUzVoG2lWa+0BAXGpmvbDatC8UtN0Den2Qq4TmF258AnBDnWJIjh
+	i4yvq/UNklrFkezVGSY8DXhHMW0UsHSCumdTD7mJRD3ENwXNo30Xhe109NVdSHZd7csR2vHkllC
+	qrwwaDqsJRlWpItBl/6xt4Q372SxKwavidRigBZoy6dBdnxOEjrWDLzCxyvdO+gz1q1fgAXiMVk
+	izlezn4dA3/P43bwoXYxTwaZ1x2AC8eqENtufUNCOdxhKM/XkVBn9KrF1P39okH8adjVe048g48
+	Tb5hkfiOTb+Dp2vZCSQohIwZW+iCh67ADtGtwBMfoHgObgFt3QBOsearhiDap0Dt7LaAlrBxQSi
+	JUXxL3Jd64TI5wfHoWBtEJmTnm+0r0jzC
+X-Received: by 2002:a05:690c:e3e7:b0:8b1:867f:389e with SMTP id 00721157ae682-8b4aa0cf270mr66552587b3.6.1794870009077;
+        Mon, 16 Nov 2026 15:00:09 -0800 (PST)
 Received: from 1.0.0.127.in-addr.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ebc50e40sm10721347b3.17.2026.11.16.15.00.05
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ebc50e40sm10721347b3.17.2026.11.16.15.00.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 15:00:06 -0800 (PST)
+        Mon, 16 Nov 2026 15:00:08 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Subject: [PATCH 0/5] iio: potentiometer: mcp4018: Add Analog Devices AD5246
-Date: Mon, 16 Nov 2026 17:59:49 -0500
-Message-Id: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
+Date: Mon, 16 Nov 2026 17:59:50 -0500
+Subject: [PATCH 1/5] iio: ABI: Move out_resistance_raw_available to
+ sysfs-bus-iio
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,10 +80,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQ5AMBBA0avIrDUxVa24iligg7FAWkTSuLti+
- Rb/B/DkmDxUSQBHJ3telwhME+indhlJsI0GmUmNiFowr6K1hVRalFblxqAsjTIQg83RwNc3q5v
- f/uhm6vf3APf9AOCXSituAAAA
-X-Change-ID: 20261116-iio-ad5246-8d4377128747
+Message-Id: <20261116-iio-ad5246-v1-1-ef6b7c06d4b0@telaak.dev>
+References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
+In-Reply-To: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -94,35 +94,66 @@ Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux@analog.com, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-The AD5246 is a 128-position I2C rheostat that speaks the MCP4017/18/19
-protocol. This series adds it to the mcp4018 driver, so it can be an IIO
-channel provider for an in-kernel consumer, here one that sets a fan's
-speed through the channel.
+The available raw values of a resistance output were documented only
+for the mcp4531, without the channel index. ds1803, mcp4531, tpl0102
+and x9250 all report them, and indexed channels name the attribute
+out_resistanceY_raw_available. Document both forms with the other
+generic resistance attributes and drop the driver-specific file.
 
-Patch 1 moves the out_resistance*_raw_available ABI to the generic file,
-patch 2 reports the wiper range, patch 3 adds the binding, patch 4 turns
-on the vdd supply, and patch 5 adds the parts.
-
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
-Joseph Telaak (5):
-      iio: ABI: Move out_resistance_raw_available to sysfs-bus-iio
-      iio: potentiometer: mcp4018: Report the available wiper positions
-      dt-bindings: iio: potentiometer: Add Analog Devices AD5246
-      iio: potentiometer: mcp4018: Turn on the vdd supply
-      iio: potentiometer: mcp4018: Add Analog Devices AD5246
+ Documentation/ABI/testing/sysfs-bus-iio                       | 9 +++++++++
+ Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531 | 8 --------
+ MAINTAINERS                                                   | 1 -
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
- Documentation/ABI/testing/sysfs-bus-iio            |  9 ++++
- .../testing/sysfs-bus-iio-potentiometer-mcp4531    |  8 ---
- .../bindings/iio/potentiometer/adi,ad5246.yaml     | 54 ++++++++++++++++++++
- MAINTAINERS                                        |  2 +-
- drivers/iio/potentiometer/Kconfig                  |  6 +--
- drivers/iio/potentiometer/mcp4018.c                | 59 +++++++++++++++++++---
- 6 files changed, 120 insertions(+), 18 deletions(-)
----
-base-commit: 94921bc9eb214f838481faa847cda5c42e486013
-change-id: 20261116-iio-ad5246-8d4377128747
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+index 5e987c502b13..28ce219caf81 100644
+--- a/Documentation/ABI/testing/sysfs-bus-iio
++++ b/Documentation/ABI/testing/sysfs-bus-iio
+@@ -2017,6 +2017,15 @@ Description:
+ 		Raw (unscaled no offset etc.) resistance reading.
+ 		Units after application of scale and offset are ohms.
+ 
++What:		/sys/bus/iio/devices/iio:deviceX/out_resistance_raw_available
++What:		/sys/bus/iio/devices/iio:deviceX/out_resistanceY_raw_available
++KernelVersion:	4.9
++Contact:	linux-iio@vger.kernel.org
++Description:
++		The range of available raw values, as the minimum value, the
++		step and the maximum value, all enclosed in square brackets.
++		Example: [0 1 256]
++
+ What:		/sys/bus/iio/devices/iio:deviceX/in_coverageY_raw
+ KernelVersion:	7.2
+ Contact:	linux-iio@vger.kernel.org
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531 b/Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531
+deleted file mode 100644
+index 2a91fbe394fc..000000000000
+--- a/Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531
++++ /dev/null
+@@ -1,8 +0,0 @@
+-What:		/sys/bus/iio/devices/iio:deviceX/out_resistance_raw_available
+-Date:		October 2016
+-KernelVersion:	4.9
+-Contact:	Peter Rosin <peda@axentia.se>
+-Description:
+-		The range of available values represented as the minimum value,
+-		the step and the maximum value, all enclosed in square brackets.
+-		Example: [0 1 256]
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 02015eaec312..9cb91ee8a56d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16680,7 +16680,6 @@ MCP4018 AND MCP4531 MICROCHIP DIGITAL POTENTIOMETER DRIVERS
+ M:	Peter Rosin <peda@lysator.liu.se>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531
+ F:	drivers/iio/potentiometer/mcp4018.c
+ F:	drivers/iio/potentiometer/mcp4531.c
+ 
 
-Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
+-- 
+Git-155)
 
