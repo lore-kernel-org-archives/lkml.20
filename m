@@ -1,80 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.62
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843061;
-	b=ACa/lgxCMg8bAGKgyFMYVRuc1WhJRDxqCopxfkoIbLk7k0AuIz8OZTxmUDGKsjjYwY4u
-	 kzAU/1IvsLN6ISYEc7HFLO4Yq2nqCNKiM9ynt0AWlA0TWvIrJeel/5DNlCCRnULkt7vVy
-	 mGPmLzoONKk2YlgJJGpQKjFViMLfOuqXTbG92Al3lW6c5/DiDjhMxq8vt6pQQEbhwg1dY
-	 JPEjuFwl8WgVmiNdlYw4OUhD/ynbakWQujhjlt6QygnvfMdjN0x7/52OU79st5Ib2ITZq
-	 Q6CIcIjDQsLvmJ/6sPGLGu0f/YQyJ1n22bAprivI2yqgutGFzqOIKMOSFViLdCZ0M2Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843061;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=izMnGSi5/C4Zjs+ze3xoS9LB92c3fP1+bt3Aegm0+Zk=;
-	b=fwMr5iO4kC+P2RrvEfmZJaCjikq1cnhePv6ZKrCr5Djg3s1X1B+9Gf5s0GXyakoEyjMt
-	 QMYSc6vG8bNMUKO4HlXN/Uz6JYOEF4h/yWYAkID80S+mCiJLogCWq+j+h5ZAoEeftXjhh
-	 7sA9BluciFNHdokvBE+TiAgjuMFm45Sw79bkT+gzhTz8gM7Jj+o4ptR98qMW2w6joPcU3
-	 uL5AoYZQjQ5QkgxrCAhhn0jPUN1f4Vat+qHdNe49PjbR65DiB1OY9oG5sVFHZ11gFHCn/
-	 W18OdVwvKkhT+Xy7CCpx7fj+MGlFISWfQZAxu9Ka/YJFblxTmtae8FyUESOudU5ylzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=yvBI2C02;
-	arc=none smtp.remote-ip=195.10.208.62
-Received: from mout-b-202.mailbox.org (mout-b-202.mailbox.org [195.10.208.62])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794843075;
+	b=RB3YEaJmZV0C8cCeYeNA7qGAEn+4OOtqX31TDyYns9bLkAMuknyoQtrOM+WZwSwP1JEt
+	 0IM/aNNg2GjNxaLXo0rqtobzprs7RkdaUIcMHHni1u6bijyIshbJ+kGrMnNgGSjKg0lOT
+	 FVGumsIgfklo741qJlWrgEGTZc2/7IBBdBF0PIQSVV0H8SKO3kazPTgQ49hDvAJmPR+tz
+	 3CQnN4vOF9VbhrxpoEC9SQ0InHat4zAUvGz8ke4rTGixNSgLznLRgBYKw+zId2nQam9OJ
+	 pOi/iB00l+OPmryg+PaRBrLV23WP2cX1F7WSTDpHfTGkxxJXBJ/cBSVx92dQBFmPzag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843075;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=Q+cjqxjigLuAD2G4MU0M+9cOYkNU/IcSxXyfqVz+dbE=;
+	b=xfr+Oq5LlAa78xbdyINxwiy0GUl545X5B1que9pgyADZ4Mr149g2V9RS/znPOiAAr/37
+	 LqtzcCx6OiTh/HFk4ckp0wDxhkZVaJv3x3/QxnJIy5S/rAR6N215q9DcAPuP7fiQSIxVY
+	 NbYfSmh/LtW4eSsYeKu+dJrQhuZaFM/lqeQDDp+iVQkWQXuhjFIMz6QiDXLAMI73SLfvW
+	 3uAJ2O6iiqpAdFGBcMhSXllmDeNyIsgHS4VsbnC4Yf9PoIv8in34w/Mg6EgmcrDqd5E3s
+	 ESXSP6CnVzaYZtMR2UIDz8jFl6KYdoledA7qNzV9NzZdNIZJ7MNo6TgLYWdv+34oJ1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ph4ntom-rev.uz;
+	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=SmGPb7g1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D2A606A884;
-	Mon, 16 Nov 2026 15:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D2A606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19FA606A32F;
+	Mon, 16 Nov 2026 15:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19FA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=yvBI2C02
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-202.mailbox.org (Postfix) with ESMTPS id 4jSsJV67ntzKm6H;
-	Mon, 16 Nov 2026 16:30:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794843050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=izMnGSi5/C4Zjs+ze3xoS9LB92c3fP1+bt3Aegm0+Zk=;
-	b=yvBI2C02ZwFRuUGrao6VTZ+vHHaEgoU0fkE9KwDDWhJWCR3EEv2bTrmUCsBU+P2yLkVrv4
-	XEJo7hEuXHrl1uY98K31N0VINK6Evzn8dHmts1HGIEHUukiIUXIDe0kThTN+QcKQ3SD977
-	J+X0EIBZJ6vyjk0I9kcQ6flZRkD+3MmP1TzApAPuILY8MkOrdGeiluHAZoBcDnEMqVlIU6
-	hoRe7HYaI5T23ITn8r1c14614oWwXAXMRytC8lAVSf2inl1ImkGdq0/Tu2dLLqECAZ7wLH
-	/R5bmYU3Go8kCKkUfaW87aVTt0+l3pqFoPr9KHZBZm+9fWfTsGYZWsFA5MiGZg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
-From: Antonio Quartulli <antonio@mandelbit.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: Antonio Quartulli <antonio@mandelbit.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>,
-	Joe Damato <joe@dama.to>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/3] igb: link queues to NAPIs under RTNL after runtime resume
-Date: Mon, 16 Nov 2026 16:30:38 +0100
-Message-ID: <20261116153041.3002666-3-antonio@mandelbit.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116153041.3002666-1-antonio@mandelbit.com>
-References: <20261116153041.3002666-1-antonio@mandelbit.com>
+	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=SmGPb7g1
+ARC-Seal: i=1; a=rsa-sha256; t=1794842902; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bM1uQcnycURqx9K2nvscA0G7J/bKbUhTiUBH/bqjTeJ65gL/xlJCnvwKcPGXVklLhSbis1w4sz2HWucvFyDnmExZSov08IiwFQYP8fUgUleVDnNBIoaqHf8d4X+/Y+aOI6Lh4Ct4pVx7BtuU8aNlA0hDGikwtJO/Jp/dQBOO3Gk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794842902; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Q+cjqxjigLuAD2G4MU0M+9cOYkNU/IcSxXyfqVz+dbE=; 
+	b=gNVW5d+HpX7PSq3/4FyqNNpo5zoxLNfzYVtfkXf055S9JKGgXPUpxHXkObNiOUXLEDbsIsaPa/AX7ddeRbFDRSEnby5kcQwpOJhevisGvcqsQZL4kZLLE6QtpV2K/ZfsPKyZSOp47IpuAWgsdHqXsIE+b/cOhQCLx/zKF0b8pYk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ph4ntom-rev.uz;
+	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
+	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
+DKIM-Signature: a=rsa-sha256; b=SmGPb7g1nQFsuPi+TW2GM+oO1Db1jA+x2rvJnJyQaFfvQJxDZ7hzU1Ka0dQ/NutbkrhHKN+jdndrsjh1dn+ycaB5UEQTggeFK4LvyNQUKh9C2KgrQ/2WuPL/3mvc6VDC5m8lrT/JGFwEQp405S9KGglaiSR7oOi4NcSDohxvBTKyPlkQ3RY33RqwUMIVoPWhkbWzrNlA+e8t7ATBLzHSK3KDRoPJmFsSMBBTAhy0AB0VJ1wVH5Bz6xJCU98DqjO9VaXb120Oq9WAvLltAbyDZ4dF0XxXEBEeK+LehXDZoeSblQf+6Rr59KqL0Mu2vSf/9h9u+ZH7xr0sxHzSPLxXIQ==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=Q+cjqxjigLuAD2G4MU0M+9cOYkNU/IcSxXyfqVz+dbE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794842900999920.9112925704835;
+	Mon, 16 Nov 2026 07:28:20 -0800 (PST)
+From: Enver Ikromov <owner@ph4ntom-rev.uz>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Enver Ikromov <owner@ph4ntom-rev.uz>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rtw-next v5 04/10] wifi: rtw89: protect pure_monitor_mode_vif with RCU
+Date: Mon, 16 Nov 2026 20:27:56 +0500
+Message-ID: <20261116152804.781-6-owner@ph4ntom-rev.uz>
+X-Mailer: git-send-email 2.56.0.windows.4
+In-Reply-To: <ac552fa2a85d421eb5828f85366162f3@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-5-owner@ph4ntom-rev.uz> <ac552fa2a85d421eb5828f85366162f3@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,126 +67,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jSsJV67ntzKm6H
+X-ZohoMailClient: External
 
-__igb_open() links queues to NAPIs with netif_queue_set_napi(), which
-requires RTNL, but RTNL isn't held when resuming from runtime suspend:
-this triggers "RTNL: assertion failed".
+On Sun, Nov 15, 2026 at 04:00:28AM +0000, Ping-Ke Shih wrote:
+> Did you actually have rtwdev->pure_monitor_mode_vif for the case
+> vif == NULL?
+>
+> For wlan0 + mon0 concurrency, there is no monitor vif, no?
 
-Don't link them in __igb_open() when resuming: do it right away on
-system resume (RTNL held) and from a work item taking RTNL on runtime
-resume. The links can't be kept across a suspend, because
-__igb_shutdown() frees the q_vectors. These are only freed under RTNL
-with __IGB_DOWN set, so the work item checks __IGB_DOWN under RTNL.
+Right, standalone monitor passes the virtual monitor vif
+(vif != NULL), and concurrent wlan0 + passive mon0 has no monitor vif
+at all (dropped in patch 1). I will drop patch 04/10 completely in v6.
 
-Tested with the 82576 emulated by QEMU.
-
-Fixes: b75a1dea500f ("igb: Link queues to NAPI instances")
-Cc: stable@vger.kernel.org # 6.16+
-Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
----
-v2: no code changes; mention the tested hardware.
-
-Note: igc may have the same issue: __igc_open() also links queues to NAPIs
-(igc_set_queue_napi()) on the RTNL-less runtime resume path. We didn't
-have igc hardware to test a fix with, so no igc patch is sent for now.
-
- drivers/net/ethernet/intel/igb/igb.h      |  1 +
- drivers/net/ethernet/intel/igb/igb_main.c | 38 +++++++++++++++++++++--
- 2 files changed, 37 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/igb/igb.h b/drivers/net/ethernet/intel/igb/igb.h
-index 0fff1df..ea2d739 100644
---- a/drivers/net/ethernet/intel/igb/igb.h
-+++ b/drivers/net/ethernet/intel/igb/igb.h
-@@ -585,6 +585,7 @@ struct igb_adapter {
- 
- 	struct work_struct reset_task;
- 	struct work_struct watchdog_task;
-+	struct work_struct queue_napi_task;
- 	bool fc_autoneg;
- 	u8  tx_timeout_factor;
- 	struct timer_list blink_timer;
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index 4447546..894eedb 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
- 				     NETDEV_QUEUE_TYPE_TX, napi);
- }
- 
-+static void igb_link_queue_napis(struct igb_adapter *adapter)
-+{
-+	int i;
-+
-+	for (i = 0; i < adapter->num_q_vectors; i++)
-+		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
-+}
-+
-+/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
-+ * from runtime suspend: do it from here instead. The q_vectors are only
-+ * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
-+ */
-+static void igb_queue_napi_task(struct work_struct *work)
-+{
-+	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
-+						   queue_napi_task);
-+
-+	rtnl_lock();
-+	if (!test_bit(__IGB_DOWN, &adapter->state) &&
-+	    netif_running(adapter->netdev))
-+		igb_link_queue_napis(adapter);
-+	rtnl_unlock();
-+}
-+
- /**
-  *  igb_up - Open the interface and prepare it to handle traffic
-  *  @adapter: board private structure
-@@ -3426,6 +3450,7 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	INIT_WORK(&adapter->reset_task, igb_reset_task);
- 	INIT_WORK(&adapter->watchdog_task, igb_watchdog_task);
-+	INIT_WORK(&adapter->queue_napi_task, igb_queue_napi_task);
- 
- 	/* Initialize link properties that are user-changeable */
- 	adapter->fc_autoneg = true;
-@@ -3890,6 +3915,7 @@ static void igb_remove(struct pci_dev *pdev)
- 
- 	cancel_work_sync(&adapter->reset_task);
- 	cancel_work_sync(&adapter->watchdog_task);
-+	cancel_work_sync(&adapter->queue_napi_task);
- 
- #ifdef CONFIG_IGB_DCA
- 	if (adapter->flags & IGB_FLAG_DCA_ENABLED) {
-@@ -4199,7 +4225,8 @@ static int __igb_open(struct net_device *netdev, bool resuming)
- 	for (i = 0; i < adapter->num_q_vectors; i++) {
- 		napi = &adapter->q_vector[i]->napi;
- 		napi_enable(napi);
--		igb_set_queue_napi(adapter, i, napi);
-+		if (!resuming)
-+			igb_set_queue_napi(adapter, i, napi);
- 	}
- 
- 	/* Clear any pending interrupts. */
-@@ -9637,8 +9664,15 @@ static int __igb_resume(struct device *dev, bool rpm)
- 
- 	if (!rpm)
- 		rtnl_lock();
--	if (!err && netif_running(netdev))
-+	if (!err && netif_running(netdev)) {
- 		err = __igb_open(netdev, true);
-+		if (!err) {
-+			if (rpm)
-+				schedule_work(&adapter->queue_napi_task);
-+			else
-+				igb_link_queue_napis(adapter);
-+		}
-+	}
- 
- 	if (!err)
- 		netif_device_attach(netdev);
--- 
-2.56.0
-
+Thanks,
+Enver
