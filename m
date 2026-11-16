@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829053;
-	b=duXIGtWFO/8nWn0GXJ70lPvPvX8Ye0THonoxaZ0qbJ9yZiScvKZvcjjg8uqdERN/DHeC
-	 o+nGp2aHqHtbKlxtc2dZAAmhASIQsQqN1I7cKFGjvyYCuWAesPiTu+CAkcJq3fGg7EtTu
-	 Ls6QRieIJtMoIFT6wQUumGjy9WCsmMqGXQ9QC5CMVnyXKTrC4r379r9w2kTT6O4SuKAsi
-	 /OcQAdZSXOMZxMZDyHIc432YULotpBuktP91qpFiNYH4qyqb3Mo+Y4BuE6vKGvgkjaUOF
-	 uBJrcrxu1iYLCJFXY5+KlUnX3RuEcIna1iafDzLl1jQ/20IIZNttI+hN5kvicWgfoNQ==
+	t=1794829057;
+	b=HE9gorVw5Q4B0cmSh1t4zdgih3y9ewJsSmgI34bnNiesFT5kvcDzLP7D9VhHKDrwkBPA
+	 ahmShH39ZB4jnXKqJwatXEBO5NhmMh9OirKXRMAtXpsju4pcieWEHMEB71tOafZ7AypRd
+	 0Sd1+g0tdXoMStTywp5PKZ7D7LJcz7si5Php9p/dPlxP0JhmT8MeCxC3DnF1OhTWzgOn8
+	 pIW+LZDPUNw+UXpkv9E7q19kTvOELmZHfNH3nE3XvPXOmQLD7uXgRF9X/uDz2Kr92fEdE
+	 R0ELJ/g2czNt7WRRkMwrQSsFeKyt4Lf+PtQ0UFTGeTR3FM30VwKlOUBE9nYSb0olAgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829053;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=tlxQbNS6YQ6dC4GW6OJCCMzPULNSrAZH+Tzi4oNheUc=;
-	b=q/imXXog1b8jcumSO2MVEdcXAMK9V/PL1Bw/bD2219LnAIcofRLytr6fQLYQwueFQ2Sr
-	 09RTalEwruDjAieCq8mhBbp9IzGPnZLHbBKja5zYRtPWUBRb6U8y+sGDGEYwAWkV5ME8m
-	 etp6MilIzFsxMaCQRNo+rd2QztzM7UwFTnd9xb9nDOxKHK7E1U+6bOikTVVvyt9WJz9Lk
-	 ZMsWbfpstIYWKH3cPZG1vMtlLvsCyUnPvx9l7hM05IuSTaV29FMZgsTEmka4xqPEnCehm
-	 upvVid7hye4K2sTOVntzIKJukFEmyD8NTiR1FPb/4i2NvXOyQYNvWzNPVEvB1c119Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829057;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C/xrMaZEdozCXeS1OyWKkLrn5z+kvKgCOECHu40oOnE=;
+	b=FQ9tZoeHLfJWAB0efzp6Y7K+IAL8WVaNGoftjNd7YC35/ryLnFY7ndm/uaj1fzj2NHbG
+	 cu8sOP5SPbGlcm0sBr6JCnQTzPeRbwQ8ctHyENoraHxhIZsRHj3Hw1pemcqByp9EPNqpb
+	 xjyaWBTZ8TvbswJZu1haxZEVmCMMj+KkvaarjFipbZSOtPRBG1W95lfkG/5Lgz8YLpaxW
+	 QNEaNNll5Ucz33RwPIQL+o1/33lsnHPGZNONaBml9gdNIDebkAscO0mtdL5Rmeu+WzXTD
+	 TJ+q41x1l0LOHWCWcOQVqdIDIvKan722MHRz3QKGwhCG4ES8BkkH+2JuJFR7H3TBcww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="n1/8+wKk";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=G0wrkUiB;
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510CB606A32C;
-	Mon, 16 Nov 2026 11:37:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 510CB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5AD606A330;
+	Mon, 16 Nov 2026 11:37:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF5AD606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=n1/8+wKk
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 967CF4E415F2;
-	Mon, 16 Nov 2026 11:37:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 69FE16023F;
-	Mon, 16 Nov 2026 11:37:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 84F1011BC0949;
-	Mon, 16 Nov 2026 12:37:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794829045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tlxQbNS6YQ6dC4GW6OJCCMzPULNSrAZH+Tzi4oNheUc=;
-	b=n1/8+wKkaYL+fR3a+f5O3cXaZsUZ2LP2/kH6EvLZuqQciO/HWmnBxlP87Krgwjab+hEo1V
-	e28S+wm/bNgiSHEm2F7KjKk1AMq4ZWsEFKVfUHNgsNRo0u5ZQfb7UAYv01CQQdl7L0Gbvj
-	COzUiq+IZRAA9xsAQGHggG0PYOPK4moR1QCsdqoEgNmoNTePnttnK6MIV2xmsgKNJi1fdb
-	EwEFueQfCrqePqeGDKKjFUIX9P3qES5mYvaoS0DEGA/OJXgV4gljcO9Fntx7Xxkgh34A41
-	88c6abrL3RTW0XiqpxzYjlVWUqthJqiBD8LqmW0/ft8dQY3Tfm6QPneSjtOS1A==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
- "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
-In-Reply-To: <20261103-v7-4-topic-am335lpm-tilcdc-v1-1-b7f91f9c9a05@baylibre.com>
-References: <20261103-v7-4-topic-am335lpm-tilcdc-v1-1-b7f91f9c9a05@baylibre.com>
-Subject: Re: [PATCH] drm/tilcdc: Fix suspend/resume drvdata
-Message-Id: <179482904036.190319.14137028928687094984.b4-ty@b4>
-Date: Mon, 16 Nov 2026 12:37:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=G0wrkUiB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1794829055;
+	bh=BgYjXRjzcjLxGrbQy7oJJ5oNxCwDfd3tLx3OFtVZViE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From;
+	b=G0wrkUiBykcwdZQuzByBqWZDuTGExve5JfOThtNqTKW9/lr0qb22xuTijqZLqx4HO
+	 wtQ2kTe3hU23MqhoIORYUNqU8xVHuBsxuEWOrrVF1uYk41u+uQKmDvLJo5/YwwOZbH
+	 7j8sipWJANA7TQq0koB72YCvKzD5u2eoLBvKkDI1dTi/4mXGAJ04TigwEfV7ooblwQ
+	 VepBU+yxPde7K4yU2AwVxO+JnYuIlEwAzFrm0d/S/u0wPNelHNb49pUSAufZBiZG4K
+	 4LUXzcRruxxrJXDVAsNjqH5OuxQwUZvo04zChFWfJ2CYsGhCy05MyEw6q2mcc+4TdD
+	 ME+Fjf1eM0J+g==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id C4FA38148E; Mon, 16 Nov 2026 11:37:35 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: g.nespolino@gmail.com
+Cc: Yao Zi <me@ziyao.cc>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/2] net: stmmac: dwmac-motorcomm: shutdown hook and Wake-on-LAN from S5
+Date: Mon, 16 Nov 2026 08:36:56 -0300
+Message-ID: <20261116113656.2203674-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <CAKx9m6O=uqC16v5-swStrtq4xzNzExbM0xFoi5znQOmnwDvSZA@mail.gmail.com>
+References: <20261116091757.1656602-1-magnusleatti@kernelriot.com> <CAKx9m6O=uqC16v5-swStrtq4xzNzExbM0xFoi5znQOmnwDvSZA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,33 +76,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+Hi Giuseppe,
 
-On Tue, 03 Nov 2026 14:15:33 +0100, Markus Schneider-Pargmann (TI) wrote:
-> drvdata contains a pointer to a struct tilcdc_drm_private and not a
-> pointer to a struct drm_device anymore.
-> 
-> Note that this breaks suspend/resume at the moment, it hangs on
-> acquiring a mutex.
-> 
-> Interpret drvdata correctly as struct tilcdc_drm_private as is done in
-> the rest of the driver.
-> 
-> [...]
+On 11/16/26 12:23, Giuseppe Nespolino wrote:
+> Tried it on the Slimbook EVO15-A8 (Ryzen 7 8845HS, BIOS N.1.14GOS07).
 
-Applied, thanks!
+[...]
 
-[1/1] drm/tilcdc: Fix suspend/resume drvdata
-      commit: b4d01c788bfa50dc65ffb5fbc9db4135004c0e01
+>   patched   wol g, BIOS WoL enabled    wake, 1 of 1
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks for testing!
 
+A side note: it was mentioned in a different thread that this card
+only shipped in older NUCs. Your Slimbook has a 2024 Ryzen in it, so
+the YT6801 is a current NIC that vendors still put in new machines.
+Good to have that on the list, so again, thank you :)
 
+Magnus
