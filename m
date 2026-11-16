@@ -1,103 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.103
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794823060;
-	b=Ya9ERypuy6hkCIO/ffaN0eiEkAYMlGnTD9J9xuJjyX1GcBSOHb3PGgxvx9N67MXuMoIL
-	 eLvIPogQvZb8K5NjujwNXd+xM/fc7PLYINEDeYgCfnsHEIwT5eD34WHERkp6FGUMncJbw
-	 NkbJG4RfotR+bSx7MqkldXCrdXHdYtXhPXIGIHaYBve1TUnXEOVcVAMi5Q6vOixkYahY8
-	 Wp7sqPybopeVSjBBlXQHSXLgvX/CmCYAu0Y3JIUmlv/PfPMJzHjFE5WvuI3lf5L2vTEbG
-	 PXOegVv+YutcMW5K9U1mA2LvUDckZUBqn95QhLzZu6WNigjxekh2bTx8kuPH5nf7JOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823060;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XMaeVK0+vvSmz0BgfnVmnrm45Y8sxR0FNYjuSe2QVnI=;
-	b=dguMJw+IoeHdOYREuOwVwu3hgdc1bPaBohGKQenOGC7mTH5oXRVY/H/r/sQ9VZa968Xm
-	 b1OWNbfzkfXstrvvzqv3kZEd/Q+yFMsiIu6jyX+gDy/YXirYWC40wDjA/qIgfQt7rIFKQ
-	 KIryLv1gi1PDBuKPS3v6dDQKOAUTLUqwz8dlDbeS7a4bv2ZRl8jxIWdhsGEKawZ3ntDaf
-	 EUpwG4CgdMN4F5ByqqiKGsqfRmurGCFk1UZfAZkCiA/I0dgUKMLdHZlOWlCt4a5PZD/Gd
-	 KUdjt5nv01wER4wnj8rNENva0exew3+XDDhgg4UBXZWr4iF2KGzSseZzEpBHFW7W4dA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vaisala.com;
-	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b="z/HIlORa";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.103
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021103.outbound.protection.outlook.com [52.101.70.103])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.134
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794823072;
+	b=GmSNX0tn2gapZB7wx565U5zpTgNvK26+69bnuIpLFCT8CW2sMbWr8W6P6o5j/yEwFprX
+	 959Rs4v3LTi6AKXONc+YPe9gv7j7lbJRnBKwZ/QRUwUtzpZQ3ckJ5xGBGh2LjvgCWsGWW
+	 7Ts7dg3TFGrn/68Jz9VGE2xuHpXk0xfn6t4+9u5qQnDkk7F6QBjmJWaLliCtcuwXWLj+a
+	 mJTCXfz24JNUbicnsrdvbScC3MZE+B9dE3lSPJzH73tsgommUPfL2zE9doqxFvaqNgCL9
+	 c0Lcow9iwnLOvnVw3BOck75MyxbA55ABDGvotSCJchXFOh3W7tHXW3tUNlhxWb5n/lg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To;
+	bh=MWv3RsE66Q/ysLjuk87PE8PT3esdU32Mz6gnhtaxttw=;
+	b=1tSavA5sCO7ULHCwg0eOc0DDdj8vJTD0sbLopcTWVVYzLsWlkjg5NVUmJeiUYZ+1knLx
+	 uTWS7s4+5iYaBz7VpMSuyFFooTiqpZNHml+68cEaZee/VhiTqoyMImH97nnmNLGvkyFKH
+	 aG85HAFnrCiC43sTgnT9PACQnRC+jcbFTDFz6vGXxmZLdMR8mU5zMNqme/8yjZQyLKKfA
+	 OVx1+/53wUDyiB7p3T811f8dl8f+nbq8wWDMC2gNVBrsPt1v82dR8c/PMb/qv0ephgn1o
+	 4Sw9rsri3CwTXaCm5YzZ85JTaZHGjXm8lwp7u/DQQFEqs0sfqWPs2m24svEXGf9gkqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=SSUp2oWT;
+	arc=none smtp.remote-ip=74.125.228.134
+Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C150A606A883;
-	Mon, 16 Nov 2026 09:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C150A606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4E7606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:57:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F4E7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=z/HIlORa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mJfN7J0Fojje4E4whOc0/daTW5ecCImzhpBpYW8o5d7u3pDokV6pYqJtGkRZgDiVm2E8wDU6PXizbV41Cahn3Ldeve8LNN0pjmVpPXphPunOmBp9HL8j90GBnsoTjT6zhftgUKepJR62fpx6hFSV3cZRe4EIekdvXSjeGe+zZni5vUepWzx355nRmmPmUqokVoz9ZZIItarx4Ol8q1MplVhmAnsj61GBYutED27udkfElOc2ist8JyRCW13pcAGS34k22986tmTdovQIFMwYSx9EQNSyXR0qCMGAil5BZr2Bw16e8NoDMHc/b8nBHmhjFrBarmmVZOOJNpy3wiwwbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XMaeVK0+vvSmz0BgfnVmnrm45Y8sxR0FNYjuSe2QVnI=;
- b=I0VevAxSGWdUzCpiSl3gAIeyhZ0XRZZMk+/ezcG28TeKkswgtqfdWtq7zMefih7IZUfIoYD6GktReomOFXffJZxSmNrg8gFf6flLmdtpNhjeuub4eqMYbEntcrN0sohtJ3rNrtc35AtJFlreQUcf7lvYxu8vNU75Q8XykGJKNk+GzhemFWtDySCIVF0Y9QohwV0KY8f8qqgG1GAJGAyrLKiehYebTk+brZRCdPKicdRfGiGg6CRcW47G3K7JuyiqRtguH/Q9/8UDslbIsLG0Vm/k8eb33iSGUCmhkrGg8Fy7Z7QGV9h/3+SWXh8XB1Af1Vg7Q4hWq0pYlKgnTL8+4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
- dkim=pass header.d=vaisala.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XMaeVK0+vvSmz0BgfnVmnrm45Y8sxR0FNYjuSe2QVnI=;
- b=z/HIlORaAIXW0nfQrtWqklAtsaQbEIs7UZtcpTwUwVpYyxG8WDkPmCF84hKeWcEbA13Ak1+gyOpQWwbeaf1WZgZ8VtgM8pEAP/iQDNNZzhdI5LHp0NVBLi5tItwaVM5sGckGITieoW22FVsj/ewKgNzD7v+1v/7ckL6eQSuiJCwEFcHXb+1pzatCvl4cd1O4lfaMtzvLmkl8qLfoczY0cSySuj81nN5Z1qePcqIYepaXFfCx7bb4cTtZDO8f0+1Y7gIAXausvkWGPwm0yjBupL/5dDch1IOOj6YCXlZYJwgtHmIqCwC22eLpciHvpzUqJa2tm9cGgLUezQszHOgn/g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vaisala.com;
-Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
- by AS8PR06MB7541.eurprd06.prod.outlook.com (2603:10a6:20b:33d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 09:57:33 +0000
-Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
- ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
- ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 09:57:33 +0000
-From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Date: Mon, 16 Nov 2026 09:57:24 +0000
-Subject: [PATCH 3/3] serial: max310x: hold TX data until the software RTS
- send phase
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-max310x-tx-fixes-v1-3-61c01f180911@vaisala.com>
-References: <20261116-max310x-tx-fixes-v1-0-61c01f180911@vaisala.com>
-In-Reply-To: <20261116-max310x-tx-fixes-v1-0-61c01f180911@vaisala.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
- Tapio Reijonen <tapio.reijonen@vaisala.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794823050; l=7600;
- i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
- bh=eawYP+amhLcsiszAvBXsQrRq2vOHPblbI7yOPemon40=;
- b=SNm/WRnnC6G/oqy+qBB9rP+I81uRojKM8TLWkxn4C2fCrLmYV5FgnKJgYWZrw1jJHcRtKn5Ff
- hHtAS0vxqr6CAPqqPGXgMmg2Oc8GP2Cc4vEL996jZkyi62Wb3gyeCHB
-X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
- pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
-X-ClientProxiedBy: GVZP280CA0068.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:270::10) To PA2PR06MB9176.eurprd06.prod.outlook.com
- (2603:10a6:102:407::17)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=SSUp2oWT
+Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c50515c3ba6so191039966b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:57:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794823069; x=1795427869; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MWv3RsE66Q/ysLjuk87PE8PT3esdU32Mz6gnhtaxttw=;
+        b=SSUp2oWTZSry057Ydg93HqrTUD99Iiou03eTgBVn7fLueSQ7RevvpaJkCBUofQ4Lmj
+         QRuzczAx457CvcqLBKTSKSUXNMydVc81Xu/eIKKDN6Ny9hGh4+szs2lvsuZmNqA20IlG
+         iYyP3IxRzh9JI1nDuVvnLAO/FvHFTRwBTyI1n1T5pEzFIsOWYtSMPyWXBaW0hvzUmFEC
+         nrCHsOVwLD6YGjs10b7ZM3FhbLGGsYLCmu+JJvM8dDoMNiNWwmy75JSeFpBOob2JwgBa
+         jS8XlCbIIFAbSPVzpuZUX69h5W79oSs9gMy5AyTRGj5yneznI5OcfeZRB1UxLJr1BMVg
+         dn9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794823069; x=1795427869;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MWv3RsE66Q/ysLjuk87PE8PT3esdU32Mz6gnhtaxttw=;
+        b=Xzzs1GnMNVaJlz+N9XggodRlJZgZsj+hFrae10rluv8Mh/YqgVILJEmpy66bXiahlg
+         1S8aNEK/H4nzvY126Zbpenb5JRounm2HS3aym5jS4xRstWnWbTAEQ8sjKVSOVw0Hq4xw
+         ZFdIUGNOnx/qcOmblgOS/o8cGTiYa38nT7az/OeGbdj5RG0mL2xuwZz7ycBFmHgXRzIk
+         X4f4RXUJJDmoepxREN/drQsu0w/A0Z6G0K6xiPEuBLoMX7oV+PLSbmPhlt2Myq5YCu1H
+         TyC9AddegPiIxtqQhuL3zGtG/8s6LQWIcTOrH6QhwEtrX8ujs8gaJ1jJ9OMT/+q2RXXZ
+         t3mw==
+X-Gm-Message-State: APuU4Z+0N7tJszqxK5sPeMks9AQOPws+x1mRqsRTiLyJtxanX88MeeS7
+	Blf03tDPvbGCd46PkBzGlSVKSou8p1UXifgj1osHWFpGja5Duz0UmaW9FDVB5C8KQjc=
+X-Gm-Gg: AYBFou0CzsfStGqKOxhB6m8kCLNobigEd6/7ta1YwEgrcGacAbFV4y7d/vtc02zxWSh
+	PV2HnGhlKX+7tXxxW78tNrz3aqHu4oqla3G8sEEEIFfd0IPmkel4JRcShv5gs5Jc1gHT2BzdyUr
+	fswqlmZTk47hIKZ6q4cQckwr3wMTzzJpo/PmfbhtfPDWCeKP8rd8QIUoXQ6gYn89cbhYhGxNOzx
+	yUGF4c8p9tchnd136h+mp3WLqZOsBR6v0pHMnpXc+ga2EcopQlWnYbxLei+TxnLzHK+tCqq3wMx
+	zJrndMK/8pxB8dylckBYuJyP83Pn830lTS9RxoUfWW7pLW7mHGQUyB031yUG7BF2vJlvVSMLyFA
+	4skWkrjWL5CAY8//R1Uf/r4DLTZyWPfehv30flrrOYeZE0x+0mkyfarKIGEAfgDuiGSg6qWWo71
+	0vnGiLAv7uDkJXUZaNMPbT1sB8sYm4n92fc4tdORmhbkGeN4cYss5KSD4Ozvi+604nLSSfHRziY
+	HyRUvMsuAlxkDQGzSUeQYQcGvneQzm89JXW7GIBdJvsTC1DCCNALW5RQcPQycR3gXzWSllrQDCu
+	gzy3tHgo+W91/Wx6lX/pnnJrzVLwh491rFyLbs2xo0ELL89iC1w4xem/CPU=
+X-Received: by 2002:a17:907:2d0b:b0:c24:4128:c19f with SMTP id a640c23a62f3a-c5096327391mr838159866b.11.1794823069529;
+        Mon, 16 Nov 2026 01:57:49 -0800 (PST)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5a78csm392751766b.4.2026.11.16.01.57.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 01:57:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,249 +86,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|AS8PR06MB7541:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae473ed2-975f-4a04-0343-08df43c80914
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|52116014|23010399003|6133799003|18002099003|22082099003|261009223027099003|3023799007|261022105027099003|261021123027099003|261022075727099003|261021121427099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|11063799006|5023799004|56012099006|10067099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	r+dSKMppp7XsCXNTCgosYdmF06t1QRPW8oYdecdyR+f0q+PSsFPkY2KcVi4kpNUwU8CLNGqL3gtR64DjNhUvj0oTsAj3ac6C9T9sye+xufP68SEPiBCPbYrjHoH8/fvpEiGF3w8HXW3Vvuxv2PUVuUNfFWUbso2yxIH3sIadEYXei4hkNJ0l3bjVTrucuyHRKRJAqIU3q2sNTFcvy+6mpnlaC3CSwOYnPbL6GZmsY/vT4RBHux0EbBses/7omte3BCTKLsvUOb6IZ9+pdNmdTUcAjInTuxNS9MnIwV2sA0TvKnNRBPtH3QZVLr7jeZiEfhN79dIs4ML8EhOZ+SMmc2gA9LaNoEspJsST/eaXwjVV9kKZXd4vE5tQH1Ux0IY1xF3sO77R36ub/EoKdsBD0AQPEuiBTy0TouZALRCidRoI8pTaO08i3mIWUJHA7riSuu7v2SKh2/z7f3dxtquujWRs2BIEoP/7+wMdgawttPdhZg+r5CPkoFbdQlLIDI2g7OpjuxM1dXG1iLI4sxyIwQkfVLU5jW4/ZBSsMQPHWlTf9uIECctjcWbrOLsBAa6h4aHQVrepXTmV2hulWUVYO5eeguz3VJIUK0SyeoqIv+ms8sHweKJCZ53W2dvmUJhEDSQAHivAtdY24e9DqDdN2Rp1SGwms0sbqO5W4luOVgQQmVi5TromxdIM21Mw6+k6VWiFh1fo9CbG3jyeMJ693Bzj+fJfTCsDv7lo+mG1DIM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(52116014)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(3023799007)(261022105027099003)(261021123027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(11063799006)(5023799004)(56012099006)(10067099003)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aE1NUWU5bTVYOHp4MGRkaDFZVUVKenBiY3RRVjkzUTlqMFBvL3pNWVJQakVU?=
- =?utf-8?B?WEMwc2ZZMFdNZnpvcmUwZ1RUTkkxZGptOUZkOVRHamZFQ1JEd2pZbVZmZTNS?=
- =?utf-8?B?T1AzTTkxUjd4Vnd2RlZCa0d0cUErUWI1NzNhaERWdHdVSnd3RWE5VlNXK3R4?=
- =?utf-8?B?YUp4bXAxSVJZRzFJcEtHVTBHZzVGNVNxTERxa2IwVjJHYUIyczlLTHpLKzNB?=
- =?utf-8?B?NUVjWHZ1cVlGNVhVSHBUQndJaTUwaEdCZlNBakNvYlFUcU1MamZPUW1lWGNJ?=
- =?utf-8?B?WnZoWEgwNXR0dCtBUFRRdFBDUFhxUW9WNkV3T29Bc0tsMFBDeGQ4SWtaYVBu?=
- =?utf-8?B?amlQQ3FVSFUrbzkwSkpkc2RGSDBBcXlUcUlSaS9JWG9IOHpMRExpOUlyWVo0?=
- =?utf-8?B?SWwyMGx1UlZoVXJRTmZiMXI4L01iazUyNk9Nemh0eGt3VlV0c1ZXekZ6Sm5S?=
- =?utf-8?B?Wkd0c0hYOWZQc0xaVFZvMVhXcURxa2RpazFaR3VyZHJ0ekdBS3JkQkp2YlZP?=
- =?utf-8?B?bFhTYWtzOFUyTmZkS0c0TWQ1ejFoMHFYbVFMTmxFbHB4Z0dRV2JyNFJ4QWY1?=
- =?utf-8?B?NTZpTDBvdXFzMXR5a21sZ28xYVdINy80dDZDNFliemF0cmE3bWp6c3FVd2hq?=
- =?utf-8?B?WGEwY3FFdEVhdnZwdXJmU092ZitKVVdHS05SU3hoQTJ6SDhCR2l6VU1uUlU4?=
- =?utf-8?B?eEhYMHBNWllUTmRUVit5b29HVUY3NDJUZmlRSEJuL041U1lsdG1lRGxONUd2?=
- =?utf-8?B?ODA2cktUc011UDZtRFFaQjdpcXlQbTZXOFdnTU1teVBzamhKN2oyRUlGU3Ex?=
- =?utf-8?B?Q1R6Z21VUE5ZcjlqWVB5RDZHS3hCTmdlSmtrYjltQk90KzI2cy9vOEh3SDZF?=
- =?utf-8?B?RkMyM0o4OHVFSTBOeUlRcUlVRkNmQ0Z3QzZnL3VPTTRmemN3TlpsQmZER0N5?=
- =?utf-8?B?Zjl6MXR4U3V3Y09ySmVvOERYdUtqZ1RTQnNvVW1UTExZUjdqMGc3bXBtbm9w?=
- =?utf-8?B?Z2VTYnFEMFd1UGxZTnpZSGJsaUwvTW5HQlJJMjlmR0t3aS9yOEdVSzczcVRz?=
- =?utf-8?B?TjliZU5rVSsybW5FTHFsa3RGUk1EVEd3RStIWjVSMmJpcVdOQW55NElPajlo?=
- =?utf-8?B?Q3FsK1RUcnhlcTN5ZDIrM1RwWkZKa3ZnaDc5K3BPb0VuQ2lDa1ZmbzY4MGpw?=
- =?utf-8?B?YTRIQWlGeTA2dTE5eHg2MFZ3YjJ5UUxzcldCRzJrdG9YKzEyakJsRC9La0Fs?=
- =?utf-8?B?TTNRN2VOVGVzYmtQVDljVlNnaVFPRFFtZjBqUEM5NFMzc3pGNWl5dEhhUXk0?=
- =?utf-8?B?am5MNUdvZVNmMndMYXdZVC9qZEFaL3NEMGYvRHN5YzV6K0hCU3p1UVRzSmha?=
- =?utf-8?B?cHNId1FNL0gwWUtBZk9PQy9rQzNrakJ5Ym1NcmQyaTBlRS9Kd2dNamZWbFRw?=
- =?utf-8?B?QUNQb0RSamZJU2g4TStSY0M5MC92b2dTQmVXU1o4WEZJZzZ5V0NTL1dEZXlh?=
- =?utf-8?B?Wm02NzhjYlVzUmtqcHlNbGM5aHcvY3B0dFhKNTE1Mit3R2EzVDBDMXdmTVo5?=
- =?utf-8?B?UzJNeFhsSFFwdzF5ZlJZS3ZSbHZsTUc0ZHRjNk1tdTI5bDExVVF4elZwbTc0?=
- =?utf-8?B?MkZ2MUNFU3d0OEs2MnQrQlhVVVc2UnVxWlprV2FVMlZzYU9UUGNjMkRtQU9H?=
- =?utf-8?B?RENnY2V2ajI2dkZYbXVJTTd2WnBISlpBREQ1UTJEYUtvc3lQU1dFN2g2UThL?=
- =?utf-8?B?MGVZVnZpeFdLM1RwNHk3MU92N2w5UFdLSGpvZFBTdVhmeENLU3cvendjdmR0?=
- =?utf-8?B?R0FwbGxCU3FzSWR1NHBWY3d5T1ZSYVVxVzJLc2x5ZWhYY1M4N0VJUWNCbkxl?=
- =?utf-8?B?T2VzcnpxKy9TK1BYaGZLTGtrOEtvbGF1K01DQXU4OVREVlJhZHpTOWx2NUk1?=
- =?utf-8?B?amZSSGl4c0FBTHcycHZMSVFBRVA0ZUp4OHZqRzVFajZjQjRVaTNsVWxCLzZj?=
- =?utf-8?B?M1pGQUk3aHBjZ3p0eWlQS1FtT2xmNzFxVVVGODZBY203MEZwWjNoYS9vTXAv?=
- =?utf-8?B?TkJxd3QzMk1kdlhseGVteld6NzhsRVczb2JKVG9HRzk0c1VJRkhkSkpOYkJj?=
- =?utf-8?B?a09oVjhMVFhzMkZhL2JYRnZESGhURitBWWhrcWxyRzRBb2tIeGdwYjdEY0Uy?=
- =?utf-8?B?WU9Yb09PWjVsQ1V3ZXBkK1h0U1hlWVZvSzRhS1M5WDZFZFVvcUhNZERDMGpQ?=
- =?utf-8?B?amt5aklFNUVydUFidEFMYWNGN3ZsYjhVY1J4ZXVRN05kMndXY3Q2MW5XSlNs?=
- =?utf-8?B?d1ZWNWNPQ1ZIU3RyOHBUN1FnaTNXbloycTUranlYSGRyNjNqL2ZxSThRQ2g5?=
- =?utf-8?Q?JN/oUMTw57C9eomQ=3D?=
-X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae473ed2-975f-4a04-0343-08df43c80914
-X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:57:33.6280
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /MchWuMTO9AxTvibNanEZXrLFwKkK5qzwPkT0NN/CWBdXrxZ5r7bpUhtChS7Uz6dobNokXKvBRvWHQQsGjRXIOMi2g97izyaU8Ws5H0rmd8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR06MB7541
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 10:57:48 +0100
+Message-Id: <DMWJOF3M99U0.3G5IY77AS4CWQ@fairphone.com>
+Cc: <linux-kernel@vger.kernel.org>, "Robert Dolca" <robert.dolca@intel.com>,
+ <netdev@vger.kernel.org>, <oe-linux-nfc@lists.linux.dev>, "Samuel Ortiz"
+ <sameo@linux.intel.com>, "Kang Chen" <void0red@gmail.com>
+Subject: Re: [PATCH] nfc: fdp: reject an oversized device-reported packet
+ length
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: <hexlabsecurity@proton.me>, "David Heidelberg" <david@ixit.cz>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260615-b4-disp-f42dce2d-v1-1-186ff3dcbf37@proton.me>
+In-Reply-To: <20260615-b4-disp-f42dce2d-v1-1-186ff3dcbf37@proton.me>
 
-On the software-timed RS-485 path, start_tx() begins an envelope by
-setting MAX310X_TX_WAIT_BEFORE_SEND and queuing the RTS worker; the
-data may only go to the chip once the before-send timer has moved the
-envelope to MAX310X_TX_SEND and scheduled tx_work. Nothing enforced
-that: max310x_handle_tx() pushed whatever was queued whenever it ran.
+On Mon Jun 15, 2026 at 10:04 AM CEST, Bryam Vargas via B4 Relay wrote:
+> From: Bryam Vargas <hexlabsecurity@proton.me>
+>
+> fdp_nci_i2c_read() reads the length of the next packet from the device
+> into phy->next_read_size and uses it as the i2c_master_recv() byte count
+> into a fixed on-stack buffer:
+>
+> 	u8 tmp[FDP_NCI_I2C_MAX_PAYLOAD];		/* 261 bytes */
+> 	...
+> 	len =3D phy->next_read_size;
+> 	r =3D i2c_master_recv(client, tmp, len);
+>
+> When a "length packet" arrives (tmp[0] =3D=3D 0 && tmp[1] =3D=3D 0), the =
+next
+> length is taken verbatim from two device-supplied bytes:
+>
+> 	phy->next_read_size =3D (tmp[2] << 8) + tmp[3] + 3;
+>
+> next_read_size is a u16, so this can be driven as high as 65535 - far
+> larger than the 261-byte tmp[] buffer - and it is never bounded before
+> the next iteration's i2c_master_recv(). A malfunctioning, malicious or
+> counterfeit FDP NFC controller (or an attacker tampering with the I2C
+> bus) that sends such a length packet makes i2c_master_recv() write up to
+> about 64 KB into the 261-byte on-stack buffer: a stack out-of-bounds
+> write that clobbers the stack canary, saved registers and the return
+> address.
+>
+> Reject a next_read_size larger than the receive buffer the same way a
+> corrupted packet is already handled - drop it and force resynchronization
+> - so a device can never drive an over-length read.
+>
+> Fixes: a06347c04c13 ("NFC: Add Intel Fields Peak NFC solution driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+> ---
+> I reproduced the out-of-bounds write with an in-kernel test that drives
+> the fdp_nci_i2c_read() buffer geometry verbatim under KASAN
+> (CONFIG_KASAN_STACK=3Dy), modelling i2c_master_recv() delivering
+> next_read_size device bytes into the 261-byte tmp[] buffer:
+>
+>   next_read_size =3D 281, no bound:
+>     BUG: KASAN: stack-out-of-bounds in i2c_master_recv...
+>     Write of size 281 ... [48, 309) 'tmp'   (the 261-byte buffer)
+>   with the device length bounded to <=3D FDP_NCI_I2C_MAX_PAYLOAD (what th=
+is
+>     patch enforces): no KASAN report.
+>   a well-formed packet (length <=3D 261) is unaffected, no KASAN report.
+>
+> The full device range - next_read_size =3D 65535 (tmp[2] =3D 0xff,
+> tmp[3] =3D 0xfc; the u16 field truncates the + 3), a 65535-byte write =3D
+> 65274 bytes past the buffer, smashing the stack canary and the return
+> address - reproduces the same way under userspace AddressSanitizer on
+> both -m32 and -m64.
+> ---
+>  drivers/nfc/fdp/i2c.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/drivers/nfc/fdp/i2c.c b/drivers/nfc/fdp/i2c.c
+> index c1896a1d978c..0392bb49bb4b 100644
+> --- a/drivers/nfc/fdp/i2c.c
+> +++ b/drivers/nfc/fdp/i2c.c
+> @@ -166,6 +166,20 @@ static int fdp_nci_i2c_read(struct fdp_i2c_phy *phy,=
+ struct sk_buff **skb)
+>  		/* Packet that contains a length */
+>  		if (tmp[0] =3D=3D 0 && tmp[1] =3D=3D 0) {
+>  			phy->next_read_size =3D (tmp[2] << 8) + tmp[3] + 3;
+> +
+> +			/*
+> +			 * next_read_size is taken from the device and is used
+> +			 * as the i2c_master_recv() count on the next iteration.
+> +			 * A value larger than the receive buffer would overflow
+> +			 * tmp[]; treat it like a corrupted packet and force
+> +			 * resynchronization.
+> +			 */
+> +			if (phy->next_read_size > FDP_NCI_I2C_MAX_PAYLOAD) {
+> +				dev_dbg(&client->dev, "%s: corrupted packet\n",
+> +					__func__);
+> +				phy->next_read_size =3D FDP_NCI_I2C_MIN_PAYLOAD;
+> +				goto flush;
+> +			}
 
-The chip latches its TX-empty interrupt when the last byte of the
-previous envelope leaves the FIFO. Under load the IRQ thread reads that
-bit late, after the next write has started a new envelope, and
-schedules tx_work for it. That run found the new data and pushed it
-into the FIFO while RTS was still down or the setup delay still
-running; the chip transmitted at once, the head of the write left
-through a disabled transceiver and the receiver saw the rest misframed.
+Hi Bryam,
 
-Seen on a MAX14830 with a 20 ms before-send delay: with 25-byte writes
-every 20 ms, 33 to 88 such losses per port in five minutes remained
-after the after-send race was fixed, several of them as misframed
-bytes.
+Just sharing because I find it curious, this issue has already been
+addressed 9 years ago (August 2017) in Google's Android kernel:
+https://android-review.googlesource.com/c/kernel/common/+/461836
 
-Hold the data while the envelope is not in its send phase. The
-before-send timer schedules tx_work when it moves the envelope to
-MAX310X_TX_SEND, and so does a write arriving during a send, so the
-data leaves as soon as RTS is up.
+Would've been nice if they would have shared it back then...
 
-One more path enters MAX310X_TX_SEND, and it does not schedule
-tx_work: a set_termios() that moves a running transfer from chip-timed
-to driver-timed RTS adopts it in max310x_adopt_hw_tx(). A tx_work that
-runs after the path has changed and before the adoption is now held,
-and with the chip FIFO empty nothing sends the queued data until the
-serial core's runtime PM calls start_tx() about 0.5 s later. With only
-the hold in place, 10 of 338 baud rate changes made near the end of a
-chip FIFO load stalled for 370 to 490 ms. Restart the transmission at
-the end of set_termios() the way rs_work does after an RS485
-reconfigure, through a helper for both. The helper leaves stopped
-output alone, as serial core does.
+Regards
+Luca
 
-A software envelope between two FIFO loads looks the same as an
-adopted transfer, so a set_termios() that lands there restarts it as
-well: RTS stays asserted and the rest of the data waits for one more
-before-send delay. rs_work has always done that for TIOCSRS485.
+>  		} else {
+>  			phy->next_read_size =3D FDP_NCI_I2C_MIN_PAYLOAD;
+> =20
+>
+> ---
+> base-commit: 8e65320d91cdc3b241d4b94855c88459b91abf66
+> change-id: 20260615-b4-disp-f42dce2d-055035ea37ba
+>
+> Best regards,
 
-The comment in the IRQ handler said that a stale TX-empty interrupt
-cannot push data during the setup delay; correct it. The hold does
-not apply to the hardware RTS path, which does not use tx_state.
-
-Fixes: 33632215e1bb ("serial: max310x: drive RTS in software when hardware delays are too short")
-Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
----
- drivers/tty/serial/max310x.c | 72 ++++++++++++++++++++++++++++++++------------
- 1 file changed, 52 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index 7ddfe8773faf9bc51621c49fa5d8e7d6b1e4bc34..d92bf241558862cd83073c1d12ec9f0aaf88f090 100644
---- a/drivers/tty/serial/max310x.c
-+++ b/drivers/tty/serial/max310x.c
-@@ -942,6 +942,16 @@ static void max310x_handle_tx(struct uart_port *port)
- 		return;
- 	}
- 
-+	/*
-+	 * Outside the send phase of a software envelope RTS is down, still
-+	 * in its setup delay, or about to drop: a late TX-empty interrupt
-+	 * must not push the data out now. start_tx() opens an envelope and
-+	 * tmr_tx() reschedules us at MAX310X_TX_SEND.
-+	 */
-+	if (READ_ONCE(one->sw_rts_during_tx) &&
-+	    READ_ONCE(one->tx_state) != MAX310X_TX_SEND)
-+		return;
-+
- 	while (!kfifo_is_empty(&tport->xmit_fifo)) {
- 		unsigned int txlen, to_send;
- 		unsigned long flags;
-@@ -1077,8 +1087,8 @@ static irqreturn_t max310x_port_irq(struct max310x_port *s, int portno)
- 		if (rxlen)
- 			max310x_handle_rx(port, rxlen);
- 		/*
--		 * TXEMPTY latches on the FIFO becoming empty, so a stale
--		 * interrupt cannot pump data during an RTS setup delay.
-+		 * A TX-empty read late can belong to the previous envelope;
-+		 * max310x_handle_tx() holds the data until the send phase.
- 		 */
- 		if (ists & MAX310X_IRQ_TXEMPTY_BIT)
- 			schedule_work(&s->p[portno].tx_work);
-@@ -1314,6 +1324,28 @@ static void max310x_set_rts_ctl_params(struct max310x_one *one)
- 			    MAX310X_IRDA_RTSINVERT_BIT, irda);
- }
- 
-+/*
-+ * A reconfigure is applied: restart a transmission that it left queued, on
-+ * the path that is now configured. A send state without chip data has
-+ * nothing in flight: restart it as a fresh envelope so the before-send delay
-+ * is honoured. start_tx() can drop and retake the lock through the uart_port
-+ * API - callers must take it with uart_port_lock*(), not a spinlock guard.
-+ */
-+static void max310x_restart_tx(struct max310x_one *one, bool chip_tx_empty)
-+{
-+	struct uart_port *port = &one->port;
-+
-+	lockdep_assert_held(&port->lock);
-+
-+	if (!port->x_char && (kfifo_is_empty(&port->state->port.xmit_fifo) ||
-+			      uart_tx_stopped(port)))
-+		return;
-+
-+	if (chip_tx_empty && READ_ONCE(one->tx_state) == MAX310X_TX_SEND)
-+		WRITE_ONCE(one->tx_state, MAX310X_TX_OFF);
-+	max310x_start_tx(port);
-+}
-+
- static void max310x_break_ctl(struct uart_port *port, int break_state)
- {
- 	struct max310x_one *one = to_max310x_port(port);
-@@ -1363,7 +1395,10 @@ static void max310x_set_termios(struct uart_port *port,
- 				const struct ktermios *old)
- {
- 	unsigned int frame_bits = tty_get_frame_size(termios->c_cflag);
-+	struct max310x_one *one = to_max310x_port(port);
- 	unsigned int lcr = 0, flow = 0;
-+	unsigned long flags;
-+	bool chip_tx_empty;
- 	int baud;
- 
- 	/* Mask termios capabilities we don't support */
-@@ -1482,10 +1517,19 @@ static void max310x_set_termios(struct uart_port *port,
- 	 * taking over an in-flight transfer arms the after-send hold from
- 	 * the character time.
- 	 */
--	to_max310x_port(port)->baud = baud;
--	to_max310x_port(port)->char_time_us =
--		DIV_ROUND_UP(USEC_PER_SEC * frame_bits, baud);
--	max310x_set_rts_ctl_params(to_max310x_port(port));
-+	one->baud = baud;
-+	one->char_time_us = DIV_ROUND_UP(USEC_PER_SEC * frame_bits, baud);
-+	max310x_set_rts_ctl_params(one);
-+
-+	/*
-+	 * A tx_work that ran while the RTS path was switched above has
-+	 * returned without sending, and nothing else pushes the data it left.
-+	 */
-+	chip_tx_empty = !max310x_port_read(port, MAX310X_TXFIFOLVL_REG);
-+
-+	uart_port_lock_irqsave(port, &flags);
-+	max310x_restart_tx(one, chip_tx_empty);
-+	uart_port_unlock_irqrestore(port, flags);
- }
- 
- static void max310x_rs_proc(struct work_struct *ws)
-@@ -1518,26 +1562,14 @@ static void max310x_rs_proc(struct work_struct *ws)
- 	/*
- 	 * The configuration is applied: release any TX that start_tx()
- 	 * deferred while the reconfigure was pending, now on the right
--	 * path. start_tx() can drop and retake the lock through the
--	 * uart_port API - a raw spinlock guard here would unbalance it.
-+	 * path.
- 	 */
- 	chip_tx_empty = !max310x_port_read(&one->port,
- 					   MAX310X_TXFIFOLVL_REG);
- 
- 	uart_port_lock_irqsave(&one->port, &flags);
- 	one->rs485_pending = false;
--	if (one->port.x_char ||
--	    !kfifo_is_empty(&one->port.state->port.xmit_fifo)) {
--		/*
--		 * A send state adopted without chip data is the deferred
--		 * write itself: restart it as a fresh envelope so the
--		 * before-send delay is honoured.
--		 */
--		if (chip_tx_empty &&
--		    READ_ONCE(one->tx_state) == MAX310X_TX_SEND)
--			WRITE_ONCE(one->tx_state, MAX310X_TX_OFF);
--		max310x_start_tx(&one->port);
--	}
-+	max310x_restart_tx(one, chip_tx_empty);
- 	uart_port_unlock_irqrestore(&one->port, flags);
- }
- 
-
--- 
-2.47.3
 
