@@ -1,78 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839491;
-	b=gQpL6SdeIhD/k+xs/r1L4FKmnluUmoDUSTTYwgp4vG2m7+iPDL7RgRPwYt+TdNiAiXDX
-	 hS3otz4bMqH/DYrg0gYEizPi1CTURGyS0kS6AHFeTvgO+xWaoPdxEu0oBQ7UMmrfrcB1A
-	 /aiibfAqBBGJfun/Wc5YwmNo/O4Q5J0x/PArDnYnpUfWFzO4aPnDI4losQ8skgWoxJMEH
-	 h+BWSNDFl27rw1wvjPhUJTF1HeY8iQMRLdFapvMe2NGUQ1MPzjxxggIE+nTLtegkjJjTv
-	 zYNh3RglGBnXmivCi/0q3udNWsTdeZwABDadFxeZWy3/3DYBtXv++pR9AEoQrfv6Qdw==
+	t=1794839499;
+	b=LPzPfsr9kKf/v9WEo/eQU1Xn13a/LfRvH2xZWKtUTWD6TPdZmAnNep/h3fEcvI2oIyaa
+	 xljVOZgWInkUOUA0deO7qC68WfH0vhlqy+SywyT4DJI4wcZAiMMliVRnaXy70M8Nlq+zx
+	 Bwd1qmbhBgwH8lzPDwM6NBtRRQzkpSoDaJg3zKtRelj4wEwaeZM1GK5a12RvjWmKgILbe
+	 sYRDT177ua0jgipWxZXGaZUs1TmBHrcid4xBwTkC60NGY8d6viLYjwIibRKlkJtltCmhv
+	 1ZdI6CxFh5IfxSeL4jbreCurzJrrCpZ+1a9HvwiqHwfs8Qt17sg7Li82AcHwNYolL1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839491;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cwUM8snIbc4i6t6DwNBE5IxQmUu92baJJlXJSsLd7ds=;
-	b=NPUKMbY7KofykhEAw5am+1+WuulxFZ4xqiSS+rAx8GsFXs1+EXlDcIM1F5Vc6kJAUAk5
-	 OOF0jn0muC2ES1sB86MoE+JYySLb9MVYHCdJfm3UmK32OWtx7snjuNibtt9YWyHuE0dvD
-	 GLagjaSOnDRBXbY/GuK6GlsUtkeIIN+I+jaCnP38D/AGQOYUftVDgK8Y7DVpOOH+/jMK8
-	 MBL57K6Z1+ybIVdN+EUeQHw9pDvPOqomHQCYadYsBG2IW0tYWr/306uwmv3tb6pd9ruqQ
-	 Tky2GDKxKRG/+szcx2KG3ngQwk79OLpffUvIAp9UA03hcJOej7bGwfAJanJBwuk+nVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839499;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=T1O7v35TChmwhRKGhPjyiN2A1oz8HwzgsinjPccWIAc=;
+	b=pV5hTj6EoF3h14EA3VHXlqztT5kU+1lbOkUVvAZCfkccy0+kD0+g9huESzpf02PEiLUC
+	 Ky5JLGxhDkEUkAFPOwAxANRJp8HU50N9NrUWLoVcWrIPPkSJx2/Umrf6dtnqf40VKV1IP
+	 PtY42HRFpl/jKHJQtsMlLPwC5yh9JK1hEGwEufLV5j8WSt61y1wc2txSemyPWrIqTqmOm
+	 5nKrKhlcTP5rlMD41tbjYmXe18mH/gJjffl9icrBg+EBfCJzHwFNlwfD823Kc+4Z866PM
+	 OnDup1aqlXCCGCJA6QZFc9wT27TODU2kkul+uvs7G4LJaZZW815mDt43LaPBHcHZdIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFbUoDJm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjA6Uila;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C879606A32C;
-	Mon, 16 Nov 2026 14:31:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819E9606A334;
+	Mon, 16 Nov 2026 14:31:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFbUoDJm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684ED1F000C4;
-	Mon, 16 Nov 2026 14:31:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjA6Uila
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21DC91F000C9;
+	Mon, 16 Nov 2026 14:31:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794839491;
-	bh=cwUM8snIbc4i6t6DwNBE5IxQmUu92baJJlXJSsLd7ds=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ZFbUoDJmVlKZ00rc5ZREhr+AOpmTQmGE2pcAgFWQIPgILTRIEPTUh34AtXNC4JCVr
-	 oVpooj11+t3b0nyFgqthEaCfn5zbBE3ltl+R10tO4KWSOpwdZ1Jy2o9cGfFlFd1xXo
-	 whmTeIRppL/op8Ovo0kSiI1Zgv+1HEl5DTSvF5osugJLLMS7T1TSvFkzk2rD6QEFwQ
-	 CCf/D06xce9KLqD+GJIHJ3F4qu68WTQNZLJNcae3P+UWDT1To/IwRPZp7bLBQNY+ha
-	 8i9xauMLmAhxz4uffiomh4S4oH+lc5eq1S1hVKey1PPFggSXHQKDKYa9Yu8rP2eo8a
-	 m2Nq4MKu/4YRw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, Andrew Lunn
- <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, Ilias
- Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, John Fastabend
- <john.fastabend@gmail.com>, Pavel Begunkov <asml.silence@gmail.com>, Jens
- Axboe <axboe@kernel.dk>, Andrii Nakryiko <andrii@kernel.org>, Eduard
- Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil
- Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- Mina
- Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
- <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
- Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
- Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 01/11] net: Get skb fragment addresses
- through netmem
-In-Reply-To: <20261115131314.2d3ab96f@kernel.org>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-2-bjorn@kernel.org>
- <20261115131314.2d3ab96f@kernel.org>
-Date: Mon, 16 Nov 2026 15:31:27 +0100
-Message-ID: <87wlqcg85c.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1794839499;
+	bh=T1O7v35TChmwhRKGhPjyiN2A1oz8HwzgsinjPccWIAc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PjA6UilaDIq+zLRAmGiCH/sMvtw92IAzOkASfl1b4GVdBwKL02nyMSHJxW0SZrsOg
+	 FYCaBDgqP+wUUb/n3RtnveKV/PSjlvF/jaz9r5ML6Sl7IKd1r1diMyd8UhSKrJeTfM
+	 LoULTqBYmazEPARSgxPzG4adhRHrD9w2bHXg11S684RkYgF8Kvxg5Y5nJNsx5JPydD
+	 982kIq9USJQXJ26Qmbj8EXuuG/E8iqDULPrrHcKL7Oz/jwEq4HTKXO8P0JBokuqyHh
+	 vdegczXTGpMRvWJ1/mQgWPdSAVDf2d8U+W1R8nVk9GQtFj/dg+NHkDxGIyX72voO8g
+	 ZZFtlgJsYOsTA==
+Date: Mon, 16 Nov 2026 08:31:37 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: power: Remove orphan mt6765-power.h include
+Message-ID: <179483949592.1142978.1015321511255077149.robh@kernel.org>
+References: <20261105143647.2727937-1-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,30 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105143647.2727937-1-robh@kernel.org>
 
-Jakub Kicinski <kuba@kernel.org> writes:
 
-> On Tue, 10 Nov 2026 11:20:22 +0100 Bj=C3=B6rn T=C3=B6pel wrote:
->> skb_frag_address() goes through struct page, so a net_iov never has an
->> address. Only unreadable memory should lack one: XDP and BPF read
->> fragments through this helper, and AF_XDP UMEM will back readable
->> net_iovs. netmem_address() also returns NULL, not a bogus pointer, for
->> an unmapped highmem page.
->>=20
->> Generic code needs the size of a net_iov to find its address, so keep
->> it in struct net_iov_area instead of the devmem binding.
->
-> IIRC netmem is supposed to be used for frags and memory CPU never needs
-> to access.
+On Thu, 05 Nov 2026 08:36:47 -0600, Rob Herring (Arm) wrote:
+> Commit 22a77ae9bae2 ("dt-bindings: power: Convert mediatek,mt2701-scpsys
+> to DT schema") dropped support for MT6765, but missed removing the
+> include.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  include/dt-bindings/power/mt6765-power.h | 14 --------------
+>  1 file changed, 14 deletions(-)
+>  delete mode 100644 include/dt-bindings/power/mt6765-power.h
+> 
 
-netmem covers pages too, and netmem.rst already allows readable net_iovs
-("Decouple net_iov from unreadability"); the in-tree ones just happen to
-be unreadable.
+Applied, thanks!
 
-> This patch looks odd. I haven't read the rest of the series yet but at
-> the very least commit message should explain why this aberration is
-> needed / correct.
-
-I'll expand the wording in the commit message.
