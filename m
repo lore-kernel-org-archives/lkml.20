@@ -1,97 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843166;
-	b=fJeK1wagVZQt/O94A6BQMdXZ8KjdMdC8Is023b0IdHZH+W+0ZyAc5FD9g3jnA6dlb4OQ
-	 gGSkI/EY5ms484DsUHR5dqCvBr3bBTXoUebBwtuhGyilcYh7sWA4s7t7bdXMNnFPzVGlh
-	 pU5P4Ce8s22DJUAZ4/jWR2E/oQzuCCMeY60no31Cyml0B9Mt+r36gCRg3fjBjrVTk2nl3
-	 05nlkBrhl+Dv4t2VK+u/U/MpRfO4a8260RoULglcjgEsoupGgxnkiD/P8v47sQiIQPq20
-	 NwuN3c7KNOecA14Hscas4qokL9ed6zDfyjsoDQEqSE0Xe302wCdurIdmE3vAnj3llvg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843166;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pFxqYSIZbtjxl66DM/SuqHMnpQJOwfAGCQV6L8DRO0A=;
-	b=zCf+ziaVcyAQ7o9ysjknQtRoIUgxUAPHitCopXWlY+PepIPw7Nw6VorPB3PVnGm4/fh8
-	 CdPWBTnXuvCEjapRnp5QeQGS/ZZ/tNyOI3xRYRymvK87M/bm9t2KzQG/Zdjvf6ReJeb8c
-	 vK+fWWt7RLeY07zp4ecymUtqfJAPRBj82LT197vl+YCdVJa9GDm//W6MJgBBY1HC25Dg3
-	 BmsYoRnfvFJ86TH0N0FS3C70Oel2xm/J/dhmBEsgsHH5lfkw5+OjvswYaN0r5hx8ifd7W
-	 cmkfRvFZoV16qO2sgV+oDXwQA491rAyPmWANzqDnevuCrI/e9PujnN0dolnSEGtxWQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zeIHlwWQ;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794843180;
+	b=D7ZOwHV+2ReIdbyNmzcr91Jm/jSbjkg1bNUpOsUbOzqY0adEg5ZWbqKMbB+1hWTNy3L+
+	 b35TRcSy4BZN2IBqSugPY7XLKtTOulCUYEnrNVWkJz3NSZ1z5mF3UvGHUESHHghZntBtv
+	 144TNOjvU5dgCgk7+oSy+V7KU5dB/b2KUQQQcHwcv/Alle0OzMwmVKrYYIuwVjrpYRx67
+	 QTi82g7PwVGdafCdc/2aYp+6aoZee0CoB/3pAqJcyURoGLaGKn2F0LK650xccnHX3OSue
+	 610hDGKAHVv395gsqXnb9PfeL+1fqNmGLQWC7Mnfmeh8qeJ15BpKhGh3dH7P/VWG7Tw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843180;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=wnAjq1uguLq+6OvOyFVP26dzXyMwH1TvCniD3Y5sAEI=;
+	b=WhkluhFPEDSxGQoGg/J/CaRfNo0OpIl2MfARVNuMPoLE4Wwdm7qzC3GJY8FEhUQlE26m
+	 5OoLODeAaEmyFCp3ILXII9QsUe8CujBfYxJELa5tGwxBa501ROcxpVs7OgTm4NADTHT6g
+	 bsynYsJejW3+b1OPXd2XWvzLWZ4joLhMcUZ9WE7YBcnDWJjEjA13f3FtNijyAsJFSh9Hy
+	 JpMBR/gI3AwKaZUc3hSXTQ0tJXmaMT26wiFp6vuE2ftvTyeNV2KHmXC3zNNqEFQvOCLcw
+	 KsDf+4VjzpIHo9gZBqpMSBizAKndX6S+dkDDqzblP4bVUTVJgVxiz6o0y1W5wT3zB1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ph4ntom-rev.uz;
+	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=uGddCVG7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.54
+Received: from sender6-of-o54.zoho.com (sender6-of-o54.zoho.com [165.173.180.54])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC5A606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:32:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DC5A606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDEB606A32C;
+	Mon, 16 Nov 2026 15:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EDEB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zeIHlwWQ
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so11008625e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:32:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794843164; x=1795447964; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pFxqYSIZbtjxl66DM/SuqHMnpQJOwfAGCQV6L8DRO0A=;
-        b=zeIHlwWQZ4QY1bRpBaoTCXcqiL4Qi6Tb3bqHBKqdY1TqdzhoY82EaNzxLe1nz9QMMl
-         wJE2HE4+07eRXT2uCD1UN9mOuWFiHZOxWkmH9lNA/6nW914asOLtEqp+ALUNNMXrsepV
-         kXJPWW92NUXkEfJoVD7wHLC0PN1oelvbLZS5+MnE7yItjPEI4A4JHa82r5wzkS1ByLUf
-         BfGaFX/FDxDbGJ528ZVfNAKAp5oTPD5CVnizcp3F959Pf6lFDX6HJlq2jK9gy+X9vvem
-         e7/QGyGLauzSmApH/q9NeePzkVZpEEsB4GhlOH3eUDnxz7wsE8QrFj1PkcykmzzuXUFK
-         qvqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794843164; x=1795447964;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pFxqYSIZbtjxl66DM/SuqHMnpQJOwfAGCQV6L8DRO0A=;
-        b=GXuOV29z/5QGjFHMmF9GdJV1dYL+M15lbujSiVGU0d4cJLst2kB2ghqKmxEsLqiFMq
-         3x1DZnzhhmMDYT9ZUZZ+pcOsEvWaAAeWeA/DZJVpgzsx20forMQc/twx125R/dNlSUZF
-         wRpWPOmmruW19QE+unYPiQFTobQ5spEk5y1Mg937n+OEx1QpHbJDyFQ5w9eSjUPsW9tp
-         1HP2kFNn1PEoa+sV4GvyUBJ+hg3ZLSG8E4GjoKEPlTbTjwAHzh/z7jyJM4MNU6B9zhPp
-         0WG6Ic1nj6kswigO1c4nkpkslXg1KA0pvOo0wVC9ye8ICCK1Uvip8bd0tZKJXbNqns4t
-         ZZ8g==
-X-Forwarded-Encrypted: i=1; AL+hErEL4TMAEE66bEfL8LyC2nfBb2vfsopjgHME0/yNvg32gzLnBwAJc+iEuvERIa/G8xWSv/hgxej753iAy4Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9A/eX+Lc0fvw58a1WTKh18TvakWl7Xga2B4cDWonh6sJEzYHW
-	PeEcnRgFDBQiDoJzbJY7GLWZFv6sx7trTZn9yMfwL979JgnSVOQip0iZ
-X-Gm-Gg: AYBFou2Fg4UbP8pvXLzf+pKxesdKEuHnLp2hh2JXREmZS7MH12rvRpcS7o0UaS2dOBa
-	M0uf1GI2DigT+ca55JB1XH+czrAPoG4vuIWpnIrByh6A9ZfdKFVaKR5AxintB5l8YD1rTf2HSEx
-	zQGjnyTR3WRw9+HnLOlsgmXLCOYj2t/LbE/SUgDKXD/eN64Ulsa0NEaPVVe/VqDRoX19glNX8y6
-	Nx282i9NFMxu7Vxw9eG7NleVmUQPCzd0OKD17Cbo6hojoumAPeA7zc9V+vklBgwem213WW2Xbj8
-	oSB4xQLkrXG++CAAFDlQNLbfHsJUQfyJ49cufRdZKsvdGmfVu6NXt9LQl8PS8vTIVZ38dX/JUjd
-	AV63jJTzKm6/73M7Xth6/M91QZnJUNsE5gB/mhwDnrd3JT00FJnOsEvERHOLRA7ysUPLFR/HETs
-	QsRHIQU0Jmhwa7YOrrb8H/ZFF4auXK4W6nPsw80HZip5iYPIpnbfyeieo5Ze/lHSR6w01A0O2oV
-	Rdqr9EmJ9cwJinKeV8/PV9AbXtPNok3be1k8KYtf9eGHbpRz2gOmXFs5m4iDH5dqOsyLzKtbWGU
-	EQUvlF/hm2LAijCGfU8n5BieOf55g4ObkNcCf+WAvhszkRsFsD6myvQnL+eaPJ+MNx7/Wb1aQ5g
-	=
-X-Received: by 2002:a05:600c:1c17:b0:4bb:6752:8400 with SMTP id 5b1f17b1804b1-4bb6752853emr169384055e9.17.1794843164207;
-        Mon, 16 Nov 2026 07:32:44 -0800 (PST)
-Received: from angelo-Precision-7550 ([94.154.175.53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb62d0d430sm86798195e9.3.2026.11.16.07.32.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 07:32:43 -0800 (PST)
-From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Angelo Compagnucci <angelo.compagnucci@gmail.com>
-Subject: [PATCH 2/2] mtd: spinand: xtx: add support for XT26G04C
-Date: Mon, 16 Nov 2026 16:28:47 +0100
-Message-ID: <20261116152847.3658486-3-angelo.compagnucci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116152847.3658486-1-angelo.compagnucci@gmail.com>
-References: <20261116152847.3658486-1-angelo.compagnucci@gmail.com>
+	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=uGddCVG7
+ARC-Seal: i=1; a=rsa-sha256; t=1794842910; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=hKrPojceiSuhrPDifINXqjLPmMsXkBJtU++IjbjOaVOMGAucw1nhfqnl+EVSb8I8BW2jtnqnmJNz11eKmPoeTtx3cmDy3gWgCbaMJOCMm6O3smIXZ61Bfxucm9QnCAn+mWdxGgkZAgyHUIOUgPRS/HBIylcg/fueYkXttauxVdc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794842910; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wnAjq1uguLq+6OvOyFVP26dzXyMwH1TvCniD3Y5sAEI=; 
+	b=ftdoU5xngsUc0A3rzqQAm7I0XP/+S0n6QENF10xJK/IcSoradoDOsW/u1qQh3X+YftuyF9MRDrSoBE7v2Us9pqDYWtOqA+XJDmTHtccgZvihZJHveCPjBIbtHFbzuM8wHesFXbt9XXdk93ZjJZFkApRkf1GZqdz3XLz15tozuEk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ph4ntom-rev.uz;
+	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
+	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
+DKIM-Signature: a=rsa-sha256; b=uGddCVG7TJLLTyo8FmXLRZoaay2+tCgO6o3EtP+pNPjAxzNtK82NIHPn0IPHwUUcomEhBAmNHhP73vI8Ipp35lTKfdCmWWZyeETeNfOTFHY0u0g0cdLmyduiypawPrVDX62qza1zE3vxBVmaBQ5ZRyv5m1uQ8Kr2i/zvzZSunqDtgJCmWbSVhgiOwwBCzJ+KdNN2asZOSY+OaRQcLkZXzDjfYv4L5mOvaI55IH5+lIuQQu6K30qRxNltBBPysf1d5WYAok/8Tdi0756j78ZT/eOllR3jfzEu0nMcJEleVYvtwJZE7WSRs+xvxvaKHWP9mQTJh89lB7L0jeMiwHsYdQ==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=wnAjq1uguLq+6OvOyFVP26dzXyMwH1TvCniD3Y5sAEI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794842907554590.3151237487023;
+	Mon, 16 Nov 2026 07:28:27 -0800 (PST)
+From: Enver Ikromov <owner@ph4ntom-rev.uz>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Enver Ikromov <owner@ph4ntom-rev.uz>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rtw-next v5 07/10] wifi: rtw89: send injected control frames through the management path
+Date: Mon, 16 Nov 2026 20:27:59 +0500
+Message-ID: <20261116152804.781-9-owner@ph4ntom-rev.uz>
+X-Mailer: git-send-email 2.56.0.windows.4
+In-Reply-To: <0a32e2d1a6d745a88f1a814c5bf145cc@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-8-owner@ph4ntom-rev.uz> <0a32e2d1a6d745a88f1a814c5bf145cc@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,77 +67,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Add the XTX XT26G04C. It is a 4Gbit 3.3V SPI NAND with 4096 byte pages,
-256 byte OOB and 8-bit on-die ECC.
+On Mon, Nov 16, 2026 at 02:14:36AM +0000, Ping-Ke Shih wrote:
+> Did you encounter real problem if CTS/RST goes via AC queue?
+> I just don't want much conditions in data path.
 
-The status register reports the number of corrected bits in bits 7:4.
-Values 0 to 8 are valid and 0xf means an uncorrectable error. The other
-XTX parts use a different format, so add a new ECC status function.
+I tested injecting 16-byte RTS (checking live over-the-air CTS replies
+from an AP) as well as 10-byte ACK and 10-byte CTS via the AC queue
+without changing rtw89_core_get_tx_type(): it works identically to the
+management queue (23/25 CTS replies on 2.4 GHz and 25/25 on 5 GHz, with
+no errors). So routing control frames to the management path is not
+needed.
 
-The values come from the XTX XT26G04C datasheet, Rev 1.9.
+> Did you actually see driver sends control frames generated by mac80211?
+> If so, when and how?
 
-Tested on an STM32MP133 board with UBI and UBIFS.
+Only via ieee80211_send_bar() (BlockAckReq when a TX BA session flushes
+or tears down).
 
-Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
----
- drivers/mtd/nand/spi/xtx.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+> If my thought is correct, here can just
+>
+> 	if (ieee80211_is_ctl(hdr->frame_control))
+> 		seq = 0;
+> 	else
+> 		seq = (le16_to_cpu(hdr->seq_ctrl) & IEEE80211_SCTL_SEQ) >> 4;
 
-diff --git a/drivers/mtd/nand/spi/xtx.c b/drivers/mtd/nand/spi/xtx.c
-index 5915b37b4..70f853678 100644
---- a/drivers/mtd/nand/spi/xtx.c
-+++ b/drivers/mtd/nand/spi/xtx.c
-@@ -22,6 +22,9 @@
- #define XT26XXXD_STATUS_ECC_8_CORRECTED     (3)
- #define XT26XXXD_STATUS_ECC_UNCOR_ERROR     (2)
- 
-+#define XT26G0XC_STATUS_ECC_MASK	GENMASK(7, 4)
-+#define XT26G0XC_STATUS_ECC_UNCOR_ERROR	(0xf)
-+
- static SPINAND_OP_VARIANTS(read_cache_variants,
- 		SPINAND_PAGE_READ_FROM_CACHE_1S_4S_4S_OP(0, 1, NULL, 0, 0),
- 		SPINAND_PAGE_READ_FROM_CACHE_1S_1S_4S_OP(0, 1, NULL, 0, 0),
-@@ -138,6 +141,21 @@ static int xt26xxxd_ecc_get_status(struct spinand_device *spinand,
- 
- 	return -EINVAL;
- }
-+
-+static int xt26g0xc_ecc_get_status(struct spinand_device *spinand,
-+				   u8 status)
-+{
-+	u8 eccsr = FIELD_GET(XT26G0XC_STATUS_ECC_MASK, status);
-+
-+	if (eccsr <= 8)
-+		return eccsr;
-+
-+	if (eccsr == XT26G0XC_STATUS_ECC_UNCOR_ERROR)
-+		return -EBADMSG;
-+
-+	return -EINVAL;
-+}
-+
- static const struct spinand_info xtx_spinand_table[] = {
- 	SPINAND_INFO("XT26G01A",
- 		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_ADDR, 0xE1),
-@@ -249,6 +267,16 @@ static const struct spinand_info xtx_spinand_table[] = {
- 		     0,
- 		     SPINAND_ECCINFO(&xt26xxxd_ooblayout,
- 				     xt26xxxd_ecc_get_status)),
-+	SPINAND_INFO("XT26G04C",
-+		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_ADDR, 0x13),
-+		     NAND_MEMORG(1, 4096, 256, 64, 2048, 40, 1, 1, 1),
-+		     NAND_ECCREQ(8, 512),
-+		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
-+					      &write_cache_variants,
-+					      &update_cache_variants),
-+		     SPINAND_HAS_QE_BIT,
-+		     SPINAND_ECCINFO(&xt26xxxd_ooblayout,
-+				     xt26g0xc_ecc_get_status)),
- };
- 
- static const struct spinand_manufacturer_ops xtx_spinand_manuf_ops = {
--- 
-2.53.0
+Agreed, I will drop the rtw89_core_get_tx_type() change and keep only
+this 4-line seq = 0 check in v6.
 
+Thanks,
+Enver
