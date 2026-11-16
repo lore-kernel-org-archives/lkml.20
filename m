@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837273;
-	b=KXgDY6YVOsp5Sl0E6jsArODwZ92OPVYHJyyvU1MME6sn3CE0maMtgUmoMNYAQd/bHACT
-	 01u5bFw/cZClo3HaXWvQQBYsO/mshLL7UbJoz5DjE4iwwLVwworbVVj0FlqBJfwX3lK0T
-	 ADILftdkhjeuBPhcjJoDyWmjFSES0Eu0ZJRRi5pzdlhG4YbEylpTvUPGUUlllt3WoHjS3
-	 akG3WpuhNgp95svLUnPo3EMkhwAtyhbD2EXpIWeRa+kTuV4NK350L40kqllcPEnjycXRq
-	 q5cSLu3vp+ECI2SVknApUeI7oio9lsdROjbXrna/wL9Ta3F+umi4eM7/p7SjPycUv5Q==
+	t=1794837282;
+	b=UrQst3620yDb/m5BSOZk28e9ptWfuki3I7/EUddvuaT8rro+52F/SKfPeksdP2qZf7+u
+	 ZixPmHrdutzRqr1htelP0VQLxlF3PVNCJupf7SrsJbLzNp0S5aQuvcY2rixT+8TdbBlyu
+	 vMV0gSUU9LxIYuXac96tZzZcuS6i8oxO3xwFLJElr9GppMbmLwqTNofwVlC7YD7mRUQ4J
+	 yOaBImf+qmFQriNoZyIC/c8d9jp44Ikd3IY+tJ2FPibh70ON14J/jjTdwF/toFliqION3
+	 Yagj9SU4qlgMtAF/4rpVJkxBjuV0SBlX1skFCc2HssPFeXEocTAHQ1xCo/FY83JDP9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837282;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=JBDdNs6C9iQfzQmHqjMpdzujKMPQJIlmbDGSyROMF7s=;
-	b=MHyqZN1an4pa2mcDWWo/pfKQDSDl6iYNG99GmA00+4st45YAssD1S0vnOZUsYgJNqGgI
-	 wnFJT/YNLKRp4PMpFizG4l/GGJMNIkRENWa19S+2+wMVqW3RZj3e0PQMyQGqxK6m6l3q9
-	 4rchrIZpcPMMKSxTGXUc5TKoZwKuRLTxKCaC8MSNGPOXUblGabRI/6of6gZ8szU0HFsx/
-	 lPe5fwc4ciRrWYxfax9sEU5kzbtMa4//aAQiAzCqosOoOAHfapA6M61QCQZyvOIY60Tr+
-	 x4A99hulPcX47c0Sl6LMi1TxADfm4/TpcYKeZxtF7jRAayvcqxx1gXIBnZHSm+bt7Kw==
+	bh=ny/zdXTeW2FqtF788MZhitd5whAVSls5SMpGj+3FEDc=;
+	b=rdudqBAayp9QVBohv9eLzwWS8VSD6q9fh0uY8jWMc+9Nuo44TS2mBeZ7f5toSM/vK2Di
+	 p9akWpN1Pr40H92ZpBhGTeSSXHA/1qG8HsTc0+/hD7vYIpx5EWXz3OboAtEi7TGYIlmNd
+	 76hrM2WlBKgtPILvVK5X+Fk8eMnpzWy0dLcLmnLOxfokPgBf75xGOxJaPZUPO5jFW5KFF
+	 l3IB8FcfYMR7wCskVvVMLnbxCJpbR1z/uI0BY0sTQ9Q2voR3/dSt5rK65Vj4M74zP9FaT
+	 gbB/9iV85bBkKKt6JvjhKani0JhOVhQVdWwM3X13DaCk7zvnvdC55i/yNKUABjrVQCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrOt6vbM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="l3k/0SIm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60B260A260A;
-	Mon, 16 Nov 2026 13:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA0960A261C;
+	Mon, 16 Nov 2026 13:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrOt6vbM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F341F0092A;
-	Mon, 16 Nov 2026 13:54:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3k/0SIm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0C821F00925;
+	Mon, 16 Nov 2026 13:54:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837273;
-	bh=JBDdNs6C9iQfzQmHqjMpdzujKMPQJIlmbDGSyROMF7s=;
+	s=k20260515; t=1794837282;
+	bh=ny/zdXTeW2FqtF788MZhitd5whAVSls5SMpGj+3FEDc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lrOt6vbMchbQiYj4pRGzpk92xJiQVEdTJzTED2tKsT9xChje3Iw2QsvbGCYLQM+AL
-	 5+LfRRj3XOOjbbQr2apEjG3ISVmom4Ea4rbPnGO85xzdFGe9uSXXaTQK9pgBp2Gi59
-	 t72F1H9nCGu6lzC+uBrfpwx52AHx14VdDjXagoEH91ob5PQYW9ZNPnlGd1vDNz/d14
-	 99hKZppSsOaNevRMdpgQN8c47GlBISCGaQzLt4Qxnk4UqOQzHPms00tOoTQSzYuXXU
-	 6oT/SWV55/CNMxVsVhwNxO16pPnSx3US9y9zvVi53IZWwLn+Qk4oJ31rVPF45OWcw4
-	 VX2v6rmtIsf7A==
-Subject: Re: [PATCH net-next v6 2/2] net: wwan: qcom_bam_dmux: Assign
- restricted DMA pool to remote processor
+	b=l3k/0SImcJU/3QacxzGcU+n6zwsR4KoveT+NhHEgDNdAcn+N09+s8UlFw86ZVjJmW
+	 46mhJJbbl4f9va5oeLKJM/G9WtBV4rFQzRWBNWNK6QArt/LnHt56F23m5E+dMMzQsf
+	 mIJLtxZOWJCJkUvYXEUuSfZSeshQq93s1MbH+SQQP53iFwpqaU4I4Wwx6HVDv41MOp
+	 z7xJVSV1B9WfHUL4GsGdIzmdKyN8eAyHXaYl9tQKEy83u9NNwuaJlDKFHU0um5LCWp
+	 S8TcT8yvzPy7aJTvFEVPMB4iscFux35rHIj7eq47yGWdOJvYFp7IJOpM7dcvrFjwhM
+	 Ez7GBbSmqTuDg==
+Subject: Re: [PATCH v34 net-next 2/8] net/nebula-matrix: add common resource
+ implementation
 From: netdev-bot+sashiko@kernel.org
-To: vishnu.santhosh@oss.qualcomm.com
-Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- johannes@sipsolutions.net, edumazet@kernel.org, linux-arm-msm@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, deepak.singh@oss.qualcomm.com
-Date: Mon, 16 Nov 2026 13:54:32 +0000
-Message-ID: <179483727219.3136.17411591489340995392@kernel.org>
-In-Reply-To: <20261112-qcom-bam-dmux-vmid-ext-v6-2-7a16bd3dff18@oss.qualcomm.com>
-References: <20261112-qcom-bam-dmux-vmid-ext-v6-2-7a16bd3dff18@oss.qualcomm.com>
+To: illusion.wang@nebula-matrix.com
+Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
+ sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
+ andrew+netdev@lunn.ch, pabeni@redhat.com, edumazet@google.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 13:54:41 +0000
+Message-ID: <179483728123.3136.1375698838793821096@kernel.org>
+In-Reply-To: <20261112094925.6098-3-illusion.wang@nebula-matrix.com>
+References: <20261112094925.6098-3-illusion.wang@nebula-matrix.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,10 +65,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -78,263 +76,498 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch does not do what the commit message says for BAM
-  descriptor FIFOs.
-- [Medium] The driver can unbind while the restricted DMA pool is still
-  assigned to {HLOS, vmid}, and then it loses the only record of that.
-- [Medium] Requesting the PC IRQ with IRQF_NO_AUTOEN and enabling it only
-  at the end of bam_dmux_probe() means any change in the remote's power-…
-- [Medium] bam_dmux_remove() decides whether to take the restricted DMA
-  pool away from the remote VM using the cached software flag…
+- [Medium] nbl_res_ctrl_dev_sriov_info_init() builds the per-PF BDF table
+  from two sources.
+- [Low] The commit message says this patch manages 'SR-IOV BDF', and the
+  new table is named `struct nbl_sriov_info` and filled by…
+- [Low] net/nebula-matrix: single-implementation ops tables and dead NULL
+  checks
 
 --
 
-net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+net/nebula-matrix: add common resource implementation
 
-When qcom,vmid is present, this patch requires a restricted DMA pool to
-be attached to the device. It then calls qcom_scm_assign_mem() to share
-that pool between HLOS and the modem VMID before the DMA channels are
-requested. The pool is handed back to HLOS on remove or on a probe
-error, unless the remote still holds its power vote, and the PC IRQ is
-now requested with IRQF_NO_AUTOEN and enabled at the end of probe.
+This commit adds a chip-agnostic resource layer for the Nebula Matrix nbl
+driver. At probe time on the control PF, it validates the firmware PF mask
+and builds the per-PF BDF, Ethernet port and VSI base id tables. It also
+adds VSI/PF/Eth ID conversion helpers.
 
-> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-> index 1479f8362e04e..04f3d46d4c3f3 100644
-> --- a/drivers/net/wwan/qcom_bam_dmux.c
-> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+> new file mode 100644
+> index 0000000000000..d19d87ae044e4
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+> @@ -0,0 +1,338 @@
 
 [ ... ]
 
-> @@ -760,6 +766,88 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
->  	return 0;
->  }
->  
-> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
+> +static int nbl_res_ctrl_dev_sriov_info_init(struct nbl_resource_mgt *res_mgt)
 > +{
-> +	struct device *dev = dmux->dev;
-> +	struct device_node *rmem_np;
-> +	struct reserved_mem *rmem;
-> +	struct qcom_scm_vmperm dst[2];
-> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
+> +	struct nbl_hw_ops *hw_ops = res_mgt->hw_ops_tbl->ops;
+> +	struct nbl_hw_mgt *p = res_mgt->hw_ops_tbl->priv;
+> +	struct nbl_common_info *common = res_mgt->common;
+> +	struct nbl_sriov_info *sriov_info;
+> +	struct device *dev = common->dev;
+> +	u8 hw_bus = 0;
+> +	u16 function;
+> +	u16 func_id;
+> +
+> +	hw_ops->get_real_bus(p, &hw_bus);
 
 [ ... ]
 
-> +	if (!is_swiotlb_for_alloc(dev))
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Restricted DMA pool not attached\n");
+> +	common->hw_bus = hw_bus;
+> +
+> +	for (func_id = 0; func_id < common->max_pf; func_id++) {
+> +		sriov_info = res_mgt->resource_info->sriov_info + func_id;
+> +		function = common->function + func_id;
+> +		sriov_info->bdf = PCI_DEVID(common->hw_bus,
+> +					    PCI_DEVFN(common->devid, function));
 
 [Severity: Medium]
-Does this cover the BAM descriptor FIFOs the way the commit message
-describes? The commit message says:
+Can this BDF fail to match any real requester ID when the OS view of the
+topology is different from the physical one?
 
-  "BAM-DMUX DMA mappings and BAM descriptor FIFOs must therefore be
-  constrained to a designated memory region"
+The bus number is the device's own captured value, but the slot number
+comes from the OS view:
 
-and:
-
-  "When the BAM DMA controller references the same pool, its descriptor
-  FIFOs are covered by the assignment as well."
-
-The FIFOs are allocated on the BAM DMA controller's own device, not on
-dmux->dev:
-
-drivers/dma/qcom/bam_dma.c:bam_alloc_chan() {
-    ...
-	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
-					&bchan->fifo_phys, GFP_KERNEL);
-    ...
+nbl_hw_get_real_bus() {
+	nbl_hw_rd_regs_lock(hw_mgt, NBL_PCIE_HOST_TL_CFG_BUSDEV, &data,
+			    sizeof(data));
+	*bus = FIELD_GET(NBL_PCIE_BUS_MASK, data);
 }
 
-The FIFOs only come from the restricted pool if the BAM DMA node has its
-own memory-region that points at the restricted-dma-pool. The binding
-doesn't allow that. qcom,bam-dma.yaml has no memory-region property and
-sets additionalProperties: false, and this series only updates
-qcom,bam-dmux.yaml.
+nbl_core_init() {
+	...
+	common->devid = PCI_SLOT(pdev->devfn);
+	...
+}
 
-The check here only looks at is_swiotlb_for_alloc(dmux->dev). Nothing
-checks the device behind the rx/tx channels.
+Reading the bus from hardware instead of using pdev->bus->number only
+matters when the two can differ, for example when PF0 is passed through to
+a VM. In that case pdev->devfn is also the guest's view. The guest slot is
+often non-zero, while a physical endpoint under a root port is device 0.
 
-With a DT that follows the bindings, probe would succeed without a
-warning. Meanwhile, bam_dmux_power_on()->dma_request_chan()->
-bam_alloc_chan() would allocate the FIFOs outside the assigned region.
-Wouldn't that leave the XPU violation the patch is meant to prevent?
+NBL_PCIE_BUS_MASK is GENMASK(12, 5), so bits [4:0] of TL_CFG_BUSDEV are
+not used. Do those bits hold the captured device number? If so, should
+that value be used here instead of common->devid?
 
-Is a bam-dma binding update or a check on the channel device needed
-here?
+Later patches in the series program this combination into hardware:
+nbl_res_func_id_to_bdf() passes sriov_info->bdf to cfg_msix_info().
+nbl_res_intr_cfg_msix_map() passes common->hw_bus, common->devid and
+common->function to cfg_msix_map(). nbl_dev_setup_chan_qinfo() passes
+common->hw_bus and common->devid to cfg_chan_qinfo_map_table().
 
-[ ... ]
+With a mismatched device number, would MSI-X delivery and mailbox routing
+be misrouted on such a setup?
 
-> +static void bam_dmux_reclaim_dma_pool(struct bam_dmux *dmux)
-> +{
-> +	struct qcom_scm_vmperm hlos = {
-> +		.vmid = QCOM_SCM_VMID_HLOS,
-> +		.perm = QCOM_SCM_PERM_RW,
-> +	};
-> +	u64 src = dmux->dma_pool_perms;
-> +	int ret;
-> +
-> +	if (!dmux->dma_pool_perms)
-> +		return;
-> +
-> +	ret = qcom_scm_assign_mem(dmux->dma_pool_base, dmux->dma_pool_size, &src,
-> +				  &hlos, 1);
-> +	if (ret) {
-> +		dev_err(dmux->dev, "SCM reclaim restricted DMA pool failed: %d\n", ret);
-> +		return;
+The function number looks fine. has_ctrl is only set when
+PCI_FUNC(pdev->devfn) == 0, so common->function + func_id equals the
+absolute PF id.
+
 > +	}
-
-[Severity: Medium]
-What happens to the pool ownership when this call fails? The same
-question applies when bam_dmux_remove() skips the reclaim on purpose
-because pc_state is still set:
-
-	if (!dmux->pc_state)
-		bam_dmux_reclaim_dma_pool(dmux);
-	else if (dmux->dma_pool_perms)
-		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
-
-In both cases the region stays assigned to HLOS and the modem VMID. The
-only record of that is dmux->dma_pool_perms, which lives in the
-devm_kzalloc'd struct bam_dmux. devres frees it as soon as remove() or
-the failed probe returns.
-
-On the next probe (module reload, sysfs rebind, deferred re-probe),
-bam_dmux_assign_dma_pool() always starts from:
-
-	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-
-That no longer matches the real owners (HLOS | vmid). Hyp-assign checks
-the source VM list against the current ownership, which is why users
-such as rmtfs_mem keep their perms around for the reclaim.
-
-Wouldn't qcom_scm_assign_mem() then fail with "SCM assign restricted DMA
-pool failed" on every probe until reboot?
-
-The commit message says the execution environments are tracked
-explicitly for the reclaim. Isn't that record lost in exactly the unbind
-case it is meant to handle?
-
 > +
-> +	dmux->dma_pool_perms = 0;
+> +	return 0;
 > +}
 
 [ ... ]
 
-> @@ -821,7 +913,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
->  		goto err_disable_pm;
->  
->  	ret = devm_request_threaded_irq(dev, dmux->pc_irq, NULL, bam_dmux_pc_irq,
-> -					IRQF_ONESHOT, NULL, dmux);
-> +					IRQF_ONESHOT | IRQF_NO_AUTOEN, NULL, dmux);
->  	if (ret)
->  		goto err_disable_pm;
->  
-> @@ -838,11 +930,14 @@ static int bam_dmux_probe(struct platform_device *pdev)
->  			bam_dmux_power_off(dmux);
->  	}
->  
-> +	enable_irq(dmux->pc_irq);
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+> new file mode 100644
+> index 0000000000000..ae0a3d33198dc
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+> @@ -0,0 +1,69 @@
 
-[Severity: Medium]
-Can a remote power-control transition get lost between the line-level
-sample and this enable_irq()? In bam_dmux_probe() the sequence is now:
+[ ... ]
 
-	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
-				    &dmux->pc_state);
-	...
-	if (dmux->pc_state) {
-		if (bam_dmux_power_on(dmux))
-	...
-	enable_irq(dmux->pc_irq);
+> +/* --------- INFO ---------- */
+> +struct nbl_sriov_info {
+> +	unsigned int bdf;
+> +};
 
-With IRQF_NO_AUTOEN, __setup_irq() skips irq_startup(), so the smp2p
-and smsm unmask callbacks don't run until enable_irq(). During that
-window, qcom_smp2p_notify_in() still updates last_value but only
-dispatches bits set in irq_enabled:
+[Severity: Low]
+This isn't a bug, but the naming doesn't match the contents. The commit
+message says the layer manages "SR-IOV BDF". The table is named struct
+nbl_sriov_info and is filled by nbl_res_ctrl_dev_sriov_info_init(). It
+only holds one PCI_DEVID per physical PF, since the loop runs func_id
+from 0 to common->max_pf and VFs are never included.
 
-drivers/soc/qcom/smp2p.c:qcom_smp2p_notify_in() {
-    ...
-		status = val ^ entry->last_value;
-		entry->last_value = val;
-    ...
-		for_each_set_bit(i, entry->irq_enabled, 32) {
-    ...
-}
+Would a PF-specific name, and matching commit message wording, describe
+this table better?
 
-smsm_intr() also updates last_value, and smsm_unmask_irq() resyncs the
-cached state when the IRQ is enabled:
+Also, nothing in this commit reads sriov_info or common->hw_bus. The later
+patch "net/nebula-matrix: add intr resource implementation" adds a reader,
+nbl_res_func_id_to_bdf(). The SR-IOV naming is still there at the end of
+the series.
 
-drivers/soc/qcom/smsm.c:smsm_unmask_irq() {
-    ...
-	/* Make sure our last cached state is up-to-date */
-	assign_bit(irq, &entry->last_value,
-		   readl(entry->remote_state) & BIT(irq));
-    ...
-}
+[ ... ]
 
-handle_nested_irq() is never called, so IRQS_PENDING is never set and
-enable_irq() has nothing to resend.
-
-bam_dmux_pc_irq() flips the cached value instead of reading the line:
-
-	bool new_state = !dmux->pc_state;
-
-A single missed edge would therefore leave the driver's view inverted
-from then on. The remote's transition is never acked, later edges are
-handled with the wrong polarity, and the pc_state check in
-bam_dmux_remove() that gates the pool reclaim is wrong too.
-
-When the modem is already up at probe time, the window also covers
-bam_dmux_power_on() (dma_request_chan(), skb allocation, DMA mapping).
-IRQF_NO_AUTOEN is set unconditionally. Wouldn't this regression affect
-every BAM-DMUX platform, not just the ones with qcom,vmid?
-
->  
->  	return 0;
->  
->  err_disable_pm:
->  	pm_runtime_disable(dev);
->  	pm_runtime_dont_use_autosuspend(dev);
-> +	bam_dmux_reclaim_dma_pool(dmux);
->  	return ret;
->  }
->  
-> @@ -877,6 +972,12 @@ static void bam_dmux_remove(struct platform_device *pdev)
->  	disable_irq(dmux->pc_irq);
->  	bam_dmux_power_off(dmux);
->  	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+> @@ -0,0 +1,338 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2026 Nebula Matrix Limited.
+> + */
+> +#include <linux/device.h>
+> +#include <linux/pci.h>
+> +#include <linux/bits.h>
+> +#include "nbl_resource_leonis.h"
 > +
-> +	/* The remote side may still access the pool if it holds its power vote */
-> +	if (!dmux->pc_state)
-> +		bam_dmux_reclaim_dma_pool(dmux);
-> +	else if (dmux->dma_pool_perms)
-> +		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
+> +static struct nbl_resource_ops res_ops = {
+> +	.get_vsi_id = nbl_res_func_id_to_vsi_id,
+> +	.get_eth_id = nbl_res_get_eth_id,
+> +};
+> +
+> +static struct nbl_resource_mgt *
+> +nbl_res_setup_res_mgt(struct nbl_common_info *common)
+> +{
+> +	struct nbl_resource_info *resource_info;
+> +	struct nbl_resource_mgt *res_mgt;
+> +	struct device *dev = common->dev;
+> +
+> +	res_mgt = devm_kzalloc(dev, sizeof(*res_mgt), GFP_KERNEL);
+> +	if (!res_mgt)
+> +		return ERR_PTR(-ENOMEM);
+> +	res_mgt->common = common;
+> +
+> +	resource_info =
+> +		devm_kzalloc(dev, sizeof(*resource_info), GFP_KERNEL);
+> +	if (!resource_info)
+> +		return ERR_PTR(-ENOMEM);
+> +	res_mgt->resource_info = resource_info;
+> +
+> +	return res_mgt;
+> +}
+> +
+> +static struct nbl_resource_ops_tbl *
+> +nbl_res_setup_ops(struct device *dev, struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_resource_ops_tbl *res_ops_tbl;
+> +
+> +	res_ops_tbl = devm_kzalloc(dev, sizeof(*res_ops_tbl), GFP_KERNEL);
+> +	if (!res_ops_tbl)
+> +		return ERR_PTR(-ENOMEM);
+> +	if (!res_ops.get_vsi_id || !res_ops.get_eth_id)
+> +		return ERR_PTR(-EINVAL);
+> +	res_ops_tbl->ops = &res_ops;
+> +	res_ops_tbl->priv = res_mgt;
+> +
+> +	return res_ops_tbl;
+> +}
+> +
+> +static int nbl_res_ctrl_dev_setup_eth_info(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_hw_ops *hw_ops = res_mgt->hw_ops_tbl->ops;
+> +	struct device *dev = res_mgt->common->dev;
+> +	struct nbl_eth_info *eth_info;
+> +	u32 eth_bitmap = 0;
+> +	u32 eth_num = 0;
+> +	u32 fw_port_num;
+> +	int i;
+> +
+> +	eth_info = devm_kzalloc(dev, sizeof(*eth_info), GFP_KERNEL);
+> +	if (!eth_info)
+> +		return -ENOMEM;
+> +
+> +	res_mgt->resource_info->eth_info = eth_info;
+> +
+> +	fw_port_num = res_mgt->resource_info->board_info.eth_num;
+> +
+> +	hw_ops->get_fw_eth_map(res_mgt->hw_ops_tbl->priv, &eth_bitmap);
+> +	if (eth_bitmap & ~((1 << NBL_MAX_ETHERNET) - 1)) {
+> +		dev_err(dev, "FW reported invalid eth_bitmap 0x%x\n",
+> +			eth_bitmap);
+> +		return -EINVAL;
+> +	}
+> +	if (fw_port_num != hweight32(eth_bitmap)) {
+> +		dev_err(dev, "FW inconsistency: port_num=%u, bitmap=0x%x\n",
+> +			fw_port_num, eth_bitmap);
+> +		return -EINVAL;
+> +	}
+> +	/*
+> +	 * Firmware is ready before probe. Valid port counts are 1/2/4;
+> +	 * 0 (invalid config), 3 (unsupported topology), and >4 (exceeds
+> +	 * hardware max) are all rejected with -EINVAL.
+> +	 */
+> +	if (fw_port_num == 0 || fw_port_num == 3 ||
+> +	    fw_port_num > NBL_MAX_ETHERNET) {
+> +		dev_err(dev, "FW reports %u Ethernet ports, unsupported (valid: 1/2/4)\n",
+> +			fw_port_num);
+> +		return -EINVAL;
+> +	}
+> +	eth_info->eth_num = fw_port_num;
+> +	/* Intentional design constraint: each PF maps to exactly one
+> +	 * Ethernet port. This couples PF identity to port identity
+> +	 * and is required by nbl_res_get_eth_id() which indexes
+> +	 * eth_info->eth_id[] by relative PF id.
+> +	 */
+> +	if (res_mgt->common->max_pf != eth_info->eth_num) {
+> +		dev_err(dev, "Invalid PF-to-port topology: max_pf=%u, eth_num=%u\n",
+> +			res_mgt->common->max_pf, eth_info->eth_num);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/*
+> +	 * Any subset of valid bitmap bits is accepted (e.g. 0/1, 0/2,
+> +	 * 1/3, etc.).  Firmware only needs to report the correct count
+> +	 * of active ports; no hard-coded fixed bit positions required.
+> +	 * eth_id[] is filled in ascending bitmap-bit order, so the Nth
+> +	 * relative PF owns the Nth logical port (max_pf == eth_num is
+> +	 * enforced above).
+> +	 */
+> +	for (i = 0; i < NBL_MAX_ETHERNET; i++) {
+> +		if ((1 << i) & eth_bitmap) {
+> +			eth_info->eth_id[eth_num] = i;
+> +			eth_num++;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int nbl_res_ctrl_dev_sriov_info_init(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_hw_ops *hw_ops = res_mgt->hw_ops_tbl->ops;
+> +	struct nbl_hw_mgt *p = res_mgt->hw_ops_tbl->priv;
+> +	struct nbl_common_info *common = res_mgt->common;
+> +	struct nbl_sriov_info *sriov_info;
+> +	struct device *dev = common->dev;
+> +	u8 hw_bus = 0;
+> +	u16 function;
+> +	u16 func_id;
+> +
+> +	hw_ops->get_real_bus(p, &hw_bus);
+> +	if (common->function + common->max_pf > NBL_MAX_PF) {
+> +		dev_err(dev, "PF count exceeds available function space\n");
+> +		return -EINVAL;
+> +	}
+> +	sriov_info = devm_kcalloc(dev, common->max_pf,
+> +				  sizeof(*sriov_info), GFP_KERNEL);
+> +	if (!sriov_info)
+> +		return -ENOMEM;
+> +
+> +	res_mgt->resource_info->sriov_info = sriov_info;
+> +	/*
+> +	 * Real bus number of the control PF;
+> +	 * the BDF table below is built from it.
+> +	 */
+> +	common->hw_bus = hw_bus;
+> +
+> +	for (func_id = 0; func_id < common->max_pf; func_id++) {
+> +		sriov_info = res_mgt->resource_info->sriov_info + func_id;
+> +		function = common->function + func_id;
+> +		sriov_info->bdf = PCI_DEVID(common->hw_bus,
+> +					    PCI_DEVFN(common->devid, function));
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int nbl_res_ctrl_dev_vsi_info_init(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_eth_info *eth_info = res_mgt->resource_info->eth_info;
+> +	struct nbl_common_info *common = res_mgt->common;
+> +	struct device *dev = common->dev;
+> +	struct nbl_vsi_info *vsi_info;
+> +	int i;
+> +
+> +	vsi_info = devm_kzalloc(dev, sizeof(*vsi_info), GFP_KERNEL);
+> +	if (!vsi_info)
+> +		return -ENOMEM;
+> +
+> +	res_mgt->resource_info->vsi_info = vsi_info;
+> +	/*
+> +	 * case 1 one port(1pf)
+> +	 * pf0 (NBL_VSI_SERV_PF_DATA_TYPE) vsi is 0
+> +	 * case 2 two port(2pf)
+> +	 * pf0,pf1(NBL_VSI_SERV_PF_DATA_TYPE) vsi is 0,512
+> +	 * case 3 four port(4pf)
+> +	 * pf0,pf1,pf2,pf3(NBL_VSI_SERV_PF_DATA_TYPE) vsi is 0,256,512,768
+> +	 */
+> +
+> +	vsi_info->num = eth_info->eth_num;
+> +	/*
+> +	 * eth_num can be 1/2/4:
+> +	 * - 2/4 ports use dedicated gap constants;
+> +	 * - 1 port falls back to NBL_DEFAULT_VSI_ID_GAP (1024).
+> +	 * All three values produce valid base_id offsets.
+> +	 */
+> +	for (i = 0; i < vsi_info->num; i++) {
+> +		vsi_info->serv_info[i][NBL_VSI_SERV_PF_DATA_TYPE].base_id =
+> +			i * nbl_vsi_id_gap(vsi_info->num);
+> +		vsi_info->serv_info[i][NBL_VSI_SERV_PF_DATA_TYPE].num = 1;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int nbl_res_init_pf_num(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_hw_ops *hw_ops = res_mgt->hw_ops_tbl->ops;
+> +	u32 exp_contiguous_mask = 0;
+> +	u32 pf_mask = 0;
+> +	u32 pf_num = 0;
+> +	int i;
+> +
+> +	hw_ops->get_host_pf_mask(res_mgt->hw_ops_tbl->priv, &pf_mask);
+> +
+> +	/*
+> +	 * k_pf_mask register rule:
+> +	 * bit N == 0  -> PF#N enabled; bit N == 1 -> PF#N masked out.
+> +	 * Hardware constraint: bit0 is PF0's mask bit; driver requires
+> +	 * PF0 enabled as management PF, so bit0 must be clear.
+> +	 * All-zero pf_mask means all PF0~PF7 are enabled, which is unsupported
+> +	 * by the driver
+> +	 *
+> +	 * Product firmware constraint: only 3 valid configurations supported:
+> +	 * 1 PF  (PF0 only): pf_num = 1, mask = 0xfe
+> +	 * 2 PFs (PF0,PF1):  pf_num = 2, mask = 0xfc
+> +	 * 4 PFs (PF0~PF3): pf_num = 4, mask = 0xf0
+> +	 * No other PF count or sparse/non-contiguous PF layout is allowed.
+> +	 *
+> +	 * This is the only validation of the mask in the driver.  The channel
+> +	 * layer reads the same raw register value to program the mailbox
+> +	 * QINFO table and assumes the layout checked here, so it depends on
+> +	 * this running first.  What actually orders the two is not layer
+> +	 * setup - nbl_chan_init_common() runs before nbl_res_init_leonis() -
+> +	 * but the QINFO programming point: it is reached from nbl_dev_init()
+> +	 * via nbl_dev_setup_chan_qinfo(), long after resource init has
+> +	 * finished, so the mask has already been validated by then.
+> +	 */
+> +	for (i = 0; i < NBL_MAX_PF; i++) {
+> +		if (!(pf_mask & (1 << i)))
+> +			pf_num++;
+> +	}
+> +
+> +	/*
+> +	 * Sanity check: enabled PFs must be contiguous starting from PF0.
+> +	 * Current resource framework uses relative PF id, sparse PF layout
+> +	 * will cause mismatch between resource layer and hardware func_id.
+> +	 */
+> +	for (i = 0; i < pf_num; i++)
+> +		exp_contiguous_mask |= BIT(i);
+> +	if ((pf_mask & exp_contiguous_mask) != 0) {
+> +		dev_err(res_mgt->common->dev,
+> +			"pf_mask 0x%08x: non-contiguous enabled PF, unsupported\n",
+> +			pf_mask);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Only allow product-specified PF count: 1 / 2 / 4 */
+> +	if (pf_num != 1 && pf_num != 2 && pf_num != 4) {
+> +		dev_err(res_mgt->common->dev,
+> +			"Invalid pf_num=%u (mask=0x%08x), only 1/2/4 PFs supported\n",
+> +			pf_num, pf_mask);
+> +		return -EINVAL;
+> +	}
+> +
+> +	res_mgt->common->max_pf = pf_num;
+> +
+> +	return 0;
+> +}
+> +
+> +static void nbl_res_init_board_info(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_hw_ops *hw_ops = res_mgt->hw_ops_tbl->ops;
+> +
+> +	hw_ops->get_board_info(res_mgt->hw_ops_tbl->priv,
+> +			       &res_mgt->resource_info->board_info);
+> +}
+> +
+> +static int nbl_res_start(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_common_info *common = res_mgt->common;
+> +	int ret = 0;
+> +
+> +	if (common->has_ctrl) {
+> +		nbl_res_init_board_info(res_mgt);
+> +
+> +		ret = nbl_res_init_pf_num(res_mgt);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = nbl_res_ctrl_dev_sriov_info_init(res_mgt);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = nbl_res_ctrl_dev_setup_eth_info(res_mgt);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = nbl_res_ctrl_dev_vsi_info_init(res_mgt);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +int nbl_res_init_leonis(struct nbl_adapter *adap)
+> +{
+> +	struct nbl_channel_ops_tbl *chan_ops_tbl = adap->intf.channel_ops_tbl;
+> +	struct nbl_hw_ops_tbl *hw_ops_tbl = adap->intf.hw_ops_tbl;
+> +	struct nbl_common_info *common = &adap->common;
+> +	struct nbl_resource_ops_tbl *res_ops_tbl;
+> +	struct device *dev = &adap->pdev->dev;
+> +	struct nbl_resource_mgt *res_mgt;
+> +	int ret;
+> +
+> +	res_mgt = nbl_res_setup_res_mgt(common);
+> +	if (IS_ERR(res_mgt)) {
+> +		ret = PTR_ERR(res_mgt);
+> +		return ret;
+> +	}
+> +	res_mgt->chan_ops_tbl = chan_ops_tbl;
+> +	res_mgt->hw_ops_tbl = hw_ops_tbl;
+> +
+> +	ret = nbl_res_start(res_mgt);
+> +	if (ret)
+> +		return ret;
+> +
+> +	res_ops_tbl = nbl_res_setup_ops(dev, res_mgt);
+> +	if (IS_ERR(res_ops_tbl)) {
+> +		ret = PTR_ERR(res_ops_tbl);
+> +		return ret;
+> +	}
+> +	adap->intf.resource_ops_tbl = res_ops_tbl;
+> +	adap->core.res_mgt = res_mgt;
+> +
+> +	return 0;
+> +}
+> +
+> +void nbl_res_remove_leonis(struct nbl_adapter *adap)
+> +{
+> +	/*
+> +	 * No resource release here because all memory uses devm managed
+> +	 * allocation
+> +	 */
+> +}
 
-[Severity: Medium]
-Can dmux->pc_state still be trusted at this point? Once
-disable_irq(dmux->pc_irq) has run above, bam_dmux_pc_irq() no longer
-runs. pc_state then shows the last edge that was processed, not the
-remote's current power vote.
+[Severity: Low]
+This isn't a bug, but this looks like the indirection that was asked
+to be removed on v22:
 
-The RX side is started by the remote. The comment in probe says "the RX
-path may be active even if we are runtime suspended, since it is
-controlled by the remote side".
+https://lore.kernel.org/r/20260730182956.5cbe613a@kernel.org
 
-Suppose the remote raises its vote after disable_irq(), or pc_state is
-already inverted by the lost edge in bam_dmux_probe(). This code would
-still call bam_dmux_reclaim_dma_pool() and remove the modem VMID while
-the remote holds its vote.
+struct nbl_resource_ops has exactly one instance, res_ops in
+nbl_resource_leonis.c, and no later patch in the series adds a second
+one. Both of its members are chip-agnostic helpers in nbl_resource.c:
+nbl_res_func_id_to_vsi_id() and nbl_res_get_eth_id(). The commit
+message says leonis and draco will share this resource logic. If that
+is the plan, why does it need a per-chip ops table at all? Could the
+callers call the shared helpers directly?
 
-That seems to contradict the commit message:
+The NULL checks in nbl_res_setup_ops() and nbl_hw_setup_ops() test
+members of static tables that are initialized a few lines above in the
+same file. The commit message already says they can never trigger. A
+future draco table would be a separate object with its own setup
+function, so these checks would not protect it either. Is there a
+reason to keep them, and to keep the devm_kzalloc() of the ops_tbl
+wrapper that comes with them?
 
-  "Skip the reclaim and leave the pool assigned if the remote side still
-  holds its power vote, since it may still access the pool."
-
-Should the line level be read again here before deciding whether to
-reclaim, for example with irq_get_irqchip_state(dmux->pc_irq,
-IRQCHIP_STATE_LINE_LEVEL, ...)?
-
->  }
+Also, res_mgt->chan_ops_tbl is assigned in nbl_res_init_leonis(), but
+nothing reads it in this patch or in the rest of the series. Could it
+be added in the patch that first uses it?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-qcom-bam-dmux-vmid-ext-v6-0-7a16bd3dff18%40oss.qualcomm.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112094925.6098-1-illusion.wang%40nebula-matrix.com
