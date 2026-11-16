@@ -1,46 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.30.189.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794869023;
-	b=e+txBPdbK2lkc4HsFOX04VSz+OwmcU/I0j+ZUWIVIi68POAJJ5bdRJpVFdpWxScQmSlH
-	 UPoVU6/y1BMefSTPwjxuzi0eI0vGLZmnBUhpfk9x/U3rOhMAM/3LiPV1dBRZ88QVxRp9B
-	 HF5ElpswKXJ4ELnNCliqgxIPmui1CXJAeQ0at7TVN5AQ/mDVEqwMcEp7aGKVuKEc/ENQg
-	 AFWVD/aXri1dnKMAcd7unZJTZk/tFDgKwYF8YPPLW87zHb2pzvEuhTZUeNGyH+eogxomr
-	 Kp2z0IFiENJ8dzeRJo2HYq/ZXafX+LpyScll/LeUzVrJCAIKKQ5w/LgZ9taYW1NQy1A==
+	t=1794869024;
+	b=vxMH/tkCy3B7XI+k+5CWtu0sXCDo1CrU8gWZid6Zz2gtM0zMsaXTpJb/YV2aQUQP2y4x
+	 ga+E4C2OCVrKhgJmSfnrWUSBRvawib3KugBBdkRJtOWrMvr1h5MotGSzfB2AYsYlAyiWO
+	 5iVs9utjnCJ2CN5uUYFajm8mw06QRYsZdPMlkQjDg8gw1SnCOJ5fAPCp7MnFL3/edjm/g
+	 9RUVPo9X5aXLI/yppfIVdlsNhJIDmha2vO5CHA9F7ZjOGiHR/ynBqkudJNPdR3IXVyJDa
+	 1/DAfYy+v3RrI4y2Bf4rorI1UX3NpX0VaJu2CvMV1hWW9sydhQFKn15BRqD6EW0JUhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794869023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869024;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5o8AUouEpSgz/UpjkoFKHJWs5fYYiFvXN3dYugxLjEM=;
-	b=l70jc6JkfSgn/QscO044eGAbaQfTXnUolg48dtxLI/1uwNxpT/EXDgqb37o2MsPrWyP3
-	 nNLBRni/YtTfbyJ5EO8uLV+A7hz9+BNbht+lYD1yb8yXibew0joXyx0hYU89ncwPHFjOH
-	 rOdurjt4m7EqNLJGD0sVHGQxOFxmnA8Kr2Ta4sEE0HEXgIideHe3HN14JyVcPKHjgKLBN
-	 4iZA94NQL2QOczwgYPV6tIjcGRqqZcKz2neBYPB5Q/iq+yinCun1fgFrygdWxl9PoyHBJ
-	 xuSEiDyfqBYMz1q+5cSxZDaHiLWjLMeSysiIQEklCRPeJ/wbglFdps4wvqorcsVa5+A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=qNq0idV0dNzzRJQOmqJRbNk/KK/u8smoSzf2hOz+AHA=;
+	b=EEDcYkmPa+WjKgp7jiii/hOksZRqQ5Yi7YJxSPdvAW5dQu8s6VljzOF5wUJ4En7M5+Zy
+	 nEa6YwaGy3TcqmiNbDjuZraz2OoC9x7FIu5vbZ7p5bLu0epnWP87unTbzywsagqxOgUT5
+	 Bj8jj46f1uP4tEdQzb8ZTs5o/hUFdbdNPOuPyGem2e7YBjbG7jLkV6XAU+esmHWPwuHZj
+	 TlXToQsM2Oze7CugnDznc+FUdnqfiulKwnEYkJXECPmKVwD+eh9EEo6MJItpYKE4pHaqv
+	 5HuBp7D9RLF2biyd5SjNh68M5d6f6aSKXWKF7vD7wPSKFj2gGPGZkNer0VhEpEX3ylQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=iodev.co.uk;
 	spf=pass smtp.mailfrom=iodev.co.uk;
 	arc=none smtp.remote-ip=46.30.189.100
 Received: from iodev.co.uk (iodev.co.uk [46.30.189.100])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80D31606A8B1;
-	Mon, 16 Nov 2026 22:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80D31606A8B1
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D84C606A8A3;
+	Mon, 16 Nov 2026 22:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D84C606A8A3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iodev.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iodev.co.uk
 Received: from localhost (unknown [79.116.217.174])
-	by iodev.co.uk (Postfix) with ESMTPSA id B7B405E22DE;
-	Mon, 16 Nov 2026 23:43:41 +0100 (CET)
+	by iodev.co.uk (Postfix) with ESMTPSA id 917B95E22E3;
+	Mon, 16 Nov 2026 23:43:43 +0100 (CET)
 From: Ismael Luceno <ismael@iodev.co.uk>
 To: linux-kernel@vger.kernel.org
 Cc: Ismael Luceno <ismael@iodev.co.uk>,
 	Ismael Luceno <iluceno@suse.de>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure))
-Subject: [PATCH 7/8] init: let a filesystem resolve a root device by UUID or label
-Date: Mon, 16 Nov 2026 23:43:23 +0100
-Message-ID: <20261116224316.11237-17-ismael@iodev.co.uk>
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	linux-btrfs@vger.kernel.org (open list:BTRFS FILE SYSTEM)
+Subject: [PATCH 8/8] btrfs: resolve root=UUID= and root=LABEL=
+Date: Mon, 16 Nov 2026 23:43:24 +0100
+Message-ID: <20261116224316.11237-18-ismael@iodev.co.uk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116224316.11237-10-ismael@iodev.co.uk>
 References: <20261116224316.11237-10-ismael@iodev.co.uk>
@@ -53,137 +51,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-root= takes PARTUUID= and PARTLABEL=, both of which come from the
-partition table, and so can be resolved by the block layer alone.
-UUID= and LABEL= name the filesystem, and a filesystem UUID and label
-live in its superblock.  Nothing outside the filesystem can recognise
-one, so without this a "root=UUID=..." is taken for a device name,
-fails to resolve, and — because that failure is indistinguishable
-from a bad device name — takes rootwait down with it on the way past.
+A btrfs filesystem UUID and label are in its superblock, so the block
+layer cannot resolve them the way it resolves PARTUUID= and PARTLABEL=:
+root=UUID=... reaches parse_root_device() as something that is not a
+device name, and the mount fails with a message that gives no hint that
+a filesystem UUID was what was being asked for.
 
-Let each registered filesystem look for its own UUID or label, and ask
-them in turn until one claims the value.  Filesystems that do not
-implement it cost nothing, so this is inert for every filesystem that
-has no use for it.
+Walk the block devices the way the device scan does and offer each one
+its filesystem UUID or label.  Whole disks without partitions and the
+partitions themselves are both candidates, since a btrfs filesystem is
+usually on a partition and the disks are then passed over.
 
-The lookup opens and reads devices, so it can sleep; take a module
-reference for as long as the filesystem is in use, as the comment on
-file_systems describes.
+btrfs_can_scan_disk() is built regardless of CONFIG_BTRFS_ROOT_SCAN,
+since this lookup needs it too.  The lookup does not depend on devtmpfs, so
+it is not gated by that option.
 
 Signed-off-by: Ismael Luceno <ismael@iodev.co.uk>
 Signed-off-by: Ismael Luceno <iluceno@suse.de>
 ---
- fs/filesystems.c   | 37 +++++++++++++++++++++++++++++++++++++
- include/linux/fs.h | 10 ++++++++++
- init/do_mounts.c   | 19 +++++++++++++++++++
- 3 files changed, 66 insertions(+)
+ fs/btrfs/super.c   |  1 +
+ fs/btrfs/volumes.c | 92 +++++++++++++++++++++++++++++++++++++++++++---
+ fs/btrfs/volumes.h |  1 +
+ 3 files changed, 88 insertions(+), 6 deletions(-)
 
-diff --git a/fs/filesystems.c b/fs/filesystems.c
-index 3083d904df9b..13e509e027d6 100644
---- a/fs/filesystems.c
-+++ b/fs/filesystems.c
-@@ -240,6 +240,43 @@ SYSCALL_DEFINE3(sysfs, int, option, unsigned long, arg1, unsigned long, arg2)
- 	return count;
+diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+index fb407361bbaf..a9f07e06f6ae 100644
+--- a/fs/btrfs/super.c
++++ b/fs/btrfs/super.c
+@@ -2379,6 +2379,7 @@ #define btrfs_info_if_unset(fs_info, old_ctx, opt, fmt, args...)	\
+ 	.owner			= THIS_MODULE,
+ 	.name			= "btrfs",
+ 	.init_fs_context	= btrfs_init_fs_context,
++	.find_by_spec		= btrfs_find_dev_by_spec,
+ 	.parameters		= btrfs_fs_parameters,
+ 	.kill_sb		= btrfs_kill_super,
+ 	.fs_flags		= FS_REQUIRES_DEV | FS_BINARY_MOUNTDATA |
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 9eedf6ef1383..12d9dd6d0737 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -1531,7 +1531,6 @@ btrfs_get_bdev_and_sb(const char *device_path, blk_mode_t flags, void *holder,
+ 	return device;
  }
  
-+/**
-+ * find_dev_by_fs_spec - find the block device holding a filesystem by UUID or label
-+ * @key: what @value is, "UUID" or "LABEL"
-+ * @value: the filesystem UUID, or its label
-+ *
-+ * A filesystem UUID and label live in the superblock rather than in the
-+ * partition metadata, so unlike PARTUUID= and PARTLABEL= they cannot be
-+ * resolved from the partition table: the filesystem that knows them has to be
-+ * asked.  Offer the value to each registered filesystem until one claims it.
-+ *
-+ * Return the dev_t found, or 0 if no filesystem recognised it.
+-#ifdef CONFIG_BTRFS_ROOT_SCAN
+ /*
+  * Return true if @disk is worth handing to btrfs_scan_one_device().
+  *
+@@ -1562,6 +1561,7 @@ btrfs_get_bdev_and_sb(const char *device_path, blk_mode_t flags, void *holder,
+ 	return true;
+ }
+ 
++#ifdef CONFIG_BTRFS_ROOT_SCAN
+ /*
+  * Register every block device that holds a btrfs superblock.
+  *
+@@ -1592,11 +1592,10 @@ btrfs_get_bdev_and_sb(const char *device_path, blk_mode_t flags, void *holder,
+ 	memset(res, 0, sizeof(*res));
+ 
+ 	/*
+-	 * Every block device, not just whole disks: partitions are registered
+-	 * with part_type rather than disk_type, and a btrfs filesystem usually
+-	 * lives on one, so a type filter here would skip exactly the devices
+-	 * we are looking for.  A disk that has partitions is filtered out by
+-	 * btrfs_can_scan_disk() below, which can say why.
++	 * Iterate every block device, not just whole disks: partitions are
++	 * registered with part_type rather than disk_type, and a btrfs
++	 * filesystem usually lives on one, so filtering on disk_type here
++	 * would skip exactly the devices we are looking for.
+ 	 */
+ 	class_dev_iter_init(&iter, &block_class, NULL, NULL);
+ 	while ((dev = class_dev_iter_next(&iter))) {
+@@ -1647,6 +1646,87 @@ btrfs_get_bdev_and_sb(const char *device_path, blk_mode_t flags, void *holder,
+ 
+ #endif /* CONFIG_BTRFS_ROOT_SCAN */
+ 
++/*
++ * Format the filesystem UUID of a disk superblock, in the same textual form
++ * blkid and the rest of btrfs print it as.
 + */
-+dev_t find_dev_by_fs_spec(const char *key, const char *value)
++static const char *btrfs_sb_uuid_string(struct btrfs_super_block *disk_super)
 +{
-+	struct file_system_type *p;
-+	dev_t dev = 0;
++	static char buf[UUID_STRING_LEN + 1];
 +
-+	guard(rcu)();
-+	hlist_for_each_entry_rcu(p, &file_systems, list) {
-+		if (!(p->fs_flags & FS_REQUIRES_DEV) || !p->find_by_spec)
-+			continue;
-+		/*
-+		 * The lookup reads devices and so may sleep; hold a module
-+		 * reference for as long as we use p, as the comment on
-+		 * file_systems above describes.
-+		 */
-+		if (!try_module_get(p->owner))
-+			continue;
-+		if (p->find_by_spec(key, value, &dev) && dev)
-+			break;
-+		module_put(p->owner);
-+	}
-+
-+	return dev;
++	/* The fsid is stored in the same layout a uuid_t is printed from. */
++	snprintf(buf, sizeof(buf), "%pU", (uuid_t *)disk_super->fsid);
++	return buf;
 +}
-+EXPORT_SYMBOL_GPL(find_dev_by_fs_spec);
 +
- #ifdef CONFIG_PROC_FS
- static void invalidate_filesystems_string(void)
- {
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 5b3a100aba77..9267ae28dc36 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2308,6 +2308,15 @@ #define FS_USERNS_DELEGATABLE	1024	/* Can be mounted inside userns from outside
- #define FS_DISALLOW_NOTIFY	2048	/* No fsnotify marks on its objects */
- #define FS_RENAME_DOES_D_MOVE	32768	/* FS will handle d_move() during rename() internally. */
- 	int (*init_fs_context)(struct fs_context *);
-+	/*
-+	 * Look for the block device holding the filesystem that @key
-+	 * identifies as @value, for "root=UUID=" and "root=LABEL=".  Both live
-+	 * in the superblock rather than in the partition metadata, so unlike
-+	 * PARTUUID= and PARTLABEL= it is the filesystem that has to recognise
-+	 * them.  @key is "UUID" or "LABEL".  Set *dev and return 0 on a
-+	 * match, or return an error if there is none.
-+	 */
-+	int (*find_by_spec)(const char *key, const char *value, dev_t *dev);
- 	const struct fs_parameter_spec *parameters;
- 	void (*kill_sb) (struct super_block *);
- 	struct module *owner;
-@@ -3579,6 +3588,7 @@ #define DEFINE_SIMPLE_ATTRIBUTE_SIGNED(__fops, __get, __set, __fmt)	\
- 				 size_t len, loff_t *ppos);
- 
- int __init list_bdev_fs_names(char *buf, size_t size);
-+dev_t find_dev_by_fs_spec(const char *key, const char *value);
- 
- #define __FMODE_EXEC		((__force int) FMODE_EXEC)
- 
-diff --git a/init/do_mounts.c b/init/do_mounts.c
-index f1dcb18201eb..3845b1e67f46 100644
---- a/init/do_mounts.c
-+++ b/init/do_mounts.c
-@@ -453,6 +453,25 @@ #define CIFSROOT_RETRY_MAX	5
- 		return Root_NFS;
- 	if (strcmp(root_device_name, "/dev/cifs") == 0)
- 		return Root_CIFS;
++/*
++ * Read the primary superblock of @bdev and compare the field named by @key
++ * against @value.  @value is in the usual textual form: a UUID, or a label.
++ *
++ * Return 0 on a match, -ENOENT if the device is not btrfs or does not match,
++ * or an error.
++ */
++static int btrfs_dev_spec_matches(struct block_device *bdev, const char *key,
++				  const char *value)
++{
++	struct btrfs_super_block *disk_super;
++	bool matches;
++	int ret;
 +
-+	/*
-+	 * A filesystem UUID or label is in the superblock, not in the
-+	 * partition table, so it is the filesystem that has to recognise it.
-+	 * Try that before early_lookup_bdev(), which would take "UUID=..." for
-+	 * a device name and fail.
-+	 */
-+	if (!strncmp(root_device_name, "UUID=", 5)) {
-+		dev = find_dev_by_fs_spec("UUID", root_device_name + 5);
-+		if (dev)
-+			return dev;
-+		return 0;
++	disk_super = btrfs_read_disk_super(bdev, 0, false);
++	if (IS_ERR(disk_super))
++		return PTR_ERR(disk_super);
++
++	if (!strcmp(key, "UUID"))
++		matches = !strcasecmp(value, btrfs_sb_uuid_string(disk_super));
++	else
++		matches = !strncmp(value, disk_super->label,
++				   BTRFS_LABEL_SIZE);
++
++	ret = matches ? 0 : -ENOENT;
++
++	btrfs_release_disk_super(disk_super);
++	return ret;
++}
++
++/*
++ * Find the block device holding the btrfs filesystem identified by @key and
++ * @value, for "root=UUID=" and "root=LABEL=".  Both are in the superblock
++ * rather than in the partition table, so unlike PARTUUID= and PARTLABEL= they
++ * can only be recognised by reading devices, and it has to be done by btrfs
++ * rather than by init/.
++ *
++ * Return 0 and the dev_t on a match, -ENODEV if no device matches.
++ */
++int btrfs_find_dev_by_spec(const char *key, const char *value, dev_t *devt)
++{
++	struct class_dev_iter iter;
++	struct device *dev;
++	int ret = -ENODEV;
++
++	if (!key || !value || !value[0])
++		return -EINVAL;
++
++	/* Every block device, disks and partitions alike: see the comment on
++	 * btrfs_scan_all_devices() for why the type filter cannot be used. */
++	class_dev_iter_init(&iter, &block_class, NULL, NULL);
++	while ((dev = class_dev_iter_next(&iter))) {
++		struct gendisk *disk = dev_to_disk(dev);
++		struct block_device *bdev = dev_to_bdev(dev);
++
++		if (!btrfs_can_scan_disk(disk, bdev))
++			continue;
++		if (btrfs_dev_spec_matches(bdev, key, value) == 0) {
++			*devt = bdev->bd_dev;
++			ret = 0;
++			break;
++		}
 +	}
-+	if (!strncmp(root_device_name, "LABEL=", 6)) {
-+		dev = find_dev_by_fs_spec("LABEL", root_device_name + 6);
-+		if (dev)
-+			return dev;
-+		return 0;
-+	}
- 	if (strcmp(root_device_name, "/dev/ram") == 0)
- 		return Root_RAM0;
- 
++	class_dev_iter_exit(&iter);
++
++	return ret;
++}
++
+ /*
+  * Find the first pending extent intersecting a range.
+  *
+diff --git a/fs/btrfs/volumes.h b/fs/btrfs/volumes.h
+index 6f2cf43d1038..8b550a5a2d6f 100644
+--- a/fs/btrfs/volumes.h
++++ b/fs/btrfs/volumes.h
+@@ -768,6 +768,7 @@ #define BTRFS_DEV_LOOKUP_ARGS(name) \
+ #ifdef CONFIG_BTRFS_ROOT_SCAN
+ unsigned int btrfs_scan_all_devices(struct btrfs_scan_result *res);
+ #endif
++int btrfs_find_dev_by_spec(const char *key, const char *value, dev_t *devt);
+ int btrfs_forget_devices(dev_t devt);
+ void btrfs_close_devices(struct btrfs_fs_devices *fs_devices);
+ void btrfs_release_device_allow_freeze(struct file *bdev_file);
