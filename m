@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845214;
-	b=PQxA31q4vAc0XB9dDnxXdeVrzED7I/7XTtUGpZWTVo5yINte8ArnqNRKh/eljpqJr9He
-	 PKujav8nAYlJ6cZUZj8XGeMhlRyCz/8+3/fR2Z+VKno5mIDllQlni4+UprJ+2vxhkv7SD
-	 UeBvjXeyFL+3UCEadzu6fV2tUzAnquhxo9ugRA6wkSKgD7Aoeqot4gWsZJXnsGdY1P4FY
-	 jb9t/x+firg1xfEc0Poc7QSYdUxPPdQi1/oAzUhKN04cZJnYAv1VHeH2GAMObgaxvSZvv
-	 Fz9P+oGgQVWJMdoy4XOVXDc3pjzP9r5DzMFe4boyvcNzxahkzg8tQsjPWX62LLhs+vg==
+	t=1794845211;
+	b=vQKPnXIpG9weLxrxc2Op5ss8OfGzcsOoIQjeviAQTwAuixOtIhfju7yPqzDtDAHHyxmj
+	 reugNU/kHeCNyKFTxkyXq7zIvoQAwOt2gZCp4wAr37mhwPC1x0vZ2G7rXVpYk8qK0mZIV
+	 D3yionhZzZQT9fH/LMZSjE6PwVUtCnmN9CgleD6WCx4ZOLhcGZYd+mb/wKiCIgzk5F2+C
+	 TqqbGIXdh3RPJhbEH9Ycgo0WfGVpb3VVYLowPWd6U91U0b2dJqDPEngq9O8zL1SZyt5zs
+	 +tqxBfmTcBmnDZbcNU9HqkkpT5gjG+NIzW1C7+dPHPXW48PY/OrZDhFAdf5njoM1Y3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845211;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=X3a20bgxU/2nOTNwxKM6Yvmyu0ovIKjUKPYamgHf03k=;
-	b=vE+uS5TXjuq6aXTngRexVnE3n4/9JIzhcS3k61jFWMKPjYAcTtNyXxg/wtVg9baoSPy6
-	 A4OgVf8vJo0+xvpkiyJeBYyfuM3DEvRQGoz8YK5bXVwEqwjUhNx2j/urpruAGy5GyeYpr
-	 8hCC2HVzM+Dz3DQEyVFHYN+oPkrhqRvkNWwH6Bec7Z2Sst/sMV2J85NzyRXPv6tTeilxk
-	 DwWeCvB2pMAoTmKWFDLy/3G1+kO6xzotsMYURn5BqoI+MntUQVNjZp6ktEw/c7W0F3UaC
-	 9afLfFEgFARAXeP1fEs3yfNhUshVi8hYTAWYglqC4ZkGTyO+8K9WCcFUdSyXImv2c+Q==
+	bh=vYDFtCr0jLCCeKRhsJ3pL2cWH6ta6QdzhP1Bew1pyVw=;
+	b=VuN6cIAKk1GfwTVht95WT1Oz+5g9BYiVWdQXewWjE2LAvq+eQQ7OO8ohdtuWxwV8h55k
+	 F4OPVSBudtPT2I7N5sQqJGsID9OKPYm+tZhv3ac2QX6d1jkQ4RW1YHRPgqFjLKrSgjGcX
+	 TyqOPFtDiiJ4hONWBgP5iW0SXekIP/oKIEGov4UZ6paU3+W2IMih/gms19oE8MnhCvRov
+	 Q/aGiiN1/QLh9WTcO6ojTnZkNOwWtgKZCmdW417prR5ZfGIvIXpKTX9R5ON5GeXikEARo
+	 gNzSENCfP1rNxsQyE1rD4q4WCMpx9rjGxerB/+hUf/RCn9iPkWjLcQsGNPD2a8td0Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M0tRwKs2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mCW/Fc7s";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC09606A335;
-	Mon, 16 Nov 2026 16:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C990606A32C;
+	Mon, 16 Nov 2026 16:06:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M0tRwKs2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B126F1F000C9;
-	Mon, 16 Nov 2026 16:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCW/Fc7s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2315A1F000C9;
+	Mon, 16 Nov 2026 16:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794845213;
-	bh=X3a20bgxU/2nOTNwxKM6Yvmyu0ovIKjUKPYamgHf03k=;
+	s=k20260515; t=1794845211;
+	bh=vYDFtCr0jLCCeKRhsJ3pL2cWH6ta6QdzhP1Bew1pyVw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M0tRwKs2CbHZYXv1zlr2X+lFj/X8SGNCWB5+rZtRi1WYE3eA8Diaiy3jpJUx8z9Of
-	 GZnJUIZNvDF1PACdmBrUF0tLuWon5smhvhh5nqkHwB2UPqmewKyX8nSREKTQQSCCqS
-	 FbMMMzvaxkwsBtfwnBs8v9rkyeBAbq6zoDjiQiFS820BWBtirjcHaUjhJkTWkzs59a
-	 UI4zOakSjifzJlhUzd3F0Te3oL8dRdpCDYGn1ga3xI0Q7EAcjuZsM+sJW1FkPDvPqP
-	 D0H4luB+Ky/UnC4HK06z71l2N2+6aW5aQb8bRtJ0E1SO5epfUBev9dd3VM9ROcoGk9
-	 ZneTOl/tFxbaA==
+	b=mCW/Fc7s3aCZo5SkAgfIIhKpRUnO9zJs6kjSg/6DrQie3xebHNbxotcGqpQxc7gMC
+	 MOQaWbtPhXQKo8K2VtoOPhs62h8uPNjSe6FBRKGOpbYFrllBtvJtXb5apLD0OJMGNX
+	 g4iddzsUUF8KWV9IBv8ZemyidXp5AKNJIXbB7GDa18CBMkIKKiz3HZgalYhJEz/KwV
+	 Dzsdy9mSiDRoDoA2C9fVDpB7hr8DiSkILkKNq+/zsuh39nq0qMkoC2NbljQSlFtiX+
+	 +VbLbelM9aHBsQgZo+fqF7ZMtdnLX8gusBKGziFWWvGToO8Kka6EK/rn5xuMcf/rj5
+	 NVVqAspZfN9Og==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -50,12 +50,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Andrew Kanner <andrew.kanner@gmail.com>,
 	selinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5.10] selinux: prevent KMSAN warning in selinux_inet_conn_request()
-Date: Mon, 16 Nov 2026 11:06:42 -0500
-Message-ID: <2026-11-16-1-daily-reply-0007@kernel.org>
+Subject: Re: [PATCH 6.1] selinux: prevent KMSAN warning in selinux_inet_conn_request()
+Date: Mon, 16 Nov 2026 11:06:40 -0500
+Message-ID: <2026-11-16-1-daily-reply-0005@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116105355.89902-1-petrvaganoff@gmail.com>
-References: <20261116105355.89902-1-petrvaganoff@gmail.com>
+In-Reply-To: <20261116105307.89727-1-petrvaganoff@gmail.com>
+References: <20261116105307.89727-1-petrvaganoff@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,7 +69,7 @@ Content-Transfer-Encoding: 8bit
 
 > commit 1df83cbf23a27174aee6ea5e52462f03f7e48a10 upstream.
 
-Queued for 5.10, thanks.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
