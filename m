@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815120;
-	b=DjE26jVR2ltjXZMk4EqlGBql7UAa7UT19Kx1eUK8/1E5W9nqRJqHpTteuyrCuDqogOol
-	 PI5jvr0lmiWI2zpOXJd0oejxMuCP06KgFEqeSISYs6TBFh/cht1fmK7dA56l2nO1Frtje
-	 IZQIgv4DBSMIvVnDxIwMKnI44t6sPIhw5WI5/zZIqkK0TnM+RqDMNyZwSgA3AkolAUWoM
-	 bS+LgmkjNgReKNYFQHYVlP2OQNBzcoW7tsdLoyerhu0bTCE+PhYeSksRS+SC9E4y9rSaX
-	 8kFxAFRwKdd+OpOMPNpLWkB70OQnNuMY51FL8cPRVs419GZXVe+iu6Rha1HBm1PxENg==
+	t=1794815123;
+	b=cVQ2flaJmkKsMEjd5XByLbYkNdrKD+v78HABUPZOQO0IdfertzDHlN0UtNfFWmLPLbuX
+	 hHYamGTL9VeAGGmxYmalS/r2oel8VNlOO1zgYlmillfkL9ZJdMz5hcttYNPD7kbY5OopJ
+	 EruhS5on0ZR8vn7YzqKEvSFo/dW0/YzqXawN5cZgOStg6U3g4sQ0Zk03iWhOj7u59Uxv6
+	 E2u3lJf7yNSu0v5swa3L0D6A6LCsgVl+d3600W5it8w1S8cxS+t1nPfQluff6F61HZOly
+	 j9aCBSpgsbzvY4VlUaN+3MKbVGGJ+/0Z2X2B96A1wxZFr6WidN3guro7+aEjKmGc9Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815123;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=imQsytKanyvOGoydM1NIQki1Q8sgXr5rCd0tThSCpWU=;
-	b=AfepJyg07uL5KCTSi/ynDJi6RpA/RvyJa7jQtZwwdfehb15i4AZPny8AZiDbE/agXfmP
-	 XA6+h75yrxLhsxpiXusOrM1KNqSxtYQb1a+HllGfTE/4bswoeQXcvbOrFx9BsQPtZKJJ5
-	 w2h+pwK2hHuEZznnnlES2SGiwXww2yEZsyTbt24n1G9jfZhrCQyAPOC8jrFpEvYFmug56
-	 Q3n8m4NWsTo/S8PjLOS1QEXX3lf/rmHrG0M0cmcgJ+wz2RqmFz+tqyoQy3Bfm8uvpICMp
-	 4lTv9ZPbVMKIstFEISdgyVOKxNzMFewNOLyPwFTHg8Q+80d+alu9DZNcu4kHTuoV5dw==
+	bh=aRfvNh6QD28HUWSe7IyYWWl2xa0mUXFP5NmeCi5RQT0=;
+	b=yv5ZE5ufvqmr0vysLsU/qhpEaoOLDZVXC9U20hnuTMwVmPxTdw4G7pg1aWXTJf8iz1mn
+	 wpkR3Nfl1VBCsbv7tNW6v0HwtKhKBRCAvZ4zNcRieugR4BsvcE4u1R8eVsRd0agltNKf0
+	 iGELiP8xQ9JYO2FytrWTbgaKS9CLoZcD4Gr8ECDXv0C7HjhhqrmIpLh6a8+ptZLpwy4Y4
+	 3Jy38eAkenM0R0PyVxFf+zeTbunnMRjdmsDMhGq+KQLshsGi8mo4xs2clkoljRnylCogL
+	 LP9ItsRALQFkq1L8+QOUHWpnmvA8tpaeXFsK/dewNBeu59JDQjPvtHuHd9vXMk+t1GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cOjuBTzS;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cNM+iT6J;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C17E606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C17E606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885DA606A895
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885DA606A895
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cOjuBTzS
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-378722fd4a3so3698107eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cNM+iT6J
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f26e6abe9so3844721eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794815120; x=1795419920; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794815122; x=1795419922; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=imQsytKanyvOGoydM1NIQki1Q8sgXr5rCd0tThSCpWU=;
-        b=cOjuBTzS2fPccWCPg0Wl2YhnQqW8ktGVUZsU5p0IySyF0BTt3XBLxusOtxf84p9QmE
-         /b0hBatcZY7Fybrx9hZMVCbDmZshcYEx6MO2Hja/SKeromXM/vwdVCe1qmRD+muWezWI
-         YGTSH570W+tx4zCOJ31QZNvASLwdH1YZBdnk/qhc/RS8paOAxaYNEOweAbGBGjOcmXmh
-         NDOr23FLJ18K9Gk5QQlscfI/xCpuB4PxlBUh9yUlHPZWyCnsDmqFAKcljbsi8d9EpAzk
-         5skg25Xgp/eeNqBwl8PYiOfitflLDx82U6UgNNZLdXjhXqfEIjZjvMgfMfuiKAJCykEu
-         JO2w==
+        bh=aRfvNh6QD28HUWSe7IyYWWl2xa0mUXFP5NmeCi5RQT0=;
+        b=cNM+iT6JbTBSKJgUOV4y2nfVvqfIakYNiNGFP0z5awc4TP4I6f8wCUqw8RmuFcnvbz
+         89SIh1c5ucI/oG4V7xg0D4HnwxsIUMWU8EJuopXhE+jyGjQuPGsW7X9agoKl6mgPoGJF
+         hcz0Ahtev/j1CuDmTljU/ZbPfGVRmTEYSVvJxyinDpKZpaXF0EyuUjcDKdZNvRLEr1Z9
+         uDBzyWnrNrAiJVmPxpdv/Yt/qvSYa7e4cSO/6uf5xpukehBKxRKOs/EF9sqG75TLIiR0
+         Wd5d8N+gX2L5hP5zaOiBUBWd2qgns90gjonMniZoKr39fFfyPEfcGL2kOURI/5DB8dka
+         oKBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815120; x=1795419920;
+        d=1e100.net; s=20260707; t=1794815122; x=1795419922;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=imQsytKanyvOGoydM1NIQki1Q8sgXr5rCd0tThSCpWU=;
-        b=ntzFOqzAIHiSaDoECmjj2CCrM88kEMpC1WGC08yDoEfO3EsP4LqJlhg3LyBMpZbjHT
-         odlZGDsqmkiYQNiw7raOPrlbcLse8neFN12Oi+vnXhyBY9FaTxxJxEqs2RGkU5TEt0cm
-         gakRDPrW3DXmWykitwslzBbryfitBviTui/3lNEpUASaqnk/ro/TfSLsgZM5yforuwtK
-         AUUn4P+q4jGVft4HjkxhR7sfGN2GX7OfbTrt4ALT9aGsOkqjcmqKxb2k2PrrLWNKFzHx
-         eK9eqfFDS1r88bcxUMLybaWA2xpd8JTo0HLXn+y7oT0GV4WI1bhKHh05T4CDAELLZMyF
-         dIZw==
-X-Forwarded-Encrypted: i=1; AL+hErFSGE5vibfkPyTj4OOIyvbAHmYBPe/ocSUXsmTvMH5UZZ0CANISO2tmADaXokbF0da5xEechBY7ILE/SpE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qmnU843V6u4IwRKaExCmie0Ev1OAS81r2WqwWGsXYKoYQuxmI
-	E1Sj20nhQJW6lvB76Fbx+7b6VdazhrY1FEWOdycfYLPNVyCxD5qu+c4schMKNFhIAFOV4SyLKxF
-	CE9tbJjpGeQ==
-X-Received: from dybla1.prod.google.com ([2002:a05:7301:1a81:b0:36c:99b8:3ed7])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:8115:b0:36a:1008:5815
- with SMTP id 5a478bee46e88-37963372d85mr10634688eec.5.1794815119285; Sun, 15
- Nov 2026 23:45:19 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:44:01 -0800
+        bh=aRfvNh6QD28HUWSe7IyYWWl2xa0mUXFP5NmeCi5RQT0=;
+        b=WGrOc4/r/GdY1moNaqkMylWW5ywzM/orBKjCCynGM/SV+93rfL8DEoeLN9jdnZhjbF
+         YEMUYpw29EGoUS0kBb0GPB2Hd+IbVVlKrzgHhVi4yDzOuOmHKe3pkwaFXOiLtsK86LYR
+         VnfgKrjKBvUdc59M43sCcGezYGRPH97lOv1zUX2ws2LNhAXGbTMO0k+2rpSHHNh8oVhx
+         w4WH8g0MYDjM50YpgRSai9P/eV/FjNouZMnt2GJVQQAafCiQ31O+BJ4lQer1geXX6d1Q
+         MYtTdQgtkIjAi3mMyBUa6JzvLHruBKul79Mw7AGA6p7869sdrfbzHHKW8DkUmRGxfavu
+         XJVg==
+X-Forwarded-Encrypted: i=1; AL+hErGjjKGijzkSIP0PLD4tbTbtVYci534zrwcJCz1/D6XgTKffCk4m5q8yMzYzIgyKqjzHEvt2FQ+7AZeRln0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MXV6p5zeg2EPFQpcBk/NG9qEq8SEHp0PlpNRUmaQrjSNKQdm5
+	3VKphBRFfGICin0fcac3HD2YtBhNTTFNZtYUcSe+ByzGUh7rPmkA4fqe6TGqBG8y+iYvTMXmEgv
+	p7zmfNu5/ng==
+X-Received: from dycnm5.prod.google.com ([2002:a05:7300:d185:b0:35a:c4b6:314b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:8617:b0:370:cc56:b61a
+ with SMTP id 5a478bee46e88-37967dd6065mr9478567eec.39.1794815121228; Sun, 15
+ Nov 2026 23:45:21 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:44:02 -0800
 In-Reply-To: <20261116074414.3174737-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261116074414.3174737-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116074414.3174737-7-irogers@google.com>
-Subject: [PATCH v3 06/19] perf/core: Support deferred unwinding for
- BUILD_ID_OFFSET sample types
+Message-ID: <20261116074414.3174737-8-irogers@google.com>
+Subject: [PATCH v3 07/19] perf inject: Set ordered_events and
+ ordering_requires_timestamps for --aslr
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
@@ -101,305 +101,55 @@ Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
 	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-When attr.defer_callchain is set on events using
-PERF_SAMPLE_BUILD_ID_OFFSET or PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET,
-request a deferred user-space unwind via unwind_deferred_request() and
-emit a PERF_CONTEXT_USER_DEFERRED marker and cookie in the sample.
+Commit 0ce6cf53db5b ("perf inject: Set ordering_requires_timestamps
+before creating session") initialized ordered_events and
+ordering_requires_timestamps on inject.tool before creating delegate
+tools and the session, but omitted inject.aslr. Also set
+ordering_requires_timestamps on aslr->tool.tool alongside ordered_events
+in aslr_tool__init() so --aslr orders MMAP and sample events by
+timestamp consistently.
 
-In the faultable task_work callback (perf_unwind_deferred_callback()),
-resolve the unwound user IPs to build IDs and file offsets using
-stack_map_get_build_id_offset(..., may_fault=true), encode them into the
-compressed build ID + offset format, and emit
-PERF_RECORD_CALLCHAIN_DEFERRED with PERF_RECORD_MISC_MMAP_BUILD_ID set.
-
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
+Fixes: febea9ec382f ("perf inject/aslr: Add ASLR tool infrastructure and MMAP tracking")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- kernel/events/core.c | 175 ++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 164 insertions(+), 11 deletions(-)
+ tools/perf/builtin-inject.c | 4 ++--
+ tools/perf/util/aslr.c      | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index d38ffe52c301..ef40c4442e82 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -460,6 +460,8 @@ static atomic_t nr_bpf_events __read_mostly;
- static atomic_t nr_cgroup_events __read_mostly;
- static atomic_t nr_text_poke_events __read_mostly;
- static atomic_t nr_build_id_events __read_mostly;
-+static atomic_t nr_defer_output_build_id_events __read_mostly;
-+static atomic_t nr_defer_output_callchain_build_id_events __read_mostly;
+diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+index 3f3108fd3981..b887a4398f96 100644
+--- a/tools/perf/builtin-inject.c
++++ b/tools/perf/builtin-inject.c
+@@ -2810,7 +2810,7 @@ int cmd_inject(int argc, const char **argv)
  
- static LIST_HEAD(pmus);
- static DEFINE_MUTEX(pmus_lock);
-@@ -5639,6 +5641,25 @@ static void detach_perf_ctx_data(struct perf_event *event)
- 	}
- }
+ 	data.path = inject.input_name;
  
-+static bool has_defer_output_callchain_build_id_offset(const struct perf_event *event)
-+{
-+	return event->attr.defer_output &&
-+	       (event->attr.sample_type & PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET) &&
-+	       !(event->attr.sample_type & PERF_SAMPLE_CALLCHAIN) &&
-+	       !event->attr.exclude_callchain_user;
-+}
-+
-+static bool has_defer_output_build_id_offset(const struct perf_event *event)
-+{
-+	if (!event->attr.defer_output)
-+		return false;
-+	if (has_defer_output_callchain_build_id_offset(event))
-+		return true;
-+	return (event->attr.sample_type & PERF_SAMPLE_BUILD_ID_OFFSET) &&
-+	       (!(event->attr.sample_type & PERF_SAMPLE_CALLCHAIN) ||
-+		event->attr.exclude_callchain_user);
-+}
-+
- static void unaccount_event(struct perf_event *event)
+-	ordered_events = inject.jit_mode || inject.sched_stat ||
++	ordered_events = inject.jit_mode || inject.sched_stat || inject.aslr ||
+ 		inject.itrace_synth_opts.vm_time_correlation ||
+ 		inject.itrace_synth_opts.set ||
+ 		inject.guest_session.perf_data_file ||
+@@ -2861,7 +2861,7 @@ int cmd_inject(int argc, const char **argv)
+ 	inject.tool.schedstat_domain	= perf_event__repipe_op2_synth;
+ 	inject.tool.dont_split_sample_group = true;
+ 	inject.tool.merge_deferred_callchains = false;
+-	if (inject.jit_mode ||
++	if (inject.jit_mode || inject.aslr ||
+ 	    inject.itrace_synth_opts.vm_time_correlation ||
+ 	    inject.itrace_synth_opts.set ||
+ 	    inject.guest_session.perf_data_file ||
+diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
+index e365f807b021..dee077cca5fe 100644
+--- a/tools/perf/util/aslr.c
++++ b/tools/perf/util/aslr.c
+@@ -1273,6 +1273,7 @@ static int aslr_tool__init(struct aslr_tool *aslr, struct perf_tool *delegate)
  {
- 	bool dec = false;
-@@ -5652,6 +5673,10 @@ static void unaccount_event(struct perf_event *event)
- 		atomic_dec(&nr_mmap_events);
- 	if (event->attr.build_id)
- 		atomic_dec(&nr_build_id_events);
-+	if (has_defer_output_build_id_offset(event))
-+		atomic_dec(&nr_defer_output_build_id_events);
-+	if (has_defer_output_callchain_build_id_offset(event))
-+		atomic_dec(&nr_defer_output_callchain_build_id_events);
- 	if (event->attr.comm)
- 		atomic_dec(&nr_comm_events);
- 	if (event->attr.namespaces)
-@@ -8399,6 +8424,8 @@ static void perf_output_read(struct perf_output_handle *handle,
- 		perf_output_read_one(handle, event, enabled, running);
- }
+ 	delegate_tool__init(&aslr->tool, delegate);
+ 	aslr->tool.tool.ordered_events = true;
++	aslr->tool.tool.ordering_requires_timestamps = true;
  
-+static struct unwind_work perf_unwind_work;
-+
- static void perf_bpf_to_sample_bid_offset(struct bpf_stack_build_id *bpf_bid)
- {
- 	struct perf_sample_build_id_offset *bid = (void *)bpf_bid;
-@@ -8434,7 +8461,28 @@ static void perf_output_sample_build_id(struct perf_output_handle *handle,
- 		       PERF_RECORD_MISC_USER;
- 
- 	if (sample_bid) {
--		if (is_user && has_user_ctx) {
-+		u64 defer_cookie = 0;
-+		bool defer_user = IS_ENABLED(CONFIG_UNWIND_USER) &&
-+				  is_user && has_user_ctx &&
-+				  event->attr.defer_callchain &&
-+				  (!(sample_type & PERF_SAMPLE_CALLCHAIN) ||
-+				   event->attr.exclude_callchain_user) &&
-+				  data->ip == instruction_pointer(task_pt_regs(current));
-+
-+		if (defer_user &&
-+		    unwind_deferred_request(&perf_unwind_work, &defer_cookie) < 0)
-+			defer_cookie = 0;
-+
-+		if (defer_cookie) {
-+			u64 deferred_bid[4] = {
-+				0,
-+				PERF_CONTEXT_USER_DEFERRED,
-+				defer_cookie,
-+				data->ip,
-+			};
-+
-+			perf_output_put(handle, deferred_bid);
-+		} else if (is_user && has_user_ctx) {
- 			if (callchain_bid && data->callchain_build_id &&
- 			    data->callchain_build_id->has_ip_bid) {
- 				perf_output_put(handle,
-@@ -8811,8 +8859,6 @@ static u64 perf_get_page_size(unsigned long addr)
- 
- static struct perf_callchain_entry __empty_callchain = { .nr = 0, };
- 
--static struct unwind_work perf_unwind_work;
--
- struct perf_callchain_entry *
- perf_callchain(struct perf_event *event, struct pt_regs *regs)
- {
-@@ -10635,34 +10681,117 @@ void perf_event_bpf_event(struct bpf_prog *prog,
- 
- struct perf_callchain_deferred_event {
- 	struct unwind_stacktrace *trace;
-+	struct perf_callchain_build_id_entry *bid_entry;
- 	struct {
- 		struct perf_event_header	header;
- 		u64				cookie;
- 	} event;
- };
- 
-+static struct perf_callchain_build_id_entry *
-+perf_resolve_build_id_offsets(struct unwind_stacktrace *trace)
-+{
-+	struct perf_callchain_build_id_entry *entry;
-+	struct bpf_stack_build_id *bpf_bids;
-+	u16 nr = trace->nr;
-+	u32 max_size;
-+
-+	if (!nr || !current->mm ||
-+	    !atomic_read(&nr_defer_output_build_id_events))
-+		return NULL;
-+
-+	if (!atomic_read(&nr_defer_output_callchain_build_id_events))
-+		nr = 1;
-+
-+	entry = kzalloc(sizeof(*entry) + nr * sizeof(u64), GFP_KERNEL);
-+	if (!entry)
-+		return NULL;
-+
-+	bpf_bids = kcalloc(nr, sizeof(*bpf_bids), GFP_KERNEL);
-+	if (!bpf_bids) {
-+		kfree(entry);
-+		return NULL;
-+	}
-+
-+	for (u16 i = 0; i < nr; i++) {
-+		entry->offsets[i] = trace->entries[i];
-+		bpf_bids[i].ip = trace->entries[i];
-+	}
-+
-+	stack_map_get_build_id_offset(bpf_bids, nr, true, true);
-+
-+	max_size = round_down(U16_MAX - sizeof(struct perf_event_header) -
-+			      2 * sizeof(u64), sizeof(u64));
-+	perf_callchain_encode_build_ids(entry, entry->offsets, nr, 0,
-+					bpf_bids, nr, max_size);
-+	kfree(bpf_bids);
-+	return entry;
-+}
-+
- static void perf_callchain_deferred_output(struct perf_event *event, void *data)
- {
- 	struct perf_callchain_deferred_event *deferred_event = data;
-+	struct perf_callchain_build_id_entry *bid_entry = deferred_event->bid_entry;
- 	struct perf_output_handle handle;
- 	struct perf_sample_data sample;
- 	u64 nr = deferred_event->trace->nr;
--	u16 size, id_size, max_payload;
-+	u32 max_offsets = 0, nr_build_ids = 0, nr_offsets = 0;
-+	u32 raw_bids_len = 0, aligned_bids_len = 0;
-+	bool use_bid;
-+	u16 size, misc, id_size, max_payload;
- 	int ret;
- 
- 	if (!event->attr.defer_output)
- 		return;
- 
-+	use_bid = has_defer_output_build_id_offset(event);
-+	if (use_bid && bid_entry) {
-+		if (has_defer_output_callchain_build_id_offset(event))
-+			max_offsets = bid_entry->nr_offsets;
-+		else
-+			max_offsets = min_t(u32, bid_entry->nr_offsets, 1);
-+	}
-+
- 	id_size = event->attr.sample_id_all ? event->id_header_size : 0;
- 	max_payload = round_down(U16_MAX - sizeof(deferred_event->event) -
- 				 sizeof(u64) - id_size, sizeof(u64));
--	nr = min_t(u64, nr, max_payload / sizeof(u64));
--	size = sizeof(deferred_event->event) + sizeof(u64) + nr * sizeof(u64);
-+
-+	if (use_bid) {
-+		for (u32 i = 0; i < max_offsets; i++) {
-+			u8 bid_idx = bid_entry->offsets[i] >> 56;
-+			u32 next_nr_bids = nr_build_ids;
-+			u32 next_raw_len = raw_bids_len;
-+			u32 next_aligned_len;
-+
-+			if (bid_idx > 0 && bid_idx <= bid_entry->nr_build_ids &&
-+			    bid_idx > next_nr_bids) {
-+				next_nr_bids = bid_idx;
-+				next_raw_len = next_nr_bids *
-+					       (1 + BUILD_ID_SIZE_MAX);
-+			}
-+			next_aligned_len = ALIGN(next_raw_len, sizeof(u64));
-+			if (next_aligned_len + (i + 1) * sizeof(u64) > max_payload)
-+				break;
-+			nr_build_ids = next_nr_bids;
-+			raw_bids_len = next_raw_len;
-+			aligned_bids_len = next_aligned_len;
-+			nr_offsets = i + 1;
-+		}
-+		size = sizeof(deferred_event->event) + sizeof(u64) +
-+		       aligned_bids_len + nr_offsets * sizeof(u64);
-+	} else {
-+		nr = min_t(u64, nr, max_payload / sizeof(u64));
-+		size = sizeof(deferred_event->event) + sizeof(u64) +
-+		       nr * sizeof(u64);
-+	}
-+
-+	misc = PERF_RECORD_MISC_USER |
-+	       (use_bid ? PERF_RECORD_MISC_MMAP_BUILD_ID : 0);
- 
- 	/* XXX do we really need sample_id_all for this ??? */
- 	perf_event_header__init(&deferred_event->event.header, &sample,
- 				PERF_RECORD_CALLCHAIN_DEFERRED,
--				PERF_RECORD_MISC_USER,
-+				misc,
- 				size,
- 				event);
- 
-@@ -10672,11 +10801,27 @@ static void perf_callchain_deferred_output(struct perf_event *event, void *data)
- 		return;
- 
- 	perf_output_put(&handle, deferred_event->event);
--	perf_output_put(&handle, nr);
--	for (u64 i = 0; i < nr; i++) {
--		u64 entry = deferred_event->trace->entries[i];
-+	if (use_bid) {
-+		u64 pad_zero = 0;
-+		u32 pad = aligned_bids_len - raw_bids_len;
-+
-+		perf_output_put(&handle, nr_build_ids);
-+		perf_output_put(&handle, nr_offsets);
-+		if (raw_bids_len)
-+			__output_copy(&handle, bid_entry->build_ids, raw_bids_len);
-+		if (pad)
-+			__output_copy(&handle, &pad_zero, pad);
-+		if (nr_offsets) {
-+			__output_copy(&handle, bid_entry->offsets,
-+				      nr_offsets * sizeof(u64));
-+		}
-+	} else {
-+		perf_output_put(&handle, nr);
-+		for (u64 i = 0; i < nr; i++) {
-+			u64 entry = deferred_event->trace->entries[i];
- 
--		perf_output_put(&handle, entry);
-+			perf_output_put(&handle, entry);
-+		}
- 	}
- 	perf_event__output_id_sample(event, &handle, &sample);
- 
-@@ -10686,14 +10831,18 @@ static void perf_callchain_deferred_output(struct perf_event *event, void *data)
- static void perf_unwind_deferred_callback(struct unwind_work *work,
- 					 struct unwind_stacktrace *trace, u64 cookie)
- {
-+	struct perf_callchain_build_id_entry *bid_entry =
-+		perf_resolve_build_id_offsets(trace);
- 	struct perf_callchain_deferred_event deferred_event = {
- 		.trace = trace,
-+		.bid_entry = bid_entry,
- 		.event = {
- 			.cookie = cookie,
- 		},
- 	};
- 
- 	perf_iterate_sb(perf_callchain_deferred_output, &deferred_event, NULL);
-+	kfree(bid_entry);
- }
- 
- struct perf_text_poke_event {
-@@ -13552,6 +13701,10 @@ static void account_event(struct perf_event *event)
- 		atomic_inc(&nr_mmap_events);
- 	if (event->attr.build_id)
- 		atomic_inc(&nr_build_id_events);
-+	if (has_defer_output_build_id_offset(event))
-+		atomic_inc(&nr_defer_output_build_id_events);
-+	if (has_defer_output_callchain_build_id_offset(event))
-+		atomic_inc(&nr_defer_output_callchain_build_id_events);
- 	if (event->attr.comm)
- 		atomic_inc(&nr_comm_events);
- 	if (event->attr.namespaces)
+ 	if (machines__init(&aslr->machines, /*session=*/NULL))
+ 		return -ENOMEM;
 -- 
 2.56.1.703.gf848ed807c-goog
 
