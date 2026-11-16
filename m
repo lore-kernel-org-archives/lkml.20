@@ -1,82 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839049;
-	b=FlkK5icolocqPdsdByKp2Jcck8qfztLZvWS4X5JC98E4LGCjOo4T4CBLhQZsAtMVe/WH
-	 5sFC9SKaWL58AuMtTRqxc6k1EwehwKJ/v3+UBSO4E64ArYyq/m5kNKHFXiw6s9135hCbv
-	 8NDW6WQkYT0V84X8ZBX9BRCoxXH+1/hWJLomuA3ef6MOVGb2i8aYqR+wTcSN41D8yVigd
-	 RicafWg4FDwTu2SqX/7Ry0Kbncb2KQzk2K36HU61aiOIpbTW5eLtshQHHRqh0VYaNBq+0
-	 aSzP4Agwgv2+2o8t2RcDqNtH0G4UgPwCyKPKI5LbweJfP1/X/y7N/hanDFtahapcGYA==
+	t=1794839077;
+	b=AERM4btPCH2zBuad5oGjiz9+0wFXQ3eAxpM+tfo2EgxyO0JZm0ak/GbNg3ymW9QlXlkl
+	 KOJqtrU7/gdl4h9wOnIUFQxNsbOZyxnFiEBdYsW7NL5Df687lTz2vMItRigD4WV10M6ed
+	 Jf0q69NlD/6M7eknD3mT8q1/LSMOvuoUoI2oM7CZKg5I7imgrRtC6G+QdO+aGph+lXD5U
+	 4PC2cMDQyXmngqMmtAA9g40D15XFkHZmOoyWrprfZAMylX9hHpaQUh+Z+C31cwp1RAEA3
+	 7mhOvXCU5R0bnincxO79+cGDUXOmSsrqd0aKmYezQCawQhkfEU+G4GKYRXMz8MRozqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839049;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=eR1uMzWk87sdlr18ySoDXRPmlYlKL1zzSUHsdZpv0Rc=;
-	b=huW2Xigc3EzTyYrAF0MxDg+TpKHnMwRRQfztzOAseKJUjRKuXGdHgasAsDNyVq2zDcWW
-	 HAEq7WQe+FtDnN8K3NIPFpWf/x/n8gmDKyo0LqnVKuXIrm4iG8dUhPcqFiQEQvtVBwmv4
-	 6jt2FzkWAHlP137vNezu7jzaQtYdgv513iDciYtGREpJRTR3u8ddR1gtqlE0iHctfiV3c
-	 cvv4s7KfRntYz2GOD/7vUTN0jTJJmLDZ+pVWv+JgbvsaHt0UPFQm7vfN8/JQ2pGwIc049
-	 Ezojr7knaO8FCgb8M1Z69AKH+9KjqfW6PVSjKVFmVmyqZTQb7YVMIWodRKP/sGVtl1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839077;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=vsitf1gCOt+86OlSnGNHzwq1zmuiy2PBWHlc3qqYy+Q=;
+	b=Whc8ru+vmIhGqpIVDJSZXd4U8tujRJlDVYQ+VtyjbJ/sUXNhSljNmt65TyIJf8EEmRN0
+	 mUCQxliJjnWo4s2P54jviOXH6x+jjuckdOGc6S7lhdWIzVjISEF9CfUB9vuWDsItxr0BW
+	 nEyu4PQYmreV0aJh5IFQAIum6gV+5IG2mPV1fTuTZZdhS7JhOKOTsVNaO5glnFDlHAmV1
+	 JGJNQt7vbGLYQLZUp/m8xGd/2QbOAMsifqeyq91Q7PWaGt8Akev1wAChqlpx1+IyrPkfR
+	 0avBiF7HGz8spR2cdYLcA/INthmDNAYraiMLE+MXunxel0bT+b9lPee2/81Sja/mbtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="XrclSol/";
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=XISsBhif;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260FC606A890
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:24:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 260FC606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40E0606A32A;
+	Mon, 16 Nov 2026 14:24:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D40E0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=XrclSol/
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id Sqh9xksT0yb4YSxcuxrXDm; Mon, 16 Nov 2026 14:24:09 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Sxcsx7qr6xmi7SxctxEA7I; Mon, 16 Nov 2026 14:24:07 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6afb1208
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=hhRZiPmDs0itODvUV34A:9 a=CjuIK1q_8ugA:10 a=3T6Gmkx0uuYA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=eR1uMzWk87sdlr18ySoDXRPmlYlKL1zzSUHsdZpv0Rc=; b=XrclSol/tJyhgQ4WzTN29B21wF
-	Ttdfgqpn87vsgCvE498ft5qcqXEkMpPfqnddxrUa7MLiZr2aSNsD1StNMwbAaubSCFX2T0fhkfklG
-	lWJhtcvKRqBIQKicu9C2bi6VF3wEu33wZ4aeXaTSd5YUiODr2quYsjyGJd8Y9G+ldIwGsdbiNGiHx
-	3M2LSSE4Ms4Of8pEYvrnS8d8tj7375A0SqHkZS9ZcuR0EDaN99+gD1hFq8EKlfptWg1cfgFhU5qum
-	mD0b1ZYZ3TvXo1qp99GaeIugKK8ycJJwcLfRf2Yo4X7K6cQLyl0H2uhTDq8vpLsvzp9qm/SBSuA99
-	6qABMVEA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51630 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxcs-00000003mbz-1DYS;
-	Mon, 16 Nov 2026 19:54:06 +0530
-Date: Mon, 16 Nov 2026 06:24:05 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: watchdog: arm,twd-wdt: Allow power domains
-Message-ID: <0a3783cc-cba0-41b6-a411-fd95beb1da6a@roeck-us.net>
-References: <20261116-ux500-watchdog-twd-binding-v1-1-a26adc9cea5e@kernel.org>
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=XISsBhif
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54dbcb476;
+	Mon, 16 Nov 2026 22:24:29 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	stable@vger.kernel.org
+Subject: [PATCH] serial: 8250_aspeed_vuart: Fix potential stale port on probe failure
+Date: Mon, 16 Nov 2026 22:24:28 +0800
+Message-ID: <20261116-c29ba55625-serial-aspeed@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,37 +61,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-ux500-watchdog-twd-binding-v1-1-a26adc9cea5e@kernel.org>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxcs-00000003mbz-1DYS
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:51630
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 16
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEui8ObIstpqSSu/YKReSjFnPZJ2kjmmitE0O0gCrjxfKBKLrIHud9/Eqy8rw1bIkI/TzrTUWJSB6LEXE1dnzi18GwbRTL41ZhaOsHhG2fGxTo2hb/Dt
- jSSHy9cGYCOmPxP4+cSG9EkCIP44SAjot9CMjIDUlYuCKQ7VDtmHJveP4pa+Zi08xloUY9SLvS0R0+LTup87IqYcQmtocmbLFUDhouyeLooluJi0uDiDFIdz
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e4bec2f203a1kunm8be27f0910e50c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0NKVkhOTR9JGh5CGE9MSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
+	++
+DKIM-Signature: a=rsa-sha256;
+	b=XISsBhifYCn6xh7OaTRbFGgVwiNZZiOpkthsG6JNvk/Z/i6mtIwSCXIOBml8hm6ef4Hr0L+SAmpO8kJt09+6ziFv1NkOJ838dmKWYaXigNYLolHm7Ss50Jr10pdVwp/2F8qJqvoI1xFDpiNrm/dRw8kN0YJ7F/Vx/F2d3LdYnjA=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=vsitf1gCOt+86OlSnGNHzwq1zmuiy2PBWHlc3qqYy+Q=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Nov 16, 2026 at 10:49:58AM +0100, Linus Walleij wrote:
-> Allow TWD watchdog nodes to reference their power domain.
-> 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+Invalid LPC configuration can fail probe after the UART port has been
+registered. Removing only the sysfs group leaves a port whose private
+data and mappings are released by device-managed cleanup.
 
-Applied.
+Disable the VUART, shut down its timer and unregister the port before
+returning from these failures.
 
-Thanks,
-Guenter
+This issue was found by our static analysis tool under development.
+
+Fixes: ca03042f0f12 ("serial: 8250_aspeed_vuart: add aspeed, lpc-io-reg and aspeed, lpc-interrupts DT properties")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+ drivers/tty/serial/8250/8250_aspeed_vuart.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+index c8dc87f6886c..2cd1c9146ec8 100644
+--- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
++++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+@@ -513,7 +513,7 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
+ 	rc = aspeed_vuart_set_lpc_address(vuart, prop);
+ 	if (rc < 0) {
+ 		dev_err_probe(dev, rc, "invalid value in aspeed,lpc-io-reg property\n");
+-		goto err_sysfs_remove;
++		goto err_unregister_port;
+ 	}
+ 
+ 	rc = of_property_read_u32_array(np, "aspeed,lpc-interrupts", sirq, 2);
+@@ -525,14 +525,14 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
+ 	rc = aspeed_vuart_set_sirq(vuart, sirq[0]);
+ 	if (rc < 0) {
+ 		dev_err_probe(dev, rc, "invalid sirq number in aspeed,lpc-interrupts property\n");
+-		goto err_sysfs_remove;
++		goto err_unregister_port;
+ 	}
+ 
+ 	sirq_polarity = aspeed_vuart_map_irq_polarity(sirq[1]);
+ 	if (sirq_polarity < 0) {
+ 		rc = dev_err_probe(dev, sirq_polarity,
+ 				   "invalid sirq polarity in aspeed,lpc-interrupts property\n");
+-		goto err_sysfs_remove;
++		goto err_unregister_port;
+ 	}
+ 
+ 	aspeed_vuart_set_sirq_polarity(vuart, sirq_polarity);
+@@ -543,6 +543,10 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++err_unregister_port:
++	aspeed_vuart_set_enabled(vuart, false);
++	timer_shutdown_sync(&vuart->unthrottle_timer);
++	serial8250_unregister_port(vuart->port);
+ err_sysfs_remove:
+ 	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
+ 	return rc;
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
