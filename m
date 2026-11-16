@@ -1,64 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811783;
-	b=siBQDkS1CAOXhi1Er5LNuvhP9fLESBMx12zzRcNY/7J/Yg5Zv3nkalamElTH3F2C3PI/
-	 CULWv8ZBNUW7Q/pQ5g4PM5icxh+bx3c70PzFhNEHFAaCIGWrcyYdE3/pKwB/fGcX+Sl7A
-	 srqxY2KEAw49NSL62MN3GIO4wzAVe6hv+5+F/anIGPjOGpbFpuLQZZIno9eL1ThsdMK9t
-	 m7R4C9e7F/1osFh+IaO8Q0Bpaly+PQCI3PJ6bQyTgOacTewkTn6+P4wyW0YV27+kyFYBr
-	 KFmK0xLqZoqxmEgKchCqXIQDbQRUdHxg0nbF0DWVDQMGDtTp4sZHB25+faiw1WGfQpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811783;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:Cc:From:X-Lms-Return-Path:
-	 In-Reply-To:Content-Type:Date:To:Subject:Mime-Version:References:
-	 Content-Transfer-Encoding;
-	bh=+t8ZxELPYTH2d5u1GirmDH7jb3H83Y/CovQh+JvDD1k=;
-	b=D39JmO2KmX3PAGejlDZuMZdziHVNWasdMn5LrOGpEMTv9UBPXv0MtgojRNF2fX3Mxp/G
-	 6U6z7zbrNVKbEvDIb11jJ5F5BVPOTvja8/EemHv/I/52nhY83VvCYOMeRr3VmLoqDJ88K
-	 LM0FDc2QNG/Hq+sUchKY2jr04haFIhl+wGoyAmMJrTO6TQ2USRNVuvH5QQ/icEWnzsB1q
-	 WB+tVEe8NHWaRmniEgcBFmq4jFeuBRuAG0RxjfiWscfWD5Pb2TIPMj/mfd9G8VFwqE013
-	 umrwB24ARtQCXojsed++GKgBkiSpsbYd8jk84KbjOQgeFMr1KImtXiMf6SPZtI3musg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=oX2P7plc;
-	arc=none smtp.remote-ip=209.127.231.28
-Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794811960;
+	b=zJsJR2DQxr+bkBSKN5POS9dCP0tjP6gGqzlibNWSOt056m5Ti+2JHDP4JANzS13w5BGE
+	 4+lTZZ5L++lN4wU++WOpAjalbt6YP9Y2EpJrbXK/ryzM5L68Uom/m9CCve3+KQxCYGtLN
+	 n7Ew52Xjtj58Rp20GRD4HvXs8hJcAdWPsEZa2V0wtCSh6/+a6PiJ3TYYIEoA06AXeaOZy
+	 0FRC+0NGtMpu+4Zsq7iYmCYz44teaOfZfVDy5mrw2NXMnFPnDZNHalJ0MtyWtRmgcWUuT
+	 i5ysurKREaPachboF6I2IOWDFxWOkabDbd2sNCqp7gUeGqWXfVIT4+EJZ960QrEU+BA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811960;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=04rq93KHt1yRCn1cWxw0lWVfs7wcq7Qp3MwAGU5M3uM=;
+	b=X6wCtAi3ruo9whV3LGvIm19FXYtgFq0G201F8C9CRSceWWsEJNdoKrCXsMZ6BoCFrea0
+	 l024ieR5TR8kgqGJPF7GqBHtUR4xZyov8t4mNlNrNn5takoQcUFdtc9ko6Jjnj9l4R27X
+	 yTykfSBat6zsC02ZyeV6B6KAVN4bpTbjZeLYAAun3oDT1gx8ZY6CU/86a9LGYsmsKpud6
+	 19VQY27cO0ULrcZz+NeX/ZJlyBoEmg1AwdDiL7xDHaux3HTN3URj4TIZAZs6gFTQMcQOX
+	 Z3irfT0RdYyv45IoFUswnsrI1KbB/JMi5ZKM5HlABYh6gk1d5A/NJW3SJt46vpkrlmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="KKWP3Kk/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.9
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7F7606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD7F7606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234D1606A31C;
+	Mon, 16 Nov 2026 06:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 234D1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=oX2P7plc
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794811777;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=+t8ZxELPYTH2d5u1GirmDH7jb3H83Y/CovQh+JvDD1k=;
- b=oX2P7plcXodZNslbMgvxRoEyJCTfwNtwRtlGEJqET49GZFE+Z9wquBJ+/BUp2n38Q3dA2z
- Btnb5XtrWUL2buosdGtxjOlR/mj+7gJBUupXuFMqlGhe0hQQKsZUrDl7tpP0GYpZmkZalV
- QxX6OteiWPli/OFVj+H0PXru9HkXP9bsbb3FuAae9RA1DarlV1+oBWJt/1gpDANI41K/Xv
- BBEr8rhOaZS1ctTd7Sv7s6vL615GhmQg2k0O69FdLHNlTlyv9QKdixC54Ha5HkW7Ee/DRb
- 1qc7WBrh7IG7ZKXsWHNkxl7HJCzHgYqiaobpxXOBR+LT+CCaNtPSvdADsLNV/w==
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.efc7f10c.ccd0.4025.9bef.e587b1e9e4e8@feishu.cn>
-Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	"devicetree" <devicetree@vger.kernel.org>, 
-	"linux-riscv" <linux-riscv@lists.infradead.org>, 
-	"spacemit" <spacemit@lists.linux.dev>, 
-	"linux-kernel" <linux-kernel@vger.kernel.org>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+16afaa77f+e5c053+vger.kernel.org+sandie.cao@deepcomputing.io>
-In-Reply-To: <20261114075506-GKB100523@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 14:49:33 +0800
-To: "Yixun Lan" <dlan@kernel.org>
-Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KKWP3Kk/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OuJO+IpPFqP25DJnSnrZDQp8lkFPzveYM7taokXi2PCPiEKgHBXqqI64LBgxqGJeOnWovN55naOJxpkbokRn7iJd+r4IzfJnwslOLHAoaEXyTYad983Nl+EasAVImPelA+26/wAf3XNGrNdIkW3dYqEkOYpdFIhtcuhTm8fqJGLOTiKHTcyuyDqsvXAiwuqEPrdQ5qPbdE2WuItwZb2+0hBTrSw4ZJaZCoiJp3ogOGveKOIy25nHCO++u2A/DfuRIK1PSvUBccy4Ptu8KGEYm18DbRhztgs/NWxvyp4RSe1umaNmTIlnRqscj9MhSthOLywNHXXkHecKLh5OoqG8DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=04rq93KHt1yRCn1cWxw0lWVfs7wcq7Qp3MwAGU5M3uM=;
+ b=kHPLqUnAsEUhL5dbS52wc96ydk6lG3On/Gx34AhFM93L48gV8Px2KYeiYtAFt9I8HefD2KzQ2/kCgJsSQGl6eesetyuNc9FBz0+xFQYM6eGvhlEuqdw1fjT5WAmGhm82sZRgKjUOTJMMmGnhUdtLv1p4inH4xHZf4e0Mxc+EJgaKqOSmXi6gX0LkEqjGssrKgvlaIIiaiBBcwWazezOJRtQV6xgyfDbpPtb2ztE6oMFNxlTXnC2xbjekKvgariVzZma64tFIkWQKuUGWvIJb8+pFOK8VVxK5++9d2plGMa5EFf6MiGh9clOe3ldo6DG437F5lZD7Tf7UtC7Eop5evw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=04rq93KHt1yRCn1cWxw0lWVfs7wcq7Qp3MwAGU5M3uM=;
+ b=KKWP3Kk/8fQ6M6+AgsEA+zz8ELelQG0X/bh/0xcU9uQr34VFVkbd/7bB012T2tdnwQ3Szj/Hp+Bq1YZRBEyhXgiHdfXP9c+CB4HynTC3lBJUvVVQ3bzCx+eCIurtzMmL3lfxqF2By6coYnIug6neihp0LNYgwXSbtD4GOTy5tiwJ7XYiA9JQFqDh4ZvjY+S55odK80ExicWYLlIW2VvRkKJTndzkBYdlys7AXbruO9AIlJB/UJeUm5931VDEGjKXeKy7yduBhDYRcxX8+tDEGXzoSjRLl+I/6nQhV6np7yk2iJM18sVHqN3ANZuYut/pTCjF7F+FL14IfYvagaEgCg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by LV0PR12MB078426.namprd12.prod.outlook.com (2603:10b6:408:3b6::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 06:52:37 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 06:52:37 +0000
+From: Richard Cheng <icheng@nvidia.com>
+To: dave@stgolabs.net,
+	jic23@kernel.org,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	helgaas@google.com
+Cc: iweiny@kernel.org,
+	ming.li@zohomail.com,
+	icheng@nvidia.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	tglx@kernel.org,
+	wangruikang@iscas.ac.cn,
+	alifm@linux.ibm.com,
+	shawn.lin@rock-chips.com,
+	lihaoxiang@isrc.iscas.ac.cn,
+	18255117159@163.com,
+	xiangzao@linux.alibaba.com,
+	vidyas@nvidia.com,
+	kaihengf@nvidia.com,
+	kobak@nvidia.com,
+	newtonl@nvidia.com,
+	kristinc@nvidia.com
+Subject: [PATCH v3 0/2] PCI/CXL: Guard device accesses during reset recovery
+Date: Mon, 16 Nov 2026 14:52:27 +0800
+Message-ID: <20261116065229.38194-1-icheng@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI3PR02CA0003.apcprd02.prod.outlook.com
+ (2603:1096:4:295::15) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,108 +114,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261109033154.361399-1-sandie.cao@deepcomputing.io> <20261109033348.361452-1-sandie.cao@deepcomputing.io>
-	<20261114075506-GKB100523@kernel.org>
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|LV0PR12MB078426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 619f273c-d435-4f02-d021-08df43ae32e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|56012099006|11063799006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	BBOnXaYfSU+TgJgFRtVteY210gZOPjyCguYOlMazqGbsP7gr85M3LQw8V3nxC8sU05/I72F4G+tCGDVE+fKGMcTjhIWKZSEjK8cNTzJEvCvTrQ2x9s0Qo31mUQ6wJPeK1xVVUG4LsH45acLZtyPZDDfV1+CuYC/RE4xwI10QWauTnNTX6unoZpyJ6i0d7hyIBNebGFsCKZlydzKhCqJqcziYjKjEiRKsy3yNlDSwrxvIbBPzBiHUY+Lt9Xh2bHPDu2M8esTwIMjko5QWNlXR4VrgRkvX7s3hRdgvM5v08WqOr0bmsigoSsDKegbrY/xNg8dsa9heCNBaDRB2SG4aeNWI12U7vvfnuYGDVRhgv/+E3g4gze1Gmy7pjrGunQyBjVhmvyDPXSH/HlBWWN93cMhfI9U1EkaUeG97pIW09P6a19JOdEeYvQ1xqpbHwB/69rCLdfT7rVjB+azWTZen/y4P8wnAvBULk4prkc0yO1Auea97+FafNGU5ZHJDaFNhdy6lJZYpU+TGVW2kXUCtnbnyQASeYRYUArOp5jr/gKmmiuUZilJyNKzXgvzOJLotHQ+ocfv7mOg753tRYTLl9HhNLb6ne4ec8spkW8Dng9HoaDI7rQPeX3NEvgg5EY1iGoGFY8UynIfMpaBHJicfPjnDf+5/e9gRdDqHtpXmbUA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PNSGYPaweGVltcZYkrzKbIu7FrzRiRZuGebw+5BYSp+gWLH6VOQ7kqT659Bt?=
+ =?us-ascii?Q?ZEFzB+ZhZok1CiJzyf2YKp0kQmri1rM515sJGG58DoaayxPW/YMZP6YnM9F4?=
+ =?us-ascii?Q?M6fFmSMnB3fMIIiMqTqjMJpcSE4Rdd8WerdhjFBrDad70XOMUxBSQe5pKGA/?=
+ =?us-ascii?Q?7vNZimy80R299khKB7N5FBOw7FhtGUCYigubHJy4UtNNAcGWYa1PSmpVN7IF?=
+ =?us-ascii?Q?S6f5OzSkHptZlJVHK89EcUL7ITpN7c4sWYGBF5GgFniUO5jBTu9U1I58Y8iM?=
+ =?us-ascii?Q?G9tkIyDD1ocME1ha8DTUVF2mrAF6fPpZfhRT4Dmk2emn/L+S7Of+9ONWdO8m?=
+ =?us-ascii?Q?ZFA6sQ6y4C8SW9y2yJYqjALoFGRoFcPd3HEljFtwiZHyUWpzznN5rOOHLgl4?=
+ =?us-ascii?Q?FinL/XvDSsLyyw+xcn1kpryT+zQTTYILSzzwa4QbGVo+9smV4nYBLujagBKl?=
+ =?us-ascii?Q?Gb3AhsW58oTFPbBPflbefzPaQO2g4HOTCXJZzMfd4OHkrsHmazWUkjzjeh1i?=
+ =?us-ascii?Q?mVXNKtOJs68hu6EWDiNmRQFE1Ao62xosZon5/uVuBtjBiB6ehg6VR0BugKlc?=
+ =?us-ascii?Q?7DrBZcQp93nYS69PdwJ6bbunHxH+CQSLaoC0CnlceWVnmhvbqxTiGZjEufEq?=
+ =?us-ascii?Q?dyNjLSy5q55V1OAnPY+cGVqEef55RghAqXihiYjKGBTk7B5952Vn/07beDum?=
+ =?us-ascii?Q?BeDP7RsryUpUyipSudbV850PBchBo+cyfBG4qLX+yxWOrbIvC6Tf7zIO3zgk?=
+ =?us-ascii?Q?CRyG3a4y0XaMxtrN+FfTTjpYPxpzyM5NMblpxxRW2v1X0GM37pDyvFTzST0P?=
+ =?us-ascii?Q?GmtLRH6JkUdLOF4waUdhUbJY6l0OjXn4DEEIb1s18ssfpvXnZwHt+hIcazJp?=
+ =?us-ascii?Q?/vXfECaC8ROIoizcxy3871y2pAc5k5UM6/q3a0CvIXZ1ZFCRHO+Oj0rQDpLV?=
+ =?us-ascii?Q?govA2vAWyeE47w7LSFTQ0kN5s+mLFH5f5zmGDCKYHmPtjEiTRfW28gNa/cQQ?=
+ =?us-ascii?Q?5eGHtGJBSexh/5dOgCMvMGvWxOlle/UYQusKY7Ma6FG2IfF/T+6PGp85PFW4?=
+ =?us-ascii?Q?d0RpCw+j39klRFdXK5+iNof4gF+RWdgBpkXR9GJ0Wx3CDrcmb94eZFxKsIV+?=
+ =?us-ascii?Q?eX5/+J1gB2mn5IEVg4al05pWfLHIz3i4YzZZlcoZbAj3lKEeHhpwiSw9DDEc?=
+ =?us-ascii?Q?D5Hqf4o0OPJKbUsVzlikyr/nycIIFJToJ4TicadH3kMsBaAnOKFwtd2a+Dg3?=
+ =?us-ascii?Q?mtKHJpK+Qrno+x5m9PHfMq4JIN8C3XuHRynz4jKYza8/hIZjES9K0FqElrk6?=
+ =?us-ascii?Q?Zof5YFYM+Fs9h+aVr8DCfmHJYWyRNb36rwQ3kenZjO6nEgp0oPKBe6BW9tNL?=
+ =?us-ascii?Q?VPc38ZbBfWplfu0dPqoRmXtJB22YGQA9nuVvBB4g4/8JhBwG1YsnlPk7QHun?=
+ =?us-ascii?Q?kWDc/6f+nLly/RjoOsmlREEOR4Y5HbM1FRnSDTRnerojT1oAzYyZ+E5BqA+U?=
+ =?us-ascii?Q?tfVUQA+mE+vs+0la4iyDBBL0z8cYgSWDllN0BsFh1tIlSHbBhLAcjxbqtfqm?=
+ =?us-ascii?Q?9p/ejo8rvksncywHcVNHfz8+JUREO8U8iRnm3009nyCsss7LM7psgWZrKmr/?=
+ =?us-ascii?Q?62s9QSWSlgs/sMtpJXc+lhICMhcdPK30KiPii1efNsKJnK4tHSAdZFtVQPOH?=
+ =?us-ascii?Q?7BCDf50pFefJn1AYzAnjjJ1+ch8wsixuMjwFCPERO/9cfIEo?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 619f273c-d435-4f02-d021-08df43ae32e3
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 06:52:37.0761
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: likSvQsUx+atZr4yyZq/45StUYLRng3Zo0JUzOwl0gmp0e1Be9Ve/xFuKkn5xkWJx3fw5MOMSiE9HrA07acChQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB078426
 
-Hi, Yixun:
+PCI reset recovery may proceed with state restoration and driver
+reset_done() callbacks even when a device has not recovered.
+Accessing the device in that state can cause additional errors,
+including DPC.
 
-> From: "Yixun Lan"<dlan@kernel.org>
-> Date:=C2=A0 Sat, Nov 14, 2026, 15:55
+This series adds checks before two such access paths: MSI/MSI-X
+state restoration and CXL HDM decoder checking.
 
-> Hi Sandie,
->=C2=A0
-> On 11:33 Mon 09 Nov =C2=A0 =C2=A0 , Sandie Cao wrote:
-> > Add the device tree node SDHCI-0 controller for onboard Micro SD card s=
-lot.
-> >=C2=A0
-> > Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
-> > ---
-> > =C2=A0.../spacemit/k3-deepcomputing-fml13v05.dts =C2=A0 =C2=A0| 22 ++++=
-+++++++++++++++
-> > =C2=A01 file changed, 22 insertions(+)
-> >=C2=A0
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts=
- b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > index bcd533484a73..051046fe90b2 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > @@ -177,6 +177,28 @@ &combophy {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > =C2=A0};
-> > =C2=A0
-> ..
-> > +/*
-> > + * Onboard SD card slot:
-> > + * Please insert or remove the SD card while the device is powered off=
-.
-> > + * It works as a boot media. so set it to non-removable.
-> > + */
-> Is there any public schematic available for FML13V05? I guess there is
-> no CD pin (Card Detect pin)? as no "cd-gpios" property seen here
->=C2=A0
-> The above comment isn't really useful or even correct, I'd suggest
-> drop it.
+Patch 1 checks pci_dev_config_accessible() at the start of
+__pci_restore_msi_state() and __pci_restore_msix_state(). If
+configuration space is inaccessible, warn and return before touching
+the device. The DPC containment was observed on the MSI-X table
+writes, which are MMIO. MSI is programmed through configuration space
+only, but restoring it on an inaccessible device is equally pointless,
+so both are covered.
 
-In version 1 [1],=C2=A0 the patch is cd-gpios =3D <&gpio K3_GPIO(88) GPIO_A=
-CTIVE_LOW>;
-but K3_GPIO(88) is fake cd-gpio, it's tied low on board.
-So In version2 [2], the patch changes to non-removable.
-And In version3 [3], add comment.=C2=A0
+Patch 2 guards CXL decoder accesses after reset. The CXL reset_done()
+callback independently accesses HDM decoder MMIO to check whether
+decoder state was lost during reset.
 
-The options: cd-gpio, non-removable, broken-cd=C2=A0 all work on this board=
-.
+version 2's lore link is at
+https://lore.kernel.org/all/20260929020405.9724-1-icheng@nvidia.com/
 
-We just need to detect the SD card when bootup, don't need the driver=C2=A0
-to detect hot-plug event , non-removable should be suitable and faster,=C2=
-=A0
-we recomment to use non-removable.
+Best regards,
+Richard Cheng.
+
+Richard Cheng (2):
+  PCI/MSI: Skip MSI/MSI-X restoration when config space is inaccessible
+  cxl/pci: Guard decoder accesses after reset
+
+ drivers/cxl/pci.c     | 6 ++++++
+ drivers/pci/msi/msi.c | 6 ++++++
+ drivers/pci/pci.c     | 2 +-
+ drivers/pci/pci.h     | 1 +
+ 4 files changed, 14 insertions(+), 1 deletion(-)
 
 
-[1]: https://lore.kernel.org/all/20260922110231.3426011-1-sandie.cao
-@deepcomputing.io/
-[2]: https://lore.kernel.org/all/20261020081633.3673704-1-sandie.cao
-@deepcomputing.io/
-[3]: https://lore.kernel.org/all/20261102060012.100623-1-sandie.cao
-@deepcomputing.io/
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.43.0
 
-Best regards
-Sandie
-
->=C2=A0
-> > +&sdhci0 {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default","uhs";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&mmc1_cfg>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-1 =3D <&mmc1_uhs_cfg>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0bus-width =3D <4>;
-> ..
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0non-removable;
-> "no-removable" property usually used for emmc chip soldered on board,
-> =C2=A0so there is no way it can be physically removed.. check=C2=A0
-> Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
->=C2=A0
-> For cases that no CD pin (or no GPIO CD pin) designed for SD card from
-> hardware schematic perspective, using "broken-cd" is a more proper way,
-> it will fallback to use poll mechanism to detect the card, please check
->=C2=A0
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0no-mmc;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0no-sdio;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0disable-wp;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0cap-sd-highspeed;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0vqmmc-supply =3D <&aldo1>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0sd-uhs-sdr25;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0sd-uhs-sdr50;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0sd-uhs-sdr104;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > +};
-> > +
-> > =C2=A0&uart0 {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default";
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&uart0_0_cfg>;
-> > --=C2=A0
-> > 2.43.0
->=C2=A0
-> --=C2=A0
-> Yixun Lan (dlan)
->=C2=A0
