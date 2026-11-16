@@ -1,96 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798106;
-	b=YuwA/yzCKcxBnkC7ZYRWLni5Vjc5kvF5LN1FY8E4OQ2Im+56UrY6jiDAqeXkpfsuRExa
-	 AD2uli3paP2t7XmDJpyw8YQfuLV+bvWpovuvfWbyD5Vvkm0LBr+7qWRPy9JQ18Qgrp/J4
-	 tIRg0vIevaZRUlqR/l4SZoJMOj7l+zwI+TzXoxjgkq+jiNt/wBUS20Kg/gbKRtKYMp3RE
-	 rJTk9RRTIkR8C7g+xyaZg5ZgOuvCzJINS86jQp4hbBnNv8790cO/TWiYn5ccff5sz3A8p
-	 +LYf6Hsi1o20PtvqjP9+lTB1fUht2aqychUDTK9jXfFOLD+Z5Jy7wwFGBk0/AX8/l7g==
+	t=1794798120;
+	b=yfJEe96hqgPNNKkT/2tE7YwuQXkA+ip5OkjPBkwBPUKT0pZQmexFFnNgfbvGJOZHMLEB
+	 L2iiW+l9U57aM5kd0V1VtHteR3ZCYNyL5AvtSmoTpQ3OFhdElcaPSPyzgrT0QDboQr7KJ
+	 gatqUcVlatwnF16PtdprGm+HhTqMP0cj8dXDnWqaasYYhON1SQ/DD1/4PDe34TAeBVpKS
+	 JPRcjM8hpcv3Q6R4pcMKAXZ4BRHXxwh7o2eVywZImVk72t+0DFGCeMDxlhDb7hqbTX7qx
+	 7OC5Z732KAJ1hnzcQAipOLzLyriAJ+eKV6PwRkgSm1OsVWaSqX9k2NQgOkfUot/AqRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798120;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9yLw/WRCc0A3tXBtnMdNXih0KVmDX6sXBP0GZLNu6xw=;
-	b=IhvzvWjONG20A/ooF6Ani/klrutUqw61NYofA56KOkHGNp+RZkZQp0UNxcLm/tQM9Qh9
-	 ePbKHRZr2QtkKY7Kwue4FRABFIizvK/uhh+JNEPWDDY9P531Cc0LYzkK3kwBw3bxpY4O4
-	 juNrBLxk4w5OMWlfaYhbsn0IRdr/3gWUJayWStIEm7tBDhBd06HsOGhYuzw9nydvirYis
-	 pnSD9jkWZDrfeQT7IDWg2LC19GD7NMyT41yfPaMYjTw83nSjpjFn10Qw8J2qgiMOKRGnF
-	 h26o9SiFnglUTh6sTB0OiboO6GLPxHERE8wr4ElV5RjD/o7OCiJqwFoax+9V4GvCs5g==
+	bh=VMrRqMHzjHqGYxf2SI/6lKJFf2peQ7pwuCUbgZFOrI8=;
+	b=4gcvJzTpwvmz3HexItgq7WCvNPHLy9HEMx6W+8mvUEGdSCFuRsyqrF10xyFVW+Kg2/LM
+	 XLc6MKu3GCpLy/jjY9EaoPH6Ejhg4IVXub9SOgk18Dm8Aiy0LTWzs5y4d4VmGTLMoxtWj
+	 cJnEK4egxMCv4u0AedCgt1y2W37hKgWdf9HyjpCn0jFCldnGuWGpFy+N1arb2+nYRNb1L
+	 kma5E0wSMKktEsLa/+JY3KRP2M3PNU8WIWr+BLRimyQ7VLKs79eaRl7CJfpqyBeAuKouu
+	 bajAfxp0RHWymmmEoGT8Ucd9Jy7KR8nkxssELbRli5kvMMuKn2y7APkSP1xevMpCuPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sd9iF9kp;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nx87/17J";
+	arc=none smtp.remote-ip=209.85.222.179
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DF0606A8A1
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:01:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9DF0606A8A1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA626606A88F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA626606A88F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sd9iF9kp
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36f936424f2so870771eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:01:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nx87/17J
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-9497a167a6aso63817585a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:01:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794798102; x=1795402902; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794798119; x=1795402919; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9yLw/WRCc0A3tXBtnMdNXih0KVmDX6sXBP0GZLNu6xw=;
-        b=sd9iF9kpJwxa1VQzevX1dTaoID8Pa30ReWCDLPJmBSbUyY6xnKcAKlmhn19lEVJSQ6
-         imGeI6NTtdIo9tSo6QY4d5BFyiU9r98SzL3YS70SoiNq0Pgt3FlMc/BZ/GB19Kn76qgO
-         xAbRBwiYzszsYWt47JHmRnRh3RmwK1ax9j4wOOK9rCuYTJi11jrkk8xsp04Ap5MmSh6u
-         nDjedpehZ19r5oJ9zmg0hW2Akr6OcR+/VHixwUNLMu9t3pCmCzeKMckfSeWiy76czYMg
-         g3DMoWzuemA9b3UGGOwGFSbfK/fflj+sggpd1DIOFHYz95mTkvSP8XhihGb9DrxV1xf0
-         u2Ig==
+        bh=VMrRqMHzjHqGYxf2SI/6lKJFf2peQ7pwuCUbgZFOrI8=;
+        b=nx87/17J9VOodn6wTyx5xwYEU4EMFXdmu4jFIGn3hqEjY6uxZZ2TrPdn/s7oJTneog
+         mXWTRLh1pzSfT1QzCK+1N3KHSxAOH27ZO4HtQxwhyB4M7otBvI8b7ORMyIPhF0FWQTOg
+         YxhQJWsysRYVtWBAFsEv5VaPYz/dB19yWLvertvvAOAIhZccr1yNACaxV3I+DQTcaIzu
+         70eikdTMbwpTGqHZL9fkTGq+htMOu7Ad0HybocBeFyVpkA3xawfkXN/p3XYqAVLn9KVl
+         0ADZyPB0RcZDYOCvkzA9HNQwLm12FueNfOnOOjoyLwLhDGR30a1JOMMNpXLrOXfwPmWu
+         uX0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794798102; x=1795402902;
+        d=1e100.net; s=20260707; t=1794798119; x=1795402919;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9yLw/WRCc0A3tXBtnMdNXih0KVmDX6sXBP0GZLNu6xw=;
-        b=WomcgN6SVBThU+oeSakUO4nGZCMcK498PJ4AEggcjj5aZdRJrm+oYT8LCls9RjaAar
-         GasZueTzhu5OFbfx+5y35P1wUHTbF5W5293RVLocd3qaxx+vuOeAi4kR4K7/mkbISdj9
-         bduUpBZ0E86AwDJDLR3LmZ4lTgd78dD5F08em06EKjLbtJFRWc2/siK8OKT8f43xCoSl
-         TmSotIXN+1lDRuFMQB3HEnOGqt4KotxBIw0pThzxA013gHnJ+6ZzLtZ0prh5mRf0pMoc
-         5fmUFf3ixnSTMXah8dwhUJwWG5ZE0l77lrEY5/JsqCRRfQooKf8536wBcNcE8tmRZ0ct
-         kNgQ==
-X-Forwarded-Encrypted: i=1; AL+hErGI7JsE2ljTRY1ELS7uu7cMoBwHop4gmZNkEvWtuufc4slFN3gyTL4LIGHbzu1z+zXZJmV9+MK70LXxgkc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/A6ebf+zMNBC5xkoiKVSYmNtSpUsu3HfabWPwlCY7aXOQ4mIFt
-	6crI/oQE5h5+8ZHuGVJkapyDe0v/GYEFD5CvMNL2B4vfQvUOYRKTMrkq
-X-Gm-Gg: AYBFou1fBTWliZ+gvfwFyi/9UDfb3sSxFZJ2DgbGYq7lX5hJho2o97s0hXs4r1AybwW
-	vto3AWdydT7ZVR5ToHIbnGUCR/zFnadmgY5sx2DOJV3rWmAEF/z2zJ6mjmXyRguDi7r0dHcXF/K
-	Snsy+B+KGIdxW491K3akjTmEG44yEIkE19K/WwQZovRQ4ylTZaax84Hwmd+pgjSwhAEbix9yaMl
-	Bi2BkeK6ANX7sqTLLStDtgLaIuQx1L8deGoW0/JaNb/VOQZ0iVFRCvbZIOiOHcY0GufSJU6StRE
-	6ozZU/yzQCIRMzJmU0mQCaVqQrH0uRfS5bIk5Uph+uuPBql4l5QWq8SIUV98en7ktxFXJqarrgU
-	LpENk6RFMw6lbEC9w2YYHKXWEe+PkQclMbCDI+qrgVDOPhUYNDx22B7sFLSHpFgUoLTZXy7m6QM
-	DGO0UgFFTSkPZ5eCzLrXp77zdkxXw4uOexRk4EqUSVwsW1wtakb82qUfJ+ooZ34MJsID51LfX74
-	xq1CIhVYuAVPGHuAaKtGfbhzp0svA/UfCvDsG8oEEEUpI7wMbnQqLQNWZSPdLbDF6PkbQjVSRHf
-	b5AH6ONt6ANnOz6hTeerDTl659NfnfW+kexI5VSbY7TE+kIrEAU4tbGOHBI5McJZNTXq6khXWM9
-	EPBEmwW0iKVgp/ME/pA9QDbDsk34ByLtUdjZSYw==
-X-Received: by 2002:a05:701b:21c5:b0:1b5:514:6a23 with SMTP id a92af1059eb24-1b505146aa3mr8786867c88.13.1794798101579;
-        Sun, 15 Nov 2026 19:01:41 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm29479863c88.14.2026.11.15.19.01.40
+        bh=VMrRqMHzjHqGYxf2SI/6lKJFf2peQ7pwuCUbgZFOrI8=;
+        b=rI+VjoJAcSQ0FwqQdtoozBNHXZo6mV888IDWlyGFm1DMSSaAVC8X/JCp3gN3cMujzZ
+         UV0RvK/UYMyy9/wx1kH8hb/PsBqDolMbJOpzi49cy8Gq72yQ9JZab+l7kLpuK+7gV2aP
+         cbiolXOpI9wxiq//n7irfk3mKy1gkUD+ju45u+ICN648SyB32Pj/mgfBaUz8zk/I0FX/
+         eLieQTio838CI51h5iuW2UTEnMaHFJNJaD8wImMshKS8yivB63iWsFSAEVmLVM24Ks6Z
+         OGYgOO8XmWG/fOudyd2pDbSgwTQ/8eAbufK5GhyCiXqr2sT/a8j3rysSOw1JAseyY1QC
+         gQcw==
+X-Forwarded-Encrypted: i=1; AL+hErFLvYFv95LrYzKpa0pdqDC7HOJLirSu3DIP9eDGqHxcKvpfPGGxoPCJCxXfa46Djnszh/iTNyxpTHikDTY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Ei29W5vfI5I7706qwZBQRLZmOvyd9M2vSdIyNuL3GwRZFxR+l
+	DoUUvKjstQ1dX10+tWAKGCmMSQIGBQYDCAbGWcmBEW2wxEN7906Pq9TS
+X-Gm-Gg: AYBFou3FThCbw347Ep7gXBdgTmW0MZ5HQdHlu/i5nWwfpLmTZL93FduYsGgoSO6XBpr
+	nffF4oORI3L2f0XTJXL3BUw55lpDCqELmeK/m5oQZQ865L3Anf89L1KB9cyZ5n28Ca029evKGB5
+	F7M/6FSF12v4d3IJyddnbCL9RptRwB3tq9KLL0UVvlY/Ed/N9PVVC6D0SYT8059wiBlB3R3EPjN
+	dEk89KzXELZIzhpT3hrnpMLUXGu4OEdLyN7BGZQgYz9LE8ldQNqx04SY0sIeoN/TZ6z4itN1Yjz
+	ug7Yudl/+FL/ATVMLshybwZKl/5rWeKyU/btCNsXjK+UtFB2kbYhifgXP4qKyW3O79NUOxxVzbZ
+	vFLENNKP66bl3GmDklmFzfHnQ0XszDYIlviPX1Hb49J9JCa0rqfi72hqo/GA6wpHckboMuTFfgg
+	MphprvmpPs1b8iXftoJ93cDoRdraOIhb2LF64rjW54B0FGzSdGxCqE5ZSD4vgvVR8iLgcaAhVUe
+	7cBoQfUKuFCI5Bq6U50hNqdDJk3T88ZEGQFsoIUE7qRyQtlVGH84bq6wFUikMJYRJB3SUhGM4LU
+	xNAkoi60Zr0hP41pVD7Oos2iUvxM+ylpgA6B9JLPGZkgzhGdusnz
+X-Received: by 2002:a05:620a:6019:b0:93e:95ce:5394 with SMTP id af79cd13be357-9494b9b63acmr1378102485a.2.1794798118524;
+        Sun, 15 Nov 2026 19:01:58 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c831b7dsm746297085a.20.2026.11.15.19.01.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 19:01:41 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: yishaih@nvidia.com,
-	alex@shazbot.org
-Cc: jgg@ziepe.ca,
-	skolothumtho@nvidia.com,
-	kevin.tian@intel.com,
-	leon@kernel.org,
-	kvm@vger.kernel.org,
+        Sun, 15 Nov 2026 19:01:58 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] vfio/mlx5: Fix an unwind issue in mlx5vf_add_pages()
-Date: Mon, 16 Nov 2026 03:01:30 +0000
-Message-ID: <20261116030131.15346-1-dennylin0707@gmail.com>
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v2] vdpa/vp_vdpa: Wait for device reset to complete
+Date: Sun, 15 Nov 2026 22:01:44 -0500
+Message-ID: <20261116030152.1704527-2-oss.patchbox@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,43 +100,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mlx5vf_add_pages() gets a pointer to the page list of its caller. If
-alloc_pages_bulk() fails after some of the pages were allocated, the
-unwind flow frees them with
+vp_vdpa_reset() writes 0 to device_status and returns success right
+away. The virtio specification requires the driver to wait until a read
+of device_status returns 0 before reinitializing the device, and
+virtio_pci_modern's vp_reset() does exactly that: the read-back flushes
+the posted status write and any in-flight device writes, including
+MSI-X messages.
 
-	__free_page(*page_list[i]);
+Without it, vhost-vdpa (or virtio-vdpa) can go on to tear down the
+IOTLB/IOMMU mappings or reprogram the queues while the device has not
+yet finished its reset, and may still be DMAing to the old virtqueue
+addresses. The MSI-X vectors are also freed while an interrupt from
+the old configuration may still be in flight.
 
-The index is applied to page_list before it is dereferenced, so only
-the first page is freed. For the other pages the code reads the memory
-that follows the page list pointer of the caller and dereferences it.
-In both callers this is a dma_iova_state that is still zeroed, which
-ends in a NULL pointer dereference, and the pages are leaked.
+Poll device_status after writing 0, in the same way as vp_reset(),
+before freeing the IRQs and returning.
 
-The pages are allocated with GFP_KERNEL_ACCOUNT, so the allocation can
-fail, for example when the memory cgroup of the task is out of memory.
-
-Dereference page_list before indexing it.
-
-Fixes: 089803c40193 ("vfio/mlx5: Enable the DMA link API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Fixes: 64b9f64f80a6 ("vdpa: introduce virtio pci driver")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 ---
- drivers/vfio/pci/mlx5/cmd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2:
+- Drop Cc: stable, as this has not been reproduced.
+- Rebased on current mainline. No code change.
 
-diff --git a/drivers/vfio/pci/mlx5/cmd.c b/drivers/vfio/pci/mlx5/cmd.c
-index 04180035a7fe..8e8514f2660f 100644
---- a/drivers/vfio/pci/mlx5/cmd.c
-+++ b/drivers/vfio/pci/mlx5/cmd.c
-@@ -518,7 +518,7 @@ static int mlx5vf_add_pages(struct page ***page_list, unsigned int npages)
+v1: https://lore.kernel.org/r/20260926211507.1330179-1-oss.patchbox@gmail.com
+
+Like vp_reset(), the new loop has no bound, so a surprise-removed
+device that reads back all ones would keep it spinning (the Sashiko
+review of v1 pointed this out). I kept it the same as vp_reset()
+rather than handling that case only here.
+
+Compile-tested only (x86_64 defconfig + VP_VDPA, W=1).
+
+ drivers/vdpa/virtio_pci/vp_vdpa.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/vdpa/virtio_pci/vp_vdpa.c b/drivers/vdpa/virtio_pci/vp_vdpa.c
+index 646efd9384fb..eba82ff253ea 100644
+--- a/drivers/vdpa/virtio_pci/vp_vdpa.c
++++ b/drivers/vdpa/virtio_pci/vp_vdpa.c
+@@ -8,6 +8,7 @@
+  * Based on virtio_pci_modern.c.
+  */
  
- err:
- 	for (i = 0; i < done; i++)
--		__free_page(*page_list[i]);
-+		__free_page((*page_list)[i]);
++#include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+@@ -236,6 +237,9 @@ static int vp_vdpa_reset(struct vdpa_device *vdpa)
+ 	u8 s = vp_vdpa_get_status(vdpa);
  
- 	kvfree(*page_list);
- 	*page_list = NULL;
+ 	vp_modern_set_status(mdev, 0);
++	/* Wait for the reset to complete */
++	while (vp_modern_get_status(mdev))
++		fsleep(1000);
+ 
+ 	if (s & VIRTIO_CONFIG_S_DRIVER_OK)
+ 		vp_vdpa_free_irq(vp_vdpa);
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 -- 
 2.43.0
 
