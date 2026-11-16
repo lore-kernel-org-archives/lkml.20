@@ -1,83 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793753;
-	b=vHgwh29VXAs99qRWxHj++dXKCkPFlupW915M5Rdx3WvpWctHTw66AAuCWvG60+8v7/C1
-	 4X5wDA3zrr3RLorrRoepwRpVePfb8nOmP8YeJCtXbzJqSJGia3GdMn9U9wydcqlgPDf+6
-	 ti36hYHujimre4xinIQ/qttB5eYlr1VfxUgnEaAjYDbkugm/3xPm3XUmFuevYck/3qgbv
-	 kf5evmY6iggT4RtA2pt+klO/xIl3A2Wz4X4STXJhE6LDwM3coZ8UFTI4/7bi5JwNl9KjS
-	 reiuV+pysTO0XvT2aYmgDHnZjryUnSKH8i+W8Lcbq2NMniqg/9DykYzvuzTT6b8b2fg==
+	t=1794793749;
+	b=PCzRsIPC/a4Wk4v9KUD8dhgfEJ77+drWtAhLfIvV5TFZ+EwDf6yZemDBoLIOuc11Ibpx
+	 LjkTg0zyUR5g4dLVUXW182rBlx797p7HSTSFI/lwBOJON4ks9XUo0+Mg/bDQemoRCI65S
+	 2kcYycG+5onejMe6P+Uy6eS3NXDnFj0Ydr7l4f4/tN1Y2PmgZ4iR9fwu5fF6VNsA00OsA
+	 xuYz1hHAYkGfr4xZp/ko5sy07ucKeGYkz2oj1phRMVAYNcVlLyZm9/HEFTP/I90Wh5oKV
+	 sCQgy3fTwihX86O5IUCpDIBtB30qQKDGftI1Bbvd0EOe2qw8KjrSVfYkSC509i4ReOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793753;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uRMIIewxVeu+ht7LO7h/BFu7l52guGdF1d2s1R6V9yk=;
-	b=Uu77QdvNDJc8wSGQDte2nPrEM+lQy34kynO5SPWQx3QCJbob4AKcqx50zFkcpT4+qQg5
-	 tB8cmTCQG4IHZqlsNKOn0f7UQ+eBG+TzwpsTnK2NU/xigfoFVI3zO+PL6lK2t2MW15ihL
-	 XjICRLB96P/8a0oR0wcGznvNlykWbcnZEfoSodmIi+q7pHsXTG1E+UJItjqFml6lCRZ/z
-	 pSeKNCfd9/+jt5khPbCdI1lawsBvsvMj/AuT2DU5Eq2kBHhWoei2X8yO7jXgSw9C9SeYl
-	 RbOvr/mfFIumwaDwFpioDjQB37vxlc0TXM8duVQpC/+E6Jkjeyg6ZDgriW5og9eMp+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793749;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Rekfepe5axDxfYyni0ajF7ujUuhN9THJ7yTWEHuS3YY=;
+	b=Acj4Ui1mgxnk6ARSu+Q7ZAiY8MJkNlaxRlhIfQ5yTIQZa1hpTC2I1+uj4DgImKaAe9EZ
+	 dQOk1JnlCde089lcY8F4jw+z3WX6AbM4pYhIFyVhtN3zD6sVTCo5hB8xrsSNnbuv9d0S6
+	 t7tXsGOMGUXzLtjgOleQxNMMQqseVs7GD1BQnhZkb+OVXC/7wm/PWY8AZNXBsvUTwxWTj
+	 LHWlK8VtkzISUNX2/50eOqCuoA7ViJygqQdMM8TOg6dOR438tCxj+XYzXWCveSW8GyOAz
+	 jgvzRRTlDrUmFsjf41+12pA0Ml89GMr8eA03i7VakGxWFmmMwqqoJAwsaLsswsysg3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZosUqJy9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4106606A321;
-	Mon, 16 Nov 2026 01:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZosUqJy9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439C81F000CA;
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IB8iYmWT;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40E0E606A336;
 	Mon, 16 Nov 2026 01:49:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793753;
-	bh=uRMIIewxVeu+ht7LO7h/BFu7l52guGdF1d2s1R6V9yk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZosUqJy9hByTWKMCTgYWdv/TJ0lEs9E5ChrcXD2W0CCAnrD4RUCngZpUVfcQ+YW0u
-	 23r69QjPrbmZM8ozIT+XQAUwzidhq8E7onQ0VTNZfWskCbWvmsXtWcz00hixwljzev
-	 cTmUKH9RVHF4GJuy/BYMs0CleZQsKqPiPfyUfqlXY+7ffsQRzDVtbEMpD3PtAo4uhE
-	 y7rcDIcuVLrcyKR7bLe4DTxFbLQvLi02ravbu6ASnkmjvH5rqaJyZONAUuytC3i2Eh
-	 yqPJ4HSitBaRZVi40EDXmfU9m20yvAN6YMPEXAEV4UWcCFl7DfPGWxh9zf5ZbxZ9FC
-	 JabSd7smua9TQ==
-From: Jonathan Cameron <jic23@kernel.org>
-To: linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Martin Tuma <martin.tuma@digiteqautomotive.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Gustavo Silva <gustavograzs@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
-	Tomislav Denis <tomislav.denis@avl.com>,
-	Jorge Marques <jorge.marques@analog.com>,
-	Petre Rodan <petre.rodan@subdimension.ro>,
-	Dan Robertson <dan@dlrobertson.com>,
-	Jianping Shen <Jianping.Shen@de.bosch.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Maxwell Doose <maxwell@maxwelld.cc>,
-	Tomasz Duszynski <tduszyns@gmail.com>,
-	Esben Haabendal <esben@geanix.com>,
-	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Vasileios Amoiridis <vassilisamir@gmail.com>,
-	Abhash Jha <abhashkumarjha123@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Nishant Malpani <nish.malpani25@gmail.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 04/35] iio: adc: ad4130: use default_trigger
-Date: Mon, 16 Nov 2026 01:47:52 +0000
-Message-ID: <20261116014823.3132576-5-jic23@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
-References: <20261116014823.3132576-1-jic23@kernel.org>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40E0E606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IB8iYmWT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=IB8iYmWTpHDQG+taqhqaKNRIp339AzhOyFN6jHbDhlgyBNqHbbW7BXbI4uIH4YDXYkdHKrzIzRDnZ
+	 4qHKDw8gEJdzM318m/3hgO3RdAhKoj4nxQObUGt/4KQzuyi2LIJGtg7cdqMMIdoe7C9SNd6zuJyohG
+	 hHnzvsgs5VWOA5fo=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96afa6112a69-ff127;
+	Mon, 16 Nov 2026 09:49:07 +0800 (CST)
+X-RM-TRANSID:2ee96afa6112a69-ff127
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHD-W7400297 (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86afa6110083-77031;
+	Mon, 16 Nov 2026 09:49:07 +0800 (CST)
+X-RM-TRANSID:2ee86afa6110083-77031
+From: Aibing Chen <chenaibing@cmss.chinamobile.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net: hso: cap the MTU to the mux tx buffer size
+Date: Mon, 16 Nov 2026 09:49:04 +0800
+Message-ID: <20261116014904.556-1-chenaibing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,37 +74,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+hso_net_start_xmit() copies skb->len bytes into odev->mux_bulk_tx_buf,
+which is a fixed MUX_BULK_TX_BUF_SIZE (2048) allocation made by
+hso_create_net_device().  The net device does not set max_mtu, so
+userspace can raise the MTU up to IP_MAX_MTU and make that copy overflow
+the buffer; the same length is passed to usb_fill_bulk_urb().
 
-Set indio_dev->default_trigger rather than taking a reference to the
-trigger in probe(). The IIO core now takes the reference during
-iio_device_register(), so it is not leaked if probe() fails after
-the trigger is set up. This makes for less fragile and unintuitive
-ordering rules in probe.
+Cap the MTU at the buffer size, keeping the 14 byte allowance that the
+default MTU already uses.
 
-Fixes: ec98c3b50157 ("iio: adc: ad4130: add new supported parts")
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
+Fixes: 72dc1c096c70 ("HSO: add option hso driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
 ---
-The fixes tag might seem unlikely but that patch also introduced
-the default trigger.
----
- drivers/iio/adc/ad4130.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/usb/hso.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/adc/ad4130.c b/drivers/iio/adc/ad4130.c
-index 9763a811caa3..a8fc21eb829b 100644
---- a/drivers/iio/adc/ad4130.c
-+++ b/drivers/iio/adc/ad4130.c
-@@ -1666,7 +1666,7 @@ static int ad4130_triggered_buffer_setup(struct iio_dev *indio_dev)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/net/usb/hso.c b/drivers/net/usb/hso.c
+index 71caa3764..45713c994 100644
+--- a/drivers/net/usb/hso.c
++++ b/drivers/net/usb/hso.c
+@@ -2393,6 +2393,7 @@ static void hso_net_init(struct net_device *net)
+ 	net->flags = IFF_POINTOPOINT | IFF_NOARP | IFF_MULTICAST;
+ 	net->type = ARPHRD_NONE;
+ 	net->mtu = DEFAULT_MTU - 14;
++	net->max_mtu = MUX_BULK_TX_BUF_SIZE - 14;
+ 	net->tx_queue_len = 10;
+ 	net->ethtool_ops = &ops;
  
--	indio_dev->trig = iio_trigger_get(st->trig);
-+	indio_dev->default_trigger = st->trig;
- 
- 	return devm_iio_triggered_buffer_setup(indio_dev->dev.parent, indio_dev,
- 					       &iio_pollfunc_store_time,
--- 
-2.56.1
+
 
