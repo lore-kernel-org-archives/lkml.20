@@ -1,48 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.68.154.128
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820820;
-	b=E4bGDO7R0m9BXFyo1hsIVn5CobP017bx2nU7tde1wz4VONiY/bk8c6Xn6f56+HM9vw3o
-	 ksHDlpAPjmv7QEUJvcJIK6+uYTatEbkj5Q25SWNsg1YjVr+MsGvJkm3VsbRRPvndkbSrP
-	 hw92HiMiF+AtvryTft3iN6IdBK3Y4r7f6tGiGNjPZGFSm5EPlN7KLEjotp/ZHESPcobn+
-	 07cUoBprAd0tuOeNb7TD8tFucHJBuY6GAa/ULiQ/bbbV+fZ37DKRg4vNceO4EtLMvnRYx
-	 0O9VwuRIEJGnrIHa5US5bpxjyTEU7WydjqK2vpZlM21IFWC2xtrH/DdgdUv2PAl5F4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820820;
-	h=DMARC-Filter:DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:
-	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=k+wOuVk0Dr+o/+JpRBrIEXz83gTiweTC0xIvCalJCXc=;
-	b=sqVJh5FlJA99j3sR2PsKuslUsODeuCJm5/pYvoH0HYIFxcgJizFmjV0nyAojFV+214rU
-	 ypFyJx2EzuaN/xWq76qiraeicKAOZdQlyATT2cFrqi8mIkTZLqT9rF6ITBnv/u7aqc44R
-	 R7aVLBa4z635RAWnhRyCYWf0EN6OIxn1C8RjVUfpThUoW1HRyOD5W4O4FQN17QFd5YN1a
-	 bQzroM9mbQEW0EwuoqCNc9StqRcdIczCO26wCsfDat5R3S2vd31Z0Mf1d0jNdJuEVBsAd
-	 QgQgWM6xxQD5by5I3f0SDOX0GI+y1Kke2j77s9kBRcNm37dXQIRhdKX6xKroNEQfcyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fromdisposition.org;
-	spf=pass smtp.mailfrom=fromdisposition.org;
-	dkim=pass header.d=fromdisposition.org header.i=@fromdisposition.org header.a=rsa-sha256 header.s=mail header.b=AoKjACI+;
-	arc=none smtp.remote-ip=51.68.154.128
-Received: from 4do.net (4do.net [51.68.154.128])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794820822;
+	b=bev1AaC9NIEqKt3dqVe4qc+U4LKgwY/BsVv8KRdLjjwGq0uGnst2vzF6wjNHc7jI/qKF
+	 GVpwXIryFFAwbS/LhiFtQoXh1BtIPOooU0MoGDcH+f0haOuvG1DzUdCFMpCZolL38FB3a
+	 6uLQFDFiy/iURvCttRDfTE/+g+BPvh5sq3HYm9Tu1iQZS9Z0OQ3/SRnK84Jbq+GrtS1VD
+	 3+vC2SRICujm9PVn/YnGrV9iitB5Me88Ec8KQrHd8Pya3zHHyjsS+/PTMkRsQhmQ7+lno
+	 qhS7nbCHbH45ywv1QKtjBwfNh+xXRFffkNjCBrBWDj7581jFFkc5HK3pls2xZPbLx5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820822;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qasYIWxkmoq5mRF2ENr+HXhZWEX0pISvU4gUa+W+zyw=;
+	b=mzU8Mwdhe4eKFM7t7rqxREUfzauNTNk/gZBrAFGNd0BIQBuynvraPYhTEqzGlG9+QYak
+	 DYswXVFbx7u/8CF/AHv1b8FfW4JuMXxSfLRYd0UXjYa3xcmr3EiPp72y2fKPNCK9sDsKZ
+	 ebHcj0FYOU3QnzjpUdm7/sxB2KUgJfkMQqArAQnx7r+CNrGGXYwZRuzPcgJp1XvSe5IwX
+	 jNlr4wqNxQ/PbA0NaVOWC6N2zWUvvaHoVdhAJ3afv5XSR87FxmGroGMfp9gNMP7/+rGaR
+	 aEWpM6+bWu92jyX1/+6opvORZ256xH6LW5A7faSqxm8AzsPLm2d6jJjBWTAUl8K8S2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gYGbfRuA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94A8606A323;
-	Mon, 16 Nov 2026 09:20:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A94A8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fromdisposition.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A1D606A334;
+	Mon, 16 Nov 2026 09:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A1D606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fromdisposition.org header.i=@fromdisposition.org header.a=rsa-sha256 header.s=mail header.b=AoKjACI+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fromdisposition.org;
-	s=mail; t=1794820811;
-	bh=GrxWz7efrCMYHUVm6uX3hNeflkQ7aBKkrpH9+rrDivQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=AoKjACI+BQ0t/iCTSnaeCeZL0VUkjIlbPm9eHZc8yzrb7B1uPNAG6TuZ4jT+Y1+EP
-	 01LuJPqGtt+SVAWSkoPqgpXZm9U9WAQkFc6Kvjy08AbmleItojeYAejBr1wrP/OflL
-	 kswuC4d6jwqxD8Phl8M2I+Y3JFRnOyVZDYH51aCQN7+fJy4104vF2kVaHdHXzR/sdW
-	 Y1a5TPNV9YXqIeo9NGlunMk8qvhhrlxrXPYVvZ+XBDd5vidpU7dkNX3vX5a6qSoHds
-	 Ed0Copt4Jecygq+J7BJsvUVCMLHskcJEdlv53J/+kHsmkgwRKZ2G2cFI9EkI3uHb+6
-	 bc8GTSk6e8gsQ==
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gYGbfRuA
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9B604201578;
+	Mon, 16 Nov 2026 10:20:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794820818;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qasYIWxkmoq5mRF2ENr+HXhZWEX0pISvU4gUa+W+zyw=;
+	b=gYGbfRuAqF69PBMw7kwNBh5WSABiONyvAt9Ws/rCU/ITvprXFhoaetjGIJjcj/jCMMSS+q
+	3VF2DKro3L2d/A+UyvttnTR/YJGhNBU94Gqqlb4sih6DJrhu8REG4tBLmJ5AJG3/3l9+q+
+	O4W1qkbvMxjr3XCqYjSa2yJYvzq6XmoFKFmRDF5ZkKcwLeJKpMhZbA8eGIvVQz0dGBYmnt
+	Mfu9RYVSyQZIFjCXCnS2n08Kncc7z8GIKv+QT7sxbLnPB6m7a96xjh3UgUeyF4KYedFmTc
+	63CVJBRyMi1/NAJI9fzVEa4HUt5egBpHstBHiaFO7Vn0q4NLxy0Y3hvscWubnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794820818;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qasYIWxkmoq5mRF2ENr+HXhZWEX0pISvU4gUa+W+zyw=;
+	b=U/C98LT0LRbp/f6w3leKXIvfSv2rjagmhq5nywzUTlYVI5vQU/sm0c17Chl5hOz7zP75ty
+	heuJCZHGDURmt9cQsb5CDfKlrDhQyPAThlDm9yS38/DOjta+17JEUBdJbC41x1M4Jy3gs8
+	d/5NDA7tYZHibCOidKVykludHLYJzs24N11iI0wJb3fcLzsp9Vp3x2tK7SxIIjSdnfs2Ip
+	cU8/Ha/XqP1vhw1x/VOZ0VJSXRYZYk2BZNxE+PfFF1lOQVaegtOUVxttTqP02jYGNMYCJ8
+	VbzfYQccKYK5Qzeg4raGaWdVYCNtD+pI/bxSaJsEVZ72Estr5bdBhnAdKNDWyw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794820818; a=rsa-sha256;
+	cv=none;
+	b=c6rRiCNxc9OCconJd8jd48OoBjIDRycdSqFfLcJzdM1OfGx47kexJvdna2+7v7SaPs1alg
+	cWGWU4F2xbabaCR3QcfNG1J4EQqHvXuScWhAmXXRjHeZ3Ezbc5/UcLKxEmexRsH3VvlRiC
+	K+WdErBdLe+j1rjKc1OT4x/ySHUYF89hXDLV43BJgyets2Rc3+h2LT5iEirKGKD8PDJRBH
+	iplRl8XRFee8HUL6WD722uMaKC7LU7I+aqAEzSLWKAwJPHp2zEVx+2hLkYOb6x36zqsrrI
+	y/6Uj6xwcIOxvw5FOq1wINcgiBnvsr8jSg7Ir0m4XSDI4DgkrBsAHpIbeATfPg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xSsss-00013E-04;
+	Mon, 16 Nov 2026 10:20:18 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id D62095ED13C;
+	Mon, 16 Nov 2026 09:20:17 +0000 (UTC)
+Date: Mon, 16 Nov 2026 10:20:17 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
+	"linux-can@vger.kernel.org" <linux-can@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: Re: RE: RE: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe():
+ reject devices without match data
+Message-ID: <20261116-passionate-vulture-of-potency-331d64-mkl@pengutronix.de>
+References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+ <20261114-fix-device_get_match_data-v1-4-2d82025e9646@pengutronix.de>
+ <TYYPR01MB660340F5E219C29045BF61F9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+ <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
+ <TYYPR01MB660333DE58031D8231CD1B3B867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,48 +109,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 16 Nov 2026 09:20:11 +0000
-From: Demeter Barna <me@fromdisposition.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Michael McAllister <me@michaelmcallister.org>, Srinivas Kandagatla
- <srini@kernel.org>, Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: qcom: q6asm: Correct the 24-bit PCM format
-In-Reply-To: <16b8f649-f464-43a3-b372-868351df9117@oss.qualcomm.com>
-References: <179355993304.51321.11135059681945648585.q6asm-capture-format-v1@michaelmcallister.org>
- <f3485a790ffdafe635b84b5d68730dad@fromdisposition.org>
- <179416102230.53258.7301268454500974217.q6asm-pcm-format-v2@michaelmcallister.org>
- <16b8f649-f464-43a3-b372-868351df9117@oss.qualcomm.com>
-Message-ID: <8832ef4d735b3fcdf48a2bf2a9997975@fromdisposition.org>
-X-Sender: me@fromdisposition.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oayapvf2wmwdvepi"
+Content-Disposition: inline
+In-Reply-To: <TYYPR01MB660333DE58031D8231CD1B3B867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
 
-On 2026-11-15 13:12, Srinivas Kandagatla wrote:
-> Can you please try this change and see if it helps. I have not tested
-> this myself as am travelling atm.
 
-Hi Srinivas,
+--oayapvf2wmwdvepi
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: RE: RE: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe():
+ reject devices without match data
+MIME-Version: 1.0
 
-Thanks, I gave it a go on SM8350.
+On 16.11.2026 09:12:13, Biju Das wrote:
+> > Thanks, I wasn't aware of this series. I tested the driver_override on =
+the flexcan driver with latest
+> > net/main, fixed it, and applied the fix to all affected CAN drivers.
+> >
+> > Should I drop the driver_override related null pointer checks from this=
+ series?
+>
+> I think so, currently only few drivers are using driver_override feature =
+and
+> majority don't. There is a work in progress to disable this feature by
+> default. The driver needs driver_override will adjust the probe() to make=
+ it
+> functional, so it won't fail at all in probe().
+>
+> But here we are making probe to fail,
 
-The DSP takes the V4 blocks without complaining, but nothing changes for
-me: S24_LE playback is still 48 dB down, same as without the patch. I
-played a 440 Hz tone and recorded it with the DMICs:
+Without my patch, using driver_override the info pointer is NULL and it
+will crash 5 lines later with a NULL pointer dereference.
 
-                                     without    with
-   S16_LE                            -25 dBFS   -25 dBFS
-   S24_LE (bits 23:0)                -73 dBFS   -73 dBFS
-   S24_LE, shifted into bits 31:8    -25 dBFS   -25 dBFS
+> in case someone wants to
+> test the driver using bus_override.
+                        ^^^^^^^^^^^^
+What's bus_override?
 
-Capture is the same story, the samples still come back in bits 31:8.
+Marc
 
-Michael's v2 does work here, for what it's worth: S32_LE playback comes
-out at -25 dBFS like S16_LE, and S32_LE capture records the tone at the
-same level as S16_LE.
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-So it looks like this DSP just ignores mode 23. Maybe that depends on
-the firmware version, but with the firmware this device ships it doesn't
-work. If you have another way to fix this in mind, I'm happy to test it.
+--oayapvf2wmwdvepi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavrKzwAKCRDMOmT6rpmt
+0rovAQCEIJAMETd7tNyk2R/k715jbympLZH7eJQMURDgqksApQD/a5uzKGahBuW5
+XA8bORFBLc4olbS/6V89C8PXQPoDjQM=
+=Bz3f
+-----END PGP SIGNATURE-----
+
+--oayapvf2wmwdvepi--
