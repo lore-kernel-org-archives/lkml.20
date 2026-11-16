@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849218;
-	b=ycefAC8qmldOgPyJMSl6GboxKqmG1QqEJSXBUeH4y8pzXTRvsQjoPF6MHLWeDJs9IsVj
-	 gddybElmFBtOftE2SVxqOnSTnilE078v2ymvMPS2f0yvv17Ji4JCiqA7lXX+bBwFegvgm
-	 HH1xHUyfxj4vnv9rwWTrk9rXkadALf4z604BuCjG7AtElXEDdQwIw9VNpMrcTYxSFW5TY
-	 GapJCa7TicfVUErVqMOKyOaUfH+RvxBySFTPPm+bd3JLbRKF5++Ni4x9Et12Le1eczUv8
-	 einesDtv5/Wa6K43raboZ8vyQScAmT4lu/RI4qss0rYxToc2TtdxUs5xsl7XgP4oKgw==
+	t=1794849220;
+	b=S2jmg/eV8VOAHjlr4Mzzd3ShqqiipNo6dtnrLS1KVxw9gYpZFnXdwwKTQKbvizv675Xh
+	 1h/ifTmYxp4EmqNrwrD6zuKzlZQd7HhXEWFWepN3SxrN+iMyXAVqWyUISavwmCQxQbN/X
+	 SZ/tfeOokW3wQoXQQKAcLb6W/ZeXQfNdjSfi9LDk0jFyYz04iOTC7OOOXGG3uRRMi6iwa
+	 Tdt0n+qRkyZP7Wm5yMHFWSPnRoggGTlhclcnRw9XyZIvLfDrzNrgldyHlaUT2QEX3Khy2
+	 tP4DU2UF9j9nSDC9afduCh5CjWURYkdOVzzGqreV6zaUa/Qr69BT6fZSXoa2DWYAtvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849220;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8V7xGG+Bn7PqdQRemGnzAoiBfi4wW+bmmTR0g/VwBBs=;
-	b=haCtqpC8dBlYzVVTI5V4yB/wolzY480I1BIqiHDVlk/B6AhNT6a+F1YuPFR7s633jmD4
-	 ybCLBUGJUMB0d+3w1XzUl26jwdA7GdEjr+Z+JIQILkdhqJAvrN65/ZuFYmDjhQCBGY45w
-	 fmfW0walHvc9rqg/t3AULuNr1Vs0NaSocAGScuH8lZJxEM7b1yXBCoFbk/+sy7QkG6FoG
-	 ag0icSC3cvMQph+VSCFdp32b48pAriCMW+rxCYj+yKClMHS7gjX8Y1FwfPNvIB9ak4b3n
-	 4bj09chUyRDwIKDgeVFVMYl5pD6Lgi72dzlDQJBS6GOuCQruLDtiLGJZHa7DnXAuU9Q==
+	bh=7QvFe1k+A6nsfZsq1Q6PPcYpuyzLtM1WSWpelZzbAo8=;
+	b=GubJLWbUBZyYEYCshPt6cRHuMmsiwadjFUslUWyzJibM1c0ID6kLSFfQpiuOF1C1LWu6
+	 mgoZSogxeqslof45LT2LzT6V+lUeOa40v4t0kyvYulPcTEC21jbbcBdLExNdMXGtik5Vy
+	 dETU75z5er8aHshByRuznJRbKWlEJRZAk2FHVls5xwqJGF6dFrqXkb0Xmtyp+fckJ2WwE
+	 fu40lvcec6M0VPgdQhvEpwY7rQ0zY55lOx4RF24vEnlxx9B8y9pQA9B/BRsFOkuFkdaot
+	 WFKrERoG7iW0MWcUOxBSD03xfZyNMTxilELFqm5xvafWFBC67etIgrr5uhOx4dOfAhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zkvghjjw;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mwci30RP;
 	arc=none smtp.remote-ip=198.175.65.20
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D24606A886
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D24606A886
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BA3606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:13:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25BA3606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zkvghjjw
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mwci30RP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794849215; x=1826385215;
+  t=1794849221; x=1826385221;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=jBaDQGwZ/o1SJ8CHIuHIDvtYG2R1tEa/VSAn/Y+GrFA=;
-  b=ZkvghjjwVd/ITjgJJDXo8ilCTEzL8KyQ/i695Q58cdWCInC9wmkAARYZ
-   E2R2GFIjQk3RpUINRs7eNGe7MgcQ0IrfGUyLmYItTlfUQyw5K+8N0QKkL
-   SlJSTNWvMsGurhoGu+CGmuTTkTGRBlgK3Tt6LL+sz3D+UbPsVKqts2q6Z
-   DorOjiqpqbN/6jUhR9/7RZcwa2NfbAfi8PALdIdwl/u3wYmL7NUDquJxm
-   6bg72RNm1t94ba9S7O3hNNrrW2raDXGCFlqaKZRKJQTc+dV3utxC72Mnp
-   RMQ4L6ylfwta/DOkWDVHcF4qk0B1ZhFsD4CiEj/XtPUv1oF0hjb+LaOKl
+  bh=McEpagBE3W61efKh8RrujlubMsTfQQD1gEVZu4ISZf0=;
+  b=mwci30RPCufJSgVdEJnQob55SW2AaKsnu2pOP/ID2ykVqwKlim1KHwjB
+   i88iTI6f4hBA6WEdiw48ZSBml7wjiGqqPIT12vqgxyZXBFLcnBjoxCOKV
+   4zeTfvTTGJx2yp3bkCuibX7KuvMrCmmaUhQ25BR8MzxejKkMC68TumU5L
+   rCPlhWNjcPNd9n2++y6Ps3huKcRv85DiqE/w+Nmq1AiHQwSm40bcTXMkw
+   4anTGh+E7GJ7oO1+XC+RZ6vG2Fw846pWaEmRUfNGp4kiX2lMfI2fUbOTR
+   Xg6m0tHKyeRDsbqR+sZSjsznHOJaiiJNgzq+i15K3jG71PZJcs5qsaZ4e
    Q==;
-X-CSE-ConnectionGUID: 0E+Ol6qMTi6EX8E8JXjIcg==
-X-CSE-MsgGUID: ZTCLNQd4S/6kGzFQjpwQEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3627257"
+X-CSE-ConnectionGUID: kPf1KdR8Sjmt2uxVBnD2qA==
+X-CSE-MsgGUID: OPo/JnsxR+6/siNZcw+nnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3627294"
 X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3627257"
+   d="scan'208";a="3627294"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:13:29 -0800
-X-CSE-ConnectionGUID: YnaNbKdMScq6Iw7Mg3/hWw==
-X-CSE-MsgGUID: KWUIISkkRzeMmrTd/OPbeg==
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:13:34 -0800
+X-CSE-ConnectionGUID: xfq6BEQTTQ6IL3kKLIaSpQ==
+X-CSE-MsgGUID: LuFl7FlXQ8q888Mhb+eFvA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9491537"
+   d="scan'208";a="9491555"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa004.jf.intel.com with ESMTP; 16 Nov 2026 09:13:29 -0800
+  by orviesa004.jf.intel.com with ESMTP; 16 Nov 2026 09:13:33 -0800
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -72,9 +72,9 @@ Cc: x86@kernel.org,
 	andrew.cooper3@citrix.com,
 	arjan.van.de.ven@intel.com,
 	chang.seok.bae@intel.com
-Subject: [PATCH v2 5/7] x86/microcode/intel: Select the lowest revision for incremental loading
-Date: Mon, 16 Nov 2026 16:45:46 +0000
-Message-ID: <20261116164548.900486-6-chang.seok.bae@intel.com>
+Subject: [PATCH RFC v2 7/7] x86/microcode/intel: Apply minimum revision check to early loading
+Date: Mon, 16 Nov 2026 16:45:48 +0000
+Message-ID: <20261116164548.900486-8-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261116164548.900486-1-chang.seok.bae@intel.com>
 References: <20261116164548.900486-1-chang.seok.bae@intel.com>
@@ -89,108 +89,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The incremental loading logic in the core can repeatedly request a
-microcode patch. The vendor parser currently selects the highest loadable
-revision, which means no further patch can be selected after the first
-update.
+The minimum revision check is now generally applicable. Establish the
+minimum revision check on early loading. Load the patch but taint the
+kernel when the check fails.
 
-To load a concatenated multi-blob image incrementally, adjust the blob
-parser to select the lowest loadable revision. This allows patches to be
-applied in ascending revision order.
+Adjust the check function so that the early path can pass the current
+revision.
 
-The legacy selection logic stays the same if incremental-loading isn't
-configured.
-
+Suggested-by: Arjan van de Ven <arjan.van.de.ven@intel.com>
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 ---
-V1 -> V2: Simplify the code a bit and massage code comment
+V1 -> V2: Drop force_minrev support
 ---
- arch/x86/kernel/cpu/microcode/core.c     |  2 +-
- arch/x86/kernel/cpu/microcode/intel.c    | 25 +++++++++++++++++++++---
- arch/x86/kernel/cpu/microcode/internal.h |  1 +
- 3 files changed, 24 insertions(+), 4 deletions(-)
+ arch/x86/kernel/cpu/microcode/intel.c | 51 +++++++++++++--------------
+ 1 file changed, 25 insertions(+), 26 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
-index a5f6949e0d53..5c4922031d91 100644
---- a/arch/x86/kernel/cpu/microcode/core.c
-+++ b/arch/x86/kernel/cpu/microcode/core.c
-@@ -47,7 +47,7 @@ static struct microcode_ops *microcode_ops;
- static bool dis_ucode_ldr;
- 
- bool force_minrev = IS_ENABLED(CONFIG_MICROCODE_LATE_FORCE_MINREV);
--static bool incremental_loading = IS_ENABLED(CONFIG_MICROCODE_LATE_INCREMENTAL_LOADING);
-+bool incremental_loading = IS_ENABLED(CONFIG_MICROCODE_LATE_INCREMENTAL_LOADING);
- 
- /*
-  * Those below should be behind CONFIG_MICROCODE_DBG ifdeffery but in
 diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
-index 9f09d388ed20..74c2d014efa0 100644
+index eec8a45b283c..8d598c7ac2c4 100644
 --- a/arch/x86/kernel/cpu/microcode/intel.c
 +++ b/arch/x86/kernel/cpu/microcode/intel.c
-@@ -851,14 +851,32 @@ static bool ucode_validate_minrev(struct microcode_header_intel *mc_header)
- 	return true;
+@@ -766,6 +766,29 @@ static int __init save_builtin_microcode(void)
  }
+ early_initcall(save_builtin_microcode);
  
-+static bool is_revision_candidate(unsigned int cur_rev, unsigned int rev)
++static bool ucode_validate_minrev(u32 cur_rev, struct microcode_header_intel *mc_header)
 +{
 +	/*
-+	 * A revision must be newer than the active microcode revision to be
-+	 * loadable.
++	 * Ensure the header declares a minimum revision required to perform a
++	 * load. The previously reserved field is 0 in older microcode blobs.
 +	 */
-+	if (rev <= boot_cpu_data.microcode)
++	if (!mc_header->min_req_ver) {
++		pr_info("Unsafe microcode update: Microcode header does not specify a required min version\n");
 +		return false;
++	}
 +
-+	return incremental_loading ? rev < cur_rev : rev > cur_rev;
++	/*
++	 * Check whether the current revision is either greater or equal to
++	 * the minimum revision specified in the header.
++	 */
++	if (cur_rev < mc_header->min_req_ver) {
++		pr_info("Unsafe microcode update: Current revision 0x%x too old.\n", cur_rev);
++		pr_info("Current should be at 0x%x or higher. Update incrementally.\n", mc_header->min_req_ver);
++		return false;
++	}
++	return true;
 +}
 +
- static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+ /* Load microcode on BSP from initrd or builtin blobs */
+ void __init load_ucode_intel_bsp(struct early_load_data *ed)
  {
- 	struct ucode_cpu_info *uci = ucode_cpu_info + cpu;
-+	unsigned int cur_rev, curr_mc_size = 0;
- 	bool is_safe, new_is_safe = false;
--	int cur_rev = uci->cpu_sig.rev;
--	unsigned int curr_mc_size = 0;
- 	u8 *new_mc = NULL, *mc = NULL;
- 
-+	/*
-+	 * Start from the boundary value for the revision search. With
-+	 * incremental loading, the search walks downward, while the legacy
-+	 * search walks upward.
-+	 */
-+	cur_rev = incremental_loading ? UINT_MAX : 0;
-+
- 	while (iov_iter_count(iter)) {
- 		struct microcode_header_intel mc_header;
- 		unsigned int mc_size, data_size;
-@@ -895,7 +913,7 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
- 		    intel_microcode_sanity_check(mc, true, MC_HEADER_TYPE_MICROCODE) < 0)
- 			goto fail;
- 
--		if (cur_rev >= mc_header.rev)
-+		if (!is_revision_candidate(cur_rev, mc_header.rev))
- 			continue;
- 
- 		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
-@@ -999,6 +1017,7 @@ static struct microcode_ops microcode_intel_ops = {
- 	.finalize_late_load	= finalize_late_load,
- 	.stage_microcode	= stage_microcode,
- 	.use_nmi		= IS_ENABLED(CONFIG_X86_64),
-+	.support_incremental	= true,
- };
- 
- static __init void calc_llc_size_per_core(struct cpuinfo_x86 *c)
-diff --git a/arch/x86/kernel/cpu/microcode/internal.h b/arch/x86/kernel/cpu/microcode/internal.h
-index ebf079e60c33..246aac4a11bc 100644
---- a/arch/x86/kernel/cpu/microcode/internal.h
-+++ b/arch/x86/kernel/cpu/microcode/internal.h
-@@ -101,6 +101,7 @@ static inline unsigned int x86_cpuid_family(void)
+@@ -777,6 +800,7 @@ void __init load_ucode_intel_bsp(struct early_load_data *ed)
+ 	if (uci.mc && apply_microcode_early(&uci) == UCODE_UPDATED) {
+ 		ucode_patch_va = UCODE_BSP_LOADED;
+ 		ed->new_rev = uci.cpu_sig.rev;
++		ed->is_safe = ucode_validate_minrev(ed->old_rev, uci.mc);
+ 	}
  }
  
- extern bool force_minrev;
-+extern bool incremental_loading;
+@@ -825,31 +849,6 @@ static enum ucode_state apply_microcode_late(int cpu)
+ 	return ret;
+ }
  
- #ifdef CONFIG_CPU_SUP_AMD
- void load_ucode_amd_bsp(struct early_load_data *ed, unsigned int family);
+-static bool ucode_validate_minrev(struct microcode_header_intel *mc_header)
+-{
+-	int cur_rev = boot_cpu_data.microcode;
+-
+-	/*
+-	 * Ensure the header declares a minimum revision required to perform a
+-	 * load. The previously reserved field is 0 in older microcode blobs.
+-	 */
+-	if (!mc_header->min_req_ver) {
+-		pr_info("Unsafe microcode update: Microcode header does not specify a required min version\n");
+-		return false;
+-	}
+-
+-	/*
+-	 * Check whether the current revision is either greater or equal to
+-	 * to the minimum revision specified in the header.
+-	 */
+-	if (cur_rev < mc_header->min_req_ver) {
+-		pr_info("Unsafe microcode update: Current revision 0x%x too old\n", cur_rev);
+-		pr_info("Current should be at 0x%x or higher. Update incrementally.\n", mc_header->min_req_ver);
+-		return false;
+-	}
+-	return true;
+-}
+-
+ static bool is_revision_candidate(unsigned int cur_rev, unsigned int rev)
+ {
+ 	/*
+@@ -921,7 +920,7 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+ 		if (!revision_is_safe(&uci->cpu_sig, mc_header.rev))
+ 			continue;
+ 
+-		is_safe = ucode_validate_minrev(&mc_header);
++		is_safe = ucode_validate_minrev(uci->cpu_sig.rev, &mc_header);
+ 		if (force_minrev && !is_safe)
+ 			continue;
+ 
 -- 
 2.53.0
 
