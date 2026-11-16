@@ -1,107 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.88
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794814690;
-	b=VS9LqRDdgwN5d+o9CE4XoCEJXMTXW1eLwaZLm75g7fmlakRpmy3/9Urros4ZnRResjA+
-	 OA7MC+89a14o/53kt/DVgayLQBsBQ/VomlIi37vyrO4/+sLPVTGYGvNQCqyaevoDmAVug
-	 ZftVD6j1PhOYhugS4Ob7lQdX1DRIb4L5nnQUlxVqvVt2D7PDZEbTbR+WnTG/3ZyaSrVnq
-	 6CTcFhJ9+uuQxx2eKl7j6k12K0wfMyzhVP0y0941A1+LmOagt5mQDilE8V9ANf/sVwUfq
-	 CNcV4bxZe/LZXThLrwNW4608LXbNcyIUz0mVudiF21jupPoqtkF9IYV2KSJ/lHtsuGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814690;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=V8BcBDsPk+eh+DBtfgGyO/UXvpH+SAIrb0kbnM4HFXc=;
-	b=cAITTspA9dXkHix7VNYgqYBTPnu3J3lwQqumoZJX1vzNNwzMwdgdVwB6sN+xPx0DTzzq
-	 6JfQUaclHNa+60abACZdPkFgtJi7qFxTDpCNAQOpaIb+V5lwAqIBZAZdysqC6o586K/7E
-	 n0jHhRVf3LczIZ7kOABCYTxQZkByM2vIeueSumhNWDkwL8vZsmsykF+jbViAnZiYBxAHX
-	 jcMi8YoJDTwN+H36tmCoSICsikbJ64CDMf/ALRZTpZMqUirkGjNBvTO8rKyu88WgtgTP+
-	 6CAzetgcU34lKGBEbbmxxn5ypt2fsfNzcHt4r/zJEXeHLIzxg69Eh8ypFJPRqadOcRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.88
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022088.outbound.protection.outlook.com [40.107.75.88])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794814704;
+	b=1y61uhIVvrMLvjjpu7vEPODMxIPMki1fn3AFL4iPjf+psNNAAphK3W0qwf/oSymkxBf6
+	 mCnDiklI3B3p/PuM58orDB2Vik/c2InD2sWAlxjbLK9849gThXMG/bHqku/FUFD7ovJCo
+	 qLhkoOviIZ0y5x+jMSh7v2YwQfB8zHGD0P0m9SJq3trc3E+6z9CBQ29sZ+foBdMVWdo9u
+	 CkW9FH72ZrYFgnaM7EjlHkDis/wKHxsAZQJOlCkVZ//HN1N2PHZMi9wBp2T7Cc/TELME5
+	 kobPAPleiszy8UCRcXVOtknn6nyTZNP+ibL4bs6hwWAysocVDTua5UA+Rlk0DbbEboA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814704;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=pI+qB/jORBsA8c6hsUYOeeDt5LaDuCmT+exW9sgyzwo=;
+	b=vTN+utaggqu4OX0D5o5Eh6uwSkYmYGPBse+iUqGmefsk3ZfssqNHlwhzFi+Do7905PVs
+	 Eqdy8fiADwtAp0dAbVmhLq/go7N/4/2TS39V1imnE2+JwCBo4ljZo6eYWW7sbXSzZJwDD
+	 +AXlTCHQHaPUdpsUrNlEKAYyUWtmxQafWdAEOu+9HOdMrj3mi+rb7nnz69IzOtCAdckmv
+	 0T91sMhheuSE/ewbNnD5bvCgiRXoF7lPHQCcM4t5PGNypLacvdiy5H5D2GR15fd7x3Axh
+	 ia0lUh0WqviIGny0Hccp+Mvb4bB1/qXdViyfTH5nth5Ul/JNA5LAmoSAqWzB4ixp4Qw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="VjP92/Gl";
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC10606A899;
-	Mon, 16 Nov 2026 07:38:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFC10606A899
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y1trFaxR5m8zctd1cK4qRhzf4i/te0kBBE/qwdwprTZUslreV3jxxGzY3OAzMKf1BWgMgLyeivUAf8pGEZnzeeckxh2XyjCvl8CNXNE+ofoEEMYMehpw3RcIlhr9ZJVoZ/p63jrHoDAV2bDNK3I5H6k9+pfz7v8A0wthlx0FAW6dMq49c1UAtN7MJX0oPfbCdzM9kbHAZ5AEwKXpAxPT/daxROwDsFoi3tPGd06SNShf6jA8yYAA238BQ+W26SBzj2KQmINSBc40HchI2iVLFJUF2ca/jAuDcG5MaRyJWbXviEofXafk259LhOJpbpi8va0K3BN5yWy2ww0wH3j2wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V8BcBDsPk+eh+DBtfgGyO/UXvpH+SAIrb0kbnM4HFXc=;
- b=fLbFT670CFtTZWLWOo9Vt3w19xuJ+Zabbv4FZg/VOWwsoEdr4Rou/eoPtJthBnQwToTTDEf6Ar82q8hf337bf18vAvyj/T8ax5yf3/T636ReU1lGMQucNBXGWRE3FmS2F5ABtRI3TKSBlH5DUcRELBT/U04xiWIgLtv0335ycE3J/PxZWD716OUNYJyCgcDdcu9jZ2H0uwwAp45fAwRCuyFLk6uDw+FmDqLkOB3b29x0gOK1gWjoZPGUD2ZZRDTeqbHWO+iNfyhS5mCJXnhmD5NRoaRNiTjgB0rtd9kVxasMnWBQyL0KPGZp183lNTdO3dFZlqcYgolFXGkZYE01MA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR03CA0009.apcprd03.prod.outlook.com (2603:1096:4:297::17)
- by JH0PR06MB6437.apcprd06.prod.outlook.com (2603:1096:990:2d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
- 2026 07:38:05 +0000
-Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
- (2603:1096:4:297:cafe::23) by SI3PR03CA0009.outlook.office365.com
- (2603:1096:4:297::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.4 via Frontend Transport; Mon, 16
- Nov 2026 07:38:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Mon, 16 Nov 2026 07:38:04 +0000
-Received: from localhost.localdomain (unknown [172.16.64.56])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 11801427EFD0;
-	Mon, 16 Nov 2026 15:38:01 +0800 (CST)
-From: Luo Liu <Luo.Liu@cixtech.com>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gary.yang@cixtech.com,
-	fugang.duan@cixtech.com,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: cix-kernel-upstream@cixtech.com,
-	p.zabel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Luo.Liu@cixtech.com,
-	Wuyi.Shen@cixtech.com,
-	EastLake.Yang@cixtech.com
-Subject: [PATCH v5 1/3] dt-bindings: phy: Add CIX Sky1 DP PHY
-Date: Mon, 16 Nov 2026 15:37:58 +0800
-Message-Id: <20261116073800.2396894-2-Luo.Liu@cixtech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261116073800.2396894-1-Luo.Liu@cixtech.com>
-References: <20261116073800.2396894-1-Luo.Liu@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4127606A329;
+	Mon, 16 Nov 2026 07:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4127606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VjP92/Gl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794814703; x=1826350703;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=VCBdU3HmJwCtXAadN2uCRp5YZw+Cf4Kdztj+N3BY2z4=;
+  b=VjP92/GljPoN8MOjryJBcKXQLhDwucxDUhnGJpDQdVxRwwwljIMoHmbx
+   +bwGkow9H4wRxCnQAg2SIeutQO+VPVZKkIp4N6ljk9nvjn6h7HvrSwpls
+   8qfX5WaHFiqL/Ba9YKPgMC8CCD8CJBOxZJYjYaTOGzYdnOA+kwSRjekOI
+   s2dgwbBq+yB1J21B/rGcNmpotYdmLtEpQIfNmTPZcukyIR/jppQkAnM4o
+   z9UXfMVhPaPkzl8KY2xol+Ztq82wTD/QHIB/+aBtgE1NupQqxarU3i9nq
+   hxAE50Yj3M8JpQjo62fYbpavuOUzlsZecVVe8Z010f02fIGHI4NBRxc06
+   g==;
+X-CSE-ConnectionGUID: PVr9x0ymTdCOcr0s6Sz+5A==
+X-CSE-MsgGUID: EPyOmTjGQDuh5kDlHljNVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3582034"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3582034"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:38:22 -0800
+X-CSE-ConnectionGUID: zin4g8rdTdGww90ZxyGBNg==
+X-CSE-MsgGUID: ckScDyXfR6eMSDFDs7pkTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9798707"
+Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:38:17 -0800
+Message-ID: <7ef6d626-4920-434f-bbd9-eda46e7ab780@linux.intel.com>
+Date: Mon, 16 Nov 2026 15:38:14 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,144 +72,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|JH0PR06MB6437:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: e7d52e7f-54bf-4145-0567-08df43b48d4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|23010399003|82310400026|42112799006|921020|10067099003|56012099006|261022105027099003|261026121527099003|261028144727099003|261026140227099003|261021135927099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	2u+fEFgXxgg8MDtfPM6yU8u7P4ImjPQblp0dG6kNZKWdVXSuDIgp99pBHI6ln5HwEQ9XhPj2f9q8bEU+5ZODRlshgqatHNx4mCmX4aYpruou4sOpxBX7AuTDYydHKMBUgLuxqN40b5WedF/EoZGiEjPWNjVfFnWGs1C0dFLdE6Amh2HOKcyXQXVJpQTiKNSxIRbCkeK4SGBazJZk6jcmIzWgFuyICMe5113HcMFjiBfpn/+bh7m6pSdbiHG7JHjYTlbMbA12al7qpuAD07Gooa3WVRBSGZwieX1E1d99y5EqcNJu6ak4KHf2ljBg09aRgsZ0VYqePncGosVzemb0U/zsA6LoaBwZ8wR4mgkfzPfL38XXMjN1gzZKan3308Ufa5C5WiKE5M5cakKeF6l0F9lhjU9sojE3hW5Z/FBo+MevmvoBdnBwtzWclCmaWfI33exO456WNQyRdRLHYYlmeSuKdTXKVIRZ9/kpp7zp2JuTsN/aUNb7fgI2JdRnid0tsQD9QfJLGOM4a2gSZKW/TXtm4kABInGIicpcTuyPoOfaGJy5Ye9UdBoNG2GCqLHLlZV4n1O+zz32ISt1DypGpLd/N8wsHeVFmhGBrvKysR/N2UCoiQqQP1ZvIigWl1LznN9t2Ap8SHNEAH/TF/XfpqKb+O7eISUhwdpnZlzhAnOA7vvylCYd9nXWRIIIx0U6
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(42112799006)(921020)(10067099003)(56012099006)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021135927099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RW58ocCZQAZl1BWpm0pos7Qx1BG2fmL9BcXsWhvplBefSk24VLdEEJWNmUG4P+3yqhbDWfrQbVt3APmby2DKXaQSd2cZZNtSQuvus4vB+3yj78REKp5ELzc7t61EQlDAHx8xfwTkf8mPdwF1Ahu0C2PvhYlzmn2WNeKf61gVkfRIiXLkvs1R+OMWrGZtDM8vjO7zVvTjlEdzRuT5GaY7Z+gOPV6yTuIPWg+KHAhb10chwZ+MChKdk97PFyuOSX67b30cGepDVjJg4uwY5OSinUMbfKben1ApvvJJtSeLvzmRdkMND5PUKKEb8Y088vmoB2T1p3kSlMsPCxRS7SR5SLYIBSRZY2gESSYOOaNrqFXb5dlSP+pmOXJjWfozebePJOxqaJo+Q8RkHDfjFJQGEJJFeE2hPmjCYG2EEHlvPEkyLccgvjXGiTnVrdqGznEE
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 07:38:04.8294
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7d52e7f-54bf-4145-0567-08df43b48d4c
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66D0.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6437
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v7 13/18] iommu/vt-d: Handle reattach of the restored
+ domain
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20261110040828.1774343-1-skhawaja@google.com>
+ <20261110040828.1774343-14-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261110040828.1774343-14-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Document the dedicated DisplayPort PHY on CIX Sky1, including the
-required APB clock shared with the DPTx controller, reset, and the
-optional cix,external-dp property to select the external DP swing
-table instead of the default low-voltage values.
-Add a MAINTAINERS entry for the binding and driver.
+On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
+> Reattach the restored domain to the preserved device using restored
+> domain ID. While reattaching do not setup the context and PASID entries
+> as those are preserved during liveupdate.
+> 
+> Note that in this phase nothing clears IOMMU_SER_FLAG_INCOMING of the
+> restored domain or the restored state of the device, so the restored
+> domain cannot be replaced yet. Replacing it is left to a later phase.
+> 
+> Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
+> ---
+>   drivers/iommu/intel/iommu.c      |  28 ++++--
+>   drivers/iommu/intel/iommu.h      |  14 +++
+>   drivers/iommu/intel/liveupdate.c | 141 +++++++++++++++++++++++++++++++
+>   3 files changed, 175 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index b3402fd9fe75..95ec37554360 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -3296,6 +3296,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
+>   {
+>   	int ret;
+>   
+> +	if (dev_iommu_restored_state(dev))
+> +		return intel_iommu_attach_restored_device(domain, dev);
 
-Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
-Changes in v5:
-- No changes.
+How is the restored domain's type and page table format selected? I
+don't see the allocation path using the preserved state to choose
+between different domain type and page table format. Could this result
+in a mismatch with the hardware configuration?
 
- .../bindings/phy/cix,sky1-dp-phy.yaml         | 67 +++++++++++++++++++
- MAINTAINERS                                   |  8 +++
- 2 files changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> +
+>   	device_block_translation(dev);
+>   
+>   	ret = paging_domain_compatible(domain, dev);
+> @@ -3426,7 +3429,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
+>   	info->iommu = iommu;
+>   	RB_CLEAR_NODE(&info->node);
+>   	if (dev_is_pci(dev)) {
+> -		if (ecap_dev_iotlb_support(iommu->ecap) &&
+> +		if (!dev_iommu_restored_state(dev) &&
+> +		    ecap_dev_iotlb_support(iommu->ecap) &&
+>   		    pci_ats_supported(pdev) &&
+>   		    dmar_ats_supported(pdev, iommu)) {
+>   			info->ats_supported = 1;
+> @@ -3531,12 +3535,16 @@ static void intel_iommu_release_device(struct device *dev)
+>   	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>   	struct intel_iommu *iommu = info->iommu;
+>   
+> -	iommu_disable_pci_pri(info);
+> -	iommu_disable_pci_ats(info);
+> +	if (!dev_iommu_restored_state(dev)) {
+> +		iommu_disable_pci_pri(info);
+> +		iommu_disable_pci_ats(info);
 
-diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-new file mode 100644
-index 000000000000..ea19f0aa0b1c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/cix,sky1-dp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: CIX Sky1 DisplayPort PHY
-+
-+maintainers:
-+  - Luo Liu <Luo.Liu@cixtech.com>
-+
-+description:
-+  The CIX Sky1 DP PHY provides the PMA/CDB register interface for the
-+  dedicated DisplayPort instance on CIX Sky1.
-+
-+  The PHY APB clock is physically shared with the DPTx controller.
-+
-+properties:
-+  compatible:
-+    const: cix,sky1-dp-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+    description: APB register interface clock
-+
-+  clock-names:
-+    const: apb
-+
-+  resets:
-+    maxItems: 1
-+    description: PHY hardware reset
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  cix,external-dp:
-+    type: boolean
-+    description:
-+      Use voltage swing values suitable for an external DisplayPort
-+      connector instead of the default low-voltage values.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - resets
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/cix,sky1.h>
-+    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+
-+    phy@1414c000 {
-+        compatible = "cix,sky1-dp-phy";
-+        reg = <0x1414c000 0x4000>;
-+        clocks = <&scmi_clk CLK_TREE_DPC2_APBCLK>;
-+        clock-names = "apb";
-+        resets = <&s5_syscon SKY1_DP_PHY_RST_N>;
-+        #phy-cells = <0>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..d05771fe5bb2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6522,6 +6522,14 @@ M:	Satish Kharat <satishkh@cisco.com>
- S:	Supported
- F:	drivers/infiniband/hw/usnic/
- 
-+CIX SKY1 DISPLAYPORT PHY DRIVER
-+M:	Luo Liu <Luo.Liu@cixtech.com>
-+R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
-+L:	linux-phy@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-+F:	drivers/phy/cix/
-+
- CLANG CONTEXT ANALYSIS
- M:	Marco Elver <elver@google.com>
- R:	Bart Van Assche <bvanassche@acm.org>
--- 
-2.25.1
+Above changes are not needed for domain reattachment, right? My
+understanding is that ATS and PRI are not supported for preserved
+devices in this phase. If so, could they be split into a separate patch?
 
+>   
+> -	if (info->pasid_enabled) {
+> -		pci_disable_pasid(to_pci_dev(dev));
+> -		info->pasid_enabled = 0;
+> +		if (info->pasid_enabled) {
+> +			pci_disable_pasid(to_pci_dev(dev));
+> +			info->pasid_enabled = 0;
+> +		}
+> +	} else {
+> +		intel_iommu_detach_restored_device(dev);
+>   	}
+>   
+>   	mutex_lock(&iommu->iopf_lock);
+> @@ -3544,11 +3552,15 @@ static void intel_iommu_release_device(struct device *dev)
+>   		device_rbtree_remove(info);
+>   	mutex_unlock(&iommu->iopf_lock);
+>   
+> -	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
+> +	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
+> +	    !dev_is_real_dma_subdevice(dev) &&
+>   	    !context_copied(iommu, info->bus, info->devfn))
+>   		intel_pasid_teardown_sm_context(dev);
+>   
+> -	intel_pasid_free_table(dev);
+> +	if (!dev_iommu_restored_state(dev))
+> +		intel_pasid_free_table(dev);
+> +	else
+> +		kfree(info->pasid_table);
+>   	intel_iommu_debugfs_remove_dev(info);
+>   	kfree(info);
+>   }
+
+Thanks,
+baolu
