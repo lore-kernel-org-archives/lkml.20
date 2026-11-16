@@ -1,112 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857424;
-	b=m2VSu9MBRFR4AeiYXpFFpkbHSULIcuEcZHhSLwGXc9QwYqaD6BVzcS+kM86ndW6gPGZZ
-	 iiMDUx5V+aZHcL8btn9Br5A2R5nmsPO2KpraaaXSfRnuaJwUdMMXfrpr4X4O8jbTDfhaZ
-	 01w6v+1EnvfC0+q5mhtHCD0UVpdx9wO3XpaOPpc0Rg5BVsIvwfapghs0Fm8LKelFp71yP
-	 ivQEuQS1XCzcpEs7uBY+IY49f9HYcx3GLZpLb7JWTbXIYH4H4rgMZpOQVTPdu6vPN/INf
-	 Wpk56rSbQz5ws7QYarH+AJElIaCiMWNDss1JOY9+d+1lE2V4roKQL4EWZgFkTats/pQ==
+	t=1794857435;
+	b=nkme6Jfz0X7/G32K6p45nMAJy7i23hiJousQIB+ZKaj3R1/d0WdgawhnrgqB729d/lVv
+	 NkGcw8/1fe8XmFKwpvqtLNYn1eD+HNTSxmsucRmocWFreLKshXXUZ5YBhPMOy7B2KxYU+
+	 rHwugX1HuM6NsovXv5SCjpj/TJXY8pSkVzlBoFdojzqxT8Ay7xcNEBcNrPenq0QHSsFeL
+	 UODC01eT4BXPXfxX0ZkKt1OVFq6l0JJ3W2Xy9p43G8M5qQoIcFU4oX8gug1musz2hqN98
+	 RChcUoktihr5/++RkoO7hRKLguAuX3czuK53FsANqNKNr87z26aeKP7N97OcfzyKFNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857424;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
-	b=SDVOajSJcsci2AcZ2M5iBGVCqULlHFGXNT1YHBVMQ0FrY6DMnNArAnCCu8kT2F8waVXV
-	 brfa/wqVYic3TbiJvLzpE+lzqtaMP8+4QC2xHorWPvFzdls4IV7ppHynR0qYLb7KfkbWK
-	 +ER1TiAUWnOCBeebH1Dllr9Eo+AxavZTUmK6wPCPdin6iXrbK8z6YqXs9hSsdcEsmYEWo
-	 DMbJbF9bIOKa3bJPlyuZFwlYYbn1NVG6dA0okSRxlFJr6IguSFZ25K6zhi/btky5LO85W
-	 eA5QhH5Aci+qxVw8US1T+gLVAn/PTuWN7NSm9nwgi+5aIFAtRDphIvwubgt83VkOBQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857435;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=OCj8FSyVowVZDJHe/EutTO4zUsFk7DZFN85PCZ/7JyA=;
+	b=fh9H+82nrbICb21GpgGFlf+zrGIhrsvuRnwpHJ6krRe85yM499DXehNPGaSHEYPfEuY3
+	 e7PMB53tv5EhV+M0aaTUBcYmuyqxC61IEbbWG1lNOxulvJ8E/KABNPS9csq12eKvZG7rI
+	 Ce4/FbxLepNWAmGwTNB5V+LUXEz58T+Ida7taWWYFuPqOAhpD982oqdRFAvxEW0f0/BsS
+	 hb829HgSL9VUuVtmuUZvrQ94aGVfFVMCr/Ur31tHqMab+3Ix/Zjf5eWLvc6HGZQcuMEpI
+	 oU6Wmzo/75EYZsWRcl7WrIrgrUXr64uDVYu66ZBE3OwlVNCLECyUFLHPshHVjLqDsPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=E96WAHkT;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyhRGMtL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DBE606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:30:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33DBE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5A4606A31C;
+	Mon, 16 Nov 2026 19:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=E96WAHkT
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9496473b511so23634385a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:30:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794857423; x=1795462223; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
-        b=E96WAHkT+sP92lQq8lfU7rpYkYmClz1BkPu1iXTnY8MIB//GemYHc5QdBt1ld40Smy
-         acUqrFGAqUxCszfVw+pzy4SnJCfUKiX/A4Q+0gJXedFRj+sYatxoMGnyXMoUK+xgqxjR
-         s4wgXwYNtTus15EIP5/qVjorQQoKK/mBth3DTSneehjsfS+0679AFf3GT8wrrI+TLrTG
-         S67lGTnC4/NuArZMxsujuqU9DVFtqdgciQWqSBdOrH62D7p7LY8rnKE/kpe2Uczm3HkT
-         7VhnHMuAAjm5NWwm6eproW22AIWHmXSjkJumB6jc+PP/hWJaqbaadKSgQjgzEdlnANOm
-         VH6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794857423; x=1795462223;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
-        b=pgT6JZwVVW/PgMQ2vE07klAZQ5GTE5p5qHlGh63DWvNdz5RIAcgsDwWqgmYrjBpPeB
-         Q0lJy8ZGKsVzNDUWW4bofReaYKWhn9b1exeVbHJtKzleVUnC7/9DDK7MNx4C0Q8NhbnD
-         MU+P8LsYUblerr9TUO0ZKEI8j7APL2fJlq3gLjw1V8CbggPWv7sNWM1ctYK8V7c8m3KB
-         x8M+qUZiPQyKLIQkhP9aylSyzP2P+5sQEIDscZHnTNh3cLoQwnIA/onPL3pzqm6KD96d
-         nI03ZETG1i1ajH+8FaGJ4u7UTNtUT23WvJEKPsDPiHDADUkkIWRAXDSxqj7ibA2mggRe
-         LqFg==
-X-Forwarded-Encrypted: i=1; AL+hErE8X30WQDsJFb4OhBHxFDRixRXf4SK/kgH37Td3sTWrAQwJJ+vM6+nItTL++PEm+v4h31ulviO2B9K5cmM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QSE2ivVx8h43Gqmh0XKPwNDEBz7650zlHZOM9RzHtPT2aRI+r
-	Nmxn3X795zUN1WOJMIe6tvQMCAhWRW1okjt701N58HpwdJDQLZZIlXRWfoa+OZOu/F0=
-X-Gm-Gg: AYBFou27inKuMG82/2Sje0eE+1llfh6J1TZAXV6ON0CSJ+9sht6/R8Vkim9Tf9CSzHZ
-	Fq9IEvM/SwhAFT+8iisBixuYNj+yxwsXns/QeG0nZsNkr8dWMuIn2D6BlGCq6Z9PrFndaAkZ6wZ
-	Gn1wkZcUOBQOTvGJx0kD/4eFg6MZO485bL/8wJX4jGIU70PEeSYWfAlQ+k8iXGeHyXP+gRrOT5U
-	p+7m3ollTRkDTq4KoA7l6tFuepbh8cVCmbQuHncsXpD9rgWPh5djrjX25quCCgAFICfhCUHOGBF
-	Wof8B41ExbgNcQQsC+rwG+BxKwj2C5ypUnYSGjENXwSMRZwcYLTGdwR6ID1LJUrLCORFFxtI4lD
-	hYxfVNZ1odsybPSNXIBQgxfdxlw4tPQY6igbo8SIDJ0sTPhNlEFbBFlyIkeol0kHBKZ/msm/bGI
-	+vrT5CA8doqBWF7EUDWP5h6GabBGnPh/GEPyKHdHTib4unFYcqxGxbtq4I/KsYCRAeVMFDA5kMe
-	ROodIZ8eL0dq3grZiFVygV/+nohg2sVzEE9n+UIsZudaIGLPIPxKYQav72g7o/BcVrmJuSIr0gQ
-	zmOLIg==
-X-Received: by 2002:a05:620a:4406:b0:949:7058:dbcb with SMTP id af79cd13be357-9498b875510mr84935385a.14.1794857422999;
-        Mon, 16 Nov 2026 11:30:22 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94978ae5483sm390417085a.12.2026.11.16.11.30.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:30:22 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xT2PF-0000000AJAU-3HLU;
-	Mon, 16 Nov 2026 15:30:21 -0400
-Date: Mon, 16 Nov 2026 15:30:21 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
- per-channel IOMMU support
-Message-ID: <20261116193021.GB2452510@ziepe.ca>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyhRGMtL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51161F000C8;
+	Mon, 16 Nov 2026 19:30:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794857435;
+	bh=OCj8FSyVowVZDJHe/EutTO4zUsFk7DZFN85PCZ/7JyA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UyhRGMtL+RMIc/tDq/Lxz1xryDJQwO5Q98tEgF1/sR4IHOGqAPsf8pMGghVBBm1C4
+	 rUKzrY0g1Kpqf4eVXkWcEsLsW6QGyBpwCaiXUDK0x+iWDEdD0uRkqYp8mOV1iIA4g6
+	 7lnG6jSKPNKiM3hL478XLVqpOG72YofyUhNBpRNoda2m/irr9OPJONpsZkyiQfe4kI
+	 av183ShOnRvzvoFUfm+PegIlQ7Zy/ug+LgBpDdc/SNZCjxqYa/ze7L626uSN6XF2f4
+	 Ni8zWoqNwTQQKhEp8/uoNnc8Nx5O9vRa+a30KLxSQDA6ieDbBkraMkAefWAoRSf+Jy
+	 QwKvgM+ZBzKPQ==
+Message-ID: <sashiko-outbox-217565@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 05/37] sched/deadline: Refuse dl_server debugfs
+ writes while the rq is offline
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261116190549.230119-6-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+ <20261116190549.230119-6-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 19:30:34 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,34 +60,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
 
-On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
-> I used iommu-map for eDMA, but iommu experts rejected it:
-> "Using iommu-map to describe synthetic dma_chan_dev devices that the
-> kernel creates is the same kind of DT abuse from over here:"
-> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
-> 
-> So I followed here [2] as Krzysztof wrote for QCOM VPU:
-> "Thanks Jason for context and detailed arguments. Robin did not chime in
-> yet, but from what I understood the DT-child-node approach will be the
-> way we should go here.
-> 
-> I accept above point of view and I am fine with this, thus Vishnu and
-> Vikash - please go ahead with DT-child-node solution we had some time ago."
-> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
-> 
-> This series adds per-channel DT child node support to fsl-edma and, as a
-> prerequisite, introduces a proper bus for DMA channel devices.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] sched/debug: sched_server_write_common() misses CPU
+  deactivation window
+--
 
-To be fair this is discouraged too, now that I've seen 3-4 people
-trying to do exactly the same thing I'm not as positive about the
-DT-child-node hack.
+commit 20746e8301600abc34772d08e7fcdc3dbeb36656
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Can all of you come up with a proposal that doesn't involve hacking up
-DT just to unbundle the SIDs?
+sched/deadline: Refuse dl_server debugfs writes while the rq is offline
 
-Jason
+This commit replaces the cpu_online() check in sched_server_write_common()
+with an rq->online check to reject dl_server debugfs writes while a runqueue
+is offline during CPU hotplug transitions.
+
+> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+> index e6a3b516c703b..e0d6cd3bd607d 100644
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -410,7 +410,15 @@ static ssize_t sched_server_write_common(struct file=
+ *filp, const char __user *u
+>  			return  -EINVAL;
+>  		}
+> =20
+> -		if (!cpu_online(cpu_of(rq)))
+> +		/*
+> +		 * Refuse the write while the runqueue is offline. This
+> +		 * includes the windows where the CPU goes offline or comes
+> +		 * online. The root domain then does not count the server's
+> +		 * bandwidth, and may have no active CPU. rq->online is set
+> +		 * under this lock when the CPU joins a root domain that
+> +		 * counts it. cpu_active() is set before that.
+> +		 */
+> +		if (!rq->online)
+>  			return -EBUSY;
+
+[Severity: Medium]
+Can a debugfs write still slip through during sched_cpu_deactivate() after
+cpu_active(cpu) is cleared?
+
+CPU0                              CPU1
+sched_cpu_deactivate(cpu)
+  set_cpu_active(cpu, false)
+  synchronize_rcu()
+                                  sched_server_write_common()
+                                    guard(rq_lock_irqsave)(rq)
+                                    if (!rq->online) // still 1
+                                    dl_server_apply_params()
+                                    dl_server_start()
+  sched_set_rq_offline(rq, cpu)
+    rq->online =3D 0
+
+During the synchronize_rcu() window, rq->online is still 1 and the root
+domain has not yet been rebuilt by cpuset_cpu_inactive(), but cpu_active(cp=
+u)
+is already false.  In dl_server_apply_params(), dl_bw_cpus(cpu) and
+dl_bw_capacity(cpu) weight rd->span against cpu_active_mask, so they exclude
+the deactivating CPU while dl_b->total_bw still includes its server
+bandwidth.  If this was the last active CPU in its root domain, cpus and cap
+are 0; if other active CPUs remain, __dl_overflow() checks N servers against
+N - 1 CPUs' capacity and __dl_sub() / __dl_add() miscalculate extra_bw
+across N - 1 CPUs.  dl_server_start() also re-enqueues the server on the
+deactivating runqueue after balance_push_set(cpu, true).
+
+Checking (!rq->online || !cpu_active(cpu_of(rq))) under the rq lock would
+cover both the activation and deactivation windows.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
+19-1-mathieu.desnoyers@efficios.com?part=3D5
