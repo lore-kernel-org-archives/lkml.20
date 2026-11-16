@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835778;
-	b=vaBvt2x5rtTdmiwuqn1H1PtcViE452N+HOxQzFrCbR3cnyki3sBgKCWtnPx9KTfrwQDv
-	 rGVPg511xUzoNqZlFgwBfDGoEaqmt4uMM1/yG1/5Pste05aBskbiQn+J1WPJns9qRAUo8
-	 uBJiZDMcMbprwXa0l7AlFQ/U87lhLlpV+saDccUF7sldFlJIB+I5itvbVop/X17XbcI43
-	 RB8P7c3CAzQKTV8JbyhUpobF9CwvTvQWJ9K50v62Hz/NjahbynI+iEKqf+zkqzTd0h+Ju
-	 0yJvVbTdvR6zgFv+zF4KG9XNjrwAermzGoeE5fAUUB+ASGMhqi18xnTCtPQ7NH3AloA==
+	t=1794835823;
+	b=tdaThfxglQ+VkCLBBp3mjUOHRT0YWSZlT6DQj9HoDJzpV94ZXrGz6C00bQ3qnZcNIpQW
+	 c8C9ZogH7CwITrQhvb+y3jCZ+fmJRlmrH4cNVGEMJT0TjQlaINSCClOFo/PtM+05XrAoZ
+	 qY0lICNnrG6mZHuvZF/IuULeiRwIdu7xIV6FG5VHCpE4+6lC0HTmnKNLtXKOSSJZvG++y
+	 mJMA7WpvT4MO51WaPOVM0Pnq/Uauc+K/Uo54teC6z2jwdLUMjfBCLeDad5dlxwUmzGCYL
+	 hP0MivL+g+H7PBr+fM2SrqvYLi3geFrvXLvG6J1Lzthpja6jMbZP1OqtDKIHd4WuEWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835778;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=amPjiGpOtCIdke4l/yrc8l6JZjZ/UtQMeu9AnP48ylI=;
-	b=yJLdOuSh/X6PR8Ca+9eDcAkLmer/c6CTCxfu1x25Vn2NZl+TUfLNW0NXh95lvW7GL/0k
-	 e/rQvFTADss3+avawOKR/yj6ZN9Y6mzTBVZQxhwrPkRBrOQJq6Vf5coINRmAbvWVuNXDr
-	 IoWhU8KjRDxcQz3SL6bEO6lklrzSpp/6LKuN+LR71pB0dWxR2bQlFGvNV2+i2Cm7V/Bc6
-	 nyeexakf8ugOsk+DwGqxQhDc5rJM8kdZxGoxw8bY4R03/Vxgayo+N9sGp2U3A9Gu7Q5zB
-	 3MX0IaTUEsZ3WuQjSsMSzVB6HfqmRXBjk3pvKK/6hKlHp5JLCVKJ6jbr5bZyjzxt2ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835823;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=vZaX2J5+vwNpID/DJxwist68NuONiDqxytoCJR8lOss=;
+	b=FmDNk6BfNQljEJLvTLkgibG17RKuUQS0FH6YgOOly/bb7pbILAj1mhh1D62ImC0xonjz
+	 gINn/hHx6mTg+FyHL3ioEgc7ybd9YFPgF0pH2LfyGCa7BzvR9IpQTvjN5DcBRVd3YnQX1
+	 5NP15ftqhyM1idMQ6JPxqzdWPHz/2IOXfd+JkcQJvoEgZn2jiPiSurHnmRF8vi020W2hR
+	 S6syRjcB7exJZaUQNANFwTJ5JUv8WBAItQ6xZY9yYTLK2/xX2XNjYgen5I/vITxeY01eM
+	 cI3Fj5WbpRd7woqYUE0GAJF22T7G3b/vf/CalLFR8eCpXLXIjhvWotODTfhKwO698VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HDQ5eqxv;
-	arc=none smtp.remote-ip=91.218.175.239
-Received: from mta0.migadu.com (out-239.mta0.migadu.com [91.218.175.239])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ssNDR6M5;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A92606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:29:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91A92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24756606A32F;
+	Mon, 16 Nov 2026 13:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24756606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HDQ5eqxv
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g502higwqKmkBG0dlHtsxFQv+cbldCJE/40G3RLaxkI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794835774; v=1; x=1795440574;
- b=HDQ5eqxv8/RKdDElgWGVPfBOUNfvoiVNf4TVWtMFmWv8StfjBlOFLZdy2jV8idAzRSodI8k8
- RaUXd5X5VokyqmWsF974ubzA+8Gp6wdN1ZbTiDLQysiWslewnlISuTGY8YW6GZNH0lMFHhEbIsK
- jBVWaPwpkjEhD1wYiVYe7wkA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a42947ddd4f56588;
-	Mon, 16 Nov 2026 13:29:34 +0000
-X-Mizu-Trace-ID: a42947ddd4f56588
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so9997e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:29:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGlNYoL/SkPntBedp1AGcAc6Fz2Z21ZkJyK9FGVmLUYJ2h0TX51Cmp9QqL7VT8EUujdhB9Fmyb75asT2m0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+t8gCf/Uu1YSTX8Uz7XvFHdXWfyDuPyGyKdRZG+dues+2rWyBK
-	bYgIxh7rityhZ5uBugKIb7F5Bu5fstSeNnxXlNdDnxMHHfjuJF8c70CQUg/1z40lk+JyQVwivWx
-	/hMwMENHHEU8yf/sFi3F8goNKp4j/IWbU2XUw6JCh
-X-Received: by 2002:ac2:4e05:0:b0:5bf:a911:7ee3 with SMTP id
- 2adb3069b0e04-5c17d90d3b4mr200956e87.3.1794835772489; Mon, 16 Nov 2026
- 05:29:32 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ssNDR6M5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=vZaX2J5+vwNpID/DJxwist68NuONiDqxytoCJR8lOss=; b=ssNDR6M5Er6lwcsinEhhxBV2Dl
+	VRlrbqsrWyVyZDrXmr4nZ4mOt4y6ofWZySGdlqL4phtKd3b77UJ1KmmFn/UGsOPWoY9Qn9UBifekO
+	dF9Z6XmE7bxRkF2DB7ghUentNC0n+PvzWjJfnuTfmuKaTtu6oIhjUA2q4FmDlCQj2syo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xSwmh-00GvAN-Uq; Mon, 16 Nov 2026 14:30:11 +0100
+Date: Mon, 16 Nov 2026 14:30:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v1] net: pcs: xpcs: add 10000baseCR_Full to
+ 10GBASE-R link modes
+Message-ID: <2612f833-e468-42cf-819f-148027c22d52@lunn.ch>
+References: <20261116101644.83097-1-francesco@dolcini.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,66 +67,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
- <20261112145814.853424-1-fuad.tabba@linux.dev> <avrzusx1g1ZICo0Q@red-moon>
-In-Reply-To: <avrzusx1g1ZICo0Q@red-moon>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 16 Nov 2026 13:28:56 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTyGQbS7zcHSRg50c5xVN2AY4AmMc7JqNAvrc=_UhPQ+kg@mail.gmail.com>
-X-Gm-Features: AclHuK8CwBlEBiyR4cPCR9dmkgnQ4XF5VSuwS8WKs9gu-GxXMupedl-FY3peK6Q
-Message-ID: <CA+EHjTyGQbS7zcHSRg50c5xVN2AY4AmMc7JqNAvrc=_UhPQ+kg@mail.gmail.com>
-Subject: Re: [PATCH v2 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver issues
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Sascha Bischoff <sascha.bischoff@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Jonathan Cameron <jic23@kernel.org>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116101644.83097-1-francesco@dolcini.it>
 
-Hi Lorenzo,
+On Mon, Nov 16, 2026 at 11:16:44AM +0100, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> An SFP+ direct attach cable is reported by the SFP layer as
+> 10000baseCR_Full, and this link mode is missing from the 10GBASE-R
+> supported list, therefore xpcs_validate() masks it away and the
+> 10GBASE-R interface cannot be used with such a cable.
+> 
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-On Mon, 16 Nov 2026 12:14:50 +0000, Lorenzo Pieralisi
-<lpieralisi@kernel.org> wrote:
-[...]
-> > invalidate have the same shape. The question is, can an IRS miss the
-> > poll, or is a timeout here only ever a dead IRS?
->
-> Thank you for your patches Fuad.
->
-> The latter, though freeing memory on timeout wasn't a good idea given
-> that there is no way to cancel the respective, pending, mapping.
+Looks sensible.
 
-Thanks, that answers it. If you'd like a patch that doesn't free the
-memory on a timeout, let me know and I'll send one.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-[...]
-> > Notes:
-> >     Setting L1 on every invalidation turns each registration and
-> >     teardown into a range invalidate, both rare paths, and keeps the
-> >     function simple. Setting it only when registration allocates the
-> >     level 2 table would miss a registration that fails after the
-> >     allocation, which leaves the level 1 DTE valid.
->
-> I can't follow. I agree that we have to invalidate the L1 DTE on
-> L2 allocation but that's a one-off, I don't understand what issues
-> you are pointing out in the Notes above, if you can point out please
-> the code paths it refers to that'd help.
-
-gicv5_its_device_register() can fail after
-gicv5_its_devtab_get_dte_ref() has made the L1 DTE valid, and before
-the gicv5_its_device_cache_inv() at the end. That happens if the
-EventID bits check fails, or the ITT allocation does. The L1 DTE is
-then already valid for the next device registered under it, so that
-registration doesn't allocate a level 2 table.
-
-The patch Notes were about setting ITS_INV_DEVICER.L1 in that
-gicv5_its_device_cache_inv() call only when the registration allocated
-the table. In that case the failed registration never reaches that
-call and the next one reaches it with L1 clear, so this L1 DTE is
-never invalidated. Invalidating in gicv5_its_alloc_l2_devtab(), right
-after the L1 DTE write, is the one-off you describe. I'll rework the
-patch to do that instead.
-
-Cheers,
-/fuad
+    Andrew
