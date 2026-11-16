@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828293;
-	b=BUC3caCIQ9M5eg7YdeonESl26TC2VCCpSLtpNc3MkkH0dNCVek5hdwwWh/EN26U+W0hM
-	 yxp10W0UKmsYnTz/S7GYHDBebUtPKW1QYH7oUAB8djiEhcdpBynt6yafTHFxVXM2opoQ6
-	 ZCIzX5t1dZesSdunwVemRJ8r1EIdLNDRrRhvcIBtT5Ia5xPybd7INR3MhrfnLB0bCbir9
-	 zxPrb2TsdSzsEQuUrTNJtuCaYe8dR1GIlBr12RYPwmLh8xJ1dlVapLYScbF2c8fdVaH/b
-	 iHpXYNGYPwKxF0B/gEPrdp+qsR+nO6r46N2bukR4kTFI3ty12lIdFMBYJP2i2qBk1vw==
+	t=1794828304;
+	b=gvP5JcEE1f/HE/Ef/iaGMn8o30HaWAytLTowlxtv3Ng6w10uY+1SfGe+v7MMgHUSDH8f
+	 wtarfD0QeL58omwmqz+U0fgDYfSip1pGQ9mbdixszP0WDlDZUbGlVPxWUdZBC75ZBbNaI
+	 Ed6Rg5rCbwiK+EwtWqv2hXWOj/XGHwaCgo7yRGohT+3Nbkmvb/Hd3tTjruo5naGXQ2MRv
+	 j1HEcG7csMIG9F3mraM8CXdqKJh2BV1tCn69k+k43qVtrf2ZPE2YdIKDWEVTPPecgofmo
+	 nY3UljQW6AS54ecqIJP7eXpih1ADpumAkBKcFZ7rZw3OrWO38cV6MuSjWtNHu17zjpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828293;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828304;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/G0OBqYYq6xIWzjTU/6NWOOkjhYFeYVJ9RAPumwh/FM=;
-	b=tma4yISBh0oz579BVbktUweiQPsiV9LHSzcVEiS/felTQ3z7HYAtftufWf7wLuTgnjiU
-	 cLCVY2HOvkxoZ5tpU4PJfgdJTwq5B4JdSgwpDNpFfmR0bBeuDAPEYQHWln3ylLhmDQm5w
-	 NGZWOD+/bjNHCcUZflA9k4zhqE8FtrcIQRWEX6tbsI2egRjBIV6uNqas6o0q+cmKyOyjc
-	 9Vy1Z+wbehwu8wg8hqcogqGZTwKiWndkB1Rj4/I/EB32xnzinvHg/GjZEMd7nZ/96Q0d5
-	 THVNvUZflqoxhcO4HKouiPXeDFt2MtQdMKVxoAZS0ytJ4Li9cQYYD2CMFeIegh8Umww==
+	bh=eIwoQCjr7sSj0vIAB37IuYU9H+c2hGghh5VTlhNpJ0E=;
+	b=TfSSL92ZxR1bctbnHY5DGCLLcfzsc8E/FHrMMRawiMlSBU7z3UKLO/coJbeYpuWvijBq
+	 o7BnMN8kl70X9iAKID+iSfsRCrzYPQaK39s1ufGru7+azjw5DWAGVfWUXs+DtPQ3ZCD4Q
+	 5KNzFFmu92h7BiDfwL8cu8DAyTF1KwSWGb8MlhXbNRzQK6gA9LYPQDLBJvdss+yOjZKJx
+	 2Tfdx81ETaXaBuWgytRtK6j5qU9mcklKX3uZNWBsROdbqdDxhYh/twYvNNgbtqVhYThjq
+	 oDuT6Az3uRNKbOifx9QAwqVCbq8W+ExQ0Qy8EsTtFZuvNk1yQs3QuRS55vJIZYwiOqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGuOCjnJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SKSY95KC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2EDD2606A339;
-	Mon, 16 Nov 2026 11:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9F5606D7A8;
+	Mon, 16 Nov 2026 11:25:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGuOCjnJ
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2C7311F000C4;
-	Mon, 16 Nov 2026 11:24:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SKSY95KC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCA81F000C4;
+	Mon, 16 Nov 2026 11:25:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794828292;
-	bh=/G0OBqYYq6xIWzjTU/6NWOOkjhYFeYVJ9RAPumwh/FM=;
+	s=k20260515; t=1794828303;
+	bh=eIwoQCjr7sSj0vIAB37IuYU9H+c2hGghh5VTlhNpJ0E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VGuOCjnJRgL4l8T0yyJl+XIlzd2n9c4XWgneQU03EGq1tXs5HJFurQ7wV+9mTv0eA
-	 sIoZHG8uG7Cis89p0AyQ+tyWD0JmQFW42EyFJN2L3pclB46cRqyDMtO32K5QV+uIZh
-	 mdL/sRAdJWya3ZcTa9cPlilrSbGYxEbnkgmnYaKZ44abJMxpDpnyWNT0jzZCl1gY48
-	 HE6ALwNmXjCTQHN1rKuP8rZ4M2dy2YIY9yNTlTLwsB39YozcnCyB3wyL6WvCg1WTJr
-	 kRUC8idgaWRdWfS9RfoOQurQ/GLS549ATH8vRtQVkLCqdSM25wCH8sjmlkuiUYFJSj
-	 Sc0PuCxZaziQg==
-Date: Mon, 16 Nov 2026 12:24:50 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, 
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "linux-can@vger.kernel.org" <linux-can@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: Re: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
- devices without match data
-Message-ID: <avrnzDmTgdpK9jQQ@monoceros>
-References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
- <20261114-fix-device_get_match_data-v1-4-2d82025e9646@pengutronix.de>
- <TYYPR01MB660340F5E219C29045BF61F9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
- <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
+	b=SKSY95KC0u2jqsHTtnv98ctb8ZfxF+kt2pzTwhbMQAQl4wj4xa+ycVFCl5L0uFlBO
+	 oaioRJogaHFdUBLkC9j1bIscY0JYJjvaWM8LFBHdrtkwmx/vFuVLGhys/E+b+VzPQk
+	 HHlO4WJ6Y+Uo42lrnFFaLqXe8KbUM4Yp9BPlYEqaDWIjtH5yRRPzvhtq/6wGEGfurS
+	 yF3WkAcoAgK5zVUUMLvZvh2sco/D14yXNBTQ8qT+v+4VJ/yI4iRbnDFTePtVHFTS9X
+	 w0eM7cmkf4ziTQ/5y7PbGywMGHMupw7AhdxKI0iKKMkE2DjJcV1rZqK/5QGiD5Gb6Q
+	 yWKUbr3Dj8rAA==
+Date: Mon, 16 Nov 2026 12:24:57 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yanli Yang <yanli.yang@bedmex.com>
+Cc: linux-wireless@vger.kernel.org, 
+	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhirun Liu <zhirunliu@aicsemi.com>, 
+	Dijia Xu <dijiaxu@aicsemi.com>, Chunqiu Liu <chunqiuliu@aicsemi.com>, 
+	Liheng Wei <liheng.wei@bedmex.com>
+Subject: Re: [PATCH wireless-next v5 3/4] wifi: aic: Add the AIC8800D80 and
+ D80N FullMAC driver
+Message-ID: <20261116-silent-archetypal-fulmar-afff19@quoll>
+References: <179481380235.4.7388336477392853157@bedmex.com>
+ <179481380240.4.5564040872791747367@bedmex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,95 +62,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i5ob7g33zo25fx6g"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
+In-Reply-To: <179481380240.4.5564040872791747367@bedmex.com>
+
+On Mon, Nov 16, 2026 at 03:23:22PM +0800, Yanli Yang wrote:
+> From: Zhirun Liu <zhirunliu@aicsemi.com>
+> 
+> Add the cfg80211 interface and TX/RX data paths for AIC8800D80 U02 and
+> AIC8800D80N SDIO Wi-Fi. Expose station operation on the 2.4 GHz and 5 GHz
+> bands through cfg80211/nl80211, with scanning, connection management,
+> key configuration and station statistics.
+> 
+> Implement transmit queues, receive reordering and packet delivery, and
+> register firmware-derived capabilities with cfg80211. Propagate the
+> cfg80211 channel restrictions and power limits to the firmware through
+> the regulatory notifier.
+> 
+> Add the AIC Kconfig and Makefiles and build a single aic8800_fdrv module.
+> Keep the initial selectable configuration restricted to station mode.
+> Retain the existing non-station source behind disabled configuration
+> branches, together with the optional allocation helpers.
+> 
+> This patch depends on the firmware and transport sources in patch 2.
+> The next patch connects the complete driver to the wireless build.
+> 
+> Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+> Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+> Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+> ---
+>  drivers/net/wireless/aic/Kconfig              |   16 +
+>  drivers/net/wireless/aic/Makefile             |    3 +
+>  drivers/net/wireless/aic/aic8800_fdrv/Kconfig |   90 +
+>  .../net/wireless/aic/aic8800_fdrv/Makefile    |   36 +
+>  .../wireless/aic/aic8800_fdrv/aicwf_bfmer.c   |   93 +
+>  .../wireless/aic/aic8800_fdrv/aicwf_main.c    | 5114 +++++++++++++++++
+>  .../wireless/aic/aic8800_fdrv/aicwf_mesh.c    |   33 +
+>  .../aic/aic8800_fdrv/aicwf_mod_params.c       |  644 +++
+>  .../aic/aic8800_fdrv/aicwf_mu_group.c         |  653 +++
+>  .../wireless/aic/aic8800_fdrv/aicwf_radar.c   | 1969 +++++++
+>  .../aic/aic8800_fdrv/aicwf_resv_mem.c         |  106 +
+>  .../net/wireless/aic/aic8800_fdrv/aicwf_rx.c  | 2434 ++++++++
+>  .../aic/aic8800_fdrv/aicwf_rx_prealloc.c      |   99 +
+>  .../net/wireless/aic/aic8800_fdrv/aicwf_tx.c  | 1469 +++++
+>  .../net/wireless/aic/aic8800_fdrv/aicwf_txq.c | 1368 +++++
+>  .../aic/aic8800_fdrv/aicwf_txq_prealloc.c     |   55 +
+>  16 files changed, 14182 insertions(+)
+>  create mode 100644 drivers/net/wireless/aic/Kconfig
+>  create mode 100644 drivers/net/wireless/aic/Makefile
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/Kconfig
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/Makefile
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_bfmer.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_main.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mesh.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mod_params.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mu_group.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_radar.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx_prealloc.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_tx.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq.c
+>  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq_prealloc.c
+> 
+> diff --git a/drivers/net/wireless/aic/Kconfig b/drivers/net/wireless/aic/Kconfig
+> new file mode 100644
+> index 000000000000..338ab1cb97ff
+> --- /dev/null
+> +++ b/drivers/net/wireless/aic/Kconfig
+> @@ -0,0 +1,16 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config WLAN_VENDOR_AIC
+> +	bool "AIC devices"
+> +	default y
+> +	help
+> +	  Say Y to expose the AIC8800D80 U02 / AIC8800D80N SDIO Wi-Fi driver.
+> +	  The first upstreaming target is a narrow D80/D80N SDIO station
+> +	  configuration; legacy transport, Bluetooth, Android, test and
+> +	  manufacturing build switches are intentionally not exposed.
+> +
+> +if WLAN_VENDOR_AIC
+> +
+> +source "drivers/net/wireless/aic/aic8800_fdrv/Kconfig"
+> +
+> +endif # WLAN_VENDOR_AIC
+> diff --git a/drivers/net/wireless/aic/Makefile b/drivers/net/wireless/aic/Makefile
+> new file mode 100644
+> index 000000000000..3e4620989aaf
+> --- /dev/null
+> +++ b/drivers/net/wireless/aic/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +obj-$(CONFIG_AIC8800_WLAN_SUPPORT) += aic8800_fdrv/
+> diff --git a/drivers/net/wireless/aic/aic8800_fdrv/Kconfig b/drivers/net/wireless/aic/aic8800_fdrv/Kconfig
+> new file mode 100644
+> index 000000000000..6416c9c7a5b0
+> --- /dev/null
+> +++ b/drivers/net/wireless/aic/aic8800_fdrv/Kconfig
+> @@ -0,0 +1,90 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +menuconfig AIC8800_WLAN_SUPPORT
+> +	tristate "AIC8800D80 U02 / AIC8800D80N SDIO station support"
+> +	depends on MMC
+> +	depends on CFG80211
+> +	select CRYPTO_LIB_MD5
+> +	help
+> +	  Enable the AIC8800D80 U02 and AIC8800D80N (D80N, D80LN, D40N,
+> +	  D40LN) FullMAC Wi-Fi driver for the first upstreaming baseline.
+> +	  This build is restricted to the SDIO station path and uses
+> +	  cfg80211/nl80211 for normal Wi-Fi operation. The driver also
+> +	  downloads and starts the chip firmware.
+> +
+> +	  Firmware files are loaded from the aic/aic8800d80/ and
+> +	  aic/aic8800d80n/ subdirectories of the kernel firmware search
+> +	  path for AIC8800D80 and AIC8800D80N, respectively.
+> +
+> +	  If unsure, say N.
+> +
+> +if AIC8800_WLAN_SUPPORT
+> +
+> +config AIC8800_SDIO_SUPPORT
+> +	def_bool y
+> +	help
+> +	  Build the shared SDIO transport for AIC8800D80 and AIC8800D80N.
+> +
+> +config AIC8800_SDIO_PWRCTRL
+> +	def_bool y
+> +	depends on AIC8800_SDIO_SUPPORT
+> +	help
+> +	  Enable SDIO active/sleep transitions and the inactivity timer used
+> +	  by the driver. This is a required feature of the AIC8800D80 and
+
+Drop. Don't add your downstream config features.
+
+> +	  AIC8800D80N SDIO configurations, independent of system suspend support.
+> +
+> +config AIC8800_AUTO_POWERSAVE
+> +        def_bool y
+> +        depends on AIC8800_SDIO_PWRCTRL
+> +        help
+> +	  Low-power configuration within the chip
+> +
+> +config AIC8800_USE_5G
+> +	def_bool y
+
+Why build option would be NOT to use 5 Ghz? Like, if I go to different
+building with different WiFi I rebuild the kernel?
+
+What?
+
+Upstream kernel is MULTIPLATFORM.
+
+> +	help
+> +	  Enable the 5 GHz band. The AIC8800D80 is a dual-band device;
+> +	  keep this on for the upstream station baseline.
+> +
+> +config RESV_MEM_SUPPORT
+
+Why are you inventing more config symbols?
+
+> +	bool "Reserve the SDIO TX aggregation buffer per device"
+> +	depends on AIC8800_SDIO_SUPPORT
+> +	help
+> +	  Allocate the SDIO TX aggregation buffer as soon as the device is
+> +	  probed and keep it until the device is removed, instead of
+> +	  allocating it when the SDIO bus is brought up.
+> +
+> +	  If unsure, say N.
+> +
+> +config PREALLOC_TXQ
+> +	bool "Preallocate the TX queue array"
+> +	help
+> +	  Allocate the TX queue array separately and keep it until the
+> +	  device is removed, instead of embedding it in the wiphy private
+> +	  data.
+> +
+> +	  If unsure, say N.
+> +
+> +config AICWF_FULLMAC
+> +	def_bool y
+> +
+> +# Preserve the enabled features of the SDIO station baseline.
+> +config AIC8800_RX_REORDER
+> +	def_bool y
+> +
+> +config AIC8800_ARP_OFFLOAD
+> +	def_bool y
+> +
+> +config AIC8800_RX_NETIF_RECV_SKB
+> +	def_bool y
+> +
+> +config AIC8800_STA_ONLY
+> +	def_bool y
+> +	help
+> +	  Limit the initial upstream driver to station mode. The AP, P2P,
+> +	  monitor and mesh implementations remain in the source tree
+> +	  so they can be enabled when those modes are ready for upstream.
+> +
+> +config AIC8800_NONSTA_SUPPORT
+> +	def_bool y if !AIC8800_STA_ONLY
+
+Almost nothing above makes sense.
 
 
---i5ob7g33zo25fx6g
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
- devices without match data
-MIME-Version: 1.0
+Best regards,
+Krzysztof
 
-On Mon, Nov 16, 2026 at 09:54:58AM +0100, Marc Kleine-Budde wrote:
-> On 16.11.2026 08:39:36, Biju Das wrote:
-> > Hi Marc,
-> >
-> > > -----Original Message-----
-> > > From: linux-arm-kernel <linux-arm-kernel-bounces@lists.infradead.org>=
- On Behalf Of Marc Kleine-Budde
-> > > Sent: 14 November 2026 12:56
-> > > Subject: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject =
-devices without match data
-> > >
-> > > A device bound through driver_override need not match an entry in of_=
-match_table. In that case
-> > > device_get_match_data() returns NULL, but
-> > > rcar_canfd_probe() dereferences the result.
-> > >
-> > > Reject devices without match data before continuing probe.
-> > >
-> > > Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> > > ---
-> > >  drivers/net/can/rcar/rcar_canfd.c | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar=
-/rcar_canfd.c
-> > > index 000a6433f46d..9d463a9c1766 100644
-> > > --- a/drivers/net/can/rcar/rcar_canfd.c
-> > > +++ b/drivers/net/can/rcar/rcar_canfd.c
-> > > @@ -2113,6 +2113,8 @@ static int rcar_canfd_probe(struct platform_dev=
-ice *pdev)
-> > >  	int i;
-> > >
-> > >  	info =3D of_device_get_match_data(dev);
-> > > +	if (!info)
-> > > +		return -ENODEV;
-> >
-> >
-> > There is a patch on the fly to disable driver_override by default [1].
-> > In that case if we plan to use driver_override, probe will return failu=
-re.
-> > I may be wrong. Please correct me if Iam wrong
-> >
-> > [1] https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a30=
-8.1790612298.git.u.kleine-koenig@baylibre.com/
->=20
-> Thanks, I wasn't aware of this series. I tested the driver_override on
-> the flexcan driver with latest net/main, fixed it, and applied the fix
-> to all affected CAN drivers.
->=20
-> Should I drop the driver_override related null pointer checks from this
-> series?
-
-IMHO yes.
-
-I just sent out a new revision of the change, find it at
-https://lore.kernel.org/all/20261116110853.3418077-2-u.kleine-koenig@baylib=
-re.com/
-as I failed to add you Cc.
-
-Best regards
-Uwe
-
---i5ob7g33zo25fx6g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr65/8ACgkQj4D7WH0S
-/k7QDggAiTmuQNmh8+yNOaWxYwM2xqEF7KXcta6Zhrr5tw9dbPFOi1591HFVqoXF
-b+PrVbmxgaxpRIc2JJd+193U26DHWtmbSfZuJp16XUGreT3qZif3XIPXQItdHKX9
-iEfgiclP6EXqPncKeNY98MlLkT44xrcXxKHOuINAw5pmHD43QZLVMoNul9vvxHzp
-NjcRoO6YYv1alrkzDiCNghiXGFcIbB6NRSvcLg3pF8S+js6tyKC7yGPedHI22ul1
-0jPhDkdWfYmpFS8Mp6O9JkWZOAq07GnaQrOb9PfuT6R8hrsdL6SWg3Tcrj059/mu
-NIUb+nPT//FTZ9tIRjdXrU3JjDhlnA==
-=9hPs
------END PGP SIGNATURE-----
-
---i5ob7g33zo25fx6g--
