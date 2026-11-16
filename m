@@ -1,96 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815214;
-	b=ULKVGpopeLFe+c6Fs97THAJPXCi3h60c7UFRXi+JLHMVnegUlU8xxjkVMW1szXn3sWFt
-	 VEG7j/83HLxm801lwy6zWs78WAnJPB9NOpTwgyWX5DmoT9k9zUApdfNFUWitb9ceAX8xi
-	 A5w99RlHiba1ADM1O8pSAVtMi3JS7z7yu5rxPRhRG37Llis83HnBdUXe15dzByDi6IgBn
-	 YDiLDAeluYp7QS9Mc3vPs1h/KlMFoRFCLSFwSy5qZaoMspeS4DyFba+BCMh3f0B+P1HwD
-	 XkE9fmIuuxH3W3KHQ6hClkOxzL7CfDqnPDG4u2es/Cq3CTk3wqaQ6ULm2bWo8omwyiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815214;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Vlmmf3Yw+/83b82AdIUcfUJeqmaW+6kFUL2ngX8JzfM=;
-	b=iwb9jWSQbTUULms/jOVOar+IqSi2qL8rAVVQaM2aZShXtTnHXI2x1Nc5bPvIsVapfa9e
-	 bsKCpTUW7ToiGTBLqp3EUZ+RmFRJJakoagfPMvq+Y5cgBpIuCLSEjuCeCVKvdI2sAP5NQ
-	 cJpCKYX0lQyTOLGN+zs+Eofmqk3EhHxnpcq9/vDsDW4PKvBA2INarW8/NTs9GBeap3kiM
-	 /Dog3FS4WSJESm/k230Em2wWTa0pmA9u6RSZb8KtQZmejxeEBV2kfTLbRBNaQ4tXq5hny
-	 TBPAsNYNL0kPUZ5L0V+XpRzwPc0ALJzqjeJHGHgl+AwG59BpB5WrKhhnn/RX1ynspXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bHYZUuPN;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794815247;
+	b=kPc8GxY3w7oG99wdVC13Jza9hDyvlacEfFclioLcK0mFwHUXIRYS6ogjrsTOGft0VqeW
+	 3LottyHr7D6rPdFXFoSoOI1ZzUXqolZ3bsyDuj6FUKJLc8ImAFkjDpjOLiv0dtkIl3NoB
+	 lRbkgIF8cKB7SNF16ZYVox6AAbetOP/cnTvNrVt+WVy0SMasHuFHOekZpHamFQfJxlnvk
+	 QSg4KVuYLCm7/6zRauFS75N/Iw6a6FAvurm0anAUGpX5+EZUhqtKP6r1PWws+p4K+dbbk
+	 3ImEDCLv3Aoptm+b7aOjOaq/Jj80MxoI74ECxc9kawGz37kfhvqGqWByPq0pqYSZdbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815247;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-ZohoMailClient;
+	bh=OUTfZXv8x7eL7MqFjv0jmWWqCW17mS56gXHeKOmtpac=;
+	b=P5eQhJ3Zq8PEPUsw+TpWt08Yz8HFQpwwTno2vMo+4BdSCxi7ZzCxDIlq5YM39XJ4Vaax
+	 +WYZ9xxnYRCXIdZfFSJwUOrmn6D5I7AushQWlikpVVPHvvUk2zvQVCrTpT+2x+RGWH3B4
+	 Z3oLk4+juXM2fXXfVbM4QXb1/N9D9FNszaTXY5A2yf1Dyr92PgZsXYWA2jxHsP620iYvQ
+	 9WtYZK9IktwWCIXDUElnc8gQ/9sKwN69XLVGXwrWy/p59VdOdYWNoPGxx1Op5TSVudnD5
+	 y9swM2BpeUu2P924UGdOcXo2RKoKmQf8oKlt3dmFvty+7/cM5H+x8V5E+8fhGCrycyg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=icenowy.me;
+	spf=pass smtp.mailfrom=icenowy.me;
+	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=mIvoRN0S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F105606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F105606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E42F606A31C;
+	Mon, 16 Nov 2026 07:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E42F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bHYZUuPN
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ed2bfe3252so10059435ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:46:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794815213; x=1795420013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vlmmf3Yw+/83b82AdIUcfUJeqmaW+6kFUL2ngX8JzfM=;
-        b=bHYZUuPN9xML3Yrn+cCasQ29AbiNF4JPUbEf+WiN9vI9QhAUir1nYMBF44t8yngNJX
-         FCyfosmDGvuolOH7vpwB02QbVRIDtV8eXdj4sQb9zBxzLFrglwpbsjpUBFOUfujIInYC
-         2xiEwEWtjRwHyNkqzu2bsC0rVKyrQjGGvRBElOFJP4AGuXrvASxD3+4UB2q8zKw/aFWi
-         xlNqwCCKZOmQ7ZuOeljW8RZt0eObB0UnJIgk39heff/DzgMm4D5iLjuZ5wrdO/krjykN
-         ru/ADmOFKKC0oshz9HsbPDQj33Pub0FnNVdtQJ3S8hcBj1u9lGzEoX6L4YpPG9xTOIkF
-         yP6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815213; x=1795420013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vlmmf3Yw+/83b82AdIUcfUJeqmaW+6kFUL2ngX8JzfM=;
-        b=iEwZlsEHh7YVz7vof79djLUITtqQx2RTrPqUyxsx1QoHJYn3wZkS1xXA/hkPKaQIzf
-         WnTFI39JA/L9DimnPRVtWs+vkhAGcG8Od7aY+AzaU2NWfCIFyd15oCB6XeW5FozO+CL/
-         KrE1AstTPnq7Q9/SPg9e6NYI0LutFbmNjh6kFThdPF6DE8uogFkcYix+j/iJePHYLdpa
-         YVqtqjtWi9Dkh5QdRjIjmN84h0D1oag0wYp+hovo9SgJOgMbAb3XiGaD/1yQmqJmEqMq
-         jnQYwpHnADQf7nm1tfftzpfJsaoFJ1u/rvvzOEdT/k/vLJ53uletbceY8dmbgrNW2IbS
-         h8Bg==
-X-Forwarded-Encrypted: i=1; AL+hErHfQYGMVCNRTGe20ObpYCXPDuJFS2c5+ioMFykuLB2/hCfKW2Ja8YXd8Ug8NhekHflP09yWi2hS3qiQn6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wVrnGvTlY979lDVTVcgnZIq5Nd3ZG4bvI37fk93tYaBwcLpxS
-	CRGISr9EGOmy/kTLE8WqnH2989pUGgSRSyNg23AQJtiUVBcLAKc+bto2
-X-Gm-Gg: AZFdTZcGNwoqpLbS5z15eOAlZPWia8kMFC1dGuY8CeV/Jjc/jEpQND3YGtFf5vt/lGq
-	hTEKRlGVvYKUjjl2mHnDuP7rJUP9Y6p6/r8mq2kkpW+iTOshPtifpc2TyM3tWxfmQdhK1Qz+AKf
-	laJJ6jol92FkQA055C3ulhZ7CGl/2tD9BuRyMmyJd2QorBTLewZF9BeIzZcPUmhWM6SOJpl28Jq
-	8pIEaQ1Yn8GvgRQ3Emo8/bdr0D1NHAlkGUS36ojumMHLvUHyTuni7aIsxNrsqVRlbHsbm7/vFBB
-	f3gGi+4Hs9Bggl8P7B5gPftL6i3HUVqVC+gZJhjzaFPkQhjPjj67ESVpMy59hK3xOAa3me65znr
-	UwpjFH53vCO7+Jahn/vR92iVQdntC3RW68WVMHfHWJPafnt4SL+2RNly1bSI6NcJ5WVG6KVbpK+
-	tSjTPzTrI3ii2gmgwu52+2PV3J7Z6RsP0GAkdwjBOekDwmIxs2yrLNqO/0y5Gm2XCbuE43NywDL
-	YOC45cXDQIonbZm6QvgtCSDbPS8zLwrHCnr9PwGBPL5izQIbAZA8gSwFRYPyr9aCOKD8drb4k+Y
-	TZz+lNX/K017YiZDJQ7UqC4Vk8LoSMUR9/hFa4q/ssnNiOdaNaoQBWaQwX6Dz97cr8hEXaerEWF
-	p
-X-Received: by 2002:a17:903:11c3:b0:2e5:54b9:6b37 with SMTP id d9443c01a7336-2ee0de56f82mr93360645ad.28.1794815213447;
-        Sun, 15 Nov 2026 23:46:53 -0800 (PST)
-Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75c98dsm34379565ad.17.2026.11.15.23.46.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:46:53 -0800 (PST)
-From: Kaixuan Li <kaixuanli0131@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Jan Kara <jack@suse.cz>,
-	Andreas Dilger <adilger@dilger.ca>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ext4: don't read past the UAPI struct in GROUP_ADD
-Date: Mon, 16 Nov 2026 15:46:41 +0800
-Message-Id: <20261116074641.2498433-1-kaixuanli0131@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <ys252ecwpg5kqvwjpfehelyatwapddajbtnjsjllttwm32dhgz@frw2pzzlvvoy>
-References: <20261019131655.2583227-1-kaixuanli0131@gmail.com> <ys252ecwpg5kqvwjpfehelyatwapddajbtnjsjllttwm32dhgz@frw2pzzlvvoy>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=mIvoRN0S
+ARC-Seal: i=1; a=rsa-sha256; t=1794815227; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=b3dX3z7c8GFLUI5FjH8mIhgOyYSA51JeUkEOFuLCLF133Gle+fjvbB+ac6keHKZeDlHSaofM0sf3vs23/gppDwsE317B4UO6N9cAEvvzp+M3wvnthvpt68p7YiFGLpALccy9LE8keCwW+sidDGtBO9WCel7jztJ2dAfBiGYH7Aw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794815227; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OUTfZXv8x7eL7MqFjv0jmWWqCW17mS56gXHeKOmtpac=; 
+	b=dcA/+LPEvCvS2urZRT7Gh5ZEPbzq2EduvUULHDPVgosMueAZ/Xym4Kn6zQYxYcHeMm3DQ5H4zyO4Y0JRNSaXUGtJyl341MU39l1kxug0F1iN18H/coynhi0QmTGE8CBvTsgepj3H4dgN11YXTBXAnfYz4fQLrFJoeZdQv0ykZ84=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256; b=mIvoRN0ST5AP8MT6qVavjzJyxAQ7SFGcjKnUup5BQLCsGI7ny6wSsMQLnrb9M8PwFElqyVUHsR/JaHuE2YPNvHp/n1IWkesy//TYSYp6FtgmVYBHF0hLYzraTTswWdBQIOYoSEK0ArLmw0s1YmwtChkhnf2AoQi3Iu9dEOySWJgsJxFCagsm2m5WIx6Sg4iMtEMpvA/G1YL5kc7OcAVl72hw3d2+so0zGpKapw15ZG2DgYXRboefObfWqg4jkGsqqftoOSIhBbujYFmKHuKLBIu84y6kfd90D93MUtJ3cb4MEWUfHrUXN+mIgAuEICkxsgsjMoHL2PjHWwgmT0TF6g==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=OUTfZXv8x7eL7MqFjv0jmWWqCW17mS56gXHeKOmtpac=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794815225743796.5951054994644;
+	Sun, 15 Nov 2026 23:47:05 -0800 (PST)
+Message-ID: <b7d7ac2eee0e64aa7c267def5c2a8a022c7da425.camel@icenowy.me>
+Subject: Re: [PATCH] pmdomain: core: connect consumer with supplier via
+ device link
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Yixun Lan <dlan@kernel.org>, Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>,  Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Date: Mon, 16 Nov 2026 15:46:59 +0800
+In-Reply-To: <20261116072442-GKA100890@kernel.org>
+References: <20261112-01-pm-device-link-v1-1-8932e0862378@kernel.org>
+	 <CAPx+jO-37Km71oSW+zOO7BBWLj86SNCn=U=EGmBXdC5SfX4nbA@mail.gmail.com>
+	 <20261116072442-GKA100890@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,16 +74,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi Ted,
+=E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 07:24 +0000=EF=BC=8CYixun Lan=E5=86=
+=99=E9=81=93=EF=BC=9A
+> Hi Ulf,
+>=20
+> On 12:33 Sat 14 Nov=C2=A0=C2=A0=C2=A0=C2=A0 , Ulf Hansson wrote:
+> > On Thu, Nov 12, 2026 at 8:45=E2=80=AFAM Yixun Lan <dlan@kernel.org> wro=
+te:
+> > >=20
+> > > Connect downstream Power Domain consumer with the supplier
+> > > through
+> > > the device link API, So when the pmdomain driver is unloaded or
+> > > unbinded,
+> > > the consumer can be automatically notified and purged gracefully.
+> > >=20
+> > > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> >=20
+> > Can you check if the below commit that sits on my fixes branch
+> > solves
+> > this problem for you?
+> >=20
+> No, I've cherry-picked below commit and it does not solve my issue,
+> =C2=A0it's a different problem.
+>=20
+> Problem here is the pm consumer side isn't aware pm driver is
+> removed.=20
+>=20
 
-Gentle ping on v3. Jan reviewed it on Oct 19:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-It still applies cleanly to v7.4-rc3. Would you take it through the
-ext4 tree, or should I resend it with the tag folded in?
+I do think it's just better to prevent PM drivers from being removed.
 
 Thanks,
-Kaixuan
+Icenowy
+
+>=20
+> > e279833a5362 pmdomain: core: Wait for device link removals before
+> > dropping genpd->dev
+> >=20
+> > Kind regards
+> > Uffe
+> >=20
