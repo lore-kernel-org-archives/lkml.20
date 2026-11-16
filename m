@@ -1,112 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866912;
-	b=vrXhuDinJGzasJcPQNP6xqHdMp91bnGcQHfjcIlGp2yPvKU1pC428vbdIrhswiAazU0e
-	 QrY55Se2Ils4vEz8jnmZ+1w1unZcE3MCr8jm/BgwaoFdxNjE6vQ2oi244YgPpiKfJ3DJx
-	 S/EZwavOqecnfw7Z56DiuNyA/nuO6L+nr24OJni1mvtC63kbZXDuWrxkFzFMMlGUHzwAv
-	 AJtbWpBuLdp8EDgEKBMzk05Ea6SAvcwE/9PgqtjlSguJh6RE2Z0mpbUts6GGvoqstLzij
-	 xJsryZhv9+E99Tz8XP5YUR5XYUOT2WKW+mTt3uFiclfjUdnLNIe/64C5rh2dsqowkXw==
+	t=1794866907;
+	b=QIgIFJAbJbND43CWzSuDrNyKip88NdukilTQXuIaz6Y55EVGVJVZe9eaPgSLxygu2QxE
+	 ZQCLHb5M2mRqn4rbrP35pd5wig1lBMkFc2Duh+Oj907VtzZLHzY8nhypijPL8MyFIPlbB
+	 W9i6mePr1rTZQvlz8plqGTYw7NFH3uwM7zdQIEasq4FagMuXQzP6hq1bxK529jjyiHzcD
+	 IAjD3o7wZDAY4XYk5p15bTbP5bToEjs8sDWE+jl7vfoyaSjqO53ZuOwIkDq3nawNPq1EG
+	 3uCaLOdsH+8zJz5XcrouJeyb8IF9P6j3kVhQdTV7YUzYKqRuBpZLI6FPXpW9IEGxN/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866907;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rxG4ggWN6089uD/UJK7MpQ1pVb6XaNGi4HD+1f1YoOw=;
-	b=bqfP09CYhNhLviNXPGuP4Q+Z2v2az3gsiqYgKm8hs3FyZUTOil5P0XklLzWHB+HyvMtG
-	 Eo/w+4j//dw/R6Q2AmzP2qsywRNLPaWrjhjB9XKwMwRWFNoK7XJ+IMoongcRLl/ZDTdbz
-	 T/uWRu8QDUQT2wFXPr3fEAjJ3xVBdhqFJA9dH85b2NkNGyDa6FUyFmD0AKhRPNIerFAQy
-	 hHZfVH8Cgq3/ue3pzUAHF/0jqj2xyK34Ww3FrxgWjKK+xP+fJ7KwYujxWQA5sJqv4O7Ky
-	 d+YKXvJgcTbrINBTEeKrXash9nsWBnhPnn+/4lmygaswZ69TkSw629JakuzCtdnfmtw==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=1HR2RLdcMRaD9EbSYsw/zZt5bThBAeaFepmhayLTiyQ=;
+	b=I4gAg2yu8VEpOk2OjNTVt4JkyMaA7WzNg9tB1M9ZMHT37wVp1fX8D7IGWXn6Eq3n43mA
+	 UyHkl5H0rOWFZ0NvVMQsZod9v62msmt3KXsi2jED/9bLhAf3H/J1Uh++oww5sIPV/I6uO
+	 oKlQ2YxeNnm2xa7AgdmdF9rmJqevojFLw+M2xpAyW7ygJeKQhp+NlaSI/Mx00slkSFOIY
+	 +wMveBHfBAzN9FKXgc/mRbwow6iAhtG1Up50putwFQwtaWhG348l0uP7XSVmzjfJWUUB1
+	 zQSsG0fO3y9jRnvaJrXbll2nSIxeUtHMdtXkG6BqDdHDuWc8STI48axNiE6cfo2hB+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=columbia.edu;
 	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ZZkm4rSW;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=xrzf7sh5;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Lcn01MkO;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=AxlJQPpg;
 	arc=none smtp.remote-ip=148.163.139.74
 Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9A760A263D
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A9A760A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494B8606A89C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:08:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 494B8606A89C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ZZkm4rSW;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=xrzf7sh5
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLZ5733767282
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:31 -0500
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Lcn01MkO;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=AxlJQPpg
+Received: from pps.filterd (m0167074.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYgLV4118738
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=rxG4
-	ggWN6089uD/UJK7MpQ1pVb6XaNGi4HD+1f1YoOw=; b=ZZkm4rSWu1yb7mAyrIUS
-	UIh2Okum67IsmXyg3gimdcDS3j4mshs+GSCuqyAju4NHPshuaPoKUUmx1cfUk6h2
-	QMTI1tpFXypC+Q328fMpV/6SKam7J4SYpQ+lV0udwXvgxUEfBbzOaDKW/wWU16Ff
-	YaCZeTtDPRBgpv5BOXov2ZjmSi3UAa+gESr72asUK2wbbdBadQjV5C6gVcCfsl/z
-	6Q7on0WPJ6s04UKMWMS+g3MmYVPYUNnXm/K2wQ7xm5Oc+OXVw2KTKnZX/LFsvd8X
-	zaVmC5es6ngZwTfCpNigv45fCXdauBLPcZJwQZ5rOnr++SAhYu+3k45eTe5NoKW8
-	zA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j0598b9ps-1
+	:message-id:mime-version:references:subject:to; s=pps01; bh=1HR2
+	RLdcMRaD9EbSYsw/zZt5bThBAeaFepmhayLTiyQ=; b=Lcn01MkOQnctcq2KDfHD
+	2//hXu3P9VxU1MMd/XhRdHcUPTGCoBOQ9SUfERtwU/ZSzi90lJPx/FCADS0GnZte
+	JZC2TTJUpeDeahdk70KYtwuQ0i3qEZl8msXqLmtPZ1svLTqbrqvB7mEaSY20PLKl
+	V/vwh6oMPrYPJCm19AJ3wBmSPSn4jqPke9Ir/2dNaXLQn42Bb7mfHWGXMoyHPqB7
+	UBJHtC+QyKZ8ifTolZ4tV1sSY5wlZZ20yCECvKq4e5C1ue8AbXzbqbbuYg4evJXv
+	EWLIOcXoEurHbilveBVO7fpNzXUXVGXMuEQq1jLhjS8zouNxGYwU0SqVvKGHU7ds
+	TQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j0598uajf-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:31 -0500 (EST)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-94960131befso474319085a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:08:31 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:26 -0500 (EST)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9308eafb465so1010621085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:08:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794866910; x=1795471710; darn=vger.kernel.org;
+        d=columbia.edu; s=lionmail; t=1794866906; x=1795471706; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rxG4ggWN6089uD/UJK7MpQ1pVb6XaNGi4HD+1f1YoOw=;
-        b=xrzf7sh5lFjNp9q4cw7aBoHiXu3ZAhTaRIrhobRtLtm0ncFxUhZ1EwoYNoqwmDAq8H
-         3UdJEKnvTKsh9+vomoTbrmj5e1PIfOyu0SOfiFOfGL/xlPdFDN3v/axCJ8DOPcDhaWNL
-         wZcKzVnP0YTTf9KX4W7nXwOhE4Dyo65HJctFPHkwWywBGJkkD0bNmelrH0OVyE5DRrVx
-         rb+IDzEN3Nbml4RTnqMgfUZu6ongx1iEOYvel9KSbEyWmUnsp3FlTYuIVn2rWn9OxGSD
-         M7kSd0p8UZDD9QK/9LWyNF0zPbrinRroI83aFpDV3B1HUMy60TnCnA+1DNlO74AqRbNX
-         7cCA==
+        bh=1HR2RLdcMRaD9EbSYsw/zZt5bThBAeaFepmhayLTiyQ=;
+        b=AxlJQPpg9DO35i6r83bS/cAglUj33fYlpt4Rbizr6rruZi6xdYCaLmmXdDUsFEv5AW
+         L+uEkRCYxksVzVBGgfyFWtvLAkcseCgAStN41ByOzb/TFP9Zz+I7c0oumlt4UBGZ4ezi
+         ObrEHq4tNwTanI9+yn8OG+ippnssIJx3LYELe8IgSgInyMdRHmO7yAybVlu8NRsrsR3J
+         J8pZZqeQ4JXHHm625qAu9tOWkxUXVzajOcaJ081TedlGwLkvjJt63WLWjc6sZdd3/B2h
+         htXnT0dC07KOEph3WYK0fhcT99NvDJXmpqIP0orEZd5LR7oYThCRC3jJaEusKXHbB73V
+         aqqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866910; x=1795471710;
+        d=1e100.net; s=20260707; t=1794866906; x=1795471706;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rxG4ggWN6089uD/UJK7MpQ1pVb6XaNGi4HD+1f1YoOw=;
-        b=HfuOS8ERYC/V2w5JxNOWjyIMtxlc2RYtCj1OvfBd7HVykMeKLod2Pvu1ov1YwfFL3N
-         RKLzxQr05VXE/j09fyUDg2fq/y1//sQNX+qBpIb5u+4B0c3Ed5n1ttymCmmQGFhgo8tv
-         w3GDUSUc6ymaoAyXgv2PVLvYiDSCR1qQwavDfrA6zNbmR7BgA49Uy8Oiy2+tpfvGFhrz
-         daJAHg4UdcEBL0meQgduEDJdN4pyqopOJjB4ZYLMaaXwmdLnAjLIhmn09uWOFbcd+9+p
-         Mxs8XVRlCyx19UUBda/MgOX4CJ4Fl5KqwbbHJ1TvDLnpdV6iAj7wU5ur6mWNY1Wo2z/+
-         zM+Q==
-X-Forwarded-Encrypted: i=1; AL+hErExjZE3XdS2k+DP1qK25HK70E1b1vqo05W0sq39aVK/5H8/sEwBx/lWtgtXkSwQkg4deLJvMvvuLOBbKpg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+L/KTDLaugkMr7IcLXq9rFI7HldPV6/YNRLwekzWaj+gYM74t7
-	PkXMVYU1yU/i20dkWlKUzcfrSNQis0cG5CIqOAXgIGO2qGJNci+g1Bx71MVQs3shz9G6irGFeZY
-	tizVPtJU7RBFsTlP1ORqaNM4BH70qvHSIYM9aCoxGyH1UL6Y15/Og3AxGSIIZJA==
-X-Gm-Gg: AYBFou0RMUapVfSj5Brem/QaZHgSnb3wgr0eyYl0t6sUxvo4/LsN9mIjE5gtj8g6cKw
-	tXQPsbJLvixM0MwzggnVBxw8qm1H5OJPUdz+2RhSJxu8qi9ZiiYpe75HpHiDMpENtQCquyhJySL
-	z07YeAOwtUkfgVW9Eu5vKLI698tI8Ovffq5jwwpPKZ4zXvooXv1Y08cX4uPtAaGRbYVOF9OCeej
-	IKJFcUfmT/7kEIxqaa348WjdBD46K9MVIepUDabRkPwVrEFqcRntytVSA/74huzypwHw6xL2syG
-	N6E3Tpe/cFuyqyohSjzDEQRawSS4kBFDgrpdtOtvG/k3RkeEwxs9co0RWu4wCgBr79c2d9uMz32
-	c2VWw1Kw9eoRzHF7IQ4F6cqGS5qFtzpPnziEh7b0y87OGboQm/w0rfBcXpFjrQpZZWdb/Ocry3F
-	cOzwhgrwK5J0WtSYghQol+
-X-Received: by 2002:a05:620a:2788:b0:945:f28f:ce92 with SMTP id af79cd13be357-9494bbf547emr1794102685a.40.1794866910617;
-        Mon, 16 Nov 2026 14:08:30 -0800 (PST)
-X-Received: by 2002:a05:620a:2788:b0:945:f28f:ce92 with SMTP id af79cd13be357-9494bbf547emr1794099185a.40.1794866910166;
-        Mon, 16 Nov 2026 14:08:30 -0800 (PST)
+        bh=1HR2RLdcMRaD9EbSYsw/zZt5bThBAeaFepmhayLTiyQ=;
+        b=o0mv/rp1wMWBOZ8/5on4LOngNTqkW+qXz+X6GLSdyYa1XgeLeaIREiQJ2GaQGYDhgB
+         7OhPEyhWlC+7DEX24H9fHwvUnzMKCOqOnZtw8noVuzRonG6dUzMID7lcxQxqIVez2jYx
+         o+Bnkwk037XuWa9BWpTkjXyXEs8iC/Bt/ygEcxPzZCGimGqizrxdl+H2sYWt1SxKtlcs
+         tASMlMAI3PrjGL0wvUIXjntt+Btsh8p48BPmZ9U0TfB84PVgKMp7DowjV2B+wFUAQieL
+         FZnLg/b2tRgBRqqISB5w26Jsz59pd30+BtLWQkZzHFWQMr+p2EBLuaCB4OzQNnVW7bR2
+         fmvw==
+X-Forwarded-Encrypted: i=1; AL+hErHLgD7f7imO4PcpN1vhzFtox989ybvOZSRRPLuk7152TgTr9Nig61TjNgi41byjsDjbu1absNMVoYLYfgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+zjt7rT8vhEnIhUsQTkBFgb537jIP2N+3BNhVp5ALFhCqj7q0
+	3Pgkzg1a6UZlD/fP4/dH1XvtDVMa7yCHRKHZs1NzwCqeC+xzDEtVzLcg5LK8PcFsgBJXxDVQMoj
+	yExp8D/OuXdllghm9wnr402UmCRAjpj9epx+d6vJBrQxtTC2NuUqXGlTeaF6r8Q==
+X-Gm-Gg: AYBFou1mfqshoc4BPkD9Oy96EXPwVj9rtTXmen3M/mkbjRQdlxYwQhNZMuy+B8cPj+g
+	rIAI7FYMT4eo33GYfhcCtllg7j1iTIps4vuMMjhVu00afh+6oxTpqqt3S5fEYQL7ZqXxvBHwAAt
+	5GWPuEg4yIAeLg7AXaIM8vxjWXUevmRVvtSLYujSyNO0gwHRBUaXAy9jaAn/l6iUnw/DGecYc/6
+	EFKHLHV9pny+B9pMU/j5dq85CVIEZekNG21qQcCmtv0ok9NnLQ4v0E69jgDcCGb0kGLkboFQsSw
+	IEPZtnpUBfKxJbvsA4GqFhFsJqbap4EI+RU8d5gwjUrZ39s4T0piA56q/k8hiuB3FPfpxu7pIo5
+	4o/y+P81fVU6WX9VHH47o4whS/GMt/8JuHqw2+esPhGfS1KH1zcJcsZVbGudrIPOqa/L9QntQAp
+	rHapJMFrD1L1NknkCYucW+
+X-Received: by 2002:a05:620a:27c5:b0:949:7b2c:671f with SMTP id af79cd13be357-9497b2c6976mr748372785a.82.1794866905683;
+        Mon, 16 Nov 2026 14:08:25 -0800 (PST)
+X-Received: by 2002:a05:620a:27c5:b0:949:7b2c:671f with SMTP id af79cd13be357-9497b2c6976mr748370285a.82.1794866905252;
+        Mon, 16 Nov 2026 14:08:25 -0800 (PST)
 Received: from [127.0.1.1] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c86c946sm951838885a.25.2026.11.16.14.08.29
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c86c946sm951838885a.25.2026.11.16.14.08.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:08:29 -0800 (PST)
+        Mon, 16 Nov 2026 14:08:24 -0800 (PST)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 16 Nov 2026 17:08:15 -0500
-Subject: [PATCH v3 09/10] ecryptfs: rename functions to refer to folios
+Date: Mon, 16 Nov 2026 17:08:10 -0500
+Subject: [PATCH v3 04/10] ecryptfs: remove struct
+ ecryptfs_page_crypt_context
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ecryptfs-folio-v3-9-1aba8e620eda@columbia.edu>
+Message-Id: <20261116-ecryptfs-folio-v3-4-1aba8e620eda@columbia.edu>
 References: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
 In-Reply-To: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
 To: Tyler Hicks <code@tyhicks.com>, Erez Zadok <ezk@cs.sunysb.edu>,
@@ -132,335 +133,70 @@ Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
         Randy Dunlap <rdunlap@infradead.org>,
         Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866899; l=12276;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866899; l=1031;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=GUSPZZZpDb+WYfUnla3AaNXxM4VFpo16ifORSK9V2Gk=;
- b=cm6oFXzc01yoJaDmyVEKBHvrttJalFOfSkIx/ZgIct5rv6XWulTktQ9seyA9aGBaj1Hofmkxp
- /xX3/qPJ1dtCFRAVsB1Q3y+CsWHSTZMJ7w9BC3ZPLu3ybheMelI8A79
+ bh=8nNsMMmNdcqVbMlIKq9eZpT/6NpoMNBQA7psRulhB58=;
+ b=sdDdsOb04BJGImGvRcaS3h2apUzwX5ol2azcfjms1C33PJmTtMwV5ypen5E+kRDOGFGXDJ1Ds
+ lvUrAPyKb/HAK7uqtIR7alJB4aAadSi8hS9BnXRq1u8Axb6u8da3K5l
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: crTfkianMKNYg2DucO6b-bFvjKnXje-R
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfXwpAlvEOZ/a5p
- fsMMr+WSdxZ+uvMlOiBejv2tm+iqgXdkJr0xhlw9MlAm9g1uhdaBeoyaEMpfKeBpwja9kf2Drb5
- gkhVifFsKLZHJ1EDuLODTs07LqE8k5zqasZEcRrgTrM7bIFz52S3
-X-Authority-Analysis: v=2.4 cv=aYD0Dhot c=1 sm=1 tr=0 ts=6afb7edf cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX1Snrq/RnswFv
+ tO1uOMV8GPyv5TdepGWjRHR/CThZYGjz75XCXf03J8V8NrEUXfnSPST/hvvqrEWfFZFQloq3YLU
+ g7xQeJFqP/1m/W6SFee4K2auFqTl5asCOI+FomUWv5FrwuNMwEtR
+X-Proofpoint-ORIG-GUID: QbMxXiKq3M0SuFQ3zRlLme8PGKUhv6rx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfXwxTHWYoi8RH7
+ NQTf62ISJgW/dZIY4tuO2l0Hd68h8hk1jTe7EJcoOnDzA1E59wIdmIPaYrJG2hAmNCt+Qfw0ZOG
+ uZZtFp+DqAPkmJepTiuKytglGWqePXBeF29iM5w4FvMvSz9CPClAIj6sBahrQ48ZJK4LO6fmyY+
+ V/C4S+WGn24/Ub7jxmX4mEFTdt/hr8elG4k1NXVnW4b6kSla0wVztAqjLYooOn+rkX/iKgDyJNe
+ JNld0S6l3nocQxHhbi0j83zOMIO/p1gPC2/RV/MONyFjWhmOKXx9cq2w/BaLmijl1tvUYXNK3Ei
+ doPGImEUUNE2AfFnvK+VidJ4ghP2hRb18N5dbkq4TnqSARMSb6fdTjqFh56fwuOC190Hl243oKe
+ O9f3wHjAWgLKzQp17Y9G5rNWHUT8B8Qc4+pfIL8/QkOM+zPFGEsSnq8XNiJsidsBKQ+LSdlSkLK
+ 8toZ9BvbfmpPldxDAmA==
+X-Proofpoint-GUID: QbMxXiKq3M0SuFQ3zRlLme8PGKUhv6rx
+X-Authority-Analysis: v=2.4 cv=R/aWitRX c=1 sm=1 tr=0 ts=6afb7eda cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=UvMYEBrEvhs-qqGVCq8A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX3maOExUjUGw3
- 9HtHNt7dTC4puCYnqgAoE5n2d0GBzRHFFXKwIDTLqNsJL1dzlAfC/HMJO7hIIXQeWb0pPOFuw2G
- ceLTP04BfkT0JGURbyBHIyS8zdrZBu+PBmUR5uvYLcVqtsJ/m7xB3yRHDaBg1TssDKReQQ/sbQS
- jfLFJMFtSVbYdE9BhQHF/x+tiZFtITGeuOWMgR/1QNlWzif1tDsGXf3V78250TYO3mWM0tZX0R+
- MFUHP2u0X4SJ1YCmRCRCLnfyzvLNuWcGQ5qe1hgNnINFYTbCfZrKdLc5hO6irX8PG7QyCI5FYk8
- UvQnAH471ehwvCPkWoB8AP2YhCNm+omT2Er8pXAViUYUS3DlOpf9Z/6xLNRw/QDW17R+Nb1o0Ml
- au2/BbqKIRsxgCnpt0YfRwui5F3BVeMgGoyVR89ibA5IxDEPqh2ElMcHI35Sj5Jz6I3yvT3+BoP
- Xv6CvDb3qcKnMHM+WcQ==
-X-Proofpoint-GUID: crTfkianMKNYg2DucO6b-bFvjKnXje-R
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=azVShVRs0zEubeQ0wG0L:22
+ a=4zUkhEILHW4tcmWJkwUA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=10 lowpriorityscore=10 adultscore=0 suspectscore=0
- spamscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=10
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160088
+ impostorscore=10 clxscore=1015 adultscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 bulkscore=10 malwarescore=0 spamscore=0
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160088
 
-ecryptfs_encrypt_page(), ecryptfs_decrypt_page(),
-ecryptfs_read_lower_page_segment(), ecryptfs_write_lower_page_segment(),
-lower_offset_for_page() and fill_zeros_to_end_of_page() all take a folio
-now. Rename them accordingly.
+This has been unused since commit b6c1d8fcbade ("eCryptfs: remove
+unused functions and kmem_cache") in 2007. Remove it.
 
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- fs/ecryptfs/crypto.c          | 16 ++++++++--------
- fs/ecryptfs/ecryptfs_kernel.h |  8 ++++----
- fs/ecryptfs/inode.c           |  2 +-
- fs/ecryptfs/mmap.c            | 26 +++++++++++++-------------
- fs/ecryptfs/read_write.c      | 12 ++++++------
- 5 files changed, 32 insertions(+), 32 deletions(-)
+ fs/ecryptfs/ecryptfs_kernel.h | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index f0e67b48917f..bbaeb9a38db0 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -212,11 +212,11 @@ static int crypt_scatterlist(struct ecryptfs_crypt_stat *crypt_stat,
- }
- 
- /*
-- * lower_offset_for_page
-+ * lower_offset_for_folio
-  *
-  * Convert an eCryptfs page index into a lower byte offset
-  */
--static loff_t lower_offset_for_page(struct ecryptfs_crypt_stat *crypt_stat,
-+static loff_t lower_offset_for_folio(struct ecryptfs_crypt_stat *crypt_stat,
- 				    struct folio *folio)
- {
- 	return ecryptfs_lower_header_size(crypt_stat) +
-@@ -274,7 +274,7 @@ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
- }
- 
- /**
-- * ecryptfs_encrypt_page
-+ * ecryptfs_encrypt_folio
-  * @folio: Folio mapped from the eCryptfs inode for the file; contains
-  *        decrypted content that needs to be encrypted (to a temporary
-  *        buffer; not in place) and written out to the lower file
-@@ -289,7 +289,7 @@ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
-  *
-  * Returns zero on success; negative on error
-  */
--int ecryptfs_encrypt_page(struct folio *folio)
-+int ecryptfs_encrypt_folio(struct folio *folio)
- {
- 	struct inode *ecryptfs_inode;
- 	struct ecryptfs_crypt_stat *crypt_stat;
-@@ -322,7 +322,7 @@ int ecryptfs_encrypt_page(struct folio *folio)
- 		}
- 	}
- 
--	lower_offset = lower_offset_for_page(crypt_stat, folio);
-+	lower_offset = lower_offset_for_folio(crypt_stat, folio);
- 	rc = ecryptfs_write_lower(ecryptfs_inode, enc_extent_virt, lower_offset,
- 				  PAGE_SIZE);
- 	if (rc < 0) {
-@@ -338,7 +338,7 @@ int ecryptfs_encrypt_page(struct folio *folio)
- }
- 
- /**
-- * ecryptfs_decrypt_page
-+ * ecryptfs_decrypt_folio
-  * @folio: Folio mapped from the eCryptfs inode for the file; data read
-  *        and decrypted from the lower file will be written into this
-  *        page
-@@ -353,7 +353,7 @@ int ecryptfs_encrypt_page(struct folio *folio)
-  *
-  * Returns zero on success; negative on error
-  */
--int ecryptfs_decrypt_page(struct folio *folio)
-+int ecryptfs_decrypt_folio(struct folio *folio)
- {
- 	struct inode *ecryptfs_inode;
- 	struct ecryptfs_crypt_stat *crypt_stat;
-@@ -367,7 +367,7 @@ int ecryptfs_decrypt_page(struct folio *folio)
- 		&(ecryptfs_inode_to_private(ecryptfs_inode)->crypt_stat);
- 	BUG_ON(!(crypt_stat->flags & ECRYPTFS_ENCRYPTED));
- 
--	lower_offset = lower_offset_for_page(crypt_stat, folio);
-+	lower_offset = lower_offset_for_folio(crypt_stat, folio);
- 	page_virt = kmap_local_folio(folio, 0);
- 	rc = ecryptfs_read_lower(page_virt, lower_offset, PAGE_SIZE,
- 				 ecryptfs_inode);
 diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
-index 301744f0f819..2abead07a84c 100644
+index 4315c18ba1cd..d828040ade89 100644
 --- a/fs/ecryptfs/ecryptfs_kernel.h
 +++ b/fs/ecryptfs/ecryptfs_kernel.h
-@@ -552,8 +552,8 @@ void ecryptfs_destroy_mount_crypt_stat(
- 	struct ecryptfs_mount_crypt_stat *mount_crypt_stat);
- int ecryptfs_init_crypt_ctx(struct ecryptfs_crypt_stat *crypt_stat);
- int ecryptfs_write_inode_size_to_metadata(struct inode *ecryptfs_inode);
--int ecryptfs_encrypt_page(struct folio *folio);
--int ecryptfs_decrypt_page(struct folio *folio);
-+int ecryptfs_encrypt_folio(struct folio *folio);
-+int ecryptfs_decrypt_folio(struct folio *folio);
- int ecryptfs_write_metadata(struct dentry *ecryptfs_dentry,
- 			    struct inode *ecryptfs_inode);
- int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry);
-@@ -636,13 +636,13 @@ int ecryptfs_keyring_auth_tok_for_sig(struct key **auth_tok_key,
- 				      char *sig);
- int ecryptfs_write_lower(struct inode *ecryptfs_inode, char *data,
- 			 loff_t offset, size_t size);
--int ecryptfs_write_lower_page_segment(struct inode *ecryptfs_inode,
-+int ecryptfs_write_lower_folio_segment(struct inode *ecryptfs_inode,
- 				      struct folio *folio_for_lower,
- 				      size_t offset_in_page, size_t size);
- int ecryptfs_write(struct inode *inode, char *data, loff_t offset, size_t size);
- int ecryptfs_read_lower(char *data, loff_t offset, size_t size,
- 			struct inode *ecryptfs_inode);
--int ecryptfs_read_lower_page_segment(struct folio *folio_for_ecryptfs,
-+int ecryptfs_read_lower_folio_segment(struct folio *folio_for_ecryptfs,
- 				     pgoff_t page_index,
- 				     size_t offset_in_page, size_t size,
- 				     struct inode *ecryptfs_inode);
-diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-index ffab685688ab..fdf65b25ced0 100644
---- a/fs/ecryptfs/inode.c
-+++ b/fs/ecryptfs/inode.c
-@@ -744,7 +744,7 @@ static int ecryptfs_zero_tail(struct inode *inode, loff_t pos)
- 	from = offset_in_folio(folio, pos);
- 	folio_lock(folio);
- 	folio_zero_range(folio, from, folio_size(folio) - from);
--	rc = ecryptfs_encrypt_page(folio);
-+	rc = ecryptfs_encrypt_folio(folio);
- 	if (rc)
- 		folio_clear_uptodate(folio);
- 	folio_unlock(folio);
-diff --git a/fs/ecryptfs/mmap.c b/fs/ecryptfs/mmap.c
-index 07a6c8448100..d841610644ed 100644
---- a/fs/ecryptfs/mmap.c
-+++ b/fs/ecryptfs/mmap.c
-@@ -34,7 +34,7 @@ static int ecryptfs_writepages(struct address_space *mapping,
- 	int error;
+@@ -64,17 +64,6 @@ struct ecryptfs_auth_tok_list {
+ struct ecryptfs_crypt_stat;
+ struct ecryptfs_mount_crypt_stat;
  
- 	while ((folio = writeback_iter(mapping, wbc, folio, &error))) {
--		error = ecryptfs_encrypt_page(folio);
-+		error = ecryptfs_encrypt_folio(folio);
- 		if (error) {
- 			ecryptfs_printk(KERN_WARNING,
- 				"Error encrypting folio (index [0x%.16lx])\n",
-@@ -133,7 +133,7 @@ ecryptfs_copy_up_encrypted_with_header(struct folio *folio,
- 				((view_extent_num * crypt_stat->extent_size)
- 				 - crypt_stat->metadata_size);
- 
--			rc = ecryptfs_read_lower_page_segment(
-+			rc = ecryptfs_read_lower_folio_segment(
- 				folio, (lower_offset >> PAGE_SHIFT),
- 				(lower_offset & ~PAGE_MASK),
- 				crypt_stat->extent_size, folio->mapping->host);
-@@ -168,7 +168,7 @@ static int ecryptfs_read_folio(struct file *file, struct folio *folio)
- 	int err = 0;
- 
- 	if (!crypt_stat || !(crypt_stat->flags & ECRYPTFS_ENCRYPTED)) {
--		err = ecryptfs_read_lower_page_segment(folio, folio->index, 0,
-+		err = ecryptfs_read_lower_folio_segment(folio, folio->index, 0,
- 				folio_size(folio), inode);
- 	} else if (crypt_stat->flags & ECRYPTFS_VIEW_AS_ENCRYPTED) {
- 		if (crypt_stat->flags & ECRYPTFS_METADATA_IN_XATTR) {
-@@ -184,7 +184,7 @@ static int ecryptfs_read_folio(struct file *file, struct folio *folio)
- 			}
- 
- 		} else {
--			err = ecryptfs_read_lower_page_segment(folio,
-+			err = ecryptfs_read_lower_folio_segment(folio,
- 					folio->index, 0, folio_size(folio),
- 					inode);
- 			if (err) {
-@@ -194,7 +194,7 @@ static int ecryptfs_read_folio(struct file *file, struct folio *folio)
- 			}
- 		}
- 	} else {
--		err = ecryptfs_decrypt_page(folio);
-+		err = ecryptfs_decrypt_folio(folio);
- 		if (err) {
- 			ecryptfs_printk(KERN_ERR, "Error decrypting page; "
- 					"err = [%d]\n", err);
-@@ -211,7 +211,7 @@ static int ecryptfs_read_folio(struct file *file, struct folio *folio)
- /*
-  * Called with lower inode mutex held.
-  */
--static int fill_zeros_to_end_of_page(struct folio *folio, unsigned int to)
-+static int fill_zeros_to_end_of_folio(struct folio *folio, unsigned int to)
- {
- 	struct inode *inode = folio->mapping->host;
- 	int end_byte_in_page;
-@@ -261,7 +261,7 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 			&ecryptfs_inode_to_private(mapping->host)->crypt_stat;
- 
- 		if (!(crypt_stat->flags & ECRYPTFS_ENCRYPTED)) {
--			rc = ecryptfs_read_lower_page_segment(
-+			rc = ecryptfs_read_lower_folio_segment(
- 				folio, index, 0, PAGE_SIZE, mapping->host);
- 			if (rc) {
- 				printk(KERN_ERR "%s: Error attempting to read "
-@@ -287,7 +287,7 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 				}
- 				folio_mark_uptodate(folio);
- 			} else {
--				rc = ecryptfs_read_lower_page_segment(
-+				rc = ecryptfs_read_lower_folio_segment(
- 					folio, index, 0, PAGE_SIZE,
- 					mapping->host);
- 				if (rc) {
-@@ -305,7 +305,7 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 				folio_zero_range(folio, 0, PAGE_SIZE);
- 				folio_mark_uptodate(folio);
- 			} else if (len < PAGE_SIZE) {
--				rc = ecryptfs_decrypt_page(folio);
-+				rc = ecryptfs_decrypt_folio(folio);
- 				if (rc) {
- 					printk(KERN_ERR "%s: Error decrypting "
- 					       "page at index [%ld]; "
-@@ -443,10 +443,10 @@ static int ecryptfs_write_end(const struct kiocb *iocb,
- 		&ecryptfs_inode_to_private(ecryptfs_inode)->crypt_stat;
- 	int rc;
- 
--	ecryptfs_printk(KERN_DEBUG, "Calling fill_zeros_to_end_of_page"
-+	ecryptfs_printk(KERN_DEBUG, "Calling fill_zeros_to_end_of_folio"
- 			"(page w/ index = [0x%.16lx], to = [%d])\n", index, to);
- 	if (!(crypt_stat->flags & ECRYPTFS_ENCRYPTED)) {
--		rc = ecryptfs_write_lower_page_segment(ecryptfs_inode,
-+		rc = ecryptfs_write_lower_folio_segment(ecryptfs_inode,
- 				folio, 0, to);
- 		if (!rc) {
- 			rc = copied;
-@@ -463,13 +463,13 @@ static int ecryptfs_write_end(const struct kiocb *iocb,
- 		folio_mark_uptodate(folio);
- 	}
- 	/* Fills in zeros if 'to' goes beyond inode size */
--	rc = fill_zeros_to_end_of_page(folio, to);
-+	rc = fill_zeros_to_end_of_folio(folio, to);
- 	if (rc) {
- 		ecryptfs_printk(KERN_WARNING, "Error attempting to fill "
- 			"zeros in page with index = [0x%.16lx]\n", index);
- 		goto out;
- 	}
--	rc = ecryptfs_encrypt_page(folio);
-+	rc = ecryptfs_encrypt_folio(folio);
- 	if (rc) {
- 		ecryptfs_printk(KERN_WARNING, "Error encrypting page (upper "
- 				"index [0x%.16lx])\n", index);
-diff --git a/fs/ecryptfs/read_write.c b/fs/ecryptfs/read_write.c
-index 0881945da99d..fa876eef85ad 100644
---- a/fs/ecryptfs/read_write.c
-+++ b/fs/ecryptfs/read_write.c
-@@ -39,7 +39,7 @@ int ecryptfs_write_lower(struct inode *ecryptfs_inode, char *data,
- }
- 
- /**
-- * ecryptfs_write_lower_page_segment
-+ * ecryptfs_write_lower_folio_segment
-  * @ecryptfs_inode: The eCryptfs inode
-  * @folio_for_lower: The folio containing the data to be written to the
-  *                  lower file
-@@ -54,7 +54,7 @@ int ecryptfs_write_lower(struct inode *ecryptfs_inode, char *data,
-  *
-  * Returns zero on success; non-zero otherwise
-  */
--int ecryptfs_write_lower_page_segment(struct inode *ecryptfs_inode,
-+int ecryptfs_write_lower_folio_segment(struct inode *ecryptfs_inode,
- 				      struct folio *folio_for_lower,
- 				      size_t offset_in_page, size_t size)
- {
-@@ -167,9 +167,9 @@ int ecryptfs_write(struct inode *ecryptfs_inode, char *data, loff_t offset,
- 		flush_dcache_folio(ecryptfs_folio);
- 		folio_mark_uptodate(ecryptfs_folio);
- 		if (crypt_stat->flags & ECRYPTFS_ENCRYPTED)
--			rc = ecryptfs_encrypt_page(ecryptfs_folio);
-+			rc = ecryptfs_encrypt_folio(ecryptfs_folio);
- 		else
--			rc = ecryptfs_write_lower_page_segment(ecryptfs_inode,
-+			rc = ecryptfs_write_lower_folio_segment(ecryptfs_inode,
- 						ecryptfs_folio,
- 						start_offset_in_page,
- 						data_offset);
-@@ -229,7 +229,7 @@ int ecryptfs_read_lower(char *data, loff_t offset, size_t size,
- }
- 
- /**
-- * ecryptfs_read_lower_page_segment
-+ * ecryptfs_read_lower_folio_segment
-  * @folio_for_ecryptfs: The folio into which data for eCryptfs will be
-  *                     written
-  * @page_index: Page index in @page_for_ecryptfs from which to start
-@@ -245,7 +245,7 @@ int ecryptfs_read_lower(char *data, loff_t offset, size_t size,
-  *
-  * Returns zero on success; non-zero otherwise
-  */
--int ecryptfs_read_lower_page_segment(struct folio *folio_for_ecryptfs,
-+int ecryptfs_read_lower_folio_segment(struct folio *folio_for_ecryptfs,
- 				     pgoff_t page_index,
- 				     size_t offset_in_page, size_t size,
- 				     struct inode *ecryptfs_inode)
+-struct ecryptfs_page_crypt_context {
+-	struct page *page;
+-#define ECRYPTFS_PREPARE_COMMIT_MODE 0
+-#define ECRYPTFS_WRITEPAGE_MODE      1
+-	unsigned int mode;
+-	union {
+-		struct file *lower_file;
+-		struct writeback_control *wbc;
+-	} param;
+-};
+-
+ #if defined(CONFIG_ENCRYPTED_KEYS) || defined(CONFIG_ENCRYPTED_KEYS_MODULE)
+ static inline struct ecryptfs_auth_tok *
+ ecryptfs_get_encrypted_key_payload_data(struct key *key)
 
 -- 
 2.39.5
