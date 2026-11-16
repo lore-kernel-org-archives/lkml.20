@@ -1,65 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825533;
-	b=4J8SI4c13Gyj55PDMtV0tyft0ZM62B8nZeuVm9YGNM4CXkVL2TcZmrMEhzxXLh02ra9s
-	 ANmCf2aYicXbTwnnvwVpICa/CFVt2ciJEB+Toh+maR+0Ie65F9MZrihJhXIk0LfUwKKNn
-	 gKusbBYk3o6xddlbYp3G48cfT1SfgWvB6XtgRgKiejdCtWsDp7DJZy+OAmcYooXLPOBRX
-	 vs0F/lcqC5r8cFO8jtBgXS0EiwKk8ue91sXHN8VnaIdQR9gQcElkKDQTwBmfeM/fOrO3n
-	 /wOO46Xp4+hb8kn6FPaxmj3UBtIx5kjBlWlmi+v+yO8sZJ2cdjRpAOGZ4694RT1IGXQ==
+	t=1794825570;
+	b=2CV0wXnGXTwr/xcM+MBumDfONJCNXaNzBZmaWXvv1XYHCMq0zIpNXv1YC7gunFQBXyF6
+	 9TmSBD882w+dMh5S9SBqhhIhIm1ZnbZOq/6kiGDDnQOTkiUktCVxBZUFX0gT6agQozZfp
+	 7j0Rc5JmdtM+o9w6wHNsWdORtM3XPJOs+cwgOulP9riEJDbeeMaS6DrgjYrG0fyUkKwwl
+	 5KsOEbEZailXGdSVL02yi6Fyznb9i2KLgzAjVkGvvvphcZCFaOnEQT1/zv6z0A1zSNvld
+	 SAvDEwRPAHuibTbE4Soe6ex6cqDEGvpU1fcBKfI+YL/z5psl57EDpBA+r5jGg2yfqNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825533;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=QRGsy4+/SMCADWAf/zPFn8gYvB9q7AQj208EjNSpYys=;
-	b=rjgRvuQ4jsdZz8Oq5fGaWoMqQ2Rs1djO87DMCEx+r4k8wpAAL6hXLKC7lx+LERkwh/9U
-	 DE9Zht5y82q3MPvgifFc81gZGjvsdV4TZrZ4VAKdOHsrEortB6HxNeWdMVdpyfS2sdmI3
-	 hwn5qQkqIKpjEuoUeTVtyiBc9EVTQy0Wc2kK2sXENCp3WHvvDjMW0IS6lqIm/pj5oLOF6
-	 zyKaPrlT1wkZghN2st12RXEnyp9p7bSCIC4EFzwkPs0CWWfspZIZPrRMUYDmO1mbPqV0k
-	 DLdHo0e51f7RM8iEIJKUJCU4vuCG8TE4jJ7u9C79JH4VImRfMk83t9o/tDW7NdEs53g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825570;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TMelqXmuFWpq266Nr/pmiKLHwnbkJ+vOhcI3eV5hwDA=;
+	b=jVtCLN/QNjhie8oB6Q/rGNJvJvqb3Av1oXrDQZ4h9BLyNMUgBRb0nlOYLHtjs8rhIlS0
+	 QoYjufPYL2cg8naojquJAvtDmAsS44DRBLneBWwj4zqXcSzzFGUBHJllI8jD5MldHFNoz
+	 2g1JqsRR1+3YsdlF5K3IE8KT06zzdW+WmmrZZy/Ddu1LlDIwhHyI5T7v/5uSbmhoFeIrg
+	 aB42YFVTbIV6OoxCM7clGzMwfzqxY4OTouWgdcZAuKJGs4hruCyrATaCDteCh/xuTYZka
+	 YTRHoiS9CvZvvENA2upRmbOclxpNGXuGaAwFSO/nSBnPE0z3nG2b1xEVVLtPCwu5KIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfUrpf7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfPaonkH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C372606A31C;
-	Mon, 16 Nov 2026 10:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9792B606A31C;
+	Mon, 16 Nov 2026 10:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfUrpf7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064011F000C4;
-	Mon, 16 Nov 2026 10:38:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfPaonkH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A2B1F000C4;
+	Mon, 16 Nov 2026 10:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794825533;
-	bh=QRGsy4+/SMCADWAf/zPFn8gYvB9q7AQj208EjNSpYys=;
-	h=From:To:Cc:Subject:Date;
-	b=QQfUrpf7KW2E/D92ipRWpozh9+fpTADkzTrphMMvDryWKir8BBYX7qCBcSTW+rVWp
-	 kaiMYy+yIpMR9mIbgR8DRCVv4IfxgIpY1Y+DDiVQ4sUnbDSCz6tjaA1d+Onhwir9qo
-	 /Q+tqcUHmpQoSq+XiUjHclTSAe1wuvLKjNZH8JA1Dyr/Ixg6f7uZrEX2Y1DJLpc8hj
-	 acwpcyoYay/1LK2K4lE2p101sXkHiQcMF45jS/QCBCCBdK8I0xFJ28viJILxyd1PG1
-	 GTFR4ZJWHV71y/VTkngjWpzNoBl17cM2KdxBLWHBUvlKy/x8qoJlnKMNt0yMP+6wEy
-	 oYjrB4LIMrrWA==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xSu6s-000000035gU-2JU3;
-	Mon, 16 Nov 2026 11:38:50 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] software node: fix node group deregistration kernel-doc
-Date: Mon, 16 Nov 2026 11:38:07 +0100
-Message-ID: <20261116103807.736778-1-johan@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	s=k20260515; t=1794825570;
+	bh=TMelqXmuFWpq266Nr/pmiKLHwnbkJ+vOhcI3eV5hwDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jfPaonkHOoYzcERjBg2syjUH1ZjbOZW510AZoG3aEu9g6XfzbK7P33m9ATRC31esW
+	 Xdy9/p9SL1vp5YScPnoZkhd8sVwgcnULVsMki3bbR4zQefs8PpiDZuz0ZqhCOt6RWp
+	 ENGj+45YyD6EKciWwBHU0oBFk9rPTStNk4HVH9AirjxPTr0eor9hBctsI1seXZ2+Zu
+	 4/mfcU4KVWiVz273BitBNYXa7+D314Sy8pztPLGBhohMUyVcesjgCXt9TlGh1Wzrwk
+	 Dn8KStfHUrWAEq6iE0wEG8R/m9M+PT2AOFE6fVlIk7R74aliyfOqErZCgZ0efGghdr
+	 fWDFAvIqvWOTw==
+Date: Mon, 16 Nov 2026 11:39:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Del Regno <angelogioacchino.delregno@somainline.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Danila Tikhonov <danila@mainlining.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/3] dt-bindings: display: msm: Add INT2 GDSC to
+ Kaanapali DPU
+Message-ID: <20261116-flexible-uppish-uakari-3f1b07@quoll>
+References: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
+ <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,46 +70,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
 
-Child software nodes hold a reference to their parent via kobj->parent
-so there was never any need to deregister them in any particular order.
+On Fri, Nov 13, 2026 at 04:28:51PM +0800, Yongxing Mou wrote:
+> Kaanapali (SM8850) has two display GDSCs. CORE_GDSC supplies shared
+> MDSS hardware and most of the DPU, while INT2 GDSC supplies the
+> VIG2/VIG3/DMA5 source pipes. Without INT2 GDSC, these source pipes
+> remain inaccessible.
+> 
+> Describe CORE and INT2 as power domains of the DPU device, matching
+> the hardware partitioning. INT2 only supplies DPU-local source pipes,
+> while CORE also remains attached to the parent MDSS device because it
+> supplies shared MDSS hardware. DPU performance-state votes on CORE are
+> propagated through the genpd hierarchy to its parent MMCX domain.
+> 
+> Keep the widest valid constraints in dpu-common.yaml, including the
+> power-domain-names definition, and narrow them in the platform-specific
+> bindings. Require two domains and their names for Kaanapali, while
+> retaining the existing single-domain constraint for all other DPU
+> platforms.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-Drop the misleading kernel-doc comments which suggest that deregistering
-a parent node before a child could cause trouble.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Note that parent nodes still need to be registered before their children
-or registration will fail.
-
-Fixes: fc002f0f23e2 ("media: software_node: unregister software_nodes in reverse order")
-Fixes: 0b8bf06f6719 ("device property: Sync descriptions of swnode array and group APIs")
-Cc: Daniel Scally <djrscally@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/base/swnode.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
-
-diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-index 8e12f518e13f..78e224539b02 100644
---- a/drivers/base/swnode.c
-+++ b/drivers/base/swnode.c
-@@ -954,14 +954,7 @@ EXPORT_SYMBOL_GPL(software_node_register_node_group);
-  * software_node_unregister_node_group - Unregister a group of software nodes
-  * @node_group: NULL terminated array of software node pointers to be unregistered
-  *
-- * Unregister multiple software nodes at once. If parent pointers are set up
-- * in any of the software nodes then the array **must** be ordered such that
-- * parents come before their children.
-- *
-- * NOTE: If you are uncertain whether the array is ordered such that
-- * parents will be unregistered before their children, it is wiser to
-- * remove the nodes individually, in the correct order (child before
-- * parent).
-+ * Unregister multiple software nodes at once.
-  */
- void software_node_unregister_node_group(const struct software_node * const *node_group)
- {
--- 
-2.56.1
+Best regards,
+Krzysztof
 
