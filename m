@@ -1,63 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818868;
-	b=p/WC8zPxHGjWcx6T/aetMy58mAAQQdOWa/1pdonJurbv3Rm9K/iQp2VzKzSuAk95P9/e
-	 prZ7hlDEn3NvAGTwWvDpiFjnBZav00zuXEAa/H4b0CpRSnxWS3k4S7GPEEfQok7Kohrcn
-	 lwEn6NX6rAvvjfv9EsZo1qpiMmVvL35/MRtfcMigtO+Mb96BSwob91Ziaftdov80Rjfm8
-	 Hhktu3Pj5XIlq3TJarXtFgabVQENjg4y9wBpoVcav3/i8PHy7LSrjwUBvdltd7F02tLsZ
-	 wosD9OSRfOlJlv/WMJ2Tf/e4NP8sdwCsdhzyEwTtdnZExI4lPE+qZmq0HdS2BJFb4rA==
+	t=1794818929;
+	b=3EUfbXpRchZPvrehunjKvFUZ9z5Oc+pnIhOPdOEKdhyTJRib/f2qUwUoh3M3B1k9j1jc
+	 co8XExN5/eTcC6U0REa0FQ8VCghyUijhvC0hEHivhxO8pESHzshbwXic60F563qE+13dS
+	 Z+gwCAUvEJehI7sqJZ36jpGE2UPwpfj29DuvEub7tctSdmB/0cJQOi6JDovluqDQ8Psq1
+	 9QTo+1LNeVf5BvtSpV9uYBhQ6TI7kVzuHU8+wjtLLkybX3SMfZM5BQ/8I9dd5piw7fSoi
+	 f+7psV2FdL0Cgei1RzoxOhtAYLTpla5ZQOO8AO9eqbPUTVVYauRkLACi9xIlv2WMS6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818868;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
-	b=Veo+XTwlZhEwjWzeVQOHz8eAKSTz6RLgJTXLzqUDk4wa148ZeJaf1x2BoR3/BcdazmFO
-	 FzNAFhl3/3FDX+5yzfRzdgnIO34/Xn35oqFko9705DFNMVyuX0luf6mKctZeKBhMrGXOz
-	 +zKDJTkJlYVCDrEIqbV+HtDrH00kqoyx3ASq53jYL+gji6+tmIWl5D3oBNxRKp4ZYWTIG
-	 qE4SgHWNwBPzJpbvs3yWQvbP2XH8e+bujgNNfG580Rljo4XDrj6Bi3ZnIFyT8/8lN9jHI
-	 q8yy5fSR+VgG5SvDoxGIEw/eywDWrEBWNFkW9xf3+bZ9W0U9q1jBrjpJtArUXz0me6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818929;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZzeW4tTwnbgGY3PBdybZ0cug7ieSkJ3GuWfPIRIp3RY=;
+	b=2Xwx4c2+016mpvgWNrt5+49itHdH46ZJ9P5rI1tGSeRtiF76gjme7OeS17bvyIE/PUuV
+	 4I5cc3HZ+qj4Ble49DNGDa0IsZM7N1sa98/DgJKeJcZgDN4TtN6mwn+Z2FpkXJCLRWlR6
+	 DSZtfc7XFwZp8RTLK5SWpCcVmlq7U2gx1LgfF8GKpFwrR754Mqi8KvuKR3ysgbBinYZEf
+	 2qzSXA19V1cbCBHgw3dyVemCfCDo0eo52aTcXgDRaNEg8JRiJD2/r+NjYZjGuciT4b103
+	 PJUok4ctzlwLouxJr0K6Me+DDNi2AwjZ3U3ZqElsVj7IiocyZILFa6gunMncq4Mx34g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ai3CnFlU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C88606A31C;
-	Mon, 16 Nov 2026 08:47:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C88606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7434606A31C;
+	Mon, 16 Nov 2026 08:48:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9661410EF78;
-	Mon, 16 Nov 2026 09:47:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794818861;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
-	b=Dszj5M7U3OEX3vPhggvupYiDIDtgJ1CjrqH5Jt0f645TpAqgjRC9P+8/lrpkHKJ+4JoiTI
-	L6UReXGEDu+KJYLwUgrhEDOaOLHm8TXhzjZsjwb1Cvq8TSacvTA4Zi7CQC+V2kbXr6z2Ec
-	oJYa65T0uQ1X8vP0Ux1FzzD28Tw5cWSUL3S4IYBT8R50BW7hIMwlI/8f42jVXfRI2av8Qg
-	Nr8K2WPco6yYOr8L9d1lNx14IvPMRsO1EjKVZuGoVCeILnDjUDnlM/+rpDR6UfPcoSs0l3
-	x6LaUOrQKikwH0C250Caia2m9t8ssLX83VmU+40Km/H10RKzqjVPiq2+uJXVfA==
-Date: Mon, 16 Nov 2026 09:47:36 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
-Message-ID: <avrDKGcdTCqA4RFn@duo.ucw.cz>
-References: <20261113153753.358973689@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ai3CnFlU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35FD41F000C4;
+	Mon, 16 Nov 2026 08:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794818929;
+	bh=ZzeW4tTwnbgGY3PBdybZ0cug7ieSkJ3GuWfPIRIp3RY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ai3CnFlU83nx4AAsDxjC5q1KuHfBmsyOSz73QjEyvNu3GwLEZIncbJKJelPJdEGUt
+	 NnEcSlBR3hhLo9jBZbFv6x0byyjQdtZPsHLTrhX5K10mZfzLzhjEav1W+1R2O+vN+6
+	 Nte4k56wgx07FxWWx9qrUv/u5JGkutGPByPZwr/oapMc41CNbenYuqR0P/V6JpDE2J
+	 A8B77kN9BIV/RCWoYR/pbpY/znhnzKNkAt32Del0HvWHdvp0qtVdD2dK6hztizmrjL
+	 3FZDg4zsW5XEPkNVuGUzD17QzFieXGhX1nHov8BFSrikogr/bBo7oXtQEjbfVmNV0N
+	 qaqrySDq5X1uQ==
+Date: Mon, 16 Nov 2026 09:48:47 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Zhao Li <enderaoelyther@gmail.com>
+Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Chad Monroe <chad@monroe.io>,
+	Peter Chiu <chui-hao.chiu@mediatek.com>,
+	StanleyYP Wang <StanleyYP.Wang@mediatek.com>,
+	Dylan Eskew <dylan.eskew@candelatech.com>,
+	Bo Jiao <Bo.Jiao@mediatek.com>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] wifi: mt76: mt7996: check the RX WCID before using its
+ station link
+Message-ID: <avrDbwXDBCSbYcNx@lore-desk>
+References: <20261115172723.34964-1-enderaoelyther@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,72 +67,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="7nLTaoNpBa1RI6kS"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4YCXUwoUCzBjd855"
 Content-Disposition: inline
-In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20261115172723.34964-1-enderaoelyther@gmail.com>
 
-
---7nLTaoNpBa1RI6kS
+--4YCXUwoUCzBjd855
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+> mt7996_rx_get_wcid() returns NULL when the reported WLAN index does not
+> map to a station entry on a valid band. Commit a3ea1c309bf3 ("wifi:
+> mt76: mt7996: Fix mt7996_reverse_frag0_hdr_trans for MLO") made
+> mt7996_reverse_frag0_hdr_trans() load msta_link->sta while declaring its
+> locals, ahead of the !msta check that used to reject a NULL WCID. A
+> header-translated first fragment without a station WCID now
+> dereferences a NULL pointer in the receive path.
+>=20
+> Check the link before loading its station pointer.
+>=20
+> Found by code review and not reproduced; compile-tested only.
+>=20
+> AI assistance was used.
+>=20
+> Fixes: a3ea1c309bf3 ("wifi: mt76: mt7996: Fix mt7996_reverse_frag0_hdr_tr=
+ans for MLO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 
-> This is the start of the stable review cycle for the 7.3.5 release.
-> There are 507 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Reviewed-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
-We get build errors here:
+> ---
+>  drivers/net/wireless/mediatek/mt76/mt7996/mac.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/ne=
+t/wireless/mediatek/mt76/mt7996/mac.c
+> index f36da545045b..186216f21d28 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+> @@ -191,12 +191,12 @@ static int mt7996_reverse_frag0_hdr_trans(struct sk=
+_buff *skb, u16 hdr_gap)
+>  	struct mt76_rx_status *status =3D (struct mt76_rx_status *)skb->cb;
+>  	struct ethhdr *eth_hdr =3D (struct ethhdr *)(skb->data + hdr_gap);
+>  	struct mt7996_sta_link *msta_link =3D (void *)status->wcid;
+> -	struct mt7996_sta *msta =3D msta_link->sta;
+>  	struct ieee80211_bss_conf *link_conf;
+>  	__le32 *rxd =3D (__le32 *)skb->data;
+>  	struct ieee80211_sta *sta;
+>  	struct ieee80211_vif *vif;
+>  	struct ieee80211_hdr hdr;
+> +	struct mt7996_sta *msta;
+>  	u16 frame_control;
+> =20
+>  	if (le32_get_bits(rxd[3], MT_RXD3_NORMAL_ADDR_TYPE) !=3D
+> @@ -206,6 +206,10 @@ static int mt7996_reverse_frag0_hdr_trans(struct sk_=
+buff *skb, u16 hdr_gap)
+>  	if (!(le32_to_cpu(rxd[1]) & MT_RXD1_NORMAL_GROUP_4))
+>  		return -EINVAL;
+> =20
+> +	if (!msta_link)
+> +		return -EINVAL;
+> +
+> +	msta =3D msta_link->sta;
+>  	if (!msta || !msta->vif)
+>  		return -EINVAL;
+> =20
+>=20
+> base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
+> --=20
+> 2.56.1
+>=20
 
-
-236
-19:06:22
-  CC      arch/arm/kernel/asm-offsets.s
-237
-19:06:23
-In file included from arch/arm/kernel/asm-offsets.c:12:
-238
-19:06:23
-./include/linux/mmap_lock.h: In function 'vma_end_write_all':
-239
-19:06:23
-./include/linux/mmap_lock.h:604:25: error: 'struct mm_struct' has no member named 'mm_lock_seq'
-240
-19:06:23
-  604 |         if (unlikely(!mm->mm_lock_seq.sequence))
-241
-19:06:23
-      |                         ^~
-242
-19:06:23
-./include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
-243
-19:06:23
-   77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
-244
-19:06:23
-      |                                             ^
-245
-19:06:23
-make[2]: *** [scripts/Makefile.build:185:
-arch/arm/kernel/asm-offsets.s] Error 1
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3065943408
-
-Best regards,
-								Pavel
-
---7nLTaoNpBa1RI6kS
-Content-Type: application/pgp-signature; name="signature.asc"
+--4YCXUwoUCzBjd855
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrDKAAKCRAw5/Bqldv6
-8ul/AJ9f+PnOukZPzcN2ZHZtw9cnclNmZACeMOiCeO2h+nlj4rHyzyH6uojigtI=
-=Qmfa
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavrDbwAKCRA6cBh0uS2t
+rN4KAQDQDzGAyBaF5y4bcjJ0dGvBDNwOm0Mi5wrN3XoVmBAKJgEAgVXYPKx1jBy5
+9Co9JCH5xt7OsmieVNb1RvSq2oW+yQA=
+=ObA0
 -----END PGP SIGNATURE-----
 
---7nLTaoNpBa1RI6kS--
+--4YCXUwoUCzBjd855--
