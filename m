@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831743;
-	b=bAef5fuc9hQyiPq2mCREPt2VwiHW0cEJgxqCPqS7SpUEqX+vvswAl83ER6RGBLRDgsNd
-	 AXOzNb1Ei1SAOFvKNI/BX43WfEenwFzD3HKw30hC00QyKMNLc+HdxIYnKX5w9HGFuhvpu
-	 u7LVkCHzpq3k1ueNCQelqdO7fBq6Js0pKvF1e59+TfaRZ7ZsrCQXKgQyI4Q/OyfPpn6bH
-	 nKNWhWUcj3KQMZMXERzlrtL2k/TkMei0UmITLUCmAKe9fEZQFPaqHVXO9tlowirrrCeLl
-	 9jeSsl6VSUo5jjJN0pKQKHfo8ahAL9FW29o02+aLT4mRgDePYXQTbbaoAHniQBFJSlg==
+	t=1794831793;
+	b=vYZ/gyua5sfPpfFo6zDA70v2cJFR0GTe2pkJsGAX/RB3sbIBz+i0dKJ3zXkr3sn334py
+	 y9m/UEEYsc92mSnZFphBuyBECZX1PDhzt57Rhm2vNstSOoZuAEeNhMavpZiuop30onV4M
+	 Ix8q6MHPa7ZTgqyEICM0R0v1wuF/nS0v5cGwCGaHIh0UyfbjXVO0FKypZ1MmLVVyt7WKk
+	 c50kEAL8q6GYkU5fxQM5KsM3Wu217S6CW0m5T0S3rQPYdB0xgqZnMCZr/YgGbZ4EwL+PK
+	 MXaNV0UHhn1K3T307DuKMqkNi6GifJIjiRASCt/dpL3CNhmZMa8Ed8e0YVJfJ1Q3MHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831743;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831793;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=tJY1c31l5d6ee34HGatBDQMQ/oxNBle+BQO9LaXQVgU=;
-	b=k1EfY2iWnoqMcECQOuqHzlpMetKQWA25WeTKIJR1CGE3KYo2771BYsuNynEAUrASRFrK
-	 LDD/yvF7hJoSCA+DHzGrtNeTJttxsFEtjtPDCtGBfXo8aWOMqeoIXXnl1W0OQYxT0MuNl
-	 WN5Azt/jBaYZiGapPe+PPuFr8KYg0b+fSs7k1JOpuVR4qexma4PIuonkWWoMNt1H+3g1Y
-	 qjr55CAUEjJaYtIR1V0cmG56WK1jq7RQTrqr6TKP2g+kMnL3LsD8JzFreau5byqY42l+A
-	 sbX1OEaCZQJx+9hROIRbW7BBL8dNax3LcO1qrxTVUy9F+1bpMJVYncyZmPw2mzC8lfQ==
+	bh=XjOLJYPpE+zg9FjXzUFe2yCJSZC0NZwI9t12nm1h74I=;
+	b=Fc1/S7ttvzXTdICwGbl1gmF7bnCI4KscfSyrY6jKgLa1oQLn5AOFZThqmE5dMkH1akid
+	 9immRB/ZLBD6dcHbGFUCOeY4gItLTonbGFSrcAizFYc60YLlJ+soguHNT14MbCS5U3x4t
+	 /9qPxX/HWE7SpsU8vvh0X+iDo1/ntpyMqHJKxyNfa6yHg5vADYI/09nCLeQqopZKp+nji
+	 eP+gc7a+BLiOYT9kfLuNu5Xp3qteOWypcAqM8m42mrIYxUHMfSOkmR5wn3wPVCqpJTxEe
+	 5oG7ZyV/ePVEi1ItsvokB+wE7tGX2EoOoA9P76PuTnbUvXFMaAroGhSFmIyI0DCp5zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5w+Wflr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LP/pjdCR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AAF606A31C;
-	Mon, 16 Nov 2026 12:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0923B606A31C;
+	Mon, 16 Nov 2026 12:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5w+Wflr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D291F000C5;
-	Mon, 16 Nov 2026 12:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LP/pjdCR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C7C1F000C4;
+	Mon, 16 Nov 2026 12:23:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794831743;
-	bh=tJY1c31l5d6ee34HGatBDQMQ/oxNBle+BQO9LaXQVgU=;
+	s=k20260515; t=1794831792;
+	bh=XjOLJYPpE+zg9FjXzUFe2yCJSZC0NZwI9t12nm1h74I=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m5w+WflrvbyCz2OI0kEkVza1NdxBxDjPkd9aWwr8spi/tHNw/f9ytqiczDvj2Fk4q
-	 9JnsLZNDLwX3WVWDAj2BlffpbOrOg0COChi4XTH6WaEi/YBkd9/QBoU086BgTqD/c3
-	 VkgmMHSFv0zjnkhzFy/Y5LSHIjZCWLQjrgaC80JSP3vrJWcBlo/GzHhfh7rZ05cPV0
-	 Km1NyNVFjTMFrlQLksQW9qpX3DqvmYF8FKtbkTyiolQbxeJbDVl+1E+sDQVBLbQ/Xj
-	 rD9D3uvGcPehMXcgFXp/XjFYBq696nhn5K7JOwqv4Ak786cKya/0vhiEQBpz24aGf5
-	 UeBe/kM/E60Qg==
-Message-ID: <a96974a6-fc56-4e05-be9e-9eb3776cc4fb@kernel.org>
-Date: Mon, 16 Nov 2026 13:22:12 +0100
+	b=LP/pjdCRgI6C+8s2UrzRyQ5Q29IzwW9MxwKstBP4e8qfrA3Nzq1GuvCfRvb38dUa2
+	 eFmZ4IlxChZ1GKQrTNEHZjvoYDHaVu/JM7LHOK1uVlpsrSJAB6sWE1d6fR3EPp5NhT
+	 aWU3iKGJkBHHoBIXbxX0dK8+SOQmFTczD16RfhqPUTSCgc3jmiE0friRxYitjkrpKQ
+	 dxsJAxDZGGzhTX9It0LHJsJKt36V7sjrSAlrVlppb1LY+sZaNulhTBUX3ulosrp+WW
+	 cfwCKeSO5C7/8FFHXWxoedaKfkUK60KKyhfOQHGiA6585z/ur8ZIpOfxIInnqfz2KC
+	 Oxst89YpKT4cg==
+Message-ID: <8e8300f1-d837-495b-b947-a3b52f44b4d6@kernel.org>
+Date: Mon, 16 Nov 2026 13:22:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,18 +52,22 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] dt-bindings: soc: ti: Document the
- ti,tda54-mcu-scm-conf
-To: Moteen Shah <m-shah@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, nm@ti.com,
- ssantosh@kernel.org, u-kumar1@ti.com, gehariprasath@ti.com, vigneshr@ti.com,
- afd@ti.com, a-limaye@ti.com, y-abhilashchandra@ti.com, johan@kernel.org,
- kees@kernel.org, jm@ti.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261112091027.1601122-1-m-shah@ti.com>
- <20261112091027.1601122-2-m-shah@ti.com>
- <20261113-fancy-trogon-of-saturation-16fc66@quoll>
- <699420d5-28b8-4238-8fc4-3a4e762265ba@ti.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: qcom,glymur-camss: Drop port@3
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
+ <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
+ <20261116-vegan-amphibian-muskox-3c8a55@quoll>
+ <de0bd55f-9b80-414f-adb6-eece067d92ff@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,51 +113,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <699420d5-28b8-4238-8fc4-3a4e762265ba@ti.com>
+In-Reply-To: <de0bd55f-9b80-414f-adb6-eece067d92ff@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/11/2026 12:33, Moteen Shah wrote:
-> Hey Krzysztof,
-> 
-> On 13/11/26 13:26, Krzysztof Kozlowski wrote:
->> On Thu, Nov 12, 2026 at 02:40:24PM +0530, Moteen Shah wrote:
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  ti,proxy-id:
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    minimum: 0
->>> +    maximum: 7
->>> +    description:
->>> +      Proxy region (0-7) through which this node's clients access
->>> +      claimable registers and their fault status registers.
->> Partially continuing discussion from v2, IOW, device cannot access
->> entire address space and you need to limit the address space to specific
->> window of it? At least this is how it looks in driver code.
->>
->> This looks like the MMIO space is wrong. Listen, if you claim that the
->> DTB represents the host (or VM) view on hardware and based on that you
->> add proxy-id property to restrict the MMIO, then why do you claim that
->> entire MMIO is correct for this host (or VM) in the first place?
+On 16/11/2026 13:18, Nihal Kumar Gupta wrote:
 > 
 > 
-> Thanks for the review, I got your point.
-> One thing I wanted to clarify before sending a revision: a nonzero proxy 
-> sets a bit in its CLAIM register to claim a register but for proxy 0 it 
-> shouldn't be doing that as per the hardware. If we choose to use proxy 
-> 0's reg window we just have to check if any other proxy has claimed it 
-> previously or no. Are you fine with having a property in the binding 
-> something like "proxy-0" or alternatively "ti,claim-required", because 
-> the driver won't be able to makeout which proxy it has the view of.
+> On 16-11-2026 17:39, Krzysztof Kozlowski wrote:
+>>> Glymur has only three CSI2 PHYs, so there is no port@3 in the CAMSS
+>>> binding.
+>> ... so this was never working? Or was working but you change something?
+> 
+> It was not used in-tree yet. 
 
-Dedicated property for proxy0 is fine. Maybe not calling it proxy-0 but
-express that this one is shared with others so first you need to check
-if it was not claimed.
+That's different question. You added ABI and that ABI could have been
+used. Was the ABI ever correct in the first place?
 
-But OTOH, can't the driver make the claim if if no one has claimed it in
-every case? IOW, why for proxy1 you take the claim unconditionally, but
-for proxy0 you check first?
+
+> The existing example was wrong; this patch
+> fixes it before adding the Glymur DTS.
+> 
+> Glymur has three CSI2 PHY connections, so the logical CAMSS input ports
+> are 0, 1 and 2.
+
 
 Best regards,
 Krzysztof
