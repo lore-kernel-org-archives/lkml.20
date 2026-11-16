@@ -1,81 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826254;
-	b=BhJgQxevGFYfokor0dfZeY2PVqaEUCbYvAnuLZ9em3QiEvwP9QgbiAQX6acr+KqMFnIc
-	 gS2jIdrgcOcZ4lFY0ZqwwrIyp966W4aCVZi+znLf+sZDbZ7J3F/Gr6XhtBnCLMatPHb4n
-	 Hr25v0kCnR1KDNq9fjfEDk0P7ckuB23dkuR01ZWOaImn35RW3i8BGwx9lUdpQUx5KbyK4
-	 9Iuq8MIguLNofMMevB4ub+gLoLYxNfk4VCrWTYeCb4fnSqwScQ1EJtmZPp9pKJJc3Li7T
-	 PsyXpH5oXZXfp7eqVZDraQLHdZAjFeNoo6re/1NJMDmT1e0NFEfOs6tnaPzTeqMujbQ==
+	t=1794826360;
+	b=MUT5KuqzoO63CLHFSMbwYBaDNmbPUr7jtbm5FhT2j0PU1mnueJ10ovgimANHizPkk3ee
+	 TIA2UPDcey0QupPCrUW0KW0/VtHY5k/HqadQsNjlG/NG7LVrdMHS96jhECQcnPsHctlSR
+	 Xg3E4cWx/eziYne6rZVJSrABChTRxPFEtuUfUXtmDX9lBvlBMM3rqC/0JRskavo7ndV2c
+	 hO1PTgoINiQt4+WVWDou2yeeORzC3Y5aLrTO8Hl5tp/vIbEK1lBXjJwLyTb8wg7HQKGVv
+	 hKiIxFcFJft9NnDGvMvPIwCKcJu0I9ERbO5ylAkZvmX/pZteKDqYnxCKnRsq68QRq/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826254;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=/k719wzEl3W3QIxgkGCYZUV+apWlxoVKrFOOBsllOQk=;
-	b=DJ2AXskLYlRP4HXnksvy31TVBcR3yVi3zJYg6Z7GQp+TLJ52PlcktN00XNU9wxbLHjwB
-	 f67vwAparxVt9/x6WoeUX1mUugLuWqrnTXCAFRCTQwRwNdQYk1iEaUbLnP9ngR7oUuoUX
-	 qTqjk0a0vLOjjxAOaZ8xWpD6zxmooVEzpVGmaFCqOrmfotTMcpn3yBleE2vGXrVSp100q
-	 ietYTZvEbELCic++xc8s6DdrqJNvJb26ylsgpecAQhttfWDBsaZR97/I8ZrDZtJUt2CS1
-	 RzgX/KLBGfSCEofr/5PZOixGuPB94FK5DWH610Huh5c43gtoCm/oH5diJiTcqODcy0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826360;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=UVdB4yH8xlc148639BsaqXg8zOFxV1Tx2mgUwlLZXoc=;
+	b=p7wwrQ8B3gpRygPociJprTpWSulruzBoRJAN3R7x7JpICqIUZV+3Wi9sah+9oqaf2EoX
+	 z38awClhHZdp7qvdCmLaRW41rHsIKkuvQFZgS2WqL4RMSUysQsmoKftNNthFz/iWmVkg9
+	 7qN07wxnJwwqwujdPbCqdh4fmsDoSz/rAavDi6LXsrLtJiWhdeSBP5VkiCEkCD3rrhje+
+	 R7/pROiHu9XQ/WSPp9Ayx84ZiK4cai4h62FffTYQr78ArF798pXEmf4vX3Cf2UR7lqth+
+	 cKFOIaJoJl5MQK6U9EUDlUdmtDL+f34D08G4kPLaTB9e+L+Es0py+dRL4fkurIhdTZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xg9e+AqB;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OVHet9mq;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ITH5DgT7;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E75606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3E75606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8576D606A329;
+	Mon, 16 Nov 2026 10:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8576D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xg9e+AqB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794826254; x=1826362254;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=wpXd1p0hteXZVmr0NA5K9bSo20DaHXFaojY1b1jiCxs=;
-  b=Xg9e+AqBUFmmJXashBBXe76m+iHACPkZS7tthADPGNzGzl4F5yvsTnkn
-   E9Kvtkqzg0Sf6AIjsAyO4gjTmoCB3D0UaFtRl0hgJEGdmRUSSiauuvkc1
-   JSHcG60iGa8iTp6jdC8zJCi3I3pdWI/G3Vp4PAVukLbtUuzR1YZyxpX7N
-   EusL2Ds8DRxR1D+uJOY5bQalWod3i7bXHCDU0Xu898UiW16NDj8oxpZG+
-   gQUIBCE+t75eDlOFHUUDnSQWbtQ0Kt9hvnwDsXPvF5z8mEsIuuCqIGGgG
-   wS6QWnWm7jBTP+4hL9iA5eTnvfWxWTVO3Mwu/DOlexA5Uxf1627eTJvIi
-   w==;
-X-CSE-ConnectionGUID: t4Ri3ETxTcyBZm989XUmcg==
-X-CSE-MsgGUID: 6UOP/o+YSVK9EXQvi0Ge5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3661067"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3661067"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:50:53 -0800
-X-CSE-ConnectionGUID: kN3mEAjrScmTeueMq8BcHQ==
-X-CSE-MsgGUID: uGhBcIjbSaG0KcBw4bw2Fg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9866611"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:50:51 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Arun
- Iyengar <aiyengar1990@gmail.com>
-Subject: Re: [PATCH v2] drm/debugfs: Accept "reset" with a trailing newline
- in edid_override
-In-Reply-To: <20261113-drm-debugfs-edid-reset-v2-1-07939ebe7a8b@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261113-drm-debugfs-edid-reset-v2-1-07939ebe7a8b@gmail.com>
-Date: Mon, 16 Nov 2026 12:50:48 +0200
-Message-ID: <79235528599da1ab5445fd8fcdc529c182eacf33@intel.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OVHet9mq;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ITH5DgT7
+Date: Mon, 16 Nov 2026 11:52:33 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794826356;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UVdB4yH8xlc148639BsaqXg8zOFxV1Tx2mgUwlLZXoc=;
+	b=OVHet9mqJB7WlNT3jlBvGzgcDtRa72k3k1DorZkwB454/FdXdX35kHdJDgzTlC4hJR+Yvc
+	VY1LfwP+/tyi3mck3Ht+8QtortzArb5PSomBY08wdw5im4REK6v27oAKCBLUbQhc/qDQOE
+	Zq4A4aVB/22WBtBIh704f8ILi6M4vwyS8xX/S1+Nd+9quBo5A8UHmB728A+3ldy6rcNmw9
+	kNq+xovrS44HCXlwGgYMBBqP7Qh/+N0+8YN58ITcCuj8cEnpwZAX7aEgKH9FZ9Oogh91y3
+	/Lw29ET5rmV09PX1WcRQdolKukwtp4ICdMm5ZjcaMpnFjMyyEuRuhNDkwLECrw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794826356;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UVdB4yH8xlc148639BsaqXg8zOFxV1Tx2mgUwlLZXoc=;
+	b=ITH5DgT7VtEiMJCal7bHMw9N5YiPZnAXMrlEskXVtwy3fThvHuVK+biFnbUhAsvyTO2C2B
+	KBdAq+5pK4DpPIBA==
+From: "Ahmed S. Darwish" <darwi@linutronix.de>
+To: Julian Braha <julianbraha@gmail.com>
+Cc: Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, arighi@nvidia.com
+Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
+ code
+Message-ID: <avrgcfcsp2FBVG4u@lx-t490>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <20261106091922.7560-4-darwi@linutronix.de>
+ <9729a4c6-22f9-4102-b62f-c76a75488240@gmail.com>
+ <avHD-3JwbQofpJdH@lx-t490>
+ <81c91813-79ff-4d36-92e6-8c0ecc1772c7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,80 +91,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <81c91813-79ff-4d36-92e6-8c0ecc1772c7@gmail.com>
 
-On Fri, 13 Nov 2026, Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org> wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> Writing "reset" to edid_override only removes the override when exactly
-> those five bytes are written, so "echo reset > edid_override" fails with
-> -EINVAL and leaves the override in place.
->
-> Compare with sysfs_streq() on a NUL-terminated copy, and reject writes
-> larger than the largest possible EDID (256 blocks) before copying,
-> so that the size of the copy is bounded.
->
-> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Tested on an Orange Pi 5 (RK3588S) with this patch on a 7.3 based
-> kernel: "echo reset" and "printf reset" both remove an override, an EDID
-> override round trip still works, and garbage or oversized writes fail
-> with -EINVAL.
->
-> Developed with Claude (Anthropic), which wrote the code and the commit
-> message. I reviewed and tested it.
-> ---
-> Changes in v2:
-> - Use memdup_user_nul() and sysfs_streq() (Jani Nikula)
-> - Reject writes larger than 256 EDID blocks before copying
-> - Shorter commit message
-> - Link to v1: https://patch.msgid.link/20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com
-> ---
->  drivers/gpu/drm/drm_debugfs.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-> index a72f9723d3a9..7c39c8ed3984 100644
-> --- a/drivers/gpu/drm/drm_debugfs.c
-> +++ b/drivers/gpu/drm/drm_debugfs.c
-> @@ -565,11 +565,15 @@ static ssize_t edid_write(struct file *file, const char __user *ubuf,
->  	char *buf;
->  	int ret;
->  
-> -	buf = memdup_user(ubuf, len);
-> +	/* An EDID has at most 256 blocks */
-> +	if (len > 256 * EDID_LENGTH)
-> +		return -EINVAL;
+Hi Julian,
 
-This is an unrelated change nobody asked for, and it diverges from a
-review I tried to converge by presenting a clean hand-written solution
-that the LLM didn't come up with on its own.
-
-
-BR,
-Jani.
-
-> +
-> +	buf = memdup_user_nul(ubuf, len);
->  	if (IS_ERR(buf))
->  		return PTR_ERR(buf);
->  
-> -	if (len == 5 && !strncmp(buf, "reset", 5))
-> +	if (sysfs_streq(buf, "reset"))
->  		ret = drm_edid_override_reset(connector);
->  	else
->  		ret = drm_edid_override_set(connector, buf, len);
+On Thu, 12 Nov 2026, Julian Braha wrote:
+> On 11/9/26 13:00, Ahmed S. Darwish wrote:
+> >
+> > In v2 of this series, I'll make the schema explicitly versioned. This
+> > way, new features like the above can be cleanly added.
+> >
 >
-> ---
-> base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-> change-id: 20261110-drm-debugfs-edid-reset-0504a20c67d1
+> Adding schema versioning would be great.
+
+Yup.
+
+> > P.S., I can definitely implement such support, but I'm a bit hesitant
+> > to adding features that are not yet needed by the existing mainline
+> > policies.
 >
-> Best regards,
-> --  
-> Arun Iyengar <aiyengar1990@gmail.com>
+> I suppose it's not necessary to support these option types at the start,
+> as there are few of them, relatively speaking. But it would be good to
+> add some input validation in case a user attempts this.
 >
+> So I've finally had some time to sit down and test this:
+>
+> I created my own policy with these other types, and sure enough, if I
+> specify them as 'disabled' in the policy like this:
+>
+>     rules:
+>       - name: CONFIG_LOG_BUF_SHIFT
+>         expected: n
+>         severity: high
+>
+>       - name: CONFIG_PHYSICAL_START
+>         expected: n
+>         severity: high
+>
+>       - name: CONFIG_DEFAULT_HOSTNAME
+>         expected: n
+>         severity: high
+>
+> and my .config has these values:
+>     CONFIG_LOG_BUF_SHIFT=17
+>     CONFIG_PHYSICAL_START=0x1000000
+>     CONFIG_DEFAULT_HOSTNAME="example"
+>
+> then the config passes the check -- but it would probably be better to
+> provide a warning or something about these options.
+>
+> Also, if I modify my policy to set 'expected' to 'y' for these, it
+> reports "not in .config" (which would likely be confusing to the user).
+>
+> This regex stmt should match all int, hex, and string options for you:
+>     unsupported = re.compile(r'^(CONFIG_[A-Za-z0-9_]+)=[0-9a-fA-F"-]')
+> by checking the first character of its value.
 >
 
--- 
-Jani Nikula, Intel
+You're definitely correct here, thanks.
+
+If a symbol is expected as enabled or disabled in the policy, but the
+.config has it as an int, hex, or a string, then the report must include
+that as a policy mismatch.
+
+So for the above case, the tool should report something like:
+
+  * Below option is set as an integer:
+
+     CONFIG_LOG_BUF_SHIFT
+
+    But it's expected to be disabled instead.
+
+And similarly for the other symbols.
+
+I'll fix that in v2.
+
+> The included preempt_rt policy worked as expected (nice).
+
+Glad to hear!
+
+All the best,
+--
+Ahmed S. Darwish
+Linutronix GmbH
