@@ -1,50 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820037;
-	b=CWL2LeoI0Jt9ZR0uGa+0zvAjf46OI9Zj1/flzeMkPzS/AmR0ym+5xAOjtn10oeGcEERy
-	 z6IIBICUsqfpPyoHUlIkXmjlbI/Skkzzj2b03/b7eMiO6hiFdMn6q6q5S3tgt66yVtjMx
-	 sd64gynYvaKKRiOI1T98IKK995Fru7Pi9ZwqrTbei70BQ+O3tFVC0zoPVJkzrt0Oqu+Cq
-	 HO9IF5R8vr95CP92kgzuSHaUF1f0wJIM6ZshrXi0wqhMzvv7mu0yc3PRDjXr9Ye0fswWa
-	 0yGqQIT6g3SWke/mwHLRDdTotjlJ1HMTUVyyGqBwiPoL++r3OiDAd1P6i26bcn6uztQ==
+	t=1794820060;
+	b=YrNxXxfvo/vGXT2aAQHEmNfoWfhV3t/W/NfjjjweQu2fYzaXN1F+8i1IbykTcE/lceiB
+	 qxNfLB0Q0auTuK2+bcx78vxq3OJ6B4+Na25c3/SQv6uRu2nmw/7GT3Cd7J8VTK04vKv+J
+	 plUlTQSdAP+RRqky5CC6zW1zG0s2LDxaazy0lQBOzSnpPdFgMejraspqrX/LBRo3Qy4VP
+	 NUGWSK3OVaDAmBdSfRdZoS2HL1NVBsHGzvyVz+jALfzTLiCaw1ICtDzIgjJUqYFvbf/Rh
+	 lBpWMCs20Ikkdy6IytnTuQk+YqG1J+YhA3nJ7CYVKyCCiKbhRL0mArH6u/3+jM1cbMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820037;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rm/t3UchaKdtiqPwazLlyh/gGsrLPRISrvENAfCooH8=;
-	b=C4y/nHIl52Q6fIWWLDLMSQ4E067SzFVghy+xpywsLe4kSZ6QFeKyw96q1ZUsvuVfArYY
-	 Mo75oI88bXgEJEXlujM3H+REUiDAKQPUvBkBS4yw3Z94ifaHeiSlvqWKeVZYf8Mg2ias7
-	 BDb91nRjEc2AVrAij0HPywSIJhKLb7rJcNuG8m9FsoZqMIV9xRicygQ4eBXt7yERWXvBk
-	 DaSsRvdYy0cTH3G9fZEQ/TzA4+KQuzLPtkY3F75xWmqRamMetJTom5csX7ZmT7wGyVJLa
-	 /Z9V3N4LC/o9T1SRaEOebLNW/h5lQLSicOyTxEyrTew5uGkIe14UEYk5t/Ny34Nhelw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820060;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=bxxtrS888PptJpyJPlJITnDDBu4Lq5Nie5KzZh67HvM=;
+	b=sCtmitrwQ8viDCidjDKXSwP40/DtaBWjDdEwTr511822hiC4x6WDx0lHebr1RJtNncwy
+	 EfnETewdnioNgtPtJdHs7hTGvLA3oMSYEDMkJGXNaGsRE2sFny7BOi68rVfMnZz+Pd5lC
+	 KJ1e67/m0yMKlurMmAf4M7807p/T14TTlgL9/fTEL2zrxRd20V3nPjzRrzZb/eZ4lUBjC
+	 vEHrulc4OSZB72JduY5Z6sHIpBl0VTj7/1yx4F4r8lfd1WiHIDTE3XVWli8hcjl6SzFKA
+	 +EA8ZRJ3YSk0tHqzWrjrFYXW6zS2nHnavro9hyhY7fcEyRCG8A9akb0yvwMBHZgsoqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="lkuxm/BZ";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="awiqtq/f";
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA23606A31C;
-	Mon, 16 Nov 2026 09:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA23606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634FB606A32C;
+	Mon, 16 Nov 2026 09:07:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 634FB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lkuxm/BZ
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DD4F5B5;
-	Mon, 16 Nov 2026 10:04:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794819888;
-	bh=WXZM0v7Iccc0YJN6sQ4Tx8wDPorwn1ToYD+9hhAWpd8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lkuxm/BZ2UePK8LCRX7rGlh4744zQS0tXj0rgBall8N+8QEP2QrN0oNWfpoASriW8
-	 TfyiFjuzPxwnBV6GivBn9SDspSN5s825ywkKBW8mdnezD4wuRW1HpyO/xWWrLBCRgu
-	 uy25bWlz4+tg5C0csXIVZ4Id9cvebTsTuczb8v54=
-Message-ID: <692d174e-eea4-4b5d-97f8-384de96e4eb4@ideasonboard.com>
-Date: Mon, 16 Nov 2026 11:07:09 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=awiqtq/f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794820061; x=1826356061;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qPtvvw1mEttrPy0hpnL5cWSqWPDd7vpg95dVq2Lpjv8=;
+  b=awiqtq/fkOj2aON0BZnGsTlg5k+6APLUZLzSknIZwGAwRiEnQbYzhAUb
+   5SHKVCEGbVM7o0VYFXcMm2VwXkfJx6SLOuIjsZ5PkEB7y6hATuV7uRpt2
+   /V6OdZdUVpe/JHca8Yi+Z2cFsL6Sq3Usxj/PQOuz0s6C4fJ++WmBt7A3s
+   0s01XBt4YmTmw5LNdEi7xEcHwXvfPFmtpiHSzrPNT7yUJzcIPeD88WCWU
+   HTyut7bXsZDZK7Wy4d9pJCYvKGNqz5mH8Yk+iprTGDWEmcTfHFPXuIWoe
+   AQwoaCvOlbajtEvizMXGI0U3Fjc/+Uw2lLPbYZMSv7Ef7ufiNLrd7PBG7
+   A==;
+X-CSE-ConnectionGUID: 51AIoBkkRsmGgnnBeLpS1g==
+X-CSE-MsgGUID: Id/iPFFTRfKVe/iRbNcZOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3558425"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3558425"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:07:40 -0800
+X-CSE-ConnectionGUID: VIddGgbJSOaSIdGqwOHo9A==
+X-CSE-MsgGUID: ghIPgI/vRO29QAjJjhGFkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9387797"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:07:37 -0800
+Date: Mon, 16 Nov 2026 11:07:35 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jaakko Koivisto <jmatko@utu.fi>
+Cc: Joshua Crofts <joshua.crofts1@gmail.com>,
+	Andreas Klinger <ak@it-klinger.de>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] iio: chemical: sgp40: Replace manual locking with
+ guard()
+Message-ID: <avrH16ORPweOpbgP@ashevche-desk.local>
+References: <20261102091258.247402-1-jmatko@utu.fi>
+ <20261102091258.247402-3-jmatko@utu.fi>
+ <20261102111020.00000194@gmail.com>
+ <DMWI8DZPNBKM.2GHPISPEOA7G5@utu.fi>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,59 +87,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/2] Add no-hpd property to the cadence bridge
-To: Yashas D <y-d@ti.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, h-shenoy@ti.com, panchuang@vivo.com, kees@kernel.org,
- r-ravikumar@ti.com, sjakhade@cadence.com, yamonkar@cadence.com
-References: <20261009064024.985688-1-y-d@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261009064024.985688-1-y-d@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMWI8DZPNBKM.2GHPISPEOA7G5@utu.fi>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
+On Mon, Nov 16, 2026 at 10:49:51AM +0200, Jaakko Koivisto wrote:
+> On Mon Nov 2, 2026 at 12:10 PM EET, Joshua Crofts wrote:
+> > On Mon, 2 Nov 2026 11:12:55 +0200
+> > Jaakko Koivisto <jmatko@utu.fi> wrote:
 
-On 09/10/2026 09:40, Yashas D wrote:
-> This series adds 'no-hpd' device tree property support to the Cadence
-> MHDP8546 bridge driver for boards where the HPD line cannot be used for
-> hotplug detection.
-> 
-> On TI J721S2 EVMs, the DP0 HPD resistor is DNI from factory, so the HPD
-> signal is not physically connected to SoC pin AA24 by default. AA24 must
-> still be in DP0_HPD mux mode for the MHDP firmware to operate.
-> 
-> When 'no-hpd' is set, DRM_BRIDGE_OP_HPD is omitted and the framework
-> falls back to polling .detect() every ~10 seconds. Presence is detected
-> by reading DP_DPCD_REV (0x000) over AUX, with an early exit when the
-> monitor is stably connected to avoid re-programming the stream each poll.
+...
 
-How did you test this? I can't get a picture on J721E EVM if I apply this.
+> >>  	/* we calculate as a multiple of 16384 (2^14) */
 
-  Tomi
+And this comment should be placed not for guard()() obviously.
 
-> Changes since v6:
->    - Reverted back to dev_dbg instead of dev_err for the normal hpd case.
->    - Picked up Acked-by from Krzysztof Kozlowski from v6 on the bindings patch.
+> >> -	mutex_lock(&data->lock);
+> >> +	guard(mutex)(&data->lock);
+> >
+> > Blank lines around any guard() statement. You want to emphasize the fact
+> > that guard is being utilized.
 > 
-> Link to v6: https://lore.kernel.org/all/20260802153825.1570435-1-y-d@ti.com/
-> 
-> Rahul T R (2):
->    dt-bindings: display: bridge: cdns,mhdp8546: Add no-hpd property to
->      the cadence bridge
->    drm: bridge: cdns-mhdp8546: Add no-hpd property
-> 
->   .../display/bridge/cdns,mhdp8546.yaml         | 11 +++
->   .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 69 +++++++++++++++++--
->   .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
->   3 files changed, 75 insertions(+), 6 deletions(-)
-> 
+> Should this be applied also for guard() inside switch-case -blocks?
+> The extra blank lines makes them look strange.
+
+In scoped cases the blank line is needed only after the guard()() assuming it's
+the first operator after the scope is opened.
+
+> >>  	x = ((int)resistance_raw - data->res_calibbias) * 106;
+> >> -	mutex_unlock(&data->lock);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
