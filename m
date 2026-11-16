@@ -1,51 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822050;
-	b=lCYmL0Mrl/J48dURt6pYg2RxG1L6DkGRAImFZK1eG18zvWkXelIDToTy6oYLRmEB//Eo
-	 eoRqb955CJv3/WBfTOKMD++oppsWtmrsl65s/SzOyuqqb7sGQWU1cSn8UawTrTWrhTSBV
-	 9j2ozWHggI/EbaDWpg3AhGBppl63aQHQmYPlOXJJhDni8BUMMaO+H6FQ0l3M2G3qT1AMa
-	 U1HCBx5DpvJ46kgrMzCIfYIX4o6Wj/hhCWJv2mWUapSBlzwkXnSTwKL5HwE1khv3UQEtY
-	 4ur6p4IvPJcG8IQr+w5qyEgCm+Cas4qxmacudEv3o0j7DiuGnX247F+E6DV+n9iVrxg==
+	t=1794822055;
+	b=ecmpANk8o8Xgd/O0UGT6ITtXgDAIgMloUXHGYMsF40E1K9q45geB1wtvMjvmjhDiFpsY
+	 DzNc371O1+3F3Uc3VGxQXaFerm5UMSq/AgKrATp9U4j710ikwPdq3Imk/5hBFbv08F3RK
+	 KG4INMyavJz64NSGSrZAXnUaN5sUFB3RfqDk5V5B9F+XbavHGm25qMwqenCfk+TgxhoeM
+	 gc2AsHxg3tGpcA1jlmz8rsLOM4hxpA15AO4IQg+aYaHPzKTJr5WDRetccQWVasTLCZ3FN
+	 Yp6CcGbgVFH4oloGBwTz4wStZPUuFXEUnadsAfn+7TnEXtE//Hgm0JX/cFOEnQo67sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822050;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vGWc8gZcuBkCG2f26guXLgKofivZZ/7eQ0PnuhIv28w=;
-	b=o3CPiD55Pmx13IgS89eE1igctQdgr2L+lfJtjm2PpFm+RJdVicFQCHb9Kaw3UlAxvzcD
-	 SibxwDwKblb6vooc1vJc2trBaHJBzAg0Yu+9DTt78xDWyGzEICXyDjUvE3/l2UqoBbP+h
-	 37345dIkDFBjjEK4Vlo+oObOVJyzPikGsDtKgaL6S9V0vRVfGD7erwsYJavUD8X1GbT4D
-	 73A6dg5QcGyCHdDtfLNuLNDMoB9NbZ0wkE3PY+jYe63bJAz+ZNrrS6g6Jz2TyerS90QT2
-	 1+NxqQapJcCLIY3vc2Ms61F3Z/iPBG0QCIIASGwjPckoDmKJdeM1CnT0/OMGVA/VG3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822055;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=cw+pySsu7+o6IOi/Owzk15zmHJR7nehgY37yG8amMMM=;
+	b=WP/gn2i73I6Gh/xa7T6tHEMiGu1NiAtCUWGMNsapn1ghghuZVihcUlEn22dYNTkdQDdZ
+	 rXtaOmE9lX/4GMiQ8QQyOyRC1I/V4ZuctwqGiydCq0pZhCAuHygQCXhzJpCnhNWGAQC6v
+	 Vyoba1KJUMDa1Rl657+MsFTCmcgsGmw0B01q0QHU/gfiu+6DpMnhMu5w0WOAuTaaiPOL7
+	 wHVgjham/y95WQLtP/+kt0ko2Nua6w4G920qW+IPucrHg/F8OY4P0Yd0r5TcZmhMWCEJl
+	 BFSOb7ymur+WEdAvn/pqHlFGedckG6kzX1EWSxKWYH1/MWl03XE9q/FEvqgF4tOwUqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hsuzgQxO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kKNLSkfs;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E48606A323;
-	Mon, 16 Nov 2026 09:40:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DF9606A330;
+	Mon, 16 Nov 2026 09:40:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7DF9606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hsuzgQxO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E2911F000C4;
-	Mon, 16 Nov 2026 09:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794822050;
-	bh=vGWc8gZcuBkCG2f26guXLgKofivZZ/7eQ0PnuhIv28w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hsuzgQxOEDangOny7xBcoqs80X+Ep7Bpz3AB9ggVCmFCBzbnJL6K8HpmDtmL8FKg9
-	 tjiyUsOkqn/zzppcBDA3vCKgZo9qkuvyuq/9k6PVqQ6JHTN04k7fmFiyiXf6yqHMcE
-	 gBjJDxQgbBBPD4NATcqj0JbejEc640wL+TtcsBNQ=
-Date: Mon, 16 Nov 2026 10:40:46 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Priyanshu Singh <singhpriyanshu9838@gmail.com>
-Cc: Dan Carpenter <error27@gmail.com>,
-	Oscar Alejandro =?iso-8859-1?Q?S=E1nchez?= Lucero <aleszlucero@gmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] staging: octeon: fix asymmetric output buffer pool
- accounting
-Message-ID: <2026111624-amendment-bulge-7a08@gregkh>
-References: <20261116065730.472784-1-singhpriyanshu9838@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kKNLSkfs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=cw+pySsu7+o6IOi/Owzk15zmHJR7nehgY37yG8amMMM=;
+	b=kKNLSkfszgtEcL2J25pQDfC8wnm2Tth5DI5jWUqlUeNQ6a3FalgoB+FwJvWdW/
+	8v/VXVtJ7ktlP2TKRyB1ssqTWiDXTBuKy3BCE2FNdB4GkAxRFxghCQfX92ttn+iA
+	y7VZD9X4IEJOGDyUwooghDquYGwEJ+sDVJki/KotU2sG0=
+Message-ID: <fd9bc0a5-2bf7-4ab3-86ba-7267d99f74fd@163.com>
+Date: Mon, 16 Nov 2026 17:39:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,31 +51,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116065730.472784-1-singhpriyanshu9838@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] exfat: don't map EXFAT_EOF_CLUSTER as a physical
+ cluster
+To: Youling Tang <youling.tang@linux.dev>, Namjae Jeon
+ <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20261116090720.3226446-1-youling.tang@linux.dev>
+ <20261116090720.3226446-3-youling.tang@linux.dev>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <20261116090720.3226446-3-youling.tang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:PygvCgCnI5doz_pqQR8YGQ--.4620S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZry5WrW3CFWxCF4xGF1Dtrb_yoW5Kw1kpr
+	srKa4rJrs8Jay7Wr4SgFs8Za4F93Z3KF4UJa1kKry5Gr90yr40gryqk3Wa9a1UGw4rCF4j
+	qF1Y9w17uwnFkFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us18PUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9wlnBWr6z2lbFAAA3l
 
-On Mon, Nov 16, 2026 at 06:57:30AM +0000, Priyanshu Singh wrote:
-> In cvm_oct_configure_common_hw(), when CVMX_FPA_OUTPUT_BUFFER_POOL differs
-> from CVMX_FPA_PACKET_POOL, 1024 output buffers are allocated and added to
-> the hardware Free Pool Allocator (FPA) pool. However, in cvm_oct_probe()
-> (err_tx:) and in cvm_oct_remove(), cvm_oct_mem_empty_fpa() is called with
-> 128 instead of 1024 as the expected buffer count.
+On 11/16/26 5:07 PM, Youling Tang wrote:
+> From: Youling Tang <tangyouling@kylinos.cn>
 > 
-> This asymmetric accounting causes cvm_oct_free_hw_memory() to report a
-> false warning ("Freeing of pool 2 had too many buffers (-896)") upon
-> draining the pool.
+> exfat_map_cluster() reports a hole by returning success with
+> *clu == EXFAT_EOF_CLUSTER for !create.  __exfat_iomap_begin() does not
+> check that sentinel and converts it into a physical address far beyond
+> the device.  A writeback that races with the i_size/i_blocks window in
+> exfat_cont_expand() can hit this: the writeback submits a bio past the
+> end of the device, and fsync() or msync() returns -EIO.  If the
+> resulting iomap length is zero, iomap_add_to_ioend() can loop on a
+> zero-length bio and hang a concurrent truncate.
 > 
-> Define CVM_OCT_NUM_OUTPUT_BUFFERS in ethernet-defines.h and use this
-> constant across cvm_oct_configure_common_hw(),
-> cvm_oct_probe(), and cvm_oct_remove() to ensure symmetric allocation
-> and deallocation.
+> When a range starts before the end of the cluster chain but extends past
+> it, exfat_map_cluster() returns the sentinel for the whole range.  Make
+> it map the valid prefix in that case, and return the sentinel only if
+> the whole range is beyond the chain:
 > 
-> This was found via manual code inspection and is compile-tested only.
+>      offset         chain end       offset+len
+>        |--- prefix ----|--- tail ---|
+>        |== allocated ==|
+>              MAPPED         HOLE
+> 
+> Reporting the whole straddling range as a hole instead would skip
+> valid dirty data.
+> 
+> Report the remaining range as a hole instead of turning the sentinel
+> into an address, matching the old exfat_get_block() behavior.
+> 
+> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
 
-Please test this on real hardware in order for us to be able to accept
-it.
+Looks good to me:
 
-thanks,
+Reviewed-by: Chi Zhiling <chizhiling@kylinos.cn>
 
-greg k-h
+> ---
+> v2: move the clamp into exfat_map_cluster().
+> 
+>   fs/exfat/inode.c | 15 ++++++++++++---
+>   fs/exfat/iomap.c | 12 ++++++++++++
+>   2 files changed, 24 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/exfat/inode.c b/fs/exfat/inode.c
+> index c1d15d4fc5e7..b175d2f3e459 100644
+> --- a/fs/exfat/inode.c
+> +++ b/fs/exfat/inode.c
+> @@ -134,6 +134,9 @@ void exfat_sync_inode(struct inode *inode)
+>    * Input: inode, (logical) clu_offset, target allocation area
+>    * Output: errcode, cluster number
+>    * *clu = (~0), if it's unable to allocate a new cluster
+> + *
+> + * For !create, *count is limited to the part of the range backed by the
+> + * cluster chain; the caller reports the remainder as a hole.
+>    */
+>   int exfat_map_cluster(struct inode *inode, unsigned int clu_offset,
+>   		unsigned int *clu, unsigned int *count, int create,
+> @@ -153,9 +156,15 @@ int exfat_map_cluster(struct inode *inode, unsigned int clu_offset,
+>   	    *count > num_clusters - clu_offset)
+>   		num_to_be_allocated = clu_offset + *count - num_clusters;
+>   
+> -	if (!create && (num_to_be_allocated > 0)) {
+> -		*clu = EXFAT_EOF_CLUSTER;
+> -		return 0;
+> +	if (!create && num_to_be_allocated > 0) {
+> +		if (clu_offset >= num_clusters) {
+> +			*clu = EXFAT_EOF_CLUSTER;
+> +			return 0;
+> +		}
+> +
+> +		/* Range straddles the chain end: map the valid prefix only. */
+> +		*count = num_clusters - clu_offset;
+> +		num_to_be_allocated = 0;
+>   	}
+>   
+>   	*clu = last_clu = ei->start_clu;
+> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+> index 11823591b3a8..ed17b367f820 100644
+> --- a/fs/exfat/iomap.c
+> +++ b/fs/exfat/iomap.c
+> @@ -90,6 +90,18 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   	if (err)
+>   		goto out;
+>   
+> +	/*
+> +	 * exfat_map_cluster() can return EXFAT_EOF_CLUSTER when racing with
+> +	 * exfat_cont_expand().  Report it as a hole.
+> +	 */
+> +	if (!may_alloc && cluster == EXFAT_EOF_CLUSTER) {
+> +		iomap->type = IOMAP_HOLE;
+> +		iomap->addr = IOMAP_NULL_ADDR;
+> +		iomap->offset = offset;
+> +		iomap->length = length;
+> +		goto out;
+> +	}
+> +
+>   	cluster_offset = exfat_cluster_offset(sbi, offset);
+>   	cluster_length = exfat_cluster_to_bytes(sbi, num_clusters);
+>   
+
