@@ -1,85 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815150;
-	b=nqsEWXKCId4KxfA4GagagX8Dk6G78BtVNjMe9yGijepPba8Ju3dbZoFSdN+gf+WPQcgy
-	 Hb+atJY0BOYQHEb4pterGDayD+tRam7NzZemm2gD1dIoAwynF4ESIWcd+5Exa/W3QHoI/
-	 DLwlTI7LOs989hfkp3cDt61aMc0XupYMICY0st8MUloy1Rak8ZJiOdcqBzUrJgHEA0Qi1
-	 ZeI7Aqx4/ay1JbxtoOvNS2jZCZbOQ0fCQbcPCxu/lrktnmbbjOLcR5EW3Q7VD3fCVu6P5
-	 UTXxQeeo9YsOp0ePQcOApHE/JQGoif5WTscpNKwfgBf/I+ct6hZ/R+h92Fuvw0CNFYA==
+	t=1794815147;
+	b=MT1Mrotss3R3XFnSdptY5QLPe0Y5UzkRfUXg/SoL2w9wKGvsA2JYTn6YR7UFsm91LQi+
+	 kUHsu7YJhG0zchzsTj1ictEn4Fo3On5WeorviUhrSyjRm0oTs+oOZxJJtXSncjjSlz/1/
+	 pCFUQokrsmRWtXoJ5zXQ/TciPfs1L57gFZru47YIYKzqjKfaQbu/OtX5M0PV+mOYipnLx
+	 ksX/0G3DIO1ec81Qk5eGIUxldrVSVWjS2SuSmbSotheD6m/tLn1Atm6e5jKhEAdg48cUB
+	 txH8BZPGkU0NTcDOGeLgRb6BohiHoT9LjsD3kOIIutVIRmuE4BoR6ubPI2q1QzQb1/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815150;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815147;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
-	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
-	bh=zmgK2rZQB0Zps7NPdGicEsUeC+FDAzmra5NHyyX5KYA=;
-	b=3ycaInzcD27tS/0sGpPTIhjrQQF1WCUFXOwlDLxD6kSCEzDczFoqND2bTtb7bC+fXdvK
-	 WgtThlSi1JFmPkJkRs93Li3s9GMa58qG5gVZJGLl9NGMUhqjkbCUgHq1ze2Coj89ETWtu
-	 J0jZmSHImMKhVBxVMdiwWlEJXHu1MiB9Ww/ak7tWDGfb7RpJef9vXLK8VgM0EuFKHGL1U
-	 v1VBXBt/yQFmkFkp3OYF11qDaq28JfptJ/nTc2K3avUHW9v/OW9hSOngnxfAH+r0xiOBu
-	 U8w66pu3T0FxngUo+ioC4tJpNvqxBj2pr0EIBD28lQn8xR4PsYepJyhg5reIHxjkTzw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=FfDXuzsHPVrTMdoIwxFgyyM/14PPW5/I3xDDSYPQi5A=;
+	b=x4VJ+2WXdaoUfkx+zxu/aD/I+HblNupW3IMuo1apThcUpCmOmhqJr+jG6Ic6ijZ+JIgh
+	 2cyjMQb0hDwX+JWU4ddC3ug8WS+DQUy3i0kiioVck7KPXuQA5ksK95O5OUOpALdVdMmFt
+	 UW6RHZoNyTfcXAjjIoNPDeInyqMlSSNONKB/omxJO4e87AtqsPcojucZ4FHc3aXSF+rHn
+	 AgOuxuEOHIriUx1HtCMDWrhDEYKN7gQ/VqY01Q727NF8yuR22WXdwQkbEypMaK4RAO4Ij
+	 DSr+Bi0J+cQLO2rJDwIgrQkDSDW2fiAcJjDX27VTosxyDgwQqawZG5NO+8wR0be81eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eon5LALw;
-	arc=none smtp.remote-ip=74.125.227.201
-Received: from mail-pi2-f9.google.com (mail-pi2-f9.google.com [74.125.227.201])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gfpOAfsO;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D69606A8A6
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D69606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB1260A3812
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCB1260A3812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eon5LALw
-Received: by mail-pi2-f9.google.com with SMTP id 41be03b00d2f7-cdd9779aac8so728779a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gfpOAfsO
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a3451ea93so3258298eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794815150; x=1795419950; darn=vger.kernel.org;
-        h=references:in-reply-to:cc:to:message-id:date:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zmgK2rZQB0Zps7NPdGicEsUeC+FDAzmra5NHyyX5KYA=;
-        b=Eon5LALwWF4LfJWvx0rLOJ9Wff3uR4DX5Txpe2eizNWBt3ur8KVEqMi91StWp45DCr
-         Mi71YFPmCOnv0q61HIbvZ4ll3HPTeHNIBX97NrQJ5yDvFxOL4oCj4dGzOhzxIPu2qwCP
-         YQw4OAfxQnEtNQ/mucdSD9lJSkhjFulTJGCjzJi8SRU44gwNVVnBwZNrxNT+L+5/iNyc
-         v+b20fC4LL/221FzeGOxIn577wfLvrmdl5MMaNLWRmSIgwOsbnvM8QXhrYA6HVT3QlLf
-         6qcbtdXc+SAhKilXtFIj8AHgRqi9Mvko7rMScwhHnzlsFERXbdtecyRoBc61SUXEZ2B2
-         W61w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815150; x=1795419950;
-        h=references:in-reply-to:cc:to:message-id:date:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794815146; x=1795419946; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zmgK2rZQB0Zps7NPdGicEsUeC+FDAzmra5NHyyX5KYA=;
-        b=EwMg9C+JC3B63MDbmsZWWP1FecWEltgOyl+RgQup7F8exVSpmaEkM9R1aK2xgcO/9p
-         3ZxFtU2gaOtptJIG/Id7Nj5+PWzhxgNeRwqX/g0QRQf2SKm5/qy4HLHyAJzY37zdC+EV
-         TPLmnQ4ZbKPrjyIwZtgT1AUIFOyA61nwz7w9H/zdPg8QquAKWtEAR30MKWvdx8KebQfa
-         d1mSgr6VuWbqdn2GGCN16wJaOVV5Iml9tzLKjGrFnUQwOLtmZjPwAYz1neALDXAeh69b
-         DJZI13xvqqJvFYQklQ14J4fbswXni654VfV+YRzajWvBgStE12Wz6w9iDSHL+rUp4Mds
-         2wOQ==
-X-Forwarded-Encrypted: i=1; AL+hErFGIcmMWYVNFb8udcGQnut55huB+EzS4d+gmvU3/nnMrpk4ZfQl+gkkaPWOQvlCZfkoZIk4bDQIRGulQnQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QAaoZt7IU/gf5dfCiYOl7z9qPV9J9gomrwVcjt8GDCezbglfd
-	w+r4v2N8NygUTnIu7x8tw4N6307+Ee6f8/c/AZGtG7yCWG8xOycDrLg63oLbbfxv17oW322s
-X-Gm-Gg: AYBFou07YSbUZNQVbn1ibhqo9aWY4QJfuPvkh1qNnkP15tlYboz/e0VQDh4oiaXD+8Y
-	DwNEkiFXwK93Yt9s3N/OW10uH6VKj8oEgPafoIMZ0CSZEwQARJyHibyvlyUOZJdvKDEavBqbipn
-	82MwATcaIDuA5yLja86sWuBTc3bY/ZC1oVZITf9XzMpWn+ltmhV5DtUTcquLcTrL9zC/aZ1y7aq
-	+cTxsMi5peZ27ueDgB6Eva/eueFIMY4LxGq0hNHmojncweLlRqQGYJcbAFOBpuYhR2Nk/YO6TDp
-	CLnSYuC3+pfd0DonGPlRvdK9rG+i+MLh8ZD7uDg86gwb9lquc81/TVR6mL+okKCpbNbv/c+3GY9
-	5cTDEUX3B9exYEr3lEbAqHu+jOFcjiBYofo2tDX3VDRc48RIT2Q3Nz52Qv93uIcDe0/JQCpopWl
-	/3L2TbEaO/p7CD0jCghMPicMmkWlXP1mTjMVH5ssNF72rZY/Qt71OtTldppAZs1xhTAmtf7NeuI
-	4afJGlq5stYL6rYYdnTwJP7vXTNBe5loLtJefh+YseUGt1vSu9UrzHc3q34gvRwh/EjBALxZMi6
-	Wgw3PuwkB84ZZ2p8MhGiL25HIxsE4k/It9WR9mQYirrzHeh3y0pysdEr9curZTt2hKhQKY7Dtur
-	JIApnuZyjlr/IPw03l36nO5QMuPZiVJtxe/8Xnq5CpmKDIuczfGC8i0RiGqu2jWk=
-X-Received: by 2002:a05:6a00:181b:b0:8a0:7677:c8c9 with SMTP id d2e1a72fcca58-8beb7c21179mr8733834b3a.51.1794815149534;
-        Sun, 15 Nov 2026 23:45:49 -0800 (PST)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6dbd9sm3244287b3a.27.2026.11.15.23.45.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:45:48 -0800 (PST)
+        bh=FfDXuzsHPVrTMdoIwxFgyyM/14PPW5/I3xDDSYPQi5A=;
+        b=gfpOAfsOQmf00LUm0FatQASOf8w6UeXxal5z0CPNuskqx3DXqq4VlwUcZHqhiPzN4G
+         TtNU+egsPs0HUMsywGmE7E/UssxsXDHqcyfI8ck6xyFVDmGR6ELA3tGXbtJPCl3Zd1WQ
+         KsTpwZHPohm5Z9Cy89Q1/+jZuL3LX5dzd3xvUOPK6pkyODc5CqfUSjL1Qz5IAfTwbIU5
+         LKujT5GSu8XYFIPuX4XbvzrTjNPkaXHDnE7afbyurQN8wAxNjuPepp50BeEOTojWNMgh
+         vUxf6LBwu7/wixpfW2RikN1EQP+ff5yDwxv6/dSRqVcS/I/MupwOIiOuXaBjydIr/ug5
+         3uQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794815146; x=1795419946;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FfDXuzsHPVrTMdoIwxFgyyM/14PPW5/I3xDDSYPQi5A=;
+        b=g/K+u69tDr3vgTLv+S30QSWsKhvROVbh4gHFiJVo0Oy7A0wETChLkD2ob50ppUaz/O
+         0l44xP89zXGEG9yyZVxxqqJ9YZKJMhBBGNo8ZE+45Ma7lIH4rvBnVlIxOcQmKSW8N2UF
+         c+uUj1/YrKBo3Dzg4Bn3NuxEnucMYHULyEvEcnnda/7uSlS1OjxVk0UjgHTFeE7ttvGW
+         mBHGeyeAXw4/fDYFg6bKHGh18Z+ypcyGA/qRwA1bGchHpFHiFiy7uBwrYnwO5grNauU9
+         9+wFEtcO72lO/HLV9lCfgt7CK6Rxv4IUdY8WQ5FXs9Ph4Om/xWCGlyKd/Rd5+9ornA47
+         R6cQ==
+X-Forwarded-Encrypted: i=1; AL+hErEBvywwLAnV78n/UATyq2h5foc+HP9z8ZZoHkqzbQSglcQeJ0XCJG4eOn9Eab+95vur8XKxXom+fb1xru4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kX/8pCJExZ04L375kyDpzqCKbEdAS2l8/+NGVhZm1idu94yZP
+	mxx7qHY6+ZkeYOjEzjVaxB8ko5Q4Gk5SJXjTMWNfxEikzQsKmYZUmjtuS0NiPG6AAOJma7dyh6Z
+	3bzSy39S1HA==
+X-Received: from dleh20.prod.google.com ([2002:a05:701b:4354:b0:1b3:befc:72bc])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea81:20b0:155:7721:3a4c
+ with SMTP id a92af1059eb24-1b50312b26emr9162535c88.35.1794815145774; Sun, 15
+ Nov 2026 23:45:45 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:44:14 -0800
+In-Reply-To: <20261116074414.3174737-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,55 +78,318 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH 14/27] mm/damon/paddr: support REPORT_MADE type
- probe filter
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Mon, 16 Nov 2026 18:43:36 +1100
-Message-Id: <179481501691.2405628.8067144236288202449.b4-reply@b4>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, sashiko-bot@kernel.org, 
- sashiko-reviews@lists.linux.dev
-In-Reply-To: <20261115202849.99134-15-sj@kernel.org>
-References: <20261115202849.99134-1-sj@kernel.org>
- <20261115202849.99134-15-sj@kernel.org>
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0
+References: <20261116074414.3174737-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261116074414.3174737-20-irogers@google.com>
+Subject: [PATCH v3 19/19] perf test: Add inject --sample-buildids and record
+ --buildid-offset shell tests
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Leo Yan <leo.yan@linux.dev>, Dmitry Vyukov <dvyukov@google.com>, 
+	"Steinar H . Gunderson" <sesse@google.com>, Stephen Brennan <stephen.s.brennan@oracle.com>, 
+	Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi SJ,
+Add shell tests verifying perf inject --sample-buildids (with basic
+samples, callchains, pipe mode, and kernel samples) and perf record
+--buildid-offset across per-thread, system-wide, workload, and callgraph
+modes.
 
-On Sun, 15 Nov 2026 12:28:32 -0800 SJ Park wrote:
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/tests/shell/inject_bid_offset.sh | 179 ++++++++++++++++++++
+ tools/perf/tests/shell/record.sh            |  74 ++++++++
+ 2 files changed, 253 insertions(+)
+ create mode 100755 tools/perf/tests/shell/inject_bid_offset.sh
 
-> +	case DAMON_FILTER_TYPE_REPORT_MADE:
-> +		addr_range.start = pa;
-> +		addr_range.end = pa + 1;
-> +		matched = damon_report_exist(filter->report_type, &addr_range,
-> +				jiffies -
-> +				usecs_to_jiffies(ctx->attrs.sample_interval));
+diff --git a/tools/perf/tests/shell/inject_bid_offset.sh b/tools/perf/tests/shell/inject_bid_offset.sh
+new file mode 100755
+index 000000000000..9be2e3323558
+--- /dev/null
++++ b/tools/perf/tests/shell/inject_bid_offset.sh
+@@ -0,0 +1,179 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# perf inject --sample-buildids test
++
++set -e
++set -o pipefail
++
++shelldir=$(dirname "$0")
++# shellcheck source=lib/perf_has_symbol.sh
++. "${shelldir}"/lib/perf_has_symbol.sh
++
++sym="noploop"
++
++skip_test_missing_symbol ${sym}
++
++temp_dir=$(mktemp -d /tmp/perf-test-bid-offset.XXXXXXXXXX)
++
++prog="perf test -w noploop"
++[ "$(uname -m)" = "s390x" ] && prog="$prog 3"
++err=0
++
++cleanup() {
++	local exit_code=${1:-$?}
++	trap - EXIT TERM INT
++	if [ "${exit_code}" -ne 0 ] || [ "${err}" -ne 0 ]; then
++		echo "Test failed! Preserving temp directory: ${temp_dir}"
++		exit 1
++	fi
++	if [[ "${temp_dir}" =~ ^/tmp/perf-test-bid-offset\. ]]; then
++		rm -rf "${temp_dir}"
++	fi
++	exit 0
++}
++
++trap_cleanup() {
++	local exit_code=$?
++	echo "Unexpected signal in ${FUNCNAME[1]}"
++	cleanup ${exit_code}
++}
++trap trap_cleanup EXIT TERM INT
++
++compare_script() {
++	local orig=$1
++	local bid=$2
++	local msg=$3
++
++	perf script -F -ip -i "${orig}" > "${temp_dir}/script_orig.txt"
++	perf script -F -ip -i "${bid}" > "${temp_dir}/script_bid.txt"
++
++	if [ ! -s "${temp_dir}/script_orig.txt" ]; then
++		echo "${msg} [Failed - empty perf script output]"
++		err=1
++	elif ! diff -q "${temp_dir}/script_orig.txt" "${temp_dir}/script_bid.txt"; then
++		echo "${msg} [Failed - perf script output differs]"
++		err=1
++	else
++		echo "${msg} [Success]"
++	fi
++}
++
++compare_report() {
++	local orig=$1
++	local bid=$2
++	local msg=$3
++
++	perf report -i "${orig}" --stdio | grep -v '^#' > "${temp_dir}/report_orig.txt"
++	perf report -i "${bid}" --stdio | grep -v '^#' > "${temp_dir}/report_bid.txt"
++
++	if ! diff -q "${temp_dir}/report_orig.txt" "${temp_dir}/report_bid.txt"; then
++		echo "${msg} [Failed - perf report output differs]"
++		err=1
++	else
++		echo "${msg} [Success]"
++	fi
++}
++
++test_basic() {
++	echo "Test basic build id offset injection"
++	local data="${temp_dir}/perf.data.basic"
++	local data2="${temp_dir}/perf.data2.basic"
++
++	perf record -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
++	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
++
++	compare_script "${data}" "${data2}" "Basic injection"
++}
++
++test_callchain() {
++	echo "Test Callchain build id offset injection"
++	local data="${temp_dir}/perf.data.callchain"
++	local data2="${temp_dir}/perf.data2.callchain"
++
++	perf record --call-graph fp -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
++	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
++
++	compare_script "${data}" "${data2}" "Callchain injection"
++}
++
++test_pipe() {
++	echo "Test pipe mode build id offset injection"
++	local data="${temp_dir}/perf.data.pipe"
++	local data2="${temp_dir}/perf.data2.pipe"
++
++	perf record -e task-clock:u -o - ${prog} 2>/dev/null | tee "${data}" | \
++		perf inject --sample-buildids -o "${data2}" >/dev/null 2>&1
++
++	compare_script "${data}" "${data2}" "Pipe mode injection"
++}
++
++test_report() {
++	echo "Test perf report consistency"
++	local data="${temp_dir}/perf.data.report"
++	local data2="${temp_dir}/perf.data2.report"
++
++	perf record -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
++	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
++
++	compare_report "${data}" "${data2}" "Report consistency"
++}
++
++test_pipe_report() {
++	echo "Test pipe mode perf report consistency"
++	local data="${temp_dir}/perf.data.pipe_report"
++	local data2="${temp_dir}/perf.data2.pipe_report"
++
++	perf record -e task-clock:u -o - ${prog} 2>/dev/null | tee "${data}" | \
++		perf inject --sample-buildids -o "${data2}" >/dev/null 2>&1
++
++	compare_report "${data}" "${data2}" "Pipe Report consistency"
++}
++
++test_kernel() {
++	echo "Test kernel build id offset injection"
++	local data="${temp_dir}/perf.data.kernel"
++	local data2="${temp_dir}/perf.data2.kernel"
++	local kprog="dd if=/dev/urandom of=/dev/null bs=1M count=50"
++
++	# Not all systems allow kernel profiling, so we check if it succeeds first
++	if ! perf record -e task-clock:k -o "${data}" ${kprog} >/dev/null 2>&1; then
++		echo "Kernel injection [Skipped - permissions or support missing]"
++		return
++	fi
++	perf inject --sample-buildids -i "${data}" -o "${data2}" >/dev/null 2>&1
++
++	compare_script "${data}" "${data2}" "Kernel injection"
++}
++
++test_record_buildid_offset() {
++	echo "Test perf record --buildid-offset consistency"
++	local data="${temp_dir}/perf.data.record_orig"
++	local data2="${temp_dir}/perf.data2.record_bid"
++
++	perf record -e task-clock:u -o "${data}" ${prog} >/dev/null 2>&1
++	# We must have the binaries in .build-id cache, which the first record does natively.
++	# Now record with --buildid-offset.
++	if ! perf record --buildid-offset -e task-clock:u -o "${data2}" \
++	    ${prog} >/dev/null 2>&1; then
++		echo "Record --buildid-offset consistency [Skipped - not supported by kernel]"
++		return
++	fi
++
++	# Verify symbolization resolves the workload symbol
++	if ! perf report -i "${data2}" --stdio | grep -q "${sym}"; then
++		echo "Record --buildid-offset consistency [Failed - missing ${sym} in perf report]"
++		err=1
++	else
++		echo "Record --buildid-offset consistency [Success]"
++	fi
++}
++
++test_basic
++test_callchain
++test_pipe
++test_report
++test_pipe_report
++test_kernel
++test_record_buildid_offset
++
++cleanup ${err}
+diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/record.sh
+index e4789e2bcf43..80cee3eedcc3 100755
+--- a/tools/perf/tests/shell/record.sh
++++ b/tools/perf/tests/shell/record.sh
+@@ -740,6 +740,79 @@ test_ratio_to_prev() {
+   echo "Basic ratio-to-prev record test [Success]"
+ }
+ 
++check_buildid_offset() {
++  perf report --header -D -i "${perfdata}" 2>/dev/null | grep -q "BUILD_ID_OFFSET"
++}
++
++test_buildid_offset() {
++  echo "buildid-offset test"
++  local ret=0
++  perf_record_with_retry "${perfdata}" "check_buildid_offset" "perf test -w thloop" \
++    --buildid-offset || ret=$?
++  if [ $ret -eq 2 ]; then
++    echo "buildid-offset test [Skipped not supported]"
++    return
++  elif [ $ret -eq 1 ]; then
++    echo "buildid-offset test [Failed missing output]"
++    err=1
++    return
++  fi
++
++  # Expand test coverage
++  ret=0
++  perf_record_with_retry "${perfdata}" "check_per_thread" "perf test -w thloop" \
++    --buildid-offset --per-thread || ret=$?
++  if [ $ret -ne 0 ]; then
++    echo "buildid-offset test [Failed per-thread]"
++    err=1
++    return
++  fi
++
++  ret=0
++  perf_record_with_retry "${perfdata}" "check_system_wide" "perf test -w thloop" \
++    --buildid-offset -aB --synth=no || ret=$?
++  if [ $ret -eq 2 ]; then
++    echo "buildid-offset system-wide [Skipped not supported]"
++  elif [ $ret -ne 0 ]; then
++    echo "buildid-offset test [Failed system-wide]"
++    err=1
++    return
++  fi
++
++  ret=0
++  perf_record_with_retry "${perfdata}" "check_workload" "perf test -w thloop" \
++    --buildid-offset || ret=$?
++  if [ $ret -ne 0 ]; then
++    echo "buildid-offset test [Failed workload]"
++    err=1
++    return
++  fi
++
++  case $(uname -m)
++  in s390x)
++       cmd_flags="--call-graph dwarf -e cpu-clock";;
++     *)
++       cmd_flags="-g";;
++  esac
++
++  if ! perf record --buildid-offset -o "${perfdata}" $cmd_flags \
++    perf test -w brstack > /dev/null 2>&1
++  then
++    echo "buildid-offset test [Failed callgraph record]"
++    err=1
++    return
++  fi
++
++  if ! perf report -i "${perfdata}" 2>&1 | grep -q "${testsym2}"
++  then
++    echo "buildid-offset test [Failed callgraph missing symbol]"
++    err=1
++    return
++  fi
++
++  echo "buildid-offset test [Success]"
++}
++
+ # raise the limit of file descriptors to minimum
+ if [[ $default_fd_limit -lt $min_fd_limit ]]; then
+        ulimit -Sn $min_fd_limit
+@@ -760,6 +833,7 @@ test_precise_max
+ test_callgraph
+ test_acr_sampling
+ test_ratio_to_prev
++test_buildid_offset
+ 
+ # restore the default value
+ ulimit -Sn $default_fd_limit
+-- 
+2.56.1.703.gf848ed807c-goog
 
-Since the window is counted in jiffies and rounded up, how many samples
-see a given report depends on HZ.  With the default 5 ms sampling
-interval, the window is 2 jiffies at HZ=250, i.e. 8 to 12 ms, so a
-report is usually seen by two consecutive samples.  At HZ=1000 the
-window is 5 jiffies, but kdamond_usleep() sleeps via
-schedule_timeout_idle() there, and samples end up about 6 ms apart, so
-a report made right after a sample can fall out of the window before
-the next one.
-
-With the queue indexing fixed, user reports submitted every 50 or
-250 ms and covering the whole physical address range were counted
-about 2.0 times each on an x86_64 guest at HZ=250, and about 0.84
-times at HZ=1000.
-
-Is this approximation intended?  If each report is meant to be counted
-once, maybe we could keep a per-context report sequence cursor and
-check only the reports enqueued since the previous probe run.  A quick
-local hack of that counted each report once on both HZ values.  If
-reports are rather meant to stay valid for a while, like a user saying
-a range is hot, a validity period separate from the sampling interval
-might fit better.
-
-Thanks,
-Aveline Noir
