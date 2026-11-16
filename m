@@ -1,60 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794840154;
-	b=M7FC7y3f1Nck5X1qRsE6iagKyvtA8rGBTdMTUD/s+iQT5de6gWHHboS0AeGgshWm5a+t
-	 hlzVqOq0NubMIMLH2RAvNh9OagkbVeGh1l0+zIuD31DW0FtbmlTImgPud7G9eTORpsW83
-	 2QmjqQBRwz+DPjFSTnpvKLvjRRcUWj9xJMQWPZFY0yuZEYD8LtwDfJuSyCoRSrHmyI7WJ
-	 28F4yGcseNhAZN9VxtWmNs/WSXcgNbh8IiDmKIXzKfZyk3GmKliA7fKQKlvuvR4XcuqpV
-	 tGgMfL2hJCpgzHzfbrZUYRtSj8GYo2DocyNGf0xKdDVRdofMpqXcMXyE0pptmRdvHDg==
+	t=1794840183;
+	b=fR/2gQ1EBpCOMhS/Y6dGqwq9OiF1ubRwBSJzYcesjCDry4dpm7HR2VE+0PPK6pj+3rfA
+	 n/gx31BQA48Oa8H2A4ZEd2no987vGGIEwnuds+7gibJYuv7b1Y6p7ejonscRHigLYC2tp
+	 tm2eAQ5FWEiLCL4dRNjJySatjM6gnOGIly7MCvtzGxtdYU4ipKu0HrxcbcL1VqA1V4Sx2
+	 hbcpC2ysyOcH5lNGBajFo9fZGm//jtRDaWcdzBH+kCNq7P4K9gxEJ4BfQyhDFZGkCjKh5
+	 9UzkigXLHvqEGOuHG4e02Gae7lR5Q1450A7/ElRhNwe84PUCAN5KI7seok03t48p8PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794840154;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=q5fTVKGrskJG4rdSydPr4XMv95Db9+O3BQWMmUFXULI=;
-	b=h/CnNb4k6p0WTfzgzUVSjV57WTJWXZIhQfRS81S2qL3+kKEXIB81e9zYJ/vQrbOqFpXX
-	 v6L2xFye9AToUL8PIbTqfRv90CaMphkOzkQ+gjIOXt2klsUeebJ8wL7SBxVgL34KacKdC
-	 4tAh92og+V9a80VInGybwMjtXwTOZMFMPfnjbiszwR5qdXz84k6RotimyiPD0YZLV6Iu6
-	 SJLsz/2G7FVRt/jLm9KzdZsu36iViTOeVEXScnJn37tSFVnVixITSsdBanWtWOaP/fzLT
-	 x5z5LQcDWE5AfsT0l5LTWQbQMRSlOwtkGypTtNVKjHOf8C2V6BMRcnIfK5PZ8ylFtIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794840183;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=H5WAUZ0iTMrFbG45MzH2WhaXFaY0UAYECCJjbW+xqiA=;
+	b=Mo+ZM7BpA8jEUCUwkFWptbAT5XqnIn9bm/3Z9fOX+peyKraDmVsZq0J3GyatW5XpfppW
+	 NBSuTWvrHM8agnuvwtyCqG1EjM3EmB1PF8vw1ehARZ60+rxVULRw6qyGxOL+erB4w6WOv
+	 fPZ3xPOGhAlY1xiOJcz+beXTgJSUvf+MruYieEs27Oo9vE/AwiN9TziWou2smU/tNf+mF
+	 0SEZNzO5M9fTkzyXAFCshWfA13xEr9o/MZy8TPtJ0ziNJdMoegnXCqBuzYAjWYXXiDlgT
+	 h9e/QBdORcMOPAY3zRNoCVk2eZaHAPcP+bwF//HMiRLPK7caahXNj3Jr+9rQBSpdomw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LG7D9VlL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzKb9Hjm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E153D606A31C;
-	Mon, 16 Nov 2026 14:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0956606A331;
+	Mon, 16 Nov 2026 14:43:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LG7D9VlL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD611F000C4;
-	Mon, 16 Nov 2026 14:42:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzKb9Hjm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4CE1F000C4;
+	Mon, 16 Nov 2026 14:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794840153;
-	bh=q5fTVKGrskJG4rdSydPr4XMv95Db9+O3BQWMmUFXULI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LG7D9VlL4ycHov4A3MFP0swl7FuLeK3/NWZCcN0scM6Z9FrBhWr5UHnFsuWQfeAHf
-	 +Rduaj5TAKFSzumhW2L1L+eA07I65IohhX7Eod1PstibMo8Ugm50XhzTKiAO24ppkj
-	 nQFLZUFEpj2eOuGCO8BeMqT+xcdLDDAsQEnrdqdTfqiWSS2bT4Kv7WxtKeDQlI+b2V
-	 N4s00Zd1bHU4BpvX+ttPjaZSsFm3lQ0dmFGKH5Rnl3OIM4XW/+Kc2swF1hEcyAJSwg
-	 p5q57ANVmtAlmHYzxDwO7GVNV+Y4EcB6pJluPnpYdyKp9YinMOEIBb5olYxIk7s0XQ
-	 mfGMQ4syM2fKQ==
-Subject:
- Re: [PATCH net-next] net: sparx5: check DT port reg against array size
-From: netdev-bot+sashiko@kernel.org
-To: haoranwangsec@gmail.com
-Cc: Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kuba@kernel.org
-Date: Mon, 16 Nov 2026 14:42:32 +0000
-Message-ID: <179484015280.3136.6207275462106785238@kernel.org>
-In-Reply-To: <179457014579.23820.10657909253312598784@gmail.com>
-References: <179457014579.23820.10657909253312598784@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794840183;
+	bh=H5WAUZ0iTMrFbG45MzH2WhaXFaY0UAYECCJjbW+xqiA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VzKb9HjmmBkyEZ4KIpHhIBbGQOEabZMQ85PqbrRJmD19QyZbEbdSCbEyig+iXh23O
+	 O+QiOMpcMTKltLYJuQn6uMCw1lZi7mG5/kZA8who5MrZa+OfpF/3qQB20PmKeXVpmK
+	 tXx/pPqiTJD/BMmDLNLHeu1TvgmVQjilffpNqbgZSOkHVG+l6d24ESLAJ2jEqoLYyV
+	 KKlwj5M1rrPkDnTQD7HE6EwfcOLs9vmgAwfVR6A4bC6AzJcUe4usAEp6Tg+dHhDwQr
+	 tiYyhKtuFkRNUELLJBOWSWrATlee8METpbtEyBb3zhnv0qpPEk0BUc3RpRXTmWAnUo
+	 mvTQHZkDS7kcw==
+Date: Mon, 16 Nov 2026 14:42:51 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
+	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 12/12] mm/userfaultfd: check hugetlb end alignment in
+ UFFDIO_UNREGISTER pre-scan
+Message-ID: <avsWSRC0zw-zD56x@gremlin>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-12-00713d368976@columbia.edu>
+ <avYVPp7fHNg8WSUB@gremlin>
+ <2e812a10-e937-40f2-b250-74ccee5f143e@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,108 +78,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2e812a10-e937-40f2-b250-74ccee5f143e@columbia.edu>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Fri, Nov 13, 2026 at 05:34:51PM -0500, Tal Zussman wrote:
+> On 11/12/26 2:52 PM, Lorenzo Stoakes (ARM) wrote:
+> >
+> > hugetlb vs userfaultfd is a bit like the alien vs. predator of worst mm features
+> > of all time (TM)
+> >
+>
+> Alien vs. Predator had a sequel... let's see what the mm version of
+> that will be :)
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+AI vs. Maintainer? :P
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+>
+> > On Wed, Nov 11, 2026 at 12:55:20PM -0500, Tal Zussman wrote:
+> >> UFFDIO_REGISTER and UFFDIO_UNREGISTER both scan the VMAs of the range
+> >> before changing anything. For a hugetlb VMA, userfaultfd_register()
+> >> rejects a range whose start or end is not huge page aligned there.
+> >> However, userfaultfd_unregister() only checks the start.
+> >>
+> >> An unaligned end only fails later, when vma_modify_flags_uffd() cannot
+> >> split the VMA there. At that point, userfaultfd_clear_vma() already
+> >> cleared the WP or RWP protection. The ioctl returns -EINVAL and the VMA
+> >> stays registered, but accesses to its pages are no longer reported. This
+> >> requires a caller passing a misaligned range.
+> >>
+> >> To fix it, check the end of a registered VMA in the pre-scan as well.
+> >> The ioctl still returns -EINVAL, but no longer unregisters the VMAs
+> >> before the misaligned one first.
+> >>
+> >> Fixes: cab350afcbc9 ("userfaultfd: hugetlbfs: allow registration of ranges containing huge pages")
+> >> Fixes: f369b07c8614 ("mm/uffd: reset write protection when unregister with wp-mode")
+> >> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> >> ---
+> >>  mm/userfaultfd.c | 12 ++++++++++++
+> >>  1 file changed, 12 insertions(+)
+> >>
+> >> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> >> index bf42fabb5afd..c0076c8b4e9d 100644
+> >> --- a/mm/userfaultfd.c
+> >> +++ b/mm/userfaultfd.c
+> >> @@ -3983,6 +3983,18 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+> >>  		if (!vma_can_userfault(cur, cur->vm_flags, wp_async))
+> >>  			goto out_unlock;
+> >>
+> >> +		/*
+> >> +		 * A range ending inside a registered hugetlb vma must end
+> >> +		 * huge page aligned, as in userfaultfd_register().
+> >> +		 */
+> >
+> > Hmm I think this is more or less saying what the code is doing :) so I think
+> > unnecessary. Maybe worth using the words 'cursed' and 'eldrich' here to describe
+> > what's going on? Or possibly just e.g.:
+> >
+> > 	/* See check in userfaultfd_register(). */
+> >
+>
+> Will cut it down.
 
-- [High] The new range check in mchp_sparx5_probe()
-  (drivers/net/ethernet/microchip/sparx5/sparx5_main.c:848) compares the…
+Thanks!
+
+>
+> >> +		if (cur->vm_userfaultfd_ctx.ctx && vma_is_hugetlb(cur) &&
+> >
+> > This first check is pretty horrid to spell out loud, maybe do something like:
+> >
+> > 	do {
+> > 		const struct userfaultfd_ctx *vma_ctx = cur->vm_userfaultfd_ctx.ctx;
+> > 		...
+> > 		if (vma_ctx && vma_is_hugetlb(cur) && end <= cur->vm_end &&
+> > 		    end > cur->vm_start) {
+> > 		    ...
+> > 		}
+> >
+> >> +		    end <= cur->vm_end && end > cur->vm_start) {
+> >> +			unsigned long vma_hpagesize = vma_kernel_pagesize(cur);
+> >
+> > Could be const?
+> >
+> > Also is vma_kernel_pagesize() right? If the VMA is hugetlb, then that'll end up
+> > as hugetlb_vm_op_pagesize() which is huge_page_size(hstate_vma()), but it seems
+> > userfaultfd is full of this crap and yeah ok. Fine :)
+> >
+> >> +
+> >> +			if (end & (vma_hpagesize - 1))
+> >
+> > Could do:
+> > 			if (!IS_ALIGNED(end, vma_hpagesize))
+> >
+> > Instead?
+> >
+> >
+>
+> I just took this chunk straight from userfaultfd_register() and added the
+> ctx check, but I can clean this up while here. userfaultfd_register()
+> probably deserves a follow-up too.
+
+Thanks!
+
+>
+> >> +				goto out_unlock;
+> >> +		}
+> >> +
+> >>  		found = true;
+> >>  	} for_each_vma_range(vmi, cur, end);
+> >>  	VM_WARN_ON_ONCE(!found);
+> >>
+> >> --
+> >> 2.39.5
+> >>
+> >
+> > --
+> > Cheers, Lorenzo
+> >
+>
 
 --
-
-net: sparx5: check DT port reg against array size
-
-This patch adds a range check on the DT 'reg' value of each ethernet-port
-node in mchp_sparx5_probe(). Nodes with portno >= SPX5_PORTS are now
-skipped, so sparx5_create_port() can no longer index past the end of
-sparx5->ports[].
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-> index 9b67a0520907b..d975474792f9f 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-> @@ -845,6 +845,11 @@ static int mchp_sparx5_probe(struct platform_device *pdev)
->  			dev_err(sparx5->dev, "port reg property error\n");
->  			continue;
->  		}
-> +		if (portno >= SPX5_PORTS) {
-
-[Severity: High]
-Should this bound be sparx5->data->consts->n_ports rather than SPX5_PORTS?
-
-SPX5_PORTS (65) is the compile-time size of sparx5->ports[]. It matches the
-front-port count on Sparx5 only. mchp_sparx5_probe() is also used for
-lan969x, and its consts are smaller:
-
-drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c:
-	.n_ports             = 30,
-	.n_ports_all         = 35,
-
-drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_regs.c:
-	[TC_DEV2G5] = 28,
-	...
-	[RC_QSYS_ATOP] = 35,
-
-On lan969x, a reg value from 30 to 64 passes this check.
-lan969x_port_is_rgmii() is only true for ports 28 and 29, so such a port
-just needs a phys phandle for devm_of_phy_get() to succeed. After that it
-is accepted and goes through this path:
-
-mchp_sparx5_probe()
-  sparx5_create_port()
-    sparx5->ports[config->portno] = spx5_port;
-    sparx5_port_init()
-      sparx5_port_max_tags_set()
-        spx5_wr(..., DEV2G5_MAC_TAGS_CFG(port->portno));
-
-The DEV2G5 registers resolve to regs[TARGET_DEV2G5 + portno]. The lan969x
-iomap only fills TARGET_DEV2G5 + 0..27, and the sparx5 struct is
-zero-allocated, so those slots are NULL. spx5_addr() warns but still
-returns the address:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_main.h:spx5_addr() {
-	WARN_ON((tinst) >= tcnt);
-	WARN_ON((ginst) >= gcnt);
-	WARN_ON((rinst) >= rcnt);
-	return base[id + (tinst)] +
-		gbase + ((ginst) * gwidth) +
-		raddr + ((rinst) * rwidth);
-}
-
-Can this end up as an MMIO write to a near-NULL address during probe?
-
-sparx5_port_init() also uses portno directly as the replication index for
-QSYS_PAUSE_CFG(), QSYS_ATOP(), ANA_CL_CAPTURE_BPDU_CFG() and
-ANA_CL_FILTER_CTRL(). With RC_QSYS_ATOP = 35 on lan969x, ports 30..34 would
-reconfigure the internal CPU/VD ports, the ones sparx5_get_internal_port()
-returns as n_ports + N. Ports 35..64 would go past the replication range.
-
-If such a port survives init, sparx5_register_netdevs(),
-sparx5_destroy_netdevs() and sparx5_unregister_netdevs() only walk
-portno < consts->n_ports. Would its netdev then never be registered, and
-its phylink never be destroyed?
-
-The commit message describes the DT as possibly untrusted (overlay, kexec,
-bootloader fixup). The binding in microchip,sparx5-switch.yaml sets no
-maximum on the port reg, so this driver check is the only guard. Would
-checking against the per-chip limit close the out-of-bounds case on
-lan969x as well?
-
-> +			dev_err(sparx5->dev, "port %u: reg out of range\n",
-> +				portno);
-> +			continue;
-> +		}
->  		config = &configs[idx];
->  		conf = &config->conf;
->  		conf->speed = SPEED_UNKNOWN;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179457014579.23820.10657909253312598784%40gmail.com
+Cheers, Lorenzo
