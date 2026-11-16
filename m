@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.93
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794854889;
-	b=MnPYS1pYk5VEqopSLnJhSL4wQ0t/2kjS4Dgch2kelj8Vesbjgk7F1NTQCqHAV8natkUb
-	 NlI0Alzh8k1JJ/NMwS0bRaD9s+BsuZJadtK6ljLARoMsDeET9UBRIjSrvK5TOGqlBCdjw
-	 T1sYUnhQEn2rjfgJR9p9u1lEaWorXm27YcWJQyWyJSXxHCC6X8QoR4Kt58h1ZVjaAdvZd
-	 ZXzYNc2KgrjWkaUuq7L66Op4eHeSMrhyafiNeRjUKAHPRGbcFycxUwzzb0IXcs//xwnKO
-	 U+m7cNRMja8l80YfC4Qtgv3PknH3b7tQzh2xoeaizOA4akC7kzD7ivjLruJVofPEpVw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854889;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mD0ekEnszyC8YClnkqpkXRBroG0rF5DOJ4Pq3Vf7Yr8=;
-	b=JCdYkUPPY4iNDYyEsSST70DXRGM2Ktn1h1ikblGdBE33SK50wy/a6YyTurpqWrnq3e73
-	 cRFAfnakTzolwJ0XBeWUwtc5nMxNcEksFMKOeQOCM8RqZMP6FEC7QAO0tuESrOqrbOCah
-	 suB8fVdIeUHy+y9t0RppTCJ7eqNBhnE/mJ/D/nfl77GlveMuoLO3HIJyVO8nO6nlzpQZ4
-	 LEKSNW5IsNlQkfrzcYveBOHHBANUvLGCHh5wEIMlCUt1GFZQtHC2BSFlcUemEmrrESsJM
-	 NlW2AtnBV1sUXnmHsPKPI+3pCioolNIY0zaRtj8+QkHGbhwSohWn5aIv2yXPCBd6LwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=qgqcwzqX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.93
-Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11021093.outbound.protection.outlook.com [40.107.192.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794854933;
+	b=lAY5Dvg4SCcNE8YCAx95kwuhEMp4Wq8tRHjeYELwQorqGRrCxoGIp6MhCgDHqalBLL/E
+	 aIsTx/WSCUmZGPkuNlSxiqbZ4hDGMWOvwab+nhNAdy8CkjG+U/3sqWQcx1o+f8f+xmT9h
+	 xuCD3e4xQJdwDghVPfl/DOfN9LR32kRsE60/zAY0f/vZy44o1hGvj1glGJ8x4ydMLXjum
+	 L/ZOPGJ/ie/m5npZEmu20gDgZdfHqOmx1z9O8J1+sOpQf0lnU4lSfO+Sths5Tukdml2HR
+	 POL2ytEFkHkdIYVrqLfqq2I6/tH0ewfIAT2KcrSafCSRQ50/HGa88SNbRByeJ+192DA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=sz80l+p8ujGs9nPbP4achw/oPK2RjFSncK3Slf8bH8c=;
+	b=J9BtTD5ilTQdmzMAo9CMlXruicubHxAyrAfNOgHNvII4vFYdmXeoK2saZR3bnbMs5Lmp
+	 7VijA6OoJABKr73LpbPx3Hd8k1fD5w6tKXq5ZE7uye1ZAv8qL25WnqMftOS0k+FpdnIQu
+	 PVdXH4v4k+46T1Yi9x0dILjOdkp/mdr7f+wdoFrxFWlCEmtXoMPx+9cV77Hq/WZqwRXZ0
+	 MRcX8JQj3SM0r6WwSQN6KdkBtFeVfHqJ4pqfCEPdkPYHnywe5S0g23CiSzJpxqwEsc7yl
+	 lpSdiFP8DDzalzBPA9EHM9siCaZZLzMTtFQ6Znp1fApLSW4F9GWiY/Ip1IY5wmvs9rQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=uDwykJCq;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38970606A322;
-	Mon, 16 Nov 2026 18:48:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38970606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1EA606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:48:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B1EA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=qgqcwzqX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZsQayleL6FhzMzdqycEjbWToMJPfyP7mRspGH3Ro5m0TRqCYzRmA+Pl+B2Z5J4FcW5xsqndPpJpqLhPED/3K6AZT4BV2+Laxylz7y5cWYUXKXOM0QpijPXOUZ4PP9bQR6RZFj1/JEXXnCNTq7qAzCZIoG+VJUvNSENuuG2djDrtLJ71boKdtmKnBRQ44u7LxH/lYpMDlxmPGP67hs6IXaoWEZiwlmu/6QxDAC+vh6OtyjM6wKvxqKXWVAdzPN9WLX1wAaiTyRG2xASsaPE6rddSGaOqNn1FQP6QPlr7fQHCSGPxxonIcgL2oFGSZ4Ki5xU3Mur3vdKXnCS1DYqPwYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mD0ekEnszyC8YClnkqpkXRBroG0rF5DOJ4Pq3Vf7Yr8=;
- b=VEmh1CRV3Nbqzv0a8123SFTXSIacZoa3BOOlaUpqHkG+fZL7cKFP/4diJWQAPxDbN4Bf4jiQ4EPFT/S/ENDPW2Pp94NFX/nNMziAMg6Af2vSWE5MFYIhZ6BX7U6lbAF0jWryEbAxFdGNByyvepLHWJJFYwSZevYO7NWzDKJbMMosM35+JSadKgmMaTj0eUdo/Mprfr7StGImvTQ33hNkHBvBVpkc7t1dMxVd34tqfPxCGaMQlwHw8u7i6RXAu033W743Qc3k6GPVvjITvkxPLPxXlBhyPjSOHy7hpiy9mrLpEnPexgFiq3uf6zsLpbCdcp+7t2hBnHyFjqlRMclwWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mD0ekEnszyC8YClnkqpkXRBroG0rF5DOJ4Pq3Vf7Yr8=;
- b=qgqcwzqXps7G4JEJBjSYFJF95YESp88EoC53ZO58yi8TjA9CkAkxl3kNCxAgQW4ooR5uxRhJ1G8HqSntaZkKriGrakfMB1FzI7sgpI/U2ePt8KCJCa0+G2QUCr11jByD/AjZK2XAYty3mi5pPHoRl+6qJWxEMlkZYZ3Itgda6tGyuDNPt9s+BYQzyBFZD/6uZ9WY+YgZ5ZcVf5vLAmO7/BTH/zjcksBCA2quUSPytMMwk9rDtGCXi+ECJwmtKHfTVDS6Skn78Tn8M3Ij0FkKiZrgJzgqmvcVE9YkT8gFjEOwB9R1HzZyE3M8P1dnIImsMPhjz1Z00z25X+Er957xBQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT2PR01MB9303.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:a6::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 18:48:03 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 18:48:03 +0000
-Message-ID: <c1eed141-1f24-433d-b043-fbcb815f5223@efficios.com>
-Date: Mon, 16 Nov 2026 13:48:02 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] selftests/futex: Test priority inheritance on PI
- futexes
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
- linux-kernel@vger.kernel.org, will@kernel.org, boqun@kernel.org,
- longman@redhat.com, rostedt@goodmis.org, clrkwllms@kernel.org,
- dvhart@infradead.org, dave@stgolabs.net, andrealmeid@igalia.com,
- shuah@kernel.org, juri.lelli@redhat.com, linux-rt-devel@lists.linux.dev,
- linux-kselftest@vger.kernel.org
-References: <20261108141347.1525532-1-mathieu.desnoyers@efficios.com>
- <20261108141347.1525532-5-mathieu.desnoyers@efficios.com>
- <20261116165609.RMK-DX1Z@linutronix.de>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <20261116165609.RMK-DX1Z@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0301.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6d::10) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=uDwykJCq
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53644b28706so31551851cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:48:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1794854932; x=1795459732; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sz80l+p8ujGs9nPbP4achw/oPK2RjFSncK3Slf8bH8c=;
+        b=uDwykJCq016wgWS9+N00CG0siwXmgb74LhIACY+w8NCUk+FjaapQLWwCx3dvOl7ZJG
+         4vvKZ+jybce3lfK0RDcTgwHMlsE/3Fcug+ERDZ6zpzKU19fCP9z0kvrO958T0yG54wXN
+         MlG+5htTrhcdMaNa+leNCiQsA+U6IraxMULe2iaW1bbkQH9sh36WuUr7zcD6AabqYBWR
+         9n3wuepS9iCXPTy/wp+q2a5FnScUtQgKQDqIDIk9kzlFeoyYCGPc/6BEOwm+36kRvDZf
+         v+lBQ1SHZefJFAS5avpNnThvM9n8OU+PWs1uocbxC9IhXM6E5GL+k4Q6ZNXpDibxplzn
+         xnYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794854932; x=1795459732;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sz80l+p8ujGs9nPbP4achw/oPK2RjFSncK3Slf8bH8c=;
+        b=cdD5JUE6BZ81pBG2BxMcw3q5KB6v5lvpjW/cCEB1enOOO3ouYNjxUr1uPNwtW/JUWS
+         A6WhkWEjVlpCFvEOAMcnIgqI6lAnXVYPDum7XoL3dLPvKlhixeqtoHGJNot97RCqSTf8
+         xqqB+QUnSpCfnHh/pXW9DmcrBXBLmToRv+uvpnqVVeZedXCRNwdesbY892vR4+qsij2I
+         zE9qswA6b4NrmKGHtlX+Z8Fpfpjk7o7WM8nf0StdG816sUAeqmd/IzQmiv/ztjCISUyr
+         gXkcXBtwV4dq2UFJaSA4NdeZeh+FtOORr53rE/eLviUGQWcTMaeSoyYxLSBNrNODQSmf
+         /bgA==
+X-Forwarded-Encrypted: i=1; AL+hErEZzuHle5sxRX4SmGoh9YtuJyxJOnjLX+SsXlxWpb/shv6BuK966wuDD3d+Air2r99+tURPkxzKixkm5qQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8S+tsQ/BOD7ReEPeZeOT9apdPNhvw1CrQAqXJGF5HfUeNyAkBf
+	asCYyhep1iLIpM3U2oVG2ZmC2Hc+G8Ldhf7sAZYh5ldhHfdHLl0pvy8Phy/RJEuW0w==
+X-Gm-Gg: AYBFou2HHkEjLzD55LKHY5Kdji7oPRoU10Q9yawmar3z2nqS0ARMuNTwB5HZCqLrBsH
+	kl8BVzUCWuODwYJ/I+uon5iT0+OOsSc4yBa+rEEjCpKBbOfK2EBvbXgrtIas+Hdt1o+lGlAYpVY
+	UYv1iWjK2kDkc70Ejhlrek5xgB5X+3tP7SjMB+6hjIQgYX69rfxI+/sr7e0voChv8PoyjtZ9fAf
+	J9Y/+FqwwZfPhqN4wawsBab46ynaua936TuHCT9EeBc6/R8HPffcNa1oe92MoCDEORcxpSce1Nx
+	6FrbTR9t+MYZhfqlgbdpeG4Puq5LXhGmGje2DLXNm0DkjkF9JYM4UkJTuhpZkX4yYMrJ4pMCQ60
+	WLlJDcNqwQfnH4SOJDyFgCIahkvzQSpU/favH/pykKv3xNuB5iBsd0shZpTKirNpAoCXjVculVP
+	JKpQVSRM1SUaouxyqqMtJEONwyAQ+JQtGYcz19shNPnlYHu3Vx5O5yi8yAfTyESHATgfEOcMkLn
+	3VpMqVMJrhkgamLQEEsFlP+DDqS4NDGRMTFLQirR0iEAmmd61L0mpcycYAluDyxx0mY6NUG9i+Q
+	p6swfyo1YuGLTsqXxIfU2Z+Sz/d1yfgiKk3GebcD5qS7Deog9Vs=
+X-Received: by 2002:a05:622a:e341:10b0:55b:fd16:a2b0 with SMTP id d75a77b69052e-55bfd16a9b9mr104088641cf.70.1794854932273;
+        Mon, 16 Nov 2026 10:48:52 -0800 (PST)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d5f3e4sm93181656d6.16.2026.11.16.10.48.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 10:48:51 -0800 (PST)
+Date: Mon, 16 Nov 2026 13:48:50 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH] usb: storage: shuttle_usbat: do not divide by an unknown
+ sector size
+Message-ID: <a36c4b9f-29e9-4750-8a89-38a57fe7bfb8@rowland.harvard.edu>
+References: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,104 +99,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB9303:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1124b3ef-b88c-42c0-8b6b-08df44122541
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|4143699003|56012099006|261026121527099003|261022115727099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	gAH1f5wiCwiAI2wY1fYPc1tLWU+PiqdLL0zVRgu/OnYw8NQg6pn5VtGMDuEH9UpFRbF5bZSwf3wGDnAsot3WDgMWtnE9/jK/Euu8vRuI3+DCRQqc/gb/SsQo3gN/52clnKmFu+GVaSS8d8DqlIp6zjvWJtg3gaYr9nCVV5yERS42iUCpivWDiUrzwSwmQrxeUzrJDhDCq0SkeQ14vGbDdybgI4PW+EyamBobwUt+OAnFS1rDsBovDwux8uMBJYY5OktS/SOhGvgNxSSaGv1H2KbGfL7vtElSh6Tz+KMChCdnEsoWhScqtwwHRUhSP6wsuL0sTlFO9JIq22jOjqHuKTrBaPfn09447lbeoTdfQSV/DR+eU2ooaNXtqoGpFLQK3pyGqEEaQUMogHK+8n/dYflzFixSqyFrxi8bw63bXsGdQgZf4Ls4zuBG75kDW6eT9UNYI7obaaCs6kGuOfoUhYvX4Y/1islUaXtJLNqPCMmCySaloTq8vSKrl+DGPfB9ifcbgJ6xEEEeJ2bCYbyH1pJXOXe6Dvb1RS5ZQcED6oVy+J6TBaRUiSuvTsm15+87R0Rr/JXgYmVCiuYfrCAXEXubUM9bcxwEEKbj/KeIqP8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(261026121527099003)(261022115727099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aVZ0dGp1TUFyUzBBc3V3aXd3OXU4RXJQdWk2dkNDclRwczRNQ3NZMm1HeFhE?=
- =?utf-8?B?U3c4S09oTGRUc25jaUFFUVc3VWZabnFhUFBTaWFhQ3BPbVhBbkdsdFh1WFlz?=
- =?utf-8?B?TmtvS2hHL3RZTXcvSzYzTUJGL3A4ZjN2OUNXN2poTlhiRTRlQm51dm1xK1hV?=
- =?utf-8?B?WS9WWmhkWnR0QlVlQ283Y04vM0RXWjIvRDFxL21CMFgva1RJbnRPM25FcDRz?=
- =?utf-8?B?bUd2Y3hhR2cwLzRrSjZ2SG5pNlJLdGNQYzUvWmJxVzhYVkZoMjJyNXFySXFZ?=
- =?utf-8?B?REJmdnRkTVZxbjNNeHVQOXA0ZVgrN3lVY2NLcVhGU2VBWVdxNUZuNE14SEJr?=
- =?utf-8?B?dmdSVmcxbFRSd2UwZHNjek85MEE4a2JFL1RRandmYkpxNkNWa3FqbVlpL0l3?=
- =?utf-8?B?R2NLQldEc3B5YmZEd1pCRzFmaW5jRGtiN2Iwc2tZRW9LczVrQUtOOHdSM0lZ?=
- =?utf-8?B?cVpRamxWTW9YaVJUam93SXR2ejRxUnVXMzVYdGsxNlJ6d0VJSmtpOXMxT1BE?=
- =?utf-8?B?dW5oN1NIMEhwUzE1aU1pK21DL0VSK0I0K3dHZEV2RGxNblh5TVU2aXdmK3h3?=
- =?utf-8?B?MzB1bHNWbmVrQzZBYUVXMmNtaWdiV0YrSjk1SnBXUWZNOWtIaDZEcGthM2t5?=
- =?utf-8?B?RjRKL3dZcFViUkt2eVhKN1BJT1NabVpKcElZeGFzWE1wQU1kSnVSUHo2dnVP?=
- =?utf-8?B?cUVzMXlaSm5KdE9acjlPeUY1VExNY2oyMGV6RHYwcW1hVHRIaFJkN2FhSlRt?=
- =?utf-8?B?MXVOL2ovTnQ3Sll3U28wSG80K0hVcWo1U2hONVZqRnowd2wzc0h1ajlaWDZU?=
- =?utf-8?B?TEhpM2RrcGd6QlZ3OWs3VXVCa2J4cFFBbmRsK0hkc0ZJdjM2QjB6dDBoeG11?=
- =?utf-8?B?TlJTSjZ3akIwY3pqNU9VNy9iaFdZT2NGNU9jN0hzVnVWN1o1QmhoQWI0anFm?=
- =?utf-8?B?emRYbEM0SytoYWMrUy8rS2FhbmtjUUVzWE5qaUExK3pvNFgyVVJaYXJQQ3Z6?=
- =?utf-8?B?VmhRZ0VZSGxjN2V5TDNCcjBaOWxVV1B2ZXVhVHN4TGRxMUt4ckxrRGQxOG94?=
- =?utf-8?B?ZEoyS3lmRDlNSjN1Z1dxRVVqT2pxeTd3TWJCRnltanpZVFRZMjdEbmxkNkth?=
- =?utf-8?B?d1dFbDNRcEh3M056WUdvczVGTTFlVFlydytxb25MWGVpWmRnSnVqdThhZjBZ?=
- =?utf-8?B?b2ZJd2ViVjdHaGVJQnlqaEh6ekprQUhQMmxraTByYkJFQzN5NHNqZFE3Mkhj?=
- =?utf-8?B?cUcvRCtXVFAzS0RNSTdVSkxNbzJzTko3Z2JscFpCcnU5aDRWNGRlTlJ1S2wr?=
- =?utf-8?B?NytHbjFWOXc5M3owN2toaXpTL1RUaS9QSHVzcXIzQ0dIbHhIbVE5SVRTYzA0?=
- =?utf-8?B?NjNFNzVoQXoyUjNqVCtuVkNXWVIzTVdacjVzd3NtaGY4OTg0NHoxRUIrQVR4?=
- =?utf-8?B?QThVeU5TZE5VQ25zTlBNNTFuZE1IckFoZThoOTFpdXRIdCtrOWhrQjNqV3FS?=
- =?utf-8?B?RlFFdlkwQzJKS1JFaU1MbVhhcXB2andEL1A3WmQ5V1ZkRUoyU3dacndSdFNo?=
- =?utf-8?B?dGY2TkRvalA3eGV3MVdBRS9TZmdybndXNVpCbXRCUUJ1OVU5UUY2Q2hTclpK?=
- =?utf-8?B?OWRCT2tLL2cvZXZzM1ZoOGswVHA0UlJ5K08zMWFod1hBRnNXU3hGRm1hTE4x?=
- =?utf-8?B?N2pEakJmd1N4YUtmdm8yVmFNbldPUXg3TFcyblFIZU51MmkrM2RtSHVLQmpU?=
- =?utf-8?B?Sk9lZ1VXa2FkOUprVnRzTHRta1BzVkp5a2M3WXFPbU4vRURWOEgxM0plNEdB?=
- =?utf-8?B?ekttVnkxTUNzYi80dXJuMENRSEdyNnJ3MGxrK3NZdVlUcVBubDFxWmtWbmM4?=
- =?utf-8?B?dFI5eGhOaGV0YmlsdFpPOUZFYmtYQ3UwQzlZeXcwQUU5MzlwWDIvLzFPZVVO?=
- =?utf-8?B?aDc3UitsV3VHRVlWQ0FITVd2YlU2M1gxQm5Qc2xtZjkzeitrSUVSb0hMQzNL?=
- =?utf-8?B?NGJzc0R5MGEzMGxFS2ZlWFFibmdTLzExNDJGR3grUE1TRFpKTU5IMDlRYWhW?=
- =?utf-8?B?QnNYUTdOZk9Pem00SmtKR01BQjA2bDVUVjF1YW5ycW5sKy8wRWt2KzMzQk1r?=
- =?utf-8?B?TStXaXFuOGU2L0tteWs5eU5POEtlOXVpR0ZEcGlaclNINDdwZ3k2eW8zYXU1?=
- =?utf-8?B?aDdBc1k5SnpwSi9JWW5SSUJaalJ5b3E3ZFVwZSs3bGpLQXNPMlg5cVo5L0Qx?=
- =?utf-8?B?Z3N5Nm5qSUVIQTEzZ2JnWmtXY0VOUGppeldMRHpoMmc5Y0sxQjJCTGZEZEtv?=
- =?utf-8?B?eGxTOHpiaE1kSWNFU21adzZpbThGa2xCSFFSNUUxL0RTbXVNZllQRC9pRVRJ?=
- =?utf-8?Q?/gYjvyX3rR7gn2pQ=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1124b3ef-b88c-42c0-8b6b-08df44122541
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 18:48:03.5809
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0X3tPWBiA8P5Yne6dL58orTzhdjsF80xGv6FMm9/o+o10c+sotI1Gunynibowz8kYFPJRnRZrYg/1PimxSbMLQAxcg3Gk7Jyls5yoYUmkjE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB9303
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
 
-Hi Sebastian,
+On Mon, Nov 16, 2026 at 05:34:52PM +0800, YuanZhe Liu wrote:
+> usbat_flash_read_data() and usbat_flash_write_data() divide the transfer
+> length by info->ssize to turn it into an ATA sector count.  info->ssize is
+> only assigned when a READ CAPACITY command has completed successfully, so
+> it is still zero when a read request arrives earlier.
+> 
+> Such a request is sent during device scan: sd_probe() starts with
+> media_present set and usb-storage sets read_before_ms for every device, so
+> sd_revalidate_disk() calls sd_read_block_zero() right after
+> sd_read_capacity(), even when READ CAPACITY failed, because
+> read_capacity_error() deliberately keeps media_present set for drives that
+> fail it with media loaded.  A CompactFlash reader that does not complete
+> the READ CAPACITY sequence, for example because a register access is
+> stalled, therefore reaches usbat_flash_read_data() with info->ssize == 0:
+> 
+>   Oops: divide error
+>   RIP: 0010:usbat_flash_read_data+0x2a4/0x5c0
+> 
+> Reject read and write requests while the sector size is unknown, the same
+> way the driver already rejects an out of range LBA.
 
-> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+How about initializing info->ssize to 512 (it's currently hard-coded in 
+usbat_flash_transport()) earlier on, so the value is always available?
 
-Thanks. I will add your tag in the next version.
+Alan Stern
 
-> This breaks if your timeout is something like 1.5s and ts.nsec is
-> already > 0.5s. We usually do
-> |         while (ts->tv_nsec >= NSEC_PER_SEC) {
-
-The whole seconds of the timeout go to tv_sec first, so only the part
-below one second is added to tv_nsec. The sum stays below two seconds,
-and one subtraction is enough. I will still use the while loop, since
-it is the usual form.
-
-> Could rename it to start_pi_thread() or pi_start_thread() rather than
-> just start?
-
-Yes: start_pi_thread() in the next version.
-
-> I can't imagine why one would set a stack size 64KiB here.  It
-> shouldn't matter.
-
-It is for the max_lock_depth case. It starts max_lock_depth + 2
-threads, 1026 with the default. Small stacks keep that cheap. I will
-add a comment that says so.
-
-Thanks,
-
-Mathieu
-
-
--- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> ---
+>  drivers/usb/storage/shuttle_usbat.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
+> index 7e5424268c73..faea2c77c5aa 100644
+> --- a/drivers/usb/storage/shuttle_usbat.c
+> +++ b/drivers/usb/storage/shuttle_usbat.c
+> @@ -1130,6 +1130,13 @@ static int usbat_flash_read_data(struct us_data *us,
+>  	if (result != USB_STOR_TRANSPORT_GOOD)
+>  		return result;
+>  
+> +	/*
+> +	 * The sector size is only known once a READ CAPACITY command has
+> +	 * succeeded; a request can arrive before that.
+> +	 */
+> +	if (!info->ssize)
+> +		return USB_STOR_TRANSPORT_ERROR;
+> +
+>  	/*
+>  	 * we're working in LBA mode.  according to the ATA spec,
+>  	 * we can support up to 28-bit addressing.  I don't know if Jumpshot
+> @@ -1221,6 +1228,13 @@ static int usbat_flash_write_data(struct us_data *us,
+>  	if (result != USB_STOR_TRANSPORT_GOOD)
+>  		return result;
+>  
+> +	/*
+> +	 * The sector size is only known once a READ CAPACITY command has
+> +	 * succeeded; a request can arrive before that.
+> +	 */
+> +	if (!info->ssize)
+> +		return USB_STOR_TRANSPORT_ERROR;
+> +
+>  	/*
+>  	 * we're working in LBA mode.  according to the ATA spec,
+>  	 * we can support up to 28-bit addressing.  I don't know if the device
+> -- 
+> 2.34.1
+> 
