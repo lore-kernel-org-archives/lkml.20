@@ -1,90 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839845;
-	b=dAfjgio7HQoP3Q1NmGCSDuO21E3MfOyYjZyN2+6gS0m5WJQQEh3LQuqTtf9csUcObd+x
-	 3wPuZSI030YXOij49hRtg2Nr/SWzMTSubcNyzlHUJBq3Qpug1e4fmh4KAPThgm8wtKxsY
-	 48wxzz/lxi7x/+rqgUCpC65Z3T1b2Fz4i+4jLXknVnTIyNM1Q4uXSSqeNiV0Im2yHLv4n
-	 iumbEtsMs/QfViUHXPeHTFXaQ6t9U4dy1qwcYp/2aC5l3/P4zAGYmVv4ltvcHxHyIdxP4
-	 f9IV+yhR6639xyIdFugAVy57ENMwiOcNV1Ip9RmWzf95tUydfDGZZSH66Q7OBwuocdw==
+	t=1794839851;
+	b=h0IBAL8Jm4e9P318kMP7bJaQOTz84NSipDnL0Mm83dyuwqHrpIwPZaP2Rcg9ykDnY6GY
+	 BpsiOFwgEapqhImlymGL6rRnlSCqZsDasIFUj8cWJWBObNzBWLYaXeKkdLbZ04KM5ZMvK
+	 F9wSRhLWEWdpg7Di+V82ujBXq4vG6ygImaz2fcthDHwd7BQ2N3+D/5/wYf0pJBxbxHSQk
+	 nkUBg0idptNlnEnGzR3sUi+9WkUcCt4255M2oDkyegDNz1oavLaQsrE1xLHMxJ9vV3dKJ
+	 ScqZ38oDiGnNiUxIWQ1UtN8xHepI+sdyEXMqh3t1lfW6M+h8OGojV5DkiA301lQPiCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839845;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=3C3wDoRlKOnnBMknZnVvqonsM/xiO2XIhvJ8T/E9PNw=;
-	b=TtrXEwkyNRNeUbs9HrHNTuicnsPJnXU9p1XIp7f8tXxMBKWaBBanapkwkXGbSmCk2Yts
-	 fvXb3iDMXdFtDvUrYZveaSLmajsl9x4Sz0BLCCJSbeDCL6H2Wzgc1VzYDc+gm/R91tfhr
-	 EN6FBKiCOeBREYUYMzGeRCtrQhtSkBJnjm90hZVusmMlK4lu/1bbeI1DucctQ5SbyAMeN
-	 xwu7OvNn8UqOpsTB1aC1FSu/OUDqwp30SJCdAJEpVETJ6jWCTFJeuwYC7Wr9K7mjxST/o
-	 X+uC45Z8c6xX9+eIOsNZNjrPItt6qVZi6cd6LbMm3g/V0No3n7Upljv6Jsu5R9FJYXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839851;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cnLyN3SDo42Ts0cPpeRwTJ3OQjij9Avhcc7a74dY1sU=;
+	b=Uz6JLzyiKWb2MLeBU/CUli5uC8nE14CZrpeoZl4apCjkT6XRCeyDAY1HSBUQ5ooC66d7
+	 p9iR6KKhEfYmPOMQF8f3m+Q7Cfo4Afw1oL4BscHguKBxOrzfxOFAMiiMqKJYtj8qvOc69
+	 5ko3lCdoK0IcDkWITvXuxmSMjl+YTn4mP9nqOxPdD4apY0ntXOtwVbYDdaQciZ7PSroeA
+	 WmwwPPmBIwSMjysokqTPjDN0SWhUGvL9mWSOI41mneEz/rAc2jLHsVIzjpbgPDYkdeR17
+	 m8XzXV/3+WPyXPnBAU0vLL5OiYMyhtUpaeMAJq2tcgf5mbIjjCjfp39S7ErMuPTUH+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=SXjMUv3u;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=ulPxifPi;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nsk7ivH4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18118606A331;
-	Mon, 16 Nov 2026 14:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18118606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1580D606A33A;
+	Mon, 16 Nov 2026 14:37:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=SXjMUv3u;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=ulPxifPi
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CB11321D8B;
-	Mon, 16 Nov 2026 14:37:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794839843; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3C3wDoRlKOnnBMknZnVvqonsM/xiO2XIhvJ8T/E9PNw=;
-	b=SXjMUv3uFnxykhR479l2n0VlHdQypIvvXt1oU7C+rIc/RlQ/UikObNxXcOAyKmx4lLR6ew
-	1eYArMOR6HCEV55RpO1KsfarZxwK9JFRbz/XoytN9QiN8UKYwEOhfTyqDXp82mIaDcigSi
-	H6llazNbMvZAuGNf9+xP5PnFb8KBSoI=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=ulPxifPi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794839841; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3C3wDoRlKOnnBMknZnVvqonsM/xiO2XIhvJ8T/E9PNw=;
-	b=ulPxifPiDQ6wfUpP42tqqY0o+KHpqyhFJG4Gwn0f+MPrj1yNy6YA46lH1SCbwxfoCg4OLo
-	z2HNBaLzbElvyg7l0Z/Fmr2ZhcG1cdS8PW2IQe1zE4XDYVV/iu5df8oXJqqijCIBRfAuDM
-	WaGwUDjB+86sWhEONvDntRZo3OgjDvE=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 634931334C;
-	Mon, 16 Nov 2026 14:37:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sgDxDiEV+2qAcwAAD6G6ig
-	(envelope-from <oneukum@suse.com>); Mon, 16 Nov 2026 14:37:21 +0000
-From: Oliver Neukum <oneukum@suse.com>
-To: mchehab@kernel.org,
-	bryan.odonoghue@linaro.org,
-	dan.scally+renesas@ideasonboard.com,
-	niklas.soderlund+renesas@ragnatech.se,
-	hverkuil+cisco@kernel.org,
-	deepa.madivalara@oss.qualcomm.com,
-	entropy1110@gmail.com,
-	jai.luthra+renesas@ideasonboard.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Oliver Neukum <oneukum@suse.com>
-Subject: [PATCH] v4L: core: ioctl: fix format description for V4L2_PIX_FMT_RAW_CRU20
-Date: Mon, 16 Nov 2026 15:37:16 +0100
-Message-ID: <20261116143716.602898-1-oneukum@suse.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nsk7ivH4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17AD51F000C8;
+	Mon, 16 Nov 2026 14:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794839850;
+	bh=cnLyN3SDo42Ts0cPpeRwTJ3OQjij9Avhcc7a74dY1sU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nsk7ivH4zkm3sL2aLEVd/NzHmTQ+e8khI0RzK2WdOavqoW3b/h9TAN2I9ALOjFQ/O
+	 ZqA9jAR3LTdYwOI8tLdKz8BZMMTvDGXOxJGpDa8jFGgrLVgzWpZNdc9U9J7Tj46MW9
+	 xEXFO38a7FUvY4lVKOneFogrww7QliuaboAQ5Iut1kxQQQPkdIjFMqeWt6kHeyEbpz
+	 Em/Ka2DBF+heM1tTcfE3WWBDO9AltOwNOGfKgqCVu1SnCicLeJnrmym4/RoZ6d5eyn
+	 UYxN1N17hzF9Hu8qd+ZraIi0Rz8rXtFAaGFp/3qF8AystJhelYUbykvkXI/Vn/lAmU
+	 eumRjTEyOTfWw==
+Date: Mon, 16 Nov 2026 14:37:25 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R . Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	ahuang12@lenovo.com
+Subject: Re: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file
+ position on interrupted VMA lookup
+Message-ID: <avsQKLgi9bqD51W8@gremlin>
+References: <20261112140101.647-1-adrianhuang0701@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,66 +60,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-10.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,linaro.org,ideasonboard.com,ragnatech.se,oss.qualcomm.com,gmail.com,vger.kernel.org];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[renesas,cisco];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -10.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: CB11321D8B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112140101.647-1-adrianhuang0701@gmail.com>
 
-The description for the 20bit format says 14bit.
-Likely copy'n'paste. Change it to 20.
+On Thu, Nov 12, 2026 at 10:01:01PM +0800, Adrian Huang (Lenovo) wrote:
+> Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
+> per-vma lock") introduced the possibility of returning -EINTR
+> from proc_get_vma() when the VMA lookup is interrupted.
+>
+> When this happens in m_next(), proc_get_vma() returns an error
+> pointer without updating the position index. Consequently,
+> seq_read_iter() reports:
+>
+>   seq_file: buggy .next function m_next did not update position index
 
-Fixes: 78584431e2ce ("media: v4l2: Add Renesas Camera Receiver Unit pixel formats")
-Signed-off-by: Oliver Neukum <oneukum@suse.com>
+What does seq_read_iter() 'reporting' something mean? It feels like you're
+trying to make this into something bigger than it is.
+
+What you mean to say is a rate-limited pr_info() output occurs, and when a
+process that _has received a fatal signal_ (!!) somehow continues long
+enough to try to output more data, you get an pr_info().
+
+The relevant code from seq_read_iter():
+
+		if (pos == m->index) {
+			pr_info_ratelimited("buggy .next function %ps did not update position index\n",
+					    m->op->next);
+			m->index++;
+		}
+
+Anyway you should mention the fatal signal requirement clearly.
+
+>
+> The above buggy message is reproduced by the following command:
+>
+>   # stress-ng --vma 0 -t 60
+
+OK I could reproduce the output locally. It seems that this run results in
+fatal signals being sent to the processes triggering this output.
+
+> Update the position index when VMA lookup fails, as required by
+> the seq_file interface. Also save the original position in
+> priv->last_pos so that subsequent iteration can restart from
+> the correct address without skipping or repeating a VMA.
+
+We don't really care about skipping or repeating a VMA for a process that's
+about to die :)
+
+We may as well do this but better to just hoist that to share code.
+
+>
+> Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+
+This isn't really a bug, it's really cosmetic to be honest. So not sure if
+we need a cc: stable hmm.
+
+> Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
+
+See attached suggested patch that makes the comment sane + hoists the shared
+bit (dropping a silly existing comment).
+
+With that and an updated commit message should be ok.
+
+> ---
+>  fs/proc/task_mmu.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 22361607020d..164b4efc5e09 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -221,6 +221,16 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
+>  		if (PTR_ERR(vma) == -EAGAIN && fallback_to_mmap_lock(priv, *ppos))
+>  			goto retry;
+>
+> +		/*
+> +		 * seq_file checks that the position advanced before it looks at
+> +		 * the returned pointer, so an error return that leaves *ppos
+> +		 * alone is reported as a buggy ->next. Advance it, and keep
+> +		 * last_pos at the pending position so m_start() would resume
+> +		 * the lookup from there.
+> +		 */
+
+We don't want (schloppy?) comments that go into painful detail about super
+specific elements of the code.
+
+This is asking for bit rot and is too complicated to be in any way useful.
+
+> +		priv->last_pos = *ppos;
+
+This is duplicative with code below and strictly not necessary for the fix,
+better to hoist I think.
+
+> +		(*ppos)++;
+> +
+>  		return vma;
+>  	}
+>
+> --
+> 2.43.0
+>
+
+Suggested:
+
+----8<----
+From 860d936c61bb641b72135e95c291aa6dfbf5fb0f Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 16 Nov 2026 14:33:12 +0000
+Subject: [PATCH] tmp
+
 ---
- drivers/media/v4l2-core/v4l2-ioctl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/proc/task_mmu.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 17ba1ae70735..fe9dac613e92 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -1434,7 +1434,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 	case V4L2_PIX_FMT_SGBRG16:	descr = "16-bit Bayer GBGB/RGRG"; break;
- 	case V4L2_PIX_FMT_SGRBG16:	descr = "16-bit Bayer GRGR/BGBG"; break;
- 	case V4L2_PIX_FMT_SRGGB16:	descr = "16-bit Bayer RGRG/GBGB"; break;
--	case V4L2_PIX_FMT_RAW_CRU20:	descr = "14-bit Raw CRU Packed"; break;
-+	case V4L2_PIX_FMT_RAW_CRU20:	descr = "20-bit Raw CRU Packed"; break;
- 	case V4L2_PIX_FMT_SN9C20X_I420:	descr = "GSPCA SN9C20X I420"; break;
- 	case V4L2_PIX_FMT_SPCA501:	descr = "GSPCA SPCA501"; break;
- 	case V4L2_PIX_FMT_SPCA505:	descr = "GSPCA SPCA505"; break;
--- 
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 22361607020d..564e52f7ddc6 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -216,16 +216,17 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
+
+ retry:
+ 	vma = get_next_vma(priv, *ppos);
+-	/* EINTR of EAGAIN is possible */
++	/* Store previous position to be able to restart if needed */
++	priv->last_pos = *ppos;
+ 	if (IS_ERR(vma)) {
+ 		if (PTR_ERR(vma) == -EAGAIN && fallback_to_mmap_lock(priv, *ppos))
+ 			goto retry;
+
++		/* Advance to avoid spurious buggy seq warning in dmesg */
++		(*ppos)++;
+ 		return vma;
+ 	}
+
+-	/* Store previous position to be able to restart if needed */
+-	priv->last_pos = *ppos;
+ 	if (vma) {
+ 		/*
+ 		 * Track the end of the reported vma to ensure position changes
+--
 2.56.0
-
