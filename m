@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839077;
-	b=AERM4btPCH2zBuad5oGjiz9+0wFXQ3eAxpM+tfo2EgxyO0JZm0ak/GbNg3ymW9QlXlkl
-	 KOJqtrU7/gdl4h9wOnIUFQxNsbOZyxnFiEBdYsW7NL5Df687lTz2vMItRigD4WV10M6ed
-	 Jf0q69NlD/6M7eknD3mT8q1/LSMOvuoUoI2oM7CZKg5I7imgrRtC6G+QdO+aGph+lXD5U
-	 4PC2cMDQyXmngqMmtAA9g40D15XFkHZmOoyWrprfZAMylX9hHpaQUh+Z+C31cwp1RAEA3
-	 7mhOvXCU5R0bnincxO79+cGDUXOmSsrqd0aKmYezQCawQhkfEU+G4GKYRXMz8MRozqg==
+	t=1794839093;
+	b=IyfkK5ldrY0XvYnSJnP7lXwfLbWX2Vksao9x7+w0FvGVH5IdSG/opPvj4Jnm36xGtlFU
+	 uquVGTMOt3N3wpOPouRzY/fd/huF/Fm56IkQXGfXuzL+9zpb/xnt6CSargIyown+eXcz9
+	 20WoquGJZdFLFTVBv0oDCl6tckQ73AOOeuYYEE95r/64u9dSQT0epuKmv2G0V5nYDh7MX
+	 U6gc4wJvoYRLa1sAKQqoSDlZbdzpKp+KPRIfvrjU9rEMe0ljsRtRXPBit7PxG6Grf9Zuj
+	 h6BARCoASmuk7B4FVC6xUxwvT4VNY1Hkm8riDMRsNg1oxUtKBZZIi3doVq3bGYkhk5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839077;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=vsitf1gCOt+86OlSnGNHzwq1zmuiy2PBWHlc3qqYy+Q=;
-	b=Whc8ru+vmIhGqpIVDJSZXd4U8tujRJlDVYQ+VtyjbJ/sUXNhSljNmt65TyIJf8EEmRN0
-	 mUCQxliJjnWo4s2P54jviOXH6x+jjuckdOGc6S7lhdWIzVjISEF9CfUB9vuWDsItxr0BW
-	 nEyu4PQYmreV0aJh5IFQAIum6gV+5IG2mPV1fTuTZZdhS7JhOKOTsVNaO5glnFDlHAmV1
-	 JGJNQt7vbGLYQLZUp/m8xGd/2QbOAMsifqeyq91Q7PWaGt8Akev1wAChqlpx1+IyrPkfR
-	 0avBiF7HGz8spR2cdYLcA/INthmDNAYraiMLE+MXunxel0bT+b9lPee2/81Sja/mbtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839093;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vJ3DlDifoIuatDYKYU6JvmcHQkKHDpb4gyOMAXAUddU=;
+	b=X9lnc3NHEl4I2iNfOQYjw26FTsfPAL1LQGYUSigT7FqtNLnWJBkqpuM2LFYSrk7iaj+9
+	 gIdaovPLXZU5RATcEGkazopfpT5joFSM/IUqucC7G48lrCiHWPaFa4O6jcwjpkyOuGWSw
+	 TG3zd6nFqzo/nC5hBs7MVnh59R9MuffQ+MACnDxasJp9U2mXj6TiRgSUtSR3KwrhskST4
+	 h97AmccOg02IISygiYeUbuEJUbeF3lptFz3YkXZL2DjViwDYEhK5y+CHhNPW3wvnQi5fO
+	 nc6MuntL9zYHnjVxmFquFz0BMaNosyr0BBB5FIdTHaa04dCiSL1u+oOUG5TMaGYb7nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=XISsBhif;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H7OQsukD;
+	arc=none smtp.remote-ip=91.218.175.131
+Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40E0606A32A;
-	Mon, 16 Nov 2026 14:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D40E0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0453606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0453606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=XISsBhif
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54dbcb476;
-	Mon, 16 Nov 2026 22:24:29 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: 8250_aspeed_vuart: Fix potential stale port on probe failure
-Date: Mon, 16 Nov 2026 22:24:28 +0800
-Message-ID: <20261116-c29ba55625-serial-aspeed@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H7OQsukD
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0sBoD4kUvGDlq9znUUfJmY1OltvGUdoIKcCEhtSzjx4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794839090; v=1; x=1795443890;
+ b=H7OQsukD2iUnVYe9Ll9hbMbNtvLgT/l/LZtZ2ZOCPjS2NnyMUSLmFg7u7I1BbpKdr/SvzfD9
+ T9YyP+kCt5hy+XMdK3/ahgLdU2YjEltc9LxKnuKKHdYzTgGyCKZw+hF1p/d3W8V2ojagL27WZ5M
+ 99lex8gST7+OaEbXVlP4RpVU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 315d481954b7f121;
+	Mon, 16 Nov 2026 14:24:50 +0000
+X-Mizu-Trace-ID: 315d481954b7f121
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 15:24:45 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Mehmet Fide <mehmet.fide@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v11_2/3=5D_wifi=3A_rt?=
+ =?US-ASCII?Q?w88=3A_support_channel_switch_in_AP_mode?=
+In-Reply-To: <20261116071952.1142013-3-mehmet.fide@gmail.com>
+References: <20261116071952.1142013-1-mehmet.fide@gmail.com> <20261116071952.1142013-3-mehmet.fide@gmail.com>
+Message-ID: <59C03074-784F-41CE-A27D-EF3F30773D77@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,75 +66,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e4bec2f203a1kunm8be27f0910e50c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0NKVkhOTR9JGh5CGE9MSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=XISsBhifYCn6xh7OaTRbFGgVwiNZZiOpkthsG6JNvk/Z/i6mtIwSCXIOBml8hm6ef4Hr0L+SAmpO8kJt09+6ziFv1NkOJ838dmKWYaXigNYLolHm7Ss50Jr10pdVwp/2F8qJqvoI1xFDpiNrm/dRw8kN0YJ7F/Vx/F2d3LdYnjA=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=vsitf1gCOt+86OlSnGNHzwq1zmuiy2PBWHlc3qqYy+Q=;
-	h=date:mime-version:subject:message-id:from;
 
-Invalid LPC configuration can fail probe after the UART port has been
-registered. Removing only the sysfs group leaves a port whose private
-data and mappings are released by device-managed cleanup.
+Hi Mehmet,
 
-Disable the VUART, shut down its timer and unregister the port before
-returning from these failures.
+Thanks for the v11. Three comments below.
 
-This issue was found by our static analysis tool under development.
+On November 16, 2026 8:19:51 AM GMT+01:00, Mehmet Fide
+<mehmet.fide@gmail.com> wrote:
 
-Fixes: ca03042f0f12 ("serial: 8250_aspeed_vuart: add aspeed, lpc-io-reg and aspeed, lpc-interrupts DT properties")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
- drivers/tty/serial/8250/8250_aspeed_vuart.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
 
-diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
-index c8dc87f6886c..2cd1c9146ec8 100644
---- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
-+++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
-@@ -513,7 +513,7 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
- 	rc = aspeed_vuart_set_lpc_address(vuart, prop);
- 	if (rc < 0) {
- 		dev_err_probe(dev, rc, "invalid value in aspeed,lpc-io-reg property\n");
--		goto err_sysfs_remove;
-+		goto err_unregister_port;
- 	}
- 
- 	rc = of_property_read_u32_array(np, "aspeed,lpc-interrupts", sirq, 2);
-@@ -525,14 +525,14 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
- 	rc = aspeed_vuart_set_sirq(vuart, sirq[0]);
- 	if (rc < 0) {
- 		dev_err_probe(dev, rc, "invalid sirq number in aspeed,lpc-interrupts property\n");
--		goto err_sysfs_remove;
-+		goto err_unregister_port;
- 	}
- 
- 	sirq_polarity = aspeed_vuart_map_irq_polarity(sirq[1]);
- 	if (sirq_polarity < 0) {
- 		rc = dev_err_probe(dev, sirq_polarity,
- 				   "invalid sirq polarity in aspeed,lpc-interrupts property\n");
--		goto err_sysfs_remove;
-+		goto err_unregister_port;
- 	}
- 
- 	aspeed_vuart_set_sirq_polarity(vuart, sirq_polarity);
-@@ -543,6 +543,10 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+err_unregister_port:
-+	aspeed_vuart_set_enabled(vuart, false);
-+	timer_shutdown_sync(&vuart->unthrottle_timer);
-+	serial8250_unregister_port(vuart->port);
- err_sysfs_remove:
- 	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
- 	return rc;
+[ ... ]
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> +     if (!ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
+> +             ieee80211_beacon_update_cntdwn(vif, 0);
+> +             rtw_fw_download_rsvd_page(rtwdev);
+> +             rtw_send_rsvd_page_h2c(rtwdev);
+> +             rtw_fw_csa_queue(rtwdev, vif);
+> +     } else {
+> +             ieee80211_csa_finish(vif, 0);
+> +     }
+
+As far as I can see, the template fetch writes the new count into
+mac80211's beacon before the transfer can fail. If the allocation in
+rtw_tx_write_data_rsvd_page_get() fails at count 1, the next work still
+finds the countdown complete. With patch 3 and count 2, this can finish
+the switch without any CSA beacon going out.
+
+Could a failed download keep that count pending for a retry before
+allowing completion?
+
+[ ... ]
+
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
+
+[ ... ]
+
+> +     csa = rtw_fw_csa_stop(rtwdev, vif);
+
+[ ... ]
+
+> +     } else if (csa) {
+> +             /* what the countdown held back */
+> +             rtw_fw_download_rsvd_page(rtwdev);
+> +             rtw_send_rsvd_page_h2c(rtwdev);
+> +     }
+
+I think ieee80211_stop_ap() can clear csa_active and the countdown work
+can then clear csa_vif before stop_ap gets the driver mutex.
+rtw_fw_csa_stop() returns false, so this refresh is skipped even with a
+station left running. Any deferred station PG backup or association
+download is then lost.
+
+Maybe the refresh should not depend on csa_vif still being set? The
+wiphy lock does not exclude the countdown work.
+
+[ ... ]
+
+> +     else
+> +             rtw_iterate_vifs(rtwdev, rtw_ops_csa_resume_iter, rtwdev);
+
+rtw_iterate_vifs() silently skips a vif if its GFP_ATOMIC entry
+allocation fails. With an AP counting down next to an associated station
+on the 8822C, skipping the AP leaves csa_active set and the work
+cancelled. Resume returns 0, so mac80211 sends no beacon replay and the
+countdown stays stuck. TIM downloads fetch a template and do not advance
+it either.
+
+Could the AP be found without allocating an entry?
+
+Best regards,
+Luka Gejak
