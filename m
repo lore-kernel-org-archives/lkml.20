@@ -1,85 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846696;
-	b=fqCqFf1Lwx64rFQAUx0IFScN9KHd8EHmmflgUGmrzZysWt8ErcWUx9a0NTI1mSC6JXDC
-	 t1WFq2Gb+/E08f8UFOnBPRDQn0h/xjJIno46HDUmWEDhPf09zNlSm+2xXYhYVVo2nK0ro
-	 VIY0UC5mW65ZdJgCtaJ1l1FM29z/q8jq8xQ6XbxwH846XXJQmcj2dKGeT6Qn8kv0lxOVe
-	 FpQL65MuDtwLvmFfAUXaPN/xbwh0+5txp2FLgMyHs2ioZzvh6rHAdjXZuDXERtzGEe/JV
-	 FggziXPGvOnwi7SRvhHA65ZlfvzJbiNrNukf6LpCzstH3xEmvgkd1w2vwXNjBWOeh6A==
+	t=1794846731;
+	b=luDMci3aRng9i+qqrHkkxLq/tvmr8W5eUfI1KlEhZLhwgsm5wdxFrEoezlih7a6sWZVh
+	 +7ISnEnSzhNJDm2Kn1DaBNjqRYrtDT+T7D/KQUO7IY7vt5lhG1VflAjTJStCvGLCGs+jM
+	 wOJB+F+b19pf3H8BqgtVJM8leNQhI53iR5dzdle65sjsehNrhmJwodqlPpGXhvng7IcX6
+	 oAc3s9vA8b4I6Uqu3J9SZUmJAT2QDM4I5c92QGXZ2b8vSU4DNkcgChMHmD8elLbJhkbAi
+	 DdZE2omPjxSkE9Kb4rn4TvwjlsbjT72bnl3Q1JbuZJuP2f6ID5FpvrcfXCqoEAD6G3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=RGmDTpXlmeRKF3X1XvVcrYHV2kv2B7zOq1c5EiYOh2I=;
-	b=JSGM5+ymgNzcuYbwE0wq4ati5xwk0sxoMTs25XgvoAIeFenZh/Ey4p/EJDQ9B41JgLb2
-	 HMhwctp/NdqU7naqjDwPgiSTp1KdzBmhFPK3GHWVZ1X4AvLOU8kuqUpLRJARguqKJXni3
-	 vHIYVu0cKTNSB1Ikbk8EKY/pmSpuR97ArPPtludM++qluHr/eRLX1/aUyQeiF/ze/f0+H
-	 KMfPDQnXPyy2wvVRP6CXT4pIv/xx/i6VI/HKYxSl5U8PqowzTkzDX53tqQfIaBCWcP3rJ
-	 KnVAipt0k0Nuc7FhqjMhxuQavKYHjJ1t/oIPSs/9ls7WNJyDwdM9DN/+j9ghNeglaRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846731;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=iLvTJCtYC83RMfQVto512FgaIcx5aJLsN+8MNc0ys8k=;
+	b=kC7IJLz8ll88ixzU4jOfweiRUbcfh8IT4MihNn70qvwDtK4+rlI97zO06SCQidzdfNpm
+	 dp67mu6VJxq1fpb1A98pvD7s4yb0jGw2k6EM2Bpr2c3ag2q5CcYsY29N62kjkExX9VeAP
+	 /zz7NbjMiMDSsjxW84F98jL//26oZygz+WZVbeukxLnxRrXSm5DfLX783N8UeikEf3/2O
+	 /z0V/wemr0MqBchulxTB8dh/dVI66PsuIj75ALV1J3LrZePAonIkzoePSqGiRHZKVE5IH
+	 MHrpm5zzJ7+0k+ZtlkQAQddAG2KlzhcrN4R6mYPw4QroUzCYdCP4i3O3EEjcHzdE05A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EEvBKJ1r;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eyHJSWU3;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19610606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19610606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80A3606A31C;
+	Mon, 16 Nov 2026 16:32:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C80A3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EEvBKJ1r
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so23616555e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:31:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794846694; x=1795451494; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RGmDTpXlmeRKF3X1XvVcrYHV2kv2B7zOq1c5EiYOh2I=;
-        b=EEvBKJ1rFfBy+1dRTF2Mv5NGPK7F2WYjuh/Zyb+oEqRcWF0/WVJ9xmDiJIQLcC2bjB
-         W3OZGnemxf1txBh/fC0zSljE+2CV3BCYPwK3CsmbULLyI7dddfmqTS5200TuHxSVJfc9
-         qSJG3m7YaeB+9o1Psx7mhYVP09HUDmPwl7yTB2yvGX6HxGYh8QkB1TTyYAnV5wIhuEj7
-         34gfp4+FhfD3pYKnLIlmaNgBhPTv+7y5DJ5cJAzWGRvsDU5W64h/EhQVja0br7w45gJA
-         l4MSDBsLGFlPb+fpOMdx+uOJknwZdoDWcfr3Q+d8IKz+scHslJd+0uf+qKbrPNbeH1uJ
-         dYPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794846694; x=1795451494;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RGmDTpXlmeRKF3X1XvVcrYHV2kv2B7zOq1c5EiYOh2I=;
-        b=HvF6l2j71lwx+CaWgAZqavCuY5ht/FZ2Bk1v/Wu3AfUpoprPQiPoPty2CAMGcMsJob
-         Rz+LwCLbTeI4WHsbHNNu0tG5zaC6Ef4zgg6uNDQ1SQuo6IVtCmdtojB6hq7FShJFClEb
-         ox3WyMCEQFW2sqHiz/I+v1H58woGPNOwNY22SZZBVNhoaGeBxesV8Ux82groYt8wTNdc
-         UzWQRkvOl2bMOy50NVEGjdnTzkQN0WcsCzTt6xoKCQO6ddGYkAn/4Q0OT3dbL6ftIqys
-         6rmwo7ezKhmmbvGM9lg1toLjgBYbpg8YptRg5GQ0UPYZC6LnoInsUI19+oRXUv3nHQvX
-         VrHw==
-X-Forwarded-Encrypted: i=1; AL+hErHhA/7/ke8Ij0vXqzwXkZgzeH+WOQX6Bio3OpwmzCzC3Yh+CS1iowAdizVOocCeGd3pDJYxJTnyZIwonCA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/64Cc6znapd5oLC5gE8bFrKdPqtKUJLyObTC33W47Cim/1PrVy
-	LlRRxeCtw4XJthZ59bYRpwx8m650YrYkElcSPWtnvp4fb19KrkRqP1jOPY6ABFT4sn8=
-X-Gm-Gg: AYBFou07XP61U8WcDFv0eRacEq+zkQWNU/KU8ZCo5ISBN3kveOt1Eb0I7vlKKgYRbki
-	B6kG3xMmsIz7qNOZUk9VLvVmh350Y56LYbu+19aspMahGM8vf3T8Nt7SSdqNdovOhfkg474Emue
-	a1QOHUpZfsUv05XbM1c2CabzFublVyJu+QR+VUZ7NxTZode+KbsRyOb8Gbhyw2DnZLfrfKHfDBX
-	eNIAlC+ewyJ67W8L4Q2ChPS0SJJ3HazBUKGSzNgS9y0Qlrdh6A3P248ee9QhPiPS/JCj5KwQzHb
-	Lp1sZudT/GwOxZTFQz7q8P61xr/4fIIIwF+Fa2uSGO88pq3YLsneQDvlL/LLDp6ZP8bXHfYtyf5
-	pim3Vxjr87ujl81mZCymYLfuF4LcjSLicNM55zJ4HAPZFQy/JOfKvmqoogSiAmrUqZkqt+FrQnD
-	I/Aey6ZEDtiurtZdU3005qHnI//r5WbMa8cLdh8qOi91u5TkCyBZREqjG6hZcPAW1ukDRXeWBsG
-	RXmUXrSDT3HGuLwa5xLURYCSrxBetgBHRguwHyjLOmLL8TIRCZM0L6fTChpArw8NMWTqcQSuQUy
-	8Q0W1wsKMZZhyboO8Pzxu9+wQiBtOp1UCtg086oLoZa8Z+NytKU1+L7H6/WrKKnIY0KM1rqLWDq
-	eCVnQKg++SjhSDU8TZVM=
-X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb55a5de41mr233741175e9.21.1794846694305;
-        Mon, 16 Nov 2026 08:31:34 -0800 (PST)
-Received: from localhost ([2a00:2381:fd67:101:bb28:8e5a:f94b:4332])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78385508sm242715e9.3.2026.11.16.08.31.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 08:31:32 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eyHJSWU3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iL
+	vTJCtYC83RMfQVto512FgaIcx5aJLsN+8MNc0ys8k=; b=eyHJSWU3ehgF9umXuD
+	kFZtl3Ghjkk9u2Vy78f5mrdINjylH6w2Ml435X1Vf24RAyOnnQI0Z9MSHfSVhEar
+	5MJfSmCKx4DhTBpaHphdVD1FM2MtbE9msNMGcszsuEyYLjPr0CecGz5qqX7kgcuE
+	63j/nK6RtmgyhQU3N4c7nryDM=
+Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDX_7zcL_tq2SpqHg--.31791S2;
+	Tue, 17 Nov 2026 00:31:25 +0800 (CST)
+From: Ziheng Wei <zihengw03@163.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: qed: fix dead NULL check on the MPA buffer list
+Date: Tue, 17 Nov 2026 00:31:24 +0800
+Message-ID: <20261116163124.1684517-1-zihengw03@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179484607270.3136.35330548202236483@kernel.org>
+References: <20261115161815.941090-1-zihengw03@163.com> <179484607270.3136.35330548202236483@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,150 +67,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 16:31:30 +0000
-Message-Id: <DMWS1URVNP4I.99T9QR6VWAUW@linaro.org>
-Cc: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Sam Protsenko"
- <semen.protsenko@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Alim Akhtar" <alim.akhtar@samsung.com>, "Thomas Turner"
- <tturner@lineageos.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Juan Yescas" <jyescas@google.com>,
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Subject: Re: [PATCH 1/2] arm64: dts: exynos850: Add ACPM firmware node
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Peter Griffin" <peter.griffin@linaro.org>
-X-Mailer: aerc 0.20.0
-References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org> <20260929-exynos850-acpm-node-cpufreq-v1-1-5a86c1d404b8@linaro.org> <7b5dded4-c475-40dd-b5c4-5086bab4162e@linaro.org> <DLSMQGCHNINR.ZPYVN1SR0GM2@linaro.org> <8e305a3a-c30d-4862-9da4-8c763b9f88a0@linaro.org> <DMS1ELJMVBTB.2I2J926XE5V3S@linaro.org> <CADrjBPq79Dn5pv-2wdcG5b9rNb4NHatzGGZMrfAkF1L0ZD1mHQ@mail.gmail.com>
-In-Reply-To: <CADrjBPq79Dn5pv-2wdcG5b9rNb4NHatzGGZMrfAkF1L0ZD1mHQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDX_7zcL_tq2SpqHg--.31791S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gw1UGr4DCw4DXFyrJFyrJFb_yoWDCrcE9r
+	Z5Z397G3s0yan7tr17tr4ktrZFgw4kJr18Wr93KrW7ZryrtayrZa9akr9aya47C3ZxW3ZF
+	yr93Wryrtr12qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8x-BtUUUUU==
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7h2c7Gr7L93sfwAA3z
 
-Hi Peter,
+On Mon, 16 Nov 2026 16:21:12 +0000, netdev-bot+sashiko@kernel.org wrote:
+> rx_num_desc sizes both pools. Doesn't that make the "No free mpa buf"
+> path unreachable, whatever the traffic or the value of rx_num_desc?
 
-On Fri Nov 13, 2026 at 4:46 PM GMT, Peter Griffin wrote:
-> Hi Alexey,
->
->> >> Eventually to have some sensible/working ->recalc_rate() for ACPM
->> >> cpucl{0,1} clocks.
->> >>
->> >> Which is needed, for instance, for cpufreq_dt because it registers wi=
-th:
->> >>
->> >> static struct cpufreq_driver dt_cpufreq_driver =3D {
->> >>         .flags =3D CPUFREQ_NEED_INITIAL_FREQ_CHECK |
->> >>                  CPUFREQ_IS_COOLING_DEV,
->> >>
->> >> Don't know if it answers the question (if I understood it correctly)?
->> >>
->> >
->> > Thanks, Alexey. I see now that clk-acpm.c uses pdata.fw_name on the
->> > parent (acpm_ipc) DT node to link the ACPM clocks to the CMU PLLs for
->> > ->recalc_rate(). Could you please clarify a few things in the commit
->> > message (and below):
->>
->> Thanks for the good questions. You hit the exact pain points we have bee=
-n
->> debugging on hardware with cpufreq-dt and Panfrost devfreq.
->>
->> > 1. Physically, CLK_FOUT_CPUCL{0,1}_PLL are not input clocks feeding th=
-e
->> >    APM hardware, they are the PLLs that ACPM reconfigures behind the
->> >    scenes. Meanwhile, acpm_clk_register() sets num_parents =3D 1 and
->> >    pdata.fw_name =3D name for all 9 clocks in exynos850_acpm_clks[].
->> >    Since the DT node only lists "cpucl0" and "cpucl1", won't the other
->> >    7 ACPM clocks (mif, int, g3d, aud, cam, disp, cp) remain permanentl=
-y
->> >    orphaned in CCF with rate =3D 0?
->>
->> Correct. Is it a problem now since there are no "clients" or consumers o=
-r
->> users of these clocks?
->>
->> Or do you suggest to link them all to parents clocks to have a sensible
->> rate?
->
-> Since your implementation relies on CCF to get the clock rates I think
-> you have two options:
-> 1) Only register ACPM clocks that have a corresponding CCF implementation=
-.
-> 2) Add the missing CCF clocks for the ACPM clocks you are registerring
+Yes, I agree. Every mpa_buf held on the pending list still owns an RX
+buffer that has not been reposted, so a new completion can never find
+mpa_buf_list empty. The "depends on traffic" sentence in the changelog
+is wrong, and the only evidence was a test module that empties the
+list by hand.
 
-Well, if there are other suggestions to implement these clocks without
-relying on clock framework, then feel free to share.
+> If that path ever ran, it would repost the RX buffer and drop a TCP
+> segment that firmware already sent to the unaligned MPA path.
 
-Current implementation does indeed registers all clocks from
-exynos850_acpm_clks[] and the ones not listed in DT will have no
-parents, no rates, with no_connection_id and no users+usage.
+Agreed as well, so making the error path reachable is not even an
+obviously better behaviour than the current code.
 
-Since it seems to be a problem, okay I will fix it.
+> Is this an accurate description of fbb8bc408027?
 
-> Should CCF's ability to set the rate for these ACPM-managed clocks
-> also be restricted? It seems undesirable to have two entities (Linux
-> and ACPM) able to set the clock rate, with the possible exception of
-> it being useful for debugging. These limitations should also be
-> clearly mentioned in the commit message or cover letter.
+No, it only touched qed_ooo.c. Sorry for the inaccurate description.
 
-Ideally yes.
+Please drop this patch. The Fixes: and stable tags do not fit, and I
+don't think a hardening-only respin is worth it for an unreachable
+path.
 
->> > 2. Does bypass_acpm_exynos850_get_rate() actually return the updated r=
-ate
->> >    after clk_set_rate()? When ACPM changes the PLL frequency via IPC,
->> >    CCF is unaware that the parent clock (fout_cpucl0_pll) changed in
->> >    hardware. Even with CLK_GET_RATE_NOCACHE on the ACPM clock,
->> >    __clk_recalc_rates() only reads the cached core->parent->rate witho=
-ut
->> >    calling ->recalc_rate() on the parent itself. Won't parent_rate rem=
-ain
->> >    stuck at the initial boot frequency?
->>
->> This was already asked and seems there are no answers. The problem with
->> stale rate is present.
->> https://lore.kernel.org/linux-samsung-soc/DLAZXSNZK6QC.1VFAX37XCXBOV@lin=
-aro.org/
->
-> The question was sent on September 9th, but the series adding support
-> into ACPM was sent on September 15th
-> (https://lore.kernel.org/lkml/20260915-exynos850-acpm-clk-v2-0-ffad4a6b3f=
-b1@linaro.org/).
-> The limitation about get_rate returning stale values should have been
-> clearly stated in the cover letter or commit messages.
+pw-bot: cr
 
-It is a fair point on documenting this in the commit message =E2=80=94
-but the gravity of the problem and its consequences were understood quite
-recently (you should be aware about that). At the time v2 was sent,
-initial testing only exercised one-way rate transitions which appeared to
-work, so the full impact of the stale rate wasn't apparent until more
-detailed DVFS testing later on. The problems with stale rate were
-initially discussed way before September.
-
->> Any suggestions?
->
-> For the benefit of the ML, we discussed this topic off list. The
-> consensus was to try and make CCF walk the clock tree, recalculating
-> clock rates from the SFRs without using any cached values (as ACPM
-> could have changed the SFRs of PLLs, dividers, etc., behind Linux's
-> back).
->
-> That should in theory mean that clk_summary will always report the
-> correct clock rates for everything in the clock tree and we won't
-> report (or make decisions) based on stale values.
-
-I'll re-implement and re-send.
-
->> > 3. In drivers/clk/samsung/clk-exynos850.c, cpucl0_cmu_info and
->> >    cpucl1_cmu_info still set `.manual_plls =3D true`.
->> >    Does that conflict with ACPM firmware managing the CPU PLLs?
->>
->> I don't know yet what to do with that. I didn't encounter any problems
->> yet because of this. Is it related to early initialisation only?
->> I thought that exynos CMU driver doesn't touch PLL clocks after init.
->
-> You should check this with downstream sources and the TRM.
-
-Erm, I don't think this question relates to downstream unless I am
-missing something.
-
-BR,
-Alexey.
