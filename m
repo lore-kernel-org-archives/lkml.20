@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794792362;
-	b=IprU3UvLOvJCtY+OkBy15ABZuUnI3ut4kR1/KYCusaZ62GROQFlSPIOO/7S/E7+hra26
-	 Jou1xFlcm5mnTb/gTP6uveS6nRBRJfkrDmZqn8++xGH6n6y2hAaLtGc7gqho7wYtUZh6c
-	 q/Qt620FIt/Z9n/l09VxDsHBhVUQqKgDyARj6a2A0TRmc361PF6NnPpeYSz0AR3h+R8sN
-	 EMCB19Fgne6NsOVHMOUkS39yeZc87U4ZjliV2Feci7FX4kSOXzi3VJtgmlaQoEXMX3trZ
-	 DKfQ5FFfutYDwSatQzfQ/bqhwpfVzvNQ8a4oKUqOSkwYyOoFHgyrfW66yzP83VnwBKg==
+	t=1794792649;
+	b=iqPlLHIe8ZoZyjo5hlRVGCS1xQFU6TGEse/+BLLDP9jV5QDfu9xMAXeGI6A2rDovki9T
+	 Jlckz+XmCEE0a+9ebYT1qRRJxyXwr17c5tZJgQZD/Hl9ggv5Pd8mxmXRWWRh7Zn/vbtmG
+	 76HtbcLsUAb0A/Apv1kx98MENui0G4Ariu1POsYTkqeL6psDZ5Zks/EREAlN7wV8uVEq/
+	 rY/haxZuBzUGKDDiWbi3TJM0chINu6lI56FpVjb7ZzzRF/01itTNKhiWAvuPwrKeigvn5
+	 1kzp405vl9F5ib3l/rEjK9MHs7v3rvOF0yRxNcbxomU4u0P/uNC+Uym1k3IchHau65Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794792362;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YyfCPlk7kua1XnBo21cfYhayhHCnTUJd02xfb9GeTXY=;
-	b=jwcDIUy+28Glf/KJXb72qKNf/m6tFtFITWrSIh5H6sEX0I3IXEA6POUXTllwK/c9ggkb
-	 loIzoPPPiF/eR0NCM+Oy1MQ01AqQna4iQqPuTXxvEqXDMC0DBIjztl1LPfmhMrcFVufpb
-	 FtB32d746LqW74SoKwru7bGcYXuCbP7AAntNi5NFwbf0hAuJiBCXr0K0bskP0SjTObC3D
-	 Q03Mdyamrcrni7dYPqBKw+BhY5GlWJxFqVoq8fquGk/blXBfMqHLcaS57Lz0KP6FzgWqC
-	 p6rMBAt6/ve688Sxr87J45KhswIcONpdAONV8AtQMRqyy+Hm2A3Aoe7lQ/wHOLGGWiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794792649;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ETxSB6+1Q8S129JltJ3UvkzP7H5ZCMsFruVoTDY5lTs=;
+	b=XDYscW8oPYraqnjS6PHuV3EqUABk1HRfFGO2cG5ssG3WIFI/7/Jbh92HYBZZhv5sli8q
+	 9+jzu/5d0t1uhclaAMLYb9TxcRN4T2UHTOhF7p1B/rS91LxHXb7ckxNrMTXHreQDTZ36S
+	 xCZMmhmvVRZQPhgOv6MSS5NSKKwf8ZAG7uBjB94fQJHCYJ+hL2Hz4L+eLHJohNlfPMPKQ
+	 kk3FhNMF2F+nPYFOPxNK28zv5eMGPDngm+x46DG8uLm1hlubtnmr7iFbKASqcBNkHkMW7
+	 UdShdqwul2C+PLpDKrUvbmtrJ/EW3wYQpXF55nOgTK5sOnNJqzVxY18sultqHBJSW5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kf8jSpja;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ghDBfQzp;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2D9606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2D9606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538B5606A31F;
+	Mon, 16 Nov 2026 01:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 538B5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kf8jSpja
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794792361; x=1826328361;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=s2WxC280Ky1U3JJ9u+VxKtRrkFH89DaLzPX3xWfs1Jw=;
-  b=kf8jSpjanPLfjVg/8AxoU+rJWSxcAyzebLTZAZDUx8ZSK5/0/mvDyVvU
-   UeZGk9ZdZFgMlcoM0ipr67OxPeBdgb40on68vAjCG6vgh3yBc7AQsEOtC
-   89yFzsa0ypzcPh0eqdGzwK2zrRDP6EaK/8zwpXNhgCSaVi/4WnDRObMlI
-   s+3x/Mwr8wPECtUeY1t3ObflQIOhG6uQJobLr3eVdy5hD1asxskWn0djd
-   z0cqtTd3adfznYejTUiBLv3qrYIomxPVuNWDzVvWh9V1zFYtcS4Lx/m9n
-   gO1/h5wwG/VEI684bHlhWXueAOCt+B9oDcAiU4mgtuMxN+8MeIO7VXeeB
-   w==;
-X-CSE-ConnectionGUID: YMvhtXusTPCD8xrqi2vCiQ==
-X-CSE-MsgGUID: qBk0r/zgTnCq/0mMVspyTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3398674"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3398674"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:26:01 -0800
-X-CSE-ConnectionGUID: fc34BERvSC2BZkG/rVDrSA==
-X-CSE-MsgGUID: vas2ycPNRcCdvbZyXg6g1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="9295543"
-Received: from emr-371.sh.intel.com ([10.112.106.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:25:58 -0800
-From: Baoli Zhang <baoli.zhang@linux.intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	joonas.lahtinen@linux.intel.com,
-	tursulin@ursulin.net,
-	matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	matthew.auld@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	andriy.shevchenko@linux.intel.com,
-	Baoli Zhang <baoli.zhang@linux.intel.com>,
-	Yanx L Liu <yanx.l.liu@intel.com>
-Subject: [PATCH 3/3] drm/xe/display: Free the KMS objects on DRM device release
-Date: Mon, 16 Nov 2026 09:15:04 +0800
-Message-ID: <20261116011504.3910139-4-baoli.zhang@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116011504.3910139-1-baoli.zhang@linux.intel.com>
-References: <20261116011504.3910139-1-baoli.zhang@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ghDBfQzp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=ETxSB6+1Q8S129JltJ3UvkzP7H5ZCMsFruVoTDY5lTs=; b=ghDBfQzpPBRn4EQmWC1eVYv5HU
+	WyJITSAv52kubnK9S48qquoOUAzweLgj67M2IwwdmTqoLmzYFKPR7ss9NvslSvhjY2Rih38u7q5p/
+	bGgeTrWJVjwt6C0pam88xe/oT5mrwt/lPDrPSPPfC64XJf1ioK7xiQjfDLNe1s8A1ndlfD+aJiWDN
+	6xh9xP/7AdvHMSSJ4fKxabgvvZCnXiUzYcRxHwcPMeLGU0fjg7PQ7UsgshT4EZU/lSEUpUOQ2eqMP
+	VM4JrqXfMRyC4M2/lOvdG235trBgQUy1O34uAKknLH1eR4DqQD4FC82SyVJyBLl8MiXLP9k7tFO9M
+	vAgYgV0Q==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xSlYW-00000000rrs-2rri;
+	Mon, 16 Nov 2026 01:30:48 +0000
+Message-ID: <68254a9c-f521-46ee-a74f-6020e4689e1a@infradead.org>
+Date: Sun, 15 Nov 2026 17:30:47 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,70 +58,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] Documentation: KVM: Fix references to non-existent
+ identifiers
+To: Fuad Tabba <fuad.tabba@linux.dev>, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Huacai Chen <chenhuacai@kernel.org>, linux-mips@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>
+References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
+ <20261111085448.1130701-2-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261111085448.1130701-2-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-xe frees all the KMS objects on unbind, from the xe_display_fini_early()
-devres action. If userspace still holds the DRM fd open at that point,
-e.g. a display server with framebuffers created through ADDFB, those
-framebuffers are freed while still linked on the file's list:
 
-  WARNING: drivers/gpu/drm/drm_mode_config.c:571 at drm_mode_config_cleanup+0x2e7/0x300
-  Call Trace:
-   intel_display_driver_remove_noirq+0x55/0xb0 [xe]
-   xe_display_fini_early+0x37/0x50 [xe]
-   devres_release_all+0x94/0xe0
-   device_release_driver_internal+0x1c3/0x200
-   unbind_store+0xa4/0xb0
 
-  xe 0000:00:02.0: [drm] drm_WARN_ON(!list_empty(&fb->filp_head))
-  WARNING: drivers/gpu/drm/drm_framebuffer.c:833 at drm_framebuffer_free+0x87/0xa0
+On 11/11/26 12:54 AM, Fuad Tabba wrote:
+> The KVM API documentation and the review checklist refer to
+> non-existent ioctls, capabilities, structures, fields and constants.
+> Use the names from the uAPI headers.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  Documentation/virt/kvm/api.rst              | 40 ++++++++++-----------
+>  Documentation/virt/kvm/review-checklist.rst |  2 +-
+>  2 files changed, 21 insertions(+), 21 deletions(-)
 
-and drm_fb_release() touches the freed framebuffers when the fd is
-closed later, a use-after-free.
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-Resources visible to userspace must only be freed with the last
-reference to the DRM device, see the DRM device instance documentation
-in drm_drv.c. drm_mode_config_init() already registers
-drm_mode_config_cleanup() as a drmm action, and the display device is
-freed by a drmm action registered before it, so it is still around when
-the KMS objects get destroyed.
-
-Stop calling intel_display_driver_mode_config_cleanup() from xe and let
-drmm free the KMS objects instead. The encoder hardware teardown still
-happens on unbind, through intel_display_driver_remove_noirq().
-
-Fixes: 5b6937b65e45 ("drm/xe/display: move display fini stuff to devm")
-Tested-by: Yanx L Liu <yanx.l.liu@intel.com>
-Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
----
- drivers/gpu/drm/xe/display/xe_display.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index d33052a98d942..1c7f08fb9d2ce 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -72,8 +72,11 @@ static void xe_display_fini_early(void *arg)
- 	if (!xe->info.probe_display)
- 		return;
- 
-+	/*
-+	 * The KMS objects are freed by drmm when the last reference to the DRM
-+	 * device is gone, as userspace may still hold the DRM fd open.
-+	 */
- 	intel_display_driver_remove_noirq(display);
--	intel_display_driver_mode_config_cleanup(display);
- 	intel_display_driver_remove_nogem(display);
- 	intel_display_power_cleanup(display);
- }
-@@ -111,7 +114,6 @@ int xe_display_init_early(struct xe_device *xe)
- 	return devm_add_action_or_reset(xe->drm.dev, xe_display_fini_early, xe);
- err_noirq:
- 	intel_display_driver_remove_noirq(display);
--	intel_display_driver_mode_config_cleanup(display);
- 	intel_display_power_cleanup(display);
- 
- 	return err;
 -- 
-2.43.0
+~Randy
 
