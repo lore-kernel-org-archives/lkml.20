@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794848240;
-	b=4wJeadasReCmfyYNuVHmSeh02EpsZNmisFdCD3TIjknUTjlgQllnwN48NPLhvrtKRMQy
-	 R2Rdu0AHVM9Y5vpgBiOO2AkLzv2veyH1cB7P+XOcMoeu2+LElLOzCy/QQoHEZUHAce8uX
-	 h9lXt8PnHM9v7Z3OwJl9JeYcHvG0elBo9CTVVMv3xNVtQ8TvqYSfWIvKEH15oIsTvdKdS
-	 Jg2LhurEEYQEdJioA8f57MkPO6KBQD/h7meKMFHQ4e2uuJQki9bKGxFoXHBhaB54UBMVG
-	 ONpITlm0s6jvvGST5rxxG7BijUkUctYmmcPuEdbmMF0aLc6Tn4Eak1AZUA1B3qDlk5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848240;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=3G9PFoMgFrJiZLyd5rGhgJGT9wBQ+IPLOJUmtbLVECg=;
-	b=xWx6husBP9zlgaEe1lNLYHDTNKlCAjLolN8IGq1WMfQRhpioObdl17eSY1sUTfGy+T+W
-	 6ysJvCc2CxjjvJK2/AkpS6+kAQQTC3CjnjEONzjfTuxyfGTiDheKlpAU68yvr+F5xwHKc
-	 pxC2vvMyXkF4OQd5moMX2zdJ3UbmyaeoaBPj4K0eL3mQ48wR5JR4hKdhW0w151s8Ilf18
-	 xPw6/xyDWkh0t5CdtiUtvPrCloiD103U25VfQZC0ceGS9RFRZVi+J3DV4ubJ+6tW7tzOZ
-	 PlQEyc0WGLwJaWSEvxpQwmTNRhK0E1U+j/weYwiTa7EAAKm9K/9153DVVIYp0PbtE/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=b5BpkmLu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794848300;
+	b=zO2/o1k9/BBY77Umvsp/r6SqY3hOZreWrsUK/OfjpnjTo8ZOwQygtRCwuuE+XBsXN+ur
+	 AVdHjSealihH5zXQ7DUKoJnbYQXTyQjQY/dHMmEerm6ZrVX5nU5bxlr+ll16gebPfaGdP
+	 /9xzKDbXnFviaMHW3SjvbEf+QGQodDY/KT8XX4xm6YinSMPwBx3mlT1beue+zk7B59fWx
+	 v2SCQ7wmj1J1JyS05+v1cWJJmohsS5DJdW/WXbgKPqwlIi7AeUlWsAh5OdzVvknkHAwvZ
+	 cZ0vZ4JMtEnFAMICxyAkg9p3uY1Bf/sP2qHJyfknpJ3BRLnG7d/gADgsB/jUTzrwDHw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848300;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=28901cIX8LutJN7iZwzr6+fi6Xac3bfXQpXleCz5pdM=;
+	b=DNfQOSmox2Mzq4fU60EdABwj6C40Y0ZAU5q7FGA/ofTGTGhr3UUeFb8dU02SJTwrBMru
+	 RsQZNbDnsdLKUD3RBc9341BImtyq2f+lo3V8p0VAx+gpiZMhx7kznITKiLUm+OeLja36I
+	 Z4maGTrOCgy5Hx4bZZ9c9H3dugwbX9CqY2/lZvX4KqajFZSOeqPfwsTnM4pVEWEkWheeM
+	 cBHuDTzjFCYSzp4TmCHqpB+pbWRlMZVDWrbSZq2rmbtUNfRYOpGXKEdgYbmVDS+rLp2D0
+	 Zd1+tMpvv3F/8X6vqLM+az2i8ufeGBfdIxX84jCcWEberNni7AiwyjbkybCx/xY3B/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfUOhyLS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F0E606A336;
-	Mon, 16 Nov 2026 16:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70F0E606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E64B606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=b5BpkmLu
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 62D65201F22;
-	Mon, 16 Nov 2026 17:57:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794848233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3G9PFoMgFrJiZLyd5rGhgJGT9wBQ+IPLOJUmtbLVECg=;
-	b=b5BpkmLuUrEthbPej0hubZ31fkMXa+NzVpB3EAOlXPjbVZFxGEy6Ays3w47tY1fVyXLpte
-	7xPud8AzwE6o3SZM2wc1Us5GG91iEZbnLrFM3L+tI7J3fOSAuEndOTTu5ApBYMvM7m1H8f
-	dpPGfVxGudSq2Ten95dUjlcO7nuI+jR1tjluE/85cisR8pNSqpfheQncEx+YXri0jXC8Cy
-	LRvE+wee/RClNC0VTPv+1tiiOiFii3C8XB7h9zIenshPa0gAGvDKMbfDDiAewk6dv78ajE
-	gD6f/6DLN0xjMl7GL7pZaonf1+c4RzbHUZqxehijb0vGRZc7o+Hh66L0YzR8pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794848233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3G9PFoMgFrJiZLyd5rGhgJGT9wBQ+IPLOJUmtbLVECg=;
-	b=aYOUz7YnVTbeDAj78HzZxfY6xT2g8bQKXlXhzV32ANx1di3qzSHrR4mbK1kVzutCBpsmsc
-	wxbb0pdA83TtTcXxmRwjfTK9Gok99ju2AZMdvmkwiMdDg8gsPJmbLNYd5KRVytHXBum0rg
-	/ZpxjSWZ9iYvljdKfFZWorRgup658KRX5amYpKrqWG5VFr1Wih6X1sLckobsSuAbizPc8O
-	woG7mLk4uhwZFzgxsgaUlQ4RZATIZWH+5WFlJ731r3+xgKuJs1byh1Wr5G4gLdArtLdVaq
-	pc3DrtToVaBd9el6cO8leH0oPVIFcDinLGuIgecvjthtJSqltnStwFCuL4xbag==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794848233; a=rsa-sha256;
-	cv=none;
-	b=dv2QVczAhUb4cHl4xHxXydSwU34+NSoZno7Drn+vsbnh6ItjTExc1T6EVXvMP3721Xdrga
-	DUwf9mvPfUCMbWW/sTtoQggJvUA0qbRp1gYvK9BhEbIJFi5DB7aNDdEvBHJE0zg4jVAjXi
-	Ubl1v54noyC7UunQGsROK4zYsW/n/+WiWIERh40PXCwTo1g4eZFgA9/bTJXxeRs+zcMOGD
-	qQKFmeYi4sltIZrJcH6AEf/g64kDLOAroz5SyZJ8r9z+EAKTwYn7vdR8vK2pnAX0Wgt5/1
-	wqA4saG9cPqh+2CbmrKy2uF5ciaB7/kD24Kt5EyU7RA7APloLVvglQNxYwgyRA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
-	id 4FF2B1BFA16; Mon, 16 Nov 2026 17:57:13 +0100 (CET)
-Date: Mon, 16 Nov 2026 17:57:13 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: robin@protonic.nl, socketcan@hartkopp.net, mkl@pengutronix.de,
-	shuah@kernel.org, kernel@pengutronix.de, linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	fmaurer@redhat.com, mailhol@kernel.org, alexander.hoelzl@gmx.net,
-	quchaosheng000406@163.com, penguin-kernel@i-love.sakura.ne.jp,
-	kuba@kernel.org
-Subject: Re: [PATCH can-next v3 7/9] selftests: can: add J1939 TP/ETP
- multi-frame tests against CAN_RAW
-Message-ID: <avs16RSSFsaLvU_5@pengutronix.de>
-References: <20261111-j1939-selftests-v3-7-5a80277ab363@pengutronix.de>
- <179454972353.488853.9453703448480835098@kernel.org>
- <avbIRi9NIgi6dcEB@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfUOhyLS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F0191F000C9;
+	Mon, 16 Nov 2026 16:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794848299;
+	bh=28901cIX8LutJN7iZwzr6+fi6Xac3bfXQpXleCz5pdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cfUOhyLSHRjMvjLHeSt15CliGgMSiECm6zJkQDimqe383k/1idg2mmt69qKn35HaQ
+	 kMoqpSLNffIMFE1l65I6kTxKkV9IFa6fttBYIRk0EzZBRlpU5JDqdHuHRdX8SMREU6
+	 gAhLf/P6dTN6oa4ItRWka+OLSJ0gW6nNywdgFhCOCH10QdCPymIVgJPaa5IL11+0HN
+	 454nIqqhIaXDkXuf8YEP986jVpSdRYgEbAB3Ba7zVDG6mNjD8Y2DmN95Mox/fYiY8a
+	 Cqthn3L2bNBt1zcUpMR1Cfw6Ea2leS0CI2gV/q1yqsQ6jKd5WdmYF3z8twxeyBu3o/
+	 SiWDsi1Q4cWXg==
+Date: Mon, 16 Nov 2026 17:58:17 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/4] drm/bridge: Add atomic_sro_install_state hook
+Message-ID: <avs0ZoVZz2GomddQ@houat>
+References: <20261116142707.1299360-1-maximpedraza@gmail.com>
+ <20261116142707.1299360-2-maximpedraza@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,29 +64,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="lmzupt35sow6obci"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <avbIRi9NIgi6dcEB@pengutronix.de>
+In-Reply-To: <20261116142707.1299360-2-maximpedraza@gmail.com>
 
-On Fri, Nov 13, 2026 at 09:20:22AM +0100, Oleksij Rempel wrote:
-> On Fri, Nov 13, 2026 at 06:02:03AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchwork
-> > know by including "pw-bot: cr" as a separate line at the end of your reply
-> > (one such reply per series is enough).
-> >
-> > - [Medium] The patch adds four TP/ETP tests (tp_rx_from_raw,
-> >   tp_tx_to_raw, etp_rx_from_raw, etp_tx_to_raw) that the author says can…
->
-> pr-bot: cr
 
-Typo in the tag above. Correct one:
+--lmzupt35sow6obci
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/4] drm/bridge: Add atomic_sro_install_state hook
+MIME-Version: 1.0
 
-pw-bot: cr
+On Mon, Nov 16, 2026 at 03:27:04PM +0100, M=E0xim Pedraza Padilla wrote:
+> The state readout core lets private objects take the resources needed to
+> keep the hardware running when the state read out becomes current, but
+> bridges have no way to use it. A panel left on by the firmware, for one,
+> would stay marked as disabled.
+>=20
+> Add a bridge hook and call it from the bridge private object.
+>=20
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: M=E0xim Pedraza Padilla <maximpedraza@gmail.com>
+
+It's something that was pointed out by sashiko here:
+https://lore.kernel.org/all/sashiko-outbox-201494@kernel.org/
+
+I've fixed it locally and I'm also passing the connector and CRTC state
+to have the same prototype than readout_state and remove some boiler
+plate.
+
+It should be equivalent though.
+
+Maxime
+
+--lmzupt35sow6obci
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavs2KAAKCRAnX84Zoj2+
+dmS7AX45DAEpHflpF7ISMe5Yuwcx9t/yXPjRSnjPLNwKxJOg1NdMNz50taAEU1nE
+Ap6ZvM0BfR9bEhZjkDg6IrfjHAfxOG28DibKKQzO4rhkTxOznzzIZ3f2NRVoC5pH
+ustIijD/Bg==
+=BjAo
+-----END PGP SIGNATURE-----
+
+--lmzupt35sow6obci--
