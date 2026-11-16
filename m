@@ -1,66 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833242;
-	b=Zpf2VOVYHDD9ZHsibkHbhAr/89P0iq3TnVP1/mPBktyWwwrPQ7chHMZSiNtgS6xODzsj
-	 efCIDJURyTwKjkSxsEA2yoJPA6eDF1eqeia0/jrh2BR6QZGbu4N4KQ9yXUkVPKtvzmyrc
-	 lUupPsaOEoOmS314x420DSEl3QAyKoOWneaSZiWHUZ0KYZjItM9/TcqeQE5hLI+90X59/
-	 q16hPrwY6oXUyHplgZiZoIsG6Ht+rLdWpfI0B3ZBg6P8aOi9hHGVkp0F2ToNp5Kv+TmkT
-	 wWnj4m4HB2qaixu5IWw8SiR23IMzvekf8vedHaVPJOdxVf03sRDAG0wyCuaCbI9X9Tw==
+	t=1794833245;
+	b=s63GKCf0mw2mkG+6ou2sP3/xpa4thgOcmDkTr9ZFg9LqZMbHlJgAdahubKcrXd7B2qvM
+	 JoOc+8FrzxwfUllF4lWIzV33h/jfGWE7N1hYrX5P0kEUy9qUsIRpG9KgWKrnimPyEDuuW
+	 JSSRNwEZIUiyjre1pgEo+cnOkCmHbWknzbGUcQxx7cRglUxn3+vAdDYD0K+F0FH8Pu8mY
+	 T7Wkqo4OcDd4I+gOjAyeatWivR+sb7LVGGtKP5XEVKWHtj19KEmVvCr0FMKRop3kd3vyd
+	 7uN5gDDTtjcPvP70VFOsBhqA6falYCMAEra04VBqx3sVUm0seg4EBhMT4TxeMsgTz5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833242;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NUiUgTi9wA7PEI92DOKS15QskouMnxo0HHKzo2bCrm0=;
-	b=rX0CZbM1GENXNlRSm9lMaw6+3S6CJ3DYrztCp6kXER8uIX3BBl4wzd42eQH7ikg2rvzb
-	 /kC+Ez13P4UbvEAqHPlw1b3NA8RpUf9RlXUbK//LyCKpiv6hKJ2Qs1KHPhtxcCKigegtD
-	 wDNscBy77FkWL+jEaL51f0OHWvp71Z9yOgcJonfhFJ0MPKFo0+5rQpA1hctIrqEuo0cBP
-	 2CltXghNOJuMo0GOTB0+c/dUnZsVNKLrn1QL2fE3aqZgHR6pshvwk3I/DEAvHcQD3uuqK
-	 /6MUyclQ877O4rGHWGQ2cmDbadFOFeblPgowfBoix+J0ti75MgvQEFliivuPQNHkaTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833245;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=+cDv/pKHxcNHjklS71gl29DbGDdZdz6UNn0YpVLmt14=;
+	b=mIzA785b1g+3ZZIOJ99KvM1vtiiNuBkjN49vljrk60/O0AxUOiJnaPtjdOmyAU80c/R5
+	 9bLSk3YF9e+30EO6loVwBXGWkNwWdBBD5r/0o+2BKJ9in+pR1Dd/tHk5c4pogsIq1sXRP
+	 M6LBwuZEgBGxcrmxxcz6S2sCS6ijxolmiuj2m4jagm3S8fSFmg/2uJ5WrRGdPZXaBisGj
+	 BmLMrh0SghtUmodzTdTnd4wIHYWsjjnWpEtOuS/YWEgPI6rhDXcvfkyFapKS9aMki7xCZ
+	 TbAGsQfFgLWEH1texrF4hm7aL9Fi2PLVfNNpXuaX20LloDGUqibkLGWdAq1BTaYD+Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6oNDrzY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kF82zkG/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0F8606A31C;
-	Mon, 16 Nov 2026 12:47:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DF2606A337;
+	Mon, 16 Nov 2026 12:47:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6oNDrzY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176CE1F000C4;
-	Mon, 16 Nov 2026 12:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kF82zkG/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD70B1F000C4;
+	Mon, 16 Nov 2026 12:47:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794833242;
-	bh=NUiUgTi9wA7PEI92DOKS15QskouMnxo0HHKzo2bCrm0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j6oNDrzY/QFTLmT4LN5cbHdvxqBU0xkgsTPREFIlOzk3IJOaq5UsPtKF6HN4R/DR6
-	 3KyYSjchxwnWO5yO6x1NglTnQUG5AMxeHwPeeync1dBlBU4SLcLDf7ihuYXJTFuBUz
-	 fVUXyCWPqZ7VU77Rz+3qZ2FlTFrfuhRqoUqhRpXt8eHauY/oSRm6SL32YXekLKaQg7
-	 J+Bw0bcXM1sDCNRkDzWN1NNy9UW1/2SUxa9+pfFXMY6d0ueCmVHdUKrBAvLr09a0kx
-	 cl+cc4KRZ8LFcZ2ROQGQYi23uXVVYWM/aOmP3FqNypkSi6hWiSuxmO51sQhi68KHZN
-	 DzkxhLJVDqIVg==
-Date: Mon, 16 Nov 2026 12:47:15 +0000
-From: Lee Jones <lee@kernel.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Eddie Huang <eddie.huang@mediatek.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-pm@vger.kernel.org, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-rtc@vger.kernel.org
-Subject: Re: [PATCH 2/2] rtc: mt6397: provide the 32 kHz output as a clock
-Message-ID: <20261116124715.GO6323@joneslee-macbookpro.roam.internal>
-References: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-0-9758f38d7053@gmail.com>
- <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-2-9758f38d7053@gmail.com>
- <20261113185047.GH6323@joneslee-macbookpro.roam.internal>
- <a6bc9228-8e81-4f16-bd26-2d9c72e9998b@gmail.com>
+	s=k20260515; t=1794833244;
+	bh=+cDv/pKHxcNHjklS71gl29DbGDdZdz6UNn0YpVLmt14=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=kF82zkG/Q/t6koMQVrwlYIC5NMCiFTq/yo3Q2orsUqZqqnFdC8NCyUPVeEhno4jHs
+	 WfN3itAslWHNeQPNitouyQGmyQqVIyn/3c/JMCeGcw1z2+Ho+5kDQYv+ruGIZL4wag
+	 mi6PG+tiTshNN87hswDC1TzoySq3IstjUIStzEtMUKZjqXP9YZxJZe1exgsewu1mMG
+	 CfmwQplqcAIgvprEkT2ySgfn67Lg8X1JadvA1Sb/m5Z12IcNBBQlHIBJFW8yftH816
+	 r8jWdcJpaMFo6U/nDPariIqPJooPUk6awzToz7m74bDio8J4HzsfE6mOXX1BLdytY3
+	 3/CSn6Sq2DalQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,40 +48,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a6bc9228-8e81-4f16-bd26-2d9c72e9998b@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 13:47:21 +0100
+Message-Id: <DMWNA84XI432.TJG95PPPMGPR@kernel.org>
+Subject: Re: [PATCH v2 2/2] gpu: nova-core: use pin-init self-referential
+ support
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <lossin@kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261111161935.750047-1-dakr@kernel.org>
+ <20261111161935.750047-2-dakr@kernel.org>
+ <DMWH39UWW4KZ.1C5B2M4W1V3CF@nvidia.com>
+ <DMWM4KAYL7PT.2ECY3BSNIA2P@garyguo.net>
+In-Reply-To: <DMWM4KAYL7PT.2ECY3BSNIA2P@garyguo.net>
 
-On Fri, 13 Nov 2026, Ryan Brue wrote:
+On Mon Nov 16, 2026 at 12:52 PM CET, Gary Guo wrote:
+> On Mon Nov 16, 2026 at 7:56 AM GMT, Alexandre Courbot wrote:
+>> On Thu Nov 12, 2026 at 1:19 AM JST, Danilo Krummrich wrote:
+>> <...>
+>>>  drivers/gpu/nova-core/gsp/cmdq.rs     | 16 ++++++--
+>>>  drivers/gpu/nova-core/gsp/cmdq/gmc.rs |  9 +++--
+>>>  drivers/gpu/nova-core/gsp/cmdq/rpc.rs | 11 +++---
+>>
+>> The changes to these files look like they are a change on their own;
+>> they are not using the self-referential support but rather change how
+>> the queue lock is acquired. It should probably be a separate patch
+>> before the rest (which would be the last patch of the series).
+>
+> This is actually integral due to variances, as the existing code more or =
+less
+> relies on cmdq being covariant unsafely. Pin-init is going to enforce tha=
+t so it
+> needs to be updated to use existential lifetime to make cmdq actually cov=
+ariant.
 
-> On 11/13/26 12:50 PM, Lee Jones wrote:
-> > On Sun, 01 Nov 2026, Ryan Brue wrote:
-> > 
-> > >   struct mtk_rtc_data {
-> > >   	u32                     wrtgr;
-> > > +	u32                     con;
-> > These are terrible variable names.
-> > 
-> > The nomenclature should be self-describing.
-> 
-> Hi Lee, two things:
-> 
-> 1. I have a v2 out [1] from early November that fixed a null pointer
-> dereference that Sashiko found. I can spin a v3 or resend v2 depending on
-> the response to (2).
-
-Happy with whatever makes sense.
-
-> 2. would you like me to update wrtgr as well? I can add a patch to a v3 that
-> changes that name in addition to con.
-
-Yes please.
-
-> [1] https://lore.kernel.org/all/20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-0-19ca72815374@gmail.com/
-> 
-> Thanks for the review,
-> Ryan Brue
-
--- 
-Lee Jones
+Yes, those changes are related to the use of self-referential pin-init. We =
+could
+technically introduce the with_inner_locked() helper separately, but that s=
+eems
+excessive and creates unnecessary churn.
