@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794801789;
-	b=0LhWMFUnMjOjyoU+jNQe4Hdk1lBnVelix+vn9krlV4SSaStyKZsxQ0dJIUEJ06uX4H10
-	 eajb3bQmDcFugyYoEEzakj5AwUVAss6KgZ6EBAAwb7oAjrqHBn4NTC8qzaZFOsHxCrGXQ
-	 mDBTut7+ugRT9qdEKrrCVOi6H369xbIGGIoZUAC6DDHy897XpxkGOvHd0AI2Zz054WH0/
-	 3nG0wKPtYyMlnLiZPH7L11KdusROYldZiG9z+8Q5Bz4Raq5mxUosL9dSbUIy82CR5+Nhj
-	 tW1nlCgv160wQcCardjNdHxE61B4VCDTrXTSaCKOoSesf756hAQxeASuectl9pgUq9g==
+	t=1794801985;
+	b=fb23ImKO57RvJJLx1jS5GHVP1Z6PNLeXNqUjo13QJJf4M8u/Tvnm7ZeZatgN7IQE9wdb
+	 0ii2nOdY6nZI6WUnRISU9njLwEpHTnKdUlc5Ap0IdzbcTdAqq6BW3wfmQPb5+d3qPzrxz
+	 aVr1GkazeX5jXJPhWGJ3GBOrpknj3Be22DPyI0rTkJGUNNU8ZS7HdzZnQ9gkkdFs6NeoD
+	 kbrWEJhnCdvaSfmL1q4FyzM4JZCZfwemX64jZ06S09fETCaWlJg38jKuGE7qATfdvxYtr
+	 7TnKPiPKhvWZKTLZQVRq7/ewU+f32HhKhSo6FURhG81LMvGZMTyBwtBEuB8b41RFgjg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801789;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=txdxShazMCeZ+97jCCVZjbVKT3ItALb5i0Swrs2NoTY=;
-	b=PyYu7uKSbYqgGL1yaRoInbhmmVuJPqi0QN40j3V0/0ztEAPP0MENRWLWNpCHraZtRn/Y
-	 36R1yvUVRaCBs3KNYMOsH21/H02PkkyaSqUlBPUB7+FiTIVXuyy5LfFLWtH209QI2F8mK
-	 xUeFF489YWsxvD4wghVqSwrDYYbyGgXuj8PAyb8iPKumb1G6qZgC69oDc+eyH1iLHkyDF
-	 oHLeIok6FoozcIIT715CUvRHqWb+0Yy/jdbMymFHCb4b6hWoGuyRMPjb5yhvn+Epj95ea
-	 FOhincw2j+gKweTat4EJUGgtZhoGOIot0HLTw8X7fPP4t6ut28eSqEnOJ4MbKKv+3xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801985;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=rmyD0s1XCBmV7mffRiNbjwFpifD69qzSzCmMfG5UvV8=;
+	b=CV/BPhK7WOcyY8JzxrHphclfGG7PsNiOquoGLjM2nZQOW8OIFdfLn4u8LOFLGiC3Be9p
+	 22nwkW9Vt2xoeXUwuKCulwFa9SOMG2ha0iwGsNs1O3NJyL+MMr2Nb7xXsVe1N9CEut3IL
+	 BJWPjCtFzTxB/DrmxHb1j4+rf8cpQ9YzJ7i/Te9ioWHh0MH4fiaqDV7VzceOzhGVsdTW3
+	 41aEgnRUEdPdM4oSf31HmTdKFBnHzpvu6uQaiScuIZJomTyP9Dc1t0kUeV5UZ6JVHd8Q3
+	 Kg9WTgQMo5OeD18H0a8zNLJ0EnJ+vAmqQJOqVWwkij3UygYGfk3zBeJa2nwjeSNna/w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SFyQGTX1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.46
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010046.outbound.protection.outlook.com [52.101.56.46])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeNF6Qjg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAECB606A32F;
-	Mon, 16 Nov 2026 04:03:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAECB606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC80606A31F;
+	Mon, 16 Nov 2026 04:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SFyQGTX1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ISBOX894efrK2z6cPPpCJDeoetFIzzoOD44Ta9Lhe9GvKWaO7BKU21pxriOPyMEu8gfvAdjxnmo073gEBR8WrXm3wMOvScFmr5I88bRTR+q1zWfBQKpd55seZkFW0T1jdikT/cCTlpNzNxmxsu0CKJvaVD9XtkeIODZ2SluaxMUqNagMW9zSxBtkLhzqea2P8/Idv3rOxXXKZG+4ZtGDwWgZBKni0Sjb1tNB7wtYLesPtwAWadZsu2uN1ghVfxV2xf7d0hD28fPzvhDZbaUaHwLL5hZ6vhycfjiHMKr4t07IR3fK0tmoSMXhvXyW8vXMOc9MnBCswitUbL76PxoEtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=txdxShazMCeZ+97jCCVZjbVKT3ItALb5i0Swrs2NoTY=;
- b=MH6vsf8gxXrb7sqIN50HpuWgxR/XQ4UYANvv8wdBA5d2T7T07RaTtdKKALLWRSDi9Tw2iFLEAjtAdHZdi7iA11xpTF1/gvphtV4MM1D3j3iqAB+18JHh9uSVXCEqeuVshrF8X+acG/21glttv490Mp/QcFDSyLPaq7BkFPnqcPnzfyB5EESgEmLTk1uwr0XqCExbae08OpP6pOB6Yqz6svhUjs5ewvLqJUcRBSadnd6znxE/KfsjorAZwK3dSVng1wOGS/tcvKGvN4gnBMnDqfpgLJURajZXv3VTPz9fVWr34htmgyZR8N9SGiB3R+jNRAdmE0wTYCvFFyW98UACpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=txdxShazMCeZ+97jCCVZjbVKT3ItALb5i0Swrs2NoTY=;
- b=SFyQGTX1wispHDvlOJvizpWRTJKUAkzletKSfWLCtqqESEL4X3eEL/X0ogyZxZWmRvUhubnG9TeFMSPYCw8zTNdi+kc016SKg4+eI9Ed85BZTgAH7yZ19IK2rtKPEjJwV3JeK10Ej4u1l+fqoJyr8CAWpj5CBwnHYBKUkwJhWCJqAaBXTBnn1xk576JqnmmjKTs2Y4QWywcRNdcpc6BCyoh+QVKgYzgwtN+xUVL95Ic8b+xYgMXJ4Hg/CVkOLVtu4xdzt1tbu0lWJkJ3t3Ue5PUlb2xIz2+mdvr/e8ZCheh+oLVP06yYyTOBIihUHJT6QWMB9+7KjcRxP0Q301XjDw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
- by CHBPR12MB497579.namprd12.prod.outlook.com (2603:10b6:610:33d::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 04:03:03 +0000
-Received: from PH7PR12MB6858.namprd12.prod.outlook.com
- ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
- ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
- 04:03:03 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 13:02:13 +0900
-Message-Id: <DMWC45NN5L9I.2NUG81ETBC84L@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: <aliceryhl@google.com>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
- <a.hindborg@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
- <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/2] rust: scatterlist: tie owned tables to the device's
- bound lifetime
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20261114234324.82387-1-dakr@kernel.org>
-In-Reply-To: <20261114234324.82387-1-dakr@kernel.org>
-X-ClientProxiedBy: OS7PR01CA0302.jpnprd01.prod.outlook.com
- (2603:1096:604:26f::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeNF6Qjg
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794801985;
+	b=ZhSjgO1OBHrHHTFXJZdkiy/uXnjw51fJ/yZAyjFq3bceFLRvchRvI5rOQH3yIa8XBxv6
+	 PZR3sFE68t6yhRbLFq8H6U9Z9Ibc65ShsYQ6KkFhAHQ/rxoBE5EqF8EqGzVSl7TXOM1nf
+	 MT2eBYm7eRe/YkczAi295PxDsZe9ceGe49zDkIP1ecMGPo2oV02bobqC+65U0q0hsnyzm
+	 Hk13DMvnbddTR1NBHVcgThiUMZS/s6A9YPvRwmqxF6rPjGnyEL4dNmxVUMiIRVivLOl/E
+	 D7RCMdqcW9KiIPN4mNnk2a5sGv0RpiZuviKuWhQbaxfJWIS4GZXlr3NwYxYA2ILFgzw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794801985;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=rmyD0s1XCBmV7mffRiNbjwFpifD69qzSzCmMfG5UvV8=;
+	b=B3IEIoAcjsEEknRgje0xz9h6yiypsbygBLOqi9RG3K2Q2xG71dG4SKMJCg7jjg9ZHJzI
+	 onNSPiuPtLbmXSMgbdXD+XAclQX6ScpAqhkrv/b9mVIPo365zmURu3yrDlFIBGtY5fCTk
+	 gjqWTjSN3BfYjE4AuyEXF9t9b3lJSfeDt/CKRG8qyknSZmstoMyrW4I70XWOGBFpZswqe
+	 BkeSJZ4RJohGi2OMrssutjm/CobOn3VH68sHl/5rs0gxDf1SW1QJk632nsZ7A/U31TG8s
+	 0u8StT+rYGVHsqFV6/lhX1mTyBJvXzBO7pSN3wr8DXeUeR1SNJ0AxEov9FreAAnTzOA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A42511F000C5;
+	Mon, 16 Nov 2026 04:06:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794801985;
+	bh=rmyD0s1XCBmV7mffRiNbjwFpifD69qzSzCmMfG5UvV8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XeNF6QjgmLyibtT1HG0zmTfRcgponvdDf3QZzaDwHLcirf90nHwcyUPwJbKUcaVY2
+	 Xe2RbM3dW8G2V6mC4xJbI4Tj+F25v9O3sC6EW33DSVWZWgJQY0SX7ysqFXoWYHC+2u
+	 57JNAvaXUaj8qN/O6zkIiup66oNEkA6hUmr6fvYEtmue2GygFlm0Y9JwC8/GGt8oE9
+	 n3icqjzWhnCwi6A6pdjl3bdHLtnoEDsCbHf+mFJXpkrWmj8Rl/nRgEjvMxgoU728FP
+	 V6gGwCjvamtXNNSvCKyb1FZ9yvppsJE+OKKt3SBCz9YFdUOimHEVId0+TnwglvT1Gj
+	 r8cR/iiS+7rQg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1FE2A4A307;
+	Mon, 16 Nov 2026 04:06:24 +0000 (UTC)
+From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
+Date: Mon, 16 Nov 2026 04:06:23 +0000
+Subject: [PATCH v2 1/2] smb: client: fail SMB2 responses with a bad
+ signature
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,330 +83,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|CHBPR12MB497579:EE_
-X-MS-Office365-Filtering-Correlation-Id: 231770a1-dcb3-44e1-b1f8-08df439671bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021121427099003|261026121527099003|261026140227099003|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	RP4jQLtU/l8vi12lskFLG6OO7DBwICyM5gQvydc4KHyFJ63elyDoF6U9+tMYwMWK04N0wiZNrvaHLN3PbC0J5Nn/AmtzucgnkXupuIV62reKkIQuXu2m/JrGF3lO6Ako32d6ZZ4YH5v9HgY+H3g828c5H4/UzPtBhRubz0AMefZfZf0dhgtGnMr7Jwv9gO0dT28+NAKKJvsUjKirhEsQ/YXziJdZgTohp5atSQLpEK/pURwNzdb58g7tCjpNbnrl81g8spueDy6EjpWiLYBz0ATVFA3TAb3YDOLqT9hYpFqIj83AblIlLjHCwg9Z3xfjlDlz22EGGwHJd9CP4ZS93zVxa0TbZYvR+3mhSdWX8TDoK+wHClpV6JmbQ2n/EEAznjtlQlyCu8qsoFKuCkSIRTzTis0fnUvfnyZZtsPEjwujnuO2SM6TLVkX7zOtHktH0EZh0ZSDkXvX+Vf9TLF30az7kDmEsXvhNFJTovyHnqd3O2niQMUi1HmZTSF0pp3vmzGmRfmwvf7Tv0o8ja+li8/2u/T2ZUFE5d3oaKuHj5CJDiEaKlyg1rauXV241Mc0K74Pja31uFMZ2GzrO7YCv+8A5OoNYoZw3QxcXtUpe3OOvVxViAgMZRuSTYjp5Zmo6vtiuzoT6hG+0DsZDKMuVX7fPVSx9TSnV5bPqDlVI0c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V0FGWmI0U2NkL3cwQ2dyL3B3MTNDSGg0d2xwM21abGoyK09JWUNSSHNvZGVU?=
- =?utf-8?B?ZmNZdXdIVUEzbHdGdUl6WnpQTnA5MzV0eDRReUNaMVBzRlZoRWlSRzVNSFhF?=
- =?utf-8?B?Wi9iWUgyY21pQm11dWs5UG52TjhCRTNaYVhQRnhEVGlzM3hRRk1tanVkMTAz?=
- =?utf-8?B?RmJHQkU1NEwrUXZYM1hwVTBUV1YxNjZYd0c3alZXd2JwL1dCN3pxTDgveGU3?=
- =?utf-8?B?elBWL1RndGEzc2thdFY4UXRibG8vVEVwZzI0UHdnZ3R5Rld6TzZSOFlFbDFn?=
- =?utf-8?B?b0JXRmViSDdFVFEycGNlVkFCZHFTaUpCUmk4dnd5RUNkdkNtYWlGQnFtWHR0?=
- =?utf-8?B?bEdwYlVmM2dhRGprRXFYUDYvZ1M1bVJYbTNja2FzTnUvQ0NDbTVGd2NKbUx0?=
- =?utf-8?B?eEgrOFFMeFA1K2tJVENNbWZoNGpmK2tGZDBIKzZUZTBid2RuMzVXRjF4azZL?=
- =?utf-8?B?VXg5a3p4R2ZuRE9SZitJTldJanFQdlpKN1hkdUVvckZ3V1RDR3VXU0xUWjBl?=
- =?utf-8?B?YjlRYzJ5YzJCZGtsWHp1ZmJFOERtdEJYMXljUEgyKzM2TlZ5c3FWYlBZcGNG?=
- =?utf-8?B?ZzU0ZVJVQzgzcUFHUkVublVzcngreDN0REdNeFdFdW45NFIzZU94TXQvRUxF?=
- =?utf-8?B?SHpOU2xPTi8wOUFSdkIvbm1qY1NYYzRaa2I1enl0ck56aThNcnhTVnIwWHpW?=
- =?utf-8?B?cjZobXhCZVo2WFBEdDJtMHROMVZxMDZtVUJsSlRXS2NzdkQ1OTZ2b3g0WG8v?=
- =?utf-8?B?bjZvbmtPalN1S1NtcnVRUlF2U0VHYmM0emY0RURMWkltNmp0S0tqRTkyaEtG?=
- =?utf-8?B?bVUybmJWVDZCcTJmQjBtWkxsM1JaNEwyaktSSlhKeU1iTDB3cTJKOHVScWtG?=
- =?utf-8?B?ZjMzVjBPRGhOU1B3ZmowaTR5TGlCZGlGazlqSkwrWnNnM20waGJyNWVXejVp?=
- =?utf-8?B?SlJNamlyRzhsUjZCZllqUUVFR0R6emlOOFQyUlZmZ2hUbTB3bWdqUjJwcFN2?=
- =?utf-8?B?cWNRZC8yMFk2YmlwKzFPV2RYUGlWMSs4MGRLbTBnSEhkQTBqOWVDYzFjbkps?=
- =?utf-8?B?SFJHVjhRRGtLMThncnQ1VWgyMVdKRkNXdmhMS2xGaUJCakNWMFdDSnFNYmFF?=
- =?utf-8?B?ZVdLdEFGUmE3eHRmRUlNcm9taHo1a1FYVnhJYS84SUJVbW4rS2JkdmxzWnNY?=
- =?utf-8?B?NVdFVjBDaElCdVRMd3YzR2R1S2JPMzIrVjRvR1VGUytCaTJVMEN5ZmdoZkw3?=
- =?utf-8?B?M2E2U2xtb2p5T0ZyNFYwZlJvbm5FQVp0YVZ5R0tvc0lvck9TZmdDN3lSWk14?=
- =?utf-8?B?clVjZzlsTDRkL2daTzg5WEVUazlPa2c2WFpDRFd5NUEzdFVwNlJHMHBxL0lL?=
- =?utf-8?B?em1iRktLcnRSVmQ2dzVubStuN0s1aFUwaXN4bDM1dlQrOGhEQXZHUVdzZEpY?=
- =?utf-8?B?YnU2MVFZak1JK2RWemZqczB5ZUlteVVLMTB0OG05U1d6OHJ0YTIrZWJrczZW?=
- =?utf-8?B?Q1F6bWdLN2Y5dkhkOWlzT0NZN2M4dkpvbmV2SU4zYThvdHJSeEJVZGcrL3FB?=
- =?utf-8?B?ekJWNGxBNWQ4bHRjVk1KZm9ReHd6b3l4SWIzVVR6S0wwT3dlSjZPY0cxVHVH?=
- =?utf-8?B?SnVKMjdQalhYSyt0U09HVXc3MEF1QUM2MlR4Z0ZyVk5HQlcxQkxmbzlOb2JI?=
- =?utf-8?B?SGFzN0dLRmU0WFBHZDNyRjdtRzJzK1EzOWtEdkxZL2o1WWVRWWJjMGRWVmI3?=
- =?utf-8?B?Wk03OVh1bEIwWi9xQUF6TXhHKy9CRGFDckJRU2VFclVaOTRKQmVGbVZCT0Zx?=
- =?utf-8?B?UGU3UXNpRmhiR0crNjU2d1FETVI5bllzRkNmVUp4eGhZdHViSkM4RTl5T1pO?=
- =?utf-8?B?RDhITDBMMW80VHhZVnhxbXlUVE5Ib29aRHNINVhnZ2ZrVTgvczZJZnozTy9H?=
- =?utf-8?B?OUJkRkw2cGtpVFd3U3Z0U0dRb21sZ2p3eFJDeVdLWmZHZDcvMjhCZXV3Vlh6?=
- =?utf-8?B?MmlkVGE2b3lKRHMrNVJnRFo2NDFlSzBMa2pmbzNBekJ5MSs3OEtER2ZLeFFt?=
- =?utf-8?B?QjhoMUZGSDBtMnVjWWt4ek1CamhOQUY3Wm1HWDBhbys5bWhGdXRkZHVRQUdy?=
- =?utf-8?B?bGY2RE1jelNOOFYxSUtlQUQ2SlNZVDduVTZ2TlQyY0I0SGFlekpxYkhRdFo1?=
- =?utf-8?B?aVVHZ0x0YkhyaS9SR0ZJeWFvYVh3R0c3ZG1wUlNGczd3TTIrK3NzZGZ4WGZD?=
- =?utf-8?B?TEJnN2lXczgzNmJsdDFZdHZzeTk3eGorcDk3cmZRaDFZcVJrWVhuZXFEWGV0?=
- =?utf-8?B?d2tlaEh1emJDYnNWOEJZL3RMdTN1Q3VNVWwwK1QrOU14TUh4U0V0aTU3MHIw?=
- =?utf-8?Q?liW6oClAy/a6O3EUcsj0VDhpNnWAIZSu4fz0I9xa/3+Bm?=
-X-MS-Exchange-AntiSpam-MessageData-1: Ow3QwEemCjjKjw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 231770a1-dcb3-44e1-b1f8-08df439671bf
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 04:03:02.9372
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0yn+nY2MFtzuMLs/PukL6VgqUnnae/LRT4/jj61R/HXdAAoS1UzILOt890OoFF32ZwMQ+U65djScMfC9+UGAJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB497579
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-smb2-sign-v2-1-a823a90d0db4@gmail.com>
+References: <20261116-smb2-sign-v2-0-a823a90d0db4@gmail.com>
+In-Reply-To: <20261116-smb2-sign-v2-0-a823a90d0db4@gmail.com>
+To: linkinjeon@kernel.org, pc@manguebit.org
+Cc: ematsumiya@suse.de, sprasad@microsoft.com, linux-cifs@vger.kernel.org, 
+ bharathsm@microsoft.com, ronniesahlberg@gmail.com, 
+ samba-technical@lists.samba.org, daniel.birtwhistle@gehealthcare.com, 
+ linux-kernel@vger.kernel.org, smfrench@gmail.com, dhowells@redhat.com, 
+ tom@talpey.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794801982; l=3644;
+ i=shyckless@gmail.com; s=default; h=from:subject:message-id;
+ bh=GRCAyhw8W4Nd3CFnmrKZixyJSJ4lqFc04PFF7+v+L/I=;
+ b=MmJB7lHaglzwEjt9lIs/pV7Bud2fJyqwEim3ZJ0TWgrDiXI2Ly9exeTqFAu/svt32Td9mENzz
+ nhsNQguQY/ECgvt1qXcauyCaIHcwZjmPnCfl2SiOH+YOS5juziyqM/6
+X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
+ pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
+X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
+ auth_id=1498
+X-Original-From: Suyuan Wang <shyckless@gmail.com>
+Reply-To: shyckless@gmail.com
 
-On Sun Nov 15, 2026 at 8:42 AM JST, Danilo Krummrich wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/firmware/radix3.rs b/drivers/gpu/nova-=
-core/firmware/radix3.rs
-> index 94235bd1209d..a3e43fc8ec86 100644
-> --- a/drivers/gpu/nova-core/firmware/radix3.rs
-> +++ b/drivers/gpu/nova-core/firmware/radix3.rs
-> @@ -35,14 +35,11 @@
->  #[pin_data]
->  pub(crate) struct Radix3<'a> {
->      /// The mapped data.
-> -    #[pin]
-> -    data: SGTable<Owned<VVec<u8>>>,
-> +    data: SGTable<Owned<'a, VVec<u8>>>,
->      /// Level 2: one entry per page of `data`.
-> -    #[pin]
-> -    level2: SGTable<Owned<VVec<u8>>>,
-> +    level2: SGTable<Owned<'a, VVec<u8>>>,
->      /// Level 1: one entry per page of `level2`.
-> -    #[pin]
-> -    level1: SGTable<Owned<VVec<u8>>>,
-> +    level1: SGTable<Owned<'a, VVec<u8>>>,
->      /// Level 0: one page, whose single entry is the DMA address of the =
-first `level1` page.
->      level0: Coherent<'a, [u64]>,
->      /// Length of `data`, in bytes.
-> @@ -59,14 +56,14 @@ pub(crate) fn new(
-> =20
->          pin_init::pin_init_scope(move || {
->              Ok(try_pin_init!(Self {
-> -                data <- SGTable::new(dev, data, DataDirection::ToDevice,=
- GFP_KERNEL),
-> -                level2 <- {
-> -                    build_lvl(&data)
-> -                        .map(|l2| SGTable::new(dev, l2, DataDirection::T=
-oDevice, GFP_KERNEL))?
-> +                data: SGTable::new(dev, data, DataDirection::ToDevice, G=
-FP_KERNEL)?,
-> +                level2: {
-> +                    let l2 =3D build_lvl(data)?;
-> +                    SGTable::new(dev, l2, DataDirection::ToDevice, GFP_K=
-ERNEL)?
->                  },
-> -                level1 <- {
-> -                    build_lvl(&level2)
-> -                        .map(|l1| SGTable::new(dev, l1, DataDirection::T=
-oDevice, GFP_KERNEL))?
-> +                level1: {
-> +                    let l1 =3D build_lvl(level2)?;
-> +                    SGTable::new(dev, l1, DataDirection::ToDevice, GFP_K=
-ERNEL)?
->                  },
->                  level0: {
->                      // Allocate the level 0 page table as a device-visib=
-le DMA object, and map the
-> @@ -81,7 +78,7 @@ pub(crate) fn new(
->                      let mut level0 =3D CoherentBox::<'_, [u64]>::zeroed_=
-slice(
->                          dev,
->                          GSP_PAGE_SIZE / size_of::<u64>(),
-> -                        GFP_KERNEL
-> +                        GFP_KERNEL,
+From: Suyuan Wang <stevewong@hust.edu.cn>
 
-Stray hunk? Maybe we can move it to patch 2 since it reformats that part
-anyway.
+smb2_check_receive() checks the response signature when signing is on,
+but a failed check is only logged:
 
->                      )?;
->                      level0[0] =3D level1_entry_addr.to_le();
-> =20
-> @@ -105,7 +102,7 @@ pub(crate) fn size(&self) -> usize {
-> =20
->  /// Returns the size of the level that maps `sg_table`: one `u64` entry =
-per [`GSP_PAGE_SIZE`]
->  /// page of each DMA-mapped region, rounded up to whole pages.
-> -fn lvl_size(sg_table: &SGTable<Owned<VVec<u8>>>) -> usize {
-> +fn lvl_size(sg_table: &SGTable<Owned<'_, VVec<u8>>>) -> usize {
->      let entries: usize =3D sg_table
->          .iter()
->          .map(|sg_entry| usize::from_safe_cast(sg_entry.dma_len()).div_ce=
-il(GSP_PAGE_SIZE))
-> @@ -122,7 +119,7 @@ fn lvl_size(sg_table: &SGTable<Owned<VVec<u8>>>) -> u=
-size {
->  ///
->  /// - `ENOMEM` if the level cannot be allocated.
->  /// - `EINVAL` if `sg_table` yields more entries than [`lvl_size`] sized=
- the level for.
-> -fn build_lvl(sg_table: &SGTable<Owned<VVec<u8>>>) -> Result<VVec<u8>> {
-> +fn build_lvl(sg_table: &SGTable<Owned<'_, VVec<u8>>>) -> Result<VVec<u8>=
-> {
->      let mut dst =3D VVec::<u8>::zeroed(lvl_size(sg_table), GFP_KERNEL).m=
-ap_err(|_| ENOMEM)?;
->      let mut entries =3D dst.chunks_exact_mut(size_of::<u64>());
-> =20
-> diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
-> index 6379a8748117..93f431d7f548 100644
-> --- a/rust/kernel/scatterlist.rs
-> +++ b/rust/kernel/scatterlist.rs
-> @@ -19,7 +19,8 @@
->  //! The main entry point is the [`SGTable`] type, which represents a com=
-plete scatter-gather table.
->  //! It can be either:
->  //!
-> -//! - An owned table ([`SGTable<Owned<P>>`]), created from a Rust memory=
- buffer (e.g., [`VVec`]).
-> +//! - An owned table ([`SGTable<Owned<'a, P>>`]), created from a Rust me=
-mory buffer (e.g.,
-> +//!   [`VVec`]) and tied to the [`Device<Bound>`] lifetime.
->  //!   This type manages the allocation of the `struct sg_table`, the DMA=
- mapping of the buffer, and
->  //!   the automatic cleanup of all resources.
->  //! - A borrowed reference (&[`SGTable`]), which provides safe, read-onl=
-y access to a table that was
-> @@ -33,15 +34,13 @@
->      alloc::allocator::VmallocPageIter,
->      bindings,
->      device::{Bound, Device},
-> -    devres::Devres,
->      dma,
->      error,
->      page,
->      prelude::*,
-> -    sync::aref::ARef,
->      types::Opaque, //
->  };
-> -use core::{ops::Deref, ptr::NonNull};
-> +use core::ops::Deref;
-> =20
->  /// A single entry in a scatter-gather list.
->  ///
-> @@ -123,9 +122,7 @@ unsafe impl Sync for Borrowed {}
->  ///
->  /// All [`SGTable`] variants can be iterated over the individual [`SGEnt=
-ry`]s.
->  #[repr(transparent)]
-> -#[pin_data]
->  pub struct SGTable<T: private::Sealed =3D Borrowed> {
-> -    #[pin]
->      inner: T,
->  }
-> =20
-> @@ -177,63 +174,41 @@ pub fn iter(&self) -> SGTableIter<'_> {
->  ///
->  /// # Invariants
->  ///
-> -/// - `sgt` is a valid pointer to a `struct sg_table` for the entire lif=
-etime of the
-> -///   [`DmaMappedSgt`].
->  /// - `sgt` is always DMA mapped.
-> -struct DmaMappedSgt {
-> -    sgt: NonNull<bindings::sg_table>,
-> -    dev: ARef<Device>,
-> +struct DmaMappedSgt<'a> {
-> +    dev: &'a Device<Bound>,
-> +    sgt: RawSGTable,
+    rc = smb2_verify_signature(&rqst, server);
+    if (rc)
+            cifs_server_dbg(VFS, "SMB signature verification returned ...",
+                            rc);
+    ...
+    return map_smb2_to_linux_error(mid->resp_buf, log_error);
 
-The `RawSGTable` documentation still mentions `Owned`. We could adapt it
-or (maybe better) just drop that sentence.
+The status from the response is returned as usual, and the caller goes
+on to use a response whose signature is wrong. This is the path for
+synchronous and compound requests and for smb2_writev_callback(). On a
+signed but unencrypted connection, anyone who can modify the traffic
+can change e.g. a directory listing or file attributes, and the client
+accepts it.
 
->      dir: dma::DataDirection,
->  }
-> =20
-> -// SAFETY: `DmaMappedSgt` can be sent to any task.
-> -unsafe impl Send for DmaMappedSgt {}
-> -
-> -// SAFETY: `DmaMappedSgt` has no interior mutability and can be accessed=
- concurrently.
-> -unsafe impl Sync for DmaMappedSgt {}
-> -
-> -impl DmaMappedSgt {
-> -    /// # Safety
-> -    ///
-> -    /// - `sgt` must be a valid pointer to a `struct sg_table` for the e=
-ntire lifetime of the
-> -    ///   returned [`DmaMappedSgt`].
-> -    /// - The caller must guarantee that `sgt` remains DMA mapped for th=
-e entire lifetime of
-> -    ///   [`DmaMappedSgt`].
-> -    unsafe fn new(
-> -        sgt: NonNull<bindings::sg_table>,
-> -        dev: &Device<Bound>,
-> -        dir: dma::DataDirection,
-> -    ) -> Result<Self> {
-> +impl<'a> DmaMappedSgt<'a> {
-> +    /// Takes ownership of `sgt` and maps it for DMA.
-> +    fn new(dev: &'a Device<Bound>, sgt: RawSGTable, dir: dma::DataDirect=
-ion) -> Result<Self> {
->          // SAFETY:
->          // - `dev.as_raw()` is a valid pointer to a `struct device`, whi=
-ch is guaranteed to be
->          //   bound to a driver for the duration of this call.
-> -        // - `sgt` is a valid pointer to a `struct sg_table`.
-> +        // - `sgt.as_raw()` is a valid pointer to a `struct sg_table`.
->          error::to_result(unsafe {
-> -            bindings::dma_map_sgtable(dev.as_raw(), sgt.as_ptr(), dir.in=
-to(), 0)
-> +            bindings::dma_map_sgtable(dev.as_raw(), sgt.as_raw(), dir.in=
-to(), 0)
->          })?;
-> =20
-> -        // INVARIANT: By the safety requirements of this function it is =
-guaranteed that `sgt` is
-> -        // valid for the entire lifetime of this object instance.
-> -        Ok(Self {
-> -            sgt,
-> -            dev: dev.into(),
-> -            dir,
-> -        })
-> +        // INVARIANT: `sgt` was successfully DMA mapped and is owned by =
-this object until drop.
-> +        Ok(Self { dev, sgt, dir })
->      }
->  }
-> =20
-> -impl Drop for DmaMappedSgt {
-> +impl Drop for DmaMappedSgt<'_> {
->      #[inline]
->      fn drop(&mut self) {
->          // SAFETY:
->          // - `self.dev.as_raw()` is a pointer to a valid `struct device`=
-.
->          // - `self.dev` is the same device the mapping has been created =
-for in `Self::new()`.
-> -        // - `self.sgt.as_ptr()` is a valid pointer to a `struct sg_tabl=
-e` by the type invariants
-> -        //   of `Self`.
-> +        // - `self.sgt.as_raw()` is a valid pointer to a `struct sg_tabl=
-e` for the lifetime of
-> +        //   `self`.
->          // - `self.dir` is the same `dma::DataDirection` the mapping has=
- been created with in
->          //   `Self::new()`.
->          unsafe {
-> -            bindings::dma_unmap_sgtable(self.dev.as_raw(), self.sgt.as_p=
-tr(), self.dir.into(), 0)
-> +            bindings::dma_unmap_sgtable(self.dev.as_raw(), self.sgt.as_r=
-aw(), self.dir.into(), 0)
->          };
->      }
->  }
-> @@ -308,38 +283,27 @@ fn drop(&mut self) {
->  ///
->  /// - The backing memory pages.
->  /// - The `struct sg_table` allocation (`sgt`).
+Return the verification error instead. That alone is not enough for
+compound_send_recv(), which still hands the response buffer to the
+caller after check_receive() fails. smb2_compound_op() then maps the
+status from that buffer again and copies the payload out, and other
+callers look at the buffer on error too, e.g. smb2_open_file() parses
+a symlink target out of a STATUS_STOPPED_ON_SYMLINK response. So also
+mark the mid MID_RESPONSE_MALFORMED, and have compound_send_recv() handle
+it like a mid in a bad state: mark the earlier mids cancelled, so that a
+CREATE which did succeed gets its handle closed, and don't pass any
+response on.
 
-`sgt` is removed by this patch.
+Unlike the SMB1 fix in commit dc96f01d54cc ("smb: client: terminate
+session upon failed client required signing"), don't reconnect: this
+runs in the thread that sent the request, and only cifsd should call
+cifs_reconnect(). And fail the request whichever side required signing,
+since a response with a bad signature can't be trusted either way.
 
-<...>
-> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-> index ffb693544673..844e137cddc8 100644
-> --- a/samples/rust/rust_dma.rs
-> +++ b/samples/rust/rust_dma.rs
-> @@ -35,8 +35,7 @@
->  struct DmaSampleData<'bound> {
->      pdev: &'bound pci::Device<Bound>,
->      ca: Coherent<'bound, [MyStruct]>,
-> -    #[pin]
-> -    sgt: SGTable<Owned<VVec<u8>>>,
-> +    sgt: SGTable<Owned<'bound, VVec<u8>>>,
+Found with a static analysis tool and checked by hand.
 
-Since there is no more `pin` in `DmaSampleData`, can we also remove its
-`pinned_drop` attribute?
+Reported-by: Daniel Birtwhistle <daniel.birtwhistle@gehealthcare.com>
+Closes: https://lore.kernel.org/linux-cifs/SN4PR22MB28883DAF57E0B4D4BFB1C22AEEC42@SN4PR22MB2888.namprd22.prod.outlook.com/
+Fixes: 3c1bf7e48e9e ("CIFS: Enable signing in SMB2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+---
+ fs/smb/client/smb2transport.c | 6 +++++-
+ fs/smb/client/transport.c     | 6 ++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/client/smb2transport.c b/fs/smb/client/smb2transport.c
+index 080864b24a0c..5d6871553ee9 100644
+--- a/fs/smb/client/smb2transport.c
++++ b/fs/smb/client/smb2transport.c
+@@ -711,9 +711,13 @@ smb2_check_receive(struct mid_q_entry *mid, struct TCP_Server_Info *server,
+ 		int rc;
+ 
+ 		rc = smb2_verify_signature(&rqst, server);
+-		if (rc)
++		if (rc) {
+ 			cifs_server_dbg(VFS, "SMB signature verification returned error = %d\n",
+ 				 rc);
++			/* compound_send_recv() must not pass this response on */
++			mid->mid_state = MID_RESPONSE_MALFORMED;
++			return rc;
++		}
+ 	}
+ 
+ 	return map_smb2_to_linux_error(mid->resp_buf, log_error);
+diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
+index d0d0159c1061..f1ba9701b545 100644
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@ -1110,6 +1110,12 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 
+ 		rc = server->ops->check_receive(mid[i], server,
+ 						flags & CIFS_LOG_ERROR);
++		if (mid[i]->mid_state != MID_RESPONSE_READY) {
++			/* Bad signature, don't let the caller parse any response */
++			cifs_mark_compound_mids_cancelled(mid, i);
++			num_processed = 0;
++			goto out;
++		}
+ 		num_processed = i + 1;
+ 	}
+ 
+
+-- 
+2.34.1
+
+
