@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837037;
-	b=kseQrwDgQhouWcVqluXoEoyCuMzkiUH+Bp/auZovnmwcc6VKpgOYjAp2Tse2fuhyouil
-	 0PEkQI5w4jTqB7UsqX6s1+Hv2mQBdPk0cnCBO7wmQ9gIBCg1GI3UZxwUYgrTPOFUBe9Au
-	 oN2/MoN74G0F1/bmuuhWC+/bxuwb3s6Rmu0iIO0k3w4CoikwghkwFVr7Ufdtofi4rTAe/
-	 ULm4Gev+jcuFxCvdFMUhGE4rRKQfbRfhyPWsxaif6OdwSbGe/6jE67FACScBkQcLGNI8m
-	 53MwmND/Vs8NWQ2KNGNFQxS7eIMgefbBHY8pxDo8mXym5zCG/wRdl9ilLwiJsJCHj8g==
+	t=1794837036;
+	b=n0ESvM0eny5bFYEe6pfkJdyBov57MGvz8jVLQWIyDCVoIUfzCPwdrZ6JtyrhoxpuTVUT
+	 UkTPrrlkRVOYp5AjoIqtw0vVR769DUQ3xG9w1zN0uX4F9A5GU3jZkHmZTano+cq3ZfJPU
+	 4mL1VncS3palyPFcwGsWxNaCND6HHLm19f3uM7xr6LRt7RRVksqU4JqanW10wxEB0Bg6L
+	 9h5mxfQiSkdS70HoXxocpRzLcGAbSbMWrOQXu+DurK5srtSIHL7M98CofADDq/iAkJ+VI
+	 JnIzWSnIAOs4FVsGgwku8aCe7TdXLTWi3KkmPx88lkow+n4ZI8ihFn9PkZN27aUytqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837037;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=hwv6T4XvFybqkKrRBEo5N2TRb98sAmwv6eB4h9MLvjA=;
-	b=eVJNnOXk2dnjjYNG6tOVDNoyggbg+RVTS4OUi6cwLdUck9tnZM2NaJkg50wu9u4OTenz
-	 AN355XQ3pawzZHf+2aXTrevj9GRVIqm7XEgoutYk2iVxxe/qAeh7HzUQVOSrjPfo1j84v
-	 C/aOYS+QtOwIgblO10+eucKbOf1Z7jDPmcZVQ02Db0NvqSGU4j2EjWcannXD8bKyZAdFQ
-	 adOUYvm9WkJl6nPIK1fWJ1/Md8adj+RHEVhVRL9pib2PvgWMebIjjfnOy0n0JhW+ZnpCW
-	 tampbtj0krNXdBzpJTtcaJjWxVSmssrIoaqwAFe6hYo1+SO7sP9zX7Sdx1x6YuADO8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837036;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=a43gjyMYHFpUL2RrWYsw5g7IDtnj0wCK8HbG+t83W00=;
+	b=gubuIfBi8Lr3735lRoikl9ygjXswBd8rqOg4U1nOuVQyIzZeQrEB/jS3Yu0g9hzvxPbr
+	 w+7hLIhLgrPezJLT5Y1a+WjkYjjYZIReCg/oYG02+Z1rpSBNxv+hqO2b4Rkpmi7JvJ0U3
+	 1F81K8zAdT/oby8Co2oPiFVA+aQ6RVgZzUas3FnWh7PwxaX9syM/7Y0SAs7Jfws8nw0kc
+	 3jmeKMmv8uQMC7LDD0V8PfFlC+wNOq5sVLXIctGKsfLPztJltbo38rHl6vqhgosqpkp0U
+	 YD5EilMQC7J4NtHu0kzChe5xCoCi6TrR3TtkEqFwQvfasMRv8ZgRxy5mM2ra+op1X/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="u3A/U4mK";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=op1ZAhjt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBDE606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFBDE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38317606A890;
+	Mon, 16 Nov 2026 13:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=u3A/U4mK
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3EDB14BB;
-	Mon, 16 Nov 2026 14:48:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794836887;
-	bh=TI+MFYg5CCUtjz8iqgnansCezaulsq0+gMmmzeIyST4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u3A/U4mKZG408f12XrzebgY+NisFf1ZePFkgYDsEf2wJuDwec1cWvYyC0DRHmsB7u
-	 Ig7dlLZXjGC4l2BFfd3qtlC8Ly2rIOqpLhpKtPFF96qP1wTqCaqF2FRQL1cgFvcY8P
-	 XLTYvhV1i2b63zF1NsP/fG3+ZpvW+ejKidcTUQFY=
-Date: Mon, 16 Nov 2026 15:50:32 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jussi =?utf-8?B?QWxhbsOkcsOk?= <jussi@firstview.fi>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Nicolas Saenz Julienne <nsaenz@kernel.org>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/raspberrypi: vchiq: Store a msg_queue entry
- before publishing it
-Message-ID: <20261116135032.GA1747591@killaraus.ideasonboard.com>
-References: <20261116072339.2821648-1-jussi@firstview.fi>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=op1ZAhjt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325B31F000C5;
+	Mon, 16 Nov 2026 13:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837035;
+	bh=a43gjyMYHFpUL2RrWYsw5g7IDtnj0wCK8HbG+t83W00=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=op1ZAhjti+oPm3ImTI01s19svu0/P0BLYk+TygYMN7Ljge7SSsaRHht3k60r+woWI
+	 j/WXttlrxBJ80ELdHacCkB9Xdg9TK7/uqx0CSrYZuTFwAV8lzM4JqBPJ1Qce9pb+0q
+	 LVpTybN+SRhlpKkBGMP1oskZRXO5dGuxULapPtTAo2VVZeomw/g1w2q7G8f+QmHwwS
+	 4b6Pk5b+ab6MsRhPvzREJxB5ndDaZvVLu4z/ByrRrgLgYGLXI/U3BlRSUBAbyV0XLP
+	 TMBmXM0JqE4w1RuzX2+MBaHoS2ZtSPNFwww24JevLOKNVKvSmyq1kIiNVYugm6IDNL
+	 y1nQ09eH6mg1Q==
+Subject: Re: [PATCH net-next v3] net: phy: aquantia: Poll global status
+ register for provision ID
+From: netdev-bot+sashiko@kernel.org
+To: hongmei.xu@oss.qualcomm.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sagar.cheluvegowda@oss.qualcomm.com
+Date: Mon, 16 Nov 2026 13:50:34 +0000
+Message-ID: <179483703468.3136.10188755486781063737@kernel.org>
+In-Reply-To: <20261112-aquantia-poll-global-status-register-v3-1-c805647a60b4@oss.qualcomm.com>
+References: <20261112-aquantia-poll-global-status-register-v3-1-c805647a60b4@oss.qualcomm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,194 +64,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261116072339.2821648-1-jussi@firstview.fi>
 
-On Mon, Nov 16, 2026 at 09:23:39AM +0200, Jussi Alanärä wrote:
-> vchiq_msg_queue_push() advances msg_queue_write before it stores the
-> header in the entry that the new index makes visible, and
-> vchiq_msg_hold() advances msg_queue_read before it loads the header
-> from the entry that the new index frees. Neither side orders its index
-> update against its access to the entry, so on SMP the thread on the
-> other side can see them in either order.
-> 
-> The consumer can see the new write index and load the entry before the
-> producer has stored it. It then gets the header left in that entry one
-> lap (VCHIQ_MAX_SLOTS messages) earlier. That message was released long
-> ago and its slot recycled, so the consumer parses whatever the VPU has
-> written at that address since, and then releases it. The message that
-> was actually pushed is never seen and never released, so the slot that
-> holds it is never recycled. In the first lap the stale entry is NULL.
-> With a full queue the producer can likewise see the advanced read index
-> and overwrite an entry before the consumer has loaded it: one message
-> is lost and the next one is delivered twice.
-> 
-> vc-sm-cma, the queue's only user, logs the stale read as
-> "vc_sm_cma_vchi_rx_ack: received response 1818324333, throw away..."
-> (0x6c616d6d, the MMAL header magic of another service's message now at
-> the stale address) or as a response of 0. On a Raspberry Pi 4 decoding
-> short H.264 clips in a loop through bcm2835-codec, 14 messages were
-> lost in 23.5 hours, about 35,500 decoder teardowns. Each lost message
-> pins one of the VPU's transmit slots for the rest of the boot, and a
-> pinned slot stays charged to the slot quota of every VPU service that
-> has a message in it. At 14 pinned slots the VPU stopped sending on its
-> MMAL and SMEM services at its next slot boundary. That matches vchiq's
-> default per-service quota for 31 slots, 15: 14 pinned plus the one
-> being written. From then on every attempt to create ril.video_decode
-> failed with -ETIME until the next reboot. Every lost message that was a
-> VC_SM_MSG_TYPE_RELEASED also left an imported dma-buf referenced for
-> the rest of the boot.
-> 
-> Store the entry before publishing the index, and load it before freeing
-> the entry, with smp_store_release() for each index and
-> smp_load_acquire() where the other side reads it. The queue has one
-> producer (the slot handler thread, through the service callback) and
-> one consumer (the service's own thread), so a release/acquire pair per
-> index is all the ordering it needs, as in
-> Documentation/core-api/circular-buffers.rst. No lock is required.
-> 
-> The comparison kernels carried a test-only delay between the two
-> statements of vchiq_msg_queue_push(). Even at 0 that hook adds a load
-> and a branch between them, which widens the race. With this patch, a
-> kernel ran 3,001 decoder teardowns, half with the delay at 0 and half
-> at 500 us, without losing a message. Built the same way without the
-> patch, it lost hardware decode after about 600 teardowns, twice, with
-> the delay at 0.
-> 
-> The cause was found, and this patch written, with an LLM coding
-> assistant (Claude Code), working from the log line above and the
-> vchiq and vc-sm-cma sources.
-> 
-> Fixes: 77b3f6c49105 ("staging: vchiq: Move message queue into struct vchiq_service")
-> Signed-off-by: Jussi Alanärä <jussi@firstview.fi>
-> ---
-> 
-> Notes:
->     This is on top of drivers/next, where 0d6409fd70af ("platform/raspberrypi:
->     Add VideoCore shared memory support") adds vc-sm-cma, the first in-tree
->     user of this queue. Its vc_sm_cma_vchi.c pushes from the service callback
->     and holds from its io thread, as the Raspberry Pi tree does. There is no
->     stable tag, because no released kernel has an in-tree caller. The Fixes
->     tag is there for trees that carry vc-sm-cma, the Raspberry Pi tree among
->     them. The vchiu queue that 77b3f6c49105 replaced stored the entry before
->     advancing the index (with no barriers either). That commit moved the
->     increment first.
->     
->     Testing was on a Raspberry Pi 4B, on the Raspberry Pi 6.18 tree
->     (6.18.50), where this file still lives in drivers/staging and the same
->     change applies unchanged. vchiq and vc-sm-cma there were stock. The
->     kernels used the shipped config with no debug options, and every run
->     started from a fresh boot. Each lost message was counted three ways: the
->     "throw away" line, a slot that stayed claimed across two reads of
->     /sys/kernel/debug/vchiq/state, and an orphaned dma-buf. On the long run
->     below the three stayed equal, at 13 each, until the 14th loss.
->     
->       kernel                    teardowns  lost  pinned  hardware decode
->       unpatched + hook at 0           605    12      14  lost at 24 min
->       unpatched + hook at 0           608    14      14  lost at 26 min
->       patched + hook, 0/500 us      3,001     0       0  kept
->     
->     The 23.5-hour soak run used a kernel that also carried unrelated
->     bcm2835-codec fixes. vchiq and vc-sm-cma were byte-identical to stock.
->     It logged the first lost message after about 3.5 hours and the 14th at
->     23.5 hours.
->     
->     Not done:
->      - this change has not been run on mainline or on drivers/next. There
->        it was only built: arm64 defconfig plus BCM2835_VCHIQ,
->        BCM2835_VCHIQ_MMAL and BCM_VC_SM_CMA as modules, CONFIG_WERROR=y,
->        gcc 15.2.0, and vchiq_core.o again with W=1, without warnings. The
->        diff is the tested one with only the path changed.
->      - no long natural-rate run of the patched kernel without the hook.
->        Stock loses roughly 2 to 4 messages per 10,000 teardowns, so showing
->        the patched rate at least ten times lower that way would take about
->        160,000 teardowns.
->     
->     Not addressed here, and happy to send separately: both functions take a
->     service reference through find_service_by_handle() and never drop it,
->     so every message leaks at least two references. Also, the vc-sm-cma
->     "throw away..." print has no trailing newline, so the line only reaches
->     the log with the next kernel message, sometimes minutes later.
->     
->     On tool use (Documentation/process/generated-content.rst): the analysis,
->     this patch, its changelog and the test tooling (the delay hook and the
->     counters above) were produced by Claude Code, an LLM coding assistant,
->     in several sessions under my direction. In short, the prompts were:
->     explain this log line from a soak test, fix it, and prove the fix on the
->     bench. The same assistant ran the hardware tests on a Raspberry Pi 4
->     through our lab tooling, and did the build above. I have reviewed the
->     analysis and the patch and can answer for them.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-I don't believe that.
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
->  .../raspberrypi/vchiq-interface/vchiq_core.c  | 27 ++++++++++++++-----
->  1 file changed, 21 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_core.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_core.c
-> index 48d6b1d74329..a5cd7e2a9dd8 100644
-> --- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_core.c
-> +++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_core.c
-> @@ -2654,15 +2654,26 @@ void vchiq_msg_queue_push(struct vchiq_instance *instance, unsigned int handle,
->  	if (!service)
->  		return;
->  
-> -	while (service->msg_queue_write == service->msg_queue_read +
-> -		VCHIQ_MAX_SLOTS) {
-> +	/*
-> +	 * msg_queue is a single-producer, single-consumer ring: this function
-> +	 * runs in the slot handler thread (the service callback), and
-> +	 * vchiq_msg_hold() in the service's own thread. Each index has one
-> +	 * writer, which publishes it with a release; the other side reads it
-> +	 * with an acquire. This acquire pairs with the release of
-> +	 * msg_queue_read in vchiq_msg_hold(): an entry the consumer has
-> +	 * freed has also been read, so it can be overwritten.
-> +	 */
-> +	while (smp_load_acquire(&service->msg_queue_read) + VCHIQ_MAX_SLOTS ==
-> +	       service->msg_queue_write) {
->  		if (wait_for_completion_interruptible(&service->msg_queue_pop))
->  			flush_signals(current);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In aqr_wait_reset_complete()
+  (drivers/net/phy/aquantia/aquantia_main.c:708-718), the new poll uses…
+- [Low] The commit message presents the change as a fix for user-visible
+  problems: steady link failures on AQR113, and a possible wrong host…
+- [Low] The comment above aqr_wait_reset_complete()
+  (aquantia_main.c:684-690) still says 'Use presence of the firmware ID…
+- [Low] aqr_wait_reset_complete() now handles MDIO read errors
+  inconsistently.
+
+--
+
+net: phy: aquantia: Poll global status register for provision ID
+
+This patch adds a second poll to aqr_wait_reset_complete(). Once the
+firmware ID is present, it also waits for the provisioning ID field in
+VEND1_GLOBAL_RSVD_STAT1 to become non-zero. On timeout or on a read error
+it logs a warning and still returns 0.
+
+> Starting subsequent firmware operations before the provision ID is
+> valid leads to steady link failures; this has been observed during
+> AQR113 PHY bring-up.
+
+[Severity: Low]
+The commit message describes failures that users can see: link failures
+on AQR113, and a possible USXGMII vs 10G-QXGMII mismatch on AQR412C with
+MUSX firmware. There is no Fixes: tag and no Cc: stable.
+
+The fingerprint-based translation in aqr_translate_interface() was added
+by commit a76f26f7a81e ("net: phy: aquantia: support phy-mode =
+"10g-qxgmii" on NXP SPF-30841 (AQR412C)"). The FW_ID-only completion check
+goes back to commit 43429a0353af ("net: phy: aquantia: report PHY details
+like firmware version").
+
+Should one of these be named in a Fixes: tag so the change can reach
+stable trees? If this counts as new board bring-up support, the tag may
+not be needed.
+
+> diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
+> index e95d391a6dc23..b90221f1cf41c 100644
+> --- a/drivers/net/phy/aquantia/aquantia_main.c
+> +++ b/drivers/net/phy/aquantia/aquantia_main.c
+> @@ -702,7 +702,22 @@ int aqr_wait_reset_complete(struct phy_device *phydev)
+>  		return val;
 >  	}
 >  
->  	pos = service->msg_queue_write & (VCHIQ_MAX_SLOTS - 1);
-> -	service->msg_queue_write++;
->  	service->msg_queue[pos] = header;
-> +	/* Publish the entry only once it is stored. */
-> +	smp_store_release(&service->msg_queue_write,
-> +			  service->msg_queue_write + 1);
->  
->  	complete(&service->msg_queue_push);
+> -	return ret;
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = read_poll_timeout(phy_read_mmd, val,
+> +				val < 0 ||
+> +				FIELD_GET(VEND1_GLOBAL_RSVD_STAT1_PROV_ID, val),
+> +				AQR_FW_WAIT_SLEEP_US, AQR_FW_WAIT_TIMEOUT_US,
+> +				false, phydev, MDIO_MMD_VEND1,
+> +				VEND1_GLOBAL_RSVD_STAT1);
+
+[Severity: Medium]
+What happens here on a PHY whose firmware image reports a provisioning ID
+of 0?
+
+VEND1_GLOBAL_RSVD_STAT1_PROV_ID holds the provisioning ID of the loaded
+image. It is not a ready bit. The commit message also says "not all PHYs
+require a valid provision ID". If 0 is a valid value, the exit condition
+can never become true. read_poll_timeout() would then run for the full
+AQR_FW_WAIT_TIMEOUT_US (2 s, about 100 MDIO reads) and print the warning
+on every call.
+
+The code alone doesn't show whether such images ship. The only in-tree
+fingerprint uses prov_id 1, but the commit message suggests they exist.
+
+The poll isn't limited to a particular model or firmware. It is reached
+once at probe:
+
+aqr107_probe()->aqr_firmware_load()->aqr_wait_reset_complete()
+
+and on every phy_init_hw() (attach and resume):
+
+phy_init_hw()->aqr_gen{1..4}_config_init()->aqr_gen1_config_init()
+    ->aqr_wait_reset_complete()
+
+That covers AQR105/107/AQCS109/AQR111/111B0/112/412/412C/113/113C/114C/
+115/115C/AQR813. On multi-port packages each port waits separately.
+Before this patch, the function returned on the first FW_ID read once the
+firmware was running.
+
+Only AQR412C uses the fingerprint, in aqr_translate_interface(). For the
+other models, the "interface mode detection may be incorrect" warning
+doesn't apply.
+
+Could the wait be limited to the PHYs that need it, or use a different
+completion indicator?
+
+> +	if (val < 0)
+> +		phydev_warn(phydev, "Failed to read VEND1_GLOBAL_RSVD_STAT1: %pe\n",
+> +			    ERR_PTR(val));
+
+[Severity: Low]
+Is it intended that an MDIO read error on VEND1_GLOBAL_RSVD_STAT1 only
+produces a warning?
+
+On a read error, the FW_ID poll just above returns the negative errno:
+
+	if (val < 0) {
+		phydev_err(phydev, "Failed to read VEND1_GLOBAL_FW_ID: %pe\n",
+			   ERR_PTR(val));
+		return val;
+	}
+
+In the new poll, val < 0 makes the condition true, ret stays 0, and the
+function falls through to return 0. In aqr_firmware_load(), the error then
+lands in case 0 ("Some firmware is loaded => do nothing"). It never
+reaches the default arm, which is commented "PHY read error, propagate it
+to the caller".
+
+The practical impact is small. FW_ID was already non-zero, and
+aqr_build_fingerprint() reads RSVD_STAT1 again later and propagates a
+persistent failure.
+
+The commit message explains why a provisioning timeout is non-fatal.
+Should a bus error be handled the same way as the FW_ID read error?
+
+> +	else if (ret)
+> +		phydev_warn(phydev, "Firmware provisioning ID not ready; interface mode detection may be incorrect\n");
+> +
+> +	return 0;
 >  }
-> @@ -2677,17 +2688,21 @@ struct vchiq_header *vchiq_msg_hold(struct vchiq_instance *instance, unsigned in
->  	if (!service)
->  		return NULL;
->  
-> -	if (service->msg_queue_write == service->msg_queue_read)
-> +	/* Pairs with the release of msg_queue_write in vchiq_msg_queue_push(). */
-> +	if (smp_load_acquire(&service->msg_queue_write) == service->msg_queue_read)
->  		return NULL;
->  
-> -	while (service->msg_queue_write == service->msg_queue_read) {
-> +	/* The same pairing, while waiting for an entry. */
-> +	while (smp_load_acquire(&service->msg_queue_write) == service->msg_queue_read) {
->  		if (wait_for_completion_interruptible(&service->msg_queue_push))
->  			flush_signals(current);
->  	}
->  
->  	pos = service->msg_queue_read & (VCHIQ_MAX_SLOTS - 1);
-> -	service->msg_queue_read++;
->  	header = service->msg_queue[pos];
-> +	/* Free the entry only once it is read. */
-> +	smp_store_release(&service->msg_queue_read,
-> +			  service->msg_queue_read + 1);
->  
->  	complete(&service->msg_queue_pop);
->  
-> 
-> base-commit: 0cab822bca7a59667774725b83e948b71462290f
+
+[Severity: Low]
+This isn't a bug, but the comment above aqr_wait_reset_complete() still
+says:
+
+ * initialization has completed. Use presence of the firmware ID as
+ * indicator for initialization having completed.
+
+With the second poll, the function can now block for up to about 4 s
+instead of 2 s. A return value of 0 can also mean the firmware ID is
+present but provisioning wasn't confirmed, either because the poll timed
+out or because the RSVD_STAT1 read failed.
+
+Should the comment be updated to match?
 
 -- 
-Regards,
-
-Laurent Pinchart
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-aquantia-poll-global-status-register-v3-1-c805647a60b4%40oss.qualcomm.com
