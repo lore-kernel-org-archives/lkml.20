@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837064;
-	b=uBPv/MxTBdeWVs+9xLdfCND7cuh7VqEn4S27f1Ti2gJRFqwvUrDbPWJNtKtTkGu9dNLt
-	 WXImsqLgmPitUGT+Pc/5MSXp3eNJnGwQ8iSRvyYvnBBqkLhP28MtVuitQYPGo1gGTJdbR
-	 8yVkPY4Xa55T7NInpUV0qJvW3LxHu7gSiTTIhE0XCodFEQLmzfNaWFbg368cEvUshcM6g
-	 O5ZtQFipiMMrl4eg6OVTK9SkiAK7ogLCaIsE3n2toI6sfpTeWv3wQGefxh41lEX2MYdN9
-	 LIS5Sy74tnak7IgAMYv6bFa7HPRtfAt59Vw4pLb83iJVY2kYblzDxaMfbKDfzC4i62w==
+	t=1794837055;
+	b=QRIrixVXGRFOS0vK7pFr7R7jkYxlSAURx5l543u27GjgCko289LodRbQdDmdX0dZHXpC
+	 yawRr7aArjQrEE1IzJgI7zzLhlAqj89oqlQZlX78dbBgMs1/XmMIfOxNvFYcQgT0JACob
+	 XpIZsNpyj8w5OFhecyD+S0FZQVNmT+OnpBa6I9YBbM9JCBMwd2QX/xy9JQMfxCR3lgjTv
+	 hhSS6USDYSgEKOBGS0TiZgfu8OSHQ9AcECw9i1J7tBIXZi4DC0SnuBr5zo75y4EKKU/+/
+	 ibpYITsG3IjywbYs2hqxDWLodnieWaI7OKltOS0NKWZxXE34RJdCk0IdJQ4VNeTMo3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837064;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837055;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=KG1MGo/DVuw8aITbp4BPPajePR4Ohrcz/mqxJPeMWfU=;
-	b=r8xrMJygW25FfN1L3TLpkrbv7It/9KwJKTvY67hg1VMBrees7y4owjr1WeoE3xZO5XAr
-	 fLKAMvg9f1qouU9QmdjOGXLbjYqQP0SIh04JR+0Wb2/aLAHy6a13CXON2ulS3QCgrrleb
-	 Cl0HGhWEv2qgASr6M/hmbRhAqAG1cspzi/bkjMuDpcHIzo26THx+SGUTqbGbAIMO1+4Dh
-	 I/K90UECuqq5c+PiTReY2NFGVx09alhWxxb5RHPpZYTI5BsuJmFHA0uZjWGyYw6NIaxUf
-	 Hw/RBB6iu9ruf/UbD5Is9NIdOWK9lGEMaf4cxmoeTsp3BO5fX1yRDwV31iSM7d4LKOg==
+	bh=8b871WDqcJhHO7oSApD+GPocLTUTSN7bR7eaowyl3bY=;
+	b=tAGc4aX35L3XEUQVuGi2rMZFDaD1w7TmHFzeJjo+nXoeLE8TR3JLhBehinycDPBNeTXV
+	 Wf1FFVaVHy17/S3v1HIuZfSvsCGDr3lhlA6OuQnK/nZaJVYFPwIXO+fgJPSJB4oA9oEDh
+	 cuXPA2PoqOePCDmtQmDryQ0eAHZW/gnbqCK2OcQwHwWa2CVyDWirSW+DyFJSTP2ynO+0j
+	 2YOm2Fwc9aJ5JEbmosV/Frj6PsLQHXBsNj7tciuRkHAncX5HDQ0iht6NC7aHIdhX2dtcr
+	 nw+lG+eJ9GaalFPq8f2g4ZSlELS70yoxCar5kGJk6QRKNPFB4vmuhBgxoLZbCYPoHaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SneNHsiK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gu3q8FpB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA03608590E;
-	Mon, 16 Nov 2026 13:51:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCB26085932;
+	Mon, 16 Nov 2026 13:50:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SneNHsiK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26001F000C8;
-	Mon, 16 Nov 2026 13:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gu3q8FpB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CCE81F0093B;
+	Mon, 16 Nov 2026 13:50:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837064;
-	bh=KG1MGo/DVuw8aITbp4BPPajePR4Ohrcz/mqxJPeMWfU=;
+	s=k20260515; t=1794837055;
+	bh=8b871WDqcJhHO7oSApD+GPocLTUTSN7bR7eaowyl3bY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SneNHsiKDy+0YZv7oPb8vmoTrIlVZQMg0EPXkHKbvPvyiljrq/LUHd9BUnYFgCZrn
-	 6ddf8sG01zboffWEVIUq8NsK8kJD8ef9dgvazigOCFFqhRcDOnDjlurIjzVg+4KV/y
-	 XEiJlJ1ugUbPB9sYgse2rzHuxyVSWEjI1v/5B5S/XgVAWM1odRu4MyzAM6lrFmKJT0
-	 SJ3lMRh0kmnKc2dJOpcN2WhBAfUDQ6DdHC2vyejpj1TpgrbQWyZoaT8rX+o7iddmGQ
-	 EOZ+oGkY2i3ztqt2hLnst5KZNeENXRsIi0Y/wkG6QIkOoVf+HXkotg2O1pjkt+IWRS
-	 NWpMMyng5ea+g==
-Subject: Re: [PATCH net-next v03 2/4] hinic3: Avoid concurrent updates on
- 32-bit systems.
+	b=gu3q8FpBb025ztZ0rHT/RNpY2eTdaRrJnLF1yqiA4ztz8bfaOLlY6GU5vsDTKCOFF
+	 8Bgo/YMSMsC0O7uwy06fIeH6oaxKTBpsT3qdTA5O6FG7HMkNUHUNcL+QrI0SmPttDq
+	 QI5vqk5b7v2Xg9TEsd3sRDqro70KYqmGI9zQ/xn/+zPjnVqsCsn647/mKDd/RaTODt
+	 fxPH6h8MQGHEvmICKDq1JllTD55YyM81ean5EeAMN9KrDOzooPN0lXMhrZPRZKQhrc
+	 7jvAMSdJDK8ayy62p1w+uaQdrvYejFWs4/XjH0UJdaq+Qxqiiomh/45deV+ppg/HNQ
+	 scnV+1+A1LM6g==
+Subject: Re: [PATCH net v2] ipvlan: update port flags only after
+ ipvlan_set_port_mode() succeeds
 From: netdev-bot+sashiko@kernel.org
-To: gongfan1@huawei.com
-Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
- maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
- dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
- larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Mon, 16 Nov 2026 13:51:02 +0000
-Message-ID: <179483706251.3136.3766644106019912452@kernel.org>
-In-Reply-To: <6e3be192de613fb537fc2050ce28e1bd71346e35.1794467919.git.gongfan1@huawei.com>
-References: <6e3be192de613fb537fc2050ce28e1bd71346e35.1794467919.git.gongfan1@huawei.com>
-X-sashiko-severity: Low
+To: sunwenbo@cmss.chinamobile.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, hangbin.liu@linux.dev, kuniyu@google.com,
+ maheshb@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ 1342116488@qq.com
+Date: Mon, 16 Nov 2026 13:50:54 +0000
+Message-ID: <179483705411.3136.2665029224845053782@kernel.org>
+In-Reply-To: <20261112064821.85624-1-sunwenbo@cmss.chinamobile.com>
+References: <20261112064821.85624-1-sunwenbo@cmss.chinamobile.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,107 +65,105 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-- [Low] The commit message and Fixes: tag describe a bug this driver can
-  never hit.
-- [Low] The patch drops `csum_errors` from `rx_errors` in
-  hinic3_get_stats64() (`errors = rxq_stats->other_errors;`).
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The fix is incomplete.
 
 --
 
-hinic3: Avoid concurrent updates on 32-bit systems.
+ipvlan: update port flags only after ipvlan_set_port_mode() succeeds
 
-This commit reworks the u64_stats reader loops in hinic3_get_stats64().
-Per-queue values are now assigned inside the fetch/retry loop and added
-into rtnl_link_stats64 outside it. The patch also drops csum_errors from
-rx_errors, removes the NULL checks on nic_dev->txqs and nic_dev->rxqs, and
-removes the zeroing of the local counters before each loop.
+This patch moves the write of the shared port->flags in ipvlan_link_new()
+to after ipvlan_set_port_mode() has succeeded. The goal is that a failed
+creation of a second ipvlan on an active port does not change the flags
+of the ipvlan interfaces that already exist.
 
-> hinic3: Avoid concurrent updates on 32-bit systems.
->
-> Within the while loop of hinic3_get_stats64(), the counters between
-> u64_stats_fetch_retry and u64_stats_fetch_begin are incremented by +=.
-> This operation will cause repeated counting of the counters on a 32-bit
-> system. Therefore, change += to + and the counters are incremented
-> out side the wile loop.
-
-[Severity: Low]
-Can this driver be built on a 32-bit kernel? The Kconfig in
-drivers/net/ethernet/huawei/hinic3/ has:
-
-	depends on PCI_MSI && 64BIT
-
-When BITS_PER_LONG == 64, include/linux/u64_stats_sync.h defines:
-
-static inline bool __u64_stats_fetch_retry(const struct u64_stats_sync *syncp,
-					   unsigned int start)
-{
-	return false;
-}
-
-So the old loop body ran exactly once per queue. The += into locals that
-started at zero already gave correct totals in every configuration that
-can be built.
-
-The subject says "Avoid concurrent updates". However, the patch only
-changes the reader side and does not change how updates are serialized.
-
-This patch carries "Fixes: f47872bed40f" and will be picked up for
-stable. Would it be better described as a cleanup of the reader idiom,
-without the Fixes: tag?
-
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> index da73811641a9d..d1fd91d97ccfc 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> @@ -791,49 +791,35 @@ static void hinic3_get_stats64(struct net_device *netdev,
+> diff --git a/drivers/net/ipvlan/ipvlan_main.c b/drivers/net/ipvlan/ipvlan_main.c
+> index f29864db662aa..5732b167c5b3c 100644
+> --- a/drivers/net/ipvlan/ipvlan_main.c
+> +++ b/drivers/net/ipvlan/ipvlan_main.c
 
 [ ... ]
 
->  		rxq = &nic_dev->rxqs[i];
->  		rxq_stats = &rxq->rxq_stats;
->  		do {
->  			start = u64_stats_fetch_begin(&rxq_stats->syncp);
-> -			bytes += rxq_stats->bytes;
-> -			packets += rxq_stats->packets;
-> -			errors += rxq_stats->csum_errors +
-> -				rxq_stats->other_errors;
-> -			dropped += rxq_stats->dropped;
-> +			bytes = rxq_stats->bytes;
-> +			packets = rxq_stats->packets;
-> +			errors = rxq_stats->other_errors;
+> @@ -691,6 +685,12 @@ int ipvlan_link_new(struct net_device *dev, struct rtnl_newlink_params *params,
+>  	if (err)
+>  		goto unlink_netdev;
+>  
+> +	/* Flags are per port and latest update overrides. User has
+> +	 * to be consistent in setting it just like the mode attribute.
+> +	 */
+> +	if (data && data[IFLA_IPVLAN_FLAGS])
+> +		port->flags = nla_get_u16(data[IFLA_IPVLAN_FLAGS]);
+> +
 
-[Severity: Low]
+[Severity: High]
+Can a failed RTM_NEWLINK still overwrite the shared port->flags here?
+
 The commit message says:
 
-  csum_errors and other_errors are not the same things. csum_errors will
-  go to csum_bad in netdev netlink qstats.
+  "Defer updating port->flags until after ipvlan_set_port_mode() succeeds,
+  after which ipvlan_link_new() has no remaining failure paths."
 
-Where is csum_errors reported as csum_bad? I could not find a netdev
-queue stats implementation (stat_ops, get_queue_stats_rx or csum_bad)
-anywhere under drivers/net/ethernet/huawei/hinic3/. It is not in this
-patch, and it is not added later in the series.
+When ipvlan_link_new() returns 0, the creation is not yet committed. The
+caller, rtnl_newlink_create(), can still fail after ops->newlink():
 
-After this change, the only remaining reference to csum_errors is the
-reset in hinic3_rxq_clean_stats():
+net/core/rtnetlink.c:rtnl_newlink_create() {
+    ...
+	err = rtnl_configure_link(dev, ifm, portid, nlh);
+	if (err < 0)
+		goto out_unregister;
+	if (tb[IFLA_MASTER]) {
+		netdev_lock_ops(dev);
+		err = do_set_master(dev, nla_get_u32(tb[IFLA_MASTER]), extack);
+		netdev_unlock_ops(dev);
+		if (err)
+			goto out_unregister;
+	}
+    ...
+out_unregister:
+	if (ops->newlink) {
+		LIST_HEAD(list_kill);
 
-	rxq_stats->csum_errors = 0;
-	rxq_stats->other_errors = 0;
+		ops->dellink(dev, &list_kill);
+		unregister_netdevice_many(&list_kill);
+    ...
+}
 
-Neither counter is incremented anywhere today, so rx_errors does not
-change in practice. Once the datapath starts incrementing csum_errors,
-would those counts then be missing from every uAPI?
+For ipvlan, the dellink callback is ipvlan_link_delete(), which calls
+__ipvlan_link_delete(). Neither function restores port->flags. When
+port->count > 1, the shared port survives with the flags from the failed
+request.
 
-This rx_errors change is unrelated to the retry loop change. Could it be
-split into its own patch, or sent together with the qstats support it
-refers to?
+The IFLA_MASTER failure is easy to trigger. A new ipvlan has no master
+upper device, so do_set_master() goes straight to the ifindex lookup. That
+returns -EINVAL for a nonexistent ifindex, or -EOPNOTSUPP for a device
+without ndo_add_slave, such as lo.
 
-[ ... ]
+For example, with ipv1 on eth0 in bridge mode, this command fails but
+leaves ipv1 in private mode:
+
+  ip link add link eth0 name ipv2 master lo type ipvlan mode l2 private
+
+The port->mode change made by ipvlan_set_port_mode() also persists on this
+path. Moving the assignment within ipvlan_link_new() cannot cover this
+case.
+
+Would this need port state to be saved and restored across the whole
+rtnl transaction, for example by restoring it from dellink when creation
+is rolled back?
+
+>  	mutex_lock(&port->pnodes_lock);
+>  	list_add_tail_rcu(&ipvlan->pnode, &port->ipvlans);
+>  	mutex_unlock(&port->pnodes_lock);
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794467919.git.gongfan1%40huawei.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112064821.85624-1-sunwenbo%40cmss.chinamobile.com
