@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830838;
-	b=LjPAiEMifZhMn73Er807XyFC91goZH+dGORsvjuXayWHVNoI/L8r4TAJyQAmFOlUDwiN
-	 vkywFg55yJwydXJ1We3XohLVlJ0Xca70FaghNi1gGhdeBAnWCegTVjVInFOCi6n0kJ4DG
-	 i8w2C1Jb25MYFGYhmPxHNBApE8Jiq6nLEkBEe5x/2anRWAwBNw+WD6y0CR0LcjziHhV2v
-	 gumdngDP2UgtILQVrqKDBAQQ7wDgwm4Yd4gxphXvfCIoJkRrJ0DYZKb0QJc/W1+uOrxF8
-	 iHZvO+VTz1Y9B/+lh/05MRdzL8mOPvnsBXxGFNf7HracybigCacd2XKx2iLnA227OsA==
+	t=1794830835;
+	b=L1M/ApCqSU7KPfvh5M+JIy2mCXbQREv2fKqwmwk9Xx8UHMZ7gxa0oXYXKaYkHhr/o7iL
+	 dc/m9UZi6FMCfMmmXOE+XeKcdnGfJ1Yn4jYHJCwVkuKIwzsJ5Cq/OKyVIPD03ic1HGqO/
+	 Kl3DcEVVvZtzGa0mxCXhIWDvvDF2Y/xyukkLDjQRunypPTZltjoJ8AlENFfMHW1mU5kcE
+	 XAO/Egwb4dZJA6lPTFh4JXXuPcrTVHWVHmSZz7Ti02p/u87C3LI7aH5t2VFXvbygcxxOS
+	 Hj/E2+hSrE8dcFHbnD+3THVMrpgPIYSRHHSFmsrYBRL/4uS8T0DiEUSdURE9Z/S2FMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830835;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VQ9fMu9NMp/tbco4p1dhzyKR+F65QW6o/JsPZ/GtUjw=;
-	b=RjVQIGd7V1YPFrw47atL/aqKiqkyejQy9Cu/CCH7X/Rv+yun45e0cBewbKG65ugX8dcY
-	 4pGLHyyemXSeBBpI1G+WWd4DXXRUG6SMhxCc1gxcdBFiatD8zu+nJSu3bNm48oQLO9R6d
-	 JqQsSGfVj1AR4d3c+z+BZUsEpiCCPChs/xgf45tvOOfun3J/nD1VHI8PMf9FJOjgZOuET
-	 dDNqW7RSODlf4lwZjl2B9JG2Y8VQsd1K+RVIgHPAFqlaROtENZKMg25+Bf0F35DGPuuW+
-	 99u/Iw/2pfqOqc9H32ypErpANUbDhO1U8BWnJqQAXggrZRpeQRZFcYiG3G4Vx6e9V+w==
+	bh=YTgCfMhAtura+nyFnS5QD3/WgVT4AUiTNomC6btACpw=;
+	b=2bXNSrcx8qE/ma0vSylRENardgGFBjats9sS1xoDqGpKmLhudHMTFyDnP/l60NKFM79o
+	 aDxlNJcA3bQlsHWSNFfJNWQdCWP8YzILSDAtrXScR9lh2zCYjbvE+TxVjsIdnJtoMEy6v
+	 C1nZbOz007y77dH4Vrf2igA174HNJC9TxzphVvrOlMc2oeLYXQg0JVZ/MtAvUdZXL3fPE
+	 Bd++aEdtxenMwFtgeJ/Lxa1TjF5fqerTCUj+tlAbxgfdABG1pAW7kNwnssUMrCrnfg1yh
+	 QgkaHmVhnl4J525pr9S+caPU7I23+0CFlKvWYln8AOyvLP7XJ8MHnBUEDLa2o1bM4ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=erOipV6p;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ykvNzgEi;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C415606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:07:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C415606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFAA4606A331
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:07:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFAA4606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=erOipV6p
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1438d9363fbso1597490c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:07:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ykvNzgEi
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so3730896c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:07:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794830837; x=1795435637; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794830834; x=1795435634; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VQ9fMu9NMp/tbco4p1dhzyKR+F65QW6o/JsPZ/GtUjw=;
-        b=erOipV6pLuuVWDPxlwozZpo3CWMAkKjgJtdW9SaFoRLOVdIyvsDCGXICfmTS5F00kf
-         ggjOAxV1QekxIaYPspg9OXt5baNILf3bPITlKwlTcujsXLanNrJosaXJDBX5zCtS1CCl
-         z3N+AuEYv1esxmHujjJszcVlLHiIfhvai7VAzo1aVkOwCUEAjp/3P+8zX73+UhDlu01b
-         4LqTv5cmkz3opF6GJwhvgIDpOwi4M6Mv7DOu8iWF/p0dU+gMTpOosaWn2vVszvXQjwKb
-         Y80VZ7NWYOd4Fj519/jgqrq4mT1oqXvfYBy3vNQCFkoiBa6BxUxlKXDvUpbJyHylKY7f
-         byRQ==
+        bh=YTgCfMhAtura+nyFnS5QD3/WgVT4AUiTNomC6btACpw=;
+        b=ykvNzgEiJ5q0JKeVEZZqNRc0lE639nRlALND3/BRGCL8lxABCc4zBZh+ojT1Bpe3QX
+         0lsyl5sjFVvlwA2EYhY+Se+DV6rOPPPG1uM22uGfBZ6rWneUcgRDp9zjlWzI4PQD3qXf
+         VRO71udgkwhGaBA7fk7X1yuZW5/Xa0fM0ZjAZkcRC9c1PBRaYiCceAvsrbwbOHTh5NRj
+         NrljSQDO/I2RoX/oUPm6GiGrkYC1cs7IvbgB4gYXDAcsO/hqqrJ9Muq+tI1WvjJXAaJy
+         J+x+iE7jxVUultENc2WHPjfooAAmcCUATIKabY4ZQCHxnPSZOqVx/u/luhUdWwCHLFCr
+         yHrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794830837; x=1795435637;
+        d=1e100.net; s=20260707; t=1794830834; x=1795435634;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VQ9fMu9NMp/tbco4p1dhzyKR+F65QW6o/JsPZ/GtUjw=;
-        b=X/gM+EKYDvFSeTOPAeLkzKAbI4P/kOFuPZXdZ1+ImJPjzRGeB1E4EzXIhtYJ4ZMA+q
-         +8EIKWV8bVXdob/tG6LSlT8Pn8TF7++AJNvgsKNjS7DX2b+HNqkaY1SqSgumXOvw/ZVI
-         Nk97kCwQ2O0/lRTJCse8YJF0zrwmJEbXXzH6BYOgaCax9AD5+6HOIqudacVFXbI9Mmc6
-         rvnCC76GrzANpbqL1oD3b6+nxm/GxH0b0IronF3hfH7Xn+W43rvpCYu+Qx/Abb7UbQdm
-         YgFXm11en+GzBa5/0/rhXPivei5Th6JJKIvvNR/luPv0RApIATFgO1ju36XPPfrYwdQl
-         acvg==
-X-Forwarded-Encrypted: i=1; AL+hErGGcc5i8Huesqm32xBNuW06BhFtV+NXWDYRuTkuX2zof7gekJKKrP5BBkaDUjyBngYIna8Xog68tqijTTo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CogPWE++pbmRJaEiyAdvVQAP/QqWh8k81727IHGRP331M0fto
-	7uQseylUSAUWlz63BDK9Uhx3kgXH3Ax89mfAaMhr3UDDKKTds+BOkOFq
-X-Gm-Gg: AYBFou3lrQmFh0Fenp8ZUsE/EyWyhjP9DkH1fXKg57ZJFjofD6DFRY5kLaQLiJ/+hDV
-	XVf47fUaAcx8+9l+EMkvl8hq46ydaw3PMqL11qUzmEPOBIJfE3g6Zrn+NRsyenXb2IV/WqfSIey
-	0oXoHqiHz6G/ZI5YEvRmRt8k/OML3RsW7VlKTiwgNbHPWbJCbXhFhlAuKI2hRd0gbIEU8jUyd/R
-	VtENeuGlTg7cGZ86v3C9NjrOSfKTS163jp9qdCtXEBi6rrYUIfuK/GJIGLCfXJ7GMfJzhUVaxq6
-	DhcsYMMv+yFqCFKAC88+fOqEYVwiERZartC+7d1ZWMfwZP+H2rvY8m2FLSBNLQ0HAz3upuaHiJi
-	uuGPXLRz+uwag4YX+3p8T21UihQx7JPFjiH65Fn6WhjZOxJYJk4+b0Qyf6wVvJoJ7K7M+wwwT82
-	etj6frYVlaOlzRxoYZGGVaBM09Tpj+14r9MQv/kcKRVEhC3XaXIcFtFuQyq+9/tj2StVdB2Bx+Q
-	kFLNYe72hAAqk9vM7L/aAiH66ZqgOWZLC4Ghdr550PUkiRRG5+fDaK3A82xus/ckojv4ZKJ1yRD
-	8DT5RHNkc2dM/1AaZDpk7nycx8gQuHQ9QfkZS12MryfImiX7qjPRCJOhn6lgS+OEo8Vp0UqPTA=
+        bh=YTgCfMhAtura+nyFnS5QD3/WgVT4AUiTNomC6btACpw=;
+        b=Unk7KWeX/F7s7aT1vdy8MKE8O3+FMt7wCL0ksSRiDcMw4/JOYVYQakdNt3posdGMaq
+         R3VeG8+AkqmnuHXpQkxxngUXxj2oyUXdT5qPAc/KoTtYq3EuKz4u+5MHgXzjdGpVxJgO
+         kAURxidAm8kgG0BSzQ36M7BemMfHNkd/02lQffPQ+FxR/9Ymy/+4n5A8ho0oWgMBfsFT
+         NtsUeGXFgs60yHVqVN5KhXAjRIgLhFAR6KGcAfFaQgaquKuCQZCuVe9ss21bO5hsOkF7
+         2XthvypjoPQYvgraSjA3WXnI1YjjSZIKwl3DiiH+BgocORIl+nPhQDSiTih/PA/qiPd9
+         du8w==
+X-Forwarded-Encrypted: i=1; AL+hErHDog4CUCVgsyuh1nO+UP6YBYr1XvYNrMMoqUsMfgcCFWEK/5Mv91d/Rvr1SKrmn3j4T1JMm49PDoc3umE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fIZmwiT/dG7W6qNxNTxSRse6nsNYl9Ks/jjN39NICLVe9ZXVc
+	2N5P57CEe75na7caFXl3/+rbz9y8qg9zhAYsCZ54vPGabii7vimgfHLG
+X-Gm-Gg: AYBFou1NvWSRtY8xK6p2wxusJrsFSgpLJCO2yD3BGy77yXcns2/IBF8f6D23+jxmaiI
+	wdHRkrjoov7wde9bPIskaQFnKairvRIb6lK4DBilxhJ/OXvy9VhgWmTr/qZbdZRR6/z77r4qU2z
+	FhdaMbRsX0tCb+suMyenTP9N8tp3tFRQAYSNeW7b0dzEyAFSzQQ3xXcC3UQ8EXN46/yZo0X3SFT
+	9z4PkTCPcwZKNScXZ49FMLCiMch3Sq9AqZZawbyS5uDrKRSKU0xwhfIPKsYeEYxChXDM4MgcuEg
+	GPc2P4muQH9340JBizJ98+lIcaV7A6dCGYy5f92qVDPzQwypnzbsbVmoeKsu+I2lHBwRpY+qFJI
+	ylE2QCLID//JjMCZH8bU8cP6FmveAivCr76uAvrL+TTYVbQEP9asADymNLbYPx3fM7JXmsrypcP
+	ty4h3AmyWk4bZMVPuXoE2F9IUJxMxtig2BD27mOLkgFp6uktZny9FpxP+vemOXOXVVx0FEjf2DY
+	O86SqIRjUwkvwfqMHP8jo8KqZimpWxdgydUsQdYIq0O1vzxkZMl4yUaBOQrRIwNz7B8BP2ZmZOg
+	8yFT2/LPCLSyT9vyrS9cNUUYwHvxh92+7GK5McuaeLoUoLaO1j7QA38wi6HdYBscq7hhlbRyCA=
 	=
-X-Received: by 2002:a05:701a:844c:20b0:19d:233:989d with SMTP id a92af1059eb24-1b5030ad3bdmr9029261c88.14.1794830837228;
-        Mon, 16 Nov 2026 04:07:17 -0800 (PST)
+X-Received: by 2002:a05:7022:926:b0:1b5:2bcb:8691 with SMTP id a92af1059eb24-1b52bcb86d6mr4763177c88.42.1794830833599;
+        Mon, 16 Nov 2026 04:07:13 -0800 (PST)
 Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319d40asm32146157c88.11.2026.11.16.04.07.14
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319d40asm32146157c88.11.2026.11.16.04.07.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:07:16 -0800 (PST)
+        Mon, 16 Nov 2026 04:07:13 -0800 (PST)
 From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -89,9 +89,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH 3/3] media: atomisp: Remove unused hmm_flush()
-Date: Mon, 16 Nov 2026 12:06:58 +0000
-Message-ID: <20261116120703.6681-3-chaulagainavishek14@gmail.com>
+Subject: [PATCH 2/3] media: atomisp: Remove unused get_sp_code_addr()
+Date: Mon, 16 Nov 2026 12:06:57 +0000
+Message-ID: <20261116120703.6681-2-chaulagainavishek14@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116120703.6681-1-chaulagainavishek14@gmail.com>
 References: <20261116120703.6681-1-chaulagainavishek14@gmail.com>
@@ -106,43 +106,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hmm_flush() has no callers anywhere in the tree. Remove the
+get_sp_code_addr() has no callers anywhere in the tree. Remove the
 unused function and its declaration.
 
 Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
 ---
- drivers/staging/media/atomisp/include/hmm/hmm.h | 1 -
- drivers/staging/media/atomisp/pci/hmm/hmm.c     | 5 -----
+ .../atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h     | 1 -
+ .../staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c    | 5 -----
  2 files changed, 6 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/include/hmm/hmm.h b/drivers/staging/media/atomisp/include/hmm/hmm.h
-index a7aef27f5..545bb52c5 100644
---- a/drivers/staging/media/atomisp/include/hmm/hmm.h
-+++ b/drivers/staging/media/atomisp/include/hmm/hmm.h
-@@ -32,7 +32,6 @@ void hmm_free(ia_css_ptr ptr);
- int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes);
- int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes);
- int hmm_set(ia_css_ptr virt, int c, unsigned int bytes);
--int hmm_flush(ia_css_ptr virt, unsigned int bytes);
+diff --git a/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h b/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h
+index 3cd69284f..e00308818 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h
++++ b/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h
+@@ -26,7 +26,6 @@ typedef struct {
+ } ia_css_spctrl_cfg;
  
- /*
-  * get kernel memory physical address from ISP virtual address.
-diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm.c b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-index f998b57f9..f9abb1618 100644
---- a/drivers/staging/media/atomisp/pci/hmm/hmm.c
-+++ b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-@@ -263,11 +263,6 @@ int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes)
+ /* Get the code addr in DDR of SP */
+-ia_css_ptr get_sp_code_addr(sp_ID_t  sp_id);
+ 
+ /* ! Load firmware on to specfied SP
+ */
+diff --git a/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c b/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c
+index 78f00f07b..49b986351 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c
++++ b/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c
+@@ -104,11 +104,6 @@ void sh_css_spctrl_reload_fw(sp_ID_t sp_id)
+ 	spctrl_loaded[sp_id] = true;
  }
  
- /* Flush hmm data from the data cache */
--int hmm_flush(ia_css_ptr virt, unsigned int bytes)
+-ia_css_ptr get_sp_code_addr(sp_ID_t  sp_id)
 -{
--	return load_and_flush(virt, NULL, bytes);
+-	return spctrl_cofig_info[sp_id].code_addr;
 -}
 -
- /* Write function in ISP memory management */
- int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes)
+ int ia_css_spctrl_unload_fw(sp_ID_t sp_id)
  {
+ 	if ((sp_id >= N_SP_ID) || ((sp_id < N_SP_ID) && (!spctrl_loaded[sp_id])))
 -- 
 2.43.0
 
