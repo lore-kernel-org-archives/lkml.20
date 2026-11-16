@@ -1,72 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827936;
-	b=ktOQBu6RxbwHtU/OubD+VqDMUYjO8kdwZ3hGw815RqGqobMa6j180laj+BQRCBJ3x1ey
-	 leRIXxmSQ0UFCkd/zmJ23RDuEiyf9YPDpkNL9MK6pq4vSqyb4qjIpmrsuXuwpJOyfYTGP
-	 osD5iNtPsiReorlI32ILRuIxU0Jqft5C4K0yxh83OimRZsl0E9+MFgK1i6Pl4GxNP3Laj
-	 ADaQG9llEcum3uclVxiZddfC+jUhdYLTnPv1yoeXM6eNPAgKzzTD9wn0EgobCm0piBupr
-	 2/F2h+Wz2W8GNf2QdHqNeqla3qCIZjpO9LCnI582cDWc40nFaTdCBvzwYTG8Yz2wujA==
+	t=1794827938;
+	b=ptySJy5U3hB+zLSBWlSWrewSEK+en3eDR8dxxQXgkQxzMadxFCrW0ua6Z2aa02CZm9YW
+	 pzUjeeFWZvwBCerXJ3IhNWJn03EI0YAvq7PQl4L5uAzUm31f2MDHB14WqhtY359gF60Ls
+	 z04THH/he0sqkrxkJ+6p970+Z/N8YZUrT5Ti1cAzo+v1WxKjHfjINQElfKJgc/ZzRd/Nq
+	 r29pc/ULSPz0wblClqCheYRQh3kDFAAl9ZB4/R1ivSU7glC5Y5+/7YNvMeBlrq0WPVYwq
+	 nqd19FCwGYa4gZ2AxE6Ba6u0vB+DxMRv9YrFBoYG/zUMyO8J76hUt1TJJBpoSpwKFGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827936;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=dktc9lc+Bf7CsFmPizG4GZLduM0R6qpdkcP/3gu+EEE=;
-	b=vHuQ03S/v58WWCsyURzmQkyuNp6m/fFT5YdyPNnCRc64cHC+dDgbGnqyTGZtRRaNJlLK
-	 e23zCr8563OrXhij9oe+mK4mR2jzSktJL1HD9uLj7FULR9ebem6T3kEz1x3Y3JV6Nka5G
-	 LsP7tqMgKyTL9LlArg9u/7z5nOxxPfnmGmIM5q/yoQgl51087BzkqyvWOxzuaG8OfMFym
-	 qXajeOf1UQ7qtKnPNs1V+OlCgQJYxr5VvIu0xutjsPZHYtBgbyxQ38257U1DZr2H4PlFc
-	 UXewhRJTml8ajoaWZJC83Gw0THCP682SueX932uC8AkoJJ7wSIQddiylxHOoQSIkaXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827938;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=P/CRFemaXndNEM33d16ggcxdjl+Ibzhkj3L2X3afg1U=;
+	b=ni7wMJEL+seOr2W9lOPbnOjFGxTKmLz2E4vj/UqcPA28tfoqrLQbwZewDL47Hyunr0Oj
+	 mofS96CLc93xdGpaGUaAgvR5xcqWTrJ7n9VNQ6Gf+ogOhFLLPaojZIcCEz3sjH1sR1GUT
+	 RbY+UU0wtcbpqRWaTaSTpgrhJU+EYfvsGzIlyEb8WNYvOSNphRx98no+0c5P74M74fl2c
+	 dM5ozs/bSWYmF/mtuK9tfDzGAKKZNzM7XTxmZoT3kz9WW4Qn2IAhGMactJWAd3qySZzKQ
+	 JPC5CeKlQobgVODUt22U6PRMTxpw9wbetLm7PCocBm72HNOBuYb+1SQlOrxVR6IiT5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SwYez2F7;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HipKgwAh;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5AD606FD9F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:18:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD5AD606FD9F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D98A6070712;
+	Mon, 16 Nov 2026 11:18:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D98A6070712
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SwYez2F7
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 517E61A168C;
-	Mon, 16 Nov 2026 11:18:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E2666023F;
-	Mon, 16 Nov 2026 11:18:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D9F011BC00CB;
-	Mon, 16 Nov 2026 12:18:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794827926; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dktc9lc+Bf7CsFmPizG4GZLduM0R6qpdkcP/3gu+EEE=;
-	b=SwYez2F7X4olubYZ3QgDwgCQFJA25xgFhJqRhpBSP4o6vAQJswZtzhTlgXVima26nl2ujJ
-	hdgAaKRrYWYUnlp6gQ11CuZdQ2rpg3BhD5TtbJEoPhAkoXwFCxGgNwXrq/2UnLSWYe+Ne/
-	ZdUUFg7kM/khXPCOafpLTGx13V/7FWyAS4kFbtKk2C1fC0uG6EFnUFn9f2bBQ6CMgQvaFM
-	Z8EC6PAXcds7g/kDLUa1R9IyqC1KTXQp/ECjcJuKgeb0Q+MTFl0bsMl+Y5Z6WCW02/JuI0
-	XFLJ+f64DgdLdet2hlBlz3NqBk+2j5PfkODrnsoio3QrjUkmaroJLsvcIQjD6g==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
-References: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
-Subject: Re: [PATCH] drm/bridge: fsl-ldb: Remove panel naming and use
- scoped device_node cleanup
-Message-Id: <179482792078.118378.10625483248086042386.b4-ty@b4>
-Date: Mon, 16 Nov 2026 12:18:40 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HipKgwAh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794827938; x=1826363938;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6EJ1ZqmTmH8fJTuJbmT+hxkwuFML9xxmKKLG6umMngU=;
+  b=HipKgwAhn/SUBuPLId7ZzF/wd6Ee25b1CitHVeTKL/2ymBGIn0CTkutg
+   6r8+SR44nkZfeLqLhaGsDoFsVTBZwMiUmP2/JnSRfd4/OiZZ/8QqWeAqD
+   1zv146N5xqXs9YuXNb2I/TFDQpEYLhFTmJJ8F30X1EW4HcRJC6hB26sc4
+   voyyyMWFqEjOWd9x7g19V2cz6VECD3rH6FBbzW7pNcsyhiEU1ITJpk9zT
+   L3sG+0wFbNkGJDej2BXPCBQaqKce57XqooTmc2EZboEKAJ8PIQE6XUpiX
+   tnXlQ7srCdIwuQN+qIb+0FK9I40/NVugKxSq6lXI3TVPOytG4M/C8J+e8
+   g==;
+X-CSE-ConnectionGUID: QyzCiYCuQrS3kIn4fiYWUQ==
+X-CSE-MsgGUID: hKY7pJpiT5uXgBFnv8MooA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3463711"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3463711"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:18:57 -0800
+X-CSE-ConnectionGUID: Jf2Zmy6uRC2W/wveXiTOAA==
+X-CSE-MsgGUID: rdsZ+U5ARAWRONBulXfw9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9657294"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:18:55 -0800
+Date: Mon, 16 Nov 2026 13:18:53 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Stuart Hayes <stuart.w.hayes@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Doug Warzecha <Douglas_Warzecha@dell.com>,
+	Andrew Morton <akpm@osdl.org>, platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] platform/x86: dell: dcdbas: Suppress bind attributes
+ of the platform driver
+Message-ID: <avrmnVSm2xk3dAT4@ashevche-desk.local>
+References: <cover.1794633178.git.rosenp@gmail.com>
+ <fa93ff8c72aa9f8a12d032dfc8422d77782f2c6d.1794633178.git.rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,34 +84,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fa93ff8c72aa9f8a12d032dfc8422d77782f2c6d.1794633178.git.rosenp@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-On Fri, 30 Oct 2026 16:32:52 +0000, Laurentiu Palcu wrote:
-> The remote endpoint node is not necessarily a panel, so drop the "panel"
-> naming and refer to the next bridge instead. Update the error message
-> printed when no output port is connected.
+On Fri, Nov 13, 2026 at 10:17:55PM -0800, Rosen Penev wrote:
+> The dcdbas platform device is created by the module itself and stays
+> in use for as long as the module is loaded: dell-smbios-smm allocates
+> its SMI buffers against it through dcdbas_smi_alloc() whether or not
+> the driver is bound.
 > 
-> While at it, convert the device_node handling in fsl_ldb_probe() to use
-> the __free(device_node) cleanup helper. Since remote1 and remote2 now
-> stay valid until the function returns, pass the selected one directly to
-> of_drm_find_and_get_bridge() and drop the extra panel_node reference.
-> Do the same for the dual-link port1/port2 lookups.
+> Binding the driver again after an unbind also leaks state:
+> dcdbas_check_wsmt() runs a second time and memremap()s the firmware
+> SMI buffer again, overwriting bios_buffer and leaking the previous
+> mapping.
 > 
-> [...]
+> Unbinding or rebinding the device by hand is not useful, so hide the
+> bind and unbind files.
 
-Applied, thanks!
+Sounds like Fixes tag is needed.
 
-[1/1] drm/bridge: fsl-ldb: Remove panel naming and use scoped device_node cleanup
-      commit: 16c31b960788c1cee1bf9e8b115cda8b4643cb39
-
-Best regards,
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+With Best Regards,
+Andy Shevchenko
 
 
