@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837055;
-	b=QRIrixVXGRFOS0vK7pFr7R7jkYxlSAURx5l543u27GjgCko289LodRbQdDmdX0dZHXpC
-	 yawRr7aArjQrEE1IzJgI7zzLhlAqj89oqlQZlX78dbBgMs1/XmMIfOxNvFYcQgT0JACob
-	 XpIZsNpyj8w5OFhecyD+S0FZQVNmT+OnpBa6I9YBbM9JCBMwd2QX/xy9JQMfxCR3lgjTv
-	 hhSS6USDYSgEKOBGS0TiZgfu8OSHQ9AcECw9i1J7tBIXZi4DC0SnuBr5zo75y4EKKU/+/
-	 ibpYITsG3IjywbYs2hqxDWLodnieWaI7OKltOS0NKWZxXE34RJdCk0IdJQ4VNeTMo3w==
+	t=1794837066;
+	b=jZczaftq0KvBYsQ1pPp42B0tQcMHTbFRC21XuPv8+slU/T/ujcl0hyhhfo8o6WCskMn5
+	 981XFIhNN214kwMRpkRsRR6rjDEuWfEOr69bGW7O8IBqUjvsVP9OpXfdkI2i7ImqPP7rW
+	 9KyMtKIjg4gkfAQpjZZBl3L7kzsl8uNJmyhcnmIw4Fnn23bDXBFj5/8WltGR/QeXLkF+0
+	 +pFC090vinQhFaRIx/Vm5dX8qjHdFGqHAUELyJhb17kvsK6o2TK9PeIiApnMn+j8ZSlNX
+	 GFb0iTcrPT5SYGUIBfRyTDkk4hHz19rJQU7N0DpRKUbXGdakbyLyVgrC6SL72ONVuEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837055;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837066;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=8b871WDqcJhHO7oSApD+GPocLTUTSN7bR7eaowyl3bY=;
-	b=tAGc4aX35L3XEUQVuGi2rMZFDaD1w7TmHFzeJjo+nXoeLE8TR3JLhBehinycDPBNeTXV
-	 Wf1FFVaVHy17/S3v1HIuZfSvsCGDr3lhlA6OuQnK/nZaJVYFPwIXO+fgJPSJB4oA9oEDh
-	 cuXPA2PoqOePCDmtQmDryQ0eAHZW/gnbqCK2OcQwHwWa2CVyDWirSW+DyFJSTP2ynO+0j
-	 2YOm2Fwc9aJ5JEbmosV/Frj6PsLQHXBsNj7tciuRkHAncX5HDQ0iht6NC7aHIdhX2dtcr
-	 nw+lG+eJ9GaalFPq8f2g4ZSlELS70yoxCar5kGJk6QRKNPFB4vmuhBgxoLZbCYPoHaA==
+	bh=ZnXckJbac3FziR6I6cR9lSeHW9H/UJdnrWVc+aLxiHk=;
+	b=NdVR3/RI2x/2iETPAxleTD6+l3IJjqLF0VOMFgOZ0D/drMeECtWNGqUBT+Q0oZwXpuOF
+	 lellt8tGKSxnSU+pQSfzxnnoUbnvRLx+1fclmvErs5wsRWxutAbMtxtHPLTuvJUCYFL+b
+	 I8cBWoqjTpdlydQ/194sPs15Bx5+Vz2Z0toMK0rRIgQSjwqplKSk7KVDB3PpRMookT6L7
+	 b27BOn3RdAiwGES3u2m8fnSm7udrpp8/rDZbwNCPWfqaeN/jwsvLBSxqvdH7ceR3J3BX/
+	 6b7kqiSaGMpF8iMhCyeufeMHGM+81FDlaC6pemPybaAlT5iPNCZ/JMslMyqNOai6GxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gu3q8FpB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bF2VkZ1n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCB26085932;
-	Mon, 16 Nov 2026 13:50:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B449606B233;
+	Mon, 16 Nov 2026 13:51:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gu3q8FpB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CCE81F0093B;
-	Mon, 16 Nov 2026 13:50:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bF2VkZ1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFA61F000C8;
+	Mon, 16 Nov 2026 13:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837055;
-	bh=8b871WDqcJhHO7oSApD+GPocLTUTSN7bR7eaowyl3bY=;
+	s=k20260515; t=1794837066;
+	bh=ZnXckJbac3FziR6I6cR9lSeHW9H/UJdnrWVc+aLxiHk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gu3q8FpBb025ztZ0rHT/RNpY2eTdaRrJnLF1yqiA4ztz8bfaOLlY6GU5vsDTKCOFF
-	 8Bgo/YMSMsC0O7uwy06fIeH6oaxKTBpsT3qdTA5O6FG7HMkNUHUNcL+QrI0SmPttDq
-	 QI5vqk5b7v2Xg9TEsd3sRDqro70KYqmGI9zQ/xn/+zPjnVqsCsn647/mKDd/RaTODt
-	 fxPH6h8MQGHEvmICKDq1JllTD55YyM81ean5EeAMN9KrDOzooPN0lXMhrZPRZKQhrc
-	 7jvAMSdJDK8ayy62p1w+uaQdrvYejFWs4/XjH0UJdaq+Qxqiiomh/45deV+ppg/HNQ
-	 scnV+1+A1LM6g==
-Subject: Re: [PATCH net v2] ipvlan: update port flags only after
- ipvlan_set_port_mode() succeeds
+	b=bF2VkZ1nl+c4EDLfJSPZjk20hbd9Ssco5dqdyHTvGVoDL3A9LGKn+Fmiz/DWnBtWS
+	 9EdP80Ba3utlJHDcoADEjCxGhDD6v1yFEGWrvaoRMiR5pEZUPBIk3FFqdBt4ftZteV
+	 X0WXh5KfctE12bCNUvqGrNYUBt+b9ER3BggYHIz5U9VENqBVVKh+Z86FNTVEL3IySH
+	 zjvqoR84MuXUd+G7adkk1DYURA+YH2eI67cNOHtYYrf1wgFECZNVHODDxAczCBqiuC
+	 7bEGAG/jOS2hyCsr2JLo6Ye/UQ5GbS/TvKVNhb6a5s7eeNOmipeth1q7jGPAa06Q79
+	 TV/qRsuayJqfw==
+Subject: Re: [PATCH net-next v03 4/4] hinic3: Ensure that the value of max_qps
+ is not changed
 From: netdev-bot+sashiko@kernel.org
-To: sunwenbo@cmss.chinamobile.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, hangbin.liu@linux.dev, kuniyu@google.com,
- maheshb@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- 1342116488@qq.com
-Date: Mon, 16 Nov 2026 13:50:54 +0000
-Message-ID: <179483705411.3136.2665029224845053782@kernel.org>
-In-Reply-To: <20261112064821.85624-1-sunwenbo@cmss.chinamobile.com>
-References: <20261112064821.85624-1-sunwenbo@cmss.chinamobile.com>
-X-sashiko-severity: High
+To: gongfan1@huawei.com
+Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
+ maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
+ dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
+ larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ zhoushuai28@huawei.com, wulike1@huawei.com
+Date: Mon, 16 Nov 2026 13:51:04 +0000
+Message-ID: <179483706434.3136.8532436488402631937@kernel.org>
+In-Reply-To: <75d0140471d5f48801d6ad565ccd1829f337e35d.1794467919.git.gongfan1@huawei.com>
+References: <75d0140471d5f48801d6ad565ccd1829f337e35d.1794467919.git.gongfan1@huawei.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,7 +72,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,94 +80,109 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The fix is incomplete.
+- [Medium] The patch is presented as a bug fix (it carries `Fixes:
+  1f3838b84a63 ("hinic3: Add Rss function")`), but I could not find any…
 
 --
 
-ipvlan: update port flags only after ipvlan_set_port_mode() succeeds
+hinic3: Ensure that the value of max_qps is not changed
 
-This patch moves the write of the shared port->flags in ipvlan_link_new()
-to after ipvlan_set_port_mode() has succeeded. The goal is that a failed
-creation of a second ipvlan on an active port does not change the flags
-of the ipvlan interfaces that already exist.
+This patch stops hinic3_try_to_enable_rss() from setting nic_dev->max_qps
+to 1 when RSS is unsupported or its setup fails. On those paths it now
+sets nic_dev->q_params.num_qps to 1 directly. It also changes the check
+on the function's queue count from "<= 1" to "== 1".
 
-> diff --git a/drivers/net/ipvlan/ipvlan_main.c b/drivers/net/ipvlan/ipvlan_main.c
-> index f29864db662aa..5732b167c5b3c 100644
-> --- a/drivers/net/ipvlan/ipvlan_main.c
-> +++ b/drivers/net/ipvlan/ipvlan_main.c
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c
+> index 25db74d8c7ddb..75dc0c044071c 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c
+> @@ -307,15 +307,13 @@ void hinic3_try_to_enable_rss(struct net_device *netdev)
+>  	int err;
+>  
+>  	nic_dev->max_qps = hinic3_func_max_qnum(hwdev);
+> -	if (nic_dev->max_qps <= 1 ||
+> +	if (nic_dev->max_qps == 1 ||
+>  	    !hinic3_test_support(nic_dev, HINIC3_NIC_F_RSS))
+>  		goto err_reset_q_params;
+>  
+>  	err = alloc_rss_resource(netdev);
+> -	if (err) {
+> -		nic_dev->max_qps = 1;
+> +	if (err)
+>  		goto err_reset_q_params;
+> -	}
 
 [ ... ]
 
-> @@ -691,6 +685,12 @@ int ipvlan_link_new(struct net_device *dev, struct rtnl_newlink_params *params,
->  	if (err)
->  		goto unlink_netdev;
+> @@ -332,5 +329,5 @@ void hinic3_try_to_enable_rss(struct net_device *netdev)
 >  
-> +	/* Flags are per port and latest update overrides. User has
-> +	 * to be consistent in setting it just like the mode attribute.
-> +	 */
-> +	if (data && data[IFLA_IPVLAN_FLAGS])
-> +		port->flags = nla_get_u16(data[IFLA_IPVLAN_FLAGS]);
-> +
+>  err_reset_q_params:
+>  	clear_bit(HINIC3_RSS_ENABLE, &nic_dev->flags);
+> -	nic_dev->q_params.num_qps = nic_dev->max_qps;
+> +	nic_dev->q_params.num_qps = 1;
+>  }
 
-[Severity: High]
-Can a failed RTM_NEWLINK still overwrite the shared port->flags here?
+[Severity: Medium]
+Which bug does this fix? The patch has a Fixes: tag for 1f3838b84a63
+("hinic3: Add Rss function"), but I couldn't find a reachable problem
+in the old fallback.
+
+The only caller of hinic3_try_to_enable_rss() is hinic3_sw_init(). Every
+allocation sized from nic_dev->max_qps happens after that call, so the
+value is already final when it is used:
+
+hinic3_sw_init()
+    hinic3_try_to_enable_rss()        <- max_qps settled here
+hinic3_alloc_txrxqs()
+    hinic3_alloc_txqs()               <- num_txqs = nic_dev->max_qps
+    hinic3_alloc_rxqs()               <- num_rxqs = nic_dev->max_qps
+    hinic3_init_intr_coalesce()
+ndo_open
+    hinic3_setup_num_qps()            <- qps_msix_entries sized by max_qps
+
+With the old code, an RSS failure gave a consistent single-queue setup:
+max_qps = 1, one txq and one rxq, one coalesce entry, one msix entry and
+num_qps = 1.
 
 The commit message says:
 
-  "Defer updating port->flags until after ipvlan_set_port_mode() succeeds,
-  after which ipvlan_link_new() has no remaining failure paths."
+  "However, the value of nic_dev->q_params.num_qps can be dynamically
+  changed."
 
-When ipvlan_link_new() returns 0, the creation is not yet committed. The
-caller, rtnl_newlink_create(), can still fail after ops->newlink():
+Does that hold at this commit? hinic3_config_num_qps() already forces a
+single queue when RSS is off:
 
-net/core/rtnetlink.c:rtnl_newlink_create() {
-    ...
-	err = rtnl_configure_link(dev, ifm, portid, nlh);
-	if (err < 0)
-		goto out_unregister;
-	if (tb[IFLA_MASTER]) {
-		netdev_lock_ops(dev);
-		err = do_set_master(dev, nla_get_u32(tb[IFLA_MASTER]), extack);
-		netdev_unlock_ops(dev);
-		if (err)
-			goto out_unregister;
-	}
-    ...
-out_unregister:
-	if (ops->newlink) {
-		LIST_HEAD(list_kill);
+	if (!test_bit(HINIC3_RSS_ENABLE, &nic_dev->flags))
+		q_params->num_qps = 1;
 
-		ops->dellink(dev, &list_kill);
-		unregister_netdevice_many(&list_kill);
-    ...
-}
+The driver also has no ethtool set_channels or set_rxfh callback, so
+nothing can turn RSS on or raise the queue count later.
 
-For ipvlan, the dellink callback is ipvlan_link_delete(), which calls
-__ipvlan_link_delete(). Neither function restores port->flags. When
-port->count > 1, the shared port survives with the flags from the failed
-request.
+The commit message also says:
 
-The IFLA_MASTER failure is easy to trigger. A new ipvlan has no master
-upper device, so do_set_master() goes straight to the ifindex lookup. That
-returns -EINVAL for a nonexistent ifindex, or -EOPNOTSUPP for a device
-without ndo_add_slave, such as lo.
+  "nic_dev->max_qps is used to allocate hardware resources. Therefore,
+  it is assigned the value 1 only when its value is abnormal."
 
-For example, with ipv1 on eth0 in bridge mode, this command fails but
-leaves ipv1 in private mode:
+The diff removes both "nic_dev->max_qps = 1" assignments and adds none,
+so after this patch nothing ever sets max_qps to 1.
 
-  ip link add link eth0 name ipv2 master lo type ipvlan mode l2 private
+On the hardware side, the limit is nic_io->max_qps, which
+hinic3_init_nic_io() sets separately and this function never changed.
+nic_dev->max_qps only sizes software arrays. alloc_etherdev_mq() in
+hinic3_nic_probe() uses its own local max_qps.
 
-The port->mode change made by ipvlan_set_port_mode() also persists on this
-path. Moving the assignment within ipvlan_link_new() cannot cover this
-case.
+The commit message also doesn't mention the "<= 1" to "== 1" change. It
+looks harmless, because max_sqs is computed as
+min(nic_max_sq_id + 1, HINIC3_CFG_MAX_QP) and is always at least 1.
 
-Would this need port state to be saved and restored across the whole
-rtnl transaction, for example by restoring it from dellink when creation
-is rolled back?
+As far as I can tell, the only change in behaviour is on the RSS failure
+path. There, txqs, rxqs, intr_coalesce and qps_msix_entries are now
+sized for the full hardware maximum while the device still runs on one
+queue.
 
->  	mutex_lock(&port->pnodes_lock);
->  	list_add_tail_rcu(&ipvlan->pnode, &port->ipvlans);
->  	mutex_unlock(&port->pnodes_lock);
+Is this meant as a design change rather than a fix? If so, could the
+commit message say so, and could the Fixes: tag be dropped so this
+doesn't get backported to stable?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112064821.85624-1-sunwenbo%40cmss.chinamobile.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794467919.git.gongfan1%40huawei.com
