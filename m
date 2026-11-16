@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824254;
-	b=EHeBwtP03saumMGg33ERLN0fprI1pnEoHniPmiTDbMb+6EiSApTsbSUWOlAN7iZtUfu3
-	 jJ5Ca2u+aQa7hNUDCbl87NP4nQP8JMuNSuFrFIFzX96nNL78yeZwWdYEDajTrhyicL02S
-	 OcSEMPjXPfhrteZJ6hCeMr0BdMIeMcFAKOwRWaVropGEQiNgRp6WpoFHSS5G23/glGRCo
-	 sNT5f+cELDHTZl85KqohngsRQ0gFm0WypbRsL+cyyaVywF2c9gVH2hYtGjxkh5pfwR3L2
-	 s5p/TBGmF8Kr3uAm9ebPdSX6ytTAEiJREIudl7i2HJ1Ca90/GlwF5LbnbYs7jtEEgLQ==
+	t=1794824257;
+	b=3a7b65s3LSOrHHXGrXpnP9NaPQF4ShKFABr/gVPlA0BpyI7cKjruEe+cDpGfwEhotidZ
+	 2fpSU3t3c7FyJV3ZebwmgaoxwsjEODYXVLcPUvW7Q3xCA0b4NJ2TebpRHhvGfTCBwT5GO
+	 q6GtrSKk+IJtm0B3hMWvbRBeh56VOC33LeSM+eyuodqnWuePCoK/j6NTXx+fSwGDwHlFG
+	 POrbgpF+fAhvce27IKuJVtTi7k8xt8VhabDZI385VfTb6ivpNvUo20k4Vccs429hMM5fb
+	 PMmoL/dn8mjedFSVAOoA50+ZesXwEuh87PKIFr1NclqLWfEYegBLos0/1tD1SFsr4Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824254;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824257;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9PM2w9+ZdAbkirqUaelWFEVysP1HxWv35WZ7WYMciGA=;
-	b=3VvPsqwb5L22gvU41e5uvk+Ei6fq6oRsG+XWzGzJFbZOqRPGVAp75Tj+YCkw8vOIWZjO
-	 jx6LOgmGSjwzbECm4VX4GM0hHXhjmx5+/Gulae60wcLKb639Szy5WTLFg9R7OFCrh3IYc
-	 V6YXOEugfDc93uVDPScHMOK8eH6ZtRvGN+jzHu8nksCmbd0H1PNBobTDYi9iakqo8O1ZQ
-	 ZJJJaQBZGzXCHvRK2Ey4z1EznQLKngJl8dLv30ob0joBI3SaFdMy2TkizZDicR4WdD0LW
-	 wRYTb8JF42G2AaJJ//eZxk4Azg3L3W7UYF8xNmKXaNSUa5jDtVdx8CxhW6LQQykmD0Q==
+	bh=8umWhaiFQ7V+7+G3BCNO/4RuSRPm/dj5q+aSYieoro8=;
+	b=0TtwZfs+ZDbvpysHsLr1PqHjOSzlYCsMtkxeAruETdcS9hxzk60eETjsXYS93fODBm5T
+	 zKgxCAhd41YODtZnN6HnaCzWuFxytJ6XSOfbJFwbTTz3jGnir7DC2IGXg6tn4AXN8ryqX
+	 Hnx4my87z+56s6h1yMtAoh+gF1ngT40XuIpC/iU8m63RJ+Wg0HPAEvlOOhm4Sf9DoL9XL
+	 oF6ALdvPwalnJLX+7PZVq3C/H7Go5ePMJznw4SYBa7KUysC85bR6RqKz+J7p/P5zR+y0S
+	 5KIW5XRJCiQAeyAAOzpvuNK6AWmLhH5uRn15f0CT18D1gUivDKTfX+xDBA6wpsJHKVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5XiZSQZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aT1RXjvt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741D0606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9818A606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5XiZSQZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A311F000C4;
-	Mon, 16 Nov 2026 10:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aT1RXjvt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7AA1F000C6;
+	Mon, 16 Nov 2026 10:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824254;
-	bh=9PM2w9+ZdAbkirqUaelWFEVysP1HxWv35WZ7WYMciGA=;
+	s=k20260515; t=1794824257;
+	bh=8umWhaiFQ7V+7+G3BCNO/4RuSRPm/dj5q+aSYieoro8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=O5XiZSQZt2s+r+cnf4ZaD8R6mxfWnBdtpci8bSZl/exOLp5DipAcFCO+rnipJetTW
-	 Lu2KcUpLO6fa6BDSy/a2qCL2jyLeSGg0Ax30vrZLdbJuJNrCLDFaPFXzQAwqd++dEl
-	 7Zwwk41X0j1eDxbedeUn0WQQvidlS1zjlPZaBXOLaoce5wrPF7mlzJeKU3h+wRwaej
-	 Js70AQST+CM7PgphAr7wcvPmWIMwwqJMfQuRjFiwJqCA+7F9V6blJ5jGl1FQQCt0wU
-	 /on8+fN98nU8vwzRPgfuH6S7F5LfYZRYI25iurivW2WbCCa0oS10DuuTE+hrEzlG1H
-	 6LqZOFQJB5IXw==
+	b=aT1RXjvta6T0mSQXKIlxkPFvS8Al4dLlaRLIoxgk8byESLlIj72VeGMYwmQuAuzqu
+	 eDzUV1p56ssZ58Basrr9eqeQhCKoHYDAaU/Y/3+LiLQgdB+u0qYDYZwoYFdoCNCnm3
+	 wl5aTnLINWyhyK5ZqsnSqEioB42WF6R//LSRNRiUirndIDMB01XU6aC5MC9Q53sB1K
+	 cK8+p8mGAqbdzrUDlFywYCTRZElG6ErEI3v5kiWol7njWhfTgtASAQUk+4/ahcw8Ez
+	 SYryzxDl5JDGyQP7HoM/YKPSPpYqjpfjrRUn5xjldaOwbEyjZkTHwo1Bu9wl53sKgm
+	 UrP/N8BY3omNA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:17:18 +0100
-Subject: [PATCH v11 2/9] drm/atomic: Add
- drm_atomic_implements_create_state() helper
+Date: Mon, 16 Nov 2026 11:17:19 +0100
+Subject: [PATCH v11 3/9] drm/atomic: Allow filling a commit with pristine
+ object states
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-reset-state-flag-v11-2-378b3f7bef32@kernel.org>
+Message-Id: <20261116-drm-reset-state-flag-v11-3-378b3f7bef32@kernel.org>
 References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
 In-Reply-To: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -74,92 +74,383 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3638; i=mripard@kernel.org;
- h=from:subject:message-id; bh=RmXHPbjUrR0EibhXpIQxQVKQPswSv0z+XMj4h5ZLCnU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bhjezlJawqo4QdTt2ousf9Zy2SaP2HbIf3Oaf4PFx
- OKUT9G6jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRRYsZG2aYdDJYL53Ic6g5
- I6SgYsHf2vt/5viUsixkmbIgVtLM7a9407nq+zt7WmamTF0qn3eAmbFh5Wo76at1h+aaiPGZx9m
- EeLZP4XbVyvr3mX/fkisSitLPHRjq/2hMlHiz+lTbxJXObbsB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15660; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=SO3nEE4TSmpoEm3FjJDcTIFRXzAKzk23zConT4QMIPY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bhgqe2g+/nQkYlr1N66pbIt31l67uKiDx2jrTovCT
+ /WJeeHpHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi04MY66vK9c9IWUQzTi6J
+ PqlnKHnIIkvpc37q8i1HWU+dVen5seYb72KlJeoavZdTLqskiHPpMTbsn3KWMSLV7e+R748UpzF
+ cXHE4+v+9Xu0C03NCH8R/e0nobf92hdOk4dqaLxUP9vtaH78DAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The atomic reset path will need to create pristine default states from
-scratch for every plane, CRTC, and connector. This requires all of them
-to implement the atomic_create_state hook.
+The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
+commit that brings the entire device back to a pristine state, as if
+no configuration had ever been applied.
 
-Introduce a drm_atomic_implements_create_state() helper that iterates
-over all planes, CRTCs, and connectors and returns whether they all
-provide the hook. Color operations are excluded since they always use
-drm_atomic_helper_colorop_create_state() directly.
+Create drm_atomic_commit_fill_with_defaults() which iterates over all
+CRTCs, planes, connectors, and color operations in the device and
+inserts a fresh default state for each one into the commit. This uses
+the atomic_create_state() hooks rather than atomic_duplicate_state(),
+since atomic_create_state() provides exactly this pristine state on a
+per-object basis.
 
-This will be used both as a precondition before filling a commit with
-default states, and to report the device capability to userspace.
+A lessee only gets the objects of its lease reset, the other ones
+keeping their current state. Partial pipelines aren't supported
+though: detaching a plane or a connector from its CRTC, and disabling
+a CRTC driving them, both need the two sides in the commit, so a lease
+that splits a pipeline is rejected with -ENOENT. validate_lease() is
+expected to keep that from happening, since it requires a lease to
+hold at least a CRTC, a connector and a plane, but it only looks at
+the object types, not at what they are bound to.
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+Part of the state the atomic helpers maintain is only recomputed when
+something changed, which a reset re-applying the same configuration
+doesn't trigger. The CRTC adjusted_mode and the connector best_encoder
+are therefore carried over like a duplicated state would, and the
+CRTCs ask for a zpos normalization.
+
+The color management changes are reported through color_mgmt_changed
+for the same reason: the userspace property handlers only set it when
+a property write changes the value stored in the new state, so neither
+restoring a default nor leaving a property untouched would, even
+though the reset clears whatever is currently programmed.
+
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h     |  2 ++
- 2 files changed, 51 insertions(+)
+ drivers/gpu/drm/drm_atomic.c | 321 +++++++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic.h     |   2 +
+ 2 files changed, 323 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 81591173265d..7a77051096c9 100644
+index 7a77051096c9..43df13aaef1e 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1598,10 +1598,59 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
+@@ -1647,10 +1647,331 @@ bool drm_atomic_implements_create_state(struct drm_device *dev)
  
- 	return drm_priv_to_bridge_state(obj_state);
+ 	return true;
  }
- EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
+ EXPORT_SYMBOL(drm_atomic_implements_create_state);
  
 +/**
-+ * drm_atomic_implements_create_state - check if a device supports creating pristine states
-+ * @dev: DRM device
++ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
++ * @file_priv: DRM file the reset was requested from, or NULL
++ * @commit: atomic commit to fill
 + *
-+ * Check whether every plane, CRTC, and connector in @dev implements the
-+ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
-+ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
-+ * are required to create default states from scratch rather than duplicating
-+ * the current state.
++ * Iterate over all CRTCs, planes, connectors, and color operations in
++ * the device and insert a freshly created default state for each one
++ * into @commit. The states are created through the atomic_create_state()
++ * hooks, producing the same initial state the driver starts with rather
++ * than a copy of the current hardware state.
 + *
-+ * Color operations are not checked because they always use
-+ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
++ * In the default state, all objects are disabled: CRTCs are inactive,
++ * planes are disabled, and connectors are unbound. Driver-specific
++ * properties such as color pipeline settings or max_bpc may carry
++ * non-zero defaults appropriate for basic display output.
++ *
++ * If @file_priv is a lessee, only the CRTCs, planes and connectors part
++ * of its lease are reset, and the other objects keep their current
++ * state. @file_priv is optional: if NULL, it is considered to not hold
++ * any lease, and all objects are reset.
++ *
++ * Partial pipelines aren't supported. Resetting a plane or a connector
++ * detaches it from the CRTC it is bound to, and resetting a CRTC
++ * disables the planes and connectors bound to it, neither of which the
++ * atomic helpers can sort out with only one side of the pair in the
++ * commit. A lease covering a plane or a connector without the CRTC it
++ * is bound to, or a CRTC without all the planes and connectors bound
++ * to it, would thus require reaching outside of it, so the reset is
++ * rejected instead.
++ *
++ * Such a lease shouldn't exist in the first place: validate_lease()
++ * requires a lease to hold at least a CRTC, a connector and a plane,
++ * so leases are meant to describe whole pipelines. It only looks at
++ * the object types though, not at what they are bound to, so the
++ * reset still has to guard against it.
++ *
++ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
++ * needs to bring the device back to a known baseline before applying
++ * userspace property changes on top.
 + *
 + * Returns:
-+ * True if all objects implement atomic_create_state, false otherwise.
++ * 0 on success, -ENOENT if a leased plane or connector is bound to a
++ * CRTC that isn't leased or if the lease was revoked, or a negative
++ * error code on failure.
 + */
-+bool drm_atomic_implements_create_state(struct drm_device *dev)
++int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
++					 struct drm_atomic_commit *commit)
 +{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	struct drm_plane *plane;
++	struct drm_device *dev = commit->dev;
++	struct drm_mode_config *config = &dev->mode_config;
 +	struct drm_crtc *crtc;
++	struct drm_plane *plane, *crtc_plane;
++	struct drm_connector *connector;
++	struct drm_connector_list_iter conn_iter;
++	struct drm_colorop *colorop;
++	int ret;
++
++	drm_WARN_ON(dev, !commit->acquire_ctx);
 +
 +	/*
-+	 * colorops don't have an atomic_create_state hook but
-+	 * drm_atomic_helper_colorop_create_state()
++	 * Private objects are ignored because none have userspace
++	 * properties we might want to reset. atomic_check
++	 * implementations will derive or infer their private obj state
++	 * from the state that will end up being committed anyway.
++	 *
++	 * The CRTCs are handled first because resetting a plane or a
++	 * connector bound to one detaches it, and the atomic helpers
++	 * need that CRTC in the commit to do so.
++	 *
++	 * A lease is always revoked as a whole, so a plane or a
++	 * connector still leased when its loop runs had its CRTC
++	 * leased when the CRTC loop ran. A revocation halfway through
++	 * can thus not leave an object detached from a CRTC that never
++	 * made it into the commit.
++	 *
++	 * The other way around doesn't hold though: a revocation after
++	 * the CRTC loop skips the planes and connectors bound to the
++	 * CRTCs it reset. Since the pristine CRTC states come with
++	 * empty plane and connector masks, neither the atomic helpers
++	 * nor the core checks would notice, and the commit would leave
++	 * those connectors bound to a disabled CRTC. The lease is thus
++	 * checked once more after all the loops ran.
 +	 */
++	drm_for_each_colorop(colorop, dev) {
++		struct drm_colorop_state *colorop_state;
 +
-+	drm_for_each_plane(plane, dev)
-+		if (!plane->funcs->atomic_create_state)
-+			return false;
++		if (!drm_lease_held(file_priv, colorop->plane->base.id))
++			continue;
 +
-+	drm_for_each_crtc(crtc, dev)
-+		if (!crtc->funcs->atomic_create_state)
-+			return false;
++		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++
++		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
++	}
++
++	drm_for_each_crtc(crtc, dev) {
++		struct drm_crtc_state *crtc_state;
++
++		if (!drm_lease_held(file_priv, crtc->base.id))
++			continue;
++
++		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		/*
++		 * The reset disables the CRTC, which the planes enabled on
++		 * it can't stay bound to. Disabling them is only an option
++		 * for the ones the lease covers, so a CRTC driving a plane
++		 * it doesn't is rejected like the other way around.
++		 */
++		drm_for_each_plane_mask(crtc_plane, dev, crtc->state->plane_mask) {
++			if (drm_lease_held(file_priv, crtc_plane->base.id))
++				continue;
++
++			drm_dbg_atomic(dev,
++				       "[CRTC:%d:%s] drives [PLANE:%d:%s], which isn't leased\n",
++				       crtc->base.id, crtc->name,
++				       crtc_plane->base.id, crtc_plane->name);
++			return -ENOENT;
++		}
++
++		crtc_state = crtc->funcs->atomic_create_state(crtc);
++		if (IS_ERR(crtc_state))
++			return PTR_ERR(crtc_state);
++
++		/*
++		 * The userspace property handlers only set
++		 * color_mgmt_changed when a property write changes the
++		 * value stored in the new state. Since the pristine states
++		 * we create here are already set to their default values,
++		 * restoring those defaults wouldn't set the flag, and
++		 * neither would leaving the properties untouched, even
++		 * though the commit clears whatever LUT or CTM is
++		 * currently programmed. Compare with the current state
++		 * so that the drivers reprogram the color management
++		 * hardware.
++		 */
++		crtc_state->color_mgmt_changed =
++			crtc->state->degamma_lut != crtc_state->degamma_lut ||
++			crtc->state->ctm != crtc_state->ctm ||
++			crtc->state->gamma_lut != crtc_state->gamma_lut;
++
++		/*
++		 * adjusted_mode is derived from the mode by the atomic
++		 * helpers rather than set by userspace, and mode_fixup()
++		 * only recomputes it when the mode or the connectors
++		 * changed. A duplicated state carries it over, so nothing
++		 * needs to be recomputed when nothing changes, but the
++		 * pristine states we create here would be left with a
++		 * zeroed adjusted_mode on a CRTC that stays enabled across
++		 * the commit. Carry it over too, so that the drivers and
++		 * the vblank timestamping constants keep seeing the
++		 * timings currently programmed.
++		 */
++		drm_mode_copy(&crtc_state->adjusted_mode,
++			      &crtc->state->adjusted_mode);
++
++		/*
++		 * The planes come back with the default zpos, which the
++		 * atomic helpers only normalize when the planes bound to a
++		 * CRTC or one of their zpos changed. Re-applying the same
++		 * configuration on top of the reset wouldn't trigger
++		 * either, so ask for a normalization explicitly.
++		 */
++		crtc_state->zpos_changed = true;
++
++		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
++	}
++
++	drm_for_each_plane(plane, dev) {
++		struct drm_plane_state *plane_state;
++
++		if (!drm_lease_held(file_priv, plane->base.id))
++			continue;
++
++		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		/*
++		 * The pristine state detaches the plane from the CRTC it
++		 * is enabled on, which the atomic helpers can only sort
++		 * out with that CRTC in the commit. Resetting a plane
++		 * enabled on a CRTC that isn't leased would thus require
++		 * touching an object the lease doesn't cover, so report it
++		 * like any other access outside of the lease.
++		 */
++		if (plane->state->crtc &&
++		    !drm_lease_held(file_priv, plane->state->crtc->base.id)) {
++			drm_dbg_atomic(dev,
++				       "[PLANE:%d:%s] is enabled on [CRTC:%d:%s], which isn't leased\n",
++				       plane->base.id, plane->name,
++				       plane->state->crtc->base.id,
++				       plane->state->crtc->name);
++			return -ENOENT;
++		}
++
++		plane_state = plane->funcs->atomic_create_state(plane);
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
++
++		/*
++		 * Like the CRTC LUTs and CTM above, the pristine state
++		 * comes with no color pipeline, and neither restoring
++		 * that default nor leaving the property untouched sets
++		 * color_mgmt_changed, even though the commit clears the
++		 * pipeline currently programmed. Compare with the current
++		 * state so that the drivers reprogram the color
++		 * management hardware.
++		 */
++		plane_state->color_mgmt_changed =
++			plane->state->color_pipeline != plane_state->color_pipeline;
++
++		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
++	}
++
++	ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
++	if (ret)
++		return ret;
 +
 +	drm_connector_list_iter_begin(dev, &conn_iter);
 +	drm_for_each_connector_iter(connector, &conn_iter) {
++		struct drm_connector_state *connector_state;
++
++		if (!drm_lease_held(file_priv, connector->base.id)) {
++			/*
++			 * Same as the planes of a leased CRTC: the reset
++			 * disables that CRTC, and a connector the lease
++			 * doesn't cover can't be unbound from it.
++			 */
++			if (connector->state->crtc &&
++			    drm_lease_held(file_priv,
++					   connector->state->crtc->base.id)) {
++				drm_dbg_atomic(dev,
++					       "[CONNECTOR:%d:%s] isn't leased, but [CRTC:%d:%s] it is bound to is\n",
++					       connector->base.id, connector->name,
++					       connector->state->crtc->base.id,
++					       connector->state->crtc->name);
++				drm_connector_list_iter_end(&conn_iter);
++				return -ENOENT;
++			}
++
++			continue;
++		}
++
++		/*
++		 * Same as the planes above: unbinding the connector from
++		 * an unleased CRTC would need that CRTC in the commit.
++		 */
++		if (connector->state->crtc &&
++		    !drm_lease_held(file_priv, connector->state->crtc->base.id)) {
++			drm_dbg_atomic(dev,
++				       "[CONNECTOR:%d:%s] is bound to [CRTC:%d:%s], which isn't leased\n",
++				       connector->base.id, connector->name,
++				       connector->state->crtc->base.id,
++				       connector->state->crtc->name);
++			drm_connector_list_iter_end(&conn_iter);
++			return -ENOENT;
++		}
++
++		/*
++		 * drm_atomic_implements_create_state() already checked
++		 * this, but connectors can be hotplugged between that
++		 * lockless check and the iteration here.
++		 */
 +		if (!connector->funcs->atomic_create_state) {
 +			drm_connector_list_iter_end(&conn_iter);
-+			return false;
++			return -EOPNOTSUPP;
++		}
++
++		connector_state = connector->funcs->atomic_create_state(connector);
++		if (IS_ERR(connector_state)) {
++			drm_connector_list_iter_end(&conn_iter);
++			ret = PTR_ERR(connector_state);
++			return ret;
++		}
++
++		/*
++		 * best_encoder is a routing information maintained by the
++		 * atomic helpers rather than a userspace property, and it
++		 * is only carried over to a new state when that state is a
++		 * duplicate of the current one. Since
++		 * update_connector_routing() uses it to detect the commits
++		 * that keep the connector routing unchanged, carry the
++		 * encoder currently in use over so that a reset on which
++		 * userspace re-applies the exact same configuration doesn't
++		 * require a modeset.
++		 */
++		connector_state->best_encoder = connector->state->best_encoder;
++
++		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
++		if (ret) {
++			connector->funcs->atomic_destroy_state(connector, connector_state);
++			drm_connector_list_iter_end(&conn_iter);
++			return ret;
 +		}
 +	}
 +	drm_connector_list_iter_end(&conn_iter);
 +
-+	return true;
++	/*
++	 * Revoking a lease doesn't take any modeset lock, so it can
++	 * still happen right after this check. The loops above all saw
++	 * the whole lease then, and the commit is consistent. This is
++	 * the same window any other commit from a lessee has between
++	 * the lease checks and the commit.
++	 */
++	if (drm_lease_revoked(file_priv)) {
++		drm_dbg_atomic(dev, "Lease revoked while resetting the state\n");
++		return -ENOENT;
++	}
++
++	return 0;
 +}
-+EXPORT_SYMBOL(drm_atomic_implements_create_state);
++EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
 +
  /**
   * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
@@ -167,22 +458,22 @@ index 81591173265d..7a77051096c9 100644
   * @encoder: DRM encoder
   *
 diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..72c3d420f40c 100644
+index 72c3d420f40c..cac74d43a34d 100644
 --- a/include/drm/drm_atomic.h
 +++ b/include/drm/drm_atomic.h
-@@ -700,10 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
- 
+@@ -701,10 +701,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
  struct drm_atomic_commit * __must_check
  drm_atomic_commit_alloc(struct drm_device *dev);
  void drm_atomic_commit_clear(struct drm_atomic_commit *state);
  
-+bool drm_atomic_implements_create_state(struct drm_device *dev);
-+
+ bool drm_atomic_implements_create_state(struct drm_device *dev);
++int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
++					 struct drm_atomic_commit *commit);
+ 
  /**
   * drm_atomic_commit_get - acquire a reference to the atomic state
   * @state: The atomic state
   *
-  * Returns a new reference to the @state
 
 -- 
 2.56.1
