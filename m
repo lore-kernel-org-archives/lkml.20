@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794850650;
-	b=pKCAvL7+QTBAhwn6ZEJtKVly8wMqBFULfLgVqAFwvyulUE3kVuGTPawGI4yv70eu55Ge
-	 rhXFg19qzE0SFVFhGX+9NZOJzKUjwREyV7RLLTIG1ntSuctxXqqcGZdo0PP9LbhRAY41a
-	 vnGwdsx++EUqhwkv2cK8FJ8X5XjM8kgSRZlLKw7UTTYsgp9IVj85ehw14La2Agk6eClSY
-	 J+gbwLbOzjnWDi7l/RAnu5ksYY/sm2Kup1kaayiCJid3dedjlptWdB4pDLgBOviRJHeFZ
-	 uBP3QTUNwDMNASMcMjGG05S365qFbvuadwD/6wwAltG+IW+PpHc97gwVaCJCKzfjhog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850650;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794850697;
+	b=AUt2Xv9KNsfUTywaVVT7KpT3aaJ8ym808cJ6Dg9KAeF6Rp17uMX1x1H21s/OERlf6Tzu
+	 3bUQjg+vSWLNENxpbxHVK4HphIhvNnnmGSSbMCiBAF1JkEBJkl6O8Ba8POI9qxVv2nDa7
+	 QXr58M5lqlp6hcXpcRJCeLObnnKcGzc8QXbS0boH6yEPBn+U0tTEZ+ZfH9ejJunxQuwxw
+	 G/x8M1Obp7Iv1s8hPVHdL/EdUXKu7Sb6CMZNNQxFRI9o8peHvcxWgufj803jaBpbfeLjJ
+	 kxaYKs5MIvTn5EcTmciwA+PvcRAo+PieE7ulTwcA3E/EU08AyA4L171bUnmlfeOr9Ew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850697;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ASqD7yYrxwRTXpvky24aSldHzEJHTNv4OUWKJ01NHN8=;
-	b=IO0RVhzRoGb/15tQBp/aRPfzQNMQzYjRjwuc1zNsfQIu30Ko5OTxZ6bjlH+qXq48ZcOj
-	 BhbpESCWbIwuURKvt77YlcFLcV7MD2MtpnWaiwZLDv+eXYD+K9xJ5EqGDCSv3nRGmSUMi
-	 3rVekPQikG1fMO7jgJDO+vJpv6auhWHw2je+bgCWFHI2Oc079QKI5iIOT65DWW09m6nyd
-	 TK7SESVu3WXrMHcPijDlkBjT+q86igKbHla9dwK4ep2BdwmlYTwneo+Uvm8cTPR8cyWkx
-	 zCVeIoippqB4kNh67zUF8kBvapOXkBwK75eMaIwA7lFsbHDyOhyxNzy0TC7wtxK9qSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wda5m4T+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Hx4wP6Qpw+W2JkzO57bSdEnCFN3xLXbhd0iZcTNwJZ4=;
+	b=3o4p+7hwKtGRSWLB5xsUjJOybpXCB8wcyEQcAxwx6K4lRUzTyw9cVj3yj6r085iG4gG/
+	 IZJ09AUZqvFAsgJXX8dhsBUW//1D2NMi3RfM70GLwbpvW7nK7+MIzKs4n737/nhXIP9yI
+	 DnGJKvnlWXqnpD5jOb5JddUO2msu2bXV83GaXLaJXswta8dPxCfSDGlbzFkktXl+bHYcO
+	 cJ5jnfuWLrVBus7M6ZBrWSxMbWFQr6wa04t+aT0t/WmNnOz81txDQ5UNJhkfWYHypamLw
+	 cyeAdPQyE4AIV/sOVwBN5QvpN3Cpi8PCt5j9lbJYqEEJeTijgTYRpZmh59ntWkoGABg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEleiKnP;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C416606A88B
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C416606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812EA606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:38:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 812EA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wda5m4T+
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b81214ab40so218687a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:37:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794850648; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rP0EnUFXb2p0Zd7NGLjDrRiXj5e1ir+Rc3GE6K+FJpHLt6G30hNE73vXq8jVYur0Et
-         5h4Xjeyi9y9EP66XDDJUITj6JXdUgbL756cj4af7OIV/F+n7FeNhuiWjVCJqYb6Xz1K4
-         LrclG/KEYfme3YVIyqPOVOqiIQKYXN8a44DrF9Izr3Pyf4Vqq9+l7fI/HRNqZlJlU0dj
-         LmZ0BddIF2nM/xZ0YVlsxWzd+l35eR9X9fBEyeq4KKCrzISHt9lNqjU8tT0+8EOmaRke
-         lztwgoDYFlv7+1v8rlW4rVwdgfDWBFsghHDEQcEpoC8Jtu8BwACTEfzaA+p57fO2Lw5C
-         2abA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ASqD7yYrxwRTXpvky24aSldHzEJHTNv4OUWKJ01NHN8=;
-        fh=6187UraO/k6dKvT8fM1Ofrvlfa+iwa7JVrY0dyUXaPM=;
-        b=emZzlDwzGtvf3Rq6A31hhPOdVY7M9AzunMmGpI43S4xceDZc2c9lAue106yPdKmFOR
-         h3u7sH0C7gt0LVrhjaA/wEbTusYQAlB5SMqg7DU9igxwq4uZURzA7vNl/A0g+p5Pktff
-         TfOF4dgfiOnqwyuZubx+wN24m4M5gXfwhp3onZ+C/0gnoXwAbbP/alZCSVIVTjH8WiC/
-         a3F9HQ4yrbCxb2EnRwvaJx7n6ddnqWtxGMSYV3Nj1M9rOD1O1baZ3oc+0QYPwsIkXbSS
-         SD42EaYTfBBrmXw5S6pa3WzFHSzLyDd86w7QTNKXfrV/bDxyjpwiv8vxe1JXzw/C+1Vl
-         w5Yw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEleiKnP
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c50d3ac6b51so9183266b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:38:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794850648; x=1795455448; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ASqD7yYrxwRTXpvky24aSldHzEJHTNv4OUWKJ01NHN8=;
-        b=Wda5m4T+Og74YNLartpajMnAcctT7hnb5haqi9hjLlBRa67TYcEPjf80gw45qsgIx7
-         FMobW/aC2ZXQsUmoaLilVLeaESS9ODytholTX6ZkGdI39Z50BqAMQuVm0upEGdU/eTIl
-         KzXBiwaEJY7eqa6p49n+ZePGE0YUDeVtz78JPQJb7w7ae3zRsyAfYOAEtJq8eS6befDe
-         ANfoXo4rOnrr9cTK5CEQbvEa19yD1CMimOfBL7pxwr0U+pGpN6RB970vgsC2xV+kB6BG
-         DqloDFELm5xz1LM2zdKvbUwHIwogDmvmrNVDo81Was00uh+K9TR8cjrFQWZvFUjBWrt9
-         3Csg==
+        d=linaro.org; s=google; t=1794850695; x=1795455495; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Hx4wP6Qpw+W2JkzO57bSdEnCFN3xLXbhd0iZcTNwJZ4=;
+        b=vEleiKnP+QNN8pBTmU77tAtDfuxGkS2ly+zS4URuxKRsC2wOg33wPegKdAKdk4LtnR
+         qkzvRhE60wzu/vSiHgWVe1r+9DaubWL40cQ4zQz0aO8t+6eeqJiEz5Td7Op8zOtsi88y
+         IEhNvVBALd0S9/acmp9L1AOa/kC78RodUqYNyut72wcsdA/EfrBUmcVWp3+Aj4XsSqBZ
+         JE8QlFXZUDtXGpT87f/8oC/FenQioUMcTKQ48oRAWZf9bPNHpWtpLMkDnymGevu2N+s5
+         L/wGtFSpWxgGha+OXW7X1VuQXhh459FrTS8oBeRZfdSOde71KHuUu99rxGhzKLNVpxGX
+         URsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794850648; x=1795455448;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ASqD7yYrxwRTXpvky24aSldHzEJHTNv4OUWKJ01NHN8=;
-        b=i7g9lC9UgcbZtGsAveGwzgKIaWNoHqLG5AFMtCs4ZtCYpEeg8HfHKFvI4PC4CiZPMW
-         hwzSSXcbbj5EGhwujNqh0aZDa4uA0mtfkMGz3+9/XxCL7vwarp64YpheQHRc4WPgQ37i
-         e2ZhTO1pzOo5wKDR9GfZ3u+cvaWu2PrUf/4Ho9lXcivcckdQcLqO6jnRglq+lNAbzUpZ
-         G9Fbby7DNtg6GNwRAhgoV+EUoBf7aAUP6BV1FplV125pQ5S+G+tytQHhSjtL856jth+a
-         9UDAkm0pbzWZfjnrdtikJbnWz4qIdAtEqRy5G7d2V4uspPaCMbNQ9RE9tPOzVASQR5hT
-         m/OQ==
-X-Forwarded-Encrypted: i=1; AL+hErF7cZoZ5aXA2+zvICQQI3GH1kdDE2R/58ua1Nf7zmhc/JmFjIchfpSSI/TWtFrXASRRqfdFNoUeauPUmKY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/B/TvaHOKQuC2AjA0ezpiwaqFwCZ2+eamYps5pvKicGp033aC2
-	HX8FdoHHLvpSLjqIKq4KZtuNaATY8k2HRSBZCTSOfr58YF/GNBAveuAlHoYCUqcbzJCW9fdJtWg
-	bSRkwhT2aaJnShVIVnSLfhvimrFtnnO0=
-X-Gm-Gg: AYBFou30xHLkzmfET0sXCdEw3ZbmIXMRcsqj7qtPdi4jK7ld2tvA0epQCsW6WHRgASh
-	QyY+HNoY9A0EHdmYQFFOX2trWyH98RDlW50hSvxKj5GU+dC/firC/UXrmJ94IQREgsO2WeTmmrZ
-	MNtrKZTqvc3JjFmwpabYmkfTvf1kz7vI9ptHFrWtLulPWxBg3Z2bZSOegpTbz2zpDN2jtDJ657S
-	6KcqvEDBD0ElYSw/4GGqKRWryk8LeHhqzClIs6oT0OzIMksQNpmhZnbsx4c4LtT97XdVcssDqwJ
-	/kQuv8n2LYV5GtlRO44B3X2/7Hy0bhSeVDVh+hXTdRmeuynx1lxMVzJVgjVvxynM9N5SUqaWslx
-	pF0eAnwGJHC8P5CycjL/caDyDkcCnLzR/yejBY6Xqt7ULOT3IiMxjTNyQ4FJ4Zd4pflZDRw==
-X-Received: by 2002:a05:6402:1598:b0:6b5:7250:d621 with SMTP id
- 4fb4d7f45d1cf-6b859ae1a00mr134291a12.15.1794850647426; Mon, 16 Nov 2026
- 09:37:27 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794850695; x=1795455495;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Hx4wP6Qpw+W2JkzO57bSdEnCFN3xLXbhd0iZcTNwJZ4=;
+        b=pMlpO1uMkDf+54303rMXgDuw0yScAmTkzJ2vnYYt4L8dgOum/VfkOFfBdz9LCkWQKo
+         7SsBiohXsqhUTdIww8DcjlmSXC1Jc3Fi5UAXmjnFi0QNUDlVUhhrpQTHl9hvgy2iGgst
+         bq+cQww7aTWjOVqFndVNu2RafgAiIHZDLFqTAKnyuiZpVrg4F9dRnC91QZPr4BNTN/GE
+         06AF8UNJTI+zMbThrW40a+lLzZyzs+X21cnjx4UbtgQcj1YpBGHadQsoOg8es8m07vVT
+         cGabIF/RKgCxbVak8tfHHN4WC8QsPGN5/Izn3kjuZoUFDNmT+23HoD9RJr+OoH5DDTqC
+         P8tA==
+X-Forwarded-Encrypted: i=1; AL+hErHOI7JgJoUUbuZrvfInhytsFR92K/O1+mBPJsYsHmkLoaoShIb3B9xIY99AHcnP/jaQsbUDazBincQIC5M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eopMYDQhJNP6Zjsc3VY1h3Xeh8KVyDND0AQLIW+q7bvoQqSHo
+	bpt48An+e059yK8cCbswy+BYAakMYALVUvNLgTylsbZewU2dO/S7Nfwf/CcFWYXeVHQ=
+X-Gm-Gg: AYBFou0WD+q7LtvEZsYjPZkGaTwwnBXoP7hSP9p1BNIQPymHd8Z0YfHvyslGCA08y3N
+	wDkGI//8NCGK8SkglK25tnyjn9bJDW1kKhn8Y106CPzFuYvtLbBejjt6x9bJ7f69sDZ3fSAnKCS
+	ggT6o4Z6qzm4iytB2GyCzUSDtgiRtW4b2LV0A8msrji7MNiX69GjWeZL6XquFnnN2xM1C80VBDI
+	QrR2mrN28aQazR/o4qLd5WRdNg1uU2JHSsbYboJN86K2MpGc/3s6SirQaPXnoGiwqyMgE7a4RIW
+	QEn9d0sobBqBN2l4/z2E3kOufQIaP1S7ITqrGhRUYS9o5XwdZtii6Oas4GikS4fabwMO6AWMoxC
+	/G0iiRUHUgPJsxHT6WkqvGHleTwicIp4nZh8E+N8CrhGHcho49inrepWtC59QdBuge2Iq/byUik
+	jsWFk8JR4XHAIK+oGsa423WND6c8vTcvDq5TazOxiaxFdy7rvpa33/O1FyBH5OT0nuQKW/h2HG9
+	QJ6M0OzaXzwU01SUsnv0Vg29NNks2ARZQwNPLP8+et95De2OO0bUpPvmpZXUwNCotiziIL1PjOv
+	b+oSjsxA05/N8y4gEZ3DHh7JTlqTpERmmQJf/Sl8MaiF1cmDYbkWOv2fsV1/FD1ku6zBaQ/dblW
+	Hr6ikFUqdGnIKu1E/+vVB
+X-Received: by 2002:a17:907:c05:b0:c4d:31ca:e316 with SMTP id a640c23a62f3a-c50f3750c5amr12270066b.20.1794850694766;
+        Mon, 16 Nov 2026 09:38:14 -0800 (PST)
+Received: from petegriffin.c.googlers.com (131.44.147.34.bc.googleusercontent.com. [34.147.44.131])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b236d4sm446139766b.18.2026.11.16.09.38.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 09:38:14 -0800 (PST)
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Mon, 16 Nov 2026 17:37:45 +0000
+Subject: [PATCH] iommu: Add iommu.passthrough_devs early command line
+ parameter
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,96 +93,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org> <20261116-work-loop-pseudo-v3-33-8cbbea1cf34f@kernel.org>
-In-Reply-To: <20261116-work-loop-pseudo-v3-33-8cbbea1cf34f@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 16 Nov 2026 18:37:16 +0100
-X-Gm-Features: AclHuK_sKnxFPAK3k65pZhjyZC94SJD4eZ9z2j_P12s3kyb9TMw6hurQcjyq55Q
-Message-ID: <CAOQ4uxgPerkkG4ie0SyHVXaBD9VZN2wYfQpEAEi4hytn=ara3A@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 33/44] ovl: refuse data-only layers on pseudo filesystems
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, netdev@vger.kernel.org, 
-	fuse-devel@lists.linux.dev, linux-efi@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-usb@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-b4-iommu-passthrough-devs-v1-1-dc5b493f7551@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAGk/+2oC/x3MTQ5AMBBA4avIrE3S+qlwFbGoGjoLKh1EIu6us
+ fwW7z0gFJkEuuyBSBcLhy1B5xk4b7eFkKdkKFRhtFYGxwo5rOuJuxU5fAzn4nGiS1CVY+PaurH
+ OtJD6PdLM9//uh/f9ADzTmQFrAAAA
+X-Change-ID: 20261106-b4-iommu-passthrough-devs-03b7c957ac69
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Mostafa Saleh <smostafa@google.com>, 
+ Daniel Mentz <danielmentz@google.com>, Juan Yescas <jyescas@google.com>, 
+ kernel-team@android.com, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Peter Griffin <peter.griffin@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9600;
+ i=peter.griffin@linaro.org; h=from:subject:message-id;
+ bh=Urii5UKIxhJqrjIOWrcWNvsYviHjsPHlhkwtRzKuN1c=;
+ b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBq+z+FdmbITb7QSpfMSMqFlTLiiBCd9JSTCLH+A
+ y3xzXvXjFeJAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCavs/hQAKCRDO6LjWAjRy
+ ugkwD/9qAsQpXBexhOE0F92j/h8ThC5MjImpB5XuU5sP+iZkubQpQME68KqcxlWtriHDtYmMck/
+ V/8gx+6ZM7BEan//0oKVbRk8WVE1ZS7tz6ux7YMNof5ppP4EcaOTbhQUPb0Ud0XBVn2KJRTayfB
+ 5IVJsjU4alquntf+SnaOvNtg5MoBWVaTzNVfpNLutOLMyW7cxFQrA+vBSpIysIxxi7zaK1Nvrbw
+ zcXQGNqk2tCRFEQaCNOC7RZzl/OUiVhauPLbCc2jEuCiBWBWR1gw1rPBNmtoZisclaTVG3dCTV1
+ PleJtd28phplPOzcxMuHNwC/kysdPiNSoNT7JJJZfqZfaCKhLUqXoFlPW/ZgfD7VdddINoUVBf8
+ BMy9E9OMkKNk38iL1XnWZZUSfNCAHKzoPpGewxknhrFwlIjl73zyW4fohdh3to5k3gO3rACMzZO
+ e7TFOBB1zId4C0TEuPm6pXfEswtf6T8UiZtp4XJlRkIA9o3FHeZB7zbgdAaRyZQIwt2s0KbTrDu
+ LDZKfmIqp16Q5hcCsUwb6hrIQgHw95UAyfTyB3ZSDKUfyfm3Svdz+0LtA+HG2bkOy03W5tEfnlL
+ s/5mTy0kfDmnW/5PKOCGtEGWVhkG5dsBx8vI0Wruaxx38gQqgees0Clr61s/bnWwg/4WqE38k6O
+ gcsj4cMgajuTGqA==
+X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
+ fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
 
-On Mon, Nov 16, 2026 at 12:10=E2=80=AFPM Christian Brauner <brauner@kernel.=
-org> wrote:
->
-> The data of a metacopy file can live in a data-only layer. overlayfs
-> doesn't look that data up when it looks up the file. It only remembers
-> the absolute redirect and looks up the data lazily the first time
-> someone needs it. So until then nothing can tell which filesystem holds
-> the data of such a file.
->
-> But a data-only layer has no business being a pseudo filesystem in the
-> first place. All it does is hold the data of metacopy files and the
-> regular files of a pseudo filesystem are kernel interfaces, not storage.
-> So let's refuse data-only layers on superblocks with SB_I_PSEUDO at
-> mount time.
->
-> Data-only layers can be added via the "::" separator in "lowerdir=3D" and
-> via "datadir+" by path or by file descriptor. All of them end up at the
-> end of ctx->lower. So a single check in ovl_get_lowerstack() covers all
-> of them.
->
-> Note that regular lower layers on pseudo filesystems are left alone.
-> Stacking overlayfs on top of sysfs keeps working.
->
-> Suggested-by: Amir Goldstein <amir73il@gmail.com>
-> Link: https://lore.kernel.org/all/CAOQ4uxhGxpBtMZ5kfuzR1tQAewiecoX7UjXQRo=
-91QjJHH9T_Yw@mail.gmail.com
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
->  fs/overlayfs/super.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index 39d4d57dec230..719c2569dfeaf 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -1237,6 +1237,14 @@ static struct ovl_entry *ovl_get_lowerstack(struct=
- super_block *sb,
->         for (i =3D 0; i < ctx->nr; i++) {
->                 l =3D &ctx->lower[i];
->
-> +               /* Pseudo filesystems don't hold data for metacopy files.=
- */
-> +               if (i >=3D ctx->nr - ctx->nr_data &&
-> +                   (l->path.dentry->d_sb->s_iflags & SB_I_PSEUDO)) {
-> +                       pr_err("filesystem on %s not supported as data-on=
-ly layer\n",
-> +                              l->name);
-> +                       return ERR_PTR(-EINVAL);
-> +               }
-> +
+Currently, the generic IOMMU core only provides an all-or-nothing global
+switch ('iommu.passthrough={0,1}' and CONFIG_IOMMU_DEFAULT_PASSTHROUGH)
+to configure default DMA domains in passthrough (IOMMU_DOMAIN_IDENTITY)
+mode at boot time.
 
-How about we make this just a tad more restrictive:
+Add an 'iommu.passthrough_devs=<dev_name>[,<dev_name>...]' early
+command-line parameter. When allocating the default domain for a group in
+iommu_group_alloc_default_domain(), if no mandatory domain type override
+is present, check whether any device in the group (or any of its
+parent/bridge devices via dev->parent) matches 'iommu.passthrough_devs'
+and request IOMMU_DOMAIN_IDENTITY, warning and falling back to
+IOMMU_DOMAIN_DMA if identity domains are unsupported (consistent with
+'iommu.passthrough=1').
 
-                /* Pseudo filesystems don't belong in composefs setup */
-                if (ctx->nr_data &&
-                    (l->path.dentry->d_sb->s_iflags & SB_I_PSEUDO)) {
-                        pr_err("filesystem on %s not supported along
-with data-only layers\n",
-                               l->name);
-                        return ERR_PTR(-EINVAL);
-                }
+Device names match dev_name(), such as PCI BDFs ('0000:01:00.0'),
+Device Tree platform devices ('3c400000.ufs'), or ACPI platform
+devices ('AMDI0010:00'). Walking dev->parent also allows specifying a
+parent PCIe host controller or root port (e.g. '3c500000.pcie' or
+'0000:00:1c.0') to cover its downstream endpoints.
 
-I could send this as followup patch, but since this version is simpler
-there is no real reason to have the intermediate "only ban datadir" step.
+Note: Untrusted PCI devices ('pdev->untrusted') and explicit IOMMU
+driver '.def_domain_type' requirements continue to take precedence.
 
-Only the commit message needs a little more flexing to justify this.
+Configuring per-device passthrough mode at boot is needed for several
+use cases:
+
+- Performance tuning and benchmarking: high-throughput storage
+  workloads (e.g. fio benchmarks on UFS) can incur measurable
+  IOPS/latency and CPU overhead from IOMMU page table management and
+  TLB invalidations. Selective device passthrough allows bypassing
+  translation for these devices while keeping IOMMU isolation enabled
+  for other devices in the system.
+
+- SoC/board bringup and debugging: isolating whether a DMA fault or
+  regression is caused by a specific device's IOMMU translation without
+  disabling the IOMMU globally across the entire platform.
+
+Implementing this in the generic IOMMU core allows it to work with
+ACPI and Device Tree (DT) systems as well as across all IOMMU drivers.
+
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+Hi folks,
+
+This patch follows up on a conversation with Jason Gunthorpe at
+Linux Plumbers regarding how to upstream support for configuring
+per-device IOMMU passthrough (IOMMU_DOMAIN_IDENTITY) at boot without
+abusing Device Tree properties.
+
+Downstream on Google Pixel G5 Laguna platforms, we have historically
+carried a custom 'iommu-idmapped' DT property parsed by the arm-smmu-v3
+driver to place specific client devices into bypass mode. As discussed
+at Plumbers, Device Tree seems the wrong place for this because choosing
+passthrough vs. translation for a given device can sometimes be an OS
+policy trade-off where we choose device peak performance at the expense
+of DMA isolation. This is the case for UFS and PCIe WLAN on Laguna,
+which share a common SMMU instance with other peripherals (such as DMA
+controllers, VPU, and ISP) where we want DMA isolation to remain
+enabled.
+
+A secondary benefit is it could be useful during device bringup and
+debugging for fault isolation and to work around firmware/device issues
+before a proper driver quirk is in place.
+
+Instead, I propose handling this in the generic IOMMU core via a
+kernel command-line parameter. This makes it available uniformly
+across both Device Tree and ACPI systems and across all IOMMU drivers.
+
+In terms of upstream Laguna support, initial DT support has already
+landed in tree, along with USB and phy support. Other support for
+mailbox, clocks, powerdomains, reset is under review in the following
+series with more to follow.
+
+https://lore.kernel.org/lkml/20261023235408.3063350-1-dianders@chromium.org/
+https://lore.kernel.org/lkml/20261026214359.3122870-1-briannorris@chromium.org/
+
+Feedback and suggestions are very welcome.
 
 Thanks,
-Amir.
+
+Peter
+---
+ Documentation/admin-guide/kernel-parameters.txt | 11 ++++
+ drivers/iommu/iommu.c                           | 76 +++++++++++++++++++++++--
+ 2 files changed, 82 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index c343bc9a0d28..926380cb1e99 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -2689,6 +2689,17 @@ Kernel parameters
+ 			1 - Bypass the IOMMU for DMA.
+ 			unset - Use value of CONFIG_IOMMU_DEFAULT_PASSTHROUGH.
+ 
++	iommu.passthrough_devs=
++			[KNL,EARLY] Configure DMA to bypass the IOMMU by default
++			for specific devices.
++			Format: <dev_name>[,<dev_name>...]
++			Specify a comma-separated list of device names (matching
++			dev_name() of the client device or any of its parent/bridge
++			devices) whose IOMMU groups should default to passthrough
++			(identity) mode (e.g. "0000:01:00.0" for PCI,
++			"3c400000.ufs" for Device Tree, or
++			"AMDI0010:00" for ACPI).
++
+ 	iommu.debug_pagealloc=
+ 			[KNL,EARLY] When CONFIG_IOMMU_DEBUG_PAGEALLOC is set, this
+ 			parameter enables the feature at boot time. By default, it
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index b486b8bbd1fc..0a7796e0311e 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -33,6 +33,7 @@
+ #include <trace/events/iommu.h>
+ #include <linux/sched/mm.h>
+ #include <linux/msi.h>
++#include <linux/string.h>
+ #include <uapi/linux/iommufd.h>
+ #include <linux/generic_pt/iommu.h>
+ 
+@@ -43,9 +44,12 @@ static struct kset *iommu_group_kset;
+ static DEFINE_IDA(iommu_group_ida);
+ static DEFINE_IDA(iommu_global_pasid_ida);
+ 
++#define IOMMU_PASSTHROUGH_DEVS_MAX_LEN	256
++
+ static unsigned int iommu_def_domain_type __read_mostly;
+ static bool iommu_dma_strict __read_mostly = IS_ENABLED(CONFIG_IOMMU_DEFAULT_DMA_STRICT);
+ static u32 iommu_cmd_line __read_mostly;
++static char iommu_passthrough_devs[IOMMU_PASSTHROUGH_DEVS_MAX_LEN] __read_mostly;
+ 
+ /* Tags used with xa_tag_pointer() in group->pasid_array */
+ enum { IOMMU_PASID_ARRAY_DOMAIN = 0, IOMMU_PASID_ARRAY_HANDLE = 1 };
+@@ -805,6 +809,27 @@ static int __init iommu_set_def_domain_type(char *str)
+ }
+ early_param("iommu.passthrough", iommu_set_def_domain_type);
+ 
++static int __init iommu_set_passthrough_devs(char *str)
++{
++	size_t len;
++
++	if (!str || !*str)
++		return -EINVAL;
++
++	len = strlen(iommu_passthrough_devs);
++	if (len + (len ? 1 : 0) + strlen(str) >= IOMMU_PASSTHROUGH_DEVS_MAX_LEN) {
++		pr_warn("Too long list of device names for 'iommu.passthrough_devs'!\n");
++		return -EINVAL;
++	}
++	if (len)
++		iommu_passthrough_devs[len++] = ',';
++
++	strscpy(iommu_passthrough_devs + len, str,
++		IOMMU_PASSTHROUGH_DEVS_MAX_LEN - len);
++	return 0;
++}
++early_param("iommu.passthrough_devs", iommu_set_passthrough_devs);
++
+ static int __init iommu_dma_setup(char *str)
+ {
+ 	int ret = kstrtobool(str, &iommu_dma_strict);
+@@ -1750,14 +1775,45 @@ __iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
+ 	return ERR_PTR(-EINVAL);
+ }
+ 
++static bool iommu_is_passthrough_dev(struct device *dev)
++{
++	for (; dev; dev = dev->parent) {
++		const char *name = dev_name(dev);
++
++		if (name && *name &&
++		    parse_option_str(iommu_passthrough_devs, name))
++			return true;
++	}
++
++	return false;
++}
++
++static struct device *iommu_group_passthrough_dev(struct iommu_group *group)
++{
++	struct group_device *gdev;
++
++	if (!iommu_passthrough_devs[0])
++		return NULL;
++
++	for_each_group_device(group, gdev) {
++		if (iommu_is_passthrough_dev(gdev->dev))
++			return gdev->dev;
++	}
++
++	return NULL;
++}
++
+ /*
+  * req_type of 0 means "auto" which means to select a domain based on
+- * iommu_def_domain_type or what the driver actually supports.
++ * iommu.passthrough_devs, iommu_def_domain_type, or what the driver
++ * actually supports.
+  */
+ static struct iommu_domain *
+ iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
+ {
+ 	const struct iommu_ops *ops = dev_iommu_ops(iommu_group_first_dev(group));
++	unsigned int def_type = iommu_def_domain_type;
++	struct device *pt_dev = NULL;
+ 	struct iommu_domain *dom;
+ 
+ 	lockdep_assert_held(&group->mutex);
+@@ -1777,19 +1833,29 @@ iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
+ 		return __iommu_group_alloc_default_domain(group, req_type);
+ 
+ 	/* The driver gave no guidance on what type to use, try the default */
+-	dom = __iommu_group_alloc_default_domain(group, iommu_def_domain_type);
+-	if (!IS_ERR(dom))
++	if (def_type != IOMMU_DOMAIN_IDENTITY) {
++		pt_dev = iommu_group_passthrough_dev(group);
++		if (pt_dev)
++			def_type = IOMMU_DOMAIN_IDENTITY;
++	}
++
++	dom = __iommu_group_alloc_default_domain(group, def_type);
++	if (!IS_ERR(dom)) {
++		if (pt_dev && dom != group->default_domain)
++			dev_info(pt_dev,
++				 "Setting default IOMMU domain to passthrough via command line\n");
+ 		return dom;
++	}
+ 
+ 	/* Otherwise IDENTITY and DMA_FQ defaults will try DMA */
+-	if (iommu_def_domain_type == IOMMU_DOMAIN_DMA)
++	if (def_type == IOMMU_DOMAIN_DMA)
+ 		return ERR_PTR(-EINVAL);
+ 	dom = __iommu_group_alloc_default_domain(group, IOMMU_DOMAIN_DMA);
+ 	if (IS_ERR(dom))
+ 		return dom;
+ 
+ 	pr_warn("Failed to allocate default IOMMU domain of type %u for group %s - Falling back to IOMMU_DOMAIN_DMA",
+-		iommu_def_domain_type, group->name);
++		def_type, group->name);
+ 	return dom;
+ }
+ 
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-b4-iommu-passthrough-devs-03b7c957ac69
+
+Best regards,
+-- 
+Peter Griffin <peter.griffin@linaro.org>
+
