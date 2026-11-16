@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815125;
-	b=vb+8+1+49woeidg3Jwg+3ZdLTHIt1BHk1PZyO8kV2Cu+8w40N7mWy29DroI+5SOgmrH6
-	 pK9GnHJ4HlcVHIBGz3Mmu/rvKGXpS7C+IGsXWI/FHTHWkaKHPJzlqHcPvvPMSYjBldnIb
-	 IYHocHn6pJlLB4h2uu4JxAoih893CCkXtdy/72KbUOJg1vHhf/Gc6hj+pBpXSaeGwUBI2
-	 9cOws5gZzV/7QYM36CbQKAdgKeXDqnUknIehLkAokTUS2Tzfn0nlAQN6Sj4UEiNBaRKQ0
-	 78xiN2XCi5gN++T+nPuMwQsKfvF6hmCiaOv0yAN1MG7t3/3rc/jtGjgn2SYCS7nEe2A==
+	t=1794815127;
+	b=2M/M65pQjSDWbgQcnKJlNRD8f45v48/azeAxBiO4QhRdleq9q0TS26+fLfGI/ae2ojdD
+	 2YPqPOFwYkTDRlny+EdwCw4oYSD+fhCIpKjgQHFbJHyutBaBHQnj8oXIbUaB1APkfiD5q
+	 A9saWj9Pr0t5s6Iayv+i7PVyNhJSrqqAZfmthmMEd9RsLswNsscZbhNjI0UM4jM6pbsm3
+	 sfA0XXzfte16est4oftJPOEfN802Ov6QAG2PMz+mpZpCnCEIeV/iL5Ij3BtBmgLQ+NT9Q
+	 1wVHjcvj6in7fYMznTwZzwIn+azIwLBHTBiFND37tK0KIOZiXrAmK3jBKZqNv92oH7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815127;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=ELM+ldKFg07MdAwKjJM6ffNXJeeGbV9sau9472qQZwk=;
-	b=cKyBDyPq3NHOddxgQoY+Rwh1dgGbqwotV2jNBUxXUxJJu8HdEHJ7ii4zhzihJal39oTE
-	 CVIshJwAodkLNpfB+dHqMN/SquIYplZFPq98hqPWR61/VDyWhxJu5VBnhX0TZDbDy4lEU
-	 PriKu3RX2SVn8N74F6nhRzMFbkbcXHlFiTX9CRASETd4eI5O1UNbxoumfwvOgV56HyTM9
-	 duGLNiOAwESEMjt9EHDSSVLpOZiHmKuWfMCp4Q3Qut6Z7QrDUxx55M6UhNxgfkjQjnYrc
-	 a/pOESMgkpv6dvBYH6RUXwS3QOfkFQVUR773xyG7t8PXZX/CLJ6Fuqa2VpEvjnlrXQw==
+	bh=IyWxbg8JfKyS9ECLJkNu4MChBueQzs+8RBXPCvcMWVo=;
+	b=CyiducVQkmXKn+wmEWGtTVkEPh6rf1LMZER0mMrDeTdLa7QQjVGacj9R79PRO2PyJNhU
+	 iAKfSFOYLwaprzlUjl0elV7H2Sz3wwvlzpD3/LgsF8xW8529fHpMqBjHhMTlda8hRkxPM
+	 5z3BfYWQL69XQUYW4IBz3CHDHMZwNlvYVMQFVjBM9+bF9NSSGA89qTBytOc7NOX5s197M
+	 nb5xuspkZgx6lZtNRjbitGU2HpeL6UzMPRjsRnjVH87ETZj2VNf/YILAgzE6vfeo8Iu0u
+	 Jt86BeRdHWFPnGZ+JE2nydwlNKeGf4H3K7AIFWZxnx7A2d1bU3Smd5ccoHrX9JJCsPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e19h0CQA;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nwHctiAs;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EAC606A883
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0EAC606A883
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570D3606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 570D3606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e19h0CQA
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so20254c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nwHctiAs
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b3b45597c7so1104180c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794815124; x=1795419924; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794815125; x=1795419925; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ELM+ldKFg07MdAwKjJM6ffNXJeeGbV9sau9472qQZwk=;
-        b=e19h0CQAFKmnMVHL7ZHFhC7ienGqeEUU9iIKhUBJOLk1mVCF2roKqy+0iLLzvZvRwf
-         /2N7ih8sthLJbLikP1gDxdqIAvd1IcKJ/Kzb44ADff9xeio1VjIp+Pi7Ccf21ibovm7X
-         T5kOeqdiRZcQ5Iz6xMoPf0AKlLEMSW30xxZyEmDWi+J5mnpj1hN+P0UbSsakyP8dLwnJ
-         572FtGiaxgQb4fM81N38uYCEm7XdMkGqMITp8bzmXuiLfH4xQiVP4qbuimIO96zkJa/Y
-         6aDY1/edXHUBDaC/3YOEpBvK0O1gcjKDTai+ySIchJAPqtJRoot7HAN3cXdC5+i5vJQp
-         biKw==
+        bh=IyWxbg8JfKyS9ECLJkNu4MChBueQzs+8RBXPCvcMWVo=;
+        b=nwHctiAsD7wB7EtEdULHadVClN2NdAZG3JO/Yhqj9hkICWwRCLKK6zuN4xJ4QxUURC
+         rCIbPxI4HRx6t7OkL3U4JAqQZ1o62aewmwJwnZU60Azyi+XBf33EM3EtSrOT/fTV7W0+
+         OUpb9Y5SP1HQAjY3qcHyZeZQD7ov3YZSaL2nghDShbB6BxTJo7IZQBYljT7FdFG/b61y
+         gNmln/Y4+6vSZD7YSeOb0kGBfHXzk3CnPcdCucfBzQBWSvGhfbzdwdwXPgllVzBUzOzc
+         u+KTgFlQi+4mfP1RXFhBT2doRP6lDLYcqOXJV32wE+6RY2/LeN5PbtR78Fdt9zYEddZw
+         mvmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815124; x=1795419924;
+        d=1e100.net; s=20260707; t=1794815125; x=1795419925;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ELM+ldKFg07MdAwKjJM6ffNXJeeGbV9sau9472qQZwk=;
-        b=tN+zAaxxk1pYObhCXHIVkLuVdwGsRLpEGMbhNjeonANY2YeeCrBzjp7p8a7oJe3iL1
-         mkdhec46rKz9rE2D1jVkDQa/C64ZpwY3uwBllG/VzJt9ZeAmKi+ihdV8PWPTkqkBga2Z
-         jQIncTPKxlT7SzjHy5/GqZT9sALfY5BD3FLdFyoNHFkhrVZktF46cAI5lPbSgLX7B6Qr
-         dgFNcIiLFqWv9yT4wCld7xNABT4A6CeRKPHCxBJ7kEclUZOEnjFVYUNnBFWvTQI/FSAp
-         YorXI6anYnCr11GBSqnGk2tH1XXVXE3ENOA8bmpiBlibUwqoKHl5nKD4dJ4WI72LiIBd
-         wZlQ==
-X-Forwarded-Encrypted: i=1; AL+hErHsD0BnDIS3eOMif7Whwn/PCsNnG0znxd+UTlsnKWHWwsEr72mzjHr6oImUoGH8pvOfzzDnjpZfzN43gtc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OCZ7/KqBHiCX9wr/U/rD1QI29QEEZwUvV0t5/srZqARzuuSqM
-	LKjgX3Nq8YzOiTGSLgmdAA3zKNzb35y5fz9ojiWNDcE2W6MeY0uIchEEpTNPbmHMcBao4BId4ha
-	/DrFLMbCl0A==
-X-Received: from dlbvv19.prod.google.com ([2002:a05:7022:5f13:b0:143:7311:4b88])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4508:10b0:1b3:ac23:611f
- with SMTP id a92af1059eb24-1b50311d310mr9543019c88.28.1794815123285; Sun, 15
- Nov 2026 23:45:23 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:44:03 -0800
+        bh=IyWxbg8JfKyS9ECLJkNu4MChBueQzs+8RBXPCvcMWVo=;
+        b=F0lIrnwDFHuhyg3FYiDYTvGhiRMZRviu3vdnAFU15iRE7B+oBJhIkuhF2kdxsZU+Yd
+         xB0Zb3RyupQByXCz9cIymIhZVeUKsfr5qnTSQNnHZdi7iNm9yjsTCnthWjjmPHepJYA0
+         1LYgY92Gpxbu48i04fsuABCuJp5Fb3Gvs2ni8r168VHxvlt2GhZP3of+aH2jNXjbxzMR
+         fSqi9Qnu7G6F6NEnj6bwypsGNbMhXtfcCiGKOPkQha2pq6EdGaLaAcjGPiUcCS0a4GhR
+         tgNkMAZRa0bTIcbeANrMX7s88imcJMQikkmUdOU9971HRriZNzBP8YtpgdV43ZAyRLui
+         3vag==
+X-Forwarded-Encrypted: i=1; AL+hErGFjByuINAwnlGoS1fmGivaKN2tZPhlgrKBE4s8zY9hiw+6YexYPUHRrVxwWorvgw55QZY2xTXIORi8Z68=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XEvOkMjNariSwik1DvVDgHEAo5CM4AP6FZ5su+KJXY8hXoQqu
+	mEqvMZAUxE/e0RkHTD7fqzs381bvOnyx4+Rc0YxCTA8JfdN8kjeHMcIy6LH0NEwdvZ+1oo2t3fp
+	kL2beR6ImAg==
+X-Received: from dlbrs1.prod.google.com ([2002:a05:7022:f681:b0:184:6cc9:b13c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2706:b0:1b5:126c:eb88
+ with SMTP id a92af1059eb24-1b5126cec12mr6665964c88.45.1794815125098; Sun, 15
+ Nov 2026 23:45:25 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:44:04 -0800
 In-Reply-To: <20261116074414.3174737-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261116074414.3174737-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116074414.3174737-9-irogers@google.com>
-Subject: [PATCH v3 08/19] perf session: Avoid double byte-swapping re-parsed
- deferred samples
+Message-ID: <20261116074414.3174737-10-irogers@google.com>
+Subject: [PATCH v3 09/19] perf inject: Fix PERF_SAMPLE_READ layout and bounds
+ checks in aslr_tool__process_sample()
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
@@ -101,197 +101,185 @@ Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
 	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-When perf_session__deliver_event() processes a cross-endian sample,
-__evsel__parse_sample() is invoked with needs_swap=true and byte-swaps
-payload regions such as PERF_SAMPLE_RAW, PERF_SAMPLE_BRANCH_STACK, and
-PERF_SAMPLE_AUX in-place in the event buffer.
+In aslr_tool__process_sample(), PERF_SAMPLE_READ only copied the id word
+when evsel->core.attr.read_format had PERF_FORMAT_ID set, whereas the
+kernel and __evsel__parse_sample() unconditionally include the id word in
+both single-counter and PERF_FORMAT_GROUP modes. When PERF_FORMAT_ID was
+not explicitly set in attr.read_format, in_array[i] became desynchronized
+with subsequent sample fields.
 
-If the sample has a deferred callchain and merge_deferred_callchains is
-enabled, machines__deliver_event() copies that already-parsed event into
-de->event. Later, evlist__deliver_deferred_callchain() (potentially on
-multiple iterations before finding a matching tid) and
-session__flush_deferred_samples() re-parse de->event via
-evlist__parse_sample(), which runs __evsel__parse_sample() again with
-evsel->needs_swap still true, double-swapping in-place fields. Meanwhile,
-pyrf_event__copy() re-parses copied events with needs_swap=false, which
-misses PERF_SAMPLE_TID, PERF_SAMPLE_CPU, and PERF_SAMPLE_RAW's size word
-because they were only unswapped into local variables.
+In addition, CHECK_BOUNDS() used addition (i + required_i > max_i) which
+could overflow, and the dropped PERF_SAMPLE_RAW, PERF_SAMPLE_STACK_USER,
+and PERF_SAMPLE_AUX handlers copied word-rounded lengths into out_array
+before discarding the sample.
 
-Finish unswapping PERF_SAMPLE_TID, PERF_SAMPLE_CPU, and PERF_SAMPLE_RAW's
-size prefix in-place during the initial cross-endian parse so the entire
-sample buffer is in host layout afterwards, filter deferred samples by
-stored tid before re-parsing, and re-parse de->event via
-evlist__parse_sample_unswapped().
+Unconditionally copy the id word in PERF_SAMPLE_READ using
+sample_read_value_size() with division-based bounds checks, make
+CHECK_BOUNDS() subtraction-based, and drop RAW/STACK_USER/AUX samples
+directly without dead copies.
 
-Fixes: 9b4525fd089d ("perf tools: Merge deferred user callchains")
+Fixes: 575c6d2bc470 ("perf inject/aslr: Implement sample address remapping")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/evlist.c  | 38 +++++++++++++++++++++++++++++---------
- tools/perf/util/evlist.h  |  2 ++
- tools/perf/util/evsel.c   | 10 +++++++++-
- tools/perf/util/session.c | 14 +++++++-------
- 4 files changed, 47 insertions(+), 17 deletions(-)
+ tools/perf/util/aslr.c | 95 +++++++++---------------------------------
+ 1 file changed, 20 insertions(+), 75 deletions(-)
 
-diff --git a/tools/perf/util/evlist.c b/tools/perf/util/evlist.c
-index c2402e4791b6..ec665828d4e3 100644
---- a/tools/perf/util/evlist.c
-+++ b/tools/perf/util/evlist.c
-@@ -1935,17 +1935,12 @@ void evlist__cancel_workload(struct evlist *evlist)
- 	}
- }
+diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
+index dee077cca5fe..e236d5287043 100644
+--- a/tools/perf/util/aslr.c
++++ b/tools/perf/util/aslr.c
+@@ -8,6 +8,7 @@
+ #include "evlist.h"
+ #include "machine.h"
+ #include "map.h"
++#include "sample.h"
+ #include "thread.h"
+ #include "tool.h"
+ #include "session.h"
+@@ -780,7 +781,7 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+ 	out_array = &new_event->sample.array[0];
  
--int evlist__parse_sample(struct evlist *evlist, union perf_event *event, struct perf_sample *sample)
-+static int __evlist__parse_sample(struct evlist *evlist, struct evsel *evsel,
-+				  union perf_event *event,
-+				  struct perf_sample *sample, bool needs_swap)
- {
--	struct evsel *evsel = evlist__event2evsel(evlist, event);
--	int ret;
-+	int ret = __evsel__parse_sample(evsel, event, sample, needs_swap);
+ #define CHECK_BOUNDS(required_i, required_j) \
+-	(i + (required_i) > max_i || j + (required_j) > max_j)
++	((required_i) > max_i - i || (required_j) > max_j - j)
  
--	if (!evsel) {
--		/* Ensure the sample is okay for perf_sample__exit. */
--		perf_sample__init(sample, /*all=*/false);
--		return -EFAULT;
--	}
--	ret = evsel__parse_sample(evsel, event, sample);
- 	if (ret)
- 		return ret;
- 	if (perf_guest && sample->id) {
-@@ -1959,6 +1954,31 @@ int evlist__parse_sample(struct evlist *evlist, union perf_event *event, struct
- 	return 0;
- }
- 
-+int evlist__parse_sample(struct evlist *evlist, union perf_event *event, struct perf_sample *sample)
-+{
-+	struct evsel *evsel = evlist__event2evsel(evlist, event);
+ #define COPY_U64() \
+ 	do { \
+@@ -835,18 +836,20 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+ 	if (orig_sample_type & PERF_SAMPLE_PERIOD)
+ 		COPY_U64(); /* period */
+ 	if (orig_sample_type & PERF_SAMPLE_READ) {
+-		if ((evsel->core.attr.read_format & PERF_FORMAT_GROUP) == 0) {
++		u64 read_format = evsel->core.attr.read_format;
 +
-+	if (!evsel) {
-+		/* Ensure the sample is okay for perf_sample__exit. */
-+		perf_sample__init(sample, /*all=*/false);
-+		return -EFAULT;
-+	}
-+	return __evlist__parse_sample(evlist, evsel, event, sample, evsel->needs_swap);
-+}
-+
-+int evlist__parse_sample_unswapped(struct evlist *evlist, union perf_event *event,
-+				   struct perf_sample *sample)
-+{
-+	struct evsel *evsel = evlist__event2evsel(evlist, event);
-+
-+	if (!evsel) {
-+		/* Ensure the sample is okay for perf_sample__exit. */
-+		perf_sample__init(sample, /*all=*/false);
-+		return -EFAULT;
-+	}
-+	return __evlist__parse_sample(evlist, evsel, event, sample, /*needs_swap=*/false);
-+}
-+
- int evlist__parse_sample_timestamp(struct evlist *evlist, union perf_event *event, u64 *timestamp)
- {
- 	struct evsel *evsel = evlist__event2evsel(evlist, event);
-diff --git a/tools/perf/util/evlist.h b/tools/perf/util/evlist.h
-index 0f380421e03d..e42d590d4732 100644
---- a/tools/perf/util/evlist.h
-+++ b/tools/perf/util/evlist.h
-@@ -450,6 +450,8 @@ bool evlist__sample_id_all(struct evlist *evlist);
- u16 evlist__id_hdr_size(struct evlist *evlist);
++		if ((read_format & PERF_FORMAT_GROUP) == 0) {
+ 			COPY_U64(); /* value */
+-			if (evsel->core.attr.read_format & PERF_FORMAT_TOTAL_TIME_ENABLED)
++			if (read_format & PERF_FORMAT_TOTAL_TIME_ENABLED)
+ 				COPY_U64(); /* time_enabled */
+-			if (evsel->core.attr.read_format & PERF_FORMAT_TOTAL_TIME_RUNNING)
++			if (read_format & PERF_FORMAT_TOTAL_TIME_RUNNING)
+ 				COPY_U64(); /* time_running */
+-			if (evsel->core.attr.read_format & PERF_FORMAT_ID)
+-				COPY_U64(); /* id */
+-			if (evsel->core.attr.read_format & PERF_FORMAT_LOST)
++			/* PERF_FORMAT_ID is forced for PERF_SAMPLE_READ */
++			COPY_U64(); /* id */
++			if (read_format & PERF_FORMAT_LOST)
+ 				COPY_U64(); /* lost */
+ 		} else {
+-			u64 nr;
++			u64 nr, entry_words;
  
- int evlist__parse_sample(struct evlist *evlist, union perf_event *event, struct perf_sample *sample);
-+int evlist__parse_sample_unswapped(struct evlist *evlist, union perf_event *event,
-+				   struct perf_sample *sample);
- int evlist__parse_sample_timestamp(struct evlist *evlist, union perf_event *event, u64 *timestamp);
- 
- bool evlist__valid_sample_type(struct evlist *evlist);
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index 737a8680aaae..322582bb4f40 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -3520,6 +3520,7 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 			u.val64 = bswap_64(u.val64);
- 			u.val32[0] = bswap_32(u.val32[0]);
- 			u.val32[1] = bswap_32(u.val32[1]);
-+			*(__u64 *)array = u.val64;
- 		}
- 
- 		data->pid = u.val32[0];
-@@ -3554,6 +3555,8 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 			/* undo swap of u64, then swap on individual u32s */
- 			u.val64 = bswap_64(u.val64);
- 			u.val32[0] = bswap_32(u.val32[0]);
-+			u.val32[1] = bswap_32(u.val32[1]);
-+			*(__u64 *)array = u.val64;
- 		}
- 
- 		data->cpu = u.val32[0];
-@@ -3665,7 +3668,12 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 			/* mem_bswap_64() accesses complete 64-bit words. */
- 			sz = roundup((u64)data->raw_size, sizeof(u64));
- 			OVERFLOW_CHECK(raw, sz, max_size);
--			mem_bswap_64((void *)raw, data->raw_size);
-+			if (data->raw_size) {
-+				mem_bswap_64((void *)raw, data->raw_size);
-+				*(u32 *)raw = data->raw_size;
-+			} else {
-+				*(__u64 *)raw = u.val64;
-+			}
- 		}
- 		data->raw_data = (void *)array;
- 		array = (void *)array + data->raw_size;
-diff --git a/tools/perf/util/session.c b/tools/perf/util/session.c
-index a58b4fe44b62..ec1ea510ae61 100644
---- a/tools/perf/util/session.c
-+++ b/tools/perf/util/session.c
-@@ -1933,6 +1933,7 @@ struct deferred_event {
- 	struct list_head list;
- 	union perf_event *event;
- 	u64 file_offset;
-+	u32 tid;
- };
- 
- /*
-@@ -1964,8 +1965,11 @@ static int evlist__deliver_deferred_callchain(struct evlist *evlist,
- 		struct perf_sample orig_sample;
- 		struct evsel *new_evsel;
- 
-+		if (sample->tid != de->tid)
-+			continue;
-+
- 		perf_sample__init(&orig_sample, /*all=*/false);
--		ret = evlist__parse_sample(evlist, de->event, &orig_sample);
-+		ret = evlist__parse_sample_unswapped(evlist, de->event, &orig_sample);
- 		if (ret < 0) {
- 			pr_err("failed to parse original sample\n");
- 			perf_sample__exit(&orig_sample);
-@@ -1973,11 +1977,6 @@ static int evlist__deliver_deferred_callchain(struct evlist *evlist,
- 		}
- 		orig_sample.file_offset = de->file_offset;
- 
--		if (sample->tid != orig_sample.tid) {
--			perf_sample__exit(&orig_sample);
--			continue;
--		}
--
- 		if (event->callchain_deferred.cookie == orig_sample.deferred_cookie)
- 			sample__merge_deferred_callchain(&orig_sample, sample);
- 		else
-@@ -2027,7 +2026,7 @@ static int session__flush_deferred_samples(struct perf_session *session,
- 		}
- 
- 		perf_sample__init(&sample, /*all=*/false);
--		ret = evlist__parse_sample(evlist, de->event, &sample);
-+		ret = evlist__parse_sample_unswapped(evlist, de->event, &sample);
- 		if (ret < 0) {
- 			pr_err("failed to parse original sample\n");
- 			perf_sample__exit(&sample);
-@@ -2120,6 +2119,7 @@ static int machines__deliver_event(struct machines *machines,
+ 			if (CHECK_BOUNDS(1, 1)) {
+ 				ret = -EFAULT;
+@@ -854,17 +857,18 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
  			}
- 			memcpy(de->event, event, sz);
- 			de->file_offset = sample->file_offset;
-+			de->tid = sample->tid;
- 			list_add_tail(&de->list, evlist__deferred_samples(evlist));
- 			return 0;
+ 			nr = in_array[i];
+ 			COPY_U64();
+-			if (evsel->core.attr.read_format & PERF_FORMAT_TOTAL_TIME_ENABLED)
++			if (read_format & PERF_FORMAT_TOTAL_TIME_ENABLED)
+ 				COPY_U64(); /* time_enabled */
+-			if (evsel->core.attr.read_format & PERF_FORMAT_TOTAL_TIME_RUNNING)
++			if (read_format & PERF_FORMAT_TOTAL_TIME_RUNNING)
+ 				COPY_U64(); /* time_running */
+-			for (u64 cntr = 0; cntr < nr; cntr++) {
+-				COPY_U64(); /* value */
+-				if (evsel->core.attr.read_format & PERF_FORMAT_ID)
+-					COPY_U64(); /* id */
+-				if (evsel->core.attr.read_format & PERF_FORMAT_LOST)
+-					COPY_U64(); /* lost */
++			entry_words = sample_read_value_size(read_format) / sizeof(u64);
++			if (nr > (max_i - i) / entry_words ||
++			    nr > (max_j - j) / entry_words) {
++				ret = -EFAULT;
++				goto out_put;
+ 			}
++			for (u64 cntr = 0; cntr < nr * entry_words; cntr++)
++				out_array[j++] = in_array[i++];
  		}
+ 	}
+ 	if (orig_sample_type & PERF_SAMPLE_CALLCHAIN) {
+@@ -934,16 +938,6 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+ 		}
+ 	}
+ 	if (orig_sample_type & PERF_SAMPLE_RAW) {
+-		size_t bytes = sizeof(u32) + sample->raw_size;
+-		size_t u64_words = (bytes + 7) / 8;
+-
+-		if (i + u64_words > max_i || j + u64_words > max_j) {
+-			ret = -EFAULT;
+-			goto out_put;
+-		}
+-		memcpy(&out_array[j], &in_array[i], bytes);
+-		i += u64_words;
+-		j += u64_words;
+ 		/*
+ 		 * TODO: certain raw samples can be remapped, such as
+ 		 * tracepoints by examining their fields.
+@@ -1041,30 +1035,6 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+ 		}
+ 	}
+ 	if (orig_sample_type & PERF_SAMPLE_STACK_USER) {
+-		u64 size;
+-
+-		if (CHECK_BOUNDS(1, 1)) {
+-			ret = -EFAULT;
+-			goto out_put;
+-		}
+-		size = in_array[i];
+-		COPY_U64();
+-		if (size > 0) {
+-			size_t u64_words = size / 8 + (size % 8 ? 1 : 0);
+-
+-			if (u64_words > max_i - i || u64_words > max_j - j) {
+-				ret = -EFAULT;
+-				goto out_put;
+-			}
+-			memcpy(&out_array[j], &in_array[i], size);
+-			if (size % 8) {
+-				size_t pad = 8 - (size % 8);
+-
+-				memset(((char *)&out_array[j]) + size, 0, pad);
+-			}
+-			i += u64_words;
+-			j += u64_words;
+-		}
+ 		/* TODO: can this be less conservative? */
+ 		pr_debug("Dropping stack user sample as possible ASLR leak\n");
+ 		ret = 0;
+@@ -1110,31 +1080,6 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+ 		COPY_U64(); /* code_page_size */
+ 
+ 	if (orig_sample_type & PERF_SAMPLE_AUX) {
+-		u64 size;
+-
+-		if (CHECK_BOUNDS(1, 1)) {
+-			ret = -EFAULT;
+-			goto out_put;
+-		}
+-		out_array[j] = in_array[i];
+-		size = out_array[j++];
+-		i++;
+-		if (size > 0) {
+-			size_t u64_words = size / 8 + (size % 8 ? 1 : 0);
+-
+-			if (u64_words > max_i - i || u64_words > max_j - j) {
+-				ret = -EFAULT;
+-				goto out_put;
+-			}
+-			memcpy(&out_array[j], &in_array[i], size);
+-			if (size % 8) {
+-				size_t pad = 8 - (size % 8);
+-
+-				memset(((char *)&out_array[j]) + size, 0, pad);
+-			}
+-			i += u64_words;
+-			j += u64_words;
+-		}
+ 		/* TODO: can this be less conservative? */
+ 		pr_debug("Dropping aux sample as possible ASLR leak\n");
+ 		ret = 0;
 -- 
 2.56.1.703.gf848ed807c-goog
 
