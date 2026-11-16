@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837038;
-	b=44MEGuz714KI8ZplXMuAGZ1l45lfLu5+LYs5pNdI6t5rFye74MciAj2RL4VYfd7EqDy3
-	 Hy8qzP2VNQQYmCdbHGSPZ6jXArCV7pFA8bfLQ5J+VKWRJgMj/dIQJzfPHToFow3dSLQFb
-	 PgMFJiUnqImKY6V4Yo+vGU6LwtvP+blOQLstigddcWqyoqBVLDGjQrZMzvVjMczfojgxt
-	 BAQvPI3spCzhGFPCboNohFzLbs5s7DLxydbM0EvtYAuIleR/rSLz8Aq6z1emw8NOC+JjM
-	 BttOjaDS2efutNo/wgV68vrvmyWKTLOMOoR0wp5gGW9RHDVsHTW5TLZdJZiTXrYxdoQ==
+	t=1794837044;
+	b=b2ZxqJBHihb+RYDrjak73sEHE9uJPwqWhXSHVozp/AxdJ81si818KT/wkXj/w8nZZaFk
+	 dxCWOqPLegYPcy1q+aifJddCPrRiA7Ssc0yt7VXh0GcJ3MwAjpENG5P9uSSeK7lx9GT0G
+	 ALOWb/aEokvez4A0BRLU9dSX9GHOuFFvNBobN6I5kmco1oE1e37MEWdQfnu7tHH6OdKrf
+	 wMDP9xbz6Qu/SJxPTOAbOtwaNdixUiDA+peRUlf+/Mj2AC8c/nZL1P/41Bp0MDLMz2maZ
+	 uXCq4IFckHcnarGhZh4FMjyl2hvRF6FVedvxi4zv41JUY3Y4sX9ISq0V4GCydeEA4GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837044;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=HaFJtg8Mam/lIIHljkvLlQgM5vfR2sOsD6/dKSGbv/M=;
-	b=W/UICX+SSnHpX4IosDTcv7kQ9eBsuC913crnP3BfRpJQn5ou8YxMOg+6ZTAdt6sdhVxV
-	 WmSXrZcp0GbYshvRcwsRjHgXGKcMSrzlQrCVVCyOynf1Pn+2qmN6ksc1/4lSeakZzaPg8
-	 Ydm0p/GoFjpOm0pYeKC49WkcEbfZTgbJ95H3j5Z5dcS6wWpxowwh3PO0v+IsEqFTdvNII
-	 kIxn8JcG1G4RpGyhc/BQb8s4QRIZy0M+SifF85kFwGgTjy8fylzErZ7Fg7tkAFav+ATGY
-	 SN1pgSH1oeFMQzvctb66w1GNDrdt4L6uZJnrKi41j7k8vjjgZu6vI88/69131j7nOWw==
+	bh=uRFviz/P/Rq31yiMk9CbEywo6qCv0MBbNeVhyjXUEeM=;
+	b=tCzMNwwpbB2F88yDSdhFPKV9ldJXHUfd7kRHpknwbukGZHMsvxrOQKdRhecmO0b5m37c
+	 y+O8FmMMsl7VFC3qK7o37p+jWJ8JQXOwy+fYcdUL6/pa4sEP1NZtT1dp1X1ABmoGOlLeT
+	 ++vQ5YaEqyyiSwXbP61HiMg9OQVTlG3GPrXeU+t3fw0jKCY4JjgTJcUBNKFmirWCHKiM+
+	 JqXlnenjf/PET6lY0S58623fAelfoBNqRZbZVO40HKG24ezgRfdPh46WE2PJK5o6PHkB1
+	 u4Gy/i0Ap9x9ujT0BPlHjtDTW4UVe4vEWALnBzZcBSRmL5Q2v1jA4otgnjriplOfejw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkWBzwM9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XklXBhHB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E251606A8AA;
-	Mon, 16 Nov 2026 13:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982A8606A89E;
+	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkWBzwM9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E371F000C5;
-	Mon, 16 Nov 2026 13:50:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XklXBhHB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD401F000C4;
+	Mon, 16 Nov 2026 13:50:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837037;
-	bh=HaFJtg8Mam/lIIHljkvLlQgM5vfR2sOsD6/dKSGbv/M=;
+	s=k20260515; t=1794837044;
+	bh=uRFviz/P/Rq31yiMk9CbEywo6qCv0MBbNeVhyjXUEeM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MkWBzwM9xPQbE+1B2a85lO6M4oyBQZHAAXFHJmkY/gdaep7cwukUbnuaTZprr4kpK
-	 JODfHTaaLTLSZAS/1WpleZaEcteiWcSR82hf7tQXuIvHPTppV9UzNBiuiXHY3RbVpM
-	 flHrPs/W+fbSNJ2QIidpGBj5z3Foy2PVbSd8BW5+pCEZIb7eevXkKAP197orw19CSg
-	 J1zwH9o//UFnq6Jbq3rbz8h/646vGQ/+Y+SmEGzGB/dEgduQ8pQIUouRiGy74gHKdA
-	 zv1wvr25nlLAMVe9031VNPP6QZSBWmNNWzXDFd3H6B/kDqSthBjx1DoSAuzYJkUsrY
-	 ItdCAci7O0jbw==
+	b=XklXBhHB2Zhcr/rhwELX6ANHrSIQiAUjM3hsXTcuXS78BX0GsX5Nc3GQKg6ouJg4h
+	 5Xe5AxYy7B2iZ8XEnDVM5FLtF5QAl1vuZVR5Z6Z7Ut7EQ+bkobwhkTEsIl1eWGTLfO
+	 /0sKmKTGNG1f782mkYs6oSFr6KvdLDTxUx0Mf4oFkztwrOAcMdtF60wlYR4WfevxZN
+	 nT4AhuK0Ftq7sRMIRSDnDoLECtUMgEauq9M/K6vysmZ6tI7Z1CEY6MTNExoMrEaave
+	 EWiGE1smQF5x+Z94JNw7Zytvqg+UY7Nm5j6qudNb382jwJEvMFr9SKSjKTzm6d4uNi
+	 q/aDBFxugDwow==
 Subject:
- Re: [PATCH net 1/2] udp: restore outer transport header after tunnel GRO
+ Re: [PATCH net v2 04/12] net: au1000: report MDIO transaction timeouts
 From: netdev-bot+sashiko@kernel.org
-To: bryon@fryer.io
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- horms@kernel.org, jasowangio@gmail.com, kuba@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- pabeni@redhat.com, shuah@kernel.org
-Date: Mon, 16 Nov 2026 13:50:36 +0000
-Message-ID: <179483703667.3136.1173201547098616400@kernel.org>
-In-Reply-To: <20261112030708.1915665-2-bryon@fryer.io>
-References: <20261112030708.1915665-2-bryon@fryer.io>
-X-sashiko-severity: High
+To: f.fainelli@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, shaojijie@huawei.com, horms@kernel.org,
+ runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
+ danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
+ linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
+Date: Mon, 16 Nov 2026 13:50:42 +0000
+Message-ID: <179483704272.3136.4869685253432664524@kernel.org>
+In-Reply-To: <20261112045301.3669532-5-f.fainelli@gmail.com>
+References: <20261112045301.3669532-5-f.fainelli@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,112 +67,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch fixes only one producer: udp_gro_complete().
+- [Low] The patch adds a second timeout exit to au1000_mdio_write()
+  (drivers/net/ethernet/amd/au1000_eth.c), and both exits log the same…
 
 --
 
-udp: restore outer transport header after tunnel GRO
+net: au1000: report MDIO transaction timeouts
 
-This patch changes udp_gro_complete() so that skb->transport_header points
-back at the outer UDP header (nhoff) after the inner gro_complete()
-callback succeeds. Without that, the virtio tunnel exporter reports the
-inner transport offset as outer_th_offset, and the receiving TAP rejects
-the aggregate.
+This commit makes au1000_mdio_write() return -ETIMEDOUT instead of
+reporting success when the MII controller stays busy. It also adds a
+readl_poll_timeout() check after the write so that a failed final
+transaction is reported to phylib. The read path now returns -ETIMEDOUT
+instead of -1.
 
-> diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
-> index b77ae2f00c626..1a1d1a125d23e 100644
-> --- a/net/ipv4/udp_offload.c
-> +++ b/net/ipv4/udp_offload.c
-> @@ -948,6 +948,8 @@ int udp_gro_complete(struct sk_buff *skb, int nhoff,
->  		skb->encapsulation = 1;
->  		err = udp_sk(sk)->gro_complete(sk, skb,
->  				nhoff + sizeof(struct udphdr));
-> +		if (!err)
-> +			skb_set_transport_header(skb, nhoff);
+> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
+> index 7063f9e5bc7c0..6b2e216a83618 100644
+> --- a/drivers/net/ethernet/amd/au1000_eth.c
+> +++ b/drivers/net/ethernet/amd/au1000_eth.c
 
-[Severity: High]
-The commit message describes the problem in general terms:
+[ ... ]
 
-  "UDP tunnel GRO can produce invalid virtio tunnel headers, causing
-  virtio-net to drop whole aggregates."
+> @@ -292,26 +293,27 @@ static int au1000_mdio_read(struct net_device *dev, int phy_addr, int reg)
 
-The fix only covers aggregates that reach udp_gro_complete(). Can
-UDP-tunnel GSO skbs that never pass through gro_complete() still reach
-virtio_net_hdr_tnl_from_skb() with the same bad offsets?
+[ ... ]
 
-The HW-GRO paths in bnxt (bnxt_gro_func_5731x() with bnxt_gro_tunnel())
-and bnge (bnge_gro_func() with bnge_gro_tunnel()) build aggregates with
-gso_type set to SKB_GSO_TCPV4/6 plus SKB_GSO_UDP_TUNNEL[_CSUM]. These
-aggregates also have:
-
-- transport_header on the inner TCP header
-- skb->encapsulation never set
-- inner_network_header never set
-
-For example, in bnxt_gro_tunnel():
-
-	if (uh) {
-		if (uh->check)
-			skb_shinfo(skb)->gso_type |= SKB_GSO_UDP_TUNNEL_CSUM;
-		else
-			skb_shinfo(skb)->gso_type |= SKB_GSO_UDP_TUNNEL;
-	}
-
-dev_gro_receive() accepts these TCP-GSO skbs into software GRO. However,
-tcp_gro_receive() sets NAPI_GRO_CB(skb)->flush when len !=
-count * gso_size, or when the header has PSH/URG/RST/SYN/FIN set. Both
-cases are common at the end of a bulk TCP burst.
-
-A flush is also forced when udp_gro_receive() finds no matching tunnel
-socket, or when the outer tot_len check in inet_gro_receive() fails. In
-each of these cases, dev_gro_receive() takes this path:
-
-	if (NAPI_GRO_CB(skb)->flush)
-		goto normal;
-
-and neither gro_complete() nor udp_gro_complete() runs.
-
-If the skb is then bridged to a TAP that negotiated TUN_F_UDP_TUNNEL_GSO,
-virtio_net_hdr_tnl_from_skb() does:
-
-	inner_nh = skb->inner_network_header - skb_headroom(skb);
-	outer_th = skb->transport_header - skb_headroom(skb);
-
-That gives outer_th_offset equal to the inner TCP offset and
-inner_nh_offset equal to (u16)(0 - headroom). On the peer side,
-virtio_net_hdr_tnl_to_skb() then fails its inner_th < inner_nh +
-inner_l3min check and returns -EINVAL. That is the same dropped-aggregate
-symptom described in the commit message.
-
-These aggregates also cannot be re-segmented in software.
-udp4_ufo_fragment() returns -EINVAL when encapsulation is 0 and neither
-SKB_GSO_UDP nor SKB_GSO_UDP_L4 is set. That suggests the root cause for
-this path is in the drivers.
-
-The change itself looks correct. Should it be extended to cover this
-path? One option would be to have the bnxt/bnge HW-GRO paths set
-encapsulation and the inner mac/network/transport headers, and leave
-transport_header on the outer UDP header. Otherwise, could the commit
-message be narrowed to the software GRO completion path?
-
-Separately, would it make sense for virtio_net_hdr_tnl_from_skb() to
-reject tunnel-GSO skbs with !skb->encapsulation rather than emit these
-offsets?
-
->  	} else {
->  		err = udp_gro_complete_segment(skb);
+>  	while (readl(mii_control_reg) & MAC_MII_BUSY) {
+>  		mdelay(1);
+>  		if (--timedout == 0) {
+>  			netdev_err(dev, "mdio_write busy timeout!!\n");
+> -			return;
+> +			return -ETIMEDOUT;
+>  		}
 >  	}
+>  
+> @@ -320,6 +322,13 @@ static void au1000_mdio_write(struct net_device *dev, int phy_addr,
+>  
+>  	writel(value, mii_data_reg);
+>  	writel(mii_control, mii_control_reg);
+> +
+> +	ret = readl_poll_timeout(mii_control_reg, mii_control,
+> +				 !(mii_control & MAC_MII_BUSY), 20, 20000);
+> +	if (ret)
+> +		netdev_err(dev, "mdio_write busy timeout!!\n");
+
+[Severity: Low]
+This isn't a bug, but could this message use different wording from the
+one in the busy wait loop above?
+
+Both timeout paths in au1000_mdio_write() now print "mdio_write busy
+timeout!!". The first one fires before anything is written to the
+registers. The new one fires after writel() has already started the
+transaction, so the PHY register may or may not have been changed. From
+dmesg there is no way to tell which of the two happened.
+
+au1000_mdio_read() already uses two separate messages ("read_MII busy
+timeout!!" and "mdio_read busy timeout!!"). Something like "mdio_write
+completion timeout" here would separate the two write cases the same way.
+
+> +
+> +	return ret;
+>  }
+
+[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112030708.1915665-1-bryon%40fryer.io
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112045301.3669532-1-f.fainelli%40gmail.com
