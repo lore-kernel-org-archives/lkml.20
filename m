@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817641;
-	b=wEjmlTkME/8olmlCaRT5PMhOb5hymiPbGIJakCHwzcSpCfPxp0opYUM63n2pDrlVDKsA
-	 acmrOlhRAwxkFtqUHPdzno8TFp1oTTfzp5T8MPHwhlcATcToIQM+yEuf/VQHkTm8iUiUT
-	 i9d7mxQTpJqRhH6hQDvdnXI75dcAiMid8uFk9+L/BFk9OHem+GlumoUC4TPCFRi80XO8E
-	 7rG1tfOuL5z0z7k/sQEWOQpVcYQg80f9O7GU5Z0LSHm2FW/OkBJa8uGpSP5qRmJh95o8X
-	 Y/a17Sbdlh2toEkf2dgptM1I+wxQHJL5xn1Yf5yp/DyZrjblxhtrjUt9ztVT4fDxDEw==
+	t=1794817651;
+	b=VJqkwdslRx1Rrx7x1tX9ZNsUBF99cx4DzRmQXDWNA17SpcOaHmPugBpZs74hx1kUF1I8
+	 ghytZ1fDnr+xekfYuBKFb71K3Te6QzTV/YkTdpfYlS/HUFL2w7F4GL4NFoytGCFfutqrv
+	 WfafjKuZoYS3YK6q4ZTllAtfKosY2+Iq0pcW9tJEbPYT/dHIsRV30fjLTaOqXVj3v6q3W
+	 1PrZJzWdValVQGrZ7nFJBhqek6OiQYympk8e8kIAmGVjPDfj+jNm+t0TEyA3m1w3wWMZN
+	 TxJ20gF5APlz/bNTFbOUa8axDG4Gl79OmpQOaQ0L4ln1HFdh8I6H3kF1EZ1AyMRoPRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817641;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817651;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GFw3U8Bd+OtR5vH4CllQ/QamxV5duSdgL+vSBRZ0ODA=;
-	b=ziFMwN925OepaBnk5+KclEL16vhVFOT4H9KVs910Ls2P2Y2rQeboukYll9taIevT/rit
-	 OAnxBtJnaWYyGkTfpk+5968Zh4KedrXdcW+GIh1phyORXuLGkay3I9bv4NRn3q8FzhiyZ
-	 8m2eeYDvSeMH6AVwCpm2NgER9gsbUsz6J5FSo3+k/Z2AwAnqjCkrCfdYXLt2a7gcfrnio
-	 TsAmFP2rUqrgElwez3L1i6fcMxAA4pPO+1v++fXScfcIZXeJIsJoLCIgUblAtuzdH/ib9
-	 G72w9Py0H+Tl+KE83LlW2f25hyB18rwBuB3FTFfaIFU8s1kzGcn2qZxAVfF+IdRlLfg==
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tJu9TQrkJE41m7xIuOZEib42pEfQDhSvJ0z1DNA7otM=;
+	b=xS3AF5j2JvcMZFyMdHsRjzVGH/CKHBhxrHB4qAZpq9s+isDw+G0Y4fbjTxmb/t17z/36
+	 x9Qh5tPNkqFWBHqD0RLfyMOrojKJtKmlQvNy08fjvwoSNXlIVDZjtmjeE4R/F54Y1KygG
+	 I2Y8f1RrNAfyhz32pQTbXjWQwcR5ysPmknZr/UMh5ljwcRQ/qYyqftq37dykwjSpGBfa5
+	 ANWoaJAT/E5nB2AuI/I0QlWp8KdS7pmT2xDxzYaFN96KwSiUe1fU31+4VYWMwFFJYCee2
+	 wqN+fiyYsvbg7byJ5TGjvS+OC4/OxU4uV/0/WCxu+zhVCrGjbremLwb8wnhfhypZPmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lfGyu7rr;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=niPNp3pD;
 	arc=none smtp.remote-ip=192.198.163.14
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8706606A330;
-	Mon, 16 Nov 2026 08:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8706606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4776F606A32A;
+	Mon, 16 Nov 2026 08:27:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4776F606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lfGyu7rr
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=niPNp3pD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794817641; x=1826353641;
+  t=1794817652; x=1826353652;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GwTMfIZWZG9Cg3O2oJKoSVHTCiKHDa0jwqgpIdtjfSI=;
-  b=lfGyu7rrwZn6euSU2yEDuWbeC95zteAoqw8ih+9Tp9pBXTPBN/zZoUfw
-   54sJ9bqtJsDBQEtBxn8rrbqMXNAq2LmoWlJouyOIUR1tVJOMev8FEMNwt
-   hrniLCey1L348fhyXMrgwZj5sUMMlJ6tc/7ftR8GMGmA4S3wuq4skFTAJ
-   gTqVPs6nuztSrUOsfRfzH9L4XmW6vSaSSjwSXETTH9pAmAdVRzgSq8A2h
-   khUyhx15XT8vNYX317AtRdilfOgmGmbGnb/HMWl7JVGsGJDoFWyt9MNKN
-   c9xadP2JvzySkoEVeNWEY4uhVtgyRS1v9dad/axfci8S6jwJggXsxMsN1
+  bh=nr+deOJ7QI8Mb+35h7T4aAVV0Lifth98GQF/Gv5X//U=;
+  b=niPNp3pD+9yXVE8iTITYhPplM2QRw91NgkKLvT0lnDsNwCfzUa+Z31RF
+   wj1b9bq9Thd47JGOCV7BrzkxjciUZ5JNXnOp3Ww64R17cHqzKaSByU5aA
+   Fuvfe5ioE0JnVb2tHLcuWov05klMsAjCsNrJ7ngba3SY2yXQklMaSicik
+   mS2CyezEsKVyF1LWM5/ZatVjHr56OyJAisvDnq6qE41gMWMA4ijir/yo6
+   gsYjc7m6t5RGZyrFI1MoK3r/iO2drN7sYU3Y2yz+nVkcDsMDVHIOM7zxy
+   rjidwvbTTB8UZBlM5b7VCzJAqtgaP08YQbGaLJoPrXb03FYV9a6gWy4/p
    Q==;
-X-CSE-ConnectionGUID: BzhgAW0uRpu3/EDAnsT6TA==
-X-CSE-MsgGUID: AidSt+0dRMK8TTR9/8YghA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3436341"
+X-CSE-ConnectionGUID: 3auv3wOORTSA0l3tof/xrg==
+X-CSE-MsgGUID: rPbzSXaZSS+Tn5oFRM67eQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3436351"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3436341"
+   d="scan'208";a="3436351"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:27:19 -0800
-X-CSE-ConnectionGUID: ARE+CHOCRi+4gIoyVWDaTA==
-X-CSE-MsgGUID: rxk2iqpYSzaH8pdN91ABuw==
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:27:31 -0800
+X-CSE-ConnectionGUID: zpWICxxkSnikJbvwderwgw==
+X-CSE-MsgGUID: zZ9alPVIT/akL2i14WyvIA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9293464"
+   d="scan'208";a="9293500"
 Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
-  by orviesa008.jf.intel.com with ESMTP; 16 Nov 2026 00:27:17 -0800
+  by orviesa008.jf.intel.com with ESMTP; 16 Nov 2026 00:27:29 -0800
 From: Even Xu <even.xu@intel.com>
 To: bentiss@kernel.org,
 	jikos@kernel.org
@@ -69,9 +69,9 @@ Cc: srinivas.pandruvada@linux.intel.com,
 	linux-kernel@vger.kernel.org,
 	Even Xu <even.xu@intel.com>,
 	Rui Zhang <rui1.zhang@intel.com>
-Subject: [PATCH 1/4] HID: Intel-thc-hid: Intel-thc: Add safe DMA read interfaces
-Date: Mon, 16 Nov 2026 16:27:57 +0800
-Message-ID: <20261116082805.3986615-2-even.xu@intel.com>
+Subject: [PATCH 2/4] HID: Intel-thc-hid: Intel-quickspi: Use safe RXDMA reads
+Date: Mon, 16 Nov 2026 16:27:58 +0800
+Message-ID: <20261116082805.3986615-3-even.xu@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116082805.3986615-1-even.xu@intel.com>
 References: <20261116082805.3986615-1-even.xu@intel.com>
@@ -84,234 +84,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=y
 Content-Transfer-Encoding: 8bit
 
-THC DMA buffers are rounded up to a 4 KB boundary, but callers may
-allocate smaller receive buffers. Checking a frame against the DMA
-capacity alone does not protect the destination when do DMA buffer
-copying.
+Use thc_rxdma_read_safe() and pass the full input_buf allocation,
+including the body header. Handle -EMSGSIZE in the receive loop by
+skipping the discarded frame and continuing pending reports instead
+of scheduling a full RXDMA recovery.
 
-Add thc_rxdma_read_safe() and thc_swdma_read_safe() with an explicit
-destination capacity to check both the DMA capacity and the supplied
-size before copying.
-
-Keep the original interfaces as compatibility wrappers.
-
-Fixes: a688404b2e20 ("HID: intel-thc-hid: intel-thc: Add THC DMA interfaces")
+Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
 Signed-off-by: Even Xu <even.xu@intel.com>
 Tested-by: Rui Zhang <rui1.zhang@intel.com>
 ---
- .../intel-thc-hid/intel-thc/intel-thc-dma.c   | 95 ++++++++++++++++---
- .../intel-thc-hid/intel-thc/intel-thc-dma.h   |  6 ++
- 2 files changed, 86 insertions(+), 15 deletions(-)
+ .../hid/intel-thc-hid/intel-quickspi/pci-quickspi.c  | 12 ++++++++----
+ .../hid/intel-thc-hid/intel-quickspi/quickspi-dev.h  |  7 +++++++
+ 2 files changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-index c80ef8c20574..11d29c8daebe 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-@@ -614,7 +614,7 @@ EXPORT_SYMBOL_NS_GPL(thc_rxdma_reset, "INTEL_THC");
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index ec974d549a92..703ba238c02a 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -324,8 +324,12 @@ static irqreturn_t quickspi_irq_thread_handler(int irq, void *dev_id)
  
- static int read_dma_buffer(struct thc_device *dev,
- 			   struct thc_dma_configuration *read_config,
--			   u8 prd_table_index, void *read_buff)
-+			   u8 prd_table_index, void *read_buff, size_t read_buff_len)
- {
- 	struct thc_prd_table *prd_tbl;
- 	struct scatterlist *sg;
-@@ -640,6 +640,13 @@ static int read_dma_buffer(struct thc_device *dev,
- 		return -EMSGSIZE;
- 	}
- 
-+	if (mes_len > read_buff_len) {
-+		dev_err(dev->dev,
-+			"Message length %zu is bigger than destination buffer length %zu\n",
-+			mes_len, read_buff_len);
-+		return -EMSGSIZE;
-+	}
+ 	if (int_mask & BIT(THC_RXDMA2_INT)) {
+ 		while (!read_finished) {
+-			ret = thc_rxdma_read(qsdev->thc_hw, THC_RXDMA2, qsdev->input_buf,
+-					     &input_len, &read_finished);
++			ret = thc_rxdma_read_safe(qsdev->thc_hw, THC_RXDMA2, qsdev->input_buf,
++						  HIDSPI_INPUT_BODY_SIZE(qsdev->input_len),
++						  &input_len, &read_finished);
++			if (ret == -EMSGSIZE)
++				continue;
 +
- 	sg = read_config->sgls[prd_table_index];
- 	ret = sg_copy_to_buffer(sg, nent, read_buff, mes_len);
- 	if (ret != mes_len) {
-@@ -680,21 +687,26 @@ static int is_dma_buf_empty(struct thc_device *dev,
+ 			if (ret) {
+ 				err_recover = 1;
+ 				goto end;
+@@ -550,7 +554,7 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 		return -ENOMEM;
  
- static int thc_dma_read(struct thc_device *dev,
- 			struct thc_dma_configuration *read_config,
--			void *read_buff, size_t *read_len, int *read_finished)
-+			void *read_buff, size_t read_buff_len,
-+			size_t *read_len, int *read_finished)
- {
- 	u8 read_ptr, write_ptr, prd_table_index;
--	int status;
-+	int status = 0;
-+
-+	*read_len = 0;
+ 	max_input_len = max(le16_to_cpu(qsdev->dev_desc.rep_desc_len),
+-			    le16_to_cpu(qsdev->dev_desc.max_input_len));
++			    le16_to_cpu(qsdev->dev_desc.max_input_len)) + QUICKSPI_DMA_EXTRA_BYTE;
  
- 	if (!is_dma_buf_empty(dev, read_config, &read_ptr, &write_ptr)) {
- 		prd_table_index = write_ptr & THC_POINTER_MASK;
+ 	qsdev->input_buf = devm_kzalloc(qsdev->dev,
+ 					HIDSPI_INPUT_BODY_SIZE(max_input_len), GFP_KERNEL);
+@@ -560,7 +564,7 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 	qsdev->input_len = max_input_len;
  
--		status = read_dma_buffer(dev, read_config, prd_table_index, read_buff);
--		if (status <= 0) {
-+		status = read_dma_buffer(dev, read_config, prd_table_index,
-+					 read_buff, read_buff_len);
-+		if (status <= 0 && status != -EMSGSIZE) {
- 			dev_err_once(dev->dev, "read DMA buffer failed %d\n", status);
- 			return -EIO;
- 		}
+ 	max_report_len = max(le16_to_cpu(qsdev->dev_desc.max_output_len),
+-			     le16_to_cpu(qsdev->dev_desc.max_input_len));
++			     le16_to_cpu(qsdev->dev_desc.max_input_len)) + QUICKSPI_DMA_EXTRA_BYTE;
  
--		*read_len = status;
-+		if (status > 0)
-+			*read_len = status;
+ 	qsdev->report_buf = devm_kzalloc(qsdev->dev,
+ 					 HIDSPI_OUTPUT_REPORT_SIZE(max_report_len), GFP_KERNEL);
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+index 4362ac568bda..e8ddb504ccc7 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+@@ -54,6 +54,13 @@
+ #define MAX_PACKET_SIZE_VALUE_MTL			128
+ #define MAX_PACKET_SIZE_VALUE_LNL			256
  
- 		/* Clear the relevant PRD table */
- 		thc_copy_one_sgl_to_prd(dev, read_config, prd_table_index);
-@@ -711,22 +723,27 @@ static int thc_dma_read(struct thc_device *dev,
- 	if (read_finished)
- 		*read_finished = is_dma_buf_empty(dev, read_config, &read_ptr, &write_ptr) ? 1 : 0;
- 
--	return 0;
-+	return status < 0 ? status : 0;
- }
- 
- /**
-- * thc_rxdma_read - Read data from RXDMA buffer
-+ * thc_rxdma_read_safe - Read data from RXDMA buffer with a destination size limit
-  *
-  * @dev: The pointer of THC private device context
-  * @dma_channel: The RXDMA engine of read data source
-  * @read_buff: The pointer of the read data buffer
-+ * @read_buff_len: The allocated size of the read data buffer in bytes
-  * @read_len: The pointer of the read data length
-  * @read_finished: The pointer of the flag indicating if all pending data has been read out
-  *
-+ * Oversized frames are discarded and their PRD table is recycled without
-+ * copying data. In this case, @read_len is zero and @read_finished is updated.
-+ *
-  * Return: 0 on success, other error codes on failed.
-  */
--int thc_rxdma_read(struct thc_device *dev, enum thc_dma_channel dma_channel,
--		   void *read_buff, size_t *read_len, int *read_finished)
-+int thc_rxdma_read_safe(struct thc_device *dev, enum thc_dma_channel dma_channel,
-+			void *read_buff, size_t read_buff_len,
-+			size_t *read_len, int *read_finished)
- {
- 	struct thc_dma_configuration *dma_config;
- 	int ret;
-@@ -749,10 +766,31 @@ int thc_rxdma_read(struct thc_device *dev, enum thc_dma_channel dma_channel,
- 		return -EINVAL;
- 	}
- 
--	ret = thc_dma_read(dev, dma_config, read_buff, read_len, read_finished);
-+	ret = thc_dma_read(dev, dma_config, read_buff, read_buff_len, read_len, read_finished);
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS_GPL(thc_rxdma_read_safe, "INTEL_THC");
-+
-+/**
-+ * thc_rxdma_read - Read data from RXDMA buffer
-+ *
-+ * @dev: The pointer of THC private device context
-+ * @dma_channel: The RXDMA engine of read data source
-+ * @read_buff: The pointer of the read data buffer
-+ * @read_len: The pointer of the read data length
-+ * @read_finished: The pointer of the flag indicating if all pending data has been read out
-+ *
-+ * Legacy callers do not provide a destination capacity.
-+ *
-+ * Return: 0 on success, other error codes on failed.
++/*
++ * During HID-over-SPI transfers, THC DMA may also read bytes that aren’t
++ * part of the actual data, such as a placeholder byte used for timing
++ * control (8 clock cycles).
 + */
-+int thc_rxdma_read(struct thc_device *dev, enum thc_dma_channel dma_channel,
-+		   void *read_buff, size_t *read_len, int *read_finished)
-+{
-+	return thc_rxdma_read_safe(dev, dma_channel, read_buff, SIZE_MAX,
-+				   read_len, read_finished);
-+}
- EXPORT_SYMBOL_NS_GPL(thc_rxdma_read, "INTEL_THC");
- 
- static int thc_swdma_read_start(struct thc_device *dev, void *write_buff,
-@@ -862,19 +900,23 @@ static int thc_swdma_read_completion(struct thc_device *dev)
- }
- 
- /**
-- * thc_swdma_read - Use software DMA to read data from touch device
-+ * thc_swdma_read_safe - Read touch device data with a destination size limit
-  *
-  * @dev: The pointer of THC private device context
-  * @write_buff: The pointer of write buffer for SWDMA sequence
-  * @write_len: The write data length for SWDMA sequence
-  * @prd_tbl_len: The prd table length of SWDMA engine, can be set to NULL
-  * @read_buff: The pointer of the read data buffer
-+ * @read_buff_len: The allocated size of the read data buffer in bytes
-  * @read_len: The pointer of the read data length
-  *
-+ * Oversized frames are discarded without copying data and @read_len is zero.
-+ *
-  * Return: 0 on success, other error codes on failed.
-  */
--int thc_swdma_read(struct thc_device *dev, void *write_buff, size_t write_len,
--		   u32 *prd_tbl_len, void *read_buff, size_t *read_len)
-+int thc_swdma_read_safe(struct thc_device *dev, void *write_buff, size_t write_len,
-+			u32 *prd_tbl_len, void *read_buff, size_t read_buff_len,
-+			size_t *read_len)
- {
- 	int ret;
- 
-@@ -905,7 +947,8 @@ int thc_swdma_read(struct thc_device *dev, void *write_buff, size_t write_len,
- 		goto end;
- 	}
- 
--	ret = thc_dma_read(dev, &dev->dma_ctx->dma_config[THC_SWDMA], read_buff, read_len, NULL);
-+	ret = thc_dma_read(dev, &dev->dma_ctx->dma_config[THC_SWDMA],
-+			   read_buff, read_buff_len, read_len, NULL);
- 	if (ret)
- 		goto end;
- 
-@@ -915,6 +958,28 @@ int thc_swdma_read(struct thc_device *dev, void *write_buff, size_t write_len,
- 	mutex_unlock(&dev->thc_bus_lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_NS_GPL(thc_swdma_read_safe, "INTEL_THC");
++#define QUICKSPI_DMA_EXTRA_BYTE				1
 +
-+/**
-+ * thc_swdma_read - Use software DMA to read data from touch device
-+ *
-+ * @dev: The pointer of THC private device context
-+ * @write_buff: The pointer of write buffer for SWDMA sequence
-+ * @write_len: The write data length for SWDMA sequence
-+ * @prd_tbl_len: The prd table length of SWDMA engine, can be set to NULL
-+ * @read_buff: The pointer of the read data buffer
-+ * @read_len: The pointer of the read data length
-+ *
-+ * Legacy callers do not provide a destination capacity.
-+ *
-+ * Return: 0 on success, other error codes on failed.
-+ */
-+int thc_swdma_read(struct thc_device *dev, void *write_buff, size_t write_len,
-+		   u32 *prd_tbl_len, void *read_buff, size_t *read_len)
-+{
-+	return thc_swdma_read_safe(dev, write_buff, write_len, prd_tbl_len,
-+				   read_buff, SIZE_MAX, read_len);
-+}
- EXPORT_SYMBOL_NS_GPL(thc_swdma_read, "INTEL_THC");
- 
- static int write_dma_buffer(struct thc_device *dev,
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-index 715423453a9d..f6152b4209f7 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-@@ -150,6 +150,12 @@ int  thc_rxdma_read(struct thc_device *dev, enum thc_dma_channel dma_channel,
- 		    void *read_buff, size_t *read_len, int *read_finished);
- int  thc_swdma_read(struct thc_device *dev, void *write_buff, size_t write_len,
- 		    u32 *prd_tbl_len, void *read_buff, size_t *read_len);
-+int  thc_rxdma_read_safe(struct thc_device *dev, enum thc_dma_channel dma_channel,
-+			 void *read_buff, size_t read_buff_len,
-+			 size_t *read_len, int *read_finished);
-+int  thc_swdma_read_safe(struct thc_device *dev, void *write_buff, size_t write_len,
-+			 u32 *prd_tbl_len, void *read_buff, size_t read_buff_len,
-+			 size_t *read_len);
- int  thc_dma_write(struct thc_device *dev, void *buffer, size_t buf_len);
- 
- struct thc_dma_context *thc_dma_init(struct thc_device *dev);
+ /*
+  * THC uses runtime auto suspend to dynamically switch between THC active LTR
+  * and low power LTR to save CPU power.
 -- 
 2.43.0
 
