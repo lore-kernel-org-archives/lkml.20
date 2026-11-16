@@ -1,147 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.51
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830645;
-	b=WNG0Yiu9JGhViHqQIhrOim45G7xFO4WTF1N/241y2VE10SDJguPIJzf07hXmsx9nJwHm
-	 lyTu/98Hfkxr+gatLm+Rv/Nv/bUnu3JekioYxxnrMg5JxmOE4EHa+1sSa5xc1Rqu48Wai
-	 9kbpXd2ERg2afUwU0cd2I0NunzE4Y4spwD9unJWAF81R6IqFm5t6UaorgaqhJA/5g0SSJ
-	 r5dSEWh3Yms7jSsap42hjDkVRsirB6mOOByELpf+LboiDekkQ5Kh8rY8vUvQE/LqAar1R
-	 9+3OuDpEfYdYPNSZeGLlK3b8kONe5ig4Nba4FTKVbHIlPt8dfjUE8dEn2pIZgcdWgbg==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830645;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
-	b=sv/gVy1UuM7KQgVG5PIPhfYF3vrM7ZYyK5y6KCgvtUi+88qpU4nZsAMEj64o6+R4V4U1
-	 ewboBFMleZxqjY3GSwqg6+NtuwfPBwRH+jc4zi4Khhcoqto3m6OMf03/WFb+t/M0TnaT5
-	 GAHYAz+jDkyvnZVYrMAUVvoMvq+MRjZvbgTwD6AhTpB/01ZKmMLZ7XANanPMRmkc9gc2r
-	 czWhtszacGbwyTOZBoZd+BOByEw86j5bGO/zXFasegbZEeHPnb3TN/Coyhf7XuuyObZce
-	 pLAsjZ9E58hkuXy3eRdJ4jkiri+UILLAxPnR7QN/Re0O3TfmXJFL486Sj0G9xQCESEw==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.51
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013051.outbound.protection.outlook.com [40.107.159.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794830687;
+	b=fl23rEiMr5PNSq2rgMjNgu15ACkTfFHSS//4xTZjx4TrEIV1C91Y1U2klRWcKSVQb+hM
+	 gSArpZ7p8/68OkL5X3D0qd8sWFpxUpuC1N7MA9P49vwflbaJ4qa14XC6Ig+74U7+7HP/j
+	 D9U3gsL71K0lJmDfbhanJ5U3H3BBnExQVbFgq+cshDKwsWUMT41E+keeQjgcFOiUF8VBA
+	 aozVC1giTt8QxsMKYUBfWoNdYVYcP4CeZXCgx5gS6F5c+DMpAK2h8wUp98JenZJmstLcH
+	 z2KHYz+TZ60MjPD6xL5kmG0RRdKTj6h4TWbpyCfXLgCo/WCLW/kGicQ/wgYdnYKYFDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830687;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=w+hLSSBEQLeaadJ4ehRvrNvghPc5ZJYcY8eWYUFvqOA=;
+	b=f8Ee0tjSGni6MvRtdOLplBNhVPtyCpHbiHpjwtsqUDXBmMELZew+aPkaP6+KUmhTxrWm
+	 vupbTLynqoRhGH42cb7WqcFt+BNB32/69fgzxIt8V+zIcdK9HBhSPv8n5bJlPv6x2/nGr
+	 M2wUXZrIQkz8mQfYFG46S0bJsVAKRxchRsITlVNgpRcnr+YQMDPapUp9jp2W/qU4+Edx5
+	 KqHMrWWcZan8M4M5uYgrmVVEDO98UbrQ3Jr2hs7n8ZWAlj5kygLdsNjwyoaOWhskK1SmQ
+	 BaHl4rpBHUH38SPsk9AQba0YiqPzSXu2hl2N3n4ArE6UVHwjXYI8mEM4dvoZMv2pZ+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R6ZQDB61;
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1562606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:04:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1562606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCA0606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:04:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCA0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=fyUB/WL9zYK+6uQeMrtrbyRRM5oCwBo4gNE8UfId8H+iMSZ7yxaAuzMY+02Hz5QzqLOnS+20knX1lBcHElpXaz5xgUv8qMrSoPnGbMRftjsNSbswYTX6j7plnG2wED9DVcNYzzRAYzv4EWBxgrWKPcyB6FWShF+95KKkVdORMtf6XOC2/Me9MF1REPA6zuzZzt1yjqBAVayTpzroiWnh9Oe2QBnJoL8xyWqp91QNc6QabMsTpC0zbzykkbF6ualDLNqouEO6bgasjAg24iOljQxtNfduXjWHs8Mlsm3SBsKmJ3t78fNQ+UZrrPLNQ5aEaMZxqR6hihY4//cHKk9pvw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
- b=fvng6m3mdHl+uYG9sC7MDXlJyVjAA/g2yQDXvLnnHN3pclMgerVIv6twoTXn5jw33Ic2NElcr8efEEyNwB9U/Du9hLYHNOm0Nd+EQslgVq5tnEIEG6DTMovOBcDTLQ2nEZvOBA/5hqvioLM+LozcrOgCmr/LDjPx5AHTA58z3BvuvtyuM+i2thzefp0wI6pDYJmpilG4YabN1jiO0B26MeDalC2LWmTCs4N/F9it09vA51F2+uYIGlEXcpSD30YArP1GQ8qiLGuVfw+xlSLygoFukKlwOG/HjCnB+s1pYF5sxJyqmj/O5eJcyGLGl1Zr2Ml1lcKqSM1N64E/cyEumQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
- b=sBkeVFJ12DfrXI7BieClKLbwQinKD7DmmRZ+aw0t/ZfsIEPqLNxScj78wTOqcp1N3omWZJSytsJqLmXJoxEIv8xv1+JPLLhVGQ3Jj11n+pFNE3WexsiHzJrWG2ptQyBEMeJTroHTQuWgEmryGdUXFGPRI04Kyw6h/tPue3uNPW4=
-Received: from DU2P250CA0001.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::6) by
- GV2PR08MB547301.eurprd08.prod.outlook.com (2603:10a6:150:3b9::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:03:56 +0000
-Received: from DB1PEPF000509FE.eurprd03.prod.outlook.com
- (2603:10a6:10:231:cafe::3a) by DU2P250CA0001.outlook.office365.com
- (2603:10a6:10:231::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
- 16 Nov 2026 12:03:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB1PEPF000509FE.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Mon, 16 Nov 2026 12:03:55 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VpQotlYp7jMaAESnIEfgzJWBkOz+hHY0kGee8Na4XU/p7MasPxlhGk5Wk3yV6vpbeCRxUktqdcWuat8Ni7fl1Y5CgcJzG8PRHx6dQXM1/UwTlZFhgSTBlDu6znmbjb4tqccaJCivHv0KxCppLrYSNlnyAx5L3Z9R2/vIFWtu29wPj5XwGkATX+zsjlJsfXho8q16WBi3W4PNVeKQjOYjso9DkTU7vdwCo13xLfNHglPM8TRiY47nz2WWznHPqDt0IaNkp386lS7F+vFb62igTFxg+b1Xeto+66cPdmXZapNbiHbz85RhQTXD3zKBLGmiC2xVS/URqsyQwGYbiri9/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
- b=tejcmCvvhku39nOFjQAolmKmUWSpj9a6fRPUVBn+CPQbWjghm7CtyIus9XmB0Qc+XTR9UNlTJK2VC4we3/M7i38RgyJWYF6rs4keibAotB4A1flIj/65T3VmRTNsqrXzTyuj+4Gjpmkj1n1AnleS15xYHu9wKp4uA25CdHDVhO8Lot4xSZ+l97z2Gwy93Y919eQ9WZZUB6Ojv3BgElawqDT6KD3YwgeNXAw+31r3HPL450CSmWmYgqRKsXfPTqHyQ0F+CmoRqGTlU8bKb1tAClalYQukgDDY+1orZrmp3VhxIa+cOcsHjv97JMX+D/JQXpff7IQo2oobI7ET/nmvnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
- b=sBkeVFJ12DfrXI7BieClKLbwQinKD7DmmRZ+aw0t/ZfsIEPqLNxScj78wTOqcp1N3omWZJSytsJqLmXJoxEIv8xv1+JPLLhVGQ3Jj11n+pFNE3WexsiHzJrWG2ptQyBEMeJTroHTQuWgEmryGdUXFGPRI04Kyw6h/tPue3uNPW4=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
- by WA4PR08MB496630.eurprd08.prod.outlook.com (2603:10a6:1d0:34::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:03:20 +0000
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
- 12:03:20 +0000
-Message-ID: <a25bc3c5-080f-4e24-afdd-971f313a9442@arm.com>
-Date: Mon, 16 Nov 2026 12:03:18 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 09/12] iommu/arm-smmu-v3-kexec: Implement
- is_attach_deferred()
-To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
-Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
- kevin.tian@intel.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
- xueshuai@linux.alibaba.com
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <8de1e1f52a03059f2e1123d259467eac23e9740e.1793593923.git.nicolinc@nvidia.com>
-Content-Language: en-US
-From: John Garry <john.garry@arm.com>
-In-Reply-To: <8de1e1f52a03059f2e1123d259467eac23e9740e.1793593923.git.nicolinc@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0102.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::17) To PAWPR08MB8959.eurprd08.prod.outlook.com
- (2603:10a6:102:33f::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R6ZQDB61
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b0dba37a7fso29510607b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:04:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794830685; x=1795435485; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w+hLSSBEQLeaadJ4ehRvrNvghPc5ZJYcY8eWYUFvqOA=;
+        b=R6ZQDB61rzhvhYgQPcmWrTeolhLyLN32JqAJH7MI/omFjgFHMvVIpXo+zR84zcrSgw
+         qYz3BPAqeMsqfoyxQbCnXsC9BAzK35cZZLYTm75I8urB4qwsg10LYufBTuarq9IALGu8
+         pqj+ENF59L8XQJisukjrq2nksGwx+54ksp3C3KqTGKUASXuw9Nv5ihCKJC9Q4qD0qpS1
+         s1aam+e4pLVvCr6i93Nwg3Hc16/cbtIRGxNAu0/GronzX458ySXXfT05ncBDXiLR1/vk
+         U4sU6Xc7mJQPOfK/GxZqNYDLPHWdTEcs75sjI3WtpZJ2C24jEvsuSxgoC3YkrQLICpxI
+         zE9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794830685; x=1795435485;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w+hLSSBEQLeaadJ4ehRvrNvghPc5ZJYcY8eWYUFvqOA=;
+        b=AEYMUtyjIeWEYf0CefXNbgH/UvtqrfTM9Hx+kCmpkQB39UrUm8N+WGeG4oN7D7wNlw
+         lBNvjmXAfunmBsW85ttKp3VKTqxt30Euvgb0NW6Bm2qEQgMOwphh8SAgWgbydLo9Nlgq
+         z18/jU1UnOqT5fjOfkl96xhHYj5mHYc+W0+dJmDgZYyTsRpNk/gMzeMYMxuWkG1eGCiU
+         WJoIKaFo7oRWbshPFL5p34Upudtr8bAMM/2BW6wUie1vKj+KZ44Fdz9nebAfMRVO1NE9
+         A0MJrzCPLdXNzKRMQINMIVrBBjCApF2dA/m6fx1kuZDQgwMjqgIyjbPwZO4AUrRRR/tl
+         T/0Q==
+X-Forwarded-Encrypted: i=1; AL+hErGOyK5mddjrNMKOeoHGzw9xkWhvMSGzoDFus7YX6KzGrdy925T36ucuhuZxCUw4jbLLIMlD3BbVcNd+JCo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/BuiDyO3wWJc85BbFBiB0IiU/90mMzOQNzz+Fz3oOXiBXecoP
+	BfmzoaYR1ULD1fOjqO/ZP8+RNRIrkqvXst1VUHrp54DJoSl8lZC3Ro6X
+X-Gm-Gg: AZFdTZdyf2I1G9fR6SOr91oRRuH092sqluR2rbREMkJuEfVawKxqGGMR3gVqxe54AxQ
+	M375YYcHC+a65YOG5wQ30G7tsSE6b5yErLArf1jetv6zTJK8mESMe+ngpV2yFcdhsBvhqp4NmI2
+	/qAZ3xNgsREobAr4GWfLUYhaHO0z5ANZDC62JrchWvcRUbJj6Z+4OmLXiGmLFaEfFP6kcerrPMY
+	4h7TcJroSI7f04d1G6TzVkb5OrXWohK+jvaNVe398sX6/QnTOM3LfGpHirZpbGj4nQErHCAH1YJ
+	vy7UdKkCPK9XLywmzOXHs0qmU1bV79MnpfFFMstSOg99d+jdXmm52QshpRMSxrYronWJY6c4VL/
+	p4ZcacgD9wvQ5ZHh9gBXbzNXfs2g276TmbMzX4tpIMPi0D8PZWiS+88wn9kkvzlQrAJG5SyvNxd
+	HdMzJRZcF4uls2WinqAA66bG5GcsquLPHzGJ+xRLl3101+heaVhV3NRlWXffTf1fuRLdB8FJUC8
+	qd1sKMObCe/69OyuqddR6GeMnYvtCTSEG/dUjr22IxyyUnwDTJ1xDQt2eubtVm4rhJtVkKaE7vR
+	SxHiaFoc1UaCehlmfhcBOAJVFos3jL+UNfm09zxa/7HmQf+t
+X-Received: by 2002:a05:690c:3181:b0:8ae:1acc:ad33 with SMTP id 00721157ae682-8b4aa305fd1mr44071397b3.58.1794830685512;
+        Mon, 16 Nov 2026 04:04:45 -0800 (PST)
+Received: from localhost ([2a03:2880:30ff:71::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9fae24sm83783927b3.41.2026.11.16.04.04.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 04:04:44 -0800 (PST)
+From: Daniel Zahka <daniel.zahka@gmail.com>
+Subject: [PATCH net-next v4 0/5] psp: support rekeying psp protected tcp
+ connections
+Date: Mon, 16 Nov 2026 04:04:35 -0800
+Message-Id: <20261116-psp-v4-0-1a599df2aefa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,70 +92,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAWPR08MB8959:EE_|WA4PR08MB496630:EE_|DB1PEPF000509FE:EE_|GV2PR08MB547301:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b23d3aa-a73a-4a46-bdb8-08df43d9b09b
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|11063799006|56012099006|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261021121427099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info-Original:
- D5+vQPe7V9fO7hRGB1560UmrtoCSbCNNQZ1GK9jjpeMBi0uP+aywRzBPO3yoCEBTLZNuUluzXdPAJEfY0xCqnuQiCRdyufGfy6ZAw/ITHRyuqev9wQgkfOfcw89Kv8Xxy/NiAojxwqKAxtir/Ro+r6hujIzYpRvk2RBkVdzlbGfboFO8KoETdr9r2Q6AD17BgZx7YepA4wB2CTyNbLr65xaPl8al5CnHF5tG+XZRaSRVkxc/If3Z171/+2TpZ9d0rc7BbGsQEQUpXkujlSumXrXgrs6FV/xHRFIe5mxSm4wuiwU2VlPuQRovfER3JE/wUkn1B85kDZ9+4nUmNtnt8xqDtX1MoMTG91DjkMCVkBD2pi/DXhfcQPEQNK/DGuBk7j9tft7c601wNa8lc5yzj8l5XvrBr2wtIdvsTrBVflkVEZl0GE9dFiQvuOtiU9v4vIFqGAfwYb5SDb83IWi5jv0EfhBkWgWEFg7KlX9iCX1g3VtcxMivCR4Mo2XyFc8DS/zyi3mWpGnIy4z7lgwOSM23p324/rjTNdcDANvUD+HbmJgP6XgMfJU8MD1s1hPSy02mdm6yPWZXV4QzNZKvfNKkgJrWOff7A5oVRWP653qbcQJRJaSQlDYvXyCUokW1kOYCwzeDqyOj0HtUiJnf60R/R6mBEsLnLKPGq71+1vg=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- Kwk0RrPA9w1lEHnt5U0RtprtYwtiVJpg3jpEJf+SUPPNSaV5+o0AVt6Ot704O/1bizXXuHbBDOXOemXO7Dipj9NKxC4l1GbVvxzRGYKgM2sZgSnzvpc8axXtP2RFDvaaOEQpsyfybOvjVsTAyJnswt5P1ENsC/ILBBO6zqlTDgu5+vXxKYSKFPQ+awUxHFC3wlaQogh6cqC0cQRwyDoime8vb7aw2VmbCT+orpXtvknf74FimX3zCc/QVhQwfZOh6uWYYUnwaYvqsYZbDLkvqp9V5x4lXBRNuA2yObsjJpw+0kY2i0dLzZBAChrUh8VbfY792cVYOLAD/TcQr7cbZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR08MB496630
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB1PEPF000509FE.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	b38b1321-7dc9-4123-8f57-08df43d99b3d
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|23010399003|14060799003|1800799024|82310400026|376014|7416014|36860700016|10067099003|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	8RxsGAXOo7AqxYUnmzvgwXVwvbydgQBixzytCVkwxUmHeQCbviI3zwdOrc/yELmAr8xUlWCAglUJw5nY0E/SdwW9VbXbb/Z6J8fNht5+mQAC2yz5yDSHWUB9zWdLzFiiMj8FyQU3mH1PHMKts8zCXPjwjTC4GiPrXd82l/s+BqXvr8Fy5b55EpAxcYUcY7zmmnhlSf5TSkUbP+Fsz+6p2q8zXrgokP6n8EJdiG9L4InYMeM/VZEC1XWmHevDKaZG1giElOQgscWBR4qVK+qA3LVZjLZ7mSbZKp9cboVUohVCeOCdp7S5H/kB7qD3Qem3a6x/zaRV/ioDUshKUR6tldCk0FZBSPtrJf0zAef/jnprWGX3c44Ztt8eegkxQRQ+4FqWjY2ULrVquA/UKAkMbyea3UjUctbW9AabAYeUB/bgLkugq4ReEEDG16R3084PL9+4iQ7Tsz70qv7J3fksAnaHwFkzkcjJHGy2KiIne/twJ0GC/CEpFXOozz9VYIfumkBK8RF5fU/JFDtnWivOEi6wRmokINb/saH1y8UShDAhMb4pHZtVlPyY/KqEzI4X0Gex6FSf1X9kOAZysfUlhn7XGmaY6OLa3PJ6v04SLVUvLlbkaYmwQqf0RhFtst7sLVTHbhqvYWd7/dgKYjyZegKE02BXnkuV2vq4aA8hHVs5d8HG+oHFMWpGJJs4C6dCY4VSrBvh6Vc9QkYf2+zR5w==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(23010399003)(14060799003)(1800799024)(82310400026)(376014)(7416014)(36860700016)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1RdKd/gDS/6C9tcYsw3BTv9vEffPfZ5Fv6i182X8OH3ZVNT4t5y6Tw4WVtRcwE+LX3VKnG+5GTA2rdbv92l7XLLuCrT/Ivy9VGLB+MfrGQ18hfraGILgL9rUREO8zRqdkDRQyyIemKxhtykUJSUMeMAlGQ14ORNnOPMl7UwbccIo8qLGzHyIHihVII0rKKvH5GTYSZ90y3WxA3hpX/0FJaVUO6hFB8TnR7RKu/pLDoZ633yYH9oATpf31GuYWfBFZa74FiVlga3pEG67JIQOVHwYABSUjiLOkAcOOxmHXHlSEKQ2bdK6sP/lzDprWXZ4DJfYuB660xXixlSXCOw05PCQShvXRl1uqbwo6cfvQ66S0uDtYpqKl8oyfjYBM0Jz0SQMbORGEYud9nn3766eIN42BZHUObh/ncr2Jk2umGAEHsCuv5h3197o3yCPhtRQ
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:03:55.8877
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b23d3aa-a73a-4a46-bdb8-08df43d9b09b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FE.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB547301
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFPx+moC/13MywrCMBAF0F8pWRtJ82rryv8QFzGZtAH7ICmhU
+ vrvxlQU3Qxc7py7ogDeQUCnYkUeogtuHFLghwLpTg0tYGdSRpRQSdLBU5gw0zVQK4UWmqP0OXm
+ wbskrFzTAjAdYZnRNTefCPPpHno9l7t9LPC/FEhMsLGEcqLGKyXPbK3c/6rHPPtKPKQlpdkNfR
+ jRS3QSxsqr+DfuaksjdsGRUbQyrrVAV/THbtj0BnDagwQgBAAA=
+To: Jakub Kicinski <kuba@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Donald Hunter <donald.hunter@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Willem de Bruijn <willemb@google.com>
+X-Mailer: b4 0.13.0
 
-On 11/2/26 05:19, Nicolin Chen wrote:
-> Though the kdump kernel adopts the crashed kernel's stream table, the iommu
-> core will still try to attach each probed device to a default domain, which
-> overwrites the adopted STE and breaks in-flight DMA from that device.
-> 
-> Implement an is_attach_deferred() callback to prevent this. For each device
-> that has STE.V=1 and STE.Cfg!=Abort in the adopted table, defer the default
-> domain attachment, until the device driver explicitly requests it.
-> 
-> Also, move arm_smmu_get_step_for_sid() to the header for the kdump function
-> to use.
-> 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+A note on v3 and later:
+To keep this series short, I have split off some of the content that
+appeared in v2, and also have planned future work that will make this
+feature more robust, but not necessary to start. Here is the current
+queue of follow up series:
+ 1. core tracked tx-key-count stat and SADB drain test case (from v2). I
+    see this as able to stand alone as a series, and I also would like
+    to report key deletion errors, but will have to touch mlx5 for that.
+ 2. core to end grace period if BQL is stalled. I think this deserves
+    its own series for human discussion.
+ 3. Rate limiting rekey uAPIs. This has been suggusted by the bot, but
+    whether or not it is needed depends on a bit on the deployment
+    model.
 
-FWIW:
+Original cover letter:
 
-Reviewed-by: John Garry <john.garry@arm.com>
+The PSP architecture spec states the need for rekeying connections in
+the event of a device key rotation. After a device key rotation has
+occurred, a new rx derived key needs to be generated and sent out to the
+other end of the connection sometime before the next device key rotation
+occurs.
+
+Because PSP connections involve two different keys at each endpoint,
+one for decrypting ingress traffic, and one for encrypting egress
+traffic, there are two types of rekeying events that need to be
+supported. From the perspective of one endpoint of the connection:
+
+1. rx rekey: we need to allocate a new spi + decryption key pair to
+   provide to our peer.
+
+2. tx rekey: our peer has provided us with a new spi + encryption key
+   pair which we should use for encrypting traffic immediately.
+
+In the case of rx rekeying, there is a period where it makes sense to
+accept packets authenticated from either the previous or current spi. To
+deal with that, we allow a psp_assoc to remember the last spi that was
+valid on a socket due to a rekey. If authentication state does not match
+the most recent assoc, the stored state from the previous assoc will be
+tried.
+
+In the case of tx rekeying, as soon as we install the new tx key, we
+have no use for the previous one, and it can be disposed of immediately.
+The only catch is in the case where hw uses a key handle in tx
+descriptor state, as opposed to inlining the key directly. In this
+case, psp core needs to be sure that any of these unaccounted for
+references to key state are gone by the time it tries to sync a deleted
+key to hw.
+
+To deal with this race condition, we introduce a different path to key
+deletion for psp_assocs removed from the socket during a tx rekey. psp
+core will use bql byte counters filled out by the driver to determine a
+conservative grace period where key handles can be disposed of.
+
+Lastly, some test cases for rekeying are included that go through key
+rotations and rekeying.
+
+There are some packetdrill tests that are queued for upstreaming [1].
+
+Future work can include a time based rate limit on the rx-assoc/tx-assoc
+uAPIs to prevent an untrusted user from creating lots of wasted PSP
+assocs and consuming SPIs, SADB space, etc. For now, users should use
+network namespaces, or otherwise not present PSP devices to users that
+could abuse this.
+
+[1]: https://github.com/danieldzahka/packetdrill/commits/psp-rekey/
+
+Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+---
+Changes in v4:
+- selftests: drv-net: psp: factor out psp connection setup
+  - drop closing the data socket on conn_setup_psp() failure;
+    preexisting and not needed by the series
+- selftests: drv-net: psp: add rekey tests
+  - reuse _recv_careful() and _req_echo() now in net-next instead of
+    redefining them
+- Link to v3: https://lore.kernel.org/r/20261106-psp-v3-0-a8dd38f5a727@gmail.com
+
+Changes in v3:
+- psp: support rx rekey operation
+  - move the replaced assoc to psd->stale_assocs, so a rotation
+    racing with its free doesn't count it in stale-events
+  - drop the requirement that the new rx spi has the opposite phase
+    bit from the previous one
+  - keep prev_generation valid across a rotation when the prev SPI is
+    from the same generation
+  - document rx rekey in the rx-assoc op doc in psp.yaml
+- psp: support tx rekey operation
+  - move the replaced assoc to psd->stale_assocs, so a rotation
+    racing with its free doesn't count the socket twice in stale-events
+  - document that the previous rx SPI also stops being accepted once
+    its device key is rotated out
+  - drop the claim that the peer accepts both the old and new SPI
+    after a tx rekey
+  - document tx rekey in the tx-assoc op doc in psp.yaml
+- psp: defer tx key deletions for SADB drivers
+  - document that Tx descriptors must be completed or discarded
+    before psp_dev_unregister()
+- selftests: drv-net: psp: factor out psp connection setup
+  - take key lengths from the kernel's rx-assoc reply instead of a
+    per-version table
+  - close the data socket in psp_responder if conn_setup_psp() fails
+- selftests: drv-net: psp: add rekey tests
+  - drop test for rx rekey rejected without a device key rotation
+  - fail fast in _recv_careful() if the peer closes the connection
+  - in the basic rekey tests, run traffic across a rotation before the
+    rekey, and rotate again after it to verify the new key is in use
+  - drop unneeded key rotation from rekey_rx_version_mismatch()
+  - carry the key length in the responder's assoc message instead of
+    deriving it from the version
+- psp: add core tracked stat for outstanding tx keys
+  - moved to a follow-up series
+- selftests: drv-net: psp: add a tx rekey drain test for SADB drivers
+  - moved to a follow-up series
+- Link to v2: https://lore.kernel.org/r/20261009-psp-v2-0-5596ab50f677@gmail.com
+
+Changes in v2:
+- psp: support rx rekey operation
+  - copy old rx state by value instead of pointer to prev
+  - place non-datapath fields at end of struct psp_assoc
+  - disallow rx rekey when socket is not in full psp state, or
+    dev/version doesn't match
+  - require the new rx spi to have the opposite phase bit from the
+    previous one
+- psp: support tx rekey operation
+  - place new assoc on pas->assocs list instead of psd->active_assocs
+  - disallow tx rekey when socket is not in full psp state
+  - document rekeying in psp.rst
+  - reject tx rekey on SADB devices until deferred tx key deletion
+    lands
+- psp: defer tx key deletions for SADB drivers
+  - replaces "psp: add driver api for deferred tx key deletion"
+  - use bql byte counters instead of driver callback for grace periods
+  - only defer tx key deletion when socket outlives psp_assoc
+  - document driver requirements in psp.rst
+  - allow tx rekey on SADB devices
+- psp: add core tracked stat for outstanding tx keys
+  - replaces "psp: add core tracked stats for deferred key deletion"
+  - drop grace-periods stat
+  - rename tx-key-cnt to tx-key-count, only report it for SADB drivers
+  - warn about outstanding tx keys in psp_dev_unregister()
+- selftests: drv-net: psp: factor out psp connection setup
+  - split psp_responder conn_setup_psp() into rx_assoc() and tx_assoc()
+  - drop Reviewed-by from Willem due to psp_responder changes
+- selftests: drv-net: psp: add rekey tests
+  - add tests for rekeys rejected due to psp state and version
+    mismatch
+  - add test for rx rekey rejected without a device key rotation
+  - add rx-assoc, tx-assoc, and key-rotate rpcs to psp_responder
+- selftests: drv-net: psp: add a tx rekey drain test for SADB drivers
+  - new patch
+- mlx5: psp: implement deferred tx key deletion
+  - dropped, bql based grace periods need no driver callback
+- Link to v1: https://lore.kernel.org/r/20260204-psp-v1-0-5f034e2dfa36@gmail.com
+
+To: Daniel Zahka <daniel.zahka@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: David S. Miller <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Simon Horman <horms@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Donald Hunter <donald.hunter@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+
+---
+Daniel Zahka (5):
+      psp: support rx rekey operation
+      psp: support tx rekey operation
+      psp: defer tx key deletions for SADB drivers
+      selftests: drv-net: psp: factor out psp connection setup
+      selftests: drv-net: psp: add rekey tests
+
+ Documentation/netlink/specs/psp.yaml               |   8 +-
+ Documentation/networking/psp.rst                   |  68 +++++-
+ include/net/psp/functions.h                        |  10 +-
+ include/net/psp/types.h                            |  35 ++-
+ net/psp/Kconfig                                    |   1 +
+ net/psp/Makefile                                   |   2 +-
+ net/psp/psp.h                                      |   8 +-
+ net/psp/psp_deferred_del.c                         | 231 +++++++++++++++++++
+ net/psp/psp_main.c                                 |  22 +-
+ net/psp/psp_sock.c                                 | 114 +++++++++-
+ tools/testing/selftests/drivers/net/psp.py         | 251 ++++++++++++++++++++-
+ .../testing/selftests/drivers/net/psp_responder.c  | 192 ++++++++++++++--
+ 12 files changed, 886 insertions(+), 56 deletions(-)
+---
+base-commit: 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
+change-id: 20260202-psp-3c8e2f65c5c4
+
+Best regards,
+-- 
+Daniel Zahka <daniel.zahka@gmail.com>
 
