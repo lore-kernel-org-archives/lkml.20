@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842531;
-	b=XPTGfSz3Y2gU8EHrFuU2gJqjT6HWlXhMIxpi2Y84gCBLPHtto6UUQudMneIvmfoBx/DZ
-	 dVrvpMQbqPXobkFUDAE9v+Yj7ndsE4ZdIUbopHgWk4YcDLgmmqKdNEY9uvv8iqx0hGdPo
-	 LMYHKUKG+Ak6gLVvJ8V0lAggL3hVOxZ6bPKf0tcijZX63tzZgJLza71PAoI9aaxchBfTd
-	 YW3JG7j7icoZS+77dnn2q+oO9rSAP1YM6vHtGRvHRhr4yh06oAxjTyH7tbLAMAx1Z0J97
-	 gYUh5dnpilfrjcXhFf9MjhFg4YclSyzfkdh/3EBp03rA2+/XpOuXw+DX4vHV2Z6wc4A==
+	t=1794842537;
+	b=mU7rQi8trTCAfDJ8cSSW+VakJtdGsW0AGqDLtcAbgI2nJo13Ej6hrAQ7l05QN5dAqi0v
+	 p8a0A3guknEfQ8PJRqF7Q8B73ugN6uteMtvFMf+UTPwVAbVXMKSPahnjdJLhuYlS7LnIi
+	 EItTlnKbu8akW3XxqGugrLRZ6+l8aTDFUhisqTY0TyvVIxCeh54z7DrbULF15oBbi1oqW
+	 ouTRabWB/fbIVQS51gzfUNg79tzcV50wCG43kL4WSkD0JIQDPFKhp985T/oVSYC2heKvz
+	 41WVTZbFVWgmSyTgQPPRXBvHssXpeTm8DOl8jgdLuiLBti/XD9cjTGeqU6H7zd834Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842531;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vY0UbG0C3Stc7c0qISbj4M381KaRmNfpfTlZNvZJ4gg=;
-	b=5Bq6hjGHfRF+YhsuETkswE/+DNdLvj9/yzK8dzx/WunMz0UVps/bbzNjCdKtucsdjNsH
-	 h/iojEm+FaC44im+wtCCzdnmn9mVGE/+SeLh6KvMwsBzveaMkCzzjjrb4SJ9ejC03vaw/
-	 REWK0+qA8jaQiYWdwP/jT2JW/p+ojwnJPkL/HmdrXo2nGQVe4NQwEnYb/KAJnt53N5hS8
-	 8rhan2EBH2vPFscpPqg0dgCZH0WUXNDxOkC8iGojsItXV36EENce1oz2oGlBJmrNz6F4U
-	 jotP1sHG7Z9ebhu/WsLTO/Obyv8Gj7bb8SAWmHG82/DXUxsd+03ZOOA3AtM/d7n56YA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842537;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=184ZpBXRpLvzwSAALbovT+V+UH0/q/KWhPuda1sGnu4=;
+	b=NMqi6vxTxRohrFTNj5rAB3qlLsHd4wjKDFKEbSrPkGzb0nK35s/KM6gdebPzwrFcLXqz
+	 mHaxbuC4bQP8MgvmFl5tJTVLb6PZDbOUoKAjSc4v3nBd3r/GssAKfgd+IPKRCtlpJ2uRf
+	 dXyXu06Xq2hF76G4poyWX84WhrI4BwWvTm7TyaCKQjgHkd9xIQL+e4bLallkD8ml8NGsu
+	 aTadDwmWhFR5IPKA7PjHPoeXPN3OS5F6WsKXm9mBmo3a2xsHOwtpPzz0Ae43l+dnrhVjO
+	 mr9GFxt6oF3lL7V/ArdlEjF5RkOYYl70YOFVzZ0OVvSOcd2WQj+602x/+4CGO1BIK0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MW4jEOMd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a1aFJHj+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80248606A31C;
-	Mon, 16 Nov 2026 15:22:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6123E606A31C;
+	Mon, 16 Nov 2026 15:22:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MW4jEOMd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168291F000C4;
-	Mon, 16 Nov 2026 15:22:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a1aFJHj+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE2B1F000C5;
+	Mon, 16 Nov 2026 15:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794842531;
-	bh=vY0UbG0C3Stc7c0qISbj4M381KaRmNfpfTlZNvZJ4gg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MW4jEOMdnWGPvEz5CGqm/KorZii8WlayfaxYQOGWixb9ToQDNIwgGyTyDOi+IurvI
-	 ErG/UbUJCeqHZInLB5+s/pUew5wgPeKvlq0VS/EJNtJ3UNQKUN8hax/CmCib2GDERa
-	 Jwi7WW0dWg7El81CKKt+cFHlJHRGDtBRMl9aIvWKZYksT+8W3NR6mo9o9DFZvKn3Yi
-	 XqZPbfOVbnewWYxzJgobgZiF5p3encmi58k8O7CA9bV3IAnGykhjxxre7lAB31dh71
-	 aEVQx2Tc0v4ZHI4Ey/AqaXeuNqjauz69ZoDp3bfjYCR9ooCfNpcWlUeY0kZNuZtMiM
-	 0bx/CtQJtyhKQ==
-From: SJ Park <sj@kernel.org>
-To: Jason Angelov <jasonangelov@ucla.edu>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] mm/damon/tests/core-kunit: test DAMOS_FILTER_TYPE_AGE_MS interval changes
-Date: Mon, 16 Nov 2026 07:22:03 -0800
-Message-ID: <20261116152204.82241-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116-test-age-ms-filter-v2-3-3b265d59ec98@ucla.edu>
-References: 
+	s=k20260515; t=1794842537;
+	bh=184ZpBXRpLvzwSAALbovT+V+UH0/q/KWhPuda1sGnu4=;
+	h=Date:From:To:Cc:Subject;
+	b=a1aFJHj+evmJR5mWe6zc/eqCXyN2rLv+BqVYTSAhoklFPFRJUgnmKBQNx2ZrqYIfi
+	 yj+YTU9LN1eiJtly9xRNDVpZeg6jr4UuIYNGNa0WpPhePAtOb6wAZi15DWrsRlL/7E
+	 pFFP6KTjA5vQbn1VLW0M4xH0LEhuvMtbtAqgsSS/eC2U8yRBCYaMIcpSaHbfthGUY6
+	 rNzl+Gj2PgAJdTng4TUVJd6PcpCuWIsGurc1AUzuzW5QcA+W5Wvh8KCSIsptuB6Jn1
+	 U9GWMLssaaNY7WmPE7irpjn077Frhe+EtZSKQNzge23PMtVIKxKR0m1Q6nnJzUORm1
+	 RJ6mW+iJpk+Kg==
+Date: Mon, 16 Nov 2026 15:22:12 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Sergei Nizovtsev <snizovtsev@cloudlinux.com>
+Subject: linux-next: manual merge of the bpf tree with the origin tree
+Message-ID: <avsfpHqbu_rdmOrf@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,32 +62,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Hi Jason,
-
-On Mon, 16 Nov 2026 03:06:23 -0800 Jason Angelov <jasonangelov@ucla.edu> wrote:
-
-> DAMOS_FILTER_TYPE_AGE_MS defines an inclusive range for age in
-> milliseconds to filter for target regions. Aggregation interval can be
-> changed by users or intervals auto-tuning features.
-> 
-> Add a kunit test for each:
-> 
-> - convert region age to milliseconds, correct behavior at boundaries
->   for defined filter range
-> - DAMOS_FILTER_TYPE_AGE_MS filter keeps correct behavior even when
->   aggregation interval changes
-
-Looks good to me.
-
-> 
-> Signed-off-by: Jason Angelov <jasonangelov@ucla.edu>
-
-Reviewed-by: SJ Park <sj@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fvrkY8uIEiwoI8vX"
+Content-Disposition: inline
 
 
-Thanks,
-SJ
+--fvrkY8uIEiwoI8vX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[...]
+Hi all,
+
+Today's linux-next merge of the bpf tree got a conflict in:
+
+  kernel/bpf/bpf_lsm.c
+
+between commit:
+
+  ea8c4b37b8809 ("bpf: don't mark namespace_init and namespace_free argumen=
+ts as trusted")
+
+=66rom the origin tree and commit:
+
+  ab86b62012b9e ("bpf, lsm: Mark backing_file_alloc/free LSM hooks as untru=
+sted")
+
+=66rom the bpf tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc kernel/bpf/bpf_lsm.c
+index 468e63dbd922d,f39a3766f2245..0000000000000
+--- a/kernel/bpf/bpf_lsm.c
++++ b/kernel/bpf/bpf_lsm.c
+@@@ -411,8 -411,8 +411,10 @@@ BTF_ID(func, bpf_lsm_bpf_map_free
+  BTF_ID(func, bpf_lsm_bpf_prog_free)
+  BTF_ID(func, bpf_lsm_file_alloc_security)
+  BTF_ID(func, bpf_lsm_file_free_security)
+ +BTF_ID(func, bpf_lsm_namespace_init)
+ +BTF_ID(func, bpf_lsm_namespace_free)
++ BTF_ID(func, bpf_lsm_backing_file_alloc)
++ BTF_ID(func, bpf_lsm_backing_file_free)
+  #ifdef CONFIG_SECURITY_NETWORK
+  BTF_ID(func, bpf_lsm_sk_alloc_security)
+  BTF_ID(func, bpf_lsm_sk_free_security)
+
+--fvrkY8uIEiwoI8vX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7H6MACgkQJNaLcl1U
+h9ArJwf/eJ7v7poUUl6J4nNn9ZaW7mYmlyQgaI/TcpTK1dKXNNV62yXgBEVDCQ9C
+BzIB0VFocK7OwmWM1lSxF5vi3847m6l9QPrpjSgV1hUVtA4VX7S0lnwsDc62LF93
+/wpb/iNbJ1+CjlVxD6i33j6vEd8rjG8JGfDp7DinSYOmDT7XRzPMinL9yVa/jRAS
+xcJPnchoAVOM3mj7dejmRuSqxvRVc4WzAAztR2lBcIuExxhkszDHWS5tGVJfHfL3
+iGRPzZ36ehECqGrHjAbxR4yy2FKVCywRQrKnZHE+EFAxBJ9x9CNWU1YUk1iKSyob
+d4Ogb58Sr3nVc4O6FzdlRh3NXb8keg==
+=Mgdt
+-----END PGP SIGNATURE-----
+
+--fvrkY8uIEiwoI8vX--
