@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824018;
-	b=cuV9yHJWDgvKYoIbePDGGPheSj9MLl+LjfM9UuPBw+7aWklIbCARs2qiHuo2QLx0jDRO
-	 WluO3mXTYGl9KvuTVW0jGt2HfL/todReKUa/ZnYxno567Vj0eT3yLz37aQLrUCJVKh0xP
-	 WzIn4VVlq/CO/UUeIqis7TQccY2PtFgS7G91x1yAIQxNZCCYdb0Bc3k6tJqH5s5vF8BLu
-	 OdtpUqFPyxDqBbUZOXn09pA3dtkuwuk7cLrrhhBDdisXVu71RRMiJC5bZGr7W7TzNXZX6
-	 J9Vkpunj84xxD9lgbP4JXsjqAczO5sJLF16CzkIYDQwgIeWlwnHE8w8u2JV9la4parw==
+	t=1794824051;
+	b=3GSdANX8ThRWUaPGKawJ+67d3lphv2ni0OR/PN2YUhTWI9D9/b+0j1z8+tUDVcAfgcyX
+	 QwHBygvf1qaKKNEm/OoXJSblPbmWKrQGhTcff+aKB41kjoGT2w/mXOSmbN/6j9U36RIgB
+	 cPb0avfDyL2UUvQ+P53X3bNGg0kbry/zFPYQLvJBPpxRwDWlz3SWEIp0ylWzllEDJnDZN
+	 2vGmiOtpvd+1peC2o3PXrFmm0i1WtRS8wUpHd2XkqSC9RvdVAXfCvpAiAij8zekyVxAIM
+	 j7U5cO+cYqO/ZUVrW4WalG48OAzE7ex6BIOIyaiG6D8J7oTL2L5SDZBSFIwz62Gj2Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824018;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dvvN8xAjOZj2qJ3T0RWutZTar0lZaTKJFlwYsylUpC0=;
-	b=ReXddFgAo7ipFqxGnroB6N2yTcNFhkxiwhHewAqgVQKwyx9MdlNZvsrRj0g4EHixOVrA
-	 WYOQ7ZeV+SGPerYTQjhPm7WMMCH9ZyBt0nFkc3bFq0H/sgIHHFy8KgzLtTAmw7Opsp1JQ
-	 tV95vMFX6QOacizOHnDp5wY8RBpKX2qX4nW2AbJVaCd9IbbqbGncCQRzaAwFVjsd7TyyG
-	 MPXgKk7mA5qfbTpWUhcHUv4T8Tfl2pPwZAJbn+IxmXLJTSV3ZJKhk5Ybdg5nGnHogtoKM
-	 lgb6+KK1Z1RUQTxRreuzLjktP/R2kYIzebmKUU2s+Vngv5HxtL0pM2Oxz2yJWiCDSKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824051;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=x2RdWa2epHt4WctzJo9zXIVV3S8rmZhGbykyRTHy254=;
+	b=WlYXPkBixWSOfNDQ7NL6j2aLezq9LAHkuhOf4GqqpAC2rzFQ9hYcH5VDipyYQ2+nOgrd
+	 HQLO9pOdyUHlfOhfxMPtAUXj5rC11qiLsiEcU8wCwOEfFKDtTg574fnDbboutOreXvBl3
+	 FhTCjIha4LjWQwfLSD0hU4Hgh4uTyCpYWBQow7EQzn8dY5DxD8rRXwno8oJULX3Y6Leqs
+	 e6SUVY3sKC2xrTlXV++GwQ/RuRmzF4I98k3sSOnNjWZNfJ87WOoYA/GnQ/H4L6/msEDFs
+	 42rHCCI5Yof/6H9Wfd7qfM5oF7S4mf7Tr7CG5KD3Z+CfAGX7DJ4/FO9d92tUdK/wHQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHwg3Zwx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LJdVJliv;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFB7606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27339606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:14:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27339606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHwg3Zwx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865221F000C7
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824018;
-	bh=dvvN8xAjOZj2qJ3T0RWutZTar0lZaTKJFlwYsylUpC0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LHwg3ZwxbN02r6fIxteD1RvNA6Y9pOXEzqlzC3sUB8AKvy7RcUsl3uIzeTc/fD063
-	 2P+KJVBQFEj+Uv2PFLCu04PqFi6/Q6oMHpn05+JBvjbV32bART7CHGqJnaX2tm+nBV
-	 SPoqccwRAJ3Z2+3cAPz/RXYoENpQ7U103MANOoTLswJKtdn33JceG58bN0ha4Jjlvj
-	 8VOYndx5KQnTeZdRcJkXfBjroGNaMQ/hrI7AidEfOFnFLtxApePDuAnfmVp+0Vr9mm
-	 zupozQ/X0NirjLDtd+2jC9D56BkEqWPZxMdP0YkDpG0Fnl2SWSvuRjAomX3EHKVUI0
-	 QCal6pu/6SgCg==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3acf82fdcdbso33051951fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:13:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFrNu1z5F9zZXkfdI74MHan7jwbjTPBXWD7dpxr8CltNam2LemQ3sIaM4xYySPfJ2UW0EDJYlmQP6fz2r8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KQU0IRzEiESoTNE/j0kvKuxNy4zem7XLtNI2AkI+klMz//Ltb
-	P5WD1rJaHOYwK/otHUNe5uZszJsQ6JzuJ5Ysmu78TWGGEPx1VFRiE04XbuudSomwIywoIOSHaFh
-	djhpJhd8YL9sHEMDC+DirGM6xivq9WvY=
-X-Received: by 2002:a05:6512:224e:b0:5bf:d000:bca3 with SMTP id
- 2adb3069b0e04-5c170b20ec4mr3464665e87.49.1794824017275; Mon, 16 Nov 2026
- 02:13:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LJdVJliv
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37198ed3727so4814081eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:14:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794824050; x=1795428850; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x2RdWa2epHt4WctzJo9zXIVV3S8rmZhGbykyRTHy254=;
+        b=LJdVJlivULwySoKe7RmHEPKDa8I//vM/iWsIU1h+DLgudWNXKVV6sia44lgJLI5Xi0
+         wr1smIU1P9IioTjZ/neNVSRzaOfBGTfbum+dpcki4uxCmk/vSaGzR34Aq182E36yqBWJ
+         nKBRncsEQKyLiXrZ6+h82rzFtqlISgOBZrHfRdNYFY/c+LamP7WiibdKv9KQYNYYl0dk
+         I+bD+lNU9tHNm02lHpyK6x2f+unB8B2Vi9dcMTpKgSpz64iMNtFGOIJraXiF1/nXCHI/
+         eRBD4f7OHF9uaMa7wkOWWmvvk+v+EVuYFtKMQd+y+yPnkTHgCvhQjKmj1gLoOvEP9XzC
+         Cp6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794824050; x=1795428850;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x2RdWa2epHt4WctzJo9zXIVV3S8rmZhGbykyRTHy254=;
+        b=0IEZBKbMK4jUlY75AOs3g+vsvLkJQbetftytu/IfO5mJmWIwcqhbRXTr77Uzs5DHz4
+         rdmChmdIS1OakJ+nxB53lv0Nhp2Nw7Sg6j1SiCveM2kpg4cn7NbUOQiJWO9a9z+JutyG
+         4I6vDbpYoBB+dJ4Hv2jpsTGxVD8iAiMOIauWG0VSmW9zOnxP2GQyoWWTuMrc3coeao0c
+         Z7H0JYxjeRlIsZjfT/rxP41NFctDq8HriO22Ijf/7Mz472bpl379s2po3qUm/B81mQWk
+         jNtjL0IuKbjb0IrLmz+rF1vJs1BMXlpuNhYvwd+9IMSGsknemMEyZn8vw04oq0FLudmD
+         wUlw==
+X-Forwarded-Encrypted: i=1; AL+hErGwqRhFt+hCIJrCQ9Gl9WvfUnp92bWY7zydosi8W3pD5syeww0mSp29dPYfBRPZnu3h6EyFHMH/nDOkfzI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+A+X8X+s3kDCOVjroIRKEz/2g5+KK22fLzqhc5Mj7TDYjltBKF
+	7tVTcCnnRbrGd91go7Z0jTXMF4AFR6hAl+j5h3Ig6TkGP+6eh7i26N7dpyAmosVRZic=
+X-Gm-Gg: AZFdTZe3OeLmoOEPaFJHDjZNGtKaqaYCV08cai357eAm4aJDn/WuTJuQ0R6GHxnOYHi
+	Nn4DuQgeAnvsHWZWRlQK3NELC6WnTZZ3Mhh8Y+VfU3FHCCOFNX+R1f5w+TJmu44QRnKfyuAGNou
+	vooO0Az3A9/B1H/rxPKsTQ2ACgLY6wlajzqNDXef4GR6vDXHL40bWtakpTtcIx9Z9fGPtiuBWjW
+	/lltsl2lP5IqTJ3R1tDbpVvffhaOPfu/plR7fL2UVpate8ePdWJcnzg1SzJdVn7b5KSpNLvSPcs
+	avM2s1jP7sXytv4AfwbWqfnTqg1RkXDURjQ4ot5y3pkmltuO4ibjqApxO28MzxuCxORFXK1novR
+	exPVB4LuFLZ+yXKyo7wJ0ZvBDe9Aeme4AcSHUsIQTxR92WPMh/wvjRhKkqP90jIr+1nr2G3ufut
+	HW/75Q2x5ZnLhmgyqzYrkLTQgTc/0bf0mFfdysv0lKsHpYUfkV4+SLrT5tEMuDTmLyMreMdfK+q
+	SenT/8hbxuJ/z/vgXihGkWeM/4/JKFo80a9pdPg4phtIqZgZVdnXhMmuZnMJmOt+3L3sW65NNqE
+	JHQlCFURzxXw3gaZiRoHFAOLlcWsZVMHRjCaB0eE/XdUre8oxuhe6Uoa1yqYT/j1BY6vyxQgttt
+	JkOUZjgAQV+zstxgRuaTqILicD0BeZwlddjCcIQ==
+X-Received: by 2002:a05:7301:f03:b0:373:64ef:5dfe with SMTP id 5a478bee46e88-37966096b9cmr10223982eec.8.1794824050090;
+        Mon, 16 Nov 2026 02:14:10 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:35d0:694a:1071:9bae])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0c40sm35126665eec.28.2026.11.16.02.14.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 02:14:08 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: sashiko-bot@kernel.org
+Cc: mkp@kernel.org,
+	michael.christie@oracle.com,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scsi: target: iscsi: do not reject the command on a Data-Out overflow
+Date: Mon, 16 Nov 2026 19:13:48 +0900
+Message-ID: <20261116101348.1650677-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-214783@kernel.org>
+References: <20261114161931.941441-1-yhlee@isslab.korea.ac.kr> <sashiko-outbox-214783@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,52 +102,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116014823.3132576-1-jic23@kernel.org> <20261116014823.3132576-14-jic23@kernel.org>
-In-Reply-To: <20261116014823.3132576-14-jic23@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 11:13:23 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmz=30ptZ12qZwP6_-3Xbv3nta_VBg1Zb1QA9an3bOfwA@mail.gmail.com>
-X-Gm-Features: Aa3M54oi56LPPit1kNG3TyrHHkUySoftJp80E4lui0_LsVjTYMRYknwsXP58xFU
-Message-ID: <CAD++jLmz=30ptZ12qZwP6_-3Xbv3nta_VBg1Zb1QA9an3bOfwA@mail.gmail.com>
-Subject: Re: [PATCH 13/35] iio: accel: bma220: use default_trigger
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, 
-	Martin Tuma <martin.tuma@digiteqautomotive.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Gustavo Silva <gustavograzs@gmail.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>, 
-	Antoniu Miclaus <antoniu.miclaus@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Ramona Alexandra Nechita <ramona.nechita@analog.com>, Tomislav Denis <tomislav.denis@avl.com>, 
-	Jorge Marques <jorge.marques@analog.com>, Petre Rodan <petre.rodan@subdimension.ro>, 
-	Dan Robertson <dan@dlrobertson.com>, Jianping Shen <Jianping.Shen@de.bosch.com>, 
-	Gwendal Grignou <gwendal@chromium.org>, Maxwell Doose <maxwell@maxwelld.cc>, 
-	Tomasz Duszynski <tduszyns@gmail.com>, Esben Haabendal <esben@geanix.com>, 
-	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Vasileios Amoiridis <vassilisamir@gmail.com>, Abhash Jha <abhashkumarjha123@gmail.com>, 
-	Puranjay Mohan <puranjay@kernel.org>, Nishant Malpani <nish.malpani25@gmail.com>, 
-	Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 2:50=E2=80=AFAM Jonathan Cameron <jic23@kernel.org>=
- wrote:
+Thanks - the NULL dereference is real, but it is older than this patch and
+does not depend on it.
 
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->
-> Set indio_dev->default_trigger rather than taking a reference to the
-> trigger in probe(). The IIO core now takes the reference during
-> iio_device_register(), so it is not leaked if probe() fails after
-> the trigger is set up.  Whilst this patch closes the specific
-> bug, it also makes the ordering less fragile going forwards.
->
-> Fixes: b7e17ca10793 ("iio: accel: bma220: add interrupt trigger")
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+iscsit_check_dataout_hdr() already answers a Data-Out whose
+DataSegmentLength exceeds conn_ops->MaxXmitDataSegmentLength with
+iscsit_add_reject() (iscsi_target.c:1573-1578), before it looks the ITT up at
+:1580.  isert_handle_iscsi_dataout() calls that function, so one Data-Out PDU
+after login reaches isert_put_reject() with a command the core allocated, and
+isert_post_recv() faults on the NULL rx_desc at ib_isert.c:761.  I reproduced
+it on unpatched mainline, 5 boots out of 5, with no SCSI command involved and
+this patch not applied.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+It dates from 4366b19ca5eb ("iser-target: Change the recv buffers posting
+logic", v4.3), which gave isert_post_recv() a descriptor argument and made
+isert_post_response() pass isert_cmd->rx_desc.
 
-Yours,
-Linus Walleij
+So I have left this patch as it is and fixed isert separately:
+
+  https://lore.kernel.org/all/20261116101108.1650132-1-yhlee@isslab.korea.ac.kr/
+
+Best regards,
+Yehyeong Lee
