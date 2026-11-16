@@ -1,54 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801560;
-	b=oeo8sdwQMcIjyu4sZ1StodAt22te+7ZCHccFX0ud7ugKCdDhqkTQ91nMVbamCX4Ui0ol
-	 MRVr/NzN/3c07YcqxfNd++RgvFSKQ5dx+4+TvQ15jUiOoF4HLaBauf3LHpNsV5bH8Qk0s
-	 zskW+z39GmcJtD6fMt35gVy2T39Mb6eJPNKwr+0VvUhQjXVwTHDbE/z25m72kqZCrtV5Q
-	 BjDkL9WDRC48y99F9wkVQHchq4hij+qM5+1JT59ipUuq59/TOaYucC3loiLH69l4aDbPl
-	 VIAO7TE18oPorQ2rtoGcr7hBOM/hGFWGCAtZ60ye47h+kpVhi8YK8SfocGjrJ96083g==
+	t=1794801655;
+	b=4SUaMhsigZHpmFSopDRCGOxNpMG1lu3moMNzd99jBdXLfxInu6/zPotn+3w14Yn4eo4s
+	 7QqOe1L7nkwR4UHzZvIxwyGDqWKBoAF53NDCmrcJ8F+AdGLs+oHOYssIU8H67Nx8mKbcD
+	 AGvabktpNDDFqmZDKXIdUZPPQ0P3Y9vz/suCO+7vzoULDvDy01aZjjrx0jv7caPCbqq48
+	 D0yXa7wiW5SRkgQry0VuFMcO3rHqRFYyS3wkaq3XJJ1DtYZLFjXBkb7lXSKtAVPC6z6rD
+	 ZS2LyazdRi63mJOYb/WalHgyA4laKsPsbniCRX2d6SORc6VnwaumJnmuAYV8hysc51g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801560;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=M24YBwVdljW6Z4M0m6edrEfk574WlBb978Drz2g4Ie8=;
-	b=VcLy+/htGGgUkYmaUXi9AhNPGF3ydtt0J5mwmCokQ4AkJ9yh/MLwrRoT5kKYLFFIrIP4
-	 JvfNtCGIzCmhaFAEq1zrnD6QPcXqqKBiBmhhBFRQbyVtwgUZS5NOum1BgxiFDkJhkqxqH
-	 LLkch3yvWl/wzarKrtrwmgTO7t1dsM9fUTRf3vEq2hYhUZLRbHE0OA7kvpeXEAeQz/67S
-	 opoc3a7JI9Zqonvb7nsASjrQz3r/sfLy+esSbJVqFgbc/Y4973S5E/DVDH8GUOd7aqDL2
-	 OhBFK2BuQagU1Kw5XVpOH67KyEcCyQgmO9wrX5NuALGAgbJMK2PuT45X6vRmfm1+mwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801655;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=FpUz6VKa8cvlk6B0dGTvOD8cphJCOZqOzq+OFwLdeBs=;
+	b=WZy52bHgMkw+B54+YhkXUfrh7q563FviPRAqUhdDihgjMK7X5NgDLgpXM/v0MUfNSggV
+	 ndyqRlvKbUMDjMYmkFBKathmhryKVwJSwk0RizXGATS9VodMJVEPmJ35XNiqT3j3+Gl7D
+	 p3AJmu7Fc4ezW8AtpGzUzisOGg3l1B+SmWAhQucFhrF8GnVHyYvXlXOk8VMw7t2mB71TH
+	 ckgc7TeVyyhDP047IwU1wf3OG+IX9WWGDd0CmDtexxgg6rfa3zxEQ81F96G3jaycMeoxD
+	 Xk2srs1hLuNNsOYeTDduhshVSPigVC5rPs/T1RmuYU29xMxYtvKsaFJ1l7WNrM6J52Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F4029606A8A2;
-	Mon, 16 Nov 2026 03:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4029606A8A2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8Axj9GTf_pqTgAgAA--.27060S3;
-	Mon, 16 Nov 2026 11:59:15 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJBxJs2Mf_pqKNE0AA--.64529S6;
-	Mon, 16 Nov 2026 11:59:14 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v3 4/4] selftests/bpf: Allow unaligned access in jit_insns/tail_call
-Date: Mon, 16 Nov 2026 11:59:07 +0800
-Message-ID: <20261116035907.4215-5-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20261116035907.4215-1-yangtiezhu@loongson.cn>
-References: <20261116035907.4215-1-yangtiezhu@loongson.cn>
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EzqouExK;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDB5606A31C;
+	Mon, 16 Nov 2026 04:00:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BDB5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EzqouExK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=FpUz6VKa8cvlk6B0dGTvOD8cphJCOZqOzq+OFwLdeBs=; b=E
+	zqouExKnTvZUMVriMCOwD/uSYdsMP/czsL2DMfiu3JLeUS+3MZRXiGwWpx98Uf+d
+	itu6wmCOwZusjspjo+JvlaPXSFRmtYsyQvwrQEYeUrJDQcjmiz5Ahj9cGNY/fbDW
+	3hw0Pk3i/ffg5ErGR7V3nj/yP0CquYlMg9taPdK+/U=
+Date: Mon, 16 Nov 2026 11:59:28 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Brian Masney" <masneyb@kernel.org>
+Cc: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Long Zhao" <longzhao@ambarella.com>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>
+Subject: Re:Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <avReozTC_GEmfIxG@x1g10>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
+ <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+ <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+ <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+ <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
+ <avMM8z-LYncKS8ip@x1g10> <avMmKJpczepWTRdc@ashevche-desk.local>
+ <avReozTC_GEmfIxG@x1g10>
+X-NTES-SC: AL_Qu2SBvSbvk0t7iiZbOkdnUoTj+Y/XMK0uvwk1YdVc+MGpT/J9BIGcENYL0vb4v2JJgSKuzq3WhJU6vpweI9IrcCebcyksFrj0mpy8H3qeg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,68 +84,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxJs2Mf_pqKNE0AA--.64529S6
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Aw1ftw47Wr13XFyxKw4UGFX_yoW8WF4Dpa
-	4ku34ktF1xWF1Fqw47J39FgFW0ka4DXFZ5Kw1YvrWFywnrJr97XFyxKFWYgr93urW8Zw1f
-	Zwna9Fs8Wan5CFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU92b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AK
-	xVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
-	IF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVF
-	xhVjvjDU0xZFpf9x07jrPEfUUUUU=
+Message-ID: <2b30e92.3c75.1a1e2828c3a.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:lSgvCgBXl_egf_pqETJvAA--.5849W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7gBh0mr6f6DTZgAA3n
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On architectures that may lack CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS
-such as RISC-V and LoongArch, the verifier rejects test_tail_call due
-to a misaligned 8-byte load (BPF_DW) from the packet pointer, which is
-triggered by the architecture-specific NET_IP_ALIGN offset variation.
-
-As this test focuses on tail call rather than alignment enforcement,
-set `.prog_flags = BPF_F_ANY_ALIGNMENT` in `bpf_prog_load_opts` to
-bypass strict alignment checks on architectures lacking efficient
-unaligned access.
-
-Before:
-  $ sudo ./test_progs -a "jit_insns/tail_call"
-  ...
-  6: (79) r3 = *(u64 *)(r2 +0)
-  misaligned packet access off 2+0+0 size 8
-  ...
-  Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
-
-After:
-  $ sudo ./test_progs -a "jit_insns/tail_call"
-  ...
-  Summary: 1/1 PASSED, 0 SKIPPED, 0/0 FAILED
-
-Fixes: a9fee553d3db ("selftests/bpf: Extend the JIT instruction tests for arm64 encodings")
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- tools/testing/selftests/bpf/prog_tests/jit_insns.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/jit_insns.c b/tools/testing/selftests/bpf/prog_tests/jit_insns.c
-index 4110b1ff6ff8..bdde6caa871e 100644
---- a/tools/testing/selftests/bpf/prog_tests/jit_insns.c
-+++ b/tools/testing/selftests/bpf/prog_tests/jit_insns.c
-@@ -3620,6 +3620,7 @@ static void test_tail_call(void)
- 		{ (~0ULL << 32) | 2, TAIL_FALL }, { ~0ULL, TAIL_FALL },
- 	};
- 	LIBBPF_OPTS(bpf_prog_load_opts, lopts,
-+		.prog_flags = BPF_F_ANY_ALIGNMENT,
- 		.log_buf = log,
- 		.log_size = sizeof(log),
- 	);
--- 
-2.42.0
-
+SGkgQnJpYW4sCgpBdCAyMDI2LTExLTExIDIwOjI1OjA3LCAiQnJpYW4gTWFzbmV5IiA8bWFzbmV5
+YkBrZXJuZWwub3JnPiB3cm90ZToKPlNvIGhvdyBhYm91dCB0aGlzOgo+Cj4tIEhhdmUgTG9uZyBw
+b3N0IGEgbmV3IHZlcnNpb24gdGhhdCBzcGxpdHMgb3V0IHRoZSBjcmVhdGlvbiBvZiB0aGUgbmV3
+Cj4gIEtjb25maWcgc3ltYm9sIEFSQ0hfQU1CQVJFTExBIGludG8gaXQncyBvd24gcGF0Y2guIEkg
+YXNzdW1lIEFybmQgY291bGQKPiAgcHJvdmlkZSBhbiBBQ0sgb24gdGhpcz8KPgo+LSBJIGNyZWF0
+ZSBhbiBpbW11dGFibGUgYnJhbmNoIHRoYXQgY29udGFpbnMgdGhhdCB0aGUgdHdvIGR0LWJpbmRp
+bmcKPiAgcGF0Y2hlcywgcGx1cyB0aGUgQVJDSF9BTUJBUkVMTEEgS2NvbmZpZyBwYXRjaC4KCkp1
+c3QgY2hlY2tpbmcgaW4gLS0gdGhlcmUgaGFzbid0IGJlZW4gZnVydGhlciBmZWVkYmFjayBmcm9t
+CkFybmQvS3J6eXN6dG9mIG9uIHRoZSBwbGFuIHlldC4KClNob3VsZCBJIGdvIGFoZWFkIGFuZCBw
+cmVwYXJlIHRoYXQgc3BsaXQgZm9yIHYxMiwgb3IgaG9sZApvZmYgdW50aWwgQXJuZC9Lcnp5c3p0
+b2YgY2hpbWUgaW4/CgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhhbw==
