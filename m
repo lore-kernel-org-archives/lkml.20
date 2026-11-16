@@ -1,58 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842537;
-	b=mU7rQi8trTCAfDJ8cSSW+VakJtdGsW0AGqDLtcAbgI2nJo13Ej6hrAQ7l05QN5dAqi0v
-	 p8a0A3guknEfQ8PJRqF7Q8B73ugN6uteMtvFMf+UTPwVAbVXMKSPahnjdJLhuYlS7LnIi
-	 EItTlnKbu8akW3XxqGugrLRZ6+l8aTDFUhisqTY0TyvVIxCeh54z7DrbULF15oBbi1oqW
-	 ouTRabWB/fbIVQS51gzfUNg79tzcV50wCG43kL4WSkD0JIQDPFKhp985T/oVSYC2heKvz
-	 41WVTZbFVWgmSyTgQPPRXBvHssXpeTm8DOl8jgdLuiLBti/XD9cjTGeqU6H7zd834Yg==
+	t=1794842557;
+	b=HMVk1KSpto6v7zb/htANQuK7YPxEjHjMFYz2vX81SJBQbYNbn8vZAwAUd6qRGtr8PIhk
+	 v+jFMTM68PgOAVgVtYIFqwYiaEGQsq/SEAoq8DGDqAJ0ycgw8ng/XiYSq6cV3YwOVTGVo
+	 gxbiDkugKHgxxD2aR5PPBEcuJaFSFUUp4M3HspD/0zc0+nZ2z9+/Mj1zzILgn9T/CSXyq
+	 XPK80rBxCeJ66JR/iFh/J7/xaMwX3kfpYfXUcBqkHckziNZcXXVigIUJKjWxEw3X3nUKJ
+	 xwP9K4Z3Qr0cIweAvfbIRJLm56KJhfCbJtrdgpdCnHqaoFb3Yxy9VVvoStqfeOASpOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842557;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=184ZpBXRpLvzwSAALbovT+V+UH0/q/KWhPuda1sGnu4=;
-	b=NMqi6vxTxRohrFTNj5rAB3qlLsHd4wjKDFKEbSrPkGzb0nK35s/KM6gdebPzwrFcLXqz
-	 mHaxbuC4bQP8MgvmFl5tJTVLb6PZDbOUoKAjSc4v3nBd3r/GssAKfgd+IPKRCtlpJ2uRf
-	 dXyXu06Xq2hF76G4poyWX84WhrI4BwWvTm7TyaCKQjgHkd9xIQL+e4bLallkD8ml8NGsu
-	 aTadDwmWhFR5IPKA7PjHPoeXPN3OS5F6WsKXm9mBmo3a2xsHOwtpPzz0Ae43l+dnrhVjO
-	 mr9GFxt6oF3lL7V/ArdlEjF5RkOYYl70YOFVzZ0OVvSOcd2WQj+602x/+4CGO1BIK0Q==
+	bh=K9jzSzTZhOt++ojfGh6YFPmz1wP1du5PldCX9j+JYjU=;
+	b=ez+l98pZDTd9hgzeZsfAR6yNU/TFlZc72iouvPqPImWWZFMyLl0wt52+lp6mnZ+9yYrf
+	 x4zLb29oj75VCnhLqnoZx73fB7Tph1g98RrUVDA05umv+nqyY1jkAsux+xMUAt4MiD+AB
+	 cxjQdbFAe8LtE7Qng12Q+tfmq/mqMQgcuuw5moPn96vgqFLFu1CZuj7g9+OGQu8TBXRDl
+	 pKpsvkb71AVVOWpQ6E/9J3TJDfU1YajjMzMcGMrvuxwoioQjfgbs++pZjJI9R/Nb6aNcw
+	 f7eh/dCnwgVzNm82tl3kGn/P7iMtehwB6O6FKQ0kr8j4scswWr4yrnWoVFLj9iZa61g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a1aFJHj+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4jxhpHb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6123E606A31C;
-	Mon, 16 Nov 2026 15:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8807606A32F;
+	Mon, 16 Nov 2026 15:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a1aFJHj+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE2B1F000C5;
-	Mon, 16 Nov 2026 15:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4jxhpHb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727E91F000C4;
+	Mon, 16 Nov 2026 15:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794842537;
-	bh=184ZpBXRpLvzwSAALbovT+V+UH0/q/KWhPuda1sGnu4=;
+	s=k20260515; t=1794842557;
+	bh=K9jzSzTZhOt++ojfGh6YFPmz1wP1du5PldCX9j+JYjU=;
 	h=Date:From:To:Cc:Subject;
-	b=a1aFJHj+evmJR5mWe6zc/eqCXyN2rLv+BqVYTSAhoklFPFRJUgnmKBQNx2ZrqYIfi
-	 yj+YTU9LN1eiJtly9xRNDVpZeg6jr4UuIYNGNa0WpPhePAtOb6wAZi15DWrsRlL/7E
-	 pFFP6KTjA5vQbn1VLW0M4xH0LEhuvMtbtAqgsSS/eC2U8yRBCYaMIcpSaHbfthGUY6
-	 rNzl+Gj2PgAJdTng4TUVJd6PcpCuWIsGurc1AUzuzW5QcA+W5Wvh8KCSIsptuB6Jn1
-	 U9GWMLssaaNY7WmPE7irpjn077Frhe+EtZSKQNzge23PMtVIKxKR0m1Q6nnJzUORm1
-	 RJ6mW+iJpk+Kg==
-Date: Mon, 16 Nov 2026 15:22:12 +0000
+	b=Z4jxhpHbZwAv/EzqjbPpOxxdkW4KjEKFnwndsoQiIcHznoo9cZ4agfM16oudue6aV
+	 fNyaTmR8AVrb/9ptjq9en/hncq130qn9ui/1jrC+OgxaEq7ZlwTfBId7+/F65RnAdx
+	 KjnerNVWfTkn/BH6nukFdMpe6y1ayi9zpjmGgzRqsZ696mQ5TKo4KWeytFZI/k9ys/
+	 i6qW9I4nmGySKGqv3txJRNn6isWle8by7LSYicckkWpMt8FJtMx1CBKjoDaLkAGb1s
+	 jUMvng7lEv60wPvVnWwZVvZaw5OplqGL5CgODMJ3IJchS/RTX12r6QVhzYXdqOoKhE
+	 lojB7P1WmA5PQ==
+Date: Mon, 16 Nov 2026 15:22:33 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Sergei Nizovtsev <snizovtsev@cloudlinux.com>
-Subject: linux-next: manual merge of the bpf tree with the origin tree
-Message-ID: <avsfpHqbu_rdmOrf@sirena.org.uk>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the asm-generic tree
+Message-ID: <avsfuW1MUYp0jI_I@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,69 +55,33 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fvrkY8uIEiwoI8vX"
+	protocol="application/pgp-signature"; boundary="nKvSEHVHX8mVXiWq"
 Content-Disposition: inline
 
 
---fvrkY8uIEiwoI8vX
+--nKvSEHVHX8mVXiWq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Commit
 
-Today's linux-next merge of the bpf tree got a conflict in:
+  5dfaff16e8b90 ("selftests: vDSO: Fix header search list for vgetrandom-chacha.S")
 
-  kernel/bpf/bpf_lsm.c
+is missing a Signed-off-by from its committer
 
-between commit:
-
-  ea8c4b37b8809 ("bpf: don't mark namespace_init and namespace_free argumen=
-ts as trusted")
-
-=66rom the origin tree and commit:
-
-  ab86b62012b9e ("bpf, lsm: Mark backing_file_alloc/free LSM hooks as untru=
-sted")
-
-=66rom the bpf tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc kernel/bpf/bpf_lsm.c
-index 468e63dbd922d,f39a3766f2245..0000000000000
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@@ -411,8 -411,8 +411,10 @@@ BTF_ID(func, bpf_lsm_bpf_map_free
-  BTF_ID(func, bpf_lsm_bpf_prog_free)
-  BTF_ID(func, bpf_lsm_file_alloc_security)
-  BTF_ID(func, bpf_lsm_file_free_security)
- +BTF_ID(func, bpf_lsm_namespace_init)
- +BTF_ID(func, bpf_lsm_namespace_free)
-+ BTF_ID(func, bpf_lsm_backing_file_alloc)
-+ BTF_ID(func, bpf_lsm_backing_file_free)
-  #ifdef CONFIG_SECURITY_NETWORK
-  BTF_ID(func, bpf_lsm_sk_alloc_security)
-  BTF_ID(func, bpf_lsm_sk_free_security)
-
---fvrkY8uIEiwoI8vX
+--nKvSEHVHX8mVXiWq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7H6MACgkQJNaLcl1U
-h9ArJwf/eJ7v7poUUl6J4nNn9ZaW7mYmlyQgaI/TcpTK1dKXNNV62yXgBEVDCQ9C
-BzIB0VFocK7OwmWM1lSxF5vi3847m6l9QPrpjSgV1hUVtA4VX7S0lnwsDc62LF93
-/wpb/iNbJ1+CjlVxD6i33j6vEd8rjG8JGfDp7DinSYOmDT7XRzPMinL9yVa/jRAS
-xcJPnchoAVOM3mj7dejmRuSqxvRVc4WzAAztR2lBcIuExxhkszDHWS5tGVJfHfL3
-iGRPzZ36ehECqGrHjAbxR4yy2FKVCywRQrKnZHE+EFAxBJ9x9CNWU1YUk1iKSyob
-d4Ogb58Sr3nVc4O6FzdlRh3NXb8keg==
-=Mgdt
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7H7kACgkQJNaLcl1U
+h9B3Ygf+OAGjCYt0LNT+IAkDwcpioTc6L407Bo3pXyU6Ey3urCJbiNjAIsA4kpS6
+1YkTNSqId/TrkXyRLFyK3rbFe2ByRugfk/yyNjMvZHWzrdC5I3e2DleKFXuIuTqK
+sZrJY+Hxgd6sGMBbteHLlJs+HRTsn6nEP3g6NxjqSQBzMBkTPUhxs0An3e+kDvGQ
+CITXv5TGk0+pRYEb2jKZPhNmnh4k27yNn3Of/YVzYIdlN+DnHmr4cobk/ZnAvgif
+NISp/Mlt/w+mAijZRYpnf73FhCGT13YpidcKeAxCjZKu3IbtUGTsT5gIIGgLM/Ir
+s+f07HOBABT4GxGUgM/xQYKR1930kQ==
+=FbdP
 -----END PGP SIGNATURE-----
 
---fvrkY8uIEiwoI8vX--
+--nKvSEHVHX8mVXiWq--
