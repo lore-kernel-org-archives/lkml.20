@@ -1,70 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858290;
-	b=Vv22FR6KR6UwQ4J4DZaxbizh/s2MgxOYwkluJAYM86Thp2Hl0a0w6fqHD36xOhG1vhY8
-	 LdzFEUlq88lkjJ0gxj1boiuLhMTreUzCrJ28/YWHVjiKm/baUj9D7S13OHmG34bGQP85g
-	 yieMLeGYXC1WV2aKJUd/SN7XrCHMbaiu8l8Tb9iwO1F7ddAQmDVmWg7Hq2T14PzK2t9Ph
-	 627Dhn9nXqWtjNBr/LMLUK0R11XnCjRbIj9dHmUf8LZZWZS3w8mnIZyKl8w2Ap8x+sNpq
-	 XgJkYICLjzLd6bWiYPJPupi2vKx+AEseXrVW+JRfw53waXEh/2XAAh96U2enpe8MVQQ==
+	t=1794858299;
+	b=gAKUt/55TBn1RmiziVOofbSFvcP4HjKor6WAZ8JLV9RXLccVOQHbAFMjdjepCV40T85m
+	 sKRd1YaLjLmDi3sSPxn6ol1tYDYAHUVqd93hjVTAcIW4UtveOGQqJMziS/EHsCY17GvAV
+	 hZa3MFXSLEZeD2P+NLENFT0K8RsK18Q+WsOig1fBhgezgrXtjcgEV/pf3wjKWW08zooiN
+	 0am4KwXyn/To/iqCqItm1L41NkaeDDRiBM1DkCJ0SERqWJGeuVuFZLX6y8Bdc12dHdTcO
+	 vo6JSsKPPXICR553aTL7JK4yCe7Xd8ZHexFj7C3DCCvtgYoE0VXwJ/K49oo9XsxvmgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858290;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UpTG+yOXKDQ6ZkneekhZV8SvZTiW3tKfLXSDQpqWFrI=;
-	b=a26dnP2bGj3Ks1mIAjEIHQ7If2TM2mxSGa/YGqxbhxtiftQimprEFvnw3j0SQw6MifW1
-	 q8jNV/lmJo9oAbdhP5saxxsIDbz2pf4ZxuC35obBliMyaODY2jHPB+SA9wPhmJ+s97uOd
-	 0T5XWCd7nO5cFZSXwieYDaLvT2s9/82Det6mYQEeuV4BxevZL6gwzyAarEdiIMZx+czBn
-	 kE6MlY/BDazRYWtotri8oJN+Sxb7ukj3YvWY92xSLi4p0zWdPPRd8h+bnjAxPnDFSgpLe
-	 CzDWbsOA1PN55EIej8U4m0WcHTCltQ3UK5l/CbgUmdJwfnNWABWjJj8Yfs+tx7DyjKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858299;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=o1fO/TN0TawiIXOevv4jOj6AmBk+euCS4j5XlM/jT3s=;
+	b=tycWEYdc9eKRPqevEzlQBmfDz1W/LKGi7gmQ2FWb3I1CrUlzIuFYheiTNNN2nPFb5fiM
+	 jhtlMjHMmRW22ATnbkAIFxiCBHGnTna8T8UPs1VKNd+fS+j5whxLmaTTw9C/KYGcgZyyM
+	 iQQV139RvguYB9CknCsmLenYzHo3WmA/khHSWVB+6YpnYMi0/HHd2GBa+Giv47KVJYuQN
+	 nSyMK1pXuwST3QFCAPnPjvH5B1o1BX56R0oi9bH7O8Dy9ZwvjUSDZdVVnyZVzfWa6jzC/
+	 mxLjS2Blshf+BGz8sQ6aBGuBkjQtj+DdecHK8SIH9HD8HJMSqosMMj3+wyaBaNzCBHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGQM25QT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eae4RWYU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C41AB606A89C;
-	Mon, 16 Nov 2026 19:44:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B10606A89C;
+	Mon, 16 Nov 2026 19:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGQM25QT
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1C8BB1F000D0;
-	Mon, 16 Nov 2026 19:44:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eae4RWYU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EFD1F000CA;
+	Mon, 16 Nov 2026 19:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794858290;
-	bh=UpTG+yOXKDQ6ZkneekhZV8SvZTiW3tKfLXSDQpqWFrI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oGQM25QTi8xfCx1iLpJijXnkLMvq86RmLzqM6LQDJeSiHXztpIK8gH5yDLaXjqGBW
-	 wJiHGdE6RmDmzJ1eBoufeU9xLLJrUDoMTjH1YM+M8kmaiGhI/PkROvbwjN4SmdS3rA
-	 RfyLXacly02WmpqbtLHpKETKimRJMdej3/6OL+rG2YIuQZa2oJsOoPqLa7kpgeUx/c
-	 urDHz1eWfiRgSDyFMP+Av8bdcHS2/spmtAngGa2WKU4x9WZ1gPpfKwiSvnN9PeSsF0
-	 EwynWNY651JJs6ZjLn47dyiFEdrXLlkxXDCRUYFK/TCvg1KDh+ff8eIvMth+VeOPq5
-	 tXXIiJkWqUmyw==
-From: Joel Fernandes <jfern@kernel.org>
-To: paulmck@kernel.org,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Joel Fernandes <jfern@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 6/7] doc: Document rcutree.boost_disable
-Date: Mon, 16 Nov 2026 14:44:37 -0500
-Message-ID: <20261116194438.306618-7-jfern@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261116194438.306618-1-jfern@kernel.org>
-References: <20261116194438.306618-1-jfern@kernel.org>
+	s=k20260515; t=1794858298;
+	bh=o1fO/TN0TawiIXOevv4jOj6AmBk+euCS4j5XlM/jT3s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eae4RWYU4y8OCV3ZDEIz12Qw2yz5VYSqyQItQlzGJURLmZ0X4mDnwH6iae9+N6LCk
+	 a9pNyCa2zkG/rIFCNQj3t9F39fj9Uz8k+847bafQqTzAU5VP4XwipqNWyWPQzdofM/
+	 3qT9L5lcD9S+jk4zcXKz6R7rskbjP9FSOFAwgcqtKdmyVdT5UOq1zYSejA5EjO8Zo7
+	 xw7O7ZgG4b3rraAfnrC/ImDmxcEhBFldI5djWj30uIXfsY2mjKUdWn9phuyOXt6ltb
+	 GQsbvGGH+NumVCbla9K0zhZINbigpRSYJGwTTFOGUGXHfZfDknJiFf55C//amKws+Q
+	 lb4drpxVsfYeQ==
+Message-ID: <sashiko-outbox-217599@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 16/37] sched/deadline: Record the root domain holding
+ a task's bandwidth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261116190549.230119-17-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+ <20261116190549.230119-17-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 19:44:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,34 +60,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add the new rcutree.boost_disable parameter to kernel-parameters.txt.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] sched/deadline: __sched_setscheduler() checks task_rq(p) root
+  domain
+--
 
-Signed-off-by: Joel Fernandes <jfern@kernel.org>
----
- Documentation/admin-guide/kernel-parameters.txt | 7 +++++++
- 1 file changed, 7 insertions(+)
+commit 685fb9b4f51b7675ac0c8a518174590afd51eb14
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index ac97cbd98b46..8f91499b3488 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5651,6 +5651,13 @@ Kernel parameters
- 			Set maximum number of finished RCU callbacks to
- 			process in one batch.
- 
-+	rcutree.boost_disable=	[KNL]
-+			Disable RCU priority boosting at runtime, even in
-+			kernels built with CONFIG_RCU_BOOST=y.  This is
-+			for testing the boost tests, for example by the
-+			rcutorture BUSTED-BOOST scenario, and should not
-+			be used otherwise.
-+
- 	rcutree.csd_lock_suppress_rcu_stall=	[KNL]
- 			Do only a one-line RCU CPU stall warning when
- 			there is an ongoing too-long CSD-lock wait.
--- 
-2.54.0
+sched/deadline: Record the root domain holding a task's bandwidth
 
+This commit records in dl_bw_cpu a CPU of the root domain that accounts for
+a deadline task's bandwidth, and updates bandwidth moves, releases,
+parameter changes, and affinity checks to consult that recorded root domain
+instead of task_rq(p)->rd.
+
+Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-1-dd761f=
+e005b4@redhat.com/
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index ccd6426811b9e..44db625bffc32 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+[ ... ]
+> @@ -4193,6 +4260,23 @@ int sched_dl_overflow(struct task_struct *p, int p=
+olicy,
+>  	if (new_bw =3D=3D p->dl.dl_bw && task_has_dl_policy(p))
+>  		return 0;
+> =20
+> +	/*
+> +	 * Change the bandwidth of a deadline task where it is counted: in
+> +	 * the root domain of the CPU recorded with it. A task moved asleep
+> +	 * has not run there yet, so the CPU it is on can be elsewhere. No
+> +	 * bandwidth is counted if a rebuild dropped it, or if the task
+> +	 * enters the class. A runtime below about a millionth of the period
+> +	 * gives a bandwidth of 0. It counts for nothing, and no move updates
+> +	 * its record. In these three cases, the root domain of the CPU the
+> +	 * task is on takes the new bandwidth. The caller holds cpuset_mutex,
+> +	 * or dl_accounting_mutex without cpusets, so no rebuild runs
+> +	 * meanwhile.
+> +	 */
+> +	counted =3D task_has_dl_policy(p) && p->dl.dl_bw_cpu >=3D 0 &&
+> +		  p->dl.dl_bw_gen =3D=3D dl_bw_gen;
+> +	cpu =3D counted && p->dl.dl_bw ? p->dl.dl_bw_cpu : task_cpu(p);
+> +	dl_b =3D dl_bw_of(cpu);
+[ ... ]
+> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+> index 4c013caa24713..306cd8d32173b 100644
+> --- a/kernel/sched/syscalls.c
+> +++ b/kernel/sched/syscalls.c
+> @@ -1185,6 +1185,8 @@ SYSCALL_DEFINE4(sched_getattr, pid_t, pid, struct s=
+ched_attr __user *, uattr,
+> =20
+>  int dl_task_check_affinity(struct task_struct *p, const struct cpumask *=
+mask)
+>  {
+> +	unsigned int cpu;
+> +
+>  	/*
+>  	 * If the task isn't a deadline task or admission control is
+>  	 * disabled then we don't care about affinity changes.
+> @@ -1204,9 +1206,16 @@ int dl_task_check_affinity(struct task_struct *p, =
+const struct cpumask *mask)
+>  	 * if admission test is enabled, we only admit -deadline
+>  	 * tasks allowed to run on all the CPUs in the task's
+>  	 * root_domain.
+> +	 *
+> +	 * That is the root domain that counts the bandwidth of the task:
+> +	 * the one of the CPU recorded with it. A task moved asleep to
+> +	 * another cpuset is still on a CPU of the root domain it left. A
+> +	 * bandwidth of 0 is counted nowhere, and no move updates its
+> +	 * record: use the CPU the task is on.
+>  	 */
+> +	cpu =3D READ_ONCE(p->dl.dl_bw) ? dl_task_root_domain_cpu(p) : task_cpu(=
+p);
+>  	guard(rcu)();
+> -	if (!cpumask_subset(task_rq(p)->rd->span, mask))
+> +	if (!cpumask_subset(cpu_rq(cpu)->rd->span, mask))
+>  		return -EBUSY;
+> =20
+>  	return 0;
+
+[Severity: Medium]
+Should __sched_setscheduler() also check the root domain of the recorded
+dl_bw_cpu instead of rq->rd?
+
+While sched_dl_overflow() and dl_task_check_affinity() are updated to look
+up the root domain via dl_bw_cpu for a task moved while asleep,
+__sched_setscheduler() still checks rq =3D task_rq(p) before calling
+sched_dl_overflow():
+
+kernel/sched/syscalls.c:__sched_setscheduler() {
+	...
+		if (dl_bandwidth_enabled() && dl_policy(policy) &&
+				!(attr->sched_flags & SCHED_FLAG_SUGOV)) {
+			cpumask_t *span =3D rq->rd->span;
+
+			if (!cpumask_subset(span, &p->cpus_mask) ||
+			    rq->rd->dl_bw.bw =3D=3D 0) {
+				retval =3D -EPERM;
+				goto unlock;
+			}
+		}
+	...
+}
+
+When a sleeping SCHED_DEADLINE task is moved to another exclusive cpuset,
+p->cpus_mask is updated to the destination cpuset while task_rq(p) stays in
+the old root domain.  Because the old rq->rd->span is disjoint from
+p->cpus_mask, sched_setattr() fails here with -EPERM before reaching
+sched_dl_overflow().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
+19-1-mathieu.desnoyers@efficios.com?part=3D16
