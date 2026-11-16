@@ -1,101 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794853293;
-	b=YVYGV6bxvEnW1eDAoHzNNRcKuNuFMEkQiEKea+bObO5zysbfFUhVyupz1k+hVRyUeOp0
-	 k+3dxM5v34X0qTx7yz+C41tSGtwmCpKcdC9TR4i+Cq5aJV4Xj3YyhjuQEB63/FFa/LtcB
-	 HOIvzog15weUti/ezkPw86UhZ7tBdlVHxIHAlxASWAGuara1IM4C9w0iikJbPkz/4R/45
-	 qJJC44fWuNpBCk5IDJt50ocTAgJVFaYFX4uK7t4lgB875dUqUEwm3BciHxAvdzAvpFxUR
-	 WCPqt49N1lwz+NiNvrS+7DreH/pmTe20XZcPDXPWI/h3KBj2j+dElriBt/qWfKlo1lw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
-	b=ctRgV1eDiz/LwhEw8TFx2dBsWW8gTmE6neRohtNnyc76Ugtk3EOR5vaHpy1ME2K1upuO
-	 WRBUNkLgHstNsJCSyhTo+e+sZj/xqo80lsTTQTAycChLcvceyHkP2lkeRAJLrqgSPb20A
-	 o/HAD+wSfBnFglrFlRgGS13jjezzjuc1Ov8AamZNk13mXUwQmA0iVuOujfkIwWPhEGggm
-	 5mE1t+VZV9aUNM/AbDFsWZZ9KqP0hjCZlntyl0BzupAXsKUiNmjlyLrMVJSEm+AZ0tKgX
-	 RumueRZGhSlMJ1WjbNVpq5GhgLId2eTGy/z+1OenpoKlrnyTHaX3vHKOGtbfdo/RTVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zm/cbSev";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECD4606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:21:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AECD4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794853333;
+	b=ySL31mFHeTktWKL6lkbiij9GjVpu3gJzVRNQD5zykddKu2inMrMLg1f2Gxy3yS0Z1iiW
+	 pXWSb83fCPDFrUeaYOS2Wq0a7vss5OfTUOcdE1D/XXN8oh3Ct2+mYYYWT4QWJJ9yoiG0F
+	 k/NE3nlkQ3XurOLSNDoLrLqmyvdez70UBDEuSLnQDV8mFcgfkxUJN1AQC74Nkl7bwCAlM
+	 GN70pCne0ANrNnw2HjEZiH3m5yWyIJ+tI6cKG2GM6Zpg7Bj+8RpaWcm3PoOyJ5vj8DnQf
+	 bvzYldkrTDFdO1IoR/NpW8A/o1QAj6uS0L3Z0rpRM/2lDUcjUesTpwNKbYzdwjztA+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853333;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=Bx9BFmE1wLXw81GEy8xTvfh2DHQC7Qib0epoWWtsHZg=;
+	b=OZXKOj/b4fdbbGuB7xhnu/Jvl00vNhUtoGKUryEG8Q+r1R4YG3ecf38uUVa+gSIqBk7u
+	 6qJss6NDt18gcbqne7p/53bdnoiL8Qwb7AhoxKFSfFVTk0PJ8THjZutcLqfiwhrlhy1X+
+	 FEQHMl7bKczaYUCXVGQ/rVpUWV76MjvLrHN/QjZ/UD4KbzHzDYyrupftS5tEi/6iBESSE
+	 yHh7dR8WBPFbGWfwyqP+7iw2n7VaMJJs5nAfAzc3W4lc2cwTIXff5NngIQFlYfV7WxG9L
+	 IJKOYLjhpBZKE3gq+s6s7A8RNIkWS3fHll3NhNRYRzsd8uJzfhq3KNobgboHpqoWm7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UlTR1XYG;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64050606A31C;
+	Mon, 16 Nov 2026 18:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64050606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zm/cbSev
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-492690dd5daso3656562f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:21:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794853291; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pH4WrisGwFoicYb1T6UPY1PkM3jxdN9h3gDLvjdOnLlILr4h3cbXoflyewcI+eMAKP
-         SV10ls6JF2QJuecEpYjxhfy8Uf+4GrH6AH/UH1bmZ528TwW7rNbrU/gM4qImXEQi1GgK
-         WzMwh2rQM6TLguMGjfPELe0UiSTYKzVnuiDPwK7HCo0+dpdJi0ZTJV+Na+D+E6MN8/n5
-         iQZn+ifz39ieNgLjris5ouaFCRQhnCddERXHJrIy+HsdgrFDHqXtiWaNjGj6yPhjP+sg
-         lMdY8se/KZKxq0pkvIGKlINqqfeVCwswezRNL/BLspjrVgALloSyIExdlCpLyshkiymH
-         YgQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
-        fh=0EtVkpGDDspzHxmVpL+zopm2yYv74B7iIkQ9wEliutI=;
-        b=rGNGm+2wDgpnIAEp/pDa2Xdcl0mfRwp2PnXjNR/8AFcaiYWDIl8gGJlhTTtDMkwIli
-         axoirVBszTmz+F3pp74WSst7j/gITM033qJPFbXK5SwWl9Ax2LYAZG9MvngwTAaZRJnW
-         Qdq4aszNspBGfalhwGw9kjoNdUeiB+66xkMEq+Q7Vz0vxw9jYyIk12mi5RltAAptYk+n
-         ezfccbsQpm7ycSa85c3d3+cjSJ5Uya94JPfz2SKvJ+sM7bnr7d2AJZVWuM1zJi4UQE5H
-         T+AFnjXRdzOs5LK4gpwIAhkZmlNEUzD4+Mt7uaE2wfC/Ms6uM9exhpcpHoPlPc4RgCcv
-         qUVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794853291; x=1795458091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
-        b=zm/cbSevgb5vX1U4LBW+YkNSL8vMI4OWxN5YoiqU1WeBbLrEIkidzr4BETmU1pUE76
-         ibA5HIiy6+4OwhPntqQbQdP2rXXUs/qTz296mY8FQLW/qWqFDzkfIII0HrqsVbUizGRW
-         qKLh8HoK+iHj6ov2kVxLmzZbX0U3tUBUW4ewYnzwG8lYN41vYG+Pg+4ZSlEhcZ64gKNW
-         mfuIA/YECNDIq3brvfaWU+UmNJem2HB6zClJf5fsoL+ofoB4zZTZW9IuiFZ001vvUaOb
-         GTwXf1fR9c4JzAvZkdsjsFXHJkinyMKl1wWc9m4k/iPd8NKV04p+tt7H78cGlJjofFXV
-         DM+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853291; x=1795458091;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
-        b=SVTb+d9aYJz3e4JmYUAhgDIiAyfHRO2HnjcgClLkg1uKN+EYwa3CuYLS+zm+Emm0EI
-         o9f35XFKyPNrNfZEFOvc+TnSs9aKW3ZWk//3FYshBwmNixOxIC2v38nab0kv43Zdunjq
-         xTRvA7qGRwrHZlSz3iQkJooRU4LSqLdOW9X7t5gk+maySa5SkeAE54Z0snyXa/eNrUf1
-         Z5jFKoIvDwPbgB3o0fqTY/fJE4H3q6Mqs73eHuc6sOwMXEnV9rav0IHCaAoZc22/4dbh
-         l0z3UbovSnAO2sG0H6ceWOYJx9nqAQpCJUsUUla59q6weU86fwd1MVjdAcY64m98cvkI
-         dsXA==
-X-Forwarded-Encrypted: i=1; AL+hErHdptgJlto58Q4QAW+6Le0UtJzvKIjA0+QDDLPxjTG4tLgtdcTQgCLFeJsEyefmLvUzha5xRLHsItcUg8g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AK1dVn2osF3cxe6bSKY//N/EhB/Zxq7wdQwH/Bd5emsIScov4
-	19MigBA0VKZuv6G+30sof6ZNNyS5A+aM1ZcTXRHwYsv3Ij5drTKU3MgsIESBXC5RZhQjw79fkP5
-	YRd988SxEXICXxYwGPUyZn8M8FiWxhfLVzCGVZjg=
-X-Gm-Gg: AZFdTZevc23zf7YLQLfGpWpK5m5HYXm8yC9KjtHdm18aXhR5gcI4YkAuTDDO9kETlRg
-	mz/B7HaZ/xPgGcjm2SvE9swuSpshPcOX7s5w8vPaqLUkKLOnYfFP7XkHNY5yiJwcdLKKI82+6Rj
-	negslPAkbY234Mfs6Z5dOlYSJDwBmvGQmbR9ijeHzlpUGJI7KHlHL6HTA5K8+XvTDGOr3sG++w3
-	3R/1vp/dzI8+ZTcLngxWoJoKMI87CJxL5RWD1eo8mG1qznDX2ROTqeqWc9KR1ei9KzAVlyIGI5/
-	bgle2r+c4c+SBfGPCRkP7kHyGFZ4DNv1zbSrtzPLdd2BLYsmlC18N2BgdwFJFJ87EEWh+idzm43
-	wtpTUnvBUDnAjHF08XbB8nMbhuNsN7h+8wbdXkxgM0IWzeSPoJv+BCEUZGBtPu/c0Y2K5kLrmBM
-	ri5gNBfEDCfCnCYgV+Jtef6+RLX7zv/DSXTcb58Izr
-X-Received: by 2002:a05:6000:2997:10b0:48d:f99d:a0d2 with SMTP id
- ffacd0b85a97d-49c6fe87982mr17681937f8f.15.1794853290904; Mon, 16 Nov 2026
- 10:21:30 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UlTR1XYG
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A07C41684;
+	Mon, 16 Nov 2026 10:22:08 -0800 (PST)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 925C03F632;
+	Mon, 16 Nov 2026 10:22:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794853331; bh=goJwv/swJu68Y9hAS2XUupq7PiPrjIfLYlStZrGMjm0=;
+	h=From:Subject:Date:To:Cc:From;
+	b=UlTR1XYGFmGx57WHb+xFLIaoTlc9SWjhRZzd27Td4eV42hOpsw40LqOrDG/7iSgtX
+	 TIy5sLSf7nHcRqzEqquUlPfxvS3l7C/ndYlKT1Bksy+6Ls6eVuiaC7x0rgmD9F2mZQ
+	 5O//L1uzfYhNyp1/14QAlVJM4YW73pn/rIJ954G4=
+From: Leo Yan <leo.yan@arm.com>
+Subject: [PATCH 0/8] ACPI: arm64: Support PMU on Heterogeneous Systems
+Date: Mon, 16 Nov 2026 18:21:27 +0000
+Message-Id: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,183 +56,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-bpf-raw-tp-regs-preempt-v1-1-d01b6dd8573c@gmail.com>
-In-Reply-To: <20261116-bpf-raw-tp-regs-preempt-v1-1-d01b6dd8573c@gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Mon, 16 Nov 2026 10:21:19 -0800
-X-Gm-Features: Aa3M54q2mews4rY30WpsGtsZElX86aOjciD3oE3m5xdhDPqaKHj29XjFeRC-ScQ
-Message-ID: <CAEf4Bza3BpgTEpqONMcm6FdH2Qc2Tmv-5feVWJfe9wf55iZxpg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next] bpf: Disable preemption while a raw tracepoint
- regs slot is in use
-To: mike.bazov@gmail.com
-Cc: Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, KP Singh <kpsingh@kernel.org>, 
-	Matt Bobrowski <matt@bobrowski.net>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKdJ+2oC/4WNwQqDMBBEf0X23JSsEKk99T+KhDRZdQ/RsLHSI
+ v57U+m9xzfMvNkgkzBluFYbCK2ceZ4K4KkCP7ppIMWhMNS6bhB1q5xPbJ1Em+LTCg2cF3FLWdk
+ xJtV40xrf63AJBMWRhHp+Hf57V3gs9Vnex92K3/RnRvxjXlFp9WiDN7rHQGRupXr2c4Ru3/cP5
+ yuevMgAAAA=
+X-Change-ID: 20261109-acpi_arm_pmu_registration_hmp-6c595cf0d8de
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Daniel Scally <djrscally@gmail.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>, Will Deacon <will@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hanjun Guo <guohanjun@huawei.com>, Jeremy Linton <jeremy.linton@arm.com>, 
+ Marc Zyngier <maz@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Sudeep Holla <sudeep.holla@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Anshuman Khandual <anshuman.khandual@arm.com>, Al Grant <al.grant@arm.com>, 
+ "Johnny.Fan" <johnny.fan@cixtech.com>, linux-acpi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-perf-users@vger.kernel.org, Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794853327; l=3514;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=goJwv/swJu68Y9hAS2XUupq7PiPrjIfLYlStZrGMjm0=;
+ b=56hWmS+3xC7LmrbBWUKHF9DrbRdWd6N36Fs78LtUwPpuAQFmSQns9f24Hao9oUvCm380XIMCE
+ jwOjkO90ZeDBQMKP870C1FH435FZioX3FoPWaALnB24SOlEKVFsakAy
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-On Mon, Nov 16, 2026 at 9:18=E2=80=AFAM Mike Bazov via B4 Relay
-<devnull+mike.bazov.gmail.com@kernel.org> wrote:
->
-> From: Mike Bazov <mike.bazov@gmail.com>
->
-> bpf_perf_event_output(), bpf_get_stackid() and bpf_get_stack() of raw
-> tracepoint and tracing programs have no pt_regs, so they fill in one of
-> three per-CPU slots, picked by a per-CPU nest counter:
->
->   get_bpf_raw_tp_regs()   level++, use regs[level - 1]
->   put_bpf_raw_tp_regs()   level--
->
-> That only works if the users of a CPU leave in the reverse order they
-> came, as a task, an interrupt and an NMI do. These programs run with
-> migration disabled but preemption enabled, so tasks can leave in any
-> order:
->
->   task A              task B              task C
->   get: regs[0]
->   <preempted>
->                       get: regs[1]
->                       <preempted>
->   put: level 1
->                                           get: regs[1]
->                                           fills in its regs
->                       uses regs[1]
->
-> B sends a sample or a stack trace with the registers of C. Profilers and
-> tracers then attribute it to the wrong task, and nothing reports an
-> error. The per-CPU recursion counter of a program doesn't prevent it:
-> the slots are shared by all programs, so it takes two of them.
->
-> Disable preemption from get to put, as the two other users of this
-> scheme do since commit f2c67a3e60d1 ("bpf: Disable preemption in
-> bpf_perf_event_output") and commit d62cc390c2e9 ("bpf: Disable
-> preemption in bpf_event_output"). Nothing in between sleeps: the
-> sleepable bpf_get_stack() of these programs doesn't use the slots.
->
-> The cost is small: the helpers already disable preemption around most
-> of their work, the unwind in bpf_get_stack() and bpf_get_stackid() and
-> all of bpf_perf_event_output(); this adds the few instructions around
-> it.
->
-> Signed-off-by: Mike Bazov <mike.bazov@gmail.com>
-> ---
-> A reproducer, x86-64: two raw tracepoint programs on sys_enter call
-> bpf_perf_event_output() once each, with the program's number as data.
-> Two threads make syscalls on CPU 0, and a SCHED_FIFO thread preempts
-> them every 20us. The IP of a sample is regs->ip of the slot, the return
-> address of the helper call. The reproducer reads that address for both
-> programs from their JIT images and checks every sample.
->
-> Without this patch, 7 to 18 samples per program and 10s run have the IP
-> of the other program, out of 1.4M. With it, none. bpf_get_stack() and
-> bpf_get_stackid() in the same setup return an empty kernel stack
-> instead: the unwinder looks for the other task's sp on the current
-> stack and doesn't find it.
->
-> 5 runs of 10s, debug config, CONFIG_PREEMPT=3Dy, preempt=3Dfull, on
-> bpf-next 0fb18ce8a2e9:
->
->                                      without     with
->   bpf_perf_event_output, wrong IP    7-18        0      per program
->   bpf_get_stack, empty stacks        362-535     0
->   bpf_get_stackid, empty stacks      168-364     0
->
-> The bpf_get_stackid() case with bpftrace, whose kstack calls it; @a[]
-> and @b[] count the empty stacks:
->
-> bpftrace -e '
->   rawtracepoint:sys_enter /comm =3D=3D "dd"/ { @a[kstack(1)] =3D count();=
- }
->   rawtracepoint:sys_enter /comm =3D=3D "dd"/ { @b[kstack(1)] =3D count();=
- }' &
->   taskset -c 0 dd if=3D/dev/zero of=3D/dev/null bs=3D1 &
->   taskset -c 0 dd if=3D/dev/zero of=3D/dev/null bs=3D1 &
->   taskset -c 0 chrt -f 1 perl -e 'select(undef, undef, undef, 2e-5) while=
- 1' &
-> ---
->  kernel/trace/bpf_trace.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
+This series follows Johnny Fan's SPE/TRBE work [1], which requires
+ACPI-specific IRQ affinity handling in the drivers. It provides a common
+way to describe PPI affinity for devices created from the MADT.
 
-this looks fine per se, but I'm just questioning why do we need all
-those shenanigans with per-cpu stack of pt_regs and why we don't just
-have local bpf_raw_tp_regs where we need them? seems like pt_regs are
-around 200-300 bytes, that doesn't seem ridiculous to have them on the
-stack
+Register one platform device for each group of CPUs with the same MIDR.
+Associate a software node with each device to expose its CPU mask through
+platform_get_irq_affinity(). SPE and TRBE drivers can then obtain affinity
+without ACPI-specific handling or a processor-container companion.
 
-anyone would object if we just has a simple and straightforward local
-variable and get rid of per-cpu hacks?
+Grouping by MIDR allows CPU PMU events to follow tasks across compatible
+CPUs, including CPUs in different processor containers. SPE and TRBE
+require a shared GSI within each group. CPU PMUs can also use per-CPU SPIs
+and reuse the platform probe path used for DT. Move the common ACPI device
+registration to drivers/acpi/arm64/.
 
+This series has been tested on Orion O6, with four little Cortex-A520
+cores (CPUs 2-5) and eight big Cortex-A720 cores (CPUs 0-1 and 6-11).
+It exposes the following PMU devices:
 
-  | Arch        | pt_regs         | BPF ctx               |
-  |-------------|-----------------|-----------------------|
-  | x86_64      | 168             | pt_regs               |
-  | i386        | 68              | pt_regs               |
-  | arm64       | 336/320         | user_pt_regs, 272     |
-  | arm         | 72              | pt_regs               |
-  | riscv64     | 288             | user_regs_struct, 256 |
-  | riscv32     | 144             | user_regs_struct, 128 |
-  | powerpc64   | 384             | user_pt_regs, 352     |
-  | powerpc32   | 176/192/224/240 | user_pt_regs, 176     |
-  | s390x       | 200             | user_pt_regs, 152     |
-  | loongarch64 | 320             | user_pt_regs, 360     |
-  | mips64      | 304/400         | pt_regs               |
-  | mips32      | 184             | pt_regs               |
-  | sparc64     | 160             | pt_regs               |
-  | sparc32     | 80              | pt_regs               |
+  # ls /sys/bus/event_source/devices/
+  arm_spe_0  armv8_pmuv3_0  armv8_pmuv3_1  breakpoint  cs_etm  kprobe  software  tracepoint  uprobe
+  # cat /sys/bus/event_source/devices/armv8_pmuv3_0/cpus
+  0-1,6-11
+  # cat /sys/bus/event_source/devices/armv8_pmuv3_1/cpus
+  2-5
+  # cat /sys/bus/event_source/devices/arm_spe_0/cpumask
+  0-1,6-11
+  # ls /sys/bus/event_source/devices/cs_etm/sinks/
+  trbe0  trbe1  trbe10  trbe11  trbe2  trbe3  trbe4  trbe5  trbe6  trbe7  trbe8  trbe9
 
+The CPU PMU masks match the MIDR groups: eight A720 CPUs and four A520
+CPUs. SPE uses the A720 mask, and TRBE exposes one sink per CPU.
 
+[1] https://lore.kernel.org/linux-arm-kernel/20261102084153.3975282-1-johnny.fan@cixtech.com/
 
-> diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-> index b4ff9d4e8..eb3daf2bf 100644
-> --- a/kernel/trace/bpf_trace.c
-> +++ b/kernel/trace/bpf_trace.c
-> @@ -1639,11 +1639,17 @@ static DEFINE_PER_CPU(struct bpf_raw_tp_regs, bpf=
-_raw_tp_regs);
->  static DEFINE_PER_CPU(int, bpf_raw_tp_nest_level);
->  static struct pt_regs *get_bpf_raw_tp_regs(void)
->  {
-> -       struct bpf_raw_tp_regs *tp_regs =3D this_cpu_ptr(&bpf_raw_tp_regs=
-);
-> -       int nest_level =3D this_cpu_inc_return(bpf_raw_tp_nest_level);
-> +       struct bpf_raw_tp_regs *tp_regs;
-> +       int nest_level;
-> +
-> +       /* The slots nest: a task must not be preempted while it holds on=
-e */
-> +       preempt_disable();
-> +       tp_regs =3D this_cpu_ptr(&bpf_raw_tp_regs);
-> +       nest_level =3D this_cpu_inc_return(bpf_raw_tp_nest_level);
->
->         if (nest_level > ARRAY_SIZE(tp_regs->regs)) {
->                 this_cpu_dec(bpf_raw_tp_nest_level);
-> +               preempt_enable();
->                 return ERR_PTR(-EBUSY);
->         }
->
-> @@ -1653,6 +1659,7 @@ static struct pt_regs *get_bpf_raw_tp_regs(void)
->  static void put_bpf_raw_tp_regs(void)
->  {
->         this_cpu_dec(bpf_raw_tp_nest_level);
-> +       preempt_enable();
->  }
->
->  BPF_CALL_5(bpf_perf_event_output_raw_tp, struct bpf_raw_tracepoint_args =
-*, args,
->
-> ---
-> base-commit: 8835113107b2cf75df33a71e265cdeec5d5d13e0
-> change-id: 20261116-bpf-raw-tp-regs-preempt-1f7019989ab9
->
-> Best regards,
-> --
-> Mike Bazov <mike.bazov@gmail.com>
->
->
+Signed-off-by: Leo Yan <leo.yan@arm.com>
+---
+Johnny.Fan (1):
+      perf/arm_pmu: Register ACPI SPE and TRBE devices with software nodes
+
+Leo Yan (7):
+      device property: Add firmware node IRQ affinity callbacks
+      device property: Add software-node IRQ affinity masks
+      perf/arm_pmu: Prepare ACPI registration for per-CPU interrupts
+      perf/arm_pmu: Register ACPI CPU PMUs as platform devices
+      perf/arm_pmu: Support ACPI devices in the platform probe
+      perf/arm_pmu: Use ACPI CPU affinity in IRQ handling
+      ACPI: arm64: Move PMU device registration to drivers/acpi/arm64/
+
+ MAINTAINERS                     |   1 +
+ arch/arm64/include/asm/acpi.h   |   3 +
+ drivers/acpi/arm64/Kconfig      |   4 +
+ drivers/acpi/arm64/Makefile     |   1 +
+ drivers/acpi/arm64/pmu.c        | 393 +++++++++++++++++++++++++++++++++++
+ drivers/acpi/property.c         |   8 +
+ drivers/base/platform.c         |   7 +-
+ drivers/base/property.c         |  15 ++
+ drivers/base/swnode.c           |  53 +++++
+ drivers/of/property.c           |   7 +
+ drivers/perf/Kconfig            |   4 -
+ drivers/perf/Makefile           |   1 -
+ drivers/perf/arm_pmu.c          |   3 +-
+ drivers/perf/arm_pmu_acpi.c     | 438 ----------------------------------------
+ drivers/perf/arm_pmu_platform.c |  62 +++++-
+ drivers/perf/arm_pmuv3.c        |   5 +-
+ include/linux/cpuhotplug.h      |   1 -
+ include/linux/fwnode.h          |   5 +
+ include/linux/perf/arm_pmu.h    |  12 +-
+ include/linux/property.h        |   6 +
+ 20 files changed, 552 insertions(+), 477 deletions(-)
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261109-acpi_arm_pmu_registration_hmp-6c595cf0d8de
+
+Best regards,
+-- 
+Leo Yan <leo.yan@arm.com>
+
