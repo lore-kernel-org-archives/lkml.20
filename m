@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857379;
-	b=KOcZR3I38gWDO7juHbsZLJsG/oIsQzrkl+9q5udP/AN9+c1MJU4NrMxbRgKDHnnSd+FX
-	 PvWs1lKHh5SXOIIWqqnf5fKbEeY7FoQEbyaRt4f26Y6rQmcoQOgLfYhfVq9ACNKGVVtHq
-	 1PLzYtj+Pb4X9INQNHYPKqTAeSCCFT+t5EC67slW0GyU+T6FhW8KPcI14ozJAaq/IoP1q
-	 +0Dvb+C683Vn5fkDRWoQciS9XzazXEQ+MeV7UJZhuU0mHaOtXNE0n8DsIcaYH+oNM9hIg
-	 JmXbLieIlWrHrJEdDqsDT/78d+Glfc2OPpeD5uflry4s9WdPWxBXO0NOle7e0EFjlwA==
+	t=1794857380;
+	b=p3TJanZMg6XEVHo2Cg7oDU8KprAp3GpbBE+S5o+yaL6OfMkAO1lmo6QZNbQfhA7BnmTb
+	 RM3+Xp40yvFnxMJj3mQy5JsNOlrYAiyXGQOURbn3vRO59iQilUoB3sQMHQXa/rO+cH3/p
+	 FqVFaJFkDhLy2etDnnj5JY+LmWXTYOk8WxtfzjQ+AsLF7jLl0mU2sosDuITvDq1xIOHNG
+	 t2A5rKuOEXhA1Cdb2nSkko3HWARSeDiJD0dytwKEqwDdICB6OcM7WMyEnbpYsfCqOLoX7
+	 mbBGwN5rDtbeCrnDgkuPoaLnKeN4nU5MZc0gR/79KfSd3TfnHVGXVSpVjIcVJA5kLlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857380;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=yEoaC/Ng0V2goYlLZqCkotlSndxwpWoQ6P14GTUf1pI=;
-	b=m1SFuAZJLOXihYS91rYD8kUXc8/iWOQhLtOpdEwlc+Y/r7B3gtbqz/FT78oXdR3zJgt6
-	 Z6b1eFswF1FbSi1SYlSamMgekKy48H2PZ4o9rQX9UtQAvYLtlLkeqOA2JjwaiFFwkVI68
-	 BA2giZ3N9wW2HJ24R8a2X0Z0RKbAwO7bi4vINLRoJO5sa++R6LHuwlewG8A+XWdyn9fUO
-	 IKeznCWYJ7rfmRRk8RbdBiNkL69s+XZg+oT8XZZAaYg/9JD8yfaOpdxenl0Rjd4OYsUZ6
-	 E6BCW2Rt6RF6OCx8BtZt3HqN39jvmNw0fMWy7LiwIO7mjRdexzCjPSeCI7bksNrxSOg==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QTIqMpwFotyFgZHHMugzSk4gDQSvNljgXir96ytGub0=;
+	b=cCcpegMIdgBSKRiogQA92ffBe/jK1DgksCQDQcZt8lkSI36moPxMQAiQE1BD6G4mHFyu
+	 p9OWyPko50/5XQ1iECQrvGiQ56fvX3d4YGqQEh3SZA8u/LtgkS3etvhuUhe5IoNR2qt6z
+	 5JdXcpMI+VrKo23XrwjBUFHWHCbOzzB97P1i1uIA+qUeVThB/VgyBvy6nE1To7/wbIwNY
+	 Z9saQI7UKGeAz2KY3NyrYTK+IlbJP2tDJTiGgLajFFaxFfbsnDZaXuv/E2vhhsD8SZ4y5
+	 yhUcE78nB+K3SoBbRPW3pNjp/AOk18XTYrr3k5lqjzRn1J1qwpfSYEOEg6kPrEwAyDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JP0ZNSRo;
-	arc=none smtp.remote-ip=95.215.58.1
-Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iUTnObBv;
+	arc=none smtp.remote-ip=95.215.58.6
+Received: from mta1.migadu.com (out-6.mta1.migadu.com [95.215.58.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BB1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24BB1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616EF606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:29:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 616EF606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JP0ZNSRo
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iUTnObBv
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZesdBexgj2dtrVEUReJJ1M0k0i4FtmIJXWQsOeWtkmI=;
+DKIM-Signature: a=rsa-sha256; bh=UGNs4SfH68tZ5cYnkl5VUa/l3F6Z5x+yXOyIf+Qp4G8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794857375; v=1; x=1795462175;
- b=JP0ZNSRor3iBh+5fJ0JweER8NJdExIiIjYISdEPhNFuMmzpJIPLxWFs0v/f/Syl4kFFRZyYZ
- kytu2TltqMWiJ4xoL468V2MckcUoLSU28yG1WjEHfWQL450fhG8N0j8iCK0UomWTQZWr20grFtt
- gTHUy0Hie56odw32//Q5uh34=
+ t=1794857377; v=1; x=1795462177;
+ b=iUTnObBvLFq2YTRDxN2s1jf48dO1h8Lm9lq3IYSQx+t005LwaN80L6l1sqoWQCNXf0fiGjSC
+ i3noa82c3GRIKcUq9+8HnYsYIqjILWOoIwzwjwUKNZNkvRXW7eajb2MH6E9OmhzWSYEZKQ1Mb4W
+ q4PBX9l4jSc2EzAHIRUGf0Gs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 55524de43ae1481a;
-	Mon, 16 Nov 2026 19:29:35 +0000
-X-Mizu-Trace-ID: 55524de43ae1481a
+Received: by smtp.migadu.com with ESMTPS id 01525508edcc0384;
+	Mon, 16 Nov 2026 19:29:37 +0000
+X-Mizu-Trace-ID: 01525508edcc0384
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -59,10 +60,12 @@ Cc: Radu Rendec <radu@rendec.net>,
 	Fuad Tabba <tabba@google.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/5] irqchip/gic-v3-its: Fixes to table allocation and the ITT pool
-Date: Mon, 16 Nov 2026 19:29:28 +0000
-Message-ID: <20261116192933.3266502-1-fuad.tabba@linux.dev>
+Subject: [PATCH v2 1/5] irqchip/gic-v3-its: Order table zeroing before the GIC can see it
+Date: Mon, 16 Nov 2026 19:29:29 +0000
+Message-ID: <20261116192933.3266502-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116192933.3266502-1-fuad.tabba@linux.dev>
+References: <20261116192933.3266502-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,58 +77,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+The ITS driver allocates the ITS tables and the vPE tables as zeroed
+pages. It exposes each table with a single store: a relaxed
+GICR_VPROPBASER write with Valid set, the relaxed GITS_CTLR write that
+enables the ITS, or a valid level-1 entry for a level-2 page.
+However, on a shareable table the zeroing isn't ordered before that
+store, so the GIC can read the page's previous contents as table
+entries, which the spec makes UNPREDICTABLE (IHI 0069H.b 5.2.1, and
+GICR_VPROPBASER.Z in 12.11.39). A level-2 page is exposed at runtime,
+when the GIC may already be walking the level-1 table for other IDs.
 
-Changes since v1 [1] [2]:
-  - Combined the ITT pool fixes [1] and the table zeroing fixes [2] into
-    one series. (Marc)
-  - Dropped "Zero ITS pages before sharing them with the host". A
-    separate patch fixes it in pkvm_set_memory_decrypted() instead [3],
-    for every caller. (Suzuki)
-  - Order the zeroing with dsb(ishst), as its_flush_cmd() does, rather
-    than dma_wmb().
-  - Clean the vPE table to PoC unconditionally.
-  - Point the vPE table patch's Fixes: at the commit that added the
-    table.
-  - Rebased on 7.4-rc3.
-  - Collected Reviewed-by from Suzuki on patches 3-5. (thanks!)
+Add a dsb(ishst) at the end of its_alloc_pages_node(), as
+its_flush_cmd() does for a command. The allocator doesn't take a
+shareability argument, so the barrier is unconditional. On a
+non-shareable table it doesn't hurt.
 
-Five fixes to how the ITS driver sets up the memory the GIC reads.
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ drivers/irqchip/irq-gic-v3-its.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-The first adds the barrier that was missing between zeroing a table
-page and the write that makes the page visible to the GIC. The second
-cleans the GICv4.1 vPE table to PoC, as the driver already does for the
-pending table. Without the clean, only a redistributor that accesses
-the table as non-shareable can read stale contents from it.
-
-The other three fix the ITT pool. Its 1-byte granule keeps ITTs aligned
-only while every ITT's size is a multiple of 256, which holds for
-power-of-two ITE sizes but not for QEMU's 12-byte ones. The third gives
-the pool a 256-byte granule. The fourth zeroes an ITT reused from the
-pool, as MAPD requires. The fifth frees the page when gen_pool_add()
-fails.
-
-Based on Linux 7.4-rc3 (aebb727447640).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20261106092625.3977163-1-fuad.tabba@linux.dev/
-[2] https://lore.kernel.org/all/20261106120221.347309-1-fuad.tabba@linux.dev/
-[3] https://lore.kernel.org/all/20261116110549.1863653-1-fuad.tabba@linux.dev/
-
-Fuad Tabba (5):
-  irqchip/gic-v3-its: Order table zeroing before the GIC can see it
-  irqchip/gic-v3-its: Clean the GICv4.1 vPE table to PoC
-  irqchip/gic-v3-its: Align sub-page ITTs to 256 bytes
-  irqchip/gic-v3-its: Zero ITTs reused from the ITT pool
-  irqchip/gic-v3-its: Free the page when gen_pool_add() fails
-
- drivers/irqchip/irq-gic-v3-its.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index c952c069f9373..9900c6a53526e 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -233,6 +233,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+ 	if (ret)
+ 		return NULL;
+ 
++	/* Order the zeroing before any store that exposes the page to the GIC */
++	dsb(ishst);
++
+ 	return page;
+ }
+ 
 -- 
 2.47.3
 
