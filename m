@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841024;
-	b=Dd943B/T0Ycu6+qBf6ZnwLSCPkj68ErK0dHfyYoSTU1Ou8FdxA9P8/dr++jLEzn5kdqe
-	 pmggFQ7jlbzotnKFb9GVbzwkf2frYOtR2z8J4QlcS/Z25jVyyiC8qFJizWEE4U4jeVfT1
-	 rRfmZVON2dJjb5jPNlXEyHyCp24G9MHQIioEli5ogXzJ8aAYiJ5uP2HT8czYWNMb5BRSN
-	 9N559v7MF+SNbfD4MLAYL7hkRbqhhUAjkbQeDPB0aA8AdR+oPOc7HVDsKJW6xmBZwiiu3
-	 bMuvx8nI+AutIUmdF4KyL2sOl+5sEzRnR2lJh/RqJkOgfj/Xu/eBPNNhEnoaxOc+FOg==
+	t=1794841054;
+	b=w4sxnTbQoS4kgfNVMZc8oDoSjiUz9c8lPRBd+XBGPV5aWd1S9xGCmQibJqk6LK2GxW6x
+	 Ea9PgAtkemo/JTABc+VSXFR7Nzgr3hRmzaxZx9GnTJxdxX7OrOSeL18vkTfpapWqxmAe4
+	 pWm0ArsPlOrjPB1vmpCrQvf93AJOegNRXnK9iGMxeoqQ8rRkNUGfM51tUlldh+h+rAGwj
+	 V2PUd0Xbkw6QUNCOMqpc8ds2NnVdSSEZEuQUdVCzp2/yQrE1t10OFp2tixJFC+XDlLzNE
+	 E2tJYHBSay1ZOlzs0AaHawEucoLwTvy/wioVRQ0zo6qOezum3orsBlWTqXD088P199g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841024;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=eCSCfWBLYphepyujzWfO5Q8lDkGNEXJ5KW1AbtemZLw=;
-	b=EANZRjXMMJXhhnNgfp3f4JqeuSCtY8W4RRAhhBo1qIuAsoVDlAj7TrgOvooHXRFeMWAb
-	 m6piLkEoq1WKHuoqbftW6dXmhD03yPzoHSpd8l0WGqOhp+BoiweCCg1hVGxcO8AB/ZxaC
-	 ss2G1T+oHiWrIEl8ycGzSvq+L/AyPIjntqNtqV0zEqT4fdAkCeuQ4UD53pKfSX8Sm+dMp
-	 N3PDlxTIPJdau5wPijmZwKcI9FLArGgFS/mtd/Xe2eedNhZbgarTjgdjkqw81gcjUg7hp
-	 M5iyMJDWr0NlXZZgNAmF6rp9l7tdexUioStPIzJJ/iTENXJsl9Ab+lPmo2qibdOIXAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841054;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=rEfHSP08js41yAUgdyGaGJ8cE88yMrcgLd0b5cArmYE=;
+	b=UCux1K1EjVyVB+LqWoOSVClhyMpED7kQCGNAVQ6iUmSdr6fLVTFSP3zU5JiEPxJki9rR
+	 cY3M0I/AxCRQjF63s9OHmAuQqAzNJ5zBcN3MUvGhuiazFEsn/V0TwgL6hmtkq8cXaOq7+
+	 Ff5KWO3GRXAbaBvRxpufvSKRAI/ynGT/WCijhfN68eUDvaxiZ0PskJ5cZOy8KQbLWiwXX
+	 MWEalifRFZByn+2hWdj+hXhausXdepEufeJM2/e3Vyy2dDyER+JQgOWqr6sqNGU2DcSw4
+	 Nq7vHjlE56gss8SBkGIzN0wM73d/bhtiHb/uS9azeAQqr2TBv4BGatOgtX3QjPIkg+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.94.104
-Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BKconya8;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0632C606A31C;
-	Mon, 16 Nov 2026 14:57:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0632C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jSrXM5fvGz1rq6w;
-	Mon, 16 Nov 2026 22:56:03 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id B925440576;
-	Mon, 16 Nov 2026 22:56:52 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgCnduyzGftqetMwEg--.57019S2;
-	Mon, 16 Nov 2026 22:56:52 +0800 (CST)
-Message-ID: <c752b9eb-9f18-4d6a-b5d9-62f3b0d3e0f6@huaweicloud.com>
-Date: Mon, 16 Nov 2026 22:56:51 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC715606A31C;
+	Mon, 16 Nov 2026 14:57:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC715606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BKconya8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794841055; x=1826377055;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=4JEeurzNRB9iJiMG8IlCP86/jDWGqv0Dsuyy3GgwRyc=;
+  b=BKconya8Kts8ETIe8QQ2fpX6X2Couo1RGLYxVQuBuIKBlfYxuHZX+q8e
+   HKgaWPAJ6sEQZeMR14vSgKOnzNqXdKyziyOJAGX4dO2sU5zqIxdYALfTY
+   T+fyJCbNS06nWGfkkW6WZxl9Ha3WryT6ITgNkZkar5+DIEFIhN/qCBESc
+   y8AaJ0psCxeiP1RHHoNduIxovpia28hS9gOtPTvlKSrhsOaZpsa2exUnm
+   8vUJ+43g7D+N7TFrQUwmMSru6wMsidmk3GBmUSeLJQJ0p1Bu6r5tEqdE/
+   OO0YO8d1uAUPIDSdUSGU1S2VgfkFhoBTELdJHjWEK5CJ3rXb83J+V8rVc
+   Q==;
+X-CSE-ConnectionGUID: bm4LKlpZTAiOpxsuZAA7TQ==
+X-CSE-MsgGUID: MoMYbe9jRMywIR6XkQr3Xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3453812"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3453812"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:57:31 -0800
+X-CSE-ConnectionGUID: sr1t1cNHSRy1OIAQA9rNpQ==
+X-CSE-MsgGUID: lhHkFNbyT6etDatd1yOoQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9405684"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:57:27 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 16 Nov 2026 16:57:23 +0200 (EET)
+To: Erwan Velu <erwanaliasr1@gmail.com>
+cc: Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
+    platform-driver-x86@vger.kernel.org, 
+    Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
+    Carlos Bilbao <carlos.bilbao@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/4] platform/x86/amd/hsmp: Add /sys/devices/amd_hsmp
+ socket devices
+In-Reply-To: <CAL2JzuyL63cqnV+DR22NfAPFHCO24G0_NkPohm1vao-U985pBw@mail.gmail.com>
+Message-ID: <79f34929-c030-2f24-7663-5b18ff4d59dc@linux.intel.com>
+References: <20261007125908.321186-1-erwanaliasr1@gmail.com> <20261007125908.321186-3-erwanaliasr1@gmail.com> <73b9c9a8-479d-4a5f-9321-2e095f11951d@gmail.com> <20261116141150.667950-1-erwanaliasr1@gmail.com> <2ad73cfe-3ae6-43d8-c7e9-247239b72519@linux.intel.com>
+ <CAL2JzuyL63cqnV+DR22NfAPFHCO24G0_NkPohm1vao-U985pBw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,155 +83,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] perf/core: Prevent duplicate sigtrap task work
- enqueue
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793870900.git.wutengda@huaweicloud.com>
- <ff842e802e9ecb74510a90964f8ad2c4825834b7.1793870900.git.wutengda@huaweicloud.com>
- <20261116094706.GX5vD02a@linutronix.de>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <20261116094706.GX5vD02a@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:Syh0CgCnduyzGftqetMwEg--.57019S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr15ZFWfKF1fCF4DGr4DArb_yoWrAry7pr
-	WfJan8KayUXrnFv345tr1kAr18Ww4Fqws8Crs5Ga4fAF1YvrykXay7GF1YvFs8ArnrAayI
-	vw4j9rW7u34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
-	7KsUUUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset=US-ASCII
 
+On Mon, 16 Nov 2026, Erwan Velu wrote:
 
+> > The lack of Documentation/ABI entry should not be taken as an indication
+> > for something not being ABI. We generally don't take away ABI without
+> > doing proper deprecation and waiting first.
+> >
+> > Sometimes, the old place can be covered with a symlink to the new place.
+> 
+> Yeah, but since the trees are very different between the current ACPI
+> (AMDI) and the platform (socket<x>) one, I don't think a simple
+> symlink would be accepted. Would it be ? That's my main issue here.
+> The two implementations of the same structures vary so much that
+> unifying the output means breaking one.
+> The platform structure with socket<x>/ is way easier to manage from a
+> monitoring software point of view.
 
-On 2026/11/16 17:47, Sebastian Andrzej Siewior wrote:
-> On 2026-11-05 09:30:43 [+0000], Tengda Wu wrote:
->> The sigtrap handling in __perf_event_overflow() checks
->> event->pending_work before calling task_work_add(), but only sets
->> pending_work after the task work has been queued.
->>
->> This leaves a window where an NMI can interrupt task_work_add()
->> and re-enter __perf_event_overflow() for the same event. Since
->> pending_work is still zero, the nested invocation can enqueue
->> the same pending_task again.
->>
->> The re-entrant call path is:
->>
->>   __perf_event_overflow()
->>     task_work_add()
->>       kasan_record_aux_stack()
->>         <NMI>
->>           __perf_event_overflow()
->>             task_work_add()
->>
->> The nested invocation can enqueue pending_task before the
->> outer invocation does. When the outer invocation resumes, it
->> inserts the same task_work entry again, potentially creating
->> a cycle in the task work list.
->>
->> This causes perf_pending_task() to be executed repeatedly
->> and leads to unbalanced event reference counting.
->>
->> Use cmpxchg() to atomically claim pending_work before calling
->> task_work_add(). This ensures that only one invocation can
->> enqueue the pending_task, even when interrupted by an NMI.
->>
->> If task_work_add() fails, clear the pending_work claim so that
->> a subsequent overflow can retry.
->>
->> Also use READ_ONCE() when checking pending_work in the
->> exclude_kernel warning path to avoid an unsynchronized read.
->>
->> Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
->> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
->> ---
->>  kernel/events/core.c | 23 ++++++++++++-----------
->>  1 file changed, 12 insertions(+), 11 deletions(-)
->>
->> diff --git a/kernel/events/core.c b/kernel/events/core.c
->> index 457d75ea7142..ee5c59158b89 100644
->> --- a/kernel/events/core.c
->> +++ b/kernel/events/core.c
->> @@ -10925,16 +10925,17 @@ static int __perf_event_overflow(struct perf_event *event,
->>  
->>  		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
->>  
->> -		if (!event->pending_work &&
->> -		    !task_work_add(current, &event->pending_task, notify_mode)) {
->> -			event->pending_work = pending_id;
->> -			local_inc(&event->ctx->nr_no_switch_fast);
->> -			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
->> -
->> -			event->pending_addr = 0;
->> -			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
->> -				event->pending_addr = data->addr;
->> -
->> +		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
-> 
-> would cmpxchg_acquire() here make sense?
-> 
->> +			if (!task_work_add(current, &event->pending_task, notify_mode)) {
->> +				local_inc(&event->ctx->nr_no_switch_fast);
->> +				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
->> +
->> +				event->pending_addr = 0;
->> +				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
->> +					event->pending_addr = data->addr;
->> +			} else {
->> +				cmpxchg(&event->pending_work, pending_id, 0);
-> 
-> if the task_work_add() fails then smp_store_release(, 0) since only the
-> executed task_work can release it back to 0. The cmpxchg seems not
-> needed.
-> 
->> +			}
->>  		} else if (event->attr.exclude_kernel && valid_sample) {
->>  			/*
->>  			 * Should not be able to return to user space without
->> @@ -10948,7 +10949,7 @@ static int __perf_event_overflow(struct perf_event *event,
->>  			 *     To approximate progress (with false negatives),
->>  			 *     check 32-bit hash of the current IP.
->>  			 */
->> -			WARN_ON_ONCE(event->pending_work != pending_id);
->> +			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
-> smp_load_acquire()
-> 
-> perf_pending_task() could maybe get a xchg_release(, 0). This however is
-> wrong because it would reset perf_event::pending_work and make it
-> available for __perf_event_overflow() again. I think it should have a
-> load_acquire() first, and have the store_release() after perf_sigtrap().
-> 
-> Comments?
-> 
->>  		}
->>  	}
->>  
-> 
-> Sebastian
+If symlink is not possible, we just have to keep the old interface for the 
+deprecation period then I think.
 
-Sounds reasonable. After switching to acquire/release, the local tests pass for now.
-Will send it out later.
+BTW, when submitting, you should also cc the AMD people who have been 
+working with this driver recently (if they're not maintainers, tools fail 
+to pick their names automatically).
 
-Thanks,
-Tengda
+-- 
+ i.
 
