@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833482;
-	b=3y4TRif6/jbm8iFA5Ka25jO3hU+bmwfAhw9ry2bBUPFtNNssqm9CQBtE1f33xy71/rBU
-	 f/+IBsA6fu0a5AU1i3IefKLxXysl1ydimSy3l2apGOjoJtAtzJwQFHM+GQpwB9ez5Dive
-	 oCG/GP5Rg9SEByndJ3PSxfd1GfUwAD0DLL3Zzxx9BMuXfDkvVqT/nMY164E4NsHQmbhkN
-	 FhBI6c3iYZhTxZFOi2PRLOCp/CJ9cL5c5oxfVuTmu2qe4oiPg8MHUpI4iiGnLQnJ6d4Yj
-	 LmEEoybPzUR4yGC35mM6N1XMIqOVKb2oqDH2Mcsxn6rHRnkQYGJQYSdhwKF1T9GkfyA==
+	t=1794833486;
+	b=I1qweSsYEE4ALGoMnitUtJDj7g6HzHGc6te7WZ9Dyy8itvVv6tHMZAiwtNe6GayJFyAh
+	 kA4A4EteJOZC4F6/O7cFxn0tBeSIKfhrmfMWFJOR/xeEcd9hWEZd3YWne8788Khayb8Zj
+	 o8iMlkeOYQN2+x2x0W0WGJfUUPVZVxbRytQ5o+QMZ3MhkzCecNTiYmPPm0LHzGV3C81/4
+	 xK9w/DzsYDdmsWNGoBaN7xvrq5Hfm8mjIjlW4GMtf4PltC5Ydf7stErcytuttzHhD4eXY
+	 ZSKAbmUiVF5cAbVZxKaGyf5QpsnjPZAdxwRjGbIu9awv4681pDvjJX2C2rWjg138WPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833486;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FawFGpu24nqmYgxnTPWSScuSy3Ov5v1Ccl8krMGTmys=;
-	b=jZ/IBvQk0NSfwoK8qk/RA6u9rCtFL3Y4fJqaUpG/pEdJr/5gIB1eW6E48MTTBFLPHWhS
-	 hIZ8LFrvaBEg1C4qZvOWO79MfRy2RNoEp9vECSo+B/qbytmVLGtktkOuohXUvc02ODh3i
-	 NHwCUEtJp8LWXJ0ypS4CU7/7O2RQffjV2f9VCYLc4ZTtv5UiE3YJRQ5gXx6l7GuNwe7nd
-	 +9piFqTHb3ApeOj7osBxN2mz46o7494UttweaP8tIrg2n0zha07zHogJIxZmdDNAks4sj
-	 sZurQqd/VBlhuqY/gacUqdmWlzYdByle0umUaFwCMf6rUZXmi6EPr2Ne+kq33jm8fFA==
+	bh=FAagbYd6dfyVbsnE+ND+6hIHPmL9gs+3rPo9JeiHsMQ=;
+	b=Z/pvV7+gCeRW/WdsILvKPoVp+OTqArSvtFq1vMMKgYGBeRKDMpZAq3Efx5u/LcZb95y1
+	 wQ7X/ygg40xmrha7dMMVuzFpxgicTuh5GPEIPZu6MN07DktzgEk0aHDzBuITyfpt4c3og
+	 EZNlGbgRIWT0agyp+vDLPU0+aiQ7Jga9na7RTNwKBNK85LD0LfNoAaaTMchrqrK6AZOUo
+	 OcUSQMtKqMIfdpKIYgFQthh1r/RN3KkYeypyMumdqAiUileEPwGaBR2lgYEgVwt4LTUvG
+	 KY+7+xv/ZNyVRG2wTQUmyyLDZm2+psIbLlnHz+Sn8QVW8QfuMvI/2iO68hUJ/uIBkWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvlm1zom;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5lG76iA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131A6606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41EA606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvlm1zom
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6C11F000D1;
-	Mon, 16 Nov 2026 12:51:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5lG76iA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD92C1F000C9;
+	Mon, 16 Nov 2026 12:51:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794833481;
-	bh=FawFGpu24nqmYgxnTPWSScuSy3Ov5v1Ccl8krMGTmys=;
+	s=k20260515; t=1794833486;
+	bh=FAagbYd6dfyVbsnE+ND+6hIHPmL9gs+3rPo9JeiHsMQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jvlm1zom8lgjE2YfF399PEuQif74vKLO1uT8/u9rRZkhCo9/MR/J2fBMeEPTNxj0z
-	 yBkZtVjxbkfYP5+YE96tzbiIUyzytZKP+aH5ykUg4VZDNyKAlKY2wHtT0I4qpq52gT
-	 rkrGlRaAYvug19nSHpNLjsXCBlIyWRfAX+Y90D+90GPeDC1wa11yfBplc4p5isnEIr
-	 fssDk9BGRCK0mHjWdVd/fQqgPFsk7Nd0P+dTs3hl7CrL9MF2lJw2mEgsB6jPYQNyrT
-	 TEQgu2Ft2lBhejh0c9TvR9No9oMvbrcEjFlaK91MOM0dLrknLdjFwbvg9tMXQwKxqZ
-	 HO+MBWZJel0+Q==
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 1E982198004A;
-	Mon, 16 Nov 2026 07:51:16 -0500 (EST)
+	b=g5lG76iAnhAZorbDjX8901cYf33JRAC5MOawC9mwbWrTvC+1cYUJSMgd1ePp6m2Rv
+	 g/pzqNGWPLEwyvLH6Bi2HJ+rYto7yEGXpDyGO1VaS/18JUWYXHgPUTe7xs58KuaeuL
+	 6goxIOjHx0XmXr0C1IBx4nxMnAnj8j8P4Ec/VBq30ocfybG0tYTXVtYoo1KYr5hMQk
+	 CJLz8ahZghG6hU2x9ciovssCVi/rjHn90d6YJNQsqqpWcDyyWfqxR9YWVg23EesRuz
+	 yNTHP4kygpBvUd/E4FzOBMw1XAmjhO0LBd2uHCZjr+h4j0OlPo+HjcZqR7cUZSU7qI
+	 EM6WhdyJIIPlg==
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 08B801980050;
+	Mon, 16 Nov 2026 07:51:20 -0500 (EST)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Mon, 16 Nov 2026 07:51:18 -0500
-X-ME-Sender: <xms:Q_z6atC5knrIKpJYfuAdL5cJeNJhfVQekE1ChuOZj9PTu8UjBL8LmA>
-    <xme:Q_z6asm02pZpipO3debddEWc_4JLbs1coDZ8lmiDd0__ifIG2dG-oXVJpbJYyElan
-    uX-XKBEEMpx3M9vndennPFragIXoG7VXFKMZcZRXuJgXPCVxfcqxaE>
-X-ME-Received: <xmr:Q_z6arhkX-dgwz4ea6l48Ijqueyr1LT42G3rqTHInfSKWSEq9BvbJ_oTu-s>
-X-ME-Proxy-Cause: dmFkZTEndR1twvEtVV9H42M6Qp3CHlOf2K86xhOcIvsHlI0qPC43EEHmYQS8lk+yVDorCL
-    4AZIMFoK0mM5jxtyIPxyjz9+QW+KDyr5a1QI5LAVNOvvdezfJIUFEiBk8hqwDUM1ipGtqV
-    Yj2cbe2LqPMwyAo52y79X45epac/GwTfTEU69t1sP1+Wb/QEsMx5rWyZD+nPZUaFTyFXG+
-    5CQ4wZzn6SCh8TwXgLLqjmYSN52Omu45Pq5Ep93lX5zHUXxZrJ0QNbBDhUDgexZPkTOOE8
-    szf9NTieQQj+m2laq7APapu9RHhoSoGNwFFQicqgJd//nPpk/ulYLPxsZmBstc/W7NyVKP
-    L0TVWOyeltJ1Dtn1gieignN7lmvkRBxENIvN8YpQIucfXbD+g1AkSIh4Pd97MqwFMjd43t
-    CDWdyOmng1aIntp6RfUI8PoiLHeZK7ZnDeKvKYBVA8iPBlD2J5KBy/ajJAxgYw4mAVh87y
-    BBNCintJqsHd5v2ckYXBmPRSm/jVB9f8IWroAINDQn6VNnEGILq/adb2sgWASZmddAnCig
-    WALZZEMCzwqS589GcXGtpcEgyavKLKqyy+DW54Oo0iW9I9Xce7DCOERlht71GEIAQhfko0
-    jh8vDGuh+wEXq+35+/wvPtCK4hqABxrbirXNhPL+uR3RLORqavtfejOwQviQ
-X-ME-Proxy: <xmx:Q_z6ald4lfRMZ8F97vcX40jsFdyBuQe1cVAWDiMkze63k1ZGANOoBA>
-    <xmx:Q_z6arAiR-5JRz8tKSQt57ocEogBicWXKU9KjYBD-cAN6UxAbVu4ew>
-    <xmx:Q_z6ap59-GHrHSM9ekcLRZO2Ke4y4zR9eSsMk0tQVYUtdcqfKxxDjQ>
-    <xmx:Q_z6aozIFfQX_VyIS1ghfM2FQ88Jqveg05wL9rysonZuVC3-93913A>
-    <xmx:Q_z6alld4rl4nnZTtfyVcpcFMPnmg5mkODZqXnxJRxiP2mR76b8SXzwQ>
+  by phl-compute-11.internal (MEProxy); Mon, 16 Nov 2026 07:51:23 -0500
+X-ME-Sender: <xms:SPz6apvWilaRJSGouPhH8DesEmoczVzoEM1Gqq36GxC80jAfiW9oHQ>
+    <xme:SPz6ajhZgb4kg0XHQsriE8yvhGRipQPq6mdQXQQgS9X1xHf-IDGBZjfaW5qGF_V4C
+    sc0yiTDpYoF3WROfn_YIZ8VS7Q1_Bj0pilmT2T_BHNzjBDjGn01XoPh>
+X-ME-Received: <xmr:SPz6avshY1kZXIN1743uja3J0EBoTC0J_LbtpjbpJldAE7ggHCvTzdJw1mY>
+X-ME-Proxy-Cause: dmFkZTF4rqJmiWH6IxaIGSp21Kb2Ng7z9JItazqdzGM2eHVk/wCcpFjnKvz66lSKeJiy6i
+    GkGS1IphOvpdNcnGTCoD0LO8NJl9WQhzX/ydQP46jTnnlMEBX6PtiTbR8FZ2F3YYyDZsbT
+    lVPwtUs9gugBiqHWV1BQEfSXkaQ0ojXXrQsPwFCXdDWi7jdNlqZKWxp0zDuBKKSuCBe+AL
+    Aup75rUan66x/SXWCgRSqoJMzCwkyV23j3f/y82hcmmz+mdaaAbUUf5R45xX2f2ff0z5kb
+    A7qPyHTsZy1dtOV4ZTXmHPPt0k9a9Vadifimq/dyMy7ZXKMI8hG8u8cxAfmEa2ujpQB4R8
+    i3EBfjkejfwfLV5vuvL7v1mz8J1cJPa+Shj4s0H4M0fdU2wH6keUvVq/IaTv5suchxsusb
+    gvXnw9s+Gwp4P78gLhTb6jiFQtHkmbGpapAPzaCiPxTc5NsF+c7oMKbQyHKnXecqNd+aVL
+    NL50Q4nnRVSJCu0ubT1jy6fTBJgXxPPZfQN/5Zx3AZ0StwPJE9f8x+yaCk+SgDXaUnXaSE
+    sVTrmYfPtUAQRLUJvjW8Eazcm0tPyYnC0AbTJi18Qj9Inzg8BqlOIi2sD2OJcEXhKfoM9y
+    F588QlvneyWPdLCC99ZHza+GMw9BHzulyhSBU1MfpRxgRqiZC5R8FsbUkQYg
+X-ME-Proxy: <xmx:SPz6at4_-29V69swvyQLWLKh-3FW_smgYEXeEx5V5j7vAXqO6Vg2jA>
+    <xmx:SPz6aithVOyAccN7e7c9rIPpdsWNdZgzMf1-WAtTCNiTE1IcduVDDQ>
+    <xmx:SPz6av2ZIrdOX1lOzFecYYRcqjADZW5urzDdP2DwVCdvxX4LN922cA>
+    <xmx:SPz6av82FZZYrqlIHgkLHwlqpya_WO_wtR_fJxiQ0b5qpk_Tq9wUng>
+    <xmx:SPz6alC247wpQ18KROO8aJi-SROfHDI6z0Ni60PEfiTLwReSS5W0vYbi>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 07:51:14 -0500 (EST)
+ 16 Nov 2026 07:51:19 -0500 (EST)
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
@@ -96,9 +96,9 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	kernel-team@meta.com
-Subject: [PATCH v3 2/3] mm: page_alloc: make the high-order watermark check honour ALLOC_NOFRAGMENT
-Date: Mon, 16 Nov 2026 12:51:00 +0000
-Message-ID: <20261116125103.2894162-3-kas@kernel.org>
+Subject: [PATCH v3 3/3] mm: vmscan: tell direct reclaim the allocation is ALLOC_NOFRAGMENT
+Date: Mon, 16 Nov 2026 12:51:01 +0000
+Message-ID: <20261116125103.2894162-4-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261116125103.2894162-1-kas@kernel.org>
 References: <20261116125103.2894162-1-kas@kernel.org>
@@ -113,47 +113,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With defrag_mode, every slowpath allocation carries ALLOC_NOFRAGMENT.  A
-request below pageblock_order may take a page of its own migratetype or
-claim a whole free block, but not steal from another migratetype's block.
-For a high-order request, the watermark check still accepts a free page
-of any migratetype.
+Direct reclaim for a costly order stops as soon as the allocation could
+succeed.  compaction_ready() skips a zone and should_continue_reclaim()
+stops reclaiming when zone_watermark_ok() passes, and zone_watermark_ok()
+accepts a free page of any migratetype.
 
-Under memory pressure, movable allocations take free movable pages as
-soon as reclaim frees them.  Free space in unmovable and reclaimable
-pageblocks is off-limits to them under ALLOC_NOFRAGMENT, and builds up.
-The free pages of order 4 and up end up mostly in those pageblocks.
+With defrag_mode, the allocation behind the reclaim is ALLOC_NOFRAGMENT
+and cannot take the free pages left in unmovable and reclaimable
+pageblocks.  Reclaim stops on them anyway, having freed little.
 
-A 64K mTHP fault cannot take them, but direct compaction's up-front check
-counts them and returns COMPACT_SUCCESS without compacting anything.  The
-allocation then fails.  Because compaction "succeeded", it is never
-deferred, and every fault stalls in it again before falling back to small
-pages.
-
-Dev Jain's benchmark faults 64K mTHPs under swap pressure, in a 7G VM
-with only the 64K size enabled.  With defrag_mode, those faults stall in
-compaction 18 times as often and get about a third of the folios
-(medians of 15 runs):
+In Dev Jain's 64K mTHP benchmark, with the high-order watermark check
+already honouring ALLOC_NOFRAGMENT, an order-4 direct reclaim frees 16
+pages on average with defrag_mode and 45 without.  64K faults get a bit
+over half as many folios as without defrag_mode (medians of 15 runs):
 
                               defrag_mode=0  defrag_mode=1  defrag_mode=1
                                                             + this patch
-    compact_stall                      1690          30669          2607
-    compact_fail                        621          30531           906
-    64K faults allocated              20750           7391         11538
-    64K faults falling back to 4K       725          13832          9945
+    64K faults allocated              20750          11538         19759
+    64K faults falling back to 4K       725           9945          1664
 
-Make __zone_watermark_ok_mt() skip other migratetypes' free lists below
-pageblock_order for an ALLOC_NOFRAGMENT request.  Give
-__compact_finished() the same rule for its fallback test, so that
-compaction, once it runs, stops on a page the request can take.
-
-zone_watermark_fast() calls __zone_watermark_ok_mt() too.  With
-defrag_mode, an allocation now wakes kswapd and starts reclaim or
-compaction as soon as the free lists hold nothing it can take.  For the
-orders the per-cpu lists serve, that is earlier than before: the check
-does not count their pages, so the allocation no longer uses up the local
-list first.  A request that may not wake kswapd or reclaim, such as an
-mTHP fault with THP defrag=never, falls back to a smaller folio instead.
+Pass the allocation's alloc_flags down to try_to_free_pages(), and
+record ALLOC_NOFRAGMENT in scan_control.  Both checks then ask
+__zone_watermark_ok_mt() for a free page the allocation can take, and an
+order-4 direct reclaim frees 40 pages on average.
 
 Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
 Reported-by: Dev Jain <dev.jain@arm.com>
@@ -161,82 +143,140 @@ Closes: https://lore.kernel.org/all/4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com
 Tested-by: Dev Jain <dev.jain@arm.com>
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/compaction.c |  5 +++++
- mm/page_alloc.c | 21 ++++++++++++++++++---
- 2 files changed, 23 insertions(+), 3 deletions(-)
 
-diff --git a/mm/compaction.c b/mm/compaction.c
-index 6c553d0e90f8..7312f7515c53 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -2365,6 +2365,11 @@ static enum compact_result __compact_finished(struct compact_control *cc)
- 			!free_area_empty(area, MIGRATE_CMA))
- 			return COMPACT_SUCCESS;
- #endif
-+		/* An ALLOC_NOFRAGMENT request may only claim a whole block */
-+		if ((cc->alloc_flags & ALLOC_NOFRAGMENT) &&
-+		    order < pageblock_order)
-+			continue;
-+
- 		/*
- 		 * Job done if allocation would steal freepages from
- 		 * other migratetype buddy lists.
+try_to_free_pages() takes the whole alloc_flags, but reclaim uses only
+ALLOC_NOFRAGMENT.  Using all of them would change when costly reclaim
+stops for every allocation, not only with defrag_mode.  ALLOC_CMA would
+count free CMA pages for movable requests, and the reserve flags would
+lower the min.
+
+Storing the whole word in scan_control and masking it would work the
+same, but kswapd and memcg reclaim have no alloc_flags to put there.
+
+So the patch stores ALLOC_NOFRAGMENT as a bit in scan_control and
+reconstructs it in allocation_can_succeed().
+
+ mm/internal.h   |  3 ++-
+ mm/page_alloc.c |  7 ++++---
+ mm/vmscan.c     | 24 +++++++++++++++++++-----
+ 3 files changed, 25 insertions(+), 9 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 566cbd2dce48..3ef9b7036afd 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -65,7 +65,8 @@ void folio_mark_lazyfree(struct folio *folio);
+ /* mm/vmscan.c */
+ unsigned long zone_reclaimable_pages(struct zone *zone);
+ unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
+-				gfp_t gfp_mask, const nodemask_t *mask);
++				gfp_t gfp_mask, const nodemask_t *mask,
++				unsigned int alloc_flags);
+ unsigned long lruvec_lru_size(struct lruvec *lruvec, enum lru_list lru,
+ 			      int zone_idx);
+ 
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 0ebfbbb5d7c5..6e75c03b303b 100644
+index 6e75c03b303b..93362e0f699b 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -3587,6 +3587,11 @@ static inline long __zone_watermark_unusable_free(struct zone *z,
-  * will return true of the order-0 watermark is reached and there is at least
-  * one free page of a suitable size. Checking now avoids taking the zone lock
-  * to check in the allocation paths if no pages are free.
-+ *
-+ * Under ALLOC_NOFRAGMENT, a request below pageblock_order can take another
-+ * migratetype's page only by claiming the whole block, so only free pages of
-+ * @migratetype count below pageblock_order.  Without ALLOC_NOFRAGMENT,
-+ * @migratetype is not used.
-  */
- bool __zone_watermark_ok_mt(struct zone *z, unsigned int order,
- 			    unsigned long mark, int highest_zoneidx,
-@@ -3649,6 +3654,9 @@ bool __zone_watermark_ok_mt(struct zone *z, unsigned int order,
- 			continue;
+@@ -4459,7 +4459,7 @@ static unsigned int check_retry_zonelist(unsigned int seq)
  
- 		for (mt = 0; mt < MIGRATE_PCPTYPES; mt++) {
-+			if ((alloc_flags & ALLOC_NOFRAGMENT) &&
-+			    mt != migratetype && o < pageblock_order)
-+				continue;
- 			if (!free_area_empty(area, mt))
- 				return true;
- 		}
-@@ -3677,8 +3685,12 @@ bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
- 			 int highest_zoneidx, unsigned int alloc_flags,
- 			 long free_pages)
+ /* Perform direct synchronous page reclaim */
+ static unsigned long
+-__perform_reclaim(gfp_t gfp_mask, unsigned int order,
++__perform_reclaim(gfp_t gfp_mask, unsigned int order, unsigned int alloc_flags,
+ 					const struct alloc_context *ac)
  {
-+	/* Serving an ALLOC_NOFRAGMENT request needs __zone_watermark_ok_mt() */
-+	VM_WARN_ON_ONCE(order && order < pageblock_order &&
-+			(alloc_flags & ALLOC_NOFRAGMENT));
- 	return __zone_watermark_ok_mt(z, order, mark, highest_zoneidx,
--				      alloc_flags, free_pages, MIGRATE_MOVABLE);
-+				      alloc_flags & ~ALLOC_NOFRAGMENT,
-+				      free_pages, MIGRATE_MOVABLE);
+ 	unsigned int noreclaim_flag;
+@@ -4473,7 +4473,7 @@ __perform_reclaim(gfp_t gfp_mask, unsigned int order,
+ 	noreclaim_flag = memalloc_noreclaim_save();
+ 
+ 	progress = try_to_free_pages(ac->zonelist, order, gfp_mask,
+-								ac->nodemask);
++				     ac->nodemask, alloc_flags);
+ 
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	fs_reclaim_release(gfp_mask);
+@@ -4495,7 +4495,8 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
+ 	int reclaim_order = ac->reclaim_compact_order;
+ 
+ 	psi_memstall_enter(&pflags);
+-	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
++	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order,
++					       alloc_flags, ac);
+ 	if (unlikely(!(*did_some_progress)))
+ 		goto out;
+ 
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 9959ca158ce8..3fbcdcc87a00 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -142,6 +142,9 @@ struct scan_control {
+ 	/* One of the zones is ready for compaction */
+ 	unsigned int compaction_ready:1;
+ 
++	/* The allocation may not steal from other migratetypes' blocks */
++	unsigned int nofragment:1;
++
+ 	/* There is easily reclaimable cold cache in the current node */
+ 	unsigned int cache_trim_mode:1;
+ 
+@@ -6316,6 +6319,17 @@ static bool in_reclaim_compaction(struct scan_control *sc)
+ 	return false;
  }
  
- bool zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
-@@ -4693,10 +4705,13 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
++static bool allocation_can_succeed(struct zone *zone, struct scan_control *sc,
++				   unsigned long mark)
++{
++	unsigned int alloc_flags = sc->nofragment ? ALLOC_NOFRAGMENT : 0;
++	long free_pages = zone_page_state(zone, NR_FREE_PAGES);
++	int migratetype = gfp_migratetype(sc->gfp_mask);
++
++	return __zone_watermark_ok_mt(zone, sc->order, mark, sc->reclaim_idx,
++				      alloc_flags, free_pages, migratetype);
++}
++
+ /*
+  * Reclaim/compaction is used for high-order allocation requests. It reclaims
+  * order-0 pages before compacting the zone. should_continue_reclaim() returns
+@@ -6354,8 +6368,7 @@ static inline bool should_continue_reclaim(struct pglist_data *pgdat,
+ 		unsigned long watermark = min_wmark_pages(zone);
  
- 		/*
- 		 * Would the allocation succeed if we reclaimed all
--		 * reclaimable pages?
-+		 * reclaimable pages?  Count free pages of all migratetypes.
-+		 * Compaction can then free a whole pageblock for the
-+		 * allocation to claim.
- 		 */
- 		wmark = __zone_watermark_ok(zone, order, min_wmark,
--				ac->highest_zoneidx, alloc_flags, available);
-+				ac->highest_zoneidx,
-+				alloc_flags & ~ALLOC_NOFRAGMENT, available);
- 		trace_reclaim_retry_zone(z, order, reclaimable,
- 				available, min_wmark, *no_progress_loops, wmark);
- 		if (wmark) {
+ 		/* Allocation can already succeed, nothing to do */
+-		if (zone_watermark_ok(zone, sc->order, watermark,
+-				      sc->reclaim_idx, 0))
++		if (allocation_can_succeed(zone, sc, watermark))
+ 			return false;
+ 
+ 		if (compaction_suitable(zone, sc->order, watermark,
+@@ -6580,8 +6593,7 @@ static inline bool compaction_ready(struct zone *zone, struct scan_control *sc)
+ 		return false;
+ 
+ 	/* Allocation can already succeed, nothing to do */
+-	if (zone_watermark_ok(zone, sc->order, min_wmark_pages(zone),
+-			      sc->reclaim_idx, 0))
++	if (allocation_can_succeed(zone, sc, min_wmark_pages(zone)))
+ 		return true;
+ 
+ 	/*
+@@ -6965,7 +6977,8 @@ static bool throttle_direct_reclaim(gfp_t gfp_mask, struct zonelist *zonelist,
+ }
+ 
+ unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
+-				gfp_t gfp_mask, const nodemask_t *nodemask)
++				gfp_t gfp_mask, const nodemask_t *nodemask,
++				unsigned int alloc_flags)
+ {
+ 	unsigned long nr_reclaimed;
+ 	struct scan_control sc = {
+@@ -6978,6 +6991,7 @@ unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
+ 		.may_writepage = 1,
+ 		.may_unmap = 1,
+ 		.may_swap = 1,
++		.nofragment = !!(alloc_flags & ALLOC_NOFRAGMENT),
+ 	};
+ 
+ 	/*
 -- 
 2.54.0
 
