@@ -1,63 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826838;
-	b=SplFXr/w0Al7QqJYRfwIJR7tiwR/e+5hJ69q3dyJm6NE5HQSSKkA/R5Kua3ShUvi5FvF
-	 AL9522AiKwWuINEjqvaA3fw077vUi0FEuNtJdqL3MdQYFwFvuemSJgdpu14LNYvuRkHXi
-	 dO7KNGr1ZwefMTfNA9FGbDUAS7AS+HK5ErKj3owp//7iwvkHh4pUXB4ul1NfQOT/G6MHH
-	 0wiJ6xHvTKhhGY67iBb77E/YPwa1Fal+WOft51JmiY5E09j7BLPXFrwgkvG36TuVcaY/G
-	 Rszh2ApMrCkWGzlbEI9HZgkyYIqN7li9lGwLCSwDpcJaObNu9BusTUM1JfzF1ed9uOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826838;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ka3guBqxxM4Qr+XP1T4WnJINYyUxWKYswjO+habAv3w=;
-	b=CN9CuYgg8o0Td9XIusZpSXcaa/Lm5I6q1UmUu1CZWNA2j869xGmzYrkMbihSFyvrXph+
-	 +g6/RWXkd9oSXDYA83REqKn44k8M0AVvtm14xX6By3qcwEy54AfkB8Z6LUFNFe81UUwpy
-	 l4VuaHkxPVvel1N9ifdb3J+tSB3Ek8PsjVvdGLUTpvs9pFs/yc5pPUGIRC3QXxZ9opfkV
-	 M2uuaFv57fbK9zoh4cIQrCGZBRg2Jusr3QHHueSlE+0GxBzJfmhMeBoXy6Ia+C0NvZgbX
-	 OFQXYBuhxNxtPqMcUVlHL+oshnchjl8yrhLKTCvBaD2FN64WTS2rMPB+0pEb1eKcHgw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SISEzRGg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794826837;
+	b=qq3f5MJgrJMgFAh40FanS6FbiP/rQW/oKqKUG3Iw5H5dLeKM8rKC3u9ywI020p0pUbYR
+	 HdXo2Y5vdI9+xlunpJvK8u0Qh8oGRjFltmJ3LHmycc32+cKr1kxr34BBvsFQciVaTVM3R
+	 j+VZrivP2hsulhDbTcKRjn/KqJfLl6+MafeprPU+mU/TcBXqzvYdZEeLsKRawg7GxQLON
+	 rlM4Y+pH7npGoqY1TsyC5DU01E1AxR5wzB3GYN7+ToZ024uWX3dZiucXzXTefFYGLyfDH
+	 pnkWxk29WciBSXPmyJ5zEyVasEidpW9dCJC4IihIeMXMxMWnr4KPfxiIBVB1EPRMIag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826837;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=aJM0dawyH8gXbWmqX0nGo7HUQ8+upl7nxWuHmU22MH8=;
+	b=A4z4gfoWnyPcqRofcFbqERUNlsFJGWnxO6T6KP0468A1Q4GC2cigz7GULcrqkpbXfkT0
+	 EsSHeztOWHxoAtFF5+QofrJVj6q6fa4jcvM5oduwqGW2auswPsH0NEjQOCVLuaJi1eIZr
+	 Ae1J6aXj02dJBwo8juCZEzjlOr7FzxYQNeGc1SYbVLkFl8YWKcV9Cda13SWeZt6BJ8/xS
+	 GLTCeV1lG40OTk6f6e+5EeCSc8fgD3IIgmUas2oif4PgLK4ph/p+uzVI0Z5n/LV4zRCJ2
+	 GUAfVZ1D6eAtP+Wsq0ff5isKkkMJm2IBkbd5JIFwHMwf9gLVPKoZk5odfbVi1SByt9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="NY9/si+Y";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CB606A894;
-	Mon, 16 Nov 2026 11:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6D0606A323;
+	Mon, 16 Nov 2026 11:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6D0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SISEzRGg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5671A1F000CA;
-	Mon, 16 Nov 2026 11:00:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794826838;
-	bh=ka3guBqxxM4Qr+XP1T4WnJINYyUxWKYswjO+habAv3w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SISEzRGg4WR+yVM5byzl4U4yWgWrHsvA8w5TXTKJdxpk8cd8IwlIqOl+8GPxXijcW
-	 NajaQUMdARyrXgVRiavGv1aL/8F4pG9k0Fix7NtXgkv5wqNs0xDKsmquHaDgl7wAdP
-	 Oy3kPXpDoKJNqrZ5FMWLLtmhrFjINpk6WKxvf0NDdvQugIbzPWSR9s+rIyneQhEmng
-	 XB1OfjKpnuuu4pBr/MJGntqyqLQSYOyvGeT/7Q/ZgnXF923UngAenTsfeXpH5C9m9N
-	 70SpgWdAo4nVDH3SJ8x3MZogoQESPJRHw7vCThCgBBXvyISSmiIPwu4pOCxs42ga1u
-	 DR0tSdNW9br4w==
-Subject: Re: [PATCH net-next v2 3/3] net: dsa: forget the port ageing time
- when the port leaves the bridge
-From: netdev-bot+sashiko@kernel.org
-To: o.rempel@pengutronix.de
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, arun.ramadoss@microchip.com,
- jiri@resnulli.us, linusw@kernel.org, f.fainelli@gmail.com,
- vivien.didelot@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- jensemil.schulzostergaard@microchip.com
-Date: Mon, 16 Nov 2026 11:00:36 +0000
-Message-ID: <179482683686.3136.4297608809022872177@kernel.org>
-In-Reply-To: <20261115-ksz-stp-ageing-v2-3-7af27320033e@pengutronix.de>
-References: <20261115-ksz-stp-ageing-v2-3-7af27320033e@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NY9/si+Y
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 64BE82001E8;
+	Mon, 16 Nov 2026 12:00:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794826832;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aJM0dawyH8gXbWmqX0nGo7HUQ8+upl7nxWuHmU22MH8=;
+	b=NY9/si+YW84m+SS5J42fHf5A73xFx/MS++ISlMVs/Lmy84ooe4ApSUZeHakT61dxlJs7mM
+	0yoYDEteEAFt29328JOeis8SVgQkzh+tvl9uc8WUxX7JRPVDQ+hQ8VSUTfdCxEH0u87Nex
+	otO10oTjG2j5YhzMbQ/MOlCaIfJadzxiAPzPtYPc8n4OKsM4MiJI3ENmUH+VkKLlyXa7gz
+	xfmg7hVf8ijp014JSRExXacJX8XnpfGVpGoOZxIRIk8n/08Tidchzt1Xz8R7b1swO1pSlT
+	SDxhDAOClBHo2heTAWwennxo3khY3exT9p/VpkL8u75hfG3LOPY64VWuqefBYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794826832;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aJM0dawyH8gXbWmqX0nGo7HUQ8+upl7nxWuHmU22MH8=;
+	b=BpsYkN0qtdfxnjyNg0TugXXbCP0r18Y2MTiFvJQ8bzJ/gw0J2NVBu2X1NoOxGVd8qPgsxj
+	ibKMkFfhU29tax2fbPe4PzW/UbjZdYIdEH7cVMDuZ9S+1TBeTLataNXn0sqb4j0w0HoY1P
+	VFm0Lf//UPvGoG3CfTIlTPFqhCSr19L2xJqmBUd0181CimoJr/UdPIiBQRYs9tnt5paQAl
+	ibiH0jn8aQTt5UCb3oNaYQFm78D8+QAPL/eS+fVpGr+3olICBRsSwabA575BZzWZXJkuBB
+	xNNzN6FrpqVZpQgzb8kR1VBWY+4g8m2ZhTB7N1IRntIkmwNIKXfawwWRSt+9Tg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794826832; a=rsa-sha256;
+	cv=none;
+	b=UxgYkZY4wxVdPW+p/h6wNa0wjVq9umd2QZCZv8vk2kdpWbJ7FYICcKYVx7AwmkD8P69tih
+	SNzftfgQF1tyKan4mPdS+7KsB3T9Hc4JulJ/aPfaPE1aUlwqeP3SAy5ukgomcdka2Tk9/F
+	CuX0/c7S2botvYurBUK39Z4fSI5ZqeG1vKAXeJmMHQviBYapzmYLPMTXkMkufj/+W0f7eg
+	2mseE8l66fgG39F+I4MKtczsIGCBCpWrWJTfWImzJ2PiOdk08nwsvk0sgFNsBXUw4qPmJ+
+	ajxmmQSpVq/eu8dSve8qDT0kIes//7CEPOGlMcfL0S/+Wb3feydjz5ccsLiLlg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <1b6620f4c2cbed3124e5521f18585132d2e8dca2.camel@pengutronix.de>
+Subject: Re: [PATCH] hwmon: (aspeed-g6-pwm-tach) Use
+ devm_reset_control_get_exclusive_deasserted() in aspeed_pwm_tach_probe()
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Markus Elfring <Markus.Elfring@web.de>, linux-aspeed@lists.ozlabs.org, 
+	linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Andrew
+ Jeffery <andrew@codeconstruct.com.au>, Billy Tsai
+ <billy_tsai@aspeedtech.com>,  =?ISO-8859-1?Q?G=FCnter_R=F6ck?=	
+ <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>, Ryan Chen	
+ <ryan_chen@aspeedtech.com>, Tan Siewert <tan.siewert@9elements.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org, 
+ Felix Gu <ustc.gu@gmail.com>
+Date: Mon, 16 Nov 2026 12:00:32 +0100
+In-Reply-To: <bbbc7228-cf98-437d-b240-ad29ee7fb4ac@web.de>
+References: <bbbc7228-cf98-437d-b240-ad29ee7fb4ac@web.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,114 +99,25 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sa, 2026-11-14 at 17:28 +0100, Markus Elfring wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Sat, 14 Nov 2026 17:11:34 +0100
+>=20
+> Use devm_reset_control_get_exclusive_deasserted() to replace the
+> explicit reset acquisition, deassertion, and cleanup action registered
+> with devm_add_action_or_reset().
+> Simplify reset handling and remove the custom reset assertion callback
+> while preserving reset assertion during cleanup.
+>=20
+> The source code was transformed by using the Coccinelle software.
+>=20
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+It looks like the reset_control doesn't have to be stored in
+aspeed_pwm_tach_data, it could be a local variable. That is a
+preexisting issue though.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-- [Medium] In net/dsa/port.c, dsa_port_switchdev_unsync_attrs() now
-  clears the cached dp->ageing_time, but nothing on the bridge-leave…
-
---
-
-net: dsa: forget the port ageing time when the port leaves the bridge
-
-This patch clears the cached dp->ageing_time in
-dsa_port_switchdev_unsync_attrs() when a port leaves a bridge. After that,
-dsa_switch_fastest_ageing_time() no longer counts the departed port's
-value. The switch can then return to the bridge's long ageing time when
-another port of the same bridge gets a restore.
-
-> diff --git a/net/dsa/port.c b/net/dsa/port.c
-> index 15e7da20b0e2f..54c9709840952 100644
-> --- a/net/dsa/port.c
-> +++ b/net/dsa/port.c
-> @@ -415,6 +415,12 @@ static void dsa_port_switchdev_unsync_attrs(struct dsa_port *dp,
->  	/* Ageing time may be global to the switch chip, so don't change it
->  	 * here because we have no good reason (or value) to change it to.
->  	 */
-> +
-> +	/* Forget the ageing time cached for this port.
-> +	 * dsa_switch_fastest_ageing_time() skips 0, so this port no longer
-> +	 * counts towards the minimum.
-> +	 */
-> +	dp->ageing_time = 0;
-
-[Severity: Medium]
-This clears the cache, but the leave path never writes the switch's ageing
-register again. Can the chip still stay at the departed port's short
-ageing time?
-
-The hardware is only programmed in dsa_switch_ageing_time(), which runs
-on DSA_NOTIFIER_AGEING_TIME:
-
-net/dsa/switch.c:dsa_switch_ageing_time() {
-    ...
-	ageing_time = dsa_switch_fastest_ageing_time(ds, info);
-
-	if (ds->ops->set_ageing_time)
-		return ds->ops->set_ageing_time(ds, ageing_time);
-    ...
-}
-
-That notifier is only sent by dsa_port_ageing_time(). It is reached from
-dsa_port_switchdev_sync_attrs() when a port joins, and from
-dsa_user_port_attr_set(), which is gated on the port still offloading the
-bridge:
-
-net/dsa/user.c:dsa_user_port_attr_set() {
-    ...
-	case SWITCHDEV_ATTR_ID_BRIDGE_AGEING_TIME:
-		if (!dsa_port_offloads_bridge_dev(dp, attr->orig_dev))
-			return -EOPNOTSUPP;
-
-		ret = dsa_port_ageing_time(dp, attr->u.ageing_time);
-    ...
-}
-
-Take one switch with br0 holding lan1 and lan2 at 300 s, and br1 holding
-only lan3 at 10 s (or 2 x forward_delay during an STP topology change on
-br1). The chip runs at 10 s.
-
-When lan3 leaves br1, the call chain is:
-
-dsa_port_bridge_leave()
-  dsa_port_switchdev_unsync_attrs()
-    dp->ageing_time = 0;
-
-br1 has no ports left in this tree to send a restore, and br0 has no
-reason to send one. The chip stays at 10 s. br0's FDB entries then age
-out early, which causes extra unknown-unicast flooding. This lasts until
-br0's ageing time changes, a port joins a bridge, or br0 has its own
-topology change.
-
-At that point dsa_switch_fastest_ageing_time() would return the minimum
-of the remaining cached values (300 s), but the hardware is never set to
-it.
-
-The comment kept just above the new code says there is "no good reason
-(or value)" to change the ageing time here. In this case there is a
-usable value: the minimum over the remaining bridged ports.
-
-Could the leave path recompute the fastest ageing time over the switch's
-remaining bridged ports after clearing the cache, and program it? The
-register could be left alone when no bridged ports remain.
-
-The commit message notes that "The switch gets the restored value only
-if another port of the same bridge is still in this DSA tree", and the
-v2 changelog moves the last-port case to the cover letter. The
-multi-bridge case above would still leave the switch at the short value
-this patch is meant to fix.
-
->  }
->  
->  static int dsa_port_bridge_create(struct dsa_port *dp,
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-ksz-stp-ageing-v2-0-7af27320033e%40pengutronix.de
+regards
+Philipp
