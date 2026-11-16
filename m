@@ -1,68 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794867122;
-	b=Gl6CxNrM3T2Li+LzGowP4x+wr8ak/5WjycXm0Zdt6t8hWO8Gz9o0yI9AvZ/m86jsnoKb
-	 bg4KHxcACcREFFcxki+1MO6M+CT2m/Uo5aRURYyWKTSjD6ijbKtmKtYm1Emx4fSHmAolQ
-	 JZBveXWUvrjB8BfFQxo008AH5mXXcTP7S6KO/NByhKk59nIHUgsPisJt3zh1YfAD7v/i3
-	 ghCZ86rorwRJVUYcJSKLz/62OS0FpvWgSpbtVEAM6jPLwmmw1G023H1K0KVsfguFPZCwo
-	 GObuU8QIPZyUAfd55S665lDdJpqicEmRFN2eEBL687rv0ctkSSZzooIrazorbrva8Cw==
+	t=1794867264;
+	b=rFeozxUbocIDLh3DN0Q6msikw6gk1wyeSISagbnulOgs7mXpOLVi1YKzupfoBWJPBzgM
+	 0RLmIIN+YOv9IBY5TUiYpp4lfHWJSeGWkWXsS3l1aS0NxLGmmu5jFRqCtFOQSlYQcHRLx
+	 XMb8Ua9tEDJwzJ7fxbbOlVkC/efmngc7bYXwQClUfvHNUri9j6ZO6j9DMDIJfGPTKr2+O
+	 A3Tngu1534u0ga2XgtzZ0gW/CRwrqy+wWyiliTE+69tkqTvEONZbvmwpHEv5Mg+ylE/53
+	 2rVpumHa1tp2G5tBI5lai7rBm1as6vDM1eyzg/TZsTllTMi0VVLAaw18F+BNTJLe+QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794867122;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=66pVsRU+9wX1uNXH4TwCq95KvOZFrAZMMsMxsudr9CI=;
-	b=Qq5ZJzt5ZxgklPUjuxOFzHYiO8y2GY+62E0I15eISGmi0u18wJGiB70dPRMPVw6N+dsl
-	 ANiKO3dQfjyZcl7juVMHh7E5eI0N0dX5zZIoN8Yn16EwovbuuZ3jwX8p7umM4HMqB/FR/
-	 myRpQXJlFvXqvUtAWIWHhuIPYROZgVRog7Y+ERXzbb+uXId26vroiK0dEt6YMCWA8T90S
-	 tKYaw9X+TaZSdmY2cGoYgoEXaTFnuUf9y9j4zYKKkJtZuH9qrrHVUyOTjHTAeBpyM/rY3
-	 FXoO3nqlXB7E1nch4cu8YysUSm6BojyuF7NvYnKbE6gKh+Ewwx6ieTO/yEWSNus6V+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794867264;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=OHWSdKyMsFGERyYaZ5X8roMwAxwTPbXTa9d588Vrarc=;
+	b=PVMDFB9/LR9UjcN2Ltsbnw7G9sZnWrrDSxSIv+q/eTL7bgN/gezAGm5bPOGx4V/8Vu4E
+	 7Pmw0Z+YkAHoN+LU++amkT3qsNyxZykVBJO6D2nhO7VlJy7oRoB/O+sjEhFzShLGSVHeF
+	 cDw8foD1Zm1RMfdLa9F/KY6PYdfav3vfEkl2iOrC7fgyH88FrUUIf6x4zhUqChH9LSKui
+	 BK2r1zPwuDYa0EwWN88jGU4UFbPvOtgahs1aG+gtfckHYhEG/cnk/qmZLurwareTL+cGD
+	 lWMjZT0T4ddoHTHLGesfqcdziBCYEoWFsYa8AlKHGlT2MXUsWGWPZpaYPQTbl5IYJXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmeBXaul;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bn7G40PT;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6216606A31C;
-	Mon, 16 Nov 2026 22:12:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6216606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2573606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2573606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmeBXaul
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794867122; x=1826403122;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=477b2FbJa4VbA8vxaka9UB2xBE2Wl9BGhk0xcBeJRfk=;
-  b=VmeBXaulGAaCMa/CC8VERLpoZogafawZ8ZwDbxRG4N6mPbENLq0kujoL
-   KsS1mZq9ezeVmb+4SGTAGjG9gaF/WMtaSqHOjGAA11uI3+kcLG0q+m2j1
-   VIAAJ13YleCqHLqaG4gigkGD5eHUP22m30njtOh/rZ6b5JqO5yvW1nXdG
-   XXTnPJ6Hs6J2jborPGkxZhxJ3/UiK630YGLAxp50vHei8sZIy7Qb4u6WG
-   qKD1vu9X+EM6gXAgHUiYiFbyAiE+5EHfSYwm8uSSapnXQYl5ZJaiK/6Nn
-   t0gjYqkH3LBjsOEpGSCVIu08gTBrbADKQerjea/huIKsqct2MX9lp7ckJ
-   A==;
-X-CSE-ConnectionGUID: BqpSX8o3TJep5ahQRphpEg==
-X-CSE-MsgGUID: kLtQK9e9TyKEUNgYtl4HOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3607920"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3607920"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:12:01 -0800
-X-CSE-ConnectionGUID: htZpXQbfTm2iSNxLqRMxFw==
-X-CSE-MsgGUID: LLH7WwEORLaz/5vZs8iMBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9673203"
-Received: from xpardee-mobl.amr.corp.intel.com (HELO [10.124.33.127]) ([10.124.33.127])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:12:01 -0800
-Message-ID: <90493af0-6008-4447-8338-d6eced29c25c@linux.intel.com>
-Date: Mon, 16 Nov 2026 14:11:48 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bn7G40PT
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so4216206f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:14:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794867262; x=1795472062; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OHWSdKyMsFGERyYaZ5X8roMwAxwTPbXTa9d588Vrarc=;
+        b=bn7G40PTdP5DIuspwL8Lcuae/ZYiqiq4pdYaNcCLNaagZgRcXddlWADxHt1/1QXlaV
+         +WTvgMec/FEttFruOqRpL+d/CrX+8QhznijNDikFz02S03PIaJq635CCfohMgC2A8uXL
+         0CKRmCULq3hGkuIa5uN4ESSomXwcPqw7zrzsxVwehqxZ5OZ3dKZLvxN1400G6dl6Rg0Y
+         /EE9mCYG6MIsUVqqrHqkKqzXDhYS/ohdRGjedmE6ouI8cAzK2CDw7uifWgg827yw5lq7
+         eNioAXsnDR35ISAcdamY7xxqqTcHdn3pWeuou147ek3IZEKsZ0UJ4k8vVhbf4KcPYqEW
+         tOVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794867262; x=1795472062;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OHWSdKyMsFGERyYaZ5X8roMwAxwTPbXTa9d588Vrarc=;
+        b=PpY9Tau+03+BB+oUT9uCFgQ8NmpC8mXXD3D49Xjfsa7qY4FYq1G5lpResW0R4TnxhE
+         1V/Nx1M/rR7E4zhyB4BT3hOmgOd09LIS9rr+VI91UzRi8kQEej9ZsMmRmrtprmUuQSja
+         ZLY2iSpu7LeGQ1lIecQKh/ZOrqz/DrtcM4ttyR03KrgSRrCjoewQuPfu21ZFDM65ihyi
+         /tRSFFENspFBYodBgsFx73LcrfyXx58Wmp6mCxFARJN5r4BwSBOnbiyP8ukM0PkH7Ilz
+         BiXPQpUzzvSIwyL+IpF6rkAW26Hf6/eWg4oCCqNGxyIbb3yOEgRovQ+dk4b4XfLdlSAv
+         rsww==
+X-Forwarded-Encrypted: i=1; AL+hErGznEZh71m8lij85xGyUI9j3L//hVd2snn0HyFzhJOMSCB6h38/DYdBXIci12XjsqdyWFYiLqcaMwnKyIs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oZystEZq+KwHO6FfEmdvIRGEYYBoVecPYYUOq+qPJyhtW6aPb
+	qsZ3KYTm5RvlZrsgetc8821/M3Fc3NWUDiNJaxDOCQDHpvL3iuGGaOtR
+X-Gm-Gg: AZFdTZf4OibuLs2dIZSli+bC5+g+b7tg+5Y0wi18XLbiHgfCsKKlHcNekLejC0wHYM8
+	S/Xdt4qnFJHM5NK8INP0KEKdYhkAZp6r9ijNdjJEF3b/IYS1s/VibtE6VTZ2zb4t2BM4aAnIY4x
+	9KJ63usM8snaUqDx+o/nNz8/qe3ZOmRpjD0m4TaQhy5lu4kxOdctXvSGzsJxSipgupTn7/PY6nO
+	bUbblIeGXllC6nygyw1/NDsPn4TzrQh/uk/TIqim84HifWu27s7TH2IgQJ7ySNDIUQgvHJvU7Xh
+	GY2ZAP16H1ZbTF2msSlmf85+1FsHkuaWg+E/u5t9AZUYBr/caDAozJQvSbIjlZEk0KRTrBQUsmA
+	ILXMvu2Mz8Tc3jcGihDkd+1NOX3w+OUn0N6x3+trClq/cU7ed4QpIaLHUInqWJItvxtPgZ1fnsK
+	TDu0MbLP9oVUba5wMS7dS1xf6Qa6lSlAoYY0vjunxp4rELJSoNX9Vwaj75WWPPKRiRDlUa7ZYv7
+	vnJ5Rt1LJk9vS0oGNdsIXnYxPj3AqV+CwxjPQgcai2NBnMtIa1SB9dnQENbcMpKgiXbq0xV0GTS
+	7xeO8VV+mxuHEyYoDu9SLC2wep9lRIm7fBYr4jcHQY5oPMOUlkk8Dt8ddkUfzmFkOz0ywKuKldY
+	GF2nLZrfVV+FO
+X-Received: by 2002:a5d:5f09:0:b0:48d:f730:bda8 with SMTP id ffacd0b85a97d-49c733510e7mr23688407f8f.50.1794867262185;
+        Mon, 16 Nov 2026 14:14:22 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm24099098f8f.12.2026.11.16.14.14.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 14:14:21 -0800 (PST)
+Date: Mon, 16 Nov 2026 22:14:20 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Miroslav Cimerman <mc@raidlab.org>, Song Liu <song@kernel.org>, Yu Kuai
+ <yukuai@fygo.io>, Andrew Morton <akpm@linux-foundation.org>, Li Nan
+ <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>, Ard Biesheuvel
+ <ardb@kernel.org>, linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] raid6: use normal stores in the x86 x4 xor_syndrome
+ functions
+Message-ID: <20261116221420.35ab3bcc@pumpkin>
+In-Reply-To: <20261116210440.GE229817@google.com>
+References: <20261109030805.25709-1-mc@raidlab.org>
+	<20261116210440.GE229817@google.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,125 +103,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/intel/pmc: Add Sunrise Point-H support
-To: angellindo@gmail.com, Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261005-intel-pmc-spt-h-v1-1-78c98e4f4620@gmail.com>
-Content-Language: en-US
-From: Xi Pardee <xi.pardee@linux.intel.com>
-In-Reply-To: <20261005-intel-pmc-spt-h-v1-1-78c98e4f4620@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Angel,
+On Mon, 16 Nov 2026 21:04:40 +0000
+Eric Biggers <ebiggers@kernel.org> wrote:
 
-Thanks for the patch, and for the detailed testing notes.
-The change looks reasonable to me. Without it, SPT-H systems fall into 
-the Cannon Point path, and the debugfs output (e.g. ltr_show) is wrong. 
-Your comparison against direct PWRMBASE reads is helpful.
+> On Mon, Nov 09, 2026 at 03:08:05AM +0000, Miroslav Cimerman wrote:
+> > - The sfence at the end of the xor_syndrome() functions (x1, x2 versions
+> >   since 2014, x4 with this patch) is no longer needed, as it no longer
+> >   orders any non-temporal stores. Removing it made no measurable
+> >   difference. I am happy to send a follow-up patch that removes it from
+> >   all xor_syndrome() variants.  
+> 
+> Removing the 'asm volatile("sfence" : : : "memory");' too sounds good,
+> but be careful: a lot of the inline asm statements in
+> lib/raid/raid6/x86/avx512.c incorrectly list the memory operands as
+> inputs only.  So, technically they rely on that "memory" clobber.  The
+> constraints should be fixed accordingly.
 
-A few comments:
-1. Fixes tag: This adds support for a new device ID rather than fixing a 
-regression introduced by 661405bd817b, so I'd drop the Fixes tag. It 
-would also pull the patch into stable backports.
-2. PFEAR map: As you note, spt_pfear_map is the SPT-LP layout and SPT-H 
-has two more PCIe controllers (SPD/SPE). I couldn't find public 
-documentation for the PCH-H PFEAR bits either, so I'm fine leaving the 
-map as is. Please state in the commit message that the map is reused 
-from SPT-LP and that SPD/SPE are not covered, so 
-pch_ip_power_gating_status is incomplete for those controllers. If you 
-can, a cross-check of PFEAR against the root ports present on your 
-system would be useful, but it isn't required. A follow-up fixing the 
-map is welcome once the bits can be confirmed.
+Or, at least, put in a barrier() and a comment.
 
-With the Fixes tag dropped and the commit message updated, please send a 
-v2. I'm happy to give a Reviewed-by after that.
-Thanks,
-Xi
+David
 
-On 10/5/2026 1:00 PM, Angel Lindo via B4 Relay wrote:
-> From: Angel Lindo <angellindo@gmail.com>
->
-> spt_core_init() decides between the Sunrise Point and Cannon Point
-> register maps by looking for the Sunrise Point PMC PCI device, but only
-> the SPT-LP ID (0x9d21) is listed. On Skylake-H/Kaby Lake-H systems with
-> a Sunrise Point-H PCH (PMC 8086:a121), pci_dev_present() fails and the
-> driver takes the Coffee Lake path, using cnp_pmc_dev. That map does not
-> describe this PCH, so the debugfs output is wrong.
->
-> Seen on a MacBookPro14,3 (i7-7820HQ, PCH-H, PMC 8086:a121). With the
-> stock driver, ltr_show lists Cannon Point IP names (SOUTHPORT_A, CNV,
-> EVA, ...) and every entry reads RAW 0xffffffff. I was debugging why
-> the package never goes deeper than PC3 on this machine, and without a
-> working PMC map there is no way to see which PCH IP blocks it.
->
-> Add the SPT-H PMC ID to spt_pmc_pci_id[] so these systems use the
-> Sunrise Point map.
->
-> Tested on MacBookPro14,3 (Apple firmware 529.140.2.0.0), kernel 7.2.5,
-> with the module built with this ID:
-> - ltr_show lists the Sunrise Point IP names, and the values match a
->    direct read of the PWRMBASE registers through /dev/mem bit for bit.
-> - pch_ip_power_gating_status follows device state: LPSS reads On while
->    the Bluetooth UART (00:1e.0) is bound and turns Off once it is
->    unbound and the UART enters D3hot.
-> - No warnings on load.
->
-> Limitations:
-> - spt_pfear_map is the SPT-LP layout and is reused as is. SPT-H has
->    two more PCIe controllers (SPD and SPE). Bits 13 and 21 are RSVD in
->    the SPT map but SPD/SPE in the Cannon Point map; I could not verify
->    this on PCH-H, so the map is left unchanged.
-> - slp_s0_residency_usec reads 0 on this machine.
->
-> Fixes: 661405bd817b ("platform/x86: intel_pmc_core: Special case for Coffeelake")
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Angel Lindo <angellindo@gmail.com>
-> ---
-> On the same machine and firmware, macOS reaches PC10 (~81%) at idle,
-> while Linux never goes deeper than PC3. This patch only fixes the PMC
-> detection so pch_ip_power_gating_status and ltr_show become usable for
-> that investigation. With it, the PCH IPs report gating states consistent
-> with device state (LPSS confirmed by toggling the Bluetooth UART); PC6
-> and SLP_S0 residency are still 0.
-> I plan to send a separate report on the PC3 limit to linux-pm.
-> ---
->   drivers/platform/x86/intel/pmc/core.h | 1 +
->   drivers/platform/x86/intel/pmc/spt.c  | 1 +
->   2 files changed, 2 insertions(+)
->
-> diff --git a/drivers/platform/x86/intel/pmc/core.h b/drivers/platform/x86/intel/pmc/core.h
-> index b4c7399f8..5822dbbda 100644
-> --- a/drivers/platform/x86/intel/pmc/core.h
-> +++ b/drivers/platform/x86/intel/pmc/core.h
-> @@ -36,6 +36,7 @@ DEFINE_FREE(pmc_acpi_free, void *, if (_T) ACPI_FREE(_T))
->   
->   /* Sunrise Point Power Management Controller PCI Device ID */
->   #define SPT_PMC_PCI_DEVICE_ID			0x9d21
-> +#define SPT_H_PMC_PCI_DEVICE_ID			0xa121
->   #define SPT_PMC_BASE_ADDR_OFFSET		0x48
->   #define SPT_PMC_SLP_S0_RES_COUNTER_OFFSET	0x13c
->   #define SPT_PMC_PM_CFG_OFFSET			0x18
-> diff --git a/drivers/platform/x86/intel/pmc/spt.c b/drivers/platform/x86/intel/pmc/spt.c
-> index b50534aa2..5c4b8d536 100644
-> --- a/drivers/platform/x86/intel/pmc/spt.c
-> +++ b/drivers/platform/x86/intel/pmc/spt.c
-> @@ -138,6 +138,7 @@ static const struct pmc_reg_map spt_reg_map = {
->   
->   static const struct pci_device_id spt_pmc_pci_id[] = {
->   	{ PCI_VDEVICE(INTEL, SPT_PMC_PCI_DEVICE_ID) },
-> +	{ PCI_VDEVICE(INTEL, SPT_H_PMC_PCI_DEVICE_ID) },
->   	{ }
->   };
->   
->
-> ---
-> base-commit: cf963c9359dd6c5d0bc6af16df5cf1f691bba4f3
-> change-id: 20261005-intel-pmc-spt-h-3ebe43d206fb
->
-> Best regards,
-> --
-> Angel Lindo <angellindo@gmail.com>
+> Also, ideally the 'prefetchnta' on q in the x4 xor_syndrome() functions
+> would become 'prefetcht0', to match the temporal stores.
+> 
+> If the scope of this patch is just replacing the store instructions
+> though, it looks fine.
+> 
+> Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+> 
+> - Eric
+> 
+
