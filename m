@@ -1,67 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.119
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.19
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794855433;
-	b=cWjcBnL7dRrqu0RKK4eIF3/rMTeupzeyLK7M06tXIyiElwKKWGhCO8iSILCyNQp2oFwa
-	 sSB2l6U907JBbb0i2+Wksgb6NsDfpSwBM1dezFQTpAIUmOyYRukHuc+efutrkjVUoN5WG
-	 bwXfocS39G2uckCmIJY081HRJNwb3cuNZMsdVT2Uq6L4/XssCILbwgmnX8nAt2fQ4K4GS
-	 CJbiGKUKsuxN0LDFuNQUKZBvNqGkhCrTP3o53LPx45FNlHx+KSbx1ka8OJb+UjNSFeoRR
-	 6c/SZkFXflbzexbuF0A7cE9h60+k9SluCdahW4e17gNReDEYxPbNcKPG8ygmdH4xxYg==
+	t=1794855485;
+	b=L+YvtBGmj45wtnsqn8Ecke+XW2RMi7O7qXZrm/OdLp2VlTakngPQA+XQi/6WWN47kRCQ
+	 4/igDiJadbk9TeYwclrZIQnQ5EElkGUBZT4N74zFHjlRbopPskQE0CV/34AICZ0KgEhnE
+	 759f97f4KLPiAE1m+5AS2azGCUvHSUtX2ZrwXtycClCVWtDkys0d3u8/Csw5Xw+5tBUNu
+	 pSauzjfRn6D+l92X4FWtUmNYF8i0XoWbo03lxlsqSRze6fFjhAxCgJ7HfiVUIS9jrUhOy
+	 ExqdBRKb33mPlaCd+/VeTW+pdhKUu6Wzy+ZlLgheJt0LjZwY+/m1PoUjYA6h5sFG8ZQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855433;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=XuKKkAbLVYo0BhTpkM4uJIqvxh3EQArBfKKFxsRKH0Y=;
-	b=C5sGdNrRuORh9B3DUD7MwehrMU7gXPJYzI5sjFieK7jWmatbLn7A3xT6ohIdcHfjPC/8
-	 0yr1PP2FAv7xib0oBLLgq6yFrxD7yhnRPkXvpzLKgeG89cqY1uiHtCit8f7fE/D31yGCH
-	 GLYsZPrmO+CxIyY7Dbg8l22WCXvfa/RLnBfNcMC+VGYLdaRC4jgfacdtGqrxLeb4/LxXU
-	 mohDKYftzFrizqQILVvzADX+w/v1YeApaCCgN2Dz3uKfhyEe8irOHpMYzvTKX4r8/a0G5
-	 ymJuxDW67uw6/Wnmuz/m3M2AUxfwaEYSJzVngDDPFP5YcBqVs4CERqGX6EcEf0rWJlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855485;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6uZxX2VodxEyJ/RYf+cCYB8tuwn8+ufFF9b0AItFCvk=;
+	b=AEWR0sS9tPNQqnkcC9fxF92igEO2BykkME8cEdhqmipd6xCxWrEDtYGU3yJlsrM+UEp8
+	 WY8jQM4w6YchBEKRcWWCqgoD7b7r9GBGzhC8R+LE/y73HoDkyjjDwfytTnYyaE3ZdsT5B
+	 mVXsiQgsHL4NUQXHN9Ex8HyW7fRLfJSem4hBPSYzKDsOB4cr+i+OCLLNrTum04FJ09fxG
+	 eW7jfiqDzYrCtOa8VJm9agLetLhaCkzgP/hDutzHKJP0KocCCDUMt4gEk1OXf+VQ9aZRo
+	 2O/m5LDCHSjxuzjhQtz0GCE/fMBoJCHF+8/UVP1eJkatxV59HsiuDli28yNDhUZfDZg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=bmYkGh1r;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.119
-Received: from sender6-pp-f119.zoho.com (sender6-pp-f119.zoho.com [165.173.180.119])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JqI2bWaS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.19
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012019.outbound.protection.outlook.com [52.101.53.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DC7606A31C;
-	Mon, 16 Nov 2026 18:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DC7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418AD606A889
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:58:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 418AD606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=bmYkGh1r
-ARC-Seal: i=1; a=rsa-sha256; t=1794855410; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Oad6pBaK9FfabIg74oZWBRjv6nbuUqSvnyYc1GQaz9e/mEODUoLg8st22sQx2pOldfqTFVsQE8epay7jiH/urO3kboAWVFadHWoO43drGCU7Xb7zW/UTw8PH6+lfM7Glas/4q7RFDRqBdPq8BhS02cxEKrePZG+hExneGN3Vmac=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794855410; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=XuKKkAbLVYo0BhTpkM4uJIqvxh3EQArBfKKFxsRKH0Y=; 
-	b=P1kQUfmfA1sVsaWPhi/JKzq0/kzFFH32l4T/a73PfpHU92Re9H2Ay6ZuVu+X0/zsDux5svLSzvoqy/VS25Z4KT0euW64sc7ZbePj2CqU3VEnVJ+9nrY7NK8HYdYE3Clke97NWUJnmBTIWpyql8qKLuEQJnAekGO0VqMPwMuek0A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=bmYkGh1rSucB6deKcfRkmIa4YV9EydO9IbFNeR+po2LlmYw4kIKI7SZtqbBjhGZA1OeX+PNP9yp1WuCApsc5hvVJKINVwrMSX4ziDCAMFcLUVsATelVNo6A1GrFBihqVwxt+ZArpJ0fTzRsae0N5JXYZQZ4/XWP8deEzJYuvBX8pBGk8lTnlrDMbjaojGzToQYJoGlXPhxFxrxY6x9Z9Xs5FYiuEqqECInmMaFrHsKdEEiyY9A5voDgKxlpqkqMCW+L+75gQhAbTMSfdnot7CTRnHupXbAvxk2EZ7uWo1eTqWE0iYzuZbRQ4aB4iLAvT1JmFht6nYcZ8oBu/sevTWg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=XuKKkAbLVYo0BhTpkM4uJIqvxh3EQArBfKKFxsRKH0Y=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794855408497536.0911974283522;
-	Mon, 16 Nov 2026 10:56:48 -0800 (PST)
-Message-ID: <173bed0f4e42a85087766a8e8cce8557115f2ccf.camel@rong.moe>
-Subject: Re: [PATCH v5] platform/x86: asus-wmi: Add support for
- ASUS_WMI_DEVID_CAMERA_LED_NEG
-From: Rong Zhang <i@rong.moe>
-To: git@turtledev.nz, Corentin Chary <corentin.chary@gmail.com>, "Luke D.
- Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, Hans de
- Goede <hansg@kernel.org>,  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org
-Cc: =?ISO-8859-1?Q?Jos=E9?= Guilherme de Castro Rodrigues
-	 <jose.guilherme.cr.bh@gmail.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <20261117-asus-wmi-camera-led-v5-1-41c47653758b@turtledev.nz>
-References: <20261117-asus-wmi-camera-led-v5-1-41c47653758b@turtledev.nz>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 02:51:44 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JqI2bWaS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yAKGHwe/+7YQcSCZfkGUIB6ZV3z27mJ60ORdR7KKT6o94180r90YRVCnnBDqtIWuIW2Ta4WbHdj1v0I8Bpzu6pvNG0Ezpu0EliFpyQP3XPVS1m3DWGbdDls0aNv2mHzs4AulG/St17xi2CU4E4I5hh5I5XE1ddqpZXcU3IgJ7jjBuRZl02iouQ9dIPd6+34eu3mpgc4EnpYhxU7yA4nhOzSuVcQMi0RdQNg6WhQSrzjEC0ezrhNZHoRj9n6WbkN7K9TlrEqaNPvasBWEZ2pMmCbdSrmUS7riXm81QWf+9HvX54LbuWnZ/KenayPnDjy2us+YwAwfpnAa+Nw2J2ULSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6uZxX2VodxEyJ/RYf+cCYB8tuwn8+ufFF9b0AItFCvk=;
+ b=Ecig9C78x0pR1dV7TFR+sMo/O5cBK5ffReGC0GYVjrGMCuFUik6gBsrYKES0EaOYpTMhpbkFkNaabx9lmxQlLqUeymCu3+YEow/oxqzRbGlgKSH/IcLivBABbax/igUfIM3QWioCjeJLRvb+574lChQXgwNr0dse58t5La0y9GrKKzAEE3RfP7TdyhUbJRh/n6BzZbhYbZ4tHRXAE6BniXc+kAtH1fNFes/RdWZnMieTX3Zl3kBudj1yKeBuBBAeBtTzrvs8K6Hw+mNFRy+avunpfnufzah5t/Gr3MWsiiH7Lre4DBCjmitv4kD6BV6x/4JtzQrXNpc6y3CXNQEN4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6uZxX2VodxEyJ/RYf+cCYB8tuwn8+ufFF9b0AItFCvk=;
+ b=JqI2bWaSa0rXLgCN7j9A4tDBuz1QzibKbZeiJJCsATTxa3RBziETy3gD7doAuOdaAXrjLuLvGUIK2MuHArYNNhmH/EaibIOffuIUBxr7rssgydMg5klLeYbrmOrLjY37FaMvf/ZxBFP3OEWMv6Wd25s3XKutA9uShMRDEij6a64b3yjI6e7nQ4e/SfULkTvUKHa/Ns3Ex69CrM1wLRqgxpDf3tinLJY7h3IqGpCaY5Gkh5MJuQ5Lv/TSnrxNNavX530je+RO2z+lyzAx8aKRon6cn2MPJwN8rMH+BrpjAHNisqLzX9EK/x03YVddjRpQRXcChbmYfDuDktGveABmuw==
+Received: from CH5PR03CA0013.namprd03.prod.outlook.com (2603:10b6:610:1f1::11)
+ by LV2PR12MB5941.namprd12.prod.outlook.com (2603:10b6:408:172::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 18:57:53 +0000
+Received: from CH01EPF000BE94E.namprd02.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::8f) by CH5PR03CA0013.outlook.office365.com
+ (2603:10b6:610:1f1::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 18:57:53 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH01EPF000BE94E.mail.protection.outlook.com (10.167.244.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 18:57:52 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 10:57:23 -0800
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
+ 2026 10:57:23 -0800
+Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Mon, 16 Nov 2026 10:57:21 -0800
+Date: Mon, 16 Nov 2026 10:57:19 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: John Garry <john.garry@arm.com>
+CC: <will@kernel.org>, <jgg@nvidia.com>, <robin.murphy@arm.com>,
+	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
+	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
+	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
+	<leitao@kernel.org>, <xueshuai@linux.alibaba.com>
+Subject: Re: [PATCH v12 04/12] iommu/arm-smmu-v3: Pack the MSI vectors of the
+ used sources
+Message-ID: <avtSD34Rj5+XAz3t@nvidia.com>
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <0d28afd67694fc6882e0ff5f054027488b1cf816.1793593923.git.nicolinc@nvidia.com>
+ <db4f83f3-d35b-49b7-8570-04e158125b53@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,270 +120,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <db4f83f3-d35b-49b7-8570-04e158125b53@arm.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE94E:EE_|LV2PR12MB5941:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa0698a5-435b-4573-364a-08df4413847f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|10067099003|56012099006|4143699003|11063799006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261022105027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	yWC2qqoyJY0+obtykxnP7PKiadHxB+mXQGgINf2YpjVru1kSaxsl6X24pTD7fEmTjSAYWt6EoWHTikmPOp13NK9IB5v45LlEkAtmlG6mUt0zy4x9XdSECoEwYpLpVfpwxNlhUEHItlwegiP7YcCMS97RAPJt/p3XdPFBYGlfedZlPVloWaZv3lB1ljmklr9fSIcxfkiTfpBHYzozgvT34IZmnCfqKuDXLI8o0Hk4rnDmt1jbCoLLzIG4BElf6BuGBp2O5NOeqouw+kcKtCLHFTMYpoFGrRVuAcZGThfNcG0PVk0PlwSOPYpHvZD65KmnVVPCzlqsw2S2Ra35HfGykRucm3uhW0SvjB7xmrTYCtLsmycZvI/AGyfONsavwmx5nE4TfsYPLnfs7tTP2HdDptW7hQ5gSYubN1CVuUBlmBHJCpQ/nOEcRYswpKKlTUAqaQJTyADGqS7xRPZr01bVXroLvcZM4YwV5tMx5Xj2GGjJCKvrES3ItXwK69blL8DUHvbhASkxDASQMY8yazfcJP+yU9DcdLTBQcoW3Vs1f4rixjLQEnf3Dgqh3/h/365RX7lu/zDymHlB5F2gNa/Ipnui3ryg4ZwCke4C5Lcb1lJrHbVdfmax0nd/3b1z9KBo7qP43lvazb8Q3kXub/l72fvx/U8ra6zCemlco/EUHsT0mJrAlIKcASkWP1UAJdMFYcZpYVyQmWVqPH+l3y8tlw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261022105027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lhXuZX7EgZDOFjnYsF3ExpcxskkXck4T4R+LA/K2TBLYlsM7BC5MegcrVOhW6o+RCG469yCMwXu9V2EEAyEaLz/jAUnW4pMQvwoi9lUAmrWndsgFmD+/wl0hVYkq8oMKvuWZbCjM7yzqxKrgafbv+x/OonFSCMfDXx7q9gSm5PA2mqfWqXM8CkT3iCY40ZgFU0nfgxisf/he0tyEU08F3a61LzbSBnBX4f/lxCrXGQb2lyLU0pVJ08V0jGMXezNHOFOWHRtPfpNfLEQllkkt3hI/LZ+PxGkA7y/bZV+WveHwSPKyGH0NBknXm8jN5MWHia1F1S6fsqqNHCMZFovtmArLmLwhWG/kn7eQbcjy/aFO6yHOUmunR8zkUYYlbRrqpksLmwnJBzl5UDgq0sEEw3Gw2I2MwQHR/+M3i9Ot9weWUVxlGKNVes+jgnOKZX9X
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 18:57:52.6474
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa0698a5-435b-4573-364a-08df4413847f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH01EPF000BE94E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5941
 
-Hi Zane,
+On Mon, Nov 16, 2026 at 10:29:46AM +0000, John Garry wrote:
+> On 11/2/26 05:19, Nicolin Chen wrote:
+> > diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> > index 8f2c0b1cc4a8d..bce592fff0b12 100644
+> > --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> > +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> > @@ -936,6 +936,13 @@ struct arm_smmu_impl_ops {
+> >   			  const struct iommu_user_data *user_data);
+> >   };
+> > +enum arm_smmu_msi_index {
+> > +	EVTQ_MSI_INDEX,
+> > +	GERROR_MSI_INDEX,
+> > +	PRIQ_MSI_INDEX,
+> > +	ARM_SMMU_MAX_MSIS,
+> 
+> nit: I don't really think that the trailing ',' is required after
+> ARM_SMMU_MAX_MSIS, as I asusme that we will never see any entry added after
+> 'max'. I appreciate that this enum is just being relocated in this patch.
 
-On Tue, 2026-11-17 at 07:37 +1300, Zane Hunt via B4 Relay wrote:
-> From: Zane Hunt <git@turtledev.nz>
->=20
-> On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) the
-> camera key turns the camera off in firmware, but the LED on the key never
-> lights up under Linux. These machines don't have
-> ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. The
-> firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instead.
->=20
-> Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads the
-> camera state from the EC and writes it to the LED GPIO before returning
-> it. The set side can't be used, the firmware only accepts DEVS on this
-> device once per boot.
->=20
-> When CAMERA_LED is missing but CAMERA_LED_NEG is there, register
-> asus::camera as a read-only LED backed by CAMERA_LED_NEG, and read it
-> after every camera key event, sending a brightness_hw_changed event.
-> Registering the LED reads it as well, which fixes the LED being dark afte=
-r
-> a cold boot with the camera disabled. There is no brightness_set
-> callback, so writes to the brightness attribute are ignored, as with
-> other get-only LEDs.
->=20
-> While at it, include <linux/container_of.h>, which this file already
-> relied on.
->=20
-> Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221752
-> Assisted-by: Claude:claude-opus-5-5 iasl
-> Co-developed-by: Jos=C3=A9 Guilherme de Castro Rodrigues <jose.guilherme.=
-cr.bh@gmail.com>
-> Signed-off-by: Jos=C3=A9 Guilherme de Castro Rodrigues <jose.guilherme.cr=
-.bh@gmail.com>
-> Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Signed-off-by: Zane Hunt <git@turtledev.nz>
+OK.
 
-Reviewed-by: Rong Zhang <i@rong.moe>
+> > @@ -993,6 +1000,8 @@ struct arm_smmu_device {
+> >   	int				gerr_irq;
+> >   	int				combined_irq;
+> > +	/* MSI vector index to enum arm_smmu_msi_index */
+> > +	u8				msi_map[ARM_SMMU_MAX_MSIS];
+> 
+> should this be an array of enum arm_smmu_msi_index, as in
+> arm_smmu_setup_msi_vector() we write a enum arm_smmu_msi_index? I am
+> assuming that is why enum arm_smmu_msi_index was relocated.
 
-Thanks,
-Rong
+u8 is optimal in cost of memory; ARM_SMMU_MAX_MSIS is needed here.
 
-> ---
-> Changes in v5:
-> - Rebased on pdx86 for-next, asus-wmi.c has moved to
->   drivers/platform/asus/
-> - Change the subject, this adds support for CAMERA_LED_NEG rather than
->   fixing a bug in the driver (Rong)
-> - Drop camera_neg_led_set(), so asus::camera has no brightness_set now.
->   The key event already resyncs the LED, and skyedryv's s2idle test
->   showed nothing gets missed while suspended (Jos=C3=A9, Rong)
-> - "Returns" -> "Returns:" in the camera_neg_led_sync() comment (Ilpo)
-> - Kept Ilpo's Reviewed-by since the only code change is dropping the
->   set callback
-> - Rong's idea of also sending brightness_hw_changed on machines that
->   have both CAMERA_LED and CAMERA_LED_NEG is left for a follow-up, I
->   only have the UX5406SA to test with
-> - Link to v4: https://patch.msgid.link/20261019-asus-wmi-camera-led-v4-1-=
-7744c125bcc9@turtledev.nz
->=20
-> Changes in v4:
-> - Keep Jos=C3=A9's Signed-off-by from v2 and add his Co-developed-by
-> - Use my full name in the tags
-> - Include <linux/container_of.h>
-> - Reuse the existing asus::camera registration block, only the
->   handlers and flags differ
-> - camera_neg_led_available is now only set when CAMERA_LED is missing,
->   so asus::camera is always the CAMERA_LED_NEG one when it's set. That
->   makes the LED_BRIGHT_HW_CHANGED check in the event handler unneeded,
->   so it's gone
-> - Drop the explicit read at probe, led_classdev_register() already
->   reads the state through brightness_get
-> - Link to v3: https://patch.msgid.link/20261017-asus-wmi-camera-led-v3-1-=
-845a82373997@turtledev.nz
->=20
-> Changes in v3 (picking up Jos=C3=A9's v2, which had stalled):
-> - Rebased on pdx86 for-next
-> - Also read CAMERA_LED_NEG at probe, so the LED is right after a cold boo=
-t
-> - Register a read-only asus::camera LED when only CAMERA_LED_NEG exists,
->   with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
-> - Comment on why the read is what updates the LED (also from v2 review)
-> - v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
->=20
-> Tested v5 on the Zenbook S 14 UX5406SA (BIOS 309), on Fedora's 7.2.15
-> kernel with the same change applied: camera key presses keep the LED,
-> asus::camera, brightness_hw_changed and the camera output in sync, also
-> with nothing reading the brightness attribute, so the key event alone is
-> what updates the LED. Writing 0 or 1 to brightness changes nothing.
->=20
-> I used Claude while working on this. It helped
-> me read through the DSDT, drafted the changes on top of v2 and wrote the
-> test scripts. I went through the patch myself and ran the tests on my
-> laptop.
-> ---
->  drivers/platform/asus/asus-wmi.c           | 63 ++++++++++++++++++++++++=
-++++--
->  include/linux/platform_data/x86/asus-wmi.h |  2 +-
->  2 files changed, 61 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/platform/asus/asus-wmi.c b/drivers/platform/asus/asu=
-s-wmi.c
-> index b33ebdb21aa..991e5b36664 100644
-> --- a/drivers/platform/asus/asus-wmi.c
-> +++ b/drivers/platform/asus/asus-wmi.c
-> @@ -17,6 +17,7 @@
->  #include <linux/backlight.h>
->  #include <linux/bits.h>
->  #include <linux/cleanup.h>
-> +#include <linux/container_of.h>
->  #include <linux/debugfs.h>
->  #include <linux/delay.h>
->  #include <linux/dmi.h>
-> @@ -72,6 +73,8 @@ module_param(fnlock_default, bool, 0444);
->  #define NOTIFY_KBD_TTP=09=09=090xae
->  #define NOTIFY_LID_FLIP=09=09=090xfa
->  #define NOTIFY_LID_FLIP_ROG=09=090xbd
-> +#define NOTIFY_CAMERA_TOGGLE_1=09=090x82
-> +#define NOTIFY_CAMERA_TOGGLE_2=09=090x85
->  #define NOTIFY_KEYSTONE=09=09=090xb4
-> =20
->  #define ASUS_WMI_FNLOCK_BIOS_DISABLED=09BIT(0)
-> @@ -312,6 +315,7 @@ struct asus_wmi {
->  =09u32 kbd_rgb_dev;
->  =09bool kbd_rgb_state_available;
->  =09bool oobe_state_available;
-> +=09bool camera_neg_led_available;
-> =20
->  =09u8 throttle_thermal_policy_mode;
->  =09u32 throttle_thermal_policy_dev;
-> @@ -2105,6 +2109,43 @@ static int camera_led_set(struct led_classdev *led=
-_cdev,
->  =09return err < 0 ? err : 0;
->  }
-> =20
-> +static bool is_camera_toggle(int code)
-> +{
-> +=09return code =3D=3D NOTIFY_CAMERA_TOGGLE_1 || code =3D=3D NOTIFY_CAMER=
-A_TOGGLE_2;
-> +}
-> +
-> +/*
-> + * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) have =
-no
-> + * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itself=
- and
-> + * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and rea=
-ding
-> + * that has a side effect: the firmware copies the state to the LED GPIO=
-.
-> + * Nothing else updates the LED, so read it after every camera key event=
-.
-> + * Registering asus::camera reads it too (via brightness_get), which set=
-s the
-> + * LED at probe. Setting it is no use, the firmware accepts DEVS on this
-> + * device only once per boot.
-> + *
-> + * Returns: 1 if the camera is disabled (LED lit), 0 if enabled, or -err=
-no.
-> + */
-> +static int camera_neg_led_sync(struct asus_wmi *asus)
-> +{
-> +=09u32 result;
-> +=09int err;
-> +
-> +=09err =3D asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, &r=
-esult);
-> +=09if (err)
-> +=09=09return err;
-> +
-> +=09return !(result & ASUS_WMI_DSTS_STATUS_BIT);
-> +}
-> +
-> +static enum led_brightness camera_neg_led_get(struct led_classdev *led_c=
-dev)
-> +{
-> +=09struct asus_wmi *asus =3D container_of(led_cdev, struct asus_wmi, cam=
-era_led);
-> +=09int state =3D camera_neg_led_sync(asus);
-> +
-> +=09return state < 0 ? LED_OFF : state;
-> +}
-> +
->  static void asus_wmi_led_exit(struct asus_wmi *asus)
->  {
->  =09scoped_guard(spinlock_irqsave, &asus_ref.lock)
-> @@ -2236,11 +2277,17 @@ static int asus_wmi_led_init(struct asus_wmi *asu=
-s)
->  =09=09=09goto error;
->  =09}
-> =20
-> -=09if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
-> +=09if (asus->camera_neg_led_available ||
-> +=09    asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
->  =09=09asus->camera_led.name =3D "asus::camera";
->  =09=09asus->camera_led.max_brightness =3D 1;
-> -=09=09asus->camera_led.brightness_get =3D camera_led_get;
-> -=09=09asus->camera_led.brightness_set_blocking =3D camera_led_set;
-> +=09=09if (asus->camera_neg_led_available) {
-> +=09=09=09asus->camera_led.flags =3D LED_BRIGHT_HW_CHANGED;
-> +=09=09=09asus->camera_led.brightness_get =3D camera_neg_led_get;
-> +=09=09} else {
-> +=09=09=09asus->camera_led.brightness_get =3D camera_led_get;
-> +=09=09=09asus->camera_led.brightness_set_blocking =3D camera_led_set;
-> +=09=09}
-> =20
->  =09=09rv =3D led_classdev_register(&asus->platform_device->dev,
->  =09=09=09=09=09=09&asus->camera_led);
-> @@ -4742,6 +4789,13 @@ static void asus_wmi_handle_event_code(int code, s=
-truct asus_wmi *asus)
->  =09if (is_display_toggle(code) && asus->driver->quirks->no_display_toggl=
-e)
->  =09=09return;
-> =20
-> +=09if (is_camera_toggle(code) && asus->camera_neg_led_available) {
-> +=09=09int state =3D camera_neg_led_sync(asus);
-> +
-> +=09=09if (state >=3D 0)
-> +=09=09=09led_classdev_notify_brightness_hw_changed(&asus->camera_led, st=
-ate);
-> +=09}
-> +
->  =09if (!sparse_keymap_report_event(asus->inputdev, code,
->  =09=09=09=09=09key_value, autorelease))
->  =09=09pr_info("Unknown key code 0x%x\n", code);
-> @@ -5219,6 +5273,9 @@ static int asus_wmi_add(struct platform_device *pde=
-v)
->  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
-> =20
->  =09asus->oobe_state_available =3D asus_wmi_dev_is_present(asus, ASUS_WMI=
-_DEVID_OOBE);
-> +=09asus->camera_neg_led_available =3D
-> +=09=09!asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED) &&
-> +=09=09asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
-> =20
->  =09if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POL=
-ICY))
->  =09=09asus->throttle_thermal_policy_dev =3D ASUS_WMI_DEVID_THROTTLE_THER=
-MAL_POLICY;
-> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/p=
-latform_data/x86/asus-wmi.h
-> index 66c7ab35d6c..1f7efaf0984 100644
-> --- a/include/linux/platform_data/x86/asus-wmi.h
-> +++ b/include/linux/platform_data/x86/asus-wmi.h
-> @@ -57,7 +57,7 @@
->  #define ASUS_WMI_DEVID_MUTE_LED=090x0004001C
-> =20
->  /* Disable Camera LED */
-> -#define ASUS_WMI_DEVID_CAMERA_LED_NEG=090x00060078 /* 0 =3D on (unused) =
-*/
-> +#define ASUS_WMI_DEVID_CAMERA_LED_NEG=090x00060078 /* 0 =3D on */
->  #define ASUS_WMI_DEVID_CAMERA_LED=090x00060079 /* 1 =3D on */
-> =20
->  /* Backlight and Brightness */
->=20
-> ---
-> base-commit: a362539b42193dcdb17f8fba40031a515c53885c
-> change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
->=20
-> Best regards,
-> -- =20
-> Zane Hunt <git@turtledev.nz>
->=20
+> > @@ -4943,19 +4936,29 @@ static void arm_smmu_write_msi_msg(struct msi_desc *desc, struct msi_msg *msg)
+> >   	writel_relaxed(ARM_SMMU_MEMATTR_DEVICE_nGnRE, smmu->base + cfg[2]);
+> >   }
+> > +static void arm_smmu_setup_msi_vector(struct arm_smmu_device *smmu,
+> > +				      unsigned int *vec, unsigned int *nvec,
+> > +				      enum arm_smmu_msi_index index)
+> 
+> mega nit: "index" as a name is quite vague as we are indexing vec[] and
+> smmu->msi_map[] in this function. Maybe "msi_index" would be better.
+
+OK.
+
+> > +	arm_smmu_setup_msi_vector(smmu, vec, &nvec, EVTQ_MSI_INDEX);
+> > +	arm_smmu_setup_msi_vector(smmu, vec, &nvec, GERROR_MSI_INDEX);
+> >   	if (smmu->features & ARM_SMMU_FEAT_PRI)
+> > -		writeq_relaxed(0, smmu->base + ARM_SMMU_PRIQ_IRQ_CFG0);
+> > -	else
+> > -		nvec--;
+> > +		arm_smmu_setup_msi_vector(smmu, vec, &nvec, PRIQ_MSI_INDEX);
+> >   	if (!(smmu->features & ARM_SMMU_FEAT_MSI))
+> 
+> In this case (or any other time in which we return early in this function),
+> it seems less than ideal - as a coding practice - that we have written
+> values in smmu->msi_map and they won't be used.
+
+Doing so it a bit neater. But fine..
+
+I'll Move this behind the FEAT_MSI guard:
+
++	/* Map each vector back to its source for arm_smmu_write_msi_msg() */
++	for (i = 0; i < ARM_SMMU_MAX_MSIS; i++)
++		if (vec[i] < nvec)
++			smmu->msi_map[vec[i]] = i;
+
+> > @@ -4972,9 +4975,10 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
+> >   		return;
+> >   	}
+> > -	smmu->evtq.q.irq = msi_get_virq(dev, EVTQ_MSI_INDEX);
+> > -	smmu->gerr_irq = msi_get_virq(dev, GERROR_MSI_INDEX);
+> > -	smmu->priq.q.irq = msi_get_virq(dev, PRIQ_MSI_INDEX);
+> > +	/* msi_get_virq() returns 0 for an unused source that has no vector */
+> 
+> So are you saying that msi_get_virq(dev, ARM_SMMU_MAX_MSIS) returns 0?
+> 
+> If so, do we really require checks like the following:
+> 
+> if (smmu->features & ARM_SMMU_FEAT_PRI) {
+> 		irq = smmu->priq.q.irq;
+> 		if (irq) {
+> 
+> I am talking about the ARM_SMMU_FEAT_PRI flag check, as smmu->priq.q.irq ==
+> 0 and ARM_SMMU_FEAT_PRI unset seem equivalent.
+
+It's slightly different: In the MSI case, it's registered upon the
+FEAT by SW. So, it's ensured to get 0 without additional gate. The
+other one gets from FW, so gating is necessary.
+
+Nicolin
