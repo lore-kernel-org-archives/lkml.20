@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803471;
-	b=o8+wNeuC3viCRKhopg2PIOSLhS5M5t0VSMNUPxDp7nswHcbqLrt3AHF+nb+23gBLOFaq
-	 nMxKjJcV5AWUFv7tYnmglCJgsCyjGSIpsqNiQw/02qnPuYETW1XxvQuU0hBEQlPgMYFZr
-	 TyDQ9TUr1yYVrJFtyJko7lUJ0CBPeMxFUb4bmK7QAzEjM8WKp0IZR6ALNPwqiP5vFKAe6
-	 sQwilm22kzPKqYwEHRFc0pl2XX8nZ7xU10w+dbWNlOHOF2diloOG2HT9LJRotj2krzSZT
-	 udCThhdFDBe90ujDMLyHil84jMD2J9tEonZBgHnN1efWsJDXl6Ez5ARXp3A0uPqbKWw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803471;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794803541;
+	b=leJBSj89Rz0aZlyfyJcwUsF4sCHQNUsPBnmchHHPgxtEXxuEhYi74LGNPKeTgN+fnaf9
+	 o4B5wmlcgIpFbfmMychWgk7iToNqZk/JR8xns0+8JfoJdrlMagbxmdTUTBDeZKFHn/Oj6
+	 kBnxcAUAfoSg+Cq4qCgNxdKt/QMe6tO8tgR1lD1ZzvldnjJYM7UYTOOeBmvymyT++diqn
+	 uj7bPsvEcbpDw9LinPlPRLp97XUxdaCxunlzJh5BunuxAgE1odl48k/w5e9TGUCLfRR+7
+	 Yg4ETJdKgcwg/kNIx3SAGHTVAf0EfIIHa0hLV9lDV0MlcLkMw5QiQ010hcAF2n4qjTQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803541;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/ctgGBFPGqnrXxh1oijw1oROgPOwPa6x8KFQNZidA+s=;
-	b=ey7lK9Zvuv1526esIAPoShVg56WZUHZsIHHHi3bO3hYJRlam+l/YJ1EL9mltNTi23Q3k
-	 O0lLClFqh2dkzlBiq12IZOHLMa6rlfoAHVojFKE3GQwRmPHZezMxqJzIO/XfmuvY+Vbxv
-	 uQva5TMWs+gvPGScPuHnPVKD6UvaT2ricHIJbLQDP/Tp7YntlPd8Ig3Jxilri0PeBtnLp
-	 RhosGpp9reqvbs8DJLoSZlMSn5METTUHOihs7Bsr5lbXVIfIaFlCOTJyiLDSr8WeHv5lK
-	 3hZYaW1Za1xvl+SJvzjDVToJ3dTOYxRC/b5Jo+aHJ99eclJQAr4R95vDCUBUDTImSlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpL74nbz;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jPAnlcr6CpCK+FsvHg0au7x34Ypbda/xjzLYTLYSZv8=;
+	b=mXrMXlyogm9Px2O2IlvnNNUrgYKRMXNCpnEED4MiP+rAMhhBirYoz6Ze/jQIcPF9fmv+
+	 F8R/wY34b/3c236Aiq2IOl9iFEBU74+n5ZczBjZPiTtRiBWgb9rTJyFnyEevMJQM4SeCH
+	 T0tTSK8zwhiym2iM24oZNxv6RcFsvAXjS6CILec0r23jLffv69/KGxGiTdOTy9RYqCeGu
+	 SJbbOeGxKZc/4vu30CYZcX3OZVCtIgOUnF5DbfRK044tZCsdNWFGijipIDh9bCSY7GOKf
+	 QV8zCVRYhpFTjjLNiRdqcKEOG55m1U3ALJ046PNfFfR9VJwE+QpB2SzC7SFOFE0wKrw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gcSWDUZY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680E5606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:31:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 680E5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B393606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:32:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B393606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpL74nbz
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb9f760337so1719014a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:31:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gcSWDUZY
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c50e26763a4so36495366b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:32:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794803540; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b8U/bwc4QBSj2KTfEjHa9ZkvpA4qTBrQ3daHax5eFloJHjK7Ex9RgqWzMWjLKLdoaO
+         F4MPG1IlC6yUk/tUBesAyVsHx7v5rlkRCBIAgiJyBOMSRRsctxC9GvlEFEMqzc3iFKB7
+         dx6m6cXjP/aeFOPIR7KxecCf9fkgS+4B3J3WfvahBqBDBOFaFI5FRrqdYw18S8Szn/a+
+         t3w+lI+pRZwuegWAs+V+ItxTmu6QO/hsfWD9m5/hsRv57Z1r4q3XyLQMAeoXm/a+kwrZ
+         mv88O1UxYh8TPritd2R3oOKKRYqc9f9W6SB7LxCKU3Xivg/zsgE+8vh8IC9++iQKXyzO
+         kFIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jPAnlcr6CpCK+FsvHg0au7x34Ypbda/xjzLYTLYSZv8=;
+        fh=kkANDdLWT/0k8M6wG6BRGP1VtRQvU8/uA0LUTZR1itY=;
+        b=kLf3siCrzLxMph6j7VNcYEYVuzs8Zz5E68ovtkGU9ceOU1wq3Ca1lqVv9InUk1a++V
+         I8uJ2c6SZ6eb+2TgXPHjkPuTfqZ8KFwpE25mM3SX3oXBbPE9PuzNSXyEfyuQMJ+6mNJO
+         +gEsDtKI51FMxfkkPbPVpf43L3F/4RKl884Bq7G3LsLdEtCMlmbXmROXWPySEzaaGkfO
+         Df5yPaXe0IOkaSAvCH/EuVUTSD2F3zdr3+uKD6R2r1MBRLV9X/OacgIg2yVgd0kAqOt3
+         tSTDMLVqXzNywev6Gl5+KRpOaP7iDSyrFNlIDY3Cba5Gthu7U9hE/lE3CPe75D4Q1NXh
+         VebA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794803470; x=1795408270; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ctgGBFPGqnrXxh1oijw1oROgPOwPa6x8KFQNZidA+s=;
-        b=QpL74nbzhphxgnxdMTolQl2oOk5JB/oqOxlmlQvddVlZ3y46zJRcGN4Mh1Gjmt8ifm
-         P5tjdEVq7Om4JgJHMNDksdbNkhlMuPAeqS7UCidJ9NPa46CUZ1wanD2Weyp8Jpk7RdJN
-         PGOvYA8jbR4I/PL0OjVCepEmk3GpUopbjYbLaoWyLZJzhS08Ct0Mzx7e09baw3OQ8DZQ
-         8f9VnIyrSOTsann8/0e+iRKj3rZ6uikwVQK60kJsOyqQW+2mC2OElAmWRlk0ahvh/YwY
-         x4z4HcaaafWAL7zOumbue3XZBT4yadqk8dwRIbjNGsEiLLwABil0pstBx/DUU9rHBVbO
-         080Q==
+        d=google.com; s=20260707; t=1794803540; x=1795408340; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jPAnlcr6CpCK+FsvHg0au7x34Ypbda/xjzLYTLYSZv8=;
+        b=gcSWDUZYkF2mcPgzGDtZJi8T+XYJJSKhLRpmglf5/f1Z7wKJWOyTyGoPaXLBUpUGLO
+         e5zlNKALT79bTMF4b9VwalmD4oRxQYoHL921Ui4j/7kZx9DRTyATszn3FpKfProxDT3R
+         /0azJfOFPotKWG7mejbUGskbV4Zufep35aAQq9QPf1VsQElPx76e1PrLQVKFIfoUNlU0
+         VZNsNcYeBy3+CTariUp1zfQEZvyvN/w3nm3Sx95Pj+CYuaFrk/vZ9lHAPXw7rlQau6zd
+         rV5tlesFRN7hfKdLsHDtHWO6+4y6KN/8u54KssXa5BG81RAFzfyQYrNQM+cQ4rubYqZR
+         6KbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794803470; x=1795408270;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/ctgGBFPGqnrXxh1oijw1oROgPOwPa6x8KFQNZidA+s=;
-        b=FQe3OsLLGpr/nBUwGHc4ezFk4wuuZaZEQ0ucW0Gr8ucU0HFDauvxrV+Mb3Fxm0Gglf
-         wplbIy0LHlOGOw06P0qlwQVPXjG/Rb24KYKIP0F6VAiJMroDPywfpGV0qKs8NWjdPWKJ
-         WuBTLOFB09RrNbQ6dGNC6wOLIS/8MJjLArdqQwVN4+C+lxfMPOvoCThg9bHI0+O38K1m
-         zlJccv1zorl63jV+bHjQVP8VToDeDNCIglocAUq6oYVGubOZKkSmzWAQ8yClOkotbcVE
-         FjMnzK86yEPvygnzcjDIfpwB5Zz01ND6ttAMemzkXGUI+zMax2iLw2IS+gSnU7F/yjae
-         QtnA==
-X-Forwarded-Encrypted: i=1; AL+hErGKFBIvcHRnJwJxvaaiI2YZQqiBH4EGzTWRNH0sFLKj/A+vlA2vRSAQ3tLI9+W8Olfko8TVY1s+rXIajwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/COxmln8wyuuSMjEqCJnLuiyHiqyyaZesAeot14lPRfImMDT6q
-	hWD5AXoSkaCmVGSXS25OLbFEoqQzgQMXzhvTtDb8cgTnDMSRZ86SPGye
-X-Gm-Gg: AYBFou0yK0WcnrYV7piFKYMY9fAKzEtOApFGSAzRYEhl6qFUvHu+LMlAy3uXeA5V/tI
-	X/7eLQMpOyY0s7AcpCHdmaT7t5ogWWJz4ayXslXQD1qcSEKRhSURBa2ViULsE2LHczsruk6kMHh
-	GdcNm41qkKf293GCroTitFpN+dP4YvcY+uDGCEW7m5JGC4GsrG+XVf61KI5pbYu319hB7Fo/VpT
-	svHPHTbWnigr2PjR6I8LkcDuAxNGLeAes6p2glRYeWBEmdJ3oViq3FOlyRPeBGoRyPBkXNbLtZ8
-	vfr/3rv/FnrwM4viY/igQ22+OmZ4Ynoa40xx4VE5S2ddi+322iik8D+5j5LJNHDEvPVytjx+Kl7
-	MQxZDuyGq+WaUF7m7mDzIW+9opfYsDoHGDqTywCJFyqAnUHWfQU9GigQaPhhyILrpOgiAtVXxzm
-	+tch25O4bKIBGGkuIm1zdz7aqqILRaVhx0Ii7ZRGkCs6w2/md45pH8fV9ZQPjwl7yOuK2pGkkYe
-	GpQ8+J3UMj8Lv+sGdCoz0PExRHVrN78XgPfKZPRx+eBB93q36yHoJBa3HpZXGc6gvjOasP0unZM
-	kcXa+AJTwZ9Kz/mN03nzqZNS2yspbSxVRUba1+BccbZ+PU8ypw==
-X-Received: by 2002:a17:90b:1f87:b0:3b1:2d77:daf with SMTP id 98e67ed59e1d1-3b197d79772mr9183360a91.30.1794803470326;
-        Sun, 15 Nov 2026 20:31:10 -0800 (PST)
-Received: from G7XWH7K1F3 ([139.177.225.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d27d26sm19293094a91.13.2026.11.15.20.31.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 20:31:10 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless] wifi: mac80211: allow automatic control-port link selection
-Date: Mon, 16 Nov 2026 12:30:42 +0800
-Message-ID: <20261116043042.14324-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
+        d=1e100.net; s=20260707; t=1794803540; x=1795408340;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jPAnlcr6CpCK+FsvHg0au7x34Ypbda/xjzLYTLYSZv8=;
+        b=Q6/TzNus+CD0luRvycXTRiGx9nRs7/LwARBxQsmoY27GedCBPRVpo5l+1PX7cK9hYk
+         Ln+U8JaaI3JlXriTAxoRPaZ5WdM8Ub5Jc36/5kunYLfx09ODZAAlpz+SXOoHB5oBPqSw
+         AwD6jkZMcFyEyyp+zLwz5GGHW5qRFNf8X/l7R/03oaUlY8VEFnA+3VWe5L2QOOu6bvph
+         rGk72WAiVeJl6VGW2trAjxt6VO+gLlfT6ic0/qwloPlTPHAICFVP3ySgBdX8CZpYhZHn
+         Tcsa8CcLTGHzx15X8eI0GemX6C+C4ioHI0XklCHr2IrVJTxU2qxOLkKQHq1d97kY/gMq
+         asCA==
+X-Forwarded-Encrypted: i=1; AL+hErFrwgKGR/6LrRuuzUDuUxPyPgh+jukNgtcDTbHp+NwJtPsr5Dn8kKn4tCjmzGw5aFYoM5YKzEMAGUsAGQA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92I0czApVv911m7OruUSiyhqsjWu1D8SdjMNPhjVxKc2i9noHC
+	72Y9GCAdl56lxjqUmcx+ghv+MZQvC5vslpne0K0XYnlXfbn06K1+1kTKSkypQnEtMYIo0HH1EnX
+	/By1iOmWCvCyxtEQvHA3f5AM4B3etWCJcQ/FPo98c
+X-Gm-Gg: AYBFou1Ak6SSmZKv/B8XXNTFEyvXT7T6M3kqiFwMgrZsZyjE928YIsEg3oHVtA7MNaa
+	uAi+dP6ilL/0OsS0Qu2a8d5eZd3FaA5BZaaVpbK17yeB8xM1ZJnbRs4XPNMFlycoKsXGlIyvthR
+	Z+w2xKWUI+Zd5vR8gd8Y0f8EGJewRKKMK2R8sl2wWfeo7PBYAFhIigo7o30KfPuXzJ+N6GvgEe5
+	6dGTSeRVQWQ7DFnnr6btzH5BFTdEBq9ba+12/mQ3lQFfRev+91DO4KvxmMKXc5w7UzFULKsCZwO
+	Zibb2/7enU8FuBNLnepkT+KWlPf4xJNbEDlVgvN7WNrUiUDdzlakFxgkihM0FGnpaEatepvwJfT
+	EcfvgdCM8kNqUxhOeJbZQQgLTvqX/B+b1oZsZLGfe8PXOPGS5PpOBTiknPrZl6lsv8mx/uw==
+X-Received: by 2002:a17:906:c154:b0:c43:bf29:1517 with SMTP id
+ a640c23a62f3a-c50962edf20mr708573666b.12.1794803539044; Sun, 15 Nov 2026
+ 20:32:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,89 +104,254 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261113195553.2220562-1-joshwash@google.com> <CAL4WiioeNVQwPnZjJLh-Tcev8f-pm5z2dRrJ0k8ZStg5bWt9uA@mail.gmail.com>
+In-Reply-To: <CAL4WiioeNVQwPnZjJLh-Tcev8f-pm5z2dRrJ0k8ZStg5bWt9uA@mail.gmail.com>
+From: Ankit Garg <nktgrg@google.com>
+Date: Sun, 15 Nov 2026 20:32:06 -0800
+X-Gm-Features: AclHuK9aY1QAAgI1pFJNQc68FGtJ4cJf5gOx3SIRFJuRdq_RK76275eI76NC1Jg
+Message-ID: <CAJcM6BFEq-JGqtDJnn4C7Tbo9fySE8CUN4wbvyhvZAn0K6tYKw@mail.gmail.com>
+Subject: Re: [PATCH net] gve: fix checksum state and gso_segs of HW-GRO packets
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: Joshua Washington <joshwash@google.com>, netdev@vger.kernel.org, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Jordan Rhee <jordanrhee@google.com>, Tim Hostetler <thostet@google.com>, 
+	Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Praveen Kaligineedi <pkaligineedi@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An MLD AP cannot transmit a control-port frame, such as EAPOL, to a
-non-MLO peer when the request leaves the link unspecified. Header
-construction selects the peer's link, then the link-ID check rejects
-that selection. The Ethernet source also remains the MLD address, which
-header construction copies into the 802.11 source address instead of
-the selected link address.
+On Sat, Nov 14, 2026 at 7:14=E2=80=AFAM Eric Dumazet <edumazet@kernel.org> =
+wrote:
+>
+> Le ven. 13 nov. 2026 =C3=A0 20:56, Joshua Washington <joshwash@google.com=
+> a =C3=A9crit :
+> >
+> > From: Ankit Garg <nktgrg@google.com>
+> >
+> > With HW-GRO enabled, gve_rx_complete_rsc() turns a coalesced packet int=
+o
+> > a GSO skb by setting gso_size, gso_segs and gso_type, but leaves it
+> > CHECKSUM_UNNECESSARY with th->check as the device wrote it. Unlike
+> > tcp4_gro_complete() and tcp6_gro_complete() for a SW-GRO packet, it doe=
+s
+> > not seed th->check with the TCP pseudo-header checksum or set
+> > CHECKSUM_PARTIAL.
+> >
+> > The GRO stack completes a HW-GRO skb itself only if it holds the skb fo=
+r
+> > merging (since commit 5eddb24901ee ("gro: add support of (hw)gro packet=
+s
+> > to gro stack")). Otherwise the skb is delivered as is, e.g. with rx-gro
+> > off or for a packet that is flushed immediately (e.g. with PSH set). If
+> > such an skb is forwarded out of a TSO-capable device, netif_needs_gso()
+> > accepts it as CHECKSUM_UNNECESSARY and the device segments it with a
+> > bogus checksum seed, so every segment is dropped by the receiver. This
+> > blackholes forwarded TCP traffic on VMs acting as routers or NAT
+> > gateways and was observed on VMs in real use.
+> >
+> > Fix it in a manner consistent with other drivers with HW-GRO: set the
+> > network and transport headers and, for packets whose checksum the devic=
+e
+> > verified, seed th->check with the pseudo-header checksum and call
+> > tcp_gro_complete(), passing gso_segs through NAPI_GRO_CB(skb)->count.
+> > skb->data points at the Ethernet header on the napi_gro_frags() path an=
+d
+> > at the IP header on the header-split and copybreak paths, so account fo=
+r
+> > that when setting the network header. Since the header layout now
+> > matters, tell IPv4 from IPv6 by the EtherType, as qede and bnx2x do,
+> > rather than by the packet type.
+> >
+> > Also compute gso_segs from the TCP payload length. It was computed from
+> > skb->data_len, which is 0 for a packet that rx_copybreak copied whole
+> > into the linear part, leaving such packets with gso_segs 0 and a
+> > non-zero gso_size.
+> >
+> > Fixes: e637c244b954 ("gve: Advertise NETIF_F_GRO_HW instead of NETIF_F_=
+LRO")
+> > Cc: stable@vger.kernel.org
+> > Reviewed-by: Joshua Washington <joshwash@google.com>
+> > Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+> > Reviewed-by: Praveen Kaligineedi <pkaligineedi@google.com>
+> > Signed-off-by: Ankit Garg <nktgrg@google.com>
+> > ---
+> >  drivers/net/ethernet/google/gve/gve_rx_dqo.c | 69 +++++++++++++++-----
+> >  1 file changed, 53 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net=
+/ethernet/google/gve/gve_rx_dqo.c
+> > index 82ed5e48b00a..58696d26c698 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+> > @@ -13,6 +13,7 @@
+> >  #include <linux/ipv6.h>
+> >  #include <linux/skbuff.h>
+> >  #include <linux/slab.h>
+> > +#include <net/gro.h>
+> >  #include <net/ip6_checksum.h>
+> >  #include <net/ipv6.h>
+> >  #include <net/tcp.h>
+> > @@ -1000,13 +1001,34 @@ static int gve_rx_dqo(struct napi_struct *napi,=
+ struct gve_rx_ring *rx,
+> >         return -ENOMEM;
+> >  }
+> >
+> > +/* Prepare a HW-GRO packet the way tcp4/6_gro_complete() prepare a SW-=
+GRO
+> > + * packet, so that it can be resegmented by GSO or TSO if it is forwar=
+ded:
+> > + * seed th->check with the TCP pseudo-header checksum and set CHECKSUM=
+_PARTIAL.
+> > + */
+> > +static void gve_rx_fixup_gro_checksum(struct sk_buff *skb)
+> > +{
+> > +       int len =3D skb->len - skb_transport_offset(skb);
+> > +       struct tcphdr *th =3D tcp_hdr(skb);
+> > +
+> > +       if (skb_shinfo(skb)->gso_type & SKB_GSO_TCPV4)
+> > +               th->check =3D ~tcp_v4_check(len, ip_hdr(skb)->saddr,
+> > +                                         ip_hdr(skb)->daddr, 0);
+> > +       else
+> > +               th->check =3D ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
+> > +                                         &ipv6_hdr(skb)->daddr, 0);
+> > +
+> > +       NAPI_GRO_CB(skb)->count =3D skb_shinfo(skb)->gso_segs;
+> > +       tcp_gro_complete(skb);
+> > +}
+> > +
+> >  static int gve_rx_complete_rsc(struct sk_buff *skb,
+> >                                const struct gve_rx_compl_desc_dqo *desc=
+,
+> >                                struct gve_ptype ptype)
+> >  {
+> >         struct skb_shared_info *shinfo =3D skb_shinfo(skb);
+> > -       int rsc_segments, rsc_seg_len, hdr_len;
+> > +       int rsc_seg_len, hdr_len, nhoff, thoff;
+> >         skb_frag_t *frag;
+> > +       __be16 proto;
+> >         void *va;
+> >
+> >         /* HW-GRO only coalesces TCP. */
+> > @@ -1017,20 +1039,11 @@ static int gve_rx_complete_rsc(struct sk_buff *=
+skb,
+> >         if (!rsc_seg_len)
+> >                 return 0;
+> >
+> > -       switch (ptype.l3_type) {
+> > -       case GVE_L3_TYPE_IPV4:
+> > -               shinfo->gso_type =3D SKB_GSO_TCPV4;
+> > -               break;
+> > -       case GVE_L3_TYPE_IPV6:
+> > -               shinfo->gso_type =3D SKB_GSO_TCPV6;
+> > -               break;
+> > -       default:
+> > -               return -EINVAL;
+>
+> Before this patch the L3 type came from ptype.l3_type, now it comes from
+> the EtherType. A VLAN tagged frame (gve does not strip tags) would have
+> been accepted before, and is now dropped and accounted in
+> rx_desc_err_dropped_pkt. nhoff =3D ETH_HLEN has the same assumption.
+>
+> Can the device coalesce VLAN tagged frames ?
+>
+> If not, please say so in the changelog. Otherwise this needs to be
+> handled, like idpf_rx_rsc() does with eth_type_vlan().
+>
+GVE device does not coalesce VLAN tagged frames, so they are never
+completed with desc->rsc set. I will explicitly mention that in v2.
+> > -       }
+> > -
+> >         if (skb_headlen(skb)) {
+> > -               /* With header-split, payload is in the non-linear part=
+ */
+> > -               rsc_segments =3D DIV_ROUND_UP(skb->data_len, rsc_seg_le=
+n);
+> > +               /* With header-split or copybreak, eth_type_trans() has=
+ already
+> > +                * pulled the Ethernet header.
+> > +                */
+> > +               nhoff =3D 0;
+> >         } else {
+> >                 /* HW-GRO packets are guaranteed to have complete TCP/I=
+P
+> >                  * headers in frag[0] when header-split is not enabled.
+> > @@ -1039,7 +1052,6 @@ static int gve_rx_complete_rsc(struct sk_buff *sk=
+b,
+> >                 va =3D skb_frag_address(frag);
+> >                 hdr_len =3D
+> >                         eth_get_headlen(skb->dev, va, skb_frag_size(fra=
+g));
+> > -               rsc_segments =3D DIV_ROUND_UP(skb->len - hdr_len, rsc_s=
+eg_len);
+> >                 skb_copy_to_linear_data(skb, va, hdr_len);
+> >                 skb_frag_size_sub(frag, hdr_len);
+> >                 /* Verify we didn't empty the fragment completely as th=
+at could
+> > @@ -1049,10 +1061,35 @@ static int gve_rx_complete_rsc(struct sk_buff *=
+skb,
+> >                 skb_frag_off_add(frag, hdr_len);
+> >                 skb->data_len -=3D hdr_len;
+> >                 skb->tail +=3D hdr_len;
+> > +               /* napi_gro_frags() pulls the Ethernet header later. */
+> > +               nhoff =3D ETH_HLEN;
+> >         }
+> > +
+> > +       skb_set_network_header(skb, nhoff);
+> > +       proto =3D nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->=
+protocol;
+> > +       switch (proto) {
+> > +       case htons(ETH_P_IP):
+> > +               shinfo->gso_type =3D SKB_GSO_TCPV4;
+> > +               thoff =3D nhoff + ip_hdrlen(skb);
+> > +               break;
+> > +       case htons(ETH_P_IPV6):
+> > +               shinfo->gso_type =3D SKB_GSO_TCPV6;
+> > +               thoff =3D nhoff + sizeof(struct ipv6hdr);
+> > +               break;
+> > +       default:
+> > +               return -EINVAL;
+> > +       }
+> > +       skb_set_transport_header(skb, thoff);
+> > +
+> >         shinfo->gso_size =3D rsc_seg_len;
+> > -       shinfo->gso_segs =3D rsc_segments;
+> > +       shinfo->gso_segs =3D DIV_ROUND_UP(skb->len - thoff - tcp_hdrlen=
+(skb),
+> > +                                       rsc_seg_len);
+> > +
+> > +       if (!IS_ENABLED(CONFIG_INET) ||
+> > +           unlikely(skb->ip_summed !=3D CHECKSUM_UNNECESSARY))
+> > +               return 0;
+> >
+> > +       gve_rx_fixup_gro_checksum(skb);
+>
+> thoff is derived from iph->ihl, and tcp_hdrlen() from th->doff, both read
+> from the packet, and nothing checks that the TCP header is actually in
+> the linear part before we read th->doff and write th->check.
+>
+> On the copybreak path the head was allocated by napi_alloc_skb(buf_len),
+> so a short frame with desc->rsc set and a large ihl ends up reading and
+> writing past the copied data. Same thing on the napi_get_frags() path if
+> eth_get_headlen() returned less than the full headers.
+>
+> The old code was trusting the device as well, but it was not writing
+> into the headers.
+>
+> I think we want something like this, before using tcp_hdr(skb):
+>
+>         if (unlikely(thoff + sizeof(struct tcphdr) > skb_headlen(skb)))
+>                 return -EINVAL;
+>
+>         if (unlikely(skb->len < thoff + tcp_hdrlen(skb)))
+>                 return -EINVAL;
+>
+> (skb_headlen() is hdr_len on the napi_get_frags() path at this point,
+> so one check covers both cases.)
+>
+> This also makes sure gso_segs can not be computed from a negative length.
+>
+> Thanks.
+Agreed, I'll add these in v2.
 
-On AP interfaces, take the source address from
-ieee80211_ap_tx_addr_get(), which header construction also uses for the
-transmitter address, before storing the ACK copy. A station on an
-AP_VLAN is handled through its AP interface, since nl80211 rejects a
-control-port request made on an AP_VLAN. Apply the link-ID check only
-when the request names a link, so an explicit link other than the
-non-MLO peer's link is still rejected.
-
-Commit 9dd1953846c7 ("wifi: nl80211/mac80211: clarify link ID in control
-port TX") added the check, which then rejected such a request only when
-it asked for a TX status report (an ACK cookie). Commit a64a20fb270f
-("wifi: mac80211: store the ack skb before building the header") moved
-the check out of header construction; since then it rejects the request
-with or without a cookie.
-
-AI assistance was used.
-
-Fixes: 9dd1953846c7 ("wifi: nl80211/mac80211: clarify link ID in control port TX")
-Fixes: a64a20fb270f ("wifi: mac80211: store the ack skb before building the header")
-Cc: stable@vger.kernel.org # needs adjustments for <= 7.3
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Tested with mac80211_hwsim in QEMU: an MLD AP with two active links
-and a non-MLO peer on link 1. Omitting the link ID succeeds with or
-without an ACK cookie, and captured frames use the peer's link address
-for both source and transmitter. Explicit link 1 still works; another
-configured link returns -EINVAL without transmitting, and an absent
-link returns -ENOLINK. No kernel warnings or KASAN reports occurred.
-
-Compile-tested with no new W=1 or sparse warnings.
-
- net/mac80211/tx.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
-
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index e9b6a0415d6a..459803d345b1 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -6720,12 +6720,18 @@ int ieee80211_tx_control_port(struct wiphy *wiphy, struct net_device *dev,
- 
- 	skb_set_queue_mapping(skb, ieee80211_select_queue(sdata, sta, skb));
- 
--	/*
--	 * for MLO STA, the SA should be the AP MLD address, but
--	 * the link ID has been selected already
--	 */
--	if (sta && sta->sta.mlo)
-+	/* The SA must match the TA that ieee80211_build_hdr() will use. */
-+	if (sta && sdata->vif.type == NL80211_IFTYPE_AP) {
-+		err = ieee80211_ap_tx_addr_get(sdata, sta, ehdr->h_source,
-+					       NULL);
-+		if (err) {
-+			dev_kfree_skb(skb);
-+			rcu_read_unlock();
-+			return err;
-+		}
-+	} else if (sta && sta->sta.mlo) {
- 		memcpy(ehdr->h_source, sdata->vif.addr, ETH_ALEN);
-+	}
- 
- 	info = IEEE80211_SKB_CB(skb);
- 	memset(info, 0, sizeof(*info));
-@@ -6742,7 +6748,8 @@ int ieee80211_tx_control_port(struct wiphy *wiphy, struct net_device *dev,
- 		return PTR_ERR(skb);
- 	}
- 
--	if (link_id != u32_get_bits(info->control.flags,
-+	if (link_id != IEEE80211_LINK_UNSPECIFIED &&
-+	    link_id != u32_get_bits(info->control.flags,
- 				    IEEE80211_TX_CTRL_MLO_LINK)) {
- 		ieee80211_free_txskb(&local->hw, skb);
- 		rcu_read_unlock();
-
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
--- 
-2.56.1
-
+Thanks for the review!
