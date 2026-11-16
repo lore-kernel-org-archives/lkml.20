@@ -1,104 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837050;
-	b=VJeVC6LTl996gjnmgMLMcNH3r7B5OyzWQOPWm9e6IwAEfsvRBUrYNrFa7d9UalNWdKqL
-	 o3WbksatopfHnMLGXoQaeBxxG85945yc5jRgb5o7JPXlhw3pfW0a9npCXbGZtNi62ZHiW
-	 sd7J383MqHDqSnNMNFhwVIu9WGXm/W8GGpcjI0o8Sar5xhlcXQa6ZsOBK/Xxq7+hc87Je
-	 nsL3e7NBLNpgpfY/vB2xBjDMgNwVHncumbC6J/XIWrX7+CbDyxLVhrpztphQMQflF/L/z
-	 +iIWEK9vb3Yk22PyxognP7gtJLo1Os6AiqCDfK9UQTqOKQjmS96UT5l5iCZprkazBUA==
+	t=1794837046;
+	b=TBOvG0a/BzeEpgyYgb9R0dARGaEmBK1pOvFdRQcSReHC8T7PJJRK6E11QwBbPPySxi9d
+	 LiC1s3xqrYq5qIIZdq/Tk4dFqYwZkvkRy12TAgXTsMeFJTY5oRZ852DaYaIqa1/XfhKqp
+	 Z8qX7sS5xQLFyJqYcu9ma/WAmdlxV7Svp9HleF+Np5Xax1ooZURJqM6aEQ0u7eCRn9qYn
+	 zqayOsp6RuktNgSG8lQXXvaGGKcPwUP6fRMI9e5orHGk9mGEJjmrV2JRYBe6I0FcLxQa5
+	 /AZTxvgP3gZ0hmrYHLum1WiwY1kXlm0TJ7mtqhhrE694yaaC+3bo2M5XGAP8+qfZ1BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837050;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OfHQHM3R+bJudBxYYvhr0hB1WtSESOcSRLIVPlqiZOs=;
-	b=B+an2lO6ZOtPh5AHqcjOsqf93wuvPWLVpa5OF4nVc+gZSK1kVEWiVzqGtVyZB7C3uOoO
-	 gq2bxcDHyvWIhUWR6GvS7klIiN+k3sHDfOxos0YVJN1MZstnjUBZI8pl3PXBdPHv76pSX
-	 izpMbt4wi9byatcmeLcZl8z09uraiCYr0/wUX1dtHywKB0rUTU5GnAna7SMwFZsKmH5PP
-	 lOCPXrDU60roNY+SyIVWODCwWqwLj2DydsKEbSg5db+8pYmvXlbLF8IMG35Tvo/4dCcF0
-	 J1x9YpHIPxW3aAE31MPxjKja0UGm4JWTzDWLUgJXPYqg86FJYoKTsQvdZ2Q6rtR+rPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837046;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=akTGnfa9Y+dF6UITPcBnRtwKMfecwTjl7OenkZ1Dweg=;
+	b=FxptMtqJpjHJzEVSuXSzgWtgwa4qx13cfE0K3NQu6fUiRlewSk6Q22J18n5VoQMtfchn
+	 GwrJ/nNUdyLyhIKZbHuIIGe8aMMKT4T4xCm+r8ugARxuoYUO6k9kttlFcLCAnoNbJZ+9v
+	 zPmq/HemxSEgZxhTn8xUo1vC/kgpsonnXMnMztkYXdvYcCOzL6PbkDl9aIk5Sd58Oevcp
+	 lr5VzuojNpWHk09FJNeYUwy4WZ5bf2F745hWZ0pJWvySfYe7HKB9RncxgJiwVrpo/TwBt
+	 ridw1UhM11i0UAqio1FOwCmGGRigSavH69RyyN+5J9vgmdhb1o4fvUsvCUJvqS5Kfzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBF+4URO;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SW1sFwoT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8243D606A89A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8243D606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B76760A2609;
+	Mon, 16 Nov 2026 13:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBF+4URO
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so28687435e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:50:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794837049; x=1795441849; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OfHQHM3R+bJudBxYYvhr0hB1WtSESOcSRLIVPlqiZOs=;
-        b=SBF+4UROMOUEWTue8WdlvuLI4sdVC24pYGuePfawZCeckwbe10Zs25hmSgoLcmjmWV
-         fsf1P3RG5a9gydngTRd/PZ1fa5sYiUVR6SIAhHxjVJdlrQCwFMLyg9MPZLuNJLK7iIMD
-         DeWTz3Nu/SegJ4Ar66nKt2JFG6+Jbmyackm5qcLK9om7fJXT21X53YYMcIGCjbaGZNKs
-         xIpf1GbjjBGeaPDOQFrVQEgLWg/ke85kDJSjMKhR08cQKmLxXSKLAS5O6Fkk/3K2dLS4
-         EmnMwWCpW6KloDHc6S8mtURRIBSjxSg8BjH4U7H2kRug9y4y+/5M3ogdTs5ckW0oHZKm
-         voeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794837049; x=1795441849;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OfHQHM3R+bJudBxYYvhr0hB1WtSESOcSRLIVPlqiZOs=;
-        b=joXLMCs29506yEWmZeYublzRMLPMer9+xsIu3OYPBp9aUd18BwQVPgowsj919ZilMu
-         cnEX2FlkbE4xtTyiESXx5BR2auGcJ1wvRENIWgVrwUvohAFyNIgxrDPKr1dTLh79MrAJ
-         cmyU03CPT1WTxWmbqfFkmby1Zkmw9n1ABGpPkjjiT8xDu7vwKnl6HqEV6u3HObD5csS4
-         hJZr0e57mBIoVKIaQjkwFEpgsvJHQlO2RFyH9KFMJliaSkBdEmrjxSVrbQJd3m19x6Wb
-         bOEFmJhgtjzp5MH8DrORY3eMKHkZMFGcDpaNE064sRnG1d/7Pi6BpBZJLQ+oe0QcSgZh
-         htZg==
-X-Forwarded-Encrypted: i=1; AL+hErGWPqWtdF4XpBcOS74GGlnJ/UPR/v24jUYdpf/xZmZnhwGfyGX5yFNoXxX0vzXVKSoyUU3EUHoTWEX9UTc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ckS/Fl1g6Hhp+/9OU+WoowDMkF+f9q+XIawf8GskGDgAJ7gfN
-	j39lrgnp9iB0F3fIJsI5ED/ar5gaRP7mz/HgfOI0WELQrJVyjpX8pLhd
-X-Gm-Gg: AYBFou1G5mxAyv4kKZ3RG8jPSeOBVoQa7mRJpFRF2Aimpkt8D3pMCcWaTi5XzsLmov+
-	iodZjx50vjR9a1NEd06oHpDKcY57E9uHpyck2Tn7+lSVRt+xoKUbC0qtCOwcruIJM2Nb6u8pPi6
-	zGe3hbo++kzIHnHU9w6uhF2aQE3z2XeIrFFRiI+4vGccD4jRJv0BtjFtCVgAD6Xs1isod0tGHGR
-	WRVzgAe/gucLeCKUxyaMqFtpp8UYTmgTzA4QuhUVpOO9LV94TF0nxQPGdxtGQXSlDv1xa9Xikdp
-	BI7BnKM7DVNynFR2IF1nw984Gs2ZvjSEoEPgcUEXzGTPYVDhHTXcNHFhAIdI/YBlzol3Km3NSwF
-	To80P+CbcyhqQvAQaMIdB3c0yHNe4bTiWn5WdJzLDWhVAa0vb0je4kP8lCbPQP2EJmBEzHRSBA0
-	SZSzgoF5Y+IVCuutVh9314PGWwHgiOsJucUxehKhr4RszWRgLEGpfuRfQDadA0kEJvSnmLZmR2m
-	t6zIkEF/1ghtFtmheIRZKk6btfGDETL+mOWLEJ2fFOLEYE9tlaM8yePUQtQYLKGPNSW8i0ug33C
-	t74MTRE+e1jxqEGoc5POW6o2yxXbfm/D6E9QG9dF0H/s161OI/B1owhY
-X-Received: by 2002:a05:600c:1d0e:b0:4a1:d459:db4b with SMTP id 5b1f17b1804b1-4bb55abaef4mr221596805e9.24.1794837048913;
-        Mon, 16 Nov 2026 05:50:48 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb6fb45a32sm69904235e9.1.2026.11.16.05.50.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:50:48 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH] i2c: imx: do not acknowledge the last byte of a block read of one byte
-Date: Mon, 16 Nov 2026 14:50:47 +0100
-Message-ID: <20261116135047.1379330-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116124430.1358948-1-mehmet.fide@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SW1sFwoT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31411F000C7;
+	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837046;
+	bh=akTGnfa9Y+dF6UITPcBnRtwKMfecwTjl7OenkZ1Dweg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SW1sFwoTWRup5UEOuaHBZYneSmOkK+5oO8zOo1IIhSWnZXZZRxtjq2M5Quy4+hvKs
+	 uSOhBKwjVJvL+j3+nxUUwKKxFhQ9AqQ2Jj124uiVzNBqGGaXF4PCkDynGM+rqF1fEq
+	 rQ7HLPk+bpMG07fCXwFosfSY7bRjnbZVQfWTUow4k3t0YVIdba7FwMjor6PYeULCdw
+	 Sg+XEZtAjywcERrocSBCY9aQ7imoWYrHo8kzqOlYe4khk+PfzbBZcCwXXQdrJWfFOb
+	 4/vvevXROogfcAFVDAMLiMSNt8s54ozAyVR8Ad7nmg85euUShuqoTmJMV9AuvGD6ZB
+	 FXc3YS2j8iiyg==
+Subject: Re: [PATCH net v2 06/12] net: au1000: assign a valid MAC address
+ without platform data
+From: netdev-bot+sashiko@kernel.org
+To: f.fainelli@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, shaojijie@huawei.com, horms@kernel.org,
+ runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
+ danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
+ linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
+Date: Mon, 16 Nov 2026 13:50:44 +0000
+Message-ID: <179483704445.3136.5178913144882531268@kernel.org>
+In-Reply-To: <20261112045301.3669532-7-f.fainelli@gmail.com>
+References: <20261112045301.3669532-7-f.fainelli@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,9 +66,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Sashiko is right: with PEC this NACKs the data byte. v2 will test
-i2c_imx->msg->len == 2 instead.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Mehmet
+Low priority / nit picks for your consideration:
+
+- [Low] The commit message overstates how far the bug reaches, and it
+  carries a Fixes: tag.
+
+--
+
+net: au1000: assign a valid MAC address without platform data
+
+When no platform data is passed, au1000_probe() now calls
+eth_hw_addr_random(). Before this, the device kept an all-zero dev_addr,
+and eth_validate_addr() rejected it at open time.
+
+> The supported no-platform-data path leaves dev_addr as all zeroes. The
+> device can register but eth_validate_addr() prevents it from opening.
+
+[Severity: Low]
+Can any in-tree configuration actually reach this path?
+
+The only in-tree au1000-eth platform devices are au1xxx_eth0_device and
+au1xxx_eth1_device in arch/mips/alchemy/common/platform.c. Both always set
+platform_data:
+
+    .platform_data          = &au1xxx_eth0_platform_data,
+
+au1xxx_override_eth_cfg() is the board override path, used by
+board-mtx1.c. It copies into the same static structures, so the pointer
+stays non-NULL:
+
+	if (port == 0)
+		memcpy(&au1xxx_eth0_platform_data, eth_data,
+			sizeof(struct au1000_eth_platform_data));
+
+au1000_eth_driver has no of_match_table or id_table. It can only bind by
+name to the platform devices above.
+
+So dev_get_platdata() never seems to return NULL for an in-tree user. The
+failure described could only happen with out-of-tree board code that
+registers the device without platform data.
+
+The code change itself looks correct. It restores what the !pd branch did
+before 7718f2c27dbd, which only added eth_hw_addr_random() to the
+invalid-MAC branch.
+
+> Fixes: 7718f2c27dbd ("au1000_eth: use eth_hw_addr_random() instead of random_ether_addr()")
+
+Could the commit message say that only out-of-tree platform code can hit
+this, or describe the change as hardening? As written, the Fixes: tag may
+lead to a stable backport for a failure no mainline configuration can hit.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112045301.3669532-1-f.fainelli%40gmail.com
