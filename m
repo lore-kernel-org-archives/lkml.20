@@ -1,78 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830134;
-	b=Nsgcn2S4roXJZc8WogVxhtZxx1EYxtLBqMUjl8rwDghRaHGGmXMtW+s3GuBzsAvxrm4f
-	 rG7WR9zvH/J1tmNJ2vNj2sHd6eh6sP7EpuGbQrg5BvyqjT3e8dJrKBwjBroi3n8/J370I
-	 dbpEhS9M2S+U0GxNsFFLsCJORFdyiumBhFz5mkGAdluOK5FJ7il7xLQPE3YCxsTeGCWGH
-	 mB5imRLD3JFfLjHrTRdXVFUPPIn63ims2syU69/WhTspkCgkKDZVn8ZCd1PEbKI9Xw390
-	 f6i9dolis4yuSeOIuhd9rDNoHGv75Mvw31/uNOslKaHApQDccK7Pv+jlU1PthrBVoJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830134;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=61UlToY13TvSwwcocKDYyejjoT9WGv3HL1erg4Usm28=;
-	b=zf+jwqKWeY/Et2olWGKr1yL4lf/Uux8QzmWP9wr+V9lC6AXCaGsHTCs+GgGiLd1xffG0
-	 tszxhnTic9aOogfswdqvkRkM6xZ1GQXTHA7FI8AwK3HdgLFZdlaCNypJxQBEyf+itJNE2
-	 3k6RDouNRSDaY05GjzTOdyTHcVbiuaEaDphJjvwKLnP9paV9LQi/VrFE80jRK2Ec6B5cW
-	 cUj/TglZoykeETjdusb2ScvVNtqKmTdcXTVk39TrE3SmeEWdnQj7AtoEaKvYH2baNc8le
-	 pe3zyFKLuK+Z7zLWf6+sjYWctvXXD8h1B14EqZVn3/oJLhLt4nZim1wfM6DLZUz5wyg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQpycu5L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794830157;
+	b=UzWIlVPrfDYLpMBGkwls3WQuzq1Bj2OU8Xv3N2/31pqLMEuaS4jtFs8TJV41r6kQkmrd
+	 IaJLFXCpKIFUmLibJPZ6DSmjVzBWSO6Wj7kMv4J324w6yt2gf1Exd8rx3Ad3HcickIa7E
+	 9SppOu8yEHBUVQ5N9X/47fKo/GFpmIpYEn4rQeD/IW14EWZkxuDdbMQW8XtzVlRr6do8x
+	 RHlviNjqcTKNj7HuNh7QKKOO1vFDQ+gJ8vK1bQUK31dL2biaKstr5q3JmhDfksSsU0jMJ
+	 IKVTwVbX3H4ai32g6TDFdPpAMhZHtMD20lC34kQVawF5c0grt+hRiZ3yEcsl2pLgWeg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830157;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=64fdSmC+itpUqVCIpnFMnNpeeM+0Kk4P4QNxg3UZAZg=;
+	b=XY4NontOYvajkW0+ETNv+orax5MqeEJNpSS6YM+UArWKDdztCY0JLvNIjvQWH/hUql5D
+	 d+RQVsPKmSQgHVxL+oAQ0XUvqKaP+FhMzLBFZuEQgWR6Sg32IZlu0Tw0ROxywv4Onx2c9
+	 +OTnquryLBNm5pM8YQVDqVahxi9dIDEwAobLnpyBjQ6MUK/fTrfOvrCqZYIxD8HGAdXjc
+	 DF/BpPHmTxIOaIUOuxzkM6p6mEfy9vea5ETKM6jQbScgEQV0k/sYMaJ39AYFchpCWnQHh
+	 RyZ05oJ9FSpQbgXU3ba4XjXLjAFFKGETmc1T5vkSnfLpgXSV0sx3u/hnifXU0Mkx8Ww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csJRLdRu;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FC0606A8AA;
-	Mon, 16 Nov 2026 11:55:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AE4606A323;
+	Mon, 16 Nov 2026 11:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQpycu5L
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794830134;
-	b=KiQvKYFmA+Xclt3aJk8tc05KIloqbc60B/sHleh0YZff7WYHu0EEWkzQkZHnY0SBQlUu
-	 gXgBK2lkNACymYKX6O3sQbQL67Af68WNLBlgNA6+8+nHtrFXscR63CvE3D79oujbeUxbd
-	 /9z0UqeHJl2ve7kSwyMmX5q6NwgqOTe2t+Dq3phMMuY3RQJCuv+rA67RGPeKnFqqFK+sm
-	 63wGkHTGMo2/mPJvDb7nFPrEQPRThx2UmY3z4bMPoUQGYYaIBHWi/lxFDjHTjmOV88C9s
-	 rBE+F6YbvkvTIQF7DfS/K6MVJltK7HcoptpbCUa1rK/NMbmfXN23krNjh8G2AsBcqmw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794830134;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=61UlToY13TvSwwcocKDYyejjoT9WGv3HL1erg4Usm28=;
-	b=T3bYZ6vXhoAyFBzMr2pfRi05CZyRdw3KjEGkxa62noihzal/M6eC3b6Go8yTsGWwLXER
-	 tZCMQ8PDUB4kLuSCyXqKHEYaDOQTAmKn5JrAQM7Cg0eA3wwEVbFthsW+/HfFod7/IwEHS
-	 GoXvcg11pWB4Xw6mz94aYb5RR1hteepG+ZRPZzxGbDGxciuGmZY8xlQvm42ivBzNBJv/+
-	 yDYSPCco4n2xYIL0bkhGfE5IVyCHqZ6eNP0y6sln+LTJWe44nL2bUqhKPWxj60C+GFBhQ
-	 T8x0eN8Vj/ZIjnAmGUgPLfzVwn+5L+PSQhJzT3GqqRyNWds1olfjUrB/yCKiHj8n0XA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB74E1F00923;
-	Mon, 16 Nov 2026 11:55:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csJRLdRu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87AA51F000C4;
+	Mon, 16 Nov 2026 11:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794830134;
-	bh=61UlToY13TvSwwcocKDYyejjoT9WGv3HL1erg4Usm28=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HQpycu5LpWJCK1jQ8LUZ/UGSM2GUCsnsp6WM+uTl+lVIR90gfwjOc4Jpj85ZMRYCd
-	 uh4fWlYbMq2FzAn+5jqAGuG5ViuxmsLNlTee6qUXXGx1xGObfPsFlm1N61uo/v2qRD
-	 H7/GPaZ/w5i8bSWg8u8eG22XBqSp3197PhaT3uiIyI+zE5NKlj50gpEqWeHxa2TWpT
-	 /2g14D1u6eFNegrWx8/bcYkcFQuZf+cR5ByzNtOsHnMuenun0ph9J/VaUi266KSltP
-	 C+pulO1b/2mS2eebGbLEnkYfgbRycvSsKJNbJzvXPaYCB8b78kMkBFO9PmH8Z/0SFV
-	 lqeV7iOa0Ej8Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6F40A4A46A;
-	Mon, 16 Nov 2026 11:55:31 +0000 (UTC)
-From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Mon, 16 Nov 2026 12:55:15 +0100
-Subject: [PATCH v3 8/8] riscv: defconfig: Enable MIPS SoCs
+	s=k20260515; t=1794830157;
+	bh=64fdSmC+itpUqVCIpnFMnNpeeM+0Kk4P4QNxg3UZAZg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=csJRLdRubG+yNTVHO8RrwXPIEcRujHZEquxnXrq5jdGltmCsesAIlg26Pm1kV2pAS
+	 X5GuwhtZjl5ts9CkqufuN4BO9f7c/l6vOZmHHCkPYqMbVRBzUIyVS3n+WXJg1Fsfep
+	 qafsRuxHFqovN998tELNWIdVOKYyRuw//h6KApmmfz5EJl1qfgKmN7cJBEwrmd96Zj
+	 ZR9UPCo1YtT8tq+th9psrCc39gbR69YX1MZSc5LbTOKM69bzEDsdYd44SvrukWugjY
+	 nuWPSavX1rmnVE58Z8AqUvXqpTsL2PA/xKzlpURHXS0jK6gMcqxkS3Fy2U6bf4O2m3
+	 w58XB92QGg4mA==
+Date: Mon, 16 Nov 2026 13:55:53 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: Selvin Xavier <selvin.xavier@broadcom.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RDMA/ocrdma: Fix potential EQ table leak
+Message-ID: <20261116115553.GJ11319@unreal>
+References: <20261112-88a3a7ff32-rdma-ocrdma@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,64 +57,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-p8700-dts-v3-8-ec5d4b7de39f@htecgroup.com>
-References: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
-In-Reply-To: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
- Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Joel Stanley <joel@jms.id.au>, 
- Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794830124; l=702;
- i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=466tDeyPbrAH0ZZbXJHUmWZAi2oQm3IXvaEsJZHNtNU=;
- b=V/9j8MpCMt8whhuC9mZX8aB9c75Lj6yWWaWFtpQUoxsQVLHWQwc/LZbRxYxLv+BQuuAq3ipyi
- D1kWAWKu+JpDga9AQJ4b7V79T02NruFzyZs3b8GxdVt8kE0VPS/F8B+
-X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
- pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
-X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
- with auth_id=476
-X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Reply-To: aleksa.paunovic@htecgroup.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-88a3a7ff32-rdma-ocrdma@mail.sdu.edu.cn>
 
-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+On Thu, Nov 12, 2026 at 09:59:12PM +0800, Guangshuo Li wrote:
+> EQ teardown destroys the individual queues but leaves their dynamically
+> allocated table behind. Free the table after all EQs have been destroyed
+> and reset its pointer and count.
+> 
+> This issue was found by our static analysis tool under development.
+> 
+> Fixes: fe2caefcdf58 ("RDMA/ocrdma: Add driver for Emulex OneConnect IBoE RDMA adapter")
+> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> ---
+>  drivers/infiniband/hw/ocrdma/ocrdma_hw.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/infiniband/hw/ocrdma/ocrdma_hw.c b/drivers/infiniband/hw/ocrdma/ocrdma_hw.c
+> index 006ef2e6b5f3..4a977281a85b 100644
+> --- a/drivers/infiniband/hw/ocrdma/ocrdma_hw.c
+> +++ b/drivers/infiniband/hw/ocrdma/ocrdma_hw.c
+> @@ -518,6 +518,9 @@ static void ocrdma_destroy_eqs(struct ocrdma_dev *dev)
+>  
+>  	for (i = 0; i < dev->eq_cnt; i++)
+>  		ocrdma_destroy_eq(dev, &dev->eq_tbl[i]);
+> +	kfree(dev->eq_tbl);
+> +	dev->eq_tbl = NULL;
+> +	dev->eq_cnt = 0;
 
-Build the MIPS P8700 Boston dtb by default.
+These two lines are unnecessary because dev->eq_tbl is not reused.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
----
- arch/riscv/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Thanks
 
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 04ae305d5511bb0760247f50d4b69b1e3a00527b..1b0b5346603934058d8348ddb3aa9d7616af999c 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -26,6 +26,7 @@ CONFIG_ARCH_ANDES=y
- CONFIG_ARCH_ANLOGIC=y
- CONFIG_ARCH_ESWIN=y
- CONFIG_ARCH_MICROCHIP=y
-+CONFIG_ARCH_MIPS=y
- CONFIG_ARCH_SIFIVE=y
- CONFIG_ARCH_SOPHGO=y
- CONFIG_ARCH_SPACEMIT=y
-
--- 
-2.43.0
-
-
+>  }
+>  
+>  static int ocrdma_mbx_mq_cq_create(struct ocrdma_dev *dev,
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
