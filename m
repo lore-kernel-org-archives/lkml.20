@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841054;
-	b=w4sxnTbQoS4kgfNVMZc8oDoSjiUz9c8lPRBd+XBGPV5aWd1S9xGCmQibJqk6LK2GxW6x
-	 Ea9PgAtkemo/JTABc+VSXFR7Nzgr3hRmzaxZx9GnTJxdxX7OrOSeL18vkTfpapWqxmAe4
-	 pWm0ArsPlOrjPB1vmpCrQvf93AJOegNRXnK9iGMxeoqQ8rRkNUGfM51tUlldh+h+rAGwj
-	 V2PUd0Xbkw6QUNCOMqpc8ds2NnVdSSEZEuQUdVCzp2/yQrE1t10OFp2tixJFC+XDlLzNE
-	 E2tJYHBSay1ZOlzs0AaHawEucoLwTvy/wioVRQ0zo6qOezum3orsBlWTqXD088P199g==
+	t=1794841118;
+	b=tTQYp42pf5UQJlu7MFmxdS+s27nKpQKCU/dgKnjOzC6eBBNi7vgdyZhXvF76AFhkwPkY
+	 0onra0d0eW715junOZD/B7PGMZkprWYNVpEglJzCl2lcWvXbJXDonVeSpC4IW9Gc1BNSn
+	 WKmbVpQXRa/VMpcvOht+Zf2uHwYjVRdEEsBb6h5hFY5DQ+LwOqUSCwrNY2Mz56VzGeTNM
+	 fXeP4KHGwMRBWOQ4RAFB2eGmaoJdZaBV8PL4N4l788zW7/SPfqt3pnpUNAQ4PM1+H5fOd
+	 TeeoK5MRyPDrOFwEksy83Bp2bNCEoCKIPpwYLNe/wd2QMoo8RbY2fdAq6CnObrsJCbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841054;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=rEfHSP08js41yAUgdyGaGJ8cE88yMrcgLd0b5cArmYE=;
-	b=UCux1K1EjVyVB+LqWoOSVClhyMpED7kQCGNAVQ6iUmSdr6fLVTFSP3zU5JiEPxJki9rR
-	 cY3M0I/AxCRQjF63s9OHmAuQqAzNJ5zBcN3MUvGhuiazFEsn/V0TwgL6hmtkq8cXaOq7+
-	 Ff5KWO3GRXAbaBvRxpufvSKRAI/ynGT/WCijhfN68eUDvaxiZ0PskJ5cZOy8KQbLWiwXX
-	 MWEalifRFZByn+2hWdj+hXhausXdepEufeJM2/e3Vyy2dDyER+JQgOWqr6sqNGU2DcSw4
-	 Nq7vHjlE56gss8SBkGIzN0wM73d/bhtiHb/uS9azeAQqr2TBv4BGatOgtX3QjPIkg+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841118;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=Uy9Jdn7rHshegnnAyKS/HqBRnthchAJC4iehP0NQYws=;
+	b=cySJkhhmZJ9E6CuiStNu6C+sdLODl9MIRIVtUPlZGoWgUJZy2o31XwVvCnKc3gcXLHp4
+	 HO8iYR2o37q5mFywEnNfYWZAQ3ZeYpqRbIHLQqWEOV2K1J704Uo+6oWzKcwylQcGUJy1h
+	 jCypvkRSyPOrytAmol/An5YFBvxHg+RfSG6Fp9ydHrP9eAKP8CTpza/Yf5A1LtPZ016Zf
+	 /TdBVwrOvxa/QW+KB+NL7Q2Hz7ZPkeXyo1jUZHWDCTkp0aOwGx47WFr2fdInEfmKeCyil
+	 alrxzClg155h5lbqXHwTycD0ThBcEaSzb3jTN4/IbAC5FAw5/ekRt5MvCVOzd70md/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BKconya8;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="xPyiu6U/";
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC715606A31C;
-	Mon, 16 Nov 2026 14:57:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC715606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CAE606A323;
+	Mon, 16 Nov 2026 14:58:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03CAE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BKconya8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794841055; x=1826377055;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=4JEeurzNRB9iJiMG8IlCP86/jDWGqv0Dsuyy3GgwRyc=;
-  b=BKconya8Kts8ETIe8QQ2fpX6X2Couo1RGLYxVQuBuIKBlfYxuHZX+q8e
-   HKgaWPAJ6sEQZeMR14vSgKOnzNqXdKyziyOJAGX4dO2sU5zqIxdYALfTY
-   T+fyJCbNS06nWGfkkW6WZxl9Ha3WryT6ITgNkZkar5+DIEFIhN/qCBESc
-   y8AaJ0psCxeiP1RHHoNduIxovpia28hS9gOtPTvlKSrhsOaZpsa2exUnm
-   8vUJ+43g7D+N7TFrQUwmMSru6wMsidmk3GBmUSeLJQJ0p1Bu6r5tEqdE/
-   OO0YO8d1uAUPIDSdUSGU1S2VgfkFhoBTELdJHjWEK5CJ3rXb83J+V8rVc
-   Q==;
-X-CSE-ConnectionGUID: bm4LKlpZTAiOpxsuZAA7TQ==
-X-CSE-MsgGUID: MoMYbe9jRMywIR6XkQr3Xg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3453812"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3453812"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:57:31 -0800
-X-CSE-ConnectionGUID: sr1t1cNHSRy1OIAQA9rNpQ==
-X-CSE-MsgGUID: lhHkFNbyT6etDatd1yOoQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9405684"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:57:27 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 16 Nov 2026 16:57:23 +0200 (EET)
-To: Erwan Velu <erwanaliasr1@gmail.com>
-cc: Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
-    platform-driver-x86@vger.kernel.org, 
-    Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
-    Carlos Bilbao <carlos.bilbao@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/4] platform/x86/amd/hsmp: Add /sys/devices/amd_hsmp
- socket devices
-In-Reply-To: <CAL2JzuyL63cqnV+DR22NfAPFHCO24G0_NkPohm1vao-U985pBw@mail.gmail.com>
-Message-ID: <79f34929-c030-2f24-7663-5b18ff4d59dc@linux.intel.com>
-References: <20261007125908.321186-1-erwanaliasr1@gmail.com> <20261007125908.321186-3-erwanaliasr1@gmail.com> <73b9c9a8-479d-4a5f-9321-2e095f11951d@gmail.com> <20261116141150.667950-1-erwanaliasr1@gmail.com> <2ad73cfe-3ae6-43d8-c7e9-247239b72519@linux.intel.com>
- <CAL2JzuyL63cqnV+DR22NfAPFHCO24G0_NkPohm1vao-U985pBw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xPyiu6U/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794841107; bh=Uy9Jdn7rHshegnnAyKS/HqBRnthchAJC4iehP0NQYws=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=xPyiu6U/ezAhtobXj5TzROOPTG3diexHqVgKVOUmvV4TmHaMCOyD5ozVHO6FMGfTp
+	 vRdmpV58utbbWQTJ9Y9mIJVRTCAwEADArp6SiOGybEAwfn5LZpQZPArFRTJWmV4TdO
+	 ctgkT1sQuQXlUdZaqAhU56giOmCOsgq7sxO3sRjQ=
+Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:2979:aa1c:9ec4:8698])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id E96286B1; Mon, 16 Nov 2026 22:58:22 +0800
+X-QQ-mid: xmsmtpt1794841102t6r8bc3kf
+Message-ID: <tencent_5497455DD4DAF310EB3F8121517EE9A69B0A@qq.com>
+X-QQ-XMAILINFO: M5g+bqkaOkZD92jABezB/5b/8BgAI0UxkFinwmlwcm1KMAW0IqCQlcBXdRq9bw
+	 62pW9W2/M48jfxvJXuO14RlFm1CWNIC9tokp/rZekYPIaC4Rs/YcUgNmxszg7NbS7ZvBGTefF2yC
+	 xzlpcnn0bb6JjV5SCLxYEQpemGg9BEQ8N+JX9DBVV2Yx0Yi8RoKzJa9L6C+1a/1eDv7cIvC4fDQe
+	 OFIhBIi+eoshao5gVX0o+cJ2vz2DRrQl80ep5oPkERphmLzk+GLoJkTjwOuNe7dQULDWNbeGei4o
+	 txU9TMtTzJ2nsGlX74o0UhrAh7mQUBOAv4v2ZNBC0SVF5QVnH2tkU0VbRjB/921NwnQxyPvZw0Fh
+	 KWnqKT9vFihyhTzhrOcyR8hWOo9Yg/npInzw74Yxlolh8F9PCZc8gcU5We/6L1BkEVwnR4KQYg76
+	 QVqm99V88lQdube3fTOLdTWeF4dIhyfd4LG0VaElgjhQgW0KcxbFnvKAEDKR4KJXiUb3G7eaBahX
+	 /ThmYvNidNGg1heoG8lLkhoEm8aNe8dm4YWfigK8JJ/owofAuN5mDMde1xqtcckiXp25A658liRL
+	 IxN0yf4CHFT/irS7JgHZ2EhgC0FcMwUonCEC6msxy4P00RWUTqPJXLhaFSzUahv99c4cA9obh53l
+	 ph14Fi3xBvCkx1DMSldexVvuIsjTa7mHaZBP7eW1rEjk6qMDTjUhRvCQnoKvgnkoduKTXH0TDZ9V
+	 dEVU1DkN2KdbOsD8/tgFhaMzyKQ/anF6kkYKfK2+AWShdpIQi0uEYi4HngismnTyZrJnO82Jj+xQ
+	 OLODqeFp2Jyr0XL7SSJNguQYmFa08V/wiKsvUQn94GU6j8jS+TVa05xg0yJnYGBwQxdX/e3IMMWL
+	 i+UlCKePhvXa1iMkDagJYVjeULPKol00DBGX8vmEqeN1XzSIxhp1q7J6TyFY+0HxTV2ZKW+PDqP3
+	 ZxQlD0xL8TER2DEW1pptOqqp7ZvrJJND93AxX++CjSpSFtgNNdkOhFKVy8aUikP/MjRnR4HuU0ri
+	 O76g71RCtsAqkJJygE2gCnuXIcX77zOLKPBvHj7fpW4KZBpGi/HJ+qOK+idPE4+MIObN6kf8HcpU
+	 oCHoj7QI6WuKoNFAfm+hueghwc65I/310Snvm4vsr+nXdiLFo=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Hang Nan <2122295973@qq.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, 2122295973@qq.com
+Subject: Re: [PATCH net v4 0/3] mptcp token hash ordering and token 0 lookups
+Date: Mon, 16 Nov 2026 22:58:20 +0800
+X-OQ-MSGID: <179484110033.96825.12925688433349630389@qq.com>
+In-Reply-To: <20261115155747.178858-1-2122295973@qq.com>
+References: <20261115155747.178858-1-2122295973@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,31 +84,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 16 Nov 2026, Erwan Velu wrote:
+Thanks.  The missing information is now in the cover letter of v5, which I
+am posting for a different reason as well (a new KUnit case, see below),
+so this is not a repost just to answer this mail.
 
-> > The lack of Documentation/ABI entry should not be taken as an indication
-> > for something not being ABI. We generally don't take away ABI without
-> > doing proper deprecation and waiting first.
-> >
-> > Sometimes, the old place can be covered with a symlink to the new place.
-> 
-> Yeah, but since the trees are very different between the current ACPI
-> (AMDI) and the platform (socket<x>) one, I don't think a simple
-> symlink would be accepted. Would it be ? That's my main issue here.
-> The two implementations of the same structures vary so much that
-> unifying the output means breaking one.
-> The platform structure with socket<x>/ is way easier to manage from a
-> monitoring software point of view.
+Short version, per patch:
 
-If symlink is not possible, we just have to keep the old interface for the 
-deprecation period then I think.
+1/3 acquire ordering: theoretical.  No syzbot report, no KCSAN splat, no
+    reproducer.  KCSAN cannot observe it (it does not model reordering of
+    marked accesses), and on x86-64 both variants compile to the same
+    lock cmpxchg, so there is nothing to observe on that hardware.  The
+    evidence is instruction level: on arm64 the CAS becomes CASA.
 
-BTW, when submitting, you should also cc the AMD people who have been 
-working with this driver recently (if they're not maintainers, tools fail 
-to pick their names automatically).
+2/3 token 0: theoretical, found by static analysis.  It now carries a
+    KUnit case, which is the closest thing to a trigger that exists
+    without winning the race: the test builds the state a dying or
+    freshly allocated socket presents to a reader (hashed in bucket 0,
+    carrying token 0) and asserts that the lookup does not return it.
 
--- 
- i.
+      # Subtest: mptcp-token
+      ok 1 mptcp_token_test_req_basic
+      ok 2 mptcp_token_test_msk_basic
+      ok 3 mptcp_token_test_accept
+      ok 4 mptcp_token_test_destroyed
+      ok 5 mptcp_token_test_zero
+      # mptcp-token: pass:5 fail:0 skip:0 total:5
+
+    With the guard reverted, the same kernel reports
+
+      # mptcp_token_test_zero: EXPECTATION FAILED at net/mptcp/token_test.c:1=
+80
+      not ok 5 mptcp_token_test_zero
+      # mptcp-token: pass:4 fail:1 skip:0 total:5
+
+    so the case does fail without the fix; it is not a test that passes
+    either way.
+
+3/3 iterator slot check: theoretical as well, and the consumers are
+    netlink paths that need privileges in the target network namespace.
+
+Both runs are a defconfig x86-64 kernel with CONFIG_MPTCP=3Dy and
+CONFIG_MPTCP_KUNIT_TEST=3Dy, booted under qemu with
+kunit.filter_glob=3Dmptcp-token.
 
