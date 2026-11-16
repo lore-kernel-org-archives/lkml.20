@@ -1,72 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795947;
-	b=IJWGjWi/9jSpyhJChA2OcijH2t6ouRBxA1E4fco3U2oiBJNc/Cb71oDA40123JUEqLpD
-	 m7C+/wWZSVL/FG8Uo7yCRMeFnUOEtqvBs/CRR82g74uoKSRzlRxwPawKFN4xYj20X1fUx
-	 yJW4wl9G8H7vRUw+hKusfZNigXlUZxfMdCeF76uZEx9oW9JcL8n1+vTRZkwCYzW7aTWEE
-	 TwIECfnKuKtwi6NUqiJV08jsQcW7biYy1EP1fbr7ZxJZLA+zj37SRJmqPQvYbLA5bYFMJ
-	 1+Lo+3+fmWJgl3NRRbS93M23FJILmpLVM/T/jSYZc+MUkLGs/JjjcSwtXNTIMlje16g==
+	t=1794795963;
+	b=HZdOTyy8fJVUTVrATRjfrXqqhgCP4DoajOaU/x1H+BGERGl6BnA75x9xS/htpbb1GVUm
+	 uuOovTPN0pvV1LBsk3SeqRaVRndOVDUnq+M+cex5U1X3O9OmEtCBoouR1bzhNQOVLfLhm
+	 dL7SkeiKDRqfG3DIjL3hUrE/0csqhqcCFp2DYQLhFNxAK1Xfb8KBC8878ccmlBR2uj53Y
+	 E/u5oU65Nrq3A330cRI0zYoJBC0umnaguEeKB4n0v/1f8y9Rx7Ni6wr5oKCsvJcL7xf6g
+	 /Lph3yEpBqeVkfVTwhSueZcYrHf2wldauvnP0oHZAOyPo4MdwHW1L66cv2X3n4EjCSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795963;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=4cVn2led5HgP5xLulb4J0qrBX+b1Zaf9EJxKInsiKbE=;
-	b=ZcIwWqUFHdlY8Rfe44vAjRVh5vXChlFnMMibJSiDFhxNhZyvy0F80qpBYq4MVC/d3MOc
-	 WnSvV8IHZC+t5DSDJFmXFjuLMfLqOvfxTT6C2Fo775YsVKM61KWqYfA0y6cTgD0PbLFcQ
-	 5w+YBUs6nTSjS1y6qPBXXDY1lVQYSdfaqTB57V6hSq/LDsF/7tA2qIXg6vFSa76ep8NwH
-	 upLV+hOhESTFxansYxaE4As/lwrllcED310yYghe/TmXjKt/0xKhW8dA+QB2zyStzkhB9
-	 c0SAswXx/IBCkMQ6prUS2FleR7C7MK466/WPuPHhtAm6hiy2bz1HpwGhhhQvzhTuSKg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=60NXe0aph5ZMdSm2+R+aQQFvNAI/XZMFjJbvfurWO3U=;
+	b=PPYsBvYtTLfvr4xkCYUV5dlv86a6ec+OcEBbw071xc8j4ZZn28oNIY+5qAZCPMaRUK1i
+	 KSbBpYA1cTt7B7cJnu7de6ksXDFwYRLv+qP/upl5vXPy5j2e/bFUFXLSJuq2EYVVDovkH
+	 i54C/NqmpbYlwIPhI2z20EFgAfHe24g1FzXOuoyVe39jdHCiHviJlPtxaFJEPF12av+eq
+	 M3ItTGKugdBLUiDCs2Z757jFpPpZWrjU1asRCsLpoYDDqgI8uavZnZXQUmsjC5GQR//ev
+	 kgczZJ2Z2+8ZmllRTEeTGGTlMBi03kMc9rqvaxSLffJtyBK1uqUaGnQfNDrNQqc456A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P17l79qk;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=USLvXQ7y;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D784606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:25:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D784606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE147606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE147606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P17l79qk
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36f479b9819so1249776eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:25:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=USLvXQ7y
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-55d2f5f1e26so10667021cf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:26:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794795946; x=1795400746; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4cVn2led5HgP5xLulb4J0qrBX+b1Zaf9EJxKInsiKbE=;
-        b=P17l79qkCUNCqxrxH8hhdLwXXjDr3K8ukb7w3haB77kS8pl1erTNufHo5yDAZB5Qdh
-         ntN+1iXzCQ+FRe+FxTM6NrDrt0X4f1xPrlekTsEk/FsnZ31hjHmP10noPwLpsXpl1VS/
-         OshLsCafXGBQPN+QgN6qsB8CRSc576QMIfuLf8MvJp7M6ffpked3v7Enbf3QX/FLyn9r
-         VEOab6gZIL/+xghqxRl1p8GCylry/BvxEdalIZRyRx+6taFhRzwMyiwJVYD916INoA7i
-         qH4dVnHZBXVjKi9XLiolttvf0tm2PwXHtBYWe2THV/hFehHEjJ9RYDSzeHP7IPd2t1A+
-         ASpw==
+        d=gmail.com; s=20260707; t=1794795962; x=1795400762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=60NXe0aph5ZMdSm2+R+aQQFvNAI/XZMFjJbvfurWO3U=;
+        b=USLvXQ7yslUy3kKAnPIHDIwjgyAd6GE5uuPzlyJX3LLahr9NOEP4f5imYOZQvrIP3G
+         wbUWIY4GMLQqmUWsoawpQEj2Zt2wG3jFaSMoM1APIXBNDVPXZXxuyWoq/ktqhcirdeEk
+         eYJieKLQjFkmx77ONkqcfQFI6dJfq4j6x5oJa4Xreo/joXvhJHqJF8cgRS+WCTOBKXsS
+         sYusybscVG6rmMqWOljT6131sPI00s09swJxTh6HaXF+FT++Lk/7gV+rvlmBeUHvNaRI
+         gkubWO0tkCZqLg0PhNLQJYGmah6A0y2HGEaZijyjp0DdiwS7HTUI2XGli9FWB/HLrfDK
+         Jh2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794795946; x=1795400746;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4cVn2led5HgP5xLulb4J0qrBX+b1Zaf9EJxKInsiKbE=;
-        b=MssSGOq0vD8qbugofjsCGlYg7hQc0MZhfyj3gOsERdZTw8Xwmt33xf0ziQVHDUg28e
-         Gw4oNPLp+mE3e+Mk+pw7Yjk80xHduKUUj2R5CDHzhVecsd+LKVKeCDUNbiSms6i9ddrj
-         tNDq0E5phid5EKmT5CmIAbQfdDzIC2YgqcR0HO3Dv+LZuB/u5zOZW12q8bFrq08+DfE2
-         5ycn7b/MqKT1A7uyUfS3d5Ff+YL+tkzoA2Cg0MTyRqhLnX233XBy4oSvDsZbPtdV3ucS
-         oEogkkwOaIVC14DyWlqgsuqvSp8t8uGYxSuzjy8A3/BB6q3Y4S9wSJB9PoyDsNZiOTOd
-         NKKA==
-X-Forwarded-Encrypted: i=1; AL+hErGARaVl1wY8cBmADAHu9p2BF5gLZekp5sWcyyXRFrhQW0Uh7YBR14bVwelrreavoY/zWg26yl6TxSMLCvQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kEhHi8f7mC3b4EURa56fPvhkqglhqQ4PyDKky2cQZox0WLCrn
-	1M1B8GsB+GokfymB1x0pbWGdMpqQNf57eaN3lkvdzFhVRAKIOQyvFb3UYjT60Jw/bLx1knso9N9
-	Jd+wf9V7GPFKg6Q5cFxPzaUezp1XPEQ==
-X-Received: from dybnj40.prod.google.com ([2002:a05:7300:d0a8:b0:36a:de0:d28a])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:895c:10b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-37963a4f1femr9418441eec.5.1794795945341;
- Sun, 15 Nov 2026 18:25:45 -0800 (PST)
-Date: Mon, 16 Nov 2026 02:25:44 GMT
+        d=1e100.net; s=20260707; t=1794795962; x=1795400762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=60NXe0aph5ZMdSm2+R+aQQFvNAI/XZMFjJbvfurWO3U=;
+        b=m3ZHdRJS4GAFLf+nHKSErnLa+YU6ntYJ9N8M1JMGldxjTepuhAXA/y7KlE5BV3rQIH
+         N1OrH2fmqQyRig2StXBSrG0rQ5DxW9hfr/3ZodWaDh1zGIT+nIV1nNOP9/b2PC7uWC/p
+         f3Ne/3MxKmjUpO1lEJsfPrPEydH395uNIq8CwF6iF9qLc7eQyK/b4BO0II5OhAO/QHRd
+         rBfy/ie+4h3kAVtIcLULL4vwZ8Eif3mWTdEHV1/CQNAywn93yntUFNC84Yzg0MAN2GJc
+         6xAIYlyRIoq69C/Sis2v//4oOL1cYkpsKaEXfP3LjxDxNYkK/iOEchJM7oHXKBTBCyaq
+         rCvw==
+X-Forwarded-Encrypted: i=1; AL+hErFX0+w9J8zzf27kyQZ54Z7rzf+ppBIYFGiQxg51GPOwF0aFDFpv3qNSZRoeyDI+wBhIHZ/TcYulOEZKx+s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yBMCtpYD1+DKrYgpOYpKb4Jky97OuWjzODKYKgtnjYZDm6zga
+	tGgbcpRXcoov8p18ZqjpIkCvmmBr/Ju0ljYvHDR8QVzK3vfCVZOo3CFE
+X-Gm-Gg: AYBFou3gGN2zE1fqQ10MV2i8fq1DlUnwOZp5Wn03r+EjDpn13ffpgQUtTPhoEHgOk3T
+	gDhenE3LUkkG8ShV0SjBf/V7tbwPOTTsT6Iuk84wDJsfwifvx29lN25DvAwawya6yY+1DXmo5n3
+	Np5lBH6pnpZUfc6djMScDGl75Qe1oor21i4oiKh71Y2KGzwLflvjqTfzytj72TddVQRIqYBEWQd
+	bVCAZxiwFty9jN3kFotyRA2YmWxXRN0hzALPukZouvcUF1NaM70iqBr1Uk6eFDUhYPfLulrkn7A
+	iVAeWvu5G+fRRsZ9uJJBra6xs0jxph0lwdk8KdTxbCQSVf6ovx2avXi/mejYEnQnxSec4yjIPb3
+	stmFlgT+FnUlq9sThUgr9rMJpVQVQiAD5rICWjLplKCioWbWJ6XMQ1eyx9iKNIm1/RaBjXYGck9
+	3yAOrkU+Scm3PvzN6o/VDZVOhNX+EuhvfborTIVQQBZ+QMPpaZzPX/0XXlsGJuvVphq0xbKFo/9
+	JedhZQOtipYvgpXUklQenRSlkT2/hrNjkMhDY35fG1MVIfjAhd5f9JtjnvRoaph896YyU4V/54S
+	wxPP+F0HDTI5Sxlr3MAQWkqw+djfAc6BX3OeRfhR8ewVkQ0BAr+omeJVIvLz/8Z6rCeSCwnYUhE
+	=
+X-Received: by 2002:a05:622a:5793:b0:54f:863d:92c7 with SMTP id d75a77b69052e-55ac786019emr156129861cf.41.1794795961766;
+        Sun, 15 Nov 2026 18:26:01 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d34f869dfsm21962901cf.6.2026.11.15.18.26.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 18:26:01 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: Logan Gunthorpe <logang@deltatee.com>,
+	Stephen Bates <sbates@raithlin.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] nvmet: look up the P2P device under rcu_read_lock()
+Date: Sun, 15 Nov 2026 21:25:58 -0500
+Message-ID: <20261116022558.560013-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,59 +100,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Message-ID: <18e865672dda2d41.3137322e32332e3235332e313736.36f4d7.0000sendgmr@google.com>
-Subject: [PATCH] ext4: free HTree fname rb-tree at EOF in ext4_dx_readdir()
-From: Chris Wiseman <chriswiseman@google.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
-Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When ext4_dx_readdir() finishes scanning the last HTree leaf block of
-an indexed directory, ext4_htree_fill_tree() sets info->next_hash to
-~0.  On the final iteration, once rb_next(info->curr_node) returns NULL,
-ext4_dx_readdir() sets ctx->pos to ext4_get_htree_eof(file) and breaks
-out of the loop without calling free_rb_tree_fname(&info->root).
+nvmet_req_find_p2p_dev() looks up ctrl->p2p_ns_map in the I/O path
+without subsys->lock and outside an RCU read-side critical section.
+nvmet_ns_disable() can meanwhile delete an entry from the same radix
+tree, and radix_tree_delete() frees the nodes that become empty with
+call_rcu(). With preemptible RCU, the grace period can end while the
+lookup still walks such a node, and the lookup reads freed memory.
 
-While ext4_dx_readdir() frees info->root when advancing across leaf
-blocks or resetting on seek, reaching EOF leaves the final leaf block's
-red-black tree of struct fname nodes pinned in file->private_data until
-the directory fd is closed in ext4_release_dir().  Processes and daemons
-that keep directory descriptors open after reading to EOF retain those
-slab allocations for the lifetime of the open fd.
+radix_tree_lookup() without the tree lock must be called under
+rcu_read_lock(). Take it around the lookup.
 
-Free info->root before returning EOF when info->next_hash == ~0.  If the
-caller later seeks back, the existing !info->curr_node check at the top
-of the loop repopulates the tree on demand.
-
-Benchmark results (/proc/allocinfo, 256 open HTree dirs at EOF):
-
-  Metric                                  Before        After     Delta
-  ----------------------------------  -----------  ----------  --------
-  ext4_htree_store_dirent live slab   1,007,616 B         0 B   -100.0%
-  ext4_htree_store_dirent live objs        10,496           0   -100.0%
-  /proc/meminfo SUnreclaim delta        +1,246 kB     +133 kB    -89.3%
-
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+Fixes: c6925093d0b2 ("nvmet: Optionally use PCI P2P memory")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
- fs/ext4/dir.c | 1 +
- 1 file changed, 1 insertion(+)
+Found with a static analysis tool we are developing.
 
-diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index 8d7b81e6948e..435300cd2c61 100644
---- a/fs/ext4/dir.c
-+++ b/fs/ext4/dir.c
-@@ -640,6 +640,7 @@ static int ext4_dx_readdir(struct file *file, struct dir_context *ctx)
- 			info->curr_minor_hash = fname->minor_hash;
- 		} else {
- 			if (info->next_hash == ~0) {
-+				free_rb_tree_fname(&info->root);
- 				ctx->pos = ext4_get_htree_eof(file);
- 				break;
- 			}
+Compile-tested only, with x86_64_defconfig plus NVME_TARGET_RDMA,
+PCI_P2PDMA and W=1.
+
+ drivers/nvme/target/core.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index e31d65228c11..1b34fc5549f6 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1341,10 +1341,17 @@ static int nvmet_req_alloc_p2pmem_sgls(struct pci_dev *p2p_dev,
+ 
+ static struct pci_dev *nvmet_req_find_p2p_dev(struct nvmet_req *req)
+ {
++	struct pci_dev *p2p_dev;
++
+ 	if (!IS_ENABLED(CONFIG_PCI_P2PDMA) ||
+ 	    !req->sq->ctrl || !req->sq->qid || !req->ns)
+ 		return NULL;
+-	return radix_tree_lookup(&req->sq->ctrl->p2p_ns_map, req->ns->nsid);
++
++	rcu_read_lock();
++	p2p_dev = radix_tree_lookup(&req->sq->ctrl->p2p_ns_map, req->ns->nsid);
++	rcu_read_unlock();
++
++	return p2p_dev;
+ }
+ 
+ int nvmet_req_alloc_sgls(struct nvmet_req *req)
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.56.0
+2.43.0
 
