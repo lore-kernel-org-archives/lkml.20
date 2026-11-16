@@ -1,111 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836351;
-	b=Q+/Z67yTm8b0pmyTKZVDsFOTLcKW0KKRwsvig0/sNaf3TPwo5zKa+qtLqrZb+3Qv2T9c
-	 4ASlVz13xatIOixkH8VdjL9qqGLqyjWnNSsJHPAI+kdkR0BS0K/oFCExWsXvMSVHeuDkG
-	 9NKPWN5uSwMyD5HOBMCkWH93x+5X087W4bz9GSyPylSbW5ehBiIZlX+1l0o30MsJkUE5B
-	 BkVlTzF8zEauAP432CmqMO2gXvZMsL6T24jKf/fRIqcmGZ0wGhMJqcAuEe78fpeT3vHZg
-	 WCf6TvAM/HTRhMh9cmqtx+NL/RGFQzcw+ep99fPVrDDSu0YOSNitiGKtNa24mTde3NA==
+	t=1794836374;
+	b=DQItVZ7sETv0yU8ADSyDl9lGn6+eBzrife2woAJD9d/5dtfVQAnYFA92AzPWBz0Tvedg
+	 QisbdQzuUlxGnetQIQKfoPb/DXUgVUCLK3OESJ6cawtew/sDe5LvfKrRJ6F0ThC9QFZIJ
+	 o8kDzVQg7V91aNAhLZqVXeGyYdvwy1kZmdr1rkXOls8P9G0jgQv/h0dYRm5SHpQDAp2Sd
+	 Azaop7VbXaJy/iQypFIwfnpqfeRgGR7+OeG/l44g9C3qPkcJYryrJe1NKwvbNkQLxd4Qz
+	 f8J854/zGdUHYnySt7JYitulqMpR7ffr88Nz3iirA24W6W6yxW2QK2y2wCA3MUqmxJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836351;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0RCY8SlJF1fUzfPYkjMVeM8fsGJwzoRlEM+dvS8w5/M=;
-	b=j2MJJW13JFaP+tTh1zEL4bIrDpZBohuU3TkbVdnmXH/9neuAI8KxRFAhjWwzLcZ6ui8a
-	 8/ivF11QwJdhc0a6XmV+mIuSPfsq295OElHtY4XRzBinygj79U+M0/5WP/7BQwXGrdwZ/
-	 V3D6NZ1M0ReZfNCOre2QzJV9kotdvUWu5o+uuhzP0etWnsbPe0TZIMNxejjfHJHfblZIG
-	 WNH7XwsGx1eIaeyCknCnvzwvpeYFaqnWud0PZrq+jp9NFuEIZrDlcaWxyN6xPo+LqH7oU
-	 zUOVQMiCNzU4Q+9JBrXKfofQ5YJRB9Eh8Xkc813fBd6kUQSdYn7nL7Ge62dlgDGkodw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836374;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=OmxDzzpyB6E7CRRo9uqBsBEYLzdun/syuP5owNmqoic=;
+	b=QkSMoOahB1/8Ha/X3HAoGuqkBRqyqRBqBr74yr4251zj0EnsFCqxs4IHwMO2MHoD3Dfm
+	 4iBkXn2aoIuQM3Bets5rc9hmBed5tKUvANUsm8ghUTqRmwBSKFY0uXzPWsOwmenVCwoKW
+	 D+zNzqjXxZ2SdIcSt5/cGmFZTU4VYbJKooKI/hDdxer5SU6NNHgsSWpQPjIdPaJRSI8n/
+	 UGcP0St0gEjV5JL7gRsRo+Rrqs1nZTdg6+JtbnwIJa8YQmLPJ7bsBqeYft+PQAYut+kym
+	 b1CfXA83WchOBrwOHk3YPD8XZv1G0e8DorpmEQwcuRsxWDMIoDuFctSEnst35JdQmqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tuyte0XH;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MgJTf4Vf;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BTztOGsX;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A49C606A88E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:39:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A49C606A88E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E4F606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:39:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99E4F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tuyte0XH
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d21051042so91617866b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:39:10 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MgJTf4Vf;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BTztOGsX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794836372;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=OmxDzzpyB6E7CRRo9uqBsBEYLzdun/syuP5owNmqoic=;
+	b=MgJTf4VfoZ1d/bbTtFNp0qtJPyeqet4rGqp6XIb8pjR+EXwsAagf9k+fARy6HhNC9ve1NT
+	hCbxN4d8ZDKW9XnbY5oIHNm1eV+OiQqTBbMbK5GIuDOUcWOLcjtuI6mC9wlweCDepT+m08
+	ndRdy/R7HUDLMbm8C5QMfTA/b6kjYaA=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-121-OFy2-7yyMbiuUYVd8u3v7Q-1; Mon, 16 Nov 2026 08:39:29 -0500
+X-MC-Unique: OFy2-7yyMbiuUYVd8u3v7Q-1
+X-Mimecast-MFC-AGG-ID: OFy2-7yyMbiuUYVd8u3v7Q_1794836368
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48df36eaaffso138227f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:39:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794836349; x=1795441149; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0RCY8SlJF1fUzfPYkjMVeM8fsGJwzoRlEM+dvS8w5/M=;
-        b=tuyte0XHN9vejcqK4l0//VkSntgcv4oWwWa0+sUtmOsAc0uHuCz+B4sf8XJCEQ6lHt
-         F6yBmnGoSO4NP/5dfth7qg0DEgKkhdqXx18qjFXlQY91q9VNCaUQewRO+y8vhGd2cj2c
-         vjmZB+Pyqu7ss+Z5WvUDDHZMlwoLK1q3FS2dJkkPUlsYs6LBLt10f0raz9lgtflmdL4I
-         ALvIZLXPWkEifTnl46MvaDyQMGiuvjHlty1EKX+42GDpiPRYqkKuFKOcceVEWJzmA0tw
-         P/4dGFSBL0fP+wJAZlzcN+HfOW7BoGOwZXy7urGRN1aJV8LeLPVi37aepSTtD+UVcVOH
-         wbBg==
+        d=redhat.com; s=google; t=1794836368; x=1795441168; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OmxDzzpyB6E7CRRo9uqBsBEYLzdun/syuP5owNmqoic=;
+        b=BTztOGsXfFaxP6szTNQUmPZqJpbz4tLw1JZ0v49qQkNddLZ7YkaGedwBdvhDs7sz7g
+         hhVyU/Yw8nKkFe7ty/H8NJnzEEso0ZZA7TnFPqPCW5LkQcxIYXzb9GOpdyt+/wyXEJ9X
+         Jx9+gmBW+vvYv092nw0KPrUviySFdWNcfVExo9cX/GlNvyvmeZvbC00LyJwU6xnHuP6+
+         mob1qrdiCMohkI9/hfo2CcBVVM6blQ8zSpZi/qNMYBKGfoQDtfDC3QoiqYaIBvkAUDf6
+         Kwhz3mEw7CftNcmj4YGLHtiAYDMhTb0A8ZUNslciFEumhXXPUC5dzdEtU0mI+8I2DRKC
+         Nd4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794836349; x=1795441149;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0RCY8SlJF1fUzfPYkjMVeM8fsGJwzoRlEM+dvS8w5/M=;
-        b=vIXuSsIUUZe9/fX6DtHpHoyfdN6Z1ovYLRWy6YX9k3EF2eNK2g4zTc1SPnmeNQRXFm
-         2GLRuQc6ySgMXeUEwYlrcMLAgzXsA7AmBKlYOUXifwdhopTyqkChTAJeI8VTan2QTehT
-         qDfIspsn0twbRdmbzuLip5aHti4drLtbr8nIQd6oNWSLadso3DA7kqehXUfSk246O35k
-         NETQTFqqqg5oWyrwTta/5xG3n+vNZLwVgdVdmmJHhqmiflkLkNOSzLUwM7y46r/PLpcc
-         MoPkdQWS085Hbh7JYu2c8WkXQ9GBk3aGrafSMo6TgpYnandXDqNgazEGZy66+NVk08Aj
-         qhiw==
-X-Forwarded-Encrypted: i=1; AL+hErHvgXyt0D0ECUPeRNHKiEhAXVZhCpIRQGKSeYgV6p3QNz0vcF08jzBDCZIZOZyNotdCzv3tYd0+I45ILH0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80PekREFT7KIZJmygdw+LCJRQN43ZA2EhYdhtoIpz7JfdKIUtR
-	sEE0oj4dHWy7UXKbxjGMZD3z9LZhJnhEdw4qhT4aiVpywFZzg1XGI/h/qcqkG+wovdY2zg==
-X-Gm-Gg: AYBFou1gZsLu2np9Lzk4Xy1gbUj68zeutJcVSrb2kYx9KsNtIE/2/zszktUGxn3uRB6
-	sFBW3XlMDsUe0kPMjl8rCnShTzoq4mj3IDbNtJDaOvR7a6GhQti8VvAffP7f+L90ALx4RqWPpMa
-	rh0GItCtYFywc0gReYOzbZoUzrz4LNXbPEXA2LnjsJeSeSnq2XTQGEwxBwC7Wd2NKUVKksrCeGR
-	Hej0nizdDAHyvzAwPhDmxODkSJV04zyHgzon1foemHCP+E80vFeq9Ey/Q0gVpJvb2jrqt4Nzyme
-	qC/8ygbIogXErLL6uywkYyiprtfD/3ZUR1BdczYM4+VwEq9U1930S5anJB7/E/2/bXkUpxAs/EN
-	EzTzY+TcO8qW7DXxn4gGrDUnoijG6QB8w3djyh8FxwfxK68STgH1K9SGVxHJ3na6gwbJqK42RBr
-	yUHH1Y2pWIci8FNNIW6W5EdEg8zXtUlxH94JN1R31W+4+XfwrNTvnfHcKGKAchPdMufrybtmppg
-	B+/cpSLfs7aObcp/ak/WMKEqm0+7Dg9mkD4g8Q1TmF7rCAAaurCa2vkf4DAlFc4HoCxdmBVdqiL
-	y6WpveUpuT0qNyQBcIh+xaAcQ49oLDet7kpzV3I/LO95Y6NWz6/a3CqJt3OUogwJmPfI0kDoySI
-	kzoQIIulweROByAe0M7Sr1/lJewJ1GkhEhTWhL5EJcKqVYKHZ87TeTEGsDB3t9TE1jSr4EKm/vx
-	5QC/LLMTbVlg8H1wPXj8QYvRyJRSis7ZIlM9ym75SdrNTIFhfFfDinC8hZ6K5DQHOUxaEM07wJr
-	Q==
-X-Received: by 2002:a17:907:2d1e:b0:c4d:28c7:eb21 with SMTP id a640c23a62f3a-c50963967fcmr876042966b.29.1794836349492;
-        Mon, 16 Nov 2026 05:39:09 -0800 (PST)
-Received: from Ubuntu.tail0f733b.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50e9b2b5fasm61267066b.35.2026.11.16.05.39.08
+        d=1e100.net; s=20260707; t=1794836368; x=1795441168;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OmxDzzpyB6E7CRRo9uqBsBEYLzdun/syuP5owNmqoic=;
+        b=YLMAXJFIg6/KFMP8RXU3oUxcTuk3oywd8FqeUYmaLY/vwxCoZthb3+5hcGLCS0CHl8
+         PTD5r3fTBQAMd9KRo1vY5vlEUFPqVjCDRTllklWcCdNMoZA8Lgc4BdhaN6JnegU9Ks0B
+         d5hJFb50SEXdusO0QYrYycEldFdjX0NSI6b5lIz+jlnbtNInUTYCnYG6GegFslKBav99
+         NyBCEH2GYoyZR04rY62Ndz2ieTE4ZAM4AL5Nfjy3vS9yZRmEbgVG7JdGqf78aW9XqVs3
+         JOPxQXBoFZsVwIAB3556xX3AaGuA0zi+R/3jYhPwtLkOXOfWs4lSbbbWADgLnfNuC8in
+         k6mQ==
+X-Forwarded-Encrypted: i=1; AL+hErGZc28owKPUL7XlHZJX871qolzcTh978+hyHwYKvvcbhrvX1SgIlanBfpPPTFhwqjo/gf07Qa8fsYcWIUk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2VaySvQ8hMP2cHxReI/VYROKphz4leq897oOH+rAfakfwyKtR
+	B4Sh/VuQzqQT3hEO2NbunwInLAdT5MpP5MUqktqLnVEQINk2Qi7RbJmnRw+LBYn4NO+GK+L0jMC
+	K8rz2FQreqKX5VQj6XqI4VJyA1EUkzvvLc3bvFg7NFTJaP34Uw3zXs1WZP/up20Yhbw==
+X-Gm-Gg: AYBFou2Eq13fankN7J5tI6WsaxlrXoN7swr7RT0fU0629839jIFEGWzTEStWBWg5N5g
+	FjN12jgwyjl18a7VN7F9SfO4RvNQMH7fuek0tTbGo6wqZZetc1nnMFu6V4NmxGTQguMMqUAQH0J
+	FwARHJL7x5OLJE3q7l0D3z2LAm7aEiylwN0X+2jue3sGrpWEX5pKnX66bLrhcylzCKw335+nVMR
+	BHX9EsERuSgtP6oAPsHCPDwYjHrWwpY/qMwWUkqETf7ZxgjrfxKeJiuqMVdl1X/TYhvrUOStYi4
+	sC7+1D4L31CTQxNKE9ET/d72HzMKl4PEMmyt1KdYaaPgEbd0lFQPS78euy8qSm6MrbYBWvLw2cR
+	6bSsw3K42JJv+Rw2TeZ/MPqOHyo4Ih0m9rPHwBmYg6S6eJ8x+cQnFS5ws3FlUozvL4V0WtugGPe
+	w/bDsjtQPQFdPyUQ==
+X-Received: by 2002:a05:600c:16d5:b0:4bb:732a:2837 with SMTP id 5b1f17b1804b1-4bb732a2af5mr33746715e9.1.1794836367921;
+        Mon, 16 Nov 2026 05:39:27 -0800 (PST)
+X-Received: by 2002:a05:600c:16d5:b0:4bb:732a:2837 with SMTP id 5b1f17b1804b1-4bb732a2af5mr33746245e9.1.1794836367447;
+        Mon, 16 Nov 2026 05:39:27 -0800 (PST)
+Received: from localhost (119.red-83-42-172.dynamicip.rima-tde.net. [83.42.172.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb65ce005bsm207627955e9.14.2026.11.16.05.39.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:39:09 -0800 (PST)
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Ian Kent <raven@themaw.net>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	autofs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Subject: [PATCH v4 2/2] PM: hibernate: refuse splice on /sys/power/resume
-Date: Mon, 16 Nov 2026 14:39:03 +0100
-Message-ID: <20261116133903.400202-3-krystianmkaniewski@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116133903.400202-1-krystianmkaniewski@gmail.com>
-References: <20261116133903.400202-1-krystianmkaniewski@gmail.com>
+        Mon, 16 Nov 2026 05:39:26 -0800 (PST)
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Mon, 16 Nov 2026 14:39:24 +0100
+Subject: [PATCH] scsi: ufs: core: Use ufshcd_query_attr_retry() for RTC
+ update
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,62 +111,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-ufs-rtc-query-retry-v1-1-4de69b175e8d@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MuwqAMAwAf0UyG7BV2uKviINooll8pCqK+O8Wl
+ 4Mb7h6IpEIR6uwBpVOiLHMSk2fQT908EsqQHGxhnTHG4cERde9xO0hvVNoTS7a+CBUHHxhSuSq
+ xXP+1ad/3A8mVq9NlAAAA
+X-Change-ID: 20261116-ufs-rtc-query-retry-3f27084f878f
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
+ Stanley Jhu <stanleyjhu@google.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Mike Bi <mikebi@micron.com>, 
+ Avri Altman <avri.altman@sandisk.com>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Luca Porzio <lporzio@micron.com>, linux-scsi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
+ linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>, 
+ Larisa Grigore <larisa.grigore@oss.nxp.com>, 
+ Enric Balletbo i Serra <eballetb@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794836365; l=1772;
+ i=eballetb@redhat.com; s=20261026; h=from:subject:message-id;
+ bh=e4EQGaaTBbd9wtA70t1Vx8NEbGVqrdd2zRrcBNi9mFQ=;
+ b=3o+DwdK7dIKBz6QiRt3MIR24WrlJ7wPWsVy0sCk7n5BUey0tWzgVYp0XfhwhC4Xu/UUj5MgWO
+ gtYumqrnV9qALJkaY/8FbG0RNWLrN8fNYqVjOI3l2N916/2CHcnF0ud
+X-Developer-Key: i=eballetb@redhat.com; a=ed25519;
+ pk=5zh6xuAxTiQwglL2NXQFqWuyRPmCE8T5KPXLbNXhnKI=
 
-resume_store() passes the written string to lookup_bdev() before it
-tries to parse it as a device number, so the string is resolved as a
-path relative to the current directory of the writer. The syzbot
-reproducer writes a relative name from the root of an indirect autofs
-mount. Autofs writes a mount request to its daemon pipe while kernfs
-holds of->mutex. Together with a splice into a writable kernfs file,
-which takes of->mutex inside a pipe mutex, lockdep reports
+ufshcd_update_rtc() uses ufshcd_query_attr() directly to write the
+bSecondsPassed attribute, making it the only query attribute caller in
+the UFS core that does not use the retry variant. All other callers use
+ufshcd_query_attr_retry(), which retries up to three times on transient
+failures before escalating to dev_err.
 
-  Chain exists of:
-    &pipe->mutex --> &of->mutex --> &sbi->pipe_mutex
+This causes spurious error messages during boot on some platforms when
+the write-attribute command hits a transient OCS_INVALID_COMMAND_STATUS
+error:
 
-A splice from the daemon pipe into /sys/power/resume deadlocks when
-the written path triggers a mount request. Mark the attribute with
-SYSFS_NO_SPLICE so that its opens refuse splice. Writable opens also
-use lockdep classes of their own. Plain read() and write() keep their
-behavior.
+  ufs-s32n7 4ac80000.ufs: ufshcd_query_attr: opcode 0x04 for idn 15 failed, index 0, err = 15
+  ufs-s32n7 4ac80000.ufs: ufshcd_update_rtc: Failed to update rtc 15
 
-Fixes: 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev in resume_store")
-Reported-by: syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=002fb7b2d0bc53bf7e75
-Suggested-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/r/ec0c2add83f18d7a3c726d5d219dfe42@kernel.org
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Switch to ufshcd_query_attr_retry() to handle transient failures
+gracefully, consistent with every other attribute query in the driver.
+
+Fixes: 6bf999e0eb41 ("scsi: ufs: core: Add UFS RTC support")
+Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
 ---
-v4:
-- Update the description for splice refusal on read-only opens.
-- The code is unchanged, so Rafael's Acked-by is kept. With patch 1,
-  read-only opens of the file now refuse splice as well.
+ drivers/ufs/core/ufshcd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v3:
-- Use __ATTR_NO_SPLICE after the rename in patch 1. No other change,
-  so Rafael's Acked-by was kept.
-
-v2:
-- New patch. Together with patch 1, this replaces the v1 autofs change.
-
- kernel/power/hibernate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index e365e440cd52..da5590ffe6cb 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -1316,7 +1316,8 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	return n;
- }
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 3c28bc67c65f..1cd32b7cc967 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8821,8 +8821,8 @@ static void ufshcd_update_rtc(struct ufs_hba *hba)
+ 	if (ufshcd_rpm_get_if_active(hba) <= 0)
+ 		return;
  
--power_attr(resume);
-+static struct kobj_attribute resume_attr =
-+	__ATTR_NO_SPLICE(resume, 0644, resume_show, resume_store);
+-	err = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_WRITE_ATTR, QUERY_ATTR_IDN_SECONDS_PASSED,
+-				0, 0, &val);
++	err = ufshcd_query_attr_retry(hba, UPIU_QUERY_OPCODE_WRITE_ATTR,
++				     QUERY_ATTR_IDN_SECONDS_PASSED, 0, 0, &val);
+ 	ufshcd_rpm_put(hba);
  
- static ssize_t resume_offset_show(struct kobject *kobj,
- 				  struct kobj_attribute *attr, char *buf)
+ 	if (err)
+
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261116-ufs-rtc-query-retry-3f27084f878f
+
+Best regards,
 -- 
-2.53.0
+Enric Balletbo i Serra <eballetb@redhat.com>
 
