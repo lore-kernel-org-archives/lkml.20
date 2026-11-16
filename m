@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844166;
-	b=18CCnHG18CVOGmE6k6Fsx3PU4zJDVhPcyT/8DnEJJqgwf0PNer5kiw0fziIbQKUMskr0
-	 KOD7n9PYmmUZSAnitAZC5gEAUKIu6XaGEWgnWNWlNDesPKXZujFZZ3MCwE8dB5bHsNUL2
-	 qsp+pUHUUnH6LXu6guz+d9GrsNjYmlb8slbVz5PZFnvbaTQSwEzSgOVLTV5Smy1HczoPp
-	 TC/fPw+GQCMt2jQ5uxm74AgWgis2LuWtb7e3fjZ1Cmiwo1EtRjIaLrSsMhUDsXORSnnQc
-	 MnXFCXMp+UMVJWnsptpE7dHqAwRrCFF9Y3bO2GHIHFRnYYrHj3tE+3CjQcmWS4cBVAg==
+	t=1794844176;
+	b=Qw/G2IFvddMM30fRq53bNHpzTlDmLloQ8sDO57EH65FS9jycUns7RC8rwshr32rVFRK2
+	 r8l3YqwzVPZQQK9p7BtcEA+YXhhR1LI/W+TFrNmyZkfZCEzC88kyh8yUP2qpeFgPszQeY
+	 xbgqE/eV0fYBcRKy7D6KjrDCaSZqKk+nghc/fPIdRSO4ikfH2FEH671RWff2jqJJ6EXuM
+	 o89288xwIybNnKpO1BlcwCrhQRh10o60U7TJfXBNbF+65mFMUBnc8hrG9UqE01f6BPHvE
+	 dxB9+RjkQUDX9f5xFDy8YaNMo0921Nhgzznuaf1o3uvBTzUEziH4aGiZCJ7XAxkx3Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844166;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YQHHdmIH2ybJ3Xcn8u+aXKxVble8jcR3/mORkYzfOs0=;
-	b=CvBUEPQARwQ7yI6XonE7d2cmyXU8khibgxAR6iW0sSy4c5RBVD2WQVJpx7MwkEuqSzxe
-	 AP84Ja4ByVR93LjQ2yo+6acp7RHsicD4T0YpFXc4wZq/u0CfNUEvJi4mVPTKChLs3CtPR
-	 Ye1YH2BhrtD3zMKLXx1dmryY3KAI9jdSv47waIUDUE+I9taaQYQ68qebBVEdPwBvOdp00
-	 ywz0JRj2xbQH0oJyezY0bLDaMIoWpbGv/pjjDca+y32OUVBqkkfKgRTrJF/G7Jl6S9dVX
-	 j7WTAvw62jg81KvabTB7XZDHtPtBRLdneW/Os1L8D77F09O3FlZq/khvrpNdl1l4sgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844176;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ddi8ZLCL2hOZfi+sAkv5V27pHP2I/vbEpCnwvcWNBys=;
+	b=bbU2fF5JJmPgZrURUobH05AGe9xHbksGC5gKpbFenhVmp3rNtIS5NAJ+O6lYGxVdRop+
+	 1b0RnZGfRE4CdI4WW8BWD3lQdOOfIoEB+OfiVQ1+nrlXdGb8WCCEUIBy+JN4msvrJGiTc
+	 +vjSNtYPghsx+E6SLKPWctB/m9AItFrhtHnhWGjvv2ObEbZfxNQhfSovzkzwGw/fnYjM0
+	 BNAHQl4Gu+dYo9iOGPVxBQng/Ek6Pox1zwGHztibV+DtoVv8C2GlRtnNc9txA9Grc+63X
+	 8j+pnGgoT881tCZsDPaSas5wzwrTyo6O7jaBHREtjDJIZHr2pyxd+bmK/C4LQzxQbtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aRmH65n5;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XltcJOT;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90AF606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90AF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680BA606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:49:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 680BA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aRmH65n5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794844166; x=1826380166;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=h5I2iN2bKGQEaIKJix6Jjm6p6SGAqj9ooiZ2GqNaZN4=;
-  b=aRmH65n5ggvV6syKScn9EES7oYFqPcwoGe1v/77kUxeK/QH1irWlJPrg
-   TOF0gKRRrehT0G1w3Xfgi1ClUc4NUu+6GldO8egq/l/REWSWlxXKpGACX
-   UOmFvNPoqvx8H9mjbA+9c5W/cag1PYlbumdM0lX+5xxfPzGoGIX8npW3W
-   wEgRFb1d0hb3A+6Uwale49ctVLvnAT31ISaWhdDXAwIshQN94fQgzi+Ke
-   sz+ZRB1YI7slJqSzVyePHDplVeujM+fu8TcsQC9AKkN6+8TTpEAlSz1ac
-   dXndNkNx4HwAe9OY5gK9E34pScP1F36DIROltu54udK7nziSH/No2qUXC
-   Q==;
-X-CSE-ConnectionGUID: krXJGwRHTK2qGQI+KrpIWA==
-X-CSE-MsgGUID: BDsp405sTYKjsTYJWg91Rw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3464204"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3464204"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:49:25 -0800
-X-CSE-ConnectionGUID: Lt2zmwS9QB2viz4Illg88w==
-X-CSE-MsgGUID: YXo883ZZSmSIcwQyAORIFA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="11293282"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:49:16 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>, Manasi Navare
- <navaremanasi@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
- <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Drew Davenport
- <ddavenport@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
- information report
-In-Reply-To: <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
- <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
- <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
-Date: Mon, 16 Nov 2026 17:49:13 +0200
-Message-ID: <e936236b54ca17fd1498e02c349f40e5520df26b@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XltcJOT
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b467581b98so31304435e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:49:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794844174; x=1795448974; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ddi8ZLCL2hOZfi+sAkv5V27pHP2I/vbEpCnwvcWNBys=;
+        b=0XltcJOTj8qBuNtrY72600QfOB1p0BYfaOyWxa6sfrFcPWWv9Wv5U+HZ0nLB2jSYBE
+         H9uLZ6XXKriVNS/p+9xSgz2TPj2TPVCLCmLWYwOEis8NDtkBH3GJBbA2X3hsjdGEWAc3
+         8pEfmuUNkgmFnafHxuO/oyDILnZ5DwGPgxwJDIq9GEPpwXs7YXivG2PTuMWPRSxJX7kg
+         yxM07gtdVqya8PILauVaFS9Nx4+awJINSbgxRUCEy+JOrMNZM41JqsODGV/jeBXKoX/+
+         OWTygCiYC+O0mCwkeLlJlnUQjNTRumVj8Ej9ggVLaHkLb7TUKRxsrGQSSt02GV/qV0tL
+         Il6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794844174; x=1795448974;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ddi8ZLCL2hOZfi+sAkv5V27pHP2I/vbEpCnwvcWNBys=;
+        b=lL0UAXOUieeEEycxNyFppsIY2yoUUCg3Qpm+XmEpH5kzvJ3Z0OFO9SAV4xZ3HoqW6s
+         jzBsmOmkBei8/VRrybRxXIb0qfUIU3u8MYbhjOB7H3c+cealRSRJcFiTPmO+yDqo4chL
+         DWZnP9pvNMivycWywjjmw6bxPP+8rOIw8PB5xtx54+R/WX1NOdmcTaqtvhcFSlUG67Xi
+         37lf/UV1vyGMzH51e5f6BfDlziL2qqFa/pkgIpIiYXp1zUppowZPmSQcYpQInCHFK5dy
+         sL3rThLUBOOJOm157saN6pFsIvR0tEQNShUxyeK+9FkesQTxoJFGh1Zikqr39zGzUZqW
+         3oKg==
+X-Forwarded-Encrypted: i=1; AL+hErEp3gCEt1VQeC6nZ4Yl3cA3kv/vzLYLEQd37s2nUuWvImj/AzlA9SFpk1rdT2ofnF5sneqjNXBRvlsK2K4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/z/tyCo5B8ePrtCX0vmeUhIhBfVTAltTg5NzRh/oYJEhaAKAx
+	CnvA7SWFutqdznOuFGRmBHKkzVpD45uBLeTmq/6gnstEeCAa9+jeR8H3
+X-Gm-Gg: AYBFou3Op5Ha+bKfRDroLATKaIXxT95cFtT5od7REpKKOShnB6m2acgHa/PaidvmHyt
+	ZIT9aht69kZ+mkJV+tATos/SHqsVewjskkKa7T+3uDPGz5N1dNRh+jFnBbmXjc5UgM0j7utv5Zv
+	5CIyjJcuOlQucpsPLlKZ/Y9QXBM5CEgGQRYH7MBIR5WTfYJ5lTWgaxdg2KpZ4sc24Apes+3arzD
+	G371ORRVLqC5xYMHAJOw4gISIMIkaWXK5N6Be/3/98ohK/oPWlMkAHAyMACdZfYdQVTiL4a8fk3
+	vTz0NKmlNW2uS13eUQIeMoZcq0qtxsf+TyU3Fu+1N+ttqEqU4Ly8SIulVEnbwutFwaCEgVbLpwF
+	fMej/tKR1qP/v15LyBfoZHJ6DmEwbzkd6ZgT9vxBMmDgJD0+t1TWmN+2u3cRfTCWxxgR+5vqh03
+	Qnv4XLMi6cMvJarj8bamGmabOqhLTO9uGYFMeyxd9ObjPOjHwynXym7SEhN2hy0FFMCGyzesGFv
+	2So/JbLf6WcnxVQRDRV7+ZoMn2V+Ta5kr88qoJJrft/MwZx7UoWIrvDA1E6YosBFj54/uzhZAdW
+	BXpL+CwfZ0+dC/pBEHdBUrgr1Nc7bpGo3ec0bzY01hk+3CQmVFXBNkwcz7BQYFxnhinqTIZGo8p
+	V9W+dsjeWB/TJtKM6zeg33L4dwCejNNBn7MyLBw==
+X-Received: by 2002:a05:600c:1d10:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4bb55a65ea5mr218622945e9.5.1794844173463;
+        Mon, 16 Nov 2026 07:49:33 -0800 (PST)
+Received: from DESKTOP-0KSTGNI.localdomain ([41.44.127.147])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a2f61c0989sm1107290f8f.48.2026.11.16.07.49.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 07:49:33 -0800 (PST)
+From: Temitope obabi <obabitemitope765@gmail.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	dhowells@redhat.com,
+	brauner@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Temitope obabi <obabitemitope765@gmail.com>
+Subject: [PATCH] cachefiles: Remove unused cachefiles_prep_read tracepoint
+Date: Mon, 16 Nov 2026 17:48:52 +0200
+Message-ID: <20261116154852.7765-1-obabitemitope765@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,128 +104,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, 16 Nov 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> On 11/16/26 14:10, Jani Nikula wrote:
->> On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
->>> DisplayPort link training negotiates the physical-layer parameters need=
-ed
->>> for a reliable connection: lane count, link rate, and optionally Display
->>> Stream Compression (DSC). Currently, each driver exposes this state in
->>> its own way, often through driver-specific debugfs entries, with no
->>> standard interface for userspace diagnostic and monitoring tools.
->>>
->>> This series introduces generic helpers, for exposing DP link capabiliti=
-es
->>> and state as standard sysfs entries.
->>=20
->> So how did we end up with sysfs here?
->
-> In the first RFC it was in DRM properties. I presented it in the display=
-=20
-> hackfest in Nice last years. People suggested to use sysfs instead but=20
-> if the need appears later in the development move back to DRM=20
-> properties. I first though DRM properties seems better as it is the user=
-=20
-> interface used by distros but I had no strong argument about the change=20
-> to sysfs, so I moved on to it.
->
->>> The aim of such development is to guide users to select the most suitab=
-le
->>> DisplayPort connector for their needs. For example, if you have a USB-C
->>> hub with lesser capabilities than your computer=E2=80=99s native Displa=
-yPort
->>> connector (such as HBR2 versus HBR3 support), the system could recommend
->>> connecting high-resolution displays directly to the computer=E2=80=99s =
-port
->>> instead of through the hub to ensure optimal performance.
->>=20
->> I do wonder how all this is supposed to work in more complex real world
->> scenarios, though.
->>=20
->> I believe the user primarily cares about *modes*. Which display modes
->> can be used with each display/connector pair.
->>=20
->> With the low level link information, are you proposing to compute the
->> required bandwidth for modes in userspace? I think it's going to be a
->> lot of work to compute the bandwidth requirements, taking into account
->> DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
->> still miss any driver/GPU specific contraints. Or are you just proposing
->> to match the physical characteristics only?
->
-> This is a requirement from Google, yes they want to compute the=20
-> bandwidth for modes in the userspace side.
-> @Manasi could describe in detail how would you implement it?
+Nothing calls trace_cachefiles_prep_read(), so the tracepoint is
+unused. Remove it, along with the cachefiles_prepare_read_trace enum
+and its name table, and the entry in the BPF raw tracepoint null-args
+table, which exist only for this tracepoint.
 
-Yeah, I don't want to end up with lots of new low level UAPI if that
-doesn't solve the actual problem. See [2].
+Fixes: c990057233d1 ("cachefiles: Don't rely on backing fs storage map for most use cases")
+Signed-off-by: Temitope obabi <obabitemitope765@gmail.com>
+---
+ include/trace/events/cachefiles.h | 64 -------------------------------
+ kernel/bpf/btf.c                  |  1 -
+ 2 files changed, 65 deletions(-)
 
-[2] https://en.wikipedia.org/wiki/XY_problem
+diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
+index a19233e8ae78..8380a4156c4e 100644
+--- a/include/trace/events/cachefiles.h
++++ b/include/trace/events/cachefiles.h
+@@ -72,17 +72,6 @@ enum cachefiles_trunc_trace {
+ 	cachefiles_trunc_zap,
+ };
+ 
+-enum cachefiles_prepare_read_trace {
+-	cachefiles_trace_read_after_eof,
+-	cachefiles_trace_read_found_hole,
+-	cachefiles_trace_read_found_part,
+-	cachefiles_trace_read_have_data,
+-	cachefiles_trace_read_no_data,
+-	cachefiles_trace_read_no_file,
+-	cachefiles_trace_read_seek_error,
+-	cachefiles_trace_read_seek_nxio,
+-};
+-
+ enum cachefiles_error_trace {
+ 	cachefiles_trace_alignment_error,
+ 	cachefiles_trace_create_nospace,
+@@ -163,16 +152,6 @@ enum cachefiles_error_trace {
+ 	EM(cachefiles_trunc_shrink,		"SHRINK")		\
+ 	E_(cachefiles_trunc_zap,		"ZAP   ")
+ 
+-#define cachefiles_prepare_read_traces					\
+-	EM(cachefiles_trace_read_after_eof,	"after-eof ")		\
+-	EM(cachefiles_trace_read_found_hole,	"found-hole")		\
+-	EM(cachefiles_trace_read_found_part,	"found-part")		\
+-	EM(cachefiles_trace_read_have_data,	"have-data ")		\
+-	EM(cachefiles_trace_read_no_data,	"no-data   ")		\
+-	EM(cachefiles_trace_read_no_file,	"no-file   ")		\
+-	EM(cachefiles_trace_read_seek_error,	"seek-error")		\
+-	E_(cachefiles_trace_read_seek_nxio,	"seek-enxio")
+-
+ #define cachefiles_error_traces						\
+ 	EM(cachefiles_trace_alignment_error,	"align")		\
+ 	EM(cachefiles_trace_create_nospace,	"create-nospace")	\
+@@ -210,7 +189,6 @@ cachefiles_obj_kill_traces;
+ cachefiles_obj_ref_traces;
+ cachefiles_coherency_traces;
+ cachefiles_trunc_traces;
+-cachefiles_prepare_read_traces;
+ cachefiles_error_traces;
+ 
+ /*
+@@ -468,48 +446,6 @@ TRACE_EVENT(cachefiles_vol_coherency,
+ 		      __entry->ino)
+ 	    );
+ 
+-TRACE_EVENT(cachefiles_prep_read,
+-	    TP_PROTO(struct cachefiles_object *obj,
+-		     uoff_t start,
+-		     size_t len,
+-		     unsigned short flags,
+-		     enum netfs_io_source source,
+-		     enum cachefiles_prepare_read_trace why,
+-		     ino_t cache_inode, ino_t netfs_inode),
+-
+-	    TP_ARGS(obj, start, len, flags, source, why, cache_inode, netfs_inode),
+-
+-	    TP_STRUCT__entry(
+-		    __field(unsigned int,		obj)
+-		    __field(unsigned short,		flags)
+-		    __field(enum netfs_io_source,	source)
+-		    __field(enum cachefiles_prepare_read_trace,	why)
+-		    __field(size_t,			len)
+-		    __field(uoff_t,			start)
+-		    __field(unsigned int,		netfs_inode)
+-		    __field(unsigned int,		cache_inode)
+-			     ),
+-
+-	    TP_fast_assign(
+-		    __entry->obj	= obj ? obj->debug_id : 0;
+-		    __entry->flags	= flags;
+-		    __entry->source	= source;
+-		    __entry->why	= why;
+-		    __entry->len	= len;
+-		    __entry->start	= start;
+-		    __entry->netfs_inode = netfs_inode;
+-		    __entry->cache_inode = cache_inode;
+-			   ),
+-
+-	    TP_printk("o=%08x %s %s f=%02x s=%llx %zx ni=%x B=%x",
+-		      __entry->obj,
+-		      __print_symbolic(__entry->source, netfs_sreq_sources),
+-		      __print_symbolic(__entry->why, cachefiles_prepare_read_traces),
+-		      __entry->flags,
+-		      __entry->start, __entry->len,
+-		      __entry->netfs_inode, __entry->cache_inode)
+-	    );
+-
+ TRACE_EVENT(cachefiles_read,
+ 	    TP_PROTO(struct cachefiles_object *obj,
+ 		     struct inode *backer,
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 538129ed2418..c6403edf97a4 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -7264,7 +7264,6 @@ static const struct bpf_raw_tp_null_args raw_tp_null_args[] = {
+ 	{ "cachefiles_lookup", 0x1 | 0x200 },
+ 	{ "cachefiles_unlink", 0x1 },
+ 	{ "cachefiles_rename", 0x1 },
+-	{ "cachefiles_prep_read", 0x1 },
+ 	{ "cachefiles_mark_active", 0x1 },
+ 	{ "cachefiles_mark_failed", 0x1 },
+ 	{ "cachefiles_mark_inactive", 0x1 },
+-- 
+2.53.0
 
->> Given all the connectors and displays and their modes on a system, you
->> could estimate a) for each display, what modes could be used on each
->> connector, and b) for each connector, what modes could be used on a
->> display, if connected. From the user POV, they could be shown why some
->> display mode is not available on the current connector, and crucially,
->> on which connector it could be available.
->>=20
->> In general, I'm wondering if you're really after higher level
->> information, something like "connector max available bandwidth
->> with/without DSC", that would more directly map to the user needs as I
->> see them than low level link details.
->>=20
->> Do you have the userspace somewhere? That's needed for merging UABI
->> anyway [1].
->>=20
->> [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requ=
-irements
->
-> I wanted to add it to IGT GPU tools, but I was hopping for community=20
-> review on this RFC before the IGT development.
-
-IGT is not enough for UAPI. "The open-source userspace must not be a
-toy/test application, but the real thing."
-
-You can add loads of individually meaningful tests to IGT without
-actually demostrating how the feature solves the problem.
-
-BR,
-Jani.
-
->>> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
->>> source and sink training capabilities to userspace via sysfs attributes
->>> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
->>> report current link information at runtime.
->>>
->>> Three drivers are updated as reference implementations: i915 (direct
->>> connector path), ANX7625 and MediaTek (via the bridge connector framewo=
-rk
->>> using a new DRM_BRIDGE_OP_DP flag).
->>>
->>> Here is a sysfs example:
->>>
->>> cur_link_info_dsc            sink_link_caps_nlanes
->>> cur_link_info_link_rate      source_link_caps_dsc
->>> cur_link_info_nlanes         source_link_caps_link_rates
->>> sink_link_caps_dsc           source_link_caps_nlanes
->>> sink_link_caps_link_rates
->>>
->>> 1620000 2160000 2700000 3240000 4320000 5400000
->>>
->>> 1620000 2700000 5400000 10000000 20000000
->>>
->>> 5400000
->>>
->>> This series is rebased on top of drm-misc and may conflict with the
->>> current state of the drm i915 tree. Which tree should pick this up,
->>> given that it mixes core development with driver changes?
->>=20
->> For development, please just base your work on top of drm-tip, and the
->> tree(s) will be sorted out later.
->
-> Oh, ok, thanks you.
-
---=20
-Jani Nikula, Intel
