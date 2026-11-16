@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815594;
-	b=ImqB1geIT1JSxzwykUpVdWZAHrhLXXRFVdbKL/U/ozmK9BqfpLARv/TIuxb37GO2vmBB
-	 qNSQow5fRJhTVroawotFkF0caYRE7XSsCgInZSBGwfnn87drBy8/eFzv4/2EVsPUSyCLw
-	 JMOH3Ph1EU6Vy33r4wYxfJfDQX4kHAxqaO2Ysf3YxlhsrJWND5c6QQ6V5CLGeB54qgP/1
-	 S/bsoe3UkCGC5xfPRSM+ZuUgqqMpE+8T1njExJeCjMabPpF8vRu5c5wBKHQVv8oa3RA1P
-	 FfyDN/D7jfxGkmUT728BQOT5IwMYQxNQTrCcYFp9xWsDZlqv5XwM8Z3VPsnfDo9Ox0g==
+	t=1794815607;
+	b=r+3HHJowKs7gUb3YV+ppETHixD2++dBHoCQ+XFChYZlpNxe4xnI7p9Kt7+6rjWJIV290
+	 xuIhydFdHzsvluoajZ4O11rzH8qIiz+9hdrH3KNTUKD5lSBJuE/J+YPblzDj8rTtu3xgh
+	 PZ42QLQFs2nN9EY4mDRPgyPRIgrVfA42GmOTXCmraOd9d8o8CvszuyDGtmmNEwz9l6xRo
+	 TQ1JlFRBQQaUneqdlq8pbfZljcyI+c972+tm2dn0cW1QfF87KgxQeRAr+oH4158mXq9jS
+	 3Q8bSxvDjXNOjg6aw2G+yJbT9+8gMflenY1up9IR1xstDyQfhtVl2fPzWaMDiR+bp9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815594;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Fl5iC6pchP1Kkes+KClTPwOINjWYNKh+57Nqy5+FYYE=;
-	b=tH0+3ZQJ4P1tHqagsP+ZXZt7hJhr/KdSEshTaqD/1uzugJjKQNKstx14Y50ZExnY5hnK
-	 UPQLhvJySPvWpfyKWEqLmO/HQXvLimPMg60ukQAukAi72mYBggCxw/ojDb1WsLz5daSPB
-	 CGGD5StEmatPW7l7g17iZMi44NiHd2JOX+2/WXVAZ1TQkCsiYhooYwQGyyBknne1kFKyq
-	 i+cPHTM6TvFdM435k53ZPfqUZOqce/UoOdvnP/NW6NQA2W9G38eQR73/VZuTIwU+P78HR
-	 RbbpiMIg3z5euOSDXCkjIhjz7HhXAtxO0bBhONzTmzppRszENjOER3eTOBNPde/6IxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815607;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rP/ytoIFxyKaHItDHLsWZVp8ErKS2pDSrb2VxTCxhyc=;
+	b=2Lm+zC2IbhgwkvHUqbkYc/BPabRo8FhvPu4yXrYKWfn2MTwsQ/imfN85gK0f4BLjggL9
+	 0La5Y/5dfVa48RO/JsBlUS4vNYsREqqcSek4DfacLjOiBkUYL/l0KynKjZOPI/pJM+TC1
+	 5Wjcz15WaCIe/03JxFdVKTvPnKEi7peE41/y8ChCRr9dMrz7ijZMTclyxpH6rFYl5ONlS
+	 zRoE9p0sgJN7s+XvWTfpZYv7qBcd0yJDecm6AuOEaahZQ6c0UiuQqmWtZboaiwVm3Y9sV
+	 iFyRet1QkOUWnedviR/pLoGrdspfBfhJrezsziiQA935+KjLS6NDDSI//iFSwLRqHwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/uJkzcn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=WcX4Hlo+;
+	arc=none smtp.remote-ip=109.224.244.117
+Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDEF606A32A;
-	Mon, 16 Nov 2026 07:53:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706C606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A706C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/uJkzcn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02C21F000C4;
-	Mon, 16 Nov 2026 07:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794815593;
-	bh=Fl5iC6pchP1Kkes+KClTPwOINjWYNKh+57Nqy5+FYYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b/uJkzcnv39u4y+r0I3opyokiYyVqc8t9hr0aubWxr2iAt479dfkuPpcVx566qYq5
-	 /KwWyN3QDedZR2gWAKeW/MpN8Oe99r/fzx78lmb1wfoGPNmk8a0wM9ediFrsVQkFA2
-	 0ghSdBRa0rPHT55BjxDji6zGS6KkTn2X4laBQckei8uRyLsxD76EsHkowVe0vVhUzH
-	 P7XxVzil6kSQc42T8x1J2qAcFDS3cgqk73HhRUSJnHS9gWsKQ5i4an2jKXP2SpmNhh
-	 wlAbtVmGartgoEPcLkmjDu51K20v7Bk+G8NoXP7WLhaUc9DT+rpiGY50/+MRnaPnN4
-	 QKhPG2DC7ADyA==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xSrWZ-000000032Vu-1709;
-	Mon, 16 Nov 2026 08:53:11 +0100
-Date: Mon, 16 Nov 2026 08:53:11 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] serial: core: do not touch the port after
- dropping the last reference
-Message-ID: <avq2Z-eLXc-F5KxA@hovoldconsulting.com>
-References: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
- <20261112-serial-core-remove-deadlock-v2-2-d3ee4ccec37a@vaisala.com>
- <avXOArIk9Cep-rCI@hovoldconsulting.com>
- <4038c504-0f04-49a5-a9ef-2dd881b7d653@vaisala.com>
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=WcX4Hlo+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794815604; x=1795074804;
+	bh=rP/ytoIFxyKaHItDHLsWZVp8ErKS2pDSrb2VxTCxhyc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=WcX4Hlo+CMtecklcVq0IZ6zuLXBSRm4zAZyRotrYQ30C6bIPvqtE6HyYN7I1cHaHt
+	 xue77m+ZgPZ/sGwbCZEJuvt8mHQDotgO3g1j82UjKlV8ULFLlaDVPvJZGaHxT1Otgy
+	 4e/+U6v0L7VlBtrqHM7tOSxlP5EfCenmQlXvlnIlZMdEbSv/xMwr9WVj9EWjRUQkqG
+	 /OQPI+pbDjgFnfBJFKAXOg9d1OAndj+wjEpWvGAcG8iA5VEh7DpD3HO0TAl6WcLk29
+	 5UdaOZf8n8hxK0K/q9eyFisotdWNDVXHxtu5bTJySO8qihPl1z21YprRW4rKF1A/wW
+	 AuJ+D149/i7Dw==
+Date: Mon, 16 Nov 2026 07:53:18 +0000
+To: linux-wireless@vger.kernel.org
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: Jeff Johnson <jjohnson@kernel.org>, Weiming Shi <bestswngs@gmail.com>, Pontus Fuchs <pontus.fuchs@gmail.com>, "John W. Linville" <linville@tuxdriver.com>, linux-kernel@vger.kernel.org, Alexandre Becholey <alex@becholey.ch>
+Subject: [PATCH 0/3] wifi: ar5523: fix three command path bugs
+Message-ID: <20261116075305.234240-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: f24f7eb8c3148cd6fdcc695c66627d156e38ade5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,31 +61,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4038c504-0f04-49a5-a9ef-2dd881b7d653@vaisala.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 09:49:45AM +0200, Tapio Reijonen wrote:
-> On Thu, Nov 12, 2026 at 03:32:34PM +0100, Johan Hovold wrote:
-> > On Thu, Nov 12, 2026 at 04:37:28AM +0000, Tapio Reijonen wrote:
-> > >  static inline void uart_port_deref(struct uart_port *uport)
-> > >  {
-> > > -	if (atomic_dec_and_test(&uport->state->refcount))
-> > > -		wake_up(&uport->state->remove_wait);
-> > > +	struct uart_state *state = uport->state;
-> >
-> > Hmm. Don't we also need a READ_ONCE() here to prevent the compiler
-> > from doing something silly?
-> 
-> Yes. Nothing writes uport->state once the port has been added, so I
-> wrote it as a plain load. But the point of the patch is that the load
-> must not happen after the decrement, and only READ_ONCE() rules out a
-> reload there. I'll send a v3 with
-> 
-> 	struct uart_state *state = READ_ONCE(uport->state);
-> 
-> and keep your Reviewed-by unless you object.
+Hi,
 
-Sounds good.
+Three bugs in the ar5523 command path, all reachable from a USB device
+that presents itself as an AR5523, and all reproduced with an emulated
+device (raw-gadget/dummy_hcd and QEMU's xHCI) under KASAN on
+torvalds/master (v7.4-rc2-141-g9d66f26fefac) and on v7.3.1:
 
-Johan
+ 1/3 ar5523_read_reply() hits WARN_ON(1) on a short reply: a header
+     length below the header size (or with bit 31 set) makes the
+     payload length negative. The device triggers it during probe by
+     answering the first read command (WDCMSG_HOST_AVAILABLE) with such
+     a reply, or later with an unsolicited one. The command also
+     completes with the result of the previous command.
+ 2/3 ar5523_cmd() returns while the command TX URB is still in flight
+     when the device sends the reply without taking the command on its
+     bulk OUT endpoint. If that reply fails the command, probe unwinds
+     and frees the command buffer and struct ar5523 under the queued
+     URB; when the URB completes later (the device takes the command,
+     or is unplugged), the host controller and ar5523_cmd_tx_cb() use
+     the freed memory (use-after-free). The device does this on its own
+     at plug-in.
+ 3/3 ar5523_cmd() leaves the caller's reply buffer in tx_cmd.odata
+     when a command fails. If WDCMSG_TARGET_START fails while the
+     interface is being brought up (the device halts its command
+     endpoint), the pointer keeps referring to a variable on the stack
+     of the task that brought the interface up, and a later
+     WDCMSG_TARGET_START message from the device writes 4 bytes of its
+     choice into that dead stack frame. Bringing the interface up is
+     the only local action needed.
+
+3/3 is written on top of 2/3 (it changes the branch that 2/3 adds after
+the wait), so please apply the series in order. The series is based on
+v7.4-rc2-141-g9d66f26fefac (base-commit below); ar5523.c is identical
+in v7.3.1 and the patches apply there unchanged. Each patch has its
+trigger, a decoded trace from that commit and its testing notes below
+its '---' line; the testing of the whole series is in the notes of 2/3.
+The notes of 1/3 explain how the series interacts with Weiming Shi's
+pending "wifi: ar5523: reject negative reply lengths" patch.
+
+How we found it: the bugs were found, and the reproducers and these
+patches were written, by AI agents (Claude Mythos and Claude Opus
+models), in QEMU with an emulated USB device.
+A human reviewed the analysis and the patches. The reproducers are
+available to maintainers on request.
+
+Thanks,
+Alexandre Becholey
+
+Alexandre Becholey (3):
+  wifi: ar5523: don't WARN on a short command reply
+  wifi: ar5523: don't leave the command TX URB in flight
+  wifi: ar5523: don't leave a stale reply buffer behind in ar5523_cmd()
+
+ drivers/net/wireless/ath/ar5523/ar5523.c | 43 ++++++++++++++++++++++++++++=
++---
+ drivers/net/wireless/ath/ar5523/ar5523.h |  1 +
+ 2 files changed, 40 insertions(+), 4 deletions(-)
+
+base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+
