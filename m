@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827188;
-	b=ydrtJNeaGP+0RFJe7h99kTwSfbBPuP/ON/zg2o1vxOyTbZtmcz77njo7BccN/Olo8goL
-	 aCdFlyJyijck/N6Gsp14i+77/wH3L2yAyE3tYMaRA01RfvB+n10Y3djG24JzYPxp+vZR7
-	 87nbHBG5qNN+8tJUw2HVYapbRo98YvWFO2EYJcqGc7muUlELVyqo5sSobSuNwsYQp25Eo
-	 PLVllJWdkyzSZhvoNAzTDq7qaikxOmW5Waa83ev4k9J5f3ZxlPAPY9qJRey8bRESrYmZl
-	 phsRXrOsc5UNOxXfgW7YMIheJUN9MbDHdBXw0MWOaU1ieGlJNTYmW0+W58DEHCJtCtQ==
+	t=1794827203;
+	b=EHY/ujhTUJpF25CuPaW15s6KrkGYNPoMz3RnbBQc+kkH4SEMz8RHgZZZYooSYgb29wPL
+	 rOQfbj9xZrR9v8+KJzSRvCaNeAZZB3SoHmM9vZ2EpRuVnLYXdx34Jv/4L3g8drS66+AwO
+	 upQFjNz+pfJYoGte+2tp+Kq78Px+V6q3zaHGYR1K4x/UH6XDn82xB/mrViUqruZdIVQQM
+	 CdJ4AbU5DHbrlz1gkKsz04eTJzLHzaPhUsEwYlvFfDYfhTJpR5OJCPXgl2gK0gABUfKMA
+	 tJqr0epOvUvNOj7SskEG8mVeIGWK+rIPRK7O/fXC1ZsF3NjD6G1nXf7YYVAO8ypfHVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827203;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=V+osxLoh40BKAExDHaAgHTnjFjsOBXyAUQavRmbvZdM=;
-	b=uCHgSUCoXHpOd+EC7TUk2hJ5nZnBdde6h0gC5VRYZhIl+YaA4CXc3gnn52K/amKbALzB
-	 tVjQfHZsqCxpEePD28GyGpwfdyj9VHfKbiW89Z5qfLGt8bq4Mix5fb47E7X6+eZziPiU6
-	 wKc1KZm/RQOdyR9ZogofwAcuITmEN9r0rydbxdN3gdrH05Ai1uHUPlDGPrY86K0Pk10LK
-	 qfA9XRR4FX+y0tOXMD5EkZ2PpAmBdl+ORtunEInFz1jZ6KKOl/GN/Xu/9YVJ9Hk+9vLzU
-	 xV1Fzpu6L5czsu/Z5TOgayKfi/Hxr2L2tbeOMzefneLs6tOJgDalwRP7SB5Vmn2AL1g==
+	bh=WxYlM2WrInCj+tZCjOFP8L/ZbkLteejSwwMuIi+k/j0=;
+	b=EM8Hg6+sxrMbVjPyjn6njcUa/vWLPqRyEITl9UTnQDvEJuez5oCW7zk/Ek7H2hhVEdzZ
+	 zCVNgpfQZF7Kp4N9hnP+UbknHIfNz473eEH4ncCFxlA08Lqp5BrOU6sdzxHDNa7QKf+VR
+	 RG6nIeKZXzHynJmMSDOlbXnFgAkESCwB5wDRw9HsMsDSiZQEJvaraFfmOdb6ipykYnBoR
+	 BiZPoqd7IRtwukPcJ6luM8UhKsQjlMsFjBzSZtmRs9aYz32UZB7eoNS0DYuTy6sKv5Y+b
+	 9lHTDv+riijXbLubQXc5zSb2A4/7RwHpDaR9y8xUZcm5axpitBU2JWGZ5hSAI/lYzng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmCSykMY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HIBGA33D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F21E606A33B;
-	Mon, 16 Nov 2026 11:06:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D312606D787;
+	Mon, 16 Nov 2026 11:06:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmCSykMY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3410E1F000C6;
-	Mon, 16 Nov 2026 11:06:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HIBGA33D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB091F000C6;
+	Mon, 16 Nov 2026 11:06:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794827188;
-	bh=V+osxLoh40BKAExDHaAgHTnjFjsOBXyAUQavRmbvZdM=;
+	s=k20260515; t=1794827203;
+	bh=WxYlM2WrInCj+tZCjOFP8L/ZbkLteejSwwMuIi+k/j0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mmCSykMYbLbUMgfAzsTRriPXLKntVd5F4h0335Zci+KFp7/M6E26jCvFFmFm6/FOh
-	 ZimtlOfuTCf0AKdMb7DArxCbNTGAd0e0/CO69vZW620lEXfAn1pqfCoje10jxhSc1J
-	 cSFCUZF5FEkl71fXKb5wgdAjz1AWCWq6VhUkPeo06V02hbI/WxzaCyHgNvxkzI3sLo
-	 2GdAQUK0Zyr6xa2Qe+qIUwF/i/vhwqVU6IgGnQbVzU/wiykqChN6i8GKS5TT8NvnN7
-	 zLrxUiks7eYGPstb/dmbg814Xp6NJSPByht4od2BBPOlpnQ+JR68HmJS8oj1md4KvV
-	 tKiRrZHSvNGsg==
+	b=HIBGA33DZKK7wLY4NbU1UsuWaQJnkbG0rRCtIKIXDHpO9jDtPSdQhfLQbTHhTKx8X
+	 XuX7PnB2kkTJoZriLdQv9iPo7IxfuI5i/hHeh3OnCCY6MHhW/GZMXU7CCCB4IZCpzc
+	 q0+u+L41qd9ZOl8lQb+cKh9xYAgLOA471R2AzufTEMSg/dCw2bOSv3Q1XSWzhqjCfs
+	 sNXo2m2S8siDOJUurEhdoM/D1hZ2q/5dqT6j4xt/aNAgYhltavLFwce+QkO/Jev9GZ
+	 5lfAlzmTs8+9PTfmF1jNifCNVQu/HrVcBF6evkHDFY6UOLA4bPT4TCpN89UIe3t5YZ
+	 YxVy/TwqEWNsQ==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 16 Nov 2026 12:04:36 +0100
-Subject: [PATCH RFC v3 03/44] target: fileio: check that the backing file
- supports ->{read,write}_iter
+Date: Mon, 16 Nov 2026 12:04:38 +0100
+Subject: [PATCH RFC v3 05/44] kernfs: use fc_init_pseudo()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-work-loop-pseudo-v3-3-8cbbea1cf34f@kernel.org>
+Message-Id: <20261116-work-loop-pseudo-v3-5-8cbbea1cf34f@kernel.org>
 References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
 In-Reply-To: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -75,55 +74,62 @@ Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
  Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
  linux-kselftest@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Alexander Mikhalitsyn <alex@amutable.com>, 
  Chris Down <chris@chrisdown.name>
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1508; i=brauner@kernel.org;
- h=from:subject:message-id; bh=tSA3soIyhcve68q21MuFcaunaKBcO2eetu56IE80bMc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9epzEXGTe+sJUZYufjwnje3Vtz4w3241//XLYb7Dlz
- clNJz9d7ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIxk9Ght6dlz/J/z+mfrBJ
- vHbFY9ZvJotOF860Pjt95QXHWeof7qkzMlxf+8bzxp25H/hkNDaErSk2OqtYfjKAI+ps4N2d1nc
- PbGMBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1543; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=b1WdZIg+OtBecm5NRM4f/C4ttSoZ3Tz9qDg/k3dTDkg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9epzSXe5vEPNi3pbqvoQu08sCwWuePl/0KVmlUibZU
+ +J2n/3+jlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIn8N2RkeKF7zH9azOs1V6c4
+ PRXbZLyiwWHxr3+qnE8Wt7vs/HMxK46RYZuD26pXQUvnGJZWdkpW7OSs237Rws6gNFNVvjjiTew
+ fbgA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-With fd_async_io=1 the fileio backend calls ->read_iter() and
-->write_iter() of the backing file directly. The synchronous path goes
-through vfs_iter_read() and vfs_iter_write() which check for them but
-the aio path doesn't. So a backing file without them calls a NULL
-pointer on its first I/O.
+Initialize all kernfs based filesystems as pseudo filesystems in
+kernfs_get_tree() instead of raising SB_I_NOEXEC and SB_I_NODEV by hand
+in kernfs_fill_super(). This adds SB_I_PSEUDO for sysfs, cgroupfs and
+resctrl.
 
-Refuse such files when configuring the device. On the synchronous path
-every read or write that needed the missing method failed with EINVAL
-anyway.
-
-Fixes: 769031c92c8b ("scsi: target: target/file: Add support of direct and async I/O")
 Reviewed-by: Jan Kara <jack@suse.cz>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
 Reviewed-by: Chris Down <chris@chrisdown.name>
+Tested-by: Chris Down <chris@chrisdown.name>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/target/target_core_file.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/kernfs/mount.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
-index ab9824a4852f1..a5391e57e9aa5 100644
---- a/drivers/target/target_core_file.c
-+++ b/drivers/target/target_core_file.c
-@@ -144,6 +144,14 @@ static int fd_configure_device(struct se_device *dev)
- 		goto fail;
- 	}
- 	fd_dev->fd_file = file;
-+
-+	if (!file->f_op->read_iter || !file->f_op->write_iter) {
-+		pr_err("FILEIO: %s lacks ->read_iter or ->write_iter\n",
-+		       fd_dev->fd_dev_name);
-+		ret = -EINVAL;
-+		goto fail;
-+	}
-+
- 	/*
- 	 * If using a block backend with this struct file, we extract
- 	 * fd_dev->fd_[block,dev]_size from struct block_device.
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index a0be784bfb064..6b60d212b003d 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/fs.h>
++#include <linux/pseudo_fs.h>
+ #include <linux/mount.h>
+ #include <linux/init.h>
+ #include <linux/magic.h>
+@@ -298,8 +299,6 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
+ 	struct dentry *root;
+ 
+ 	info->sb = sb;
+-	/* Userspace would break if executables or devices appear on sysfs */
+-	sb->s_iflags |= SB_I_NOEXEC | SB_I_NODEV;
+ 	sb->s_blocksize = PAGE_SIZE;
+ 	sb->s_blocksize_bits = PAGE_SHIFT;
+ 	sb->s_magic = kfc->magic;
+@@ -388,6 +387,7 @@ int kernfs_get_tree(struct fs_context *fc)
+ 	info->ns = kfc->ns_tag;
+ 	INIT_LIST_HEAD(&info->node);
+ 
++	fc_init_pseudo(fc);
+ 	fc->s_fs_info = info;
+ 	sb = sget_fc(fc, kernfs_test_super, kernfs_set_super);
+ 	if (IS_ERR(sb))
 
 -- 
 2.53.0
