@@ -1,91 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852040;
-	b=aEbovmDzUooZRhB1//0tjoWKHNOJ2leE/v5BJor9GjCyVYqwyF+K+ILST5CK+Coj6DSX
-	 w89Z4KPEOJ1VIs67+y5ZFQVONBoi7aHPPBAGFyx0YcTPM232J3SSIIGrdnJCn9JpRkcge
-	 fu6vvj4CyFsRI28rqoOcmX8YDTS8ccq9GjvL5dXknPULF7fg36VuLzCjrOUQIkR+ceXXl
-	 txvGRWGgNqGdR5NHOYsH8W/U5bUTXqf6hypSZKMqzeG6U/BKDb8Zh0Wx7+9vRf8/J362U
-	 lSmTVRWbxop9XuzCMpDa64AQFOhNi+NHmI6HpFnoDOuNLtEjQjOvKECRDeZkVD00AUw==
+	t=1794852050;
+	b=kPp8B5KDD3DGpobmoxtd/XkBvyo6ZiA5cxsYVxfdOSdgA6R0Xr8wqEG/RRzu1eIShYTO
+	 GHsArt7402wGZ+Qhk1+P+769I9HTuBw42tTKLZDbCz3xKAi5oU16oE1TPgZOTf27pVbpm
+	 7fqqr2Lz8E1TVDuUjOuOBwwGP2Iu9E52kHABsPXbfjfUxvKvTGuYk2dkjnyVudYhqCbuN
+	 Azh3BeXc9pPSUck+i/85XdEK43EPsM24FgHmEeCbDABxzaGfpbdSSCI5PwuQongvScFo2
+	 Fruh7WqMmKy9S50N7ZO1ipsFej29PZd1elB368Oqia/Ycs7Kg5E1RsM8PeN5itC2gcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852040;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=AGMTwFfs53sTPCTAbdlxmCJ8hYeb9iUmlEmcpKGM0Ow=;
-	b=kvXL8kXHes0x93z+IQsGOeU+QGXrgPB26+GzdyPNo5HPN1uGWAqpBEwBDfbi3zEm4eJ0
-	 EIv5FwzVHkGsIEHWRdotXsIe8PdZVhec5+ul8An2uKMaZfu2Nlr0wnlHoXflKIqg7BMiE
-	 2bI+jIQYD57Swuyj+WcYn/DwZOwNGIWd49jWa28p9B+PDlAgS6GfHgX3CD+cj7+S2TDgL
-	 h2uwIJKgs206pGAh0poSfc1yMX0l8ckEtCd9p9GPTEebTlzA3V1kcYk9Nj71yDPhhCjQt
-	 JJYTVKilMnhiyB37804Zbfi5Nd3wCEADBrxgQLr1Ab7QVwMzpes3dZL4P9lysY/uX3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852050;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/zjGa4vftK22+4ZgrHy8l4SQJaqBEhraQH3lTrIqopY=;
+	b=qHMZgUzQFygSC7ujAc++PD9dLQdPr0tYBw3yeV79e81NtK5qfwjkfgZ3Ksvk7YWsno6a
+	 82dQZ/6d/babAv1hxY1tbCZCmxBJBpm+78gr1EtwmjMWrV7YrCIvbLBr4tZ/6PEv2QL+L
+	 Z8ND2tkHD0Xeha8c8QSpFIp4rGdlsQUGVysgDMWiBKhsdY+E3emSN8NfAOo/fo+JwaKd9
+	 NCl+2fv5EpNU+/+f6InF7UbKMans41FMahWv8zw4xeuHfrYtJmx+IzAmPCfBeYe4QxI8h
+	 IbA9SyQElYb6tUMRlpnCp+DdfpVzCaeBmpVic32eVsNNetCZ/H/h6djgALoYgalMVHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czzKdeD5;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQZXYBNC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB358606A881;
-	Mon, 16 Nov 2026 18:00:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB358606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39D1606A33E;
+	Mon, 16 Nov 2026 18:00:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czzKdeD5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794852039; x=1826388039;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wWTaX5iA12+M0wZvVENhAikZT3twTo+LW7rgrLUSPGY=;
-  b=czzKdeD5M0VQO/XLCplAUBt5kG6UTfNZAHDTc2cz0yCI3u0+CL5tG04V
-   5sps0E3mUUYovZhtmiX5uRJpw/tbTenewKzM9T48fD1zkdDmsShyrgrGq
-   /nU+js8h+5xqu/wvI7dUrLtZfzWDMfyCNWO9wVJX1rdYwrn2w5X/KXvCy
-   6ICDeS6no7jIfC2xPDV2rMU8XlY0pizIVdYYaMtt3QuMLPCT9oG3i0WVi
-   nsdpBpQAhnarZ/M8VkG9mSXahpIGWeZ7iqjHIkE4I6uAhd0vVOOhDKrf5
-   t7uLxMsw8O32IUZT64R4Z7aQReydrPlOJ4bhFZ0XKk7Hz/1fMFJXjqaez
-   w==;
-X-CSE-ConnectionGUID: LB1K4VAWSdGMzmxc0ZmCdg==
-X-CSE-MsgGUID: 0sFN+zHqTBaqd9IZ1ZQyLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3632816"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3632816"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 10:00:39 -0800
-X-CSE-ConnectionGUID: RV4zCj+tTT6w/vcjLZb1Bw==
-X-CSE-MsgGUID: r6GgFtjpRX2f2sT+idN6jA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9591695"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 16 Nov 2026 10:00:34 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xT10J-000000019Bc-1yxt;
-	Mon, 16 Nov 2026 18:00:31 +0000
-Date: Tue, 17 Nov 2026 02:00:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>,
-	Karunika Choo <karunika.choo@arm.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: Re: [PATCH v5 11/13] drm/panthor: Support FW init of protm
-Message-ID: <202611170131.5ommYcYW-lkp@intel.com>
-References: <20261116112601.3483649-12-ketil.johnsen@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQZXYBNC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37751F000CC;
+	Mon, 16 Nov 2026 18:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794852049;
+	bh=/zjGa4vftK22+4ZgrHy8l4SQJaqBEhraQH3lTrIqopY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VQZXYBNCgDxZbME4v+OnHbx25Z8RhlKG494y+pte8zX6Dm1SiTZEfzITRRljf0Ovo
+	 3j3vqbw9ZhWSbSKQMg+2jTc0h94/5qeeXAq8B0Du4RqASjJoleorgylrO0YSRnXlQ1
+	 aO61v804YcbLMM7uAQ1xDBdxJ2jTNxY0n1WAMNdHPfBy6Xd1O/Of2iaJ6p8LOiq3JG
+	 0uUMDxsRVwjqkHgOS0XiQDUx1PoofEnD4gfSz+YobhcFLLqA7EsDNQhhdDbA0fs7lx
+	 R5gA3LcnJRjO13+KidknV6u1qbgZTNrW4hAopnoPh/mKHuAJ53GS1cr5ZV0ZMVMcQj
+	 lhqHXIRIU50Kg==
+Date: Mon, 16 Nov 2026 18:00:43 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mina Hui-Min Chou <minachou@andestech.com>, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	randolph@andestech.com, cyyang772@andestech.com,
+	tim609@andestech.com, az70021@gmail.com
+Subject: Re: [PATCH v2 12/19] dt-bindings: cache: andestech: update schema
+ for generic LLC support
+Message-ID: <20261116-deduct-emphasize-b2482186cfcb@spud>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113071143.1446167-13-minachou@andestech.com>
+ <20261113-emporium-provolone-0e7b0e39c97a@spud>
+ <20261116-crazy-adventurous-cockatrice-61c62b@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,47 +67,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZgC/w/fRk9AwVDqJ"
+Content-Disposition: inline
+In-Reply-To: <20261116-crazy-adventurous-cockatrice-61c62b@quoll>
+
+--ZgC/w/fRk9AwVDqJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116112601.3483649-12-ketil.johnsen@arm.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ketil,
+On Mon, Nov 16, 2026 at 01:05:52PM +0100, Krzysztof Kozlowski wrote:
+> On Fri, Nov 13, 2026 at 02:05:29PM +0000, Conor Dooley wrote:
+> > On Fri, Nov 13, 2026 at 03:11:36PM +0800, Mina Hui-Min Chou wrote:
+> > > The last level cache controller of Andes cores is not specific to
+> > > AX45MP. Other Andes cores, such as the A27L2, use the same controller
+> > > with the same register interface, but the binding only accepts
+> > > andestech,ax45mp-cache. Add andestech,llcache for them, and describe
+> > > the binding as an Andes last level cache rather than an AX45MP L2
+> > > cache.
+> > >=20
+> > > The cache-level, cache-sets and cache-size constraints describe the
+> > > AX45MP L2 cache, so apply them to andestech,ax45mp-cache only. The LLC
+> > > of other Andes cores can be level 3 and have other geometries, so
+> > > allow cache-level 3 and require cache-sets only for AX45MP. Match
+> > > renesas,r9a07g043f-ax45mp-cache explicitly instead of through the else
+> > > branch, which would otherwise also apply to andestech,llcache.
+> > >=20
+> > > Also add an example for andestech,llcache, and add myself as a
+> > > maintainer of the binding.
+> > >=20
+> > > Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
+> > > ---
+> > >  .../cache/andestech,ax45mp-cache.yaml         | 71 ++++++++++++++---=
+--
+> > >  1 file changed, 54 insertions(+), 17 deletions(-)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/cache/andestech,ax45mp=
+-cache.yaml b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cach=
+e.yaml
+> > > index b135ffa4ab6b..da9688cc95f7 100644
+> > > --- a/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.=
+yaml
+> > > +++ b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.=
+yaml
+> > > @@ -5,14 +5,15 @@
+> > >  $id: http://devicetree.org/schemas/cache/andestech,ax45mp-cache.yaml#
+> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > =20
+> > > -title: Andestech AX45MP L2 Cache Controller
+> > > +title: Andestech Last Level Cache Controller
+> > > =20
+> > >  maintainers:
+> > >    - Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > +  - Mina Hui-Min Chou <minachou@andestech.com>
+> > > =20
+> > >  description:
+> > > -  A level-2 cache (L2C) is used to improve the system performance by=
+ providing
+> > > -  a large amount of cache line entries and reasonable access delays.=
+ The L2C
+> > > +  A last level cache (LLC) is used to improve the system performance=
+ by providing
+> > > +  a large amount of cache line entries and reasonable access delays.=
+ The LLC
+> > >    is shared between cores, and a non-inclusive non-exclusive policy =
+is used.
+> > > =20
+> > >  select:
+> > > @@ -21,18 +22,23 @@ select:
+> > >        contains:
+> > >          enum:
+> > >            - andestech,ax45mp-cache
+> > > +          - andestech,llcache
+> > > =20
+> > >    required:
+> > >      - compatible
+> > > =20
+> > >  properties:
+> > >    compatible:
+> > > -    items:
+> > > -      - enum:
+> > > -          - andestech,qilai-ax45mp-cache
+> > > -          - renesas,r9a07g043f-ax45mp-cache
+> > > -      - const: andestech,ax45mp-cache
+> > > -      - const: cache
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - enum:
+> > > +              - andestech,qilai-ax45mp-cache
+> > > +              - renesas,r9a07g043f-ax45mp-cache
+> > > +          - const: andestech,ax45mp-cache
+> > > +          - const: cache
+>=20
+> Illogical split of patches. If this was to stay, then THIS commit is the
+> reason to rename so rename would happen here, not in some time in the
+> future. Same for everything you do.
+>=20
+> Organize your patches correctly, not doing things half-baked... but
+> anyway do not rename files just because you added one compatible.
+>=20
+>=20
+> > > +      - items:
+> > > +          - const: andestech,llcache
+> > > +          - const: cache
+> >=20
+> > Device specific compatibles are mandatory. I would accept this patch
+> > with a
+> >           - not: {}
+> >             description: Need a SoC specific compatible
+> > like the safexcel eip binding.
+>=20
+> But why all others cannot use ax45mp as fallback? Is this really a
+> generic block among multiple generations of SoCs?
 
-kernel test robot noticed the following build warnings:
+I think it's fairly likely that it is.
+I do like having constraints that restrict cache-sets etc to what the
+device can actually do, but using ax45mp as a fallback doesn't prevent
+that, since the constraints are really set by the soc.
+>=20
+> What sort of arguments from contributors are to support that?
+>=20
+>=20
+> >=20
+> > pw-bot: changes-requested
+> >=20
+> > Thanks,
+> > Conor.
+> >=20
+> >=20
+> > > =20
+> > >    reg:
+> > >      maxItems: 1
+> > > @@ -44,13 +50,11 @@ properties:
+> > >      const: 64
+> > > =20
+> > >    cache-level:
+> > > -    const: 2
+> > > +    enum: [2, 3]
+> > > =20
+> > > -  cache-sets:
+> > > -    enum: [1024, 2048]
+> > > +  cache-sets: true
+> > > =20
+> > > -  cache-size:
+> > > -    enum: [131072, 262144, 524288, 1048576, 2097152]
+> > > +  cache-size: true
+>=20
+>=20
+> See writing bindings. Widest constraints stay here.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on next-20261113]
-[cannot apply to linux-review/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261012-145929 linus/master v7.4-rc3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+I think how this should be done probably depends on just how much
+variance there is intended to be. How many more configurations do you
+envisage here Mina, and do they follow a similar scheme of being
+multiples of 128 KiB?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261116-122549
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261116112601.3483649-12-ketil.johnsen%40arm.com
-patch subject: [PATCH v5 11/13] drm/panthor: Support FW init of protm
-config: sparc64-randconfig-1000-20261116 (https://download.01.org/0day-ci/archive/20261117/202611170131.5ommYcYW-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 15.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611170131.5ommYcYW-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611170131.5ommYcYW-lkp@intel.com/
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
-All warnings (new ones prefixed by >>):
+--ZgC/w/fRk9AwVDqJ
+Content-Type: application/pgp-signature; name=signature.asc
 
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'start' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.start', 'data.start')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'end' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.end', 'data.end')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:208 Excess struct member 'buf' description in 'panthor_fw_section' (did you mean one of: 'data.buf')
->> Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 struct member 'protm' not described in 'panthor_fw'
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 Excess struct member 'ping_work' description in 'panthor_fw' (did you mean one of: 'watchdog.ping_work')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'start' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.start', 'data.start')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'end' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.end', 'data.end')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:208 Excess struct member 'buf' description in 'panthor_fw_section' (did you mean one of: 'data.buf')
->> Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 struct member 'protm' not described in 'panthor_fw'
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 Excess struct member 'ping_work' description in 'panthor_fw' (did you mean one of: 'watchdog.ping_work')
+-----BEGIN PGP SIGNATURE-----
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtEywAKCRB4tDGHoIJi
+0gsoAP9cJXD82VhaI9dfpcUpcm/x197IG+YoD5kkHOlZoagMmAEArDNq7L49yZ7v
+jRBGmhrDCdVo05rVz+7tQnUfm4nQugk=
+=GWzB
+-----END PGP SIGNATURE-----
+
+--ZgC/w/fRk9AwVDqJ--
