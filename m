@@ -1,69 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833945;
-	b=SHmUSPabisv8r4acwoKq9YXvwHYNAFL5GXGk8ZT++XQzz/4zk9qvPXJex3sO9rQ/391O
-	 nQ6lbyAa+zmnLzur6h4hYfD1dDEeAuP0IrB9i9qbwGzVrRQ6sYpjngWRs+mbaQsl+AtkD
-	 zJmlvsNthy7hKtDrGZFy4OcQKtBi8YhybBLT4k5Az5oARDxq8lPw8fqw+qwY1Va6oJv2y
-	 M5KL/+5rhzSQD/v94J3sriDD20HmuHgVGO+WrqHFnyCDJGI6HFOMwCzK52tIsKQ61h4Yw
-	 5IXUaXHQEQ4V0kLy7JsRkt5Dplxki0ot7op04Geb1BqufcYbfc6iPP/oqB2oID0lIbQ==
+	t=1794833974;
+	b=YoMm/hPeTud0pMnBOfUcWsTA2OfiFg5pmJq2XfkZMwaBdOO7g4vI8QmNYMYF4NzUsQ0s
+	 hSIXX0xRXK+gAgcHT7Iqlg4uQH6eXYiwEIPDhhivApgPyed8pzi7GEEX6cAXMVAEWmSLz
+	 UQLtjuAJDlvbMH4c5ptvQ+oIeEsF6O5mLSqV/lEZxgisUacaRy+gXYJYh3G/WYMscjHuz
+	 un4ah8Olm4QJ8FlSfbNlZq0e27TBN/iqDP1AFEV2qs+IVB6IZGXe6BXmbSGMU8RNH8d9Z
+	 uFEbNKYqVO1Spaq5VIBM6F2E0gXHWN4ybM5OyJGmh4gvxJTvPc4o6gEHjn+DGHTy/LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833945;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=staA6FwHbiBwqpCLIDokL/q1H41HZpyazxomLsaJBOs=;
-	b=be9dPj11e7iDGZQLZL+A9AmjFk3fwgOU3Y+IBvkYXF8QC9D+HqVSsPP1cmZtCp9zAL4+
-	 X0gjLuPpxSp1D2680TkBjMBETghLzuV0PsnqfRmyVw8NRk7hs+6aBUfpgVdVVzBWJ2V/I
-	 bllRZUpJQMtocXcI38HTbbl25hVaChp6cO0VOLvqurQkVx23LOhR5QvfD/1rEaCm6hxRV
-	 iPneWQE/0BByk+50gLp2f7Mw5hrotmHdKqmBc3umzM0kSaZ6S6KPoq/t6Bm6br96+PbJL
-	 EdyzqHcXBpqWmC6YtppBtsBgn0KN1b/rEqRvLJocgDFutQoTXjP7+CTweYi2tguMb5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833974;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=H0ZkNNcZYDe7VlHkuwH0d8aoRRKZdBPLeqP/TuARMR4=;
+	b=qjTS5CnEojYcOouBx2kf0tE8pcxE04xBEtX+TcIwV3J0+Y29FumDvANKZ+y0Joo5bxri
+	 KO4LRJ5lrtay+E7+dX7cC8O8m2MHv27mtGFdO4YpsfQjpxg2l9EbjCR2gFAYE/vwIx7eH
+	 8XfK/4bWxHl92DFlcl4AbybD0JiQtU/yWalxEpt8b52kbV7WcEnnq9/51cBcPIvg9Eww2
+	 sHsWUg7ipwAF/26KxSQnVu8jkh+Ym4vQYJ8EPnJzbLfKtfpqHbSv0Sy6SoU6/0lhJap5A
+	 wvtritIGPjjn5dlLv/n4IWrLmg8kvVYrKcDQE9nBN7sTcoMlxRDx+aiKRpsgqtSPJgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h8JqXobE;
-	arc=none smtp.remote-ip=91.218.175.148
-Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z05EBtcw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77242606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77242606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C651606A31C;
+	Mon, 16 Nov 2026 12:59:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h8JqXobE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JQidkp1aImcxYe8L/9R0QpEw0bwKcclDKm8qpqJRAHI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794833942; v=1; x=1795438742;
- b=h8JqXobEkbdAobMtJr0K+EU3DHnHd6SAdiBpXbD+IemPBOvCcyL8aJCYiSTfZr0UY+Gdg2WE
- urGvhOlEKe/Crtt0QD8q63KOmBRQowfJ9yLHU7+Fd5X+c+5LTSHkoe3ZsHMV0qjSnHoGR2zhGld
- TEGy9ugLkmAaVD8xRU6cq25Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a7cf24b6a13c472c;
-	Mon, 16 Nov 2026 12:59:02 +0000
-X-Mizu-Trace-ID: a7cf24b6a13c472c
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 21:00:14 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
-	peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, samuelcrossley@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	kas@kernel.org, Arnav Aghav <aghav@meta.com>
-Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
- select_idle_capacity()"
-Message-ID: <avr-XumgYsrnA6vZ@three-body>
-References: <20261113153157.2495664-1-usama.arif@linux.dev>
- <eba9d3df71f3f37bf7a318854a1ab6bf1cfb1981.camel@surriel.com>
- <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
- <avglp8nnc4u9OCb5@gpd4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z05EBtcw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4FE31F000C4;
+	Mon, 16 Nov 2026 12:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794833974;
+	bh=H0ZkNNcZYDe7VlHkuwH0d8aoRRKZdBPLeqP/TuARMR4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z05EBtcwSpXoYHkEF5iaYXC/SUkFKTYxy8n50qUine3tJTmnGMUtZqx2CyqmYlD3g
+	 KpvOznUOSxNVSxLdQjaxPSolgVv9alnguD2E2zeltouNszcEDJkO7o72flqbHAmtDs
+	 CNXEg5ChRbfBWT2utgtNqzUe9qVyoBkJRQEbaxP+cY0cCI9NWWRR6Hq2gHNJF+UegZ
+	 0u4jJaaHpQtvGjwvdq2Y6Zhy4Cs/Qt9nib63N4OM/9Iv/SBYjPqgtn5VThiuy1CKW4
+	 xnXV9FC5mQNBs/4fJY7DS3INYfRN5G17PaWVCoR3cggAivxXLCN9osWWpwDgVUmMcD
+	 LLp5oAL9B1SNQ==
+Date: Mon, 16 Nov 2026 12:59:31 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Sandie Cao <sandie.cao@deepcomputing.io>
+Cc: Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree <devicetree@vger.kernel.org>,
+	linux-riscv <linux-riscv@lists.infradead.org>,
+	spacemit <spacemit@lists.linux.dev>,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ Enable SD card support
+Message-ID: <20261116125931-GKC100890@kernel.org>
+References: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
+ <20261109033348.361452-1-sandie.cao@deepcomputing.io>
+ <20261114075506-GKB100523@kernel.org>
+ <407ce3d77416bb2522b7906b0df3d5adf02c27ee.efc7f10c.ccd0.4025.9bef.e587b1e9e4e8@feishu.cn>
+ <20261116082350-GKB100890@kernel.org>
+ <407ce3d77416bb2522b7906b0df3d5adf02c27ee.63da97eb.e7e5.488f.8751.a4a1c53db9df@feishu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,177 +69,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <avglp8nnc4u9OCb5@gpd4>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.63da97eb.e7e5.488f.8751.a4a1c53db9df@feishu.cn>
 
-On Sat, Nov 14, 2026 at 10:11:03AM +0100, Andrea Righi wrote:
-> Date: Sat, 14 Nov 2026 10:11:03 +0100
-> From: Andrea Righi <arighi@nvidia.com>
-> To: Vincent Guittot <vincent.guittot@linaro.org>
-> Cc: Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
->  peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
->  juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org,
->  bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
->  samuelcrossley@gmail.com, linux-kernel@vger.kernel.org,
->  stable@vger.kernel.org, kas@kernel.org, Arnav Aghav <aghav@meta.com>
-> Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
->  select_idle_capacity()"
-> 
-> On Sat, Nov 14, 2026 at 09:18:30AM +0100, Vincent Guittot wrote:
-> > On Fri, 13 Nov 2026 at 20:32, Rik van Riel <riel@surriel.com> wrote:
-> > >
-> > > On Fri, 2026-11-13 at 07:31 -0800, Usama Arif wrote:
-> > > >
-> > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity
-> > > > differences
-> > > > (1013-1024) within the single LLC activate asymmetric selection. Both
-> > > > the reference and affected kernels were observed with a zero scan
-> > > > hint. The reference kernel ignored it and still searched the domain.
-> > > > A latency-sensitive, wakeup-heavy production workload saw its
-> > > > reported
-> > > > minute p50 latencies average 129 ms on the reference kernel and 223
-> > > > ms
-> > > > on the affected kernel.
-> > > >
-> > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
-> > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-> > > > raised the rate to 73.7k/s.
-> > >
-> > > Afaik, the asymmetrical selection is supposed
-> > > to solve a very specific problem: when a task
-> > > requires X amount of CPU capacity to run, we
-> > > try to avoid scheduling it on a CPU that has
-> > > only a fraction of X available.
-> > >
-> > > This creates the issue that a task that appears
-> > > to "need" exactly X, because it's been running
-> > > on a CPU with full available capacity, ends up
-> > > not being scheduled at all when the available
-> > > idle core has X-3% available capacity, because
-> > > that CPU happens to spend 3% of its time handling
-> > > interrupts, or running something else.
-> > 
-> > The task will be scheduled on this idle cpu/core of (X-3% capacity) if
-> > no other idle CPU with X capacity is available.
-> > The selection in select_idle_capacity is:
-> > - Idle core with enough capacity
-> > - Idle core with enough capacity but doesn't fullfill uclamp_min
-> > - Idle core that doesn't fit
-> > - Idle CPU with enough capacity
-> > - Idle CPU with enough capacity but doesn't fullfill uclamp_min
-> > - Idle CPU that doesn't fit
-> 
-> Right, and when the scan budget is exhausted select_idle_capacity()
-> returns the best idle candidate found so far, even if it doesn't fit.
-> 
-> However, in the zero-budget case, we return before examining any
-> candidates in the scan domain. Relaxing the capacity-fit rule inside
-> that scan wouldn't change the outcome, because we never reach that
-> check.
-> 
-> Maybe Rik's suggestion could instead help with the earlier checks in
-> select_idle_sibling()? Accepting an idle target, previous or recently
-> used CPU whose capacity is "close enough" could avoid reaching the
-> zero-budget bailout.
-> 
-> The tradeoff is that we'd accept a potentially weaker CPU immediately,
-> without searching for a better one.
->
+Hi Sandie,
 
-Do you something similar to cluster wakeup, give the wakeup a second chance to find an idle
-CPU in the LLC. I suppose what you suggested is:
+On 17:52 Mon 16 Nov     , Sandie Cao wrote:
+> Hi, Yixun:
+> 
+> > From: "Yixun Lan"<dlan@kernel.org>
+> > Date:  Mon, Nov 16, 2026, 16:24
+> 
+> > > 
+> > > In version 1 [1],  the patch is cd-gpios = <&gpio K3_GPIO(88) GPIO_ACTIVE_LOW>;
+> > > but K3_GPIO(88) is fake cd-gpio, it's tied low on board.
+> > So, there is gpio cd pin, but didn't work? it's hard to say without
+> > the schematic, but can you check with hardware people, if it
+> > can be fixed with SoC's internal GPIO BIAS pullup or pulldown?
+> > So, gpio pin is able to reflect card insert status
+> > 
+> > 
+> 
+> I did check with our hardware team, and the answer is: 
+> there is a CD net on the slot, routed to K3_GPIO(88), but it is hard-tied
+>  to GND on the board. (v1 of this series used 
+> cd-gpios = <&gpio K3_GPIO(88) GPIO_ACTIVE_LOW>, which of course
+> always reports "card present".) It is a direct connection to GND, not a
+> strap resistor, so the SoC's internal bias cannot pull it up.
+> 
+Ok, so there is CD pin, but with hardware design flaw, it's indeed broken,
+that's "broken-cd" property for
 
- 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 470ba0dc6719..d1f3b179013e 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9141,6 +9141,24 @@ static inline bool asym_fits_cpu(unsigned long util,
- 	return true;
- }
- 
-+static int asym_idle_retry(struct task_struct *p, int prev, int target,
-+			   int recent)
-+{
-+	if (choose_idle_cpu(target, p))
-+		return target;
-+
-+	if (prev != target && cpus_share_cache(prev, target) &&
-+	    choose_idle_cpu(prev, p))
-+		return prev;
-+
-+	if (recent != prev && recent != target &&
-+	    cpus_share_cache(recent, target) &&
-+	    choose_idle_cpu(recent, p))
-+		return recent;
-+
-+	return target;
-+}
-+
- /*
-  * Try and locate an idle core/thread in the LLC cache domain.
-  */
-@@ -9149,7 +9167,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 	bool has_idle_core = false;
- 	struct sched_domain *sd;
- 	unsigned long task_util, util_min, util_max;
--	int i, recent_used_cpu, prev_aff = -1;
-+	int i, recent_used_cpu, recent, prev_aff = -1;
- 
- 	/*
- 	 * On asymmetric system, update task utilization because we will check
-@@ -9206,6 +9224,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 
- 	/* Check a recently used CPU as a potential idle candidate: */
- 	recent_used_cpu = p->recent_used_cpu;
-+	recent = recent_used_cpu;
- 	p->recent_used_cpu = prev;
- 	if (recent_used_cpu != prev &&
- 	    recent_used_cpu != target &&
-@@ -9244,7 +9263,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 				target = i;
- 				goto select_smt_priority;
- 			}
--			return target;
-+			return asym_idle_retry(p, prev, target, recent);
- 		}
- 	}
- 
+> > > So In version2 [2], the patch changes to non-removable.
+> > > And In version3 [3], add comment. 
+> > > 
+> > > The options: cd-gpio, non-removable, broken-cd  all work on this board.
+> > > 
+> > it works, but does not reflect the hardware status
+> > 
+> > > We just need to detect the SD card when bootup, don't need the driver 
+> > > to detect hot-plug event , non-removable should be suitable and faster, 
+> > > we recomment to use non-removable.
+> > > 
+> > No, this isn't a valid reason, it's use case should have nothing to do
+> > with the property.
+> > 
+> > My point is: if the gpio cd pin still doesn't work, and the SD card is
+> > actually physical plugable, then should use "broken-cd".
+> 
+> The SD card slot is onboard [1],  put the board into casing, there is no
+> way to plugin/ plugout the card. So there is no card-detect event that can
+> ever happen at runtime.
+> 
+No, if open the case, the card is still plugable.. 
+
+> If you still prefer broken-cd,  I will follow in next version. 
+> 
+Yes, please update
+
+> [1]: https://deepcomputing.io/dc-roma-risc-v-mainboard-iii-unveiled-at-fosdem-powered-by-spacemit-k3-for-framework-laptop-13/
+> 
+> Best regards
+> Sandie
+
 -- 
-2.43.0
-
- 
-> Thanks,
-> -Andrea
-> 
-> > 
-> > >
-> > > In that situation, it will be better to run the
-> > > task on the CPU with 97% capacity right now,
-> > > than to not run the task until a CPU frees up
-> > > later.
-> > >
-> > > Things like SMT and power-driven hardware
-> > > scaling complicate the matter further, because
-> > > we simply cannot see the full amount of capacity
-> > > that is available on each CPU.
-> > >
-> > > That makes me wonder if we should simply accept
-> > > any CPU that's "close enough to X" when dealing
-> > > with asymmetrical placement.
-> > >
-> > > Say, anything that's above 3/4 of the capacity
-> > > of X would be considered good enough to run the task.
-> > >
-> > > That still prevents us from placing a CPU intensive
-> > > task on a little core in a big.LITTLE system, or
-> > > from placing a task on a CPU that spends 80% of its
-> > > time handling interrupts, but it will allow a task
-> > > to run right now, when the capacity imbalance is small.
-> > >
-> > > Does that make sense, or am I forgetting something
-> > > important?
-> > >
-> > > --
-> > > All Rights Reversed.
+Yixun Lan (dlan)
