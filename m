@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858134;
-	b=dp91L2c433E127Bx0k5uf2oMum9zClCGANmOA1txMCsuQqmRSNCYXnamFAdZ8lHOWUJh
-	 lUEvkEepCm+jX4u+PaLr7gLmkLnpM6cRV6tPdmib8ECgwOuDl4o44StaxFj9kzBR1stt/
-	 3R4Ot1uq3u9fg0JKa51CkSq16Cu1NCPrOCaMBxSAm/4TrLQ2csEcNTj/db/htAHsoKmOa
-	 jEKE9nZftt0ENLJIjzYCoj3l3s+JQ4l3YrOlAonHZGtnSGUUyV0aHV2WCiIjXpvTQEeqa
-	 LmomaDYrQiBaoz+96NcLuTmkBcM6CYnBGWohpuWAUBRxlYBLh8Q3fe4SMy/+xtuXVwA==
+	t=1794858144;
+	b=QnvfMHgUzzco8Ukg0WMpAFLqeSIn0S64C8fOXRE18BOuLvIbmOBrj0FbCeJNFWR9NmSp
+	 riSyNO3Zctf1KCHSxQcNzc5eUeDvUxSk7mHXRUkTCvS+825awOYEiG9SiPNJsXU5nqEK5
+	 srAfL0OwXaIJrndWvUG9xW91MqOl2CUBzpACoGr3OIyD/lU3zKeI3K0V9SO5M/Whsl0uA
+	 zdHaZcJ9r81C27EIkW8VOunsj8fGP/b6D5zrENM/t8bHzDqghpiUHzgSRhksddlBfnsj+
+	 J2AvJ0e/JNnj8tZs5Q6MdFwxFAtYQtf7kywexYfd/vMoX3TVNOAdK9+7nlNDFwieZTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858134;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rNb9bQsdhMwrhJ/otfhzVlcn4OiqAMy/G1sex/r4c0M=;
-	b=4DU4NHLCZB5ExY3ynTqEVMGjy0HyxI8nUaWP1A5qFY/3O3/nWjgeYaPWCdlqaOioCumn
-	 tsDvAODerOEkVMgBBw1vq1Qz/Z6lorp/cP4FqyHvoCcDOyozFSFPSsAluaB/cROOmDjid
-	 N+pPgVZroBSBTWlU2ecbcIGSd1LP9a5rlx17cI/GF3NF1ifOzKOuy5h4S3aTK7o2P+1MG
-	 IhssCrtZ5FJkK6u9WKVnVxR72dAtTm8Lu0YkbB9MLmSjfnIYsEwNf/pPNzf+7/VC+9yog
-	 49y1+0pk6Z9IIzfdPIoSqQTOpclqxQXIhBFtJX/UU7lkgCEj8gygfC7v6pEjU5QQEuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858144;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YQ2w1SKYNQZpDiN+RPlgH5e5kIzAXTbHX2JmN1bVYs8=;
+	b=nXRypeGwK/cUrouo1d7aYNreS2BkUCuuS27kiJ0ieJG7/r89L6GLYEBeA2SFkjMbOTE9
+	 I6pVEc7kPFKYFA7S74ZupDj6iX/dCmbb50dPxCxe631o07SmGJa3fuixW738CR9gqvXRv
+	 gw0+jF/zMKl+ZbI9L9iWkEwNrqzooI3hGloug1oUd71Wbxz+3BuudNebW8BlyxeG1yk4J
+	 vyWyvj56yWaUXQSEgAuO9JG/7jSDZwBhr5S1tFN4cmieg06l5+hGH/fXXyWkCzcUzj04o
+	 ACSKfeAtaPaWOwfBaImx12UilkveEfKnrKyJZJ3BuOAn2Xy49v8+T5f1lBFbE5qXhYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7HJtAW+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="E/0nh+BP";
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E305606A322;
-	Mon, 16 Nov 2026 19:42:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135CA606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:42:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 135CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7HJtAW+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68841F000C4;
-	Mon, 16 Nov 2026 19:42:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794858134;
-	bh=rNb9bQsdhMwrhJ/otfhzVlcn4OiqAMy/G1sex/r4c0M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S7HJtAW+1XpF3e2apNCGWZCxhK6+FP0EdXd07FMlMeeeFCZFHDF3seMrwELFtBtyI
-	 pgBm08jgs3CnbJQoZXQObUhZw5Bolrp+PS2VDwHZiuqidMPQMiBMi5K4hoApN0VWsg
-	 4dl9N4DPEyytONJs0Wv0iszVaiFPxtliLTa0/AvBphpotnrd53OWCti8o11Cwwf7VJ
-	 xtUy4SukEgl5PbGoRKtZq9CzmM2zgGd+GLJndHU1FRfWVCE+yESxJ0qNftBWTMam/P
-	 iRaloDpx1ynsHPiDPUd5XDJxyDBL3aqAj9C5bEjZ2KVPjIgO1I+NzHO90GJtjGWYo7
-	 p1T3WSEJHcH5w==
-Message-ID: <sashiko-outbox-217594@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 08/37] sched/deadline: Do not replenish a boost from
- cleared parameters
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261116190549.230119-9-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-9-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 19:42:13 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E/0nh+BP
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3791619605cso7264326eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:42:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794858143; x=1795462943; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YQ2w1SKYNQZpDiN+RPlgH5e5kIzAXTbHX2JmN1bVYs8=;
+        b=E/0nh+BPbckGUnmAJe4GE0O8g2kmQhtn83sBlsn6Y6a04e4BISc5m2L5hTs8UDvzb3
+         bYgz38bh4PLy/HK0ueN7+vPC6ApKmZseRXUgu6VHsmxiSNX4QXnWPn2tt0Xdp8bdBow7
+         s0K1VO/EU0ZH+Zsw2UDxxmp97O1j82ms48rXuF24tbc8BEwQomHrzLeAnDTnbOWBysN+
+         Nba2PmAvy1FGSbJpDZArGIKwhX0e1K00rDja9wDqDSAKCq15IWG+88tOpiSNa1xD6aXI
+         +7k/lAFovvO9Tp0KfypCpnNi0+NG9dv4UD2kkbDGkmWMxwf2nqyJzFARVY2u+CvwugC1
+         lTsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794858143; x=1795462943;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YQ2w1SKYNQZpDiN+RPlgH5e5kIzAXTbHX2JmN1bVYs8=;
+        b=c3WaM6iIppa9ULyH2pED6PeVzZ8XoGmVMinMrrohvVIOLfX1FizzEi1UoyHi6rJwhf
+         JPTbID6u30c8v1Hs2eqUJ251u2M5R7QlpR+b7TM43P+bzzjhEskH9UHkuqT8iL8SQ7eu
+         7+CQmlz14QVy2IAGtFSCupXhw0DCbCtPfJCesQ8Nm2zi/R0FvF29qnDXq/s20YIhqJP+
+         Gd9n0czFaAKDY8gZNd9mKYl9E2GuTJpUkoVB+k2GddCvSmhI25hg44aPFde3ClQ4BKnh
+         29sEoOB9JOKckfTmQze0Xwvyy6JOgb7SSJI41lJVApsIOC6H/FP8sNA714P7L5DSf9ex
+         Hiag==
+X-Forwarded-Encrypted: i=1; AL+hErGqgXNB4fTqYG+AjAynUbLL0hGCXGo81n0i47A9Ee5AcBTZURsNpo2XxTSJ4pEPcEo/mN1d6v7H1DU7DUA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wWZ5Lse647JNeKtMtWapiy22mQzLMi3TEK3b7PyT18pb7f2g5
+	uQGgbMCJbWYry3nHWuIURtUflqySC5tYbS6I++MeCxzSW3SNXbXC7l4X
+X-Gm-Gg: AZFdTZeiaPAIH6a8HggINRaWx7fpyVNpzYnAdE5WOpK3tMn6GPgg3YxHHN5CXhjVxNW
+	WIqqau5tUzDHZBtLBDzUunHjDDpe4KROUbP7AC93jhziqCTMtvbZpUKCtU3q8mTKQzlBlkAlogZ
+	rDr/LSIonQuCH9x7eP7cnCJobLnmSaA4ty59JwZ3hLPdXsRG/fxPgDGGlU1Zx7heKAEzNkpctnk
+	vJBCM0qthbfha8PDxf6ArnGC4URICyghRG+qcZU3xZ2Ntf01tJH7+wdAgWMRaohCR4aY//PrwnI
+	pc47S+LFh5b2yo1V1Z6WYRqQ1Ny4dr9SQqQaThUFeZpdKmReDt5c9Ki7mWAtPEkDHxh3C9yAInm
+	Dy+i89H4RVzRnTzoPhTYA62pM5zJfTRwC+stYToQ82oGLcaMe1smW/+DfcivwtSywpDwH82qhNj
+	BHN55yr0oHzSi8y14vIoH0HZF8kqAMku0j3od0cZcLkq13tAFO4HQvBqtULtBCeherh50xzvFAL
+	QvmlQdNzgecgg3XofKR1w1YbGCRFW6ZNNXu3F/Q1slHk1JmLnkAkk7/SCFM2x/mdleqQ/kIMKtP
+	hV7Zko75OxZWtND/oRNZF6dVopqp5wvbCV8eaPoI52YBr5EbH8FpYxqoBYLw8XE9y7A0RX3lABj
+	c90HB7twgV6/6996nEGPDsIraJEd6TG4rIBItg2h3NVqH5g5YyfOj1TuFuNfu5lg+u2JXtuQrR/
+	SebfOV50F8spbYPZcUSOwvlsuqXFlBYayk0fShjAJlViNL1UbtOSe3p2v+mS16l9M=
+X-Received: by 2002:a05:7301:d189:b0:36e:e349:f2cb with SMTP id 5a478bee46e88-3796628e28amr11639657eec.19.1794858143008;
+        Mon, 16 Nov 2026 11:42:23 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-380e031f3e5sm3238446eec.12.2026.11.16.11.42.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 11:42:22 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Mudit Sharma <muditsharma.info@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH] iio: light: bh1745: fix 16-bit register accesses
+Date: Tue, 17 Nov 2026 01:12:10 +0530
+Message-ID: <20261116194214.45174-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,139 +100,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] sched/deadline: torn donor parameter reads in
-  replenish_dl_entity()
-- [Medium] sched/deadline: unreset negative runtime in
-  replenish_dl_entity()
-- [Medium] sched/deadline: zero deadline in replenish_dl_entity() on
-  initial boost
---
+The 16-bit colour data and threshold registers are little-endian
+LSB/MSB pairs, but the driver accesses them through regmap_bulk_read()
+and regmap_bulk_write() with an int or u16 buffer and no byte-order
+conversion:
 
-commit f55f8a9d26011d4eb967a7bc04c3939d81815727
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+- bh1745_read_raw() reads 2 bytes into an uninitialised int, so the
+  upper 16 bits returned to user space are stack contents.
+- bh1745_read_thresh() reads 2 bytes straight into *val, which the IIO
+  core leaves uninitialised, with the same result for the event
+  threshold attributes.
+- bh1745_write_thresh() writes the first 2 bytes of an int, which are
+  the upper (zero) bytes on big-endian.
+- bh1745_trigger_handler() stores the raw bytes in a u16 although the
+  scan type is IIO_CPU.
 
-sched/deadline: Do not replenish a boost from cleared parameters
+Use an __le16 buffer for all of them and convert with le16_to_cpu() /
+cpu_to_le16().
 
-This commit avoids an infinite loop in replenish_dl_entity() when a
-boosted entity's donor has left SCHED_DEADLINE and had its parameters
-cleared before the priority inheritance chain walk deboosts the owner.
+Fixes: eab35358aae7 ("iio: light: ROHM BH1745 colour sensor")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+Compile-tested only (W=1, checkpatch --strict clean); I don't have
+BH1745 hardware. On little-endian the raw read currently returns the
+register value plus whatever was on the stack in the upper 16 bits of
+the uninitialised int; the threshold read has the same problem through
+iio_ev_value_show(), whose val is not initialised either.
 
-Link: https://lore.kernel.org/all/avL8oOtjKqVNR7-l@jlelli-thinkpadt14gen4.r=
-emote.csb/
+ drivers/iio/light/bh1745.c | 29 +++++++++++++++++++----------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index e4d7cbf4861de..c4ea510599415 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -807,8 +807,26 @@ static void replenish_dl_entity(struct sched_dl_enti=
-ty *dl_se)
->  {
->  	struct dl_rq *dl_rq =3D dl_rq_of_se(dl_se);
->  	struct rq *rq =3D rq_of_dl_rq(dl_rq);
-> +	struct sched_dl_entity *pi_se =3D pi_of(dl_se);
-> +	u64 runtime =3D READ_ONCE(pi_se->dl_runtime);
-> +	u64 deadline =3D READ_ONCE(pi_se->dl_deadline);
-> +	u64 period =3D READ_ONCE(pi_se->dl_period);
+diff --git a/drivers/iio/light/bh1745.c b/drivers/iio/light/bh1745.c
+index 2b8ff36071b8..9c14499f848a 100644
+--- a/drivers/iio/light/bh1745.c
++++ b/drivers/iio/light/bh1745.c
+@@ -421,19 +421,20 @@ static int bh1745_read_raw(struct iio_dev *indio_dev,
+ 			   int *val, int *val2, long mask)
+ {
+ 	struct bh1745_data *data = iio_priv(indio_dev);
++	__le16 value;
+ 	int ret;
+-	int value;
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+ 		if (!iio_device_claim_direct(indio_dev))
+ 			return -EBUSY;
+ 
+-		ret = regmap_bulk_read(data->regmap, chan->address, &value, 2);
++		ret = regmap_bulk_read(data->regmap, chan->address, &value,
++				       sizeof(value));
+ 		iio_device_release_direct(indio_dev);
+ 		if (ret)
+ 			return ret;
+-		*val = value;
++		*val = le16_to_cpu(value);
+ 
+ 		return IIO_VAL_INT;
+ 
+@@ -503,6 +504,7 @@ static int bh1745_read_thresh(struct iio_dev *indio_dev,
+ 			      enum iio_event_info info, int *val, int *val2)
+ {
+ 	struct bh1745_data *data = iio_priv(indio_dev);
++	__le16 value;
+ 	int ret;
+ 
+ 	switch (info) {
+@@ -510,18 +512,22 @@ static int bh1745_read_thresh(struct iio_dev *indio_dev,
+ 		switch (dir) {
+ 		case IIO_EV_DIR_RISING:
+ 			ret = regmap_bulk_read(data->regmap, BH1745_TH_LSB,
+-					       val, 2);
++					       &value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
++			*val = le16_to_cpu(value);
++
+ 			return IIO_VAL_INT;
+ 
+ 		case IIO_EV_DIR_FALLING:
+ 			ret = regmap_bulk_read(data->regmap, BH1745_TL_LSB,
+-					       val, 2);
++					       &value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
++			*val = le16_to_cpu(value);
++
+ 			return IIO_VAL_INT;
+ 
+ 		default:
+@@ -547,6 +553,7 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
+ 			       enum iio_event_info info, int val, int val2)
+ {
+ 	struct bh1745_data *data = iio_priv(indio_dev);
++	__le16 value;
+ 	int ret;
+ 
+ 	switch (info) {
+@@ -554,10 +561,12 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
+ 		if (val < 0x0 || val > 0xFFFF)
+ 			return -EINVAL;
+ 
++		value = cpu_to_le16(val);
++
+ 		switch (dir) {
+ 		case IIO_EV_DIR_RISING:
+ 			ret = regmap_bulk_write(data->regmap, BH1745_TH_LSB,
+-						&val, 2);
++						&value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
+@@ -565,7 +574,7 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
+ 
+ 		case IIO_EV_DIR_FALLING:
+ 			ret = regmap_bulk_write(data->regmap, BH1745_TL_LSB,
+-						&val, 2);
++						&value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
+@@ -741,18 +750,18 @@ static irqreturn_t bh1745_trigger_handler(int interrupt, void *p)
+ 		u16 chans[4];
+ 		aligned_s64 timestamp;
+ 	} scan = { };
+-	u16 value;
++	__le16 value;
+ 	int ret;
+ 	int i;
+ 	int j = 0;
+ 
+ 	iio_for_each_active_channel(indio_dev, i) {
+ 		ret = regmap_bulk_read(data->regmap, BH1745_RED_LSB + 2 * i,
+-				       &value, 2);
++				       &value, sizeof(value));
+ 		if (ret)
+ 			goto err;
+ 
+-		scan.chans[j++] = value;
++		scan.chans[j++] = le16_to_cpu(value);
+ 	}
+ 
+ 	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan),
 
-[Severity: Medium]
-Can replenish_dl_entity() observe a non-zero runtime alongside a zeroed
-deadline or period when racing with __dl_clear_params()?
+base-commit: a6d9114f68c4b5507b2d945bd6d1e37415f913c5
+-- 
+2.53.0
 
-__dl_clear_params() zeroes dl_runtime, dl_deadline and dl_period in that
-same order under the donor's rq lock without ordering barriers:
-
-CPU0 (boosted owner)              CPU1 (donor)
-replenish_dl_entity()
-  runtime =3D READ_ONCE(pi_se->dl_runtime)
-                                  inactive_task_timer()
-                                    __dl_clear_params()
-                                      dl_se->dl_runtime =3D 0
-                                      dl_se->dl_deadline =3D 0
-                                      dl_se->dl_period =3D 0
-  deadline =3D READ_ONCE(pi_se->dl_deadline)  <-- reads 0
-  period =3D READ_ONCE(pi_se->dl_period)      <-- reads 0
-
-Because only !runtime is checked below, replenish_dl_entity() proceeds
-with runtime > 0 and deadline =3D=3D 0 or period =3D=3D 0.  A boosted non-d=
-eadline
-task gets dl_se->deadline set to rq_clock(rq) + 0, while a boosted
-SCHED_DEADLINE task has runtime added in the while (dl_se->runtime <=3D 0)
-loop without advancing dl_se->deadline.  If dl_se->deadline is then in the
-past, the lag check emits a false "sched: DL replenish lagged too much"
-warning and calls replenish_dl_new_period(), which re-reads
-pi_of(dl_se)->dl_deadline and pi_of(dl_se)->dl_runtime directly and sets
-dl_se->runtime to 0.
-
-> -	WARN_ON_ONCE(pi_of(dl_se)->dl_runtime <=3D 0);
-> +	/*
-> +	 * A boosted entity runs on the parameters of its donor, the top
-> +	 * waiter of an rt_mutex. The donor can leave the class and have them
-> +	 * cleared before the chain walk deboosts this entity. They are
-> +	 * cleared under the donor's rq lock, which can be another one. So
-> +	 * read each of them once. Refilling from a runtime of 0 would loop
-> +	 * forever. Leave the entity runnable instead: the walk deboosts it,
-> +	 * or its task releases the lock.
-> +	 */
-> +	if (unlikely(!runtime)) {
-> +		WARN_ON_ONCE(!is_dl_boosted(dl_se));
-> +		dl_se->dl_yielded =3D 0;
-> +		dl_se->dl_throttled =3D 0;
-> +		return;
-> +	}
-
-[Severity: Medium]
-Does returning here without resetting dl_se->runtime leave the entity with
-an accumulating negative runtime?
-
-When a boosted task exhausts its runtime after the donor's parameters are
-cleared, dl_se->runtime remains <=3D 0 across this early return.  Every
-subsequent tick in update_curr_dl_se() subtracts delta_exec from
-dl_se->runtime, sees dl_runtime_exceeded(dl_se), sets dl_se->dl_overrun
-(sending repeated SIGXCPU signals if SCHED_FLAG_DL_OVERRUN is enabled),
-and re-enters enqueue_task_dl() -> replenish_dl_entity().
-
-With the follow-up commit "sched/deadline: Reset the donor's runtime at a
-deboost in the class", this return also happens before
-dl_note_donor_refill(dl_se).  If a SCHED_DEADLINE owner had not been
-refilled from the donor before the donor's parameters were cleared,
-dl_donor_refill stays 0 and dl_deboost() does not reset dl_se->runtime;
-when dl_se->deadline is still in the future at deboost, the negative
-runtime is charged against the owner's own periods on its next replenish,
-or pushes zerolag_time past dl_se->deadline in task_non_contending() if
-the owner blocks first.
-
-[Severity: Medium]
-Can this early return also leave dl_se->deadline at 0 when a runnable
-non-deadline task is first boosted into SCHED_DEADLINE?
-
-When rt_mutex_setprio() boosts a runnable non-deadline task whose
-dl_se->deadline is 0, it sets ENQUEUE_REPLENISH and calls
-enqueue_task_dl() -> enqueue_dl_entity() -> replenish_dl_entity().  If the
-donor's parameters were already cleared (for example after
-normalize_rt_tasks(), or before a multi-hop PI chain walk finishes
-deboosting an intermediate lock owner), replenish_dl_entity() returns here
-before the dl_se->dl_deadline =3D=3D 0 branch initializes dl_se->deadline.
-
-__enqueue_dl_entity() then calls inc_dl_deadline() with deadline =3D=3D 0:
-
-kernel/sched/deadline.c:inc_dl_deadline() {
-	if (dl_rq->earliest_dl.curr =3D=3D 0 ||
-	    dl_time_before(deadline, dl_rq->earliest_dl.curr)) {
-		if (dl_rq->earliest_dl.curr =3D=3D 0)
-			cpupri_set(&rq->rd->cpupri, rq->cpu, CPUPRI_HIGHER);
-		dl_rq->earliest_dl.curr =3D deadline;
-		cpudl_set(&rq->rd->cpudl, rq->cpu, deadline);
-	}
-}
-
-Because dl_rq->earliest_dl.curr =3D=3D 0 is the sentinel for an empty dl_rq,
-enqueuing a subsequent deadline task with a later deadline overwrites
-dl_rq->earliest_dl.curr and cpudl, hiding earlier deadlines on this rq
-from cross-CPU deadline balancing.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
-19-1-mathieu.desnoyers@efficios.com?part=3D8
