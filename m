@@ -1,100 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.3
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794859825;
-	b=bixei8Fd8lPDZLhavsJW7GF1KQlyJ+wm9Sgx1RCoVewy1MqxneiaZ61RNwrPMe4LfOtT
-	 S12qgHdTNAeUoqTrI04h1upjlrFIPu1aMjhkXNcDQnWCHO5r92krMmLuOhYgS8fUi5hpM
-	 ix9dzSEtyTxNrwHYnPk+z4mqE3sp0N97r0MmPIrYvBhUf/RZVz4jZTo2u7hdhjIGfZhhg
-	 OpvBsWHB3wk9ivI5zlNOQNsbyR7Plrs6YVKcIT/W9g6OX3wS8BioMcsQv6MHoK4p4Q67n
-	 lbGx7GxvKWtF6SkaMBuSgxxeiVE2x5Jtj9jDKuxMXkZary/XF11YJVpRSwss795Vjhg==
+	t=1794859897;
+	b=UdpZIKQkdSxvVzPyl5kMB/YJpl4Iy4LeOJKL59zuP93oJlD5fg5HZVVM9syT9qrWeVQ0
+	 UP4iq+SeZ9SMIvjhymJoaOmo+CiPA7IZPEqYDS1LHTpM3irJxcC7OICTr0DVtDvXxTPhU
+	 4bAicZOrkN0GU0lx2Mfcx9BNJXr72jPot/e3VZiRs9uSkiRN7WH+4ugVZ97rSdR/mP7n9
+	 suPvfv6Ls177W+Bf/Zz+AK4LDZvxXCpb7PjTAq0DNJ2F34reDLUZRnWsYj7HfB1SIPXRW
+	 enw5ReCWOqnq1wNQBymB9gfFK5wIS4GsmcJ9bwyi0GmZaajF6arqplfEl0e/K5b9NWA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859825;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ysm1ObvRHi8QkErB3cHCKWgyx+Xhy7Q4KWF6rBHGU1o=;
-	b=VftrF/FJS/1LB4Mt0XZCLcBO0J0k46ZrkRplfoC3HjRdgYyDar9ccGA8KmloapO1Gr4+
-	 PYYTuiH2LvoaIi3DExo4uw33vmxNftX0lYse6ZecVP0kBN/W8YHwi9j+cnnocDBWab+6w
-	 2yqjoXnPjqjiqWCW+0aImWk+wfeckZCpTHg12hMDYLappf1wt3j4nqp3JvurNNrADWVjU
-	 oMZ+XJ9rtCgqkiIzPXjNzfiVrNOj/+dQcNEPeKVv/H0GL9u01zW57oANsu+WcQPlgSXol
-	 Kt0W6Rn9udevlI0emMzK+hghyEl8cQS3nMeam49XBw5pd5YeBYcAASk6PJQHwxSnrUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859897;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bpsDtS6OuBpkH9ZEgUQdyxcyAEWyH5FS+fjhLD8UhvI=;
+	b=LypzA2BqkviyPLfsxgv/woCkdNhm/gC3bY3e1lLD3ozCPhEYYprxdeRTbOZOPpulbKqe
+	 8CqaXij5f1phZKnzHY2oKU3oBtQFPkhmvz4UClLKIeVtwKqkHnTpb5/1N++NBKdA8cbNj
+	 YKju2j3RGgRvPa2cYsko1amU4lkY2Odii/lw5piytPDLkTjcuvJXPhukgLnbIdyfnAXOk
+	 bTGTyMhUNyL5QJ/Xr41jC2BINrGyXj5CQ5FmNzgU4pNlQyWrr3oqKj/6LLB4D64y/RNXU
+	 xJr6lA+j2nXwDENOMnw3mklEuxeoR+m2YFGPEh+DteLztHBVqrFmVLsh2uca/ELPqeg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WOxtFWMy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=EozrHrFH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.3
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013003.outbound.protection.outlook.com [40.107.201.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD2A606A8AF
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:10:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD2A606A8AF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34AA606A31C;
+	Mon, 16 Nov 2026 20:11:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D34AA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WOxtFWMy
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4d581da0aaso470204866b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:10:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794859823; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lkcu1p0t5y1D7txd7sp4mj1hl2aBz5Vr/frn17KIirCD6T67oP7Bh3UWw5JQ7boq8O
-         oRGf+zWTxLDUHxFnpKKW3H7GRS2P+bPplX0P/b+NEO9+nevE8VWYmAemW4Wea2CTMJ4l
-         8i8JVpZsCun3phCHXJYhDaZxOaSAvjjrixoQ1PCDbCCtwvolw0D0WTuphH6WR8YK3b2v
-         0DXRtilE5D0+/mv02i7JVzVk+OLYyfVvuJz2dh5NYVJfYIYJCndYcoCEtBAymi/aDcac
-         y9c2FVg/NOVOzsxj/2qvu879R1rsngl0UVT1qOwtKoptpxwth6Y5XEQPjkipantEigNI
-         jygw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ysm1ObvRHi8QkErB3cHCKWgyx+Xhy7Q4KWF6rBHGU1o=;
-        fh=KOr1di8Dxu1j7iD0CH45HM9Ye/zmEpE5pIKUrSvVf2g=;
-        b=TLvNYu+rj0MJ1FgtdqD3kD0TYXmDUP3St0SeOCZfkNKelmdxf+0wGGvkZFD2HyjO0u
-         1UaKTO8FxQVitmWhuzG6jidXQswUbpTZrRgzzZW8rlf9CfeafH+q1XdrQjcFEB3PF5Aa
-         Fekjmw4szTMdeh6rh2yJwI+ZsIX52mUtpNGC5ozTLEFZW8W6jIzwnvMqA9PcYUt5ldAd
-         TnKxWaX4F7AzHqc23yuRgBIcQmsTsyRIPpnnUiEQkfwvoMczorfl5520K01Bn6tcKsZl
-         2AniC0qN3N+YTsDoKIM/TFvXaP8OrLybl3dNbrJjUnUBKKswxxaPNRlNPpok+G1CnjWk
-         5GMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794859823; x=1795464623; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ysm1ObvRHi8QkErB3cHCKWgyx+Xhy7Q4KWF6rBHGU1o=;
-        b=WOxtFWMyKSPKodrqO+mGvFaJ85nCUDAL1UbckpoCKdZZSDr6KLP1X3+k/+dUDOnHsz
-         Liv0XREDYRmthCicNGPv20LYm7ELc2RuwqA4Qa7jKGzmBys8KG0igoBS5BLir3B/I5Oi
-         /bgRuIn+89jEfgoRFFsF4kxmgi+DuU8n5fJ3Rg4LrQkfy2rePKI3IipY7ZyCU5oGLJVq
-         PSha1QRCep6BbWSr4yXUqyOX3gDVTapQFi10/X2ht30305k3ESrBvJ7NkpVVSXa6XAsH
-         nbsd+tFu6FNI6TlqkTQduwEBjohtbx6EC8CpwweOUWlftKpCXtgRzKyhkQ87oy+TaMVf
-         TxdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794859823; x=1795464623;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ysm1ObvRHi8QkErB3cHCKWgyx+Xhy7Q4KWF6rBHGU1o=;
-        b=cIZIkOeYFtsQqG1i+VWofV/uezILr3/wHJG0ovnX4/0ohn7hT0nP2acJ/m7bcoVKRv
-         UZX185WCMo/ZaMNYommcHzCtgtAr7RBYrPBI5lEtRdAtYRd6y43yIhndRDiJOO4QgBzY
-         Xw80OFWBymWJgqDby2TMKseEaL800sRf1etEv2H24O6dfEqDAaSG87xhtSxKIg0hbrvI
-         hhKJfiDqPBMOKYmJOWcVaUxe1ZZuXHCjhcUfGoZfrWxmxsc1I6w0u0mChL6ag56zZoy6
-         JXQLbAco8/5f1+QpWV//FX1au44kl1DSOKa7LkhDcSfMMyIg/vfQIDauVpGyIK5ZSVaP
-         R+KA==
-X-Forwarded-Encrypted: i=1; AL+hErHlMogCColB6EjI7PvDlzCE2yVnp5lH6Cxm7hgYNUu1lGDijcx/cGHKx+5U5cx8OsVk6gmJQyeliDgAFJw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Fjz+r6YNOlVEFuVfvFB8VLddimFGKR8NhaQL2Nku56p+mAzxT
-	NEBP2ZfxPTjP6jnuIXM2ooSICQNVBHPtOHTBPDEyV7ij11Jf2Cepnr0jF7sKEzOajxgIUH+pIoT
-	23fGtzDQJK4aDh9XAoWAy6WgC2DaCcS0=
-X-Gm-Gg: AYBFou2Q1mUBly0JXbIesAPZojVFur8mytjfDnMcj1Dd7S/aKgOzUkipFbiShNRHO1u
-	v74TWH7Gws/dX5oVXpT5lXvKOSDks5Bh92zmXowHnaLGVc5Lq2Yo8FuSZmH4WtM6WyyoFYRbEtV
-	CTkdU0q7bG/7kuwAoBSMpYWQ+QpSes+FfDy6Jey0oHh7qp+P455MDTV3ilUfLzOubUhQjq34ehQ
-	fU+06p7FjXEsU0EvproZj3HOVrs8x99O0FZWnz4dq4ct5Npr7DK4tlVFS0fLf8stZMECeGpsuDc
-	if+Xd/FCo6RH3dlgUzXeGLSjb3y3eNppoWwMXb0hoPzsygO8aVJ1TpoNuMMGKYucfarbU5NqcQX
-	xqo2lJxCXCliu8tQVnmfTpXE87Kx3SxUUtqDtH2MQGnAWTzyPNyyULMQQxWDxJtU7C/yI5Q==
-X-Received: by 2002:a17:907:802:b0:c29:5172:6151 with SMTP id
- a640c23a62f3a-c5096415a37mr947928266b.45.1794859823120; Mon, 16 Nov 2026
- 12:10:23 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=EozrHrFH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FUoTReCIt1S60gqhY6fEYj4Tph6oDlGuiSe7ONjM0/D7ut0cp+9OdGiSz8nIo6T/psgD/BywraHrPtPEW40cMXDE3rXa3rolBr/MW/WUSvLMaCNU3s6RMZFjyivf7TTp9Our4lRsWc9dQcJFo6Vkx52xouOCHkf/y8BobvV5cR+NU71YqttJ/ErRezTS90eWCyNXcy7cVH69KFAtBtcjuofujH6dmLlHSCEkp3ecuerwHa7I+9GvOzioB96HLxruE4Ve/FhfMqWvP1gA+o/2MT3MX6+oUssQC0hYEQaEgDkL7JGp8Yrzb/5+K2TMlUIxj+wY+jszvlmR3kNs5L65aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bpsDtS6OuBpkH9ZEgUQdyxcyAEWyH5FS+fjhLD8UhvI=;
+ b=FX99KVR753nHgtaBVsNMhIlQE0QqX9W3jA0KGghwFvj1x5arovlXfrd9eU6lIydDoo0cCUY4aVEEBVJkTLvvaLHANQ5UvH/WC2FHvHrKLe+BVboMp8gcFoJ6vJnseJ2Q4gukldBFrRLwMEtHq6z9c16nQdBg21S2lWPP8ZRuwbKOhPVgbvVNBwzs4JvTQlTXQ0adosR8403cebmlCb1LOT1yh5KzoQ76ANT1rdb+0vgsQT+9AWEAsLvOClbswm+ZJx3KnMZ1jzAry6JxDVRMDxCY2WVq6nYkvRIbVewySBrxo0OazwsSWvdbfueG3GTay8znBugE/U4jhyg0/bVlgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bpsDtS6OuBpkH9ZEgUQdyxcyAEWyH5FS+fjhLD8UhvI=;
+ b=EozrHrFHQjFAoqVsA150mafkp0kI1uU0RqwDo/N9j6gKTwui+KStVOz2A9BByiif58zeFKXC2e4jVbSteTJvrwSe6xatXbFiMkHwEPMhxjC7XjhWLlf8c/Jb8vX2BtfuIdD/hEwHAqgN89dWHystM0H7IrH/mEfLDQN+Ew0b0yw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by IA4PR12MB429550.namprd12.prod.outlook.com (2603:10b6:207:128::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 20:10:34 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 20:10:34 +0000
+Message-ID: <75c12dd8-f78b-49ee-8853-bb00e29f6919@amd.com>
+Date: Mon, 16 Nov 2026 14:10:29 -0600
+User-Agent: Mozilla Thunderbird
+From: Babu Moger <babu.moger@amd.com>
+Subject: Re: [PATCH v7 17/19] fs/resctrl: Control visibility of global per-CPU
+ kernel mode group files
+To: tony.luck@intel.com, reinette.chatre@intel.com, ben.horgan@arm.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ x86@kernel.org, fustini@kernel.org, tglx@kernel.org, mingo@redhat.com,
+ dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
+ rppt@kernel.org, arnd@arndb.de, kmehltretter@gmail.com,
+ dapeng1.mi@linux.intel.com, elver@google.com, enelsonmoore@gmail.com,
+ jlayton@kernel.org, seanjc@google.com, ewanhai-oc@zhaoxin.com,
+ binbin.wu@linux.intel.com, nikunj@amd.com, ashish.kalra@amd.com,
+ peterz@infradead.org, superm1@kernel.org, thomas.lendacky@amd.com,
+ prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ ricardo.neri-calderon@linux.intel.com, darwi@linutronix.de,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <cover.1794437052.git.babu.moger@amd.com>
+ <6af7466df1a5e64bc2804ba3d8c7e2e592793cae.1794437052.git.babu.moger@amd.com>
+Content-Language: en-US
+In-Reply-To: <6af7466df1a5e64bc2804ba3d8c7e2e592793cae.1794437052.git.babu.moger@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7P220CA0067.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:224::27) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,251 +109,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115180343.576773-1-koray.fra@gmail.com> <20261115180343.576773-2-koray.fra@gmail.com>
-In-Reply-To: <20261115180343.576773-2-koray.fra@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 16 Nov 2026 21:10:11 +0100
-X-Gm-Features: AclHuK8HNkwAKAuOh7lYPiqcrySU8WxcW1gHG_-7Ti6IFMhOniGdmSp4CPwzuwg
-Message-ID: <CAOQ4uxi+50NU8qzg+Owvr8gFZ4vYF5FqWg4Hr9vB6ONUpPsFwg@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 01/10] vfs: add provenance time (ptime)
-To: koraynilay <koray.fra@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Sungjong Seo <sj1557.seo@samsung.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Trond Myklebust <trondmy@kernel.org>, 
-	Anna Schumaker <anna@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
-	Paulo Alcantara <pc@manguebit.org>, Chris Mason <mason@kernel.org>, Yuezhang Mo <yuezhang.mo@sony.com>, 
-	Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Bharath SM <bharathsm@microsoft.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, "Darrick J . Wong" <djwong@kernel.org>, 
-	Sean Smith <defendthedisabled@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
-	Pedro Falcato <pfalcato@suse.de>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, exfat@lists.linux.dev, ntfs3@lists.linux.dev, 
-	linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-api@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|IA4PR12MB429550:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fc609f4-ddc4-4502-8369-08df441dabf9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|260925021311599003|56012099006|260925022911599003|5023799004|4143699003|11063799006|260925021911599003|261026140227099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	NdgeHYShOF/gl7cGQQeZJyeB2nIugwUHHfcYY7qSfT1/PBU83BqXpcQoJlF3QjlcfEZO9blx7tc/bvE/0iG7Ti/wxlhxuNAOMOAsr9OrbrUvaWwRdJi7VGHp2cHNBhJk8HT6l+jdVTBasvwfZsRXGmU47HaG2xDN3nhtBbhy1rq8Fv1zI+z9iqzrmvu9kx9uIjYuZzKZyhbHuOJqU/zZqOt+/rN9lLObqftM9iiiKJ/i+6J0Vw65+i9ZrcHHua53uk38VtBBgVu5QwRi14E+V59k+wTVbgAXmn1zt/M8JRskowrNzCgOcjcEscxmH1QXqZnQ7DPFLEDrWCE7t72R+nLEt9eJD2rDvBOtbZkdvvp6TZFXfwH1LzQ30sQCRCsgkEj571tSMUnnic7s/wrcKZBlYPRbaiSNeK1wAD6xyneiRM9sl3/wOPwdZW9tD2NUPALUZXypj9Ha+P3gjDYsaxRJR+WiSCsg8rhXWEHuV/I3AddliMSkwaJQ90ARJDOIqLfK/i6Xqz8ByNLJWpijY6eOaGzHg2MNV8XChqMbnzODo9YZ1LQWhZ8ykjVGf8L9oH/RHZaN0nYY/56jNLuWHuwQ+v3QXlfQU6kw5sKl0Vs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(260925021311599003)(56012099006)(260925022911599003)(5023799004)(4143699003)(11063799006)(260925021911599003)(261026140227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WmQ2MU9PQXBBeHY0dFUxODRINzRYWDZDSXBzREtHM2pmeVlETVJzZHpJS2I5?=
+ =?utf-8?B?Y0JqTXA2ZHV3SnJpbjhRcVYzVExMYW1XeHZKUTBsNko0WnhvOEV1azk1UEl1?=
+ =?utf-8?B?cFlDMGhnQlNENlVMYWlZWTRFcjRqcUdlZUltU1c3eHFNd0UvaWhHLzZyZlpP?=
+ =?utf-8?B?SWxla2E5ZHNvWHQzNFM2b2REbWV3dU5pMTdkMGM0RXoxeWo2RUhjb3FKSDNz?=
+ =?utf-8?B?QTlDZDNDSis2ZE0rdnF1djlnWkw5NTduN2pWTDQxYkpmWVI1THg2a1o2ZURy?=
+ =?utf-8?B?azVPMW9qaEYxOGt4WWNuSWQ5UFZ1em96VktBSWFEb29XaElxRjBoVlU4WlQ2?=
+ =?utf-8?B?c2dWS1dBQ0tNbVVjR3QwK0htWWxRaHZhbFlmdnVMYlNRVzMzaWZtNU9WK2lS?=
+ =?utf-8?B?T1A5SENUZGsxOUJZdXVNYm5DL0NydWdESEFJMEF1UlE1cVMyaGhOdGJadW5Q?=
+ =?utf-8?B?QmlxRjFtTTN0MmwxdUczVENZODZLVzNiclBEK2pTRWpQYUt1NWhjYUhVL3lh?=
+ =?utf-8?B?czhuaEt0N2ozVHZNTHYrTnpvL1B1cnFjV0ZGMnpnbUZOYUFwMTVLVmRlUmI0?=
+ =?utf-8?B?WHYvTTAzd3U5RWcxamZtLzNtUm5KUUJVeXZvVEpmN1FZZkRzaC9hNWlMNXVC?=
+ =?utf-8?B?SDgyQlp6VFZ4dS9uT1JYRzIrL09yaURBdUt1M0E2SDFVczJjWmNpZWhSeTMy?=
+ =?utf-8?B?L2ozS0tNK1A4dWhtS1krOU0vRVJaRzBJNmFyQXd3aFpYMEhKNlJ4cWVKaE5t?=
+ =?utf-8?B?TmIyZWNiNEt0NjJUczlBLzdIK0R1eHlCckJmSXBmbkpXbkg2VnNKcHA4eWlG?=
+ =?utf-8?B?WHlCZFhSWGxpMkpxUDZzRmNnZk5SYklJN1h2VWVQZ2JVeHFjUE5KeldSY1RM?=
+ =?utf-8?B?QzFyYmxqY1dVT2lsajgvU3pwVDNRTHZHSG55MVVLbVFFUmFsemdYbTV3Yy9j?=
+ =?utf-8?B?eE14UTRFaDlvYnhXL1ordkNxVTNwdXMvOENnYlNZK3FMem5TRkpzWW1abEhH?=
+ =?utf-8?B?OHZoWHdLcW1DSWRRSG1aeFAxOGE5S2Y5K3VpSXFBVEVSbEZzTHpaVFZoSTU5?=
+ =?utf-8?B?czFNeGlvcDErL1dmM3Fkei9Vem5NSVlXTGs2b2ZkYzNOcVdNd1l0NW0zdkVw?=
+ =?utf-8?B?Z1V0bnFhay9OMHhvVU9HWXhxRndZN1N2MGxib0NYai9jRk1TSmkrcFZFYnBY?=
+ =?utf-8?B?Rmp2N2VUbmd0b0ZqVFlXTzJRMWJ6K3FqdTllN3BTVEYxcDJCSVhmaERMcFV1?=
+ =?utf-8?B?NExhdk51TGFWczlPNmlJQm16YzVocDdkcXB2RU1DcHFRUElMSy8zOHlsS0lm?=
+ =?utf-8?B?QkYzZFZsTUN3RktaRERoc1JZaEN1SzhXSnc0N0l6b21adkJqU0gvcVV6Tjgy?=
+ =?utf-8?B?RElXaUtMY0ovRFYweldQbTVFRk1EV2xqL0dBZ2hsQkJpV0ljYmh0VVBGVXRZ?=
+ =?utf-8?B?WE9kcjIvcmxWdWtOd3dGYndUWlpOZVRSUTBJN3VIanhyMEQrMEhhZzBCdzhw?=
+ =?utf-8?B?SG82eXl4cFc5NjVpelh3czhJU04yZEtRRkJUdE1jM1pMTG13bWVTaVFnanhM?=
+ =?utf-8?B?WGQ2WnNxQ3RZMWxYbTgvTUVxMzJGS0NhdzlXRFdVUk9WNm9sREV5TlZyVlY1?=
+ =?utf-8?B?TlhnZnorKzZzWDBTUEJtSmU1dE94U0V2clhISVpwV2JvY0RsaXZYVGlscGhP?=
+ =?utf-8?B?aENOYnpkVFE1b2k0bFNLamx0S0pqSzhNQUZTeWJ4a2N6dWRKRTdpYlI5azJO?=
+ =?utf-8?B?dnhicGZlVjEzOTkySWtIL1A2RW9YaERVaGpyOGp6OVMzelQ5MXpJa0RURjRo?=
+ =?utf-8?B?dDZRMkpsK0xBeU1kc0ZKR0FKdFhUTnFYeVZwMHNESlNWZnJ4bGdhNkdieEZC?=
+ =?utf-8?B?QThSTVl0S081L1huakFjb1RCdm5ZNklvUzVveEoyZC83amhHTFUxR2Q1a3I4?=
+ =?utf-8?B?K3g0NnUwdFRYMTE1dXJrZCtRS0hnaGpEcnY2MGVHMlJ1ZHBWL1hadTh1S3d5?=
+ =?utf-8?B?ZlZnWXl6VlV4TklLeGZoSmk2WlZ5SGRxcEUxbStMUFk3Y1RtbHpDRVk2N2o3?=
+ =?utf-8?B?QVNmblZMUFloeDVVZjl6TStsL2dxVDJ6SkdCQmM2eXl6RFN2dHBHaGpLK1Ja?=
+ =?utf-8?B?UVdROHlMdDJJYUozbEJLb3laMzFsa0FRdkVxWG5YYTROZTEvQnVsSjFxcU1G?=
+ =?utf-8?B?ZU5rdUFkMEw1R2RqQTVNQlVYT0R5YVVlVnJTWHE3SkN5MGV2SkRWdFJ1bzJy?=
+ =?utf-8?B?WVFIMjNTZ1h1ZkRKUFdXRDN3SEFMY2svNk5BSHhRUFYzNkxFd0Z0SVlUc2oz?=
+ =?utf-8?Q?CJwuqGvQwWUDj0doj7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fc609f4-ddc4-4502-8369-08df441dabf9
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:10:34.1594
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YmHDOeHGXaxwDwM3Gj/Xy2xOq9tZ5DZNkXx4FQYNtb0bbEGCBVEaA7WfT/6jBE/1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB429550
 
-On Sun, Nov 15, 2026 at 7:04=E2=80=AFPM koraynilay <koray.fra@gmail.com> wr=
-ote:
->
-> Add provenance time (ptime), indicating the time when a file or
-> directory was created. This is user-settable via file_setattr() and
-> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
->
-> The semantics of when to preserve this new timestamp are the same as
-> mtime, the idea being that there is a correspondence like this:
->
-> ctime <-> btime
-> mtime <-> ptime
->
-> so every operation (copying, moving, ...) that currently preserves mtime
-> should also preserve ptime.
->
-> Also add fa_xflags_mask to struct file_attr (and equivalent
 
-That is a very big "Also" part
-This is a significant UAPI change that needs to be delivered and
-explained with a patch on its own.
 
-> fsx_xflags_mask to struct file_kattr) to let the filesystems advertise
-> their support for specific xflags and users advertise what they want to
-> change, behaving like statx.stx_attributes_mask:
-> - on GET (file_getattr): each filesystem fills the mask according to
->   their supported xflags, e.g. FS_XFLAG_PTIME or FS_XFLAG_COWEXTSIZE,
->   and provides the values in the corresponding struct fields;
-> - on SET (file_setattr): userspace fills the mask according to which
->   xflags it wants to change, VFS validates this and preserves xflags
->   that were not specified in the mask;
-> - if xflags_mask =3D=3D 0, use legacy full-struct replacement to keep
->   compatibility with older programs.
->
-> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
-> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
-> xflags and use it in fileattr_to_file_attr()/file_attr_to_fileattr() to
-> validate that the xflags passed in xflags and xflags_mask fields are
-> valid.
->
-> Finally, add the missing FS_XFLAG_PROJID flag, to allow userspace to set
-> the projid using file_[sg]etattr().
-
-This part also belongs with the xflags_mask patch
-
->
-> [ This is a re-implementation of the initial patch[1] by Sean Smith
->   <defendthedisabled@gmail.com>, following the advice[2] from Darrick J.
->   Wong <djwong@kernel.org> of using file_setattr() instead of updating
->   utimensat() ]
->
-> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@gmai=
-l.com
-> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
->
-> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
-> Signed-off-by: koraynilay <koray.fra@gmail.com>
+On 11/11/26 16:44, Babu Moger wrote:
+> The kmode_cpus and kmode_cpus_list files are specific to the global per-CPU
+> kernel mode. These files are created in a hidden state when an rdtgroup is
+> created.
+> 
+> Introduce resctrl_kmode_global_files_show() to control the visibility of
+> these files for individual resource groups. Show the files only for the
+> group backing the active global per-CPU kernel mode and hide them for all
+> other groups.
+> 
+> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> Signed-off-by: Babu Moger <babu.moger@amd.com>
 > ---
->  fs/file_attr.c            | 75 +++++++++++++++++++++++++++++++++++++--
->  fs/stat.c                 |  2 ++
->  include/linux/fileattr.h  |  6 ++++
->  include/linux/stat.h      |  1 +
->  include/uapi/linux/fs.h   |  9 ++++-
->  include/uapi/linux/stat.h |  7 +++-
->  6 files changed, 95 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/file_attr.c b/fs/file_attr.c
-> index 833e03810b24..12610fb6a751 100644
-> --- a/fs/file_attr.c
-> +++ b/fs/file_attr.c
-> @@ -102,14 +102,23 @@ EXPORT_SYMBOL(vfs_fileattr_get);
->  static void fileattr_to_file_attr(const struct file_kattr *fa,
->                                   struct file_attr *fattr)
->  {
-> -       __u32 mask =3D FS_XFLAGS_MASK;
-> +       /*
-> +        * fsx_xflags_mask contains only flags added after the
-> +        * file_[gs]etattr() API, so we need to tell userspace the filesy=
-stem
-> +        * actually supports all legacy and new advertised flags
-> +        */
-> +       __u32 mask =3D (FS_XFLAGS_MASK | fa->fsx_xflags_mask) &
-> +                    FS_FILE_ATTR_XFLAGS_MASK;
->
->         memset(fattr, 0, sizeof(struct file_attr));
->         fattr->fa_xflags =3D fa->fsx_xflags & mask;
-> +       fattr->fa_xflags_mask =3D mask;
->         fattr->fa_extsize =3D fa->fsx_extsize;
->         fattr->fa_nextents =3D fa->fsx_nextents;
->         fattr->fa_projid =3D fa->fsx_projid;
->         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
-> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
-> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
+> v7: Updated the prototype rdtgroup_kmode_global_files_show().
+>      Moved the patch after both rdtgroup_kmode_global_activate() and
+>      rdtgroup_kmode_global_deactivate() is Introduced, so the change is
+>      symmetrical.
+>      Updated the changelog.
+> 
+> v6: Helper named for the global per-CPU files instead of unhiding every
+>      hidden file on the group.
+>      https://lore.kernel.org/lkml/34aa4824-810b-4c81-8188-f2f37e1dc277@intel.com/
+> ---
+>   fs/resctrl/rdtgroup.c | 20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+> 
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 1ad169e714a4..86bd6a66812b 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -1136,6 +1136,24 @@ static int resctrl_kernel_mode_show(struct kernfs_open_file *of,
+>   	return 0;
+>   }
+>   
+> +/* Show or hide kmode_cpus and kmode_cpus_list on @kn. */
+> +static void resctrl_kmode_global_files_show(struct rdtgroup *rdtgrp, bool show)
+> +{
+> +	struct kernfs_node *kn_file;
+> +
+> +	kn_file = kernfs_find_and_get(rdtgrp->kn, "kmode_cpus");
+> +	if (kn_file) {
+> +		kernfs_show(kn_file, show);
+> +		kernfs_put(kn_file);
+> +	}
+> +
+> +	kn_file = kernfs_find_and_get(rdtgrp->kn, "kmode_cpus_list");
+> +	if (kn_file) {
+> +		kernfs_show(kn_file, show);
+> +		kernfs_put(kn_file);
+> +	}
+> +}
+> +
+>   /*
+>    * resctrl_kmode_global_online_cpu() - Program kernel mode association for @cpu
+>    * @cpu: CPU that has just been brought online
+> @@ -1194,6 +1212,7 @@ static void rdtgroup_kmode_global_deactivate(struct rdtgroup *rdtgrp)
+>   
+>   	resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, false);
+>   	cpumask_clear(&rdtgrp->kmode_cpu_mask);
+> +	resctrl_kmode_global_files_show(rdtgrp, false);
+>   
+>   	resctrl_kmode.rdtgrp = NULL;
+>   	resctrl_kmode.active = RESCTRL_INHERIT_USER;
+> @@ -1214,6 +1233,7 @@ static void rdtgroup_kmode_global_activate(struct rdtgroup *rdtgrp,
+>   
+>   	cpumask_copy(&rdtgrp->kmode_cpu_mask, cpu_online_mask);
+>   	resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, true);
+> +	resctrl_kmode_global_files_show(rdtgrp, true);
+>   }
+>   
+>   static int resctrl_kmode_parse_state(char *val, enum kmode_state *state)
+
+
+Sashiko reported:
+
+https://sashiko.dev/#/patchset/cover.1794437052.git.babu.moger%40amd.com?part=17
+
+=============================================================================
+
+commit 05ab3c952d1bee6b5476ced04f03000037d907a0
+Author: Babu Moger <babu.moger@amd.com>
+
+fs/resctrl: Control visibility of global per-CPU kernel mode group files
+
+This commit introduces a helper to show or hide the kmode_cpus and
+kmode_cpus_list kernfs files when a resource group activates or deactivates
+global per-CPU kernel mode.
+
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 68e72afada85a..e2a996102f7e1 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -1136,6 +1136,24 @@ static int resctrl_kernel_mode_show(struct 
+kernfs_open_file *of,
+>  	return 0;
 >  }
 >
->  /**
-> @@ -141,15 +150,23 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
->  static int file_attr_to_fileattr(const struct file_attr *fattr,
->                                  struct file_kattr *fa)
->  {
-> -       __u64 mask =3D FS_XFLAGS_MASK;
-> +       __u64 mask =3D fattr->fa_xflags_mask ?: FS_XFLAGS_MASK;
+> +/* Show or hide kmode_cpus and kmode_cpus_list on @kn. */
+> +static void resctrl_kmode_global_files_show(struct rdtgroup *rdtgrp, 
+bool show)
+> +{
+> +	struct kernfs_node *kn_file;
 > +
-> +       if (fattr->fa_xflags_mask & ~FS_FILE_ATTR_XFLAGS_MASK)
-> +               return -EINVAL;
+> +	kn_file = kernfs_find_and_get(rdtgrp->kn, "kmode_cpus");
+> +	if (kn_file) {
+> +		kernfs_show(kn_file, show);
+> +		kernfs_put(kn_file);
+> +	}
+> +
+> +	kn_file = kernfs_find_and_get(rdtgrp->kn, "kmode_cpus_list");
+> +	if (kn_file) {
+> +		kernfs_show(kn_file, show);
+> +		kernfs_put(kn_file);
+> +	}
+> +}
+> +
+>  /*
+>   * resctrl_kmode_global_online_cpu() - Program kernel mode 
+association for @cpu
+>   * @cpu: CPU that has just been brought online
+> @@ -1194,6 +1212,7 @@ static void 
+rdtgroup_kmode_global_deactivate(struct rdtgroup *rdtgrp)
 >
->         if (fattr->fa_xflags & ~mask)
->                 return -EINVAL;
+>  	resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, false);
+>  	cpumask_clear(&rdtgrp->kmode_cpu_mask);
+> +	resctrl_kmode_global_files_show(rdtgrp, false);
 >
->         fileattr_fill_xflags(fa, fattr->fa_xflags & ~FS_XFLAG_RDONLY_MASK=
-);
-> +       fa->fsx_xflags_mask =3D fattr->fa_xflags_mask;
->         fa->fsx_extsize =3D fattr->fa_extsize;
->         fa->fsx_projid =3D fattr->fa_projid;
->         fa->fsx_cowextsize =3D fattr->fa_cowextsize;
-> +       if (fattr->fa_xflags_mask & FS_XFLAG_PTIME) {
-> +               fa->fsx_ptime.tv_sec =3D fattr->fa_ptime_sec;
-> +               fa->fsx_ptime.tv_nsec =3D fattr->fa_ptime_nsec;
-> +       }
+>  	resctrl_kmode.rdtgrp = NULL;
+>  	resctrl_kmode.active = RESCTRL_INHERIT_USER;
+> @@ -1214,6 +1233,7 @@ static void 
+rdtgroup_kmode_global_activate(struct rdtgroup *rdtgrp,
 >
->         return 0;
+>  	cpumask_copy(&rdtgrp->kmode_cpu_mask, cpu_online_mask);
+>  	resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, true);
+> +	resctrl_kmode_global_files_show(rdtgrp, true);
 >  }
-> @@ -232,6 +249,23 @@ static int fileattr_set_prepare(struct inode *inode,
->             !S_ISREG(inode->i_mode) && !S_ISDIR(inode->i_mode))
->                 return -EINVAL;
 >
-> +       if (fa->fsx_xflags_mask & FS_XFLAG_PTIME) {
-> +               if (!(old_ma->fsx_xflags_mask & FS_XFLAG_PTIME))
-> +                       return -EOPNOTSUPP;
-> +
-> +               if (!(fa->fsx_xflags & FS_XFLAG_PTIME))
-> +                       return -EINVAL;
-> +
-> +               if ((unsigned long)fa->fsx_ptime.tv_nsec >=3D NSEC_PER_SE=
-C)
-> +                       return -EINVAL;
-> +
-> +               fa->fsx_ptime =3D timestamp_truncate(fa->fsx_ptime, inode=
-);
-> +
-> +               if (!timespec64_equal(&old_ma->fsx_ptime, &fa->fsx_ptime)=
- &&
-> +                   (fa->flags & old_ma->flags) & (FS_APPEND_FL | FS_IMMU=
-TABLE_FL))
-> +                       return -EPERM;
+>  static int resctrl_kmode_parse_state(char *val, enum kmode_state *state)
 
-I don't know what this is but it looks strange.
+As reported by Reinette Chatre on v6 [1], should
+resctrl_kmode_global_files_show() be renamed to
+rdtgroup_kmode_global_files_show() to match its struct rdtgroup 
+parameter, rdtgroup_kmode_global_activate(), and 
+rdtgroup_kmode_global_deactivate() (as noted in the v7 patch changelog)? 
+  The comment above the helper also still refers to @kn instead of @rdtgrp.
 
+In addition, the commit message still omits the requested context 
+explaining why kmode_cpus and kmode_cpus_list are specific to global 
+per-CPU kernel mode (used by user space for per-CPU enable and disable 
+of the mode) and why they are created hidden (a resource group can only 
+be assigned to global per-CPU kernel mode after creation via a separate 
+resctrl file).
 
-> +       }
-> +
->         /*
->          * It is only valid to set the DAX flag on regular files and
->          * directories on filesystems.
-> @@ -288,13 +322,41 @@ int vfs_fileattr_set(const struct mnt_idmap *idmap,=
- struct dentry *dentry,
->         if (!err) {
->                 /* initialize missing bits from old_ma */
->                 if (fa->flags_valid) {
-> -                       fa->fsx_xflags |=3D old_ma.fsx_xflags & ~FS_XFLAG=
-_COMMON;
-> +                       /* FS_IOC_SETFLAGS */
-> +                       fa->fsx_xflags |=3D (old_ma.fsx_xflags & FS_XFLAG=
-S_MASK) &
-> +                                         ~FS_XFLAG_COMMON;
->                         fa->fsx_extsize =3D old_ma.fsx_extsize;
->                         fa->fsx_nextents =3D old_ma.fsx_nextents;
->                         fa->fsx_projid =3D old_ma.fsx_projid;
->                         fa->fsx_cowextsize =3D old_ma.fsx_cowextsize;
-> +                       fa->fsx_ptime =3D old_ma.fsx_ptime;
->                 } else {
-> +                       /*
-> +                        * Preserve unmasked xflags when running file_set=
-attr()
-> +                        * with a mask, which doesn't need a read-modify-=
-write
-> +                        * so these attributes would be set to 0.
-> +                        *
-> +                        * With FS_IOC_FSSETXATTR or mask =3D=3D 0 (legac=
-y mode)
-> +                        * this is not needed as userspace does
-> +                        * read-modify-write already.
-> +                        */
-> +                       if (fa->fsx_xflags_mask) {
-> +                               fa->fsx_xflags |=3D old_ma.fsx_xflags &
-> +                                                 ~fa->fsx_xflags_mask;
-> +                               fileattr_fill_xflags(fa, fa->fsx_xflags &
-> +                                                    ~FS_XFLAG_RDONLY_MAS=
-K);
-> +                               if (!(fa->fsx_xflags_mask & FS_XFLAG_EXTS=
-IZE))
-> +                                       fa->fsx_extsize =3D old_ma.fsx_ex=
-tsize;
-> +                               if (!(fa->fsx_xflags_mask & FS_XFLAG_PROJ=
-ID))
-> +                                       fa->fsx_projid =3D old_ma.fsx_pro=
-jid;
-> +                               if (!(fa->fsx_xflags_mask & FS_XFLAG_COWE=
-XTSIZE))
-> +                                       fa->fsx_cowextsize =3D old_ma.fsx=
-_cowextsize;
-> +                       }
->                         fa->flags |=3D old_ma.flags & ~FS_COMMON_FL;
-> +
-> +                       /* xflags not present in fsxattr */
-> +                       if (!(fa->fsx_xflags_mask & FS_XFLAG_PTIME))
-> +                               fa->fsx_ptime =3D old_ma.fsx_ptime;
->                 }
->
+[1] https://lore.kernel.org/r/c600a240-ed11-4e31-b3c3-779f01175f28@intel.com
 
-This whole flags/xflags duality needs a closer look
-This looks a bit too complicated right now.
+=========================================================================
 
-I don't have time to do the full review so wanted to give you the
-main feedback first.
+My bad. Yes. Will fix the naming to rdtgroup_kmode_global_files_show() 
+and also will fix the comment about @kn
 
-I'll try to get to it this week.
+Thanks
+Babu
 
-Thanks,
-Amir.
