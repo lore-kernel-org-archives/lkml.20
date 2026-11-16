@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794808400;
-	b=g4/33HYxjmA754mTiTLcrXSCFzFPG9nPMvQFr59eT+y0s9mMj5iS+k+2fSymtR8DwG+6
-	 e1i9e2R1A416KYWdol5Pnl3skBIBTpKunRrvruZHV5dYpwwd+9V7ulFBTaoUmEtKiOhwH
-	 McGblO8GIZNnGf0RLWSQ7lzf4UI6Myh4NGX9on9jn6mUiNGkcMV6Vhwo09AtKUcqOrIQk
-	 bIHVoyjxaR1haLu6nZYOxMuPDyqTip0+Ui7Htp4DNq3GZqkur+FHOxRDrx2Y+l3qOPrzr
-	 rEYJJzHvI6fMVEr5nlDiXvBXZFKvkmw0a/g2y6TGflx62fYMV+ciOIOA0ypykOKyKtg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794808400;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eOwVzLDlfkSi0YjT0f74v9O8KdDB1ij1EtqULwicacE=;
-	b=LX1alAm5Bt4R6ki47oJfrJUsOgs5egaQlUg/adkgO/FyH5+VSI91cSj3fdABOTmPZ0mq
-	 bNMKxg3qo1Z/CxfC/VR9AQ+I/BvX1tXvd5NJ15Ojhs5qJbo/ahNlzWIBbaQlQS8OSpylz
-	 iuKiv1kUSZjylVafrt+hOAnzgtLgOGQmI6xQZ9jzM0VVBe25hyB8KpPKaERc8ww+cDPZh
-	 BxyYGP42ngqVFZ9gtMSGAeUk/i57Cut5w7w25sb3A845f5FpXr1gLxrFz92H+tzfhkoIm
-	 I7GKOASRzhdTQSTH/YdKp62ar6pYpurkcJtZLHCJxjdN7WNpYOgplrS5DtoNiw1zZ1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=TwOO+z+j;
-	arc=none smtp.remote-ip=95.215.58.198
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794808527;
+	b=5rMXZ4LRPllpFjsbkmnDmLJq7Phe/8dW6l2dzxSqM1q6FpP7kZa7a2lauUCKJeZP8R+M
+	 jwjeuaZLsaGdWzcR+jXg0N1XuNY6RtDR678WyzK6h5iCKNnGS34LBSuns6alLQrEzkm8+
+	 W9SgSEQAR6ZRSVbsCDfbpFwSp5Aa2NMC6sHQI9amnyLo1uuY7Qoq68AjpTNqzlhpEp6E/
+	 l8b0UpBRKLSEFBeRBm0QJ65VVQ+NwK0SXYcsvBhE+2Un9KMQQKlzz3WCZytSn11L9LIJ4
+	 OpXjisccRiOmH//QQlsK/9OK2QzrpdhWXpQoz7paw8RGAtlS1bHqZ/5Km1SKbcZKyoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794808527;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DHaice+Ti0PzU+k5QwVlqcyysO8IwelYCih66aFmNyQ=;
+	b=XOhRQcGoNomndmcpmHJFqFj4q839+Nuggk9Mx6ygomTTO1IWOZVXV8vkltgXiYWXS5g1
+	 u6QL0vuZo3lC3kBc8JZFW+AOKs1Rn5zQQvj8C3GH+WJjsehScGYQoOroWK5C9hDg8+E4G
+	 uObSwO7OQ7nqUGNtazgz424v9DVfChcscFhGQpHPGJtsBRs9jjh8221PDS9HK+gi8AOjN
+	 UkYXqxbVtDeE8Azqcu+94tji5WpoBzZsQ07xQgS586mDZ9D/z5srdNnf/7bArWe8OKNj9
+	 hl5WW4WijYdypL9Ar5NhgGT6GghfFhJj0CWawdv9wBGQX7k/7QxOGYKHQp0ihnGEbVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXmWvjsc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB70606A31C;
+	Mon, 16 Nov 2026 05:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXmWvjsc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794808526;
+	b=qcKHtJn/1EX9mHC16gV2qxiTnH/MXxYdZA4JiekQYMXhpjmAf0JbmP4nUd20rlOrP5o6
+	 qrOpeKPr17AFa2QOLN5fQOa9yXkuzlwB6qld7NGOm+Yz9YoYSTb0bbrBu0sMFeAcuJxLz
+	 qJaE6fsSMJuuTcNCUVpByqJ1nc5hxfml2ucCYnATHzb/6l5D3rrorlNl/5FZSXDIMMQxE
+	 kF2KzfKAQvW7TlrUn2wSXomGikwQRCQR9Z4MpNWUvl+vVBsxIoAKWhX3doZySKwk9OUG9
+	 uXUdrbQK3SBlufMzyaUPGhKEfL4lkXcVCxwD07RwCwY3ws8hDVO8OXHn9W0YQB+UT3Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794808526;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DHaice+Ti0PzU+k5QwVlqcyysO8IwelYCih66aFmNyQ=;
+	b=m3BSxy5gxNk1ax5I5HiRJ3efae11czCLU7FHGVHLMP5077aSmQUjM6U9YB3r2tS8OTVJ
+	 /wBaMmi/kethX9URAUjzbdYE1PUUUiUr4hrVR+1QMVgP6e8toESpEldjl4KleVeygP/kl
+	 OjU/vRP1+w8NSL0cVtz8HicjlnOZhSsE7Sj89cZzUBqjTkUE7VeHIANgb5X6uGBRGkX3H
+	 Xn0LpTEyrgoc8ypswCaONtAGoTLR5GI9XGu0eRdlmQcbeLGaU5zbiW5Wdfnwefk/khHQm
+	 6QfXFeqb9dH3kdA77yApJ12Iz/ibTXrB/ojsoawrW2Ld02qFBfNwfy7h1fDNqyRtn3A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D7B606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D7B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=TwOO+z+j
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uD+FCsVNWp52CztDUUMpqbHdeuM/UhgnchIo9AuSFIo=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794808396; v=1; x=1795413196;
- b=TwOO+z+jKYjM86XFMVDXDuL2cjaE82pQmDTN7JRQrB02YFu7dIb8e4k/sGM/XZZoe2nThUPv
- sBUCtpqbYjG/nkvdoS4IHupxsrUjA0zliRA9Miewb42NRHwwPcwX9uF3veOzM47oxdwQ+wzYbdO
- 5nP+4ae/Jqhi8z2UqQgT8lGk1mG6cA9tL6yqLL+ROyxkRVoNCi3+RG35o43dw/ZoeY46oVqWd7D
- Z5jbfjz+IcfHkrRBtfL8dSv8UgTM4pO48Bt/o1cn1CWnrLaAE8IQvEOCfhNvRa+GC1ueD+eH9fE
- YICScMx6KwoVq4yNSd1Sf04lPnZeZaheFhDZ/z+8Id0bQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dc7e3a2922be0e4a;
-	Mon, 16 Nov 2026 05:53:16 +0000
-X-Mizu-Trace-ID: dc7e3a2922be0e4a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fc99d887-dabe-4461-906e-c40fed5d1889@packett.cool>
-Date: Mon, 16 Nov 2026 02:53:11 -0300
+	by smtp.kernel.org (Postfix) with ESMTPS id EDA7C1F000C5;
+	Mon, 16 Nov 2026 05:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794808526;
+	bh=DHaice+Ti0PzU+k5QwVlqcyysO8IwelYCih66aFmNyQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=MXmWvjsch/N61Bche8WqkZvQqF8C4SXdCcEb0kpbQrYlp8HO4ZL7wOrcWLUmPQIbx
+	 WL/G0bJzUp5sW56VUObbZxdHIakkSaOXVy53vBvmYfoPw5QIgYGg7H37Zu8NXgDQzB
+	 Yn4lDn26vAIABjxTfipukXFmlUxIGtSBbJBp6yrMrlqgdJjcjJJxdq1YMURSeIktn7
+	 EcVnIsQDXS6ZDZjed9++AaeBCKM51Mpx09N1mDr3/OVpE8yw+W+zcpIqG1UoC7FnLT
+	 llsU1nuHQnA952fr76mZrKc0OM2FrtP8BLowye0ASqrIIvNNhMNlVh/lTKSJXLfj+s
+	 T3NI5lYT4qmww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 69AE24A318;
+	Mon, 16 Nov 2026 05:55:25 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Mon, 16 Nov 2026 05:55:25 +0000
+Subject: [PATCH v2 1/2] spi: dt-bindings: sun6i: Allow Dual SPI and Quad
+ SPI for the H616
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,63 +83,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: glymur: Add ASUS Ascent QN10
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
- <20261115-qn10-v2-2-19b11603e776@oss.qualcomm.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261115-qn10-v2-2-19b11603e776@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-spi-sun6i-h616-dual-read-v2-1-e0c66eb71e20@gmail.com>
+References: <20261116-spi-sun6i-h616-dual-read-v2-0-e0c66eb71e20@gmail.com>
+In-Reply-To: <20261116-spi-sun6i-h616-dual-read-v2-0-e0c66eb71e20@gmail.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794808525; l=1092;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=J5fWkwwhvbIRdi/tKkf4w+0nyQr1DVDQbXeDAzQuqPQ=;
+ b=svyeGoIzmzcktMV1ZQt0EBtPZ6VDtsuLr/LDWTdESX9RzfCqsv0ugB5a52NxpTCv0RN59pdrH
+ kdVg5xaYFd5DVGcPPYnBEvgqoHqeay4U895LmnUpQLlsnD5UdBf0pjG
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
 
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On 11/16/26 12:49 AM, Bjorn Andersson wrote:
-> The ASUS Ascent QN10 is a compact desktop computer based on the Qualcomm
-> Snapdragon X2 Elite (Glymur) platform, featuring an 18-core Oryon
-> CPU, Adreno X2-90 GPU, and Hexagon NPU. The system comes with 16 or 32GB
-> of LPDDR5x memory, two M.2 NVMe SSDs slots, Wi-Fi 7, Bluetooth 6.0,
-> 2.5Gb Ethernet, three USB Type-C ports, four USB Type-A ports, and HDMI
-> output.
->
-> The HDMI output is driven by the eDP output through a PS195 HDMI
-> converter. The four USB Type-A ports are connected to a GL3590 USB Hub,
-> on one of the USB MP ports. The Ethernet controller is attached on PCIe.
->
-> Introduce the DeviceTree for this board.
->
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> [..]
-> +&i2c0 {
-> +	clock-frequency = <400000>;
-> +
-> +	status = "okay";
-> +
-> +	hid@3a {
-> +		compatible = "hid-over-i2c";
-> +		reg = <0x3a>;
-> +
-> +		hid-descr-addr = <0x1>;
-> +		interrupts-extended = <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		pinctrl-0 = <&kybd_default>;
-> +		pinctrl-names = "default";
-> +
-> +		wakeup-source;
-> +	};
-> +};
-> [..]
+The H616 SPI controllers support dual and quad transfers (H616 user
+manual, SPI_BCC DRM and Quad_EN bits; only SPI0 has the WP/HOLD pins
+for quad). Allow them, as commit 743956bb9990 ("spi: dt-bindings:
+sun6i: Allow Dual SPI and Quad SPI for newer SoCs") did for the R329
+and A523. The H616 keeps the H3 fallback.
 
-Where's an onboard i2c keyboard physically located on a desktop mini-PC? o.0
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ Documentation/devicetree/bindings/spi/allwinner,sun6i-a31-spi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/Documentation/devicetree/bindings/spi/allwinner,sun6i-a31-spi.yaml b/Documentation/devicetree/bindings/spi/allwinner,sun6i-a31-spi.yaml
+index 14c2f318dd04..116c5868415a 100644
+--- a/Documentation/devicetree/bindings/spi/allwinner,sun6i-a31-spi.yaml
++++ b/Documentation/devicetree/bindings/spi/allwinner,sun6i-a31-spi.yaml
+@@ -106,6 +106,7 @@ allOf:
+           compatible:
+             contains:
+               enum:
++                - allwinner,sun50i-h616-spi
+                 - allwinner,sun50i-r329-spi
+                 - allwinner,sun55i-a523-spi
+     then:
 
-~val
+-- 
+2.55.0
+
 
