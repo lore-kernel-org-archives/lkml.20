@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794816762;
-	b=bEmzTomXGOijjS+39C1DPz19BJZMSg4/w1UEv6e8WtxM4JSPVzIUiGyYzpWp7uKJVaI7
-	 IEXiAypk5QFfbm3l3ZbVEGucLISppnQx7gKzhos92kHsHEdNWWaCWYuYj5f5rqCC0adRx
-	 XhmDTy78F0UT8qo8G/Ciepqorsn/Golmtju3ZKkPJuvto6h8ooafKPY2JngkF/Dzgy8/0
-	 U+BSbZU7Ect+S+RX98Y2tWUAxaq9knCeIfDxtcedqr4Fesc3JBU7jDDo9c4ihU7id6n2h
-	 GRbsHDSwf2cPOptGOVvlAt+CXLqWe6XF2AZrTP0TznEPmPEXmKEYV3waY/Sg+5F3laQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816762;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qnNiZniQ7hU/5TWkcm4nRDnYdoUdBrV52jNGrhHKE60=;
-	b=X2Iv04aOgqZznKtStptz/yLi3SZpDQWdWyFVHqf4WQv/gywqzwrTMWtmNCp7u9cFIas1
-	 2yuVrbLjpIkDHvMT2QT8VL44SucYYMFxLxfY6xR0SR2YPUl60NDkd9Hyov3+dL8nHTQUu
-	 LWWIoOfjGI7fCXgtAjwjLrhw7cgLTCHE3oCRQysf2TZxGXr5ddHJHQrAPIkNddZNym4Wp
-	 Vd8sv0ITtzv4YhADH3SBiF/AFcPRl0YPBpkFLD/NSPTlN/Jniv9bxRlXKWhZ982IwaJHf
-	 kUS2WH/d3uB+GfFRs4gyUFePaWozS/s9RR3Yo3O/DOrVQCifnlVHFaabticw3P6W5Tg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Tg7GJN8V;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794816771;
+	b=3fa5jaKx13A17ne9jIVDd9G6asLy84NdMORORaFlD/YKGQff240wqp63k2eWrcBbocLu
+	 KbqWVj2hTgPsgDOSWBUspI1RoCAeq3vmhto2AOcRfd5ZoxzGCtTPusFMIzj/DZzswk1Fu
+	 yY9RKz5jtBgAgd6A4xFjfwA40P2rLRPiNZyiA1LxpNAAbRdIj/90nccB3yCyVdqC0K90f
+	 ImSTyLoARgtUGOZLHrdB5qQ+idUbON5kzdRbnrCakyTbWAtq87z/4Ol3v7AfS0fl5GsaE
+	 OukN5+Zly8pg6r4mtes/0gIX/qr/LymQz2+WUW+d7d6N0r4sUiYg1DVAjMezoZrPeOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816771;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=tKJr2taXAbMNdxS2ld12zcXQJ7D7w6pOLh3/XuIBMz8=;
+	b=ovnSsFpZweTB7QTmgOJ2/nSPcAhg0Tg1RAyYXWDbtlUIMu0NHAtDbstW5kJJPtMM0O46
+	 dTaDxfAqzo4DzF2mGn7giUfLOqfqjdQ+802fvnYuFACPXlkmLeMyd1qfKOYYhFP0LWjw0
+	 3is42wTK6q/yDjqrYhBHiiiXBrVdl+GMkDT7C55EmAJaoMiIoro/btyS/D+Wawk4de86P
+	 IgBTgs+XbR4bjY+6W3vFO/VXZ/p87VTSVECHOtUK/JabpWX27fKS+qh2tNvZHA9YVynyd
+	 jw1azxGQPlDl6ubFuBRRJW2Dm2BAYPjE5nUrvzswgBjvZtBwQxnwsAPMNczaSt1Bqiw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.70
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F40606A33E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:12:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9F40606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Tg7GJN8V
-ARC-Seal: i=1; a=rsa-sha256; t=1794816753; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=A532Ekd+Z2KsibURE7m1nmvLs513y7ECYzW+jU413ILxQ0XEirO/uNZRNWRDJMryciASh2hXEw+mFskk1wlJHsNWcPDTQIaUcXuojMu6wdg8qBv/UUuiJJMV1wMt00USf9J/wE8M6XVRzJjqqWAExMCKWNo3KzBEmiBYHrqm5Ck=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794816753; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qnNiZniQ7hU/5TWkcm4nRDnYdoUdBrV52jNGrhHKE60=; 
-	b=ktg3NpXwjvTLmAwoCah4C/MMhMZRPn8fkt3OFd2o3X7y6q3BUk0l1YTdz7dH5sklazeDk+eF3mIgqM7SJCXE1dM49Lzqq3chGiS+C8cL1BaofJB202vgIkEhE+CmhUQDaRiIyXRxhrMaoEKfBd8tXDYum/wejO+exHxYPpezFfI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=Tg7GJN8V9orHnn3nGD2SqAtPDe8zQI5S9EytKgr6QkrMt/3fyTMFK5wnQIY9wzjnkYJoCPba0aIiGVcSbXCId5cenXQJwHZRuQvikZ/RQazcOSeGuB4ggapXs5+W+QFTuIa7unoazV9sFLNGxbqbrsJygCbRhLK/CS2bXXWSfH8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=qnNiZniQ7hU/5TWkcm4nRDnYdoUdBrV52jNGrhHKE60=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794816752585120.90548357908153;
-	Mon, 16 Nov 2026 00:12:32 -0800 (PST)
-Message-ID: <a1eb584f-abf1-4213-b27c-dbda8c18df4e@collabora.com>
-Date: Mon, 16 Nov 2026 09:12:29 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47959606A889
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47959606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-862a543c4bcso1563955a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:12:51 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794816770; x=1795421570;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tKJr2taXAbMNdxS2ld12zcXQJ7D7w6pOLh3/XuIBMz8=;
+        b=xx96Eq8lWcgyE63TTzcKu7v1AnRtEHoSG4S33KLAVkJCmXY54TA+R5J9faFxCX7Hji
+         vy53V9TOvgGr+lx/r2kdEjj4I8x/KbP2oPOje2d129ia7nvI1mfWY+hzXI+v3KlPyYVc
+         0KeHGj5r19Q9zlrTIEB65qvryspW8ecB9GhqwUdlxSmYclgafZJXIw9TV0T+yKYNfvZA
+         Uo2LsbtpLvytEGYfgwsK33fMReS1jHe0A/UbxGbo2qNd7TEW1cD2f0hTSl38cDcf3Ah6
+         D+uyyAB2FkzfFy4lCYXTS7sxjSxORwiwvVnwN26hmlmKXhZYHGIdz4zRkWH222J2p9e1
+         noOQ==
+X-Forwarded-Encrypted: i=1; AL+hErFKTyI7rehYMdchTnsJXK/bjAn01H0ag7dsMw9hl2iyaLir01seQ82Yhs/0NjRQZTEuWvR5jkvx+qOY2ko=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Jz2HSg3hiDwgEhJ9RqdJhi/t7etU8ZWF9GgU8SV3TgSX+/Wfq
+	gOmfQi7jfg3WjKWN9KyPTdcmzbMXcSczXtRTuV+00AWvGaX9C1btmd3nQsoXHNg3YWpOW5OtbS9
+	Xo+kbqZnnyyPxbvm3wujbsE9Wngm4CV48Ar81bjwyF0g3iFfnacwJa/mG2x8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,74 +58,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/vsi: Don't write the enable register on suspend
-To: aiyengar1990@gmail.com, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261113-vsi-iommu-disable-v1-1-94f7f44540b3@gmail.com>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <20261113-vsi-iommu-disable-v1-1-94f7f44540b3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:148a:b0:4b9:e6ab:d07b with SMTP id
+ 5614622812f47-56e634827b9mr7862955b6e.27.1794816770222; Mon, 16 Nov 2026
+ 00:12:50 -0800 (PST)
+Date: Mon, 16 Nov 2026 00:12:50 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afabb02.3f8ef711.2cc87e.0003.GAE@google.com>
+Subject: [syzbot] [ext4?] WARNING in jbd2_journal_dirty_metadata (4)
+From: syzbot <syzbot+e8180f5590685cbc9037@syzkaller.appspotmail.com>
+To: jack@suse.cz, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tytso@mit.edu
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    fa2933aac170 Merge tag 'x86-urgent-2026-11-15' of git://gi..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=144bd5a1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d16c0eae9c338e3c
+dashboard link: https://syzkaller.appspot.com/bug?extid=e8180f5590685cbc9037
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=154c444d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=113d0411580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/40cdc2f6bae1/disk-fa2933aa.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f3aa3c064246/vmlinux-fa2933aa.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/bae87f0bfa48/bzImage-fa2933aa.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/6a29776e177b/mount_0.gz
+  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=164c444d580000)
+
+AI-generated root cause summary:
+In ext4 inline data writes, ext4_generic_write_inline_data() starts a
+transaction handle requesting only 1 credit for dirtying the inode buffer. When
+inline data is created or expanded, ext4_prepare_inline_data() consumes that
+sole credit by marking the inode table block (iloc.bh) dirty. If the subsequent
+userspace copy fails or is truncated (e.g. copying from a NULL/unmapped
+address), ext4_write_inline_data_end() invokes ext4_orphan_add(handle, inode),
+which attempts to dirty an orphan file or superblock block using the exhausted
+handle. jbd2_journal_dirty_metadata() encounters
+jbd2_handle_buffer_credits(handle) <= 0, warns, and returns -ENOSPC, causing
+__ext4_handle_dirty_metadata() to abort the journal handle and trigger ext4
+filesystem error handling.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=e8180f5590685cbc9037
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e8180f5590685cbc9037@syzkaller.appspotmail.com
+
+EXT4-fs (loop0): mounted filesystem 104feaea-39f8-49fa-9fe9-3052f307e139 r/w with ordered data mode. Quota mode: journalled.
+------------[ cut here ]------------
+jbd2_handle_buffer_credits(handle) <= 0
+WARNING: fs/jbd2/transaction.c:1598 at jbd2_journal_dirty_metadata+0xb84/0xef0 fs/jbd2/transaction.c:1598, CPU#0: syz-executor284/5618
+Modules linked in:
+CPU: 0 UID: 0 PID: 5618 Comm: syz-executor284 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:jbd2_journal_dirty_metadata+0xb84/0xef0 fs/jbd2/transaction.c:1598
+Code: 39 03 00 00 45 8b 06 48 c7 c7 a0 bf a7 8b 89 ee 89 da 4c 89 f9 e8 bc 6f 80 fe b8 ea ff ff ff e9 40 fd ff ff e8 dd f5 20 ff 90 <0f> 0b 90 b8 e4 ff ff ff e9 2d fd ff ff 44 89 e1 80 e1 07 38 c1 0f
+RSP: 0018:ffffc90004a5f0f8 EFLAGS: 00010293
+RAX: ffffffff82a6f833 RBX: 1ffff11008908f20 RCX: ffff88804117be80
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffffbfff21ab638 R12: dffffc0000000000
+R13: ffff888044847908 R14: ffff888044853900 R15: 0000000000000008
+FS:  000055558b2f3400(0000) GS:ffff888124709000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000000046af40 CR3: 000000002ae66000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __ext4_handle_dirty_metadata+0x198/0x9f0 fs/ext4/ext4_jbd2.c:392
+ ext4_quota_write+0x3ca/0x580 fs/ext4/super.c:7503
+ qtree_write_dquot+0x244/0x5e0 fs/quota/quota_tree.c:462
+ v2_write_dquot+0x183/0x260 fs/quota/quota_v2.c:372
+ dquot_commit+0x36e/0x440 fs/quota/dquot.c:540
+ ext4_write_dquot+0x20a/0x380 fs/ext4/super.c:7096
+ mark_dquot_dirty fs/quota/dquot.c:398 [inline]
+ mark_all_dquot_dirty+0x1fe/0x460 fs/quota/dquot.c:438
+ __dquot_free_space+0x817/0xc00 fs/quota/dquot.c:1901
+ dquot_free_space_nodirty include/linux/quotaops.h:372 [inline]
+ dquot_free_space+0x1b/0x30 include/linux/quotaops.h:377
+ swap_inode_boot_loader+0xbe6/0x1070 fs/ext4/ioctl.c:503
+ __ext4_ioctl fs/ext4/ioctl.c:1731 [inline]
+ ext4_ioctl+0x2379/0x4b70 fs/ext4/ioctl.c:1932
+ vfs_ioctl fs/ioctl.c:52 [inline]
+ __do_sys_ioctl fs/ioctl.c:598 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:584
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f163c16d949
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe5b174698 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0031656c69662f2e RCX: 00007f163c16d949
+RDX: 0000000000000000 RSI: 0000000000006611 RDI: 0000000000000004
+RBP: 0000000000000001 R08: 000055558b2f4560 R09: 000055558b2f4560
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe5b1746c0
+R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007f163c1cd04b
+ </TASK>
 
 
-Le 13/11/2026 à 21:06, Arun Iyengar via B4 Relay a écrit :
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> Benjamin Gaignard pointed out that, per the IOMMU documentation, the
-> IOMMU can't be disabled once enabled. Drop the write on suspend:
-> resume reprograms the IOMMU anyway.
->
-> Suggested-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Reviewed-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> ---
-> Benjamin suggested this in the hantro-robust review:
-> https://lore.kernel.org/r/f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com
->
-> Identity attach keeps the write. On RK3588 it does clear the enable
-> bit (AHB_CONTROL reads 0x1 before, 0x0 after), and without it the
-> IOMMU would keep using the old domain's page table. Benjamin, should
-> that one go too?
->
-> Tested on RK3588S (Orange Pi 5), v7.3-based kernel with [1] and
-> hantro-robust v3 [2]: AV1 fluster unchanged (203/242), 20 AV1 decoder
-> unbind/bind cycles, 3 s2idle cycles. The IOMMU runtime suspended
-> after each step; no SError or IOMMU fault.
-> Not tested: identity domains, suspend to RAM.
-> No conflict with [1] or with patch 10 of [2].
->
-> Developed with Claude (Anthropic), which wrote the code and the commit
-> message. I reviewed it.
->
-> [1] https://lore.kernel.org/r/20261113-vsi-iommu-pm-ref-v1-0-fd917eebdf18@gmail.com
-> [2] https://lore.kernel.org/r/20261113-hantro-robust-v3-0-82383c722ad2@gmail.com
-> ---
->   drivers/iommu/vsi-iommu.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/iommu/vsi-iommu.c b/drivers/iommu/vsi-iommu.c
-> index 5dac20b143a5..bd984060253b 100644
-> --- a/drivers/iommu/vsi-iommu.c
-> +++ b/drivers/iommu/vsi-iommu.c
-> @@ -740,7 +740,7 @@ static int __maybe_unused vsi_iommu_suspend(struct device *dev)
->   {
->   	struct vsi_iommu *iommu = dev_get_drvdata(dev);
->   
-> -	vsi_iommu_disable(iommu);
-> +	iommu->enable = false;
->   
->   	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
->   
->
-> ---
-> base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
-> change-id: 20261113-vsi-iommu-disable-42edd626d009
->
-> Best regards,
-> --
-> Arun Iyengar <aiyengar1990@gmail.com>
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
