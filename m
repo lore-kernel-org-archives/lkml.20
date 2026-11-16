@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837772;
-	b=wcJWVkLvzaylcnKOnRNA5k7JavHL72TtbivNGsfkRA9C4lp5QT72MpLPXnhN/ProDSjF
-	 xHLo5b4cnp+Dq5An+qPn4jAChR7zKK9GuRzcGpQgfPNvf9QUD2Bvd1F2EDmUbOLeaoWvr
-	 Ztn8boRlHBzloq+f31XZvIUvqJ5PE8PZ6mgDNWC8Jww7cnR/o4ZP1YRsAKql4Kp5Gb3ks
-	 I44NUH/GleTGw5+u5ysBlUgZm6feJTKKiXC9jhqcLr/RCtkLSqppEhF8z0cZFhMWZE4G0
-	 vz8qk5E/aei5aC413mPsnMlMXOuT7fQAV+TvYRGLjt1FdFZpgd832XSCdlojYbkqBLQ==
+	t=1794837781;
+	b=fuefPXTBVGvtjk18Ekq600Hwxrdu4YolnVDhOP477M0yFM0qB6Mt1C7iFARzGVXcDlVU
+	 U4VgZeIdwRbgFYqDDUvcl2auFW+A3z9aznfY7YyarGmzh1vfqOTHbqjt/eOrFTi/54WGK
+	 9sLqHSTvGs8iItEG2/6zpEnmyPUo2vL2aPcIJ+BkTLffnFKKUc7r5Wt/2IYtILIPGYbRd
+	 jNaq0Hz3MZdZgZinjNT52vvH40dgsm5hnsDUCw9opLct7wwEl3W0wpeYqVECHj0uAD0M1
+	 eAX1C+iDWPNoVWx+ffMdJBBIGhzg2T4PPa+M/hZsJZIl+soc4tUPxN5yMLchcAI4r7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837772;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3RdZVC353S3Jzng/KfaGsJ4ZkY6L2Mnl5rmFAjdCmnw=;
-	b=BPscCmod1MtoCovaGZ603s0/BlDCdK9njdU7Tf2dkDRnkFrBb/O6PdwKQlX2bHNPzoDz
-	 9xeDoSpORUZloKwZPr0+NuEI6GaCkQsYC9j7XmQAsXrcjUexn1Qx+TOVRLXnvuBtOjgI7
-	 3x8W+ovv5ZHotUd7AkrvZSNg8outkVfLdFdz63IcgKmEWe5hjFNEsKTPMqL/HIfyubIrr
-	 WrsQo8Esy17RKNd7N+FoK0M6amlXf9b4VrNPpOthoki1Q7aXRBAKI6ZOLdInIH7NISktz
-	 ZKoUKgahB/7rfSJscOQlVxYfZYdKMQkM2BX9ow17qLYzPJ+qDvBuH3IMca9Fzkn9tlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837781;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=cq6C85nzMOCVD9RUFqpVZVZ4ydyduqUTyhszrHHjH8w=;
+	b=t7DzXhXmFvYhubuGaaAgr3dM+n0c3PurWJDaiu2BLyubmexX3OtCqTTEWwNaYF0jXtxy
+	 u8dFH23swW+Ln3V0ALFk1vA8GhrDwJoLKuljZJ+0UXENM63FJ5bbCciKBxba8S7hlMCt+
+	 udq2YG1JpgP52jth953aWy7nAR2rGPe7i7L2M20qu3m2Ix77NMkNkPc0M/2j39oFW1Wea
+	 dsH3PWM128Vx3kHLBLw8qISRuQfgKTDaP6kqdQ2S7rOQhbnbTxgC7j3A360Glp9BBFefl
+	 rP13PLcdngO0ihPVayLAAR2JxCw3Vy5r6Xw5HS8JKRpp5tX0rUs/0ZuzriGmTUAys2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=ZoGXtYay;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=H2Gy2DDZ;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C85B606A335;
-	Mon, 16 Nov 2026 14:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C85B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B19606A32A;
+	Mon, 16 Nov 2026 14:03:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B19606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=ZoGXtYay
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794837768; x=1795096968;
-	bh=3RdZVC353S3Jzng/KfaGsJ4ZkY6L2Mnl5rmFAjdCmnw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ZoGXtYaybLuUpFn3Vwe0Ti2Gf241EmMqLPYD/CXvIe+loJVig0yDbnryyZsWrJdgl
-	 LMDpmiufReGB5q/8fxjRUqLIo2vwiOdUvQnoIx1rBRGcKjz09EjIPTPKhHy1mZLz35
-	 PN2x2epMX6lLe7+wRL4/+nO1dIo9STKYiuwmSWBKSc1WmCCDyQIqjjZQU9H9nFwpdb
-	 fa6lEm69mvi9UVY+9uLYvM2gm5ar9JZuC+wOb99YEo2ZDIcFDqRecDZSjosjY2QR2j
-	 Hek+Z1Y3BpDUkDZMVSUVQMiHYyG5igcLgbX4UQGON5MU/tf4EBXGfiQUHgDvNa8kOr
-	 S0DbIkI5ldmBw==
-Date: Mon, 16 Nov 2026 14:02:44 +0000
-To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
-From: Devin Christensen <dchristensen8@proton.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, rafael@gexdigital.net
-Subject: [PATCH] ALSA: hda/ca0132: Fix AE-5 strip color corruption and add on-card LED control
-Message-ID: <20261116140237.4137662-1-dchristensen8@proton.me>
-Feedback-ID: 45895322:user:proton
-X-Pm-Message-ID: 8c17c8ea92dd04b823005f88bf47b1df55d5c032
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=H2Gy2DDZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794837780; x=1826373780;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=r89a9phg2PmIZeV6rJGpD0UdhhNupMsuPVFwWdMmR4g=;
+  b=H2Gy2DDZWr5KVYlswGLt4u7y6/Klp/UgM8q/hrlhA7UcQusMkiuqAhUT
+   JvPsi86VgeVIDMMR2L4OeI8tNveReCossrrdKERuSXSgVa6wMaoAhZFim
+   /cSvt9komGeoSyo1Tw8G1gcDDNOdvLtM+p3Nqoc+bJuAcxm9VqcY/yHzY
+   r07fEwffiifESXCEgLKS4wWiugX3c7ZLAa3UnFdAYXHN/K8ZEJuMT/Mdo
+   4uMIJSQEIKkWsj4uFEYqDmWUwKF59GkwAOLPe2FORzA0hyxrfQSduvVsJ
+   xSVoW9Ot3c+B/585db1tW60MOzAZ73YP7T8V3UujdXIdo+JyaUe983g3N
+   A==;
+X-CSE-ConnectionGUID: dmad7ia3SHimmztP85R43w==
+X-CSE-MsgGUID: fc0Le7fGTmqaQHz5F14IQA==
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="233622650"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Nov 2026 07:02:59 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 16 Nov 2026 07:02:58 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 16 Nov 2026 07:02:56 -0700
+Date: Mon, 16 Nov 2026 15:02:55 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew+netdev@lunn.ch>,
+	<davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <Steen.Hegelund@microchip.com>,
+	<p.zabel@pengutronix.de>, <richardcochran@gmail.com>,
+	<netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next 3/4] net: lan969x: configure the core PLL
+Message-ID: <20261116140255.aap65thluxeaia6v@DEN-DL-M70577>
+References: <20261113-lan969x-core-skew-v1-3-b9b02b863d38@microchip.com>
+ <179483535329.3136.8847960801289420948@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,281 +83,313 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179483535329.3136.8847960801289420948@kernel.org>
 
-This update resolves the external WS2812 RGB LED strip color scrambling
-glitch during rapid animation updates, and adds ALSA card control
-support for the 5 on-board APA102 RGB LEDs on Sound BlasterX AE-5 cards.
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 5
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] In lan969x_init_core_pll() the new DIVFI/DIVFF (FREQ_CFG, line
+>   514) and DIVQ/DIVR/REF_CLK_SEL/FILTER_RANGE (line 523) values are…
+> - [Low] The commit fixes a bug that users can see on every lan969x board,
+>   but it has no Fixes: tag.
+> - [Low] In lan969x_init_core_pll()
+>   (drivers/net/ethernet/microchip/sparx5/sparx5_main.c, lines 506-512),…
+> - [Low] The patch makes a core PLL failure abort the whole switch probe
+>   on lan969x, and the commit message does not say so.
+> - [Low] In lan969x_init_core_pll() (lines 520-531), the comment says the
+>   CORE_PLL_CFG write will "select the reference clock from the strapping…
+> - [Low] The LOCK_STAT check in lan969x_init_core_pll() (lines 561-569)
+>   may pass without proving anything.
+> 
+> --
+> 
+> net: lan969x: configure the core PLL
+> 
+> This commit programs the lan969x core PLL to a rate about 200 ppm above
+> 328.125 MHz. That is the rate the PTP TOD increment in
+> sparx5_ptp_get_nominal_value() already assumes. The dividers and the TOD
+> increment are chosen from the reference clock strapping (25 MHz or 39 MHz),
+> and the divider change uses the NEWDIV/DIVACK handshake in CORE_PLL_CFG.
+> 
+> > diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
+> > index 93a7cb89493c4..244974ffe496b 100644
+> > --- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
+> > +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
+> > @@ -474,10 +474,120 @@ static int sparx5_init_switchcore(struct sparx5 *sparx5)
+> 
+> [ ... ]
+> 
+> > +static int lan969x_init_core_pll(struct sparx5 *sparx5)
+> > +{
+> > +	const struct lan969x_core_pll_dividers *div;
+> > +	u32 hw_stat, pll_cfg, freq_cfg;
+> > +	enum sparx5_core_clockref ref;
+> > +	int err;
+> > +
+> > +	hw_stat = spx5_rd(sparx5, CHIP_TOP_HW_STAT);
+> > +	ref = CHIP_TOP_HW_STAT_REFCLK_SEL_GET(hw_stat) ?
+> > +		SPX5_CORE_CLOCK_REF_39MHZ : SPX5_CORE_CLOCK_REF_25MHZ;
+> > +	div = &lan969x_core_pll_328mhz[ref];
+> > +	sparx5->coreclockref = ref;
+> > +
+> > +	/* Already configured by an earlier probe? */
+> > +	pll_cfg = spx5_rd(sparx5, CHIP_TOP_CORE_PLL_CFG);
+> > +	freq_cfg = spx5_rd(sparx5, CHIP_TOP_CORE_PLL_FREQ_CFG);
+> > +	if (CHIP_TOP_CORE_PLL_CFG_ENA_CFG_GET(pll_cfg) &&
+> > +	    CHIP_TOP_CORE_PLL_FREQ_CFG_DIVFI_GET(freq_cfg) == div->divfi &&
+> > +	    CHIP_TOP_CORE_PLL_FREQ_CFG_DIVFF_GET(freq_cfg) == div->divff)
+> > +		return 0;
+> 
+> [Severity: Low]
+> Is this check strict enough to conclude that the PLL already runs at the
+> skewed rate?
+> 
+> It checks only ENA_CFG, DIVFI and DIVFF. The function also programs DIVR,
+> DIVQ, REF_CLK_SEL and FILTER_RANGE, and it depends on the NEWDIV/DIVACK
+> handshake and on LOCK_STAT. None of those are checked before the early
+> return.
+> 
+> sparx5->coreclockref is set just above. That means
+> sparx5_ptp_get_nominal_value() always picks the skewed TOD increment for
+> the detected reference, whether or not the PLL produces that rate.
+> 
+> The err_disable path clears ENA_CFG, so a completed run of this driver
+> should not leave such a state behind. There are two other ways it could
+> happen. A bootloader or firmware could set ENA_CFG with these DIVFI/DIVFF
+> values but different DIVR/DIVQ/REF_CLK_SEL. Or a probe could be interrupted
+> between the ENA_CFG=1 write and the end of the lock poll, since CHIP_TOP
+> state persists across unbind/bind.
+> 
+> In either case the reprogramming and the checks are skipped without a
+> message. Would it make sense to also compare DIVR, DIVQ and REF_CLK_SEL,
+> and to check LOCK_STAT and that NEWDIV is clear?
+> 
+> > +
+> > +	spx5_rmw(CHIP_TOP_CORE_PLL_FREQ_CFG_DIVFI_SET(div->divfi) |
+> > +		 CHIP_TOP_CORE_PLL_FREQ_CFG_DIVFF_SET(div->divff),
+> > +		 CHIP_TOP_CORE_PLL_FREQ_CFG_DIVFI |
+> > +		 CHIP_TOP_CORE_PLL_FREQ_CFG_DIVFF,
+> > +		 sparx5, CHIP_TOP_CORE_PLL_FREQ_CFG);
+> > +
+> > +	/* Set the reference and output dividers, select the reference clock
+> > +	 * from the strapping pin and use fractional mode.
+> > +	 */
+> > +	spx5_rmw(CHIP_TOP_CORE_PLL_CFG_DIVQ_SET(div->divq) |
+> > +		 CHIP_TOP_CORE_PLL_CFG_DIVR_SET(div->divr) |
+> > +		 CHIP_TOP_CORE_PLL_CFG_REF_CLK_SEL_SET(0) |
+> > +		 CHIP_TOP_CORE_PLL_CFG_FILTER_RANGE_SET(0),
+> > +		 CHIP_TOP_CORE_PLL_CFG_DIVQ |
+> > +		 CHIP_TOP_CORE_PLL_CFG_DIVR |
+> > +		 CHIP_TOP_CORE_PLL_CFG_REF_CLK_SEL |
+> > +		 CHIP_TOP_CORE_PLL_CFG_FILTER_RANGE,
+> > +		 sparx5, CHIP_TOP_CORE_PLL_CFG);
+> 
+> [Severity: Low]
+> Which write here selects fractional mode?
+> 
+> This rmw touches only DIVQ, DIVR, REF_CLK_SEL (written as 0) and
+> FILTER_RANGE (written as 0). In sparx5_main_regs.h, neither
+> CHIP_TOP_CORE_PLL_CFG nor CHIP_TOP_CORE_PLL_FREQ_CFG defines a fractional
+> mode or DSM enable field. The only extra setting is FILTER_RANGE, and the
+> comment does not mention it.
+> 
+> Is the comment just inaccurate, or is a fractional enable missing? Both TOD
+> increments in sparx5_ptp_get_nominal_value() depend on DIVFF taking
+> effect. With only the integer part, the core clock would be about 325 MHz
+> instead of about 328.19 MHz.
+> 
+> > +
+> > +	/* Switch the PLL from its reset defaults to the register settings */
+> > +	spx5_rmw(CHIP_TOP_CORE_PLL_CFG_ENA_CFG_SET(1),
+> > +		 CHIP_TOP_CORE_PLL_CFG_ENA_CFG,
+> > +		 sparx5, CHIP_TOP_CORE_PLL_CFG);
+> > +
+> > +	spx5_rmw(CHIP_TOP_CORE_PLL_CFG_NEWDIV_SET(1),
+> > +		 CHIP_TOP_CORE_PLL_CFG_NEWDIV,
+> > +		 sparx5, CHIP_TOP_CORE_PLL_CFG);
+> 
+> [Severity: Medium]
+> Does the switch from reset defaults to the register settings happen at the
+> ENA_CFG write, before the NEWDIV/DIVACK handshake starts?
+> 
+> If the comment above is accurate, the PLL takes the new DIVFI/DIVFF, DIVR,
+> DIVQ and REF_CLK_SEL values at the ENA_CFG=1 write. The commit message
+> describes the handshake as "the glitch free divider change documented for
+> CORE_PLL_CFG", but this switch happens outside it. The handshake would then
+> cover only what NEWDIV latches afterwards.
+> 
+> The core clock also changes after sparx5_init_switchcore() has already done
+> the EACL force init, RAM init and counter reset:
+> 
+> mchp_sparx5_probe()
+>     sparx5_init_switchcore()
+>     sparx5_init_coreclock()
+>         lan969x_init_core_pll()
+> 
+> The reset controller is optional. A core left enabled by a bootloader could
+> still be running while its clock source changes.
+> 
+> The err_disable path raises the same question in reverse. Clearing ENA_CFG
+> there goes back to the reset defaults without a handshake, and the function
+> returns without waiting for relock.
+> 
+> Could the ENA_CFG versus NEWDIV ordering be checked against the CORE_PLL_CFG
+> datasheet?
 
-1. Fix external strip color corruption:
-In ae5_strip_send_frame(), formatting repeating frame cycles across the
-32 KB DMA buffer combined with stopping the HDA stream after an arbitrary
-15-20 ms delay caused transmissions to be cut off mid-frame / mid-byte.
-WS2812 shift registers latch on signal low (>50 us), so terminating
-mid-byte leaves partial bits in the registers, shifting color channel
-alignments (e.g. blue/white shifting to green/purple/red) on subsequent
-frames. Fix this by populating exactly one WS2812 frame followed by the
-reset gap and zero-filling the remainder of the 32 KB buffer. Reduce
-usleep_range to 8-10 ms, which guarantees the frame has completed and
-the stream terminates cleanly during trailing silence without truncating
-active LED data.
+This is the frequency change procedure described in the datasheet for
+CORE_PLL_CFG, and the patch follows it step by step.
 
-2. Add on-card APA102 RGB LED control:
-The AE-5 and AE-5 Plus feature 5 on-board APA102 (DotStar) RGB LEDs
-providing logo and shroud illumination. These are driven directly by
-CA0113 bridge GPIO pins 2 (data) and 3 (clock) mapped through PCIe BAR2
-at MMIO offset 0x320.
-Expose the on-board LEDs through a volatile card control element:
-  "AE-5 On-Card LEDs" (RW, BYTES): 15-byte RGB payload representing
-                      the 5 on-board LEDs (3 bytes per LED).
-Writes bit-bang the 32-bit start frame, 5 APA102 LED frames (8-bit
-brightness and 24-bit BGR color), and 32-bit end frame over GPIO pins 2
-and 3, returning the pins to idle low. Mutex serialization and runtime
-PM are shared with the external strip control.
+On the first probe the switch comes out of reset with the queue system
+disabled, and patch 2/4 keeps it that way until the core clock is set
+up. On a rebind the PLL is already configured and is left alone.
 
-Fixes: c3e35f355fad ("ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RG=
-B LED strip support")
-Signed-off-by: Devin Christensen <dchristensen8@proton.me>
----
- sound/hda/codecs/ca0132.c | 151 +++++++++++++++++++++++++++++---------
- 1 file changed, 116 insertions(+), 35 deletions(-)
+The err_disable path only runs if the PLL never acknowledges the change
+or never locks. Probe then fails, and the next probe redoes the change
+and waits for lock. Waiting for relock on the error path would not buy
+anything.
 
-diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
-index b3e768be8..b7c97a079 100644
---- a/sound/hda/codecs/ca0132.c
-+++ b/sound/hda/codecs/ca0132.c
-@@ -1062,6 +1062,7 @@ enum dsp_download_state {
-  */
-=20
- #define AE5_STRIP_MAX_LEDS 100
-+#define AE5_ONCARD_LEDS 5
-=20
- struct ca0132_spec {
- =09struct hda_gen_spec gen;
-@@ -1167,10 +1168,11 @@ struct ca0132_spec {
- =09bool use_alt_controls;
-=20
- #if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
--=09/* AE-5 WS2812 strip control */
-+=09/* AE-5 WS2812 strip and on-card LED control */
- =09struct mutex ae5_strip_mutex;
- =09u32 ae5_strip_cur_colors[AE5_STRIP_MAX_LEDS];
- =09int ae5_strip_cur_num_leds;
-+=09u8 ae5_oncard_cur_colors[AE5_ONCARD_LEDS * 3];
- #endif
- };
-=20
-@@ -8421,8 +8423,6 @@ static int ae5_strip_send_frame(struct hda_codec *cod=
-ec, const u32 *grb_colors,
- =09=09u32 ser_base[4], ser_clk[4], ser_out[4];
- =09} saved;
- =09__le32 *dst;
--=09int word_idx =3D 0;
--=09int frame_words;
- =09int led, w, i;
- =09int retries =3D 20; /* ~100ms max */
-=20
-@@ -8470,38 +8470,25 @@ static int ae5_strip_send_frame(struct hda_codec *c=
-odec, const u32 *grb_colors,
- =09=09usleep_range(5000, 10000);
- =09}
-=20
--=09/* 1. Populate the 32KB DMA buffer with repeating WS2812 frames + reset=
- gaps */
-+=09/* 1. Populate the 32KB DMA buffer: 1 WS2812 frame + reset gap, rest ze=
-ro */
- =09memset(dmab.area, 0, AE5_STRIP_DMA_SIZE);
- =09dst =3D (__le32 *)dmab.area;
-=20
--=09/* Words per frame: preamble + (num_leds * words_per_led) + reset gap *=
-/
--=09frame_words =3D AE5_STRIP_PREAMBLE_WORDS + (num_leds * AE5_STRIP_WORDS_=
-PER_LED) +
--=09=09      AE5_STRIP_RESET_GAP_WORDS;
--
--=09while (word_idx + frame_words <=3D AE5_STRIP_TOTAL_WORDS) {
--=09=09/* Preamble per Windows CtxHda FUN_00042944 */
--=09=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++) {
--=09=09=09*dst++ =3D 0;
--=09=09=09word_idx++;
--=09=09}
--=09=09/* LEDs */
--=09=09for (led =3D 0; led < num_leds; led++) {
--=09=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
--=09=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++) {
--=09=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
--=09=09=09=09word_idx++;
--=09=09=09}
--=09=09}
--=09=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
--=09=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++) {
--=09=09=09*dst++ =3D 0;
--=09=09=09word_idx++;
--=09=09}
--=09}
--=09while (word_idx < AE5_STRIP_TOTAL_WORDS) {
-+=09/* Preamble per Windows CtxHda FUN_00042944 */
-+=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++)
- =09=09*dst++ =3D 0;
--=09=09word_idx++;
-+
-+=09/* LEDs */
-+=09for (led =3D 0; led < num_leds; led++) {
-+=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
-+=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++)
-+=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
- =09}
-+
-+=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
-+=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++)
-+=09=09*dst++ =3D 0;
-+
- =09/* Ensure DMA buffer writes are committed before triggering the HDA str=
-eam */
- =09wmb();
-=20
-@@ -8572,12 +8559,13 @@ static int ae5_strip_send_frame(struct hda_codec *c=
-odec, const u32 *grb_colors,
- =09/* 3. Trigger stream transmission on HDA link */
- =09snd_hdac_dsp_trigger(hstr, true);
- =09/*
--=09 * WS2812 latches on the >50us reset gap after one frame. The 32KB buff=
-er holds ~64
--=09 * repeating frame+reset cycles; at ~1.4ms/frame a 15ms run transmits ~=
-10 complete
--=09 * cycles - more than enough to latch reliably. Keep it short so rapid =
-sysfs writes
--=09 * (OpenRGB effects/theme changes) are not serialized behind a 1s block=
-ing sleep.
-+=09 * WS2812 latches on the >50us reset gap after the frame. At 44.1kHz st=
-ereo
-+=09 * (88.2k words/s), a 100-LED frame + reset gap is 488 words (~5.5ms); =
-a 10-LED
-+=09 * strip is 128 words (~1.5ms). Sleeping 8-10ms guarantees the entire f=
-rame and
-+=09 * latch reset have completed. The remainder of the 32KB buffer is zero=
--filled,
-+=09 * so stopping the stream during the trailing zeros never truncates an =
-active LED.
- =09 */
--=09usleep_range(15000, 20000);
-+=09usleep_range(8000, 10000);
- =09snd_hdac_dsp_trigger(hstr, false);
- =09codec_dbg(codec, "AE5 strip: trigger complete\n");
-=20
-@@ -8704,6 +8692,90 @@ static int ae5_strip_num_leds_put(struct snd_kcontro=
-l *kcontrol,
- =09return 1;
- }
-=20
-+static void ae5_oncard_write_bit(struct ca0132_spec *spec, bool bit)
-+{
-+=09writew(bit ? 0x102 : 0x002, spec->mem_base + 0x320);
-+=09writew(0x103, spec->mem_base + 0x320);
-+=09writew(0x003, spec->mem_base + 0x320);
-+}
-+
-+/*
-+ * Caller must hold spec->ae5_strip_mutex.
-+ */
-+static void ae5_oncard_send_frame(struct hda_codec *codec, const u8 *rgb_c=
-olors)
-+{
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09int i, bit;
-+
-+=09if (!spec || !spec->mem_base)
-+=09=09return;
-+
-+=09lockdep_assert_held(&spec->ae5_strip_mutex);
-+=09CLASS(snd_hda_power_pm, pm)(codec);
-+
-+=09/* Start frame: 32 zeroes */
-+=09for (i =3D 0; i < 32; i++)
-+=09=09ae5_oncard_write_bit(spec, false);
-+
-+=09/* 5 APA102 LEDs: 8-bit brightness (0xFF), Blue, Green, Red */
-+=09for (i =3D 0; i < AE5_ONCARD_LEDS; i++) {
-+=09=09u8 r =3D rgb_colors[i * 3 + 0];
-+=09=09u8 g =3D rgb_colors[i * 3 + 1];
-+=09=09u8 b =3D rgb_colors[i * 3 + 2];
-+=09=09u32 val =3D 0xff000000 | ((u32)b << 16) | ((u32)g << 8) | (u32)r;
-+
-+=09=09for (bit =3D 31; bit >=3D 0; bit--)
-+=09=09=09ae5_oncard_write_bit(spec, (val >> bit) & 1);
-+=09}
-+
-+=09/* End frame: 32 ones */
-+=09for (i =3D 0; i < 32; i++)
-+=09=09ae5_oncard_write_bit(spec, true);
-+
-+=09/* Return GPIO pins 2 (data) and 3 (clock) to idle low */
-+=09ca0113_mmio_gpio_set(codec, 2, false);
-+=09ca0113_mmio_gpio_set(codec, 3, false);
-+}
-+
-+static int ae5_oncard_ctl_info(struct snd_kcontrol *kcontrol,
-+=09=09=09       struct snd_ctl_elem_info *uinfo)
-+{
-+=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_BYTES;
-+=09uinfo->count =3D AE5_ONCARD_LEDS * 3;
-+=09return 0;
-+}
-+
-+static int ae5_oncard_ctl_get(struct snd_kcontrol *kcontrol,
-+=09=09=09      struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09memcpy(ucontrol->value.bytes.data, spec->ae5_oncard_cur_colors,
-+=09       AE5_ONCARD_LEDS * 3);
-+=09return 0;
-+}
-+
-+static int ae5_oncard_ctl_put(struct snd_kcontrol *kcontrol,
-+=09=09=09      struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09bool change;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09change =3D memcmp(spec->ae5_oncard_cur_colors, ucontrol->value.bytes.da=
-ta,
-+=09=09=09AE5_ONCARD_LEDS * 3) !=3D 0;
-+=09if (!change)
-+=09=09return 0;
-+
-+=09memcpy(spec->ae5_oncard_cur_colors, ucontrol->value.bytes.data,
-+=09       AE5_ONCARD_LEDS * 3);
-+=09ae5_oncard_send_frame(codec, spec->ae5_oncard_cur_colors);
-+=09return 1;
-+}
-+
- static const struct snd_kcontrol_new ae5_strip_ctls[] =3D {
- =09{
- =09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-@@ -8723,6 +8795,15 @@ static const struct snd_kcontrol_new ae5_strip_ctls[=
-] =3D {
- =09=09.get =3D ae5_strip_num_leds_get,
- =09=09.put =3D ae5_strip_num_leds_put,
- =09},
-+=09{
-+=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-+=09=09.name =3D "AE-5 On-Card LEDs",
-+=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+=09=09.info =3D ae5_oncard_ctl_info,
-+=09=09.get =3D ae5_oncard_ctl_get,
-+=09=09.put =3D ae5_oncard_ctl_put,
-+=09},
- };
-=20
- static int ae5_add_strip_controls(struct hda_codec *codec)
---=20
-2.56.0
-
-
+> 
+> > +
+> > +	err = read_poll_timeout(spx5_rd,
+> 
+> [ ... ]
+> 
+> > +	/* LOCK_STAT resets to 1, so sleep before the first read */
+> > +	err = read_poll_timeout(spx5_rd,
+> > +				pll_cfg,
+> > +				CHIP_TOP_CORE_PLL_CFG_LOCK_STAT_GET(pll_cfg),
+> > +				100,
+> > +				10000,
+> > +				true,
+> > +				sparx5,
+> > +				CHIP_TOP_CORE_PLL_CFG);
+> 
+> [Severity: Low]
+> Can this poll confirm that the PLL relocked?
+> 
+> According to the comment, LOCK_STAT already reads 1 before the change. With
+> sleep_us = 100 and sleep_before_read = true, poll_timeout_us() in
+> include/linux/iopoll.h does:
+> 
+> 	if ((sleep_before_op) && __sleep_us) \
+> 		usleep_range((__sleep_us >> 2) + 1, __sleep_us); \
+> 
+> So the first read can happen only about 26 us after NEWDIV is cleared. If
+> the DIVACK poll succeeded on its first read, which has no sleep, that is
+> also very soon after the ENA_CFG/NEWDIV writes.
+> 
+> If the lock detector has not deasserted by then, the first read returns 1.
+> The function then reports success whether or not the PLL has settled.
+> 
+> Is this delay based on a documented minimum lock detector response time?
+> Could the poll instead wait for LOCK_STAT to drop and then come back?
+> 
+> > +	if (err) {
+> > +		dev_err(sparx5->dev, "Failed to lock the core PLL\n");
+> > +		goto err_disable;
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err_disable:
+> > +	/* Make the next probe redo the change */
+> > +	spx5_rmw(CHIP_TOP_CORE_PLL_CFG_ENA_CFG_SET(0),
+> > +		 CHIP_TOP_CORE_PLL_CFG_ENA_CFG,
+> > +		 sparx5, CHIP_TOP_CORE_PLL_CFG);
+> > +
+> > +	return err;
+> > +}
+> 
+> [ ... ]
+> 
+> > @@ -573,6 +683,15 @@ static int sparx5_init_coreclock(struct sparx5 *sparx5)
+> >  			 CLKGEN_LCPLL1_CORE_CLK_CFG_CORE_CLK_ENA,
+> >  			 sparx5, CLKGEN_LCPLL1_CORE_CLK_CFG);
+> >  	} else {
+> > +		if (freq != SPX5_CORE_CLOCK_328MHZ) {
+> > +			dev_err(sparx5->dev,
+> > +				"%d coreclock not supported\n",
+> > +				freq);
+> > +			return -EINVAL;
+> > +		}
+> > +		err = lan969x_init_core_pll(sparx5);
+> > +		if (err)
+> > +			return err;
+> 
+> [Severity: Low]
+> Before this patch, the lan969x branch of sparx5_init_coreclock() could not
+> fail for a supported target. Now a DIVACK or LOCK_STAT timeout makes the
+> whole switch probe fail:
+> 
+> mchp_sparx5_probe()
+>     sparx5_init_coreclock()
+>         lan969x_init_core_pll()
+>             read_poll_timeout() returns -ETIMEDOUT
+>             goto err_disable
+>     dev_err(sparx5->dev, "LC-PLL initialization error\n");
+>     goto cleanup_config;
+> 
+> The commit message says:
+> 
+>     Leave the PLL alone if it is already
+>     configured, and disable the register configuration again if the change
+>     fails.
+> 
+> That reads like a fallback to the default clock. In fact the PLL is
+> reverted and the device no longer probes. A board that used to probe and
+> forward traffic, with the 200 ppm skew, would end up with no networking.
+> 
+> Is the probe failure intended? If so, could the commit message say so?
+> 
+> >  		pol_upd_int = 820; // SPX5_CORE_CLOCK_328MHZ
+> >  	}
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+> > index 9f61692b243b7..544e9513a9a53 100644
+> > --- a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+> > +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+> > @@ -62,7 +62,10 @@ static u64 sparx5_ptp_get_nominal_value(struct sparx5 *sparx5)
+> >  		res = 0x1FF0000000000000;
+> >  		break;
+> >  	case SPX5_CORE_CLOCK_328MHZ:
+> > -		res = 0x18604697DD0F9B5B;
+> > +		if (sparx5->coreclockref == SPX5_CORE_CLOCK_REF_25MHZ)
+> > +			res = 0x186044FEF1EA9C10;
+> > +		else
+> > +			res = 0x18604697DD0F9B5B;
+> >  		break;
+> 
+> [Severity: Low]
+> Should this commit have a Fixes: tag?
+> 
+> Commit 1ebaa5e18915 ("net: sparx5: add support for lan969x targets and
+> core clock") added the 0x18604697DD0F9B5B increment, a period of about
+> 3.04701 ns against the nominal 3.047619 ns. It did not program the PLL to
+> the matching rate. As the commit message describes, TOD and the scheduler
+> clock have run 200 ppm apart on lan969x since then.
+> 
+> Something like:
+> 
+> Fixes: 1ebaa5e18915 ("net: sparx5: add support for lan969x targets and core clock")
+> 
+> would give stable and backport tooling a pointer. This fix also depends on
+> two earlier patches in the series: "net: lan969x: add the core PLL
+> registers" and "net: sparx5/lan969x: enable the switch core after clock
+> setup". Could the commit message note that dependency, or say whether the
+> series is meant for net-next only?
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-lan969x-core-skew-v1-0-b9b02b863d38%40microchip.com
