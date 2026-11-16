@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838519;
-	b=JS4abebOaT+WYPFhGOe+8BBNLmqdxAJvGwnsj3tWFSoLso4xI+z6WESgiHsBHXNEqhFE
-	 xho35lCIn4s0zVLHgYqe9TwfPlHSr1snOOrh79/8mVOtjOMPF2zNqt35cCZ9ab0kfRsWX
-	 r9xu0QYFDSKpUL/R3i5C8VnZhrfjTwKuVwWlLVAPzaS2Vhe5+volTeBBVki4fVbMk8TAU
-	 lxnh3NH+JkZhrieBgN2PWg4RdZYsGFYP+WrO2diUU4c8F0UNk+u1gi2QMaVFzHrDR4/Gy
-	 +vHQ1K6g8yb5zMca7hgqzMdetimZwpJ/rc7rMWkSTjkH3IHrSCEIqEUXvDHs1DfLTrQ==
+	t=1794838524;
+	b=FUgo/4x3jq2wgm3eWd6cAhOgbiEYm8Xk/ULkjpHXlI0xkg3n16E7aaVwczvLZNiEhsnX
+	 xHQ/Us/cKWz4z4rTx0j/f2rxcAeJ5OW/6B5hzMJ/rQ6qBuP5ROFXy925WAB30uwDzj10E
+	 3BNU9WscQc+jNq647vPelJnNm0o3xSDK44ko3xwHwkAjFrSHsWRWpfhUJiuNQORm/5JAr
+	 sKC1/Jn3Z/03f7jaVmBMH1tR4EAQ/Sl/mFQjm275bcKAhuI9CXojYlFq0lERHU/MCklct
+	 oQ9QYQ3kJfDptPfdcieUYqKn7pcIIb3IGdw2m0qiT0loQ/KlH7SSclBzVr30+Wq44rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838524;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=K5NHzVXY3LRAB3acJJ9610fRkwObgwH6kG7Ys1BqKf4=;
-	b=tZXmhhwOl3fcSa3WBtBomlKtfNNC9NnQiwkE6c0sck04pjxPtcGa/JlRkrtlzPAljIR0
-	 fL5/Wih9maMGbCXrl+rgU0MlC4s4PPpvJpk9NT3cbTOUvjAMf0MHu43+qvednJ7kDbKRq
-	 U9D2N/3RzXPrvyg9YnjhHOme/mg1hoOD3Qs0OxJAM2FTcdQxO4BdkD+xh0h5dpRtWMbur
-	 FwP32K3DXO3cn2aj8HPMu1+H+wTnyWGalVGkXc0m2OxF9cdlLUCEGq6rw3zTka2yuJ/Ax
-	 Rk3XNPl6zizzsBcOWTqg/Z6V/OOi79271F4fGoeQ07TQEI9wdFz7K4lwJsjOoPQXM2g==
+	bh=rWs4H6vt3oOj0DVbcxQ48oJIrZ+cy4RFgQO8xRAG8RE=;
+	b=WIjJ0muDcWEs5vbkcsRHLh3CxvXNgFX5ZY5dRZ6IXJ3SLId4g3EHUh0ROWj3KGxHMm1/
+	 7ec4pmUH+xcfAQcp9/QKf2AzKWiBVpzGJCEED+vbhiD9iWza+/W8H1zKi3am8hwIwSxKH
+	 sh9GS2Yzmbz4CnzXsAsB/uNhAQpx1qQI42nO96/MnJDnC+dys3WmmdXRmz5LEzZtBhzZK
+	 EWTITBm8/q5diQHqRlPM74FMvYXgpLkVkYjfv54hkq03+PEWbsRv0i3UfYI/1AmCw3VbH
+	 hrhE/CScivhKk4bmT6wDxbITiZnRpD3EHqkxxjuRizzPGQkR5F603nWfNYTFFf4z8zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GCmhV8qt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaM5tGF2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4DE606A31C;
-	Mon, 16 Nov 2026 14:15:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE800606A323;
+	Mon, 16 Nov 2026 14:15:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GCmhV8qt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67A91F000C7;
-	Mon, 16 Nov 2026 14:15:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaM5tGF2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD9281F000CE;
+	Mon, 16 Nov 2026 14:15:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838519;
-	bh=K5NHzVXY3LRAB3acJJ9610fRkwObgwH6kG7Ys1BqKf4=;
+	s=k20260515; t=1794838524;
+	bh=rWs4H6vt3oOj0DVbcxQ48oJIrZ+cy4RFgQO8xRAG8RE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GCmhV8qttAXwtE2U3WfGcYJoOZxQXn3T24ec0r0wHcRoDrYG24fqdn1QwTQeeIBzr
-	 Q9RbjmU2yYDLyLImV3rfJi4dITgG+a70I/YND49iJ+WZJfpWE7vIgpDBcIvfp7Yn/m
-	 xOvyVNPJ5N46SHpMArhs0BTb/8j8kgYW0/v/1fMA4j4CpPLe3fIYUL2sEJ/HRrUaPv
-	 nK8QQ6XFJUGRaq2fZCitRLP0IpXyFa9PqLA5YBPiJJfS1YuCnwsw1VkBrup34Wpop1
-	 /87SDUDWY+r+SyjN2ZagnW8w4MRtW6qU6VGANJefu2w7ARbGRdtlfhilN6Mu8QMGQF
-	 vxAiEmk/irFew==
+	b=UaM5tGF2OsM6QZFo1iEwCEof8sxDoBogHd5u5FE1qcPnm9QV8Y53aEwKBKW6hT0yN
+	 ddfWd6fNUa+KWw2829JwD1TSCgoRRIhNH3uJXxTmz7Ny7Syjoi5g4B979JrVN8DWnN
+	 k+mOULB9X0bWIhhfezNtrMPTX+RpdSw1ey0mZu5iKP5Nb5mTRrwJYUSzfvJZJRml4N
+	 nycgt2fiqkyRhsh7PCQlzpS5/omn88WP0Z/RCmhyBUleGc1rivRNG3G3g3hbPIRyay
+	 gDToFtY8WtzRo6WCJaeDyiKrBcySpx2nOgivWKAJNqpm1hCNvzTS/wplAy9nIYPOt3
+	 WZpOqytQ5N1Rw==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -58,9 +58,9 @@ Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 3/8] dt-bindings: net: Add Synaptics SL2610 DWMAC
-Date: Mon, 16 Nov 2026 21:54:37 +0800
-Message-ID: <20261116135442.4827-4-jszhang@kernel.org>
+Subject: [PATCH 4/8] net: stmmac: Add glue layer for Synaptics SL2610 SoC
+Date: Mon, 16 Nov 2026 21:54:38 +0800
+Message-ID: <20261116135442.4827-5-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261116135442.4827-1-jszhang@kernel.org>
 References: <20261116135442.4827-1-jszhang@kernel.org>
@@ -75,114 +75,193 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the Synaptics SL2610 integration of the Synopsys DWMAC 5.20.
-The PHY interface mode is selected through a system-controller register,
-identified by a syscon phandle and register offset.
-
-Restrict PHY modes to the RMII and RGMII variants supported by the glue
-and extend the common DWMAC compatible list for the new integration.
+Add dwmac glue driver to support the DesignWare-based GMAC controllers
+in the Synaptics SL2610 SoC.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Assisted-by: LLM
 ---
- .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
- .../bindings/net/syna,sl2610-dwmac.yaml       | 75 +++++++++++++++++++
- 2 files changed, 76 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
+ MAINTAINERS                                   |   2 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-syna.c  | 116 ++++++++++++++++++
+ 4 files changed, 130 insertions(+)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 2c4842404bf6..267340a5f45c 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -119,6 +119,7 @@ properties:
-         - sophgo,sg2044-dwmac
-         - starfive,jh7100-dwmac
-         - starfive,jh7110-dwmac
-+        - syna,sl2610-dwmac
-         - tesla,fsd-ethqos
-         - thead,th1520-gmac
-         - ultrarisc,dp1000-gmac
-diff --git a/Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml b/Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 430758242906..dba0288bf4da 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3808,12 +3808,14 @@ M:	Jisheng Zhang <jszhang@kernel.org>
+ M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
++F:	Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
+ F:	Documentation/devicetree/bindings/soc/synaptics/
+ F:	arch/arm/boot/dts/synaptics/
+ F:	arch/arm/mach-berlin/
+ F:	arch/arm64/boot/dts/synaptics/
+ F:	drivers/clk/berlin/*sl2610*
+ F:	drivers/clk/berlin/sl-*
++F:	drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
+ F:	drivers/pinctrl/berlin/pinctrl-sl2610.c
+ F:	drivers/reset/reset-sl2610.c
+ F:	drivers/soc/synaptics/
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index c6559e749c0c..79ffebcaba0e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -310,6 +310,17 @@ config DWMAC_SUN55I
+ 	  stmmac device driver. This driver is used for A523/T527
+ 	  GMAC200 ethernet controller.
+ 
++config DWMAC_SYNA
++	tristate "Synaptics SL2610 DWMAC support"
++	depends on OF && HAS_DMA && (ARCH_BERLIN || COMPILE_TEST)
++	select MFD_SYSCON
++	help
++	  Support for the Synaptics SL2610 DesignWare Ethernet MAC glue.
++	  This configures the PHY interface through the system controller.
++
++	  To compile this driver as a module, choose M here. The module
++	  will be called dwmac-syna.
++
+ config DWMAC_THEAD
+ 	tristate "T-HEAD dwmac support"
+ 	depends on OF && (ARCH_THEAD || COMPILE_TEST)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index b16a456b730e..d132353e9403 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -35,6 +35,7 @@ obj-$(CONFIG_DWMAC_STM32)	+= dwmac-stm32.o
+ obj-$(CONFIG_DWMAC_SUNXI)	+= dwmac-sunxi.o
+ obj-$(CONFIG_DWMAC_SUN8I)	+= dwmac-sun8i.o
+ obj-$(CONFIG_DWMAC_SUN55I)	+= dwmac-sun55i.o
++obj-$(CONFIG_DWMAC_SYNA)	+= dwmac-syna.o
+ obj-$(CONFIG_DWMAC_THEAD)	+= dwmac-thead.o
+ obj-$(CONFIG_DWMAC_ULTRARISC)	+= dwmac-ultrarisc.o
+ obj-$(CONFIG_DWMAC_DWC_QOS_ETH)	+= dwmac-dwc-qos-eth.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
 new file mode 100644
-index 000000000000..0748b623599b
+index 000000000000..c4bc895b29da
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/syna,sl2610-dwmac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
+@@ -0,0 +1,116 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Synaptics DWMAC platform driver
++ *
++ * Copyright (C) 2026 Jisheng Zhang <jszhang@kernel.org>
++ *
++ */
 +
-+title: Synaptics SL2610 DesignWare Ethernet MAC
++#include <linux/bitfield.h>
++#include <linux/module.h>
++#include <linux/mfd/syscon.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/of_net.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
 +
-+maintainers:
-+  - Jisheng Zhang <jszhang@kernel.org>
++#include "stmmac_platform.h"
 +
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        const: syna,sl2610-dwmac
-+  required:
-+    - compatible
++#define CTL_PHY_INTF_SEL	GENMASK(4, 1)
++#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, 1)
++#define CTL_PHY_INTF_RMII	FIELD_PREP(CTL_PHY_INTF_SEL, 4)
 +
-+allOf:
-+  - $ref: snps,dwmac.yaml#
++struct syna_dwmac {
++	struct plat_stmmacenet_data *plat;
++	struct regmap *regmap;
++	u32 rgmii_ctl;
++	struct device *dev;
++};
 +
-+properties:
-+  compatible:
-+    items:
-+      - const: syna,sl2610-dwmac
-+      - const: snps,dwmac-5.20
++static int syna_dwmac_set_phy_if(struct plat_stmmacenet_data *plat)
++{
++	struct syna_dwmac *dwmac = plat->bsp_priv;
++	u32 phyif;
 +
-+  syna,syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: Phandle to the SL2610 system controller.
-+          - description: Offset of the Ethernet interface control register.
-+    description:
-+      Phandle and register offset used to configure the Ethernet PHY
-+      interface mode.
++	switch (plat->phy_interface) {
++	case PHY_INTERFACE_MODE_RMII:
++		phyif = CTL_PHY_INTF_RMII;
++		break;
++	case PHY_INTERFACE_MODE_RGMII:
++	case PHY_INTERFACE_MODE_RGMII_ID:
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++		phyif = CTL_PHY_INTF_RGMII;
++		break;
++	default:
++		dev_err(dwmac->dev, "unsupported phy interface %s\n",
++			phy_modes(plat->phy_interface));
++		return -EINVAL;
++	}
 +
-+  phy-mode:
-+    enum:
-+      - rmii
-+      - rgmii
-+      - rgmii-id
-+      - rgmii-rxid
-+      - rgmii-txid
++	return regmap_update_bits(dwmac->regmap, dwmac->rgmii_ctl, CTL_PHY_INTF_SEL, phyif);
++}
 +
-+required:
-+  - compatible
-+  - syna,syscon
-+  - phy-mode
++static int syna_dwmac_init(struct device *dev, void *priv)
++{
++	struct syna_dwmac *dwmac = priv;
 +
-+unevaluatedProperties: false
++	return syna_dwmac_set_phy_if(dwmac->plat);
++}
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
++static int syna_dwmac_probe(struct platform_device *pdev)
++{
++	struct stmmac_resources stmmac_res;
++	struct plat_stmmacenet_data *plat;
++	struct syna_dwmac *dwmac;
++	int ret;
 +
-+    chip: syscon@f7e10000 {
-+        compatible = "syna,sl2610-soc-syscon", "syscon";
-+        reg = <0xf7e10000 0x10000>;
-+        clocks = <&osc>;
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+    };
++	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "failed to get resources\n");
 +
-+    ethernet@f7a06000 {
-+        compatible = "syna,sl2610-dwmac", "snps,dwmac-5.20";
-+        reg = <0xf7a06000 0x2000>;
-+        interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "macirq";
-+        phy-mode = "rgmii-id";
-+        syna,syscon = <&chip 0xa3c>;
-+    };
-+...
++	plat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	if (IS_ERR(plat))
++		return dev_err_probe(&pdev->dev, PTR_ERR(plat),
++				     "dt configuration failed\n");
++
++	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
++	if (!dwmac)
++		return -ENOMEM;
++
++	dwmac->regmap = syscon_regmap_lookup_by_phandle_args(pdev->dev.of_node,
++							     "syna,syscon", 1,
++							     &dwmac->rgmii_ctl);
++	if (IS_ERR(dwmac->regmap))
++		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->regmap),
++				     "Failed to get syscon regmap\n");
++
++	dwmac->dev = &pdev->dev;
++	dwmac->plat = plat;
++	plat->bsp_priv = dwmac;
++	plat->init = syna_dwmac_init;
++
++	return devm_stmmac_pltfr_probe(pdev, plat, &stmmac_res);
++}
++
++static const struct of_device_id syna_dwmac_match[] = {
++	{ .compatible = "syna,sl2610-dwmac" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, syna_dwmac_match);
++
++static struct platform_driver syna_dwmac_driver = {
++	.probe = syna_dwmac_probe,
++	.driver = {
++		.name = "syna-dwmac",
++		.pm = &stmmac_pltfr_pm_ops,
++		.of_match_table = syna_dwmac_match,
++	},
++};
++module_platform_driver(syna_dwmac_driver);
++
++MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
++MODULE_DESCRIPTION("Synaptics DWMAC platform driver");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0
 
