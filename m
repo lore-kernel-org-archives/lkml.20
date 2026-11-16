@@ -1,98 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820462;
-	b=SVePdtBQvueEdwmxIaT/0fl40na3NEzGiDPS5prfMzIDxX+C8QVu9VIc+tGwgksKuyJR
-	 xUgWOL/Q6uPEwe+gz0gp/M2T0mpz4MOqGxa8JThFlfFmDqZkr8UhQwRaJRXYxAwdVbNTW
-	 Evv605vzmC07BscYIT5PmIbGRYiv2a0Zm1s1aP6WYxtL24QTaLjhPD9OFRK9u+vIaR+2M
-	 K6POOb2MabmzlWykXUOIrkbNmMvquFJVlB6t2V1wxKteK/vsE8lcVv1Jr77AIt3SUumAx
-	 aTVT/pVaSW3xZrgDnwqeheucoKioogGf/sSHs/U6GRHCN2nCzW25X5RdShHebaRtqtg==
+	t=1794820509;
+	b=4gaEnaMucFCCqRzq0XZKHT2oJc174oWSLkOwH9cAQWyqT7uUYdr1al8i4d8Pp/RQp76y
+	 liqYLRFmwd17tZbMzEIlVuh979aP0ucr+dBdqyVIOHkzJk9NwiLsITcyYkiNMM7hoHmqF
+	 TLiA2ky3ruqLzk5cVe5eyLtMuPKhASe95ookE8H1mcRxmxdQelL8Wjmybi4qgjENd+Fzw
+	 tLUSfQDXr4eRj8vv4I50gyV/DPyd6OL/LvWM3Kufkf/B/5FIAYMSTIusli+gFWdi70y9T
+	 mhENjzMY4gzxfzBpcybgGTDwcbs1YhHPCd47VcxysSDrdchtc5UpqLCrTxqlvMwhXqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820462;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
-	b=YRGvAqYs1mBo2pjDJYGcovvHu2aIKX9nF3s3BL1cwGneFSGW82n73Zl/VBQATP43JrKy
-	 ++NcTyy6Snk02atT6W2qNz7QuEFHtZN5UDadDGSQ5CszxpR18hkklpocW4J/1574awZbW
-	 /ZkZp1R9qkG5kMwR5I6QsuqPq1unFIpuAId7qJ0snzcxjFbpGVmJYg/s8kTCF64p6NUMf
-	 C5Md7Cn1a9tWGms3u8uOV4AbTbGIi9SmuHhBm33qsKFdTme0221ehc/DuQs/SOYo63Cq9
-	 4OzjAJUzGCbevMbkGOVaXUIoe88tWAXjaU4sl2EDaPny0mejkQla/QsUTsRlnAmSQ7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820509;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6Ig7jYUgxdgeyk8a8VW3h/phXinUIjqelDPYCG389ew=;
+	b=Su5iK0lIlXJD/nwO3O34TW1oco77/Ee8Cb1e8FD2GrygbJ1xg8Xza8vtmgDK6K28GDgB
+	 NpDzXCS7BXQeVkAEZ+KQJxtoWKBT2+NpwI3xkbNsTaMXtbdkKSke2HvTkrJOswNt6bNMK
+	 cIiPbCVpeoTZxhs5xLvPvOTpHPz5xIPBAb4S8w4BIg350DnUurBIa4bQmVAewNakj8B1u
+	 QLGgIMe0YDNxQ0c8wjcaKd2IYX6M+CwsPFn6Sd0w29nuh0Bc4lRnPhLuBfi8ZAcrTAoR6
+	 7HOgmKNRdZCSdHvEBGCSNQx5ytRgSeevYanfy9SNTUYxbapNZ3MisRWviPoTbf1GRTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=deep8vfp;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FA1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FA1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2047606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2047606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490a0e72588so1431645f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:14:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794820460; x=1795425260; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
-        b=b0a3iGWrhf0lSrT8W5PZ3apkvAjkLzovGdk1hHP6fmuZKr0QgHoQskCMS/2eXD8s1H
-         KMlOrWoYP2COhV2udxBxwK3o35CxHUhhuUrA/gsxWN/ozahfqeYoF760rLEDhKWIf9J1
-         qdrT6VnVDZxSlFoyG21Gp1FxTNXij99MBVUfo9iJxRy/yMfTJZPqEIGSE4gOOqSCv8iX
-         ADnrBEXLVfxAyBDtPbyu8KzXQABpCjhC8TzviIGKLh6Ana7YjdzUvNiyAee/3o8oN6L3
-         zijZgQpZW15/LdRnrqhdxzbIDH4YtVKirByXJQPFA2vMzaeNSUzuHGaW5+jHojV5ACNm
-         NOfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794820460; x=1795425260;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
-        b=v/qX6R51NsdYSL2gTTIFT30qdIyIyB0MP+XYxSuBQyt9fWqNpX48i0CZjPaUT+Ebg2
-         0TSldxYdPsF6Z8R3QOXbZ6H5hRQdA16poD8XWMn+siOA2NQtf2ne+CwTAkFzgapJoOJl
-         ck2K5oikZWIYSP5NQzptxUZXsorILELk/6CfidlvnBkHkDB8k40w6vGWOhn56UIIKfpt
-         PhBGOOFLZrp12+TZzInUn6fO17nx22hWCeEDN9y2S88xbQRP4vS5YySjnGwrc40yS1Ba
-         6aULGh+nYDLn6ePxVAmtHrUcKoGCUNFJVYyf6AMP4yF8FAHh2Y1PsfzKec44jHJ+0C5U
-         3uOw==
-X-Forwarded-Encrypted: i=1; AL+hErHmHNok/4+tsrNtyte3IPVvHeV2o1eRZApdcET/uzLKyQ4g1sb3eiAyWMZ74B2r26K6L7Lhp8yNjRgEAUg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YiYC8YmQ67Q6Ae/tXCne5adIYs6QSu36z/cFP8t6pFLTAVemV
-	L/SLo3tKxQComqgcQMf2Eq3SamhgLHOUcukoYCv5yGNOZRo3Rkvrk7BXeOWzH2dXa2I=
-X-Gm-Gg: AYBFou1kX3gAgFG6M0iuoGYMzM4WPgIAjuHyS1gP+QS3yhOlf6GY8Yvl/8gqGsnRd6s
-	jQh3jUv5iu+ufAgRrjdeCjWfng59c4q0WSTkzQtC3TxRS0uzVAwcRuax09Uhs8Vx5FdT+Ga1Emi
-	12/99ADGb+amQ3VAsUa+eAslCP9dO7SZe8qbI262fA0Ai7QlwtIwq5JSY0fBWiZjsiQ7YEjV6fj
-	mZiLPe+Hx+CQPEzWPfZiaR4kE5VWd1eb372xdUDL7lJzItSQpy7AZ5vNl10+Mnd1waq4sYuWtVa
-	hr/F82m1N9DJsFQ1sBN/LgDjADOZR2WZ1eQ8WYgvex6GNKqMhIVjvxn1hbd/XiJlR1s1x6L4fMT
-	TZO3PZbhptY6/jVoniKu55gtVwfHSPai/WpFBwhIIok6LcdPQgf5SXBZyx53FDXuJ0SWTufNDQe
-	dxHZg/gGW5TdabjXr60U9Gtrfs1f46cZLrLQPSMng7zIj33osccqCZlH09kfUY+vA0UqhCjeZsw
-	SVJwlay/6IihxKc9Onk7LU9ebl5eEzEPX1Y0WYO38TISFVB1at3pdzlk7wn7xiN0KKrG8Tt/QfL
-	LlbRRvVWjjr7X8/F4RNXQeWbXK43DzXEjbroJ+kkZt3kKt5AAHByTHxxYnrsXsUs4z0BJ4BgUmw
-	FhoIKDsVgHGJkOas9xQ==
-X-Received: by 2002:a05:600c:1d10:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4bb55a65ea5mr192703955e9.5.1794820459865;
-        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
-Received: from localhost (p200300f65f19a9042c263c0c153a4e28.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2c26:3c0c:153a:4e28])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb5faf05f8sm159998655e9.10.2026.11.16.01.14.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
-Date: Mon, 16 Nov 2026 10:14:17 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, kernel@pengutronix.de, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
- m68k/coldfire and reject devices without match data
-Message-ID: <avrHkaYw-De6nv8B@monoceros>
-References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
- <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=deep8vfp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794820509; x=1826356509;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jdE1Oz+ifYWLMAah7BbEsOquxhgEGzyzeD+Dta8gPn4=;
+  b=deep8vfpPg7Td+nMMxOqXVIPQ9i6rCR3DfGSaL/4ntpOzyHfQnbi6dV6
+   X8NJ2enXgXgT2nJrsa9FkDhGZk77HCRqO/eLzT40jMW+/w+iRSIUHk9Is
+   IlHzf1PgxcubfNVPWRz6RqoKSkbEaSCiaFgJfx1F1fqeAWMFiaw/fj8dJ
+   4zD3KhDyjRjxHm4fl0HZhBXeOkkdb472eeQvURBkVcMTneqGx2Npq0/33
+   7DRnyj2Z57IDDLUtBn8jxDcKlSVm8WgoKnv/5g+0Q13NIcnrdTZRBAwro
+   Y4ycl4SsDLzrnHR4sCJbLpAR1W1FAjL7LE7B31NT+rqCtov6AKYR5iHep
+   Q==;
+X-CSE-ConnectionGUID: qGVN4iKSRRWLdme1DziFTQ==
+X-CSE-MsgGUID: Y1Q2i78sSqmq4Do6RjiYvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3562767"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3562767"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:15:08 -0800
+X-CSE-ConnectionGUID: 3ejOdWhUTn2/NwARFU6/Ew==
+X-CSE-MsgGUID: qfJcMm7HTpSY9ogZMp5t0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="11280847"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:15:05 -0800
+Date: Mon, 16 Nov 2026 11:15:03 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: Chris Down <chris@chrisdown.name>, Petr Mladek <pmladek@suse.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	printk@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] printk: Fix skipped entries after index iterator restart
+Message-ID: <avrJl4lYirh_7oQ-@ashevche-desk.local>
+References: <20261116085609.476250-2-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,91 +81,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3kbn6dvhzgm4gtvf"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
+In-Reply-To: <20261116085609.476250-2-thnkslprpt@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Mon, Nov 16, 2026 at 10:56:10AM +0200, Avi Weiss wrote:
+> seq_read_iter() can advance the iterator before the next record
+> fits in the read buffer. When iteration resumes, pi_start() calls
+> pi_next() at the saved position and advances past the pending printk
+> index entry. As a result, index reads can silently omit formats.
+> 
+> Return the entry corresponding to the saved position without
+> advancing the iterator.
+
+...
+
+> -	return pi_next(s, NULL, pos);
+> +	return pi_get_entry(s->file->f_inode->i_private, *pos - 1);
+
+Side note (because it seems used more in the same form), we have file_inode()
+helper and this should idiomatically look as
+
+	return pi_get_entry(file_inode(s->file)->i_private, *pos - 1);
+
+But I haven't checked if the file_inode() is recommended or deprecated API.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---3kbn6dvhzgm4gtvf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
- m68k/coldfire and reject devices without match data
-MIME-Version: 1.0
-
-Hello Marc,
-
-On Sat, Nov 14, 2026 at 01:56:15PM +0100, Marc Kleine-Budde wrote:
-> When determining the device details was reworked in commit 5e6c3454b405
-> ("net: can: Use device_get_match_data()") there was no replacement for the
-> previous handling of non-of instantiated devices via the device's id_entry
-> which then results in a NULL pointer exception. The only in-tree provider
-> of such a device is arch/m68k/coldfire/device.c.
->=20
-> Restore retrieving the devtype_data via platform_get_device_id().
->=20
-> Also a device bound through driver_override need not match an entry in
-> of_match_table or id_table. In that case device_get_match_data() returns
-> NULL, but flexcan_probe() dereferences the result.
->=20
-> Reject devices without match data before continuing probe.
->=20
-> Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
-> Cc: stable@vger.kernel.org
-> Reported-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> Closes: https://lore.kernel.org/all/20260618140147.142489-2-u.kleine-koen=
-ig@baylibre.com/
-> Reported-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> Closes: https://lore.kernel.org/all/20260528-fluorescent-sage-ladybug-432=
-61b-mkl@pengutronix.de/
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> ---
->  drivers/net/can/flexcan/flexcan-core.c | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
-xcan/flexcan-core.c
-> index 86b40abe9e76..2bb9e4184eb5 100644
-> --- a/drivers/net/can/flexcan/flexcan-core.c
-> +++ b/drivers/net/can/flexcan/flexcan-core.c
-> @@ -2148,6 +2148,11 @@ static int flexcan_probe(struct platform_device *p=
-dev)
->  		return PTR_ERR(regs);
-> =20
->  	devtype_data =3D device_get_match_data(&pdev->dev);
-> +	if (!devtype_data && platform_get_device_id(pdev))
-> +		devtype_data =3D (struct flexcan_devtype_data *)
-> +			platform_get_device_id(pdev)->driver_data;
-> +	if (!devtype_data)
-> +		return -ENODEV;
-
-My stance is that the ability to bind an "unexpected" device via
-driver_override is something that should be handled in the core, see
-https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.179061=
-2298.git.u.kleine-koenig@baylibre.com/
-for the latest patch to address this. I'll work on this patch to
-hopefully get it into v7.5-rc1. IMHO it's ok to not fix this in a driver
-specific way now. (And then my patch referenced above in the first
-Closes:-trailer is IMHO better than this patch.)
-
-Best regards
-Uwe
-
---3kbn6dvhzgm4gtvf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr6yV8ACgkQj4D7WH0S
-/k4KnAf+I1gQa7nnydreBqpl18qr3bjlMpNbM/wcIEtGP3xMBPkpDX2yJFljOI8k
-9TayfHIOvCINmFKVvL4sioue78+dQP56QUAmZGMHZNnQd4W/38CNi+PxKIqgsV74
-yoJHlZhYsHSMLMsf8oAIKAGhkVtpziLJ88i2Yc2ghjZ7erYkKrSuBc+jFTFzI4tM
-OknkKdfObSLN1TAr5lJYpnpvCn6HNJOkz//vLAgu6wAYdV9WtAd0wrkm/4tFcfir
-MpB/Cw/PNtHNAZWiKPL50rum+ferNUNUzHrRAEx38UA5Sj1Nz4MQonl0UUVFoPIr
-tgcOC5iCUQKdoIJu+AnDEx5AuRV1Dw==
-=98Fb
------END PGP SIGNATURE-----
-
---3kbn6dvhzgm4gtvf--
