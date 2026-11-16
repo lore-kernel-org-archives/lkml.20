@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847201;
-	b=C+mB9m1sE9clBo6g0q8ezIPq/hh9+uNNfWDRKxPBNd0bfqRzG44H+LV0U5PasjKFndr3
-	 Psik95BPN+BllMGw6zKg+FCYFtV0CQLxOwHQyyKEI0dg5+9gDIjPyYHmp5J8UyjZ17nAh
-	 eQ77hRDg1yPda1JPSV0c5LuM/Th0cRI1BMGGAGlxnzQqCZhpLuUFcsl2u+i+VQkH/IdGm
-	 tnzwImN6WzU/RsQtHqPToTO6dy4j6T4X9fdovqQvkR4Mowvdacm6WF9akrM1Di2saxWup
-	 L5IhtxVR3ZroYcn1DcF+VLsntDE8f4/TXX1/Av5yVQSaE7dMWDdZxD74ngrXn6pcWfQ==
+	t=1794847204;
+	b=u5f9/hhahLKs6YyOXrw6Dsgb4tCrQ21Q6DnKVZSbdkH8Z+O2BWQC9ZzrT8yYvJDpwNAe
+	 AsNCC/piZdbI5UPQ3TkBzVvJwLPTDhEOKakB1KPv83dM/KSi//KIOCyzBnkicZvYr6Or0
+	 RNTYWrRGVnRdWWCPhb8J1KkpSKustslmMp93RNF4/Ho8lv3eErPBJSU9zuSfFUBzUX1/2
+	 1XKG4dBcELsb3GWK0irc0AKkOCLpwJYsxzw4nU2p9uAiz9UkZy+2gXpbBMjWuhJsm6MDW
+	 0BfpKgkdrzUOa1pnqaf8xHTbWJKdTiUbrSAqPqCq/sVs5oqZAkb8zXM5dFbWdm15AKg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847204;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fvStjk2P5Y/1Jdt3vgXWKnB8BBjsKIf7mXeprvth/xQ=;
-	b=LJKHVp6FK5ccPN0xuNVyf5sGpv5Hjtj34bRz3WqlXN8R2BPkWFClInb59XQrRbtUxnLn
-	 RkT3i2GFJvtiB6MRBgAxzXeDAh6evy6QgulByKoFVi/DAHaCiS//OB4FQTSFinZY19COC
-	 PB5E4b94ERJq1Os0xhzDpIdWSObUGNNIUSna/yB/q4U19CnWXfPKrpfWUPm54qpyUDDFB
-	 hmVytDrrz59hMUyogeIbTsGayodEE84ToFnRYnRcLnO6fgiSnUTe+lB96G4A0tzrsVQXA
-	 ByvjUoKtzSDEMgF/p3rJ1pnlVtwM4xf/xsaRcvlB75400dUb3MTsc0fubt6Ik1QNTMA==
+	bh=riwJVkXXXY98ikf3VHi8s78+yiqK/Cu9IX+o8diodTk=;
+	b=xkO9p1XdyW+91iauiSzZsBABm4sBbnNJPHJ2gHxdCFWGqRCjo6oq3IwBIDL2Uw0nP8YY
+	 wlh+NEcFzFEKP+/T7fk1DFy7A/Nx8xrcCh5tnP9fakZ5JcbKjzLIYwK2LJA9fsUdDMqUU
+	 /In1ed8jX98L0Yb7KGl9XAuPP91EgAJa/8jfabHrl2bqruSMeFgSm1jL5HWPOB1ga2k0K
+	 EJRIwnacRZWwsbvL0O8d78eQ4wFAAymHQqcGUCQC1S1yE7/+pEVmHgkborjuBJzqepouB
+	 lcHqdIxCvJUN+8wPeAOJFpqhkb2rKnI3GGOXt/eLdWN4tpFAatmhieFAeS2Zrwo+xQQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CTLG/u35";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyaYND59;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636F1606A88C;
-	Mon, 16 Nov 2026 16:40:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7080860A261F;
+	Mon, 16 Nov 2026 16:40:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTLG/u35
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyaYND59
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794847201;
-	b=UfUN8T5yxJOn6WCTD17P903MnUTOjRm0BtF57lahoba7AKBveqUCLMCbxXF41hu0ubHS
-	 d6Rr5qXwZZQpWA5iuzc44l4u0H5S5HEc6+FKY7U7XvjCaj5gPCI4Knz74X2RbsuuldLLT
-	 jhH6JCPNcZB1Gq8s28quPCQFHcpkekSBsdLEGyiu9IRfM51Fkul43yagkfbTP7CPXxC4X
-	 35TeliRKA/UPBF+zgTz+TCkFv2xOEqOjxgdrmSjh6lCvkn/WqsAUHO6c5c6HT/kH7cVQG
-	 yKS4yQDzJchqT/NXO+OhhHtEpSZFSxrCQT31rJYNiSWVK+9Qc2Okj75nnAQUH1xml/w==
+	t=1794847204;
+	b=myNzfDcM2cfOognTzyaS0EyQyE2OemkXHK6HdJlt9lXLVqDNlSj/jOYp3ARMRx/aIv9H
+	 AHQv1OxoyjGeUzIOaHE90arJEbFLW3fS8OOXyJ80/ALUQYS2usKqjNd8TgOeeJ4JMKsSH
+	 KPgi97SlsjkhoLohKh+UGPjunK/gJECbodWctVkme0kjLt4qr+xs0UOu8vCTpv+QRLJSB
+	 gjO5mFBzZAHQaKueOeyBRKfaM7BBpFeHjyI0pVQ+GmkbBl3yPgkNEmofjSZM8+brFlHVA
+	 5e88cW7ZDmf50415vqJNCMym4DfOSCglck+DpDMKH7PKYLxo0g344bqIrHYhv7JtGNA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794847201;
+	c=relaxed/relaxed; t=1794847204;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fvStjk2P5Y/1Jdt3vgXWKnB8BBjsKIf7mXeprvth/xQ=;
-	b=bWBxT5MJhv8NfKWUvs9mV3GrNITgsv/UlnDiH+QA2LT9FzPklIoTd/yhZVpIUff1jqda
-	 IxuNrVIx0oLw0kLWYs+PNW3344O+TwGCQFTmPLk0cyTbVhsb0uSujtDZdRVmhNlexJFof
-	 vVHw9cc9Rwa4dW9Gc/Ct1UJfowNpeKTWsS6OdPJscCYtKakNNs4JiBI2JfIciGTleb45v
-	 hWxP9aqBAL3LJo1ZcaGbnEBXgRgxmH6C8PKJlM8uLgfhHOxDyk1U+rokJ5koYnRXSz9W5
-	 ZI/wIau2Sxw68zsa619BPUveXe8uJdFUUXjA4lbpTtgoudXlpGqGIQSHdn9zuC81/EQ==
+	bh=riwJVkXXXY98ikf3VHi8s78+yiqK/Cu9IX+o8diodTk=;
+	b=fGQnDlRRy8MNiC2ABkW8ocwmqcqZb23etEmjOSRIP+JrmZKrWqUwycajpnBncxieHBu3
+	 MoD2r9qH3XD+S7YLzlfLkXk4r5+D/J4gObmGgR3qf3xNJ+t5TRsjfpuHwEta07OnnBqok
+	 RMw14EEOjrz+y0FVqkJ3kaBCTvEwpRo42U1Fb1nTIplmnMLEybHhdIVuRibuuZ8TPYEaO
+	 HWKeXK9f1fA3OAfm7SYqBrn2ty5OWW8TOfc7eQyJI3hw9NRTCa+F6geXAGGMLH2qac7P/
+	 DyyYk0pJ/6ZbLvf5SAnpE3SEKPR6Q/wwSG067T1ikRN2NzpSgMfUANKavE21bdluIZg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 57BBB1F000C9;
-	Mon, 16 Nov 2026 16:39:59 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id CB3591F000C9;
+	Mon, 16 Nov 2026 16:40:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794847201;
-	bh=fvStjk2P5Y/1Jdt3vgXWKnB8BBjsKIf7mXeprvth/xQ=;
+	s=k20260515; t=1794847204;
+	bh=riwJVkXXXY98ikf3VHi8s78+yiqK/Cu9IX+o8diodTk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=CTLG/u35f7GbQcxV85LyFc4nqbudA05FnjKHr0CQT77LHTIkQ48E+ugntb+neA9iz
-	 Ok2hvkWS38mN5k85DZ0F6klOFKt7OYaXa8K+pvaZbZwzCQtlYApqmR64vgL7jAeE1A
-	 FT4/RDcuvoIA8TXGvWfVrIAUpsiJpg9rL/6bgir0Cbeah1pvNjtzQ/a/AR2K8OYQrc
-	 sjWjMx2oChpi1PHyi3prp67aE+pU9UW5a6MHGeannb+VWG0qwCV1ANiGE+8HgjDd0X
-	 /val58WOihYEjXJsPxRpHb1HlyxrPplX7jvb9H1Ay/TheD6yWX9Ae8TNiXxZJvVf4e
-	 xr0oG3VfNkrOQ==
+	b=cyaYND595ZkwUqpUmcsp3p7Eh42gsehEMGy2G+Y5m2Vu5bM/fnDdOigspspadI+D6
+	 VQKXG3VF6uVMjuyxB4HTlFAKLVW0xUHNIGWXhWsv0AiKGDOKhwzaukWMyZBQ9kgbPT
+	 rkcixJAbGzB9CG8VfEm3526HkXs9Zz7rKnl/7Qv70lrPeg8xg37dh5XOXyCH1uVshU
+	 ATBuY8XYVXs8BAAc+WbQP53LER53xeI6ekDRjM1W+ISCCD6WHfLBTOR/elLAH1iYYM
+	 chsk5npzbbqswrx5kIqwmSseWUfOJbiVrQ39MpJTqcWhETsyFs+KXA6L3tYVTA/5wH
+	 hkiEnauyOF8jg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C66634A514;
-	Mon, 16 Nov 2026 16:39:58 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id AED2F4A542;
+	Mon, 16 Nov 2026 16:39:59 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Mon, 16 Nov 2026 16:39:53 +0000
-Subject: [PATCH v4 01/12] iio: frequency: ad9910: powerdown fix
+Date: Mon, 16 Nov 2026 16:40:03 +0000
+Subject: [PATCH v4 11/12] iio: ABI: add integration_time for output
+ channels
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-ad9910-backend-support-v4-1-fcf1ad364ed5@analog.com>
+Message-Id: <20261116-ad9910-backend-support-v4-11-fcf1ad364ed5@analog.com>
 References: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 In-Reply-To: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -101,11 +102,11 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=2077;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=2039;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=aJtPIXmw5LGBhO6Ijl0bIJNuEuTO3aFnvbkzsDyxwGs=;
- b=PDWdSJZWoWSgoSwHFEEXlGEpAYdyxW4OMSAOoqXHqnkwEuP7NLpqOYvCfx8NWEkf2uHW4tFk6
- e2GXp1wbv2ZDiQPyzVNt78xjgGk3AzCcL02xA+kSvXeLZVI7OK6B/mk
+ bh=ArKliXzwidNFOs9CJk/f2j2v2U2NbJL4NaNVqhddipA=;
+ b=Q5g0nX6WMGgj7rZG6tdRZ2HXOf3pZ0naLyBp29XIQutPkkLPl/GjZI1NRcP/XdyJ9TXdYGcWD
+ bgdASXVcH6UBZV83IEUpjNT68+veYVYo0to57sDUFv7rMaTw7oSe/cE
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -116,60 +117,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Enable the software powerdown on all the applicable CFR1 register bits at
-once with an IO update.
+Document the integration_time attribute for output channels, which is
+the time interval during which the output is generated by integrating
+a quantity, such as its rate of change. It is the output counterpart of
+the integration_time already defined for input channels.
+Add entries for the altcurrent, frequency and phase channel types, which
+are going to be used by the AD9910 DDS driver.
 
-It turns out that DIGITAL and REFCLK_INPUT powerdown do need an IO update
-when enabling the powerdown, but that is not the case when powering it up
-again. It is an asymmetric behavior, which was observed while profiling
-power consumption in the lab.
-
-Fixes: 22452fe6cd08 ("iio: frequency: ad9910: initial driver implementation")
 Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/frequency/ad9910.c | 26 ++++++++------------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
+ Documentation/ABI/testing/sysfs-bus-iio | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-index 04a4e184b873..8bc24d0b7442 100644
---- a/drivers/iio/frequency/ad9910.c
-+++ b/drivers/iio/frequency/ad9910.c
-@@ -621,26 +621,16 @@ static int ad9910_sw_powerdown_set(struct ad9910_state *st, bool enable)
- 	if (ad9910_sw_powerdown_get(st) == enable)
- 		return 0;
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+index 5e987c502b13..54800847f2ca 100644
+--- a/Documentation/ABI/testing/sysfs-bus-iio
++++ b/Documentation/ABI/testing/sysfs-bus-iio
+@@ -1744,6 +1744,23 @@ Description:
+ 		seconds. If shared across all channels of a given type,
+ 		<type>_integration_time is used.
  
--	/*
--	 * When powering down, the DAC and AUX_DAC (SW1) must be powered down
--	 * first, as they require an I/O update to take effect. The opposite is
--	 * true when powering up, the DAC and AUX_DAC must be powered up last,
--	 * i.e., after the DIGITAL and REFCLK_INPUT (SW0) power up.
--	 */
--	if (enable) {
--		ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
--					  AD9910_CFR1_SW1_POWER_DOWN_MSK,
--					  AD9910_CFR1_SW1_POWER_DOWN_MSK,
--					  true);
--		if (ret)
--			return ret;
--
-+	if (enable)
- 		return ad9910_reg32_update(st, AD9910_REG_CFR1,
--					   AD9910_CFR1_SW0_POWER_DOWN_MSK,
--					   AD9910_CFR1_SW0_POWER_DOWN_MSK,
--					   false);
--	}
-+					   AD9910_CFR1_SW_POWER_DOWN_MSK,
-+					   AD9910_CFR1_SW_POWER_DOWN_MSK,
-+					   true);
- 
-+	/*
-+	 * When powering up, the DIGITAL and REFCLK_INPUT (SW0) must be powered
-+	 * up first, as they do not require an I/O update to take effect.
-+	 */
- 	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
- 				  AD9910_CFR1_SW0_POWER_DOWN_MSK, 0, false);
- 	if (ret)
++What:		/sys/bus/iio/devices/iio:deviceX/out_altcurrentY_integration_time
++What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_integration_time
++What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_integration_time
++KernelVersion:	7.5
++Contact:	linux-iio@vger.kernel.org
++Description:
++		This attribute is used to get/set the integration time in
++		seconds of an output channel, i.e., the time interval during
++		which the output is generated by integrating (accumulating) a
++		quantity over time, such as the rate of change (roc) of the
++		channel. The output variation over this interval corresponds to
++		the integral of that quantity, which may be bounded by limits
++		configured through other channel attributes. The written value
++		may be adjusted to the nearest interval supported by the
++		hardware. If shared across all channels of a given type,
++		<type>_integration_time is used.
++
+ What:		/sys/.../iio:deviceX/in_velocity_sqrt(x^2+y^2+z^2)_integration_time
+ KernelVersion:	4.0
+ Contact:	linux-iio@vger.kernel.org
 
 -- 
 2.43.0
