@@ -1,98 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836441;
-	b=bU15I4vJCh3wMZxZflnR/+sdZzmrfr2Qcrux/dAAs5ElbbnYrDZrWAurVBpiEUv4vyF7
-	 ggSH0WzoMv02ULWrtUMGFKk8R+JQiCgiziS1BE2r1KmkT9MRkqgYhqJJEIoYALFtHD9CQ
-	 MqWoN4VdYBQeUkAoS7FGygdQp4c2Hhv6PEw7eZbqZz20HTvk8JtwHfjWr9Kpoe5Md0ohD
-	 IE2nYPRreSCSf9M8WFZtV+iS+i5eXCAkM8LHkhG5DfXy6qrYEY7csdcf5Q+Hzy0ASDwlS
-	 coo1bQHu+Og2zINg58lNXx710Y/yt+TXU7p3qVFc3xqrRygriJ1OcUNgOKr1M6I2Bdg==
+	t=1794836470;
+	b=IzTQDuglzspaGtcdEJnPCiK24ewLp3vxfm7+vG6fFPwtvN8XzbC9t3mvnepfdmp4DhPz
+	 WSh7SFvx7bnI0/6LWmzXmCq4ubB/fVDcIyDkunTOTcgmNli4MMrxumcGsbH/x0g8FeJuf
+	 Anb1qZrIjvVWcBBdixNsDAnWcQwJibA+ttFNOCHzDf/msXqDpcpgh8QDStteLMAaeA/hp
+	 bbCqy84Satmj/9RFSCteWsFv4c6AOcDwRGiE7AKsNf1kqVNgd+zl04qv294XriBOqQ/ld
+	 sdD2e3zk3xdTtTnZTCFtQaWaJNLaOTbuJ5J6paK8H7edhC2VLdEzn0US8NeoJbwN6bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836441;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:X-Mailer;
-	bh=rYZSKiWzbzGDSkOFczv6tAqyqip908dCHTB+bDdlwYA=;
-	b=4tO2Dz0XlOB02wZgM/dBKrDFBUCf1eyS5Z++SQIWcjym0i123NVdhWhzzfIzRYjBgALh
-	 obqlXlJQULgCp4lxvZOAV6LyrsKQF0bmOB/7mgyIIZmq6U9EUwQUOtFiYHr/jzM2rVAgM
-	 fU7jULeJDn8lFcw3AMRCNhhwphb4j0CtM5jvWNejvxNBNz7VuxAiw8/L7lZ+ea4E5OBSQ
-	 d7AIHzv5juejBmzhaVeXNtOLyj25vvCXOFFNjbkaZ3cqTdEqnA2q4RyHywI6rdrux32aa
-	 D2XtTEM2XPAIRPSCzS8eh5NPSw1Zl0eu5n/9tfe9fDoSEcJ4V48XnoQkWd3FcrV9kiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836470;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KoID3t/L5HYOJLaZAHtsmuIZvdirepRozKbl1aZqCio=;
+	b=lODYKiXib0GWy/5hCNJDgLNsJJVNgf44JipJxz2TBy2222y9K3Ro91QdLOJS7XE5/HB8
+	 3K5EQysqeXEMfMaefJa1DLWmHmW6k6KDf9gpC73dEUyGPwP4wltQo7Fol8g782NImIHHk
+	 k9P1oSNTzJgez2z8oxh3jgizeEWfpTADgqCojmITsFYbedN+eLcYq/zuu1N2v5p1q12ka
+	 OrSMVY+JYvwamw8CCM/NKZuEJOm8qYuo0D7hrPaqIV1FzysHTmwehkC3/1LpCie6SjeWB
+	 l8jF7sxA+LnMO/HUGkNr6rSrRRPJJ0kDHUuoMqoVXmQp87AHgZcWAH10Fkl19dHuM3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pereq.eu;
-	spf=pass smtp.mailfrom=cryspen.com;
-	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b="bhS+0H/y";
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80576606A8B3
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80576606A8B3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
+	dmarc=pass header.from=cs.unibo.it;
+	spf=pass smtp.mailfrom=cs.unibo.it;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=SlYczK8D;
+	arc=none smtp.remote-ip=130.136.161.50
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4DBE606A31C;
+	Mon, 16 Nov 2026 13:41:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4DBE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=bhS+0H/y
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c505186727fso93293566b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:40:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pereq.eu; s=google; t=1794836439; x=1795441239; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rYZSKiWzbzGDSkOFczv6tAqyqip908dCHTB+bDdlwYA=;
-        b=bhS+0H/y2buVQdfOOhcjcWHZQCBDCiQCbEpaoaan7fCUgnsl+IwitbOfGxAWWMYEyD
-         Wb3AOKZ0B25ND5F/L/gxIMF/ZcNPsoTprY6ghR0L+BHXFMml24JUGBini4o+iZHYeELE
-         v+Lu0pBjaaFBVWIemyUWGpXuHFJRH5wDBx+EC6gmJVwZ3Vj7zxKHFgWgnuvfYrPzqgVy
-         KOLqVGmYENW/8YW/+A0F2ZTnv8DVa6yWI016T7nbjGiiFPIpxVoFKYxF2Q0cmGHARm3A
-         NLAJvNWEItLmqP9KhervxmTuXJ71xgNVu3LhV5JudJq9K4H1z3EnD9GVKmK19b8tV2Wi
-         5/zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794836439; x=1795441239;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rYZSKiWzbzGDSkOFczv6tAqyqip908dCHTB+bDdlwYA=;
-        b=PS3yO/HqdaJwDijdLhBSnyfMXy/5GmCzXxqGcmwEhnc7Bdqvc+7P+j5rO9PMq/qMVS
-         5Wcx5qgbnYQ3PRA3i8+91NZt45cnbfmIPZRS0+2szMDcAnf+stC1jRlPaNZLD8fJ+GKY
-         dT1hsk/cHgRLG8b5Mx1qspZg7gDaoibXT4OfmM/XX5Nn2AmonaMo0/5sPj/78HP3I8l0
-         LEUFGTPPcfq4ACDTE2lCgkNjEDiIgpqFZ9nDRZNM7HHcbeNl2Bgat1CYERr7eCk1xi3q
-         XGbIJpagAlVyzq9SjixroJor5Qfath/e5wqFbU/aGYqUj+2s7MQZsLEgC0oGl6bQG3he
-         5+ww==
-X-Forwarded-Encrypted: i=1; AL+hErFIdZqt3c60sHcQH81aHkEEgraHqeXyHTVCNCBcaonaR9ZyV8qQRJdUz96glhijldpSVqwxCTYp4mtSIFk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8g0DlED2icOz+9vvFpeRUQjkEpHvfoFArARaAzpHoZgEcRYbey
-	OdKYvEf/13uR122T1dql5+IH8ys1K7N8ip/XXyJf9RZAi3PkV4W/+eKNher+yTYMss4=
-X-Gm-Gg: AYBFou0NiMBw0RAioEVV81hOUlyZCOzj1Zf8RIj74CSNZcfz/P5bF7eU3mk0EI6P9Y1
-	+JtnxGkoQG6MtLv5SQ3DWwUyhXNrSbVnGyuTiOLHsiId55nZUCRmiF+Xl4Xe9iP8eaT4+jbaKLY
-	CLniCanZjXDV7y5C7tMKKaf822jFF1Kjw5FzRiLdvAP3iTp0nwmxVDGBG5KH7ZYC+/gDrr1eqB4
-	3ZN1WGjGe30QG+oxd2K8vH7R9Ve4ZtUOMg9t3vMVKMYGHbP8BIVNGMLmD4M5ZkI/AaaIFVi2Z5b
-	ema4aCQUX+NzDwTRumflTk6/MxOV5flZupbzBm5FBig6ieqjbuMqbQzV0UfxShQuSxOQyhwW1mo
-	Rtzfqt2DR9U3XV9vwNG2tHz5LkrADzf6m/gpqCzbbfR0U5FIf5yTmzGFIkeUUhJ87pgRmHMODYi
-	iH77xtmtao5Kz8wuE6YsSOKJNyDSiNa5b9bZKdgJI2NV2vmjgwrn8HZLCje4qGo3BJPEHDPhVLJ
-	2GTg0PWDetuWeXgK3WluAKwsNDyigBBe608hVDr0wMDMYXC3QC26UnH49VSXc88Nkn/DRgo0ckj
-	Vy/qPwltwCP1O1O4w4A=
-X-Received: by 2002:a17:907:9492:b0:c2e:52d6:1fb7 with SMTP id a640c23a62f3a-c509636a2ffmr771296866b.22.1794836438561;
-        Mon, 16 Nov 2026 05:40:38 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b2369asm426229866b.25.2026.11.16.05.40.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:40:37 -0800 (PST)
-Date: Mon, 16 Nov 2026 16:40:34 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: [PATCH] KVM: arm64: nv: Fix NULL dereference in kvm_inject_nested()
-Message-ID: <avsH0lxpLIF2Ug64@stanley.mountain>
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=SlYczK8D
+Received: from eipi10.cs.unibo.it (renzopb-wl.cs.unibo.it [130.136.2.252])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id E3D2A1C024A;
+	Mon, 16 Nov 2026 14:41:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1794836461;
+	bh=9BePSzjzJXa33FPP/d2SwB8juy+0sIML+/UiQYc++ic=;
+	h=From:To:Cc:Subject:Date:From;
+	b=SlYczK8D+ED2ZYMtdFF2bE5HUXOmKEiPvcjNy+jdJmHmVwWxhe6bYWWWo0XKbxB8y
+	 izORiwUKhHAEK/qwEgO9ZcclBOR21ViZWOy0IC9lPP2te1JuxsyAGac6d93C13hikq
+	 Zso1w9UGRImE067qXARKNSAIfGez2vDgmtKzEnAo=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: linux-kernel@vger.kernel.org
+Cc: Renzo Davoli <renzo@cs.unibo.it>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Alexey Gladkov <legion@kernel.org>,
+	Eugene Syromyatnikov <evgsyr@gmail.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Bradley Morgan <bradley.morgan@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	strace-devel@lists.strace.io,
+	linux-api@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v4 0/2] ptrace: reject out of range error values in PTRACE_SET_SYSCALL_INFO
+Date: Mon, 16 Nov 2026 14:40:44 +0100
+Message-ID: <20261116134050.505355-1-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,90 +66,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Transfer-Encoding: 8bit
 
-There is a NULL dereference of vcpu->arch.hw_mmu in kvm_inject_nested()
+With is_error set, PTRACE_SET_SYSCALL_INFO passes info.exit.rval to
+syscall_set_return_value() as an "int" error without checking it: a
+positive value, or on 64-bit one outside the "int" range, turns the
+error into a success or is truncated.
 
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000084
-  kvm_vcpu_put_hw_mmu (arch/arm64/kvm/nested.c:1046) (P)
-  vhe_vcpu_put (arch/arm64/kvm/arm.c:827)
-  kvm_arch_vcpu_put (arch/arm64/kvm/arm.c:860)
-  kvm_inject_nested (arch/arm64/kvm/emulate-nested.c:2903)
-  kvm_inject_nested_serror (arch/arm64/kvm/emulate-nested.c:2976)
-  kvm_inject_serror_esr (arch/arm64/kvm/inject_fault.c:365)
-  __kvm_arm_vcpu_set_events (arch/arm64/kvm/guest.c:827)
-  kvm_arch_vcpu_ioctl (arch/arm64/kvm/arm.c:2017 arch/arm64/kvm/arm.c:2157)
-  kvm_vcpu_ioctl (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:4772)
+Patch 1 rejects with -ERANGE any error value outside [-MAX_ERRNO, -1].
+Patch 2 adds a test case for this to the set_syscall_info selftest.
 
-KVM_SET_VCPU_EVENTS does not load the vcpu, but it injects a pending
-SError or external abort straight away.  If the vcpu is in L2 context
-and L1 has asked for the exception, kvm_inject_nested() puts and loads
-a vcpu that is not loaded.  vcpu->arch.hw_mmu is NULL when the vcpu is
-not loaded, so kvm_vcpu_put_hw_mmu() dereferences a NULL pointer.
+This series is independent of the PTRACE_SET_SYSCALL_INFO seccomp skip
+and SET_IP series: they apply on top of each other in either order.
 
-To fix this bug, only put and load the vcpu when it is loaded, similar
-to what kvm_reset_vcpu() does.  When the vcpu is not loaded there is
-nothing to switch: the next kvm_arch_vcpu_load() loads L1's context.
+Testing (x86_64, QEMU): tools/testing/selftests/ptrace/set_syscall_info
+passes 1/1 with this series applied.
 
-Fixes: 9aba641b9ec2 ("KVM: arm64: nv: Respect exception routing rules for SEAs")
-Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@pereq.eu>
----
-This was found through Pereq's formal analysis but the stack trace
-comes from real life testing.
+Changes in v4:
+* patch 1: use !IS_ERR_VALUE(rval) instead of open-coding the range
+  check, no functional change. Thanks to Oleg Nesterov for the
+  suggestion.
+* rebased on current mainline (23c62304dde2)
+* added Reviewed-by of Bradley Morgan to patch 2
 
-x86 implements kvm_arch_vcpu_ioctl() differently and puts vcpu_load()
-at the start of the ioctl.  But the way arm64 does it is deliberately
-and just something that people working with the code need to be aware
-of, I guess.
+Changes in v3:
+* added Reviewed-by of Dmitry V. Levin and Bradley Morgan to patch 1
+* new patch 2: selftest, as suggested by Dmitry V. Levin
 
- arch/arm64/kvm/emulate-nested.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Changes in v2:
+* shorter commit message and comment, dropped Assisted-by
+  (Bradley Morgan)
 
-diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-index 2bec81668361..22ca735a34f6 100644
---- a/arch/arm64/kvm/emulate-nested.c
-+++ b/arch/arm64/kvm/emulate-nested.c
-@@ -2862,7 +2862,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
- 			     enum exception_type type)
- {
- 	u64 pstate, mode;
--	bool direct_inject;
-+	bool direct_inject, loaded;
- 
- 	if (!vcpu_has_nv(vcpu)) {
- 		kvm_err("Unexpected call to %s for the non-nesting configuration\n",
-@@ -2891,6 +2891,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
- 	}
- 
- 	preempt_disable();
-+	loaded = (vcpu->cpu != -1);
- 
- 	vcpu_set_flag(vcpu, IN_NESTED_EXCEPTION);
- 
-@@ -2900,7 +2901,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
- 	 */
- 	__kvm_adjust_pc(vcpu);
- 
--	kvm_arch_vcpu_put(vcpu);
-+	if (loaded)
-+		kvm_arch_vcpu_put(vcpu);
- 
- 	kvm_inject_el2_exception(vcpu, esr_el2, type);
- 
-@@ -2915,7 +2917,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
- 	 */
- 	__kvm_adjust_pc(vcpu);
- 
--	kvm_arch_vcpu_load(vcpu, smp_processor_id());
-+	if (loaded)
-+		kvm_arch_vcpu_load(vcpu, smp_processor_id());
- 	vcpu_clear_flag(vcpu, IN_NESTED_EXCEPTION);
- 
- 	preempt_enable();
+v3: https://lore.kernel.org/lkml/20261115152703.416254-1-renzo@cs.unibo.it/
+v2: https://lore.kernel.org/lkml/20261115082540.385386-1-renzo@cs.unibo.it/
+v1: https://lore.kernel.org/lkml/20261114184842.373304-1-renzo@cs.unibo.it/
+
+Renzo Davoli (2):
+  ptrace: reject out of range error values in PTRACE_SET_SYSCALL_INFO
+  selftests/ptrace: check that PTRACE_SET_SYSCALL_INFO rejects invalid
+    error values
+
+ kernel/ptrace.c                               |  4 ++
+ .../selftests/ptrace/set_syscall_info.c       | 51 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+
+base-commit: 23c62304dde29abe92013d85910d03a77dada35d
 -- 
-2.53.0
+2.47.3
 
