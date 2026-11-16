@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811642;
-	b=TcegAYnpcejMkFkWFSAQyAb1WLC9I4VrT2Gza2rvJaD6+Z3MMRDdlLXX2ZArA1foU2qY
-	 1P35FI3po/zlAmKqt6C+p22JoGhg6aqN8rL9OojUQlmtnZocdNV0zkNCTFKtLrjPl1YJM
-	 eW0+pyqvwyTl1jxj+kdhHhS4rr7so+V8CNIjft5tBjcIMLqsg0hMo3m/ukp+fhpkc/yuE
-	 qzCSW4+OvH34cYmr25gmN+rZ/16my4UysZ0Rzdaq/KqHPaxLL5QCO1u6h3pIoM8bJxYWu
-	 oKrfYaqzoR3AGm9lN4ODDK3XRcvthU4QtHvCikRWB+JHVzQpstx+zZXFhKeqAs6Augg==
+	t=1794811645;
+	b=erOkURB2L64sxw8OC9kvGsy4pfCHSHO7mHbJcTSC+Hy1TFM1Rr3JvNdMUgTvGvRH79cD
+	 yea8sGMGwdKo6StbHFO4fOf0/JnykQP//6WzjoghQqVxTkG6ZHXSzDNaG5HkI+iJmX6V4
+	 Gm5WJf0zm+nNeXe8TEnFAp7o60EsXcUA3o2oh+Xo0ktcl+kTXp66Gnwok6+9dxKBvF39J
+	 MsLd81aQVv1EF1i8mb3kHn819nQM/0HnopuFKeMOlPDn+mSIcFTBGAUZPFSBcu/uf4P7l
+	 eNAeg9VoKRw1+7whkv6xGvtzy/4YrFQYgYglY2tq/cuiCYGswmO3UPCeCPEh2ihtdog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811645;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=3U+iFMsR7Wf6izMeYzL3XEBnXOJ8vfgZxFGf5leGhvM=;
-	b=rQkDOrEcCf7iZYBQe20GDgBkQypNnYxIXJKyXJ5Ib5EfOjXc1cufjqVHRoS+/tH+vXMO
-	 0rD/ocM8RhGBHDTBXbWpgmIlxwwbPKfXehLHZ46kxHrIz53MV4vIRhd+FrxfvsvAex6+/
-	 H/eS/PnZpjH64UWSr2XDPCUdYEV5SSXkacCq9BEnJX2ApYgivmEyLwqH+csqV6EUPkMp/
-	 miglfVJqs/aHp264bdgNG9icBDxutmyhU1ONmuuS3bZGl/mHqAsFJg9iFCaT0+vdLRUnf
-	 5KjGsR/ZKFctm2rP10grRouPZm4oh2kW4FJbn2EVupjy+5gCLhKX640335AAO+hqdig==
+	bh=qnAd8kdJJsCCZ9ku2gzzQPm1FL2bWZEjkOx7cLArqZE=;
+	b=mWXCF+p/uLwUuIvwJ/h9wLZb42MBRtVLovwDQztofQc5tZ03arLM0IzMllNk7Gi1rY8c
+	 IqwSo9zaBVb5Pm1g1hgntRQYN9nEP6ieIN2U70SAsxRCAT7+Lvl5/HgUnoXvKJzxx4uXT
+	 T806PUe7i0icx4Tji7ktqf4vrczaKBe1QnBUPXcR8YzqG+lcjPTT3wUrNgZToCv1lxpet
+	 9tjmIlqhmAHuAcmIN9n8ptt5ucsTR3aByvYba2f7cJEwyiuHcTt+atBpotLUrc8hoZawe
+	 wb0NCEUC1OibuOVSF8WU+XwoavCwrXM0G3l2qaOD+bsqmt1FrKa8m/aqZ2Lm6qva8HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LD6ejzLV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbU+7DQA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A036606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:47:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF781606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:47:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LD6ejzLV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12AF1F000C5;
-	Mon, 16 Nov 2026 06:47:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbU+7DQA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738F71F000C5;
+	Mon, 16 Nov 2026 06:47:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794811642;
-	bh=3U+iFMsR7Wf6izMeYzL3XEBnXOJ8vfgZxFGf5leGhvM=;
+	s=k20260515; t=1794811645;
+	bh=qnAd8kdJJsCCZ9ku2gzzQPm1FL2bWZEjkOx7cLArqZE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LD6ejzLVqR8AUJ+Xda9FHUcUBs6d9zxbCmNuusg03uIJxYTZS+tTC8SpyUjNtAPkf
-	 UdXj0ebnLwKrLEMBOZHzghtpFNfFNIggbaaLrE8TvW/5TAX0KFTIgGBkEtFa/RqkLy
-	 6f37iw1UQY+6v/ewpyfStd23CXSbbD47iP6+m36zWp5/APDhb6Ah3IOzR+0zQ0xh0p
-	 rSL51wa75o3AxKQhGi8afDrv1vgmVNotLiqMCnlBaEyhIc/xXjXTts+ow30t7HM8Ej
-	 JpWDX9/vGr1WqSferEgjgGXoQ3D84LupLrDiah82kmYcEQxA2l3u8YepvBnasEJP68
-	 LroJHEfVSVq+Q==
+	b=HbU+7DQAaJDNRjsKZtMjIolMTDwZVhEoaALimOLHB6t4dRaEII9oFMDxHbYA7OnT/
+	 YmXU/WFq2zfCUnwfaC5yukA2XQznxMUkKbdDV6x0IKgOvclGKNmppIYr2yFSurb3kn
+	 SX4S2czRGqy5NwuGB6ZvCGuvvyc/KMozI5cOogZ8+PogD4PmiuKq9bvy5Fa8dG4aNf
+	 EcdCP00K95HeR2Xkh6Q1kSamO+Y6BrLMvySV6eIBdbp/ATG3QR0/UHKMxcaPsPxCv4
+	 Kb4qdx4BGhJaiz0ezO27NZbi+FxZJBsEHrogqyrXMmt/NznPTXhTuN9dYVfy3YhBlh
+	 F7XW1ri5LlMLw==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Mon, 16 Nov 2026 07:47:09 +0100
-Subject: [PATCH v4 01/10] slab, kunit: pin test slabs by an extra
+Date: Mon, 16 Nov 2026 07:47:10 +0100
+Subject: [PATCH v4 02/10] kasan, kunit: pin test slabs by an extra
  allocation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-slub_tiny_rework-v4-1-227a4b3636a5@kernel.org>
+Message-Id: <20261116-slub_tiny_rework-v4-2-227a4b3636a5@kernel.org>
 References: <20261116-slub_tiny_rework-v4-0-227a4b3636a5@kernel.org>
 In-Reply-To: <20261116-slub_tiny_rework-v4-0-227a4b3636a5@kernel.org>
 To: Harry Yoo <harry@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>
@@ -70,128 +70,110 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-Several of slab kunit tests allocate and free a single object from the
-test cache, perform intentional UAF actions and validation, while
-expecting the empty slab to stay on the partial list.
+The tests kmem_cache_double_free() and kmem_cache_rcu_reuse() create a
+scenario where a slab becomes empty, but rely on the implementation not
+immediately freeing it.
 
 This subtly relies on non-zero s->min_partial. It currently compile-time
 defaults to a non-zero value, but in theory a sysfs write racing with
 the kunit test could change it. More importantly, the upcoming
 CONFIG_SLUB_TINY changes will make it possible to run the kunit tests
-with s->min_partial being a compile-time zero, which means the tests
-will now do unintended UAF writes on the page allocator level, and also
-report failures, as flagged by sashiko [1].
+with s->min_partial being a compile-time zero, which means the tests can
+cause a NULL pointer dereference, or fail, respectively, as flagged by
+sashiko [1].
 
 To prevent this in a robust way, add an extra object allocation to the
 tests, that will prevent the slab being freed. Use migrate_disable() to
 prevent migration to a different NUMA node, which would place the
-allocation to a different slab.
+allocation to a different slab. kmem_cache_rcu_reuse() already uses
+that.
 
 [1] https://sashiko.dev/#/patchset/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org?part=8
 
-Acked-by: Harry Yoo (Meta) <harry@kernel.org>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- lib/tests/slub_kunit.c | 36 ++++++++++++++++++++++++++++++++----
- 1 file changed, 32 insertions(+), 4 deletions(-)
+As per sashiko, this scenario needs CONFIG_KASAN_SW_TAGS or
+CONFIG_KASAN_HW_TAGS to occur, otherwise kasan quarantine will keep the
+objects and thus slabs alive.
 
-diff --git a/lib/tests/slub_kunit.c b/lib/tests/slub_kunit.c
-index e3b63f0338d5..40427f7edf4c 100644
---- a/lib/tests/slub_kunit.c
-+++ b/lib/tests/slub_kunit.c
-@@ -51,10 +51,16 @@ static void test_next_pointer(struct kunit *test)
+To avoid the need for arm64 system, I have reproduced the issue and
+verified the fix instead with slab_free_hook() modified to skip kasan
+quarantine.
+---
+ mm/kasan/kasan_test_c.c | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/mm/kasan/kasan_test_c.c b/mm/kasan/kasan_test_c.c
+index b9e167ed5be3..01cf001bf0ef 100644
+--- a/mm/kasan/kasan_test_c.c
++++ b/mm/kasan/kasan_test_c.c
+@@ -1051,22 +1051,30 @@ static void kmem_cache_oob(struct kunit *test)
+ 
+ static void kmem_cache_double_free(struct kunit *test)
  {
- 	struct kmem_cache *s = test_kmem_cache_create("TestSlub_next_ptr_free",
- 							64, SLAB_POISON);
--	u8 *p = kmem_cache_alloc(s, GFP_KERNEL);
-+	void *pin;
-+	u8 *p;
- 	unsigned long tmp;
- 	unsigned long *ptr_addr;
+-	char *p;
++	char *p, *pin;
+ 	size_t size = 200;
+ 	struct kmem_cache *cache;
+ 
+ 	cache = kmem_cache_create("test_cache", size, 0, 0, NULL);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cache);
  
 +	migrate_disable();
-+	pin = kmem_cache_alloc(s, GFP_KERNEL);
-+	p = kmem_cache_alloc(s, GFP_KERNEL);
++	pin = kmem_cache_alloc(cache, GFP_KERNEL);
+ 	p = kmem_cache_alloc(cache, GFP_KERNEL);
+-	if (!p) {
 +	migrate_enable();
 +
- 	kmem_cache_free(s, p);
++	if (!p || !pin) {
+ 		kunit_err(test, "Allocation failed: %s\n", __func__);
++		kfree(p);
++		kfree(pin);
+ 		kmem_cache_destroy(cache);
+ 		return;
+ 	}
  
- 	ptr_addr = (unsigned long *)(p + s->offset);
-@@ -89,6 +95,7 @@ static void test_next_pointer(struct kunit *test)
- 	validate_slab_cache(s);
- 	KUNIT_EXPECT_EQ(test, 0, slab_errors);
- 
-+	kmem_cache_free(s, pin);
- 	kmem_cache_destroy(s);
+ 	kmem_cache_free(cache, p);
+ 	KUNIT_EXPECT_KASAN_FAIL(test, kmem_cache_free(cache, p));
++
++	kmem_cache_free(cache, pin);
+ 	kmem_cache_destroy(cache);
  }
  
-@@ -96,7 +103,13 @@ static void test_first_word(struct kunit *test)
+@@ -1152,7 +1160,7 @@ static void kmem_cache_rcu_uaf(struct kunit *test)
+  */
+ static void kmem_cache_rcu_reuse(struct kunit *test)
  {
- 	struct kmem_cache *s = test_kmem_cache_create("TestSlub_1th_word_free",
- 							64, SLAB_POISON);
--	u8 *p = kmem_cache_alloc(s, GFP_KERNEL);
-+	void *pin;
-+	u8 *p;
+-	char *p, *p2;
++	char *p, *p2, *pin;
+ 	struct kmem_cache *cache;
+ 
+ 	KASAN_TEST_NEEDS_CONFIG_OFF(test, CONFIG_SLUB_RCU_DEBUG);
+@@ -1162,6 +1170,13 @@ static void kmem_cache_rcu_reuse(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cache);
+ 
+ 	migrate_disable();
++	pin = kmem_cache_alloc(cache, GFP_KERNEL);
++	if (!pin) {
++		kunit_err(test, "Allocation failed: %s\n", __func__);
++		migrate_enable();
++		goto destroy;
++	}
 +
-+	migrate_disable();
-+	pin = kmem_cache_alloc(s, GFP_KERNEL);
-+	p = kmem_cache_alloc(s, GFP_KERNEL);
-+	migrate_enable();
+ 	p = kmem_cache_alloc(cache, GFP_KERNEL);
+ 	if (!p) {
+ 		kunit_err(test, "Allocation failed: %s\n", __func__);
+@@ -1178,8 +1193,12 @@ static void kmem_cache_rcu_reuse(struct kunit *test)
  
- 	kmem_cache_free(s, p);
- 	*p = 0x78;
-@@ -104,6 +117,7 @@ static void test_first_word(struct kunit *test)
- 	validate_slab_cache(s);
- 	KUNIT_EXPECT_EQ(test, 2, slab_errors);
+ 	kmem_cache_free(cache, p2);
  
-+	kmem_cache_free(s, pin);
- 	kmem_cache_destroy(s);
- }
- 
-@@ -111,7 +125,13 @@ static void test_clobber_50th_byte(struct kunit *test)
- {
- 	struct kmem_cache *s = test_kmem_cache_create("TestSlub_50th_word_free",
- 							64, SLAB_POISON);
--	u8 *p = kmem_cache_alloc(s, GFP_KERNEL);
-+	void *pin;
-+	u8 *p;
 +
-+	migrate_disable();
-+	pin = kmem_cache_alloc(s, GFP_KERNEL);
-+	p = kmem_cache_alloc(s, GFP_KERNEL);
-+	migrate_enable();
- 
- 	kmem_cache_free(s, p);
- 	p[50] = 0x9a;
-@@ -119,6 +139,7 @@ static void test_clobber_50th_byte(struct kunit *test)
- 	validate_slab_cache(s);
- 	KUNIT_EXPECT_EQ(test, 2, slab_errors);
- 
-+	kmem_cache_free(s, pin);
- 	kmem_cache_destroy(s);
- }
- #endif
-@@ -127,7 +148,13 @@ static void test_clobber_redzone_free(struct kunit *test)
- {
- 	struct kmem_cache *s = test_kmem_cache_create("TestSlub_RZ_free", 64,
- 							SLAB_RED_ZONE);
--	u8 *p = kmem_cache_alloc(s, GFP_KERNEL);
-+	void *pin;
-+	u8 *p;
+ out:
+ 	migrate_enable();
++	kmem_cache_free(cache, pin);
 +
-+	migrate_disable();
-+	pin = kmem_cache_alloc(s, GFP_KERNEL);
-+	p = kmem_cache_alloc(s, GFP_KERNEL);
-+	migrate_enable();
- 
- 	kasan_disable_current();
- 	kmem_cache_free(s, p);
-@@ -137,6 +164,7 @@ static void test_clobber_redzone_free(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, 2, slab_errors);
- 
- 	kasan_enable_current();
-+	kmem_cache_free(s, pin);
- 	kmem_cache_destroy(s);
++destroy:
+ 	kmem_cache_destroy(cache);
  }
  
 
