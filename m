@@ -1,76 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862934;
-	b=5fpjYBUueQ0mhM6MAp4qiq7nmqdSOOC9wjoPByISwSCrVpuoXGrslXkTSEAkBkOez8ci
-	 yftZ1nM2lycd7QQcQVJc3sBQkr7/+Nw9JnmbSRu5+SNIfQcJS4qg9BOKqthjCDSHg8KuX
-	 C5qqfsrTwWGWrH/n6yP+AJYjP2v8jribABAezY6xzxfv03t0rygJnDLyjp1mbGFBMXix9
-	 YIAPrXjMKVB8cj+4AzRk2876gJfaPx3oOTZ6UYQRfQ+BSd5wY6wnuPSaMrcA6V5c0Y8Rt
-	 pT8Of0F8BgreJ0iv8b//kxGnB8/ckGHly5p6CQy7jgxgaYouawIMG+8wan51xeZp81Q==
+	t=1794862958;
+	b=H1eUVWFQhf3ndsf7fe0iLwNKpEU5l/o/xD0aD7Z2nPoovOa5ArqrkA0bUOfm5dtlO7V/
+	 s3Zzvhqi6ocP1WyUnzgrldFuUKH+E9cCqp20Np/JOFDoGB+KWiX2ZtnuzunqcCCSX4fgV
+	 k/wRCs8qemwbi3dT3EYkmBn0hUEe1FOhguxD6CsD1cexAIJNJ/nhH1TwLflQ3zeFQWi3p
+	 joJJFm+LQV+wqBNmjA0otaTls1pGhkCaLC/F0PJEem1OncdeopYcxeyze8sq34Pblh4mX
+	 JhVrXLvxnN2jStbGVppsCVZK7URA7xZW+98REUlOB8JFEXk3o2r/5Hf7N0isNDpVG1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862934;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ihNaY8Q7sdIpTVvIZdqpJQt3++msVklRZp7QGqeejRI=;
-	b=Clse/+OvMk3xNKD8DrIDw5iQdGRljb3SEg/A1xgHHu4MlnlazZukpWPRvCLF6QobxiaF
-	 5Ray50dz3NFG/qwcfeW7cVnWQrOoBknNL0ZEkM3Dfr+cZw8JvxQOB9TcsoHA7pBnpQYEE
-	 JH1BitqqB7RWM7R9amYluMS27cPqRpcjlLQBjvkO4so38m6NDt6Y2rQ4RH0RpFO/Kq9jv
-	 fo25TTc9NetnY5WbHDlm/3CufaRHrEmXMYPWggOJvKSfd8fcb7RZm+Ye18nBefoZB/kIG
-	 PTsvTRz7zO4EjJj+PjEYHfKf8fNWuSjqzAtrbBopLytBJ/soJxSJOrw2jIWPKsFKR0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862958;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=s6pUY9Widi5nXjWVVQIAl8KSmfUdpPP/1yLjtnuYQM0=;
+	b=aEvJkJ4qF9Q6nRrbAn+7rKUzTe+GvXJt+x/vleaUA/6/jO/Wv3vItKrLvjLvUQG5jJ/7
+	 hzjx9CVDWxmDJLI4JkgWdVqEUCKzaYkJuRy4IQC93Zha2P+wGNhH1AWO2dkPxR/pYl8Q1
+	 jmMJy47I1NlDE7zSGP9EdfX3xrSUgFnV3DWMjVtP99tisH4EcG1t1+qrireM+th+mELWR
+	 rPIsornhvfqmG4maE4pGBMV8N23rgrAK6JACw7grquvDCQr+HnPyDtqCAzJR+XjxtDpaC
+	 2j9X+gvLuz3Hprt2qmGGk3hWK21yuCVMhHAT7sPmQMZjwQPLxfl0DI0EvMOcnkP9EKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H7eFeyDA;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nViA5QCg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BEF606A323;
-	Mon, 16 Nov 2026 21:02:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32BEF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC71606A322;
+	Mon, 16 Nov 2026 21:02:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H7eFeyDA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794862933; x=1826398933;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wPpgSBDHLuIRbE2QOg1mvojqlhNr2HkWFRLK5DG7dxg=;
-  b=H7eFeyDA0QJr6vGC/hEjKxYAeCnAklVbL3zu/uiO4DDMeQcZb23h4qWs
-   NZEQHggQiQQ8hHbWh7iFvd+nl7ZGz93AE1OIXEgf4AEuoD5imDQLLgyNK
-   /AuJJry0wwE8LaMxK1jxQ+yW+f7UoKEk9EJCOdypUh9Ij3hRgfPKN1eOM
-   Sgiwgjl4h085beZ+zo3nLCI6khJoNR2o2JNfNbgi1lKHsQTbKLnfptcWv
-   4a5jf+zvCMpxANFNR2cqWWkOfXrxJcAUoV1rfvt6/kqARDvAy18Yb2/8D
-   srKqT8z8dxTTB9gnbogQjMSzdySKdIm/MW0UBU1KWVh7ab4oPGx85AffE
-   w==;
-X-CSE-ConnectionGUID: LZgIocFZR0qD8uF2RENwRw==
-X-CSE-MsgGUID: accG1GmGTn2xrK9omsRzYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3507620"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3507620"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 13:02:12 -0800
-X-CSE-ConnectionGUID: llPKizJ4QO++JSs14a/w6A==
-X-CSE-MsgGUID: wsAsBFHdR0CNmvzP4ZnJAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9775766"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 13:02:12 -0800
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Piotr Kubaj <piotr.kubaj@intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] platform/x86: ISST: Propagate def_ioctl errors to user space
-Date: Mon, 16 Nov 2026 13:02:09 -0800
-Message-ID: <20261116210209.3737388-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nViA5QCg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE4F1F000C4;
+	Mon, 16 Nov 2026 21:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794862958;
+	bh=s6pUY9Widi5nXjWVVQIAl8KSmfUdpPP/1yLjtnuYQM0=;
+	h=Date:From:To:Cc:Subject;
+	b=nViA5QCga5Uz3gCjq+nzVOw7sI5ePBBUrhS6Lu4+l1MTxhqxPUP7oM6LIdercJNF4
+	 IXCOkEQro9PRy+mZa9wP5s8KSRkNk9Xk379M0yQIYxsOkpPEK/hdU0WwQkvqbKRTN7
+	 7F8gZLQtKoxpWHAA1BBbgzKB47qJ1IJH98MefvESZKdmJHrRIc9otUEbjCptPSmoie
+	 5qx2mmTx8FZ5aR6MyblBu+TckTSnLsDKbBysV0eQoA9n3PMtVBVz3HFdCMkWffuqV4
+	 xelPhsUTVGfSQUxGB0gIzztB83YYuOa8x8Nuj7Q79HOMwhF01D9TddmSL5hAhrRfPH
+	 BY2NMMQpi91aQ==
+Date: Mon, 16 Nov 2026 21:02:34 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Nov 16
+Message-ID: <avtvalTGHXI17cR-@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,45 +54,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WKdevi1XVTA2eG38"
+Content-Disposition: inline
 
-isst_if_def_ioctl() declares an inner "int ret" that shadows the outer
-"long ret". When the TPMI def_ioctl callback fails, its error is lost
-and user space always sees -ENOTTY.
 
-Remove the inner variable. Return the callback result unless it is
--ENOTTY.
+--WKdevi1XVTA2eG38
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: 33c16dc1a2d1 ("platform/x86: ISST: Add IOCTL default callback")
-Reported-by: Piotr Kubaj <piotr.kubaj@intel.com>
-Co-developed-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
----
- .../platform/x86/intel/speed_select_if/isst_if_common.c   | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Hi all,
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_if_common.c b/drivers/platform/x86/intel/speed_select_if/isst_if_common.c
-index 4c04f0bc9b47..fecb908bc88c 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_if_common.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_if_common.c
-@@ -614,12 +614,12 @@ static long isst_if_def_ioctl(struct file *file, unsigned int cmd,
- 	default:
- 		for (i = 0; i < ISST_IF_DEV_MAX; ++i) {
- 			struct isst_if_cmd_cb *cb = &punit_callbacks[i];
--			int ret;
- 
- 			if (cb->def_ioctl) {
--				ret = cb->def_ioctl(file, cmd, arg);
--				if (!ret)
--					return ret;
-+				long def_ret = cb->def_ioctl(file, cmd, arg);
-+
-+				if (def_ret != -ENOTTY)
-+					return def_ret;
- 			}
- 		}
- 		break;
--- 
-2.43.0
+Changes since 20261113:
 
+The vfs-brauner tree acquired a conflict with the vfs-brauner-fixes tree.
+
+The bpf tree acquired a conflict with the origin tree.
+
+The mm-nonmm-unstable tree acquired a conflict with the vfs-brauner-fixes tree.
+
+The asm-generic tree lost it's build failure.
+
+The v4l-dvb tree acquired a conflict with the origin tree.
+
+The crypto tree acquired a conflict with the origin tree.
+
+The drm tree acquired a conflict with the drm-fixes tree.
+
+The mfd tree acquired multiple conflicts with the origin tree.
+
+The tpmdd-keys tree acquired a conflict with the mm-fixes,rxarray tree.
+
+The kexec tree acquired a conflict with the mm tree.
+
+The platforms-x86 tree acquired a conflict with the pm tree.
+
+The chrome-platform tree acquired a conflict with the origin tree.
+
+The battery tree acquired a build failure, I used the version from
+next-20261113 instead.
+
+The gpio-brgl tree acquired a conflict with the gpio-brgl-fixes tree.
+
+The pinctrl tree lost it's build failure.
+
+Non-merge commits (relative to Linus' tree): 6550
+
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 436 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--WKdevi1XVTA2eG38
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7b2oACgkQJNaLcl1U
+h9DF/Af/X2hOOzEpcYGq63/PCsTP3+zZZRWPvPWq5KXgqZRVfSCiqrWFqkJudHhK
+zPM/eKvMuldWivvceWhWHajFX7HtraA0G/XCyFLsStGwYDigzOyxxGp07FnKWjhZ
+mQF8v+nG2HbPyF4cooWAf+yZbrLQRmhr3tjs/hVByIdAgTI2XUhStDK0MW420Khp
+7Os1eknDfZBbfagNrhHJS7b3GTxVcmgr2B5CcngNb/dyCMiRLql6VOKmKAT5Szr7
+SeUi4QJTYB1mHXXhBk3fE2X65H06QhFBrebWm3z+nnO3s9NJzt/g8z/Vz3RoiPPq
+us5Gz3IS9kqwIJIX7fRThat2BgvAUg==
+=TxOE
+-----END PGP SIGNATURE-----
+
+--WKdevi1XVTA2eG38--
