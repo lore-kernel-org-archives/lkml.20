@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837314;
-	b=co+gMZhKDhffoAlkRD88RjN+97/tOMXzzOaIXPKgp1Ams+fbcGZmCdGNWjrXcj7NsxtE
-	 yys19QECXoQujGr2YerxLz6MDJUCOFNwbPA9eLolVrxPyNBsEhuK7ACfMrNjw7Rr0yiUT
-	 jkh3n5unPlQMTO+pZau5sB8YKh3GWmYCL66LbX2dRubgXPMVxTbsu8czoAkJ/Ay8O+lV+
-	 EVKtbahvGuDNC72DwPZ8G4u1cpJc9vOlGWQFHOnoJLrHb8k7llTIDHNWmXIV9uW5qkI2F
-	 zvEGcWVgN1ALtPYG/foAn6h2Bjnz/OoQqOvF0slpplmSbWzE+fvdS3PNmG2OCfNlWFg==
+	t=1794837320;
+	b=Xl3pAazNLRAF48bneUS0g2q8aATN1y02/APbEhIJ4iotbU0dPZ1WBpchDncfWYn/nmCR
+	 dE54oA/iXp1/DruWDXB5XWDAAX0EEglbJoJYS7S6ftOOMsK+Ll9b3sIYnCekY20lIp+mG
+	 LL7U85s4KLXrGYfL2BuwGeN9gPnbZt0m82NabIpvW/XSzDxK1NA/zRL3hCtEK0zILd4P/
+	 wuNpb9hzqywhEHGEqj+MYGSSmBqlbu8kFQyZP5YapNOPGc3ILkJml4ZxZlgMlO3anuEfF
+	 bzKGLL/mcmcEJu8hkQwBcb8Efv3Dsod5Ce162NGPOfN9YrVobHIHrfHC/gh7x6ABitg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837320;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=JnDYP4q711g99WMuz663GPClfp62Sgpn5lVs7PGSx4U=;
-	b=ryHTDMJHlRGdhid7CuanKMXl09cpAtJtKlknVhuJkrqUYaIFX25Hsa+SjgU6PXR0D+pe
-	 9s4p4XnROS6bfGrFPeWHdwVqpCNpp7/2X0oIXIcAxRM29ueuU84InJ3bRTbOcBlpKEqoa
-	 GA8627uMzGnnmjh77NCyd23XxRh98TXjjEvFA+7fewm7lR9ac+ns4ujCAlDBdM45Mqe/K
-	 TZQnsdiUV6i1tb12kxjLhLWonL8y4/xldyR/ayUvQ4It7171wsGuZOG2xFK9qJBgACr4n
-	 ry8d/VOUM8MlTqacsl42+CmXI2onF3bTmMf/GYd8HC5kJapx+qbNVdvnBZPTysosKyw==
+	bh=Ae+gBfveFRe7bl9Q9FwIWcr6AmqQ7n5Etc97cPv607U=;
+	b=rNeHa7KDr2k+UncieApczCjci99Ta1hVjY4DaidFPs3oWwSN6qD/oMZPjkYZEcpCBJAJ
+	 wupBaHmgpfVzInaZWj7ZTGIbdZhPBrSGpRwdocMOCP0CtewaLdnzt/u2QIqMb1zxsL7gG
+	 HQQmu4In8w5AAZYsWXeDJeqbD8nimt8yHiCC+MXG2QYjuUDBJM+JrLb3CarNsbsJP2hl4
+	 ngD5Yo/LWjyrWSXdYkQk7NMk1l55U5FjG9D8ZA4Cxk4FojUpgRNCdxcoivqNd+qqOTYSF
+	 BcdAYTK7NTKYoxa01/Vc+DiWF15N34tNX7nEw65iG74bhFKCxxYPA1KgwbhEpldnwgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuGeGt8j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhbW3sEg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1063E606B747;
-	Mon, 16 Nov 2026 13:55:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F2260A5BE3;
+	Mon, 16 Nov 2026 13:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuGeGt8j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA9E1F000C4;
-	Mon, 16 Nov 2026 13:55:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhbW3sEg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18A01F000C4;
+	Mon, 16 Nov 2026 13:55:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837313;
-	bh=JnDYP4q711g99WMuz663GPClfp62Sgpn5lVs7PGSx4U=;
+	s=k20260515; t=1794837320;
+	bh=Ae+gBfveFRe7bl9Q9FwIWcr6AmqQ7n5Etc97cPv607U=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TuGeGt8jrur+vBdg0M3y6lOmi73bhAFmugfmmjuLpp8zULGhBxF9lLBuEGWlr8IEj
-	 43AoHC9QDYmgkz9DMtfkmQjDDZ9szhGH2FRLd1mIh9D8ZM4qGZT2cXF2sJ0m2oRsEG
-	 XRJeqJGaf3gGIbn2IzPjqRhfvCCvpGcZxP7A6gWJXWyjX0eaeLmRxdoHqw4Ua2+5pr
-	 oIuxWNlAgl3PnyEXLiN8uJp/pmpAbse4X7LJtyr6rbmrY6DyxBvsykeWt/qouwLEbc
-	 wWlzUhR+qQFgIcXvtOB6NGv2auB1zPRw3V6YTl/oeXSL6D6H9ysq0S77PIhrRaWdvF
-	 q2XLf4M3Xnwew==
-Subject: Re: [PATCH net-next v5 9/9] tun: add rx timestamp to the vnet header
+	b=mhbW3sEg/cp7TzUsYRFrQL01AbQuFjPNOEF0FS14UtZ8PJWe36/J9qM90x4jMKXvC
+	 Yf6taLep4im4XXCCW5UhEd6GM5Xnl7gTXZsdYcmSkxFsZaHSgr8IwvTKQGAmQMZO9g
+	 ZaR3Tbv4zHtjvW8H2cY7VsnG6+iFdNSuqVWeXhqX73BqdfdqQaoOiKG8OvFQV1BsS8
+	 pob1RLHypyzo2KsSoZWZjzcuEHiZqVlPA0KN38d3DubhJiM8gqqf8UfxLAsgiYZPI8
+	 nh3eO0sP3XiCBZBdoEPLn19E2+8ixgTleg0kPWw7BAYFNNhcs3tuMcoVWmWJ5Ma5Yv
+	 0bKpjuVKrw5aQ==
+Subject:
+ Re: [PATCH net 5/5] net: wwan: iosm: validate the command parameter length
 From: netdev-bot+sashiko@kernel.org
-To: s.trumtrar@pengutronix.de
-Cc: mst@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- willemdebruijn.kernel@gmail.com, andrew+netdev@lunn.ch, eperezma@redhat.com,
- jasowangio@gmail.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, edumazet@kernel.org,
- andrew@lunn.ch, horms@kernel.org, kory.maincent@bootlin.com,
- liangchen.linux@gmail.com, hengqi@linux.alibaba.com,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org,
- kernel@pengutronix.de
-Date: Mon, 16 Nov 2026 13:55:11 +0000
-Message-ID: <179483731174.3136.9033275454370245376@kernel.org>
-In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-9-7ab67b572f4f@pengutronix.de>
-References: <20261112-v6-7-topic-virtio-net-ptp-v5-9-7ab67b572f4f@pengutronix.de>
+To: fangxy@xiaopeng.com
+Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ netdev@vger.kernel.org, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, maoyixie.tju@gmail.com, horms@kernel.org,
+ m.chetan.kumar@linux.intel.com, zhugl3@xiaopeng.com
+Date: Mon, 16 Nov 2026 13:55:19 +0000
+Message-ID: <179483731920.3136.4345864455275657786@kernel.org>
+In-Reply-To: <20261112125201.1019-6-fangxy@xiaopeng.com>
+References: <20261112125201.1019-6-fangxy@xiaopeng.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,10 +66,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -81,213 +77,163 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message says the TAI time is written "when a packet
-  is handed to userspace or vhost".
-- [Medium] Whether tun writes the timestamp depends only on the
-  configured header size: `vnet_hdr_sz >= offsetofend(struct…
-- [Medium] The value the device side reports as the 'TAI receive time' is
-  sampled in tun_put_user() (drivers/net/tun.c:2178,…
-- [Medium] tun cannot see the negotiated virtio features, so it guesses
-  them from vnet_hdr_sz.
-- [Low] The patch adds `sz < tun_vnet_parse_size(features)` → -EINVAL in
-  __tun_vnet_hdr_put() (drivers/net/tun_vnet.h:163-164).
+- [Medium] In ipc_mux_dl_cmd_decode() (MUX Lite path,
+  drivers/net/wwan/iosm/iosm_ipc_mux_codec.c:338-345), once cmd_len >=…
+- [Low] This commit is tagged 'Cc: stable@vger.kernel.org' (Fixes:
+  9413491e20e1) but depends on the preceding series commit "net: wwan:…
 
 --
 
-tun: add rx timestamp to the vnet header
+net: wwan: iosm: validate the command parameter length
 
-This is a reference implementation of the device side of
-VIRTIO_NET_F_RX_TSTAMP. When the configured vnet_hdr_sz covers the tstamp
-field, tun_put_user() writes the current TAI time into the vnet header.
-__tun_vnet_hdr_put() now takes a struct virtio_net_common_hdr and copies as
-much of it as vnet_hdr_sz holds.
+This patch works out a parameter length for each received DL command. For
+MUX Lite it comes from cmd_len. For aggregated blocks it comes from
+next_cmd_index, or from skb->len for the last command. The union member
+each command type uses is checked against that length. A parameter that is
+too short returns -EMSGSIZE, the callers drop the command, and in the
+aggregated path the walk of the command chain stops.
 
-> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> index 8920c797acfd7..1a8c3377753d7 100644
-> --- a/drivers/net/tun.c
-> +++ b/drivers/net/tun.c
-
-[ ... ]
-
-> @@ -2168,12 +2169,16 @@ static ssize_t tun_put_user(struct tun_struct *tun,
->  	}
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> index aea4cd9ec20d3..bd6c82746cc4a 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> @@ -185,6 +185,7 @@ void ipc_mux_netif_tx_flowctrl(struct mux_session *session, int idx, bool on)
 >  
->  	if (vnet_hdr_sz) {
-> -		struct virtio_net_hdr_v1_hash_tunnel hdr;
-> -		struct virtio_net_hdr *gso;
-> +		struct virtio_net_common_hdr hdr;
->  
->  		memset(&hdr, 0, sizeof(hdr));
-> +
-> +		/* The configured header covers the tstamp field */
-> +		if (vnet_hdr_sz >= offsetofend(struct virtio_net_common_hdr, tstamp))
-
-[Severity: Medium]
-Is the header size enough on its own to gate this?
-
-TUNSETVNETHDRSZ in tun_vnet_ioctl() accepts any size of at least
-sizeof(struct virtio_net_hdr), with no upper bound. Before this patch,
-__tun_vnet_hdr_put() zero-filled everything past parsed_size (10 or 24
-bytes). After it, any existing tun user with vnet_hdr_sz >= 40 starts
-getting host CLOCK_TAI values in bytes 32..39.
-
-The tstamp layout is only defined in the kernel-internal
-include/linux/virtio_net.h. Its comment says the field is present only if
-VIRTIO_NET_F_RX_TSTAMP was negotiated. tun cannot see that negotiation, and
-the uapi header exports only the feature bit.
-
-UDP tunnel GSO was added behind TUN_F_UDP_TUNNEL_GSO. Older kernels reject
-that flag in set_offload(), so userspace can probe for it. Without a
-similar TUN_F_* opt-in, how would QEMU know whether the running kernel
-fills the field before it offers VIRTIO_NET_F_RX_TSTAMP to a guest?
-
-[Severity: Medium]
-Does letting a 40-byte header mean RX_TSTAMP conflict with the size-based
-feature guess in tun_vnet_hdr_guest_features()?
-
-drivers/net/tun_vnet.h:tun_vnet_hdr_guest_features() {
-	if (vnet_hdr_sz >= TUN_VNET_TNL_SIZE)
-		return NETIF_F_GSO_UDP_TUNNEL | NETIF_F_GSO_UDP_TUNNEL_CSUM;
-	return 0;
-}
-
-In this series, virtio_net and vhost-net use a 40-byte header for
-VIRTIO_NET_F_RX_TSTAMP even when UDP tunnel GSO was not negotiated. On the
-guest TX side, tun_get_user() and tun_xdp_one() still pass the guessed
-tunnel features to the header parser:
-
-handle_tx()
-  tun_sendmsg()
-    tun_get_user() / tun_xdp_one()
-      tun_vnet_hdr_guest_features(40)   -> tunnel features
-      virtio_net_hdr_tnl_to_skb(..., tnl_hdr_negotiated = true)
-
-That means this check in virtio_net_hdr_tnl_to_skb() never fires:
-
-	/* Tunnel not supported/negotiated, but the hdr asks for it. */
-	if (!tnl_hdr_negotiated)
-		return -EINVAL;
-
-Could a guest that negotiated only RX_TSTAMP send the
-VIRTIO_NET_HDR_GSO_UDP_TUNNEL_* gso_type bits, the
-VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM flag, or outer_th_offset / inner_nh_offset
-values in bytes 20..23, and have the host accept them? For that guest,
-those bytes should only be padding.
-
-> +			put_unaligned_le64(ktime_get_clocktai_ns(), hdr.tstamp);
-
-[Severity: Medium]
-Is this really the receive time?
-
-tun_put_user() runs when userspace or the vhost worker dequeues the packet
-from tfile->tx_ring through read/recvmsg. The packet reached the tun device
-earlier, in tun_net_xmit(). Any timestamp already on the skb is also
-ignored.
-
-The guest stores this value in skb_hwtstamps(skb)->hwtstamp in
-virtnet_receive_done() and treats it as a hardware RX timestamp. So the
-reported value also includes the ptr_ring backlog (up to tx_queue_len
-entries) and vhost/userspace scheduling latency. Guest PTP or latency
-tools would count that delay as receive time.
-
-The uapi describes the feature as "Device sends TAI receive time". Should
-the timestamp be taken at ingress in tun_net_xmit(), or come from an
-existing skb timestamp? If dequeue time is intentional, could the commit
-message say why? A real implementation would likely copy this reference.
-
->  		ret = tun_vnet_hdr_tnl_from_skb(tun->flags, tun->dev, skb,
-> -						&hdr);
-> +						&hdr.tnl_hdr);
->  		if (ret)
->  			return ret;
-
-[ ... ]
-
-> diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
-> index f4c652b1fa44d..d4cc56dac98d6 100644
-> --- a/drivers/net/tun_vnet.h
-> +++ b/drivers/net/tun_vnet.h
-> @@ -153,19 +153,21 @@ static inline int tun_vnet_hdr_get(int sz, unsigned int flags,
->  	return __tun_vnet_hdr_get(sz, flags, 0, from, hdr);
->  }
->  
-> +/* hdr is fully initialized, copy as much of it as the configured size holds */
->  static inline int __tun_vnet_hdr_put(int sz, netdev_features_t features,
->  				     struct iov_iter *iter,
-> -				     const struct virtio_net_hdr *hdr)
-> +				     const struct virtio_net_common_hdr *hdr)
+>  static int ipc_mux_dl_cmdresps_decode_process(struct iosm_mux *ipc_mux,
+>  					      const union mux_cmd_param *param,
+> +					      size_t param_len,
+>  					      __le32 command_type, u8 if_id,
+>  					      __le32 transaction_id)
 >  {
-> -	unsigned int parsed_size = tun_vnet_parse_size(features);
-> +	unsigned int put_size = min_t(unsigned int, sizeof(*hdr), sz);
->  
-> -	if (unlikely(iov_iter_count(iter) < sz))
-> +	if (unlikely(iov_iter_count(iter) < sz ||
-> +		     sz < tun_vnet_parse_size(features)))
->  		return -EINVAL;
 
 [Severity: Low]
-The new sz < tun_vnet_parse_size(features) check seems to quietly fix an
-existing bug. Should it go in a separate patch with a Fixes: tag?
+This patch has Cc: stable and Fixes: 9413491e20e1. Its context, though,
+depends on the earlier series patch "net: wwan: iosm: pass the DL command
+parameter by pointer", which has neither a Cc: stable nor a Fixes: tag.
 
-set_offload() enables NETIF_F_GSO_UDP_TUNNEL without looking at
-vnet_hdr_sz, and TUNSETVNETHDRSZ accepts 10 without re-checking features.
-That makes sz = 10 with parsed_size = 24 reachable. Before this patch,
-__tun_vnet_hdr_put() would then do:
+In the stable trees, ipc_mux_dl_cmdresps_decode_process() still takes
+union mux_cmd_param by value, and the callers pass cmdh->param. The
+prerequisite also introduced two things this patch changes:
 
-	copy_to_iter(hdr, parsed_size, iter)
+  - the acb->got_param = *param line removed here
+  - the ipc_mux_dl_acbcmd_decode() body rewritten here
 
-This writes 24 bytes into a 10-byte header slot, which overruns into the
-packet area of the user's buffer. Next, sz - parsed_size wraps to
-0xFFFFFFF2, and iov_iter_zero() zeroes the rest of the buffer before
--EFAULT is returned.
+So this patch won't apply on its own.
 
-With the new check, -EINVAL is returned before anything is written. The
-commit message does not mention this change in behaviour, and the patch is
-marked as not intended to be merged, so the fix would be lost. The
-underlying problem appears to go back to commit 288f30435132 ("tun: enable
-gso over UDP tunnel support").
+Suppose the length checks are adapted by hand onto the by-value signature.
+Each call would still copy the full 12-byte union out of the skb before
+param_len is checked, so the over-read this series removes would remain.
+
+The fix also relies on "net: wwan: iosm: bound the ACBH command chain
+walk" and "net: wwan: iosm: validate the MUX DL block length".
+
+Could the prerequisite be tagged for stable as well? Alternatively, the
+prerequisite annotations from Documentation/process/stable-kernel-rules.rst
+would make the ordering clear to backporters.
 
 [ ... ]
 
-> @@ -174,7 +176,11 @@ static inline int __tun_vnet_hdr_put(int sz, netdev_features_t features,
->  static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
->  				   const struct virtio_net_hdr *hdr)
+> @@ -315,19 +329,36 @@ static int ipc_mux_dl_cmds_decode_process(struct iosm_mux *ipc_mux,
+>  static void ipc_mux_dl_cmd_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
 >  {
-> -	return __tun_vnet_hdr_put(sz, 0, iter, hdr);
-> +	struct virtio_net_common_hdr common_hdr = {};
+>  	struct mux_lite_cmdh *cmdh = (struct mux_lite_cmdh *)skb->data;
+> +	size_t hdr_len = offsetof(struct mux_lite_cmdh, param);
+> +	size_t param_len;
+>  	__le32 trans_id = cmdh->transaction_id;
+> -	int size;
+> +	u16 cmd_len;
+> +	int ret, size;
+>  
+> -	if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
+> -					       cmdh->command_type, cmdh->if_id,
+> -					       cmdh->transaction_id)) {
+> +	cmd_len = le16_to_cpu(cmdh->cmd_len);
+> +	param_len = skb->len > hdr_len ? skb->len - hdr_len : 0;
+> +	/*
+> +	 * A cmd_len below the header is not a usable declaration: the
+> +	 * received length stays the limit, as for a legacy device.
+> +	 */
+> +	if (cmd_len >= hdr_len)
+> +		param_len = min_t(size_t, param_len, cmd_len - hdr_len);
 > +
-> +	common_hdr.hdr = *hdr;
-> +
-> +	return __tun_vnet_hdr_put(sz, 0, iter, &common_hdr);
->  }
+> +	ret = ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
+> +						 param_len,
+> +						 cmdh->command_type,
+> +						 cmdh->if_id,
+> +						 cmdh->transaction_id);
+> +	if (ret == -EMSGSIZE)
+> +		return;
 
 [Severity: Medium]
-The commit message says the TAI time is written "when a packet is handed
-to userspace or vhost", but tstamp is never set here. Do packets that go
-through tun_vnet_hdr_put() always get a zero timestamp, even when sz
-covers the field?
+Can this bound reject MUX Lite commands that were handled before?
 
-There are two such callers. The first is tun_put_user_xdp(), which handles
-xdp_frames on tfile->tx_ring (for example from XDP_REDIRECT through
-tun_xdp_xmit()):
+Once cmd_len >= 16, param_len becomes min(skb->len - 16, cmd_len - 16).
 
-	if (tun->flags & IFF_VNET_HDR) {
-		struct virtio_net_hdr gso = { 0 };
+Take a FLOW_CTL with cmd_len 0x10 (the header-only minimum mentioned in
+the commit message) or 17..19. It ends up with param_len < 4. The new
+check in ipc_mux_dl_cmds_decode_process() then returns before the existing
+backward compatibility branch runs:
 
-		vnet_hdr_sz = READ_ONCE(tun->vnet_hdr_sz);
-		ret = tun_vnet_hdr_put(vnet_hdr_sz, iter, &gso);
+	if (param_len < sizeof(param->flow_ctl))
+		return -EMSGSIZE;
+	...
+	if (param->flow_ctl.mask == cpu_to_le32(0xFFFFFFFF)) {
+		/* Backward Compatibility */
+		if (cmd_len == cpu_to_le16(size))
+			session->flow_ctl_mask =
+				le32_to_cpu(param->flow_ctl.mask);
+		else
+			session->flow_ctl_mask = ~0;
 
-The second is tap_put_user() for macvtap/ipvtap, which also calls
-tun_vnet_hdr_put().
+That branch was added for MUX Lite in 9413491e20e1. There, size is
+offsetof(struct mux_lite_cmdh, param) + sizeof(flow_ctl), so the branch
+expects Lite FLOW_CTL commands whose cmd_len is not 20.
 
-vhost-net advertises VIRTIO_NET_F_RX_TSTAMP for every backend and uses a
-40-byte header once it is negotiated. The guest then turns on RX
-timestamping.
+Before this patch, such a command was applied and acknowledged as long as
+the mask was in the received bytes. With this patch, net_tx_stop and
+flow_ctl_mask are left unchanged and no MUX_LITE_CMD_FLOW_CTL_ACK is sent.
 
-So a guest on a macvtap/ipvtap backend would negotiate the feature and
-never get a timestamp. On tun, one queue would mix timestamped skbs with
-XDP frames that have no timestamp. Is that intended, or should these paths
-fill tstamp as well?
+An OPEN_SESSION_RESP with cmd_len 16..27 is affected the same way, even
+when all 12 parameter bytes arrived. The chain is:
+
+ipc_mux_dl_cmd_decode()
+  ipc_mux_dl_cmdresps_decode_process() returns -EMSGSIZE
+  return (silent)
+
+The blocking ipc_mux_session_open_send() then runs out
+IPC_MUX_CMD_RUN_DEFAULT_TIMEOUT and fails. The only message logged is
+"OPEN_SESSION send failed".
+
+It isn't clear whether shipping firmware uses these lengths. However, the
+commit message says:
+
+  the received length keeps the limit there, which preserves the handling
+  the existing backward compatible code gives legacy devices
+
+It also argues that cmd_len is not a hard bound on the aggregated path,
+because the flow control decoder treats a mismatched cmd_len as a legacy
+device. Wouldn't the same reasoning apply to MUX Lite, where that
+compatibility code came from?
+
+Should cmd_len bound the parameter only when it covers the member being
+read? Or should the 16..19 and 16..27 cases at least be logged and
+mentioned in the commit message?
+
+> +
+> +	if (ret) {
+>  		/* Unable to decode command response indicates the cmd_type
+>  		 * may be a command instead of response. So try to decoding it.
+>  		 */
+> -		size = offsetof(struct mux_lite_cmdh, param) +
+> -				sizeof(cmdh->param.flow_ctl);
+> +		size = hdr_len + sizeof(cmdh->param.flow_ctl);
+>  		if (!ipc_mux_dl_cmds_decode_process(ipc_mux, &cmdh->param,
+> -						    cmdh->command_type,
+> +						    param_len, cmdh->command_type,
+>  						    cmdh->if_id,
+>  						    cmdh->cmd_len, size)) {
+
+[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f%40pengutronix.de
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112125201.1019-1-fangxy%40xiaopeng.com
