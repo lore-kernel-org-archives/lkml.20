@@ -1,65 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801303;
-	b=n34bjaBZudKXBmV7LJmRksQx560QWUf5auedRGy253OLg/C9u3kh0d8GPVBszle8snPP
-	 S/OBBtU3U+oLjTyyaURI45ZfoE4Hf8tiLv3jm47FLdaw3DD1//sDb+G6tZb8QSRKhCLoo
-	 +L0YDjJvpeYadbFnbrdOPREh6VGBb301O2bdFJZV66f8JPCFMmlM0oHKJYERtkT95lnw1
-	 Oc8ujLjoTfwcq3bjSt7NpjFp9sBafkxca++a8UdzpSvUceP2Th6cb3NnWut9ozOZznXY2
-	 Iwp3/29fKB4kFuqUoVQRWqfiILgylRD9S3t1B0cKWlawuoRlCfPjFhDyxgVZ/rDfV7g==
+	t=1794801393;
+	b=aHMDapw3k9XtEmnO2U1LECy+yuahJid4D8ET+x3gmsFqwSFaNA1HIUkYex5e3lbLKNdM
+	 sm7ACY/Ac3BgnG3SBbBDjbbFKFB746ab6L1qmeoEfI05E4RPRc42w7/S77TLDhpCgLwiM
+	 gNZBAPve+ElWEymLdJ/qOGMjKog/auMc8p59QF6KDds2D5fwucsxpV07zanxngD2q0QZt
+	 qbLsvZ1vzXyF6f9/xbjQUXWTQW5iOJD+ppusujx9FLCNX+FO1QwvdpcCpPZ2sZK6BPDhn
+	 peg3cbOhmQP0n9bnQDDmZkAC6/sn7fF20CYHOrhnIHtBCwFBly/DaGnOMTIE9L2iULA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801303;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=XVo8cX/ZclE2JZLJ5Sy4t7M6wxCXh5CPKIlg5JJkfRI=;
-	b=Pi4g10Fz+UFumV/4VEz2nuh/p5m08+204QAU4qmHEhMOVBEO3MiqQDLQeR9FE2Ce7g+0
-	 eWoOVTwCYtCWOCe7n0TbK4XdMgBzssSmWv/UpsRMKTbvZ/oL4uDrRe2FZKlEsK8SlchGc
-	 c32tZWTykdmGe/Gpi3vIW91cBdFIu69elD8I6jEgGPXVeCM7jiCKgVP3TicsS3VREMQhk
-	 INwn0UYRxwGAsPijk0vPNgQ8syvWeRqfYkgRZofEmZYiZ9MVxvmT5q3feKHqc7vQptSdW
-	 6PRVVJhpz/tR0RC8kQ/hhzzE7NvnjgDqg2kGGTu8FrrWWetxcmHHse3FC8cgWQy4bww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801393;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:
+	 Content-Transfer-Encoding;
+	bh=+6dOvYRVzQ9+bhI5eE5XNV7TqV3Ds0TchIlyG7Bl/Io=;
+	b=zo0qI/WeMn4gCIeOoVyRRPjPbqJ10E8sNi13IF97ENorZyu42en43H72f2pRxVax+Mnu
+	 1rtBioUGNCpJD63p7khMWnfoc1Rts7BQcFpJQNWLrl/ebNREBpJ1kRT5lf9eLwRmBrhm+
+	 JnxLdpx39QDYepPaTQnyLKuEBa7chP6nK/loHeR5VyJz4XLoo+LgebNfprTnDjNB8TX9d
+	 nuujGELHUe00MQ/e2SDVRSeXLxNhBo2yDMuMKA88lS1QkW6LPjECN1KK0kXWLIUK/l/eg
+	 2JgelEav2CA0ctDIj9JEbT04pBNCGGJLjapJpqroZgCqeQAer0xIgeTeoCDlb1iRMyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=R7sLG4T9;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="J/o0XHIE";
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B6B606A31F;
-	Mon, 16 Nov 2026 03:55:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3B6B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94892606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:56:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94892606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=R7sLG4T9
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=XVo8cX/ZclE2JZLJ5Sy4t7M6wxCXh5CPKIlg5JJkfRI=;
-	b=R7sLG4T9vY049yplmjnT6eRystNU87CIO2ZCQLt+aQXGzOQlCmADTVHSxbU6wvUSHp9FGtCUF
-	ZdY0OpNctAk7BW91JZ/ymjVka4sZSTT7t8+ilaMcOvTGrKFfLDRdbudEUJn+S2sSzMK7JTVuSYT
-	LTkTzqbkQdVVovu5MIdlxoY=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jSYrs35q8z1T4Fp;
-	Mon, 16 Nov 2026 11:54:21 +0800 (CST)
-Received: from whupemk300003.china.huawei.com (unknown [7.152.185.49])
-	by mail.maildlp.com (Postfix) with ESMTPS id EB55B40561;
-	Mon, 16 Nov 2026 11:54:57 +0800 (CST)
-Received: from huawei.com (10.50.87.204) by whupemk300003.china.huawei.com
- (7.152.185.49) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 11:54:57 +0800
-From: Zhang Yuwei <zhangyuwei20@huawei.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>
-CC: <linux-i3c@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <chenjun102@huawei.com>
-Subject: [PATCH] i3c: master: Skip IDR cleanup if bus ID allocation fails
-Date: Mon, 16 Nov 2026 11:53:17 +0800
-Message-ID: <20261116035317.132490-1-zhangyuwei20@huawei.com>
-X-Mailer: git-send-email 2.22.0
+	dkim=fail reason="signature verification failed" (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=J/o0XHIE
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3245D40E019C;
+	Mon, 16 Nov 2026 03:56:28 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id epKAmDZ2VJ_u; Mon, 16 Nov 2026 03:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794801384; bh=x8ygkmDzVVjxUwAjhVjtmtzmZ+VLK3ZkDLHSUJ/iG+U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J/o0XHIE4N9V6Q6Pa2JfIifs2QPxz3Yrk/Q+5Zft/fclMhDtx5520Nt34Eqr3j74E
+	 qrtJJx9rQ+46hGRK/62y1xA7G70bDSjPvTEKbt/xow4ZCKTsAc1Vc3rWD/pXtOLKtd
+	 lJAsV/iQHtnC3LmcfAgdW7G8Q/Iq7ZaAbPmOco1qf8cWP6X2+rfStsnLoJLncJtFus
+	 I+CyA+94QPHXW7KNyU5mkHxCCC1cegPjc1a77qarmG2pxVF+ob4EgvK88AUreAhftt
+	 hiXah/wEBzNaPEx/Z3LhNUHYIKSVS+d9ppZrvMFXF61sp+0EPdvjhdzncIw/MkSxax
+	 tKkMyi/UO3zSrbcH7OuS9jHGGAn/h13tP14TEExCbaCq37ZYVj9g/R6WrEuFyhm5OO
+	 Bzj8uuOrAZdvRMvHwl7IH+EyfKAldjpYjAs/nZZSbKlmTL7aEqAPEkZLfKS0R1kgOa
+	 97oHoNrXQxBZEkvFVKMIVEEwjhoxPemBWElOBpPzP2VcL688YnNkAIKIMGBpFZ0Kst
+	 OqcHaW1+NUPiNUz9LTZI4cMEwH4QgNq+WrTpuTD8BmPjv92Xkiz+wUHnS8xg0dbYOS
+	 eislpGBzAcub1KdOiH6PmeSx0LDCaYHbVwrcL9g9HyvLz9AoSySpV9Cavnj0ApaqT+
+	 4pnbgcy1uinkckn1vHr+ha1E=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EBA4A40E00DC;
+	Mon, 16 Nov 2026 03:56:11 +0000 (UTC)
+Date: Sun, 15 Nov 2026 19:56:08 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>,
+	Prathyushi Nangia <prathyushi.nangia@amd.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] x86/CPU/AMD: fix booting on Xen PV domU
+Message-ID: <20261116035608.GAavp-2BX67_xv2LYT@fat_crate.local>
+References: <20261116014057.7409-1-marmarek@invisiblethingslab.com>
+ <avpgJcmTVQcHf8QB@mail-itl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,55 +89,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- whupemk300003.china.huawei.com (7.152.185.49)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <avpgJcmTVQcHf8QB@mail-itl>
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 9d4f219807d5 ("i3c: fix refcount inconsistency in
-i3c_master_register"), an i3c_bus_init() failure is handled by dropping
-the initialized device reference. This invokes i3c_masterdev_release(),
-which unconditionally calls i3c_bus_cleanup().
+On Mon, Nov 16, 2026 at 02:45:09AM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > Fix this by skipping the read when running in a VM, except Xen dom0
+> > (which technically is a VM, but does have full access to the hardware=
+).
+> >=20
+>=20
+> I forgot about:
+> Fixes: ab8131028710 "x86/CPU/AMD: Print the reason for the last reset"
+>=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
+ngslab.com>
+> > ---
+> >  arch/x86/kernel/cpu/amd.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
 
-However, i3c_bus_init() only assigns the bus ID after idr_alloc()
-succeeds. If the allocation fails, a zero-initialized controller retains
-a bus ID of zero, and i3c_bus_cleanup() removes ID zero from the IDR.
-If another bus owns that ID, its mapping is incorrectly removed, allowing
-the ID to be reused while that bus is still registered.
+ea51d1a4c31f ("x86/CPU/AMD: Don't print reset reason in VMs")
 
-Initialize the bus ID to -1 before attempting allocation and skip IDR
-cleanup when the ID is negative. Keep the put_device() error path so that
-the device reference and firmware node reference are released normally.
+--=20
+Regards/Gruss,
+    Boris.
 
-Fixes: 9d4f219807d5 ("i3c: fix refcount inconsistency in i3c_master_register")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Yuwei <zhangyuwei20@huawei.com>
----
- drivers/i3c/master.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 9928c5dffb5b..39363c097682 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -523,6 +523,9 @@ static void i3c_bus_init_addrslots(struct i3c_bus *bus)
- 
- static void i3c_bus_cleanup(struct i3c_bus *i3cbus)
- {
-+	if (i3cbus->id < 0)
-+		return;
-+
- 	mutex_lock(&i3c_core_lock);
- 	idr_remove(&i3c_bus_idr, i3cbus->id);
- 	mutex_unlock(&i3c_core_lock);
-@@ -532,6 +535,7 @@ static int i3c_bus_init(struct i3c_bus *i3cbus, struct fwnode_handle *fwnode)
- {
- 	int ret, start, end, id = -1;
- 
-+	i3cbus->id = -1;
- 	init_rwsem(&i3cbus->lock);
- 	INIT_LIST_HEAD(&i3cbus->devs.i2c);
- 	INIT_LIST_HEAD(&i3cbus->devs.i3c);
--- 
-2.22.0
-
+https://people.kernel.org/tglx/notes-about-netiquette
