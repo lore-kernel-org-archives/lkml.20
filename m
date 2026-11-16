@@ -1,58 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828304;
-	b=gvP5JcEE1f/HE/Ef/iaGMn8o30HaWAytLTowlxtv3Ng6w10uY+1SfGe+v7MMgHUSDH8f
-	 wtarfD0QeL58omwmqz+U0fgDYfSip1pGQ9mbdixszP0WDlDZUbGlVPxWUdZBC75ZBbNaI
-	 Ed6Rg5rCbwiK+EwtWqv2hXWOj/XGHwaCgo7yRGohT+3Nbkmvb/Hd3tTjruo5naGXQ2MRv
-	 j1HEcG7csMIG9F3mraM8CXdqKJh2BV1tCn69k+k43qVtrf2ZPE2YdIKDWEVTPPecgofmo
-	 nY3UljQW6AS54ecqIJP7eXpih1ADpumAkBKcFZ7rZw3OrWO38cV6MuSjWtNHu17zjpA==
+	t=1794828383;
+	b=AEl49HZDfBCaV96i485Pc5kPqn1LNXaOkw2OhJc2CTtuwD/8Yeu9FiuvAFS1s5jXxqI7
+	 w/ixE22Y6I9fJW/xjK1kiYhdiUwHWRfYGVQq2nKtrczKNW8Gwx4fa/z97COYPc2WfD0AB
+	 LrwHst5hVhb9veuUAfsWn5JZi5TSglSrB2NC3YmCzQoWff8/Bb2PL/QyR/wLoyy16XZIN
+	 SzL5Aw7Lks2n6nLFk0JlP1TXQuP6LB9fVT157/CNix21ovB5qSdLGmctef6+tTQL8Uc/D
+	 qtVe/rBV9khVfOjCZzPbaSpWO5VG47LX3RtFY/u3P0ilimWBFco750nK0/RnGP4uLDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828304;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eIwoQCjr7sSj0vIAB37IuYU9H+c2hGghh5VTlhNpJ0E=;
-	b=TfSSL92ZxR1bctbnHY5DGCLLcfzsc8E/FHrMMRawiMlSBU7z3UKLO/coJbeYpuWvijBq
-	 o7BnMN8kl70X9iAKID+iSfsRCrzYPQaK39s1ufGru7+azjw5DWAGVfWUXs+DtPQ3ZCD4Q
-	 5KNzFFmu92h7BiDfwL8cu8DAyTF1KwSWGb8MlhXbNRzQK6gA9LYPQDLBJvdss+yOjZKJx
-	 2Tfdx81ETaXaBuWgytRtK6j5qU9mcklKX3uZNWBsROdbqdDxhYh/twYvNNgbtqVhYThjq
-	 oDuT6Az3uRNKbOifx9QAwqVCbq8W+ExQ0Qy8EsTtFZuvNk1yQs3QuRS55vJIZYwiOqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828383;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=erPqvfMkF12qX1OD9Ld8k+GHRcROaJq3YFf9CiEDZlM=;
+	b=de6TYbhciaF14rkpaIacIGzZFdQawkITgR61BZKdmMkM8b8o/bGrNqsMeZvoadv0VJI2
+	 k3pHdbQMRiNEjr4A6LVpi2EnsAHMUfdqevdi4x91XkcXYMQNkIf4j4b2viatPUx9iTeLy
+	 LcL8poV40aDhjCw9UnepWuoZq/6vHAQgz860srPTUJvBhwPFxuKeOvcW1duWIKP4GzsFk
+	 BvA916KUbL5e6ixxOqADtBuonUO/VCo+VB+xAGMxZMHSGwGR07P1J3nEYqgnVzaEg+HhL
+	 toV3+iaEzvCyScQd3bAcQkLROhlXOgqy2C8MXq2VD30EfhjXB7jFOJp3xUIlRzwvfbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SKSY95KC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9F5606D7A8;
-	Mon, 16 Nov 2026 11:25:03 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bkM+TK2t;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79E1B606A78C;
+	Mon, 16 Nov 2026 11:26:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79E1B606A78C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SKSY95KC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCA81F000C4;
-	Mon, 16 Nov 2026 11:25:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794828303;
-	bh=eIwoQCjr7sSj0vIAB37IuYU9H+c2hGghh5VTlhNpJ0E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SKSY95KC0u2jqsHTtnv98ctb8ZfxF+kt2pzTwhbMQAQl4wj4xa+ycVFCl5L0uFlBO
-	 oaioRJogaHFdUBLkC9j1bIscY0JYJjvaWM8LFBHdrtkwmx/vFuVLGhys/E+b+VzPQk
-	 HHlO4WJ6Y+Uo42lrnFFaLqXe8KbUM4Yp9BPlYEqaDWIjtH5yRRPzvhtq/6wGEGfurS
-	 yF3WkAcoAgK5zVUUMLvZvh2sco/D14yXNBTQ8qT+v+4VJ/yI4iRbnDFTePtVHFTS9X
-	 w0eM7cmkf4ziTQ/5y7PbGywMGHMupw7AhdxKI0iKKMkE2DjJcV1rZqK/5QGiD5Gb6Q
-	 yWKUbr3Dj8rAA==
-Date: Mon, 16 Nov 2026 12:24:57 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yanli Yang <yanli.yang@bedmex.com>
-Cc: linux-wireless@vger.kernel.org, 
-	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Zhirun Liu <zhirunliu@aicsemi.com>, 
-	Dijia Xu <dijiaxu@aicsemi.com>, Chunqiu Liu <chunqiuliu@aicsemi.com>, 
-	Liheng Wei <liheng.wei@bedmex.com>
-Subject: Re: [PATCH wireless-next v5 3/4] wifi: aic: Add the AIC8800D80 and
- D80N FullMAC driver
-Message-ID: <20261116-silent-archetypal-fulmar-afff19@quoll>
-References: <179481380235.4.7388336477392853157@bedmex.com>
- <179481380240.4.5564040872791747367@bedmex.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bkM+TK2t
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 721951713;
+	Mon, 16 Nov 2026 03:26:18 -0800 (PST)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1263C3F632;
+	Mon, 16 Nov 2026 03:26:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794828381; bh=iB0d6tgW3I2e5iitol76b342HkezV3YpGx343zM0/zM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=bkM+TK2tJdavJuFwKlvA3OTO5Z7WFJZ2Ry/hovLMoG4/7WB6qd6OJWj9Kr85r2H5I
+	 //LtvIcHtqD8/sYEz1+1XlQfr7pIzO4UTSARsJksEiw7nurMGivn1OhtcI6PId5ZAN
+	 ULJRWKwh9gx/Kh0day3tZN8qI3KwfEtFRWCNxkJY=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Akash Goel <akash.goel@arm.com>,
+	Karunika Choo <karunika.choo@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v5 00/13] drm/panthor: Protected mode support for Mali CSF GPUs
+Date: Mon, 16 Nov 2026 12:25:48 +0100
+Message-ID: <20261116112601.3483649-1-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,212 +73,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179481380240.4.5564040872791747367@bedmex.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 03:23:22PM +0800, Yanli Yang wrote:
-> From: Zhirun Liu <zhirunliu@aicsemi.com>
-> 
-> Add the cfg80211 interface and TX/RX data paths for AIC8800D80 U02 and
-> AIC8800D80N SDIO Wi-Fi. Expose station operation on the 2.4 GHz and 5 GHz
-> bands through cfg80211/nl80211, with scanning, connection management,
-> key configuration and station statistics.
-> 
-> Implement transmit queues, receive reordering and packet delivery, and
-> register firmware-derived capabilities with cfg80211. Propagate the
-> cfg80211 channel restrictions and power limits to the firmware through
-> the regulatory notifier.
-> 
-> Add the AIC Kconfig and Makefiles and build a single aic8800_fdrv module.
-> Keep the initial selectable configuration restricted to station mode.
-> Retain the existing non-station source behind disabled configuration
-> branches, together with the optional allocation helpers.
-> 
-> This patch depends on the firmware and transport sources in patch 2.
-> The next patch connects the complete driver to the wireless build.
-> 
-> Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-> Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-> Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
-> ---
->  drivers/net/wireless/aic/Kconfig              |   16 +
->  drivers/net/wireless/aic/Makefile             |    3 +
->  drivers/net/wireless/aic/aic8800_fdrv/Kconfig |   90 +
->  .../net/wireless/aic/aic8800_fdrv/Makefile    |   36 +
->  .../wireless/aic/aic8800_fdrv/aicwf_bfmer.c   |   93 +
->  .../wireless/aic/aic8800_fdrv/aicwf_main.c    | 5114 +++++++++++++++++
->  .../wireless/aic/aic8800_fdrv/aicwf_mesh.c    |   33 +
->  .../aic/aic8800_fdrv/aicwf_mod_params.c       |  644 +++
->  .../aic/aic8800_fdrv/aicwf_mu_group.c         |  653 +++
->  .../wireless/aic/aic8800_fdrv/aicwf_radar.c   | 1969 +++++++
->  .../aic/aic8800_fdrv/aicwf_resv_mem.c         |  106 +
->  .../net/wireless/aic/aic8800_fdrv/aicwf_rx.c  | 2434 ++++++++
->  .../aic/aic8800_fdrv/aicwf_rx_prealloc.c      |   99 +
->  .../net/wireless/aic/aic8800_fdrv/aicwf_tx.c  | 1469 +++++
->  .../net/wireless/aic/aic8800_fdrv/aicwf_txq.c | 1368 +++++
->  .../aic/aic8800_fdrv/aicwf_txq_prealloc.c     |   55 +
->  16 files changed, 14182 insertions(+)
->  create mode 100644 drivers/net/wireless/aic/Kconfig
->  create mode 100644 drivers/net/wireless/aic/Makefile
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/Kconfig
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/Makefile
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_bfmer.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_main.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mesh.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mod_params.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mu_group.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_radar.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx_prealloc.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_tx.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq.c
->  create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq_prealloc.c
-> 
-> diff --git a/drivers/net/wireless/aic/Kconfig b/drivers/net/wireless/aic/Kconfig
-> new file mode 100644
-> index 000000000000..338ab1cb97ff
-> --- /dev/null
-> +++ b/drivers/net/wireless/aic/Kconfig
-> @@ -0,0 +1,16 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config WLAN_VENDOR_AIC
-> +	bool "AIC devices"
-> +	default y
-> +	help
-> +	  Say Y to expose the AIC8800D80 U02 / AIC8800D80N SDIO Wi-Fi driver.
-> +	  The first upstreaming target is a narrow D80/D80N SDIO station
-> +	  configuration; legacy transport, Bluetooth, Android, test and
-> +	  manufacturing build switches are intentionally not exposed.
-> +
-> +if WLAN_VENDOR_AIC
-> +
-> +source "drivers/net/wireless/aic/aic8800_fdrv/Kconfig"
-> +
-> +endif # WLAN_VENDOR_AIC
-> diff --git a/drivers/net/wireless/aic/Makefile b/drivers/net/wireless/aic/Makefile
-> new file mode 100644
-> index 000000000000..3e4620989aaf
-> --- /dev/null
-> +++ b/drivers/net/wireless/aic/Makefile
-> @@ -0,0 +1,3 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +obj-$(CONFIG_AIC8800_WLAN_SUPPORT) += aic8800_fdrv/
-> diff --git a/drivers/net/wireless/aic/aic8800_fdrv/Kconfig b/drivers/net/wireless/aic/aic8800_fdrv/Kconfig
-> new file mode 100644
-> index 000000000000..6416c9c7a5b0
-> --- /dev/null
-> +++ b/drivers/net/wireless/aic/aic8800_fdrv/Kconfig
-> @@ -0,0 +1,90 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +menuconfig AIC8800_WLAN_SUPPORT
-> +	tristate "AIC8800D80 U02 / AIC8800D80N SDIO station support"
-> +	depends on MMC
-> +	depends on CFG80211
-> +	select CRYPTO_LIB_MD5
-> +	help
-> +	  Enable the AIC8800D80 U02 and AIC8800D80N (D80N, D80LN, D40N,
-> +	  D40LN) FullMAC Wi-Fi driver for the first upstreaming baseline.
-> +	  This build is restricted to the SDIO station path and uses
-> +	  cfg80211/nl80211 for normal Wi-Fi operation. The driver also
-> +	  downloads and starts the chip firmware.
-> +
-> +	  Firmware files are loaded from the aic/aic8800d80/ and
-> +	  aic/aic8800d80n/ subdirectories of the kernel firmware search
-> +	  path for AIC8800D80 and AIC8800D80N, respectively.
-> +
-> +	  If unsure, say N.
-> +
-> +if AIC8800_WLAN_SUPPORT
-> +
-> +config AIC8800_SDIO_SUPPORT
-> +	def_bool y
-> +	help
-> +	  Build the shared SDIO transport for AIC8800D80 and AIC8800D80N.
-> +
-> +config AIC8800_SDIO_PWRCTRL
-> +	def_bool y
-> +	depends on AIC8800_SDIO_SUPPORT
-> +	help
-> +	  Enable SDIO active/sleep transitions and the inactivity timer used
-> +	  by the driver. This is a required feature of the AIC8800D80 and
+Hi,
 
-Drop. Don't add your downstream config features.
+This is a patch series covering the support for protected mode execution in
+Mali Panthor CSF kernel driver.
 
-> +	  AIC8800D80N SDIO configurations, independent of system suspend support.
-> +
-> +config AIC8800_AUTO_POWERSAVE
-> +        def_bool y
-> +        depends on AIC8800_SDIO_PWRCTRL
-> +        help
-> +	  Low-power configuration within the chip
-> +
-> +config AIC8800_USE_5G
-> +	def_bool y
+It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
 
-Why build option would be NOT to use 5 Ghz? Like, if I go to different
-building with different WiFi I rebuild the kernel?
+The initial RFC can be found here:
+https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
 
-What?
+The Mali CSF GPUs come with the support for protected mode execution at the
+HW level. This feature requires two main changes in the kernel driver:
 
-Upstream kernel is MULTIPLATFORM.
+1) Configure the GPU with a protected buffer. The system must provide a DMA
+   heap from which the driver can get protected buffers.
+   It can be a carved-out memory or dynamically allocated protected memory region.
+   Some system includes a trusted FW which is in charge of the protected memory.
+   This problem is integration specific and the responsibility to allocate the
+   required protected memory from the correct and system specific DMA heap is
+   left to user space (Mesa). Panthor CSF driver must be handed the needed
+   buffers via new IOCTLs.
 
-> +	help
-> +	  Enable the 5 GHz band. The AIC8800D80 is a dual-band device;
-> +	  keep this on for the upstream station baseline.
-> +
-> +config RESV_MEM_SUPPORT
-
-Why are you inventing more config symbols?
-
-> +	bool "Reserve the SDIO TX aggregation buffer per device"
-> +	depends on AIC8800_SDIO_SUPPORT
-> +	help
-> +	  Allocate the SDIO TX aggregation buffer as soon as the device is
-> +	  probed and keep it until the device is removed, instead of
-> +	  allocating it when the SDIO bus is brought up.
-> +
-> +	  If unsure, say N.
-> +
-> +config PREALLOC_TXQ
-> +	bool "Preallocate the TX queue array"
-> +	help
-> +	  Allocate the TX queue array separately and keep it until the
-> +	  device is removed, instead of embedding it in the wiphy private
-> +	  data.
-> +
-> +	  If unsure, say N.
-> +
-> +config AICWF_FULLMAC
-> +	def_bool y
-> +
-> +# Preserve the enabled features of the SDIO station baseline.
-> +config AIC8800_RX_REORDER
-> +	def_bool y
-> +
-> +config AIC8800_ARP_OFFLOAD
-> +	def_bool y
-> +
-> +config AIC8800_RX_NETIF_RECV_SKB
-> +	def_bool y
-> +
-> +config AIC8800_STA_ONLY
-> +	def_bool y
-> +	help
-> +	  Limit the initial upstream driver to station mode. The AP, P2P,
-> +	  monitor and mesh implementations remain in the source tree
-> +	  so they can be enabled when those modes are ready for upstream.
-> +
-> +config AIC8800_NONSTA_SUPPORT
-> +	def_bool y if !AIC8800_STA_ONLY
-
-Almost nothing above makes sense.
+2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
+   FW sends a request for protected mode entry to the kernel driver.
+   The acknowledgment of that request is a scheduling decision. Effectively,
+   protected mode execution should not overrule normal mode of execution.
+   A fair distribution of execution time will guaranty the overall performance
+   of the device, including the UI (usually executing in normal mode),
+   will not regress when a protected mode job is submitted by an application.
 
 
-Best regards,
-Krzysztof
+Background
+----------
+
+Current Mali Panthor CSF driver does not allow a user space application to
+execute protected jobs on the GPU. This use case is quite common on end-user-device.
+A user may want to watch a video or render content that is under a "Digital Right
+Management" protection, or launch an application with user private data.
+
+1) User-space:
+
+   In order for an application to execute protected jobs on a Mali CSF GPU the
+   user space application must submit jobs to the GPU within a "protected regions"
+   (range of commands to execute in protected mode).
+
+   Find here an example of a command buffer that contains protected commands:
+
+```
+          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
+   +-------------------------------------------------------------------------+
+   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
+   +-------------------------------------------------------------------------+
+```
+
+   The PROT_REGION command acts as a barrier to notify the HW of upcoming
+   protected jobs. It also defines the number of commands to execute in protected
+   mode.
+
+   The Mesa definition of the opcode can be found here:
+
+     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
+
+2) Kernel-space:
+
+   When loading the FW image, the Kernel driver must also load the data section
+   of CSF FW that comes from the protected memory, in order to allow FW to
+   execute in protected mode.
+
+   The FW uses the same protected memory buffer to execute protected jobs from
+   all processes on the system. Note: This buffer must be provided by a user
+   space process with CAP_SYS_MODULE though.
+
+   In addition, when a CSG (group) is created, it must have a protected suspend
+   buffer. User space must provide this buffer on group creation if it want to
+   execute protected jobs.
+
+   The required size of both these buffer types can be queried. See
+   query type DRM_PANTHOR_DEV_QUERY_PROTM_INFO.
+
+Design decisions
+----------------
+
+The earlier versions (RFC and v1) relied on in-kernel allocation of protected
+DMA-bufs, both for the required FW memory (system wide), and per group
+suspend buffers (per process). This is no longer needed.
+Starting with v2, this is now changed and it is user space which is responsible
+for supplying these buffers.
+Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
+to provide the system wide protected FW memory. This only needs to happen once
+per boot, and is needed before any non-privileged processes can make use of
+protected rendering.
+
+The Mali Panthor CSF kernel driver will handle enter/exit of protected
+mode with a fair consideration of the job scheduling.
+
+If the system integrator does not provide a protected DMA heap, the driver
+will not allow any protected mode execution.
+
+Testing
+-------
+
+1) Platform and development environment
+
+   Any platform containing a Mali CSF type of GPU and a protected memory allocator
+   that is based on DMA Heap can be used. For example, it can be a physical platform
+   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
+
+     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
+
+2) Mesa:
+
+PanVK support can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
+
+
+Previous versions
+-----------------
+v4: https://lore.kernel.org/lkml/20261012125940.3291951-1-ketil.johnsen@arm.com/
+v3: https://lkml.org/lkml/2026/9/11/1187
+v2: https://lkml.org/lkml/2026/7/12/369
+v1: https://lkml.org/lkml/2026/5/5/1523
+
+
+Highlevel changes
+-----------------
+
+Changes in v5:
+- Main changes are to the "drm/panthor: Add support for entering and exiting protected mode" patch.
+  Use an empty transtab for VMs requesting updates when in protected mode.
+  This allows us to keep non-protected groups on slot for immediate resume on protm exit.
+- See each patch for detailed changes
+
+Changes in v4:
+- Main changes are to the "drm/panthor: Add support for entering and exiting protected mode" patch.
+  A new approach to avoid uneccesary protm premption by non-running VMs.
+  This patch do need some splitting before final version. Will do that if
+  this approach gets the general approval.
+- Split the old patch "drm/panthor: Expose protected rendering features" into
+  multiple smaller patches.
+- See each patch for detailed changes
+
+Changes in v3:
+- Dropped patch "drm/panthor: Explicit expansion of locked VM region"
+- See each patch for detailed changes
+
+Changes in v2:
+- Conceptually similar to v1, but heavily reworked to address fault handling
+- User space provides all protected memory buffers (no in-kernel dmabuf alloc)
+
+Boris Brezillon (7):
+  drm/panthor: Pass drm_file instead of panthor_file
+  drm/panthor: New function for FW section map flags
+  drm/panthor: Keep size and VA in FW section obj
+  drm/panthor: Refactor GEM usage flags assignment
+  drm/panthor: Create kernel BO from existing GEM
+  drm/panthor: Support FW init of protm
+  drm/panthor: Protm support for groups
+
+Florent Tomasin (2):
+  drm/panthor: Minor scheduler refactoring
+  drm/panthor: Add support for entering and exiting protected mode
+
+Ketil Johnsen (4):
+  drm/panthor: De-duplicate FW memory section sync
+  drm/panthor: Don't allocate protm_suspend_buf
+  drm/panthor: Use a copy of suspend buffer sizes
+  drm/panthor: Bump version to expose protm feature
+
+ drivers/gpu/drm/panthor/panthor_device.h |   8 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  64 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 347 ++++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |  12 +
+ drivers/gpu/drm/panthor/panthor_gem.c    | 111 ++--
+ drivers/gpu/drm/panthor/panthor_gem.h    |   9 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  49 +-
+ drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 368 +++++++++----
+ drivers/gpu/drm/panthor/panthor_mmu.h    |  11 +-
+ drivers/gpu/drm/panthor/panthor_sched.c  | 672 +++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_sched.h  |  39 +-
+ include/uapi/drm/panthor_drm.h           |  85 ++-
+ 13 files changed, 1441 insertions(+), 338 deletions(-)
+
+-- 
+2.43.0
 
