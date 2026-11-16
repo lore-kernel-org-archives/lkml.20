@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850305;
-	b=xV9klBtODXUlVTUMSZhnywUXDL/EeRFmH1R2VEThbtI6JoPZxoCPNfSMeWqKor+u8WcT
-	 6TITq07fCrQ2TltBd0HlTX+UXoOoh7ICVamZp1tBFbTSz7PAxeAco8e5sLtR0hL8zyqt6
-	 w2VOzavCNpZXVSH5BQSBvKMg+R1/GIgxRpgNlu6kxuJ2fdtg7yFdrT/TmPZCX5AVxp3/C
-	 +PxwGHqSp4qPDHVBXFZVrrzqDnCi+7oIXPWAe7inoQKGzXVQl4Z2ABMhZB4jL9guYu1lW
-	 wUmDnYd2YPNJ6SGABknlhImosvzT+sWg+54YKFLu4ORJ3rrFsNUsv4y9N1JzuTjqnzw==
+	t=1794850319;
+	b=E0Q2Nzp8J0OT5b9zdu3LKVUOy1YhgH2yt25Ei77ixinqS7C7KYyG7h+HM6z9L6qAn0ea
+	 dhTClloKgMkbagt+oilEFvfuqrCDRBij6Feq3jHiMBwuX2pmq059M5WDujS7ZL/xBo5ce
+	 QDZg9uUm23xP0FFk0B446cySNUNIZ0DGQKY+2UNpbHVB5AQsmiI3wvIk3teSiuMHZ72gh
+	 y4ScRykhIgha9I22uWQiCVmXlCP0pdiAoRDiwM3dIBcS9oJn3VWQyoBUNrtRWV6sTPCoy
+	 0wyo4q4I8ijVP5/fxFela+1uxMiOzB+9IQgUv/fWWwVCHuc+3S/J2iVOfaotu2BIH8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850305;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=02WhvjwIQZgdQpPiQB/KPvgw5RxyDj/gJL3jCJh61ws=;
-	b=BtrQC1e22fW8Dx/ZrgtIC3yZTDOQlL3C4ASPbdCm5u4ZpWZ/ijLdveMdrHts8d+xeabl
-	 FO2CD6ElGxFFXheovDOe0mCfoPz5EkGHW/lf6mdFsOyB31RssTqdPFnldkgGbhLwRmDt4
-	 AQaLLd6A4v4poZSFAuLupg5FGWj4fw2WWVjkLr1c4xa3Dv/iazJQl4BZipoABAAcGK5Iu
-	 ulricB+B69EcK5CXmvLJ+4r54KLWT3E7KOILHStJR2X/dF+CsQ9DNKG955yu3ulLg9tPf
-	 MYmeURKZGeAqJUrTcgS52oJuOwvU0WpMc1awkA5cfWY2GIAgLyOHsFg2M5x3n7/Ak8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850319;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BtzJTBkGllC2z/+DmnD2D5jXx4V+JoeyDI7VKbMd1ao=;
+	b=4wpkVLyQlNIwsV4ybLFFv/nUE7+vLLQTkVo5BshF2R+iTuOqMO8nj0p3/R1+lOlBboil
+	 2Sdiylv6FnmrYk8mKinN6WO1ZLYvvDzN9juLzOtaZ28GlQpV9mTMdpbO2FjM4Ml++jLwY
+	 8ssd63/2xZz0dZdkbB32V8SK37zwq2Ihy9PMIO+AwO8/2Wkaj/z10pD/LbnbyY37mwE42
+	 S8VUVCdUpMfDEX70t60d2u18xDSbXV/7oeE99Uj6NDDEbs0NW5vBetTiRhNOvGstrFAYn
+	 337zP8pAYCiJ2s3cHMf6F2jjokijeoRgRXKVGD30Dv7aWA8p+9/Egd7fCYlp2sKUWcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZpWcLEau;
-	arc=none smtp.remote-ip=209.85.222.226
-Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmChHf+g;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D86606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:31:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92D86606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC496606A881
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC496606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZpWcLEau
-Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-94959217274so460597385a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:31:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794850303; x=1795455103;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=02WhvjwIQZgdQpPiQB/KPvgw5RxyDj/gJL3jCJh61ws=;
-        b=xhwvTC1w9C10u6zgaE3JIP9oo5bPsE5vS44i1c0XmUAmx7lE1QhkrufW0je+Qa5IU2
-         1iRRLw1zXwUwqaWQ0SBTdEzgq7ncoHHNJ1Q3YKDnHB2sRdosMzzbevjMHYfvpLYnCoKp
-         Zu6W1kA2/tQ75okD5tKXd9UwBUxS6qNVTxTt9XHOc8bM9UFNcgiLi7qdfX+YmQY40gcl
-         EqKiOQTJNXWf8aNoE8LjaOgPoOVlY8XgRiPLAwpRfvNg2DiqYrZJmxYdglsHsrxeA7XE
-         4F77aYJt4AkDdMaQOwPGV4f5ebNjLHGYFkEFdy6E3UwQDkcxO33kyu47iXCVvK0ebrVP
-         mnnA==
-X-Gm-Message-State: APuU4Z+gCYaEjC1hm7d2JnwkTaXW/qkCZKU/KoYN/LMaCtwI/6G8SDas
-	ndEyTrMStfuDQbjLoty2cQMlHX0aN0Z9iv865v1gsDQnFs5VCHQagMaCmHUArh/kBdI6PHTWwr5
-	CfWzusrsWAJDUpMW+/7fK5X5X9DHcbBN39Sy6ifOH7WKGpAURRpBkqvAtzESx20xq3ntKwgfqCA
-	xIOUwTWwAdkBLIKzFHfFhfu7xdSU5f9848dGRZvGM+W5IsSe2+OUHddujnm7Gy0QjGp4PT7M13q
-	07EIE8FSvI4IbOx53DlILPo
-X-Gm-Gg: AYBFou3OOrhIzUdlm/ultBIYn5fYvfZqCLsZ0SYZmyTMyr8SD4tsDz+e8BXQrMNG5AS
-	YNYREn8d6si5lpXfL0vsI2aMiaLT2rz+DaZwDNIpo5A0/a43bhf/G95naiREDIOoXhBV5NgUS5I
-	oH+GaonN05ENhoDi5ivXuxj2ZSsmLDHkQjFTzciJc4nXg3cRPsfQr5HkNcoPSRZus+KgvH9vjr0
-	o/31R0g1UVppQx9TsfS5KBLUzYg3IZxr/cVXilFoiScctmccjhxO4bNFyY3TQk6d/+EZcnw497V
-	aJmHBnNSIqmoaxeZX8J0wNsFam5EwssxJr9Hr0VNzblgyuOHFbnviDO95h0pgqc46vt0woacb8u
-	ueMhOYFW2/bNjCFmjXYI6qbAp4eF/JYMacEAZShA6QF/0d2LJWxaIfGQQL9TQQEjYMxrrEpbT0I
-	5G3IhPN+R2kstlInzXjsr1CnNEkbMSK2ulhjlWU+44
-X-Received: by 2002:a05:620a:1b90:b0:93e:bcbf:4ad with SMTP id af79cd13be357-9494bbbdf65mr1556934785a.33.1794850303496;
-        Mon, 16 Nov 2026 09:31:43 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-949622ba8d2sm57212585a.6.2026.11.16.09.31.43
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 09:31:43 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc10da5ad4so627119137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:31:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmChHf+g
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49465892f7bso3088069f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:31:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794850303; x=1795455103; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=02WhvjwIQZgdQpPiQB/KPvgw5RxyDj/gJL3jCJh61ws=;
-        b=ZpWcLEaucvCwpKNQMVrywasFF/BJdzfKfz5jraQmtvzYV9TJwbCdMGFCPAjSLgG+pQ
-         wfd2uWGbjoOG0fVuV23lWYSPhX2SQaM9F3+Wv5NHuL3PyaLjneW42dfSCid3beMVjKLG
-         JlYMjWZmk4XIsMMYWlJ76k/ab2o1Kp0vXHsas=
-X-Received: by 2002:a05:6102:f12:b0:7d2:8e49:f90e with SMTP id ada2fe7eead31-7d64d84030cmr2982895137.27.1794850302604;
-        Mon, 16 Nov 2026 09:31:42 -0800 (PST)
-X-Received: by 2002:a05:6102:f12:b0:7d2:8e49:f90e with SMTP id ada2fe7eead31-7d64d84030cmr2982852137.27.1794850302111;
-        Mon, 16 Nov 2026 09:31:42 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69e07923dsm426460137.9.2026.11.16.09.31.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 09:31:41 -0800 (PST)
-Message-ID: <0d7248af-3766-47a6-9150-ffebd6d5c501@broadcom.com>
-Date: Mon, 16 Nov 2026 09:31:39 -0800
+        d=gmail.com; s=20260707; t=1794850316; x=1795455116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BtzJTBkGllC2z/+DmnD2D5jXx4V+JoeyDI7VKbMd1ao=;
+        b=zmChHf+gtSp2/7m/ODDyhctUUA8ZgKoQFFaIvWMXbupLeLZ2UMG+2F/8CAgvTdjtus
+         /f7ztL3vpk5I3etcc6eUxWXyk/xqDcCRcGgvzeuyZj1cGOyNVtZ/S8E6AcIwoS+bisDn
+         eYQjR0JU5ikThjQBQSfMFLd/tFpBaJOykUQvO30d4bT/rjTuRuDoMp3DO1pfHb2o9RH5
+         JMmI17tNfoEv95axZMjloVNszj7NDaa7pLlnIxIbSwAkUP+RzXwUxJ1F4fncbJA03r/E
+         Rapn9SFf7mnN50x5zfcd/ZriUVTXcZOs/7tT4K/A3+Oa1LFHEC+ukrYF2u+Y11hXnJBc
+         MUew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794850316; x=1795455116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BtzJTBkGllC2z/+DmnD2D5jXx4V+JoeyDI7VKbMd1ao=;
+        b=O+pOSezU+n6r1tCP9eVRxDltE2KqpkFRWwkRzpgmXpLe8034qisosxlegFcWvwaqAN
+         Q3YM9GCWMUKDW22ZoXlZyQvNTr9GubP71FAT1tRodwHK4zT3Z6CGFrQEZr3O4hgu6OoZ
+         gTW4M9bTAmTLZ3G8rhYwFrKg63zJ8/5tO48pm5/MBs/LYQEjc2P7G2dK9bThwFNqV0X5
+         kdmDsCl+cXlxkDJTKhW0eJN2E9KsksejdShk3dbxUBD75WUeQS6plXIGXH+c4Q/T/sER
+         ONrHdWy8sMixGAwaA0HB8JJvgbhgUATyclK42PBXMXAF4DsSSeht0G7FjdnVyW7/R0tE
+         mYfQ==
+X-Forwarded-Encrypted: i=1; AL+hErFzcgujpnxKloF1oYDQ0/ps4r7i08/sRL6eQ39B4sDuMDlsJfGkLxICfCxlBpIpP4649+8Zm15ePUDbKnU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jCECqjlr28xRD0SphdHeKee+jTzbV0xWsW1UT3Wfw+d5HWTjY
+	SInOsHeMCwcQ8YrmfLSDzh/pPO5H5f0MCIVB7HyWgbBtaA2aIuCzroMs
+X-Gm-Gg: AZFdTZd5w4sxXXu7sDT+hYPuK5VEvJaET0UQlg6mOmb4w2Qwd+VGftLP7IxFBPDckEs
+	OgG7HttNLXSP6LR7xnVLjrq7z4suQi8h4U5I4cskSG7X4JC2teo9YwfTuzcNz3lb0w43E3kBscp
+	5MI0qN2pV8GQ/ERcGvxUHI1wROBCQZIW4tqD7r+xbqYwwyxUDKq9L5Xohuz3xu63NmY2mqDJlZQ
+	1TEd2gVRhHhiwv3MeP8aFwGmM2wl9zAAh9xnVQ3EmgdCORaI5YG9RGRTT6ybHSlPUaDOFNymEVE
+	og6UIJDNB/N1putVd6swkGtcI45sBdOCfOYXjEmIRGApyyKYN/af+2zXauMKvGMtEWm+lsfJ9rz
+	iZtUMc0gzTJT6i4pb6cfpSaaAMCbNswxVUWAxB7VPSydqK6DRTBv0vMtjF4WIg8i0ZOuW7Py89s
+	nQjmzvddSWqJUHHkGBQPffeF87pBRf+zaz5wU4Ai+WT2au/V7wVvnXuDW10EF1F+Uy1RiCFBSQF
+	4t+qMpHHAgIB6so0/lJmUCwEerQ53AuYnotnKPUEG3XfasFZvKHQORpuCYBFamABnjnNatQQFuJ
+	37TLd9xytJOxHr4YglRCY9q4SFhlgYRwah6zgUU3ygIs3w==
+X-Received: by 2002:a05:6000:1884:b0:498:42e3:3f6f with SMTP id ffacd0b85a97d-49c6d63fa5amr26505111f8f.5.1794850316246;
+        Mon, 16 Nov 2026 09:31:56 -0800 (PST)
+Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm24022722f8f.5.2026.11.16.09.31.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 09:31:55 -0800 (PST)
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Volodymyr Chapman <volodymyrchapman@gmail.com>
+Subject: [PATCH] media: atomisp: ov2722: Report SGRBG10 consistently as media bus code
+Date: Mon, 16 Nov 2026 17:31:42 +0000
+Message-ID: <20261116173143.13584-1-volodymyrchapman@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,70 +100,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/14] drivers: fix duplicate extern declarations
-To: Safocl Stollmannovic <safocl88@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261114165612.368785-1-safocl88@gmail.com>
- <20261114165612.368785-9-safocl88@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261114165612.368785-9-safocl88@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
-On 11/14/26 08:55, Safocl Stollmannovic wrote:
-> Compiling a kernel module with a C++ compiler results in a "duplicate
-> extern specifier" error.
-> This occurs because the code contains `extern asmlinkage`, and `asmlinkage`
-> expands to `extern C` when processed by a C++ compiler.
-> Since the code already contains sections that respond to a C++ compiler,
-> I believe it is a perfectly valid approach to gradually move toward a state
-> where kernel modules can be compiled by a C++ compiler without any issues.
-> The `extern` specifier must be removed.
-> 
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=222257
-> Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
+ov2722_set_fmt() returns MEDIA_BUS_FMT_SGRBG10_1X10, while
+ov2722_get_fmt(), ov2722_enum_mbus_code() and the format initialised in
+ov2722_probe() all use MEDIA_BUS_FMT_SBGGR10_1X10.
 
-I applied v2 which was not different to this tree:
+atomisp propagates the code returned by set_fmt() to the sink pad of the
+CSI-2 receiver, but link validation compares that pad against the
+sensor's get_fmt(). Since link validation runs on every stream start,
+the mismatch makes streaming fail unconditionally:
 
-https://github.com/Broadcom/stblinux/commit/0cab822bca7a59667774725b83e948b71462290f
+  atomisp-isp2 0000:00:03.0: Error starting mc pipeline: -32
 
-the subject was reworded because yours was not specific enough and did 
-not match contributions made to this file previously.
+and VIDIOC_STREAMON returns -EPIPE.
+
+The sensor registers atomisp_bayer_order_grbg as its platform data, and
+because the platform data sets an input format, atomisp configures the
+ISP's Bayer order from mipi_info->raw_bayer_order rather than from the
+media bus code. Changing the platform data to BGGR as an experiment
+produced a nearly colourless image, while GRBG produces correct colours,
+so GRBG is the order the sensor actually outputs with this driver's
+register settings. Use MEDIA_BUS_FMT_SGRBG10_1X10 everywhere.
+
+The Bayer order does not depend on the platform: the driver passes
+atomisp_bayer_order_grbg to gmin_camera_platform_data() itself, and the
+board specific data which atomisp reads from EFI variables, its DMI tables
+or ACPI only sets the CSI port, lane count and clock. All three sensor
+modes program the same mirror and flip settings (0x3820 = 0x80,
+0x3821 = 0x06), an even horizontal crop start and the same vertical crop
+start, so they all output GRBG.
+
+Tested on a Lenovo ThinkPad 10 (20C3, Atom Z3795, BIOS GWET50WW 1.50)
+with the ISP configured as PCI device 00:03.0, using this driver built
+out of tree against a 7.2.15 kernel. Before the change VIDIOC_STREAMON
+fails with -EPIPE; after it, 1616x1076 YUYV frames are captured with
+correct colours, and YUV420 frames in all three modes (1916x1076,
+1616x1076 and 1436x1076) have correct colours too. v4l2-compliance on
+/dev/video0 goes from 8 to 7 failures (the streaming test now passes);
+the results for the ov2722 subdev are unchanged.
+
+The problem was found, and this patch and changelog drafted, with the
+help of an AI coding assistant (Claude); the testing above was done on
+the hardware by the submitter.
+
+Fixes: 1c3432df2339 ("media: atomisp: Call media_pipeline_alloc_start() in stream start")
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+---
+ drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
+index 2a8c3ee77..4d0ab2555 100644
+--- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
++++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
+@@ -711,7 +711,7 @@ static int ov2722_get_fmt(struct v4l2_subdev *sd,
+ 
+ 	fmt->width = dev->res->width;
+ 	fmt->height = dev->res->height;
+-	fmt->code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+ 
+ 	return 0;
+ }
+@@ -851,7 +851,7 @@ static int ov2722_enum_mbus_code(struct v4l2_subdev *sd,
+ 	if (code->index >= MAX_FMTS)
+ 		return -EINVAL;
+ 
+-	code->code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+ 	return 0;
+ }
+ 
+@@ -976,7 +976,7 @@ static int ov2722_probe(struct i2c_client *client)
+ 
+ 	dev->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+ 	dev->pad.flags = MEDIA_PAD_FL_SOURCE;
+-	dev->format.code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	dev->format.code = MEDIA_BUS_FMT_SGRBG10_1X10;
+ 	dev->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+ 
+ 	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
+
+base-commit: 3fc9303dba01676c2090768126e5327e341b7761
 -- 
-Florian
+2.43.0
+
