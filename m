@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793790;
-	b=5e9ksIz500KHRdvUicb0SoJkb9SmG8ePyszxqLPtxZ5oYeoiMJ8s4j/sHJQ9Xa5Uwabg
-	 Ev1vZ9JD/modpk1nhf3sKJ2Uyf0WAykmVjZtq56Dbf5f8evTqrxcQ07GB638ITJIOGZ1G
-	 oeoch4sKVX/q62It4D0V8eev6vnJ7p1pNJ1j+20GB///tCy4YEWX4xW/5tELqVnHxe24E
-	 vYY+qUVnp1tgAmIUYcAYiw4ppbugb2Mvn9yTQMvMoyjvHkerj5r61sbFCIZaAVvlOFADP
-	 V2bjPK1vxJGLTwwEFB26g1cFrP56PNEsD+Fu0mxVLv/RLviRtpmFkgkN02joacoof/g==
+	t=1794793804;
+	b=dikscbc7ml20/8udQQaFBgLRQZAH25Koo5Xnmm/34BA//Cu0VzzS1CeTk89GHQZKYui6
+	 PAtG33yveCS9hWksyX57PjnbNA6Ot7Jk8oe/iav4x9GGxHNLJQ37ReEnAT5N+fFnO229W
+	 xl5Zi2pYwM6lLs1p7CaL+xWZGm++aTo3VBnTdhp8ghtInexUQVN2yM8BzoFBuTfUgyUlX
+	 9iEHwvo/Tu8xGTwJGCI6rePIZ4XwezHB2qxd93jX6EIEeaR1WbRycwITw9gMHtBt+u9X1
+	 r1bapUPy/sl1N26qk2kCF1DdmKbFtK+XgsNOGsU8YEmuRjZ3kwEsKmDwepOIiTnmP6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793790;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793804;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0mP3nns6ON6fSm3e0baH3UComUCoOgYezkFcLGDHpQ8=;
-	b=2RccpvoYjUbVe+RutHMak/pWtO4ggdch7AQuu9nnOOh6Iuij58JHthoxJJEp9TLlGsCn
-	 gLrTBpbSMoWybouhgWoaZzg4RM2yiCy6/qaeS1eTSSYGECGlR6hCYrAmc1uhbVfCpGzik
-	 bDphpqd6jDUiG8nKqyDPAnYWFqIm//SY/hUB7JW3jDlvf+qmnsqnKf8LPzjXQWaSXs7ez
-	 ZqTYN7bs0ZqYVI10u5qc9Pdrb1ucpcY2HgTJxsfpEtIycNSmxR9icYXGqXxaS+PT7bjl0
-	 k+FYbz60+CEkPdQs7c8DWQIwiZcjOlL2fognAuHwPBgccT877x89z7J3IcgEfg1HoXA==
+	bh=G98+1k3ZMeGiQjRkUgCTPj95EaKFOQTBjxy/EBux5FY=;
+	b=02GVrik0jEnwih86YRegTxdy0cs2KFKyrQyw09mzA4QcoOxikDQX0ssHUezStARmAH72
+	 fmRGqzsTRXH6g7GNLcEXNDm51NvbyWWRwSO8gA2n66JjJfMRXc5I4kY/XQjPcnZqNUOk3
+	 dyg7K/ve1rDO5Hydfat9zm7+XFJV9egJEIUAXdNGzmDr/TPSVdUc6zxWNegllgEJHrseZ
+	 VceYFpFDVJHVK9rfbWzfQy/NN9aCqwZRRVZdpQldP/XAAKN73pUXWCfScM2JpBMsZ2IR+
+	 BqmllkZIiMbwef6ieBtefMaUHMmHI8/STh9XuRtD9fZzuYV0Pqqqz+tM23mKD1ol2Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhzfNmPo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlLxuQfo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5C8606A323;
-	Mon, 16 Nov 2026 01:49:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCCC606A331;
+	Mon, 16 Nov 2026 01:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhzfNmPo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47AA61F000C4;
-	Mon, 16 Nov 2026 01:49:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlLxuQfo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F4E1F000C4;
+	Mon, 16 Nov 2026 01:49:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793790;
-	bh=0mP3nns6ON6fSm3e0baH3UComUCoOgYezkFcLGDHpQ8=;
+	s=k20260515; t=1794793804;
+	bh=G98+1k3ZMeGiQjRkUgCTPj95EaKFOQTBjxy/EBux5FY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JhzfNmPoUdM99/FFlaArtlsWhwnRnbGJx8FtLZFbw3HCA2aZX1Xw31anZKQK6yV1m
-	 KZGG9ZJ7MtZV041LcPzh5c7X3lQoj6TRzqbQlWyrjF99IgwbXAyves9At1NnCb4bce
-	 5AoS7AWV4j5Z2JKl4r1WheLp8zcP/scVlIBULUqihq5EVJjojFdrHx5OQO5xfOP+Tp
-	 X/rGyjHLFGOCZX4SRJLrICv+zteldJGTHO+TH8jwlMfCTDRfxqtbJQkc7CDUlIOx2s
-	 o8dd+WtQX6BWi5cjblhK+SUThMepa5QZY7PSfQNiWkPwLAIbGd+8xPrGy/XYgC66xk
-	 lo+6sNpZmRt4Q==
+	b=TlLxuQfofqAUnWsMJddMMnaH4s4CK/veg1QweqxKicABYwZOcxmQZI+sA53kw4pJe
+	 wDXl6rYd5CbT2HZihxNQQdnyNvjBwgliGiBqyg+v2ACGs9b46uf+9wTimB8019cuTn
+	 BkfpqIiyBe1f7TQHPfialWEvRYzc02HG9aFsEP/9EtRJif6nPqq4P+6mv9bud5ZJeJ
+	 I3IQn9nYhFk98xD++fip68N1Bvf6g0g0ZXz9RLfpHIH05ADP0dqX4EGkv6MEx2428F
+	 xW+xgE2vHZBBM7KWg8K0wGcU+ESL3C798LJVygNzq1TVeH0hIKsYDnaOcy4Sc096vk
+	 wqVqtq6yx5/3A==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	David Lechner <dlechner@baylibre.com>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Linus Walleij <linusw@kernel.org>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 10/35] iio: addac: ad74413r: use default_trigger
-Date: Mon, 16 Nov 2026 01:47:58 +0000
-Message-ID: <20261116014823.3132576-11-jic23@kernel.org>
+Subject: [PATCH 12/35] iio: adc: ad4062: use default_trigger
+Date: Mon, 16 Nov 2026 01:48:00 +0000
+Message-ID: <20261116014823.3132576-13-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
 References: <20261116014823.3132576-1-jic23@kernel.org>
@@ -94,32 +94,27 @@ From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Set indio_dev->default_trigger rather than taking a reference to the
 trigger in probe(). The IIO core now takes the reference during
 iio_device_register(), so it is not leaked if probe() fails after
-the trigger is set up.  In this driver there are a lot of places
-that could previously happen.
+the trigger is set up. This removes a fragile ordering constraint.
 
-Fixes: fea251b6a5db ("iio: addac: add AD74413R driver")
+Fixes: 23cc92280302 ("iio: adc: ad4062: Add IIO Trigger support")
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
-
-This one is a fix, but given impact is a reference leak on an
-error path I don't propose to push for a backport of the fix.
----
- drivers/iio/addac/ad74413r.c | 2 +-
+ drivers/iio/adc/ad4062.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/addac/ad74413r.c b/drivers/iio/addac/ad74413r.c
-index 8d9d3d5f09c6..41675ff47f47 100644
---- a/drivers/iio/addac/ad74413r.c
-+++ b/drivers/iio/addac/ad74413r.c
-@@ -1397,7 +1397,7 @@ static int ad74413r_probe(struct spi_device *spi)
- 	indio_dev->name = st->chip_info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 	indio_dev->info = &ad74413r_info;
--	indio_dev->trig = iio_trigger_get(st->trig);
-+	indio_dev->default_trigger = st->trig;
- 
- 	ret = ad74413r_reset(st);
+diff --git a/drivers/iio/adc/ad4062.c b/drivers/iio/adc/ad4062.c
+index 8e5984055b15..cb11d15fe84a 100644
+--- a/drivers/iio/adc/ad4062.c
++++ b/drivers/iio/adc/ad4062.c
+@@ -745,7 +745,7 @@ static int ad4062_request_trigger(struct iio_dev *indio_dev)
  	if (ret)
+ 		return ret;
+ 
+-	indio_dev->trig = iio_trigger_get(st->trigger);
++	indio_dev->default_trigger = st->trigger;
+ 
+ 	return 0;
+ }
 -- 
 2.56.1
 
