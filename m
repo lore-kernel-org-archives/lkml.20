@@ -1,104 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816792;
-	b=W9DaPzCVDzWipEcTnVKZpYd0PaKKBS3AvL1AQMeZrWMGEBimQxKf2vk6wfc83Butn8aw
-	 J0T4egLba/gGRmGT0PITTHGLhY1b2D/2w+Zm8aHZgyS0qxYQOZdq6CqlMtKmo/DthzrW1
-	 ovnd3aznTnlFSidOgUZQg6jJSPG7rdsID8+49dwQoFIFV7FvCr8DpRqfhM3p7kVPSt4Y0
-	 uUSucX9xU4R9ofMiM4Ys4PdlxJEaN3syB4krdRgtXfh9KIX1L5+qIZD8HEp35GflM2ojc
-	 ypndO4kxEe3XcomdlUytGlAuYk49L1O2FePiKkxLydNWnEYNtLYFvASxl5FSGRVLifA==
+	t=1794816856;
+	b=Q3OPgqhBxjeRA2Vtvh1jqgFJBhMUD9FF9IG9asUQRhULj2Y1ROBzQkZnXhMki/I3VeEo
+	 6pqajQm6ilQHOelygQ3+bCDjuKExmi3Js1UThd4EAf4pNeBUj0DU1L/zVY0Z6VXRWb8Ii
+	 XoB+lNeIMUtWzD2PBgGv66EWf5Ds3GMie3Z53Dw8jwKdMSvcrJKbeXx3tDHyKqgpPmsuT
+	 w1QkPxqbSM3a+x5IhCHFzfNAxIlFZbUBtmj4iXWgkerzw6R/j4nO0ls12ZVZOue/vlwGm
+	 hWS4zj9xpPEgxRcTcEmv64MeRJE8DBqtyI89It4bbFXJVfHJAfEZWNeUAxQ3k0uQ6HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816856;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HMeM0QfJQAC8IxnA6vSCAe8SX44/lRojJHCqiwMF6ks=;
-	b=a9Z8UzcSVQOcrfAeqgMynQN0dV/fz0jefvqyaFYxZmFPoNWSsk7qor8wAk8g6ht5R1SW
-	 6tHrApY5yqUmWRpGszvdmpST/JlGT9thQ94Jg84MY0IaI0e8UbuigTiYTqHZgX7JEwdmV
-	 +5Xa5BY1A41igb1E8m8CaSbnrLzHSEa1cUhgpY2O4gBB4GS9rIPwyl/vHKHlO8Xw7FQ/y
-	 VDqPe402QwNYjfiwKs+WH9VCzoI71ALRA1/s4v4SJ+8q8swT5q9fz7MPdinZawTfgBpRv
-	 zeIHzBcyOI7WH1WFvuZ59GIpI2fRr6jpo+u4wsqSXANfu7I1Rcf4GGaOeIUR5ROrZSg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hykglC9qjGoSXJNJVYRVj2488doF0rYVIjiEwYqGfzk=;
+	b=0V/UYUtsNT+1CbbJc7ZHkqAzxbiN1EUDCjlzWWUw+m066XuSOhLF/AhnpLU+jp12uzyZ
+	 bVLtjh7mJ8TmWN6s48mfTCY/zevXNiz9C6LFyiGMHJovBVn9K9gZrEK8HKNq/UJSHsnk4
+	 Lcr12s8cYRpdF9cI5MDBLLyYNb4Z2JQpByh5ZpFr7qxNZeIx5esG/guPsb2GR/mgjqeyB
+	 maIMot9T5ycId36ZBh6swmb9bpsD4BV3fcevw7GT5Inslz2+NwsmSqmCSycd2bAogSRY+
+	 9rYfGX9VksaevsC0vb45CyfgP+UaMSJ/HJjue0ROog7i8YddWXhFnQJ/j6fv0rT1Kjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=akPUhHiD;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=i11vAehu;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5527606A883
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5527606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1243B606A882
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:14:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1243B606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=akPUhHiD
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2eb18f4da15so13315005ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:13:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=i11vAehu
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so7106735e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:14:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794816791; x=1795421591; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HMeM0QfJQAC8IxnA6vSCAe8SX44/lRojJHCqiwMF6ks=;
-        b=akPUhHiD4rd2ZaZcybasijHMaK8gP3HN7guCnUggkHaUE3OOYRv1eYyKrvyFiLIpxq
-         P2fTuaPXu3zGHliTzkm/jl5B3OCZUOpbFB32CdvmqHwEQWwaQM7RaZAWgVc6A4M1bXFF
-         b3ijO6RFPaQ1GoqQQp0/LmT3mylB+VnCgdSmQB01ZhAkX0XWUmfoodo3hYtk+B1osJs1
-         pU9ZzXBqwJz1qBuAzhbAnlbqmG6ywLIpVGPzimYLXfFVFO05GMC4qG1MgwLZLuIaV7w9
-         9UKEm+ILCQ2yN9FU/Wlk09SAfsxZ920rzJzsd25Wf04p10U0oeLQS4hoUKY9o8IY3ByF
-         Mr3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794816791; x=1795421591;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=ionos.com; s=google; t=1794816854; x=1795421654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HMeM0QfJQAC8IxnA6vSCAe8SX44/lRojJHCqiwMF6ks=;
-        b=AU3bgV6gojNihuG37WuqU4ECJXyVLCNeXqwT+icLJ5r6gwDI5+Zf8fHq+GFDj4dk6r
-         B0bogZsDVFoTtdEmZJmTl6fJxajhzgls65jN571swckMztPaEJwFDxhakV0GikzZLqBb
-         c30Pv9olemh13Vnk+de0YIk9hDnh6XY0IkCTDdICnlT87CvhY2rC8YjIZnQgTsgAu7li
-         AaMzZ28Sv7gg6z8R9jwduRwpITJm/QCrR8JMZ6BhQeINfaHK4OXSNpcLVEIdtxbXJE+G
-         WVkAxxULbjKMtr7afLxNcqPwvIwQvlQrmmdOnddNlb75Co5ajCLWach7C8rUyNrcNP5g
-         d9MQ==
-X-Forwarded-Encrypted: i=1; AL+hErHQrVw/8sxKN2DTBi5G4SVkLAQIVHK41Q6ip3Gl3CUVmyIwckOODLhRqblhF0aCeTsA1r4mxrZq21HWQqk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sWv50MkHipXPIQ3yucnNgGRYr6Jm5oZxdPddxDCeNBgYeHm6h
-	YiHMbeI03c1H0XY4CH93x16O8WqHPt8csQlSjSxfd4948Lie22P8PD/oSsI40uvb/smFkx/f
-X-Gm-Gg: AZFdTZdYnu4PkVKPZ+fCryjxAC9vXj0gSG91x49r90JlgVIiR6mNbIrPNVrrynw+QKP
-	riA1CjTE56FVUtuvlW+x7B535Gn3Aob5lRC9nlp1v6/FnMWixJNfUu96V2xS/iEFCscmBhsn8c1
-	NFybr3UsXmCNQ24w5+32yNRnuPNNSSTsfkjsnq91WCd28JFlRjITKDH8aKSaDylXc48LL5Z7GPO
-	qK1Q7q19iyIsoWGJDTsFLOkPQ+SXXAYzDOqoxAC4ml2rSAySDAIhhf5X269zjTQbSZxpkYkqcFa
-	I7vQEOzBvA7kmmAVvtqe/4pRkCBJwWBOLBUfY9fLr56ZsCJsNApkK3nGZjapCvTiZq17k8uGY4B
-	3kOX5FTlFFrirrFS1kNStgfMkJGk8VcBmv8g+eUFZTr49BUktelC3hIadH0bhI4Y+oDqCnPvSC9
-	qKdbL7hU+f0B6+6arOvNDARZtD99oVGpRGtPspaMkM4B/igioccbSrvwMtFTEIOI2o8x+th4cVK
-	gs+ncCiTuC1DTmzboLwi2M5siqpCkQzq/bmCAniXAEwm5+W6Q10KkQlvJ7Rri2aiVTe/KUnN1Cr
-	iwDOVViAiy8gqvLwv/Ot+cKvYTos/INZAF0fn2XDmNbJ5UlUDo0/SWEijUIRUd6aaIG018qR5lB
-	DbEAcG3/dZTucqtTfLSit9kmLYSZlILEx08iqn9v5HrsJqi8TTJIL0bd5Lij/k1qUK2T/UroXkT
-	q5r9dntEuta8YNrw45oJr6bqkTefDiOFYHyalQ4PsQwVhLPDGUiethdZLN1LGGgZ7E1lXTuMfzG
-	869qNxip3OSrXm7j364VoMIJlLo78zfN7vJe99Z6YTS6p+jx64wFrbgUos2pGjh
-X-Received: by 2002:a17:903:4686:b0:2df:90d4:7758 with SMTP id d9443c01a7336-2ee0dc93c50mr86140055ad.23.1794816790880;
-        Mon, 16 Nov 2026 00:13:10 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f7cf8e1sm33712165ad.31.2026.11.16.00.13.05
+        bh=hykglC9qjGoSXJNJVYRVj2488doF0rYVIjiEwYqGfzk=;
+        b=i11vAehuAmJvnq3dB1Hf5yiLPYPhqTOudoUHaTJGDCa8M7BZNUFCh6/eXKtRkSKe4N
+         2300R2n156bNElRB7xQ3CjXdaWl5nUtrjjpz6l0HQOPviqOJjs0WHeveeHJFl+GHdcIo
+         d1VeeF3SMLfngzlGVO7N9VZj0pNFoWrdJAe5XZoyqb9Tk3OnmIEsrQWzF7lT2h+vDN0K
+         izhJRJkYkyPzGEnWXHEvTSMqDAST1Oo09rb89VRXCOmwvxdtZwQRtZDt5OVeG6GgPolv
+         bS29zy+0TK+fsNBTRCHmoXuKLdm/XqE8D5JAt+PhcveSBApVj55VtRTsecPIHCghijrp
+         QlrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794816854; x=1795421654;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hykglC9qjGoSXJNJVYRVj2488doF0rYVIjiEwYqGfzk=;
+        b=SSUF2JlJG5axkNXO8GVRCnLDkv67/fH3RtX8l5L6vne9G9qFVaVYXH2WEg/icJ5TaF
+         M/CIJGRQ91wY3BQd2UPuqYAtlAQ4TKZRnLa2QiSH0HtHpIYfPkIf/L4omh7KPEXl3+GQ
+         5hRo2i/xINmTFxNygT2M7tLkLm/vgP2Rx1m+NAGaIio4wGU6EGliQD8v6MgI9KufJ8M3
+         EqOIo6XAivApI9rfMm6+ZNKFyyyR4bLrki7/WgBOT3fn+JVTpRg3oQs6CUCayCnXo805
+         cKkFR+9Zk1g4hjW5oA4joZlzyBy3GD3g2q+vCtNwtVJKa+XnbGmb/xm/+4Ru898EE0b1
+         frUg==
+X-Forwarded-Encrypted: i=1; AL+hErGuJDAr+HIej+ZTRewQXX82rXMwC0cJVfOXyPTRuYiIYzXnsPb3X+GthHNyiU8haOVroqeNmH1V0cDdfd8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/etf5+xS7+3wUyVDhUcQnHL3NR+zOEwbnTAs87GRhQcc1yhTAf
+	2TvWFKKP61dZnN5ooAr5x8UPPN8XSbm7qXXQTxL79aJUelX30Llwc0uX5Ong5BUnuVQ=
+X-Gm-Gg: AYBFou05lbTrYD0z6E1kOeGYykosCb8jOX2GFFzwGpLNNIGPukuZBETE2YkG3JG661I
+	Kcg3rB0ux/YibumA3va1Vlwj/EK5mLGA4wpIm6Hp4t1IhxLFU8nZMgEuMA951zIj2h6hN94lQr1
+	gOBzIlX7TTbRKQb1tCtY0V1h8i9aIEcQvGftywW1uwfjXImkZMCgqMZMsnpxtpEVWHW0tg8ixhs
+	2VnJCAhsI9Wl/aZnKmDFWQCPV+bm50aVXtsf7If3zhnzIhqZoLc1sbeYrRedSNQTEyvHp3u3UZu
+	Cw1rGcauI+P5xEGOXo6CTUU9/MSa6+dg3468DjsU70CnbhHBQpJttalY0h69LIkwafYwFYfjOBc
+	j8oTdgoalpkl+XQgrfmuCpZIjBej8Q8HnVyqI4g15lBiWhWhmcK5EE+RE8/RI77rJVcfhpsx/5r
+	xPbXUOfPLksTPFG98hPnfCnmmIc5qK00i0+7LFPTmR2DHBRhHk6fpPEPoeFIOdTIlsZrvhgPWtz
+	sZq/8TaMVuoC1DAEMS79kpfhH1lFcrgbyo5WuW+oJD1y9p0cTPgMwK1ec6gmXA8WgGXzXCEIYuB
+	pjJhFvL2pcOXV4BDvzJkp7An9j//mRMGUEdAw/4mAAA+cMWw4Cpd/7eKkgDyKdoygKeITUw2Xz4
+	u1fHVYYoPZ6X+7HeP2kqsr06R/s4A
+X-Received: by 2002:a05:600c:3487:b0:4a2:526b:d410 with SMTP id 5b1f17b1804b1-4bb55a4f1b4mr208646975e9.13.1794816854509;
+        Mon, 16 Nov 2026 00:14:14 -0800 (PST)
+Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1797sm22902289f8f.11.2026.11.16.00.14.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 00:13:10 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Kyle Zeng <kylebot@openai.com>,
-	Aditya Chillara <aditya.chillara@oss.qualcomm.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] perf: Reject group leaders detached by CPU hot-unplug
-Date: Mon, 16 Nov 2026 18:42:48 +1030
-Message-Id: <20261116081248.21059-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
+        Mon, 16 Nov 2026 00:14:14 -0800 (PST)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: akpm@linux-foundation.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	hannes@cmpxchg.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>
+Subject: [PATCH v3 1/5] include/linux/rculist_nulls: add hlist_nulls_add_behind_rcu()
+Date: Mon, 16 Nov 2026 09:13:59 +0100
+Message-ID: <20261116081403.216452-2-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116081403.216452-1-max.kellermann@ionos.com>
+References: <20261116081403.216452-1-max.kellermann@ionos.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,100 +119,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a CPU goes offline, __perf_event_exit_context() removes every event
-of that CPU's context with DETACH_GROUP. That clears PERF_ATTACH_GROUP and
-PERF_ATTACH_CONTEXT and leaves the event in PERF_EVENT_STATE_OFF, or in
-ERROR, while the file descriptor stays open and event->ctx keeps pointing
-at the per-CPU context; nothing re-attaches it when the CPU comes back.
-Commit fa091f46c383 ("perf: Reject exited events as group leaders")
-fixed the same defect for remove-on-exec, by rejecting a leader in a
-state <= PERF_EVENT_STATE_EXIT. OFF and ERROR are both above EXIT, so
-once the CPU is online again a leader detached by hot-unplug is still
-accepted and perf_group_attach() links the new event to it.
+Move some code from hlist_nulls_add_tail_rcu() to the new function
+hlist_nulls_add_behind_rcu() for callers that already know the last
+node of an `hlist_nulls` list, to allow constant-time appends.
 
-perf_group_detach() returns early when PERF_ATTACH_GROUP is already
-clear, which is right for the double detach it was written for, where no
-group is left to break up. With a sibling added after the hot-unplug
-detach it skips a sibling_list which is no longer empty: the leader is
-freed with that sibling still on it and still pointing at it through
-->group_leader. Closing the sibling, or a group read or ioctl on it, then
-uses the freed event.
-
-Commit 42c5ca1f0a28 ("perf/core: Fix group leader use-after-free after
-sibling detach") fixed the mirror image, a sibling detached by hot-unplug
-and the leader closed afterwards. It promotes the sibling from the paths
-below that early return, so a leader detached first and given a sibling
-afterwards still reaches the same free.
-
-Reproduced on v7.4-rc2, which contains that commit, with KASAN in a
-two-CPU guest, as root:
-
-  BUG: KASAN: slab-use-after-free in perf_event_update_time
-  Call Trace:
-   perf_event_update_time
-   __event_disable
-   __perf_remove_from_context
-   event_function
-  Freed by task 149 from an RCU callback queued by
-  perf_event_release_kernel(), via perf_release() and __fput().
-
-Opening a CPU event needs CAP_PERFMON or perf_event_paranoid below 1, so
-an ordinary user cannot reach this on a default configuration.
-
-Reject a leader that is no longer attached to its context, rather than
-promoting siblings of a detached leader in perf_group_detach(): the early
-return there is right, and the anomaly is a leader on no context taking
-new siblings for a group that can never be scheduled. Test
-PERF_ATTACH_CONTEXT, which only the __perf_remove_from_context() path
-clears, so every detached leader is covered whatever state it is left in,
-and test it under ctx->mutex, where the leader is already known to share
-this context and every detach path holds that mutex across the removal.
-
-One open that works today fails as well: adding a hardware event to a
-detached, pure software leader takes the move_group path, which installs
-the leader again before the new event is linked to it, so that group was
-valid. Events removed by hot-unplug are not scheduled again, which the
-commit in the Fixes tag relies on, so it now gets ENODEV like any other
-open on a detached leader.
-
-Fixes: 226424eee809 ("perf: Fix corruption of sibling list with hotplug")
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
-Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
-Tested on mainline b3dfbde62cf1 (kernel/events identical to v7.4-rc2),
-x86-64 with KASAN, PROVE_LOCKING and DEBUG_LIST, kasan_multi_shot=1, 2 vCPUs
-under KVM, on a kernel carrying only this patch. Without it a software
-sibling is accepted and the close produces 15 KASAN reports; with it both
-the software and the hardware open fail with ENODEV and no report appears.
-An unrelated test that moves an inherited software group to the hardware
-context still passes.
+ include/linux/rculist_nulls.h | 36 +++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
-Not tested: other architectures, hotplug or suspend on real hardware, the
-perf tool's own test suite.
-
- kernel/events/core.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index f5f2261f1fe..21c529cd7d1 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -14274,6 +14274,18 @@ SYSCALL_DEFINE5(perf_event_open,
- 			goto err_locked;
- 		}
+diff --git a/include/linux/rculist_nulls.h b/include/linux/rculist_nulls.h
+index a97c3bcb1656..ffbf5ed4ff19 100644
+--- a/include/linux/rculist_nulls.h
++++ b/include/linux/rculist_nulls.h
+@@ -115,6 +115,33 @@ static inline void hlist_nulls_add_head_rcu(struct hlist_nulls_node *n,
+ 		WRITE_ONCE(first->pprev, &n->next);
+ }
  
-+		/*
-+		 * Likewise against CPU hot-unplug, which detaches the events
-+		 * of a CPU context and breaks up its groups without putting
-+		 * them in a terminal state. perf_group_detach() does nothing
-+		 * for a leader that is already detached, so a sibling added
-+		 * to one would stay linked to it after the leader is freed.
-+		 */
-+		if (!(group_leader->attach_state & PERF_ATTACH_CONTEXT)) {
-+			err = -ENODEV;
-+			goto err_locked;
-+		}
++/**
++ * hlist_nulls_add_behind_last_rcu - append after the last list entry
++ * @n: the new element to add to the hash list.
++ * @last: the last element in the list.
++ *
++ * Adds the specified element after @last while permitting racing RCU
++ * traversals.  @last must be the last list entry, with its next
++ * pointer holding the terminating nulls marker.
++ *
++ * The caller must take whatever precautions are necessary
++ * (such as holding appropriate locks) to avoid racing
++ * with another list-mutation primitive, such as hlist_nulls_add_head_rcu()
++ * or hlist_nulls_del_rcu(), running on this same list.
++ * However, it is perfectly legal to run concurrently with
++ * the _rcu list-traversal primitives, such as
++ * hlist_nulls_for_each_entry_rcu(), used to prevent memory-consistency
++ * problems on Alpha CPUs.  Regardless of the type of CPU, the
++ * list-traversal primitive must be guarded by rcu_read_lock().
++ */
++static inline void hlist_nulls_add_behind_last_rcu(struct hlist_nulls_node *n,
++						   struct hlist_nulls_node *last)
++{
++	WRITE_ONCE(n->next, last->next);
++	WRITE_ONCE(n->pprev, &last->next);
++	rcu_assign_pointer(hlist_nulls_next_rcu(last), n);
++}
 +
- 		/*
- 		 * Only a group leader can be exclusive or pinned
- 		 */
+ /**
+  * hlist_nulls_add_tail_rcu
+  * @n: the element to add to the hash list.
+@@ -143,13 +170,10 @@ static inline void hlist_nulls_add_tail_rcu(struct hlist_nulls_node *n,
+ 	for (i = h->first; !is_a_nulls(i); i = i->next)
+ 		last = i;
+ 
+-	if (last) {
+-		WRITE_ONCE(n->next, last->next);
+-		WRITE_ONCE(n->pprev, &last->next);
+-		rcu_assign_pointer(hlist_nulls_next_rcu(last), n);
+-	} else {
++	if (last)
++		hlist_nulls_add_behind_last_rcu(n, last);
++	else
+ 		hlist_nulls_add_head_rcu(n, h);
+-	}
+ }
+ 
+ /* after that hlist_nulls_del will work */
+-- 
+2.53.0
+
