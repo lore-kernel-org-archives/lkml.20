@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831117;
-	b=Q5AKdeuzq6hTcjHT2VgFVPe+2fI15FKoqDU0YJlv/pZ3/nGkRrtkJIJQiyDt7edhOUfh
-	 uvv3PS9QSX4kEF+sTQgXYW1THSBBC1Rxml17IlUTAOmU7L8pIoLo8oaElxcewNo1dZmsa
-	 mI/VOB6ocxJ5XMwZe7oBHnGwwuFJKh5uZHxpz3ECAqqwYwwgLV5SC+xiKo0W/SNUDik/1
-	 hvRSVpDqrfVA188c5WEACeTt0/IR/GXx2MpGcjPrhxPR10ovfbAyW6lZNf6H43XG4pFvQ
-	 qb5K+1qF8LGbb6njA7Pkfoo3HltKdbW6OnrlbYuWQ5rSxsRI9opBm3mp15BDf1BNmxw==
+	t=1794831174;
+	b=ViP+RJmXo2WRNq5GjwxShqn4krndZOgC7RUYs9dYFg35GacKBWhVYS/O2jP2/7VHmeDY
+	 SQU4qIT6UJyLHLfu8YOxdsuDUzJsMrgqRXCeSNEBsKuvSfll0OntZYnsRXhWF9kKRKZb/
+	 3N6JXPotiVtWeOU90bT0Y7nBRT362Qb/s0hRwUcMcdOknsgNgiY+a/sse+ztsGVq52szh
+	 rEmQ0gCJHUDsTusVhx/Kleqz5nK901CWQB7aX7kthYLABNDs8kjDFTdT5defmiIKYe00b
+	 R3aXyurcJubDQjHunWEjVVmidqLADZsNt1ZdZf7P0FlnEcGvUHJ7GqD6zCti7k6/ZWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831117;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pEbQYi4NjQVP0dtbEgl40Tg4qtmWWlkw/cjXJIhkZZg=;
-	b=XfplQt76YstLWqu9x3SrAcAAb7TVVaFvleIvqEtMak6eZy825Hs1uwRPM2tgs9QoccJD
-	 dUdUgiQCJ7AZNeXq9znMR59T2BytCRipSNk2zMNdqxGq2v620uSkvMsGecnc3B55phzbs
-	 2FOkPrQQOlqNcCrHhFefp8RX2+WSpIUUB4wtWKr/mqsXd+aUhMLqlMrFWQJLVEbCtj4Cz
-	 +z1x/uhQrjqxc/c29NMXkx2DIbQ3B8sOsOcdVaacpwvBoLeJyEmr1qmmDZ9eTWKHMNSyz
-	 dcYqmYqVgmjhQW4OAXbMAtL+MeDQZTbsJusXazJ4rr6APozm4OLsyEQSRCN8k5y9F1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831174;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wcgmon70XAk5Fo/0VolrEg/3YS/oGzQP4jqWgRSNGG8=;
+	b=ExKcMkN4y9v7YoVxpP04Rs904AjiCBy70BxpG7TzNQJ99IPM/i3Lhz4V5xvqSJKSW9OU
+	 vrKKsfXxTWYjvpmjIhTAZqEDrURwUlUix6Ce+LyNaTPNqhOG2s/933iQY4RNeIn2EnyYW
+	 lO1EivI2BpiXMgwNxrXhIZ02hrDloSMeKYgrIbAJaVLvo2GlYGXgvD5wH5+1gpMfhWs1M
+	 1pLSLBVixgEEUlu4/4eosZ/j5sNqUFQPfMwntPRTZtd2UZMBtzdbyd1Im9Zx/tV5ZHELS
+	 zaBd3Pm7Ev5yDKVRR87/0S7RdzYVsENNV1e1kX+P4CfWLB0a+B0E9fDqjGc3jjir3Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e9Go8mMR;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65066606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65066606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Z/fhjXH4";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88152606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88152606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e9Go8mMR
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so37590975e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:11:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794831115; x=1795435915; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pEbQYi4NjQVP0dtbEgl40Tg4qtmWWlkw/cjXJIhkZZg=;
-        b=e9Go8mMRt6CeWWTDO4HPH5sj1A7YFgUu/hybUxyiZsIm94O5mAosz72l8YPgiWdFG2
-         lU5MOSD37s2mn/eEKrtnWqEtBbMSRZCmadviDFlv4rEoEJ+O6K3MNON88r35Ag1kKeCl
-         /FzW5fX+zqW8lnxkkthYpLvGuqR7cH/cUWG/MaooR4/YaGo7WNAUihTrV9l1ifgCQXQY
-         nKj64+d2yEbvqf4Dcx6t/Harg0oXfug+Ndb3bHsXKbpAmAnSU/xteNeP0oiUdul6FNgY
-         cta/aYMWeAWcC/SGSaMll51wrAKFcKtkKcXUQQSucKwBiBsqlu4YHL60ap7XGf9gsq2p
-         CDjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794831115; x=1795435915;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pEbQYi4NjQVP0dtbEgl40Tg4qtmWWlkw/cjXJIhkZZg=;
-        b=nJpjNEP0Uc2FBf7mAuBG0qWzcRfcNIpbkjHenDFg8TY5ohILUkpwzvPckR3/0cGDNF
-         JDXMHi3PGwHXZGVSjdV/JSAyvwGKMI4vyrHkToTMRO6j8+9AEKLps1ZXNhb1COJ1DeLL
-         KhY7EltNsiNPedfh/5UoeVnArbSZ7DoFIeF3GWuCC5vjG+zl9whvfR5WXTU7YRJqcurR
-         QhvT9HZ1qIiQCeCSvzp6GPtCENieBP1T7AinNqWWrqN4Y2vSLlqw27jZ2Jei2KSNxCgs
-         mOvFO0Bf69l3m7DhMPhZLf8swnRB1lyuo9MFmrSNHQTAKBucsv7Lu9jzT/46NyLQTb+k
-         qwFQ==
-X-Forwarded-Encrypted: i=1; AL+hErGyYa1hL8M+C3LRQUKFbLhNLmaABmW0OBgBGHgiKggSXKvPsnR9Uv1OCMkNFPqhyCBYldLGXi1NsfOx2AQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lc1NHsGzHtbsiNAwAObZkijROk5ZJKtIDAjD7YI9QKUXOxkof
-	xyb6J2lqJtcmldQb/bZSKs5XOyL7gdldw+erdenxcnM6Kt+Alky37Zok
-X-Gm-Gg: AYBFou0MsBJshigNueAOEoKLhRP6L0HA4+SMyMdNGRQCCTfIpW1x5xUZ37vla7igjQf
-	T/Ww4LnbFG3kSNZ9HhPtH8jjMCysagpifpSTji2PERYujxl6Yj1++944ZNn7mgFoCOcik4PXUAq
-	abx2sLVoNoI9dnTRUiOKg08KTb5cVSsPEWKDLo0pmjfQOVqIf2fSRWY8sInr73o+SgYJ5TbcNPg
-	j/b9RBkCUbTu5HoER4DmU4TmYPx3J7ERdNJfC4PinMI0pnKJ3WqzcimkcOwELEvBM0hFvinWHae
-	G4gsNI3ux4rj29FTiRjnfF/iWCQ5zp894n+WXhrch1d/g2axCoE1OgDJywX7jIlV2Ikexv2xKKe
-	q9fgHSPjd4bVqwxE6WPdT3jby8Bwqop2fDjQZnlJVdf7HKIh72XvxMe6BGRRG0otrtNjWxp2x5s
-	yE3c4xyECLpwm4b8p9mk1WLlrOy3Y1KQhQ0eVRvKkUMlvYN+ZS58FBUcsQqJlWeymQH22wBy/Hb
-	QL1kq9hB1TIZtWJ+5a5fyiq+FZQQEe4La5D5n4voxdoAqKTHVwnhQVNmOAsRjDYJ0a3yAYFuVbI
-	cnROPn72LMtn2UvYmOE6etYgcQAiL3g1Ln+h26GmxNCahUg26vSKQuBeqbqGur0ruleFuLD2Jdf
-	DpZZEyJUpIJq/lq+DpG1uocCTzEBZ5NQLrp4kimHzxak3xF/rVIQ=
-X-Received: by 2002:a05:600d:41c9:b0:4bb:60bd:5398 with SMTP id 5b1f17b1804b1-4bb60bd5507mr142579815e9.10.1794831114708;
-        Mon, 16 Nov 2026 04:11:54 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb70105a98sm61442005e9.5.2026.11.16.04.11.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:11:53 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Mon, 16 Nov 2026 13:11:49 +0100
-Subject: [PATCH 2/2] arm64: dts: imx8mq-mnt-reform2: Drive the internal
- panel from DCSS
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z/fhjXH4
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEDA81713;
+	Mon, 16 Nov 2026 04:12:49 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 680953F632;
+	Mon, 16 Nov 2026 04:12:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794831172; bh=Rn3iFP/lgki79057m7a1NNQZy+R5XRKrQ/1Ha1Qrerc=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=Z/fhjXH4JfuGCO3N1q9W45igR1Gfj24iupe+IrQOYy9kWgixEM4PPHpZJj4xIlWsU
+	 Yv9c03l4t6KVe9LkzlNTStqcr/QUh5OqColkDxva0Q6BfYgFHFqsG+xlxpT40QwYs6
+	 UYAxOGhP9/ENiYTCa0ii7NYY2OmLx/zmEFs8qWeY=
+Message-ID: <f89e485b-33b0-465a-984f-fdddd60a35d4@arm.com>
+Date: Mon, 16 Nov 2026 12:12:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,119 +53,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: resctrl: Annotate domain list walks as RCU
+ under cpus lock
+To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
+ reinette.chatre@intel.com, fenghuay@nvidia.com, jic23@kernel.org,
+ tan.shaopeng@jp.fujitsu.com, zengheng4@huawei.com, gshan@redhat.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261116024834.275512-1-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261116024834.275512-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-reform2-internal-panel-v1-2-765cf8d5ff4f@igalia.com>
-References: <20261116-reform2-internal-panel-v1-0-765cf8d5ff4f@igalia.com>
-In-Reply-To: <20261116-reform2-internal-panel-v1-0-765cf8d5ff4f@igalia.com>
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sam Ravnborg <sam@ravnborg.org>, "Lukas F. Hartmann" <lukas@mntre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, 
- Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+Hi Jinjie,
 
-The panel is driven by LCDIF through the NWL MIPI-DSI host and a
-SN65DSI86 eDP bridge. LCDIF underflows at 1920x1080. The picture shows
-horizontal streaks and the underflow flag in LCDIF_CTRL1 is set several
-times per second, even when idle.
+On 16/11/2026 02:48, Jinjie Ruan wrote:
+> The resctrl domain lists are RCU lists which are only modified while the
+> CPU hotplug write lock is held, so traversing them is protected by
+> cpus_read_lock().  That is the convention the generic resctrl code
+> follows.
+> 
+> The MPAM implementation omits the condition at three places, so lockdep
+> reports a spurious violation with CONFIG_PROVE_RCU_LIST on whenever
+> they run:
+> 
+>   WARNING: suspicious RCU usage
+>   drivers/resctrl/mpam_resctrl.c:1762 RCU-list traversed in non-reader section!!
+>    mpam_resctrl_get_domain_from_cpu+0x200/0x298
+>    mpam_resctrl_online_cpu+0xa4/0x160
+>    mpam_cpu_online+0x2b4/0x300
+>    cpuhp_invoke_callback+0x304/0x700
+> 
+> Likewise for mpam_resctrl_get_mon_domain_from_cpu() and
+> resctrl_arch_update_domains().
+> 
+> The lock really is held: lockdep_assert_cpus_held() is the first thing
+> each of these functions does, and the warning's own lock list shows
+> cpu_hotplug_lock and cpuhp_state-up taken.  Only the annotation is
+> missing, so add lockdep_is_cpus_held() to all three walks.
+> 
+> Fixes: 9cd2b522be2c ("arm_mpam: resctrl: Implement helpers to update configuration")
+> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+> Fixes: 09e61daf8e96 ("arm_mpam: resctrl: Add boilerplate cpuhp and domain allocation")
+> Cc: stable@vger.kernel.org
 
-DCSS does not have this problem. Connect it to the MIPI-DSI host and
-leave LCDIF disabled.
+The patch looks good to me but the Fixes and stable Cc can be dropped. This is just providing extra
+debug information to allow a debug feature under RCU_EXPERT to be used. The equivalent commit in
+fs/resctrl, 11b57be8e406 ("x86,fs/resctrl: Document safe RCU list traversal"), which is needed to
+make this useful was only added after MPAM support was merged and has no Fixes tag.
 
-Use IMX8MQ_CLK_DC_PIXEL as pixel clock, with the video PLL at four
-times the panel pixel clock. The DCSS binding only allows three
-assigned-clocks, so the PLL setup is in the MIPI-DSI node.
+Thanks,
 
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- .../boot/dts/freescale/imx8mq-mnt-reform2.dts      | 52 ++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 4 deletions(-)
+Ben
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts b/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-index 3ae3824be027..31c7428f0386 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-@@ -171,17 +171,61 @@ edp_bridge_out: endpoint {
- 	};
- };
- 
--&lcdif {
--	assigned-clocks = <&clk IMX8MQ_CLK_LCDIF_PIXEL>;
--	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_800M>;
--	/delete-property/assigned-clock-rates;
-+&dcss {
-+	clocks = <&clk IMX8MQ_CLK_DISP_APB_ROOT>,
-+		 <&clk IMX8MQ_CLK_DISP_AXI_ROOT>,
-+		 <&clk IMX8MQ_CLK_DISP_RTRM_ROOT>,
-+		 <&clk IMX8MQ_CLK_DC_PIXEL>,
-+		 <&clk IMX8MQ_CLK_DISP_DTRC>;
-+	assigned-clocks = <&clk IMX8MQ_CLK_DISP_AXI>,
-+			  <&clk IMX8MQ_CLK_DISP_RTRM>,
-+			  <&clk IMX8MQ_VIDEO_PLL1_REF_SEL>;
-+	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_800M>,
-+				 <&clk IMX8MQ_SYS1_PLL_800M>,
-+				 <&clk IMX8MQ_CLK_25M>;
- 	status = "okay";
-+
-+	port {
-+		dcss_dsi_out: endpoint {
-+			remote-endpoint = <&mipi_dsi_dcss_in>;
-+		};
-+	};
-+};
-+
-+&lcdif {
-+	/delete-node/ port;
- };
- 
- &mipi_dsi {
-+	/*
-+	 * DCSS takes the pixel clock from the video PLL. The PLL runs at four
-+	 * times the 138.78 MHz panel pixel clock.
-+	 */
-+	assigned-clocks = <&clk IMX8MQ_CLK_DSI_AHB>,
-+			  <&clk IMX8MQ_CLK_DSI_CORE>,
-+			  <&clk IMX8MQ_CLK_DSI_IPG_DIV>,
-+			  <&clk IMX8MQ_VIDEO_PLL1_BYPASS>,
-+			  <&clk IMX8MQ_CLK_DC_PIXEL>,
-+			  <&clk IMX8MQ_VIDEO_PLL1>;
-+	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_80M>,
-+				 <&clk IMX8MQ_SYS1_PLL_266M>,
-+				 <0>,
-+				 <&clk IMX8MQ_VIDEO_PLL1>,
-+				 <&clk IMX8MQ_VIDEO_PLL1_OUT>;
-+	assigned-clock-rates = <80000000>, <266000000>, <20000000>, <0>, <0>,
-+			       <555120000>;
- 	status = "okay";
- 
- 	ports {
-+		port@0 {
-+			/delete-node/ endpoint@0;
-+
-+			mipi_dsi_dcss_in: endpoint@1 {
-+				reg = <1>;
-+				remote-endpoint = <&dcss_dsi_out>;
-+			};
-+		};
-+
- 		port@1 {
- 			reg = <1>;
- 
-
--- 
-2.56.0
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  drivers/resctrl/mpam_resctrl.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 5468367776e2..d25c2bac9678 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1516,7 +1516,7 @@ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid)
+>  	if (!mpam_is_enabled())
+>  		return -EINVAL;
+>  
+> -	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list) {
+> +	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
+>  		for (enum resctrl_conf_type t = 0; t < CDP_NUM_TYPES; t++) {
+>  			struct resctrl_staged_config *cfg = &d->staged_config[t];
+>  
+> @@ -1743,7 +1743,8 @@ static struct mpam_resctrl_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
+>  	if (cache_id < 0)
+>  		return NULL;
+>  
+> -	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list) {
+> +	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list,
+> +				lockdep_is_cpus_held()) {
+>  		if (dom->resctrl_mon_dom.hdr.id == cache_id)
+>  			return dom;
+>  	}
+> @@ -1759,7 +1760,8 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+>  
+>  	lockdep_assert_cpus_held();
+>  
+> -	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list) {
+> +	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list,
+> +				lockdep_is_cpus_held()) {
+>  		if (cpumask_test_cpu(cpu, &dom->ctrl_comp->affinity))
+>  			return dom;
+>  	}
 
