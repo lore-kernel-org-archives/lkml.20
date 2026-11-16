@@ -1,83 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794804530;
-	b=UIv97Qa0solyWgDXD3A4eulKcXtRrN0Mt+UCuM1Y9WIADnrnuY8n0zOkjLC98i/KObSF
-	 vaVm1JiY/FigVNHpkzc89pvAYOAcjw6oykaT8FtduvAAGYg2kyJCkfEUgreEjEyPPmFhQ
-	 E5tHPxr20HCMFp2huFe+5zUdvraLY+WFH/VbVfoC40XkNPGlTyDwVwIxTPx1n60IgUfp3
-	 7JIb/UsndaZn9P61MbZ99NrAPEuaZrPClRlsSM70UCgIMufaKxB8K38RicSOgEaEd7Wic
-	 skS6iirzFUbcv+xQSJP22N2Z3DsrRPwGz9H157MwIAI2/rGrBskgI75YrLzqP7CfHYw==
+	t=1794804534;
+	b=nMho4znkJrEfzdPD0oPkee0L8P5OVoHK68NzBQ/avpSdbqPm9rHLZXTUo1lT/LosdQz0
+	 kyN/D5swN+A+XZIBXfWJkaK+UDsXBjmr8E1fua3IxMNhis1AVogpx3w3tMYA/0rqwZj+g
+	 Eiqdf8uPKY1JI4yytHzXywExoCjeBeFs7Rd/gqLSIC0Qr9BCiBP0KGp+hYALjk3rFoZwv
+	 F6r+uIOg75vNJrwq/4ct6y+Z83PxHI/PU5WfMBGZLvJ0UKYctB+0L8Gw75jqO39+MF6jS
+	 mzNHK6IG5kzFIV8a5MVBAKmo258Bbn60GIM2umxhJPzM8YFzHN7CxDCcr0bntSeffEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794804530;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=4+bF1PXdM9i12hwxUlirMfiz4q0u6ZQpW494Zdzq3Q8=;
-	b=3g1k9aH/tecnSuZaluA5HyvLJlOzAVsfGUXz2akcVUwnF0A4cMJr0wwLAx1luq2JMkUi
-	 qvfbhJOJ3hAlvBEjd1zYXaVvgjixPvcP09OrRXNms+lXrvncK+DLRnoEWATZl2UiWTThL
-	 WSP+/vvSM3GLWSrBCgw6p4Ft65rVdjCv0lC67heJYvb2Sx4aCZ5JiXygSNYGFDR3vQEDA
-	 1Wi/DCbAWsgYK8/W02YgYyFEtK7Hu47GurFWVllAguzUg70lH2ZJ0bijdFPywUmQ8Rjn5
-	 2m0K0ZmJMDtKmzkoZluDf+Akq34CbaBeDB48K0GnkX6pZcOr7JF/bqa4HT2xAqqArsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794804534;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wmDJGpNor/i2EbBeChp/TshHxfvcgbfLGRN8N25C3l0=;
+	b=B8/fliUZhK1Q9pnK5y6oMVvdDvEC/ThWk+U8bmjYvHiCyq4XESPYW07HwwCOqtw+2BEW
+	 G9gpRbsh2/RHLohXjBxQPacaqhEhBM6E2ONeBTNiLHye6LhewmuZDycffKT9EaDTmnrS8
+	 RL6kS5T8nHXKwdqG9TRCAr+gq+V1ZM0uH3273fbvSK3QDWXLuzgOFHwmsA/RiUjLtaYKn
+	 bBoDVHO3L/DLGpMXZIFdhOQdthOtJMOEvGquQM2HLixUNGVfYkuUs2CUAImmTnlXvtH2v
+	 ZiFt7j/wZXWPDrAg5Pryaonz2KznGGlVXMNHAbjQM05NXy23YUSH73n1vLEhqhkxc8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmQ19CXE;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iQyiWSLl;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA6F606A31C;
-	Mon, 16 Nov 2026 04:48:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EA6F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93052606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93052606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmQ19CXE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794804530; x=1826340530;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jBip4E2/xRX2TRtB/jshEtf0db72k3wz/T8VBbLeJ4g=;
-  b=VmQ19CXESMkHgWncgkBOviJcvF2HJn23x2wIRvS9HH/ifvcDg+Hf3NMF
-   0VaJu0R+Unv7DDuSVzWhlwNGlca9G4eSeFSZhpl+xKVrF+Zjwe6iz0Rpf
-   QxwnQpm6do4fil4rtqQjDLDbX2RNFRlNcwVXMDiOoFLHYWo++s5+tb4mx
-   CmrxuXlwimqjpIVN5w62smWVeJUQ5hD3Iv7LpTkXtrKEmyHOQJlaIQvNb
-   TMaDEsYk7NeigtX0fGgU8IrKBNT6OYcOPEAzR/7Nlv2U2IN3De3WwxsXc
-   HFxeOcZCiWg6Jz9VguibsBzro5/7uk6qP7/UfRZo7E/SUk2JTvUi++drn
-   Q==;
-X-CSE-ConnectionGUID: GHX7I7dxRWmBOM2UmIOvbA==
-X-CSE-MsgGUID: UItC521dTS2ET4dEV2TRkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3518298"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3518298"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 20:48:49 -0800
-X-CSE-ConnectionGUID: VuhJD+lmSleff1kF0eSD3g==
-X-CSE-MsgGUID: rBi3O6LXSwKZ45yb2JguoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9284633"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 15 Nov 2026 20:48:47 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xSoe4-000000017qi-1AK4;
-	Mon, 16 Nov 2026 04:48:44 +0000
-Date: Mon, 16 Nov 2026 12:47:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matt Turner <mattst88@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Magnus Lindholm <linmag7@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: oe-kbuild-all@lists.linux.dev, linux-alpha@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org, Matt Turner <mattst88@gmail.com>
-Subject: Re: [PATCH 5/7] hwmon: Add driver for Marvel AlphaServer
- environmental sensors
-Message-ID: <202611161243.v8EOeTtt-lkp@intel.com>
-References: <20261114-marvel-env-v1-5-890328e4b7e5@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iQyiWSLl
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so3938786eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:48:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794804534; x=1795409334; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wmDJGpNor/i2EbBeChp/TshHxfvcgbfLGRN8N25C3l0=;
+        b=iQyiWSLlKrHQPszF8YJwxf/l9hKbsn3bYs1NXdONMMU7xRwBtwBxfBt1UkM/rjlL0u
+         a78zLsm14w7QycC8qDL2ruOTUYsjORz6q8qXaYOR8ksbOyXQQtMZabP0HkOIYqV1pXMC
+         0RllMSl4PC0SHn+u8EBFnxn6aXLR4C3ddPCwPlGlsxYp8uqqFdJtKPT4hc3BWbwFyzaG
+         EIBXL79mT/1z9kzC5NFVKPsHvf2TrhF+3ZgkjsfNJBS9JEP/LFTZj/EFMk6YvLtbuleX
+         uF3m2nfx3sP4QZKOsGkYIbmlZtbWwcriDoolK9jbNB7xzw9n5XwpF3z6TNB8kVOvsgoR
+         BD1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794804534; x=1795409334;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wmDJGpNor/i2EbBeChp/TshHxfvcgbfLGRN8N25C3l0=;
+        b=L8JiHEnSmamha0IwdfaAJad6bUiGuV3+KgsakYivNW/+YQuk0+XRLSdQ84+PXArJFu
+         l5n4pQnKwfuqDHiXWHNUb/mIs4fRXEaL+Y1RLZVyZjth4cERwG+mNq9go1MS2v4DxVy1
+         016OHLS5v7wBKoOjQQWFW4UdUgKKZkJS26V+pdZMU/9E3q6JRveVXx4otsJcFQAAy7qg
+         LLWea8cO6EZYXW7PLmu1WO+gBBQJ8fVdGNpY3uOBDfclbNL1H88xH8eC6R+oZ4v7Q9Mf
+         m3YqEKn20V2mMVHi5cvoGAgZ6pzQ/s0mI/pdQFafIfjTHcS02LGOalO2DKJu7H0hbWw0
+         V4gw==
+X-Forwarded-Encrypted: i=1; AL+hErEsDqokzvWVjavAydMyPoCvFKV7o+lVtypo8YBMzyB6YFUMbMufx71zWlHDsoM/wju2O7od4Vp4WAkfLd4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KO/g+qZ1xNRV5EkHUQhiMeE/80Zs04jLTvaXM94ETN6ZpaKMJ
+	GQhlb/3nWakgDgi05V6lavdckhojrxdGq7FvurP2Wo/vVheXDCE+Gl6U
+X-Gm-Gg: AYBFou2x77ND0aCCBIAxXDE6HKbV2XqWMUx0vXxdRUSUERjPhQobKUrMWdv6U1gKqRl
+	0UOPI44elSTQSGII+dk2UffJMX3GQCmzogucFMfzJaQAnv40MGViUy3IqSvLIyzLkWH4WVhTlDD
+	GtYdoGhDSK7wZPiX2CUBLEY8DWTuZLhxh5h6asPGU6TxM/wtFH+oWqiIiYbldUEwiBEWayfalXV
+	G5CHYdTwOUOF+XfRiWdX+s25Pizs5namQrotXIRiodYOQvuxXp9WqQrUjpgzPZfJoExjPbBpi+c
+	13lJ2MXXJraBbQZZN3BGlofq+RfPpFsnbbkBV8jwyHYQjSqsJaUVDG6cg983k7TW3vOoO+fOfBB
+	V0+2M/+pEDVp5S/v9wKdAwZipv3WQXrtPh3qOle8u9HwlwuwKSy5YjoTn+8heakE30SKqEWT+ot
+	ygA5Y1wWtZJRrJ8LDiiAvf92IpNjJP9sBzPBlsECdkvMODBXwKbROoJN12etZs6q5vrGUGDAEID
+	FfgllAdEDyt+abziRp6JugIYhGGVUjgApf59BxlI7juZ5esTZAk1k7FAAf+/9mZ9H4xyQpaqjVe
+	lX2ehduxV/li8KjXhyNYdj/XKpurscfKOdW9YDY1hQwLZIwmFYM0C/FLWni2qGnjGqtP
+X-Received: by 2002:a05:7301:4d07:b0:375:87f5:ccee with SMTP id 5a478bee46e88-379684b56e7mr10407948eec.29.1794804533447;
+        Sun, 15 Nov 2026 20:48:53 -0800 (PST)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm29442346eec.26.2026.11.15.20.48.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 20:48:52 -0800 (PST)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] btrfs: tree-checker: reject file extents with oversized disk_num_bytes
+Date: Sun, 15 Nov 2026 20:48:47 -0800
+Message-Id: <20261116044847.285669-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116044543.282187-1-teel4res@gmail.com>
+References: <20261116044543.282187-1-teel4res@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,37 +100,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114-marvel-env-v1-5-890328e4b7e5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Matt,
+Please drop this patch, it has a problem. Sorry for the noise.
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 0b4cadbe7c39d830dec35c4a2655483de0dae568]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Matt-Turner/alpha-marvel-report-environmental-events-without-VERBOSE_MCHECK/20261114-123947
-base:   0b4cadbe7c39d830dec35c4a2655483de0dae568
-patch link:    https://lore.kernel.org/r/20261114-marvel-env-v1-5-890328e4b7e5%40gmail.com
-patch subject: [PATCH 5/7] hwmon: Add driver for Marvel AlphaServer environmental sensors
-config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20261116/202611161243.v8EOeTtt-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611161243.v8EOeTtt-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611161243.v8EOeTtt-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   `.exit.text' referenced in section `.init.text' of fs/nfs/blocklayout/blocklayout.o: defined in discarded section `.exit.text' of fs/nfs/blocklayout/blocklayout.o
-   `.exit.text' referenced in section `.init.text' of fs/nfs/blocklayout/blocklayout.o: defined in discarded section `.exit.text' of fs/nfs/blocklayout/blocklayout.o
-   alpha-linux-ld: drivers/hwmon/marvel-env.o: in function `marvel_env_refresh':
->> (.text+0x528): undefined reference to `marvel_cfgtree_partial_update'
->> alpha-linux-ld: (.text+0x52c): undefined reference to `marvel_cfgtree_partial_update'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Cheng Yongkang
