@@ -1,96 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801473;
-	b=lo2SxEJOjeyHNtX+hPmX8MpgH41SSghTSqxnFSHI9fmt8vuvkrkUPirrXJvxV7Fu+vuh
-	 XzEAccqkxwqnJMsmhAtkCc4NL2s7OaKEPAaD0BBNhLZIwFTe+CT75b7NmTR0eZOnDJrRP
-	 HPm6+eNi+ec6X4sKe0ly+YMYSu4Nrr8i+wU7bPREAxnejvcy/lVp3/SdupAjX1szT6Xub
-	 JefmISZK89vraVixOYDD3/+Y8ryU0g//eNRDcuu6ko8znGYiGVE4xoBeGfRXWnLX5MZ3h
-	 VCwPDAyQ9n/bDKq2xFwu+FdB5Q74fdTCBLKpECTl4IJwaI6Bd8JdGb0lhm0QKanVRXg==
+	t=1794801553;
+	b=siCwlLthUB74ufP93TUwmYR9bXpgrDe988T2yl/gWyUovNUzvf1IEM9wuTMgu//3YCHs
+	 Tb60WGlSDDwVAEy5mCSpA/bMYxqhFC9WdUyQVluKm8n2m2vCIQkOA8zBrBx8IYdt/NybH
+	 1wUb5MtfBA25Z2Xc/qKPGG5qu4CvNVs54G381kdBHRWSsz39G6JrnugPD7wZOlmzCfMwy
+	 NiH2n2l77C5QcwoLD4YIzTlVHXvYsebD+mZmG5XxAVqLpt5am1qRK2eHoGXviVC9NU2nF
+	 01nMmrAizf76YuTpjtySyUSr4PsWyy0UQQpgRuSJoqwBw1gQ+xIdtbz073zoYBWXkjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801473;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:Subject:To:Cc:MIME-Version:Content-Type:
-	 Content-Disposition:User-Agent;
-	bh=iwVZGsgKAQDdbtbiaa6vbIgpmM6oKh5tzoDRi/Aw59E=;
-	b=R8BFD03Tfa7bIJ6f3viW3Osl1qvpS7jhAfd496iU7PDOGI2oHOsh9JWKBb2aAb1oIURI
-	 4XZn5tOV6/BML6t0ZF82BotdagImKBphEpUSVRe/jtGZL7TM4K+U88Q9yoGxii0X8M0E3
-	 AaQ3TOuay8nZFuQ2Uzkl1rIDNzKVK8LlukhLFKbLSyUxYWTBKv5CXKdb3RG/fVw0+aesB
-	 kV4VFiVDurtF1sk561HOm1d0d6ptBSX7hqDVov1U0cm877oYUIyOW4gJMIJx6mnb8w5r5
-	 HDPZDxoqQaYWO8i5mIlontmTu51Wn0QC1HochiIUcrAXgyz4+lduXaQZXKQNkuaUvnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801553;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=u/9HiJ1D6J/bSIpqYllMpqKapDFD/PBU/bx4yvfHXM8=;
+	b=stEAlbrFSwYEoc905/bbhzKtjvKTuVyB2mnYqC4pGh4QUbyR6xp2JYzyikAbhYe5q2do
+	 nIkzFLMxbDZSN20t8Yir6dASvx9Hc3ciEXxAIF/J1M3YEsiE8ja+05pRm3gOsSnsfNv04
+	 RAQZQ5p+kLGMve/grlTKDMJ/Y619aQyIp07L4FXGXhIAxgpg1izVIkTr18Bnw3Uu2eykM
+	 kIt6sVAhCdaORTG4eo+1mAQ3TsHT1junuZiO7EwuPLiUkdGv7LqGsmiToqw7PrCc+lN5X
+	 /WfUR0GJ6dqxHh9GIarN8lQp/zoZlJygYaWztHfpj2g6GgkrafM65ctJbgjRzYNPV+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=pXUuGH1T;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A538606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:57:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A538606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=pXUuGH1T
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-37628596783so5007380eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:57:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794801472; x=1795406272; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:cc:to
-         :subject:from:message-id:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iwVZGsgKAQDdbtbiaa6vbIgpmM6oKh5tzoDRi/Aw59E=;
-        b=pXUuGH1T9exwQcrwhbSZrLclSn0IWrK+PCRBc/KdKoTlWFPxdjgreeQ1+APKhspKwS
-         HmqF1BZdKZR9OP7azT5beKtMmat/vhp6olqwbUZeGf5u/1b39oKZbvVK9EqEv5J8rQID
-         24wNYBs8s+ihpD/hp4t8V0NvT5OMsgDTX4FQw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794801472; x=1795406272;
-        h=user-agent:content-disposition:content-type:mime-version:cc:to
-         :subject:from:message-id:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iwVZGsgKAQDdbtbiaa6vbIgpmM6oKh5tzoDRi/Aw59E=;
-        b=E2+wiyC42zYT+b9zti7T7JPi3nmX1eLNsSt4KqbPA9dD3U6Fbzu0B7x347Si/PDHlS
-         h9fIhjpQr9YG0pQz1bXDYpCLo3aeBSGdINgCgZdsQxiza6vTvQc4Eb40Lo5JvAwnmuxe
-         hovNvKgiI+voZn43ycLvBkvKIVTCYO2y01i3+j8HsOPtajdkZLgb4//6OPAypksfv24A
-         ZfvhzDjpHuYTjNCx3o++ID152s6unAfDx7xDOLW0VOEa32Hh7ycDa38PKTx8e8LxeT+y
-         9RvMdKqZOOKqbH2eBseb3qL8A1oBf0mBM9L/Xgu18v5y110kd0zAt4gNkUSHuXqjeWKj
-         mD4w==
-X-Forwarded-Encrypted: i=1; AL+hErHtaiY9sJawnKz9FZzDueNwACenmikaYYQJHMXTliaTLWrI8FiLA9KbkrcbKsxoMH79QhAEqPGC5spn75I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TPOgWb/QtIxqMuEB344f+k7vcOHOjoFwmZOwhzX3P0bcQILMW
-	SDe20aEPUwCrLyW9nTWR9uKdecJUD+vRmPj5Zi3LIDM15PoL/vR7NdlunESdvboX64U=
-X-Gm-Gg: AYBFou0jBphZFMT2iUKbPh0o2+zqbatoHjILQ7So5jcvHQR3em/KZNnZz/h55/WfL20
-	ikHrWGvtXx/kRKGrZYaV62U83SEToQ5Ry85qehuqDnG6cQaU+84O+Wdl4cfr08SG2x+mc/B5yZc
-	S90bdGqvG1Iuc/+hjSPIF3LGUg++vVd2WHBXPYcpQP0nsIU/lVzuzo323BPmjw03TTCkUKE6X85
-	nWoiYpejfK5XvkiPNK6miYaNVfGsqJWvw32lmY4GSZcyQI/MW2sD33HLV418fQ8fibFFRWrf7Z8
-	mDF/D/CIFfdrQyKw7LeVq9DLfJmTxfESV2ZVrd34LlF1MW1+Zdyg7U6lTQUoDq5MxL4zn8bcE0B
-	Y0seQVVTaVy8xbHuwC2o64jPqeMOg7zgvrNqwUZFhegtk99CNqHeXYRmdgXMaqcaExN0lnM362p
-	2DAX7WNhOKNJ3R907kDUgmmpM/F4SHeirYdNzTmuNcnqnxYe8HBYTpkcqjTywiBDtyJkTQmTJr8
-	tDh0Vw53wQk7Q9NSKHCjFTCw8gPNdET0oz4wHesfbj0kwfwBvDMUYb4PKUJhgHaRHvmzANqBOjU
-	3/WzYbxRgLbNubqlpB8eh4uKcBdDLW0bvGtvkuGyEj4GLQmqeS5oAG2dcc/OX3x8nhE7vudzFxL
-	JPg4aWu1kCj3h6bin0lkIdz+96OmwU0Mzk3QfJJjvU8prL1Hzquq2zYWHqaCl/E3H4TWOK0jKSZ
-	fzZsC95Mx5eN66oKrgUOJIf4IK/hqn5pGcHShkw2XSS78bYzSzTARdyHkW/lpbXqoD
-X-Received: by 2002:a05:7301:b06:b0:36a:1089:9836 with SMTP id 5a478bee46e88-3796628ce32mr8377652eec.15.1794801472427;
-        Sun, 15 Nov 2026 19:57:52 -0800 (PST)
-Received: from [172.18.0.2] ([172.56.232.151])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm29451214eec.29.2026.11.15.19.57.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 19:57:51 -0800 (PST)
-Date: Sun, 15 Nov 2026 19:57:48 -0800
-Message-ID: <a8474f0e2d0ef5ea9d53aa6649c7e9c9ea6f15c2.1794800574.git.chris@chrisdown.name>
-From: Chris Down <chris@chrisdown.name>
-Subject: [PATCH v2] proc/kcore: allow disabling /proc/kcore at boot
-To: Omar Sandoval <osandov@osandov.com>,
-    Andrew Morton <akpm@linux-foundation.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-    Shuah Khan <skhan@linuxfoundation.org>,
-    Randy Dunlap <rdunlap@infradead.org>,
-    linux-debuggers@vger.kernel.org,
-    linux-fsdevel@vger.kernel.org,
-    linux-doc@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    kernel-team@meta.com
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2E64D606A31F;
+	Mon, 16 Nov 2026 03:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E64D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxUNGOf_pqOgAgAA--.27227S3;
+	Mon, 16 Nov 2026 11:59:10 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJBxJs2Mf_pqKNE0AA--.64529S2;
+	Mon, 16 Nov 2026 11:59:09 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v3 0/4] selftests/bpf: Handle unexpected failures on unsupported hardware
+Date: Mon, 16 Nov 2026 11:59:03 +0800
+Message-ID: <20261116035907.4215-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,96 +55,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxJs2Mf_pqKNE0AA--.64529S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZF1kZw4xCFWxXFykGr4DAwc_yoWftrXE9r
+	48trykXFWDAF90kF1Fg3WkCrWqkw4ru348tFyDWa47Jw15ZF15XF4vyryFva48W393t342
+	vFs8Ja9Ykr47WosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb7kYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
+	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x
+	0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7_MaUUUUU
 
-/proc/kcore lets any process with CAP_SYS_RAWIO read all of kernel
-memory. That's a pretty large read primitive for anyone who obtains
-CAP_SYS_RAWIO (and it also gives away the KASLR layout).
+v3:
+  - Introduce SKIP_TESTS() as a generic utility to avoid fragile
+    hardcoded string arrays in test runners.
+  - Add missing Fixes tag to the fexit_bpf2bpf alignment fix patch.
+  - Add a new patch (PATCH 4) to handle another unaligned access
+    failure encountered in jit_insns/tail_call.
 
-For this reason on some hosts we want to turn /proc/kcore off. In terms
-of what it can read, /proc/kcore isn't any more concerning than other
-ways to read kernel memory, like BPF with CAP_BPF and CAP_PERFMON. The
-distinction is that a process with CAP_SYS_RAWIO doesn't necessarily
-have CAP_BPF and CAP_PERFMON, because CAP_SYS_RAWIO may be needed for
-hardware access without necessarily wanting to grant general RAM access.
-CONFIG_STRICT_DEVMEM already makes that possible for /dev/mem, but
-/proc/kcore gives the same capability to do general purpose RAM reading
-anyway.
+Tiezhu Yang (4):
+  selftests/bpf: Add SKIP_TESTS() helper for test_loader
+  selftests/bpf: Skip jit_insns_arena tests if not supported
+  selftests/bpf: Fix unaligned access failure in fexit_bpf2bpf
+  selftests/bpf: Allow unaligned access in jit_insns/tail_call
 
-However, on a kernel built with CONFIG_PROC_KCORE=y the only ways to
-block it today are lockdown=confidentiality (which also disables many
-other things we perhaps don't want to disable, like kprobes and
-bpf_probe_read_kernel()), or an LSM. That's annoying, because on the
-majority of hosts we do want it on for things like drgn/crash, so today
-we build two separate kernels.
+ tools/testing/selftests/bpf/prog_tests/jit_insns.c  | 7 ++++++-
+ tools/testing/selftests/bpf/progs/fexit_bpf2bpf.c   | 1 +
+ tools/testing/selftests/bpf/progs/test_pkt_access.c | 1 +
+ tools/testing/selftests/bpf/test_loader.c           | 5 +++++
+ tools/testing/selftests/bpf/test_progs.h            | 8 ++++++++
+ 5 files changed, 21 insertions(+), 1 deletion(-)
 
-Let's add a "kcore=" boot parameter so that this can be disabled at
-boot, which lets us preserve those choices while using the same kernel
-image.
-
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
-v1 at https://lore.kernel.org/r/auAmuqZyUodq3iqk@chrisdown.name
-
-v2: Give more justification in changelog (Omar)
-
- Documentation/admin-guide/kernel-parameters.txt |  6 ++++++
- fs/proc/kcore.c                                 | 12 ++++++++++++
- 2 files changed, 18 insertions(+)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..b4c43d2cae03 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -2902,6 +2902,12 @@ Kernel parameters
- 			parameter KASAN will print report only for the first
- 			invalid access.
- 
-+	kcore=		[KNL,EARLY]
-+			Enable or disable /proc/kcore on kernels built with
-+			CONFIG_PROC_KCORE=y.
-+			Format: <bool>
-+			Default: on
-+
- 	keep_bootcon	[KNL,EARLY]
- 			Do not unregister boot console at start. This is only
- 			useful for debugging when something happens in the window
-diff --git a/fs/proc/kcore.c b/fs/proc/kcore.c
-index 3264c99bd68a..4251a9ef868b 100644
---- a/fs/proc/kcore.c
-+++ b/fs/proc/kcore.c
-@@ -69,6 +69,7 @@ static size_t kcore_notes_len;
- static size_t kcore_data_offset;
- DEFINE_STATIC_PERCPU_RWSEM(kclist_lock);
- static int kcore_need_update = 1;
-+static bool kcore_enabled __initdata = true;
- 
- /*
-  * Returns > 0 for RAM pages, 0 for non-RAM pages, < 0 on error
-@@ -722,8 +723,19 @@ static void __init add_modules_range(void)
- }
- #endif
- 
-+static int __init parse_kcore(char *str)
-+{
-+	return kstrtobool(str, &kcore_enabled);
-+}
-+early_param("kcore", parse_kcore);
-+
- static int __init proc_kcore_init(void)
- {
-+	if (!kcore_enabled) {
-+		pr_info("/proc/kcore disabled on command line\n");
-+		return 0;
-+	}
-+
- 	proc_root_kcore = proc_create("kcore", S_IRUSR, NULL, &kcore_proc_ops);
- 	if (!proc_root_kcore) {
- 		pr_err("couldn't create /proc/kcore\n");
-
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-2.56.1
+2.42.0
 
