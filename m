@@ -1,85 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801393;
-	b=aHMDapw3k9XtEmnO2U1LECy+yuahJid4D8ET+x3gmsFqwSFaNA1HIUkYex5e3lbLKNdM
-	 sm7ACY/Ac3BgnG3SBbBDjbbFKFB746ab6L1qmeoEfI05E4RPRc42w7/S77TLDhpCgLwiM
-	 gNZBAPve+ElWEymLdJ/qOGMjKog/auMc8p59QF6KDds2D5fwucsxpV07zanxngD2q0QZt
-	 qbLsvZ1vzXyF6f9/xbjQUXWTQW5iOJD+ppusujx9FLCNX+FO1QwvdpcCpPZ2sZK6BPDhn
-	 peg3cbOhmQP0n9bnQDDmZkAC6/sn7fF20CYHOrhnIHtBCwFBly/DaGnOMTIE9L2iULA==
+	t=1794801415;
+	b=x5YqjJsZIIsmYQedBPWYA2IDFIRmiYtn+tUqxsBQfge23LtuKTY552vZ4NIKBwyjWaRM
+	 eKuc3Csxgm8t2CiIfNZQ9WO2S1A2e0XrqGMCLc0CykSuUhhm/eQU/Hwm/e6CqYF6YYhBT
+	 OaR12tpuzc1oray9jtQYJga1k/rCZ4kjmXGNTs/0KadTb14Qt/5V+7Gv4gjiq9T8znN7w
+	 h1EgKKqcRGSZafpJrw9j8mLbLSW5+sXYppEEYZ406YBiaxsy4sVp3SJqm+RHI7drX+YTW
+	 mOzPKHQ3aMVbV3eg7boWmg7v7poUWIIPEhkozI6l6ksHBsDdlO3z9vjs+nrqWCL267w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801393;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801415;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+6dOvYRVzQ9+bhI5eE5XNV7TqV3Ds0TchIlyG7Bl/Io=;
-	b=zo0qI/WeMn4gCIeOoVyRRPjPbqJ10E8sNi13IF97ENorZyu42en43H72f2pRxVax+Mnu
-	 1rtBioUGNCpJD63p7khMWnfoc1Rts7BQcFpJQNWLrl/ebNREBpJ1kRT5lf9eLwRmBrhm+
-	 JnxLdpx39QDYepPaTQnyLKuEBa7chP6nK/loHeR5VyJz4XLoo+LgebNfprTnDjNB8TX9d
-	 nuujGELHUe00MQ/e2SDVRSeXLxNhBo2yDMuMKA88lS1QkW6LPjECN1KK0kXWLIUK/l/eg
-	 2JgelEav2CA0ctDIj9JEbT04pBNCGGJLjapJpqroZgCqeQAer0xIgeTeoCDlb1iRMyw==
+	bh=A2h+cBZbrdK3KfGEBVHJ/qn/6mirzFd4zLuXbF2XG/w=;
+	b=d2XrqzdJN3hqqeKu5SUiznTkIh8BhXR707mrUqGhpE2/N8b5hoa0u639lb1+OyrhZdF4
+	 /YCVrN24hxIA4m4fvk4FgzNkQMsmt4kAjFiru3So1apXCmOOxXxB67spSr6CHnpNw7LD4
+	 +JgUOFm01lmabsDuTmBDYIQACjP4SDUoTzsUsA9nvdLbD1tgKRNeWyqC41QpseYovZspu
+	 au+FEET1apI2D+p5LqH1/ouzeHATZ+BkbAga+cfrIMd2WtnWGp+a+IrSgAiyUbEC3y5Og
+	 J2vchewNCuXt8EnB12Hq3ZTBPEJeWF9dlg3R/EA8hRZqXz3tvUQaSE+s/emIoKJhapg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="J/o0XHIE";
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94892606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94892606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fyx1h7mK;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4218606A31C;
+	Mon, 16 Nov 2026 03:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4218606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=J/o0XHIE
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3245D40E019C;
-	Mon, 16 Nov 2026 03:56:28 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id epKAmDZ2VJ_u; Mon, 16 Nov 2026 03:56:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794801384; bh=x8ygkmDzVVjxUwAjhVjtmtzmZ+VLK3ZkDLHSUJ/iG+U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J/o0XHIE4N9V6Q6Pa2JfIifs2QPxz3Yrk/Q+5Zft/fclMhDtx5520Nt34Eqr3j74E
-	 qrtJJx9rQ+46hGRK/62y1xA7G70bDSjPvTEKbt/xow4ZCKTsAc1Vc3rWD/pXtOLKtd
-	 lJAsV/iQHtnC3LmcfAgdW7G8Q/Iq7ZaAbPmOco1qf8cWP6X2+rfStsnLoJLncJtFus
-	 I+CyA+94QPHXW7KNyU5mkHxCCC1cegPjc1a77qarmG2pxVF+ob4EgvK88AUreAhftt
-	 hiXah/wEBzNaPEx/Z3LhNUHYIKSVS+d9ppZrvMFXF61sp+0EPdvjhdzncIw/MkSxax
-	 tKkMyi/UO3zSrbcH7OuS9jHGGAn/h13tP14TEExCbaCq37ZYVj9g/R6WrEuFyhm5OO
-	 Bzj8uuOrAZdvRMvHwl7IH+EyfKAldjpYjAs/nZZSbKlmTL7aEqAPEkZLfKS0R1kgOa
-	 97oHoNrXQxBZEkvFVKMIVEEwjhoxPemBWElOBpPzP2VcL688YnNkAIKIMGBpFZ0Kst
-	 OqcHaW1+NUPiNUz9LTZI4cMEwH4QgNq+WrTpuTD8BmPjv92Xkiz+wUHnS8xg0dbYOS
-	 eislpGBzAcub1KdOiH6PmeSx0LDCaYHbVwrcL9g9HyvLz9AoSySpV9Cavnj0ApaqT+
-	 4pnbgcy1uinkckn1vHr+ha1E=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EBA4A40E00DC;
-	Mon, 16 Nov 2026 03:56:11 +0000 (UTC)
-Date: Sun, 15 Nov 2026 19:56:08 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>,
-	Prathyushi Nangia <prathyushi.nangia@amd.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] x86/CPU/AMD: fix booting on Xen PV domU
-Message-ID: <20261116035608.GAavp-2BX67_xv2LYT@fat_crate.local>
-References: <20261116014057.7409-1-marmarek@invisiblethingslab.com>
- <avpgJcmTVQcHf8QB@mail-itl>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fyx1h7mK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=fyx1h7mKqBT4oaMVXqpZ6om/2Fpdu3BNK0ZjcDm9/kB6ROA+Q/wjyLOIW+T5gHUHM0o/scZsYJf8k
+	 S5483SvkCeAnLwRM9owP8R2igfkOyRE90IHoQveE1m3gxr4xXfO0T3As2zJ7vyNeK6QcGboz9aUXkn
+	 WZJCLPNJk/0pZ+bo=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36afa7f03cfd-c7928;
+	Mon, 16 Nov 2026 11:56:52 +0800 (CST)
+X-RM-TRANSID:2ee36afa7f03cfd-c7928
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from openEuler-24.03.03 (unknown[74.82.203.40])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afa7ee7fb3-7bfd1;
+	Mon, 16 Nov 2026 11:56:52 +0800 (CST)
+X-RM-TRANSID:2ee66afa7ee7fb3-7bfd1
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mina Almasry <almasrymina@google.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Willem de Bruijn <willemb@google.com>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Narcisa Vasile <narcisav.kernel@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 0/2] net: do not run out of frags in alloc_skb_with_frags()
+Date: Mon, 16 Nov 2026 20:56:18 +0900
+Message-ID: <20261116115620.18151-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,31 +79,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avpgJcmTVQcHf8QB@mail-itl>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 02:45:09AM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > Fix this by skipping the read when running in a VM, except Xen dom0
-> > (which technically is a VM, but does have full access to the hardware=
-).
-> >=20
->=20
-> I forgot about:
-> Fixes: ab8131028710 "x86/CPU/AMD: Print the reason for the last reset"
->=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
-ngslab.com>
-> > ---
-> >  arch/x86/kernel/cpu/amd.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
+alloc_skb_with_frags() can fail with -ENOBUFS for a data_len that passed
+its size check. Patch 1 fixes it, patch 2 adds a KUnit test.
 
-ea51d1a4c31f ("x86/CPU/AMD: Don't print reset reason in VMs")
+The issues were found with the help of an AI coding assistant.
 
---=20
-Regards/Gruss,
-    Boris.
+Changes in v3:
+- Patch 1: check the frags left only after a failed allocation, with a
+  shift (Eric).
+- Patch 1: say that the allocation still fails if the retry fails.
+- Patch 2: skip only if MAX_SKB_FRAGS - 1 order-3 pages can't be held
+  at once; one page was nearly always available (netdev AI review).
+- Shorter changelogs (Eric).
 
-https://people.kernel.org/tglx/notes-about-netiquette
+v2: https://lore.kernel.org/netdev/20261110162418.28322-1-yanhaishuang@cmss.chinamobile.com/
+
+
+Haishuang Yan (2):
+  net: do not run out of frags in alloc_skb_with_frags()
+  net: add a KUnit test for the alloc_skb_with_frags() tail split
+
+ net/core/net_test.c | 51 +++++++++++++++++++++++++++++++++++++++++++++
+ net/core/skbuff.c   | 33 ++++++++++++++++++++++++-----
+ 2 files changed, 79 insertions(+), 5 deletions(-)
+
+
+base-commit: a45dbf182137275f44ad7c8bc8acd23f7af6b2cf
+-- 
+2.43.0
+
+
+
