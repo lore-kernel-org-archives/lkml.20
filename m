@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831174;
-	b=ViP+RJmXo2WRNq5GjwxShqn4krndZOgC7RUYs9dYFg35GacKBWhVYS/O2jP2/7VHmeDY
-	 SQU4qIT6UJyLHLfu8YOxdsuDUzJsMrgqRXCeSNEBsKuvSfll0OntZYnsRXhWF9kKRKZb/
-	 3N6JXPotiVtWeOU90bT0Y7nBRT362Qb/s0hRwUcMcdOknsgNgiY+a/sse+ztsGVq52szh
-	 rEmQ0gCJHUDsTusVhx/Kleqz5nK901CWQB7aX7kthYLABNDs8kjDFTdT5defmiIKYe00b
-	 R3aXyurcJubDQjHunWEjVVmidqLADZsNt1ZdZf7P0FlnEcGvUHJ7GqD6zCti7k6/ZWA==
+	t=1794831247;
+	b=1Dza+Ll80cC/DoFHTXdn4Z2jHra5/zoyfxvid93WmqBEwu4j/NKsNpSAbaeF15NNU4JT
+	 BB1zItgMr/O1kDHOyX5iAHjNYYK/3gG6MNYz8fvjbeTxEuDurQgld2b1IKySZuiugGzNE
+	 lCVqpitMEq30aexaTd74+P6WihrIlI7RjggTnqC+BFuI4GKyRCdL3GqGx4MDvgIAlMvak
+	 3OL9MHC/6zNxKCuzgtksXG/Im3Q2QM2tDpDec8Ce5cXHksLR0HPq5ZibMICC0Fa3FyZI2
+	 34ZgOlg5Zd0GoCNwQoLK77lIejde1xIFhPIM9X2n4M+kfVFScW9sgh0aznmhH291Csw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831174;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=wcgmon70XAk5Fo/0VolrEg/3YS/oGzQP4jqWgRSNGG8=;
-	b=ExKcMkN4y9v7YoVxpP04Rs904AjiCBy70BxpG7TzNQJ99IPM/i3Lhz4V5xvqSJKSW9OU
-	 vrKKsfXxTWYjvpmjIhTAZqEDrURwUlUix6Ce+LyNaTPNqhOG2s/933iQY4RNeIn2EnyYW
-	 lO1EivI2BpiXMgwNxrXhIZ02hrDloSMeKYgrIbAJaVLvo2GlYGXgvD5wH5+1gpMfhWs1M
-	 1pLSLBVixgEEUlu4/4eosZ/j5sNqUFQPfMwntPRTZtd2UZMBtzdbyd1Im9Zx/tV5ZHELS
-	 zaBd3Pm7Ev5yDKVRR87/0S7RdzYVsENNV1e1kX+P4CfWLB0a+B0E9fDqjGc3jjir3Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831247;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5TQnXyxPKsVYp7Swu6UCLm+jMK/P+KGC0Ry72Fb+tw4=;
+	b=ntnMNVpSztwv3asS7c/vq0zEISxF+7EGvIXPavMo05+PRxGoAtJ64dgfeGG22bGRFC4u
+	 R5S85BKRxgdmGMgsjwMP7jRIj7zSFYXyHIokSQ4/oD5zYyhQ3KBIBPPynQnMfnnhzP83Z
+	 nNvxqdq2A2MVFndDmfvv/llMOB7F3zS5G1shgDWDamJyg/ZksMlYie8+Z09znlg+cy9N7
+	 aI0a9Oe8vU0H5whfeAomZSNLslCIqwXLE3b5zFPdS3BPOgcDElvpgsQRlRe9xa9BN6KUh
+	 ITv+FCZoxP7vQi1S+9o/lKddLp+cZvldU00BwEKzqVef8y6hPq+7gR3JhZWpJ4jn8Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Z/fhjXH4";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88152606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88152606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALvci8CB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284FA606A31C;
+	Mon, 16 Nov 2026 12:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z/fhjXH4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEDA81713;
-	Mon, 16 Nov 2026 04:12:49 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 680953F632;
-	Mon, 16 Nov 2026 04:12:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794831172; bh=Rn3iFP/lgki79057m7a1NNQZy+R5XRKrQ/1Ha1Qrerc=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=Z/fhjXH4JfuGCO3N1q9W45igR1Gfj24iupe+IrQOYy9kWgixEM4PPHpZJj4xIlWsU
-	 Yv9c03l4t6KVe9LkzlNTStqcr/QUh5OqColkDxva0Q6BfYgFHFqsG+xlxpT40QwYs6
-	 UYAxOGhP9/ENiYTCa0ii7NYY2OmLx/zmEFs8qWeY=
-Message-ID: <f89e485b-33b0-465a-984f-fdddd60a35d4@arm.com>
-Date: Mon, 16 Nov 2026 12:12:50 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALvci8CB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1DC1F000C4;
+	Mon, 16 Nov 2026 12:14:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794831247;
+	bh=5TQnXyxPKsVYp7Swu6UCLm+jMK/P+KGC0Ry72Fb+tw4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ALvci8CBxbM/eosyVK1BjxHfGbw2+ug0PaGwZSi7rRYyfOsz6ojgOENO9i/smX4GU
+	 CU652soiiZ+0qC+m8SIQtGmaF1OTlqs0aFapVfUyAvUfYC8C+Q4ygS5kYmxY6ejkmm
+	 QFZ5fQuQLs4aw5BGeONWggy5rgWpX++X29+SCoaZatkOOwJ10/ir7TeBL2gaEon58h
+	 3i58H4i6SzvddpjLTMxueNlzoT1EnPnKcTp2of3PP5br9hM9DFlvqspWpz7WnZHH3b
+	 auUF9oDP9H3VuM03LAcAJeVYjprTB+6O71Kx/THxRYhxt3kN8bzfxnJ+YMtICJHoKp
+	 HjsGzaww3G46Q==
+Date: Mon, 16 Nov 2026 13:13:56 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexander Letuchiy <asalde.le1@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Mattijs Korpershoek <mkorpershoek@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org, linux-input@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/9] dt-bindings: watchdog: mediatek,mtk-wdt: Add
+ compatible for MT6895
+Message-ID: <20261116-imposing-chicken-of-strength-108fe5@quoll>
+References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
+ <20261113-initial-mt6895-v2-3-4ab0aa9fa391@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,97 +68,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: resctrl: Annotate domain list walks as RCU
- under cpus lock
-To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
- reinette.chatre@intel.com, fenghuay@nvidia.com, jic23@kernel.org,
- tan.shaopeng@jp.fujitsu.com, zengheng4@huawei.com, gshan@redhat.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261116024834.275512-1-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261116024834.275512-1-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-initial-mt6895-v2-3-4ab0aa9fa391@gmail.com>
 
-Hi Jinjie,
-
-On 16/11/2026 02:48, Jinjie Ruan wrote:
-> The resctrl domain lists are RCU lists which are only modified while the
-> CPU hotplug write lock is held, so traversing them is protected by
-> cpus_read_lock().  That is the convention the generic resctrl code
-> follows.
+On Fri, Nov 13, 2026 at 10:04:59PM +0300, Alexander Letuchiy wrote:
+> Add a compatible string for the watchdog of the MediaTek MT6895
+> (Dimensity 8000/8100) SoC. It does not fall back to mediatek,mt6589-wdt,
+> which implies the MT6589 TOPRGU reset layout, as the MT6895 one is not
+> known yet.
 > 
-> The MPAM implementation omits the condition at three places, so lockdep
-> reports a spurious violation with CONFIG_PROVE_RCU_LIST on whenever
-> they run:
-> 
->   WARNING: suspicious RCU usage
->   drivers/resctrl/mpam_resctrl.c:1762 RCU-list traversed in non-reader section!!
->    mpam_resctrl_get_domain_from_cpu+0x200/0x298
->    mpam_resctrl_online_cpu+0xa4/0x160
->    mpam_cpu_online+0x2b4/0x300
->    cpuhp_invoke_callback+0x304/0x700
-> 
-> Likewise for mpam_resctrl_get_mon_domain_from_cpu() and
-> resctrl_arch_update_domains().
-> 
-> The lock really is held: lockdep_assert_cpus_held() is the first thing
-> each of these functions does, and the warning's own lock list shows
-> cpu_hotplug_lock and cpuhp_state-up taken.  Only the annotation is
-> missing, so add lockdep_is_cpus_held() to all three walks.
-> 
-> Fixes: 9cd2b522be2c ("arm_mpam: resctrl: Implement helpers to update configuration")
-> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
-> Fixes: 09e61daf8e96 ("arm_mpam: resctrl: Add boilerplate cpuhp and domain allocation")
-> Cc: stable@vger.kernel.org
-
-The patch looks good to me but the Fixes and stable Cc can be dropped. This is just providing extra
-debug information to allow a debug feature under RCU_EXPERT to be used. The equivalent commit in
-fs/resctrl, 11b57be8e406 ("x86,fs/resctrl: Document safe RCU list traversal"), which is needed to
-make this useful was only added after MPAM support was merged and has no Fixes tag.
-
-Thanks,
-
-Ben
-
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
 > ---
->  drivers/resctrl/mpam_resctrl.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 5468367776e2..d25c2bac9678 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -1516,7 +1516,7 @@ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid)
->  	if (!mpam_is_enabled())
->  		return -EINVAL;
->  
-> -	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list) {
-> +	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
->  		for (enum resctrl_conf_type t = 0; t < CDP_NUM_TYPES; t++) {
->  			struct resctrl_staged_config *cfg = &d->staged_config[t];
->  
-> @@ -1743,7 +1743,8 @@ static struct mpam_resctrl_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
->  	if (cache_id < 0)
->  		return NULL;
->  
-> -	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list) {
-> +	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list,
-> +				lockdep_is_cpus_held()) {
->  		if (dom->resctrl_mon_dom.hdr.id == cache_id)
->  			return dom;
->  	}
-> @@ -1759,7 +1760,8 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
->  
->  	lockdep_assert_cpus_held();
->  
-> -	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list) {
-> +	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list,
-> +				lockdep_is_cpus_held()) {
->  		if (cpumask_test_cpu(cpu, &dom->ctrl_comp->affinity))
->  			return dom;
->  	}
+>  Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
