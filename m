@@ -1,101 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794808858;
-	b=PRQSG7e1BVtSt8kdTH8FJbzN+LaDc58Ziib+SAgbjdYpt8IQntA3yt1Qcr1n7srENvpo
-	 EyIddLu/KS6ByOY29l7XrUlVYoISCIq6wTekW3sVcXC7jc71GNSBvkmVastF4c85AUCQw
-	 8mEobCnI8a5tEWU94SMpClngXthg3wg0iYYu8tPaWBsNmDgVtfnERne6oOZuiA26xQNV4
-	 0t9Y/f353gt6xa96NLH5/Ny7b+PZFn34qvNCkdBII3/r9UNO9sWAIL1dWdXgKSwK+pLkd
-	 7/bw8GBTvOxJasG8KSTaAquvO+X2Yu5T9ueJ9H1YtDRB+8SJmYlEOw011NgkhLoVQKg==
+	t=1794808880;
+	b=K40wxnW4ym1lc2vv12Uj15v8VixKx6rRVdVVwpMOMBpD7Ls2a/bBJ4JLpaGZ7+r+R99e
+	 Tv7hCckFUfUz25DXV3USN8ygCcDGsFjfu1ocGtYSDFajaWq78LTtJCOZrAaNJLs3IunY3
+	 BZfhsljjze2JQeeJSYCmrREq+GCDz+dz58u678HnFvBbFwLmcbf6nBbLE8tTCX06r8TwN
+	 k+WJzfgDZUPXXLB49Q53PPz9bUjD0q6Xz/ZOntm8TU2Uj6+rtsSd/+Z6y0kDbM2x1TTRk
+	 UgMXRy8oAAkIxMdzHCjKry/M5a42WsiM7T1EcPozt5S7fp4214JyXXkS028qsDLU9SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794808858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794808880;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=C0AHV3pkmSBlkgkC6bhKAE+fGlVWZxDBcjbwoZIhJvM=;
-	b=GWUxWLbV/sS1lzinmsBSbRAZZTcbIvgEDNMn7egClII5keDhk76SHwHDRf2Q9U/GzbO7
-	 HV2LdUciMx0fc1mRv4YqM+8iB5yjKjnxckG84iBZwirsaMkF7JmTcD2xmD+FGUjZSLPiw
-	 IhMiUIwxVlo9nP5ZK24LqxaQuNADVXyAiq/VOM++WQSgl3N/K//nQ4QO9rhMO/uROB23s
-	 kLnrADYhOGvJUc5ZMGENOlAuDen2PwYvWSN3a6gQyR2cTcrr5DMtj5q9sLHIhZK971EvF
-	 SoonIIAmrKmeqHDt8Cr11NO7cLGh02xEWQ5qCF1/oyj7byD0vzPDgScWHTNWZ7bhDKw==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=nePOsiSE38oIpTj8kEKJWPw4XmKgSjPcHWo82NxSsVk=;
+	b=rpr8+JxoBTkckwhzpnThIvcKu9qVGM+YhBiLdFj0FimoK0w04NEHD4WGqF/hJO6zHhNp
+	 zG1i1i9dipcXuItCs8ABBzF6Iv4JUQCSk7H7ZgezlpjoQbSikKIGStqxI2EY2dT5q1K21
+	 66UKjNwifjjqggc0pXH9gK1qzwN7lx174f5KHveP/POqYJ81FkqdBMotz2kLI8f3yQAJI
+	 vSmuvMmSA+v5d7uXV6rHYWJNASmRHjWBNvFcahsCaqvw7m0Tx+Uh+HFC/Cp9u5lnMMj/1
+	 5nOOXfIKjv+FMy5S0cemo+jDDyLiZh4f9XHJ1qQ9lTQMy9TNd+PSFKJd5IH/u4d2HeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pereq.eu;
-	spf=pass smtp.mailfrom=cryspen.com;
-	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b="GgIg/3T2";
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j89hqomv;
+	arc=none smtp.remote-ip=209.85.210.48
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36002606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36002606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E582F606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E582F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=GgIg/3T2
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4922dbcee23so1357349f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:00:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j89hqomv
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-86103aaac12so2739791a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:01:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pereq.eu; s=google; t=1794808856; x=1795413656; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C0AHV3pkmSBlkgkC6bhKAE+fGlVWZxDBcjbwoZIhJvM=;
-        b=GgIg/3T2MR7pmBzEbfP1hYn78cOPXKf2+OqIfgg2hzwlUolwb0qUhOirnfXxf0cXu6
-         Dt1TosPYlUiJ/MmfD36lwUE1jRJuxUNQcZWOD9U8et1O1gAouZ0rWMxacKxqVswjoW8K
-         GX371oWq7Xp9H0EZ5QjxfyVj69PLYj+KSfkWBLRsqn2C/LutcJqXdKnSmSEO2AF41K5E
-         sUyf9PJGuo2iLbMzw+uhfwNHFRCqV0YcfNzXsodtInnudsTmCUitgRMlpZR+Ueq2mg3v
-         2ZBWqRxLU2Uy9/Lf54+gzsaqhK3Oey80nRZR0IxEiRm/vkFGsmRyIoV6sq8DqV6yJkhF
-         eI8w==
+        d=gmail.com; s=20260707; t=1794808879; x=1795413679; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nePOsiSE38oIpTj8kEKJWPw4XmKgSjPcHWo82NxSsVk=;
+        b=j89hqomvuimomVSu1CF3ItRhsmN5PYi9J+k35y7awl+izbLhdkQg395cbWoGtk2n9L
+         YONflXRLAiEHubmjtDiAjVPf9G6EXs1rophJKA8ahTBa8UMoDB6LXRPokSgLTUOPACOF
+         CFBALFog2JulqHIEdgiJJM0gJP2fOABJ8xbJ8pYuf0H3WQDalLm28dHLkSDEcru6lN4c
+         t4y40b6WvXzxkGKa5YkqP5ngpJSVywwHzWu24OF7y4xXXCAmiqvb8zc5MH9o3qDV/yDH
+         /Jk1/kcP+QhY/oQCRV37WesmNBuWyVPJDqBfC6TG7d3ci1sNNOKwDAY9Qn4i9luxGKJh
+         NX2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794808856; x=1795413656;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C0AHV3pkmSBlkgkC6bhKAE+fGlVWZxDBcjbwoZIhJvM=;
-        b=JBuY4yhkSioFhR9UgU2epqMC91+p12hvYsnMEwwUPm0VxTh5ZNoustNb5GVnCYIR4r
-         flXyYnyWODAUusdELJbbHD/psxfxETNXoSw7mF5sqPHfak6mqbKHBb3XoGOKdQUpPLbt
-         vMPJ94mS/T8mUL/JrpwLPr0fMgdu5O6UydBRlTHENqZhAaRsJ1TBM2+SBo4vbZk+S0T9
-         wGV0UnZIGZUarbWD83HfZ6Ojbo1MSP4Liwsb7LToeYLFLFZqvBc+suoIHYuHSdSYcgne
-         A78pgyty8M3qYMQLTDtC1BDgRF/rTKOSsD+4KE3Vg73LaYzb375mtOhXRBMXo1v6VGOY
-         jS1w==
-X-Forwarded-Encrypted: i=1; AL+hErF2ytSi3oNEYdERZAKlOaw7YtFqAVTr7qG2tl+1QU+xM9laec61AtoFCiUgzHKxYQFpXqaev+yOwYrUXT0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WqUbdRUWiKoW12lxjFpYjbdLSbquyZkhbzlIyoowkKluI/x/V
-	z8SWbTvMD53gWGQXFUiVZTUVvZP9u/jPBe3M8dfg3BghbdZxpKgKONuBS5EPS3uLKrQ=
-X-Gm-Gg: AYBFou3WPFOL9tJ0zJkAnfJN7sSd89G4br3juaDDpuq8xDFhzBHrwkiv5y1OzIK2YKc
-	irDdVCUX8n796WkyVacjay/dcDdViUEc2aWjIIm6MamTEhyJWmDSU1GfjlN4ofdVyLC7WvKMIzv
-	c1GKht0bR9RzoCv8nsMNkGVINivcYu3XKnxPBudY6S3MavoOxVPK61Jj0VQzmxxAKDpXeDCgyZr
-	6cYiFV0I77KwX3MyUIn3Fib+Cs/8a8VtYiAvsVn0iFxXBSDTH/U5sAd468RmUhTN1s9JK4+p3Uu
-	KLuzJKRj8S4PSILHdnYkI7rxo/LgNjTqtah8rJb14xQkjm2e38z+dHKEufxbDIuyhTM2EgqDs04
-	f7TQQVNXCOZAu7fmMNSFJl7cJNq81kORQ1MTPLObnTkqPCMjA6jrzI2eik3RoHpBgXW2js+PK3d
-	sqdhj+qbNrXEERlyEGaru+1y51wOsfHwENB+DASV52/Jw3VJxmlWYkLrdkGTfhp8sURMJJsUbki
-	fBjHnvkJVNsKjWKcwobVFZa7JJHWBVYaWwOhou4bvH0QFKWz8V9wy+rYKF45NPerdYoFIW67cdu
-	MHoiPKZZNVPBpxN7fq4=
-X-Received: by 2002:a5d:5849:0:b0:49e:da28:4d40 with SMTP id ffacd0b85a97d-49eda284d6bmr9895900f8f.19.1794808856445;
-        Sun, 15 Nov 2026 22:00:56 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b104sm20840076f8f.6.2026.11.15.22.00.55
+        d=1e100.net; s=20260707; t=1794808879; x=1795413679;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nePOsiSE38oIpTj8kEKJWPw4XmKgSjPcHWo82NxSsVk=;
+        b=KQ8jLBLocKZzssZIiARZ0UkbnsP83jm445krFhXxPn+UpWjrUTenvET6vb2QP/O6bS
+         Qc+pFZ3kO/QL0HkWQ/MlDyacmQW6QsJpT98dfYgPyOy/TSMz2MnIMkRPDB1r14pPRJA9
+         NZlbmv/2rr7okS0ScRexDLgU5ZsXgz7Xkn7hwFf2pQrPQ9kMupxyWsuKcRHD/JNw2AZ5
+         4+u0X4sMtF2jEySKXSll2ywxBppFwZwLDlmUdpvoN8JuSF9++pqz+ImAQ2rCt6ngDbu2
+         4pmaTB52I0bc9G6CeBi7tPy9NWhG0O/0SwQ7nf45gI6k+IiMyqm+pzcNX/BVR+nsvo/a
+         dHRQ==
+X-Forwarded-Encrypted: i=1; AL+hErH0Uwh4iLQfxlZpzEBnQOSUJtBEKVD8J0gKXaZl8vmGmmZhSo8Dv4+TOG+HGyvomn1f7MkgbWHM+jZIW9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BykS89TFGM+UkDts7bQhxxlobZBn5VCKzrrhFKv9RhUYMRS0d
+	xfaDy3i267j9UbOsSWadWqO54ZfX/LPbbsjM2wm55p8BWFa9fcPSeHnY
+X-Gm-Gg: AYBFou1G07MxRtDpzZJ75emcGiKi01E4QygOaWZlY5QyoPeB3g2cVfooUFocsA8FiP+
+	L6kiDdJUHDlzNtaW/8t60w08jmreLJSR/e2c4Lb3aUShrL/t6tPqqvp6bHuo1RIWYsFOjVPfqt9
+	8rMde2xtz2XAgZZT2C3N5T1BD8mybinOqHQiArIkN5XQgW9sFhQkkgOnAha0DTceh2hIine8doY
+	w44AazZsxOSjBwhJ4zH4Ydy6VuzXfmh2MhXyI0M9z4RGcr2SCfipCd80gglDj+/6qIgSPkuBPqT
+	1bd7HL8anjtiTCPK88ulbIJqc8bZbfcQNqDIVOuXoOr4PY48zZDlkJnpTxykpuwJTg7OWCXfMoA
+	3F6mLCsMYP1debmDm1OMXhcTywxWIGuPgo7ehW+fQaMHZdiJqtFoTNjZ/0Q4HEnMnK0FtvoZ7vC
+	BWeBbKCZjLI1tQseYAhFsZPg73Ee4iDZOxLHfaKpJLdRLZGN5sJal4Nn4wzM9chj/shNrtnEaph
+	wAxsWQbEBAEBvfAi/kaJOAZ2MCS4gtCaCrVHVHEnJbEhsPesPTKMaxc9oPi/HA3pHRnDh319P8D
+	4OnDgb9g5psINBSTxskvV+jD63iPm3KkMX3rdqPd/9z9gdESQJgPJKb4g+ggaQUxEVe1vJAWyV8
+	Avz9AYjdkAfQeHEEXqcNO9/ob9gl4j1Qwl6/lfqVGHexJ+1a8BA2NrOE9SDmuV2pRHExBIQli29
+	ulz9cSQ8S+v3pWGzv57jaigowySSxyOcHFSDd60K7r6U24Xla5ndc=
+X-Received: by 2002:a05:6830:448e:b0:862:bb95:4148 with SMTP id 46e09a7af769-862bb954527mr1954757a34.33.1794808878766;
+        Sun, 15 Nov 2026 22:01:18 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862881a965esm9375160a34.25.2026.11.15.22.01.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 22:00:56 -0800 (PST)
-Date: Mon, 16 Nov 2026 09:00:52 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Jintack Lim <jintack.lim@linaro.org>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: [PATCH 1/2] KVM: arm64: nv: Fix AT emulation for TCR2_EL1
-Message-ID: <eec50693a12e1ba34d60458ae8fe605ac198a79c.1794808373.git.dan@pereq.eu>
-References: <cover.1794808373.git.dan@pereq.eu>
+        Sun, 15 Nov 2026 22:01:18 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v6 0/7] dmaengine: dw-axi-dmac: fix termination and pause
+ acknowledgment
+Date: Sun, 15 Nov 2026 23:00:41 -0700
+Message-Id: <20261115-submit-dw-axi-dma-stop-pause-v1-v6-0-bcb23d1e7029@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,85 +94,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1794808373.git.dan@pereq.eu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43SzWrDMAwA4FcpOddb/G/3tPcYO8i23HgsaZekW
+ Ufpu09pGYTCyMAX+eeTsHSpBuwLDtVuc6l6nMpQDh0FZrupYgPdHllJFFeiFobz2rHhFNoysvT
+ F4FxYaoEN4+HIjnAakE2cRS8zR2ssN74i5dhjLudbhte3e0zEO8ZxZucbAehl6KGLzbxFF3r8f
+ P4jgZlfNIW2+u9b0ROf5f/XR6tmUTmM3KNHVC/7FsrHUzy01VzfJJaeX/cEeUZBIjNl6+WjJxc
+ er9c9SZ7UOeUALhieHj219MS6p2YPQxQqCCVTePT00pPrnibPaSFB2KCtc0vvuv3t34kmabx3/
+ d5gOieXJssIhzapaILQ0SXuMpdKI3l1EtwJD4AW1W12YIwNDeBuk6NUUrlayjqBztlr1MJy720
+ GS99qvbVRBEclXH8AgQsj6dQCAAA=
+X-Change-ID: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Sergey Khimich <serghox@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: Mitch Barnett <mitch@accuratesound.ca>, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ stable@vger.kernel.org, Wang YuWei <1973615295@qq.com>
+X-Mailer: b4 0.17-dev
 
-Arm provides an AT instruction that translates a virtual address the way
-the MMU would and returns the result.  There is a bug in the way this
-instruction is emulated for nested virtualization because of how TCR2_EL1
-is handled.  The bug is fairly minor.
+Keep cyclic mode in each descriptor so failed preparation and queued
+work cannot change the completion handling of another transfer.
 
-The TCR2_EL1 register has bits which turn on permission indirection
-(PIE) and permission overlays (POE).  When these bits are set, the AT
-instruction reads the permissions stored in PIR_EL1 and POR_EL1.  If
-you have the right features and permissions then in the return value from
-the AT instruction we set one bit to either 1 or 0 depending on whether
-the access would be allowed or whether it would fault.
+Use the layout-aware channel enable check during termination and retain
+transfer resources when the channel does not stop. Preserve suspension
+status for the pause and resume paths, including acknowledgments that
+arrive after a polling timeout or during another channel's interrupt.
 
-However, the bug is that just because the host has TCR2 enabled, it
-doesn't mean the VM has it.  KVM doesn't load these registers for a VM
-which doesn't have the features, instead the AT runs with the host's
-HCRX_EL2, which has TCR2En set.  So the AT uses the TCR2_EL1, PIR_EL1 and
-POR_EL1 values another VM left on the CPU, or possibly the VMM's POR_EL0.
-Likewise, for a VM which has TCR2 but not PIE or POE, the L2's TCR2_EL1
-is loaded unmasked.
+Keep a pending pause across cyclic segment completion and resume the
+segment only after the client releases the pause. Track the active
+descriptor until completion so queued work cannot reissue it while its
+interrupt is pending.
 
-The impact of this bug is that we leak a single bit of data to the L1,
-but in real life it's hard to imagine how it is useful to an attacker.
+Retain terminated descriptors until their callbacks have drained, including
+cyclic descriptors that error handling has moved to the completed list.
+Serialize interrupt status collection with channel reuse so an old event
+cannot complete a replacement transfer.
 
-Fix this by writing zero to TCR2_EL1 when the VM doesn't have TCR2, and
-by clearing the PIE and POE bits when the VM doesn't have those
-features.  Also it should be effective_tcr2(vcpu, TR_EL10) to read the
-TCR2 for the L1 instead of vcpu_read_sys_reg(vcpu, TCR2_EL1).
+This series uses the shared virt-dma descriptor-retirement helper [0].
 
-Fixes: 477e89cabb14 ("KVM: arm64: nv: Add basic emulation of AT S1E{0,1}{R,W}")
-Fixes: 23e7a34c8397 ("KVM: arm64: Add AT fast-path support for S1PIE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@pereq.eu>
+[0] https://lore.kernel.org/r/20261115-submit-sun4i-dma-callback-lifetime-v1-v2-1-fb7d258702f8@gmail.com/
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- arch/arm64/kvm/at.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+Changes in v6:
+- Retain descriptors through callback synchronization using the posted
+  virt-dma helper, covering pending, executing and error-completed cyclic
+  callbacks raised in Mitch's follow-up.
+- Serialize interrupt status collection with channel reuse and clear old
+  completion and error status after successful termination.
+- Link to v5: https://patch.msgid.link/20261113-submit-dw-axi-dma-stop-pause-v1-v5-0-8523a27b5788@gmail.com
 
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index 30d8f062b2c2..06765881a4c8 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -1438,7 +1438,13 @@ static u64 __kvm_at_s1e01_fast(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 	write_sysreg_el1(vcpu_read_sys_reg(vcpu, TCR_EL1),	SYS_TCR);
- 	write_sysreg_el1(vcpu_read_sys_reg(vcpu, MAIR_EL1),	SYS_MAIR);
- 	if (kvm_has_tcr2(vcpu->kvm)) {
--		write_sysreg_el1(vcpu_read_sys_reg(vcpu, TCR2_EL1), SYS_TCR2);
-+		u64 tcr2 = effective_tcr2(vcpu, TR_EL10);
-+
-+		if (!kvm_has_s1pie(vcpu->kvm))
-+			tcr2 &= ~TCR2_EL1_PIE;
-+		if (!kvm_has_s1poe(vcpu->kvm))
-+			tcr2 &= ~(TCR2_EL1_POE | TCR2_EL1_E0POE);
-+		write_sysreg_el1(tcr2, SYS_TCR2);
- 		if (kvm_has_s1pie(vcpu->kvm)) {
- 			write_sysreg_el1(vcpu_read_sys_reg(vcpu, PIR_EL1), SYS_PIR);
- 			write_sysreg_el1(vcpu_read_sys_reg(vcpu, PIRE0_EL1), SYS_PIRE0);
-@@ -1452,6 +1458,9 @@ static u64 __kvm_at_s1e01_fast(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 	__load_stage2(mmu);
- 
- skip_mmu_switch:
-+	if (cpus_have_final_cap(ARM64_HAS_TCR2) && !kvm_has_tcr2(vcpu->kvm))
-+		write_sysreg_el1(0, SYS_TCR2);
-+
- 	/* Temporarily switch back to guest context */
- 	write_sysreg_hcr(vcpu->arch.hcr_el2);
- 	isb();
-@@ -1554,6 +1563,9 @@ int __kvm_at_s1e2(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 		if (!vcpu_el2_e2h_is_set(vcpu))
- 			val |= HCR_EL2_NV | HCR_EL2_NV1;
- 
-+		if (cpus_have_final_cap(ARM64_HAS_TCR2) && !kvm_has_tcr2(vcpu->kvm))
-+			write_sysreg_el1(0, SYS_TCR2);
-+
- 		write_sysreg_hcr(val);
- 		isb();
- 
--- 
-2.53.0
+Changes in v5:
+- Use a positive enabled-channel condition in the suspend-status helper,
+  following Andy's review.
+- Initialize the resume result immediately before its first use.
+- Separate the lock-protected channel bitfields from the preceding fields.
+- Link to v4: https://patch.msgid.link/20261112-submit-dw-axi-dma-stop-pause-v1-v4-0-3ebc24b243db@gmail.com
+
+Changes in v4:
+- Add a preparatory fix for cyclic mode leaking between transfers,
+  following Sashiko's review. Store the mode in each descriptor so
+  failed preparation, error recovery and queued work cannot change
+  another transfer's completion handling.
+- Link to v3: https://patch.msgid.link/20261110-submit-dw-axi-dma-stop-pause-v1-v3-0-35fdfba8b61d@gmail.com
+
+Changes in v3:
+- Wrap the atomic polling calls by argument group and correct their
+  continuation indentation, following Andy's review.
+- Move the termination return-value check simplification into the
+  channel-enable polling patch.
+- Separate the pause-loop conversion to atomic polling from the
+  pending-request and cyclic-restart changes.
+- Annotate the suspend-wait helper with its channel-lock requirement.
+- Pack the lock-protected flags into existing padding while keeping
+  cyclic separately writable, following Andy's review.
+- Link to v2: https://patch.msgid.link/20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com
+
+Changes in v2:
+- Use readx_poll_timeout_atomic() for the single-argument status helpers
+  and express the termination polling interval and timeout in milliseconds,
+  following Andy's review.
+- Track pending suspend requests separately from confirmed suspension so
+  resume can handle acknowledgments received after a pause timeout.
+- Use the atomic polling helper, including its final status check, and
+  report -EAGAIN if resume cannot yet cancel a pending suspend request.
+- Defer cyclic restart while paused and track the active descriptor until
+  completion, preventing resume or issue_pending from reissuing it.
+- Reset pause state on successful termination and channel allocation;
+  clear stale status when starting a new descriptor.
+- Link to v1: https://patch.msgid.link/20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com
+
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Sergey Khimich <serghox@gmail.com>
+To: Sia Jee Heng <jee.heng.sia@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (7):
+      dmaengine: dw-axi-dmac: keep cyclic mode in the descriptor
+      dmaengine: dw-axi-dmac: poll the correct enable bit during termination
+      dmaengine: dw-axi-dmac: retain descriptors when termination times out
+      dmaengine: dw-axi-dmac: use atomic polling for suspend acknowledgment
+      dmaengine: dw-axi-dmac: preserve pending pause requests
+      dmaengine: dw-axi-dmac: retain descriptors until callbacks drain
+      dmaengine: dw-axi-dmac: serialize interrupt status with channel reuse
+
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 183 +++++++++++++++++--------
+ drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |  10 +-
+ 2 files changed, 130 insertions(+), 63 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git fixes
+change-id: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+prerequisite-patch-id: fc343480330da5ff95e5271997fa71107977c2b8
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
