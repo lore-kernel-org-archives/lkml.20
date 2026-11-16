@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847002;
-	b=5gWQbDO3ZHvP/8zGx0nQ2hpIqiwcXgvBHAccAQElfxU+zt64ZND9THdkQ9oEEvqYGq5a
-	 a2S0HN3YciRtFVWrg61NGXqF5GMPNSSmbzLGLvSXtrWhO19X/nTjv+o28/1pPWi7V/ghb
-	 gE+IcuyeYMYf4BEK9O4X4Mqxz+4STVwSX1LZTbFCV1pHLUQFIfyT0PC2ikCevjF3Rq0/w
-	 w531JEqXu7JD+XfQRHXxud6cdrkoRnrEsCItKznxkUlMMNWh46F3h+xhnjMQ09F+jjlvl
-	 OsEXuK0IcaYhaX8jHhzO+cXgJft/h+AG8og6W4fMQSwrYk/f6Lit7f3NSwa6sTfBcOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mFDPbu01PjjV/nM7xHQeqVmy8LYarSe5Gqy53VK5FjY=;
-	b=FGbk2aKz+ZaGTgz0lYMReCgqbB7+aBO7e1eiVQXuqBly1rVJjnWDW8rhiyNozBYzRqpQ
-	 t5FW10rq809wnS9pcskvhK80Qy7e0XeqPcAcnFLHYqRj6VpznejeMJ2LsCiIyEgH12S4o
-	 QvfWR8OjL5OgSDCak7StqDh71XkxoXt+3CDv/D6kg5CkL/zwc/qmJ6xpgxK/j0JegMxZ0
-	 uYqB3SmCNSDvQ/2w0Spndz3+62EkCm6K8QUWvyZkZd8wqs3P8bHDdubQvwgdrZIAGLJyB
-	 ueSrl/w13vKS9pz1ORvxfuUeWnk62p3OlMcYpobC2YvSApnbEVlos2o04AW+BGP3dOg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jn8ar1Yi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794846999;
+	b=PoOlkAO+KCkiicx1dm9YQFIPALyNhQnTyf0V8xPbkv4tQDIVq5BH9cinw+l657zMDLkB
+	 KQbJVMaipFhaIJfvHQtcBFDjHoRw3EG+CkW11y2TMLZ7ohCfHiqmOrRNE089g3hqCPTbB
+	 q3kvZQA71BaUjX2gcm5I9apV/wFyV/mV+8CWEdDfzFGEcArXj4EAPyVTbUNDc0RJGcXfP
+	 hl91CxynP2+1v9TBHlQ1Svn0oxbe675UIBT3qh+lPRMTb0yfnFeqWMN6qkrQ8hLebFJWa
+	 rxPkUIoCuoYfLsmw0tSUEeLtGy33kC0EJ9pc6fArQKQC1yqMbObzZfu9cwoaUXIPmwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846999;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info;
+	bh=oLYWOOu2JA+PDKk14LfiY/TJ6BXNz5oCpe3BM6ZEziM=;
+	b=zeGP/iEOFYMaqy8Zbspvska/6UmpU9KIabObZX+Q1auxew7l540k7SyI1inyimm0a+lB
+	 nGlRqjked0hlAe69afenLfl0AgGSQNJItQWf55XEH17LIctpipxY70S6iAy2ccm3yYvfs
+	 YQ9kjonHqjAVgNT8TrwEoUBkqYpC4fEaTuUN9zVoQjmLZXwA+45VNxRUxxdmuCHilesSF
+	 FlzK4FC2HzvsN4Zqrvhfc5/KiBFqPm1VWUglUzonk6Zn8tAjghxfmbiNNGX+mTf7Xg3IT
+	 xjP2C6+I4fh23pPgWBZZ2vC1F8Vm83EbCAfEjDvslE4lhMdNzPQ+WJz+qYfOpDgJZwA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b="R/CCU4na";
+	arc=none smtp.remote-ip=91.207.212.86
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B8B606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:36:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2B8B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01490606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:36:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01490606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jn8ar1Yi
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c50a2efbe1dso585068266b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:36:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794847000; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O+V6iEpx90v8TeSzwTzzTplJG2eJiE5+3kX9VyiXzr7zNtdK5j8SGSbOBTwu96Bo5C
-         +KmWvZTzSCqt4jDWitA9AoMjRI2ctj8BiwOzVCvJdGZEOsa9gi/nTkBIrWSkeOudaAqp
-         WydUy7iXN6n76drPZNuNMER3MnWjoFagDBxksw19Ulggd0cnY23fJ3zLEcDQjIXz5Bk5
-         bIkiia5dASRw+6uDne2SH7u8Ugg5nKip0l+Lqfv07Ek7ns51NTCTCFEJRcEZfWRTWrNQ
-         ab41G1U3Gdjm+Q3Rs627+e8PmaOs8zrZowmTrypakx5cETLl/zyTUVdS3cpEBdJ3rIpH
-         yPeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mFDPbu01PjjV/nM7xHQeqVmy8LYarSe5Gqy53VK5FjY=;
-        fh=4LfkmdTPqK+mOYyP12q0BpptzjrQZ6liRSexwNhzUEY=;
-        b=fwqdnLyO8Pa+TeeVqma9Eaj/9gAGw+37WbL0EIphP7wFHY58Uke5EZktOcTL6LPdD2
-         FxvWd3P3zzZwzGyBD48ie11ha+BRNs1s6SbqRjP/4/qQAqPCQXsSJ2hHEP88cqstu3zj
-         MJi5lxPfCo1KSh/XXM6tj44T7PwyyrxRnwjNo7lh4Vmd/Ta2qkT+H8uhRGy1Dx9iH85E
-         2m6/pP3xfHg5AZM7OZv4zfnoCnrX5LQD07PAe1i+DYL5pT70vycq78ZwZ0qsz8A1aulv
-         iTdqNzTJwW+pLVjwtlyla9b1kayfmEgLWLXuyjMvOYdKtBJBicH5wTTtQOLUrK+qdW/+
-         ntaQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794847000; x=1795451800; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mFDPbu01PjjV/nM7xHQeqVmy8LYarSe5Gqy53VK5FjY=;
-        b=Jn8ar1YivSQcH87J+OnEM75qtqq0sLVQnwHekt3WVBx/jd1dPNAPe/LHK0kwmmrF4x
-         DPiB/59oC7Ew4qxMdr9hYYh+6NpwThWWc8VjMnG4WCTaWKcDd8DdUryIy3Qv+/OjsvFd
-         eAhqm+hMkrnenGI3mbucI/i5AVVPeMYxhp/vSvoZJFAIIlsju80tzzwMpxo2rx8dTC7t
-         S7nYU+ZqAgL9cjqI42QrRjZbE14UOEv86XTDWLKXbpUJEcpPMV1AYnm+boLpkZebpCmh
-         uCoHXfU5pMPu3RCkVaLFIrzM2lohPTf27w1n2sPofvTx7VZ23HRMD/SFy9rPniHTctxJ
-         QKEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794847000; x=1795451800;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mFDPbu01PjjV/nM7xHQeqVmy8LYarSe5Gqy53VK5FjY=;
-        b=fqME6uU2jfD6WRe8mzCawpSmFBYu2ePfE2JtGSmILmDzix1gyx0BZq3GxCaCv5XV0T
-         Qv9Gz+kXd1IMJpzh1FZWVv0V0lCP6krsq8a/bUtFjeN1J6CqWXiXbSUeEymz2ZOypxjL
-         F8ebtj28UCKbDjlGkwPs0yTl1Vv4hYBbeuCR8/97UC9D9JKI6zqrtaj8UVOeqxf1/onV
-         JGqU9rrQrqKpyIutCTmJ5+elecTgIugML8QmZ7w/HJbxajPiq1m8fKVDQJhPsSRpJTKq
-         Y7LY0xoF7s3JRNueP4M96CNsvwXdiLYnMLr+/bCe8SD4XtgBdh8zRzFSJ9FUMw0q/DX+
-         aW4g==
-X-Forwarded-Encrypted: i=1; AL+hErH44jxl14bjL2y8IdFjWxp3ZFoJAT/bUDQRvmDNXZM/n6MqBLcyykYVAiW+XcoADEZt64OlNXVY9XTbz9I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UiXgaS6iwxjWTRg0wYnnxqoA/Hbzv2s+ib75augbW2xyD+Pmd
-	aD+1O4jFN5hL/uXM4YBJR6gYrOlgPCL5Ab7/D28A1d2ta7tKnyDz20YbwI7GLDS9oUisKm3usC7
-	KdyxZ/4jQMn3cnyNci7FlyruJ1umIFlI=
-X-Gm-Gg: AYBFou2UWZqvfeRcLxxSaZtwY+8/APPrWLF4Zw3+FMHjGz2lApPX7vTfHWM7UmH9Fl9
-	8Dud3crWz0pU26YA/telcA+9XXBLFWzh0IgUg/QSA2CUha7eQRded8kXNbevgCUJYbNdtChaBcS
-	qzC6IWxM5gaigeXBay28lUROB7ll5SeFSXSUnbcpBwsaNKWK7wEjTKY43sWkEHUXrwZ72UHSQaJ
-	NK8qCFIbxf0DgBnEwxehMB/UruRolqMgVJBtNDPq5bZMwEjwkH3zBqm28CuDBVtSeCOHgKPN/SD
-	ZfqaKnjovAQejtkKZXPgZ2E966VQoO9M2531B9yH0NQtjZiHSF8E0w+ceKa07JE4wajBcp3KeBA
-	VytOSNj1xaMRlNU82jvmNSzGsTNj94OMNKOdYsA==
-X-Received: by 2002:a17:907:8e08:b0:c24:6985:d7a1 with SMTP id
- a640c23a62f3a-c50961104demr817704066b.7.1794846999932; Mon, 16 Nov 2026
- 08:36:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=R/CCU4na
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id 6AGCQd1I4134120;
+	Mon, 16 Nov 2026 16:36:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=o
+	LYWOOu2JA+PDKk14LfiY/TJ6BXNz5oCpe3BM6ZEziM=; b=R/CCU4naGhGKYr3sL
+	6g7KEBhTKMvSG6d+0LtuFEIT6JLPmSZryOTOi+ic+fpPLir8cYw0k0YoEmwYhJ3q
+	TrHVjaGsd0RYSZzsPDe2IzEiT16lKxMOzvjzRhofkiQbIin+xZ7raJ6jt8k82UZF
+	h/kI/4Rnht+zxPr29t8A5l1Uw4javlhAVejOiE9IGbgSBw8D4xYHx3LLxHb5zJ7E
+	xAArSBGWeuJMYEnzfOl+RrqE9UH5aqx+VvM6613xL5d0B+QBBPQ7MODymMPBWsw5
+	sH653yTP4CtoEideftEtAfh9hoC9FN/bQgi622TsVusxe3nbADF9C4ttiDTxI0JG
+	VQcmg==
+Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hxestsjep-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT key_exchange=secp384r1);
+	Mon, 16 Nov 2026 16:36:20 +0000 (GMT)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.178) by
+ HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 16 Nov 2026 16:36:20 +0000
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard
+	<mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
+        <brajesh.gupta@imgtec.com>
+In-Reply-To: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
+References: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
+Subject: Re: [PATCH v2 0/2] drm/imagination: improve UAPI heap and static
+ areas query ioctls
+Message-ID: <179484698001.410388.8288014140982751554.b4-ty@b4>
+Date: Mon, 16 Nov 2026 16:36:20 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,197 +83,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-topic-8750_llcc-v1-1-6536cb46d7fe@oss.qualcomm.com>
- <DMTYT7CTC6JP.2UXJ6MWGKPX49@fairphone.com> <CAB63uaF3kB5AAW_FNXu93pyF4YS4XP3zzLtLt12r=XMK8E5kDA@mail.gmail.com>
-In-Reply-To: <CAB63uaF3kB5AAW_FNXu93pyF4YS4XP3zzLtLt12r=XMK8E5kDA@mail.gmail.com>
-From: yzddMr6 <yzddmr6@gmail.com>
-Date: Tue, 17 Nov 2026 00:36:28 +0800
-X-Gm-Features: AclHuK8R7d_cGEXXPrjH8PM8Odn5LsGhXmg_ElS1vdImCrIJeC5fTDG7nWnQUn8
-Message-ID: <CAB63uaEVR494r2vj54vpvV379U6nHTxEM49xhu_uEygU4g0_1Q@mail.gmail.com>
-Subject: Re: [PATCH] soc: qcom: llcc-qcom Fix SM8750 settings
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Melody Olvera <melody.olvera@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-GUID: G2N5qA0zgOOBmVu-FGQZyDGS_vALrDye
+X-Proofpoint-ORIG-GUID: G2N5qA0zgOOBmVu-FGQZyDGS_vALrDye
+X-Authority-Analysis: v=2.4 cv=O8OsLx9W c=1 sm=1 tr=0 ts=6afb3104 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=vO48zYV2LvQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=oo4XpmpVqHjgO3-tfnwA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2NiBTYWx0ZWRfX8ZPy6YlBa1/j
+ NkFnUc77h8dDEITV+P9JpIdFliH9LIOR1eCdaBmiUgQxna98qj9vmuq1TyenMzcDB6vjansygsO
+ mEJ5xedBue6fzDQBPF/0hIuF1v9szYiVHQYUqoeQVfFSU+ZYO9NdLobHLEKSXioyDhB3lFZQTm1
+ wMeR8BDyU4vXTfjUkFIXtG4mdy5QU0qHQ5XrAeSVq1m7LFPUH7L1sQM8qwR3qLu/HJMfBn5Pdae
+ mHspK+9XXISAQ6BEnzZ39PRSV63B+mY0w+fS1H1KFspl2BbIRPRoLXeWAk24R8JrnDv0btwNSTI
+ c+ryV8MOG5pDTJvvAD3QwIVWgf+2INGTJtOHzfTRqT4YL40wPXzuJDU8c/BHt8/+i7CAuoBJ7DX
+ yTqE7CQnC9g7HFY8P8QZ5XtzrsYTrsqxVc15YY6RtXkOiGODd9KErewNFSIjOLTGHEt7I8q0vNf
+ qeQkjRrKzunrjqFldAg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2NiBTYWx0ZWRfX5tPsChrvp0Ur
+ jEBz9zmL/onokS8ZTSaqvILKlGFLKAbbp5Zr/8QkQBFEXXDDKlav1mBG5dHN6hcUR6Vpmjfgq21
+ 9TAc+VZ98z4N+Kk7m8XEMxKGE+ZfQsg=
 
-(Resending as plain text; the lists rejected the first copy as HTML.)
+On Mon, 09 Nov 2026 20:35:20 +0000, Luigi Santivetti wrote:
+> This series is about better protecting userspace when either one of the
+> heap or the static data areas query IOCTL is made as we go forward and
+> extend the UAPI introducing new heaps or new fields to their related
+> data types.
+> 
+> Please refer to each patch commit message which describes in some detail
+> the nature of the issue and the solution for it.
+> 
+> [...]
 
-On Fri, Nov 13, 2026 at 10:01:27AM +0100, Konrad Dybcio wrote:
-> Bring the settings in line with the with the recommendations (and also
-> with the downstream kernel).
+Applied to drm-misc-next, thanks!
 
-Thanks for doing this. With it applied, sm8750_data matches sun_data
-in the downstream kernel [1] in every field of the upstream struct, for
-all 32 slices; before, 8 of them differed.
+[1/2] drm/imagination: clamp stride of heaps and static areas for legacy UM
+      commit: 2751fa2bc364dfe5599b17a1a26adf7a417f2bfa
+[2/2] drm/imagination: clamp count of heaps and static areas for legacy UM
+      commit: 17a180572ca50c8d38f3aa47d6fc81ce7c5594da
 
-Of these changes, only the ISLAND1 one has a known symptom, the reset
-in system suspend described in my patch [2], which is why that one has
-Cc: stable. Would you consider taking it as a separate patch, such as
-mine, with this one on top? Then the fix can go to stable without the
-changes to the camera, video decoder and CVP slices. If you prefer a
-single patch, could you mention the reset in the commit message and
-add Cc: stable@vger.kernel.org?
+Best regards,
+-- 
+Alessio Belle <alessio.belle@imgtec.com>
 
-Nit: "with the" is doubled in the first line.
-
-[1] https://github.com/OnePlusOSS/android_kernel_oneplus_sm8750/blob/6028f4=
-7faddaa27700f8dd3a1d83906ea8f27170/drivers/soc/qcom/llcc-qcom.c#L479
-[2] https://lore.kernel.org/r/20261111-sm8750-llcc-island1-v1-1-64055702ca3=
-f@gmail.com
-
-Thanks,
-yzddMr6
-
-
-6 Mr <yzddmr6@gmail.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=8817=E6=97=A5=E5=91=
-=A8=E4=BA=8C 00:30=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Nov 13, 2026 at 10:01:27AM +0100, Konrad Dybcio wrote:
-> > Bring the settings in line with the with the recommendations (and also
-> > with the downstream kernel).
->
-> Thanks for doing this. With it applied, sm8750_data matches sun_data
-> in the downstream kernel [1] in every field of the upstream struct, for
-> all 32 slices; before, 8 of them differed.
->
-> Of these changes, only the ISLAND1 one has a known symptom, the reset
-> in system suspend described in my patch [2], which is why that one has
-> Cc: stable. Would you consider taking it as a separate patch, such as
-> mine, with this one on top? Then the fix can go to stable without the
-> changes to the camera, video decoder and CVP slices. If you prefer a
-> single patch, could you mention the reset in the commit message and
-> add Cc: stable@vger.kernel.org?
->
-> Nit: "with the" is doubled in the first line.
->
-> [1] https://github.com/OnePlusOSS/android_kernel_oneplus_sm8750/blob/6028=
-f47faddaa27700f8dd3a1d83906ea8f27170/drivers/soc/qcom/llcc-qcom.c#L479
-> [2] https://lore.kernel.org/r/20261111-sm8750-llcc-island1-v1-1-64055702c=
-a3f@gmail.com
->
-> Thanks,
-> yzddMr6
->
-> Luca Weiss <luca.weiss@fairphone.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=8813=
-=E6=97=A5=E5=91=A8=E4=BA=94 17:11=E5=86=99=E9=81=93=EF=BC=9A
->>
->> Hi Konrad,
->>
->> Missing ":" after llcc-qcom in the subject?
->>
->> Regards
->> Luca
->>
->> On Fri Nov 13, 2026 at 10:01 AM CET, Konrad Dybcio wrote:
->> > Bring the settings in line with the with the recommendations (and also
->> > with the downstream kernel).
->> >
->> > Reported-by: yzddMr6 <yzddmr6@gmail.com>
->> > Closes: https://lore.kernel.org/linux-arm-msm/20261111-sm8750-llcc-isl=
-and1-v1-1-64055702ca3f@gmail.com/
->> > Fixes: 2c04e58e30ce ("soc: qcom: llcc-qcom: Add support for SM8750")
->> > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> > ---
->> >  drivers/soc/qcom/llcc-qcom.c | 19 ++++++++++---------
->> >  1 file changed, 10 insertions(+), 9 deletions(-)
->> >
->> > diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom=
-.c
->> > index d7a42a8040a16388a79c24e4d1f1e88de9c87ec0..df213548637351fdaeeb81=
-b860f0ee2631f2062a 100644
->> > --- a/drivers/soc/qcom/llcc-qcom.c
->> > +++ b/drivers/soc/qcom/llcc-qcom.c
->> > @@ -3869,7 +3869,8 @@ static const struct llcc_slice_config sm8750_dat=
-a[] =3D {
->> >               .priority =3D 5,
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> > -             .vict_prio =3D true,
->> > +             .ovcap_en =3D true,
->> > +             .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_MODPE,
->> >               .slice_id =3D 29,
->> > @@ -3923,7 +3924,7 @@ static const struct llcc_slice_config sm8750_dat=
-a[] =3D {
->> >               .max_cap =3D 7936,
->> >               .priority =3D 7,
->> >               .fixed_size =3D true,
->> > -             .bonus_ways =3D 0x7fffffff,
->> > +             .res_ways =3D 0x7fffffff,
->> >       }, {
->> >               .usecase_id =3D LLCC_DISP_WB,
->> >               .slice_id =3D 23,
->> > @@ -3946,7 +3947,7 @@ static const struct llcc_slice_config sm8750_dat=
-a[] =3D {
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> >               .cache_mode =3D 2,
->> > -             .ovcap_prio =3D true,
->> > +             .ovcap_en =3D true,
->> >               .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_CAMOFE,
->> > @@ -3956,7 +3957,7 @@ static const struct llcc_slice_config sm8750_dat=
-a[] =3D {
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> >               .stale_en =3D true,
->> > -             .ovcap_prio =3D true,
->> > +             .ovcap_en =3D true,
->> >               .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_CAMRTIP,
->> > @@ -3966,7 +3967,7 @@ static const struct llcc_slice_config sm8750_dat=
-a[] =3D {
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> >               .stale_en =3D true,
->> > -             .ovcap_prio =3D true,
->> > +             .ovcap_en =3D true,
->> >               .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_CAMSRTIP,
->> > @@ -3976,17 +3977,17 @@ static const struct llcc_slice_config sm8750_d=
-ata[] =3D {
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> >               .stale_en =3D true,
->> > -             .ovcap_prio =3D true,
->> > +             .ovcap_en =3D true,
->> >               .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_CAMRTRF,
->> >               .slice_id =3D 7,
->> >               .max_cap =3D 3584,
->> > -             .priority =3D 1,
->> > +             .priority =3D 3,
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> >               .stale_en =3D true,
->> > -             .ovcap_prio =3D true,
->> > +             .ovcap_en =3D true,
->> >               .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_CAMSRTRF,
->> > @@ -3996,7 +3997,7 @@ static const struct llcc_slice_config sm8750_dat=
-a[] =3D {
->> >               .fixed_size =3D true,
->> >               .bonus_ways =3D 0xffffffff,
->> >               .stale_en =3D true,
->> > -             .ovcap_prio =3D true,
->> > +             .ovcap_en =3D true,
->> >               .parent_slice_id =3D 33,
->> >       }, {
->> >               .usecase_id =3D LLCC_CPUSSMPAM,
->> >
->> > ---
->> > base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
->> > change-id: 20261113-topic-8750_llcc-bd228d96b455
->> >
->> > Best regards,
->>
->>
