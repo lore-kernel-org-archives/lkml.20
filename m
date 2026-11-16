@@ -1,63 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837974;
-	b=ludng22Y0nw8RwQgvmK1m3reQDTgY3OK/QngnqnjuSsXV3aY5bkaK2fhEa6c0cOi2GBB
-	 /Uq9YptjddGj2xX/PW9bb1PMVvGK85BqsBvjRhSiAuJgJ9ri9voi5bH2MJNJngxKHJBlG
-	 1Fabn5Cw0stExfoeWij0lU4ghgy8gmLhTY79+SPj1+vS9VcQdo7pHpLb2Aq93ZR9X+syX
-	 sQ6TV+FEh+ru35pnXCXTxUrGG+HDXwzA5SAhC97DYuBINhrlA0fkx+VyRfTGNg+lBeCH/
-	 9oCGu91yGjinNtoQ89TqyCNKtDrdbJbhfe2IEHSZTWuJGHjNIOmxa4yAlfc0GmHyTZg==
+	t=1794837979;
+	b=YmeC1ND8UwdA+cwBnGgv2IL6UPyVDdOkvNCowAQLTtMIapF2jC/2VqeKsluasR6twKXL
+	 zRIaUPaJRq6Hiya42q4VasL3GAxOKBgWwDuLbdK3DmK7Ln3m4g7t/T906sJJB74Zc7yeo
+	 /vZHy4xOPhtUlS0AD33hn5AfyDByCj681+mbhodafn0utU1Cya3YRai5Tfxi4uePqsXZ1
+	 j7Aq76iTBaNg6YMsqavCYLTEIOj9WPGG5aRn/TldXyVsE3YxvcYJuNIMDYY6ogGlTsrbi
+	 /wqhmnErH7r2Cn5eA5pB5Ws+cCXao1XlLUYqIPp7/CrEawDGvYTxUhtSjzMeSP1nBcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837974;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KwLcRkPnstUk3ARTGuc1rQhwhKTM1szKdxcAeiFBkdE=;
-	b=ULbbc4uidFMIE37mtboo8cUnxY27dV7B1p+dCo+98E4CSHheC4jNfZJYoL3Pl2hau5PX
-	 Egr6PiSvIdG4NNW9i0Cv0h1YFTSRDf55vpI5aYyAzYyb+tv/OMnqoHnp9+ORLDd8BRtNL
-	 3Lym+9Q1oD/4O6Ct487lgQ8nekKWP6Uf9u2+fUY2UnIfmToD9Tc/xKv0qA55ymOzhF5fe
-	 KchuHLMO54zAvU/lLlGqXqpXQimLR6CVItpFmY/k68q2zyBO71ZCR3Jx6yaHQFwlpP1e8
-	 N9zcCFxlBtLX7zXYN2TGddtGwEdiuc1ayc/KABrWblQ2DcfFg/geCpvO6nK4JUzLE8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837979;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=uQ490Z9YD5Zb0B6sUGm01PlusvpF3yI7T/jSq/07g/M=;
+	b=WWvMaJ+KGa1jqGkiFGdkAMClj3r6R6fM1GExIwbdX0rBEEYMVI+AnfkH160WHx8Uqwe9
+	 A8jpReKHL2ttAkrtg56wlz/VqCEvg8j5IZQROwicw1XcV5b9Pd3v4azvyiqPG69rUA/Ld
+	 tkP1orfBfUl3c97rjd0/GwVX+5h3ZVS7dhWj8H8O5ntVVBcwPmffnVaPjkX4c2nDCrqiQ
+	 HC0GKXaGU/FiK+I0my7QW+b+x6LNBiFqUN/m2TS5qcaJfRv1+SJ5RhMews4+WCGvLjT0Y
+	 W7wuUGZ4URh++d4oaxtVj2BslxfoTAvrXM7J/rk04XOMB/n4x+c4viKnzkRoQvNe+Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNhC6SCb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=1HFFJoh+;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A860C606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D236606A323;
+	Mon, 16 Nov 2026 14:06:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D236606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNhC6SCb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C401F000C4;
-	Mon, 16 Nov 2026 14:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837974;
-	bh=KwLcRkPnstUk3ARTGuc1rQhwhKTM1szKdxcAeiFBkdE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iNhC6SCbyr0bjFPBo14UC/W7m2erFrHGvPCaV/tq/GtUg9VgQ1X55EbHnWLAN34RF
-	 Hxhdx/seKwL9IL/yEjutCzYGl7TjUSuOAIJR7MPQUhyuwXWaMKTgygymIY2/TCYsYk
-	 zpmy5KRgNScVZYzoyv14PJuZ/oKFuBQJcx9oR1I2022PhSeuE/BfjZOX7O7amGmSWc
-	 Iyr+52DO80d654LdzhMqw7A7OFODbn5e32tBVAn06TClFDuulRpi/HdNNXkjZnZAe0
-	 qZ6IwI/WQKLC1bPnM/MX30nMMznlMqrwdV+ooI2Tqx0eup85FP0k9kWzc56XMBgUqd
-	 dBK9wxEjcHBVA==
-Date: Mon, 16 Nov 2026 15:06:08 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Sascha Bischoff <sascha.bischoff@arm.com>,
-	Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v2 00/10] irqchip/gic-v5: Fix misc IRS and ITS host
- driver issues
-Message-ID: <avsN0E-6_7kU3pTk@red-moon>
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
- <20261112145814.853424-1-fuad.tabba@linux.dev>
- <avrzusx1g1ZICo0Q@red-moon>
- <CA+EHjTyGQbS7zcHSRg50c5xVN2AY4AmMc7JqNAvrc=_UhPQ+kg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=1HFFJoh+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=uQ490Z9YD5Zb0B6sUGm01PlusvpF3yI7T/jSq/07g/M=; b=1HFFJoh+0tpJ0TOZ3zWzqtcsUY
+	E4OTYeSRkFn7qsyit+tbv+xlPpIpqHjU4JNK9Ltud7e0GyoeIc30NOfg5p6b3t/mc2XhPSIZYOoEq
+	FkhXkTIEm1DDzaEx2P4ZyoMm1Z3ka8/fnnolMESRLsEXRwkc6RJWfPImhDQQaL5RLC80=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xSxLW-00GvtA-27; Mon, 16 Nov 2026 15:06:10 +0100
+Date: Mon, 16 Nov 2026 15:06:10 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linusw@kernel.org, luizluca@gmail.com, alvin.sipraga@analog.com,
+	olteanv@gmail.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [PATCH net-next v2 08/10] net: dsa: realtek: rtl8365mb: program
+ the PCP of untagged frames
+Message-ID: <e3e3ec6c-1242-4072-a251-8571add37013@lunn.ch>
+References: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
+ <179478369746.3136.10805769576309531848@kernel.org>
+ <avsJ-gmYVHqx48ON@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,63 +69,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+EHjTyGQbS7zcHSRg50c5xVN2AY4AmMc7JqNAvrc=_UhPQ+kg@mail.gmail.com>
+In-Reply-To: <avsJ-gmYVHqx48ON@pengutronix.de>
 
-On Mon, Nov 16, 2026 at 01:28:56PM +0000, Fuad Tabba wrote:
-> Hi Lorenzo,
-> 
-> On Mon, 16 Nov 2026 12:14:50 +0000, Lorenzo Pieralisi
-> <lpieralisi@kernel.org> wrote:
-> [...]
-> > > invalidate have the same shape. The question is, can an IRS miss the
-> > > poll, or is a timeout here only ever a dead IRS?
-> >
-> > Thank you for your patches Fuad.
-> >
-> > The latter, though freeing memory on timeout wasn't a good idea given
-> > that there is no way to cancel the respective, pending, mapping.
-> 
-> Thanks, that answers it. If you'd like a patch that doesn't free the
-> memory on a timeout, let me know and I'll send one.
+> Restoring the old PCP does not help here. A write can fail for two
+> reasons. One is a register access the regmap configuration rejects;
+> that is a driver bug and shows up on every call, not something to
+> recover from at runtime. The other is an MDIO bus error, and then the
+> restore goes over the same failing bus, and the state of the switch is
+> unknown whatever the driver does. Reordering the writes does not help
+> either: either order leaves one field new and one old on failure. So
+> v3 keeps the code as it is.
 
-Thanks. Again, if that timeout expires I think we have more serious
-problems than the IST mapping but I do agree that freeing memory
-is not the answer; not urgent - please send a patch given that
-you spotted it, can obviously do it too.
+The LLM often does comment about MDIO errors, but they pretty much
+never happen, and there is no recovery. So i agree, this can be
+ignored.
 
-> 
-> [...]
-> > > Notes:
-> > >     Setting L1 on every invalidation turns each registration and
-> > >     teardown into a range invalidate, both rare paths, and keeps the
-> > >     function simple. Setting it only when registration allocates the
-> > >     level 2 table would miss a registration that fails after the
-> > >     allocation, which leaves the level 1 DTE valid.
-> >
-> > I can't follow. I agree that we have to invalidate the L1 DTE on
-> > L2 allocation but that's a one-off, I don't understand what issues
-> > you are pointing out in the Notes above, if you can point out please
-> > the code paths it refers to that'd help.
-> 
-> gicv5_its_device_register() can fail after
-> gicv5_its_devtab_get_dte_ref() has made the L1 DTE valid, and before
-> the gicv5_its_device_cache_inv() at the end. That happens if the
-> EventID bits check fails, or the ITT allocation does. The L1 DTE is
-> then already valid for the next device registered under it, so that
-> registration doesn't allocate a level 2 table.
-> 
-> The patch Notes were about setting ITS_INV_DEVICER.L1 in that
-> gicv5_its_device_cache_inv() call only when the registration allocated
-> the table. In that case the failed registration never reaches that
-> call and the next one reaches it with L1 clear, so this L1 DTE is
-> never invalidated. Invalidating in gicv5_its_alloc_l2_devtab(), right
-> after the L1 DTE write, is the one-off you describe. I'll rework the
-> patch to do that instead.
-
-Yes, I think that's what we should do - invalidating in
-gicv5_its_alloc_l2_devtab() once for all and leave everything else as-is
-matches architecture guidelines.
-
-Thanks again.
-
-Lorenzo
+	Andrew
