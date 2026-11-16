@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853684;
-	b=YuKUneAU/5w/ys6IND5sdjSSjW7uq39Fkx16nrOMwYtTsfNzVzdl9nu1Cz3CUcG75EMI
-	 7SKlSEDU2CyUkVqwvRYeXZwb3TevsTcrvjF8QiynwdVM7IyS0ssYH0lkLSnVnlc6YSKis
-	 E3cSMDNXky8FW448342h/r6DbTsng2b8w2B40nx1PugnmfX7EsOnM4FlH6gZCs8c5biOP
-	 RkuOXoFSYv/c894j47IOpChEzIG71mbAmWwAYlIppCvNw+JiV0effemEOfJeUKUdsU0+U
-	 NA8wl4QUYz3SJRiY4/Xfbiqhg23Ax4KGvmhIcT+U1f5o6Bp6R+Gw4M/FC7/ArzcFvpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853684;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=fxJgyiv8oOoTp+D10o3vZr2gQ5VGkKt/9+lDC8DjeV8=;
-	b=faxlFgdBPXKKzREws85QaiGZTeGkvAP5ZY0796HJu5agQuQx4s5AccZ2gJfwMTXm30eo
-	 FBcV+PRykYkyJMZoe9idLCxE/VXhOZEFVuEZzvuuZ92Y4x8MWWfjH+Dyvv1Miii3nQhU+
-	 XFhytzMkX0tcdYgYYKSaM7+R7ZFcZ3zlu4UcLLFQ6jzeW12uOp4RiD/oEUMzoQ6t54+Od
-	 bMFZextfeN6DzJiTQmu8u25s+lm4Lg4ejVhj92/Riur2zc6FHlOa7unBeDn8foLldWb1G
-	 jMW9ARWnn57rLut+RJVqq62Ip8hfAdlHOxbgBEN78b/K0VFOADdZjUbbGpf57Av8i3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuzLia+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794853749;
+	b=K88HhpWh0+g4Cu2lAMl2vpjhyqgFpTfc+PcJJU0x+pnqjeu2w7nWEKU9HkdapIZBS7kO
+	 Fc3z5JRvjwQfqRtWXONyRtUQxC+dzpr4teUjnwUe2SzjCEbMWfqh0AZhRVl2rCBBPIQVq
+	 dsIiZm2S8UCfr+/n+KhkY+m3cowwrAZ1otghKOlz4DJFRLWD5eFQRVMDoiIwnSWxuhVgB
+	 /HESF0oE8wEhi/lXREv9PBl/W6xco/5S88CeRPDAunqaI/MeDfPmEuymp6pUge4m91Ipw
+	 EbcUg+8JIDXFDnEPF0j4jWWQjf9aaIyAifGpLEcq54bWArIpbJm3Ml86Y83LT16aklA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853749;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CMURHZUEjPGHjKxsa4r9UiTn+rQOp1qEEaG1lKbmkKI=;
+	b=voTx3ew06sCbZBfr246bDSdtMv5+xCYI0PPVxKDSCCH/GDkWGvv9eZfxLeEA/mPNTTU4
+	 UoEygW3DIBcsULDvwGuvYzLKBorl16nIY3r7lEY0q0/UEPV/OA6NnKC3r4v49yg/QxgDk
+	 VK+HvUl+VqlDwI6zNKD5y8tcaxvXt5MvkiIepDgCwEEBLEX4R394WOJHw8Z0ydSjILer0
+	 xb9NjPIdTPpHlPd/UYw0dZcMePqDeKMuJGBEu7/CLxvfmU4JAMQB1FyQSq7wXRgc/kePf
+	 wIi94k9Pm18NeXvXlfpMlg+CqTYfeenWrGFyBhQmFWDnAOSeWQlBRpRe6STVF6FNtoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FHImyXqj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5EB606A31C;
-	Mon, 16 Nov 2026 18:28:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E03606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:29:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E03606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuzLia+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807661F000C4;
-	Mon, 16 Nov 2026 18:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794853684;
-	bh=fxJgyiv8oOoTp+D10o3vZr2gQ5VGkKt/9+lDC8DjeV8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LDuzLia+wSrpqSKniNnq7YdBi008lPmTmB6a5Mw7m/LdU+dcPV1j0VQ9nifZZQFnT
-	 yb9MZImV/S1D7lbk/kcjkXFpISHnmCTjcAsn+VgSd9rm2gWMy8LyMxIT0qMOrLfKu1
-	 j6Mxi7WDHsvhEsABKYCRi+IE7+gLVoZOQP2feZKsd5xQwyOMTHJQ/8oRurun7b+/dO
-	 SwIoMHCyUlMRbI1VBnTDX46KBIkklYH6ElSRTh0YetC3g+C+SONPLR1bRsERQgNXPP
-	 Qo8VELssED7aMNd4fOrsA3ILxVagE1dWk3Lskq6VTxbzCwJC+SeKXcmD99AdtCIGfT
-	 l/CiNmzaCjMcg==
-Subject:
- Re: [PATCH net-next] net: dsa: mv88e6xxx: Enable LED control on 88E6171
-From: netdev-bot+sashiko@kernel.org
-To: olek2@wp.pl
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 18:28:03 +0000
-Message-ID: <179485368308.3136.7792285463770201069@kernel.org>
-In-Reply-To: <20261115181305.2860498-1-olek2@wp.pl>
-References: <20261115181305.2860498-1-olek2@wp.pl>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FHImyXqj
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-490f38e9688so114277f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:29:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794853747; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W5Vp4+PT130WI64SaOVPdYdiNiBfPUU25feX1zc8Qq9phog+WoNRA2qoaHz7PhCRkz
+         GKsRcC1tUX/vYEgDCyU/+HLMJ1jvm+pHi3yxlI1aCfflLhFTB4Q/BYDIwfWSBQixrRM2
+         o4k+mJyE6c5BX4v4AQzqh2GVqF3meKl0kM2PJztBPyGyOZiKtizFMUYp+ED0P0yQBiVv
+         Siso4aZHe8+iJXretxgBsAwESpZWrtni5N8ejQbeVKrJ2PbhaIkExy/BMEbCXr5k+aVL
+         q0VgCtzSb/VhPZclnUMrE/MjFLPOWX5TDW8gdZAQGh6J7/tPwC9gXzlMXqyM5qVm2JPe
+         EkBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CMURHZUEjPGHjKxsa4r9UiTn+rQOp1qEEaG1lKbmkKI=;
+        fh=UWZpXiqvrOMD8MQo5r9acQfmyVPmct6w6rTqUcgfsmg=;
+        b=F4GQZxNlgaup0iiZaLTynmlZ5GoEY1dd0f9gi/7/7tOOyl1qDGxc1UFextmUwCGXE8
+         p9YQt3sgfV8nVJCnzDXux6AK1u+2D8FcMpDjBTL4tEfp/51fvtOZBvK6GstZDNDcQckC
+         4P6QMGO+nsq8pTbywwRiGZ4gchxiEuZJ4TW8Ks8QdtaoMAiMwPHEtUrJW2f23OR2VdNE
+         pmGeoYFbr+17T+mqxmbCY5p1FpUFIgKVlEDE8yArMXObZpTOjiuXQgCuwkms10D9h/v2
+         WYQ0MOkS95RnaK1sRru4/Vps6QC/1ZvjSrkvS6j3aCdgYZmJoQJnMfM3R62xyjYPkh5m
+         2vIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794853747; x=1795458547; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CMURHZUEjPGHjKxsa4r9UiTn+rQOp1qEEaG1lKbmkKI=;
+        b=FHImyXqjKF54qvn1mc2RE3gV2hCnlWIaWAw6NqqnL8cS3+c3Jial2vTg35lmI2Pgi9
+         4oaIRNBCSWFstH6oEijywsTaghGJAVPkfY/feKTFBfvLPDI8aJ0Ix1l6zNHzINX5IwsX
+         o0ZIkSp4mGgAHFTlDVwvnE8VXvGTf2QAAXZJbDbENpQOzcTDb8IRY7TbckfhfPQ3uQmt
+         vfD/7oZ7HfF2YHlDBzHKwm0p0Ok6Q3wVM8NYiFaoaOavsUJBsVL/+NQRVmj2RmVba6ma
+         8YKlzRMmrswN6C3H4uVHIVK/zHPWZuhVAsQCbW/YnQ8N7wkiJ69ryIioYoFVX59Jktf6
+         tRJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794853747; x=1795458547;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CMURHZUEjPGHjKxsa4r9UiTn+rQOp1qEEaG1lKbmkKI=;
+        b=eU+7p+HvaNmJZun7VSWv6grLVGkLRCEXEm96XKB/n8Sdt0j+d2fwvVumHRWH//70wy
+         RkEtJyjZiQ6WEO24udXZHYAJ15sHqKgDMuobWYqi3SeR8CDTq9SDACjYO7JbrOkHmwxM
+         mFJlljHCQgoTC+inwi8Rpq2Dt0rXQQQQvfdATauJ0eVavT55UjhtR4ms53sWuF/zYuvH
+         bKX/+/rgQeqQVa+a/P3AclMjIzMM3LW1OvJH/Bt0QdxZwMI3NYPJfou0TJsJ6lS20CGL
+         BYfTd6Qb4zgy9PBD3OwwjdKge+wxcehU9Qo8+lo5Qmou9Iiedd3iD42nItp9lITDxzPD
+         hQ5g==
+X-Forwarded-Encrypted: i=1; AL+hErEYWGctF5obctUId6c2IyfIVbmPmjsjlHGUvfpSCsBaaOlprJldllzddKRBreobdFnWArOL/dhNfNyXEaM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dFUDoXw/uxJk80QpmWYwViHBXfbsnfXGfHAK6SALT6uI9klna
+	SuCDl1u8InKQMg5WbRomYw+4hQkphe6LvviLABhuT/9xnVjE1HDTTLdks9sCShFdev0q15PqeLt
+	tw+sP0z0KffOQQgt+AJRnvb+Nqfkb7gC7sMfTesGI
+X-Gm-Gg: AZFdTZcOO7/DYBO3pcHApWSjxinKnCqZ59mLEYY5pzUUDcZvQdQnZQOE0LE1osIEklG
+	wAlZsLs9cNyyZl6OPd+bsk80NX7sxzRMLPL8JxyutWyG7dfSRS4k5QSp4zFo8lUquFQkfvlIjLo
+	BypKs32FX0G2M4W72g0wtEDf2+gF869zrsN25pbtCHmJ9hu14Ws1qmFp9T9rNWKQopyX2ihoxoX
+	8hZbF/NwLBiF3iUldTkWlqhM4MP4vpo98MxIcZC43zFNOevJMJMS2rr28/wNtGtjSWNk6TKemKN
+	bOxSjSBRpRFbIfEpVgh8B8GdajP2x4/nu+R/RqxnnYIsAi8G9BxzBUKgxgjs2K3kW+V1TLpGYza
+	m2qO1wya9XYSeRcedRDfBjaDVQOephou/21R8sv1swDDjjKHL1TXl3U6jcYeev/N5BSALtSAQkU
+	dO7RyF7YrdaGDRLfZ3uUFNmSH2sTuiEbYdrWbj00iI+5u+4Ayd+baru8W2/0gnDZ02wSamejFIR
+	CnMKlvSqQJ3nETCpwHsh3nVB2BiMxUmRlB/jCY=
+X-Received: by 2002:a5d:456d:0:b0:498:be72:6364 with SMTP id
+ ffacd0b85a97d-4a376860342mr482276f8f.19.1794853746846; Mon, 16 Nov 2026
+ 10:29:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,232 +106,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
+ <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local> <20261114204605.GA173332@ax162>
+ <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
+In-Reply-To: <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 16 Nov 2026 10:28:54 -0800
+X-Gm-Features: Aa3M54qN3_OoGAqkQOkSbWOChdqyPPowLr2H70kPaYwIzW6n-JgVCrQ_Fg1xSn8
+Message-ID: <CAKwvOd=f+ib1XVvFfiW2mF8NoWo1jr55fJo=QOuZCJmzQCVmtg@mail.gmail.com>
+Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
+ non-x86_64 hosts
+To: Borislav Petkov <bp@alien8.de>
+Cc: Nathan Chancellor <nathan@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sat, Nov 14, 2026 at 12:58=E2=80=AFPM Borislav Petkov <bp@alien8.de> wro=
+te:
+>
+> (If it were me, I'd simply whack that native thing. It is such a waste of
+> energy).
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1 (1)
+There's always KCFLAGS.  i.e. we _could_ remove it from the x86 build,
+and <whoever cares> could still do
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+$ make KCFLAGS=3D"-march=3Dnative" ...
 
-- [Medium] mv88e6xxx_port_setup_leds() (drivers/net/dsa/mv88e6xxx/leds.c)
-  now installs the four hw_control_* callbacks only when the chip has…
-- [Low] The commit message only talks about enabling LEDs on the 88E6171.
+(I'm agreeing with Boris here)
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  extends it to the 88E6171 and adds new callbacks that hit it.
-- [Low] mv88e6xxx_led_set_blinking_period() ignores its `led` argument
-  and rewrites the per-port Stretch/Blink register (pointer 0x6, "for…
-
---
-
-net: dsa: mv88e6xxx: Enable LED control on 88E6171
-
-This patch enables LED control on the 88E6171. That switch has four LEDs
-per port and a register layout similar to the 6352 family. The patch also
-adds per-chip num_leds and led_hw_triggers fields, LED2/LED3 register
-definitions and callbacks, and installs the hw_control callbacks only
-when led_hw_triggers is set.
-
-> diff --git a/drivers/net/dsa/mv88e6xxx/leds.c b/drivers/net/dsa/mv88e6xxx/leds.c
-> index ab3bc645da566..925c120afba33 100644
-> --- a/drivers/net/dsa/mv88e6xxx/leds.c
-> +++ b/drivers/net/dsa/mv88e6xxx/leds.c
-
-[ ... ]
-
-> @@ -526,24 +573,40 @@ static int mv88e6xxx_led_blink_set(struct mv88e6xxx_port *p, int led,
->  	if (err)
->  		return err;
->  
-> -	err = mv88e6xxx_port_led_read(p->chip, p->port,
-> -				      MV88E6XXX_PORT_LED_CONTROL_POINTER_LED01_CTRL,
-> -				      &reg);
-> +	if (led == 2 || led == 3)
-> +		err = mv88e6xxx_port_led_read(p->chip, p->port,
-> +					      MV88E6XXX_PORT_LED_CONTROL_POINTER_LED23_CTRL,
-> +					      &reg);
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but it now affects up to four
-LEDs per port instead of two.
-
-The mv88e6xxx_led_set_blinking_period() call just above this ignores its
-led argument. It rebuilds the per-port Stretch/Blink register from
-scratch:
-
-drivers/net/dsa/mv88e6xxx/leds.c:mv88e6xxx_led_set_blinking_period() {
-    ...
-	reg = 0;
-    ...
-	/* Set up blink rate */
-	reg |= MV88E6XXX_PORT_LED_CONTROL_POINTER_STRETCH_BLINK;
-
-	return mv88e6xxx_port_led_write(p->chip, p->port, reg);
-}
-
-On the 6171, a blink_set on LED2 can change the blink rate and pulse
-stretch of LED0, LED1 or LED3 on the same port. That happens when the
-other LED is in forced blink or a hardware activity mode, and the LED
-core still holds that LED's old blink_delay_on/off values.
-
-Is it intended that one LED's blink period changes the other LEDs on the
-port? The result is only a wrong blink rate. Nothing crashes.
-
-[ ... ]
-
-> @@ -576,6 +639,34 @@ static int mv88e6xxx_led1_blink_set(struct led_classdev *ldev,
->  	return err;
->  }
->  
-> +static int mv88e6xxx_led2_blink_set(struct led_classdev *ldev,
-> +				    unsigned long *delay_on,
-> +				    unsigned long *delay_off)
-> +{
-> +	struct mv88e6xxx_port *p = container_of(ldev, struct mv88e6xxx_port, led2);
-> +	int err;
-> +
-> +	mv88e6xxx_reg_lock(p->chip);
-> +	err = mv88e6xxx_led_blink_set(p, 2, delay_on, delay_off);
-> +	mv88e6xxx_reg_unlock(p->chip);
-> +
-> +	return err;
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but this patch extends it to the 88E6171
-by adding .port_setup_leds to mv88e6171_ops. The new LED2/LED3
-callbacks also hit it.
-
-mv88e6xxx_setup() takes chip->reg_lock and keeps it held during port
-setup, LED classdev registration included. If a DT LED node has
-linux,default-trigger = "timer", the trigger is activated synchronously
-inside registration:
-
-mv88e6xxx_setup()
-  mv88e6xxx_reg_lock(chip)
-  mv88e6xxx_setup_port()
-    mv88e6xxx_port_setup_leds()
-      devm_led_classdev_register_ext()
-        led_classdev_register_ext()
-          led_trigger_set_default()
-            timer_trig_activate()
-              led_blink_set()
-                led_blink_setup()
-                  mv88e6xxx_led2_blink_set()
-                    mv88e6xxx_reg_lock(p->chip)
-
-Can this deadlock probe on the non-recursive reg_lock that the same task
-already holds? The LED core's trigger locks would stay held too.
-
-With linux,default-trigger = "netdev", netdev_trig_activate() calls
-register_netdevice_notifier(). That takes rtnl while reg_lock is held,
-which is the reverse of the rtnl -> reg_lock order used elsewhere in
-the driver.
-
-Could the LED classdevs be registered outside the reg_lock section, or
-could the lock be dropped around registration?
-
-[ ... ]
-
-> @@ -771,13 +862,13 @@ int mv88e6xxx_port_setup_leds(struct mv88e6xxx_chip *chip, int port)
->  	}
->  
->  	fwnode_for_each_child_node(leds, led) {
-> -		/* Reg represent the led number of the port, max 2
-> +		/* Reg represent the led number of the port, max 4
->  		 * LEDs can be connected to each port, in some designs
->  		 * only one LED is connected.
->  		 */
->  		if (fwnode_property_read_u32(led, "reg", &led_num))
->  			continue;
-> -		if (led_num > 1) {
-> +		if (led_num >= mv88e6xxx_num_leds(chip)) {
-
-[Severity: Low]
-This isn't a bug, but the commit message only says "Enable LED control
-on the Marvell 88E6171". The patch also adds the num_leds and
-led_hw_triggers fields, edits the 6172/6176/6240/6352 table entries, and
-replaces the fixed led_num > 1 check with this table-driven bound.
-Should the commit message mention these changes?
-
-Also, a future chip could set .port_setup_leds and leave .num_leds at its
-default of 0. Every DT LED would then be rejected with -EINVAL, and
-mv88e6xxx_setup_port() would pass that up:
-
-	err = chip->info->ops->port_setup_leds(chip, port);
-	if (err && err != -EOPNOTSUPP)
-		return err;
-
-All current users of mv88e6xxx_port_setup_leds() set num_leds, so
-nothing changes today.
-
-[ ... ]
-
-> @@ -805,17 +900,27 @@ int mv88e6xxx_port_setup_leds(struct mv88e6xxx_chip *chip, int port)
->  		if (led_num == 0) {
->  			l->brightness_set_blocking = mv88e6xxx_led0_brightness_set_blocking;
->  			l->blink_set = mv88e6xxx_led0_blink_set;
-> -			l->hw_control_is_supported = mv88e6xxx_led0_hw_control_is_supported;
-> -			l->hw_control_set = mv88e6xxx_led0_hw_control_set;
-> -			l->hw_control_get = mv88e6xxx_led0_hw_control_get;
-> -			l->hw_control_get_device = mv88e6xxx_led0_hw_control_get_device;
-> -		} else {
-> +			if (mv88e6xxx_has_led_hw_triggers(chip)) {
-> +				l->hw_control_is_supported = mv88e6xxx_led0_hw_control_is_supported;
-> +				l->hw_control_set = mv88e6xxx_led0_hw_control_set;
-> +				l->hw_control_get = mv88e6xxx_led0_hw_control_get;
-> +				l->hw_control_get_device = mv88e6xxx_led0_hw_control_get_device;
-> +			}
-> +		} else if (led_num == 1) {
-
-[ ... ]
-
-> +		} else if (led_num == 2) {
-> +			l->brightness_set_blocking = mv88e6xxx_led2_brightness_set_blocking;
-> +			l->blink_set = mv88e6xxx_led2_blink_set;
-> +		} else {
-> +			l->brightness_set_blocking = mv88e6xxx_led3_brightness_set_blocking;
-> +			l->blink_set = mv88e6xxx_led3_blink_set;
->  		}
->  		l->hw_control_trigger = "netdev";
-
-[Severity: Medium]
-The hw_control_* callbacks are now only installed for LED 0 and LED 1 on
-chips with led_hw_triggers. hw_control_trigger is still set to "netdev"
-for every LED, though.
-
-Two groups of LEDs end up with hw_control_trigger set and all four
-hw_control_* callbacks NULL:
-
-- every LED on the 88E6171, which has no .led_hw_triggers in its
-  mv88e6xxx_table entry
-- LED 2 and LED 3 on any chip
-
-The LED core decides whether to expose the offload attribute only from
-hw_control_trigger:
-
-drivers/leds/led-triggers.c:led_trigger_is_visible() {
-    ...
-	if (attr == &dev_attr_trigger_may_offload_to_hw.attr)
-		return led_cdev->hw_control_trigger ? attr->mode : 0;
-    ...
-}
-
-Won't these LEDs show /sys/class/leds/<led>/trigger_may_offload_to_hw and
-report "netdev"? The netdev trigger can never offload to them, because
-supports_hw_control() fails when the callbacks are NULL.
-
-Documentation/ABI/testing/sysfs-class-led says this file "Only exists
-when the LED supports trigger offload".
-
-Could the hw_control_trigger assignment move inside the
-mv88e6xxx_has_led_hw_triggers() blocks for LED 0 and LED 1?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115181305.2860498-1-olek2%40wp.pl
+Nathan,
+Was there a bug on file against clang for this?  I can picture a fix
+in my head for this...
+--=20
+Thanks,
+~Nick Desaulniers
