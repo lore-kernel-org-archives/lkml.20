@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851649;
-	b=GYPbysHRKTUZBIy+tO04tC9U4M0rkd6Ql0qncXnNmfls8BR6YUJPW2/mwDA0hdp35keD
-	 3cwt9gnb47rbSqV7OO5ary9vQqxY5cXKZFiYpooTSJTSSVnOVBaet/Vb8KRiGNqPuFdsz
-	 L6412wxEasCy4oOSrhsRp7e03If2+M//lquF5ay42uF1/sAvKq1VMrVzZOC9x+DKW3A9L
-	 nILAIg3mg6LQioBuFbXgzPkaRfm+nbMfE5G3Kgl9zk1GC52iKK4QpgZqETv5ErXgzUaCm
-	 +QE1u475rthQviUWDI3t8hE1zkEycuV+G+3u4p+GVOh/c19dXscdITTxEI+Q9dP3xrg==
+	t=1794851640;
+	b=40Qq2oBua78BMHrzNrenc/cz5bVgm+1aOXpEHRIJ+8M8k1AgEML4PFRPt33t6UEHjzAm
+	 X2zUnk3nQbgfXotu8aW5i8HJytzQ0DDa55uRPaTfnYC0iLeeJjMubBvtDtbDJRvOHuVDm
+	 1eGH35Od6H9jOZdBiWK9NzL/VOQKA45sxS3TQMzRe1wq18xtlWa+Qu4lw/UjrVVK7J2YS
+	 sbZf9VJllqlduHS2XPrmOY/moyoe3JGpJW3B5xcA/E1my/+JrsWB+7MX05TsAgLyLmsr9
+	 vfe5iEK/Ay2wy7lCxqUq/z0uB0yLqgtUZBi8nimCJGq6vX1vRwNFQTeO8soYj284GDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851649;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=u/WDt4ovHgV1XKKVK2ChwQHHRdL8kTKBELJvnvQN584=;
-	b=z1vpOJ5tMnOILECEs5F6C0GyN3B6H9DWtxjZH3Xlt2NG3LxvPs9ylTw7f1/vnwOTmKn/
-	 GL4K96XihHVAi4SDTLyJ61LAYv1uQuLonnt1uIwrVupoA/zcDxmrfxq84LIGJG8g2HGMH
-	 EDJ8hg/Ey2UYrWFoQ1GAMKNICqcg/JUTbd46ANAI/o2eG9KoQhG6e7ePNzPqYJ47T//HH
-	 jQXTF/hKsEWOS+okIJkkyUM0giUEjZjfeMOsbDnHa5cvawnZtL2k6zGg27Y6bMw2U1KuT
-	 lpriugDQWB8CiBwTNegRP1p+beJ3aMj0+YcpCLKNdJPPmzK6RI7KR5JlEOE7MHGx/qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851640;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=52QgrSKsfSH7NwDCbCOwCK+9x4DB/HxzeFNx2X6f/cc=;
+	b=Sg+c+6oQhI26N4cvPqIlw41V28cow6HPdEd1G7+1jFbaumnxb5lBuxRfNgs2UsHjAQUN
+	 4hqiakBeg9n/SHlaUqs9csUPm/KPOoWOsazJ3EkMfk34tftwfjL9yI5YFjnjSLUdgtnYD
+	 1j5+KcYHo2SzQnj42W+LkqaLX4SKHfSsLF2S7UUiIqTLRVBZV48/EtOCx7/FpgAyEE1mp
+	 EeFuTZZ2zNAAm+0e0rvZrj/gZLYC8E35HeeVLBAdZMgOFTttrCMPY+JvcbLiACghECzfh
+	 3Yy0VE28Omo4xWvR8jEa+4N2MbI9OwJSWoW0wDbZEMvhZTMiM27AMqgBPpylMpUVccQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF28606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:54:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF28606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c734afb8deso4346167b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:54:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851646; x=1795456446;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=u/WDt4ovHgV1XKKVK2ChwQHHRdL8kTKBELJvnvQN584=;
-        b=VrUf63EQ5Xq474LyVNl7uYR1rW2IG4u//H1Cf5ySkRT0Lm8lwMDaZtpXkLRoTCEcIh
-         dzgrpeiHdG3IlBufwLHWJXgnlhZPgHVby4AMLYZvsEXlLeSrTf2qxdLNTpYD6hu+4bGa
-         1FsVYo18zSr5BslRm4NgLXmSCZ20ocpI64kjOrDLfaIrGqt5dgHvy0aUmE7F5FuHoiKb
-         l7TFtoEt9HPMsyTVuELHUZxLZa51l30OCcyr3ON2O7q6xTE8RXctpAVMl1Wkr40tKEo+
-         BUwv3gDYLRpu10Vn0VkW8o7fUdXLKcLFYaDuyuX3/o8zAh/DElfsxUShJUsaSN82B3w9
-         erVA==
-X-Forwarded-Encrypted: i=1; AL+hErEHHcl6ipDonks1oPyrJsYnq0cg8KqMlcqQAMSXAn/S2mTinG/Cs/QuEe/IjF/iAAlXnhjmFH5foANV8/s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aleCXEr9fJPMPiTJ/0ZIF65fXACKqW2lscjJpAsl5+wps7Rku
-	OFm5Gl9MJZoz7b7SgBLjXeU8OItbBf6YaEyOzhciuch/3cCOlh77t30cJ55LTwZVrFwXwRV8iB7
-	tP4bCK6JJuDeWvcSvdqXCh5WykURC+QQLcBMnISC/GeekGBYBBVH+kTti4m4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB72606A884;
+	Mon, 16 Nov 2026 17:53:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB72606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:e6fc:5f71:2c1e:7d62:945f] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xT0tq-004GoI-1I;
+	Mon, 16 Nov 2026 18:53:50 +0100
+From: John Crispin <john@phrozen.org>
+To: Stefan Roese <sr@denx.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 2/3] dt-bindings: i2c: mt7621: add Airoha AN7589
+Date: Mon, 16 Nov 2026 18:53:42 +0100
+Message-Id: <20261116175343.344425-3-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116175343.344425-1-john@phrozen.org>
+References: <20261116175343.344425-1-john@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,72 +72,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6809:2793:10b0:571:846e:6f08 with SMTP id
- 5614622812f47-571847e2a59mr5136812b6e.5.1794851646470; Mon, 16 Nov 2026
- 09:54:06 -0800 (PST)
-Date: Mon, 16 Nov 2026 09:54:06 -0800
-In-Reply-To: <20261116175346.44221-1-founder@logarcheon.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afb433e.f3cfa7c9.844a4.0000.GAE@google.com>
-Subject: Re: [PATCH] gfs2: Fix NULL pointer dereference in gfs2_seek_data/gfs2_seek_hole
-From: syzbot <syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com>
-To: founder@logarcheon.com
-Cc: founder@logarcheon.com, syzkaller-bugs@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> #syz test
+The Airoha AN7589 carries the MT7621 I2C controller with a second
+control register holding a wider clock divider. Out of reset the
+controller uses the MT7621 divider, so the MT7621 programming works
+and mediatek,mt7621-i2c serves as the fallback. Give the AN7589 a
+compatible of its own so the driver can use the wider divider.
 
-Patch testing via #syz test is temporarily disabled.
-See https://github.com/google/syzkaller/issues/8122 for details.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: John Crispin <john@phrozen.org>
+---
+Changes in v3:
+- Add the Acked-by of Conor.
 
->
-> When the filesystem has been withdrawn, gfs2_glock_nq() returns -EIO
-> without queuing the holder, and gfs2_glock_nq_init() then calls
-> gfs2_holder_uninit(), which sets gh.gh_gl to NULL.
->
-> gfs2_seek_data() and gfs2_seek_hole() call gfs2_glock_dq_uninit()
-> unconditionally, so in that case gfs2_glock_dq() dereferences a NULL
-> glock when it takes gl->gl_lockref.lock, causing a general protection
-> fault.
->
-> Only release the holder when it was successfully acquired, matching the
-> pattern already used elsewhere in this file (such as gfs2_fiemap() and
-> gfs2_getattr()).
->
-> Reported-by: syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=5a5f492ccae698fd7434
-> Signed-off-by: William Chuang <founder@logarcheon.com>
-> ---
->  fs/gfs2/inode.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-> index 75fb1a0..4110b2d 100644
-> --- a/fs/gfs2/inode.c
-> +++ b/fs/gfs2/inode.c
-> @@ -2255,7 +2255,8 @@ loff_t gfs2_seek_data(struct file *file, loff_t offset)
->  	ret = gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
->  	if (!ret)
->  		ret = iomap_seek_data(inode, offset, gfs2_iomap_next);
-> -	gfs2_glock_dq_uninit(&gh);
-> +	if (gfs2_holder_initialized(&gh))
-> +		gfs2_glock_dq_uninit(&gh);
->  	inode_unlock_shared(inode);
->  
->  	if (ret < 0)
-> @@ -2274,7 +2275,8 @@ loff_t gfs2_seek_hole(struct file *file, loff_t offset)
->  	ret = gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
->  	if (!ret)
->  		ret = iomap_seek_hole(inode, offset, gfs2_iomap_next);
-> -	gfs2_glock_dq_uninit(&gh);
-> +	if (gfs2_holder_initialized(&gh))
-> +		gfs2_glock_dq_uninit(&gh);
->  	inode_unlock_shared(inode);
->  
->  	if (ret < 0)
-> -- 
-> 2.43.0
->
->
+Changes in v2:
+- Add mediatek,mt7621-i2c as the fallback compatible (Conor).
+
+ .../devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml   | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+index 118ec00fc190..ec42e72e267f 100644
+--- a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+@@ -9,12 +9,20 @@ maintainers:
+ 
+ title: Mediatek MT7621/MT7628 I2C master controller
+ 
++description:
++  The same controller is used on Airoha SoCs. The AN7589 variant adds a
++  second control register with a wider clock divider.
++
+ allOf:
+   - $ref: /schemas/i2c/i2c-controller.yaml#
+ 
+ properties:
+   compatible:
+-    const: mediatek,mt7621-i2c
++    oneOf:
++      - const: mediatek,mt7621-i2c
++      - items:
++          - const: airoha,an7589-i2c
++          - const: mediatek,mt7621-i2c
+ 
+   reg:
+     maxItems: 1
+-- 
+2.34.1
+
