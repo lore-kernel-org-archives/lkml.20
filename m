@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814179;
-	b=4CRmdaNluZYVTicIq8VDhuSPvftkp9XYsdmyCTSgv7iAdiQBl66RtE7IkMTLER5f0YQB
-	 rjIr1UyVauuvXuc7Ndb/LLiPhg6cfOmonsLSC3uhsVmODvCHvs2N+NwW4LfjaH/Snao8+
-	 YsrlCnKp+oE7Zaz6ZFV/USVK15RPXo2trZvNe/KqrNX1RI6y+sHoUGKRBJFzXErb2OcsE
-	 yu39qDSHSinmghNd4Ed5aPgsK2vNf50twe93RlETwrbIVAgr1sFajur/CmdiB506I2RPA
-	 nIIUVENpvDj3TZDh5G5L7c6yyywFmVNFra67Jm+vWbzhQPBqg8X0gJM6ubnIhkHK+xw==
+	t=1794814202;
+	b=JvrCd33qmylZS78c9Ugp7GAGUh2mlI5ahuntJEWpu16qGUmV07z/bQGbI3aemHfiIPZX
+	 ILS8Yn9KGF2DfLPbMuVLuLzsLSHn3Zmzm8xE8kjb90NkmLtN6sTGEKixC5wCdHbSGpbLR
+	 hf2dj6a8jSC0EAgkvdoTXKG7/viFUsY8aMflp7orMyLw7j+UU19T1jjq5TA90Fsa5fnSG
+	 y9Bxbb0Y6Zp2rQA74PbXTBIaN1L1SWb5XKOzCa93QN0TpBFlG7a06ku4av7yuJJiDMdVp
+	 6dVKqgut34F4ZVq+ZlU+p9ELDINy40k+jxdP0Z0P/ca7O1fDaIeFw+wIC8+Py6VWjTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814179;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gslwsSOHnTDJQMthG4yS+2Lt6ZuxgQnoAJ6oPGnvEDc=;
-	b=0fkR5x7+3PXxnpXHaIDrnptlp3EWnPrjJd/AgYY/NxizkVyrskAFvfgzo3otp/qcN096
-	 zRcFs2Dz/f+BoczA7uk6tqBs9oF3BOu5UzwAW0GYN/uJvy68bX9z3XVQUT5hQWEtGOv6o
-	 edl0fdSvs8u2QndVLUPuoORgJWR+yOLA8hPus8yVfy9MlGeCubJNW/K1tk22FQMAU3BVs
-	 LiPvBuJMCADWQ7o9FGhjDCKL6kYkf+sETct1Ac+saleSfA3oVATRL1vtFwDfLwzuxsy2L
-	 KlpGVlyW8ISiyJYePQvsToUV0wjJ3HP9Oti3yo3ckmbj6Qd1F5jmM547XgSeUdFUfQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814202;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=cpKxpc6WsFeeIjPOouIAutKYzzXcNv+Zda+j40xqrT4=;
+	b=HZnTGMb7ZnEFz2FXV2NlIwVkUorvMuYGN7UNrYeBgujQpS+nqJmeU/y8JVnuve2tQCMe
+	 ERsgsiqzEQDiw41jQ9s9baWGsjganhPhj0ytfU8lJD7kWx/m8mL8iaCcLHPi4TPjfYcFW
+	 ocwYtmfgZxXHN93iRlJxiLxsf3+ZIBV/D8XRIsrWIkumsu1/g3RmjPA3RLMqFsxtySCKF
+	 PJa+1HdHuysj823JCvfg3L0P+iItltLBCvp06LjxGqUiUstfNuPOQheBJr7SzAuBkpNx5
+	 +CwPTMDeza/IKe9MXFV950KpVd1Mu8avUReYpwWc2MAwduwWeEE+cfKrlpIlYZz4y6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=eHxVv26i;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=ZaDDPzsc;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1FE606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1FE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9A606A31C;
+	Mon, 16 Nov 2026 07:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F9A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=eHxVv26i
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794814167; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=gslwsSOHnTDJQMthG4yS+2Lt6ZuxgQnoAJ6oPGnvEDc=;
-	b=eHxVv26iNdbWkQC5Cr4DnOTiL5jWxECShMBsDeTeh24szj0mhUZ7jOh7c99pSrILBqa7yafzGO9JoH1EKS7niUaO2CgPegCfqo37GHf3VeXSzRoyt2uCN0HRxkPGeW2j6IwTdYMFKafiVbB+JRUebcSua1prSCnQRuiScek2WuY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XEnonjq_1794814165;
-Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEnonjq_1794814165 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 16 Nov 2026 15:29:26 +0800
-Message-ID: <b6449fe5-a697-4fa4-8985-fff2e0b0ed76@linux.alibaba.com>
-Date: Mon, 16 Nov 2026 15:29:24 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=ZaDDPzsc
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 2276B1F8CC;
+	Mon, 16 Nov 2026 08:29:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794814191;
+	bh=cpKxpc6WsFeeIjPOouIAutKYzzXcNv+Zda+j40xqrT4=; h=From:To:Subject;
+	b=ZaDDPzscN1ltEbMVzyLxLzy6ReDNSpiilgbf3In3Ed36NMvylO0xTU6O01WzZA2Mh
+	 rHctIcdBPAPpR80jH9vBnniG0FaigUtxWemjau0MNzGqQcjf4xnECf6gPTG3bM9Z48
+	 LSG58aLaCVa0/djiHJpH4W+WG9AJvYn5YJA9FlauHtU0B41LMFzd8TmDzlqf7XnWWl
+	 wh7Qy4grV0kfim9yxSAEAIOgiSlqZ2/upRHqPZIY1WdiAAmzQgfImcqmm6DAC8p76m
+	 StCGLsx2sKthKr8XUxUMawKMzs8CDzo1u21rPoiN2e9yEt2Nl0K+r9hPdx65WGcvry
+	 3tT8/c4txjCXA==
+Date: Mon, 16 Nov 2026 08:29:47 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 0/3] Add Lotus Carrier Board with Aquila iMX95
+Message-ID: <20261116072947.GA16341@francesco-nb>
+References: <20261112-b4-v1-aquila-lotus-dtbs-v1-0-ca150bb4b0f9@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,49 +68,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/mglru: use a smaller batch in
- fill/drain_evictable()
-To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-References: <20261116061158.333826-1-hui.zhu@linux.dev>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261116061158.333826-1-hui.zhu@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-b4-v1-aquila-lotus-dtbs-v1-0-ca150bb4b0f9@toradex.com>
 
+On Thu, Nov 12, 2026 at 11:37:32AM -0300, Leonardo Costa wrote:
+> This patch series adds support for the Lotus Carrier Board with the
+> Toradex Aquila iMX95 SoM. Lotus is a carrier board for the Aquila family
+> featuring a small form factor (Nano-ITX 120mm x 120mm) and built for
+> volume production.
+> 
+> The board features:
+> 
+> - 1x 1Gbit/s Ethernet
+> - 1x 10Gbit/s SFP+ cage
+> - 2x RS-485 (Isolated and Non-Isolated)
+> - 4x CAN (3x Non-Isolated, 1x Isolated)
+> - 3x isolated digital I/O
+> - 1x CSI
+> - 1x DSI
+> - 1x TPM 2.0 chip
+> - 1x microSD slot
+> - 1x USB-C DRP
+> - 1x USB 3 hub
+> - DisplayPort through a Mini DP connector
+> - A mini PCIe slot with USB / SIM card connector for a modem
+> 
+> Additionally, this series adds pinctrl groups to the Aquila iMX95 SoM
+> dtsi, muxing the I2S_1 and PWM_4_DP pins to their GPIO functions. On
+> Lotus, these pins carry the SFP+ low-speed control and status signals
+> and the isolated digital I/O readback signals.
+> 
+> Link: https://www.toradex.com/products/carrier-board/lotus
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 
-
-On 11/16/26 2:11 PM, Hui Zhu wrote:
-> From: Hui Zhu <zhuhui@kylinos.cn>
-> 
-> lru_gen_change_state() migrates folios in batches of up to
-> MAX_LRU_BATCH (4096) folios under lruvec_lock_irq().  A full batch
-> keeps local interrupts off for up to about a millisecond, and CPUs
-> contending for the same lru_lock spin with interrupts disabled for
-> that long.
-> 
-> The caller already drops the lock and reschedules between batches,
-> and the restart protocol does not depend on the batch size: both
-> functions make monotone progress, so a smaller batch only shortens
-> the irq-off section.  Use MIN_LRU_BATCH (64) instead, bounding it to
-> about 15us.  This is a cold path that runs once per kill-switch
-> toggle; the extra unlock/resched/relock round trips cost a few
-> percent of wall time on an otherwise idle machine.
-> 
-> Same change as commit 6e9be217a3ce ("mm/mglru: use a smaller batch
-> for reclaim") made for try_to_shrink_lruvec().
-> 
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> ---
-
-I'm fine if the small change can fix your issue in this cold path. Let's 
-also see others' input. Feel free to add:
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
