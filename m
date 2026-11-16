@@ -1,60 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859791;
-	b=Xm6bSsXT2F4MN4cEAEgZi7P2vyQH8MVgh30u+LTe1O/glL9HbttIpc8iZwSqRWw4TC0S
-	 DCO96C/f67A2+E0W8IRTjeFaBIJ/XkYnLH6PHipnOTsAdtIcAa5ZhI+2gS6UthK8PTJM/
-	 eL9la81Whu8e2tzQ4BFGrNsik9ttSgJAn/rNJWyBDJZbzmcjI70RllfFtKe6/0WPTG1Dv
-	 +1IjI22WgFYfVKKvKzja/2BcQQ7footAU1uIGd3eN3f5mBrPXHf03BV8PXpmHbR/vKvWg
-	 1mg9QmXjsNQrgmZhavHV/VEAA3+pDlJY1eTHuYg8EhaSJMCzWd5kpBkMJ+lk3EXgc+g==
+	t=1794859797;
+	b=QoC94d0zndT9MmiuUIqiscwihNoOlp4lSVDAIo1t7KvvYTrJj89VhADL47v9C6/tCY+g
+	 ShacE17QENDN4MpBlK9gwFdLALk0nktU7t9RGTNvbed5EFrnv3N5eoBqu/XbJjaOFKLHj
+	 kFPTz4/hDlAWRgzy+Ipcy9zab2GW5NEcmSue5tUMgtWgkxdPfHvlXFJ1oChGcEWxYFZG4
+	 8FUusRcZgSw93jBNKXx5K/xXYP7S+f+zDRgsyrVjS5t5IOVtI9pvTeSKGLDLTwyvlhiDM
+	 NKKcglrwfB7xnPXGsZAfAtuZeZyfY95xjUELn8V1OFCVH0fyzVtmPqMYIShqTEfOWIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859791;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2B25+wnVPJcXu/9HzjnfC6KHhZGgpfc/3lc1JiQ3Z5A=;
-	b=lsGKcXAX+Wbl23XHBL35wEbFC8wBQhm0wRXNVkKKUsoef2B4fF4avna2Gh5Oa6ByELbX
-	 tFgUw0ZJpkOczvl16doM559vdefENJv0j6QbcljUMKaV9Q79JENjCZdn9weYS/iYUMJrL
-	 uRfw3kNDfyiOt9Eq+kOdWaPfK83+ZVvuJExQTL5W0V3lO5M4DvI22tMLAFpzju7HU5VNA
-	 gofgyTAbGYuLLBZLXFsXf1J4jKc+APEIWx/KXJ97t9xpWtDt5x80LB6YnEpEswUQiWZ+j
-	 jGf4oHjX8Kj5TMqf9hcNc5Pp9tSGwXns9NMb6nhlw62OtlhwQ/Wpj9X4vueQNXQ/xrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859797;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=7p+C/K4ReCbw2m1smmwxowTkxDKVQWnV5o6Aj+vh6cA=;
+	b=V+Jq8hcsQJJMzMEMKNGm3RJoCcS2jlkpaGPIm2oRqdv/HEbEe72K3RnZdsf4yYs5w1r+
+	 WNF0ex2Am7FWICCZGIhXkuvg+43nv8lqE64OM1PLDAL7xHHQB50QUYy6r2fDu/1csVZCl
+	 4Exb9DNw3JlAtnR4u5QmP99thkqgBe1Fy7lGd1fhbosOcyW+bQJW+FYldDGY9m9kGerVt
+	 n+0EQDEafm7XMOStqWUkxMimlrbw3HnTd3xYPSow7BmZcmYoU0zaRL9sk+QoROrE5VnPq
+	 lCKTrmLZG2ZHw4ZkoBc8NuuHTIck60q2z55fIRYouvCtzapZxKboQpCnq9Bxke33ECQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=NrJHe3tH;
-	arc=none smtp.remote-ip=185.70.43.99
-Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0iL0+77;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C517606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C517606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACBD606A31C;
+	Mon, 16 Nov 2026 20:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=NrJHe3tH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794859788; x=1795118988;
-	bh=2B25+wnVPJcXu/9HzjnfC6KHhZGgpfc/3lc1JiQ3Z5A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NrJHe3tHBNMKOEc+MO7WI9m9on98H9lShQTPo7oeTjw37fIxJpvcCuAh+cNdYsG9B
-	 jjb9TzNu1qCvHmP3fpqsnJrBQ3NGVnZtOE/DkPn36p2vdAG/a0k+KtoXr5mMmN+ugA
-	 dgJ51k5Ify+kqkexJs1LUUOqQBm98+HD3IjE9NETCyHRDpCVsnJq07ELgDCgKdQOis
-	 qfkQXWJZFE9VLnVovA9sefXhGNbM/onB3zoj8DhL25V5tKAxuB7p3DpkWY9LC8swVB
-	 Hd/TXpAMrbb+pfyXGSP7Nh9eTjJDt9V8+LgCmdI5JAdk9W3cNWjRpKTUwsivm/4fZ9
-	 mWr9is3Sq7rgg==
-Date: Mon, 16 Nov 2026 20:09:43 +0000
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, linux-acpi@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ACPI: pfr_telemetry: keep the state until the last file is closed
-Message-ID: <20261116200935.2464922-2-ca@modelmiser.com>
-In-Reply-To: <CAJZ5v0jTHbr2KD3PXMdcOCs+QUrGrjGGuxOH7cbOe4kEF77d-A@mail.gmail.com>
-References: <20261110144436.1529000-2-ca@modelmiser.com> <CAJZ5v0jTHbr2KD3PXMdcOCs+QUrGrjGGuxOH7cbOe4kEF77d-A@mail.gmail.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 22a8e2365a91d688f9c376356b62f0bc1eede34c
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0iL0+77
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A381F000C7;
+	Mon, 16 Nov 2026 20:09:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794859797;
+	bh=7p+C/K4ReCbw2m1smmwxowTkxDKVQWnV5o6Aj+vh6cA=;
+	h=Date:From:To:Cc:Subject;
+	b=k0iL0+77OnNpruACf8VdriSWzwDSEhUv5T/IFEzb+0LNzyWKUDrtx4UKtUru7jMzS
+	 x0/5OWCfCpNrD4aBXWmHrKEpx2LMxqFtB9Z2h/uHim3GR20Ky/ytpvVXkVvR6TjJXN
+	 hkg7jY6oqZ77ad4HB+pWdgrWrzIWQZqKC/E0kkDs11Ig5xQETk1krgv2OCqrZdgbHL
+	 gULKpVmfqhjUrJgnTghQx2WLq4OmUvL5AEjWaFaI+rSJ4aQk1GoduiOerWtNILB3y+
+	 mWJkQbWlnaCGrZs97Qx7EWSXLRniHF1+WiVR+ueHzmjaOQhkoTLN9oR8pDVdegPGG+
+	 aUYTY3ir7+TYA==
+Date: Mon, 16 Nov 2026 20:09:53 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the gpio-brgl tree with the
+ gpio-brgl-fixes tree
+Message-ID: <avtjEdUWiljJ5V7o@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,35 +57,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fftLlh67Ku+hliAt"
+Content-Disposition: inline
+
+
+--fftLlh67Ku+hliAt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 13 Nov 2026, Rafael J. Wysocki wrote:
-> Applied as 7.5 material, thanks!
+Hi all,
 
-Thanks. Two small things in the applied commits, in case they are
-still easy to change:
+Today's linux-next merge of the gpio-brgl tree got a conflict in:
 
-1. Shuangpeng Bai reported the pfr_telemetry use-after-free in June. I
-   posted the tags on v1, but v2 did not carry them, so e788ea48810f
-   has none:
+  drivers/gpio/gpiolib-shared.c
 
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://lore.kernel.org/all/178144969601.60470.3508974301899957212@=
-gmail.com/
+between commit:
 
-2. The message of dacb7cef6f32 ("ACPI: pfr_update: keep the state until
-   the last file is closed") also contains my notes from below the ---
-   line and the diffstat. Two sentences there no longer match the
-   commit: "kzalloc() rather than kzalloc_obj() ... for the stable
-   trees" (the code uses kzalloc_obj()), and "No lock is added. A call
-   that passed the removed check can run during the unbind ..." (fixed
-   by c0ab3714e87a). Deleting everything after your second [ rjw: ]
-   line up to the patch.msgid.link Link: tag would drop them.
+  7d1d799d6251b ("gpio: shared: use atomic set_bit() for descriptor flags")
 
-If neither is worth a rebase, no problem.
+=66rom the gpio-brgl-fixes tree and commits:
 
-Chad
+  c402fd2961dd0 ("gpio: shared: factor out per-entry teardown helper")
+  cda42ff53c4b5 ("gpio: shared: factor out per-entry setup helper")
 
-This reply was drafted with an AI assistant (Claude Opus 5.5).
+=66rom the gpio-brgl tree.
 
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpio/gpiolib-shared.c
+index f34315a2059a2,cbb68ad646498..0000000000000
+--- a/drivers/gpio/gpiolib-shared.c
++++ b/drivers/gpio/gpiolib-shared.c
+@@@ -532,7 -643,8 +643,7 @@@ int gpiochip_setup_shared(struct gpio_c
+  				 * This is a shared GPIO proxy. Mark its
+  				 * descriptor as such and return here.
+  				 */
+- 				set_bit(GPIOD_FLAG_SHARED_PROXY, &gdev->descs[0].flags);
+ -				__set_bit(GPIOD_FLAG_SHARED_PROXY,
+ -					  &gdev->descs[0].flags);
+++				__set_bit(GPIOD_FLAG_SHARED_PROXY, &gdev->descs[0].flags);
+  				return 0;
+  			}
+  		}
+
+--fftLlh67Ku+hliAt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7YxAACgkQJNaLcl1U
+h9C2gwf/ZZbVSTk4mGcYl6TEcp5zcdvBcFJHN89nNpBPY9c2fPJGwNRU1ar9vJhc
+quQes0a9fOauSzfx1WhJ8KAllvlbazMK8eJPdf/rCC0U7g9ItK7ZkFrIHxU/T9xS
+yeM6tn/aogCT07tt4fq2qxKibRYaKChcmLEPrxratnb+tnqY3FJMDVoX89afHaLY
+G37PHF6kChnBY2EJtCV86GddwOiwTwfpGSf1f6DtjkdYv0ZVZI3eYQ4g7SC9HrOX
+2q+4VCBuyTbx0B9Gw7+gAfj3F4MbWjlvn8vylsSf1v9N3h53Sh5iHVQVJdDgGThI
+Rs2UsWBF+hbxh4TgNlfVTWwHUO/8ew==
+=uggk
+-----END PGP SIGNATURE-----
+
+--fftLlh67Ku+hliAt--
