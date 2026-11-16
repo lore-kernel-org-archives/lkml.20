@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824895;
-	b=GE+VaeHayM/zR4I9bJ9KTyqA3UNwqI2dlJD++U/027Eah0YprxK5Vjng6K3BEtkjcDq2
-	 +ucDKtaAq+2cW8PGSlgmlfImZL36b4OPbkYaLbV7oR2NzdpZkzNC8CGbZBKhuUsQnVzZC
-	 GhWK0dWPv6PlN7ihRa4j6FC8k1/67IqbpHSaJ/f9AkjNt5N+Lh4YqSkGLN+4OuZbnJgaz
-	 5I+ZlIIGxpvFbP5yCi/GUPboL17GT8sm2l3wW211UO3mwkOSdPXCy4Bi0tYoxtdH9UKZ/
-	 ZuvnOlP1w0lCUWPNHnu+zEWJA0HkajyHDODZulGMKsJBzhUl9cBokxHAThKU4jfBR1A==
+	t=1794824946;
+	b=BLrKsvGvHFQt1HDt7SJNHiIYfCMT5aiiHTZop9+D/ZO4Yanz2VlNT/3p7c0u4idTWvm3
+	 76sihxIpdCt6Hr5nQ76OJ1IZcv0NjPoachD3cp2HDm6x15Y+YUTZj7Og6gLWxj6pIDCkc
+	 ZzwezZLqUw0ALfeQpcDMFCPfC/etyaFd00z761ZOfAz4IVfR9xDk6i08DZoUjSLD/u9S0
+	 SznL8xykETnxF6CF2qCCKihfuwo7Jge/GSMDfAT+lipR/PxhK33b0GRmNUQPV9BTcV35B
+	 utdT2cZfRzx8GTSGyPybh7VrAsvQEwtt66/ROaseVHarZKy/bvAlKaDO1dkIFEYxsLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824895;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sVi4esArHglEWzxYRalxQKb2a6lwyUrsAlsSlEwiYv4=;
-	b=tR7vvCgudKHtnogqaz9oxP8u1oeeh3mmAGmFeEWF6Klt4NqHKPQqkLgjLQoE/cmFpJUh
-	 04Ks3AuqMS5tHr9K3wAnk24zioLfgvakpr/1dkMDTGn6Ks0RyD1lvxt/eZdNTJdy4GorU
-	 Wg20EP3eGlF78Bqx95qjXsW+xZSirbEje0xW1NSafiKgr9ZJEmmJ1/U0bUj51UAn44IB4
-	 NCWWAFONGZJTBg+Xj0rkOG1LlDmqXKHW7ZFiy8rkedOw+0Jfc4QxW/ehM6LZtPGJP1Ctt
-	 larSxKK6FR3NoOAhswGCOcwAcKafWuQUIyfQ8hVsETcN9nJO5jhdFTEWaVl8xK2nVGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824946;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=B/X4pFUER3BjjgRE2JYjOFuKnCPfd8nH8P99ehyPdKc=;
+	b=JhQF7uDLewd7g/91Gzrum9XyyZgwzqmfzTcftI/qgAjS6FYdggq2oMn4zu5adOxIsymZ
+	 9pn5od4tYi9F0TWK7S+cpHydR6Qj+BSyQXo8+poTcP40pvhx7DSQ3ZfUQYexCvjsNHvYZ
+	 sNLKemOQl7HTKSajPZ0T/1TTj83m/Q3f+A5nu6wom/wUAPuGMR2wIxo411RxAqqNO3xUC
+	 Ha5N8WbtHl8+jrcm+ZHnYzbMVnlWiLoRzuU8beqz+eusi6/sW8FguX+Pn9OVKyMtJL9IU
+	 +VRdollPfXpmYo+21gx/T3TScj0ZqiL+FIPoGpOrSX+NaAbHBZNd9xzwxvbHowjQVhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SI9mkOlK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=yinhe.ht;
+	spf=pass smtp.mailfrom=yinhe.ht;
+	dkim=pass header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=RNJ9n4TX;
+	arc=none smtp.remote-ip=115.124.28.97
+Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09BE606A31C;
-	Mon, 16 Nov 2026 10:28:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE34606A32F;
+	Mon, 16 Nov 2026 10:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE34606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yinhe.ht
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yinhe.ht
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SI9mkOlK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA6C1F000C4;
-	Mon, 16 Nov 2026 10:28:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824894;
-	bh=sVi4esArHglEWzxYRalxQKb2a6lwyUrsAlsSlEwiYv4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SI9mkOlK6Y61WRlnx8lzXKAg71T9d26kA4TgRrhkNuJaKQC3BX9YBepnF8tSyvis3
-	 c0oJSdx6rGVzsTOmrcKscRxx45qiDsZrA4GQpIB6Bk1kSGec2UdxXsxdbUXZh/wemx
-	 SOOAls2W/HQGRhFFinXGvOdntZrZXLvi9bGCPil+GDamvFe5N3ABiBqYDZ2oA45zR8
-	 cJA+2CvVZ2SwXdcTGAM/JEHTtQY6QuRFgjTPBznFLCVnLjvKvBnBR2d5rc068tpK3p
-	 5qnqlr/MPmQAbSY/7XXAV82/KrEvsTwted29gcoMS3QzubjcWIcg9mFWtz2KATCGkZ
-	 D8IMK/1SHrOlA==
-Message-ID: <8398a53a-3c79-424c-bae2-999d5ccfdb5f@kernel.org>
-Date: Mon, 16 Nov 2026 11:28:07 +0100
+	dkim=pass (2048-bit key) header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=RNJ9n4TX
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=yinhe.ht; s=default;
+	t=1794824937; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=B/X4pFUER3BjjgRE2JYjOFuKnCPfd8nH8P99ehyPdKc=;
+	b=RNJ9n4TXhoY+eFhbqTsBQDZ1KZJZ0uFo7PBoRlW17R2BYt78dctV/O+s3oAUIEBOjVulKcSri8YAd2hs04J+NOZAi++F/Ie0qJHYOZyLjFQNveSHfL5kXkfhtKppz3iI95QFJfV1+3Zvqr3H0XhqSTG1COgRF6eyC6RrX3x7ljnhxxQRIlMB4No5GDhjs/PPtTSHZvcWlHOhpy8+FvaYOh3jph27TtVwZdc4Fi6ixRquWTWKoFe2zBOyC5HH2MIxudCdulTarWJfZ2WxUEhh9jTSBOsDrQ1PXWYQur2Dv42rEnzxwiScFatpU3ku8nGmIEttIHGEQ6Lx60dhLZ7Xlw==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07444172|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00233692-9.41925e-05-0.997569;FP=17156062801562223770|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=chunyuzhiqiang@yinhe.ht;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.k35E.g1_1794824936;
+Received: from galx..(mailfrom:chunyuzhiqiang@yinhe.ht fp:SMTPD_---.k35E.g1_1794824936 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 16 Nov 2026 18:28:56 +0800
+From: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+To: Kees Cook <kees@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>
+Cc: Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	linux-kernel@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>
+Subject: [RFC PATCH 2/3] nvmem: at25: support panic writes for FRAM
+Date: Mon, 16 Nov 2026 18:23:56 +0800
+Message-ID: <20261116102357.4127825-3-chunyuzhiqiang@yinhe.ht>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116102357.4127825-1-chunyuzhiqiang@yinhe.ht>
+References: <20261116102357.4127825-1-chunyuzhiqiang@yinhe.ht>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,431 +66,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] module: Add LZ4 module compression
-To: Paul Menzel <pmenzel@molgen.mpg.de>, Luis Chamberlain
- <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, Nick Terrell <terrelln@fb.com>,
- David Sterba <dsterba@suse.com>
-Cc: linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org
-References: <20261115120416.256087-1-pmenzel@molgen.mpg.de>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20261115120416.256087-1-pmenzel@molgen.mpg.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Implement reg_write_panic for FRAM devices.  FRAM has no write cycle, so
+the WREN and WRITE commands can be issued directly with spi_sync_atomic()
+instead of the sleeping spi_mem path.
 
+EEPROMs still need status polling and are not supported here.  The
+callback is only registered for FRAM.
 
-Le 15/11/2026 à 13:04, Paul Menzel a écrit :
-> XZ modules are small but slow to decompress in the kernel. Therefore,
-> support modules compressed in the LZ4 frame format (.ko.lz4), as written
-> by lz4(1). Decode block by block into a scratch buffer and copy into the
-> module pages. Linked blocks keep the last 64 KiB of output in front of
-> the scratch buffer as the dictionary. Verify the header checksum, block
-> checksums, content checksum and content size when the frame has them.
-> Frames with a dictionary ID are rejected.
+This patch was prepared with AI assistance; the submitter must review it
+before submission.
 
-You present your patch as if XZ was the only compress method available, 
-but the kernel has:
+Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+---
+ drivers/nvmem/at25.c | 59 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
 
-kernel/module/Kconfig:config MODULE_COMPRESS_GZIP
-kernel/module/Kconfig:config MODULE_COMPRESS_XZ
-kernel/module/Kconfig:config MODULE_COMPRESS_ZSTD
-
-Can you provide a comparison of your new proposed compression method 
-with all three already available methods, especially with ZSTD ?
-
-Christophe
-
-> 
-> modules_install uses `lz4 -12 -B4 -BD`: 64 KiB linked blocks are as
-> small as 4 MiB blocks (i915.ko: 3587140 vs 3585364 bytes) and keep the
-> scratch buffer at 128 KiB.
-> 
-> Userspace needs kmod with LZ4 support for depmod and modprobe [1].
-> 
-> On a Dell XPS 13 9310 with an Intel Core i7-1165G7 (Tiger Lake) and an
-> NVMe SSD, decompressing and checking the signatures of the 237 modules
-> loaded during boot takes 624 ms of CPU time with XZ (i915: 91 ms) and
-> 131 ms with LZ4 (i915: 12 ms), measured by calling finit_module() again
-> for each loaded module. The LZ4 modules take 20.3 MB instead of 11.0 MB.
-> Both kernels are v7.4-rc1 with the same patches, including pending
-> lib/xz decoder speed-ups. Ten alternating boots of each kernel:
-> 
->    | ms (median)                               |  XZ  | LZ4  | change |
->    +-------------------------------------------+------+------+--------+
->    | early-i915 (modprobe i915 + dependencies) |  295 |   90 |   -205 |
->    | first i915 message                        |  738 |  547 |   -192 |
->    | GDM autologin                             |  973 |  876 |    -96 |
->    | GRUB start to autologin                   | 1292 | 1197 |    -94 |
-> 
-> QEMU 11.1.2 (KVM, AMD EPYC 7763, 8 vCPUs, module.sig_enforce=1, 10
-> rounds), loading the same 237 modules in dependency order:
-> 
->    | median                   |   XZ    |   LZ4   | uncompressed |
->    +--------------------------+---------+---------+--------------+
->    | one at a time            | 2082 ms | 1499 ms |      1461 ms |
->    | 8 in parallel, like udev |  619 ms |  573 ms |       593 ms |
-> 
-> Link: https://github.com/kmod-project/kmod/pull/505 [1]
-> Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
-> ---
-> 
-> Notes:
->      Changes in v2:
->      - Declare retval as ssize_t, so output of 2 GiB or more is not
->        truncated (Sashiko). The zstd decoder has the same bug, fixed by
->        the separate patch "module/decompress: Use ssize_t for the zstd
->        decompressed size".
->      - Reject empty frames with -EINVAL; v1 failed vmap() of 0 pages with
->        -ENOMEM (Sashiko).
->      - Describe the decoder and link the frame format specification, group
->        the definitions by FLG byte, BD byte and block size field, compare the
->        version with FIELD_GET(), rename LZ4F_DICT_SIZE to LZ4F_WINDOW_SIZE,
->        look up the block maximum size in a table, shorten the dictionary
->        comment (Bradley Morgan).
->      
->      v1: https://lore.kernel.org/all/20261113144233.193782-1-pmenzel@molgen.mpg.de/
->      
->      Claude Opus 5.5 (Claude Code) wrote the decoder, the v2
->      changes and this message. Tests: W=1 compile (GCC 16.2, Debian config
->      for x86_64, tinyconfig for i386); QEMU with module.sig_enforce=1: 11 LZ4
->      frame variants (64 KiB-4 MiB, linked/independent, block/content
->      checksums, content size, stored blocks) load, 9 corrupt, truncated or
->      empty files are rejected with EINVAL or EKEYREJECTED (v1: ENOMEM for the
->      empty ones); the 237-module boot set loads in QEMU. v1 also loaded on a
->      Dell XPS 13 9310 (20 boots); v2 was not booted on hardware.
-> 
->   kernel/module/Kconfig      |  13 +-
->   kernel/module/decompress.c | 243 +++++++++++++++++++++++++++++++++++++
->   scripts/Makefile.modinst   |   6 +
->   3 files changed, 261 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/module/Kconfig b/kernel/module/Kconfig
-> index 43b1bb01fd273..36f12612c74dd 100644
-> --- a/kernel/module/Kconfig
-> +++ b/kernel/module/Kconfig
-> @@ -344,7 +344,7 @@ config MODULE_COMPRESS
->   	  This is fully compatible with signed modules.
->   
->   	  The tool used to work with modules needs to support the selected
-> -	  compression type. kmod MAY support gzip, xz and zstd. Other tools
-> +	  compression type. kmod MAY support gzip, xz, zstd and lz4. Other tools
->   	  might have a limited selection of the supported types.
->   
->   	  Note that for modules inside an initrd or initramfs, it's more
-> @@ -377,6 +377,15 @@ config MODULE_COMPRESS_ZSTD
->   	  Support modules compressed with ZSTD. The installed modules are
->   	  suffixed with .ko.zst.
->   
-> +config MODULE_COMPRESS_LZ4
-> +	bool "LZ4"
-> +	help
-> +	  Support modules compressed with LZ4. The installed modules are
-> +	  suffixed with .ko.lz4.
-> +
-> +	  LZ4 modules are larger than XZ or ZSTD ones but decompress
-> +	  several times faster.
-> +
->   endchoice
->   
->   config MODULE_COMPRESS_ALL
-> @@ -394,6 +403,8 @@ config MODULE_DECOMPRESS
->   	select ZLIB_INFLATE if MODULE_COMPRESS_GZIP
->   	select XZ_DEC if MODULE_COMPRESS_XZ
->   	select ZSTD_DECOMPRESS if MODULE_COMPRESS_ZSTD
-> +	select LZ4_DECOMPRESS if MODULE_COMPRESS_LZ4
-> +	select XXHASH if MODULE_COMPRESS_LZ4
->   	help
->   	  Support for decompressing kernel modules by the kernel itself
->   	  instead of relying on userspace to perform this task. Useful when
-> diff --git a/kernel/module/decompress.c b/kernel/module/decompress.c
-> index cce098671be97..028b411015f21 100644
-> --- a/kernel/module/decompress.c
-> +++ b/kernel/module/decompress.c
-> @@ -287,6 +287,249 @@ static ssize_t module_zstd_decompress(struct load_info *info,
->   	kvfree(wksp);
->   	return retval;
->   }
-> +#elif defined(CONFIG_MODULE_COMPRESS_LZ4)
-> +#include <linux/bitfield.h>
-> +#include <linux/lz4.h>
-> +#include <linux/sizes.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/xxhash.h>
-> +#define MODULE_COMPRESSION	lz4
-> +#define MODULE_DECOMPRESS_FN	module_lz4_decompress
-> +
-> +/*
-> + * Decoder for the LZ4 frame format written by lz4(1), see
-> + * https://github.com/lz4/lz4/blob/dev/doc/lz4_Frame_format.md
-> + *
-> + * Each block is decoded into a scratch buffer and copied into the module
-> + * pages. A linked block may reference up to 64 KiB of the output before
-> + * it, so that much output is kept in front of the scratch buffer.
-> + */
-> +#define LZ4F_MAGIC		0x184d2204
-> +
-> +/* Frame descriptor, FLG byte */
-> +#define LZ4F_FLG_VERSION	GENMASK(7, 6)
-> +#define LZ4F_FLG_BLOCK_INDEP	BIT(5)
-> +#define LZ4F_FLG_BLOCK_CSUM	BIT(4)
-> +#define LZ4F_FLG_CONTENT_SIZE	BIT(3)
-> +#define LZ4F_FLG_CONTENT_CSUM	BIT(2)
-> +#define LZ4F_FLG_RESERVED	BIT(1)
-> +#define LZ4F_FLG_DICT_ID	BIT(0)
-> +
-> +/* Frame descriptor, BD byte */
-> +#define LZ4F_BD_BLOCK_MAXSIZE	GENMASK(6, 4)
-> +#define LZ4F_BD_RESERVED	(BIT(7) | GENMASK(3, 0))
-> +
-> +/* Block size field: the top bit marks a block stored uncompressed */
-> +#define LZ4F_BLOCK_UNCOMPRESSED	BIT(31)
-> +
-> +#define LZ4F_WINDOW_SIZE	SZ_64K
-> +
-> +/* Block maximum sizes for the BD byte's Block MaxSize values 4 to 7 */
-> +static const u32 lz4f_block_max[] = { SZ_64K, SZ_256K, SZ_1M, SZ_4M };
-> +
-> +static int module_lz4_copy_out(struct load_info *info, const u8 *src,
-> +			       size_t len, size_t *total)
-> +{
-> +	while (len) {
-> +		size_t offset = *total % PAGE_SIZE;
-> +		size_t chunk = min_t(size_t, len, PAGE_SIZE - offset);
-> +		struct page *page;
-> +
-> +		if (offset)
-> +			page = info->pages[info->used_pages - 1];
-> +		else
-> +			page = module_get_next_page(info);
-> +		if (IS_ERR(page))
-> +			return PTR_ERR(page);
-> +
-> +		memcpy_to_page(page, offset, src, chunk);
-> +		src += chunk;
-> +		len -= chunk;
-> +		*total += chunk;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int module_lz4_verify_content(struct load_info *info, size_t total,
-> +				     u32 expected)
-> +{
-> +	void *data;
-> +	u32 csum;
-> +
-> +	data = vmap(info->pages, info->used_pages, VM_MAP, PAGE_KERNEL_RO);
-> +	if (!data)
-> +		return -ENOMEM;
-> +	csum = xxh32(data, total, 0);
-> +	vunmap(data);
-> +
-> +	if (csum != expected) {
-> +		pr_err("LZ4-compressed data is corrupt (content checksum)\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static ssize_t module_lz4_decompress(struct load_info *info,
-> +				     const void *buf, size_t size)
-> +{
-> +	const u8 *in = buf, *end = in + size, *desc;
-> +	size_t block_max, total = 0, dict_len = 0;
-> +	u64 content_size = 0;
-> +	u8 *scratch, *out;
-> +	bool linked;
-> +	u8 flg, bd;
-> +	ssize_t retval;
-> +
-> +	if (size < 7 || get_unaligned_le32(in) != LZ4F_MAGIC) {
-> +		pr_err("not an lz4 compressed module\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	desc = in + 4;
-> +	flg = desc[0];
-> +	bd = desc[1];
-> +	in = desc + 2;
-> +	if (FIELD_GET(LZ4F_FLG_VERSION, flg) != 1 ||
-> +	    (flg & LZ4F_FLG_RESERVED) || (bd & LZ4F_BD_RESERVED) ||
-> +	    FIELD_GET(LZ4F_BD_BLOCK_MAXSIZE, bd) < 4) {
-> +		pr_err("LZ4-compressed data has an unsupported frame descriptor\n");
-> +		return -EINVAL;
-> +	}
-> +	if (flg & LZ4F_FLG_DICT_ID) {
-> +		pr_err("LZ4-compressed data needs a dictionary\n");
-> +		return -EINVAL;
-> +	}
-> +	if (flg & LZ4F_FLG_CONTENT_SIZE) {
-> +		if (end - in < 8)
-> +			goto truncated_header;
-> +		content_size = get_unaligned_le64(in);
-> +		in += 8;
-> +	}
-> +	if (end - in < 1)
-> +		goto truncated_header;
-> +	if (*in != ((xxh32(desc, in - desc, 0) >> 8) & 0xff)) {
-> +		pr_err("LZ4-compressed data has a corrupt frame descriptor\n");
-> +		return -EINVAL;
-> +	}
-> +	in++;
-> +
-> +	block_max = lz4f_block_max[FIELD_GET(LZ4F_BD_BLOCK_MAXSIZE, bd) - 4];
-> +	linked = !(flg & LZ4F_FLG_BLOCK_INDEP);
-> +
-> +	scratch = kvmalloc((linked ? LZ4F_WINDOW_SIZE : 0) + block_max,
-> +			   GFP_KERNEL);
-> +	if (!scratch)
-> +		return -ENOMEM;
-> +	out = scratch + (linked ? LZ4F_WINDOW_SIZE : 0);
-> +
-> +	for (;;) {
-> +		u32 block_size;
-> +		size_t len;
-> +		int ret;
-> +
-> +		if (end - in < 4)
-> +			goto truncated;
-> +		block_size = get_unaligned_le32(in);
-> +		in += 4;
-> +		if (!block_size)
-> +			break;
-> +
-> +		len = block_size & ~LZ4F_BLOCK_UNCOMPRESSED;
-> +		if (len > block_max) {
-> +			pr_err("LZ4-compressed data has an oversized block\n");
-> +			retval = -EINVAL;
-> +			goto out;
-> +		}
-> +		if ((size_t)(end - in) < len +
-> +		    (flg & LZ4F_FLG_BLOCK_CSUM ? 4 : 0))
-> +			goto truncated;
-> +
-> +		if ((flg & LZ4F_FLG_BLOCK_CSUM) &&
-> +		    xxh32(in, len, 0) != get_unaligned_le32(in + len)) {
-> +			pr_err("LZ4-compressed data is corrupt (block checksum)\n");
-> +			retval = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		if (block_size & LZ4F_BLOCK_UNCOMPRESSED) {
-> +			memcpy(out, in, len);
-> +			ret = len;
-> +		} else if (linked) {
-> +			ret = LZ4_decompress_safe_usingDict(in, out, len,
-> +							    block_max,
-> +							    out - dict_len,
-> +							    dict_len);
-> +		} else {
-> +			ret = LZ4_decompress_safe(in, out, len, block_max);
-> +		}
-> +		if (ret < 0) {
-> +			pr_err("LZ4-decompression failed\n");
-> +			retval = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		retval = module_lz4_copy_out(info, out, ret, &total);
-> +		if (retval)
-> +			goto out;
-> +
-> +		if (linked) {
-> +			/* Keep the last 64 KiB as the next block's dictionary. */
-> +			size_t keep = min_t(size_t, dict_len + ret,
-> +					    LZ4F_WINDOW_SIZE);
-> +
-> +			memmove(out - keep, out + ret - keep, keep);
-> +			dict_len = keep;
-> +		}
-> +
-> +		in += len;
-> +		if (flg & LZ4F_FLG_BLOCK_CSUM)
-> +			in += 4;
-> +	}
-> +
-> +	if (!total) {
-> +		pr_err("LZ4-compressed module is empty\n");
-> +		retval = -EINVAL;
-> +		goto out;
-> +	}
-> +
-> +	if (flg & LZ4F_FLG_CONTENT_CSUM) {
-> +		if (end - in < 4)
-> +			goto truncated;
-> +		retval = module_lz4_verify_content(info, total,
-> +						   get_unaligned_le32(in));
-> +		if (retval)
-> +			goto out;
-> +		in += 4;
-> +	}
-> +
-> +	if (in != end) {
-> +		pr_err("LZ4-compressed module has trailing data\n");
-> +		retval = -EINVAL;
-> +		goto out;
-> +	}
-> +
-> +	if ((flg & LZ4F_FLG_CONTENT_SIZE) && content_size != total) {
-> +		pr_err("LZ4-compressed data has a wrong content size\n");
-> +		retval = -EINVAL;
-> +		goto out;
-> +	}
-> +
-> +	retval = total;
-> +	goto out;
-> +
-> +truncated:
-> +	pr_err("LZ4-compressed data is truncated\n");
-> +	retval = -EINVAL;
-> +out:
-> +	kvfree(scratch);
-> +	return retval;
-> +
-> +truncated_header:
-> +	pr_err("LZ4-compressed data is truncated\n");
-> +	return -EINVAL;
-> +}
->   #else
->   #error "Unexpected configuration for CONFIG_MODULE_DECOMPRESS"
->   #endif
-> diff --git a/scripts/Makefile.modinst b/scripts/Makefile.modinst
-> index 9ba45e5b32b18..aebc5e89d0e75 100644
-> --- a/scripts/Makefile.modinst
-> +++ b/scripts/Makefile.modinst
-> @@ -57,6 +57,7 @@ ifdef CONFIG_MODULE_COMPRESS_ALL
->   suffix-$(CONFIG_MODULE_COMPRESS_GZIP)	:= .gz
->   suffix-$(CONFIG_MODULE_COMPRESS_XZ)	:= .xz
->   suffix-$(CONFIG_MODULE_COMPRESS_ZSTD)	:= .zst
-> +suffix-$(CONFIG_MODULE_COMPRESS_LZ4)	:= .lz4
->   endif
->   
->   modules := $(patsubst %.o, $(dst)/%.ko$(suffix-y), $(modules))
-> @@ -151,6 +152,8 @@ quiet_cmd_xz = XZ      $@
->         cmd_xz = $(XZ) --check=crc32 --lzma2=dict=1MiB -f $<
->   quiet_cmd_zstd = ZSTD    $@
->         cmd_zstd = $(ZSTD) --rm -f -q $<
-> +quiet_cmd_lz4 = LZ4     $@
-> +      cmd_lz4 = $(LZ4) -12 -B4 -BD --rm -f -q $< $@
->   
->   $(dst)/%.ko.gz: $(dst)/%.ko FORCE
->   	$(call cmd,gzip)
-> @@ -161,6 +164,9 @@ $(dst)/%.ko.xz: $(dst)/%.ko FORCE
->   $(dst)/%.ko.zst: $(dst)/%.ko FORCE
->   	$(call cmd,zstd)
->   
-> +$(dst)/%.ko.lz4: $(dst)/%.ko FORCE
-> +	$(call cmd,lz4)
-> +
->   PHONY += FORCE
->   FORCE:
->   
+diff --git a/drivers/nvmem/at25.c b/drivers/nvmem/at25.c
+index bc2cfb75d..230e78c62 100644
+--- a/drivers/nvmem/at25.c
++++ b/drivers/nvmem/at25.c
+@@ -328,6 +328,63 @@ static int at25_ee_write(void *priv, unsigned int off, void *val, size_t count)
+ 	return status;
+ }
+ 
++/*
++ * FRAM has no write cycle, so a single WRITE command can be issued from
++ * panic context.  EEPROMs need status polling and are not supported here.
++ */
++static int at25_ee_write_panic(void *priv, unsigned int off, void *val,
++			       size_t count)
++{
++	struct at25_data *at25 = priv;
++	struct spi_device *spi = at25->spimem->spi;
++	struct spi_transfer xfers[3] = { };
++	struct spi_message msg;
++	u8 wren = AT25_WREN;
++	u8 cmd[EE_MAXADDRLEN + 1];
++	size_t cmd_len;
++	unsigned int i;
++	int ret;
++
++	if (unlikely(off >= at25->chip.byte_len))
++		return -EFBIG;
++	if ((off + count) > at25->chip.byte_len)
++		count = at25->chip.byte_len - off;
++	if (unlikely(!count) || count > UINT_MAX)
++		return -EINVAL;
++
++	cmd[0] = at25_instr(at25, AT25_WRITE, off);
++	for (i = 0; i < at25->addrlen; i++)
++		cmd[i + 1] = off >> (8 * (at25->addrlen - i - 1));
++	cmd_len = at25->addrlen + 1;
++
++	xfers[0].tx_buf = &wren;
++	xfers[0].len = sizeof(wren);
++	xfers[0].cs_change = 1;
++	xfers[0].bits_per_word = 8;
++	xfers[0].speed_hz = spi->max_speed_hz;
++
++	xfers[1].tx_buf = cmd;
++	xfers[1].len = cmd_len;
++	xfers[1].bits_per_word = 8;
++	xfers[1].speed_hz = spi->max_speed_hz;
++
++	xfers[2].tx_buf = val;
++	xfers[2].len = count;
++	xfers[2].bits_per_word = 8;
++	xfers[2].speed_hz = spi->max_speed_hz;
++
++	spi_message_init(&msg);
++	spi_message_add_tail(&xfers[0], &msg);
++	spi_message_add_tail(&xfers[1], &msg);
++	spi_message_add_tail(&xfers[2], &msg);
++
++	ret = spi_sync_atomic(spi, &msg);
++	if (ret)
++		return ret;
++
++	return count;
++}
++
+ /*-------------------------------------------------------------------------*/
+ 
+ static int at25_fw_to_chip(struct device *dev, struct spi_eeprom *chip)
+@@ -545,6 +602,8 @@ static int at25_probe(struct spi_mem *mem)
+ 	at25->nvmem_config.base_dev = &spi->dev;
+ 	at25->nvmem_config.reg_read = at25_ee_read;
+ 	at25->nvmem_config.reg_write = at25_ee_write;
++	if (is_fram)
++		at25->nvmem_config.reg_write_panic = at25_ee_write_panic;
+ 	at25->nvmem_config.priv = at25;
+ 	at25->nvmem_config.stride = 1;
+ 	at25->nvmem_config.word_size = 1;
+-- 
+2.47.3
 
