@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855533;
-	b=3ZkMPRnDtlA9nBPyYZ2f9npKT5fxoXgk7kWaz/cy1fssisUrglCgDJhontF9mKG1YBHX
-	 KSBlz97ag3uQ7zxkRjojGF7ures0Yr+/ZHCCnc3b8w20VUhKjsWlwB32Lyltwc60RmQ7x
-	 iIcSkXjEWD4OLO3LGaXpUpYYSIBxXxtrEf5pUBwmncFg0T5FEJ0vIADppz+Z1rgRMQbEe
-	 ecMWsuWhCxkKJ6Kgzzbk0+nFojgM7rFVFEnxPr9+CQU1BbExcO/z8NDz+S8cNVfrPBtF7
-	 xnVpAdiBdBjJYlyfoPOLAwRzgXgUNlh2sstKU2GfFfIykdQRjw6EqOM8Q4PpS3mOZVw==
+	t=1794855550;
+	b=5dgqBejXMgybbQK7p7CwfJJ7mPv0FBf7XeQ0m0FLKezn0Dk214WMGB1A6dtIJtBXslQt
+	 FyQXiBErcWfxa0MsFpcMJ0aGv4J599dU/6Iy6GqQSiafF77ZVKmuYNgl8XNWfnzP1mw7A
+	 V+nCje+YGlcv13sK7SZrQTJcLJSK4tC+EUI9rw5EREwdETsRBJ+INN5Ks2NljqzMVYwvC
+	 nZjsKvrvl9rAoFZx3The8LyF/XuAF/useI8sVYmpntKQQukpZ14abXUxKxKMlPWnZzUWh
+	 RE7FCu9Iri7LZohoNs94NYZsvT3icw5nWqIWYAzWnF8xKpm4neTLj9+CbZdorp6M6Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855533;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ad5dFKw+CLO5JX/Tnr2WBnwMJWSG8HNIuJVYxZG860s=;
-	b=LA57GNtWjWRjlGJYy64oZwa+evkJ5c6sFpjwj/WyXgzEwVfWyT6cZC8Cemm58Iucgy0b
-	 Eo3TOdtEZ1h++qgQDYxTOy9Pyesj/IWXw+mXVTjeQSSEC6AeeLcT7mkACmVjT5rgGLXzT
-	 N4wnNAVEZhMPIf4EyibFBXcWLNwiux7ZkyYTa2NGODHEcfu/NaqeCjBqxRrHgyd5q2plM
-	 EiUtyhT32iXeIwISRTscJPZcMx9iiz/j2aHHnyhU/xWdZl6O/7cWWTeyYt5RB6pkS+TNB
-	 i+zcCK0J2wcxezDuLfyFLaZeJ11lcrWC9YhktukZ/NQvrvcl1jYbdQU6H/9EPphQLhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855550;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=OKuapl7pxJVZ9ih+JjiApVj2U7or+RT35W4g1hlcqf4=;
+	b=gNev/t58sktR6dfr9t8zcYxtG47dqKhwBqIas5SXytV6Ir1c5R8+tw64eI1CwFzdKcdB
+	 3VoHhKfdHWvodulUB03jGuZI5GTcpwk2otiL938m+DVlLmkr0iFv/xFNFh0QNW24q+UnG
+	 qz1bbiq4ZoEFxMPiWrDQQ93DVJru6MahHotdPuNVyKqxKKZtllw0lV6BJ2qTtgeW8jAyT
+	 9ye59JQlFCVNAnaQzZMbYEFCslkCOpqeEtllpQd2u8XQH1bTaSSpbvSjrWjm9ZqC6At3A
+	 2ncyHnvthc3wiB6TQPSksYaYl48szuiSW1Nh8Vt0jaNMdjGOkH/zVbIwvdYi27YLewQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0g2YEcD;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aazqUdLt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1C8606A883
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:58:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E1C8606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D34A606A89E;
+	Mon, 16 Nov 2026 18:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0g2YEcD
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso1291175eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:58:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794855522; x=1795460322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ad5dFKw+CLO5JX/Tnr2WBnwMJWSG8HNIuJVYxZG860s=;
-        b=i0g2YEcDeidHN8wm9CcxCq5SoRkb3tmS/L72+eeURILaUQ/CB39bmWdQIIN3/I+WLX
-         oCl4WBaNj/7nc5ujxBVziB8HdlERBejMx3BJagy/xvatfLb6jzIqAyzgUEN4rfC+qXz8
-         MIXtNs9gcR8xw636Ke/vZ+piHf/xBHJKuRgFLc5sXt9dBhOKCqq7vpRKj4DdXiY7sHDo
-         kealraA1vD2tMcMxuLIOFZRbvG38/H51s0DGy4M0QPSQnt27mNkmQkernnAqp6aTxqLM
-         +o+9zXGqD+59W5R96qUgG4AMBsVUZoCgcUCrNow+uPFDozEQjCXMQpHkL0uiAOYzq8TE
-         i/sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855522; x=1795460322;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ad5dFKw+CLO5JX/Tnr2WBnwMJWSG8HNIuJVYxZG860s=;
-        b=JH/QPXKPDBNwPmqb9PJ3NmX0vvBSJ7jgUyUOiY4kWWYbd7xkaXgn+9vb4YhYJeDDug
-         9Mf2Hn7D/xr/8LJ2pZCFK7jSDM9sOY8yhAOf+cHRIPUEM36oSnRAl1hdTqphJMyAbIhx
-         MdeNyT+Qu3ozfcktMmn4AJa2OJix4YANaLSLQrAJ7mfKN/BHv0zpHvqvqfGsq3vWDOdu
-         6qz6V1pCHM8DUoRuDO43k/4QuuhxvRFc4zkVATLhxFMcoIQ+RR2p8LqBkUmPiaW0d4LG
-         zeuE3bKtYfwpM0qe666gQrxxf7r5T8MXA27NsL4Vit3C/GTE56QxYjtbhONURAWO+9dh
-         wTmg==
-X-Forwarded-Encrypted: i=1; AL+hErFJdpaeFts733+pNBKL/mZqJRScznuDl+uowR0TYhC9Ps37XNxZX3IScyJtwWvSbOm9+L1qNn/9xtGEKK8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8N4YjidUc7GMQ7WPVhgPrts9/LVjN5cptyy1VAEp5A/uQt39ik
-	4Oun+1ZRZfNbGFHbpeIY+7Kl0+WFnt7amC+/UKjRwVwggk7SynjOUCkd
-X-Gm-Gg: AZFdTZeVrlzrmo7V17woJYOOsM33XDk1y6tQIhppFgiS6L/IjV/kCglMp3u+xpO4vdQ
-	TzGNTfNk/4B3dImgRrw74kO23Wx7Hr3WtbfTWj5Y0MiGt7Km+tjExAvL5UfW8hNx1hY5Rj1MGAu
-	C1KwErnSr6OIeFOX5A/60A3o9NhthM32Sh5rr4qv6JBE/3RbxeIL2AY/TrtNTwrgWrFnKleATVD
-	HDlN9I34URxySM8OdcNOmPovpGScv02hQI9NeJ31nVkTw3qItHx0sjodJYfdPoygktAdXxGqPXt
-	qKLZc0sQxchmhesLSq47feEQaeStqDawEshLwIlAbt8aH7i9jU20Kbe5RfRRcoTHuCA5TGi5ViW
-	eY6Pi5p9u6iX591d3W7fcyEUcp5CFkvTMIixEVQva5yqLmDKEAdJaLssCdw6WmQT2KDiSlmwAaO
-	bqtcLcFG3xW6EkJWyflJHUcw4ueOcme0BbMyX8htnB/WZbuDg0iNBxvH3df55ODaTMMu6A6SNN0
-	4G9M2yTlTL1kK0TmtPBjkR27yVIJddP7POHd2e3Vh0Ssbhbxg1LlI6DvSvnZMUzFoAo+MtTRKRp
-	FjE8SKpVfRlMIljG3Vt7yc8WHxjrP0rjNq6cdSj3T3Yet18n1s4Fg6uMqGhdn/oijW8619DkeK+
-	4DvmtzSVpIQlLmeWrP55G035Y0fV8IZkZl98/2YhUqI9uwLeDpCGEqONbFMY=
-X-Received: by 2002:a05:7301:428f:b0:369:5583:bf4c with SMTP id 5a478bee46e88-379684ae79dmr11080301eec.28.1794855522299;
-        Mon, 16 Nov 2026 10:58:42 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm35583453eec.26.2026.11.16.10.58.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:58:41 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	namjae.jeon@samsung.com,
-	a.sangwan@samsung.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] ext4: check RLIMIT_FSIZE in insert range
-Date: Mon, 16 Nov 2026 18:58:10 +0000
-Message-ID: <20261116185810.82581-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aazqUdLt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3021C1F000C9;
+	Mon, 16 Nov 2026 18:59:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794855549;
+	bh=OKuapl7pxJVZ9ih+JjiApVj2U7or+RT35W4g1hlcqf4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aazqUdLtYeeamJwl1hwJYAF96pgNZdf29ZdAH5YIP0MGUjVRx2E2PYVPS4ZirF9bj
+	 ZVPGFwVY9QVLhIpgRpQPZILtqVOeyRf2vTuf4VJeN3gUoFYfs6J5ikmIp3DQvqndtJ
+	 FlrcazoE9bRylOGIVzpC2vV2QjNV5Lsk75Kua+ml2tzjKFqZl+RsmWvIyG6B0pFlC2
+	 8j9jqQ5FQPU2/FSBgfFhxt2BtySd9GcVwWfttaUyf3s5EI5f4AK+SGy1oemDqlD3VL
+	 NEKRiGWvHqxvl5ZSjS/TApYUQ1adEtkRopl6/nmPerI/b+TUrtJkxPJHya1rk+XHFQ
+	 OghLHd5UQpxWQ==
+Subject: Re: [PATCH net-next v2] net: phy: et1011c: don't write an error code
+ to the config register
+From: netdev-bot+sashiko@kernel.org
+To: elias.pukari@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 18:59:08 +0000
+Message-ID: <179485554872.3136.2853572906945647083@kernel.org>
+In-Reply-To: <20261115180735.649299-1-elias.pukari@gmail.com>
+References: <20261115180735.649299-1-elias.pukari@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,38 +63,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ext4_insert_range() grows the file by len bytes but only checks the new
-size against s_maxbytes. FALLOC_FL_INSERT_RANGE can therefore make a
-file larger than RLIMIT_FSIZE allows, while ftruncate() and the
-fallocate() modes that extend a file fail with -EFBIG and SIGXFSZ. xfs,
-f2fs and ntfs3 already refuse to insert a range past the limit.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Fix this by validating the new size with inode_newsize_ok(), as
-ext4_do_fallocate() and ext4_zero_range() do.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Fixes: 331573febb6a ("ext4: Add support FALLOC_FL_INSERT_RANGE for fallocate")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/ext4/extents.c | 3 +++
- 1 file changed, 3 insertions(+)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index ad0d80e33f60..94b9e091ef5f 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -5803,6 +5803,9 @@ static int ext4_insert_range(struct file *file, loff_t offset, loff_t len)
- 	/* Check whether the maximum file size would be exceeded */
- 	if (len > inode->i_sb->s_maxbytes - inode->i_size)
- 		return -EFBIG;
-+	ret = inode_newsize_ok(inode, inode->i_size + len);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * Persist the pending zeroed EOF block to ensure i_disksize
+- [Medium] net: phy: et1011c: premature speed update in
+  et1011c_read_status()
+
+--
+
+> diff --git a/drivers/net/phy/et1011c.c b/drivers/net/phy/et1011c.c
+> --- a/drivers/net/phy/et1011c.c
+> +++ b/drivers/net/phy/et1011c.c
+> @@ -62,16 +62,22 @@ static int et1011c_read_status(struct phy_device *phydev)
+>  {
+>  	static int speed;
+>  	int ret;
+> -	u32 val;
+> +	int val;
+>  
+>  	ret = genphy_read_status(phydev);
+>  
+>  	if (speed != phydev->speed) {
+>  		speed = phydev->speed;
+>  		val = phy_read(phydev, ET1011C_STATUS_REG);
+> +		if (val < 0)
+> +			return val;
+> +
+>  		if ((val & ET1011C_SPEED_MASK) ==
+>  					ET1011C_GIGABIT_SPEED) {
+>  			val = phy_read(phydev, ET1011C_CONFIG_REG);
+> +			if (val < 0)
+> +				return val;
+> +
+>  			val &= ~ET1011C_TX_FIFO_MASK;
+>  			phy_write(phydev, ET1011C_CONFIG_REG, val |
+>  					  ET1011C_GMII_INTERFACE |
+>
+>
+
+[Severity: Medium]
+With the new early returns, et1011c_read_status() updates the static
+speed cache to phydev->speed before either phy_read() is attempted.
+
+Suppose the read of ET1011C_STATUS_REG or ET1011C_CONFIG_REG fails
+while the link comes up at 1000Mbps. We return the error without
+programming ET1011C_CONFIG_REG, but speed already equals
+phydev->speed. On the next poll the speed != phydev->speed test is
+false, so the block is skipped. ET1011C_GMII_INTERFACE,
+ET1011C_SYS_CLK_EN and ET1011C_TX_FIFO_DEPTH_16 are then never applied
+for that gigabit link.
+
+The error path in _phy_state_machine() does not help either. Entering
+PHY_ERROR clears phydev->link but leaves phydev->speed alone, so a link
+that comes back at the same speed will not retrigger the write.
+
+Could speed be updated only after the reads (and ideally the
+phy_write()) have succeeded, so that a transient MDIO error is retried
+on the next poll? Or is there a reason the cache has to be set before
+the register accesses?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115180735.649299-1-elias.pukari%40gmail.com
