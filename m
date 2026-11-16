@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812513;
-	b=xwyF+nouDc2jDwefnWrBVBwxosSC301boQod9qgTw+uAuN79UJTC5EUDLkNFh0VYNmdU
-	 WMP4E685xQJGar0MUtkiqYpsSEO9ot1qgoq9iSNUREOhSRSBlbYnNU9cEPg3q8drTql78
-	 IksM350o15czrC2DgZvHeZvP9hLOojakEm6XCUkfnFGmObhbiKVueCxVHsT4GjwZN6YM0
-	 a3ZY8Q1o0WikXrtAfp6xYj1vMqHDHuIQYM+47bYkRecz2gwkrtMAreqZcbI4eqDhCT1oL
-	 gTKLItGDTkheIL3MDdnSPkZEA/b7sz17v4gMA6j6uiydPItmWhGCyc2Uib7Rm9t7KVA==
+	t=1794812526;
+	b=tS+epVgegNbf2pOpdwsRq3OudrqzNlfbUFnbdwqLdkrQakESZtj5mJrf72CFaOgMs6DX
+	 X5aOBGRInaUu4sETRJUqaJfCJRZTB3wfoiY7v6/FEfxX+WczGDFjFmf9gIW9DTC/FMhfM
+	 z0c+FFVsJxSrNm6znvULN/rP3gI+IQ8fkUw6GUblOZy0nCegcw1DK2rUFJAi5a8pTA8qJ
+	 55+6R/ixc4aqYCvIvTBTq0sBsKo8g3cBlADzTYqCzt6JBNOmIZbibEsaIk01Cu+0LV02W
+	 L97/svFuX+N8q1WBtv70mmDw6lJI24Pl8gT4X4wwrGbq72TYJf/90oDhnPUfal81MZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812513;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=8oCH6XC+liX1SVUHDFPJw0slOUl6aJW30d6QU4zbVWw=;
-	b=RMkuGrSkW0UR+uc3CbZeV6z1yXAxgMWcrfDsi5nwasntrZFkmYpzKG29aZxJnr2FBbC7
-	 K/fm0hn1biB0EnZa/k7gSdW0jveAeD/yGeacEFrMTHobXW4K8AtWTWFIf28Q4lKbKsdeI
-	 aedVI8QuyLpofXeNuay3frDpb6xHbzhaMCqwDQ+jjOKG/BO7cPwqwKGQkfh3HMRYVlDXB
-	 N2Jw50xpmIab4gaW34MQn+0KtLcboYzfWYXVqKKAZlD1zyyT18e78fgUKhkzt/aPlexns
-	 PRY/5qtzj67GNJ1kr3Q4C4QOX2B4MjMcYqMuUgjWfmiUuHFc20r59ccKBiLNkXmaLuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812526;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=cF1GhVGbCRbU0hezkwXtJ7kkSIkuwbbIzIGbBkJTIA0=;
+	b=AdtrIeH32nHT+KTj+Wnmdlh0VcxnpEAfua+x+N9jVGPMrTpddG/UO6iVHcFEPJz3gpzA
+	 cXjA1Lt9AfG/5hIkf//cnXN6E8z/KNtzdr7vKUX7Zk7Ps4GpTw6JdoDXCrHqZsL+dmTiX
+	 tb9TFIDiU/1A5VAAvQz/dftRMeyalu0hfwH0XFNZJ0+CBSa0WZ5dKxT2YKANdd3IT4CEL
+	 T3Z0ErKCkMQboEa51exzMsQfOofKiJqWqW246zN94O/jcLXVpmlVukOO6HtOImoiATAri
+	 GYomvUQ8hE6eYtHYoOtjXfauU13RoiEhpIFlnVRr8rHOTQS3zbqFyfvJZQDmuSkvgNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nwJhAOGk;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="MN7/MvbJ";
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9913606A31C;
-	Mon, 16 Nov 2026 07:01:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9913606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAB3606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBAB3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nwJhAOGk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=8oCH6XC+liX1SVUHDFPJw0slOUl6aJW30d6QU4zbVWw=;
-	b=nwJhAOGkQsbbp7/qNOE8irIS9xvAcgD0oeiR0r0qtW+Jz6o/Eidr1QHeX8xT7v
-	PylJqImPFnywn4PhjlDdsEQ9hjA9p6E7M3bQpmyZP9dsH2ufAXSyscPqGm36bVgc
-	BOipbzNJZDuu+gmj4NspwUSGWU4qV7mPMEPMSjHjo7E0Q=
-Message-ID: <206b5151-c527-4b7b-8694-dd9c6cfd916f@163.com>
-Date: Mon, 16 Nov 2026 15:00:56 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MN7/MvbJ
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso3968219eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:02:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794812525; x=1795417325; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cF1GhVGbCRbU0hezkwXtJ7kkSIkuwbbIzIGbBkJTIA0=;
+        b=MN7/MvbJZpqBkfKVjaUwZoD87Sl1vBDgxdNBQ5s4p0KyDugQE5EqJoa1zojPEDu+T4
+         0UP+WbRaHqKcmoVwMAwkz2t5NMjK9HqUVPD03YztL3uWrcUG/TS+5jQV+LGNKplse7CM
+         9pEsi/yMJsVp+7lTyKPUTYfBtTyQ82itZ40072LfMFcSad65z+2vWrYpXbFJZf7XGcQo
+         INUNGrRlHKbjuS3/FbF3fk4frJ0f2hCVY0AgVZfbLQB1bGjvvs6lz/Xz4Z5j/7Gk3Pol
+         cCgCg94CAN7aFvrCR9+NknA3kId10AEiQOEBkNvL/UmwJ+CGpYwUL3YWifRDATP7hAR9
+         DXIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794812525; x=1795417325;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cF1GhVGbCRbU0hezkwXtJ7kkSIkuwbbIzIGbBkJTIA0=;
+        b=U7KVJYKVevrZBJ3qYdvVvDw2PPjm75xUJHxCsImzrSSC/BaPBmhEGvdd4jDyvpmnYb
+         ZPqGFCKRa67U0G8aTRFkb1fCECWr1v8V/PV/ZEbgMH1mooeSGIri/tSCrZkT6rL2JPU5
+         L6qxYUHtj7DM8fRs7/1Lw4NGOLbcPBOcfidHVHfntK+Frx0LiOVGGgeh3STj4gP3B7yo
+         GodQB5+EL1kRmPjoR6lw4iHfV6PZHtFThPF0soToS17Ma3ws+MPFpaUhDAiq2gvbj4bu
+         +keSccO5ieTV+w3euZvYq6g4cYPi046aJKWqVN/Ubqcjy7jioeKUPufMvZPjKWbQ0MRU
+         P9AQ==
+X-Forwarded-Encrypted: i=1; AL+hErGbMtK/62IIqxuHTQwxt0WkzjWm7/QEJlei5oOOukbaCiij5KDj8bSxjanG5azahiZLNRxdnIDJ8FyhzpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hgQ9qlLVjkN5Idtt2biKcvOoyyKEW50K+3C0nEYmKgbRIFbTW
+	iOa+0cc1AbzIUHf0kKUv8iQ/OOXvtDpVSG0cR7tzPpgytMGm10UTgjhFFblCzOe0KbSHAzKPCak
+	8yPaal023kw==
+X-Received: from dybkz20.prod.google.com ([2002:a05:7301:1a14:b0:370:948e:79b2])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:820d:b0:36b:d3dd:2e85
+ with SMTP id 5a478bee46e88-379676f8641mr9615570eec.36.1794812524383; Sun, 15
+ Nov 2026 23:02:04 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:01:46 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,69 +75,241 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: Handle implicit read permissions in
- madv_populate
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- chenxionggui@lanxincomputing.com
-References: <20261112031811.56500-1-evers_chen@163.com>
- <64e1c24f-08fb-437e-80c1-e5b486d15200@kernel.org>
-Content-Language: en-US
-From: cxg <evers_chen@163.com>
-In-Reply-To: <64e1c24f-08fb-437e-80c1-e5b486d15200@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wDnD70oqvpqdH8PHg--.13365S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw4rZr18CF15Kw4xtF15CFg_yoW8XF4rpF
-	W8C3WYgF4Dtw17Aws2yr10qrs5Jry8Gayjqw1rXFyqywnIk3WftrW7KayYka4fJr4kWw42
-	9a95WFyDAryqvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UknY7UUUUU=
-X-CM-SenderInfo: xhyh22pbfkv0i6rwjhhfrp/xtbC7AkOGGr6qilLogAA3J
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261116070200.2972362-1-irogers@google.com>
+Subject: [PATCH v2 00/11] perf pmu: Layered sysfs-style PMU event and metric directories
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for the suggestion.
+Currently perf resolves PMU event aliases from two hardcoded sources
+(/sys/bus/event_source/devices/<pmu>/events/ and compiled-in jevents.py
+C tables) while metricgroup.c reads metrics and metricgroup descriptions
+directly from compiled-in pmu_metrics_table arrays without associating
+them with struct perf_pmu. As a result:
 
-Agreed. Since this behavior is specific to RISC-V, a simple 
-architecture-specific check is sufficient.
+1. Adding, overriding, or testing PMU event encodings, descriptions, or
+   metrics requires editing JSON files and recompiling perf.
+2. Single-event parsing ('perf stat -e cycles true') eagerly runs
+   readdir() across /sys/bus/event_source/devices/<pmu>/events/ rather
+   than probing <pmu>/events/<event> on demand via openat().
+3. Metrics cannot be overridden or supplied via runtime directory trees
+   alongside PMU events.
 
-I've simplified the patch to use |#ifdef __riscv|in |test_prot_write()|, 
-removing the |/proc/self/maps|parsing and the additional PROT_NONE test.
+This series (built on top of the perf jevents block-indexed string
+compression series, which packs compiled-in event and metric strings
+into independently compressed ~8 KiB blocks decompressed on demand by
+(block_id << 16) | sub_offset) unifies PMU events, metrics, and
+metricgroup descriptions behind a stateless, openat()-driven layered VFS
+stack on struct perf_pmu, configurable via pmu-events.dir:
 
-The updated test passes all 16 tests on RISC-V with Linux 7.2.0.
+  Highest:  1. User directory layers (pmu-events.dir, left-to-right)
+            2. Compiled-in CPUID / sys JSON tables (libpmu-events)
+            3. Kernel sysfs (/sys/bus/event_source/devices/)
+  Lowest:   4. Compiled-in default_core / common JSON tables
 
-Since the original patch is already in Andrew's mm tree, would you 
-prefer a v2 or an incremental fix?
+This preserves the existing util/pmu.c precedence: CPUID- and identifier-
+matched JSON events override sysfs encodings (allowing architectures such
+as RISC-V to map legacy event names to CPU-specific encodings in JSON
+without bloating the kernel PMU driver), while sysfs events (such as
+/sys/bus/event_source/devices/<pmu>/events/cycles) override generic
+legacy-hardware and legacy-cache fallback encodings in common JSON
+(which remain available in alias->legacy_terms).
 
-Thanks,
-Xionggui
+User Directory Layout and CPUID Resolution
+------------------------------------------
+
+Each directory <root> in colon-separated pmu-events.dir supports both
+portable multi-CPU trees (keyed by literal CPUID or uncore identifier
+with POSIX symlinks) and host-direct PMU overrides, with no runtime
+mapfile.csv or regex engine:
+
+  <root>/
+  |-- cpus/
+  |   |-- GenuineIntel-6-4E -> ../models/x86/skylake
+  |   |-- GenuineIntel-6-5E -> ../models/x86/skylake
+  |   |-- GenuineIntel-6-8F -> ../models/x86/sapphirerapids
+  |   |-- GenuineIntel-6-8F-8/          # stepping-specific override
+  |   |   `-- cpu/events/inst_retired.any.desc
+  |   |-- 0x00000000410fd490 -> ../models/arm64/arm/neoverse-n2-v2
+  |   `-- 0x489-0x8000000000000007 -> ../models/riscv/sifive/bullet
+  |-- sys/
+  |   `-- 0x00000030 -> ../models/arm64/hisilicon/hip09/sys
+  |-- models/
+  |   |-- x86/skylake/{default_core,uncore_imc,...}/{events,metrics}/...
+  |   `-- arm64/arm/neoverse-n2-v2/default_core/{events,metrics}/...
+  |-- default_core/metrics/my_ipc{,.desc}
+  |-- <pmu>/{events,metrics}/...
+  `-- metricgroups/<group>.desc
+
+Within each <root>, perf probes three scopes top-down:
+
+1. <root>/cpus/<cpuid>/:
+   Queries each PMU's CPUID (using perf_cpu_map__min(pmu->cpus) so
+   hybrid PMUs such as cpu_core and cpu_atom use their own CPU's CPUID,
+   and honoring PERF_CPUID). perf probes the exact CPUID first and then
+   deterministic base CPUIDs stripped of stepping or revision fields:
+   - x86 ('-' delimited):    GenuineIntel-6-8F-8 -> GenuineIntel-6-8F
+   - s390 (',' delimited):   IBM,8561,703        -> IBM,8561
+   - RISC-V ('-' delimited): 0x489-0x8000000000000007-0x1
+                               -> 0x489-0x8000000000000007
+   - ARM64 64-bit hex MIDR:  0x00000000411fd493  -> 0x00000000410fd490
+                             (Variant[23:20] and Revision[3:0] zeroed)
+   - PowerPC 32-bit hex PVR: 0x00800200          -> 0x00800000
+                             (Revision[15:0] zeroed)
+   Each <root> stops at the first matching cpus/<candidate> directory
+   so a stepping override (e.g. cpus/GenuineIntel-6-8F-8/) does not
+   accidentally merge coarser model events from the same <root>, while
+   unset sidecar attributes and unoverridden events still merge from
+   subsequent directories in pmu-events.dir (for example
+   ~/.perf-events/local:/opt/pmu-events), compiled-in JSON, and sysfs.
+   Because openat() traverses POSIX symlinks in the kernel VFS, multiple
+   CPUIDs sharing a microarchitecture point to a single canonical
+   models/<arch>/<model>/ directory.
+2. <root>/sys/<id>/:
+   Matches pmu->id from /sys/bus/event_source/devices/<pmu>/identifier.
+3. <root>/ (host-direct and cross-CPU fallback):
+   Matches <pmu> (exact name, alias_name, default_core for core PMUs,
+   or suffix-stripped uncore prefix such as uncore_imc) plus
+   <root>/metricgroups/<group>.desc.
+
+Exporters materialize both layouts:
+- 'perf list --export-dir <dir>' writes the running machine's active
+  PMUs into host-direct <dir>/<pmu>/{events,metrics}/ for quick local
+  edits.
+- 'perf list --export-dir <dir> --export-cpuid <cpuid|arch[/model]|all>'
+  exports compiled-in tables for any CPUID, model, or architecture (or
+  'all') directly from the perf binary into <dir>/models/<arch>/<model>/
+  with relative <dir>/cpus/<cpuid> and <dir>/sys/<id> symlinks (for
+  example, to inspect or migrate metrics across architectures/models).
+- 'jevents.py --output-dir <dir>' exports unbuilt kernel source JSON
+  trees into the same <dir>/models/ + <dir>/cpus/ + <dir>/sys/ layout
+  (also usable on NO_JEVENTS=1 setups).
+
+Key changes across the series:
+- Lazy sysfs probing and struct perf_pmu metric storage (Patches 1-2):
+  - Patch 1 generalizes pmu_alias_info_file() to probe single event
+    files and sidecars on demand via openat() before falling back to
+    readdir(), keeping struct perf_pmu_alias private out of pmu.h.
+  - Patch 2 adds metrics and metricgroups hashmaps on struct perf_pmu
+    while keeping struct perf_pmu_metric and struct perf_pmu_metricgroup
+    private out of pmu.h (so tool, drm, hwmon, and tp PMUs are
+    unaffected).
+- Stateless struct pmu_layer VFS and pmu-events.dir (Patches 3-6):
+  - Patch 3 introduces struct pmu_layer (sharing internal alias/metric
+    representations privately between pmu.c and pmu-layer.c via
+    pmu-layer.h) and wraps compiled-in CPU/sys and common pmu-events
+    tables as the builtin layers.
+  - Patch 4 implements the openat() directory layer supporting extended
+    event and metric sidecars, %2F escaping for '/' in names, and
+    literal cpus/<cpuid> and sys/<id> POSIX symlink lookup.
+  - Patch 5 adds the colon-separated pmu-events.dir perf config option
+    (supporting -c pmu-events.dir=..., ~/.perfconfig, and PERF_CONFIG).
+  - Patch 6 switches util/pmu.c alias resolution and enumeration over to
+    pmu-layer.c, removing ~600 lines of legacy merge plumbing.
+- PMU-routed metrics, exporters, and tests (Patches 7-11):
+  - Patch 7 routes metricgroup.c, print-events.c, builtin-list.c,
+    builtin-script.c, and util/python.c metric and metricgroup lookups
+    through struct perf_pmu and perf_pmus helpers using public struct
+    pmu_metric.
+  - Patch 8 adds 'perf list --export-dir <dir>' (host PMUs) and
+    'jevents.py --output-dir <dir>' (unbuilt JSON trees).
+  - Patches 9-10 add compiled-in model/sys table iterators in jevents.py
+    and 'perf list --export-cpuid <cpuid|arch[/model]|all>' so any
+    architecture or CPU model's events and metrics can be exported
+    directly from the perf binary.
+  - Patch 11 adds C unit tests ('Layered PMU directory overlays' in
+    tests/pmu.c) and CLI shell tests (pmu_events_dir.sh) covering
+    lossless JSON round-tripping, overlay priority, file deletion
+    restoring lower-layer defaults, CPUID stepping symlinks,
+    '--export-cpuid' cross-architecture/model export, and heterogeneous
+    multi-instance PMU sub-metric resolution.
+
+v2:
+- Rebase onto latest perf-tools-next and v2 of the perf jevents
+  block-indexed string compression series (picking up NVIDIA Tegra410
+  uncore PMU suffix handling and updated Zen 6 / Tegra410 JSON tables).
+- v1: https://lore.kernel.org/linux-perf-users/20261113211105.3118281-1-irogers@google.com/
+
+AI Assistance Disclosure (per Documentation/process/coding-assistants.rst
+and Documentation/process/generated-content.rst):
+- Tools used: Antigravity coding assistant and Sashiko automated patch
+  review.
+- Summary of prompts and assistance: Interactive design and
+  implementation of the stateless struct pmu_layer stack, openat()
+  directory layer and literal CPUID/sys symlink resolution,
+  pmu-events.dir config support, struct perf_pmu metric routing and
+  encapsulation, 'perf list --export-dir', 'perf list --export-cpuid',
+  and 'jevents.py --output-dir' exporters, documentation, unit/shell
+  tests, and Sashiko review fixes.
+- Testing performed: Built standard (mypy, pylint, shellcheck),
+  NO_JEVENTS=1, and DEBUG=1 + AddressSanitizer/LeakSanitizer builds;
+  ran perf test (including Sysfs PMU tests, PMU JSON event tests, Hybrid
+  event merging, perf list, pmu-events.dir, and metricgroup suites) and
+  scripts/checkpatch.pl.
+
+Ian Rogers (11):
+  perf pmu: Generalize pmu_alias_info_file() and lazy single-event sysfs
+    loading
+  perf pmu: Add metric and metricgroup storage on struct perf_pmu
+  perf pmu-layer: Introduce stateless struct pmu_layer abstraction and
+    builtin adapter
+  perf pmu-layer: Add openat-based directory layer with literal
+    CPUID/symlink lookup
+  perf config: Add pmu-events.dir configuration option
+  perf pmu: Switch alias resolution and enumeration to layered PMU stack
+  perf metricgroup: Route metric and metricgroup lookups through struct
+    perf_pmu
+  perf list, jevents: Add --export-dir and --output-dir sysfs-style
+    exporters
+  perf jevents: Add compiled-in model and sys table iterators
+  perf list: Add --export-cpuid to export compiled-in CPU models
+  perf tests: Add round-trip export, CPUID symlink, and pmu-events.dir
+    overlay tests
+
+ tools/perf/Documentation/perf-config.txt |   52 +
+ tools/perf/Documentation/perf-list.txt   |   44 +-
+ tools/perf/builtin-list.c                |  366 +-
+ tools/perf/builtin-script.c              |    2 +-
+ tools/perf/pmu-events/README             |   19 +
+ tools/perf/pmu-events/empty-pmu-events.c |   36 +
+ tools/perf/pmu-events/jevents.py         |  432 ++-
+ tools/perf/pmu-events/pmu-events.h       |   15 +
+ tools/perf/tests/pmu.c                   |  959 ++++++
+ tools/perf/tests/shell/pmu_events_dir.sh |  236 ++
+ tools/perf/util/Build                    |    1 +
+ tools/perf/util/config.c                 |   15 +
+ tools/perf/util/metricgroup.c            |  369 +-
+ tools/perf/util/pmu-layer.c              | 3894 ++++++++++++++++++++++
+ tools/perf/util/pmu-layer.h              |  199 ++
+ tools/perf/util/pmu.c                    |  872 ++---
+ tools/perf/util/pmu.h                    |   32 +-
+ tools/perf/util/pmus.c                   |  239 +-
+ tools/perf/util/pmus.h                   |   13 +
+ tools/perf/util/print-events.c           |   33 +-
+ tools/perf/util/python.c                 |    5 +-
+ 21 files changed, 7091 insertions(+), 742 deletions(-)
+ create mode 100755 tools/perf/tests/shell/pmu_events_dir.sh
+ create mode 100644 tools/perf/util/pmu-layer.c
+ create mode 100644 tools/perf/util/pmu-layer.h
 
 
-On 11/14/26 03:02, David Hildenbrand (Arm) wrote:
-> On 11/12/26 04:18, Xionggui Chen wrote:
->> From: Xionggui Chen <chenxionggui@lanxincomputing.com>
->>
->> The madv_populate selftest assumes that a mapping created with
->> PROT_WRITE cannot be read, and expects MADV_POPULATE_READ to fail
->> with EINVAL.
->>
->> However, some architectures, including RISC-V, may implicitly grant
->> read permission to PROT_WRITE mappings. On such architectures,
->> MADV_POPULATE_READ succeeds, causing the test to fail incorrectly.
->>
->> Check the actual VMA permissions through /proc/self/maps and adjust
->> the expected result accordingly.
->>
->> Add a PROT_NONE test to verify that MADV_POPULATE_READ still fails
->> with EINVAL for mappings without read permission.
->>
->> On RISC-V with Linux 7.2.0, the original test fails 1 out of 16
->> tests, while the updated test passes all 17 tests.
-> I would have said, if RISCV is the odd one, special case it and call it a day?
->
-> That would keep the changes to test_prot_write() to a minimum.
->
->
+base-commit: b7ff10b9ddec8da75304c40fe4abf1ee4f9f0a43
+prerequisite-patch-id: 380517d80b75a79f1831ac666c124fcef5cbf519
+prerequisite-patch-id: 5e284ee3a3af71e8bfe3e40719396cf60fbece96
+prerequisite-patch-id: 941dcc66edb6a846cc15ccc2c87c0955b000d5e4
+prerequisite-patch-id: 447412f5e17799157dc8981ffa28378bc5f7fe72
+prerequisite-patch-id: bbb89f0b8a053b7f91d00e834489285060b69ddc
+prerequisite-patch-id: 8c306425c73d176dfeeede044b57f7ed383e19d1
+prerequisite-patch-id: dfce7f2910fbd18bc8dc3965c52cf6b08a825180
+prerequisite-patch-id: 4730aa572afe4e6d47f6aceaff92fccc15327881
+prerequisite-patch-id: 17cb0dd6eaa58cec5d6309dda84f122c6e381d4d
+prerequisite-patch-id: 8cc6043b4dd7c81151adcc8d602f93c644c5743a
+-- 
+2.56.1.703.gf848ed807c-goog
 
