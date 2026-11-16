@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841892;
-	b=5QCTg8hqMOb6zgUpBvw5VnPA4ZGQJbFuW8GVRYZUv5VFpwrF1uLKThz4AJf7vHTwOHFl
-	 zHXxPndy4elsUgOZjz5rWYVHxCLK5wqqIDc7rq/dIjawBLNdY5WJ0ZnSVcUsFpZPsYH5z
-	 T5G2lx2H8dE6Vf5sZYk2XrQ3cJzKIk03ain0A7p2fq11tZyCq9eyyrXc/IF0ltY0vTF6W
-	 VFR5+Hrp6H4+Q6CEQ0tewTR5AZsnnITd/lNOgQx1Lag5VQ6d7Gyd7S6x/3CWlkaU8gDSG
-	 GifovB1uf7eW5ArRDjFcVqsqjUNymg8PPRB+gUUj5FNAFmngR7/0UxRYjvYwNb9CK9Q==
+	t=1794841897;
+	b=1om0f+bKhBMh7wFC4I6D8FKDMsEW0o5dAvNFW0/aJ2XnKprJhJTAs9tWiJtjqY5J0rxv
+	 6JjlGt2GVTDbH9X9c1d3k0uV0iyAlnHwO7UXtyBMEFBUs+FMcFNoJiVSpmD6kJUtLlb3Z
+	 hCFCjZSFLWYjdfftA7tPFt9tmRbdjsnAVZzDv1sFvqurlzOzPT9FNgdItZh8ENDKTWGFD
+	 KrONqYeCyPWoji8ylvgSGnTlLoHcRuTbzyeuC+WgZPdmpHw8ua35o9g9NSFM/+YzphDjy
+	 ytwtTowC+Yp0dsspkcjWDlmAsO+GLm5lXSSiJ4IO50AaV6xiOtOZU9jl1ji8qHm2Xmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841892;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=Y8XD2Y289cX0oLELS+qul/zc655ovrsJYMygP258tPc=;
-	b=CiACwLRlbpkZU9/kv01H6qEbv6kaZEwrPmO9eS6eoYrWCOxrrtIEcx0W4h7mJQdlCYzC
-	 xD28a5/OsgdkHeRu9qFtxDWyvZMh0mYtBzleGvXDa50Fg8vIniJI366UnxQpSzIYGiMHF
-	 RoZTNZo+FF32y5+rB23pytn2slTypMScQyvnHmR1IPCzaHqt5IqMsg6gysvottWY6DgV7
-	 2eKbbe0sB4Ofj1uY29D4dM33V2IrUO8ppICgwe5Cs4+P4WviM9qtY1iPRkPM/UaYEhS2R
-	 Z88sIsZSIvLdiETyGM++RH6F9yZ0PxS8+Pqwijmh9xnOF8Q7tcJD1Mg55hFs1Dxrz6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841897;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=OhBxQLyc+UlBggGXFY7J26oX5udFii//2UhfOrNq+7Y=;
+	b=MRudz49rXM1dEG8FubfPwzrwbBUYwOSwDxIhkbrp8G+87BPcBwUAO96sRkl+kZjvNSJB
+	 dvVklaVEQ7nIsNCOQQRFFoJ3p5MSF3F3F48OTSv+Ek/QklEaTVOBHN1vGpxRs3GXalPw6
+	 HqOIK/dqoxUJdfJ4iBxnPddSZPn2K2wGSpK/zZvHQ+gxbwZvRfPZmHc7TaClOhU5+EZYw
+	 iir1/hsN6RBfJAmpca/CEgxNrwl8MUIC0KDlTEAaJBF2Hvrgc/GCFQZTmbuzbSZ3BqmWT
+	 nuLS6wbMlyoK/efyfBqg/7e9Dsi/Ky3PVLJD2WlHl1jykEcCeT0vMLSvQfOLwdyEc6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=dz3C+ckR;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40AB606A88F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:11:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A40AB606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
-	by APP-05 (Coremail) with SMTP id zQCowAA30LUPHftqjuJEAQ--.4731S2;
-	Mon, 16 Nov 2026 23:11:12 +0800 (CST)
-Message-ID: <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
-	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
- <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 23:11:10 +0800
-In-Reply-To: <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
-	 <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
-	 <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344AF606A338;
+	Mon, 16 Nov 2026 15:11:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 344AF606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=dz3C+ckR
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jSrtD45y6zKr5l;
+	Mon, 16 Nov 2026 16:11:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794841892;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OhBxQLyc+UlBggGXFY7J26oX5udFii//2UhfOrNq+7Y=;
+	b=dz3C+ckRStHyLkCMfLmW/4CK1Xmgbb+eFk/94WfAaGXVpUpUR4aKY6A5P3q/8ahuWAMGQj
+	7ToxXzmG2qe3fWpiHawprgr9NUptapCqMPcjyLhBGtG3tyXPAmYzUO3gD77apFmbnWUD/6
+	Jy5KVpPUQ8GN6v/Jc7uAOvPxuxi2gDBCFAFBqxQ/qWkjbyPt/PzG5P/X2cS0IPY5qQEQ5L
+	Zeg55+Lbgt0TPDz8dXXMHaPhQa5ij3bAVk5jzvCiTzmqrVi0dXOrIGEDK34+ziJKNHxK1O
+	F+8Bhn4EGXcOOh4pANzYOyoc21XAp9k/6pFrKvwRApclYUPWSyxQy3jQM+TcsQ==
+Message-ID: <fd24b5f7-52b6-4e6f-a0e5-32ed29683a87@mailbox.org>
+Date: Mon, 16 Nov 2026 16:11:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,209 +62,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowAA30LUPHftqjuJEAQ--.4731S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr1xtr4rCr1kWF1xWryDZFb_yoWxWF43pr
-	sYyFW8Kw4rZayvqF9rtw4DKay3Ww4Iy34Igr4DG3ZIqrnxtwsrua18Xr93uF4DJrZ7G3Wf
-	tFsFywnxAr1fAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
-	ZEXa7IU56yI5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ALSA: doc: cs35l56: Point to kernel.org firmware
+ repository
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
+ linux-sound@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jonathan Corbet <corbet@lwn.net>,
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
+ <skhan@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+References: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
+ <fd865483-1485-4042-b938-2012eaa65043@mailbox.org>
+ <3b620222-ba1c-4c6c-a06b-2dd5fb391fb6@opensource.cirrus.com>
+ <49f749ff-8d34-4806-bca7-403005600c0d@mailbox.org>
+ <575412a7-9f7d-47af-83b8-a0933b4c729a@opensource.cirrus.com>
+ <87zev9x8jh.wl-tiwai@suse.de>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <87zev9x8jh.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: fd37157f19718693fae
+X-MBO-RS-META: usak8cirobmjn7ei6rakn863htj8bdck
 
-=E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 14:37 +0100=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 02.11.26 um 08:57 schrieb Icenowy Zheng:
-> > The atomic_update hooks of both planes are just bailing out early
-> > when
-> > the planes are invisible, so it's reasonable to just remove these
-> > hooks
-> > and update the enabled state in atomic_update.
-> >=20
-> > This fixes the problem that invisible but enabled planes won't be
-> > shown when made visible, as pointed by Sashiko.
-> >=20
-> > Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for
-> > Verisilicon display controllers")
-> > Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor
-> > planes")
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > ---
-> > =C2=A0 drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 22 +++----------=
--
-> > --
-> > =C2=A0 .../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 2=
-6 +++++---------
-> > -----
-> > =C2=A0 2 files changed, 10 insertions(+), 38 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > index da456dced88aa..5295dc2f9ee2e 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > @@ -98,23 +98,6 @@ static void vs_cursor_plane_commit(struct vs_dc
-> > *dc, unsigned int output)
-> > =C2=A0=C2=A0			VSDC_CURSOR_CONFIG_IMG_UPDATE);
-> > =C2=A0 }
-> > =C2=A0=20
-> > -static void vs_cursor_plane_atomic_enable(struct drm_plane *plane,
-> > -					=C2=A0=C2=A0 struct
-> > drm_atomic_commit *atomic_state)
-> > -{
-> > -	struct drm_plane_state *state =3D
-> > drm_atomic_get_new_plane_state(atomic_state,
-> > -
-> > 								=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > -	struct drm_crtc *crtc =3D state->crtc;
-> > -	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > -	unsigned int output =3D vcrtc->id;
-> > -	struct vs_dc *dc =3D vcrtc->dc;
-> > -
-> > -	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> > -			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
-> > -			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> > -
-> > -	vs_cursor_plane_commit(dc, output);
-> > -}
-> > -
-> > =C2=A0 static void vs_cursor_plane_atomic_disable(struct drm_plane
-> > *plane,
-> > =C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
-> > drm_atomic_commit *atomic_state)
-> > =C2=A0 {
-> > @@ -153,6 +136,10 @@ static void
-> > vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> > =C2=A0=C2=A0	output =3D vcrtc->id;
-> > =C2=A0=C2=A0	dc =3D vcrtc->dc;
-> > =C2=A0=20
-> > +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
-> > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> > +
-> > =C2=A0=C2=A0	/* Other sizes should be rejected by atomic_check */
-> > =C2=A0=C2=A0	switch (state->crtc_w) {
-> > =C2=A0=C2=A0	case 32:
-> > @@ -225,7 +212,6 @@ static void
-> > vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> > =C2=A0 static const struct drm_plane_helper_funcs
-> > vs_cursor_plane_helper_funcs =3D {
-> > =C2=A0=C2=A0	.atomic_check	=3D vs_cursor_plane_atomic_check,
-> > =C2=A0=C2=A0	.atomic_update	=3D vs_cursor_plane_atomic_update,
-> > -	.atomic_enable	=3D vs_cursor_plane_atomic_enable,
-> > =C2=A0=C2=A0	.atomic_disable	=3D vs_cursor_plane_atomic_disable,
->=20
-> But now you have the worst of both worlds: atomic_disable is still=20
-> around but also done by atomic_update. And atomic_update always sets=20
-> these registers even if the plane is already visible.
->=20
-> I'd instead remove the disable calls from atomic_update [1] . I think
-> you should never reach this is you have an atomic_disable installed.
-> See=20
-> [1] for the logic.
-
-The drm_atomic_plane_disabling() function only checks whether a CRTC is
-bound -- I think it could be possible that a plane is bound to a CRTC
-but with an invisible coordinate (especially for the cursor plane).
-
-The end of drm_atomic_helper_check_plane_state() says:
-
-```
-	if (!plane_state->visible)
-		/*
-		 * Plane isn't visible; some drivers can handle this
-		 * so we just return success here.  Drivers that can't
-		 * (including those that use the primary plane
-helper's
-		 * update function) will return an error from their
-		 * update_plane handler.
-		 */
-		return 0;
-```
-
-Thanks,
-Icenowy
-
->=20
-> [1]=20
-> https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_atomic=
-_helper.c#L3030
->=20
-> Best regards
-> Thomas
->=20
-> > =C2=A0 };
-> > =C2=A0=20
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > index 8e94491693019..fca692f4f7d5c 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > @@ -59,25 +59,6 @@ static void vs_primary_plane_commit(struct vs_dc
-> > *dc, unsigned int output)
-> > =C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT);
-> > =C2=A0 }
-> > =C2=A0=20
-> > -static void vs_primary_plane_atomic_enable(struct drm_plane
-> > *plane,
-> > -					=C2=A0=C2=A0 struct
-> > drm_atomic_commit *atomic_state)
-> > -{
-> > -	struct drm_plane_state *state =3D
-> > drm_atomic_get_new_plane_state(atomic_state,
-> > -
-> > 								=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > -	struct drm_crtc *crtc =3D state->crtc;
-> > -	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > -	unsigned int output =3D vcrtc->id;
-> > -	struct vs_dc *dc =3D vcrtc->dc;
-> > -
-> > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > -
-> > -	vs_primary_plane_commit(dc, output);
-> > -}
-> > -
-> > =C2=A0 static void vs_primary_plane_atomic_disable(struct drm_plane
-> > *plane,
-> > =C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
-> > drm_atomic_commit *atomic_state)
-> > =C2=A0 {
-> > @@ -144,13 +125,18 @@ static void
-> > vs_primary_plane_atomic_update(struct drm_plane *plane,
-> > =C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> > =C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISAB=
-LE);
-> > =C2=A0=20
-> > +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > +			VSDC_FB_CONFIG_EX_FB_EN);
-> > +	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > +
-> > =C2=A0=C2=A0	vs_primary_plane_commit(dc, output);
-> > =C2=A0 }
-> > =C2=A0=20
-> > =C2=A0 static const struct drm_plane_helper_funcs
-> > vs_primary_plane_helper_funcs =3D {
-> > =C2=A0=C2=A0	.atomic_check	=3D vs_primary_plane_atomic_check,
-> > =C2=A0=C2=A0	.atomic_update	=3D vs_primary_plane_atomic_update,
-> > -	.atomic_enable	=3D vs_primary_plane_atomic_enable,
-> > =C2=A0=C2=A0	.atomic_disable	=3D vs_primary_plane_atomic_disable,
-> > =C2=A0 };
-> > =C2=A0=20
-
+On 11/16/26 1:30 PM, Takashi Iwai wrote:
+> On Mon, 16 Nov 2026 12:26:32 +0100,
+> Richard Fitzgerald wrote:
+>>
+>> On 16/11/2026 10:57 am, Marek Vasut wrote:
+>>> On 11/16/26 11:14 AM, Richard Fitzgerald wrote:
+>>>> On 16/11/2026 9:22 am, Marek Vasut wrote:
+>>>>> On 9/14/26 5:12 AM, Marek Vasut wrote:
+>>>>>> Use the primary mirror of linux-firmware at kernel.org.
+>>>>>> No functional change.
+>>>>>>
+>>>>>> Fixes: 088fb4ee17fc ("ALSA: doc: cs35l56: Add information about
+>>>>>> Cirrus Logic CS35L54/56/57")
+>>>>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>>>>>> ---
+>>>>>> Cc: David Rhodes <david.rhodes@cirrus.com>
+>>>>>> Cc: Jaroslav Kysela <perex@perex.cz>
+>>>>>> Cc: Jonathan Corbet <corbet@lwn.net>
+>>>>>> Cc: Randy Dunlap <rdunlap@infradead.org>
+>>>>>> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
+>>>>>> Cc: Shuah Khan <skhan@linuxfoundation.org>
+>>>>>> Cc: Takashi Iwai <tiwai@suse.com>
+>>>> ...
+>>>>
+>>>>
+>>>>> Is there anything left over to do with this change ?
+>>>> You should send patches To: a maintainter if you want them to merge it.
+>>>> They are not guaranteed to see it if you only CC them.
+>>>
+>>> Who is the maintainer in this case ?
+>>>
+>>> I used the get_maintainer.pl script which should have done the right thing.
+>>
+>> You have the correct people but you sent it to them CC: instead of TO:
+>> Takashi would be the best person for this.
+> 
+> It seems that the patch fell into a crack during my vacation, sorry!
+> Now applied.
+Thank you !
