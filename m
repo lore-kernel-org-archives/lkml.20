@@ -1,99 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794814588;
-	b=VOmLU4bkiBXfJjf/OGx10JLrPaeny53Mnizs5Ea/KIKV5eD/6C75npY30oNOdek92JdS
-	 NcBVDkeH4PI/0AFobbsPJpZxwy+Zfdk20TfHYcWz4SJQt+fZbHzcTJPvQl4gvGH/QJJiW
-	 JWzk9ko9D26rs3gSfZgYT/kYSYuO/rhNswHjuAgBZIr1CeaGhe9Q4o2CzSrexojnhTsHJ
-	 SQshg/reKVOeYqQXe85UW/pGDdM4aj+kEMGJq+5rA+B0nJCyHkhwyGaUNHdzY4PiaZ1d+
-	 /M3Kta4UtJlN0MUzrM+O8xu8Fbh6O0TlnxJlnW9rHZqpjAcH+O5FMvN1SyGZ4WktSRg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814588;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
-	b=VcofjVrzzBV950gdJaLLlbzLwpoKjVPCIJAqg65twgoD/Qz0AsThJnN6iWzUiVrneutw
-	 qZmwZ4eCRj0IhjkORE5OiF+Pv30sXzFSER4C2PaQUgXzp7ZWSdbSvo7Xi+JqPdoWVVn3D
-	 shujlkQ2UQaWaTgDPHBvIBoSZyGr7eBupQ9y87nQf4Z/22vOnxGsAKRKhrvxBXLUlQS6P
-	 ipm6TF6dldc+lF0sgqzrgm8Xw8iPSD5l9YcvMYzzRophTXSpcrklbJxNLObQau8CXHGXZ
-	 /p/vLuiODCvqiFuITGv1Z+rVDk1IWQb9aaUGvfmB3ApghYslvEebSQ5mBxJ2xcBzP+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnQnW5MM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794814652;
+	b=EJ7nFD1UhFqaniCqj3bp774R/cv02prnC+/5WSm4fdT1psUqtR6oKteBrw+c10CRaX7N
+	 rPq3Rotr+sxg90OHW1X5FITvnEO7CEWXvmwEfMSg+w+zLVgyhp2gLvEby05OOClJyqdM5
+	 ZI8KHcluigU+AIQfqZIN87RTltv7sZgbH6nbsWVwcZBKKL/cBuOBIHeDzVFcTqHmxlajU
+	 I5hPROMEQsw1sfUQtKuK9VEC/O7b15Xuv9BJnqe+wukbV4NTf3HjqYkgtQw9VuKvoedm1
+	 2Csb3WMkDt0WOxZufihjol7KmhqJCrdMQ1DD3ao+bnUUCi5shVIpAKscJtUp4hRL2cQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814652;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
+	b=xXCCca/6oNEBrlgTYuq4ugeOrvb5jr9HW1sI1zY5E49Wl/P9clQ7QcTfBk5nvpA7aytV
+	 4F8F0QqovNgvTcn50G1SK9ULgq61znc4ae4M2NnjQOV1VYzg66quUSDZwJtqHABO9dJ2e
+	 hEtb+zzk6t6v8GgvcBcUGnB4RXCVxH5tkA1eTm/waDXj5Ledh+AQx58nTkvbLg7rwSQtZ
+	 P1rsg2eLJtPffDSkYTxWMTtGxvuh+7wfM7VHRHp+0gp5nNK7VHErj3jNZmfYxjLNj91J+
+	 34hk4mAd+I4b6bWmVyucgwkaZPfM8cqQHd7L7YRmb8d6iS6tedOFW5/O+29z/e68QtQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBW17kY7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ki+lfelX;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znwH4v1y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UoLu+QNi;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932C606A8A6
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C932C606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92130606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92130606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnQnW5MM
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so4600373a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:36:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794814583; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O6Wa4kTRy7FTEqiOHy4F6pe8mwikmwNbw7ZPk9i/ZCiYNoxttvYgPUcKuUD8Qr9i3i
-         WnR4eIXlrZueZn1RpIGSaEfc93tYUUL7mO6jaFvwJywXoZXE1pOyntKQj3I2VhMaLEVD
-         vFt4jNka2PbffAljim5N9ejcJGQ5FbscUEpFvTDj8etgySZZXXv0890JnjIpU1VLqaDr
-         aXf2EpEL6X/sRh+8pOi4wv7lIfCxJz6vD0ysgXWxH1EVoNr0jjbYbhI5gwerqgr+hcb8
-         D/RKky3plItwnLXCH4yKqL2FjBd96ycKMDcUkYHXnhq/5diEeNXZPQ/yQlijet3dwsMb
-         c+KQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
-        fh=d5sTNjXsa9bQ5NJNu8qI4pQrGwYdAYVdac/bB21WTno=;
-        b=jho+J8LzNmHucq/5KaRsiZ4n6Y5vnYDic0hZifpWIyFBDfOiOyJnA8QyltExD//Gkh
-         9YfksHMLg98WrODcdVkQ4dpPYOz8Tvk9GEPjBxI5FnuLR2DTNMq6+vln7FyU213gfWeN
-         R8uRy8HuL7f7ULrxZEdt6Qe2QXvKQuhdclh/hIzZqCxyS+MtAMZJchWGumEBPbKIs9DZ
-         E2Ee9aJl5iW+7j+wdW8Kwrkr/WkR68gJzCXrd6BQHIbQryiCTg0jzUoYUT4Gc6oQXNoQ
-         axRrQn0oZvaqu+PvEffmjdniJnaJDlD9sSd95k20PDngO3e3PrJjzKYGsfvSCdDNtLaH
-         d7KQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794814583; x=1795419383; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
-        b=ZnQnW5MMlw8g4UDJend73b2EqQM0QB6Z8uyJYgtQ4aWw+rMVJoWthx1owv+BmRqFOb
-         BaV9WEsevPIZPRXbf67ehZ2/dHGqWOZumsHCVrHC+7bSpy1pqBprWCWjAd/qANlycO9k
-         mkdoQkVuTYaLPCk8+WXG7XLf0drxrF4UZLTQaG3NK1fY/WNM4/vsqkg32Ngp9X8HHziM
-         6hmqdHWBTZh85dtGyW43TYABPZ+oayr3KHt4yRA/5c3HIdT1CHuTrvD6uEWQshbPdDGX
-         S65NCW40Wgb6igu9RrFlVaKXoNFE+80lUaqUlStIfZQTiODQiRQkUhOPtunUJCYWnmJ/
-         HZ0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794814583; x=1795419383;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
-        b=LFa2TUrPdIB9WWPfHA/FIzJlNXSGa2cJLG3nTXKmvmDDQve2QTYroC0W2g7fneifKD
-         dHvQxfWP3+mZ3Id85eP7gYH0W/RPwMjIeB2BPPhSEzkAUjPpYvQOaX0FKB/NN7Kn+m2f
-         4IqfEV/Fbcn9XcTB8ZM9ve2SBNRse1mbPUGPl3byZ1pAPnVghDiOjxz+L1c3j6U/T0yO
-         LqBXsrUxcStMI/52eQQOXNPDjjZ8OK7Dui8Okqy+ZMaP92NXllqCIU7h7hTZMoEH4/NW
-         ZmDQTM3EDwKg8rvXQ7A+AH2mDHcTd6lrgbhneOroRzj4p0Mw4nzxANoQVRhPDBkg6R7E
-         RQaA==
-X-Forwarded-Encrypted: i=1; AL+hErEnZavCD5LxEtCdJQclobvPgEcSk9kgyJyMtlyJJ5dgXLNCdGKyZl0+y7TO426fsFj3u7P9mQsZdsuuvzw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rfKfIJZmoZIRrP4D/l+WQbVpCA7Xy9E1lfEoE7mcozyW6orLn
-	61v9viblD6j+ptWWoLQE+6+GvLL7MXXqGH089S/7yrLwA4vmkDr0z14wGOytRHGH6CzzPc9YA0v
-	+AuVMCTOgjNgN3zPrEeNHLHyvSgUQECM=
-X-Gm-Gg: AYBFou2tfEx/7dq9zthu79/BKUOIO0DqhInDF1Id5Qq7fLC1TeESvbpNey8umxs16T+
-	fn12+mL5xnJjPVwToMsBT8LL4lI6VnAjZ5GDylAx8KFQmoAs/2zb4igBvWznQds6X+Of+3ckRqa
-	bbkXfLZppixZ0sLL/iCA5KIl9bKfDgpYGQE6PaEAQQtfotgVh/HZGp0WJKFZFnS7Xp0Lozmf+pV
-	5IoDyfJc2OBsZvVJ/aMqvsITSQMV3tFWMZgq0cnpXr0i3U5PjsNgzSIMTOoXvXa5dEi6PPU45aM
-	oPNz9JYFhHOW490B8AvDlxzd0pgn4eMwXLFNW9f6B1NlCO76pfby083l8B9u9tN3t+KXhXZME0n
-	OlGtSuk6EL6NtLz8S5/+vK7y7XtHfEQxZguHWVhVnKbGs7Uh3wIYDy7lq
-X-Received: by 2002:a05:6402:5d4:b0:6b5:5fc8:9ca2 with SMTP id
- 4fb4d7f45d1cf-6b7c0c7dc86mr6801231a12.34.1794814582850; Sun, 15 Nov 2026
- 23:36:22 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBW17kY7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ki+lfelX;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znwH4v1y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UoLu+QNi
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5C8321FCF7;
+	Mon, 16 Nov 2026 07:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794814649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
+	b=aBW17kY7a/SJCSAemer7aZE355RkEQctEDunQO45ULQgnFZ5l8V9V919uEtyxCBp8Wnt3s
+	9iQ6n28HKkgtJTpVyBSRGX5rUEx4gyWaifGdvUOgVHehAugcCkgR/3S82TxASiN/qaslRy
+	O5kDruzeHCUHG1qJ/pj1oOmjO8kMSYk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794814649;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
+	b=Ki+lfelX+5JRg1KRn5F4jKSlDXvkoXYYhq82spafRNZ4pP+JutQQ0WfnegpXuj+3tgweeF
+	3SOVMmLJrvGolcCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=znwH4v1y;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UoLu+QNi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794814648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
+	b=znwH4v1yJ9EZYu/0cLfheLAW3yjQ6YBSc0RHIrCHOIde9VdJ60oqws3a+hypuLVTpLvIdQ
+	s0Kb2OUL/CKfFFZhl+T3HHZHbwSiRJWqtqEqKzLnqyfK3zgUoYah6bT5fZvJkeLyDP/VPA
+	dj9O4sKc4Zku+i8TDIWPqEzrZnbE690=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794814648;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
+	b=UoLu+QNisU0gC/nj8ikOfX1gWh8R4Gfl8YpjaPVKn7AtAD6LSRjKydvwb9PqW3PckEsOFv
+	uDWqHnZY/XkV1WBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E0B0813408;
+	Mon, 16 Nov 2026 07:37:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1uQWLbey+moEMgAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:37:27 +0000
+Message-ID: <0cec2aa3-62c2-411f-a51b-9a3f3d25820b@suse.de>
+Date: Mon, 16 Nov 2026 08:37:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,129 +108,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110061429.2036-1-linux.amoon@gmail.com> <20261110061429.2036-2-linux.amoon@gmail.com>
- <avpN-gFOvTBAMY6G@venus>
-In-Reply-To: <avpN-gFOvTBAMY6G@venus>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Mon, 16 Nov 2026 13:06:08 +0530
-X-Gm-Features: AclHuK_zi0cJ5esU4k_l4Yl1mv76j_qYKuptpaeB4AEIgcR7sleibDfPZTNW_HY
-Message-ID: <CANAwSgT_k35_waHL-+iU93f=k3fjFAPXhk=exRz-XHMm2MqREA@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] power: reset: spacemit-p1: Use atomic I2C
- transfers for power-off and restart
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Yixun Lan <dlan@kernel.org>, Aurelien Jarno <aurelien@aurel32.net>, 
-	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 13/17] nvme-fc: perform error recovery directly from
+ ioerr_work
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-14-mkhalfella@purestorage.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261114030454.2836543-14-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,broadcom.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,purestorage.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 5C8321FCF7
 
-Hi All,
+On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
+> Now that nvme_fc_start_ioerr_recovery() moves the controller to
+> RESETTING before queueing ioerr_work, the nvme_reset_ctrl() call in
+> nvme_fc_error_recovery() fails with -EBUSY and no recovery runs.
+> 
+> Do the recovery in the work itself instead: stop the keep-alive and
+> the AEN submission, tear down the association so that any command a
+> core work item is waiting on is aborted at once, stop the controller,
+> move to CONNECTING and schedule a reconnect. If the CONNECTING
+> transition fails the controller is being deleted and the delete path
+> finishes the job. This is how rdma and tcp structure their error
+> recovery too.
+> 
+> The work is only ever queued right after a successful transition to
+> RESETTING, so when it runs it owns the controller: a reset or a
+> firmware activation holding RESETTING cannot be in progress at the
+> same time, and the work does not need to re-check the state.
+> 
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> ---
+>   drivers/nvme/host/fc.c | 57 ++++++++++++++++--------------------------
+>   1 file changed, 21 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
+> index c4603be38144..0ba621649afe 100644
+> --- a/drivers/nvme/host/fc.c
+> +++ b/drivers/nvme/host/fc.c
+> @@ -229,6 +229,8 @@ static struct device *fc_udev_device;
+>   static void nvme_fc_complete_rq(struct request *rq);
+>   static void nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl,
+>   					 char *errmsg);
+> +static void __nvme_fc_abort_outstanding_ios(struct nvme_fc_ctrl *ctrl,
+> +					    bool start_queues);
+>   
+>   /* *********************** FC-NVME Port Management ************************ */
+>   
+> @@ -987,7 +989,8 @@ fc_dma_unmap_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   static void nvme_fc_ctrl_put(struct nvme_fc_ctrl *);
+>   static int nvme_fc_ctrl_get(struct nvme_fc_ctrl *);
+>   
+> -static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg);
+> +static void nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl);
+> +static void nvme_fc_reconnect_or_delete(struct nvme_fc_ctrl *ctrl, int status);
+>   
+>   static void
+>   __nvme_fc_finish_ls_req(struct nvmefc_ls_req_op *lsop)
+> @@ -1880,7 +1883,23 @@ nvme_fc_ctrl_ioerr_work(struct work_struct *work)
+>   	struct nvme_fc_ctrl *ctrl =
+>   			container_of(work, struct nvme_fc_ctrl, ioerr_work);
+>   
+> -	nvme_fc_error_recovery(ctrl, "transport detected io error");
 
-On Mon, 16 Nov 2026 at 11:33, Sebastian Reichel
-<sebastian.reichel@collabora.com> wrote:
->
-> Hi,
->
-> On Tue, Nov 10, 2026 at 11:44:27AM +0530, Anand Moon wrote:
-> > The SpacemiT P1 power-off and restart handlers use regmap_set_bits()
-> > to access the PMIC. However, these handlers run in an atomic notifier
-> > context (specifically within an rcu_read_lock() critical section), while
-> > the I2C-backed regmap uses a sleepable mutex.
-> >
-> > This triggers a "WARNING: suspicious RCU usage" warning due to an illegal
-> > context switch in the RCU read-side critical section during shutdown on the
-> > Banana Pi BPI-F3:
-> >
-> > [  563.803475] WARNING: suspicious RCU usage
-> > [  563.807813] 7.3.1-ARCH-RISC-V #1 Not tainted
-> > [  563.816614] ./include/linux/rcupdate.h:387 Illegal context switch in RCU read-side critical section!
-> > ...
-> > [  563.841445] locks held by shutdown/1: 2, last CPU#0:
-> > [  563.846694]  #0: ffffffff8404fb20 (system_transition_mutex){+.+.}-{4:4}, at: __do_sys_reboot+0x230/0x29e
-> > [  563.856806]  #1: ffffffff84167860 (rcu_read_lock){....}-{1:3}, at: atomic_notifier_call_chain+0x4a/0x1c2
-> >
-> > Replace the regmap operations with atomic I2C transfers to avoid sleeping
-> > in an atomic context. Preserve unrelated register bits through
-> > read-modify-write operations and check for atomic I2C support before
-> > registering the handlers.
-> >
-> > Obtain the I2C client from the parent device and verify that the adapter
-> > supports atomic transfers before registering the handlers.
-> >
-> > Tested on the Banana Pi BPI-F3 (SpacemiT K1).
-> >
-> > Assisted-by: LLM
-> > Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> > Cc: Aurelien Jarno <aurelien@aurel32.net>
-> > Fixes: 28124cc0fb8c ("driver: reset: spacemit-p1: add driver for poweroff/reboot")
-> > Signed-off-by: Anand Moon <linux.amoon@gmail.com>
-> > ---
->
-> regmap runs i2c_transfer itself and thus also uses the atomic I2C
-> transfers. The problem here is regmap itself. But instead of moving
-> away from regmap, the atomic use case should be supported properly
-> in regmap.
->
+Hmm. _Some_ message would be nice here.
 
-On  RISC-V platform, poweroff and reboot are already handled by OpenSBI
-through the SBI System Reset (SRST) extension. Linux delegates these
-operations to firmware using SBI_SRST_RESET_TYPE_SHUTDOWN for poweroff
-and SBI_SRST_RESET_TYPE_COLD_REBOOT or SBI_SRST_RESET_TYPE_WARM_REBOOT
-for reboot, depending on the supported reset type.
+> +	nvme_stop_keep_alive(&ctrl->ctrl);
+> +	flush_work(&ctrl->ctrl.async_event_work);
+> +
+> +	/* will block while waiting for io to terminate */
+> +	nvme_fc_delete_association(ctrl);
+> +	nvme_stop_ctrl(&ctrl->ctrl);
+> +
+> +	/* Do not reconnect if controller is being deleted */
+> +	if (!nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_CONNECTING))
+> +		return;
+Same here; it's the same condition than the original 
+nvme_fc_error_recovery() checked for, so we should keep the
+logging message.
 
-Therefore, there is no need for an additional Linux PMIC poweroff/reboot handler
-on this platform, as it duplicates functionality already provided by firmware.
+> +
+> +	if (ctrl->rport->remoteport.port_state == FC_OBJSTATE_ONLINE) {
+> +		queue_delayed_work(nvme_wq, &ctrl->connect_work, 0);
+> +		return;
+> +	}
+> +
+> +	nvme_fc_reconnect_or_delete(ctrl, -ENOTCONN);
 
-While supporting atomic operations in regmap may be useful more generally,
-it is not necessary to address this platform's shutdown and reboot requirements.
+And you can move this under the 'else' condition from the above
+if-clause.
 
-I tested this on the SpacemiT K1 Banana Pi BPI-F3 after removing this PMIC
-poweroff/reboot driver.
+>   }
+>   
+>   /*
+> @@ -2528,39 +2547,6 @@ __nvme_fc_abort_outstanding_ios(struct nvme_fc_ctrl *ctrl, bool start_queues)
+>   		nvme_unquiesce_admin_queue(&ctrl->ctrl);
+>   }
+>   
+> -static void
+> -nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
+> -{
+> -	enum nvme_ctrl_state state = nvme_ctrl_state(&ctrl->ctrl);
+> -
+> -	/*
+> -	 * if an error (io timeout, etc) while (re)connecting, the remote
+> -	 * port requested terminating of the association (disconnect_ls)
+> -	 * or an error (timeout or abort) occurred on an io while creating
+> -	 * the controller.  Abort any ios on the association and let the
+> -	 * create_association error path resolve things.
+> -	 */
+> -	if (state == NVME_CTRL_CONNECTING) {
+> -		__nvme_fc_abort_outstanding_ios(ctrl, true);
+> -		dev_warn(ctrl->ctrl.device,
+> -			"NVME-FC{%d}: transport error during (re)connect\n",
+> -			ctrl->cnum);
+> -		return;
+> -	}
+> -
+> -	/* Otherwise, only proceed if in LIVE state - e.g. on first error */
+> -	if (state != NVME_CTRL_LIVE)
+> -		return;
+> -
+> -	dev_warn(ctrl->ctrl.device,
+> -		"NVME-FC{%d}: transport association event: %s\n",
+> -		ctrl->cnum, errmsg);
+> -	dev_warn(ctrl->ctrl.device,
+> -		"NVME-FC{%d}: resetting controller\n", ctrl->cnum);
+> -
+> -	nvme_reset_ctrl(&ctrl->ctrl);
+> -}
+> -
+>   static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
+>   {
+>   	struct nvme_fc_fcp_op *op = blk_mq_rq_to_pdu(rq);
+> @@ -3399,7 +3385,6 @@ nvme_fc_reset_ctrl_work(struct work_struct *work)
+>   	}
+>   }
+>   
+> -
+>   static const struct nvme_ctrl_ops nvme_fc_ctrl_ops = {
+>   	.name			= "fc",
+>   	.module			= THIS_MODULE,
 
-OpenSBI commit which handles this extension
+Cheers,
 
-d9637d00bf47 ("lib: utils/reset: add SpacemiT P1 PMIC support")
-b10e18ec854a ("lib: utils/i2c: add minimal SpacemiT I2C driver")
-
-Similarly, on the StarFive VisionFive 2, poweroff is handled by
-OpenSBI through the
-AXP15060 PMIC, so there is no need to register an additional poweroff
-handler using
-devm_register_power_off_handler().
-
-OpenSBI commit which handles this extension
-
-568ea49490d9 ("platform: starfive: add PMIC power ops in JH7110
-visionfive2 board")
-
------8<----------8<----------8<------
-diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index 50df66de24e06..069259f7d7c15 100644
---- a/drivers/mfd/axp20x.c
-+++ b/drivers/mfd/axp20x.c
-@@ -1458,8 +1458,14 @@ int axp20x_device_probe(struct axp20x_dev *axp20x)
-                return ret;
-        }
-
--       if (axp20x->variant != AXP288_ID)
--               devm_register_power_off_handler(axp20x->dev,
-axp20x_power_off, axp20x);
-+       /*
-+        * The VisionFive 2 handles AXP15060 poweroff through OpenSBI.
-+        * Avoid accessing the I2C PMIC from the atomic poweroff path.
-+        */
-+       if (axp20x->variant != AXP288_ID && !(axp20x->variant == AXP15060_ID &&
-+                               of_machine_is_compatible("starfive,jh7110")))
-+               devm_register_power_off_handler(axp20x->dev,
-+                               axp20x_power_off, axp20x);
-
-        dev_info(axp20x->dev, "AXP20X driver loaded\n");
-
-Please let me know if this works on your board?
->
-> -- Sebastian
-
-Thanks
--Anand
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
