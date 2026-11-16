@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849415;
-	b=Majgu8hRyJ7MSB1KX0o8KTMV+YnIx0HVD0X8eXmmTDBqlh0O5Dssg+8UZEYkgiyn9mAI
-	 Dk1+w2KDjbeA+dS4DPwc4UZlRcLn02K5rzgpTUXGpKhBXyzT/M/RlWmXIXucdNT59+Ig1
-	 GPKnF0GXTIHfB7dgAlXDuXbw02ay3FqEyWw25i4LkrwHhL3g90Pt4i1N3piNpauSF/PAK
-	 jgG0SFSW0i6aGBl0xIJZ/d3DRnRfE9rQIBmRbBuucHzWunecdO4zMlRlRGpfvoh94YHW5
-	 m8Gic55NBO+XQSHHL35d4ox6moey0fFrQ591RkLFVPcFlmCTRXJwridkbn/4NXg1YfA==
+	t=1794849417;
+	b=J/2l7oZ164NZFNucKJcNoENDKo1QKxV0KhdeRnyduoHuwDWlPWW5yGAiNu66EQuM3HBh
+	 9N9Qr5S15m0TShLGxPA4ZywxY4o58AxAUWyjIVBbOAZ4LcB94osfqFffHktrBd8C448+k
+	 8MhIndUHkQzSSVewKMzSrrpYzZZdOI+nZa/DBKhO69gmKJCZMaaubOrEJkuXwp88VGH73
+	 g36S4Ms0DBvITcjWGNBk0GT0NIkNK7OfwVrcsI12FF18+4pCOhmFVY0V74dp9aDeT4kfx
+	 Kqh6D9YTkgBA4Vm6Nymk2ukTSHPNGCbTkkaeVYm/uehkGKDfHkQQhhSZZO8GPdvY5zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849415;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849417;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=FWCmDJYn06wmclYL/C3CWZHSD6pLT7nEY3iSZCJIB3w=;
-	b=GMeAEUsDPGNpmxgggAPAP1v3Pr0gDKwU7XBXNBsoZuIjXQvNBD2rsN2c+K0NCwmkgs4t
-	 Cj4MobM2ZmlX369zqKVU4NmUXihuUxzoC7dqbi0znkKSguFwUmJXQs2bbpmVlZaPu7YQD
-	 KMl3qBoR5PUVCbyREEipxw3PiQsmoFFPrAnbn0HS/ZpuEPK+xlrUCiPixcUbSzfZkZG10
-	 nZaiKdURkAElaXAPtBjsiT+Q09GxNk9MaKtqxc7sy4WHU4J8rHrUA57hGKJwr1RBl2C5n
-	 YTr/hjEYeVYEnf905Pr6ZYx4+pQ9B30xxspTRSwpnJGqNczUtPc0kUpUpjcNAscPOyg==
+	bh=hVeEwjcOOj5BC/QfreW3323ZuTtHgj3cknihs7wj+GA=;
+	b=TRqOIzoFkr5+Kb8rYr3CvQrx4itkqOxY+Fp0eKv2WIJn1BPoSLY+oH9GaHsV7zaO0fqc
+	 nXChYSz3Mgn8s1f4ym+vscQMYnwJ5RQ7Uj6TX1P8D7tExYhPlmddi6HfUkwjqxPu/rfdc
+	 qjpEU8ids+necMcZ8JfieRYf21zwMfrO0mtOj+td02CGgCHqZSdUmN2KjpQznYdNRIooN
+	 hmmmuoeJidt1tlJVP6yWR1OHnRrkxe+2nbJePC+hpYACExEDmf0bQBawLrfv40BfRaNhI
+	 DF7jwxPJG/4IFPjJEiT63CAt6LEtJZe3j687+vv9ccvovIxjpmhtKP5ainqcWOQ4nPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMXVRtC9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7RzGSGF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B204606A880;
-	Mon, 16 Nov 2026 17:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37C5606A337;
+	Mon, 16 Nov 2026 17:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMXVRtC9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083661F000CF;
-	Mon, 16 Nov 2026 17:16:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7RzGSGF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C441F000D3;
+	Mon, 16 Nov 2026 17:16:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794849415;
-	bh=FWCmDJYn06wmclYL/C3CWZHSD6pLT7nEY3iSZCJIB3w=;
+	s=k20260515; t=1794849417;
+	bh=hVeEwjcOOj5BC/QfreW3323ZuTtHgj3cknihs7wj+GA=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=JMXVRtC9bNP7baAwUaxhhwtW9nVXLw5ReSLwJiM7poH1gOoSVFalKuIzw7Ouq1BtI
-	 dhJc4JJJ/+g2pQqDMfnGvTuSCtrH24cU4XtwhOEVAk3Ki732A22lxh1Da7i85EMoRQ
-	 CyzGYYuC7ZpFzWa86UxybLVlWmjzhu5Fn1BI8QchZ+/3wlqgLOiX/QqS4EJsEnrZ5G
-	 YZjOMPDkP1lIWh3KnYnl1CWzXcIbEJEuheupSPUrUB0a22+OGmzffQ3RMbYrEvvP6B
-	 anVEczStseo548lxC6+8t9pwHIi96ZCcRuBCJOXnuHddkod4xOcBGRvpGdLdH5bjIk
-	 8VdJA8geuFF3g==
+	b=k7RzGSGFnMrAILN27eOAOW8VGm2k6GtErAGSvgp3WmwQbL8Uj+ilZ9768ves+vIXT
+	 rGCPiFiy5dYzRlpxJg5D784EAGjdXN8BhfwlVNqb1xznGVpV+gDctT6j/Uwrr1nJ31
+	 +3jR2yofXgiavg4sRLzsQgEtD4Dt7CAa3NU5opSJkabHm1zbj03l93Chxm1jY/fRk4
+	 7n7nJCRNsHeyA6KpOwyiJ8X7FneKfa5rLWL+QUTgRiA1TqNVthAPoaGeZKyfFjk7ZW
+	 O/P+kKA6V48++1amZTcV7SDx8LlbCSAxE+pxNvjqn9vLsq0uuHlYKgQ8d5e0UTjU17
+	 jgHc60vjHpiWA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F14E1391AFAE;
-	Mon, 16 Nov 2026 17:16:54 +0000 (UTC)
-Subject: Re: [GIT PULL] USB/Thunderbolt driver fixes for 7.4-rc4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7739A391AFAE;
+	Mon, 16 Nov 2026 17:16:57 +0000 (UTC)
+Subject: Re: [GIT PULL] TTY/Serial driver fixes for 7.4-rc4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <avreo7CCI_5RU7cg@kroah.com>
-References: <avreo7CCI_5RU7cg@kroah.com>
-X-PR-Tracked-List-Id: <linux-usb.vger.kernel.org>
-X-PR-Tracked-Message-Id: <avreo7CCI_5RU7cg@kroah.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git tags/usb-7.3-rc4
-X-PR-Tracked-Commit-Id: 3149e8b3237f58d4dd440fc64c45c93404c4b064
+In-Reply-To: <avrfbLonPT9vBmMC@kroah.com>
+References: <avrfbLonPT9vBmMC@kroah.com>
+X-PR-Tracked-List-Id: <linux-serial.vger.kernel.org>
+X-PR-Tracked-Message-Id: <avrfbLonPT9vBmMC@kroah.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tags/tty-7.4-rc4
+X-PR-Tracked-Commit-Id: eedf2cf3505c1562a2fb24f8b997056f023d242b
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: f11fe7603df07fbb9fa02b0d385c1696c87a6dab
-Message-Id: <179484941382.3777341.15816955644192966249.pr-tracker-bot@kernel.org>
-Date: Mon, 16 Nov 2026 17:16:53 +0000
+X-PR-Merge-Commit-Id: b6793a9e2a3c280bb7c6c7d39be271e2f57aa2bb
+Message-Id: <179484941615.3777341.6410375985927199383.pr-tracker-bot@kernel.org>
+Date: Mon, 16 Nov 2026 17:16:56 +0000
 To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Jiri Slaby <jslaby@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Mon, 16 Nov 2026 11:44:51 +0100:
+The pull request you sent on Mon, 16 Nov 2026 11:48:12 +0100:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git tags/usb-7.3-rc4
+> git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tags/tty-7.4-rc4
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/f11fe7603df07fbb9fa02b0d385c1696c87a6dab
+https://git.kernel.org/torvalds/c/b6793a9e2a3c280bb7c6c7d39be271e2f57aa2bb
 
 Thank you!
 
