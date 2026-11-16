@@ -1,102 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.226
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862037;
-	b=jTqgEv/BRk/q3Eqeua6cQUai7rwdk8xASUNAqS0wKkPzSf1VCpqJKv9jkr1jRGqu1OWV
-	 CuZArMuBHuB82mlZtbIM72Qxl9smGVPFCmFUhK+acp0oZcWvxA4eVirzn/aw3fINmwM/i
-	 dHoDtq555tg8NW54CVesWfaSMmpJdVSd8nITeGxMSIRzM1fxTsMyQ/xl3TeJQDM9SGGkq
-	 euqJxPRISRUfEMoBnzrIolxBZIQkWKWmROoCstMtCpYpRm2Y2J+uFQI5kJu9u6JjszcMN
-	 msEY388OnitSTQl1qgyywfZaahRcj1vfewGGRSZShEUjSFnFJLxjk073G1gpDZCNLcg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862037;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=e3nSQTH0rYIVnYRuHrr8Tvkk1NUhFraw3OHV8sk/uYs=;
-	b=zj9C3eOg8UyfCo1ddUBWTsK9hxN8crCeMBmNM3ogs3jtnpT6TP85SEvodZo1vKWgA+ao
-	 hirfmcZ/nKLw9BEP8HDMn7H3w9ZAJvORrSSUR4h0gi/ykm+CKgGcwZE2RU9+w4IBFC2CN
-	 f0OeT3t4S55C5idOeyXSCD8AkMGmoZLg7IiNNqteuxufDnpCd7GqkDGeSZPdlgJ5olgIG
-	 Js7snB7HOoFkmYhhqRufssHvdv1ZUS9Z3leRLM5yH8seuZFlgse6iU4jWFGmc1ZEcAIeT
-	 FS7ujVY2trUL5d152OgkYYtssQ/MBDT2/8pfhufM96JVLOVBwtVsZEGHEZxxtXyAcmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=gEfpBXON;
-	arc=none smtp.remote-ip=209.85.128.226
-Received: from mail-yw1-f226.google.com (mail-yw1-f226.google.com [209.85.128.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794862053;
+	b=5koqae7rls0oD2QdEtcwgACU1KVcvRCmmFCUr3CUowRyCCFSpFvS06yuPBF5UKZ8tYxx
+	 4+u/nW4at3MUpaIvph57rMb/JyyojQWov28J3VxoXeX9RB/KAq+3LYy4VHh0KUBf9RBwF
+	 wkI6s7QupzJ0qEJHrrQDk5alMnSxkQZ+dp+7m9MuwzNHUWwzrvSCYpZWlTM62EyFOBkAp
+	 lBg8lM6ZY7e53X0c+KKmFAu6sYB4wS644DcETLKX0xQksu7p7TJ30JMc5CEI3C+pz00Ud
+	 Czd8UMaX2IKaGffxq6koifoZzHH3VkouY/A6qQQCRVHdAySFa+d0lO+qfSJT9fdrjoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862053;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6r3zcdABF/6bVXYZsilaYdz3kHuOnMmADTwot0z1l1Y=;
+	b=aauiqTONtmFwXXkdJUBjBF0fICs6Ce5YDtYggCejaEX782+MBq7PBzOIIo9gZT3Sg/dC
+	 sct9YfQnpDxSPQHBGsHIhuYxKeXxAvAqNIZdmP9i02FerYwVhdWszjazl4BHo/fSmkcOO
+	 QEqVxIWUdRAQawFCf5ydAQ/mT9tQX8rVLu8WTz5tNP2jHPDq80+4XGZNkV2sgbqlRkqdg
+	 eC5gHQSsATX/MhhunMnNnd/45qv5BuQnMB//3bSyR2QDmKeXMIh+igZ6qeK5hipaMzQhk
+	 T1uAj8p140lymxPLbn3G2obCdtwV4DweuO8nCJlZeajAa1E687cRBlhlmgTgEgP7Aqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AULpy265;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.39
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010039.outbound.protection.outlook.com [52.101.84.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D503606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:47:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D503606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5209606A334;
+	Mon, 16 Nov 2026 20:47:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5209606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=gEfpBXON
-Received: by mail-yw1-f226.google.com with SMTP id 00721157ae682-8b305d38bafso26157247b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:47:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862036; x=1795466836;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=e3nSQTH0rYIVnYRuHrr8Tvkk1NUhFraw3OHV8sk/uYs=;
-        b=b+jWsXzVnVRf0nyWjSY+UPhaSpkboAAeo15cawtvV3l+8MSCQtNi3YNi0D7tXlhmaQ
-         1BqifycbD3dticPc/PgxxsZNI+r3Sfv8O/SAeshIGkMZYdDrew+GcgJoWMWtuR8FTE0i
-         rpUvfsLiBj/LEhMr+4iZz+UY+RFPV2kE81vdX2JF37SNtv52ejqN5FQxSCbw6QtWfn8n
-         2h/ozev1Mij8XqwP7eR54yGuJqwSvRRyW+yieLOVfMHEH2wQVLhzwAv0sO4EVUIjU2LB
-         9w7WeNJEc2BlnnAP7phWhbbhd5CbufS9k/FrkqrnkAHNPnbd/2chOa7+WGEda5rLQmUo
-         j23A==
-X-Forwarded-Encrypted: i=1; AL+hErH4PrTKRl8lx39vmQV8kWgBYi0ynrCuOpSOunbbR7q0UKdmVttDI+laKjUe4LN+ZklybhfoRQggWeHSnZ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jqsLgwx+RI1TP+3wwEONCNcwMNUceJhYmKt08IzWE146RFFab
-	DB98HeiiEh9ATM2pJ1EO9WI+5Om/5qcz9GJAhYMQP6c/pG74g3buK7NsiDKAPZPxKff7GxP7tKD
-	JcSnduNjAntDP6wquhvJlezA3n/1J9cIZHMKysZBIOkJ70zJdSRR8m55oXDplSCPXuu2uRfSVK6
-	rkH83UyI0anujHYTpnYPhY14UzKfy68SmwsD6vRLfGJfut2Qng/pxcDmJ2JNWqp5zhUTihiGRKY
-	MnXH3BRHQSu92QTIjKdabom
-X-Gm-Gg: AZFdTZdGpl4hTFzVq3ZOZyKcfRD8uu9GbklpE6hMZSdC3NvZ7KC6suE/VMiHWzsDsUI
-	PQ4rfCa311bMaAMtuqbPhZ34RwvMkkz+XJgcPBzoaohfw83w3E8WgkL+7VB4ATKgXPqsft6ZeQT
-	a3rADvR9SXcTo7m2QMwyhLkH9eZU03itGFjW/+4IQ2Dh5c0sLqaZxg9lhdNyzGRgduyseUSxUBW
-	sfSGWJVhM9cBcJrNefy8BDGgwQ2ubJbVo0HtI50jOTi9xOdx3flXmLeNJG4MzP1sQ9FKqoIefBH
-	q/3Lll7dzg4n3v2+TOGgqBzelFlMBBbA41euzh+Ghg6TH4lrn+1IRIcmTbkWeZVje/myrM4Ur3U
-	1mu89rOuS66HWKelou2yhDN8iiUMkujr/1rnDcbnd00h3QWZbm9k8gNJvwHeQGq8cp276DA1i9J
-	rnBZyLk1g7XsyvkIaK5US3W1tQo8vfqRuQ2rYz48n1
-X-Received: by 2002:a05:690c:4990:b0:8b4:d9d2:df80 with SMTP id 00721157ae682-8b4d9d2e1d8mr17471747b3.24.1794862036037;
-        Mon, 16 Nov 2026 12:47:16 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 00721157ae682-8b4ebc15416sm54687b3.48.2026.11.16.12.47.15
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 12:47:16 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36f26e6abe9so4602570eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:47:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794862035; x=1795466835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e3nSQTH0rYIVnYRuHrr8Tvkk1NUhFraw3OHV8sk/uYs=;
-        b=gEfpBXON/SuCLdte723HfNNSonNHs3uVxs9GUjaRaPc9mmNg6RBKtgMTrCGIeTyYwI
-         czpIUjrMGDpN02k4zVNxrMYE7EaPv8sDRps8MWBGf9A8eigJC/9hCwoMqlKdu2ioTXcf
-         p56oige8pLsynWH8u26IffmKk7H6RARN17FU4=
-X-Forwarded-Encrypted: i=1; AL+hErHzH3E6+ulvzMCqNMiP+Wdd9YiTd8wZQuSLGmSXptzWUfX6xEtL2C9ZgWqygv5fYX/fQ2xpCoErPDWq2+U=@vger.kernel.org
-X-Received: by 2002:a05:7301:782:b0:376:bb3d:5af4 with SMTP id 5a478bee46e88-37965f9ca89mr9973389eec.10.1794862034515;
-        Mon, 16 Nov 2026 12:47:14 -0800 (PST)
-X-Received: by 2002:a05:7301:782:b0:376:bb3d:5af4 with SMTP id 5a478bee46e88-37965f9ca89mr9973358eec.10.1794862033600;
-        Mon, 16 Nov 2026 12:47:13 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm72210794eec.20.2026.11.16.12.47.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 12:47:12 -0800 (PST)
-Message-ID: <25bdc879-a0f1-4e68-a8b6-60998e0eccda@broadcom.com>
-Date: Mon, 16 Nov 2026 12:47:11 -0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AULpy265
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W2lCQ8kLwUdMA7Z0NwfKxuN6qpqAhA9oOrE2aAHb7ZC/YQV0U58/AQO64aP5lzSjH6/CTQ+ychefXcvabmTsJ4eRAuhFinC8XbAgkrgOu2aD12/fpQgjbOLAfvUUoCYF4Rp0Uez2p9rdLfXq15Ap+P4Ln0Y/+Y9jHAXjEWukeJ6Vs182BUuC3romY3Cm7BPcELvKGi+AfSM+K5XZrDxgQmYrDV++wY31Ql6ftVYvkdrh2CnkJiaDZVxNVscRxQUJooDLh7mwc0yeRIJrsNNN9Q8SSTiDlqpnUFsYlztccQzJTztOlWug8bNBuz38FzUxRs7sdentkZcicDAry/f7yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6r3zcdABF/6bVXYZsilaYdz3kHuOnMmADTwot0z1l1Y=;
+ b=nagLq178CJKvWCnwQEe6QmLVmm+Z0ucloe6qUGgglDdKRzP935+X7m/jDJnER7KoT8d6e6KoDCVbVr4YIeCMmMC3gUTfaxahNnn9sK8+yNlrwCaCnJU2pPyAQNvoeZsvbiOETelHnN0oIdMaohPxHTQXEjONS1ai2uGtt0BQ9e5Grbt3XsgDpgMiPW8HnLnr0lQ+PWM8EbIyDwu4NuGMxVBjpexxiANkFnu09/KmbA44jUzo2u1ptLVvnfK/LqzhRJ8MiSp2L1nCiH+wq1il4HHuj0T48tuC6ztEjgIBIndaiJy3Kng7UMLAcD3d3CmEsLUbwvr4nKAZ3eO9B+C+Kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6r3zcdABF/6bVXYZsilaYdz3kHuOnMmADTwot0z1l1Y=;
+ b=AULpy265ql50RJbmBvVG56xDRezcnP4A04wkEPYpUWE4FTje0DxUT4APBuD3Zkhh04PHkVokw+NPDTRHAwQBV2qeHJaZ0T2H1ogNs1XmkBi03Tdc94Q9Abw/SgmOfaIsdFC8Isuz9k0XPk+LLe953zOQCVPVDYmVHisP2QZU2RxlonEtmvoV4nvluhPaoj+uUJGREvkKdhvP09Ctxg2PWqq9vUYw8WXVAjKt+P5EiJJHpusCSyucnyoL6iRiswbHwBtMuIz3rEx52u+ClbmGkQVl/ZM/SwCXJZZZzayBDr4l7IhCS/DcfPisnYDxyikvscv7vzJ80auZ+Eu/8FPJXg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI2PR04MB10859.eurprd04.prod.outlook.com (2603:10a6:800:278::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 20:47:30 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 20:47:30 +0000
+Date: Mon, 16 Nov 2026 14:47:21 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: qcom: gpi: convert to subsys_platform_driver()
+Message-ID: <avtr2cOQj2K3C65W@SMW015318>
+References: <20261106-dma-gpi-subsys-v1-1-b37dcb4ba3c4@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-dma-gpi-subsys-v1-1-b37dcb4ba3c4@redhat.com>
+X-ClientProxiedBy: PH5P220CA0001.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,230 +96,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 7/8] net: dsa: b53: harden mirror register
- programming
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, vivien.didelot@gmail.com,
- linux-kernel@vger.kernel.org
-References: <20261112180202.324504-8-florian.fainelli@broadcom.com>
- <179485574238.3136.7987059479392278091@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <179485574238.3136.7987059479392278091@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI2PR04MB10859:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b03d722-59f6-42a9-8d60-08df4422d4d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|23010399003|18002099003|22082099003|11063799006|10067099003|261026121527099003|261021121427099003|56012099006|261009223027099003|261102123227099003|261021123027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	Ggj3QENNCyHoDud+MV3Bx67937DpxvzshuHG/lKE5jzgjnaJcmLHNl3U10ysvNzct4hhEHnmyuXl9Ehmz2Wi5GID45JZi/l7Zh2umpcroxQ4Cp9rPlGvCAY67SXL2jt309WmwR+x4sclubk/Js6JpgS/KsrPnlPtxD691el9qK6rQ5fR2A+LoriAZg8vUwAhwQFtR9tciy9wEB3Nzhn9pvXn3v6E30cm1wmhkLtfLfkoeyKLUwB9SxjsdirXQjRLXBJ7+h2s/M1XLGj3r+eQmunr4RlzGUwVbQ5tit9WftPG1XHOcHx8o5v7p2OJeTWAGjfOdSuGxJqR8UrE5GDmN9y+k9BvvZwierWrhhxeFgwd3ZZmFmyCxIIq2JGrgzk1BHbX4S1WfYmZRaN9KgFAm9ysWt3gLuOk1ROQNUkqUUrqwQT9QbgwL22k6O/pM/1FGJnsOeSklQhEeshYqn2Sy7rTLScoO2b5QSndOEO1t7sK0Jevv2rlqMUWwCexj7iPpeBC2SvHUnbIXaHhicyoaQCIeplDjhna/gQHD9ARYjkUNxju7ph7nH+Calkj5I8JdXIXCYzdPlygTpeX05vTe8fcmG8lF+b8uLEH7gIppoLDGg0Rl92dChY5uAQ20rdRpjFzjVPkTMkyG8nJfmqof0hQwqxfKUxdIF59oNT0nww=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(261026121527099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?x8PiNLD7hdM0kKJ9D2X8sL22qPvOKwM3ZWGCokwi8AAxe8NB5l7OdFqhvOFS?=
+ =?us-ascii?Q?LqyuT+FrBOZkte2e5lvWjQll2wmOxrPH69pnoJbS6FTzICSoRlGJ3Gb69wac?=
+ =?us-ascii?Q?Evd4MQ0UW5mfDBMcSsrh2Xy6LctpJcoBOA6thutZgk59RvsirwQcPs6rTOoJ?=
+ =?us-ascii?Q?J92z0vUsgs+B/Ev/F58iDXWeeiQKoFIooNFS9dlyoLYe46rw+18J6fTXBNQb?=
+ =?us-ascii?Q?dmU80rcVja/iTmiMLOJ+oNr4jcT9yMeN7Ep9kf0EzWLS2NS4p0v/6iTG46T8?=
+ =?us-ascii?Q?GpZtra3N+Akc3J+TPBbghyANCBfI6cmrfXnPSYStcxjL5e0xhyDL6C15HiSn?=
+ =?us-ascii?Q?paxvWnJKIaKQZavGOqZudJaua5CvRIpeHfuaatLD2ZPptcnSSjX2HxDwmfsg?=
+ =?us-ascii?Q?mk4B9oWJXDgOBsWZoKeKE/5ec4fQCBjjMayVyncZX8oivimVpuNlCZdYPAtN?=
+ =?us-ascii?Q?MuHeaeuzaxDAllzST0ruEZISXRk22CPVKL+eR45LMnphFTffH5Hm/1y7HPjY?=
+ =?us-ascii?Q?knVE6CmzLZ3L1L821icskxxAqS/WyAnGTQQDmaijhQzcQWa2J3BfVxVb6His?=
+ =?us-ascii?Q?969i5G5t2XoqB2qGJabomXWzfSRoN7Sz94JHDSuFkDe2OlgRcE5E04vMioCA?=
+ =?us-ascii?Q?6adZpr2o+oG52yr9PFsHbq6wBS7/W33u+J1VQvMc7SzcbBkvPfrKNVxRc989?=
+ =?us-ascii?Q?VCv10xFavs9PR1CfU1gb+jtJNwBEVvb0k/BNmkm8Ec4Z6QB9YSHyLHiHhV+b?=
+ =?us-ascii?Q?A2QYrbXRrMYbENr3R7hCcHfVUeUI/3KHWbAkzbJNL3TR12KMMG8lyNXm1lHM?=
+ =?us-ascii?Q?dOgjvCtQDaqxImPtML29OMjRFzbz6LlM+JqrcmHJG7E6ce2n+5cGIkpB2bpU?=
+ =?us-ascii?Q?gws8NLrpU7tG3Qa9aqIWno+kG7J5FeFhpPyNxFoBJkThrhKeW1zG0xPRKKQj?=
+ =?us-ascii?Q?W2IPcpcJCzsMHE96hQX11M624O1jpPMZB/OcvC2thh2gj/2xWmiapW/xqSwL?=
+ =?us-ascii?Q?E/ojCLJgLGCdp7uaxnuZpHLlFmUyDxvkI5t7O9OSxjRsPmHTl0n2AvBNZVUO?=
+ =?us-ascii?Q?+ZL322KTZFq+qkW8DmUfPqvY0QXUnxy0SZECS2cc/8EBIh3qAYbIOihieIZq?=
+ =?us-ascii?Q?ZBU7+DlfI1cu9SllbhAQZv6MMyiriDtb67mxjge4rvaMJTicZAEdhDQoXk93?=
+ =?us-ascii?Q?6HnRqmboX+F1G3h1m27oyM2acrHvPCPzXOJYADi9+YxwhfcEodDKogO5mBHI?=
+ =?us-ascii?Q?C+C4+7SVfMaj2gfIvVPf9q0RzaVJppHtRin10HNZtoa5FTtI7i5Q6aaYHFjC?=
+ =?us-ascii?Q?5B4sNDOp3RDHX/o5DRKFfGtwrZ0Bm+uUT/wXsK2Ixa2dNIpMB796+blkdNE+?=
+ =?us-ascii?Q?q3egtYONMHGP4ZrBJCVgEOkiFJorHiDMxgF28KEkSFngzRmzPJ0ZPoOzdF1f?=
+ =?us-ascii?Q?SahqVZ7e248eevB92q8OM+nScn2v1e8Gk5jxbggCDKjVOUW0+dlC0I7/8lNz?=
+ =?us-ascii?Q?gWMfDFKqGJv2kguRnfECZizE2Es720A67+nyt9evGVn2EvMHz3Fmi77mkSf3?=
+ =?us-ascii?Q?wgi6kOut3QkmmyUqa+KpsfekIS8Sk9YnXSvDUVP6x0SYVXkjz7Af3zIxVj5k?=
+ =?us-ascii?Q?IJiupu7U4IqTWeTeeClpf5kpq+OGRnCGpx4FGPCNPHREc1UipXgjgeGd9fm2?=
+ =?us-ascii?Q?ZIGlYB0N3obKP6/wNToZsUUV9oZvBB5iOvv1zxN//t8q+r23U4nOM4BFwoxn?=
+ =?us-ascii?Q?UVwhzDGN6LhxLwO6+omDqkn68jmwGIfxD1FfHyBDyvp6CiPu3z9I?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b03d722-59f6-42a9-8d60-08df4422d4d3
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:47:30.2222
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EKp3nz1qzh1qfqIG9GhQvDO8rbM8HhDmOQTwABxy4P/rpcG31zaJeEsJ34GOeJRNTEYSwAhELPMi4MmVWubN6VFsEGFQBCIu3m/6sboRwd5i5PgheAUA5UBlqHjlISwD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10859
 
-On 11/16/26 11:02, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 2
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Speculative; needs datasheet confirmation.
-> - [Low] This patch fixes a regression that an earlier patch in the same
->    series introduced, but its message says nothing about that or about…
-> - [Low] The commit message says the patch will "Clear capture control and
->    both source-control registers during b53 and bcm_sf2 setup".
-> 
+On Fri, Nov 06, 2026 at 08:00:18PM -0500, Brian Masney wrote:
+> Reduce boilerplate code in this driver and convert it over to use
+> the macro subsys_platform_driver().
+>
+> Note that this driver is configured in the Kconfig to be a tristate,
+> the driver doesn't have suppress_bind_attrs set, and there is no __exit
+> function defined. This change will add an __exit function that
+> unregisters the platform driver.
+>
+> Signed-off-by: Brian Masney <bmasney@redhat.com>
+> ---
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  drivers/dma/qcom/gpi.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+>
+> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
+> index c41bfac65ddf..d6c76ce1846e 100644
+> --- a/drivers/dma/qcom/gpi.c
+> +++ b/drivers/dma/qcom/gpi.c
+> @@ -2325,11 +2325,7 @@ static struct platform_driver gpi_driver = {
+>  	},
+>  };
+>
+> -static int __init gpi_init(void)
+> -{
+> -	return platform_driver_register(&gpi_driver);
+> -}
+> -subsys_initcall(gpi_init)
+> +subsys_platform_driver(gpi_driver);
+>
+>  MODULE_DESCRIPTION("QCOM GPI DMA engine driver");
+>  MODULE_LICENSE("GPL v2");
+>
+> ---
+> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> change-id: 20261106-dma-gpi-subsys-594acc21c25b
+>
+> Best regards,
 > --
-> 
-> net: dsa: b53: harden mirror register programming
-> 
-> This commit calls b53_mirror_init() from b53_setup() and
-> bcm_sf2_sw_setup() to reset the mirror registers at setup. It checks
-> every mirror register read and write in b53_mirror_add() and
-> b53_mirror_del(), and only increments the source reference count after
-> programming succeeds. It also uses the ingress/egress source masks,
-> instead of MIRROR_EN, to decide whether the capture destination is in use.
-> 
->> The mirror destination check can reject a first rule when a bootloader or
->> previous kernel left mirroring enabled. Not all supported switches receive
->> a hardware reset during setup. Unchecked register accesses can also
->> corrupt mirror state or report an unsuccessful rule installation as
->> successful. Reference counting must not record a first source reference
->> until hardware programming has succeeded.
-> 
-> [ ... ]
-> 
->> Fixes: ed3af5fd08eb ("net: dsa: b53: Add support for port mirroring")
-> 
-> [Severity: Low]
-> Is ed3af5fd08eb the right commit for the first problem described here?
-> 
-> Before this series, b53_mirror_add() overwrote B53_MIR_CAP_CTL and never
-> rejected a rule. The check that can reject a first rule because of stale
-> firmware state was added earlier in this series, by "net: dsa: b53: reject
-> conflicting mirror destinations":
-> 
-> 	if ((cap_ctl & MIRROR_EN) &&
-> 	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
-> 		...
-> 		return -EOPNOTSUPP;
-> 	}
-> 
-> That patch does not clear the capture state at setup.
-> 
-> The same is true of the reference count increment that runs after
-> unchecked register accesses. It comes from "net: dsa: b53: reference count
-> shared mirror source bits". That patch also defined and exported
-> b53_mirror_init() but never called it, so this patch cannot build without
-> it.
-> 
-> All three patches carry the same Fixes: ed3af5fd08eb tag, and none of them
-> says what order they need to go in.
-> 
-> Suppose "reject conflicting mirror destinations" is picked up for stable
-> on its own. On a switch where the bootloader or a previous kernel left
-> MIRROR_EN set with a different capture port, would the first tc matchall
-> mirred rule then fail with -EOPNOTSUPP?
-> 
-> Could these fixes be folded into the patches that introduced the problems?
-> If not, could the commit message name those patches and the required
-> ordering?
-> 
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index 98696bce368fe..deb331b3629a7 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
->> @@ -1360,6 +1360,10 @@ static int b53_setup(struct dsa_switch *ds)
->>   		return ret;
->>   	}
->>   
->> +	ret = b53_mirror_init(ds);
->> +	if (ret)
->> +		return ret;
->> +
-> 
-> [Severity: Medium]
-> Are the mirror register offsets the same on every chip family that goes
-> through b53_setup()?
-> 
-> With this call, b53_mirror_init() writes zero to Management page offsets
-> 0x10 (B53_MIR_CAP_CTL), 0x12 (B53_IG_MIR_CTL) and 0x1C (B53_EG_MIR_CTL) at
-> every setup, on every chip_id:
-> 
-> 	ret = b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, 0);
-> 	...
-> 	ret = b53_write16(dev, B53_MGMT_PAGE, B53_IG_MIR_CTL, 0);
-> 	...
-> 	ret = b53_write16(dev, B53_MGMT_PAGE, B53_EG_MIR_CTL, 0);
-> 
-> Before this patch, these offsets were only written when a user installed a
-> matchall mirror rule.
-> 
-> The driver already treats the BCM63xx Management page layout as different
-> in at least one place:
-> 
-> 	#define B53_AGING_TIME_CONTROL		0x06
-> 	#define B53_AGING_TIME_CONTROL_63XX	0x08
-> 
-> The mirror registers have no 63xx variant, though. Nothing in the tree
-> confirms these offsets for BCM63xx either way, so this may be fine.
-> 
-> If BCM63xx, or another supported family, has a different register at 0x10,
-> 0x12 or 0x1C, would that register now be silently zeroed on every boot?
-> A write to the wrong register would still return success here.
-> 
-> [ ... ]
-> 
->> diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
->> index 98a4a62ca73a2..85ea32fb501db 100644
->> --- a/drivers/net/dsa/bcm_sf2.c
->> +++ b/drivers/net/dsa/bcm_sf2.c
->> @@ -1063,6 +1063,10 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
->>   	unsigned int port;
->>   	int ret;
->>   
->> +	ret = b53_mirror_init(ds);
->> +	if (ret)
->> +		return ret;
->> +
-> 
-> [Severity: Low]
-> The commit message says:
-> 
->    Clear capture control and both source-control registers during b53 and
->    bcm_sf2 setup, propagating initialization failures.
-> 
-> b53_mirror_init() does more than clear these registers. After writing zero
-> to them, it rebuilds the source masks from dev->ports[].mirror_count[] and
-> writes the capture port back:
-> 
-> 	cap_ctl = MIRROR_EN | dev->mirror_port;
-> 
-> On bcm_sf2 this also runs on every resume:
-> 
-> bcm_sf2_sw_resume()
->    ds->ops->setup()
->      bcm_sf2_sw_setup()
->        b53_mirror_init()
-> 
-> So with this patch, active tc mirror rules are restored from software state
-> after each resume. A failed mirror register access also makes resume fail.
-> 
-> No patch in the series describes this restore behaviour. Could the commit
-> message mention it, so that readers don't expect resume to wipe active
-> mirror rules?
-> 
-
-[Medium] b53_mirror_add()/b53_mirror_del() are already wired up for 
-every chip handled by b53_switch_ops, including BCM63xx, and they use 
-the same three management page offsets (0x10, 0x12, 0x1C) without any 
-per-chip variant. b53_mirror_init() touches exactly those registers and 
-nothing else, so setup does not write to any register that the mirror 
-callbacks would not already write. The mirror registers are at the same 
-offsets on BCM63xx. In the BCM6368, BCM6362 and BCM63268 register 
-documentation, the Mirror Capture Control, Ingress Mirror Control and 
-Egress Mirror Control registers are at Management page (0x02) offsets 
-0x10, 0x12 and 0x1C. These are the same registers the existing 
-port_mirror_add/del callbacks program on every b53_switch_ops chip, so 
-zeroing them at setup does not touch an unrelated register.
-
-[Low] Agreed on both. v6 describes the restore of active mirror rules
-(bcm_sf2 runs setup again on resume) and documents the dependency on
-"reject conflicting mirror destinations" and "reference count shared
-mirror source bits".
--- 
-Florian
+> Brian Masney <bmasney@redhat.com>
+>
