@@ -1,61 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796713;
-	b=KaBXD4kxS7OJQtmUvOMGVLNsRgzPVk7ou/cmvdgMrq6djGlIjRstMvV5xR5Z/DsjU7FL
-	 sLRiBelgRjgrYGkHoRBuNlc8+nCA41XhRX+GfuHnyVIIsJrQB3PCKMzech6AqSZ3aF7nY
-	 ntEV0ubQcLJCfa5f29YyJLI62vPZQ4eGDfYb8MD7u+rx/bv4usDw7HEYSl7uB/gUyV19X
-	 jfwUa3KIkka1DRIKR31PgTwumQQZl9HjG6geMW0WQPRbG6hmtg0L/fIbieA+myLsob3rN
-	 yYrhMl3xOPuCKQl+nxiYOEQCniVV3F7Gjzv4rUONP0aSiax7x5TsGxRjxwvrUACHChQ==
+	t=1794796760;
+	b=Yc9Y7ZGYhFa4tXue0I3aHCx3gvJyycaiK/IPZaXGDAJHzQXu1TjRhybMiNb74dg44BSX
+	 Hv/MNiGIDAE6R6ZR7LHlSslehQ6Wed0UGSflhgXjIocgBqnSl8gcMaeDdCEMFE68a0yyA
+	 IF4WUxvGymW7jZWd3+zMdnMdBirvSyotv8zxeBfzRXeA9XPwO3YIFGLL/2evv47/Y7uZy
+	 TmXv5jYyoEkxgQCw3xo1QBTkN/0FnL7tIP0oRfFGN+bBb7BTCFG7GyQdz7baUO67XKC0R
+	 JGAXgE0ftgNodMzC4mer6+guYxEr0j7pxtHtFaDHAoOERmPlsbI/KGk+GqgxZyVyGcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796713;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qki0Y/66321dP01vB4kHxhZ1QZpjMAJFxKp7bhSMeio=;
-	b=35mzqJArRzvXTCuHfgjaGJ8W28lI980C8G+pM14jSRoqbd3XR5tycxryu2vLLRDyXtyq
-	 sPo8l4tPIks3CBR6NPIxhPkFRjWK3BFjMwltu6tfNv7XHclB7ZMsPrrmPMCF+7+9KmSUQ
-	 oSOihTUiGsB1AE2OVca/LijhdbzHE2L1DQVxLF/qAvOyXfO90YJGejvGTY1g3fYjXfV8V
-	 6H80RuZF+Kkj5MfDAYor3nysVBK9A+uv/SpeCN/ja4GEFvfeJx03X2XWC/VdA3pnF9+UE
-	 AqMx7Slqzd6ZZ2rm7JtGJA3J0m3+oKL+Te+z7t9xhlLBa89fnRcZjx8rZy8a7IbQIMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796760;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=F2MkkOjtOBMugVy6AnNn+LItc3X/brWtifolQLWYx2o=;
+	b=ZPLbYt2r7PoKTPJ5lGEzOp9fUOSsSfiG3iS9Job8lI3/3rf3Mqit1R5RsMnzOItcaPif
+	 GqakoyrCC29+m8yF7MDaQy+qk3KDB2r8uWxKKtWLt4rWkey8F1Dh/x4ZFJk041gsSr9nn
+	 gokgP+ag5W7I2y9m0Fh/J9/S0y2N5UCX/MOlEtoGvK713XeYKSUxBad5feE291g0BcLsm
+	 p5QZmMbBp7x+FtJJ13fSCt5dIDxGAGIFkzVpYDJcz+x176vfgF7hyypkgY2lcokwAC2Cq
+	 S0xRyttOfGlcbdHrhqM04bgdlfR/0PlKfyLvJLKl5g/p+NHJvJJbaRxr+YrcOYeVR/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=analogixsemi.com.cn;
-	spf=pass smtp.mailfrom=analogixsemi.com.cn;
-	arc=none smtp.remote-ip=115.124.28.103
-Received: from out28-103.mail.aliyun.com (out28-103.mail.aliyun.com [115.124.28.103])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YLWKz2pH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HfQpKjhF;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C07606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C07606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=analogixsemi.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analogixsemi.com.cn
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;BR=01201311R811S97rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0121792-0.000476797-0.987344;FP=11113094396180450457|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=anx-upstream@analogixsemi.com.cn;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.k2fyIyE_1794796690;
-Received: from anxtwsw-Precision-3640-Tower.ANALOGIXSEMI.COM(mailfrom:anx-upstream@analogixsemi.com.cn fp:SMTPD_---.k2fyIyE_1794796690 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 16 Nov 2026 10:38:21 +0800
-From: Xin Ji <anx-upstream@analogixsemi.com.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: bliang@analogixsemi.com,
-	qwen@analogixsemi.com,
-	fshao@chromium.org,
-	Xin Ji <xji@analogixsemi.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: anx7625: switch to drm_edid_read_custom()
-Date: Mon, 16 Nov 2026 10:37:40 +0800
-Message-Id: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE0A606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:39:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE0A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YLWKz2pH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HfQpKjhF
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG1KwmD800011
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:39:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	F2MkkOjtOBMugVy6AnNn+LItc3X/brWtifolQLWYx2o=; b=YLWKz2pH5QwPDe6W
+	iem3B/1wBS7jDUWVIf/dQP57tMDzV0ZQ0FsCjVxQ58kQfNzmK8rCic+0V/Wce836
+	a3zUO2XBuEJ9Hnboo6n81rpxC3roa+S3lIPhxCWFawqLInL64DU3Yz0qz56uiUiT
+	h4nJmPvREgPVTand+c2hVc6lUi+Lz9/jH3F7TjtbXfznaj04D21X21tbAPYNk8Hv
+	DJo/n38Vv885v6wAirHw7n5A9pImQz5Eb8QIGScgzEqi/hFEs7BnKCw/Vrqxq7yk
+	KweXdaE0rp6tTW8CmeU0GF+BKHGP+o341A0V/UJvSgZu/nFKMiraNjN24L6jP+oo
+	Xznwcg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhmambuh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:39:18 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-946038e22f5so304081185a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:39:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794796758; x=1795401558; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F2MkkOjtOBMugVy6AnNn+LItc3X/brWtifolQLWYx2o=;
+        b=HfQpKjhFzghzd68+yCTcDiTZPumg2TRs08LAVA26xvRkrcKeQyVHR/w3eI88gRrfxB
+         +G8Wt3BMEPzgvITc8Tny2ZE25y6D06Nlqj5nOELHZeM/kj6AFKoYWrHcz/EOxAT8hXXc
+         ZgGxwXw5SEwGeIh5w7e/DUexkdpv5jNwZB4A+aXFgu4BHAxzpOwvvzKfYcJktkhTIVKg
+         TGzCa5adYW9I+45oc9ScdiL4jTTIqAF7shbErwuz5g6bFcM328Tt+vwwJzyPfDCwM/3S
+         BD7IQvF++Q/PqZsJGdDouiwUhCWzbYc0a1WmvKs1+Eq6hZ+xXtaojVj0kbt4c4FXlcft
+         LocQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794796758; x=1795401558;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F2MkkOjtOBMugVy6AnNn+LItc3X/brWtifolQLWYx2o=;
+        b=Ky9CVe4a4WtwD3rvYDqZqCmSNyvbwXT43NItvqWK/gXPtMkJys1aWrQaaltXXI4r2i
+         hAjLr2OGVi3pK9LSlsfbJnZns5wrwut3L7MBa4I72ed/i3dypw2RI+dD9VMOL/cdAHEH
+         +HX9qyB1/ZEiJ89prWJsPSAdy3i2UAzQtUgiU75pRfobGw74KkqgKWQjcmgWQzlEzP3N
+         LfVE2zEO2RYom7QkwqsIzLY9JzBGfC6IH+JwdEcLZ8yFcqolv13tMcEl4i7KI3BzHBVX
+         ouXlV0XeC24E2IDomvrmTm2T7XRN12692iKfFf8FzdQgxs5Xn0drzyMQDd9xmg5WRHc1
+         U8Aw==
+X-Forwarded-Encrypted: i=1; AL+hErE8HKAQjoB9WHv1VNeHv0Z8KrlVbQ2wdjcE+hd/fkUUW9h6x0JkQ1cKvDsDERap031bRHquWCHeh0OUS2Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rWjmbf2/f+TCEYHb4XCJ5alAPDx/fIl6Iof31JpLA2f82zRL2
+	DVKLx8vc2Y+HOhql/RLW3Ens4DZYtndADt4PvoyF1Oh3iOoYtAClbVq37FlQ3StDO3Vc4IVdch0
+	sQsGcWZqq+1iwq5huEfjavNn2YY7TdXj0yhnp/16wVJZ6aTWZcLGbKwVAIppAOsSgn5WZIv1Nlu
+	4=
+X-Gm-Gg: AYBFou26OA50kIdxc/O/RPnkz9jsaUkaW/dOI4pZ1h+bdlsadN8tHV6OUgabbguo6sD
+	hDLi6M/grydIuXzhxr6UdfidL/ywpqIgSTzKCKE0VBvUHJz40ODMQYM/sP7whHIVxXGC+sj70IN
+	VEJvQOkW+iIIAkSiMod9rl8qwwD3qMmz2vrY+lFWauP4hixIX7GvcC7yedRT3ernDpABcCRQJYf
+	JscH61DVl3uFi5FdITcQikIY8Ww4IIZaM56nfV98Mf6DSsDOlOdEzhArdTY/2xVAlG8smIr9F6x
+	sOlVBltrsZlt383LqHXr7OrzUZ3Z6+DKdzbf1TxCfDC5L+BRh2gsq6mJ3avAEsQsz+ktu2+T3Fm
+	FaOrB00OdEgcI47D1F/xCoicXMjv9dnkbF7JMmf87XLEZ8wR0ReEx/D/hGiV510HA/NVw3yB238
+	i2YXtOzk8rrzzQA4zZ594Mbyk4nhlMXXD2Ng==
+X-Received: by 2002:a05:620a:ac18:b0:949:5c62:e785 with SMTP id af79cd13be357-9495c62e9bcmr926217685a.21.1794796757754;
+        Sun, 15 Nov 2026 18:39:17 -0800 (PST)
+X-Received: by 2002:a05:620a:ac18:b0:949:5c62:e785 with SMTP id af79cd13be357-9495c62e9bcmr926215085a.21.1794796757283;
+        Sun, 15 Nov 2026 18:39:17 -0800 (PST)
+Received: from [10.38.240.54] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23c9ade7sm75767716d6.5.2026.11.15.18.39.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 18:39:16 -0800 (PST)
+Message-ID: <12a1c1bf-df65-4ed9-8d36-23d89d5013cd@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 10:39:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,266 +115,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/23] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
+ SM8750 CSI2 PHY
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Frank Li <Frank.Li@nxp.com>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
+ <20261114-add-support-for-camss-on-sm8750-v7-1-8ff2a11835f6@oss.qualcomm.com>
+ <a4a3df2a-eb90-427f-8881-f857100779db@linaro.org>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <a4a3df2a-eb90-427f-8881-f857100779db@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: JsrOU7SM3NtKnqxHH5TdKUaY3yTN4Uip
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAxMCBTYWx0ZWRfX8hNcQW/VZqYN
+ FPqKMhROVTXq/ZcJAwEA7GcbDIPxh5zQn8BWFZkTYiQgTktQCA4n69wc0i+7mmyrNtGD+6A8Q2A
+ 2sdXL6jzelZfPt0qdIyO0sxmMhJRjOAgt7gtW8+DDEzZ/bDDG+q8mFnqc9jOKBVxK2dNnmyACqW
+ WBzIl/OoGZSmzdufDYyydbpIN4cRZTpRhsZRXOXHfIGucF9k/9NQ+O0Rts9P3UhWKr5cHMZ3AHY
+ aYztzD1eW9z0tMs7nFM40PxjhJJlLdkE9FxwmKMwR5E0t/T70H9GEC0DVvrOLL2r1s3nOv7WK38
+ g1G1eWNNB7jqusnoGDgtUExVs2ip0R1jV+G2+L3EHhAv7nFGVvxIl4Z+HCBkB/omYaVewNKMv5c
+ +u9CXSg9RGAVMkCOV3kn5kNckfPA8DZXihTxS8Kmmjm4qaJ2GItVP9HbCizuuNiKYUK/yOwVRFS
+ woyM6JboUNOjowFsweg==
+X-Authority-Analysis: v=2.4 cv=NdhzRGD4 c=1 sm=1 tr=0 ts=6afa6cd6 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=bVWuqmIr14v8cS7SW4QA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: JsrOU7SM3NtKnqxHH5TdKUaY3yTN4Uip
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAxMCBTYWx0ZWRfX3y42KolTRzhS
+ RfCSwxBkrWCKzo9yXLuWDULb3+Z8i1vVirbJWOAGrktAXTvsJHWrGAl7uByR+BHzEVmRSfY6EaE
+ jpNtg2ycU0dt2HN81xbiGfBr4HbbjSU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160010
 
-From: Xin Ji <xji@analogixsemi.com>
+Hi Bryan,
 
-Currently, sp_tx_get_edid_block() only reads the base block extension
-count at 0x7e and ignores CTA-861 HF-EEODB overrides in block 1. On
-displays using HF-EEODB, the driver only reads 2 blocks, which
-drm_edid_valid() then rejects due to the size mismatch.
-Switch to drm_edid_read_custom() with a per-block read callback so DRM
-core handles block count discovery (including HF-EEODB and >4 blocks)
-and validation automatically.
+On 11/15/2026 8:05 PM, Bryan O'Donoghue wrote:
+> On 14/11/2026 11:29, Wenmeng Liu wrote:
+>> The SM8750 camera subsystem has six CSI2 D-PHY blocks. Describe them
+>> with a standalone "qcom,sm8750-csi2-phy" compatible, so the CAMSS
+>> binding can instantiate the CSIPHY nodes as separate phy devices.
+> 
+> C-PHY, D-PHY and combo mode ?
+> 
+> It would be nice to get an accurate description.
+> 
 
-Signed-off-by: Xin Ji <xji@analogixsemi.com>
----
- drivers/gpu/drm/bridge/analogix/anx7625.c | 172 +++++-----------------
- drivers/gpu/drm/bridge/analogix/anx7625.h |   4 -
- 2 files changed, 33 insertions(+), 143 deletions(-)
+ACK. Will update in next version.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-index c3af88e14f8b..eb503be005e0 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-@@ -1022,27 +1022,6 @@ static int sp_tx_aux_rd(struct anx7625_data *ctx, u8 len_cmd)
- 	return (ret | wait_aux_op_finish(ctx));
- }
- 
--static int sp_tx_get_edid_block(struct anx7625_data *ctx)
--{
--	int c = 0;
--	struct device *dev = ctx->dev;
--
--	sp_tx_aux_wr(ctx, 0x7e);
--	sp_tx_aux_rd(ctx, 0x01);
--	c = anx7625_reg_read(ctx, ctx->i2c.rx_p0_client, AP_AUX_BUFF_START);
--	if (c < 0) {
--		DRM_DEV_ERROR(dev, "IO error : access AUX BUFF.\n");
--		return -EIO;
--	}
--
--	DRM_DEV_DEBUG_DRIVER(dev, " EDID Block = %d\n", c + 1);
--
--	if (c > MAX_EDID_BLOCK)
--		c = 1;
--
--	return c;
--}
--
- static int edid_read(struct anx7625_data *ctx,
- 		     u8 offset, u8 *pblock_buf)
- {
-@@ -1123,18 +1102,16 @@ static int segments_edid_read(struct anx7625_data *ctx,
- 	return ret;
- }
- 
--static int sp_tx_edid_read(struct anx7625_data *ctx,
--			   u8 *pedid_blocks_buf)
-+static int anx7625_get_edid_block(void *data, u8 *buf, unsigned int block, size_t len)
- {
-+	struct anx7625_data *ctx = data;
- 	u8 offset;
--	int edid_pos;
--	int count, blocks_num;
--	u8 pblock_buf[MAX_DPCD_BUFFER_SIZE];
--	u8 i, j;
--	int g_edid_break = 0;
--	int ret;
-+	int ret, i;
- 	struct device *dev = ctx->dev;
- 
-+	if (len != EDID_LENGTH || block > 255)
-+		return -EINVAL;
-+
- 	/* Address initial */
- 	ret = anx7625_reg_write(ctx, ctx->i2c.rx_p0_client,
- 				AP_AUX_ADDR_7_0, 0x50);
-@@ -1147,85 +1124,18 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
- 		return -EIO;
- 	}
- 
--	blocks_num = sp_tx_get_edid_block(ctx);
--	if (blocks_num < 0)
--		return blocks_num;
--
--	count = 0;
--
--	do {
--		switch (count) {
--		case 0:
--		case 1:
--			for (i = 0; i < 8; i++) {
--				offset = (i + count * 8) * MAX_DPCD_BUFFER_SIZE;
--				g_edid_break = edid_read(ctx, offset,
--							 pblock_buf);
--
--				if (g_edid_break < 0)
--					break;
--
--				memcpy(&pedid_blocks_buf[offset],
--				       pblock_buf,
--				       MAX_DPCD_BUFFER_SIZE);
--			}
--
--			break;
--		case 2:
--			offset = 0x00;
--
--			for (j = 0; j < 8; j++) {
--				edid_pos = (j + count * 8) *
--					MAX_DPCD_BUFFER_SIZE;
--
--				if (g_edid_break == 1)
--					break;
--
--				ret = segments_edid_read(ctx, count / 2,
--							 pblock_buf, offset);
--				if (ret < 0)
--					return ret;
--
--				memcpy(&pedid_blocks_buf[edid_pos],
--				       pblock_buf,
--				       MAX_DPCD_BUFFER_SIZE);
--				offset = offset + 0x10;
--			}
--
--			break;
--		case 3:
--			offset = 0x80;
--
--			for (j = 0; j < 8; j++) {
--				edid_pos = (j + count * 8) *
--					MAX_DPCD_BUFFER_SIZE;
--				if (g_edid_break == 1)
--					break;
--
--				ret = segments_edid_read(ctx, count / 2,
--							 pblock_buf, offset);
--				if (ret < 0)
--					return ret;
--
--				memcpy(&pedid_blocks_buf[edid_pos],
--				       pblock_buf,
--				       MAX_DPCD_BUFFER_SIZE);
--				offset = offset + 0x10;
--			}
--
--			break;
--		default:
--			break;
--		}
--
--		count++;
-+	DRM_DEV_DEBUG_DRIVER(dev, "Read EDID block %u, len %zu\n", block, len);
- 
--	} while (blocks_num >= count);
-+	for (i = 0; i < len; i += MAX_DPCD_BUFFER_SIZE) {
-+		offset = (block & 1) * EDID_LENGTH + i;
-+		if (block < 2)
-+			ret = edid_read(ctx, offset, &buf[i]);
-+		else
-+			ret = segments_edid_read(ctx, block / 2, &buf[i],
-+						 offset);
- 
--	/* Check edid data */
--	if (!drm_edid_is_valid((struct edid *)pedid_blocks_buf)) {
--		DRM_DEV_ERROR(dev, "WARNING! edid check fail!\n");
--		return -EINVAL;
-+		if (ret < 0)
-+			return -EIO;
- 	}
- 
- 	/* Reset aux channel */
-@@ -1235,7 +1145,7 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
- 		return ret;
- 	}
- 
--	return (blocks_num + 1);
-+	return 0;
- }
- 
- static void anx7625_power_on(struct anx7625_data *ctx)
-@@ -1958,37 +1868,6 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
- 	return ret;
- }
- 
--static const struct drm_edid *anx7625_edid_read(struct anx7625_data *ctx)
--{
--	struct device *dev = ctx->dev;
--	u8 *edid_buf;
--	int edid_num;
--
--	if (ctx->cached_drm_edid)
--		goto out;
--
--	edid_buf = kmalloc(FOUR_BLOCK_SIZE, GFP_KERNEL);
--	if (!edid_buf)
--		return NULL;
--
--	pm_runtime_get_sync(dev);
--	_anx7625_hpd_polling(ctx, 5000 * 100);
--	edid_num = sp_tx_edid_read(ctx, edid_buf);
--	pm_runtime_put_sync(dev);
--
--	if (edid_num < 1) {
--		DRM_DEV_ERROR(dev, "Fail to read EDID: %d\n", edid_num);
--		kfree(edid_buf);
--		return NULL;
--	}
--
--	ctx->cached_drm_edid = drm_edid_alloc(edid_buf, edid_num * ONE_BLOCK_SIZE);
--	kfree(edid_buf);
--
--out:
--	return drm_edid_dup(ctx->cached_drm_edid);
--}
--
- static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
- {
- 	struct device *dev = ctx->dev;
-@@ -2647,10 +2526,25 @@ static const struct drm_edid *anx7625_bridge_edid_read(struct drm_bridge *bridge
- {
- 	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
- 	struct device *dev = ctx->dev;
-+	const struct drm_edid *drm_edid;
- 
- 	DRM_DEV_DEBUG_DRIVER(dev, "drm bridge get edid\n");
- 
--	return anx7625_edid_read(ctx);
-+	if (ctx->cached_drm_edid)
-+		return drm_edid_dup(ctx->cached_drm_edid);
-+
-+	pm_runtime_get_sync(dev);
-+	_anx7625_hpd_polling(ctx, 5000 * 100);
-+	ctx->cached_drm_edid = drm_edid_read_custom(connector,
-+						    anx7625_get_edid_block,
-+						    ctx);
-+	drm_edid = drm_edid_dup(ctx->cached_drm_edid);
-+	pm_runtime_put_sync(dev);
-+
-+	if (!drm_edid)
-+		DRM_DEV_ERROR(dev, "Fail to read EDID\n");
-+
-+	return drm_edid;
- }
- 
- static void anx7625_bridge_hpd_enable(struct drm_bridge *bridge)
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.h b/drivers/gpu/drm/bridge/analogix/anx7625.h
-index 957d234ec07c..55615ad274f2 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.h
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
-@@ -424,10 +424,6 @@ enum audio_wd_len {
- 
- #define MAX_DPCD_BUFFER_SIZE	16
- 
--#define ONE_BLOCK_SIZE      128
--#define FOUR_BLOCK_SIZE     (128 * 4)
--
--#define MAX_EDID_BLOCK	3
- #define EDID_TRY_CNT	3
- #define SUPPORT_PIXEL_CLOCK	300000
- 
--- 
-2.25.1
+Thanks,
+Wenmeng
+
+>> Signed-off-by: Hangxiang Ma<hangxiang.ma@oss.qualcomm.com>
+>> Signed-off-by: Wenmeng Liu<wenmeng.liu@oss.qualcomm.com>
+> 
+> ---
+> bod
 
