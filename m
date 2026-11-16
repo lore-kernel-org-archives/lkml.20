@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794862513;
-	b=k17zW4BT4LsqLl0O66/v399P6bzhB4r7w/vhhJXfNCDcrZ5mLxPsK9QR9V3VBe+slKeM
-	 FAaiDylQA2eolpF7hA7L5q4Z7kUp8bDs5dlC2zTBWNahZgTTakBJGttb3c1vEbsnWKCNy
-	 W4oLxCQvJp2zYE92wkRxJtnaGfTpu+IE40c6SX1cBlDa0c4uknTwpJ68IdtZACcHM1JES
-	 ZfkESwWsK2O/7EMTaPiooQsRA6RahX/NATOsqlajn8ErlX9kLEaP01Nb96ACKcy75vu8R
-	 eZrhlFrDMv5la0ytpsOv8CmRlgJDH7TPY90zJ4v7Xgw2ZY90+55Pi/qDBd4Ejt777KA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862513;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TjIsWV06Lvv6CCEOimW5LdN+4Lo5WezLZGah5DkK4h4=;
-	b=LqmQudelvRVrWbtUZVTIjmAK73PKp52JkLNDE6uDqVeQWkN2mDAs9RGLicpQyWHJyPXP
-	 kFBkngpfxTiGH4QXYuoFQwCvFOh1F7hwNC7TBnVF+7SfsUj9t1S2S6/9i8WJMRHly2CFy
-	 IZjekaqo9fFP2JU9YBtMjf6jdNiaEqguhztmgsYxrN0UJGeVXmP6Fm5bTYH1C15G0U4A5
-	 vmKUCAb6Y7E+ymJpt133sVS5Hx+Y5BK0PhijH/ip50Pvw9v3tOA63M8eWjvlgLwS6UXze
-	 kkbuwcFUxC+H52kYgiWg/Cy1rp5Mp4HlcUCcQt0UIvrGSG4vNx3B4SYhwSQlwt5g7Fw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EmRfI1Fx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.4
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013004.outbound.protection.outlook.com [40.107.162.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794862522;
+	b=ZVsPdyPP6UDtTDQ4DE+1+zcFYQG4r1LbJcO2Y6fy7VoTx7E+95IkXp+iz8dVyoU2v7wT
+	 BADFTX0xphIjJz4ZDtRggw75UfkOn9sHUCC5C3D0A+B8KxxxslFgx2qw/hS8JjEJjOlCO
+	 N4oQU4CTAODc/CyzzG7X6Nsp7q9hY/YtuowQwl5m/Pe3AJV5ksOLQVEEdjTUFpHd/VaIM
+	 Y4WL/ufHIuuZEsRRS+566uswi++KCzKBlj8gXf5FLijJtDwTHNmQ45U8elGdDqUBW8UM+
+	 9VhJXzMMubgYZwJ+6eaG3fn16ZGLeyjVPLTwEih47hFwOxwpyu8UhD9wFS1uEwFxscA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862522;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=DwI2ii/9rzl2rfH14mh0v0I/aohQdp2cPgnOqPznoac=;
+	b=Aj7mGgVIh94FrjY6eDQ3Lf4QCzSFYrYOzmkHA3b15Fx/a5dtNGb6SPxPhWGsjECNSkjx
+	 D/Z+eiVzf7zV3Fj/MLMpPO38qmkaiYVQudC958bEyCBA2LNaZ80gM/rpPnH7fXbNP7aw/
+	 Zg6j6UclBbFREQcvNmXyOTJ4RCltg69cB+Vwjr2mmovVwvwCKxhL/2mWa+litZhCC/2G+
+	 0dDo7iu8XghSx/pVXK00CNDLyh3nG5Dulj8cIA9AcPNKds2nH0+9oUE4a17AQbL4Qxqo3
+	 pJ8Je33S5Hgz1LMeSvbxPLu3ACnrfJt9PNH0VR8TBW30eD+rpETOQG3raSVFNk8Z97w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfewTrDd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C21606A31C;
-	Mon, 16 Nov 2026 20:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43C21606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53693606A880;
+	Mon, 16 Nov 2026 20:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EmRfI1Fx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hGSjVKVW+kY4SW7awQabklQrUs1+X4NaZgji3ctcs+RsCISmnf7+eZXyKLaNS3Y9heuv3GWoJGFyTlORRGkoTT2zW8lkMQQqu0m4NTI748VQGBprA95DH1FCRwWPFKVqmibf5KcySvZQBlihFEeitn0dvqB+Qu0t6D7D217NjQ09UPepUiYUMC4yhfVP3FpQ1eNllwsMjDn06FFL03Bdws593K8Fx0QkarpNgsKSpVYDB6dME8BM6YkV6MRaFaftawq7kdMpFZJGdhZHv/PUAHpoBvyFbDvDe80gfLm4GqvP+nvYrMct4I6knD+5AlL+WU84i/krBWCKErSKAr4z4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TjIsWV06Lvv6CCEOimW5LdN+4Lo5WezLZGah5DkK4h4=;
- b=IZ+Jq9FaoTnFYATf4LSEm0I07RiD76uh2GBfSGwXsAR8BcLK/RWgtA+QLtHisYrnlWn/EX6wnz4S/W6Q903WIY4CTvoVgj5ttD6fuV0OTHL7Bf9ROeNxMGFcgMz0cbir1eensDdjHZcH5j5/HKY5a1DNJq/jlrj2B1hLgWfy1Ny+78M/tUogt0p8RqDPkDG6DeZONV479JF/BDDurc+ZxDkfF8gvEYOPXfs2RihnKW7Ri7vCZqtOIaTzhKCy+ZlOVRwrTrdCSOtO128+SWJRY44jbv9OwPxMBANZb/nE/Oj58On81qgxB6XdclylkJ4ClA4fBVVdmJ26uE9Sd5aCYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TjIsWV06Lvv6CCEOimW5LdN+4Lo5WezLZGah5DkK4h4=;
- b=EmRfI1FxMKsCrCTS2rxyZA3ZDg1FHq45n5vAxoWr2y+kccu64jFu7R1nI39eTwsxg8WYNK9ZkTUUEdSo3BPGEw1wmta1U5dMAMAYDBh29+JcWCBKWvMChkE+f10lF1ESdTH0MdfEC0NEf2mEpOmlJl/tmH3KWtQrpba/4LCEzw2swdCpdYYy0xAJaAe5VUX184QZ7iJCqiRJlpuZcCiBql843iBC+E5Mfonj6aIW9dx157DaQcv3EQ/qBbAPbh7Uz9WaYj3ad0VeJkBTXB+9jH1FETCbfiiZYmrCBQmopvFdVJGEsbpYbiJCgsqYxrE7G9pWp0ksrF3Sl8j62yUyVw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM7PR04MB6887.eurprd04.prod.outlook.com (2603:10a6:20b:10a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:55:10 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:55:09 +0000
-Date: Mon, 16 Nov 2026 14:54:59 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: okaya@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org,
-	andy.shevchenko@gmail.com, linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: qcom: hidma: avoid world-writable channel
- sysfs files
-Message-ID: <avttox8HeQaTAJdr@SMW015318>
-References: <20261107221500.96825-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107221500.96825-1-dennylin0707@gmail.com>
-X-ClientProxiedBy: PH7PR17CA0059.namprd17.prod.outlook.com
- (2603:10b6:510:325::25) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfewTrDd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17DC1F000C4;
+	Mon, 16 Nov 2026 20:55:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794862522;
+	bh=DwI2ii/9rzl2rfH14mh0v0I/aohQdp2cPgnOqPznoac=;
+	h=From:Date:Subject:To:Cc;
+	b=jfewTrDd/0GoIiR+sX7P3UvM5S/Xy0E5lg7MUJDqqpIvN41UfAYi8pyuIuM0JIxPJ
+	 +jIbkE4v7rbgPjpfhAaP4eqUk7IXVh8xwDre8xiNJCNSYBn52V0OwubrT/XJOCksjs
+	 3bcHJj3S/5tH4neAT3Fz2Ric7Zfjpe2Ge9+otQHqpVVTbQlOj5l2KpIWA55gi2s1iP
+	 m6LxrPmU+wBcOZpizhXBypWYJi5RGo8C9DeNABFYtqsLONTm94bkNbRiXFIIxtZ3+p
+	 N/UJhGus6+0ErAkzeBBQi+OJKkEDPkWMhmF3kNZjd1/Ss5Z3WnYNxE0khIXfNnMX9t
+	 pBmirohu8FSVA==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Mon, 16 Nov 2026 15:55:17 -0500
+Subject: [PATCH RFC] NFS: don't wait for writeback on close() with a write
+ delegation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,105 +53,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM7PR04MB6887:EE_
-X-MS-Office365-Filtering-Correlation-Id: d37a0384-abad-4ad9-8460-08df4423e673
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|376014|1800799024|18002099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|261028144727099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261021123027099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	/VXwYFEoCEGaAwUdBzuaKaAy54i07ztkoV8xpq6RpjQNYjBxNwGcybxC8zpUVdJjRRHAdQs8aZ/WgKEhC6LrvAF2IBHC7xFgYgLmpw1goWVNrdwtFnCdJ//7gYwwOPtrv9i7MxsgUnFIqqky+gYy8YIdoQxrNENBKzdZqegLq5VIHrSYMjz7Fn2TgKxuuXGFvIv+Cp2CfdtHfQcL/u/TffQnq9jeTW6PK+a/GYgXskoH6E44r0Ie/MDumJ/T+gJEEr5ICDm9/T8FATzcs8rCDoUK4b7meE4IWhQY2nUI1qWGQ0Juhc3uAzGfmctCz8gpeI+7XJ5zSfYUlb5ML6Y7y2fxffLYuZc6BZoac+Y0TOF8xOBasNS6O07qeR1rSK3ThTnyeLPk8I9CM1/sqpTPtdZh8bKjclJNxpztCarzjlMTDcGGv3ButScW75kWHA1sbm5GnRBbo9LtxxQrAeyvIOgKrgEL7/jFkxKwk6FXxVz0+wpPiK0M5xYvWZ2buCtpKUBMKU1jCWHtJ5LcGlYYOACP6FqDCcreYF1LyNR6nbgVkHJnI12Z+l3LwNmsiHJrXgwbkDxp3igzxiQi4aH9vQUQRLrEbC4B1Y/9r8S/q5jV/SVSEU40R6LrKOsbb0G0HOjFoPYV7tzD4k9+2Bft3TpaP7SxSD6baJm9efx5xfQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261028144727099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261021123027099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OoZazzGqrGUBMD27k64EncIDX8+fklFtgR2VfDZ6Yn+L351BW5JQIZ/1h/oX?=
- =?us-ascii?Q?eOXRe2TNxkpLNBLGVfDgHGK5R8jJjn+WxFfwr4T1gZGENfoLYHm0m4jvcFdN?=
- =?us-ascii?Q?0DZ74HRn+Do14sNPzDjMtoJuf+zSxzKVZIrPvWAL4KQ8t5ziOSQY7tcRqVfK?=
- =?us-ascii?Q?S35/UCUaJzxB9+f16alglW9j4zH+AXJ5ZnQsGjsrKvN+1LQOjFZJTFxGksDe?=
- =?us-ascii?Q?Xn+b45JDjpmWumEjptaznTyEOm0LFBSOk4z0AliRMYRnBb9QqISi6MHGNMFd?=
- =?us-ascii?Q?ozti2l5T3M/wxhuNxUWQADRDIWiY3SMXn1R5KRMVbfxS5dQYDA7c6X7pjAB6?=
- =?us-ascii?Q?c0HC8C3aC1+5y/gIleci6lSJK9GS+pNTNEu5gaJ37SsVtcraHdLVMSuqcnG2?=
- =?us-ascii?Q?FVZQUBGJo3YIWoqoKJcjkXiOrUdjlccarp3rewyGWcmUCc+PaCYLE69BChbB?=
- =?us-ascii?Q?zCsV5WTpWMjMHK2Nx7VTFAIKTnZUM7RdyEpSSqPOPCARQOr5Qie2WS53mifh?=
- =?us-ascii?Q?K2WojS6d3CVYAoOiVQ4wL1CZ3/uhJXBStlMxNBIcIloK0/VnC5K1sX3sbRaB?=
- =?us-ascii?Q?GFvNRajZ81AVHkgeVIXNLG/LFj0B12DSZDXCqW9t+iq8e7HbjVO4KPeyRYXq?=
- =?us-ascii?Q?4kpLIxqCupsY2EB9x3HAAm0WwlS1TQKVia9MUuBRbIGEbKpPFeTohLcthLhx?=
- =?us-ascii?Q?orwsUwUGoxc9IPqBLOO7ZMphGzRTUQ9V53U3469+M1YIeA5A+VaEA29m0A+7?=
- =?us-ascii?Q?bKFBnXyKUsS3ZV3nRU1chpcBUpRBOpzVhi5qZJ4NYpx5sW+7wu5iw/sqpqVl?=
- =?us-ascii?Q?svjzWRItw+QXd7wUhdXJcNJaVolk/MNM5crf6Ly+kf847K+3V20j/c0V+ype?=
- =?us-ascii?Q?qbnHNoA6FDfdIjQ5c8SUWB/WI631H8GkxoxtPNx1usVvcuTC38WUgjs3pBe2?=
- =?us-ascii?Q?qP0dhy7iimIT7uwa5lVRdq0D3+U83g1wsjwHemhecYEJlWhxlLbakRnj/qSX?=
- =?us-ascii?Q?BlzbOIq1tut0DGeQNxpbpL9nneXFtw8GSM+nV4TKXjn505UwbktZu6k+UhwF?=
- =?us-ascii?Q?9P+m1x/ClQrTaRgb0qpTvFMstftE0bg0MbmMgryfyoHp8eohsfbpLN+I+FLs?=
- =?us-ascii?Q?x1e1uyPKMqsN+3aLyP96zTutsYgG9b0vtEdn5oLcBaQLtXiOkfhmwBnaKHqY?=
- =?us-ascii?Q?Q/DaRcg6e/Nj6yFvP3r6uwSjdWvjhEPntNtG7MqGk5Nf62VVNdLDXD2WSbdh?=
- =?us-ascii?Q?iPHJBWLFFx+uf8LXDPyooAW9zC/mCX7ktfCMXrot3YYOBXQVelR+OZr7SLXe?=
- =?us-ascii?Q?rjfu8ScncokAkPt+smTzbgr8x0lx3h7Lpz/QBsQEzSTMu70VPM5cDzLZczBq?=
- =?us-ascii?Q?78By/CAKXfy/Nhmf5vo5R0voNEzUuRsbFTD878NeVAYPr5QaOGbNOU0Fg6Lq?=
- =?us-ascii?Q?1VhuXJ+HV4kVjalGC4mfeLPx1alVY6j810Thzz1tMnB+j93iUKFw8qHULi1l?=
- =?us-ascii?Q?9IhZDHuoZXBYwAJnsxYixJK6OjG5VU232DKrV0tAXan491BsXvg0w7yHndRx?=
- =?us-ascii?Q?5pRdNP0+f8YnFMXhQGrK0dOh9li+6EQokomsFoQA2uejBsVXEW3Ncej95gA8?=
- =?us-ascii?Q?4y58+vajsA9NTLsoNS3rVG8HYFx6EAC60Y/QOpCSnSWZqt3iSiPm1JOrr5vk?=
- =?us-ascii?Q?nIGolrfND0/PeaNWvejO48K51gI54yqOt2sDJC/c0wRlWBjC8ZPQph4UMOyP?=
- =?us-ascii?Q?/jTZ9V4LjFuwIKzEtl3WLrMXzApyRN/KnUiGAHahSUC7J/yj2j4A?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d37a0384-abad-4ad9-8460-08df4423e673
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:55:09.2761
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0R0cAxaiqLrd1FdQUeg3isEMYkTgGsHLDQkgxBmvyxA9DiBeQFnu7tvsf4BkpJjeGgMAkiET/SSq/iq7HcctmTaYzUO+gfoAfvUUoPDBCElYA096eH8wjuKteN5Cd/Q1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6887
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-nfs-space-limit-v1-1-fcc1335169a7@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQpAQBCA4VfRnE2ZXRRX5QFc5SAGUyztSEre3
+ eb4Hf7/AWUvrFBGD3i+RGV3ARRHMCy9mxllDAaTmJyILLpJUY9+YFxlkxMTk1FRWJtyZiBUh+d
+ J7v/YQlNX0L3vB18zQp1mAAAA
+X-Change-ID: 20261113-nfs-space-limit-025199334e52
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4675; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=XIyjfteVFVehX4TAsx1KiW1qDqFZHHkTMsMvZPIwW1c=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq+225hs3CDFUimwAn6uN5KqaQxTvNZwaGmxgyy
+ LZrpDeqkYyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCavttuQAKCRAADmhBGVaC
+ Fd6mD/44epiaYPzO83hC9hFwiaihB1KPHiM1P9s5tFYTVNOR8azU/1fMsZP+j+jaC3bSK+YK5kA
+ P+SqpXQ5Wq9qkSkRlx3HC7EXWieSIiZrZkX3ieVOxuwJYxEjeLuo1HRotNNHIUYoMN6vIUC6wYi
+ LRRlxDaVSGtPpsJoV6iY4cwCW/ZaRaCrDm9t4ZxxetJiQYiIbEeRNa5m01j6Lc1NFmlTeoCmBe8
+ GRlIIAtDxmT7hKAjD2zlxwm2xkAP4uNFlGfRsQBP3AzYvbuvoRWIYnahIUTXp8nUKI+GqGb4e7C
+ 5RJNXsdN6zhUyeuAgUD9nr3wxV3AMkml9iCuOYJ7ikoI6NSL+1pkRRRTftva9C+vLim/xj4YLse
+ gi0tf4GGEPSmuy7eu/MvU093Oaemr1AN5ICjm69OxCyqm3Z2J53IfnMwvN+7SYfrfjKshuC8v5c
+ p8sbJ3p0ZwFmMinmq+zMvhczdhOIT2lCgY75Wq71RIU30tlqCXVEHPqR95CWIs9DkoRMGYkvFa7
+ LR+HCY/JjXddj1URAbwHTUdWsSWataAlEaKKWMTTScEaBnhiHvQKxm+I0AZWGjaE2FUDXXYAG4e
+ Za/aBPZ4IJnH1a0vZ4ybdl7MMiXmjJ2oIuabFeycs9I4TNfpz6aGQ6kDVgft1Jce5bdr+y/fv/s
+ XMy1HKlR9UT9vyA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-On Sat, Nov 07, 2026 at 10:15:00PM +0000, Hungyu Lin wrote:
-> [You don't often get email from dennylin0707@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> hidma_mgmt_init_sys() creates the per-channel priority and weight
-> attributes with S_IRUGO | S_IWUGO, so any local user can write them.
-> A write stores the new value and calls hidma_mgmt_setup(), which
-> programs it into the channel's QoS register.
->
-> Attributes declared with __ATTR() are checked at build time by
-> VERIFY_OCTAL_PERMISSIONS(), which rejects world-writable modes. These
-> two are created at runtime with a mode passed to
-> create_sysfs_entry_channel(), so the check does not reach them.
->
-> Make them writable by the owner only, the 0644 that __ATTR_RW() uses.
->
-> Fixes: 7f8f209fd6e0 ("dmaengine: add Qualcomm Technologies HIDMA management driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
+Commit 5445b1fbd123 ("NFSv4: Respect the server imposed limit on how
+many changes we may cache") made close() write back, COMMIT and wait
+whenever outstanding requests exceed the write delegation's
+space_limit. Servers that send a limit of 0, knfsd included, therefore
+get no close() benefit from write delegations, which knfsd now grants
+even on write-only opens.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+That flush buys nothing:
 
->  drivers/dma/qcom/hidma_mgmt_sys.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/dma/qcom/hidma_mgmt_sys.c b/drivers/dma/qcom/hidma_mgmt_sys.c
-> index 9672ef9ee8fc..53b991752e80 100644
-> --- a/drivers/dma/qcom/hidma_mgmt_sys.c
-> +++ b/drivers/dma/qcom/hidma_mgmt_sys.c
-> @@ -265,13 +265,13 @@ int hidma_mgmt_init_sys(struct hidma_mgmt_dev *mdev)
->         /* populate parameters that are per channel */
->         for (i = 0; i < mdev->dma_channels; i++) {
->                 rc = create_sysfs_entry_channel(mdev, "priority",
-> -                                               (S_IRUGO | S_IWUGO), i,
-> +                                               0644, i,
->                                                 mdev->chroots[i]);
->                 if (rc)
->                         return rc;
->
->                 rc = create_sysfs_entry_channel(mdev, "weight",
-> -                                               (S_IRUGO | S_IWUGO), i,
-> +                                               0644, i,
->                                                 mdev->chroots[i]);
->                 if (rc)
->                         return rc;
-> --
-> 2.43.0
+- CTO: no other client can open the file until the delegation is
+  recalled, and the recall writes back our dirty data first.
+- Error reporting is all that's left, and it's pointless. close() is
+  not required to flush, and most filesystems don't, so checking for
+  writeback errors there is unreliable at best: the failing writeback
+  may not have happened yet. Applications that care must fsync(),
+  which this doesn't change; errors are still recorded in the mapping
+  and reported there.
+- RFC 8881 says only that the client "should" abide by space_limit;
+  exceeding it leaves the server's behavior undefined, and knfsd just
+  returns NFS4ERR_NOSPC/NFS4ERR_DQUOT on WRITE or COMMIT.
+
+Go back to just starting writeback on close() whenever we hold a write
+delegation. In testing against a knfsd patched to send a nonzero
+space_limit, single-threaded create/write/close went from ~92 to
+~1,500 files/s.
+
+User-visible change: ENOSPC/EDQUOT for data written just before close()
+now shows up only via fsync(), not close().
+
+For now, the pagemod_limit is still decoded but unused.
+
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+I started looking at wiring up space_limit for nfsd's write delegations,
+but afrer looking at how the client uses it, I think we're best off just
+not bothering to respect it at all. Thoughts?
+---
+ fs/nfs/delegation.c | 25 -------------------------
+ fs/nfs/delegation.h |  1 -
+ fs/nfs/nfs4file.c   |  7 ++++---
+ 3 files changed, 4 insertions(+), 29 deletions(-)
+
+diff --git a/fs/nfs/delegation.c b/fs/nfs/delegation.c
+index ad774316f716..3a141d5ee0bd 100644
+--- a/fs/nfs/delegation.c
++++ b/fs/nfs/delegation.c
+@@ -1587,31 +1587,6 @@ bool nfs4_copy_delegation_stateid(struct inode *inode, fmode_t flags,
+ 	return ret;
+ }
+ 
+-/**
+- * nfs4_delegation_flush_on_close - Check if we must flush file on close
+- * @inode: inode to check
+- *
+- * This function checks the number of outstanding writes to the file
+- * against the delegation 'space_limit' field to see if
+- * the spec requires us to flush the file on close.
+- */
+-bool nfs4_delegation_flush_on_close(const struct inode *inode)
+-{
+-	struct nfs_inode *nfsi = NFS_I(inode);
+-	struct nfs_delegation *delegation;
+-	bool ret = true;
+-
+-	rcu_read_lock();
+-	delegation = rcu_dereference(nfsi->delegation);
+-	if (delegation == NULL || !(delegation->type & FMODE_WRITE))
+-		goto out;
+-	if (atomic_long_read(&nfsi->nrequests) < delegation->pagemod_limit)
+-		ret = false;
+-out:
+-	rcu_read_unlock();
+-	return ret;
+-}
+-
+ int nfs4_delegation_hash_alloc(struct nfs_server *server)
+ {
+ 	int delegation_buckets, i;
+diff --git a/fs/nfs/delegation.h b/fs/nfs/delegation.h
+index fba4699952b8..75f0edde65ea 100644
+--- a/fs/nfs/delegation.h
++++ b/fs/nfs/delegation.h
+@@ -83,7 +83,6 @@ void nfs_put_delegation(struct nfs_delegation *delegation);
+ void nfs_mark_delegation_referenced(struct nfs_delegation *delegation);
+ int nfs4_have_delegation(struct inode *inode, fmode_t type, int flags);
+ int nfs4_check_delegation(struct inode *inode, fmode_t type);
+-bool nfs4_delegation_flush_on_close(const struct inode *inode);
+ void nfs_inode_find_delegation_state_and_recover(struct inode *inode,
+ 		const nfs4_stateid *stateid);
+ void nfs4_inode_make_writeable(struct inode *inode);
+diff --git a/fs/nfs/nfs4file.c b/fs/nfs/nfs4file.c
+index 9a434f5dda8d..04f4d8967e5b 100644
+--- a/fs/nfs/nfs4file.c
++++ b/fs/nfs/nfs4file.c
+@@ -122,10 +122,11 @@ nfs4_file_flush(struct file *file, fl_owner_t id)
+ 		return 0;
+ 
+ 	/*
+-	 * If we're holding a write delegation, then check if we're required
+-	 * to flush the i/o on close. If not, then just start the i/o now.
++	 * A write delegation already provides close-to-open consistency:
++	 * no other client can open the file until it is recalled, and the
++	 * recall writes back our dirty data. Just start the i/o.
+ 	 */
+-	if (!nfs4_delegation_flush_on_close(inode))
++	if (nfs_have_write_delegation(inode))
+ 		return filemap_fdatawrite(file->f_mapping);
+ 
+ 	/* Flush writes to the server and return any errors */
+
+---
+base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+change-id: 20261113-nfs-space-limit-025199334e52
+
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
+
