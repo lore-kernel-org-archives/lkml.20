@@ -1,113 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866916;
-	b=zFL+PnKdaJ4Ks3OlJxwDKYJfpE1HrYphpr/8Fj/6Hf9ByCzHVasoCkcYVmcSSLT4E7kM
-	 5R/k+6OLbg3nBz9pFme0Nlvl/KujImicdN2EGmyGTianFYw7izHxhXeI3gaBnRjdHLEVW
-	 Exoi3B+gkEzqp8DMJ6vyyhs2KiDB4rZDQa8xLzdHpOyIKdxn8/2Z3b1YKdV13ZKdDjd3r
-	 NsnhmdP/E2NdyIoktlov5GNqsX+cjqxEu30n8A67W52nkIP2LpyQdFJRy/OieR+qUiHZr
-	 epRAbCFUOkOmW/tTB+2PmkeyIEwY9cMg3tZDt7zfe2epqzEpunf+G26o1G6aGFcUZOg==
+	t=1794866918;
+	b=5VQlLOmNJYIoIbAh3kXzXMhp0zrDpVE5xShFtTYvILhqNwBoegkjBBdLKNO+6giXejUY
+	 XN+9sikxxQhU9QrQGa1CiNjJ6vQwzlsBJENtLCqGW3fe/Lx/885RGmrgkUvHOo8QHB30+
+	 vLzC00K0blhtoDdng3HVhLDyVvZawa/0ajn6MLJQlxfTUlHiudwPycZht8lrPyQwdbnrT
+	 B4iwB99xwd6Fa782250guKoxbTQIFc3I7zPG5ReokezDSMOT0pjAoDkvtRkW1QoNkIBdM
+	 LAQk3mfDmpfWzIPoVcFmxgOFxACoPTPX+gkt2piBV0UojF7hhTehqta7G7IrB0EMuLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866916;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=sB/Rgxdi0CHGT1x1y6c2xryTvIBoyqac6aBkvdP57ls=;
-	b=cOpMIxUVNLIPPEtO/EUFFm0Cr2H5F1duO3u/606ufc7TFxPbrfdBl49tcscjGRCnhy8z
-	 BtZ5PHTyUAxSs5p4ac4yC/apZRZCT+r1fiwZPJA0V2I8oGLLi787kC/sZeCak4SZ3ZWm3
-	 nr+tKPdwXV2Mf2Zh0vv6BIAWotv3GOETypeTauOdzizdV1I7oiaEwsmoQkw92zfwr5tik
-	 zewhYHX3PvvBs4v7IObsSTxaYE1ksV6XmNNYWyEgRI5ZBQkWX9zu6WMgSPJuyq5tryAsT
-	 uRGSGI6pVyygrJD1XvyQgdWToZIZzA+C33+/J0tmxi8eYaYl2YA14Pou8rfy06caXbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866918;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=mJGxukNRI8guOCGYuzV7f+FvQEmBPeT2/NYqHIeuCJg=;
+	b=Z0LfqKUP7H5+N78oOoxBDJZIFi6pQaXAmvWDlVzfo9gcunFEnALGXRYcaWNxQ0dgbRB2
+	 pIizK0cIJnh7IAF7frkMHoipnHxhexZKnSP3e/drHzG4D6Mr4KTyXzZoHnEOhsPeNrJ4P
+	 Ee+k5ZTcW6dPEDAQNQLCfKSjiUYgJ20G62OB36JcW69b3+CmIk77pYauKGydW7ORZ5yYA
+	 FmCCpCXS9W4uZF4QF2au38tsNYpUlhHFENsJhQ2rw86eOnihrMTS4lD5PEqdK9NUlv+/I
+	 nEeRV69CFIpLhSQnnwFv9Y81v6UaeGKYVvBPi/m+sAR5MFnNXz7Ym0YSdH+TD0Y/FqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=poRr7yTh;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=1jiYZx4a;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfXOz1bj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7111960A2607
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:08:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7111960A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C3660A2621;
+	Mon, 16 Nov 2026 22:08:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=poRr7yTh;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=1jiYZx4a
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYjma3766677
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=sB/R
-	gxdi0CHGT1x1y6c2xryTvIBoyqac6aBkvdP57ls=; b=poRr7yTh+BiFEHHRGyYg
-	5tJ1+B2QSefNvCmmXEuxAIzA8TSBeSqBsjNeCO3YA6rLIfWv5+3GkY60Vuins9+E
-	+wxJztMIIU+PDBfBbQmVde6aVGM+YwwF8KgTdPgcH1VGaNXjgsaPPqZSJtzyeWxr
-	BI0e5utcdbnY8lI/VwHG6KIky2Lh3mCbFGMuiVh0MHkRM/i+ABNSA224p+QTiWRo
-	o93GxroNs10ZokUbW/aC6OBnlBivLxjYVtwTbQQbaKlaqcTfuCaA1Bey2JgMY6ti
-	HJDuVYEnLN7nA2WYhvfv3dvhPVGEBuu8DYbF5I+R4VPkxBHljtjOoHdLOcyb81dc
-	dQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j0598b9q0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:32 -0500 (EST)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f559420f3so421097285a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:08:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794866911; x=1795471711; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sB/Rgxdi0CHGT1x1y6c2xryTvIBoyqac6aBkvdP57ls=;
-        b=1jiYZx4aMpDHV2/kPG2cPWMCJdyme4vLXWUl3ltazn/YD4RWDA0Zvk2OVxziTPuTes
-         3XOxUaeXk1TaBivMjGTge/gCzapQlpsI8IcPs47wOoIBvxv5qgC90a5MNl0rAeAZLrh9
-         N5tSoz6+dZ3Tu4YBCxRffd8IRRWP2lWfSsrsr4lZgqhV0mJYxractMZZLXgvEOpGI8Kp
-         QEzUJnMpJ4g78yt1aFwd/KLPlqjzgnFTC7U9CJgMbOD9CaeLvlOK3bDDN+yvBN/2xerT
-         cnWaq9jUDijl7kIqEN/ZMGc64cozZI1QHneoUFd8SZjTFGrnLOsmcltgDAd+MZ9fq+Is
-         jSuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866911; x=1795471711;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sB/Rgxdi0CHGT1x1y6c2xryTvIBoyqac6aBkvdP57ls=;
-        b=Jw5brd9zHxE+s6jUdJyAwfmcI/+808iOUiDxboecRlGWmgSthHR34ZaNzwOr+FsQ4s
-         HvZm8ZYp2d8j+qTrS8LM25bbTobu1svmY3+ckxORk6gZRc+0gzpvizTrpRM/RAWI/Lc/
-         DrPjzHJ3W9+pcQQbrJMedx70PiSXKai+zxGfm+EtBUS6gcrV99119IRj/FmSgKBluQ8A
-         M71x+UqGqlXszmoWyN36sFA2mTBt0yOkfLbcbCM9QKcvHV9Q02h6cIcfSQLLAApuQSEI
-         JkQoH6HEqdsoKJJ3wbRJyaZCMooIPFAGNRcX8eBS9TCWsIqOYDs3UNBeZ1gnQ55MqvHB
-         KuCQ==
-X-Forwarded-Encrypted: i=1; AL+hErEloGNrJ4gho80GzH+n+4JG9qRcIbj3700iPAotWC/+GK9FtodSKVs1+pSAUCwjAbGFEiB+Lhz+VUbOStw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f+YxPjNbsLGgwFrPf3js7hsIK9FY1Z62/Bbp49/hcLzfO3LdZ
-	cCLDlvNXqIKxslymaKWNBQ6o4FLh1ly9bLPNgz5MIRHk5CUp/UnlTg3IvhYSuxVAlceSqFVLI8O
-	jKc8ATG9rij5DursjO55INpgpyFrTsS23flkZiDCBYQ0YmxEWfoOjZYcAJoo86Q==
-X-Gm-Gg: AYBFou3zs8wYBCZsVCRC7VWX7YBQHdz3iFA871jL7x2Z2St0taaiG6EU/7T41F3njbk
-	EzdBLwlrp/FSzsNlHKd5IOYbCNSfFax5tQlTAqJ66ILe0GodN/bswI2qs7yzTOkfPr81ttno7zP
-	3s4sHbCiFY2ZpKBCU8ocRhqNqZ4j9Pj2EQ1zek1pPSIvusJFVQg4hYYcI6fvk9bJrHZMIQxi+lb
-	tZ6+fQ0ApboNl9dk/UyeCFKBt38q6CJ4++EQBWggKZpRvlVWxWKiPA/6bT7+0bl7i1RjliJ/y5J
-	7kkz8MBHBkBitOT1l66AfjRN5PORZ9Lm1sceR1v6hucD0hncB2jZ2CU10SBOSmWiaUSwUlyV0+8
-	ntG0UQSIEWoHY3X9UOr9+N0C2RUdLtCMpMaCYyrVF7e3LkbXjKEyVBXaHoYJM3SJ1tDaFOKCbDL
-	3BSPwEToAY97RU7g2pjNG1
-X-Received: by 2002:a05:620a:1b90:b0:93b:eb9a:ca47 with SMTP id af79cd13be357-9494bbbdeadmr1706750285a.31.1794866911555;
-        Mon, 16 Nov 2026 14:08:31 -0800 (PST)
-X-Received: by 2002:a05:620a:1b90:b0:93b:eb9a:ca47 with SMTP id af79cd13be357-9494bbbdeadmr1706747685a.31.1794866911022;
-        Mon, 16 Nov 2026 14:08:31 -0800 (PST)
-Received: from [127.0.1.1] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c86c946sm951838885a.25.2026.11.16.14.08.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:08:30 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 16 Nov 2026 17:08:16 -0500
-Subject: [PATCH v3 10/10] ecryptfs: refer to folios in comments and printk
- strings
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfXOz1bj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D191F000C6;
+	Mon, 16 Nov 2026 22:08:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794866918;
+	bh=mJGxukNRI8guOCGYuzV7f+FvQEmBPeT2/NYqHIeuCJg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NfXOz1bjnqQSic7caaDvifzS7e6EoeeDqYbBHCqBxf1odgHUmampewXS3miJugkWs
+	 q3WIh6032Q8hXhTeTAOczJwAwJfuoEEah1rLLjST68py2Hfu0YloCFIq31+H3kG5Bl
+	 YsMu5imNqWR0st9EuhnoXYXMSrk3BkOWw4eFtlDu7DY1J6O8VZ4JNWYI5LM3TXe5qK
+	 ybo42DBAkOnRL1HFbsgrf7ZGMd/rf3kWcWVOX5UtGKZVnojc+E7/fLCpQIACgL526h
+	 S3tdgTO6skVx0F/+bc4JUeS5362Nhm28eiwfLsoi+Bex4E3OcZ8dvTVOb+MYDSs1/t
+	 tkX61uyi8vUeQ==
+Subject:
+ Re: [PATCH net-next v4 3/4] selftests: net: test restricted on-link fallback
+From: netdev-bot+sashiko@kernel.org
+To: liamsmith827@grapheneos.org
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, shuah@kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, liamsmith827@proton.me
+Date: Mon, 16 Nov 2026 22:08:36 +0000
+Message-ID: <179486691687.3136.3928075477419379524@kernel.org>
+In-Reply-To: <20261115215640.18728-4-liamsmith827@grapheneos.org>
+References: <20261115215640.18728-4-liamsmith827@grapheneos.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,305 +64,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ecryptfs-folio-v3-10-1aba8e620eda@columbia.edu>
-References: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
-In-Reply-To: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
-To: Tyler Hicks <code@tyhicks.com>, Erez Zadok <ezk@cs.sunysb.edu>,
-        Phillip Hellewell <phillip@hellewell.homeip.net>,
-        Badari Pulavarty <pbadari@us.ibm.com>, Theodore Ts'o <tytso@mit.edu>,
-        Andrew Morton <akpm@linux-foundation.org>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Stephan Mueller <smueller@chronox.de>, Adrian Bunk <bunk@stusta.de>,
-        Michael Halcrow <mhalcrow@us.ibm.com>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866899; l=11260;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=7gCESTaoOYsjHTjQj/jUXAbyJ5KiZRBf1dqz1igpy/M=;
- b=JavZLytCbMmF5wa0/+NnJA9AGO4WIXvjhOrKvh/HYWA7laVRAd5mFK/a2utXcG3Ayci4P2I/Q
- 6KFALPp5yMGDQ3MmFW+N9VAYGKWrF3pJQcSr6YNnrfFfwU8myziC/ly
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: t6HRmq6tGYBedCEvyp_GBF9lJ_2q9Fj7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX2KuU4MLtKAFu
- 6RnAD/dJqiDMMBjemXWPVSS8UVFyM5oD5o4TxK4KataCLxW1G3/QxGVdGvHGdnDlyCgiikM/qnL
- SIZKGcSuOmKiSNogG1/FWW2rLCgw9TB3o7r3x7CwZIKnk3axgfO6
-X-Authority-Analysis: v=2.4 cv=aYD0Dhot c=1 sm=1 tr=0 ts=6afb7ee0 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=UaDNW_uvnF1uU8MiXK0A:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfXwMVAfza1T+Kz
- aHKpMpGkI0o9RULtdywC39tcyTL2fiWllVI6MzUrW1rPuuibzIa6eL7qSM/9G+2/9bLSGGWGx1U
- 0KfAxeh0yDnjYaI6XLVYBvl4j1YFc+eXZ4wSCyIz/HeJ15bW0Jq6CVUrAh5yB/8Htjw9jV57P6z
- 1xwsBmnfoM1Dq8QEZ033QKukWnwzhZI7mmNqUn83RaggkE7z8cKNK5KXMP3H35Q7wMRNf3v7BAV
- FiiQ+ooXqbUeUux5JjPlR0W+KRam0L1qgJVvxWg4RbfayNez9vMGC4Z90qAItZ5CUslgQxBb3S7
- uI82OKawKUBrfzOCbld8OZhrCpFCKTt97dXGh//+D8zMtMSzi6NxM1WVRVrb8ZxYNixDRMuR8Ya
- 6FWVFCW9NQ/iMqP4TR48MWKUS/bbDRQUOmt25uX2IP4tXfjNMU+HtfbDF/rXdDpBBPZ0Dfi3tGc
- Da1KH7CIJdI02PnOFOw==
-X-Proofpoint-GUID: t6HRmq6tGYBedCEvyp_GBF9lJ_2q9Fj7
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=10 lowpriorityscore=10 adultscore=0 suspectscore=0
- spamscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=10
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160088
 
-Update the comments and printk strings to refer to folios instead of
-pages. While at it, join the strings that were split across lines, use
-pr_err() for the printk(KERN_ERR) calls among them, and fix the block
-comment style.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- fs/ecryptfs/crypto.c     | 17 ++++++++---------
- fs/ecryptfs/mmap.c       | 36 +++++++++++++++++-------------------
- fs/ecryptfs/read_write.c | 36 ++++++++++++++++++------------------
- 3 files changed, 43 insertions(+), 46 deletions(-)
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index bbaeb9a38db0..d426dc95517c 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -214,7 +214,7 @@ static int crypt_scatterlist(struct ecryptfs_crypt_stat *crypt_stat,
- /*
-  * lower_offset_for_folio
-  *
-- * Convert an eCryptfs page index into a lower byte offset
-+ * Convert an eCryptfs folio index into a lower byte offset
-  */
- static loff_t lower_offset_for_folio(struct ecryptfs_crypt_stat *crypt_stat,
- 				    struct folio *folio)
-@@ -263,9 +263,8 @@ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
- 	rc = crypt_scatterlist(crypt_stat, dst_sgp, &src_sg, extent_size,
- 			       extent_iv, op);
- 	if (rc < 0) {
--		printk(KERN_ERR "%s: Error attempting to crypt page with "
--		       "page_index = [%ld], extent_offset = [%ld]; "
--		       "rc = [%d]\n", __func__, page_index, extent_offset, rc);
-+		pr_err("%s: Error attempting to crypt folio with page_index = [%ld], extent_offset = [%ld]; rc = [%d]\n",
-+		       __func__, page_index, extent_offset, rc);
- 		goto out;
- 	}
- 	rc = 0;
-@@ -279,8 +278,8 @@ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
-  *        decrypted content that needs to be encrypted (to a temporary
-  *        buffer; not in place) and written out to the lower file
-  *
-- * Encrypt an eCryptfs page. This is done on a per-extent basis. Note
-- * that eCryptfs pages may straddle the lower pages -- for instance,
-+ * Encrypt an eCryptfs folio. This is done on a per-extent basis. Note
-+ * that eCryptfs folios may straddle the lower pages -- for instance,
-  * if the file was created on a machine with an 8K page size
-  * (resulting in an 8K header), and then the file is copied onto a
-  * host with a 32K page size, then when reading page 0 of the eCryptfs
-@@ -341,10 +340,10 @@ int ecryptfs_encrypt_folio(struct folio *folio)
-  * ecryptfs_decrypt_folio
-  * @folio: Folio mapped from the eCryptfs inode for the file; data read
-  *        and decrypted from the lower file will be written into this
-- *        page
-+ *        folio
-  *
-- * Decrypt an eCryptfs page. This is done on a per-extent basis. Note
-- * that eCryptfs pages may straddle the lower pages -- for instance,
-+ * Decrypt an eCryptfs folio. This is done on a per-extent basis. Note
-+ * that eCryptfs folios may straddle the lower pages -- for instance,
-  * if the file was created on a machine with an 8K page size
-  * (resulting in an 8K header), and then the file is copied onto a
-  * host with a 32K page size, then when reading page 0 of the eCryptfs
-diff --git a/fs/ecryptfs/mmap.c b/fs/ecryptfs/mmap.c
-index d841610644ed..305231cd5336 100644
---- a/fs/ecryptfs/mmap.c
-+++ b/fs/ecryptfs/mmap.c
-@@ -188,16 +188,16 @@ static int ecryptfs_read_folio(struct file *file, struct folio *folio)
- 					folio->index, 0, folio_size(folio),
- 					inode);
- 			if (err) {
--				printk(KERN_ERR "Error reading page; err = "
--				       "[%d]\n", err);
-+				pr_err("Error reading folio; err = [%d]\n",
-+				       err);
- 				goto out;
- 			}
- 		}
- 	} else {
- 		err = ecryptfs_decrypt_folio(folio);
- 		if (err) {
--			ecryptfs_printk(KERN_ERR, "Error decrypting page; "
--					"err = [%d]\n", err);
-+			ecryptfs_printk(KERN_ERR, "Error decrypting folio; err = [%d]\n",
-+					err);
- 			goto out;
- 		}
- 	}
-@@ -264,8 +264,7 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 			rc = ecryptfs_read_lower_folio_segment(
- 				folio, index, 0, PAGE_SIZE, mapping->host);
- 			if (rc) {
--				printk(KERN_ERR "%s: Error attempting to read "
--				       "lower page segment; rc = [%d]\n",
-+				pr_err("%s: Error attempting to read lower folio segment; rc = [%d]\n",
- 				       __func__, rc);
- 				folio_clear_uptodate(folio);
- 				goto out;
-@@ -291,8 +290,7 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 					folio, index, 0, PAGE_SIZE,
- 					mapping->host);
- 				if (rc) {
--					printk(KERN_ERR "%s: Error reading "
--					       "page; rc = [%d]\n",
-+					pr_err("%s: Error reading folio; rc = [%d]\n",
- 					       __func__, rc);
- 					folio_clear_uptodate(folio);
- 					goto out;
-@@ -307,9 +305,7 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 			} else if (len < PAGE_SIZE) {
- 				rc = ecryptfs_decrypt_folio(folio);
- 				if (rc) {
--					printk(KERN_ERR "%s: Error decrypting "
--					       "page at index [%ld]; "
--					       "rc = [%d]\n",
-+					pr_err("%s: Error decrypting folio at index [%ld]; rc = [%d]\n",
- 					       __func__, folio->index, rc);
- 					folio_clear_uptodate(folio);
- 					goto out;
-@@ -333,8 +329,10 @@ static int ecryptfs_write_begin(const struct kiocb *iocb,
- 			}
- 		}
- 	}
--	/* Writing to a new page, and creating a small hole from start
--	 * of page?  Zero it out. */
-+	/*
-+	 * Writing to a new folio, and creating a small hole from start
-+	 * of folio? Zero it out.
-+	 */
- 	if ((i_size_read(mapping->host) == prev_page_end_size)
- 	    && (pos != 0))
- 		folio_zero_range(folio, 0, PAGE_SIZE);
-@@ -443,8 +441,8 @@ static int ecryptfs_write_end(const struct kiocb *iocb,
- 		&ecryptfs_inode_to_private(ecryptfs_inode)->crypt_stat;
- 	int rc;
- 
--	ecryptfs_printk(KERN_DEBUG, "Calling fill_zeros_to_end_of_folio"
--			"(page w/ index = [0x%.16lx], to = [%d])\n", index, to);
-+	ecryptfs_printk(KERN_DEBUG, "Calling fill_zeros_to_end_of_folio(folio w/ index = [0x%.16lx], to = [%d])\n",
-+			index, to);
- 	if (!(crypt_stat->flags & ECRYPTFS_ENCRYPTED)) {
- 		rc = ecryptfs_write_lower_folio_segment(ecryptfs_inode,
- 				folio, 0, to);
-@@ -465,14 +463,14 @@ static int ecryptfs_write_end(const struct kiocb *iocb,
- 	/* Fills in zeros if 'to' goes beyond inode size */
- 	rc = fill_zeros_to_end_of_folio(folio, to);
- 	if (rc) {
--		ecryptfs_printk(KERN_WARNING, "Error attempting to fill "
--			"zeros in page with index = [0x%.16lx]\n", index);
-+		ecryptfs_printk(KERN_WARNING, "Error attempting to fill zeros in folio with index = [0x%.16lx]\n",
-+				index);
- 		goto out;
- 	}
- 	rc = ecryptfs_encrypt_folio(folio);
- 	if (rc) {
--		ecryptfs_printk(KERN_WARNING, "Error encrypting page (upper "
--				"index [0x%.16lx])\n", index);
-+		ecryptfs_printk(KERN_WARNING, "Error encrypting folio (upper index [0x%.16lx])\n",
-+				index);
- 		goto out;
- 	}
- 	if (pos + copied > i_size_read(ecryptfs_inode)) {
-diff --git a/fs/ecryptfs/read_write.c b/fs/ecryptfs/read_write.c
-index fa876eef85ad..8c2527eb828e 100644
---- a/fs/ecryptfs/read_write.c
-+++ b/fs/ecryptfs/read_write.c
-@@ -48,8 +48,8 @@ int ecryptfs_write_lower(struct inode *ecryptfs_inode, char *data,
-  * @size: The amount of data from @folio_for_lower to write to the
-  *        lower file
-  *
-- * Determines the byte offset in the file for the given page and
-- * offset within the page, maps the page, and makes the call to write
-+ * Determines the byte offset in the file for the given folio and
-+ * offset within the folio, maps the folio, and makes the call to write
-  * the contents of @folio_for_lower to the lower inode.
-  *
-  * Returns zero on success; non-zero otherwise
-@@ -80,7 +80,7 @@ int ecryptfs_write_lower_folio_segment(struct inode *ecryptfs_inode,
-  * @size: The number of bytes to write from @data
-  *
-  * Write an arbitrary amount of data to an arbitrary location in the
-- * eCryptfs inode page cache. This is done on a page-by-page, and then
-+ * eCryptfs inode page cache. This is done on a folio-by-folio, and then
-  * by an extent-by-extent, basis; individual extents are encrypted and
-  * written to the lower page cache (via VFS writes). This function
-  * takes care of all the address translation to locations in the lower
-@@ -133,10 +133,8 @@ int ecryptfs_write(struct inode *ecryptfs_inode, char *data, loff_t offset,
- 				ecryptfs_page_idx, NULL);
- 		if (IS_ERR(ecryptfs_folio)) {
- 			rc = PTR_ERR(ecryptfs_folio);
--			printk(KERN_ERR "%s: Error getting page at "
--			       "index [%ld] from eCryptfs inode "
--			       "mapping; rc = [%d]\n", __func__,
--			       ecryptfs_page_idx, rc);
-+			pr_err("%s: Error getting folio at index [%ld] from eCryptfs inode mapping; rc = [%d]\n",
-+			       __func__, ecryptfs_page_idx, rc);
- 			goto out;
- 		}
- 		folio_lock(ecryptfs_folio);
-@@ -146,11 +144,13 @@ int ecryptfs_write(struct inode *ecryptfs_inode, char *data, loff_t offset,
- 		 * pos: where we're now writing, offset: where the request was
- 		 * If current pos is before request, we are filling zeros
- 		 * If we are at or beyond request, we are writing the *data*
--		 * If we're in a fresh page beyond eof, zero it in either case
-+		 * If we're in a fresh folio beyond eof, zero it in either case
- 		 */
- 		if (pos < offset || !start_offset_in_page) {
--			/* We are extending past the previous end of the file.
--			 * Fill in zero values to the end of the page */
-+			/*
-+			 * We are extending past the previous end of the file.
-+			 * Fill in zero values to the end of the folio.
-+			 */
- 			memset(((char *)ecryptfs_page_virt
- 				+ start_offset_in_page), 0,
- 				PAGE_SIZE - start_offset_in_page);
-@@ -178,8 +178,8 @@ int ecryptfs_write(struct inode *ecryptfs_inode, char *data, loff_t offset,
- 		folio_unlock(ecryptfs_folio);
- 		folio_put(ecryptfs_folio);
- 		if (rc) {
--			printk(KERN_ERR "%s: Error encrypting "
--			       "page; rc = [%d]\n", __func__, rc);
-+			pr_err("%s: Error encrypting folio; rc = [%d]\n",
-+			       __func__, rc);
- 			goto out;
- 		}
- 		pos += num_bytes;
-@@ -232,16 +232,16 @@ int ecryptfs_read_lower(char *data, loff_t offset, size_t size,
-  * ecryptfs_read_lower_folio_segment
-  * @folio_for_ecryptfs: The folio into which data for eCryptfs will be
-  *                     written
-- * @page_index: Page index in @page_for_ecryptfs from which to start
-+ * @page_index: Page index in @folio_for_ecryptfs from which to start
-  *		writing
-- * @offset_in_page: Offset in @page_for_ecryptfs from which to start
-+ * @offset_in_page: Offset in @folio_for_ecryptfs from which to start
-  *                  writing
-- * @size: The number of bytes to write into @page_for_ecryptfs
-+ * @size: The number of bytes to write into @folio_for_ecryptfs
-  * @ecryptfs_inode: The eCryptfs inode
-  *
-- * Determines the byte offset in the file for the given page and
-- * offset within the page, maps the page, and makes the call to read
-- * the contents of @page_for_ecryptfs from the lower inode.
-+ * Determines the byte offset in the file for the given folio and
-+ * offset within the folio, maps the folio, and makes the call to read
-+ * the contents of @folio_for_ecryptfs from the lower inode.
-  *
-  * Returns zero on success; non-zero otherwise
-  */
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In ipv4_ping_novrf() (tools/testing/selftests/net/fcnal-
+  test.sh, lines 659-662), the new case "ping out, blocked by…
+- [Low] Even with the missing ping added, the unreachable-rule case in
+  ipv4_ping_novrf() (fcnal-test.sh lines 659-662) has no device bind…
+
+--
+
+selftests: net: test restricted on-link fallback
+
+This patch updates the IPv4 cases in fcnal-test.sh to match the new
+on-link fallback behaviour. The fallback is no longer taken when the FIB
+lookup hits an unreachable, blackhole or prohibit route or rule. It
+changes the expected return codes, adds a route miss variant and an
+unreachable rule case, and enables the device bind cases that were
+previously commented out.
+
+> diff --git a/tools/testing/selftests/net/fcnal-test.sh b/tools/testing/selftests/net/fcnal-test.sh
+> index a50609535fedc..9722d7dcad085 100755
+> --- a/tools/testing/selftests/net/fcnal-test.sh
+> +++ b/tools/testing/selftests/net/fcnal-test.sh
+
+[ ... ]
+
+> @@ -643,10 +656,14 @@ ipv4_ping_novrf()
+>  	run_cmd ping -c1 -w1 ${a}
+>  	log_test_addr ${a} $? 2 "ping out, blocked by rule"
+>  
+> -	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+> -	# a viable rtable if the oif (e.g., bind to device) is set, so this
+> -	# case succeeds despite the rule
+> -	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+> +	log_start
+> +	setup_cmd ip rule add pref 49 to ${NSB_LO_IP} unreachable
+> +	log_test_addr ${a} $? 2 "ping out, blocked by unreachable rule"
+
+[Severity: Medium]
+Is a ping missing here? Nothing runs between the rule add and
+log_test_addr, so $? is the exit status of setup_cmd.
+
+setup_cmd() exits the whole script if the command fails:
+
+setup_cmd()
+{
+	...
+	run_cmd ${cmd}
+	rc=$?
+	if [ $rc -ne 0 ]; then
+		...
+		exit $rc
+	fi
+}
+
+So when it returns here, $? is always 0. log_test_addr() then compares
+0 against the expected value of 2. That means this case reports FAIL on
+every run, and no packet is ever sent while the pref 49 unreachable rule
+is installed.
+
+The commit message says this case will "demonstrate ping fails as
+expected with an unreachable rule" and that it "ensures
+FIB_LOOKUP_REPORT_MISS does not break this behavior". As written, the
+case checks neither.
+
+Would adding run_cmd ping -c1 -w1 ${a} before log_test_addr fix this?
+At this point a is still ${NSB_LO_IP}.
+
+> +	setup_cmd ip rule del pref 49 to ${NSB_LO_IP} unreachable
+> +
+> +	log_start
+> +	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+> +	log_test_addr ${a} $? 2 "ping out, device bind, blocked by rule"
+
+[Severity: Low]
+Even with the ping added, can the unreachable rule case catch a
+FIB_LOOKUP_REPORT_MISS regression without a device bind?
+
+In ip_route_output_key_hash_rcu(), the on-link fallback is only taken
+when oif is set and err == -ESRCH. In every other case a miss is mapped
+back:
+
+	err = err == -ESRCH ? -ENETUNREACH : err;
+
+fib4_rule_action() returns -ENETUNREACH for FR_ACT_UNREACHABLE. With oif
+unset, two cases give the same ping exit code of 2:
+
+  - the unreachable rule is correctly reported as -ENETUNREACH
+  - the rule is wrongly reported as a miss (-ESRCH), which is then
+    remapped to -ENETUNREACH
+
+So a non-bound ping cannot tell them apart.
+
+The device bind case that follows runs after the pref 49 rule has been
+deleted. It hits the pref 50 prohibit rule (-EACCES), which never goes
+through the -ESRCH vs -ENETUNREACH distinction.
+
+Should there also be a run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a} case,
+expecting 2, while the pref 49 unreachable rule is still installed?
+
+>  
+>  	a=${NSA_LO_IP}
+>  	log_start
+
+[ ... ]
 
 -- 
-2.39.5
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115215640.18728-1-liamsmith827%40grapheneos.org
