@@ -1,62 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849541;
-	b=jPpjAHPsTOdPOtU+j83VyQ5w3Vk0lApv7Owf22eHjtsuYHfcfr11rQc9x11bh5OpG8NG
-	 R/nkhMAY7UAiUuQmv4WlSSJsdz/umnhsRjF870LfMk188GmiRY37rjU2HzSkl2NloyqHi
-	 +2n5go20UsqWFUtEmxC0smcKjze7puqZYRJva9Jm3h9YQyUqiWcz8gZuvd9q7Kg3a6v8Z
-	 rsWxZW5T19Q7RhxjYEWMPwZPoyuE3KQHf0Sot4+KWLl9A8GNKz46qy8CfSBBxmAoOxJLX
-	 F8Uq6sElV2PsjOASNkssVNkrzTSWNdYk4PYQgzR2GMuegZ6KpEE80w2PqxqXKZ6TFlg==
+	t=1794849625;
+	b=SyqJ9WtsPOoPk/mNFRiM8CQTAiDmFBFKY1ZNwnXgXLJIpyEAirPdXZ8tNLN6aNfQ/18K
+	 2fbsT5r0Gomt3AHYOrDCnUynUSz8YqummCFFlPZdKgXHViZ7j9YI6P6xL2p7B7DKEfW4x
+	 fhY6DFaliiYrPLsrpDm2dhWq5fcpJgZ8lfHHwbODksiJpJTBDUbhWo8xmhcb8aAaQwx6U
+	 LnOow8lp4MVU5ad/4lksJYE8v/g9bL0iOJf3HILV4RAbpe7ZpP9bBBSMW0rmkbywvXdxR
+	 6GNUZCARsMVu4wBsUu4TGorMpX3O/tBT0GWmqFTXHyXK246yNRASJGyK69DZsyMXdbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849541;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=OzaqIXPqhSSG4ejd/hB4U1AFDk/wquty1pyzaNNEA1Y=;
-	b=XmYauCMfaV0roLYRpd2KzD6T9ArK+TawrRqYoSDnb8rGKTpVH/vzRXG9yxfN5kew3xUf
-	 +zjcMLbW+kO3hyW39tziPb+LAJcHJnfwVK7tQzLm+5ekxtn0BPkfq2yOVRS0OWpagk1m/
-	 nsD/SoZZw994+k37rl0in/p3FO4UuaatC0CcccP5YOVk6smXL2blnUh8irAcI2an6cMws
-	 7V/CjB+wWDOogkAn9uO1Uhm1hej2W04skpbBAVPp73DhmZ4ZP8GMiNTGqtlqYmSeIKHLz
-	 IhW4hpYL2bgE2fj2dw84Pf+MV+mHByfK9p4CZyAKFmXjLI9HAYGw5kVgLEBfbQxbsRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849625;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=Uhn3Xh440rrzv0xOTkiny4cGS6bsXvzVeqcYJ4nwTDs=;
+	b=h3ODBnrmiEfzKALd0fdn1BCWMy7dHL2rFAtSm7J7RTqiHhQKG9LiDExVHmDzMhK2RvqN
+	 1MHYvreU0E1wSOpVvuV3pixcae6YltcPqPtECs+XwUSxo07cbdRkgx5md9+hJ5aFwCjdm
+	 +CBQaHjVNOgLwZhJEWSMMIk8O8i41tHq3Z0Vj48HkvWs9/Et/Qx/jEZsj/vLboSXvwIAZ
+	 ZF6y2jMA1WrUHf7r9fMO4UaEa4bIoqmTrU98z0fhKaqaVLFv6X7oJqwPRtZVB9BgOJOmw
+	 XTBsY5XJEEQfxSjHJZlpiMW4F+qsPHJbfKarTHd03Ubh4A32mCOSlfSoKGmqtxvf2TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZoSV5rIN;
-	arc=none smtp.remote-ip=91.218.175.131
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=aX5WK4VM;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IwT+AooZ;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBA8606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECBA8606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53300606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53300606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZoSV5rIN
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PAxYfgYQrRbaE3T1nWWUCpJHJViNiRZaZVomuIz4tHw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794849538; v=1; x=1795454338;
- b=ZoSV5rINn65l40cWzZSH8b6WS496zQWk6wvN+E/+81fz+tLMKT/Pw64TNet3QRkay3RyOX24
- iO62DuF5ZGGsmv7AeDKc1vCnVipFfjsGA0rov0mjQYVkWQ90Cu5HkVuQE47j20ryi6+GTYAfm9G
- fW14WOUuT95o078lFeVsrc0w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b64046fb36a7fca4;
-	Mon, 16 Nov 2026 17:18:58 +0000
-X-Mizu-Trace-ID: b64046fb36a7fca4
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so13560e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:18:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGhux3JTEvnIpSqT0BzcZMGtDeE5AzvqE9bucFzw2/0DtPJajgm2wonHAzZXoo7dZfhHekLa3/MynC5ai4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8v4jimgGfvR8J1WLALwae/bwktlcPVCYPWZRh1pNKdyktjpgN8
-	Rspd46hsijCtDfuGJyLNWCe38oy2CIeODWEEM7GwEFvNE9x05CkfyFFm9vXW2QBj+4UgmmkwPWY
-	2Kh9HRkbBcCXvC25MIcFd981ArK2HEhBBnF3JFmae
-X-Received: by 2002:a05:6512:110b:b0:5bf:f84f:1d74 with SMTP id
- 2adb3069b0e04-5c17e52e81emr262285e87.13.1794849533007; Mon, 16 Nov 2026
- 09:18:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=aX5WK4VM;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IwT+AooZ
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794849622;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Uhn3Xh440rrzv0xOTkiny4cGS6bsXvzVeqcYJ4nwTDs=;
+	b=aX5WK4VMEnjF9i1VKVQSHFX2GLhbxsGh0rUUEpq16akWX/oza8TC2x4U2Wc5M2cea5s+pr
+	FG7n6wly3PaZ/Mq8S4XaUkpXwJXmNwINcQe529CM2y8TtfwdUsQI7umWEMC/Y6npD4Rv5b
+	NKWunLOmi55uB+seqegTvmwiHNVscAexBW+ovmpj5P+GxXl0MDs14cFZ1Vso7OS8RUyUxE
+	CMJFtuouBK/6+19icelMId62QdTq41y3v+LEABahmYc2lUj3TT9bSVBO5W49uxQurGRjp+
+	JzpHZoiHSeL3p9a67NtjbjE0DjZmidChXhXxBYZxCcPAa1JbWT3+OPcJ41ujFA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794849622;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Uhn3Xh440rrzv0xOTkiny4cGS6bsXvzVeqcYJ4nwTDs=;
+	b=IwT+AooZ8H8ysTr1pAwAVYo/Aex9uA3/+R34PP1Hz0Mquv2Mb6PM8k4ReFej4Va7RWRgfC
+	3kUcg2AomgSL65DA==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Ryan Roberts <ryan.roberts@arm.com>, Breno Leitao
+ <leitao@debian.org>, printk@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, "Christophe
+ Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)"
+ <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jason Wessel
+ <jason.wessel@windriver.com>, Daniel Thompson <danielt@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Mukesh Kumar Chaurasiya
+ <mchauras@linux.ibm.com>, Feng Tang <feng.tang@linux.alibaba.com>, Rio
+ <rioo.tsukatsukii@gmail.com>, Bradley Morgan <brads@mainlining.org>, Pnina
+ Feder <pnina.feder@mobileye.com>, Gal Pressman <gal@nvidia.com>, Petr
+ Pavlu <petr.pavlu@suse.com>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+ Oleg Nesterov <oleg@redhat.com>, "Cen Zhang (Microsoft)"
+ <blbllhy@gmail.com>, loongarch@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, kgdb-bugreport@lists.sourceforge.net
+Subject: Re: [PATCH printk v2 1/6] printk: Introduce and specify flush reasons
+In-Reply-To: <avcnSjj2P9UfsBn7@pathway.suse.cz>
+References: <20261111181942.593695-1-john.ogness@linutronix.de>
+ <20261111181942.593695-2-john.ogness@linutronix.de>
+ <avcnSjj2P9UfsBn7@pathway.suse.cz>
+Date: Mon, 16 Nov 2026 18:26:21 +0106
+Message-ID: <87cxs4y9pm.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,52 +90,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
- <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
- <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com> <avs5UD79FB_DG1Vs@seanjc-mac.roam.internal>
-In-Reply-To: <avs5UD79FB_DG1Vs@seanjc-mac.roam.internal>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 16 Nov 2026 17:18:16 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTwXO_Ym1+ErHT9Si6FwHtDaPDmMRwY+RS8LDNK421rchA@mail.gmail.com>
-X-Gm-Features: AclHuK9xW32VPDT60mgyMDdb5wXbr3ChwJoDPUUlo1Wmi2N2JEJM_TMFlrp_0kc
-Message-ID: <CA+EHjTwXO_Ym1+ErHT9Si6FwHtDaPDmMRwY+RS8LDNK421rchA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
- ring is full
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-On Mon, 16 Nov 2026 at 17:11, Sean Christopherson <seanjc@google.com> wrote:
+On 2026-11-13, Petr Mladek <pmladek@suse.com> wrote:
+> This entire patchset adds a lot of complexity just to enable all
+> 4 new policy flags for netconsole in the last patch.
 >
-> On Mon, Nov 16, 2026, Fuad Tabba wrote:
-> > Hi Sean,
-> >
-> > On Tue, 10 Nov 2026 17:18:22 +0000, Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> > [...]
-> > > > Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
-> > > > clobbering vcpu->run->exit_reason.
-> > >
-> > > Will do.
-> >
-> > After taking a closer look, the clobber is problematic on arm64, where
-> > KVM_RUN completes a pending MMIO exit only if run->exit_reason is
-> > still KVM_EXIT_MMIO. If a pre-fault stops on a full ring after an MMIO
-> > exit, the helper overwrites exit_reason, so the next KVM_RUN doesn't
-> > complete the exit and the guest repeats the MMIO access. The ring can
-> > be full at that point if the pre-fault dirties pages, or with NV, if
-> > the stage-2 walk for the MMIO access does.
+> There already have few dimensions which affect console flushing:
 >
-> Wouldn't that require userspace to do KVM_PRE_FAULT_MEMORY after KVM_RUN with a
-> KVM_EXIT_MMIO return?  If so, userspace gets to deal with the fallout of being
-> stupid.
+>    + console_loglevel
+>    + nbcon_prio
 
-Ack, so v2 will be as you suggested.
+"Dimensions" is the correct word. These are orthogonal:
 
-/fuad
+  + console_loglevel: which messages to print
+  + nbcon_prio: which context is allowed access to hardware
+  + pr_flush_reason: reason for atomic flushing
+  + unsafe_flush_flags: policy when unsafe flushing is acceptable
+
+I do not see a single property above where a value in one implies a
+value in another.
+
+> This patchset adds 8 new terms in pr_flush_reason and
+> nbcon_unsafe_flush_flags just to explicitly set all
+> flush_flags in netconsole.
+>
+> Let's start with pr_flush_reason. I am not sure if it is worth it:
+>
+>   + PR_FLUSH_RUNTIME is the default
+>
+>   + PR_FLUSH_RESTART can be detected by system_state > SYSTEM_RUNNING
+
+This does not cover the panic-restart case.
+
+>   + PR_FLUSH_HANG has only one caller currently distinguished by
+> 	the global panic_nbcon_allow_unsafe_takeover
+
+In my series there is another user:
+
+arch/loongarch/kernel/reset.c:machine_halt()
+
+>   +  PR_FLUSH_KDB can be detected by kdb_trap_printk and
+>      kdb_printf_cpu, see vprintk() implementation.
+
+Ack. PR_FLUSH_RUNTIME could cover this case.
+
+> IMHO, it makes things worse because nbcon_atomic_flush_pending() has
+> to use PR_FLUSH_RUNTIME in vprintk_emit(). But I think that we
+> would like to flush it the same way as an explicit flush called
+> in the given context.
+
+You write it backwards. vprintk_emit() uses
+nbcon_atomic_flush_pending(). Calling printk() (a single record) is
+quite different than calling printk_trigger_flush() (flushing a
+backlog).
+
+Let us discuss this after I respond to your comments on patch 2/6. There
+you include many details and suggestions that require closer inspection.
+
+John
