@@ -1,124 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794854267;
-	b=tzAE+psQ3z6f2NE94hr05US1X42gVIhO8MtIXzJNDuL9dZftijTHDgy9hbHd+5udpf6s
-	 amF/pBn0iU2TiLu3TL0VW88DUMBclXWWiTQMDImeX9KZaEOu7ZmwJmgauSBtvIq8DLzGG
-	 LidX30Kf+hskuyfjMdJC2o8J3idfz8tcMDD85xa80Bh/kuApRljXBrkGr54k3sa8x51qr
-	 GRrc2yXgsOInLj3PVzoAvUeC3XYrkuKyVlyn5JYfbFeJgd9BEQwyveIs0W4W8wb2RxZeQ
-	 eWevbXVf0/Sxz7pGh0nV2D5KICTjf+ZEn+HTviJWSI18zWV+dyrifytPUwB+jdmlzZA==
+	t=1794854270;
+	b=XocFn/s053nVWmOBQVgiULlKxF8xrIFxFLiHrwo1/y3mlGOQ1mH8wW797XOJ8tQkeM5u
+	 z+RDGVmyS9JZH75cKf8k2JAb1g0NSLgFVagSfdOiKMNLr9r1DZGUz0COrplRKpLM+oR4+
+	 FRMToDyR8eOG6PbDLlbSa7dU6B3VRSuEUaXK9DJ7iNXgNhX4QW3ULui6t8AUB/9tfkzwp
+	 P+oSjQVi4Iwhg5hrpoO2a/0GCNeUsc8v1/EF1DRtIi4srx2vNanKIG6rpqZVbh8aVXiZx
+	 LYjo91AxhrBwBP4Vz2Sn/dJ7+0BzjXwRA41ERmz6xsbmDM3P/FXo2ErqjjT8ire1Iyg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854267;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
-	b=sJpoGlvwpCK1h22YadtWKZ+aTL+bOedYwHI1alKOvqY6ZOU1DoMeWStaWBjI6tvcL+W5
-	 fRzldWYlsh02b63tr0z2ubxeDSMYyrC5/hRPQrLh2z6jDsoZzebiOPb8MePafvbTtp+Ph
-	 aDXuDq7kmkYDGoXtuUoOJLwWptD8qa7ctdE21tk+RX9hmVXGmH0GYjpXfFks80vEwl/AJ
-	 wUV69ru7eEdIE0i0Mtql8RjYrtAQ3kmd+Z7saFn5WqP4Tco7mjl9YyN/DqEHTIkP4QRDR
-	 AthgGsZH76t7ud6SxSjXSj2YCl15Z4l/9N7r9BKM/TImPO4b1RC2vx1rfzgyaGW6lQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854270;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eZRYoDVRGgqESVbGH6I15qHUQiQKuFeRk7kJ1rFYIak=;
+	b=hQAfFasSTo/B5H6U5/DyhnT2QfSnl7s0r4o8Fs4t8ATOT1Hojan844RSvkVEDPnKguV0
+	 ns/7b74eaf37qwl206tgoN8BorrIOpVGthOSHbVPtasAVFIgNiouU8kXhhyKfT8EY3Vv1
+	 oWA4ff2rS6lAdtpOpzZjNXALH8WsoMKdYRsySAe4jDhwEurR7js8mDwBxLaG354pyncaK
+	 vSkYljbxy3099VQ0UnC1H4Wih0wvP3vMlajoUMBkK+GNxIJ+HhwrjLRl2UMMXlqnfEug3
+	 TcbNxNHK2pJ6q2dwQj87XYkonPdR6OClTgW1SAcA14CjYwibRS7PuW5L9i5mAdtIN9A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqT3NYpP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FGHtMx61;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CesPdyCD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AA7606A886;
+	Mon, 16 Nov 2026 18:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CesPdyCD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794854270;
+	b=lt9AwG4jvhgoo8s//eq4iWre7oreekS/7Lpjw6QGn1+SY1D+6PeYuytm3ZyRG3GA0Ndj
+	 jiWqaxB2S5kGJd67HlR9ZggbyVSx5eb3puSkcq91CuVoOv2utyRR97om4nwvrVTSOTVGr
+	 kj7hJp8OErr2idJy+5HPGeAKTWHIQATLItwgO/8WcTp5UrLHv7+nsKpnpTkmRodaXxjft
+	 vvPVHfUrT2mYwUOw4o4hAtpvXZF94LazGHaV7dRriPhgKVtIsDox1GYRs+srlD3FCAgHw
+	 rYu9vma47tdwgdQhQHzUEYz86+843DYsfB7pRCjISQwgh+0XcT7YCs1j259b47h3TVw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794854270;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eZRYoDVRGgqESVbGH6I15qHUQiQKuFeRk7kJ1rFYIak=;
+	b=ONoVmmC+qn9w5Cwj0xw5nBLhv0rU0gcZNvhLt3RfGTm0LgX2m/MkgodYVyw7KeBTbsxI
+	 /0CHICGIu3jfqTH/jVRpX+Ih6n3j0oITlhdMv8BjxpVA8nlKUIuS2qS+kfZ6eezabPk3r
+	 FLa7BHb4c2McX82Lrs5OJzqcTQw8ti6J7Dd5DexLt/ZdFsFUyLe4LsBSop7hntsEVVKny
+	 4twI5iURXIY9FdoiL3Gsu/F7GSrjm+8z69LT37+dEpMDyxixE5Ag5I+pM90PTDGs6IxG0
+	 BZ4kBBEwm4NDhwvP94izr+XpbDmm81xBwBhHUMgx3UFNFrhqpDE51pQVmGI1b9Yq0Hw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEED606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AEED606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqT3NYpP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FGHtMx61
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGIE3j2264244
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=; b=OqT3NYpPMSWyNkoC
-	T0jU1MWCwoayrXSsHrUPBONXfgqAYtHpimmXXc8u1ZVZdF548egHztbTNmT85olL
-	2T/sThe5L7xH4V5dFkizBXkH0f32jZ1egUeaMGiHqXqS2zfgpiCopGrOmPm5Bz7r
-	tlIWpaai/x4fvD0utZIEYuJVungkk8BPlrSPvchKJrplzwjYFkeoGUieZRQIBI9Q
-	40KsMkT4PGroZwzOQZlbI58vK2HMhcQojkLzDr40iZ+GEP0h7oD6rmwAC2mfpGUq
-	rtTuPNtRLW6i9e+1QoEzwxHF+XadsCGLPTluN0ttmkZGKyM/Oh1ZJvOKzvbEztlg
-	l5hrWw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyrmc3kkp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:46 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94970ad532bso292382485a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:37:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794854265; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QEadcgdkpWU/ICGPmpqvGJpQnlMt7Jnhlxufv30pHVMPcr6Hgn3Do/c9YJuReV2vzU
-         aaBRi2nv8NyP2sBLt24sVeD4LNpNn00kUsLGgFSCSY9JoNQDxsxDihfdKHJTEgNy3gl3
-         f6mB3O/WiUC1iPo52oScEZqRHYbqWydSg3uC4XpkJ3QXidX6cbmRayeXSl1YJ5LHmm7l
-         XpgAB5qoAA3liBHNtjq89X4izz/LtASzLhijxxodRr5lTDF07hfGqpmF69B2i54gkIE2
-         Cd2Bju4d8dsaJBmc2Fs9jbjcxs/FBQz+nxWKT4LwLPbfXvjoK3c8SZe2r1GCsPjez02j
-         ipTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
-        fh=aEC+kMBSP9dKfE5X1xx6XIL9JBEob+nbr8oUc8eouWg=;
-        b=B5OnUpusElOWBUyCjoaUYTSc88tCcfPIh+ZeSr2ax/1uu6tugoBgE8j7EmALkcSH+x
-         rILE23bp1sbuBWwbhl5t2Q1AMO2YsmpCQBCyFM18OxYYHv2CdSyYpz8ny2ntF2QXlMIl
-         Sl0lRV/gPTaf7xsdRXzC8O1hGxJ5sSqmNWI9Yd0kQ8iF6Ru16t+p3pKW3zjsc4Fvaua0
-         TaIUCKqLqY7etTUvHdljl1KuFkEawrJCCgxkdv2clUEOQDio8GwJYXbvLqiYTcttbaYh
-         B1kfGdnbPG70FGynin6XCtY3Sj6ar+yqWK1gCTjNs7o9+hNEoFPWVvhq02Tb4tUOjOvp
-         1/0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794854265; x=1795459065; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
-        b=FGHtMx615S6WKXiU0sxjpk3GpFHkE+SxjYQmKQRpwu0wiYtIPHAVWaTcmTWnNoS9nk
-         4AF+fCD5GubW4ayYURUBZGVXNAzjAOMlSK3odHhsjfUb4XyjsGKHlWHMRHMvYyLquGSg
-         P617WGvbukts6GcMuFR1ZRZM3fbSipeM8MKlPRy/mXFfxUhWqBZpt1oeqrZPwsG7o6+i
-         Tvp01JTRjjRtdJmvMp0O4w+3NAaBIL6uSGyvDCSo0p4/c3b8lFz9mUwXyZo6SJm/iTx8
-         zmMrInOQXr9toZhPav/kUAw+BlVe307j64uVR6RlqVnnGc/wYyF2C3iTGNiZRQB8jLg3
-         4LdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794854265; x=1795459065;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
-        b=rgXAEkKUJE3Q91285rE+OzdJ+iyN5aQF7NsJRfT3EZV1cRkauTdeOBORk9AtTTB9Fr
-         ESFtATPErKcmpEnwNlfX0Qy0KTBl6ZsJtjw1cb2kzbl5qsH/ujfctP7wlJcqM2NJT42G
-         61bDNcV/hlxdShe8ekdPankm66Ls6k+NgDtiZASpJTDi46VLT05/bEZvvUn4f9AAJSDC
-         i0qPrBxlL8JilxrTGxUoH7D5bcUYe444BS4nK3kzES/iRrruxN0EsjgnMc+LUX/IASan
-         zRabh2fGScV+7Dldq7RNdzJvOPmenXRxg73ZunvIHKaTBOBupXjBGM5OfBuQmPm+GwhV
-         jkZg==
-X-Forwarded-Encrypted: i=1; AL+hErGmeOppfOPTV9+6wYbvOU+xSDqmsWT0kijjK8Ey33JOPm9z6e71lqhfpiJNWXye3foSy6XYjrmomGLb7WU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YbzFbgo+ij/KNdWX8B5feQiCRM6dMhMUHPk1gvzzhJL1YBcSS
-	PMwGMD0eHAUmoFv6XNydQciOvimT2onX0plKxZg9KzS/WJHKi3u2SIsccNlzSzirqdHD5MpHe/N
-	g3hMfR0xWJBDn8QLvFbC/mM8Z62+rjYGmf8CN+M7XkEobLDL8Jv55BGgTrwrFygXPTWsj+yAHtG
-	XxpoOxZW8HtmFitslYf/JFnmtTnr/4Sj3TME66abdEiQ==
-X-Gm-Gg: AYBFou0l7HQ2F8mveibIG1aSoGheKot9R+vNI/d0QfWPhPLGEm6/NUsHIco1J5g+xJK
-	qDCZZRnIJ0VRmdmsLM3U+HcXB4SUXYMR2hGJ12awyav20jmIBUOMPe6/ZmbkGTmb0W5IVOnQqsk
-	b2phpp4P3pGtnpScJQgp6mx6iOZx13ItoxdEGa7iJE+GlkL3pmKO26XOVho7kuoev1llU6ukxdw
-	9OXxGNQDs8cF4z9tEzTifkIdhnB903eTRIpYo5zcriKvdjjT2MpDW9u10Z7L6F6K590/hGzS9yc
-X-Received: by 2002:a05:620a:6910:b0:949:6476:91df with SMTP id af79cd13be357-94964769908mr1306134785a.27.1794854265156;
-        Mon, 16 Nov 2026 10:37:45 -0800 (PST)
-X-Received: by 2002:a05:620a:6910:b0:949:6476:91df with SMTP id
- af79cd13be357-94964769908mr1306128585a.27.1794854264515; Mon, 16 Nov 2026
- 10:37:44 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 471791F000CA;
+	Mon, 16 Nov 2026 18:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794854270;
+	bh=eZRYoDVRGgqESVbGH6I15qHUQiQKuFeRk7kJ1rFYIak=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=CesPdyCDNWmfbyZ1VZrwORJvr93YVB1FoC4suragX7YAjRJVWyaXEzJoStKNu0qnk
+	 EMUcI0VvomWI/gYriyEmHHuHpRu7+bX4opTYNTUn85JTPnXr/toWXy3DnHyD5cJ3uD
+	 K24/9iOzhpKIYe5/WmJChUoYw2/ZJDr7bZj9KzWGl6x9Ax4vsmHVsRMeBBOHmQsJtu
+	 V6Y/pwhM1UhpENqKGnarg8We8/RzaIae3wGny7fIbCJ1zGNqdQR9ekyjsiwa+fnZHx
+	 HpE6p3DGtEp7T6mtDoAytT3uTD5zTYOwTjKR07A7HrCipeP/c7uorlVVERANwZqyh0
+	 NVoitmNtpryaQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9C53C4A57E;
+	Mon, 16 Nov 2026 18:37:48 +0000 (UTC)
+From: Zane Hunt via B4 Relay <devnull+git.turtledev.nz@kernel.org>
+Date: Tue, 17 Nov 2026 07:37:38 +1300
+Subject: [PATCH v5] platform/x86: asus-wmi: Add support for
+ ASUS_WMI_DEVID_CAMERA_LED_NEG
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,226 +83,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-pm-clk-resume-report-errors-v1-1-ba6e1dddd522@oss.qualcomm.com>
-In-Reply-To: <20261102-pm-clk-resume-report-errors-v1-1-ba6e1dddd522@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 19:37:33 +0100
-X-Gm-Features: AclHuK-5A642jlfrsRiFikZwKptRymZe-s-kt3fOZysrAU132IAw9jKbio5jyXg
-Message-ID: <CAFEp6-3GKHmc4y_mTTVMO6iPdnpmxEmRokpki4uVGoBuXTj6Hg@mail.gmail.com>
-Subject: Re: [PATCH] PM: clk: Report clock enable failures from pm_clk_resume()
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-        Pavel Machek <pavel@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA3NCBTYWx0ZWRfX5Tyue0GXePDt
- uL0aAgAOImfZdO3IUngJcKE5fT9NNDmckWNHhQcphjD3LMGnMwtnCS8KfKwgojuq66nsxf+tRxb
- Dhz6tOBhdVzCtXVwXjuPCxFaSy5auvw=
-X-Authority-Analysis: v=2.4 cv=C9N8WgP+ c=1 sm=1 tr=0 ts=6afb4d7a cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=-LQT69PtjwrO-PJxn2MA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: YYf8IicSwc3CcBrJBDgPyPi2n0bAyE-b
-X-Proofpoint-GUID: YYf8IicSwc3CcBrJBDgPyPi2n0bAyE-b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA3NCBTYWx0ZWRfX3wtjieu77zeI
- VLueUjEjQZzjF7u0z6C4dXrcn2+ZYbOZiosXFSwf46jQcK3IAN+L/5kc7+Iq/j0Z2wZb5mL2bOY
- h7SjletfLdQsxKaXHZsGsdW0ipXBI73HmirWhY//a7wNbFa3zC53zAhz4V2MbUvyIpnt9bOgoOv
- aenbpBoQTtI7z5NzSyCctAtzo6MgrfKQPYV+l8rsh4vfUySleoi7POkw9xK4q2Gq62cfUx1hSif
- Y7v2au14Yu4wKjnS4VnmS2DKJCftiz/Wm2OWMmN+vIMqLWDFY9ycCKWaXkKs8oMTsy4IL0E7sJL
- iKw3haWhvphaKk2JYllBIF9TaP0xuDMME6NfTcpcRGqxWFCjsFkdzze+Jf7vQDosuksoOxmXvfg
- tZgX+4qZ2/Nnkgah38W68iecMFNZ8bxYqACI+oMkcYCaMv/P+tF30LBnCBaAMUI96RKBvEGqTR/
- 6K2HJLtriC/WP/3g1yw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 spamscore=0 adultscore=0 bulkscore=0 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160074
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-asus-wmi-camera-led-v5-1-41c47653758b@turtledev.nz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4V0bU1fUHDlfxgXpQxSI2DaUh+Ef
+ 7fFjTHG5cncOWdGDqwBh3bZjCwE48w4RMg3GdKdGk6ATRMZMcIKSqjEyk0O33qDterBKnyBBpN
+ CFUDyllBgKH5eLbTmvloPxze7qT6D9kmVFp1xfrSPNRt42v0vBI4pLkWuSsYlryq595P18QJhO
+ zxRigTxqal+a0TUSCmEpiyvta6+NMuyvABK44dOEgEAAA==
+X-Change-ID: 20261017-asus-wmi-camera-led-06a6e05f01e2
+To: Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ platform-driver-x86@vger.kernel.org
+Cc: =?utf-8?q?Jos=C3=A9_Guilherme_de_Castro_Rodrigues?= <jose.guilherme.cr.bh@gmail.com>, 
+ Rong Zhang <i@rong.moe>, linux-kernel@vger.kernel.org, 
+ Zane Hunt <git@turtledev.nz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794854267; l=9491;
+ i=git@turtledev.nz; s=20261016; h=from:subject:message-id;
+ bh=UUsKTy/TQdLhAaCeSrXCgBbDaE8tq/oTlwS/0bdAoDE=;
+ b=1/3lqSAPRs6RBlhARsKbgZ08ziHV8zyWCR52WYXvKM9IZiGEiuNPf44CtfEWhLNb6afooDCFk
+ fa0LTsbP8E4DXB4MgD0u09Oj1nwLayih3W7s3p9yIj5FVXMvKaccSjS
+X-Developer-Key: i=git@turtledev.nz; a=ed25519;
+ pk=7P3HBZD1ukp3nMYpf+9Dcl3ryKIU5pYgOUKe/HOox6c=
+X-Endpoint-Received: by B4 Relay for git@turtledev.nz/20261016 with
+ auth_id=1217
+X-Original-From: Zane Hunt <git@turtledev.nz>
+Reply-To: git@turtledev.nz
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 2, 2026 at 11:23=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.c=
-om> wrote:
->
-> pm_clk_resume() logs a clock that fails to start but always returns
-> success, so the runtime resume of a device using the PM clock helpers
-> succeeds without its clocks, and its driver goes on and accesses the
-> hardware.
->
-> This happens to the devices in the Qualcomm LPASS, whose clocks are
-> provided by the ADSP: after the ADSP is gone, like right after a
-> hibernation image is restored, a sound card opened by user space
-> resumes the LPASS LPI pin controller without clocks, and the access to
-> its registers then brings the whole machine down:
->
->   qcom-prm gprsvc:service:2:2: CMD timeout for [100100f] opcode
->   qcom-sm8550-lpass-lpi-pinctrl 6e80000.pinctrl: __pm_clk_enable: failed =
-to enable clk 00000000b90a5151, error -110
->
-> Stop at the first clock that fails to start, stop the ones started
-> before it, and return the error, so that the resume fails and the
-> device stays suspended with its clocks off.
->
-> The callers of pm_clk_resume() check what it returns, including genpd
-> and pm_clk_runtime_resume(), except the MMP2 audio clock controller,
-> which keeps ignoring it. A device with a clock that fails to start no
-> longer resumes though, even if it used to work without that clock.
->
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+From: Zane Hunt <git@turtledev.nz>
 
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) the
+camera key turns the camera off in firmware, but the LED on the key never
+lights up under Linux. These machines don't have
+ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. The
+firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instead.
 
-> ---
-> pm_clk_resume() always returns success, even when a clock fails to
-> start, so a device using the PM clock helpers resumes without its clocks
-> and its driver goes on accessing the hardware.
->
-> I hit this on the Qualcomm Hamoa CRD while working on hibernation: the LP=
-ASS
-> devices get their clocks from the ADSP, and when the ADSP is gone, like
-> right after a hibernation image is restored, a sound card opened by user
-> space resumes the LPASS LPI pin controller without clocks and the whole
-> machine resets on the first register access. With this patch, the
-> resume fails, the open fails, and the machine stays up until the ADSP is
-> restarted.
->
-> The LPASS macro drivers already check what pm_clk_resume() returns, but
-> never saw an error so far.
->
-> Prepared with help from an LLM-based assistant.
-> ---
->  drivers/base/power/clock_ops.c | 56 ++++++++++++++++++++++++++++++------=
-------
->  1 file changed, 40 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/base/power/clock_ops.c b/drivers/base/power/clock_op=
-s.c
-> index 3b8ba27802a8..a978eb3d5479 100644
-> --- a/drivers/base/power/clock_ops.c
-> +++ b/drivers/base/power/clock_ops.c
-> @@ -143,8 +143,10 @@ static void pm_clk_op_unlock(struct pm_subsys_data *=
-psd, unsigned long *flags)
->   * __pm_clk_enable - Enable a clock, reporting any errors
->   * @dev: The device for the given clock
->   * @ce: PM clock entry corresponding to the clock.
-> + *
-> + * Return: 0 on success or the error from enabling the clock.
->   */
-> -static inline void __pm_clk_enable(struct device *dev, struct pm_clock_e=
-ntry *ce)
-> +static inline int __pm_clk_enable(struct device *dev, struct pm_clock_en=
-try *ce)
->  {
->         int ret;
->
-> @@ -156,13 +158,29 @@ static inline void __pm_clk_enable(struct device *d=
-ev, struct pm_clock_entry *ce
->                 ret =3D clk_enable(ce->clk);
->                 break;
->         default:
-> -               return;
-> +               return 0;
->         }
->         if (!ret)
->                 ce->status =3D PCE_STATUS_ENABLED;
->         else
->                 dev_err(dev, "%s: failed to enable clk %p, error %d\n",
->                         __func__, ce->clk, ret);
-> +
-> +       return ret;
-> +}
-> +
-> +static inline void __pm_clk_disable(struct pm_clock_entry *ce)
-> +{
-> +       if (ce->status !=3D PCE_STATUS_ENABLED)
-> +               return;
-> +
-> +       if (ce->enabled_when_prepared) {
-> +               clk_disable_unprepare(ce->clk);
-> +               ce->status =3D PCE_STATUS_ACQUIRED;
-> +       } else {
-> +               clk_disable(ce->clk);
-> +               ce->status =3D PCE_STATUS_PREPARED;
-> +       }
->  }
->
->  /**
-> @@ -483,17 +501,8 @@ int pm_clk_suspend(struct device *dev)
->         if (ret)
->                 return ret;
->
-> -       list_for_each_entry_reverse(ce, &psd->clock_list, node) {
-> -               if (ce->status =3D=3D PCE_STATUS_ENABLED) {
-> -                       if (ce->enabled_when_prepared) {
-> -                               clk_disable_unprepare(ce->clk);
-> -                               ce->status =3D PCE_STATUS_ACQUIRED;
-> -                       } else {
-> -                               clk_disable(ce->clk);
-> -                               ce->status =3D PCE_STATUS_PREPARED;
-> -                       }
-> -               }
-> -       }
-> +       list_for_each_entry_reverse(ce, &psd->clock_list, node)
-> +               __pm_clk_disable(ce);
->
->         pm_clk_op_unlock(psd, &flags);
->
-> @@ -504,6 +513,9 @@ EXPORT_SYMBOL_GPL(pm_clk_suspend);
->  /**
->   * pm_clk_resume - Enable clocks in a device's PM clock list.
->   * @dev: Device to enable the clocks for.
-> + *
-> + * Return: 0 on success or a negative error code. If a clock fails to st=
-art,
-> + * the clocks started before it are stopped again.
->   */
->  int pm_clk_resume(struct device *dev)
->  {
-> @@ -521,12 +533,24 @@ int pm_clk_resume(struct device *dev)
->         if (ret)
->                 return ret;
->
-> -       list_for_each_entry(ce, &psd->clock_list, node)
-> -               __pm_clk_enable(dev, ce);
-> +       list_for_each_entry(ce, &psd->clock_list, node) {
-> +               ret =3D __pm_clk_enable(dev, ce);
-> +               if (ret)
-> +                       break;
-> +       }
-> +
-> +       /*
-> +        * A device whose clocks are not running cannot be accessed. Do n=
-ot
-> +        * pretend it resumed, and leave its clocks off as it stays suspe=
-nded.
-> +        */
-> +       if (ret) {
-> +               list_for_each_entry_continue_reverse(ce, &psd->clock_list=
-, node)
-> +                       __pm_clk_disable(ce);
-> +       }
->
->         pm_clk_op_unlock(psd, &flags);
->
-> -       return 0;
-> +       return ret;
->  }
->  EXPORT_SYMBOL_GPL(pm_clk_resume);
->
->
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> change-id: 20261029-pm-clk-resume-report-errors-b5d538eb27de
->
-> Best regards,
-> --
->
-> Abel
->
->
+Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads the
+camera state from the EC and writes it to the LED GPIO before returning
+it. The set side can't be used, the firmware only accepts DEVS on this
+device once per boot.
+
+When CAMERA_LED is missing but CAMERA_LED_NEG is there, register
+asus::camera as a read-only LED backed by CAMERA_LED_NEG, and read it
+after every camera key event, sending a brightness_hw_changed event.
+Registering the LED reads it as well, which fixes the LED being dark after
+a cold boot with the camera disabled. There is no brightness_set
+callback, so writes to the brightness attribute are ignored, as with
+other get-only LEDs.
+
+While at it, include <linux/container_of.h>, which this file already
+relied on.
+
+Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221752
+Assisted-by: Claude:claude-opus-5-5 iasl
+Co-developed-by: José Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
+Signed-off-by: José Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Zane Hunt <git@turtledev.nz>
+---
+Changes in v5:
+- Rebased on pdx86 for-next, asus-wmi.c has moved to
+  drivers/platform/asus/
+- Change the subject, this adds support for CAMERA_LED_NEG rather than
+  fixing a bug in the driver (Rong)
+- Drop camera_neg_led_set(), so asus::camera has no brightness_set now.
+  The key event already resyncs the LED, and skyedryv's s2idle test
+  showed nothing gets missed while suspended (José, Rong)
+- "Returns" -> "Returns:" in the camera_neg_led_sync() comment (Ilpo)
+- Kept Ilpo's Reviewed-by since the only code change is dropping the
+  set callback
+- Rong's idea of also sending brightness_hw_changed on machines that
+  have both CAMERA_LED and CAMERA_LED_NEG is left for a follow-up, I
+  only have the UX5406SA to test with
+- Link to v4: https://patch.msgid.link/20261019-asus-wmi-camera-led-v4-1-7744c125bcc9@turtledev.nz
+
+Changes in v4:
+- Keep José's Signed-off-by from v2 and add his Co-developed-by
+- Use my full name in the tags
+- Include <linux/container_of.h>
+- Reuse the existing asus::camera registration block, only the
+  handlers and flags differ
+- camera_neg_led_available is now only set when CAMERA_LED is missing,
+  so asus::camera is always the CAMERA_LED_NEG one when it's set. That
+  makes the LED_BRIGHT_HW_CHANGED check in the event handler unneeded,
+  so it's gone
+- Drop the explicit read at probe, led_classdev_register() already
+  reads the state through brightness_get
+- Link to v3: https://patch.msgid.link/20261017-asus-wmi-camera-led-v3-1-845a82373997@turtledev.nz
+
+Changes in v3 (picking up José's v2, which had stalled):
+- Rebased on pdx86 for-next
+- Also read CAMERA_LED_NEG at probe, so the LED is right after a cold boot
+- Register a read-only asus::camera LED when only CAMERA_LED_NEG exists,
+  with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
+- Comment on why the read is what updates the LED (also from v2 review)
+- v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
+
+Tested v5 on the Zenbook S 14 UX5406SA (BIOS 309), on Fedora's 7.2.15
+kernel with the same change applied: camera key presses keep the LED,
+asus::camera, brightness_hw_changed and the camera output in sync, also
+with nothing reading the brightness attribute, so the key event alone is
+what updates the LED. Writing 0 or 1 to brightness changes nothing.
+
+I used Claude while working on this. It helped
+me read through the DSDT, drafted the changes on top of v2 and wrote the
+test scripts. I went through the patch myself and ran the tests on my
+laptop.
+---
+ drivers/platform/asus/asus-wmi.c           | 63 ++++++++++++++++++++++++++++--
+ include/linux/platform_data/x86/asus-wmi.h |  2 +-
+ 2 files changed, 61 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/platform/asus/asus-wmi.c b/drivers/platform/asus/asus-wmi.c
+index b33ebdb21aa..991e5b36664 100644
+--- a/drivers/platform/asus/asus-wmi.c
++++ b/drivers/platform/asus/asus-wmi.c
+@@ -17,6 +17,7 @@
+ #include <linux/backlight.h>
+ #include <linux/bits.h>
+ #include <linux/cleanup.h>
++#include <linux/container_of.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -72,6 +73,8 @@ module_param(fnlock_default, bool, 0444);
+ #define NOTIFY_KBD_TTP			0xae
+ #define NOTIFY_LID_FLIP			0xfa
+ #define NOTIFY_LID_FLIP_ROG		0xbd
++#define NOTIFY_CAMERA_TOGGLE_1		0x82
++#define NOTIFY_CAMERA_TOGGLE_2		0x85
+ #define NOTIFY_KEYSTONE			0xb4
+ 
+ #define ASUS_WMI_FNLOCK_BIOS_DISABLED	BIT(0)
+@@ -312,6 +315,7 @@ struct asus_wmi {
+ 	u32 kbd_rgb_dev;
+ 	bool kbd_rgb_state_available;
+ 	bool oobe_state_available;
++	bool camera_neg_led_available;
+ 
+ 	u8 throttle_thermal_policy_mode;
+ 	u32 throttle_thermal_policy_dev;
+@@ -2105,6 +2109,43 @@ static int camera_led_set(struct led_classdev *led_cdev,
+ 	return err < 0 ? err : 0;
+ }
+ 
++static bool is_camera_toggle(int code)
++{
++	return code == NOTIFY_CAMERA_TOGGLE_1 || code == NOTIFY_CAMERA_TOGGLE_2;
++}
++
++/*
++ * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) have no
++ * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itself and
++ * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and reading
++ * that has a side effect: the firmware copies the state to the LED GPIO.
++ * Nothing else updates the LED, so read it after every camera key event.
++ * Registering asus::camera reads it too (via brightness_get), which sets the
++ * LED at probe. Setting it is no use, the firmware accepts DEVS on this
++ * device only once per boot.
++ *
++ * Returns: 1 if the camera is disabled (LED lit), 0 if enabled, or -errno.
++ */
++static int camera_neg_led_sync(struct asus_wmi *asus)
++{
++	u32 result;
++	int err;
++
++	err = asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, &result);
++	if (err)
++		return err;
++
++	return !(result & ASUS_WMI_DSTS_STATUS_BIT);
++}
++
++static enum led_brightness camera_neg_led_get(struct led_classdev *led_cdev)
++{
++	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
++	int state = camera_neg_led_sync(asus);
++
++	return state < 0 ? LED_OFF : state;
++}
++
+ static void asus_wmi_led_exit(struct asus_wmi *asus)
+ {
+ 	scoped_guard(spinlock_irqsave, &asus_ref.lock)
+@@ -2236,11 +2277,17 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+ 			goto error;
+ 	}
+ 
+-	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
++	if (asus->camera_neg_led_available ||
++	    asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
+ 		asus->camera_led.name = "asus::camera";
+ 		asus->camera_led.max_brightness = 1;
+-		asus->camera_led.brightness_get = camera_led_get;
+-		asus->camera_led.brightness_set_blocking = camera_led_set;
++		if (asus->camera_neg_led_available) {
++			asus->camera_led.flags = LED_BRIGHT_HW_CHANGED;
++			asus->camera_led.brightness_get = camera_neg_led_get;
++		} else {
++			asus->camera_led.brightness_get = camera_led_get;
++			asus->camera_led.brightness_set_blocking = camera_led_set;
++		}
+ 
+ 		rv = led_classdev_register(&asus->platform_device->dev,
+ 						&asus->camera_led);
+@@ -4742,6 +4789,13 @@ static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
+ 	if (is_display_toggle(code) && asus->driver->quirks->no_display_toggle)
+ 		return;
+ 
++	if (is_camera_toggle(code) && asus->camera_neg_led_available) {
++		int state = camera_neg_led_sync(asus);
++
++		if (state >= 0)
++			led_classdev_notify_brightness_hw_changed(&asus->camera_led, state);
++	}
++
+ 	if (!sparse_keymap_report_event(asus->inputdev, code,
+ 					key_value, autorelease))
+ 		pr_info("Unknown key code 0x%x\n", code);
+@@ -5219,6 +5273,9 @@ static int asus_wmi_add(struct platform_device *pdev)
+ #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+ 
+ 	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
++	asus->camera_neg_led_available =
++		!asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED) &&
++		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
+ 
+ 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
+ 		asus->throttle_thermal_policy_dev = ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY;
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index 66c7ab35d6c..1f7efaf0984 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -57,7 +57,7 @@
+ #define ASUS_WMI_DEVID_MUTE_LED	0x0004001C
+ 
+ /* Disable Camera LED */
+-#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on (unused) */
++#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on */
+ #define ASUS_WMI_DEVID_CAMERA_LED	0x00060079 /* 1 = on */
+ 
+ /* Backlight and Brightness */
+
+---
+base-commit: a362539b42193dcdb17f8fba40031a515c53885c
+change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
+
+Best regards,
+--  
+Zane Hunt <git@turtledev.nz>
+
+
