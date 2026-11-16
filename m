@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842052;
-	b=b0OdWWwQ7bmYw0/kAnJ7S0TAGifP5v1CYzr+aljayaABhclzuEh4pcRRD3J3ASXnEKRx
-	 WhDVaUf3rQzTOK3KTA8jZjRaskIe1hkqD5dxHL/OeS9Dpb4Z22iTbpmTroTKDziPmd6KB
-	 /hRKqjG4gT9PxnzcOgOkcG0ZI7Sk3o3zqJN5uqVcGNy95UGiwsMi52Pe7gEY5bU4m9HFA
-	 +vHflgP+x/HweXa8p6DXGbcFFUVNceJn1PFuLJZr0a2MPF7F4w9SyN8UbW9nJkrPPQrmF
-	 qNqJDrOJgkiN7RTNQbslqOqwxuRUj2LUYpsuwvyFSS7OhsPOtr+ljvqThdqaRmg80og==
+	t=1794842224;
+	b=DI5TI5II2ARni//nbkseO7F8TMLsisAyi8VSkuq1WX53x/U3duGryWJLXK6sJ0aQeq7S
+	 DyxLnIQgacvx1m+wq8RZHUWjUPkmVbauDfhr0WaZoblg+d6iJRahmO62H3BV0aJSu0+Qf
+	 CKdYMk1MBb0w5oyPoM4okX459cl5wrknDSvWeq3UIcd90vYfqlgFzCQpDbs4yu7gEvLGL
+	 I5Egg/+7ju2tgmjJlFIEaIFaw/6LD0CL1LlUQ9/+EqbDo1uXgoqwryKvQ2xKkN8iv7RY2
+	 qfkAf2phIAmumvm3ZciHZUK81R3AqvooqDJJW2v0tV5BaNN6LE2R2J5Mk43wjY8kEIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842052;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=3/EqQi0niERAJNyYMq1hZvt8inmcWvBEwiXFS+iUL0s=;
-	b=Sh4zMS+xLBf5fmZ/WLke79dhlSChlhC8WS89/qeYOZglSR9ungnBkIZl4Z83MWO35XAZ
-	 jt7r4VKwKykxJMq0cKagzN0nbgyz1VUW6HoinNTzOmo1Ra+gn4L3XPQTmjJZYm3WeLsxE
-	 TSgQcpC7gRxoyGGDuasYoLEqQrQC52k58yVcQ8VCBIqwDmzrd4keHTbwNvpiqQrOgMAZY
-	 H6ZEM/gwEUBi+waXWLFP3eyoMrMztZqgRtV1ZK6/YyQIgCDqrPS7Fl/fIP4qg1RePR2XZ
-	 XYNoTxuqPCxa7SZLLNvaPRkR1llzJToK1e9A8Zpn6xkTA018vGEc00sKg66WJZNH7bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842224;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=/zlLFbbw70FmmMU5YwAZUhTdFqzqLjECMTWQsCYZR+8=;
+	b=DvQ6g2X+kO3QdK/wwHBFjP0fI2/4zE36bBiDeOWCov4Ii9Wh1OSMkjOdFXvNA7/5ovYR
+	 HcM5vpK1iQVp8hiYi1l7rcoduQ4XKL7thJ8QWBW8mlQw9dkSm0p0IElNJn8mLhp8+s6DM
+	 VjuLUBXPkju2LP2y1cIxV9hzW0PyLFLrz6LIE9kQDKZpZoUK6boeMCKMjqbgHDKowvGfq
+	 of5lvwTZxsu3H9D+xKrU4sqwTYwS4Q4tKtzUNfnsAQWkiEq6LJJLChS0rzhbn5s4LKrrS
+	 cSwOwUfFycS9BCXMMetExFWckbxOOwfhOrNjRDavkX+njl8bRCKnoqKkfBssJzk6iLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hrhqEx4T;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=fail header.from=kernel.org;
+	spf=pass smtp.mailfrom=meta.com;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFA8606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AFA8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hrhqEx4T
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 978184E41604;
-	Mon, 16 Nov 2026 15:14:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5EAA66023F;
-	Mon, 16 Nov 2026 15:14:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C02C11BC183B;
-	Mon, 16 Nov 2026 16:13:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794842044; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=3/EqQi0niERAJNyYMq1hZvt8inmcWvBEwiXFS+iUL0s=;
-	b=hrhqEx4T9QQ2tYqo/iy/LuHHWtedSZ9onNfveWjQEAHCqavnOAmS/ZBSwa0pXuUaWeGFoE
-	JGCYD0UbYierkaXyh0sZ3XHSFY7px3bitUZsQ7cefgjxtV9TKEdgN+UnSHWYcazeLuMLRa
-	y0D43nUuTbTvY1O4ahIhQ5AZdq9uNR1fET/1oCNLS/AAxHecGpl9Xo3GRN04KMCeM/FXbo
-	HdGlvhmVr4WZLcCCC0L84Q/igHfDx5fj09IetVv+8GoiA2nGgWVaET5ZXXgFEdDbgLj2nO
-	8YrbUgEfY4SbQ1e7+mgn6uxvPcnpTlwq48fuftp1BeekqTdBgBbdTLkzAUhHxA==
-Message-ID: <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
-Date: Mon, 16 Nov 2026 16:13:52 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8D4606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E8D4606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC0fcL2119921
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:17:03 -0800
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hxnmcsfts-7
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:17:03 -0800 (PST)
+Received: from twshared77744.15.frc2.facebook.com (2620:10d:c0a8:1b::2d) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Mon, 16 Nov 2026 15:17:00 +0000
+Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
+	by devbig197.nha3.facebook.com (Postfix) with ESMTP id F1E6F2F083071;
+	Mon, 16 Nov 2026 07:16:48 -0800 (PST)
+From: Keith Busch <kbusch@kernel.org>
+To: <hare@kernel.org>, <hare@suse.de>, <hch@lst.de>, <kch@nvidia.com>,
+        <sagi@grimberg.me>, Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-nvme@lists.infradead.org>
+In-Reply-To: <20261110113502.3235-1-sreekuttan2156239@gmail.com>
+References: <20261110113502.3235-1-sreekuttan2156239@gmail.com>
+Subject: Re: [PATCH v4] nvmet: clean up DH group state on initialization
+ failure
+Message-ID: <179484220897.249619.16009819575182400523.b4-ty@kernel.org>
+Date: Mon, 16 Nov 2026 07:16:48 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,143 +66,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
- information report
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>,
- Manasi Navare <navaremanasi@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>,
- Drew Davenport <ddavenport@google.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
- <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-FB-Internal: Safe
+X-Proofpoint-ORIG-GUID: S_wyrCBPkYGtzeqoHxCZC0_xgS1AKtBq
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2MCBTYWx0ZWRfX6hGdoAGchcaH
+ 6+hgkLEdplNx9O07GznEPO7XcwQVTHVD/RfjwnpTyLWSeV7RqI1EhM3mPtHjZlYa9viOXYGWScn
+ DiD15U+H5EWk9PSK2Qah7LDTZDYAetQ=
+X-Proofpoint-GUID: S_wyrCBPkYGtzeqoHxCZC0_xgS1AKtBq
+X-Authority-Analysis: v=2.4 cv=EMKTQFZC c=1 sm=1 tr=0 ts=6afb1e6f cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22
+ a=VwQbUJbxAAAA:8 a=8o7LMmOxS-Ld041RKNUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2MCBTYWx0ZWRfX+DOXLTiAawYg
+ IMGIRA6PPmClS5Ge6VXRZUESw1JLWLDzuv+9R7Qyx+cGZbPs0FlSzel/mOTzuI8I/lNKMlXCM/t
+ 16sk+7N0t9QIZ5+MhLMPq7VHUdMYp5+JvpBJa4XwxCQBawsvoupxorgV/4uLAMhI0aSu6I/yqOO
+ SdWg5WDFhLauIzadZiVrpnQUpPY2g8Z7drY1/SD5ce18uw2m3r7V8+xDkRhAvt8IC1cSv79I670
+ HCCLsfPzqchQpGYJx8P98kE9rmOBO08GrOD8yh/wKWStXSmS1qKsOKVSOKTSOeF77849a5Exki7
+ PjPoKZ1sEvfGxcsN0Yf3H8Z53sSdlDisRVuPQTlf3UNXAHTgF7ZiAEHbaTo8YW1yTKV/m8oH0Gt
+ UX7PtAVG+b1cAaz3ieTAlUhxuIhvSWtw4+Bba73m6rx/SmfY7PnvR/DRHZUbI2cg0XDeDLxyv/5
+ i4QSXgJWEz7bzGk830Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
 
-
-
-On 11/16/26 14:10, Jani Nikula wrote:
-> On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
->> DisplayPort link training negotiates the physical-layer parameters needed
->> for a reliable connection: lane count, link rate, and optionally Display
->> Stream Compression (DSC). Currently, each driver exposes this state in
->> its own way, often through driver-specific debugfs entries, with no
->> standard interface for userspace diagnostic and monitoring tools.
->>
->> This series introduces generic helpers, for exposing DP link capabilities
->> and state as standard sysfs entries.
+On Tue, 10 Nov 2026 11:35:02 +0000, Sreeraj S Kurup wrote:
+> nvmet_setup_dhgroup() leaves the DH transform and group ID
+> initialized when private-key generation, public-key allocation,
+> or public-key generation fails.
 > 
-> So how did we end up with sysfs here?
-
-In the first RFC it was in DRM properties. I presented it in the display 
-hackfest in Nice last years. People suggested to use sysfs instead but 
-if the need appears later in the development move back to DRM 
-properties. I first though DRM properties seems better as it is the user 
-interface used by distros but I had no strong argument about the change 
-to sysfs, so I moved on to it.
-
->> The aim of such development is to guide users to select the most suitable
->> DisplayPort connector for their needs. For example, if you have a USB-C
->> hub with lesser capabilities than your computer’s native DisplayPort
->> connector (such as HBR2 versus HBR3 support), the system could recommend
->> connecting high-resolution displays directly to the computer’s port
->> instead of through the hub to ensure optimal performance.
+> A subsequent invocation with the same DH group incorrectly
+> returns success because the existing transform and group ID
+> are treated as proof of successful initialization.
 > 
-> I do wonder how all this is supposed to work in more complex real world
-> scenarios, though.
-> 
-> I believe the user primarily cares about *modes*. Which display modes
-> can be used with each display/connector pair.
-> 
-> With the low level link information, are you proposing to compute the
-> required bandwidth for modes in userspace? I think it's going to be a
-> lot of work to compute the bandwidth requirements, taking into account
-> DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
-> still miss any driver/GPU specific contraints. Or are you just proposing
-> to match the physical characteristics only?
+> [...]
 
-This is a requirement from Google, yes they want to compute the 
-bandwidth for modes in the userspace side.
-@Manasi could describe in detail how would you implement it?
+Thanks, applied to nvme-7.4.
 
-> Given all the connectors and displays and their modes on a system, you
-> could estimate a) for each display, what modes could be used on each
-> connector, and b) for each connector, what modes could be used on a
-> display, if connected. From the user POV, they could be shown why some
-> display mode is not available on the current connector, and crucially,
-> on which connector it could be available.
-> 
-> In general, I'm wondering if you're really after higher level
-> information, something like "connector max available bandwidth
-> with/without DSC", that would more directly map to the user needs as I
-> see them than low level link details.
-> 
-> Do you have the userspace somewhere? That's needed for merging UABI
-> anyway [1].
-> 
-> [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
-
-I wanted to add it to IGT GPU tools, but I was hopping for community 
-review on this RFC before the IGT development.
-
->> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
->> source and sink training capabilities to userspace via sysfs attributes
->> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
->> report current link information at runtime.
->>
->> Three drivers are updated as reference implementations: i915 (direct
->> connector path), ANX7625 and MediaTek (via the bridge connector framework
->> using a new DRM_BRIDGE_OP_DP flag).
->>
->> Here is a sysfs example:
->>
->> cur_link_info_dsc            sink_link_caps_nlanes
->> cur_link_info_link_rate      source_link_caps_dsc
->> cur_link_info_nlanes         source_link_caps_link_rates
->> sink_link_caps_dsc           source_link_caps_nlanes
->> sink_link_caps_link_rates
->>
->> 1620000 2160000 2700000 3240000 4320000 5400000
->>
->> 1620000 2700000 5400000 10000000 20000000
->>
->> 5400000
->>
->> This series is rebased on top of drm-misc and may conflict with the
->> current state of the drm i915 tree. Which tree should pick this up,
->> given that it mixes core development with driver changes?
-> 
-> For development, please just base your work on top of drm-tip, and the
-> tree(s) will be sorted out later.
-
-Oh, ok, thanks you.
-
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+[1/1] nvmet: clean up DH group state on initialization failure
+      commit: 920cd269c9228c5f51a8bbd65575010890797afa
+--
+Keith Busch <kbusch@kernel.org>
 
