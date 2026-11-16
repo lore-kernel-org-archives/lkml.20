@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873417;
-	b=FkKtokx6Rvfh+cWCyPNCIV0hHS46TFIROvdXFLkn6AxXJT+SoXAbkGHdC3OA1iA2VLlL
-	 FNjhvZcbTZP+tGg1JwxUqKKlIkN86medVuBFOb7rYR6ZLqdkwvA5FI2bHCOBodokZmJqN
-	 GFssBwsD/IeuBTd6deYhBh1vIqB2OiFksqwu4dO+HyoLVcMcb3mWNP7ctxT2SGR6SXXya
-	 usddaqnJKQz9cUyKOFNUnLHnSJM9c63zH042dwRfvIewyy47hep4LDQcIofTLyIGR57Sh
-	 3cSvNbMvig91BchH4n9aIZhmPbhHWL2OaVHYKRQLio0os+e99TjBetKucUQOJo6Kl2A==
+	t=1794873544;
+	b=ScPlJvkoBMEiFMatiJ7PcrDUayC4mYRtBj+cAedP4VaQCqBNL9A/tphY1T97UJi+bgmV
+	 rnexMoZek/iXKux2KNVyh5GEyFh9I0TuqN37fQ6og6eUhijHIXHv3xYr8Mn5HE5nkGJuj
+	 QuVXeiPzS4rlfetvlEdUjHPSr2nbcWROVTCyEy6U4Hj4XUxumTEBZ2Gd7DQjIgt7x0+90
+	 Sl+XtReiPRCA30CGO8c/jyhyP7gKqupeoJEghVib/Dwf1/+LVhuSuFOg+Yi5V1IYW+x70
+	 1B3NDHZARnZ7bRRPhaY76idl48dY8hRUGOL/F2ls/vBMKXFRdau07M6EFdUTyFaMBZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873417;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:CC:Subject:
-	 User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-SRS-Rewrite;
-	bh=VDQ8XKp98/IUabUksJNwRsl5hTpuGniKvWNPUNAUVJs=;
-	b=GA3NXbN1cCv17HuMTsqrAX3BaUEQYCpRX5+vlnievax54mRdISDrbqG8mVVrHseu4b17
-	 LmCe9/AUHDv8hFdzXFkfl3UPvk0V7s1i2mQZuEi8V+OZq0DX5+1NmNzrX+3CkBXCsZfdZ
-	 jdHpGcb1ruEjF/KnFjyHYW8eFeINY9aLWpgInsporYWWeEw2FUScKxno4WDf8f7HuShs/
-	 PKlEwiGHCkHd/acN5u/Wl+Fttjvm9w7QIkvLBSM5y4VUSgnkaTzBq7B/eKfrqV+Y0i4DZ
-	 OciJffgaas9UiZLOkbZG+FuCKhSJvM2VKPQNxzrjKYOYbsNtZCbUmhS8E9Vphq/IgiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873544;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mSadUDURgH4Lbi9nZMvmw3ahEKdleuYDWzgA7XRD34U=;
+	b=BH09N+0fSdlR/jV2hjr4m495uPsUX5AzcjndMQTGJutcDMmW3dEtIUAjoQj/ovYARjrR
+	 Ad1jsBtYCjaFzluz/gsJcoyW/WGHVZjJWi9563QK5SEh+LafevBFaW45/Ff5uZ4d4hHvy
+	 /7IT4Bjb235+0c6l6H9o0A8qeH89dtWum3sS1Z4NLRIuWQY2E78izoQDXn3ibPUkYce2c
+	 lKJP8q5Q/jKNfYYctmPzZMLYOdlKLLXFQqvQ1PzZkJxpsgQyL5Bp9re1RrYDbZ5clb52U
+	 8yxsWcNvscwm/yDWs3lAas8cDxIOZcHUfoUaCyflZj6pxxwKfCMX8FFc4ehlovQLpsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=bAwGBnT5;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kEOtxs0p;
+	arc=none smtp.remote-ip=95.215.58.230
+Received: from mta1.migadu.com (out-230.mta1.migadu.com [95.215.58.230])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5540A606A31C;
-	Mon, 16 Nov 2026 23:56:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5540A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B70606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34B70606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=bAwGBnT5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
-	:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=VDQ8XKp98/IUabUksJNwRsl5hTpuGniKvWNPUNAUVJs=; b=bAwGBnT5GwP1cL3P3kxxd+Tt4p
-	RTDaT0Oyl71V25VcnfUc1TJsIvvkfVFF6tQ7cjAsdBRjhaNhVfROk11PZQ2Lqp9H080zmEhNxAUWS
-	2845Sqt5jD1hB3QkEXAuvA7zWzvgVWcCtoq4A+B1ou32/iKhaZsoaAgBPrjc9SGhhsNX56JBiO8I7
-	Bc4gc4TPwyVghj71V2WVE2j61jwGFsmpNg3XUV4E+wbwhSTecpnZFeqAKhqzvB6pBB6N+mR0wooU5
-	0SOKcOhLC9DuvMxgdFebRU8VgFgPZXIqt3KE3NaXJiKF6ke8hcLAeS4IC8G+z/mXzaEm9DAasDAbV
-	V5XT4lxw==;
-Received: from [2a00:23ee:2960:2262:e6b2:75b6:9515:3c16] (helo=ehlo.thunderbird.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xT6Z2-0000000EQr2-3zpq;
-	Mon, 16 Nov 2026 23:56:44 +0000
-Date: Mon, 16 Nov 2026 23:56:42 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: Sean Christopherson <seanjc@google.com>
-CC: Zack Rusin <zack.rusin@broadcom.com>, Paolo Bonzini <pbonzini@redhat.com>,
- kvm@vger.kernel.org, Doug Covelli <doug.covelli@broadcom.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Shuah Khan <shuah@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Paul Durrant <paul@xen.org>, Xin Li <xin@zytor.com>,
- Francesco Lavra <flavra@baylibre.com>,
- =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to userspace
-User-Agent: K-9 Mail for Android
-In-Reply-To: <avuDUNAU_a933zvp@seanjc-mac.roam.internal>
-References: <cover.1794374897.git.zack.rusin@broadcom.com> <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com> <876c4f4fc442116c9bff8abd8c34f99fcfa65531.camel@infradead.org> <CABQX2QNd7DehBsH-pGL=EJK4b5vC60PymL_YP27xDxGT6_6=uQ@mail.gmail.com> <1bae109338ab6ff1ff14eac811f7e86ced785b22.camel@infradead.org> <CABQX2QNhRZP1Td_HQ6QpMzw-_TjqhbooipWYg3VTgTOq2_U9+w@mail.gmail.com> <ca9dffb64656a392965f95d35b9d13d829f34076.camel@infradead.org> <avuDUNAU_a933zvp@seanjc-mac.roam.internal>
-Message-ID: <78F8FDAE-31A5-416B-9A97-DB8D5E7271FA@infradead.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kEOtxs0p
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CPjJNVI09qZx5LOZ+4kHkEmqRQ/X0wQlgwCOQWXvOUc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794873541; v=1; x=1795478341;
+ b=kEOtxs0pudHCQuaacseSJKyPu3XjHI/5t42rL6p4z57hnKJNiIEmS/iIy+Qb5djq4jqhbUAO
+ pEa/nnXaz8DYdJJUgewj4ILnJVEqrmDGqArfTOyDJL5c/BAuUH4he2BcdIUtMZM0PkCVjTltXOX
+ U0n4qeKL1cLWGN+L+2FD1kv4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2198a1f1efd9a491;
+	Mon, 16 Nov 2026 23:59:01 +0000
+X-Mizu-Trace-ID: 2198a1f1efd9a491
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8375728d-c1e7-4033-8096-5d98d1bc36e9@linux.dev>
+Date: Mon, 16 Nov 2026 16:58:55 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,87 +58,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-
-On 16 November 2026 22:27:28 GMT, Sean Christopherson <seanjc@google=2Ecom>=
- wrote:
->On Fri, Nov 13, 2026, David Woodhouse wrote:
->> On Fri, 2026-11-13 at 01:33 -0500, Zack Rusin wrote:
->> > > Userspace *already* needed to
->> > > know about those=C2=B9 because it can't migrate while those are pen=
-ding;
->> > > it has to do at least one more run, even if it's with the immediate=
-_exit
->> > > flag set=2E
->> >=20
->> > True, but, again afaict, that rule exists because those completions
->> > have to run, so I don't think it tells us they can be dropped=2E
->> >=20
->> > > If it's deemed clearer, I'd also be OK with an explicit
->> > > KVM_VCPUEVENT_CANCEL_HCALL which cancels *only* hypercalls=2E But I=
- don't
->> > > really see the point; userspace shouldn't be getting confused when =
-it
->> > > was actually some other kind of completion that was active anyway=
-=2E
->> > >=20
->> > > =C2=B9 https://lore=2Ekernel=2Eorg/all/20250111012450=2E1262638-1-s=
-eanjc@google=2Ecom/
->> > >=20
->> > > Looks something like this in my Hyper-V hcall series (except I alre=
-ady
->> > > shouted at the agent for stupid struct layout and made it go run pa=
-hole
->> > > on everything it's working on)=2E
->> >=20
->> > FWIW, restricting cancellation to explicitly marked completions looks
->> > good to me=2E=C2=A0 If Sean/Paolo prefer that, I'm happy to mark our
->> > completion cancellable and drop our exception fields=2E
->>=20
->> I posted that as
->> https://lore=2Ekernel=2Eorg/kvm/20261113170535=2E79246-3-dwmw2@infradea=
-d=2Eorg/T/#u
->> and caught both Paolo and Sean here at KVM Forum and both seem OK with =
-it
->> (although acquiescence when badgered at a conference doesn't necessaril=
-y
->> translate to applying the patch=2E=2E=2E :)
->
->Heh, you jinxed yourself=2E
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/ksm: prevent zero-page remapping during
+ ksmd-triggered THP splits
+To: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Yu Zhao <yuzhao@google.com>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Usama Arif <usamaarif642@gmail.com>, aarcange@redhat.com
+References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+ <20261025-b4-ksm_fixv2-v2-2-8b61ad0491f1@linux.dev>
+ <b4a82805-5b13-46d7-bdb6-0ad2eb70f148@kernel.org>
+Content-Language: en-US
+From: Nico Pache <nico.pache@linux.dev>
+In-Reply-To: <b4a82805-5b13-46d7-bdb6-0ad2eb70f148@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-Yeah, none of us had really had the time to consider it deeply=2E
 
-For VMware and Huper-V I do believe we need to raise the fault *on* the in=
-struction, not after it=2E But that's achievable=2E
+On 11/16/26 3:21 PM, David Hildenbrand (Arm) wrote:
+> On 10/25/26 18:39, Nico Pache (Red Hat) wrote:
+>> Since commit b1f202060afe ("mm: remap unused subpages to shared zeropage
+>> when splitting isolated thp"), splitting an anonymous THP remaps all
+>> zero-filled subpages to the shared zeropage via TTU_USE_SHARED_ZEROPAGE.
+>> This flag is set unconditionally for every anonymous folio split,
+>> including splits triggered by KSM.
+>>
+>> When KSM is enabled with THP=always, this causes two regressions:
+>>
+>> 1. use_zero_pages=1: KSM calls try_to_merge_one_page() which triggers
+>>     split_huge_page(). The split remaps all 512 zero-filled subpages to
+>>     the shared zeropage at once, freeing the entire 2MB THP when KSM only
+>>     intended to process a single 4KB page. This bypasses KSM's
+>>     pages_to_scan rate limiting, causing ~1GB to be freed almost
+>>     instantly.
+>>
+>> 2. use_zero_pages=0: The same split side-effect occurs through the
+>>     stable/unstable tree merge paths. Each pages_to_scan iteration
+>>     triggers an expensive split_huge_page() that silently frees 2MB,
+>>     while the scanner wastes cycles on tree searches for zero-filled
+>>     pages that were already freed as a side-effect.
+>>
+>> Introduce current_is_ksmd(), which uses kthread_func() to check whether
+>> the current task is the KSM scanning thread, and use it in
+>> try_to_map_unused_to_zeropage() to skip zero-page remapping when the
+>> split is triggered by ksmd.
+>>
+>> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
+>> Signed-off-by: Nico Pache (Red Hat) <nico.pache@linux.dev>
+>> ---
+> 
+> [...]
+> 
+>>   static bool __ksm_should_add_vma(const struct file *file, vma_flags_t vma_flags)
+>>   {
+>>   	if (vma_flags_test(&vma_flags, VMA_MERGEABLE_BIT))
+>> diff --git a/mm/migrate.c b/mm/migrate.c
+>> index 7bdcdb57652f..c33ae3fa1043 100644
+>> --- a/mm/migrate.c
+>> +++ b/mm/migrate.c
+>> @@ -305,6 +305,9 @@ static bool try_to_map_unused_to_zeropage(struct page_vma_mapped_walk *pvmw,
+>>   	if (PageCompound(page) || PageHWPoison(page))
+>>   		return false;
+>>   
+> 
+> This really needs a comment like:
+> 
+> /*
+>   * When the split is triggered by KSM, let it take care of scanning-for and
+>   * de-duplicating the shared zeropage.
+>   */
 
-I had also added a third user of the same cancellation today =E2=80=94 we =
-need to intercept certain control register writes and need to raise various=
- exceptions for those too=2E
+Ack! ill wait a day or two before sending a fixup in case others review.
+> 
+>> +	if (current_is_ksmd())
+>> +		return false;
+>> +
+>>   	VM_BUG_ON_PAGE(!PageAnon(page), page);
+>>   	VM_BUG_ON_PAGE(!PageLocked(page), page);
+>>   	VM_BUG_ON_PAGE(pte_present(old_pte), page);
+>>
+> 
+> I'm still a bit unclear of what happens when the split is triggered by something
+> else in the system just before we walk into this THP.
+> 
+> Like, imagine the deferred shrinker scans for 0-filled pages and splits under
+> memory pressure. Then KSM scans and essentially skips the (now-split) THP?
 
-WIP of that at=20
-https://git=2Einfradead=2Eorg/users/dwmw2/linux=2Egit/shortlog/refs/heads/=
-vsm3/regwr-filter-v5
+IIUC, we dont skip the (now-split) THP (ksm works by page, not folio), 
+we would only skip over the parts that were remapped to the zeropage. 
+and because the shrinker already split the folio, it wont end up even 
+needing to split it.
 
-I think I would still prefer to use KVM_SET_VCPU_EVENTS rather than shoe-h=
-orning the same facility into the return part of various different kvm_run =
-exit structs=2E But I won't fight for KVM_SET_VCPU_EVENTS to do the cancell=
-ation=2E How about we just give each of the exit types a way to indicate wh=
-ether to advance the RIP because the instruction is completing) or not (bec=
-ause the instruction is faulting)?
+Inversely, if ksm does run into a large folio, it splits it, but doesnt 
+do the remapping. Which KSM will either eventually deduplicate itself 
+(and in the case of use_zero_page=1, it will also do the zeropage 
+remapping).
+
+I asked our robot overlords if im missing anything and it did find this 
+potential issue:
+
+KSM could trigger alloc/reclaim that would then prevent the zero-page 
+remapping for any reclaim done under the daemon.
+
+It did suggest this fix `current_is_ksmd() && !current->reclaim_state` 
+basically check if we are in reclaim and ksm. This would close the gap.
+
+Or we could go back to adding a flag to split function (but i believe 
+this is still somewhat cleaner and doesnt complicate the already messy 
+split code).
+
+Cheers,
+-- Nico
 
 
->If the exception is communicated through some other means, then (a) that =
-needs
->to be explained in detail, and (b) we should be able to use the same appr=
-aoch,
->just with new "ret" field or whatever in kvm_hyperv_exit=2Eu=2Ehcall=2E
 
-I do think it is a full 64-bit return value *or* an exception=2E My friend=
- did originally abuse bit 63 of the return value and I may have thrown my t=
-oys out of the pram at it a little bit=2E=2E=2E they can type fast, but my =
-God they are stupid sometimes=2E
+
+
+> 
 
