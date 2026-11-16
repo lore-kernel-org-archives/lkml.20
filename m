@@ -1,50 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794810060;
-	b=ouMLYqox+edQbZ3tAQlmbg0TX+9mYwslJgl7JxcIEmjELYlzIQG0J6iANeCnfryYS5nJ
-	 O40N/Np04xnNo35Mc4plnYEhMYB72snRMO12be8iNiMR5mN/w4heHmVS8e0vHUgb+XiEI
-	 KpnRGjdKlFQ6SIxgLFr9XY7WgOhzsmzPsQJ0PVc5zPMq+hoHDjm83O0cAbdhV/mG2xRAq
-	 CqCl3zkfqYX4J+BIJDg4ExX5YjYWOawwMIoRYa9tXEUBcNtEL34IDaTdLEQ/TBldES5q9
-	 gE8KaerxEwThIqbLnsI2S5mSQBbQs4OE8/6Z3OQg13doseFx0R+34hAbunMeHUfJq9A==
+	t=1794810071;
+	b=R69UzWrr8pqSrR188xC2n+X+YdSIXA2DqcDWpwGNktHaYSeqLozraCfLXVzABMF7Cmp4
+	 /IhVzmQm3Y/fNSkei/z5luycHUQBjsMAawXinplL2sj2hDzvdM/yQD/A/OYAJONAeWgQr
+	 eMdE/jgmjz4+f0GYKvk8MZjafdWa6JsQvPE21wkicGzyHwZvTm0GzZ6dtw+Mj6O/mECF3
+	 sml+wrLs2FEaz+AXkYKhcgeTOGmxfHsxxOVugNphAOjnzKdf6Odamtke/a3umW0hChIvt
+	 Fl4Z7Vj0oKgctarS3zFZcnrfrDa4QTt4OOVn6zOvbtuMNOYjRzYuJDqBj+7JfEADalw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810060;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=hmBsrz/aL9oT9f9SNLGjLK07Qw1Q4mCzoam8lguSPUc=;
-	b=crnhS+V0+czFnA9ws7td3YG/TlAGeEbGYgk3iIOqr4+gzIDu/i9/PY8eFEHfml022JTd
-	 2XUKGnnDyj4V5I0td5m5MNSN4j4KG4lCZ1LdxDvCSYgNpU9epAavhrob00OEetlol7Pxd
-	 Gp6AtOcz/hhJuInM/ASng7/3R093fXoiKbhW85zquUH4ODqx6fzGrpkV11a4bm1U5Tlsc
-	 SM3ojbUbKi3PMnaEATs7Y958U3Zl6s0Y1yCseapK6TgZXaOQ5XEkjCbvZ5B/4Vnf9+kkc
-	 HE+46FrPLbUkIJzrJQGv9nUKULKW8r/h2ct5Q0x0mHcP0GMCR0GzptVf/721s9tZo3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810071;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LrWqePIA2dRTl7gYO+GfHcmbC6K7NaHxnw6+i+GpqQw=;
+	b=2he5QMvQ9WTa/YXB88CFenCU3j6SXov/wTsvEuJPqTDjsFxp0K56Hhyvj5VJdOHrSzvX
+	 QMWdnpbI+tJqtW+uC5V6R7nkfqZtBQ37NAt2jwXU6/5T0jD7p6WSkKwjm0bpblBmy8Ewl
+	 qkWgpTcvZcOlr+ZHjlZcRlTaB0wt00cY1YdqpEFKIvZdnILAoNNEOS+UElzdCOJDdd4iW
+	 tOkVQ4Q04Nt/Vw81QQjRR0CsaY2sOKs2p13Udr2/0FC8cVlBPf2jLcxlznEgzx1uPHyVp
+	 ZRe5IrBsr/ZZRxnSVUQpUU5shYvygjqwofQ8m2nY6749oEvDiDaKwzlAXgkq08xp1yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE945606A31C;
-	Mon, 16 Nov 2026 06:20:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE945606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id C9B3592009C; Mon, 16 Nov 2026 07:20:50 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id C50B392009B;
-	Mon, 16 Nov 2026 06:20:50 +0000 (GMT)
-Date: Mon, 16 Nov 2026 06:20:50 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Hunter Laux <hunterlaux@gmail.com>
-cc: Paul Cercueil <paul@crapouillou.net>, 
-    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    Lars-Peter Clausen <lars@metafoo.de>, 
-    "H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: Re: [PATCH] MIPS: ingenic: Let Config.VI tell whether the icache is
- virtual
-In-Reply-To: <20261111195609.2694096-1-hunterlaux@gmail.com>
-Message-ID: <alpine.DEB.2.21.2611160613590.17804@angie.orcam.me.uk>
-References: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com> <1a6aac61cb167ce0eea611afe73e8c87782edd43.camel@crapouillou.net> <20261111195609.2694096-1-hunterlaux@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UbqegxeK;
+	arc=none smtp.remote-ip=91.218.175.92
+Received: from mta0.migadu.com (out-92.mta0.migadu.com [91.218.175.92])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D602D606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:21:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D602D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UbqegxeK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=82DVlU1A65d2Os+X64YwR4fF5H6GyPEMAPG89PFIji8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794810068; v=1; x=1795414868;
+ b=UbqegxeK8YBLfncOs+okLzUNa3QCOA8D49D5hsiU8UMy4wE7u/Dp72h77j9+f3YaTlLZgf5d
+ EFI4XfoszHwYSeIGePhhoBFrvdFBnkom9ilbiU/lBFG6TJB6wqrd/TnpjhNPTfdrf06dLQylIXw
+ ZkOY5G5+irqxl+1K4LQ480Cc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 92b96a1db4b59b3b;
+	Mon, 16 Nov 2026 06:21:07 +0000
+X-Mizu-Trace-ID: 92b96a1db4b59b3b
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 14:20:57 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>,
+	Andrea Mayer <andrea@common-net.org>
+Subject: Re: [PATCH net-next v3 3/5] selftests: seg6: move SRv6 End PSP setup
+ into its own helper
+Message-ID: <avqgyRcQkWLvpiA9@fedora>
+References: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
+ <20261112-srv6_flavors_endx-v3-3-c9177bbbd965@kylinos.cn>
+ <20261116052659.e8843a373807242737faeef0@uniroma2.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,24 +73,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116052659.e8843a373807242737faeef0@uniroma2.it>
 
-On Wed, 11 Nov 2026, Hunter Laux wrote:
-
-> >> -#define cpu_has_vtag_icache	1
-> >
-> > Don't remove it, set it to 0.
+Hi Andrea,
+On Mon, Nov 16, 2026 at 05:26:59AM +0100, Andrea Mayer wrote:
+> > [snip]
+> > diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> > index 157baa8ecb0b..0ed5bfe99029 100755
+> > --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> > +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> > @@ -488,8 +488,9 @@ cleanup()
+> >  
+> >  	# check whether the setup phase was completed successfully or not. In
+> >  	# case of an error during the setup phase of the testing environment,
+> > -	# the selftest is considered as "skipped".
+> > -	if [ "${SETUP_ERR}" -ne 0 ]; then
+> > +	# the selftest is considered as "skipped", unless a test has already
+> > +	# recorded a failure.
+> > +	if [ "${SETUP_ERR}" -ne 0 ] && [ "$ret" -ne "$ksft_fail" ]; then
+> >  		echo "SKIP: Setting up the testing environment failed"
+> >  		exit "${ksft_skip}"
+> >  	fi
 > 
-> The Config.VI probe already reports it correctly, so I left it to the
-> probe. Would you prefer the constant anyway?
+> When a test has already failed and the setup then fails, the script
+> exits with 1 and does not say that the setup failed. For example, with
+> hs-2 -> gw failing and then an error in setup_end_flv_psp(), the last
+> TEST lines in the log are:
+> 
+>     TEST: IPv6 Hosts connectivity: hs-1 -> gw                           [ OK ]
+>     TEST: IPv6 Hosts connectivity: hs-2 -> gw                           [FAIL]
+> 
+> The End PSP tests did not run. Before this patch, the setup ran before
+> any test, and cleanup() printed "Setting up the testing environment
+> failed" on every setup error. Could cleanup() print it also in this
+> case, keeping the exit code 1? Something like:
+> 
+> 	if [ "${SETUP_ERR}" -ne 0 ]; then
+> 		if [ "${ret}" -ne "${ksft_fail}" ]; then
+> 			echo "SKIP: Setting up the testing environment failed"
+> 			exit "${ksft_skip}"
+> 		fi
+> 
+> 		echo "FAIL: Setting up the testing environment failed"
+> 	fi
+> 
+> 	exit "${ret}"
 
- The sole purpose of the constants is to avoid going for run-time probes, 
-which cost execution time, and to make the compiler drop execution paths 
-that won't ever run.  It's an optimisation.
+OK, I will fix it.
 
- Only with platforms where you don't know in advance what CPU features are 
-going to be present, e.g. where you can swap a CPU module for a different 
-model and still run the same kernel, the relevant overrides need to be 
-absent.
+> >  # see __setup_rt_policy
+> > @@ -962,17 +980,29 @@ setup()
+> >  	setup_hs 1 1
+> >  	setup_hs 2 2
+> >  
+> > -	# set up the loopback addresses of the hosts used by the Policies (i.c)
+> > -	# and (i.d).
+> > -	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
+> > -	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
+> > -
+> >  	# set up default SRv6 Endpoints (i.e. SRv6 End behavior)
+> >  	setup_rt_local_sids 1 "2 3 4"
+> >  	setup_rt_local_sids 2 "1 3 4"
+> >  	setup_rt_local_sids 3 "1 2 4"
+> >  	setup_rt_local_sids 4 "1 2 3"
+> >  
+> > +	# testing environment was set up successfully
+> > +	SETUP_ERR=0
+> > +}
+> > +
+> > +setup_end_flv_psp()
+> > +{
+> > +	SETUP_ERR=1
+> > +
+> > +	# set up the loopback addresses of the hosts used by the Policies (i.c)
+> > +	# and (i.d).
+> > +	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
+> > +	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
+> > +
+> > +	# setup proxy on route entries for hosts
+> > +	setup_rt_host_proxy 1 2 "${END_CSID_PSP_FUNC}"
+> > +	setup_rt_host_proxy 2 1 "${END_CSID_PSP_FUNC}"
+> > +
+> >  	# set up SRv6 policies
+> >  	# create a connection between hosts hs-1 and hs-2.
+> >  	# The path between hs-1 and hs-2 traverses SRv6 aware routers.
+> 
+> Before this patch, __setup_rt_policy() added the proxy entry together
+> with the route of each Policy. With this patch, each scenario calls
+> setup_rt_host_proxy() instead.
+> 
+> In this v3, 4/5 deletes the proxies when the scenario ends, like the
+> routes of the Policies. So I think the proxy entry can stay in
+> __setup_rt_policy(), and in 4/5 its defer can go next to the defer of
+> the route. What do you think?
 
-  Maciej
+OK, I will keep the proxy set up in __setup_rt_policy.
+
+Thanks
+Hangbin
