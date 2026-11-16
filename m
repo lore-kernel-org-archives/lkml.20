@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824554;
-	b=NEjuT/JY9IJ27w6YUUlwPIAKwiQySwU3ntf/sl2cJl+wnYgchQKHpbJS1UCM1ZQULUFf
-	 dAJBxpxmbgkAbiI0GdCn4horPrgKH0+162hbSehH+jBM+nNmZF1+6N5ZYdcuCOcXFJz3v
-	 DuWj6h8BBWpoI/wLCQg8IJ561O0bAdIWqI0x3fSjOyGxeLAJ/utkDO88QnnoNOFhfoZaQ
-	 JoTFQcOU7jtHAEr2Nv98CZvUCSpeld1EPUVySNgtuyeq2M81Z1jv4VBp6FJPFkqd6J7nd
-	 sJIt7gtxMTyLoJDfxY5WYGK4FVraTqFb6IuY6/UfWtKy405ECY3Me46GiqE3oCWZwFg==
+	t=1794824559;
+	b=A8DF4/z+WjRg3jlBCo1CfNMd5H32eWG6Gty75UCJuKWbn977lb3QrZ6uWARChNaKEFdf
+	 QmxEKF8SCQ/a2LcP4SpaCcoTA61SzhaReD6bEy20pcqnbv3TwBYjnOgViICc4Ns0LFHn3
+	 CVwjS5SnuzCIUyCfUetRImUd31Agikq9AX9rQfOV3BK3FjqNSyVMhseCMQeA/SnJCCEaT
+	 9kjO5rejrYL5hXe3Parpd4NAeJG8HaCzt6iZ8xXVwMcu+EZzL6XWujn82krVxTbNZP81c
+	 xS8w+RMxnLY/jyD/k8ryOlUENj22q6KJ45nK6Yh6QcsnXh3BOOEekw8TriNuoDZob9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824554;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=e4Et5WMZaz3LvBfh2jlwetoJpjp7/FMRj/wZQ24Y5ac=;
-	b=tcRVpmiFOc7/r7B5JdLfBjSZ2VlfYKBzjS5Wpi19H56YYmWeFGf+wQXKQskxk5FFzYC6
-	 LuPNgQgaZKxBDQ1uzEsWa1UkgN3IN2HvX2GqBPzBCbTWCSmVaWyu00hEEFHYDvkt3bFMn
-	 SvoX5BsGC2X4ZlEZdg34bbXynzqkAzVnk9YreF2RYUnnn3TyZb+GHqo9UymO/n4ki8oTk
-	 9p/bHo7lQNzSHscD4FrA1ixXK5l6eqPeunf4r7FarqeqUkP1RgeQlMJMtumo1yt1RQ5EN
-	 LI+rWB/pKBBiQjRweH0f1gsjZNZojTpXkolE+3/LCSk1Swkx9EKyKAPkbLzU6C7PyNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824559;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=R/j4yaa1r3z9iDZfADuAlq5V0e6n8RPvA7y/at4iBXc=;
+	b=NDsKGX7tVZtdxK3FNpE4/bd+OtkzFDB3K1jv0GIcc+jnGQSWZcOVf37t/oB4M0t2jeNG
+	 0o1J+OgsCIyDuJeJbs3dbVGr0Q7S9iIRdFP3j+6xzE2FsaPdgW6dh5RtjFmQyxXPJQPQB
+	 88TTdtisN0uGA+IJdKOdiorFEByReNv9lN+npjXXoSgBuF0wVf0vGriHHybMPYUQom1vF
+	 ktmsqqcXHu3XKz1RS240kGREVBR3jg7jRxP+LCgfyMbIh9lAdU1kdLOH3j0H7ntPSRK9p
+	 YW3LnXvFdp+Avgd/DyvCuDY182KNzavxBo0cODfqgt3QVcVngnOWwXZfnI0eBFzJYuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s/kR0OQn";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnH1F2wO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBED606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:22:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EBED606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112F4606A323;
+	Mon, 16 Nov 2026 10:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s/kR0OQn
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so19417305e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:22:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794824552; x=1795429352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e4Et5WMZaz3LvBfh2jlwetoJpjp7/FMRj/wZQ24Y5ac=;
-        b=s/kR0OQnus/ELVQiXFewd4uRT1KvhI1DQz+VqaFQGfniIyQMOR1o5uLW2K8BMtcALB
-         ZIL1cVqva+DwH+G3fXeg+CDR2u7QUVRzeG0ru8KZ4WBQhUdvVT46fHws81P+V+cEQ8pa
-         Z3UvjQpJ180F0y26nlY8U5/nab+Hnq/c77dCza1EnXDbyNirk3maJ/xV3uIRZrOFPlA4
-         xcE6rBIYl1v8qEqEhwY7mSuE/q8oOzQWXB3N9xgO5KQ8Kn6+q2RRIiemb3Y1haPJLFuQ
-         ZRRtjb+oETeTgM7wFR66EYF9YSfRzphGrW/bDPwsibAAYPq9tbZeiG1tB08/MJeQpv4X
-         DIOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794824552; x=1795429352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e4Et5WMZaz3LvBfh2jlwetoJpjp7/FMRj/wZQ24Y5ac=;
-        b=R+QYzHvSRXdR8mluJljnbxfUq/blrvwJD0R6IDqbjOW8uPR+nT5KmSBiXaj48IXP+j
-         2NmxEO9MAHKZX55lYoZi+n+nk88TJCpFKIx8UcHvkz9DGN2Kh3GAziP5nP5ib2zlhN9F
-         S2adSAhPr0HZ/vFHaz8o1RVhZRcbPNV2li3Dl4A2LzW3kw6G9Ms37FKkiZBynt1RhG6m
-         bce75bdbOoWJFIuLm4etwJp1Qby3X1x00Bpv56qm5IoHvDk4Gy+sz/bFdJfM6vGb6DKe
-         bzHIx1KiuLL+Z98ZU7kwlVOIDs8N3CfBkzQl7cnJ06RSMmL/OqSThZQ4985iurp/KnZS
-         70vQ==
-X-Forwarded-Encrypted: i=1; AL+hErFQrwRZqlGhI37M5laDhlIq1IVV4JGAGLhdRfWQHBaDdANUupTUZV8nsiVtHGceFKcghUEUBtEfv5jrAWs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gewDxmRo4r30R/XXpgKp7IecenV6Mb2O08zwMjpje0pJtgzb3
-	1vECCBP97B2SLdnX4yoMRBgxTBUOlYeQlSPB+EGP1y3Iwmp390JV/LW/
-X-Gm-Gg: AYBFou0zuaNLaEiu2hjBYKOUMa/o1dJOKR3tvFUFls3yvvP0e5qkDHN5D8IPFKh311A
-	t+A1fmaikxRwtwTK8Hku5w1nhyX15/1vwDQ/gjtsvlBJ3oRBNx8dSBbT/PkMnSJYamJU5J/gttj
-	sY2sW031cB8VaELpUdHFg1IDbrl4h/v4A58awtTXZatWYfa+uPtIdv3THIJFtVpp++MMoeGyMKu
-	8csenrBpEyDGt/P2cjRYSiX83utF715u16CM2rhtKWSbGkGTJbmBDRc0tvHtiq2zjc7A/eYl8gh
-	sgFcgNEKe7kD15hc2grXFVKsTGSf51ZkjxaAIQSxFBdEhGMhN4dDbSGWxYBqBZiUSZ/i2AaEvTl
-	ifbrn6d71WvyJTuKcRWCalf+j8fokPf6a4tNepOsdnUv2Z+nAtz7nPzEexcp3ttD1yxOxdPAq6+
-	8O0JgHEUjQKpOSk4C+5Q65unPMDsCNZonQX4E3+FAf41GAfGME1YCwIAUai4ULTDJDgXzY5ZeXR
-	hJHkeM2xhwt+8LwhSHXk8D01C9yTzwoJvGMMbqf2bOCZymSQSCYXnXlXLGJ+rrbq5t3/tD5/UIN
-	K6PhYnFBUIq+Y3TLRsJD
-X-Received: by 2002:a05:600c:34d2:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4bb55ac6cabmr206158025e9.34.1794824551582;
-        Mon, 16 Nov 2026 02:22:31 -0800 (PST)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm388703845e9.15.2026.11.16.02.22.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:22:31 -0800 (PST)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Petr Vaganov <petrvaganoff@gmail.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Su Hui <suhui@nfschina.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 6.6] fs/stat.c: avoid harmless garbage value problem in vfs_statx()
-Date: Mon, 16 Nov 2026 17:21:58 +0700
-Message-ID: <20261116102217.80740-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnH1F2wO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA411F000C5;
+	Mon, 16 Nov 2026 10:22:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794824558;
+	bh=R/j4yaa1r3z9iDZfADuAlq5V0e6n8RPvA7y/at4iBXc=;
+	h=From:To:Cc:Subject:Date;
+	b=RnH1F2wOqPJRS/JSLU1EkQ86act9eQGW6swwXKDsyeBvpeZDnD66+cPm6nJvGpLcm
+	 JhcaidMvfKmm20TrOHCx3kqEDnFFi2qZpf4BhvbjeyLOoGZvO2i0b3HL3XECKNp8up
+	 ZaOUITssUNOt4QHV2i/I/lLD0D0ISLTob8hJYOJB7nses6ZJgv5wflMLikrcJgFWP+
+	 +33ugZLhP/a87hhEnBWVZJ7V4NlrFjJy1a28vWnodt45zCa0f1i+spn3HJJepOB64g
+	 upr5CmjAzzKj+OYezcwIIP8kkX0ScGgVcLzdUl1LBacNmfln6cg/yFEe3kBfII5wPl
+	 +TYwjsk6GPEQg==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/2] net: sgi: ioc3-eth: two changes for the IOC3 on SGI IP35 machines
+Date: Mon, 16 Nov 2026 11:21:13 +0100
+Message-ID: <20261116102115.27574-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,57 +64,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Su Hui <suhui@nfschina.com>
+These two changes let ioc3-eth drive the IOC3 of the SGI Fuel, which
+sits behind an XBridge and has no MAC PROM. They were part of the IP35
+support series, which supplies the window addresses; its next version
+attaches the MAC property. Neither side has a build dependency on the
+other.
 
-commit 0fac3ed473dd2955053be6671cdd747807f5e488 upstream.
+Tested on an SGI Fuel.
 
-Clang static checker(scan-build) warning:
-fs/stat.c:287:21: warning: The left expression of the compound assignment is
-an uninitialized value. The computed value will also be garbage.
-  287 |                 stat->result_mask |= STATX_MNT_ID_UNIQUE;
-      |                 ~~~~~~~~~~~~~~~~~ ^
-fs/stat.c:290:21: warning: The left expression of the compound assignment is
-an uninitialized value. The computed value will also be garbage.
-  290 |                 stat->result_mask |= STATX_MNT_ID;
-
-When vfs_getattr() failed because of security_inode_getattr(), 'stat' is
-uninitialized. In this case, there is a harmless garbage problem in
-vfs_statx_path(). It's better to return error directly when
-vfs_getattr() failed, avoiding garbage value and more clearly.
-
-Signed-off-by: Su Hui <suhui@nfschina.com>
-Link: https://lore.kernel.org/r/20250119025946.1168957-1-suhui@nfschina.com
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-[ Petr: There is no vfs_statx_path() in this tree. The fix is applied
-  directly in vfs_statx() by jumping to path_put() via a new out_path
-  label, preserving the reference drop and the ESTALE retry. ]
-Fixes: fa2fcf4f1df1 ("statx: add mount ID")
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
 ---
- fs/stat.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- Patch 2 takes the address from a device property instead of the
+  platform hook, and drops the random address fallback.
+- Patch 1's message no longer reads as a fix for existing systems.
 
-diff --git a/fs/stat.c b/fs/stat.c
-index 5375be5f97cc..9d3f1b276c86 100644
---- a/fs/stat.c
-+++ b/fs/stat.c
-@@ -246,6 +246,8 @@ static int vfs_statx(int dfd, struct filename *filename, int flags,
- 		goto out;
- 
- 	error = vfs_getattr(&path, stat, request_mask, flags);
-+	if (error)
-+		goto out_path;
- 
- 	stat->mnt_id = real_mount(path.mnt)->mnt_id;
- 	stat->result_mask |= STATX_MNT_ID;
-@@ -262,6 +264,7 @@ static int vfs_statx(int dfd, struct filename *filename, int flags,
- 			bdev_statx_dioalign(inode, stat);
- 	}
- 
-+out_path:
- 	path_put(&path);
- 	if (retry_estale(error, lookup_flags)) {
- 		lookup_flags |= LOOKUP_REVAL;
+v1: https://lore.kernel.org/all/20261111095138.1757-1-kaloz@kernel.org/
+
+Imre Kaloz (2):
+  net: sgi: ioc3-eth: apply the DMA attributes only to 64-bit addresses
+  net: sgi: ioc3-eth: take the MAC address from a device property
+
+ drivers/net/ethernet/sgi/ioc3-eth.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
+
+
+base-commit: 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
 -- 
-2.55.0
+2.47.3
 
