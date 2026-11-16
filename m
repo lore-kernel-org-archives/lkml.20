@@ -1,63 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825661;
-	b=yA5o0B+SeaZFDUODap0doI2EHlD6RQ922cN2cwx5V7NzrtwVSynOjcuV4Y1IOVpp7jD1
-	 Y1Mx3mKlfRsGCkF4ewWVlrdhhFmmaM30gdLCSpjHlIzr4iTMAmKdoNoDSSWGvZxkIKbx8
-	 ef9F8QsFQy3x7YhdRrYZUQ9fVenL5M3KQXyd5E9pywBOWgYuigo2m8i8GOhzP6D0Sy9EU
-	 5g6Vk3fdaFSTqfFPJCNPXT9V8RDrwJ0ZbFkf9DFjswsYi1Xo7lpfo0bTzoOBOx1LEKEKs
-	 hjjKElhDblzWuywbICkQAPAgThpTyLcDk+AVRINMR1BhlHkNfT2c8tiO8wk8YE6Kxbw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825661;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jm+zkfC0aDj61p8db3QGEDzyqPbTXKA6Lfv6ZVi5xO8=;
-	b=pYtB7q0wo58SXUgqmIuTgHgLcmG+c0eZH2Z+14/RU5647mb8twK1ThbuCF6/A0u9TeyG
-	 Zfdz/SBefC15xDO7HQ8v76ORgH8qVu/g19HY+QrgtnLJ8nXsZXjEEf6JmehGd4TmPxj8r
-	 WsiZb9LA3YD9KnNrABNP+KhvoRrWVtq6vJQoscnL23i7jn8w4Q2TUx8FIhz7WGrlGClvt
-	 eCAowqMqm4oDTl3Di1+rPAyJAqyhd+ki3/p6Nj97WKidjAfrjM2x41Z73C+9sUoqU/vKc
-	 SepcwC9BKMVw6xnfYn8DZ8XcBzSyY0y2OCGxkdd/9vYPjGY51DAHuZQv6qih8ctRG0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviX8UjR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.65
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794825671;
+	b=yYx6yitaKDQK+tjG6wd/bynWT5x/8oxp/Xx0ZCAc/ysDQQZuw56vJPgQB1aE/7ZBzLib
+	 PO61Ki1xgy6uIAS91RPZ3uXKCUXNpVkitmJqYlPXxwwFw4VSNDdbKVAr8C/ChddljN4vh
+	 mnppQhGpXICHkmNrpC9wkb9YfmsRfE9GvR9jG+77y0z2YAcZ+vCj9Uef9fPfwelMOL02G
+	 /dYOEmN8CvBBGkKg9EFKzK/WT1L38Iay4PVfIbQn94tRW/8M03Q0tym75BDdIrk95SMlr
+	 7aYV0kw34waQhfo4pHUcGiMc0YkJw3zAjOjPb+70hVXQUmzDfTJRhNY7VvRnGUbOFig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825671;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+7kNUG83Oj11M0j5M3QsDAZT2F095k4U5l4Fjw41Iio=;
+	b=FhHrgWGJ9CmtcXliVfuGppFGkYKiLrNj9VjuuarrnMeWe8Q1K//qX9F5e69Hc2YpLH7W
+	 LtDO+TSk7c3jUIV+Fs5ZLuZjAPwVQWeZ8TOyBMDqb66k9gNuKLndAfxWpR4QqoLezscuT
+	 joQdbLoK8+5yH/LMzH247EhPMq6Mb62/qdKuIKjum9NZygn/9QZ+ovFyqs2WfAq0B1x26
+	 y4oNCo+9G4JlSRVWpIHADy6uStrZcEXIien/PhpZNSEKeAApXSemSsLp1TBELfXOPWAIT
+	 Gi4j13i9rUJjpwntkj3/j0FuZBsWQ2D+7sogylRj+/rCqEdYzFoZP8ngU+P9G5+luKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="mJxPB/cV";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.65
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F2C606A31C;
-	Mon, 16 Nov 2026 10:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F83D606A31C;
+	Mon, 16 Nov 2026 10:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F83D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviX8UjR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14B91F000C4;
-	Mon, 16 Nov 2026 10:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794825661;
-	bh=jm+zkfC0aDj61p8db3QGEDzyqPbTXKA6Lfv6ZVi5xO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hviX8UjRlp9SSmeSVwQw+1RcH1nPyk3wSOCHzD9L1z27BA+RXfULG37781lY4MoRb
-	 MsHLgBQ11vtYaHKZDBXc2tn+ZvBFgTgLUCJQsr1VOoPRpED9AwnC8eqWpLazGATxBg
-	 w+ZK+QYX1fZ17uMLXqH2A3k6WJs+HZ5No9OSisLP2cemi4s0c9dZ1Wkzmo61fxDaZr
-	 oDHmm293H76V76MRhIR2DSG6CJiMn+vYflZILXepWst1txc0y++Rc0BnHrmN+c9i6k
-	 HsdtCaceilkyYOEbJYWt/1C8h3XABW0UA/rIKiv8SvX3ClQVjwnlxtHfgSkL092SqG
-	 hHnjN1LMXa0bA==
-Date: Mon, 16 Nov 2026 11:40:59 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Florian Maurer <fmaurer@disroot.org>
-Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU
- only after refilling them
-Message-ID: <avrdu8qr9L2sEuTz@lore-desk>
-References: <cover.1793927986.git.fmaurer@disroot.org>
- <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org>
- <au3igPTxdz3i64SO@lore-desk>
- <20261108205350.2956138-1-fmaurer@disroot.org>
- <avGnv8Jr7BAiQhG1@lore-desk>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=mJxPB/cV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v3qaYnwiHIL1LrJnbChLA5aVg0y/uW0x/ZzNHz4e+/AY8nAwkWif77807qDhtTpleQ5KxrG6O9mkKsMTtkIJycl5YKzsJHTtcvapuSHt+ZCVV7cv6HVedGpG3W9ao8cxHaIRislJCjdhHqbxlCEdAmveUKkqrZhadHr8BPAz7YokVJHwx9EtxrDhECOnd+v3zZi2AsBWYZ6pCn7Wjj53kKJGBpnbQ3WZZlzKnV9rWu+p9U1KnFBELOtvcpoJ1ZNh92h8/84QN7YdnlooEVgV/+IdwHD5wBKupMFyzrQm6Dc9TgpBxRfOB4j8FYxy8DAIvQmpJPd/7SyU8YhEd4XRWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+7kNUG83Oj11M0j5M3QsDAZT2F095k4U5l4Fjw41Iio=;
+ b=lW5h4myFlti84w3K1BaXKdVlM+46DpPTJwmVSVOtvoGMuawUP6Bfw3zBjU3D7tP2ihCzHB9npPrhuLjC0wZYqWBSjU4ImirJ/ZiW/FVnLMh4k7j3BZKvvhkCWQpvah1SSq6sFBi5+f4Z5qhiKf0yEfP/9EdlU/XMU4x8aYVizBUiAikrrriTC5tIeFDk6ROm3NqGWqTb9eV5wjr5OVOGgBpwgM20ewR5S3fYasWWZknsc5oNVGTMeX9mmCgnWWOu2Ziu34vX9LLAUKJQXD+F+r8QSjIeuYJjss8kyud7+UNlymPxoKffjMf3xrSoH/fJmptgzUiw+XoWfpiQRDxtRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+7kNUG83Oj11M0j5M3QsDAZT2F095k4U5l4Fjw41Iio=;
+ b=mJxPB/cV380wtWaQDdKZdv27ZLxYbvWt1Q18oD0b4NlzS9ffO0e/Adg+srUQkdo4aMrsbcLmWWYxmhW4iSGu1AgWPoZ8hIsY1KO4UvZaLHvz3ZZpO4jVfdNlmNDDquWMXSCWddEu36xreUTPvyspHlgB45ymi2EvGYwmVB9J83sI5bjP83Ji5pyTZWSzCdh07MfNuFDZ56g1jfUgcEARNNoQtWJM6iGUQPApwlCnJ/RaPhekVzzQHOCnaOAtAt9IRMpH9E7m5CuvzkPz47Cif7ZMMPKgbytyNptVnyU3+Jb1hpbxqUK6xZ+35gbsLLEgWbP3Cf3p6Sn19Lq9ZqTUKg==
+Received: from PAZP264CA0117.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1ef::8)
+ by PAWPR10MB6781.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:335::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
+ 2026 10:41:06 +0000
+Received: from ZR1PEPF0000E45E.eurprd04.prod.outlook.com
+ (2603:10a6:102:1ef:cafe::6a) by PAZP264CA0117.outlook.office365.com
+ (2603:10a6:102:1ef::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 10:41:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ ZR1PEPF0000E45E.mail.protection.outlook.com (10.167.241.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 10:41:06 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
+ 2026 11:42:06 +0100
+Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
+ 2026 11:41:05 +0100
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Ulf Hansson <ulfh@kernel.org>, Patrick Delaunay
+	<patrick.delaunay@foss.st.com>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>
+CC: <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>
+Subject: [RESEND PATCH 1/7] dt-bindings: power: st: add STM32MP PM domain binding
+Date: Mon, 16 Nov 2026 11:40:26 +0100
+Message-ID: <20261116114024.RESEND.1.If3d55e03486413ca40ac73f9bf07046e76a00f0a@changeid>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116104054.94115-1-patrick.delaunay@foss.st.com>
+References: <20261116104054.94115-1-patrick.delaunay@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,340 +116,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LqmHgd5bDG2pnVB6"
-Content-Disposition: inline
-In-Reply-To: <avGnv8Jr7BAiQhG1@lore-desk>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E45E:EE_|PAWPR10MB6781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70b193ac-6b63-410c-d67b-08df43ce1e8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|82310400026|36860700016|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	XrBd/DAA3qdnzv81p8EbGjqkiQ6C+Cvl3PeTjzZBDhy85Az8fRXbivVTEoxxjRWrS/gsxRVsP+BynSDWXWPnAwwczuuHHs630WpEBcPo//LnznHPV88HiHRDKnf20HdKyC9TG7zQq0FI9Vz5ZL7d9UD8usd8j5o0RFJkuXGh9HToMHPCPbo4F57FdLALz9nPMTN/QA4kpZuj2BNJf8AiBLMyhw6AJyqMSFgQUxEG+o5UoSh5VrIM1BZVshqaZ8NRw4Q6XLGrL2xvIP/jblYNoUKgjoZZpqMnCrcA+lqc5VN4SqOQC7HdfiEkRbYm57U2zimWmW/3Yxb/AXR+ujoFEoNyM9ZK4fzKN59Nda2HIdL20nfjXJzYDU+VwHj+WD71Pb3rXYvG05VSrSN2AQ+8fvalIvttQrmkekXBMsBB01aHDFQK4UOa9gogYTaOQBZHQK+KNaybXMtmkOA+EF6uOw58zLKR9pORAYc0aQp30v1KlrGl78TT0tYEs3y3aOKfThyBaN8fXR6ow3Z/qTAMssgwweMplQwoklBiKuw8KpOEfFYbltM+Qy7RCh5OfpGUgPbHgYokJdQ3rBFhtmEX19WDvrmzambnwCwQ91E812LKne3uBY635aQ7+GmlDyevVGNP0dQK131H1j9HeNNvdA==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nuHs1GeNbMLqOWKAExosZOHtWb21njU4WVpwF8cEAiQ6WneMt2KMNh3r14mLAAL3zLKye7jMUM+8JPmxxSvXAcGnasr/+87hV96KqHPWiA4a81yqjrqdCxRHf3kQEyOve629WCrab9gwqKeEo0dX7KFonv2j6GuKrC2+MnHQzl4C0tNgxbWBRaKSpudz8OqumzPnFAFBQpX2V7x4p2DftFYFOvYAFHxX/CxAqMGjdOXZgeFzqKA1RRgIwQasmeCGz0r+q6emZ6rvr3+katxOXH5pHjKdvhgOu3RSnTaSpkRlZBi2FnnQaCCSJJxJdZySJqto+qY9ZizTZ0nO0csrmynt58NZ7W5rujm5y+uiALpyaPVBoY8orPnjqorq3KRDxcxVyhQQEMbN0stGVy80PA6mB3ujfGvkyhICracmRoni1bWRIZ2Rh4b2OnhIht2x
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 10:41:06.4513
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70b193ac-6b63-410c-d67b-08df43ce1e8c
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E45E.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR10MB6781
 
---LqmHgd5bDG2pnVB6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add binding documentation for the power domains found on
+STMicroelectronics STM32MP SoCs.
 
-> > On Fri, Nov 06, 2026 at 03:21:52PM +0100, Lorenzo Bianconi wrote:
-> > >> +	Q_WRITE(q, dma_idx, (q->head + 1) % q->ndesc);
-> > >
-> > > why are you writing q->head here?
-> >=20
-> > Once the ring is full, (q->head + 1) % q->ndesc =3D=3D q->tail, so the
-> > value is the same as today. Only the timing changes: the slots go back
-> > to the NPU after they have a new buffer, not before.
-> >=20
-> > The +1 assumes the NPU completes slots only up to dma_idx - 2. Every
->=20
-> I guess this is used to mark what is the next index the mt76 driver is
-> expecting but I guess airoha folks can provide more details about it.
->=20
-> > slot it can still complete then lies between its own position and
-> > q->head - 1. The host has not consumed those yet, so they still have a
-> > buffer. If the refill fails, the same value is written again and the
-> > ring stalls instead of handing back an empty slot. A debug patch that
-> > cleared DONE after each consumed slot saw no slot completed early in
-> > 60 minutes of rx load, though I can't tell how often the NPU reached
-> > that slot. Can you confirm this is how the NPU treats dma_idx?
->=20
-> q->head and q->tail are not the same when we have refilled the queue with=
- new
-> buffers. Moreover, I think if mt76_npu_fill_rx_queue() fails (so mt76_get=
-_page_pool_buf()
-> returns NULL) it is not correct to use q->head for dma_idx, we should use=
- q->tail.
->=20
-> >=20
-> > >> +	if (nframes > q->queued)
-> > >> +		return NULL;
->=20
-> Can you please check the updated patch below?
->=20
-> > >
-> > > can this really occur?
-> >=20
-> > I have not seen it. The slot at q->head is never cleared while the ring
-> > is full: it is the one kept free, consumed in the previous round, so it
-> > still has DONE set. If the NPU has completed the first slots of a frame
-> > up to q->head - 1, the count reaches past q->queued and the next DONE
-> > check finds that stale bit. A page pool failure makes the stale region
-> > larger.
-> >=20
-> > > I got your time, and I agree this is an issue we need to fix but I gu=
-ess we
-> > > should avoid a double loop. What about the patch below? (just compile=
-d and not
-> > > tested).
-> >=20
-> > Keeping the partial frame in q->rx_head is nicer, and it lets the slots
-> > of a half-received frame be refilled early. Comments inline.
-> >=20
-> > > +	if (!nframes) {
-> > > +		nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK,
-> > > +				    desc[q->tail].info);
-> > > +		nframes =3D max_t(int, nframes, 1);
-> > > +	}
-> >=20
-> > PKT_COUNT is read before DONE of this slot, see my reply to 2/2. Once
-> > q->pending keeps the count across polls, a stale count of 1 would
-> > stick. On top of your patch, something like (not compiled):
-> >=20
-> > 	if (!nframes) {
-> > 		u32 ctrl =3D READ_ONCE(desc[q->tail].ctrl);
-> >=20
-> > 		if (!q->queued || !FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, ctrl))
-> > 			return -EBUSY;
-> >=20
-> > 		/* PKT_COUNT is only valid once the first slot is complete */
-> > 		dma_rmb();
-> > 		nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK,
-> > 				    desc[q->tail].info);
-> > 		nframes =3D max_t(int, nframes, 1);
->=20
-> ack, I can fix it.
->=20
-> > 	}
-> >=20
-> > > +	while (nframes > 0) {
-> > > +		struct mt76_queue_entry *e =3D &q->entry[q->tail];
-> > >  		int len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
-> > > -				    desc[index].ctrl);
-> > > +				    desc[q->tail].ctrl);
-> > [...]
-> > > +		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[q->tail].ctrl))
-> > > +			return -EBUSY;
-> >=20
-> > Three things here:
-> >=20
-> > - ctrl is loaded twice, so len can come from before the slot was
-> >   completed.
->=20
-> ack, I can fix it.
->=20
-> > - Nothing stops the loop at q->queued =3D=3D 0, so it can take the stale
-> >   slot at q->head, whose buffer already belongs to an skb, and
-> >   q->queued goes negative.
->=20
-> please see above
->=20
-> > - q->pending is never set, so after -EBUSY the next poll reads
-> >   PKT_COUNT from desc[q->tail].info, which is now a later slot of the
-> >   same frame.
->=20
-> I can fix it.
->=20
-> >=20
-> > So:
-> >=20
-> > 		u32 ctrl =3D READ_ONCE(desc[q->tail].ctrl);
-> > 		int len;
-> >=20
-> > 		if (!q->queued || !FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, ctrl)) {
-> > 			q->pending =3D nframes;
-> > 			return -EBUSY;
-> > 		}
-> >=20
-> > 		dma_rmb();
-> > 		len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK, ctrl);
-> >=20
-> > [...]
-> > >  	Q_WRITE(q, dma_idx, q->tail);
-> >=20
-> > This still hands the slots back before mt76_npu_fill_rx_queue() refills
-> > them, so the oops is still there. It needs to stay at the end of the
-> > refill as in my patch. With your structure that also lets a frame that
-> > runs into the free slot finish, since the NPU gets new slots after
-> > every poll.
->=20
-> I guess q->tail should point to the next already allocated buffer, right?=
- The
-> only corner case is when we consume the all the allocated buffers. In thi=
-s case
-> we should wait to update it. Do you agree? Can you please check the updat=
-ed
-> patch below?
->=20
-> >=20
-> > I can fold this into a v2, test it on the W1700K for 60 minutes under
-> > rx load, this time with a counter for misframed frames, and send it
-> > with the results. Since the structure is yours, I'd add
-> > Co-developed-by and your Signed-off-by if that's fine with you. If
-> > you'd rather post it yourself, I'll test yours instead.
->=20
-> Sure, feel free to add your Co-developed-by tag if the patch below works.
->=20
-> Regards,
-> Lorenzo
->=20
-> diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wire=
-less/mediatek/mt76/mt76.h
-> index 2ade848fe3bb..9537c6d28e8d 100644
-> --- a/drivers/net/wireless/mediatek/mt76/mt76.h
-> +++ b/drivers/net/wireless/mediatek/mt76/mt76.h
-> @@ -249,6 +249,7 @@ struct mt76_queue {
->  	int ndesc;
->  	int queued;
->  	int buf_size;
-> +	int pending;
->  	bool stopped;
->  	bool blocked;
-> =20
-> diff --git a/drivers/net/wireless/mediatek/mt76/npu.c b/drivers/net/wirel=
-ess/mediatek/mt76/npu.c
-> index c4c7c0af6321..3ca83985376d 100644
-> --- a/drivers/net/wireless/mediatek/mt76/npu.c
-> +++ b/drivers/net/wireless/mediatek/mt76/npu.c
-> @@ -56,61 +56,81 @@ void mt76_npu_queue_cleanup(struct mt76_dev *dev, str=
-uct mt76_queue *q)
->  		q->tail =3D (q->tail + 1) % q->ndesc;
->  		q->queued--;
->  	}
-> +	if (q->rx_head) {
-> +		dev_kfree_skb(q->rx_head);
-> +		q->rx_head =3D NULL;
-> +		q->pending =3D 0;
-> +	}
->  	spin_unlock_bh(&q->lock);
->  }
-> =20
-> -static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
-> -					struct mt76_queue *q,
-> -					u32 *info)
-> +static int mt76_npu_rx_process_entry(struct napi_struct *napi)
->  {
-> +	struct mt76_dev *dev =3D mt76_priv(napi->dev);
-> +	enum mt76_rxq_id qid =3D napi - dev->napi;
-> +	struct mt76_queue *q =3D &dev->q_rx[qid];
->  	struct airoha_npu_rx_dma_desc *desc =3D (void *)q->desc;
-> -	int i, nframes, index =3D q->tail;
-> -	struct sk_buff *skb =3D NULL;
-> +	int nframes =3D q->pending;
-> +	u32 info =3D 0;
-> +
-> +	do {
-> +		struct mt76_queue_entry *e =3D &q->entry[q->tail];
-> +		u32 ctrl =3D READ_ONCE(desc[q->tail].ctrl);
-> +		int len;
-> =20
-> -	nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
-> -	nframes =3D max_t(int, nframes, 1);
-> +		if (!q->queued) {
-> +			q->pending =3D nframes;
-> +			return -EBUSY;
-> +		}
-> =20
-> -	for (i =3D 0; i < nframes; i++) {
-> -		struct mt76_queue_entry *e =3D &q->entry[index];
-> -		int len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
-> -				    desc[index].ctrl);
-> +		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, ctrl)) {
-> +			q->pending =3D nframes;
-> +			return -EBUSY;
-> +		}
-> =20
-> -		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl)) {
-> -			dev_kfree_skb(skb);
-> -			return NULL;
-> +		dma_rmb();
-> +		len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK, ctrl);
-> +		info =3D desc[q->tail].info;
-> +		if (nframes =3D=3D q->pending && !nframes) {
-> +			nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, info);
-> +			nframes =3D max_t(int, nframes, 1);
->  		}
-> =20
->  		dma_sync_single_for_cpu(dev->dma_dev, e->dma_addr[0],
->  					e->dma_len[0],
->  					page_pool_get_dma_dir(q->page_pool));
-> =20
-> -		if (!skb) {
-> -			skb =3D napi_build_skb(e->buf, q->buf_size);
-> -			if (!skb)
-> -				return NULL;
-> +		if (!q->rx_head) {
-> +			q->rx_head =3D napi_build_skb(e->buf, q->buf_size);
-> +			if (!q->rx_head)
-> +				return -ENOMEM;
-> =20
-> -			__skb_put(skb, len);
-> -			skb_reset_mac_header(skb);
-> -			skb_mark_for_recycle(skb);
-> +			__skb_put(q->rx_head, len);
-> +			skb_reset_mac_header(q->rx_head);
-> +			skb_mark_for_recycle(q->rx_head);
->  		} else {
-> -			struct skb_shared_info *shinfo =3D skb_shinfo(skb);
-> +			struct skb_shared_info *shinfo =3D skb_shinfo(q->rx_head);
->  			struct page *page =3D virt_to_head_page(e->buf);
->  			int nr_frags =3D shinfo->nr_frags;
-> =20
->  			if (nr_frags < ARRAY_SIZE(shinfo->frags))
-> -				skb_add_rx_frag(skb, nr_frags, page,
-> +				skb_add_rx_frag(q->rx_head, nr_frags, page,
->  						e->buf - page_address(page),
->  						len, q->buf_size);
->  		}
-> =20
-> -		*info =3D desc[index].info;
-> -		index =3D (index + 1) % q->ndesc;
-> -	}
-> -	q->tail =3D index;
-> -	q->queued -=3D i;
-> +		q->tail =3D (q->tail + 1) % q->ndesc;
-> +		q->queued--;
-> +	} while (--nframes > 0);
-> +
-> +	dev->drv->rx_skb(dev, qid, q->rx_head, &info);
-> +	mt76_rx_poll_complete(dev, qid, napi);
-> +	q->rx_head =3D NULL;
-> +	q->pending =3D 0;
-> +
->  	Q_WRITE(q, dma_idx, q->tail);
-> =20
-> -	return skb;
-> +	return 0;
->  }
-> =20
->  void mt76_npu_check_ppe(struct mt76_dev *dev, struct sk_buff *skb,
-> @@ -155,18 +175,10 @@ static int mt76_npu_rx_poll(struct napi_struct *nap=
-i, int budget)
->  		goto out;
-> =20
->  	while (done < budget) {
-> -		struct sk_buff *skb;
-> -		u32 info =3D 0;
-> -
-> -		skb =3D mt76_npu_dequeue(dev, &dev->q_rx[qid], &info);
-> -		if (!skb)
-> +		if (mt76_npu_rx_process_entry(napi))
->  			break;
-> -
-> -		dev->drv->rx_skb(dev, qid, skb, &info);
-> -		mt76_rx_poll_complete(dev, qid, napi);
->  		done++;
->  	}
-> -
->  	mt76_npu_fill_rx_queue(dev, &dev->q_rx[qid]);
->  out:
->  	if (done < budget && napi_complete(napi))
->=20
-> >=20
-> > Thanks,
-> > Florian
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+---
 
-Hi Florian,
+ .../bindings/power/st,stm32mp-pm-domain.yaml  | 46 +++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/st,stm32mp-pm-domain.yaml
 
-do you have any update about this patch?
+diff --git a/Documentation/devicetree/bindings/power/st,stm32mp-pm-domain.yaml b/Documentation/devicetree/bindings/power/st,stm32mp-pm-domain.yaml
+new file mode 100644
+index 000000000000..4ab477fb4499
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/st,stm32mp-pm-domain.yaml
+@@ -0,0 +1,46 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/st,stm32mp-pm-domain.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STM32MP generic power domain
++
++maintainers:
++  - Patrick Delaunay <patrick.delaunay@foss.st.com>
++
++allOf:
++  - $ref: /schemas/power/power-domain.yaml#
++
++description: |
++  The STM32MP SoCs contain a D1 domain which defines the devices assigned to
++  Cortex A cluster, the devices in this domain are functional only when this
++  cluster is not in low power modes (Stop modes) with clock OFF.
++
++  This PM domain node represents this dependency, based on PM framework and
++  without wake-up path support.
++
++properties:
++  compatible:
++    const: st,stm32mp-pm-domain
++
++  '#power-domain-cells':
++    const: 0
++
++  power-domains:
++    maxItems: 1
++
++additionalProperties: false
++
++required:
++  - compatible
++  - '#power-domain-cells'
++  - power-domains
++
++examples:
++  - |
++    power-domain-d1 {
++      compatible = "st,stm32mp-pm-domain";
++      #power-domain-cells = <0>;
++      power-domains = <&cluster_pd>;
++    };
+-- 
+2.43.0
 
-Regards,
-Lorenzo
-
-
---LqmHgd5bDG2pnVB6
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavrduwAKCRA6cBh0uS2t
-rDMpAQDj3gXJCZXk4KYSPUnFroGe3NPfTuFQI0zqSsQ6EVM3EwD9H4j6NULngp1s
-pD6aFOP5EF74nh4wUivMWDCFKmJStAo=
-=7q7A
------END PGP SIGNATURE-----
-
---LqmHgd5bDG2pnVB6--
