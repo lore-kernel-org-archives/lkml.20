@@ -1,101 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794860125;
-	b=TWiG2BRP1YU6wfXF9ty4mm18HBiAK/lYHSY6x7wVHJAZd6H0ypas2cN5zw45moM1GwIR
-	 fODshH1CgU1BY/gpm8AJUhIWMowlNjQ9IgrB8gsY/8LFnjj9RKeW20k1dVlrzMdNcf36T
-	 JTMNdZfCKuUKT1fHQ/2R/eKmum+OusD7fJ6R4BmpbccmOsouNhdKpOU94rIfFeo3yb+O+
-	 lhL+IWfJCYnjY9XiGHVuXcyST2aC1DCi8qaPA5Xzj9ZFqfT1krJwgyR55jiVUII0zNBqR
-	 Ssma8fVtSZTf/5CFqWqlpZrdtQYDPISIsPIyOWQh73gc/sBU49Yo96hZD9/Ot3qLU+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860125;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1U9DIk4gufLfzsj+yHBbTJaIiLke5+veThAGL5SoV3Q=;
-	b=jWJZMlK21NiXH4bYRaAKtpy4umPRGAyH4F1j9qMLC//7n5HF4D3mBnRoDq8Ls7agTdAA
-	 ucjjyR3+OzASHEKfXenCFNLw2pgsCc0krGlR1f9bCX5lfDAypsjlzGytJVrhlPQvp//ae
-	 yqz2E4Tdnl57K04xBS2ulnwhZYIQgNpLxeTqkNqBlrFoa0g6WXdFbAUnz2037uajufevz
-	 Uomh5hVXna5LXASnEMRmulttrWm/7YdD/pAVlNtshBhkz/Po65pQdtE+1tbgq3EShTfJY
-	 UWAQQxYFrDtouPZERsSJTcHcz1Dszlqvw1aPH9bgOwhQx6PrwVwU4MK8MR1Q0CiBv9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vrfslSZk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794860131;
+	b=NGD+U4GKgMywUHn7NtrtJO/n+cYz2rna1NxuMhF07XtkopxxZfbqUW9fcKVgm6eDYCpG
+	 ZQ/9PXyTwCxPc0b3VUA8HMwNRO7PAtes4ilzpVy5fsZ8OgdE1XjwIXuMCPmSMZEk4/tlX
+	 KVZVLXwPGafhS749ha9JLQGmGB+WotHCiEQtXhyyNg+OGM/qhQlxzc36rKRBG3B2w/XR5
+	 7oPN3vOFxZGaVSqB2kZGXTecRwqHxjTAmJV7CIj2NZmHzLgZndLKltlf28vXrjna16TCT
+	 UQCeb/vAzaVCn/j+UzphMSCXy+BnUtmJMeA4VimJzzhHzmUf0gYsAFEJ8bLvUoFvXOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860131;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=5DvBID7NhGtKnGppEI26jIaivJUl1a5YPN2oWeq8o7Y=;
+	b=ANydu6lQB6uiMaRXMqdbWgLUmz1zxTVKyZQr0Itytze9IDqIJhpUOp6IS8v7HV7K/B8g
+	 AQNEJY9ItzM6HbjG1nqWiLB4Ku+6DAAxypphFnKmJwfVvtpgGNStlL6riv4EWDo4yyHgF
+	 /OuRm4kda5OwHVh8VYnEWNpJjB+mWW/DOC9ABxEH5RsPOnAmqnvsjIaQH59PG5ydKFrtN
+	 svmIjgU5LIZA4LDpk49GlrLwebNqZeuHq/MRccxUd+DlNJUoulcfzesjX6ym44WCWcgE6
+	 Js8HBOihNxJhT5CsEWWqjvF0owo+A9bsd5GO3V82DM2hxIMlikRFfQSyc1Sx28qPRgA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XPTdIfq4;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98801606A33A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98801606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03BB606A32A;
+	Mon, 16 Nov 2026 20:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03BB606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vrfslSZk
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-37628596783so6524168eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:15:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794860124; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kdANJElkTr+AXALd8G2N4UgftyCJ/+mvSl7B0QTocv+5O9Y7QaiU88ZFZGFxVH2gkO
-         dcD45jNXpr7QSl8kQsVlJAvJtdBpWo1hEkZZk+9xyqWfgHTXEYIib9q3W7P/JIKolMyp
-         OA7g0NxomJFetxfr3200Q3rkk5HPt2TNpLXg89M5qCvINtleI60nxuD2U8HajREAzabw
-         2wt8hT8rrqnva2P3x9p6+IhNA6ZjqAFZ4dEhoUxaLVyREnxKnSeWiAZiokyoz2gaC0Tq
-         tRuALVeIXI/rVjRQR7UlPiTc/tzB5IM/wmjUX7RLOhH7P+unTBJ5m2HUOWUjRnyDBv71
-         3yQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1U9DIk4gufLfzsj+yHBbTJaIiLke5+veThAGL5SoV3Q=;
-        fh=AipffCrSkK/JQy3yKHa0K/fj5g1MypUgLh5oAEo+iAM=;
-        b=ZRYYh+YjzqCL4zwOppYChxvyDZbANlTVJYrXRNBRXl7HZ10niNuL20VdefXLpOrTnb
-         sL5v0CXb1O2FesL2878vgp4JUDK84g1k94BBhQD2+VBO+37YPsChsYRWrNqq4wdMNmAR
-         byhuf4taraLPPWWnUfg8AOfvq2q4583oMJBkl/FtM6y9Myf1bHjWT+cPDoZqWWxPlLya
-         EtitL12MGgw1oKmva4+DzxIqCWz3QkmNv+OjaBIn/FAePxmGQMZcj6gucxXqSwPXmBQJ
-         xDI9A6czjVoLngxMacqiWugN7PFCej2PcSUFw6A/futQXxQhVKrlRDn4wPNhxz4nojCF
-         DARA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794860124; x=1795464924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1U9DIk4gufLfzsj+yHBbTJaIiLke5+veThAGL5SoV3Q=;
-        b=vrfslSZkkWIbbZ3S+55KHF/+hOyua/BeiYWf3E3VT8wwroxcEs+tYLtCqQYF0gtHOK
-         rgIdXBxeGre0iISx4kMw1NOz1lQnEuLIQT3ios4WH8/NdmqzAHp1ccFf6XYVDAn4Upgv
-         HbZErb5EpXHVfYJEYGZuf4voWw4sBpxw1ij+ECapyU/5Oy6SBvVwoqVVYheYuf0nrXYN
-         YVO6jYVJurRl4UZ7EOQopDsxsACsQC5MYOc4nMF7flILyn3m1LZE/D+b3ZnJ9eITKdPx
-         VNed4HlWno9VMWF6pXRHBvnpg57uAZTB0B3kcomesqHEMKJFkbluM0FXNnkkDrSqCuuv
-         JSpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794860124; x=1795464924;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1U9DIk4gufLfzsj+yHBbTJaIiLke5+veThAGL5SoV3Q=;
-        b=Cg5/KV/PJVjdDMPUjnL9d+7ZR0IbKlemrtAZo9mL60SQUlZFv1Gh9tpkq6Q4+mbkkf
-         iJK5AfY/QUUzZ5aiKqP+SotQpRdAK3iUHsRA2Eo5WoottKXczziHlz84Vzd777yv4u7e
-         6qV8ewyny5PxKy4AKeNAokdkivEAZ1MWmn7RY0eI5+ajXmwqD8annAIbxmI8tRqAaOGQ
-         9cGxiH4cZb0FPWkMdeNtqTagrlDM0eVd6grZtRp9MzeBb5NZ7yg6K9mMeZxMCGmlvbbJ
-         WB/AGT1grSIMn/cvKvURjSputvQznZaaPl0CYw+/LqrNaRfM1HepPIwEKfSKLBZla3Nd
-         YEog==
-X-Forwarded-Encrypted: i=1; AL+hErG2VUcBzsayF37i4ix2TDoEouutpgTkhCbUIfU9NSPZ+A5+9i8g9MU2QztrTkFnlL+fs/cWFcEWjCPdM9c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cTL6iZpr78ErHy49hpoRt7LYeOuuTv43SLjiLPR67AnAmO8sD
-	Bi12oPo1MQQdcY0mJcqgJblPuczicy3csMTVvfarNqY0gNMrtItWwshLoqo95CbhDmDuiT8rSiw
-	Dc+Cjrf9k2LEAkU35SKi6Ud7qmd1PX9xKk2Il9vjwaA==
-X-Gm-Gg: AZFdTZfuj/RkjvMK9/2nMv+PI2/83ZC8c0MXKtaetmBMkqhrEc4nEpOhkByxnfp0Ue5
-	XMMFHR7oL7k5xMblcfslPjgA3TchQtNK7GjlQRGpMPNTUNT67uZHcXN+ayCBk0DJT4hoswUuMtK
-	gCIk7MWLRYzXPvwXCN1jJK/nDRE1Cehe3w5G/dxORn41ZD8iPalLtHxvaGNTSxt+Uj9rOcX7HcG
-	klNW4r81R7b3Au9CjeKEgzXinbmRs1L/8g8MVTpfpHz0c57CG7K4QS7uyKZdtSecFWr7tNIi+J/
-	ZaoGpL2Qxvu7ebTK2W4boTD5ELyrLDa7+geOetRunVk7rWqXOAsrNPBZextax9hRyjPMWfoZhJi
-	Kl4qfmEbLVqDfIKtWPgOIlv54HrAElmuAst4jTUBDmRds2S4i+bJYSKSe0dLIxU7zaC+Nkmck8x
-	8k2gpEs0Lw5RTa2vlAO4SiY9xx
-X-Received: by 2002:a05:7301:da0f:b0:36c:a42d:9bc9 with SMTP id
- 5a478bee46e88-37966961442mr11539095eec.25.1794860123301; Mon, 16 Nov 2026
- 12:15:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XPTdIfq4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794860131; x=1826396131;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=AFl6AZiCWsMcaE/h4nmHNGw5H7f/Pg2F05REN8KucNM=;
+  b=XPTdIfq4qq7P/5aPFLi32HqsTC3c6UZgOb6urGlzZRxTDcXEWi0dajrj
+   J5HoNsOGViIcMBKTGWM6JmhdhztApmzZrGrpJ5kti5bsBTlPiPuBXXyis
+   yUamAdOzNipxZtRqYEgUyB/8EOVKGMiwEMePkIh4jyn/YyemXDG71ZCMX
+   LSaQj7tgemhVgvvOPKgf2A3C1zWECApIo+IcwvAIvfx96nr95Q+XoNiEl
+   9FO85RVk6U/q8RwV9yFVY+AJ9d+iqWHgyPDV5J7xdAYpnroGplSc6L9vV
+   nWStN/qW4nNbNKAgQBk2WkbrY7ufYhJ7yPGTdT+0fI0hCbtc5d1NM/CNx
+   g==;
+X-CSE-ConnectionGUID: IimUbBZ4Tzy6eJhFAIie+A==
+X-CSE-MsgGUID: jtjHAT7OT3uJXg7n1j3HDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3502125"
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="3502125"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 12:15:30 -0800
+X-CSE-ConnectionGUID: 9qreVo3QSFmJnnG7OpuSOQ==
+X-CSE-MsgGUID: kBFAzvJqQFGCI4YbBVWzXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="9468839"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 12:15:26 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 16 Nov 2026 22:15:23 +0200 (EET)
+To: Magnus Lindholm <linmag7@gmail.com>
+cc: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, 
+    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+    Rob Herring <robh@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
+    Richard Henderson <richard.henderson@linaro.org>, 
+    Matt Turner <mattst88@gmail.com>, linux-alpha@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 02/13] alpha/PCI: Convert to
+ pci_bus_size_and_assign_resources()
+In-Reply-To: <CA+=Fv5SkcpskpFUCP-qDmP1vWqDiqO8FgSJJ92UvX6jGRfaGLQ@mail.gmail.com>
+Message-ID: <87011375-bec3-5c38-3a37-a43a1de93fa6@linux.intel.com>
+References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com> <20261116152403.2672-3-ilpo.jarvinen@linux.intel.com> <CA+=Fv5SkcpskpFUCP-qDmP1vWqDiqO8FgSJJ92UvX6jGRfaGLQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,88 +84,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-mac80211-rx-null-link-v2-1-ea512ae98139@gmail.com> <ab8a37b85e4eac72a3176c0d43ed59017ee0187e.camel@sipsolutions.net>
-In-Reply-To: <ab8a37b85e4eac72a3176c0d43ed59017ee0187e.camel@sipsolutions.net>
-From: Joas Antonio <joasantonio108@gmail.com>
-Date: Mon, 16 Nov 2026 17:15:11 -0300
-X-Gm-Features: AclHuK-_T8rNXwIvw9C2aoOvEckYiplrQOXDu822YU9icPFp7kvGxeBI3RRnOxs
-Message-ID: <CAOCBhwGA-8P=aLa2bw19QtowCXQV6JwQ86S+OPha2u5s7U41qA@mail.gmail.com>
-Subject: Re: [PATCH wireless v2] wifi: mac80211: check for a NULL link in the
- MLD station RX loop
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Benjamin Berg <benjamin.berg@intel.com>, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="8323328-737568478-1794860123=:1056"
 
-My apologies; I sent this via an automation b4 tool, and the message
-contained the raw output from the LLM.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-A summary of the issue: 'ieee80211_vif_update_links()' sets
-'sdata->link[link_id]' to 'NULL' before removing the STA from the link
-hash table. During this interval, an incoming frame might still
-encounter the STA for that link within the 'for_each_link_sta_info()'
-loop in
-'__ieee80211_rx_handle_packet()'. Subsequently,
-'ieee80211_rx_valid_freq()' may end up dereferencing a null pointer.
+--8323328-737568478-1794860123=:1056
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-I discovered this while reading the code, though I have not been able
-to reproduce the issue. If you agree that this is indeed a problem, I
-can submit a V3=E2=80=94or you may proceed without one. If I have overlooke=
-d
-something, please feel free to discard the patch.
-
-
-Em seg., 16 de nov. de 2026 =C3=A0s 16:38, Johannes Berg
-<johannes@sipsolutions.net> escreveu:
->
-> On Mon, 2026-11-16 at 19:37 +0000, Joas Antonio dos Santos via B4 Relay
-> wrote:
-> > From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+On Mon, 16 Nov 2026, Magnus Lindholm wrote:
+> On Mon, Nov 16, 2026 at 4:24=E2=80=AFPM Ilpo J=C3=A4rvinen
+> <ilpo.jarvinen@linux.intel.com> wrote:
 > >
-> > Since commit 6d531b9af16e ("wifi: mac80211: rework RX packet handling")=
-,
-> > __ieee80211_rx_handle_packet() looks up the link of each MLD station
-> > that matches addr2 and passes it straight to ieee80211_rx_valid_freq(),
-> > which dereferences link->sdata and link->conf whenever status->freq is
-> > set.  The non-MLD loop and the interface loop below it check the link,
-> > this one does not.
+> > To serialize bridge window sizing and resource assignment, PCI core
+> > needs to hold locks across both phases. Alpha nautilus PCI code calls
+> > pci_bus_size_bridges() and pci_bus_assign_resources() separately
+> > because it needs to do special resource alignment and setup after the
+> > window sizes have been calculated. At least the former would seem to
+> > belong to some existing __weak pcibios_*() hook but the latter might
+> > need yet another pcibios_*() hook just for this single use.
 > >
-> > The link can be NULL there.  ieee80211_vif_update_links() clears
-> > sdata->link[link_id] for a removed link first, and only later, after
-> > ieee80211_tear_down_links() (including its synchronize_rcu()) and
-> > drv_change_vif_links(), calls ieee80211_sta_remove_link(), which takes
-> > the link station out of the hash.  RX runs under RCU only, so a data
-> > frame from that link's address arriving in this window finds the link
-> > station but a NULL link, and the kernel oopses in softirq context.  A
-> > link is removed this way for example when an associated AP announces
-> > removal of one of its links (ieee80211_ml_reconf_work()), and the
-> > frames only need a matching transmitter address, before any crypto.
+> > The nautilus code runs during init, so nothing is likely to race with
+> > it. Converting it is mainly about consolidating the sizing and
+> > assignment entry points of PCI core, which eventually allows removing
+> > pci_bus_assign_resources().
 > >
-> > Before the rework, ieee80211_rx_data_set_link() returned false for a
-> > NULL link and the frame was skipped.  Skip it again.
+> > Instead of trying to do a complex rework of the code, which is risky
+> > without the ability to test on the hardware, simply convert
+> > pci_bus_assign_resources() to pci_bus_size_and_assign_resources(). This
+> > adds a small bit of extra work by performing the sizing step again, but
+> > the calculations should yield the same sizes, so it seems safe
 > >
-> > Fixes: 6d531b9af16e ("wifi: mac80211: rework RX packet handling")
-> > Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+>=20
+> Agreed. By the second pass irongate_mem has been request_resource()d, so
+> pbus_size_mem() skips it as assigned, and ioport_resource is never picked
+> as a window (find_bus_resource_of_type()). Only the AGP bridge's
+> unassigned windows are sized again, from the same inputs.
+>=20
+> That does rely on the assigned check, though: if your follow-up series
+> starts sizing assigned windows,
+
+Yes, it will start to do that then.
+
+> nautilus' relocated root window
+> (size_windows =3D 1) must stay untouched by the second pass.
+
+If the same size is calculated (during init, I see no reason why the=20
+sizing results would change), there should be no change even when it=20
+starts to assign windows.
+
+I'm bit worried though when it comes to the extra alignment done by this=20
+nautilus code as that can change the size from the original but I don't=20
+think there is anything that would allow shrinking the window even with
+that so it looks okay to me even after the upcoming series.
+
+But it might be easiest to just set IORESOURCE_PCI_FIXED flag after the=20
+resource has been added to the tree. That should keep the usual sizing=20
+and assignment from touching it at all.
+
+> It builds at every patch for the generic and Nautilus configs. I have a
+> UP1100 (Nautilus), but it doesn't start up at the moment; if I get it
+> running again I'll give this a boot. But for the Alpha part of this serie=
+s:
+
+Oh, that would potentially make it possible to actually try to refactor=20
+this to happen in pcibios_*() code, which I certainly dare not without=20
+ability test the change.
+
+> Acked-by: Magnus Lindholm <linmag7@gmail.com>
+
+Thanks a lot for taking a look and all the insight, it's really=20
+appreciated.
+
+> > Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 > > ---
-> > Found by LLM-assisted code review of the RX rework and confirmed by
-> > reading the link removal path by hand.  I have not reproduced the oops
-> > at runtime.
+> >  arch/alpha/kernel/sys_nautilus.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > v1 got no replies but is marked "Changes Requested" in patchwork, so I
-> > am not sure what is expected.  Please let me know if something else is
-> > wanted here.
+> > diff --git a/arch/alpha/kernel/sys_nautilus.c b/arch/alpha/kernel/sys_n=
+autilus.c
+> > index 13b79960b4b9..23a74fd4a83f 100644
+> > --- a/arch/alpha/kernel/sys_nautilus.c
+> > +++ b/arch/alpha/kernel/sys_nautilus.c
+> > @@ -263,7 +263,7 @@ nautilus_init_pci(void)
+> >         if ((IRONGATE0->dev_vendor >> 16) > 0x7006)     /* Albacore? */
+> >                 IRONGATE0->pci_mem =3D pci_mem;
 > >
->
-> I've said this pretty generally before - don't send me raw LLM output,
-> read it and make it make sense.
->
-> johannes
-
-
+> > -       pci_bus_assign_resources(bus);
+> > +       pci_bus_size_and_assign_resources(bus);
+> >         pci_bus_add_devices(bus);
+> >  }
+> >
+> > --
+> > 2.47.3
+> >
+>=20
 
 --=20
-Joas Antonio dos Santos
-Cyber Security Specialist and Ethical Hacker
-joasantonio108@gmail.com
-LinkedIn
+ i.
+
+--8323328-737568478-1794860123=:1056--
