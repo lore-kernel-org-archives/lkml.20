@@ -1,125 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.143
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843632;
-	b=mMwI4KmlhzZlIcKyeYgL6Ni6upS81VTodrCXZvar2sk4sKhBhejyOn/OL3y9Gyhwouei
-	 xA2paW1+sqZXJde0FjBZzfHuPe2u0xnhujpFteLqNJrYpuTwCCpR1EttUkASNoEYtykXE
-	 7BD6YGyO+xKQEuyUPUbs7iFQHVi0AV+xyd1aUKBbMFtWkzWoyIe717rynFHZkU6hRuEGe
-	 g/FEUtVtuEscSsFcSkcFt0h+u+VZPupU2DQWMpY6wRSaGFWpLiIApl97gl63t6/b6q+ka
-	 YtXxBVzN2diH1xsWXIh3tu2pEATbBzJGoZYrc97kx8XOq7xr3C7+Uk0lHA8iDBvkygA==
+	t=1794843647;
+	b=D2bBPJQ7ClsGThZCMw681VVrM7bg5Uew8E9PmOhGzVaB2UkRHDViuYJn0Zm/pYmAlQDL
+	 cBSXSSEsHXSkmU3T2TOZsN01e45Evdm2IuPJRQ3MQUcw43ZziIM6QfuoHsDvxBbWT7xTV
+	 hzKoLZVFyCL1fSWT7Mw7h6CWamJOZvmp3fsmR9fq+qq/kyKz1TveHWKjdXbzbqcaPPXSz
+	 kVsjhdBq6zUZYz3WTbvdifeJ+gqVWXexzt8KbX1PbTk/XrU48CFGnZRfQUlKqP6i29nTF
+	 9rU6O3tAU3kHQ4KoMvqyknQ/vyto+6fQegYuTT8CMKI6VQPNbddYyCKRP7FHDEnH5SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843632;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=K9QCMgU3/qNmk6i5Ld3qHCb7sElYSI3GaLa7Dwr1/Es=;
-	b=ueUy3g93TX5i8aqsSpGArdBamT0ppaTqW6pYGPT3PU1FbnQ+HA/SCcl7rAC6O83xJFYL
-	 gnckcZJzg+R4+4gYydkvNMvjbtVmrxSX+SjLGGe1vlw2v45EUyz3liIen9x0p5dA4oLCk
-	 gWk7RGFLFcO/T3aDd1849ShTpmzgXVBsEEyzlq+Ni5XzLv/n2iLSU+ywgcJMpWWAWzsfU
-	 0dRI8kTnQvkcTv6n4jGxJ0SFNxQqZ5jVTOfITSM2A5WpYOUMC7VeygzWwxg6Axio+TX0h
-	 LiAc0qlqNDlPIhniZp+0oxB+1l36aOHRPl6dOtGit9iuvrYR7kYbZJf+Qb/fod2n0Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843647;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=LP+H4x9t+eiBrd2FiZV5gCBvQSjLjhDszp6+ffw2i24=;
+	b=ij5vywPOYhYHa1FCBTkr62x3eYptwJEy8lwzZX1JvV726t2uZo5XHGlcuMyDBIRxJI/Y
+	 qSuZq2S49PPYCq62RwQZncW/S2qA2hN3omDehIZA72vo4eMIylOKbrl1J2fsZOPeRplxK
+	 swkYYQPBaAJI7t3favCEka7wCTJlVOEoP28BMLxhidhdANCVPU8G7z/NSwTZaeKJ4x4K/
+	 FaY3lJgpOyxCconclH3xjp6WpbukpKuYIvLqhP+bvagVWRDseDEaLEECbVLGNK9vF1G2W
+	 sO1EGt6qJrutyXgnGxiS4pQ+fGbJiLkR1bv1C4rj27mt8ZnY2w81aGixOZ+nrlGKDzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=c5vejlrL;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=J+07JrxK;
-	arc=none smtp.remote-ip=103.168.172.143
-Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cMG5hI0T;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tEy2YW4K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cMG5hI0T;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tEy2YW4K;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F8B606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:40:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19F8B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735DD606A31C;
+	Mon, 16 Nov 2026 15:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 735DD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=c5vejlrL;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=J+07JrxK
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailflow.phl.internal (Postfix) with ESMTP id BB6F41381A26
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:40:25 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Mon, 16 Nov 2026 10:40:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794843625;
-	 x=1794850825; bh=K9QCMgU3/qNmk6i5Ld3qHCb7sElYSI3GaLa7Dwr1/Es=; b=
-	c5vejlrLPwZAjCGmX1QTNDJKlbwsc42YdY1kTMK8LGTmO33r29yZEezj1WeE+l6e
-	LzavMdwNWrdwT/bFvi6WiZXAncS80b3WFjqtyTAGRbA17nevA6YwcV2mrLS9Pah6
-	0MwtGPHw4k8/XXSiuTZcy61KQLhvUkYPEIHOfoE9lx04aJIpdaVSxoiEi1qF+eWC
-	KyiTi2ASZYzgmTwfeyETmCb7Q9jH0j+8DuaNNhuMupXd9heLoX2NiUauCT5XSP6q
-	ZCbIxoBSa2ZpDZYdHpp8R69D4NixGjOmf2dymmoYUrEVMzAYVAYSHmyqgU0GuRxp
-	K1q46lYEZIwMbnw5sbseMA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794843625; x=
-	1794850825; bh=K9QCMgU3/qNmk6i5Ld3qHCb7sElYSI3GaLa7Dwr1/Es=; b=J
-	+07JrxKGH89agZwZypxfZOwjMdUvqyIWG4VSNZDpLZ3aWzRSBuSgwskD4DEjFwcv
-	H4cMAPVZ3dUNdsCmoUxxXW6lfi/biM3fs0dtH3+0Wood2ClPEYAizxyoR2Ji+1ek
-	MBf+V9PI1dLKngSamvhS6tTIWcfbla5yYKfwNgh+ytjtDE4+p4AZxkVkLjR14lpO
-	4CyE822JCpUu8UnSmdukEpszWMhCedT15Q0JLVClPVGOMb79kRceK43TqMdWSdCM
-	RAIdEJpeCqfDXs00vBE0A/kdjhRlicnOefNKMWxNzpyO1Hq/Ur31BxiJeCg4Yx+n
-	2BPaeNU3AxqS6XW+vTroA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794843625; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:XJawagLKZQGHQvtEtjdv2Qm7uKC9E0qYy3dx4oN4L9kOu1O
-	iGok9xepIoiATE4N+IcCzoosaXwU+XnSIl19STlcG88whheNLlkwuQ/t4K6EsmOG
-	Fo4I9Qx1lHcVs9nO6mzodNNV4AhRZ6C4nLm8h+HBxxybT+T0QhVJdUxthlf1mWrg
-	WmPGOsA6rE7/YSBpmes3cFlM/bhvVMtRCcwTYtpcge2S2UHrngDaR1ygAKccBcWk
-	9/cKxBD94CCYoOsfC79TFEr4kmBoTsJoeIk6I2gX58MMfGgrEXFsWPAv2GQlFYkp
-	ps8DT6IdEyJJtsP7qh0BgFZ/RPxfKiPTAHwPgLg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:0Y5rUBlQcrCj4l8SJGkaqp48B/WhxzlQss1o6ZgaDmk=:uyJPaLysvvX+DG/VcmnnuDeB94OwMehxNJ/NW9IPFc4=;
-X-ME-Sender: <xms:6SP7arbYZxLPnoqMSJbkzf9bdAqGrjncVRwkrH2noefuznsS0958tw>
-    <xme:6SP7akcpABGQBr1tLLLtqwITwXUQNYDOzlB3bIgjLvSNGTLvU5CWbFdymGThdBEXQ
-    dMZI6lIuTYRd1Ey9Qk7mh84x-tlDeUbVMQwDjnpAjxsbWNGWZ0ieA8>
-X-ME-Received: <xmr:6SP7at24dXWer6LLNFjK-_EXxHTW7spVtv_325TekFAm15kWI8DANB8pOwPVSg>
-X-ME-Proxy-Cause: dmFkZTGVW5RRIjhX0vofYqB5DQwzIH4ybjoBD4H/QKyxz1CgmLXHNktxjRFTVAf2AvyeKF
-    q73hIbVzdZcvzHkbuLgB3bgpka+Ug6AAEs8Bf2IjKC7E0HggYTQA+yLwxz9iUkVxNDR5aL
-    /wiFcJarF2w4gyZSM+s656/q8Ksgd+nc9p7/Z7I1nCWW24fZ4zKmXtRnhrBVT8MFnGS7m/
-    AcexrVX9bO0ySKLQMR1zz1zMvDqPTk1xvBtKwBgnC9ecCoOUPoomm+ySUKIymCN597SCI2
-    0SE56QdXXrscD5un8UpxCccGd2CfIvFBLGmPf7KHRj3/y9EV3C3mHhhrzsjqLGs9u44XTT
-    lTJBjENqyAI4S5w1H1CWASLIVCxdMABFZI3UaCUBr7xHTji1N9B8vlEYztE6ZNGUheoFOZ
-    pyxFLcXsortIvWGBWl7Aa8CoyRSTE5UytnhaxlOCIlTaZWX2nvnA5fbu7r5w055BXPx4vo
-    IKSYh5DV+Pp7C7uZcmcRJZSq0UTYKiMsEipR46uitMqpsc9Uql/TfhYD8MxtcWUNzn9+Dn
-    FE0M+wS0CYePpKJ6gETx9tL823rgTdlDqPdOM3o6uqNE3naF8uBydpuB23OiF/slAbzyQi
-    4G5KLqTp4Zk+bYJDQaoN9qxTJhWVyc7mpTUwy1GUuC4rsAIKnywSmehO+PBA
-X-ME-Proxy: <xmx:6SP7ajI_W2ctdjKLR08yW-lQhzJfuw6i4mxy1P0tnyJb6ri6Bocqtw>
-    <xmx:6SP7akGSRS6L9OdvhkuliQaAc0n1pm_b16N1RMOV5vNAI53LXAB1sg>
-    <xmx:6SP7anXJ2ttPjNpQijSJ7NkwK2nEWru2_xacgV3Jnr9MIrO1GTT0yg>
-    <xmx:6SP7akxzQYMKm-59M-TQwflBtldcBipCBTPtKYdb3k6nlLcm5iXBZw>
-    <xmx:6SP7atCj-hTWBKlPFqZIWsyF72xYi-2OlrzTmDMDw3IDjzBzse2a97Iq>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 10:40:24 -0500 (EST)
-Date: Mon, 16 Nov 2026 07:40:22 -0800
-From: Alex Williamson <alex@shazbot.org>
-To: Gustavo Andrade <gustavogyn@gmail.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, alex@shazbot.org
-Subject: Re: [RFC PATCH 0/1] vfio/pci: Wait for GB202 firmware after reset
-Message-ID: <20261116074022.29d96bd7@shazbot.org>
-In-Reply-To: <CAPZV9qUMZcwVF=CUK4LY4G6Qoqd5ykCXE5ocX8VCy_f1c6+aBw@mail.gmail.com>
-References: <CAPZV9qUk3-eKOGEjVc7f0QzZcjb3L5QwUceAEUV0nuCdo90eGw@mail.gmail.com>
-	<20261114235828.GF3706007@nvidia.com>
-	<CAPZV9qUvgKjoBXGjYXJzwnCmqzSfu781ZSG8zW6Fn4PokUN2uQ@mail.gmail.com>
-	<CAPZV9qUMZcwVF=CUK4LY4G6Qoqd5ykCXE5ocX8VCy_f1c6+aBw@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cMG5hI0T;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tEy2YW4K;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cMG5hI0T;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tEy2YW4K
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3B49B222EE;
+	Mon, 16 Nov 2026 15:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794843644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LP+H4x9t+eiBrd2FiZV5gCBvQSjLjhDszp6+ffw2i24=;
+	b=cMG5hI0T1cHj305KmJoLNtUnHsorlQJ787qsQk0ON7NU+ftWV8o35ZwLM2t39DU4tGNYTV
+	51gRe941ZWmWDg5iXXQ1xkDXhWSbLzdUq9WNI4X1d3w0EWQkQO52X2d2FHWlZFLAleOEEL
+	FXqa565LZYpkBioF7cRQjAEVKnZ2gsI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794843644;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LP+H4x9t+eiBrd2FiZV5gCBvQSjLjhDszp6+ffw2i24=;
+	b=tEy2YW4KUco1wC/PPEoWaJF9xS6XhpQRjKlBFl6+fhLcEY+7FIl9+EZIVbuzSlgOTBbqVT
+	IVMD5QkL2R/OqjDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794843644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LP+H4x9t+eiBrd2FiZV5gCBvQSjLjhDszp6+ffw2i24=;
+	b=cMG5hI0T1cHj305KmJoLNtUnHsorlQJ787qsQk0ON7NU+ftWV8o35ZwLM2t39DU4tGNYTV
+	51gRe941ZWmWDg5iXXQ1xkDXhWSbLzdUq9WNI4X1d3w0EWQkQO52X2d2FHWlZFLAleOEEL
+	FXqa565LZYpkBioF7cRQjAEVKnZ2gsI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794843644;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LP+H4x9t+eiBrd2FiZV5gCBvQSjLjhDszp6+ffw2i24=;
+	b=tEy2YW4KUco1wC/PPEoWaJF9xS6XhpQRjKlBFl6+fhLcEY+7FIl9+EZIVbuzSlgOTBbqVT
+	IVMD5QkL2R/OqjDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E54D713408;
+	Mon, 16 Nov 2026 15:40:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ghjcLfsj+2otPAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 15:40:43 +0000
+Date: Mon, 16 Nov 2026 16:40:43 +0100
+Message-ID: <875wxwyebo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usx2y: Count completions apart from the URB array length
+In-Reply-To: <20261115121602.151-1-enscrpt@pm.me>
+References: <20261115121602.151-1-enscrpt@pm.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,41 +110,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[pm.me:email,imap1.dmz-prg2.suse.org:helo];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
 
-On Sat, 14 Nov 2026 22:47:34 -0300
-Gustavo Andrade <gustavogyn@gmail.com> wrote:
-
-> Hi Jason,
+On Sun, 15 Nov 2026 13:16:33 +0100,
+Sinan Turunc wrote:
 > 
-> Thanks for the feedback. I submitted this as an RFC because, while the
-> workaround solved the issue for me, it seemed unusual that only my
-> card required it, since I haven't seen recent reports of this issue.
+> usx2y_rate_set() allocates a snd_usx2y_urb_seq with len set to the
+> number of URBs, and i_usx2y_04int() decrements len once per completed
+> URB to know when all of them are done. Since len is also the
+> __counted_by() bound of the urb[] array, every access to the array after
+> the first completion is out of range for UBSAN, and the cleanup loop in
+> usx2y_rate_set() trips it on every prepare:
 > 
-> How would you suggest I proceed? I am currently running the latest
-> VBIOS available for my card (Palit RTX 5090 GameRock, version
-> 98.02.2E.80.10), which is also the most recent version listed in the
-> TechPowerUp database.
+>   UBSAN: array-index-out-of-bounds in sound/usb/usx2y/usbusx2yaudio.c:694:18
+>   index 0 is out of range for type 'urb *[*]'
+> 
+> Count the completions in a separate field and leave len as the array
+> length.
+> 
+> Tested on 7.3-rc7 with CONFIG_UBSAN_BOUNDS and an emulated US-122 over
+> USB/IP: before, the report appears on every prepare; after, a 30 s
+> capture stream prepares and runs without it and the rate sequence still
+> completes.
+> 
+> Fixes: f5cc9cdfc96f ("ALSA: usx2y: Annotate struct snd_usx2y_urb_seq with __counted_by")
+> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
 
-I imagine a better shape for a quirk is a resetfn in QEMU.
+Applied now.  Thanks.
 
-The fact that nova knows about this issue and has code to handle it
-suggests to me that it's only the guest initial boot and reboot, where
-the VBIOS is run before the FSP is initialized, that's causing the
-problem. We don't want to pollute every vfio-pci reset with this
-wait-for-device action (if we did, a reset_done callback would be a
-better solution) and I also don't think we want to implement a
-kernel PCI-core device specific reset.  Either of those would make the
-device behave differently in a VM, or modify the current bare metal
-behavior that's clearly expected by drivers like nova.
 
-A resetfn in QEMU can be device specific, wait for FSP to initialize,
-and not affect runtime resets where it would be the driver's
-responsibility to wait for FSP, as nova already does.  For example
-something similar to vfio_radeon_reset(), but calling the
-VFIO_DEVICE_RESET ioctl and then stalling for the FSP initialization
-to complete.  Thanks,
-
-Alex
+Takashi
