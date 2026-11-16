@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794810587;
-	b=Hy3ssFeII3rAF859qz6blPncnTTa1cv1KKiwczVI9u5Y10LCwph54EMFXjsJxvmNS4zk
-	 4y1jiaA9ClI96S3/FOJkqPk0jDibNWdM80AS4GgFQhJr+wQke+8LQnLIZbKXDCgqTorWB
-	 bzpx7GKCEW40XKZf84YiCpg6GPRpjpS5Vmhi/CctWofwfTAn4TRfviVdpM5aDqnFyBX0W
-	 1wZJhIDxhl6t8Gb1W/OkVY3B7QNqYyfvKZ5hIN+UDazKigwv4apFDGO6jxMe6TOUV+rm7
-	 b7BHeTqoEWYe1nZldPBMO9IKXufIkrsAZZO25hsfohwbhdhko/Hv+mRZXjd+IBalWNA==
+	t=1794810592;
+	b=1eCs6izcvsO1cdJsAtx6lsRCbkzZe+RjXhMhZOvxZJcuOCW8F1ZGozBnAauFXCYPWuZy
+	 FG+k7ZuFFvow3crqpfNSBqJYgccCJyP8Z44NQdpCQTGboxwWnkBKqzAR9HPawXYNkampi
+	 8883tnerE9wHvaQqRYq2XY80uv/gf3+tbv+OTFxXL0lM+v6Ozv26PHLQRhyS8DkE9wSjh
+	 +avLryY0cboDPrSzRBH+ms6PBf/2L3dHNzl3tTb7/jByEE3LyjC3O+lRI2yheCQd7Fge5
+	 nr8/BYjdaurj6mx6c1gjs2wbGXaSlPipDHOQ0mp3LZSmXvPtDeIRhtveZCZFxxJhv4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810587;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810592;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
-	b=azIZuGM9r2lbbnhO4eLFz+H1z458p9HbEgbqzyluG1Cb1rx2t+Jsjc/YA7ObZtRE1735
-	 4rHG+rJuuHbGrfTqhTPyrM0Y71gkQr3jGyYPKYepbY3XoC+J/9ItFveYfW9bpndSIrK5D
-	 H4FBscJtWYrEv9anX1boqV56/3BkdlEzFUSyzJC0/6zG2J6285vRvs21fV47I9gWcsISl
-	 6H1U84IM8IyuJ+kTEVmXszdLz9czr028Thmk5XiuHrTLEXuECLNsSMuLbVYnCoMJ30Idf
-	 6/HXIVHzXj8Wk40cihPDCu1H1v4OPY6WsJkhS3kPC2YFhfDZ7yn6Oq1AUARraxMENTQ==
+	bh=yS/hV1Wpex2H5DvwJOX7XIt8ngXh0tXweh9lwPbGRNE=;
+	b=ZiNdJOb6YabExIQ8qPOorlbsWAmqg49Fxzcymh8OYkOUdZAcd42ON02ZdJaq5Zs9NMLK
+	 QyjEmoKSe8Eed0gKxeVowgwFiWJDMyURL/SQvINzYnCMeqitin0nv2U+vu8uSsSY+S/nq
+	 yL7UIolw+HQ1WK9pRn0NdClTmLOfz5QOhSSVANoBPKKcDa/QrByaKBMsvXdYkyCHGW0P9
+	 VFUX+MlhF1N6BiSn/Zy2a9FTpuyXmlCDi8bgAjuCmb1x0twd9kQOk7XxrOuVLDQzSBJ0U
+	 ch9zPx9DZL24CAjU+ozhRZbZZMOMSSKR7Fv1sT314Phe9WV/xlh6TeBhmJ3eSokn+nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="elz74/vP";
-	arc=none smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUkDmRTT;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC58A606A339
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:29:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC58A606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C481606A339
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C481606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=elz74/vP
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-71ac798b8bbso1415864eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:29:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUkDmRTT
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6aa9606ddadso2737354eaf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:29:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794810586; x=1795415386; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794810590; x=1795415390; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
-        b=elz74/vP2c+nlNIl+PVB8/nrLpxCFju4ohbmjNvODVsOHAe1HZKZqqWSXsTnwE0Pmw
-         bAVVmD0LOTrsp/sBTWY6N0AAr51rWbEySfuiXOh2Op+zIUAG4EVghd6FtKul94jMDrZm
-         9tcZ8Dv3LNFPOHZMDsq0eII2I8JVNIZeK5J+u7nQc7UDWIUMOGEBHHo8LZHN2y1UUqS2
-         JpwwV17CaBYt9Yu4DvuDdbhokiAe4aSwXbKZMGr7boTScTvR3uFvwhFcR7o5fEgneRV3
-         gNVFtf8VbF7UQge7Gss6AkaulW4nnKs+my5U+FzziVYZxo2aztic2GFL+cjocuSQXv/E
-         yujg==
+        bh=yS/hV1Wpex2H5DvwJOX7XIt8ngXh0tXweh9lwPbGRNE=;
+        b=mUkDmRTTAwh8VIrtPyA/ViTy8+/4EX7+NJH0Z7TnGPrwRr09HZZ0Scifl4gm4Vf6/u
+         VKBkwrl9ephvKP/W0CR1DRwOMFusFFlKYKAyW4TrWASSq+BTRFWBKYpSEmbIvWmiftfn
+         hn7Px9QxFO5jceX0X8ZGbMuF99ysCmQvg2YAUHfKfaMjSbYL46Pxb3/YjGT6JAflIEXt
+         lnh5ciSPeGHnp+Wrr5xT+xcIivLP7wrosZosiGc0yyUN0OAk4v+nddcTJmIBaHU/WT5X
+         R1/p1uroHduLQ/MYRa7uCa70HgYv3wFzuNj0pV2Pl05eecpJmv+5pEr3q9sOT3dJ0SPE
+         /1Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794810586; x=1795415386;
+        d=1e100.net; s=20260707; t=1794810590; x=1795415390;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
-        b=eBmdJHigV/IdiZ1RAOr509RFkuteUMUO2EuDZNxtRIVh/bBDHgQ4l4+PeBCEjsk1JN
-         QtYCFk7gukeZr8nIj/IXgA+LEu/Qm/mRqeV2OTXboJYqCr86J3MCklNA6AwyM0PmMsaK
-         cjUeOr87IlIgEofGu/lM6mSc6jxdZ7CmtV26jtBy6bJeJdDtwdc7vVMegLSy4xKIsM3q
-         pO9GXAH70+A6snqsWQoTd6FmG7gVcO1Zhki4frDyyRLq3tkqydseIkjvs4oIsAWuwHW5
-         4EaLndStgjHfATfTlP6bPf2AMiGE0l/bWUKiVzWCF/S4I5gDUv7sIhd9uS87yR/e8qyB
-         7ruw==
-X-Forwarded-Encrypted: i=1; AL+hErEvViLMwFxe+JsfPjdSE0t6I0Qip8fC4UT83HtIM3PgrCqbg2V9USkFr2kwMNZAgnPZ5xLuEydRfHjNQ9U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OxZcc3jV33HoIItuyIMsFG32AFFM8k9SKzAiVAqXa5bFzT595
-	o4IAoTzGzaecubm8Uq45GwNcJQhrNQpIg6WwhI95KsJRVTxDlS7iT7lD
-X-Gm-Gg: AYBFou2zoP0P7UacefmP8Y1OKs1ff8KrEEtaxyVNsyk9QKdUUquuzt+67SMABXvFSsD
-	16hPSKoO0DpjASd6QIBly0hSYsACnEgRLv/I0HU/W8zVln9A2ia1avTgRepQMeNMhTf1aOBGApr
-	eIQXCMQwRUOInIXzRKdeHPO6ThfQOd5rec5Q+KDzFOW5ZRNp38Wpcvewdmuh1VYTDWVJI7lSOE3
-	1d0o4cmKsErOJsArJKr8aogou6HN1ovEU+feoVf5QqgrlIXibuC74MzNxZtIzK5WmvzUJ1ggOfe
-	Wi6vaZ0z0NwuSH1yteMG10TQ7FsKrzSw8epl23yJXv66qNBNRkcR241DOFrDQ732nyXr1QhQg/m
-	uSfSjQrnEGmHYtHhCiKZHMUTiRqd3RS24PrUG+/Wl5e34ahjgkX4+CmA45Hp74vm0FthhOF80nb
-	cVeCM5CyCeYtVA0yB0dwg6IRzRj2qysoephMXoutK0PfV+AAaMMtJ37p1kn0I1UZSZTPYRr6cPw
-	oXE+P7XBdWPUXxSma0mhHjJ1a8Y68a+9uRyqiHDjMsSDrHk7ej01+HXNI1D/cC3Bp8Juj7q8hlI
-	WpouPI/vZGtPFzxxPm3QMwqGbHA9bONWMz1YLhEmv0ln1xysIRmQ6mgzUD9PLYsOmKFvUVE5nTD
-	WC6E553SuR5ft5NszwQAYsN4WEfsNjDxoyM57XwvAAVW9Ooi+l9XcNGrTkeCuSPs+mH/w+zIebt
-	UJNqAmzqgn4PgHe0i02bfxGf357aZj+4BXON2qVH8bMS5IEI0Kk74=
-X-Received: by 2002:a05:6820:1caa:b0:70b:9b1f:e896 with SMTP id 006d021491bc7-71ab518e4a6mr6544529eaf.77.1794810585506;
-        Sun, 15 Nov 2026 22:29:45 -0800 (PST)
+        bh=yS/hV1Wpex2H5DvwJOX7XIt8ngXh0tXweh9lwPbGRNE=;
+        b=lG/5pOA1sphAoGXnQigT8wI0mlVI+YyqWUqLxzQSO84ne7wWEAvBkwmQndE5RGuFXZ
+         euA7tstIhUJ0vXyr59bcueBko79xNDYqOwmmcIkGMF9ENDfYeV/dzFltCUQV2V/yMTCX
+         zeW99i0+SFKn1/r3cwt6kQk/BIJ09vhoYOTKkU5mX4wSUeQJi8R9y3RHZQrgxUPyRG95
+         RQpCepTgqeN/egWCuPFCTcbJFnYnX09AYFeFPal6xGmkA6dBQznAQS9JWdQYWdvzeJkU
+         Bd/FWm2Oz5b1D8hHzVmkz6Q3WFByXqiSxWffx9RIzJBqycP4zKvFIQrmRlRXyYKUhk0a
+         3h0Q==
+X-Forwarded-Encrypted: i=1; AL+hErG2DxNU2+M/IuJO8VdA+x2C5v3pAnXcEJ75vgb6GPCoUKKp/LldnZbN/VSi9BNUr8H8HDjFlVoPnKYpgIw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uAxAAYe1xuesJz+tZ/JROAgMKHOTgP6/7Af6OOKJQSGDHcGtP
+	PhmOrgRb+1vUGErKWrl6Hy7vKkRPLUPtMVi9Xqrts9Mr0aoPpcCHb3dw
+X-Gm-Gg: AYBFou1GLE8XMRERHw5g8tLHZWB2+qtLBx2o0w/FLLRkgt1Kedbx0PFIG1OMkGG56yh
+	ZEfynGaTCY1SssvZc3NT9s5lHyz3fawYkQxrov7zTGhWBIJBSC2d5xfUPTX/vWSAiDqsk1bzeZw
+	x4TIDeb/yVqYqs9gM2wogBc+3Uenr0k5arrRQIqKWwlqEsSDYCnTcFfbsMjMl8LpipYxIfb2eyv
+	K0npj33pt03wPxfJCqPr7XH4e29WAMSjkqEfhT1xJPbTSg/S990qKhy5EKxb3K4rjbaXUD/LiFR
+	vHN6uYE4tC2jIaK+vCMj1Tg0FamINhoBWo7wqzlmqT7JjhkAoSLbojArWHkBEexDgRk2uIYCX+0
+	Roup4nrpe/UinKVa3dQWpt292Kf1CzOs+DAIKhZzrEpjh+MxCbigqMRDDbgUqKQOKMd2Rt9ilfu
+	NjwHnl7EeYvPxqxHSAgeffiR3q2VzIJKjMgOMoH1g8SHLJpulg5Dz50yAKAUNLSxuX2YAyeA076
+	9loX1OgxpIfr65Eo+kyr4chxCqI9KKr94y8OgGlSn8mwlBFOrqDqxNLK4kA9OnRB8UP0HUwCDsn
+	Nh/tfxpwxbAxJjLL05L/SMUXMn6V7ymJNqdVJsh/TX2IIkQhWHb2eH/m+NJsHUtTJeMT5vRoMfD
+	qDFFXJBBRQI06xZSh5sLtngHbvXjqQJcJtIeqMAjB2nFeQlgEKtw3LXxnxn1mOSDTxplIB1sikX
+	CDOzFJa49dHsU+6xxFATf0WFJZWV4LHEdwlqPKa4n61uUFAwAWemg=
+X-Received: by 2002:a05:6820:7618:b0:71a:cf71:ead2 with SMTP id 006d021491bc7-71acf71f30dmr3917239eaf.42.1794810589744;
+        Sun, 15 Nov 2026 22:29:49 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab42c41e9sm7994558eaf.6.2026.11.15.22.29.44
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab42c41e9sm7994558eaf.6.2026.11.15.22.29.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 22:29:45 -0800 (PST)
+        Sun, 15 Nov 2026 22:29:49 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 15 Nov 2026 23:29:16 -0700
-Subject: [PATCH v5 01/58] nvmem: disconnect provider callbacks before
- unregister returns
+Date: Sun, 15 Nov 2026 23:29:19 -0700
+Subject: [PATCH v5 04/58] mtd: retain virtual concatenations across
+ component removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-submit-rawnand-retained-handle-lifetime-v1-v5-1-cbc49c5c5e74@gmail.com>
+Message-Id: <20261115-submit-rawnand-retained-handle-lifetime-v1-v5-4-cbc49c5c5e74@gmail.com>
 References: <20261115-submit-rawnand-retained-handle-lifetime-v1-v5-0-cbc49c5c5e74@gmail.com>
 In-Reply-To: <20261115-submit-rawnand-retained-handle-lifetime-v1-v5-0-cbc49c5c5e74@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -104,1238 +104,1065 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  James Hilliard <james.hilliard1@gmail.com>, 
- Srinivas Kandagatla <srini@kernel.org>, Tze Yee Ng <tze.yee.ng@altera.com>
+ Yuqiang Sun <izaiahsun@gmail.com>, 
+ Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Bernhard Frauendienst <kernel@nospam.obeliks.de>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Kees Cook <kees@kernel.org>, 
+ linux-hardening@vger.kernel.org
 X-Mailer: b4 0.17-dev
 
-An NVMEM consumer or device reference can outlive provider unbind. The
-reference retains the NVMEM allocation, but not the private data or
-hardware resources that the provider releases during remove. Pinning the
-provider module also does not prevent unbind from freeing that state.
+Virtual concatenation keeps hidden partition objects outside the normal
+partition list. They neither retain their backing masters nor get removed
+by registration-failure cleanup. Teardown also compares a master against
+its hidden children, leaving stale pointers when a component disappears.
 
-Reject new callback access once unregister starts and drain admitted
-accesses with SRCU before returning to the provider. Cover register
-access, keepout handling, cell post-processing and device matching.
-Existing consumers retain core-owned metadata and return -ENODEV after
-disconnection. Release the write-protect GPIO after the drain so
-retained references do not prevent a new provider from requesting it.
-The final device release frees only core-owned data.
+Give staged components ownership of managed backing objects and register
+the allocation returned by mtd_concat_create() directly. Serialize staging
+and publication across controllers, keeping components in DT order and
+publishing only after every contributing master finishes registration.
 
-Give cell entries their own references and retire layout cells when
-their driver is unbound. Remove and drain cell attributes and callbacks
-before layout-owned state is freed. Rebinding creates new entries; held
-old cells remain disconnected. Remove partially added cells when a
-layout probe fails, and destroy the layout during provider unregister
-rather than at the final consumer put.
+Disconnect and drain the concatenation before releasing any component.
+Gate all forwarding operations, including OOB-layout callbacks, with SRCU.
+Use its NMI-safe reader flavor because panic writes use the same object.
+Drain while the staging lock still serializes concurrent removals, so a
+second unmanaged master cannot free its state before admitted I/O finishes.
+Then unregister outside the staging lock and release component references.
+An old handle retains disconnected virtual metadata, not a replacement's
+components or hardware callbacks.
 
-Track layout ownership explicitly so provider cells added after layout
-creation survive its unbind. Rebuild sysfs cell attributes when layouts
-bind or unbind, retaining cell entries until their attributes have been
-removed. Free partial attribute allocations on failure and remove the
-group before device deletion. Only notify provider removal after a
-successful registration notification.
+Resolve the first component's OOB layout through its master: partitions
+inherit this layout instead of storing their own callbacks.
 
-Preserve the existing exporter-module references and allow providers
-to specify an explicit NULL owner when their operations are built in.
-Providers remain responsible for unregistering before releasing
-callback state.
+Unwind hidden components with ordinary partitions on registration failure,
+preserving other masters' staged components for a later probe. Advance the
+partition offset past hidden components, and use a separate partition-lock
+class for virtual masters to allow removal through a physical partition.
 
-Retain the firmware node explicitly and serialize consumer-reference
-acquisition with disconnection. This lets MTD unregister an OTP provider
-before freeing its backing object without requiring a release callback
-into the departing provider module.
-
-Cc: Srinivas Kandagatla <srini@kernel.org>
-Cc: Tze Yee Ng <tze.yee.ng@altera.com>
+Fixes: 43db6366fc2d ("mtd: Add driver for concatenating devices")
+Cc: Yuqiang Sun <izaiahsun@gmail.com>
+Cc: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Bernhard Frauendienst <kernel@nospam.obeliks.de>
+Cc: Gustavo A. R. Silva <gustavoars@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: linux-hardening@vger.kernel.org
+Link: https://lore.kernel.org/r/20261103143953.69642-1-izaiahsun@gmail.com/
+Link: https://lore.kernel.org/r/sashiko-outbox-195551@kernel.org/
+Link: https://lore.kernel.org/r/sashiko-outbox-210241@kernel.org/
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/nvmem/Kconfig                |   1 +
- drivers/nvmem/core.c                 | 463 +++++++++++++++++++++++------------
- drivers/nvmem/internals.h            |  16 +-
- drivers/nvmem/layouts.c              |   2 +
- drivers/nvmem/layouts/fixed-layout.c |   2 +-
- drivers/nvmem/layouts/onie-tlv.c     |  20 +-
- drivers/nvmem/layouts/sl28vpd.c      |   3 +-
- drivers/nvmem/layouts/u-boot-env.c   |  25 +-
- include/linux/nvmem-provider.h       |  16 +-
- 9 files changed, 373 insertions(+), 175 deletions(-)
+ drivers/mtd/Kconfig           |   1 +
+ drivers/mtd/mtd_virt_concat.c | 526 +++++++++++++++++++++---------------------
+ drivers/mtd/mtdconcat.c       | 103 ++++++++-
+ drivers/mtd/mtdcore.c         |   3 +-
+ drivers/mtd/mtdpart.c         |  14 +-
+ include/linux/mtd/concat.h    |  22 +-
+ 6 files changed, 399 insertions(+), 270 deletions(-)
 
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index c36c2a4c2a0b..550f3118071a 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- menuconfig NVMEM
- 	bool "NVMEM Support"
+diff --git a/drivers/mtd/Kconfig b/drivers/mtd/Kconfig
+index d13a065874ba..97f10fda30a4 100644
+--- a/drivers/mtd/Kconfig
++++ b/drivers/mtd/Kconfig
+@@ -4,6 +4,7 @@ config MTD_DEVICE
+ menuconfig MTD
+ 	tristate "Memory Technology Device (MTD) support"
+ 	select MTD_DEVICE
 +	select SRCU
- 	imply NVMEM_LAYOUTS
+ 	imply NVMEM
  	help
- 	  Support for NVMEM(Non Volatile Memory) devices like EEPROM, EFUSES...
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 0556d140170a..b71d80d140dd 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -13,6 +13,7 @@
- #include <linux/idr.h>
- #include <linux/init.h>
- #include <linux/kref.h>
+ 	  Memory Technology Devices are flash, RAM and similar chips, often
+diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
+index 0d501e1565c0..2738e7417e2d 100644
+--- a/drivers/mtd/mtd_virt_concat.c
++++ b/drivers/mtd/mtd_virt_concat.c
+@@ -7,346 +7,356 @@
+  */
+ 
+ #include <linux/device.h>
 +#include <linux/lockdep.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
-@@ -26,7 +27,11 @@
- #define to_nvmem_device(d) container_of(d, struct nvmem_device, dev)
- 
- #define FLAG_COMPAT		BIT(0)
-+#define FLAG_REGISTERED		BIT(1)
- struct nvmem_cell_entry {
-+	struct kref		refcnt;
-+	bool			disconnected;
-+	struct nvmem_layout	*layout;
- 	const char		*name;
- 	int			offset;
- 	size_t			raw_len;
-@@ -54,31 +59,30 @@ static LIST_HEAD(nvmem_lookup_list);
- 
- static BLOCKING_NOTIFIER_HEAD(nvmem_notifier);
- 
-+static void nvmem_cell_entry_put(struct nvmem_cell_entry *cell);
++#include <linux/module.h>
+ #include <linux/mtd/mtd.h>
+-#include "mtdcore.h"
+-#include <linux/mtd/partitions.h>
++#include <linux/mtd/concat.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+-#include <linux/of_platform.h>
+ #include <linux/slab.h>
+-#include <linux/mtd/concat.h>
 +
- static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- 			    void *val, size_t bytes)
- {
--	struct nvmem_operations *ops = nvmem->ops;
--
--	if (!ops->reg_read)
-+	if (!nvmem->reg_read)
- 		return -EOPNOTSUPP;
++#include "mtdcore.h"
  
--	return ops->reg_read(nvmem->priv, offset, val, bytes);
-+	return nvmem->reg_read(nvmem->priv, offset, val, bytes);
- }
+ #define CONCAT_PROP "part-concat-next"
+-#define CONCAT_POSTFIX "concat"
+-#define MIN_DEV_PER_CONCAT 1
  
- static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
- 			     void *val, size_t bytes)
- {
--	struct nvmem_operations *ops = nvmem->ops;
- 	int ret, wr_ok;
- 
--	if (!ops->reg_write)
-+	if (!nvmem->reg_write)
- 		return -EOPNOTSUPP;
- 
- 	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
- 	if (ret)
- 		return ret;
- 
--	wr_ok = ops->reg_write(nvmem->priv, offset, val, bytes);
-+	wr_ok = nvmem->reg_write(nvmem->priv, offset, val, bytes);
- 
- 	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
- 	if (ret)
-@@ -154,6 +158,10 @@ static int nvmem_access_with_keepouts(struct nvmem_device *nvmem,
- static int nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- 			  void *val, size_t bytes)
- {
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
+-static LIST_HEAD(concat_node_list);
++struct mtd_virt_concat_part {
++	struct device_node *node;
++	struct mtd_info *mtd;
++	bool ready;
++};
 +
- 	if (!nvmem->nkeepout)
- 		return __nvmem_reg_read(nvmem, offset, val, bytes);
++struct mtd_virt_concat_device {
++	struct list_head node;
++	struct mtd_info *mtd;
++};
  
-@@ -163,6 +171,10 @@ static int nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- static int nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
- 			   void *val, size_t bytes)
- {
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	if (!nvmem->nkeepout)
- 		return __nvmem_reg_write(nvmem, offset, val, bytes);
- 
-@@ -289,8 +301,6 @@ static ssize_t bin_attr_nvmem_write(struct file *filp, struct kobject *kobj,
- 
- static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
- {
--	struct nvmem_operations *ops = nvmem->ops;
--
- 	umode_t mode = 0400;
- 
- 	if (!nvmem->root_only)
-@@ -299,10 +309,10 @@ static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
- 	if (!nvmem->read_only)
- 		mode |= 0200;
- 
--	if (!ops->reg_write)
-+	if (!nvmem->reg_write)
- 		mode &= ~0200;
- 
--	if (!ops->reg_read)
-+	if (!nvmem->reg_read)
- 		mode &= ~0444;
- 
- 	return mode;
-@@ -333,7 +343,6 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
- {
- 	struct device *dev = kobj_to_dev(kobj);
- 	struct nvmem_device *nvmem = to_nvmem_device(dev);
--	struct nvmem_operations *ops = nvmem->ops;
- 
- 	/*
- 	 * If the device has no .reg_write operation, do not allow
-@@ -342,7 +351,7 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
- 	 * can be forced into read-write mode using the 'force_ro'
- 	 * attribute.
- 	 */
--	if (attr == &dev_attr_force_ro.attr && !ops->reg_write)
-+	if (attr == &dev_attr_force_ro.attr && !nvmem->reg_write)
- 		return 0;	/* Attribute not visible */
- 
- 	return attr->mode;
-@@ -466,59 +475,102 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
- 		device_remove_bin_file(nvmem->base_dev, &nvmem->eeprom);
- }
- 
--static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
-+static void nvmem_sysfs_free_cell_attrs(const struct bin_attribute * const *attrs)
- {
--	struct attribute_group group = {
--		.name	= "cells",
--	};
--	struct nvmem_cell_entry *entry;
--	const struct bin_attribute **pattrs;
--	struct bin_attribute *attrs;
--	unsigned int ncells = 0, i = 0;
--	int ret;
-+	if (!attrs)
-+		return;
- 
--	guard(mutex)(&nvmem_mutex);
-+	for (int i = 0; attrs[i]; i++) {
-+		nvmem_cell_entry_put(attrs[i]->private);
-+		kfree(attrs[i]->attr.name);
-+		kfree(attrs[i]);
-+	}
-+	kfree(attrs);
-+}
- 
--	if (list_empty(&nvmem->cells) || nvmem->sysfs_cells_populated)
--		return 0;
-+static void __nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
-+{
-+	lockdep_assert_held(&nvmem->sysfs_mutex);
- 
--	/* Allocate an array of attributes with a sentinel */
--	ncells = list_count_nodes(&nvmem->cells);
--	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
--			      sizeof(struct bin_attribute *), GFP_KERNEL);
--	if (!pattrs)
--		return -ENOMEM;
-+	if (!nvmem->sysfs_cells_populated)
-+		return;
- 
--	attrs = devm_kcalloc(&nvmem->dev, ncells, sizeof(struct bin_attribute), GFP_KERNEL);
--	if (!attrs)
--		return -ENOMEM;
-+	device_remove_group(&nvmem->dev, &nvmem->cells_group);
-+	nvmem_sysfs_free_cell_attrs(nvmem->cells_group.bin_attrs);
-+	nvmem->cells_group.bin_attrs = NULL;
-+	nvmem->sysfs_cells_populated = false;
-+}
-+
-+static void nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
-+{
-+	guard(mutex)(&nvmem->sysfs_mutex);
-+	__nvmem_sysfs_remove_cells(nvmem);
-+}
-+
-+static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
-+{
-+	struct nvmem_cell_entry *entry;
-+	const struct bin_attribute **attrs = NULL;
-+	unsigned int i = 0;
-+	int ret = 0;
- 
--	/* Initialize each attribute to take the name and size of the cell */
--	list_for_each_entry(entry, &nvmem->cells, node) {
--		sysfs_bin_attr_init(&attrs[i]);
--		attrs[i].attr.name = devm_kasprintf(&nvmem->dev, GFP_KERNEL,
--						    "%s@%x,%x", entry->name,
--						    entry->offset,
--						    entry->bit_offset);
--		attrs[i].attr.mode = 0444 & nvmem_bin_attr_get_umode(nvmem);
--		attrs[i].size = entry->bytes;
--		attrs[i].read = &nvmem_cell_attr_read;
--		attrs[i].private = entry;
--		if (!attrs[i].attr.name)
-+	guard(mutex)(&nvmem->sysfs_mutex);
-+
-+	__nvmem_sysfs_remove_cells(nvmem);
-+
-+	scoped_guard(mutex, &nvmem_mutex) {
-+		if (nvmem->disconnected)
-+			return -ENODEV;
-+		if (list_empty(&nvmem->cells))
-+			return 0;
-+
-+		attrs = kcalloc(list_count_nodes(&nvmem->cells) + 1,
-+				sizeof(*attrs), GFP_KERNEL);
-+		if (!attrs)
- 			return -ENOMEM;
- 
--		pattrs[i] = &attrs[i];
--		i++;
-+		list_for_each_entry(entry, &nvmem->cells, node) {
-+			struct bin_attribute *attr;
-+
-+			attr = kzalloc_obj(*attr);
-+			if (!attr) {
-+				ret = -ENOMEM;
-+				break;
-+			}
-+			sysfs_bin_attr_init(attr);
-+			attr->attr.name = kasprintf(GFP_KERNEL, "%s@%x,%x",
-+						   entry->name, entry->offset,
-+						   entry->bit_offset);
-+			if (!attr->attr.name) {
-+				kfree(attr);
-+				ret = -ENOMEM;
-+				break;
-+			}
-+			attr->attr.mode = 0444 & nvmem_bin_attr_get_umode(nvmem);
-+			attr->size = entry->bytes;
-+			attr->read = nvmem_cell_attr_read;
-+			attr->private = entry;
-+			kref_get(&entry->refcnt);
-+			attrs[i++] = attr;
-+		}
- 	}
-+	if (ret)
-+		goto err_free;
- 
--	group.bin_attrs = pattrs;
-+	nvmem->cells_group.name = "cells";
-+	nvmem->cells_group.bin_attrs = attrs;
- 
--	ret = device_add_group(&nvmem->dev, &group);
--	if (ret)
--		return ret;
-+	ret = device_add_group(&nvmem->dev, &nvmem->cells_group);
-+	if (ret) {
-+		nvmem->cells_group.bin_attrs = NULL;
-+		goto err_free;
-+	}
- 
- 	nvmem->sysfs_cells_populated = true;
-+	return 0;
- 
-+err_free:
-+	nvmem_sysfs_free_cell_attrs(attrs);
- 	return ret;
- }
- 
-@@ -533,6 +585,10 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
- {
- }
- 
-+static void nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
-+{
-+}
-+
- #endif /* CONFIG_NVMEM_SYSFS */
- 
- static void nvmem_release(struct device *dev)
-@@ -540,8 +596,8 @@ static void nvmem_release(struct device *dev)
- 	struct nvmem_device *nvmem = to_nvmem_device(dev);
- 
- 	ida_free(&nvmem_ida, nvmem->id);
--	gpiod_put(nvmem->wp_gpio);
--	kfree(nvmem->ops);
-+	of_node_put(nvmem->dev.of_node);
-+	cleanup_srcu_struct(&nvmem->srcu);
- 	kfree(nvmem);
- }
- 
-@@ -553,22 +609,30 @@ static const struct bus_type nvmem_bus_type = {
- 	.name		= "nvmem",
+-/**
+- * struct mtd_virt_concat_node - components of a concatenation
+- * @head: List handle
+- * @count: Number of nodes
+- * @nodes: Pointer to the nodes (partitions) to concatenate
+- * @concat: Concatenation container
+- */
+ struct mtd_virt_concat_node {
+-	struct list_head head;
++	struct list_head node;
++	struct mtd_virt_concat_device *device;
+ 	unsigned int count;
+-	struct mtd_concat *concat;
+-	struct device_node *nodes[] __counted_by(count);
++	struct mtd_virt_concat_part parts[] __counted_by(count);
  };
  
--static void nvmem_cell_entry_drop(struct nvmem_cell_entry *cell)
-+static void nvmem_cell_entry_release(struct kref *ref)
- {
--	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
--	scoped_guard(mutex, &nvmem_mutex)
--		list_del(&cell->node);
-+	struct nvmem_cell_entry *cell = container_of(ref, struct nvmem_cell_entry, refcnt);
+-/**
+- * mtd_is_part_concat - Check if the device is already part
+- *                       of a concatenated device
+- * @dev:        pointer to 'device_node'
+- *
+- * Return: true if the device is already part of a concatenation,
+- *         false otherwise.
+- */
+-static bool mtd_is_part_concat(struct device_node *dev)
++static LIST_HEAD(concat_node_list);
++static DEFINE_MUTEX(concat_lock);
++static struct lock_class_key concat_partitions_lock_key;
 +
- 	of_node_put(cell->np);
- 	kfree_const(cell->name);
- 	kfree(cell);
++static bool mtd_is_part_concat(struct device_node *node)
+ {
+ 	struct mtd_virt_concat_node *item;
+-	int idx;
++	unsigned int i;
+ 
+-	list_for_each_entry(item, &concat_node_list, head) {
+-		for (idx = 0; idx < item->count; idx++) {
+-			if (item->nodes[idx] == dev)
++	list_for_each_entry(item, &concat_node_list, node)
++		for (i = 0; i < item->count; i++)
++			if (item->parts[i].node == node)
+ 				return true;
+-		}
+-	}
+ 	return false;
  }
  
-+static void nvmem_cell_entry_put(struct nvmem_cell_entry *cell)
+-static void mtd_virt_concat_put_mtd_devices(struct mtd_concat *concat)
++/* Hidden partitions have no registered device to own their storage. */
++static void mtd_virt_concat_part_release(struct kref *ref)
 +{
-+	kref_put(&cell->refcnt, nvmem_cell_entry_release);
++	struct mtd_info *mtd = container_of(ref, struct mtd_info, refcnt);
++	struct mtd_info *master = mtd->ref_master;
++	struct mtd_info *parent = mtd->parent;
++
++	of_node_put(mtd_get_of_node(mtd));
++	release_mtd_partition(mtd);
++	if (master) {
++		if (parent != master)
++			mtd_put_data(parent);
++		mtd_put_lifetime(master);
++	}
 +}
 +
- static void nvmem_device_remove_all_cells(const struct nvmem_device *nvmem)
++static void mtd_virt_concat_part_put(struct mtd_info *mtd)
  {
- 	struct nvmem_cell_entry *cell, *p;
++	kref_put(&mtd->refcnt, mtd_virt_concat_part_release);
++}
++
++static void mtd_virt_concat_release(struct mtd_info *mtd)
++{
++	struct mtd_concat *concat = container_of(mtd, struct mtd_concat, mtd);
+ 	int i;
  
--	list_for_each_entry_safe(cell, p, &nvmem->cells, node)
--		nvmem_cell_entry_drop(cell);
-+	list_for_each_entry_safe(cell, p, &nvmem->cells, node) {
-+		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
-+		scoped_guard(mutex, &nvmem_mutex)
-+			list_del(&cell->node);
-+		nvmem_cell_entry_put(cell);
-+	}
+ 	for (i = 0; i < concat->num_subdev; i++)
+-		put_mtd_device(concat->subdev[i]);
++		if (concat->subdev[i])
++			mtd_virt_concat_part_put(concat->subdev[i]);
++	kfree(mtd->priv);
++	kfree(mtd->name);
++	mtd_concat_destroy(mtd);
  }
  
- static void nvmem_cell_entry_add(struct nvmem_cell_entry *cell)
-@@ -583,6 +647,7 @@ static int nvmem_cell_info_to_nvmem_cell_entry_nodup(struct nvmem_device *nvmem,
- 						     struct nvmem_cell_entry *cell)
+-void mtd_virt_concat_destroy_joins(void)
++static void mtd_virt_concat_unregister(struct list_head *devices)
  {
- 	cell->nvmem = nvmem;
-+	cell->disconnected = false;
- 	cell->offset = info->offset;
- 	cell->raw_len = info->raw_len ?: info->bytes;
- 	cell->bytes = info->bytes;
-@@ -639,20 +704,17 @@ static int nvmem_cell_info_to_nvmem_cell_entry(struct nvmem_device *nvmem,
- 	return 0;
+-	struct mtd_virt_concat_node *item, *tmp;
+-	struct mtd_info *mtd;
++	struct mtd_virt_concat_device *device, *next;
+ 
+-	list_for_each_entry_safe(item, tmp, &concat_node_list, head) {
+-		mtd = &item->concat->mtd;
+-		if (item->concat) {
+-			mtd_device_unregister(mtd);
+-			kfree(mtd->name);
+-			mtd_virt_concat_put_mtd_devices(item->concat);
+-			mtd_concat_destroy(mtd);
++	list_for_each_entry_safe(device, next, devices, node) {
++		struct mtd_concat *concat = container_of(device->mtd, struct mtd_concat, mtd);
++		int i;
++
++		list_del(&device->node);
++		mtd_device_unregister(device->mtd);
++		for (i = 0; i < concat->num_subdev; i++) {
++			mtd_virt_concat_part_put(concat->subdev[i]);
++			concat->subdev[i] = NULL;
+ 		}
++		mtd_put_master(device->mtd);
+ 	}
  }
  
 -/**
-- * nvmem_add_one_cell() - Add one cell information to an nvmem device
+- * mtd_virt_concat_destroy - Destroy the concat that includes the mtd object
+- * @mtd:        pointer to 'mtd_info'
 - *
-- * @nvmem: nvmem device to add cells to.
-- * @info: nvmem cell info to add to the device
-- *
-- * Return: 0 or negative error code on failure.
+- * Return: 0 on success, -error otherwise.
 - */
--int nvmem_add_one_cell(struct nvmem_device *nvmem,
--		       const struct nvmem_cell_info *info)
-+static int __nvmem_add_one_cell(struct nvmem_device *nvmem,
-+				const struct nvmem_cell_info *info,
-+				struct nvmem_layout *layout)
++static bool mtd_virt_concat_contains(struct mtd_info *part, struct mtd_info *mtd)
++{
++	for (; part; part = part->parent)
++		if (part == mtd)
++			return true;
++	return false;
++}
++
+ int mtd_virt_concat_destroy(struct mtd_info *mtd)
  {
- 	struct nvmem_cell_entry *cell;
- 	int rval;
- 
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	cell = kzalloc_obj(*cell);
- 	if (!cell)
- 		return -ENOMEM;
-@@ -663,12 +725,45 @@ int nvmem_add_one_cell(struct nvmem_device *nvmem,
- 		return rval;
- 	}
- 
-+	kref_init(&cell->refcnt);
-+	cell->layout = layout;
- 	nvmem_cell_entry_add(cell);
- 
- 	return 0;
- }
-+
-+/**
-+ * nvmem_add_one_cell() - Add one cell information to an nvmem device
-+ *
-+ * @nvmem: nvmem device to add cells to.
-+ * @info: nvmem cell info to add to the device
-+ *
-+ * Return: 0 or negative error code on failure.
-+ */
-+int nvmem_add_one_cell(struct nvmem_device *nvmem,
-+		       const struct nvmem_cell_info *info)
-+{
-+	return __nvmem_add_one_cell(nvmem, info, NULL);
-+}
- EXPORT_SYMBOL_GPL(nvmem_add_one_cell);
- 
-+/**
-+ * nvmem_layout_add_cell() - Add a cell owned by an NVMEM layout
-+ * @layout: Layout registering the cell from its add_cells callback.
-+ * @info: Cell description.
-+ *
-+ * The cell and its post-processing callback are disconnected when the layout
-+ * is unregistered. Provider cells added with nvmem_add_one_cell() are retained.
-+ *
-+ * Return: 0 or a negative error code.
-+ */
-+int nvmem_layout_add_cell(struct nvmem_layout *layout,
-+			  const struct nvmem_cell_info *info)
-+{
-+	return __nvmem_add_one_cell(layout->nvmem, info, layout);
-+}
-+EXPORT_SYMBOL_GPL(nvmem_layout_add_cell);
-+
- /**
-  * nvmem_add_cells() - Add cell information to an nvmem device
-  *
-@@ -729,6 +824,7 @@ nvmem_find_cell_entry_by_name(struct nvmem_device *nvmem, const char *cell_id)
- 	list_for_each_entry(iter, &nvmem->cells, node) {
- 		if (strcmp(cell_id, iter->name) == 0) {
- 			cell = iter;
-+			kref_get(&cell->refcnt);
- 			break;
- 		}
- 	}
-@@ -789,12 +885,17 @@ static int nvmem_validate_keepouts(struct nvmem_device *nvmem)
- 	return 0;
- }
- 
--int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
-+static int __nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np,
-+				     struct nvmem_layout *layout)
- {
- 	struct device *dev = &nvmem->dev;
- 	const __be32 *addr;
- 	int len, ret;
- 
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	for_each_child_of_node_scoped(np, child) {
- 		struct nvmem_cell_info info = {0};
- 
-@@ -827,7 +928,7 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
- 		if (nvmem->fixup_dt_cell_info)
- 			nvmem->fixup_dt_cell_info(nvmem, &info);
- 
--		ret = nvmem_add_one_cell(nvmem, &info);
-+		ret = __nvmem_add_one_cell(nvmem, &info, layout);
- 		kfree(info.name);
- 		if (ret) {
- 			of_node_put(info.np);
-@@ -837,8 +938,19 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
- 
- 	return 0;
- }
-+
-+int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
-+{
-+	return __nvmem_add_cells_from_dt(nvmem, np, NULL);
-+}
- EXPORT_SYMBOL_GPL(nvmem_add_cells_from_dt);
- 
-+int nvmem_layout_add_cells_from_dt(struct nvmem_layout *layout, struct device_node *np)
-+{
-+	return __nvmem_add_cells_from_dt(layout->nvmem, np, layout);
-+}
-+EXPORT_SYMBOL_GPL(nvmem_layout_add_cells_from_dt);
-+
- static int nvmem_add_cells_from_legacy_of(struct nvmem_device *nvmem)
- {
- 	return nvmem_add_cells_from_dt(nvmem, nvmem->dev.of_node);
-@@ -851,29 +963,68 @@ int nvmem_layout_register(struct nvmem_layout *layout)
- 	if (!layout->add_cells)
- 		return -EINVAL;
- 
--	/* Populate the cells */
--	ret = layout->add_cells(layout);
-+	scoped_guard(srcu, &layout->nvmem->srcu) {
-+		if (READ_ONCE(layout->nvmem->disconnected))
-+			return -ENODEV;
-+		ret = layout->add_cells(layout);
-+	}
- 	if (ret)
--		return ret;
-+		goto err_unregister;
- 
- #ifdef CONFIG_NVMEM_SYSFS
- 	ret = nvmem_populate_sysfs_cells(layout->nvmem);
--	if (ret) {
--		nvmem_device_remove_all_cells(layout->nvmem);
--		return ret;
--	}
-+	if (ret)
-+		goto err_unregister;
- #endif
- 
- 	return 0;
-+
-+err_unregister:
-+	nvmem_layout_unregister(layout);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(nvmem_layout_register);
- 
- void nvmem_layout_unregister(struct nvmem_layout *layout)
- {
--	/* Keep the API even with an empty stub in case we need it later */
-+	struct nvmem_device *nvmem = layout->nvmem;
-+	struct nvmem_cell_entry *cell, *next;
-+	LIST_HEAD(cells);
-+
-+	scoped_guard(mutex, &nvmem_mutex) {
-+		list_for_each_entry_safe(cell, next, &nvmem->cells, node) {
-+			if (cell->layout != layout)
-+				continue;
-+			WRITE_ONCE(cell->disconnected, true);
-+			list_move_tail(&cell->node, &cells);
-+		}
-+	}
-+
-+	nvmem_sysfs_remove_cells(nvmem);
-+
-+	/* Old cell handles retain data, never a departing layout's callbacks. */
-+	synchronize_srcu(&nvmem->srcu);
-+	list_for_each_entry_safe(cell, next, &cells, node) {
-+		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
-+		list_del(&cell->node);
-+		nvmem_cell_entry_put(cell);
-+	}
-+#ifdef CONFIG_NVMEM_SYSFS
-+	if (!READ_ONCE(nvmem->disconnected) && nvmem_populate_sysfs_cells(nvmem))
-+		dev_warn(&nvmem->dev, "Failed to restore provider cell attributes\n");
-+#endif
- }
- EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
- 
-+static void nvmem_disconnect(struct nvmem_device *nvmem)
-+{
-+	scoped_guard(mutex, &nvmem_mutex)
-+		WRITE_ONCE(nvmem->disconnected, true);
-+	synchronize_srcu(&nvmem->srcu);
-+	gpiod_put(nvmem->wp_gpio);
-+	nvmem->wp_gpio = NULL;
-+}
-+
- /**
-  * nvmem_register() - Register a nvmem device for given nvmem_config.
-  * Also creates a binary entry in /sys/bus/nvmem/devices/dev-name/nvmem
-@@ -883,10 +1034,8 @@ EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
-  * Return: Will be an ERR_PTR() on error or a valid pointer to nvmem_device
-  * on success.
-  */
+-	struct mtd_info *child, *master = mtd_get_master(mtd);
+-	struct mtd_virt_concat_node *item, *tmp;
+-	struct mtd_concat *concat;
+-	int idx, ret = 0;
+-	bool is_mtd_found;
 -
- struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- {
--	struct nvmem_operations *ops;
- 	struct nvmem_device *nvmem;
- 	int rval;
- 
-@@ -900,15 +1049,15 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	if (!nvmem)
- 		return ERR_PTR(-ENOMEM);
- 
--	ops = kzalloc_obj(*ops);
--	if (!ops) {
-+	rval = init_srcu_struct(&nvmem->srcu);
-+	if (rval) {
- 		kfree(nvmem);
--		return ERR_PTR(-ENOMEM);
-+		return ERR_PTR(rval);
- 	}
- 
- 	rval = ida_alloc(&nvmem_ida, GFP_KERNEL);
- 	if (rval < 0) {
--		kfree(ops);
-+		cleanup_srcu_struct(&nvmem->srcu);
- 		kfree(nvmem);
- 		return ERR_PTR(rval);
- 	}
-@@ -918,9 +1067,11 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	nvmem->dev.type = &nvmem_provider_type;
- 	nvmem->dev.bus = &nvmem_bus_type;
- 	nvmem->dev.parent = config->dev;
--	nvmem->ops = ops;
- 
- 	device_initialize(&nvmem->dev);
-+	mutex_init(&nvmem->sysfs_mutex);
-+
-+	nvmem->priv = config->priv;
- 
- 	if (!config->ignore_wp)
- 		nvmem->wp_gpio = gpiod_get_optional(config->dev, "wp",
-@@ -935,24 +1086,23 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	INIT_LIST_HEAD(&nvmem->cells);
- 	nvmem->fixup_dt_cell_info = config->fixup_dt_cell_info;
- 
--	ops->reg_read = config->reg_read;
--	ops->reg_write = config->reg_write;
-+	nvmem->reg_read = config->reg_read;
-+	nvmem->reg_write = config->reg_write;
- 
- 	nvmem->owner = config->owner;
--	if (!nvmem->owner && config->dev->driver)
-+	if (!nvmem->owner && !config->owner_is_explicit && config->dev->driver)
- 		nvmem->owner = config->dev->driver->owner;
- 	nvmem->stride = config->stride ?: 1;
- 	nvmem->word_size = config->word_size ?: 1;
- 	nvmem->size = config->size;
- 	nvmem->root_only = config->root_only;
--	nvmem->priv = config->priv;
- 	nvmem->type = config->type;
- 	nvmem->keepout = config->keepout;
- 	nvmem->nkeepout = config->nkeepout;
- 	if (config->of_node)
--		nvmem->dev.of_node = config->of_node;
-+		nvmem->dev.of_node = of_node_get(config->of_node);
- 	else
--		nvmem->dev.of_node = config->dev->of_node;
-+		nvmem->dev.of_node = of_node_get(config->dev->of_node);
- 
- 	switch (config->id) {
- 	case NVMEM_DEVID_NONE:
-@@ -972,7 +1122,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 		goto err_put_device;
- 
- 	nvmem->read_only = device_property_present(config->dev, "read-only") ||
--			   config->read_only || !ops->reg_write;
-+			   config->read_only || !nvmem->reg_write;
- 
- #ifdef CONFIG_NVMEM_SYSFS
- 	nvmem->dev.groups = nvmem_dev_groups;
-@@ -1010,7 +1160,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 
- 	rval = nvmem_populate_layout(nvmem);
- 	if (rval)
--		goto err_remove_dev;
-+		goto err_unregister;
- 
- 	/* If the device has WP GPIO, default to read-only */
- 	if (nvmem->wp_gpio)
-@@ -1019,23 +1169,25 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- #ifdef CONFIG_NVMEM_SYSFS
- 	rval = nvmem_populate_sysfs_cells(nvmem);
- 	if (rval)
--		goto err_destroy_layout;
-+		goto err_unregister;
- #endif
- 
-+	nvmem->flags |= FLAG_REGISTERED;
- 	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_ADD, nvmem);
- 
- 	return nvmem;
- 
--#ifdef CONFIG_NVMEM_SYSFS
--err_destroy_layout:
--	nvmem_destroy_layout(nvmem);
--#endif
--err_remove_dev:
--	device_del(&nvmem->dev);
-+err_unregister:
-+	nvmem_unregister(nvmem);
-+	return ERR_PTR(rval);
- err_remove_cells:
-+	nvmem_disconnect(nvmem);
- 	nvmem_device_remove_all_cells(nvmem);
- 	nvmem_sysfs_remove_compat(nvmem);
-+	goto err_put_disconnected;
- err_put_device:
-+	nvmem_disconnect(nvmem);
-+err_put_disconnected:
- 	put_device(&nvmem->dev);
- 
- 	return ERR_PTR(rval);
-@@ -1048,24 +1200,31 @@ static void nvmem_device_release(struct kref *kref)
- 
- 	nvmem = container_of(kref, struct nvmem_device, refcnt);
- 
--	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
+-	list_for_each_entry_safe(item, tmp, &concat_node_list, head) {
+-		is_mtd_found = false;
 -
--	nvmem_sysfs_remove_compat(nvmem);
+-		/* Find the concat item that hold the mtd device */
+-		for (idx = 0; idx < item->count; idx++) {
+-			if (item->nodes[idx] == mtd_get_of_node(mtd)) {
+-				is_mtd_found = true;
+-				break;
+-			}
+-		}
+-		if (!is_mtd_found)
+-			continue;
+-		concat = item->concat;
 -
--	nvmem_device_remove_all_cells(nvmem);
--	nvmem_destroy_layout(nvmem);
--	device_unregister(&nvmem->dev);
-+	put_device(&nvmem->dev);
- }
- 
- /**
-  * nvmem_unregister() - Unregister previously registered nvmem device
-  *
-  * @nvmem: Pointer to previously registered nvmem device.
-+ *
-+ * Stop and drain provider callbacks before returning. Existing consumers keep
-+ * their core-owned metadata, but further access returns -ENODEV.
-  */
- void nvmem_unregister(struct nvmem_device *nvmem)
- {
--	if (nvmem)
--		kref_put(&nvmem->refcnt, nvmem_device_release);
-+	if (!nvmem)
-+		return;
+-		/*
+-		 * Since this concatenated device is being removed, retrieve
+-		 * all MTD devices that are part of it and register them
+-		 * individually.
+-		 */
+-		for (idx = 0; idx < concat->num_subdev; idx++) {
+-			child = concat->subdev[idx];
+-			if (mtd_get_of_node(child) != mtd_get_of_node(mtd)) {
+-				ret = add_mtd_device(child);
+-				if (ret)
+-					goto out;
++	struct mtd_virt_concat_node *item;
++	LIST_HEAD(devices);
++	unsigned int i;
 +
-+	nvmem_disconnect(nvmem);
-+	nvmem_destroy_layout(nvmem);
-+	if (nvmem->flags & FLAG_REGISTERED)
-+		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
-+	nvmem_sysfs_remove_compat(nvmem);
-+	nvmem_sysfs_remove_cells(nvmem);
-+	device_del(&nvmem->dev);
-+	nvmem_device_remove_all_cells(nvmem);
-+	kref_put(&nvmem->refcnt, nvmem_device_release);
- }
- EXPORT_SYMBOL_GPL(nvmem_unregister);
- 
-@@ -1103,17 +1262,33 @@ struct nvmem_device *devm_nvmem_register(struct device *dev,
- }
- EXPORT_SYMBOL_GPL(devm_nvmem_register);
- 
-+struct nvmem_match_data {
-+	void *data;
-+	int (*match)(struct device *dev, const void *data);
-+};
-+
-+static int nvmem_match_device(struct device *dev, const void *data)
-+{
-+	const struct nvmem_match_data *match = data;
-+	struct nvmem_device *nvmem = to_nvmem_device(dev);
-+
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
++	/* A virtual master cannot itself be a DT concatenation component. */
++	if (mtd_get_master(mtd)->master.release == mtd_virt_concat_release)
 +		return 0;
-+	return match->match(dev, match->data);
-+}
 +
- static struct nvmem_device *nvmem_device_match(void *data,
- 			int (*match)(struct device *dev, const void *data))
- {
-+	struct nvmem_match_data match_data = { .data = data, .match = match };
- 	struct nvmem_device *nvmem = NULL;
- 	struct device *dev;
- 
--	scoped_guard(mutex, &nvmem_mutex) {
--		dev = bus_find_device(&nvmem_bus_type, NULL, data, match);
--		if (dev)
--			nvmem = to_nvmem_device(dev);
--	}
-+	guard(mutex)(&nvmem_mutex);
-+	dev = bus_find_device(&nvmem_bus_type, NULL, &match_data, nvmem_match_device);
-+	if (dev)
-+		nvmem = to_nvmem_device(dev);
- 	if (!nvmem)
- 		return ERR_PTR(-EPROBE_DEFER);
- 
-@@ -1121,8 +1296,7 @@ static struct nvmem_device *nvmem_device_match(void *data,
- 		dev_err(&nvmem->dev,
- 			"could not increase module refcount for cell %s\n",
- 			nvmem_dev_name(nvmem));
--
--		put_device(&nvmem->dev);
-+		put_device(dev);
- 		return ERR_PTR(-EINVAL);
- 	}
- 
-@@ -1337,8 +1511,10 @@ nvmem_cell_get_from_lookup(struct device *dev, const char *con_id)
- 				cell = ERR_PTR(-ENOENT);
- 			} else {
- 				cell = nvmem_create_cell(cell_entry, con_id, 0);
--				if (IS_ERR(cell))
-+				if (IS_ERR(cell)) {
-+					nvmem_cell_entry_put(cell_entry);
- 					nvmem_device_put(nvmem);
-+				}
++	mutex_lock(&concat_lock);
++	list_for_each_entry(item, &concat_node_list, node) {
++		for (i = 0; i < item->count; i++) {
++			struct mtd_virt_concat_part *part = &item->parts[i];
++
++			if (!mtd_virt_concat_contains(part->mtd, mtd))
++				continue;
++			if (item->device) {
++				mtd_concat_disconnect(item->device->mtd);
++				list_add_tail(&item->device->node, &devices);
++				item->device = NULL;
  			}
- 			break;
++			mtd_virt_concat_part_put(part->mtd);
++			part->mtd = NULL;
++			part->ready = false;
  		}
-@@ -1347,12 +1523,6 @@ nvmem_cell_get_from_lookup(struct device *dev, const char *con_id)
- 	return cell;
+-		/* Destroy the concat */
+-		if (concat->mtd.name) {
+-			del_mtd_device(&concat->mtd);
+-			kfree(concat->mtd.name);
+-			mtd_virt_concat_put_mtd_devices(item->concat);
+-			mtd_concat_destroy(&concat->mtd);
+-		}
+-
+-		for (idx = 0; idx < item->count; idx++)
+-			of_node_put(item->nodes[idx]);
+-
+-		kfree(item);
+ 	}
++	mutex_unlock(&concat_lock);
++
++	/* Unregistration takes the virtual master's partition lock. */
++	mtd_virt_concat_unregister(&devices);
+ 	return 0;
+-out:
+-	mutex_lock(&master->master.partitions_lock);
+-	list_del(&child->part.node);
+-	mutex_unlock(&master->master.partitions_lock);
+-	kfree(mtd->name);
+-	kfree(mtd);
++}
+ 
+-	return ret;
++static void mtd_virt_concat_free_item(struct mtd_virt_concat_node *item)
++{
++	unsigned int i;
++
++	for (i = 0; i < item->count; i++)
++		of_node_put(item->parts[i].node);
++	kfree(item);
  }
  
--static void nvmem_layout_module_put(struct nvmem_device *nvmem)
--{
--	if (nvmem->layout && nvmem->layout->dev.driver)
--		module_put(nvmem->layout->dev.driver->owner);
--}
+-/**
+- * mtd_virt_concat_create_item - Create a concat item
+- * @parts:        pointer to 'device_node'
+- * @count:        number of mtd devices that make up
+- *                the concatenated device.
+- *
+- * Return: 0 on success, -error otherwise.
+- */
+-static int mtd_virt_concat_create_item(struct device_node *parts,
+-				       unsigned int count)
++static int mtd_virt_concat_create_item(struct device_node *node, unsigned int count)
+ {
+ 	struct mtd_virt_concat_node *item;
+-	struct mtd_concat *concat;
+-	int i;
 -
- #if IS_ENABLED(CONFIG_OF)
- static struct nvmem_cell_entry *
- nvmem_find_cell_entry_by_node(struct nvmem_device *nvmem, struct device_node *np)
-@@ -1362,25 +1532,15 @@ nvmem_find_cell_entry_by_node(struct nvmem_device *nvmem, struct device_node *np
- 	guard(mutex)(&nvmem_mutex);
- 
- 	list_for_each_entry(cell, &nvmem->cells, node) {
--		if (np == cell->np)
-+		if (np == cell->np) {
-+			kref_get(&cell->refcnt);
- 			return cell;
-+		}
- 	}
- 
- 	return NULL;
- }
- 
--static int nvmem_layout_module_get_optional(struct nvmem_device *nvmem)
--{
--	if (!nvmem->layout)
--		return 0;
--
--	if (!nvmem->layout->dev.driver ||
--	    !try_module_get(nvmem->layout->dev.driver->owner))
--		return -EPROBE_DEFER;
--
--	return 0;
--}
--
- /**
-  * of_nvmem_cell_get() - Get a nvmem cell from given device node and cell id
-  *
-@@ -1443,25 +1603,17 @@ struct nvmem_cell *of_nvmem_cell_get(struct device_node *np, const char *id)
- 		return ERR_CAST(nvmem);
- 	}
- 
--	ret = nvmem_layout_module_get_optional(nvmem);
--	if (ret) {
--		of_node_put(cell_np);
--		nvmem_device_put(nvmem);
--		return ERR_PTR(ret);
+-	for (i = 0; i < (count - 1); i++) {
+-		if (mtd_is_part_concat(of_parse_phandle(parts, CONCAT_PROP, i)))
+-			return 0;
 -	}
++	unsigned int i, j;
+ 
+-	item = kzalloc_flex(*item, nodes, count, GFP_KERNEL);
++	item = kzalloc_flex(*item, parts, count, GFP_KERNEL);
+ 	if (!item)
+ 		return -ENOMEM;
 -
- 	cell_entry = nvmem_find_cell_entry_by_node(nvmem, cell_np);
- 	of_node_put(cell_np);
- 	if (!cell_entry) {
--		nvmem_layout_module_put(nvmem);
--		ret = nvmem->layout ? -EPROBE_DEFER : -ENOENT;
-+		ret = READ_ONCE(nvmem->layout) ? -EPROBE_DEFER : -ENOENT;
- 		nvmem_device_put(nvmem);
- 		return ERR_PTR(ret);
+ 	item->count = count;
++	item->parts[0].node = of_node_get(node);
+ 
+-	/*
+-	 * The partition in which "part-concat-next" property
+-	 * is defined is the first device in the list of concat
+-	 * devices.
+-	 */
+-	item->nodes[0] = parts;
+-
+-	for (i = 1; i < count; i++)
+-		item->nodes[i] = of_parse_phandle(parts, CONCAT_PROP, (i - 1));
++	for (i = 1; i < count; i++) {
++		struct device_node *part = of_parse_phandle(node, CONCAT_PROP, i - 1);
+ 
+-	concat = kzalloc_flex(*concat, subdev, count, GFP_KERNEL);
+-	if (!concat) {
+-		kfree(item);
+-		return -ENOMEM;
++		item->parts[i].node = part;
++		if (!part || mtd_is_part_concat(part))
++			goto out;
++		for (j = 0; j < i; j++)
++			if (item->parts[j].node == part)
++				goto out;
  	}
- 
- 	cell = nvmem_create_cell(cell_entry, id, cell_index);
- 	if (IS_ERR(cell)) {
--		nvmem_layout_module_put(nvmem);
-+		nvmem_cell_entry_put(cell_entry);
- 		nvmem_device_put(nvmem);
- 	}
- 
-@@ -1575,8 +1727,8 @@ void nvmem_cell_put(struct nvmem_cell *cell)
- 	if (cell->id)
- 		kfree_const(cell->id);
- 
-+	nvmem_cell_entry_put(cell->entry);
- 	kfree(cell);
--	nvmem_layout_module_put(nvmem);
- 	nvmem_device_put(nvmem);
+-
+-	item->concat = concat;
+-
+-	list_add_tail(&item->head, &concat_node_list);
+-
++	list_add_tail(&item->node, &concat_node_list);
+ 	return 0;
++out:
++	mtd_virt_concat_free_item(item);
++	return -EINVAL;
  }
- EXPORT_SYMBOL_GPL(nvmem_cell_put);
-@@ -1628,6 +1780,10 @@ static int __nvmem_cell_read(struct nvmem_device *nvmem,
+ 
+-void mtd_virt_concat_destroy_items(void)
++void mtd_virt_concat_destroy_joins(void)
  {
- 	int rc;
- 
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected) || READ_ONCE(cell->disconnected))
-+		return -ENODEV;
+-	struct mtd_virt_concat_node *item, *temp;
+-	int i;
++	struct mtd_virt_concat_node *item;
++	LIST_HEAD(devices);
++	unsigned int i;
 +
- 	rc = nvmem_reg_read(nvmem, cell->offset, buf, cell->raw_len);
++	mutex_lock(&concat_lock);
++	list_for_each_entry(item, &concat_node_list, node) {
++		if (item->device) {
++			mtd_concat_disconnect(item->device->mtd);
++			list_add_tail(&item->device->node, &devices);
++			item->device = NULL;
++		}
++		for (i = 0; i < item->count; i++) {
++			if (item->parts[i].mtd)
++				mtd_virt_concat_part_put(item->parts[i].mtd);
++			item->parts[i].mtd = NULL;
++			item->parts[i].ready = false;
++		}
++	}
++	mutex_unlock(&concat_lock);
++	mtd_virt_concat_unregister(&devices);
++}
  
- 	if (rc)
-@@ -1742,7 +1898,14 @@ static int __nvmem_cell_entry_write(struct nvmem_cell_entry *cell, void *buf, si
- 	struct nvmem_device *nvmem = cell->nvmem;
- 	int rc;
+-	list_for_each_entry_safe(item, temp, &concat_node_list, head) {
+-		for (i = 0; i < item->count; i++)
+-			of_node_put(item->nodes[i]);
++void mtd_virt_concat_destroy_items(void)
++{
++	struct mtd_virt_concat_node *item, *next;
  
--	if (!nvmem || nvmem->read_only ||
-+	if (!nvmem)
-+		return -EINVAL;
-+
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected) || READ_ONCE(cell->disconnected))
-+		return -ENODEV;
-+
-+	if (nvmem->read_only ||
- 	    (cell->bit_offset == 0 && len != cell->bytes))
- 		return -EINVAL;
- 
-diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
-index 4e610deeaa7b..6c6d4a690e8f 100644
---- a/drivers/nvmem/internals.h
-+++ b/drivers/nvmem/internals.h
-@@ -4,14 +4,10 @@
- #define _LINUX_NVMEM_INTERNALS_H
- 
- #include <linux/device.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/nvmem-provider.h>
--
--/* Hold pointers to callbacks owned by the nvmem provider module. */
--struct nvmem_operations {
--	nvmem_reg_read_t	reg_read;
--	nvmem_reg_write_t	reg_write;
--};
-+#include <linux/srcu.h>
- 
- struct nvmem_device {
- 	struct module		*owner;
-@@ -20,6 +16,8 @@ struct nvmem_device {
- 	int			word_size;
- 	int			id;
- 	struct kref		refcnt;
-+	struct srcu_struct	srcu;
-+	bool			disconnected;
- 	size_t			size;
- 	bool			read_only;
- 	bool			root_only;
-@@ -34,12 +32,16 @@ struct nvmem_device {
- 	unsigned int		nkeepout;
- 	struct gpio_desc	*wp_gpio;
- 	struct nvmem_layout	*layout;
--	struct nvmem_operations	*ops;
-+	nvmem_reg_read_t		reg_read;
-+	nvmem_reg_write_t	reg_write;
- 	void *priv;
-+	struct mutex		sysfs_mutex;
- 	bool			sysfs_cells_populated;
-+	struct attribute_group cells_group;
- };
- 
- int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np);
-+int nvmem_layout_add_cells_from_dt(struct nvmem_layout *layout, struct device_node *np);
- 
- #if IS_ENABLED(CONFIG_OF)
- int nvmem_layout_bus_register(void);
-diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
-index 07a34be9669c..32995c9be68d 100644
---- a/drivers/nvmem/layouts.c
-+++ b/drivers/nvmem/layouts.c
-@@ -118,6 +118,7 @@ static int nvmem_layout_create_device(struct nvmem_device *nvmem,
- 
- 	ret = device_add(dev);
- 	if (ret) {
-+		nvmem->layout = NULL;
- 		put_device(dev);
- 		return ret;
+-		kfree(item);
++	guard(mutex)(&concat_lock);
++	list_for_each_entry_safe(item, next, &concat_node_list, node) {
++		list_del(&item->node);
++		mtd_virt_concat_free_item(item);
  	}
-@@ -192,6 +193,7 @@ void nvmem_destroy_layout(struct nvmem_device *nvmem)
- 	dev = &nvmem->layout->dev;
- 	of_node_clear_flag(dev->of_node, OF_POPULATED_BUS);
- 	device_unregister(dev);
-+	WRITE_ONCE(nvmem->layout, NULL);
  }
  
- int nvmem_layout_bus_register(void)
-diff --git a/drivers/nvmem/layouts/fixed-layout.c b/drivers/nvmem/layouts/fixed-layout.c
-index 635d448b3dd2..b97f39897a75 100644
---- a/drivers/nvmem/layouts/fixed-layout.c
-+++ b/drivers/nvmem/layouts/fixed-layout.c
-@@ -19,7 +19,7 @@ static int fixed_layout_add_cells(struct nvmem_layout *layout)
- 	if (!np)
- 		return -ENOENT;
+-/**
+- * mtd_virt_concat_add - Add a mtd device to the concat list
+- * @mtd:        pointer to 'mtd_info'
+- *
+- * Return: true on success, false otherwise.
+- */
+-bool mtd_virt_concat_add(struct mtd_info *mtd)
++int mtd_virt_concat_add(struct mtd_info *mtd)
+ {
++	struct mtd_info *master = mtd_get_master(mtd);
+ 	struct mtd_virt_concat_node *item;
+-	struct mtd_concat *concat;
+-	int idx;
+-
+-	list_for_each_entry(item, &concat_node_list, head) {
+-		concat = item->concat;
+-		for (idx = 0; idx < item->count; idx++) {
+-			if (item->nodes[idx] == mtd_get_of_node(mtd)) {
+-				concat->subdev[concat->num_subdev++] = mtd;
+-				return true;
++	unsigned int i;
++
++	guard(mutex)(&concat_lock);
++	list_for_each_entry(item, &concat_node_list, node) {
++		for (i = 0; i < item->count; i++) {
++			struct mtd_virt_concat_part *part = &item->parts[i];
++
++			if (part->node != mtd_get_of_node(mtd))
++				continue;
++			if (part->mtd)
++				return -EBUSY;
++			kref_init(&mtd->refcnt);
++			/* The master need not have a registered device. */
++			if (master->master.release) {
++				mtd_get_lifetime(master);
++				mtd->ref_master = master;
++				if (mtd->parent != master)
++					mtd_get_data(mtd->parent);
+ 			}
++			of_node_get(mtd_get_of_node(mtd));
++			part->mtd = mtd;
++			return 1;
+ 		}
+ 	}
+-	return false;
++	return 0;
+ }
  
--	ret = nvmem_add_cells_from_dt(layout->nvmem, np);
-+	ret = nvmem_layout_add_cells_from_dt(layout, np);
- 	of_node_put(np);
+-/**
+- * mtd_virt_concat_node_create - List all the concatenations found in DT
+- *
+- * Return: 0 on success, -error otherwise.
+- */
+ int mtd_virt_concat_node_create(void)
+ {
+-	struct device_node *parts = NULL;
+-	int ret = 0, count = 0;
++	struct device_node *node;
++	int ret, count;
  
+-	/* List all the concatenations found in DT */
+-	do {
+-		parts = of_find_node_with_property(parts, CONCAT_PROP);
+-		if (!of_device_is_available(parts))
++	guard(mutex)(&concat_lock);
++	for_each_node_with_property(node, CONCAT_PROP) {
++		if (!of_device_is_available(node) || mtd_is_part_concat(node))
+ 			continue;
+-
+-		if (mtd_is_part_concat(parts))
+-			continue;
+-
+-		count = of_count_phandle_with_args(parts, CONCAT_PROP, NULL);
+-		if (count < MIN_DEV_PER_CONCAT)
++		count = of_count_phandle_with_args(node, CONCAT_PROP, NULL);
++		if (count < 1)
+ 			continue;
+-
+-		/*
+-		 * The partition in which "part-concat-next" property is defined
+-		 * is also part of the concat device, so increament count by 1.
+-		 */
+-		count++;
+-
+-		ret = mtd_virt_concat_create_item(parts, count);
++		ret = mtd_virt_concat_create_item(node, count + 1);
+ 		if (ret) {
+-			of_node_put(parts);
+-			goto destroy_items;
++			of_node_put(node);
++			return ret;
+ 		}
+-	} while (parts);
++	}
++	return 0;
++}
+ 
++static int mtd_virt_concat_register(struct mtd_virt_concat_node *item)
++{
++	struct mtd_virt_concat_device *device;
++	struct mtd_info **parts, *mtd;
++	size_t name_size = sizeof("concat");
++	unsigned int i;
++	char *name, *p;
++	int ret;
++
++	parts = kmalloc_array(item->count, sizeof(*parts), GFP_KERNEL);
++	if (!parts)
++		return -ENOMEM;
++	for (i = 0; i < item->count; i++) {
++		parts[i] = item->parts[i].mtd;
++		name_size += strlen(parts[i]->name) + 1;
++	}
++	name = kmalloc(name_size, GFP_KERNEL);
++	if (!name) {
++		ret = -ENOMEM;
++		goto out_parts;
++	}
++	p = name;
++	for (i = 0; i < item->count; i++)
++		p += sprintf(p, "%s-", parts[i]->name);
++	strscpy(p, "concat", name_size - (p - name));
++	device = kzalloc_obj(*device);
++	if (!device) {
++		ret = -ENOMEM;
++		goto out_name;
++	}
++	mtd = mtd_concat_create(parts, item->count, name);
++	if (!mtd) {
++		ret = -ENXIO;
++		goto out_device;
++	}
++	for (i = 0; i < item->count; i++)
++		kref_get(&parts[i]->refcnt);
++	mtd->parent_dev = parts[0]->parent_dev;
++	mtd_set_of_node(mtd, mtd_get_of_node(parts[0]));
++	mtd->owner = THIS_MODULE;
++	mtd->priv = device;
++	mtd_set_dev_defaults(mtd);
++	lockdep_set_class(&mtd->master.partitions_lock, &concat_partitions_lock_key);
++	mtd_set_release(mtd, mtd_virt_concat_release);
++	device->mtd = mtd;
++	ret = add_mtd_device(mtd);
++	if (ret)
++		mtd_put_master(mtd);
++	else
++		item->device = device;
++	kfree(parts);
  	return ret;
-diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
-index 8b0f3c1b8a0e..99e7a5406b4c 100644
---- a/drivers/nvmem/layouts/onie-tlv.c
-+++ b/drivers/nvmem/layouts/onie-tlv.c
-@@ -95,18 +95,19 @@ static nvmem_cell_post_process_t onie_tlv_read_cb(u8 type, u8 *buf)
- 	return NULL;
+ 
+-destroy_items:
+-	mtd_virt_concat_destroy_items();
+-
++out_device:
++	kfree(device);
++out_name:
++	kfree(name);
++out_parts:
++	kfree(parts);
+ 	return ret;
  }
  
--static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
-+static int onie_tlv_add_cells(struct nvmem_layout *layout,
- 			      size_t data_len, u8 *data)
+-/**
+- * mtd_virt_concat_create_join - Create and register the concatenated
+- *                                 MTD device.
+- *
+- * Return: 0 on success, -error otherwise.
+- */
+-int mtd_virt_concat_create_join(void)
++int mtd_virt_concat_create_join(struct mtd_info *master)
  {
-+	struct device *dev = &layout->dev;
- 	struct nvmem_cell_info cell = {};
--	struct device_node *layout;
-+	struct device_node *layout_np;
- 	struct onie_tlv tlv;
- 	unsigned int hdr_len = sizeof(struct onie_tlv_hdr);
- 	unsigned int offset = 0;
- 	int ret;
- 
--	layout = of_nvmem_layout_get_container(nvmem);
--	if (!layout)
-+	layout_np = of_nvmem_layout_get_container(layout->nvmem);
-+	if (!layout_np)
- 		return -ENOENT;
- 
- 	while (offset < data_len) {
-@@ -123,12 +124,13 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
- 
- 		cell.offset = hdr_len + offset + sizeof(tlv.type) + sizeof(tlv.len);
- 		cell.bytes = tlv.len;
--		cell.np = of_get_child_by_name(layout, cell.name);
-+		cell.np = of_get_child_by_name(layout_np, cell.name);
- 		cell.read_post_process = onie_tlv_read_cb(tlv.type, data + offset + sizeof(tlv));
- 
--		ret = nvmem_add_one_cell(nvmem, &cell);
-+		ret = nvmem_layout_add_cell(layout, &cell);
- 		if (ret) {
--			of_node_put(layout);
-+			of_node_put(cell.np);
-+			of_node_put(layout_np);
- 			return ret;
- 		}
- 
-@@ -136,7 +138,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
- 		offset += sizeof(tlv) + tlv.len;
- 	}
- 
--	of_node_put(layout);
-+	of_node_put(layout_np);
- 
- 	return 0;
- }
-@@ -221,7 +223,7 @@ static int onie_tlv_parse_table(struct nvmem_layout *layout)
- 		return -EINVAL;
- 
- 	data = table + hdr_len;
--	ret = onie_tlv_add_cells(dev, nvmem, data_len, data);
-+	ret = onie_tlv_add_cells(layout, data_len, data);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/nvmem/layouts/sl28vpd.c b/drivers/nvmem/layouts/sl28vpd.c
-index e93b020b0836..1e65a0b6c61f 100644
---- a/drivers/nvmem/layouts/sl28vpd.c
-+++ b/drivers/nvmem/layouts/sl28vpd.c
-@@ -124,8 +124,9 @@ static int sl28vpd_add_cells(struct nvmem_layout *layout)
- 		info.read_post_process = pinfo->read_post_process;
- 		info.np = of_get_child_by_name(layout_np, pinfo->name);
- 
--		ret = nvmem_add_one_cell(nvmem, &info);
-+		ret = nvmem_layout_add_cell(layout, &info);
- 		if (ret) {
-+			of_node_put(info.np);
- 			of_node_put(layout_np);
- 			return ret;
- 		}
-diff --git a/drivers/nvmem/layouts/u-boot-env.c b/drivers/nvmem/layouts/u-boot-env.c
-index 33ec2350386f..83c687e43e5a 100644
---- a/drivers/nvmem/layouts/u-boot-env.c
-+++ b/drivers/nvmem/layouts/u-boot-env.c
-@@ -49,11 +49,13 @@ static int u_boot_env_read_post_process_ethaddr(void *context, const char *id, i
- 	return 0;
- }
- 
--static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem, uint8_t *buf,
-+static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem,
-+				  struct nvmem_layout *layout, uint8_t *buf,
- 				  size_t data_offset, size_t data_len)
- {
- 	char *data = buf + data_offset;
- 	char *var, *value, *eq;
+ 	struct mtd_virt_concat_node *item;
+-	struct mtd_concat *concat;
+-	struct mtd_info *mtd;
+-	ssize_t name_sz;
+-	int ret, idx;
+-	char *name;
+-
+-	list_for_each_entry(item, &concat_node_list, head) {
+-		concat = item->concat;
+-		/*
+-		 * Check if item->count != concat->num_subdev, it indicates
+-		 * that the MTD information for all devices included in the
+-		 * concatenation are not handy, concat MTD device can't be
+-		 * created hence switch to next concat device.
+-		 */
+-		if (item->count != concat->num_subdev) {
+-			continue;
+-		} else {
+-			/* Calculate the legth of the name of the virtual device */
+-			for (idx = 0, name_sz = 0; idx < concat->num_subdev; idx++)
+-				name_sz += (strlen(concat->subdev[idx]->name) + 1);
+-			name_sz += strlen(CONCAT_POSTFIX);
+-			name = kmalloc(name_sz + 1, GFP_KERNEL);
+-			if (!name) {
+-				mtd_virt_concat_put_mtd_devices(concat);
+-				return -ENOMEM;
+-			}
++	unsigned int i;
 +	int ret;
  
- 	for (var = data;
- 	     var < data + data_len && *var;
-@@ -78,14 +80,19 @@ static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem
- 			info.read_post_process = u_boot_env_read_post_process_ethaddr;
+-			ret = 0;
+-			for (idx = 0; idx < concat->num_subdev; idx++) {
+-				ret += sprintf((name + ret), "%s-",
+-					       concat->subdev[idx]->name);
+-			}
+-			sprintf((name + ret), CONCAT_POSTFIX);
+-
+-			if (concat->mtd.name) {
+-				ret = memcmp(concat->mtd.name, name, name_sz);
+-				if (ret == 0) {
+-					kfree(name);
+-					continue;
+-				}
+-			}
+-			mtd = mtd_concat_create(concat->subdev, concat->num_subdev, name);
+-			if (!mtd) {
+-				kfree(name);
+-				return -ENXIO;
++	guard(mutex)(&concat_lock);
++	list_for_each_entry(item, &concat_node_list, node) {
++		bool ready = true, includes_master = false;
++
++		for (i = 0; i < item->count; i++) {
++			struct mtd_virt_concat_part *part = &item->parts[i];
++
++			if (part->mtd && mtd_get_master(part->mtd) == master) {
++				part->ready = true;
++				includes_master = true;
+ 			}
+-			concat->mtd = *mtd;
+-			/* Arbitrary set the first device as parent */
+-			concat->mtd.parent_dev = concat->subdev[0]->parent_dev;
+-			mtd_set_of_node(&concat->mtd, mtd_get_of_node(concat->subdev[0]));
+-
+-			/* Add the mtd device */
+-			ret = add_mtd_device(&concat->mtd);
+-			if (ret)
+-				goto destroy_concat;
++			ready &= part->ready;
  		}
- 
--		nvmem_add_one_cell(nvmem, &info);
-+		ret = layout ? nvmem_layout_add_cell(layout, &info) :
-+			       nvmem_add_one_cell(nvmem, &info);
-+		if (ret) {
-+			of_node_put(info.np);
++		if (!ready || !includes_master || item->device)
++			continue;
++		ret = mtd_virt_concat_register(item);
++		if (ret)
 +			return ret;
-+		}
  	}
- 
+-
  	return 0;
+-
+-destroy_concat:
+-	mtd_concat_destroy(mtd);
+-
+-	return ret;
  }
+diff --git a/drivers/mtd/mtdconcat.c b/drivers/mtd/mtdconcat.c
+index c97167d51fe2..0ac248c61fb1 100644
+--- a/drivers/mtd/mtdconcat.c
++++ b/drivers/mtd/mtdconcat.c
+@@ -46,6 +46,10 @@ concat_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 	int ret = 0, err;
+ 	int i;
  
--int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
--		     enum u_boot_env_format format)
-+static int __u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
-+			      struct nvmem_layout *layout, enum u_boot_env_format format)
- {
- 	size_t crc32_data_offset;
- 	size_t crc32_data_len;
-@@ -156,13 +163,19 @@ int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
- 	}
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		size_t size, retsize;
+@@ -97,6 +101,11 @@ concat_panic_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int err = -EINVAL;
+ 	int i;
++
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		size_t size, retsize;
+@@ -139,6 +148,10 @@ concat_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 	int err = -EINVAL;
+ 	int i;
  
- 	buf[dev_size - 1] = '\0';
--	err = u_boot_env_parse_cells(dev, nvmem, buf, data_offset, data_len);
-+	err = u_boot_env_parse_cells(dev, nvmem, layout, buf, data_offset, data_len);
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		size_t size, retsize;
+@@ -180,6 +193,10 @@ concat_writev(struct mtd_info *mtd, const struct kvec *vecs,
+ 	int i;
+ 	int err = -EINVAL;
  
- err_kfree:
- 	kfree(buf);
- err_out:
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	/* Calculate total length of data */
+ 	for (i = 0; i < count; i++)
+ 		total_len += vecs[i].iov_len;
+@@ -251,6 +268,10 @@ concat_read_oob(struct mtd_info *mtd, loff_t from, struct mtd_oob_ops *ops)
+ 	struct mtd_oob_ops devops = *ops;
+ 	int i, err, ret = 0;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	ops->retlen = ops->oobretlen = 0;
+ 
+ 	for (i = 0; i < concat->num_subdev; i++) {
+@@ -308,6 +329,10 @@ concat_write_oob(struct mtd_info *mtd, loff_t to, struct mtd_oob_ops *ops)
+ 	struct mtd_oob_ops devops = *ops;
+ 	int i, err;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	if (!(mtd->flags & MTD_WRITEABLE))
+ 		return -EROFS;
+ 
+@@ -356,6 +381,10 @@ static int concat_erase(struct mtd_info *mtd, struct erase_info *instr)
+ 	uint64_t length, offset = 0;
+ 	struct erase_info *erase;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	/*
+ 	 * Check for proper erase block alignment of the to-be-erased area.
+ 	 * It is easier to do this based on the super device's erase
+@@ -472,6 +501,10 @@ static int concat_xxlock(struct mtd_info *mtd, loff_t ofs, uint64_t len,
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i, err = -EINVAL;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		uint64_t size;
+@@ -519,6 +552,10 @@ static int concat_is_locked(struct mtd_info *mtd, loff_t ofs, uint64_t len)
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i, err = -EINVAL;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 
+@@ -541,6 +578,10 @@ static void concat_sync(struct mtd_info *mtd)
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		mtd_sync(subdev);
+@@ -552,6 +593,10 @@ static int concat_suspend(struct mtd_info *mtd)
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i, rc = 0;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return 0;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		if ((rc = mtd_suspend(subdev)) < 0)
+@@ -565,6 +610,10 @@ static void concat_resume(struct mtd_info *mtd)
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 		mtd_resume(subdev);
+@@ -576,6 +625,10 @@ static int concat_block_isbad(struct mtd_info *mtd, loff_t ofs)
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i, res = 0;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	if (!mtd_can_have_bb(concat->subdev[0]))
+ 		return res;
+ 
+@@ -599,6 +652,10 @@ static int concat_block_markbad(struct mtd_info *mtd, loff_t ofs)
+ 	struct mtd_concat *concat = CONCAT(mtd);
+ 	int i, err = -EINVAL;
+ 
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++
+ 	for (i = 0; i < concat->num_subdev; i++) {
+ 		struct mtd_info *subdev = concat->subdev[i];
+ 
+@@ -616,6 +673,33 @@ static int concat_block_markbad(struct mtd_info *mtd, loff_t ofs)
  	return err;
  }
-+
-+int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
-+		     enum u_boot_env_format format)
+ 
++static int concat_ooblayout_ecc(struct mtd_info *mtd, int section,
++			      struct mtd_oob_region *region)
 +{
-+	return __u_boot_env_parse(dev, nvmem, NULL, format);
++	struct mtd_concat *concat = CONCAT(mtd);
++
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++	return mtd_ooblayout_ecc(concat->subdev[0], section, region);
 +}
- EXPORT_SYMBOL_GPL(u_boot_env_parse);
++
++static int concat_ooblayout_free(struct mtd_info *mtd, int section,
++			       struct mtd_oob_region *region)
++{
++	struct mtd_concat *concat = CONCAT(mtd);
++
++	guard(srcu_fast)(&concat->srcu);
++	if (READ_ONCE(concat->disconnected))
++		return -ENODEV;
++	return mtd_ooblayout_free(concat->subdev[0], section, region);
++}
++
++static const struct mtd_ooblayout_ops concat_ooblayout_ops = {
++	.ecc = concat_ooblayout_ecc,
++	.free = concat_ooblayout_free,
++};
++
+ /*
+  * This function constructs a virtual MTD device by concatenating
+  * num_devs MTD devices. A pointer to the new device object is
+@@ -738,7 +822,8 @@ struct mtd_info *mtd_concat_create(struct mtd_info *subdev[],	/* subdevices to c
  
- static int u_boot_env_add_cells(struct nvmem_layout *layout)
-@@ -172,7 +185,7 @@ static int u_boot_env_add_cells(struct nvmem_layout *layout)
+ 	}
  
- 	format = (uintptr_t)device_get_match_data(dev);
+-	mtd_set_ooblayout(&concat->mtd, subdev[0]->ooblayout);
++	if (mtd_get_master(subdev[0])->ooblayout)
++		mtd_set_ooblayout(&concat->mtd, &concat_ooblayout_ops);
  
--	return u_boot_env_parse(dev, layout->nvmem, format);
-+	return __u_boot_env_parse(dev, layout->nvmem, layout, format);
+ 	concat->num_subdev = num_devs;
+ 	concat->mtd.name = name;
+@@ -877,13 +962,29 @@ struct mtd_info *mtd_concat_create(struct mtd_info *subdev[],	/* subdevices to c
+ 		erase_region_p->numblocks = tmp64;
+ 	}
+ 
++	if (init_srcu_struct_fast(&concat->srcu)) {
++		kfree(concat->mtd.eraseregions);
++		kfree(concat);
++		return NULL;
++	}
+ 	return &concat->mtd;
  }
  
- static int u_boot_env_probe(struct nvmem_layout *layout)
-diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
-index 6063fe5b7784..87d871a6d5c6 100644
---- a/include/linux/nvmem-provider.h
-+++ b/include/linux/nvmem-provider.h
-@@ -81,6 +81,8 @@ struct nvmem_cell_info {
-  * @name:	Optional name.
-  * @id:		Optional device ID used in full name. Ignored if name is NULL.
-  * @owner:	Pointer to exporter module. Used for refcounting.
-+ * @owner_is_explicit: Use @owner even when NULL, without defaulting to the
-+ *		parent driver's module.
-  * @cells:	Optional array of pre-defined NVMEM cells.
-  * @ncells:	Number of elements in cells.
-  * @add_legacy_fixed_of_cells:	Read fixed NVMEM cells from old OF syntax.
-@@ -107,12 +109,16 @@ struct nvmem_cell_info {
-  *
-  * Note: Specifying name and setting id to -1 implies a unique device
-  * whose name is provided as-is (kept unaltered).
-+ *
-+ * Provider callbacks and @priv must remain valid until nvmem_unregister()
-+ * returns, or until a failed nvmem_register() returns.
++void mtd_concat_disconnect(struct mtd_info *mtd)
++{
++	struct mtd_concat *concat = CONCAT(mtd);
++
++	WRITE_ONCE(concat->disconnected, true);
++	synchronize_srcu(&concat->srcu);
++}
++EXPORT_SYMBOL_GPL(mtd_concat_disconnect);
++
+ /* Cleans the context obtained from mtd_concat_create() */
+ void mtd_concat_destroy(struct mtd_info *mtd)
+ {
+ 	struct mtd_concat *concat = CONCAT(mtd);
++
++	cleanup_srcu_struct(&concat->srcu);
+ 	if (concat->mtd.numeraseregions)
+ 		kfree(concat->mtd.eraseregions);
+ 	kfree(concat);
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 9cbfb9c32737..d9548567945e 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -1209,7 +1209,7 @@ int mtd_device_parse_register(struct mtd_info *mtd, const char * const *types,
+ 		goto out;
+ 
+ 	if (IS_REACHABLE(CONFIG_MTD_VIRT_CONCAT)) {
+-		ret = mtd_virt_concat_create_join();
++		ret = mtd_virt_concat_create_join(mtd);
+ 		if (ret < 0)
+ 			goto out;
+ 	}
+@@ -1230,6 +1230,7 @@ int mtd_device_parse_register(struct mtd_info *mtd, const char * const *types,
+ 
+ out:
+ 	if (ret) {
++		del_mtd_partitions(mtd);
+ 		nvmem_unregister(mtd->otp_user_nvmem);
+ 		nvmem_unregister(mtd->otp_factory_nvmem);
+ 	}
+diff --git a/drivers/mtd/mtdpart.c b/drivers/mtd/mtdpart.c
+index 8be604f7c140..bc9bc3c6a233 100644
+--- a/drivers/mtd/mtdpart.c
++++ b/drivers/mtd/mtdpart.c
+@@ -93,6 +93,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
+ 	child->parent = parent;
+ 	child->part.offset = part->offset;
+ 	INIT_LIST_HEAD(&child->partitions);
++	INIT_LIST_HEAD(&child->part.node);
+ 
+ 	if (child->part.offset == MTDPART_OFS_APPEND)
+ 		child->part.offset = cur_offset;
+@@ -324,6 +325,9 @@ static int __mtd_del_partition(struct mtd_info *mtd)
+ 	struct mtd_info *child, *next;
+ 	int err;
+ 
++	if (IS_REACHABLE(CONFIG_MTD_VIRT_CONCAT))
++		mtd_virt_concat_destroy(mtd);
++
+ 	list_for_each_entry_safe(child, next, &mtd->partitions, part.node) {
+ 		err = __mtd_del_partition(child);
+ 		if (err)
+@@ -375,6 +379,8 @@ int del_mtd_partitions(struct mtd_info *mtd)
+ 	pr_info("Deleting MTD partitions on \"%s\":\n", mtd->name);
+ 
+ 	mutex_lock(&master->master.partitions_lock);
++	if (IS_REACHABLE(CONFIG_MTD_VIRT_CONCAT))
++		mtd_virt_concat_destroy(mtd);
+ 	ret = __del_mtd_partitions(mtd);
+ 	mutex_unlock(&master->master.partitions_lock);
+ 
+@@ -434,7 +440,13 @@ int add_mtd_partitions(struct mtd_info *parent,
+ 		}
+ 
+ 		if (IS_REACHABLE(CONFIG_MTD_VIRT_CONCAT)) {
+-			if (mtd_virt_concat_add(child)) {
++			ret = mtd_virt_concat_add(child);
++			if (ret < 0) {
++				free_partition(child);
++				goto err_unlock;
++			}
++			if (ret) {
++				cur_offset = child->part.offset + child->part.size;
+ 				mutex_unlock(&master->master.partitions_lock);
+ 				continue;
+ 			}
+diff --git a/include/linux/mtd/concat.h b/include/linux/mtd/concat.h
+index f8d4d6ac1fc1..af30d338fee4 100644
+--- a/include/linux/mtd/concat.h
++++ b/include/linux/mtd/concat.h
+@@ -8,6 +8,7 @@
+ #ifndef MTD_CONCAT_H
+ #define MTD_CONCAT_H
+ 
++#include <linux/srcu.h>
+ 
+ /*
+  * Our storage structure:
+@@ -17,6 +18,8 @@
   */
- struct nvmem_config {
- 	struct device		*dev;
- 	const char		*name;
- 	int			id;
- 	struct module		*owner;
-+	bool			owner_is_explicit;
- 	const struct nvmem_cell_info	*cells;
- 	int			ncells;
- 	bool			add_legacy_fixed_of_cells;
-@@ -144,7 +150,7 @@ struct nvmem_config {
-  * @nvmem:		The underlying NVMEM device
-  * @add_cells:		Will be called if a nvmem device is found which
-  *			has this layout. The function will add layout
-- *			specific cells with nvmem_add_one_cell().
-+ *			specific cells with nvmem_layout_add_cell().
+ struct mtd_concat {
+ 	struct mtd_info mtd;
++	struct srcu_struct srcu;
++	bool disconnected;
+ 	int num_subdev;
+ 	struct mtd_info *subdev[];
+ };
+@@ -27,6 +30,7 @@ struct mtd_info *mtd_concat_create(
+     const char *name);          /* name for the new device   */
+ 
+ void mtd_concat_destroy(struct mtd_info *mtd);
++void mtd_concat_disconnect(struct mtd_info *mtd);
+ 
+ /**
+  * mtd_virt_concat_node_create - Create a component for concatenation
+@@ -43,23 +47,23 @@ int mtd_virt_concat_node_create(void);
+  * mtd_virt_concat_add - add mtd_info object to the list of subdevices for concatenation
+  * @mtd: pointer to new MTD device info structure
   *
-  * A nvmem device can hold a well defined structure which can just be
-  * evaluated during runtime. For example a TLV list, or a list of "name=val"
-@@ -173,6 +179,8 @@ struct nvmem_device *devm_nvmem_register(struct device *dev,
+- * Returns true if the mtd_info object is added successfully else returns false.
++ * Returns 1 if added, 0 if not a component, or a negative error code.
+  *
+  * The mtd_info object is added to the list of subdevices for concatenation.
+- * It returns true if a match is found, and false if all subdevices have
+- * already been added or if the mtd_info object does not match any of the
+- * intended MTD devices.
++ * A duplicate component is rejected; the caller retains ownership on error
++ * or when the partition does not match a concatenation.
+  */
+-bool mtd_virt_concat_add(struct mtd_info *mtd);
++int mtd_virt_concat_add(struct mtd_info *mtd);
  
- int nvmem_add_one_cell(struct nvmem_device *nvmem,
- 		       const struct nvmem_cell_info *info);
-+int nvmem_layout_add_cell(struct nvmem_layout *layout,
-+			  const struct nvmem_cell_info *info);
+ /**
+  * mtd_virt_concat_create_join - Create and register the concatenated MTD device
++ * @master: master whose partition registration has completed
+  *
+  * Returns 0 on succes, or a negative error code.
+  *
+  * Creates and registers the concatenated MTD device
+  */
+-int mtd_virt_concat_create_join(void);
++int mtd_virt_concat_create_join(struct mtd_info *master);
  
- int nvmem_layout_register(struct nvmem_layout *layout);
- void nvmem_layout_unregister(struct nvmem_layout *layout);
-@@ -212,6 +220,12 @@ static inline int nvmem_layout_register(struct nvmem_layout *layout)
- 	return -EOPNOTSUPP;
- }
- 
-+static inline int nvmem_layout_add_cell(struct nvmem_layout *layout,
-+				       const struct nvmem_cell_info *info)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline void nvmem_layout_unregister(struct nvmem_layout *layout) {}
- 
- static inline int nvmem_add_cells_from_dt(struct nvmem_device *nvmem,
+ /**
+  * mtd_virt_concat_destroy - Remove the concat that includes a specific mtd device
+@@ -68,9 +72,9 @@ int mtd_virt_concat_create_join(void);
+  *
+  * Returns 0 on succes, or a negative error code.
+  *
+- * If the mtd_info object is part of a concatenated device, all other MTD devices
+- * within that concat are registered individually. The concatenated device is then
+- * removed, along with its concatenation component.
++ * Unregister concatenations containing this device or its partitions and
++ * release its staged components. Components of other masters remain staged
++ * for a later rebind. Acquired handles retain disconnected concat metadata.
+  *
+  */
+ int mtd_virt_concat_destroy(struct mtd_info *mtd);
 
 -- 
 2.53.0
