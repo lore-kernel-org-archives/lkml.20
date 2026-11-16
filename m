@@ -1,61 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837433;
-	b=svR61QokqzcFTjW6/n8rcDNu23jGfOdKT0VK729RPeMdi2RLW4B0KbnACQ+F6o8VKaXo
-	 cDaihPhGfLooWcoZyLYfzGEp+1b0L81Obm6NHSatTb4MPdxoxFgMURKVGI4mds6J30UG7
-	 wT6WentmaR6qa70CzfjTK1G0eK6gTd9PZAIL6PJx+Hv8q0KuIefs77cbxUC1LLD5LbDzF
-	 YRjvLafI2YUxvoLZbrANS4/O59gZNmD7vaK6Q3CVhjn4moN8qDtKAS39nu+gvF4FlrvK8
-	 7X/9KkUtpEW6tkey4MYM0YpG3+X3KiOUmW0mgm+d+PUqD3IXUUANSb9bPaWo/pSI1bw==
+	t=1794837459;
+	b=niWe2O1DPBbeYYjI3QvQ7BhvaTz295Td1b83oh9mNiK7MOfJ5Euqez1fF/uaisENPt0g
+	 Ly6FcPhnamnLVQZR0Uyn8U9bux6yOz0ZrstJ0YQ94YlI0wreRSKkPabY0rjauxE6XMHd8
+	 CZdLJBmg0vMZ5k1thjKA+G6sPBQK8x9t//xqo/P2VLYu7ExUusxSpxmcuaDfXv+KYeIEE
+	 wn+v0vZa4Rlnsljzuo+E9cwdYhS9bFd/OEUXDGgIg4nVSsTcdvjhbQpO+e2DyofHqoPRg
+	 7LzCzzI6DkF91jqbvHdhnhLvFYUK5sorVTtr79H54nQSv+OoEMuaCQik1ROWOy2mQKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837433;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=QENVAfGaOo7cG1bvZbxpHS9yVMi7DsE5+E5r95kzd9U=;
-	b=jt+DmHdEQpbs6zA9IAa3vcJIo/IKLWYrHQpNNP4SbudDU+KVrzN7dvZQzOTYekl3IROR
-	 FEUqdsONmZJdSxdolamBckbH4+OTZNQVCV7Jcn4VKAhF5kXVKVCey/UdsmkuLji4fhWJH
-	 k7jyUU6mgB8jBlMgl5iDQ+fxk8JkR6WgdPyOo7V9NhXqq162sTuUMb2grpmE/8HWUv11F
-	 /9GExcmVeslo0l0RCPDi1hGPMoEGBMupReQ17MQwph9Xi1wf7qY999+RuUS5Ro6erg7Gg
-	 2Gq4ltxUCgMc6vSfn91yGIi97t1GhEePohiD39zgKfaBWqCMJOdt4SiYbHmZkjobqaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837459;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1UODTzCnkI/AIIgb2/kXpLhCU+2zXpd05+blvCLXolQ=;
+	b=ouSmSizVJn4AkUNqaFWgIJe5wl+TuMBgJjaKCxJ1NFPNX2pvAK3MIS1CZrCFLXbaSl6m
+	 QBs1jC/UrTkAlB1xIK3U8ojghzzXscNJgaeMYk0QRMEMva8U3ze7hw5r8VhETeXNAJvvM
+	 bTB43hrTAzuURh2neQEwyMbT6/cl8v3r7j5x7BUN9+vfL+Ao6IwDnJXP9mbhhDe18A34h
+	 CGBdcDR4MYqwFy7mdQogttRRd7Il3OtrSWrxcTh30lT1osa3PqhzFXtL3T1j8jBR17Iet
+	 /7WJTT55knJn9g6QseclkRW/CxrW8m0ZNOaZDo94QtccGAuI/wJzQA0X7+zVfZmrcfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ml95Tpkh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dF63jNl2;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED33606A323;
-	Mon, 16 Nov 2026 13:57:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA16606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA16606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ml95Tpkh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59961F000C4;
-	Mon, 16 Nov 2026 13:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837433;
-	bh=QENVAfGaOo7cG1bvZbxpHS9yVMi7DsE5+E5r95kzd9U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ml95TpkhccdOdCRgqDBw8B/20phX6V6A1Xts98+iUqCBqyfrGl9bqmmewT7LZDLgB
-	 cNg/PJOeL3JnR2R55byH5qrj3ZptnSPxy4JQdqDzVVZg+m6fkBOUAMH9lRK1nALKJV
-	 AxJNo2XgUr6Z0vvRUMX8JAQ47s7okiQhWRpQfkynY+ckEa8lCu7C2h20mFBxjsYFKk
-	 jH2kXTbqCv0PDJWTovf2UJ2hN+TLAZXxZ641uUdD5lbprL4pDuYASJ3V2dlA5KonvJ
-	 eRS5afGshQcH8COdh7BY+pqoHZKyENZ7EraGDoT4FTd0ruLcJYH7pO6KX/rW8Yd8Q2
-	 Xgj0IYb/C3U2A==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Thierry Escande <thierry.escande@linaro.org>, 
- Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>, 
- Chenna Kesava Raju <chennak@qti.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
-References: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/2] fastrpc: fix probe-time races between rpmsg and
- userspace
-Message-Id: <179483743046.37272.7082029810163966845.b4-ty@kernel.org>
-Date: Mon, 16 Nov 2026 13:57:10 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dF63jNl2
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a7a3b29c11so3533655e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:57:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794837457; x=1795442257; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1UODTzCnkI/AIIgb2/kXpLhCU+2zXpd05+blvCLXolQ=;
+        b=dF63jNl2utyC7Dk8MA6m6jSU8aaCH0pedIAX+QPwbLp4dDHT1DjyBU97VD6g8mxGKP
+         IaJPUcaMnCSYti428ZN8zSQusKjFqv6o4Bl9s/ACGcUlmje5qG8HDJVHZpEbauHqW4qf
+         uFJKjeHMT/CQAxnIOpR+RgNaoWNOGZTZqKHBOgK57OIrXqhwE6jQ57kLQNt1xYqZccAr
+         7gj1761iHJw2aNB/mwEqufUP564IrqLXNubed2IUigwmMFgSUu8sirIlY10MJ1tQgo5d
+         LWo7QOcFlSlsTuxu4yPHfo8ZqH/HEdZP4w/SpmORgFlaSHFIpmQsdXkdQ50wWBUnzsJ2
+         jU8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794837457; x=1795442257;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1UODTzCnkI/AIIgb2/kXpLhCU+2zXpd05+blvCLXolQ=;
+        b=qANkXhKOooFzZLgPpDO/sb6urfOKBSQGKthzm+ozl2YeIR3VybEPR9NbNFUZCKB4Uq
+         B+u832lYdxtCuI1eiRH8JLQPdDQ7riqKvYpwI6xb2Ne9r56EL+sMRszmaitVSefcmrqF
+         mcWt4nWTys63UCcBwfUUlhg0bTMLOLEzJdp/Vy3FHaKFZ7Wur8DZoXLJi6mUclYpQoZx
+         faF/n9XIV3jlggtqtDibt70P4Nhj4lyoe+i0Gzxc0KZwr3Y685fAf61l+S9ZK2Uz55fY
+         aTJqqCuy6tgVuvJPXZgLIsybCRYPaZt9JRIje+YaFLYWQ2Qw9LzUoNaYshITnEdAIp/n
+         GJ7g==
+X-Forwarded-Encrypted: i=1; AL+hErHn8C2U3PE+SsDqOExvgJ1RcGxUZ5dlrqw5HOfAosRyIiATTHutzuozUJ3/S9E+E1Z+vSXDGlagoVa/J+s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Z6XDB7TeRqKBU59W8AoVdehcPa2jN6I+l3yedYdIv1vUhL6UU
+	f+1/5KR7X60hrrWm3fTfk5DNyDFSgoEDXA6C8pjTLqZcxKJrVcIVZttc
+X-Gm-Gg: AYBFou2BR3IwqhOAknRUqwSXnbiHeoT7TdqIb07ip2QWumTpDxT+9zGa8U5YLElyns0
+	Y5B3DM540GSsf59wJz0K0op78JQfgzuJpRsPxYNnw/dlAV/WpQeXJgpjIo1YZGF7ETcwuC3Twyh
+	/f/xyEfXEfDdsEMKLFuvlqs++/1JyPK5s8Zj8crpL9OHy6zfICS2x3vP1Xm2tBwuCuHCrUjrXq+
+	DDyJTiaRxfxOM0Z1g5KCHywl8Q8Q33TH8i/Wb8CvgOY5U98QRiFyFbEWYzTyhOYOMeQpJTW9OqD
+	pLPzySIVubNRMpnIq80pthMrFWu7TJfUqgo68gbo3kX7WClAkNDq1kz178UL1fQuqIoYjoEC+gP
+	L1T6hidZZv5aq48s60m6wwJ1raxoBn/NAVw0tb1ZYOai0Cov/LezPXbygE3gKd7te8aLRvVCfmj
+	m5UrvgaSTQypz5mDCX/LF1JflJ4leeK39EbMkPIa/fZA2Iej6OdEXYxY2Hwf9GEzbePBA3VgFDC
+	hDlhpJIlmRJawgtVisnglmynAjrYqB+oKk12m02QMvBBEDIPTVKNMpv4nN5ipJydFkQf83O4zLf
+	Qd6RUnoTbxMvMrDZ2omW/2gYJUegBP/g5nPGdBB0hcQwCnwmMw0HwAQ=
+X-Received: by 2002:a05:600c:3d96:b0:4ad:5ec2:d3b3 with SMTP id 5b1f17b1804b1-4bb55a35c14mr209953705e9.1.1794837457182;
+        Mon, 16 Nov 2026 05:57:37 -0800 (PST)
+Received: from scheduler.schedules ([85.100.69.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb675200e4sm126280195e9.0.2026.11.16.05.57.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 05:57:36 -0800 (PST)
+Date: Mon, 16 Nov 2026 16:57:31 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
+	lukasz.luba@arm.com, rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
+	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
+	pierre.gondois@arm.com, sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
+Subject: Re: [PATCH 01/20 v3] sched/eevdf: Decay positive lag of sleeping
+ entities
+Message-ID: <avr4MsRsjGfGHKKk@scheduler.schedules>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-2-vincent.guittot@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,36 +103,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261106151947.3991524-2-vincent.guittot@linaro.org>
 
 
-On Thu, 22 Oct 2026 14:38:46 +0530, Vinayak Katoch wrote:
-> This series fixes two races in fastrpc_rpmsg_probe() that can be
-> triggered when userspace opens a fastrpc device node concurrently with
-> the rpmsg probe sequence.
+Hi Vincent!
+
+On Fri, Nov 06, 2026 at 04:19:28PM +0100, Vincent Guittot wrote:
+> Similarly to delayed dequeue, which enables an entity to decay its negative
+> lag while sleeping, a task should not keep a positive lag forever.
 > 
-> fastrpc_device_register() calls misc_register() before the channel
-> context is fully initialised. A concurrent open() in that window hits
-> kref_get() on a zero refcount, and because fastrpc_cb_devices_create()
-> has not yet run sesscount is 0, the error path calls kref_put() on the
-> saturated refcount, triggering kfree() of the channel context. A
-> subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
-> freed spinlock, causing a kernel panic. A NULL dereference in the
-> fastrpc_device_open() error path when cctx->rpdev is concurrently
-> cleared by fastrpc_rpmsg_remove() is also addressed.
+> The sleep duration and the weight are used to decay the positive lag at
+> wakeup.
 > 
-> [...]
+> Apply the decay when enqueueing on prev rq for which we hold the lock to
+> get rq_clock_task().
+> 
+> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> ---
+>  kernel/sched/fair.c | 124 ++++++++++++++++++++++++++++++++------------
+>  1 file changed, 90 insertions(+), 34 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 0feec172fd37..5cd171f830d8 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -897,6 +897,91 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
+>  	return avruntime - vlag != se->vruntime;
+>  }
+>  
+> +/*
+> + * Signed add and clamp on underflow.
+> + *
+> + * Explicitly do a load-store to ensure the intermediate value never hits
+> + * memory. This allows lockless observations without ever seeing the negative
+> + * values.
+> + */
+> +#define add_positive(_ptr, _val) do {                           \
+> +	typeof(_ptr) ptr = (_ptr);                              \
+> +	__signed_scalar_typeof(*ptr) val = (_val);              \
+> +	typeof(*ptr) res, var = READ_ONCE(*ptr);                \
+> +								\
+> +	res = var + val;                                        \
+> +								\
+> +	if (val < 0 && res > var)                               \
+> +		res = 0;                                        \
+> +								\
+> +	WRITE_ONCE(*ptr, res);                                  \
+> +} while (0)
+> +
+> +/*
+> + * Remove and clamp on negative, from a local variable.
+> + *
+> + * A variant of sub_positive(), which does not use explicit load-store
+> + * and is thus optimized for local variable updates.
+> + */
+> +#define lsub_positive(_ptr, _val) do {				\
+> +	typeof(_ptr) ptr = (_ptr);				\
+> +	*ptr -= min_t(typeof(*ptr), *ptr, _val);		\
+> +} while (0)
+> +
+> +static inline unsigned long cfs_rq_load_avg(struct cfs_rq *cfs_rq);
+> +static unsigned long task_h_load(struct task_struct *p);
+> +
+> +static __always_inline
+> +void decay_entity_lag(struct cfs_rq *cfs_rq, struct task_struct *p, int flags)
+> +{
+> +	struct sched_entity *se = &p->se;
+> +	s64 delta_exec, vlag = se->vlag;
+> +	unsigned long cfs_load;
+> +	struct rq *rq;
+> +
+> +	WARN_ON_ONCE(se->on_rq);
+> +
+> +	/* Negative lag is managed by delayed dequeue path */
+> +	if (vlag <= 0)
+> +		return;
+> +
+> +	rq = rq_of(cfs_rq);
+> +
+> +	/* No fast access to prev rq task clock */
+> +	if (flags & ENQUEUE_MIGRATED)
+> +		return;
+> +
+> +	/* Compute sleep time */
+> +	delta_exec = rq_clock_task(rq) - se->exec_start;
+> +	if (unlikely(delta_exec <= 0))
+> +		return;
+> +
+> +	/* For anything above ~4 seconds, save computation and clear the lag */
+> +	if (unlikely(delta_exec >> 32)) {
+> +		se->vlag = 0;
+> +		return;
+> +	}
+> +
+> +	/*
+> +	 * Use cfs' load and p's weight to estimate what would have been the
+> +	 * share for p. task's load contribution to cfs' load is replaced by
+> +	 * its weight.
+> +	 */
+> +	cfs_load = cfs_rq_load_avg(cfs_rq);
+> +	lsub_positive(&cfs_load, task_h_load(p));
+> +	if (cfs_load) {
+> +		unsigned long weight = scale_load_down(se->h_load.weight);
+> +
+> +		delta_exec *= weight;
+> +		delta_exec = div64_long(delta_exec, cfs_load + weight);
+> +	}
+> +
+> +	vlag -= calc_delta_fair(delta_exec, se);
+> +
+> +	/* vlag can't become neg while sleeping */
+> +	se->vlag = max(0, vlag);
+> +}
 
-Applied, thanks!
+Look:
 
-[1/2] misc: fastrpc: fix NULL rpdev dereference when session alloc fails
-      commit: 2b22e3266386190d2027d9f12f317e0662a40711
-[2/2] misc: fastrpc: fix init ordering race in rpmsg probe
-      commit: 1bf78aac760fd25b684153f8c477aede9b9dd634
+Let's say we have 3 tasks named TA, TB and TC. They all have the same
+weight and the same slices. So TA gets picked, works for a while and then
+sleeps for less than the rest of its slice.
 
-Best regards,
--- 
-Srinivas Kandagatla <srini@kernel.org>
+So the part that I hate and love, math. For your diff, we do:
 
+(sleep_time * weight) / (3 * weight)
+
+3 * weight here is TA + TB + TC, it equals to 3 * weight since they all
+have the same weight.
+
+So if sleep_time equals 2, weight equals 1, and slice equals 3 this equals
+2/3. If the lag is 2, we do 2 - 2/3 resulting with 4/3.
+
+
+Later, place_entity() uses this formula to do V - ((Sum(weight) + weight) * lag) / Sum(weight)
+So ((2 + 1) * 4/3) / 2 equals to 2. But this is wrong, no?
+
+If we didn't decayed lag: ((2 + 1) * 2) / 2 equals 3.
+So we would do V - 3.
+
+Now our objective is to add the sleep_time of the task to -3.
+Because if the task didn't slept, in that time it would be working
+instead of sleeping.
+
+So, we should do V - 1. But we do V - 2.
+
+
+AFAICT, we can't already know for sure how much will a task run even
+when the sleep_time is smaller than the slice. Because of preemption
+:-(.
+
+The cleanest, the simplest and maybe the worst or the best solution I can think of
+is just setting lag to 0 on every wakeup with positive lag TBH.
+
+Or maybe, try to calculate when sleep_time is smaller than the slice,
+but just set the lag to 0 when sleep_time is bigger or equal to slice.
+
+What you think?
+
+Sreehc,
+
+Kayra
