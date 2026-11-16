@@ -1,82 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834805;
-	b=1sCi3zvxq3rzQdIVjv+s+wB0WEgHlVmkfjZYVJyuZG4sH9sjFXn12wNmfFrsHuhpAzAt
-	 cz0az2LzddDkQQBB8NtkHJ3LfT32ipOAh/J9YsEgwDMF6Ghcxh0mURTJPGtZ3s6AJo15g
-	 7afgN870kzD4EBH/a7GRTZiIOWMrsnFYkL2xJ2Hjj/bTKwP+2MMK24wS/g4nh5ah6xJml
-	 uYLuF8n+Ele8uo9VAq3EGZLNXTOMscWe6R4cTuJGKhIB4z96vsL0shGXbYK36BjslJZoM
-	 vZi7UPc3QfGj7jkfMcN3UVEZPqpfwekPUcaspsspgeH7xpvt7Zw7HfybCf8rA5GqAWQ==
+	t=1794834819;
+	b=COxSG7lsvVdckK/DdZgOuEgU2xIfy5m5b/6nToYgNUX5F4GaOuamJmh2Iof7b7TPY99t
+	 8rgUB5GgdBTjKceKM2GVugoTn2gsyJu+mi3XRdNHqDolyjBUcRzHgX34iU67Vc2J5E8S2
+	 Mj7h3sXOpfxnQn3NFYqfTXJCC2iSu3NFehnKHONVc38a0BnVVbvBJ3m0z+yvWkhhEf7Nz
+	 WHpisTdFPFbIzR452QjY4BP+0sSeZcqcdQNKHs6JkAnNIEDsaAxL8J0iwAzK2UyuLekQw
+	 TAI+qIdcLnyq3kCi1ORPMylf69QNuS/6fDx5lc7frMMQK+nSquIj6OEcnSD+19F1PQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834805;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=3NziRagd3Kp64mhlLwSQv7c8QW0heczxcZxtep8cF2s=;
-	b=KEVpp4OE4OtUxNKpcC4oQwW6I/7limFWN1mzezU98mkEPRZuet6XRGfeN68abJNCyYNY
-	 Kl+RibcJydWgTmVYiZ1PPnyWZYNX5yOH4/z9DuK9aXpuPkpFQ5EB8oKSxY7r2v/eQlCfC
-	 P3RmUaFIKH0Ksp7eu9Nv4fZZKcKicT6C2tg9/mIKpD/BuNnEy6bUdSI8niHvljiTUVjwd
-	 KgdyCh+LHr707s2HIzsVVtB8vSzMsxMzyBrajTvrAI6r2sCaiQ9zXkOR5mAgaeH3+UANn
-	 b9pMtFn5bG5G/0jYQ0h7ysVh9nS/97/bgLdA1m3q1QvNPJKJyRvNkgzQfe6dzqM9uYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834819;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=3ebwOHO3DLWDdWRTVfnZ67IZWLbMAWCyYXQa8P8BweM=;
+	b=Kcq42bnm9UKyJiXhl0l7v+T0F1WuiXsbfeXmp1V1mhW3zRyBOu/JKIenVlMrgcKQ3BQo
+	 yaKme0rYagQa9+gxh/UZY/vyhSjhPEVd4PmvxCpkKDzui6tP++dFm9P/iGLx5oM19U75Z
+	 w1IS3x9USapWXSXKinF7169YwmH3m+/0F+NyN8lNoA+F7D+AgXLqCjPtuhQDon70tA/w6
+	 RQBbTTPnOWkpyZUVs5Hy8tt4HhvHkzTKGvwliUBj8Jjfd0EKDuKmTSZQPXF/sOMXM7kjH
+	 XEcGok32bpJLmVXUvXKTO8XlArOonzFBJUCykQWWQbH6lsGeF1sVEQlQTqm5RX9oWzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l+Gnyxh8;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zP0sMLun;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="7QB92/4E";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zP0sMLun;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="7QB92/4E";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FF5606A329;
-	Mon, 16 Nov 2026 13:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4FF5606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247B9606A323;
+	Mon, 16 Nov 2026 13:13:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 247B9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l+Gnyxh8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794834805; x=1826370805;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=pWEth8krOh4n8bcr9ApMvKZWcSt1+DRZOugxxERJq9g=;
-  b=l+Gnyxh8ete85Yn9vxTQmXMzx1xtfjs3h4i/tSvTYDTJfZMZDwbDhoYX
-   hJNzJhvlitMttawt8q7LgoJMQ4ZYHFsx/XzGchtFb0yhXDlZKh3jVmx39
-   hb2lfywP7OmOFfQJ7sRUesgW0WyyesIwRZ/Y8ebryZwov2rXiUspQE/BD
-   Df/YUMLClhtJsGxLmggPxbpmXen+IB7qhbr9cbyIDuxhnYPqwgdI9S8a+
-   aowQy1YX/bGJ5MLK9tDfqdTnUQtmFm/JxsCpC3RlmZdPCtBfykgdD2LT8
-   ndWLMLH1abVx0HrHThOLAvtGO8rPFsppmGlrkNyi+og+rq4Ehegp8btgz
-   g==;
-X-CSE-ConnectionGUID: NCDiOHO+RneKXNtSr8lTVQ==
-X-CSE-MsgGUID: 41mn++adRVCpgjho14DPgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3610901"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3610901"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 05:13:21 -0800
-X-CSE-ConnectionGUID: VPEmmfBLSma1gXFsyAJBiQ==
-X-CSE-MsgGUID: zYvmf/SsSoCxFPDyxQbmFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="11338445"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.181])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 05:13:18 -0800
-Date: Mon, 16 Nov 2026 14:13:11 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: Faizel K B <faizel.kb@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org, 
-	Robert Mader <robert.mader@collabora.com>
-Subject: Re: [PATCH 2/2] media: rockchip: rkcif: Honour the requested
- bytesperline on MIPI
-Message-ID: <avsA41bM33cwYfW9@mdjait-mobl>
-References: <20261105232310.385463-1-faizel.kb@gmail.com>
- <20261105232310.385463-3-faizel.kb@gmail.com>
- <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
- <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
- <8c3805ca-0be7-4634-8904-30a9c36d8962@collabora.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zP0sMLun;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7QB92/4E;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zP0sMLun;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7QB92/4E
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0E9211F7D2;
+	Mon, 16 Nov 2026 13:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794834817; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3ebwOHO3DLWDdWRTVfnZ67IZWLbMAWCyYXQa8P8BweM=;
+	b=zP0sMLunOdvyn/YjVZq+lqIaHp4Wq9o5qnA+0dqUjY0AUoguLBt5JbRa5zbxUn91U6E+qZ
+	P/iOUmmXPeDRWLG4+8WbDhJIUguWe+fw+qv8Z6/0BU6wj8s0VyC3UT5YaTImmwfchAFm91
+	k1IYTZjNMu+dVZYt3rDIWOttcoBAtLM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794834817;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3ebwOHO3DLWDdWRTVfnZ67IZWLbMAWCyYXQa8P8BweM=;
+	b=7QB92/4E7h4LCXz51bGCcCQF8vrtiozlhR649szDzFTLMcBmZ6qSkp/wAtW0jOjQ1fjxad
+	iVIEt5Q94mvA5CDw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=zP0sMLun;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="7QB92/4E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794834817; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3ebwOHO3DLWDdWRTVfnZ67IZWLbMAWCyYXQa8P8BweM=;
+	b=zP0sMLunOdvyn/YjVZq+lqIaHp4Wq9o5qnA+0dqUjY0AUoguLBt5JbRa5zbxUn91U6E+qZ
+	P/iOUmmXPeDRWLG4+8WbDhJIUguWe+fw+qv8Z6/0BU6wj8s0VyC3UT5YaTImmwfchAFm91
+	k1IYTZjNMu+dVZYt3rDIWOttcoBAtLM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794834817;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3ebwOHO3DLWDdWRTVfnZ67IZWLbMAWCyYXQa8P8BweM=;
+	b=7QB92/4E7h4LCXz51bGCcCQF8vrtiozlhR649szDzFTLMcBmZ6qSkp/wAtW0jOjQ1fjxad
+	iVIEt5Q94mvA5CDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D9E421334C;
+	Mon, 16 Nov 2026 13:13:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TD9lLYAB+2ohGAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 13:13:36 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 8431524E0C; Mon, 16 Nov 2026 14:13:36 +0100 (CET)
+Date: Mon, 16 Nov 2026 14:13:36 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
+	target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-nfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 03/17] fs: add file_write guard
+Message-ID: <alfngelvy6yzzdpudh3mwp3voiwchbtedkczpyitf2lmv2h4oc@jimsorr6fp2t>
+References: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
+ <20261116-work-fs-frozen_writes-v2-3-ecc4a2aac40e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,89 +116,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8c3805ca-0be7-4634-8904-30a9c36d8962@collabora.com>
+In-Reply-To: <20261116-work-fs-frozen_writes-v2-3-ecc4a2aac40e@kernel.org>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 0E9211F7D2
 
-Hello,
+On Mon 16-11-26 12:03:43, Christian Brauner wrote:
+> Add a guard for file_start_write() and file_end_write().
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-On Mon, Nov 16, 2026 at 12:51:45PM +0100, Michael Riesch wrote:
-> Hi Faizel,
-> 
-> On 11/12/26 07:20, Faizel K B wrote:
-> > Hi Michael,
-> > 
-> > On Wed, Nov 11, 2026 at 10:46:43AM +0100, Michael Riesch wrote:
-> >>
-> >> Come to think of it, TRM p. 2111 says for e.g. VICAP_MIPI0_VLW_ID0:
-> >> "Virtual line width of even frame for ID0 path(must be aligned to double
-> >> word)." which I would interpret as "it must be a multiple of four
-> >> bytes". What do you think?
-> >>
-> > 
-> > The VICAP register summary defines it.TRM part 1 (V1.0, page 2081)
-> > "DW - Double WORD (64 bits) access". So 8 bytes.
-> 
-> Ack.
-> 
-> >>> +static void rkcif_stream_set_bytesperline(struct
-> >>> v4l2_pix_format_mplane *pix,
-> >>> +                      u32 req_bpl)
-> >>> +{
-> >>> +    u32 min_bpl = ALIGN(pix->plane_fmt[0].bytesperline, 8);
-> >>
-> >> Please add support for the bytesperline field in all the plane_fmt
-> >> entries here...
-> >>
-> >>>      width = clamp_t(u32, pix->width, CIF_MIN_WIDTH, CIF_MAX_WIDTH);
-> >>> +    req_bpl = pix->plane_fmt[0].bytesperline;
-> >>
-> >> ... and here.
-> >>
-> >>>      ret = v4l2_fill_pixfmt_mp(pix, fmt->fourcc, width, height);
-> >>>      if (ret)
-> >>>          return ret;
-> >>>
-> >>> +    if (stream->interface->type == RKCIF_IF_MIPI)
-> >>> +        rkcif_stream_set_bytesperline(pix, req_bpl);
-> >>
-> >> Why is this restricted to the MIPI interfaces?
-> >>
-> > 
-> > The MIPI formats all have a single plane, and the MIPI path already
-> > programs the line width from bytesperline. The DVP path uses the width,
-> > and I can't test it. But I agree it should not depend on the interface.
-> > 
-> > For v2 I would:
-> > 
-> > - take the requested bytesperline of all planes into account, and use
-> >   the largest for all planes, as the DVP has one line width register
-> >   for Y and UV
-> > - compute the sizeimage of each plane from it
-> > - limit it to the line width field (20 bits MIPI, 15 bits DVP)
-> > - program RKCIF_DVP_VIR_LINE_WIDTH from bytesperline, with the current
-> >   value as the minimum
-> > 
-> > Does that sound ok?
-> 
-> That does sound reasonable, yes.
-> 
-> > A question on the DVP: the PX30 TRM (Part 2, 5.3) says raw data is
-> > stored as 16 bits per pixel, even from an 8-bit source. This matches
-> > the width * 2 in the driver. But for V4L2_PIX_FMT_S*8 (e.g.
-> > V4L2_PIX_FMT_SRGGB8) bytesperline is the width, so the buffer is half
-> > the size the hardware writes. Am I missing something?
-> 
-> I don't have any PX30 board, and actually it is the first time I hear
-> about that. Maybe Mehdi can chime in?
+OK. Feel free to add:
 
-Unfortunately I also don't have hw with DVP and the one time I did look
-online, it is really not that easy to find.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-The PX30 board I used to delevop the rkcif is a custom hw that I don't
-have access to anymore.
+								Honza
 
---
-Kind Regards
-Mehdi Djait
+> ---
+>  include/linux/fs.h | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 0b66a09fb686a..c156a326e8c89 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2782,6 +2782,11 @@ static inline void file_end_write(struct file *file)
+>  	sb_end_write(file_inode(file)->i_sb);
+>  }
+>  
+> +DEFINE_GUARD(file_write,
+> +	     struct file *,
+> +	     file_start_write(_T),
+> +	     file_end_write(_T))
+> +
+>  /**
+>   * kiocb_start_write - get write access to a superblock for async file io
+>   * @iocb: the io context we want to submit the write with
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
