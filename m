@@ -1,48 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822602;
-	b=UTnliMa4N4KyRLdRGQRTqluMLIwcj+tFw0x3xVJ3G8NdLXX/VFolhcb3GhCzu/izV81v
-	 nI0OxlMqeFHqFRmpMJ8twWQ/bILVVmEM0O/+1y2wQ+5uzvVla6QdtIAvm1VQsOZg0xGwL
-	 uwfGh/BVSz6r0wUPxPvFU/svcadGWYYoIRdMMmT8TCBSLPAK1GFLGIwygyyhEZ7yPwsEi
-	 2km7iUhhKeRDx/Mx6MFWd+f1gJ6Ev8ZhIHVYHxmvnKfN3FKQw+9k2pknEFsVI4tYCHboD
-	 f3abO325Hip1G+29FXZQH774Xl3si94PgiTjAM1yQ1kxNqfBNPKCcNdZieRbMLdqZrA==
+	t=1794822624;
+	b=LV30yUAbQ8M4fmT+095gASMbKevbjoE9mSsCah/toYvCeHv+xuR39Ns+Gnxv+XNQnmIl
+	 83Jh/Eo5HZcjUQs6/4Op9sxKFdNcmIugOBdr5sIblnawjn4cvOfGzRD+K2xHIsmARqlvP
+	 FIHJFD7M9mnvCQf3kJo7ck/lLAePOlNpOJ1rdKpnJN6dcThtCvG5PJXo2r3YY8Aa4X8mF
+	 2/L00Z14TBm9D80ObMa9XG57oxGb4fRFfBZMi8h2S5Yqtr6UQdQo1v2YmksMsT7kjaWfQ
+	 50XXervLwxOumcHCFS200QeT9+heETJVERl4mbcQ9ewCfXB9o8QZKub0g/kU31z2EWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822602;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=nutLsIkA5U1mmOC4x0bj+AK0SbP4YnNIzYe51iNndR0=;
-	b=4lqACphn4XEftv+DURHQ9v37xS9MOzKgwNZCoH9iOwxED3Y4167w2YomxUza8tS8RfdH
-	 7YH4H5JRXpB0I/pETmNkF4vwpBxrWlGhMaPZHqpMMNgk+WXW2yScMkoUmu85qo6NNNbZL
-	 QRB6UTa7w3m3v6L7fL40THF2aV/o6yaU+QkguzODXUlfkR3Hi5/mxBZsDtB7sqIH6bHXU
-	 CAxwH9o1V0JWSzMKniQwy6DH5Ov6a+6RQO4DnGPwAKF0qcW+iTU7E75g8igz+/hjan8bl
-	 Oyu8GoZT5vSTP38VRReT2ZBg06AMTMufqXwayIon/A69PPFkYtILmbTYhMxBsI4tZJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822624;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C5A0lqtK+Mtifsjo6m0FKzz+TIKe/pUlM6bIYuB14yE=;
+	b=HBnjzpicF9H7/yW0K1iqIKuyIttMaw61dxeL6NUsYWTc0/x4n2jcUYmpzTmgQAIpIzED
+	 ObxzD7fIz2BPa363JKfVhtRxv2XyNnE2XQUiCKgJMOXN0PXzpoqoGm+7ZP2xHGmmKSmSr
+	 BhBtlzF+vxyHM8atAc+bCuhdYTvN05+y939mjnj9kaSl/A+YWS5lcnY772HY1pw+Tc6t9
+	 8AqXDHXIcXKy/t18a270KDn3Cp5oePnLy33psmKQhPHs/FbHqys3PmQgfw7DuxhVCGlvF
+	 QlF0V0ikMXiEg+mx/R7NVHg7mrNMhBmYxK3yXOb5dRQ0NLOqa8XBUxBmPMLamkcmXGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuIeV7IM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XGnLyHMU;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45CB606A31C;
-	Mon, 16 Nov 2026 09:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678DC606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:50:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 678DC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuIeV7IM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B0E1F000C4;
-	Mon, 16 Nov 2026 09:49:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794822602;
-	bh=nutLsIkA5U1mmOC4x0bj+AK0SbP4YnNIzYe51iNndR0=;
-	h=From:Date:Subject:To:Cc;
-	b=GuIeV7IM+HGlt1Rr9ogolyxWR3STxnvhFA73A9T4j7VW2STl5N+8+/paAqcj2Qq+h
-	 IxI+Fj5D+6hLsZ+ivrESmRf4pZtsyW5Tl2PaejKZTd6r36dexsv8F3YXbNB8ZlhHue
-	 42U9Cn/ga+lsihQTpfj60gRag19aYQh84ee6oRoESTK054VhpN84WN389556qA7I+B
-	 VU5THqIsKGwkKNgtbz+cEvzptZ4xQdF0zcy9Sif9kGRIVpr+gBSmtzI08pwwCdNZME
-	 6zfca1OQPpYgYvZQmdLQ1TowYGRQoSh5xz8VPhS3RpAVqxOCsXh6QdJbsvrHWtdBeX
-	 uXvCflislo5Pg==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 10:49:58 +0100
-Subject: [PATCH] dt-bindings: watchdog: arm,twd-wdt: Allow power domains
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XGnLyHMU
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdab938dc83so1461442a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:50:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794822624; x=1795427424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C5A0lqtK+Mtifsjo6m0FKzz+TIKe/pUlM6bIYuB14yE=;
+        b=XGnLyHMUWvmrgiDnZNg/54VlZIw7LLL8G5EMqXpDiG1mMSSRQMsPkSE9E2BsQ27jau
+         UyEhUIXWeqEAjnMPLkkOC6EFbqwOGE1226rMO+mF3n/9syYxz40VkPzrQKGLmzTD1+fz
+         CPDCrF5MCjcd6TSO8JyRqrHKKw7vH+5MKd/+aqq913ghksqL4JQEoD8zQI1rszA6wEFH
+         tJ8oNXXS5bSzU4hL2QK2bgVk505P7WFoxAtG6Smtr/PJqUEzQqoU8xWVUdAWFo+20aje
+         Hsrr4LCMuvunaqqHZHdcRZ9cMMatwlg4Rmd3o2ha1to1uIQ20nHpw0KSvjvhpqlwgaCV
+         PNRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794822624; x=1795427424;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C5A0lqtK+Mtifsjo6m0FKzz+TIKe/pUlM6bIYuB14yE=;
+        b=ce5n9i+W4FvkL3Ot53dVzCZXZNiFpRo5IZH3y0nnCFzD9iXJsj+Ly0y1PP8OJPMSYv
+         KJyc0CqmZAhLI27v/g4r633OPBMrSpSEorrZhE0c0mZ/BJMf0OUIvcdyyGvTFnQzGx8N
+         92PUwNTfFaMoFdB1D+zyi+gMTiybDM6DBxa+vx+IYctKuICJFcyIC4Axg6/zzDvCWNPL
+         YGT8zFaVBZu9Cd/KupARjPFSxq+nIMYU322K1HJJUnmTA4HFFp5hgcgJK1V+IBv7g3Zt
+         h1zFngO7axGHjUwKIwJ9m7GAQrQFwQsQO/Y5ZnWuwG/2FmF0iuyqKiA7sSJ/zI8VepNP
+         oxOw==
+X-Forwarded-Encrypted: i=1; AL+hErHtaIv2b3wXPeetcFzkbP7TgxlqMH1bVfVHHUWcBz3i8RkpPmYBoa4P01EaSgDIeN1uo6IK4GmD+fnJ22g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+W+iZb03Yw48gDil3JMxRqrWihZnTFSRwuq9cw3dGznNpOcDBm
+	BHYhzorCmXnbkJxsjRslpQDS23wPCb02f+YDZeSsk8wWuLJC7Qbjh28d
+X-Gm-Gg: AZFdTZfpDPU/MZEz62QWKAK5L26TxguBN/kyJP3YrxYt4veZqwn3h2gj+1t5NshhHHz
+	YNyOKAjFotvrjXNpcIT37GKTCTO5qgOVXg18OeLWvOZWgOEBZ9ACvZ+Tjc6S5zixJywY4CP2DFw
+	+3NT7zvUQhsJm0WmyEElRWdLGzPD97UcTVhEXtSTy2MAxcVAwIY5jTvpfiGiLWxjIRUKroXq+3N
+	cEHcCwCpZAZgTZISUOqMBenrQQ9crqpWEyQh4AL+f2mH5IHTdjCJg+PQ7O3AqEqxKuUaSNgpZ1p
+	Mj7FkiU+55XyC8tAObaG2n5C5qZQsJqHFJpO/hNHcUOR+RTZjfvVbdHR8dt4ZBtuKc9vNpNyJVg
+	/JtaU8DPT1FPX5PL6YyRCIxscgKf1mimKoLpJSuvFRCJ5yrCmXpOUf8vz3eiTPFnB0EbZucgKoU
+	zVL9f4EGlQqvKXyYrpWIXPBHKhLQezogg7U7Gp4B7T9yZv9s5aTW3w/2iG3n4mrBnazhzWezNcR
+	aQllS2MStC8Np8cdqT8wA1CVHuuG1XLkTUzEzzKU/zABKj5xTb4Od9YNs5CoEyiUcLamc9Bd8PY
+	19mzdP7Cwh4Lp+Q+FIHqzt5NnY3rTDwaii0=
+X-Received: by 2002:a17:90b:3d87:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3b1b0a3956bmr9566639a91.40.1794822623621;
+        Mon, 16 Nov 2026 01:50:23 -0800 (PST)
+Received: from hp.mioffice.cn ([2408:8607:1b00:8:398c:7f:ef48:2423])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b2133c5dsm7830877a91.0.2026.11.16.01.50.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:50:23 -0800 (PST)
+From: huang zheng <huangzheng9869@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	huangzheng1@xiaomi.com,
+	Huang Zheng <huangzheng9869@gmail.com>
+Subject: [PATCH v2] f2fs: add checkpoint step timing statistics to debugfs
+Date: Mon, 16 Nov 2026 17:50:11 +0800
+Message-ID: <20261116095011.2868219-1-huangzheng9869@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,55 +97,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ux500-watchdog-twd-binding-v1-1-a26adc9cea5e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MUQqDMAwA0KuEfBtoCnOjVxn7qEms+amjdVMQ7
- z7YO8A7sVtz65jgxGZf775WTMADoCy5FiNXTIAxxJGZR/octxBoz5ssuhbadqXJq3otpDGwPCT
- eZc44AL6bzX788+frun4dhmHwbAAAAA==
-X-Change-ID: 20261116-ux500-watchdog-twd-binding-d201c8c27cfa
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>, 
- linux-pm@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-Allow TWD watchdog nodes to reference their power domain.
+From: Huang Zheng <huangzheng9869@gmail.com>
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+This patch adds detailed timing statistics for each checkpoint step
+to the debugfs stat_show interface. It displays the time taken by
+each phase of the checkpoint process, including:
+
+- lock acquisition
+- block operations
+- flushing data/node/meta pages
+- flushing NAT/SIT
+- syncing metadata
+- waiting for dirty meta/checkpoint data
+- device flushing
+- waiting for last checkpoint
+
+This information is valuable for debugging checkpoint performance
+issues and identifying which steps are taking the most time during
+the checkpoint process.
+
+The statistics show the longest recorded time for each step, helping
+developers and users understand where checkpoint bottlenecks occur.
+
+Signed-off-by: Huang Zheng <huangzheng1@xiaomi.com>
 ---
-Allow ARM TWD watchdog nodes to reference their power domain.
+v2:
+- Use the global lock f2fs_stat_lock to keep statistics consistent 
+when updating cp stat data in the super block
+- The qualify test result as follow:
 
-This binding-only change can be applied independently. The companion
-Ux500 power-domain consumer DTS changes will be submitted separately.
+#cat /sys/kernel/debug/f2fs/status
+
+CP steps (longest):
+  - Total : 524(ms)
+  - lock : 0(ms)
+  - block_operation : 13(ms)
+  - flush_data_node_meta : 0(ms)
+  - flush_nat : 93(ms)
+  - flush_sit : 56(ms)
+  - sync_meta : 32(ms)
+  - sync_cp_meta : 0(ms)
+  - wait_dirty_meta : 0(ms)
+  - wait_cp_data : 0(ms)
+  - flush_device : 0(ms)
+  - wait_last_cp : 0(ms)
+  - unblock_operation : 327(ms)
+
 ---
- Documentation/devicetree/bindings/watchdog/arm,twd-wdt.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/f2fs/checkpoint.c |  2 +-
+ fs/f2fs/debug.c      | 31 +++++++++++++++++++++++++++++++
+ fs/f2fs/f2fs.h       |  1 +
+ 3 files changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/arm,twd-wdt.yaml b/Documentation/devicetree/bindings/watchdog/arm,twd-wdt.yaml
-index 9646ac72051e..5f6a9d6b9976 100644
---- a/Documentation/devicetree/bindings/watchdog/arm,twd-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/arm,twd-wdt.yaml
-@@ -33,6 +33,9 @@ properties:
-   clocks:
-     maxItems: 1
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 5c5b45d3c67b..b407adb9bf18 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -1738,7 +1738,7 @@ static inline void check_cp_time(struct f2fs_sb_info *sbi, struct cp_control *cp
+ 					cpc->stats.times[CP_TIME_START]);
  
-+  power-domains:
-+    maxItems: 1
+ 	if (cur_diff > sb_diff) {
+-		sbi->cp_stats = cpc->stats;
++		update_cp_stats(sbi, cpc);
+ 		if (cur_diff < CP_LONG_LATENCY_THRESHOLD)
+ 			return;
+ 
+diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
+index 6fe606e2c70d..7ff124784c1b 100644
+--- a/fs/f2fs/debug.c
++++ b/fs/f2fs/debug.c
+@@ -414,6 +414,13 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
+ #endif
+ }
+ 
++void update_cp_stats(struct f2fs_sb_info *sbi, struct cp_control *cpc)
++{
++	spin_lock(&f2fs_stat_lock);
++	sbi->cp_stats = cpc->stats;
++	spin_unlock(&f2fs_stat_lock);
++}
 +
- required:
-   - compatible
-   - reg
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261116-ux500-watchdog-twd-binding-d201c8c27cfa
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+ static const char *s_flag[MAX_SBI_FLAG] = {
+ 	[SBI_IS_DIRTY]		= "fs_dirty",
+ 	[SBI_IS_CLOSE]		= "closing",
+@@ -445,6 +452,22 @@ static const char *ipu_mode_names[F2FS_IPU_MAX] = {
+ 	[F2FS_IPU_HONOR_OPU_WRITE]	= "HONOR_OPU_WRITE",
+ };
+ 
++static const char *cp_time_names[CP_TIME_MAX] = {
++	[CP_TIME_START]		= "begin",
++	[CP_TIME_LOCK]		= "lock",
++	[CP_TIME_OP_LOCK]	= "block_operation",
++	[CP_TIME_MERGE_WRITE]	= "flush_data_node_meta",
++	[CP_TIME_FLUSH_NAT]	= "flush_nat",
++	[CP_TIME_FLUSH_SIT]	= "flush_sit",
++	[CP_TIME_SYNC_META]	= "sync_meta",
++	[CP_TIME_SYNC_CP_META]	= "sync_cp_meta",
++	[CP_TIME_WAIT_DIRTY_META] = "wait_dirty_meta",
++	[CP_TIME_WAIT_CP_DATA]	= "wait_cp_data",
++	[CP_TIME_FLUSH_DEVICE]	= "flush_device",
++	[CP_TIME_WAIT_LAST_CP]	= "wait_last_cp",
++	[CP_TIME_END]		= "unblock_operation",
++};
++
+ static int stat_show(struct seq_file *s, void *v)
+ {
+ 	struct f2fs_stat_info *si;
+@@ -631,6 +654,14 @@ static int stat_show(struct seq_file *s, void *v)
+ 		seq_printf(s, "  - Total : %4d\n", si->nr_total_ckpt);
+ 		seq_printf(s, "  - Cur time : %4d(ms)\n", si->cur_ckpt_time);
+ 		seq_printf(s, "  - Peak time : %4d(ms)\n", si->peak_ckpt_time);
++		seq_puts(s, "CP steps (longest):\n");
++		seq_printf(s, "  - Total : %llu(ms)\n",
++			   (u64)ktime_ms_delta(sbi->cp_stats.times[CP_TIME_END],
++					sbi->cp_stats.times[CP_TIME_START]));
++		for (j = 0; j < CP_TIME_MAX - 1; j++)
++			seq_printf(s, "  - %s : %llu(ms)\n", cp_time_names[j + 1],
++				   (u64)ktime_ms_delta(sbi->cp_stats.times[j + 1],
++					sbi->cp_stats.times[j]));
+ 		seq_printf(s, "GC calls: %d (gc_thread: %d)\n",
+ 			   si->gc_call_count[BACKGROUND] +
+ 			   si->gc_call_count[FOREGROUND],
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index f7423b3f6e4a..0f1255ff93d5 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4642,6 +4642,7 @@ void f2fs_destroy_stats(struct f2fs_sb_info *sbi);
+ void __init f2fs_create_root_stats(void);
+ void f2fs_destroy_root_stats(void);
+ void f2fs_update_sit_info(struct f2fs_sb_info *sbi);
++void update_cp_stats(struct f2fs_sb_info *sbi, struct cp_control *cpc);
+ #else
+ #define stat_inc_cp_call_count(sbi, foreground)		do { } while (0)
+ #define stat_inc_cp_count(sbi)				do { } while (0)
+-- 
+2.43.0
 
