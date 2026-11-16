@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794872203;
-	b=LTLAdsdLXqKxunAOs/L0cJ6yeSaTleregEXm3nHll0YWYY7VGfX0dUhzkVeSmfCbcYrr
-	 76MWlxI+F5FC39rzIZVkb6i34zpoTY3Pu8DBtCMLhOHGHn7JQFjp/22XCBdkygt4HOljo
-	 mlUvrMsOD+yFC9OEgYSEYA5M6vbKYTNP0TsjpZJOuBJWapF0Bu/wruZjRAM/RAwz/Ha0W
-	 1UUxg3TAqijGhUUOF1OGOHSkTnpUdXzEuqUejaVneH1TU6o0UvnePqKUbXueON7Q7sXQn
-	 ddRL53iugp/Cvx1Z6pwh4jkR660V+pwTlU/IPwkzXSqoqJjXRYbhutjSQl34+6xsKtA==
+	t=1794872216;
+	b=2KEMvbUKKqVfGd/1x48lu+FARkioCnTwJHYk7+YOlLnqaYR6aDyPhWIeibChKvqpXSX6
+	 Xu1m8ZzYjlDMIwpL4T3SanSlzsE0O3xxm9v0G8BxND6xAlrWKWku9xeXC/DkDi/xZIsRq
+	 t5HFrEcAC613JTvqqAw0ipGhe90OertP3TLgDF5qqFDo7i1kNHB8xrCPSdW8mmJx4GoQV
+	 VorbMHsXutSl+2J8KovuXG0r0Noz56Ono3b8CzqI9P/un2Xb37TZugCVetaDj4wLquAUp
+	 oIxyj8JoG9btN4vtF3bO5XvLUPBJaax9ZfcqXGkU6qT2/dHyZvJngoVGaYmwkoFh0cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872203;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SqY9CO3fEYEagBoh62ysw+i10UsVB9Z68o/EjIOaJHg=;
-	b=ZuHjS9d+modIb7gzXqtZeMHWYULLQupVxoI+xnp49yx8nahZZ4oPE3n1zKgm9RosrZOV
-	 S2Hba3Eu/w1fOCKW7Bxib0015qMtLfK32vdoPNdOxkbKFBmydVdrN+kmxhZTWYVQAH5FA
-	 RRscaF8C1vFooJ4STWBlM+TvOpNzLqDHqxsILNWgwpiZILyMuHT214HHVY71LOcbj0LTC
-	 ytxUusKMS/iuRIPP4UGaRGVL9F3JeNTp86KNfoZtwuPgO8/vrfCK9LDJ9hoY0Ji+UZa/J
-	 8nNS71Pg65KGiSxBs9lxcA96IeGc0Ofg5w/NFDZtjXQH39kKhdA4Zfi2m+1rn5GF9qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872216;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=4BpAS/bcGUHjh9IAA6MS7m2MaBa7QH4c9MTUiHX6xyg=;
+	b=S3T026ustk3PH5Al3dDNqHltdAWi4hARFw8XbGTZp70Dy/zBM0OehjjeRhvjgOtU/9yX
+	 UM3uRJgOU3VqdGjxq0X6g2f18ZgqA6HYs+tpfvCTGZ9bZ8jOFfSAKms4ZDFkXXEbz7WdN
+	 MceamaRS6Lkz+pgx0KhM0+VixovPAhBtI4BQoqmXdOrlN1oOIh1gOq/bjMn5KBezDhjG8
+	 65BIzBwf13+Mhg8JPO8lwBWoFPLA2khZbg8JfYrgn1SHKcr9v1sJVdbGJZ2qzGd5lbRJS
+	 67wr7rx++otqCpi58ic+syt493mx1EwWkNMvwEZEJQ4v7ThL2fwHaWykb2J2NeUx9QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mC+IXjY2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="b/WMEW/n";
+	arc=none smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81046606A31C;
-	Mon, 16 Nov 2026 23:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840D0606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:36:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 840D0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mC+IXjY2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D11F1F000C4;
-	Mon, 16 Nov 2026 23:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=b/WMEW/n
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53669f7b518so53009831cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:36:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794872202;
-	bh=SqY9CO3fEYEagBoh62ysw+i10UsVB9Z68o/EjIOaJHg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mC+IXjY26Sewr12LP9oiVQl8fdcKTbMh/ZgHnYk6C7FV8CJvIftp5pAasuEFPKGDL
-	 Cq9nHkcS0VbWh5goVYlc/J9VpPntZfg+weOwdBiA2ZRBK36K+quwAkx4KNkxdI5hLR
-	 uP+fsfNAzRRwjMDHVxOhu85tticamOAkrib+e8ws=
-Date: Mon, 16 Nov 2026 15:36:42 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Renzo Davoli <renzo@cs.unibo.it>
-Cc: linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
- "Dmitry V . Levin" <ldv@strace.io>, Alexey Gladkov <legion@kernel.org>,
- Eugene Syromyatnikov <evgsyr@gmail.com>, Charlie Jenkins
- <thecharlesjenkins@gmail.com>, Bradley Morgan <bradley.morgan@linux.dev>,
- Shuah Khan <shuah@kernel.org>, strace-devel@lists.strace.io,
- linux-api@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] selftests/ptrace: check that
- PTRACE_SET_SYSCALL_INFO rejects invalid error values
-Message-Id: <20261116153642.a8dddc43f53fed0402283dfa@linux-foundation.org>
-In-Reply-To: <20261116134050.505355-3-renzo@cs.unibo.it>
-References: <20261116134050.505355-1-renzo@cs.unibo.it>
-	<20261116134050.505355-3-renzo@cs.unibo.it>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gourry.net; s=google; t=1794872215; x=1795477015; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4BpAS/bcGUHjh9IAA6MS7m2MaBa7QH4c9MTUiHX6xyg=;
+        b=b/WMEW/nNNYTzeyXxsy1FVTSD1/hAuRiF/mhGp6YkWeKmoXc+HAaWyU13MQCSulMJD
+         GeVLaDgA/B2fmZAnmD20I6kTn9h251qnqTb77KVfnFaNDHm4Z57Kv1UatsFBJHMBNDpy
+         +E4jpXqxMK3OiwUuuCcBiSXD94lQO29SDYUrJwVtaXsYWh7vTQ7ARJiy9XVWlKpIGX0k
+         cXrlGvlCcFskX2sTul+7H9c7muUJcnIHCTNqgklktzeR9xm7RfTU00/OhUFNdW7uh+FF
+         jxuaZFOX6gRBVqpTFcY3TqRbwtLgSwzAgTIyjpqlaBW42lieoN4j9n9Z5ktTK84wp/ko
+         qtQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794872215; x=1795477015;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4BpAS/bcGUHjh9IAA6MS7m2MaBa7QH4c9MTUiHX6xyg=;
+        b=AGOpVkhiBiCUjRW0mgfoa8/yK4xoN6gKGR25Oq9HLXqLxPF4rhVuuhYWB7lK7yzn1z
+         qoVEJnuCtxV8VW6/E9gQQxgiOjkUp2qmEjrD3ITbEvJm0MOZ4eStY4h6pmjGt82n79Oh
+         LQD0LRwJSjXoKT2DXcmhFfADpbYd8170NJ/aoemWj0P3fwysCdpHQ/PMvy5N3/jj8DBT
+         qjnt+XwpmRAIIy4B1iAKq1Ee88U0xo2ycv6OmCjLswC3NMA+INfEpZJTXJXLvxNV8QOA
+         3vECwvvCNxpKmJCOWLdL1OrXyjar2ZuD7objxqDF+KgRSMSChVVzt5HY7FMj2o7p5wb+
+         NdBA==
+X-Forwarded-Encrypted: i=1; AL+hErFBKsZjR/jyTq348sb8aQeluHYsxgXJjQVB6xnOxdwEX/Fz3vcodPfFdGQoVgwcEEF/qPNfyrtr3T8+g9c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Hn0prHYwhjNINkAHfldsejcmCB4aW9vkDCvue+3k72GY/WHc4
+	SXf/S0G9WdK3gn7AlH0xB83lRERsTfWL35PEBiEPxhEh95pFSErHQPEFttuaqexRkF8=
+X-Gm-Gg: AYBFou35G3y+1uti1S3HPaf56cJwp6DLXZW7N5L944yTo1QN2Mr3FzvAB+jCi+ZYZ6S
+	aCWY9g8LyakycLLmS7SuEQlZn5eKc6w5OXyiKeyfcn1hpjsdpcOslwaxYuYd9xolHqxFZ0pZYs/
+	QYVcVRR8FvDe4tI/C7Y+b4ebYSzleb00O11/IJ6aQahLmslP8p2BvAqfZ4bkN8FsiXGNb6X6hxT
+	Hxd3AulrMo97kTyq6HU6rtD1e8Ha/lS9X9u0TELHyQfYWt8POGE1quTjLEfPvw4uJvdCgYbhtk6
+	sAkVsmVZe+QnZABF/XIV/SWy5Q4yr6/oUhjjWSR6QGiLc7ASRL7eWgfnGTwtW74ybYq3jAj5eXI
+	9TRBv7Ze8q9tUgqLbkFEuGFo11kEqYO5YvB0/B894Yrx+6PzW9XtyYaMc4IIoX5tCcBuRwkG3y3
+	kBb38XNRo4+tmMKl1/3MJGPUrYE6t6xV2PufA9mYbArvtRp051RQDKYdKYEMdAdJphg6S2zTeUw
+	724ThoGxCXksmafszXYX5c9lMk4IguzgkUW6yyfb8xfDhbSOQYTLBZ97bLJ24r70BOFud/+VN1L
+	vpbzC4z8D+2WV7kd+2Z9GC2HUIepTd9J4UjPAgdp82VQrx9UOIlF0/TZFSVuzPM3L2kKIJ+8cwN
+	8dFnMPA8=
+X-Received: by 2002:a05:622a:124b:b0:536:9140:e2be with SMTP id d75a77b69052e-55ac948cc41mr185864421cf.74.1794872215394;
+        Mon, 16 Nov 2026 15:36:55 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-920ee3ccf23sm26929356d6.7.2026.11.16.15.36.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 15:36:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,85 +88,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/3] mm/page_alloc: move the kswapd node skip check
+ into a helper
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+In-Reply-To: <20261113235238.3595412-3-joshua.hahnjy@gmail.com>
+References: <20261113235238.3595412-1-joshua.hahnjy@gmail.com>
+ <20261113235238.3595412-3-joshua.hahnjy@gmail.com>
+Date: Mon, 16 Nov 2026 18:36:54 -0500
+Message-Id: <179487221437.482102.6995971224578926980.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Mon, 16 Nov 2026 14:40:46 +0100 Renzo Davoli <renzo@cs.unibo.it> wrote:
+On 2026-11-13 15:52 -0800, Joshua Hahn wrote:
+> get_page_from_freelist() checks many conditions for each zone, often
+> with a big comment block explaining the conditions.
+> 
+> Move the kswapd check and its comment into should_skip_kswapd_zone() to
+> make the zone iteration cleaner to read.
+> 
+> While moving this, also resolve a checkpatch warning which complains of
+> a waitqueue_active() call with no corresponding comment explaining why
+> the lockless use is OK in this case.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 
-> At every exit stop of the set_syscall_info test, try to set with
-> is_error set a few values outside [-MAX_ERRNO, -1], check that
-> PTRACE_SET_SYSCALL_INFO fails with ERANGE and that the return value
-> of the system call is left untouched.
+Nice
 
-Thanks.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-LLM suggested a little fixup here, please check.
-
-
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: selftests/ptrace: test the lowest valid syscall error
-Date: Mon, 16 Nov 2026 22:27:14 +0000
-
-PTRACE_SET_SYSCALL_INFO must reject values below -MAX_ERRNO while
-accepting -MAX_ERRNO itself. Name the bound locally for this userspace
-selftest, and add a successful exit-stop case at that boundary. Retain
-the existing -EISDIR case. The tracee checks the resulting errno.
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Renzo Davoli <renzo@cs.unibo.it>
-
- tools/testing/selftests/ptrace/set_syscall_info.c |   25 +++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
-
---- a/tools/testing/selftests/ptrace/set_syscall_info.c~selftests-ptrace-check-that-ptrace_set_syscall_info-rejects-invalid-error-values-fix
-+++ a/tools/testing/selftests/ptrace/set_syscall_info.c
-@@ -15,6 +15,8 @@
- #include <linux/types.h>
- #include <linux/ptrace.h>
- 
-+#define MAX_ERRNO 4095
-+
- #if defined(_MIPS_SIM) && _MIPS_SIM == _MIPS_SIM_NABI32
- /*
-  * MIPS N32 is the only architecture where __kernel_ulong_t
-@@ -131,7 +133,7 @@ static const long long bad_error_rval[]
- 	0,
- 	1,
- 	ESRCH,
--	-4095 - 1,	/* -MAX_ERRNO - 1 */
-+	-MAX_ERRNO - 1,
- 	-2147483647LL - 1,
- #if __SIZEOF_LONG__ > 4
- 	0x100000000LL,
-@@ -325,6 +327,27 @@ TEST(set_syscall_info)
- 			}
- 		},
- 
-+		/* change scno, change non-error rval to -MAX_ERRNO */
-+		{
-+			{
-+				{
-+					__NR_chdir,
-+					{
-+						dummy[0], dummy[1], dummy[2],
-+						dummy[3], dummy[4], dummy[5]
-+					}
-+				}, {
-+					__NR_getppid,
-+					{
-+						dummy[0], dummy[1], dummy[2],
-+						dummy[3], dummy[4], dummy[5]
-+					}
-+				}
-+			}, {
-+				{ 0, tracer_pid }, { 1, -MAX_ERRNO }
-+			}
-+		},
-+
- 		/* change scno and all args, change non-error rval */
- 		{
- 			{
-_
+-- 
+~Gregory
 
