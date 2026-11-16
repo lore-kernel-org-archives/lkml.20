@@ -1,102 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794855972;
-	b=ziJWB4qPspMQtn7rM9bFthqWFpF/FipdDmTVfvjiaGW7XeXz2AY/SHy4gD4IQx0heu9P
-	 y4wKGzP7WM8Cfr0Dx0Bwi/L9lTSNEnt3iY1a/f90xGBn/rRbVLb05+tKVUyrMWMIuiRGO
-	 L8b/tTmoLgK1X1DObJ3X+6IeGZjIboK9l8FFUm2Vwhom6xQj/iAaYGMcrKHd3J95Uf081
-	 XuNhLkCFa5iEceUa4BRI6SpTXCnackv4qnODaku6Ef1mNckLQZ108qoWFkQT+huz0iDK6
-	 WKHyXGucP4jIRj0NBIy5zC1JgMkdYfz4z3MkNphiahalq4DW54ARGk8R0QUb2A3eW9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-	b=z8G4NODn/SLiV79+YNrpi1aWC2CG2PUfzA8nsxP+3394Hk9sWw/XHb9UG9mDrJwisXFP
-	 UsaWJUPEuw1AhvJSD652FPX/RcHcwdSVxMu1AWwH/X2fAwJyXbDTA3jzHS/lhzMvMZTNy
-	 CMx8qXM6fwRvWDyDa11CiR0jDBAdvUEspM7ac0SYUkxD+yWJXQIlghv7wevG0CT0ENUeK
-	 7h+VHp1e2mRjoqKZxfj024n74osUBfjobs8KwJdCbCzJo76RWwzIKrtfP4NJ0fhHE1Ibo
-	 aVT8W9ZOKJOY8IQkLSkl3WkNWtBwwueut2zfgfcmIuVHx9/+opg7iFK1gt0hXJSpT5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Jm2Gk8kj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794855973;
+	b=ITu0K7EE3EF8IAc9nuQNNjA5tM8qSQQLLyRWQC40U6XiHJGL6BkkG0rOAbSztUFU3onE
+	 PTsyEV7AirXSPu2gUBBXWdA9nfxEjlpK6KPX+q1geLtpq2WvWAApxsVlc4r5Um5fGFeHl
+	 t2vi8TOfJg1bD4EdUSAvUf+zO5GKAbcQOYnXRsdGceNgbl3+N54zIWQmcZk9DJh7kI+p8
+	 vfh7/nC9n99TvrBRTSUrZjML2zSY7Z8FTafr8fh5hwznisPETim3Vs2yJsm/EvWkIJkHv
+	 mzXXvYJoXEq9N+tndmcQqx6jcb448bmJwXiwjVhutIokz3zuzISJN88S3hasDAzuqZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855973;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qQiz0ffu5j3T93VAJ6PXQQU0rOQU5j62feJXAPgzObs=;
+	b=Y4/Xm5nec9O0z7mW6NUqfA4eKnajpFXvdAMbTndU/cDILOSnUVOWrzjP3cnIkFR056fE
+	 orDF/BIBLVJK7tfoDjFa0XQ2ffEM3ihu4Cg2v0d8lWIxgjHmJK4oBn6Hx2OiVAVLk/2T8
+	 afsVaTqiAEnVOsPsmVA+rQ4AEn8J++DqtrZC3UKXrlsPHD+BuoK6pdSnOz8nTTmR0PNku
+	 Cnt8e2cDh6wrXiNG7Bahz8nn8hPgNHN7329lALGBBCMk2wbpGPpcWl3fiSwmSgskuz8G1
+	 iaI1RfFdOUMRZTJrOKQJp0h3CKYtJFWHkR6dAoYyQtOutt+j2dQgUfEum2SbfN/JLOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=erg7oCKX;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BAF606BA32
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3BAF606BA32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C929606F14B;
+	Mon, 16 Nov 2026 19:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C929606F14B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Jm2Gk8kj
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eac6c5f927so1359147e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:06:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794855970; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YIgOGFG4KSKDwefEhau1n+adhI1fkQQXOeN0yw34JtKvGf1LuyNinTadz0y0xDs4jf
-         eYEbiEvfxI0U91N5LQ7YRH+eqz3zXUNC8l2/cROcIEF3NQkI4PtJF4T5yzpZ/FWg54ie
-         7TgyorqxmPp/do+3v/c/3y3odBbTe11CHqFQqX4zQv++c4ais8XK/knjTt/2KaJH/h1t
-         6WfEJuDEmCf/OOW88eUEeEFcagcB8YL52bZMFpNX4uxERHH/LD23cNMJiTbnBji6vsj7
-         F/e3zMqRmrbxxXG6pPtbTQ95NnzmCnWwKcPGLqkLgj8ZGiiiIUqSvcOJOef+V8521B+V
-         vU9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-        fh=4cKQF0TyLvcUqEj+wkVwF1W90pyfbMQO9l4X3WchGNw=;
-        b=amR95WSY0wm6j+B4MhugMKYvV/a7ucUB8tiiF2y3kl6n+QSAY1ag2BbBCg53pbYK8K
-         VD6uACI85AlVdgTuGrZEagc1+TTeCngaysCGAie3ozgrFzdfJbDrVBqPOM8swXNyoH9z
-         Pnw0cfPVlzg6suu+zmCsDNipNR9YPoT4vAWQt9y8yjbrXg3QOegkJM71SewaFiz+Ifbc
-         FtpglTu4/FFLaXyZiQGflZVnSJEUTHLzQyNsAIP10cjuCWI8Fb5qMthHktLnBDZTyX1V
-         fOkDgsjYthhoXWMbXOKJxsvqJIWOE5BHsiXbDNi+hLbsTWSwWJpL7cORlHPdDmXJK//B
-         Jd3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1794855970; x=1795460770; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-        b=Jm2Gk8kjWWwRV2Oi1KDcMVKvvo2dKssVrRlht1w65ARIvAvJHtaRkh5gALMeNGFexR
-         j2tS4wtXZv6yXg83D423lAlXUdUogfBCNoql26Ht2pY9lBro3u2idDSeOaZkduUKxiwt
-         g8cTxqxbDTTTOvMQZYgK5qFPiJ0jZJY9+JwRFURRFaoYKECLPDoGE9lTtLEC5ClMw6zQ
-         W41sm8KufFyLvIFlC7ApPY7fL4TIZGIgN6ckkuKJV1IWh9KX4VRJ9wg60OI2QVITa/7B
-         h6XBilkVxUviYZ0x1faQAS+D45VQIabR3Pm3OxpAR6OX1tFpiMiSDb/O757nTsQGAq9T
-         DLrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855970; x=1795460770;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-        b=whRi4NYCaWfTX15gx0nr9xkkWB5IJbp2TSDf+pK4Q31dyDAEAc0WVnkU21qnVPMmLo
-         okJNlSmIM4uA7Ryk2T5jV87O3tqDrZtYqqym6D/UrawwAzOSkS09LBeKfrve/343s/ep
-         3Cm9OHg5nGcJBKUd7roFDnqr+uS7LMvgtu/zHGMeu88/f1qolvorTG2TWHUqJ29//3C4
-         xYk24xKA0sNHapoXILuG9D6+8Aau7EgUIS606lFJUa0Hm/uPpS7DbsgDCPh3ntCmPsTc
-         EV8Q3L4WdzRFWrh4h+yjaaC7CUodKXFFJWUrEVmDqAWLM6FQhU8FjIONCPjmWhS3Rr5o
-         Yr2Q==
-X-Forwarded-Encrypted: i=1; AL+hErHk3f6CU/h8ly/EwDAZw1mnJOqxvRl5eYKyzVtQICHhn6FLuOalY6ldRQUirXVQR94y9jTpp9smD3IJeNI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2cHydFwbL3kXvt5Vvlb0sr4+aHNnU49jlT3CBbhZ9UxEqMN2P
-	dusfJlMZhIzdYpEVKnhZ+d2W+ZXesk0uKhlXOWvmxYXPeg8nS6RjSfaYBcawoE2SDWmhBZwu9Gl
-	cG2Vv+oMVDUBF5i380z2GHqoB+1uTwZo22ejfoDqB8w==
-X-Gm-Gg: AYBFou3DF8YTdFfLGB/C+piGq0ZhXrZ1tKRWBumszDUxiM1tZJHtXjBrY5huBWVzZ0K
-	Qs6xZWh5qIykxFz853XahJaONpWA9aFRJhZYfhPTt1fNKzHqEaweeizxH06sJnqv+B90Jj8zfDd
-	Lv9DtXu9QtbpvlTgCi0MHNWDCyZziscx5qk7X2UqMty2z7H097gtq7qirh3GB+oMADbSsmXkSQ8
-	aWPQQ8a7jQFytg4cVfngW3Lg7j4P51xWnDOwYZ9sj6RWT4ykuOczUR3xQuWEOnHhmYHntzod4SA
-	KHPh9k+XsVe99EOOP91uiIFlLBJKVQlkWpHeuFN8DKT5RQOBLEqumzpAB/a/kp1FU4g98qIwwW7
-	FrU+HASyvsm+bFUPix8rOkhAnrLEGDjh0f/bmiNFdxPJHfwc9nQ0Vp/7lo8cS2GlQwZqOXJwRDP
-	24SQ0IcO4E+xAHNyXhkg/B9ZSfduHvCbnJftNjVpHFDgCJpq+tSDdRpasqOmr5qImjsjlVqDLbF
-	iKrzIt6qbVFyFmyjNrAlQQBx5BMjYc3BT9f5kCidQJAt4Q=
-X-Received: by 2002:a05:6122:1b10:b0:5ec:4a13:8aae with SMTP id
- 71dfb90a1353d-5ee34a9298dmr3969191e0c.17.1794855970467; Mon, 16 Nov 2026
- 11:06:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=erg7oCKX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794855958;
+	bh=qQiz0ffu5j3T93VAJ6PXQQU0rOQU5j62feJXAPgzObs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=erg7oCKXIx3osYycRoHz5rR7nGhPiMiqUf9KqUPOlQDjcarcPdMCN8JOxj1OAiiP+
+	 BE0gb29qtP9pxVsHHYWf5ifoDnm0ke1Yu1NvgWoo9P8DmYUcHJchB1ESAdgXLIc3xk
+	 J6TwX3td5CWY4cI0ZTEXwtHtQWNR7LY4sxARDDeV8/u7LohZuxmOb0hcsYuGgEDz2I
+	 IOFBLIgTtOqwrW1kYcoOeGyoFTvbyKg74qP9VrvVThvgm2y9So8ON1oHEPbNz5pDSs
+	 Y5UdCwVYgFNf/APejyuFUZ3vCblUXFHxOu8d6UTdiwTOarULtKJnripCxp1tPYtEwc
+	 uqlyVlUt1KdQw==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4k2GH2zQSw;
+	Mon, 16 Nov 2026 14:05:58 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v6 25/37] sched/deadline: Move a task's bandwidth to the root domain it runs in
+Date: Mon, 16 Nov 2026 14:05:37 -0500
+Message-Id: <20261116190549.230119-26-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,46 +95,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116190111.3317976-1-rjethwani@purestorage.com> <179485574283.3291.7349043137994808253@kernel.org>
-In-Reply-To: <179485574283.3291.7349043137994808253@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Mon, 16 Nov 2026 11:05:59 -0800
-X-Gm-Features: Aa3M54o7vX-XpVUCQ5-uuaPc-Fmkae2NyST6GEXFL4X2HiaIMluNfTh_m5Er0I0
-Message-ID: <CAKaoeS29P8SukOACusGaO=7z13_eFR5pFWDjbYqurgYd2bVz9w@mail.gmail.com>
-Subject: Re: [PATCH net v8] kcm: reject TLS on attached TCP sockets
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, jiayuan.chen@linux.dev, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Dave Watson <davejwatson@fb.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 11:02=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
-e:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account.
->
-> *IMPORTANT*: If you do repost (for other reasons) - please include
-> the relevant info in the cover letter or commit messages.
-> --
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+When a CPU goes offline, select_fallback_rq() picks a new CPU for a
+deadline task asleep on it. balance_push() moves a queued task the same
+way. The new CPU can be in another root domain. With isolcpus="domain",
+the isolated CPUs are in the default root domain. A cpuset that is not
+a partition can hold CPUs of both root domains.
 
-Found by code review. The sleep in atomic context was reproduced on an
-unmodified kernel with CONFIG_DEBUG_ATOMIC_SLEEP.
+Commit 59d06cea1198 ("sched/deadline: Fix bandwidth accounting at all
+levels after offline migration") fixed this for a throttled task.
+dl_task_offline_migration() moves its bandwidth with it. A task that
+select_fallback_rq() places still moves no bandwidth. So it runs in a
+root domain that does not count its bandwidth, until the next rebuild.
+That root domain can admit deadline tasks beyond its capacity.
+
+Fix this in migrate_task_rq_dl(). The CPU recorded with the bandwidth
+gives the root domain that counts it. If the new CPU is in another root
+domain, move the bandwidth there. Record the new CPU. As
+dl_task_offline_migration() does, add the bandwidth even without room,
+since the task runs there. Add it also if a rebuild left the task out.
+
+Compare the root domains, not the CPU the task leaves. That CPU can
+still be in the mask when select_fallback_rq() picks a CPU of the other
+root domain. A task can also wake up on its CPU with no migration while
+another root domain counts its bandwidth. A cpuset move or a rebuild can
+move the bandwidth while the task sleeps. A change of the mask can then
+give that CPU back. So task_woken_dl() makes the same check.
+
+Both checks read the record without dl_departed_lock, so a move inside
+a root domain takes no lock. dl_task_move_bw() checks again under
+dl_departed_lock. Its caller holds the pi_lock or the rq lock of the
+task. Together, the two locks keep the record stable.
+
+These cases of deadline_bw_test, added later in this series, fail
+without this patch:
+ - hotplug_fallback, hotplug_fallback_moved and
+   hotplug_fallback_in_mask: a task woken on an isolated CPU stays
+   counted in the housekeeping root domain.
+ - no_admission_affinity_moves: without admission control, a task
+   given an affinity of one isolated CPU stays counted in the
+   housekeeping root domain.
+
+This follows the Sashiko AI reviews of v4 and v5.
+
+Fixes: 59d06cea1198 ("sched/deadline: Fix bandwidth accounting at all levels after offline migration")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/sched/deadline.c | 92 ++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 81 insertions(+), 11 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index c765a403014a..35f40185953a 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2910,11 +2910,69 @@ select_task_rq_dl(struct task_struct *p, int cpu, int flags)
+ 	return cpu;
+ }
+ 
+-static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused)
++/*
++ * Return true if the root domain of @cpu may not count the bandwidth of
++ * @p. Either another root domain counts it, or a rebuild left @p out.
++ * Test without dl_departed_lock, so that a move inside a root domain
++ * takes no lock. dl_task_move_bw() tests again under it.
++ */
++static bool dl_task_bw_elsewhere(struct task_struct *p, int cpu)
++{
++	int bw_cpu = READ_ONCE(p->dl.dl_bw_cpu);
++
++	if (bw_cpu < 0 || !p->dl.dl_bw)
++		return false;
++	return READ_ONCE(p->dl.dl_bw_gen) != READ_ONCE(dl_bw_gen) ||
++	       cpu_rq(bw_cpu)->rd != cpu_rq(cpu)->rd;
++}
++
++/*
++ * Move the bandwidth of @p to the root domain of @new_cpu. Count it there
++ * also if a rebuild left @p out. Add it even without room, since @p runs
++ * there. The caller holds the rq lock of @p, or its pi_lock for a wakeup.
++ */
++static void dl_task_move_bw(struct task_struct *p, int new_cpu)
++{
++	struct dl_bw *dl_b;
++	int cpu;
++
++	if (dl_entity_is_special(&p->dl) || !p->dl.dl_bw)
++		return;
++
++	guard(raw_spinlock)(&dl_departed_lock);
++	cpu = p->dl.dl_bw_cpu;
++	if (cpu < 0)
++		return;
++	if (p->dl.dl_bw_gen == dl_bw_gen) {
++		if (cpu_rq(cpu)->rd == cpu_rq(new_cpu)->rd)
++			return;
++		dl_b = dl_bw_of(cpu);
++		raw_spin_lock(&dl_b->lock);
++		__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
++		raw_spin_unlock(&dl_b->lock);
++	}
++	dl_b = dl_bw_of(new_cpu);
++	raw_spin_lock(&dl_b->lock);
++	__dl_add(dl_b, p->dl.dl_bw, dl_bw_cpus(new_cpu));
++	raw_spin_unlock(&dl_b->lock);
++	p->dl.dl_bw_cpu = new_cpu;
++	p->dl.dl_bw_gen = dl_bw_gen;
++}
++
++static void migrate_task_rq_dl(struct task_struct *p, int new_cpu)
+ {
+ 	struct rq_flags rf;
+ 	struct rq *rq;
+ 
++	/*
++	 * The new CPU can be in another root domain than the one that counts
++	 * the bandwidth. A mask can hold CPUs of two root domains, and
++	 * select_fallback_rq() can widen it. Move the bandwidth there, as
++	 * dl_task_offline_migration() does for a throttled task.
++	 */
++	if (unlikely(dl_task_bw_elsewhere(p, new_cpu)))
++		dl_task_move_bw(p, new_cpu);
++
+ 	if (READ_ONCE(p->__state) != TASK_WAKING)
+ 		return;
+ 
+@@ -3577,6 +3635,15 @@ static void pull_dl_task(struct rq *this_rq)
+  */
+ static void task_woken_dl(struct rq *rq, struct task_struct *p)
+ {
++	/*
++	 * A task can wake up on the CPU it slept on, with no migration,
++	 * while another root domain counts its bandwidth. The bandwidth
++	 * moved while the task slept out of its mask, and the mask then got
++	 * that CPU back. Move the bandwidth to this root domain.
++	 */
++	if (unlikely(dl_task_bw_elsewhere(p, cpu_of(rq))))
++		dl_task_move_bw(p, cpu_of(rq));
++
+ 	if (!task_on_cpu(rq, p) &&
+ 	    !test_tsk_need_resched(rq->curr) &&
+ 	    p->nr_cpus_allowed > 1 &&
+@@ -3612,9 +3679,10 @@ static void set_cpus_allowed_dl(struct task_struct *p,
+ 	 * (different root_domains) entails a bandwidth update. Move the
+ 	 * bandwidth only if the caller made room for it in the destination,
+ 	 * as SCA_DL_BW_RESERVED says. Only cpuset_attach_task() sets it.
+-	 * Otherwise, the bandwidth stays where it is counted, until the next
+-	 * rebuild of the accounting. Moving it without room would leave no
+-	 * root domain counting it.
++	 * Otherwise, the bandwidth stays where it is counted, until the task
++	 * runs in another root domain (migrate_task_rq_dl(), task_woken_dl()),
++	 * or the next rebuild of the accounting. Freeing it here without room
++	 * would leave no root domain counting it.
+ 	 *
+ 	 * cpuset_can_attach() made room for @p in the root domain of
+ 	 * ctx->dl_bw_cpu, and recorded that CPU with @p. Move the bandwidth
+@@ -3806,10 +3874,11 @@ static void dl_get_task_effective_cpus(struct task_struct *p, struct cpumask *cp
+  * count the bandwidth of @p, or nr_cpu_ids if there is none.
+  *
+  * Prefer the CPU @p is on, if it is active and in the mask of @p. The
+- * task runs, or wakes up, in the root domain of that CPU. A mask can hold
+- * CPUs of two root domains: housekeeping CPUs and CPUs isolated by
+- * isolcpus="domain". When every CPU of a mask goes offline,
+- * select_fallback_rq() can widen it to both. It moves no bandwidth.
++ * task runs, or most often wakes up, in the root domain of that CPU. A
++ * mask can hold CPUs of two root domains: housekeeping CPUs and CPUs
++ * isolated by isolcpus="domain". When every CPU of a mask goes offline,
++ * select_fallback_rq() can widen it to both. A task that then runs in
++ * the other root domain takes its bandwidth along.
+  *
+  * Else prefer the CPU recorded with the bandwidth, if it is active and in
+  * the mask. It is in the root domain that admitted the bandwidth, or that
+@@ -3876,8 +3945,8 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 		/*
+ 		 * No active CPU can count the bandwidth of this task. Leave it
+ 		 * out of this rebuild. dl_bw_gen then keeps its release from
+-		 * removing anything. A later rebuild, or
+-		 * dl_task_offline_migration(), counts it again.
++		 * removing anything. A later rebuild counts it again. So does
++		 * the move of the task to an active CPU.
+ 		 */
+ 		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
+ 		return;
+@@ -4071,7 +4140,8 @@ void dl_clear_root_domains(void)
+ 	int cpu;
+ 
+ 	guard(raw_spinlock_irqsave)(&dl_departed_lock);
+-	dl_bw_gen++;
++	/* dl_task_bw_elsewhere() reads it without the lock. */
++	WRITE_ONCE(dl_bw_gen, dl_bw_gen + 1);
+ 	for_each_possible_cpu(cpu) {
+ 		if (!dl_bw_visited(cpu, cookie))
+ 			dl_clear_root_domain(cpu_rq(cpu)->rd);
+-- 
+2.47.3
+
