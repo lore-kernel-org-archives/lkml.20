@@ -1,80 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817378;
-	b=ohPdWe1B3HEJbCpd1+kTqC4h9yQejV+CJ8vAwmPJA++tbD9Mdg3PdVrp9fPA5NlegXli
-	 AYGK98/OtzaB6PR234nDgZ9kA6Fr5q7bt8a2L+C9CPuNxmY2fNyl//ixICfjmMr8xtnpb
-	 Ruido6JBXPvNgxbtuGGLiym+tOoNWwApeTECqNZcEnGFelrkYdoMCGkBob3ifQuNQCDgW
-	 HhWFBT7YG9Ba8R1r8FbUlNWK+Lx7eav7x89RTSM6XG3opR97fQAYkM9yU3TJrkhQwyp8U
-	 w3MdSXkz65wK1099T3O8OID2BQ8n9ONao7SWlI1cJHueptNyoUBp7Mh5jFzasBneLPQ==
+	t=1794817381;
+	b=RVZTp0uXOex9JEcn3Uea5pDQPETX35hsHwCitN4luK73oHh42tQuFQhsavrmT4MyeREi
+	 2mlqTFzqibv2fLnRa7NLXCyU3zPrZzbrvVNBkkAEFA2pUWf1KgbwZ3oOIMkHV+0Rz0Q5F
+	 CsJPTr/gAayWalDB/7k6jt0zBNhCFRcSo5VkHhfAgklUeIqfd+ZpQG6I9xC6CdLXyyuuY
+	 SdWXvDuKwbeEcZUEeUhZZiLC0F6F866+xTpM8nIMakbjZJAm6JLcmlZnA4o6T+EEUYA/7
+	 JbuW5YahJQyUcqckO0f0c7NG7BjLQYLHK84/hdPX4boqL5gR7XcmChpzvddj3Zx91fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817378;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=SA3wJMcSvgLciHKLiFhqcGeaGA7trH4v+qny7bHE/Vs=;
-	b=lXE+SlPk7WC+ruMMi28mrNWomOA8F77zBBHTCq3uUhxWJKa2oHWHawOP+xy2Ol5mWRBQ
-	 3auZXhXLJBZlnRmI7uTgyO+toP4BQTzwQt0/t77hXDVQAm8LqUptG4eIYfXAaMjF5Vlvm
-	 u7yIjdP7KkH5OImafyz1kOw541tC4H7SeeZCwHiwbFiev57JsBabVJpOZmo8Xt03S0dKp
-	 GVY0tJCHMv8NaM/74/DYBSzi7z9VGA0FmVJSeQMnhekfTgifOh8hGC1qNd/Cbqr4p3ypI
-	 vlg+A9d5vUPVRF/h6ayfKJ1lWX61cPoa2a8m30b/9pQUGMNG/AiLkMhm8HTE56iiU9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817381;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=elrgTYMgb7CkcrA8oXLm4zhtrvaVqPh3MMgk1ZPJeJ4=;
+	b=kplI2jIw7y/WFhFwdRzPglTVzi7ltN9YMvRYFtQbM3Y0u/fnxUEgK4hGYurW2ciFhqZF
+	 EnemYxt6QspQWKXnYdWTmabCxWasTgjLLl4dojrffDkArlwRn1lJy6BTArSitOMKp/NcO
+	 hknxvfOHuPWHV+wXDYCgYNLMcY+s/G+e32dLS+Vz2LuD5jiSgJS160X2VFpYar3/Yc1Cy
+	 NyeN0ZIRssi+4cjGvBLgvL8b8zGZCWhpeKxfZq7feAQiA+v3Qu4ZYaXwBcCs5iW/H+P4F
+	 e8bldA0PLdBcvBmH3xV+tUozf8dzWvAH18EpvpZaYdbCEWg0Cm70q9P9JiO3/J8mZIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KiKLIb91;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=T+rCesQ0;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D13606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:22:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47D13606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52FD606A32C;
+	Mon, 16 Nov 2026 08:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A52FD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KiKLIb91
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794817377; x=1826353377;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=O1L8h3NEx3yA1s8x4uzwJS9iETCqz0gdQxeq2seZUqM=;
-  b=KiKLIb91/GhLgqxQ8ee/fq+6gMCRiCPrZvs/ojxCuiCnmCZwBN0v0pd3
-   BWU6dnp1pYsVd5kabBT/jPdl5UWRd8ysN7Ux5nDy/VPo+RmY4aOYFD+pL
-   V9NzfPaRhFv+GWk7gtSBvrAy/p3ID1WBBUS/mw+iSz1F6BCraUJJalm7w
-   tvoINGuRU2r91UP0ujS4nTgrpXPpUay5vLvWdnlo9Arz6MrK8hGVGNdd5
-   qYvztO7PDmNO4L9HaM+6XHO4iXvBm4THmab0wiyo4vZJmYt5hN5qAnL2d
-   UsHyJTqhfK3OYwUDGbZtH/Ekv/bXF8BQfHaSgew5tky92DVZwpYBVoXl0
-   g==;
-X-CSE-ConnectionGUID: SFekacVORfOGigP+QlVLnQ==
-X-CSE-MsgGUID: sdFaVj87QNWY8pRpbnKV+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3419571"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3419571"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:22:41 -0800
-X-CSE-ConnectionGUID: nUfQzrmMTG+XPASCMlSzIQ==
-X-CSE-MsgGUID: 1hcpVIeoQzuVHhcH9Xt8ZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9679545"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:22:38 -0800
-Date: Mon, 16 Nov 2026 10:22:36 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>
-Subject: Re: [PATCH v1 2/4] regmap: Drop never used devm_regmap_*_free() APIs
-Message-ID: <avq9TEa4l2xsHKFj@ashevche-desk.local>
-References: <20261110093820.454682-1-andriy.shevchenko@linux.intel.com>
- <20261110093820.454682-3-andriy.shevchenko@linux.intel.com>
- <179442294226.513646.6459407661987242086.b4-review@b4>
- <avVjKPairv4zkB4o@ashevche-desk.local>
- <ec267c4b-2412-4da0-a46d-d9ca8810d093@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=T+rCesQ0
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jSgpg1jb8z8sWd;
+	Mon, 16 Nov 2026 09:22:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794817371;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=elrgTYMgb7CkcrA8oXLm4zhtrvaVqPh3MMgk1ZPJeJ4=;
+	b=T+rCesQ0VeQZEZ2+n68wWgThUeq4Xjkm3e/9ixLn4WUO/lwlq3vmfFNXushKWZF8EGjmsd
+	icCgR0j7YSSLkbrSt5w/1DgKhUGdPIwtcwi/JZ0G/JcDuq7a9HXISaO1q0GxJbBox1izKV
+	o1NZ8OJz1n6fqhyOlwOWjWyStIuoRZ1jSfgHSj0rtV7rJj+IyZ0cCFnGs/qdpzYUoRp1Yj
+	jyMNJ1B6KSoZl/eyho4Z52wZAPjpOKuxk340XD3uLjFspM1pZ1MJJaX7ek9g1QfiTJglz+
+	/whhXt5j7x4xof6xgvbR6SUsGzx8EXG500iXQStrsDWOiXkjtM4EuZDz5J5cBw==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: doc-guide: add hint to review patch
+Date: Mon, 16 Nov 2026 09:22:09 +0100
+Message-ID: <20261116082209.1100175-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,52 +70,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ec267c4b-2412-4da0-a46d-d9ca8810d093@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 63dd15cd46057b048a0
+X-MBO-RS-META: 6j88goxqwg6mr1we5bjdjwbi3ss7s5gy
 
-On Fri, Nov 13, 2026 at 05:52:43PM +0000, Mark Brown wrote:
-> On Thu, Nov 12, 2026 at 08:56:40AM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 11, 2026 at 06:49:02PM +0000, Mark Brown wrote:
-> 
-> > > I tend to think that if we have allocation functions we should have
-> > > matching release functions, this avoids cross tree annoyances and bugs
-> > > due to people using inappropriate release functions which actually
-> > > exist rather than adding the ones they should use.
-> 
-> > In general yes, but for devm_*() it makes not much sense as proven by dozens
-> > of dropped "release/free" type of devm_*() calls in the past. Also as commit
-> > message says for more than 10 years nobody used it even once. What does make
-> > you think there eventually be at least a single user?
-> 
-> Some of those release/free of devm issues are people intentionally doing
-> a free and using the wrong function to do so, the main use case is
-> enumerating something and deciding that some of the functionality is not
-> usable so freeing the state for that functionality so you're not wasting
-> memory carrying it around unused.
+For the case of a duplicate patch, review the other patch instead of
+sending own patch.
 
-No objection on this in general, but for the mentioned APIs in this patch it's
-not the case. Nobody *ever* used them. Why do you think we should keep a dead
-code?
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ Documentation/doc-guide/contributing.rst | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-As for the memory side, we can also have a documentation that may list the
-commit IDs and APIs where they were being deleted, so if one is interested
-to resurrect them it can be done easily, however the quick universal method
-is `git log -G ... -- include/linux/`. Ex:
-
-  git log -G devm_gpio_free -- include/linux/
-  commit 2b038e786f8338a3bc22d791000753e0ec113e00
-  Author: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Date:   Wed Jun 22 20:28:42 2022 +0300
-  ...
-
-
-(and using specific folder speeds that up a lot).
-
+diff --git a/Documentation/doc-guide/contributing.rst b/Documentation/doc-guide/contributing.rst
+index 46a44b39d6..ee2f896a21 100644
+--- a/Documentation/doc-guide/contributing.rst
++++ b/Documentation/doc-guide/contributing.rst
+@@ -129,7 +129,9 @@ looked like this::
+ The entire process only took a few minutes.  Of course, I then found that
+ somebody else had fixed it in a separate tree, highlighting another lesson:
+ always check linux-next to see if a problem has been fixed before you dig
+-into it.
++into it.  If the other patch isn't applied yet it's good to give it a
++'Reviewed-by:' tag to help it get applied.  This way your effort is not in
++vain.
+ 
+ Other fixes will take longer, especially those relating to structure
+ members or function parameters that lack documentation.  In such cases, it
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
