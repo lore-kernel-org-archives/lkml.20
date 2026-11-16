@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794808658;
-	b=TLX01ncDA/beizGQWI8T8j2qe1n9M2fSew2P5VlxOZ0nSReQaQJJR8ZRvsmvuVGLUvQS
-	 gU7oMQ7dKCLcJrfZWne/rH/STyUHnrRqDDdGjv88qgo+Y95OR+vC5dB/pavTibKV7GhDG
-	 U5F9EHqSroT64klMQUpfAnlLDqBdgq1ocEyBH8qTTGAVkwppsTiBYYDdhkMjpox6RXfpj
-	 EUgutqHRUNP0pXAp2LWIu033rewS+32UzOi252YQWX62kdmuS3H4vYidCxGRKvE7SKkKJ
-	 Lwv7i7EadaxzkPTvYxoNbDSEd3mtxJa7gxIrtuxdqpCnrOM6enNKVNC7IEUjKaT4eRg==
+	t=1794808710;
+	b=DZdFBqpQ1dMyAdQGuHx3fUZM49+nWehIbFhhbvpezewEwp0TYZg6oC4kjsM5CGSDBZYk
+	 BV/x+rDbW+KdosdWn23r82aoj8nlguDxymOb9SXVibmMC2aTQ8kpL3oYBvt9G8q86SB01
+	 hfEE7JNUDu3mKRzzOJd5/QJ1+lThgrgsFA2M8Dj3BtYweUE/qxu7/Qx6VhY40w1bWZ+VL
+	 l2tyZvQw0B7ljZVZByHwNjfYFCPxVBHwacCGBili+zSpGkFt5y4E3nQyctvrHpveL/Pb+
+	 di9563eZYI/dl8ZN7f0v2sASoKCfJsH9yVTQ+gXsYFld1o4aavhwfqIVTpkV+QBMDkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794808658;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sBys3FWaiy7i9SzYkeKQyqBX2EJufihi7PTnSZKDw+M=;
-	b=Gkv+VED2s1OpP6IVFdQi6mz0PfyJhiWGAXq5nq+N+n1yJNzXkwtXomTwBxBG8z8dp0Hx
-	 TtS12f3HilE4aJvQLfeEqVjNVmtT5t1BhQoCM4BsVyVwKUSJC94xB6f7r/vKso1L0MGOG
-	 TjZNoomLbic55w76fMuWM0wlFD5G3p367ztZdj7fHHGseFAHohTKGqFVJM66sbO9AV3bj
-	 BEdOLaBku7Zg2f9ZPMx7ASywpEo53wY08HHkXtitg+cLCf1mgBXQzSUJv0Xc+LDVOuuWC
-	 V1OD42Meyk7AcqCrjN9khauLUYPoGunEvueL5yNZ7FLDfEZRsxBre8Pk9VYRRDh5yWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794808710;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Qtjxe/UkLfMtfJgLawV+AiEqNNAopf39+TFUQLWRVLY=;
+	b=BlAX7BkL6wPhPq5gzKI3wPITSt3iIHpy+woscGUzm3a7edTmq2N7iV+N/FcCUpXeipec
+	 LfiE6hCs2k5fw8BJ/xotMzCRI4EQjqplvNlg0CBVp7hJ3o7zNC9UOFaWs7lDAm3OkRudf
+	 iw1BomVWb6/pnxIdwAAXqTdtsjOX6g7WzZGlrzEia9u851fmkUg126pYeQeEvkY/JNjr1
+	 vX23yi/8oVB5S+0nyAQFyGwqIEYdvSoGLkaxX8nDU2n28R3TiDrSg+2HhtTDwXXESoZgk
+	 p16Tdgm8X2KVivFPcOcfEs9WQm+bZ/NIXZvjyr3relDRtIC65E3lcvXcBbmudZc8VBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flHbv1Nd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkRIot3E;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D53560A262A;
-	Mon, 16 Nov 2026 05:57:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0E6606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flHbv1Nd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9D41F00933;
-	Mon, 16 Nov 2026 05:57:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkRIot3E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A42A1F000C9
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794808658;
-	bh=sBys3FWaiy7i9SzYkeKQyqBX2EJufihi7PTnSZKDw+M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=flHbv1NdEeXW/g/0VdhSn2Fr5sj76c8ZnQzWN7vr9hezUsUMb+esjJCFGUZvxZxIM
-	 FuBFVufkdzGGP0Z+tdiqq31xvS9MHr8FPM8oZi8KI+E34Z8tVpwbjUT4kcOhTv2xUr
-	 OOBHUzWZwfepX0p35uByopHhhHFDnWNZTwgXRoDeBu3s1GDiestpF1r+SZGFnYTFpT
-	 yeH8woBtptTixL/4CG7zIvwABzKB4JztGzK0K6PSlhje1rrCM9XGBCzpsCQEUp6uVg
-	 aTB2YCTUZT2/tovEuzWJjShp1He9TP1SGUAj4b0M+sOCwwo92Sdnh6i7XgayDh9kSb
-	 saWxq7MaFsGpQ==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH v2 11/11] perf tests: Add namespace, nsinfo, and boot ID tests
-Date: Sun, 15 Nov 2026 21:57:31 -0800
-Message-ID: <20261116055731.707164-12-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-In-Reply-To: <20261116055731.707164-1-namhyung@kernel.org>
-References: <20261116055731.707164-1-namhyung@kernel.org>
+	s=k20260515; t=1794808710;
+	bh=Qtjxe/UkLfMtfJgLawV+AiEqNNAopf39+TFUQLWRVLY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NkRIot3E/qWwu1CwaGVWtl8JrHrQEzwk73mAjwkGenfeXOeLlAkS4uJkFbojGWqBS
+	 tnysZQBg7zogpJCz+vWbFtmXYS1R6HekG6vyke7+nI2F0ve5j0QooBv22/039TVoWQ
+	 3A93oSmtM8SJCrrHGYSWfFPRMqWIITpyA6ZT1nkaj0lnKhXOHaoJDHHfzFglbbfVuo
+	 m+IqdJ7ZjVmZiWBIfY4y6o62zDVeTKojcpdaSIJTApxBB2f3q2a8/jFOalPA5Iwf9m
+	 lrZpAUzGZPkhFe0lKdnE/7FYvPeNO1tzVL4pHRAgD4aLK3qgH/7lXIqKnE9+OpnDo4
+	 UExrJ35QRXK8A==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso6907892a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:58:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEiGSv/uZSucqoUj+HT+u6qhDfb81Kw0MyrrnFMuJTk0x3FaX9vBVcGFCb8CmsT8y2Gd/RlxUTTYFuJQ1I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Yf+J6R+qENeY+JKTmTHlzpH5iYX8Urw8gmvWjUA2r01QIAGzE
+	7GkQ7zKR8+8FKYNcjqY0IZ+++B+KYbHqYPyowIZ8DRiaxXKcfMIRUEbRHQ2fuZPuEZx/EDH+Dox
+	irqyLpO9cgGtzp/VsTiIagjTb4LPZsMY=
+X-Received: by 2002:a05:6402:438f:b0:6b5:5ee4:c9d8 with SMTP id
+ 4fb4d7f45d1cf-6b7c0c8232bmr7182338a12.32.1794808709070; Sun, 15 Nov 2026
+ 21:58:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,1130 +59,310 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
+In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
+From: Saravana Kannan <saravanak@kernel.org>
+Date: Sun, 15 Nov 2026 21:58:17 -0800
+X-Gmail-Original-Message-ID: <CACRMN=fuqk67Z+OSEhTUnFK-owMyU7iV-Fk=AQexpnz4_mqR9A@mail.gmail.com>
+X-Gm-Features: AclHuK-zpUdb2F46bithlUxQxaDMREUiER_9wRVuxeroYiWCzxmoBbULZP0FN9w
+Message-ID: <CACRMN=fuqk67Z+OSEhTUnFK-owMyU7iV-Fk=AQexpnz4_mqR9A@mail.gmail.com>
+Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared fwnode
+ owner is rejected
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a "Namespace and nsinfo tests" suite covering HEADER_BOOT_ID,
-perf_env__is_same_boot(), deferred /proc lookup, raw nsinfo__copy(),
-PID/TID recycling detection, thread exit and fork liveness tracking,
-dso_binary_type__needs_ns(), and isolated mountns and chroot resolution.
+I'd like to reject this patch. More details below.
 
-Also verify the boot ID header matches /proc/sys/kernel/random/boot_id
-in the perf header shell test for both file and pipe modes.
+On Mon, Sep 28, 2026 at 4:51=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.co=
+m> wrote:
+>
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> When multiple devices share the same fwnode (e.g. the SCMI bus creates
+> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
+> the first device registered becomes the fwnode owner (fwnode->dev, set in
+> device_add()). If that owner never binds -- for example its driver return=
+s
+> -ENODEV because it is blocklisted on this SoC,
 
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/tests/Build           |    1 +
- tools/perf/tests/builtin-test.c  |    1 +
- tools/perf/tests/namespaces.c    | 1035 ++++++++++++++++++++++++++++++
- tools/perf/tests/shell/header.sh |    9 +
- tools/perf/tests/tests.h         |    1 +
- 5 files changed, 1047 insertions(+)
- create mode 100644 tools/perf/tests/namespaces.c
+If it's blocklisted, why is the driver registering itself to match
+that device? Register a different match list during driver
+registration if you realize you are running on a particular SoC?
+Saying your driver supports a device and then not probing it when
+requested is not right. Honestly, this is the simplest fix.
 
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 5eebb2ec5ddefcfd..7f2e926eb0bc7674 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -74,6 +74,7 @@ perf-test-y += hwmon_pmu.o
- perf-test-y += tool_pmu.o
- perf-test-y += subcmd-help.o
- perf-test-y += kallsyms-split.o
-+perf-test-y += namespaces.o
- 
- ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc riscv))
- perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 327483f96401b580..f3c041ff1acf0289 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -192,6 +192,7 @@ static struct test_suite *generic_tests[] = {
- 	&suite__util,
- 	&suite__subcmd_help,
- 	&suite__kallsyms_split,
-+	&suite__namespaces,
- 	NULL,
- };
- 
-diff --git a/tools/perf/tests/namespaces.c b/tools/perf/tests/namespaces.c
-new file mode 100644
-index 0000000000000000..cfc654db48f92292
---- /dev/null
-+++ b/tools/perf/tests/namespaces.c
-@@ -0,0 +1,1035 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <limits.h>
-+#include <pthread.h>
-+#include <sched.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+#include <sys/mount.h>
-+#include <sys/stat.h>
-+#include <sys/syscall.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+#include <api/fs/fs.h>
-+#include <linux/compiler.h>
-+#include <linux/kernel.h>
-+#include <linux/perf_event.h>
-+#include <linux/string.h>
-+#include <linux/zalloc.h>
-+
-+#include "debug.h"
-+#include "tests.h"
-+#include "util/build-id.h"
-+#include "util/dso.h"
-+#include "util/env.h"
-+#include "util/event.h"
-+#include "util/machine.h"
-+#include "util/map.h"
-+#include "util/namespaces.h"
-+#include "util/symbol.h"
-+#include "util/thread.h"
-+#include "util/tool.h"
-+#include "util/util.h"
-+
-+#define CHILD_EXIT_SKIP 2
-+
-+static int read_host_boot_id_str(char *buf, size_t sz)
-+{
-+	char *tmp = NULL;
-+	size_t len = 0;
-+
-+	if (procfs__read_str("sys/kernel/random/boot_id", &tmp, &len) < 0)
-+		return -1;
-+
-+	strlcpy(buf, strim(tmp), sz);
-+	free(tmp);
-+	return buf[0] ? 0 : -1;
-+}
-+
-+static int test__nsinfo_boot_id(struct test_suite *test __maybe_unused,
-+				int subtest __maybe_unused)
-+{
-+	struct perf_env live_env, off_env;
-+	char host_boot_id[64];
-+	const char *bid;
-+	int ret = TEST_FAIL;
-+
-+	if (read_host_boot_id_str(host_boot_id, sizeof(host_boot_id)) < 0) {
-+		pr_debug("SKIP: cannot read host boot_id from procfs\n");
-+		return TEST_SKIP;
-+	}
-+
-+	perf_env__init(&live_env);
-+	perf_env__init(&off_env);
-+
-+	TEST_ASSERT_VAL("NULL env should match current host boot",
-+			perf_env__is_same_boot(NULL));
-+
-+	TEST_ASSERT_VAL("live env should match current host boot",
-+			perf_env__is_same_boot(&live_env));
-+	bid = perf_env__boot_id(&live_env);
-+	if (!bid || strcmp(bid, host_boot_id) != 0) {
-+		pr_debug("unexpected live env boot_id: %s vs %s\n",
-+			 bid ? bid : "(null)", host_boot_id);
-+		goto out;
-+	}
-+
-+	/* Offline environments must not fall back to or cache the host boot_id. */
-+	off_env.offline = true;
-+	if (perf_env__boot_id(&off_env) != NULL) {
-+		pr_debug("offline env without boot_id unexpectedly returned host boot_id\n");
-+		goto out;
-+	}
-+	if (off_env.boot_id != NULL) {
-+		pr_debug("offline env->boot_id was poisoned\n");
-+		goto out;
-+	}
-+	if (perf_env__is_same_boot(&off_env)) {
-+		pr_debug("offline env without boot_id should not match current boot\n");
-+		goto out;
-+	}
-+
-+	off_env.boot_id = strdup(host_boot_id);
-+	if (!off_env.boot_id)
-+		goto out;
-+	if (!perf_env__is_same_boot(&off_env)) {
-+		pr_debug("offline env with matching boot_id failed to match\n");
-+		goto out;
-+	}
-+
-+	zfree(&off_env.boot_id);
-+	off_env.boot_id = strdup("00000000-0000-0000-0000-000000000000");
-+	if (!off_env.boot_id)
-+		goto out;
-+	if (perf_env__is_same_boot(&off_env)) {
-+		pr_debug("offline env with mismatched boot_id unexpectedly matched\n");
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	perf_env__exit(&off_env);
-+	perf_env__exit(&live_env);
-+	return ret;
-+}
-+
-+static int test__nsinfo_init_and_copy(struct test_suite *test __maybe_unused,
-+				      int subtest __maybe_unused)
-+{
-+	struct nsinfo *nsi = NULL, *copy = NULL, *copy2 = NULL;
-+	pid_t pid = getpid();
-+	int ret = TEST_FAIL;
-+
-+	if (nsinfo__new_thread(0, pid) != NULL ||
-+	    nsinfo__new_thread(pid, 0) != NULL ||
-+	    nsinfo__new_thread(-1, -1) != NULL ||
-+	    nsinfo__copy(NULL) != NULL ||
-+	    nsinfo__need_setns(NULL) ||
-+	    nsinfo__check_proc(NULL)) {
-+		pr_debug("invalid nsinfo boundary condition succeeded\n");
-+		return TEST_FAIL;
-+	}
-+
-+	nsi = nsinfo__new_thread(pid, pid);
-+	if (!nsi)
-+		return TEST_FAIL;
-+
-+	if (RC_CHK_ACCESS(nsi)->inited || RC_CHK_ACCESS(nsi)->exited) {
-+		pr_debug("nsinfo__new_thread() unexpectedly ran /proc init eagerly\n");
-+		goto out;
-+	}
-+	if (nsinfo__pid(nsi) != pid || nsinfo__tid(nsi) != pid) {
-+		pr_debug("unexpected pid/tid on new nsinfo\n");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Copying before initialization (e.g., for [vdso] mappings) must not
-+	 * force eager /proc lookups on the source nsinfo.
-+	 */
-+	copy = nsinfo__copy(nsi);
-+	if (!copy)
-+		goto out;
-+	if (RC_CHK_ACCESS(nsi)->inited || RC_CHK_ACCESS(copy)->inited) {
-+		pr_debug("nsinfo__copy() unexpectedly triggered lazy init\n");
-+		goto out;
-+	}
-+
-+	nsinfo__clear_need_setns(copy);
-+	if (!RC_CHK_ACCESS(copy)->inited || RC_CHK_ACCESS(copy)->need_setns) {
-+		pr_debug("nsinfo__clear_need_setns() state mismatch\n");
-+		goto out;
-+	}
-+
-+	/* Querying triggers lazy initialization cleanly. */
-+	if (nsinfo__need_setns(nsi)) {
-+		pr_debug("same-namespace task unexpectedly needs setns\n");
-+		goto out;
-+	}
-+	if (!RC_CHK_ACCESS(nsi)->inited || RC_CHK_ACCESS(nsi)->exited ||
-+	    nsinfo__tgid(nsi) != pid || nsinfo__nstgid(nsi) <= 0) {
-+		pr_debug("lazy init failed to populate expected fields\n");
-+		goto out;
-+	}
-+
-+	copy2 = nsinfo__copy(nsi);
-+	if (!copy2)
-+		goto out;
-+	if (!RC_CHK_ACCESS(copy2)->inited ||
-+	    nsinfo__tgid(copy2) != nsinfo__tgid(nsi) ||
-+	    nsinfo__nstgid(copy2) != nsinfo__nstgid(nsi) ||
-+	    nsinfo__in_pidns(copy2) != nsinfo__in_pidns(nsi)) {
-+		pr_debug("nsinfo__copy() did not preserve initialized fields\n");
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	nsinfo__put(copy2);
-+	nsinfo__put(copy);
-+	nsinfo__put(nsi);
-+	return ret;
-+}
-+
-+struct worker_ctx {
-+	pthread_mutex_t lock;
-+	pthread_cond_t cond;
-+	bool ready;
-+	bool stop;
-+	pid_t tid;
-+};
-+
-+static void *worker_thread_fn(void *arg)
-+{
-+	struct worker_ctx *ctx = arg;
-+
-+	pthread_mutex_lock(&ctx->lock);
-+	ctx->tid = syscall(SYS_gettid);
-+	ctx->ready = true;
-+	pthread_cond_broadcast(&ctx->cond);
-+	while (!ctx->stop)
-+		pthread_cond_wait(&ctx->cond, &ctx->lock);
-+	pthread_mutex_unlock(&ctx->lock);
-+
-+	return NULL;
-+}
-+
-+static pid_t spawn_reaped_child(void)
-+{
-+	pid_t child;
-+	int status;
-+
-+	child = fork();
-+	if (child < 0)
-+		return -1;
-+	if (child == 0)
-+		_exit(0);
-+
-+	if (waitpid(child, &status, 0) != child)
-+		return -1;
-+
-+	return child;
-+}
-+
-+static int test__nsinfo_proc_and_recycled_tid(struct test_suite *test __maybe_unused,
-+					      int subtest __maybe_unused)
-+{
-+	struct worker_ctx wctx = {
-+		.lock = PTHREAD_MUTEX_INITIALIZER,
-+		.cond = PTHREAD_COND_INITIALIZER,
-+	};
-+	struct nsinfo *dead1 = NULL, *dead2 = NULL;
-+	struct nsinfo *valid = NULL, *recycled1 = NULL, *recycled2 = NULL;
-+	pthread_t thr;
-+	bool started = false;
-+	pid_t dead_pid, self_pid = getpid();
-+	int ret = TEST_FAIL;
-+
-+	dead_pid = spawn_reaped_child();
-+	if (dead_pid <= 0) {
-+		pr_debug("SKIP: cannot fork dead child\n");
-+		return TEST_SKIP;
-+	}
-+
-+	dead1 = nsinfo__new_thread(dead_pid, dead_pid);
-+	dead2 = nsinfo__new_thread(dead_pid, dead_pid);
-+	if (!dead1 || !dead2)
-+		goto out;
-+
-+	if (nsinfo__check_proc(dead1)) {
-+		pr_debug("reaped child unexpectedly passed nsinfo__check_proc()\n");
-+		goto out;
-+	}
-+	if (!RC_CHK_ACCESS(dead1)->exited || RC_CHK_ACCESS(dead1)->need_setns) {
-+		pr_debug("failed nsinfo__check_proc() did not mark dead1 exited\n");
-+		goto out;
-+	}
-+
-+	if (nsinfo__need_setns(dead2)) {
-+		pr_debug("reaped child unexpectedly needed setns\n");
-+		goto out;
-+	}
-+	if (!RC_CHK_ACCESS(dead2)->exited || !RC_CHK_ACCESS(dead2)->inited ||
-+	    nsinfo__tgid(dead2) != dead_pid || nsinfo__nstgid(dead2) != dead_pid ||
-+	    nsinfo__in_pidns(dead2)) {
-+		pr_debug("failed lazy init corrupted fallback fields on dead nsinfo\n");
-+		goto out;
-+	}
-+
-+	if (pthread_create(&thr, NULL, worker_thread_fn, &wctx) != 0)
-+		goto out;
-+	started = true;
-+
-+	pthread_mutex_lock(&wctx.lock);
-+	while (!wctx.ready)
-+		pthread_cond_wait(&wctx.cond, &wctx.lock);
-+	pthread_mutex_unlock(&wctx.lock);
-+
-+	if (wctx.tid == self_pid) {
-+		pr_debug("worker tid unexpectedly matched tgid\n");
-+		goto out;
-+	}
-+
-+	valid = nsinfo__new_thread(self_pid, wctx.tid);
-+	if (!valid)
-+		goto out;
-+	if (!nsinfo__check_proc(valid) || nsinfo__need_setns(valid) ||
-+	    RC_CHK_ACCESS(valid)->exited || nsinfo__tgid(valid) != self_pid) {
-+		pr_debug("valid live thread (pid, tid) failed proc checks\n");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Simulate TID recycling: /proc/<tid>/task/<tid>/status exists in
-+	 * procfs for our live worker thread, but its Tgid is self_pid != tid.
-+	 * Both check_proc and lazy init must reject it and preserve fallback
-+	 * fields without overwriting tgid/nstgid/in_pidns.
-+	 */
-+	recycled1 = nsinfo__new_thread(wctx.tid, wctx.tid);
-+	recycled2 = nsinfo__new_thread(wctx.tid, wctx.tid);
-+	if (!recycled1 || !recycled2)
-+		goto out;
-+
-+	if (nsinfo__check_proc(recycled1) || !RC_CHK_ACCESS(recycled1)->exited) {
-+		pr_debug("mismatched Tgid passed nsinfo__check_proc()\n");
-+		goto out;
-+	}
-+	if (nsinfo__need_setns(recycled2) || !RC_CHK_ACCESS(recycled2)->exited) {
-+		pr_debug("mismatched Tgid passed lazy init\n");
-+		goto out;
-+	}
-+	if (nsinfo__tgid(recycled2) != wctx.tid ||
-+	    nsinfo__nstgid(recycled2) != wctx.tid ||
-+	    nsinfo__in_pidns(recycled2)) {
-+		pr_debug("mismatched Tgid overwrote nsinfo tgid/pidns fields\n");
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	if (started) {
-+		pthread_mutex_lock(&wctx.lock);
-+		wctx.stop = true;
-+		pthread_cond_broadcast(&wctx.cond);
-+		pthread_mutex_unlock(&wctx.lock);
-+		pthread_join(thr, NULL);
-+	}
-+	nsinfo__put(recycled2);
-+	nsinfo__put(recycled1);
-+	nsinfo__put(valid);
-+	nsinfo__put(dead2);
-+	nsinfo__put(dead1);
-+	return ret;
-+}
-+
-+static int test__nsinfo_thread_liveness(struct test_suite *test __maybe_unused,
-+					int subtest __maybe_unused)
-+{
-+	struct machines live_machines, off_machines;
-+	struct machine *live_m, *off_m;
-+	struct perf_env live_env, off_env;
-+	struct thread *idle_th = NULL, *off_th = NULL, *off_sub = NULL;
-+	struct thread *th = NULL, *bad_parent = NULL;
-+	struct nsinfo *nsi1 = NULL, *nsi2 = NULL, *nsi3 = NULL;
-+	struct nsinfo *old_parent_nsi = NULL, *del_nsi = NULL, *off_nsi = NULL;
-+	struct perf_record_namespaces *ns_ev;
-+	struct perf_sample sample = { 0 };
-+	struct perf_tool tool;
-+	union perf_event ev;
-+	pid_t self_pid = getpid();
-+	int ret = TEST_FAIL;
-+
-+	perf_env__init(&live_env);
-+	perf_env__init(&off_env);
-+	off_env.offline = true;
-+	perf_tool__init(&tool, /*ordered_events=*/false);
-+
-+	if (machines__init(&live_machines, NULL) != 0)
-+		goto out_env;
-+	if (machines__init(&off_machines, NULL) != 0) {
-+		machines__exit(&live_machines);
-+		goto out_env;
-+	}
-+
-+	live_m = &live_machines.host;
-+	live_m->env = &live_env;
-+	off_m = &off_machines.host;
-+	off_m->env = &off_env;
-+
-+	/* Idle (0, 0) thread must not evaluate boot_id or populate env->boot_id. */
-+	idle_th = machine__findnew_thread(off_m, 0, 0);
-+	if (!idle_th)
-+		goto out;
-+	if (off_env.boot_id != NULL) {
-+		pr_debug("idle thread init poisoned offline env->boot_id\n");
-+		goto out;
-+	}
-+	thread__put(idle_th);
-+	idle_th = NULL;
-+
-+	/*
-+	 * Create both leader and sub-thread before removing the leader so
-+	 * thread__init_maps() does not re-create (self_pid, self_pid) later,
-+	 * then verify thread__e_machine_endian() does not recreate it either.
-+	 */
-+	off_th = machine__findnew_thread(off_m, self_pid, self_pid);
-+	off_sub = machine__findnew_thread(off_m, self_pid, self_pid + 1);
-+	if (!off_th || !off_sub)
-+		goto out;
-+	off_nsi = thread__get_nsinfo(off_th);
-+	if (!off_nsi || !RC_CHK_ACCESS(off_nsi)->exited || thread__is_alive(off_th)) {
-+		pr_debug("offline session thread stayed alive\n");
-+		goto out;
-+	}
-+	machine__remove_thread(off_m, off_th);
-+	thread__put(off_th);
-+	off_th = NULL;
-+
-+	thread__e_machine_endian(off_sub, off_m, NULL, NULL);
-+	if (machine__find_thread(off_m, self_pid, self_pid) != NULL) {
-+		pr_debug("thread__e_machine_endian() unexpectedly recreated exited leader\n");
-+		goto out;
-+	}
-+	machine__remove_thread(off_m, off_sub);
-+	thread__put(off_sub);
-+	off_sub = NULL;
-+
-+	/* Live thread tracking, reset on exec/namespaces, and exit propagation. */
-+	th = machine__findnew_thread(live_m, self_pid, self_pid);
-+	if (!th || !thread__is_alive(th)) {
-+		pr_debug("current live thread reported as dead\n");
-+		goto out;
-+	}
-+
-+	nsi1 = thread__get_nsinfo(th);
-+	if (!nsi1)
-+		goto out;
-+
-+	if (__thread__set_comm(th, "execed", 1000, /*exec=*/true) != 0)
-+		goto out;
-+	nsi2 = thread__get_nsinfo(th);
-+	if (!nsi2 || nsi2 == nsi1) {
-+		pr_debug("exec did not replace thread->nsinfo\n");
-+		goto out;
-+	}
-+
-+	ns_ev = calloc(1, sizeof(*ns_ev) + sizeof(ns_ev->link_info[0]));
-+	if (!ns_ev)
-+		goto out;
-+	ns_ev->nr_namespaces = 1;
-+	if (thread__set_namespaces(th, 2000, ns_ev) != 0) {
-+		free(ns_ev);
-+		goto out;
-+	}
-+	free(ns_ev);
-+
-+	nsi3 = thread__get_nsinfo(th);
-+	if (!nsi3 || nsi3 == nsi2) {
-+		pr_debug("PERF_RECORD_NAMESPACES did not replace thread->nsinfo\n");
-+		goto out;
-+	}
-+
-+	thread__set_exited(th, true);
-+	if (!thread__exited(th) || thread__is_alive(th) ||
-+	    !RC_CHK_ACCESS(nsi3)->exited || nsinfo__check_proc(nsi3) ||
-+	    RC_CHK_ACCESS(nsi1)->exited) {
-+		pr_debug("exit propagation or prior DSO nsinfo isolation failed\n");
-+		goto out;
-+	}
-+
-+	machine__remove_thread(live_m, th);
-+	thread__put(th);
-+	th = NULL;
-+
-+	/* Replaced erroneous parent in machine__process_fork_event() gets marked exited. */
-+	bad_parent = machine__findnew_thread(live_m, self_pid + 1, self_pid);
-+	if (!bad_parent)
-+		goto out;
-+	old_parent_nsi = thread__get_nsinfo(bad_parent);
-+	thread__put(bad_parent);
-+	bad_parent = NULL;
-+	if (!old_parent_nsi)
-+		goto out;
-+
-+	memset(&ev, 0, sizeof(ev));
-+	ev.fork.header.type = PERF_RECORD_FORK;
-+	ev.fork.header.size = sizeof(ev.fork);
-+	ev.fork.ppid = self_pid;
-+	ev.fork.ptid = self_pid;
-+	ev.fork.pid = self_pid + 2;
-+	ev.fork.tid = self_pid + 2;
-+	if (machine__process_fork_event(live_m, &ev, &sample) != 0)
-+		goto out;
-+	if (!RC_CHK_ACCESS(old_parent_nsi)->exited || nsinfo__check_proc(old_parent_nsi)) {
-+		pr_debug("replaced parent thread nsinfo was not marked exited\n");
-+		goto out;
-+	}
-+
-+	/* perf_event__exit_del_thread() also marks removed thread's nsinfo exited. */
-+	th = machine__find_thread(live_m, self_pid, self_pid);
-+	if (!th)
-+		goto out;
-+	del_nsi = thread__get_nsinfo(th);
-+	thread__put(th);
-+	th = NULL;
-+	if (!del_nsi)
-+		goto out;
-+
-+	memset(&ev, 0, sizeof(ev));
-+	ev.fork.header.type = PERF_RECORD_EXIT;
-+	ev.fork.header.size = sizeof(ev.fork);
-+	ev.fork.pid = self_pid;
-+	ev.fork.tid = self_pid;
-+	ev.fork.ppid = 1;
-+	ev.fork.ptid = 1;
-+	if (perf_event__exit_del_thread(&tool, &ev, &sample, live_m) != 0)
-+		goto out;
-+	if (!RC_CHK_ACCESS(del_nsi)->exited || nsinfo__check_proc(del_nsi) ||
-+	    machine__find_thread(live_m, self_pid, self_pid) != NULL) {
-+		pr_debug("perf_event__exit_del_thread() did not mark nsinfo exited\n");
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	thread__put(th);
-+	thread__put(off_sub);
-+	thread__put(off_th);
-+	thread__put(idle_th);
-+	thread__put(bad_parent);
-+	nsinfo__put(del_nsi);
-+	nsinfo__put(old_parent_nsi);
-+	nsinfo__put(off_nsi);
-+	nsinfo__put(nsi3);
-+	nsinfo__put(nsi2);
-+	nsinfo__put(nsi1);
-+	machines__exit(&off_machines);
-+	machines__exit(&live_machines);
-+out_env:
-+	perf_env__exit(&off_env);
-+	perf_env__exit(&live_env);
-+	return ret;
-+}
-+
-+static int test__nsinfo_dso_needs_ns(struct test_suite *test __maybe_unused,
-+				     int subtest __maybe_unused)
-+{
-+	static const enum dso_binary_type needs_ns_types[] = {
-+		DSO_BINARY_TYPE__SYSTEM_PATH_DSO,
-+		DSO_BINARY_TYPE__SYSTEM_PATH_KMODULE,
-+		DSO_BINARY_TYPE__SYSTEM_PATH_KMODULE_COMP,
-+		DSO_BINARY_TYPE__DEBUGLINK,
-+		DSO_BINARY_TYPE__GNU_DEBUGDATA,
-+		DSO_BINARY_TYPE__FEDORA_DEBUGINFO,
-+		DSO_BINARY_TYPE__UBUNTU_DEBUGINFO,
-+		DSO_BINARY_TYPE__MIXEDUP_UBUNTU_DEBUGINFO,
-+		DSO_BINARY_TYPE__BUILDID_DEBUGINFO,
-+		DSO_BINARY_TYPE__OPENEMBEDDED_DEBUGINFO,
-+	};
-+	static const enum dso_binary_type host_only_types[] = {
-+		DSO_BINARY_TYPE__KALLSYMS,
-+		DSO_BINARY_TYPE__GUEST_KALLSYMS,
-+		DSO_BINARY_TYPE__VMLINUX,
-+		DSO_BINARY_TYPE__GUEST_VMLINUX,
-+		DSO_BINARY_TYPE__JAVA_JIT,
-+		DSO_BINARY_TYPE__BUILD_ID_CACHE,
-+		DSO_BINARY_TYPE__BUILD_ID_CACHE_DEBUGINFO,
-+		DSO_BINARY_TYPE__GUEST_KMODULE,
-+		DSO_BINARY_TYPE__GUEST_KMODULE_COMP,
-+		DSO_BINARY_TYPE__KCORE,
-+		DSO_BINARY_TYPE__GUEST_KCORE,
-+		DSO_BINARY_TYPE__BPF_PROG_INFO,
-+		DSO_BINARY_TYPE__BPF_IMAGE,
-+		DSO_BINARY_TYPE__OOL,
-+		DSO_BINARY_TYPE__NOT_FOUND,
-+	};
-+	struct dso *dso = NULL;
-+	struct nsinfo *nsi = NULL;
-+	struct build_id bid = { .size = 0 };
-+	int ret = TEST_FAIL;
-+
-+	for (size_t i = 0; i < ARRAY_SIZE(needs_ns_types); i++) {
-+		if (!dso_binary_type__needs_ns(needs_ns_types[i])) {
-+			pr_debug("binary type %d should need ns\n", needs_ns_types[i]);
-+			return TEST_FAIL;
-+		}
-+	}
-+
-+	for (size_t i = 0; i < ARRAY_SIZE(host_only_types); i++) {
-+		if (dso_binary_type__needs_ns(host_only_types[i])) {
-+			pr_debug("binary type %d should not need ns\n", host_only_types[i]);
-+			return TEST_FAIL;
-+		}
-+	}
-+
-+	/* Guarded chroot/build-id lookups must bail out immediately when exited. */
-+	dso = dso__new("/bin/sh");
-+	nsi = nsinfo__new_thread(getpid(), getpid());
-+	if (!dso || !nsi)
-+		goto out;
-+	nsinfo__set_exited(nsi);
-+	dso__set_nsinfo(dso, nsinfo__get(nsi));
-+
-+	if (dso__filename_with_chroot(dso, "/bin/sh") != NULL) {
-+		pr_debug("dso__filename_with_chroot() did not respect exited nsinfo\n");
-+		goto out;
-+	}
-+	if (filename__read_build_id_ns("/nonexistent_perf_chroot_test", &bid, nsi) >= 0) {
-+		pr_debug("filename__read_build_id_ns() succeeded on nonexistent path\n");
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	nsinfo__put(nsi);
-+	dso__put(dso);
-+	return ret;
-+}
-+
-+static int copy_file_mode(const char *src, const char *dst, mode_t mode)
-+{
-+	char buf[4096];
-+	int in_fd = -1, out_fd = -1;
-+	ssize_t n;
-+	int err = -1;
-+
-+	in_fd = open(src, O_RDONLY);
-+	if (in_fd < 0)
-+		return -1;
-+	out_fd = open(dst, O_WRONLY | O_CREAT | O_TRUNC, mode);
-+	if (out_fd < 0)
-+		goto out;
-+
-+	while ((n = read(in_fd, buf, sizeof(buf))) > 0) {
-+		ssize_t off = 0;
-+
-+		while (off < n) {
-+			ssize_t w = write(out_fd, buf + off, n - off);
-+
-+			if (w <= 0)
-+				goto out;
-+			off += w;
-+		}
-+	}
-+	if (n == 0)
-+		err = 0;
-+out:
-+	if (out_fd >= 0)
-+		close(out_fd);
-+	close(in_fd);
-+	return err;
-+}
-+
-+static int write_proc_map(const char *path, const char *text)
-+{
-+	int fd = open(path, O_WRONLY);
-+	ssize_t len = strlen(text);
-+	ssize_t n;
-+
-+	if (fd < 0)
-+		return -1;
-+	n = write(fd, text, len);
-+	close(fd);
-+	return n == len ? 0 : -1;
-+}
-+
-+static int enter_private_userns(void)
-+{
-+	uid_t uid = getuid();
-+	gid_t gid = getgid();
-+	char map_buf[64];
-+
-+	if (unshare(CLONE_NEWUSER) < 0)
-+		return -1;
-+
-+	/* Required before writing gid_map in unprivileged user namespaces. */
-+	if (write_proc_map("/proc/self/setgroups", "deny\n") < 0)
-+		return -1;
-+	snprintf(map_buf, sizeof(map_buf), "0 %u 1\n", uid);
-+	if (write_proc_map("/proc/self/uid_map", map_buf) < 0)
-+		return -1;
-+	snprintf(map_buf, sizeof(map_buf), "0 %u 1\n", gid);
-+	if (write_proc_map("/proc/self/gid_map", map_buf) < 0)
-+		return -1;
-+
-+	return 0;
-+}
-+
-+static int run_mountns_and_chroot_tests(void)
-+{
-+	char tmpdir[] = "/tmp/perf-test-mntns-XXXXXX";
-+	char exe_path[PATH_MAX], target_bin[PATH_MAX];
-+	char chroot_dir[PATH_MAX], chroot_bin[PATH_MAX];
-+	struct build_id exe_bid = { .size = 0 }, ns_bid = { .size = 0 };
-+	int to_child[2] = { -1, -1 }, to_parent[2] = { -1, -1 };
-+	struct machine machine;
-+	struct nscookie nsc;
-+	struct dso *dso = NULL, *chroot_dso = NULL;
-+	struct nsinfo *nsi = NULL;
-+	bool has_exe_bid = false;
-+	pid_t child = -1;
-+	char sig = 0;
-+	u8 magic[4];
-+	int status;
-+	int ret = TEST_FAIL;
-+
-+	if (geteuid() != 0 && enter_private_userns() < 0) {
-+		pr_debug("SKIP: user namespace not permitted\n");
-+		return TEST_SKIP;
-+	}
-+
-+	if (mkdtemp(tmpdir) == NULL)
-+		return TEST_FAIL;
-+
-+	perf_exe(exe_path, sizeof(exe_path));
-+	has_exe_bid = filename__read_build_id(exe_path, &exe_bid) > 0;
-+	snprintf(target_bin, sizeof(target_bin), "%s/testbin", tmpdir);
-+	snprintf(chroot_dir, sizeof(chroot_dir), "%s/chroot", tmpdir);
-+	snprintf(chroot_bin, sizeof(chroot_bin), "%s/chroot/chroot_elf", tmpdir);
-+
-+	if (mkdir(chroot_dir, 0700) < 0 ||
-+	    copy_file_mode(exe_path, chroot_bin, 0700) < 0)
-+		goto out_rmdir;
-+
-+	if (pipe(to_child) < 0 || pipe(to_parent) < 0)
-+		goto out_rmdir;
-+
-+	child = fork();
-+	if (child < 0)
-+		goto out_rmdir;
-+
-+	if (child == 0) {
-+		char cmd = 0;
-+
-+		close(to_child[1]);
-+		close(to_parent[0]);
-+
-+		if (unshare(CLONE_NEWNS) < 0 ||
-+		    mount(NULL, "/", NULL, MS_REC | MS_SLAVE, NULL) < 0 ||
-+		    mount("tmpfs", tmpdir, "tmpfs", 0, NULL) < 0 ||
-+		    copy_file_mode(exe_path, target_bin, 0700) < 0) {
-+			sig = 'S';
-+			if (write(to_parent[1], &sig, 1) != 1)
-+				_exit(1);
-+			_exit(CHILD_EXIT_SKIP);
-+		}
-+
-+		sig = '1';
-+		if (write(to_parent[1], &sig, 1) != 1)
-+			_exit(1);
-+
-+		/* Phase 2: switch to another mount namespace to test inode check. */
-+		if (read(to_child[0], &cmd, 1) != 1)
-+			_exit(1);
-+		if (unshare(CLONE_NEWNS) < 0) {
-+			sig = 'S';
-+			if (write(to_parent[1], &sig, 1) != 1)
-+				_exit(1);
-+			_exit(CHILD_EXIT_SKIP);
-+		}
-+		sig = '2';
-+		if (write(to_parent[1], &sig, 1) != 1)
-+			_exit(1);
-+
-+		/* Wait until parent releases us. */
-+		if (read(to_child[0], &cmd, 1) < 0)
-+			_exit(1);
-+		_exit(0);
-+	}
-+
-+	close(to_child[0]);
-+	to_child[0] = -1;
-+	close(to_parent[1]);
-+	to_parent[1] = -1;
-+
-+	if (read(to_parent[0], &sig, 1) != 1)
-+		goto out_wait;
-+	if (sig == 'S') {
-+		pr_debug("SKIP: mount namespace operations not permitted\n");
-+		ret = TEST_SKIP;
-+		goto out_wait;
-+	}
-+	if (sig != '1')
-+		goto out_wait;
-+
-+	/* File in child's tmpfs must not be visible on the host filesystem. */
-+	if (access(target_bin, F_OK) == 0) {
-+		pr_debug("child mount leaked to host namespace\n");
-+		goto out_wait;
-+	}
-+
-+	nsi = nsinfo__new_thread(child, child);
-+	if (!nsi)
-+		goto out_wait;
-+	if (!nsinfo__need_setns(nsi) || RC_CHK_ACCESS(nsi)->mntns_ino == 0) {
-+		pr_debug("nsinfo did not detect differing mount namespace or inode\n");
-+		goto out_wait;
-+	}
-+
-+	if (has_exe_bid) {
-+		if (filename__read_build_id_ns(target_bin, &ns_bid, nsi) <= 0 ||
-+		    memcmp(&exe_bid, &ns_bid, sizeof(exe_bid)) != 0) {
-+			pr_debug("failed to read build-id inside child mountns\n");
-+			goto out_wait;
-+		}
-+	}
-+
-+	memset(&machine, 0, sizeof(machine));
-+	if (machine__init(&machine, "", HOST_KERNEL_ID) != 0)
-+		goto out_wait;
-+
-+	dso = dso__new(target_bin);
-+	if (!dso) {
-+		machine__exit(&machine);
-+		goto out_wait;
-+	}
-+	dso__set_nsinfo(dso, nsinfo__get(nsi));
-+#ifndef HAVE_LIBELF_SUPPORT
-+	/* Without libelf, filename__has_section() cannot auto-detect binary_type. */
-+	dso__set_binary_type(dso, DSO_BINARY_TYPE__SYSTEM_PATH_DSO);
-+	dso__set_bintype_searched(dso);
-+#endif
-+	if (dso__data_read_offset(dso, &machine, 0, magic, sizeof(magic)) != sizeof(magic) ||
-+	    memcmp(magic, "\x7f" "ELF", 4) != 0) {
-+		pr_debug("failed to read ELF header from binary inside mountns\n");
-+		dso__data_close(dso);
-+		dso__put(dso);
-+		dso = NULL;
-+		machine__exit(&machine);
-+		goto out_wait;
-+	}
-+	dso__data_close(dso);
-+	dso__put(dso);
-+	dso = NULL;
-+
-+	{
-+		struct thread *cth = machine__findnew_thread(&machine, child, child);
-+		struct map *map = NULL;
-+		struct dso *ldso;
-+
-+		if (!cth) {
-+			machine__exit(&machine);
-+			goto out_wait;
-+		}
-+		map = map__new(&machine, 0x100000, 0xffffffff, 0, &dso_id_empty,
-+			       PROT_EXEC, /*flags=*/0, target_bin, cth);
-+		thread__put(cth);
-+		if (!map) {
-+			machine__exit(&machine);
-+			goto out_wait;
-+		}
-+		ldso = map__dso(map);
-+		if (dso__load(ldso, map) < 0 ||
-+		    (has_exe_bid && (!dso__has_build_id(ldso) ||
-+				     !dso__build_id_equal(ldso, &exe_bid)))) {
-+			pr_debug("dso__load() failed inside child mountns\n");
-+			map__put(map);
-+			machine__exit(&machine);
-+			goto out_wait;
-+		}
-+		map__put(map);
-+	}
-+	machine__exit(&machine);
-+
-+	/* Have the child unshare again so mntns_ino changes while staying alive. */
-+	sig = 'n';
-+	if (write(to_child[1], &sig, 1) != 1 || read(to_parent[0], &sig, 1) != 1)
-+		goto out_wait;
-+	if (sig == 'S') {
-+		ret = TEST_SKIP;
-+		goto out_wait;
-+	}
-+
-+	nsinfo__mountns_enter(nsi, &nsc);
-+	nsinfo__mountns_exit(&nsc);
-+	if (nsinfo__need_setns(nsi) || RC_CHK_ACCESS(nsi)->exited || !nsinfo__check_proc(nsi)) {
-+		pr_debug("mntns_ino change should clear need_setns without setting exited\n");
-+		goto out_wait;
-+	}
-+
-+	sig = 'q';
-+	if (write(to_child[1], &sig, 1) != 1)
-+		goto out_wait;
-+	waitpid(child, &status, 0);
-+	child = -1;
-+
-+	/* Once reaped, nsinfo__check_proc() must detect exit. */
-+	if (nsinfo__check_proc(nsi) || !RC_CHK_ACCESS(nsi)->exited) {
-+		pr_debug("exited child still passed nsinfo__check_proc()\n");
-+		goto out_wait;
-+	}
-+
-+	/* Also verify chroot resolution when chroot(2) is permitted. */
-+	if (geteuid() == 0 && access("/chroot_elf", F_OK) < 0) {
-+		int cpipe[2] = { -1, -1 };
-+
-+		if (pipe(cpipe) == 0) {
-+			pid_t cpid = fork();
-+
-+			if (cpid == 0) {
-+				close(cpipe[0]);
-+				if (chroot(chroot_dir) < 0 || chdir("/") < 0) {
-+					sig = 'S';
-+					if (write(cpipe[1], &sig, 1) != 1)
-+						_exit(1);
-+					_exit(CHILD_EXIT_SKIP);
-+				}
-+				sig = '1';
-+				if (write(cpipe[1], &sig, 1) != 1)
-+					_exit(1);
-+				pause();
-+				_exit(0);
-+			}
-+			close(cpipe[1]);
-+			if (cpid > 0 && read(cpipe[0], &sig, 1) == 1 && sig == '1') {
-+				struct nsinfo *cnsi = nsinfo__new_thread(cpid, cpid);
-+				struct stat st1, st2;
-+				char *resolved = NULL;
-+
-+				chroot_dso = dso__new("/chroot_elf");
-+				if (chroot_dso && cnsi) {
-+					dso__set_nsinfo(chroot_dso, nsinfo__get(cnsi));
-+					resolved = dso__filename_with_chroot(chroot_dso,
-+									     "/chroot_elf");
-+					if (!resolved ||
-+					    stat(resolved, &st1) < 0 ||
-+					    stat(chroot_bin, &st2) < 0 ||
-+					    st1.st_dev != st2.st_dev ||
-+					    st1.st_ino != st2.st_ino) {
-+						pr_debug("chroot resolution mismatch: %s vs %s\n",
-+							 resolved ? resolved : "(null)",
-+							 chroot_bin);
-+						free(resolved);
-+						kill(cpid, SIGKILL);
-+						waitpid(cpid, NULL, 0);
-+						nsinfo__put(cnsi);
-+						close(cpipe[0]);
-+						goto out_wait;
-+					}
-+					free(resolved);
-+					if (has_exe_bid) {
-+						memset(&ns_bid, 0, sizeof(ns_bid));
-+						if (filename__read_build_id_ns("/chroot_elf",
-+									       &ns_bid, cnsi) <= 0 ||
-+						    memcmp(&exe_bid, &ns_bid,
-+							   sizeof(exe_bid)) != 0) {
-+							pr_debug("chroot build-id mismatch\n");
-+							kill(cpid, SIGKILL);
-+							waitpid(cpid, NULL, 0);
-+							nsinfo__put(cnsi);
-+							close(cpipe[0]);
-+							goto out_wait;
-+						}
-+					}
-+				}
-+				kill(cpid, SIGKILL);
-+				waitpid(cpid, NULL, 0);
-+				if (chroot_dso &&
-+				    dso__filename_with_chroot(chroot_dso, "/chroot_elf") != NULL) {
-+					pr_debug("exited chroot task resolved /proc/<pid>/root\n");
-+					nsinfo__put(cnsi);
-+					close(cpipe[0]);
-+					goto out_wait;
-+				}
-+				nsinfo__put(cnsi);
-+			} else if (cpid > 0) {
-+				waitpid(cpid, NULL, 0);
-+			}
-+			close(cpipe[0]);
-+		}
-+	}
-+
-+	ret = TEST_OK;
-+out_wait:
-+	if (child > 0) {
-+		kill(child, SIGKILL);
-+		waitpid(child, &status, 0);
-+	}
-+	nsinfo__put(nsi);
-+	dso__put(chroot_dso);
-+	dso__put(dso);
-+out_rmdir:
-+	if (to_child[0] >= 0)
-+		close(to_child[0]);
-+	if (to_child[1] >= 0)
-+		close(to_child[1]);
-+	if (to_parent[0] >= 0)
-+		close(to_parent[0]);
-+	if (to_parent[1] >= 0)
-+		close(to_parent[1]);
-+	unlink(chroot_bin);
-+	rmdir(chroot_dir);
-+	unlink(target_bin);
-+	rmdir(tmpdir);
-+	return ret;
-+}
-+
-+static int test__nsinfo_mountns(struct test_suite *test __maybe_unused,
-+				int subtest __maybe_unused)
-+{
-+	int status;
-+	pid_t pid;
-+
-+	if (geteuid() == 0)
-+		return run_mountns_and_chroot_tests();
-+
-+	/* Run in a dedicated child so unshare(CLONE_NEWUSER) never mutates the caller. */
-+	pid = fork();
-+	if (pid < 0)
-+		return TEST_FAIL;
-+	if (pid == 0) {
-+		int rc = run_mountns_and_chroot_tests();
-+
-+		if (rc == TEST_SKIP)
-+			_exit(CHILD_EXIT_SKIP);
-+		_exit(rc == TEST_OK ? 0 : 1);
-+	}
-+
-+	if (waitpid(pid, &status, 0) != pid)
-+		return TEST_FAIL;
-+	if (!WIFEXITED(status))
-+		return TEST_FAIL;
-+	if (WEXITSTATUS(status) == CHILD_EXIT_SKIP)
-+		return TEST_SKIP;
-+	return WEXITSTATUS(status) == 0 ? TEST_OK : TEST_FAIL;
-+}
-+
-+static struct test_case tests__namespaces[] = {
-+	TEST_CASE("boot_id", nsinfo_boot_id),
-+	TEST_CASE("init_and_copy", nsinfo_init_and_copy),
-+	TEST_CASE("proc_and_recycled_tid", nsinfo_proc_and_recycled_tid),
-+	TEST_CASE("thread_liveness", nsinfo_thread_liveness),
-+	TEST_CASE("dso_needs_ns", nsinfo_dso_needs_ns),
-+	TEST_CASE("mountns_and_chroot", nsinfo_mountns),
-+	{ .name = NULL, }
-+};
-+
-+struct test_suite suite__namespaces = {
-+	.desc = "Namespace and nsinfo tests",
-+	.test_cases = tests__namespaces,
-+};
-diff --git a/tools/perf/tests/shell/header.sh b/tools/perf/tests/shell/header.sh
-index e1628ac0a61401a7..ae3cd2b50d1c3437 100755
---- a/tools/perf/tests/shell/header.sh
-+++ b/tools/perf/tests/shell/header.sh
-@@ -37,6 +37,7 @@ check_header_output() {
-     "sibling (cores|dies|threads)"
-     "sibling threads"
-     "total memory"
-+    "boot id"
-   )
-   for i in "${fields[@]}"
-   do
-@@ -46,6 +47,14 @@ check_header_output() {
-       err=1
-     fi
-   done
-+
-+  if [ -r /proc/sys/kernel/random/boot_id ]; then
-+    host_boot_id=$(tr -d '\n' < /proc/sys/kernel/random/boot_id)
-+    if ! grep -q "boot id : ${host_boot_id}" "${script_output}"; then
-+      echo "Failed to find matching host boot id ${host_boot_id} in output"
-+      err=1
-+    fi
-+  fi
- }
- 
- test_file() {
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index af822885890dda73..b75fc1ef1c13bdd2 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -203,6 +203,7 @@ DECLARE_SUITE(util);
- DECLARE_SUITE(uncore_event_sorting);
- DECLARE_SUITE(subcmd_help);
- DECLARE_SUITE(kallsyms_split);
-+DECLARE_SUITE(namespaces);
- 
- /*
-  * PowerPC and S390 do not support creation of instruction breakpoints using the
--- 
-2.56.0.611.g1030f0b940-goog
+> or because its driver is
+> not compiled in at all -- then driver_bound() is never called for it, so
+> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
+> are never run for the fwnode. The child fwnode supplier links (pin group
+> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
+> consumer of those child nodes defers probe forever.
 
+For the not compiled in part, after a timeout, fw_devlink unblocks all
+probes. You can even set it to a very small number using
+CONFIG_DRIVER_DEFERRED_PROBE_TIMEOUT too. So it should never block for
+the scenario of the driver not being compiled in or ever loaded.
+
+> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl=
+"
+> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
+> the vendor "pinctrl-imx" device binds successfully. Because
+> dev->fwnode->dev still points at the rejected "pinctrl" device,
+> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
+> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
+> controllers wait forever for their pinctrl suppliers.
+>
+> Fix this in two places:
+>
+> 1. In really_probe() failure path: when the driver definitively rejects
+>    a device (-ENODEV / -ENXIO),
+
+This is just arbitrary. Why not do this for all the error returns
+other than -EPROBE_DEFER and -ENOMEM? This might work for your case,
+but I don't think you can make a sweeping call for all drivers.
+
+> fw_devlink_release_shared_fwnode() is
+>    called. If the rejected device is the fwnode owner, it either
+>    transfers ownership to an already-bound sibling (and runs the
+>    purge/pickup on its behalf) or clears ownership so the next sibling
+>    to bind can re-acquire it.
+>
+> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
+>    unowned (!fwnode->dev) or when the current owner has no driver at
+>    all (!fwnode->dev->driver, meaning the driver was never compiled in
+>    or loaded as a module). This covers the case where probe rejection
+>    never happens because no driver ever matches.
+>
+> fwnode->dev is not serialized by a lock; instead every writer only ever
+> touches a fwnode->dev it already owns (=3D=3D dev, as device_del() does w=
+hen
+> it clears ownership) or one that is currently unowned (=3D=3D NULL, as
+> device_add() does when it claims ownership). This patch follows the same
+> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
+> when this device is the current owner; device_links_driver_bound() only
+> claims fwnode->dev when it is NULL or when the current owner has no
+> driver (and therefore cannot be in the process of binding).
+>
+> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> This issue is triggered by
+> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard pro=
+tocols")
+> in linux-next next-20260925.
+>
+> But I think this is a fix to
+> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+>
+> Detailed information could be found in patch commit log.
+> ---
+>  drivers/base/base.h |  1 +
+>  drivers/base/core.c | 63 +++++++++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  drivers/base/dd.c   |  9 ++++++++
+>  3 files changed, 73 insertions(+)
+>
+> diff --git a/drivers/base/base.h b/drivers/base/base.h
+> index a5b7abc10ff0..36d34aa328c5 100644
+> --- a/drivers/base/base.h
+> +++ b/drivers/base/base.h
+> @@ -292,6 +292,7 @@ void device_links_unbind_consumers(struct device *dev=
+);
+>  bool device_link_flag_is_sync_state_only(u32 flags);
+>  void fw_devlink_drivers_done(void);
+>  void fw_devlink_probing_done(void);
+> +void fw_devlink_release_shared_fwnode(struct device *dev);
+>
+>  #define dev_for_each_link_to_supplier(__link, __dev)   \
+>         list_for_each_entry_srcu(__link, &(__dev)->links.suppliers, c_nod=
+e, \
+> diff --git a/drivers/base/core.c b/drivers/base/core.c
+> index 5daa88fa724a..e76153d5f124 100644
+> --- a/drivers/base/core.c
+> +++ b/drivers/base/core.c
+> @@ -1376,6 +1376,20 @@ void device_links_driver_bound(struct device *dev)
+>         struct device_link *link, *ln;
+>         LIST_HEAD(sync_list);
+>
+> +       /*
+> +        * Multiple devices may share the same fwnode (e.g. the SCMI bus
+> +        * creates several devices per protocol node).  The first one
+> +        * registered owns the fwnode; if that owner's driver is rejected
+> +        * it relinquishes ownership (fwnode->dev =3D=3D NULL, see
+> +        * fw_devlink_release_shared_fwnode()).  If the owning device has
+> +        * no driver at all (driver never compiled / loaded as module), i=
+t
+> +        * will never bind, so it is safe to take over.  Re-acquire the
+> +        * fwnode here so the purge/pickup still happens.
+> +        */
+> +       if (dev->fwnode && (!dev->fwnode->dev ||
+> +           (dev->fwnode->dev !=3D dev && !dev->fwnode->dev->driver)))
+> +               dev->fwnode->dev =3D dev;
+> +
+>         /*
+>          * If a device binds successfully, it's expected to have created =
+all
+>          * the device links it needs to or make new device links as it ne=
+eds
+> @@ -1390,6 +1404,7 @@ void device_links_driver_bound(struct device *dev)
+>          * consumers to defer probe indefinitely waiting for a device for=
+ the
+>          * child firmware node.
+>          */
+> +
+
+Did you add a blank line for no reason? Or am I missing something?
+
+>         if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
+>                 fwnode_links_purge_suppliers(dev->fwnode);
+>                 fw_devlink_pickup_dangling_consumers(dev);
+> @@ -1474,6 +1489,54 @@ void device_links_driver_bound(struct device *dev)
+>         device_links_flush_sync_list(&sync_list, dev);
+>  }
+>
+> +static int fwnode_shared_bound_match(struct device *dev, const void *dat=
+a)
+> +{
+> +       const struct device *rejected =3D data;
+> +
+> +       return dev !=3D rejected && dev->fwnode =3D=3D rejected->fwnode &=
+&
+> +              device_is_bound(dev);
+> +}
+> +
+> +/**
+> + * fw_devlink_release_shared_fwnode - Hand off a shared fwnode on probe =
+reject.
+> + * @dev: Device whose driver just definitively rejected it (-ENODEV/-ENX=
+IO).
+> + *
+> + * Several devices can share one fwnode (e.g. the SCMI bus creates both =
+a
+> + * "pinctrl" and a "pinctrl-imx" device for one protocol node). Only the=
+ first
+> + * one registered owns the fwnode (fwnode->dev). If that owner's driver =
+rejects
+> + * the device, driver_bound() never runs for it, so the dangling consume=
+rs of
+> + * the fwnode's child nodes are never picked up and defer probe forever.
+> + *
+> + * When the rejected device is the fwnode owner, relinquish ownership so=
+ those
+> + * consumers can be resolved by a sibling that does bind:
+> + *
+> + *  - If a sibling has already bound, transfer ownership to it and run t=
+he
+> + *    purge/pickup the owner could not do.
+> + *  - Otherwise clear ownership so the next sibling to bind re-acquires =
+it in
+> + *    device_links_driver_bound() and runs the purge/pickup there.
+> + *
+> + * fwnode->dev is not lock-serialized; this only ever writes it when @de=
+v is
+> + * the current owner (fwnode->dev =3D=3D dev), the same ownership-gated =
+rule
+> + * device_del() uses when it clears fwnode->dev on the owner.
+> + */
+> +void fw_devlink_release_shared_fwnode(struct device *dev)
+> +{
+> +       struct device *sibling;
+> +
+> +       if (!dev->fwnode || dev->fwnode->dev !=3D dev)
+> +               return;
+> +
+> +       sibling =3D bus_find_device(dev->bus, NULL, dev, fwnode_shared_bo=
+und_match);
+> +       if (sibling) {
+> +               dev->fwnode->dev =3D sibling;
+> +               fwnode_links_purge_suppliers(dev->fwnode);
+> +               fw_devlink_pickup_dangling_consumers(sibling);
+> +               put_device(sibling);
+> +       } else {
+> +               dev->fwnode->dev =3D NULL;
+> +       }
+
+This is not even correct. If you don't have a sibling that's bound,
+you are just clearing the fwnode->dev and leaving a bunch of device
+links stuck to the old device. And in the case there is a sibling
+device, you are assuming all the consumers are only pointing to the
+child devices. If a consumer was pointing to this device, then you are
+just deleting the device link and not moving it to the sibling.
+
+This patch is just a hodge podge of ideas that happen to fix it for
+the imx case, but not really a sound/principled design.
+
+This patch also makes a lot of assumptions that I'm not comfortable
+with. Please try the simpler fix I suggested above. Essentially, edit
+drivers/pinctrl/pinctrl-scmi.c so it doesn't always register the
+driver. Register it only if it's not one of those blocked machines.
+
+If we really want a systemic solution to the "two device point to one
+fwnode" problem, then we have a couple of options:
+
+1. Have the bus code that's adding the two devices to make one of them
+to be ignored for fw_devlink.
+2. For any fwnode with multiple devices, give up enforcing fw_devlink
+for that node and all its descendants.
+3. Have the bus code that's adding the two devices to go through all
+the fwnode_links and mark which link is for which device.
+
+(1) is simplest and an opt-in.
+(2) will affect a lot of current cases where the first added device is
+the right one and has no problem (eg: PCI)
+(3) will work well if the bus can actually tell the devices and their
+consumers apart, but will also increase the memory usage a bit (need
+to store a dev pointer or cookie for every fwnode link)
+
+Neither of these are great options, but they are better than some
+partial heuristics that can't be easily applied for all systems and
+depend on timing.
+
+-Saravana
+
+> +}
+> +
+>  /**
+>   * __device_links_no_driver - Update links of a device without a driver.
+>   * @dev: Device without a drvier.
+> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+> index f6525a7ee8c5..e19cfc91ebe1 100644
+> --- a/drivers/base/dd.c
+> +++ b/drivers/base/dd.c
+> @@ -762,6 +762,15 @@ static int really_probe(struct device *dev, const st=
+ruct device_driver *drv)
+>  dev_groups_failed:
+>         device_remove(dev);
+>  probe_failed:
+> +       /*
+> +        * -ENODEV/-ENXIO mean the driver definitively rejected this devi=
+ce
+> +        * (errors are returned as positive values at this label). If it =
+owns a
+> +        * fwnode shared with sibling devices (e.g. SCMI creates several =
+devices
+> +        * per protocol node), hand the fwnode off so its dangling child
+> +        * consumers can be resolved by a sibling instead of deferring fo=
+rever.
+> +        */
+> +       if (ret =3D=3D ENODEV || ret =3D=3D ENXIO)
+> +               fw_devlink_release_shared_fwnode(dev);
+>         driver_sysfs_remove(dev);
+>  sysfs_failed:
+>         bus_notify(dev, BUS_NOTIFY_DRIVER_NOT_BOUND);
+>
+> ---
+> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+> change-id: 20260928-driver-core-f1d9e991edb2
+>
+> Best regards,
+> --
+> Peng Fan <peng.fan@nxp.com>
+>
