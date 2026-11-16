@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797051;
-	b=ozqvEPmZZygC/zZwGwTlNDElsKSBzKq+CaSCkn1kW5Be2+Zz9U0yGnFnv1La6ZENoE6H
-	 4Psnz65NCu7Wct2gWmSoY6s81lW4s1EW7UsIxgGZl2FPGuwl4coeDYSZuX8AbY4Cc1TGU
-	 otRWTkPbf/q+irQ/7HgRGMBZW80s81kVpSyRT43vYJAmzqISMgXpyKHESUBtz2n9FXtJc
-	 A5DObLSpfgzj3hZLINg4aIAytFTVdO3Qi0KUVNCJftOutoM2yGGQ0QiVAQxeblxvpzXRa
-	 R2rm4gbHHuzp/CgK3HP/or1EUW475M80MjUZRB6drzfu903UmqalB/gJZ3RSN1/1WFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797051;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=QA54ZmiCg4eSRO8G55NzOCBf0UqL63kojA2ZQ4QzxvQ=;
-	b=Z8t6aokwiV+Oa4RTQYuzlZJwHR+LFcpdLwF7eNgvJsb6wlZbCbCmto7FywtnaXf484gW
-	 mTwpCt0tpUbjste90DLO2DHliQI5Zd7awZhpjR9eMI+oeriWG8O7oyKq3IIpzQpE6+ejV
-	 nlyMcZmwQQfaDs1M9ArFavW//mQRl58AcmwVLyJpH2G35zF+PLqvWPzoh/qrqyQy1t2S3
-	 0xORBQhYxMfLmigy6XvC0knPAB23m5MEk6+9bFWjbqCscOR/xWHw9et33ZQo4U5hBAm2t
-	 l8ih78TQYONrZ2AgA1STJEHCSgkmXpchrTlpXEIdyvF2pa6TYysvEM03c5YVEYmUTEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBBDF606A31F;
-	Mon, 16 Nov 2026 02:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBBDF606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794797093;
+	b=r2/RjPVoOk2MoUvDm1WYKEBqFZtwQ2ckJjQCPS20CeHHlmrz2ULWrU+SF0zLVdJoPi2X
+	 ePtTBTO7pdWPvDcUnROarFRPVJAje5Au0Ic8TB/93QO7f1z5W3bhsIkHGs+bXQQ5Cz9gO
+	 TtUXkL/czAkCgGspJRO9GMrzQIEskRbLEK3EIhiHuLlIFc122jATDxqf93bJXcjvq7xQY
+	 c64WzkSeXpenROca6uWvL1JoDLgaqyRd03wqgtyRHcHJ6SmxGneUDKC9EDlRRkexJz5/k
+	 /u+rdOWfhL5e4EqKhsK/Sho+N7hcl1UDd4aPducXzXlRXOwoocT9q3TCpQP9d+47F0g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797093;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9Kly0eM9XbBDovJgfRouCKU4R9pr6Wk5hOGGnjCgSkY=;
+	b=ZKZiLVnzmbUd00F1kfG5G5XyouriSWhVY8k0NkADv9vDYmkgqyMv/QipipasD2tYJFfo
+	 1fxQaKriLrOf5WnDYUCR4qqCBTQKnk97bcsEqihXZ4zD4dAXIQRDLaHgE147QwwnnaCOf
+	 +LmpJ8dEtFVgn65wUguldPzA22On7rIyg5nVytjcqOA4U2zr2wMa2aBpfwjWwx+PICeJW
+	 pGpYtjgqVb0CN6v+m5vC7tuXGfc8k7Sy+CmCeKKXlW1R+iinC17IVOGv0Vug7Aj43Kydo
+	 nY74/bcFDXClzjWx1gpJHC/ntmKbl9tawtA6HvbkVc8mcuwbkWEJi+Bpaq31LIXoCXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nFGwJvQR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE760606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE760606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nFGwJvQR
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-54492d8a988so226111cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:44:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794797092; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L+hpF87yLQYH+Cup5B+GwohMcAn1iuPIT77opAUeqPdw0E0A5pwYiClRxro700MENh
+         mRR0UC+xpTWaWFFRODRUCnNiV7Fog+OsX6Tr/fB8FF/iUg1JbbKjY/PqtNmIjJNCkul4
+         pyWrfhnO1WzArNyTRiJWvapZOe8+aZ/bDsphgrNzKYz/GlTH/K1tTYgLIActL59+K9RY
+         PS6F+5sxRS35dNPzxu0LXBdCQoInGZQHmR7xdan9sQLEK+JDiwE5+52WkYuuIMei6v/U
+         DaD5mkkdE96ChznEiV89tvwnxYXlB8IFMu+XEeZuvINj7LlwSUs7+xjwe+6bXdpof2/f
+         w3iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9Kly0eM9XbBDovJgfRouCKU4R9pr6Wk5hOGGnjCgSkY=;
+        fh=PnzlQAa2a0nyf7r7b5RhHtPNTu5cljrUb6/FmCPnKp0=;
+        b=JC2bThcaoEWxG2Mhg2vY9Uwtfxicem9HbqKkAB2Mq3gLXs51RJ4aqyB3SH+/QtYpR8
+         Y28QNbmOVoHzFn6AiLus/2DxDp62mVqyL5PnB+oerHeFKdNPM7dPdCqI7/VfMVpKzH2H
+         Xv83Q6Z/2Y6i2/mD6l3MyMwRcH8EIJDhSyQX/J4LH1yAw6xOWbB7soZGlKgpAqbbxf3u
+         xfJeMTEfoeoTJ2Nj6BcnyTtoCaLfSKw9EP3KeMO+9QIwzEiXmAlplh37ViNjl8VPm1gm
+         mVUUnnb2sRj97tKT84tIIsOqfsjWQCXKKob+BMeeeI90GPU5ZLmihdScBgRIXHLmCHAy
+         If3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QA54ZmiCg4
-	eSRO8G55NzOCBf0UqL63kojA2ZQ4QzxvQ=; b=WbzKWahzjRp0XXQPG+rFJxiLIo
-	BnCnuoKmywrt6gcAeUKxMX74M+KAobmSFivCR8XgoW/DsUhCB3ZJmrHeSHDkXPD4
-	6L+vzDBwjG7NzMjdtVQvE+/rd0M2tY9yHLDxrquq55ubSWjlON7fAQRT0nNATHZ5
-	KZUIe5D0q8P7SpsVY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2OP7sbfpqHHeyAQ--.1603S2;
-	Mon, 16 Nov 2026 10:43:57 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: dvb-core: initialize DVR ring buffer before registering the device
-Date: Mon, 16 Nov 2026 10:43:55 +0800
-Message-Id: <20261116024355.17602-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=google.com; s=20260707; t=1794797092; x=1795401892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9Kly0eM9XbBDovJgfRouCKU4R9pr6Wk5hOGGnjCgSkY=;
+        b=nFGwJvQRRsHhvwfmdSvYfqBZw+cwMsVDENRdiit92dHTa+7O+OiIcMa1sFUe5aj+gV
+         0arE70K4hM2KQEnQeyVZ3KwVQ7LSUSlFUphhAo8u/ggapG0bMwsQPeKcDnoGP0F55hDp
+         4YgoLKjJcLaqOl3iwtNpCKzM3pTB9gqovF2Tfe85YMJiKuPCSgUFSqB1VvncglChRX4Z
+         DnxE1h7MeVn/c1AgAC3Bt5zC7nov/mhM9bTKbn7r9TPAfAZ+qRZRQdTetJ3Xtj55ocS4
+         3SmNPRvTlmMZS1B1sWIAVj5WbHuhzjvrKl+4LOf1YMHMVRouDTiyQfv14TVJzdW2x7Dy
+         GRVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794797092; x=1795401892;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Kly0eM9XbBDovJgfRouCKU4R9pr6Wk5hOGGnjCgSkY=;
+        b=js3HvDOlaiKHukM7LlHab/VmmP3VRr0gOHrSHviL6vEi670Zm33SuuBns6mGFwd1gq
+         BvO17wQ+u+0d5B0a9x1GZFRXQyzlvm+aj4d+QvP4+QpXPKWEiQzdXuTcy5o10Yn0k3tD
+         GtP8uf19W6qXNJBcO+a6XlYAKW3CqXyCs/seyF4KBzn2S90Ftqndz6N1bFWGLGOU3Uog
+         gwUfzDx9ELx4qI6GVanFlfUSaFTQOgoHuHROp1Dcy/EzECdMVgY2JHybguls9tOzOVDd
+         K/E4Bq7IEUeJ87Y/C/n6ZUtb24PAPPImSjJNERJ8ZB/qgC9fZyuBjNU299w9oHd/LPf2
+         XoDA==
+X-Forwarded-Encrypted: i=1; AL+hErE4jAY7xh1O29lb95O3hchvasCkk1t1dJLZIXavLWflyMD8wG/fmNhWqkyLyOeZxQHenJtnLC/EwaENTTk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nK8cbgW8KVYulDqYBFP91mEr5P3VlCtH/6+9uwAOKByLGyfdU
+	9bXEDvMz0dQkJFoUtMbXZt8lchFwU5Sldf2NNqJG/jJbajJq3QtnER5qoFNFsz6JMilx4dDPN1L
+	+o4nygDnVMpEQxp4lG8lKeBD4/maNQtPQ8heHlI5km1mMpxFeCC/5HDQI
+X-Gm-Gg: AYBFou3P9z2Lez8TfoiUHR67ripGLsZyJxbngqCcKYWqIHEwOUPuzkC8qX4stkG9BAF
+	cdx/9NpCX4uGVo591uJSSYFrR+sLw6hLAUjPjsrRz2SLTqpoDU9gtU4qNjLiPloo6r3MWhUnTop
+	pq6nMN084SBqO0ZsGILY5ThNK8JL8K4Cm2qZUa47T3tykpyLSfGn5I98rlQSQkaZulVO/QFg5Hj
+	gzsFWHTkEVyY0td/axIEcNE2F6u7Qeesfbssqb0q6EFro2z0gKr/dfn5qpcjUehrxHEGuoOP1e+
+	5NWdAhaFlmJl0GsWPD5YA1DVIsa/Oi+iPxSqiuJrk/ONbh0007ZMqAu89Bd3pri6GPGLT7afyn4
+	kYHLO/K9Dvr7yq5WaX+aeGhggG/L1sEpklFk=
+X-Received: by 2002:a05:622a:a06:b0:52f:9ed4:8d76 with SMTP id
+ d75a77b69052e-55c682a8a6emr25827851cf.14.1794797091092; Sun, 15 Nov 2026
+ 18:44:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,88 +104,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2OP7sbfpqHHeyAQ--.1603S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw1DXw4rAF4Dur1rXF4fZrb_yoW5Xw1rp3
-	95Kay5trW2grs7Cr47u348uas0yws3ArWSkF1fJwn3urnrGF4qqFZ0yF47XFnrGrZ2y347
-	Kas8Way8CrWUJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUc038UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytdqdQAAsJ
+References: <20261115-main-v1-1-7011cd84e54a@xsightlabs.com>
+In-Reply-To: <20261115-main-v1-1-7011cd84e54a@xsightlabs.com>
+From: Wei Wang <weiwan@google.com>
+Date: Sun, 15 Nov 2026 18:44:40 -0800
+X-Gm-Features: Aa3M54o-0Vkofupcnn38JmSI-OGkOkHMmrH1O9tJZwmSDKKBsdojHT-nKCZT5IQ
+Message-ID: <CAEA6p_CXNCgmq0bz_mfuehPGaEx-GwcHxdNVBSBAAtqB0nfMrw@mail.gmail.com>
+Subject: Re: [PATCH net] selftests: drv-net: psp: skip unsupported versions in
+ netkit data test
+To: alexeys@xsightlabs.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, guyt@xsightlabs.com, 
+	Lior Yizchak <liory@xsightlabs.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-dvb_dmxdev_init() calls dvb_ringbuffer_init() on dmxdev->dvr_buffer
-only after dvb_register_device() has registered the DVR device. The
-device node becomes usable as soon as device_create() runs inside
-dvb_register_device(), so a reader that opens
-/dev/dvb/adapterN/dvr0 right after it appears and blocks in read()
-can reach wait_event_interruptible() while dvr_buffer.queue is still
-zeroed.
+On Sun, Nov 15, 2026 at 5:03=E2=80=AFAM Alexey Skidanov via B4 Relay
+<devnull+alexeys.xsightlabs.com@kernel.org> wrote:
+>
+> From: Alexey Skidanov <alexeys@xsightlabs.com>
+>
+> data_basic_send_netkit_psp_assoc() runs for PSP versions 0-3. The
+> non-netkit data path already skips versions the device does not
+> advertise in psp-versions-cap. The netkit path does not, so those
+> cases fail instead of skipping.
+>
+> Version 0 stays mandatory. Skip an unadvertised version before opening
+> the PSP connection.
+>
+> Fixes: 43cf629700fa ("selftests/net: psp: add dev-assoc data path test")
+> Signed-off-by: Alexey Skidanov <alexeys@xsightlabs.com>
+> Signed-off-by: Lior Yizchak <liory@xsightlabs.com>
+> ---
 
-The waiter is then queued on a wait queue whose list head is still
-all zero. __add_wait_queue() derives (void *)-24 from
-head->next == NULL and faults while reading wq->flags:
+Reviewed-by: Wei Wang <weiwan@google.com>
 
-  BUG: unable to handle page fault for address: ffffffffffffffe8
-  RIP: 0010:__add_wait_queue include/linux/wait.h:177 [inline]
-  RIP: 0010:prepare_to_wait_event+0x2ef/0x520 kernel/sched/wait.c:316
-  Call Trace:
-   dvb_dmxdev_buffer_read drivers/media/dvb-core/dmxdev.c:76
-   dvb_dvr_read drivers/media/dvb-core/dmxdev.c:277
-
-Commit bfbc0b5b32a8 ("media: dvb-core: fix wrong reinitialization of
-ringbuffer on reopen") replaced the dvb_ringbuffer_init() call in
-dvb_dvr_open() with dvb_ringbuffer_reset(), so the open path no
-longer initializes the queue and dvb_dmxdev_init() is the only place
-doing it. Initialize the ring buffer before the device is registered.
-
-Fixes: bfbc0b5b32a8 ("media: dvb-core: fix wrong reinitialization of ringbuffer on reopen")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/dvb-core/dmxdev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 6a825d9bae43..8ef31066ec8d 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -1431,6 +1431,12 @@ int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
- 					    DMXDEV_STATE_FREE);
- 	}
- 
-+	/*
-+	 * The DVR device node is usable as soon as dvb_register_device()
-+	 * creates it, so its ring buffer must be initialized first.
-+	 */
-+	dvb_ringbuffer_init(&dmxdev->dvr_buffer, NULL, 8192);
-+
- 	ret = dvb_register_device(dvb_adapter, &dmxdev->dvbdev, &dvbdev_demux, dmxdev,
- 			    DVB_DEVICE_DEMUX, dmxdev->filternum);
- 	if (ret < 0)
-@@ -1441,8 +1447,6 @@ int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
- 	if (ret < 0)
- 		goto err_register_dvr_dvbdev;
- 
--	dvb_ringbuffer_init(&dmxdev->dvr_buffer, NULL, 8192);
--
- 	return 0;
- 
- err_register_dvr_dvbdev:
--- 
-2.34.1
-
+>  tools/testing/selftests/drivers/net/psp.py | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/s=
+elftests/drivers/net/psp.py
+> index c114d2245135..7c8fb2200b39 100755
+> --- a/tools/testing/selftests/drivers/net/psp.py
+> +++ b/tools/testing/selftests/drivers/net/psp.py
+> @@ -728,6 +728,12 @@ def _data_basic_send_netkit_psp_assoc(cfg, version, =
+ipver):
+>      """
+>      _assoc_nk_guest(cfg)
+>
+> +    # Version 0 is required by spec, don't let it skip
+> +    if version:
+> +        name =3D cfg.pspnl.consts["version"].entries_by_val[version].nam=
+e
+> +        if name not in cfg.psp_info['psp-versions-cap']:
+> +            raise KsftSkipEx("PSP version not supported", name)
+> +
+>      # Enter guest namespace (netns) to run PSP test
+>      with NetNSEnter(cfg.netns.name):
+>          cfg.pspnl =3D PSPFamily()
+>
+> ---
+> base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+> change-id: 20261115-main-0b37fbe5e1d2
+>
+> Best regards,
+> --
+> Alexey Skidanov <alexeys@xsightlabs.com>
+>
+>
