@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.107.87.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851562;
-	b=Jv53BXWZz9v0unxHoaJwbHzewqzHviI96Ob/eW1UEtadXKDIntPVP44e+bBGkuO9WLyn
-	 s2IHcZdtd6i5opFeUjACgVJCt7ovLc+/ofPh9H2Wv6O0JSGvQ2wiMhyG1abVzLmCFsIdC
-	 E4NAz/tX0JfVD/QfNLim56NvGXbY3AysgU6jqVmg2i0EM/FgO278m5TMS4hHB5TwH+sFj
-	 drnOzoXseBOcb57qpmgIlfZBVgNd6oc3HzAPuWuMpMloHok79ug+1qZiE+N+JySmWFMpQ
-	 y8uhWMfIngpCLMQxcqyuDB3PRKI6EBipsfE4JY5zPFz+zIVsWJJVMyUiL9zRd0YoyMw==
+	t=1794851583;
+	b=ajHbTsuHPvAqAmrBUd55M/LfvE8UlX9D+19AAwe5GsF78n3ZJtQP1rxVAq+a/d/EtsKf
+	 HiKMf3gA2599qMI6KJskWk5kw1MivVhaKZO61KmTqKbPnmmj/NJrG8onLAC657y2S+Q9y
+	 MUFRjbiY53GbNo84v+zGDB5eMviCYPlpBFn/y5Y0+E33RReaOlPJGkNESup2E6CDfRqMQ
+	 HykRdbbmTmyBesrJrJBNq+wV//ob9MhsFYICQZNO93Pp/Qz3tnfM1B8974htod/0d3b7K
+	 Taxvf6yky3HweJvnsE35cTXPAAgYVSdBbeeRKfUL40ormkSD601FrHqIykk+y94pyeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851562;
-	h=DMARC-Filter:Received:Received:Received:Received:DKIM-Filter:
-	 DKIM-Signature:X-Virus-Scanned:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=xb7tsDajzVXw+jyNIRt4e31d16FGhE2vHjlZgi63pw0=;
-	b=1DFBJDYzRrNt5ETbqT+4p6YrN/W0So4xfAcV8kj6yp6n2aivgAgJF5dhS6KcKps8f0BQ
-	 /j5iwHZhEJWymD7ET6lSD8/uflEAK32q8lcicdZi2hOmtiRZ0QfEFiRHySfzw+iLPLp8o
-	 4bj52+DHV6OySs9Se2LailMrKmbW3GOG0SiezvUR5x6lJ1L+xvUm7bxjNy8CbaMh17F8v
-	 ivo4y9DOZuYM6QyAmBgKz40RiCreB7ePycNXZIAZaSNWiVetWxQO+uTLi30fG5cawvi1G
-	 0pqV3Scr56rBB3EwBVNCXIN8BZImiancnizUG4IFTWKczhqZOu0S7fAoVD5lkIyIbmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851583;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=ZVha1LQJ+ZYa0pasaO7rOjBg6mtWgNhixYpeavUGJvw=;
+	b=5Z0OJ+v2n3vbICkbguUfQvWeiDqgrU6gSI7RUW9M1p/lNjo2FwCHsZiYwNs7leUHBRW9
+	 Nlk9lSfQ1QV/f739S/Lc/TTnWi4bzCLYGl8beKW0WDUBF05/M7GmVTDQpC/LUZgIHqT+n
+	 ZOb34lQwFv3yJtNk1KyK273c354iBojZ+bs6fuk+zzZnCNzB45hFcib2JRWnVBT2JWZYk
+	 fGDaV3bmOoM+HXl2IHx2beNh/Ca18RXYmisp0pv9Gi5KX0nG4C2jNDzwDbpqzbSIcSES/
+	 By1a+GopVAUDleZ6wgEN+h0sVbelZWyZcUu5OmqSmi/1eeSz0sbs/lJMNwkNYrdtV9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tngtech.com;
-	spf=pass smtp.mailfrom=tngtech.com;
-	dkim=pass header.d=tngtech.com header.i=@tngtech.com header.a=rsa-sha256 header.s=B14491C6-869D-11EB-BB6C-8DD33D883B31 header.b=h7zEJmM8;
-	arc=none smtp.remote-ip=34.107.87.41
-Received: from mailout.tng.vnc.biz (mailout.tng.vnc.biz [34.107.87.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Mr0MWBAM;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ECB606A898;
-	Mon, 16 Nov 2026 17:52:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0ECB606A898
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tngtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tngtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0775A606A880
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0775A606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tngtech.com header.i=@tngtech.com header.a=rsa-sha256 header.s=B14491C6-869D-11EB-BB6C-8DD33D883B31 header.b=h7zEJmM8
-Received: from zmproxy.tng.vnc.biz (zmproxy.tng.vnc.biz [172.16.1.23])
-	by mailout.tng.vnc.biz (Postfix) with ESMTPS id 490223F433;
-	Mon, 16 Nov 2026 18:52:32 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id 26AB81FBB5B;
-	Mon, 16 Nov 2026 18:52:32 +0100 (CET)
-Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
- by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10032)
- with ESMTP id PhS7Qk6kvmB1; Mon, 16 Nov 2026 18:52:30 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id C532D1FBB9B;
-	Mon, 16 Nov 2026 18:52:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 zmproxy.tng.vnc.biz C532D1FBB9B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tngtech.com;
-	s=B14491C6-869D-11EB-BB6C-8DD33D883B31; t=1794851550;
-	bh=xb7tsDajzVXw+jyNIRt4e31d16FGhE2vHjlZgi63pw0=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=h7zEJmM8NNLrS7TO/hnFu0F6EyoIIb468LmwLdY66DmTRwEv5kUcwKCrNiCPsl68F
-	 XFp41slHnTsk2KVKfPu2cCuX0ke9r9vjHrS13L2PTerZ8P4YXPJQpSFHErs1kFMczu
-	 sejcpV13QwTzK8B04IBT4DYi5whInLen87qCwPFnmhgrBcUncgYcWTHzEqJGDcWRSU
-	 thuSHrrioFCmR6Yd4RiUKac9ZUu41tHOTZc4mAIgUPLjuMVsPuDEbfmui2otl0fIvs
-	 MYfQkoJXhs9im7qAN6i/iYL0gfGwib1XmlHxlsWVr5LlSDhbQR8fbKtNULsBGnCnmF
-	 YC1yl///yXL+A==
-X-Virus-Scanned: amavis at zmproxy.tng.vnc.biz
-Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
- by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10026)
- with ESMTP id 9BfdUBNe52nu; Mon, 16 Nov 2026 18:52:30 +0100 (CET)
-Received: from luis-Precision-5480.int.tngtech.com (unknown [193.30.133.7])
-	by zmproxy.tng.vnc.biz (Postfix) with ESMTPSA id 3F0191FBB5B;
-	Mon, 16 Nov 2026 18:52:30 +0100 (CET)
-From: Luis Augenstein <luis.augenstein@tngtech.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	gregkh@linuxfoundation.org,
-	kstewart@linuxfoundation.org,
-	maximilian.huber@tngtech.com,
-	Luis Augenstein <luis.augenstein@tngtech.com>
-Subject: [PATCH v5 0/7] kbuild: record cmd-prereqs in .cmd files
-Date: Mon, 16 Nov 2026 18:51:47 +0100
-Message-ID: <20261116175215.1337416-1-luis.augenstein@tngtech.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Mr0MWBAM
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdba1bbde0bso1296566a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794851577; x=1795456377; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZVha1LQJ+ZYa0pasaO7rOjBg6mtWgNhixYpeavUGJvw=;
+        b=Mr0MWBAM4MLlHJMOKb/4Z6+dOhVz5cE+GMuRUduu9EHxuwhijBh3tXy8WJrkhaD0vh
+         PYAoy9x9sShYaRayE53yartClLeXdWk62a//vvYlSd2zLiJvKMc9TXh7Mof3XZRTu0rx
+         GxoGIFqRYzrwZ+dbFPfJk7TnrE7kr2+1NPV9kZnPO9acPHImQGPyrlGzUI/V+O9rL+lS
+         rW57l05EwtNh4ZKXuPgI4wU7DkeDNQM3yk0RZSB8ysyrRk6y/+Fsb3SJKn/X/NOmQar9
+         V386QxKbhvhnCZ98vZnrwlnUF9YPDTCdsBALgZVykIgXLyQJuXY30X/5rtUP6x7EcqzI
+         KKdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794851577; x=1795456377;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZVha1LQJ+ZYa0pasaO7rOjBg6mtWgNhixYpeavUGJvw=;
+        b=sxR7lLoG6HQ/F4T/0J7YKof1CEkyL5cWDQ2YAQcf9Dasyz26KP1TYWXfpytEX/dm95
+         cMFo7BfP4qPiY4pFtX4WAcGp16n0UMbvMvnyGhujnmMTfJ69Bd0dt86vaezWKwJNJyg9
+         p2eFnspRzlVKUI5O+sEkK8SH6FksDEglOVmdiN8Ii8nPobXAHkckqbMEotfJ5t787FDw
+         wz0pM2UTMH5XEmid51BTGPMlj+Dcni9b0f06p9Ed5vBLM2Uz5je1kyK6scjQCbmVXYs6
+         C0/pIKmjF6BzxzoXkEsvCt4avtfdmDGYrTnD3MuJkmLfn7nXIOiKL7uu6a6w8SVK1lC8
+         kbjA==
+X-Forwarded-Encrypted: i=1; AL+hErGuJHP4s1GGNlswkbs3cevgpVgkxPpgpRwQciN6O+DS4sadpwGfmBFFF9QvKdRZ8miQJKvtv9iv00Vbqpw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85CFoRAfRv64PBI7KslhHtgXt8ny6RklA2gSG6M3XDxteREF2p
+	akQ6bglpgHKyj6+My1DPnhgBdKLyoaaIu9RN2IEyEgjWrN1rfnd0k1IE5VRS6J/l2w==
+X-Gm-Gg: AZFdTZfOR8MIDg/laisBRRmvVNaHUoS7JHl/2hfALCC1xEA44WoosM8tPBumzFhqc0Q
+	3hVRteMBreja4/IrKqd6HrNxkl0kI3tERWb78okaRJ19UGZ3fKVLzg20rzIKcBmvE0SEZ2dQpug
+	KdEpMWgkssZT0ytWYG0V5O4yLMycWJ3iHWKSN/lES1/HR5jN6MWJ626DoLOSqZXmAhlfH/3JaI5
+	Am4+KLkTiugzV277eEYPfGo62rSOsypHJMyUMCaRROQHGPWvRqsPJOsLozdgXZ+6WyoJo8O65wl
+	XYF7JshFeVy0eY45/5ro1+JHt5rWz/DvLqRf2832Y4I87jzdbly3sXVnGwSIBKzsxH8hwjerIVv
+	zmCGR829Jg2j6TSKuPNSTBOBKDtF1f5f3/epsnQakprtjSzf/7Naporgd943m8zSHPlrolOGZLp
+	0zwfuOVvMNa/yvJ2ZxH0dFKhGDs8oMPJQoDUXAR0ANJr4Ljs9ydfV+bJePyK0BcUWYXk4Tr5jWp
+	t/WhjbW3rq4r9ZhyuG7BGHFd6/2Qmsb68VDgqGpTZcRYlC1lOSFFvpUhfMzPX8tKtsXdlCTOKSc
+	6z+lQgdwbrvbYma6F6MvmkC8lxyQ3CQgu/ge3fub5FgOUBjy6xalx22aMtWkXmv9
+X-Received: by 2002:a17:90b:4c0c:b0:3a0:516d:9f87 with SMTP id 98e67ed59e1d1-3b1b0a1f01cmr12343648a91.13.1794851576505;
+        Mon, 16 Nov 2026 09:52:56 -0800 (PST)
+Received: from localhost (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac296b5fsm224574a91.8.2026.11.16.09.52.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 09:52:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,225 +87,256 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 09:52:54 -0800
+Message-Id: <DMWTS6IPSI2R.3EJQC130JYVW3@google.com>
+Cc: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
+ <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH v6 31/31] selftests/vfio: Add CXL Type-2 passthrough
+ tests
+From: "David Matlack" <dmatlack@google.com>
+To: <mhonap@nvidia.com>, <alex@shazbot.org>, <jgg@ziepe.ca>,
+ <ankita@nvidia.com>, <jic23@kernel.org>, <dave.jiang@intel.com>,
+ <alejandro.lucero-palau@amd.com>, <smadhavan@nvidia.com>, <corbet@lwn.net>,
+ <skhan@linuxfoundation.org>, <dave@stgolabs.net>,
+ <alison.schofield@intel.com>, <vishal.l.verma@intel.com>,
+ <iweiny@kernel.org>, <ming.li@zohomail.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <bhelgaas@google.com>,
+ <dmatlack@google.com>, <kees@kernel.org>, <gustavoars@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20261016161839.2765592-1-mhonap@nvidia.com>
+ <20261016161839.2765592-32-mhonap@nvidia.com>
+In-Reply-To: <20261016161839.2765592-32-mhonap@nvidia.com>
 
-KernelSbom (scripts/sbom/sbom.py) reconstructs the kernel build graph
-from the .cmd files written by Kbuild. For most build outputs,
-KernelSbom must infer the build inputs from the shell command stored in
-savedcmd_*. This requires command-specific parsers, which add
-unnecessary complexity and are difficult to maintain.
+On Fri Oct 16, 2026 at 9:18 AM PDT, mhonap wrote:
+> Exercise the vfio-cxl contract on a bound Type-2 device: the CXL
+> device-info flag and the two vendor-type regions, the HDM memory mmap
+> (including a 2 MB huge fault), the read-only trapped decoder region
+> against the live host-committed decoder, and the guest's DVSEC reset
+> doorbell and manual HDM discovery.
 
-Kbuild already knows these inputs as $(real-prereqs), the non-phony
-prerequisites of the Make rule. This series records them in .cmd files
-using a new metadata field:
+I tried running this test in a VM with the emulated cxl-type2 device
+from your QEMU RFC [1], on an x86 q35 machine with intel-iommu. Out of
+the box the device binds as plain vfio-pci and the fixture skips
+everything. v6 now requires that the host can do CPU cache invalidation
+for CXL Reset, and cpu_cache_has_invalidate_memregion() returns false in
+a VM (x86 refuses it under a hypervisor, and arm64 has no cache
+maintenance provider in a guest).
 
-    make_prereqs_<target> :=3D <prerequisites>
+The QEMU RFC reports 19/19 passing in an Arm guest, but that was against
+v5, which didn't have this requirement. How did you run the v6 version
+of this test without hardware? Did you use something like
+CONFIG_CXL_REGION_INVALIDATION_TEST? That option only covers region
+management in drivers/cxl/core/region.c, and depends on CXL_REGION, so
+it doesn't help here.
 
-KernelSbom is updated to read the new field instead of parsing the
-shell command, and the obsolete command-specific parsers are removed.
+I added a local test-only bypass (a CONFIG_CXL_RESET_INVALIDATION_TEST
+that skips the invalidation in cxl_reset_check() and
+cxl_hdm_quiesce_prepare()/cxl_hdm_ranges_invalidate()), I get 26 passes
+and 1 skip (pm_d3hot_restores_decoder, since cxl-type2 has no PM
+capability in QEMU). I think something like that belongs in the
+cxl_reset series. Otherwise this test can only be run by people with
+real Type-2 hardware.
 
-The issue of manually parsing shell commands was originally mentioned
-in https://lore.kernel.org/r/a01233b9-23a2-4666-91ed-f1cf030dcb9f@tngtech=
-.com.
-This series is a proposal to address that.
+[1] https://lore.kernel.org/linux-cxl/20261106035911.1280066-1-mhonap@nvidi=
+a.com/
 
-Cmd writers and consumers
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> Check that the decoder register region reads fail with EIO while Memory
+> Space is disabled, and that the decoder reads back committed and HDM
+> access works after low power entry and exit.
 
-The new field should not affect existing behavior.
-Below is a summary of what I checked.
+The series says a Type-2 device loses its committed HDM decoder in D3hot
+and D3cold (patches 17 and 30), but the emulated cxl-type2 device in
+your QEMU RFC has no PM capability, so on it these tests never take the
+decoder restore path in vfio_cxl_power_up(). Please make the emulated
+device behave the same way as the real hardware across D3hot (PM
+capability, No_Soft_Reset, and whether the decoder is lost), so that the
+selftest exercises the same vfio-cxl code paths in a VM as it does on
+hardware.
 
-.cmd files are primarily written by cmd_and_savecmd and cmd_and_fixdep.
-Both writers add make_prereqs.
+To help get that right: what does lspci -vv show for the PM capability
+of the device you tested with (NoSoftRst+ or NoSoftRst-), and did you
+observe the decoder actually being lost?
 
-The following rules append information to existing .cmd files.
-None of these is affected by the new field:
+> Add a partial-mmap path to the vfio selftest library so the trapped
+> component BAR maps its sparse ranges, and an __iommu_map_file() helper fo=
+r
+> the dma-buf mapping.
 
-- scripts/Makefile.lib: cmd_gen_objtooldep only appends new rule
-  target: $(wildcard ./tools/objtool/objtool)
-- scripts/Makefile.build: gen_symversions only appends comments
-  #SYMVER <name> <crc>
-- scripts/Makefile.lib: cmd_save_c_flags only appends a variable
-  saved_c_flags_<target> :=3D <flags>
-- rust/Makefile: cmd_gendwarfksyms only appends comments
-  #SYMVER <name> <crc>
-- kernel/Makefile: kheaders_data_dep appends a deps_* block
-  deps_<target> :=3D <headers>.
+Please split the library changes into separate commits ahead of the
+test: __iommu_map_file(), the sparse mmap support in vfio_pci_bar_map(),
+and each of the new libvfio helpers suggested below. That way each one
+can be reviewed on its own, and the final commit only adds the test, its
+Makefile entry, and the MAINTAINERS line.
 
-This series updates the following .cmd file consumers:
+This series is already quite long (31 patches), and with the library
+changes split out the selftest changes will grow to several patches.
+Consider sending all the VFIO selftests patches as a separate series
+that depends on this one.
 
-- scripts/sbom/sbom/cmd_graph/cmd_file.py: CmdFile.create() is
-  rewritten to parse the fields by name, including the new
-  make_prereqs field.
-- scripts/make_fit.py: process_dtb() previously read and split the
-  complete .cmd file to find the fdtoverlay command. It is changed to
-  read only the first line, so it keeps working once the new field is
-  introduced.
+> +/* Return the sparse-mmap capability in @info, or NULL if the region has=
+ none. */
+> +static struct vfio_region_info_cap_sparse_mmap *
+> +vfio_pci_sparse_mmap_cap(struct vfio_region_info *info)
+> +{
+> +	struct vfio_info_cap_header *hdr;
+> +	u32 offset;
+> +
+> +	if (!(info->flags & VFIO_REGION_INFO_FLAG_CAPS))
+> +		return NULL;
+> +
+> +	for (offset =3D info->cap_offset; offset; offset =3D hdr->next) {
+> +		hdr =3D (void *)info + offset;
+> +		if (hdr->id =3D=3D VFIO_REGION_INFO_CAP_SPARSE_MMAP)
+> +			return (struct vfio_region_info_cap_sparse_mmap *)hdr;
+> +	}
+> +
+> +	return NULL;
+> +}
 
-The remaining consumers are not affected:
+This walks the region info capability chain looking for one ID, which is
+the same thing find_region_cap() does in the test. Please add one
+generic libvfio helper that looks up a region info capability by ID, and
+use it in both places.
 
-- Kbuild Makefiles: -include reads .cmd files as Makefile fragments. The
-  new field is an ordinary variable assignment not used in any dependency
-  rule.
-- scripts/Makefile.thinlto: the saved_c_flags_* lookup only reads
-  saved_c_flags_<target> :=3D <flags>.
-- scripts/mod/modpost.c: extract_crcs_for_object() only reads comments
-  #SYMVER <name> <crc>.
-- scripts/mod/sumversion.c: parse_source_files() only reads
-  source_<target> :=3D <source> and deps_<target> :=3D <dependencies>.
-- scripts/clang-tools/gen_compile_commands.py: main() only reads the
-  first line containing savedcmd_<target> :=3D <command>.
-- scripts/generate_builtin_ranges.awk and
-  scripts/verify_builtin_ranges.awk: get_module_info() only reads the
-  first line and searches the saved command for DKBUILD_MODFILE or
-  RUST_MODFILE.
+> + * Usage: ./vfio_cxl_type2_test <BDF>  (or export VFIO_SELFTESTS_BDF=3D<=
+BDF>).
+> + * The device must be bound to vfio-pci with the vfio-cxl module availab=
+le.
 
-Alternative: extending the deps_* field
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Please document how to run this test in more detail: the hardware
+requirements, how to set up the emulated QEMU device, and the kernel
+config needed (VFIO_CXL, IOMMUFD, any test-only bypass), so others can
+reproduce your results.
 
-An alternative to the new make_prereqs field is to merge $(real-prereqs)
-into the existing deps_* field for both cmd_and_savecmd and cmd_and_fixde=
-p.
-This would avoid a new field and provide one dependency list. However, it
-would broaden the meaning of deps_* from dependencies discovered through
-generated .d files to include prerequisites already declared to Make.
-This increases the risk of undesired side effects.
+> +/* vfio-pci region-offset packing is kernel-internal, not UAPI; define l=
+ocally. */
+> +#ifndef VFIO_PCI_OFFSET_SHIFT
+> +#define VFIO_PCI_OFFSET_SHIFT		40
+> +#endif
+> +#ifndef VFIO_PCI_INDEX_TO_OFFSET
+> +#define VFIO_PCI_INDEX_TO_OFFSET(i)	((uint64_t)(i) << VFIO_PCI_OFFSET_SH=
+IFT)
+> +#endif
 
-The writers listed above would need to ensure that each .cmd file
-contains only one deps_* block. In particular, kheaders_data_dep would
-need to merge its header dependencies into the block written by
-cmd_and_savecmd instead of appending a second deps_* block.
-cmd_and_fixdep, or fixdep.c depending on the implementation, would
-likewise need to merge $(real-prereqs) with the generated dependencies.
+As the comment says, this is kernel-internal and not uAPI, so the test
+shouldn't depend on it. Please use vfio_region_info.offset from
+VFIO_DEVICE_GET_REGION_INFO instead, as comp_bar_sparse_mmap already
+does for the BAR. Better yet, use region access helpers in libvfio that
+take a region index and apply the offset internally (see below), so the
+test never computes region offsets itself.
 
-Apart from KernelSbom, scripts/mod/sumversion.c is the only consumer
-that explicitly reads deps_*. It uses selected dependency files to
-calculate a module's srcversion. Extending deps_* could change this
-module metadata. Such an unrelated change should probably be avoided.
+> +/* Find a CXL region by subtype; returns the region index or -1, @buf le=
+ft holding its info. */
+> +static int find_cxl_region(int fd, uint32_t nregions, uint32_t subtype,
+> +			   void *buf, size_t bufsz)
+> +{
+> +	uint32_t i;
+> +
+> +	for (i =3D 0; i < nregions; i++) {
+> +		struct vfio_region_info *ri =3D buf;
+> +		const struct vfio_region_info_cap_type *t;
+> +		const struct vfio_info_cap_header *hdr;
+> +
+> +		memset(buf, 0, bufsz);
+> +		ri->argsz =3D bufsz;
+> +		ri->index =3D i;
+> +		if (ioctl(fd, VFIO_DEVICE_GET_REGION_INFO, ri))
+> +			continue;
 
-Kbuild Makefiles also consume deps_* by including .cmd files. This
-should not be an issue though, because $(real-prereqs) are already
-present on the original target rule, so repeating them through deps_*
-should not change rebuild behavior.
+This is a generic lookup of a region by type and subtype. Only the CXL
+vendor ID is specific. Please make it a libvfio helper (e.g.
+vfio_pci_find_region(device, type, subtype)) built on the existing
+region info code in libvfio.
 
-SBOM comparison
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+More generally, please replace the raw ioctl() calls throughout the test
+with libvfio helpers: VFIO_DEVICE_GET_INFO, VFIO_DEVICE_GET_REGION_INFO,
+and VFIO_DEVICE_FEATURE for DMA_BUF and LOW_POWER_ENTRY/EXIT. Please
+follow the existing convention, e.g. __vfio_pci_device_reset() and
+vfio_pci_device_reset(): a double-underscore variant that returns -errno
+for the tests that expect failures or skip when something isn't
+supported, and a plain variant that asserts success.
 
-I compared the SBOMs before and after the series for the same kernel
-builds on x86 and arm64 allmodconfig. They are ~99% the same. The
-following files are newly included in the SBOM because the manual
-parsers did not cover them.
+> +/* Walk the PCI extended capability list for the CXL Device DVSEC. */
+> +static uint16_t find_cxl_dvsec(struct vfio_pci_device *dev)
+> +{
 
-- Linker scripts: *.lds.S sources and the generated *.lds scripts.
-  The old tool never extracted -T arguments, so the whole
-  linker-script chain was missing.
+Same here, the extended capability walk and the DVSEC match aren't
+CXL-specific. Please consider vfio_pci_find_ext_capability() and
+vfio_pci_find_dvsec(device, vendor, id) helpers in libvfio, with the
+test passing in the CXL IDs.
 
-- The intermediate vmlinux link steps: vmlinux.o,
-  .vmlinux.export.c/.o, the realmode pasyms.h. Previously vmlinux.a
-  was hardcoded as an input of scripts/link-vmlinux.sh. Now the real
-  chain vmlinux link -> vmlinux.o -> vmlinux.a is included.
+> +/* Read config space from sysfs, which is the hardware, not the vfio vie=
+w. */
+> +static int sysfs_config_read(uint32_t off, void *buf, size_t len)
+> +{
+> +	char path[128];
+> +	ssize_t n;
+> +	int fd;
+> +
+> +	snprintf(path, sizeof(path), "/sys/bus/pci/devices/%s/config",
+> +		 device_bdf);
+> +	fd =3D open(path, O_RDONLY);
+> +	if (fd < 0)
+> +		return -errno;
+> +	n =3D pread(fd, buf, len, off);
+> +	close(fd);
+> +	return n =3D=3D (ssize_t)len ? 0 : -EIO;
+> +}
 
-- Per-module .mod object lists: the old tool expanded the .mod file
-  contents in place and recorded the objects directly as link inputs,
-  without explicitly including the .mod file in the SBOM.
+This and sysfs_config() further down do the same thing. Please replace
+both with one sysfs config access helper in lib/sysfs.c, modeled after
+the existing vfio config helpers: a sysfs_config_access(bdf, write,
+offset, size, data) core with sysfs_config_read{b,w,l}() and
+sysfs_config_write{b,w,l}() wrappers that assert on failure, like
+vfio_pci_config_access() and vfio_pci_config_read{b,w,l}().
 
-- Generated headers: the drm/xe and msm register tables, the aic7xxx
-  sequence tables, the x32 syscall header, and module.lds.h. The old
-  tool found a header only where a .c file actually includes it via
-  the dep file; the new tool records the full make view, including
-  headers that are never included at all.
+Taking the BDF as a parameter also gets helpers off the device_bdf
+global. Please only use device_bdf where the device is opened
+(FIXTURE_SETUP() and close_restores_open_time_command). Everywhere else
+can use self->dev->bdf.
 
-- Config and header archives: kernel/config_data.gz and
-  kernel/kheaders_data.tar.xz. The old tool missed them because their
-  generation commands had no matching parser.
+> +/* The trapped block starts at the HDM decoder registers; CTRL 0 reads b=
+ack. */
+> +TEST_F(vfio_cxl, comp_regs_hdm_read)
+> +{
+> +	uint64_t ctrl =3D self->comp_off + CXL_HDM_DECODER0_CTRL_OFFSET(0);
+> +	uint32_t val =3D 0;
+> +
+> +	ASSERT_GE(self->comp_size, CXL_HDM_DECODER0_CTRL_OFFSET(0) + 4);
+> +	ASSERT_EQ((ssize_t)sizeof(val),
+> +		  pread(self->dev->fd, &val, sizeof(val), ctrl));
+> +}
 
-- Devicetree overlay sources: the .dtso files are now recorded as
-  inputs of the dtb/dtbo build steps. The old tool saw only the
-  temporary files those steps produce, never the sources themselves.
+Please add region access helpers to libvfio instead of open-coding
+pread()/pwrite()/mmap() on the device fd, which this test does in about
+50 places. Something modeled on the config space helpers:
+__vfio_pci_region_access(device, index, write, offset, size, data)
+returning the number of bytes or -errno, vfio_pci_region_access()
+asserting success, and typed vfio_pci_region_read{b,w,l,q}() and
+vfio_pci_region_write{b,w,l,q}() wrappers. Then this becomes:
 
-The following files are removed:
+	val =3D vfio_pci_region_readl(self->dev, self->comp_idx,
+				    CXL_HDM_DECODER0_CTRL_OFFSET(0));
 
-- dtc preprocessing scratch files: .dts.tmp, .d.pre.tmp,
-  .d.dtc.tmp. The old tool recorded these temporary build by-products
-  as inputs; the new tool records the real .dtso source instead. This
-  is a cleanup, not a loss.
+The double-underscore variant covers the expected failures, like
+comp_regs_read_needs_memory and the unaligned and out of range tests.
+vfio_pci_config_access() could become a wrapper around the same code
+using VFIO_PCI_CONFIG_REGION_INDEX. libvfio would need to cache the
+region info for all regions, not just config space and the BARs, so it
+can apply the offset reported by VFIO_DEVICE_GET_REGION_INFO.
 
-- Host tooling: the rust toolchain .md docs, the gen_smb1/2_mapping
-  perl generators, and the dtc host tool's libfdt headers.
-  Deliberately excluded. The SBOM should track what ends up in the image =
-or
-  modules, not the tooling that produces it.
+Similarly, __vfio_pci_region_mmap() and vfio_pci_region_mmap() could
+cover the HDM region mappings and the expected mmap failures over the
+decoder block, and vfio_pci_bar_map() could be built on them.
 
-Changes in v5:
-- exclude .awk files from the SBOM
-- add an explicit include list for genuine kernel inputs that are
-  covered by the general exclusion rules, for example genuine kernel inpu=
-t
-  files under scripts/ and tools/ directories.
+> +/* Find a standard capability through the vfio config view. */
+> +static uint8_t find_std_cap(struct vfio_pci_device *dev, uint8_t id)
 
-Changes in v4:
-- fix a bug where excluding src tree dependencies only worked when the
-  object tree was a direct child of the source tree
-- fix a bug where non-normalized paths containing '..' segments bypassed
-  the exclude list.=20
-
-Changes in v3:
-- split the changes into individual patches
-- include the sbom changes directly in this series instead of deferring i=
-t
-- add the SBOM comparison section to the cover letter
-- Assisted-by trailer follows
-  Documentation/process/coding-assistants.rst
-
-Changes in v2:
-- filter depfile entries from make_prereqs in fixdep.c to ensure
-  make_prereqs is consistent between clean and incremental builds.
-  Filtering $(deps_$@) from previous builds is still required to not
-  include deps that got removed in the current depfile.
----
-
-Luis Augenstein (7):
-  scripts/make_fit: limit .cmd file parsing to the savedcmd_ line
-  kbuild: refactor fixdep to collect dependencies before printing
-  scripts/sbom: skip make_prereqs lines when parsing .cmd files
-  kbuild: record cmd-prereqs in .cmd files
-  scripts/sbom: parse make_prereqs from .cmd files
-  scripts/sbom: use make_prereqs to determine build inputs
-  scripts/sbom: remove the command-specific parsers
-
- Documentation/tools/sbom/sbom.rst             |  23 +-
- scripts/Kbuild.include                        |  10 +-
- scripts/basic/fixdep.c                        | 163 +++++-
- scripts/make_fit.py                           |   2 +-
- scripts/sbom/sbom/cmd_graph/cmd_file.py       | 149 ++---
- scripts/sbom/sbom/cmd_graph/cmd_graph.py      |   6 +-
- scripts/sbom/sbom/cmd_graph/cmd_graph_node.py |  57 +-
- .../sbom/sbom/cmd_graph/dependency_filter.py  | 109 ++++
- .../sbom/cmd_graph/hardcoded_dependencies.py  |   1 -
- .../cmd_graph/savedcmd_parser/__init__.py     |   6 -
- .../command_parser_registry.py                | 516 ------------------
- .../savedcmd_parser/command_splitter.py       | 128 -----
- .../savedcmd_parser/savedcmd_parser.py        |  67 ---
- .../cmd_graph/savedcmd_parser/tokenizer.py    |  92 ----
- scripts/sbom/sbom/config.py                   |  14 -
- scripts/sbom/sbom/spdx_graph/kernel_file.py   |  63 ++-
- .../tests/cmd_graph/test_savedcmd_parser.py   | 468 ----------------
- 17 files changed, 376 insertions(+), 1498 deletions(-)
- create mode 100644 scripts/sbom/sbom/cmd_graph/dependency_filter.py
- delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/__init__.=
-py
- delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/command_p=
-arser_registry.py
- delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/command_s=
-plitter.py
- delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/savedcmd_=
-parser.py
- delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/tokenizer=
-.py
- delete mode 100644 scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py
-
---=20
-2.43.0
-
+Please make this a libvfio helper too, e.g.
+vfio_pci_find_capability(device, cap_id).
