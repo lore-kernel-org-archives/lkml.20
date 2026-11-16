@@ -1,49 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825501;
-	b=xdiyiZbmJWunmZflvUdUnBDbGAgi+db12T1saGOKOX4ZjpnNuSG7O9SpufBg7hcUWWuq
-	 YLGeHJJTucfc2zk7Uqc++p/3EM3DsBScrvxifeqc/VaKzEAOx+qvCEwybrCyfTzKcEFZl
-	 SyLV+DrgAUkoCB9JbYf5/k2lCumvFynNlCCA4ejEdWFxhK5DMX8K4YEIG0H+1tWob/RE+
-	 UwZD2mE202cY+rbz+RW/xdDu88MPWstbpU9gBR5v1E0ooeM3vV/v2IVQwPed6H3JvC39D
-	 7LMjlxVAkpPTLrLOox9Efhpat3zaqd8rLJGasemBXMIp6kwy6aDkE7PAkNbwWPhZrfQ==
+	t=1794825533;
+	b=4J8SI4c13Gyj55PDMtV0tyft0ZM62B8nZeuVm9YGNM4CXkVL2TcZmrMEhzxXLh02ra9s
+	 ANmCf2aYicXbTwnnvwVpICa/CFVt2ciJEB+Toh+maR+0Ie65F9MZrihJhXIk0LfUwKKNn
+	 gKusbBYk3o6xddlbYp3G48cfT1SfgWvB6XtgRgKiejdCtWsDp7DJZy+OAmcYooXLPOBRX
+	 vs0F/lcqC5r8cFO8jtBgXS0EiwKk8ue91sXHN8VnaIdQR9gQcElkKDQTwBmfeM/fOrO3n
+	 /wOO46Xp4+hb8kn6FPaxmj3UBtIx5kjBlWlmi+v+yO8sZJ2cdjRpAOGZ4694RT1IGXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825501;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Ub1cgsKQvi9dfnD6CjlmKOfwxg0yHV4qgHxNcSbdmJo=;
-	b=DbYwwVbOPveXBCZlNSbUnC5McQNM57MWIFUiNN4yZbrpEHCEHhOHXerzBkOGF1ON/so6
-	 QMzBOVOoDAtKqsJJRBZi61R+PzF/QcuF5HACcKLAcoRoAf3uGC7fOzG4VYeWtrPeWzvre
-	 9MGsaF7yAaCpEsTY1BJNL9x33R9S/VXAhqyMPbZf2ZU8vdQImB4ruN7tjvoSg5fL4WN84
-	 i3iF+/GvhiVY2LvHH/hOLCUa+4oSa1Jvgm2mNByNmIQtSMjfFyC+Oa7PvuIf4eS2Pz+6U
-	 uAVI1cycWBpGvgGezMwoW4IMGoy0/Cu3qIxsMjm7oM5cFpT0INBzBLL2NgG8ePX0bYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825533;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=QRGsy4+/SMCADWAf/zPFn8gYvB9q7AQj208EjNSpYys=;
+	b=rjgRvuQ4jsdZz8Oq5fGaWoMqQ2Rs1djO87DMCEx+r4k8wpAAL6hXLKC7lx+LERkwh/9U
+	 DE9Zht5y82q3MPvgifFc81gZGjvsdV4TZrZ4VAKdOHsrEortB6HxNeWdMVdpyfS2sdmI3
+	 hwn5qQkqIKpjEuoUeTVtyiBc9EVTQy0Wc2kK2sXENCp3WHvvDjMW0IS6lqIm/pj5oLOF6
+	 zyKaPrlT1wkZghN2st12RXEnyp9p7bSCIC4EFzwkPs0CWWfspZIZPrRMUYDmO1mbPqV0k
+	 DLdHo0e51f7RM8iEIJKUJCU4vuCG8TE4jJ7u9C79JH4VImRfMk83t9o/tDW7NdEs53g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mEs+MA5J;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0D05606A323;
-	Mon, 16 Nov 2026 10:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0D05606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfUrpf7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C372606A31C;
+	Mon, 16 Nov 2026 10:38:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mEs+MA5J
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 42B8C1476;
-	Mon, 16 Nov 2026 02:38:17 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A02E93F632;
-	Mon, 16 Nov 2026 02:38:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794825500; bh=QKMB5Y4VnZlSzUr/y1WfclgMsCTxE5HNfOLSGjJJjZc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mEs+MA5Jcn045bE0bbWvA4clsJ91WvqRepmFl2DUaa+V4mc+/hIuYfim2PcHu2mSW
-	 tsGHByCw0u8bwNAW60HS4UR7RLEKgtMRBEHc1E9q5r9sJRD/BKWGYdHys8h7OHlkIw
-	 uBrCOJokH1ZAFEGvRtTrUqFKieboeg8x7LEEiRQE=
-Message-ID: <4259f4df-3528-41c4-b3c2-51d7ec1d43d3@arm.com>
-Date: Mon, 16 Nov 2026 10:38:17 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfUrpf7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064011F000C4;
+	Mon, 16 Nov 2026 10:38:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794825533;
+	bh=QRGsy4+/SMCADWAf/zPFn8gYvB9q7AQj208EjNSpYys=;
+	h=From:To:Cc:Subject:Date;
+	b=QQfUrpf7KW2E/D92ipRWpozh9+fpTADkzTrphMMvDryWKir8BBYX7qCBcSTW+rVWp
+	 kaiMYy+yIpMR9mIbgR8DRCVv4IfxgIpY1Y+DDiVQ4sUnbDSCz6tjaA1d+Onhwir9qo
+	 /Q+tqcUHmpQoSq+XiUjHclTSAe1wuvLKjNZH8JA1Dyr/Ixg6f7uZrEX2Y1DJLpc8hj
+	 acwpcyoYay/1LK2K4lE2p101sXkHiQcMF45jS/QCBCCBdK8I0xFJ28viJILxyd1PG1
+	 GTFR4ZJWHV71y/VTkngjWpzNoBl17cM2KdxBLWHBUvlKy/x8qoJlnKMNt0yMP+6wEy
+	 oYjrB4LIMrrWA==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xSu6s-000000035gU-2JU3;
+	Mon, 16 Nov 2026 11:38:50 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] software node: fix node group deregistration kernel-doc
+Date: Mon, 16 Nov 2026 11:38:07 +0100
+Message-ID: <20261116103807.736778-1-johan@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,60 +69,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is
- inactive
-To: Avi Weiss <thnkslprpt@gmail.com>, rafael@kernel.org,
- viresh.kumar@linaro.org
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, zhanxusheng1024@gmail.com,
- zhongqiu.han@oss.qualcomm.com, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261108145028.2483131-2-thnkslprpt@gmail.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261108145028.2483131-2-thnkslprpt@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/8/26 14:50, Avi Weiss wrote:
-> sugov_hold_freq() uses the NOHZ idle-call counter to determine whether
-> a CPU has been idle recently. When NOHZ is disabled or fails to
-> activate, the counter does not advance, causing schedutil to treat
-> the CPU as continuously busy and potentially prevent frequency
-> reductions.
-> 
-> Skip the busy-CPU hold when tick_nohz_is_active() is false. This
-> also handles systems where NOHZ was enabled but never activated.
-> 
-> Fixes: b7eaf1aab9f8 ("cpufreq: schedutil: Avoid reducing frequency of busy CPUs prematurely")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Child software nodes hold a reference to their parent via kobj->parent
+so there was never any need to deregister them in any particular order.
 
-Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+Drop the misleading kernel-doc comments which suggest that deregistering
+a parent node before a child could cause trouble.
 
-> ---
-> v2:
-> - use tick_nohz_is_active() instead of tick_nohz_enabled to also
->   handle NOHZ enabled but never activated, as suggested by Zhan Xusheng
-> 
->  kernel/sched/cpufreq_schedutil.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-> index 14405a614991..50249cc1a594 100644
-> --- a/kernel/sched/cpufreq_schedutil.c
-> +++ b/kernel/sched/cpufreq_schedutil.c
-> @@ -397,6 +397,9 @@ static bool sugov_hold_freq(struct sugov_cpu *sg_cpu)
->  	if (uclamp_rq_is_capped(cpu_rq(sg_cpu->cpu)))
->  		return false;
->  
-> +	if (!tick_nohz_is_active())
-> +		return false;
-> +
->  	/*
->  	 * Maintain the frequency if the CPU has not been idle recently, as
->  	 * reduction is likely to be premature.
-> 
-> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+Note that parent nodes still need to be registered before their children
+or registration will fail.
+
+Fixes: fc002f0f23e2 ("media: software_node: unregister software_nodes in reverse order")
+Fixes: 0b8bf06f6719 ("device property: Sync descriptions of swnode array and group APIs")
+Cc: Daniel Scally <djrscally@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/base/swnode.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
+index 8e12f518e13f..78e224539b02 100644
+--- a/drivers/base/swnode.c
++++ b/drivers/base/swnode.c
+@@ -954,14 +954,7 @@ EXPORT_SYMBOL_GPL(software_node_register_node_group);
+  * software_node_unregister_node_group - Unregister a group of software nodes
+  * @node_group: NULL terminated array of software node pointers to be unregistered
+  *
+- * Unregister multiple software nodes at once. If parent pointers are set up
+- * in any of the software nodes then the array **must** be ordered such that
+- * parents come before their children.
+- *
+- * NOTE: If you are uncertain whether the array is ordered such that
+- * parents will be unregistered before their children, it is wiser to
+- * remove the nodes individually, in the correct order (child before
+- * parent).
++ * Unregister multiple software nodes at once.
+  */
+ void software_node_unregister_node_group(const struct software_node * const *node_group)
+ {
+-- 
+2.56.1
 
