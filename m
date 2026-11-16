@@ -1,105 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862421;
-	b=LLFYQWd8iAYPXbgSPhmzQ6cIMhAJ0dTHblVzWqD+Ili2hx9tHZnF/tNScH2enzzlLBvT
-	 GbHDVBHxYbIrYzVdKj+P7n213mMfYx51wi+bnANnguYAhWFUe0QCDTluf1sTQQq2UfWGX
-	 hNKbOMf8l/s0tWQm1UGByEL1iTktyN92uRvvokuffUEX+kmAe5qT+aQxh+JIKpkvvY1w5
-	 nRkIDoc0ikOORPRWZHmDfQT8Z1MNpGBeWNPQTyg9n8F/TeE90YPyo4GANX6hIrsDWLG+D
-	 KUlCg26ruzNlguWrUjz1Rg8Z1TPLqOfyvMCBFvecUte+daW83NyJ+rZ96rZKfE5cLgw==
+	t=1794862422;
+	b=G3g0E8AB4O8+xxUF1eX/vCZYViP8WLYQtFGZE/UWVgB/eY7N+9sszV8cmIUlQtQJG0c0
+	 GceeI/SPaoV0Ez/EYv9q7qwYLX/Tvqt1/S1Gb+qdq6ym/4oiSQccZLjl/rQiwIdERZ+/p
+	 mADj006yDAKt7LkTf25kr7Mtu6CIBIy3BoAkrAG7S8zfC4P4bTF4jCY4f68/rUD39QR3D
+	 G0c+hM5LRIh+0zwfYPbpgujsQAyRS31fOOez+PQkt51GI/Nbfa9BD5uQy75hl/L3NOY6y
+	 l4dna791S9cAKIK7uO8ou99xxZbHpRNZQk8RepGVGnfLfFnZfttwOQ0z8qAJ+Q/jfiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862422;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jvVNvu1S6dbncJSuthsRoeoeI4Q+KNIALnJGA2kItSE=;
-	b=IGWW5U1BD4GtaCFT4LOZZk1eazKiTrZ43WMpZGiiHF0Rkkzaee9CBwZtN4336H0whFK3
-	 WOCps29yTCLypV6wh0MCYdvzSvhJCs832eUgTxD84uPzpu+CkX5yHee8YRklcYMDQsBpM
-	 4RxOT8QieSx5CRU5OT6VduAyr/8KoL67KfpWcH877/+0bKJvjQzhtVf91gjK96hW8BsPI
-	 Cj80JmlUr69yW1vUNi4EiJg0i3E8G73qwl0VogSv8jIQjEZOqYLk0+mikFE7wA1Iz2j7g
-	 I6uIZq9BfVi1OtVeSDs1+FnEt5NPD0aYibUi6GTgxdj57EkZIaIEtBD0RuT3cyRWeUQ==
+	bh=et8BZDPK3IqwhJJygWhGMdcldXGkpkfpRn1M7UllLC8=;
+	b=myrwkPJMvU1ze3Sg7gF9sgZ72xZ932F+riQZwNn+c9PJj4hqUd0NQfjc5VuBJcX4wWeD
+	 MCNGVYiHfBz6uOlaoE31l//wcluhlsWG7RejFi9ueyUVAwol+otKtL4luK6T6fxmexXVD
+	 O9fjHGNRvvuSThw7PgAhZFIzErAbbfSnRob6GJ1pNWo+8NSR2gH0EQjy+YjRCeQaeLtZU
+	 PwoRS+UuTgyx/PVd13sxNODuTreUjzMF6vy6YT/SuSdYe5gIIsyide7GSb79iOeyBTA+g
+	 A/ua5FVq79wxPXYHZgT/gHautZ0IkEOpB9275qjkG/X0n4EwLsjIWkbrKIWVT9Oh9cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=guJzdrk7;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmpao8n3;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3E2606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78AE606A338
 	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:53:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E3E2606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E78AE606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=guJzdrk7
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37198ed3727so299298eec.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmpao8n3
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b244fb7fffso4689465c88.1
         for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:53:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794862420; x=1795467220; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794862421; x=1795467221; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jvVNvu1S6dbncJSuthsRoeoeI4Q+KNIALnJGA2kItSE=;
-        b=guJzdrk7VmvoXy4eRvWyqWXKP6t5/9dN94YSAHbzWYcmW+bS1TUFisS4TWEUTJw2Uf
-         8vi81Cupj7meIi04/HsZgrorewGhpJ90tRztofu3vFKrg2iAUXr4SEasGJMvyZyzrtqO
-         fXRn76HH2M+gcq2QT9Ht7q5p49QmMm9g8eUaI=
+        bh=et8BZDPK3IqwhJJygWhGMdcldXGkpkfpRn1M7UllLC8=;
+        b=zmpao8n3WNOs4kj5j6g6PlfLwITwpUjUxRTaTPV2pqSkv5rzZ2LJMWIZyVeM3Bm90z
+         Wq8kumxBJnmunE+koK0CQN8uJogAyX2rNbAu39ZrrX5M/+nsjMPjqkEV2LWKyJKGeSTQ
+         A7qfZV3/Fkht06AwfGV2sRU9u2DxHR4GbQJQnbxIly/hEF1AeBvCNcquXNeAZYzRx8br
+         M6M1aQvDwYwWXfye6wSXJ790fl6qD17Ahwtv+vMn1j7imSlmI6b/Kc/PU2Gk5uVv31HF
+         j2BM0PLPH8cctkt091hBpw6dd1S2aewoyeD35Lkd1gj61K/pG8ovRNmIW4dcYIYeZfKf
+         UKZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862420; x=1795467220;
+        d=1e100.net; s=20260707; t=1794862421; x=1795467221;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jvVNvu1S6dbncJSuthsRoeoeI4Q+KNIALnJGA2kItSE=;
-        b=u4bjMdn69M/r84bgPVMmVzsksokK1kM0eJ+mZZ/2iz6gVJK3q+7nzQ+XMuRk3zKvMu
-         CFhHTiV6RWuqWr29Q+l98nawsYmXpVbE91lk+8JJ1MruQ5F5ZP/hzMaAfYcmlyBpJBa4
-         vsXI7sEGXKJNGJkAIUU1zN8A5v8ddc2inPxGbUZm5IWBVbR8vCpOKjZNTjnCNe5RdcVZ
-         uO4NSXkyuZzO/wrKHkUol5teIC2K8GwBPF883wm6eZNd1IW5TnhdZns/VThKwsVbcmPl
-         su+SOR6X/24rEkbvEOGn/ShfmrUCIKpqEIhaBgJS6dxszMGpJeROajUfBk6zM6Gn+w0X
-         rE4Q==
-X-Forwarded-Encrypted: i=1; AL+hErGT771txFOYusYk5v+1ATkneK1fuP/QoOh5Q9nXr54o10gtu1rs5j1+pCUf+w9hZ6ZuGGfdI6Mk06Q+2Do=@vger.kernel.org
-X-Gm-Message-State: APuU4Z824cb39TO0gUgb5EB40qb6nL7SHNA2VMGJvDOkWOb1HYr9O0ng
-	Max3ioPq1/SCI6AteVWRlUQxiFSee4e2WSe2O0jyNgYQOjWIGIruvyVqfcBWEHfGxw==
-X-Gm-Gg: AZFdTZepHtLVSnLSwu8VjNXZ5kqD+ggxqhi2Es07C5ykwfg/OvV52dsV5OHW+5a5Qc9
-	6k7ztEebeKodnKh67uQCySxLoTkaYa0ON81p9dEJ0zTv8N1oKH+QzV49P2XJb1fVqXJD2mLoVgU
-	6RWVqmvlq+ScH9trdHTEPbN99izjKaFy6wOvQeyUPDoBxavyYdc2qR7LrB86U9AcAeICSZAsLpw
-	EeOWwvhPYqModlYlb34pbN521SFdXLIGfN3cgT/pRAJucByyBx4+wjCluOQUm3QTNXkLy7znLdC
-	3CadeI4sY1BrW2KKGEt3/uiCvUuHbgzpazBw1QO2bOYnU1pgGrItDy4iK8TO6IbUoEbHqI1dJ3Y
-	iMmLcXyCydl1ctrjCZgveAg/YIzm15zkjWBWT0hDTCAOq5qXbA0oMo3jgvStjTHUMoIHbrSsi+C
-	EmbtJb7JX8hb1EO+jYhkM//U02ijKowzh9g35S7EHgc769fOBXXt8DfnSWN/yP/uVVipl1OHYzm
-	dfhzAaiuG2mZEFWcbKKdmPBNwc681otyxkfVlazwSiVDDYYyI9iUmtMELVOLXtrhnUoYPXzRxiC
-	+zTLwC1M0Z0ppW8r/5Gwd2fda8hDtL/+1JQoGOjT4AH7aSkoK8iNUkqccFH5rcJcRE6N/6wNSOC
-	RzQvsWiHIshQAzw==
-X-Received: by 2002:a05:7300:1895:b0:358:c5c9:2661 with SMTP id 5a478bee46e88-3810cd4c1bdmr660553eec.10.1794862420309;
+        bh=et8BZDPK3IqwhJJygWhGMdcldXGkpkfpRn1M7UllLC8=;
+        b=KY45OxW9iEKwaTe51ie6yPhTzRTbJreWE0QrP/FNLU3C2nun5aClhoofIM57ZmifUj
+         WP39Kcb38oO6RC//2FoHqbAS9WhfHolfMoSqv1q3hiUEJ2YSJDPsFnejEfXseXAFbqmV
+         molzU4Fb8oBQ1+2BRDrTCHdLTY4gfJxsqbCRAPfPvDhcXA+mqp0o78uMLMm8ejp65Aie
+         TPogQUlC+l6TDAFdxjfsTX5rIQBLx4qqPTHW1U/XEgvTj9ziFBPlqATre+owVcLQMaVS
+         ywrqS2IBCNLg2jbvoRTl580NopePcGttrnPinbKm/SFXTXb41Ag6Tztl5verxhkjEOsd
+         r6eg==
+X-Forwarded-Encrypted: i=1; AL+hErG3ODcde/FdGsz1AYOJb4X3rW4MfT0l6LpfGlaZlP0yvx/U63ks8m4eSDv1Zz0HBYm5CnrMHhp8r2NwJwE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ki1sGqzwd0P7tgsif25rH9wHwCNzVJN/vkjhWZyW8462GyXa4
+	ulod6MrrCnzgY91l4uIYMSVaOsbDSzGExCO+f1HXS9PtFVStbNOha4Jh
+X-Gm-Gg: AYBFou3hNhBsP3JctjKPkFGfu52yLh1Ugi2JjnBr+MpHLSG4Fs+m9auhAqlSxI93FoO
+	ak3Ihzn9KSxhFjrcmyyKxGFLHCee4AgG2iAPShmv+JdUYBaRjsPnqxsvtjrK6SN9aH9ArhZx7F5
+	C3gpS/bLQ1X1m46c58RstswXtn579PoW6662iq3qab+SkD2yq30cw471aj7JLRVBmUsAJMbiFqU
+	KCZTeQgc/TwMoQfhDkPVH8o1baUKAoAWqCqPpBF7PGI0gh2UM4kcmCCfoq+Ya4BJTL4mEfdF0+h
+	mwNWyGRyluGkW97oE74g6EG4WfprWsImQYIul++hDFEHfywi3Cx+CwQifac03jk/fSfohT5WLG4
+	gw0sdT8ItK7OxPD8fgoVExbxsRva0I3PavVF3yU0cHLzAtKloxjJvpOml2fywmDlSxS/8W2WYAH
+	POdYVf+eSS+FuppXBLszm0dQ9AbvQklijTiUYFDagWFHsG1b5vwndTtpAerCGlEhRizsh2Gb/qh
+	HWERldBKyK644ZZ7qcNqS21Uemzp31wHf1bQOMxZJI2kxM2cPHPX9+smHdvHYlJNfYWiIXlziyg
+	LhlRUwqmSVzkfl4cb4z9tDhI8DQGIE8gAm1+17fuxafOrviOmsFfO+/GBbS3FLyW4LRr9DdxA2m
+	NFOWi9uVFnSiVTLB/21Yi1Z2pAaf67+obVItflPBaDhd6HXjddkKnI3TmO3JFmfncRDXr3jG3n2
+	FiuRrD3Llq5ziFeb/YamScBD37EgJqqaxr9cy7k2XbWg==
+X-Received: by 2002:a05:701b:2608:b0:1b3:a22c:7f68 with SMTP id a92af1059eb24-1b50311d3d5mr9990641c88.29.1794862420977;
         Mon, 16 Nov 2026 12:53:40 -0800 (PST)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.36
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm15293497c88.4.2026.11.16.12.53.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:37 -0800 (PST)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>,
+        Mon, 16 Nov 2026 12:53:40 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Stephen Boyd <swboyd@chromium.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v4 03/14] pylibfdt: Trim Fdt bytearray to totalsize() in FdtSw.as_fdt()
-Date: Mon, 16 Nov 2026 12:53:00 -0800
-Message-ID: <20261116205320.1621386-4-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
-References: <20261116205320.1621386-1-dianders@chromium.org>
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH 2/6] iio: proximity: sx9324: fix proximity threshold writes
+Date: Tue, 17 Nov 2026 02:23:10 +0530
+Message-ID: <20261116205320.26070-3-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116205320.26070-1-kapoorarnav43@gmail.com>
+References: <20261116205320.26070-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,61 +108,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`fdt_finish()` relocates the string table directly after the structure
-block and updates the FDT header `totalsize` to the packed size, but
-`FdtSw.as_fdt()` left the backing Python `bytearray` at the
-pre-allocated `FdtSw` buffer size (with trailing zero bytes beyond
-`totalsize()`), forcing callers that serialize `fdt.as_bytearray()` to
-call `fdt.pack()` just to truncate `_fdt`.
+sx9324_read_thresh() reports a PROX_THRESH code r as r for r <= 1 and as
+r * r / 2 otherwise, but sx9324_write_thresh() converts back with
+int_sqrt(2 * val). For odd r the read value is (r * r - 1) / 2, so
+writing back the value that was just read programs r - 1: setting the
+threshold to the value it already has lowers it, for 127 of the 256
+codes (3, 5, 7, ...).
 
-Truncate `fdtsw` to `fdt_totalsize(fdtsw)` in `FdtSw.as_fdt()` (matching
-`Fdt.pack()`) so the returned `Fdt`'s `as_bytearray()` length matches
-its `totalsize()` immediately.
+The int to unsigned int conversion also lets some negative values
+through: 2 * val wraps, so e.g. INT_MIN is written as 0 and values just
+above INT_MIN as small thresholds instead of being rejected.
 
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Reject negative values and use int_sqrt(2 * val + 1), which picks the
+largest code whose reported threshold does not exceed the requested
+value and makes read_thresh() and write_thresh() inverses of each
+other for all 256 codes.
+
+Fixes: 4c18a890dff8 ("iio:proximity:sx9324: Add SX9324 support")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
+ drivers/iio/proximity/sx9324.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Changes in v4:
-- New patch trimming the returned Fdt bytearray in FdtSw.as_fdt() so
-  DeviceTree.flatten() does not need to call fdt.pack() (David Gibson)
-
- pylibfdt/libfdt.i       | 1 +
- tests/pylibfdt_tests.py | 2 ++
- 2 files changed, 3 insertions(+)
-
-diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-index 8a7dfed85f15..68f22e316ece 100644
---- a/pylibfdt/libfdt.i
-+++ b/pylibfdt/libfdt.i
-@@ -1026,6 +1026,7 @@ class FdtSw(FdtRo):
-         fdtsw = bytearray(self._fdt)
-         while self.check_space(fdt_finish(fdtsw)):
-             fdtsw = bytearray(self._fdt)
-+        del fdtsw[fdt_totalsize(fdtsw):]
-         return Fdt(fdtsw)
+diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
+index 93f9577bbda7..39760c92552b 100644
+--- a/drivers/iio/proximity/sx9324.c
++++ b/drivers/iio/proximity/sx9324.c
+@@ -617,8 +617,12 @@ static int sx9324_write_thresh(struct sx_common_data *data,
  
-     def check_space(self, val):
-diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-index 78d8976c0cf3..26915a015ccb 100644
---- a/tests/pylibfdt_tests.py
-+++ b/tests/pylibfdt_tests.py
-@@ -684,6 +684,7 @@ class PyLibfdtSwTests(unittest.TestCase):
+ 	reg = SX9324_REG_PROX_CTRL6 + chan->channel / 2;
  
-         # Make sure we did at least two resizes
-         self.assertTrue(len(fdt.as_bytearray()) > FdtSw.INC_SIZE * 2)
-+        self.assertEqual(fdt.totalsize(), len(fdt.as_bytearray()))
++	if (_val < 0)
++		return -EINVAL;
++
++	/* Inverse of read_thresh(), so that writing back a read value is a no-op */
+ 	if (val >= 1)
+-		val = int_sqrt(2 * val);
++		val = int_sqrt(2 * val + 1);
  
-         # Check that as_fdt() resizes when fewer than 4 bytes remain for FDT_END
-         sw_exact = FdtSw(76)
-@@ -692,6 +693,7 @@ class PyLibfdtSwTests(unittest.TestCase):
-         sw_exact.end_node()
-         fdt_exact = sw_exact.as_fdt()
-         self.assertEqual(80, fdt_exact.totalsize())
-+        self.assertEqual(80, len(fdt_exact.as_bytearray()))
- 
- 
- class PyLibfdtRoTests(unittest.TestCase):
+ 	if (val > 0xff)
+ 		return -EINVAL;
 -- 
-2.56.0.679.gc527c65306-goog
+2.53.0
 
