@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842872;
-	b=ReV47K7A+EqqOLTx1B3Xln93caulnhFyuATMEtrz00I91l4dXP1CSB+Wk8UUZNe4pIOu
-	 Vo06KAllu4r12tNdlXJCPO+P/UnIsk2VpA+fGX1O9i1at78DMC49e24TJqF86rz98KoFI
-	 debg03a9TpsxZwZUn3frB2V62Of98bKpGy2R1IBN+WX6m6UpR4AcM8XgU8Vuqfum5dJDq
-	 gtrPmck1bOAgC1Aq4WD1C14uaoqLuXDNZUaVfge8UXKEp53kxdes5KlZk15Jj/NBN+5Ho
-	 w+NwPJ1RkrDwfVlivHMk9iuTTATe7pr5KYnPHGssaZLsmK9OMZiYEPq7gL4BIlkVkWQ==
+	t=1794842878;
+	b=ctNKRLm0EkTYwDL+t+3bYkwhf96tuZYsSjmtJy7OTdRzjiybs4Kj6i2PAD8o1KJs5UPY
+	 qsj70vnHTrFupJ+HRxTzIkqRlqrGwb5YhK29f2QgH+YVTPPQTU6RGlyEwa4ITT8Rf+1T9
+	 jb+7XpIGYElhbAg3P87T7M/DccGA4DpB7u1Dj2Xzut5wrdMyqCFzcxyCcBwicpOEJNGZM
+	 +7UyjvZJlKpIM5jSPJ3EI1YUVAa8i29wO8MkYeKb/NLhfItoUZmp7POEW8dK0bXcWTB+V
+	 1eNiXXZvJKtpcTn8I1RpWZHMQajPMRn6V0uWycclJBT1ZzO7wjmOpk19+WMKt//fn8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842872;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=Tl1tvo+aD/+N0bJ0XttVLLERYj+6FR16jlZoMJtWmzY=;
-	b=BTnFGxuv9bBdFJfFC6VevBL4WXbiUvFFpl/gK7rpxyOf+YQyYGLPoLF2uy7SYqqvDIFd
-	 2KG/erelJLF7wPV9VyHL5oVI6fiwvZVy1OlFrF930BonTNd/R51D++oyEzxPGFqChRNo4
-	 HAV5bhRZ+tENls01YiTs76vqZUyfaOKnKWTTUdvMI+up9Hph/QDotz6AnyS1roXWbR5se
-	 JD/muS9uALGtgsrFDczqUs+gkEECnmmiDCSVR1N0TRwur2vTAUD3SpRvQpakYGU3qbyvd
-	 JKxez/gtB2nL/YC8AUSJfUZM6jloeRvfp0UibQTVTcxyLEOM/pJ1KW8Q0OfwPOHB9Pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842878;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=1rMcQy2uS7L+NAS/Xndw8zWtoDD1TaGXQ4VaLrfzUdg=;
+	b=uPcYMM+n4ZUyhg3M7ByHWN3MKKTzElf/mAIFETCqoilGCboLyxY2mBxluXSzOhGNKv01
+	 E3cmGnGJmYJo/8zW0SFdBSwIULoT0ZvUEmUm228BGt7xhsiyBhbSJrbxkA4uBqW/ldq7a
+	 2pahxzyg+giOcj124MskzVOZ+D6u6pJwah+BfpfK+V23y7mwY7V5GIRGd4g4xaF2z5e/c
+	 Q0lrwBTn6mpi4lUK9BNN9m1e3Mcy5wYgVuDArCdpeQhxKXbOEsqPQ2gjFpkG4AD3OmLm/
+	 ZNKjJz2NtTD/eGGuDl2fBCOoZwVXELYdPoFmLgDICze+fJV1IS2za5L+lnS24JSl9Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NuaDisqv;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X1zwNjz2;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C7C606A329;
-	Mon, 16 Nov 2026 15:27:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C7C606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6B5606A322;
+	Mon, 16 Nov 2026 15:27:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6B5606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NuaDisqv
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X1zwNjz2
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4758D4E41604;
-	Mon, 16 Nov 2026 15:27:50 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DEA04C4EFE3;
+	Mon, 16 Nov 2026 15:27:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 125476023F;
-	Mon, 16 Nov 2026 15:27:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3F07211BC0D9C;
-	Mon, 16 Nov 2026 16:27:39 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E00906023F;
+	Mon, 16 Nov 2026 15:27:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8021011BC0B19;
+	Mon, 16 Nov 2026 16:27:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794842869; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=Tl1tvo+aD/+N0bJ0XttVLLERYj+6FR16jlZoMJtWmzY=;
-	b=NuaDisqvYFXOInyBNUQ5AGNEstWQopDbwrnF7aaCCBTTGsLktWEtTrH6wd/kmiHofHdrE8
-	Z69L4166ORacPvgMzMYDrhW0eT2yXcdLEuGJK7xxURJ8L7XrRAoNf0z6SMiMmWHabJ1HVy
-	ldcyuiuFm/r+jp0xJaDTsOEFcBT5O0LSwEEaahJ4L/VXPd+Dv7Uw/0V6vLQlAcS0rfv4Sh
-	qdH10tHM6kB1SPXgRfpQ2pDEYa9BJz0RboBaRDgsf8ztQ+drUqefW4m874x/4PZM2CX0av
-	sDV4wDBGpN4ZOMLLb2dqLvJuhhG9Ei3K4ZghZmFyieXQofAS8o14WySUbplZug==
+	t=1794842875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1rMcQy2uS7L+NAS/Xndw8zWtoDD1TaGXQ4VaLrfzUdg=;
+	b=X1zwNjz2w6zsOqEbDa/6fUssCNRxb/a+g5deYdz+GwHf6D8PvEN2NQp4dK/eSKy7TLJEzI
+	3qB6L7ShvOKSN54BSFAExukQjyuupLg9z80o5uvZiLYRN1zsQTg37rdO5hP6GH9I1LR1qX
+	ddYtpcwvyQYHkkO7fUlsYHGxzX4sw2dlXTTf7C86a7wPWS21oRQFQf92LnsqjqHLOQlhCw
+	1OrBsTyG9NIZVjTfkOFGKqHo5vqCQUlRnfd/aC0OX5cuCzUS7d/PD5YnNOx9Q4kZfq4YD+
+	sEUnsDH4SwudhuklgNtTGxQw28CAPwC/xfrTXiuFg8CKHgOd/PiQlyzWvRKdSw==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Subject: [PATCH net-next v2 0/4] net: phy: marvell: add RGMII-to-Copper
- mode configuration
-Date: Mon, 16 Nov 2026 16:27:00 +0100
-Message-Id: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
+Date: Mon, 16 Nov 2026 16:27:01 +0100
+Subject: [PATCH net-next v2 1/4] net: phy: marvell: move mode configuration
+ into standalone function
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,11 +66,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf8Xs2TVtVQRP/ofhALiFNdCStjYQw
- r9b8O7xZWbeLODJMXm4HxZwFNmzNQnU8QBNV5mWkF+JQQmVSSkKHCoXqe9x7GZ07cCMmajyWme
- yuOYK0m50pHnanU8wFNDQFKD8Jf5Tv6kJm3LrduyDdfN+H+W++PMUJQpMcXErSF+0PD9qa0PP5
- tTYAcp1Xb+CLvui0AAAAA==
-X-Change-ID: 20261109-marvell-phy-rgmii-60a8bf619582
+Message-Id: <20261116-marvell-phy-rgmii-v2-1-e04dca67e89a@bootlin.com>
+References: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
+In-Reply-To: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
  Russell King <linux@armlinux.org.uk>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -82,51 +80,88 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Herve Codina <herve.codina@bootlin.com>, 
  "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794842859; l=1441;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794842859; l=2233;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=OgWuZLIByAgyQTfWFiYfm6rUQx6C5Kh+XvPSfviYgvA=;
- b=qWlj1MhjKc+F4IhpjI1NnhjGPHQNBCAxtbMcgxURG+I5WuSnqvfZjSEwHoI45A89stCOc6LFY
- Zq6g+odzWPKA+aWUgguvGjyJwz+HW9u1b63JqIBN/CGPa9RyS0/esEm
+ bh=PkW9oGzVYjO6jMam9gxr/9puYpDucljlNjFFDli78b4=;
+ b=HJ0caxp34Yia2HeA9IKkVVPNjo6TilIBshYx4hB4GK1hWu0IuZ78mF9Ijr88383iugXKCSRIC
+ hXvSF2yZwNLD79FsfOvVIZxuE+nKgOY3E7E+HAXlikQRj/H/i934zoZ
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
-
-This series add the configuration of the RGMII-to-Copper MAC interface
-for Marvell 88E1510/88E1518/88E1512/88E1514 PHYs.
-
-Patch #1, #2, #3 are cleanup commits.
+Move the configuration of the m88e151x out of the
+m88e1510_port_configure_serdes() function, so that other parts of the
+driver can use it.
 
 Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 ---
-Changes in v2:
-- Reword patches to be more accurate.
-- Added a patch to deduplicate the mode setting code in
-  m88e1510_config_init(), as suggested by Marek.
-- When setting RGMII system interface, avoid erasing existing mode that
-  uses RGMII but a different media interface. This issue was raised by
-  Sashiko.
-- Added a patch to rework the EEE errata code by using
-  phy_select_page() and phy_restore_page(), avoiding useless bus lock.
-- Link to v1: https://patch.msgid.link/20261109-marvell-phy-rgmii-v1-0-026979ef4f13@bootlin.com
+ drivers/net/phy/marvell.c | 38 ++++++++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
 
----
-Paul Louvel (4):
-      net: phy: marvell: move mode configuration into standalone function
-      net: phy: marvell: de-duplicate mode initialization code
-      net: phy: marvell: factor out EEE errata initialization
-      net: phy: marvell: add RGMII-to-Copper mode configuration
+diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+index 2c688d661297..aef5f8279133 100644
+--- a/drivers/net/phy/marvell.c
++++ b/drivers/net/phy/marvell.c
+@@ -1332,6 +1332,27 @@ static int m88e1318_config_init(struct phy_device *phydev)
+ 	return marvell_config_init(phydev);
+ }
+ 
++static int m88e1510_config_mode(struct phy_device *phydev, u16 mode)
++{
++	int oldpage;
++	int ret = 0;
++
++	oldpage = phy_select_page(phydev, MII_MARVELL_MODE_PAGE);
++	if (oldpage < 0)
++		goto error;
++
++	ret = __phy_modify(phydev, MII_88E1510_GEN_CTRL_REG_1,
++			   MII_88E1510_GEN_CTRL_REG_1_MODE_MASK, mode);
++	if (ret < 0)
++		goto error;
++
++	ret = __phy_set_bits(phydev, MII_88E1510_GEN_CTRL_REG_1,
++			     MII_88E1510_GEN_CTRL_REG_1_RESET);
++
++error:
++	return phy_restore_page(phydev, oldpage, ret);
++}
++
+ static int m88e1510_config_init(struct phy_device *phydev)
+ {
+ 	static const struct {
+@@ -3656,8 +3677,6 @@ static int m88e1510_port_configure_serdes(struct phy_port *port, bool enable,
+ {
+ 	struct phy_device *phydev = port_phydev(port);
+ 	struct device *dev;
+-	int oldpage;
+-	int ret = 0;
+ 	u16 mode;
+ 
+ 	dev = &phydev->mdio.dev;
+@@ -3685,20 +3704,7 @@ static int m88e1510_port_configure_serdes(struct phy_port *port, bool enable,
+ 		mode = MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII;
+ 	}
+ 
+-	oldpage = phy_select_page(phydev, MII_MARVELL_MODE_PAGE);
+-	if (oldpage < 0)
+-		goto error;
+-
+-	ret = __phy_modify(phydev, MII_88E1510_GEN_CTRL_REG_1,
+-			   MII_88E1510_GEN_CTRL_REG_1_MODE_MASK, mode);
+-	if (ret < 0)
+-		goto error;
+-
+-	ret = __phy_set_bits(phydev, MII_88E1510_GEN_CTRL_REG_1,
+-			     MII_88E1510_GEN_CTRL_REG_1_RESET);
+-
+-error:
+-	return phy_restore_page(phydev, oldpage, ret);
++	return m88e1510_config_mode(phydev, mode);
+ }
+ 
+ static const struct phy_port_ops m88e1510_serdes_port_ops = {
 
- drivers/net/phy/marvell.c | 127 ++++++++++++++++++++++++++--------------------
- 1 file changed, 71 insertions(+), 56 deletions(-)
----
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
-change-id: 20261109-marvell-phy-rgmii-60a8bf619582
-
-Best regards,
---  
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.56.1
 
