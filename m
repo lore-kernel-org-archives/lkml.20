@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794841120;
-	b=OXdHfQVTH7G+yvIrThuX626dRK/NCiYt1eY+YQfh4C0dFQFHEOtgVvNdSLQInWtfkrJg
-	 ysq7TUJ2ICMHcaGQAjvD+2kLYfD7CdlVe7WLZWK/RgqjTa3hwTrmz49nH1OXcYky0NNZa
-	 JFx4z6EY0i/4HASnoCJTJx9SHIMHNeyDO5kvfyGaO1Qxx7U3spXjgNuz1H00cHv8MwtHv
-	 PS11jvu9ELduxSWwBT7XKdR4g27f/HnaCJESq7cPlzXxcB+9HRBDvD2h5fbL5/QAHtNRS
-	 zKFeeHgDYDr1KchT4rHW0oYgIZUNZCuTvte/M/U3usvOA8RoSjMTbjtzB+TZW2j6Akg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841120;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=OA0ptQ31eFEcSFsZJ4yPzR1jURMkIU8HhjZh8gto8cM=;
-	b=rc3HNGt7zW+ULeFwXh9MsTjc/y6UBjf19vQQ4ei/jysfoo+fKtC9s9d9ga3SDtGlhP2C
-	 qFlD/9F5g8P0gJ7fBEZnB0ZBgS3EOmXvFt7EPVDmjsDA4Znl/8iuNm0qY3lhULlnXrwy3
-	 kaCuAGiT0qUIVLP++dp3YwYY03Tk6Q67x4p2zD212ZLW1VjQ7kX2ob7glWQMrtcmjidUB
-	 ZbsGg0sPB9Q9lU9XAEBbDicppMf9y447pTNMfruzipNaDwgTKcuufkOasopCOEPei6hhK
-	 fcwjL/8ZzIMlLgMCGZiEKtxRZMoVYUSB9YeAEuivgKvYErv9zJOSItMU10M+nf+7QwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=An+km0yz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794841122;
+	b=IOPKoe8Iu2D1cKp2UC74/ypZVIDKrmmi9oms2lwGGqmLrnGayswY4PYY4OxD1B3OPdIK
+	 swEKYZImVwpcGtERSxp3+mceKNZU8O+lC+z/9CJEI7XtofS+Oef9z10uT2AvnHNepAJ1w
+	 CRTLAOte5sVq6mJcfhsLCBJxHMbDwjAUBAJwM5CX4Av9Y478vktep77eis6eL1EB8eaL9
+	 YNqBNa4b33ion1UwEp8XPZRmY7Xl4d9VkPKSt+zQcU7kCIr/Yyk8E3dT9tFRNlxMx9Cap
+	 eLKxHIZxgE7GYzdqx/zcWnXiOcfCWS4S+rvvxDphO6IcJ+KjZNj3OTr+KZZKKDv8lrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841122;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yTztLTqw12rdN7/Uw5DEdcju+OrXmRfrHG3yaxKlPWM=;
+	b=yWPZtXr+XBs2Q9RltOw1lnwT2P/J664Os0hDDs55UQwCShrpSv69t/gs++ZlXDvgnI/f
+	 T6QnLBDadTAnSI1vZAx4LN8LmXGbfSIu28HtSUgrledMlsLY61pns1MJtKxqlrwq6qppn
+	 lzOvIquOSocY1h3iBWTdTHMjYYVerTX01Y7tpCBUmZXzB+Z5ZgUA6Dt1hzikW7tFQSnsx
+	 KOeOUFrrm3oxOiQ/eBkupdLoS124RXU8j1XXbXme28damTLfjwUOvoicPDPPuM3CvlDqP
+	 TQnAxhVGvr+vIEQ5F6sqwVJyyaveh9jdnr7DewdcmsUl6H2hkMMWhyO+0YN9v5IBh9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=p9kUqx1Z;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB035606A887;
-	Mon, 16 Nov 2026 14:58:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB035606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197C2606A8A0;
+	Mon, 16 Nov 2026 14:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 197C2606A8A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=An+km0yz
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B677C200668;
-	Mon, 16 Nov 2026 15:58:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794841113;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=OA0ptQ31eFEcSFsZJ4yPzR1jURMkIU8HhjZh8gto8cM=;
-	b=An+km0yzMf57k2u47uCqIgdUmpYMaT803G5RIh1ChpbxBdpuQYOBe0QFmX3hxiPDEorl8n
-	9+Y0QPfG+0hq0NPCfyCqCuG2eLwT2gxsCXtTfxGXEgdfaU/FiredcAfEOg782vCTp6F0h5
-	xWHb9YTpBv+xl5jN4vchnqNfSKqZ82hJODMS0El8MyXB4uu1ongtRbfw/Df2jeeofXKhK7
-	orc/QIhOY/xgV1paUYzDh990zioOI8ILBoP5sxyAfQoNkjbaa2gMW29GjVLkfdiGq9v3Dd
-	QmyFQXKeFJqJ2vYN8jAb2Ev8OawGxZeEG7Vpr9psW+QpOKqKRzhG1m3d8AGASg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794841113;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=OA0ptQ31eFEcSFsZJ4yPzR1jURMkIU8HhjZh8gto8cM=;
-	b=buT1xJwIeO2Yy4i5WohUcACgKnTQ9JNI9iWN3Lsyk+XQgBDQ3kbiBMs4vOFQKV+5VXTKlw
-	Bitym51J2iSN9Db7ulVi02ZftJ7lhxZnuflGMrhZDVLnmZD+/UaHGlb/BREW0QnW13H5af
-	Zeg/A50aSzfWdVSIIMPF1PQaXL8uyrbLcsln7kaUGRZD7poxxIOIK39UeHI4qfk0HCwAMp
-	/59oSwe7k8Epqjktyf9eYcDCZcmG3BUM3gOytUhIQntsI1OCMINI+FjeaNFKCjwWxuuPuZ
-	Vb2zrjvTW1D7IKffFp3EdLhlAngCJmngG+UyR4CTrHQR7LcvVALfOtZA1YjM0w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794841113; a=rsa-sha256;
-	cv=none;
-	b=B7Z2osZ97km61rF5bvo+GZWdbEAlyb5BMvCQ5EReySf8oiuL1j1jDdKrP4AliPBSwIw07Z
-	u5edIuNKP4cLE723/nElFmdxvDkOAM4iGnPruEtBOPXziMapE8p8IWHbJ1/h08j87yrndj
-	M0Ly9Y3JZufafhHQ4sltvGWG/9F6rephjPU7SZTcuPpmLm5QN1kGLWoTcuNvbau+Pw5PRq
-	2+l5BN5ND+20Ra1tnltX6FKErbn3L6VIzqJFcWUZi4XmcD7/fDl2UTobJ+8xZ1JO5NuBL5
-	evM8TiNY4EzpLmVW11PDsBhuwreaIwOfErQCc1b33C7PVfpLIDGs2dJGI1N2JQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=rhi@pengutronix.de
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1059)
-	id 9735A3803FE; Mon, 16 Nov 2026 15:58:33 +0100 (CET)
-From: Roland Hieber <rhi@pengutronix.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT...),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT...),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Roland Hieber <rhi@pengutronix.de>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>
-Subject: [PATCH v2] arm64: dts: imx8mp-skov: fix input supply properties
-Date: Mon, 16 Nov 2026 15:42:30 +0100
-Message-ID: <20261116145823.3018840-1-rhi@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=p9kUqx1Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794841117; bh=yTztLTqw12rdN7/Uw5DEdcju+OrXmRfrHG3yaxKlPWM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=p9kUqx1Z74oZYRxSmas8LuGPouIbd6TWqq/9JoeqyOO4MEmpaREnebGBgg6UdYmPl
+	 ACeHDHSQR7VJ6YIHYKONwwC2kDFJXYPAlGpSXKWECZ1Bn5QNRY8DgnADPAS3CaY/oV
+	 wNVbIZB0A94sTDE4kP+luM9W5xtJxd1NYjH2gk/U=
+Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:2979:aa1c:9ec4:8698])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id E9E14C42; Mon, 16 Nov 2026 22:58:30 +0800
+X-QQ-mid: xmsmtpt1794841113t3irz1kbi
+Message-ID: <tencent_BB8DA72524E32FD374B8B2950B247B62E207@qq.com>
+X-QQ-XMAILINFO: OVxySMlD7rjOL8+YtIK9fsh+oVaiI+dCF6GUP/dnaQQ7vBo5CRV2zYZPeF9eOs
+	 RPl5c7yQlw65EY2Rurb+IrWYWRRuTQpHfusVNbIGHZGOIdVUiS1fLwuqzNycnKXXbCM1ccxL+pQP
+	 7Sw9ko6eyToK1+CB+TjrI5QctnXaSJKrXPN1VUfRxbsOghafX1NF+b5MKr6zYXBfKDmZMrW5eY7S
+	 eK0k52n52z391nQx7iD71ZCjTWa8aK6E8kqA6GapDsLwGsxs+ng4i/rZamgpNHWvLkU4S+7wav/7
+	 Er3znyhisaJUvjKPnL+IGyZF7LJNWqiX1GjLNnkP8CkaKEkpIXzIWljF9y105D7WRmWNTqlBcqV/
+	 FVzdGDAkiR9O7IVAMAxIyAEXC0zww29l0p1Kc3diwq4+uMQJUjjJQi6DOIihDbe0DwuM3gGfQhLj
+	 gs6vwWJxkHWju6JajBS8tCA4rMHPzc+r2Yra7H4ShKcqSUla5l3pMICKGAgjIMhqsg33c519TaeJ
+	 lJ9OctQJeZQJPyo5/fB5csldiB4l9VN1mlFtw4gASuLh8IqK94G/pfGXOn8dQr5cPe61LJblB2nm
+	 o3Cic2kKIGN8fcdh/v5qLb/ngydTXJ6YY9up3Hz/7z7MYkC10w84yT6teqDqKKbMcvsmJFCSRzqF
+	 IgJitsYo3EFd+Z0IZfwcN3NGyWYkMEs0+EQrGvUFOkS+q/0mRaprK1hZH6Q3IwYjdgGaa+RFnL9+
+	 cns5v94KFufp86I8P+2Ey2FL8L4Ty+4GQBBR2KK2AqOG1IW/tY6blGUbcHMiYZBBV/jssSsUkoqR
+	 EJv3jUVq7P/ajFE3DHTuT1ONxkxaxJGBM1cOVhxha2/gcAC9crMDnBGLIoz3thDjejk3qpNJ5Zcr
+	 bzLcnSnLeKznsytUbhqUFphj96XfLm5JIxZ/IlRxzklQ2pjoq5z3jqIISzaYtB1V/zqSPQn657os
+	 bJSOQzLJUlulL7/FKuSb4Z5A012GKW8zVvV7GQ83OxL3mlC0LfiMdJXPA2DtlBkxBWDTOZs353qh
+	 Cgd71wl+PP+eKE7zvntbuXto9cI0McQm+NS6dUwWwdlpmUbI5y00nhE9GiBFc/ysaScvTFy4Wq7H
+	 +bMp0herGSXZoq/ObMHgtUkXp/lAkMxpNhBK31QGFFZ+mUl7dyTjXWgZsWO/ckIxgY+ZEhCqMWGb
+	 pSDVqvwAcZzMXT9Q==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Hang Nan <2122295973@qq.com>
+To: netdev@vger.kernel.org
+Cc: mptcp@lists.linux.dev,
+	matttbe@kernel.org,
+	martineau@kernel.org,
+	geliang@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	kuniyu@google.com,
+	willemb@google.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	2122295973@qq.com
+Subject: [PATCH net v5 1/3] net: mptcp: take token lookup references with acquire ordering
+Date: Mon, 16 Nov 2026 22:58:27 +0800
+X-OQ-MSGID: <20261116145829.96849-2-2122295973@qq.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116145829.96849-1-2122295973@qq.com>
+References: <20261116145829.96849-1-2122295973@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,97 +95,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The nxp,pca9450c node used the non-standard 'vin-supply' binding until now.
-Upstream commit 4c33cef58965eb655a0a ("regulator: pca9450: link regulator
-inputs to supply groups") added support for 'in*-supply' bindings, so move
-to this standardized binding to fix errors on boot:
+mptcp_token_get_sock() and mptcp_token_iter_next() take a reference on a
+socket found on an RCU-protected hash chain and then re-read state to
+decide whether that socket is the one they were looking for.  The
+re-validation is only meaningful if it is ordered after the reference
+acquisition.
 
-  nxp-pca9450 0-0025: Failed to create device link (0x180) with supplier
-    regulator-5v-p for
-    /soc@0/bus@30800000/i2c@30a20000/pmic@25/regulators/LDO1
+The sockets come from mptcp_prot.slab, which is SLAB_TYPESAFE_BY_RCU, so
+the memory a reader still points at can be freed and reallocated as a new
+mptcp socket while the reader is between the chain walk and the
+increment.  The new owner publishes itself in sock_init_data_uid() with
 
-Suggested-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Signed-off-by: Roland Hieber <rhi@pengutronix.de>
+	smp_wmb();
+	refcount_set(&sk->sk_refcnt, 1);
+
+and initialises the rest of the socket only afterwards.  A reader whose
+increment does not carry acquire ordering can have the re-read of
+msk->token and sock_net(sk) satisfied before the increment, that is
+against the old object's contents, while the increment itself succeeds on
+the new one.  The lookup would then hand back a socket that belongs to a
+different connection, or one that is not initialised yet.
+
+refcount_inc_not_zero() has not provided that ordering since
+commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t"),
+which removed the ordering the previous atomic_add_unless() based
+implementation gave; refcount.h names this exact case as the reason the
+acquire variants exist.
+
+commit 5b5d8f351dd9 ("net: restore refcount ordering for lockless socket access")
+restored the ordering for the IPv4/IPv6 established lookups,
+inet_twsk_purge() and bpf_sk_assign().  These two mptcp sites have the
+same shape and are converted as well.  There is no behaviour change on
+strongly ordered CPUs.
+
+Fixes: 2c5ebd001d4f ("mptcp: refactor token container")
+Fixes: 96d890daad05 ("mptcp: add msk interations helper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hang Nan <2122295973@qq.com>
 ---
-v1 -> v2: fix patch context for merge on current master
+ net/mptcp/token.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-index 5453e590f64f..1c97f2c2873a 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-@@ -275,12 +275,15 @@ pmic@25 {
- 		pinctrl-0 = <&pinctrl_pmic>;
- 		interrupts-extended = <&gpio1 3 IRQ_TYPE_EDGE_RISING>;
-+		inl1-supply = <&reg_5v_p>;
-+		inb13-supply = <&reg_5v_p>;
-+		inb26-supply = <&reg_5v_p>;
-+		inb45-supply = <&reg_5v_p>;
+diff --git a/net/mptcp/token.c b/net/mptcp/token.c
+index e0f2823f92ef..3429b43a9f7c 100644
+--- a/net/mptcp/token.c
++++ b/net/mptcp/token.c
+@@ -309,7 +309,7 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
+ 		    !net_eq(sock_net(sk), net))
+ 			continue;
  
- 		regulators {
- 			reg_vdd_soc: BUCK1 {
- 				regulator-name = "VDD_SOC";
- 				regulator-min-microvolt = <850000>;
- 				regulator-max-microvolt = <850000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 				regulator-ramp-delay = <3125>;
-@@ -291,7 +294,6 @@ reg_vdd_arm: BUCK2 {
- 				regulator-name = "VDD_ARM";
- 				regulator-min-microvolt = <850000>;
- 				regulator-max-microvolt = <1000000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 				regulator-ramp-delay = <3125>;
-@@ -303,7 +305,6 @@ reg_vdd_3v3: BUCK4 {
- 				regulator-name = "VDD_3V3";
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -312,7 +313,6 @@ reg_vdd_1v8: BUCK5 {
- 				regulator-name = "VDD_1V8";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -321,7 +321,6 @@ reg_nvcc_dram_1v1: BUCK6 {
- 				regulator-name = "NVCC_DRAM_1V1";
- 				regulator-min-microvolt = <1100000>;
- 				regulator-max-microvolt = <1100000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -330,7 +329,6 @@ reg_nvcc_snvs_1v8: LDO1 {
- 				regulator-name = "NVCC_SNVS_1V8";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -339,7 +337,6 @@ reg_vdda_1v8: LDO3 {
- 				regulator-name = "VDDA_1V8";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -348,7 +345,6 @@ reg_nvcc_sd2: LDO5 {
- 				regulator-name = "NVCC_SD2";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <3300000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
+-		if (!refcount_inc_not_zero(&sk->sk_refcnt))
++		if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
+ 			goto not_found;
+ 
+ 		if (READ_ONCE(msk->token) != token ||
+@@ -370,7 +370,7 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
+ 			if (num <= *s_num)
+ 				continue;
+ 
+-			if (!refcount_inc_not_zero(&sk->sk_refcnt))
++			if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
+ 				continue;
+ 
+ 			if (!net_eq(sock_net(sk), net)) {
+-- 
+2.47.3
+
