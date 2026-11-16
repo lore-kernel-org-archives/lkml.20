@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821348;
-	b=I3B7hgI0h8JZ12HgjYW5fJDiN/t07oOvwid/PjJwh6cll+EcSS1XOGLq6l1RAAW/t+Ep
-	 +k56OeXcWHXpgyKjFj420FjgVcMGXh6wlUPE9HFsB4/I7pYRfsk84Abd/dSX0k9oDy5D3
-	 yGTlO27SsYq3WUJdWPYUa64e2DG6fViWvEmVtFOSTo1+9gh/2cLk1oT223/xAa77Uxz7N
-	 Q2womhkyNMddi/A2L3I6MBCi5SJep0Ciiu3831o+r4z8EmZtqRDS1g6YobtK8ZqRotfua
-	 uTa3BMw3anMVWfWEKwpK4B5JJX4G7LhzvlyCF1iIRiDB0oCn5XPrJRxuDcXNR+c68DQ==
+	t=1794821379;
+	b=kIUKGphw7uJL7NiEZ1esCGgAvmplGSSELssaYNIrwkZ4kpqCXp8Phf92i2JRN406NoPT
+	 EEM1Sc6IxZEifz5ppQTD4/Z5nrooNCaVmFamWLxdcd6aJMCqx0LPzlGN+3Lvte01K5Yu+
+	 r2z7ORG2iYGoAjkfmVI5TukmjiqFt5nHvaV4b/Q40dZfIT5NC5TYiV9ZZ7iOXCqVK8uHa
+	 82anDQjqoV3gjbHwFCDXpMnkDCESRM414psEC3yVAE2FpB4wOFQzik75eeubYPGrhaSlM
+	 Qn4TVEuRRi4+ls0ujQ67BBIvlZmaRfnR52um818GTyGS+C/Fy9FvWVadvUgscRLlWUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821348;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9qlmeEjjN/Hi5B1yhZatHZmrPx94agQrfT4eJRLAUHQ=;
-	b=GwLoJoTWh4xZl/kkoeDQ7YLnIAwdYc4O2EGVBTcDofWgy6Hj/1Ol+hKNQUERjTr+LvqE
-	 0ATivv8gl4jFc1l8awac00KxaLR5gpE34qfdrDhZXBL8x16IB6Tjz/uxdL56NNxyfjc0J
-	 mfhLGcBsnjpk+xUlzhOHoGP7j6oNuFzloXvEcrJj5Lg/+xuCRZeSYtNG+Bs6qV0bajihq
-	 sjF7CMi1vLDcQuBjU/vQEgOnpUeLBPcCLRQ15gs1UlkX6c42b/qz2nN9ybFnMzcECaUan
-	 rx+3vRqY8MxrS0eKHGs/wG9u35NUCZqKwOYWd+4VuNkra55lL+CzTnutyT1qQW8ygIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821379;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=srNT1g0/2GJ2jSCDD9SJhNktnNEDWVkT3KkNi8KVEMs=;
+	b=lld1BYfRSlnmjhISkzfbbVGlB9MQUzTsDn/g/MP4617prdc9OxF54mxSdvvLYIgHLItO
+	 wnDrDqAjkbKBKFj6QvyABJ6LJspa+s49dxA2Wks9mzBLKChUIVflnVbnQqJizoQLonWtl
+	 tQYIDJVPTtJm2p4dsZLEm2SDfReBe+VCcMcrpbk8/HncvsJ59Zr8oWS4b3h/K45kHF6DC
+	 zvlMrTQ9CJdRDU3baiYv+5Y7wCN4emkHJKUN+zguQq1/BZFlkGNPA4bv9z1AvvMSw/Exk
+	 sHfCyVeZo33yER+fMGHVV3W8Z9at8uBdGNfbe/sHfyd7p8dZBWsfMzhx9bPf9jmY8pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WryHB1Y5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=dfn4Aai8;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 88187606A330;
-	Mon, 16 Nov 2026 09:29:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF991606A323;
+	Mon, 16 Nov 2026 09:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF991606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WryHB1Y5
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 91AE21F000C4;
-	Mon, 16 Nov 2026 09:29:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794821348;
-	bh=9qlmeEjjN/Hi5B1yhZatHZmrPx94agQrfT4eJRLAUHQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WryHB1Y5S8dXg39aRX1rQ50qwjg8X6zBrNMJ+ABoR3hHhY+4yElAJwg8iwYY7Kkf1
-	 FfPPVktWVzNRS6EEjk6BK8MBcvzabmWwtTgTAF1aRdBqZBDlCZfUufQpEbcQ0rHuK2
-	 zOyzkWwv5eHoc8mhrIMolgkw21AiIWOPi9nM94kfZZET/4TtTllsTOpSU8huyPDHZS
-	 oGtxKBVY//l4D8cGoQaEUJesYrkV+KnfgWKPI/C19I1W56JBwdWeH08YZkA4Ne/YI2
-	 u8giuvqKE4kCzZGbe3v8E6DJyScj2Ojun43MuWYdgjGPQFdK6THB6PHPGdfa6opebd
-	 OQTvAKnGB8Vjg==
-Date: Mon, 16 Nov 2026 10:29:05 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
-	festevam@gmail.com, linux-pwm@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>
-Subject: Re: [PATCH] pwm: mxs: Disable clock on invalid period error path
-Message-ID: <avrMdLAPp2oOtdQA@monoceros>
-References: <20261102105005.1007-1-laixiangwu@cmss.chinamobile.com>
- <20261116031043.508-1-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=dfn4Aai8
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2940810EF2A;
+	Mon, 16 Nov 2026 10:29:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794821371;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=srNT1g0/2GJ2jSCDD9SJhNktnNEDWVkT3KkNi8KVEMs=;
+	b=dfn4Aai8KxAEY/hOWnVRFeZOTvLtVaSyfYtShvT2x7CgGN32/ZClwNyojlJEmP/iY55DOl
+	+8fCEq3KLtOAl9mkPK7lp3UMC+bVEEUBBsE+yjMbZCDrNOBx4TMlt0GMTf3wML5GfSS+mv
+	glf+qcTD57ASYybYtCkTCNtdP96ZASBRFxh+0DSJpkTHlPMxtP41xKXSv2Bwz/4OqIBl7q
+	SkmjzxUP/cW8VBhJruhtwbiVCEVfM89CMs2e+PnjrXnvLkr47BGM3rYkKbm0kIQS3ZxLbV
+	NnJkf6EQMEdMjt01jnAEfXNXRWu8TyfnPhwmEaNp11Ps0BweT5FiSqjAJGVd2Q==
+Date: Mon, 16 Nov 2026 10:29:27 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/670] 6.12.118-rc1 review
+Message-ID: <avrM9wu4dDhQm65_@duo.ucw.cz>
+References: <20261113153811.177190860@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,65 +67,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2qdyaspsc4lt35jv"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="Aey5mxOHeVp4SQ0v"
 Content-Disposition: inline
-In-Reply-To: <20261116031043.508-1-laixiangwu@cmss.chinamobile.com>
+In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---2qdyaspsc4lt35jv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--Aey5mxOHeVp4SQ0v
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: mxs: Disable clock on invalid period error path
-MIME-Version: 1.0
 
-[Cc: +=3D Lee]
+Hi!
 
-Hello,
+> This is the start of the stable review cycle for the 6.12.118 release.
+> There are 670 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-On Mon, Nov 16, 2026 at 11:10:43AM +0800, Xiangwu Lai wrote:
-> I've noticed that Lee Jones' series "pwm: Fix various bugs
-> reported by Sashiko" also fixes the clock leak addressed by my
-> patch below, with a broader scope:
->=20
->   [PATCH 2/8] pwm: mxs: Return early when disabling and fix error-path cl=
-ock leak
->   https://lore.kernel.org/all/20261105143847.2559586-3-lee@kernel.org/
->=20
-> Besides balancing clk_prepare_enable() on the same -EINVAL error
-> path, that patch also handles the !state->enabled case upfront,
-> avoiding a division by zero when state->period is zero, and it
-> already carries a Reviewed-by from Frank Li.
->=20
-> My patch for reference:
->=20
->   pwm: mxs: Disable clock on invalid period error path
->   https://lore.kernel.org/all/20261102105005.1007-1-laixiangwu@cmss.china=
-mobile.com/
->=20
-> Please feel free to drop my patch in favour of Lee's more complete
-> fix; there is no need to keep both.
+CIP testing did not find any problems here:
 
-Thanks for this follow-up, very appreciated. I marked your patch as
-Superseded in patchwork in favour of Lee's patch.
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
 
-Best regards
-Uwe
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
---2qdyaspsc4lt35jv
+Best regards,
+                                                                Pavel
+
+--Aey5mxOHeVp4SQ0v
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr6zN8ACgkQj4D7WH0S
-/k7o7Qf/UjQPeXOgoT/+hklwnuPwbNMvmFIoh2yJPPQxNX68YtUWalecVUW/TmP+
-/ZSd6ajIFk0peHc7RIh2WFNEehinYm9NtMF18bmVq1NX4SqsyLwsml249xLW8WoA
-WaKvrw5E2R68hfsgFf0UyL0XosMR83mQr0cYXnaPGOjqMxjR03euzOF0vU5+bLR6
-asiWvLn0dquA7ZbR59dOrWYC+w/2IY9qBpQxZEWYh6IdNzVwMw/9hKoA8SOW7l0C
-6836BOJF8XGxdkZ/ceXALJtxeVgmwxhry3xYika7u+OKSdMhdYxX0idkNfpUGNtv
-S5quDF/FV+xyi93Z+bqj9pyFQmZG5A==
-=KPRv
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrM9wAKCRAw5/Bqldv6
+8hh7AJ9ZkOhA3vDbv8IMtSrUp4UijQifEACeIjguJe4qn3cN5iP/FQ8qLm+kwOA=
+=mavu
 -----END PGP SIGNATURE-----
 
---2qdyaspsc4lt35jv--
+--Aey5mxOHeVp4SQ0v--
