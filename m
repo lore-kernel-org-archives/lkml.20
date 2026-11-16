@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814216;
-	b=Ci5z8RhyipNf9Vh+PXSBNHcQ2BdbcfPf/7p9f95GSfAum8ur3/sQa2nqtbx+0rOIoE3/
-	 A9sDLBeNLMOjHlXFDIZfscfjpCImlHXvdYtT1OBSlYBkse7n/ZcVKPNLCrkXQCHwSS9sN
-	 bES+o7pzMqlifIgNDzfn+eyxnVkBokt06uE1HUCpR/nHxle7dPSk00fKHy9Z9LANqGI2U
-	 t+Aq9DdD+Xa7mQfuz19vePsp17snMUU8juW6C9EQqP2dxOaOkjzJbYJfP5B7mY0r4TgNc
-	 1hAxMl+fu2MfZZa9GhyfwCSIVYYDV6FKy3TuMK9BJDIgkAjY6GN/KbEdzhcdXQ38RYg==
+	t=1794814254;
+	b=XfcU3Zv1BEsyovwsjqxcnJk336tQzY0j8dAYVLvHbAkOtzY6QKmxE66wG1Q73cdECf1o
+	 2J8qH2xJKwPz1cl0ThxmR9j2WZxsmZdtRMNo17KnjgEatmfIoMNAWVDlKeg2MnkwqOJ2/
+	 8+gU0Z8xWCUNRZYGVgSIT5Uuica3IuhJnWGxtjSVR5hB7oIQmvUMJ8YUKdv7Jf5Iq2BJO
+	 iWeO5f/2/RoyDubGhL1OUTbKmbGWXStvbpjUGH1a3us6EvVTpuPsOxvOhR62W1W/UBEgO
+	 sYjLVDIKUA3elPBjrK6QzEGOqjMVR0WEPH0ZUoAoTR1hJaPTLm7lNGNAzKBRpj1bSsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814216;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=nk2Mh+zI/TT/jjegJO9qYSlN1QKbBbjeWZjZ6ygv24I=;
-	b=t+Y9imyNX+RZ0SmKepgn67kLzg4JlmCnFQqfj1ysJm+06SPXL1Xjld+AfL2Y2Ijlmif7
-	 nKxpJOy//XD0NMFjILWqS1ic/Bfg6maZSsZG9NH7unKddq58P/UnbAH+1iQMv46EBxrEV
-	 XiPlWPrY5Y5RYITv9axQQuj7frUOy609uImG9LOyMLIUhmgG9ryTLF/F/tbfQAAawX3KQ
-	 3eUCr6xizm1SZ0USahNryT7lK2KYSQFjE1jq9kv3cm6HQmw4OutHRTe4H65CnCNj3P4kr
-	 UVoz3ADSVKqkxpPa4r4x+GX5ZZuY9mM0rXCOlsySPoc6kpSwQ9hFvJ0JyPGIhxb5S/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814254;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RsZWTmj3iECRzeLYzMxjiBI7jRR7JOFGd0yktvO+2WE=;
+	b=a6nuf3XpcQjwQth/8hSrCG+3yiIyKHiAG/MVLqDRduyUjV1aqp8Ux/vwr/onla6lsxtY
+	 OxLFbBy/YdQN3iFiqIzqaxJ2OQo6LuZ5hpv6cdJsS9ocrsJgXiaGfCUdI0BCSG1/7uw3d
+	 dlfAXesnf89EjPAV2xE6QsPuakMJM6G2sU5+i2T2j/Ncy9qPLbXr/3vK1UlpRure0n1Hz
+	 o5mpvVJoMaos478nrSGr0eoH/6oCyCDO5bZbhDWNZ4UnmeAGj2RzVD3coI1ZQgGIe1veN
+	 ZkosU6k2UcpyivUKJ4FyLQDUFnBjS02tYsX/ZZI1B1NdpBZgIkmaImsV2uR9vwLRGkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=JkCiI8ip;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=lTj5aVeu;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MOPFCDsf;
+	arc=none smtp.remote-ip=91.218.175.222
+Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38CF606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:30:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B38CF606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0364E606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0364E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=JkCiI8ip;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=lTj5aVeu
-Date: Mon, 16 Nov 2026 08:30:08 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794814210;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nk2Mh+zI/TT/jjegJO9qYSlN1QKbBbjeWZjZ6ygv24I=;
-	b=JkCiI8ipGs6D6X54MmmtBVhszwJGHWiTFC84HeS/VV8C/PgiPBHK5t7BPpaxFTeg3R1x0n
-	9yn9xn8UMkVMDUfuAJJG8OGdcLkN/uYDRZFKLu16Z9GNr4a6/yFZrkl0tYc4K9rYgle2ex
-	vsp+Gt3SARQ0UmE8nGemRa8ZQclcIHvSEbw1aQ+uqKOCP5ifFNuA3EXpW0HekIXkHQIG6H
-	2YkNalcDW36KJFi54qN6UyLhXQF2tRjCw3AAqH7Ku9tc+w7U1OdXnF12LxsPKw6UEO9RHj
-	g79eof3+Ej81SkfwshOZgZTVrV3aIvfehIJC41965sbXn0mP2uPi+LJ8auIaKw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794814210;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nk2Mh+zI/TT/jjegJO9qYSlN1QKbBbjeWZjZ6ygv24I=;
-	b=lTj5aVeuk5Ex7GPn7C4kR6cw3R3/I5G9oHbZoa/gyGd9on3kFZgrEiNwkyco9iphji7HM0
-	HxmJV3H6q6qQPYDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Jiebin Sun <jiebin.sun@intel.com>
-Cc: akpm@linux-foundation.org, dennis@kernel.org, tj@kernel.org,
-	cl@gentwo.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	clrkwllms@kernel.org, rostedt@goodmis.org,
-	linux-rt-devel@lists.linux.dev, tim.c.chen@linux.intel.com,
-	tianyou.li@intel.com, wangyang.guo@intel.com
-Subject: Re: [PATCH] lib/percpu_counter: allow concurrent sums with an rwlock
-Message-ID: <20261116073008.PvlRj7Tl@linutronix.de>
-References: <20261116015655.2744577-1-jiebin.sun@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MOPFCDsf
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ry9yBMCBwp3nSnzP3KHOZ1Uq3e0bH9SyWtuodwQExwE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794814252; v=1; x=1795419052;
+ b=MOPFCDsfS4DjoRebt4WMbecTiAUgRSoknL/MLxxULJR+x97yFJYLB9CEFsdjmljd51OlTQhY
+ 98gzlW4mQtyUMJQLJm3QUQJqlFkD5+Iu2UwLJocojp8bGh5DXgbRWgT0GVUEtnk7uy0PJL8GAeA
+ m/P9UkZAsGZLJJkayvNIayB8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id da558d5e7fa220f7;
+	Mon, 16 Nov 2026 07:30:51 +0000
+X-Mizu-Trace-ID: da558d5e7fa220f7
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f2c69ae2-4da6-4203-8201-04fd4a1c2742@linux.dev>
+Date: Mon, 16 Nov 2026 15:30:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,44 +58,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116015655.2744577-1-jiebin.sun@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 8/9] selftests/bpf: Verify iter link_create
+ logs
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Steven Rostedt
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ KP Singh <kpsingh@kernel.org>, Matt Bobrowski <matt@bobrowski.net>,
+ Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20261114150610.84507-1-leon.hwang@linux.dev>
+ <20261114150610.84507-9-leon.hwang@linux.dev>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20261114150610.84507-9-leon.hwang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-16 09:56:55 [+0800], Jiebin Sun wrote:
-> __percpu_counter_sum() holds a raw spinlock while reading the global
-> count and per-CPU deltas, serializing concurrent sums of the same
-> counter. Since a sum changes neither the global count nor the per-CPU
-> deltas, use rwlock_t on !PREEMPT_RT to allow concurrent sums with a
-> read lock. Global updates take the write lock. The per-CPU fast path
-> remains lockless, so sums keep their existing snapshot semantics.
-> 
-> stress-ng dentry reaches this path through ext4_statfs():
-> 
->   statfs -> ext4_statfs -> __percpu_counter_sum
->          -> native_queued_spin_lock_slowpath
-> 
-> Keep the raw spinlock on PREEMPT_RT, where rwlock_t can sleep.
-> Global counter updates can run in atomic context and must not sleep.
-> 
-> stress-ng dentry test average throughput change:
-> 
->   +------------------------+------------+--------------------+
->   | Case                   | Unit       | Average change (%) |
->   +------------------------+------------+--------------------+
->   | Dentry, 64 workers     | bogo ops/s |             +47.34 |
->   +------------------------+------------+--------------------+
-> 
-> Dentry ran on ext4 with 64 workers pinned to physical CPUs:
-> 
->   stress-ng --dentry 64 --dentries 4096 --timeout 20s
-> 
-> Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-> Reviewed-by: Tianyou Li <tianyou.li@intel.com>
-> Reviewed-by: Wangyang Guo <wangyang.guo@intel.com>
-> Signed-off-by: Jiebin Sun <jiebin.sun@intel.com>
+On 14/11/26 23:06, Leon Hwang wrote:
 
-It looks okay from RT point of view. Is this limited to this benchmark
-or is there a real workload behind this?
+[...]
 
-Sebastian
+> +
+> +static void test_log_invalid_iter_info(void)
+
+As sashiko pointed out, the function name should be
+test_log_invalid_iter_info_len.
+
+Please update the function name when applying.
+
+> +{
+> +	unsigned char info[sizeof(union bpf_iter_link_info) + 1] = {};
+> +	const char *msg = "Invalid iter_info_len.\n";
+
+[...]
+
+> +out:
+> +	bpf_iter_bpf_map__destroy(skel);
+> +}
+> +
+> +static void test_log_invalid_iter_info_len(void)
+
+
+As sashiko pointed out, the function name should be
+test_log_invalid_iter_info.
+
+Please update the function name when applying.
+
+Thanks,
+Leon
+
+> +{
+> +	const char *msg = "Invalid iter_info.\n";
+> +	LIBBPF_OPTS(bpf_link_create_opts, opts,
+> +		    .iter.info = (union bpf_iter_link_info *)1,
+> +		    .iter.len = sizeof(union bpf_iter_link_info),
+> +	);
+> +
+> +	test_iter_link_create_log(0, &opts, 0, -EFAULT, msg);
+> +}
+> +
+[...]
+
