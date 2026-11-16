@@ -1,121 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.30
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847548;
-	b=x7jVz8P/WrUuSOomNIun/6iov/UCH3JnRE+hBU8kphBgcDebBPLUPtSO3LtXEiC01jVQ
-	 Rc4KfIbMGRm/lnqeuTg8HjICBW67d0B2WsPUFkk9Ww8qBPmHNoXjzgrGBJk6rsWMoJliM
-	 6Rgf/eUQlzkC5Ajz9tjF2GCxt7tK8NHfDV/p/YOaAQyyQsQKVH4zoU7cO5QJD+K+wjglC
-	 uHXgvgF2TfonNsyW8bBDHEV/8tMMnAZk4+EGyDCymORXwuiSDlzC10bm4SZFADkEDbf+M
-	 Ca0OPrqUb/QFC6BqvxOq4S0f4uQHCILYgZSZ+yn51RDcNSWOToi4GSPNnVZZkPL7xjw==
+	t=1794847549;
+	b=ArPVoNoOgTH7OJOdFluWsc5nguqQty5ZdHuTqjAOJpBHqjUI1EIFNaFSKaaFp9Qy7DTS
+	 asI56Y+gD/104PnyLuDRg3vZ3UqXsjFAb5KlmE08F1y/CTDAJd4pBJ1qxtgyKtUI8oFOv
+	 R+GfS94eKELOIBUtuAxVC+wPrYraKlOMRynSQRhN6S81RDrG4y/ujSz02aZ43TEhtAbHY
+	 vCYOfDK2+sjod+E/Bn57MzxWmCEIchCPHF6PunQgublRMYDK3y8nOVPT7124+SBTJN2lE
+	 QBZxLobs+FZojeh1UDoW+1vyEJIHckdeBnNup3XvZts2cOYOwqpydwh4PIG+tv9G1nA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847548;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847549;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+X8BHr2ykvAEil+/DghWIKA0reftGlNGH6wzHyOsdOI=;
-	b=egv/Ut8mTHSwwRFxsnzC0bzRshjnUENNRYbVc9Z9r9piUge+Mk+8SSoiuN7ceiq4yMv7
-	 apc5NFJKGmPRtNRtgSdst3R9pMWflQ6YGEt1lrlcUGPX6FKTfYl2EeuolEi8mSNGbHsrZ
-	 iPCOOPYTcJg+3pBNu92wD7oAUgBaCtqn5wRHqwwmrDR0L7AU/mqde1b+Bg+Jo+2sfYvTF
-	 hAM8qAKUIEo3qPUr/JxIixoJgtwY4vIHd1ivrVNMTQ5Ltl3u0pKtEWmoi/XLqaEv958Ri
-	 VXWdUH8p7Vhij6JPHFB2koD/pAC7kHxE/u4vB4V0MpYFU5eAd66aBftrWepcXsPXgAw==
+	bh=4c03tFqMIrw7oB6ZmYERtCainBi5gWGwxqmc1diN8O4=;
+	b=lHzqtz8MQzMRJj7UV6HgdRV/k6HZK+Wg+IUTuHFOzNFSVBZS49ZmhPTRot75KRoSsjYV
+	 UgjJlsW4StGHG6qCtUeviml9U7fcTHY+BfSApJcv5lTpE0e95vEvaoZ7joX0M/dfszIQ4
+	 GjSULgJfZV2RAdhdjbVWdPaerkfDv4gKn00l/tT+UHgdFGL9tcgn8efVt8HbydShwztnB
+	 1bpKUHxxzlo8jQBHM2t+GSoPbBQRXs0r5lShb/1UDjDY6o5BxzBKtxhFp9iqQjjz+9CXV
+	 4+axV+Xi5xQTulW4oO9ibG6YN6LfwBjDJs+SsdCscVNvDDRyK6CAShtJEU2Fw0I0hsA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="f/CBtJmo";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.30
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011030.outbound.protection.outlook.com [40.107.130.30])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=B02BqRls;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.43
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F25F606A32A;
-	Mon, 16 Nov 2026 16:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F25F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE600606A335;
+	Mon, 16 Nov 2026 16:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE600606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=f/CBtJmo
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=B02BqRls
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VQq5Mdr4ngTj+6rIMmnK8y7K1603Bn4a82t5I9APTlU9fFWj57jOuzm/OeCUMp46KP3TTZYiKpLmX5WkEjSsKVFiOnNqDnA5kZUsUKB1oaY5BYeeIG6QD0o+YOnDR2SeP+4XN2QT0VKSXgHiq/gpFOvqePRTpgOtecG2SfqwQxEY/NUj7I5vjBoNAxS9NGrw6nYT9LpkuLbACgS5Subz0049yzborjLR/F2F+tWDypcS+mA3nudKNn5Fbmu+DqxDA3cVZFLf68anuSFfWYXr36J4Z5cAq8FM8RXm7TbhRb4/cSntctZPOByuPViwP54YiWgVO7z8q4pSIJhtrVssmw==
+ b=j5Eot1Eu3GeMVvmEcX2AM1nsuemPTEXeVEwFxqSqsRM19XYbhuksNq4z8jl5VRBRfCWIz2w9x7chIUmY5M+wUVwU45TMUd8G8C8ck6J4AnWYNERQLFB5ltLpDWrmTITrPgXG/Ooho8W/Ttl9Ayx1a1fEGwe81kQiRcZqnpl5SKBVnX+2UdLUFZKc+oJ2py5bOWeuCjIfhupgvAXpjFH82EnS1bddbU+U1g/4O0iHnuxdAefqjL0hQy0+jpmmPoIJy/+sKSMfmd1+fxIIKt85zooDDpc3CDj1T470Xu+w0sau+PgpAEKLnh1ftr9dXDet1kukqa3d8kS+B+wiFSuaHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+X8BHr2ykvAEil+/DghWIKA0reftGlNGH6wzHyOsdOI=;
- b=ZCrbMqonMbsKGoQGl+JcqMF/J7CU5uUH0NpE2q5lTx+NURmuWbeFKMqdPiBkNWBDzzlF1qZOT0810ZyUjmIvLSjzk1J+Z3hq0PpSi7o9AL3ZyYvjqL6bkqRqr0/cPVvckOaKYpVJ96UPHlBX4oF/OZvZUzq7bjRUVjEsN79qeHeX80p3sYc3gOHGg5euzBJpQzLdXm9whY6IIb7KvFcuUqOwB4J8//0uK+KeVRMxg92AVal4aeZSCsjtX7w5A7Ua0dRUT/q1gwhoIv3OppaOLo2xCtjcyhcjlzw7Ssx+x7iPPYRDJv1je5CP0qWDAI31rxiCqo1EESkGmMqlWt76FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=roeck-us.net smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ bh=4c03tFqMIrw7oB6ZmYERtCainBi5gWGwxqmc1diN8O4=;
+ b=EQrN2ydSJT0YExSRfoiOFi75iiiMsmKizrTW5hS94eSu5ms7mqwQDikIF1JoFTbnRiS9fV9QaBcXbGEvhEHs8Y1W3TR9Zl1H1dsaDLYDl6gghm7AQawShuMIYuRu2xqg+tVV9jx+XwUbatJAQqRcsIlTPgIYH5SyM11/XtOaBIV4n3Qo6Rot5EWtmBhakBjsn8gq5LSXrQf7z/QiIIoLEsPduJtWe81araaJuxuMvqVYcEznxkZZuuExOwejs/xlsKFypukxxeO+u/EXT8THO4h6UsPEAPKF89rCvYEKErz9PZ2f+63LfSfMgrQoqb0O7qmzCMlN5e0phcwypqnzcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+X8BHr2ykvAEil+/DghWIKA0reftGlNGH6wzHyOsdOI=;
- b=f/CBtJmoN0+tCA22I3eCRIZppfw1OVg8UI3qe/3ljY69RWLXNLGtqb9IkXLlnofMNqS32TdjQ4R5PBYuY45GK264ONhwM1nu22/8wN5iwKrftKubqUNopechv9jgLtcpF4uUg+7Dm+7ftbDwlDAd+hFuyBmDMfY4SyjZSzd4qrv3N43JtkrLYCnDuXqFHwOcYuMBO+6H6qZ7FzigyXMrpbrVElawaV4i2IXHNOM+oriLmMNDDXAUpb5HAN/tguP6Ab1NqPQErLv3dOQkhY7Hcy2TgoOFuxwpoCKGEoKvwlpi3RGtkPTxRQJzt3yopx5cyMOgRpQmklYv8Z92RHKZXQ==
-Received: from PR1P264CA0173.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:344::19)
- by VI0PR10MB8668.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:232::11) with
+ bh=4c03tFqMIrw7oB6ZmYERtCainBi5gWGwxqmc1diN8O4=;
+ b=B02BqRlsEsOgZ7j0rVRQmzRkmEszq0jNe/95k7aBn2ibEDTMC6b6J6qmsxRBrCE2qSGBGG75Cq3kX3rKCb02emkRXCNJS2EM9fZtUqNJCbna54jWXPSVpulksGgyTih/5ydIk+W19bGYLSse3H3IUjT/AmkS+440j3Wn9hA02tOT1mjleg3Sc3b+Ehm2v42Sj2XlRj+Hc6tkWQsqJaPZpiu39RFl0G7e1k0SRX7v5oCJJjpcrnBqQ63oMWJq3daDe0P+WUf6dQy/LwznqDGZMAS6SNEdIjBKoh2/Qrms9WthypAq9uj0HzKk3XDqq8vOpNhziN7Nw9SzrsA1+epU4Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by PH8PR12MB999298.namprd12.prod.outlook.com (2603:10b6:510:40b::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
- 2026 16:45:41 +0000
-Received: from MI3PEPF00008491.eurprd03.prod.outlook.com
- (2603:10a6:102:344:cafe::8d) by PR1P264CA0173.outlook.office365.com
- (2603:10a6:102:344::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 16:45:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MI3PEPF00008491.mail.protection.outlook.com (10.167.240.152) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 16:45:41 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 17:46:24 +0100
-Received: from [192.168.8.15] (10.48.87.124) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
- 2026 17:45:39 +0100
-Message-ID: <2628f6e623996cda73a8cad46d451a629e749462.camel@foss.st.com>
-Subject: Re: [PATCH v4 06/15] ARM: stm32: enable arm smc watchdog on
- stm32mp1xx
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>, "Wim
- Van Sebroeck" <wim@linux-watchdog.org>, Yannick Fertre
-	<yannick.fertre@foss.st.com>, Christophe Roullier
-	<christophe.roullier@foss.st.com>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <linux-watchdog@vger.kernel.org>, =?ISO-8859-1?Q?Cl=E9ment?= Le Goffic
-	<clement.legoffic@foss.st.com>, Amelie Delaunay
-	<amelie.delaunay@foss.st.com>, Sashiko <sashiko-bot@kernel.org>
-Date: Mon, 16 Nov 2026 17:45:38 +0100
-In-Reply-To: <32157be8-28c1-403d-8485-96c1fe4543ef@roeck-us.net>
-References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
-	 <20261116132416.1184447-7-antonio.borneo@foss.st.com>
-	 <32157be8-28c1-403d-8485-96c1fe4543ef@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 16:45:45 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 16:45:45 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+ Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+ Ross Zwisler <zwisler@kernel.org>, linux-arch@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH v2 2/2] mm/huge_memory: flush dirty file PMDs before
+ removing rmap
+Date: Mon, 16 Nov 2026 11:45:43 -0500
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <5DC99532-F209-4F1D-A70E-F4D62E2B4666@nvidia.com>
+In-Reply-To: <20261116-dirty_file_pmd-v2-2-571883053174@kernel.org>
+References: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
+ <20261116-dirty_file_pmd-v2-2-571883053174@kernel.org>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: MN0P221CA0029.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:52a::20) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,116 +112,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008491:EE_|VI0PR10MB8668:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3142328a-d5ad-4a35-ab7b-08df44010ce4
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH8PR12MB999298:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08f359ba-0712-447a-b5f8-08df44010f28
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|36860700016|82310400026|921020|261102123227099003|10067099003|4143699003|11063799006|56012099006|261026121527099003|261022075727099003|261021121427099003|261021135927099003|261009223027099003|22082099003|6133799003|18002099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|22082099003|18002099003|261009223027099003|4143699003|11063799006|56012099006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	2O3l/zuXZNNrh5bnrG4aQzzz7gVNayELVi2xj0Pk68m5GfvuAwbHV4o1q2Mar2pQaErDgaDVR3u8GnK9Yx0MrmnwGVf0LrIuW1DedaWcU9LkGCtgnQvWwmxftReXEy66/JHyLoVYuxsqvWg4k/ct3v/SOfhpk2jEDmTcFZkIK8HxPqxuCeR2OtK3A3Y2ijVEVxwilu5ldljdzuylFjaHgDfyXNXWH7ojTW9YUjEOdUJzFy4O9ZkIjfWv/7wuCqWAPKS/clUEJwapyXBkhz/yhRrkM0YBp97eqi/B22mOuju3942DX6qq6+pMP+aM+hLAxlVO1js0RbcFFKKcrTkBXq9/1D3ISKUmJCRoe3XYXrAcXUbbk/ys6ONGBnZbPPnlzvGM3ZmFTGjj3lWCFGxy9sJcACEquJyVFlEeOChN98nKagpNWLii4oMw+VhhfcKxA0WBJTw2dXW5hX7T/ajGMEbRspDCtH13uuIJVnVmto3y0RhRDj7BTM0vUmtFwEg+WXe/iP1Rt/wQmrXGyxSX/chhrMLfVmzKMCmbZdM4bu9oNqT1tLUrMLq3q7kOMuLdNfUKfWWsrzH+OU1wimWeby/tjhiitu5h1uqwwc6+4grKCHwPjrTPiv7kmrcMIP8UddoJS5c6YYssLrmTX4ca2VZcQ+9MFYLytbZRCdnzBV/N0AJeJIO9GsQdW7ZJI0sVuO2eeFMp3HEyUuwBS+YC2ZmTzI/IfbLOYoNELLHcM7VbDTWyHauPmlkwJteGunNH
+	GykEAsojEjtC7cNVWTfOjB9cjMHgQhu2K0m4AC6ndHrekTLsay/5dy0vSCjkCPMzZC+RF2GmEtORxTCXG1duamAgVwq2XkM0QLWcv06WwenMTS5p5do2pTD8XSm+UAdO6OhF1yfJLBt6vb6I/Iii1ZY6EulC6vk3rb6/l6rH4LB5jplB9OsX4g7PXwGU+9ScUC3di8nPOB5nJAxvesA87yCma4zDD/Om0vMstYlBER9+lmy+xY6SwEqhhnqrob8zp3Dschhf3ue0DwNoEnpAkQMB5yfxtR1YdeHWARjw1SGJlwQ0/43tEl0glsdAUof36Fon3oFVfZ5JFXmTwXLr7Db99Xj8d2ow6APrVfr5h1UWQYyOPho9d4WvqEZZsnhBuGPskvLiUknabw7mhUJjrEXxqhPznyBPH/agvzjzAUq/DWUEdvQyQOcmurX5XbIMkGKA6EpsNQzf5ZFY4wYZD6RbwuOOU55DWZnjPrXmhwsc6RPplyjkZp3mO0QJoZ+ofJQd5hIoMiwYPIgGplcBOyj9JZMVOSI5kdBcdxy1CyQky7/Buc7J7IRLPKYp/zBsEEUKiDHQKWx9+ZXMVBJ0QAjDkZgbfveuBUIyMrCDpPJifDXAuTCmLjJFUmLv9IxXNb1tEp7D8NG6clLPxnWtcE0HweHzDwz2lDiWs2f0cUE=
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(921020)(261102123227099003)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261022075727099003)(261021121427099003)(261021135927099003)(261009223027099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	e4cGP726OU8CM09bL9O9NvpUd5HWytAKCqM9dVC8lu5txmgyh7aARQSJN1mONTmx5vZIIZ2xy8s2tMdxpYBU8DAqTCzm5HRkbctacL7bwMyma+pMB2CtwdOuQnX5Ba2GOluPG0qfKN9+jozMcJ2qPz9Fu2so3xXDOEFuRQeHFq2nfdEu/vkzFy+JT4JRZ4Gs7fgSD5yZtmq4hSl2fEgBZ+eQAiZcEkSb5RtN8GCIJ6ggOCSZtMgqmIck1wzBRfW+/aEqM8x5wblBlrCebAsYcpUmsEQqsv7e5211wo3VroW4ctInJcbmQ/mLRc+daEkv7FkpZW9usYLhBbHKPxjOCJtJnoSzJhKO0SLZ4fLcOhm+LbR9BbO8mx0Qqf9fTsD+dLiUdXt8HkniwhCN4+K+2PPnbIM+eJYv5V8pQ3VCojt1dq9vTi13gzjJ3d2lacIO
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:45:41.1070
+	=?us-ascii?Q?VETmHBsmMBpnCPv88huVaUV0krvOTx8WO5/4vS3spSfDA8SNZ8t7g7VZAyqz?=
+ =?us-ascii?Q?EPJn4lVAM+1fCubRkaMgRH1B6aF6RG5iWQvByZC4JpfAsWDqNB5oPifo5b8q?=
+ =?us-ascii?Q?mVbIub0MTNbSYancKbqas9KhJVz24YHaMIV5R5QA1aa2YwTSLIsQir+MF72W?=
+ =?us-ascii?Q?3kAhazJwAmy7/I1DoCvztch8tQL4FTrRQaJFwbMVuzWoxp2XohMza7n6ARtz?=
+ =?us-ascii?Q?aygLkJ2Nk3vgpQkrbPcFG7h4jbsByFEDeVNLMpYzJ+V6JRFbsO+MtD3Z/mRF?=
+ =?us-ascii?Q?JjLYqQsSQbPQhEa+Sl9ca1g/bdALFg0wrfLCrNSznxwV5nrEnUU8uiNS7wyp?=
+ =?us-ascii?Q?IFuspUQMAyay9UMxNRrTVROqRxtAdpVvFe0Uky/kJqj1C/M3IStDu/jN5NR4?=
+ =?us-ascii?Q?SoMoKSLgDnboIZb++HDKNUxvDFrH1/YmbYiau2nybj/KGqQEVsHoLEE2sdgj?=
+ =?us-ascii?Q?SDhZdyVeidQu6aXofUwYRA1ZgkKTmMFly/I3A12+wbcgHBiprtxp1ovQycyV?=
+ =?us-ascii?Q?0wpX2JazblD+FBY+BA4LpXrw4ELCBirqab0rkWRJXjcyjLAenJUCmlEDOfqe?=
+ =?us-ascii?Q?2jtmoHWkBgzwit6dnVdpuMjxbuEKLBgUidAIynxggyX6U2mbuLOvA9eUz/4d?=
+ =?us-ascii?Q?lRgxXnq/uXjmCV9V8uUCSmd+GZvrAX4RCZW7qL/sIbIzpq2GTEOKW5hYWC4X?=
+ =?us-ascii?Q?JAsWfxIx0K+jL0R7n8syNCtkpG1OJ0r0zhbrGz4AwGuWPD5MvH8X/uRUux/o?=
+ =?us-ascii?Q?Bv9ghSiFwvu7yIRLRODx78RmPUGQI50G8Lpq4FP7F4hAGHsbsVoz1hgm7XkV?=
+ =?us-ascii?Q?YOl2y1bk+5Ux2G9Plk8dXInmLtycnuEic2CEF+HewzpSdfclx0bAox4Ud+v9?=
+ =?us-ascii?Q?+LbIVFfXTfdLvQs1TdM/AvQVKz51KsG9RLiXsJtdIrVYWwCaqrZ3TMeztxNt?=
+ =?us-ascii?Q?GtXWJCpV4Gc5RmJYy6eg9DAjvDnn1QkHlbF5gkvCM53wLTzvOmrboogHLI1G?=
+ =?us-ascii?Q?rInCM59kVwXVmFsaLRM+iePLbtHJsbCGVhPzZZMk4ThYglGhil8GwwZ6JyS8?=
+ =?us-ascii?Q?x3MB5T6/KdCT5ro3kntK2sXqDApJGJeHcHMC/s7MpBNIKMcu7VBjoHjrqMhQ?=
+ =?us-ascii?Q?uR5lzjsHatEnk3Rpu8eo9bjTbknAGNqnysX0mpeKIAtXYHutkSaWruLtzypA?=
+ =?us-ascii?Q?tNbA0dvjFX9LS2rlyThNBUENyH64eRJaUzwhdWaEOvNL8/4NArwqB+B4WTVG?=
+ =?us-ascii?Q?DkDuJiYuflS6LRazd+yfkrn2h0DbSEOQJ7LDpp6H+utQJmDEN0ZiYxWSKRki?=
+ =?us-ascii?Q?QKIVwQBDo3ZmVX7SCqcFMnbkBUDYoV6KYgoKxG57zddRZXeD9RbwAVG2bkKz?=
+ =?us-ascii?Q?diuHovITjvnXIoCtnvaEl1jtNlpmVLXg0A7XF3Ffxni134XpWD5aBlAmkPmW?=
+ =?us-ascii?Q?FiXd83s1rfOJMVEar88yPmV8tNnSqLUTUITdmfkIMaTZF834dy87DCNCSIfd?=
+ =?us-ascii?Q?OXAcVkNGe2Zq91XfCXU8gEKkxC9FZ27ilt/kwJfXB8etFl/tNCvQIDfpQ36Z?=
+ =?us-ascii?Q?nDL6mjPLeYCRxVEaIKJ9E2NCUfhLlEY1UQvcr1GdU/cCNSNCJcT+dGv3yO+T?=
+ =?us-ascii?Q?XkRaCyAvI1Y0ZMlo7AbHvgSyphcCNB5uOJwa0GOo2H0HAsTTLz6BR0nMU5CX?=
+ =?us-ascii?Q?cDp1K4i/S9KBlirFxKPjnA10AhuqQosWq5sOmne9b54+Lhs6?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08f359ba-0712-447a-b5f8-08df44010f28
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:45:45.1198
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3142328a-d5ad-4a35-ab7b-08df44010ce4
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008491.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB8668
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5QmvDBpiYGQVx/bkfOmDB4Yu7Gu0Ll+ElozoBTfNAfTmK7RCfPtkAQbq8izbFw/R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999298
 
-On Mon, 2026-11-16 at 06:33 -0800, Guenter Roeck wrote:
-> On 11/16/26 05:24, Antonio Borneo wrote:
-> > The watchdog IWDG1 is secure by default on STM32MP1xx SoCs.
-> > On boards that keep it secure, Linux must use the arm,smc-wdt
-> > driver to ping it.
-> >=20
-> > Enable the driver for mach-stm32 when ARCH_MULTI_V7 is enabled.
-> >=20
->=20
-> As mentioned before, that doesn't just enable it for STM32MP1xx SoCs,
-> it force-enables it for all boards running ARCH_MULTI_V7. It also
-> goes well beyond the current scope of "if ARCH_MULTI_V7" configurations.
-> I would suggest NACK for that reason, but that isn't my call to make.
->=20
-> Guenter
+On 16 Nov 2026, at 10:06, David Hildenbrand (Arm) wrote:
 
-Hi Guenter,
+> Unmapping a file PMD can lose concurrent stores when it races with
+> writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
+> gather flushes the TLB. Writeback can then clean the folio while another
+> thread can still write through a stale writable TLB entry. Those stores
+> do not fault and dirty the folio again. Filesystem DAX has the same
+> problem with its dirty tags.
+>
+> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
+> has been flushed") fixed the same race for PTEs by adding delayed rmap
+> removal to the mmu_gather infrastructure. The PMD path still removes
+> rmap before flushing.
+>
+> Flush the TLB under the PMD lock before removing rmap for dirty file
+> PMDs. Skip the early flush at address-space teardown, when no users
+> remain, and for mappings without writeback, including shmem and device
+> DAX.
+>
+> Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
+> On s390, clearing the entry already handles TLB synchronization, and
+> __tlb_remove_page_size() immediately drops the mapping reference, so
+> rmap must be removed first. Make the predicate side-effect-free and set
+> the gather's delayed_rmap flag when an entry is actually queued for
+> delayed rmap removal.
+>
+> Queue the folio before the early flush, while the gather still has a
+> valid range. Keep batching references and drain a full batch only after
+> dropping the PMD lock. The early flush resets the gather's TLB state,
+> so draining the batch does not flush that range again.
+>
+> Although writing to files through mmap is generally discouraged,
+> unmapping such mappings may become slower: each dirty file PMD now
+> requires a TLB flush under the PMD lock. Future work should properly
+> extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
+> across multiple entries, so their TLB invalidations and rmap removals
+> can be batched.
+>
+> Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Closes: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
+> Reported-by: Chris Mason <mason@kernel.org>
+> Link: https://git.kernel.org/linus/5df397dec7c4c08c23bd14f162f1228836faa4ce
+> Suggested-by: Lance Yang <lance.yang@linux.dev>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  include/asm-generic/tlb.h | 10 +++-------
+>  mm/huge_memory.c          | 39 +++++++++++++++++++++++++++++++--------
+>  mm/memory.c               |  2 +-
+>  mm/mmu_gather.c           |  2 ++
+>  4 files changed, 37 insertions(+), 16 deletions(-)
+>
 
-sorry if I take more of your time on this, but I haven't got your comments =
-on
-my reply to this patch as v3 04/13.
+The fix looks good to me.
 
-On platforms STM32MP1xx the trusted firmware starts the watchdog.
-Since on such platforms the defconfig is multi_v7_defconfig, the upstream k=
-ernel
-configured with multi_v7_defconfig would need ARM_SMC_WATCHDOG to prevent a=
- reset
-during kernel boot.
-
-Clearly, my wish is to have an upstream kernel booting properly with defcon=
-fig.
-
-arch/arm/mach-stm32/Kconfig handles two series of ARCH_STM32:
-- the deprecated ARMv7M platforms that use stm32_defconfig;
-- the ARMv7A platforms that use multi_v7_defconfig.
-
-In this patch the condition 'if ARCH_MULTI_V7' is to enable the watchdog on=
-ly
-on ARMv7A, not on ARMv7M.
-
-Clearly any driver enabled for ARCH_STM32 will automatically be enabled for
-the other SoC that rely on the same defconfig.
-
-Also reworking this patch by moving the change in drivers/watchdog/Kconfig =
-as
-
- config ARM_SMC_WATCHDOG
-+	default y if (ARCH_STM32 && ARCH_MULTI_V7)
-
-would still result in the arm SMC watchdog enabled for all the SoC that use
-multi_v7_defconfig.
-
-What would be your suggestion to progress on this topic?
-
-Thanks,
-Antonio
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
 
->=20
-> > Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> > ---
-> > =C2=A0 arch/arm/mach-stm32/Kconfig | 2 ++
-> > =C2=A0 1 file changed, 2 insertions(+)
-> >=20
-> > diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
-> > index 4ac3384e397aa..de09b2afa0f2e 100644
-> > --- a/arch/arm/mach-stm32/Kconfig
-> > +++ b/arch/arm/mach-stm32/Kconfig
-> > @@ -13,6 +13,8 @@ menuconfig ARCH_STM32
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0select RESET_CONTROLLER
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0select STM32_EXTI if AR=
-M_SINGLE_ARMV7M
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0select STM32_FIREWALL
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0select WATCHDOG if ARCH_MULT=
-I_V7
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0select ARM_SMC_WATCHDOG if A=
-RCH_MULTI_V7
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0help
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Support for STMi=
-croelectronics STM32MP1 processors using Cortex-A7
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cores. Note that=
- support for the earlier Cortex-M based variants
->=20
-
+Best Regards,
+Yan, Zi
