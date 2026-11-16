@@ -1,64 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794823829;
-	b=xqu5XUSkRFI58hBs9tYlTpLIwjKG7pOPK8qBDUZwSA5890X+T9wg1PoEpqbVVxpOjRUu
-	 LwBhjBpVzz+hgkCCvjVkP3cwjWKF3PWd+dttwD3U0XC4o54RYf2QpNL+UMvmSaU5wnQPF
-	 ozEZuR9B5mIkzUw/tEbMIbi7VvMc2UiXCG56OP1ASxM8Lz3qVe/ExiV1t043aaUvO/6JR
-	 CPXtgQjkghS6SElW0UDq4TCWAulzPwTVYQxJR3JU3Pe8cBExl9s65h0ctkCeelwfWnNf7
-	 AhbIYDXSlvGpYaZPgnuB16hvW6PVXhuqL5YOeAAevinzXnhZR07N7E3FlTUeQNLUanQ==
+	b=KwkILoxs6iCIRN+k0BVsV2Kn8dmyMY3/aojbqzNXl079BiggCZPaE1K8+pJmNR3/C0FC
+	 0wVdtfVrApCKDWKalOvZeA8GuZiGeNtxdvQOXfRo+4nqb8YOXzeJ4iv4q8XNrVdyIxk0b
+	 MzXFudDOSMasZ7/PYn6rZXCYOf1FpwWS8duwVjX3UvJ/BPIvxKL7Wi54I4flxdlEM435H
+	 AZsghyjexz7SuQhyBDwKiRrbwa5IASzeZns9z8nOb8OjAx1FAQ+O7DAw3DmvaFaFoaW3f
+	 wCcDlzMaD8vsI19Ipg3nKDm600IOSCxEAwsorx6yLWVMV50xASZ/zMvw0mQJiA5thPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794823829;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JXbbxzTK4STMxlRmt7LCwpa3q0WjlHYEgdFStr3myuI=;
-	b=gfuLWQaCDoJYawAJXsph8bKGjUuDNXbn1M9EfADYCnLYlCy0cy0IXTd4I4XW0XOEnTFU
-	 bNJV7VZnHQT3lTRnoB09RMkscvEW2UBeyve49shDVliJG/ayp+g6OXsIv/X9jFfXxw/lt
-	 sPqDSpaDqhStAmU4bvB+Tz5ENxnw6WdwYEEqqXcKmrGMFvqFQT4eD6TFgYq11JK9C7nyk
-	 nneCcmJalYA2VhoGQ6u5y/YELzMaTR9UbIDxhxrWXDKziUsPIn4SVpK1c4qhHApQ/NJxG
-	 jkb2rd9Q9I9eoQpHgxm524nRwCJ1RYBdDEy3jMCXlj1NuVWxAAPe7UBJIic5slBcKPg==
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
+	bh=aIoEyVOwUt1rwjM9MzI3ayeknn0q7frUADYalCM2t3k=;
+	b=LTIO6KCnq+KNMrnX3DB58neJnArGBZRPfmKj7gqNoILDKQgL337Lf0IF2bDJGkVi3YS2
+	 5IbzBE/81+tXL9+2Aza8uhyBLmzABXKssm1bWFP4PDW26KJyu2TOEW8hupxEwsKrY0Sps
+	 blOMt7OGDospMu+4f+lK1++OMkCjr+z9nqpQFmtPeB/izSJUIMPTu+mR9oo7b2vXBKpkN
+	 XsMY2Jror69JlF4+6veiDzJZHd14BbxBeWpasM4xWTr4iGkQkP11FrV7K8wCHICRm0thh
+	 aYgUj2Z8LeYI0gTL+SQryw3XxPA73s351822o2XNh5dwhEanmIkjuNLNl+sQBQ7FHKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDChAnWA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=R2L2PtPE;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03766606A32A;
-	Mon, 16 Nov 2026 10:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535A8606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:10:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535A8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDChAnWA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A5F1F000C6;
-	Mon, 16 Nov 2026 10:10:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794823828;
-	bh=JXbbxzTK4STMxlRmt7LCwpa3q0WjlHYEgdFStr3myuI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mDChAnWAybrGnG8HbCareJDnR8uYlxFVzdt/PWEHutV/Nu9mlhxDeSVN5z3+uieoP
-	 867FCmZ3I5iE2imreP7FBRBUKB5hMORMgEXUcUpkas3sC4KaU9Q/+wmfkEF0B3SzQo
-	 OMZGv15rDPhqH47R/dN0GROMD1GDI48+9RqjdObrC3uC2NFm7CKVGfPG1nXelxvmbh
-	 w3wY/IAqaVUFR4fsK7UJHrnGVcNrYueDRfW5xfcWYiCfB8nZ379yX/zP4mA1AHXTT4
-	 fD1TYp8xdCmpMrHHD5J2pdTfZjyzi8DHOwtymSKOTRXzuS2wLJPK06p9cgYx18/KGQ
-	 yxJD18zhnfAKA==
-Date: Mon, 16 Nov 2026 11:10:22 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-	Jiaqi Yan <jiaqiyan@google.com>,
-	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] mm/hugetlb_vmemmap: fix deadlock during PMD split
-Message-ID: <avrWjqe5kPfkReIj@localhost.localdomain>
-References: <20261114112523.75208-1-songmuchun@bytedance.com>
- <20261114112523.75208-4-songmuchun@bytedance.com>
+	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=R2L2PtPE
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 07E8060D13
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:10:26 +0100 (CET)
+Received: (qmail 25443 invoked by uid 990); 16 Nov 2026 10:10:25 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 16 Nov 2026 11:10:25 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: leonard@lausen.nl,
+	Luka Gejak <luka.gejak@linux.dev>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-wireless@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rtw-next v2 0/2] wifi: rtw88: reduce RTL8822CS SDIO request overhead
+Date: Mon, 16 Nov 2026 10:08:01 +0000
+Message-ID: <20261116100804.425592-2-leonard@lausen.nl>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,49 +63,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114112523.75208-4-songmuchun@bytedance.com>
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: /
+X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.326235) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -0.926235
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=vlpOviJWp1zkTyLG7AGt9l0GxQUdRlcWr39GIh/K9Kc=;
+	b=R2L2PtPEeW6chpgYypugPzYpM2wHxgzlTTbj2pFOjTqk1oPZVXBx3YsgjWf7BCTh+2yv8d0ZdO
+	7mAqXlFF7ZfvCcaU4wGqRaCJgD6/sIA71Et9aquFDrzkYxxI7LkzOoIeNag2+XuGoVui3tzA0BHq
+	MTRQbZYUTAunrBQNjCSfqZDjie2EFWO3GL13E6mhyDPSR7sD6mXcnABbuvDbIuXRCsa/wgmQ7GyR
+	XWAAv8VYwaLOqrxfpaVY+Ow9hupOf5V5C2bVxhhRCGz2Hw9AO9TwGw2NfzC+8f9xoIaEriFiCR4A
+	MFa35hFAaD++5s7sXJdQf8WRgEZLhggYERnbBCjVPkyr3rjAWgFXhQra2mXBE/yEZ/Mec7tvbDdu
+	COHJ8KOioR1dLfouKqRIXNdhcciGMjxCO31Kq0UAsGFYj8o4xUBmscVcOu/vKCzKrR/cHd8eI6Py
+	eWMp4LuvhZQxBG7rmL9bRB+dL8oc1G5J65n6hBshMWNIWpK2liRYzbiBb+4KhahDxhMBYPEccqD1
+	KOrBXYfq2hKTg9xpibeGURA/cN7BYfSMvBHJTc47E1lnEqUg5fO9CITtxORts0yeY3qCsu+wT9QK
+	UktNbcfawqMkr5EZNX6yFVzSAA7N+VwRdvSgpXQGD4HLCtctgn9QMkc/yrdfiCHDjf0tDh3IVa4u
+	g=
 
-On Sat, Nov 14, 2026 at 07:25:23PM +0800, Muchun Song wrote:
-> vmemmap_remap_range() currently walks vmemmap page tables under
-> init_mm.mmap_lock. If the walk reaches a leaf PMD, vmemmap_split_pmd()
-> allocates a PTE table with GFP_KERNEL and can enter direct reclaim:
-> 
-> hugetlb_vmemmap_optimize_folio()
->   vmemmap_remap_range()
->     mmap_read_lock(&init_mm)  <-- outer read lock
->     ...
->       vmemmap_split_pmd()
->         pte_alloc_one_kernel(&init_mm)  /* GFP_KERNEL */
->           <direct reclaim>
->             ttm_pool_shrinker_scan()
->               ...
->                 change_page_attr_set_clr()
->                   mmap_read_lock(&init_mm)  <-- self-deadlock
-> 
-> Since commit d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on
-> attribute changes to avoid UAF"), reclaim through TTM can enter CPA,
-> which also takes init_mm.mmap_lock. If a writer is pending, the nested
-> read blocks behind it while the outer read cannot be released, causing a
-> self-deadlock.
-> 
-> HVO walks vmemmap ranges whose intermediate page tables remain present.
-> vmemmap_split_pmd() revalidates the PMD under init_mm.page_table_lock
-> before installing the PTE table. Use the lockless page-table walker so the
-> allocation no longer runs under init_mm.mmap_lock.
-> 
-> Fixes: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/sashiko-outbox-206969@kernel.org/
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reduce RTL8822CS SDIO request overhead by filtering hardware-handled
+control frames and combining adjacent TX-capacity reads.
 
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+This complete v2 series is based on rtw-next at 61a5eb87b2d9. Changes in v2:
+- Rebase both patches onto rtw-next.
+- Fix continuation and argument alignment, declaration order, comment
+  formatting and long lines throughout the added code.
+- Remove the deprecated Assisted-by tag.
+- Refresh throughput measurements using the rebased driver.
 
- 
+TCP medians on RTL8822CS/NanoPi M5 with the v2 driver, in Mbit/s:
 
--- 
-Oscar Salvador
-SUSE Labs
+                              Upload   Download
+  rtw-next baseline             165.7      206.7
+  Both patches                  296.9      271.2
+
+Together the patches improved median upload by 79.2% and download by 31.2%.
+Each configuration used three 20-second TCP samples per direction on a
+shared Wi-Fi network, so throughput can vary.
+
+Both driver stacks were built against the running v7.4-rc2 kernel and
+hot-loaded. The same test-only adaptation restored the older key-iteration
+API and RCU locking in firmware recovery. Both configurations used the
+same MMC host stack, 198 MHz SDR104 and performance governors, with SDIO
+IRQ on CPU4, iperf client on CPU6 and server on CPU7. Traffic crossed
+Wi-Fi/AP/Ethernet between two endpoints on the board.
+
+Independent v1 tests measured a 52% upload and 9% download gain from
+filtering alone, and 9% upload and 8% download from combined reads alone.
+Adding combined reads after filtering gave another 11% upload and 4%
+download. Those tests used v7.4-rc2 with the RX-bounds and MMC voltage-switch
+fixes and stock MMC host limits: four 20-second upload samples and four
+30-second download samples per configuration on the shared network.
+
+All 20 configured rtw88 module objects compiled and linked as relocatable
+objects on ARM64 with W=1 after each patch, without warnings. Runtime
+builds passed modpost; loaded module IDs, traffic paths and register
+settings were checked. MMC traces confirmed three 4-byte capacity reads
+became one 12-byte read, with zero SDIO command errors.
+No full rtw-next kernel was booted or installed module files replaced.
+AP/monitor, suspend/resume and other-chip hardware remain untested.
+
+AI assistance: Codex helped develop the code, inspect vendor sources,
+automate the earlier benchmarks, rebase the series, apply style fixes
+and draft the messages.
+
+v1: https://lore.kernel.org/linux-wireless/20261115142330.359247-2-leonard@lausen.nl/
+
+Leonard Lausen (2):
+  wifi: rtw88: 8822c: filter hardware-handled control frames on SDIO
+  wifi: rtw88: sdio: combine free TX page register reads
+
+ drivers/net/wireless/realtek/rtw88/reg.h      |  4 ++
+ drivers/net/wireless/realtek/rtw88/rtw8822c.c | 10 +++
+ drivers/net/wireless/realtek/rtw88/sdio.c     | 63 +++++++++++++++++--
+ drivers/net/wireless/realtek/rtw88/sdio.h     |  1 +
+ 4 files changed, 74 insertions(+), 4 deletions(-)
+
+
+base-commit: 61a5eb87b2d9b4d5e353780b781cf691f39ba9e1
