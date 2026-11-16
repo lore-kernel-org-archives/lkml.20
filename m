@@ -1,55 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852963;
-	b=hUCNNi2OPNQrSvVQjl7YDw6oe92gh4Nvsp9CzmvXqsnCFrmERVwtiWomKjaIGmKk8lEr
-	 VsHjL7a4t/Z+nuqB/wUq20+52L4y2lw4T6JVUjv8hTB4Ga/mvz6OkadTurJj3sSHaoUId
-	 1LbjVYvRPqXm2PxpnCwj+D5EAAsfW3DrUWE93xKjAi7Yk2vT8sCrrfWDT5kiXNTBo0vz6
-	 KpWyjLUMTKNDMzbul4hhxMWxdlQdU3HPgwIPtjbBbDYaBpfMFojQXQZ/k+QOg1eI6gCLB
-	 ulUnLrsaSVwkd99H2rYQDaGbJGBMOyKs520GqO7HYLNYT0ziJ4uYqSAfacGgUB304lQ==
+	t=1794852966;
+	b=lE/8/KXsHRmwVhskCMddowrfPyiVi5AScTM0VNTFWG9LP74ExIn002epZ6nWCvWeG1P2
+	 k/tS1p+D8Io7WfTmDqRT587CDkWwBTn5aumB4fYSBrwSopzu+33NMkeqOzP110ZI6Q79H
+	 7qk6qPMe35H1iAoiYuE7UJDXXJ1NmrVmNBfqIxgoeExnjPQULlPgF/v5giI9CHOmW3JXW
+	 5ViAfYE5Mvl7FvAr0YlaHz5r4SSCDRU9V+ZMbh4q+SO3mdV2u8bGGvwluOv8KUIBsn3+I
+	 7AMmCggNbEzBcfwgFLzUNgpTcg22+K1Ii/Uc8fuxYf21JbYqBa1HcFCwf7iJbRLy3Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852963;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZzX9V4TTBmSlkYz6J8Lbn80e+REH2S26Di72JYTGVqM=;
-	b=Ww9xPo7x3n8upf2sN6Raz0HGirXofCJMbJFSDVZ6c7/pmjQbeBQ4k1KBhzi5jzKklIS3
-	 EuqiJGHXUUoE961IGXwToCbnR8CP4/3Hf5bbchLVd1jYq5tVxS7dEsnNGBbKMT0ZynCMq
-	 5ON448STMFAo1rEMhtxqNnGpSEu6+r5D6PI5U8fMlg6Wjz/xvuygXqGKMBGP1b5cDfKET
-	 m8KOG23jK8L0QySSp+FYnIVNgJEsk2LeLubpoffiyjPX+DPhA8nNi6xueuip3d2Gvq2T+
-	 pw0EudzWUi3d7Vn89qYv8XphCvOM6s4mphO23ywgQwHPy0i21HAAne5OvARGnGjGH/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852966;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Pv6Z2msONZOMn5X5XcAinXRtg1l0bwQ6c+ZoL0wLzd8=;
+	b=YZBWQr34smuALVLV5DiKTvyFDeHHwE7yNxVqpAkQirmXomh+fdzX9621sACqwZscvuDU
+	 IM0w4ovUQOOz36ZFUaWHaFIg5mZ7z+GD2GD+xMTWlWqduERqf8sAISFYHZNXsvvWJ8hnl
+	 WrkzPbdr81cf+LdIVLBgXTNsJOc0kBlrBrR4EccMf28bEAAoTOR8nsEvNZVVCEUagZ3C4
+	 IpqSk0GcccVnNq1UuG3AFr1bMPmLPZ5gxegNBFB2Ahe9kDIuciluP1RvE9YBcTnOWjwzL
+	 X4zG2OGrLeWqbTmfh/Q8O+ls+aTrus9ez2KaSrMkdwEeuMPBv+pssOzvFFa3FEmlmqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkEwXMjM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5ovi0ah;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E73606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B198606A335;
+	Mon, 16 Nov 2026 18:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkEwXMjM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB451F000CC
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:16:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5ovi0ah
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CA01F000C4;
+	Mon, 16 Nov 2026 18:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794852962;
-	bh=ZzX9V4TTBmSlkYz6J8Lbn80e+REH2S26Di72JYTGVqM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CkEwXMjMGSDd9Jyf0aI46LScxzgItIsBaRf8Q9l5eAORBkXopGaa7iIhiGIZ7mGrA
-	 5CA1yxO3sD34U/yF/V1notyK9oLYVj/U97pWdlB4jqFl5zP5m2gQVTrY3d3shUnNbB
-	 7rvPI4k26XltupsNLYGmujI/vVrzLp/9PIxW8imSqMIwFs3QnN50BHdfsjkGX7G7UY
-	 iA815OxjWUoVL20FYHH1kVNWAKqEprje/GVx8CMjDAJsCeWO4eE/TEptQAEfSE/8M5
-	 pPB+FDWx2ryUZRgUEX2Swq+DPRqM5f1Ko0NovgIqrghdG+FyF+JkCVFjnIt423d4Um
-	 4PPJaFSvB0kOw==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ae0eb56ba1so38182971fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:16:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEXbAbax3jBHNdqxcugtNQG2FNrG+cedpxWJGjFVqNAX1Hxe+Myuyjc+bcsZ3oLV2PJ10z2r2+dl9SyKPY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yO6X03kHF0lESIH7m0A6C0aSKys39ZqS93bBtfogPWmgdX1RF
-	CLm2LeIv5ZfBylfx3+cqn06HbXhi80H3+n/fCx9o8DjUZdobrrw/dRzl87R5XMYAP1dqKmi5oRQ
-	pw/IPg+ciR6Sl55q1pe4wsHHGFdFnFXY=
-X-Received: by 2002:a05:651c:e0a:b0:3ab:3bf3:1604 with SMTP id
- 38308e7fff4ca-3ae2b522732mr39554201fa.26.1794852961071; Mon, 16 Nov 2026
- 10:16:01 -0800 (PST)
+	s=k20260515; t=1794852965;
+	bh=Pv6Z2msONZOMn5X5XcAinXRtg1l0bwQ6c+ZoL0wLzd8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V5ovi0ahBoGhG3oLNCEMv0ZweRhbmg263fiz5Z3OEaOEe1EmkWwElr4NjaV0pBusZ
+	 U+67Z1pdlYuquNsjEp0NPddWduHHqKo+LKkPrpsT2q7gHKgpvpIvuEkDDf1/Qay2RB
+	 AI8/0Kj6NWQ08mCT8nfZX/qhbwcvRwIaVQWavWv4KxVlOo28ErPhEbHkzh/Z9b6jJi
+	 KD7qK09dM/wMxPYpOkFlNsSfsr6eq07XSEHf7AhNj3J6NX4eMhDoGASxEqAt2Q/PCH
+	 ECfBizh/XSlQuSbazX7YpvTKulAspE/JWhpc8rQiYbtQ1XCzQLvrhl6hTvTdLdKLjg
+	 tSR2LkGrA3UsQ==
+Date: Mon, 16 Nov 2026 18:15:59 +0000
+From: Conor Dooley <conor@kernel.org>
+To: John Crispin <john@phrozen.org>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org, lei.dong@airoha.com,
+	Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: Re: [PATCH v2 5/7] dt-bindings: pinctrl: airoha: add AN7589
+Message-ID: <20261116-resolved-riot-c6a310bb2d8c@spud>
+References: <20261112185941.1316112-1-john@phrozen.org>
+ <20261112185941.1316112-6-john@phrozen.org>
+ <20261113-fame-smock-6ea3b8fadcd0@spud>
+ <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,62 +73,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794567577.git.ukleinek@kernel.org> <CAJZ5v0jC5YXsLgB6Qd55KNCU0oCsN86X5WpRfL+Ycz0MJ8vGqA@mail.gmail.com>
- <avs5thXfoZA4TBnE@monoceros>
-In-Reply-To: <avs5thXfoZA4TBnE@monoceros>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 16 Nov 2026 19:15:48 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iSJVszOCLCuK+ifCzTgx1RgDAExaYUbij=jaWmaTsb8Q@mail.gmail.com>
-X-Gm-Features: AclHuK94GxXVADZ_eYaxYKF2omkpVW60DdECEGw9yQWKt3TSZ2-Rx4HqR0isNuY
-Message-ID: <CAJZ5v0iSJVszOCLCuK+ifCzTgx1RgDAExaYUbij=jaWmaTsb8Q@mail.gmail.com>
-Subject: Re: [PATCH v1 0/4] ACPI: Use named initializers for acpi_device_id arrays
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Dan Williams <djbw@kernel.org>, 
-	Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, Ira Weiny <iweiny@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Zhang Rui <rui.zhang@intel.com>, 
-	"Mario Limonciello (AMD)" <superm1@kernel.org>, Saranya Gopal <saranya.gopal@intel.com>, 
-	Gergo Koteles <soyer@irl.hu>, Jakob Riemenschneider <riemenschneiderjakob@gmail.com>, 
-	Yauhen Kharuzhy <jekhor@gmail.com>, Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, nvdimm@lists.linux.dev, 
-	linux-pci@vger.kernel.org, Kai-Heng Feng <kaihengf@nvidia.com>, 
-	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Chu Guangqing <chuguangqing@inspur.com>, Andy Shevchenko <andy@kernel.org>, 
-	Mika Westerberg <westeri@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1NzTVWXoeJIha+mg"
+Content-Disposition: inline
+In-Reply-To: <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
+
+--1NzTVWXoeJIha+mg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 6:16=E2=80=AFPM Uwe Kleine-K=C3=B6nig (The Capable =
-Hub)
-<u.kleine-koenig@baylibre.com> wrote:
->
-> Hey Rafael,
->
-> On Fri, Nov 13, 2026 at 05:17:30PM +0100, Rafael J. Wysocki (Intel) wrote=
-:
-> > > Uwe Kleine-K=C3=B6nig (The Capable Hub) (4):
-> > >   ACPI: Unify acpi_device_id list terminators
-> > >   ACPI: Drop unused .driver_data initializers in acpi_device_id array=
-s
-> > >   ACPI: Use named initializers for acpi_device_id arrays
-> > >   ACPI: Unify *_device_id list terminators
+On Mon, Nov 16, 2026 at 06:47:27PM +0100, John Crispin wrote:
+> On Fri, Nov 13, 2026 at 05:40:42PM +0000, Conor Dooley wrote:
+> > As Lee requested, please split this out. Two patches, maybe even three.
+>=20
+> Agreed. v3 splits it into three patches.
+>=20
+> > Do we even need a child node here? If all this node does is
+> > gpio/pinctrl, why can the driver not bind directly to this node?
 > >
-> > All patches applied as 7.5 material, thanks!
->
-> While rebasing these patches (as part of my wip tree that contains a lot
-> more similar patches) to next-20261113 I hit some merge conflicts. If
-> you tell me where you applied it, I can take a look and provide my merge
-> conflict resolution to allow double checking.
+> > What else does it do that warrants being a syscon?
+>=20
+> The block also holds the PWM controller. Its registers interleave with
+> the GPIO ones. The PWM series adds it as a second child, as on the
+> EN7581. That series has a depency on this one so I have not posted it yet.
+>=20
+> > Otherwise, there should only be one. uart1 and uart2 should have
+> > different nodes.
+>=20
+> Agreed. v3 sets maxItems to 1. Only pcm_spi and pcie keep more, as
+> their groups carry different signals of one device.
+>=20
+> > So here, maxItems should be 1 for similar reasons.
+>=20
+> Agreed, v3 does this for i2c too.
+>=20
+> > I'm also curious about why this goes up to 74. None of the functions
+> > have 74 pins, surely?
+>=20
+> A conf node can set the same config on any set of pins. 74 is all the
+> pins. The EN7581 binding does the same with 58.
 
-I've rebased a couple of patches on some material merged previously.
+A difference in philosophy I guess - I would be grouping the pins in the
+config node by user. So that there would be something like
 
-Please see
+spi1-stuff {
+	spi1-function {
+		function =3D spi
+		group =3D spi1
+	}
 
-https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git/commit/=
-?h=3Dlinux-next&id=3D58d4ba8979133c41cd491dff1dab40626daa924a
+	spi1-config1 {
+		pins =3D 1, 2
+		config1
+		config2
+	}
+
+	spi2-config2 {
+		pins =3D 3
+		config1
+	}
+}
+
+spi {
+	pinctrl-0 =3D spi1-function, spi-config1, spi-config2
+}
+
+or
+
+spi {
+	pinctrl-0 =3D spi1-stuff
+}
+
+IMO, having config nodes covering more than one "feature" doesn't really
+make sense, as you'd end up with something like:
+
+spi1-function {
+	function =3D spi
+	group =3D spi1
+}
+
+all-config1-config2 {
+	pins =3D 1, 2, 4, 5
+	config1
+	config2
+}
+
+all-config1 {
+	pins =3D 3
+	config1
+}
+
+which kinda falls apart I think when a node can request a setting for
+pins that are not part of it (in this case, that's pins 4 and 5)
+
+spi {
+	pinctrl-0 =3D spi1-function, all-config1, all-config1-config2
+}
+
+So my opinion is that the max number of items should be the size of the
+largest peripheral.
+
+What's the largest actual user on the 7581?
+	=09
+>=20
+> v3 will follow shortly.
+>=20
+>         John
+>=20
+>=20
+
+--1NzTVWXoeJIha+mg
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtIXwAKCRB4tDGHoIJi
+0oxXAP9igIK0RsOLK/pxL71ixgfrLAYNjRe+ecNILh7URWV9CwEAvJFQWB0vwtGw
+/lVvbbCWDcLaRjkTti8imdts7RQIMA8=
+=DA3U
+-----END PGP SIGNATURE-----
+
+--1NzTVWXoeJIha+mg--
