@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837319;
-	b=hkpiaDq+2oExV4dggVJ48zKAdEmuHYt4lrsG0O/tM6gfNyjaElmFVg+rxU7upt/lAfGQ
-	 FvJnImxJ68dfvHb27clGBjZJI+3XCWj9pos+jOYJ/XmB8X/V+Th5YN4GqY4yEDeikKScN
-	 kLfUc+GV6q/5WbfwgJ+wwvol+2NGzoV7tbmQpJxJdMxO4oVsZQs8mGnjYHMmHQPuIZEom
-	 XY/rjegPEnmbej3tm4duw1PsoQ3SZsEREqVCmd9j1UhVpTJnPMhASaHY4HifFr9KpY1k+
-	 eM0jKUQvrGuIqN0DFe8ECc+8qpjPvUJmVTV4xgP3VGQzmvJqP5s2Js/CE7Z+k4pCYlg==
+	t=1794837327;
+	b=XLih2XfVto/wZWczU9gRL3rjK+/SFxfFaak3RVOsbJcnwn4TI2tK+cRyxqoaJhrWf8X4
+	 u/Jv7s7KJrwrHWPJyGJc6xh5EpP2SqjQj63jx8LbxoobNkdesdNPu5X89uo9rPACZ4Hzd
+	 7V08GHhgIAWX8sxIoNfCIuZW4QQXv2ALHazZaG6w6RSsqgz79k1dTlUCC+F73oRpHjWhs
+	 gLhdCyK6e1UxGNeGET99zU1k0DDttj429Dfn0dmgP0tyxqpQha1IKPTb0Hy4ryuu3IdcK
+	 j+aTNFv0EGZKDr72xZblb06BIb7xdqu+51P6rVgcDnt206MEBHRaJbPnNSEtBD/Z5Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837319;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=L+9EA2+eiAIQrNgICkfUh6aQq6fKl8y/LGKwTRK2g8Y=;
-	b=I8xo6+Flrxa4Fci5eiJyYz6PJYz83SdZQsrZDrlL4EhnCcjMrxNjTADvnYJ7Z2YyRU3u
-	 8RfPMpojDEqWlTYCCbW4ePuPaddxkiirYtPlGg2TiJUWmL1aNqni/knYEbOO0jn9n0KWL
-	 WxvO9fhAAbU2MEpG0X+XoWnnTrpFrjPx373OaDBoiF6qUGHApfl73cv+SNinetOYp5J+f
-	 k5paiLZ2r1qU92F5b46IM3PeZpZAdu8rxanFmpcX6AH2pJhU8rTkNeVExkbN5xKpeOngQ
-	 tLrhpidltsrzxnObzoWTTxI5mo+nMnMMsRLbdyZqWnfsSeKyeYDdUr8h28j3c3JTeQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837327;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=ghluR7i9/C+zU+eHJHeCwRmCECyLWGQeA4SlOQA11Y0=;
+	b=HCM7TZJhmU6OzVV3F+Q71NKyAsCWT8JOd7Dtcy/8Sl31du1v1Ko1ydgcfbPSR+OcHRi1
+	 2P4GyuBCB8WCoFoDfrQZ3h4Bkp1OVwn08QxJFEpbLUgi8FDUYxDtD5YtiBMFuShF5sr9X
+	 RWOb1GDlGySbMiBtcXA2IJ6aTu28dPkhZnzwJ2uU7afn34BtnP8TREDnbTwDOJNjzj926
+	 koSFuhow1Ja/lU3fz+jWF+LVUihZ4IwgypCjUG8LCBqJuRe8H5QqOwegJciNlv8Xb01Ht
+	 gtDG/asxwdM1qARgLf5rZyUeJUhWHv33O9mb2ikWcawMIs5Sp7c9/xG2yQ6NvnEMjqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luQh3eZS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=a3DKxnkR;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5662D606E72E;
-	Mon, 16 Nov 2026 13:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9130606A884;
+	Mon, 16 Nov 2026 13:55:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9130606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luQh3eZS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287281F000CA;
-	Mon, 16 Nov 2026 13:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837319;
-	bh=L+9EA2+eiAIQrNgICkfUh6aQq6fKl8y/LGKwTRK2g8Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=luQh3eZStg6L5kTLYQtdUiWeK/gIbvcGOjR7QCrznusr3YYJ06mI+Ae+P5CL53BJJ
-	 zhL1Z2qw6TLOtJFnIwNn7LHmDiOnT9f0D3eN649YR7bKQNcTPaY6BIrL5/i4enAylY
-	 lupvbPlKFlcq9amOGzE52qtGBmE1+8lmajNg4TjG5HLGif6to9eHUMGhAP+2J0STwU
-	 bng60Y9cT7Ng1dr1V/U2afHOuCNWfpLdlICwjZbnao2MeUiujj42T8LA3HPk6Y9szW
-	 KAm3MmHY2u2YxONIGzLMB8+tm6RbH+9QnRplfpmbmJg4C1c3SOd/+tkUZ1VsdBjgrC
-	 /tSxREALVcXug==
-Subject:
- Re: [PATCH net 2/5] net: wwan: iosm: validate the ADGH datagram length
-From: netdev-bot+sashiko@kernel.org
-To: fangxy@xiaopeng.com
-Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- netdev@vger.kernel.org, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org, maoyixie.tju@gmail.com, horms@kernel.org,
- m.chetan.kumar@linux.intel.com, zhugl3@xiaopeng.com
-Date: Mon, 16 Nov 2026 13:55:17 +0000
-Message-ID: <179483731765.3136.9756237680420915159@kernel.org>
-In-Reply-To: <20261112125201.1019-3-fangxy@xiaopeng.com>
-References: <20261112125201.1019-3-fangxy@xiaopeng.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=a3DKxnkR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794837325;
+	bh=ghluR7i9/C+zU+eHJHeCwRmCECyLWGQeA4SlOQA11Y0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=a3DKxnkR1Q1qj6KV+pK7Us06htu6gNTdaWGefd4zD4iuCbRz1xop20knDeuTKh8Bz
+	 /31o5d74BX+bOJxahE4DQ3QxK3SzDWZ6T51RkPWMMufcL20rB4kIvkRO65+xb3zT1X
+	 Jsm7BVhzvGVrKI09ra5UpY8pK2I1eUI8+94r6uoZUCW5zqEmm8uD67xUurhn0qxVvx
+	 IywvAr7ntsvj4rG006U4uf5ga5ozbt3HueinT+dg9oNtFRgcTn3daxAprpZCqVJ+O5
+	 ULgejIxh1cK/iDOgufczfTafzXv5t8TzmA7PYtixaK1S2wktoKSCk+VgCv7hN1eboZ
+	 XeRDO/mOl861w==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 403E317E0060;
+	Mon, 16 Nov 2026 14:55:23 +0100 (CET)
+Message-ID: <4a641af1f6cb3cf632cd5cacd33f1e8cc98f98ed.camel@collabora.com>
+Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for S4
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Zhentao Guo <zhentao.guo@amlogic.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet	 <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ 	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, Krzysztof Kozlowski	
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 08:55:22 -0500
+In-Reply-To: <b4ad7333-28f8-43bb-84a6-5b53ab884a06@amlogic.com>
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+	 <b2999c2fe5193eac3ebb0796f3de44710e993200.camel@collabora.com>
+	 <b4ad7333-28f8-43bb-84a6-5b53ab884a06@amlogic.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-RSQOZvFxXRVtAXxCbLtR"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,84 +95,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+--=-RSQOZvFxXRVtAXxCbLtR
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Low priority / nit picks for your consideration:
+Hi Zhentao,
 
-- [Low] The new ADGH length check in ipc_mux_dl_adgh_decode() is
-  `adgh_len < packet_offset || adgh_len > skb->len`.
+Le lundi 16 novembre 2026 =C3=A0 15:48 +0800, Zhentao Guo a =C3=A9crit=C2=
+=A0:
+> > I don't know them all, but at least this one, and CVMA1_Sony_D do not c=
+ontain
+> > field coded macroblocks, and should decode fine without the interlaced =
+reference
+> > list. We've seen a lot of artifically limited decoder like yours output=
+ 90/135.
+>=20
+> I checked the CVMA1_Sony_D=C2=A0with my bitstream analyzer, I found, for=
+=20
+> example, in frame 0, MB 320x192 is coded into field top, MB 640x176 is=
+=20
+> coded into=C2=A0field bottom, anda few more field-coded macroblocks in fr=
+ame=20
+> 0 or other frames.
+>=20
+> That said, the interlaced feature is already done. My latest self-test=
+=20
+> results with Fluster are:
+>=20
+> JVT-AVC_V1 Ran 130/135 tests successfully in 101.885 secs (ran with -j3)
+>=20
+> Do you suggest me to add the interlaced support in the next version?I'd=
+=20
+> really appreciate your suggestions.
 
---
+Yes, please. The is no profile to separate that feature, so I think its bes=
+t to
+just include it now, have H.264 complete and then we can truly focus on the
+other codecs in follow-up.
 
-net: wwan: iosm: validate the ADGH datagram length
+Nicolas
 
-This patch adds a bounds check on the device-supplied adgh->length in
-ipc_mux_dl_adgh_decode(). The block is dropped unless the length covers
-packet_offset and fits within skb->len. Without the check, a short length
-wraps the payload size computed as adgh_len - packet_offset.
+--=-RSQOZvFxXRVtAXxCbLtR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-> index 5c33171ca7012..b573067a366f0 100644
-> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-> @@ -473,6 +473,15 @@ static void ipc_mux_dl_adgh_decode(struct iosm_mux *ipc_mux,
->  	if_id += ipc_mux->wwan_q_offset;
->  	adgh_len = le16_to_cpu(adgh->length);
->  
-> +	/* The device supplied length bounds the datagram. It has to
-> +	 * cover packet_offset and fit into the received block.
-> +	 */
-> +	if (adgh_len < packet_offset || adgh_len > skb->len) {
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Low]
-Should the lower bound be adgh_len <= packet_offset?
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavsLSgAKCRDZQZRRKWBy
+9NpVAQDKUmYBU389SJKLAsDu2/9y6RqTXzUAfKwQef9tAxWnOgEAhu33expVz0Cd
+3Cl50rQ00mB3q8fG7v9GCSSrssj/gwg=
+=YrdE
+-----END PGP SIGNATURE-----
 
-With the strict comparison, adgh_len == packet_offset still passes. That
-gives a datagram with no payload, and ipc_mux_net_receive() is called with
-pkt_len == 0.
-
-For example, the modem could send a 16-byte ADGH block with
-adgh->length == 16. dl_head_pad_len is IPC_MEM_DL_ETH_OFFSET, so pad_len
-is 0 and packet_offset is 16. ipc_mux_net_receive() then does:
-
-	skb_pull(dest_skb, offset);
-	skb_trim(dest_skb, pkt_len);
-
-and the clone reaches ipc_wwan_receive() with len 0. That function reads
-the first byte without checking skb->len:
-
-drivers/net/wwan/iosm/iosm_ipc_wwan.c:ipc_wwan_receive() {
-    ...
-	if ((skb->data[0] & IOSM_IP_TYPE_MASK) == IOSM_IP_TYPE_IPV4)
-		skb->protocol = htons(ETH_P_IP);
-    ...
-}
-
-So skb->protocol comes from a stale byte past the datagram. The empty frame
-is also counted in rx_packets/rx_bytes and passed to netif_rx(). The read
-stays inside the DL buffer allocation, so this is not a memory safety
-problem.
-
-The aggregated path for the same protocol, mux_dl_process_dg(), already
-rejects this case:
-
-		if (dg_index >= le32_to_cpu(adbh->block_length) ||
-		    dg_index >= skb->len ||
-		    dg_len > skb->len - dg_index ||
-		    dl_head_pad_len >= dg_len) {
-			goto dg_error;
-
-Would using <= here make the ADGH and ADB decoders agree?
-
-> +		dev_err(ipc_mux->dev, "invalid ADGH length %u, skb len %u",
-> +			adgh_len, skb->len);
-> +		return;
-> +	}
-> +
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112125201.1019-1-fangxy%40xiaopeng.com
+--=-RSQOZvFxXRVtAXxCbLtR--
