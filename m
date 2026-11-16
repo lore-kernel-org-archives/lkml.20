@@ -1,108 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846525;
-	b=iHFhEIX6NSekLv6OekM6pUHbYWB5tSrfc+Y3t+SQPs2WfrD2waUw7kHZcAo7qByMqcv8
-	 JM8Ogrw9gs2krW+pHo7+SWZJeMm/FUf71xXYuIbW3ZLpc7VbiiPpVeVeMf3NwbRxjI8SW
-	 68Xj5ARCRu/P+E/OxI8jB6ODQ2GjhX3Zz0k3QTfT4vvuPlhvlhsKcareH+vSMC+OkUOss
-	 BS4cQeyJu61RnkUELapp4xoEuHjGIt53F3xgIX0kk5Ww7MdArWmF4L06uMbnIl4Fc0lvW
-	 i88BBU/zhOGdPSEzaxkyXfTFfHSJ3fk1djwejyK6vyI5YdKWdxkdl6xdz7JgEILaSew==
+	t=1794846536;
+	b=vnRbMnTigVqEu1HI4buJGG+HpfeFo6jcrT/IibSbFn11pwxWIbX93EC4kqnFE4Yjkefa
+	 WM/cR8+tiYhMURECiMr7WAQWbj6M8oRzbRbBSKPWQiz89TbK+wjT4/k4QCFjqewfhL0eq
+	 FWeAhPha0le7E8TBWwK80ssmmcGF4umJA7lOuBPuoVCxfsbv0SUgLEQhxbwLvoAj5n/0b
+	 8U9GWfuAeizaD2K7Da2eFda5VVEdefAfY9tdao4Yl/0naI0PHKDjLx32MZZzVclFf1wRj
+	 Nf/XJyJjt3A6QLVNPMEqWcJbXHEkVuUEDr0o8pA5/HZcqPcfTaVNZ+2V2hgQsO/ywDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846525;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m2qUVYEU4erka3R+8Mzo5flrWhCob2ySKiSLvFVhZag=;
-	b=zEtHk5WWqkAUOfvpH4SBkP5talc8SYR8RJ7Eh6Vw2PZwg5ZO6WvCdE1BV83xuz2IlBGu
-	 l0sQPuZIlWlI25TMvY2NcSmiEl5qO15TFJa/3J5cklohww9UT4tZ/JuDnuPhuc9+ilPqI
-	 VmP/poObazEGSmVeMuOP9B9YcSFBRa+aOOOQI/EMsw6xVbcYFT9I9gEuHGW17O1UMsqUf
-	 oCWzhF2ZLGG65D+DoQkJDgpD4dcRJgj54OpO02YOgunH5954IUocK62ZKuzx2tqxdJibJ
-	 T91YN34CC7TAXXxKQJUs/Gz/q6sIT1gPw2QjsmMA4Q52cyFdk7+n+kkF7BBmSIVQajQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846536;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=s77Wh0jGQ82biYhvC+IxcW28aNcho8DkaL0D/lxzBTs=;
+	b=XfEYxb3mqDpsWl5eijjjNlrkEp00ewIdi57Cti56tsWfJddNnlEC+kQE6lmvnYwBJuEX
+	 OP+GJ+/+kOpSCq1JHOssSvPPsqzijjmGsGeqjDg9t6Ky/tdY+qYzTXJFFXDneXITr/e4I
+	 LUis7x2E8f6jlTqvgNiV/besmbMcYQ0FuhzR0GToMQQ9WVo4pD8/M4UXYTFyvrWO7LecE
+	 nmoMuVTaldkvoUuyItmj7cNTc9qnbIJ63pfq2DNDckcADv0g8YOTYXbHWYaP3J7vSEa/p
+	 z8NXK2yCHJQUfCVdDKopCYW5b9SJfXjTCNp/C845CM+A3kEXBYNaQn/dM/SXsRmNfRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Tk8oxXj9;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxKlPkkV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA3D606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:28:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FA3D606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACF6606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:28:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Tk8oxXj9
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4682977f9aso533921766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:28:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1794846523; x=1795451323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m2qUVYEU4erka3R+8Mzo5flrWhCob2ySKiSLvFVhZag=;
-        b=Tk8oxXj9BHFLTph+V0GNfvgoPR3BlwfYIK1obg18W2MCzFUc3JxDaqjWB7jk5oUstL
-         dDl5+3g3s+RxPQtpL0pPw0DQqqzKoUDAs3rpjYeKIC0ABSlts4k59XTTVVFxGlzzFZwV
-         6ZU0T3LluGqKZxAoDf+rmF2DSK3R8SoDSF6p/y17YV7s+OijCfTHeI/6iCZl+Wq2HhWz
-         N3Z0j/qfkvZxE7F+q5UzsaLeQep8aG+9294pYvSqSUWAUU3/nOijUuNpGT00mvk7PsXq
-         rel+YUirI8TD4rYPdNmgZDGkpSbxvfzzT4qdpVMyRRYhp/iy0rfNX8AsSCkIhuQfKHQ7
-         LMJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794846523; x=1795451323;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m2qUVYEU4erka3R+8Mzo5flrWhCob2ySKiSLvFVhZag=;
-        b=udDbddU9R/TsH7WWvLkZEytu3NEdhTDyDbtRttdai4CjXQYaGxavrCDMmGVk1SArWr
-         KrTwXE7AkpRnp4lkDURef1dDyzfhyOabvnHPT/Eqh7Rc82Ormz10UvUhcYQ0JYH9y/sf
-         lVD/liE1JNErdjtu8ZPWnL1Jt9inv3Gofl67U9ylSRWkracrhl+Ghc12UJtJPeRVk9Nh
-         EvF2Robeqjcv/xX4e1jtwDYN113io7nsOo4ARponojnOdlnqitQILWxGqFPQWongJy2S
-         9WduTFw8nZbXOOWBjBjNltf+RHUqtA5SDAwG3CVMRfpP8NXeprBMdLsBh4P2gF+C+Fm9
-         T2DQ==
-X-Forwarded-Encrypted: i=1; AL+hErFAgfCU+yMvh8l4Y4dOt8BT/wpryQitDsJbZTrFr5NXbHfi1e0uxVbsKg7GWh23UHrBkCmLg2coO8u/F2I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Oz/IDvdlUzdtq338qeIIvDJkd95NR4tlO47qv8UgfwTb0Wk8u
-	3w9cHN07d0+DfSMTmzl1Vh4IlEZHFPahPp12x/P0v3ncXBwK48qM5bb0wtCdSQezFe0=
-X-Gm-Gg: AYBFou344J/ZdjWYK+sSqKrXkm8yCYf25FJVSFefzO/ORJ/aE/TqW8l9jI5+UzwU8Qy
-	PS50o6OQ/nPb8pWYkO3k0KQCECL3Ent4DMyV5eRp5OAqnbDHMeTs0Id4Q4ltox3/xLNyfP9MVd4
-	EeFnN0ODEaWb/g+/DUtHIQjxBgkGln3ZOSJG6p1dyyul0rSj1J11RhVVUkBvL5AhKfiqPFSd0nB
-	2tMDWa087mZAXcPlScoWgv3OEszrxb+69t2fG0tkelxrOr7uKgaNvDqKwljAnc/XeMSWl2dwJCs
-	0dCWc5VAC8Q6tWYFEBIsuhN7Mt/1YTT4X+hRbW0ycr1xxamSPCWuJ2YDRHIY4TiOI0vw1YjRlX9
-	g6pGJY7+1iP4hGqpg5QBv7GoobmsPiXrtXuljhPQh82INCCYU6zPv3FxXP6YzlQier+WDrktBkA
-	eNKxP8g2EKj6gv1r4lE1xC7SQ9+P7nrbSCfaR1mYcwZpkRwUQNzVSKWWHLz7OTq7NGYZxIhbhWG
-	XeMhSPNZvjRVWm/qjEOZ0BcVAvAHXRMcZwdNVjBMTXitIRAOnywv4bFLObWFckiOszCuKl713+2
-	u+ftb2sBfhNuBwuSNSRyFm6oJfBlHXuq2Xk9x6XA90araA0c
-X-Received: by 2002:a17:906:d542:b0:c29:d31f:7d6a with SMTP id a640c23a62f3a-c509642ad87mr785783066b.35.1794846523503;
-        Mon, 16 Nov 2026 08:28:43 -0800 (PST)
-Received: from L9JK9NPFH9 ([2a09:bac6:37ad:1e5a::306:a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50b13a2ae7sm299639966b.62.2026.11.16.08.28.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 08:28:42 -0800 (PST)
-From: Tianyi Gao <tianyi@cloudflare.com>
-To: netdev@vger.kernel.org
-Cc: magnus.karlsson@intel.com,
-	maciej.fijalkowski@intel.com,
-	sdf@fomichev.me,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	yoong.siang.song@intel.com,
-	kerneljasonxing@gmail.com,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	tianyi.gao@linux.dev,
-	Tianyi Gao <tianyi@cloudflare.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net] xsk: reject TX checksum requests that overflow skb->csum_start
-Date: Mon, 16 Nov 2026 16:28:34 +0000
-Message-ID: <20261116162834.30087-1-tianyi@cloudflare.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxKlPkkV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6F51F000CB;
+	Mon, 16 Nov 2026 16:28:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794846536;
+	bh=s77Wh0jGQ82biYhvC+IxcW28aNcho8DkaL0D/lxzBTs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MxKlPkkVR1FsjE3mEQJVUol+8UMOol2qBT7EUt/kL+t2ip/cnTVOkJH2xJus5gfSr
+	 gzFXaUOblD82dGHJVBT6xvKQrGT2NuhEYmhp3IgeepmD7cDsJ/TXA3wy7e8sYoYOGn
+	 xMQybATeb/yYkRK2+B2GpjA2dy5PAqfjowqXnhZPWFJYzcq84jz7P0YgSv7/9E+8kv
+	 nL7i2rYP9yYdUp85N9TOuWyxamOeZCMWR/PUvJdHaQJMa4Vl5lVGG3QCXdbxb6HRiJ
+	 qVpyBEYRnZnkeWrc0CzTvN/pg+rowgYJpGGwihM1QqvohAOxOjqWRHv7LeZV31Y74Y
+	 MXyEuwpGreqzw==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A3AA4198003A;
+	Mon, 16 Nov 2026 11:28:51 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 16 Nov 2026 11:28:54 -0500
+X-ME-Sender: <xms:Qy_7arRLG_UdUq8qkXEY64ChlNdb-LHvpETpAU0Zyh3u2ujO9Z1OUg>
+    <xme:Qy_7aqauMhLertWeNoutVTp3WOHQryiIEwrplJkYySJenfhzHpbO9rGldJn8Ggdb-
+    QCEFyzJXf_5npbKbm1aLDBp4p_-91MF22M2HgFjqDgCCN-Sw-Ovm_s>
+X-ME-Received: <xmr:Qy_7aoMSvgxEWgNaEKzT4wwcmsyaFttmuUwSFhQWUMSTolZBlcGk3vU6Q0E>
+X-ME-Proxy-Cause: dmFkZTEHeSQUqRY1YhiGAt9xbok3Cz6xVJ5Xo3cfdcttzCYoRzXc8WXErePFu68Wle087D
+    hXsQKfmFrb/APDBx0g1pr2Aa+HutXDgbWTbRTP7Oo4JH2epfiwmDtil9XvIHCmQRToNqD0
+    H37WvBxy3jdygoEsZvmgMNfREfThGuE+f1/fQTxm/5o0v3LXAV6tA0KFr/8qm28SqLjKBC
+    JIvQB7db13NmMEUQ6uicY6Wj1U2YPutN0ED61sQdotiWYJBY0erPuQxPjQAoZZKOHKEm1P
+    CcSCuYQ79IWhDlSdDxsyaZJRWpg89Aij3uhmqBQtQttevR3Vm1wzASR/0SeNIObM2C2xnc
+    RDA/5KFfa/eqjJkob8y6n3L2MsOHrmPlrRpVfQC4I7oC2NWb+2vU7DYstulbXClianeZvN
+    hz6SpjO39Ug9ZQ9ldDmdTx8WrmCVG8/XGh2O8iMUMjsenDS7ogCZBAcLKOfGb5lwwV4BOy
+    xMJxsm6FAEssW8JYs7csY51OzSNtNcNJf32P8O8w4Z+WCEbU1IgN4oDHIoGGPUqMaHSrpt
+    WLylfruposUCDi1TPyDRkd3nHjmwduhDPEk6w0SUmiEfAuaYkx/jakAsxrW6kCFoaSF4NB
+    GAlj9jnGsaNPLN0GfrTeUoHX6ZQNuRsSpHF4/7fYdpsUtSsVlNp6gigN1Y9g
+X-ME-Proxy: <xmx:Qy_7ajNge65h59gJ5PeEE4jYojBTyP81J2yA0FOeaNDJOF898dHpPQ>
+    <xmx:Qy_7asN_4RXOPsYejL8M9bOECto9bUKVRQOfA7r4uOzVXy-zSAocxw>
+    <xmx:Qy_7avYYIK8u7x9s4QIZQgEyAGr7Qyrd0MSDYwg9VZwPuipYISLVug>
+    <xmx:Qy_7aqjvvcj8KRi33l3BF_wnKOr2tP_Du7Vi1mYrMA_i-fhiCOXmkQ>
+    <xmx:Qy_7arMWZXpiHu1sTF9s648ng43bZU-wyYhpHTqjt7OGLV8d113gqrBZ>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Nov 2026 11:28:50 -0500 (EST)
+Date: Mon, 16 Nov 2026 16:28:49 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Peter Xu <peterx@redhat.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>, 
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH v2] Documentation/userfaultfd: document RWP behavior when
+ the PTE is dropped
+Message-ID: <avsu-yTSPKtZn_Ez@shutemov.name>
+References: <20261116101004.15322-1-azpijr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,55 +92,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116101004.15322-1-azpijr@gmail.com>
 
-xsk_skb_metadata() sets the u16 skb->csum_start to hr + csum_start. With
-64K pages, csum_start can be close to U16_MAX, so the sum can overflow.
-The checksum offset then becomes negative. With XDP_UMEM_TX_SW_CSUM,
-skb_checksum_help() triggers a warning. Without it, the device gets a
-CHECKSUM_PARTIAL skb with a negative offset.
+On Mon, Nov 16, 2026 at 11:09:56AM +0100, Jose A. Perez de Azpillaga wrote:
+> +The registration is fixed, but the tracking mode is not: a context that
+> +switches to sync mode with ``UFFDIO_SET_MODE``, as the workflow below does,
+> +needs the sync registration. This has a cost in async mode, because minor
+> +faults are always synchronous: an access that takes a minor fault blocks
+> +until the handler resolves it, even while RWP faults are resolved by the
+> +kernel.
 
-Reject this with -EINVAL. Use the limit of skb_partial_csum_set(), which
-also rejects U16_MAX, the "not set" value of transport_header. That
-helper cannot be used here, as the skb built for an IFF_TX_SKB_NO_LINEAR
-device has no linear data.
+Nitpick, and my fault: I said in v1 that the registration is fixed. It
+is not. UFFDIO_REGISTER on an already registered range with the same
+context can add or drop MISSING and MINOR; only dropping WP or RWP needs
+an unregister first. So the cost in async mode is optional: the VMM can
+add MINOR before it switches to sync and drop it after it switches back.
 
-Fixes: 48eb03dd2630 ("xsk: Add TX timestamp and TX checksum offload support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-203545@kernel.org/
-Signed-off-by: Tianyi Gao <tianyi@cloudflare.com>
----
-Sashiko reported this in [1], and earlier in [2][3].
+Maybe something like:
 
-Returning -EINVAL leaves the descriptor in the TX ring, as the current
-check does [2]. That is a separate issue and out of scope here.
+  The registration does not follow the tracking mode: a context that
+  switches to sync mode with ``UFFDIO_SET_MODE``, as the workflow below
+  does, needs ``UFFDIO_REGISTER_MODE_MINOR`` while it is in sync mode.
+  Minor faults are always synchronous, so keeping it registered makes
+  them block in async mode as well. Re-registering the range to add
+  ``UFFDIO_REGISTER_MODE_MINOR`` before switching to sync, and to drop
+  it after switching back, avoids that.
 
-There is no selftest. The umem chunk size is at most PAGE_SIZE, so only
-a 64K-page kernel can hit this.
+The example can stay as it is.
 
-[1] https://lore.kernel.org/all/sashiko-outbox-203545@kernel.org/
-[2] https://lore.kernel.org/all/20260518063407.C3B99C2BCB7@smtp.kernel.org/
-[3] https://lore.kernel.org/all/20260531042721.DBD4B1F00893@smtp.kernel.org/
+Otherwise:
 
- net/xdp/xsk.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index f22f9a2cdbbe..ab2e4fa87a4f 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -1006,7 +1006,8 @@ static int xsk_skb_metadata(struct sk_buff *skb, void *buffer,
- 		csum_offset = READ_ONCE(meta->request.csum_offset);
- 
- 		if (unlikely(csum_start + csum_offset +
--			     sizeof(__sum16) > desc->len))
-+			     sizeof(__sum16) > desc->len ||
-+			     hr + csum_start >= U16_MAX))
- 			return -EINVAL;
- 
- 		skb->csum_start = hr + csum_start;
-
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
 -- 
-2.56.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
