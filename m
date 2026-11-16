@@ -1,93 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822624;
-	b=LV30yUAbQ8M4fmT+095gASMbKevbjoE9mSsCah/toYvCeHv+xuR39Ns+Gnxv+XNQnmIl
-	 83Jh/Eo5HZcjUQs6/4Op9sxKFdNcmIugOBdr5sIblnawjn4cvOfGzRD+K2xHIsmARqlvP
-	 FIHJFD7M9mnvCQf3kJo7ck/lLAePOlNpOJ1rdKpnJN6dcThtCvG5PJXo2r3YY8Aa4X8mF
-	 2/L00Z14TBm9D80ObMa9XG57oxGb4fRFfBZMi8h2S5Yqtr6UQdQo1v2YmksMsT7kjaWfQ
-	 50XXervLwxOumcHCFS200QeT9+heETJVERl4mbcQ9ewCfXB9o8QZKub0g/kU31z2EWg==
+	t=1794822628;
+	b=GlNQFOlE8kAglAEg63xxpEjZsJAgo8MG9+ODoKvllkrOHrlJ/wjMe+Ns+y74vOdUt2tY
+	 LDknJnzNVZaIcCN2n2EeDRIA5AcQPafg3N7osy9GKkRqBpeAgXZpQJp8872iSq16+q9Z5
+	 DjwB0pDQJC0WInuVts5szd5RPv4x/DdaUNAZKLiaxLHiAfhJgT0tQmpQQpX7ORDo8x53M
+	 nm/wyhPmlxVOsfhUWE/jXIkHec6hhiKVzZyxvIUtm76jXyC1aCJTJT+zSBbmoD3ex+rP+
+	 NtV2zxYmY1W3urcZ5Fbm5/hO6zf6/vVFshho65mYjpQHiJ53fj6YB9OaC0WCG6KbFlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C5A0lqtK+Mtifsjo6m0FKzz+TIKe/pUlM6bIYuB14yE=;
-	b=HBnjzpicF9H7/yW0K1iqIKuyIttMaw61dxeL6NUsYWTc0/x4n2jcUYmpzTmgQAIpIzED
-	 ObxzD7fIz2BPa363JKfVhtRxv2XyNnE2XQUiCKgJMOXN0PXzpoqoGm+7ZP2xHGmmKSmSr
-	 BhBtlzF+vxyHM8atAc+bCuhdYTvN05+y939mjnj9kaSl/A+YWS5lcnY772HY1pw+Tc6t9
-	 8AqXDHXIcXKy/t18a270KDn3Cp5oePnLy33psmKQhPHs/FbHqys3PmQgfw7DuxhVCGlvF
-	 QlF0V0ikMXiEg+mx/R7NVHg7mrNMhBmYxK3yXOb5dRQ0NLOqa8XBUxBmPMLamkcmXGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822628;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=BG9vJP4tPF33GEesGxkQcQ8KBC+vLwkbRWXpiUkIsag=;
+	b=B9RDKacwrkAXbtj+H1OkIPSPQ4IFQ+qBbYx/F/GQehN+RQUiP5/4PJnV/sMnhopQcc3C
+	 FCqxaqr6VTDGH7OAyCG/Ic4iKbhfZPou7WcKGDE+3q/XUNZmugEoL01Mz3gvLInBITxDL
+	 zlZJImWehE4h24JgTCH1j9rD0WTuuAoKfTF3C5KWQq2cSBp9eFWlSGr1s4sivQLhq3u0T
+	 lJJTS/Oj12Y4wN2LRIDH0+CfQ/Na8F63aEA041GtlRZqp1l/76behtsxEdZf+NMHUPSrc
+	 544dNMh/iVL7wpbpzs/dGYZLSS9PpiuQWWmFImbwWLlxgtSVE+NSO27b8LxE8/hMxXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XGnLyHMU;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=uU1F9f6f;
+	arc=none smtp.remote-ip=203.205.221.192
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678DC606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 678DC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B088A606A331;
+	Mon, 16 Nov 2026 09:50:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B088A606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XGnLyHMU
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdab938dc83so1461442a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:50:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794822624; x=1795427424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C5A0lqtK+Mtifsjo6m0FKzz+TIKe/pUlM6bIYuB14yE=;
-        b=XGnLyHMUWvmrgiDnZNg/54VlZIw7LLL8G5EMqXpDiG1mMSSRQMsPkSE9E2BsQ27jau
-         UyEhUIXWeqEAjnMPLkkOC6EFbqwOGE1226rMO+mF3n/9syYxz40VkPzrQKGLmzTD1+fz
-         CPDCrF5MCjcd6TSO8JyRqrHKKw7vH+5MKd/+aqq913ghksqL4JQEoD8zQI1rszA6wEFH
-         tJ8oNXXS5bSzU4hL2QK2bgVk505P7WFoxAtG6Smtr/PJqUEzQqoU8xWVUdAWFo+20aje
-         Hsrr4LCMuvunaqqHZHdcRZ9cMMatwlg4Rmd3o2ha1to1uIQ20nHpw0KSvjvhpqlwgaCV
-         PNRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794822624; x=1795427424;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C5A0lqtK+Mtifsjo6m0FKzz+TIKe/pUlM6bIYuB14yE=;
-        b=ce5n9i+W4FvkL3Ot53dVzCZXZNiFpRo5IZH3y0nnCFzD9iXJsj+Ly0y1PP8OJPMSYv
-         KJyc0CqmZAhLI27v/g4r633OPBMrSpSEorrZhE0c0mZ/BJMf0OUIvcdyyGvTFnQzGx8N
-         92PUwNTfFaMoFdB1D+zyi+gMTiybDM6DBxa+vx+IYctKuICJFcyIC4Axg6/zzDvCWNPL
-         YGT8zFaVBZu9Cd/KupARjPFSxq+nIMYU322K1HJJUnmTA4HFFp5hgcgJK1V+IBv7g3Zt
-         h1zFngO7axGHjUwKIwJ9m7GAQrQFwQsQO/Y5ZnWuwG/2FmF0iuyqKiA7sSJ/zI8VepNP
-         oxOw==
-X-Forwarded-Encrypted: i=1; AL+hErHtaIv2b3wXPeetcFzkbP7TgxlqMH1bVfVHHUWcBz3i8RkpPmYBoa4P01EaSgDIeN1uo6IK4GmD+fnJ22g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W+iZb03Yw48gDil3JMxRqrWihZnTFSRwuq9cw3dGznNpOcDBm
-	BHYhzorCmXnbkJxsjRslpQDS23wPCb02f+YDZeSsk8wWuLJC7Qbjh28d
-X-Gm-Gg: AZFdTZfpDPU/MZEz62QWKAK5L26TxguBN/kyJP3YrxYt4veZqwn3h2gj+1t5NshhHHz
-	YNyOKAjFotvrjXNpcIT37GKTCTO5qgOVXg18OeLWvOZWgOEBZ9ACvZ+Tjc6S5zixJywY4CP2DFw
-	+3NT7zvUQhsJm0WmyEElRWdLGzPD97UcTVhEXtSTy2MAxcVAwIY5jTvpfiGiLWxjIRUKroXq+3N
-	cEHcCwCpZAZgTZISUOqMBenrQQ9crqpWEyQh4AL+f2mH5IHTdjCJg+PQ7O3AqEqxKuUaSNgpZ1p
-	Mj7FkiU+55XyC8tAObaG2n5C5qZQsJqHFJpO/hNHcUOR+RTZjfvVbdHR8dt4ZBtuKc9vNpNyJVg
-	/JtaU8DPT1FPX5PL6YyRCIxscgKf1mimKoLpJSuvFRCJ5yrCmXpOUf8vz3eiTPFnB0EbZucgKoU
-	zVL9f4EGlQqvKXyYrpWIXPBHKhLQezogg7U7Gp4B7T9yZv9s5aTW3w/2iG3n4mrBnazhzWezNcR
-	aQllS2MStC8Np8cdqT8wA1CVHuuG1XLkTUzEzzKU/zABKj5xTb4Od9YNs5CoEyiUcLamc9Bd8PY
-	19mzdP7Cwh4Lp+Q+FIHqzt5NnY3rTDwaii0=
-X-Received: by 2002:a17:90b:3d87:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3b1b0a3956bmr9566639a91.40.1794822623621;
-        Mon, 16 Nov 2026 01:50:23 -0800 (PST)
-Received: from hp.mioffice.cn ([2408:8607:1b00:8:398c:7f:ef48:2423])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b2133c5dsm7830877a91.0.2026.11.16.01.50.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:50:23 -0800 (PST)
-From: huang zheng <huangzheng9869@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	huangzheng1@xiaomi.com,
-	Huang Zheng <huangzheng9869@gmail.com>
-Subject: [PATCH v2] f2fs: add checkpoint step timing statistics to debugfs
-Date: Mon, 16 Nov 2026 17:50:11 +0800
-Message-ID: <20261116095011.2868219-1-huangzheng9869@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=uU1F9f6f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794822617; bh=BG9vJP4tPF33GEesGxkQcQ8KBC+vLwkbRWXpiUkIsag=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=uU1F9f6fgn50NRe1QH6NcXZLTLRzjM3FhCPH0gq0PUfijZzImgudFgQb0K1OKxp9/
+	 oGSlBG5Lf4aSN32U3Bl0dGHjQTbFMel5i+QWBzbtiCX/Ep87yBw/EaCU205K0wBkIW
+	 xqrg7OCfoEfJtCkN/XjA+lmv8T0HxYYfZwE0CQdo=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: ObW7A5NPm3QRMO90WM0usk29kMol3NnPdW4jMcsZIk9TY6yhskAj4Fwsllv7h5
+	 FdEyXo/oLqUejn5vFTMNz5ipMZNTjnWEth3088lDHKRJX9R6fPQiUhILx1bbGbL8xI+Cus45XAEuW
+	 4kskzm3c/uMykjHGhIqo/BYXwP1N731DD5ICqZQSbwXleVQIn+uUEDk+mw5oW6Ww7qHf6zDwUGAbx
+	 3s1Hh5fCw6nYA32qdJXy+lbuX6L716oLK+L6r/scInFG8XuqjcSDwzssEC8RWezZuOQROwTgcPdrz
+	 LboUNIh2RmS0z6J3E+59bDsBWckP6sCrCTxXO/bUAiXET+shI9CetLJ/+6VXglGPfMMdxgiwmhaNB
+	 EZzmTLw9GfmXb2x0du7oidjju4H9IyO9jnTeNsJd9orm94+xoNdprXvRU8lU9aY+X+AGPtLadzVtx
+	 LdvA94+EWbzcWK9vxh5HqjBCzJ1EUUl4VeXt2lRARSKQROrYFy3uk1aOhi9wDAfa5YNgxzgTY8O4Q
+	 eTSjPa5/pZ5ebyLRf6KkFzNF1vQnAQRchPLvn1zdAnbVqdrl6EAdeI1CZeOkjKwFS4ce8R0ou25tZ
+	 gvVT5OfTUQhqPfG6O7QoShgQK+++n/YFyqvfjge6tnuLH9f0ffOOYDNiV1IKcBjWS8L3hivAM372F
+	 mlPuUZzOh98nTRPErE/2siIPaR/Y6d/Ye2nzrw4HG+r/quZZO43qWS9yQwb42BcP/bu35Dwqy+s4+
+	 4GOlqlbE67pmr09g7BHt2gF5Aa8dqNKf8OOYqzkksiPI+sXuvo+Qk9wFxTY1wgnDDxdhrYdzoYmz+
+	 gyKbJa7CpB4THFTAONun+R/c9E/FlhkB7/FNguxVbPI0RrLUlThpABTGeh6Ogm888DxlqDBap5aps
+	 y5N/AN7q2oBYUQ1RL2AuGV6xCg561ddt8iSWR3qb4w6u1TPrRFHd3n4WyrwKhiG+2KYd+PmOF/shU
+	 tADDln39WtQn6NMCTnhYPMu59iJutv2Fqcp2TaC76byd5ek1vgGXLOPLVQOEQgD0Z0vLnuFI9ZxgU
+	 uaWB2CDaR2MeljI//A1gbU+0CJEHFFD5qKFXzffGPLQM8nNvE6VFQ5IytkIq2p0+Kb4GZWrc9SymJ
+	 0NjzUuF7j6lhTA==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulf.hansson@oss.qualcomm.com>
+Cc: "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?RmlubGV5IFhpYW8=?=" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH v4 0/2] pmdomain: rockchip: Add RK3572 power domains
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,142 +68,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Mon, 16 Nov 2026 17:50:15 +0800
+X-Priority: 3
+Message-ID: <tencent_E7CC6902FE0862400DA2B35F4B93210D9606@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261104-add-board-ok3572-c-pmdomain-v4-0-15cf8b5a6e59@qq.com>
+	<CAPx+jO_88-xLLiPeE1QPjceCBpBuX0ZXsB=-vVVcGmx_6vnWCA@mail.gmail.com>
+In-Reply-To: <CAPx+jO_88-xLLiPeE1QPjceCBpBuX0ZXsB=-vVVcGmx_6vnWCA@mail.gmail.com>
+X-QQ-mid: xmsezb41-0t1794822615t6y0ziur8
 
-From: Huang Zheng <huangzheng9869@gmail.com>
-
-This patch adds detailed timing statistics for each checkpoint step
-to the debugfs stat_show interface. It displays the time taken by
-each phase of the checkpoint process, including:
-
-- lock acquisition
-- block operations
-- flushing data/node/meta pages
-- flushing NAT/SIT
-- syncing metadata
-- waiting for dirty meta/checkpoint data
-- device flushing
-- waiting for last checkpoint
-
-This information is valuable for debugging checkpoint performance
-issues and identifying which steps are taking the most time during
-the checkpoint process.
-
-The statistics show the longest recorded time for each step, helping
-developers and users understand where checkpoint bottlenecks occur.
-
-Signed-off-by: Huang Zheng <huangzheng1@xiaomi.com>
----
-v2:
-- Use the global lock f2fs_stat_lock to keep statistics consistent 
-when updating cp stat data in the super block
-- The qualify test result as follow:
-
-#cat /sys/kernel/debug/f2fs/status
-
-CP steps (longest):
-  - Total : 524(ms)
-  - lock : 0(ms)
-  - block_operation : 13(ms)
-  - flush_data_node_meta : 0(ms)
-  - flush_nat : 93(ms)
-  - flush_sit : 56(ms)
-  - sync_meta : 32(ms)
-  - sync_cp_meta : 0(ms)
-  - wait_dirty_meta : 0(ms)
-  - wait_cp_data : 0(ms)
-  - flush_device : 0(ms)
-  - wait_last_cp : 0(ms)
-  - unblock_operation : 327(ms)
-
----
- fs/f2fs/checkpoint.c |  2 +-
- fs/f2fs/debug.c      | 31 +++++++++++++++++++++++++++++++
- fs/f2fs/f2fs.h       |  1 +
- 3 files changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 5c5b45d3c67b..b407adb9bf18 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1738,7 +1738,7 @@ static inline void check_cp_time(struct f2fs_sb_info *sbi, struct cp_control *cp
- 					cpc->stats.times[CP_TIME_START]);
- 
- 	if (cur_diff > sb_diff) {
--		sbi->cp_stats = cpc->stats;
-+		update_cp_stats(sbi, cpc);
- 		if (cur_diff < CP_LONG_LATENCY_THRESHOLD)
- 			return;
- 
-diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
-index 6fe606e2c70d..7ff124784c1b 100644
---- a/fs/f2fs/debug.c
-+++ b/fs/f2fs/debug.c
-@@ -414,6 +414,13 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
- #endif
- }
- 
-+void update_cp_stats(struct f2fs_sb_info *sbi, struct cp_control *cpc)
-+{
-+	spin_lock(&f2fs_stat_lock);
-+	sbi->cp_stats = cpc->stats;
-+	spin_unlock(&f2fs_stat_lock);
-+}
-+
- static const char *s_flag[MAX_SBI_FLAG] = {
- 	[SBI_IS_DIRTY]		= "fs_dirty",
- 	[SBI_IS_CLOSE]		= "closing",
-@@ -445,6 +452,22 @@ static const char *ipu_mode_names[F2FS_IPU_MAX] = {
- 	[F2FS_IPU_HONOR_OPU_WRITE]	= "HONOR_OPU_WRITE",
- };
- 
-+static const char *cp_time_names[CP_TIME_MAX] = {
-+	[CP_TIME_START]		= "begin",
-+	[CP_TIME_LOCK]		= "lock",
-+	[CP_TIME_OP_LOCK]	= "block_operation",
-+	[CP_TIME_MERGE_WRITE]	= "flush_data_node_meta",
-+	[CP_TIME_FLUSH_NAT]	= "flush_nat",
-+	[CP_TIME_FLUSH_SIT]	= "flush_sit",
-+	[CP_TIME_SYNC_META]	= "sync_meta",
-+	[CP_TIME_SYNC_CP_META]	= "sync_cp_meta",
-+	[CP_TIME_WAIT_DIRTY_META] = "wait_dirty_meta",
-+	[CP_TIME_WAIT_CP_DATA]	= "wait_cp_data",
-+	[CP_TIME_FLUSH_DEVICE]	= "flush_device",
-+	[CP_TIME_WAIT_LAST_CP]	= "wait_last_cp",
-+	[CP_TIME_END]		= "unblock_operation",
-+};
-+
- static int stat_show(struct seq_file *s, void *v)
- {
- 	struct f2fs_stat_info *si;
-@@ -631,6 +654,14 @@ static int stat_show(struct seq_file *s, void *v)
- 		seq_printf(s, "  - Total : %4d\n", si->nr_total_ckpt);
- 		seq_printf(s, "  - Cur time : %4d(ms)\n", si->cur_ckpt_time);
- 		seq_printf(s, "  - Peak time : %4d(ms)\n", si->peak_ckpt_time);
-+		seq_puts(s, "CP steps (longest):\n");
-+		seq_printf(s, "  - Total : %llu(ms)\n",
-+			   (u64)ktime_ms_delta(sbi->cp_stats.times[CP_TIME_END],
-+					sbi->cp_stats.times[CP_TIME_START]));
-+		for (j = 0; j < CP_TIME_MAX - 1; j++)
-+			seq_printf(s, "  - %s : %llu(ms)\n", cp_time_names[j + 1],
-+				   (u64)ktime_ms_delta(sbi->cp_stats.times[j + 1],
-+					sbi->cp_stats.times[j]));
- 		seq_printf(s, "GC calls: %d (gc_thread: %d)\n",
- 			   si->gc_call_count[BACKGROUND] +
- 			   si->gc_call_count[FOREGROUND],
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index f7423b3f6e4a..0f1255ff93d5 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4642,6 +4642,7 @@ void f2fs_destroy_stats(struct f2fs_sb_info *sbi);
- void __init f2fs_create_root_stats(void);
- void f2fs_destroy_root_stats(void);
- void f2fs_update_sit_info(struct f2fs_sb_info *sbi);
-+void update_cp_stats(struct f2fs_sb_info *sbi, struct cp_control *cpc);
- #else
- #define stat_inc_cp_call_count(sbi, foreground)		do { } while (0)
- #define stat_inc_cp_count(sbi)				do { } while (0)
--- 
-2.43.0
+SGksCgo+IFRoZXJlwqBhcmXCoHF1aXRlwqBhwqBsb3TCoG9mwqBwYXRjaGVzwqBvbsKgdGhl
+wqByb2NrY2hpcMKgcG93ZXLCoGRvbWFpbsKgZHJpdmVyCj4gaW7CoHRoZcKgcGlwZS7CoE9u
+wqBtecKgZW5kLMKgScKgY2FuwqBvbmx5wqB0cnnCoHRvwqBhcHBsecKgcGllY2VzwqBiecKg
+cGllY2UswqBidXQKPiBpdMKgd291bGTCoGJlwqBuaWNlwqBpZsKgeW91wqBjb3VsZMKgc3Rh
+cnTCoHJldmlld2luZ8KgZWFjaMKgb3RoZXInc8KgcGF0Y2hlc8KgdG8KPiBoZWxwwqBjb29y
+ZGluYXRlwqB0aGlzwqBiaXQuCj4gCj4gQW55d2F5LMKgdGhpc8Kgc2VyaWVzwqBuZWVkc8Kg
+dG/CoGJlwqByZWJhc2VkwqBvbsKgdG9wwqBvZsKgdGhlwqBsYXRlc3TCoGNoYW5nZXMKPiB0
+aGF0wqBJwqBoYXZlwqBxdWV1ZWTCoGZvcsKgbmV4dC7CoEnCoHdpbGzCoGhhdmXCoGHCoGxv
+b2vCoHdoZW7CoHRoYXQnc8KgZG9uZS4KCkkgaGF2ZSByZWJhc2VkIHRoaXMgc2VyaWVzIGFu
+ZCBpdHMgcHJlcmVxdWlzaXRlIHBvd2VyLW9uIHJvbGxiYWNrCmZpeCBbMV0gb250byB5b3Vy
+IGxhdGVzdCBuZXh0IGJyYW5jaCAoNmY1YzhlYzkzMDJjKS4gQm90aCByZWJhc2VkCmNsZWFu
+bHksIHdpdGggbm8gY29uZmxpY3RzIG9yIGZ1bmN0aW9uYWwgY2hhbmdlcy4KClNob3VsZCBJ
+IHNlbmQgbmV3IHJldmlzaW9ucyBvZiBib3RoICh2NSBmb3IgdGhpcyBzZXJpZXMgYW5kIHYy
+IGZvcgp0aGUgcm9sbGJhY2sgZml4KT8KClsxXSBodHRwczovL3BhdGNoLm1zZ2lkLmxpbmsv
+MjAyNjExMDEtZml4LXJvY2tjaGlwLXBtZG9tYWluLXBvd2VyLW9uLXJvbGxiYWNrLXYxLTEt
+NTlhNDU3ODNlMzNlQHFxLmNvbQoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHU=
 
