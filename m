@@ -1,68 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814704;
-	b=1y61uhIVvrMLvjjpu7vEPODMxIPMki1fn3AFL4iPjf+psNNAAphK3W0qwf/oSymkxBf6
-	 mCnDiklI3B3p/PuM58orDB2Vik/c2InD2sWAlxjbLK9849gThXMG/bHqku/FUFD7ovJCo
-	 qLhkoOviIZ0y5x+jMSh7v2YwQfB8zHGD0P0m9SJq3trc3E+6z9CBQ29sZ+foBdMVWdo9u
-	 CkW9FH72ZrYFgnaM7EjlHkDis/wKHxsAZQJOlCkVZ//HN1N2PHZMi9wBp2T7Cc/TELME5
-	 kobPAPleiszy8UCRcXVOtknn6nyTZNP+ibL4bs6hwWAysocVDTua5UA+Rlk0DbbEboA==
+	t=1794814730;
+	b=c53eewuSSlMYSP4ZGhAW9TM9o151YdeI/XBA8yBaFImYP8DrKjLXgWFJp0Xkqos7G9fs
+	 sHeoTc3W3R/lTxoWeWSgY3x0cP9Xi0RqDBqVltuQT+UkQgk8cpZmSs2Ew8siS/mUd0o5Q
+	 8FW/Sh5cLYW6XC76c0rh7RelntSWQeJSCIlV36QJO0aVi8HdRTyYO41Ko8+9hX6BimAj/
+	 u0HsNMISD16ObPCMe1WmqnCmHYeVFJoSX9CBIMsYu9+tSY42kUGaDzFHiIWH1dmiu8qxM
+	 1bQ2NpmPdPsDSzqjt9VPB34VwZS6M3blAbVkNsEaRT13z4nTE7e89tL/jtZ91ouO0kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814704;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=pI+qB/jORBsA8c6hsUYOeeDt5LaDuCmT+exW9sgyzwo=;
-	b=vTN+utaggqu4OX0D5o5Eh6uwSkYmYGPBse+iUqGmefsk3ZfssqNHlwhzFi+Do7905PVs
-	 Eqdy8fiADwtAp0dAbVmhLq/go7N/4/2TS39V1imnE2+JwCBo4ljZo6eYWW7sbXSzZJwDD
-	 +AXlTCHQHaPUdpsUrNlEKAYyUWtmxQafWdAEOu+9HOdMrj3mi+rb7nnz69IzOtCAdckmv
-	 0T91sMhheuSE/ewbNnD5bvCgiRXoF7lPHQCcM4t5PGNypLacvdiy5H5D2GR15fd7x3Axh
-	 ia0lUh0WqviIGny0Hccp+Mvb4bB1/qXdViyfTH5nth5Ul/JNA5LAmoSAqWzB4ixp4Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814730;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=zZmXLBv2SE8smt4ibe6ROyBZVESDWUHzTn/j6advAGk=;
+	b=cRy6goNgffJWWydUNxuMwDm9sTqrQMH8dQg9ugvumumJyeJpmMzIvWcSK2Gx8EdhPjcN
+	 7wj7ymODNvauIdZ1+dYzYMPfcCiJigJe6+Q7BZM5ehCaqjJCv0ADse43OS4wHyr2uiYC8
+	 2HIAdASybV3pYi8+mECmf4KN78ZgmsQyBVoJ4GFzPDrLXJ2jVqtloYVPHX27UUH+HiZeK
+	 LIjMBSt1twxYqTftP97aL3inomYwHyCxxBBPTvnx1JcznVF6zb3uJFDuzKXVWitkTTSSv
+	 oSqTEbbceL1ZXhzmJ44yYTIoWBVgWg3dH8UMB1oo2A2uWTF7oL/Ze4roaXBFiqSbpqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="VjP92/Gl";
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=p7M2++Wt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="f/UGNQvS";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="bHL/yrAc";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H3wpifoo;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4127606A329;
-	Mon, 16 Nov 2026 07:38:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4127606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD611606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:38:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD611606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VjP92/Gl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794814703; x=1826350703;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=VCBdU3HmJwCtXAadN2uCRp5YZw+Cf4Kdztj+N3BY2z4=;
-  b=VjP92/GljPoN8MOjryJBcKXQLhDwucxDUhnGJpDQdVxRwwwljIMoHmbx
-   +bwGkow9H4wRxCnQAg2SIeutQO+VPVZKkIp4N6ljk9nvjn6h7HvrSwpls
-   8qfX5WaHFiqL/Ba9YKPgMC8CCD8CJBOxZJYjYaTOGzYdnOA+kwSRjekOI
-   s2dgwbBq+yB1J21B/rGcNmpotYdmLtEpQIfNmTPZcukyIR/jppQkAnM4o
-   z9UXfMVhPaPkzl8KY2xol+Ztq82wTD/QHIB/+aBtgE1NupQqxarU3i9nq
-   hxAE50Yj3M8JpQjo62fYbpavuOUzlsZecVVe8Z010f02fIGHI4NBRxc06
-   g==;
-X-CSE-ConnectionGUID: PVr9x0ymTdCOcr0s6Sz+5A==
-X-CSE-MsgGUID: EPyOmTjGQDuh5kDlHljNVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3582034"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3582034"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:38:22 -0800
-X-CSE-ConnectionGUID: zin4g8rdTdGww90ZxyGBNg==
-X-CSE-MsgGUID: ckScDyXfR6eMSDFDs7pkTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9798707"
-Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:38:17 -0800
-Message-ID: <7ef6d626-4920-434f-bbd9-eda46e7ab780@linux.intel.com>
-Date: Mon, 16 Nov 2026 15:38:14 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=p7M2++Wt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=f/UGNQvS;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bHL/yrAc;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H3wpifoo
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EE6D02222D;
+	Mon, 16 Nov 2026 07:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794814728; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zZmXLBv2SE8smt4ibe6ROyBZVESDWUHzTn/j6advAGk=;
+	b=p7M2++WtRlYfqeXK3QMXCq31pL0sZrl5V93SsUuO7MsRWD1LfWEygzljfImAhUihiu6/GP
+	Qy6UUVtqx4WNThF4sWJkvI0+Ys0RBvkUlFaDLeqMr8RlSw9nWVpJ62aWLBHEwf8CTnvlUk
+	hXPH6IlqC+abRm1hYitiEfTXej/RBbs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794814728;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zZmXLBv2SE8smt4ibe6ROyBZVESDWUHzTn/j6advAGk=;
+	b=f/UGNQvSz9XWqeZySBa8OcucY6x/YP8EWgLvntqwxCRfW+KAjhJ9BxOgV3A8YJMSPNENzt
+	QdjwrZxUZrcmZBBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794814727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zZmXLBv2SE8smt4ibe6ROyBZVESDWUHzTn/j6advAGk=;
+	b=bHL/yrAco6yPxag2Tl1k26zZ0PbMrkp6Q/LGv1Na/KuiE4hwKi8dIy4h03WLQTASxwD3xL
+	hNTYQmZLCJjBiSgXZTvTwbgGwi7OdSmVr0Hzj84l+8DjKiECPz3fmRVQFuIJ97Q1nl8ox+
+	Qm0ke8I0UtTDBkU9+2wbttbdxb0Eh4k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794814727;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zZmXLBv2SE8smt4ibe6ROyBZVESDWUHzTn/j6advAGk=;
+	b=H3wpifooAX3wceqQ8Xas1R4ppbzumIX5XggxuKdZSgr5KjUpKf6VmuI40AbnPUzUnln5p8
+	73xGOOc5cnIMrgBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C63D134B8;
+	Mon, 16 Nov 2026 07:38:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6D+ECwez+mqFMwAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:38:47 +0000
+Message-ID: <dffcc1da-0740-4d75-8b81-6a91c034253f@suse.de>
+Date: Mon, 16 Nov 2026 08:38:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,121 +107,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v7 13/18] iommu/vt-d: Handle reattach of the restored
- domain
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261110040828.1774343-1-skhawaja@google.com>
- <20261110040828.1774343-14-skhawaja@google.com>
+Subject: Re: [PATCH v7 14/17] nvme-fc: Use CCR to recover controller that hits
+ an error
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-15-mkhalfella@purestorage.com>
 Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261110040828.1774343-14-skhawaja@google.com>
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261114030454.2836543-15-mkhalfella@purestorage.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,broadcom.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,purestorage.com:email,suse.de:email]
+X-Spam-Score: -13.29
 
-On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
-> Reattach the restored domain to the preserved device using restored
-> domain ID. While reattaching do not setup the context and PASID entries
-> as those are preserved during liveupdate.
+On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
+> A LIVE controller that hits an error now moves to FENCING instead of
+> RESETTING. ctrl->fencing_work attempts CCR to terminate inflight IOs.
+> Regardless of the success or failure of the CCR operation, the
+> controller then moves to RESETTING to continue error recovery.
 > 
-> Note that in this phase nothing clears IOMMU_SER_FLAG_INCOMING of the
-> restored domain or the restored state of the device, so the restored
-> domain cannot be replaced yet. Replacing it is left to a later phase.
+> nvme_fc_fencing_work() tears down the association before fencing so
+> the LLDD can finish unregistering the remoteport/localport. With this
+> patch alone that still completes the inflight requests at the start of
+> the fence, which matches the behavior before this series. The next
+> patch holds them until fencing has finished.
 > 
-> Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
 > ---
->   drivers/iommu/intel/iommu.c      |  28 ++++--
->   drivers/iommu/intel/iommu.h      |  14 +++
->   drivers/iommu/intel/liveupdate.c | 141 +++++++++++++++++++++++++++++++
->   3 files changed, 175 insertions(+), 8 deletions(-)
+>   drivers/nvme/host/fc.c | 69 ++++++++++++++++++++++++++++++++++++------
+>   1 file changed, 59 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index b3402fd9fe75..95ec37554360 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -3296,6 +3296,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
->   {
->   	int ret;
->   
-> +	if (dev_iommu_restored_state(dev))
-> +		return intel_iommu_attach_restored_device(domain, dev);
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-How is the restored domain's type and page table format selected? I
-don't see the allocation path using the preserved state to choose
-between different domain type and page table format. Could this result
-in a mismatch with the hardware configuration?
+Cheers,
 
-> +
->   	device_block_translation(dev);
->   
->   	ret = paging_domain_compatible(domain, dev);
-> @@ -3426,7 +3429,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
->   	info->iommu = iommu;
->   	RB_CLEAR_NODE(&info->node);
->   	if (dev_is_pci(dev)) {
-> -		if (ecap_dev_iotlb_support(iommu->ecap) &&
-> +		if (!dev_iommu_restored_state(dev) &&
-> +		    ecap_dev_iotlb_support(iommu->ecap) &&
->   		    pci_ats_supported(pdev) &&
->   		    dmar_ats_supported(pdev, iommu)) {
->   			info->ats_supported = 1;
-> @@ -3531,12 +3535,16 @@ static void intel_iommu_release_device(struct device *dev)
->   	struct device_domain_info *info = dev_iommu_priv_get(dev);
->   	struct intel_iommu *iommu = info->iommu;
->   
-> -	iommu_disable_pci_pri(info);
-> -	iommu_disable_pci_ats(info);
-> +	if (!dev_iommu_restored_state(dev)) {
-> +		iommu_disable_pci_pri(info);
-> +		iommu_disable_pci_ats(info);
-
-Above changes are not needed for domain reattachment, right? My
-understanding is that ATS and PRI are not supported for preserved
-devices in this phase. If so, could they be split into a separate patch?
-
->   
-> -	if (info->pasid_enabled) {
-> -		pci_disable_pasid(to_pci_dev(dev));
-> -		info->pasid_enabled = 0;
-> +		if (info->pasid_enabled) {
-> +			pci_disable_pasid(to_pci_dev(dev));
-> +			info->pasid_enabled = 0;
-> +		}
-> +	} else {
-> +		intel_iommu_detach_restored_device(dev);
->   	}
->   
->   	mutex_lock(&iommu->iopf_lock);
-> @@ -3544,11 +3552,15 @@ static void intel_iommu_release_device(struct device *dev)
->   		device_rbtree_remove(info);
->   	mutex_unlock(&iommu->iopf_lock);
->   
-> -	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
-> +	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
-> +	    !dev_is_real_dma_subdevice(dev) &&
->   	    !context_copied(iommu, info->bus, info->devfn))
->   		intel_pasid_teardown_sm_context(dev);
->   
-> -	intel_pasid_free_table(dev);
-> +	if (!dev_iommu_restored_state(dev))
-> +		intel_pasid_free_table(dev);
-> +	else
-> +		kfree(info->pasid_table);
->   	intel_iommu_debugfs_remove_dev(info);
->   	kfree(info);
->   }
-
-Thanks,
-baolu
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
