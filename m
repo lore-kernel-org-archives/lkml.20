@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817427;
-	b=FVoHUaU2nH4WX4YgJC4L6TkqvjKGGeOOgEQK0iGwFIj5EJII1JOyUQijyajigD/pwvmt
-	 lf24pqhJxogPYDdCz7ivMByCeE5fbvK3Jhbz2zfT+n5VF1rW6KqyoPLoPGw/n70eGm2yh
-	 W1yLZ/QIIe1MfboXr7+btNe6aPUW7y1HlqQcCQh4olemDIDd9l7oayGRutZ4DZ92+dza/
-	 ApDJvuZqStsqm3XJ7jHg71Mish2ND0Cz+MLaZIU3otj44++MYSy9vIJN0Lh9HJZzWxDkC
-	 kNq5JdBoLS7+Bznx+spLBYU2Y/m+FwNqRlshITib4uSy+VCMK3wCzQnzgNKsEtPiV5w==
+	t=1794817433;
+	b=Tfd85AytFwyH7UNoeAV/y6t4lhsUUwH1hWtMF5eROk4Lg+0xIFsqBM58ERnuCbZnF37+
+	 dZvvfCLjt/RqWtQ+J2ZiwZXT/juhUuGHZSWxDDQjMucpmpi/UaocnrjvOK7EIIQQ9GuVZ
+	 K3nxIUeIsVSfWlKvOO5Q/JMeJHcI2I8qSTsm3xNDGZU2phHwciJhogw/tp5MHWBpxZGKM
+	 DXvWkNtZVRASBXkuP0jpYUGYwc45MkfjbGfxL47ohlk8IZ8/qf4LMLY9AaeTPJJ45F6wt
+	 GYoh7FvnlAogwjJ12K/qmsGWb5LO/z0qJA3i0KZ1zcEnSaFvihs7suLe3H2U8nLrzZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817427;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=zk7qMeGwsrGuf2gsO4HA2YvZx++EbTxoa+GvBuzPEW8=;
-	b=x1A1gS4MWdykexDG13R9dc+sQDX6LexIk9EDAdXbg3Gglk6dRt9ZWdktq4KXJTkiuQ3E
-	 +1USIeGtMnCou1iy5EtjGTbhLddm2VaTh4fFg7VNCpULJ5wGQ7tMuSC4eQPMoIMTqwLR7
-	 1aD/xXZEUjEgjfzJEYMELDxlcxmfDttVGT8GugavlIWNi29F2J6brqFtURaa1DdEJ93m2
-	 G5drA0ajsMQykfu7hHLXwoKsSSPisy1AbxJsKTvaC51+0fxzjALJnWOY5DHIhxQMU7rYl
-	 JV9er0q8TLCiqhdqG+Pqjjp2EWeeQXbuMSbZTN+kY0+wH3z+R3cUEtyLGoxf/HSJtdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817433;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=l7+A+m7qDvZ8iB7GbQqDyIh26UTo2sgEvVBcZb8qmw8=;
+	b=vQz5EQsX/lOTcaaiazxs/CkAR+gtrDBoTtWQOGGpyz4YcFN6Gm1Gwl/iQtV1x3aavCwd
+	 DqPvj9JoPXr+TxydbOpDCwmb5z6DFRB+mHzAMq63sJuTw5TRHVOm+mT2kME+04UB7rJtt
+	 qnrUIZRTpmmQ2A7nUOOXl5y3LgqQ5glfl4J7CWeDD5a93GE/2VML5gBo31mcTsbtBKuKf
+	 N5Urjm2xOEAmDaa3/J7f4z/cYBLRQv2Taf+gNWAtBSv0dIUgNnC2kGkWmx5YAlk5FQein
+	 +MHZexTGkLN5F76LkPKqgDV1Bhi4hYlZa3ULZbCQizZhNd5LI61uADHDUK3AMSs6bzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QkcFewS9;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ya7+q6ls;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE9B606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE9B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693C4606A32F;
+	Mon, 16 Nov 2026 08:23:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QkcFewS9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794817425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zk7qMeGwsrGuf2gsO4HA2YvZx++EbTxoa+GvBuzPEW8=;
-	b=QkcFewS9ullkYehd7joROddpjZb7nZ03RFYcTwy1KiWEuvRFqeMpKEksQNz7zgHRTfcOXw
-	8EJQp4QftUTkKfyhDfLzKf9LsbecJfHZkRU4V9cjYHDQ6OoHJthnPklLCPSfnT+waAYsY3
-	WY3ctA3qBm1FW95Z8+56AhUOzrQNnj0=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-KBcw-E4wPoCsNlIGF5y5VQ-1; Mon,
- 16 Nov 2026 03:23:32 -0500
-X-MC-Unique: KBcw-E4wPoCsNlIGF5y5VQ-1
-X-Mimecast-MFC-AGG-ID: KBcw-E4wPoCsNlIGF5y5VQ_1794817409
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 433F619560AD;
-	Mon, 16 Nov 2026 08:23:29 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E718218004FC;
-	Mon, 16 Nov 2026 08:23:22 +0000 (UTC)
-Message-ID: <b6e9a07d-ed95-49c3-a797-0dc23dcedd43@redhat.com>
-Date: Mon, 16 Nov 2026 09:23:21 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ya7+q6ls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD46D1F000C6;
+	Mon, 16 Nov 2026 08:23:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794817433;
+	bh=l7+A+m7qDvZ8iB7GbQqDyIh26UTo2sgEvVBcZb8qmw8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ya7+q6ls9GtEN5gVEcZOCqk0bZp9uDURQQ6zmi0PHbf7bURiFXjIfrT1NywXBrjKi
+	 Dl36Uuno6krYk46X9g7LKe1IYUFIBveEsGnD1PYvbbjmViYO1M7DE8lzJrVYznI++9
+	 AH2k1t+KRFbcd8SpY0REX6wHQ6PE16ELPlGlrz3sBnhESCK/j8GoLTi8W7kNxe2uXa
+	 77n9Cdzhn4Tq6o/JGwUYzh1wQ23X1S9p8+PTbqj+A+engoBzmZAbIPKMvAvF7Gv4vM
+	 RGr0tU5tKkBFGTCbtX0XfMJIZ9TKKyGE93JCWn0dkTqaO476MzLaGgAVyq/s+p0zM0
+	 A1H/aPeRKWhXQ==
+Date: Mon, 16 Nov 2026 08:23:50 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Sandie Cao <sandie.cao@deepcomputing.io>
+Cc: Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree <devicetree@vger.kernel.org>,
+	linux-riscv <linux-riscv@lists.infradead.org>,
+	spacemit <spacemit@lists.linux.dev>,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ Enable SD card support
+Message-ID: <20261116082350-GKB100890@kernel.org>
+References: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
+ <20261109033348.361452-1-sandie.cao@deepcomputing.io>
+ <20261114075506-GKB100523@kernel.org>
+ <407ce3d77416bb2522b7906b0df3d5adf02c27ee.efc7f10c.ccd0.4025.9bef.e587b1e9e4e8@feishu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,70 +67,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 9/9] dpll: document locking rules
-From: Ivan Vecera <ivecera@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Min Li <min.li@microchip.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- Grzegorz Nitka <grzegorz.nitka@intel.com>,
- Karol Kolacinski <karol.kolacinski@intel.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
- Petr Oros <poros@redhat.com>
-References: <20261111164021.273409-1-ivecera@redhat.com>
- <20261111164021.273409-10-ivecera@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20261111164021.273409-10-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.efc7f10c.ccd0.4025.9bef.e587b1e9e4e8@feishu.cn>
 
-Sashiko reviewed v2 only on its dashboard [1], with low severity
-findings, so I am answering them here.
+Hi Sandie,
 
-[1] 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111164021.273409-1-ivecera%40redhat.com
+On 14:49 Mon 16 Nov     , Sandie Cao wrote:
+> Hi, Yixun:
+> 
+> > From: "Yixun Lan"<dlan@kernel.org>
+> > Date:  Sat, Nov 14, 2026, 15:55
+> 
+> > Hi Sandie,
+> > 
+> > On 11:33 Mon 09 Nov     , Sandie Cao wrote:
+> > > Add the device tree node SDHCI-0 controller for onboard Micro SD card slot.
+> > > 
+> > > Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+> > > ---
+> > >  .../spacemit/k3-deepcomputing-fml13v05.dts    | 22 +++++++++++++++++++
+> > >  1 file changed, 22 insertions(+)
+> > > 
+> > > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> > > index bcd533484a73..051046fe90b2 100644
+> > > --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> > > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> > > @@ -177,6 +177,28 @@ &combophy {
+> > >          status = "okay";
+> > >  };
+> > >  
+> > ..
+> > > +/*
+> > > + * Onboard SD card slot:
+> > > + * Please insert or remove the SD card while the device is powered off.
+> > > + * It works as a boot media. so set it to non-removable.
+> > > + */
+> > Is there any public schematic available for FML13V05? I guess there is
+> > no CD pin (Card Detect pin)? as no "cd-gpios" property seen here
+> > 
+> > The above comment isn't really useful or even correct, I'd suggest
+> > drop it.
+> 
+> In version 1 [1],  the patch is cd-gpios = <&gpio K3_GPIO(88) GPIO_ACTIVE_LOW>;
+> but K3_GPIO(88) is fake cd-gpio, it's tied low on board.
+So, there is gpio cd pin, but didn't work? it's hard to say without
+the schematic, but can you check with hardware people, if it
+can be fixed with SoC's internal GPIO BIAS pullup or pulldown?
+So, gpio pin is able to reflect card insert status
 
- > Is this rule broad enough? Several other exported functions in
- > drivers/dpll/dpll_core.c also take dpll_lock for write, and most of them
- > do not change the topology:
-[...]
- > Would it make sense to say that these contexts must not call any exported
- > dpll function that takes dpll_lock (everything except the __ prefixed
- > notifiers), or to list these functions?
 
-Yes. Every exported dpll function except the __ prefixed notifiers and
-the netdev pin helpers takes dpll_lock, and rules 1 and 3 should cover
-all of them. This is not new: on main, a callback calling
-fwnode_dpll_pin_find() deadlocks on the dpll_lock mutex the same way. I
-will widen both rules in a follow-up, or in v3 if one is needed.
+> So In version2 [2], the patch changes to non-removable.
+> And In version3 [3], add comment. 
+> 
+> The options: cd-gpio, non-removable, broken-cd  all work on this board.
+> 
+it works, but does not reflect the hardware status
 
- > Should this section also describe the context of in-kernel notifier
- > callbacks registered with register_dpll_notifier()? The rules only cover
- > ops callbacks and driver code.
-[...]
- > Today ice_dpll_pin_notify() handles this correctly. It only allocates the
- > work and queues it:
-[...]
- > The dpll calls are then made from ice_dpll_pin_notify_work(). Could this
- > requirement be stated in the new rules as well?
+> We just need to detect the SD card when bootup, don't need the driver 
+> to detect hot-plug event , non-removable should be suitable and faster, 
+> we recomment to use non-removable.
+> 
+No, this isn't a valid reason, it's use case should have nothing to do
+with the property.
 
-Yes. Notifier callbacks run under dpll_lock, and with this series also
-under the domain lock of the notified object, which can belong to
-another driver. They have to follow the rules of a callback, and a
-driver must not hold a lock they take while calling a function that
-takes dpll_lock. I will add both to the same follow-up.
+My point is: if the gpio cd pin still doesn't work, and the SD card is
+actually physical plugable, then should use "broken-cd".
+ 
+> 
+> [1]: https://lore.kernel.org/all/20260922110231.3426011-1-sandie.cao
+> @deepcomputing.io/
+> [2]: https://lore.kernel.org/all/20261020081633.3673704-1-sandie.cao
+> @deepcomputing.io/
+> [3]: https://lore.kernel.org/all/20261102060012.100623-1-sandie.cao
+> @deepcomputing.io/
+> 
+> Best regards
+> Sandie
+> 
+> > 
+> > > +&sdhci0 {
+> > > +        pinctrl-names = "default","uhs";
+> > > +        pinctrl-0 = <&mmc1_cfg>;
+> > > +        pinctrl-1 = <&mmc1_uhs_cfg>;
+> > > +        bus-width = <4>;
+> > ..
+> > > +        non-removable;
+> > "no-removable" property usually used for emmc chip soldered on board,
+> >  so there is no way it can be physically removed.. check 
+> > Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> > 
+> > For cases that no CD pin (or no GPIO CD pin) designed for SD card from
+> > hardware schematic perspective, using "broken-cd" is a more proper way,
+> > it will fallback to use poll mechanism to detect the card, please check
+> > 
+> > > +        no-mmc;
+> > > +        no-sdio;
+> > > +        disable-wp;
+> > > +        cap-sd-highspeed;
+> > > +        vqmmc-supply = <&aldo1>;
+> > > +        sd-uhs-sdr25;
+> > > +        sd-uhs-sdr50;
+> > > +        sd-uhs-sdr104;
+> > > +        status = "okay";
+> > > +};
+> > > +
+> > >  &uart0 {
+> > >          pinctrl-names = "default";
+> > >          pinctrl-0 = <&uart0_0_cfg>;
+> > > -- 
+> > > 2.43.0
+> > 
+> > -- 
+> > Yixun Lan (dlan)
+> > 
 
-Thanks,
-Ivan
-
+-- 
+Yixun Lan (dlan)
