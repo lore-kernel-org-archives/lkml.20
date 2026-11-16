@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811973;
-	b=CAWD9pioixm74+y3yiq+LnxMjRSzExLTCpPr1V8zBmMO/J+v5Xak0ju3DGiD+i7XQnc1
-	 uSqAKh+WxiW1hMvUNxt4mZhCU0XCAh9VV5p53HHEAhy5BdYTntHc+2pDZeCyaWFamI3je
-	 o75xvtiT7YWEXB1xUkEYJkCy4lBwlKzGwVwOvos7/sJvOtAi6euOrO2MNIKH6vUWJqQA9
-	 2FM4qmI7IajYHbVQpg0Z6ZxDG7TmJexVz6I4kXy0mJNn70noj2vNIAJfzkIcnqpBXp1xf
-	 OGwbIgzLoq0WBupwvNji+iiXHaIgFxy16D3LmUTmyvoQPHhuhyZJnTj8niAROQM2zKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cjhcJXXCSoPUURtlLlIneNXvDxbgE0VczhsVYg4OWeA=;
-	b=oWoSWpAgAgz7oqojybJsEY4L1BDiH8RQh78vuXnCE5hQSEPusjEJvAmTOh5yJE03/W/R
-	 tWWn6/0lCKCehR1tmIL8F4CUaGqixbn6hE8xosirFgogVHAHA7/NHv6O3Ro78dWlvnqG1
-	 u1rRpAzGyGvlY5+akd5wgjOHrRrlYkUHFmw3lIxM7swidOS2XyOUxUwRD00R+rMnc5+zO
-	 5fqLRj+wzE+gufJxcH3rRUYXzP/9Yvf7zJfWCC0JPkn3U63UC6gL5MkWu97hy6G8d/rrb
-	 G8EhI+6WHIeIf3GpOiMDEWX/9srk2oDBnEWhqMLYACf7hwbSJj/QBO9ewnn1usMM3cA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q3H+UGzl;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794812034;
+	b=w92ZiTngYR7OhvjBY7UtrM20FNAItJyM/4ZyDaY4a9r40eb168jnCjZz7vLopFvxzykF
+	 SC9gaMy0mvlezQ7v6UJP/ZUB4SLzzODlpd1jpcbytPyAkYBOK6GT7b4TCoXGSK1dHeLGy
+	 KvAJHFcU8B8MMoybmhGe/NcbeY6dUAE99ix7RzNK+bsVScFOb61dlsxNFmYRHpVQg7VuL
+	 7R6hlcpM1K9TRA4CUeKwWVlwVYpQHz48i31FnjpnUPVGqPoYlSmWzZ3m7P3geUAmBgwwl
+	 SQtvVCEnOZsQiuqRGqz/BzSbvch9ukW7bKfXW585bCVjHInm0NcOMFcsaXU9tjJ6NzQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812034;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/04YFSwlqu9j6RfufyAdP1sORd8DfFvxWdA7ufXX09g=;
+	b=w6tKs4JfdVESsrgE6DG2uzFysN7HR60ZG2j9M7z+OgK0x5WhRnXdYfx1zjgUWVxdTrFU
+	 mEqSPFdqhQbHjezZIBKOSY1EFuhoDVgqBbatqyMLoypnjPP+mqk4jpqbqRUfwuGcLterd
+	 IQAZMksAGEMkMNH9qwuefKKoEkzhzo8n+yt4Mst9ABNL0QqpR8O+OAZDApRtjcAF0ax0u
+	 nhGxkKV085CZQNZxfqowf2AVHdgVxlzGD6ZsvKx1EC1sx8N8/+sEVjbHR3mGvQqmJW84K
+	 VLN5PcGUGOlCsw6h2ssMLvZ4ISizC+DSaTHl8FDocYMs8RqDSkDxjZMXjQkM+VAG8aQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZJ7FtQGE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.51
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013051.outbound.protection.outlook.com [40.93.201.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2F2606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:52:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D2F2606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE544606A329;
+	Mon, 16 Nov 2026 06:53:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE544606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q3H+UGzl
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so2902835e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:52:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794811970; x=1795416770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cjhcJXXCSoPUURtlLlIneNXvDxbgE0VczhsVYg4OWeA=;
-        b=q3H+UGzlRUdmWHbUPd7t3HR5eKwNDbaFWW84LlpilKC0Bmwf+p8Qj822BX83el6jq0
-         x97fSwmaPxrNovwx7gS79U6KbORn8lKnRVysFSFqxpm6Q0NWG5V0gm2gN025OB4hAx0U
-         MxQRjIpSJ9RYdqEbZ6nNKCuD0f4TA2h2nssetnqFFnQ3+uLZ/eByv1m5s1MQ4ZzJB1nn
-         27rKZDqHMauhvfY2iHIWBRxfdArVVwjBmh1AvkauVXRu3PzvtyPsuVHQkryoYcP2kVk8
-         ov5YzEupC6YOSRgvymDeHVgQ2vU59tY7GHqk6QOGNW78yk2qVvb6ytRx8gcL0rF0zsFR
-         VA5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794811970; x=1795416770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cjhcJXXCSoPUURtlLlIneNXvDxbgE0VczhsVYg4OWeA=;
-        b=k2LfffL0wY8yvCsCZDAf8YdCOv0Ky4dKWoNfcxsridgaPpr7nR3PyJ1e/lsvTSMOtV
-         Jql6lqAXbsB7R8Ht8K131igPHHgGhdTopkokI47zhJ8Q8W2UbHtLOSHzrYPisBJEyk61
-         L+ex0gTMyer5qzyqUH/EpP4dTpdNQx+bouyQ182wqTMAQ3E1d27YrL1SeZpKfttsuyP+
-         k+KSXaHnGmUq570kNme+a5g698jEaBGrNzAaGrF55N7hPyD97TEt7tvVeBt6+snNyKbI
-         5s1N514YAfDh7SxO8fVbHuD0wnpA/Qwj3eSD67548xTtcl0q3CxA2E1BCk86GS3CyudH
-         yYyw==
-X-Forwarded-Encrypted: i=1; AL+hErF4YkrIL0O1weI5xVHeQDfvo5bY7Ey5QzfUFzU9yM+P83dmkZL+tM7tkxZgjP79pmD3eGruSYMiFkjcQ1U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fKYdYfA/z8G8Zf8JeWghqnNzLgrEn/5v+11gjDaAlpgDN8zzc
-	YukErrIgC+x8jeju3afIJJqpE66x2GoSEkojJl4XFtxnT/a4aLT11HUe
-X-Gm-Gg: AYBFou0c72xAqfJernSfYf9J6s/NN0wajznvw916k61f1Q5/wBAHawT473ayZf7FoMJ
-	C8o/7W+OQKKNWmRqm4vX6QTh3XKPnc1rbaqRtnJFH6U4yRe1z54VwaFO1F846LjvyWTDNXT1rn5
-	UVrmYey9hHrgpyN+RNOBpudzlLk9myPkhe7qCOjdXFRG6CE7EEv+Umfuv3uH8n9o2PtO2Lcp44y
-	gOmZFH79fTN0cl9p+XPigyoqfA+8ANKhBUGObstDi70ome1KxrLvL1BzPZUw82TJi0b6OhoLquy
-	uFReLSpG1ssl5OGSPimcH4trrV5UJE5mzkgI+SPOOTdxnLgBUVTSSnCx6L2PLu2Rq0Mp2hmxcnA
-	o1i+RMzvQ7WKumOWqHdq/LdipaPRyOTGNyJMA3ULRWYw1zKPGgCVocsh9Vntf59064wlrWMZm5A
-	uADaadcnXDH0VHKok1dywVggTlFwWO8cH5A3nIya2yfIUDHm37BBf6AQDSOuGY1do6gDqTQEtuz
-	BDCKK7+ckPRmMpClsKO6dTf8TyIw/XJzmqz7dqC84v39Rtpuj6k3YHhyPdiqXkRG6G4EZ3bwq8T
-	bXSWKi4HmoOHaCXqNja+
-X-Received: by 2002:a05:600c:8b4c:b0:4b7:6b96:e431 with SMTP id 5b1f17b1804b1-4bb55ab56ffmr208709665e9.28.1794811970223;
-        Sun, 15 Nov 2026 22:52:50 -0800 (PST)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb6caae30csm86848945e9.2.2026.11.15.22.52.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 22:52:49 -0800 (PST)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-wpan@vger.kernel.org
-Cc: Petr Vaganov <petrvaganoff@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Phoebe Buckheister <phoebe.buckheister@itwm.fraunhofer.de>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZJ7FtQGE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=droKAvICkrUGrvhI3PI8l1Lqo254xr0P8n2lACPbEfiImUCl+B79oK4/TrqfcPcQ1r+CT8RFYKW/nauWaaUuTE1UF2LjUAw50z+sBFwvhF/6O9P6iBZ6ySppN8u5ZVQ2wh3p+FRwmM8BP5ryiYk7wBW1wALa+DKez8OJu6bs3sETofQQVtVot2xEsKtDaOW1Nx1WQ3T6mjiPZr06KgrXQzCG4HE8kSd9Lpbqb9WkYnOIZ88jlRuOOjwThBo0cRJOJJ33MRTaq85OBRvn/REhCw0E6nOdB3qzr8bLLgb4hgysTj4lFzpMRHFjzeyoHHqoDD8bGQkAjjRpMz/ZLERnvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/04YFSwlqu9j6RfufyAdP1sORd8DfFvxWdA7ufXX09g=;
+ b=UYbSUxTXlu1iL85Ydmo6EkDF6xjb+5fLSFh0OT0UsTluyqslAi1XZpS3H99R6iH67q7KVJmCpoK8woXOFQ6oMWEyGw93wj4y6fNMMUKh+mGucAIaQ2o2vAykWjt1mo+L5O4ktnN7oZLUsD6X6i4BnEyZfawmLgpdbJmZoqLbfCoOOpEjjS8VRoLUdrxdjexxx6aV+TvukffdWRN+yjlSQHLPxF4RTWWQrf8F47er+lTsRDMlMfKENj2RsoAvA0HUySSPLGYaAaxD99ZewKB1hW/hDkHcVZyUhgALyCKv3x9/KzaEGA5XpIzMmxlScwX+s1OOxBHiwK6OEzPnzp+Lqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/04YFSwlqu9j6RfufyAdP1sORd8DfFvxWdA7ufXX09g=;
+ b=ZJ7FtQGEm+yEgUWYGgFJPI0b+zGbBGCNR3Dv/sFTLpHuWeWPmw06dhtd8tSbnzig8HOloXCTb/6DNKCXUEeRVOzfVUKWRYjROQSK1A2hlxYLnGvjz9c/KUNCP7BKS8hY09mjryBNFZtZ0moS1klNxaxnI0P52nhYBDaT+SJUqr0Qpb0k60Y9srnL7uKfUKv5/S0Rm1k/AY5PAn8Nyc5SWkpg5wOGoMLjuIXx6r+3zlxB2iJClsb+uNcRP+BcFixVU63B2nz/RF7WO+fdqkGCex4emEo0zatlaDt/BgaMqVHOG3s0fdx3Ft9IfyGIUqj4s8O2a6hMHvsj+Yi3cOuY8Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by LV0PR12MB078426.namprd12.prod.outlook.com (2603:10b6:408:3b6::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 06:52:50 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 06:52:50 +0000
+From: Richard Cheng <icheng@nvidia.com>
+To: dave@stgolabs.net,
+	jic23@kernel.org,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	helgaas@google.com
+Cc: iweiny@kernel.org,
+	ming.li@zohomail.com,
+	icheng@nvidia.com,
+	linux-cxl@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] mac802154: remove redundant security_enabled assignment
-Date: Mon, 16 Nov 2026 13:52:34 +0700
-Message-ID: <20261116065235.27348-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	linux-pci@vger.kernel.org,
+	tglx@kernel.org,
+	wangruikang@iscas.ac.cn,
+	alifm@linux.ibm.com,
+	shawn.lin@rock-chips.com,
+	lihaoxiang@isrc.iscas.ac.cn,
+	18255117159@163.com,
+	xiangzao@linux.alibaba.com,
+	vidyas@nvidia.com,
+	kaihengf@nvidia.com,
+	kobak@nvidia.com,
+	newtonl@nvidia.com,
+	kristinc@nvidia.com
+Subject: [PATCH v3 2/2] cxl/pci: Guard decoder accesses after reset
+Date: Mon, 16 Nov 2026 14:52:29 +0800
+Message-ID: <20261116065229.38194-3-icheng@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261116065229.38194-1-icheng@nvidia.com>
+References: <20261116065229.38194-1-icheng@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2P153CA0014.APCP153.PROD.OUTLOOK.COM (2603:1096::24) To
+ BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,99 +116,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|LV0PR12MB078426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61b7e3c2-3ac3-426a-4adc-08df43ae3b05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|56012099006|11063799006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	NrOanAJfn+teGdmkqod/sQPcLQ7hBF4f56qkVz5/c0qK3s35d+dr5QIH9pqsjfHB0C6MGcoAjzcUOsZGA7gli96nU9g8Aig5gLHgDIOUYhTe/YdRAnOhDcsVQtVmC2XHezxhW0xF6FnolapH9t0FTauGArZIn5yo2rEAloAoVgU995r6E9qCCn2WsC3fRbjz2pLysZVk+QmFnvwuPGm42UUvwr3+n8V0FryqFTFXdt6e7V/K71n/Zx2YKgP/STTLP6OwtmSvgQY5hXJWgC7rJ1RwgJWmKpmMHhez75MmOXbZA32EmCkVUiYkiTFZln6vBC/+jDJMphMOeDmtbKwncnqpazNB/pqm7ATt5bkwQ1qmqruck/g97rTkrXvycwFWl9pzlQIJePhXcGQgZ/9Rag+QcnY4qjybOIzmUMVS9O4YGZEK+xAvR47XXbGbrcOKGwVc4wZQcChwA1sLvJ2xKY/3Q9O2Yj1gENhGuN+fc4iPo63cY5+JS8r/CCqbMckr/t20ovfM+IObwekYgSDf0QQWFJ1hTIA+CJQEe8Gb/Hdpt6/ujaRXUwwJM/h1ujShx40x0cahrPmUbDTzR5zaX5d4h/AnK7GQXKjIrOdSPg3kkrSSNFmybSWQQ1zhmKOXaVMiAzbp8dZ+2/a6YqdKhKN3XZi8A0pNHIy1Ec29SgI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LUkurncRvxQxeM0t4xocGXvuR6dLlSNJLeT/ye8q/Mz2RJdkb0wVLMf0nrxW?=
+ =?us-ascii?Q?nwMDMkizsL7OyvHVSqKrXAHb3tyIfZCY7OCAJlK7tmm3Pu00deZSntUEIZaQ?=
+ =?us-ascii?Q?inrPDMSNjXEiua22bLNWCCO0p6H5svCZRCymba5rg0FtXFysWtQy/PC3rbmK?=
+ =?us-ascii?Q?izltO3zgY1lOYiNGTp377srLFrSRM4WOOsMdHxIFDaMOQqbxrv6pXZIqsXmm?=
+ =?us-ascii?Q?gDMlzd7P9wUe/N5058EhkuULR8IsxKFf8AuBEQKwaKl3MNZgHEPAMvMVXeBP?=
+ =?us-ascii?Q?Y9ZPkJ3aY5/ChReK90skYMjAnyF+ZPFrEXDcsY8wWT9ErKJgMBFhKLJRHwAG?=
+ =?us-ascii?Q?MAwF4BsOSvXGd9YI0HEWhvLWH/xEVhKFvqyU2bQ5izu4s/sgIpi8t5r21q8X?=
+ =?us-ascii?Q?S9nh2quHAyHyfO77ZbncH/A6YvP1a0coBrIHCDgZHGTdBIS1l5c/ztlVajKc?=
+ =?us-ascii?Q?/hzdmoslzQ3bW8RpLS76UJv7Du0GZLCaVmEyAWYJK1PXEo4pZRnfFXomiunh?=
+ =?us-ascii?Q?wVzmSVxAf8m+TcwDzdt+2suBLKi+SPU6o0ubzTBZjoUxjVWX1520xJb/Dspw?=
+ =?us-ascii?Q?j1AQ1LOYF9L5wRB+VpCCUhht36tYULPJTcFDc44s1tphNrQMrzqbFNC1john?=
+ =?us-ascii?Q?eD2zmUh74dCweawrYWsSMKNfMHilziz3k3bHgemNR3QmkoFZQwIjELLG5l+F?=
+ =?us-ascii?Q?86Ux7YERKR42W0ssauE8Rt0BGWJiwyUgiKnsP/Mpa3kkH4SgKFr8BMloIrpq?=
+ =?us-ascii?Q?mk9bFmCA5SpLtPh02phYyuO3Cd0D9xhg6OxXpXs6/kJCeIhOfwibRmD9RC7a?=
+ =?us-ascii?Q?leFPtsbI2GjnnuZ7k/71sZr1um0eL90q5et5xGoGsxUxnOsB4bgf6mGpV23T?=
+ =?us-ascii?Q?+1w38JYV1PVFOtBov6l/Nz/ps/0i7eqS1wtdOukyGV0VBHh2VmrlZVPPkXhr?=
+ =?us-ascii?Q?SJjhA/be6sFHTjJFWUuasXd93l5TLCQk9ebzn++0pJHxZDGwPfpWfKMexK8/?=
+ =?us-ascii?Q?Zv5fFZKtYjYSPnDYL7MKtOtSwSkKoj1kgnbLW+Ys/z2FcCDjAwRTUPRE2aAH?=
+ =?us-ascii?Q?bkSeX/5jNZ3tbhtYHW6wcQA6Mo0Un3QgxWtqVuXcJ/6Sgc3va9K6EBVKqFpS?=
+ =?us-ascii?Q?hkGglctpOoj7LChPJlM2kd7KFconL2lsJZHy3sdAPEab0cYC9Tg85uaNy/fJ?=
+ =?us-ascii?Q?wCJimpl1TUNFFblp0NNG1g9VxrOeXaFrlzPnhKpXU/Lg142R2/7eWzLqBcBY?=
+ =?us-ascii?Q?yWo2NrscU+VxU9JAvSvCnepgIQhy4AqBcxNUaOQ6Vs9mc9U2KizluXRQqgLz?=
+ =?us-ascii?Q?KotJRT0KqvGp//9CvWNMXnMwgvYsS12SoWqtHZ28pFc/Kq4wrqhz5n0rV+Zq?=
+ =?us-ascii?Q?DzB5aY6WYYZmYTWrHFoA1QU8+WWFrEX1L2EMX7uX1kb8/SSYmmaNlg8h87aM?=
+ =?us-ascii?Q?D5V8KgumDtGS6qB2ddTItfWKdn/NinOlujdqL5O1xOo4Z/hOQqMGw/gbEDlQ?=
+ =?us-ascii?Q?VQGXFd0wcaAfqK9/UD2Jn/na8qNwQtyBOhCROmFYrzhqhfcm5Wwdb3/fa4xG?=
+ =?us-ascii?Q?kmUs7b8nj/QObQdEyXqpPLr2k5++h+l1ImBfIp0Q3SdfxIvV8at6FJCNE0Id?=
+ =?us-ascii?Q?jLMLKP7panQe4pqluYHOoxYCybUpcs31j9caWZq3DY9VUaRoz4XoLfU7w0mf?=
+ =?us-ascii?Q?5t2hnFUImVC2GCAkWBIOQnsJrZuTWvtQiJ+VnaYfUdmQJlPs?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61b7e3c2-3ac3-426a-4adc-08df43ae3b05
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 06:52:50.7121
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oiau+dslxzAkx3SpoYJG3sFgHJ6jLUyD6EfhkIT0dwPz2Qdb3/WIxyD8UyFI3lSl3no/dli515ydWTM+TEvoFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB078426
 
-During fuzz testing, the following issue was discovered:
+The PCI core calls the driver's reset_done() callback even when a reset
+fails and the device has not recovered. cxl_reset_done() then reads the
+HDM decoder registers to check whether decoder state was lost. Reading
+device MMIO while the device is inaccessible can trigger another error.
 
-BUG: KMSAN: uninit-value in ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:54 [inline]
-BUG: KMSAN: uninit-value in ieee802154_hdr_push+0xa62/0xb20 net/ieee802154/header_ops.c:108
- ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:54 [inline]
- ieee802154_hdr_push+0xa62/0xb20 net/ieee802154/header_ops.c:108
- ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
- wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
- dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
- ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
- sock_sendmsg_nosec net/socket.c:711 [inline]
- __sock_sendmsg+0x2f3/0x360 net/socket.c:726
- ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
- ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
- __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
- __do_sys_sendmmsg net/socket.c:2751 [inline]
- __se_sys_sendmmsg net/socket.c:2748 [inline]
- __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
- x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:308
- do_syscall_x64 arch/x86/entry/common.c:47 [inline]
- do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Skip the decoder check if the PCI Command read fails, returns all ones,
+or Memory Space Enable is clear.
 
-Uninit was stored to memory at:
- ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:51 [inline]
- ieee802154_hdr_push+0xa5b/0xb20 net/ieee802154/header_ops.c:108
- ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
- wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
- dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
- ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
- sock_sendmsg_nosec net/socket.c:711 [inline]
- __sock_sendmsg+0x2f3/0x360 net/socket.c:726
- ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
- ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
- __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
- __do_sys_sendmmsg net/socket.c:2751 [inline]
- __se_sys_sendmmsg net/socket.c:2748 [inline]
- __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
- x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:308
- do_syscall_x64 arch/x86/entry/common.c:47 [inline]
- do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Commit f30be4d53cad ("mac802154: integrate llsec with wpan devices")
-introduced mac802154_set_header_security() as the sole function
-responsible for enabling frame-level security: it sets both
-hdr->fc.security_enabled = 1 and initializes hdr->sec together,
-maintaining the invariant that security_enabled = 1 implies hdr->sec
-is initialized.
-
-However, ieee802154_header_create() was left with a pre-existing
-assignment:
-
-    hdr.fc.security_enabled = cb->secen;
-
-This assignment can set security_enabled = 1 (from a stale cb->secen)
-even when mac802154_set_header_security() returns 0 without initializing
-hdr.sec, violating that invariant. ieee802154_hdr_push_sechdr() then
-reads uninitialized hdr.sec fields.
-
-The stale value in cb->secen arises from a specific setsockopt()
-sequence: calling WPAN_SECURITY_ON (secen_override=1, secen=1) and
-then WPAN_SECURITY_DEFAULT (secen_override=0, secen unchanged at 1).
-This undocumented combination likely explains why the bug was rarely
-triggered.
-
-Remove the redundant assignment; mac802154_set_header_security() is the
-only correct place to set security_enabled.
-
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-
-Closes: https://syzkaller.appspot.com/bug?extid=60a66d44892b66b56545
-Closes: https://syzkaller.appspot.com/bug?id=23f21e76e9d2d1ed587cb5e71515260d6d025b63
-Fixes: f30be4d53cad ("mac802154: integrate llsec with wpan devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
+Fixes: 934edcd436dc ("cxl: Add post-reset warning if reset results in loss of previously committed HDM decoders")
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Signed-off-by: Richard Cheng <icheng@nvidia.com>
 ---
- net/mac802154/iface.c | 1 -
- 1 file changed, 1 deletion(-)
+Changelog:
 
-diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-index f437b8daa00d..7b7332805ecc 100644
---- a/net/mac802154/iface.c
-+++ b/net/mac802154/iface.c
-@@ -368,7 +368,6 @@ static int ieee802154_header_create(struct sk_buff *skb,
+v2 -> v3:
+- Add Fixes tag (Sashiko)
+- Read the PCI Command register with pci_read_config_word() instead of
+  pci_read_config_dword(), since it's a 16-bit register.
+- Reword the commit message and code comment
+---
+ drivers/cxl/pci.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+index 8ce58917c32d..dadca2db429d 100644
+--- a/drivers/cxl/pci.c
++++ b/drivers/cxl/pci.c
+@@ -1106,6 +1106,12 @@ static void cxl_reset_done(struct pci_dev *pdev)
+ 	struct cxl_dev_state *cxlds = pci_get_drvdata(pdev);
+ 	struct cxl_memdev *cxlmd = cxlds->cxlmd;
+ 	struct device *dev = &pdev->dev;
++	u16 command;
++
++	/* The device may still be inaccessible after a failed reset. */
++	if (pci_read_config_word(pdev, PCI_COMMAND, &command) ||
++	    PCI_POSSIBLE_ERROR(command) || !(command & PCI_COMMAND_MEMORY))
++		return;
  
- 	memset(&hdr.fc, 0, sizeof(hdr.fc));
- 	hdr.fc.type = cb->type;
--	hdr.fc.security_enabled = cb->secen;
- 	hdr.fc.ack_request = cb->ackreq;
- 	hdr.seq = atomic_inc_return(&dev->ieee802154_ptr->dsn) & 0xFF;
- 
+ 	/*
+ 	 * FLR does not expect to touch the HDM decoders and related
 -- 
-2.55.0
+2.43.0
+
