@@ -1,56 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839851;
-	b=h0IBAL8Jm4e9P318kMP7bJaQOTz84NSipDnL0Mm83dyuwqHrpIwPZaP2Rcg9ykDnY6GY
-	 BpsiOFwgEapqhImlymGL6rRnlSCqZsDasIFUj8cWJWBObNzBWLYaXeKkdLbZ04KM5ZMvK
-	 F9wSRhLWEWdpg7Di+V82ujBXq4vG6ygImaz2fcthDHwd7BQ2N3+D/5/wYf0pJBxbxHSQk
-	 nkUBg0idptNlnEnGzR3sUi+9WkUcCt4255M2oDkyegDNz1oavLaQsrE1xLHMxJ9vV3dKJ
-	 ScqZ38oDiGnNiUxIWQ1UtN8xHepI+sdyEXMqh3t1lfW6M+h8OGojV5DkiA301lQPiCA==
+	t=1794839854;
+	b=JJbdyMxcubaBMiQb8EpJdys2GnJtWvwiAG/JkFfCY+GNMS91Ueyl5lvXZ5zi705CetiO
+	 4Cw9Bl12o66BEUEvRLikxSDrIo1d5zyFoMoRaHO3+vGPWdFc1vpYhNfSZOAKyTyUd/Afa
+	 x5cztMQz26441QhsyOPtBF0Jdmj2EqlWCZ5DP3rBbxahjOBnmxNBFknYFJqzcnQ+IFi9a
+	 TlPK167i920jK+GEm51c2h/KMsxcLK1NoBgu3l8EKK53UsOtQTtLxFNqjMBeM9uQVKdd1
+	 pfw9hZjKPUqqfIr3um/zYO8vGTR8Izx+pylf4XtlJgmJp4G55Asi4KD79CZEh8zZ7SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839851;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cnLyN3SDo42Ts0cPpeRwTJ3OQjij9Avhcc7a74dY1sU=;
-	b=Uz6JLzyiKWb2MLeBU/CUli5uC8nE14CZrpeoZl4apCjkT6XRCeyDAY1HSBUQ5ooC66d7
-	 p9iR6KKhEfYmPOMQF8f3m+Q7Cfo4Afw1oL4BscHguKBxOrzfxOFAMiiMqKJYtj8qvOc69
-	 5ko3lCdoK0IcDkWITvXuxmSMjl+YTn4mP9nqOxPdD4apY0ntXOtwVbYDdaQciZ7PSroeA
-	 WmwwPPmBIwSMjysokqTPjDN0SWhUGvL9mWSOI41mneEz/rAc2jLHsVIzjpbgPDYkdeR17
-	 m8XzXV/3+WPyXPnBAU0vLL5OiYMyhtUpaeMAJq2tcgf5mbIjjCjfp39S7ErMuPTUH+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839854;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=mJeLQgSQR6c585+OnRTLrz3aLLmsqMPrzGqWlEQ9tMU=;
+	b=DzOVySiGWgss8xzilXoB2zbN+uIAHCevsYnud9ao7o7XhzsjZpkyz1G94Pg2gENAK35T
+	 cYsKCSDvBkyaRC++JIhzZ+uBcaNO0E1rNJC8U0OWXdQB2LMksS6kEXVjhdRl+v8NHA/uF
+	 lLjpQpBoFql+MOV/lpBiq/k4g7wESq6kus5e1VE/J+9SH8IIO1R+xfB/DhPKD/Rysj8fQ
+	 ODKO8hJS0iYI9dCIFjoSAILH70s/C3sVL0O0heZrjuNFoMqTyKvBjIxZXKxJQqa3GhCDf
+	 zZD9AdfZONpxixHbqP3aiPMAfCyVokeQEU+OgQS54YqwcyxzrhfKy7lmBspG38r8BEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nsk7ivH4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kdPYqeFZ;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1580D606A33A;
-	Mon, 16 Nov 2026 14:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FDF606A881;
+	Mon, 16 Nov 2026 14:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FDF606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nsk7ivH4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17AD51F000C8;
-	Mon, 16 Nov 2026 14:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794839850;
-	bh=cnLyN3SDo42Ts0cPpeRwTJ3OQjij9Avhcc7a74dY1sU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Nsk7ivH4zkm3sL2aLEVd/NzHmTQ+e8khI0RzK2WdOavqoW3b/h9TAN2I9ALOjFQ/O
-	 ZqA9jAR3LTdYwOI8tLdKz8BZMMTvDGXOxJGpDa8jFGgrLVgzWpZNdc9U9J7Tj46MW9
-	 xEXFO38a7FUvY4lVKOneFogrww7QliuaboAQ5Iut1kxQQQPkdIjFMqeWt6kHeyEbpz
-	 Em/Ka2DBF+heM1tTcfE3WWBDO9AltOwNOGfKgqCVu1SnCicLeJnrmym4/RoZ6d5eyn
-	 UYxN1N17hzF9Hu8qd+ZraIi0Rz8rXtFAaGFp/3qF8AystJhelYUbykvkXI/Vn/lAmU
-	 eumRjTEyOTfWw==
-Date: Mon, 16 Nov 2026 14:37:25 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R . Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	ahuang12@lenovo.com
-Subject: Re: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file
- position on interrupted VMA lookup
-Message-ID: <avsQKLgi9bqD51W8@gremlin>
-References: <20261112140101.647-1-adrianhuang0701@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kdPYqeFZ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A55361A1605;
+	Mon, 16 Nov 2026 14:37:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7157A6023F;
+	Mon, 16 Nov 2026 14:37:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 478D611BC0BA0;
+	Mon, 16 Nov 2026 15:37:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794839849; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mJeLQgSQR6c585+OnRTLrz3aLLmsqMPrzGqWlEQ9tMU=;
+	b=kdPYqeFZxICkUypT+YwqNpM0KDvu1zvvTu+50gtmxz4duKX6XyKrYBlAFeK7ZG9P1HlhKo
+	ep/qBBo/MqUXgWAJEVr/FeU/Gyb7bekwaj7zRsZjMKbZBSILKKQJrUvGKwnnL24lxd8Wr8
+	SYy4591p56rBsSToCPEMsAA2i5q18/b6Ep1FlRzPXA5MMjJgQRuLyxKH/ze5KJ13jZApVO
+	YnT6CjG4UPV/sAuWr8uaSBF9NeA/LduzIe4zVebqP+oBiUzmKxZeNnwvn0JCulzLv6bczf
+	MYfWqL/wqRU6XPtuEtai5IJzAS4mtIocYRp/vwMlwKh3n7UL2+Wlz1RgFt35uA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Kalpesh Solanki <skalpesh942@gmail.com>,  alex.aring@gmail.com,
+  stefan@datenfreihafen.org,  davem@davemloft.net,  edumazet@kernel.org,
+  kuba@kernel.org,  pabeni@redhat.com,  horms@kernel.org,
+  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,
+  syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before
+ dereference
+In-Reply-To: <776e6791-2677-4bd1-ac00-4eef07d5a4a6@lunn.ch> (Andrew Lunn's
+	message of "Sun, 1 Nov 2026 20:43:29 +0100")
+References: <20261101092219.1278751-1-skalpesh942@gmail.com>
+	<776e6791-2677-4bd1-ac00-4eef07d5a4a6@lunn.ch>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 16 Nov 2026 15:37:23 +0100
+Message-ID: <878q2ssuzg.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,144 +78,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112140101.647-1-adrianhuang0701@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 12, 2026 at 10:01:01PM +0800, Adrian Huang (Lenovo) wrote:
-> Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
-> per-vma lock") introduced the possibility of returning -EINTR
-> from proc_get_vma() when the VMA lookup is interrupted.
+Hello,
+
+On 01/11/2026 at 20:43:29 +01, Andrew Lunn <andrew@lunn.ch> wrote:
+
+> On Sun, Nov 01, 2026 at 02:52:19PM +0530, Kalpesh Solanki wrote:
+>> A virtual network device (such as a TUN interface) can have its link
+>> type set to ARPHRD_IEEE802154 via ioctl(tun_fd, TUNSETLINK,
+>> ARPHRD_IEEE802154). However, such devices do not have an IEEE 802.15.4
+>> private context allocated (dev->ieee802154_ptr is NULL) and do not
+>> register MAC operations (dev->ml_priv / ieee802154_mlme_ops(dev) is NULL=
+).
 >
-> When this happens in m_next(), proc_get_vma() returns an error
-> pointer without updating the position index. Consequently,
-> seq_read_iter() reports:
+>> Fix this by ensuring dev->ieee802154_ptr and ieee802154_mlme_ops(dev)
+>> are non-NULL before proceeding in ieee802154_nl_get_dev(),
+>> ieee802154_dump_iface(), and ieee802154_llsec_dump_table().
 >
->   seq_file: buggy .next function m_next did not update position index
+> Did you consider the other fix? Is there a use case for setting a TUN
+> interface to ARPHRD_IEEE802154? If not, maybe return EOPNOTSUPP, or
+> EINVAL?
 
-What does seq_read_iter() 'reporting' something mean? It feels like you're
-trying to make this into something bigger than it is.
+Sorry for the delay, I was away for two weeks, but I definitely agree
+that I (we?) never intended to add tun support for WPAN devices. I don't
+think it really makes sense anyway. So yes, preventing the 802154 "TUN
+type" is likely the way to go IMHO.
 
-What you mean to say is a rate-limited pr_info() output occurs, and when a
-process that _has received a fatal signal_ (!!) somehow continues long
-enough to try to output more data, you get an pr_info().
-
-The relevant code from seq_read_iter():
-
-		if (pos == m->index) {
-			pr_info_ratelimited("buggy .next function %ps did not update position index\n",
-					    m->op->next);
-			m->index++;
-		}
-
-Anyway you should mention the fatal signal requirement clearly.
-
->
-> The above buggy message is reproduced by the following command:
->
->   # stress-ng --vma 0 -t 60
-
-OK I could reproduce the output locally. It seems that this run results in
-fatal signals being sent to the processes triggering this output.
-
-> Update the position index when VMA lookup fails, as required by
-> the seq_file interface. Also save the original position in
-> priv->last_pos so that subsequent iteration can restart from
-> the correct address without skipping or repeating a VMA.
-
-We don't really care about skipping or repeating a VMA for a process that's
-about to die :)
-
-We may as well do this but better to just hoist that to share code.
-
->
-> Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-
-This isn't really a bug, it's really cosmetic to be honest. So not sure if
-we need a cc: stable hmm.
-
-> Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
-
-See attached suggested patch that makes the comment sane + hoists the shared
-bit (dropping a silly existing comment).
-
-With that and an updated commit message should be ok.
-
-> ---
->  fs/proc/task_mmu.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 22361607020d..164b4efc5e09 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -221,6 +221,16 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
->  		if (PTR_ERR(vma) == -EAGAIN && fallback_to_mmap_lock(priv, *ppos))
->  			goto retry;
->
-> +		/*
-> +		 * seq_file checks that the position advanced before it looks at
-> +		 * the returned pointer, so an error return that leaves *ppos
-> +		 * alone is reported as a buggy ->next. Advance it, and keep
-> +		 * last_pos at the pending position so m_start() would resume
-> +		 * the lookup from there.
-> +		 */
-
-We don't want (schloppy?) comments that go into painful detail about super
-specific elements of the code.
-
-This is asking for bit rot and is too complicated to be in any way useful.
-
-> +		priv->last_pos = *ppos;
-
-This is duplicative with code below and strictly not necessary for the fix,
-better to hoist I think.
-
-> +		(*ppos)++;
-> +
->  		return vma;
->  	}
->
-> --
-> 2.43.0
->
-
-Suggested:
-
-----8<----
-From 860d936c61bb641b72135e95c291aa6dfbf5fb0f Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 16 Nov 2026 14:33:12 +0000
-Subject: [PATCH] tmp
-
----
- fs/proc/task_mmu.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 22361607020d..564e52f7ddc6 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -216,16 +216,17 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
-
- retry:
- 	vma = get_next_vma(priv, *ppos);
--	/* EINTR of EAGAIN is possible */
-+	/* Store previous position to be able to restart if needed */
-+	priv->last_pos = *ppos;
- 	if (IS_ERR(vma)) {
- 		if (PTR_ERR(vma) == -EAGAIN && fallback_to_mmap_lock(priv, *ppos))
- 			goto retry;
-
-+		/* Advance to avoid spurious buggy seq warning in dmesg */
-+		(*ppos)++;
- 		return vma;
- 	}
-
--	/* Store previous position to be able to restart if needed */
--	priv->last_pos = *ppos;
- 	if (vma) {
- 		/*
- 		 * Track the end of the reported vma to ensure position changes
---
-2.56.0
+Thanks,
+Miqu=C3=A8l
