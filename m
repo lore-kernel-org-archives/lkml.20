@@ -1,69 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797126;
-	b=ZsmfqRjoaCsNkMMhmD7Dox9431xffsPLElkKWL2OMbkXJCOSQys0hUHlMFQuZGHxJMlR
-	 GP+j+ZGDjRd4FlCJGQMJmO8ZQW1x2PfNf3nMeef+CEMX+A513OjR7pZ+NqE+81dKt9Vw1
-	 8ugNURWX6ey2HeVBTFtUdRzFgx/SnD0LcHzvK6VksKcDTHgnJnpGiG4FPJUU8EdI4Q7s/
-	 EvXyz78TW4QVjwUvGnWNyB/m0qCdZq8q1gH+mL4HFIHvT0jPJy5vivTruGgOw2a3TLEWw
-	 wA3uSfcU2Pca0/dwQCDFAlHR6beSJLqGQy+E1dbV9RzVP3AVI19azAchpN1oKbAYszA==
+	t=1794797219;
+	b=ARKSdtXp5WZx0YyhIi+THX2ssIYtwYf8/dLF82KYWRS5eF1InxJWfM4IA5m4j5SzjVW9
+	 OQS1CwAzYfhhUY07ZfAIp34q7yQrN68ZiKEjOdotPrcCtf6QD0SDl3WiGHlODhxUL5r8a
+	 VmyWn5qMQk+gJnFHXc8d6Ew4vStwiw6j0Ch4oxtWC3LFM0fzWeczhzlMNm8ngzYkO8hv+
+	 iX3Sj/ldroC00eGCoB1xM/qmnxKdpm3JnQ8dQo2orTNx2O8b+f5iFjrtvCxeBPWa6psll
+	 ck3zCfrBfLguf1nnKXtmPuFLsFbRoEDxparXxYegCeApFhmie65sEOg5T/ftdlog0Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797126;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=e25WW/amuSc0f/SwPuvo2lf7qCMr2sS7EIXdFwIzN9I=;
-	b=aOBlL/h3pIZA5UdBne2qjgX6O+VFpXSebBmR3o0icgJ1MZt8pV5cBjLjwslJ3Zxwpreb
-	 alx/gxh6owuf9VuXC10D7eJdNXg9MHOdVjPTAcS9CWhMhOmAo6uKYAkxv+Ms+RAk39YJ8
-	 Nv9N/V2pNzbUiXARVDexwoby0mNicfth8shf4LvC8uY6kT9w2jSJdfz8SdXANsuNjpFll
-	 m67olpPxCde4r3BChnudioeQ7fEwZh7aLnYmVpKkwIoTB8I82vU4LGfTd+O1pOSt9Z/16
-	 zaaAAaCGTFW+Dmk+3Oq3+hJoH/0DpU3Um/nLaPxsm4uuORG1WCegXR0qgvwpgmPb7lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797219;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=bJ6zQJ+d4ghqmxHcyVoo4p8quIchGY2srwMKzAjG3lo=;
+	b=MHVIaBLIomEVHL3zEaY0jq4SJ6EQWZv7pGU6WHl5MpcXguyVW0qf3u5DWAKOBYOJVoEh
+	 JxODdYCIHyCG0zRc4pYFGWDvJovo+PBWxMp0lV0Bf3zcWrQ2aF1PZdq7gq8gTiC75S4AS
+	 DkiBWX1q0KIca+jaerQUrI8QCcDcX07dPXv0CobytduomgbnF1OqyzS69gRpSHupPsE2k
+	 Xoc28CdlIY791nHUJAStcpW7LMV2V6CbuVnPUoZWV6q2ycSgUz7sAZDp6nzcTrPIG9AxF
+	 JW2fUOXGGmgFpTBrD0Ri+wELI4mu4FLO9/afyC+50k1h11SMCKtAD7Z0wKXaBTbzZzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=w9dmxDnR;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F7C606A323;
-	Mon, 16 Nov 2026 02:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7F7C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: bea6e4cee16711f19a56ed5b684f684d-20261116
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a7ee28e0-2522-4ae8-8a7e-66e9980f0d6e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:02734c91e1313642b361f95b2c94793a,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bea6e4cee16711f19a56ed5b684f684d-20261116
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 537824501; Mon, 16 Nov 2026 10:45:12 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	leStoppe <lestoppe@gmail.com>,
-	Craig Hesling <craig@hesling.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH v2] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
-Date: Mon, 16 Nov 2026 10:45:07 +0800
-Message-Id: <20261116024507.2633503-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261015025456.3927808-1-huangwei@kylinos.cn>
-References: <20260810091322.2201740-1-huangwei@kylinos.cn> <20261015025456.3927808-1-huangwei@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D825F606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:46:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D825F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=w9dmxDnR
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id SPXHxJ66w4vCDSmkDx7OL2; Mon, 16 Nov 2026 02:46:58 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SmkCxCsXk3nNNSmkDxb7ZJ; Mon, 16 Nov 2026 02:46:57 +0000
+X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6afa6ea1
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=L0PWDpQY-NtK-K_AShAA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=bJ6zQJ+d4ghqmxHcyVoo4p8quIchGY2srwMKzAjG3lo=; b=w9dmxDnRfDNu
+	rI7YGuRtFLY5GnNnhQlkSTY64XfPXJ+TcQ90gi4SUE6sklbuNQvtQlu1CIO+wfBm56mn1uCfOy8OZ
+	cawOYs9R34mTPSXLti1YaI0ds+0DfbY7FJC0NnxBmje9QBrd54vyQJv4zQU/7GYUXp91maJvd6yEE
+	wZ9gs64PYIqT0t8WdBFYH+pPdY0mB2Yp+Lphhvy7Drk3Id1+gxLBiJgx88jgBAV6lxhc/kKhe0WDz
+	bZLW9hYDbgdpL2xse5TWxzbBc95kRydGxKgGMGE0Mp/R+8pMSo7n/gZhD2AGL/X75wGA6fHt9egIO
+	ptci6IopfO2o03qSphTTZQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:41278)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSmkC-00000002Yqg-2fjc;
+	Mon, 16 Nov 2026 08:16:56 +0530
+Message-ID: <a0f9b726-d877-42cd-aebe-7cd727a6c98c@roeck-us.net>
+Date: Sun, 15 Nov 2026 18:46:55 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,19 +75,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] hwmon: add three more board models
+To: Eugene Shalygin <eugene.shalygin@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261115143708.492883-1-eugene.shalygin@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261115143708.492883-1-eugene.shalygin@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSmkC-00000002Yqg-2fjc
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:41278
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHIHb8EgSr3EmYPezGAGMCNIk5hYf+dil2MzMAwfdUW3CnpeuZOZplUlglGPaxic6EC/7R5LCoLNUSCCN5W+2Pr20jVHaoQtQIyEzE/1qtbGiRcRRj9P
+ BgQ35JyFhm54yhxEbem4i27xh4rRHGn2rjfo4DFSwHjkjryPdOZmtZ8VBy28c9a9mFcZK3xTD2UcNc1uQo6oYaQhEFjo1iA0NpwDU9UpLW3Lq063YKWgvgG1
 
-Hi Johan,
-
-Following up on this thread. The last open question from the November
-3rd analysis is how to proceed given that the VDS1022I reports the
-same interface tuple (5, 0, 0) as the HDS200 - the interface-level
-narrowing doesn't reliably separate the device families.
-
-The v2 is ready if the full-tuple approach is acceptable, but given
-the new data it may need to be reverted to the original broad match
-or approached differently. Could you share your preference when you
-get a chance?
+On 11/15/26 06:25, Eugene Shalygin wrote:
+> Add three boars, submitted by users via GitHub repo.
+> 
+> Eugene Shalygin (1):
+>    hwmon: (asus-ec-sensors) add ROG CROSSHAIR X870E DARK HERO
+> 
+> John Roden (1):
+>    hwmon: (asus-ec-sensors) add ROG STRIX X670E-F GAMING WIFI
+> 
+> Kostiantyn Korn (1):
+>    hwmon: (asus-ec-sensors) Add support for PRIME Z590-A
+> 
+>   Documentation/hwmon/asus_ec_sensors.rst |  3 +++
+>   drivers/hwmon/asus-ec-sensors.c         | 34 +++++++++++++++++++++++++
+>   2 files changed, 37 insertions(+)
+> 
+Series applied.
 
 Thanks,
-Huang Wei
+Guenter
+
