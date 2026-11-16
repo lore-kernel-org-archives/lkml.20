@@ -1,121 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794871171;
-	b=sxQpHghpoHSgZmqYCnrf5ZETcs2a/sTfvJa67pl5LYeP0cU9PZVgCLwX1qXbIokymfmo
-	 1HO0sb0SpT95FjXrQ0pKKDELGEdqBs2GbLd3yT2BMZ+2D7pxc1yhQhx2EUhCNE5/5z+6n
-	 kEWyVyb3ZTiMU1YbWcEiG9PGKl8LMRJAQ17TCP0j0MmIV92KfzI7VeNALNSFYF+7sztnX
-	 EkKu1rE1Zen/fFSaxFrpoclrBxxArJlkYs6saUEAEOfGhk0oy2vL5jHkoOqe35wNqV/z5
-	 XN3xK+/mZGvWa7vxSSL/zOWf2isKGfE6KGzJXguJOWAMNEZ782/vRfdbdyfEACvkGug==
+	t=1794871174;
+	b=yxuwdPCexe4W5jQNRvXFvAWn4k4AKx8HzF20AB9+MA694YdyO6YuOWeDkgCLhjY4TFjV
+	 Pzz0R4O7xSs3B9IdhPTP46bOlejQMOZ32iNZlk/bPcaOds1JzRTVN834+Kk8muTjRAN9N
+	 kH5bK4u018oAN2ZLip4RrroFN0ik6xdRsHBx2Poz0OT0WR21apB5OS0MwbUt8s3kb1WE3
+	 uH6Co4YyG5WPTxfy3j/W6l5xbpcgbOen9ntgaV0ISaKyPw1nV7jtYerIhpkOoznrPaLbD
+	 rB0mSXeorqJEYAMznZfEIeMeOf8351kPMA9g5sYYGANZuocINlSTYXi8uZwwhptCCRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794871171;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794871174;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3mi2MURLq2D9TIEmt+9IdF6d4vDvoX02siG9m/EXZ/Q=;
-	b=jScSp+CMDRrACK6Ob3oYGG9pGg2XjszAYOejOzm8L9XSD601ogic3VXEkIsoGRWmSLAd
-	 JA6KK27Peq+rTU0XpAZGXRXhMSVlobAWMA2BDXAA24TYejpmoK4rXhdI/N06Ov/t0+TQh
-	 gNYYIy5XrKUuWowTvi+0PVT7JkLYBzgjYI2IuJV56O3F+QvkURxLIFMUd1Kacld/Hcrw3
-	 am6y8JpoRBY/CpjLUImHT9mrTIfp3YNaEhnL3N7cC6wex8gGRAXGxiFS0dAXKRUfind3A
-	 dy/TqCQ3MZxZMBn0T/4iZvTWiCi4c7WKhZUsA259cA77lH8Ei8so92JhAu3srQIEEcw==
+	bh=jw2CbGEioaYFyvgvzlTesDNeS0REYhiPWP30MLKwFJk=;
+	b=oFPmcs6Xno4Pi+yFXxQo7ubUYmgwGiuHySP9oByLVIQQrKh0kq3ExDEVfypIEl/ogThZ
+	 Q9s+YZxa3CeBaAt6TQCOv9yDJMF77jJbAakQW3ui3CD5DJ4O1kiUT9cihnAxkLVhYCWP1
+	 WmClZmyeA7TdR7bHQvr8/sx7M77ooSPjvO1NBZa5nlpA9KSuj1UkhgCuM5QwN2F9kegB1
+	 BWXTv5AjzCctBtVurnmu3Gn1s0ZrQNQjYS0gjiK47Qzl0Dkt8UYzF+8K/lWRTxSi+Qljh
+	 CC8zQBMraaXuhAFxQHNJ1SprAqMLMqRybef8h5DIt/jihXFvwTzK468X5TMBqwWOTaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=oDdQA7LW;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YtYuZmgC;
-	arc=none smtp.remote-ip=103.168.172.154
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K0VBv9+u;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A51E606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:19:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A51E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B270606A332
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:19:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B270606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=oDdQA7LW;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YtYuZmgC
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5A30C14000C1
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:19:29 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Mon, 16 Nov 2026 18:19:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794871169; x=1794957569; bh=3mi2MURLq2D9TIEmt+9Id
-	F6d4vDvoX02siG9m/EXZ/Q=; b=oDdQA7LWbhN0QhIsXgBZiOWEbwKIHKtrymJOa
-	IqkCI+MjeWAc+R3daAeoHXGHs0G031/Fn++YxjXZISFoFb1BZBse4+tTTNel59cu
-	RB686NXi6UlUlUiwQ0A18b3VG7MGaBAYZyoQp9ieimSUP5bUFVFbAbgSbX5HF9zr
-	Gphuhw+DNoN9YzESHWVfVRvgKzh+bUAMSdSjZ4hHZspT8FfmyiOteg4YITDajtDT
-	4Gew16y6uP0yH3/m/KsEcy1Av37xlvIarH1NHwU29wTO2xSn9Obldm4J0Pn5S0r1
-	FBNtXY6W+0LxKNTSIHE0/x2efSAuq1ucKHr7tJHNwz9SHzixQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794871169; x=1794957569; bh=3mi2MURLq2D9TIEmt+9IdF6d4vDvoX02siG
-	9m/EXZ/Q=; b=YtYuZmgCF08Rm1tZ3cHREAeKNFcElzeb8YY97NfZx2xov74QNi+
-	NvAla9b7AxzQIVYvhT3ohMFvSnn3Xz7WC9vQMrFRx/FEAS0y0VjvSMpVfWNX2QPg
-	2/mJdROoHW8G5zozXux1A1LzO86tWIP2jGg1FUL4ODO888g6VRJsXBEIY8Tpnx+2
-	DjvpaoLdGBgg5Rhsg715yENe048ax48pJH6QC8J2yhQnSTfFfSy4IcvcIlz1dxkg
-	iq0p3UGxVsczUGsf0DAvpn6kMDVrA3/HvETUzUBX05zZ3qabBCnxCxrOw3GOs/n3
-	3uVcHYFUhh4xTM7OUXfIQXIUA7vqLxRPw1w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794871169; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:TWc9lkGcLkrHnr6M/cgvKRQZmv9jjrO0Sgmh5RvkAHPLLSh
-	RdPB4OFZNrutsBne2qaN8NP6NIjlplnRjFrNkKApxg4xj2fktei+MR6m2arCE/oh
-	ATcynU9OVfKpd+hLn71nNjcFBySFG3+95WJMuH9cv2Bq5VWtWqL/iBf3H3H8x0jR
-	KA8ymkIpFmcDRMspPJrKD4Cu8XhuyIbxW7WdRJ+bIWoAah7TRdv59PFv7dDFxhYO
-	iG7XOJQrsbkaUbz7fYuaOmOC3QlrMlwkXfki+I8Qon+1Q0jr8+hsrS+ARXRYurkJ
-	mjBRrnkRLjNpO3GF1UzWao7Y6lI3RyYFBoPPJsA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:b6FQydsq1+h+6suAH3fF7YJvYhrnYOotW+K/d2iLT4Y=:dNM9bpy/xvzf6D0nJQQ3e9zQR3sDaeTN/Si/+ssW2AY=;
-X-ME-Sender: <xms:gI_7ahUsCJVDX-fsGLhbiO9qxP2Q3y4RiLs1gCuwixUsbitHARsC8g>
-    <xme:gI_7aiQRITQt5sAnLDmyPwpYVvwamWLQnbH0Yo9BWEpBzkYBcv7zaVpnz8vf7ilQ3
-    a_qrEh-sxIYaLP-joyMVqRwR9or_tgaPDZC2hTIGf3UCqnZPRIV6YPb>
-X-ME-Received: <xmr:gI_7arl4XzSU3fLMCSkieAhgWg5NVnG-ellUhvHLYaIwq0TPSJUH8YOzKn3clV6k>
-X-ME-Proxy-Cause: dmFkZTEJ3CIJfA1hP7YHW35UPoQyEUprrj/QGnRwhNqllrS4EIgFkJcv7DS3V4CSaIZ4J1
-    4nc9AyIyYqDOm8mF88XeG+0fDyP6ODfK+HjQHDnis5nSd4+7mNmd/+C4dzhq6s07qavSgI
-    wNBEer5Y70x3cS9X9BhlC2axmBUaVhlX3RhBUJ4yZAhTBUzVXgyE07l3OWq54fahLgeLN2
-    Pn2yDmw0BX1jziKOn0safIqruKK4tJxHRkq+kJ+8nutghqDX5KmT3NnAKXn5KhQgY9eYFI
-    QzQMOK4U8l0erXoUOHIkrPx52zuF8K+WJJlFmxHpehRl7muVbngMk1QTvOF6kefQdasyVZ
-    XKhMqf1YPePOgspFkyDAQO011IoSVzS/NNoB8tYZBl4xm3/z90oBrP5LUIcwhouq424Xeq
-    O557Yd2qYKEZZAV21muf09/tozKIPPMD2t01dt+gv3FZUIqhuRjdMLbTUMt0v5q9I0NJje
-    i9OnmK3ofFO6HCD5LBDvrCUxvtY+0Xh1zKp2cmx5Mx4WZ6e5HyeUmiWi5rI+6PLxlQUzz+
-    iyim3t8V54487D+i4rD+Zc8aiku30AJxHYB2MCViq6CIwL7CFu8EuhELBnTH7hS5Mo0L9P
-    DxV6Scd/JT41bBPG8BI1BQJI/J9pDzmL1P1pLH+gxnG2uy5rx0DNaCi0HPkA
-X-ME-Proxy: <xmx:gI_7ao789R3IC5wF7E5sD6FwCo9FtBu66S13S_p7TOc-kIjk2iNTUw>
-    <xmx:gI_7ahh4Zi34FpOocrz9Jbc7S_58EhoZnwkxkwfYnq_4C5qrszHPWA>
-    <xmx:gI_7alGtD3n0ML3MvicXF94fO7TqJZODT5259-u4AQrPjW3c5n-mQg>
-    <xmx:gI_7anRPnDkaNQcbDimVtcGLuFnxQ3reKRKICrKCcCfs0vs8DZdKZA>
-    <xmx:gY_7asKaWJNPnchssTN5L6ZAzn88ta7ivbQin52lzo6TRW8JiUR-398x>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 18:19:27 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: [PATCH] ksmbd: store the security descriptor from a copy
-Date: Mon, 16 Nov 2026 17:19:23 -0600
-Message-ID: <20261116231923.2587994-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K0VBv9+u
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so4861404c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:19:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794871173; x=1795475973; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jw2CbGEioaYFyvgvzlTesDNeS0REYhiPWP30MLKwFJk=;
+        b=K0VBv9+uEAW3U1m3nHj/RhxFnyVzTfOxeu0Dug6e00X2cDNWWUuJ3l0jnxg6MfLDtP
+         bAEUS/hKP74/CzEouyE5o2qene3PrbGhHbIICN+6+HyuVl6q0Ak7ZGaAl4G60yQOMKU3
+         oT1jyVcoX9d3U+HDGhXNt4IZGknaIykItdV0VytANiydDs8+873IlJXCio8TLAIdWaZX
+         0LLoJTq+V5z0as8wxa14ak6qgB02H3JszpBRUrpWTCZx03Q6t9ASYq+CKYW5WX03o+hw
+         SLwIqAJzLCawiTLUHvtSAFuq5VelxQhCJYVGxrfxVRbWBw3ra8VIJmJ2R+KORynNsDNw
+         TATg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794871173; x=1795475973;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jw2CbGEioaYFyvgvzlTesDNeS0REYhiPWP30MLKwFJk=;
+        b=qMXttvf1fZeKbZUeJCKOsSpwwGKQ+WPrfMAtAAJE9GuqC8dVJp6T2w/SnHOTSxItaa
+         LyYx39taEDEqjxmP6/WX0E/zSKkctHhCVfFh+TPyiE4pQF6qzK6KYK5gbTS2gszRycSS
+         cdsZrI/aSDs8UqH9j0E8dqKT+tXPxJMAVfKRnLHBRsyQGMqrRVmWwTn6PVeOrkiOKUfu
+         JGaWC2XP2zKHVkHivwl+7MAZ/7h3cVkutPNzCsOYbCibop/l6JJExE2myh4xdgJWwXUg
+         uOjfc15ZH15AqRJk/E5r7PdtIVAmyMQO268WT6a5AvZvN873ZkZI4uWh3UwQUtFvsZn/
+         /6Hw==
+X-Forwarded-Encrypted: i=1; AL+hErFrPzOuSG3M9kWkjs43gKoDoXPiLD91Y/RVPdwD+UKkghml1R/phl32lrtbJUZJBoG4SZN4YY5eXGBoSIs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9s1yAP8pK/znBYmuTYUZox+EgFt9IzWiXFz1v6UbojdmFvPCV8
+	iMxln8W5kGCkzDVLPzOczA8O1ofDnwM5JG5i4KIj+KKedM3FcgAuh1w=
+X-Gm-Gg: AZFdTZcDX78c/tN35PMq6qkGVzCzAewmwojUUbNGrqOHTyXYu3BXzuS6BZNroG1187/
+	w5x7GI/Q48Q+dARFOgEBPT65xpfz7IkRyn7ULgEIaMbQugaF0CRJWiF5vs/1Z1/S2Q25G0Ko2Ge
+	dOwtwf0TZg1uCY9ZUGf7uyk2/pjKFB1SjqfBSbzJgryjHeFTNOHzVfXs2B8xey57e3uTJqldl2v
+	BioVjR9ZM1cMoaS398uZH8tdF/qIdg6K9kMCPz/RsJ+BpocojKUqMttdhESBOOoRp06sjX33VIz
+	LoIoeAuxoh9qajNAiWsTCjJDulJidp6+4RXM2ndeJ67w1b+2czxWpDjgjQljIpSeBYc+18Kb0y/
+	1pbaFnLx64BGLOSBJEEgpGhmfI4xVXKj1Vr/sSK5WziquoRCQOwfmQL7Mr67iQaD1b8N2nZTgVK
+	iA7gvMmmr/NZ2Xzc7BgwisNDXZDps6c830nHu8Gce+MsmFWwwVyb5zdNfotBXu4glHFCj98j+tF
+	PXt0hjZLLkUi3ieYc57lDFcEfJ8iuqa8S8A57vJmp/d4GeKfReKUwvLnGZotJwjRC8BEO/taNIA
+	iPRGDI2cSCk3goiL7WyVSEP7bgaVISu42vGiGMJQcI8ci50I+wuiY7RUl6ASe7V5L1k=
+X-Received: by 2002:a05:7301:4d07:b0:375:87f5:ccee with SMTP id 5a478bee46e88-379684b56e7mr12857126eec.29.1794871173283;
+        Mon, 16 Nov 2026 15:19:33 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.190])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm56940788eec.8.2026.11.16.15.19.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 15:19:32 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org (open list:USB XHCI DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] usb: xhci-pci: Add Power handling for Card readers on Apple systems
+Date: Mon, 16 Nov 2026 18:19:24 -0500
+Message-ID: <20261116231926.5891-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,162 +99,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Storing a security descriptor changes the buffer passed by the caller.
-ksmbd_vfs_set_sd_xattr() adjusts three offsets for the on-disk format in
-place. For SET_INFO, and for CREATE with a security descriptor context,
-this modifies the client's request buffer. Current callers do not reuse
-the descriptor after storing it, but a later reader would find incorrect
-offsets.
+Add Power handling for Card readers on Apple systems using SPWR
+ACPI method, SPWR(1) turns on the card reader, SPWR(0) turns off
+the card reader, on newer systems SPWR just write a variable in EC.
+On previous systems it writes to GPIO pins.
 
-Adjust the offsets in a private copy and make the input argument const.
-Reject a length shorter than the descriptor header before copying it.
-This keeps the caller's data intact and preserves the stored format.
+It also used by the macOS driver with the function
+AppleUSB30XHCICardReaderPort::setDevicePower in AppleUSBXHCIPCI.kext.
 
-Add a KUnit test that checks the input stays unchanged after a
-successful store and after a short length is rejected.
+(This should fix https://bugzilla.kernel.org/show_bug.cgi?id=111201
+ But thats not confirmed)
 
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+(Tested on iMac20,1)
+
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
+ drivers/usb/host/xhci-pci.c | 17 +++++++++++++++++
+ drivers/usb/host/xhci.h     |  1 +
+ 2 files changed, 18 insertions(+)
 
-This is a cleanup. Current callers do not reuse the descriptor after
-storing it, so the patch fixes no bug today.
-
-Tested on ksmbd-for-next 2746a02296a7 with KASAN. Stored descriptors and
-security query results match the base for SET_INFO, CREATE, inheritance
-and default descriptors. KUnit passes with GCC and clang, and the new
-test detects the input changes made by the old code. smbtorture results
-match the base.
-
-This patch was developed with LLM assistance.
-
- fs/smb/server/tests/smbacl_kunit.c | 36 ++++++++++++++++++++++++++++++
- fs/smb/server/vfs.c                | 26 ++++++++++++++-------
- fs/smb/server/vfs.h                |  2 +-
- 3 files changed, 55 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/server/tests/smbacl_kunit.c b/fs/smb/server/tests/smbacl_kunit.c
-index 39c9f8bb1ea7..37d21c10a144 100644
---- a/fs/smb/server/tests/smbacl_kunit.c
-+++ b/fs/smb/server/tests/smbacl_kunit.c
-@@ -280,10 +280,46 @@ ksmbd_smb_check_perm_dacl_maximal_boundary_test(struct kunit *test)
- 	fput(file);
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index e278db940..0cbecbbbb 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -15,6 +15,7 @@
+ #include <linux/reset.h>
+ #include <linux/suspend.h>
+ #include <linux/bitfield.h>
++#include <linux/platform_data/x86/apple.h>
+ 
+ #include "xhci.h"
+ #include "xhci-trace.h"
+@@ -517,6 +518,16 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+ 	if (xhci->hci_version >= 0x120)
+ 		xhci->quirks |= XHCI_DEFAULT_PM_RUNTIME_ALLOW;
+ 
++	/* On Apple Machine with Card readers, we have to use SPWR(0/1) to turn
++	 * off/on the card reader, And on boot the card reader is off, so we turn
++	 * it on.
++	 */
++	if (x86_apple_machine && ACPI_HANDLE(&pdev->dev) &&
++			acpi_has_method(ACPI_HANDLE(&pdev->dev), "SPWR")) {
++		acpi_execute_simple_method(ACPI_HANDLE(&pdev->dev), "SPWR", 1);
++		xhci->quirks |= XHCI_APPLE_CARD_READER_POWER;
++	}
++
+ 	if (xhci->quirks & XHCI_RESET_ON_RESUME)
+ 		xhci_dbg_trace(xhci, trace_xhci_dbg_quirks,
+ 				"QUIRK: Resetting on resume");
+@@ -853,6 +864,9 @@ static int xhci_pci_suspend(struct usb_hcd *hcd, bool do_wakeup)
+ 	/* synchronize irq when using MSI-X */
+ 	xhci_msix_sync_irqs(xhci);
+ 
++	if (xhci->quirks & XHCI_APPLE_CARD_READER_POWER)
++		acpi_execute_simple_method(ACPI_HANDLE(&pdev->dev), "SPWR", 0);
++
+ 	if (ret && (xhci->quirks & XHCI_SSIC_PORT_UNUSED))
+ 		xhci_ssic_port_unused_quirk(hcd, false);
+ 
+@@ -895,6 +909,9 @@ static int xhci_pci_resume(struct usb_hcd *hcd, pm_message_t msg)
+ 	if (xhci->quirks & XHCI_PME_STUCK_QUIRK)
+ 		xhci_pme_quirk(hcd);
+ 
++	if (xhci->quirks & XHCI_APPLE_CARD_READER_POWER)
++		acpi_execute_simple_method(ACPI_HANDLE(&pdev->dev), "SPWR", 1);
++
+ 	return xhci_resume(xhci, power_lost, is_auto_resume);
  }
  
-+/*
-+ * Storing a descriptor must leave the caller's buffer unchanged.
-+ * Check both a successful store and rejection of a short length.
-+ */
-+static void ksmbd_vfs_set_sd_xattr_keeps_caller_sd_test(struct kunit *test)
-+{
-+	struct file *file;
-+	struct smb_ntsd *pntsd, *orig;
-+	int ntsd_size, rc;
-+
-+	pntsd = build_boundary_ntsd(test, &test_owner_sid, FILE_READ_DATA,
-+				    FILE_WRITE_DATA, &ntsd_size);
-+	KUNIT_ASSERT_NOT_NULL(test, pntsd);
-+	orig = kunit_kmalloc(test, ntsd_size, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, orig);
-+	memcpy(orig, pntsd, ntsd_size);
-+
-+	file = shmem_file_setup("ksmbd-kunit-sd-copy", 0,
-+				mk_vma_flags(VMA_NORESERVE_BIT));
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, file);
-+
-+	rc = ksmbd_vfs_set_sd_xattr(NULL, mnt_idmap(file->f_path.mnt),
-+				    &file->f_path, pntsd, ntsd_size);
-+	KUNIT_EXPECT_EQ(test, 0, rc);
-+	KUNIT_EXPECT_MEMEQ(test, pntsd, orig, ntsd_size);
-+
-+	rc = ksmbd_vfs_set_sd_xattr(NULL, mnt_idmap(file->f_path.mnt),
-+				    &file->f_path, pntsd,
-+				    sizeof(struct smb_ntsd) - 1);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, rc);
-+	KUNIT_EXPECT_MEMEQ(test, pntsd, orig, ntsd_size);
-+
-+	fput(file);
-+}
-+
- static struct kunit_case ksmbd_smbacl_test_cases[] = {
- 	KUNIT_CASE(ksmbd_dacl_walk_must_stop_at_declared_size),
- 	KUNIT_CASE(ksmbd_smb_check_perm_dacl_boundary_test),
- 	KUNIT_CASE(ksmbd_smb_check_perm_dacl_maximal_boundary_test),
-+	KUNIT_CASE(ksmbd_vfs_set_sd_xattr_keeps_caller_sd_test),
- 	{}
- };
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index ec4bfeb48..579ddea52 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -1652,6 +1652,7 @@ struct xhci_hcd {
+ #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
+ #define XHCI_ETRON_HOST	BIT_ULL(49)
+ #define XHCI_LIMIT_ENDPOINT_INTERVAL_9 BIT_ULL(50)
++#define XHCI_APPLE_CARD_READER_POWER	BIT_ULL(51)
  
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 111321b131bb..1114f2503ea7 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1699,7 +1699,7 @@ static struct xattr_smb_acl *ksmbd_vfs_make_xattr_posix_acl(const struct mnt_idm
- int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- 			   const struct mnt_idmap *idmap,
- 			   const struct path *path,
--			   struct smb_ntsd *pntsd, int len)
-+			   const struct smb_ntsd *pntsd, int len)
- {
- 	int rc;
- 	struct ndr sd_ndr = {0}, acl_ndr = {0};
-@@ -1707,6 +1707,15 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- 	struct xattr_smb_acl *smb_acl, *def_smb_acl = NULL;
- 	struct dentry *dentry = path->dentry;
- 	struct inode *inode = d_inode(dentry);
-+	struct smb_ntsd *sd;
-+
-+	if (len < (int)sizeof(struct smb_ntsd))
-+		return -EINVAL;
-+
-+	/* Shift the offsets in a copy and leave the caller's SD as it is */
-+	sd = kmemdup(pntsd, len, KSMBD_DEFAULT_GFP);
-+	if (!sd)
-+		return -ENOMEM;
- 
- 	acl.version = 4;
- 	acl.hash_type = XATTR_SD_HASH_TYPE_SHA256;
-@@ -1715,14 +1724,14 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- 	memcpy(acl.desc, "posix_acl", 9);
- 	acl.desc_len = 10;
- 
--	pntsd->osidoffset =
--		cpu_to_le32(le32_to_cpu(pntsd->osidoffset) + NDR_NTSD_OFFSETOF);
--	pntsd->gsidoffset =
--		cpu_to_le32(le32_to_cpu(pntsd->gsidoffset) + NDR_NTSD_OFFSETOF);
--	pntsd->dacloffset =
--		cpu_to_le32(le32_to_cpu(pntsd->dacloffset) + NDR_NTSD_OFFSETOF);
-+	sd->osidoffset =
-+		cpu_to_le32(le32_to_cpu(sd->osidoffset) + NDR_NTSD_OFFSETOF);
-+	sd->gsidoffset =
-+		cpu_to_le32(le32_to_cpu(sd->gsidoffset) + NDR_NTSD_OFFSETOF);
-+	sd->dacloffset =
-+		cpu_to_le32(le32_to_cpu(sd->dacloffset) + NDR_NTSD_OFFSETOF);
- 
--	acl.sd_buf = (char *)pntsd;
-+	acl.sd_buf = sd;
- 	acl.sd_size = len;
- 
- 	sha256(acl.sd_buf, acl.sd_size, acl.hash);
-@@ -1765,6 +1774,7 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- 	kfree(acl_ndr.data);
- 	kfree(smb_acl);
- 	kfree(def_smb_acl);
-+	kfree(sd);
- 	return rc;
- }
- EXPORT_SYMBOL_IF_KUNIT(ksmbd_vfs_set_sd_xattr);
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 8568184ff05b..fb184546d26b 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -164,7 +164,7 @@ int ksmbd_vfs_remove_sd_xattrs(const struct mnt_idmap *idmap, const struct path
- int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- 			   const struct mnt_idmap *idmap,
- 			   const struct path *path,
--			   struct smb_ntsd *pntsd, int len);
-+			   const struct smb_ntsd *pntsd, int len);
- int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 			   const struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
+ 	unsigned int		num_active_eps;
+ 	unsigned int		limit_active_eps;
 -- 
-2.47.3
+2.55.0
 
