@@ -1,62 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858575;
-	b=rEUJKFkBGXX+5tez/R3GNu/9f2XQ4s39h9RY/ryhiqhGts4k8HzI0yD/SCiCb1cpwa/y
-	 NzdnJeT3k2/3qbjPc1niydL0aERrADYh44LeS4VW4Ch3mam/djGxyvQPtNtJS1epl5+Oa
-	 cW22ERm+uadZWnAoB1aVldBG8iKNJ+0KaxgnHFccu0gTzGX05h/q6muvAiSrL6zOADzGe
-	 vOsEkoTPabTL8dslDLU+urTMYogfup6V+A8b6qMiNSDSxQB4czUsocdao70mMPAUQt4gf
-	 n0PPfqFMIXd30MwCvfxEw7W0TnHsUKidSjsb109uYHSv3QqZp6lkNEVgXIQtmiqX7vw==
+	t=1794858606;
+	b=UxcNHPe+EWplM0sIABOodtFRAU9vxz1lAWxiIwGCL9XFWUT8UaGBnHXyttz4QwHXwT9P
+	 FVQd+tglJwPrAhIxsBSV8eCmcTqgwas0h720Ln1ruV+BBTPPSM2wORBSqpuY22aL2kPKH
+	 TbKYhJehl8nxQsIYz5XRmX+B+pDqxnMJUL9WLArfQfO/bPXg6JUOf1G9QGkgrnOCYumf0
+	 EPk0papinU4OUCy13uDNHRsX5p+iqBRLKJZaM+ZTiYG/7+DEfbO0u6v/DzRAzsiYvJO2I
+	 Cmx7fOqJAeo5AN1gqrxRyj1fN9PSxmS7E/bi3nIx8XMfdzOgLCWIdJwVGv6bnxfyVlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858575;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=OTGtWs9a3gMImL7KSXTzsJvanhxlJQWi8e+1/QuInqk=;
-	b=v5hwaphk1AlfW8a9n1mb4e1OA3Jh3Uz0GnTC+H8CgqY796vnbbPs8i2Flqg8PUxN+EAC
-	 AyvHJUARcuco72nWmiwXL0+h94bgMO0f49hfAxXqq9yo1UWwu1ooyk3GscfmaBWrVMeW7
-	 RaJ8Tcr/dKw1VyKllcP0PdNER+Hv5mj9eR3Ct6kXIeeiWWZzuCRYZOrEXw3KbPBVAyKum
-	 4I+cide/F7Zxf/1aRNgSLlXcpCkedA5KWa6p5hOnkGlgpId8Em7/GLKHDfMeTh8muY84s
-	 ooZtxzIaElEVkKV0zoju5obAKTpVfzNbJz9KTe4EU9JvcI1pTpvfrhWHy+pGIKeY54Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=V49zu2a0OXh5byS4ObEAoax3uiBQLwDETUojZMbuRu4=;
+	b=QXEYvrnW2p1UPMaiTj7tRUvbpDvBxk6iMdjKm+dHtNbl34HYTCz50JqLoCmQgTjvTbyG
+	 lhiCxUnfH9gRQn9cf9lm3GwuFjLel6xH1a/03V6+BsC/OolzXL4TKYe26yFPSD2iwdz5R
+	 J/Kr3JIGs2ZoHEKk985iSQvigPQlmyoTMTtd3QYw1zLMERooBuiVAvOFpGYgfBlqzhAqV
+	 iSgdRHEqW2gxTutPlFsPQFUiUtSTEE5yblvm12S0Ff17k7YylU1//F7Qc7BkCwX7Bkp5G
+	 7Q1bVRDyy8BZyZSS6ueE32jX8hDRPK0eiq0UM0PhqTXaTn0x2VBbeAhHE6CldpJ6Log==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1wt.eu;
-	spf=pass smtp.mailfrom=1wt.eu;
-	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=JF7WNPGM;
-	arc=none smtp.remote-ip=51.159.59.229
-Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUZ0GfrA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FA3606A31C;
-	Mon, 16 Nov 2026 19:49:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8FA3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749AB606A31C;
+	Mon, 16 Nov 2026 19:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=JF7WNPGM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1794858572; bh=OTGtWs9a3gMImL7KSXTzsJvanhxlJQWi8e+1/QuInqk=;
-	h=From:Message-ID:From;
-	b=JF7WNPGMmyCXgQWol/tZKz/dwyTZ9hNkiC/tu32A3CYqztnvc6LqBt5CNp779Lz4B
-	 kZdNUsr5404kS99hV6gl+UuXTiqi7TKHoEGtSppWyvtslELr/6w5XSoaHTR6h/jq+C
-	 b/wqIVvGAz/3caQh+JqlwHv88lNr1+KCjRXuneGw=
-Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id C71D6C094A;
-	Mon, 16 Nov 2026 20:49:32 +0100 (CET)
-Date: Mon, 16 Nov 2026 20:49:32 +0100
-From: Willy Tarreau <w@1wt.eu>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Sasha Levin <sashal@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Theodore Ts'o" <tytso@mit.edu>, workflows@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        David Hildenbrand <david@kernel.org>
-Subject: Re: [PATCH] docs: submitting-patches: ask bug fixes for their
- user-visible impact
-Message-ID: <avteTGm8ERKN83QX@1wt.eu>
-References: <20261116191436.188098-1-sashal@kernel.org>
- <20261116113453.013103c694ad966c56ddeb31@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUZ0GfrA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430D41F000C5;
+	Mon, 16 Nov 2026 19:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794858606;
+	bh=V49zu2a0OXh5byS4ObEAoax3uiBQLwDETUojZMbuRu4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=EUZ0GfrAScM+Zj4myYDuiyGJW1bFY0PkF7qooqg83EcAJhFmWHG8DyzEvwbg70I5A
+	 NMAf2bQhrTMJRjU166pGp+U5rEnnGlfVZ+PXulmspzoW8xNG7GKRXVbJU3K9MW6lvF
+	 Z7iwZXyN1ihRyz0of898NFxAVsfO4AZ5EQiGZX9C+iY4JpjKWDwZTi2cXlRn5y+cHN
+	 v7MKxpSHZY9TqdLmTm3krcZQ5IA4YGEvwdG3oln9YtOn1JLU3F5GPvYtfqI3Z7nWkj
+	 pIJ9gGAPC2j0ursI++VTz02R80Px23/uRG6titJ22ZXFbz/aCDvpNG3Y4fhOoudu66
+	 VAX7H5QJlFi3w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3AD391AFCC;
+	Mon, 16 Nov 2026 19:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,63 +53,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116113453.013103c694ad966c56ddeb31@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] Bluetooth: L2CAP: clear the SDU before the receive
+ callback
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179485860503.3856541.15241820341597541824.git-patchwork-notify@kernel.org>
+Date: Mon, 16 Nov 2026 19:50:05 +0000
+References: <20261112173812.18696-2-piyus@iiitd.ac.in>
+In-Reply-To: <20261112173812.18696-2-piyus@iiitd.ac.in>
+To: Piyus Kedia <piyus@iiitd.ac.in>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kapil@presceralabs.ai
 
-On Mon, Nov 16, 2026 at 11:34:53AM -0800, Andrew Morton wrote:
-> On Mon, 16 Nov 2026 14:14:36 -0500 Sasha Levin <sashal@kernel.org> wrote:
-> 
-> > "Describe your changes" already asks for the user-visible impact of a
-> > change, but changelogs for fixes still tend to say what the code does,
-> > why that's wrong and what the patch changes, and stop there. Whoever
-> > has to decide if the fix needs backporting is left to work out what
-> > the bug does to a running system.
-> > 
-> > Say what that means for a bug fix: describe the worst a user can see
-> > and what it takes to trigger it, say so if the bug was never seen to
-> > happen, and say so if it has no visible effect at all. Give the
-> > paragraph a label so people can be pointed at it.
-> > 
-> > Coding assistants are told to commit a fix with a message that
-> > describes the problem and the solution. Add the user-visible impact to
-> > that list and point them at the section.
-> 
-> Thanks.  Hopefully this will reduce my outbound nagmails.
-> 
-> Acked-by: Andrew Morton <akpm@linux-foundation.org>
-> 
-> > +For a bug fix, this means saying what the bug does to a running system:
-> > +the worst that a user can see, and what it takes to trigger it.  An
-> > +account of what the code does wrong is not a substitute, as it leaves
-> > +every reader to work the consequences out again.  If the bug was found
-> > +by review or by a tool and has never been seen to happen, say so.  If
-> > +it has no effect that a user could notice, say that too.  Maintainers
-> > +and the people looking after stable trees decide from this whether the
-> > +fix needs to be backported.
-> 
-> However, I fear that in these times this isn't strong enough.
-> 
-> The question used to be "will this bug impact real-world people doing
-> real-world things".
-> 
-> That's an insufficient question to be asking now.  An additional
-> question is "can this bug permit a sufficiently motivated, well funded
-> and LLM-using Bad Actor to cause problems".
-> 
-> Real-world people's real-world workloads don't use an LLM-written
-> exploit to set 16 CPUs hammering away at an LLM-detected kernel race
-> for an hour.
-> 
-> So those fantastically-hard-to-hit bugs have become things which we
-> (and those whom we serve) care about more than we used to.
+Hello:
 
-Agreed but there's a difference in who makes the effort. When it's the
-attacker, it does count. When it requires the user to be complice (as
-is frequently the case, typically in security reports), it's no longer
-the same as what matters is that users who did nothing to shoot
-themselves in the foot stay safe. Those who shoot, well...
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-> Maybe this doc addresses that elsewhere, tl;dr ;)
+On Thu, 12 Nov 2026 23:08:12 +0530 you wrote:
+> l2cap_ecred_data_rcv() completes a reassembled SDU by calling
+> l2cap_ecred_recv() with chan->sdu still set, and only clears the
+> reassembly state after it returns:
+> 
+> 	if (chan->sdu->len == chan->sdu_len) {
+> 		err = l2cap_ecred_recv(chan, chan->sdu);
+> 		if (!err) {
+> 			chan->sdu = NULL;
+> 			...
+> 
+> [...]
 
-Willy
+Here is the summary with links:
+  - Bluetooth: L2CAP: clear the SDU before the receive callback
+    https://git.kernel.org/bluetooth/bluetooth-next/c/76248359ac32
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
