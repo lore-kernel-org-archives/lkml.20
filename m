@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825486;
-	b=UuLNl0fZkoBHiqN4n0E/gWu9sLrvIpEml8rQYrCVVG34ZvoAn7pNQIVf3PPrSAfJ+YIB
-	 wm3VxMCR0UtO+x0qD/h9Q6JwGesFI5Ncr8vmUMprIFw4ylTYBjUpvlIovRxuHn3ZIjHAe
-	 TqMBGzT2PrIWdvHEpOGo4ubVfiWvJt3ZHBa2Wt0CtiwBbGWsYsBNxqJrnxD1VNyXzshIq
-	 l2/VA6SxjjMqFXVDHgtfShFWgtfvwANz/MKUPa/rl7ZHbimgSm8QMoW7EMvf+P/f13jmZ
-	 7BOzb8Yh27gJjzH2vQ/P4/vGj4hQuWpNu55dKhHwJRFDHDpCMGv8aaPg0K5ndFJUQXg==
+	t=1794825501;
+	b=xdiyiZbmJWunmZflvUdUnBDbGAgi+db12T1saGOKOX4ZjpnNuSG7O9SpufBg7hcUWWuq
+	 YLGeHJJTucfc2zk7Uqc++p/3EM3DsBScrvxifeqc/VaKzEAOx+qvCEwybrCyfTzKcEFZl
+	 SyLV+DrgAUkoCB9JbYf5/k2lCumvFynNlCCA4ejEdWFxhK5DMX8K4YEIG0H+1tWob/RE+
+	 UwZD2mE202cY+rbz+RW/xdDu88MPWstbpU9gBR5v1E0ooeM3vV/v2IVQwPed6H3JvC39D
+	 7LMjlxVAkpPTLrLOox9Efhpat3zaqd8rLJGasemBXMIp6kwy6aDkE7PAkNbwWPhZrfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825486;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825501;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
 	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Y3cXUCELq15P2CTKae/QhO/9W7btvBg5d30bXL8PhNo=;
-	b=ky2t6t9eK+w82woSfl4nbEeemFcPvNldtGmAscUoHjL17864ru/IZgxJHFwa/Lk5vpXY
-	 KpN2CiR3kq1DxHM+3qZzei5TLlKDcTv89Yx3tfcRK0d8LjfaUkiZA7GfUias6I33IeVd6
-	 GxGCbfX7aym5TY5+O6tfgyIOzwl8gOvAbXZUqOMmJmkXjqFCUwGlIwiO7VjH8TsgtRuAn
-	 QxIF5UF/XgXLwAq/g3WjK54ZUxg+5b9s4EPzgq8ZpM0fJbA9ukvNl/tWn66ryMk6PzAIV
-	 ZN20xY3LlwQXSyHkwa4yq/rTjIZZcshwOJtTTasfFwVXgjkyJuNcu2HjrazGdObFADA==
+	bh=Ub1cgsKQvi9dfnD6CjlmKOfwxg0yHV4qgHxNcSbdmJo=;
+	b=DbYwwVbOPveXBCZlNSbUnC5McQNM57MWIFUiNN4yZbrpEHCEHhOHXerzBkOGF1ON/so6
+	 QMzBOVOoDAtKqsJJRBZi61R+PzF/QcuF5HACcKLAcoRoAf3uGC7fOzG4VYeWtrPeWzvre
+	 9MGsaF7yAaCpEsTY1BJNL9x33R9S/VXAhqyMPbZf2ZU8vdQImB4ruN7tjvoSg5fL4WN84
+	 i3iF+/GvhiVY2LvHH/hOLCUa+4oSa1Jvgm2mNByNmIQtSMjfFyC+Oa7PvuIf4eS2Pz+6U
+	 uAVI1cycWBpGvgGezMwoW4IMGoy0/Cu3qIxsMjm7oM5cFpT0INBzBLL2NgG8ePX0bYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N+HlchmX;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mEs+MA5J;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4FC1606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:38:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FC1606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0D05606A323;
+	Mon, 16 Nov 2026 10:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0D05606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N+HlchmX
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mEs+MA5J
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1AFD41476;
-	Mon, 16 Nov 2026 02:38:02 -0800 (PST)
-Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A5483F632;
-	Mon, 16 Nov 2026 02:38:02 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 42B8C1476;
+	Mon, 16 Nov 2026 02:38:17 -0800 (PST)
+Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A02E93F632;
+	Mon, 16 Nov 2026 02:38:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794825485; bh=9Ge9cT4Atk9nVv3V3kgsxcn8Q1tixZ6sqlMWxn8Yeww=;
+	t=1794825500; bh=QKMB5Y4VnZlSzUr/y1WfclgMsCTxE5HNfOLSGjJJjZc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=N+HlchmX/WMspbnBZX6i/dj9EA8VkiPFPsT5uAbBys0HKikGnZwXk7aZab6yKb5kM
-	 64gp6umbkKw5vb5mXHq/kro9HkF9OekpaSoGDPN/gZKjsmOEDmWtUMyVd8r5hTBZxw
-	 0+dmK4RruOgEFsB28HBPRvltQgwmJUCKUIjK5ecM=
-Message-ID: <452bf82e-52ea-47c1-9074-eeb614a33747@arm.com>
-Date: Mon, 16 Nov 2026 10:38:00 +0000
+	b=mEs+MA5Jcn045bE0bbWvA4clsJ91WvqRepmFl2DUaa+V4mc+/hIuYfim2PcHu2mSW
+	 tsGHByCw0u8bwNAW60HS4UR7RLEKgtMRBEHc1E9q5r9sJRD/BKWGYdHys8h7OHlkIw
+	 uBrCOJokH1ZAFEGvRtTrUqFKieboeg8x7LEEiRQE=
+Message-ID: <4259f4df-3528-41c4-b3c2-51d7ec1d43d3@arm.com>
+Date: Mon, 16 Nov 2026 10:38:17 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,111 +54,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 0/2] genirq: add migratable NMI registration and
- show NMI counts
-To: Ashok Raj <ashok.raj@oss.qualcomm.com>,
- Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Jinjie Ruan <ruanjinjie@huawei.com>, Liaochang <liaochang1@huawei.com>,
- Marc Zyngier <maz@kernel.org>, Radu Rendec <radu@rendec.net>,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
- Sathvika Vasireddy <sathvika.vasireddy@oss.qualcomm.com>
-References: <20261114234946.818072-1-ashok.raj@oss.qualcomm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261114234946.818072-1-ashok.raj@oss.qualcomm.com>
+Subject: Re: [PATCH v2] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is
+ inactive
+To: Avi Weiss <thnkslprpt@gmail.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, zhanxusheng1024@gmail.com,
+ zhongqiu.han@oss.qualcomm.com, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261108145028.2483131-2-thnkslprpt@gmail.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261108145028.2483131-2-thnkslprpt@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Ashok,
+On 11/8/26 14:50, Avi Weiss wrote:
+> sugov_hold_freq() uses the NOHZ idle-call counter to determine whether
+> a CPU has been idle recently. When NOHZ is disabled or fails to
+> activate, the counter does not advance, causing schedutil to treat
+> the CPU as continuously busy and potentially prevent frequency
+> reductions.
+> 
+> Skip the busy-CPU hold when tick_nohz_is_active() is false. This
+> also handles systems where NOHZ was enabled but never activated.
+> 
+> Fixes: b7eaf1aab9f8 ("cpufreq: schedutil: Avoid reducing frequency of busy CPUs prematurely")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 
-On 11/14/26 23:49, Ashok Raj wrote:
-> request_nmi() currently models NMIs as per-CPU sources. This does not
-> represent a globally routed NMI source with an affinity-capable irqchip,
-> which needs to be rerouted when its target CPU is offlined.
-> 
-> This RFC adds IRQF_NMI_MIGRATABLE as a request_nmi() registration mode
-> for such a source. It remains excluded from normal IRQ balancing, but the
-> generic startup and CPU-hotplug paths may select an online target. The
-> second patch fixes the related /proc/interrupts display: NMI-safe flow
-> handling updates the per-CPU counters rather than irq_desc::tot_count.
-> 
-> Patch 1: Add the migratable-NMI registration mode, validate that it is
-> used only through request_nmi() with an affinity-capable non-per-CPU
-> irqchip, and add IRQ KUnit coverage for registration and CPU-offline
-> migration.
-> 
-> Patch 2: Emit the per-CPU counters for all NMI descriptors, matching
-> kstat_irqs_desc().
-> 
-> Testing:
->   - ARM64 changed-object builds with WERROR=1
->   - ARM64 !SMP changed-object build
->   - ARM64 IRQ KUnit run under QEMU with two CPUs, including registration
->     validation and CPU-offline migration
->   - local downstream GHES delivery and migration validation for the intended
->     consumer topology (not part of this series)
-> 
-> Base and dependencies:
-> 
-> This RFC was developed and tested on v7.4-rc2 plus the FEAT_NMI v2 series
-> [1]. It depends on that series' GIC NMI support and is therefore not directly
-> applicable to mainline or linux-next as posted. This RFC is for design
-> feedback; it will need rebasing onto the upstream form of those prerequisites
-> before submission.
-> 
-> [1] https://lore.kernel.org/linux-arm-kernel/20261112132042.129062-1-vladimir.murzin@arm.com/
-> 
+Reviewed-by: Christian Loehle <christian.loehle@arm.com>
 
-I'm not an expert in this area, but based on what I've learned so far,
-NMI being per-CPU like makes life much easier ;)
-
-IIUC, one of the main problems with a shared NMI (as opposed to a
-per-CPU) is handling shared state. Consider:
-
-CPU0                       CPU1                       CPU2
-
----------------------------------------------------------------------------
-
-<NMI>
-handling started
-                           set NMI affinity to CPU2
-                                                      <NMI>
-                                                      handling started
-mutate shared state
-                                                      mutate shared state
-handling finished
-                                                      handling finished
-
-IOW, the same NMI handler could execute concurrently on two CPUs,
-potentially corrupting shared state. Once again more than happy to
-be corrected if I missed something :)
-
-Cheers
-Vladimir
-
-> A separate GHES Type-4 series is the intended first consumer and is not
-> included here.
+> ---
+> v2:
+> - use tick_nohz_is_active() instead of tick_nohz_enabled to also
+>   handle NOHZ enabled but never activated, as suggested by Zhan Xusheng
 > 
-> Feedback is particularly welcome on the IRQF_NMI_MIGRATABLE API and its
-> placement in the generic IRQ API, as well as the NMI accounting presentation
-> in /proc/interrupts.
+>  kernel/sched/cpufreq_schedutil.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> Ashok Raj (2):
->   genirq: Add migratable NMI registration mode
->   genirq/proc: Show NMI interrupt counts in /proc/interrupts
+> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+> index 14405a614991..50249cc1a594 100644
+> --- a/kernel/sched/cpufreq_schedutil.c
+> +++ b/kernel/sched/cpufreq_schedutil.c
+> @@ -397,6 +397,9 @@ static bool sugov_hold_freq(struct sugov_cpu *sg_cpu)
+>  	if (uclamp_rq_is_capped(cpu_rq(sg_cpu->cpu)))
+>  		return false;
+>  
+> +	if (!tick_nohz_is_active())
+> +		return false;
+> +
+>  	/*
+>  	 * Maintain the frequency if the CPU has not been idle recently, as
+>  	 * reduction is likely to be premature.
 > 
->  include/linux/interrupt.h |   2 +
->  kernel/irq/irq_test.c     | 141 +++++++++++++++++++++++++++++++++++++-
->  kernel/irq/manage.c       |  33 +++++++--
->  kernel/irq/proc.c         |   7 +-
->  4 files changed, 172 insertions(+), 11 deletions(-)
-> 
-> 
-> --
-> 2.43.0
-> 
+> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
 
