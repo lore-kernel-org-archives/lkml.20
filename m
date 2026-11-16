@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850240;
-	b=vJ1TIPynJN0nax+4UKguvr/GPKcm4oNcNEFUSIEU3CHSmAlmVbZtumi28eFYm7dFfRlw
-	 GyQn4egE8d1KmJdbZ8l+XBDfwc2WF/EsrV0GIqeYM/pAqTl30Zpahe1FiCCkHdF4792kU
-	 lg3mbcNNga26x8oYLgTe6Dlm5RDgBkkRkQrYor860t0orsHhfwBTuMKFqXcQSR2s13bnl
-	 ZiLfV5w7CRK5bEllEyPQlVeBGSPGQ03MIMLWLIzDtV1Ftx+tRUmTswrdeoArtxeYeauNQ
-	 7FCtXzKi8kHMzEieZVel1Y7zH/a/L79iw/IvPlH1xkN+IDqypOIwVp9hIPfV9j53tOw==
+	t=1794850305;
+	b=xV9klBtODXUlVTUMSZhnywUXDL/EeRFmH1R2VEThbtI6JoPZxoCPNfSMeWqKor+u8WcT
+	 6TITq07fCrQ2TltBd0HlTX+UXoOoh7ICVamZp1tBFbTSz7PAxeAco8e5sLtR0hL8zyqt6
+	 w2VOzavCNpZXVSH5BQSBvKMg+R1/GIgxRpgNlu6kxuJ2fdtg7yFdrT/TmPZCX5AVxp3/C
+	 +PxwGHqSp4qPDHVBXFZVrrzqDnCi+7oIXPWAe7inoQKGzXVQl4Z2ABMhZB4jL9guYu1lW
+	 wUmDnYd2YPNJ6SGABknlhImosvzT+sWg+54YKFLu4ORJ3rrFsNUsv4y9N1JzuTjqnzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KjTwaJizgiBveUNOMThYkvCK46NgUoB/gNeNnCa30Qk=;
-	b=zj1Z5y17/eC00X5upRDvK2eg5EvRewvBVbVA/MjkfxLwNSlqgZYNm70wzeTuLg29YUvw
-	 5u5pauPWaLOmPpG6/cG03OCiAhVDudFVOrNOEIAXUApSDQVVn0iWFK2ma3CxgqSkMi7iA
-	 xyo9zKOPwbbKYvpOYJ6kGfkrrd+6DBK7Kgv6oU/QTnuBmzpGPd+Emg42KNU0OyLEZoQR4
-	 pBCs64I6ZKRtN1V/cMR30ZFSFIqTNXklxFO7rA9di/26RyYLBY5qgWvi4E/3RtxriNLU6
-	 drGc1Mavt46OGTsyY0RJFraSHJxV5kpHYMfG9+A7NiJ923sbhgn7r/ZNwHV59VmMYRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850305;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=02WhvjwIQZgdQpPiQB/KPvgw5RxyDj/gJL3jCJh61ws=;
+	b=BtrQC1e22fW8Dx/ZrgtIC3yZTDOQlL3C4ASPbdCm5u4ZpWZ/ijLdveMdrHts8d+xeabl
+	 FO2CD6ElGxFFXheovDOe0mCfoPz5EkGHW/lf6mdFsOyB31RssTqdPFnldkgGbhLwRmDt4
+	 AQaLLd6A4v4poZSFAuLupg5FGWj4fw2WWVjkLr1c4xa3Dv/iazJQl4BZipoABAAcGK5Iu
+	 ulricB+B69EcK5CXmvLJ+4r54KLWT3E7KOILHStJR2X/dF+CsQ9DNKG955yu3ulLg9tPf
+	 MYmeURKZGeAqJUrTcgS52oJuOwvU0WpMc1awkA5cfWY2GIAgLyOHsFg2M5x3n7/Ak8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mK5B+WyJ;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZpWcLEau;
+	arc=none smtp.remote-ip=209.85.222.226
+Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE89606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:30:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE89606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D86606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:31:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92D86606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mK5B+WyJ
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so23128555e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:30:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794850238; x=1795455038; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KjTwaJizgiBveUNOMThYkvCK46NgUoB/gNeNnCa30Qk=;
-        b=mK5B+WyJW51/bIwosEGVY0Tmr+stxxuElIAMhv7sMeLNtWpVuPpqZgs2hEvUESsPqQ
-         ClDys35uG5P2uLd9jkyau+KoVfbHLNhhfbAcY04+f0wk+aTdtSm3XPTHWmfXWsYHQYM9
-         efI6k8kS7bm3icQprbvUH5PqBKKb3ewQ95ob21P9WBukbbf2LNeAi/5LXetMMODCqbOY
-         Yib6XPBilYH07/i/3/E1CcV9AtIFiKX7OtmfBm6X9aK5JSWgX2R1DvJhv4maQOLDL3y1
-         RvwMAjFAFRpreSA+pY4rAtsW3EiN7NoRMjvV6+PhsvhUQ9LSGIAZXM48bVrWAnEHe51O
-         QNug==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZpWcLEau
+Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-94959217274so460597385a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:31:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794850238; x=1795455038;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KjTwaJizgiBveUNOMThYkvCK46NgUoB/gNeNnCa30Qk=;
-        b=G1GUp1MqMN/MeCFAdhwfcf99Q9AZpn4tysuY5ODFiQ38nl/VJEaHIeQ/VAYoRO5uMG
-         8zJsxYthHUWhbZSzkCumgvS6pJKE/hzYzUjJZsCdLm3CESfnBrf8vvVd7d83tPYEurP+
-         O7rU8AsJvITM6eiaqsAsz98LU9vD0KpAjeC1S1604Ijl6pyLA0+oQmoPist8aauHFSsZ
-         A4oLx0aTFkbP2N4qn1nn2ObO3dSAgAR6Bp8SEQRHcgi/xNjQB6MpOaIruqnY7h9L+PnJ
-         vlvJjm9l+h8AQm6QFseYRlc/yiirgpgBBXXqPzjrGjShH8djYnAUm8qUhU+95o9qhlZY
-         PFaQ==
-X-Gm-Message-State: APuU4Z9oggRJhjKj3SuYmNcP+Rlc34o8KqxIE5GzQjiqZJSFBrmXrPMY
-	XYM/wdSd2j3qX5GR2pPtDZsMGbrwigjs0hfWOfGOf80gKLjzVIoRawZY
-X-Gm-Gg: AYBFou2dwoRtCYldYm3Upe/jeJ+CtUVYzdCDJty2vmAFz1ZC4PHJP0yd7hBgYTqUP0f
-	DZ/qXm5EwLhxIw9UivbZnnV6BSgvHwaSOUMH4pZBd4R8UooA5VOkT22zgdt4iBGyJWhHYgyjVjX
-	NpcEVILUGR70i9ho/kZm2aQqUUqq5CFPrSt8jgzuAqrGFFe0CAo5oR76dgh5yKU5PZinpqor5M/
-	HEJFp2e6pqcErGDDcaYbvt+aZw0le3D4QcqA3BPjIDN7nd8kb1pzti/0IhIGYUlQBYNutGSd7jX
-	z0qjj2a3NEsxJwJDBAAJXG2i6U7WaV3X6TJCTwLhEdP5xpHHjIdiQ4eYPrf5O7V0Q8jQEDQIa2Y
-	knqCKp3ObuXKizPh9qbEPz3DvO2u2xgfHsI7s0wFvElVAxdf9QH9tarLCV9zH7dX1+BqvLtgp8b
-	2HguUv2nG6RGR4DhVLBxNoWi2+SH5bZAAZtJq8cDhqqoBl7ckxtS+t67CLAE7ychRmMR0dqIb7H
-	RV3hWJW640Y+TjtMmQbdmr+v6Q8RrDpL2uiDHamSP2WiyGSRBr9GsVV3WJDHYWlfxoNGD1dQK77
-	v6eoBPZk/nS6gKohVswMYENNfa73Q+VTcEfZvxm8miXQMQF43xI2MnIh1b2v
-X-Received: by 2002:a05:600c:6096:b0:4bb:5de1:e923 with SMTP id 5b1f17b1804b1-4bb5de1f26dmr180594805e9.4.1794850237851;
-        Mon, 16 Nov 2026 09:30:37 -0800 (PST)
-Received: from zephyr ([77.237.184.197])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49d7150529dsm17892298f8f.51.2026.11.16.09.30.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:30:37 -0800 (PST)
-From: Ali Nasrollahi <a.nasrolahi01@gmail.com>
-X-Google-Original-From: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
-To: x86@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	kees@kernel.org,
-	peterz@infradead.org,
-	nathan@kernel.org,
-	Ali Nasrollahi <A.Nasrolahi01@gmail.com>
-Subject: [PATCH] x86/cfi: mark cfi_debug as __maybe_unused
-Date: Mon, 16 Nov 2026 21:00:27 +0330
-Message-ID: <20261116173027.229752-1-A.Nasrolahi01@gmail.com>
-X-Mailer: git-send-email 2.56.1
+        d=1e100.net; s=20260707; t=1794850303; x=1795455103;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=02WhvjwIQZgdQpPiQB/KPvgw5RxyDj/gJL3jCJh61ws=;
+        b=xhwvTC1w9C10u6zgaE3JIP9oo5bPsE5vS44i1c0XmUAmx7lE1QhkrufW0je+Qa5IU2
+         1iRRLw1zXwUwqaWQ0SBTdEzgq7ncoHHNJ1Q3YKDnHB2sRdosMzzbevjMHYfvpLYnCoKp
+         Zu6W1kA2/tQ75okD5tKXd9UwBUxS6qNVTxTt9XHOc8bM9UFNcgiLi7qdfX+YmQY40gcl
+         EqKiOQTJNXWf8aNoE8LjaOgPoOVlY8XgRiPLAwpRfvNg2DiqYrZJmxYdglsHsrxeA7XE
+         4F77aYJt4AkDdMaQOwPGV4f5ebNjLHGYFkEFdy6E3UwQDkcxO33kyu47iXCVvK0ebrVP
+         mnnA==
+X-Gm-Message-State: APuU4Z+gCYaEjC1hm7d2JnwkTaXW/qkCZKU/KoYN/LMaCtwI/6G8SDas
+	ndEyTrMStfuDQbjLoty2cQMlHX0aN0Z9iv865v1gsDQnFs5VCHQagMaCmHUArh/kBdI6PHTWwr5
+	CfWzusrsWAJDUpMW+/7fK5X5X9DHcbBN39Sy6ifOH7WKGpAURRpBkqvAtzESx20xq3ntKwgfqCA
+	xIOUwTWwAdkBLIKzFHfFhfu7xdSU5f9848dGRZvGM+W5IsSe2+OUHddujnm7Gy0QjGp4PT7M13q
+	07EIE8FSvI4IbOx53DlILPo
+X-Gm-Gg: AYBFou3OOrhIzUdlm/ultBIYn5fYvfZqCLsZ0SYZmyTMyr8SD4tsDz+e8BXQrMNG5AS
+	YNYREn8d6si5lpXfL0vsI2aMiaLT2rz+DaZwDNIpo5A0/a43bhf/G95naiREDIOoXhBV5NgUS5I
+	oH+GaonN05ENhoDi5ivXuxj2ZSsmLDHkQjFTzciJc4nXg3cRPsfQr5HkNcoPSRZus+KgvH9vjr0
+	o/31R0g1UVppQx9TsfS5KBLUzYg3IZxr/cVXilFoiScctmccjhxO4bNFyY3TQk6d/+EZcnw497V
+	aJmHBnNSIqmoaxeZX8J0wNsFam5EwssxJr9Hr0VNzblgyuOHFbnviDO95h0pgqc46vt0woacb8u
+	ueMhOYFW2/bNjCFmjXYI6qbAp4eF/JYMacEAZShA6QF/0d2LJWxaIfGQQL9TQQEjYMxrrEpbT0I
+	5G3IhPN+R2kstlInzXjsr1CnNEkbMSK2ulhjlWU+44
+X-Received: by 2002:a05:620a:1b90:b0:93e:bcbf:4ad with SMTP id af79cd13be357-9494bbbdf65mr1556934785a.33.1794850303496;
+        Mon, 16 Nov 2026 09:31:43 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-949622ba8d2sm57212585a.6.2026.11.16.09.31.43
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 16 Nov 2026 09:31:43 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc10da5ad4so627119137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:31:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794850303; x=1795455103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=02WhvjwIQZgdQpPiQB/KPvgw5RxyDj/gJL3jCJh61ws=;
+        b=ZpWcLEaucvCwpKNQMVrywasFF/BJdzfKfz5jraQmtvzYV9TJwbCdMGFCPAjSLgG+pQ
+         wfd2uWGbjoOG0fVuV23lWYSPhX2SQaM9F3+Wv5NHuL3PyaLjneW42dfSCid3beMVjKLG
+         JlYMjWZmk4XIsMMYWlJ76k/ab2o1Kp0vXHsas=
+X-Received: by 2002:a05:6102:f12:b0:7d2:8e49:f90e with SMTP id ada2fe7eead31-7d64d84030cmr2982895137.27.1794850302604;
+        Mon, 16 Nov 2026 09:31:42 -0800 (PST)
+X-Received: by 2002:a05:6102:f12:b0:7d2:8e49:f90e with SMTP id ada2fe7eead31-7d64d84030cmr2982852137.27.1794850302111;
+        Mon, 16 Nov 2026 09:31:42 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69e07923dsm426460137.9.2026.11.16.09.31.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 09:31:41 -0800 (PST)
+Message-ID: <0d7248af-3766-47a6-9150-ffebd6d5c501@broadcom.com>
+Date: Mon, 16 Nov 2026 09:31:39 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,32 +103,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 08/14] drivers: fix duplicate extern declarations
+To: Safocl Stollmannovic <safocl88@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261114165612.368785-1-safocl88@gmail.com>
+ <20261114165612.368785-9-safocl88@gmail.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261114165612.368785-9-safocl88@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-    When CONFIG_FINEIBT is disabled, cfi_debug is never read, but
-    alternative_instructions() still resets it after calling
-    __apply_fineibt(). Clang 23 diagnoses this as -Wunused-but-set-global
-    with W=1, causing a build failure when CONFIG_WERROR=y. Mark cfi_debug
-    as __maybe_unused to account for configurations without FineIBT.
+On 11/14/26 08:55, Safocl Stollmannovic wrote:
+> Compiling a kernel module with a C++ compiler results in a "duplicate
+> extern specifier" error.
+> This occurs because the code contains `extern asmlinkage`, and `asmlinkage`
+> expands to `extern C` when processed by a C++ compiler.
+> Since the code already contains sections that respond to a C++ compiler,
+> I believe it is a perfectly valid approach to gradually move toward a state
+> where kernel modules can be compiled by a C++ compiler without any issues.
+> The `extern` specifier must be removed.
+> 
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=222257
+> Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
 
-Signed-off-by: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
----
- arch/x86/kernel/alternative.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I applied v2 which was not different to this tree:
 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index efbc11f8c336..cc2bdca06f81 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -1195,7 +1195,7 @@ void __init_or_module apply_seal_endbr(s32 *start, s32 *end) { }
- #endif
- 
- enum cfi_mode cfi_mode __ro_after_init = __CFI_DEFAULT;
--static bool cfi_debug __ro_after_init;
-+static bool cfi_debug __ro_after_init __maybe_unused;
- 
- #ifdef CONFIG_FINEIBT_BHI
- bool cfi_bhi __ro_after_init = false;
+https://github.com/Broadcom/stblinux/commit/0cab822bca7a59667774725b83e948b71462290f
+
+the subject was reworded because yours was not specific enough and did 
+not match contributions made to this file previously.
 -- 
-2.56.1
-
+Florian
