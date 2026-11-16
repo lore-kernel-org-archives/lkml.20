@@ -1,110 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831289;
-	b=0FSTjyb1nZB5C4R1QZHPKhyqATssCf8kZFL8reBgMyTXQTMFlkv4ezY31St9bWlZ9DXH
-	 SrXw+zyuJUtE8LQ/7V4Kqgx/Kwmu1KRn5AAgblCO0CPZLiBtBdHY7OiCito7p+yhh886B
-	 SHa/6Kh0tpXlNcvkwhCs5mkLQmfqyr6x5jNWAO2F/p/oI3y+B8InOnRIzPjqXSvPGYBvj
-	 T38DfydO7utvgQ51lC91sRy8VOIKKGZATIGGEWjgyutowg7HSaf+Fywrgl9d/kP9QLVMu
-	 Am8Qol9jZFPHyTitvlObXYKGhiKnyH36MNcjc0jffbx+xe1p8s4Y/1UD/zoITuX5ewg==
+	t=1794831296;
+	b=UdH0fkNSXOXtQA7BjwZFyHAXcG5GMBtwenRlfzjeKVwQQrBPIZk3LsjVjR7BEj32TLH/
+	 6lvc2IC9mlkNNT9BSxO4VSQOej3vCgNcIszvZR1vBCHPh+XpdjgW9FK1bWYtrgWfC16nK
+	 hBPotIGjRHgaFGZ9QhJY9YtauFh/Ux8vlWbktYKHH4pvYk6GxbUIlGnCu6gd/YPZEr9x6
+	 +aWsR/wU8nvQmYw/tbr9E4WGrfM/x7ZnCxsEDYvDfOCgQLk/C9Uuit0LZ0FpTnj9kjRXr
+	 AFKfp/O+XfQ1dSUYCBQ9n1box0pM9SOHOJZ5rfA025uv8OkJi8oMm5MCpuTfpujTdcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831289;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=0T6tBHjU7Q/eSxf6uH/X/Pj9sTjpxjv6jPF/6eIm6Sc=;
-	b=XA84wbvTZAyQ9DfgjhHpBSfdQs9kWRGbeQbg51AAmxQ3aN0GqgeGvHQDXYNe69FPKEt5
-	 8/FwKiM0Q8o9O63KTmM/Rss+MDIlSRvmi9lVQ+POBRPYW0vP/TmdQdyK5MluVDHYakBdI
-	 41cC8a7xpSXQjZqC3TT1nKE2sJe+XGgGstKOqcXbC/6h8JzzmqvqKD+o04q4RNSSjCcyB
-	 B0M2qmh5IbnbwhTMQ3kPD0zETwfXUC9pDKA//pAgId5mFzvnVnNYWSgF3crP9iEjspDOc
-	 6szbbLoRUt7kJV0fC3QDEsiOZNZsDv2Pejp+oHg9GTUOq6lzliHG6HrLiMOmL9G8OYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831296;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xV4wzEt93KKUYN4/i4GrUJiqH0YQDE0PVV6xnGic2Hc=;
+	b=0ejj4uanwcrUzRu2sVD10juFCjN518ANtCiMxOlrwoYv/N70VSSTBRIg789k6bEOxKT2
+	 NMJqEi2wZNMthPfXhVLOiJQx0dhnKV88Oj+ui7qxKt4HOQIxEcQidHmxaxLmnX1SBaE+W
+	 FeKBwC1GHeXQN7vsVcyoOXIO+YQmlfKmpA+Rz4l9gUieUWakiuDAE4TfG8aIMg3amoLN1
+	 4BAVqL6nOHAfRcUxZQssZ3/eEoWV4Mm5ACW12rk0Cq+pmJ+aawF3ezl1viVL9Kri/7Vr1
+	 W6OAu4wbT7T03H/+Y9VAsX3DLMf8slKMaHEo5mWSVtpuoyiT3DZ1436Gud/bqEMsiwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="ZBBS/Un0";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=57tqKxEG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="ZBBS/Un0";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=57tqKxEG;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oCkU5WYS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726F2606A31C;
-	Mon, 16 Nov 2026 12:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 726F2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CD3606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:14:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZBBS/Un0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=57tqKxEG;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZBBS/Un0;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=57tqKxEG
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 90525221BE;
-	Mon, 16 Nov 2026 12:14:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794831286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0T6tBHjU7Q/eSxf6uH/X/Pj9sTjpxjv6jPF/6eIm6Sc=;
-	b=ZBBS/Un02azxDu/46w2iwP66A8cg4v7flQGf1q/qj+4Y79led5v42RI0TROCQls8cxVPJO
-	zljWyGt5Ivpi/dyaWpN4J86lnHRC1HnfjOhxTL8njvwx6XQ41sxLoENAN/EcL9bQZR1cWw
-	Pfa5WBXUoEZlTEpqvsasSou2KNNw2TI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794831286;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0T6tBHjU7Q/eSxf6uH/X/Pj9sTjpxjv6jPF/6eIm6Sc=;
-	b=57tqKxEGP8vLO8d+54oSD0WDabAepOyw7nJKBiYGhnB4bpdiCBuaLoz0Tom3Jpksi5OSDI
-	Agqf/rlEMSwNeODQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ZBBS/Un0";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=57tqKxEG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794831286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0T6tBHjU7Q/eSxf6uH/X/Pj9sTjpxjv6jPF/6eIm6Sc=;
-	b=ZBBS/Un02azxDu/46w2iwP66A8cg4v7flQGf1q/qj+4Y79led5v42RI0TROCQls8cxVPJO
-	zljWyGt5Ivpi/dyaWpN4J86lnHRC1HnfjOhxTL8njvwx6XQ41sxLoENAN/EcL9bQZR1cWw
-	Pfa5WBXUoEZlTEpqvsasSou2KNNw2TI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794831286;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0T6tBHjU7Q/eSxf6uH/X/Pj9sTjpxjv6jPF/6eIm6Sc=;
-	b=57tqKxEGP8vLO8d+54oSD0WDabAepOyw7nJKBiYGhnB4bpdiCBuaLoz0Tom3Jpksi5OSDI
-	Agqf/rlEMSwNeODQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A6911334C;
-	Mon, 16 Nov 2026 12:14:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Y5icCrbz+mpCWQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 12:14:46 +0000
-Date: Mon, 16 Nov 2026 13:14:45 +0100
-Message-ID: <878q2tynuy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexandre Becholey <alex@becholey.ch>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hanxiang Xu <xuhx@hust.edu.cn>
-Subject: Re: [PATCH v2 0/5] ALSA: usx2y: us144mkii: fix PCM stream lifetime bugs
-In-Reply-To: <20261116071707.217448-1-alex@becholey.ch>
-References: <20261116071707.217448-1-alex@becholey.ch>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oCkU5WYS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 720DF1F000C7;
+	Mon, 16 Nov 2026 12:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794831296;
+	bh=xV4wzEt93KKUYN4/i4GrUJiqH0YQDE0PVV6xnGic2Hc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oCkU5WYS+CVpA91k6NmI4IHmH0jQXa0rZt5gAv5kpICvbpTT3JqzSvRYuxqmwHw3Y
+	 gQtYc+enyDPbJ9lDfRZengoYn3nCHVZnjRW8mDDH6g2VSC4uYI79Rrcvn5U3vRayef
+	 nQqzAD9cMQJf5XLjL4hNwxOnWpeAc+NfbiNaIf5vMbqtJ2sCevZ0pVGbLqtZontuji
+	 phh1+MJdT+ixpRLI1oh74N4dumOrqQJgD2IHW4LN6m/QCXeJt/N13VzmCEB6iNTCb1
+	 pWrTkt5+p0XCPzVM1wCq/XIDQSBtwvl52bhoNeMdOUD+F8FiByc1K0kK2zln/vHsHh
+	 ECFM9MZiz6uMg==
+Date: Mon, 16 Nov 2026 13:14:50 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Sascha Bischoff <sascha.bischoff@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2 00/10] irqchip/gic-v5: Fix misc IRS and ITS host
+ driver issues
+Message-ID: <avrzusx1g1ZICo0Q@red-moon>
+References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+ <20261112145814.853424-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,136 +64,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 90525221BE
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112145814.853424-1-fuad.tabba@linux.dev>
 
-On Mon, 16 Nov 2026 08:17:25 +0100,
-Alexandre Becholey wrote:
+On Thu, Nov 12, 2026 at 02:58:14PM +0000, Fuad Tabba wrote:
+> Hi Sascha,
 > 
-> Hi,
+> I found a couple more issues in the GICv5 host driver while looking
+> into pKVM support for GICv5. Rather than explain the fixes, I thought
+> I'd send you patches for two of them instead. If you think they're
+> useful, please include them in v3. They apply on top of this series.
+> Boot tested on the GICv5 FVP with a two-level device table.
 > 
-> Five bugs in the snd-usb-us144mkii PCM code, all reproduced with an
-> emulated US-144MKII under KASAN on torvalds/master and v7.3.1:
-> 
->  1/5 stop_pcm_work calls snd_pcm_stop() on a substream that is being
->      closed (use-after-free of the runtime); the device can schedule
->      the work at any time by sending bad feedback.
->  2/5 capture_work keeps using the capture runtime after the capture
->      PCM is closed while playback is running (use-after-free).
->  3/5 the capture work and the playback URB completion use the buffer
->      of a substream that was never started (NULL dma_area), because
->      the URBs of both directions always run together.
->  4/5 the playback and feedback URB completions use the substream
->      runtime and buffer without waiting for close (use-after-free).
->  5/5 a START retried while stop_work runs submits URBs that are still
->      in flight (URB submitted while active, anchor list corruption).
-> 
-> The patches depend on each other and are meant to be applied in this
-> order: 2/5 builds on the close callback of 1/5, the check added in 3/5
-> is only safe once 2/5 guarantees that the capture work does not outlive
-> the substream, and 4/5 and 5/5 apply on top of the first three. In
-> testing, 3/5 without 2/5 crashed in the new check, and 1/5 + 2/5
-> without 3/5 still crashed on the NULL dma_area. Each patch has its
-> testing notes below its '---' line.
-> 
-> Hanxiang Xu reported the bugs fixed by 1/5, 2/5 and 4/5 on this list
-> on 2026-11-13, from source inspection and without a patch; we found
-> them independently with emulated devices. v1 was sent as a reply
-> to that report, and 1/5, 2/5 and 4/5 carry Closes: tags for the two
-> messages. The reports also mention close racing with disconnect:
-> that concerns a fix that kills URBs in .close, which this series does
-> not do (the .close callbacks only touch the card private data), so
-> nothing is changed for it.
-> 
-> Changes in v2, both from the Sashiko reviews of v1:
-> - 3/5: also count the hardware position and the elapsed periods in
->   feedback_urb_complete() only while the substream is running, so that
->   a substream started after the other one starts at the beginning of
->   its buffer.
->   https://lore.kernel.org/all/sashiko-outbox-214859@kernel.org/
-> - 4/5: make playback_substream and capture_substream __rcu pointers,
->   published with rcu_assign_pointer() and read with rcu_dereference();
->   the capture work now also uses the substream inside an RCU read-side
->   section.
->   https://lore.kernel.org/all/sashiko-outbox-214863@kernel.org/
-> - 1/5, 2/5: no change; 5/5: rebased, no change.
-> 
-> v2 was tested on v7.3.1 and on torvalds/master 97d73c825122 with the
-> reproducers of all five patches, with KASAN, PROVE_LOCKING and
-> PROVE_RCU: no us144mkii report in 84 runs (the same reproducers
-> crashed unpatched v7.3.1 in 8 of 8 runs).
-> 
-> v1: https://lore.kernel.org/all/20261114172806.88710-1-alex@becholey.ch/
-> 
-> How we found it: the bugs were found, and the reproducers and these
-> patches were written, by AI agents (Claude Mythos and Claude Opus
-> models), in QEMU with emulated USB devices (raw-gadget/dummy_hcd,
-> emulated xHCI, USB/IP).
-> A human reviewed the analysis and the patches. The reproducers are
-> available on request.
-> 
-> Thanks,
-> Alexandre Becholey
-> 
-> Alexandre Becholey (5):
->   ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
->   ALSA: usx2y: us144mkii: wait for the capture work on capture close
->   ALSA: usx2y: us144mkii: only touch the buffer of a running PCM stream
->   ALSA: usx2y: us144mkii: wait for the URB completion handlers on stop and close
->   ALSA: usx2y: us144mkii: do not restart the stream while stop_work runs
+> For the third one, the thing I spotted is that if the IDLE poll after
+> an IRS_MAP_L2_ISTR write times out, gicv5_irs_iste_alloc() clears the
+> level 1 entry and frees the level 2 IST, but nothing cancels the map.
+> The IRS can still complete it and use the freed table. Keeping the
+> table isn't enough either, since the next allocation in that range
+> rewrites the level 1 entry while the map may still be running
+> (R_SDVFP). vgic_v5_alloc_l2_vmt() and the ITT frees after a timed-out
+> invalidate have the same shape. The question is, can an IRS miss the
+> poll, or is a timeout here only ever a dead IRS?
 
-Thanks for the patch.
+Thank you for your patches Fuad.
 
-But, I believe that we should rather address the whole us144mkii
-driver issues differently: this kind of duct-tape fixes won't work
-well for this driver simply because the current code isn't designed
-well for the concurrent playback / capture changes at all.  That is,
-it needs a redesign about how to keeping the streaming for full duplex
-and concurrent open/close or parameter changes.
+The latter, though freeing memory on timeout wasn't a good idea given
+that there is no way to cancel the respective, pending, mapping.
 
-And, those patches generated by AI often make the same mistake.
-Basically, at the close callback, we shouldn't deal with the cleanup
-for work, etc.  At the time of close callback, all streams must have
-been already turned down and cleaned up.  The work stop and sync
-should have been done at PCM trigger and sync_stop callbacks, instead.
+> Cheers,
+> /fuad
+> 
+> --- >8 ---
+> 
+> From: Fuad Tabba <fuad.tabba@linux.dev>
+> Subject: [PATCH] irqchip/gic-v5: Invalidate the level 1 DTE when registering a device
+> 
+> With a two-level device table, gicv5_its_device_register() makes a
+> level 1 DTE valid when it allocates the level 2 table that it points
+> to. However, gicv5_its_device_cache_inv() invalidates the ITS caches
+> with ITS_INV_DEVICER.L1 clear, which doesn't invalidate the level 1
+> DTE. An update isn't guaranteed to be visible to the ITS until a cache
+> invalidation that covers it completes (R_HQFDL in the GICv5
+> specification). An ITS that cached the level 1 DTE while it was invalid
+> can keep dropping events for the DeviceIDs in its range.
+> 
+> Set ITS_INV_DEVICER.L1 on every device invalidation. It covers the
+> level 2 DTE as well, and has no effect with a linear device table.
+> 
+> Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+> 
+> Notes:
+>     Setting L1 on every invalidation turns each registration and
+>     teardown into a range invalidate, both rare paths, and keeps the
+>     function simple. Setting it only when registration allocates the
+>     level 2 table would miss a registration that fails after the
+>     allocation, which leaves the level 1 DTE valid.
 
-I guess AI has been trained more with the older code changes that
-didn't use the sync_stop, so it tends to produce a quite old-fashioned
-code.  You can give hints about the above point, I suppose.
+I can't follow. I agree that we have to invalidate the L1 DTE on
+L2 allocation but that's a one-off, I don't understand what issues
+you are pointing out in the Notes above, if you can point out please
+the code paths it refers to that'd help.
 
+Thanks,
+Lorenzo
 
-thanks,
-
-Takashi
+>  drivers/irqchip/irq-gic-v5-its.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+> index 101aceec68f63..83952e30178b1 100644
+> --- a/drivers/irqchip/irq-gic-v5-its.c
+> +++ b/drivers/irqchip/irq-gic-v5-its.c
+> @@ -372,10 +372,11 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
+>  	u64 didr;
+>  
+>  	didr = FIELD_PREP(GICV5_ITS_DIDR_DEVICEID, its_dev->device_id);
+> +	/* L1 also covers an L1 DTE that a registration may have just made valid. */
+>  	devicer = FIELD_PREP(GICV5_ITS_INV_DEVICER_I, 0x1)	|
+>  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
+>  			     its_dev->itt_cfg.event_id_bits)	|
+> -		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
+> +		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x1);
+>  
+>  	guard(raw_spinlock_irqsave)(&its->inv_lock);
+>  
+> 
+> --- >8 ---
+> 
+> From: Fuad Tabba <fuad.tabba@linux.dev>
+> Subject: [PATCH] irqchip/gic-v5: Clean a level 2 device table before making it valid
+> 
+> gicv5_its_alloc_l2_devtab() allocates a zeroed level 2 device table and
+> writes the level 1 DTE that points to it with VALID set. Unlike the
+> other ITS tables, the new table isn't cleaned to the PoC first. On a
+> non-coherent ITS, the zeroes can still sit in the CPU caches when the
+> ITS reads the table, so it can take stale memory as a valid level 2 DTE
+> for a DeviceID that nothing has registered.
+> 
+> Clean the table before the level 1 DTE is written.
+> 
+> Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  drivers/irqchip/irq-gic-v5-its.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+> index 83952e30178b1..b2d61ba3828cb 100644
+> --- a/drivers/irqchip/irq-gic-v5-its.c
+> +++ b/drivers/irqchip/irq-gic-v5-its.c
+> @@ -416,6 +416,8 @@ static int gicv5_its_alloc_l2_devtab(struct gicv5_its_chip_data *its,
+>  	if (!l2devtab)
+>  		return -ENOMEM;
+>  
+> +	gicv5_its_dcache_clean(its, l2devtab, BIT(span) * sizeof(*l2devtab));
+> +
+>  	its->devtab_cfgr.l2.l2ptrs[l1_index] = l2devtab;
+>  
+>  	l1dte = FIELD_PREP(GICV5_DTL1E_SPAN, span)			|
