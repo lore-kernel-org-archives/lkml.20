@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794821746;
-	b=FsffTYiZ7nenC/vO2m63JAtKO4XWGnC0th8QZoUKvFbx4tu0+MGJtImc/8y49caH3sFv
-	 uhAV0Bnotr5phE5m90HpwevOCrXyBJb7VVChpVcVQzPylruMdHsDeqscmMQVuW7Zt1MVg
-	 E+umoWQUuGHC+wwJIl4yzXTWG9cY3x6ebwZGiVGPjk2bXLp9PKE7f9YHZsv2e7n0vr5Nz
-	 +CzWdPehkt3ewtaezZav/axYbzGFSXyebyViIdTQ2P3efxjxCk0JVW1j9xq/N1P3qsckH
-	 HY7GD32lJm6Jz6F1H5ii/OmfosFWlKEQ+caBOszITUnbDd0qEBRaIVg09fk8BquIspw==
+	t=1794821747;
+	b=HQEV1GkEfR3rEOIYYIdpcV8lRxoaPqAjbyS4o9BCK3eC82elu2R43TOvkFpKFMyBJViJ
+	 DejY2oTCvuGFmE47a3xhn3DSUcBSjzUd/A+ULAy2iEmRNeR75n0yMiRXgJV/lBkiEiOE5
+	 M554gOoM5Lb5dNuxqbESPBK9amjNQrVFwXawSNhr48xPQYuWKBHG1Evt+IjY6yTH+AQLa
+	 7i25BUEWXP4MpSmmAUoDeMS3x5YqhzVF+DZXQ1dxkvM00V3rjakWIlLEmigGCeHVKWcOX
+	 cOeI7bki3akVd8c10g58VYOkX4/WKhx8rrYTbOAPiIJzGE1EAzQK/zOvmwmUfq9TevQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821747;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=seIdvgnGU2bxjAFiq8tvcgRrmLuTA/lxMAeaISrG7xs=;
-	b=xBq6OsCgScGUhEg1+lTZ+RXElqIXulud1tB6BzFSMcoDBOEWK/ANBc4LhjQ5R/menNJY
-	 hxNODVrliawwhNJH4sAV2Mi3yJOUywdELb0sEDHMF0n+suE35tI4eLYCOO9Y3+DabCDrt
-	 Iv2hoMfcnHWSMQceoFPLOXidZQjfXN41VAuH9wlNCGCp2LypPfC4UW8WggJyY6pYXNoPw
-	 jtDOq/9yynndEvfsNCjMxO5WKuBJeX/nFyBDbX1KzrnZD7YwGRfD7SA1d5b50hy82p7DK
-	 7OGNNJsMouHpVW3PE7XYdbMh9EGnPK5WON/GECqrxZw/k4JmlBCCzBQcz3nbfAGKSUg==
+	bh=6Zh+XulnPd/nR+IMT1WxzCnxZlOn4xssX41WPzE9FKU=;
+	b=bRk+bEjscl63Q+dIfpBEInLA5QMfVYQ1rKpkRxrEB0//W3sml6Dx1Ao3FwCJvT4vM9FG
+	 Ob51rdMu1VPfjadzyXKxpK+JXdCPtV+xmP18k3PrC/8e5Qupt1AR8bLXMJRGZ2dsrPCRS
+	 8hbfZBPqStM7u+g+YIgNkXm/0UBzAU+/hQM1P6qGd5S4/lna4lLRqQA8uLhVWWsaL04l4
+	 GU0zfWNmKT2GuJAI6nBlxs1ZzFQ0WT3ivKZIOIrA2AcIT5gpB+T517F+3wULmDV5AIF0U
+	 ESWxyVNZTyP3pIH4BHYNhzdg2ePpcCdyzsQiSGba2xO+5iJ3b8N3Xlm7E/ApjyLtaow==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UmJ1rKpC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6c3cS6d;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CAE606A31C;
-	Mon, 16 Nov 2026 09:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FC7606A332;
+	Mon, 16 Nov 2026 09:35:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UmJ1rKpC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6c3cS6d
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794821746;
-	b=zwNpr/HT2Zhc/yIA4PACH4y5CBPAYxzUSkfbskmctevT0UGhUPIr7BsBv6OSRhTlIQUY
-	 oDBTGycE71uhW9PA0h65If1/EqB+OXhyRijpwvTSHKgcO0WlceBZKelu0QHUa4S8Tolg/
-	 PR2nlR7ld1fFy16HkCA2J6lH6axOdJeadI7V4OcOWP8h6fu+N13Vj9elJG0nQjEyT4ymi
-	 LjKFuO77lkbinRG8ThoU9xtYKqA0lnlSIVJ00T4HuFw0c2v9IM+l5m3Agn30nmMcEa+rT
-	 9nKZ+O+DO/dnEVKBUcRzZpbEKqcoeXa6JFM/jZaJTgGcszNJ5clUGeNTMTaHVpqibeQ==
+	t=1794821747;
+	b=BB9yxXXJwVc8Vk8MLP3nsX8IG2GvRWt6dIKlpilDzPODo+I+D8tiLGGiu5ROJtyr7cY+
+	 xnsZd41Gb57H7P/FAiJ6wDa/cozMm1h45GE3TngxyBMWPArKArV7t1srewiJD1nonscSz
+	 AQLjiMxi6j/C5/AyvgRE3tSeK595cOEoZJkwu656+zrea9u34E6TsaMlh0tW0VVUMOySn
+	 Hs50Nt+HTklGFN2hI/XuDb69MnZJiL4YmTMvYs3MjgC2IMzLvx2g+8mP9mE8Hq2t5b+ee
+	 uPkNjzwgOxj+8zgJ7BpJhdT3w8TnWlZd/U+R8mUYEVRA7q09vFkwmF67jMSB6YqJvSw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794821746;
+	c=relaxed/relaxed; t=1794821747;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=seIdvgnGU2bxjAFiq8tvcgRrmLuTA/lxMAeaISrG7xs=;
-	b=ngxLJktEnWnsWTfz/WjAtrJ+5J9wNe0B7q7fnjMTVkBxf9xZmBYro4pY+m11GBAOg3t7
-	 m33m79DMV7CkNDvnIgiWcxvig80bI5+aha/bubWwjG5WXX0/WmyPi4PybQLVO4YpQvGar
-	 vVcxHohKKyPkTSeDHBz2hqx0YYBWgHeL/kuX1K7fba2/ZU57Vqz36fMj77uxuGB9RYzlc
-	 ABVfjPGPeFppH0laYRWyKJJVPsvCh8O4rh38ep7AKlFV35lKfNAs7mViLzNDXYpnCWO7e
-	 bRuftC61pfGYSxdKOFZrTIy9iVDEd9ljiHtcFr7VThgLbVwLdIdZn/WH+Nr7lam7JJw==
+	bh=6Zh+XulnPd/nR+IMT1WxzCnxZlOn4xssX41WPzE9FKU=;
+	b=zbOjBRQvum4E25D7nrV2IIFmTMq6VjgKLysQ2DMbIeU8CygscQoaQVIWjdxBCGAXyFzl
+	 n0/gzWCcdVMhd1LSFRaZ+5bzMN20WqCMpSJanWkgSD3lg9PpHv5f9INxFaLXo4UV/0E4x
+	 dzs4OixV8EJhhNYcFFdUxadCB92Q+EO3XEgqLD5dn75vtZgC/kYOYxKku2+YQCQymEtm3
+	 YJoBIPgSKk54UkbwLaG5lTXT3siKhqerGKrCfsBVgRRowYXGPZB5hXtN7axyWlG7WdUAk
+	 uWrVCW7FH6Zj3osJHmq43ZvcNbkXmwKLjoRB7z2PO+w4xqqSjB9fU/k0YWCeGfzM74Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D0B7A1F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id D3B601F000C6;
 	Mon, 16 Nov 2026 09:35:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794821746;
-	bh=seIdvgnGU2bxjAFiq8tvcgRrmLuTA/lxMAeaISrG7xs=;
+	s=k20260515; t=1794821747;
+	bh=6Zh+XulnPd/nR+IMT1WxzCnxZlOn4xssX41WPzE9FKU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UmJ1rKpCAPb1ozTmCNhsVPf5uy8bdljW2WkRQPbpd7YFbiSUyWvYw2xxfqGnUX4tk
-	 jBX0bhV0GT9sG3O204gb0ckoGkxPfZ4ZEx8sylSM5CM3EBP2cnngGfXpTnRpzGbYYC
-	 Q+dVEtBD64Zf0zkOct/hwp6fRU2w+EYFhGVzDOh5igzYfbMNF9nW+dhhir2WwTuqW0
-	 JHlOh5dkt7hTSG4DCH5ylY8oAak53h1ulPwqcXblh5w4D5OPzHY3BjlX4h10wWnr1H
-	 6OZfjm/tpjXn4Nl7vT34GfE4yKXeL9iDHMi+xflWdjv2XTebAYPvkEnRm3rKkrPLp6
-	 pMoPREGHmacBg==
+	b=h6c3cS6dEiVHuSu/acrM84Rt9838k3HHJXs//6NE4KChiWO2D239ZPdgIKD4FY6O7
+	 wFe6b9MFa9HfiXtpRkt+7gcBcA+g11Wf+ZgMuW7VwR87tFZOaK+zxkFPh9fPsH6WXV
+	 5fpnoXX9DFYqXU4oOys1HnORkByJeR9MTRpzQ1reXrdOt5JsGmS2rN1UUbsGhSgKmA
+	 knynY6MCfxNTSSd+i4tgBr6YnbyYrreCgP4LVJeyg/meelWkG63uNdqszPaIlt6xGw
+	 1kxqH+q8V+xtk1rX3sl+qTbqt4Z0RGLV0NEr/y3VXsI/8NStiQRCzcCtO4JrAxY10L
+	 i0frPRV10yX7w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4B03C4A3EA;
+	by lkml.kernel.org (Postfix) with ESMTP id 608494A402;
 	Mon, 16 Nov 2026 09:35:45 +0000 (UTC)
 From: Matt Thompson via B4 Relay <devnull+matt.boondocker.io@kernel.org>
-Date: Mon, 16 Nov 2026 02:35:43 -0700
-Subject: [PATCH RFC v3 1/6] PCI: rockchip-host: Skip downstream config
- access while link is down
+Date: Mon, 16 Nov 2026 02:35:44 -0700
+Subject: [PATCH RFC v3 2/6] arm64: Allow synchronous abort fixups for
+ guarded MMIO reads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-rfc-b4-v3-1-0bf052b68f2a@boondocker.io>
+Message-Id: <20261116-rfc-b4-v3-2-0bf052b68f2a@boondocker.io>
 References: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
 In-Reply-To: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
 To: Shawn Lin <shawn.lin@rock-chips.com>, 
@@ -98,11 +98,11 @@ Cc: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821744; l=2164;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821744; l=3957;
  i=matt@boondocker.io; s=rk3399-rfc-20261113; h=from:subject:message-id;
- bh=/1HByg8Lw8nHRyQAHKhvWIxWEc3G8cAR7GEHnb2FsoY=;
- b=ACOsM4wsD+wVnmt6FnYMD7SjXxlEZDz7vxl6bjCI3jGh4Jxpwpjdi509tkN3YsabP6YbQ3w3a
- y4+6ucOqsWlCsCZpHIPbDdDKw4iElWvCVX6AnXMsDtRdVJWCoapwAe9
+ bh=O2LbMV/iAQG9voycLpkvTk5xx5a7660O6hR4aIZ4gWk=;
+ b=oIwmQLQEfkvjG3fwx1Oix4dLW8HQso+6ytYvjcn5izVk500rqVfftQDITyY7UZ1vr92siqtBt
+ stlGgmnS3w2DzNTYnE2R9PN0Ym9LpCcfUuUgrTkLvFVoG5vJO88clfA
 X-Developer-Key: i=matt@boondocker.io; a=ed25519;
  pk=WMnh3kwFFRkrqamL/FbDcdl1/9rBF2uT03VdvGGP40k=
 X-Endpoint-Received: by B4 Relay for matt@boondocker.io/rk3399-rfc-20261113
@@ -113,61 +113,125 @@ Content-Transfer-Encoding: 7bit
 
 From: Matt Thompson <matt@boondocker.io>
 
-On a RockPro64, a PCI bus rescan with the downstream FPGA unavailable
-faulted in rockchip_pcie_rd_conf() during a vendor ID read. The rescan
-task exited with interrupts disabled and the watchdog reported a lockup.
+An RK3399 PCI configuration read can raise a synchronous external data
+abort if it does not get a usable response. Allow an explicitly annotated
+MMIO load to return an error in this case.
 
-Check the controller's link-up and link-training status before issuing
-downstream config requests. Return PCIBIOS_DEVICE_NOT_FOUND while the
-link is unavailable. Root port config access still uses the local
-controller registers.
+Match only a current-EL synchronous external abort on a read instruction
+with the new exception table type. Keep existing handling for other
+faults, including asynchronous SError and translation table walk aborts.
 
-This check cannot prevent the link from dropping during the transaction.
-
-Fixes: e77f847df54c ("PCI: rockchip: Add Rockchip PCIe controller support")
 Signed-off-by: Matt Thompson <matt@boondocker.io>
 ---
- drivers/pci/controller/pcie-rockchip-host.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/arm64/include/asm/asm-extable.h | 15 +++++++++++++++
+ arch/arm64/mm/extable.c              | 20 ++++++++++++++++++++
+ arch/arm64/mm/fault.c                |  4 ++++
+ 3 files changed, 39 insertions(+)
 
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index 5b071bd..35105c1 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -143,12 +143,23 @@ static int rockchip_pcie_wr_own_conf(struct rockchip_pcie *rockchip,
- 	return PCIBIOS_SUCCESSFUL;
+diff --git a/arch/arm64/include/asm/asm-extable.h b/arch/arm64/include/asm/asm-extable.h
+index d67e2fd..ac78167 100644
+--- a/arch/arm64/include/asm/asm-extable.h
++++ b/arch/arm64/include/asm/asm-extable.h
+@@ -11,6 +11,7 @@
+ #define EX_TYPE_KACCESS_ERR_ZERO	3
+ #define EX_TYPE_UACCESS_CPY		4
+ #define EX_TYPE_LOAD_UNALIGNED_ZEROPAD	5
++#define EX_TYPE_MMIO_READ_ERR_ZERO	6
+ 
+ /* Data fields for EX_TYPE_UACCESS_ERR_ZERO */
+ #define EX_DATA_REG_ERR_SHIFT	0
+@@ -80,6 +81,11 @@
+ #else /* __ASSEMBLER__ */
+ 
+ #include <linux/stringify.h>
++#include <linux/types.h>
++
++struct pt_regs;
++
++bool fixup_sea_exception(struct pt_regs *regs, unsigned long esr);
+ 
+ #define __ASM_EXTABLE_RAW(insn, fixup, type, data)	\
+ 	".pushsection	__ex_table, \"a\"\n"		\
+@@ -111,6 +117,15 @@
+ 			    EX_DATA_REG(ZERO, zero)			\
+ 			  ")")
+ 
++#define _ASM_EXTABLE_MMIO_READ_ERR_ZERO(insn, fixup, err, zero)		\
++	__DEFINE_ASM_GPR_NUMS						\
++	__ASM_EXTABLE_RAW(#insn, #fixup,				\
++			  __stringify(EX_TYPE_MMIO_READ_ERR_ZERO),	\
++			  "("						\
++			    EX_DATA_REG(ERR, err) " | "			\
++			    EX_DATA_REG(ZERO, zero)			\
++			  ")")
++
+ #define _ASM_EXTABLE_UACCESS_ERR(insn, fixup, err)			\
+ 	_ASM_EXTABLE_UACCESS_ERR_ZERO(insn, fixup, err, wzr)
+ 
+diff --git a/arch/arm64/mm/extable.c b/arch/arm64/mm/extable.c
+index 299a244..dcb84d8 100644
+--- a/arch/arm64/mm/extable.c
++++ b/arch/arm64/mm/extable.c
+@@ -28,6 +28,8 @@ bool insn_may_access_user(unsigned long addr, unsigned long esr)
+ 		return false;
+ 
+ 	switch (ex->type) {
++	case EX_TYPE_MMIO_READ_ERR_ZERO:
++		return false;
+ 	case EX_TYPE_UACCESS_CPY:
+ 		return cpy_faulted_on_uaccess(ex, esr);
+ 	default:
+@@ -101,6 +103,8 @@ bool fixup_exception(struct pt_regs *regs, unsigned long esr)
+ 	case EX_TYPE_UACCESS_ERR_ZERO:
+ 	case EX_TYPE_KACCESS_ERR_ZERO:
+ 		return ex_handler_uaccess_err_zero(ex, regs);
++	case EX_TYPE_MMIO_READ_ERR_ZERO:
++		return false;
+ 	case EX_TYPE_UACCESS_CPY:
+ 		return ex_handler_uaccess_cpy(ex, regs, esr);
+ 	case EX_TYPE_LOAD_UNALIGNED_ZEROPAD:
+@@ -109,3 +113,19 @@ bool fixup_exception(struct pt_regs *regs, unsigned long esr)
+ 
+ 	BUG();
  }
- 
-+static bool rockchip_pcie_downstream_ready(struct rockchip_pcie *rockchip)
++
++bool fixup_sea_exception(struct pt_regs *regs, unsigned long esr)
 +{
-+	return PCIE_LINK_UP(rockchip_pcie_read(rockchip, PCIE_CLIENT_BASIC_STATUS1)) &&
-+	       PCIE_LINK_TRAINING_DONE(rockchip_pcie_read(rockchip, PCIE_CORE_CTRL));
++	const struct exception_table_entry *ex;
++
++	if (ESR_ELx_EC(esr) != ESR_ELx_EC_DABT_CUR ||
++	    (esr & ESR_ELx_FSC) != ESR_ELx_FSC_EXTABT ||
++	    (esr & ESR_ELx_WNR))
++		return false;
++
++	ex = search_exception_tables(instruction_pointer(regs));
++	if (!ex || ex->type != EX_TYPE_MMIO_READ_ERR_ZERO)
++		return false;
++
++	return ex_handler_uaccess_err_zero(ex, regs);
 +}
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index b227368..ebe8054 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -30,6 +30,7 @@
+ #include <linux/hugetlb.h>
+ 
+ #include <asm/acpi.h>
++#include <asm/asm-extable.h>
+ #include <asm/bug.h>
+ #include <asm/cmpxchg.h>
+ #include <asm/cpufeature.h>
+@@ -879,6 +880,9 @@ static int do_sea(unsigned long far, unsigned long esr, struct pt_regs *regs)
+ 	const struct fault_info *inf;
+ 	unsigned long siaddr;
+ 
++	if (fixup_sea_exception(regs, esr))
++		return 0;
 +
- static int rockchip_pcie_rd_other_conf(struct rockchip_pcie *rockchip,
- 				       struct pci_bus *bus, u32 devfn,
- 				       int where, int size, u32 *val)
- {
- 	void __iomem *addr;
+ 	inf = esr_to_fault_info(esr);
  
-+	if (!rockchip_pcie_downstream_ready(rockchip)) {
-+		*val = ~0U;
-+		return PCIBIOS_DEVICE_NOT_FOUND;
-+	}
-+
- 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
- 
- 	if (!IS_ALIGNED((uintptr_t)addr, size)) {
-@@ -182,6 +193,9 @@ static int rockchip_pcie_wr_other_conf(struct rockchip_pcie *rockchip,
- {
- 	void __iomem *addr;
- 
-+	if (!rockchip_pcie_downstream_ready(rockchip))
-+		return PCIBIOS_DEVICE_NOT_FOUND;
-+
- 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
- 
- 	if (!IS_ALIGNED((uintptr_t)addr, size))
+ 	if (user_mode(regs) && apei_claim_sea(regs) == 0) {
 
 -- 
 Git-155)
