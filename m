@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793686;
-	b=B+jOQsLorPVsTiZ/DInjDna/ytnenrsH1R3yDG1ipyo61/xVp6joF8u1xMQbKKc7+hGL
-	 /GGhvOdBkTNXmjEva6/85k4tQNDIWN9R+uTg2cepaHFy7lPIZA/0N3OMDWgz4HTlJC2h4
-	 saQYy4CTxNYQiFN6l56gD704mydSsO9EYQnj0M6FkqLu91dP32CWLMbttBT6nVKV8JEJv
-	 5tIHi7DvfUpyIfh3775Nfha2B8loDHuOMDZK6fU6bkeqp5ZUXBKooE6lirrPkJts+4BfH
-	 l/q2cuDCrVyFdnopzM2CnqnW9yHerF6KK1JWbkQc2Bbem7qYz2V2E8elHluU/BI7Cxg==
+	t=1794793685;
+	b=b8vN07F2rnXDe+bXQ4PX/d2G+RGPDkVTOBzjPou5i/FPIutNxpQen3ux+ekYenLPCy/Q
+	 kF/rGg6UnibQFMg0GimKv1YLkVU4L7V4x8dEQ6FNM8+F2CUoSPt4XlEWW2p4S0hK65QW7
+	 ackXj5HQvHzcJTIeLoNVDG4Va7ykotBEe6EoUbBywCYCuixfOqAKM5WJ60Qpu3xB0dmAU
+	 0ouNtSY8dcHV4n+qnsYGTf+1V8oKMutcw2/sd0+rJQFmbhSu95M+7E4lZQsxqlkU3M2BK
+	 PA891ay58OP8yxaxFKcpLDoTPooqmymmwA/8WZMcMHmTR8qt4tlYHj+uXaZpBoJ9U+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793685;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=U16UHM6ExIa0np8Ym9kKv5Vd+LKnAL8EesghEHkEZLY=;
-	b=c8hKsDtIJ9rd/mD7dQfSs+c6spDuzT0N+3SogARc96hjCj72DTS2UXZt6atEtvqBisEI
-	 SDSzPLMZyMOzEO2KKVCFiY1Zq3XizCqdeA2xIyBYfYSiAq0yMVs/Lk1ieVuF5yabRDTGV
-	 3D3Y6Ezgm4YPGohvxYaZOErgvMaXLAZKgA+mD9pb7wEvv21GfLJeQS3/VISf9AMZLyMQP
-	 +ihBDEP52wLMmRcnYbUzUITI2OOvwHfPaXNSVMteuTwpqHiVoQJtZoqqz9FJLRs7V70/z
-	 1MQ8KrtcqN6EJFdkxkMNcdQ3NfAhxVCA6rVdiONMCikzAFuU43hzh+gvpEDRIx2nXsQ==
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/nwHSgmULD7w39MCVwYL6c8RIu9ZjvKKhOiW+6dDf6A=;
+	b=3BPza5PfVtqJ2/x1WespVm5sTCFst12+4hC73zHSyv8hImZlA2/ZFLRYGiq8Uw6uoV4v
+	 /2Bt0Jlc23uCfEe3A06gxu6guKRPi+fwNAYaHn6E0Z/BP+8VzoUVS0zGR98g6uQ9xNSLS
+	 L16L4Pn8Os46MN5oMYFHsSIm9j0/Am9TpGVAeZNyQJnHwve/3CQq8GMnT0onKu/BpFxa/
+	 z4fmHYRQh/PWdBFGH4oCWqVzwnouVNBp1UFCQ21sQyUQirkHiS7UatSNzPwoKEHYFWcTX
+	 Y8I+RjexWVqhlk+3Ba7IlUMBxR2k6LX6YdR3KMpyza9SGEr/cN7X0IGnltfDvVAkyJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=sYZgBawm;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B6BD606A332;
-	Mon, 16 Nov 2026 01:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B6BD606A332
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bQ2YaFLj;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59AB8606A31F;
+	Mon, 16 Nov 2026 01:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59AB8606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=sYZgBawm
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bQ2YaFLj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=sYZgBawmzsxhoBZgFtn9MuS70kq5u3aa1Ai0gsxqaGKAvQn1+XRy2PnxLsnKLDvG01DhJF4qgzn+H
-	 IHxTp+Jm390g4687nVmIdYh60tcR358aEoPXcqzRDGbZMmwbGq0VUAULnGtPq2s0w31x4JE0fZPTax
-	 l9Z1SmLu+ozFQpDE=
+	b=bQ2YaFLjoRVgsgwi8R8prqEzQn1s0bwikfK0pqTMpT8lIqQspW0suY3lmKXbPXQzfw9x4LE1/OkP8
+	 3/dRNqWnBfmq03BLZqcmkyNSN1/6zVF6zHRUNzkznel5Lbg7OsDLyU8fQ3IXsEKKuZ4Uoy4ezaP3M5
+	 u5MOOI5saNSang4I=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56afa60d38ca-f7211;
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46afa60d388c-99a79;
 	Mon, 16 Nov 2026 09:48:03 +0800 (CST)
-X-RM-TRANSID:2ee56afa60d38ca-f7211
+X-RM-TRANSID:2ee46afa60d388c-99a79
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afa60d087e-77830;
-	Mon, 16 Nov 2026 09:48:03 +0800 (CST)
-X-RM-TRANSID:2ee66afa60d087e-77830
+Received:from localhost.net (unknown[223.64.115.200])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afa60d087e-7782a;
+	Mon, 16 Nov 2026 09:48:02 +0800 (CST)
+X-RM-TRANSID:2ee66afa60d087e-7782a
 From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
 To: David Ahern <dsahern@kernel.org>,
 	Ido Schimmel <idosch@nvidia.com>,
@@ -64,12 +64,10 @@ Cc: Simon Horman <horms@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	sunwenbo@cmss.chinamobile.com,
 	1342116488@qq.com
-Subject: [PATCH net-next v3 1/2] ipv6: check mc_forwarding before calling ip6mr_get_route()
-Date: Mon, 16 Nov 2026 09:47:43 +0800
-Message-Id: <20261116014744.18223-2-sunwenbo@cmss.chinamobile.com>
+Subject: [PATCH net-next v3 0/2] ipv6: fix rt6_fill_node() multicast route query handling
+Date: Mon, 16 Nov 2026 09:47:42 +0800
+Message-Id: <20261116014744.18223-1-sunwenbo@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20261116014744.18223-1-sunwenbo@cmss.chinamobile.com>
-References: <20261116014744.18223-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,67 +79,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When CONFIG_IPV6_MROUTE is enabled, rt6_fill_node() currently calls
-ip6mr_get_route() whenever an input interface (RTA_IIF) is specified and
-the route destination is multicast.
+When querying an IPv6 multicast route with an input interface (RTA_IIF),
+rt6_fill_node() currently calls ip6mr_get_route() unconditionally and
+masks any negative error returned by ip6mr_get_route() with -EMSGSIZE at
+nla_put_failure.
 
-However, inet6_rtm_getroute() does not set skb->dev on the newly
-allocated reply skb, and the looked-up rt6_info carries the matched FIB6
-prefix (such as ff00::/8 from addrconf_add_mroute()) rather than the
-queried (S,G) addresses. As a result, when multicast forwarding is
-disabled (mc_forwarding is 0), ip6mr_get_route() falls into the
-cache-miss check and returns -ENODEV, causing rt6_fill_node() to jump to
-nla_put_failure and report -EMSGSIZE ("RTNETLINK answers: Message too
-long") to userspace. Similarly, interface-local and link-local multicast
-groups are never forwarded by ip6_mc_input(), so querying them with
-mc_forwarding enabled also enters ip6mr_get_route() and fails instead of
-reporting the local route.
+Patch 1 checks mc_forwarding and excludes interface-local and link-local
+multicast destinations (checking dest when available, otherwise
+rt6_dst->addr) before calling ip6mr_get_route(), aligning with IPv4
+rt_fill_info() and IPv6 ip6_mc_input() so queries fall back to reporting
+RTA_IIF and normal route attributes.
 
-In contrast, the IPv4 counterpart rt_fill_info() guards ipmr_get_route()
-with !ipv4_is_local_multicast(dst) and IPV4_DEVCONF_ALL_RO(net,
-MC_FORWARDING), falling back to emitting RTA_IIF and normal route
-attributes.
+Patch 2 preserves the negative error returned by ip6mr_get_route()
+instead of overwriting it with -EMSGSIZE when multicast forwarding is
+enabled.
 
-To align IPv6 behavior with IPv4 and ip6_mc_input(), check that
-mc_forwarding is non-zero and that the destination (dest when available,
-otherwise rt6_dst->addr) is neither interface-local (IPV6_ADDR_LOOPBACK)
-nor link-local (IPV6_ADDR_LINKLOCAL) multicast before calling
-ip6mr_get_route().
+Changes in v3:
+- In patch 1, also exclude interface-local (IPV6_ADDR_LOOPBACK) and
+  link-local (IPV6_ADDR_LINKLOCAL) multicast by checking
+  `dest ? : &rt6_dst->addr`, as pointed out by Sashiko review, and drop
+  Hangbin Liu's Reviewed-by tag on patch 1 due to the code change.
+- Clarify patch 1 commit message regarding skb->dev in
+  inet6_rtm_getroute() and add UML test coverage for ff02::1 and ff01::1
+  with MRT6_INIT enabled.
+- Carry Hangbin Liu's Reviewed-by on unchanged patch 2.
+- Link to v2: https://lore.kernel.org/netdev/20261112094630.197244-1-sunwenbo@cmss.chinamobile.com/
 
-This discrepancy was identified with the assistance of an LLM-based code
-review comparing IPv4 and IPv6 multicast route get handling, confirmed
-on a UML kernel where multicast route queries with an input interface
-failed on an unpatched kernel, and verified in UML that routable
-multicast queries with mc_forwarding disabled as well as link-local
-(ff02::1) and interface-local (ff01::1) queries with mc_forwarding
-enabled now succeed and report RTA_IIF.
+Changes in v2:
+- Reword patch 1 commit message for clearer tone.
+- Add patch 2 to preserve negative errors returned by ip6mr_get_route()
+  instead of returning -EMSGSIZE from nla_put_failure, with
+  Suggested-by: Hangbin Liu <liuhangbin@kylinos.cn>.
+- Verify both mc_forwarding=0 and mc_forwarding=1 (MRT6_INIT) cases in
+  a UML kernel alongside W=1 builds on UML, x86_64 allmodconfig, and
+  x86_64 allyesconfig.
+- Link to v1: https://lore.kernel.org/netdev/20261111094528.425826-1-sunwenbo@cmss.chinamobile.com/
 
-Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
-zero new warnings or errors.
+Wenbo Sun (2):
+  ipv6: check mc_forwarding before calling ip6mr_get_route()
+  ipv6: preserve ip6mr_get_route() error in rt6_fill_node()
 
-Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
----
- net/ipv6/route.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/ipv6/route.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 1b2dcc066e19..27597d149672 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -5868,7 +5868,12 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
- #endif
- 	if (iif) {
- #ifdef CONFIG_IPV6_MROUTE
--		if (ipv6_addr_is_multicast(&rt6_dst->addr)) {
-+		const struct in6_addr *mc_dst = dest ? : &rt6_dst->addr;
-+
-+		if (ipv6_addr_is_multicast(mc_dst) &&
-+		    !(ipv6_addr_type(mc_dst) &
-+		      (IPV6_ADDR_LOOPBACK | IPV6_ADDR_LINKLOCAL)) &&
-+		    atomic_read(&net->ipv6.devconf_all->mc_forwarding)) {
- 			int err = ip6mr_get_route(net, skb, rtm, portid);
- 
- 			if (err == 0)
 -- 
 2.33.0
 
