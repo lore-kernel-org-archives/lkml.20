@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846449;
-	b=KelDVbuzHshosJLzFO9JkgyBL9lrJ9zH2Yn9xk2E6tsho3d/IL3IOoebfL1rKHjnJgoE
-	 lr9h+fnxMaZMrn2FSr+UAx9Tub9EAu/0y0b5DnwK1d1EiZBJEg2Q9ACCXHOTMZMY5YQ1I
-	 9F6sb9wk4RR85evZ1NZQWuZtgWWQbqQD6DbYVABHbPUB5HEpcRQyalv1tJfoT77M292o0
-	 hcQ2phlCcPYBAdhMTC5WBef9+kmocoBQReo8fxTI5ldDT8SDFVQ7xebzcZIyURR7UbiLh
-	 RKY03TiwTr+gbfrRBwL2y6WS3/5RAZ/h6aLr1kfABOCxww8bh0J3r96bauD6iG70ScA==
+	t=1794846445;
+	b=5Uxqs9ekbWgv54eee+M9HP2UYdD3m5RHPseOkB83BqOJC7KZIRZcnP/TaEO4ShsekiI5
+	 3xkhyOLQ0x72+vo9ZiO9yZ8GGd7/vS1iCTsdxNLkHVh3zn3W4z+ogkLgZbOYNz4mD6urq
+	 S4kuDq8/hrtViYjNz9quqBxBG1TX0pwwDwVCxuyv1l772kttWX5qv/R8Owf3QgwEp1mcE
+	 8pkuLBr8rxVyTDM7jfSJwzwT1ZJp/RUoIlkVsT8Nv0aKRvlRY5Dek8jeomDExB/vn/Ae7
+	 OtV0d5ouYVYpK94nL3zADudhXFIjlMWHbNEyxZcM2DSoXgIq3leg6zAor6CP2lTUCcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846449;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846445;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=nV9c2MLNlihsCA7BTpRORTeWE46Uw4LSE6nUB+YU+40=;
-	b=JgVedYGJiiPiKI5qzZeDeCtOieLg+If04nh92ReQpGCtPEH1JBe3OaH4bdfzQUbquw6l
-	 ilMBRluNHoVxJkpOhRGVUrMUjS8z7Imf3Feakj0E3I8Go2O3ROXPHUrnv7R54ClrS/2YG
-	 VcEHUPa4af3MnHv5OAGRUwyKxKKCUbIh6k/HTOoXqTicwgOVkokNa53HS66MhMTGN6B92
-	 v6XMI06nLRkehC94MNd3bVq0BEx973KspYYESIrVmOwm8yYxrZ1mNHevg8NRjcBG5QngC
-	 cA4xpHXujvF6cVKPCtXZ10E7EmqOZ06h1Yj9mLcu1MVA5HdU3IQDU8aQEt9itGMtn/Q==
+	bh=aqVXnpsGKUb5dmAyOvsZyxLyttfxnbXbLvMJdAHt3hw=;
+	b=A7w7dkQAyLaIoVLaew2opeTEvqNRtajUd8c5W1oAwKfHb8L+t5up/rWtsexdriDm7WaH
+	 kcQXdgPfjZ3vS9On9VKKe4LPPcBUzw6keCBUiXDAtSBYktjbMnMrvmYTMwkf7zOYsoNNe
+	 2kCrb8BPc3dXfGtpa+Uo/WackBLaKHL5k5M7PMUAHHjOi0ZYggnfcqGldrVFRRP3ewSax
+	 A3c+Z+E0VslrdE9U6gbE2ePDCKqtTM8OAehsLQgQRRxRUirqgmKVVyAfLBiMcTCUmpjZZ
+	 Rd1XPe0p3gG5rFlEPI/ZGRcRsUHaDpULt7pRTR+f3FZhI/VkXHEGJmV3lWgYQHK87/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvdLpzCv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIQgZsHP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EB4606A32C;
-	Mon, 16 Nov 2026 16:27:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5312C606A31C;
+	Mon, 16 Nov 2026 16:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvdLpzCv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530861F000D0;
-	Mon, 16 Nov 2026 16:27:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIQgZsHP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0791F000C4;
+	Mon, 16 Nov 2026 16:27:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846448;
-	bh=nV9c2MLNlihsCA7BTpRORTeWE46Uw4LSE6nUB+YU+40=;
+	s=k20260515; t=1794846444;
+	bh=aqVXnpsGKUb5dmAyOvsZyxLyttfxnbXbLvMJdAHt3hw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EvdLpzCvDmBIPhUdLLEYg/bg/X09XK9EzfDBSHVn6+fs1+9GupPKWuockBAB/U11/
-	 rXZ7Xw2eVeUa/QZ8lcKySQShRZgO5zA7Gopx3Y9Ws9KukNTgUklisww4m3STxOg57f
-	 F/ouZZg6ycw8Sw7KvtJrJgnWRZEAPjrgpmxQSI9sdeYpr+aytHp+C+dCVOTBEicR4Q
-	 ej0laSiZVDd8thLnM4G4AdXsHlzzqRKDjRre32y8xVEemlvsiXxVyuF5iXWB6i5ddJ
-	 dwdlIONRiJvpVQsdgWXi1G9MJxHSMVy/35MQMSnRHqUtIcQbiBFlYpm0lwgkHVe1d2
-	 kK6YvMYwy6WQg==
-Subject: Re: [PATCH net v9 4/4] selftests: net: hsr: verify GRO policy and
- ordered forwarding
+	b=VIQgZsHPU4uQodvLyAAwsRYYmobWrji3K/0jNrzRo6ZcvRJyw2jluC3GEXDumUeHG
+	 vshdVlPKJzv2h8ow2lf2LCxd4EtGKG3she1k9a7HNCNCiM+6kCNk/I0CY8N8rULByL
+	 TDOkbJhA4OstvcEodNimQ/pM9bRyYgRLmKiC4Kf+WNNmqFVGwSz3hJsOHzKVIhMgEh
+	 /GHpCfNPA137OnbSvPSp55ELxA3u56ls5U3K80LMbdFrhVJZUZ9XsxK09S+OpwuJpL
+	 kx25cNpEkX2UtvhDGje24GRYxBH/hu3aNINtgMXi2kbxphTkXvvFbtPUuA/FW2qn1h
+	 zegWEGlK2AXSQ==
+Subject: Re: [PATCH net v9 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
 From: netdev-bot+sashiko@kernel.org
 To: xiexinet@gmail.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -52,11 +51,11 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
  liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
  lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Mon, 16 Nov 2026 16:27:26 +0000
-Message-ID: <179484644688.3136.15525954898173827248@kernel.org>
-In-Reply-To: <20261112153333.20-5-xiexinet@gmail.com>
-References: <20261112153333.20-5-xiexinet@gmail.com>
-X-sashiko-severity: Medium
+Date: Mon, 16 Nov 2026 16:27:23 +0000
+Message-ID: <179484644326.3136.10831441284903731799@kernel.org>
+In-Reply-To: <20261112153333.20-2-xiexinet@gmail.com>
+References: <20261112153333.20-2-xiexinet@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,197 +68,101 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In tcp_prp(), the check for 'no tag/RCT on local delivery' can
-  never fail.
-- [Low] The commit message overstates what the second refusal group in
-  port_types() checks…
-- [Low] In tcp_prp(), a Skip raised by verify_stream() bypasses the PRP
-  reply checks.
-- [Low] Lab.close() closes every owned socket (lines 367-368) before it
-  joins the producer threads (lines 369-373).
+- [Low] The patch puts HSR-specific policy into the generic core function
+  __netdev_update_features() in net/core/dev.c (lines 11279-11285):…
 
 --
 
-selftests: net: hsr: verify GRO policy and ordered forwarding
+net: hsr: keep GRO disabled on HSR/PRP ports
 
-This adds two HSR/PRP selftests, hsr_gro_superpacket.sh and
-hsr_ordered_forwarding.sh. Both exec one shared Python helper. The gro
-mode checks the member GRO policy, the refusal of unsupported port
-types, and byte-exact TCP forwarding over an HSR interlink and over PRP
-LANs. The ordered mode checks sequence ordering of local, interlink,
-supervision and concurrent traffic, including a sequence wrap.
+This commit adds an hsr_port bit to struct net_device. HSR sets the bit
+on its direct members (slave A/B and interlink). While the bit is set,
+__netdev_update_features() clears NETIF_F_GRO and configurable
+NETIF_F_GRO_HW from both wanted_features and the computed features, and
+an attach fails if software GRO stays on.
 
-> diff --git a/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
-> new file mode 100755
-> index 0000000000000..3548ee0adfae3
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
-> @@ -0,0 +1,1456 @@
-
-[ ... ]
-
-> +    def close(self):
-> +        """Stop threads, close sockets and delete owned namespaces."""
-> +        self.stop.set()
-> +        end, errors = time.monotonic() + 20, []
-> +        for sock in self.sockets:
-> +            sock.close()
-> +        for thread in self.threads:
-> +            if thread.ident is not None:
-> +                thread.join(max(0, end - time.monotonic()))
-> +            if thread.is_alive():
-> +                errors.append("sender thread did not stop")
-
-[Severity: Low]
-This isn't a bug, but the docstring says "Stop threads, close sockets".
-Lab.close() closes the sockets before it joins the producer threads
-started by ordered_concurrent().
-
-If a producer is still running here, its sendto() on the closed socket
-gets EBADF. Its except (OSError, ValueError, RuntimeError) clause
-catches that. The 1 second timeout from ordered_socket() and the
-lab.stop check limit how long it can run. The main thread opens no new
-fds until the join returns, so fd reuse does not look possible.
-
-Would joining the threads before closing the sockets match the docstring
-order?
-
-[ ... ]
-
-> +    # A refused second port leaves the first port as it was.
-> +    for dev in ("w", "g"):
-> +        local_pair(lab, ns, dev)
-> +    set_gro(lab, ns, "p", "on")
-> +    set_gro(lab, ns, "g", "on")
-> +    first, second = link_state(lab, ns, "p"), []
-
-[ ... ]
-
-> +    for kind, dev, error in second:
-> +        label = f"{kind} as slave2"
-> +        result = lab.ip(ns, "link", "add", "name", "hsr0", "type", "hsr",
-> +                        "slave1", "p", "slave2", dev, "version", "1", check=False)
-> +        require(result.returncode != 0 and error in result.stderr,
-> +                f"{label}: missing refusal message: {result.stderr.strip()}")
-> +        require(lab.ip(ns, "link", "show", "dev", "hsr0", check=False).returncode,
-> +                label + ": HSR device left behind")
-> +        after = link_state(lab, ns, "p")
-> +        require("master" not in after and after["promiscuity"] == first["promiscuity"],
-> +                f"{label}: first port p changed by the refused attach")
-> +        gro_state(lab, ns, "p", "on", label + ": first port p")
-> +        refused.append(label)
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index df1a840b03343..c8c2de2125567 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -11269,6 +11269,21 @@ int __netdev_update_features(struct net_device *dev)
+>  
+>  	features = netdev_get_wanted_features(dev);
+>  
+> +	/* A direct HSR/PRP port needs per-frame metadata. Drop software
+> +	 * GRO and configurable GRO_HW from the request as well as from the
+> +	 * features passed to ndo_fix_features(), as the core does for
+> +	 * upper-disabled features: drivers such as veth derive state from
+> +	 * wanted_features and need the requested and the active bit to
+> +	 * agree. Fixed-on or driver-required GRO_HW is left to the driver.
+> +	 */
+> +	if (dev->hsr_port) {
+> +		netdev_features_t gro = NETIF_F_GRO |
+> +					(dev->hw_features & NETIF_F_GRO_HW);
+> +
+> +		dev->wanted_features &= ~gro;
+> +		features &= ~gro;
+> +	}
 
 [Severity: Low]
-Does this second refusal group in port_types() check what the commit
-message describes? The message says:
 
-    ... and of a VRF port without leaving an upper link or a promiscuity
-    reference on any port ...
+The comment says this follows what "the core does for upper-disabled
+features". Is that right?
 
-and:
+netdev_sync_upper_features() runs inside the lower device's own update.
+It masks only the computed features and does not touch the request:
 
-    ... a device refused at attach keeps its request.
+    if (!(upper->wanted_features & feature)
+        && (features & feature)) {
+        ...
+        features &= ~feature;
+    }
 
-Only p is snapshotted here (first = link_state(lab, ns, "p")), and only
-p is compared after each refused attach. The refused VRF port w and the
-macvlan mvg have no baseline. Their promiscuity is never compared, and
-the GRO state of mvg is never read back.
+Only netdev_sync_lower_features() clears lower->wanted_features, and it
+does that once, when the upper device turns the feature off. In this
+patch, the request is cleared inside the same update that is supposed to
+apply it.
 
-The first refusal group snapshots every candidate device in before and
-checks each one again, so the two groups do not match. A leaked
-promiscuity reference on w or mvg would still pass this case.
+Can this make the legacy ETHTOOL_SFEATURES ioctl report success for a
+GRO request that was never applied? ethtool_set_features() sets
+wanted_features and then runs:
 
-Should w and mvg also go into the before/after comparison?
+net/ethtool/ioctl.c:ethtool_set_features() {
+    ...
+	__netdev_update_features(dev);
 
-[ ... ]
+	if ((dev->wanted_features ^ dev->features) & valid)
+		ret |= ETHTOOL_F_WISH;
+    ...
+}
 
-> +def tcp_prp(lab, row):
-> +    """TCP GSO from a SAN on one PRP LAN is delivered locally, segmented."""
+When hsr_port is set, GRO is already gone from both wanted_features and
+features when the XOR runs. So ETHTOOL_F_WISH is not set for GRO, and
+the ioctl reports full success while GRO stays off. A later ethtool -k
+shows GRO off without the "[requested on]" marker.
 
-[ ... ]
+Compare LRO disabled by an upper device: there the request stays in
+wanted_features and ETHTOOL_F_WISH is returned. The netlink path,
+ethnl_set_features(), still reports the mismatch, because it compares
+against its local req_wanted copy.
 
-> +    lab.cmd(tx, "ethtool", "-K", lower, "tso", "on", "gso", "on")
-> +    caps = [lab.capture(tx, lower, pkttype=4), lab.capture(dut, "pm", pkttype=0)]
+The comment on the new struct net_device field also says "Kernel role
+state only; no user ABI", but the field changes behaviour that ethtool
+users can see. It also puts HSR-specific policy into the generic
+__netdev_update_features() under a "net: hsr:" subject. Later patches in
+the series do not touch net/core/dev.c, so this is still the case at the
+end of the series.
 
-[Severity: Medium]
-Can the check for no tag/RCT on local delivery ever fail for this
-capture?
-
-The pm capture is opened with the default prp=False. decode() only
-recognises a PRP RCT when prp is set:
-
-    elif prp and end >= off + 6 and raw[-2:] == b"\x88\xfb":
-
-So every frame captured on pm decodes with tag=False and
-encoding="plain". The TCP payload ends at the IPv4 total length, so 6
-trailing RCT bytes are silently ignored.
-
-verify_stream(..., local=True) then calls:
-
-    wire_rows(captures[1].rows, port, stack, tagged=False)
-
-and this check in wire_rows() is always true here:
-
-    require(row["tag"] == tagged, "flow tag/RCT missing or unexpected")
-
-The size limit does not catch it either. A 1514 byte segment plus a 6
-byte RCT is exactly 1520, which passes
-row["size"] <= 1520 + 4 * len(stack).
-
-Suppose the PRP master delivered frames locally with the RCT still
-attached. The IP stack would trim the trailer and TCP would still
-complete, so this case would pass. The commit message says "Tags/RCT,
-sequence numbers and VLAN stacks are checked".
-
-Would opening the pm capture with prp=True make this check effective?
-
-> +    ingress = lab.capture(dut, "d" + side.lower(), prp=True)
-> +    lanes = [lab.capture(dut, dev, pkttype=4, prp=True) for dev in ("da", "db")]
-> +    payload, reply = tcp_transfer(lab, tx, dut, sender, "10.68.0.2", "10.68.0.1", 5201)
-> +    lab.finish(fin_seen(caps + lanes + [ingress], 5201))
-> +    verify_stream(caps, 5201, payload, stack, local=True, inband=inband, ingress=ingress)
-
-[Severity: Low]
-What happens to the PRP reply checks below when verify_stream() raises
-Skip? verify_stream() ends with:
-
-    if not aggregate:
-        raise Skip("no sender GSO aggregate observed")
-
-The comment above it says this gap is reported only "after transfer and
-all other checks". In tcp_prp(), though, the reply checks run only after
-verify_stream() returns: exactly once per LAN, RCT present, LAN id
-10 + index, encoding "prp", identical copies. Nothing here catches
-Skip, so main() prints "ok N - ... # SKIP".
-
-When the sender capture shows no payload larger than 1500 bytes, a
-missing, duplicated or wrongly tagged PRP reply would be reported as
-SKIP, not FAIL. This seems to contradict "its reply must appear once on
-each LAN" in the commit message.
-
-Could the Skip be held back until the reply checks in tcp_prp() have
-run?
-
-> +    copies = []
-> +    for index, cap in enumerate(lanes):
-> +        cap.validate()
-> +        rows = [frame for frame in cap.rows if frame["ports"] and
-> +                frame["ports"][0] == 5201 and frame["payload"]]
-> +        require(len(rows) == 1 and rows[0]["payload"] == reply,
-> +                "PRP reply not exactly once per LAN")
-
-[ ... ]
+Would it work to mask only the computed features here, the way
+netdev_sync_upper_features() does? Or, if the request has to be cleared
+for veth, could the comment stop citing the upper-disable path as the
+model and mention the ETHTOOL_F_WISH change?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112153333.20-1-xiexinet%40gmail.com
