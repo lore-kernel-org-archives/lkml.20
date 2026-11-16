@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853288;
-	b=1Rb660j+qORi9KmrGssrt22uqLAGTgNE1VBs6IFfigGFqTauJ6jXVFcfR1Zqp5h0l0qP
-	 F4+PWBNl6zfnM3mlqzl7I5iSbx1sAsMLU93EKAwcqsD4/My9mimSbpSZF3VHLqxjvaNl2
-	 w4v+ntp6CxSzc6J1DaKPbp8sdvzygNaog5o/HwtAnOpu/z/k2SDarRiY+oulRSBINSGx1
-	 3kLpFzPoLW9zQuInMtzGEh+olspi6yunNAgoXZ5Nk3Xmklht471c6OhJnRziG5v9OnxMm
-	 0nbiCQz5zFn5PJWK+MPBtku/gHq9/jSqEt/AlPb95dvJtT4QrUXUMrNG+o0+fmSk4pg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853288;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794853293;
+	b=YVYGV6bxvEnW1eDAoHzNNRcKuNuFMEkQiEKea+bObO5zysbfFUhVyupz1k+hVRyUeOp0
+	 k+3dxM5v34X0qTx7yz+C41tSGtwmCpKcdC9TR4i+Cq5aJV4Xj3YyhjuQEB63/FFa/LtcB
+	 HOIvzog15weUti/ezkPw86UhZ7tBdlVHxIHAlxASWAGuara1IM4C9w0iikJbPkz/4R/45
+	 qJJC44fWuNpBCk5IDJt50ocTAgJVFaYFX4uK7t4lgB875dUqUEwm3BciHxAvdzAvpFxUR
+	 WCPqt49N1lwz+NiNvrS+7DreH/pmTe20XZcPDXPWI/h3KBj2j+dElriBt/qWfKlo1lw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853293;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=p5dhNKVlJG0xkKj4bfDWlEmzy8YnTRkYwXtN8P+qvLI=;
-	b=Y3gVKHnZCcEjePtFxE99yCz7BuHDLmV0r4PIAaraKyytBmWVvHvixn7yRtzK/DwPLb1M
-	 /hzEOGyvYoFEWWNQCD1fzdQWb9wq2Bj8hekbqjcDrxbyHUrHPFVy47nqNZBL0MN/ygHdq
-	 oBRGpNKBIADwA2PRsdVs1+VhRC5X/l5FrpD+eXCvI87bSYU8n21EdpzLU77RDO0ys429Y
-	 ocmuyYcm2QQeaize29hS3WrF+aGlH8LxXYcBVlIb2SGNx93Bb65V2hRWIcSzO5WwWXMRa
-	 mf4POy7xXDIUwna+VwcBt+TOURlrlrT8hEirtpolRMRsxU5tk5brHp7i1GRgZm5sxRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=DGjwXInr;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
+	b=ctRgV1eDiz/LwhEw8TFx2dBsWW8gTmE6neRohtNnyc76Ugtk3EOR5vaHpy1ME2K1upuO
+	 WRBUNkLgHstNsJCSyhTo+e+sZj/xqo80lsTTQTAycChLcvceyHkP2lkeRAJLrqgSPb20A
+	 o/HAD+wSfBnFglrFlRgGS13jjezzjuc1Ov8AamZNk13mXUwQmA0iVuOujfkIwWPhEGggm
+	 5mE1t+VZV9aUNM/AbDFsWZZ9KqP0hjCZlntyl0BzupAXsKUiNmjlyLrMVJSEm+AZ0tKgX
+	 RumueRZGhSlMJ1WjbNVpq5GhgLId2eTGy/z+1OenpoKlrnyTHaX3vHKOGtbfdo/RTVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zm/cbSev";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBFC606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBFC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECD4606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:21:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AECD4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=DGjwXInr
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso2034721a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:21:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zm/cbSev
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-492690dd5daso3656562f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:21:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794853291; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pH4WrisGwFoicYb1T6UPY1PkM3jxdN9h3gDLvjdOnLlILr4h3cbXoflyewcI+eMAKP
+         SV10ls6JF2QJuecEpYjxhfy8Uf+4GrH6AH/UH1bmZ528TwW7rNbrU/gM4qImXEQi1GgK
+         WzMwh2rQM6TLguMGjfPELe0UiSTYKzVnuiDPwK7HCo0+dpdJi0ZTJV+Na+D+E6MN8/n5
+         iQZn+ifz39ieNgLjris5ouaFCRQhnCddERXHJrIy+HsdgrFDHqXtiWaNjGj6yPhjP+sg
+         lMdY8se/KZKxq0pkvIGKlINqqfeVCwswezRNL/BLspjrVgALloSyIExdlCpLyshkiymH
+         YgQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
+        fh=0EtVkpGDDspzHxmVpL+zopm2yYv74B7iIkQ9wEliutI=;
+        b=rGNGm+2wDgpnIAEp/pDa2Xdcl0mfRwp2PnXjNR/8AFcaiYWDIl8gGJlhTTtDMkwIli
+         axoirVBszTmz+F3pp74WSst7j/gITM033qJPFbXK5SwWl9Ax2LYAZG9MvngwTAaZRJnW
+         Qdq4aszNspBGfalhwGw9kjoNdUeiB+66xkMEq+Q7Vz0vxw9jYyIk12mi5RltAAptYk+n
+         ezfccbsQpm7ycSa85c3d3+cjSJ5Uya94JPfz2SKvJ+sM7bnr7d2AJZVWuM1zJi4UQE5H
+         T+AFnjXRdzOs5LK4gpwIAhkZmlNEUzD4+Mt7uaE2wfC/Ms6uM9exhpcpHoPlPc4RgCcv
+         qUVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1794853286; x=1795458086; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p5dhNKVlJG0xkKj4bfDWlEmzy8YnTRkYwXtN8P+qvLI=;
-        b=DGjwXInr3kumQ8PL2nJjnlvSZD47420W8pQOsRTyVrTYvKDfDbEPc9N95UPAJQeSWp
-         wrZ3Cg+QksWsRDXFFf6vOAwHYtmL2zxg7qLcAc1Wk6dGdneOu7E7PontK1nI7fSiAPd+
-         QIXaQjY3DtkLKZkIse2T1EDVU6vNesGHA/s2Q=
+        d=gmail.com; s=20260707; t=1794853291; x=1795458091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
+        b=zm/cbSevgb5vX1U4LBW+YkNSL8vMI4OWxN5YoiqU1WeBbLrEIkidzr4BETmU1pUE76
+         ibA5HIiy6+4OwhPntqQbQdP2rXXUs/qTz296mY8FQLW/qWqFDzkfIII0HrqsVbUizGRW
+         qKLh8HoK+iHj6ov2kVxLmzZbX0U3tUBUW4ewYnzwG8lYN41vYG+Pg+4ZSlEhcZ64gKNW
+         mfuIA/YECNDIq3brvfaWU+UmNJem2HB6zClJf5fsoL+ofoB4zZTZW9IuiFZ001vvUaOb
+         GTwXf1fR9c4JzAvZkdsjsFXHJkinyMKl1wWc9m4k/iPd8NKV04p+tt7H78cGlJjofFXV
+         DM+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853286; x=1795458086;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p5dhNKVlJG0xkKj4bfDWlEmzy8YnTRkYwXtN8P+qvLI=;
-        b=l7ZdAIjFFmpzqZHa2csgbIeXdozaa50dxct52kAl/2YBDQ76V3FKInT5O4o183S7C+
-         7YM6scTjojdWRxgUCc6n/KElNkf7wb06/noKrqJjFHhORHeGS4iWjZZ55cDA4AzDaHYL
-         qrgQ1mEPITQSl4JVsJYwuqsucPelm09WyyxX5J6Kp/qgxLRrHTDGzQkyEELgIb+9wUW6
-         pHWapBNKQEH9o2aH7YiRD9k81VxuSmgf6EPXrLSX0MdNm2gcz7j30OOGZp9LB8swjQ+j
-         oF2se3Hj6BK8jseIdOk/OmPhX5PsYGFgJw0VcKA90BUZiBnND+6LEFSwYLIFfHEGHwua
-         4wuQ==
-X-Forwarded-Encrypted: i=1; AL+hErEe/19dM4e0USmo0jcWK2do1eks3itEkiR3gSwTZeBhW3aC/EgbB2nau7x8sVPTTF372EQdu2Wj+zVh/ZI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TO2tws/LOy+n34F8ZMS4PjumRjh5WEuNbx9PZBOacnYQ9PKCE
-	ylzIJo60yYVX+cWW/gCW262sAXTIRN7R0ywnvV1lB9QFEBjaPqX0njW0RAqJiHocloY=
-X-Gm-Gg: AZFdTZePoHvEpFZ/WXN5NlEDxUk2+VK1Xv1j6OHFOwoWOrL2U9PYhML3PzJvJnSmNIA
-	ssmGxX0LgQtrKhHL/+MUCHRrOiiATphXPE3LcoAUwAqdd9oumqs9b1kD33c5SZ1/DR5sovkvlgE
-	7DIZyhYSm+96NTdRgHXFMX9hgyrOFSh8ACjlDgfq+zXPAvTisCRjWhFJ1hPH2si4kmzIvF5W2L1
-	hvSK+IAhjHrYKATui37RQpd5DZh+6iyh/eT7sQt26vKVTRNlAbMnXYzjGjekxhCfPOkonXtyzLg
-	A7XQAAj65/S/rxrVLnO/U4VBjoIng2JDHOYpoatdYqY/WUYoVdMdoYdFVBwfif+TagQr2W2l9h7
-	WATjAYc3IVCztQQxjJee1ExzWhuq2se0NRhTYwHqFbLqoY2Ihsl5QvMgzvnB+1vM+qq8vKzSAAw
-	VgICr1gCZT6sahMqsWho3HZyP45jQbxxzTwlwbzOsDnLu74MxQ2U3vx0FmvYpm446isHeYHtipL
-	L9ucTDXJAu6ZbjKHkXzQW8IoWKTuRYQviIXsKQo6HwtYF+5OY7es+9IcP8ZSXOS8rBT+Y1SRYBH
-	753J5vUoYZnAAzFV4aMX+z7XAI7VA7wjNzpDzgkB5phps5fwysik6MxXjhjLJzgc/OE0DnTtmv1
-	r874x/cgBt2EfTdapx84GUvGcWbGsE6Z4DE3UM9IY1wg4eBKgHgvRRsCF0YYi3tkN
-X-Received: by 2002:a17:90b:2f0c:b0:3b0:8947:fad2 with SMTP id 98e67ed59e1d1-3b1b0ba0a4emr10830321a91.53.1794853286276;
-        Mon, 16 Nov 2026 10:21:26 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac2b5ec6sm312798a91.10.2026.11.16.10.21.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:21:24 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Kapil Vaswani <kapil@presceralabs.ai>,
-	Piyus Kedia <piyus@iiitd.ac.in>
-Subject: [PATCH net v2] net/sched: act_csum: bound the IPv6 jumbo payload length
-Date: Mon, 16 Nov 2026 23:51:08 +0530
-Message-Id: <20261116182108.2581258-2-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116182108.2581258-1-piyus@iiitd.ac.in>
-References: <20261116182108.2581258-1-piyus@iiitd.ac.in>
+        d=1e100.net; s=20260707; t=1794853291; x=1795458091;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+mRY/21ginX+39dDXt2VmzWx/r/vzzUjn+TaaDwm54w=;
+        b=SVTb+d9aYJz3e4JmYUAhgDIiAyfHRO2HnjcgClLkg1uKN+EYwa3CuYLS+zm+Emm0EI
+         o9f35XFKyPNrNfZEFOvc+TnSs9aKW3ZWk//3FYshBwmNixOxIC2v38nab0kv43Zdunjq
+         xTRvA7qGRwrHZlSz3iQkJooRU4LSqLdOW9X7t5gk+maySa5SkeAE54Z0snyXa/eNrUf1
+         Z5jFKoIvDwPbgB3o0fqTY/fJE4H3q6Mqs73eHuc6sOwMXEnV9rav0IHCaAoZc22/4dbh
+         l0z3UbovSnAO2sG0H6ceWOYJx9nqAQpCJUsUUla59q6weU86fwd1MVjdAcY64m98cvkI
+         dsXA==
+X-Forwarded-Encrypted: i=1; AL+hErHdptgJlto58Q4QAW+6Le0UtJzvKIjA0+QDDLPxjTG4tLgtdcTQgCLFeJsEyefmLvUzha5xRLHsItcUg8g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AK1dVn2osF3cxe6bSKY//N/EhB/Zxq7wdQwH/Bd5emsIScov4
+	19MigBA0VKZuv6G+30sof6ZNNyS5A+aM1ZcTXRHwYsv3Ij5drTKU3MgsIESBXC5RZhQjw79fkP5
+	YRd988SxEXICXxYwGPUyZn8M8FiWxhfLVzCGVZjg=
+X-Gm-Gg: AZFdTZevc23zf7YLQLfGpWpK5m5HYXm8yC9KjtHdm18aXhR5gcI4YkAuTDDO9kETlRg
+	mz/B7HaZ/xPgGcjm2SvE9swuSpshPcOX7s5w8vPaqLUkKLOnYfFP7XkHNY5yiJwcdLKKI82+6Rj
+	negslPAkbY234Mfs6Z5dOlYSJDwBmvGQmbR9ijeHzlpUGJI7KHlHL6HTA5K8+XvTDGOr3sG++w3
+	3R/1vp/dzI8+ZTcLngxWoJoKMI87CJxL5RWD1eo8mG1qznDX2ROTqeqWc9KR1ei9KzAVlyIGI5/
+	bgle2r+c4c+SBfGPCRkP7kHyGFZ4DNv1zbSrtzPLdd2BLYsmlC18N2BgdwFJFJ87EEWh+idzm43
+	wtpTUnvBUDnAjHF08XbB8nMbhuNsN7h+8wbdXkxgM0IWzeSPoJv+BCEUZGBtPu/c0Y2K5kLrmBM
+	ri5gNBfEDCfCnCYgV+Jtef6+RLX7zv/DSXTcb58Izr
+X-Received: by 2002:a05:6000:2997:10b0:48d:f99d:a0d2 with SMTP id
+ ffacd0b85a97d-49c6fe87982mr17681937f8f.15.1794853290904; Mon, 16 Nov 2026
+ 10:21:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,240 +105,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261116-bpf-raw-tp-regs-preempt-v1-1-d01b6dd8573c@gmail.com>
+In-Reply-To: <20261116-bpf-raw-tp-regs-preempt-v1-1-d01b6dd8573c@gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Mon, 16 Nov 2026 10:21:19 -0800
+X-Gm-Features: Aa3M54q2mews4rY30WpsGtsZElX86aOjciD3oE3m5xdhDPqaKHj29XjFeRC-ScQ
+Message-ID: <CAEf4Bza3BpgTEpqONMcm6FdH2Qc2Tmv-5feVWJfe9wf55iZxpg@mail.gmail.com>
+Subject: Re: [PATCH bpf-next] bpf: Disable preemption while a raw tracepoint
+ regs slot is in use
+To: mike.bazov@gmail.com
+Cc: Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, KP Singh <kpsingh@kernel.org>, 
+	Matt Bobrowski <matt@bobrowski.net>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tcf_csum_ipv6_hopopts() takes the payload length out of a hop-by-hop
-jumbo option and stores it unchecked:
-
-	case IPV6_TLV_JUMBO:
-		optlen = xh[off + 1] + 2;
-		if (optlen != 6 || len < 6 || (off & 3) != 2)
-			/* wrong jumbo option length/alignment */
-			return 0;
-		*pl = ntohl(*(__be32 *)(xh + off + 2));
-
-tcf_csum_ipv6() then hands ipl = *pl + sizeof(struct ipv6hdr) to the
-per-protocol handlers as the extent of the packet, so a 32-bit value
-chosen by whoever built the header reaches the length they read.
-
-Both guards downstream fail on such a value.  In
-tcf_csum_skb_nextlayer(), ipl + ntkoff is an unsigned int plus an int, so
-an ipl just under 2^32 wraps to a small number and pskb_may_pull()
-succeeds without pulling anything, while ipl < hl stays false precisely
-because ipl is huge.  tcf_csum_ipv6_udp()'s UDPLITE arm then admits any
-16-bit length, since ul <= ipl - ihl compares against ~4.29e9, and
-csum_partial() reads that many bytes off the end of the skb.  (The plain
-UDP arm is not affected: it requires ul == ipl - ihl.)
-
-Three more paths take the same unbounded ipl.  tcf_csum_ipv6_tcp(),
-tcf_csum_ipv6_icmp() and the ul == 0 arm of tcf_csum_ipv6_udp() each do
-
-	skb->csum = csum_partial(hdr, ipl - ihl, 0);
-
-with only tcf_csum_skb_nextlayer() in front of them.  When ipl lies in
-[2^32 - ntkoff, 2^32 - 1] the sum there wraps to a v in [0, ntkoff - 1],
-pskb_may_pull() succeeds and ipl < hl is false, so ipl - ihl arrives at
-csum_partial()'s int len as the negative v - ntkoff - ihl.
-
-Whether a negative length reads anything depends on the configuration,
-and that is also why a KASAN fuzzer does not reach these three.  x86 has
-two implementations of csum_partial() and the config chooses:
-
-	arch/x86/Kconfig
-		config GENERIC_CSUM
-			bool
-			default y if KMSAN || KASAN
-
-With KASAN the kernel gets lib/checksum.c, whose do_csum() opens with
-"if (len <= 0) goto out;" and reads nothing.  Without KASAN it gets
-arch/x86/lib/csum-partial_64.c, which has no such test:
-
-	if (likely(len >= 80)) { ... }	/* signed, false when negative */
-	if (len >= 40) { ... }		/* signed, false */
-	if (len & 32) { ... }		/* bitwise, runs */
-	if (len & 16) { ... }
-	if (len & 8)  { ... }
-	if (len & 7)  { ... }
-
-The first two tests are signed comparisons and the last four are bitwise,
-so a negative length sums whatever its low six bits say, up to
-32+16+8+7 = 63 bytes from the transport header.  With the payload_len
-0xFFFFFFCA used above, a 16-byte hop-by-hop header (ihl = 56) and
-ntkoff = 14, len is -70, whose low byte is 1011 1010, so the 32, 16, 8
-and 2 blocks run and 58 bytes are read past a 20-byte TCP header.  The
-folded result is written into tcph->check or icmp6_cksum and transmitted.
-
-So "action csum tcp" and "action csum icmp" setups were exposed to a
-bounded over-read of up to 63 bytes on kernels built without KASAN, while
-the 65535-byte read reported below is the UDP-Lite case specifically.
-
-With payload_len 0xFFFFFFCA, a UDPLITE header claiming 60000 bytes and a
-704-byte skb, KASAN reports:
-
-  BUG: KASAN: slab-out-of-bounds in csum_partial+0x103/0x1f0 lib/checksum.c:119
-  Read of size 4 at addr ffff8880259642c0 by task syz-executor/13111
-   tcf_csum_ipv6_udp+0x19e/0x250 net/sched/act_csum.c
-   tcf_csum_ipv6+0x63c/0x780 net/sched/act_csum.c:549
-   tcf_csum_act+0x34d/0x480 net/sched/act_csum.c:601
-   tcf_action_exec+0x109/0x390 net/sched/act_api.c:1161
-   tcf_classify+0x13d/0x440 net/sched/cls_api.c:1875
-   tc_run+0x31a/0x460 net/core/dev.c:4491
-   __dev_queue_xmit+0x1a7e/0x2390 net/core/dev.c:4890
-   ip6_output+0x280/0x400 net/ipv6/ip6_output.c:248
-   rawv6_send_hdrinc+0xb90/0x1170 net/ipv6/raw.c:663
-   rawv6_sendmsg+0x10d3/0x1260 net/ipv6/raw.c:908
-  The buggy address belongs to the object at ffff888025964000
-   which belongs to the cache skbuff_small_head of size 704
-  The buggy address is located 0 bytes to the right of
-   allocated 704-byte region [ffff888025964000, ffff8880259642c0)
-
-The packet is generated locally through a raw AF_INET6 socket with
-IPV6_HDRINCL and leaves an Ethernet device, so skb_network_offset() is
-non-zero and the sum above wraps.  Reaching it needs a clsact qdisc with
-a csum action carrying TCA_CSUM_UPDATE_FLAG_UDPLITE, which is
-CAP_NET_ADMIN in the network namespace - reachable by an unprivileged
-user through a user namespace.  The folded checksum of the out-of-bounds
-bytes is written into the packet and transmitted.
-
-Bound the length the way nf_ip6_check_hbh_len() already does for the same
-option: a jumbogram carries payload_len 0 and more than IPV6_MAXPLEN
-bytes, and the length it claims must be backed by the skb.  Once *pl is
-bounded, ipl cannot exceed skb->len, the sum in
-tcf_csum_skb_nextlayer() no longer wraps, and the UDPLITE comparison is a
-real bound again.
-
-The [BUG] report for this, with the KASAN trace, the reproduction
-conditions and the impact, went to the list as a separate mail and was not
-threaded with v1.  Both are linked below: the report first, then v1 and the
-review of it.
-
-Per Documentation/process/generated-content.rst: the out-of-bounds read
-was found by an AI-driven fuzzing harness, developed
-jointly by Kapil Vaswani and myself, which exercised the csum action
-under KASAN on x86_64.  The root-cause analysis, this changelog and the
-patch were written with the assistance of a large language model, 
-and reviewed by hand; the before/after testing below
-the --- was run by us.  The analysis of the TCP, ICMP and ul == 0 paths
-added in this version came from addressing an AI-generated review of v1
-on the list; the Kconfig and Makefile behaviour it rests on was checked
-against the tree by hand.
-
-Link: https://lore.kernel.org/r/20261112075159.3552470-1-piyus@iiitd.ac.in
-Link: https://lore.kernel.org/r/20261112075445.3555341-1-piyus@iiitd.ac.in
-Fixes: eb4d40654505 ("net/sched: add ACT_CSUM action to update packets checksums")
-Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
----
-v2: changelog only; the code change is unchanged.
-
-    v1 said the handlers passing ipl - ihl were protected because
-    csum_partial() takes an int.  That was true of the kernel it was
-    tested on and not of a kernel without KASAN, which links a
-    csum_partial() with no len <= 0 test.  v2 states the exposure of
-    tcf_csum_ipv6_tcp(), tcf_csum_ipv6_icmp() and the ul == 0 UDP-Lite
-    arm, bounded at 63 bytes, and why the sanitiser hides it.
-
-    Bounding *pl in tcf_csum_ipv6_hopopts() already closed all four
-    paths in v1, so the diff is byte-for-byte the same.
-
-Tested on 7.3.1 with KASAN, in a single-VM qemu rig, same .config and
-same image before and after; only net/sched/act_csum.o and the relink differ
-(kernel build #2 unpatched, #3 patched):
-
-              jumbo length  payload_len   before            after
-  variant A   0xFFFFFFCA    16            KASAN, VM lost    ok, exit 0
-  variant B   0xFFFFFFCA    0             KASAN, VM lost    ok, exit 0
-  control     none (PadN)   16            not run           ok
-
-  before, variant A: Read of size 4 at addr ffff888024cb6340, task 11851
-  before, variant B: Read of size 4 at addr ffff88805fe8e9c0, task 9555
-
-Both faulting runs reach csum_partial() through the trace above.  After the
-patch both programs run to completion with every setup step succeeding and
-all four sendto() calls accepted, so the packets do travel the egress path
-and the action simply refuses the length:
-
-  ntkoff=14 pl=0xffffffca ipl=0xfffffff2 ipl+ntkoff=0x00000000 \
-      ipl-ihl=0xffffffc2 ul=60000
-
-The control is the same program with the jumbo option replaced by a PadN and
-a UDP-Lite length of 8, which is inside the packet.  It was run on the
-patched kernel only, since what it is there to show is that the patch did
-not break the path: the walker still accepts an ordinary hop-by-hop option
-and csum_partial() still runs over the 8 bytes the packet really has.  Only
-an unbacked jumbo length is rejected.
-
-Reproducer: not included here.  This bug was found with AI assistance, which
-Documentation/process/security-bugs.rst says to treat as public; the same
-paragraph says not to post the reproducer publicly.  It is a short shell
-script plus a ~40-line C sender, tested, and available on request.
-
-Conditions it needs: a clsact qdisc with a csum action carrying
-TCA_CSUM_UPDATE_FLAG_UDPLITE, on an Ethernet-type device, with the packet
-locally generated so that skb_network_offset() is 14 and the sum in
-tcf_csum_skb_nextlayer() can wrap.  CAP_NET_ADMIN in the network namespace,
-which CONFIG_USER_NS makes reachable by an unprivileged user.
-
- net/sched/act_csum.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/net/sched/act_csum.c b/net/sched/act_csum.c
-index 5fff52a8ca90..eab8cdf6745b 100644
---- a/net/sched/act_csum.c
-+++ b/net/sched/act_csum.c
-@@ -449,7 +449,8 @@ static int tcf_csum_ipv4(struct sk_buff *skb, u32 update_flags)
- 	return 0;
+On Mon, Nov 16, 2026 at 9:18=E2=80=AFAM Mike Bazov via B4 Relay
+<devnull+mike.bazov.gmail.com@kernel.org> wrote:
+>
+> From: Mike Bazov <mike.bazov@gmail.com>
+>
+> bpf_perf_event_output(), bpf_get_stackid() and bpf_get_stack() of raw
+> tracepoint and tracing programs have no pt_regs, so they fill in one of
+> three per-CPU slots, picked by a per-CPU nest counter:
+>
+>   get_bpf_raw_tp_regs()   level++, use regs[level - 1]
+>   put_bpf_raw_tp_regs()   level--
+>
+> That only works if the users of a CPU leave in the reverse order they
+> came, as a task, an interrupt and an NMI do. These programs run with
+> migration disabled but preemption enabled, so tasks can leave in any
+> order:
+>
+>   task A              task B              task C
+>   get: regs[0]
+>   <preempted>
+>                       get: regs[1]
+>                       <preempted>
+>   put: level 1
+>                                           get: regs[1]
+>                                           fills in its regs
+>                       uses regs[1]
+>
+> B sends a sample or a stack trace with the registers of C. Profilers and
+> tracers then attribute it to the wrong task, and nothing reports an
+> error. The per-CPU recursion counter of a program doesn't prevent it:
+> the slots are shared by all programs, so it takes two of them.
+>
+> Disable preemption from get to put, as the two other users of this
+> scheme do since commit f2c67a3e60d1 ("bpf: Disable preemption in
+> bpf_perf_event_output") and commit d62cc390c2e9 ("bpf: Disable
+> preemption in bpf_event_output"). Nothing in between sleeps: the
+> sleepable bpf_get_stack() of these programs doesn't use the slots.
+>
+> The cost is small: the helpers already disable preemption around most
+> of their work, the unwind in bpf_get_stack() and bpf_get_stackid() and
+> all of bpf_perf_event_output(); this adds the few instructions around
+> it.
+>
+> Signed-off-by: Mike Bazov <mike.bazov@gmail.com>
+> ---
+> A reproducer, x86-64: two raw tracepoint programs on sys_enter call
+> bpf_perf_event_output() once each, with the program's number as data.
+> Two threads make syscalls on CPU 0, and a SCHED_FIFO thread preempts
+> them every 20us. The IP of a sample is regs->ip of the slot, the return
+> address of the helper call. The reproducer reads that address for both
+> programs from their JIT images and checks every sample.
+>
+> Without this patch, 7 to 18 samples per program and 10s run have the IP
+> of the other program, out of 1.4M. With it, none. bpf_get_stack() and
+> bpf_get_stackid() in the same setup return an empty kernel stack
+> instead: the unwinder looks for the other task's sp on the current
+> stack and doesn't find it.
+>
+> 5 runs of 10s, debug config, CONFIG_PREEMPT=3Dy, preempt=3Dfull, on
+> bpf-next 0fb18ce8a2e9:
+>
+>                                      without     with
+>   bpf_perf_event_output, wrong IP    7-18        0      per program
+>   bpf_get_stack, empty stacks        362-535     0
+>   bpf_get_stackid, empty stacks      168-364     0
+>
+> The bpf_get_stackid() case with bpftrace, whose kstack calls it; @a[]
+> and @b[] count the empty stacks:
+>
+> bpftrace -e '
+>   rawtracepoint:sys_enter /comm =3D=3D "dd"/ { @a[kstack(1)] =3D count();=
  }
- 
--static int tcf_csum_ipv6_hopopts(struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
-+static int tcf_csum_ipv6_hopopts(struct sk_buff *skb,
-+				 struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
- 				 unsigned int *pl)
- {
- 	int off, len, optlen;
-@@ -463,13 +464,29 @@ static int tcf_csum_ipv6_hopopts(struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
- 		case IPV6_TLV_PAD1:
- 			optlen = 1;
- 			break;
--		case IPV6_TLV_JUMBO:
-+		case IPV6_TLV_JUMBO: {
-+			unsigned int avail = skb->len - skb_network_offset(skb);
-+			u32 pkt_len;
-+
- 			optlen = xh[off + 1] + 2;
- 			if (optlen != 6 || len < 6 || (off & 3) != 2)
- 				/* wrong jumbo option length/alignment */
- 				return 0;
--			*pl = ntohl(*(__be32 *)(xh + off + 2));
-+			pkt_len = ntohl(*(__be32 *)(xh + off + 2));
-+			/* RFC 2675: a jumbogram carries payload_len 0 and more
-+			 * than IPV6_MAXPLEN bytes.  Reject anything else, and
-+			 * anything the skb cannot back: callers take this as
-+			 * the extent of the packet and read that far into it.
-+			 */
-+			if (pkt_len <= IPV6_MAXPLEN ||
-+			    ipv6_hdr(skb)->payload_len)
-+				return 0;
-+			if (avail < sizeof(struct ipv6hdr) ||
-+			    pkt_len > avail - sizeof(struct ipv6hdr))
-+				return 0;
-+			*pl = pkt_len;
- 			goto done;
-+		}
- 		default:
- 			optlen = xh[off + 1] + 2;
- 			if (optlen > len)
-@@ -521,7 +538,7 @@ static int tcf_csum_ipv6(struct sk_buff *skb, u32 update_flags)
- 				goto fail;
- 			ip6xh = (void *)(skb_network_header(skb) + hl);
- 			if ((nexthdr == NEXTHDR_HOP) &&
--			    !(tcf_csum_ipv6_hopopts(ip6xh, ixhl, &pl)))
-+			    !(tcf_csum_ipv6_hopopts(skb, ip6xh, ixhl, &pl)))
- 				goto fail;
- 			nexthdr = ip6xh->nexthdr;
- 			hl += ixhl;
+>   rawtracepoint:sys_enter /comm =3D=3D "dd"/ { @b[kstack(1)] =3D count();=
+ }' &
+>   taskset -c 0 dd if=3D/dev/zero of=3D/dev/null bs=3D1 &
+>   taskset -c 0 dd if=3D/dev/zero of=3D/dev/null bs=3D1 &
+>   taskset -c 0 chrt -f 1 perl -e 'select(undef, undef, undef, 2e-5) while=
+ 1' &
+> ---
+>  kernel/trace/bpf_trace.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
 
-base-commit: a2fd526d644233d6a892c28173f07c61e21e4c93
--- 
-2.34.1
+this looks fine per se, but I'm just questioning why do we need all
+those shenanigans with per-cpu stack of pt_regs and why we don't just
+have local bpf_raw_tp_regs where we need them? seems like pt_regs are
+around 200-300 bytes, that doesn't seem ridiculous to have them on the
+stack
 
+anyone would object if we just has a simple and straightforward local
+variable and get rid of per-cpu hacks?
+
+
+  | Arch        | pt_regs         | BPF ctx               |
+  |-------------|-----------------|-----------------------|
+  | x86_64      | 168             | pt_regs               |
+  | i386        | 68              | pt_regs               |
+  | arm64       | 336/320         | user_pt_regs, 272     |
+  | arm         | 72              | pt_regs               |
+  | riscv64     | 288             | user_regs_struct, 256 |
+  | riscv32     | 144             | user_regs_struct, 128 |
+  | powerpc64   | 384             | user_pt_regs, 352     |
+  | powerpc32   | 176/192/224/240 | user_pt_regs, 176     |
+  | s390x       | 200             | user_pt_regs, 152     |
+  | loongarch64 | 320             | user_pt_regs, 360     |
+  | mips64      | 304/400         | pt_regs               |
+  | mips32      | 184             | pt_regs               |
+  | sparc64     | 160             | pt_regs               |
+  | sparc32     | 80              | pt_regs               |
+
+
+
+> diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+> index b4ff9d4e8..eb3daf2bf 100644
+> --- a/kernel/trace/bpf_trace.c
+> +++ b/kernel/trace/bpf_trace.c
+> @@ -1639,11 +1639,17 @@ static DEFINE_PER_CPU(struct bpf_raw_tp_regs, bpf=
+_raw_tp_regs);
+>  static DEFINE_PER_CPU(int, bpf_raw_tp_nest_level);
+>  static struct pt_regs *get_bpf_raw_tp_regs(void)
+>  {
+> -       struct bpf_raw_tp_regs *tp_regs =3D this_cpu_ptr(&bpf_raw_tp_regs=
+);
+> -       int nest_level =3D this_cpu_inc_return(bpf_raw_tp_nest_level);
+> +       struct bpf_raw_tp_regs *tp_regs;
+> +       int nest_level;
+> +
+> +       /* The slots nest: a task must not be preempted while it holds on=
+e */
+> +       preempt_disable();
+> +       tp_regs =3D this_cpu_ptr(&bpf_raw_tp_regs);
+> +       nest_level =3D this_cpu_inc_return(bpf_raw_tp_nest_level);
+>
+>         if (nest_level > ARRAY_SIZE(tp_regs->regs)) {
+>                 this_cpu_dec(bpf_raw_tp_nest_level);
+> +               preempt_enable();
+>                 return ERR_PTR(-EBUSY);
+>         }
+>
+> @@ -1653,6 +1659,7 @@ static struct pt_regs *get_bpf_raw_tp_regs(void)
+>  static void put_bpf_raw_tp_regs(void)
+>  {
+>         this_cpu_dec(bpf_raw_tp_nest_level);
+> +       preempt_enable();
+>  }
+>
+>  BPF_CALL_5(bpf_perf_event_output_raw_tp, struct bpf_raw_tracepoint_args =
+*, args,
+>
+> ---
+> base-commit: 8835113107b2cf75df33a71e265cdeec5d5d13e0
+> change-id: 20261116-bpf-raw-tp-regs-preempt-1f7019989ab9
+>
+> Best regards,
+> --
+> Mike Bazov <mike.bazov@gmail.com>
+>
+>
