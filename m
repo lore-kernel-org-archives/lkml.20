@@ -1,108 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823103;
-	b=B3Mk5GCFQ0sU2tXwD/Q0th39/BHhKpyRU7IzO0UTjBlWmGfc6B4r8rNc4lU6yFgWnjKp
-	 7aQz7WfZiWzabkub2o6i+LQsNXiiZImZu5XWUGQ9yFnnl026u06Pt+7Y2KxYb9oqmqO3W
-	 VE9urc4ewru/xpIFxpk/4TgKKRXQhSbQpwBSdjDpPV993G48Ki1lIqjYFxUwC/1fgsmsM
-	 DHPolgZ5qMXE8opCbGJBTIbbNG8cRQwirs4beOTKBiDN/S+y2nbm+PGuO9osjpo2n4zGd
-	 0k8sQ0UAJIqQZS0qtb3l/B57c9022VTGVninvL08D6P3HQiDJw6NY8ih9HvRfVgVSfw==
+	t=1794823198;
+	b=a8OlYjlRbv0mhFKaY45zhgso0+5tc0EWwP7ptYRW1ma/EoUNE4WTaJt7IjZAdNsBTChm
+	 mF+1QeA2fEX8eaLB20YInbYJUfckIJmcPfHFGBGdPZ/Qfuc2SxdJXJAF3Uw0XMJLmcy8Z
+	 XffGc89vcrT+Rhy1Sypa4YwSbhDZpwMncYZHTy/vc5zDamzTFUi7WfqePCznOZY70/5ei
+	 xqx4Kov86mHs4sciwUfwNRaWrTpFIJNm2gBLeobPCfpMqs+2YTQdvU0zv+qjyiN3LRZj9
+	 dFe/e9T3sWqEpUb/PmnJRJLFWuB7kNTBAxz+FEimm0zGn20ZnAIMt7anxQgauH0e1FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823103;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=1IKEWtPTLjM1XYaZ0STp/scHGqJtVbGIZgdMjNsrQOo=;
-	b=YMU9UIl3b8NQIFTJnSSHY1esgei90QNY4mm6A8BQDaNfoCcV9CcFfKZrjyGvb4D8plGj
-	 UhGA5gw9XDo67pLud9SLUZdiiho0S50Q/E1uc8u+Zp91ukvz++xXlzuxNH8aP+QXc4a7/
-	 8CcVTlXSNb+b8ddSfwjjdJBHOYcXddandjiSizMfKerO8p0znBD8GWPBRtbAK5fO2xjop
-	 C0v3Seu/+w7gPo2fzzevDkYQPU5u1xYs8fG2ODw3+VZcDMpbHe9uu/9JC2CMJKN4x4qtq
-	 1FlKdt538KmRg/Di+DugbMNApFz51sEo3pHOyZGVbKA1TwzYhr3ehCtbSvY8zdrJVAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823198;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=a7wSifXxoKvCHuLDVxMXLiC5Pkj+xR4ZtCOTj2ufMzM=;
+	b=AKVlRAtWXTyNYdoaBoYBNFMhlmipzTXAmK6P6zlxCC6HY/AWGPc4uj8HaqmItguKJ2/j
+	 3lSM8vnogZ6w110+XaYj6HS4zpL9aGOrR7a1TSD5rbCPC1qMw8N8GgDGgbBmv3w7DfOoE
+	 C8sC5Sh8Xp29BFk9IipNNAoCLeS2cpbkT/61uc5v0UYdiyDgM6REyTQUOx8Ud6A2WcSWl
+	 SS1X13g6b/9RiZ/bpm9mFUL7T/uc64AJ3Myz5E7Mns+zGEH+MTRvp4Y1XkU3nejwrnzCs
+	 8wzbKZCLU7jphJTP/7n2vo7xLyV0fMmo5rYrCqJUKtRwuSUlFTrH++03L1LAtRWpJiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9bDlyFv;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="dFY8/6ko";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qpgIJSFf;
+	arc=none smtp.remote-ip=202.12.124.145
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE3F606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:58:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE3F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554EE606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:59:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 554EE606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9bDlyFv
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so34577725e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:58:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794823102; x=1795427902; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1IKEWtPTLjM1XYaZ0STp/scHGqJtVbGIZgdMjNsrQOo=;
-        b=R9bDlyFvVr0S4yMshgYnycii6CBT5Zvs6pnEe98MdhHkMGIBb39vwWS9x8wTIZjPPZ
-         fRvzjBiWuzuQJ5uG8SNRNjkSIOeQT+H1rqYVW+YXbf+C0jHrPtPM3JOXY3KYNjdhUN14
-         KUD0JqAFnDh8EPcXFC4Xa043JM7tMq1VwdvTFEcC1YtOgmoFGE1WlUllJXqpwM7jIEYc
-         4sCDpV2iNjKih2iRfbfx0QMq5c5qn3DliQ2Cx81JomfYOa3VaBKgH2yqdSKElb2F5XB5
-         +Jd0zOou5xhgnSYnrZLzww6IR+q/+cSTUfJkwAfthznbtWObTTPK1iqcCGYR3l7ygAnz
-         QR2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794823102; x=1795427902;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1IKEWtPTLjM1XYaZ0STp/scHGqJtVbGIZgdMjNsrQOo=;
-        b=oWZ08eunCkU1tGafNzFbCAcbAwh/xUF35AoLi0O3QE79XVibeDvksLfD63Hjy6hkb1
-         G2ripOkCky4UrBN2N032sQxyQt1vS13jh7JShAA7RdQkqTzIC8JLyK+2Wx8QYO/VAw3q
-         uZ6OUdr/tFrL+ezF117r54kyjCBWXnbjoo+GWcPrPSXW1a/awbECxIcfoitr9hLjxMSg
-         nv6KEa4XbDZfGGW74Mf5FB1UFhJfQ+6CJr8RzaxWBorgEUEQQKMfOP+eYaBKHUB6swGO
-         e1XNSUUovwpXDQdUwn5NsHoiiDh0WIjyWf68jGsnh+0XJLbjW7qRg887IiY8DMTQTxzu
-         D/IQ==
-X-Forwarded-Encrypted: i=1; AL+hErH/EVwAlcMcnY56HwZ/eYR8kipVgZTspnJW5DDAvXmz801B0I0fifjPicm1lEBWCa8fhH1t4yr4vi+z54k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+82xU05vvNcR891HGRizDLLUr5QcxyflIL4ji4+yYeZ0QJFDwe
-	Kw8o72zX4kcNHZ5Jq7OgtGysv+OkcBov/FwZSsrGcsDFRG1XuputkhtL
-X-Gm-Gg: AYBFou3YDYcebsk800C38rzmZuSZL1EhF76zI/CufAj6AL/c4PHnM3o2lisUT4fS5Jq
-	W5e3PWpaQ2VohrKTcpCAxKu8jfntwj7mY8Hex0FJvn5eoIanKwX+vNtsuojsWs1m1O8rXIVv06t
-	BEis4Ebm6U5dqh7F1ahG/781Nv0GsmSAR4duW3BtkAMyoKvhdxPrKxj/Kk5T5tyqAoEAZwWyw1V
-	wCVp7n+Zb4u1vgKQ7UoLF71VzLy2bJrpE8f/SEkj4tZ2Paeo+vMChWT51uQEJvI6M++pPwxtsUK
-	ei7PXxdzxA988wTfmFzsRkQ916IEnb4P2YN281PUyuiNCcWaNhasB+IVulyMoa3SJc0i/fZEXfZ
-	jH6jQAoAgZ9wp0wC4vU7qZnCWcqm5UsMaoCE2nBOVjntKFKKCrtl5d2obtVG8pN8SEmMEfLV7qc
-	JSXzDYXiZazTMzGo2l7w0oO0ipE7fSed0vtIjhNZQbgavQjLpwM83pQOLav9DIZuORrsLpV1jNs
-	1wrA1uQhvtorH1ac/Wgg6kZLB0c1ubUUreK2nKb7dVruX/zZA5kqeZCnCmXVPCi0mThsDap1oA7
-	ldff7ptKySD2NmESYfxYO3cWzH3L3mjuu5HJ3Vj6LYFopKVhNN1vHA8xYlZpbqju7rsrKoD4
-X-Received: by 2002:a05:600c:8483:b0:4bb:605d:8e92 with SMTP id 5b1f17b1804b1-4bb605d90f1mr145813425e9.32.1794823101861;
-        Mon, 16 Nov 2026 01:58:21 -0800 (PST)
-Received: from ?IPv6:2001:8a0:c4c6:f00:1399:6f7e:7235:850f? ([2001:8a0:c4c6:f00:1399:6f7e:7235:850f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56719391sm112615705e9.1.2026.11.16.01.58.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:58:19 -0800 (PST)
-Message-ID: <4c5562a2d384fc530be2773a49b7380f3b009e61.camel@gmail.com>
-Subject: Re: [PATCH v1 0/2] dt-bindings: display: panel: Add LG LP156WF1
- dual-LVDS panel
-From: Vitor Soares <ivitro@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Nishanth Menon	
- <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo	
- <kristo@kernel.org>, Francesco Dolcini <francesco@dolcini.it>, Lad
- Prabhakar	 <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thierry Reding	
- <thierry.reding@gmail.com>
-Cc: Vitor Soares <vitor.soares@toradex.com>,
- dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org
-Date: Mon, 16 Nov 2026 09:58:17 +0000
-In-Reply-To: <20260529110518.624454-4-ivitro@gmail.com>
-References: <20260529110518.624454-4-ivitro@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=dFY8/6ko;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qpgIJSFf
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 376CF1D00133
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:59:56 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 16 Nov 2026 04:59:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794823194;
+	 x=1794909594; bh=a7wSifXxoKvCHuLDVxMXLiC5Pkj+xR4ZtCOTj2ufMzM=; b=
+	dFY8/6komEzgoYb3Y2vqmdQiGwlO6M9QWkOeTp1q58POvEO0feMOr3BtLYKxsGnL
+	fGes5D+VCxvJMSm+/dJXaI8KkVe+TjiWVDkG1VH088Wm7nVoWPOWDEQSpJm3xVSb
+	87U1oZGsdTE0EsCaVZxWjNHaMYUiL6d08vSSjY5HV5af/risSCb7yDXcQGxG4JQT
+	YImn8B7w75N8mD6Rl2sIlbrIsNsiY1St7ig1bt/Gcwbpabuv+k1UAF17TgBa1UJJ
+	PwUimbaeNVX7SCt4amaAcX6QOM35evVR06LIhEnsHEr92R6Paz1UBjJ0pKr1KTwt
+	y6MSB+skUVnLS7idt59tLA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794823194; x=
+	1794909594; bh=a7wSifXxoKvCHuLDVxMXLiC5Pkj+xR4ZtCOTj2ufMzM=; b=q
+	pgIJSFfk9kLKkBckEyrfisaNXb8+W1olTOiMC+KK9tvz1zC8J4aQ/kwjpNdOONLs
+	+M5ZQ+RtkBfGve2OJ2GRjQ/Xi6UusdOcXWty2s27Ou1hj2AROvaUVcVD8E/1rBEZ
+	ihCenAKZUQMnGf2vP1wmhcS0+oGP2T/7ucnQYj59uGWe0BSLN7fvA+5aAvl2898A
+	dk2byGXTwpXh3huHGRlkGXoXMBxgD+iyX1XwFAjyCHjACo1IUwhpjaTvo6I99t3n
+	ARWuh7MpxGZsU/6FGRc+1bK9zRFQDiX2By/H/0hVhUcM0Vqz/yjqLFCoW4rKqFc/
+	ZEEW6JkBpS3OpK50J+mxg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794823194; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:YhsfrkOS9wPP/xwJe9IYupRATI0X0vTvZ6airPrnUM9/1U8
+	0l/hNsMuvX/sBdEn2UH/l/bitvqSIdD5G8/WIPARvhmg6G0mRPWsG4sCJhdJHbZB
+	oUV1KfsSwYQIkojKvUdWqCQtafRBXadgwgWYccmQuRPB2wwF0lAJEYNBk4SVRgg9
+	OvjFy9xTmlC5eUwa2SKhhfVUPGbi9ll8wbS4rzr58MlSMt6Ey3Va3donEGQrg7AV
+	BMTani2EvYh5Xa+HieDtT79KMmc5T/UCk9y4i+0zdxkTOcxJ/9r8WxXGYkUifZwG
+	Ha5eplvSuayMeLEqdRGrzO9bf+HQTLBMRAJaqXw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:e7Nd2GgF0tQp+32u16V7G6/0sbpsISzg+iXd/rCg4pg=:2oId+2bWZGmI6eNla/jqfSiJnIqNQs3cMc8kEg3AMDQ=;
+X-ME-Sender: <xms:GNT6ao11tRSFAd0dOOgykOSzmmY90FPxnHXvFtofvAKTdLVifJCkTw>
+    <xme:GNT6at6OalhevobvhmLgcOURl2Xc1EEzTMqR96x1S_vFiqQd9PGVzdRAaTbi2RTVQ
+    zK5V1qnwKGQ0o1nCyShpGvSE6K7v1O5aVf95ymsKTenGByB2gqbAJfm>
+X-ME-Proxy-Cause: dmFkZTFWmmZvctIyn4mv4NGxgCI0Wc2cqXN5Pwz8jaRG5xa1iEyYknZho3xZfs7kXEg6Kd
+    Gi/FKk09/KzIl2a0vw+Qu4JnXCXcI1TS2yxje/StF+bu0tIxUPwwsHeDpgKG7pimxGsdr+
+    EWU8PcktcPzk2OJ0Ynx6HZF00XrC8sAm+91oalxLbGQB/UIlMGPLg5geXseuk9H9H6nysb
+    DmZLGwSvca18wPJjdoiQgoqOorlnKUl0P4qgtzef1sdSUmudCW49W0meK6duji9dgkIcl6
+    L7miMX4ZAKvigM+jv5VzE+wT+ShUqGGK9Iq7AKh3O6LkV3d+956LR52V1SyzZ2nFudbXa7
+    vUvgWrJcHTSbGzPaLs0mD1GZBNf3FSJ7/6v/1ymZs+2YLwCFfHL98LC0CRfynTwsxS6MMB
+    GQYkvOuFJWnfjRUdD45mX+vgJo3/QjGVVcqYQgcY11tyB/OO2p7T4kJaQKQvg4Kd7wjCeC
+    qsEGjHSQ4fsvUUnhCAEf2zf9wNanQgkciPW1qLsdpb9K6AO8R5ioEfBkAK6hUYC2gcfgkG
+    wFfvNjkS6oc/VRRMKLlVPsJf+O34/u6RtWYml46JjUScbyqSpdbGtjmmsY/2srP0w/aBt0
+    B9yHblFqgZKEZiWCuZQuU9BI2phhJ0g+4mC1OeDuDN/8DBjQXhUBlg4VvKSw
+X-ME-Proxy: <xmx:GNT6ap8elTZNiIr5JqUs7BJMFSCrowARTtkopibtnlLTJEADR-FJvA>
+    <xmx:GNT6apIxK6Lvp9j5etlwfFgWjKEOixj0-g6Q0_7YtEddRK0cJC4Kxg>
+    <xmx:GNT6aqhacLGbRybBQIcm3g6v61DitqDf1T2UTrHk9I6M4ni07JPc4g>
+    <xmx:GNT6ah5wVtzqO5h4aLsH1c0Y_j8usw6H7HL8ppIJVijzTwo8S04PNQ>
+    <xmx:GtT6ahFWXdXDkoySs4Bj_ns6R5nfbkprSoNmmtBwg9hE8fkS2sywk-6k>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id E49AA32A00A0; Mon, 16 Nov 2026 04:59:51 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,58 +115,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ThreadId: AOb5ClfA_nYF
+Date: Mon, 16 Nov 2026 10:59:31 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Thomas Huth" <thuth@redhat.com>, "Mark Brown" <broonie@kernel.org>
+Cc: "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
+ linux-next <linux-next@vger.kernel.org>
+Message-Id: <43b9889e-f504-468b-af05-d62e1043edd2@app.fastmail.com>
+In-Reply-To: <a2ccfd68-c773-416b-8aac-12a7f9caa801@redhat.com>
+References: <avcnFxad0xS5KrZs@sirena.org.uk>
+ <cdd71b25-9149-476b-b31f-c29b3b2896b7@redhat.com>
+ <c96b327e-959a-4363-bb39-f9e313c92b9b@app.fastmail.com>
+ <a2ccfd68-c773-416b-8aac-12a7f9caa801@redhat.com>
+Subject: Re: linux-next: build failure after merge of the asm-generic tree
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi all,
+On Mon, Nov 16, 2026, at 10:55, Thomas Huth wrote:
+> Am 13.11.26 um 17:16 schrieb Arnd Bergmann:
 
-On Fri, 2026-05-29 at 12:05 +0100, Vitor Soares wrote:
-> From: Vitor Soares <vitor.soares@toradex.com>
->=20
-> Add support for the LG LP156WF1 15.6" Full-HD dual-link LVDS panel and
-> a Verdin AM62 overlay for using it through the Verdin Development Board
-> with the Verdin AM62 Mezzanine LVDS interface.
->=20
-> This is a follow-up to an earlier attempt [1], where panel-lvds.yaml
-> was incorrectly extended to describe dual-link panels. Back in 2023,
-> when a generic dual-channel LVDS binding was proposed, Rob Herring [2]
-> pointed out that dual-link panels should follow the existing
-> advantech,idk-2121wr pattern instead of introducing a new generic
-> compatible.
->=20
-> Following that approach, this series adds a dedicated binding for
-> lg,lp156wf1, with the dual-link LVDS ports described by
-> lvds-dual-ports.yaml, and excludes it from the generic panel-lvds
-> schema selection.
-> The second patch adds the Verdin AM62 overlay for the LG LP156WF1 panel
-> on the Mezzanine LVDS connector.
->=20
-> This series should be applied on top of [3] to avoid conflicts in the TI
-> device-tree Makefile with the other overlay additions.
->=20
-> [1] https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com=
-/
-> [2] https://lore.kernel.org/all/20230130170441.GA2796575-robh@kernel.org/
-> [3] https://lore.kernel.org/all/20260522161105.277519-13-ivitro@gmail.com=
-/
->=20
-> Vitor Soares (2):
->   dt-bindings: display: panel: Add LG LP156WF1
->   arm64: dts: ti: k3-am62-verdin: Add Mezzanine with LG LP156WF1 LVDS
->     panel
->=20
->  .../bindings/display/panel/lg,lp156wf1.yaml   | 105 ++++++++++++++
->  .../bindings/display/panel/panel-lvds.yaml    |   1 +
->  arch/arm64/boot/dts/ti/Makefile               |   5 +
->  ...verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso | 131 ++++++++++++++++++
->  4 files changed, 242 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/lg,lp=
-156wf1.yaml
->  create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-=
-lvds-lg-lp156wf1.dtso
+>> There was another report for the 0day build bot about the same error
+>> on powerpc, but not enough information for me to reproduce, so it's
+>> possible that we need another fix like this.
+> I was finally able to get access to a ppc64 machine and tried to reproduce 
+> the problem. But it was just the vdso_test_chacha test again that was 
+> failing there due to the __ASSEMBLY__ still being used in /usr/include, i.e. 
+> the same problem that we saw on aarch64. I double checked that it gets fixed 
+> after applying 
+> https://lore.kernel.org/lkml/20261030174323.370687-1-thuth@redhat.com/ , so 
+> unless the 0day bot had a very unusal setup, I think we should be fine.
 
-Gentle ping on this series. The binding has a Reviewed-by from Conor,
-and as far as I can see nothing is pending on my side.
+Ok, thanks for checking!
 
-Let me know if a rebase or a resend would help.
-
-Thanks,
-Vitor
+      Arnd
