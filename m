@@ -1,102 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836963;
-	b=UjttySOQv3P7oGGm70k9ZuH+cSbTtyfk4YD2RygJxmhO9DFzeFe38CuKSrvZh+Z9yJ2t
-	 Hm1PnS15mAsb1JwJrWatPrFLluep8c/X+3T3vEB+QBX4q8l2O2OeCkeMRe6InNqNCCu1w
-	 tQRfUQdBply8cXZL1pwyS7WMbvPn4d/cXb7qh4uwnQOQqRu1bce8ZCFCmzRoA5nV9mZOn
-	 xPJuXY1EGKr9AiNbTpUFzihLK3VwO85K9i3ZmDXlqMXHsfhzRrJv3hbaX78iXBYzJHe7m
-	 HtfWhwwPw/4uKMrA4IvzZ6XlVN5an0L8Q3yXqqKZGV+pGv62IL9RhdvjfCBhGGFhnJA==
+	t=1794836970;
+	b=jVgZDJ44iIUEDk2wPSn5mTil9VXvqe4nCr/liUk6mYv67IZuDfvFZQ++sh/A+uYu6daW
+	 PaQEQ/mUtfogmdhjWHYCS3v97OmX5X35ifn3IUheMUWvePXJpg+Ql58p20lOS55iQyT0b
+	 LdlMR8ZxSKwS+Zm5r8CPZmVrDKq89mNObdCKkAP0sxeQfmqkazPCnifH3+9DPaYp2H1Ur
+	 ArTWKnZriBXC3tMIf2eb3gbwVi47y/WrW/EnX29kasLV4DTWOnGD8J9HQBNC3PCQJ7/PI
+	 8xeNgn2Ruff4UTR/3dlHqPgT1nCNnanNus5pxd10e21mVcVQtpfUtn/FT1ZxHzmWCcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HsBOAvHt4DPYJf9JK1qI+m0zGVz1UopZeMnslAsrQqc=;
-	b=zIdCLxLqs9AH6X1ktoueAr9Phya2PiqaBflbajD2Xj+M0MOGd/Wr0ngKbueCEOJC63Kn
-	 FDcXotE4AAR2jm4aI56yCzBGfviy1Rb2LsKlFCf/xo48dNt6ElcSzlDBVHqozZBisYR4m
-	 WMvefIRgnrNKKH3mju7l9SaVxEwtPS6wtxJdUwEPWHuE9LWSVd9gaZ7gIzHAkFjX80z8X
-	 Odmq9+9CHWXedOj71tcKdFsCXAIYNK1yBZBxgS6y755egCEr2NM0VbYX/C+DrzV4Wpm7B
-	 t98/SCwFYyUvdcm7C11bH4p0I/5JUSOlR2wtgXZMXkKTWVphDyDAVcUY/EM/1DLQc5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836970;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+WYItbgWNUMWjpGYQt2gkpzbizGfno1BHJ9swru4O+c=;
+	b=K1dWVu7Q5YVnEjtVhOZ5D0Wlrrlt+0WuAEaZ94masH7D57/1USJDp7LgP6F4f8QTNXNH
+	 KI9HQzW43bB797V0ml8u/oAsse88ojnAe+MpXtsrjd+HGxhHaeLX3EfYD0Rq8AMBtrq0x
+	 nik8rsuwv5n3dvB1uIfshr+FaK6EHnVaCmKbG3RlZ6vhFejeVenLGy0KyX9JWm/gPaUBO
+	 LJu7t6Otza+IqtUN4WjxGMMNeEp9iYwoN6cZ4eP5ruRsLyO3qiw0JgRWrRsZNRX/pjwcA
+	 0n10oUt1qRwPFBR3GuZeiSBFHWpt6laBgiSnJ+Ti8hyVZyvgvUIgmmvzksxLBSq9MDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=O3upmHsP;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b="ycrgKk//";
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A73606A898
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:49:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11A73606A898
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0076C606A899
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:49:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0076C606A899
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=O3upmHsP
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9496400270fso210365085a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:49:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794836962; x=1795441762; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HsBOAvHt4DPYJf9JK1qI+m0zGVz1UopZeMnslAsrQqc=;
-        b=O3upmHsPwNvkKSxtQnrME/cX2STCqM/diy/RcwXB6LzgKvEb+9NMhFAQ/E2egCzA5g
-         Mg7c5CkTs1b1fuSWpVz2KDcNZ7Scj5FKyDFadQHLv1lJ78inJrgshxU9uJORXBiazJQm
-         V1QWM7K325dojKmN+IzGBU22GRUgKqbxYUptJt4VYoyyvbW1amWzFCR62mY8AXggDzbO
-         /efWueyAHRB+vJiWlhpVdzR+ybJbUZTJDD6+1ngGLno6AVI8/WWRaGdmaAl+BAps9XUA
-         Ux9kb0M6GiHNOhTzSbtyiyZBUZmAIqPPZWUtlIq0iP8uQPK6jP44r44lS0tcM7F4QLzs
-         mUgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794836962; x=1795441762;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HsBOAvHt4DPYJf9JK1qI+m0zGVz1UopZeMnslAsrQqc=;
-        b=KqypjtOYDFlB2fh2vmtq4g95pXyYfYaPcZ6EVjuTBJSqq58Uk/qJJJRvFTpEuCqSpH
-         9wbJ4vVQjoG9afwQwRQNXPnagom0KliIMiMNa9QPeBpETg1MDK7Umm5DVcdTbCbkJH8g
-         oRlz0ytxEKecgNKeRyKEsuD0KqY0Rcv0Eq6ffAeHmQLY3gSjEFLaSMynwZzk5UPUKDUt
-         rqxnEDAscNUc3lACeDtZQAKIi8GP/d8clnhDdvyfJ7S1zG+pW0fMeIhTb4dvCHJWgVHx
-         N6EyKKz7FACMtYKrbK2YTR5xo6zd53YFc2AwSQV/rXfdocweh4vB1WE3qXMNldwStrU4
-         /RvA==
-X-Forwarded-Encrypted: i=1; AL+hErFu3i5X0re3enqhJOcWX9E/y9RYuUo91CXTiv5djcY1DsSSr8kaDv1UZUBUd7tgfqosJ7O75gW+FZEfcPM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cfMv9uqHz0zkb7B04Xw4SxIIfT7ATfHKcT3/8X63jMSWi/iCo
-	lNncHTacEmSRIiESOsk9E1myhrCjzOX5bdNmSl7IwaEsHC45HvmayHB24EcVWDz7bLA=
-X-Gm-Gg: AYBFou12CS0V2R+jFEIQDZiSE1rf+afpOH1GB0JFxFB3p8XD8FCNFkV2uRVgdVtzMG8
-	gHuuHgdAvASfIvsKQ6Ws+m7qhGEKQYy1+w+Vv5tDN+55LesR+gfV8mU7vHVMD5raTJfLjsWh51h
-	8mt8B5fxm7NCyNUKbi6Ykp4u1/wqwOba3rP7oFoVbkyX8tnGbgDEXkEb4N4JnaXCKvd4vrgLf7y
-	EyHZq1/wKJBTfomkqLFyh2cOJ5t8YYdOwDU13CR2Dn7RmwWAcwyNNmIYG6AC+bsgbDo3NTdAnOP
-	Ur3xFDXv6toOn2eSKyGxCJtNQKYOtsKNLmlGSXLsUDp5i78BSWlF/XjRauo5Hss3IBe2ZdVkeN+
-	nB8DCd0solbyQIjZbl0qZEkCkx4F6H+K7J2IGSxE7tWBWpkvdgGvu2ETur0WvMM3Bw3I2DhrukX
-	YnkaQ25s0Agx50aed+nmEWMkF5PUKfN+cKEPdcVGdsZouURGjwQUJjS70cUPkh7BRj/N1BLhQJH
-	kFIP2hLrDAuZilHcZUvph1URCdG/THr1XjtGmow6PUdrWc7/vwP+sTidVtaAv7LuJKJTM75sqA+
-	uDMrew==
-X-Received: by 2002:a05:620a:4155:b0:947:7691:731c with SMTP id af79cd13be357-9494bccb8d1mr1678517685a.65.1794836961959;
-        Mon, 16 Nov 2026 05:49:21 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9496bfb7fa0sm512919585a.34.2026.11.16.05.49.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:49:21 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xSx5E-00000009OXj-2xNY;
-	Mon, 16 Nov 2026 09:49:20 -0400
-Date: Mon, 16 Nov 2026 09:49:20 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jiahao Xu <xujiahao@cmss.chinamobile.com>
-Cc: Kevin Tian <kevin.tian@intel.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
-Subject: Re: [PATCH] iommufd: reject mapping an iommufd file into an IOAS
-Message-ID: <20261116134920.GK2532299@ziepe.ca>
-References: <20261112105945.285526-1-xujiahao@cmss.chinamobile.com>
- <20261114004101.GE2532299@ziepe.ca>
- <20261116113808.560717-1-xujiahao@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=ycrgKk//
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=+WYItbgWNUMWjpGYQt2gkpzbizGfno1BHJ9swru4O+c=; t=1794836969; x=1795700969; 
+	b=ycrgKk///DNLwPgD8dzmJ4EK/AbjJkBTyDDiLKxhDtnFmJafNpwKhbtzHiM9ULyKMC9d1ceUZQk
+	D3JcTZYM5288kFVF4ldlcGC15qCJpQ9Zozs3YW4792MgMOEeUCf+QzC9G5ejFc+idyH7lzAYIxRTY
+	RX5+sEULA7xg1kz1RZt5p17b4tfcdPETtbRYeJzrLGptxGm5auqXyrcnfDZu7xMS+wvWzEOAxzR+m
+	W0GmmsQ33VULOoHzsOhIjW7KyLEY0m5tnZUbYFRQiHewELk5KFpBA3FEkciDH31AJrOx5aBYTCnis
+	0VY3hlhhY+pGJsVFrnJ1ys6urawxfRTAmlag==;
+Received: from mail-dl1-f41.google.com ([74.125.82.41])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xSx5N-006WZv-0Z
+	for linux-kernel@vger.kernel.org;
+	Mon, 16 Nov 2026 08:49:29 -0500
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3b4944abeso881922c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:49:28 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEGQAVxIurpaHSW/z2nZHrsK8+ikRWSGTIedpJGEcvYnIJCEIfe5fAWARf/ADqLHprl7ewG5XtXaqnuCHQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8n/Sg3bWUdgXTNKWwxot93cxcrXka33NSojwKx4zLVFeZ1dh1N
+	0vG2jU0x/h+koEbMagy1WNuw8/8P3dtJayq0hir8FXvs14XJONovK5QphxtmMNNye27NN8FvCvx
+	kPKyMU2jNFxQsPmijrtvEyM91Q4UElGQ=
+X-Received: by 2002:a05:7022:3f0b:b0:1b5:58e:b544 with SMTP id
+ a92af1059eb24-1b5058eb8a5mr9877186c88.18.1794836967970; Mon, 16 Nov 2026
+ 05:49:27 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,21 +71,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116113808.560717-1-xujiahao@cmss.chinamobile.com>
+References: <20261017025420.792976-1-nickolai@csail.mit.edu> <87jymmuj2l.ffs@fw13>
+In-Reply-To: <87jymmuj2l.ffs@fw13>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Mon, 16 Nov 2026 08:49:13 -0500
+X-Gmail-Original-Message-ID: <CADGQE7FyCJHSnbQUomx6JBAtfCgKVK8y1DDDq+3c=Q2ZE1yXKA@mail.gmail.com>
+X-Gm-Features: AclHuK-6Gz94YjtBLOaoLl17L7tRDphaLILnArMimOT--hoIDeNArMmThzyFi1g
+Message-ID: <CADGQE7FyCJHSnbQUomx6JBAtfCgKVK8y1DDDq+3c=Q2ZE1yXKA@mail.gmail.com>
+Subject: Re: [PATCH v1] genirq/msi: Fix the mapping race of wire to MSI interrupts
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>, Anup Patel <apatel@ventanamicro.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 11:38:08AM +0800, Jiahao Xu wrote:
-> Agreed -- the blocklist is the wrong direction.  A vfio device fd bound to
-> this iommufd holds an iommufd_ctx reference of its own, so it reaches the
-> same cycle, and any other fd type that can own an iommufd_ctx would too.
-> 
-> The reversal looks doable with what mm already enforces.  memfd_pin_folios()
-> accepts only these two kinds of file:
-> 
-> 	if (!shmem_file(memfd) && !is_file_hugepages(memfd))
-> 		return -EINVAL;
+On Mon, Nov 9, 2026 at 10:21=E2=80=AFAM Thomas Gleixner <tglx@kernel.org> w=
+rote:
+> Something like the uncompiled below is less intrusive and avoids the
+> subtle breakage.
 
-And how do you let dmabuf go through?
+Thank you, your version looks better than what I was proposing.  I'm
+happy for you to take over this fix (your patch works and passes my
+testing against v7.4-rc3), if that's easier for you.
 
-Jason
+Also, in the same function, there are two other potential races. Let
+me know if these seem important enough to fix, and if it's useful for
+me to send a patch for them or if you want to take them over as well.
+
+(1) A second mapping of an existing interrupt checks its trigger type
+without desc->lock, while __irq_set_trigger() changes the type under
+desc->lock in two steps. With CPU0's specifier asking for the same
+type that CPU1 sets:
+
+  CPU0: irq_create_fwspec_mapping()     CPU1: __irq_set_trigger()
+                                        irqd_clear(..., IRQD_TRIGGER_MASK)
+  type =3D=3D irq_get_trigger_type(virq)
+    false, reads NONE
+                                        irqd_set(..., flags)
+  irq_get_trigger_type(virq) =3D=3D NONE
+    false, reads flags
+  "type mismatch", return 0
+
+If CPU0 reads NONE in both checks, it calls irqd_set_trigger_type():
+an unlocked read-modify-write of the state word that CPU1 writes under
+desc->lock. This dates back to b62b2cf5759b and 1e2a7d78499e.
+
+(2) A new wire to MSI interrupt can be requested while its creator
+still writes its state without desc->lock:
+
+  CPU0: maps the wire first             CPU1: second device, same wire
+  __irq_domain_alloc_irqs()
+    inserts virq, clears IRQ_NOREQUEST
+                                        irq_create_fwspec_mapping()
+                                          finds virq
+  msi_init_virq()
+    irqd_clr_can_reserve()
+      loads state
+                                        request_irq()
+                                          irq_startup(), under desc->lock:
+                                          clears DISABLED and MASKED,
+                                          sets STARTED
+      stores state
+
+The interrupt ends up requested but disabled, so handle_fasteoi_irq()
+never calls the handler. The irqd_set_trigger_type() at the end of
+irq_create_fwspec_mapping() has the same problem.
+
+One fix would be to do these checks and stores under desc->lock. I
+reproduced (2) on QEMU riscv64 with two virtio-net-pci devices sharing
+an INTx line and a test-only delay in CPU0's window. I reproduced the
+"type mismatch" in (1) with a test module that calls
+irq_modify_status() as CPU1, but I don't have a way to trigger it from
+userspace.
+
+Nickolai.
+
+> ---
+> diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+> index 4fdcb6df5306..10b0ac97b040 100644
+> --- a/kernel/irq/irqdomain.c
+> +++ b/kernel/irq/irqdomain.c
+> @@ -938,6 +938,7 @@ unsigned int irq_create_fwspec_mapping(struct irq_fws=
+pec *fwspec)
+>
+>         mutex_lock(&domain->root->mutex);
+>
+> +retry:
+>         /*
+>          * If we've already configured this interrupt,
+>          * don't do it again, or hell will break loose.
+> @@ -978,9 +979,17 @@ unsigned int irq_create_fwspec_mapping(struct irq_fw=
+spec *fwspec)
+>                         mutex_unlock(&domain->root->mutex);
+>                         virq =3D msi_device_domain_alloc_wired(domain, hw=
+irq, type);
+>                         mutex_lock(&domain->root->mutex);
+> -               } else
+> +                       /*
+> +                        * Handle the case where a concurrent mapping rac=
+ed and
+> +                        * allocated the interrupt after the mutex_unlock=
+()
+> +                        * above.
+> +                        */
+> +                       if (virq =3D=3D -EEXIST)
+> +                               goto retry;
+> +               } else {
+>                         virq =3D irq_domain_alloc_irqs_locked(domain, -1,=
+ 1, NUMA_NO_NODE,
+>                                                             fwspec, false=
+, NULL);
+> +               }
+>                 if (virq <=3D 0) {
+>                         virq =3D 0;
+>                         goto out;
+> diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
+> index e1d85035dbc8..3fdad0063be6 100644
+> --- a/kernel/irq/msi.c
+> +++ b/kernel/irq/msi.c
+> @@ -1572,6 +1572,12 @@ struct msi_map msi_domain_alloc_irq_at(struct devi=
+ce *dev, unsigned int domid, u
+>   * msi_desc::cookie so the underlying interrupt chip and domain code can
+>   * retrieve it.
+>   *
+> + * The caller looks @hwirq up before invoking this function, but it cann=
+ot
+> + * hold the domain lock across the call. Allocations are serialized by t=
+he
+> + * MSI descriptor lock, so the lookup is repeated under it and a mapping
+> + * which a concurrent caller created in the meantime is returned instead
+> + * of a second one.
+> + *
+>   * Return: The Linux interrupt number (> 0) or an error code
+>   */
+>  int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned in=
+t hwirq,
+> @@ -1589,9 +1595,18 @@ int msi_device_domain_alloc_wired(struct irq_domai=
+n *domain, unsigned int hwirq,
+>
+>         guard(msi_descs_lock)(dev);
+>         if (WARN_ON_ONCE(msi_get_device_domain(dev, domid) !=3D domain))
+> -               map.index =3D -EINVAL;
+> -       else
+> -               map =3D __msi_domain_alloc_irq_at(dev, domid, MSI_ANY_IND=
+EX, NULL, &icookie);
+> +               return -EINVAL;
+> +
+> +       /*
+> +        * A concurrent mapping might have allocated @hwirq already after=
+ the
+> +        * caller dropped the domain mutex. Re-evaluate under the MSI des=
+criptor
+> +        * lock, which is sufficient as it is the outermost lock for both
+> +        * alloc() and free().
+> +        */
+> +       if (irq_find_mapping(domain, hwirq) > 0)
+> +               return -EEXIST;
+> +
+> +       map =3D __msi_domain_alloc_irq_at(dev, domid, MSI_ANY_INDEX, NULL=
+, &icookie);
+>         return map.index >=3D 0 ? map.virq : map.index;
+>  }
+>
+>
+>
+>
+>
+>
+>
