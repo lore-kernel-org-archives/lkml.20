@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815114;
-	b=O1RXPCowqUjpxF1eahhDjo8W0EbsxMYSFtGs0HCCVQQqdHQWmkEdPNEYkvYbKx+vawEM
-	 vXBGAdaRjFJgdUgUaDM+t6qmSo0wZwHTihKXzdp3hJXj95bzM6xjiEB+P8Z5xx0xReEuy
-	 n5wJU0VkCmzMWakPCOqAaSr8RXYbglK1UjNWi9aSkJVT6pdYdYqqwJL1/xnwboFxHqIVX
-	 d3kUAfRbOi2azqio6tfGEQVE54xulYybasRc7n24N5fV6eU4n0+eW0nEj2sePyYJXjYFu
-	 mXLf8lj9M2zWbxqflLJhz4YS0u6//YjWaaAw7gyI0LGQ3r7pJPrK/uh5alf25QSiHuw==
+	t=1794815116;
+	b=W8sglFzRZYP8Cg8zZ18nwkNBZBVS6ODBGOzEP0PrjVy08YsdEoBVlGSlqglR3q0x+yod
+	 3pzB62Gw7DHRFPgiHDNhll3yYMBIXJh2L5Qt/tPrWn70pPhq+HfPaLcCcupth5bmwPKFr
+	 eJUA2IhlLS7/wHcD4JNVPD8ZO1gpc8PIi6M+vVPOpILNg6PFykzwmm+QanU//+3BwF0q7
+	 KBFvCzfTmhnOYFl3Cb7pmXFnQUzQBCV7Nw8aj4q4YzcxBsttYNRK1ILZG4GLz5dL1+m5H
+	 RAQI1MaxPxjd3XoJKhgrZxgXnT6jDsB7GpAVsPC6gF6xm7mmimU2fiqW+AddCqkre5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815116;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=AGt0uBqNqrRBqkScWR/mb8l6aDImYIyfnkOYjdl57zg=;
-	b=l4c4ZUXr6VyZf3R2HXUtuESzxDXhPLjmcTClH5aOE/4rPPI9uQjh10ZMj+IcWn73FU80
-	 hGjR7s6P7I5N9REMWn0A1clJmJT3cTzzOT6G3dO6s2mEeM+Hqrr9a5g176dBwJojiF1Xr
-	 KJfL7HNnKIxEh21zzSOIfhXNtmpAqs/mp8biU/U6Ik+VtJFNarkoDDY5iXwanDnzxok0G
-	 8JOBzH3iydbTjdcidcYhd5H0ibqgyMzAJ+YHdfJv7Ro7D6sWWLQbI7ffxqQ6s7OKGPmqK
-	 SrbDPBpQR4tBs5VlUZ17GUHaX6w7A8n4i0HZbeZr+BG4MZcBs/e3rt4gS4BxL2KaJXA==
+	bh=ozgIPcufN0VwTmoMbHvCE4hmUPjkUXY6RFC3n6CpNkA=;
+	b=newxQOuWhGsadXWzZICDftOhb5KW60uIM79BReXPvsK3QAL4pHXR9sQ8GsxZLae3YIbx
+	 VV107a8oQm1a358m+s02InK8lWnVRIVWfoauTnS2Bxl54er/njYINXgRV2VQfb93vEiiG
+	 xKpDqrpHzrnvpANoGywffss8z5iA+gb8hcLTYCZceno4aIvPRGQXu4k85LRQVe9o5yc/c
+	 E8r/tvtb3wP038a5qjcc4G1nDQoD2/ZnbkhzG/3D3Ai4fWbc7qt+m+mZAB0rgkb+s7Jpi
+	 uJ1N4OscO1HXM/UmpL7ESIMMIvuP95L7+jlJTQ1/R2AV5xEtaGONqcmR7ZudI/zkPBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m5pm5Vg4;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Xx4WqCB5;
 	arc=none smtp.remote-ip=74.125.82.197
 Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED3F606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ED3F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E01606A33B
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50E01606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m5pm5Vg4
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36de26cb4b3so3915944eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Xx4WqCB5
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso4012644eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794815114; x=1795419914; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794815115; x=1795419915; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AGt0uBqNqrRBqkScWR/mb8l6aDImYIyfnkOYjdl57zg=;
-        b=m5pm5Vg4t7Wg1bRT8UDv5ZOx2rye/UtjlR3e//Hx34+afV8SD0Ddpa39FJ7+s6wub6
-         Xbk5z2wwYLXYbvkCaa8yibefV5Vvmx6ix9/qo6NuDfqLz0uBn6lZ0sCj+tCGvG6Qu2cz
-         1TzO8uRIVHc9VlKMWLEWvtnMk9vPhwXpK93y6m06dhao9LBaacuqkjgibcevN4Ozw7lM
-         xmAxurgddF4wP25JzjxY+T2G4vLQvRcX96nVn8MfRuU5zvP9btLJh1ZR9UyeEmfuU7t2
-         D2kVogDolxnMJFIeH4povwmHuAMqf5liR7N5DLY9JRxoV01fWdt+5WES1DCwgjp7l3xm
-         NfRA==
+        bh=ozgIPcufN0VwTmoMbHvCE4hmUPjkUXY6RFC3n6CpNkA=;
+        b=Xx4WqCB5tqlm/KTL3SAJr6Dtd+Ir7vI1HhtYWz+62n2w3bhRjWkHXZqiFE8EHcuw10
+         uCEyDlyS6ZNBw5hoUyJ+Livr73w7IGedIzEULjacdTayl+wRIE3ih6BDHq8KFaEGy3tB
+         tFpQSlDYkYR9ZPN3Pk4Y9cSBfEvQ1y0okQS0OhFGmM4lspLP1yskDd7WrLAGxDFX/n7G
+         Q77bug9WPdcUcHYbD3fiqBtBj1MbivVRY2RTDPWzFVlbebNot0KXtiftS/JkDG6nmvzR
+         j14q85spUoAInJ0NQEkMT21U18RzskhhGgPUlK5fUJWGCJYlTYEO1wIskWk5JNF7s2z9
+         6agw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815114; x=1795419914;
+        d=1e100.net; s=20260707; t=1794815115; x=1795419915;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AGt0uBqNqrRBqkScWR/mb8l6aDImYIyfnkOYjdl57zg=;
-        b=qK2HcE0j1jvq4SHOzRtKAP4coNjkbMx3NQ8HjW4ZORTPkIrTKqDtlcnoyo3n8yYZM5
-         pmYsOKFAjqWJvU7UzsST+HAqab9TdENGkV0dMUsCWzjvW0YLrBLf1CJNr8AVa4tCEMQT
-         gTtfpq6pc1Nw9Olb+SIWZ1YZT/bN22TO8qxh/d2vfZvM/11dGQHvDiGmRCK2cgEY4/wc
-         PiyPXNnmkxS6m/GDZcYiQoO5FQSF852U/M7RD+kDKBhtWs8v40jx27RZMjX6cQgt/8+V
-         7sNLOl2ILQyJ+wVXKj8zMVdJ1tF0YlcfJ/6uYSUHRKDLtjOJbgD2c5Pbyqg4cbWk8oPW
-         8TIQ==
-X-Forwarded-Encrypted: i=1; AL+hErHl5ZS4rxhvEcqy3KpVjokQzCiFu52P5dP4VgMkDAgadNU1ISthquoMlchhu2HDbrQXDymhPzB5i5kqDRc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rPRLb96PtV44Vn4Cmojz/jcWQf1MApXnTpEZWNN3xLjvLzmfc
-	DzkIT6UmJRbYQ/ekRdqF8KzjJZx1/jkXXGAccoLx3rd3P/mxfCRhUsQbl6LAV89+OQpuMUgWxwJ
-	mNgtptMOH7g==
-X-Received: from dybme13.prod.google.com ([2002:a05:7301:188d:b0:37b:f69b:a36b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:90b:b0:34d:755b:d60b
- with SMTP id 5a478bee46e88-37968b8a031mr8712195eec.34.1794815113280; Sun, 15
- Nov 2026 23:45:13 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:43:58 -0800
+        bh=ozgIPcufN0VwTmoMbHvCE4hmUPjkUXY6RFC3n6CpNkA=;
+        b=UaBw/ohj1FOmun0Wd/xMIHlKItVCN4HVCarHGvU0MyYofUKuZSVLEIusG4mDSumwwK
+         o8T5N4iQXOSMDAPEGoQK5QR1xtq3RJGeseccHjn9K1w6kWhKSfxJVbtyCyVKtPLPhDhg
+         NfACq+AIU/R6Qaeg7WD3WubQLL5Zt6SDplMRdbdhB4Wb7omzAQTVWBOrL/2LnHcS7gsG
+         EegxEdkseG/xhZszvpppwTE8eQ2QUxi2lrQ9aTyNb/MLi661BkvgegTLtS7Rx9kJ1h2w
+         qGLve/ytiz7wBCNh0Wolsu9a67GEoxPcFdheIc1TMPlL12cOEMLDtDoTIToCiBRkexm/
+         9MmA==
+X-Forwarded-Encrypted: i=1; AL+hErHsIZx3OYcGk6esma1IlBI4Y0noKf5ch6YJ7jENfCQM7b87TIo+wjhHIIfBLMusJWn91Kc5xCbYiM2uK/s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NCmECpQPx0HnnxROpCJLh6maLGs1C/lFe5tzRa80PIl9pjdzq
+	r2loTmu1Fw+zMYL2dWFe3cuEyp/QQPpAxJrCLMioxSTpLzQ997rodU4R/sD0RUmIc6srPJePwCn
+	kR22tv5AcSw==
+X-Received: from dybgv25.prod.google.com ([2002:a05:7301:2319:b0:36f:5688:8a11])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:2a16:b0:369:fa21:ba0b
+ with SMTP id 5a478bee46e88-3796721cfc1mr9291632eec.33.1794815115033; Sun, 15
+ Nov 2026 23:45:15 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:43:59 -0800
 In-Reply-To: <20261116074414.3174737-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261116074414.3174737-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116074414.3174737-4-irogers@google.com>
-Subject: [PATCH v3 03/19] perf/uapi: Add BUILD_ID_OFFSET sample types to UAPI
+Message-ID: <20261116074414.3174737-5-irogers@google.com>
+Subject: [PATCH v3 04/19] bpf: Export stack_map_get_build_id_offset() for perf events
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
@@ -100,124 +100,56 @@ Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
 	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Introduce PERF_SAMPLE_BUILD_ID_OFFSET and
-PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET in enum perf_event_sample_format.
+Make stack_map_get_build_id_offset() non-static and declare it in
+include/linux/bpf.h (with an inline fallback when CONFIG_BPF_SYSCALL or
+CONFIG_PERF_EVENTS is disabled) so that the perf events core can reuse
+it to resolve user-space instruction pointers to build IDs and file
+offsets.
 
-For PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET (and
-PERF_RECORD_CALLCHAIN_DEFERRED when PERF_RECORD_MISC_MMAP_BUILD_ID is
-set), encode a deduplicated table of variable-length build IDs
-(u32 nr_build_ids, u32 nr_offsets, followed by packed { u8 size;
-u8 data[size]; } entries padded to 8-byte alignment) and an array of
-64-bit offsets whose top 8 bits encode the 1-based build ID index (or
-0x00 for unresolved user addresses and 0xff for kernel/context entries).
-In common cases where multiple callchain frames belong to the same
-binary, each unique build ID is encoded only once.
-
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- include/uapi/linux/perf_event.h | 59 ++++++++++++++++++++++++++++++---
- 1 file changed, 54 insertions(+), 5 deletions(-)
+ include/linux/bpf.h   | 14 ++++++++++++++
+ kernel/bpf/stackmap.c |  4 ++--
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/include/uapi/linux/perf_event.h b/include/uapi/linux/perf_event.h
-index deb7c42d109b..775420ed9aee 100644
---- a/include/uapi/linux/perf_event.h
-+++ b/include/uapi/linux/perf_event.h
-@@ -165,8 +165,10 @@ enum perf_event_sample_format {
- 	PERF_SAMPLE_DATA_PAGE_SIZE		= 1U << 22,
- 	PERF_SAMPLE_CODE_PAGE_SIZE		= 1U << 23,
- 	PERF_SAMPLE_WEIGHT_STRUCT		= 1U << 24,
-+	PERF_SAMPLE_BUILD_ID_OFFSET		= 1U << 25,
-+	PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET	= 1U << 26,
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index 31ff71d829b9..9b2ca352ac6c 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -4503,4 +4503,18 @@ static inline int bpf_map_check_op_flags(struct bpf_map *map, u64 flags, u64 all
+ 	return 0;
+ }
  
--	PERF_SAMPLE_MAX = 1U << 25,		/* non-ABI */
-+	PERF_SAMPLE_MAX = 1U << 27,		/* non-ABI */
- };
- 
- #define PERF_SAMPLE_WEIGHT_TYPE	(PERF_SAMPLE_WEIGHT | PERF_SAMPLE_WEIGHT_STRUCT)
-@@ -840,7 +842,8 @@ struct perf_event_mmap_page {
-  *
-  *   PERF_RECORD_MISC_EXACT_IP           - PERF_RECORD_SAMPLE of precise events
-  *   PERF_RECORD_MISC_SWITCH_OUT_PREEMPT - PERF_RECORD_SWITCH* events
-- *   PERF_RECORD_MISC_MMAP_BUILD_ID      - PERF_RECORD_MMAP2 event
-+ *   PERF_RECORD_MISC_MMAP_BUILD_ID      - PERF_RECORD_MMAP2 and
-+ *                                         PERF_RECORD_CALLCHAIN_DEFERRED events
-  *
-  *
-  * PERF_RECORD_MISC_EXACT_IP:
-@@ -852,7 +855,7 @@ struct perf_event_mmap_page {
-  *   Indicates that thread was preempted in TASK_RUNNING state.
-  *
-  * PERF_RECORD_MISC_MMAP_BUILD_ID:
-- *   Indicates that mmap2 event carries build ID data.
-+ *   Indicates that mmap2 or deferred callchain event carries build ID data.
++#if defined(CONFIG_BPF_SYSCALL) && defined(CONFIG_PERF_EVENTS)
++void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
++				   u32 trace_nr, bool user, bool may_fault);
++#else
++static inline void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
++						 u32 trace_nr, bool user, bool may_fault)
++{
++	for (u32 i = 0; i < trace_nr; i++) {
++		id_offs[i].status = BPF_STACK_BUILD_ID_IP;
++		memset(id_offs[i].build_id, 0, BPF_BUILD_ID_SIZE);
++	}
++}
++#endif
++
+ #endif /* _LINUX_BPF_H */
+diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+index a19126f5db02..11f6349b2b8d 100644
+--- a/kernel/bpf/stackmap.c
++++ b/kernel/bpf/stackmap.c
+@@ -406,8 +406,8 @@ static void stack_map_get_build_id_offset_sleepable(struct bpf_stack_build_id *i
+  *     id_offs[i].build_id is zeroed out and id_offs[i].status is set to
+  *     BPF_STACK_BUILD_ID_IP.
   */
- #define PERF_RECORD_MISC_EXACT_IP		(1 << 14)
- #define PERF_RECORD_MISC_SWITCH_OUT_PREEMPT	(1 << 14)
-@@ -1095,6 +1098,38 @@ enum perf_event_type {
- 	 *	{ u64			code_page_size;} && PERF_SAMPLE_CODE_PAGE_SIZE
- 	 *	{ u64			size;
- 	 *	  char			data[size]; } && PERF_SAMPLE_AUX
-+	 *	{ union {
-+	 *		struct {
-+	 *			struct perf_build_id	bid;
-+	 *			u64			offset;
-+	 *		};
-+	 *		struct {
-+	 *			u64			zero;
-+	 *			u64			context;
-+	 *			u64			cookie;
-+	 *			u64			ip;
-+	 *		}; && attr.defer_callchain
-+	 *	  }; } && PERF_SAMPLE_BUILD_ID_OFFSET
-+	 *	{ u32			nr_build_ids;
-+	 *	  u32			nr_offsets;
-+	 *	  struct {
-+	 *		u8		size;
-+	 *		u8		data[size];
-+	 *	  }[nr_build_ids];
-+	 *	  u8			pad[];
-+	 *	  u64			offsets[nr_offsets];
-+	 *	  #
-+	 *	  # Entries in offsets[] include PERF_CONTEXT_* markers (which
-+	 *	  # have top 8 bits 0xff). Kernel/hypervisor entries (after
-+	 *	  # PERF_CONTEXT_KERNEL, PERF_CONTEXT_HV, PERF_CONTEXT_GUEST,
-+	 *	  # or PERF_CONTEXT_GUEST_KERNEL) and the cookie word following
-+	 *	  # PERF_CONTEXT_USER_DEFERRED are raw 64-bit values. User
-+	 *	  # entries (after PERF_CONTEXT_USER or PERF_CONTEXT_GUEST_USER,
-+	 *	  # or in PERF_RECORD_CALLCHAIN_DEFERRED) use the top 8 bits to
-+	 *	  # encode a 1-based index (1..254) into the build_ids table and
-+	 *	  # the lower 56 bits for the DSO file offset, or 0x00 for an
-+	 *	  # unresolved user virtual address.
-+	 *	} && PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET
- 	 * };
- 	 */
- 	PERF_RECORD_SAMPLE			= 9,
-@@ -1306,8 +1341,22 @@ enum perf_event_type {
- 	 * struct {
- 	 *	struct perf_event_header	header;
- 	 *	u64				cookie;
--	 *	u64				nr;
--	 *	u64				ips[nr];
-+	 *	union {
-+	 *		struct {
-+	 *			u64		nr;
-+	 *			u64		ips[nr];
-+	 *		};
-+	 *		struct {
-+	 *			u32		nr_build_ids;
-+	 *			u32		nr_offsets;
-+	 *			struct {
-+	 *				u8	size;
-+	 *				u8	data[size];
-+	 *			}[nr_build_ids];
-+	 *			u8		pad[];
-+	 *			u64		offsets[nr_offsets];
-+	 *		}; && (header.misc & PERF_RECORD_MISC_MMAP_BUILD_ID)
-+	 *	};
- 	 *	struct sample_id		sample_id;
- 	 * };
- 	 */
+-static void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
+-					  u32 trace_nr, bool user, bool may_fault)
++void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
++				   u32 trace_nr, bool user, bool may_fault)
+ {
+ 	struct mmap_unlock_irq_work *work;
+ 	bool has_user_ctx = user && current && current->mm;
 -- 
 2.56.1.703.gf848ed807c-goog
 
