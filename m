@@ -1,103 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803256;
-	b=jFmd3+yvEmGmwLx0WDSp3pXZf7vkhxILwvrkGDMH/ExZeXus2Mu3npBnCHQXxxi4RcAT
-	 7Wz/7MLHNkfD3oxn8jh7DM8cXd8AFziaghloV7XfyQejIFDQKgIcTw4kKBeIncadUh3bl
-	 UyEaT/H8S8oXDUYTJSGSog7PsQys2vXKn/PH8O/txPaRyRCKxOCmF+cBFMGYCThpOk5Lg
-	 njN71G54NSvzf6aoKV0IKUMT9wfRlxsXW91f0Ilm7QDNmyHvaKUmZSjqVGPYpj+FyBH2d
-	 GYG7qgguZsMnyY3mYxHFSFgQ8bHzYCIipriXdWV6BpRV9tFsh7vYlp0KafvBe2ia6iA==
+	t=1794803272;
+	b=hdnrjRKNBffOXUibkVxQ1oovMn3kXWFsawndCLpk9n/FuS4AzXVmCiVtPeD4XWpBd7DC
+	 rY4Tfux6YX2yvSov9uJTmW26qHGE4XG3Np0Wy+pgUKBI+CRD3ceKl/lfO2NmbeebjF4yL
+	 /oTvF0hFOLYGkTPQkpnqd3/jYhe9Tgcg8l7zhbDmXIddGnjt0l+fWnfHwJw6m8Cb9ktT1
+	 t46rToHcY58nDrrli0XdJBQH/cJgKfIONdf3jRGm5PRgExiTj5ODfTwBGe4CCsoXUwG3D
+	 Mj9nng9tn+ulnWZcfGxegMg0tir1tjNSzWVECCttVSHQyQDHWUpawpZNXomAu6mPHuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803256;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ll4WYNWhfbzf2fuFTwBl2v6+pYsK8R5wKGt8sosgi6k=;
-	b=3mEZjZhCAYwdRSHcq75n9jZ22fqUHvVJQXrKCZSZo+e2gEfDWZZYTD7msygCstq0/GQa
-	 cNySIsQbkaoQ4nQ7c080fM0cTm1DBskaxqqlgiAjhHweX+4ZfwTq7wLMqxB1uc8nFQIqt
-	 ooidFnqFVkLM72GkEXtuEGWpp0XxwRpCN6dkQnmDImxICizHq7I65AosYmnN+2EGsY9MR
-	 HTWo1Iwzku47HdDzCZx43siB7ieYuf/mC8OD21Ipay0V6xKRw5JIgt7mgtXUfGSSKmDr4
-	 +Haj5XmneBFcT9A2JcllQO2IDgyEXfRcPAaA6sC4hnlx/fv+WeJgK6qwdSwJWjwJVIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803272;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
+	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=eNtVYaFSoYJYpJd8ZF+kTOqpl3wUXqv0VIPKi7kdcO0=;
+	b=p40rcEMNpC3IE0Y3tIIbHaBVz/G8/wpOWAzoRbQXKExETHX9CoNMebK7noINCb9WdTko
+	 Yo3xySYUmKdzfGXnAje8x/DQCUa7mKwiMMXmo7kGqdrgWflEhB6Y2cqsH/rWgpIIiMqoz
+	 EHYljjKJrzb5yQit2RWgF2JXCEOeQl4P2y5A1zYNMw1v1yLdWZIuyOUv6ILlIMnzH1JTA
+	 ogeQz8vJvowgLwASnHgN+CEfZqJg7UFIlO72pIpEKEEVOFUViuX3bNlJYEhPxMUlLDT/o
+	 RxLZQsF7jTmzNhA3QCEV/+NYA9N0YkwWVTPu1v3TFSQ9WtUQM9e396nxUYCvijJxYjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PBzSoSOU;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAF0606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:27:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBAF0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=uniroma2.it;
+	spf=pass smtp.mailfrom=uniroma2.it;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=ydpnlOAO;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=W38B0z3a;
+	arc=none smtp.remote-ip=160.80.4.39
+Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.39])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C623606A31C;
+	Mon, 16 Nov 2026 04:27:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C623606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PBzSoSOU
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so4448055c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:27:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794803255; x=1795408055; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ll4WYNWhfbzf2fuFTwBl2v6+pYsK8R5wKGt8sosgi6k=;
-        b=PBzSoSOUrgFcz7gcjKcXndt6JweAVS7Y3UB/4GZG0gPI2rJgC2gq2W2uoOa7jY6aC5
-         oy1unp6PPKpYNaVj6V6aqKph2G3Icg7h8nG1L1l1yfxPVKteNXgcAHGGY261p/v9gIc8
-         t5RS+ybfuk9KzSHMuK8oHEqix/t0/G41NiYrsV0uNvB0UNMBGWwxk5ElncF4gDPLnszN
-         NMDqZ38MDGzlPyb5hFDLudBfPT9YC3gjp2DOpvguLTdbIkBMxyJmTTv9k/KEAVA3H0gz
-         0WZABSYNxfsu3LcMg2ww7V8ebPAANEHMPWomdkIwFDQuBrmgXUZLEd8pZsz5NhrGbVlh
-         lkoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794803255; x=1795408055;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ll4WYNWhfbzf2fuFTwBl2v6+pYsK8R5wKGt8sosgi6k=;
-        b=rr7+YH4z7qjn7zKIAMja3sErJoQZ9GLhSivJwtD6iKXwQjqKdp1HBn0KepxYoTBJzG
-         Xka29lRgKCsPe+XK8dVPl8cIsg7TRMdZ9TE6ju4tNydLOYSKTTU7dg2MBxjmB2hUbht8
-         70rFY1zoo0jMp6S8DZir9dXy3WgxcX8m31XAQIWA2zkeA3kB16ECry456lxTyydiWJ83
-         VuAWwDzDl1s5rcTnZn0BQNtfTj5m9Zpcuf8IUsk3v0iV+koLWecsvNW+ELJr9bDD29V9
-         t5/XCATwyIi2MMVU9Mtz9MOd80u9BoJgX7+U+iTN7sSQAKjN+i/J7sN9QOoKaKTYCPNA
-         OzFA==
-X-Forwarded-Encrypted: i=1; AL+hErFWuxqR1bsi5inm5uJrPVDwFxonOfU7Smf22KWti6Klt8s8mYxzN2fQ78u43t+TjejgXZovILRHsjO9j40=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97Yx+MgvBVoYaS5QzsVCxAjN3KLCNcTjc2Aa/PxiBJp5RBFO4B
-	lR0rcgATGLSLLUflu1JZaJ7ws3m0uPS7ChztdIpe5DozSxe6eVzqpnTd
-X-Gm-Gg: AYBFou23mj2+L95RhWG6d/KJ3kymzzpy47C1PCiMOfKN5drjRi4G18nccVCLsvnKRFQ
-	jMFpa7RJ2fhQ6P3Y2RLhzXDPkfGQH8Th1i20goPxtttos/WIEMqdm59imLWyFjwnbSs6RCXo/lE
-	Oyn+8lCVd+zb1jTwSb+I90BsCzpAsby/7nt4NEC/ZZ7ebRpjpih8dwqfrlcZP4fMLYBdEe+NVid
-	fH/4S3MNEBlUgytNtYC3/Or0lUtQshj+JDtG2rq9wV4RjDToXfOjQYauTdO+V8UKJY73xd8f3In
-	GECQAEHF3bjV/Esq3vkmTJhjRBj7pFzKyE0vMDApFPsAL6h6sUqkeLXPVHNL9IwBNEgyMCbcPOa
-	2wwjWnrczAnUBSKhuPE8vtTImwRRDaolSTxRDZu51LiRykMpGgbzMDUt/zRVEAOgxzg7l6rOBMo
-	R+vveoPqDvdyoB1qmM54Ch2mt7EHt4aEh3J7KRBS7vPS0lW7Pp0fergd+icpIDfUBKRsuN9T7Hd
-	fIRnQRv7RxZKpdD0LJ7glYNOwqR4Vu/H5kkhwXXS9r3XHxPsTiEa+HGTbDPnLeGaEqdlHaXL9eA
-	hxrUSUFWk1Rm+nEBsmj/y+aUnc7mM07E/zDE6Nx6BNbbd7WU4ssrkUn3/nz/Z0PnN8YqQVXWOHl
-	V5Zs8djwCU4ijZEjOvia649K5o2bouJ5bxVcvl9gOEjeUoAA/xa4T7FKzKwSqHm7SSVU=
-X-Received: by 2002:a05:7300:fb17:b0:36f:6d81:3f99 with SMTP id 5a478bee46e88-3796676fd59mr9490074eec.7.1794803255030;
-        Sun, 15 Nov 2026 20:27:35 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm30053500eec.13.2026.11.15.20.27.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 20:27:34 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 2/2] ASoC: atmel-classd: Enable pclk during probe
-Date: Mon, 16 Nov 2026 11:26:33 +0700
-Message-ID: <20261116042633.497423-3-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116042633.497423-1-phucduc.bui@gmail.com>
-References: <20261116042633.497423-1-phucduc.bui@gmail.com>
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=ydpnlOAO;
+	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=W38B0z3a
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 6AG4R4F6029746;
+	Mon, 16 Nov 2026 05:27:09 +0100
+Received: from lubuntu-18.04 (unknown [160.80.103.126])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id EF21E120755;
+	Mon, 16 Nov 2026 05:26:59 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1794803220; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eNtVYaFSoYJYpJd8ZF+kTOqpl3wUXqv0VIPKi7kdcO0=;
+	b=ydpnlOAOtxb/e9yNfed9MY5lOi0Y/iO4uPfGZ6i+nbQUxgfr7iz2s1AGELvWpNIRpDi/3p
+	QMsP9bd/C+7j8iAA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1794803220; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eNtVYaFSoYJYpJd8ZF+kTOqpl3wUXqv0VIPKi7kdcO0=;
+	b=W38B0z3a7AJPGA6RtB9Dt3UY9w6Y9DyuDNEWYTfF5fgGLdsW9LLCMgS6tcv0//uLGEh+u6
+	bD9nHBn4Uvwg6wiIBP4YaKs8CZRXRjm1Na4lb3pjOvyUhXegPA4vCKCXMgZk1yAyNBtnHV
+	gnE2gZdWF7+07jJZnzZ0Cxry0swGuE3Sj7AXte47MtUe5jEFwZF6Gy02ZLHEBnI3GL9DEE
+	SCEMRSLu1VfAit89zH3PV2rrqfCWZ+37Lat3Tb+Xnw8TcCaVJidmXldZclqtUUiphNbDyM
+	I2j9KjW5UU3TfAci591PT/9K/YCmahrAJO6nhDSvqVWeOSS7BdywY0MikfWA/w==
+Date: Mon, 16 Nov 2026 05:26:59 +0100
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Shuah Khan
+ <shuah@kernel.org>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        Hangbin Liu <liuhangbin@kylinos.cn>,
+        Stefano Salsano <stefano.salsano@uniroma2.it>,
+        Andrea Mayer
+ <andrea.mayer@uniroma2.it>,
+        Andrea Mayer <andrea@common-net.org>
+Subject: Re: [PATCH net-next v3 3/5] selftests: seg6: move SRv6 End PSP
+ setup into its own helper
+Message-Id: <20261116052659.e8843a373807242737faeef0@uniroma2.it>
+In-Reply-To: <20261112-srv6_flavors_endx-v3-3-c9177bbbd965@kylinos.cn>
+References: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
+ <20261112-srv6_flavors_endx-v3-3-c9177bbbd965@kylinos.cn>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,61 +91,160 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Thu, 12 Nov 2026 17:27:58 +0800
+Hangbin Liu <hangbin.liu@linux.dev> wrote:
 
-The peripheral clock is enabled in the startup callback but never
-disabled, causing its enable reference count to increase on each
-startup and preventing the clock from being gated.
+> setup() installs both the base topology and the End PSP policies. That
+> couples general test setup with one specific flavor scenario and makes
+> it hard to add further flavor cases cleanly.
+>
+> Extract the End PSP policy setup into setup_end_flv_psp() so flavor
+> tests can set up and later tear down independently (the matching
+> cleanup arrives in a following patch).
+>
+> Run the block under set -e so a setup failure is treated as an error
+> instead of falling through into the connectivity checks. When deciding
+> to report the run as skipped, keep any failure already recorded by a
+> test, so a real failure is not converted into a skip.
 
-Use devm_clk_get_enabled() to enable pclk once during probe and
-automatically disable it on device removal.
+Hi Hangbin,
+thanks for the v3.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/atmel/atmel-classd.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+>
+> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> [snip]
+> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> index 157baa8ecb0b..0ed5bfe99029 100755
+> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> @@ -488,8 +488,9 @@ cleanup()
+>  
+>  	# check whether the setup phase was completed successfully or not. In
+>  	# case of an error during the setup phase of the testing environment,
+> -	# the selftest is considered as "skipped".
+> -	if [ "${SETUP_ERR}" -ne 0 ]; then
+> +	# the selftest is considered as "skipped", unless a test has already
+> +	# recorded a failure.
+> +	if [ "${SETUP_ERR}" -ne 0 ] && [ "$ret" -ne "$ksft_fail" ]; then
+>  		echo "SKIP: Setting up the testing environment failed"
+>  		exit "${ksft_skip}"
+>  	fi
 
-diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
-index 59490e9effab..4216a28d3371 100644
---- a/sound/soc/atmel/atmel-classd.c
-+++ b/sound/soc/atmel/atmel-classd.c
-@@ -122,19 +122,10 @@ static int atmel_classd_cpu_dai_startup(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct atmel_classd *dd = snd_soc_card_get_drvdata(rtd->card);
--	int err;
- 
- 	regmap_write(dd->regmap, CLASSD_THR, 0x0);
- 
--	err = clk_prepare_enable(dd->pclk);
--	if (err)
--		return err;
--	err = clk_prepare_enable(dd->gclk);
--	if (err) {
--		clk_disable_unprepare(dd->pclk);
--		return err;
--	}
--	return 0;
-+	return clk_prepare_enable(dd->gclk);
- }
- 
- /* platform */
-@@ -546,10 +537,10 @@ static int atmel_classd_probe(struct platform_device *pdev)
- 	if (dd->irq < 0)
- 		return dd->irq;
- 
--	dd->pclk = devm_clk_get(dev, "pclk");
-+	dd->pclk = devm_clk_get_enabled(dev, "pclk");
- 	if (IS_ERR(dd->pclk))
- 		return dev_err_probe(dev, PTR_ERR(dd->pclk),
--				     "failed to get peripheral clock\n");
-+				     "failed to get/enable peripheral clock\n");
- 
- 	dd->gclk = devm_clk_get(dev, "gclk");
- 	if (IS_ERR(dd->gclk))
--- 
-2.43.0
+When a test has already failed and the setup then fails, the script
+exits with 1 and does not say that the setup failed. For example, with
+hs-2 -> gw failing and then an error in setup_end_flv_psp(), the last
+TEST lines in the log are:
 
+    TEST: IPv6 Hosts connectivity: hs-1 -> gw                           [ OK ]
+    TEST: IPv6 Hosts connectivity: hs-2 -> gw                           [FAIL]
+
+The End PSP tests did not run. Before this patch, the setup ran before
+any test, and cleanup() printed "Setting up the testing environment
+failed" on every setup error. Could cleanup() print it also in this
+case, keeping the exit code 1? Something like:
+
+	if [ "${SETUP_ERR}" -ne 0 ]; then
+		if [ "${ret}" -ne "${ksft_fail}" ]; then
+			echo "SKIP: Setting up the testing environment failed"
+			exit "${ksft_skip}"
+		fi
+
+		echo "FAIL: Setting up the testing environment failed"
+	fi
+
+	exit "${ret}"
+
+> @@ -785,6 +786,27 @@ setup_rt_endpoints()
+>  	done
+>  }
+>  
+> +# setup proxy on route entries for hosts
+> +# args:
+> +#  $1 - ingress router that enforces the SRv6 Policy
+> +#  $2 - destination host whose addresses are proxied
+> +#  $3 - suffix of the address on the loopback of the destination host
+> +#       (i.e. cafe::<host>:<suffix>)
+> +setup_rt_host_proxy()
+> +{
+> +	local rt=$1
+> +	local hs=$2
+> +	local func=$3
+> +
+> +	ip -netns "$(get_rtname "${rt}")" -6 neigh add \
+> +		proxy "${IPv6_HS_NETWORK}::${hs}" \
+> +		dev "${RT2HS_DEVNAME}"
+> +
+> +	ip -netns "$(get_rtname "${rt}")" -6 neigh add \
+> +		proxy "${IPv6_HS_NETWORK}::${hs}:${func}" \
+> +		dev "${RT2HS_DEVNAME}"
+> +}
+> +
+>  # This helper function builds and installs the SID List (i.e. SRv6 Policy)
+>  # to be applied on incoming packets at the ingress node. Moreover, it
+>  # configures the SRv6 nodes specified in the SID List to process the traffic
+> @@ -860,10 +882,6 @@ __setup_rt_policy()
+>  		add "${IPv6_HS_NETWORK}::${dst}" \
+>  		encap seg6 mode inline segs "${policy}" \
+>  		dev "${DUMMY_DEVNAME}"
+> -
+> -	ip -netns "${in_nsname}" -6 neigh \
+> -		add proxy "${IPv6_HS_NETWORK}::${dst}" \
+> -		dev "${RT2HS_DEVNAME}"
+>  }
+>  
+>  # see __setup_rt_policy
+> @@ -962,17 +980,29 @@ setup()
+>  	setup_hs 1 1
+>  	setup_hs 2 2
+>  
+> -	# set up the loopback addresses of the hosts used by the Policies (i.c)
+> -	# and (i.d).
+> -	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
+> -	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
+> -
+>  	# set up default SRv6 Endpoints (i.e. SRv6 End behavior)
+>  	setup_rt_local_sids 1 "2 3 4"
+>  	setup_rt_local_sids 2 "1 3 4"
+>  	setup_rt_local_sids 3 "1 2 4"
+>  	setup_rt_local_sids 4 "1 2 3"
+>  
+> +	# testing environment was set up successfully
+> +	SETUP_ERR=0
+> +}
+> +
+> +setup_end_flv_psp()
+> +{
+> +	SETUP_ERR=1
+> +
+> +	# set up the loopback addresses of the hosts used by the Policies (i.c)
+> +	# and (i.d).
+> +	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
+> +	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
+> +
+> +	# setup proxy on route entries for hosts
+> +	setup_rt_host_proxy 1 2 "${END_CSID_PSP_FUNC}"
+> +	setup_rt_host_proxy 2 1 "${END_CSID_PSP_FUNC}"
+> +
+>  	# set up SRv6 policies
+>  	# create a connection between hosts hs-1 and hs-2.
+>  	# The path between hs-1 and hs-2 traverses SRv6 aware routers.
+
+Before this patch, __setup_rt_policy() added the proxy entry together
+with the route of each Policy. With this patch, each scenario calls
+setup_rt_host_proxy() instead.
+
+In this v3, 4/5 deletes the proxies when the scenario ends, like the
+routes of the Policies. So I think the proxy entry can stay in
+__setup_rt_policy(), and in 4/5 its defer can go next to the defer of
+the route. What do you think?
+
+> [snip]
+
+Thanks,
+Andrea
