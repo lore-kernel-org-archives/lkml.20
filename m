@@ -1,93 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858929;
-	b=oHm1fdRj0Dj5lui7FIx7/GYKMiluuziPMK2HDRsaWMlCiVr9u/8pThEa8X4ZUAFKuRT5
-	 S6prG2tEfo4UVmC/NxZU8PnSSyo04x4LnWdRQetOdzUApO1gz5IVRiE8a2GP9TbGQqXl9
-	 2FG0hBIBvEmjMDXtnLgEjgOX2siWfNOTj9yH4zKyE7mvXfAOaMC+msyBrVJ3akXhkXRFR
-	 0PzRdSi4XNaHxViUXstvIlvZ0fhQqckTiVJdIMzqzheqhVcuEziqzscqA8/TvJaFB5biZ
-	 Xkk5a1ZTsFqFYvXNEXdAgeOMnr9ekAirhyM7/EYvMoX8PqyPlROFUHnCU9o92Sizflw==
+	t=1794858998;
+	b=pmAIBwHX7iH4JIU7VOOtYMqEr848m1TJglq+8wGOWeCSBlII5fxVIQhaeU/s0lBeHNEp
+	 Q1K7P73pFODhmNTrlEdHVSr+bLwxNF6YtEbtBHFy6RJtWngdlpGltgCtMCfuVASjWRSxh
+	 0xRaRqPyGlxrLiWMUG7RLVneMZqRfuidxrEKkJHObaaY9uqp9nkpHQUyNPmLzlP2MzU/r
+	 BP8d0934/cRQrFO8YqQRC1QsC9wuNKpja/0jRMGJPxMQUEGVrQWxBwAFSuxdKOSu0yaHQ
+	 hxjWvqz5qDKYHaejx6sSB8czHo5D5g6RqbOoozEm99aIAj24IcUSNVgT+7xOFLJ560Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858929;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZYix/OLdciQihq7DIwR9ubCLG7vIH820farEoUf4A/A=;
-	b=igcJzbAaJ+GMsvNqOe+1sBKCNrpRe8GusYhC/Bqx2Um60/xkGvQOKIa5xRr2DXwixtru
-	 h45zQ9LweviFZd7/ILUg5xN8awoMwNd6RlQXgrK6vaj0bUDtz7y2fh0sRQrK+xtspR12I
-	 pHHHczxS2vBwKo+glFvKXXgFre0VrhKdT5myf6fKcHQTT8vr/sXHCfU7GSlVPkarMyK8a
-	 YEUTQZidZ3pM8dvYnUsW+Ap9xUd50vhbHwRUCePhe4bWiLCIi8klrf2MsukYbKUM+jLCI
-	 WChRkcfaVAsG8uCHJxSPIFoacnVo9IJ7N9180yoBlNfjp+CDgenpvIwQFHG2hms+exQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858998;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yYuKJFpeOOUiRlcbNdqkTa4zbZgovEnL4C4jJYmyByo=;
+	b=N6kIXaO67YkVqFPXyVd3lQjBWSb3+Z0cqL9EFgvL0NQoc2ttPDHDuxDNJ5JlMbmJK34m
+	 DEAGUo22Wwx497g48MHj6b7A/ryaGWEH1vbBGXGEGRDFa0K5P2AqXcGu684ypjJMIBBba
+	 GzmO1P4JWOKjXSBis6Z54pghJQkydeg4Wgvu8ffsSPV3YI1hstgMIge6JroNSA+JvvuS+
+	 NFTuNAVmFABfJ+IOEWrWEXIwaoW5ShEW+Mjr1J9v34U+Ya7H0/Bi5i9JQEUtQvuGmmSuf
+	 3DjakeR39FjZX/piNq23Fb5jWVtYe2K8uNMdCAcz0y+uYKqD4MO1QkAKUbwp78JSR9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OePMjijy;
-	arc=none smtp.remote-ip=209.85.217.45
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lxorfpif;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE40606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:55:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE40606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD91606A31C;
+	Mon, 16 Nov 2026 19:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OePMjijy
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7d2e43ff4b4so151260137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:55:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794858928; x=1795463728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZYix/OLdciQihq7DIwR9ubCLG7vIH820farEoUf4A/A=;
-        b=OePMjijyJ15gubJKFAW+vUGCzLIYnT4IOOfJ+548xdDhlEwkw4AY3KHK4QXTEWcAsK
-         RYO4U5wH3R17WxYKwcS/KtIHQJX7lJpJhJamOl1Ezn+p+MPp5JpfizpmaaWNwoCIwA8T
-         psXxdIt+xkMy4gxffbkFkPkZsM73/TyWUGeyfMykJGFogsmJyMjVQCxrZzax/g+cNMkq
-         0tTpGarBb6B6DlI414Hu9iMsEFEOVhrUB8ZDjo83iX+Zvse//Mjo3gI+S2afsM0g/LUa
-         HTMlZ4doMwtM6Df0LYVIQjrAZ+1benWSjGmbnGShvD5iSiAEu1N53rRRHafCDv23jE//
-         G8Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794858928; x=1795463728;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZYix/OLdciQihq7DIwR9ubCLG7vIH820farEoUf4A/A=;
-        b=h36xAtPtmign2sgyiNf10wH1UkkDJBB8VFEC+/12DN6dE9ypokJyNGA1MfI1iM91tc
-         kF4MK7yoPz7hQy3rIsK4bAd73P3EXpzBDQejJNRpE7240lA+IbWjOHAsXUUXCwK7ALrr
-         8oRorBGSjhjBMEbmLSw+rg8yKHj4+3x0MES8P1t6si6PXmTf1N21kh0W6OLZTkaE15x9
-         2VVmSrWwzMZj4R/kfVrJWWyNO+ay1dwoG+p5mdx0j63du0L5j8yHQ5zAU8nT8wivwFjZ
-         DprM9lZkwUNQN8pHeryOMmFmahoC4shwEJMmiw5D67XClt7mzVYC3rFYKEahS+mCR8IE
-         FFMA==
-X-Forwarded-Encrypted: i=1; AL+hErEIDblrEx43dWif2zTN7ephI9SCmGksnCGJytI6hOdzputMfvNbsSceOyXaxulkm6fcir6HXcl5cuBSYOM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aRWo82mKgh3TcvYdXMFMvuQ0TQBzj2GwBFR+DEt97TuKnl6B9
-	4Pro1o/zJMcvPH1Nw0Am6gatdWkEKUwN+SkwpW8srKFexGKIKWnGIjis
-X-Gm-Gg: AYBFou2m6yJC0DR2u5p6U11tIFim/AHM+15SbwuoseJn/GYbXZII8RqxyQNkNkbRiJu
-	XCaL7n6rty0kVB0I0C4FIh0piyDwm09t59UVAcvgWX0/8osGEq1eImcNdjtQ/tcLJkOMFKlCluf
-	JoGhoQ7x2dIuDh3n0+f1aOCnT7YA4q66rqrhPHR7hnfuusA/6q3ygrwM+Z7gJddZH2mAat1pbh8
-	zsAEc07PH13QkEcX+fsSCPDojIvXDR3YaSmt15xpZrSu3RZA0NJ9Q553Fuo0SUDfUJMZO+v4X3B
-	SdHCDMxSzT0oGKSHDGCs3ycFCvXxt6vScv8naP/mjEJF+oqIZqYgBEwMD7B4B2wCOt5kx1zWVFg
-	bBvBQNyrTdricYL8dnpsqflGG1u3qUpk/XvwV4Knn0Yk9M1dlYsu1umXTQXwZJuhDkSQ/05S/o0
-	L1wzy03jp1RENAAwsYEXQt9L2t7st5els8IEFItpiQtOsH3ErKSZoH+7R7JgvN6d77oxrhlXuIn
-	2vVMxQlKFwQBp5j3ssYUL3AxgPQBjlV1jN/ARUdaD77+zATJv8Pze8i0bbxL+ydqPxMhytYyX+3
-	nykbYdXswBaJtklv+0XtQh7+FfLzosMd33BDl1HbKA==
-X-Received: by 2002:a05:6102:84c2:b0:7cb:bb7b:77e4 with SMTP id ada2fe7eead31-7d69f60aa43mr133060137.3.1794858927558;
-        Mon, 16 Nov 2026 11:55:27 -0800 (PST)
-Received: from budget-pc-cachyos ([37.19.211.133])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69dfe6e71sm720482137.6.2026.11.16.11.55.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:55:27 -0800 (PST)
-From: Elliott Tyson <planetlinux98@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Elliott Tyson <planetlinux98@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vicki Pfau <vi@endrift.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: xpad - scale Xbox One rumble to the 0-100 GIP range
-Date: Mon, 16 Nov 2026 14:53:58 -0500
-Message-ID: <20261116195500.107990-1-planetlinux98@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lxorfpif
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B351F000C4;
+	Mon, 16 Nov 2026 19:56:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794858997;
+	bh=yYuKJFpeOOUiRlcbNdqkTa4zbZgovEnL4C4jJYmyByo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LxorfpiffHEPN+ubuF4E7+AUjQL37EeodzC6ntwfs4G/wWQYneZ6fevziae8iFk6i
+	 NWLgto+vGSH2E+T0YigXRESx7Tsh8lTGTKtD+dBJc5K78kyfFKINEzcZLiQWGOX1f8
+	 4uHP1j9zM3TdXVFym3DuVoVouyRUuJBN0qWITMlKiY9DwN8lChHZjgeNw/NF/mkMEs
+	 bVo3e3piBmW9GcH9wbrWlhdpk1zPguitn4EWTekY+dfBDCUyRFo5jpdJbJ0/DhZ4Cd
+	 pe1Hla9Rrr9mqweu52p1+4j3AhJPNLa+e9TqGLL6vkB/egfl81gZAuy9vV0bup3pCX
+	 fD70TuUyA3BSg==
+Message-ID: <sashiko-outbox-217626@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 23/37] cgroup/cpuset: Reserve the bandwidth in the
+ root domain a task moves to
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261116190549.230119-24-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+ <20261116190549.230119-24-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 19:56:36 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,82 +60,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The GIP rumble command takes actuator levels from 0 to 100, but
-xpad_play_effect() converts the 16-bit FF_RUMBLE magnitudes by dividing
-by 512, which yields levels up to 127.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] sched/deadline: unmasked offline CPUs in
+  __dl_task_bw_move_cpu() span check
+- [Medium] cgroup/cpuset: stale dl_bw_resv_cpu left when cpuset_attach()
+  skips task loop
+--
 
-Not all pads handle out-of-range levels. On a PowerA XBX Spectra
-Enhanced Wired Controller (20d6:4002), levels 1 to 100 produce
-proportional rumble, 101 produces almost none, and 110 to 127 produce
-only weak rumble. Any effect above about 78% of full magnitude,
-including full-strength rumble, is therefore barely noticeable on this
-pad.
+commit 1fc4cfdda6a5d5f5e22bff0342024fd03d578a7c
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Scale the magnitudes to 0-100 instead. This is the range used by SDL's
-HIDAPI Xbox One driver and by the xbox_gip driver currently under
-review on linux-input. Intermediate magnitudes now map to
-proportionally lower levels than before; for example, half magnitude
-sends 50 instead of 64.
+cgroup/cpuset: Reserve the bandwidth in the root domain a task moves to
 
-The problem was diagnosed and this patch written with the help of an AI
-coding assistant (Claude). The submitter tested it on the hardware
-above and reviewed the change.
+This commit reserves and moves a deadline task's bandwidth using the
+specific destination CPU recorded in task->dl.dl_bw_resv_cpu during
+cpuset_can_attach(), keeping per-CPU reservation sums in cpuset_dl_bw so
+that attaches to cpusets spanning multiple root domains account bandwidth
+in the root domain where the task actually runs.
 
-Fixes: 2a6d7527b35c ("Input: xpad - update Xbox One Force Feedback Support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Elliott Tyson <planetlinux98@gmail.com>
----
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 2f39c3d12550e..0d55f092d9cbb 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+[ ... ]
+> @@ -3236,15 +3258,20 @@ static int cpuset_can_attach(struct cgroup_taskse=
+t *tset)
+>  				goto out_unlock;
+>  		}
+> =20
+> -		if (dl_task(task)) {
+> -			/*
+> -			 * Count all migrating DL tasks for cpuset task accounting.
+> -			 * Only tasks that need a root-domain bandwidth move
+> -			 * contribute to sum_migrate_dl_bw.
+> -			 */
+> -			cs->nr_migrate_dl_tasks++;
+> -			if (dl_task_needs_bw_move(task, cs->effective_cpus))
+> -				cs->sum_migrate_dl_bw +=3D task->dl.dl_bw;
+> +		if (!dl_task(task))
+> +			continue;
+> +		/*
+> +		 * Sum the bandwidth of the deadline tasks that move to another
+> +		 * root domain, per CPU that the move records. That CPU depends
+> +		 * on the CPUs the task gets. A cpuset can span more than one
+> +		 * root domain, and the affinity of a task can keep it in any
+> +		 * of them.
+> +		 */
+> +		cpuset_attach_cpus(cs, task, cpus_attach);
+> +		cpu =3D dl_task_bw_reserve_cpu(task, cpus_attach);
+> +		if (cpu >=3D 0) {
+> +			per_cpu_ptr(&cpuset_dl_bw, cpu)->sum +=3D task->dl.dl_bw;
+> +			cpumask_set_cpu(cpu, dl_attach_cpus);
+>  		}
+>  	}
+[ ... ]
+> @@ -3407,8 +3446,9 @@ static void cpuset_attach(struct cgroup_taskset *ts=
+et)
+>  		schedule_flush_migrate_mm();
+>  	cs->old_mems_allowed =3D attach_ctx.nodemask_to;
+>  out:
+> -	clear_attach_data(&src_cs_head, false);
+> -	clear_attach_data(&dst_cs_head, false);
+> +	clear_attach_data(&src_cs_head);
+> +	clear_attach_data(&dst_cs_head);
+> +	cpuset_free_dl_bw();
+>  	dec_attach_in_progress_locked();
+> =20
+>  	mutex_unlock(&cpuset_mutex);
 
-Notes:
-    Testing:
-    - Built as a module against 7.3.4 (Clang, W=1) with no warnings and
-      loaded on that kernel. A GCC/allmodconfig build was not done.
-    - Hardware: PowerA XBX Spectra Enhanced Wired Controller (20d6:4002).
-      FF_RUMBLE effects were uploaded directly with EVIOCSFF. Before the
-      patch, full magnitude on both motors barely rumbled and half
-      magnitude felt stronger; with the patch, rumble strength increases
-      with magnitude all the way to full.
-    - Not tested on a Microsoft-made controller or on other architectures.
-    
-    Behavior change for pads that already worked: below the old maximum,
-    the same magnitude now gives a level about 22% lower (half magnitude
-    sends 50 instead of 64). If you would rather keep those levels,
-    clamping instead (min(strong / 512, 100)) also fixes this pad. I chose
-    rescaling to match SDL and xbox_gip.
-    
-    The pending xbox_gip series (v7, patch 2 "Input: xpad - Remove Xbox One
-    support") removes this code. This fix is meant for current and stable
-    kernels in the meantime; please drop it if that series lands first.
-    
-    AI assistance: Claude Code (Claude Opus 5.5) found the cause using
-    userspace FF_RUMBLE tests, wrote the code change and the commit
-    message, and built the test module. I ran the hardware tests and
-    reviewed the change and the description before submitting.
+[Severity: Medium]
+Does cpuset_attach() leave a stale task->dl.dl_bw_resv_cpu behind when it
+takes the !attach_ctx.cpus_updated && !attach_ctx.mems_updated fast path?
 
- drivers/input/joystick/xpad.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+In cpuset_can_attach(), dl_task_bw_reserve_cpu() runs whenever oldcs !=3D c=
+s,
+even if oldcs and cs have identical effective_cpus and effective_mems (for
+example, when enabling +cpuset in cgroup.subtree_control or moving a task
+between v2 cgroups with the same effective masks).  If the task's bandwidth
+is currently counted in another root domain, dl_task_bw_reserve_cpu() sets
+task->dl.dl_bw_resv_cpu =3D cpu.  In cpuset_attach(), the fast path:
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index d2eb48d98fea..6cb3be9845fb 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -1606,8 +1606,9 @@ static int xpad_play_effect(struct input_dev *dev, void *data, struct ff_effect
- 		packet->data[5] = GIP_MOTOR_ALL;
- 		packet->data[6] = 0x00; /* left trigger */
- 		packet->data[7] = 0x00; /* right trigger */
--		packet->data[8] = strong / 512;	/* left actuator */
--		packet->data[9] = weak / 512;	/* right actuator */
-+		/* GIP actuator levels range from 0 to 100 */
-+		packet->data[8] = strong * 100 / 0xffff;	/* left actuator */
-+		packet->data[9] = weak * 100 / 0xffff;	/* right actuator */
- 		packet->data[10] = 0xFF; /* on period */
- 		packet->data[11] = 0x00; /* off period */
- 		packet->data[12] = 0xFF; /* repeat count */
+kernel/cgroup/cpuset.c:cpuset_attach() {
+    ...
+	if (cpuset_v2() && !attach_ctx.cpus_updated && !attach_ctx.mems_updated) {
+		llist_for_each_entry(cs, dst_cs_head.first, attach_node)
+			cs->old_mems_allowed =3D attach_ctx.nodemask_to;
+		goto out;
+	}
+    ...
+}
 
-base-commit: ab13b5fc808e043a13f861a7c1c2ba8173c22b84
--- 
-2.56.1
+jumps past cpuset_attach_task() to out:, where cpuset_free_dl_bw() releases
+the reservation in cpuset_dl_bw, but dl_task_bw_unreserve() is never called
+on the tasks in tset.
 
+If that task is later part of a v2 threaded subtree attach where oldcs =3D=
+=3D cs
+for this thread while another thread in the taskset has oldcs !=3D cs and
+cpus_updated =3D=3D true, cpuset_can_attach() skips this task, and
+cpuset_attach_task() consumes the stale dl_bw_resv_cpu.  That moves the
+task's bandwidth without a destination reservation and adds moved to
+per_cpu(cpuset_dl_bw, cpu).moved, corrupting the root domain accounting and
+underflowing b->sum - b->moved in cpuset_free_dl_bw().
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 5503820c5b26c..b43106a590256 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+[ ... ]
+> @@ -3657,10 +3676,64 @@ bool dl_task_needs_bw_move(struct task_struct *p,
+>  	 * their bandwidth: dl_add_task_root_domain() leaves them out.
+>  	 */
+>  	if (!dl_task(p) || dl_entity_is_special(&p->dl) || !p->dl.dl_bw)
+> -		return false;
+> +		return -1;
+> =20
+>  	cpu =3D dl_task_root_domain_cpu(p);
+> -	return !cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask);
+> +	if (cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask))
+> +		return -1;
+> +	/*
+> +	 * A task moved asleep is still on a CPU of the root domain it left.
+> +	 * If the new mask holds that CPU, the task wakes up there.
+> +	 */
+> +	cpu =3D task_cpu(p);
+> +	if (cpu_active(cpu) && cpumask_test_cpu(cpu, new_mask))
+> +		return cpu;
+> +	cpu =3D cpumask_first_and_and(new_mask, cpu_active_mask,
+> +				    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
+> +	if (cpu >=3D nr_cpu_ids)
+> +		cpu =3D cpumask_any_and(new_mask, cpu_active_mask);
+> +	return cpu < nr_cpu_ids ? (int)cpu : -1;
+> +}
+
+[Severity: High]
+Can offline CPUs in def_root_domain.span cause __dl_task_bw_move_cpu() to
+falsely return -1 when attaching a task to top_cpuset?
+
+Every offline possible CPU is attached to def_root_domain (in sched_init()
+and detach_destroy_domains()), as are CPUs isolated via isolcpus=3Ddomain or
+isolated cpuset partitions.  When a task is attached to top_cpuset,
+cpuset_attach_cpus() sets new_mask to task_cpu_possible_mask(task) &
+~subpartitions_cpus, which includes all offline possible CPUs.
+
+Because cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask) does not mask
+against cpu_active_mask, any system with an offline CPU in
+cpu_possible_mask will see def_root_domain.span intersect new_mask on that
+offline CPU (unless filtered out by p->user_cpus_ptr).  Moving a deadline
+task whose bandwidth is in def_root_domain back to top_cpuset will then
+return -1 here, skipping both the destination reservation and the bandwidth
+move out of def_root_domain.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
+19-1-mathieu.desnoyers@efficios.com?part=3D23
