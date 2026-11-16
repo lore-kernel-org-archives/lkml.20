@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870416;
-	b=tqxNUBFrSyPMICJd+4wN0Rsyl8T6DiHLD2rGMwB+1RuoY3tNb+2eh8cJ62mZ0kfH43jt
-	 nBIuiCJA1xCLbSVKzMfevFbNDllZsjCatURmv7410PV2YIm6+UbjzkroZLhYE/CU8tCpK
-	 gp9fqBjF2L34PBmx846Kbkw9nNYBqBWjfbRQfZAN2FVWOhNXzAUuN2eo3PQTzcAfs+ZOg
-	 AMBe48MF/IFO56Mff4nnpI0DSBWTIzmnQbH5ASe55UWT2W7S76Vj+sx0WuyHGBgunY1ui
-	 v3UdRg7tLJGiXyJMZAg2hm9IYq8gWxsPHM8HjCB25/N+oA1Nadhi6kovZ9J7lcqNZ5Q==
+	t=1794870414;
+	b=mwDjSzDILc6sU9lHS6ODPaUT7013aqsfGFwahRB9FFRtDyYm3xdqwj6uEMO1OYobpHoW
+	 VwYpIEunD3bQfeDqUXpi2ZK/hQK8veucEAyyxgGbezQ2Q0PaHXKAP2bVs6A4dck6VvElU
+	 l3wljS6TuYwD2JXGnL3FgZ/11mea23DwKv5EfmdM42zt64QIm6czpvHkG7IuiKk1uIdsX
+	 Ahmyi8ARngRUd/8Td3y6qjiNlm9/DqwtkAMMaKUK4RLF8NZuLZwu+uN5PeEAxHPc98gGC
+	 DDFXCHmP13vk6XgS2Mymo9RyrkHlxAL/itomah7szM3EO+OB1leN3r72iyZPwX2FyIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870416;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870414;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=zVQdcEYHvCyjprjE26wtkXBdOfSzxTsxBRAupk9G74A=;
-	b=RmX2JQTxkMiagwA03BplJmMl2+3eKewTIgVv37koKlYEHQyVCUutamfgmDrZLT7UtFUe
-	 N0baPlHc9yxB+gyjhNqSoWR9qaVxU00M16WU1CGxpao8+STBPOigkumIPr+iW/NtDRAVG
-	 ggd8C49v7JRZ+IV5fqoRpNtE80C+w37ffpeQGYts+RVRadBgE7iGxaMbKG1N2Bg1eVKvu
-	 xEr145c/Ag5rODuQBEdsLNGfri6uhyuR/ugy2Uc62G1L6Eoti0P7yfPcBfldUiAMY+wZ+
-	 ZQYTyLxVnFVTJSWPXvtApfjrfyexwcfVMZyLBc8a2MLuPnWuvjrq2IdGSP3unztYb8g==
+	bh=AjhVL/tzJIhPQa9pnWiA/Lzn5A7WcpHhkbmWbBd9Z/A=;
+	b=cu7WoY7lrqo+pQtaCqhRRNelg7kNj1NwQz2WQS/RydJwLRSB/GsRMYN9BzyVpE55jBsR
+	 Yc+z4Cm9hs0K+DG/OrWGjUfkNH/x3iY9iqqxP//xIMr9yKy8LOj6Eht0FSn0sQPpgb4pS
+	 sBlF1VhfH4/v9o8oT4VS4/qXchJMotBQJRoQJE2fiSotIcX8qdqkcJ+DQ2UbltWcgo9VH
+	 EPT0SzgE1MQVEo9vlSDTXRklRILSV/mwpby1vXEUot7+r061ctulL1OqSXUw2fAlIkRet
+	 Rsta6gUzNhelFB+TDcCTSJh1VYhNBLkNa/Ed2c/iunUsRpnSYbYWcG6saXv/j+NBZ/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="kBxS/UZT";
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OEasZFiC;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E0160A380A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:06:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E0160A380A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB2360A260F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB2360A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kBxS/UZT
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8bddb1172a4so452036b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:06:56 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OEasZFiC
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b5e147f101so405793b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:06:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794870415; x=1795475215; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794870413; x=1795475213; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zVQdcEYHvCyjprjE26wtkXBdOfSzxTsxBRAupk9G74A=;
-        b=kBxS/UZTglZmGP9tKhITS6JKD8E8PGQDBl6jSDCVWWoYBxwYzsjGicqjnxQFifZ0tr
-         kJR6FMqKqG1TshLoJTdhpL+quw3/mgoQKQ8q5SBBquA+mXrP9gJA6yn0sJr2qE85i2cZ
-         cfwXg/GLROiqLF6lM4lj+f6UdqUy2/ledI/Ik=
+        bh=AjhVL/tzJIhPQa9pnWiA/Lzn5A7WcpHhkbmWbBd9Z/A=;
+        b=OEasZFiCCXd7n/M/UcduiXgq0vhYk4srVVnzKHpXRqoD95nlXtUP3TeLNkX0JweEo9
+         DxSjeVsQyDj3Vhdhc9KfpT8C8oXNfziWnGdNY++4B+7gzbqkQMK37k0UZd5fFUA9gqnx
+         UyWgZrw0eNM/Fg/dLZoy8VwoY7prhxICFZjNQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870415; x=1795475215;
+        d=1e100.net; s=20260707; t=1794870413; x=1795475213;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zVQdcEYHvCyjprjE26wtkXBdOfSzxTsxBRAupk9G74A=;
-        b=KaCJ7WZavLkhpkJR+fhmZbt+k/QT2PpKwnufmVQIYyLAY/0Z44f7/rI1UikC8HtRke
-         U2I89xAKO/eIC1OCOuWmgf0VFoLXGRPvWnpgP6GpZpWRV4YnhTxjqdyMqrWN+rVOKe7y
-         MGByeY/VLOq4tN79C7sZNxYi0GzvU8aXZra43cr6w0ySHtZNak60mrknUPD/5VRJceTg
-         4JiuORA54rQj78hyTJRj9cZlf7CfgMcaLJC7NoIHk7qvG8m8UNhMCjC7CYOOs0uqq2g5
-         KAsf9xRbCPYG7L/TiwvgVJwsxgJVn9/QYz3eCWtjHQ3JG9y4szsnl/2oH4l8pskjIDwC
-         9hxw==
-X-Forwarded-Encrypted: i=1; AL+hErGRPuZVP2grt2zCapOsbO2dA/2U8Cxf5rzy9YB9NoNKjWz7h5t2PMGnSwJuPUNiZbND7DUp02lSWbsR8BY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zyDL4tAKsjmlLgm9WfC1mwTqZVqAxz0JHjy6C2m/6wPSTv8e+
-	IrO1jaNK/p8xWJBbDZxo8RvUo8/XY6m+zaIGgrMXgmLoANPbNtgaKQPE/Jmvw/MYXg==
-X-Gm-Gg: AYBFou04O/+u/l5Mm6dvxw2KEzwa7bgzTKoO7uDJrPOcaFXPF6WlgGjLISE6oX2Z62f
-	RgDmQzlrp5svxPcuMN0guCWz9AcbB0Bwkzw5tysB2yVx082tGHfNncs2EucW+VYm0I5xadu+MOS
-	sdPMS3WD/eLSdMXjmi6PTHEhBlgWgS911FPRNZRx7h6caoRMELUZIl6+MpwCs4MVcQPCoCktdyl
-	CJCl7LFEzcMGwawna2CU3oH3kJI7bHEPi9ZVZVlJOfEhDGOfwzr8kU+0sE1K3dOW0IoajlJZ9Wv
-	2Z4jnSd3MyrdaAOCLz/QCso/2JRyzccId38fKZF/+CoTXOVUEQOApASRvN4vBenUIGMubs+maxN
-	IpBYWTAivizod5nElxY4gp1ILMSUVZtWc1GO52P65VQ7Jj4epo1UVNVwMjuVAPXMxaRcoYKdvR+
-	bIHmpUsaaxdVjcBQ3vdnjAJjwJyfW7yG0CtTLlNf1Ei8G04vFAbJ5OoKwhPDcrJvUVJcIjrz4Ol
-	ZEt/k4dnrYiKuhtnszig3uXqzPz4mez4PnZvaqeeiYL97pAC8jjn5iLjCV6eOkUtgOwxMLjDKEZ
-	Y//11T8hWAzL56hHXHCcwe5g/ziGwaE0/qfWK0aXeZWKtLo1g0nYTN2Tyz3AP9G2Itk+zNw=
-X-Received: by 2002:a05:6a20:3247:b0:3ed:b9c5:df15 with SMTP id adf61e73a8af0-3f7a6aa5facmr12150421637.1.1794870415604;
-        Mon, 16 Nov 2026 15:06:55 -0800 (PST)
+        bh=AjhVL/tzJIhPQa9pnWiA/Lzn5A7WcpHhkbmWbBd9Z/A=;
+        b=kGBu5+snErDTjI7vFkA4tz309aOF4pIDMSLtYhdex9cu6s5UqzAPxq3r918XW+J+XW
+         68JAbwGbYc0b+M/SQh08FbF7NDPb+sWM4vxhJ2yO0sujO4GH0CK+1q7W7nmukOx6CPh2
+         XYkUmWgwABLV7BMNeCzOSFVEuUAuJYvLjj4BNFvToZ4mXd75w4SshfpG+dMyvzWM44r/
+         W717APKxEbUn6IT62HmnsDHfjV+QXER+gHZE5EtZ1b7tTiKWZsIVtreuwMcPGd3rTB3O
+         zpSosy1M7MzElzeHsEOwu6MCi6i6wm+wQyWX6hIzYZsjQDjCZBRGKmbjoBJDIdeqbIDL
+         bhMw==
+X-Forwarded-Encrypted: i=1; AL+hErHEB0uxhjXg0p184yvBrDSHR1itDpTu0lU2wWEzacno/CvH4hvchxhpGNCG7r19iAKpz7jGaXo/S69BcFU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+44Fjf78bWms640rnfGeU89C2XZNOfS4Yop4Cf/X4pEN7sAoLN
+	F9MRuaiuXj+4iJUyVZDjBen/HrK8iT3Q+2hJwaftZK10/XIrVwB7x2hjG6tbM/KbNQ==
+X-Gm-Gg: AZFdTZeljMCYgzcGo1uGjOR99ILJ5MuCVNEYaVecHs93vqBS1GWB0cKIz4M8cr/A1xi
+	Ju9ApmPQowAb9H5ikn2RCJ5MQnnwE6uCKl8kGA3Z7kfOPgq/YdE1/g4mioXqP1f0ZzTW4TDT5sx
+	/SanOyxRAqKDJ1LeImAsggBaYrulRTh8GInyaDfnBFO7aP+SEImbvX/uIokREodq4J7b4YGsGZ/
+	umKa0vKbzG0UIlQEVfRr1K7wc9caFtDS+svvJd5Xs4P/PViHJN/TfOstStZ9N+NAmgfGBTIE2++
+	9bK7zwC3WL5mk6KTfO3qhG3hR5oxbbkOREHehF68ccFecwD1sBiA+tQcJn6L3lHTJoqC9P6Ck8s
+	BTT89XDLII2UvdJAp4s2wt9c2WjCx8qfMm7srrvj6FFad+27KP5v/R4+fEVHyBv3OO0GK0k64aS
+	erw6Z5IzbaEaYAui5zk4xQ7e+2FkXj/BvxOw6JOzvzP6L3AWNaAspXueY1zXKhfAmzrdHbQJSUZ
+	GLa7WQh+yX8A/qGs0+YClH83lUSrYpry4qWYUzTX4f3V+3HzCWyxH+B4O+zIGoyz6tR/BUCtDRP
+	HXvg5ACytLMMSl1XZPNhbIcBmcyNGAiYbU5zxrU9tHp+ldk/sH/2/GetZOhSvpw99pQH+mk=
+X-Received: by 2002:a17:90a:9f98:b0:3b3:b15f:eb89 with SMTP id 98e67ed59e1d1-3b3b15feeb1mr322004a91.1.1794870413060;
+        Mon, 16 Nov 2026 15:06:53 -0800 (PST)
 Received: from localhost (221.247.125.34.bc.googleusercontent.com. [34.125.247.221])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-8bed1a6dbbdsm4310921b3a.24.2026.11.16.15.06.53
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b3abe8b263sm1120450a91.13.2026.11.16.15.06.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 15:06:55 -0800 (PST)
+        Mon, 16 Nov 2026 15:06:52 -0800 (PST)
 From: Jeff Xu <jeffxu@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -133,9 +133,9 @@ Cc: Jeff Xu <jeffxu@chromium.org>,
 	linux-rdma@vger.kernel.org,
 	rds-devel@oss.oracle.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 4/7] net/rds: use GFP_HIGHUSER_KASAN for message pages
-Date: Mon, 16 Nov 2026 15:06:24 -0800
-Message-ID: <20261116230627.3537051-5-jeffxu@chromium.org>
+Subject: [PATCH v1 3/7] kexec: use GFP_HIGHUSER_KASAN for segment pages
+Date: Mon, 16 Nov 2026 15:06:23 -0800
+Message-ID: <20261116230627.3537051-4-jeffxu@chromium.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261116230627.3537051-1-jeffxu@chromium.org>
 References: <20261116230627.3537051-1-jeffxu@chromium.org>
@@ -150,11 +150,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RDS allocates the pages that carry message payload with GFP_HIGHUSER:
-the receive fragments in rds_ib_recv_refill_one() and the send payload
-in rds_message_copy_from_user(). The kernel fills and drains them
-through copy_page_from_iter(), copy_page_to_iter() and kmap_atomic(),
-and they are not mapped into userspace.
+kimage_load_normal_segment() allocates the pages that hold the segments
+of the next kernel. The kernel clears and fills them through
+kmap_local_page(), and they are never mapped into userspace.
 
 Allocate them with GFP_HIGHUSER_KASAN, so that they keep their KASAN
 tagging when GFP_HIGHUSER starts to skip it later in this series.
@@ -163,47 +161,28 @@ No functional change: GFP_HIGHUSER_KASAN has the same value as
 GFP_HIGHUSER at this point. Build tested only.
 
 Assisted-by: LLM
-Cc: Allison Henderson <achender@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org
-Cc: linux-rdma@vger.kernel.org
-Cc: rds-devel@oss.oracle.com
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>
+Cc: kexec@lists.infradead.org
 Signed-off-by: Jeff Xu <jeffxu@chromium.org>
 ---
- net/rds/ib_recv.c | 2 +-
- net/rds/message.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ kernel/kexec_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
-index aa50b85b0f99..907bf2977583 100644
---- a/net/rds/ib_recv.c
-+++ b/net/rds/ib_recv.c
-@@ -316,7 +316,7 @@ static int rds_ib_recv_refill_one(struct rds_connection *conn,
+diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
+index f4a31565c447..a3abbb6a2d75 100644
+--- a/kernel/kexec_core.c
++++ b/kernel/kexec_core.c
+@@ -839,7 +839,7 @@ static int kimage_load_normal_segment(struct kimage *image, int idx)
+ 		char *ptr;
+ 		size_t uchunk, mchunk;
  
- 	if (gfp & __GFP_DIRECT_RECLAIM) {
- 		slab_mask = GFP_KERNEL;
--		page_mask = GFP_HIGHUSER;
-+		page_mask = GFP_HIGHUSER_KASAN;
- 	}
- 
- 	if (!ic->i_cache_incs.ready)
-diff --git a/net/rds/message.c b/net/rds/message.c
-index 47d5e9ab9b10..80171ae2f40e 100644
---- a/net/rds/message.c
-+++ b/net/rds/message.c
-@@ -515,7 +515,7 @@ int rds_message_copy_from_user(struct rds_message *rm, struct iov_iter *from,
- 	while (iov_iter_count(from)) {
- 		if (!sg_page(sg)) {
- 			ret = rds_page_remainder_alloc(sg, iov_iter_count(from),
--						       GFP_HIGHUSER);
-+						       GFP_HIGHUSER_KASAN);
- 			if (ret)
- 				return ret;
- 			rm->data.op_nents++;
+-		page = kimage_alloc_page(image, GFP_HIGHUSER, maddr);
++		page = kimage_alloc_page(image, GFP_HIGHUSER_KASAN, maddr);
+ 		if (!page) {
+ 			result  = -ENOMEM;
+ 			goto out;
 -- 
 2.56.0.611.g1030f0b940-goog
 
