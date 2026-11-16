@@ -1,67 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802921;
-	b=0FlrkAprzOYRPKZVJz3jt6uVSmIfDhO+k2PtCNnYQN1GAI82dnWsYVrSZKhKxizi+dgm
-	 Rh+NSUmoiW3s0DZkX2BTei3Z2spYYt8Ebpwmx1d0hIZtTnoaZJgz+3p1YzVrXY/VGQlGc
-	 TUSMM5TW4oh9IEqBn64Of/5d41PuVcYOOP/dTICU6opXWb5x5rslmKQaaRcU3ysxsza0x
-	 s9PNmKlDJtCWe45hgHDiKaNTztngA/MuqUxWTod1gGUQB+sBYVx8TGj9wh8BMXW0BlbSf
-	 KjXYDeaCpIyd7Wh6PnhWAgPIWqBR1meh9Jd4P+1lqz+AeR+8ERRS3dk9hdI7gzVutYQ==
+	t=1794803165;
+	b=HvkvSXx40jxmnhd87rDst6sgAI+vf9oaUAOrVoA7U2bC/+p6a+OJ9uuGpzhYh0UaZjYB
+	 xKjjhSheG7N2Qi2ZYwxiXaci84aXLYHgd2+PmTRGPMG/Annfk0xaFcn0+EiO6oRswLRVc
+	 QKLEIY/nRLFrbXc5l3sSHzpbLlyKwoBSFB7TKc9ghE9Fs5E9CPF3ZywYt52Jm0VVNZUMr
+	 6rpYM8CuJeHQg/vLTzBhFugRi+lVRmtGrj3kWkg3p6J8TZCdPUthw2ki5HuIiTBqKU/pA
+	 1Q7wX177VDPbZRksxRm25kQpzA+OzMZ7WXFqR+Vj9oWLsENIemk/YgyahWU/FOJDaxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802921;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=mAiC+0hT+OAYgDZe7uQXWa25nna0BFe7OezHBcr8Cmo=;
-	b=05Sxs73VkxDWvuCnkR0E6nz+WItsnt00Wzo0vhvV3yyH8MD8mmlvKNdUc22P/MWFfdwh
-	 +qX6BFEjkAKIIc+qa6K3O/lun4GynUUoRJx9jnYWltkGjwv558K5J/Cw8SBXR5DEEFv9w
-	 e1TJiG0SbbXY8FW2fMcA8UNCmFtTQYnxU9BdN9PWG0QjjDBtrlpkg7Sd3DY4dLlKawBF1
-	 wPH6QGS3l2+LUramJbNuwKfXDDDSdq7qB/jCZ07Byx3HQoNRcIrPFr2Utek5UGDY53rst
-	 sWmeNWJnJs7QhIS5JhBLv+nC5yZlICEOm10FvFo30z7F4QlwDLEarNlUjVJ7OXZCdCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803165;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/LkyRBu/5B33gc+px/Ls1cEcSKMTU4Ac1+7qctKCFxg=;
+	b=YY9xEXZqZfySss7nGQYPANQQSc6ALR+adXEq/2gnAdQ2VY7YYV4scEImgTfp+W78SnJ7
+	 nw98nkzMixm+CAuBT06R+xd5fZQw0uCKm8mIQ4LEBEhVGeZChwHSPogwHhQ8NUXTr7Eyx
+	 dfwCBglhO0mkn+l/KRp2wBei0VVtzHgJZ05C9Z/dYC5F06Uu/LtlrGtEPt5UVwN0JUewa
+	 TCchoHiZqmUFWqAEtjqamDz6Va8cdoS3Bhi8s8iuNRxgYVzs++akzue48MyMPZo+5wGz+
+	 Y3L8imYBBG4hK5/4+F43fZ4+a9eJDIWDtXozhU7lac+MC1didW1gJOK2GbAeRWTlcug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PUtI0MnS;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/1x+Z8S";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B919606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:22:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B919606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C748606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PUtI0MnS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794802919;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mAiC+0hT+OAYgDZe7uQXWa25nna0BFe7OezHBcr8Cmo=;
-	b=PUtI0MnSiXkeUUC5O9hkWBe7xD25pg1DNAOwMMbVRR1Vac7tcqk/XYrZFnLyGp7uww1Hf9
-	uMSl6/bI/TxX1yEmSY+u54PMNm5RbfU4B05EThi0kkPKcDnaPfDtZ8Yn6L1HlQFuRzUVy4
-	XVCWIVepc6r6oCarcKnSSO3mLLONfFg=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-467-oB_zzBfpP8-TC5JepjMO-g-1; Sun,
- 15 Nov 2026 23:21:52 -0500
-X-MC-Unique: oB_zzBfpP8-TC5JepjMO-g-1
-X-Mimecast-MFC-AGG-ID: oB_zzBfpP8-TC5JepjMO-g_1794802911
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 988661800476;
-	Mon, 16 Nov 2026 04:21:50 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9BFBA1956095;
-	Mon, 16 Nov 2026 04:21:48 +0000 (UTC)
-Message-ID: <e8ce51c8-3cf5-4d43-85e1-e8090bced4c8@redhat.com>
-Date: Sun, 15 Nov 2026 23:21:47 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/1x+Z8S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E431F000C4;
+	Mon, 16 Nov 2026 04:26:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794803165;
+	bh=/LkyRBu/5B33gc+px/Ls1cEcSKMTU4Ac1+7qctKCFxg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P/1x+Z8SBTzvYebmgDsdMGRRD7fx6+3XftHMitJYDWsBlYqWfRxM6cF8I3PnAoj4c
+	 nQEnQWNkCipsScimqgjX9baO6PjZqnM4GCGFYkizDvtrUThXVPXVOpayXLqDW4MEI8
+	 /7fC142hGrzkcvcuw59vsOkSHj1mMhmrspDmvmD3xIv2LT7JgXq5B2G4TzK+N5nCFA
+	 JTQbkgTArK9TRwD14Uc7sIbnBpUT0tv7/jTEBStmjPhoAjURAQV5IzvcHM61R2CGvo
+	 KwAq9P8suIO1Yxk/Cfe5C7fSdSOV0U9vM3+N5C6S1OsRYL5CjJWCzh4x+Ow49LwDkI
+	 PZ+1ccBQEu20w==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: ryncsn@gmail.com
+Cc: akpm@linux-foundation.org,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	shakeel.butt@linux.dev,
+	sidchintamaneni@gmail.com,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn
+Subject: Re: [PATCH v9 10/16] mm/mglru: Run aging when pages are rare outside the youngest gen
+Date: Mon, 16 Nov 2026 12:25:56 +0800
+Message-Id: <20261116042556.42111-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com>
+References: <CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,213 +84,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v4 3/6] cgroup/cpuset: Check remote partition
- underneath before making an invalid partition valid
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261116012330.2271010-1-longman@redhat.com>
- <20261116012330.2271010-4-longman@redhat.com>
- <8c126892-8e4d-4bfe-9f3f-bc1e1a72338d@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <8c126892-8e4d-4bfe-9f3f-bc1e1a72338d@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On 11/15/26 10:47 PM, Ridong Chen wrote:
+On Sun, Nov 15, 2026 at 11:55 PM Kairui Song <ryncsn@gmail.com> wrote:
+[...]
 >
->
-> On 11/16/2026 9:23 AM, Waiman Long wrote:
->> When re-evaluating an invalid local partition via partcmd_update,
->> update_parent_effective_cpumask() does not check whether a descendant
->> remote partition is using its exclusive CPUs, promoting the cpuset to a
->> valid partition root over the remote partition. This condition should 
->> only
->> be possible if parent is the top_cpuset and exclusive_cpus isn't empty.
->>
->> This leaves an active remote partition underneath a valid
->> local partition root with overlapping exclusive CPUs, breaking
->> scheduler domain partitioning and triggering warnings in
->> compute_partition_effective_cpumask() and generate_sched_domains().
->>
->> Fix that by checking the effective_xcpus against subpartitions_cpus
->> when an underneath remote partition is possible to make sure that all
->> the exclusive CPUs are available before allowing the invalid partition
->> to be switched back to valid.
->>
->> Also make sure that effective_xcpus is non-empty before swtiching an
->> invalid partition back to valid.
->>
->> Add a test case in test_cpuset_prs.sh to verify that an invalid 
->> partition
->> with a remote partition underneath cannot be switched back to valid
->> with a hotplug event.
->>
->> In the special case when the last active CPU in the top_cpuset partition
->> is offlined, the hotplug code will empty subpartitions_cpus and let the
->> existing local partition to compete for the exclusive CPUs again. If
->> there is an invalid local partition above a remote partition and that
->> invalid local partition is able to switch to a valid partition, the 
->> remote
->> partition below will now share some the of exclusive CPUs violating the
->> CPU exclusivity rule. This special case will be handled in a later 
->> patch.
->>
->> Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Link: 
->> https://sashiko.dev/#/bug/linux-47715b89-d5fb-4731-b7c9-070773c6ff75
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/cgroup/cpuset.c                        | 42 ++++++++++++-------
->>   .../selftests/cgroup/test_cpuset_prs.sh       |  4 ++
->>   2 files changed, 30 insertions(+), 16 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 195d4e3a283c..81481fa62cfe 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -2029,11 +2029,7 @@ static int 
->> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>            * tasks_nocpu_error() with this very mask, and a failing
->>            * write is routed to partcmd_invalidate instead.
->>            */
->> -        if (is_partition_invalid(cs)) {
->> -            adding = false;
->> -            deleting = cpumask_and(tmp->delmask,
->> -                    newmask, parent->effective_xcpus);
->> -        } else {
->> +        if (is_partition_valid(cs)) {
->>               cpumask_andnot(tmp->addmask, cs->effective_xcpus, 
->> newmask);
->>               adding = cpumask_and(tmp->addmask, tmp->addmask,
->>                            parent->effective_xcpus);
->> @@ -2041,6 +2037,17 @@ static int 
->> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>               cpumask_andnot(tmp->delmask, newmask, 
->> cs->effective_xcpus);
->>               deleting = cpumask_and(tmp->delmask, tmp->delmask,
->>                              parent->effective_xcpus);
->> +        } else {
->> +            deleting = cpumask_and(tmp->delmask,
->> +                    newmask, parent->effective_xcpus);
->> +
->> +            /* Check if a remote partition may be underneath */
->> +            if ((parent == &top_cpuset) &&
->> +                !cpumask_empty(cs->exclusive_cpus) &&
->> +                cpumask_intersects(tmp->delmask, subpartitions_cpus)) {
->> +                part_error = PERR_REMOTE;
->> +                deleting = false;
->> +            }
->>           }
->>             /*
->> @@ -2107,34 +2114,37 @@ static int 
->> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>           } else if (is_partition_invalid(cs)) {
->>               struct cgroup_subsys_state *css;
->>               struct cpuset *child;
->> -            bool exclusive = true;
->>                 /*
->>                * Convert invalid partition to valid has to pass the
->> -             * cpu exclusivity test when cpuset.cpus.exclusive is
->> -             * empty as well as the housekeeping check.
->> +             * following tests:
->> +             * 1) housekeeping CPU conflict check
->> +             * 2) cpu exclusivity test when cpuset.cpus.exclusive is
->> +             *    empty.
->> +             * 3) if parent is top_cpuset, none of the effective_xcpus
->> +             *    (tmp->delmask) are in subpartitions_cpus, if not a
->> +             *    remote partition may be underneath.
->>                */
->>               if 
->> (prstate_housekeeping_conflict(cs->partition_root_state,
->>                                 parent_prs, tmp->delmask, NULL)) {
->>                   part_error = PERR_HKEEPING;
->> -                goto write_error;
->> -            }
->> -            if (cpumask_empty(cs->exclusive_cpus)) {
->> +            } else if (cpumask_empty(cs->exclusive_cpus)) {
->>                   rcu_read_lock();
->>                   cpuset_for_each_child(child, css, parent) {
->>                       if (child == cs)
->>                           continue;
->>                       if (!cpusets_are_exclusive(cs, child)) {
->> -                        exclusive = false;
->> +                        part_error = PERR_NOTEXCL;
->>                           break;
->>                       }
->>                   }
->>                   rcu_read_unlock();
->> +            } else if ((parent == &top_cpuset) &&
->> +                   cpumask_intersects(tmp->delmask, 
->> subpartitions_cpus)) {
->> +                part_error = PERR_REMOTE;
->>               }
->> -            if (exclusive)
->> +            if (!part_error)
->>                   deleting = !cpumask_empty(tmp->delmask);
->> -            else
->> -                part_error = PERR_NOTEXCL;
->>           }
->>       }
->>   @@ -2155,7 +2165,7 @@ static int 
->> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>               break;
->>           case PRS_INVALID_ROOT:
->>           case PRS_INVALID_ISOLATED:
->> -            if (!part_error)
->> +            if (!part_error && deleting)
->>                   new_prs = -old_prs;
->>               break;
->>           }
->
-> Nit: deleting is always true when part_error is 0, so this check
-> doesn't change anything. It's fine to keep it as a safeguard, but
-> then the changelog shouldn't describe it as a fix.
+> A little nit: with the rounding above, I think we don't need youngest
+> / old as an array, just an accumulative value seems enough now? But
+> feel free to ignore this so we can avoid more update noise in this
+> series.
 
-tmp->delmask can be empty and deleting will be set to false in this 
-case. Of course, we should not activate an invalid partition root with 
-empty effective_xcpus.
+Makes sense to me!
 
+I guess Andrew could help squash the cleanup below into the patch?
+
+From 972664cf8d40449899b54ee3c7abe6d1a9f72271 Mon Sep 17 00:00:00 2001
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Date: Mon, 16 Nov 2026 11:48:44 +0800
+Subject: [PATCH] 
+ cleanup-mm-mglru-Run-aging-when-pages-are-rare-outside-the-youngest-gen
+
+As suggested by Kairui[1], we don't need youngest and old as
+array. just an accumulative value should be enough.
+
+No functional change.
+
+[1] https://lore.kernel.org/linux-mm/CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com/
+
+Suggested-by: Kairui Song <ryncsn@gmail.com>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+---
+ mm/vmscan.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 7acc9acad985..b97dc3103b25 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5086,8 +5086,8 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
+ 		int swappiness)
+ {
+-	unsigned long youngest[ANON_AND_FILE] = {0}, old[ANON_AND_FILE] = {0};
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
++	unsigned long youngest = 0, old = 0;
+ 	DEFINE_MAX_SEQ(lruvec);
+ 	DEFINE_MIN_SEQ(lruvec);
+ 	int type;
+@@ -5107,14 +5107,13 @@ static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
+ 	for_each_evictable_type(type, swappiness) {
+ 		unsigned long seq;
+ 
+-		youngest[type] = lruvec_gen_size(lrugen, type, max_seq, sc->reclaim_idx + 1);
++		youngest += lruvec_gen_size(lrugen, type, max_seq, sc->reclaim_idx + 1);
+ 		for (seq = min_seq[type]; seq < max_seq; seq++)
+-			old[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
++			old += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
+ 	}
+ 
+ 	/* the vast majority of pages sit in the youngest gen */
+-	return youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
+-	       (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS;
++	return youngest > old * MAX_NR_GENS;
+ }
+ 
+ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+-- 
+2.39.3 (Apple Git-146)
+
+> > +       return youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
+> > +              (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS;
 
 >
-> Typos in the changelog: "swtiching", "share some the of".
->
-Will fix that in the next version.
+> Reviewed-by: Kairui Song <kasong@tencent.com>
 
-Thanks,
-Longman
-
-> Otherwise,
->
-> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
->
->
->> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh 
->> b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
->> index 1397ec428c46..81f0eecaca80 100755
->> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
->> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
->> @@ -563,6 +563,10 @@ TEST_MATRIX=(
->>       " C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      . .     0 
->> A1:1-2|A2:3-4|A3:5-6 \
->>                                          A1:P1|A2:P1|A3:P2 5-6"
->>   +    # A hotplug event will not incorrectly activate an invalid 
->> partition with
->> +    # a remote partition underneath.
->> +    "  CX1-4  C3-4:P1   .      .      P1   O1=0     . .     0 
->> A1:2|A2:3-4 A1:P-1|A2:P1"
->> +
->>       #
->>       #  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail 
->> ECPUs Pstate ISOLCPUS
->>       #  ------ ------ ------ ------ ------ ------ ------ ------ ---- 
->> ----- ------ --------
->
-
+Thanks!
