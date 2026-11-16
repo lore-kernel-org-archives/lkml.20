@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794808527;
-	b=1QJ5ToM2yb4sbdMpLCpr5eP13qhDaAf/kDg7avPmLUc6TtSmnKA70SiXiVlCb06QV7dl
-	 sIZlMUydYAlNXxEnPBFLAYfPxWSLaGA7wds2ltO/DESvDSr8+tprDbT4+cg6+cqL5Ig/q
-	 +WodJjDth4jE1d2zGdcfCT8CVYBhOG2L7Jf9Yt+Mxk34yaXDa5R9nTpim/nEpM0xcSNZd
-	 ot+KYq37877aV9y2mv2RyZ7XOOp+MlL714Ugx01LDt9C3fQHWPEWH7C/Bi+0Rzs0fB6Zz
-	 nli9AcSIammJh7CWWhbu5gozghwUCsoblaPpAflUa/SRyDdn6Q9EoVne2ubaBddEoMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794808527;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=VNX+WPtkvXcf+EOQMuEjoia+Dr8rsdBKgwFXK6gvpAU=;
-	b=3thy0WmBUYAeRSVtGts//xzaS6GafKC4vtCr4+uzBkaWttBPUYfmNQniU0G1ggKMmbr+
-	 DN3wm9N01aQcRlvHaZ4TtvylDBX6zX9SOikYJPLjuiJgPzQVlTBYV5mkUGLBt05tBtFyo
-	 R1SyJURu9V37loYeuCDTWY8epity0O0bmu/IRv52z5gefPKUnlgrjP0pe6KbKfHmV9Odi
-	 NMYHFqUDf8+4A2zkQsZs7iX7IxUP4eHfeQ3u16gi3DNfstnzbXZq40uajhNp3YSmhttf2
-	 gGtZBRDQfZvqUUUCg5+/B+eK/2rPZbS1f4VE+8xV42iWjQyMYC9/1b80ijKSRMQW14g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hT9NzDnj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794808653;
+	b=ZV/2xDbKzXouFLPZUzG7/OKBA6wI+jy+H1ZQna2GkGSvGDtuX/rx5umoRcOgBokwN6pi
+	 GMr4qvGO4hoXBnXaajeU1vF32b70DTE4lxjcFMtL559zAE6BVyFrvMy+XAZ+XWCZ5bwbT
+	 TTz9SVNw5IXh09Ye1BVbY2pFjYui4rohu+8SYKCF4DHKqX78wqswZ8QcV0HnuOl2La9Nc
+	 dFmAtSvDLHOzeJjvJlzh4fLEX4ve6F8DkNk3zDefHXXq7ipOULE1fMxzhFpEPs0yFBbep
+	 lptvhGq0S+Xn+FqU1jME6q7kpUQnS9vOxDP8mbE6jvHM5XTIpJBeYGURaMvkEG2wb8A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794808653;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Mv67XmZm0wBG10N0XGa1LICzQ/7pzN1IQDuOUzryD+M=;
+	b=cUYkiu6J7cRmMzy7XyqPzXpPtsKTlMNkcHPvsZt1MHRWGmQOgI3rB9P6oRKtUfDYvXsh
+	 4o9sS4bVDBdB1ixf6SfwhEeG7o+zl9loYoSY5kihyWrQFfmXLjQGovm3NCRPydx8X/rfI
+	 1DI5jr07MUfoeUoEIE9mHUTRrDGKyI2wKBBGUn1XXYDG+iIVxMvWpyEY2TBFZFyAsCtF/
+	 f8jKxjLgla7YCu1oaYDNO5U5sWFpelHbKJJXzJm8PNPC5Jo10OYTXSjdUo2nnv1U+KBmq
+	 XOC3PI8xGMf+v7VtZUQYuTbju6fc+wWfvMbeclKThqXdGl6Pz7Oc0b0AZgdrp+iCCow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTTOyKrU;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB97606A336;
-	Mon, 16 Nov 2026 05:55:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2460606A31C;
+	Mon, 16 Nov 2026 05:57:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hT9NzDnj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794808527;
-	b=AsiFTzXHxZ3agWgoOAeIDLIzq/rycvgWU7SmAauNCGjc/FNX2+3X+wA038qpoCn2s3Lg
-	 EY5Wvyjwlxfj1+QgYH6rxSAGDCFAInvM3Fg06aWXnWqzvRQwwRsgVEJH6Fm/RMfClAcx8
-	 QfFrc3rwWSG91m685CcKxsjrqbOrY0O6vCl9QjQIJAwIIj3OiqGLrkI7OUVA7qZoHo4q/
-	 QoEXiBXgsXW6VLD9da+EA1pq6Ep1glDeZF68kn+H/wsEll4ZehmppqtujZQcpZK8BHqie
-	 o4wJWeYtj2T26KdSO1Jj7f9iK35T2bW5Ccal66Eh/ONj/aQB9wnVpgTf0aS9psGkI6g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794808527;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=VNX+WPtkvXcf+EOQMuEjoia+Dr8rsdBKgwFXK6gvpAU=;
-	b=v/wO+KM7wJcPo3mABc4WlvtSAr927dNlf/ptW9j+YIbg/zekrGKttRK+MSFmvP30pVOu
-	 pQ6lLGYISD32Q2/bBEDWTnTx/LF+T8AtY2/4XAF5fVUmLFoIHxPiBzArrRCx7sLHBtLli
-	 AVmsI6sXF4kjcZvvCbiEE2L7fXqAlShwUf2rEV1gG/9fDrchkteLjx/2IEaoeiPX64zaZ
-	 L0Tp35VOQEwhP79afQLyPcHuWv4kvzD3eYYxP4ZCWmvFJ8KyzhCCBHHPDol8K1TGYk1vJ
-	 KXS+xxLqBY4RVSXFKVkomQSBuOxmQ+o90/341/3kq3ZCohwP1f2qJfnaA13dAlBa3QQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EDA501F000C4;
-	Mon, 16 Nov 2026 05:55:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTTOyKrU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318CD1F000C6;
+	Mon, 16 Nov 2026 05:57:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794808527;
-	bh=VNX+WPtkvXcf+EOQMuEjoia+Dr8rsdBKgwFXK6gvpAU=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=hT9NzDnjP2j5JJtINzR4Orc6/7T7GpoParFOhUtMAm6jGk+FBjSFNKeVuUfNMlMwM
-	 kvxHGgWxD9Dc1+XXv1/ShCFJEufQYWWSZr25YN9hA39PbhjxsuO0OujEPPD1idFhUt
-	 FOPK51D2Zpsz1LpF5skk4+rR2YRcGOcbe6ZIAdyCuyuFqeIqAg3UMrcOJ8wY7mbMQL
-	 Owzu96LS17Vi8OHIDjDvOXYlKVFqYvmbLrnNNE9DMKDvsXwhDgwAlU80SaUwn24W7d
-	 JwmgkxRPprJrGRm8EKGstXnPJSv/9+oR+8Y46ErKB65FMsp0fVYG4XqwqWYp/Nj+EM
-	 vHA7IPbbEj+Fw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 511C34A338;
-	Mon, 16 Nov 2026 05:55:25 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] spi: sun6i: Add dual read support for the H616
-Date: Mon, 16 Nov 2026 05:55:24 +0000
-Message-Id: <20261116-spi-sun6i-h616-dual-read-v2-0-e0c66eb71e20@gmail.com>
+	s=k20260515; t=1794808653;
+	bh=Mv67XmZm0wBG10N0XGa1LICzQ/7pzN1IQDuOUzryD+M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bTTOyKrUizKUv5p6LBjnnlFjfZfml6/pZbaAOZmpFTDG7K/o1iksNXoUc8cuwX42x
+	 3LfpyqzJHHN4xEEO7iPfa1jNPW/3VTtcFnhhn1P5befYITci+Qt+e7fL0QPy/o84bl
+	 4Xmu4HbJE/WOrwcO9lCQNGkoLNDcdsdwOsrvHOO13auLbZ0VrmVMPXwac53R9cqU3+
+	 dmqGd23lFLHQ0P7SGKVeZ+2Vv2EGf51CY4ezmvSH9yEFKckV5taOz+qgQ63fi/1GJr
+	 kLkxYJcfmbR2tmGufmyxLDwkMRTgMha14T2tlR9FOaKYaYetaMZzkMDqZH0Q/DdMmE
+	 MNPejWYIyEOhg==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v2 01/11] perf tools: Add HEADER_BOOT_ID feature
+Date: Sun, 15 Nov 2026 21:57:21 -0800
+Message-ID: <20261116055731.707164-2-namhyung@kernel.org>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+In-Reply-To: <20261116055731.707164-1-namhyung@kernel.org>
+References: <20261116055731.707164-1-namhyung@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,61 +64,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr2Jm7RimQgFX3sOwKO0IY/hLC0RDu
- LuAF3D5kve9b4HAXjjA7bSA51mC9N0G6nwCW5uuYhS3MahIaSKKMAyCYeq0YK1Jo5tMg56Nw0S
- rLL6WVkUuhW0+eH7K+0g/ih+HqXyxHffebtQSxt5/ju+Zdu+Pm5mQMMlLNonJ8tTF96o10lxs3
- 0KxrusX0+eYvNIAAAA=
-X-Change-ID: 20261110-spi-sun6i-h616-dual-read-562843bc20d7
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794808525; l=1092;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=UssfpM7cd+H4kc8EHiRkjSsNRV0nMySWvKuNCOar8aA=;
- b=o5ph33NBY6zwlbrocmmsY0IBnv4A6gM+ObeF3Ij4Gp9qQz1zhrlub2WBcQ5PeiSs4KN1Ggjua
- 2LE1xbAy6sxAR2CVDTtALy60W/bX02Uf91CMzceFv51cDSE6QG41iCR
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 8bit
 
-The H616 SPI controllers support dual and quad transfers but bind
-through the H3 fallback. Patch 1 lets the binding allow those bus
-widths for the H616, patch 2 enables dual reads in the driver.
+Save /proc/sys/kernel/random/boot_id in the perf.data header and
+struct perf_env so post-processing tools can identify if it's the
+same kernel boot on which the data was recorded.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed them and tested on an Orange Pi Zero2.
-
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
 ---
-Changes in v2:
-- New patch 1: the binding update Mark Brown asked for
-- Patch 2: shorter commit message, no code change
-- Link to v1: https://patch.msgid.link/20261110-spi-sun6i-h616-dual-read-v1-1-59bea5a897d4@gmail.com
+ .../Documentation/perf.data-file-format.txt   |  5 +++
+ tools/perf/builtin-inject.c                   |  1 +
+ tools/perf/util/env.c                         | 44 +++++++++++++++++++
+ tools/perf/util/env.h                         |  3 ++
+ tools/perf/util/header.c                      | 28 ++++++++++++
+ tools/perf/util/header.h                      |  1 +
+ tools/perf/util/session.c                     |  1 +
+ 7 files changed, 83 insertions(+)
 
----
-Arun Iyengar (2):
-      spi: dt-bindings: sun6i: Allow Dual SPI and Quad SPI for the H616
-      spi: sun6i: Add dual read support for the H616
-
- Documentation/devicetree/bindings/spi/allwinner,sun6i-a31-spi.yaml | 1 +
- drivers/spi/spi-sun6i.c                                            | 7 +++++++
- 2 files changed, 8 insertions(+)
----
-base-commit: 7a043c9d31af627f0689757b29b8aad6155a9376
-change-id: 20261110-spi-sun6i-h616-dual-read-562843bc20d7
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+diff --git a/tools/perf/Documentation/perf.data-file-format.txt b/tools/perf/Documentation/perf.data-file-format.txt
+index 1f8e7d8e9ae21d73..359d6ef0c80aac26 100644
+--- a/tools/perf/Documentation/perf.data-file-format.txt
++++ b/tools/perf/Documentation/perf.data-file-format.txt
+@@ -491,6 +491,11 @@ struct memory_range {
+ 	u8 remote_region_id;
+ }; [nr_memory_ranges]
+ 
++	HEADER_BOOT_ID = 36,
++
++	A perf_header_string with the kernel boot ID read from
++	/proc/sys/kernel/random/boot_id.
++
+ 	other bits are reserved and should be ignored for now
+ 	HEADER_FEAT_BITS	= 256,
+ 
+diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+index 3f3108fd39811017..0e01b14fa51676ab 100644
+--- a/tools/perf/builtin-inject.c
++++ b/tools/perf/builtin-inject.c
+@@ -2307,6 +2307,7 @@ static bool keep_feat(struct perf_inject *inject, int feat)
+ 	case HEADER_CPU_DOMAIN_INFO:
+ 	case HEADER_CLN_SIZE:
+ 	case HEADER_MEMORY_RANGES:
++	case HEADER_BOOT_ID:
+ 		return true;
+ 	/* Information that can be updated */
+ 	case HEADER_BUILD_ID:
+diff --git a/tools/perf/util/env.c b/tools/perf/util/env.c
+index 50993b0dedc577c7..24de685486af9bd5 100644
+--- a/tools/perf/util/env.c
++++ b/tools/perf/util/env.c
+@@ -12,6 +12,7 @@
+ #include <linux/string.h>
+ #include <linux/zalloc.h>
+ #include "cgroup.h"
++#include <api/fs/fs.h>
+ #include <errno.h>
+ #include <sys/utsname.h>
+ #include <stdlib.h>
+@@ -258,6 +259,7 @@ void perf_env__exit(struct perf_env *env)
+ 	zfree(&env->os_release);
+ 	zfree(&env->version);
+ 	zfree(&env->arch);
++	zfree(&env->boot_id);
+ 	zfree(&env->cpu_desc);
+ 	zfree(&env->cpuid);
+ 	zfree(&env->cmdline);
+@@ -400,6 +402,48 @@ const char *perf_env__os_release(struct perf_env *env)
+ 	return release;
+ }
+ 
++static char *read_host_boot_id(void)
++{
++	char *buf = NULL;
++	size_t sz;
++
++	if (procfs__read_str("sys/kernel/random/boot_id", &buf, &sz) < 0)
++		return NULL;
++
++	strim(buf);
++	return buf;
++}
++
++const char *perf_env__boot_id(struct perf_env *env)
++{
++	const char *boot_id;
++
++	if (!env)
++		return NULL;
++
++	mutex_lock(&env->lock);
++	if (env->boot_id) {
++		boot_id = env->boot_id;
++		goto out;
++	}
++
++	/*
++	 * If this is an offline target environment (set by perf_session on
++	 * read or via HEADER_ARCH / HEADER_HOSTNAME), do not fall back to the
++	 * host's boot_id when boot_id is not populated in the file.
++	 */
++	if (env->offline || env->arch || env->hostname) {
++		boot_id = NULL;
++		goto out;
++	}
++
++	env->boot_id = read_host_boot_id();
++	boot_id = env->boot_id;
++out:
++	mutex_unlock(&env->lock);
++	return boot_id;
++}
++
+ int perf_env__set_cmdline(struct perf_env *env, int argc, const char *argv[])
+ {
+ 	int i;
+diff --git a/tools/perf/util/env.h b/tools/perf/util/env.h
+index 23d35425efe38b24..aafd213c7523c018 100644
+--- a/tools/perf/util/env.h
++++ b/tools/perf/util/env.h
+@@ -81,6 +81,7 @@ struct perf_env {
+ 	char			*os_release;
+ 	char			*version;
+ 	char			*arch;
++	char			*boot_id;
+ 	/* e_machine expanded from 16 to 32-bits for alignment. */
+ 	u32			e_machine;
+ 	u32			e_flags;
+@@ -154,6 +155,7 @@ struct perf_env {
+ 	/* For fast cpu to numa node lookup via perf_env__numa_node */
+ 	int			*numa_map;
+ 	int			 nr_numa_map;
++	bool			 offline;
+ 
+ 	/* For real clock time reference. */
+ 	struct {
+@@ -187,6 +189,7 @@ void perf_env__exit(struct perf_env *env);
+ int perf_env__kernel_is_64_bit(struct perf_env *env);
+ bool perf_arch_is_big_endian(const char *arch);
+ const char *perf_env__os_release(struct perf_env *env);
++const char *perf_env__boot_id(struct perf_env *env);
+ 
+ int perf_env__set_cmdline(struct perf_env *env, int argc, const char *argv[]);
+ 
+diff --git a/tools/perf/util/header.c b/tools/perf/util/header.c
+index 9eec6deee190ff21..3e0b6fce55973dd1 100644
+--- a/tools/perf/util/header.c
++++ b/tools/perf/util/header.c
+@@ -494,6 +494,27 @@ static int write_version(struct feat_fd *ff,
+ 	return do_write_string(ff, perf_version_string);
+ }
+ 
++static int write_boot_id(struct feat_fd *ff, struct evlist *evlist)
++{
++	const char *boot_id = NULL;
++	char *buf = NULL;
++	size_t sz;
++	int ret;
++
++	if (evlist__session(evlist))
++		boot_id = perf_env__boot_id(perf_session__env(evlist__session(evlist)));
++
++	if (!boot_id) {
++		if (procfs__read_str("sys/kernel/random/boot_id", &buf, &sz) < 0)
++			return -1;
++		boot_id = strim(buf);
++	}
++
++	ret = do_write_string(ff, boot_id);
++	free(buf);
++	return ret;
++}
++
+ static int __write_cpudesc(struct feat_fd *ff, const char *cpuinfo_proc)
+ {
+ 	FILE *file;
+@@ -2079,6 +2100,11 @@ static void print_version(struct feat_fd *ff, FILE *fp)
+ 	fprintf(fp, "# perf version : %s\n", ff->ph->env.version);
+ }
+ 
++static void print_boot_id(struct feat_fd *ff, FILE *fp)
++{
++	fprintf(fp, "# boot id : %s\n", ff->ph->env.boot_id);
++}
++
+ static void print_cmdline(struct feat_fd *ff, FILE *fp)
+ {
+ 	int nr, i;
+@@ -3022,6 +3048,7 @@ FEAT_PROCESS_STR_FUN(osrelease, os_release);
+ FEAT_PROCESS_STR_FUN(version, version);
+ FEAT_PROCESS_STR_FUN(cpudesc, cpu_desc);
+ FEAT_PROCESS_STR_FUN(cpuid, cpuid);
++FEAT_PROCESS_STR_FUN(boot_id, boot_id);
+ 
+ static int process_arch(struct feat_fd *ff, void *data __maybe_unused)
+ {
+@@ -4496,6 +4523,7 @@ const struct perf_header_feature_ops feat_ops[HEADER_LAST_FEATURE] = {
+ 	FEAT_OPR(E_MACHINE,	e_machine,	false),
+ 	FEAT_OPR(CLN_SIZE,	cln_size,	false),
+ 	FEAT_OPR(MEMORY_RANGES,	memory_ranges,	false),
++	FEAT_OPR(BOOT_ID,	boot_id,	false),
+ };
+ 
+ struct header_print_data {
+diff --git a/tools/perf/util/header.h b/tools/perf/util/header.h
+index 765037762758ca11..5bbf16342b4d26d8 100644
+--- a/tools/perf/util/header.h
++++ b/tools/perf/util/header.h
+@@ -57,6 +57,7 @@ enum {
+ 	HEADER_E_MACHINE,
+ 	HEADER_CLN_SIZE,
+ 	HEADER_MEMORY_RANGES,
++	HEADER_BOOT_ID,
+ 	HEADER_LAST_FEATURE,
+ 	HEADER_FEAT_BITS	= 256,
+ };
+diff --git a/tools/perf/util/session.c b/tools/perf/util/session.c
+index a58b4fe44b62e3bb..578abcb14de84a39 100644
+--- a/tools/perf/util/session.c
++++ b/tools/perf/util/session.c
+@@ -179,6 +179,7 @@ struct perf_session *__perf_session__new(struct perf_data *data,
+ 		session->data = data;
+ 
+ 		if (perf_data__is_read(data)) {
++			session->header.env.offline = true;
+ 			ret = perf_session__open(session);
+ 			if (ret < 0)
+ 				goto out_delete;
+-- 
+2.56.0.611.g1030f0b940-goog
 
