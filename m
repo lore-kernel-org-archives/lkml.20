@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824272;
-	b=PIFaXcOLboJvTbTuZ2FYubqwoEJp4IIXQv2XvOyZ0Bn4ZEkUqT0bVJHk+8549y1rN+K8
-	 1IH2K3vhnrVuDA04jW4041F6inf1ZNuoQhYbqRjFw1X0SZCsBJ2+ixa82enILc/z/BWPM
-	 CEY5lzbFH2zE+mLlFfqJIwhiJEFBYX/A4kuojYWzXHPob5H21z1HIxzCUJthN/wecwb2I
-	 f+EuNZ2nlm4PDkiq263oyYcKQwkgUNjxiXZSmaPKp9dmBxhlQNQQgBPVU9dItPQLDs6L2
-	 1pA1O6rJM6eIGoG6Tpjd3+uEXvHT8891kfZCzcq8BTUsggwE9vcWPi086xt6Rit2eDg==
+	t=1794824277;
+	b=h4iiWhh/UxE/gy5SdYq1StLuNMhbpRlKb98Xsbi0Hp2Fufo79+Tn3hK4yV/7tgyIs197
+	 O8AJbsbASKfM0otyCs0gGbUEHsZCI8KPDd7WBEW9Yt5Bqzl3y1uA40j6LH0kZI0WR1ofM
+	 hqhF+Y4bBP+vc88zHomi8NkRjWx8YNU6Y3nmqc10/DySKbQxEmpTPJdCphbNQY/QVjzV9
+	 rspfFELDADPetmgBCzTV15gl+p3PjARrjF0aM+srXo6bSQ0ymAJH8AcIxZSx78wZ+2/In
+	 LoshQ5X5tBPF/EW7OjCvRInaX+DaG/sGfd3SmS3fZ5GcjSi7u3S0Mdy/z9Qj/gFo6Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824272;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824277;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=iryzJqzOrz0QeKZx7NITaD+YV8T03brcxgRjZq9j/4M=;
-	b=Z8CmVx7mRnmMxYVUKUdFeOhcQnc3tZqmqzP9HaeKf5uOCScm30Jm/kaYUbmUXv9uqeFU
-	 laYAs4lYCyn0VwHS1fpMU9DwD39NVG8z3ZZdR9W1y57Bodw6T4jTSuDvq9ulA34mpmesK
-	 zBbxv0vba2c0i5BEUJ1610V8/7pAZcztTlFt111dlUyubE8yQemJpbErSlTMMPq/f2bWK
-	 RGJFsRzDrdwyHjwmGfDoTazViSIWFgRKDUq2W/PkjIzyqW8Jo+xz2rOJ75ooG//JcXg4g
-	 vRbUTNN9F3O85eRGSP6HsiMsPxx7rCEQC7vt3fNyyvssneYTCQQS7GdR0QmbN+xfvJg==
+	bh=F89nUrTgTW9xYZPBXI7Pqgf+VPI7MvQTdaidT4DpoCc=;
+	b=ksXRWQtLZaeBw3JIEPnfc8QOd6KjYUzrg5IQbWP9Gnd/dCo8X/3F1LvZGswXg6TvTg/U
+	 UkUuRXqodJHfDUUm7Lgxdxdi6QSM4W7bT4+N6Xvgu/yHob3VjYNlAR2qZgabOKbEgPnbg
+	 GPi7nkL2o6H6/Rl9g62yEuK6qIRE5tI13AKqq8gcTWuk4LgU4hF47nnJ6LeHqQxXwyBWU
+	 Z0mamyB6/1BzCaDz8mMUdtJLVsyHqmyeJqr0Z4JUOTgWQPpyWPvkyaOd7oIacC07090Jq
+	 ZRSQ6mTF506qZneQnDYL/cAHBbijyWXs6QeJTEKOctPsyi5iekUHp18uSPtGfbHuOaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWvhQANI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESXnhM7q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEFF606A8A1
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25C8606A88A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWvhQANI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24D481F000C6;
-	Mon, 16 Nov 2026 10:17:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESXnhM7q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431131F000C9;
+	Mon, 16 Nov 2026 10:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824272;
-	bh=iryzJqzOrz0QeKZx7NITaD+YV8T03brcxgRjZq9j/4M=;
+	s=k20260515; t=1794824276;
+	bh=F89nUrTgTW9xYZPBXI7Pqgf+VPI7MvQTdaidT4DpoCc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=AWvhQANIdxcB7tZFBHnNZrsfw8zabPQlrCXI/IqfRHEd8512UnzArLVVra1ZUdMP/
-	 gmq0wzdOtoGe6S8K3cRDHPGnJyUMO9kcCvxjtq5MiSEq5YfMiPwc7sSPyG8E+K7ae8
-	 eOd1EZxvzDqaOH1oaXbyF/StBbOuoOSeZGv0CVgeP4n5hiCvfflnd958Xn6w6jNI0o
-	 F060IkJkTgAeo66j5rr8wcNM1JyZePG43xpa0cPnY5e/ykAvplnbWGD1ootieLB7xk
-	 98rcOIBrSKjtYP5UXhKxQd9Is46opm8BGirm4lzDz1Eii0DzFCUKHA0jWNC6VvQByJ
-	 eHL0a4DQ9+uUw==
+	b=ESXnhM7qtgPl/L21Hn7XQPMcPZq2kxugK+1sPbsz/sw0wlFgq/Sf94ru04+lxLzXI
+	 bPZU4Mzvj8jgfdTO/XY/8c41FP7Sbvg9l0Dr/eRfyZYcnyGz8ZlHOq7Ed/pkObjBy7
+	 a2E8Rnz866X2Q6q0sc8aOuKF4IyKA+X0um0F8xnRHTjw8mi5wl5EduGnqSmhYqRS9H
+	 AdwcODGFOHEbJRjXyNsBtUWFJbZFVB2VXNUVO6vCYF9jSNIEWyZ7Xax35rOYdxSGb4
+	 QZ1QriOUBhX5K3MDNtyk6KmGLCbmWmSeVSpJaIhE3cnMqWBrQtMES9chPpYsWoZwv2
+	 8lAVLOgHJSG/Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:17:24 +0100
-Subject: [PATCH v11 8/9] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+Date: Mon, 16 Nov 2026 11:17:25 +0100
+Subject: [PATCH v11 9/9] drm/vkms: Add driver-specific plane property for
+ testing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-reset-state-flag-v11-8-378b3f7bef32@kernel.org>
+Message-Id: <20261116-drm-reset-state-flag-v11-9-378b3f7bef32@kernel.org>
 References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
 In-Reply-To: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -71,279 +72,206 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Oarora Etimis <oaroraetimis@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9352; i=mripard@kernel.org;
- h=from:subject:message-id; bh=k0qhVlHDatKdxhe4aNclPAbYF7AP62qxpddqyxgK1wU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bhi77P++S6g57k6bUs/LzYEH4lTe5N4IN1JRn8acx
- TNl5ta+jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARxVuMDW8Nfv56dMd33f+I
- C0Yn10jkRazyYyut8GI9yb7rztcHf9RSK3tfnk2RkHCu2zyx+ZTDHsaGa/vOC/zkWfDd8Hs228r
- ir/lFZ+6sXJIVfPtwYOdEvaRUC/YjOflfxQSc7PjdlJaICMoDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6559; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=eTu/tROUGbzsr5SqVR3GDx6tDiau6kptF3sxrTjq01U=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bpgUqjIGPtOMY9jxaZFr5NSwX5ZqmpOXKx9nKsyfL
+ SUWwdLXMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbSKMpYH87zi1F9laXDvE8F
+ vyO+ChxpZpO4ctCxJLh/VrYx/3F+lb+5rEmNSr8qVP8nf/r+1qOVsU5haQ3bvaNHDAoN9VcEvLY
+ rXhBTx7JgG/+apYwTzM6uqy8WqH1qaW2UoNjysOM38womMwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-From: Sebastian Wick <sebastian.wick@redhat.com>
+The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
+states to their defaults before applying new property values. Testing
+that this mechanism works correctly requires a property that the test
+can set to a non-default value and then verify is properly reset.
 
-Userspace currently has no atomic way to reset all KMS object states
-to their defaults. To bring a display pipeline to a known state, a
-compositor must explicitly set every property on every object, which
-requires tracking which properties exist and what their defaults are.
+Using a standard property for this is problematic: compositors like
+Mutter enumerate and track all known properties, making it difficult
+to isolate the reset behavior from the compositor's own property
+management.
 
-Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
-atomic ioctl, fills the commit with default states for all KMS
-objects before applying the properties supplied in the request.
-Properties not explicitly included in the commit remain at their
-defaults (CRTCs inactive, planes disabled, connectors unbound, and
-so on).
+Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
+The property is stored in vkms_plane_state, duplicated across state
+copies, and initialized from its registered default in
+atomic_create_state via drm_object_property_get_default_value().
 
-The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
-full state reset is incompatible with an async flip.
-
-Since the commit contains every CRTC of the device or lease, including
-the ones that are disabled before and after it, no page flip event is
-attached to those: they can't report a flip, and drm_atomic_crtc_check()
-would reject the whole commit. Such a CRTC doesn't count towards the
-CRTCs that can signal either, so a commit that leaves them all disabled
-while asking for an event is still rejected instead of waiting for an
-event that would never come.
-
-Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
-Co-developed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c      |  3 +++
- drivers/gpu/drm/drm_atomic_uapi.c | 44 ++++++++++++++++++++++++++++++++++++---
- drivers/gpu/drm/drm_ioctl.c       |  5 +++++
- include/uapi/drm/drm.h            | 10 +++++++++
- include/uapi/drm/drm_mode.h       | 22 +++++++++++++++++++-
- 5 files changed, 80 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
+ drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 64 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 43df13aaef1e..7c288ff31cdb 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1611,10 +1611,13 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
-  * the current state.
-  *
-  * Color operations are not checked because they always use
-  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-  *
-+ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
-+ * and as a precondition in drm_atomic_commit_fill_with_defaults().
-+ *
-  * Returns:
-  * True if all objects implement atomic_create_state, false otherwise.
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index dea6cad3f1b9..384616095b45 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -144,20 +144,23 @@ struct conversion_matrix {
+  * @base: base plane state
+  * @frame_info: data required for composing computation
+  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
+  *		     struct vkms_plane_state must ensure that this pointer is valid
+  * @conversion_matrix: matrix used for yuv formats to convert to rgb
++ * @vkms_test_do_not_use_value: driver-specific property for testing only
   */
- bool drm_atomic_implements_create_state(struct drm_device *dev)
- {
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1eebcf6f5e05..fe6d8cc533bc 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1438,24 +1438,43 @@ static int prepare_signaling(struct drm_device *dev,
- 	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
- 		return 0;
- 
- 	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
- 		s32 __user *fence_ptr;
-+		bool page_flip_event;
- 
- 		fence_ptr = get_out_fence_for_crtc(crtc_state->state, crtc);
- 
--		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
-+		page_flip_event = arg->flags & DRM_MODE_PAGE_FLIP_EVENT;
-+
-+		/*
-+		 * A commit with the DRM_MODE_ATOMIC_RESET flag contains
-+		 * every CRTC of the device or lease, even the ones that are
-+		 * disabled before and after the commit. Those can't report
-+		 * a page flip, and drm_atomic_crtc_check() would reject the
-+		 * whole commit, so don't attach any event to them.
-+		 */
-+		if (page_flip_event && !fence_ptr &&
-+		    (arg->flags & DRM_MODE_ATOMIC_RESET) &&
-+		    !crtc_state->active) {
-+			struct drm_crtc_state *old_crtc_state;
-+
-+			old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
-+			page_flip_event = old_crtc_state->active;
-+		}
-+
-+		if (page_flip_event || fence_ptr) {
- 			struct drm_pending_vblank_event *e;
- 
- 			e = create_vblank_event(crtc, arg->user_data);
- 			if (!e)
- 				return -ENOMEM;
- 
- 			crtc_state->event = e;
- 		}
- 
--		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
-+		if (page_flip_event) {
- 			struct drm_pending_vblank_event *e = crtc_state->event;
- 
- 			ret = drm_event_reserve_init(dev, file_priv, &e->base,
- 						     &e->event.base);
- 			if (ret) {
-@@ -1492,11 +1511,12 @@ static int prepare_signaling(struct drm_device *dev,
- 			}
- 
- 			crtc_state->event->base.fence = fence;
- 		}
- 
--		c++;
-+		if (page_flip_event)
-+			c++;
- 	}
- 
- 	for_each_new_connector_in_state(state, conn, conn_state, i) {
- 		struct drm_writeback_connector *wb_conn;
- 		struct drm_out_fence_state *f;
-@@ -1671,10 +1691,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 		drm_dbg_atomic(dev,
- 			       "commit failed: page-flip event requested with test-only commit\n");
- 		return -EINVAL;
- 	}
- 
-+	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
-+	    (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
-+		drm_dbg_atomic(dev,
-+			       "commit failed: reset cannot be combined with async flip\n");
-+		return -EINVAL;
-+	}
-+
- 	state = drm_atomic_commit_alloc(dev);
- 	if (!state)
- 		return -ENOMEM;
- 
- 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
-@@ -1686,10 +1713,21 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	copied_objs = 0;
- 	copied_props = 0;
- 	fence_state = NULL;
- 	num_fences = 0;
- 
-+	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
-+		if (!drm_atomic_implements_create_state(dev)) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+
-+		ret = drm_atomic_commit_fill_with_defaults(file_priv, state);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	for (i = 0; i < arg->count_objs; i++) {
- 		uint32_t obj_id, count_props;
- 		struct drm_mode_object *obj;
- 
- 		if (get_user(obj_id, objs_ptr + copied_objs)) {
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 9039a39c4324..f666a13da6bf 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -31,10 +31,11 @@
- #include <linux/export.h>
- #include <linux/nospec.h>
- #include <linux/pci.h>
- #include <linux/uaccess.h>
- 
-+#include <drm/drm_atomic.h>
- #include <drm/drm_auth.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
-@@ -302,10 +303,14 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 		break;
- 	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
- 		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
- 			     dev->mode_config.async_page_flip;
- 		break;
-+	case DRM_CAP_ATOMIC_RESET:
-+		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
-+			     drm_atomic_implements_create_state(dev);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
- 	return 0;
- }
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index bc7ef7684099..b6e2f2edd122 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -793,10 +793,20 @@ struct drm_gem_change_handle {
-  * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
-  * commits.
-  */
- #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
- 
-+/**
-+ * DRM_CAP_ATOMIC_RESET
-+ *
-+ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
-+ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
-+ * flag to reset all KMS object states to their defaults before applying
-+ * property changes.
-+ */
-+#define DRM_CAP_ATOMIC_RESET	0x16
-+
- /* DRM_IOCTL_GET_CAP ioctl argument type */
- struct drm_get_cap {
- 	__u64 capability;
- 	__u64 value;
+ struct vkms_plane_state {
+ 	struct drm_shadow_plane_state base;
+ 	struct vkms_frame_info frame_info;
+ 	pixel_read_line_t pixel_read_line;
+ 	struct conversion_matrix conversion_matrix;
++	unsigned int vkms_test_do_not_use_value;
  };
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index ed1a660a3dfd..571bb7c6804d 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -1326,10 +1326,29 @@ struct drm_mode_destroy_dumb {
-  * To the best of the driver's knowledge, visual artifacts are guaranteed to
-  * not appear when this flag is not set. Some sinks might display visual
-  * artifacts outside of the driver's control.
-  */
- #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
-+/**
-+ * DRM_MODE_ATOMIC_RESET
-+ *
-+ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
-+ * to their default values before applying the properties in this commit.
-+ * Properties not explicitly included in the commit will remain at their
-+ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
-+ *
-+ * CRTCs that are disabled before and after the commit won't send any
-+ * &DRM_MODE_PAGE_FLIP_EVENT.
-+ *
-+ * On a lease, only the objects part of that lease are reset. Partial
-+ * pipelines aren't supported: if one of the leased planes or connectors
-+ * is bound to a CRTC that isn't leased, or if a leased CRTC drives a
-+ * plane or a connector that isn't, the commit fails with -ENOENT.
-+ *
-+ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
-+ */
-+#define DRM_MODE_ATOMIC_RESET 0x0800
  
- /**
-  * DRM_MODE_ATOMIC_FLAGS
-  *
-  * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
-@@ -1338,11 +1357,12 @@ struct drm_mode_destroy_dumb {
- #define DRM_MODE_ATOMIC_FLAGS (\
- 		DRM_MODE_PAGE_FLIP_EVENT |\
- 		DRM_MODE_PAGE_FLIP_ASYNC |\
- 		DRM_MODE_ATOMIC_TEST_ONLY |\
- 		DRM_MODE_ATOMIC_NONBLOCK |\
--		DRM_MODE_ATOMIC_ALLOW_MODESET)
-+		DRM_MODE_ATOMIC_ALLOW_MODESET |\
-+		DRM_MODE_ATOMIC_RESET)
+ struct vkms_plane {
+ 	struct drm_plane base;
++	struct drm_property *vkms_test_do_not_use_property;
+ };
  
- struct drm_mode_atomic {
- 	__u32 flags;
- 	__u32 count_objs;
- 	__u64 objs_ptr;
+ struct vkms_color_lut {
+ 	struct drm_color_lut *base;
+ 	size_t lut_length;
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index fd3d34dcf0fe..42513cb462ac 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -9,14 +9,18 @@
+ #include <drm/drm_colorop.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_property.h>
+ 
+ #include "vkms_drv.h"
+ #include "vkms_formats.h"
+ 
++#define to_vkms_plane(target) \
++	container_of_const(target, struct vkms_plane, base)
++
+ static const u32 vkms_formats[] = {
+ 	DRM_FORMAT_ARGB8888,
+ 	DRM_FORMAT_ABGR8888,
+ 	DRM_FORMAT_BGRA8888,
+ 	DRM_FORMAT_RGBA8888,
+@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
+ };
+ 
+ static struct drm_plane_state *
+ vkms_plane_duplicate_state(struct drm_plane *plane)
+ {
++	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
+ 	struct vkms_plane_state *vkms_state;
+ 
+ 	vkms_state = kzalloc_obj(*vkms_state);
+ 	if (!vkms_state)
+ 		return NULL;
+ 
++	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
++
+ 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
+ 
+ 	return &vkms_state->base.base;
+ }
+ 
+@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
+ 	kfree(vkms_state);
+ }
+ 
+ static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
+ {
++	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
+ 	struct vkms_plane_state *vkms_state;
++	u64 val;
+ 
+ 	vkms_state = kzalloc_obj(*vkms_state);
+ 	if (!vkms_state) {
+ 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+ 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
+ 
++	if (!drm_object_property_get_default_value(&plane->base,
++						   vkms_plane->vkms_test_do_not_use_property,
++						   &val))
++		vkms_state->vkms_test_do_not_use_value = val;
++
+ 	return &(&vkms_state->base)->base;
+ }
+ 
++static int vkms_plane_atomic_set_property(struct drm_plane *plane,
++					  struct drm_plane_state *state,
++					  struct drm_property *property,
++					  uint64_t val)
++{
++	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
++	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++
++	if (property == vkms_plane->vkms_test_do_not_use_property) {
++		vkms_state->vkms_test_do_not_use_value = val;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++static int vkms_plane_atomic_get_property(struct drm_plane *plane,
++					  const struct drm_plane_state *state,
++					  struct drm_property *property,
++					  uint64_t *val)
++{
++	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
++
++	if (property == vkms_plane->vkms_test_do_not_use_property) {
++		*val = vkms_state->vkms_test_do_not_use_value;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct drm_plane_funcs vkms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+-	.atomic_create_state = vkms_plane_create_state,
+-	.atomic_duplicate_state = vkms_plane_duplicate_state,
++	.atomic_set_property	= vkms_plane_atomic_set_property,
++	.atomic_get_property	= vkms_plane_atomic_get_property,
++	.atomic_create_state	= vkms_plane_create_state,
++	.atomic_duplicate_state	= vkms_plane_duplicate_state,
+ 	.atomic_destroy_state	= vkms_plane_destroy_state,
+ };
+ 
+ static void vkms_plane_atomic_update(struct drm_plane *plane,
+ 				     struct drm_atomic_commit *state)
+@@ -281,10 +329,21 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
+ 					  DRM_COLOR_YCBCR_BT601,
+ 					  DRM_COLOR_YCBCR_FULL_RANGE);
+ 
++	plane->vkms_test_do_not_use_property =
++		drm_property_create_range(dev, 0,
++					  "vkms-test-do-not-use-in-prod",
++					  0, U32_MAX);
++	if (!plane->vkms_test_do_not_use_property)
++		return ERR_PTR(-ENOMEM);
++
++	drm_object_attach_property(&plane->base.base,
++				   plane->vkms_test_do_not_use_property,
++				   0);
++
+ 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
+ 		vkms_initialize_colorops(&plane->base);
+ 
+ 	return plane;
+ }
 
 -- 
 2.56.1
