@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811668;
-	b=KQ97HJ2l2ruAvEffAa2WgmiZTHzU32VtHxQJ1hk6t8t0GJtlBUz9wHreA584NDaN+mtX
-	 dCHhCdVux9PbwZzypdkPAWXRjjg9J2ssWl8H6XSFA/0LdbuOaPtcjNzZbegWNC2zOIFAi
-	 ZLaKuff78DiVJPAxhI2P9Knlhy5VRiVyyjLHTqAEC2R0ulO/6/d+YOKZD8aTmdQfShoL1
-	 Cu7fFg1Ux8YHZps4qc9w/rL2USwN6TBRI0TTSCl3wtHwK6YPVEEdfZz+YzavPh8nIIzVy
-	 XyN2JGjqzlEZ+osS+Jx/KxHrzyuDP1oBmnKLcS5TRhPiciNoeYMpH5FoJrDXIVNdH4A==
+	t=1794811675;
+	b=uULvvbPsSzb7RNyLiOvjeS72oxA9tUgOkCAjy+SXCwRs5mj1DSe4pUsesDCeCaz4d9/m
+	 yK0MjtxQWO7/GAucyom3vDW1f+Nhozxnnpj/hMe5JCvUPLbceAXFtwHz7YRGBt/UANEaZ
+	 gL0JsTUs3PWcdnvLviGM/IbbjiDAwwQkY25MyE43uO+YNzldMN++Cgn/seC8kfKFw7DWF
+	 bP1zoSr94KMc0+eExWY3D26o1LWulFpx/u6js+nUxbpbUlf17M0K2FszwHpTAfABdVr4+
+	 XFOD4si7XBhgvb0oeet1T/NsGffIm/IwHapgc9YKCxqjMm4wn8c53lsRr+xh7bhusbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811675;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=dTc4xLzdAujQ6ScWi/lwPCQ//qRhKRB4Q39XzYz2O6Y=;
-	b=sjfUl736/BEqF1ywDVPVUKC4YJ7zIcgT31Amc5p6wAOhWF9j9EoBYJaAsYdQEFwTqR90
-	 TawTLlxA8zana0ixiaFGC2X/Zyn+ExSDsbu+RIBd/L74NHXHbvka/GKj0ATJW5mA6xpX/
-	 ndy3WycdR4goRbO9JzfbPJUm5tYINis77DbIuzMBR3NrkQK51QyPp4Wd52hSuQFOveOPh
-	 o5zzoKbE64gkmX82+kAXX9NbQgOoHB7Isl9iHd7abM+WvWxk5Sh0nl4EkdZk7nEowjW3N
-	 dtLXRUn/wwcPalk2kRlzfZKEx1jLPD1niAq8o+0WWwSruccm5l4mejT3XLeV6jc/ApA==
+	bh=mhwL0m1EsUEyiipqOIDsOQks5B8WnrLL2ZaoE/N7l78=;
+	b=PKF1t9EGdL+97KYfdKweCxJ94O4XE0mRP4dkRr8nR+ucw0ytcdhOIJo7FRjPcMvQ8Ugu
+	 m3d1e/fi3jk5R16auccgFR3UlUcjvoVysTuUQlAWjuSoimhpTKUlxwbd0EyMkRTaYnFI+
+	 Z//vkaxlbpVba2o8zAT5HrgLf8rMWIssV7v6gWRv0RsBYvAo3yccc2pc/4ZtyMBKs18wg
+	 d6JUA2WZWa9//NkQIfKOO04MmQnTwzbMzaLrrGu9WytuOcqTPuosvvDMgSQHaW51e1AEZ
+	 hV95Qs2ULJ3zkn1U1dNon4knchSCflDJBvhqtr2F8CpsbfughCp4g5wthw0m9jflzng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WByHw8Pb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kosXWr10;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F363D606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3DB606A336
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WByHw8Pb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C99B1F000C6;
-	Mon, 16 Nov 2026 06:47:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kosXWr10
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E2C1F000C6;
+	Mon, 16 Nov 2026 06:47:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794811667;
-	bh=dTc4xLzdAujQ6ScWi/lwPCQ//qRhKRB4Q39XzYz2O6Y=;
+	s=k20260515; t=1794811675;
+	bh=mhwL0m1EsUEyiipqOIDsOQks5B8WnrLL2ZaoE/N7l78=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WByHw8PbTY5AmmJyEbePVaApyXWF+L3JfmcBzWodnnH31DERC2uK5kovM1okyPzwm
-	 X31aKffEXpz8u6mMsD8DxnIh1tFh2eN2CYmoOQz4rkzhczGZU0aRvihx08EvflYCvO
-	 sF8apaLV7imRK51TJLD2L6BPLlJAq4r2oth39/rO3riAshVRhsp/yM1VAX6qkaWIUG
-	 RgPj7tg5E1AWZ1rBpJRTDxlgGNlHIYQVQMzVEgoOgJhZcZKddsk5hrPfMbqmg+hyW6
-	 UNjhqRSFAFu6vbRFVS3a4aegz2qlHHDkpLNDrOR8NIYVnVNWrAhgYh6TSnL75T9U/a
-	 6+h+0el2PvuRw==
+	b=kosXWr10HnpHex6nFxMMsR4jnpxAw6+pMwL5CVcjwOrnqLSfeo0H3t3so6+jkE8yb
+	 sZPIKwtQyQiNe89JmV6D691npkCppN3hbAN+t9Y/E2tCcFhaNsgjCWkwp7gGKmnzjP
+	 i7S9CWJ6/M7XtvyXAcr/asl1OZZBeMna5uiov/TB3zRYXrSzt21xnkyBUie24GZLSC
+	 D2ooQQMlFIY3s6hXxlYKQr8M5ot2SzdyX9O5ZwIEZ1tSNI7tW6dOQ1eSmJ481hgS4j
+	 46Hv1mhEQ8ailcUwcOhcg/9IyN6+7ePWkEEqZ2mZP9vuWizynllcuSi0taDa/oqS/l
+	 OmOlBqfUW7h5Q==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Mon, 16 Nov 2026 07:47:16 +0100
-Subject: [PATCH v4 08/10] mm, slab: remove remaining compile-time checks
- for CONFIG_SLUB_TINY
+Date: Mon, 16 Nov 2026 07:47:18 +0100
+Subject: [PATCH v4 10/10] mm, slab: deprecate CONFIG_SLUB_TINY and reduce
+ its Kconfig effects
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-slub_tiny_rework-v4-8-227a4b3636a5@kernel.org>
+Message-Id: <20261116-slub_tiny_rework-v4-10-227a4b3636a5@kernel.org>
 References: <20261116-slub_tiny_rework-v4-0-227a4b3636a5@kernel.org>
 In-Reply-To: <20261116-slub_tiny_rework-v4-0-227a4b3636a5@kernel.org>
 To: Harry Yoo <harry@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>
@@ -70,90 +70,134 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-Remove several minor aspect of CONFIG_SLUB_TINY to allow it to be fully
-a boot-time decision:
+At this point CONFIG_SLUB_TINY only affects the default value of
+slab_tiny_enabled which has a boot-time parameter. Thus deprecate it in
+the Kconfig description.
 
-- remove check in cache_has_sheaves(), with no change to functionality
-  but only on code elimination
+Also remove its interactions with other Kconfig option, as they are not
+necessary:
 
-- remove SLAB_SUPPORTS_SYSFS dependency on !CONFIG_SLUB_TINY, thus
-  /sys/kernel/slab will exist as long as CONFIG_SYSFS is enabled
-  (for now leave SLAB_SUPPORTS_SYSFS around, can be cleaned up later)
+- KASAN, SLUB_DEBUG or SLUB_STATS support do not need !SLUB_TINY
 
-- remove the control of __fastpath_inline so it's just a wrapper of
-  __always_inline. Leave it also around for documenting the intent, can
-  be revisited later.
+- KVFREE_RCU_BATCHED can simply depend on !TINY_RCU
 
-- remove a comment for SLAB_NO_MERGE as we don't want new checks for
-  CONFIG_SLUB_TINY
+- various hardening options do not need to be excluded, although it's
+  unlikely that somebody would enable those with extra memory overhead
+  together with slab_tiny
 
-This leaves the only usage of CONFIG_SLUB_TINY in slab code to set the
-value of slab_tiny_enabled around.
+- SLAB_MERGE_DEFAULT does not need to be selected, although it's likely
+  to be used together
 
-net/core/skbuff.c keeps using it to control SLAB_NO_MERGE but that can
-be dealt with independently after the config is deprecated.
+Keep the "depends on EXPERT && !COMPILE_TEST" as there's no point making
+the deprecated option more visible.
+
+Note the change of KVFREE_RCU_BATCHED dependency can potentially
+increase memory footprint on systems that are small but have SMP
+support. If that causes troubles, we make it possible to disable
+KVFREE_RCU_BATCHED explicitly.
 
 Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- include/linux/slab.h | 2 +-
- mm/slab.h            | 7 +++----
- mm/slub.c            | 4 ----
- 3 files changed, 4 insertions(+), 9 deletions(-)
+ lib/Kconfig.kasan |  2 +-
+ mm/Kconfig        | 16 +++++++---------
+ mm/Kconfig.debug  |  2 +-
+ 3 files changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/include/linux/slab.h b/include/linux/slab.h
-index 930dd64b9ad6..ad645967a3ee 100644
---- a/include/linux/slab.h
-+++ b/include/linux/slab.h
-@@ -188,7 +188,7 @@ enum _slab_flag_bits {
-  * - general caches created and used by a subsystem, only when a
-  *   (subsystem-specific) debug option is enabled
-  * - performance critical caches, should be very rare and consulted with slab
-- *   maintainers, and not used together with CONFIG_SLUB_TINY
-+ *   maintainers
-  */
- #define SLAB_NO_MERGE		__SLAB_FLAG_BIT(_SLAB_NO_MERGE)
+diff --git a/lib/Kconfig.kasan b/lib/Kconfig.kasan
+index a4bb610a7a6f..f20b574f6653 100644
+--- a/lib/Kconfig.kasan
++++ b/lib/Kconfig.kasan
+@@ -49,7 +49,7 @@ menuconfig KASAN
+ 		     (HAVE_ARCH_KASAN_SW_TAGS && CC_HAS_KASAN_SW_TAGS)) && \
+ 		    CC_HAS_WORKING_NOSANITIZE_ADDRESS) || \
+ 		   HAVE_ARCH_KASAN_HW_TAGS
+-	depends on SYSFS && !SLUB_TINY
++	depends on SYSFS
+ 	select STACKDEPOT_ALWAYS_INIT
+ 	help
+ 	  Enables KASAN (Kernel Address Sanitizer) - a dynamic memory safety
+diff --git a/mm/Kconfig b/mm/Kconfig
+index afff1b25b543..ec91a4cc6c83 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -167,16 +167,18 @@ config SLUB
  
-diff --git a/mm/slab.h b/mm/slab.h
-index 7ea057fda751..d39ea67d44f4 100644
---- a/mm/slab.h
-+++ b/mm/slab.h
-@@ -282,16 +282,15 @@ struct kmem_cache {
- /*
-  * Every cache has !NULL s->cpu_sheaves but they may point to the
-  * bootstrap_sheaf temporarily during init, or permanently for the boot caches
-- * and caches with debugging enabled, or all caches with CONFIG_SLUB_TINY. This
-+ * and caches with debugging enabled (or all caches with slab_tiny). This
-  * helper distinguishes whether cache has real non-bootstrap sheaves.
-  */
- static inline bool cache_has_sheaves(struct kmem_cache *s)
- {
--	/* Test CONFIG_SLUB_TINY for code elimination purposes */
--	return !IS_ENABLED(CONFIG_SLUB_TINY) && s->sheaf_capacity;
-+	return s->sheaf_capacity;
- }
+ config KVFREE_RCU_BATCHED
+ 	def_bool y
+-	depends on !SLUB_TINY && !TINY_RCU
++	depends on !TINY_RCU
+ 	depends on !RCU_STRICT_GRACE_PERIOD
  
--#if defined(CONFIG_SYSFS) && !defined(CONFIG_SLUB_TINY)
-+#ifdef CONFIG_SYSFS
- #define SLAB_SUPPORTS_SYSFS 1
- void sysfs_slab_unlink(struct kmem_cache *s);
- void sysfs_slab_release(struct kmem_cache *s);
-diff --git a/mm/slub.c b/mm/slub.c
-index ac9dcb4682fb..bb57728962c2 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -196,11 +196,7 @@ enum slab_flags {
- 	SL_pfmemalloc = PG_active,	/* Historical reasons for this bit */
- };
+ config SLUB_TINY
+-	bool "Configure for minimal memory footprint"
++	bool "Enable slab_tiny by default"
+ 	depends on EXPERT && !COMPILE_TEST
+-	select SLAB_MERGE_DEFAULT
+ 	help
++	   Deprecated option that enables the slab_tiny boot parameter by
++	   default, and can be overridden by booting with slab_tiny=0.
++
+ 	   Configures the slab allocator in a way to achieve minimal memory
+-	   footprint, sacrificing scalability, debugging and other features.
++	   footprint, sacrificing scalability.
+ 	   This is intended only for the smallest system that had used the
+ 	   SLOB allocator and is not recommended for systems with more than
+ 	   16MB RAM.
+@@ -199,7 +201,6 @@ config SLAB_MERGE_DEFAULT
  
--#ifndef CONFIG_SLUB_TINY
- #define __fastpath_inline __always_inline
--#else
--#define __fastpath_inline
--#endif
+ config SLAB_FREELIST_RANDOM
+ 	bool "Randomize slab freelist"
+-	depends on !SLUB_TINY
+ 	help
+ 	  Randomizes the freelist order used on creating new pages. This
+ 	  security feature reduces the predictability of the kernel slab
+@@ -207,7 +208,6 @@ config SLAB_FREELIST_RANDOM
  
- DEFINE_STATIC_KEY_MAYBE(CONFIG_SLUB_DEBUG_ON, slub_debug_enabled);
+ config SLAB_FREELIST_HARDENED
+ 	bool "Harden slab freelist metadata"
+-	depends on !SLUB_TINY
+ 	help
+ 	  Many kernel heap attacks try to target slab cache metadata and
+ 	  other infrastructure. This options makes minor performance
+@@ -216,7 +216,6 @@ config SLAB_FREELIST_HARDENED
  
+ config SLAB_BUCKETS
+ 	bool "Support allocation from separate kmalloc buckets"
+-	depends on !SLUB_TINY
+ 	default SLAB_FREELIST_HARDENED
+ 	help
+ 	  Kernel heap attacks frequently depend on being able to create
+@@ -234,7 +233,7 @@ config SLAB_BUCKETS
+ config SLUB_STATS
+ 	default n
+ 	bool "Enable performance statistics"
+-	depends on SYSFS && !SLUB_TINY
++	depends on SYSFS
+ 	help
+ 	  The statistics are useful to debug slab allocation behavior in
+ 	  order find ways to optimize the allocator. This should never be
+@@ -245,7 +244,6 @@ config SLUB_STATS
+ 	  Try running: slabinfo -DA
+ 
+ config KMALLOC_PARTITION_CACHES
+-	depends on !SLUB_TINY
+ 	bool "Partitioned slab caches for normal kmalloc"
+ 	default RANDOM_KMALLOC_CACHES
+ 	help
+diff --git a/mm/Kconfig.debug b/mm/Kconfig.debug
+index 9ae75229c76d..1c43b6aeac9f 100644
+--- a/mm/Kconfig.debug
++++ b/mm/Kconfig.debug
+@@ -48,7 +48,7 @@ config DEBUG_PAGEALLOC_ENABLE_DEFAULT
+ config SLUB_DEBUG
+ 	default y
+ 	bool "Enable SLUB debugging support" if EXPERT
+-	depends on SYSFS && !SLUB_TINY
++	depends on SYSFS
+ 	select STACKDEPOT if STACKTRACE_SUPPORT
+ 	help
+ 	  SLUB has extensive debug support features. Disabling these can
 
 -- 
 2.56.0
