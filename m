@@ -1,49 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824263;
-	b=L+3l9tErRQf3wFmbZ1n8Yx/Pc12vvIrvf2Tx8gXUqta2/QfZBM1siE4r/tF1Bnl2lSIJ
-	 Ktpor+lqmzQvIIAMIqbEjZgPNyHIsIxT+4KPH0REeVNbQxxf7oyqLlUWUqy98TYGllCR5
-	 TUa/EEu1buD6iqA2z8IB11JNAhq3x6CPeeFHcSK49MwB3Ox/+HP7+BLeM5OSOO+NXxiJA
-	 3mRIbbeynK8b+8OBt871xaEwc84WmDZMs5Ctbi4kxE2+7VeATVtXpvh26i/jFuG9xx2pW
-	 +hZIXk9mUT02P/x7EXaN5Zfmiqy/VHTEO2dL5DGLeK5sozvquUYN+haVpsGNH4QbOVA==
+	t=1794824266;
+	b=p7g2/7gpik3MpsjR4jafyZSYlCa6B7t99p+St5Qd8pq2SrDIZzwyWW8h+h2/3gyZXGVm
+	 IwDj01euXrpL9tl3xJfkkiM2DxzF9gWad+P3W+2+wyxagIWlSbk/1aHkRNhUU0lRXe88M
+	 MlX7zxVnRE5zDfblpsFvVp1bpRup9nr6yiQf87zxhUGd0xJsR0bJt8MihxAhmYleTWfK6
+	 1SyZaTcn1Mg5AJVY7mU90N2IjyYTZ50f9EiR73tzfenmBwfy3yMbm2aHQvmLfTI/tyb6h
+	 MXrMbNBsqhPB6XeWyGihza8j+QUK/fkofGB0vVqkuIs8llqZlzeY4z3clRH5RjSV2yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824263;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=e9rodnMdn6LP+hCPmNyUmTuscHn4iadAzuomhDdj5w4=;
-	b=X9nqOkb7Z4iGmeoo280s0jrScI0nIcDTqLAPF5FvAyufSfuXh1sT2UnUN53zKe90dsUM
-	 fMdSWgg8ReVBq/xOSUjot6XKtWPLWGQcxkdRbGZi4lOmrOIVAZmxIAFyYhK7MKmtd8RhI
-	 PRPdvdNdf4yh49BrkmRmoYGUqi1AdbhZ4Vl7c8ZaiJjjn15tPxTeZRnJH/3VGt9eTzvJh
-	 1fip7UoX9TntsX4jI4QxpZqsBGF+eh5soPr16kidD+GDxt0s0l7t57upWmMVaGnJcwJzz
-	 e/CfSuk6ZRsUfyTBe/JVTd20qIwYEG2He5666ceoxVjCKxKzM2et92JnXKpoDXAbHZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824266;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Gvv2DyAp4JVPfUBKtaM8rPmeQgPIXCGymcJ4/vQH2IE=;
+	b=Co1YlmHB3BbHlT7U3mffP14zPbbX2fpGnlwWNMhhJaCekCmSU5Q+G8AFThsGfaCeNT1W
+	 WeNSrq5pEaYeqeJON2dcGFNb+8qzh7+12+iSIVvJRpOTaWZ2sFtC4AvYo+1yvJcvMtzIu
+	 fWpBdn7SwmKnXU3PNMNzjQb5irEZOE+tI1R6aSyV7bAyD7FVvONz5Ab10A1Z24QMRjkp6
+	 yQPQxs2/h8puPOB3xBRfNwmZzqonUp+lNx+CadaN0o9FL4r32g5SJYSi5W951mr9YpMBO
+	 Nmtzq4mcPx1TzKIoc8sDltgpj+GFAmfr7BVvMjdhoIUwWrEjxlN8LOTfq+x8d5EvOYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihXNIsgE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1katym5m;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Z3qyToCD;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48F5606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4C4606A336;
+	Mon, 16 Nov 2026 10:17:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4C4606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihXNIsgE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1ADA1F000CA;
-	Mon, 16 Nov 2026 10:17:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824263;
-	bh=e9rodnMdn6LP+hCPmNyUmTuscHn4iadAzuomhDdj5w4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ihXNIsgEPpKpPH0ZOPBgMqRW03R2BNsr3y14sUHniVIh4a6CSf7+c+mA2t+lKx70O
-	 cVBWXjm73l3bkKuzeleEeZE1/eafuxavomtNWUi3EP1MpfbKbsjV0dB+VA0VRs/u6L
-	 IaF76s3DwNnghvCDXDzV97frtKuLGVhSC5Xmq8KWCp4GtUpSeTHPpuWnZRQ80YqQxq
-	 Ihn/Ca1uTp4cz6EuWgvtF4PipSyQvbqBE5wBan33mtY0vPNWeuS+ZavYA4iLKnWX0D
-	 Qh/Qqmju4gx7JpUdhO34Rkq6ctrf5K8BZblcFVSf0J+VdNrKRALV3FlSV1Q06S14q0
-	 whctnXl1yxPCg==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:17:21 +0100
-Subject: [PATCH v11 5/9] drm/amd/display: Take over the current stream and
- dc_state
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1katym5m;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Z3qyToCD
+Date: Mon, 16 Nov 2026 11:17:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794824264;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gvv2DyAp4JVPfUBKtaM8rPmeQgPIXCGymcJ4/vQH2IE=;
+	b=1katym5mwk/UMOFz3y8SY7HtyY4qM1tRwBmT4GvIm+ownixD5zibEXS5SwUvEuzFaQnXd9
+	v6Em+HSx6COsoMP9gQAgr9u09Gnwwb+3pEOu9zUnFeOyhP1OlOfErn3KW/RMuKLIEiZ18D
+	bMKNifhkbNgViadEGM0xUYy5Dt7U2R7x1zsYnxzXfnXdeU8JV9xqiXIFXXk13SPvnLLbSi
+	qn55njlPDnPjP0+F5hfnDmsq78ChTRyiD4HLomGAnnA4EQHVk8xWXXQ4zc7HHzLxZR8dYb
+	LQoOG+NECnapgDW7rL10PqMv9MhZyTtkVxhAta+LB2+ektQ78kwvFoHQBUz6QQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794824264;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gvv2DyAp4JVPfUBKtaM8rPmeQgPIXCGymcJ4/vQH2IE=;
+	b=Z3qyToCDZ/Eqh8pNlhKLuZ3PRnXwUkydSt6uFzBShH1eSkEK7vTXwBqt/Grb2cLxrV5pwW
+	lHHVaOLD8jmIrBBA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] perf/core: Disable context fast-swap for sigtrap
+ events
+Message-ID: <20261116101742.11G-Kmmb@linutronix.de>
+References: <cover.1793870900.git.wutengda@huaweicloud.com>
+ <f19b29b90fe1d0126fa8f5cd0e7c8d7da07e5a34.1793870900.git.wutengda@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,145 +80,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-drm-reset-state-flag-v11-5-378b3f7bef32@kernel.org>
-References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
-In-Reply-To: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4877; i=mripard@kernel.org;
- h=from:subject:message-id; bh=pWFIZuE07p1CkherupIZpZ55z6AWrUBHDFdJmFbLUnU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bhg9DdS3WlsuVGbSH6HgLDbZxmZJnr3XG0+nYBX3L
- Sekbd92TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIk43WWs02zlvWtzVZ7n+Yba
- E/PKd3JK1X6dvPfsX7/LLBcDzT9keV/aIBLvrF+n1tiRvHZCUPBGxobPa94cYf7NdPtQ1b6c5xy
- 8NVcqzub0uBUfrlZ+kLBtvu1FxQXnii5fmfjl3p9b/XO3bfcDAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f19b29b90fe1d0126fa8f5cd0e7c8d7da07e5a34.1793870900.git.wutengda@huaweicloud.com>
 
-drm_atomic_commit_fill_with_defaults() builds its commits out of
-states created through atomic_create_state() instead of duplicating
-the current state. A created state comes with no stream nor dc_state,
-while a duplicated state carries the ones in use, with their
-reference.
+On 2026-11-05 09:30:44 [+0000], Tengda Wu wrote:
+> perf_sigtrap() contains:
+> 
+> 	WARN_ON_ONCE(event->ctx->task != current)
+> 
+> The warning assumes that an event's ctx->task always matches the task
+> that ends up running the pending task_work. That assumption can be
+> broken by the context fast-swap path.
+> 
+> The failure sequence is:
+> 
+>   1. A -> B switch, perf_event_context_sched_out() takes the fast path
+>      and does WRITE_ONCE(ctx->task, next) / WRITE_ONCE(next_ctx->task, task).
+>      An NMI then hits while the context is swapped, and
+>      __perf_event_overflow() queues pending task_work on the *current*
+>      task (A), even though the event now belongs to B's swapped-in
+>      context view.
+> 
+>   2. B -> A switch. Because A now has pending task_work,
+>      nr_no_switch_fast is non-zero, so the slow path is taken and
+>      ctx->task is *not* swapped back.
+> 
+>   3. A returns to user mode, task_work runs perf_pending_task() ->
+>      perf_sigtrap(), and event->ctx->task no longer equals current,
+>      tripping the WARN_ON_ONCE().
+> 
+> The context fast-swap path was already excluded for events that need
+> stable task association (inherit + sample read). sigtrap events have
+> the same requirement: the SIGTRAP is targeted at ctx->task and must not
+> be delivered after ctx->task has been swapped to another task.
+> 
+> Fix this by also excluding events with attr->sigtrap from the fast-swap
+> path, i.e. bump nr_no_switch_fast for sigtrap events in
+> list_add_event()/list_del_event(), and update the comment describing
+> the invariant accordingly.
+> 
+> Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
+> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+> ---
+>  include/linux/perf_event.h | 6 ++----
+>  kernel/events/core.c       | 9 +++++++--
+>  2 files changed, 9 insertions(+), 6 deletions(-)
+> 
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -1999,7 +1999,7 @@ list_add_event(struct perf_event *event, struct perf_event_context *ctx)
+>  		ctx->nr_user++;
+>  	if (event->attr.inherit_stat)
+>  		ctx->nr_stat++;
+> -	if (has_inherit_and_sample_read(&event->attr))
+> +	if (has_inherit_and_sample_read(&event->attr) || event->attr.sigtrap)
+>  		local_inc(&ctx->nr_no_switch_fast);
 
-The update passes of amdgpu_dm_atomic_check() release the stream and
-dc_state in use and clear the pointer of the new state, on top of the
-reference the current state drops when it gets destroyed. Those
-releases are only balanced if the new state brought a reference of
-its own, so a commit that disables or reconfigures a live CRTC or
-plane through a created state over-releases and frees the stream
-early, leading to a use-after-free when the current state gets
-destroyed. The paths that keep a CRTC or a plane enabled without a
-modeset also work on the stream and dc_state through the new state,
-and hit BUG_ON(dm_new_crtc_state->stream == NULL) since it never had
-one.
+This is already done in __perf_event_overflow() while the event is
+added. You are saying this is not enough/ too late. This is required to
+be done/ disabled once the event is created if I understand it.
+If so, do we need to keep this nr_no_switch_fast inc/dec in
+__perf_event_overflow() and perf_pending_task()?
 
-Take the stream and dc_state of the current state over, with a
-reference, at the beginning of amdgpu_dm_atomic_check(), like a
-duplicated state would have carried them. This has to happen before
-the update passes clear the stream of the new states: past that
-point, a state whose stream was cleared can't be told apart from a
-created one.
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
----
-
-To: Harry Wentland <harry.wentland@amd.com>
-To: Leo Li <sunpeng.li@amd.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0ea45ab12119..b2eddb87dd5c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6279,10 +6279,60 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	struct drm_dp_mst_topology_state *mst_state;
- 	struct dsc_mst_fairness_vars vars[MAX_PIPES] = {0};
- 
- 	trace_amdgpu_dm_atomic_check_begin(state);
- 
-+	/*
-+	 * A CRTC or a plane that stays enabled keeps its stream and
-+	 * dc_state: a duplicated state carries them over, with their
-+	 * reference, but a state created through atomic_create_state()
-+	 * comes with neither. Take them over from the current state,
-+	 * with a reference, like a duplicated state would.
-+	 *
-+	 * The reference is needed when the update passes below
-+	 * reconfigure the CRTC or plane: they release the stream and
-+	 * dc_state in use and clear the pointer of the new state then,
-+	 * on top of the reference the current state drops when it gets
-+	 * destroyed, so that release is only balanced if the new state
-+	 * brought a reference of its own. The pointer is needed when
-+	 * they don't: the paths that keep a CRTC or a plane enabled
-+	 * without a modeset work on the stream and dc_state through
-+	 * the new state.
-+	 *
-+	 * A stream or a dc_state in the current state means the CRTC
-+	 * or the plane is enabled, since they are cleared when it gets
-+	 * disabled, so the conditions below already single out the
-+	 * live objects. They deliberately don't check whether this
-+	 * commit keeps them enabled on top of that: the update passes
-+	 * release the stream and dc_state of the CRTC or plane being
-+	 * disabled too, so their new state has to bring the reference
-+	 * just the same.
-+	 *
-+	 * This has to run before the update passes below clear the
-+	 * stream of the new states: past that point, a state whose
-+	 * stream was cleared can't be told apart from a created one.
-+	 */
-+	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
-+		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+
-+		if (!dm_new_crtc_state->stream && dm_old_crtc_state->stream) {
-+			dm_new_crtc_state->stream = dm_old_crtc_state->stream;
-+			dc_stream_retain(dm_new_crtc_state->stream);
-+		}
-+	}
-+
-+	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-+		struct dm_plane_state *dm_old_plane_state = to_dm_plane_state(old_plane_state);
-+		struct dm_plane_state *dm_new_plane_state = to_dm_plane_state(new_plane_state);
-+
-+		if (!dm_new_plane_state->dc_state && dm_old_plane_state->dc_state) {
-+			dm_new_plane_state->dc_state = dm_old_plane_state->dc_state;
-+			dc_plane_state_retain(dm_new_plane_state->dc_state);
-+		}
-+	}
-+
- 	ret = drm_atomic_helper_check_modeset(dev, state);
- 	if (ret) {
- 		drm_dbg_atomic(dev, "drm_atomic_helper_check_modeset() failed: %pe\n", ERR_PTR(ret));
- 		goto fail;
- 	}
-
--- 
-2.56.1
-
+Sebastian
