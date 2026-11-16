@@ -1,54 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.70
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825002;
-	b=qFKjqjBZXpHLnGw9KEorjKUYxmB57V1V+YteOwZB2ETDsGotDaAr+0Pjjnsm5ZPxFNgT
-	 Awn5nFqWhiTeAGQm8kn2w0Cdl7YUJsTvCk9jH9KRslVevOeoamcgphIw2//iDOKjmxgE0
-	 E6Lvt9Efnd9nSuFCGGS1yO/M5oXQ92BiSowvcCfnQ4a4MGMQzBPRhzbKNzSsgdRDUdZ+v
-	 BPf3O43vvZhfu+NeTPDKrWKyfiLncfU4fn18OCzLzTtQ6XsJTVBMilbeSnNKGYOKltjD8
-	 7gjtr+hAELBPqzPzikHeCUz3Wnl4+VMWNIC0DJBMrjI2+XeGU9KKtXnOCGkty662SGQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825002;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=/1cdmyABstoM351Jd9SchcWWY1DQ8/OQeZxf5NBIclE=;
-	b=omDWEg9sWOgjsMSwElPM7tXYHqXdJ5DM6oZSbsafwjA8ZtJEPBOswwRkWSZfKPOTXZdN
-	 jZuooGvZutymLjiYiTyav+LKplwvFCZqGcQnI0J4QR/e9WQvtbthdNJdtm8RdX8Gb9yBG
-	 QjcabWhu6A+sYY/foYx/eaTSZ6KI6CTvywLKWJn/rYggfEn8t1gFAuVoSzI2avBuD++5K
-	 Aml/wlwtIyeDV0JAoaJ3Tl+DsnVUQOkANvSEt64kapr3uMk6uPjpZP4jrKVHluMSb77Ra
-	 vLasyDOOS3u0PDHRle+WqqmoYcV7W+S8Ntj1d3J8zdp2nEvWDW8SvXAjn6WZzxNCAuQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.161.70
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.28
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794825037;
+	b=wK8BXZ1NUAlZxR1942rb5glDo0JL+D4kKlEl/JfQYhuWoWBNBx2tNJjbOCLyYnLhAVMJ
+	 sCpLdl2hNnCAJuayqiqWv7sVnHGvdKSp7PPHoA2P184S8buYoTbiUiYB1rdmPGW2mtUy5
+	 HpRneLg7ucmXbAJ4DiI37Tv/837eyvDM1b9+N5Jd/UwsyhBXhILa04bSvVnlyvV9of0sy
+	 g9GRBnPGLhECPuy1iyft4IGPyhF+0Kd+FJQbcK7+u/1hGJYAmujloJPnDNZn8szGwbkag
+	 1afMvQQCLqQedb7CgK2WT37HuzMv8g9CfxipW93HZRruYrmg0il8YmOfGb21iZwcBqg==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825037;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
+	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fLE8+3OQOfF6IUhuX3KQW6DM/Na8lB7h3OcXiQ54uDc=;
+	b=wYoVlAWo3PKUugxc08LsDJ+ePyRYUkdGp8dcJTK/GvXbYqTWwYo+7wRXhfzfLeV3+R+t
+	 5UvgoJfqfP5+YU265q/orcLQwuaIGsVhdqseejYQ/aGGLiYd4JOS02wRlkzHDL/C9oDtu
+	 KzJHJNiO07SXqjhm68twiF36szvbuxmob1A5pfXaK5QkoY1CuCez1QiJ0LY+MVCpZrX+m
+	 Zk7h3fFoErSZZMDRxAZyvaP2v04DW4wwycE773dxkn3TTzGlhPS3upplAGpImKVIvlV/B
+	 vR752d92p/jkN6PUD/vEyQ7m1pDgvOCasVIvDcduEW2p1QXfGQoQLsOjipvLZDmUjAA==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=kMaE9ML8;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=kMaE9ML8;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.28
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013028.outbound.protection.outlook.com [40.107.162.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DDE606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93DDE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-71aca016fdcso2598937eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:30:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794825000; x=1795429800;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/1cdmyABstoM351Jd9SchcWWY1DQ8/OQeZxf5NBIclE=;
-        b=hw8PT7DUNoBfWQVdqK2r0CxhkJedOPlSJXs4PLrCS3i+T+VV/lWTuwEPFo2be78uIV
-         mhUDRhmu5oHl+i/103/LiVL2g9ci/5ItAvLfFKDj/l9q/DZtZXVDpPcDW0WUKeYm3ouW
-         ETAWp8k8WN1+mSDtu1HTrbbq215UAXkv2e+xITxVc0qEvk/tCPwjAiLm00Z6QXBU9dow
-         CWlFdxxpSoGHEtHK8SEbKKugWkFCleRYu2DOW3UdAcD0KpJvmnubCVF3USupCR8gIJBy
-         ho/6jurys+HUWO9PKSZNEXwAXTAxgjUFwDQxZOdT5qa4hr5B4cWVrVDiF1U7EO9ogBRl
-         c7Xw==
-X-Forwarded-Encrypted: i=1; AL+hErFDH+TdTj69szfMA9c8FKlFrv6bnHslU3fjSCL7MOE7GkJKSzN0h5rKnqpSFxxzOH5WzFwyT553bRzZvnQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mYCplrDFNlRtHQMmau4aEbpPadamj6Us8/RbCb37E2sh/HJnB
-	vBDuSqEopkfABdPQKCRoWMwPL3CanTLCF9OHkruLWLOsF31No0u4Am4zqCWCNHbiDoQ7GiYe/0f
-	EA3KD6EoIQsqap0yx+o0XwskggyXg1A+tLVcL2DMeQJmGkN/wIwdko4Nv3Mg=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99473606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:30:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99473606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=kMaE9ML8;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=kMaE9ML8
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=KEOepP2n5YWWGwB5Mx8B7dKx3KUxIzP//xoOPqrMXQaq6eHOvZhqfh2trQlERf5WxbLan96yrd97quxEElxnM8hSZxbq6b2Htcp0ds+1pEcoyS8tDBG+0Hs20uFEXGrHH56JFKZMkj+bGDBYjnXD7+/EMGSSkfvjiW4eLrNjWR8ikhO+Dv4fXrngADkWhBvVQWZF7Yl1q+3nXY4rDYX9enuzUtkb6pt2cXHhr4Z2BZqrBHQOVwRGtSYZloCLnHlIXSiEMez2Gq1JPcGp4My/cb1491gz5O7HzK6Ys3yagJmt8/ICuiP3iJU8DzrGUzu4xzxyAWpMgOcF5yF9fxlJKw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fLE8+3OQOfF6IUhuX3KQW6DM/Na8lB7h3OcXiQ54uDc=;
+ b=XWir4w9KIBRFhhfqrV//XLMgVpctQFRJZMwbRGx5KQCDoG/RukGKxirO/knDZApjVKXnCo2TkkMopGSYQTatNdaOHTllhG+tUxYetdtGHTESnr4EXXLC89Trco22jh4d7jCXX59EoH2od62RmQvcwWr97JAam4Dd9S5189KqAkN1PsLaf2q8LknHftoloooYGcl9sKAmTg5bN12rvFP9BUkEtm8YCv9mgDijjcPB8D+ryZT60LHZgjxtPWOG7wwFMA/GJ9sB7t8kDUak7rQtC9V2rC8UbhKCgCHBsml5CTQbg7HvR4vs/SRbSZhnH7HUEMaEU1VI//hLytkhK5qp6w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fLE8+3OQOfF6IUhuX3KQW6DM/Na8lB7h3OcXiQ54uDc=;
+ b=kMaE9ML8lmv4LlBvR3+QPtvy0vMekuvtTa8JYwqGv/0JO6+fnoHqOK2LXnMMZnVodxGMDCINpTDiFBqR1qpzvTp4DbgD0SCBo2RJcTnpWnj4jneNfipYhbJlD0WLnmEIPyvVMoFKwNKngfIsM/vU1QRHygdww1SEVTaWl2vEwug=
+Received: from DU7P190CA0029.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:550::23)
+ by DB9PR08MB7796.eurprd08.prod.outlook.com (2603:10a6:10:39b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 10:30:26 +0000
+Received: from MAD0EPF000008B9.eurprd04.prod.outlook.com
+ (2603:10a6:10:550:cafe::6d) by DU7P190CA0029.outlook.office365.com
+ (2603:10a6:10:550::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 10:30:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ MAD0EPF000008B9.mail.protection.outlook.com (10.167.241.167) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Mon, 16 Nov 2026 10:30:25 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NRvyCYpTsBMR5vVFszTbLEXm9ql3SA5mIXDlqtW3beX71/tEgRsOZWmmY20Mqi/hOz2IOODXzSyVg/bDRt5iMGJnfjO+0aa56AoIDNBngmo+pleBrvzyWRdY/gxrd33g9dep2nsdgCnynfE8NkYFJFX9oGI1Xul40pUVUsBjiDMuMZ5wphmoZG+RQBYqJuMOZg9Vdn1WkrcCdA/5J2ElFfoSkksWczrQda0cM2h9wdiYhHrvt3Nf9v2q8C+BlnPhwZa5PMFoXo4QBu/e4cx20VseZ6zSrV39eNhUIj+p+Fc8vmyn+4lsI9rKCll5F5OmL/x7m3yXlZ8IcGkQyTQtCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fLE8+3OQOfF6IUhuX3KQW6DM/Na8lB7h3OcXiQ54uDc=;
+ b=AINQlL3lER3xJYxr48AXgrbbRlXbgxst2+hZPM17nqGn8DWNKKEgVCiforgLUdBzEA/a2wP2u228v3dp0pGUMfFLutjCNGx0fop7oBaFktyeZ7/I1sl6XFdGNWEXj7Wk7fZCqutqJVd1bQcaXrMyJ690/y5M4rleA8+h4VudGDoF8UrpUA196UgPd9/x3QsEfWaFW0AzDPbtiL+BqTlq/9p4srMXVaUlSF4AaPWOq8hOEeuGWtzgPq+Zb7R4E6geDt08lGYV2W9ix41SYb3IY4nxnldojvbwiU+Pt/gubGb9uwpzRM+FoCwg7omxLhox8m1ClAOeEwC/6G7iOsHohw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fLE8+3OQOfF6IUhuX3KQW6DM/Na8lB7h3OcXiQ54uDc=;
+ b=kMaE9ML8lmv4LlBvR3+QPtvy0vMekuvtTa8JYwqGv/0JO6+fnoHqOK2LXnMMZnVodxGMDCINpTDiFBqR1qpzvTp4DbgD0SCBo2RJcTnpWnj4jneNfipYhbJlD0WLnmEIPyvVMoFKwNKngfIsM/vU1QRHygdww1SEVTaWl2vEwug=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
+ by DU0PR08MB8836.eurprd08.prod.outlook.com (2603:10a6:10:47d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Mon, 16 Nov
+ 2026 10:29:48 +0000
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
+ 10:29:48 +0000
+Message-ID: <db4f83f3-d35b-49b7-8570-04e158125b53@arm.com>
+Date: Mon, 16 Nov 2026 10:29:46 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 04/12] iommu/arm-smmu-v3: Pack the MSI vectors of the
+ used sources
+To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
+Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
+ kevin.tian@intel.com, smostafa@google.com,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+ Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
+ xueshuai@linux.alibaba.com
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <0d28afd67694fc6882e0ff5f054027488b1cf816.1793593923.git.nicolinc@nvidia.com>
+Content-Language: en-US
+From: John Garry <john.garry@arm.com>
+In-Reply-To: <0d28afd67694fc6882e0ff5f054027488b1cf816.1793593923.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO3P123CA0016.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:ba::21) To PAWPR08MB8959.eurprd08.prod.outlook.com
+ (2603:10a6:102:33f::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,198 +151,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fce:b0:572:f1d1:d6b3 with SMTP id
- 5614622812f47-572f1d1e88amr4083111b6e.21.1794825000699; Mon, 16 Nov 2026
- 02:30:00 -0800 (PST)
-Date: Mon, 16 Nov 2026 02:30:00 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afadb28.371d364b.254eb1.0017.GAE@google.com>
-Subject: [syzbot] [bluetooth?] possible deadlock in add_ext_adv_params_complete
-From: syzbot <syzbot+fc55a609cd9deea4ea37@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-TrafficTypeDiagnostic:
+	PAWPR08MB8959:EE_|DU0PR08MB8836:EE_|MAD0EPF000008B9:EE_|DB9PR08MB7796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64d83546-e4fb-4880-ee6b-08df43cca073
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|11063799006|4143699003|261026140227099003|261021123027099003|261022105027099003|261009223027099003|261102123227099003|56012099006|261021135927099003|261021121427099003|261028144727099003|261026121527099003|261022075727099003|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 2J9ircnhFagvL7iEQ5DkLmfurG8G4z08aH893KQ4WjR5ulP91a/0Eet5r8+C1H6jXO3CwYgjQxTuEdgsgHe3ujj8HHeugY2q7+iVMM2mNFXHkMyDyfwqZ0DIYRM7UAxht1Q5D5P8E1TAj/TKTsHxyZ2dsiaOkPOhCrDp9kM5JEWk0zHu9wkNhvxkBaHZ1UT2gCH0WK/msCvogX0rZddmRbcEbZXw3SLl/tt3csGKlhfBCp3ha3KEldm/VJ6K48W77+sJ0R7axU4eNdrYvlWLPAeZVAnV72qbdjDVahwQpi7RUWejIne5caOn/ksh95li/jU1RtkwDwIQS/qPdldyjN7SWRs3SV42bINzk5FKCaB74FciOMUoSqzmYKDS/Bzh+H+NcGmuhq63Loe0Tu9JXs+Oy/Nf0gmn7Hc/pe/fAPil/A08ZaR5vtHsYlMXz+LJ2Isqjaml/W0Y9aa3O3S8SGdLm7pGtAspz9TU17T/ZnVievugGRdMQJq2DQjuiYm4xhOgYEjCBpDG4R/ZpSAxDLuPa++1L5NNlIitojPLF3iHzc4SskT2pHpxh/jCIHteCqMoPdwHJViqgJrYayvk7QyGx2EHnaxcG12ai57EJLTRv407nl++1V4XzR45SE/DmDhNAJBCPAokxZ6zFwJe79eWH2mu9/jn7FTdPPO5tbw=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(11063799006)(4143699003)(261026140227099003)(261021123027099003)(261022105027099003)(261009223027099003)(261102123227099003)(56012099006)(261021135927099003)(261021121427099003)(261028144727099003)(261026121527099003)(261022075727099003)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ JPYSZIkv8KZ+ozRukxatjOYc3xmvDHbtPTHpuQii2lNygRoviLfmIeiQXEAYivr+eUqcykJuLpk1/xWq3nwc3/3Yr5D3YoTJSdfNd5DEobRysJTtjAn9xzMsRCcS/CZ2tUY3CmIMubaLXn8WpaiN6IkzkZGEgWATPf94Lv9RzNdqaNQnwXiHNWXBOMqkzyVRe/PtSLSg3EQgQPECClsRVTSSL3LLcV3XclrLn1dolJ2Ss7q8mjEMjzqkpoVDHunkOs2CYCGlbU1xy5DudJ/7C/dLi+5YOAVHV6ErA8p9V9l5WYTOnB7BshT4ea0R7wVHwGCJuhyp6IhbibW/+GnDiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8836
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MAD0EPF000008B9.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	823efe75-9bb9-4e3d-5051-08df43cc8a22
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|35042699022|14060799003|376014|1800799024|82310400026|36860700016|10067099003|4143699003|11063799006|56012099006|261026140227099003|261026121527099003|261028144727099003|261021135927099003|261021123027099003|261021121427099003|261022075727099003|261102123227099003|261022105027099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	FmdhcIG5CP9hRvwXGRJL8h4sgqW2b4P9LybX94tMFa94jE/q+W5QnAC2uja0yoO6YdtMOvlRNMKhQ8YlYrz9zt3EZXomXoiTLaKU4/v4lBmCEY7/RBmN1akDffwhB8Yhl/cVETjkx7zNl1l1S2V9OhmzVV5VMS97s4kf4JxO5Lh/uERtZIrXnMTAwn6yv382oUSXFPcUigA0u3oCfm0Ho279lzfVhnoA11y2EF26X6mUK59Pql7rT7A0bzjhDSWENSf08UYXzf/QA7eqXB5LCBrdNnCe37k0JochxwZ1uDSgK3+kQfkz/jj9TDUoUr/1ZuZ+IgL+U1UvXDgwsvzjyqX0vu4vin2eGxY40OaJRi3Vw+boK3DFkxlasjOWqpbAjD/+8ZrRyDM1NnrFpRTIqP7fKmIO4b4bDDB82q54nEak8LR8n27c7bxBz8B6xyxnjErc3PfysIJgoKZ1HO9MKT1d3fRW1oFe5aTfBQReyZMtqQq9jb+BdubRdDQiJ/C91OK8XTFrhEmXiF1sbZyYxQWYEkY0QSnFOXKkQ+D8uRQC325+r2+fI16+snJQpd1UO05FKXXh0MF0Ihd6OOQCJgZA6cBoMpO11Ky4u8/75gaLGtq6gSsm6EvctR9he2a2AV6aPmU6LYDwJUG3ojjdvBSKhnCcXkERZs8bWTyVvlXqtmqI85actMoQoZKhkGUML7eg4Mo3WBC2eEKtcVMWiw==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(35042699022)(14060799003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(261021135927099003)(261021123027099003)(261021121427099003)(261022075727099003)(261102123227099003)(261022105027099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FhbB7MUTfOaz6nQMLlgZKLt2XSwU3sk10ugeC2Bk3CsyTjr2o8No07YxoSfyCd5qt4AnGahfCOUKF+mycCI5bJhEWe6PuUAsnJ5pEvwpTEd/fQAi4Am5NAb+SgnoFFNRBLg0B+Bdtmpn24CsR4+iC4uWxdMJxMGTaw0z7e5P2qsgNfu7fPW9NkhoMLcjhGLhz9Ek/LI3MzPGcUlGQMdJLvfnN7IDlDTAUYqJ/tNL/tnTKaXaOj0TQGOBUaDVG0JlEaMrwk3reiNnHFvc/eIDh5znclNjlqBDP9dcKH5J/CilQY8bpZJPV+/pl6mY6lNrvqMGlFps5hT1Aj1qbY57ULTS+5gSF4o3/7GdY68h30/cv+iNo0Db07lc/17lCn4CEuMmcevihU+EJA4K22iN1orj1UiRj3OYcvVzzLzl19p5rek4lMfLSA/X54hfM8+A
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 10:30:25.2295
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64d83546-e4fb-4880-ee6b-08df43cca073
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008B9.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7796
 
-Hello,
+On 11/2/26 05:19, Nicolin Chen wrote:
+> arm_smmu_setup_msis() skips the PRIQ vector by decreasing nvec, which only
+> works since PRIQ_MSI_INDEX is the last index. A subsequent change will make
+> the EVTQ optional for kdump, whose index is 0, so that trick won't work.
+> 
+> Pack the vectors of the used sources instead, and record the source of each
+> vector in a new msi_map, for arm_smmu_write_msi_msg() to find the register
+> set, regardless of the sources in use.
+> 
+> No functional change intended.
 
-syzbot found the following issue on:
+I just have a few comments/questions on this patch, below.
 
-HEAD commit:    6964ff21c5d8 net: mana: Allocate queue MSI-X vectors on de..
-git tree:       net-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=142d103d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8fbc480f13a2deb8
-dashboard link: https://syzkaller.appspot.com/bug?extid=fc55a609cd9deea4ea37
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+Thanks,
+John
 
-Unfortunately, I don't have any reproducer for this issue yet.
+> 
+> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> ---
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  9 +++++
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 42 +++++++++++----------
+>   2 files changed, 32 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> index 8f2c0b1cc4a8d..bce592fff0b12 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> @@ -936,6 +936,13 @@ struct arm_smmu_impl_ops {
+>   			  const struct iommu_user_data *user_data);
+>   };
+>   
+> +enum arm_smmu_msi_index {
+> +	EVTQ_MSI_INDEX,
+> +	GERROR_MSI_INDEX,
+> +	PRIQ_MSI_INDEX,
+> +	ARM_SMMU_MAX_MSIS,
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/10448f4c9816/disk-6964ff21.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/bd950eb7eaec/vmlinux-6964ff21.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/90c2418ba3c7/bzImage-6964ff21.xz
+nit: I don't really think that the trailing ',' is required after 
+ARM_SMMU_MAX_MSIS, as I asusme that we will never see any entry added 
+after 'max'. I appreciate that this enum is just being relocated in this 
+patch.
 
-AI-generated root cause summary:
-An ABBA circular locking dependency exists between hdev->lock and
-hdev->cmd_sync_work_lock in the Bluetooth subsystem. Callers holding
-hci_dev_lock(hdev) (such as MGMT command handlers and HCI event handlers)
-acquire hdev->cmd_sync_work_lock when enqueuing or looking up cmd_sync work via
-hci_cmd_sync_queue()/hci_cmd_sync_queue_once(). Conversely, hci_cmd_sync_clear()
-(and related cancellation paths in net/bluetooth/hci_sync.c) acquires
-hdev->cmd_sync_work_lock and calls _hci_cmd_sync_cancel_entry(), which invokes
-entry->destroy (e.g. add_ext_adv_params_complete) while still holding
-hdev->cmd_sync_work_lock. Because entry->destroy attempts to acquire
-hci_dev_lock(hdev), this inverts the lock hierarchy and causes a deadlock.
+> +};
+> +
+>   /* An SMMUv3 instance */
+>   struct arm_smmu_device {
+>   	struct device			*dev;
+> @@ -993,6 +1000,8 @@ struct arm_smmu_device {
+>   
+>   	int				gerr_irq;
+>   	int				combined_irq;
+> +	/* MSI vector index to enum arm_smmu_msi_index */
+> +	u8				msi_map[ARM_SMMU_MAX_MSIS];
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=fc55a609cd9deea4ea37
+should this be an array of enum arm_smmu_msi_index, as in 
+arm_smmu_setup_msi_vector() we write a enum arm_smmu_msi_index? I am 
+assuming that is why enum arm_smmu_msi_index was relocated.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fc55a609cd9deea4ea37@syzkaller.appspotmail.com
+>   
+>   	unsigned long			oas; /* PA */
+>   	unsigned long			pgsize_bitmap;
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index cb45bd154c9e5..a312984bc6a0e 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -56,13 +56,6 @@ static struct iommu_dirty_ops arm_smmu_dirty_ops;
+>    */
+>   static DEFINE_STATIC_KEY_FALSE(arm_smmu_erratum_repeat_tlbi_cfgi_key);
+>   
+> -enum arm_smmu_msi_index {
+> -	EVTQ_MSI_INDEX,
+> -	GERROR_MSI_INDEX,
+> -	PRIQ_MSI_INDEX,
+> -	ARM_SMMU_MAX_MSIS,
+> -};
+> -
+>   #define NUM_ENTRY_QWORDS 8
+>   static_assert(sizeof(struct arm_smmu_ste) == NUM_ENTRY_QWORDS * sizeof(u64));
+>   static_assert(sizeof(struct arm_smmu_cd) == NUM_ENTRY_QWORDS * sizeof(u64));
+> @@ -4933,7 +4926,7 @@ static void arm_smmu_write_msi_msg(struct msi_desc *desc, struct msi_msg *msg)
+>   	phys_addr_t doorbell;
+>   	struct device *dev = msi_desc_to_dev(desc);
+>   	struct arm_smmu_device *smmu = dev_get_drvdata(dev);
+> -	phys_addr_t *cfg = arm_smmu_msi_cfg[desc->msi_index];
+> +	phys_addr_t *cfg = arm_smmu_msi_cfg[smmu->msi_map[desc->msi_index]];
+>   
+>   	doorbell = (((u64)msg->address_hi) << 32) | msg->address_lo;
+>   	doorbell &= MSI_CFG0_ADDR_MASK;
+> @@ -4943,19 +4936,29 @@ static void arm_smmu_write_msi_msg(struct msi_desc *desc, struct msi_msg *msg)
+>   	writel_relaxed(ARM_SMMU_MEMATTR_DEVICE_nGnRE, smmu->base + cfg[2]);
+>   }
+>   
+> +static void arm_smmu_setup_msi_vector(struct arm_smmu_device *smmu,
+> +				      unsigned int *vec, unsigned int *nvec,
+> +				      enum arm_smmu_msi_index index)
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor/5634 is trying to acquire lock:
-ffff8880298c40b8 (&hdev->lock){+.+.}-{4:4}, at: add_ext_adv_params_complete+0xd5/0x890 net/bluetooth/mgmt.c:9253
+mega nit: "index" as a name is quite vague as we are indexing vec[] and 
+smmu->msi_map[] in this function. Maybe "msi_index" would be better.
 
-but task is already holding lock:
-ffff8880298c47c0 (&hdev->cmd_sync_work_lock){+.+.}-{4:4}, at: hci_cmd_sync_clear+0xfb/0x3f0 net/bluetooth/hci_sync.c:682
+> +{
+> +	writeq_relaxed(0, smmu->base + arm_smmu_msi_cfg[index][0]);
+> +	vec[index] = *nvec;
+> +	smmu->msi_map[(*nvec)++] = index;
+> +}
+> +
+>   static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
+>   {
+> -	int ret, nvec = ARM_SMMU_MAX_MSIS;
+> +	unsigned int vec[ARM_SMMU_MAX_MSIS] = {
+> +		/* An unused source maps to a vector past nvec */
+> +		[0 ... ARM_SMMU_MAX_MSIS - 1] = ARM_SMMU_MAX_MSIS,
+> +	};
+>   	struct device *dev = smmu->dev;
+> +	unsigned int nvec = 0;
+> +	int ret;
+>   
+> -	/* Clear the MSI address regs */
+> -	writeq_relaxed(0, smmu->base + ARM_SMMU_GERROR_IRQ_CFG0);
+> -	writeq_relaxed(0, smmu->base + ARM_SMMU_EVTQ_IRQ_CFG0);
+> -
+> +	arm_smmu_setup_msi_vector(smmu, vec, &nvec, EVTQ_MSI_INDEX);
+> +	arm_smmu_setup_msi_vector(smmu, vec, &nvec, GERROR_MSI_INDEX);
+>   	if (smmu->features & ARM_SMMU_FEAT_PRI)
+> -		writeq_relaxed(0, smmu->base + ARM_SMMU_PRIQ_IRQ_CFG0);
+> -	else
+> -		nvec--;
+> +		arm_smmu_setup_msi_vector(smmu, vec, &nvec, PRIQ_MSI_INDEX);
+>   
+>   	if (!(smmu->features & ARM_SMMU_FEAT_MSI))
 
-which lock already depends on the new lock.
+In this case (or any other time in which we return early in this 
+function), it seems less than ideal - as a coding practice - that we 
+have written values in smmu->msi_map and they won't be used.
 
+>   		return;
+> @@ -4972,9 +4975,10 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
+>   		return;
+>   	}
+>   
+> -	smmu->evtq.q.irq = msi_get_virq(dev, EVTQ_MSI_INDEX);
+> -	smmu->gerr_irq = msi_get_virq(dev, GERROR_MSI_INDEX);
+> -	smmu->priq.q.irq = msi_get_virq(dev, PRIQ_MSI_INDEX);
+> +	/* msi_get_virq() returns 0 for an unused source that has no vector */
 
-the existing dependency chain (in reverse order) is:
+So are you saying that msi_get_virq(dev, ARM_SMMU_MAX_MSIS) returns 0?
 
--> #1 (&hdev->cmd_sync_work_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       hci_cmd_sync_lookup_entry net/bluetooth/hci_sync.c:869 [inline]
-       hci_cmd_sync_queue_once+0x42/0x250 net/bluetooth/hci_sync.c:806
-       hci_update_passive_scan+0x1bf/0x210 net/bluetooth/hci_sync.c:3518
-       le_conn_complete_evt+0xee9/0x18d0 net/bluetooth/hci_event.c:6106
-       hci_le_conn_complete_evt+0x187/0x470 net/bluetooth/hci_event.c:6117
-       hci_event_func net/bluetooth/hci_event.c:8084 [inline]
-       hci_event_packet+0x67a/0xf10 net/bluetooth/hci_event.c:8138
-       hci_rx_work+0x2b4/0x1110 net/bluetooth/hci_core.c:4150
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+If so, do we really require checks like the following:
 
--> #0 (&hdev->lock){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       add_ext_adv_params_complete+0xd5/0x890 net/bluetooth/mgmt.c:9253
-       _hci_cmd_sync_cancel_entry net/bluetooth/hci_sync.c:667 [inline]
-       hci_cmd_sync_clear+0x1b4/0x3f0 net/bluetooth/hci_sync.c:684
-       hci_unregister_dev+0x1b4/0x5c0 net/bluetooth/hci_core.c:2697
-       vhci_release+0x16d/0x1c0 drivers/bluetooth/hci_vhci.c:704
-       __fput+0x408/0xa40 fs/file_table.c:512
-       fput_close_sync+0x11f/0x240 fs/file_table.c:618
-       filp_close_sync+0x6e/0xa0 fs/open.c:1574
-       close_files fs/file.c:572 [inline]
-       put_files_struct+0x230/0x3c0 fs/file.c:584
-       do_exit+0x6f0/0x2360 kernel/exit.c:977
-       do_group_exit+0x22d/0x2f0 kernel/exit.c:1123
-       get_signal+0x136a/0x1430 kernel/signal.c:3113
-       arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
-       __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
-       exit_to_user_mode_loop+0x10e/0x770 kernel/entry/common.c:101
-       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-       syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
-       do_syscall_64+0x32c/0x530 arch/x86/entry/syscall_64.c:107
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+if (smmu->features & ARM_SMMU_FEAT_PRI) {
+		irq = smmu->priq.q.irq;
+		if (irq) {
 
-other info that might help us debug this:
+I am talking about the ARM_SMMU_FEAT_PRI flag check, as smmu->priq.q.irq 
+== 0 and ARM_SMMU_FEAT_PRI unset seem equivalent.
 
- Possible unsafe locking scenario:
+> +	smmu->evtq.q.irq = msi_get_virq(dev, vec[EVTQ_MSI_INDEX]);
+> +	smmu->gerr_irq = msi_get_virq(dev, vec[GERROR_MSI_INDEX]);
+> +	smmu->priq.q.irq = msi_get_virq(dev, vec[PRIQ_MSI_INDEX]);
+>   
+>   	/* Add callback to free MSIs on teardown */
+>   	devm_add_action_or_reset(dev, arm_smmu_free_msis, dev);
 
-       CPU0                    CPU1
-       ----                    ----
-  lock(&hdev->cmd_sync_work_lock);
-                               lock(&hdev->lock);
-                               lock(&hdev->cmd_sync_work_lock);
-  lock(&hdev->lock);
-
- *** DEADLOCK ***
-
-locks held by syz-executor/5634: 1, on CPU#1:
- #0: ffff8880298c47c0 (&hdev->cmd_sync_work_lock){+.+.}-{4:4}, at: hci_cmd_sync_clear+0xfb/0x3f0 net/bluetooth/hci_sync.c:682
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 5634 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
- add_ext_adv_params_complete+0xd5/0x890 net/bluetooth/mgmt.c:9253
- _hci_cmd_sync_cancel_entry net/bluetooth/hci_sync.c:667 [inline]
- hci_cmd_sync_clear+0x1b4/0x3f0 net/bluetooth/hci_sync.c:684
- hci_unregister_dev+0x1b4/0x5c0 net/bluetooth/hci_core.c:2697
- vhci_release+0x16d/0x1c0 drivers/bluetooth/hci_vhci.c:704
- __fput+0x408/0xa40 fs/file_table.c:512
- fput_close_sync+0x11f/0x240 fs/file_table.c:618
- filp_close_sync+0x6e/0xa0 fs/open.c:1574
- close_files fs/file.c:572 [inline]
- put_files_struct+0x230/0x3c0 fs/file.c:584
- do_exit+0x6f0/0x2360 kernel/exit.c:977
- do_group_exit+0x22d/0x2f0 kernel/exit.c:1123
- get_signal+0x136a/0x1430 kernel/signal.c:3113
- arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
- __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
- exit_to_user_mode_loop+0x10e/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x32c/0x530 arch/x86/entry/syscall_64.c:107
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f35a9f69d0e
-Code: Unable to access opcode bytes at 0x7f35a9f69ce4.
-RSP: 002b:00007ffe3a7895f8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-RAX: fffffffffffffe00 RBX: 00005555922b8500 RCX: 00007f35a9f69d0e
-RDX: 0000000000000030 RSI: 00007ffe3a7896f0 RDI: 00000000000000f9
-RBP: 00007ffe3a78969c R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000258
-R13: 000000000000002b R14: 000000000006526d R15: 00007ffe3a7896f0
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
