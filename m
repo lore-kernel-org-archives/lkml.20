@@ -1,102 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794862433;
-	b=RSP9NcWgshgQ+UZ4KliC9vucqbff3Ln9zqgrxxVkF885+Cv7SKMxuFvdnAWzykD5qrLk
-	 FkVD0zomfxV1nz3pO5WCPLXDMyUG5tM9dOVHVdj9tfkJMAftBfBsAKCXegtkHz2eQpyCu
-	 Pz+eJ6NadbQ2vhcu5BPLWmi8A6YYNm8NH/rQEwb1U1juEAcrWdUY4XYzzRrukcBsAyeHl
-	 KLVuHvIfVxbPkHr+vweZXC3yctW96TF8J+oFKMuj7C/kq4MpesX73rEmvqTTn0+H+r8D9
-	 CLedmvS0YgKKPzUbTDY0tqfO+2wYhconWhhP8hadE+R8X/xPwp5noDOlGjj7+bbdTxA==
+	b=J1QKLgJbZHdw8S3CUzjxeyKRhszH/JUF+8N8s/uj4AMYrmY9DWRCdv0Ex2lc+Te+VLc1
+	 VPLaN/4RusWi+VXJpAWbqThM5Fref4C2oMfBzbLqqnBCITZcOLfKmHKbZwW8Ia9Hxygxn
+	 xusp6CPQoA/S61A1d23RSgRBrLDQGAX0pcspiveNfkEz3edTj04Z9daVcaj5nduKordgw
+	 y+C8t5vRKihhWsgnU2Y+QcmxDnGkCiCO2CG47aa9Gv6t//lATHhTKyDx/K23TbuM7Kiw2
+	 ciwwosfTidPIXS95WxYjxwJZb5o5CWfjeDWUO7iRXurVSodmxlWt+rBuepIwxUbtCog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794862433;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oLtriKjTvSSHrsef7Np3jMgnZ+Hl7Owr5a+y0JpAEig=;
-	b=OBGoYiegdF0vJ5Uk98C3TjQDvEtCwItGu1ZyNHxpuNq5WagaXmd5IVOJlyLo6PB3tCRl
-	 FoY40HHJes5bLXoIjeD6u+HVoSrT4f2/r95FAXOZ8sc5zV/gHrxIw7/xRB954eIhyM29S
-	 IgNWc6rovvj95EH50S5wOqhN4JaEMS856f7L9aMgN5nuSwDIV/evAg49Lue00k2YrZ0pM
-	 AuKK/y7/LtT29tYqEPa4YfKD8mIWipucJCcsXh06vunef+C+h+2nQb9TRsJdw5Zp8HyLB
-	 mq3LQ1hKc2f+dzSwWtQmAgYVww7NmNiO+QqdskduJ7Vq4lZpiwwxmvz0U6k/u9o2odg==
+	bh=jPlGNQGUllWqmUH4lzVRty7A7FRP7Ti1jD8lLs2t1TU=;
+	b=zQpwp88VSmx4wZ66kDLSIuqOtkX2o0vsA0OmU9C0w0+TLgy1+c+PptBUhx4uJk9QqTTn
+	 kr3QubrrlSCemQq83S5ZgBbglnP5LzzSGAGAbmcAQCJXetbzrsXRF+u+E/FFrrNXOJ5rp
+	 bvZdQEGO8D8w6YqaBIAjj5PYxB0yEAa8Km63laYb/GPEJ9Xf/BKliooOIDcxjVlLvBIkg
+	 kmzd7dY1Chzc+ACOeupTiy9GhyoL+QCNolDrdi0XU0/rWBUOrhlzkRC8e+0CfZjJeOxBk
+	 wj5n7RaMmMlqw2JMvg51+m/81DDIIjYYBOKDcPSnASr1IoFpUnUKvIwHrhvkvPxLT4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJ7Y3AFN;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WJdIBema;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0336D606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFE1606A88B
 	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:53:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0336D606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAFE1606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJ7Y3AFN
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b3acec6677so5661691c88.1
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WJdIBema
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6397586eec.1
         for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:53:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794862432; x=1795467232; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794862432; x=1795467232; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oLtriKjTvSSHrsef7Np3jMgnZ+Hl7Owr5a+y0JpAEig=;
-        b=TJ7Y3AFN2mQOWIbXoIbygcGFIeOTdYnH2URceY/WJFdyf+bMQD+mYAJIrRPC4h3YfA
-         NMBXffUDVPbIjQ709/3XtATSDVDATK0bIbHk5ZfEvXiUuxJMnuC3EYOmP6lA66PsPhg+
-         MWRzqrEWfZ4RrYPDdbJ+5R4qbNXHYp4AIVsds/1QyGChOpYdEtyHJp2HAEuSEa2Oii1q
-         rAoufgP1M0G8/XartnNVQ8c5229Hniax2Dn4AY9J8U4fcfzd6qRxfVus+elB7Zt5Ke1v
-         AXQJVBt6rCbWmiWa1m8Xah/lP+l7bHVEgd1CcAuZH4H5cYWee0CoV4CsKt8vC7+4F/UI
-         AjFg==
+        bh=jPlGNQGUllWqmUH4lzVRty7A7FRP7Ti1jD8lLs2t1TU=;
+        b=WJdIBema9Fy0VVb2yMJm4K2vvVv1owxU35L0eJP8xf4aP6rtPSqyG9uFfIavMdPzli
+         wpiqVTFcecByqRNwNTHoVoPvmW2xsCFgmJpreSvaxrIDlGlmLDSsRNcQdLKFRi+rnJvB
+         b2gk2YPIZerYWu0J/quwLqJD0nVi6rREk6HfI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794862432; x=1795467232;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oLtriKjTvSSHrsef7Np3jMgnZ+Hl7Owr5a+y0JpAEig=;
-        b=TUgGzW9xDkNODRALR5YSKTnMIpOtuoOvlidBULz/WTZMg3ZdLSRoygRnx+PO2Ca2ke
-         CMNuBvAmAYQaebFLahN+/vXfY+1wQQhuO/hifK9kXzmeG6+ip8JxjuS/S3/eK9HONlXw
-         EQ2AflWPy9dnoGVogU+aVQQNv7skTewftcVwulC+V6FvV7DFEGrT9E1j2Rz5HLbW96YA
-         fHqCgIX8v8ZZCY6Koc5d7IMncRHYdrV9YV6vLSz/7Vo5Lq8L1J9v5Za3LFYLsp0h2Hd0
-         0mSaf5cB2qedOxRwpe9ZaEZOUFn4WxiAg2fbYpuhd2KbTr3WwIxKD/BWaUkPXU5B3C9F
-         L/yw==
-X-Forwarded-Encrypted: i=1; AL+hErGFtlilPtORcGTwzw5AhHyYTWIak00H3AF0gI5yhZKxKq73VeiTpFX7Fh+CXYMlvMzSetbWoUr2gIRLZ0c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KdBu6kEg5joi419sMkBDITXy5P72NS8zKnw7lVe4AeWM5wciJ
-	OfPfZA9WO3UaHEwDYoqrEQk5YjLSnUaDggWvpuML4bgqbbvDmX26NSMr
-X-Gm-Gg: AYBFou3VrIKb5H85Oa6cDrCjKmXaNuECZISSof4sn5AwDFg96r6LrnpDsfTKiuDJVmI
-	4/gH6ZDLkK8+XUVxuIR/C1//di//bDPevmx/0mvhVumf+nJmHwS9T+jJR7siwIhEf39L7nimfNu
-	62LhGdhjY6GS2jYQ2NEmOdP1NMy97h2t2aGcaWerLFn0SaY2LWlameC1eXhPwMZolvzD/KFaOHc
-	22R3GOib+npiMAvEpEeKozuYwVAVidB0CmQztt0pSNySjWXcyqnoN4bCPVXvnqy/1SnyxaoJQaV
-	ZZgMeTZEUskh+WRIdb298Mlywdr0PvSZV03KlPKYtatzIArasvPzn8iLwZ6Qz2uQ1hkoZen1szl
-	aKsZri5IIH0ZFl+mG5A7ML3xEdol429aAQDm/WSeALyh6XzNxtNwvxHsNhQxhzIoUvntj0Vsp2c
-	kj9Cu+/M+unHFNXiltxw7anScUCjcNcWH02Ex7/Zxa/a04bOWkWOqraxdWsqSfakdQTq9dC9wEs
-	tBh9xQjgFzoaj63th1n2G1hE3qDiWn/SHoarz90Iv68ks7PvjxywPw1WOljFw5q1wq+SyhToAqA
-	pfga0/tHnnHLfJLB2m5SR7j1PkF47gpHrRSwO92vSODULdkTxmqIOCE+y4ui4Ht1xXVr/Jge2W9
-	GQk+LYAPNBYPnVwTO+WDacdOficxU6xNE5BqHTCvg6V63dK9a4V2lC3lEnhBGHCDToMMVg3yGRE
-	UpIljXyyy63I5cuXqko/JEAEwORbvvJYTMws5A9evRqQ==
-X-Received: by 2002:a05:7022:286:20b0:14f:8d59:edcc with SMTP id a92af1059eb24-1b5030d4057mr11251768c88.12.1794862432024;
-        Mon, 16 Nov 2026 12:53:52 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm15293497c88.4.2026.11.16.12.53.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=jPlGNQGUllWqmUH4lzVRty7A7FRP7Ti1jD8lLs2t1TU=;
+        b=SyI1PTaT3a9AMMGmcVXkLvlq/jOz/dgvy2qjgsxqRcnUbHNCrDhWyF91YpmLOtZ4gq
+         wcaIuB+8RXxpmve7jVhgd016YZAFHQ5WClU6lVo7QQwm7fK6vOd8zjHmeqdRiF0BxrIM
+         bEToMgTmBsS+l4i6LZOxw7houjv/velobCgzPerpnbDY6AB+0A7ZtqMwCvn7n58S6Jbw
+         mQiQD7drjIvBIwP8FpDf1TWMlg01gX37YsD1ILN7zh9kXhLbPIBCVcmb0vMlyCDGywK0
+         dfT4DdmDjH2GoLk3n8dgB/cPQpsji3gDx1bel74bIt2o0GrYmhrQYuef5cvwgOV00DeW
+         0A4w==
+X-Forwarded-Encrypted: i=1; AL+hErEZjarM6UJNR3T6eOciQ8zVB1ir60IgubycFP0rvMZVSDt8Me6WIRe/aogc/MobQ9bHEl1t5OvdUOKOqlc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ulyP6ZthximZGbAI/W7XY4CuxUUDw2JFapBa5/UsItpATxT6D
+	6VZ9m0jx63Pek3fBaEHgedGzsRrEyELB34lZKxmJNr4q4g3xPH61ybiJ2Q2E+c4uIQ==
+X-Gm-Gg: AZFdTZcjplxsdzq/s9i9wegbDvyqXsmF2IWKHRG+GlHc0hJkV7FD/WT2GH9nhgu9kOV
+	iUIjOVZ6AFJcCZtqhnLUXkMXO4lj/ZzQuukbSWq9G4ysvFY066idJSDQxFmkUr7aOAFbQoHjQmh
+	aCLMQEnFPMagfK3/R/yALYQR0Lrs7T4vSl0UEjcgMO0ETyUKLuD1S3IrEsnOLk6ghmzzO3uggsj
+	OxCMJS8pW5Xu8mOpXFlMCCIr+2MbjwC5nCElK6xN4TkuqsDrNto3/X4iMEdzHqrmN8MtmvJmeHZ
+	iZqXNyEV/ZS/bwx0P4zJBQ6dyOcnyHadlkDhEK5g5mGgz9QZUjCYpMj3bX31GCrdk0dzYmkQLT/
+	LwKax/lEgdERKF8TcffQkhCC2WBpxpXy2/IQMwIChEfFKkiEkV0BUeiQSmV4rWnLXiFsZ313nwh
+	A8BNLYj8EN3MDM8WTKkVwcrtZeh49MmjcCr9XmfW+56CRIsmfIVO6Yu1f2yHdJvSU+sNTrHOAQc
+	lOXMeF+mB0VhvI19KbGJZIg8s3JG0NgFkEvWLmtSjy/dAjs5ds4mFivwyAytG5Vtj9oVEIUlPOr
+	Xo3F9sCBMnPAJ8Rztr84Uhz7ECacX2NWAgFeLk7JkNfQxr6BaJGEkxbMjb/DfZPsPQzjhgNIPiO
+	Uzq1AqjlVJsagSS7pIVwszd+9D6CvVGmrnE0=
+X-Received: by 2002:a05:693c:2a0a:b0:369:fbc1:89c2 with SMTP id 5a478bee46e88-37965daa77cmr10150232eec.8.1794862431716;
         Mon, 16 Nov 2026 12:53:51 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Stephen Boyd <swboyd@chromium.org>,
-	linux-iio@vger.kernel.org,
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 12:53:50 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>,
 	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH 4/6] iio: proximity: sx9360: fix hardware gain encoding
-Date: Tue, 17 Nov 2026 02:23:12 +0530
-Message-ID: <20261116205320.26070-5-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116205320.26070-1-kapoorarnav43@gmail.com>
-References: <20261116205320.26070-1-kapoorarnav43@gmail.com>
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>
+Subject: [PATCH v4 06/14] pylibfdt: Speed up FdtRo.properties() with a C helper
+Date: Mon, 16 Nov 2026 12:53:03 -0800
+Message-ID: <20261116205320.1621386-7-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
+References: <20261116205320.1621386-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,88 +111,139 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sx9360 PROX_CTRL0 gain handling was copied from the original sx9324
-driver and has the same bug that commit 108e4d4de2b5
-("iio:proximity:sx9324: Fix hardware gain read/write") fixed there:
+Iterating over a node's properties via `FdtRo.properties()` currently
+crosses the Python/SWIG boundary `1 + 2 * num_props` times per node
+(`first_property_offset()`, `get_property_by_offset()`, and
+`next_property_offset()`, along with their Python `check_err()` and
+`check_err_null()` wrappers). When walking every property across large
+device trees from Python, those per-property SWIG round-trips dominate
+runtime.
 
-  - The gain field holds ilog2(<gain>) + 1, with 0 reserved, so a gain
-    of 1 is 0x1 and a gain of 8 is 0x4. read_gain() and write_gain()
-    use ilog2(<gain>) instead, so every gain is off by one: writing 1
-    programs the reserved code 0 and writing 8 programs a gain of 4.
-  - SX9360_REG_PROX_CTRL0_GAIN_1 is 0x80, which sets the reserved bit 7
-    and leaves the gain field at the reserved code 0, instead of
-    0x1 << 3.
+Add a C helper `fdt_node_properties_stub()` in `pylibfdt/libfdt.i`
+backing `FdtRo.properties()` so all `Property` objects for a node are
+collected in a single C call per node, interning property name strings
+via `PyUnicode_InternFromString()`. Also add an invalid-offset exception
+check to `testPropertiesIterator` in `tests/pylibfdt_tests.py`.
 
-Semtech's own SX9360 driver (shipped in Samsung Galaxy kernels) decodes
-the field the same way, codes 1..4 as x1..x8 and 0, 5..7 as reserved,
-and programs 0x09 (gain x1, bit 7 clear) into both PROX_CTRL0
-registers.
+On one stress test (walking all ~573k nodes and ~2.06M properties across
+438 arm64 Qualcomm DTBs) this reduced `FdtRo.properties()` time by
+~1.8x.
 
-Use the same encoding as sx9324: add one when writing, subtract one
-when reading, return -EINVAL for the reserved codes on read, and build
-the default with FIELD_PREP_CONST(). SX9360_REG_PROX_CTRL0_GAIN_8 used
-by the range check in write_gain() becomes 0x4 accordingly.
-
-Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-Link: https://github.com/TeamWin/android_kernel_samsung_d2q/blob/master/drivers/sensors/sx9360.c
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Assisted-by: Gemini:gemini-pro-prerelease
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
- drivers/iio/proximity/sx9360.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+Found this speedup while benchmarking fdtfactor. It's not critical to
+functionality, but seems like a nice win.
 
-diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-index d102e20d4084..9ba967a33c98 100644
---- a/drivers/iio/proximity/sx9360.c
-+++ b/drivers/iio/proximity/sx9360.c
-@@ -64,8 +64,9 @@
- #define SX9360_REG_PROX_CTRL0_PHR	0x40
- #define SX9360_REG_PROX_CTRL0_PHM	0x41
- #define SX9360_REG_PROX_CTRL0_GAIN_MASK	GENMASK(5, 3)
--#define SX9360_REG_PROX_CTRL0_GAIN_1		0x80
--#define SX9360_REG_PROX_CTRL0_GAIN_8		0x3
-+#define SX9360_REG_PROX_CTRL0_GAIN_RSVD		0x0
-+#define SX9360_REG_PROX_CTRL0_GAIN_1		0x1
-+#define SX9360_REG_PROX_CTRL0_GAIN_8		0x4
- #define SX9360_REG_PROX_CTRL0_RAWFILT_MASK	GENMASK(2, 0)
- #define SX9360_REG_PROX_CTRL0_RAWFILT_1P50	0x01
- #define SX9360_REG_PROX_CTRL1		0x42
-@@ -289,7 +290,12 @@ static int sx9360_read_gain(struct sx_common_data *data,
- 	if (ret)
- 		return ret;
- 
--	*val = 1 << FIELD_GET(SX9360_REG_PROX_CTRL0_GAIN_MASK, regval);
-+	regval = FIELD_GET(SX9360_REG_PROX_CTRL0_GAIN_MASK, regval);
-+	if (regval == SX9360_REG_PROX_CTRL0_GAIN_RSVD ||
-+	    regval > SX9360_REG_PROX_CTRL0_GAIN_8)
-+		return -EINVAL;
-+
-+	*val = BIT(regval - 1);
- 
- 	return IIO_VAL_INT;
+Changes in v4:
+- New patch speeding up FdtRo.properties() with a C helper
+
+ pylibfdt/libfdt.i       | 64 ++++++++++++++++++++++++++++++++++++++---
+ tests/pylibfdt_tests.py |  3 ++
+ 2 files changed, 63 insertions(+), 4 deletions(-)
+
+diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+index e4a9357d278a..333a25f27946 100644
+--- a/pylibfdt/libfdt.i
++++ b/pylibfdt/libfdt.i
+@@ -24,6 +24,61 @@ static int fdt_property_stub(void *fdt, const char *name, const void *val,
+     return fdt_property(fdt, name, val, len);
  }
-@@ -612,7 +618,7 @@ static int sx9360_write_gain(struct sx_common_data *data,
- 	if (val <= 0)
- 		return -ERANGE;
  
--	gain = ilog2(val);
-+	gain = ilog2(val) + 1;
- 	if (gain > SX9360_REG_PROX_CTRL0_GAIN_8)
- 		return -ERANGE;
++static PyObject *fdt_node_properties_stub(const void *fdt, int nodeoffset,
++                                          PyObject *prop_cls)
++{
++    PyObject *list = PyList_New(0);
++    int poff;
++
++    if (!list)
++        return NULL;
++
++    poff = fdt_first_property_offset(fdt, nodeoffset);
++    while (poff >= 0) {
++        const char *pname;
++        int len;
++        const void *val = fdt_getprop_by_offset(fdt, poff, &pname, &len);
++        PyObject *name_obj, *val_obj, *prop_obj;
++        int rc;
++
++        if (!val) {
++            Py_DECREF(list);
++            return PyLong_FromLong(len);
++        }
++        name_obj = PyUnicode_InternFromString(pname);
++        if (!name_obj) {
++            Py_DECREF(list);
++            return NULL;
++        }
++        val_obj = PyBytes_FromStringAndSize((const char *)val, len);
++        if (!val_obj) {
++            Py_DECREF(name_obj);
++            Py_DECREF(list);
++            return NULL;
++        }
++        prop_obj = PyObject_CallFunctionObjArgs(prop_cls, name_obj, val_obj,
++                                                NULL);
++        Py_DECREF(name_obj);
++        Py_DECREF(val_obj);
++        if (!prop_obj) {
++            Py_DECREF(list);
++            return NULL;
++        }
++        rc = PyList_Append(list, prop_obj);
++        Py_DECREF(prop_obj);
++        if (rc < 0) {
++            Py_DECREF(list);
++            return NULL;
++        }
++        poff = fdt_next_property_offset(fdt, poff);
++    }
++    if (poff != -FDT_ERR_NOTFOUND) {
++        Py_DECREF(list);
++        return PyLong_FromLong(poff);
++    }
++    return list;
++}
++
+ %}
  
-@@ -663,9 +669,11 @@ static const struct sx_common_reg_default sx9360_default_regs[] = {
- 	{ SX9360_REG_AFE_PARAM1_PHM, SX9360_REG_AFE_PARAM1_AGAIN_PHM_6PF |
- 		SX9360_REG_AFE_PARAM1_FREQ_83_33HZ, "afe_param1_phm" },
+ %pythoncode %{
+@@ -477,10 +532,9 @@ class FdtRo(object):
+         Raises:
+             FdtException on error (e.g. invalid nodeoffset)
+         """
+-        poff = self.first_property_offset(nodeoffset, quiet=QUIET_NOTFOUND)
+-        while poff >= 0:
+-            yield self.get_property_by_offset(poff)
+-            poff = self.next_property_offset(poff, quiet=QUIET_NOTFOUND)
++        return iter(check_err(
++            fdt_node_properties_stub(self._fdt, nodeoffset, Property)
++        ))
  
--	{ SX9360_REG_PROX_CTRL0_PHR, SX9360_REG_PROX_CTRL0_GAIN_1 |
-+	{ SX9360_REG_PROX_CTRL0_PHR,
-+		FIELD_PREP_CONST(SX9360_REG_PROX_CTRL0_GAIN_MASK, SX9360_REG_PROX_CTRL0_GAIN_1) |
- 		SX9360_REG_PROX_CTRL0_RAWFILT_1P50, "prox_ctrl0_phr" },
--	{ SX9360_REG_PROX_CTRL0_PHM, SX9360_REG_PROX_CTRL0_GAIN_1 |
-+	{ SX9360_REG_PROX_CTRL0_PHM,
-+		FIELD_PREP_CONST(SX9360_REG_PROX_CTRL0_GAIN_MASK, SX9360_REG_PROX_CTRL0_GAIN_1) |
- 		SX9360_REG_PROX_CTRL0_RAWFILT_1P50, "prox_ctrl0_phm" },
- 	{ SX9360_REG_PROX_CTRL1, SX9360_REG_PROX_CTRL1_AVGNEG_THRESH_16K, "prox_ctrl1" },
- 	{ SX9360_REG_PROX_CTRL2, SX9360_REG_PROX_CTRL2_AVGDEB_2SAMPLES |
+     def getprop(self, nodeoffset, prop_name, quiet=()):
+         """Get a property from a node
+@@ -1420,5 +1474,7 @@ int fdt_property_cell(void *fdt, const char *name, uint32_t val);
+   * function and a struct, which confuses SWIG.
+  */
+ int fdt_property_stub(void *fdt, const char *name, const void *val, int len);
++PyObject *fdt_node_properties_stub(const void *fdt, int nodeoffset,
++                                   PyObject *prop_cls);
+ 
+ %include <libfdt.h>
+diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+index e2f9c6d5afe4..9c0104bfbabb 100644
+--- a/tests/pylibfdt_tests.py
++++ b/tests/pylibfdt_tests.py
+@@ -270,6 +270,9 @@ class PyLibfdtBasicTests(unittest.TestCase):
+         self.assertEqual(props[0], b'subnode1\0')
+         leaf = self.fdt.path_offset('/subnode@1/ss1')
+         self.assertEqual(list(self.fdt.properties(leaf)), [])
++        with self.assertRaises(FdtException) as e:
++            list(self.fdt.properties(-1))
++        self.assertEqual(e.exception.err, -libfdt.BADOFFSET)
+ 
+     def testFirstNextSubnodeOffsetExceptions(self):
+         """Check except handling for first/next subnode functions"""
 -- 
-2.53.0
+2.56.0.679.gc527c65306-goog
 
