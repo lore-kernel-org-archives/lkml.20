@@ -1,128 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824483;
-	b=0PI9O7uF5NAqtDo0I79jbKj9LpIAir/DdpM8h/kY+NYA9ipPMj2zAxghEwjVGdK6dPaa
-	 95OXg7Dq5wp9RTQIIkZfHMELXfhTmkeXs7YTadFF6ycWoY0kEfevP+yK187iKa1xTQG5C
-	 dPO2GZZu1F4U8bDoU01t0biPj4yTsSRYVQv/XHmZK91MNU6gkuZgrFAEDW6TyGAHEgasQ
-	 D1HOLubm3HFByCN06Dqx9Luqk5SQqq0VS4XEJ438XY0/EahYP2ZIaql1HzqP53LUQmfgW
-	 N6u2ecrP5vzaONcwyTQU8LtLEEfxP4JGedTiVQUJeCDvOLlJClcMqTI5oKhp06oR5EQ==
+	t=1794824502;
+	b=OgjjQh0IR8cloe1EAF0EsidCIB+hmhranKZVL7sRveGCRlmx6gW+NB2h0idHAXb2HQyv
+	 zCZoun8sAqXeJhGY73UL5Ej7Jq+gfqwhF2TJLD8I7VSqrNu3G/4t+8ZKjhnTlgLFngZt7
+	 NfkULO9kcDCwlfOkC6QsWF6Z8uMtN93qi/FiJXcmivAuTnvKSMj4ZWuXYrBnKMGMKvR5m
+	 0jS6qSL2E9e5kGhkIHN97hA0roepHUrgiqWtovs3oIZ56t375pOyBRgGB8kHJ5RvCtz0u
+	 nfUd4HT/qTW3oyYCrA5YO8zN36Tc05EoZflB6GEfzwgOhpqEZvwSDgHd8qAT0AKzA+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824483;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TtB6NVTta0tvsTqH3AzztjW+y0F8Qfmd7U44QxV+Lc4=;
-	b=m5+f8Qdzh01V6lPTsWkDECPGiAOL/8fq1i8obvfMRYgN0wH9G1L7c77W7iH8qgwDwIn9
-	 7j+YuIzaVwNB5+wRXtmOWYraGxHB66OvLts/Mqa0RLii/g3duaMh1y3wmjaOhoBrpA06E
-	 rB4sYaISaKuq9Gn6pwR+DkJxqy9OnXvr5msgX1fYDKi08SnfIdofVYP5j6V9RB0yecLo1
-	 qE/yN5wmDqtkHn4MYYmipTBiZjdMnlfU1v3fA6kyzaVIQaO4fTZKYcDYeit4ZqvemrC5R
-	 kCyqJ7uPFF26GXWip/CVKeCJKmKfCzWTvZwQgucCBhuT28cBbDvVPJVKSMceFhORKiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824502;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DqQSlp0OxWt+yQpbkHF9ExhxGvHfj4LoD8pce6Yk+4o=;
+	b=vMJAfCQoB8/mKeXPj/4Kiat6J+6zkajNhZvV8GF5BHl9WuASgCW0Alz8n3k0u7UyCpXl
+	 390/RbBT51wKQL4BY6Fq7gzLSnq6SxV4frN1OXriaHxeBnw6CGJ/D1y+HhfdAh0zfADQP
+	 ++G4Maen2o/hEyCsbizBAR51vP8sAfguKqZdmcxyKwmtW8aqI6gQ8+B7sxiN8cIzJwxat
+	 YqIoY2oiFwwoAqUpDgpergNfldQyZ7WoL0B3eNdjF6U5l2jy++fII3ctnayGCKEirK/SO
+	 bM/Dc1x/ZmQ7MU6RznbvOgbYyv0O3g274qgxdKbWKRUmSfV+1gBzyePeHkR491Xympg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZY6mCzKY;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qccX7har;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ni1HVMUU;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C3B606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6C3B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9657606A31C;
+	Mon, 16 Nov 2026 10:21:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9657606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZY6mCzKY;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qccX7har
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794824481;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TtB6NVTta0tvsTqH3AzztjW+y0F8Qfmd7U44QxV+Lc4=;
-	b=ZY6mCzKYslCYVCgoiHSIHDP2myLAx44R4RcbutjRjjKpdhoxsbYjQyMas6Rc1LYlxsML6b
-	J4fH+hbHYEOS1gF7M8+S4UlrQD14Fx6Hn3cz4/LAnvHSQiiOMLX0tZKKee6iUWVwzCupAa
-	/z6xAqHMwhMO+mM0ETrE3rGz/JkyvDg=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-589-6X6XKzOaOXyrT2LVCaYoaA-1; Mon, 16 Nov 2026 05:21:20 -0500
-X-MC-Unique: 6X6XKzOaOXyrT2LVCaYoaA-1
-X-Mimecast-MFC-AGG-ID: 6X6XKzOaOXyrT2LVCaYoaA_1794824479
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-49034831bb3so2202823f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:21:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794824479; x=1795429279; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TtB6NVTta0tvsTqH3AzztjW+y0F8Qfmd7U44QxV+Lc4=;
-        b=qccX7harUwf8eiayr+DfzPEQNO8jtBu0G+uJB5TxwXa2l30hixqgX8IQihn/zG3p8r
-         HinAWqG7/9eDvncHZIxEd9PMMgvtJgrOL4NpfP8hQO64ilyrx2Q7KErbo5E0+ixYqpoC
-         woZDv40aalCfcg9ed56J1SMUDiua7kEyFjc5w0LN7AXS1hV7JYix3yWmMRoIM219PUVK
-         g00YxpfaEWiNOFAIX1NK6TlH31PG4Y3p42EujrYRyfFgf+MId6UJP974D5XgG2AUuCtq
-         c47WKJNQ0HeL1trBXI/OavSD7hnR09k+Mel8LAeHyqxrlXOZgdfcednP7c3xzBs0RvKq
-         9A6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794824479; x=1795429279;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TtB6NVTta0tvsTqH3AzztjW+y0F8Qfmd7U44QxV+Lc4=;
-        b=tV1Heh9Batqm+ClQIQeRMeEBYpxFoGOWWIdNcdUNjQxyKF8QF3keDSKQ8fCBU2xUXm
-         NqUFlOin1UPr9jwz8V60dhukvZYY3bais0inQ3karyyPZesjBZ7trpLtIhRpHa0zVzhS
-         NnAur0M1slYaap0ohmvEYKSWRxA48Mlgz923PiStnCDMN73wyqgfETVKtwWqBEbLRs6g
-         2iab8HBLb25AXt9qk6wE+AI8LE7GuOexDR3VrMaGaX6GFGmHEnZ9btR9JhcZSMN3Fw9z
-         nyM0hEN7CQXNsDrwcSfDWtHde/t9lLd/Sosz7ijDUDmYicVLBts9b+Bl1RQ0W6D6QYWD
-         JfBw==
-X-Forwarded-Encrypted: i=1; AL+hErF8vGe+bgcE61f7Boq5RdfN0JOedYM6Cc7UqdJ3ZHFlrGS/znTKrLzZAd/cuHV/HtCTg/TCEymzX5S6leQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SqBxYVID3fMC0+Ljw8ZwYo/9fP7RbuhxvkkvvvXQq1qCjSiOI
-	KI8uA7rbx4m7jWEGakd5du9IV6jApVwkaFniBh2zS+geBVvDd4wXdBt04eFvNRj1huOy63bxZUZ
-	6iq2HItK2JUVKPTdX/y5XVVNfsS1GskgDi6YzT3zUFai4DY4ih79o3s4jXw3To5QO/w==
-X-Gm-Gg: AZFdTZcG+eM1EdTKgoS2Fam3hyCleMeNr2wg6iD4qxQB7+xsa14TIC5AONWNEnK5Rmp
-	MHtFB5EPbRGfhAe5v2UaCj5IxSZ+0q1Wlf2uwKKDHBSzJDjqz5gxbKDbmczPmulbVslJVxudPD5
-	/UU1/5yedHeBMUJILQ3s/L5Lpdr6SBMFxbOaBrq5SMJ+KHCsF2cJJrTg48Oe+CKzk5yovFoOzvD
-	skWacWHkExPdH8dIOANwa5Uifdm41MAxY/O/G0EfhzqQt4SbGVsl70MFrHV8YkCcw62nZBT5ga9
-	1t8QUtCuWJi5bjR8yLnS2iib4TXVitQYGXuk+7Wqkc0AU/k8JLB8fOzTesDfhP+vyU1f9KjJi8l
-	zNIgW5E3aVR+9fFla2dLJgj+vrqO8RUvqpNQgnzCxLauoCrisUkMItmbc7Zcd8zp6/L9fQ1X2A7
-	JtpiA=
-X-Received: by 2002:a05:6000:3108:b0:48d:f9dd:e3de with SMTP id ffacd0b85a97d-49c7353c415mr20874716f8f.45.1794824478817;
-        Mon, 16 Nov 2026 02:21:18 -0800 (PST)
-X-Received: by 2002:a05:6000:3108:b0:48d:f9dd:e3de with SMTP id ffacd0b85a97d-49c7353c415mr20874640f8f.45.1794824478326;
-        Mon, 16 Nov 2026 02:21:18 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60116323sm20991495f8f.32.2026.11.16.02.21.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:21:16 -0800 (PST)
-Date: Mon, 16 Nov 2026 11:21:12 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, mingo@redhat.com,
-	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org,
-	tglx@kernel.org, will@kernel.org, boqun@kernel.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it, mathieu.poirier@linaro.org,
-	longman@redhat.com, ridong.chen@linux.dev, tj@kernel.org,
-	hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
-	bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 13/29] sched/deadline: Keep departing bandwidth across
- a root domain rebuild
-Message-ID: <avrZGPNdCwZMd3B4@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-14-mathieu.desnoyers@efficios.com>
- <avRmoK08LoIeySBL@jlelli-thinkpadt14gen4.remote.csb>
- <c3e7054a-486c-4e5a-a646-eee42e815ce4@efficios.com>
- <20261111161912.GP1779021@noisy.programming.kicks-ass.net>
- <83b2244c-f68a-4af3-9c8f-0fabb4eacbb4@efficios.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ni1HVMUU
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BE67E175;
+	Mon, 16 Nov 2026 11:19:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794824352;
+	bh=0CTu0igy6jwM2YeMevJJWXBYcaZouwm/r7K0xQiOwtU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ni1HVMUU87uDO+8PTASqpTnv9j6FrUOeo4T91vXyxiyhPm9jGwgpLpK7hMKMofTpi
+	 v26NCxnE+O1ZCetsDFoyZP7j3EfmjVEEbPaMp3wWz3YXkLYIZr9mpBO5hbZ5ENCyrh
+	 bOd9b2cbry8DHBp26m2ByY2oEhYrCT9TyVLFgM7s=
+Date: Mon, 16 Nov 2026 11:21:36 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: rcar-vin: Return unused buffers correctly
+Message-ID: <avrXFz3LNGShIT1K@zed>
+References: <20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,77 +62,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <83b2244c-f68a-4af3-9c8f-0fabb4eacbb4@efficios.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se>
 
-On 11/11/26 14:19, Mathieu Desnoyers wrote:
-> On 2026-11-11 11:19, Peter Zijlstra wrote:
-> > On Wed, Nov 11, 2026 at 10:35:17AM -0500, Mathieu Desnoyers wrote:
-> > 
-> > > Measured in a 64-vCPU guest with sleeping deadline tasks:
-> > > 
-> > >    tasks    today: rebuild, longest irqs-off    single list, all irqs-off
-> > >    1000     0.75ms, under 0.1ms                 0.12ms (0.19ms worst)
-> > >    10000    7.4ms, under 0.1ms (0.3ms once)     0.9ms (1.2ms worst)
-> > > 
-> > > The rebuild itself is 8 times shorter. That comes from updating the
-> > > extra_bw of the CPUs once per root domain, not once per task. But the
-> > > longest section with interrupts disabled grows with the number of
-> > > deadline tasks. I do not think that is a step forward for a real-time
-> > > class.
-> > 
-> > This is domain rebuild? Do we really care about performance there?
-> 
-> My worry is not performance, but rather the contribution of this
-> "iteration on all tasks" on the irqoff latency of the system, which
-> is relevant for RT.
+Hi Niklas
 
-My take, of course let's have Peter keep me honest here. :)
+On Fri, Aug 28, 2026 at 12:37:44PM +0200, Niklas Söderlund wrote:
+> Unused VB2 buffers should be returned with state DONE not ERROR when
+> stopping.
 
-> What I don't know:
-> 
-> 1) is 10k deadline tasks something that we should consider as realistic
->    for sched deadline, or it's way beyond practical scale ?
+Indeed
 
-It doesn't seem a very realistic scale to me. Yes, I've used this kind
-of numbers in the (far!) past when running experiments with DEADLINE,
-but I can't think of a real workload reaching these numbers.
+I think this is worth a fixes tag
 
-> 2) is a irqoff latency of 1.2ms (rather than 0.3ms) something which is
->    relevant in terms of irq off latency on a preempt rt kernel, or is it
->    in the noise ?
+I'll add, if you agree:
 
-Very relevant I'd say, but 0.3ms, unfortunately, very relevant already.
+Fixes: 63a71dd813e2 ("media: rcar-vin: Break out hardware start and stop to new methods")
+Cc: stable@vger.kernel.org
 
-> 3) are those domain rebuild expected to happen with a live RT workload,
->    or are those operations expected to never happen on a RT system under
->    real-time constraints ?
+Not 100% sure what commit to use in the Fixes tag as unused buffers
+were returned in ERROR state before that commit, possibily from the
+very first commit that introduced the driver
 
-In small systems, single workload with few housekeeping CPUs, I would
-expect the setup to happen only once before the workload is started. So
-no worries here. But we seem to have people interested in consolidating
-multiple workloads on big machine by, say, using containers. So, in this
-case there are several exclusive root domains each running its own RT
-workload. It would be undesirable (to say the least :) that a
-reconfiguration of one (or a subset) of such domains could potentially
-introduce latencies on all the others.
+>
+> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> ---
+>  drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> index 73cda0e2d45a..f3003dd61890 100644
+> --- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> @@ -1449,7 +1449,7 @@ static void rvin_stop_streaming_vq(struct vb2_queue *vq)
+>  	dma_free_coherent(vin->dev, vin->format.sizeimage, vin->scratch,
+>  			  vin->scratch_phys);
+>
+> -	return_unused_buffers(vin, VB2_BUF_STATE_ERROR);
+> +	return_unused_buffers(vin, VB2_BUF_STATE_DONE);
 
-All that said, I now wonder a couple of things (which can be addressed
-separately as an RFC if also Peter agrees we don't need to tackle this
-right away):
+Does the same apply to buffers queued to the hardware and not
+processed released in rvin_stop_streaming() ?
 
-- The 8x from updating extra_bw once per root domain instead of once per
-  task does not look like it needs the big lock? Maybe it's a nice
-  improvement we could have on the current scheme as well?
+	/* Return unprocessed buffers from hardware. */
+	for (unsigned int i = 0; i < HW_BUFFER_NUM; i++) {
+		if (vin->buf_hw[i].buffer)
+			vb2_buffer_done(&vin->buf_hw[i].buffer->vb2_buf,
+					VB2_BUF_STATE_ERROR);
+	}
 
-- The deeper issue the scenario above exposes is scope, not lock
-  granularity. I wonder if a rebuild really needs to re-count root
-  domains whose span and membership did not change. Maybe some kind of
-  re-walk of only the domains that actually moved CPUs would shrink the
-  scope making reconfiguring one partition a non-event for the others?
-  Again, we can think about/tackle this separately if it makes sense.
+(nit: there is a stray empty line after this loop, if this hunk needs
+to be patches as well, it might be a good occasion to remove it as
+well)
 
-Thanks!
-Juri
+Thanks
+   j
 
+
+>  }
+>
+>  static const struct vb2_ops rvin_qops = {
+>
+> ---
+> base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
+> change-id: 20260828-vin-fix-vb2-28e1bb24a618
+>
+> Best regards,
+> --
+> Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+>
+>
