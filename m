@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830989;
-	b=NWtxw2yvN1pX1vGlOBuJVgWuYA3QDiFN8i0AdXmMXGSW8ks4BqmLS6SwKtBAkCM8MhTu
-	 qmqJ/yr5xYTymifZwwjPEIGSZuSEil25vleih2lOEWcwJoilwBBtbXAOF2H/W/jUe+bnx
-	 HsNgIJp9I3RuCySPaoRIWpnHf8UPJscu9sox16qdv/mJ8v6KCfp9NeLVtu0/5N9Q/8bla
-	 xTFZbLhiLSz78He62rkVDLGhhCbZ/CmlqhI1I7wclSTJhArmfMvTmkwqYy0jvhysinVzj
-	 8FOglDV/cJEI38v5O650QVtqoVqqi+NolCnF3z1PDuRCsqZ8u1fhll5GmBBCoTFQq5A==
+	t=1794831033;
+	b=Qte7Ts/tCDb5lhPiVVuCEjrMgs6Z4AvxFGxpKqO8DxxlYrs2y/0SOEMV+/LhbCGIVB5g
+	 pRTYiJ7ogzpnaOvdkyv5eTaElkYyYXKwVcxIuklfM4dYqTwOh9QDEm2uVI4RwGgPYp+cr
+	 pSulVamILXQ1jBUKqXE8IToyJNuJ9+xg0+aouszPP+4bkSE1h0Hr2RQxwJxuXJlkeJzIN
+	 dC5ASqKp2/kFVD7NBV2c2j05eomwRCF5F8IJrL2bnEzsVQ4wxlAmaVLv+FtZiovr04QbN
+	 cO1wTUPY6FCuw0GXqu+1ZgGCa6PKHwoWbr7fExApXLiCDQI+vjugwxZV6/xUcb5fGEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830989;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=Fg2Cyl3OB9tAf+LGvQDahZZf2WtHr0QESzXY6AOus4s=;
-	b=aXoETc3jmPtDyfKZIPUAkUBRUwrkO4hVKcwv6o8WuUonb0sJJFAelhH5cYIy5Smyadyz
-	 vg5Oh1DwuEn9MNcQMQ3+8zLDXNODY/uHxmdy5haHKcJXKrbipCWlyNm+1q4bmaIE4SqMX
-	 eTbx3e2UEkRJJqGe5kNYpY6swuY6PUP99sPx27zVS7a//TMJJ53NLxAVUiQb541Lq0wwY
-	 ANETZcSZolniGP+m3qTlXJd1XqNW2vcXCSCXMBLtLHQexp2obItLGN7YkjOlaRxaP0sYk
-	 YGmk43Gm8Q+HPL4I/vsXi6CpG1RK4lgdFZeKCfjCbxo1nku4YW4BIeOoYTQjky3Jw/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831033;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yogqGq6K7jVQChJ/YPRwUkMOSfe+PhV20PoYhuNYLPw=;
+	b=pxop06P8xbsoBujBmDBDKTMYWmN64vvlonHrQdX4zODhdEyc/0ueZp1p6EfQVpjVs/EM
+	 Zyd4HMsaW/z348Si3N+SBInunY/QxYYhlYPfX9ULh2XX2c1U6NoDbAQ/ehPc21mbaI5gg
+	 nF8uzbuLqOzMXH+OOXESPN7wyN/Pe8X7CkGExwufIgXLKZPEA18RHMOMDp5qG0y+0HnmZ
+	 sHXZM4NYfc8wOB/9PWxsfIwCj/hfjG11nEvsltd6JKnZAYqMPu791Zvfgi4XkYZi3hy5Y
+	 aUZwVxQYuVpNl+7yLpr6WVIITNJwbBoC8/op3drvdpwNRg5q3LWERR6qfiDhNlNtsOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k+O/mtgV";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=laVHPMRv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751B6606A323;
-	Mon, 16 Nov 2026 12:09:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B86606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+O/mtgV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2ABF1F000C4;
-	Mon, 16 Nov 2026 12:09:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=laVHPMRv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB471F000CA
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794830989;
-	bh=Fg2Cyl3OB9tAf+LGvQDahZZf2WtHr0QESzXY6AOus4s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=k+O/mtgV+wVoINW9AEgi39fd7DxoZetiwUUfB9vVH43UPSfBBXjsEv9blwMdYF87k
-	 w+dwNIIArl7y2sziSvbaE8Cop3wWOU5cBzcv/PN9d08YwIWY3yrdPsgu9Z13OwX80z
-	 xOMVVupvxYJN1LSBxEO3ZGqWd7Hao//YIQpT02LJkBg/YkcY9tVswvj7Q+fuoRNhYr
-	 bydvLI4/XSJs3gfwEolG2p/84qVCs/FVnH7lAT73IP/I5mHMGG1go6zr4sGsGMTMW/
-	 F0DVxGH/0WuJK+G88HayBxhx9yKXx9FdGU9O3tmlBqTJ1k1xjY+PSy0e9CM1GNqVzN
-	 4xTdZo8kJFocQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: kotaranov@microsoft.com, snsanghvi@microsoft.com, longli@microsoft.com, 
- jgg@ziepe.ca, Konstantin Taranov <kotaranov@linux.microsoft.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
-References: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
-Subject: Re: [PATCH rdma-next v11 0/9] RDMA/mana_ib: Add kernel RC and fast
- registration support
-Message-Id: <179483098623.1357294.2203280978008836098.b4-ty@kernel.org>
-Date: Mon, 16 Nov 2026 07:09:46 -0500
+	s=k20260515; t=1794831033;
+	bh=yogqGq6K7jVQChJ/YPRwUkMOSfe+PhV20PoYhuNYLPw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=laVHPMRvx6oakQPHa8D9yynGmLvQU7CtRHDG3k5VsbLKnX6MVJYC16B1n7TEo4pO7
+	 Bfpdt8Koa3ncyPTCCvCfR39R4WAo2jqevyID/eDj2Hpega6j85UEtJxMaDzWtj8Zv0
+	 BMxxoZw2GS0DYgoCt27Ja4AqJ2yCd7H1xauCw83Yev2Au35h9HjzPD1i0y0Pu837Un
+	 HxhSR+M1J0y1Mi/uCPY/oXY39gnjhxLFMStltd6P2wsG2qxPb6+KQk42bpnXnKjprK
+	 Decv25C+QyD1v6AF/32O7JgzZ9cSgBJRgAHWrWT2ZvBkkmn/tEQaFsslZj7TBnhiZP
+	 +Le2R0w3nJTJw==
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b4cd576f2aso8305997b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:10:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF6EibPeZTtQopahlo8hA0sb7B3wXj7ZJONUyO2OcVjtDh9u7iYLA70Ek+WVZdWFmWl1eATOOUsSGInc8U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MiTlh0JBjn+z1HEzrpjHUVyq0ai/oEi2iS/babrzvdLGUIjgQ
+	HKosit2gIBt6GwhRJIcJvbEUhfNhkhbo+Mutv79TeCNHrkizKWbukfIOzMLPEwRAZMOXY4YO8PE
+	cTiNSIgjoJl6TvucEQp6+90ND2ZG7ArI=
+X-Received: by 2002:a05:690e:bc2:b0:67d:b274:39d6 with SMTP id
+ 956f58d0204a3-67db274406emr1915423d50.55.1794831032524; Mon, 16 Nov 2026
+ 04:10:32 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +59,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+References: <20261116074849.475815-1-stefan.chulski@broadcom.com>
+In-Reply-To: <20261116074849.475815-1-stefan.chulski@broadcom.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 16 Nov 2026 21:10:15 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9KT=1vLYsnRKxmiM6pLJQNACXuodD8wNQzb8S5apiuRQ@mail.gmail.com>
+X-Gm-Features: AclHuK-NMgDJ7sKrkDrwDOe1Jm6Lwdix0HevzR3vIhht9ZS3bSgXg6UFWRTgmyo
+Message-ID: <CAKYAXd9KT=1vLYsnRKxmiM6pLJQNACXuodD8wNQzb8S5apiuRQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the
+ ksmbd-io workqueue
+To: Stefan Chulski <stefan.chulski@broadcom.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ilya Lifshits <ilya.lifshits@broadcom.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 16, 2026 at 4:49=E2=80=AFPM Stefan Chulski
+<stefan.chulski@broadcom.com> wrote:
+>
+> The "ksmbd-io" workqueue has always been per-CPU. Commit 69635d7f4b34
+> ("fs: WQ_PERCPU added to alloc_workqueue users") only made that
+> default explicit as part of the treewide transition to unbound-by-default=
+;
+> it was not a ksmbd-specific decision.
+>
+> Per-CPU work keeps request processing on the CPU that queued it, which
+> is good for cache locality, but it also runs work on CPUs that were
+> isolated from workqueue noise (isolcpus=3D, nohz_full=3D) and prevents th=
+e
+> scheduler from placing blocked or long-running workers elsewhere.
+> Which behaviour is better depends on the workload and platform.
+>
+> Add a boolean use_unbound_wq module parameter. It defaults to false, so
+> behaviour is unchanged unless it is set; when true, "ksmbd-io" is
+> allocated with WQ_UNBOUND instead of WQ_PERCPU. The "ksmbd-break"
+> workqueue is already WQ_UNBOUND and is not affected.
+>
+> Document the parameter in ksmbd.rst.
+>
+> Signed-off-by: Stefan Chulski <stefan.chulski@broadcom.com>
+Hi Stefan,
 
-On Thu, 12 Nov 2026 00:47:07 -0800, Konstantin Taranov wrote:
-> Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
-> for kernel consumers such as NVMe/RDMA and NFS/RDMA.
-> 
-> Implement QP creation and state management, work request posting,
-> completion processing, and error handling. Use the RDMA core's generic
-> queue drains for kernel RC QPs, with software-flush notification in the
-> posting paths. Kernel RC QPs require extended-WQE and power-of-two-SQ
-> hardware support.
-> 
-> [...]
+Do you have numbers comparing the per-CPU and unbound queues,
+How does this compare with the earlier following RFC ?
 
-Applied, thanks!
+https://lore.kernel.org/linux-cifs/20261022092514.2590010-1-huiwen.he@linux=
+.dev/
 
-[1/9] RDMA/mana_ib: Allocate and map fast-registration MRs
-      https://git.kernel.org/rdma/rdma/c/424f395f5dc735
-[2/9] RDMA/mana: Create and destroy kernel RC QPs
-      https://git.kernel.org/rdma/rdma/c/7855337ed8f9fa
-[3/9] net/mana: Extend GDMA encoding for new RDMA WQEs
-      https://git.kernel.org/rdma/rdma/c/08435b61f00ee2
-[4/9] RDMA/mana_ib: Maintain kernel RC QP state
-      https://git.kernel.org/rdma/rdma/c/6237f2517f4b20
-[5/9] RDMA/mana_ib: Post receive WRs on kernel RC QPs
-      https://git.kernel.org/rdma/rdma/c/56e3714bd9cdde
-[6/9] RDMA/mana_ib: Post send and memory-management WRs on RC QPs
-      https://git.kernel.org/rdma/rdma/c/056987a66d2c8c
-[7/9] RDMA/mana_ib: Poll RC completions using PSN and FSN progress
-      https://git.kernel.org/rdma/rdma/c/0f33f8d321bf00
-[8/9] RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
-      https://git.kernel.org/rdma/rdma/c/673631f569550a
-[9/9] RDMA/mana_ib: Handle error CQEs for kernel QPs
-      https://git.kernel.org/rdma/rdma/c/76da3c7497c394
-
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
-
+Thanks.
