@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798998;
-	b=k84V0aqQt3E3SQ9v6pdNC+0KbTfkaKwHwINz0fq2HMfKKDHrR0NMGaVzkZML1Y6R7fSA
-	 w6Oe2jcC+7u1GRrWxkWo5Da1sDZGWkdOW7mJ9e7t4pozZ7+PNSBKX6yFVShVcEfumUpnx
-	 qpVYQt0XpaBQ/y+x5AFz1YQVyMSOipkFn4NIBXAwLEkNwPWz6K5+dPTYNaVM07cJ06C19
-	 enOgIrwiPGa1FgEgEoV+536n+gtbO/fMV1Hl7EMDv32hp1IJuN26BHl5yXR0v0y5DuzLP
-	 3YMoRbXHUDIHGqoLyqJKmRDpRTp0IzRUiKfutiEeF7J61OV8NiaCGt6vFb+tJqRqjOw==
+	t=1794799061;
+	b=eWkCWW1FKjPelOnu2fvX/ZpJw3/G1cW0ujHb53ZgtkDf/Nk5eQjuEhcFkvuRGGab5NSs
+	 At+SRX4A+0XOWSq7XTc/YC2NObcC6mKPYeQMVuEV++fGDr3qLnOxlufbPk/q7cjYhIB14
+	 i3u4Kr60bMOb54V0RRX9nuBP7VoiBamoNDH0Z36O9n3zBQuZMfesnhx2Mdia/kLSeVqFw
+	 lcB6rHnTkAgjQWdtFTEq/0zQFSr+vZrrFWdKv6LQcGwmayLeSh9vOvaXtBZf3y5vvHlk7
+	 rkE+eAVBI+VVZkdLJASmWhmG6Y/zfEzn8KbXxg9cFpcYlRI7XB7/SDsQSGYke+NaVJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798998;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=f9vMUAln9RF4ExbyRQjC3UtblgMb7Qet2HsLNIFFgQk=;
-	b=vRaPnRw47/wb/ItVNdUfr8CKuVp+i5nmnUrD2j7Ey6SjNLdqsTc2GbAoKLUnXvP18PAI
-	 lNDb+KLmQdO18KbXptE/Qery91fku1H551lQ5um7etSoG4VTbHzp1Fyy5DCMGVxLBNcDE
-	 Pn08zDKeAy+6G5NL3NxVY3pmtNmTP2ZjwgL3gbpabV0lIWpDSs8SHi1Hoq90RPLxphY2u
-	 ZxQlqSfLszKcDAQYEYqZCrZqt63F6dNuEwNUvI8Co+Uu2l51lO2bqmK9A7vG+tvmvbPnl
-	 pjUhYVPuVUQpIzqXeSZHKxoJrYoS7KjYe/9zEJ0ZsyofBZkXaTNBbAZMSPmj55WVZ9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794799061;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=1Ydo/JFA5qxzni2gYLker+DXlrCuegpZ91spzV6zZE8=;
+	b=wPHUPcyI/zyqWpxsv1G0aL9cFhv+I3lC7YoivrsthAF/yMkhkvZoO9p5kKqVy/lEtgH+
+	 LCi/DqFdeX3V3mFI84eACAYzlESX0Pq/DUoYi/KQm6cXm7Zyz1iaH44hfkZek03GlQPt8
+	 qrEHIRtLPi83GmgZIB019lfJZO5S6xxH+5Rlc0ImvCwBnjU4E1Y1rBQRkqDnMisAvrmP4
+	 DE00WX8Bg/JaG85ksInX0xOUNogSFXvI8EdVH++XC8joRtiK5UIjoI4M2Oj5V6wQ3F2r4
+	 dWWkGk3HGJvAtAswGwkoTPjaDGLl+gShFVDoN6Qq0b1A+WaI4uD4opMlyxmUZbOlH+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LyRAVFev;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=uyjm94tI;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514D1606A323;
-	Mon, 16 Nov 2026 03:16:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA32606A31C;
+	Mon, 16 Nov 2026 03:17:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AA32606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LyRAVFev
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC701F000C4;
-	Mon, 16 Nov 2026 03:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794798997;
-	bh=f9vMUAln9RF4ExbyRQjC3UtblgMb7Qet2HsLNIFFgQk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LyRAVFevgYPkx5MazjZeILe8nf+HIaMipxE5RhUD9KN0zKvQ9SX4LhtRQ6w0wax5b
-	 pl6MKCva03CSsRGh5DEW5ZknGlva63h0SQAVEpY2Jx+/r7drr1fqCizZdoMW4lzrmO
-	 qrvDPmonNiAAfQOtlW/qtNHjnRTJAVZMiZvyNHdM=
-Date: Sun, 15 Nov 2026 19:16:36 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jiebin Sun <jiebin.sun@intel.com>
-Cc: dennis@kernel.org, tj@kernel.org, cl@gentwo.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, bigeasy@linutronix.de, clrkwllms@kernel.org,
- rostedt@goodmis.org, linux-rt-devel@lists.linux.dev,
- tim.c.chen@linux.intel.com, tianyou.li@intel.com, wangyang.guo@intel.com
-Subject: Re: [PATCH] lib/percpu_counter: allow concurrent sums with an
- rwlock
-Message-Id: <20261115191636.f18859e4dd5f58b9a33e7814@linux-foundation.org>
-In-Reply-To: <20261116015655.2744577-1-jiebin.sun@intel.com>
-References: <20261116015655.2744577-1-jiebin.sun@intel.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=uyjm94tI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794799055; bh=1Ydo/JFA5qxzni2gYLker+DXlrCuegpZ91spzV6zZE8=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=uyjm94tIVJhun8tf0cxQrwn3SAmdL9BJOgxG0SJruOCtLwTUvp0K6j/diLZyBSYif
+	 14iFGOGdAOifYpm9yOb38h0c+n8OrC/TacPrib6ccHq+JOlniVfHtBRfSikerK+YXy
+	 SJVXPJQ8pgXuNhr6SrizNxEnb7Pjgrug4c1S2BNE=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: OTkXlZHit/HD2ECOkNMUpes8JgqTDIrnl70ocTF10oUnzcXJddXHB8IPNghF2M
+	 JHs400WfCpZeUssfdsYQd/c7h3L3LYYfnCRPV+X3YuVS/8S8eFX4wH/7S6tN2GZnKkaGo1tMKcA3e
+	 NyGFphqRO+5RnMyHR29RtGVG8ST4RQgBvG4i8puzNz3i8tYEapvB24rIQhDyDUTMCs3GV4R4LD7cw
+	 yTuq9t9T2CuV/VlV8vW/Vme/E4o7hDt6J+6HnmAPthlrC40NMLgV3Epr/IGGtiegRziuQmsNEsspl
+	 Ze1CVKptd66VdpVLqDsMG6qotZNllafFC0EHsqaOKrlJl9cRbWUNgShd0oMSqu5p0SpBkuQyA1+P1
+	 vuVY/OFE+p66Yv0px9wRlTy35WuuF/zAovV5TqyBlieIO63c36U/Q35TLmajQfcX/SkfT+8m9zfaC
+	 vMOyC8DZnMvHNwAoOCWpwCUL5V5VKq2+KYLdZsSZCKkOhgrNVqQCbSEDE4WeNPGcCnp1RsAQkJb8J
+	 vHHEGcNyAoVUc3w3y/i8iqFCwdhaeaPCQ9P9jyZztKpyR5MJTmKhagE60xs9Y+VlpwMMLicVefZmH
+	 L/nXwsWP1JLFpblgK+HXuY9C/b4AsSuitvZXzNd5COYv6XCmEpNrdDPUYq8iAxLC2KA+is7TUJ5ck
+	 cjLKdbl6YAjwGbYUBt1yAkGoH6owstvDJZm5I4dKDSBy9sAMenvlnSoXN0ukIl4cUTnK85iBV1O5z
+	 bOxAkjBJvBoW2xVRsheWR9CbcyEjBJreUQOiRSn23BeypNvKC1cdJskR4IP5fcqFuDT6A0ZGS3o8s
+	 EZaG+Clu38feonPN0W+0RQvFD+DkJ9drTX40ba0Bg+GWlO67W+1M61OlL/ej/Q1cnvRK2MAv9ejQB
+	 vFrtr0K+wOyf2EnqPZ6EqAVz6OO+isn2wcEiL8Advqkq87CfkAIYYF8IqrQegaLsVMAOcos0CwsNY
+	 60UC+MDUER7PAV1HHHxhJia4HxOHywop8LuEGyvEvhqm/M4xtQLvmq9pkopQsZe5wK8bPcXvWYtBo
+	 MYgHtPwsT9u3NKQNFX8sqzsj9RFsanT56AQAzQBbXCJinzWE=
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>
+Cc: "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?UmljaGFyZCBDb2NocmFu?=" <richardcochran@gmail.com>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?UGhpbGlwcCBaYWJlbA==?=" <p.zabel@pengutronix.de>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?SmVyb21lIEJydW5ldA==?=" <jbrunet+clk@baylibre.com>, "=?utf-8?B?QnJpYW4gTWFzbmV5?=" <bmasney+clk@redhat.com>, "=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, 
+	"=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>
+Subject: Re: [PATCH v5 2/4] clk: rockchip: Add internal support for 24-bit fractional dividers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,101 +69,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Mon, 16 Nov 2026 11:17:32 +0800
+X-Priority: 3
+Message-ID: <tencent_A76502128C463402C8115BFD549A4E69CE09@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261030-add-board-ok3572-c-clk-v5-0-9a43403cb149@qq.com>
+ <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
+	<Yf6NfRPFTxKjDagKAm6hpw@sntech.de>
+In-Reply-To: <Yf6NfRPFTxKjDagKAm6hpw@sntech.de>
+X-QQ-mid: xmsezb41-0t1794799052treparxye
 
-On Mon, 16 Nov 2026 09:56:55 +0800 Jiebin Sun <jiebin.sun@intel.com> wrote:
-
-> __percpu_counter_sum() holds a raw spinlock while reading the global
-> count and per-CPU deltas, serializing concurrent sums of the same
-> counter. Since a sum changes neither the global count nor the per-CPU
-> deltas, use rwlock_t on !PREEMPT_RT to allow concurrent sums with a
-> read lock. Global updates take the write lock. The per-CPU fast path
-> remains lockless, so sums keep their existing snapshot semantics.
-> 
-> stress-ng dentry reaches this path through ext4_statfs():
-> 
->   statfs -> ext4_statfs -> __percpu_counter_sum
->          -> native_queued_spin_lock_slowpath
-> 
-> Keep the raw spinlock on PREEMPT_RT, where rwlock_t can sleep.
-> Global counter updates can run in atomic context and must not sleep.
-> 
-> stress-ng dentry test average throughput change:
-> 
->   +------------------------+------------+--------------------+
->   | Case                   | Unit       | Average change (%) |
->   +------------------------+------------+--------------------+
->   | Dentry, 64 workers     | bogo ops/s |             +47.34 |
->   +------------------------+------------+--------------------+
-> 
-> Dentry ran on ext4 with 64 workers pinned to physical CPUs:
-> 
->   stress-ng --dentry 64 --dentries 4096 --timeout 20s
-
-lol, this is a fun patch - it reminds me of the old days.  All those
-mission-critical workloads which sit in a loop running statfs will love
-it!
-
-I had $sidekick do a scan and it told me "the only plausible routine
-win is dirty throttling: with low dirty limits, concurrent writers sum
-the same counters.  ext4 and XFS sum near ENOSPC, where updates also
-contend.  BFQ's sums are debug-only and serialized.  Most other callers
-report statistics".  You might want to add something like this to
-changelog.
-
-Also mention that percpu_counter_sum_positive callers will benefit.
-
-> --- a/include/linux/percpu_counter.h
-> +++ b/include/linux/percpu_counter.h
-> @@ -20,7 +20,11 @@
->  #ifdef CONFIG_SMP
->  
->  struct percpu_counter {
-> +#ifdef CONFIG_PREEMPT_RT
-
-Might be worth a wee comment telling readers why RT is special?
-
->  	raw_spinlock_t lock;
-> +#else
-> +	rwlock_t lock;		/* shared for sums, exclusive for updates */
-> +#endif
->  	s64 count;
->  #ifdef CONFIG_HOTPLUG_CPU
->  	struct list_head list;	/* All percpu_counters are on a list */
->
-> --- a/lib/percpu_counter.c
-> +++ b/lib/percpu_counter.c
-> @@ -15,6 +15,46 @@ static LIST_HEAD(percpu_counters);
->  static DEFINE_SPINLOCK(percpu_counters_lock);
->  #endif
->  
-> +/*
-> + * Non-RT sums share the lock; global updates take it exclusively.
-> + * Keep raw spinlocks on RT: rwlocks may sleep and their irqsave variants
-> + * do not disable interrupts. Updates run in atomic contexts and need
-> + * IRQ exclusion for CPU-local read-modify-write sequences.
-> + */
-> +#ifdef CONFIG_PREEMPT_RT
-> +#define fbc_lock(fbc)			raw_spin_lock(&(fbc)->lock)
-> +#define fbc_unlock(fbc)			raw_spin_unlock(&(fbc)->lock)
-> +#define fbc_lock_irqsave(fbc, f)		raw_spin_lock_irqsave(&(fbc)->lock, f)
-> +#define fbc_unlock_irqrestore(fbc, f)	raw_spin_unlock_irqrestore(&(fbc)->lock, f)
-> +#define fbc_read_lock_irqsave		fbc_lock_irqsave
-> +#define fbc_read_unlock_irqrestore	fbc_unlock_irqrestore
-> +#else
-> +#define fbc_lock(fbc)			write_lock(&(fbc)->lock)
-> +#define fbc_unlock(fbc)			write_unlock(&(fbc)->lock)
-> +#define fbc_lock_irqsave(fbc, f)		write_lock_irqsave(&(fbc)->lock, f)
-> +#define fbc_unlock_irqrestore(fbc, f)	write_unlock_irqrestore(&(fbc)->lock, f)
-> +#define fbc_read_lock_irqsave(fbc, f)	read_lock_irqsave(&(fbc)->lock, f)
-> +#define fbc_read_unlock_irqrestore(fbc, f) read_unlock_irqrestore(&(fbc)->lock, f)
-> +#endif
-
-Please, no!
-
-https://www.google.com/search?q=why+does+Andrew+Morton+prefer+static+inlines+over+macros
-
-lots of good stuff there ;)
-
+SGksCgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB5b3VyIHJldmlldy4KCj4gPiBBZGQgYW4g
+aW50ZXJuYWwgUm9ja2NoaXAgZnJhY3Rpb25hbC1kaXZpZGVyIGhlbHBlciBhbmQgY2xvY2sg
+YnJhbmNoIHR5cGUKPiA+IGZvciB0aGlzIHJlZ2lzdGVyIGxheW91dC4gVGhpcyBwcm92aWRl
+cyB0aGUgc3VwcG9ydCBuZWVkZWQgYnkgdGhlIFJLMzU3Mgo+ID4gYXVkaW8gZnJhY3Rpb25h
+bCBjbG9ja3MuCj4KPiBQbGVhc2UgYWRkIGEgcGFyYWdyYXBoIGFib3V0IHRoZSAidjIiIG5h
+bWluZy4KPiBJIGFzc3VtZSB0aGUgdjIgaXMgYSBSb2NrY2hpcCBuYW1pbmcsIGJlY2F1c2Ug
+djEgd2FzIHRoZSBvdGhlciBvbmUgdGhhdAo+IGNvdWxkIHN0aWxsIGZpdCB0aGUgcmVndWxh
+ciBmcmFuY3Rpb25hbCBkaXZpZGVyLgo+Cj4gPiArc3RhdGljIGlubGluZSB1MzIgY2xrX2Zk
+X3YyX3JlYWRsKHN0cnVjdCBjbGtfZnJhY3Rpb25hbF9kaXZpZGVyX3YyICpmZCwKPiA+ICsg
+ICB2b2lkIF9faW9tZW0gKnJlZykKPiA+ICt7Cj4gPiArIHJldHVybiByZWFkbChyZWcpOwo+
+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgaW5saW5lIHZvaWQgY2xrX2ZkX3YyX3dyaXRlbChz
+dHJ1Y3QgY2xrX2ZyYWN0aW9uYWxfZGl2aWRlcl92MiAqZmQsCj4gPiArICAgICB2b2lkIF9f
+aW9tZW0gKnJlZywgdTMyIHZhbCkKPiA+ICt7Cj4gPiArIHdyaXRlbCh2YWwsIHJlZyk7Cj4g
+PiArfQo+Cj4gd2h5IGRvIHdlIGhhdmUgdGhvc2U/IFRoZXkgZG8gbm90IHNlcnZlIGFueSBw
+dXJwb3NlIEkgY2FuIHNlZS4KPiBTbyBwbGVhc2UganVzdCB1c2UgcmVhZGwgYW5kIHdyaXRl
+bCBkaXJlY3RseSBhdCB0aGUgYXBwcm9wcmlhdGUgcGxhY2VzLgo+Cj4gWy4uLl0KPgo+ID4g
+KyBpZiAoZmQtPmZsYWdzICYgQ0xLX0ZSQUNfRElWSURFUl9aRVJPX0JBU0VEKSB7Cj4gPiAr
+ICgqbSktLTsKPiA+ICsgKCpuKS0tOwo+ID4gKyB9Cj4KPiAuLi4gYmxhbmsgbGluZSBwbGVh
+c2UgLi4uCj4KPiA+ICsgaWYgKCEqbSAmJiAhKGZkLT5mbGFncyAmIENMS19GUkFDX0RJVklE
+RVJfWkVST19CQVNFRCkpCj4gPiArIHJldHVybiBjbGtfZmRfdjJfZ2V0X2xvd19yYXRlX2Rp
+dmlkZXIoZmQsIHJhdGUsIHBhcmVudF9yYXRlLCBtLCBuKTsKPgo+IC4uLiBibGFuayBsaW5l
+IHBsZWFzZSAuLi4KPgo+IFsuLi5dCj4KPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGNsa19v
+cHMgY2xrX2ZyYWN0aW9uYWxfZGl2aWRlcl9vcHNfdjIgPSB7Cj4gPiArIC5yZWNhbGNfcmF0
+ZSA9IGNsa19mZF92Ml9yZWNhbGNfcmF0ZSwKPiA+ICsgLmRldGVybWluZV9yYXRlID0gY2xr
+X2ZkX3YyX2RldGVybWluZV9yYXRlLAo+ID4gKyAuc2V0X3JhdGUgPSBjbGtfZmRfdjJfc2V0
+X3JhdGUsCj4gPiArfTsKPiA+ICsKPiA+ICtzdGF0aWMgc3RydWN0IGNsa19odyAqY2xrX2h3
+X3JlZ2lzdGVyX2ZyYWN0aW9uYWxfZGl2aWRlcl92MihzdHJ1Y3QgZGV2aWNlICpkZXYsCj4K
+PiBtYXliZSBhZGFwdCB0aGUgZnVuY3Rpb24gbmFtZS4KPiBGdW5jdGlvbiBhYm92ZSBhYmJy
+ZXZpYXRlZCB0aGluZ3MgdG8KPgo+IGNsa19mZF92Ml9zb21ldGhpbmcsIHNvIG5hbWluZyB0
+aGlzIGNsa19od19yZWdpc3Rlcl9mZF92MigpCj4gbWlnaHQgbWFrZSB0aGF0IGxpbmUgbGVz
+cyB1bndpZWxkeT8KCkkgd2lsbCBmaXggdGhlc2UgaXNzdWVzIGluIHY2LgoKQmVzdCByZWdh
+cmRzLApDdW5oYW8gTHUKCnB3LWJvdDogY3IK
 
