@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857161;
-	b=IF+nIA7H1MvaTy/Y63HiYpRXfMjV+paarIgA6ikRK4wFx3kKMWyfaCHKmPiodXDu29jA
-	 GBm/8U7/O5oXY2z/DWdRXmVBET8DlQAPawPp7k2Mztu8HxUmAhD3u/mfazS5BPxkan/BD
-	 +DqDiT95kSuYcAxS0YtszBGDoGCcjda0yQwtq9fKLo2qHL/fjwXtcv4cBJFNccOkSSMh+
-	 /vCO5LKMDWG877J5ob7rzAitMqG2fyeXoQ1LrCzYxF1ZCnD3tUF8Felv1X119jH2PDOc8
-	 Hx3UsVAAcO4RelhU0FRbiwJiTrdMdQa+ybFHLKkATwnJ6XwggXNyf1LiIIIinxeFp9Q==
+	t=1794857170;
+	b=DpfeMs47aYsFWiDdDXeSwclAnPLtaq4yL5TcTaAsux9GcqcGIdWd6VT/iRblUCH4T1B9
+	 uph02OM2+ujjJ5uCH0ZqjKtyBWDZHDeNmHSxR3Bmy2fitzvMFtinVv28OOVmMGwmjJ9dX
+	 9L2mVYXU6FYEDoG3DUXDJ/+kw6bIC2ErITaIDoxNL1WBm5ax34hxm3BUeIsH9anns90p7
+	 IClsbHHVhM98jOfVxQZBveMIdJHrsyOB0SKPk4+wFmCRhdqv++x/VUYCziMKFNgQGNVod
+	 Hirk759o+kzpfx2QYFEs2KdpoD5EEV4YlV4SM0U/CVoBtUV9wr8eazqqAdtU6zMn3VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857170;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=ojcfXEWMBwoi3cdKtzZVlpdfUkDcJsSBvwXVI/k/ugY=;
-	b=EUlMJsBxzE6qFQBF2zwsOT9tNMvtScd7eQJPLWhThPieoJl7YcqyYjihxEz2EmZ+QTNa
-	 8TnwsX+qfdaEkZ3O9YqVDZW5qJbaM6g9COoac5W4vGXWSo0wYNfV0el0UYVGwEVWxz+iT
-	 XU2GhqnJaQsDsc4dfpXPfDPxJVaLvI1GhD+wAep1Y4rqWMXQK/FuJkG3EOGKgzIZCnSEM
-	 WqMT/XSOFMcOLysjEVvYJE2fgSmVdUqC87o9fr9aY2e2rRCQlEtE3g+ETzmJV8FIH4iEm
-	 DsBVriu9tB8zlj2uAbTOYeIQoeIFO3WSkGoq9rAAt160md63aP4Fm5y0vzKVxBpZkoQ==
+	bh=hOeb09sjE3McuO1NMO9QxIG0IpjBOCMaek4xXRv5sjU=;
+	b=EffqJkiI3Oxhseuh5W3lMigTZlvM0I+kRc1Cvjtd9AAUFy0rb+iIYBrP7I7cgVve2I+T
+	 EpUvbPcm3yJ4uXGIOLL3JwVVPDTXKJ8K1AOALt6trRKlQTURfa3A4RYdJJS13fSAu3MPN
+	 rHltiSUB+CMAPE8hFESDpS2B8nDxX17sMXnVmeQ0sW29uZsiDy7qqNlYqKjesjmNK2JbC
+	 GF+oVe3jbgOPCHThlGABLTfYjvkgMahPFw9+/NMTgEnYo902sFu2uL6EYnTf7ORtPfsfz
+	 epktFXN0oBlQ6JDnyuUeQAOsaqoV44isblanM/25XcIkLl2UTZGksWWB1T4q2o2MntA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7uXKNMm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="keJ5t/U8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19863606A322;
-	Mon, 16 Nov 2026 19:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60B4606A322;
+	Mon, 16 Nov 2026 19:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7uXKNMm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBAF81F000C4;
-	Mon, 16 Nov 2026 19:25:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keJ5t/U8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992941F000C7;
+	Mon, 16 Nov 2026 19:26:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794857161;
-	bh=ojcfXEWMBwoi3cdKtzZVlpdfUkDcJsSBvwXVI/k/ugY=;
+	s=k20260515; t=1794857170;
+	bh=hOeb09sjE3McuO1NMO9QxIG0IpjBOCMaek4xXRv5sjU=;
 	h=Date:From:To:Cc:Subject;
-	b=l7uXKNMmkjsptYo1V1F51plZD6ELGRa+QNi1eAp+WQWYdAeEIADIHp7uY3aPFAKFQ
-	 E/lDpnFJD51OmTWMfy/yoy1sQG0zAxP+g1TY+IKjoX+3DXx6h+sxFdrBjqiIMKbpTf
-	 uYPscqpwjGbQI447PWtycC92I+ex7+vAJ7c9S6yB5mEc3vvnW9onRiEjxExQWxr7Ei
-	 R/IvxIi3enZn6wp0Jo8QK+oda+OJ5/FGCaSTLI8M2RSEzvDcBG/3U3/V/31jqaAY62
-	 AnpSqP3C2+H5ACnFa70F56dTrPXgwuEUDeIZtM4ydnf8lPuufHWU5FE3HJsXEie0z8
-	 YpgBPvlLOPJOg==
-Date: Mon, 16 Nov 2026 19:25:56 +0000
+	b=keJ5t/U8+1EIyhp5F9Ca+hmcWWggxb1Jl4PQVSMruUKIn6JBvAtOY7x3eG1lcpXSD
+	 DHPX0NBJEn49AGGw11qIn5B8dffnkijxv7eWNly1V6MgDApJHRrZIYm+k8O8c33mkV
+	 WszSjMRJWX5A4xOp52bHeBhlBjRDzN85OkQRn0DXEjUoXs9tweAtoDbEm8kn5fyfps
+	 z7SpdNTi4vG2vSqypwrSw2/X6yu2gUdNQgvOsaq724NDQLbbC6tcYBzBpygeDslw0T
+	 jloY6Bpv1HnZ/XDoAZ9HYM8QyDZ///r4iDctv1TnP4FlwFAj5u8uuvEpdgfQSEFXKE
+	 Z+8ijAVezlBgw==
+Date: Mon, 16 Nov 2026 19:26:06 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>,
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>
+Cc: Chipang Kao <chipang_kao@asus.com>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Mikhail Zaslonko <zaslonko@linux.ibm.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: linux-next: manual merge of the kexec tree with the mm tree
-Message-ID: <avtYxJJhIzPVDYVv@sirena.org.uk>
+	Mingyou Chen <qby140326@gmail.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Subject: linux-next: manual merge of the drivers-x86 tree with the pm tree
+Message-ID: <avtYzidDS9_4b9QU@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,31 +62,32 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FMOXbPAuJqdC4FBJ"
+	protocol="application/pgp-signature"; boundary="Zzr9e4yKgbbr4QHd"
 Content-Disposition: inline
 
 
---FMOXbPAuJqdC4FBJ
+--Zzr9e4yKgbbr4QHd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-Today's linux-next merge of the kexec tree got a conflict in:
+Today's linux-next merge of the drivers-x86 tree got a conflict in:
 
-  kernel/crash_reserve.c
+  drivers/platform/x86/Kconfig
 
 between commit:
 
-  ed27d3cb114dd ("mm/hugetlb: allow crashkernel to reuse hugetlb CMA memory=
-")
+  699041135f75b ("platform profile: Extract the core from ACPI")
 
-=66rom the mm tree and commit:
+=66rom the pm tree and commits:
 
-  941aef93e9e1d ("kdump: Give crashkernel CMA areas unique names")
+  ef696e89f836c ("platform/asus: Move ASUS platform drivers out of drivers/=
+platform/x86")
+  3abfbb21e1c92 ("platform/x86: redmi-wmi: Drop redmi-wmi driver")
 
-=66rom the kexec tree.
+=66rom the drivers-x86 tree.
 
 I fixed it up (see below) and can carry the fix as necessary. This
 is now fixed as far as linux-next is concerned, but any non trivial
@@ -120,19 +120,19 @@ index 53d76ba6b3c31,80092c86d586a..0000000000000
   			if (request_size <=3D PAGE_SIZE)
   				break;
 
---FMOXbPAuJqdC4FBJ
+--Zzr9e4yKgbbr4QHd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7WMMACgkQJNaLcl1U
-h9BSfwgAga54k8v17hRgyGqkODyIxWEYcjY+8zIifIyOJIA2ILHLxOZYJi6N/1i8
-PCtVRvhmtyKf+9Fqljkcqny0ypWP8c+vE4qBRT40W9AZ6G8DCm3Jk9r3FDumw+jV
-3AYbjnhQvtHSVhsCvE7JGy449bECUVtitcZKTdz1aNf9OmaNAULXM8hbII+vPkUc
-ICJrAe4CXz+YzvPn7PBU2SMw9tzsa7NmazF4Ce4FEGDT1UM+7PHXtI6EiDNc7O3Q
-da6kLkl6Xrus6N2+V3BhVS29PfaraUuEt6+1vpxP4fECSicCGqVHsLqqDG5uvZa0
-a3OjE7yqXVE1i9zmKUGNpWGseunB8Q==
-=0LiE
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7WM0ACgkQJNaLcl1U
+h9A+Kgf+KSsKhsWIQ6wHVesbaf9iko4S2kJRjmZFojOupoHvy0bWle/dFJWMGYeK
+yS2OzzBs1uBP4jjWLJ+37uc/Vy5yz6+nXlUjAI37R5fsVSJzUrV5taYFzDHJDjaI
+hBc0lkK4YKMRS7DCik7oTqZwBMHTOF7r1csh/yvdK3Azryhzgp7L7dk3sWDiY2jr
+XZ1kwBuv9z11/WEKX/fIn2sVmf/Coyu3EOqEf8vrTNy2dCFL3MxQn6ugvFFPJHWG
+lt7su+qp5mRX88YRr+agMTepGwQ1DHr9JiwcIirK3efid33AmesSWd9M/x77ebmO
+RJE/I/Lrm4Yuly+NCBxivSnm8EAc4Q==
+=Vk5G
 -----END PGP SIGNATURE-----
 
---FMOXbPAuJqdC4FBJ--
+--Zzr9e4yKgbbr4QHd--
