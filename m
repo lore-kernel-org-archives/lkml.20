@@ -1,113 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794854351;
-	b=rnkNuSdBpxyae68OCycMis/r4dVl/fet+EpKhqd1epMxlj9i9eu4mfAqgeXjDriTdkZk
-	 IfDu6Xm3RUE4t5f9xtqGQXD4vHLP5PpV+nkSiRQR4TNACVkhyT21GE1ZnCk+Zd8VKjgNw
-	 Oak16ibifEhZC4JMciOAUAtn9KkcoA76Z68oprd3ws3wk+J5ALZ9mwh8usnxvjaWRk5Y9
-	 Rp8TI7O6uac12x0hRnoMgp4hALlGHORVYTPRV96V+uOTSFY1mi9cKTER/rKURfaxmIzv6
-	 Yg/cJkbr5u0bRNXDMleX+spdMkqqr6mdZeXKDdwumfAE6N0PFFwl1KExSjKsQLHQgXw==
+	t=1794854356;
+	b=vkkLuWsgG/frpOhIM8qJJRyquqPxtNFFLv4vX3HeM0MKUujIOrfnMJmoOP/f7ZnNnrPp
+	 sjRE0sZRUXfMXWOeyROLR5aSn+TfPvMkUcIkwIFhLeC0XAj+fq8JBIryETcnFDH63Kahr
+	 9kQKsNQkXxi7xs/HY2Vg4FwIYjgmU9HmL1+TPIuNIzxalrGCflznN2FLb1VRZ12l1/g21
+	 ulhQi2zng4ENOJyAkNNj0NvD9p02ri6nA9H1v5n6iNZR9D2wZHK5kusYWgFFoYHkov+er
+	 oJK1OZ9ycZJOjRIjHlPDHJwJVE6WoMWcvC9ldNGLfAhtQowhwgw040JNG+UfWordeaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854351;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854356;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=lh0jUNpR8nhRgfOHY5r+bwbPQ9w++53XNhmx7tZ4xXY=;
-	b=3ORuv7hJ2En0n/bRwsoasY7NPmuB/296u8+yZoFC99O+rS2F8ziXjFOupWvbolQcVJqT
-	 GHsa3WVVDOtIDmAKrhUxpcZ38GhT13VWP3SKTTAOXnE+SKqUUvO3Mku9nzzlzIZYSJDgB
-	 kzn3uRGynwlUy16R8CvypIxEsSjA35D1EKjaR2BLhixTJz2PmtnmgittnYNNZkk3zA6u4
-	 A/q9POEE5CNYz3lt6Q9enSML+uwJrz3AdHNLX6CWYUlCByInQuUO2RSQJ8t6FUGbkh261
-	 iXODJ9F5dLdcHzHZ6M3kxchZTGlsc0dNAc5DJ67oPMfP2i54GDRrtfsbfLe8sDRYBtw==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=loFnhoHz29UVL2D9Wr97WIPYSG/7+Uo4ucMXrnSzPNA=;
+	b=ndXUXoKC8G7XDbhrpLqKyuCYG6LE4J6jdGDk8KME7UbKNgvZI+RuIXLhQeIuurUAGz1N
+	 DalSzfw3qzm/mF5oYz/Nd9Zrr/g93OmvtCp0++rSKOFHItN5GjiZbxmUJIGGUvENw814U
+	 5Ihd5MBDIH4Q/crk1rL0UxVJ8+dTuBautkvxGBPdt0XQuLuP+QAkvX6Tbi5nT57ZI+xdx
+	 T5XsapWxo40pNOF/iYlOb97SJwxerStPU7tPpXVE8sTJTwvCxYLQ4y/vDyRRtjM1iFItm
+	 iKifegLFn+EUls96gdOattkoUaxXQND5moPii+jmfLLbJgUFgalMji0kCsgWQlmF2wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Agyb3zNw;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Agyb3zNw;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=tyg7CTQW;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=tyg7CTQW;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E596606A31C;
-	Mon, 16 Nov 2026 18:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E596606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C6A606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:39:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C6A606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Agyb3zNw;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Agyb3zNw
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=tyg7CTQW;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=tyg7CTQW
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8133B1F899;
-	Mon, 16 Nov 2026 18:39:08 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3BB1D2212D;
+	Mon, 16 Nov 2026 18:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794854348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=lh0jUNpR8nhRgfOHY5r+bwbPQ9w++53XNhmx7tZ4xXY=;
-	b=Agyb3zNwVYHXMZ2/i/w8Np3lM2YYjCbXbWDz+Zd7mHdiq7J+Oq3m8JQHnFiDJmVFFGeNwe
-	5vW17bI7VQ5/kUK/IzDKgK1f+UkQt+qB4p6M5Fflpn5GpBfbFq+XloQEtCvLc6ggwzopxn
-	py/9RjfekEZssXeK7VSUR1FXbxPAXI0=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Agyb3zNw
+	t=1794854354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=loFnhoHz29UVL2D9Wr97WIPYSG/7+Uo4ucMXrnSzPNA=;
+	b=tyg7CTQW/V3NtVl47zFmmYPrnLHj35ea/DJG/Q7vvUbfw8+IW+g+pGpG6q31D3CBz6r2kV
+	ZSBjkAyG8Lp9FyICDQ/NVyPi//fe1dLeVSKmvLpUmdRZ23Rs/WvUtc+xhSPLTPabTRpagN
+	4shRkqpQ2EwSApoMKCJRyxVTTSg3IFQ=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=tyg7CTQW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794854348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=lh0jUNpR8nhRgfOHY5r+bwbPQ9w++53XNhmx7tZ4xXY=;
-	b=Agyb3zNwVYHXMZ2/i/w8Np3lM2YYjCbXbWDz+Zd7mHdiq7J+Oq3m8JQHnFiDJmVFFGeNwe
-	5vW17bI7VQ5/kUK/IzDKgK1f+UkQt+qB4p6M5Fflpn5GpBfbFq+XloQEtCvLc6ggwzopxn
-	py/9RjfekEZssXeK7VSUR1FXbxPAXI0=
+	t=1794854354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=loFnhoHz29UVL2D9Wr97WIPYSG/7+Uo4ucMXrnSzPNA=;
+	b=tyg7CTQW/V3NtVl47zFmmYPrnLHj35ea/DJG/Q7vvUbfw8+IW+g+pGpG6q31D3CBz6r2kV
+	ZSBjkAyG8Lp9FyICDQ/NVyPi//fe1dLeVSKmvLpUmdRZ23Rs/WvUtc+xhSPLTPabTRpagN
+	4shRkqpQ2EwSApoMKCJRyxVTTSg3IFQ=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F7921334C;
-	Mon, 16 Nov 2026 18:39:07 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D27D91334C;
+	Mon, 16 Nov 2026 18:39:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MmR0FctN+2okdwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 18:39:07 +0000
+	id HgE4KtFN+2ordwAAD6G6ig
+	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 18:39:13 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	llvm@lists.linux.dev
+	x86@kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Xin Li <xin@zytor.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>
-Subject: [PATCH v6 00/17] x86/msr: Inline rdmsr/wrmsr instructions
-Date: Mon, 16 Nov 2026 19:38:48 +0100
-Message-ID: <20261116183905.1591611-1-jgross@suse.com>
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v6 01/17] x86/alternative: Support alt_replace_call() with instructions after call
+Date: Mon, 16 Nov 2026 19:38:49 +0100
+Message-ID: <20261116183905.1591611-2-jgross@suse.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116183905.1591611-1-jgross@suse.com>
+References: <20261116183905.1591611-1-jgross@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,11 +98,6 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 8133B1F899
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
 X-Spamd-Result: default: False [-12.01 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
@@ -133,126 +108,73 @@ X-Spamd-Result: default: False [-12.01 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[34];
-	URIBL_BLOCKED(0.00)[suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
 	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
 X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 3BB1D2212D
 
-When building a kernel with CONFIG_PARAVIRT_XXL the paravirt
-infrastructure will always use functions for reading or writing MSRs,
-even when running on bare metal.
+Today alt_replace_call() requires the initial indirect call not to be
+followed by any further instructions, including padding NOPs. In case
+any replacement is longer than 6 bytes, a subsequent replacement of
+the indirect call with a direct one will result in a crash.
 
-Switch to inline RDMSR/WRMSR instructions in this case, reducing the
-paravirt overhead.
+Fix that by crashing only if the original instruction is less than
+6 bytes long or not a known indirect call.
 
-The first patch is a prerequisite fix for alternative patching. Its
-is needed due to the initial indirect call needs to be padded with
-NOPs in some cases with the following patches.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/kernel/alternative.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-In order to make this less intrusive, some further reorganization of
-the MSR access helpers is done in the patches 2-5.
-
-The next 5 patches are converting the non-paravirt case to use direct
-inlining of the MSR access instructions, including the WRMSRNS
-instruction and the immediate variants of RDMSR and WRMSR if possible.
-
-Patches 11-13 are some further preparations for making the real switch
-to directly patch in the native MSR instructions easier.
-
-Patch 14 is switching the paravirt MSR function interface from normal
-call ABI to one more similar to the native MSR instructions.
-
-Patch 15 is a little cleanup patch.
-
-Patch 16 is the final step for patching in the native MSR instructions
-when not running as a Xen PV guest.
-
-Patch 17 converts the rest of the MSR helpers to __always_inline.
-
-This series has been tested to work with Xen PV and on bare metal.
-
-Based on [1] and [2].
-
-Changes since V5:
-- Rebase
-
-Changes since V4:
-- Rebase
-- dropped patch 3 of V4, as already covered by [1]
-
-Changes since V3:
-- Rebase
-- wrmsrns() related changes (patches 9+10)
-
-Changes since V2:
-- switch back to the paravirt approach
-
-Changes since V1:
-- Use Xin Li's approach for inlining
-- Several new patches
-
-[1]: https://lore.kernel.org/lkml/20261116150208.1572254-1-jgross@suse.com/T/#md59eab1d0c8b23a3184cbab408629c86f95e8419
-[2]: https://lore.kernel.org/lkml/20261116160259.1579333-1-jgross@suse.com/T/#mf22bd746d396918f2d8163541405b2222770600a
-
-Juergen Gross (17):
-  x86/alternative: Support alt_replace_call() with instructions after
-    call
-  coco/tdx: Rename MSR access helpers
-  x86/msr: Minimize usage of native_*() msr access functions
-  x86/msr: Move MSR trace calls one function level up
-  x86/hyperv: Switch from __rdmsr() to native_rdmsrq()
-  x86/opcode: Add immediate form MSR instructions
-  x86/extable: Add support for immediate form MSR instructions
-  x86/msr: Make wrmsrns() a first class citizen
-  x86/msr: Introduce sync_cpu_after_wrmsrns()
-  x86/msr: Use the alternatives mechanism for RDMSR
-  x86/alternatives: Add ALTERNATIVE_4()
-  x86/paravirt: Split off MSR related hooks into new header
-  x86/paravirt: Prepare support of MSR instruction interfaces
-  x86/paravirt: Switch MSR access pv_ops functions to instruction
-    interfaces
-  x86/msr: Reduce number of low level MSR access helpers
-  x86/paravirt: Use alternatives for MSR access with paravirt
-  x86/msr: Make all MSR access functions __always_inline
-
- arch/x86/coco/tdx/tdx.c                   |   8 +-
- arch/x86/hyperv/hv_crash.c                |   6 +-
- arch/x86/hyperv/ivm.c                     |   2 +-
- arch/x86/include/asm/alternative.h        |   6 +
- arch/x86/include/asm/fred.h               |   2 +-
- arch/x86/include/asm/msr.h                | 356 +++++++++++++++++-----
- arch/x86/include/asm/paravirt-msr.h       | 180 +++++++++++
- arch/x86/include/asm/paravirt.h           |  45 ---
- arch/x86/include/asm/paravirt_types.h     |  57 ++--
- arch/x86/include/asm/qspinlock_paravirt.h |   4 +-
- arch/x86/kernel/alternative.c             |   5 +-
- arch/x86/kernel/cpu/mshyperv.c            |   4 +-
- arch/x86/kernel/kvmclock.c                |   2 +-
- arch/x86/kernel/paravirt.c                |  42 ++-
- arch/x86/kvm/svm/svm.c                    |  16 +-
- arch/x86/lib/x86-opcode-map.txt           |   5 +-
- arch/x86/mm/extable.c                     |  41 ++-
- arch/x86/xen/enlighten_pv.c               |  52 +++-
- arch/x86/xen/pmu.c                        |   4 +-
- tools/arch/x86/lib/x86-opcode-map.txt     |   5 +-
- tools/objtool/check.c                     |   1 +
- 21 files changed, 645 insertions(+), 198 deletions(-)
- create mode 100644 arch/x86/include/asm/paravirt-msr.h
-
+diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
+index efbc11f8c336..90ca4947833e 100644
+--- a/arch/x86/kernel/alternative.c
++++ b/arch/x86/kernel/alternative.c
+@@ -528,6 +528,7 @@ noinstr void BUG_func(void)
+ }
+ EXPORT_SYMBOL(BUG_func);
+ 
++#define CALL_RIP_INSTRLEN	6
+ #define CALL_RIP_REL_OPCODE	0xff
+ #define CALL_RIP_REL_MODRM	0x15
+ 
+@@ -545,7 +546,7 @@ static unsigned int alt_replace_call(u8 *instr, u8 *insn_buff, struct alt_instr
+ 		BUG();
+ 	}
+ 
+-	if (a->instrlen != 6 ||
++	if (a->instrlen < CALL_RIP_INSTRLEN ||
+ 	    instr[0] != CALL_RIP_REL_OPCODE ||
+ 	    instr[1] != CALL_RIP_REL_MODRM) {
+ 		pr_err("ALT_FLAG_DIRECT_CALL set for unrecognized indirect call\n");
+@@ -557,7 +558,7 @@ static unsigned int alt_replace_call(u8 *instr, u8 *insn_buff, struct alt_instr
+ #ifdef CONFIG_X86_64
+ 	/* ff 15 00 00 00 00   call   *0x0(%rip) */
+ 	/* target address is stored at "next instruction + disp". */
+-	target = *(void **)(instr + a->instrlen + disp);
++	target = *(void **)(instr + CALL_RIP_INSTRLEN + disp);
+ #else
+ 	/* ff 15 00 00 00 00   call   *0x0 */
+ 	/* target address is stored at disp. */
 -- 
 2.56.0
 
