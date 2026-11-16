@@ -1,147 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794823760;
-	b=byX0+xKRH6WreASEnjjaXV5Q375jjYYoCvNCnIj8nfx9t33uJJV3URK3tX6y6MR0zySg
-	 4zALDp9Kd09Fzk7sHcfwGp9y9vaSMz67p3kJaRAQLrsL2Ozg9hstDmhD0Icd2w6q/nlft
-	 QEZgENaBvrcdxyGd0RmLiMKoGXtY4ibSFDZ/48NWXjRN9a/fMNMtsFKMhCRfiwPlxJBBd
-	 xlh9R024CTl2QeszRcJgZMsIG6FOHYvALBYCWvX169LdoM/GuVf4fXVN3QOhBtSNeLzHI
-	 JYkxmLukS3NaSykDyzTeRsqVb/z5jyVarZ15TVzBkouUVAoUShmAwvyEIwMPyd/p0iA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823760;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
-	b=T70nfVq3GuoWeIIMjwM6kVSMjQIcEukZak+1ATqJ78Gf3RnY3gc7SZPEYf6F3YIZUjvf
-	 vnUsEiwFFCyhvoL4I+kK9tguO3AIDAWGlLfR+D+baqOMtjM9HrNW7AlD/aH+ccejGiO+8
-	 8yfAOZnVVtoQ9xAsd3O4MI77dVZyNYP8BBLyhRjAhUf8jVUEv3C30vrsSRQ0wka98txi6
-	 EpDjwBrzePw0z1NIFIMoskfbYhx2YYCCoqB44BWGCwAs0gzNz4nc6Izqlto0URjnydt9W
-	 f+GiNMy3G4x3kq5cXFWN6zvk7GWsJyoFpzRXwrtUH986IuV6sQ+5zPLxaC6ACQ/SgRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=IwCfvqwp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.7
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010007.outbound.protection.outlook.com [52.101.228.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794823809;
+	b=FuDcf375xs0rWUzCJnZfoSYgHh+TXC+n8wqUf1Tdhgx9y5cjFPow7vvA0NsFV6oe/7az
+	 5yV2+0Ur/iueQ809dQuuacUvYMj9eEpN5egH1tc8VtFbHPwjTSyXbZAZTMQpSMkQVdz6/
+	 hhhJTXZwRxQ4rQNQi+yGU2HLiQw1NdrPVqnv0HRSWGOva9g6wsjJiGHnWt4mUZKLH2f3T
+	 MTiIEEnNtnYwbh+P3MWOFgWC66E8yFNmI2/tsi96RJZhCJRtffstc7Ns6ZXh/BMTxzp8o
+	 jam/LR3mG9jLgvVJPX0fXgyuKC4DK0r4BYtQKNqFsi//DKME8omF6ImhTwLX4nVv8Bw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823809;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ww1H1S9hrHisj8WmixCX+JG9UibSCui1VAe7NK53FuE=;
+	b=Ww9NtlbbOt81LcSnZqEXJ2ek0Qlu19ifcRQXszju1RFMQL2Ed/1Lal1F2qu2zHD6KBSi
+	 w+2e87vhYrdfuasebmW0OUq/kon6raKBImxoYOH1UW5e/b1kj6na+dsgoDOhbx61t+/qL
+	 b69tV21SRbc1c+P9WgoGXhs9GZ7JhukPAjqjFxESWOULCHJJsl0OleKHNVQXubfY/FhFO
+	 mFBE7Y7byqZbmyd1YayPId3JXslGAseZzR1l0D7q0NeLbZirgtRXlM+VATtD+kwAn6bUp
+	 bznMYjxOet2oB4v0HXwsHcTS0ALbenjED65/mp50SVqFVupvdYfHjHHhJumWkAhXMTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n9+SAV2A;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABE5606A323;
-	Mon, 16 Nov 2026 10:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ABE5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F79606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:10:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78F79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=IwCfvqwp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PATUK4UdKZPWJZVg7bol6ll6A3+Di/C+t2DEPQA6zeavIgLNpt2tuJFOt/HtYWHz22eYybUvWbwGKO6ZJff+PPPxUawZfoSmKlbLVuxkkdmEEiL35YD/YMbXeyXTDbCQygU+VANK81xQuMvjcRfCHsmYwjan9CSHjRrNpYVcpQ3j5L4XYdAaPXHNOceem9f43TUb8viAWfQXVm70uTcyoKBXfGFyYHV4M6wPuRLvTtcKQEeydAwtUGmzLhmyop+imYVJXvNalYzpMGOanRO9yJWFsxZGeDXG6C4T5XpHdZG0I3WLG50QXPeVPxY91cKeXwTYhBbIEVw4SfmNeUCyeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
- b=ScLWtFS8stVStWytcrveILa2yF4gEVUkRXMKm2q042ZUtUs8hTL+ha8b2dUR7f56T5IVmD1L+G7dNnn0c7XBDku5creKR3whkJEqQMYfUtU4eOsJANJ3BU4S13ZzgwhtqKBy8ClS4geXx34rM/9AfCY7vsG5gSD3dn6CJQfh52HbCj/4ypAs0mSldqVfD9ODNArtJkos/DIbksBtWGTpE83sZrf9bQ7/8rgtIC1h9eJ8b4Gx4taCD4ex6QsMdcVE847qGOiMS0SN/BtmLWwEjKvRq1kGRNh6/i9YQs+8zemDl9WHiAEmWP1iNYm+Ly4hKMQ8KV1iVS3nQSZDPK/GRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
- b=IwCfvqwpki4aoWch4ysdTUP7eGZnFJnkNs6UKb6lXP6In7JwSavyZrwzO0mK0YwourIcb7jimjSn0XwoR07rsUHnbMzJYPKBjYQVBJLGp3Dnq2YAMqEPE1rFpZ0QjaOki4wh2H0i9vHYX7i6SOq+itzC+ju7Qn9m53G2lXyy9aQ=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TYCPR01MB18376.jpnprd01.prod.outlook.com (2603:1096:405:3f1::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 10:09:16 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 10:09:16 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: wsa+renesas <wsa+renesas@sang-engineering.com>, "biju.das.au"
-	<biju.das.au@gmail.com>
-CC: Geert Uytterhoeven <geert+renesas@glider.be>, "magnus.damm"
-	<magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 0/3] Enable RZ/G3L SDHI
-Thread-Topic: [PATCH 0/3] Enable RZ/G3L SDHI
-Thread-Index: AQHdctfrGrtgDYWCyUexWrA6qF34pbcwfj0AgAABB4A=
-Date: Mon, 16 Nov 2026 10:09:15 +0000
-Message-ID:
- <TYYPR01MB6603EA94E4500584DEC57AE8867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com>
- <avrVVjHY4Pp1hFvt@ninjato>
-In-Reply-To: <avrVVjHY4Pp1hFvt@ninjato>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYCPR01MB18376:EE_
-x-ms-office365-filtering-correlation-id: e11b9d74-4840-4ad9-9873-08df43c9abd9
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|38070700021|10067099003|56012099006|11063799006|4143699003|261009223027099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- vu2aFUlJxXhfe1XUoRUXsjNzaRDo2PLTk4dAGPDqwV3TsN3nxG24smetx9Mf92AVEPrg2XR7ZenwD42+YH6xLp+2zJ09TUlD8VBSG+/AaXoFhjAyHANvZFFZqObXl7mYYsRPTPmrRpK/tsC0lNOu/mPWeEP14hvUsKfPzPWold6hWI3gDGLB+3HC8lrrxtQz/rhic7/bb3Th4Px6mMD6xX/bCOUy2ibCOTQgiFPBiDfU93mrsgVcUehyEXnmJA3zLx+v5RQwKV/L4UWVtVnCJNq4UDmvmffXrNELl/dXsyV0tzdtZF63BIICZiyrW0I3B9KD2zBndjwdBx+wrA0Qh0CUHnIjo1XoRP08bbnVRHM/J31+GW8fV0mfwk+ymicBn7LgVTYsO9QBCRjtNDiwe3wJ+VCLVkJO+/eotm8HclHivmu5pvHzmu/FjzVAE66ZgAC3es6SJGh0krs+NG0vkhtBiReF6lnI23PcsMZc+Yj9gTMOLOzTrR85+Z6/9gaQ6pjHKDfUMu6RkJ6ifEEmhruUsoPmXAQTq/kwkpwWcD9Rl3Jx8PXVH+cZPd6k1yqQv0WS5adN7RWa0kagWWvObiMTK2BjkudJMD/Qmtys59AI9FNXfgNYo6cnZ7lz15NbIUHvvzXNLErQdEKaadi3GwZmM4wAJmJ7WY+wSMe2XBo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Hqg01IKMHXu3jcBbVHJewoMKJCaa1mpOumenWZU3zHUK3yhJqBVwqJOCj53D?=
- =?us-ascii?Q?N4TN5n0OSSCkFv44NjehThzGiNzvK1Cb+JQp6fMoqYFwVI6TkepqiiTaH7DX?=
- =?us-ascii?Q?4KhknpqhlZisw5nDOwcSztjEV24bn9i0mqh5UuI6SiJd2TfDLacbU70Ad7OA?=
- =?us-ascii?Q?Ai4InrX/jbtly1ZgI82kM/0+uhRkJHPSCIOBU05KFLM3EMlR+M6S1XqWvxm5?=
- =?us-ascii?Q?0oCgxEYA6DwG6YjglRBK7kqYdLho+NCH9CP2k0LLIYdqhpfvw9W/oyQ+FipG?=
- =?us-ascii?Q?yPSwliGNo+IhrM6k4pPkFeN99rMKie8rcPei/AdMx2UxQkVDI5RXzJim+sbK?=
- =?us-ascii?Q?tnbhVcz2IodH5DjlwSUwC/Qv12v7bu4lklxebssUXZf01YlN9MHHVfaQSJAt?=
- =?us-ascii?Q?JPG74xVg1LaHDsHtaP/FYckC/KS7f3tTtsGbsoUwhJZriwLwiOm26gEUPc7R?=
- =?us-ascii?Q?2cpEDy5zZGu/cvhqTLoEMLV060j2L6asu7lbmBVfMkSOKYd+3GxM+Gb4ASiE?=
- =?us-ascii?Q?fiSIeIgsxNLfFurnQ12euLxlP+bxibTxWiWrXL3st7pJdepjxVseid9qKygl?=
- =?us-ascii?Q?p/TgfGXxvoUQSDNMscAneJ14z6fgbg1SMua1BTLywwIRWDx6cikJKwYV6hCi?=
- =?us-ascii?Q?LU6fcptM6MSC3K+5XKQ+F7HM1AmUf3F4mncR4+qZRF38+FLXmEI5wcijDxGm?=
- =?us-ascii?Q?DnKkguZGSCWSE4NmTROnzSr9chqBY/ffFK3Ag0jEWjYuZ8jjRqrHLJIZ/GUI?=
- =?us-ascii?Q?FCfBmlPaO49JzKakBkOshDBl27uM6Q8jM+FvvfrtrZ3bEiHUb25c74OjFN8v?=
- =?us-ascii?Q?HZ0FfrtDPWXrQyKImIFQKFse0yh+cJIg6Az68a6qs2ErAkCJgKIJ+YWg+gML?=
- =?us-ascii?Q?0s9pqmCVdDBnFZ7DiS92kHLkfVYbuBu/O9buMtxvQf4FukglepJN42zgIzmu?=
- =?us-ascii?Q?V+IX5zwGwHROV/Bw4z8dj+KVtNGwWEegDhumB/dnbitnC8j2smHCZ5SRFBKg?=
- =?us-ascii?Q?rl92deooiIlAJzovi79uEUEDoTthrJAoo/7wyuF8DLPZMEJwFHjrBmJ84S15?=
- =?us-ascii?Q?/Gt9YUbob1z5+jFGGwWRP+auoRWu+F6b7jnVagw7fGk97w/KTqhrImrPFHEL?=
- =?us-ascii?Q?dmwQdIsbiqsGRu7laYOsNqHC3rhlGNfwE7dxyqs4SPOr8J4m0Jh5iChpmUQK?=
- =?us-ascii?Q?DhoRGy5NBAkfxHMxYS+kZ03qI66HVglXkLJ0kbe9MctgK+aBgLfulohEjBGT?=
- =?us-ascii?Q?gAj9D5swaZcRilkvoAbaorou0P4uDjflEW6gEpLEaGJXIYX/gaWbYANxEQyt?=
- =?us-ascii?Q?frlV+ERNPoW/Ykv68RCkCudpzOn82Q8wlG5AhXChG4LNkvAJe6K+ccJQUl36?=
- =?us-ascii?Q?qiCs9qB1C4ijbEGqDCsR09+27HhEIr0jkrXzhMGmQQoGVvf6N1FdqPJ3XOfn?=
- =?us-ascii?Q?6VKtb4VpKuKvhcDBP5q+Z03VSJMXCm5LinkCOBlLxu8hBLtfRoo0CEaiy9Os?=
- =?us-ascii?Q?0yAOpLy16ZCXSGiccZOjqWxKrDOdvcjexYRKgWFZ3da5agH27DmLgUQdgZez?=
- =?us-ascii?Q?2Y3XoBp3oTlPvd3XqTMliPpdJ36RXqHPsx23qz3Dv06O5anNPM+qe0E4PbQ7?=
- =?us-ascii?Q?9g7kutgfzVu0T6m6VQ/lfb+6KZ6/XahL02VCcGDwZSVxZ27GiJ4UcAIzODMz?=
- =?us-ascii?Q?4C9MW0/YDd0EqO/usAfK4H6KwdDbUA+xEfp/b6UHN0KjtmJqbFDr8bw+Nork?=
- =?us-ascii?Q?aGWEYqir2w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n9+SAV2A
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a210470b49so26037195e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:10:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794823808; x=1795428608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ww1H1S9hrHisj8WmixCX+JG9UibSCui1VAe7NK53FuE=;
+        b=n9+SAV2AeNM1sBkSKO/QF9jwB4wshL4PVR/ptInzb+/xQz3IvnDg8ph7q9TEk2kR27
+         7wz5kwTO30lGDsVkrzVBC0H9j92Ef/DCzR80lHdpuBYTxd0nOlAvV92+5jDHUyCWkB0s
+         0QF3Kj7MBGGb6T0IOm+E8y7piX5FS8km1Uc8oTIs1mf0lkYqDBB+ucWxIW+ypYmM4Zfa
+         3cmZFGZ59TROHzG2jyOROjtfVUjSyMScHoF+SPsQRt9mNi6y123iFBYM1+1DY7oudlBH
+         kGpqD3yufz50Z8Z3PTMejLQi834N0xVXVeo6kFqAgD2Ex3zsxrcd8d8CxKn5Q/I9vHuD
+         ukTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794823808; x=1795428608;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ww1H1S9hrHisj8WmixCX+JG9UibSCui1VAe7NK53FuE=;
+        b=uc2oP8ezuHlDRZaEMW4z33enM2K4ndtrEFLhRr/fq/8Wo+fXZET3DOU645SYLC8z/W
+         BkGzqiwJ3MXsxaCHSOVU0OordZTYEGSs+HQcTvIiIOJ572IiAZDQ2MRNQw7BzCQ3UxhW
+         68Lr1O3j6/7cVgEwLJXh+fAarC7c2iqoKQ9dewk+LGdL+FcjHM65QZEobnKBbE+BON5o
+         PzdUNXVvlGvigEc/6lJPmho8x+Hw68yUSRZSCc02A2mshxE+rK8tvfw+K0adoJzMUEvh
+         4xZWwRxvjk2pnahQYfFbK7j9nWmuhL7RtL58b/DO/wtAuBDCUMwUTz56Jqa2/UrWbLiE
+         1pOw==
+X-Forwarded-Encrypted: i=1; AL+hErHikjNUOJXB4uolte1pu3h3H7tI9Qhog7mKpBtjmODk3WIMm2abDqBZ4oY0RWG0+Yp229//1Gp8qvwVpR4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99Qx7BanbZJrV5yGCZ1XHWoRDO5NnjbWNlmrD1HhOofFEO3fNC
+	abLLYL25gMVgNUL0a+9b0qHECjIvZ+3HT3Oa4UO4oGzy7HrGlBTpecHB
+X-Gm-Gg: AYBFou3ts/0ssay9sWKRQUtUJCEWOs++5iy1gV0V1jdFfFKBO8O6eVjS4gqDCu+V/Ub
+	PqHMbjGmViyoOd7KTrzV/5T9QoHERzfe8pzq7MpK+Gjw0mErHcUl8twW85Ce7gIDJWe3DcbHVNU
+	JmKN4HwyygPIPpRKpzFZbE4sQv9sCvRRFF3e3MnsMBMa4GpdVVQKA8tJvRvvKD5TPso4ae3943C
+	rXmhfen2bjaRJ1wvBFXLk7cJd6nlaaXt188lA+Bldn8bhNE+ctJWho825P4ibFonogFomz8vHRr
+	BbQjiY5scw1t3QcV7PxE6gjkxUueP2BoqJ26qxxnCbHRklGGNqYeab8UbsG9OZ28bIESykHc6HO
+	BaEMg39Kc7riPrjvkeNplXAUbzWXCid7vBAHEcrFW3AmQLnOylwNIwqEKf7EODgnAiQq7NE3VUz
+	inlpm69xcwzEHFzeDjeHKAE9joWTWhfBwDZowlGw/3vsv8BbMcv8meTSXqi/50Mw6QKpG2mEVyZ
+	jnk9bQztorLIlCFckhIx5siHEkLIkxYCYuMvQThqVNk+pCREuaLNf+ZwIt0CavYThcKSxy8lQHP
+	ufdBOSqBk+Sr0wZgE7QM
+X-Received: by 2002:a05:600c:544:b0:4ba:2bfc:c8b5 with SMTP id 5b1f17b1804b1-4bb55a662f9mr135927565e9.10.1794823807538;
+        Mon, 16 Nov 2026 02:10:07 -0800 (PST)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2cd05sm19224289f8f.31.2026.11.16.02.10.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 02:10:07 -0800 (PST)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Peter Xu <peterx@redhat.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Tal Zussman <tz2294@columbia.edu>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v2] Documentation/userfaultfd: document RWP behavior when the PTE is dropped
+Date: Mon, 16 Nov 2026 11:09:56 +0100
+Message-ID: <20261116101004.15322-1-azpijr@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,39 +110,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e11b9d74-4840-4ad9-9873-08df43c9abd9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 10:09:15.9914
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jQIn5bKaP0x+hSVJfBCX1VVh+UH1/xrsaceOSlCv9kumgbnKi5zsFyXd8OraM7R++RLAelmvReD80jrLsrW33yyRKwwSWYVb6ihD8HsOyOo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB18376
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Wolfram,
+"Scope of protection" lists only the PTE drops requested by the user and
+says the range has to be re-armed afterwards. On shmem the kernel can drop
+the PTE at any time (page reclaim and collapse are examples), and RWP has
+no marker by design: the next access is a minor or a missing fault, and
+the user is expected to register for those. Document this, together with
+the modes that sync and async tracking need.
 
-> -----Original Message-----
-> From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Sent: 16 November 2026 10:05
-> Subject: Re: [PATCH 0/3] Enable RZ/G3L SDHI
->=20
-> Hi Biju,
->=20
-> On Thu, Nov 12, 2026 at 06:48:49PM +0000, Biju Das wrote:
-> > This patch series enable eMMC on SDHI0 and SDHI1 on SDHI2
-> >
-> > This patch series is depend upon [1]
-> > [1] https://lore.kernel.org/all/20261104-usb_rzg3l-v8-0-ab109c4bd108@bp=
-.renesas.com/
-> >
-> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> could you comment shortly on the Sashiko reports, please?
+The VMM example registers guest_mem with RWP and MISSING only, so a vCPU
+write to an offset that is not mapped there can be lost during eviction.
+Add MINOR to the registration, describe how the handler treats faults on
+offsets that are being evicted, and fix the step 1 comment, since minor
+faults block even in async mode.
 
-Sure.
+Link: https://lore.kernel.org/linux-mm/856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org/
+Link: https://lore.kernel.org/linux-mm/avWnaR7VVEGa7yNp@thinkstation/
+Suggested-by: Tal Zussman <tz2294@columbia.edu>
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+Changes in v2:
+- keep the migration sentence out of the anonymous-only paragraph, it
+  applies to shmem and hugetlbfs too, and say "uffd bit", not "marker"
+- state the rule instead of listing the operations that drop the PTE
+- say that a context switching to sync with UFFDIO_SET_MODE needs the
+  sync registration, and fix the step 1 comment, since minor faults
+  block in async mode
+- add {} around the comment-only if body in the example
+- make RWP and minor faults on any offset this pass will evict wait
+  until that offset is punched
 
-Cheers,
-Biju
+v1: https://lore.kernel.org/20261113112806.109578-1-azpijr@gmail.com
+
+ Documentation/admin-guide/mm/userfaultfd.rst | 88 ++++++++++++++++----
+ 1 file changed, 70 insertions(+), 18 deletions(-)
+
+diff --git a/Documentation/admin-guide/mm/userfaultfd.rst b/Documentation/admin-guide/mm/userfaultfd.rst
+index 97daea83b7f1..8d1aeef73ac2 100644
+--- a/Documentation/admin-guide/mm/userfaultfd.rst
++++ b/Documentation/admin-guide/mm/userfaultfd.rst
+@@ -384,17 +384,53 @@ normal missing path (``do_anonymous_page()``, ``do_swap_page()``,
+ the population itself, co-register the range with
+ ``UFFDIO_REGISTER_MODE_MISSING``.
+ 
+-Protection is preserved across page reclaim: a page swapped out while
+-RWP-protected carries the marker on its swap entry, and swap-in restores
+-the PROT_NONE state so the first access after swap-in still faults. The
+-same applies to pages temporarily replaced by migration entries.
+-
+-Operations that drop the PTE entirely — ``MADV_DONTNEED`` on anonymous
+-memory, hole-punch on shmem, truncation of a file mapping — also drop the
+-RWP marker: the next access re-populates the range without protection.
++Protection is preserved while a page is temporarily replaced by a
++migration entry: the migration entry keeps the uffd bit, and the PROT_NONE
++state is restored when migration completes. This holds for anonymous,
++shmem and hugetlbfs memory alike.
++
++Protection of anonymous memory is also preserved across page reclaim: a
++page swapped out while RWP-protected keeps the uffd bit on its swap entry,
++and swap-in restores the PROT_NONE state so the first access after swap-in
++still faults.
++
++Any operation that drops the PTE also drops the RWP protection. On shmem
++the kernel can drop the PTE at any time while the page stays in the page
++cache or in swap; page reclaim and collapse into a huge page are examples.
+ Unlike WP (which persists via ``PTE_MARKER_UFFD_WP``), there is no
+-persistent RWP marker today. The user needs to re-arm the range with
+-``UFFDIO_RWPROTECT`` after any operation that explicitly frees PTEs.
++persistent RWP marker, and this is intentional: once the PTE is gone, the
++next access takes a page fault that userfaultfd can deliver, and that fault
++is the notification. Which fault it is depends on what happened to the
++page:
++
++- The page is still in the page cache or in swap: the access is a minor
++  fault, delivered if the range is co-registered with
++  ``UFFDIO_REGISTER_MODE_MINOR``.
++
++- The page is gone: the access is a missing fault, delivered if the range
++  is co-registered with ``UFFDIO_REGISTER_MODE_MISSING``.
++
++WP cannot use the same scheme — a minor fault would trap reads as well as
++writes — which is why it needs a marker.
++
++Without the matching mode the page is mapped back silently and without
++protection, so what to co-register depends on the tracking mode:
++
++- Sync mode: the access would be lost. Co-register shmem and hugetlbfs
++  ranges with ``UFFDIO_REGISTER_MODE_MINOR`` (and
++  ``UFFDIO_REGISTER_MODE_MISSING`` if the file can have holes), and
++  anonymous ranges, where minor faults are not available, with
++  ``UFFDIO_REGISTER_MODE_MISSING``.
++
++- Async mode: neither is needed. A page faulted back in is mapped without
++  the uffd bit, so ``PAGEMAP_SCAN`` reports it as accessed.
++
++The registration is fixed, but the tracking mode is not: a context that
++switches to sync mode with ``UFFDIO_SET_MODE``, as the workflow below does,
++needs the sync registration. This has a cost in async mode, because minor
++faults are always synchronous: an access that takes a minor fault blocks
++until the handler resolves it, even while RWP faults are resolved by the
++kernel.
+ 
+ **Fault Handling:**
+ 
+@@ -484,17 +520,24 @@ never traps on its own ::
+         .features = UFFD_FEATURE_RWP | UFFD_FEATURE_RWP_ASYNC,
+     };
+     ioctl(uffd, UFFDIO_API, &api);
+-    if (!(api.features & UFFD_FEATURE_RWP))
++    if (!(api.features & UFFD_FEATURE_RWP)) {
+         /* RWP unavailable on this kernel/arch -- fall back. */
++    }
++    /*
++     * MINOR: an offset in the page cache but not mapped in guest_mem
++     * would be mapped back without a fault, and a vCPU write between
++     * the pwrite() and the hole punch in step 4 would be lost.
++     */
+     ioctl(uffd, UFFDIO_REGISTER, &(struct uffdio_register){
+         .range = { guest_mem, guest_size },
+         .mode = UFFDIO_REGISTER_MODE_RWP |
+-                UFFDIO_REGISTER_MODE_MISSING,
++                UFFDIO_REGISTER_MODE_MISSING |
++                UFFDIO_REGISTER_MODE_MINOR,
+     });
+ 
+     /* Tracking loop */
+     while (vm_running) {
+-        /* 1. Detection phase (async -- no vCPU stalls) */
++        /* 1. Detection phase (RWP faults async, minor faults still block) */
+         ioctl(uffd, UFFDIO_RWPROTECT, &(struct uffdio_rwprotect){
+             .range = full_range,
+             .mode = UFFDIO_RWPROTECT_MODE_RWP });
+@@ -544,11 +587,20 @@ never traps on its own ::
+                   .enable = UFFD_FEATURE_RWP_ASYNC });
+     }
+ 
+-During step 4, a vCPU that accesses a ``guest_mem`` offset being evicted
+-blocks with a ``UFFD_PAGEFAULT_FLAG_RWP`` fault while the eviction is in
+-progress. After ``fallocate()`` punches the page out and ``UFFDIO_WAKE``
+-fires, the vCPU retries the access, faults as ``MISSING``, and the
+-handler resolves it with ``UFFDIO_COPY`` from storage.
++During step 4, a vCPU that accesses an offset this pass will evict blocks
++with a ``UFFD_PAGEFAULT_FLAG_RWP`` fault, or with a
++``UFFD_PAGEFAULT_FLAG_MINOR`` fault if the offset is not mapped in
++``guest_mem``. The handler leaves the fault pending until that offset has
++been punched out, even if step 4 has not reached it yet: resolving it
++earlier would let a vCPU write land between the ``pwrite()`` and the hole
++punch, and the write would be lost. After ``fallocate()`` punches the page
++out and ``UFFDIO_WAKE`` fires, the vCPU retries the access, faults as
++``MISSING``, and the handler resolves it with ``UFFDIO_COPY`` from storage.
++
++Faults on any other offset are resolved right away: RWP faults with
++``UFFDIO_RWPROTECT``, minor faults with ``UFFDIO_CONTINUE``. A page mapped
++by ``UFFDIO_CONTINUE`` does not carry the uffd bit, so the next scan reports
++it as accessed.
+ 
+ This workflow targets shmem and hugetlbfs (both support a private
+ ``io_mem`` mapping over the same fd). Anonymous-memory backings need a
+-- 
+2.56.0
+
