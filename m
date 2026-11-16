@@ -1,96 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866010;
-	b=NFFJI2DdK2HoSzLE1PrU/ZEg6xkeL0P1eRJgUxJr5lDQzhg8q3JoJJVBTO45rtqnTmfs
-	 cTEsgX5iLntZ0F/arkBPa2FvRuux2ugcxEwfSddFBEx09+FR4ZnqUg3oBTAuOOtDejg1F
-	 r1AegUuy2MYlsHaYMGuVO8EcfIY+KVVBGqrYIV78ev+iykHa9fU7dTs75Y/6g36FkbIqn
-	 4TE8MM7LERdXoT1/P2SsXSwF3a6w8k+dlhwRSB0eCp+LLnPCUIqYaGR9yN8rdb8dCErZ4
-	 av2msIUWFhSVRlrfJ8Lor0NO1sHfJ6vpXZHjE6kdGpWN1J6rQ/W4CHum4b7QW2tiE6A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866010;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZxM9DBn9x54akqpkzn9sBtaRSKG943eg3cl8Nel3kzo=;
-	b=lIpIHNZJ98pjnOV3paanIwOQWgBGWLes+JDI5F1Z1qJ/3j31WyYykcowKlk8eEv038p0
-	 M6sSkjkLdAeCcsxEsW2k89Jbhd7k3ekja/xAdYTUJSnIhcbBBjxZg4OQncKqkRKiNy0/m
-	 YuyIv0kMYEmmeQ7DcUp2iAYfLi+C+k4lcXa49Gv9zW3rpiXbiXI0dNYE3JSp+QbQGDX9N
-	 SQOdbFWUM1ZugSwarEEp7b949p91u03aLMSeTYUIE6GRf7M8V/6V7yIPvzLiwmq9qDLdy
-	 Z3B7QSBxUxkgSnqwDUKs8P0M+5TutOEV4vyYaxmxStE/deP1GbHkh4gai5825Evh5vg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EGFEKEqv;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794866106;
+	b=ln2EUICxHZHjG9Pm+XKar/ayabv3UIFRbHww84EKcHHO4VkUpcb7d5FF0PP+S864I8y7
+	 cWYbelUW1uqgV9FFF8/eigRTasWeexuOT8yrpNgkTv7jeFR/tvc2PbDVtyabC894UQc/g
+	 818oLW4HMmjCFYA9DNgpL5LgCIlVB1ddu50xaBemab7KzGXl3uSxndaQibv9TNY4/o9gp
+	 zVda6HFz91ccDjerBKq2yJv2vPps0atMqyw/+DHIE/gqu0kLgvbkfJ8ivCwhEvu+uLyA3
+	 wV8Rd1Go1FSRB/cFnnGeoWAjXnH/7LvZSvkNmsvKV1bN/8hEN7Xtch2rJ2t5N9Aw/1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866106;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ZohoMailClient;
+	bh=dfvy7wSiuAwFa7w0F1KM93+WCu7GdYO/v/QrAqXAXtA=;
+	b=NabSyha5hgYX2uhF5ihCY8FnLStFWWcPTINz227IRooNeu8NSZkx+Lh8jAxwYxpnm+TA
+	 BxN7UDERSz6K+GUpDj0CAB1lqPgD6Q58Wlhq4onrFwdCfQ15o68iaxGyF9RGPmpbUV4jl
+	 +FaIoBUhBPuKwvm6Bd2zahb7il89x0VErg7c3nss+3ro+jTn4nSz9ZG7Se/KRoGXauCFt
+	 Vrz+i/Y8azMJi+VXi0J5zw2Gtp/UIEeASTyuzHJDxF1N+eEPG60juA895DALu7Gt2pT9X
+	 8b5zrHrEmaOlFLCaL90D57zQHb3L/jsFomycvj1j5L+AANutjmm7sNFpsefaR7ZdStw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=XfKSKxnh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354C1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:53:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 354C1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41961606A322;
+	Mon, 16 Nov 2026 21:55:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41961606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EGFEKEqv
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so42004365e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:53:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794866009; x=1795470809; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZxM9DBn9x54akqpkzn9sBtaRSKG943eg3cl8Nel3kzo=;
-        b=EGFEKEqv8Wun1nH9x3q6NPhZLAuJ35WMTdBXnIGHyzw2sFb+CDsdn2o1BH1Aa9kU9y
-         uxoft//SzoGgO8OppW6Q+yuFjOr9ovW7HM9svUFJHBpR6roS+bXL7zhKj7DOzfdYjYzz
-         M8QMv+k2U6H/hbAv0qGIpiO0PE8sqWKFT9ALnrfwq5MOQwbKjOmgPd8zMRqAbBMpeq5i
-         beE1Lw+ORPcVdR8xLarxv1PDsC1yPPvjA31dLDzXHtkPBXegT0EfVhxvdyklK9HiKhsy
-         ZsZUCGs1WNa8vehACjDvUeTFkhxyolzxs8fYLRYohY9baiJHgmihyzgDbEo6MwBhsz12
-         rEOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866009; x=1795470809;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZxM9DBn9x54akqpkzn9sBtaRSKG943eg3cl8Nel3kzo=;
-        b=LRkitwcOhAVzouQ80UTjq48OUXUXN6y1nXGQvmeHag7cGwqCBKzbwf3LbgFdNTYGi1
-         H/K+cGM+AvgR1gjBqj4K4jrMJNMi78qL/ry9dugDYxTpggMilx9d+zy440XfOPb+hpLd
-         S93zZPnfNMwNJLVR0NeX36+PGvz1tzKYrnAoaGgoe0AcZzv9G77Kdv/6XRnW4a4m/Ek9
-         jGn4mCMo5F+qsWu60NoKdtaCzOA3F6SIersfGRr0MjiHNiHmhXmm9PPek3ys2ExmXuHC
-         8ALn9bBD1dfiIkabRX7nHKkMWjeZBeX+TqQSh7kVU5rUJxSmpXn7uXDrQMlPJBjb+Pf0
-         Kyqw==
-X-Forwarded-Encrypted: i=1; AL+hErGfeGNvaJwFurHRgLWYBMN9aW4ziLYfmUEaZvHPlhoAzXVjGzLjLix4cpzAUFulnZ23ivh9KIqm+YfLhxI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wqPLkFJf0hwvoohn+VJMahA53wGInYVXme+HaSyJ2KWnsSCz9
-	ijBLsudd8ibgKe2r/V98xIMnH96AlQq1DsnpdRtJ+hpJRBnr8rAUcNft
-X-Gm-Gg: AYBFou2AlrIwTyUgM0deZ/C1zlCZR1nKXUIocFq+2560XPnXvyMnTd7VYs2SUcLAf6X
-	Mqtwim1+8n/miLdZ+r0HahSHCoP9FBENDsoGpGxDhWKzCrx7T/dMbXaavN/LsTbCUZmMXPrAIVv
-	ybtfhe0qB8PsKXT77rmkqEU49QPTk1656MHDrvNeHAhdGu3commiidB8ZbwM9BXxxgiR8Aj9il3
-	uANM9+AvilMAFiiD9a3rsF6ME5UHK/7OLMBujlS6BxRWi9ceW9dV/z5kuLQU/NrbHbR22YSqQtV
-	WBsOFEG0ZXH2sIBuyLQwbBKaN+kmlRjd2dvF1QXCPmABy+QXwmy1P9RimkJ8oqVDlz7gBDNgjhX
-	uC52l5QUrVyAFg0uFz/jTINu9SAx+M0NrXk1PhndTxvSesML3y32fsILIjCbZqnFJABRugkV3ED
-	UmW4xcGlTSHE1rqDUJ6kNmB+G33RZUueW41HrIA+gnmzVh5JB1Cjolu3RFzFhzczkoYgb96F6Ew
-	F2ET8wHUqucNOTxnxzvHjivnjANJOIxxyP3e9o7U3NUhKmmUNdhdcQkNYtMYbL9kzG8M6yvYYtB
-	iJkjz8/sepWSDGsggc3U5TL6NoII25fJt4dbdy9YyepMMEajq4Cd3aHpfQVOwrOEZE6D+rgmqPV
-	liyj6f/jDT6DHvVlsRkLrBwc1lQee58msipIhrdYqbddJ+V1ZCG/GgU0d
-X-Received: by 2002:a05:600c:a313:b0:4a2:397:73fd with SMTP id 5b1f17b1804b1-4bb55a50c90mr194484255e9.12.1794866008541;
-        Mon, 16 Nov 2026 13:53:28 -0800 (PST)
-Received: from pc.tail250202.ts.net ([87.110.86.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5f350d51sm104287115e9.4.2026.11.16.13.53.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:53:28 -0800 (PST)
-Date: Mon, 16 Nov 2026 23:53:26 +0200
-From: Janis Edvarts Lacis <janislacis06@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, wellslutw@gmail.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: ethernet: sunplus: check budget before calling
- napi_complete_done()
-Message-ID: <7zevuoiao6ildvkxt5baqnalb3nrx736krdxkbrbxouelukveq@2wo6m6cfl6rn>
-References: <20261114222744.535158-1-janislacis06@gmail.com>
- <26c5c08f-d6f5-49b2-9fa8-de6f8c244a78@lunn.ch>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=XfKSKxnh
+ARC-Seal: i=1; a=rsa-sha256; t=1794866077; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=WYpb/ZRvGP05Bq0/3L9kgmxuOTUvUuOdguZvow4yvH/Kgo0kWWwWl2kdI9MPLJifKhpGJfU1m6sZiO/561vuuoNmyTx03j24RbCBbH35YjktzgUsECRHtoYWM0KF51gtGJ0gJHUgu56LMK8a+5dH7/D0DbL+ZwScz53/0WPDdjw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794866077; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dfvy7wSiuAwFa7w0F1KM93+WCu7GdYO/v/QrAqXAXtA=; 
+	b=DrUilEdI2C516cDoikg2fomPfsm5yTm4mIobJERlTt6FfGncAGrW7AuiZEiP7IxDxOvKk/dEQ/dhTMJNKj8jg+DCiC5uGt/0EYH3R9/1mKn1i5dwV+pV6dHIBNspxSHY3z36BZ38dt0VZaMORxqeYNq3RoYg4Z+ZHg/YpJBsVOM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=XfKSKxnhJiPi6lAbogYeZjGrelM6+M7Vgo5t49NXpgOas9kuAONHjhkXKaseJA+MzVenSFir5JkAXVYskI4c2fPL+Ex3rIIbIW/6Wzg3ihQJ/36RZRkqtkQmQUkcxNKBZCtYYh3jQO3BIZfoPAp31El5nzEbvzX3jJi/PEsqXKM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=dfvy7wSiuAwFa7w0F1KM93+WCu7GdYO/v/QrAqXAXtA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794866075582154.15241391048926;
+	Mon, 16 Nov 2026 13:54:35 -0800 (PST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>
+Cc: iommu@lists.linux.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [PATCH 0/6] rust: iommu: add a paging domain abstraction
+Date: Mon, 16 Nov 2026 16:54:32 -0500
+Message-ID: <iSL9q6tCTCC93Iglr5SH1w@collabora.com>
+In-Reply-To: <20261112-b4-iommu-domain-v1-0-c29e86788dda@collabora.com>
+References: <20261112-b4-iommu-domain-v1-0-c29e86788dda@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,47 +78,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-In-Reply-To: <26c5c08f-d6f5-49b2-9fa8-de6f8c244a78@lunn.ch>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-ZohoMailClient: External
 
-On 15 Nov 16:50, Andrew Lunn wrote:
->On Sun, Nov 15, 2026 at 12:27:44AM +0200, Janis Edvarts Lacis wrote:
->> Sunplus drivers currently do napi_complete() after each rx/tx poll is
->> done without checking whether budget was exhausted or not. Interrupts
->> are also unmasked before the call to napi_complete().
->>
->> Replace napi_complete() with napi_complete_done() and add a check for
->> budget_left. Call napi_complete_done() only when the budget has been
->> not exhausted fully, e.g. budget_left > 0 and unmask interrupts only when
->> napi_complete_done() returns true.
->>
->> I do not have the hardware necessary, this patch is not tested on real
->> hardware.
->>
->> Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
->> Signed-off-by: Janis Edvarts Lacis <janislacis06@gmail.com>
->
->Does this bother anybody? If not, net-next. No Fixes: tag.
+Hi !
+On Thursday, 12 November 2026 12:00:07 EST Daniel Almeida wrote:
+> This series adds a Rust abstraction for IOMMU paging domains. A driver
+> can allocate a domain, attach it to its device, map pages into it, and
+> install a handler for its faults.
 
-Will do in the v2.
+Note that a domain is not attached to a device, but rather a device is 
+attached to a domain.
 
->
->Given that you have not tested this, how confident are you it is
->correct?
+Small difference but it influences how domains are applied to devices and what 
+happens when a devices is detached from its domain.
 
-I am fairly confident the change is correct, as the documentation
-supports it. When netpoll calls the poll function with budget = 0, 
-napi_complete() returns false, but the driver ignores the return 
-value and unmasks interrupts anyway.
+A device must always be attached to a domain, so when the device is detached 
+from a domain, it will be reattached to its default domain.
 
-During normal NAPI polling, budget is set to default (64), but the
-driver has less descriptors and it looks at each one at most once.
-Therefore, on this path, the only benefit of this patch is that
-interrupts are unmasked after napi_complete_done() instead of before, as
-in the old version.
+IIRC, you cannot detach the default domain (it returns an error).
 
-Of course, actual testing on a device would be great though.
+Of course this doesn't prevent us to use domains for the encoder the core we 
+want to use can be attached to the client-specific domain before starting a 
+job. When idle, it goes back to its default domain (most likely empty).
 
-Best regards,
-Janis
+I also belive the patchset still works, but I'll have a deeper look into 
+Attachment and some rewording might be necessary to avoid being misleading.
+
+Detlev.
+
+> This will be used by the upcoming rkvenc driver that my colleagues
+> Detlev Casanova, Nicolas Dufresne and I are working on. More details on
+> this driver can be found by watching Nicolas Dufresne's talk at LPC 2026
+> [0].
+> 
+> As part of the security model, each client will have its own IOMMU
+> domain. This is needed as the submission model will let userspace set
+> most of the encoder's registers directly, so the kernel cannot check
+> every memory access that a job makes the encoder do. With a single
+> domain, one client could make the encoder read or write the memory of
+> another client.
+> 
+> With a domain per client, the encoder can only reach the memory of the
+> client whose job it is running, and any other access faults. The fault
+> handler added in patch 6 lets the driver identify the faulting client
+> and terminate its session.
+> 
+> Patches 1 and 2 prepare for Domain::map(). Patch 1 moves the protection
+> flags from the io-pgtable module to kernel::iommu, and patch 2 makes
+> SGTable::as_raw() visible to the crate.
+> 
+> Patch 3 adds Domain, a paging domain that is allocated for a bound
+> device and freed on drop. Domain::new() is unsafe: the caller must
+> ensure that the IOMMU driver behind its device sets a domain up fully
+> when it is allocated and allows concurrent use of it.
+> 
+> Patch 4 adds Domain::attach(), which returns an Attachment that
+> detaches the domain on drop. Devices that share their IOMMU group with
+> other devices are not supported.
+> 
+> Patch 5 adds Domain::map(), which maps pages at an IOVA chosen by the
+> caller and returns a Mapping that unmaps them on drop. The pages come
+> from a MapSource, initially a boxed SGTable that owns its pages.
+> 
+> Patch 6 adds Domain::with_fault_handler(), which allocates a domain
+> with a FaultHandler installed. One handler can serve several domains.
+> 
+> This is based on v7.4-rc1.
+> 
+> [0]: https://www.youtube.com/watch?v=75E15eHY7ac
+> 
+> ---
+> Daniel Almeida (6):
+>       rust: iommu: move the protection flags to the module root
+>       rust: scatterlist: make SGTable::as_raw() visible to the crate
+>       rust: iommu: add the paging domain abstraction
+>       rust: iommu: add Domain::attach()
+>       rust: iommu: add Domain::map()
+>       rust: iommu: add Domain::with_fault_handler()
+> 
+>  rust/kernel/iommu/domain.rs  | 425
+> +++++++++++++++++++++++++++++++++++++++++++ rust/kernel/iommu/mod.rs     | 
+> 18 ++
+>  rust/kernel/iommu/pgtable.rs |  16 +-
+>  rust/kernel/scatterlist.rs   |   3 +-
+>  4 files changed, 446 insertions(+), 16 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261111-b4-iommu-domain-f46a6e450c0d
+> 
+> Best regards,
+> --
+> Daniel Almeida <daniel.almeida@collabora.com>
+
+
+
+
