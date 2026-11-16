@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859959;
-	b=gpzrJ8V9IgYjLQebvHxPIrcWK6a7VPEsJHSUQMrcJwkchq+hbP9NJXIS3m7uyb6LHdHB
-	 hcikIOlSym//ApeTjHWFUG+Hb0yHsGH4PVIX5/ReDYA0RHF9vKmKFtIPFuIvfWOEdwerZ
-	 YWytdbnJymahKAXcBHLDYklz8k9ZAYNPPqaLZnUaw9sUqkbERNFDAy1FeFgQW8xgG0Cj+
-	 mDbsMufKGmD8+uyYv4b+mtRn5eXwjsy4n5xXElVtCam2pRaGwtMvsm1YyLLa0bMcpzY3l
-	 oJQ6Cz2rq1nlLlq/GiHUrVIit4QWFh8kgJDTr99l5hoE/SK5Xy3EWxgkX9w73pLjmIQ==
+	t=1794860006;
+	b=Ghr2rqmRgoo9SbBv4a2+5l6SCTYT0rSTbIaLCsFTd5c1yPIEJC7EjRmdeG4R6m6RTdZm
+	 JKu1p68wilz/ijsciptOrF9/qpTxng9UL7HZmZ/t0azJeqD4Jmv6q5PMzZC7wdNZcWsXk
+	 1dUClNKmEZuywkY/kiEeNOAveI2aB1wt1jRpCrO9I6M7Kfrd94oonMCo5BwjWK6cl0H/u
+	 oJRNrNm/zcfwxV1EZT8jW2YlkaWvlj8sXAsz4NwDaz2sngN4B/FYGMrF49wR6ln8aLRDL
+	 SM5x6Kb0JGmFJ65CBmjZ4MKnHsPk/ADRf7EFEd09SlY0FAL0jKY8Jjf0GdhHzCdCChQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859959;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=n3p23qamEPSVCku/oD2M/mowxIfwSLWupYtuZmpll5M=;
-	b=o5GRsOgiXn1KmKdOHVWBruwi91JFpRUn2/CLBHtIRCxjt610X64GPALIv5pm1IKDobqI
-	 3z2o/8Zpgmu5zrMruvY/UmEbGjkuXtFDWO2H+cS7VjdeTheXVGbTHKDxjq8vJ/U2DKmsC
-	 gCu5UcZ8p71oDfDYot6Jq3pLHCOPgbmpnE8yxNqkIQhkOzsu98lgiij8ZcJfeUInIE0cN
-	 tjMIiGqT2KKH/fRS4NZ2E+Wpn4n2hKETkv6GLSld0/DejS1m+gTI2pBe5hgdmJLVsb3vE
-	 OwQBbC+ZY6Jdo6ftZ9tccKUVKMB2ZzSN2ydsua2Sy3JVfnOz5L01pLIQCLZsNiGPzsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=BDGAdzVguqNy0JEZoxyPcMqb3hE97RGPZcChbfGjrxc=;
+	b=iFDYM3E9SSiCJQWr+eHlNXUF4goToCRDKKbyQ76S0AbCcCGczxKViTOrU9iJSla0mHPR
+	 y2ALAQH6FPUl/HuEN+Q7XoxJBWwpqOJXz6gSOIUOFP3U9kZV+QrW3Nw1MOOzRJmtnfODU
+	 hJwv0rkzN/QkNrpSOUUYoxo6weCcktD3aChg7/EE4H47gA2WDPWJsEBvOnhzGYCn1Gz95
+	 Ch8vP6sqrQ0UFaZV9kS/D4Uyo5hBTWPwjKSJw/0HC1fjDNyC2wiAsuGEgdz/DobA0T53r
+	 Lu/nNe88VYGyLDtKzJw/lWIABDI0qVnPuopz+1KlSJybjPN5iZDqFCeOyL8f9RhKBaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bR9C4XtD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=XHjrS7sS;
+	arc=none smtp.remote-ip=209.85.221.169
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88AD6606A887;
-	Mon, 16 Nov 2026 20:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE72606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FE72606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bR9C4XtD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C681F000C4;
-	Mon, 16 Nov 2026 20:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794859959;
-	bh=n3p23qamEPSVCku/oD2M/mowxIfwSLWupYtuZmpll5M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bR9C4XtDF/k0L5w/U5uQo6eXX7kanrYrxFdZawrLfoHk7xnDVdh1qDn0iUSJkBSsJ
-	 Oqp6463VWr+a24SukPwK+XAwrvY2NkFTncDZAdYxpfdw3UcLC78BvYbr0cJ/UjqZrG
-	 wrt9MknJJfV5cXCi6ZtB9oTTRP/T7apZ375/+nS6faqyXb/Riiav3m266dnwIepI8z
-	 S7FCRaXNFbgoIyJd+HTmq6FWviD8OZ1HlQjwohbia/RwF1cZ74vbevI+m5CSab7PXB
-	 gOuxyh51SCc9wGRZvMDofplgzTg9AA6rNbXLoeiE5PWXGrBkKSkG0xeBqD1OjjgfUV
-	 LHwdvvywZjo2w==
-Message-ID: <sashiko-outbox-217639@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 31/37] sched/deadline: Start a period for a task that
- enters the class blocked
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261116190549.230119-32-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-32-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 20:12:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=XHjrS7sS
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eae12762c9so1365714e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:13:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1794860005; x=1795464805; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BDGAdzVguqNy0JEZoxyPcMqb3hE97RGPZcChbfGjrxc=;
+        b=XHjrS7sSi2aqtED+FVb0XnW5wGyB8px/TKyLxVErtD3ox/FRWwyDCJ7jml5uSMAvu4
+         uU/iCNmdaNfMlSE0iz4MepKlSU1k4cdIi3KFDdQeK1xdRJ1i+2Di3a88QzJVc8TpT2eU
+         p/0jI2fPQPmmmIkwmqi64abnaQSYKKoMVxWMyiP3dppxD6JK8DSfpQGHQwFKPB/5nFs5
+         vasUkWbpzxx0i/SQDIQSGqXcpdrdkYswa4fLsdD2xSOxtGPrjqjbyY/Y8zdJFuE5sW3t
+         olWQIO/RWE/whXGhRcsoxuA73nVd+Bmr5Ikn15yXVV1wRYAIqptPFchxhczFTLu04ihn
+         RDlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794860005; x=1795464805;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BDGAdzVguqNy0JEZoxyPcMqb3hE97RGPZcChbfGjrxc=;
+        b=CvSge23u3XFql+sgl52bFYrQ2sd6do/GtTOmQN3WW05prUMYIoq8L5uRCwTX9Fo+XJ
+         KMGPkang2ydf4sy/9vYQHL2R0dlJC+L+VFtUSpYr/SijGT0uPgAvuIJsPGVViJ1Cl49q
+         4UQIHZk/ZtDM4SqLBP0gzghJ4pF9QlzmMleNL9Bvgnn5OQVXAKHNQZbawoovkcC8Flmq
+         2gXfamzuM2jsPsA0aj5k4vH3plS72seu/ECfvbdUPR99WqYEIqjRMpYELPp1R7sipoqR
+         X9ZRR15XcRyJuywohzexwe/lQKHrrYJ7BdTWtbFQMVAD1K0QSLoMT/GDUaxknMX6+fPb
+         mw8g==
+X-Forwarded-Encrypted: i=1; AL+hErENxGLRxIvo0Dl5p+EBp5brGL6z9/F5vJrBWVGKlNN8uL47L4tlhV8WHTnIMPWetonQDOMetOxXKbHByBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4xQTJjFTH8QsdmvSiMi79xoLYUlmFrVQpO/VDCpnHXgo+Wjr8
+	S5ZuEAt24WuxvH2r0UfR4IdLvR8yaQJ6ODwc5FjTdLlwsF8V9cHGmSC5+rIgaJ7o5Kc=
+X-Gm-Gg: AYBFou1JrhR/IEqsetfuDdvHAT+k3TQk1q+ijcdcee1at6OniKiiDSDV+Qr2NMCtP2O
+	nNV8yAanAXl32b03yqQEe41rUeTENWqgiaORy+YvX5shPOiWrV+WlFlkkh6AAokFbxwzvrd6+4e
+	Jjqt18EcNZnPh0e1E1Kb8f7QAtH4Wu6vW0RP+jwoZ00bQuiNmenOLLkpzfHw4L4sSxOisTj/TUK
+	cNg4vaaC1hicBQ9SAmxqC2b2yaLKIZBBEQxscYBIG7Jrb5O5YzB3rEJAFgM7uqbpCbNgSpgnb27
+	KtusyEqlOihZx71kIeYfdAySc9bLhxFspbhCfnyBXuVwzLJ7fbfu050nP0dHYWKnZcC64xQA4xc
+	J9LQLaGAuIqEAl2pDGiHmkkkwauX5dgNpDKMxmwdenAhwZ9slrVu10zonW7cAVDzAvol2C5s5Jz
+	lDLOXjJ1yGqFuz4wjPoUa676gvk3V9bNkCAQnBQWFE5VDko1icK/aINvCnh8VOAZlHyosEUDPtJ
+	dcEMTH+UBBJ7d5GZLLquooP7zSWKyBm7n3wDZ7DxBi1xW7DhH25/oAEcywwjoKmnLDBbiqansgu
+	T/7JJCMYxghvyojd4X4C6XqUxIUMmQrrbt8R3lTpd+3ggprwdX4IzAvpK7BucuPF9oUP8w6XO4L
+	IANfGl4Xu1OSekehuySF91TwCbcstCBCEHR7q7h+QpxA17m/ilx9q
+X-Received: by 2002:a05:6122:3c4b:b0:5ea:389c:51fe with SMTP id 71dfb90a1353d-5ee34aa9574mr3361794e0c.17.1794860005139;
+        Mon, 16 Nov 2026 12:13:25 -0800 (PST)
+Received: from localhost (57.233.150.34.bc.googleusercontent.com. [34.150.233.57])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee3e031bf0sm5639266e0c.5.2026.11.16.12.13.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 12:13:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,102 +88,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 15:13:23 -0500
+Message-Id: <DMWWRQTLNYH6.1LJ2K5HT60LK8@soleen.com>
+Cc: <kexec@lists.infradead.org>, <linux-mm@kvack.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>
+Subject: Re: [RFC PATCH 2/5] kho: build KHO objects into a single kho.o
+From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
+To: "Pratyush Yadav" <pratyush@kernel.org>, "Mike Rapoport"
+ <rppt@kernel.org>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Alexander
+ Graf" <graf@amazon.com>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Andrew Morton" <akpm@linux-foundation.org>, "Tarun Sahu"
+ <tarunsahu@google.com>, "David Matlack" <dmatlack@google.com>, "Samiullah
+ Khawaja" <skhawaja@google.com>
+X-Mailer: aerc 0.22.0-39-g5d7784875be2
+References: <20261116134013.1636689-1-pratyush@kernel.org>
+ <20261116134013.1636689-3-pratyush@kernel.org>
+In-Reply-To: <20261116134013.1636689-3-pratyush@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] sched/deadline: unstarted period in switched_to_dl() when
-  !pi_blocked_on
-- [Medium] sched/deadline: switched_to_dl() skips period reset on
-  boosted pre-0-lag task
-- [Medium] sched/deadline: stale deadline on rt_mutex waiter when donor
-  or policy changes
---
-
-commit 97588bc2bebff0e4575bb7d4c8f530868b8856a3
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-
-sched/deadline: Start a period for a task that enters the class blocked
-
-This commit starts a new period in switched_to_dl() when a task blocked on
-an rt_mutex enters dl_sched_class with an expired deadline so that the
-rt_mutex waiter tree does not sort it with a deadline of 0.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 69a338c1526d0..ffa8b946e8047 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-
-[ ... ]
-
-> @@ -4352,6 +4363,17 @@ static void switched_to_dl(struct rq *rq, struct t=
-ask_struct *p)
->  	if (!task_on_rq_queued(p)) {
->  		add_rq_bw(&p->dl, &rq->dl);
+On Mon Nov 16, 2026 at 8:40 AM EST, Pratyush Yadav wrote:
+> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+>
+> kho_block.o is part of the KHO infrastructure, but is currently built as
+> part of luo.o, which ties it to CONFIG_LIVEUPDATE.
+>
+> Group all KHO objects into a composite kho.o, built for
+> CONFIG_KEXEC_HANDOVER, the same way the LUO objects are grouped into
+> luo.o. This also gives a single place to add new KHO objects.
+>
+> Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+> ---
+>  kernel/liveupdate/Makefile | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/kernel/liveupdate/Makefile b/kernel/liveupdate/Makefile
+> index d9f4694625567..bc679905ce3f2 100644
+> --- a/kernel/liveupdate/Makefile
+> +++ b/kernel/liveupdate/Makefile
+> @@ -1,13 +1,17 @@
+>  # SPDX-License-Identifier: GPL-2.0
 > =20
-> +		/*
-> +		 * A task that waits on an rt_mutex cannot wait for its wakeup.
-> +		 * The chain walk sorts its waiter by its deadline first. A task
-> +		 * new to the class has a deadline of 0, which goes before every
-> +		 * real one. Start a new period now, as setup_new_dl_entity()
-> +		 * does at an enqueue.
-> +		 */
-> +		if (dl_task_pi_blocked(p) && !p->dl.dl_throttled &&
-> +		    dl_time_before(p->dl.deadline, rq_clock(rq)))
-> +			replenish_dl_new_period(&p->dl, rq);
+> +kho-y :=3D								\
+> +		kexec_handover.o				\
+> +		kho_block.o
+> +
+> +kho-$(CONFIG_KEXEC_HANDOVER_DEBUGFS) +=3D kexec_handover_debugfs.o
+> +
+> +obj-$(CONFIG_KEXEC_HANDOVER)		+=3D kho.o
+> +
+>  luo-y :=3D								\
+> -		kho_block.o						\
+>  		luo_core.o						\
+>  		luo_file.o						\
+>  		luo_flb.o						\
+>  		luo_session.o
+> =20
+> -obj-$(CONFIG_KEXEC_HANDOVER)		+=3D kexec_handover.o
+> -obj-$(CONFIG_KEXEC_HANDOVER_DEBUGFS)	+=3D kexec_handover_debugfs.o
+> -
+>  obj-$(CONFIG_LIVEUPDATE)		+=3D luo.o
 
-[Severity: Medium]
-Does gating replenish_dl_new_period() on dl_task_pi_blocked(p) leave
-p->dl.deadline at 0 when a sleeping task participates in rt_mutex priority
-inheritance before waking up?
-
-While a task sleeps in futex_wait_requeue_pi() on a non-PI futex,
-p->pi_blocked_on is NULL.  If sched_setattr() or a PI boost moves p into
-dl_sched_class there, switched_to_dl() leaves p->dl.deadline at 0, and a
-later FUTEX_CMP_REQUEUE_PI calls rt_mutex_start_proxy_lock() ->
-task_blocks_on_rt_mutex() without waking p, queuing its waiter ahead of all
-deadline waiters with deadline 0.  Likewise, if a task holding an rt_mutex
-is switched to SCHED_DEADLINE while sleeping on a non-rt_mutex wait,
-p->dl.deadline stays 0 and rt_mutex_setprio() fails to boost p when a
-deadline waiter with an earlier deadline blocks on that rt_mutex
-(dl_entity_preempt(&pi_task->dl, &p->dl) is false against 0).
-
-[Severity: Medium]
-What happens when a task that left SCHED_DEADLINE before its 0-lag time is
-PI-boosted back into dl_sched_class while blocked on an rt_mutex?
-
-switched_from_dl() preserves p->dl.deadline and p->dl.dl_throttled until
-inactive_timer fires.  If p then blocks on an rt_mutex while holding
-another and is boosted back into dl_sched_class, enqueue_task_dl() is not
-called because p is not queued, and switched_to_dl() checks
-!p->dl.dl_throttled && dl_time_before(p->dl.deadline, rq_clock(rq)) without
-checking is_dl_boosted(&p->dl).
-
-If p->dl.dl_throttled is still set, switched_to_dl() skips
-replenish_dl_new_period() and leaves p throttled with its expired deadline;
-if p->dl.dl_timer then fires while p is boosted, dl_task_timer() bails out
-on is_dl_boosted(dl_se) without clearing dl_throttled, which prevents
-enqueue_dl_entity() from queuing p after deboost.  Even when p is not
-throttled, if its old pre-0-lag p->dl.deadline is still in the future,
-switched_to_dl() skips replenish_dl_new_period() and the chain walk sorts p
-using its abandoned reservation's deadline instead of the donor's.
-
-[Severity: Medium]
-Does starting a period in switched_to_dl() leave p->dl.deadline stale if the
-top PI donor on a blocked task changes while it remains in dl_sched_class?
-
-If a non-deadline task p owns rt_mutex M1 and blocks on rt_mutex M2, an
-initial deadline waiter W1 on M1 moves p into dl_sched_class and
-switched_to_dl() sets p->dl.deadline from W1.  If a second deadline waiter
-W2 with a much earlier deadline then blocks on M1, rt_mutex_setprio(p, W2)
-keeps prev_class =3D=3D next_class =3D=3D &dl_sched_class and sets p->dl.pi=
-_se =3D
-W2->dl.pi_se with ENQUEUE_REPLENISH.  Because p is not queued,
-sched_change_end() calls prio_changed_dl() instead of enqueue_task_dl() or
-switched_to_dl(), leaving p->dl.deadline at W1's later deadline.
-rt_mutex_adjust_prio_chain() then sees an unchanged waiter deadline and
-stops the chain walk on M2, and when p later wakes up, update_dl_entity()
-keeps W1's future deadline if dl_entity_overflow() is not triggered.
+Please send it as a separate patch. I have the same change included as=20
+part of the kho-ro series, but let's fix it outside of both series=20
+instead as a standalone fix. Also, maybe rename kexec_handover_debugfs.c=20
+to kho_debugfs.c and kexec_handover.c to kho_core.c for consistency, now=20
+that they are not shared with the rest of the kexec_* files in kernel/*?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
-19-1-mathieu.desnoyers@efficios.com?part=3D31
+Pasha
+
