@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855741;
-	b=x8DVP04WrCRfK6aPoOPsWgjk92Q+gaMWaAbUsnBfQc+A3SbOoMW2HGfiQipijbjaJhz8
-	 TNQwTZZ7Ua4+/aM5nTsmqDRoMnwYqJmm9A8yepPeN49gRIUaZJEzi7Ah/0RxVw5lkfP1L
-	 XGQoeJh1thI3CBbjfarwQp3waI6MrhDHV3ToouytPpxBoE6X8Wf+QH+7n2ToiCPALQGbI
-	 k0PlmztW8I0J+TkjfSD3JZpuHjngd0fW5UJ9ef4Jw5kTxbWk2QWVN60Npe3V1uJoFZPdh
-	 4GnjLJpHPWGhLepU6JKDFCN183vhAsS96HRRKFNIiIU7/KHfSqV99GAUNh0Iz9Ov/TQ==
+	t=1794855742;
+	b=sgJTbPZZ/r+I2xGMnsselwEHIGl/5fTAslr8iiSycbKCYWLXyR7hrrvu4wuheEEPfvt/
+	 juHyEvH7tUyFxkBCXdz1U+iL48SO4E0n8fGGxHc6y+CWjr+fGfZWn7p2FActmPt/7Watb
+	 TC+6H3hdcOEEpzUtOOxofjNfLp2M+hU/z5uY2m+GOV0qWkdmuTTiWohuUiQAigYSiSk8Z
+	 pENiluMOQ/WjXKuuLuDu71A6wRbmMU1NFcB7o/YesiWBC+zn+AC0A7ABZmwG1FF5amYUW
+	 QZ5XhfLtT2f8D98XKtwvP8dz7Myzbv4ZpxZcz/qVoHQ6JAgJRVQDJZ4r8SXPTSFg/KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855742;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=50Zgq4Wlhu78oRiVo20JXj//1X5zV34RGR2wWKijbl8=;
-	b=1QscjcsJS0nLCOd3dqUxb14VsFy5dRB2RetpbLC0q5CzJrkK8z+Z2+lA0gC5iuCUslT8
-	 6ud+3sb/ApGO7uy8pEegaLfhuNisWT03UeNcXRKKwj7sH9m7hzq0Uo3DxpqFGNSiYnzqi
-	 3tmYuiBq9yMRo/oHly74xDGyoDLgLKiixfFkBGZIlskmzZ7VRc2p8regPekeQ2vRVGuSw
-	 hIk93/6H80DmIrz15RkrjkyjwmlmM6P1oe6iUuvt2QH2WWIu402hWpSie5tn6JKOlCBRC
-	 lK7mT3CjXT9ofURKxGZwvsdYr1/vKjjLw6nJXdTua0wudlECqJC7/KB1F0OmnULeqYA==
+	bh=N2xKCSrPY1rJ1XkR4LIjxTn9dqMbXrnTZ+YOM+EyOfM=;
+	b=Greg5tRnp2nx1ooufw9aoJr9IO1bILp4qcKCtIeAS6Eln7XYUqDQly1xsoUDsJdAnS6k
+	 N50yZ9eh4qNnOaot17msKe6v0/BauQ7JUt/p8mccsx/VVydntoBpEp3fPKvaPP7Svw8+Y
+	 NvH6hzMfU7w4jj2Jz43zji80W77S3o72maRt4aRdxbI3Eld6D9vLfzvSuqtlclsmgu2bC
+	 e0C8jp3OWxmehZ/SFMWsKN19sonvrS68xCODLSjyMcdK/SiLieURt3G4ZRpBCwPJQdOef
+	 58Hq0MutsUNIx+JnfEVR56YMj93gqgTB8JvEpp4k24eqtddBLXKlwdAmRIUxoUbbhIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmbN1Fuf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VprP7W2C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A68606A334;
-	Mon, 16 Nov 2026 19:02:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643C3606A332;
+	Mon, 16 Nov 2026 19:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmbN1Fuf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7320C1F000CE;
-	Mon, 16 Nov 2026 19:02:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VprP7W2C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992CF1F000CE;
+	Mon, 16 Nov 2026 19:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794855741;
-	bh=50Zgq4Wlhu78oRiVo20JXj//1X5zV34RGR2wWKijbl8=;
+	s=k20260515; t=1794855742;
+	bh=N2xKCSrPY1rJ1XkR4LIjxTn9dqMbXrnTZ+YOM+EyOfM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bmbN1FufeVvvGut5VTpcc8oWRDaThItdzZvMC7cB5IQF2Bhh8sMJ50EQcnp+351tg
-	 55cPAH2eHqmt6vF6h9Kv1AbCUe1wjoXTwff9TgE6hyAODuzEzcVmJk2vX8sxdf7KEQ
-	 2JphhhH1R8TzaloEMWFr6Hs8lsiVgNDFZFfB2fAkF7R8FVn9SUev4PtbWdDwVnBr5O
-	 eUm1HUWQQkCIqRzOxoTz5yPYmT16dgj8yaPDEvXzPDRamXhygBf/9NEMrhBCSc7FBa
-	 B7IiJiYbKvS+gooq2ZtjLntYAULwSP3gH5Zjcr5+cEFNGrGSFfttmZWVUcH41IwRaA
-	 lxnEopr71LezQ==
-Subject: Re: [PATCH net v5 5/8] net: dsa: b53: use the correct override
- register 2 Gbps bit
+	b=VprP7W2CiFZmaAi96m1oPMFzTZJmXLyzsL0fDPruE+CMRr2nqOdKIzRWGKeCz7Rlk
+	 18d8WIrH32+fB/G9V/UAoZogshvev2UEfW6fCc4iwW4WnJigBcNcJ++2EIYcJ4Slim
+	 fifGbJZCCRLnM1oP0w39fixdN1Lh9j21bFMeVjslvLyr9nq4fawN23iapFhQHU+bCu
+	 utsiK7PXZzHp6zf8urlYrG2C120A4sRmV2yfgjSBxnnZcXXfnoBitwAbNkS5r7qB73
+	 YtJkGP7pIz3jpXRLkd+1EX5zpeBGO5NVfccIBt619OuVkr6HcqO+VL92q0v1LOKBXK
+	 s2D4sCayLq6FA==
+Subject: Re: [PATCH net v5 6/8] net: dsa: b53: reference count shared mirror
+ source bits
 From: netdev-bot+sashiko@kernel.org
 To: florian.fainelli@broadcom.com
 Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
  olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  pabeni@redhat.com, vivien.didelot@gmail.com, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 19:02:20 +0000
-Message-ID: <179485574004.3136.10514561050304983493@kernel.org>
-In-Reply-To: <20261112180202.324504-6-florian.fainelli@broadcom.com>
-References: <20261112180202.324504-6-florian.fainelli@broadcom.com>
-X-sashiko-severity: Low
+Date: Mon, 16 Nov 2026 19:02:21 +0000
+Message-ID: <179485574117.3136.2818958695058742581@kernel.org>
+In-Reply-To: <20261112180202.324504-7-florian.fainelli@broadcom.com>
+References: <20261112180202.324504-7-florian.fainelli@broadcom.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -64,81 +64,133 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-- [Low] The Fixes: tag covers only one of the two bugs this patch fixes.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] This patch changes bcm_sf2_sw_resume()
+  (drivers/net/dsa/bcm_sf2.c).
+- [Medium] The new error path in bcm_sf2_sw_resume() gates the switch
+  clock (`if (ret && !priv->wol_ports_mask)…
 
 --
 
-net: dsa: b53: use the correct override register 2 Gbps bit
+net: dsa: b53: reference count shared mirror source bits
 
-This patch picks the 2 Gbps speed bit per register in
-b53_force_port_config(). The IMP override register uses
-PORT_OVERRIDE_SPEED_2000M and the per-port GMII override registers use
-GMII_PO_SPEED_2000M. As a result, lower speeds clear the correct bit and
-2 Gbps sets the correct bit on GMII ports.
-
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-> index 64e04c5731a69..d8dafa9e0c44d 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
+This commit adds reference counts for each port's ingress and egress
+mirror source bits in b53. A bit is only cleared when its last tc
+matchall filter is removed. It also adds a b53_mirror_init() helper and
+changes bcm_sf2_sw_resume() to return the result of ds->ops->setup().
 
 [ ... ]
 
-> @@ -1449,11 +1451,12 @@ static void b53_force_port_config(struct b53_device *dev, int port,
+> diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
+> index 1747a1f20c78e..98a4a62ca73a2 100644
+> --- a/drivers/net/dsa/bcm_sf2.c
+> +++ b/drivers/net/dsa/bcm_sf2.c
+> @@ -996,9 +996,11 @@ static int bcm_sf2_sw_resume(struct dsa_switch *ds)
+>  	if (priv->hw_params.num_gphy == 1)
+>  		bcm_sf2_gphy_enable_set(ds, true);
 >  
->  	reg &= ~(0x3 << GMII_PO_SPEED_S);
->  	if (is5301x(dev) || is58xx(dev))
-> -		reg &= ~PORT_OVERRIDE_SPEED_2000M;
-> +		reg &= ~speed2000;
+> -	ds->ops->setup(ds);
+> +	ret = ds->ops->setup(ds);
+> +	if (ret && !priv->wol_ports_mask)
+> +		clk_disable_unprepare(priv->clk);
 >  
->  	switch (speed) {
->  	case 2000:
-> -		reg |= PORT_OVERRIDE_SPEED_2000M;
-> +		if (is5301x(dev) || is58xx(dev))
-> +			reg |= speed2000;
->  		fallthrough;
+> -	return 0;
+> +	return ret;
+>  }
 
-[Severity: Low]
-This isn't a bug, but should the Fixes: tag also cover the 2 Gbps set
-path? The commit message has:
+[Severity: High]
+Does this make every other system resume fail, starting with the first?
 
-    Fixes: b6a8a5477fe9 ("net: dsa: b53: fix resetting speed and pause on forced link")
+bcm_sf2_sw_setup() is not safe to run twice. It ends with:
 
-b6a8a5477fe9 added the clear of PORT_OVERRIDE_SPEED_2000M at lower speeds.
-On the GMII register that clear removes GMII_PO_EN (BIT(6)) and leaves a
-stale GMII_PO_SPEED_2000M behind. That part of the patch matches the tag.
+    return b53_setup_devlink_resources(ds);
 
-The change in case 2000 fixes an older problem. On a GMII port, ORing in
-PORT_OVERRIDE_SPEED_2000M has always set GMII_PO_EN and never
-GMII_PO_SPEED_2000M (BIT(7)), so 2 Gbps was never selected on that
-register.
+Probe already registers the "VLAN" devlink resource through
+dsa_switch_setup() -> ops->setup. Only bcm_sf2_sw_teardown() removes it.
+On resume the call chain is:
 
-The case 2000 line goes back to 967dd82ffc52. Later, 63f8428b4077 switched
-the code from cpu_port to imp_port, which moved BCM5301x CPU port 5 back
-onto the GMII register path, and that path still set BIT(6).
+bcm_sf2_sw_resume()
+  bcm_sf2_sw_setup()
+    b53_setup_devlink_resources()
+      dsa_devlink_resource_register()
+        __devl_resource_register()
+            if (resource)
+                return -EEXIST;
 
-In the current tree, the only caller that passes speed = 2000 is
-b53_phylink_mac_link_up():
+b53_setup_devlink_resources() then jumps to out:, calls
+dsa_devlink_resources_unregister(ds) and returns -EEXIST. Before this
+patch that error was ignored. Now bcm_sf2_sw_resume() returns it and
+also gates the switch clock.
 
-	if ((is5301x(dev) || dev->chip_id == BCM58XX_DEVICE_ID) &&
-	    dsa_is_cpu_port(ds, port)) {
-		tx_pause = true;
-		rx_pause = true;
-		speed = 2000;
-	}
+dsa_switch_resume() then returns early:
 
-That code came from 41af38324341 ("net: dsa: b53: restore the NSP IMP port
-2 Gbps mode"). It also covers BCM5301x CPU ports 5 and 7, which go through
-B53_GMII_PORT_OVERRIDE_CTRL(port).
+    if (ds->ops->resume)
+        ret = ds->ops->resume(ds);
 
-The commit message says the patch makes it so "2 Gbps sets it". Would an
-extra Fixes: tag for 41af38324341 describe what the patch fixes more
-accurately?
+    if (ret)
+        return ret;
+
+As a result, dsa_user_resume() never runs for any user port. Without
+netif_device_attach() or phylink_start(), all user ports stay down
+after an ordinary suspend/resume.
+
+The failure path unregistered the resources, so the next resume
+succeeds and the one after that fails again.
+
+The clock is already off after a failed resume. The next
+bcm_sf2_sw_suspend() (when wol_ports_mask is 0) and bcm_sf2_sw_remove()
+will each call clk_disable_unprepare() again. Can that underflow the
+enable/prepare counts?
+
+The commit message only covers mirror refcounting and does not mention
+this resume change. With the Fixes: tag, a stable backport would bring
+this change along. Could this change be split into its own patch, after
+making the setup path safe to run again on resume?
+
+[Severity: Medium]
+On this new error path, gating the clock is the only rollback. By this
+point the switch is out of reset, the crossbar is configured and the
+GPHY is powered on through bcm_sf2_gphy_enable_set(ds, true).
+bcm_sf2_sw_setup() may also have enabled ports already. Nothing marks
+the device as clock-gated, and the switch stays bound.
+
+On the next system suspend, dsa_switch_suspend() still calls
+bcm_sf2_sw_suspend():
+
+    bcm_sf2_intr_disable(priv);
+    ...
+            bcm_sf2_port_disable(ds, port);
+    }
+
+    if (!priv->wol_ports_mask)
+        clk_disable_unprepare(priv->clk);
+
+Won't this access switch registers while the clock is gated? It then
+calls clk_disable_unprepare() a second time, which would trigger the
+clk core already disabled/unprepared warnings.
+
+Callbacks that run under RTNL, such as b53_mirror_del() when a tc
+filter is deleted, can still run and would also access registers with
+the clock off.
+
+Before this patch, a setup failure on resume left the clock enabled.
+The rst and cfp failure paths already roll back only partially in the
+same way, but this path runs after the GPHY has been powered up. Given
+the devlink -EEXIST issue above, it would be hit on every other resume.
+
+It would also be hit on any register I/O failure inside setup, for
+example in b53_enable_mcast_snooping(), or later in the series in
+b53_mirror_init().
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112180202.324504-1-florian.fainelli%40broadcom.com
