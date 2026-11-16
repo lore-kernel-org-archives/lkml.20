@@ -1,54 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794829949;
-	b=kVMDH03cY6ntRPhxJ6HqZSKYb0ew9TXvexlsGL3EFKxVW6Ng8hBupxoTWNRLPPtnjCo6
-	 zLH7VnJjv/jQ6ksUsUzHrXNhs/r9Cj/9KtxAKkbzl96iS76TOqwlwP9iZj8GuH6u9Sztw
-	 7H3M5AYbFl2ofNbVP2Bx5Da8r8D41xNGC70jeGpEB3BRNCE4tL9V+q52U4SXM1gsFJU9M
-	 keCusNlV9Hh+gUbaZpbVXallG1VbF+civNTmRyBexRY23p3yDradOdcoaup/p+pJf8Xax
-	 AeGROlOA9qcouXS8QkDl+qoV9sMZABNkUZcxMJbmBIMV43iv30gVeDOaEFSeuvMc0yw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829949;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=;
-	b=iCtHsitsJAnwpi1F4DPRszW9HgkiqUCgmKq92zcxd/ReBYYts3fu7NwrBw4mu83m2A5V
-	 HM/wctCnFLqwv0OV+maDtqOdaFGfY/R3tq/0dfTELzaGDDPlG+mUgzY3sVQV1fgyeii7P
-	 rFpFzPd4PVloIiHTiLe3JgAYInCEejiYWBP8yfNeYpq569EennkTa6GmehQg3aaTh185r
-	 Fd2q1hfb9QJdf/WCwAbKcV5kpwMjRCf4/7CUf4fyTnR2Rfaw3lCFh3V9K0re4tUuq5flE
-	 IYQjbkOJ9U3Y0Qc210CnsMkPkepIOG+sf7o/bm5J1/lGoONy2c9hHWws42WbNWgNpvw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4qcmHqo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794829974;
+	b=w/9HZ4+P1LVE20w3zjtzDxvG8nsKWWZjKIHzZArJpXqlzJFRf6DQ5X+ZcUyf4JDNy2F6
+	 46WwrNs4xI/YbXkOtJrV2WsYDPmvWryDfOOVkqEm0KacgaShijgaEBtDRXS+yYMypl1Xf
+	 /xvw+9NBF1NlcduVUdp1z5XvEPyQcNB21o59k0MW1jNaJy+dhgim9gir4pA0Ze5qDLrVP
+	 HN6k7/F3hhkKeqUjs94115K9Nttr9wio3aQrbhIgab6IV7L6tpIhxVt/+dkk10wfz5px9
+	 X8+/fj9437fHGnwfVDqhwYnj25mV6A4/itXGIeqia2Lg7h8r/C1Lk7HNEHVa63xgScQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829974;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=QKl6biuHmVZ144osj+Y/bygxREL7j7/9qjYKZx6b0pM=;
+	b=TJGLL2zcTyttQ6gaz43GanfQzhOP6PTO0g+iW2Hamemfp5XKJcB8C/7o2c7fxVefJcaX
+	 y6gDDBDKib+KlnPmzv+gioxsDKruR9mr+s8n2YbPUorM6Cl8N+1+3HHFWC4zegbD57bfC
+	 UZkoJhOM0feqgZJfUcljLGt77iw27mC1A9M2V0PvjRBXOsWcqaAh5lRq7IR7qUtt/D0gj
+	 nxczu2kHMl9pcbvd3b8RqliIam+ZRaTr47CZtzRPDp0C2SoMjcWsDHEWm+T5I48SOygch
+	 429hmt4pstqbmfX0PlrZke/NjCidddVZzy9GjjMwblnv1tmPXj98/QxwYTx6nhbgCoQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=jonasjelonek.de;
+	spf=pass smtp.mailfrom=jonasjelonek.de;
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=T6oX4GLN;
+	arc=none smtp.remote-ip=212.227.126.131
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574B8606A31C;
-	Mon, 16 Nov 2026 11:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 574B8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97788606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:52:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97788606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4qcmHqo
-ARC-Seal: i=1; a=rsa-sha256; t=1794829917; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=irrbfyXogddlylcQkZlr6cFYcsiEft7lACg+oXK/70XkypgFcOjhmlPA7bq12bE16XzEfAWJYo4r3oWZcjOf3EUX46INf7/iqVbcT/NRcuNT9mFS7dg9/l2KKYIYPTF8fJlCSwLunT45fEXl/zkUcBQNFCd+V4pflORA2ag13Lk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794829917; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=; 
-	b=D6oNnhh/8JLSRSl95JJcti5S9vsohH8/64oARoV8f0hCc7bQfImSA93NBfkpdwFosA9+xFE864riOu+NhuPED6i9DB1j6vHnT2txkXGIvpK+V9VAYv5NUNVf937QzPzylg+y6IoVhuWf4Nbs0gqve8aq48i8uH8WNoom1ikvaPI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=N4qcmHqo84guRQyqnmSu5MjnWgmGqqRgJx9a78v6H+YMDg0X2DOyl/HIZmAgFDsvibkEl5CTzA8eowA/zTt1HiGiSi0ht5rNR3SauwE+SxlW6i2xeongA00WAH966tOIosLWnLvvNIaFko5hsiXgrA4AvfVKhjx3Q9zdpAKkMP0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794829915540706.1524411200606;
-	Mon, 16 Nov 2026 03:51:55 -0800 (PST)
-Message-ID: <8c3805ca-0be7-4634-8904-30a9c36d8962@collabora.com>
-Date: Mon, 16 Nov 2026 12:51:45 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=T6oX4GLN
+DKIM2-Signature:  i=1; m=1; t=1794829971;
+ mf=PGpvbmFzQGpvbmFzamVsb25lay5kZT4=;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=jonasjelonek.de;
+ s=s1-ionos:rsa-sha256:z1sermTRZ8OfieXXH9y5DOytPz97
+   c3iDcRY4HDKTIaL7ivUps78/WovCFDIteWTEXv4+XB3RtoR5PjO2ApuWkTnrUcxbEs2UyCHxsc4
+   zkuhS3eMIH3t9UXNyajzHg7fFYM4l3RBTlknAV+dYvG1RWcpw8iJOYD/SzabJNWBKTD0Fcxfydc
+   QDdNjWqYdK82dAwM7hZ7B9Ksrcv1rSL3mXtCOom2+D6GA6PPjmaYS2pZOxcYPZPbfwtx2Lwxnwg
+   F3YwXmhDK8bRpr0FF0XQwP2S5JffuEfPZZ7R4JwL5nUMQ2EtBR8IOqQzSQQ1UyKkplPj7FIVY3e
+   ui3ZX9vAfmCOQQ==;
+Message-Instance:  m=1;
+ h=sha256:
+   f63jc5kGLHV+/hqch2Kfu6jdGgJLLAm1sBEooQkribg=:
+   bX4DJCoFLICTzjh9AkalZDfwids4N9EPguPfzH1fqto=,
+  sha512:
+   jiYm9YWEcNgz3bvH6nxOP/R5NcWkBVT1Fa3nzK7PjR8roYnmrT3XPvw3iKuMTqpFjOTOMGrZnhTVtZehM22sUg==:
+   +isPgwurQCoXtuBiycGNn/bjlRPgSaozdpKVGWLsf8tkWNRHYObgwR3Oju8TXW6N1kAQSeKCrSJHaFGU1s9aXQ==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1794829961; x=1795434761; i=jonas@jonasjelonek.de;
+	bh=QKl6biuHmVZ144osj+Y/bygxREL7j7/9qjYKZx6b0pM=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=T6oX4GLNyCp3gEl1dNojtNmO2JfgaMflc0PsJ6ZbtzJFDsjgZ4BfzJ+kaFBhpWEJ
+	 u/55JQVEke5caMX1eVh5wsFYW706xY0b4c+ZZPy6De2A7fFPtcTygcBn6Mwx3pDVC
+	 S+L0Q5qCE/CM5cj94FU86cqokprt8SPSqPi6ogveaew1QcGszdX6F5gpk4vYWQf5K
+	 Ry7Q1npCXw9amyC1ZJAkZ8FH3SydqCijy2VWPO2OIReMUaI8KiI9tsl4XiisNnyM4
+	 gDNmtY+GnwtlvmR+NYLEjpuBGEUK1GROAKjhzlaJNlLvMj4SKio4w168nQ1BtV6j1
+	 weJCJPSANurCUO4NYw==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue011
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1MAOa3-1xHbX82yx1-00HTjE; Mon, 16
+ Nov 2026 12:52:41 +0100
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Sander Vanheule <sander@svanheule.net>,
+	Russell Senior <russell@personaltelco.net>,
+	Jonas Jelonek <jonas@jonasjelonek.de>
+Subject: [PATCH net-next v2 0/3] net: pse-pd: realtek-pse-mcu: establish power management configuration
+Date: Mon, 16 Nov 2026 11:52:21 +0000
+Message-ID: <20261116115224.1454885-1-jonas@jonasjelonek.de>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,106 +98,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: rockchip: rkcif: Honour the requested
- bytesperline on MIPI
-To: Faizel K B <faizel.kb@gmail.com>
-Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org,
- Robert Mader <robert.mader@collabora.com>
-References: <20261105232310.385463-1-faizel.kb@gmail.com>
- <20261105232310.385463-3-faizel.kb@gmail.com>
- <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
- <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+zceGRhBo551DQ4jTZ2hiD/C9ASkWfBaCbYrcvOSoi1JfewI9ea
+ Fo2WCSIt5pgWygumBQ16PbG55lpMIeCcDwdirxsCp2pkk2xAXKFWIup0Y1Irt7hlF2RxI1v
+ r+wAoAxcqbGXjJVJtpSHGgS/0unwFLwoHZSZydgxsXM7p9yg00BJ5SOlddjhA9pe6QQrY0u
+ KZejuYrXYm9ml2ah/xjiw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:OqVoz7ENvKg=;x+S4+mTPwVvFhVrFT5JyKbvq1kX
+ +mG1tqmQnob5lU1ljCKrG3Su6bw9knZNHEZfLF++/f7ScGdHE6ZU5SsjUHcHgrm+chUkzoZFN
+ Hc7aeu9ZYyDvpIjD5rDncxYjlx3HoSiURnKijZdhyFSaQiqdV7qsYMre3nbW3sYGUYKYWesm7
+ xJ9go9owfYSegGb4PRNwAUJkNpb/BCG5SwdYpAJlfUm/z6Ip3uHvbcMJUEsChHtzcNYAKhsna
+ 2gqm7wruQrQD+FI36xYDlzuwzIr2xpeC5U52e+Fgzl78SlESX9rr4PM5vxmw+/xQdgIKpUvyq
+ r++/mpIyhLHU87PGHsydpCviakkLpWhp7CwbpYSSkcPO5xv0KZebmglBudWJOYxBMV/FaOo4L
+ 5rpl8XvSLRJuXeXELPXA9sYhiWYraaY5uGvCNdsvcT+CVeLm7SQ7bImVtDA8HaHMUef72I4g2
+ CF0M6cP5OOHOPvxvT8StQgEYy3k5/5r8YwvFb949crFvCLGkklEwEfL7H9tscCf3nutKysZnb
+ /gJ9CMCfrTRZlPkqJOg1839AJ7/cphjdk3J48Zk8+FT1tBjUC0BiHRFMBXRh5coQhhzWyIt+0
+ CbXW3WjZcZA/Z68l86zqEeBwl1gu2mYC3ui4MUN5vj4RedhGgpagrKulliy85pzJ7UUA/Bdba
+ 1midB9uOCAyEXJNrtQILTTv8EsgyMRqKtMw9vNKFZO2NemymNzVv+4HYgecFidcc72vjXLara
+ zHK9H81cy0LaSyysNvB5x1BbJzqIYFaxnnuJcd6LfeQtrALlt4PAJ4pE1oHu0jkBOOMN59BpK
+ mqyDLzFObtp5yHk/c5ygOIXcydoS4MM662Cwh5+TmDhKroW2Ty1h+jZSHwZTBxiJQL4075E5y
+ hlJp+EB1cpqvVukFamlOTEoCSE90Fa6pOXgcRv1fgj+OBXRiDNlOD5CG0uQdcWes8KYP7mdLo
+ a81XtBFSYKwvI8/MCxVwEW/8u9BBpESZTB1Wc1OuVCKBEKTh/mOUo3oebbiatlEI9YRTqyHyc
+ 5tNa7HgotydspM2aERHAMAOeZwJ4hQJKVHC1wQmBDjV90gt/jJzaLIYORFi8+gFPFSbeNWrQL
+ ASRWdTJYBTY7Y/bDNmp0XW3NGWDpQifFd+lQQpdZzshX7sCoEnHSy6aBZ7o9WtcvfmdUwEmdM
+ ofdaOM9e42rJGJ/zkRVjWmKj6ueKMB0qYb764OuI9t955KNWWYekxImv3FzbLbS0f1akKGGt8
+ 9ifvvKnbxmb0y/C2deatFwE8VksGJMV+mjjN19uiB+f6zAnOUD5Zv4/pGFJ36uv7Aa8iGraNO
+ nLWKL49agY9Uw/iNAsyGWDwVcCOdstDncTQJyYhZSAlwMSzrDChlTxrIXYHV+37gjh2qBSlPH
+ aD7l1gqIHO/RyzPcuKpvdemskVuAxbBMfGe0AyG7QYLAe4n0Kpip2HCbH6Gqa3tlLcSG51csv
+ H1Gk/5qypn8qzRVtWbnUeQKnDA+hfJsd+VuWXKm4VCKr0RZpYpJauT0G/teJHab9SZG9oHaXL
+ 5yR0iaGBdkolZ/EoclWh4n0HFVxAs6sHcsQRoevYVRhT8Yyytj0UWl2wI1ZotUgco4w0k1pPu
+ KzYlnkiOXv7kwaH8/HArmmNX6HoWRclSIhdxTidwHUgMUfNL0N51D785Uyxo4Go+Elrl+vyY3
+ 7gnSlA1sJg0eYE+hb7JLQDe0rSO9pAygsqMjKJgwJ5OjEHGas/gz8/0q9ELf+Ff5jjeywNNK/
+ 4obd6NFcHmU5y3zdeZKspq2yUIq+Z2wHVSP0GfRAFDmGtC+AscsuSr2Wu6g0/C74uj6sl87kt
+ BRsQmwwFnzV5DvwXddQy+Ve5bVmHSf4pBgIR6iVzxRSJNmaBRZU+QZ4CsL9eWzKYT+S2p8TB1
+ xjeQ77c6Vim9l83E0JmGL2aIdCFg/HQsETzRq81xrqNJ7OisVHUlImGyRRmqeIICutUHUCLBI
+ Fw+2hwr1nnDUHxOPK30/XNuZcRjztmdnbEVjsPGigw/uR/ZY/gx7fNMD0FzV6PvOqeLVUkC3q
+ UV7/gLUcD8ZqhDSpTgqh/hw1SCqzcYN5aqxIXQa+hSsdw3FTz23kKdapyrBOURAEB7zGJKn5C
+ vIjXFsvBwXS62f2yE/SLlLeQEyZci+m1RfetBZ90cY+YFyGBbuK/Z+Myafj1nsedzJtMNO2PB
+ aZQMhN/N2Lq2IYH49hxuffPowiBtZ1zyR4tTl3khpKA8zk2IZvy41O7CxdC8azlII0CmJWcVJ
+ PHvYUvjJS5Pav84s5MoosnrFBMy3Ly66O4K8czum87RAg4V+ic2Wt84w5JjnAxgvTORt+F8IQ
+ Shj2II+hCjcb/OFiO67HW+c2L+Aj1Pm1x6CShx8xsrYINE0qUft9NNYOQBQSaFgN3SQ1t+IYw
+ ikkL+KH1eAVO3SvuaiNd4h6uxGvleNjml9Gw1V8xQe9rHNWXfsCeR8N4ooFRtj/1y/w5Nx3bQ
+ YJwxrSd3uNSLF+AQqfYeBrkPA3HQn3kK0Dvnq8Mxvc3thwekeDPeuRgagqu1mnTHSFhBfkT+n
+ 0I0f7T7gVEMFspBy/kpzSZk9tonjrlVXoXGhE26SIC6SolsDFlUx55s2iiyjpb7k2aglYxpcY
+ ppdSFJJcAqP1pYfquxPPetwKS9hOo4pJzyjZlGNRS3tIoJfWUarcsV+sfu4VDCIm1Qy9QZLEe
+ fcevqVsB4Up4Oc+E2m9qL+aVBojAn1M5m6n4Y9Ei1MI4rjv7t8TNgV7OkW9hMqnBdh3X8zLL6
+ BDJKuOkZhSLNMh9pK3bRocjICsFXYhhfYoKkta6WfFIEVpP1FQNeOrvC/Xcp9fWaXsU+bs6Qn
+ slsocuE0TeOFihOwfOtMarizUPpdXKu7y7/z65pN9nGH/63DIeAaKj948zOCZKITQbFEZTPyj
+ nPunot5jti3rKPtmetT0BRsUbPw8kduQmqoYL05te0mPdM5MYxbBE9kd9hoiDymEUSnYjtPie
+ pAgQD9kUvufmckgmMk0GAm2e+FJfs2XnqifzqDChPJRFGoutl2VsRA5AtLF6Brf/01jFjZYPw
+ AR40/Ywslwc4Gj2kUPKayoREcWTojlJvXlTkJcW8ZfyPKf+8cpFGykffnOyH2oDvthT0OeyVV
+ F5wMBzwz8usfBCI6+CBz7p5ova7d2KHCEYbBZG+rmXlvGGKZcDLIF3d3BFwhEla1V4SQR2kLZ
+ OvpEW2fyO5eYVBtAZdWlBuTF4CR2DLOyOr0WJJFezOuXalFstr8dfqLny8a4nV5ndlrQektfd
+ beyr8VE/I8lO39NAU3RD2ki7KJyVhheap1t6t317J2jIP5a5h1MrcM9QFcey4rlqNlE+dmZT/
+ fhmK4LnUR3uIEF3YfUNf6KpvIKBzg1Qwm0s/Mk261FkTw/oru74HbVD9m2vbc5AK31LKhMsPi
+ C58iwAf8nMVdO7Pvbfz3Ff8raXlXiqTWCDzwxY0J9XX8hNmYMC2GTz4p23L41JhBKhIHFR07i
+ frQlD3wD3NkJMG+zhlnwh00R8Tz5HARCnQw2x+5rCdGHqH9MSxWoFAzhhoOWKXW9idf9cXv3A
+ obMyCxXtrpv1JDp+2nsq5WV6OtPGtDXtvB+EcXCuSHh0QrLgCrXkjzCAx9ysddsOFNPfwA/PR
+ HaoXre/O8kbZJr8qg+1aG3GM/F5vxR726/AYGwn68jN6JQ8Wq+pS3UatFwCoSQCEFTDFEyGxi
+ P1GJVUO8hN5D0xS+B2b8JcFbvFUlrPuWNwmoxf6FsrqOQihX5k9FqLZ4yr6B4tGO7peNbmvXJ
+ 2KdJRlGOgE11gVXQ82OwJRnVEWBoFwp2oVrTnawMs0ARBAIsEv1gPxzujCW/eGGvWwTfbLuR7
+ 0+aSx+iCS5etL4wN4IwIo1sNv/Abd/yMCFYbgqIt5ITa/lRZoZOE3vdZSzVrYHwyIFk2OwYoJ
+ xschFznv9b3ZJKeCHvfvOZDFIC5FFPkNRblCiylz0U=
 
-Hi Faizel,
+Realtek PSE MCUs may start with a power-management configuration inherited
+from firmware defaults or previous host configuration. This series
+establishes an explicit configuration during probe: dynamic power manageme=
+nt
+with port priorities and, when a VMAIN regulator is provided, an aggregate
+limit matching the board's usable PoE allowance.
 
-On 11/12/26 07:20, Faizel K B wrote:
-> Hi Michael,
-> 
-> On Wed, Nov 11, 2026 at 10:46:43AM +0100, Michael Riesch wrote:
->>
->> Come to think of it, TRM p. 2111 says for e.g. VICAP_MIPI0_VLW_ID0:
->> "Virtual line width of even frame for ID0 path(must be aligned to double
->> word)." which I would interpret as "it must be a multiple of four
->> bytes". What do you think?
->>
-> 
-> The VICAP register summary defines it.TRM part 1 (V1.0, page 2081)
-> "DW - Double WORD (64 bits) access". So 8 bytes.
+The budget and management mode are configured before ungating ports.
+VMAIN is used only for budget accounting, with managed reservation cleanup=
+;
+the rail is available independently of the host driver.
 
-Ack.
+Validation includes W=3D1 builds and checkpatch.pl. OpenCode assisted with
+review, implementation refinements and drafting this cover letter.
 
->>> +static void rkcif_stream_set_bytesperline(struct
->>> v4l2_pix_format_mplane *pix,
->>> +                      u32 req_bpl)
->>> +{
->>> +    u32 min_bpl = ALIGN(pix->plane_fmt[0].bytesperline, 8);
->>
->> Please add support for the bytesperline field in all the plane_fmt
->> entries here...
->>
->>>      width = clamp_t(u32, pix->width, CIF_MIN_WIDTH, CIF_MAX_WIDTH);
->>> +    req_bpl = pix->plane_fmt[0].bytesperline;
->>
->> ... and here.
->>
->>>      ret = v4l2_fill_pixfmt_mp(pix, fmt->fourcc, width, height);
->>>      if (ret)
->>>          return ret;
->>>
->>> +    if (stream->interface->type == RKCIF_IF_MIPI)
->>> +        rkcif_stream_set_bytesperline(pix, req_bpl);
->>
->> Why is this restricted to the MIPI interfaces?
->>
-> 
-> The MIPI formats all have a single plane, and the MIPI path already
-> programs the line width from bytesperline. The DVP path uses the width,
-> and I can't test it. But I agree it should not depend on the interface.
-> 
-> For v2 I would:
-> 
-> - take the requested bytesperline of all planes into account, and use
->   the largest for all planes, as the DVP has one line width register
->   for Y and UV
-> - compute the sizeimage of each plane from it
-> - limit it to the line width field (20 bits MIPI, 15 bits DVP)
-> - program RKCIF_DVP_VIR_LINE_WIDTH from bytesperline, with the current
->   value as the minimum
-> 
-> Does that sound ok?
+=2D--
+Changes in v2:
+- Move the binding first and clarify accounting-only use of VMAIN.
+- Preserved Acked-by from Rob and Reviewed-by from Kory
+- Set the mode directly in the helper and shorten names to "mgmt".
+- Remove explicit VMAIN enable/disable; retain managed budget cleanup.
+- Drop the unrelated global-disable teardown patch.
 
-That does sound reasonable, yes.
+v1: https://lore.kernel.org/netdev/20261103220312.860629-1-jonas@jonasjelo=
+nek.de/
 
-> A question on the DVP: the PX30 TRM (Part 2, 5.3) says raw data is
-> stored as 16 bits per pixel, even from an 8-bit source. This matches
-> the width * 2 in the driver. But for V4L2_PIX_FMT_S*8 (e.g.
-> V4L2_PIX_FMT_SRGGB8) bytesperline is the width, so the buffer is half
-> the size the hardware writes. Am I missing something?
+=2D--
+Jonas Jelonek (2):
+  dt-bindings: net: pse-pd: realtek,pse-mcu: add VMAIN supply
+  net: pse-pd: realtek-pse-mcu: configure global power budget
 
-I don't have any PX30 board, and actually it is the first time I hear
-about that. Maybe Mehdi can chime in?
+Russell Senior (1):
+  net: pse-pd: realtek-pse-mcu: ensure MCU does dynamic power management
 
-> I can only test the MIPI path, on RK3588 (Radxa ROCK 5B+). Could you
-> test the DVP part on PX30 or RK3568?
+ .../net/pse-pd/realtek,pse-mcu-gen1.yaml      |   9 +
+ drivers/net/pse-pd/realtek-pse-mcu-core.c     | 155 +++++++++++++++++-
+ drivers/net/pse-pd/realtek-pse-mcu.h          |   3 +
+ 3 files changed, 164 insertions(+), 3 deletions(-)
 
-Currently, I don't have any active DVP setup, but when you send the
-updated patches I'll ask around.
 
-Thanks and best regards,
-Michael
-
-> 
-> Regards,
-> Faizel
+base-commit: 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
+=2D-=20
+2.53.0
 
