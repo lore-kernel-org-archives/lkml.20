@@ -1,123 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821950;
-	b=uU5fNf3KPXGBfqhYiux0jlCDgyUDrdavr/JojQDBOQNBIoa4Ct8V201szRVXmTkkSp9G
-	 ElKNhX/b5hmd6NopKWo7bCBOeuXyqConrZBBBMey91OVZ5AY9KXm98fOcWvzS7adbj/ou
-	 s9mOjIj5F9kibW3x8zvBKqkca3tqvuhsont9zPs0tHlG7nz+VjHqp6dLU8kMQ4np+z1dA
-	 OsFUOG5OConliBiBJYsfYBNX5eZKQ7OFt+A69abIFg9cjKiKULUitXmu1c8aerknL20qp
-	 3zZkib81N60uTah3u1J8bDJ9YzboN+lFydpBq/N6pLDefmkZMAPxdIzjoiQvNJq/E4Q==
+	t=1794822000;
+	b=2neA0JJA5ahcIPkHeXYjUPnX0xuNAzHDpxWp6SqubJSTNXrZ1Sxg1QgzRG429JgW+FVp
+	 MOhhmVKD+01o8rx6JxsRqBWCs7eSjlSoJQ4PEl+fsBhxAbmdn3HcvFxsHua81qWDtA4LB
+	 yxdHmAnrRVv2RVpuJ3hYAnysQP6TVrBVoLdWHzrfYwI09R3m5ymRNXMhBOjGtYeF04qC3
+	 JqK2jkmAtF76hFDu7ASs1F5n0zfzN+RuUyYBXum912Scu7yCoFagfhDAS7CStieqoHFfd
+	 3RHK6pAEL7/tiJ/smB8YiYQTfJeLvVUuGGo2jHiBosnOn5jj8J7kCGAHheKQF48INAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821950;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=vfDtkcqPvV+2k9dyjsvEmJCR0/Gq1KXbglEhzSUqmq4=;
-	b=vKNa5Vb4yJHPyw6sbTxDm1ctk15WmJHflrbsYyANx8d6cKaCuEH9PoRpXiU+IajqORTS
-	 Py+/kmJ8shUoEkrxT04DKN9Sfoy96sgZv22tqfdtDcuXAp1piMQVYKRAmCUeDre9y3YZ/
-	 OEZ02IYZzZN5qNe1GJViFf8zgCVPAbDwR7qD+qbaO/f6Q++EMECm2GPr8J3P2YyFqWfHm
-	 W73wjg8BxwkpPYQp3tZBYfn36trQKwUcncwKkjvO67f6J7ziWrQ8Df+kPpkJqwqf+RnlC
-	 v89QQmkuZzedwYBEqbo6HH07Ptv128j5MoM157VSXvjwI8DHoKQWdDyPeURiKsBGdIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822000;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3NS380Ta+SsnqX0SjlIM7PyqYuO0HINtcV8uX5UeGVE=;
+	b=jbCQpInVTiTddKOSUiTmCvRA0Lk2HdX6cOwxj1DPx87O2Yru3v6nkcwMzD0UlZ1YIT5p
+	 vL7XFmPjOQ0WkrHoaUbCCwDHUvcU6pxSa3a5yZNTZweHKZDGwz/4JOs/SI0OaWw726XK3
+	 b8IyVpvDw0vEjXTMXTY9nrc0Jg0b5n2f/0fR/SaG7TjHEgKLZRkz7NxU8UaCo+2LP4Ee5
+	 r1WvikbDhr8CUABia9Et0ZY+tyiIRtCNF19fg+IaaWGBHpZLrQXxmpTNKVnA9z0oqbBJj
+	 uHMP3HBXmll96yxsIgrp7GWvlNByabxbJ+A5KGCTF6bTo0iLmQ977EGDfDKYzZlwgIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TSgJLCeF;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NGBP2dL8;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pp3+xQ1J;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DuEsfVH4;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E7F606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80E7F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECC2606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:39:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ECC2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TSgJLCeF;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NGBP2dL8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794821948;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vfDtkcqPvV+2k9dyjsvEmJCR0/Gq1KXbglEhzSUqmq4=;
-	b=TSgJLCeFDC+7XOHzSGCuBkK1Tffv4W6F0ZOw1rXgig+s3ADuWPrHqktz/3DfCJIliwG9uw
-	JBw/I/KcpFSC6vSjyE2PGbH6TlwOR1fj8BVSNwiUTnhHZH5vyDCcqzY1clhfR+qbeMQWfW
-	ruIGC/X78G0LIVGL+GgO6wPBFykJ+P8=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-613-5sr2yFHqMdSmJcoFY_zXQA-1; Mon, 16 Nov 2026 04:39:07 -0500
-X-MC-Unique: 5sr2yFHqMdSmJcoFY_zXQA-1
-X-Mimecast-MFC-AGG-ID: 5sr2yFHqMdSmJcoFY_zXQA_1794821946
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e4d1e29f3so3085387f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:39:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pp3+xQ1J;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DuEsfVH4
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG7f1Vh424086
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:39:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3NS380Ta+SsnqX0SjlIM7PyqYuO0HINtcV8uX5UeGVE=; b=Pp3+xQ1JDN2qpTOU
+	apUC6yvkxPlSK5KFEa+zl/QGNENbtMcroH2IUsU1OMCnOP2IuIdQcfVJPdornGhL
+	rFhD+n/bSuOVdIyn0TD9/cvY04xIzmA8aRD7R9QI6bUKNKNtybvPXKfavEUtRiOS
+	nZPF/j0+qBEan+xWGTWBNFTE+V4rbA9wM+tsyR9Rk1H6tFK2fIKDuHBM6Ks/cRFC
+	5Y2Igtex1JXTGEAYYA7cXXUdBfi3QUk1S7/1xpydZxqtHZeDpvRfwxDqdtJD7iWm
+	WpJeU3kRE8fzFd7Nz9jezzjGuAglSe59BP7/aqO/H55dKBbqYfHF/tUgnuVljp4c
+	PaYYsA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhkwdsdu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:39:58 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed02a00b24so28519655ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:39:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794821946; x=1795426746; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794821998; x=1795426798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vfDtkcqPvV+2k9dyjsvEmJCR0/Gq1KXbglEhzSUqmq4=;
-        b=NGBP2dL8rnTrHw860Ol5mlk5OT24/Cq47JfL6FT/yA0/1ZFGG7DO9LNKSMjdrsThGQ
-         +v+2mTE8MM3vo18RYgCBOFvXJFF6xi0uu+kofs27pZkmQISpu0BuxugYu3XBgyg++Anm
-         XRXccu5PJAfIznibKkLoynYvNSGKUI88xWwnJ+3gMgrNvniwldDHW4ka1LDS06qWRC34
-         t0HZJvGxxJtxTAIh0jk37+Y3vn3qedSB8+knRCXDsLHM3UpB6ay91qbfrr536rSxAvnR
-         +Gh98VEhLkjWY+Yeb/Y3TruuEBStXtIPgORftxxWizHC6ZMQdjjQe/XvfLzIiljT/9R6
-         JP3w==
+        bh=3NS380Ta+SsnqX0SjlIM7PyqYuO0HINtcV8uX5UeGVE=;
+        b=DuEsfVH45w4s2jEA6sxfwOsvyVkrOuewGtJq220h/0UtVbQRSB6e06oRa7w52ONz9+
+         auyPpyozNrmhbxBT+jG1Vm2/a6ho8QsveOZIrLu7onny+5ytoMeiig0pnEdKj/DakPm2
+         Xuhcu8VFyDzehfFqJGqWpT5HibpZvCTPT9GAA+wJJBvFxKB546rcrjda4lASjI/DIeTs
+         MayDqTlCHZ2sEvIjO+I6z3N9GayERiIL0IetNHpYHs1wN42qMT+bTWZ4fYtVPz3Xgk+c
+         9BYu1oU+T2pm7uJ8UAx8hbP2vpcvplfYrkHADvnGAfGhSTLJ/Mq92lLHG0DDhj2D0M5t
+         2COA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794821946; x=1795426746;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vfDtkcqPvV+2k9dyjsvEmJCR0/Gq1KXbglEhzSUqmq4=;
-        b=SJxFHMRQaexO7QnQdwUklq9xmm3K9XY/bj6cQYLFTC2xYgctXoLsp+BipWXlPsiFPv
-         ofQ27ndF6OGGGSwKfZf6iUXbM8z7U9jLJcDEHvIypcE9wi+dBTNTUJ8RwW1fbE8V7IUZ
-         0+4kKe0CxUE5mOSbZBNuWo35RufU+IK9kMhZxOatGbodeQpquRqup8QDRBTWPEJq6/aB
-         J2GknCeKDDUXIL+S30gafm+1u3lz+5TX7NwihZStJ+W5pO9iZO2d8/8auKiK3e2MzB3t
-         5bgtx4vjIawUCAKBC/0r+2aWGVy2enz1zMzGy/4kuwcCzbSvNkGO1Xar77YggWlCpnVf
-         2HKg==
-X-Forwarded-Encrypted: i=1; AL+hErElrCixcLcw0/o2Q9YEbjW0t2+oat1I+fpyCbPYZ6nuWZ2ohMxTD7wg3w/j74noNFryWlFPuRzUFFrVc4w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mqxBk+lXPI4crDaYovQ8k7w0ZEqTCCI3X4sJE+6jLtmuYzM1t
-	dOQUOGlJAQr9cLTwxKSm2JwfmPzA7aZoLbpFOVLTR1n8x2BAs8UpneIEP54VYrRzokhOn2xZJBA
-	AfBGwx/IH3uCECYnIm5rbAWByTA6u5Vd7ieeYYi5xNhuyt93uZwzDL0ee8e1y3EbxAA==
-X-Gm-Gg: AZFdTZeQIda9kTpPkxv+BXKcJW0O7tidvyl9Q6y8b6BLH73PV7AlC54txny3ZzlWaKY
-	ITKdnmbHL6iTN77mkLR9FqypwEv7aEkU5ggT39ysAfnEHsf0Mpxr6+NqWNeqn487+vi8Vm2Jqvp
-	p4xRXhnlpjH/3UKtjhqW52iacM7dvS/+w2iMXztEi021cBsBZLHiul9mgQG6BVqk9b31ChAY8VM
-	q1XvAnb3gAzEDTjcrVGzo4JyO5rDlwZBfFmSyzWTyer98Do9b+oMpDFH1Ts4CMCriwbqA+a6sk6
-	gp9yC9/RnasvA8hLr9ZhY+ic8kBfDVBn9xY4cR4HSyoT8kpgXHPwlUNMp+vC9uvBWDM4mTpmN88
-	nCqtdk0+J4rFmmFc1v5VJ43eNQWfrtcqSUR7k+pwLmUPFWKbHqOxxqHzzOINyavBf9Dfn40NJV0
-	+tIMpzKrYWyK9Dtvo4hXo3ikyVj8KWXvfapuq4vQE=
-X-Received: by 2002:a05:6000:25c1:b0:4a1:486b:4eb9 with SMTP id ffacd0b85a97d-4a1486b53eemr6359107f8f.40.1794821945596;
-        Mon, 16 Nov 2026 01:39:05 -0800 (PST)
-X-Received: by 2002:a05:6000:25c1:b0:4a1:486b:4eb9 with SMTP id ffacd0b85a97d-4a1486b53eemr6359053f8f.40.1794821945065;
-        Mon, 16 Nov 2026 01:39:05 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm21564920f8f.5.2026.11.16.01.39.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:39:04 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
- <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
- <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: Re: [PATCH v11 12/12] drm/solomon: add SSD130x connector luminance
- support
-In-Reply-To: <20261103-superm1-backlight-property-v11-12-00cce7b2ba22@kernel.org>
-References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
- <20261103-superm1-backlight-property-v11-12-00cce7b2ba22@kernel.org>
-Date: Mon, 16 Nov 2026 10:39:03 +0100
-Message-ID: <xlv1ik1xru88.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+        d=1e100.net; s=20260707; t=1794821998; x=1795426798;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3NS380Ta+SsnqX0SjlIM7PyqYuO0HINtcV8uX5UeGVE=;
+        b=SJsRtlv2eMQEhG2Vcr+u6dXHEbZ2vP+78YFYQVR0TCvaVKhpN6J8xuR+ADWphY+apm
+         jhNAXisnGIOZVxlIi0AiMGXH5jFGttAk1/8Lk4m04xmRPvrg4764RDsbdyoZdm3mqAHz
+         7ceSvTV2O1uWUtmXop95BaYpzVkDqc7zQrnOpC0GO3jjHhMJ5SI47qlGwEdwcd8ghL/3
+         GIxJetmYkQSQWKUUIpXT6YBSIwtNi5/N/cxjlNWJboPM386IFg3ULlcUwoZEJx8z7nN9
+         mZZxAa0baqeWRArZuDFF5Ji9h8Q4PpiR7Q2p3PJJMIOEHUULn1OE1avgt04ZFgmu2nY+
+         bU1Q==
+X-Forwarded-Encrypted: i=1; AL+hErGjFKljP/8bKc2uOHB46OBw+cQKXTyWm1w9ulqDM04nvTeeXXJxZEfjbXYrx+OdB0f31yDH5GyShQXxGl4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2Xt4ym2R5itS5uBK5Gl67L3tPwxhl4KMVvUS4oTvtfhoYT+Tt
+	tbpJAMT2Up5oZ+ydlG6l1QwQojS6p8xMhVQ4zPSuAXmaANcyx+/CCGVd8MB4yHujvpUBuGaAXDF
+	EmwvnyreEq6hKHwaz2Z71HwOeL3koE5/CybE4CsRhYzLLgRWsCjGrZSECIq7AzK9Ad/ccvk/G66
+	o=
+X-Gm-Gg: AZFdTZcqwJ5ci8GP7nz1e/dWKkD2jwicjtfZjcpfNi5n1wB7xdeWN/Ztup62fgzROb5
+	Z6TBejkzO/5BVN0GHsv9b7ZeUkk7U4Rxfe4wIamGjmzpj8PIpj8rA+1ZQ8ug27W3figLcqs2+CZ
+	aUk5XKeP2a/RdlBHLZMZd/2oVYOXVodi3wEcuy+IE+B7LnNVc06KCn4/b6QpZr3aKWIpT540/og
+	yYzF4L5K+/xwvVpzD8IFDSPUsBgizljHZSBV486aUy89Vha54nDzLceeBZZ9+sLrr6anq7VQ/G8
+	n39x60IBDWfcE2J5YvFSY3XAff/6n5zGtQt3eTn+pFGmRiXefimW+v+b3Xa2YU0USLXmkCvP9YU
+	A1vpoyiXq6OO4ina5lm0YPFBB5SeFw9W5qB5yqtQbDp3QMqnpOivyhZpg0z+zwBPxgri7V59jCS
+	YPpHz+N0ih8B9n6/tYUJ/JGYzfPrwVrnMcDg5JbkNmAF26jUbajCBaeXCcCEvbgzhwEINnKaNmX
+	FLK
+X-Received: by 2002:a17:903:2a85:b0:2ed:eb27:6c5c with SMTP id d9443c01a7336-2ee0dca8c24mr98437715ad.50.1794821998069;
+        Mon, 16 Nov 2026 01:39:58 -0800 (PST)
+X-Received: by 2002:a17:903:2a85:b0:2ed:eb27:6c5c with SMTP id d9443c01a7336-2ee0dca8c24mr98437575ad.50.1794821997614;
+        Mon, 16 Nov 2026 01:39:57 -0800 (PST)
+Received: from [10.149.108.218] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75de7esm35587675ad.21.2026.11.16.01.39.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 01:39:57 -0800 (PST)
+Message-ID: <2c7a2571-6683-4f29-8d5b-c3e8e87d520a@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 15:09:53 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,64 +118,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] phy: qcom: edp: Update v8 programming sequence
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20260622-glymur-edp-phy-v1-0-814b45089ac9@oss.qualcomm.com>
+Content-Language: en-US
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+In-Reply-To: <20260622-glymur-edp-phy-v1-0-814b45089ac9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAzOCBTYWx0ZWRfX170AT60ARc0W
+ n0vFJkk2PY+HXpEt6P2QS392yi/JqkLBiVdmAzKbeNf/HjMaUV4Q4nWmgMBCQ01sMut+Casm9qe
+ Ui/CoINFAAesUuBPIkSYJISuQxGdnnYhSrDQSfyNQj2uwV8MK+MpPaOtBIAlhD0OGTs/+4VgPn7
+ PFm8/uFo1cI5RrtNHMoAuRVgZZPvaBrkoQVx1ULZVcTZ0zXwyriLb3aZmEGX/WEz/s2JOIGrqMm
+ RicHOwAshHtF/QkFuT/hFIZnAQFmq5j39fJ4dEheeORhlXcobqlx3atO8rbz/MlhI0vz0+HiE9a
+ g+fELBJqu6dhBB7GbL30Pmd3a/oNsjccKOTgHnB6iuYeAm692XW+uZnWazIgf5W7Moa2+3bMF6v
+ cr2EyQPvFde1zHVY2uhCrUtFEQGaUWAMlacbycz/Vr3jbzrN6+XcZHGELaTEHSFOb1NGkhJ6MOX
+ VAkIf0KXBfzWv/1Pnhw==
+X-Authority-Analysis: v=2.4 cv=YPYKWhGx c=1 sm=1 tr=0 ts=6afacf6e cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CkkWTzGYo-v6zW51zJgA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: xT1RV-v39vMbmHLeLFj2wocX40hpJhbA
+X-Proofpoint-ORIG-GUID: xT1RV-v39vMbmHLeLFj2wocX40hpJhbA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAzOCBTYWx0ZWRfX9G/RqRSj1WMV
+ OMiSw73f6XN2t78PIcDMqd1cu3vuXyz2a6tYgPme7Ury2O52zhB+WlgnOqGYPPkAC/z4ztaqPod
+ zx2oFxd2CR79OsPkgVqHp7q5uF1q+YQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_03,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160038
 
-"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
 
-Hello Mario,
 
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> Expose SSD130x contrast through the connector LUMINANCE property when
-> DRM_LUMINANCE is enabled. Program contrast directly and register the
-> backlight class device only when DRM_LUMINANCE is disabled, so contrast
-> has a single owner.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v11:
->  * Keep selecting BACKLIGHT_CLASS_DEVICE and drop the guards (Sashiko)
->  * Register the backlight device only without DRM_LUMINANCE (Sashiko)
->  * Initialise the controller with the committed luminance and don't
->    clobber the saved contrast on disable (Sashiko)
->  * Skip contrast writes while the controller is powered down (Sashiko)
->  * Unify contrast dispatch and backlight ops (Sashiko)
->  * Drop Reviewed-by due to the rework
-> v10:
->  * Guard the backlight operations and registration with
->    BACKLIGHT_CLASS_DEVICE
->  * Fix Kconfig recursive issue
->  * Add the Reviewed-by tag
-> ---
->  drivers/gpu/drm/solomon/ssd130x.c | 149 ++++++++++++++++++++++++--------------
->  drivers/gpu/drm/solomon/ssd130x.h |   2 +
->  2 files changed, 98 insertions(+), 53 deletions(-)
+On 6/23/2026 4:59 AM, Bjorn Andersson wrote:
+> The programming sequences introduced for v8 doesn't work other than for
+> 4-lane 8.1Gbps. For 2-lane 5.4Gbps link training fails and for 2.7 and
+> 1.62Gbps PLL lock isn't reached.
+> 
+> Update the driver to match the documentation (and Windows driver for the
+> 1.62Gbps PLL settings), to get past the link training on lower
+> resolution monitors.
+> 
+Hi Bjorn,
 
-[...]
+Gentle ping on this series. I've been testing it on the Microsoft 
+Surface Laptop 8th Edition 13.8" (Mahua), and with the patch below on 
+top of it, the eDP panel trains at HBR2 on 4 lanes and has been stable 
+in my testing:
 
-> +static void ssd130x_connector_set_luminance(const struct drm_connector_state *conn_state)
-> +{
-> +	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-> +
-> +	/*
-> +	 * The encoder enable already initialized the controller with the
-> +	 * committed luminance. Skip if it failed to power up the controller.
-> +	 */
-> +	if (!ssd130x->enabled || ssd130x->contrast == conn_state->luminance)
-> +		return;
-> +
+https://lore.kernel.org/all/20261109090449.410840-1-gopikrishna.garmidi@oss.qualcomm.com/
 
-Is not clear to me why you need this enabled field? I would prefer to not
-keep that state if possible.
+My patch depends on yours, and I can only send the Surface Laptop DTS 
+with HBR2 enabled once both land. Without these changes it is limited to 
+HBR.
 
-The changes look good to me though:
+Could you please follow up on the series when you get a chance? I'm 
+happy to test a respin on the Surface or help with review comments, if 
+that would speed it up.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Tested-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com> # 
+Surface Laptop 8 (Mahua), eDP HBR2 4 lanes, together with the LN_DRV_LVL 
+fix above
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+Thanks,
+Gopikrishna
 
