@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857812;
-	b=ddVK+UHAOaVSPB9EK8UMAatPtkk+tyjpZe2HH8p82/n8jHjrdPXSe+gbFMGg7W7I+GZQ
-	 ZLgJZfkxHmxacGNaUr4gfeswSr2Tv5jBz5kJIqLW1D9hqOwM1LtpOyjp4ETuntQVSc5PR
-	 4bCiP26ihaYlIsYxIcxXG3VfoOepwolbu1I+D+Q/BOGH8aKqc5ImVFP37Ui63uSc9kKy3
-	 6qtXgLeTfxKik55LHhiPWSJDqB/nwPform0O81qUN2TaWb4nh3uODOfa/Iyy5SfoOYsxJ
-	 R3wp4imjw9Pp7au0tboSYTXUVU5KqSXJWc0NcSnQ8B45dXO1sfiZ2tQfoLLyiJtxbPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857812;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=nh4pWMvkRsPEst/kCwIp1wxFa2k7tAfx6b5lfGN0krQ=;
-	b=HXgZ1XQKpod7ZAdlIPbSB09tlD13TAvtF8Jg5q05H+wBDAIjFHyGE+uhMemUQwkA5lge
-	 LKNWZS9poO2fMbcTlp5JkVugock4oq0LQ11QlilwDLhRjLGzH/YkyyrqMeRcvVDmHwEFF
-	 OwS4O0LoSGseXW3M122GmI6CkJ9654XQTJE31csfydbuHm9Sug3pBcolS+f8GcN0xbKIM
-	 yfS0I4wJ7D/cb6Y16HPM+suvt00YOB/8HaYjVu3YR/IkVWY2BX6TMUSFMStM/3mn6Pe3x
-	 ObBhbyP6UsZv0auwiO12h1J5rtWA++UxosCJatfVHyJYWILyZ2xDZvN149XzHIMjRSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=LplowID6;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794857824;
+	b=VZxkKNIkBqApW7yiqL9qNwck72O/QiI6NOVQ8SuYDm2EB7OXY2Dxrxw/o5qjUeGpuem2
+	 1mxYsS57IUoFKI/mSZTVUtDO6Zu1G39N1+PaasSVX3zIu8/HIOEXP/ynsKBg26GgxmSsS
+	 Y8HnUOefy7lgcLrWlQNX8nTNjr7XMY2jbLf/iTh2widC5XmeN4I1ayYC/yfAFelCvcdlR
+	 cvrQ+741wFmzPgtVhM8H6YfNG8/DUgGzVUmrXpCFXF+s3jrkv45o4+Z7f7gO7eEiOgSEJ
+	 U/rZi6WT36puhIg8TCSJXN2FaRWzQNR80GD+9Y2GqClTJ2pDq60nFHJj/v6PtKpKWXw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857824;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=a0K8lr5jk5XWVgJ/UEpvtq0hIuOeWcwshx7945Bw4bA=;
+	b=m5TdGipGsdXj4LOqHznYPRaN0sitY5tI2W82pTd8Yt5yHTBXmJMZQRrMxm7sjBDyg/65
+	 rdS7NLs0nt9Gidva8VHuO+Yhz6g9ilzDjmj4D4wMfPLg3nFxUlWVvh3RcrEoou3tWK7Er
+	 p51NbzAnlMmAkqrMjMTO0+lXzNGB309h9kh8ImOsFe5bb5ZTLjh6+exHmqEZbb8Sx/954
+	 v7JsqB6M+Z6G19u1aqEEDHGH7hOYvC/Zu9FPQmlW1Oz6NTlaPY/DQMdG1Y1nVxg6IzDLW
+	 TxZe5cVwAXp0h146XbJIccabfIcUVAuESGUylDboxq3A4SIhUtMlOC+oBkdfrOazLqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RV19A/iV";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CE6606A31C;
+	Mon, 16 Nov 2026 19:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RV19A/iV
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794857824;
+	b=e7gnd0dt5awoK7dS+KCvBKCFiJ0+7RzRtX23DCVveJjA/qnVxGloNOpRzu+a6n/Qhz0B
+	 QENqKYNBrFsKYWCOi3qAkeeQCNGl0ohFozAIpXbqVpwrvsJg9igZ21niFSRM3MlVTl/Ir
+	 0WMgFuDHTpunU11X1aMTNy2Ntj9gVwDb7Fe5Cnz3InHSJglj1IuZ1mMEQtZ1rT99WhWo5
+	 Eg6sZu6LDlkmCI0HmH3z85jk4Dsa18oyjN2180SmcK6kHctzQebd5sIoD6+4zWCadBbkQ
+	 A7M0ka8gFAVGgeDX9sbugKyUrPFhXs4NCj2FDQUM6OyoxldbE5xGVdx8NHGk7ZynA/w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794857824;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=a0K8lr5jk5XWVgJ/UEpvtq0hIuOeWcwshx7945Bw4bA=;
+	b=XlWvFKKDSWjecF4DjcVFjdBub5Lso5g81WzyZKJT+leAcAoSrLnU2fMmOfB02ViQUl6R
+	 Tx8B10dgOn/hML3kqzTE6981xNYEsg9c4kJaqDSbGMeqagAm9YT1iUrcNvgKUp0E8f+vY
+	 lW2tQ19IMddBxO/27t9NnP03G9HZFTVnRH1d8/zz0C14CIGujCl9QNk9vI0ZDh1/Jdt/f
+	 NCkqAm/h5AyySpHhlKnzrVkVSeNkKw6hBEzODnL70sgLLXavMdWo6K9ZXYNoX4JB3MmHJ
+	 em2CBiWrThedYYTHAwxC07Y31ZJXgxSLaHWLujfk+QPwiFEe80W61tR3GfFsorn5QSg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282B2606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:36:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 282B2606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=LplowID6
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so5982409a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:36:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794857811; x=1795462611; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nh4pWMvkRsPEst/kCwIp1wxFa2k7tAfx6b5lfGN0krQ=;
-        b=LplowID60eMGSrF2nTWWGRIQiyjRflajGAnsTAVRQasEzYSY4mohwAUjX2VD+JZ05g
-         SbT6UChkEZ42LiPLmebs2bcYvdPjQXofl4z6sxd1qp+OD6BJ7pZ0dk7YEvBcJ0P9fTUm
-         IGc1lZOAj7H6/0UuPNM8BBQTogUS8bc/yVxJA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794857811; x=1795462611;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nh4pWMvkRsPEst/kCwIp1wxFa2k7tAfx6b5lfGN0krQ=;
-        b=xKITxzzXzyPz4qMussOT3oKfu8/3pr6g3ZN6iURQSvgX8s1nYrRf1qCrrbpEcY5TgO
-         HcgYyB3CPZwZBPPTx8Cr/0xmaXC/ZOOWXMJj8xqhIZe2I+W7N9JSNcjmaY53uYlEqgJ+
-         lMC2uTYyDraior2lnypU79mfS5pD4+auFEbHAFNdfcQNyH1i15ov0BWCY+c8OrDVkanm
-         0Ghavga+jt7eNSGxOotxwnwmU02s7niJKaETI0uZ/m5unFF8UTCJX0csltBsiNrs2E9B
-         v9Y5wASZeSN5S98pAhxywlQyxZOgqgd2cQsLyjdphsLjtcDdFLM/0Oe6ByuG/S4ODx7I
-         13XA==
-X-Forwarded-Encrypted: i=1; AL+hErGpvD5qUGw/gBMUBiRzdq0/QbV/SgMA+fJb6+2iIxQ4PR8Qk91kq7wrazTPwjZNKSd5YkIj3yyt/8occN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+RYT/0cBNSut/rLEpZiLvj8CCrl5aqd8vIJHxdzRgPqidd0L0
-	/RxqGD0Hci6yc8Nsf01nRm9tI6Rl3mytBmygSN8gGU1U564K9QwfGRINzTKchlsEkFZtlVzCAGw
-	i6bgPEKEXSA==
-X-Gm-Gg: AYBFou1NqM1aNSEsJ7erxvJeHTBa3NlInMiRsq8rTQIfUo7QzICrkCyroxTKZygSszt
-	HvWEq70CMmfaZ6mxAACQmhmxFB42AL1K5EtCwV481rekpdQpup24w2cQx17XJ8vaI5bPtDHLwdz
-	3KJLYLhi+jvZajdkdvfo67vhiwwmYr0nRsbOVoBEUsafrHOttvHy+h5cozJsvUhaxRVI6GlN4Dv
-	RpIylR8FNxtnPVHQAz/yIXOKdSs8YKQkQZQiJRhBRma6ejFlo/Op+3U9fGcyNLi0IxeDWJA0pqj
-	A6uIat7z3rGiUWv8otvKK/8UL7cXKHVBOzocfvEcs6Emzqu59/zdXuUtPvAkYY6i52ObP7D6aID
-	V+70hLADzo1ioAUGQHz87F9lJTMI8oS+eJzVR9YJEuhAyDe4E5ut3gIOPHrtMPQ1ZDs4igFJbX7
-	OmCiwpT56GjyhpI9RHvbBcSjNodplcrtd3W4iBnBw/uE7aKvqLWOmJxxoco+9VEiVns11EZudg0
-	jMjdZMMozlR9FxknktcDfaS7YSVTifqvLDyZVxme9ThNq+/2abyXuo1cPWQNC3oJCV3nfMSG9bZ
-	cp9cwp9VRW4tKA6KXDOj/SS3qe0onOLbjKrEsE7Rj004rE3CggLIlHrRklNR4DT6W4u5loJ0JUF
-	LR2kEjAYwow1WK2dta3XiCeoM
-X-Received: by 2002:a05:6402:3135:b0:6b7:63b7:4e7c with SMTP id 4fb4d7f45d1cf-6b7c0bde9afmr6153161a12.17.1794857810701;
-        Mon, 16 Nov 2026 11:36:50 -0800 (PST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c25ded92sm5098080a12.31.2026.11.16.11.36.49
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 11:36:49 -0800 (PST)
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so624121966b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:36:49 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGNiBuyAU4JVqq/jr2+aXJ1aTQf9p5Xupd2LAcoxxDKrwjN7HEVCE87dOUczQgFEy1BkqP7jK9bn2XPSN4=@vger.kernel.org
-X-Received: by 2002:a17:907:d86:b0:c50:4b6e:329 with SMTP id
- a640c23a62f3a-c5096372173mr926077766b.15.1794857808907; Mon, 16 Nov 2026
- 11:36:48 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id B3E491F000C4;
+	Mon, 16 Nov 2026 19:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794857824;
+	bh=a0K8lr5jk5XWVgJ/UEpvtq0hIuOeWcwshx7945Bw4bA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=RV19A/iVx0kiQu+ah6k4t612fqY45bgsLVrjoU5kro0GvnLI2w/bsJRLW9ubq9Yil
+	 lB1Odd5xZcMEzBGOUiw2+pmCPrISOMAI89AoZqNBjH4Hv1RbdEp3GRD2f8Aug+OzDH
+	 aXmMjFRu1/nFhWI2cf5adaaL/Vlt+EYLsJ3mULBY7msQ0a/QXKplB2o8XNg6J233le
+	 XhJV3pZK52bPiGKesxz6tj6GroTK9Qakn0f49tM4YxEECypEEJ6Lg36gH0kKdz10r1
+	 /WP8uovi/DFbc7HqId+RHl8pJ2jldu/5cAmNKsT2NOP200jHUEJJeAs0dQJ3zmu+b3
+	 BJ5D4ppGVinJg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 04C704A584;
+	Mon, 16 Nov 2026 19:37:03 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Mon, 16 Nov 2026 19:37:03 +0000
+Subject: [PATCH wireless v2] wifi: mac80211: check for a NULL link in the
+ MLD station RX loop
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,60 +83,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025164719.1831477-1-sashal@kernel.org> <CA+1xoqcxAsRij1j10TyhNX9JXNXNkdWO3sMaVRXCqYdEXi45fg@mail.gmail.com>
-In-Reply-To: <CA+1xoqcxAsRij1j10TyhNX9JXNXNkdWO3sMaVRXCqYdEXi45fg@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 16 Nov 2026 11:36:32 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wgCX4=ZSPALxR7VHKKAKipU1nD_Am-Q-0z1SRKxr-VRRQ@mail.gmail.com>
-X-Gm-Features: AclHuK9wFvPLbk2hT2Jt-YCf9KvKeXcURMdq1CAih03odFDrPYf2QaCfvYcr5qU
-Message-ID: <CAHk-=wgCX4=ZSPALxR7VHKKAKipU1nD_Am-Q-0z1SRKxr-VRRQ@mail.gmail.com>
-Subject: Re: [GIT PULL] Kernel API specification framework for v7.4
-To: Sasha Levin <levinsasha928@gmail.com>
-Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-mac80211-rx-null-link-v2-1-ea512ae98139@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAF5b+2oC/4WNQQ6CMBBFr0Jm7ZhOiZW48h6GBa0DTCzFtFoxh
+ LvbcAGXLy///RUSR+EEl2qFyFmSzKGAPlTgxi4MjHIvDFppQ6Q0Tp1rlCbCuGB4e49ewgNNr1n
+ Zk+qNtVC2z8i9LHv3Bh+J7DklaIsZJb3m+N0PM+3+TzsTEtZ1rayx1LizuQ5TJ/7o5gnabdt+A
+ FfmVcQAAAA=
+To: Johannes Berg <johannes@sipsolutions.net>, 
+ Benjamin Berg <benjamin.berg@intel.com>, joasantonio108@gmail.com
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794857822; l=2604;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=aZzRCwDrJjSzerq/sLcLnuuDLZ11aHczEbNwIJoX7XQ=;
+ b=jDCpi/RFWz9PlMH8/eSEDk4bEOkTS1I0UhEAtDMX/w3CZ6EcMKTc68kK9071y+TcF2Y3Nn+ue
+ /FvMJYHQFAlBqCIhYoIvWfg77Lw3W9zThE8ZT7UIHjZwlcihaU9Ez48
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, 16 Nov 2026 at 10:14, Sasha Levin <levinsasha928@gmail.com> wrote:
->
-> Ping?
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-So honestly, I really don't like it. I don't think *any* of this
-should be inside the kernel. I don't think the in-kernel side helps at
-all: the comments are too big, nobody will read them, and the whole -
-and only - real use of them would be outside validation, not at
-run-time.
+Since commit 6d531b9af16e ("wifi: mac80211: rework RX packet handling"),
+__ieee80211_rx_handle_packet() looks up the link of each MLD station
+that matches addr2 and passes it straight to ieee80211_rx_valid_freq(),
+which dereferences link->sdata and link->conf whenever status->freq is
+set.  The non-MLD loop and the interface loop below it check the link,
+this one does not.
 
-IOW, I see only downsides to polluting the kernel source code with
-comments that aren't useful to humans.
+The link can be NULL there.  ieee80211_vif_update_links() clears
+sdata->link[link_id] for a removed link first, and only later, after
+ieee80211_tear_down_links() (including its synchronize_rcu()) and
+drv_change_vif_links(), calls ieee80211_sta_remove_link(), which takes
+the link station out of the hash.  RX runs under RCU only, so a data
+frame from that link's address arriving in this window finds the link
+station but a NULL link, and the kernel oopses in softirq context.  A
+link is removed this way for example when an associated AP announces
+removal of one of its links (ieee80211_ml_reconf_work()), and the
+frames only need a matching transmitter address, before any crypto.
 
-If this was a spec that is maintained in some automated format - not
-in C comments in source files that aren't useful as comments anyway
-purely inside something like tools/kernel-api/ (or Documentation, or
-even an outside repository entirely), together with the scripts to
-then validate it, that would be one thing.
+Before the rework, ieee80211_rx_data_set_link() returned false for a
+NULL link and the frame was skipped.  Skip it again.
 
-But polluting source code with huge comments that aren't for humans is
-right out. Particularly when it clearly is a "first step" and the
-intent is to make those comments bigger and more extended in the
-future.
+Fixes: 6d531b9af16e ("wifi: mac80211: rework RX packet handling")
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+Found by LLM-assisted code review of the RX rework and confirmed by
+reading the link removal path by hand.  I have not reproduced the oops
+at runtime.
 
-And I see *no* upside to any /sys/kernel/debug/kapi interface. Nobody
-cares, and any excuse to make it dynamic ("We might update the API in
-the future") is actually the complete opposite of the whole point of a
-stable API and not something I want to make easier or support in any
-way what-so-ever.
+v1 got no replies but is marked "Changes Requested" in patchwork, so I
+am not sure what is expected.  Please let me know if something else is
+wanted here.
+---
+Changes in v2:
+- Rebased on wireless/for-next (763b13f622e2), no code changes.
+- Link to v1: https://lore.kernel.org/r/20261102-mac80211-rx-null-link-v1-1-3330b6b18c76@gmail.com
+---
+ net/mac80211/rx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-So all of the in-kernel side to me looks like actively detrimental to
-the whole idea.
+diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
+index f8cfd04c0c6c..a1db6488e4bc 100644
+--- a/net/mac80211/rx.c
++++ b/net/mac80211/rx.c
+@@ -5505,7 +5505,7 @@ static void __ieee80211_rx_handle_packet(struct ieee80211_hw *hw,
+ 			sdata =	sta->sdata;
+ 			link = rcu_dereference(sdata->link[link_sta->link_id]);
+ 
+-			if (!ieee80211_rx_valid_freq(status->freq, link))
++			if (!link || !ieee80211_rx_valid_freq(status->freq, link))
+ 				continue;
+ 
+ 			if (rx_data_pending) {
 
-What I think *can* work is an external spec that is written so that
-tools (read: AI) can actually then verify it against kernel sources,
-and that can be used to also drive automated testing. But putting any
-of it inside the kernel is bad.
+---
+base-commit: 763b13f622e2758726e8e3ecaef819db8fa0430a
+change-id: 20261102-mac80211-rx-null-link-6f2e0b50f6bb
 
-                  Linus
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
+
