@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813270;
-	b=spkp5C3B6MtcBnOHUAPqY/ZoAdj19PymOkztLXsKlnbD4Y31AHSPNWDgKxf3HruwzjqC
-	 cjQ3PFqeRwiHsFfghcph32quLJ6AlhrLKbKsGTNnDL/cMEb1G9uANEXdtDI6TNKGy8nxk
-	 eQztKFhHaZJlevB7FJ2yxQGtdWsvTXV+H4NXT0rV8mppg+7Tek0fHhy4zOQYmdkvyRswP
-	 LhrisUWeCkJ9E+ZmW53DTnoWPRGAuhagngnoj/FdHwOFmlEqUqC1kIjIVoSExYvTMbI61
-	 nAt2EDJC71wRa5dm3VLTzpjdGrz68lIaG/Y2fehF2xsTkwPGQSubYxmJEHEws7eeESg==
+	t=1794813277;
+	b=yLauMpeGimaSAfuZScQu1w9+nwyvSUIYxoK0+9jYdl/GgrISpfusdNNBe7sa0YCCEW7m
+	 3yUFNMb7M5NmwrsuWrAQfpPn8QhJnmA3cwE3bvKU7W1EBqx1EH+2IIVP4OU2zYkMZ14e1
+	 nG74+tIGtnJh3uSiMh5FVYTlIaIRPpjSgcfH8WFLqU2qC4UbAduv/CJlf1eyOUKQFCDCU
+	 ftx8TQSEYzSw/8jxsdKPfSTNQX7LDLC5k2CnXnDNmv+f/FRkTgQLnis6o+kDgKVoaG1Uu
+	 AjVMUIJ6OZXjbCfJjVm/BQzAWl3SPuu4McPkevIw4ZBRTr1iZLT2PbAjyfK9iT7MBoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813270;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813277;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=oDNNUKcQznYLFvs5X+9GzieDpnGR07oToeUGRcsD+jw=;
-	b=UTa7zWPubJwqLczezdbzqVxGgRqvq2ZNmW05xuN53JFUSplkQcEyf4ffSTQF+RhqAXpr
-	 tgOO6zD+Y27DUHESOtlGrPS/KX5QIxMK9H5dYa1q+y++1+4JrI2LZFjYn+eygFCSeK2AP
-	 pMNa+fIuVoLh0uY+POGEKNtRPh4WL4gaH5y6111FpKqdypiP1EL5RJY5+xlbsBd6Zp6bv
-	 pqCSxybW2UOZsFJqPl9YN6ZFM/4yV6gU5H9OjM8rW1cl9k4THX9rjm9PehtbqEYWFhTCA
-	 lkw1av57/+XRoePRodtySUtR/3PImBWVJP6me9HMuBjg3rv74fMEJ0So981ttlOnqJg==
+	bh=S4xwi4aHh7ZD/bHp2DRcoCULX4dT5zb31C8Z9H6qmb0=;
+	b=wEf1N452zEE5gTeKLyhgGPQFi/apI8PMbUkHwfwuN4RfJJvhmmKggXVWDoZPFdqUwWEw
+	 fBBzSdmUjv6UmT4Wevh/KXLpQXXTHIhHOJyzSP+iROQuAy2xcDK5J9LJKiYCdP5sZ1vXG
+	 Hb/zbkPzcNV2DjDz3n6j0kof8JNbCclgt/zFrxV0W+kXwU9+ulxNLqR4TbJORpeIGpMnV
+	 a2mauaMzLPcDIyRuFPMfqGYniHXaYyZpcNEw5jRPjJsBkVzq6oBsM489ntX7Atevl0PZ/
+	 qgb5O6Ta+TU2jHhRdUgMFJEIcr33uDmhQhqGlezbrhEK5Fq0m1ryMMIaasHAkOBf4uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XbIgeKT4;
-	arc=none smtp.remote-ip=91.218.175.236
-Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CFTRgDEB;
+	arc=none smtp.remote-ip=95.215.58.50
+Received: from mta1.migadu.com (out-50.mta1.migadu.com [95.215.58.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012EC606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 012EC606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698D1606A330
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 698D1606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XbIgeKT4
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CFTRgDEB
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ox1OF4PmGlhBQ2M/eFtocGrA519OKUW6bkxfmgExDOw=;
+DKIM-Signature: a=rsa-sha256; bh=EVDQOgm4eiv05oSXsLTtEpFF+tsRKuMQEvt8DaJEU2k=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794813268; v=1; x=1795418068;
- b=XbIgeKT4qsJbDHNO3O6KZTrnqZwO0ummpfSNBOuRvtNbiUoxtYGItkrx6cB0AKHeRzkwxaXs
- GXKp2dzSTRD6cBaMDaQecPXbalDHjtz+qysvD/Rgn/1IUoy4E5NWJl0BOSCLoXB66NWqFloqFOw
- sGrizAKGCZTvdXTck8SMsb1g=
+ t=1794813274; v=1; x=1795418074;
+ b=CFTRgDEBH3j6pmg1ej7njFlv3ud01xfdaOMBaTZS5DBJoWFHZXBdM8Ebo8YkQ7AyoQbXvHJk
+ mGFmVZznl5qN2rMEHNFvfRCTsc8E8IoOwvYn28vfB6raIhgTC2vZ47Mamjls2WYuTAi7GiB5cM7
+ bwG0TjPRZqKoCRang6O0DWVE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e7a04197984c81c5;
-	Mon, 16 Nov 2026 07:14:27 +0000
-X-Mizu-Trace-ID: e7a04197984c81c5
+Received: by smtp.migadu.com with ESMTPS id d81b1a6ac4fe3573;
+	Mon, 16 Nov 2026 07:14:34 +0000
+X-Mizu-Trace-ID: d81b1a6ac4fe3573
 X-Migadu-Flow: FLOW_OUT
 From: Hao Ge <hao.ge@linux.dev>
 To: Suren Baghdasaryan <surenb@google.com>,
@@ -69,9 +69,9 @@ Cc: linuxppc-dev@lists.ozlabs.org,
 	kasan-dev@googlegroups.com,
 	linux-mm@kvack.org,
 	Hao Ge <hao.ge@linux.dev>
-Subject: [PATCH v5 08/11] mm/vmalloc: drop the KMSAN metadata in vmap_pages_range_noflush() on failure
-Date: Mon, 16 Nov 2026 15:13:22 +0800
-Message-Id: <20261116071325.263682-9-hao.ge@linux.dev>
+Subject: [PATCH v5 09/11] mm/vmalloc: undo what vmap_pages_range_batched() mapped on failure
+Date: Mon, 16 Nov 2026 15:13:23 +0800
+Message-Id: <20261116071325.263682-10-hao.ge@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261116071325.263682-1-hao.ge@linux.dev>
 References: <20261116071325.263682-1-hao.ge@linux.dev>
@@ -86,45 +86,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vmap_pages_range_noflush() sets up the KMSAN metadata for the whole
-range before it starts mapping. If the mapping fails, the page
-tables undo themselves now, but the metadata stays behind, and the
-next attempt to map the same range hits the leftover shadow PTEs.
+vmap_pages_range_batched() maps the range batch by batch. When a
+batch fails, the batches before it are installed, and the failing
+one may have installed some of its pages. mapped_end follows the
+end of the last installed page, and the error path undoes
+[addr, mapped_end), never past the point where the walk stopped.
 
-Tear the metadata down on the error path, it was fully set up before
-the mapping failed. The teardown follows the page tables and skips
-cond_resched() when the caller's gfp mask cannot block.
+The KMSAN metadata is set up for the whole range up front, so it is
+torn down as a whole when the mapping fails, like in
+vmap_pages_range_noflush(). The only caller, vmap(), also calls
+vunmap() on its error path; the double teardown only walks over PTEs
+that are already cleared.
 
 Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- mm/vmalloc.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ mm/vmalloc.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
 diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 4f3c320a4849..28e65073624a 100644
+index 28e65073624a..aa80bc273ec0 100644
 --- a/mm/vmalloc.c
 +++ b/mm/vmalloc.c
-@@ -801,8 +801,18 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+@@ -3748,13 +3748,14 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
+ 	const unsigned int nr_pages = (end - addr) >> PAGE_SHIFT;
+ 	unsigned int prev_shift = 0, batch_idx = 0, nr_mapped;
+ 	unsigned long batch_start = addr, batch_end = addr;
++	unsigned long mapped_end = addr;
+ 	int err;
  
- 	if (ret)
- 		return ret;
--	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift,
--					  gfp_mask);
-+
-+	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift,
-+					 gfp_mask);
-+	/*
-+	 * The page tables undo themselves on failure. Tear down the
-+	 * metadata that was fully set up before the mapping failed.
-+	 */
-+	if (ret)
-+		kmsan_vunmap_range_noflush(addr, end,
-+					   gfpflags_allow_blocking(gfp_mask));
-+
-+	return ret;
+ 	err = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
+ 					     PAGE_SHIFT, GFP_KERNEL);
+ 
+ 	if (err)
+-		goto out;
++		return err;
+ 
+ 	for (unsigned int i = 0; i < nr_pages; ) {
+ 		unsigned int shift = PAGE_SHIFT +
+@@ -3764,9 +3765,10 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
+ 			prev_shift = shift;
+ 
+ 		if (shift != prev_shift) {
+-			err = vmap_pages_range_noflush_walk(batch_start, batch_end,
+-					prot, pages + batch_idx, prev_shift,
+-					&nr_mapped);
++			err = vmap_pages_range_noflush_walk(batch_start,
++					batch_end, prot, pages + batch_idx,
++					prev_shift, &nr_mapped);
++			mapped_end = batch_start + (nr_mapped * PAGE_SIZE);
+ 			if (err)
+ 				goto out;
+ 			prev_shift = shift;
+@@ -3786,13 +3788,21 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
+ 	}
+ 
+ 	/* Remaining */
+-	if (batch_start < end)
++	if (batch_start < end) {
+ 		err = vmap_pages_range_noflush_walk(batch_start, end, prot,
+ 				pages + batch_idx, prev_shift, &nr_mapped);
++		mapped_end = batch_start + (nr_mapped * PAGE_SIZE);
++	}
+ 
+ out:
+-	if (!err)
++	if (err) {
++		/* Undo the part the batches installed before they failed. */
++		if (mapped_end > addr)
++			__vunmap_range_noflush(addr, mapped_end, true);
++		kmsan_vunmap_range_noflush(addr, end, true);
++	} else {
+ 		flush_cache_vmap(addr, end);
++	}
+ 	return err;
  }
  
- static int __vmap_pages_range(unsigned long addr, unsigned long end,
 -- 
 2.25.1
 
