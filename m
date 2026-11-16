@@ -1,80 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813263;
-	b=18UweZ0c8MfIXY6fd0WcNe4LXHGjq4ivgBPkoPx+ckVtFCmGfZS560Cu8a4b6Yvgk3wd
-	 ZNNv0dQfQIv029jASEYs3DmzxfZttMTo6tgVrcmCKEwLI3eqcDsheDO33DMuLQ0mBWFts
-	 muR5b3tiz5YTPkHcHuquxEWJJMCsAnCLzyKxm3ZVCcda5QDOKWv6vlCSwQXwJftKEfVZO
-	 uzyemqL/fiNNH18GyV0AahBZEj8IuzeDThQewxnzp9+8Yv71pafoQnIKegm4YCfsjIs98
-	 jg4IuQOVRUMWn0TjlkH7ToKx5OpDREHNmi38efuMfRm15GiWJaw8k1rviSkHfTEOrzg==
+	t=1794813270;
+	b=sHfIUUaB4JYMqKu5cZN7xI4zX6iQSx9Z4EV9ewK6sX5k2zdKixOFHb6lXzThKxlMe6dN
+	 OMs9MN9TVBLnamY1Cw0pxFf4We+jYljWHtJq+Sx7J5GmnCQJoSMjr8eeoY1YqRl7IMzzl
+	 7w58qoNZiDE9/29ao5YBgrCC7LzrNY/xoDcBOVlX9m1FdPByDBCnpGTofeyMAaA0V7L/T
+	 Vnua177vUzI1H+sFqnXFQgtTOU49hTIab75RV6lZ/bDnXAAH2lNHCqE1UaUp1em7tAw5Z
+	 n/o6wM5duO+anF2Ao6LBgfz+nELVRKsRIgVYj5xtInyagBmR/GfKz+DTMse4jcEQ49g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813263;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=r8vTH4ZwG/2DWs42qtrHbGL6SaYihVYpzXL05YW5oBw=;
-	b=mXRdN3GhXMnooh8R7M4JPJtP8jS4Nx5U/UleW3ZTbJdXdDs+l3AHLKmLBdM8ni4RIbdD
-	 juKWm1WhMdkOCHjHcJpSM0GrvIx87eu7ljjaLi7P602eP2Vvcn7GFnRXwD5mhaHKmV9Rd
-	 0GGyC7SqLJOLE9Ih0hLu5XUPVef2AAq9LDkTgz1EVbOmVQMLv5XEaN5qcABa7MSMRSHw2
-	 e9JC4pwhnXYSrjhHgpjXaiCOT/Z7jmIUiX4zHCjq6H4QV9jJ2r2pK1Zsv/4I7/6zHGnEB
-	 fOTVLf76YshwBng4b2rgJ0FciQEdas5OKruUzhV8RJaolTrtzNTOIiZjqQvhAu7eIwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813270;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NxDYjHN9xu1rKZeQRn1aw7vmWeqj0c4dyaODRBVM0ig=;
+	b=hRE8jFBxDDUSy1QpyVsWUnsmchsFQ0Z+lR8KEGkYzyDbl8azgvGyakFsFFWY0aiepRag
+	 v73EChiW115rFErLyKPX8oB7ecx19cMLvgfPf5wGyvUI/lizT+co4pRUMhtFEz/R9ePkK
+	 EaqNKwr0pBvF5FFxA2CweDMZfw0U32decvzQXpj8T9ikt0DTPlmMZI8iD+4wC5Q3f/nYv
+	 ECFhZ5UtP8MIoz0TZ6DO4phNcOqKCJXVz+fZxAudMWtVgsdG+JpzSierL06JGJb1cTJ3R
+	 0mPujEKPlpFdJDnCfT1D/fhCTOfT1YJ3YqpEiIP8WFsOoj+3T8DgxDD0DICcKA9pWOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="VuyMD/d2";
-	arc=none smtp.remote-ip=91.218.175.230
-Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="flY3h/9g";
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378F0606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 378F0606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B36F606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B36F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VuyMD/d2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZK0HyZRkuJf6PUVCzsSx26r+AdupLQhc4IQDUdlGHx8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794813261; v=1; x=1795418061;
- b=VuyMD/d2FNS1xfFGffpEoXLYVZOHRJHoksYj3ncxI4GngvkPOXcE3xO4g0EwHAAAXruYRGqb
- vMkJtMsMiUUbty62kzy5AwvUpwK8KcXgyJd4Jko7YhXUYq5zFyeSKfzGwFOO9wNoOzcC3vKLosv
- 2rQp85uxhVs9eQU+LwfP9ABs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6aca88df114c26b4;
-	Mon, 16 Nov 2026 07:14:21 +0000
-X-Mizu-Trace-ID: 6aca88df114c26b4
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=flY3h/9g
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37628596783so5194077eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:14:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794813268; x=1795418068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NxDYjHN9xu1rKZeQRn1aw7vmWeqj0c4dyaODRBVM0ig=;
+        b=flY3h/9gbz3jeBAPlZN9xHp510ADVkhw6kZnMPbmfpCnewDRkATQ0avt4sv1c4a3rL
+         ezjwpKxMu5ur1EgT9/I3t4vkbzpCm9rtjvlOb3KlGsw/Fla/JXImJOZ8BvllHQ3uq9Qj
+         LhIi2MLuX2KS00+6GAgT/gPvbOBWtdfJpdt26Cbn9zRQ2olzbgCUklktC/DkkaanAeLI
+         QIX9xfe9uYFpFDc9RJcuJAoQcKNWC2iAnoRwnZT2++nUneWgWfXDyR06tps3KT6/Kflj
+         DTEG/ZIyQjktn5bR9WuayMR0lRPN9GSXiW5MDoec+EOnnyHWfKqa33xruqytsPfC+Pxn
+         ftcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794813268; x=1795418068;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NxDYjHN9xu1rKZeQRn1aw7vmWeqj0c4dyaODRBVM0ig=;
+        b=rwWIcchKxxZ+LXsRcWKzYx8nSBggld3Nos7ujFtW8wiNNVUfhHxaypfx7JDgShlveP
+         gCDo7bFKGbuQV0xIipeH95cn0xhDI6S1gjr3sYhZZOhz6OhpukgW7g6Ea5cF2ONKustN
+         mqE8emBaFm7yH7y1Kgmq7taBLeR37tM/8ey1w92G0wsMgg8oqCK5Sd4veF2ttQTF9BlO
+         gKSA9CWwhqs1+mv4tO+wd20zpfXiQbhb5JlrTT1r24sBJxxxv0fZxuRMCLhfenNe1wYD
+         e8iXn3pZW1OCVclVcGdylFkgqe7Ssl7zKXWngNDgbBA7ep1C7MN/N4ox2ND/VNYooNOf
+         Pbyw==
+X-Forwarded-Encrypted: i=1; AL+hErHmRRmteKw9fxnq3xVfamTtnWMDD3if0kkvOxpLcxKE/ve1jImcTu/6g8K3ApqMuxmO0JfjH9t2AM62E/g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99OTRg36sk6BaqTfMJZdaxjJ80etWb4DNYtzRnm4Tiuzx2El2g
+	tcu36H84zGjlo2U7f7Bm+He1Fvu59T9Y/eg3D4/VlCF+fYjiiGeN8mHx/AZ2CM6kkWw=
+X-Gm-Gg: AYBFou1HDf5mhlFbm2vEOeR72qO8SA6ka91ctmTM5WGzBdMYA0HspZiz2h1/OhSMRpG
+	DNN5rRnIchp/49UYC1XkQaS8Rozyhb+6/LeToxwapP9aqVNcrY9REP+GzjI6LHlKl64No/XdGsR
+	R8zvesNx/jt6XD9kLLgsp8J1gMw05ilzLmxAY+9wjQ9Pzh9KIscCMtAF3B6zP5VAlgPkw5eqHft
+	BYC/n2HLoPe4Y+eBhj7bpfaimcLQ2AsbdJ/0R79HA7vR+3vNKHID/c1u4qbniJXijP0Wd5qyt9i
+	OZgEe20eRACjliN3yBzBBiSta+dJpYtX9SbxQQAEnqh4AgI2w3BZGvR3kZdI4fnGH6xHulyMs+o
+	XaVlIZ+tUN5GjLbCRqSqPmKZ7MIvIg20v6IBDaguRmGBqr7uBhMjEimXAjWafrcTY5qleXb6+4M
+	yZLB0+j0KUAAr2spzLCqwzyHCLEy/5cKNpg/EI7OtOdf+qjBl2Wr34AiFxmuM71sKmge/DQAigq
+	MRSLPDEI5EWpK60khOpCJwfyanKp1PlRaFeOTrr5GzcoPmCDErqHwyfUtLWRYxUUyK3skmN6cEN
+	BdGC5kYV2/HZPoh8oxrm0CLQ8dRUxIFFVdthqgADYd0xg4YkiAp+7jLcMaogUqxpxAa/zW5zwow
+	wG/ZPrA==
+X-Received: by 2002:a05:693c:6219:b0:377:1ad4:1947 with SMTP id 5a478bee46e88-379659c685dmr8592620eec.6.1794813268238;
+        Sun, 15 Nov 2026 23:14:28 -0800 (PST)
+Received: from FJ7FR2JRQ3.bytedance.net ([63.216.146.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm47858505eec.8.2026.11.15.23.14.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 15 Nov 2026 23:14:27 -0800 (PST)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: joro@8bytes.org,
+	palmer@dabbelt.com,
+	tony.luck@intel.com,
+	reinette.chatre@intel.com,
+	tomasz.jeznach@linux.dev
+Cc: fustini@kernel.org,
+	jgg@ziepe.ca,
+	james.morse@arm.com,
+	ben.horgan@arm.com,
+	xiaqinxin@huawei.com,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	Dave.Martin@arm.com,
+	babu.moger@amd.com,
+	kevin.tian@intel.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	shuah@kernel.org,
+	randy.dunlap@infradead.org,
+	cuiyunhui@bytedance.com,
+	yuanzhu@bytedance.com,
+	iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>
-Subject: [PATCH v5 07/11] mm/vmalloc: undo what __vmap_pages_range_noflush() mapped on failure
-Date: Mon, 16 Nov 2026 15:13:21 +0800
-Message-Id: <20261116071325.263682-8-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261116071325.263682-1-hao.ge@linux.dev>
-References: <20261116071325.263682-1-hao.ge@linux.dev>
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	x86@kernel.org
+Subject: [RFC PATCH v2 3/4] iommu/riscv: Expose global QoS IDs in sysfs
+Date: Mon, 16 Nov 2026 15:13:42 +0800
+Message-ID: <20261116071338.35991-9-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261116071338.35991-6-zhangzhanpeng.jasper@bytedance.com>
+References: <20261116071338.35991-6-zhangzhanpeng.jasper@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,192 +127,254 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__vmap_pages_range_noflush() maps a struct page array and may fail
-half way. The ptes installed so far stay behind, so a retry of the
-same range, the __GFP_NOFAIL loop in __vmalloc_area_node() or the
-module tags populate, trips the WARN_ON(!pte_none()) in
-vmap_pages_pte_range() and fails with -EBUSY.
+Expose the per-IOMMU global RCID and MCID as separate attributes in the
+IOMMU class device's qosid group. These IDs label IOMMU-originated
+directory and queue accesses, and device requests in DDTP BARE mode.
 
-vmap_pages_range_noflush_walk() now reports how many pages it
-installed through its running index into the pages array, and
-__vmap_pages_range_noflush() undoes [addr, addr + mapped_pages *
-PAGE_SIZE) on failure. vmap_pages_pte_range() fails with -EBUSY
-instead of installing over a pte that is already set, so the ptes
-below that point are all ours, while a pte above it can only have
-been put there by somebody else, for example when the caller's range
-overlaps an existing mapping. Going further would clear ptes that
-are not ours.
+Initialize the global IDs to zero before enabling translation. Preserve
+the other field and reserved bits on each write, serialize updates, and
+reject values that the WARL fields do not retain. Keep this interface
+independent of resctrl device assignment and available without resctrl.
 
-This path can run with a non-blocking gfp mask, the undo passes
-gfpflags_allow_blocking() as can_resched.
+Document the attributes and add a maintainer entry for the new ABI and
+device-assignment files.
 
-Suggested-by: Suren Baghdasaryan <surenb@google.com>
-Suggested-by: Uladzislau Rezki <urezki@gmail.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 ---
- mm/kmsan/hooks.c  |  4 ++--
- mm/kmsan/shadow.c |  4 ++--
- mm/vmalloc.c      | 36 +++++++++++++++++++++++++++++-------
- mm/vmalloc.h      |  3 ++-
- 4 files changed, 35 insertions(+), 12 deletions(-)
+ .../ABI/testing/sysfs-class-iommu-riscv-iommu |  27 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/iommu/riscv/iommu.c                   | 135 +++++++++++++++++-
+ 3 files changed, 164 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-class-iommu-riscv-iommu
 
-diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
-index 69008b085658..d830a4e649f1 100644
---- a/mm/kmsan/hooks.c
-+++ b/mm/kmsan/hooks.c
-@@ -208,7 +208,7 @@ int kmsan_ioremap_page_range(unsigned long start, unsigned long end,
- 		mapped = __vmap_pages_range_noflush(
- 			vmalloc_shadow(start + off),
- 			vmalloc_shadow(start + off + PAGE_SIZE), prot, &shadow,
--			PAGE_SHIFT);
-+			PAGE_SHIFT, gfp_mask);
- 		if (mapped) {
- 			err = mapped;
- 			goto ret;
-@@ -218,7 +218,7 @@ int kmsan_ioremap_page_range(unsigned long start, unsigned long end,
- 		mapped = __vmap_pages_range_noflush(
- 			vmalloc_origin(start + off),
- 			vmalloc_origin(start + off + PAGE_SIZE), prot, &origin,
--			PAGE_SHIFT);
-+			PAGE_SHIFT, gfp_mask);
- 		if (mapped) {
- 			err = mapped;
- 			goto ret;
-diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-index 212449db34a1..452760a333e4 100644
---- a/mm/kmsan/shadow.c
-+++ b/mm/kmsan/shadow.c
-@@ -247,7 +247,7 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
- 	origin_end = vmalloc_meta((void *)end, KMSAN_META_ORIGIN);
- 	kmsan_enter_runtime();
- 	mapped = __vmap_pages_range_noflush(shadow_start, shadow_end, prot,
--					    s_pages, page_shift);
-+					    s_pages, page_shift, gfp_mask);
- 	kmsan_leave_runtime();
- 	if (mapped) {
- 		err = mapped;
-@@ -255,7 +255,7 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+diff --git a/Documentation/ABI/testing/sysfs-class-iommu-riscv-iommu b/Documentation/ABI/testing/sysfs-class-iommu-riscv-iommu
+new file mode 100644
+index 000000000000..4658cbcd625b
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-class-iommu-riscv-iommu
+@@ -0,0 +1,27 @@
++What:		/sys/class/iommu/<iommu>/qosid/rcid
++What:		/sys/class/iommu/<iommu>/qosid/mcid
++Date:		October 2026
++Contact:	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
++Description:
++		The global default QoS IDs for a RISC-V IOMMU. These files
++		are present only when the IOMMU reports the QOSID capability.
++		Reading rcid or mcid returns the corresponding iommu_qosid
++		register field as a decimal number followed by a newline.
++
++		Writing a decimal number updates only the corresponding
++		field, preserving the other ID and reserved/WPRI bits. The
++		two writes are independent, not an atomic pair update.
++		Malformed input fails with EINVAL. Values outside
++		the 12-bit field range fail with ERANGE. If WARL readback
++		does not retain a value, the old register value is restored
++		and the write fails with ERANGE. Initialization sets both
++		IDs to zero.
++
++		These IDs tag IOMMU-originated DDT, CQ, FQ, PQ and MSI
++		accesses. In DDTP BARE mode they also tag device-originated
++		requests. In translated modes, device-specific requests
++		instead use the device context's QoS IDs.
++
++		This interface does not allocate resctrl IDs or configure
++		downstream resource controllers. The administrator must
++		choose IDs appropriate for the platform's QoS policy.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index df051086b5dd..e14fddd07882 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24072,6 +24072,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
+ F:	Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
+ F:	drivers/iommu/riscv/
+ 
++RISC-V IOMMU QoS
++M:	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
++L:	iommu@lists.linux.dev
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/ABI/testing/sysfs-class-iommu-riscv-iommu
++
+ RISC-V MICROCHIP SUPPORT
+ M:	Conor Dooley <conor.dooley@microchip.com>
+ R:	Valentina Fernandez <valentina.fernandezalanis@microchip.com>
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index dd2ebb25312d..b1b069bb2ad8 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -23,6 +23,7 @@
+ #include <linux/kernel.h>
+ #include <linux/pci.h>
+ #include <linux/resctrl_device.h>
++#include <linux/string.h>
+ #include <linux/generic_pt/iommu.h>
+ 
+ #include "../iommu-pages.h"
+@@ -1777,9 +1778,124 @@ static void riscv_iommu_probe_qosid_limits(struct riscv_iommu_device *iommu)
+ 	dev_warn(iommu->dev, "QoS ID limits unavailable; device QoS disabled\n");
+ }
+ 
++static int riscv_iommu_update_qosid(struct riscv_iommu_device *iommu,
++				    u32 mask, u32 value)
++{
++	u32 old_qosid, qosid;
++	int ret = 0;
++
++	mutex_lock(&iommu->qosid_lock);
++	old_qosid = riscv_iommu_readl(iommu, RISCV_IOMMU_REG_IOMMU_QOSID);
++	qosid = (old_qosid & ~mask) | value;
++	riscv_iommu_writel(iommu, RISCV_IOMMU_REG_IOMMU_QOSID, qosid);
++
++	/* Reject values that the WARL fields do not retain. */
++	qosid = riscv_iommu_readl(iommu, RISCV_IOMMU_REG_IOMMU_QOSID);
++	if ((qosid & mask) != value) {
++		riscv_iommu_writel(iommu, RISCV_IOMMU_REG_IOMMU_QOSID,
++				   old_qosid);
++		riscv_iommu_readl(iommu, RISCV_IOMMU_REG_IOMMU_QOSID);
++		ret = -ERANGE;
++	}
++	mutex_unlock(&iommu->qosid_lock);
++	return ret;
++}
++
++static ssize_t riscv_iommu_qosid_show(struct device *dev, char *buf, bool rcid)
++{
++	struct iommu_device *idev = dev_to_iommu_device(dev);
++	struct riscv_iommu_device *iommu;
++	u32 qosid;
++
++	if (!idev)
++		return -ENODEV;
++	iommu = container_of(idev, struct riscv_iommu_device, iommu);
++	mutex_lock(&iommu->qosid_lock);
++	qosid = riscv_iommu_readl(iommu, RISCV_IOMMU_REG_IOMMU_QOSID);
++	mutex_unlock(&iommu->qosid_lock);
++	return sysfs_emit(buf, "%u\n", rcid ?
++			 (u32)FIELD_GET(RISCV_IOMMU_IOMMU_QOSID_RCID, qosid) :
++			 (u32)FIELD_GET(RISCV_IOMMU_IOMMU_QOSID_MCID, qosid));
++}
++
++static ssize_t riscv_iommu_qosid_store(struct device *dev, const char *buf,
++				       size_t count, bool rcid)
++{
++	struct iommu_device *idev = dev_to_iommu_device(dev);
++	struct riscv_iommu_device *iommu;
++	u32 mask, value;
++	int ret;
++
++	if (!idev)
++		return -ENODEV;
++	if (memchr(buf, '\0', count))
++		return -EINVAL;
++	ret = kstrtou32(buf, 10, &value);
++	if (ret)
++		return ret;
++	if (rcid) {
++		if (value > FIELD_MAX(RISCV_IOMMU_IOMMU_QOSID_RCID))
++			return -ERANGE;
++		mask = RISCV_IOMMU_IOMMU_QOSID_RCID;
++		value = FIELD_PREP(RISCV_IOMMU_IOMMU_QOSID_RCID, value);
++	} else {
++		if (value > FIELD_MAX(RISCV_IOMMU_IOMMU_QOSID_MCID))
++			return -ERANGE;
++		mask = RISCV_IOMMU_IOMMU_QOSID_MCID;
++		value = FIELD_PREP(RISCV_IOMMU_IOMMU_QOSID_MCID, value);
++	}
++
++	iommu = container_of(idev, struct riscv_iommu_device, iommu);
++	ret = riscv_iommu_update_qosid(iommu, mask, value);
++	return ret ? ret : count;
++}
++
++static ssize_t rcid_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
++{
++	return riscv_iommu_qosid_show(dev, buf, true);
++}
++
++static ssize_t rcid_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
++{
++	return riscv_iommu_qosid_store(dev, buf, count, true);
++}
++static DEVICE_ATTR_RW(rcid);
++
++static ssize_t mcid_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
++{
++	return riscv_iommu_qosid_show(dev, buf, false);
++}
++
++static ssize_t mcid_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
++{
++	return riscv_iommu_qosid_store(dev, buf, count, false);
++}
++static DEVICE_ATTR_RW(mcid);
++
++static struct attribute *riscv_iommu_attrs[] = {
++	&dev_attr_rcid.attr,
++	&dev_attr_mcid.attr,
++	NULL,
++};
++
++static const struct attribute_group riscv_iommu_group = {
++	.name = "qosid",
++	.attrs = riscv_iommu_attrs,
++};
++
++static const struct attribute_group *riscv_iommu_groups[] = {
++	&riscv_iommu_group,
++	NULL,
++};
++
+ static int riscv_iommu_init_check(struct riscv_iommu_device *iommu)
+ {
+ 	u64 ddtp;
++	int ret;
+ 
+ 	/*
+ 	 * Make sure the IOMMU is switched off or in pass-through mode during
+@@ -1810,9 +1926,15 @@ static int riscv_iommu_init_check(struct riscv_iommu_device *iommu)
+ 			return -EINVAL;
  	}
- 	kmsan_enter_runtime();
- 	mapped = __vmap_pages_range_noflush(origin_start, origin_end, prot,
--					    o_pages, page_shift);
-+					    o_pages, page_shift, gfp_mask);
- 	kmsan_leave_runtime();
- 	if (mapped) {
- 		/* Undo the shadow mapping set up above. */
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 5c1eacc2a0ac..4f3c320a4849 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -725,7 +725,8 @@ static int vmap_pages_p4d_range(pgd_t *pgd, unsigned long addr,
-  * may have contiguous chunks, as hinted by @shift.
-  */
- static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
--		pgprot_t prot, struct page **pages, unsigned int shift)
-+		pgprot_t prot, struct page **pages, unsigned int shift,
-+		unsigned int *mapped_pages)
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_CBQRI_RESCTRL_FS) &&
+-	    (iommu->caps & RISCV_IOMMU_CAPABILITIES_QOSID))
+-		riscv_iommu_probe_qosid_limits(iommu);
++	if (iommu->caps & RISCV_IOMMU_CAPABILITIES_QOSID) {
++		if (IS_ENABLED(CONFIG_RISCV_CBQRI_RESCTRL_FS))
++			riscv_iommu_probe_qosid_limits(iommu);
++		ret = riscv_iommu_update_qosid(iommu,
++					       RISCV_IOMMU_IOMMU_QOSID_RCID |
++					       RISCV_IOMMU_IOMMU_QOSID_MCID, 0);
++		if (ret)
++			return ret;
++	}
+ 
+ 	/*
+ 	 * Distribute interrupt vectors, always use first vector for CIV.
+@@ -1847,6 +1969,7 @@ void riscv_iommu_remove(struct riscv_iommu_device *iommu)
+ 
+ int riscv_iommu_init(struct riscv_iommu_device *iommu)
  {
- 	unsigned long start = addr;
- 	pgd_t *pgd;
-@@ -748,6 +749,7 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
- 	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
- 		arch_sync_kernel_mappings(start, end);
++	const struct attribute_group **sysfs_groups = NULL;
+ 	int rc;
  
-+	*mapped_pages = nr;
- 	return err;
- }
+ 	RISCV_IOMMU_QUEUE_INIT(&iommu->cmdq, CQ);
+@@ -1887,8 +2010,10 @@ int riscv_iommu_init(struct riscv_iommu_device *iommu)
+ 	if (rc)
+ 		goto err_queue_disable;
  
-@@ -758,18 +760,36 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
-  * The caller is responsible for calling flush_cache_vmap() after this
-  * function returns successfully and before the addresses are accessed.
-  *
-+ * On failure the PTEs installed by this call are torn down before
-+ * returning, so a retry sees a clean range; PTEs that were already
-+ * there when the walk failed are left alone. When @gfp_mask cannot
-+ * block, the teardown skips cond_resched(), it may run in atomic
-+ * context.
-+ *
-  * This is an internal function only. Do not use outside mm/.
-  */
- int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
--		pgprot_t prot, struct page **pages, unsigned int page_shift)
-+		pgprot_t prot, struct page **pages, unsigned int page_shift,
-+		gfp_t gfp_mask)
- {
-+	int err;
-+	unsigned int mapped_pages = 0;
-+
- 	if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
- 		return -EINVAL;
- 
- 	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC))
- 		page_shift = PAGE_SHIFT;
- 
--	return vmap_pages_range_noflush_walk(addr, end, prot, pages, page_shift);
-+	err = vmap_pages_range_noflush_walk(addr, end, prot, pages, page_shift,
-+					    &mapped_pages);
-+
-+	/* Undo the PTEs installed before the failure. */
-+	if (err && mapped_pages)
-+		__vunmap_range_noflush(addr, addr + (mapped_pages * PAGE_SIZE),
-+				       gfpflags_allow_blocking(gfp_mask));
-+
-+	return err;
- }
- 
- int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-@@ -781,7 +801,8 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
- 
- 	if (ret)
- 		return ret;
--	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-+	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift,
-+					  gfp_mask);
- }
- 
- static int __vmap_pages_range(unsigned long addr, unsigned long end,
-@@ -3715,7 +3736,7 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
- 		pgprot_t prot, struct page **pages)
- {
- 	const unsigned int nr_pages = (end - addr) >> PAGE_SHIFT;
--	unsigned int prev_shift = 0, batch_idx = 0;
-+	unsigned int prev_shift = 0, batch_idx = 0, nr_mapped;
- 	unsigned long batch_start = addr, batch_end = addr;
- 	int err;
- 
-@@ -3734,7 +3755,8 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
- 
- 		if (shift != prev_shift) {
- 			err = vmap_pages_range_noflush_walk(batch_start, batch_end,
--					prot, pages + batch_idx, prev_shift);
-+					prot, pages + batch_idx, prev_shift,
-+					&nr_mapped);
- 			if (err)
- 				goto out;
- 			prev_shift = shift;
-@@ -3756,7 +3778,7 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
- 	/* Remaining */
- 	if (batch_start < end)
- 		err = vmap_pages_range_noflush_walk(batch_start, end, prot,
--				pages + batch_idx, prev_shift);
-+				pages + batch_idx, prev_shift, &nr_mapped);
- 
- out:
- 	if (!err)
-diff --git a/mm/vmalloc.h b/mm/vmalloc.h
-index 4ec114a75f04..9ea28845f713 100644
---- a/mm/vmalloc.h
-+++ b/mm/vmalloc.h
-@@ -40,7 +40,8 @@ void clear_vm_uninitialized_flag(struct vm_struct *vm);
- 
- int __must_check __vmap_pages_range_noflush(unsigned long addr,
- 		unsigned long end, pgprot_t prot,
--		struct page **pages, unsigned int page_shift);
-+		struct page **pages, unsigned int page_shift,
-+		gfp_t gfp_mask);
- 
- void vunmap_range_noflush(unsigned long start, unsigned long end);
- 
+-	rc = iommu_device_sysfs_add(&iommu->iommu, NULL, NULL, "riscv-iommu@%s",
+-				    dev_name(iommu->dev));
++	if (iommu->caps & RISCV_IOMMU_CAPABILITIES_QOSID)
++		sysfs_groups = riscv_iommu_groups;
++	rc = iommu_device_sysfs_add(&iommu->iommu, NULL, sysfs_groups,
++				    "riscv-iommu@%s", dev_name(iommu->dev));
+ 	if (rc) {
+ 		dev_err_probe(iommu->dev, rc, "cannot register sysfs interface\n");
+ 		goto err_iodir_off;
 -- 
-2.25.1
+2.50.1 (Apple Git-155)
 
