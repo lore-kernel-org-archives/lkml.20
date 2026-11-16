@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857234;
-	b=FdmBHmhyRtkqir31jhDQOT9buroDnGW7TpG7lkcbik/FzKeXI3VJ/8AQhn9EDmP64n9U
-	 gLkShN4WdyVfpazQRQ5JFK8d0OY8mrc3Ux9CT6HIvlDSrPeRr1WISLIJw+g+9wR1F0DGi
-	 cnp3Y43mciLJWoeaQU2CjFpzHl2hJSmP0P7GNcS/fzbFcWEYpWxbvf9edBpNpzcXmpvwj
-	 if+zgHoe00nk8vYxwA2DfkT+I6XxL1qwoXo3rOXFCxN+v92vbGwbwiVnKdBhmum7UBoCd
-	 SPM43hGDAGmL5rUPv4nTEoHU6nRRHKlp5sXzeZ9YlPmwoLdQhOyC/CyKuRHLBqYgnAw==
+	t=1794857269;
+	b=zNjaoSviSH6c9rAs72SCSmW/0D2G6AWD8GuOYyIDBvCU+JrMeMuL2dFYJjIK9XDGv5Aa
+	 BajugvCS98EHr2kRn8y3PKSC4kbUog2uebw5UJK3lSKnUm1E4NLdkHSXl3SuS7uYmDtI9
+	 LwIc2fxsbooVdXYp+jNhZnAuAdH2hWDDtB3Ne0Yap+XFRAVq8nqTeqbJCNDUMHwCelfse
+	 1eNZVIqRP1Z3CQZ/buSkyI3ngA8M0wy6MkhvKzQuSTeqSuhBo49SmhCSddjEBWmyaLmXl
+	 96aWi6ETyHNI5co4qGcWze3lnN/JFbl5NkVcb4IuKnenfxWtsxMYIN9T34PqruxR3Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857234;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=e9PvDEVcMLMO6mVD+QDDgXDEsL7JFascfg8e4zMTooI=;
-	b=vMg4mWGQozbUirsXpNFgDoaY5wU/5xjpBsoNg56DtF8e1vark91+dIsj8wiRIaMrVq3L
-	 Q+MPQDpw0uL+z3Wcw/SHfHXBfyQKS9vnMAoTCMT5pwzdDRKpxjvHQDMj/eyAMA3hdDlfD
-	 XJtkGx94523hOCcWvRLwTUA/BacmH7FQXrxibXWg+0aaOoMA7vIxv6KcrPqe3X5Ae5N8C
-	 x+xrnF2y/i5qqLn/lsnOal56gtAb6SbITrwkOLudoLAcXM/D+eSfohfZWMj925ehUcnZX
-	 YY5ct8DHyFxfMgZGWToMmU1mKVw7vvpjjdOCiPeXvxr7McvJdwVjEh4ijLlJBPLAcvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857269;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Type:MIME-Version:Content-Transfer-Encoding;
+	bh=69B1V6c92uxkOVI/GSaEx8ffeFLnYru6WXWWNBickDw=;
+	b=q9+1bCRGTJiG+cEgEm/NwNrZy5Iv9LoYcnMIl2utkZQ6xpVXPvw/zZos70gujpM1jshl
+	 o93yHennqyPrYLq7Ellb68FwSqoCYl13SAOJVGu6MLvHgsfS6wDH83M4w0FwBrZvPTKDr
+	 oiXq2Nlg8hHS5+6d11aM1sPg07v16nd53iFuz3d1HGgjYLdqNU5c3Xc9bXQl5/HIGRvOY
+	 L5yr4HQbSFQA9EbqD4hUkkVTnFkqdyaDgkWsWjuD/AIknrLyo7cJygMlc8iHJUgT0d8r4
+	 fZOjgsGJb4QNj+xKHqKDg5BUWtsQYzCZPDnQkw8nzV0sYknO2eug/dOp9mK16WBTWUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQVwDP6e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zwcL+C9b;
+	arc=none smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4128E606A330;
-	Mon, 16 Nov 2026 19:27:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122E1606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:27:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 122E1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQVwDP6e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E301F000C4;
-	Mon, 16 Nov 2026 19:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794857233;
-	bh=e9PvDEVcMLMO6mVD+QDDgXDEsL7JFascfg8e4zMTooI=;
-	h=Date:From:To:Cc:Subject;
-	b=VQVwDP6eEzbWjmRSome0V/K8mZZveFBvSzK9vDNcRIIi/NVZK3k84+usiVHE9DQaM
-	 wVvPP+C8BosyuHV8MsNc6Bqxc4fVOd+tEqravf0HnHoKQ6G0xcAcC2LLdjaDLwT4Hz
-	 snSgiWiDSTc6lY8djMiqqc7weegsHmE82zhXL2ylW735kEEF/9hL5O3LOWC9yJV8ya
-	 3vaYvlPh7KmxW9PNgctmorNvPJfREz3LqHjzLjgYRiSo+qeh1K3gooWHEStoFjirKN
-	 Q14tBEDp9sT7WErB+0dXmvcAvQUH5YxlZuxcVQ7KtklXy4BNgXkbEgpySJjGDncaEg
-	 wh5HvYtjFdNjA==
-Date: Mon, 16 Nov 2026 19:27:09 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Benson Leung <bleung@google.com>, Guenter Roeck <groeck@chromium.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Chad Aldreda <ca@modelmiser.com>, Kees Cook <kees@kernel.org>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>
-Subject: linux-next: manual merge of the chrome-platform tree with the origin
- tree
-Message-ID: <avtZDbrv2YL6kfQR@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zwcL+C9b
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4fea434bso172537e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:27:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794857267; x=1795462067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=69B1V6c92uxkOVI/GSaEx8ffeFLnYru6WXWWNBickDw=;
+        b=zwcL+C9b8sK5tkvLYQ0gFDmYS23SEx2+Upj6V/Dmt0bUxKqfjANqiHVVY+XgybZjDE
+         s2lK7GdlC4cSNmQWVJUNB0VqOuGlU/yNlTs7aOwGK/uWuE42an4qm9gDbe9Hp0kCPy65
+         DrmZoexrsiS+KTYKq1ZSmLdnPphP404R+HJqPTwoIktpEC9YF+6DtZ9UdBdiaqjkqJmM
+         Olc3n9uSLZIeO5L7wWngF7SHGmOjKAdhJY8rAW64q1GSscZAbt9uvEHWmW1wgWwqEYF/
+         TWrWASE5TIP1a9vUxGNwWS59gyaH+vRUSavP0j7dLDxNDdgMaZ9GqJbTiW6cCrVTtP9K
+         D6+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794857267; x=1795462067;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=69B1V6c92uxkOVI/GSaEx8ffeFLnYru6WXWWNBickDw=;
+        b=SlL4U0Ajuvgc94eie8S8XxiYlCE7Fc4LsCRprsmwFmmuREi4ovP8OriN/0vLAKu82B
+         ukr82/e4JRkgl/hYSw0hqdz3BVIwIyIbvWc3s3m0sFOY/3e2Ns60KuCm3SzpFiFO4VVH
+         0pdVg8oKtpqNk1R1L1r3LgQGYh+PBCNBPXvXQOZO/Y7ckWyblb3L4fDp0WTDTdXgnewP
+         jkyTkDelxSRXLcAadA7enBGAROGsBWRkbE0R3ZVUAe9mWib/UdkOu+j4Hyk0F9/fFGu1
+         DDj1yqDXSzOOdYkbabEB1Bte+3apmQlZ0Iu9ceEMEoGVh+arMxpMaSakEBvy+SPiOl0E
+         Mjjw==
+X-Forwarded-Encrypted: i=1; AL+hErFBQRuukkc1oW6Xu13oobQNICLZE0bbN/ijZd5LMHRTPrMyaAlqgjxlBwyWIgbFgkOQ3CzCu6lFiAGaUeU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EPZTy2qQdMksI6N2jEHnw4ZLwSHtNxfuR5BAKO06d3122bG0z
+	hDxCNGIlqK+GGFJrDfF3YP8lki8utWAqvWAW+gpVfRvg9DviXWtWdDU=
+X-Gm-Gg: AYBFou2xQVO/zzT6f55e8w8wVI8nXUb6FFsUxo+VFvlqK9K4yGQe55q2C9Y09k48D53
+	e+7niOEcLvCMdd62qqODiki8hqeyri2OSsE7HJco2bBbvo0yZIS+CSUzoINW4tnncbHpYv20ZeX
+	XmVUlivMuK1hw7NEbn6k/echJT6zXYzQ6dBY4i9DkFsLMu8mS6mrfG7uPPqzes++QLjvLVardzt
+	MAmSZCjkWrGGibQb8L2qIj6pr0CG3jPrkBUmM2AZM/Ge4XeCL5TRjhXXMlCqC5ELad7pMS4YT/2
+	TUmANvin81Q0fvCNIpGYgXox0WpaP8h/ylx4E6HsO9FYrhi/iu9uXEMM2t4l0UNZO+0bdjm9SyX
+	+msaqSGkTNUBetwOraMqWFvLewk3cyvT7KrCZ+ho1MwC5floW+hB+35PFuKsfCkOpFamX9avCKO
+	tRLjfsn06LgXPLIrsA2K2IAyLTIrfrS651ZQ+qcoqv6WWeeMrYTexSSVXeeNA15LEOINoBCwrx5
+	OXCWVkBySQYFpW9YrHnzhzrtAduVUNiyp3mJuC8IfyyqREsuyxHJISvW/2zakL/zqZQxWqQ5hp2
+	8kMUBY3WbnK72yf3CVU=
+X-Received: by 2002:a05:6512:23a0:b0:5bf:ec95:41c7 with SMTP id 2adb3069b0e04-5c1a0dcba0cmr126555e87.1.1794857267093;
+        Mon, 16 Nov 2026 11:27:47 -0800 (PST)
+Received: from fedora ([46.8.219.5])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171357289sm3414749e87.71.2026.11.16.11.27.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 11:27:46 -0800 (PST)
+From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+To: miquel.raynal@bootlin.com
+Cc: Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Zhilkin <csharper2005@gmail.com>
+Subject: Re: [PATCH] mtd: spinand: confirm ready state on SkyHigh S35ML chips
+Date: Mon, 16 Nov 2026 21:27:14 +0200
+Message-ID: <20261116192714.320454-1-sochnev.v.74@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <87eccksvwn.fsf@bootlin.com>
+References: <20261030203342.91172-1-sochnev.v.74@gmail.com> <87eccksvwn.fsf@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,206 +102,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lC12tJHL3yfxxy81"
-Content-Disposition: inline
-
-
---lC12tJHL3yfxxy81
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Hi Miqu=C3=A8l,
 
-Today's linux-next merge of the chrome-platform tree got a conflict in:
+I instrumented the SkyHigh SPI-NAND path on a Nokia XG-040G-MD with ktime_get=
+_ns() and bounded kernel log messages, without tracing. With INFO messages su=
+ppressed on the serial console, 512 page-load waits, 510 program waits and 8 =
+erase waits returned READY on both the polled result and the subsequent statu=
+s read. The pairs were 0x00/0x00, except for nine 0x10/0x10 read pairs (1=E2=
+=80=932 corrected bit-flips according to the SkyHigh driver; STATUS_BUSY clea=
+r). I did not capture a READY-to-BUSY transition in these attempts.
 
-  drivers/platform/chrome/cros_hps_i2c.c
+For 128 read waits, I also recorded the individual GET_FEATURE transactions: =
+each had BUSY (0x01 or 0x11), then READY (0x00 or 0x10), followed by a READY =
+confirmation. The poll transactions took 10.80=E2=80=9317.08 us. The interval=
+ from completion of the READY poll to the start of confirmation was 6.84=E2=
+=80=9311.52 us (median 7.22 us); confirmation took 11.12=E2=80=9315.24 us. On=
+e sequence of ktime_get_ns() start/end timestamps in ns was BUSY 0x01 at 3881=
+0096120/38810107840, READY 0x00 at 38810158640/38810170520, and confirmation =
+0x00 at 38810178320/38810189840. Logging in the poll path adds latency, so th=
+ese intervals do not represent uninstrumented timings or exclude a shorter tr=
+ansient.
 
-between commit:
+For SPINAND_RESET_INITIAL_DELAY_US, I measured three boots each at 5, 9 and 2=
+0 us. The reset wait returned READY 19.68=E2=80=9319.80, 23.56=E2=80=9324.12 =
+and 105.76=E2=80=93358.68 us after the reset command, respectively; an additi=
+onal status read returned 0x00 each time. At boot, reset runs before the chip=
+'s quirk flag is assigned. spi_mem_poll_status() uses udelay() below 10 us an=
+d usleep_range() at 10 us and above, accounting for the larger and more varia=
+ble 20 us result. Increasing the RESET delay changes this wait, but does not =
+add a second status sample to the page-read, program or erase waits. Whether =
+it addresses the reported events remains unverified.
 
-  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
-oc_obj() family")
-
-=66rom the origin tree and commit:
-
-  2c1aa3d09aad8 ("platform/chrome: cros_hps_i2c: Fix use-after-free in rele=
-ase() after unbind")
-
-=66rom the chrome-platform tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/platform/chrome/cros_hps_i2c.c
-index c320489bfe1a0,436afc4f50d38..0000000000000
---- a/drivers/platform/chrome/cros_hps_i2c.c
-+++ b/drivers/platform/chrome/cros_hps_i2c.c
-@@@ -14,9 -14,12 +14,12 @@@
-  #include <linux/fs.h>
-  #include <linux/gpio/consumer.h>
-  #include <linux/i2c.h>
-+ #include <linux/kref.h>
-  #include <linux/miscdevice.h>
-  #include <linux/module.h>
-+ #include <linux/mutex.h>
-  #include <linux/pm_runtime.h>
-+ #include <linux/slab.h>
- =20
-  #define HPS_ACPI_ID		"GOOG0020"
- =20
-@@@ -24,8 -27,26 +27,26 @@@ struct hps_drvdata=20
-  	struct i2c_client *client;
-  	struct miscdevice misc_device;
-  	struct gpio_desc *enable_gpio;
-+=20
-+ 	/* hps outlives the driver binding while files are open. */
-+ 	struct kref kref;
-+ 	/*
-+ 	 * Protects open_count, and client against remove(). remove() sets
-+ 	 * client to NULL after dropping the files' runtime PM references;
-+ 	 * release() then leaves the device alone.
-+ 	 */
-+ 	struct mutex lock;
-+ 	unsigned int open_count;
-  };
- =20
-+ static void hps_free(struct kref *kref)
-+ {
-+ 	struct hps_drvdata *hps =3D container_of(kref, struct hps_drvdata, kref);
-+=20
-+ 	mutex_destroy(&hps->lock);
-+ 	kfree(hps);
-+ }
-+=20
-  static void hps_set_power(struct hps_drvdata *hps, bool state)
-  {
-  	gpiod_set_value_cansleep(hps->enable_gpio, state);
-@@@ -36,18 -57,33 +57,33 @@@ static int hps_open(struct inode *inode
-  	struct hps_drvdata *hps =3D container_of(file->private_data,
-  					       struct hps_drvdata, misc_device);
-  	struct device *dev =3D &hps->client->dev;
-+ 	int ret;
- =20
-- 	return pm_runtime_resume_and_get(dev);
-+ 	ret =3D pm_runtime_resume_and_get(dev);
-+ 	if (ret)
-+ 		return ret;
-+=20
-+ 	mutex_lock(&hps->lock);
-+ 	hps->open_count++;
-+ 	mutex_unlock(&hps->lock);
-+=20
-+ 	kref_get(&hps->kref);
-+ 	file->private_data =3D hps;
-+ 	return 0;
-  }
- =20
-  static int hps_release(struct inode *inode, struct file *file)
-  {
-- 	struct hps_drvdata *hps =3D container_of(file->private_data,
-- 					       struct hps_drvdata, misc_device);
-- 	struct device *dev =3D &hps->client->dev;
-+ 	struct hps_drvdata *hps =3D file->private_data;
- =20
-- 	pm_runtime_put(dev);
-+ 	mutex_lock(&hps->lock);
-+ 	if (hps->client) {
-+ 		hps->open_count--;
-+ 		pm_runtime_put(&hps->client->dev);
-+ 	}
-+ 	mutex_unlock(&hps->lock);
- =20
-+ 	kref_put(&hps->kref, hps_free);
-  	return 0;
-  }
- =20
-@@@ -62,10 -98,13 +98,13 @@@ static int hps_i2c_probe(struct i2c_cli
-  	struct hps_drvdata *hps;
-  	int ret;
- =20
-- 	hps =3D devm_kzalloc_obj(&client->dev, *hps);
-+ 	hps =3D kzalloc_obj(*hps);
-  	if (!hps)
-  		return -ENOMEM;
- =20
-+ 	kref_init(&hps->kref);
-+ 	mutex_init(&hps->lock);
-+=20
-  	hps->misc_device.parent =3D &client->dev;
-  	hps->misc_device.minor =3D MISC_DYNAMIC_MINOR;
-  	hps->misc_device.name =3D "cros-hps";
-@@@ -83,32 -122,49 +122,49 @@@
-  	if (IS_ERR(hps->enable_gpio)) {
-  		ret =3D PTR_ERR(hps->enable_gpio);
-  		dev_err(&client->dev, "failed to get enable gpio: %d\n", ret);
-- 		return ret;
-+ 		goto err_put;
-  	}
- =20
-  	ret =3D misc_register(&hps->misc_device);
-  	if (ret) {
-  		dev_err(&client->dev, "failed to initialize misc device: %d\n", ret);
-- 		return ret;
-+ 		goto err_put;
-  	}
- =20
-  	hps_set_power(hps, false);
-  	pm_runtime_enable(&client->dev);
-  	return 0;
-+=20
-+ err_put:
-+ 	kref_put(&hps->kref, hps_free);
-+ 	return ret;
-  }
- =20
-  static void hps_i2c_remove(struct i2c_client *client)
-  {
-  	struct hps_drvdata *hps =3D i2c_get_clientdata(client);
- =20
-- 	pm_runtime_disable(&client->dev);
-+ 	/* After misc_deregister(), no open() is running or can start. */
-  	misc_deregister(&hps->misc_device);
- =20
-+ 	/* Drop the runtime PM references of files that are still open. */
-+ 	mutex_lock(&hps->lock);
-+ 	while (hps->open_count) {
-+ 		hps->open_count--;
-+ 		pm_runtime_put_noidle(&client->dev);
-+ 	}
-+ 	hps->client =3D NULL;
-+ 	mutex_unlock(&hps->lock);
-+=20
-+ 	pm_runtime_disable(&client->dev);
-+=20
-  	/*
-  	 * Re-enable HPS, in order to return it to its default state
-  	 * (i.e. powered on).
-  	 */
-  	hps_set_power(hps, true);
-+=20
-+ 	kref_put(&hps->kref, hps_free);
-  }
- =20
-  static int hps_suspend(struct device *dev)
-
---lC12tJHL3yfxxy81
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7WQwACgkQJNaLcl1U
-h9ACCAf/Sv2fkkYWnrY/TuOJsTj/6dm24pBd2e2WPQtySI+/1IavqUYTxmawPKuY
-CDhiuz5VP9axIOq4us/o/uy9QY5dCxF5yCHoRobuI0HbUZB/waV1prfkpBtWQ5g9
-/c2z2TlKsoxyd0L4Fb1G92oV8OKBB+P79kcBQcMgysk4kp8Smn7dVG5SrU57Bf6Z
-INVpgcD4wtPebnAf8QSAT0AdMDpkRnFnYXRwyo/58YBsK22svVxZqGJaoC7PdRQY
-8KL5kumnDW7EF8LhJq4vxCEMnpek0sVIfRggVU/86agb9tgUH1RQSOsleOO4s0bE
-m8CrYpxnFUWhb9Ca3koQ+SLm1J6KIQ==
-=p83e
------END PGP SIGNATURE-----
-
---lC12tJHL3yfxxy81--
+Thanks,
+Vitaliy
