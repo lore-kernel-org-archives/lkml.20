@@ -1,94 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798120;
-	b=yfJEe96hqgPNNKkT/2tE7YwuQXkA+ip5OkjPBkwBPUKT0pZQmexFFnNgfbvGJOZHMLEB
-	 L2iiW+l9U57aM5kd0V1VtHteR3ZCYNyL5AvtSmoTpQ3OFhdElcaPSPyzgrT0QDboQr7KJ
-	 gatqUcVlatwnF16PtdprGm+HhTqMP0cj8dXDnWqaasYYhON1SQ/DD1/4PDe34TAeBVpKS
-	 JPRcjM8hpcv3Q6R4pcMKAXZ4BRHXxwh7o2eVywZImVk72t+0DFGCeMDxlhDb7hqbTX7qx
-	 7OC5Z732KAJ1hnzcQAipOLzLyriAJ+eKV6PwRkgSm1OsVWaSqX9k2NQgOkfUot/AqRg==
+	t=1794798177;
+	b=EhgVN3LpGrQ5u1AROH3eiDMhhApsAyQOLa/ANdnwpOJZ4tn5DhsU/HAN8nbUE1Emxa91
+	 FUhSRoHVMbp8D9brJt1Aeu8HmE0uOV2YSb8Te5wMOlcwcN8lP2/6OGX1BXPv/84ryjpw9
+	 BUhfKsaLULFbf5XEIJ0speS6e0Pg18PRZ0ro1gieVqgprnG5I+Zx5pwh847gonHCTDL6G
+	 bma1ggoKAueL9YtDs0l1IgqVHA0+lvpnYO/KwYz7AP8R2Zg5FaweGU8ABzmTozUTNWq3r
+	 C3baP3UuxNXHzxS2JulLTejQOWelSPJ7dUpJgsEyjXbfE917K3q2vvuzOq48iBN9TSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798120;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VMrRqMHzjHqGYxf2SI/6lKJFf2peQ7pwuCUbgZFOrI8=;
-	b=4gcvJzTpwvmz3HexItgq7WCvNPHLy9HEMx6W+8mvUEGdSCFuRsyqrF10xyFVW+Kg2/LM
-	 XLc6MKu3GCpLy/jjY9EaoPH6Ejhg4IVXub9SOgk18Dm8Aiy0LTWzs5y4d4VmGTLMoxtWj
-	 cJnEK4egxMCv4u0AedCgt1y2W37hKgWdf9HyjpCn0jFCldnGuWGpFy+N1arb2+nYRNb1L
-	 kma5E0wSMKktEsLa/+JY3KRP2M3PNU8WIWr+BLRimyQ7VLKs79eaRl7CJfpqyBeAuKouu
-	 bajAfxp0RHWymmmEoGT8Ucd9Jy7KR8nkxssELbRli5kvMMuKn2y7APkSP1xevMpCuPg==
+	bh=flcTih/K2WqgiJssTA1G/vPVARHnzg0pHJPJ9QxEWS8=;
+	b=YolD90/QG3bAK0mwsNO4iI2L0ChEywVx4WWgF3/rx4fI0FhhwdvDi3GymRFuNOACrIrp
+	 jb/uB7N4ih5xBWKEPd1MWfgASXupiJoOZLPSOqCym+wz6YJX2VujSU+C9hIETyepDMn8v
+	 +Q/0iYJjEaGf/u1CMxL2uEHpwzuxn0gpxzndt/psIbVbqex24/kUqVXfU5taN04Edb6qA
+	 jRnx5xb6Ae/JQgi+Ei2woHaN4qsDp9iXRdC9H8rkMEUbeANIBZqq7T/HabNgIvPYNLZFG
+	 Mni4ZhIw9f5EYs6oTz5PE36bFLs5EvpfJe5EjuqR8vMCtx1jhxWjGAk+5faEyOjw5Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nx87/17J";
-	arc=none smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=SROudtYI;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA626606A88F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA626606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E94E606A88B;
+	Mon, 16 Nov 2026 03:02:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E94E606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nx87/17J
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-9497a167a6aso63817585a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:01:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794798119; x=1795402919; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VMrRqMHzjHqGYxf2SI/6lKJFf2peQ7pwuCUbgZFOrI8=;
-        b=nx87/17J9VOodn6wTyx5xwYEU4EMFXdmu4jFIGn3hqEjY6uxZZ2TrPdn/s7oJTneog
-         mXWTRLh1pzSfT1QzCK+1N3KHSxAOH27ZO4HtQxwhyB4M7otBvI8b7ORMyIPhF0FWQTOg
-         YxhQJWsysRYVtWBAFsEv5VaPYz/dB19yWLvertvvAOAIhZccr1yNACaxV3I+DQTcaIzu
-         70eikdTMbwpTGqHZL9fkTGq+htMOu7Ad0HybocBeFyVpkA3xawfkXN/p3XYqAVLn9KVl
-         0ADZyPB0RcZDYOCvkzA9HNQwLm12FueNfOnOOjoyLwLhDGR30a1JOMMNpXLrOXfwPmWu
-         uX0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794798119; x=1795402919;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VMrRqMHzjHqGYxf2SI/6lKJFf2peQ7pwuCUbgZFOrI8=;
-        b=rI+VjoJAcSQ0FwqQdtoozBNHXZo6mV888IDWlyGFm1DMSSaAVC8X/JCp3gN3cMujzZ
-         UV0RvK/UYMyy9/wx1kH8hb/PsBqDolMbJOpzi49cy8Gq72yQ9JZab+l7kLpuK+7gV2aP
-         cbiolXOpI9wxiq//n7irfk3mKy1gkUD+ju45u+ICN648SyB32Pj/mgfBaUz8zk/I0FX/
-         eLieQTio838CI51h5iuW2UTEnMaHFJNJaD8wImMshKS8yivB63iWsFSAEVmLVM24Ks6Z
-         OGYgOO8XmWG/fOudyd2pDbSgwTQ/8eAbufK5GhyCiXqr2sT/a8j3rysSOw1JAseyY1QC
-         gQcw==
-X-Forwarded-Encrypted: i=1; AL+hErFLvYFv95LrYzKpa0pdqDC7HOJLirSu3DIP9eDGqHxcKvpfPGGxoPCJCxXfa46Djnszh/iTNyxpTHikDTY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Ei29W5vfI5I7706qwZBQRLZmOvyd9M2vSdIyNuL3GwRZFxR+l
-	DoUUvKjstQ1dX10+tWAKGCmMSQIGBQYDCAbGWcmBEW2wxEN7906Pq9TS
-X-Gm-Gg: AYBFou3FThCbw347Ep7gXBdgTmW0MZ5HQdHlu/i5nWwfpLmTZL93FduYsGgoSO6XBpr
-	nffF4oORI3L2f0XTJXL3BUw55lpDCqELmeK/m5oQZQ865L3Anf89L1KB9cyZ5n28Ca029evKGB5
-	F7M/6FSF12v4d3IJyddnbCL9RptRwB3tq9KLL0UVvlY/Ed/N9PVVC6D0SYT8059wiBlB3R3EPjN
-	dEk89KzXELZIzhpT3hrnpMLUXGu4OEdLyN7BGZQgYz9LE8ldQNqx04SY0sIeoN/TZ6z4itN1Yjz
-	ug7Yudl/+FL/ATVMLshybwZKl/5rWeKyU/btCNsXjK+UtFB2kbYhifgXP4qKyW3O79NUOxxVzbZ
-	vFLENNKP66bl3GmDklmFzfHnQ0XszDYIlviPX1Hb49J9JCa0rqfi72hqo/GA6wpHckboMuTFfgg
-	MphprvmpPs1b8iXftoJ93cDoRdraOIhb2LF64rjW54B0FGzSdGxCqE5ZSD4vgvVR8iLgcaAhVUe
-	7cBoQfUKuFCI5Bq6U50hNqdDJk3T88ZEGQFsoIUE7qRyQtlVGH84bq6wFUikMJYRJB3SUhGM4LU
-	xNAkoi60Zr0hP41pVD7Oos2iUvxM+ylpgA6B9JLPGZkgzhGdusnz
-X-Received: by 2002:a05:620a:6019:b0:93e:95ce:5394 with SMTP id af79cd13be357-9494b9b63acmr1378102485a.2.1794798118524;
-        Sun, 15 Nov 2026 19:01:58 -0800 (PST)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c831b7dsm746297085a.20.2026.11.15.19.01.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 19:01:58 -0800 (PST)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v2] vdpa/vp_vdpa: Wait for device reset to complete
-Date: Sun, 15 Nov 2026 22:01:44 -0500
-Message-ID: <20261116030152.1704527-2-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=SROudtYI
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jSXjR40lRzlffvf;
+	Mon, 16 Nov 2026 03:02:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1794798165; x=1797390166; bh=flcTih/K2WqgiJssTA1G/vPV
+	ARHnzg0pHJPJ9QxEWS8=; b=SROudtYIVni9pdd/Rqni4CcC27e3YMAKu93tVexV
+	J0kVxmCr5b2zUi3eBUnvPm/O+OB18s5dUsj+XiFoH+Zbc7baw8Pl9Lkia+6gwJKo
+	ds9o3C4PjuwzDvd7DbVUh/J9JF96Ou6otyXvdeqim4Xq8RV7GyZruP6H9CACDXYH
+	rqV3YOuclowlnCrALrwI42lkmbt3zCOtp18T88kBdbrNtjstQvCKoi+wp8ohI3Hc
+	gzIuPmFaPECnjyvbl4vLjMcBNw+C9JKdw+FjsfzcDaMey6QeAJ0OJuM5rHAETHa7
+	mAKOf7chsMVSiKzifBru7dLDd1DCffE/zKtlMKggzXJN4w==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id egfHJzUtrqsg; Mon, 16 Nov 2026 03:02:45 +0000 (UTC)
+Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jSXjK0GtDzlpHwl;
+	Mon, 16 Nov 2026 03:02:44 +0000 (UTC)
+Message-ID: <9d58cbf3-e0cc-41b8-8958-df8abd505524@acm.org>
+Date: Sun, 15 Nov 2026 19:02:43 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,67 +70,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 RESEND] ufs: sysfs: Add WB partial flush mode support
+To: Daniel Lee <chullee@google.com>, James.Bottomley@hansenpartnership.com,
+ martin.petersen@oracle.com
+Cc: alim.akhtar@samsung.com, avri.altman@sandisk.com, tanghuan@vivo.com,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261116020504.4051796-1-chullee@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261116020504.4051796-1-chullee@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-vp_vdpa_reset() writes 0 to device_status and returns success right
-away. The virtio specification requires the driver to wait until a read
-of device_status returns 0 before reinitializing the device, and
-virtio_pci_modern's vp_reset() does exactly that: the read-back flushes
-the posted status write and any in-flight device writes, including
-MSI-X messages.
+On 11/15/26 6:05 PM, Daniel Lee wrote:
+ > +What:	 
+/sys/bus/platform/drivers/ufshcd/*/attributes/wb_partial_flush_mode
+ > +What:		/sys/bus/platform/devices/*.ufs/attributes/wb_partial_flush_mode
+ > +Date:		June 2026
+ > +Contact:	Daniel Lee <chullee@google.com>
+ > +Description:	This entry controls Extended WriteBooster partial flush 
+modes.
+ > +
+ > +		======== ==============================
+ > +		"none"   No partial flush
+ > +		"fifo"   FIFO mode
+ > +		"pinned" Pinned mode
+ > +		======== ==============================
+ > +
+ > +		The attribute is read-write.
 
-Without it, vhost-vdpa (or virtio-vdpa) can go on to tear down the
-IOTLB/IOMMU mappings or reprogram the queues while the device has not
-yet finished its reset, and may still be DMAing to the old virtqueue
-addresses. The MSI-X vectors are also freed while an interrupt from
-the old configuration may still be in flight.
+Please update the Date: field across the new ABI entries (June 2026 has
+passed).
 
-Poll device_status after writing 0, in the same way as vp_reset(),
-before freeing the IRQs and returning.
+Also, please drop the quotes around "none", "fifo", and "pinned" to match
+the other string attributes in this file (such as wb_resize_hint,
+wb_resize_status, and hid/state), since literal quotes are neither emitted
+nor accepted.
 
-Fixes: 64b9f64f80a6 ("vdpa: introduce virtio pci driver")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-v2:
-- Drop Cc: stable, as this has not been reproduced.
-- Rebased on current mainline. No code change.
+ > +Description:	This entry configures the maximum size in Allocation 
+Units reserved for the
+ > +		WriteBooster FIFO Buffer size.
+ > +		The attribute is read-write.
+ > +
+ > +What:		/sys/bus/platform/drivers/ufshcd/*/attributes/wb_cur_fifo_size
+ > +What:		/sys/bus/platform/devices/*.ufs/attributes/wb_cur_fifo_size
+ > +Date:		June 2026
+ > +Contact:	Daniel Lee <chullee@google.com>
+ > +Description:	This entry shows the current size in Allocation Units 
+of the WriteBooster FIFO
+ > +		Buffer size.
+ > +		The attribute is read only.
 
-v1: https://lore.kernel.org/r/20260926211507.1330179-1-oss.patchbox@gmail.com
+Minor: please drop the redundant trailing "size" in "WriteBooster FIFO
+Buffer size" in both descriptions above.
 
-Like vp_reset(), the new loop has no bound, so a surprise-removed
-device that reads back all ones would keep it spinning (the Sashiko
-review of v1 pointed this out). I kept it the same as vp_reset()
-rather than handling that case only here.
+ > +What:		/sys/bus/platform/drivers/ufshcd/*/attributes/wb_pinned_avail_pct
+ > +What:		/sys/bus/platform/devices/*.ufs/attributes/wb_pinned_avail_pct
+ > +Date:		June 2026
+ > +Contact:	Daniel Lee <chullee@google.com>
+ > +Description:	This entry shows the percentage of available space 
+remaining in the
+ > +		Pinned WriteBooster buffer.
+ > +		The attribute is read-only.
 
-Compile-tested only (x86_64 defconfig + VP_VDPA, W=1).
+Per JESD220G Table 14.28 (IDN 43h, 
+bPinnedWriteBoosterBufferAvailablePercentage),
+this value is reported in 10% granularity (00h: 0%, 01h-09h: 10%-90%,
+0Ah: 100%), not 0-100%. Please document the 10% granularity so userspace
+does not misinterpret 0x0000000A as 10%.
 
- drivers/vdpa/virtio_pci/vp_vdpa.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ > +What:	 
+/sys/bus/platform/drivers/ufshcd/*/attributes/wb_pinned_cumulative_write_size
+ > +What:	 
+/sys/bus/platform/devices/*.ufs/attributes/wb_pinned_cumulative_write_size
+ > +Date:		June 2026
+ > +Contact:	Daniel Lee <chullee@google.com>
+ > +Description:	This entry shows the total cumulative size of data 
+written to the
+ > +		Pinned WriteBooster buffer.
+ > +		The attribute is read-only.
 
-diff --git a/drivers/vdpa/virtio_pci/vp_vdpa.c b/drivers/vdpa/virtio_pci/vp_vdpa.c
-index 646efd9384fb..eba82ff253ea 100644
---- a/drivers/vdpa/virtio_pci/vp_vdpa.c
-+++ b/drivers/vdpa/virtio_pci/vp_vdpa.c
-@@ -8,6 +8,7 @@
-  * Based on virtio_pci_modern.c.
-  */
- 
-+#include <linux/delay.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-@@ -236,6 +237,9 @@ static int vp_vdpa_reset(struct vdpa_device *vdpa)
- 	u8 s = vp_vdpa_get_status(vdpa);
- 
- 	vp_modern_set_status(mdev, 0);
-+	/* Wait for the reset to complete */
-+	while (vp_modern_get_status(mdev))
-+		fsleep(1000);
- 
- 	if (s & VIRTIO_CONFIG_S_DRIVER_OK)
- 		vp_vdpa_free_irq(vp_vdpa);
+Please state the unit here: per JESD220G Table 14.28 (IDN 44h), this value
+is in units of 10 MB (and saturates at 0xFFFFFFFF).
 
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
--- 
-2.43.0
+ > +What:		/sys/bus/platform/drivers/ufshcd/*/flags/wb_unpin_enable
+ > +What:		/sys/bus/platform/devices/*.ufs/flags/wb_unpin_enable
+ > +Date:		June 2026
+ > +Contact:	Daniel Lee <chullee@google.com>
+ > +Description:	This entry controls the Pinned WriteBooster unpin 
+enable flag (fUnpinEn).
+ > +
+ > +		====== 
+==============================================================
+ > +		0        Unpin Disable: pinned data is not flushed by WriteBooster
+ > +		         Buffer flush operation.
+ > +		1        Unpin Enable: pinned data is flushed by WriteBooster
+ > +		         Buffer flush operation.
+ > +		====== 
+==============================================================
+ > +
+ > +		The attribute is read-write.
 
+ufs_sysfs_flag_show() emits "false" or "true" via str_true_false(flag),
+not 0 or 1, while ufs_sysfs_flag_store() accepts any kstrtobool() value
+(0/1, false/true, n/y, off/on). Please update this description so it
+accurately reflects what reading returns and what writing accepts.
+
+ >  static inline bool ufshcd_is_wb_flags(enum flag_idn idn)
+ >  {
+ > -	return idn >= QUERY_FLAG_IDN_WB_EN &&
+ > -		idn <= QUERY_FLAG_IDN_WB_BUFF_FLUSH_DURING_HIBERN8;
+ > +	return (idn >= QUERY_FLAG_IDN_WB_EN &&
+ > +		idn <= QUERY_FLAG_IDN_WB_BUFF_FLUSH_DURING_HIBERN8) ||
+ > +	       idn == QUERY_FLAG_IDN_WB_UNPIN_EN;
+ > +}
+
+Per JESD220G Table 14.26, fUnpinEn (13h) has Type "D" (device-level,
+addressed with INDEX = 00h and SELECTOR = 00h per Note 1), unlike flags
+0Eh-10h which are "A/LU/0 or D" (Note 4). Including
+QUERY_FLAG_IDN_WB_UNPIN_EN here will send a non-zero INDEX when
+WriteBooster uses an LU-dedicated buffer on a non-zero LUN. Please leave
+ufshcd_is_wb_flags() unchanged.
+
+ >  static inline bool ufshcd_is_wb_attrs(enum attr_idn idn)
+ >  {
+ > -	return idn >= QUERY_ATTR_IDN_WB_FLUSH_STATUS &&
+ > -		idn <= QUERY_ATTR_IDN_CURR_WB_BUFF_SIZE;
+ > +	return (idn >= QUERY_ATTR_IDN_WB_FLUSH_STATUS &&
+ > +		idn <= QUERY_ATTR_IDN_CURR_WB_BUFF_SIZE) ||
+ > +	       (idn >= QUERY_ATTR_IDN_WB_PFM &&
+ > +		idn <= QUERY_ATTR_IDN_NON_PINNED_WB_MIN_SIZE);
+ >  }
+
+Same issue here. Per JESD220G Table 14.28:
+- 3Fh (bWriteBoosterBufferPartialFlushMode),
+   42h (dPinnedWriteBoosterBufferCurrentAllocUnits),
+   43h (bPinnedWriteBoosterBufferAvailablePercentage), and
+   44h (dPinnedWriteBoosterCummulativeWrittenSize) are Type "D" (INDEX = 
+00h).
+- Only 40h, 41h, 45h, and 46h are "A/LU/0 or D" (Note 15).
+
+Please restrict ufshcd_is_wb_attrs() to the LU-indexed attributes
+(1Ch-1Fh, 40h-41h, and 45h-46h).
+
+ > +static ssize_t ufs_sysfs_attr_store(struct device *dev,
+ > +	struct device_attribute *attr, const char *buf, size_t count,
+ > +	enum attr_idn idn)
+ > +{
+ > +	struct ufs_hba *hba = dev_get_drvdata(dev);
+ > +	u8 index = 0;
+ > +	u32 value;
+ > +	int ret;
+ > +
+ > +	if (kstrtou32(buf, 0, &value))
+ > +		return -EINVAL;
+
+Since ufs_sysfs_attr_show() supports 64-bit attributes via
+ufshcd_is_qword_attr(idn), please either support ufshcd_is_qword_attr(idn)
+here as well or guard against it (e.g. WARN_ON_ONCE) so a future
+UFS_ATTRIBUTE_RW() user for a 64-bit attribute cannot silently issue a
+32-bit query.
+
+ > +	ufshcd_rpm_get_sync(hba);
+ > +	ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
+ > +		QUERY_ATTR_IDN_WB_PFM, ufshcd_wb_get_query_index(hba), 0, &value);
+ > +	ufshcd_rpm_put_sync(hba);
+
+Since QUERY_ATTR_IDN_WB_PFM (3Fh) is Type "D" per JESD220G Table 14.28,
+please pass 0 instead of ufshcd_wb_get_query_index(hba) here and in
+wb_partial_flush_mode_store().
+
+Also, unlike wb_resize_hint / wb_resize_status / wb_resize_enable, none of
+the new entries check hba->dev_info.ext_wb_sup 
+(wExtendedWriteBoosterSupport:
+BIT(1) for FIFO Partial Flush Mode and BIT(2) for Pinned Partial Flush
+Mode per JESD220G Table 14.4, plus hba->dev_info.b_presrv_uspc_en for
+Pinned mode per Section 13.4.18.7). Should we define those capability bits
+in include/ufs/ufs.h and check them (returning -EOPNOTSUPP or hiding
+unsupported attributes via .is_visible) rather than waking the device and
+issuing unsupported queries on devices without these features?
+
+ > +	QUERY_ATTR_IDN_PINNED_WB_CUMMULATIVE_WS	= 0x44,
+
+Please spell this CUMULATIVE (single 'M'), matching the sysfs attribute
+name wb_pinned_cumulative_write_size and JESD220G Section 13.4.18.7.2.
+
+Thanks,
+
+Bart.
