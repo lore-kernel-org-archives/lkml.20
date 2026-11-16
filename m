@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844923;
-	b=I9xrStgl07G1+3DK3H7ihpake6ZQgv6Sp+0u3F7k74uw4JxNqW6KMnDW0HAFhpeGl1vz
-	 sSr8tJYMVPQzUQGwp4BEixo+CedjeOmK22kP3SPaBRVJocB/uGTGZdLXqvapamuH7jIdl
-	 8GRTjXP/dNDWfMeKRhJJr6OuTWlemK3LM5fcWtisJcAbEkkfIa2g1CZJj3jd8nHUPwaqW
-	 gmtShGYyQe7Ldjf5FoZEtyCVOh6RaNXWmlfRGMwK4bJZv4ygulVBDkT4Kow0yRMliBsrd
-	 9cxS6cT+ak9Yo/igkkMHwHO+YNKJda3Owyf/pD7MJWzb9gnKhoBmvBmJNf5g7DtwSGw==
+	t=1794844924;
+	b=ivF4nnny7shyQ5lD66jtxVThpjgzaBGtasuTgqmnYMnseL21QU/OqfQT3k2ql2XyjljI
+	 0LQAhU1qClu/bgbePndtZD9KRbEZNOhvioFIyEOOuM87kaPAWsazndfxZRrCPgIzXr0kJ
+	 BFvz29SrSZ4yZ++jz2mOBuxP1tdThTB8lxDIBdX6UD+TbdY0sfJojwFEQkTwqYVTHmzZX
+	 f1qEHf3tKccODuNiJtpwPK6kyKo1CzGbKn4DasowDtAG8r/i560g3ukaZ70oWRXgy9nKK
+	 QBubC1FMU0MWZvDi1XNRv/5GjsMuFXkNKiKfFpvBwlRkGg6dZX2f6TAbTvDmWxUrgzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844923;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HIdoE9s9+AzNn9chfedKhMG83r47ugKY49BUgMQi/3g=;
-	b=dncyJJoGQgtpvrB2bK2TeycHanEAZK+qOWmR6K5+Qr4rR4SepLzCHx5niC8WFXQwmZis
-	 0qxWatcZI4DyMoRjT0uCc0MHs5dMY6VvnStX+E0rovK78ccvXqSLaVkGUMylv7YgJCTaW
-	 UorLWiDLaBf/uE1vfl1LefXe3GiE0JS7vuVO4KZQV0DIH1CB1x9emJ8uPbFMwSHgoBEuj
-	 xuGfm+Ev7bFxn/aIsZNHCLOk0f70NhscfiuI5Ypy1kYy6AQtZjaRS1XgXfy6dNFwbQOAB
-	 hsdcYd6UpekOKJcdvz944Ta/N7qT4lfZ9ROVFpbYsQgCixqf6sx0Z665aETGISrABxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844924;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RsEOXhiUKoPHgrMBzJx7X6tWd/DKn2RJ2I5J/16MaEg=;
+	b=hPwy8W3XER1QHikNc0JKsOYIrbDP9E6zWyvIQ1Hs6x8rWac2QDTQv8nHPkd4z0jVrBrL
+	 7qEUTUmuef2tT559QtVoGIu2SgjQJu6QK8kwh4yn4ntNe4KBxdjK2TJJEd+GHqA+VsYwl
+	 7xbk4adnUntJSosbrhNxuGeJpPSbgAmMMgJS72lNvTq4B6gx81JJ6F/7GFO6Ju9IjdXji
+	 wND9Y5H2kNw6jRmFEDsUCu5Fp++sHUnaAyV0DdkUM+nxJXJmkYEYb2u/CdFGCHuD/xYH/
+	 rHGDG/cY2Agj23wkbq0AFka4kr8jYkUpFMHiC7+9RdFQvQ5JBe5XcdNP05AyRLmkMaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="m/+nOmrL";
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSPHJGL+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A26B606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A26B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7CD606A32C;
+	Mon, 16 Nov 2026 16:02:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m/+nOmrL
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b37951a397so1542073a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:02:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794844922; x=1795449722; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HIdoE9s9+AzNn9chfedKhMG83r47ugKY49BUgMQi/3g=;
-        b=m/+nOmrLUgsGWqB6IHwUFNbAa88hsnd+irTEqCh6P5BADHuAaA6FhZNIeKhBKGkpdZ
-         sgZ9M7lEXSylEztPRzfaw4yc98lG9DkvD1Ruad6IzUnS4Snw4QnyO9FMZxw8JxhXcvt/
-         h5w4UZe/k9CJTvDU5JfwboBjYPBUjZWZVWi9zVtc5YQmyi9R6VILNPZc9O+3+Wd89n/i
-         wdV5Qum8NJsHjYIrUQk4UC2zSXgkYG5XYwczK2LdvbTLU6AbUVV2cHOhQt+Vfg76NMhA
-         n5g9F4vw7kuC7MJBWGvVMVZeUZJouZZXc9ILAcBQhDGDp1UNE+0uLetv9pxKxD+zy+Xj
-         ZV2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794844922; x=1795449722;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HIdoE9s9+AzNn9chfedKhMG83r47ugKY49BUgMQi/3g=;
-        b=zD8InKxisf7xru9qfnaz0SLZkhgNP5/Rw7ekRET0uWhZj/e6qBGpIUYGUXeYsStQ6R
-         q1a1ydqHfoDzWdL9Z7GV7uHVg+jR638iop4iaDZXHWgvNr3xgNjExizD/vqnZ+XHU6nS
-         WWVSBtI+4HJ0t62tTBTNGJpPmb8h8kGgLOqyeHxLnFYul5yCXjJXn+ZMqNOlsV6WZqie
-         PPXpl1v0KzfI4cT+JFFC1f8QvVn7r6Go+djSzNTB2wStvhFanF6HRQKdcEMV9P1yhH09
-         l1LzA0j+aJ7PHBcRF4F3ZlVvzc7n9CZ/pu/ntihrQSEdLATLJDyEAgAxifdHdV6hz24u
-         pd3Q==
-X-Forwarded-Encrypted: i=1; AL+hErFuEKWPmml2rZ583YKu6zWO/+uRmlKzHU00gWCCCUf+ec4xMQ1df6LMU1fOXzbVN8LU91hB4rBEYjM8Gi0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z803Uj1JFE5kdSc4ABm4b62hseb7JLax0NQMrayi6ytgtUF7MGk
-	s8pB+MjocjF1ejdEYY5JyvqwmlqjDo3svG0fl0a1wjbn4eVN/DZLWYDxx0BVfQ==
-X-Gm-Gg: AZFdTZdoJczTtQLvTdlKIru+KYuinYRIIHMDsE5zR7JKG4vBlnznBYdXYjpOdsj+OH5
-	ZX+JxaR6pRntR/a7mhF+PH2KyYDFN7tz5onTZ4X5uZw4hmyySSO5FuhoMHZ8JaxVqzimftw1ZUd
-	IyoQTzbqwhxnwOVIbz5DcTKJoVYW9bCZz4aQlviBkaqXXX/ipAeFKiIDJC2osAYybmLPcpaWoYt
-	EhbAiMb76n9szun86+8vd94TBjFH7FVOVg+hZjw9RA4blwlxmGwJdVLPPkulWfpuQSJcVyvSVxw
-	+xb3FEPRu7mrIlXIY8e/cUinNDNHrnIi3jmagttuatph7PoNCN3TBfSyqgSLkSNX8/BYbmF+q48
-	xcgRyRYntUcgmQEJMMqDb2Hn6voovYlOKOalsHmWRgIREhpHSwQFLPvwbg7FnVXfMq4kB+/TPZj
-	kXOAdWQzLkpkBTxZJ2k6b5J0g+dlAhaIQHm3wHXAvRTcZXWk0pHAeND2TN/6horNfrNmFPneCjF
-	fdicEBNoNUfe804P33kzJDmxp+t9kBvSoOzC/XzVMeblhZQOmnisu7x1CdIgXVDht+6Oaoo3P6e
-	srrFt+KB+3b3hc6oHbFlxcIVGKuU71BijN2VgkvWmXd3u7mrLDjEWw==
-X-Received: by 2002:a17:90b:2247:b0:3a8:49f2:8ddb with SMTP id 98e67ed59e1d1-3b1b0d4f314mr10849802a91.60.1794844922108;
-        Mon, 16 Nov 2026 08:02:02 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:6e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae98151dsm17432051a91.2.2026.11.16.08.01.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 08:02:00 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 0/4] net: dsa: motorcomm: FDB fixup
-Date: Tue, 17 Nov 2026 00:01:00 +0800
-Message-ID: <20261116160107.1351198-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSPHJGL+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77E21F000C4;
+	Mon, 16 Nov 2026 16:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794844923;
+	bh=RsEOXhiUKoPHgrMBzJx7X6tWd/DKn2RJ2I5J/16MaEg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hSPHJGL+7GNjwx9dyoMxStvj2YRWJR2dkfYi1h7JeqBGNmKR/DawM67cqLNEfa+lb
+	 iC4jTyFaNm6skppRGfL+dTtoi0pVhkucwkPtrKnyd0LUeHr9g1k17Src3UNoCBstoc
+	 lpMAkZmn6Dsy6qzTW+DKFYXQ2ScFxy/5wqWCAmBSwmWBTOYUpysDrn5ZujkXzQYCHj
+	 4n4L0xv+YeG7khAfIfHfLGAJkCku/5dlyqUTmxAxNaqQtVNJzH+JihNUQk1hJOCFo3
+	 TtzVl1EPLCOn7lQNQ9Ue8CqtCL9y/mxayPAJNkQVnXawbpZLzYKTQHT0aK/jlLRxRs
+	 MCEhmqdO1Z56w==
+Message-ID: <e13044a0-871b-4033-8a79-22cb9653b6b1@kernel.org>
+Date: Mon, 16 Nov 2026 17:01:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,28 +51,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries on
+ huge fault insert
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Roman Kisel <romank@linux.microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Naman Jain <namjain@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Various FDB defects. Assisted and verified on the hardware by LLM.
+On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
+> A driver that implements both ->fault and ->huge_fault must anticipate
+> concurrent use of both.
+> 
+> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+> concurrent with faulting, as that only holds the mmap write lock and thus
+> does not exclude faulting threads stabilised by VMA lock.
+> 
+> insert_pmd() and insert_pud() have issues with this as they both assume
+> that, if the page table entry being populated is not empty, it must a
+> present huge entry.
+> 
+> This is problematic as if it is a write fault, it compares its PFN against
+> the one being inserted, warning if they differ, on the assumption that the
+> entry is a huge leaf.
+> 
+> Since the entry may be a page table, this is invalid and can result in
+> spurious warnings.
+> 
+> Equally, the entry might be non-present. Nothing can install such an entry
+> in the VMAs that reach this code today, but there is no reason to rely upon
+> that.
+> 
+> Therefore only examine the PFN if the entry is both present and huge, and
+> otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
+> at the appropriate level.
+> 
+> This is what already happens for a read fault, for which the existing entry
+> is not examined at all.
+> 
+> Target the commit which introduced the first driver which both mixes fault
+> orders and passes the write flag for the fix (since this commit, both
+> drm_gem_shmem and panthor are prey to this issue).
+> 
+> Reported-by: Eliav Farber <farbere@amazon.com>
+> Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
+> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/huge_memory.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 0d589be136d2..da632c3e834b 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+>  		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+>  					  fop.pfn;
+>  
+> +		/* We may have raced a fault which installed a page table. */
+> +		if (!pmd_present(*pmd) || !pmd_trans_huge(*pmd))
 
-There are more gotchas about multi-bridge setup, but I'd leave that for
-net-next since multi-bridge has always been tricky among DSA drivers.
+Ok, we hold the PMD lock, so that cannot change concurrently.
 
-v2:
- - include the CPU port when rewriting FDB entry
- - read the port PVID instead of bridge's
- - fix PVID when port joining/leaving bridge
-v1: https://lore.kernel.org/r/20261111234110.1449602-1-mmyangfl@gmail.com
+Given that we are in THP code, I wonder if we could just test for pmd_leaf()
+instead.
 
-David Yang (4):
-  net: dsa: motorcomm: Do not inherit ports from dynamic FDB entries
-  net: dsa: motorcomm: Rewrite FDB entry on port migration
-  net: dsa: motorcomm: Read the port PVID instead of bridge's
-  net: dsa: motorcomm: Use VID 0 as the unaware PVID
+Same below for PUDs.
 
- drivers/net/dsa/motorcomm/chip.c | 160 +++++++++++++++++--------------
- 1 file changed, 86 insertions(+), 74 deletions(-)
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-2.53.0
+Cheers,
 
+David
