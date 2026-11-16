@@ -1,54 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794800028;
-	b=1Guzv3zbUrEOL0J3WSatqqrVBhpa44oA2PwJzAu7NzK/dL9V6FOm0Oc+mxpRkDkHnC31
-	 D/dTd9m3tzXHs0xHF9ZY0wj1ghSuyq8Ti1zefi23zsTcrfaLeHP/Dm9Txl5WOf+mPj+I+
-	 LaBoPQHJ1ZtI36XhIMnbFTl099TXBLcaIFREQcV+lPC3U/m7mErrqtTm+HL2fQ6sAdPKc
-	 ZrohVfaFIx5xSUHrwe8oDWGRubf2FGUOA43x6nQzJ/SwTmxevClJCVPb2yXTZ42UX+dJO
-	 61426QUbNaudnEDmibSsclCeb3RzcKvsIsdn2IBB+ly6AcRYNkUb8q4pPAtYu+g7hdg==
+	t=1794800094;
+	b=lCAeRaeKiGcPUfFpG8Ue3GdsCJUeE2PCBItUTGfLkr/l0zZRDObklokESjn1ga+59iz8
+	 dwcLPYF3S1KkTelphiM/v1nGAR0Wh+cuaBvN0ZNy0bkp7GvPI6EPuJ98inNbTqwQ3IkuU
+	 FR045Qj6I1KYOgxpUEfZ0NBg2/2NwFAssSjXDlbHliXgRJcByQPoxYwuLdHmL1t35pbGp
+	 G4kG/at4k33n/zrhBvdkdY/dcadp1wf055PfA1mMOn9fN2DJ4igXpvRJmqXteYO58CO0V
+	 sh3w2EXZK/wEsxywnXPozDynEkamYuPts6Tgnl7GMMXmb2zZ2hgYLReL5BMPVxT5HHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794800028;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=B45yjcfnptlnlcqmNZCy5HK17otolp55BP0zobTOdGA=;
-	b=c2k6pYKqygW4qVm4feq1Z2vwolchyD/9UDOAsthmiKjR1Ni6ev6vx6RwMptM7NxEnNuj
-	 yqXNFb8DHkuSrd+1WBU3GvTdGKbAqvXNzEutZH5D5q+Gb+R2haQoJ25dKmTs7ll9zQA8W
-	 p2vCQaPcLRbJGIXvy+mLXaUU1ZFRbRC7QP5TO8JTt+92OfnksudNlL7F6S8e44PpZhYdQ
-	 KH2sBglCN+WRJmNTZDaLOYP4dXV054mW6KUFEPePmzCx2MIPhWDKpCyEkvHfPcjMGNaMx
-	 I9BaXQqtQYGSoNie20L9jnH1yIlm+8y4OozVEaODlE9U9Nw+7J8oeQu/Q17l8ENx/Uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794800094;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=2Rg+vtDqosIKpsMtrfm0Ml7BNUuvarMYXqbb0/OYQdY=;
+	b=IMGKBxIYe8GMt1HAZfgoXDH+M1NHzarHDNsmgZiejNiM54dc98CthtLSwJybEsK+H5m9
+	 EhUUbMolmFU9ExasT08AI9PjwyftWjbZzZ1A2vLK/sXqYoPjiPnJlTlKDf7DtBHwAAqHb
+	 LFeEMmV5sgioAwZsibHcdbF75NgMFXBjWqJZh1+yYT78nAYnfpF2EJTj3h2YRoTEijdoX
+	 43yctk3DKa7xGFyhSM1cQeOdw6/Cz50VjU5p+VXb6mZGre17O1U0C2v2elBld81ZlpprW
+	 hwashovNEGmvecw3viJZbRnQMG8rLXMWXcnJfNNP1Bs9gICSXXUY86x4kNsNHibKS5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Sc0584os;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5EE606A881
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:33:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF5EE606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-574ae6cc614so189968b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:33:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794800026; x=1795404826;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B45yjcfnptlnlcqmNZCy5HK17otolp55BP0zobTOdGA=;
-        b=OOpzpqkvBX7X6E/Mqa5YMArlcmTk1jZ8unwPovAoIHEAS8pTExp51690vzVui40L9Q
-         5CMgllHfp0wTJzOGYuW/I7tQY10XYukz6OluSrmoLqCSkkqO7xh8qPpseAJq6GKQlpNX
-         oPiS24W4Cuk/9aOhZCmGU3f66yl3uJI2pPqv9XZot1NKYS9kK8mtND/6S+cffamoNazR
-         3RkAFmALKCVc4AvSuC0nWGGrFMShjdDXrMVmAGfkrp8L7nKxHhp7MRNO0l0+mDGSfFBA
-         ampqY3gbhh9H8fy0fC+JP6nOMnXbf9i4ShpfjF0Jr640igKMZzVTZcFeYV1iysmprgGu
-         ncKQ==
-X-Forwarded-Encrypted: i=1; AL+hErFRCCAgDmPokeb2ShWsBq9roU4qyviRvDTqNW5nVyGLtem9xtsjUutlU82aYZOpzPadfQOKsfms8154vS0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cW3IYcZj96GZqcLi5BkMN+PpBg8cB52miKcUOWRRZ505Zd5hW
-	4iuEDZFghiia5XgeHLZyt3Nw13trp3G1DeuLx7smZrWApmI0bjTdNqtK/X+p/lkezZXDetQIiGX
-	/B5ZOPCBhtBTHAsZ7lZZreZPjJDaDLKt91V5D0PEXiMCrcGoxS4ABOHEtuIU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB7B606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:34:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AB7B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Sc0584os
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794800092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2Rg+vtDqosIKpsMtrfm0Ml7BNUuvarMYXqbb0/OYQdY=;
+	b=Sc0584osG13fUGdOt8M4aJUUpD+8GGpNaedr1N22DUXcRmjJcUn0nXRsHEOa/3tLHLyK7i
+	VW9WnOoPK9p9jCO7YstaP+kohHJ4Dic3x6yfjqiY9Y/f5MDCffNdX86gAyLEGN0SAbzYa7
+	qMhWqcA+OEDJumQ8pLYnhFzK4KjWtSc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-319-j0GydBKSNkyYYXTgLrnMfQ-1; Sun,
+ 15 Nov 2026 22:34:47 -0500
+X-MC-Unique: j0GydBKSNkyYYXTgLrnMfQ-1
+X-Mimecast-MFC-AGG-ID: j0GydBKSNkyYYXTgLrnMfQ_1794800086
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BDD4119560B1;
+	Mon, 16 Nov 2026 03:34:45 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 90E05421;
+	Mon, 16 Nov 2026 03:34:43 +0000 (UTC)
+Message-ID: <eb3fd5e1-aafe-4bbd-a9ca-afcdb1554fdb@redhat.com>
+Date: Sun, 15 Nov 2026 22:34:42 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,25 +71,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6711:b0:4b8:4703:db92 with SMTP id
- 5614622812f47-56cd8304ff7mr8388872b6e.27.1794800026772; Sun, 15 Nov 2026
- 19:33:46 -0800 (PST)
-Date: Sun, 15 Nov 2026 19:33:46 -0800
-In-Reply-To: <CAC2RYzJ=mi0Jpj69bb0W7tpRErZGzycTRo5ux4JZCBn55J1Jew@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afa799a.e7a28f0c.12aecc.000f.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] WARNING in hci_connect_sco [hcidrain v2 01/12]
-From: syzbot <syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com>
-To: gservice341@gmail.com
-Cc: gservice341@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v4 2/6] cgroup/cpuset: excpus parameter of
+ remote_cpus_update() must have at least 1 active CPU
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116012330.2271010-1-longman@redhat.com>
+ <20261116012330.2271010-3-longman@redhat.com>
+ <e437ac79-7999-43da-9fe8-6cfd475a5196@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <e437ac79-7999-43da-9fe8-6cfd475a5196@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-> #syz test: git://
+On 11/15/26 10:07 PM, Ridong Chen wrote:
+>
+>
+> On 11/16/2026 9:23 AM, Waiman Long wrote:
+>> It is reported that remote_cpus_update() fails to invalidate a
+>> populated remote partition when an ancestor cgroup update reduces its
+>> effective_xcpus mask to only offline CPUs.
+>>
+>> When update_cpumasks_hier() updates a descendant remote partition, it
+>> passes the new effective_xcpus mask (excpus) to remote_cpus_update().
+>> Because excpus still contains offline CPUs, cpumask_empty(excpus) is 
+>> false
+>> and remote_cpus_update() only checks tasks_nocpu_error() when adding 
+>> CPUs.
+>>
+>> With the partition left valid, update_cpumasks_hier() computes an empty
+>> effective_cpus mask and jumps to get_css. The populated partition stays
+>> valid with no effective CPUs instead of inheriting its parent's CPUs,
+>> and its tasks remain affine to the online CPUs returned to top_cpuset.
+>>
+>> Fix it by invalidating the remote partition if there is no active CPU
+>> available in the given excpus parameter.
+>>
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Link: 
+>> https://sashiko.dev/#/bug/linux-936b7155-f652-4146-a4ab-ec48fd392a1d
+>> Signed-off-by: Waiman Long <longman@redhat.com>
+>> ---
+>>   kernel/cgroup/cpuset.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 631fb449cef8..195d4e3a283c 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -1810,7 +1810,8 @@ static void remote_cpus_update(struct cpuset 
+>> *cs, struct cpumask *xcpus,
+>>         WARN_ON_ONCE(!cpumask_subset(cs->effective_xcpus, 
+>> subpartitions_cpus));
+>>   -    if (cpumask_empty(excpus)) {
+>> +    /* New effective_xcpus must have at least one active CPU */
+>> +    if (!cpumask_intersects(excpus, cpu_active_mask)) {
+>>           WRITE_ONCE(cs->prs_err, PERR_CPUSEMPTY);
+>>           goto invalidate;
+>>       }
+>
+> This also invalidates a remote partition with no task whose excpus
+> only has offline CPUs. According to cgroup-v2.rst, such a partition
+> is valid: cpuset.cpus.exclusive.effective may contain offline CPUs,
+> and cpuset.cpus.effective can be empty if there is no task in the
+> partition. The hotplug path and tasks_nocpu_error() follow the same
+> rule. How about only invalidating it when it is populated?
+>
+>       if (cpumask_empty(excpus) ||
+>           (!cpumask_intersects(excpus, cpu_active_mask) &&
+>            partition_is_populated(cs, NULL))) {
 
-Patch testing via #syz test is temporarily disabled.
-See https://github.com/google/syzkaller/issues/8122 for details.
+A partition can only be created if there are active CPUs in the 
+effective_xcpus. However, such a partition root can distribute its 
+exclusive CPUs down to child local partitions with the results that 
+effective_cpus can be empty if there is no task there. IOW, 
+effective_xcpus must have active CPUs while effective_cpus does not need 
+to have active CPUs if there are child partitions underneath. I am going 
+to clarify that in the doc. I will check the hotplug path and 
+task_nocpu_error() to make sure that it follows this rule. Does that 
+rule make sense to you?
 
-> https://www.google.com/url?q=http://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth-next.git&source=gmail&ust=1794886423273000&sa=E
-> da3cc02587c629420603df4395179ec82955c941
+
+>
+> Also, it probably needs a Fixes tag, maybe:
+>
+> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & 
+> make update_cpumasks_hier() handle remote partition")
+
+Yes, I miss the fix tag. Will update that in the next version.
+
+Cheers,
+Longman
+
