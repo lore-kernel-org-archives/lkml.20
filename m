@@ -1,68 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802759;
-	b=vERw3e4a5V5pjQpNhmo8mR0ejuxpq+v5LX0vRW1Zm/iUTospNe6VGYnLLoAKMuiFBcuE
-	 B3FzWBuZk5ATPod3tidjSSro0qOupn1QICqtuB8tGVOkaajJgwQ/546YFBuxiDtSVvIwJ
-	 g1VTKEMvbIl/STaY3glN4F3Fqbf/waLRdaX0D1yRDruFRf3ToCLbt3VGQmVddvK+2bfYq
-	 c+izhGS8kJNDs4UoDrf1s+sGi4pITGnCnPF9MCMvEl0hUt2ZI8fQsSJcs2dIB7P7GUbcd
-	 KKtNknG3ByLrLb34PDk3gk0Qg5mG/QxsswqRi8Hbpg0Hfka6/CpX7jjC+BtaDN5tftQ==
+	t=1794802791;
+	b=2PvFQ2H8UJHkPO3TA2CfDGvXvrWS/L0rOlOhu3mnclXvWWwRb86tY/+J00OvOfDj89Gh
+	 1I8fz+SnuQElAy0XReqS7bvnFAw2A1ohJ5GyHm/SGTMnHpkoeBbDL+HP3dhhYtfuSIaYR
+	 A++hnDedlgcPI9eYlkyQgtoJWr699pL4aqUraS89za/pQKftn4XjhAewmQMrYbuAZV52s
+	 oODOwHo9eZwk869yMBugE+LHAcCS5Qr3UY7enA2kYkyxeyBTo053/sUh/aiDbF2LnmQeY
+	 o8I5HdOB8/ogvUzHz+bvrF6DskVMm3iMrcAT41oH2umRsOtVICGYoJhci0qwZe0CJfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802759;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n4CDV4ziRFU3xddHncpYnLzq3A+HLPidciJ1bfu5cIk=;
-	b=3pYzLCE102VHpgXcp+JQyYR27Ug16kY/0/fHu0vfF664qaounqC+j4zuI3Ea59TL3Ghj
-	 LP5D+27rSvfQS2twVXsbPyF680jCnosgPPMDzogQ4D6zUoO8m5GZ/OgJWU4oBQ0gC5cRo
-	 UYe3mot+b6LBySK98cqcj1xJeZRKMYaE4tdnc5QXaG4Y5RPkBRBIUdnQVr/yfv3yiojvY
-	 mwABcXDXRDi33EZyuhl+IfQCkhhNnRrNCu6G6WS1etICzh+amQ1DkAwqYBmF7XIWflpAN
-	 hbrOa7oKqKBaT0q7atd4UWW/FurUlOpMNvqKrLwe/61YooQvT57TYXswvlJv+LFwhvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802791;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=vzvDYpL2hux+g6h9Zw8C0pGs3K/JeL+TqV3PxRqjLH0=;
+	b=ALUkKuWWGivbfDcljpYhkX0910b3Gwz7Z4veUlANbP9a9Bp/9lE++KjmV9JVQxuCUe+r
+	 1YQ4yFTp1dntAEu1kg7bPz03ULkX2B09Uypkajv7cwMjfhHz6DBo4cerPei8/xUN0EURI
+	 XkjhaSZwX+S141RHCS68DBmoU2/qoVT7GbYJj50efu5xXhpXO5m49aCU+LWoZ8gb9+e4s
+	 eOIIoANZrH3fyWviClZZ7wvx+tV98XZr9P8+JTsw8Xj1eY1KeLeTBGzQk99wxKASEW1w+
+	 65nOKQcBR0pzCDPgu1C8n5DeHUi7zWpO4h+pSYSf2aYRB1L7FZIRLqNNvXjOTUm0fXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y;
-	arc=none smtp.remote-ip=95.215.58.123
-Received: from mta1.migadu.com (out-123.mta1.migadu.com [95.215.58.123])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="QNt2YE/j";
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60535606A336
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:19:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60535606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33F7606A31C;
+	Mon, 16 Nov 2026 04:19:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33F7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IjpKErh6Re8z+1/3lW8pFvWGsn41vSm3orTI4RjKMEE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794802756; v=1; x=1795407556;
- b=Jw0iSV5Yzt7XlM7CPt8TBpBWyib0JnfRWnaLD39IkMnizBJ8ngyyPVR3ljoABA4N2yRb199j
- 8QtSD2okD/RlDSshHDqP5dFxT5xPa9z+H75Hahv9tzUP+lT5D9pCDFtf++YjQ5NFdt6p2PdaPXw
- QtW+ZinnBn3t3hBT/+TzKOmg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 59a289117738f648;
-	Mon, 16 Nov 2026 04:19:16 +0000
-X-Mizu-Trace-ID: 59a289117738f648
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 20:19:12 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
-	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v5 1/3] ipc/sem: account dynamically allocated sops
- arrays to memcg
-Message-ID: <avqD2Z3KJwPsCcVG@linux.dev>
-References: <cover.1793250194.git.x-professor@outlook.com>
- <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QNt2YE/j
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=vzvDYpL2hux+g6h9Zw8C0pGs3K/JeL+TqV3PxRqjLH0=; b=QNt2YE/j766bqqdllEC7drKvDF
+	ttGMr/QpB+vAgxMTYw/R1vFsx1w7DdtjSfGSFwUJTjHBj4hMg+Cnfg50g28tp8hC6q/iPI4bINndj
+	nH3Ak21CJWJE59rWqq+as3I+HgkHC2ozm6wfoF+0gUiu1DYAFHGfr/QW5Jz+31Z1thk4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xSoBr-00GnfA-Bi; Mon, 16 Nov 2026 05:19:35 +0100
+Date: Mon, 16 Nov 2026 05:19:35 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Dong Yibo <dong100@mucse.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	yaojun@mucse.com
+Subject: Re: [PATCH net-next v2 2/5] net: rnpgbe: Report link settings
+ through ethtool
+Message-ID: <d7351f56-d4fa-4ba0-a0c6-c7bdf7aac460@lunn.ch>
+References: <BD205A7832D36E7D+20261116030917.1329989-1-dong100@mucse.com>
+ <66AFF2810AB647C8+20261116031020.1330219-1-dong100@mucse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,57 +67,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
+In-Reply-To: <66AFF2810AB647C8+20261116031020.1330219-1-dong100@mucse.com>
 
-On Thu, Oct 29, 2026 at 05:03:25AM +0000, Yingjie Wang wrote:
-> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
-> do_semtimedop()") removed accounting based on the assumption that sops
-> arrays would remain small, describing a maximum cost of two pages.
-> 
-> SEMOPM is a UAPI default that can be changed at build time and through
-> the per-namespace sysctl. Commit 50ec499b9a43 ("sysctl: allow change
-> system v ipc sysctls inside ipc namespace") made that limit tunable by
-> IPC namespace owners without capabilities in the initial user namespace.
-> 
-> do_semtimedop() keeps up to SEMOPM_FAST operations on the stack. Charge
-> every larger, dynamically allocated operation array to the caller's memory
-> cgroup. This avoids a second size threshold and prevents a configured
-> SEMOPM limit from expanding an unaccounted heap-allocation range.
-> 
-> In a 4-vCPU KVM guest, with the benchmark pinned to one vCPU in a leaf
-> memory cgroup, accounting raised the median time per successful semop()
-> call by 2.3% to 3.2% for 65, 500 and 1000 operations, compared with
-> unaccounted allocation. An invalid semid, which allocates and copies the
-> array before returning EINVAL, rose by 5.6% to 11.9%. The 64-operation
-> stack path changed by at most 0.9%, and successful calls in the root
-> cgroup by at most 2.3%. Each result used 21 samples from three boots.
+> +static int rnpgbe_get_link_ksettings(struct net_device *netdev,
+> +				     struct ethtool_link_ksettings *cmd)
+> +{
+> +	struct mucse *mucse = netdev_priv(netdev);
+> +	struct mucse_hw *hw = &mucse->hw;
+> +	u32 supported, advertising;
+> +	unsigned long flags;
+> +	u16 status;
+> +	int mode;
+> +
+> +	status = hw->link_config.status;
+> +	supported = hw->link_config.supported;
+> +	advertising = hw->link_config.advertising;
 
-There is no kmem accounting in root cgroup, do you know why there is an increase
-of 2.3% there? 
+These are accessed without a lock,
 
-> 
-> Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
-> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-> ---
->  ipc/sem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/ipc/sem.c b/ipc/sem.c
-> index 5ec41de7e85b2..ea95cca5bb0ec 100644
-> --- a/ipc/sem.c
-> +++ b/ipc/sem.c
-> @@ -2234,7 +2234,7 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
->  		return -EINVAL;
->  
->  	if (nsops > SEMOPM_FAST) {
-> -		sops = kvmalloc_objs(*sops, nsops);
-> +		sops = kvmalloc_objs(*sops, nsops, GFP_KERNEL_ACCOUNT);
->  		if (sops == NULL)
->  			return -ENOMEM;
->  	}
-> -- 
-> 2.43.0
-> 
+> +	ethtool_link_ksettings_zero_link_mode(cmd, supported);
+> +	ethtool_link_ksettings_zero_link_mode(cmd, advertising);
+> +	ethtool_link_ksettings_zero_link_mode(cmd, lp_advertising);
+> +	cmd->base.autoneg = AUTONEG_DISABLE;
+> +	cmd->base.speed = SPEED_UNKNOWN;
+> +	cmd->base.duplex = DUPLEX_UNKNOWN;
+> +	cmd->base.eth_tp_mdix = ETH_TP_MDI_INVALID;
+> +	spin_lock_irqsave(&mucse->link_lock, flags);
+> +	if (netif_carrier_ok(netdev) && hw->link) {
+> +		cmd->base.speed = hw->speed;
+> +		cmd->base.duplex = hw->duplex ?
+> +				   DUPLEX_FULL : DUPLEX_HALF;
+> +		if (status & MUCSE_LINK_TP)
+> +			cmd->base.eth_tp_mdix = hw->mdix;
+
+Yet these need a lock?
+
+> +	}
+> +	spin_unlock_irqrestore(&mucse->link_lock, flags);
+> +
+> +	if (status & MUCSE_LINK_TP) {
+> +		rnpgbe_link_modes(cmd->link_modes.supported, supported);
+> +		rnpgbe_link_modes(cmd->link_modes.advertising, advertising);
+> +		ethtool_link_ksettings_add_link_mode(cmd, supported, TP);
+> +		ethtool_link_ksettings_add_link_mode(cmd, advertising, TP);
+
+Advertising TP? Can you point to some part of 802.3 to support
+advertising TP to the link partner.
+
+	Andrew
