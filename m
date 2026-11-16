@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794872833;
-	b=a26tLjL9JqCnlLdU+ow+8+7aiwVDyUikyJHge3jmdvThZBgZ+pnGp6RZk3sLQwl7yK5B
-	 o4sZoMfeEceyxn+Yc/wjvchINdP+oDFhg201+/yT5spgcurHB01Q0h/ewR1RwulLUs5he
-	 i8/JQ/MpvFl1D+6lhSSU5O6Hp5UvjTcsfuXHpjr7N76ObbRf/fJ7jocfdVCCOdTu77Pxe
-	 HFlqpMJSiPop0IAVA385krqbjt6U4HoepwhXhgImtAvTp5XymkDUsHrf35kZGi2Ht0xiq
-	 Hz2xKwmhevv+zPuWcI9AX64/a6AakoauCMhdXplGuVkvloc5aS4V56mmAzdF3mZDppg==
+	t=1794872834;
+	b=TM/G0FIf4dISJRaIx2ahDXo8mHZ0tMfRPKN9XRNuaNSA0JL1Oe9rYFMQoou5TJvsEmiQ
+	 uRBaIbWhIbCknqLG5Tz6xCu3eYhH5utp2I3eRI2rUiORh6iD5CtGVWLgRU7/jpQvqNw7y
+	 fXlLigmzlxRkD0wUlCEwp0mfEgcm/NYp++xZ+LQKcvPNvI96yLJsEaLSEoiFv3EP6u0KZ
+	 oTavkoxGEojntPwArmlniQtVvPNLMP7IlwTdivosJeu6T62x7X4V7hC/KJHaUErLFTz10
+	 VimC5aejVF9BTodRVCVE4Tlo17NbqarUuHEdzpn3MQmC/xp2SNFrVpgaaLl1bu2tk4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872833;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MTOTer9UQAphA3hd/WiKA21KrrrLMK3/SWWc2LgHC/w=;
-	b=V/gbpUY4huESbzoI8dzENQBfdbji7FHo/WRzBw3peuzYbZ4Bjc/mD6veehGTQYdHM5Bv
-	 oFcAqdhJHUN3QlTpSIryL6i+bZKCs925lB/hHgAXRKkxa0DFnyl+8qKB6SQFpNDkmzmI5
-	 tG7LQia1ZKAievyQ92gm4aCPpFE7ygWS9grG7h/CHuIdpacCxHn0Ta/VClMY4vPgGHA8q
-	 tKAJlHywtiPxVZlbZTiVChD5U3c8P9kqc62KEBQpfG3OU9Ria5pKYzULt6l8PfBLd3d4m
-	 RXJtHcV6+ohglGLuJYiraA8wcvZWcZ/JOGYvT04L0EyYii+7rdIxzIGM47QF9L0Lk/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872834;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Originating-IP:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=erW4QNXmLOEoWNGzUnD+FqnM0gfstb4jmRqULXnvHQ8=;
+	b=Hr4TT2djUe5rRqf9RBaAKQbQ1OPhaKmUSvRspqF31wD6RWZte8yZ4V7aHu1NjQuEQ4cb
+	 BlIPKo8zE+97iXojCfQfxdHPnKnm6iLZkUemrLWZp+4mZiW+BOVo3W0pP7FoJKvSgqha2
+	 ityuHk1IZKvkZrNa2ZXOuT4tHF4Dx6CEZuMprUcWJRws2/6QleqivaAtbVwrwujKXgViK
+	 UND9bpOsD/mkxXyQPymEow01f2HeJOQQnBM1EJxJq6AfD36PZDp0JSkEKkWkbEgPs8yOu
+	 wy+US86JDwqJNT65ab984AGR7/NmI86+npV2NhrvIdfDLDvZwllzRtgQ2Gi5DoDt0Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CctHs44q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=nbMwOWrq;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2CD606A33E;
-	Mon, 16 Nov 2026 23:47:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD3C606A889;
+	Mon, 16 Nov 2026 23:47:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD3C606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CctHs44q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBA51F000C5;
-	Mon, 16 Nov 2026 23:47:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794872833;
-	bh=MTOTer9UQAphA3hd/WiKA21KrrrLMK3/SWWc2LgHC/w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CctHs44qNwGIiHrjlhKQt5ECRyN8HsBdgWOUMJcn+voDazjk/6fZulFXe0E80KaV5
-	 a/2wwWliySnT/TJPZgKhVANWojyesUHlFagz43H60vSvOkkF5KqgbLV9MwYpOuKlC8
-	 hT0xHiOmVibUrtU3wfBCsnszy93/2cHE6zobRNWPdJUMuP58YWXLHciUaaEULZY2mc
-	 9vZwmEHP+IYwRpskIhDe3Me6gs9JzR+sfKgpXi2yGHlIW1dXPRFBIdT65CiQ2RP+jB
-	 JTJ5ZBBltAlE5asTiVYlHh44GbJXHoCFHjOOLIS+qkJq7eP5qx7EwnYM8Wm/djD4uv
-	 iu2AluEtbszeA==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v4 03/12] perf annotate-data: Resolve DW_OP_addrx global variables
-Date: Mon, 16 Nov 2026 20:46:49 -0300
-Message-ID: <20261116234659.3950531-4-acme@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116234659.3950531-1-acme@kernel.org>
-References: <20261116234659.3950531-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=nbMwOWrq
+Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGNOh3p3594659;
+	Mon, 16 Nov 2026 15:47:04 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=erW4QNXmL
+	OEoWNGzUnD+FqnM0gfstb4jmRqULXnvHQ8=; b=nbMwOWrq1FCjXpZAMziSKloxO
+	zi38uycTZxz4RhG0ErmURTCmDPzlMFUlHF70UfXsSUE8H/AOpDfkshVZ5vh4vNl9
+	19O/ae4UZ0O+CW6Fl7uwLAGLEuRDpyhnALi5hdyq8m+7vXE5TS3aBy5ORHktjkf4
+	vr6G6M/HiwKmnfoVFWKEym3mkA/PzlOQ7wYJ6RLb29P1earatDEFhj514QAL/wif
+	tL7TnS02pBiBeUopsYAtqd/Js/xwL/OioPfb60K8Serwk1cRwNoRUU70WuRDrhK+
+	BIveU6pSZF+aME3DVkhV6zhpuqlgmPYEG8N44/w6n3XUm7U0fkOin3ORflIJg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hya99spbp-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 16 Nov 2026 15:47:04 -0800 (PST)
+Received: from localhost (2620:10d:c0a8:1b::8e35) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 16 Nov
+ 2026 23:47:02 +0000
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+Date: Mon, 16 Nov 2026 15:46:49 -0800
+Subject: [PATCH net] vsock: only deliver taps to namespaces that can reach
+ the device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,328 +69,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261116-vsock-tap-net-v1-1-7e24f45adad3@meta.com>
+X-B4-Tracking: v=1; b=H4sIAOmV+2oC/x3MQQqDMBAF0KsMf+1ARqySXKV0EXXaDkKUJIgg3
+ l3wHeCdKJpNCwKdyLpbsTUhkDSE6R/TT9lmBELr2l5Eet7LOi1c48ZJK8vofHS+ew2DR0PYsn7
+ teL43klZ8rusGdSxwmGQAAAA=
+X-Change-ID: 20261116-vsock-tap-net-1b09a0945779
+To: Stefan Hajnoczi <stefanha@redhat.com>,
+        Stefano Garzarella
+	<sgarzare@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang
+	<jasowangio@gmail.com>,
+        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>
+CC: <kvm@vger.kernel.org>, <virtualization@lists.linux.dev>,
+        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Bobby Eshleman
+	<bobbyeshleman@meta.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA5NCBTYWx0ZWRfX5OJdBdyViD+U
+ 5F5qWrd7qt7HJHlgLcOwnoLNFmKtmG14C7DdtKhbqiYTAEl/W0ZljvsQWch9+bnVZ/GJDHMTWi3
+ iUAzps/HhAHyCtAsa+HoAxf+wqCUjj0=
+X-Proofpoint-ORIG-GUID: gKDNQAj56r8459FNniU9y9-fMq_ecPmD
+X-Authority-Analysis: v=2.4 cv=ZuN4uN7G c=1 sm=1 tr=0 ts=6afb95f8 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=U_y8lYiYyhHBU5rMqhb2:22 a=VabnemYjAAAA:8
+ a=SWFGfQgXnGc93N8zE1QA:9 a=QEXdDO2ut3YA:10 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: gKDNQAj56r8459FNniU9y9-fMq_ecPmD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA5NCBTYWx0ZWRfX4CTqCEvwyK4k
+ 1gKYYYNFViwq/KsAmDiIDlUCOYPpP+uGeKEv6CtdZHnO0TjYuVuEQv+mJG9glxn52sBbSOH8w4H
+ 3oosVpURYlbLlCHjnqmV1hfrCDBPQQaWSFHy9sJkewGwR/+nEP5MjpsgXoziYWegJad/xGJ/1Ol
+ 6H1nRgxWdSf8zYKHVJfHU9+AnuDHYXoeJoOPZ6uJwdX5OLXJGhLbKivTVH07gBIbuWLlllqng2F
+ F5qyc16f4TqlZ0EsgKPld8ZV5CP5Iwwh6b2tcLAwZ+jvyS8unjNuU2vD0KfaVr/L6w0R/xG9A3A
+ krRB7fpzVZVdvYh7W4224s7gqen4uXe0gwljy+u62N4ipijBDD2xamoMv0s4+AVUFJ68TT7W68B
+ CVZigCjqRTArHF2nzqFbBfN+ONC6d0u/i8JzYeNWeX7rG9VCmSx7ZzjDOrTZUr7H4IMn86jE03T
+ z1ceLjsuI8HmVaCMscg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_07,2026-11-16_01,2025-10-01_01
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+vsock_deliver_tap() clones every packet to every vsockmon device on the
+system. Creating one needs only CAP_NET_ADMIN in the owning user
+namespace, so an unprivileged user can capture the traffic of local mode
+namespaces.
 
-clang emits DW_AT_location with DW_OP_addrx for global variables in
-DWARF 5, gcc emits DW_OP_addr.  The address index was not resolved, so
-those variables were not found by address; the by-name fallback also
-missed the ones in .bss past the file backed end of the last segment.
+Pass the packet's netns to vsock_deliver_tap() and only deliver to
+devices that pass vsock_net_check_mode(), the same rule socket lookups
+use. vhost passes the vhost_vsock netns, loopback the sending socket's
+netns, and virtio-vsock NULL (global mode).
 
-Resolve the index with dwarf_getlocation_attr() + dwarf_formaddr() and
-use the resulting address in the by-address lookup and in the global
-variable cache.  The new global_data workload keeps a zero initialized
-struct in .bss and its test checks that the accesses are annotated: when
-perf is built with clang and DWARF 5 it goes through DW_OP_addrx, with
-gcc through DW_OP_addr.  The test skips on 32-bit PIE builds, which
-load globals through the GOT, something the resolver does not follow.
-
-Fixes: d60469d7c0e5c4e8 ("perf dwarf-aux: Add die_find_variable_by_addr()")
-Fixes: d7b60803a790b716 ("perf dwarf-aux: Add die_collect_global_vars()")
-Cc: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Fixes: a69686327e42 ("vsock: add netns support to virtio transports")
+Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
 ---
- tools/perf/tests/builtin-test.c            |  1 +
- tools/perf/tests/shell/data_type_global.sh | 70 ++++++++++++++++++++++
- tools/perf/tests/tests.h                   |  1 +
- tools/perf/tests/workloads/Build           |  2 +
- tools/perf/tests/workloads/global_data.c   | 55 +++++++++++++++++
- tools/perf/util/annotate-data.c            |  4 ++
- tools/perf/util/dwarf-aux.c                | 37 ++++++++++--
- tools/perf/util/dwarf-aux.h                |  5 ++
- 8 files changed, 170 insertions(+), 5 deletions(-)
- create mode 100755 tools/perf/tests/shell/data_type_global.sh
- create mode 100644 tools/perf/tests/workloads/global_data.c
+ drivers/vhost/vsock.c                   |  4 ++--
+ include/linux/virtio_vsock.h            |  2 +-
+ include/net/af_vsock.h                  |  3 ++-
+ net/vmw_vsock/af_vsock_tap.c            | 10 +++++++---
+ net/vmw_vsock/virtio_transport.c        |  4 ++--
+ net/vmw_vsock/virtio_transport_common.c |  4 ++--
+ net/vmw_vsock/vsock_loopback.c          |  2 +-
+ 7 files changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 86698b86657f45b0..299e07bd16a5a53f 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -199,6 +199,7 @@ static struct test_workload *workloads[] = {
- 	&workload__deterministic,
- 	&workload__callchain,
- 	&workload__false_sharing,
-+	&workload__global_data,
+diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+index 88a310390eb0..3de1f1920717 100644
+--- a/drivers/vhost/vsock.c
++++ b/drivers/vhost/vsock.c
+@@ -229,7 +229,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+ 		/* Deliver to monitoring devices all packets that we
+ 		 * will transmit.
+ 		 */
+-		virtio_transport_deliver_tap_pkt(skb);
++		virtio_transport_deliver_tap_pkt(skb, vsock->net);
  
- #ifdef HAVE_RUST_SUPPORT
- 	&workload__code_with_type,
-diff --git a/tools/perf/tests/shell/data_type_global.sh b/tools/perf/tests/shell/data_type_global.sh
-new file mode 100755
-index 0000000000000000..7db2e898a41657bc
---- /dev/null
-+++ b/tools/perf/tests/shell/data_type_global.sh
-@@ -0,0 +1,70 @@
-+#!/bin/bash
-+# perf data type profiling test for a global variable
-+# SPDX-License-Identifier: GPL-2.0
-+
-+set -e
-+
-+perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-+perfout=$(mktemp /tmp/__perf_test.perf.out.XXXXX)
-+
-+cleanup()
-+{
-+	rm -f "$perfdata" "$perfout"
-+	trap - EXIT TERM INT
-+}
-+
-+trap_cleanup()
-+{
-+	echo "Unexpected signal in ${FUNCNAME[1]}"
-+	cleanup
-+	exit 1
-+}
-+trap trap_cleanup EXIT TERM INT
-+
-+if ! perf check feature -q dwarf; then
-+	echo "Skip: no DWARF (libdw) support"
-+	cleanup
-+	exit 2
-+fi
-+
-+# 32-bit PIE loads globals through the GOT, which the resolver does not follow
-+if [ "$(getconf LONG_BIT)" = 32 ] &&
-+   [ "$(od -An -tx1 -j16 -N2 "$(command -v perf)" | awk '{print $1}')" = 03 ]; then
-+	echo "Skip: 32-bit PIE uses GOT-relative global accesses"
-+	cleanup
-+	exit 2
-+fi
-+
-+# No point in recording if the PMU cannot do memory events.
-+if perf mem record -o /dev/null -- true 2>&1 | \
-+		grep -q "failed: no PMU supports the memory events"; then
-+	cleanup
-+	exit 2
-+fi
-+if ! perf mem record -o /dev/null -- true 2>/dev/null; then
-+	echo "Skip: cannot record memory events on this PMU"
-+	cleanup
-+	exit 2
-+fi
-+
-+if ! perf mem record -o "$perfdata" -- perf test -w global_data 1 > /dev/null 2>&1; then
-+	echo "FAIL: perf mem record"
-+	cleanup
-+	exit 1
-+fi
-+
-+if ! perf annotate --code-with-type -i "$perfdata" --stdio \
-+		--percent-limit 1 > "$perfout" 2>/dev/null; then
-+	echo "FAIL: perf annotate"
-+	cleanup
-+	exit 1
-+fi
-+
-+if ! grep -q "# data-type: struct conn" "$perfout"; then
-+	echo "FAIL: global variable in .bss not resolved"
-+	cleanup
-+	exit 1
-+fi
-+
-+echo "global variable resolved"
-+cleanup
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index 8c399840a735910d..bbd23dd7e0455a9d 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -272,6 +272,7 @@ DECLARE_WORKLOAD(context_switch_loop);
- DECLARE_WORKLOAD(deterministic);
- DECLARE_WORKLOAD(callchain);
- DECLARE_WORKLOAD(false_sharing);
-+DECLARE_WORKLOAD(global_data);
+ 		vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
+ 		added = true;
+@@ -567,7 +567,7 @@ static void vhost_vsock_handle_tx_kick(struct vhost_work *work)
+ 		total_len += sizeof(*hdr) + skb->len;
  
- #ifdef HAVE_RUST_SUPPORT
- DECLARE_WORKLOAD(code_with_type);
-diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
-index 43cc4da6fb0786de..03017aaaaa0bec32 100644
---- a/tools/perf/tests/workloads/Build
-+++ b/tools/perf/tests/workloads/Build
-@@ -17,6 +17,7 @@ perf-test-y += context_switch_loop.o
- perf-test-y += deterministic.o
- perf-test-y += callchain.o
- perf-test-y += false_sharing.o
-+perf-test-y += global_data.o
+ 		/* Deliver to monitoring devices all received packets */
+-		virtio_transport_deliver_tap_pkt(skb);
++		virtio_transport_deliver_tap_pkt(skb, vsock->net);
  
- ifeq ($(CONFIG_RUST_SUPPORT),y)
-     perf-test-y += code_with_type.o
-@@ -35,3 +36,4 @@ CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_callchain.o        = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_false_sharing.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-+CFLAGS_global_data.o      = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-diff --git a/tools/perf/tests/workloads/global_data.c b/tools/perf/tests/workloads/global_data.c
-new file mode 100644
-index 0000000000000000..63da5300c5d92387
---- /dev/null
-+++ b/tools/perf/tests/workloads/global_data.c
-@@ -0,0 +1,55 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A zero initialized global struct, so it lands in .bss, past the file
-+ * backed end of the last segment.  clang describes its address with
-+ * DW_OP_addrx in DWARF 5, gcc with DW_OP_addr.
-+ *
-+ * 'perf mem record' of this workload followed by 'perf annotate
-+ * --code-with-type' (see tests/shell/data_type_global.sh) resolves the
-+ * accesses to struct conn.
-+ */
-+#include <signal.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+#include <linux/compiler.h>
-+#include "../tests.h"
-+
-+struct conn {
-+	int saddr;
-+	int daddr;
-+	long bytes;
-+};
-+
-+static volatile struct conn conn;
-+static volatile unsigned long conn_sink;
-+static volatile sig_atomic_t done;
-+
-+static void sighandler(int sig __maybe_unused)
-+{
-+	done = 1;
-+}
-+
-+static int global_data(int argc, const char **argv)
-+{
-+	unsigned long sum = 0;
-+	int i = 0;
-+	int sec = 1;
-+
-+	if (argc > 0)
-+		sec = atoi(argv[0]);
-+
-+	signal(SIGINT, sighandler);
-+	signal(SIGALRM, sighandler);
-+	alarm(sec);
-+
-+	while (!done) {
-+		conn.saddr = i;
-+		conn.daddr = i + 1;
-+		sum += conn.bytes;
-+		i++;
-+	}
-+	conn_sink = sum;
-+	return 0;
-+}
-+
-+DEFINE_WORKLOAD(global_data);
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index dd9c1d7b2da8be8a..d8d00646ef63b30f 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -140,6 +140,10 @@ static void pr_debug_location(Dwarf_Die *die, u64 pc, int reg)
- 		case DW_OP_addr:
- 			pr_info("address=%#lx\n", (long)ops->number);
- 			break;
-+		case DW_OP_addrx:
-+		case DW_OP_GNU_addr_index:
-+			pr_info("address index=%#lx\n", (long)ops->number);
-+			break;
- 		default:
- 			pr_info("unknown: code=%#x, number=%#lx\n",
- 				ops->atom, (long)ops->number);
-diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-index 48a11c95a67686e4..8736229d567e158c 100644
---- a/tools/perf/util/dwarf-aux.c
-+++ b/tools/perf/util/dwarf-aux.c
-@@ -1629,6 +1629,31 @@ Dwarf_Die *die_find_variable_by_reg(Dwarf_Die *sc_die, Dwarf_Addr pc, int reg,
- 	return result;
+ 		hdr = virtio_vsock_hdr(skb);
+ 
+diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+index f91704731057..46058d354940 100644
+--- a/include/linux/virtio_vsock.h
++++ b/include/linux/virtio_vsock.h
+@@ -285,7 +285,7 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+ void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
+ u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+ void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+-void virtio_transport_deliver_tap_pkt(struct sk_buff *skb);
++void virtio_transport_deliver_tap_pkt(struct sk_buff *skb, struct net *net);
+ int virtio_transport_purge_skbs(void *vsk, struct sk_buff_head *list);
+ int virtio_transport_read_skb(struct vsock_sock *vsk, skb_read_actor_t read_actor);
+ int virtio_transport_notify_set_rcvlowat(struct vsock_sock *vsk, int val);
+diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+index e8481f12312e..3e28865578eb 100644
+--- a/include/net/af_vsock.h
++++ b/include/net/af_vsock.h
+@@ -250,7 +250,8 @@ struct vsock_tap {
+ 
+ int vsock_add_tap(struct vsock_tap *vt);
+ int vsock_remove_tap(struct vsock_tap *vt);
+-void vsock_deliver_tap(struct sk_buff *build_skb(void *opaque), void *opaque);
++void vsock_deliver_tap(struct sk_buff *build_skb(void *opaque), void *opaque,
++		       struct net *net);
+ int __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+ 				int flags);
+ int vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+diff --git a/net/vmw_vsock/af_vsock_tap.c b/net/vmw_vsock/af_vsock_tap.c
+index 7c5cdceabb2a..4c8821835251 100644
+--- a/net/vmw_vsock/af_vsock_tap.c
++++ b/net/vmw_vsock/af_vsock_tap.c
+@@ -73,19 +73,23 @@ static int __vsock_deliver_tap_skb(struct sk_buff *skb,
+ 	return ret;
  }
  
-+/*
-+ * Get the absolute address of a location expression that consists of a
-+ * single address, either DW_OP_addr or DW_OP_addrx.  libdw leaves the
-+ * DWARF 5 address index unresolved, it has to be looked up in .debug_addr.
-+ */
-+static bool die_get_location_addr(Dwarf_Attribute *attr, Dwarf_Op *ops,
-+				  Dwarf_Addr *addr)
-+{
-+	if (ops->atom == DW_OP_addr) {
-+		*addr = ops->number;
-+		return true;
-+	}
-+
-+	if (ops->atom == DW_OP_addrx) {
-+		Dwarf_Attribute addr_attr;
-+
-+		if (dwarf_getlocation_attr(attr, ops, &addr_attr) != 0)
-+			return false;
-+
-+		return dwarf_formaddr(&addr_attr, addr) == 0;
-+	}
-+
-+	return false;
-+}
-+
- /* Only checks direct child DIEs in the given scope */
- static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
+-static void __vsock_deliver_tap(struct sk_buff *skb)
++static void __vsock_deliver_tap(struct sk_buff *skb, struct net *net)
  {
-@@ -1647,11 +1672,13 @@ static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
- 		return DIE_FIND_CB_SIBLING;
+ 	int ret;
+ 	struct vsock_tap *tmp;
  
- 	while ((off = dwarf_getlocations(&attr, off, &base, &start, &end, &ops, &nops)) > 0) {
--		if (ops->atom != DW_OP_addr)
-+		Dwarf_Addr addr;
+ 	list_for_each_entry_rcu(tmp, &vsock_tap_all, list) {
++		if (!vsock_net_check_mode(dev_net(tmp->dev), net))
++			continue;
 +
-+		if (!die_get_location_addr(&attr, ops, &addr))
- 			continue;
- 
- 		if (check_allowed_ops(ops, nops) &&
--		    match_var_offset(die_mem, data, data->addr, ops->number,
-+		    match_var_offset(die_mem, data, data->addr, addr,
- 				     /*is_pointer=*/false))
- 			return DIE_FIND_CB_END;
+ 		ret = __vsock_deliver_tap_skb(skb, tmp->dev);
+ 		if (unlikely(ret))
+ 			break;
  	}
-@@ -1777,7 +1804,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	Dwarf_Die type_die;
- 	int tag = dwarf_tag(die_mem);
- 	Dwarf_Attribute attr;
--	Dwarf_Addr base, start, end;
-+	Dwarf_Addr base, start, end, addr;
- 	Dwarf_Op *ops;
- 	size_t nops;
- 	struct die_var_type *vt;
-@@ -1792,7 +1819,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	if (dwarf_getlocations(&attr, 0, &base, &start, &end, &ops, &nops) <= 0)
- 		return DIE_FIND_CB_SIBLING;
+ }
  
--	if (ops->atom != DW_OP_addr)
-+	if (!die_get_location_addr(&attr, ops, &addr))
- 		return DIE_FIND_CB_SIBLING;
- 
- 	if (!check_allowed_ops(ops, nops))
-@@ -1808,7 +1835,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	vt->die_off = dwarf_dieoffset(&type_die);
- 	vt->die_tag = dwarf_tag(&type_die);
- 	vt->from_alt = !die_same_file(die_mem, &type_die);
--	vt->addr = ops->number;
-+	vt->addr = addr;
- 	vt->end = 0;
- 	vt->has_range = false;
- 	vt->reg = -1;
-diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
-index 803182cdff8a3b4f..0c1297507bd2c254 100644
---- a/tools/perf/util/dwarf-aux.h
-+++ b/tools/perf/util/dwarf-aux.h
-@@ -10,6 +10,11 @@
- #include <elfutils/libdwfl.h>
- #include <elfutils/version.h>
- 
-+/* DWARF 5 address index, libdw's dwarf_getlocations() returns it unresolved */
-+#ifndef DW_OP_addrx
-+#define DW_OP_addrx 0xa1
-+#endif
-+
- static inline const char *die_name(Dwarf_Die *die)
+-void vsock_deliver_tap(struct sk_buff *build_skb(void *opaque), void *opaque)
++void vsock_deliver_tap(struct sk_buff *build_skb(void *opaque), void *opaque,
++		       struct net *net)
  {
- 	return dwarf_diename(die) ?: "<unknown>";
+ 	struct sk_buff *skb;
+ 
+@@ -96,7 +100,7 @@ void vsock_deliver_tap(struct sk_buff *build_skb(void *opaque), void *opaque)
+ 
+ 	skb = build_skb(opaque);
+ 	if (skb) {
+-		__vsock_deliver_tap(skb);
++		__vsock_deliver_tap(skb, net);
+ 		consume_skb(skb);
+ 	}
+ 
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index cf63bc99f3cc..b39c001260a9 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -150,7 +150,7 @@ static int virtio_transport_send_skb(struct sk_buff *skb, struct virtqueue *vq,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	virtio_transport_deliver_tap_pkt(skb);
++	virtio_transport_deliver_tap_pkt(skb, NULL);
+ 	return 0;
+ }
+ 
+@@ -680,7 +680,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+ 			if (payload_len)
+ 				virtio_vsock_skb_put(skb, payload_len);
+ 
+-			virtio_transport_deliver_tap_pkt(skb);
++			virtio_transport_deliver_tap_pkt(skb, NULL);
+ 
+ 			/* Force virtio-transport into global mode since it
+ 			 * does not yet support local-mode namespacing.
+diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+index 1e762a480df4..027fe41c676a 100644
+--- a/net/vmw_vsock/virtio_transport_common.c
++++ b/net/vmw_vsock/virtio_transport_common.c
+@@ -190,12 +190,12 @@ static struct sk_buff *virtio_transport_build_skb(void *opaque)
+ 	return skb;
+ }
+ 
+-void virtio_transport_deliver_tap_pkt(struct sk_buff *skb)
++void virtio_transport_deliver_tap_pkt(struct sk_buff *skb, struct net *net)
+ {
+ 	if (virtio_vsock_skb_tap_delivered(skb))
+ 		return;
+ 
+-	vsock_deliver_tap(virtio_transport_build_skb, skb);
++	vsock_deliver_tap(virtio_transport_build_skb, skb, net);
+ 	virtio_vsock_skb_set_tap_delivered(skb);
+ }
+ EXPORT_SYMBOL_GPL(virtio_transport_deliver_tap_pkt);
+diff --git a/net/vmw_vsock/vsock_loopback.c b/net/vmw_vsock/vsock_loopback.c
+index 8068d1b6e851..cacd313a454b 100644
+--- a/net/vmw_vsock/vsock_loopback.c
++++ b/net/vmw_vsock/vsock_loopback.c
+@@ -138,7 +138,7 @@ static void vsock_loopback_work(struct work_struct *work)
+ 		 * It is freed by the receiver.
+ 		 */
+ 		virtio_transport_consume_skb_sent(skb, false);
+-		virtio_transport_deliver_tap_pkt(skb);
++		virtio_transport_deliver_tap_pkt(skb, sock_net(skb->sk));
+ 		virtio_transport_recv_pkt(&loopback_transport, skb,
+ 					  sock_net(skb->sk));
+ 	}
+
+---
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+change-id: 20261116-vsock-tap-net-1b09a0945779
+
+Best regards,
 -- 
-2.56.0
+Bobby Eshleman <bobbyeshleman@meta.com>
 
