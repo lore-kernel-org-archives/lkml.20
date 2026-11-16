@@ -1,64 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794840783;
-	b=ad7v8Dc6bUwMraZ4PVMpUMVVto9onnnSONwPlye5WVTHQS2F2AjlnjDZLbpd+zmkG4X2
-	 sj+bfK4I/5IydhWmyo9XU9jdpsw1FCaSXpjnuLpTXqPa3f4yzp5TeBZbF+B3Xunj8d8O5
-	 7876H9xV8ggUaSkoJOf6lFZ7OKuN8zFTA7ji9jGiFF2eAjP2tTV8Tt8rD/FbVQKwiQvbm
-	 1ScluZeidStH+jgYoH2Nv2kqEWLQE6rHzY4ijyyJQ4ZCxKHxYDNPApL0bQcaITNvhIx1U
-	 yFFvauNiFKH917d6lq0bCbSNbjU76AvyznnjUWtKELS/Peh+1jK8grEs/uguvU+n0xA==
+	t=1794840810;
+	b=u3uIEGfvjCDm0188rq/WThG0cpr3mutEdUE+XTC4pVqaKfQ/1t5waeUvUa092b6jmj4P
+	 vW/1xD+O5x9Hd3aMlV39fPHCt4QYSMQyNzxWRSYt851CtFUgif/d2exk0Wx0gCIlk6Nw+
+	 7iYw5RfzRUv8V2bH1alOQ6nezTJnLjU0N/bJ/xxff/lGldprigcWLvjQDM5Z73oINV75+
+	 XdcwWBpgCDDKw3U2H0FLqpdOC1HNMcmuuDkE5ZImeeewligxQb7IKOJIjRP7O8Urxw4b6
+	 nHcDmUuIYKJGI3cdk+UiDtIBSih5FECL9RsBxLZ2M23IyG0NjBC3XO5xBcXshsJBWNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794840783;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=kCbDs/PTZqvVl29463lZKPYGGkvJ4rxM+gPSBP9h9Ac=;
-	b=AW7PgcEV0WKP1vEbkanRTm1+hWXOBzvsf+0koOfpbH4v2IJ/oZeFsqc7KbNRX+KSm6OX
-	 V4py8rS0Ud70abLp8fGEYkHL1aJVBiMqS9QxwyLNg7qYFTUH8BnXaDbjXUeMHQX5XeqF6
-	 VNTpdBah3fW5GV1UiniJ7BTE/5h9Pi3p3izZpe73v6qCw+wjmucpbiACsFqKi5ssrKn0r
-	 65msgo8bXm26Iu1Spzeui2o8FeaA49YLaa+4pJxHFMRLxOrXF/uxsN4MLWIQ8ZUfro0k8
-	 eyvZ9iLVbE5NkDDRPdOx8DXqKEr67IbQLa2G7RaD1GyMMBUuZ0E/UhAIIIq8V/itpXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794840810;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=OSKH6DGTrkopNq4tA3GSj5EKxZJjQuu22esfVd2A0Tw=;
+	b=TQFv3dJacP1k/bvRrKpNxObz1Bkv2wEJEQVSbjAD5W81yPnDgVdVYoRd1EATjQmotS9k
+	 v9jbnjHzqOtZLpKklYQbuOH4gOYjKK3VvUolE5I1QffwurS62EKDYevc1eDX69xQPWXEN
+	 600ggdphwfWWTf72mXdpGj+pn0BvuOBlJcPBea00zc0C9JgOu4zJs8/8TcWSs12Uhz0w+
+	 4KU19f1vWDEJiwv110iLj7BfRQNXdskscRC2HMD47hslxz0Q82T2RxzZP+pWNgUBtAPE1
+	 k8SBbLmJhiBvRfdGJCDWwyHGBiaRc/BYnGA+dO+TpFIC7VEE3uVLQRfUrWa6THWZcOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=MpUJhYH9;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B/eyQH3z";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1199606A337;
-	Mon, 16 Nov 2026 14:53:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1199606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D002606A31C;
+	Mon, 16 Nov 2026 14:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=MpUJhYH9
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 8A9E122748;
-	Mon, 16 Nov 2026 15:52:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794840779;
-	bh=kCbDs/PTZqvVl29463lZKPYGGkvJ4rxM+gPSBP9h9Ac=; h=From:To:Subject;
-	b=MpUJhYH9MV9F3UKvchqP+e6+KXOHLRNG1BlD6d/w78+7Hhdw+RjUT4Qjlbqd8OZoS
-	 Uge4wu82UAor1rjuEt/SSz+dQtbLEYhqMoUeXF9l1Q9psnTRdQabYy0+8eDio+mnmz
-	 RrDH7lUXM9qRVyNbJ/GzIWF91ZiuT0TJeXo6bSIMzGXELXpXMvHxV93Yg6c0s4V1y2
-	 O+/JqbVgeje6j8R/SE5neglopxid3aXj5fLk5ogwtIbHyrSwAEvwFIKToJJLsTwT6I
-	 RUwlSBudy1q6ElAHL4Ow954mkIYISsrzc04AlPxMxcjW+k5xKMYLD+O79t9c8Jojvi
-	 nswMH9F7C27wg==
-Date: Mon, 16 Nov 2026 15:52:54 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
-Message-ID: <20261116145254.GA198694@francesco-nb>
-References: <20261113153820.902362109@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B/eyQH3z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0281F000C4;
+	Mon, 16 Nov 2026 14:53:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794840809;
+	bh=OSKH6DGTrkopNq4tA3GSj5EKxZJjQuu22esfVd2A0Tw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B/eyQH3zoFS8eSMcrtMgxdf11YLokLJ0YHyV5wYnj24qRK5FEAFgjIf8GQ3SAtS3m
+	 TeOtZMqmunJFTeq81KdGSP7pzcUYmJhggZHXxpT4w/Eo6Yi17USoOfrsMGatoI7t8X
+	 nikwVLMgeiQyItJ4QQR6t6Dvxzeeg3sW8vpq7U1eXgwb7ZWNCTqQpAUXd3bsfBDqbk
+	 EOoEXitHtOfu8t76WpxEEAF7dy8RSTuisIMNNBXZkopQTvRRfseu+QhDPg7ipNB43h
+	 mc+VDH4nZvyAtNzrVB8ZomBs/1h7a+McMNOuO+O3DQ3T4nhtjoI/GlGieCtgYfAo/I
+	 B295pKewLrqvw==
+Date: Mon, 16 Nov 2026 14:53:22 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>
+Cc: kvm@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-riscv@lists.infradead.org, seanjc@google.com, 
+	pbonzini@redhat.com, akpm@linux-foundation.org, david@kernel.org, peterx@redhat.com, 
+	imbrenda@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [PATCH v3 5/9] mm/mprotect: add MM_CP_PERM_UPGRADE
+Message-ID: <avsY22UYKI_Z3OUk@gremlin>
+References: <20261112142039.907090-2-clopez@suse.de>
+ <20261112142039.907090-7-clopez@suse.de>
+ <avdw0O4rWi4WrTvy@gremlin>
+ <079c15fb-8b41-472d-b9f2-d88826e27286@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,15 +65,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <079c15fb-8b41-472d-b9f2-d88826e27286@suse.de>
 
-On Fri, Nov 13, 2026 at 10:42:13AM -0500, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.64 release.
-> There are 686 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Sun, Nov 15, 2026 at 11:01:52PM +0100, Carlos López wrote:
+> On 11/13/26 9:37 PM, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Nov 12, 2026 at 03:20:34PM +0100, Carlos López wrote:
+> >> Add a change_protection() flag for changes that only add permissions,
+> >> so that MMU notifier users can keep their mappings and fault in the new
+> >> permissions later. mprotect() sets it when the new VMA flags only add
+> >> read, write or execute permissions, or VM_ACCOUNT, which does not affect
+> >> the page tables. Any other change, such as a different protection key,
+> >> is not an upgrade.
+> >
+> > I'm struggling to comprehend what this means.
+> >
+> > 'Add a flag for changes that only add 'permissions' (not defined) so that 'MMU
+> > notifier users' can keep mappings and 'fault' in 'the new permissions' later.
+> >
+> > The rest of the message just states what the code does but speaks about it as if
+> > it was already what happened.
+> >
+> > This needs to be completely rewritten...!
+>
+> I'll rewrite it. By permissions I mean the access granted by the
+> protection bits in the page table entries.
+>
+> > [...]
+> >> +/* Whether this change only upgrades/adds permissions */
+> >> +#define  MM_CP_PERM_UPGRADE                (1UL << 6)
+> >
+> > What are 'permissions' exactly?
+>
+> See above
+>
+> > [...]
+> >> +static bool vma_flags_is_perm_upgrade(vma_flags_t old_vma_flags,
+> >> +				      vma_flags_t new_vma_flags)
+> >
+> > No comment, random abbreviation (but just one word). Not ideal.
+>
+> I'll rename. As David noted, the name I chose is not really correct.
+>
+> >> +{
+> >> +	vm_flags_t old = vma_flags_to_legacy(old_vma_flags);
+> >> +	vm_flags_t new = vma_flags_to_legacy(new_vma_flags);
+> >
+> > This is beyond appalling and a complete abuse of the VMA flags API.
+> >
+> > You seem to have decided that you won't try to learn how the API works, so
+> > instead you'll just write deprecated code that I have to find time to come and
+> > fix up later I guess?
+>
+> Sorry, I'll rewrite the helper with the vma_flags_t API, using
+> VMA_ACCESS_FLAGS and VMA_ACCOUNT_BIT, and document it.
+>
+> > And we're at v3...!
+> >
+> >> +	/* VM_ACCOUNT does not affect page tables */
+> >
+> > What does this mean? And why are you referring to a deprecated constant?
+>
+> I meant that setting VM_ACCOUNT does not affect the protection bits of
+> an entry, so it should not prevent the new flag from being set.
+> mprotect() sets VM_ACCOUNT when a private mapping becomes writable,
+> which is the case I wanted to cover. I'll explain this better.
 
-Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Thanks for all! :)
 
+--
+Cheers, Lorenzo
