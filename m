@@ -1,58 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801785;
-	b=gFFkhFXf1AefaB1AkQYihk3l7hZN1LTvr8XvuNaMeF/ZPnFK4rNNVAnXnV3mHDrVBTPI
-	 AAuKVV+w7eVKiPfynpNWFHXWD4O2l76OFNE/KA0lxO7TiXjg9mS8bfEo4o+CoA2sHu3ga
-	 hmLNq1ttNBHJ0KK+Ahra2AK/+xfN7let811rjcj/7cgzIe7juk5FMD3TyJYWAe/IuQVl6
-	 SzRpSduOB2g0Md//1GkL98QpPQSd+e2KlHlDDIZJaugrj41ZPVjOYD442N+wTH7Fr++4s
-	 PU8vZe1/qKfZ7+aTWk8PHwNFKjgkuKpu8d/p/FLx1gjHbrxWb0VQ61mVeCchrrOCoyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801785;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=3g+VMxZ+e2f9iQi95K9HqTE0p3hdsBtToOWsR3m+oak=;
-	b=JTVDKHBYtSY5WSdRr+MJgEHE1ND9XFzxTf6DgtT2h4CQOWu7YF9fKHV9LzDaSJfy8Rd/
-	 8wUkQ8ec7YnJn8XXZUXnOeopIXVUzKVp5SjYOK1UBYiHNJ8P0qFkPzAx0P8tzERAhIN6Z
-	 +sCzRTWo7T3eyy6LRwkqPaamBF/dN4hTS+Gp3Jh8qKRGnturWhUUS0f0vT2URdTytyMEQ
-	 doKW0/FrOw8jmsumpaQqNSL3L3nWsv5xqfjnK2eOUr8E/FbWj+59856H1OAnckiFctbrl
-	 +HfrqyxoV+huH0Imp/ctNoxLncLHIcyojdi9zlyhXzeUWKL2ki56rSmF9v1OsdF5t/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sTmbE2UF;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794801788;
+	b=rhWfctnjzjsvLce9hAuFsXvJu0K6iemokikSwoo0a8Vns57vrfjRdcRyYA0bw7f8IlVh
+	 F580O3KMHTYAKBfqgK9dgD0t4dvEAYvhcu7+C7Q0duiOud46WJ/Ermf7304fFwEnrCHH/
+	 5ClnM5j//cBkMn2pAGXS55vK6SSTgdArG3UP9BLrxVxKpjDqAC7XnQhpd5faIrs3foMvt
+	 gcu7wEZ2eEoQb7tgjFgr29WKmYqR8xyCyhiL2mS9Gd1+ronz0JQ8bnpZyROdQ6LiOxwA6
+	 j02Tul3f9tTCVE5Ym6QmH4Z3ZwebfDov5xwY42BprAGz+/SWUhld2DENH5Ra0UP3QqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801788;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WZrQ38fdMDsUYFmexY5tQnjrAvWJEY8F9g41tFfSjtQ=;
+	b=wLYDS8IyG+RyCpxnX3KAeH5YfPoa9o/xhCcnnupuz2Go86UiLf1H+Pw2FDmJxkJVE30j
+	 /21+SYdQomDSkcPSgRebUgHc5CpAcA0kRUvBHw2wVhw3HxQ1erPWmIyspFc/WL+5q9VMZ
+	 wvJpgsGbXa81OHW5dOD1G1OBEqkuqXsytXcVHY5glJ04ERdHKHZ1BGZS0pvNu+/GukdR/
+	 m/59aW7EE3bACeGNveQ+ijc8Z0f5+ZeDNWz39rljjv40/X0Fyn9srtd3VMTGOCpw924gv
+	 QN0AxLZ87pqa10umnXwwYRBekW2noIyoAp/tfNPa7aH0jUcWsPGvrY9Bv9rJQPr7k7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=P6Hkw2DP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.46
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010046.outbound.protection.outlook.com [52.101.56.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FA3606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11FA3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0719606A330;
+	Mon, 16 Nov 2026 04:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0719606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sTmbE2UF
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=3g+VMxZ+e2f9iQi95K9HqTE0p3hdsBtToOWsR3m+oak=;
-	b=sTmbE2UFiLemfkuWG00EVmGagQZ0tZRapIGL8RuTigt/iJoijkT2Maj70oFfTCWELpXNDnIgz
-	lh7Byv1aVKVRrHtOBA6CabU94mpCbDFnevB+QmJ96MDxeewD9cIXRWPHQHc+3/9oZLV51c469er
-	wZsJnHvIa/HPEy6ZdRISpGQ=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jSZ2S1nvvz1K9VW;
-	Mon, 16 Nov 2026 12:02:40 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7A9EE40573;
-	Mon, 16 Nov 2026 12:02:52 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 12:02:51 +0800
-Message-ID: <bba48893-f71f-4168-8948-1d37cf59b3d5@huawei.com>
-Date: Mon, 16 Nov 2026 12:02:51 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=P6Hkw2DP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RbjH5zW1tlP5FeNsa29dIucIG8OiHgO3wVkWQzIkunOKki8CKKRiuM+nsaFiOut4qiYb7K20auNFBLcym0ehEbPpAm0y3lo9kuVgvRfagjtUMGejY8DfgjuhgQQ8KaCZ9cLfPeeT+uBoEruAGzI2tNwu6N4LYlxY9WYyPqZELRFtWabVhoOn0jUpSOYDVWKFrZJLfHy9VIPWpQO2mf4FqnOb0gJbKojLGli6E1s4n96NpQZ8VOH5WCAm+gHCzarCyFGiknXbxUMlGN+wQ9aIIN9j4JrLivwKFTV2kqMzesmuyQNGzK2MiL4VXC7d3h5LBTFiq56ncjJ4LUUWAMRB/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WZrQ38fdMDsUYFmexY5tQnjrAvWJEY8F9g41tFfSjtQ=;
+ b=P2di5pkA1cV8ajzMg5WOHpUnq8rxMr/2WpI6ddS4xWv+3N3EPug8WKI8couZQLMTocD8xHOri9YqG00tc95i/gXcKSnEWjESU6DUNo6376Y0wAvdBzj/EyNzG8XMSqS3sKnP/FnspemxUzr2kdreTy7SzdEXhxeeRDkN7xdALbVcp/uJ0TnOuA8X2q0jReOJXsvj1sT0Ou9xvVjGoNDFHHTAsllfyf/iFvMCGf9+cCnCWSpBbskUjQZnSKWKJleMiIn1Ot7xbgc6wpJsVrezVgxYVip+ptor3tR4CgLSmplt5gaWVJAtoE5FhzLR8LVvfsKSKUa9NE/O+q2yvOJ/dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WZrQ38fdMDsUYFmexY5tQnjrAvWJEY8F9g41tFfSjtQ=;
+ b=P6Hkw2DPoNY7CyUoBbmCHMuLepbyeEYavUdsFFnFmJmVCp2klUXbMX9BryJGAvCRraCTEQJWyU2sFVOgmM7+ji5DbEP7g74p+3/vuSJuuxbn+wihn9+Czwhy1zqewyAF+TvQ5fACKoeQmx/k4lY/BknPI+KQuqjloA7TDZPxXmIMlYUfXu+WMVk1ZLbRT+yi0vG3uzWXkP/glS2ktOKSg09UGGAtS6mT8fwq5wYXvixhQSFF54LIzGcDtdVB5i95SzphSl80k2iscQj7c+K84s9zv3XQlVBaVZGZyX9bKixChYunXCA8iZ/yfdGAuLGs3mDOhJRpqhA4/uZub08PsA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
+ by CHBPR12MB497579.namprd12.prod.outlook.com (2603:10b6:610:33d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 04:03:03 +0000
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
+ 04:03:03 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 13:02:11 +0900
+Message-Id: <DMWC44MU9W7N.3TBNH0HCKK065@nvidia.com>
+Cc: <aliceryhl@google.com>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <a.hindborg@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: remove unnecessary firmware
+ pin-init
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261114234324.82387-1-dakr@kernel.org>
+ <20261114234324.82387-2-dakr@kernel.org>
+In-Reply-To: <20261114234324.82387-2-dakr@kernel.org>
+X-ClientProxiedBy: OS7PR01CA0226.jpnprd01.prod.outlook.com
+ (2603:1096:604:25d::12) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,113 +104,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] fs/resctrl: Give a monitor domain the counters the
- groups already use
-To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
-	<reinette.chatre@intel.com>, <fenghuay@nvidia.com>, <tony.luck@intel.com>,
-	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <will@kernel.org>,
-	<jic23@kernel.org>, <gshan@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261113083506.4129060-1-ruanjinjie@huawei.com>
- <20261113083506.4129060-3-ruanjinjie@huawei.com>
- <10f43d19-2994-4ad2-8a49-2891582e32e7@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <10f43d19-2994-4ad2-8a49-2891582e32e7@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|CHBPR12MB497579:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb9b7462-8b18-4d89-b35c-08df439671bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|261102123227099003|261022075727099003|261022115727099003|261021123027099003|261021121427099003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	nYoO7563OhO9w0qUnmx1Ztj30QoUllkIyXRkmdQedDnDHuqc/684Oie1VbeHwDraVj3Ri14xpoOxH2CIT4RKJYkn+fG3YzcnDDRDWr6rRCsHkicFVJSmPqVsKC1juN9CBMF/q0jofPHz3xajtAnb2sneZh1qqdAdNzWv3zfS8AkZPkVD7AdpfLxgAo4QK/K/CBrZkxgUjpp4g3PSVm3OejQo95hKUbdlUeoi8H3YMBFFjTCw06yFNLK4+YIr9e8Awe8M79Y9ih1HKf1ox47CnvmSdeqeK+n7gCGfNT0NSu9Iom7GLvFu2uZPOzErpgemE1f3+gbEkTzL08veZgMXf1JmTJm1QLWX08GatqKJsZkliO6TaCoQ4oMk6vbn5bn31kO+RIqiCCLtgSEnPdnBSShhEjNiVev8KImCIkC+pqIO8VpDFfgVVEkEBmjDeTFnTDtSuX4QYV513K+Sgh7uFEQZHuwE5uZTb83zBhwpDqcMcx4cVWjYxekgPmly10J4oZt/wy2LrkG6s8wK8QpBRlZQOi6dM57lfm7WfroSF/jnCuTXiVliiIJNS51A8chJHimV9oyISo0AdmnoVIW7Tiolw9kO9ydBfS0XtL7DxGGmstq0aeW9+JF5DoEEvblJYmrzE59PFXzXVvFJ8tctATljLzos2Godjs2tfDlfViA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(261102123227099003)(261022075727099003)(261022115727099003)(261021123027099003)(261021121427099003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RXNMOFlmcXBTTWhmYkhBTUFldVZwZ2d6U1laMG0zaWJqNXQ3dWFocnNGeFZS?=
+ =?utf-8?B?ZWFOd3Q1TlBrYmY2b2RzeVVUVC9uVm1RZDg4bCtUK1dWU1p1WXMvN2dQMWxT?=
+ =?utf-8?B?TmQzbzQrb2pLZ2ZvSmhaVmJRbU1XRjI5dm44WjVZMjVKRUtzOXBETXZNWTVu?=
+ =?utf-8?B?YlpKT2JOb0ZWRjRmS1BrTkRiWjQvcGlIRXRhOXB4cnhNZjgrQTVpSStINnk2?=
+ =?utf-8?B?MFlhbUVqamw2NW9NQ214WG5MckJBVG5TMXd4M1VvWmpzdFpYYzlZYXZxZ0la?=
+ =?utf-8?B?a1B5ZitXc1lDN2ZmSmhwRFZ6aStTa0lVSk5JOEZsd1pZRWF1MXpDUGJ6dzBJ?=
+ =?utf-8?B?MXpiUytlZ2JrVkRlYWtMTUJISHI3a1pKdjFIN3FtYm9xckdMK3RBdEsxMUZI?=
+ =?utf-8?B?S2Q3ZFE2bnFtK3dTcU81a0xTZUQxTUY2Vy9YZExIRkQ0NWV4TU5Ea3JSMDhS?=
+ =?utf-8?B?cDkvcU9vTUNVWU5sNnNXWUIycGFzenlyLytUQm91WjdIWUx6NXFEUkZWR2pq?=
+ =?utf-8?B?TDZmREE1SnN4Y2YrQmZLSWsvR1ZRY216K0srQ01PMkFwNXovYXFVd2w1cVF1?=
+ =?utf-8?B?c0JhdVhSR21FbjVCcEt0QmVCVUM1eWhRWnJwTUdrZVk5T3J4NHFKdDE4V0F2?=
+ =?utf-8?B?ZUdPeHhCNXZFTkVYRC9sczlMUGRYZGNFcHRyRS9wWmJydkRLUjE1SkV4V1E0?=
+ =?utf-8?B?alphZmFKQys4cTZDeVA2UlcxaE1KR0dXTkp1QVNBSEhuRnl2THR2RW41QjMx?=
+ =?utf-8?B?ZjdjUWxPQmZ3QThZYXZzU3FTT3JqY2V2ck5XaGFZR3k4VmNhMktTM2RvQlk0?=
+ =?utf-8?B?SzlyRGplbzlLVUhERE0vSk1qK01CVnpOSFRzZ21IYlRlVElBU0s2Qm9YLzFQ?=
+ =?utf-8?B?Q0ZIRHJKbGRrNkdVZXdvUUpXTTVrZzBhbzdDN3VZTzcwVGhyNmtORFlKZ0F5?=
+ =?utf-8?B?WnpXOTBoaWZBQVhEVFI0WVRZZzRBbnRYazJWTHQvaCsycDUvTjVWTjlMdVZ3?=
+ =?utf-8?B?TFVDMWllSE1hUGhtcTFKOXVYZWZxSXhzNnA4SkxQR08zdlZhZUhNeTZJKzNi?=
+ =?utf-8?B?TldCc1VydDg1SW9uK1dLL3VJdHFZUSsrK0NEQ0tobXNLOWxtVnhTZU92WmlT?=
+ =?utf-8?B?MWNiSG8weUNPYXRiallkMXBYRVdYRkplWXB3VGc5L0hFZlAyUlNIZlZ0d3Ey?=
+ =?utf-8?B?eW1NNUkvVTIydzJWZzRCZU1VNFc2L2l6TUt0ajdTNVZhRUM0dXZDS3ljN1ZM?=
+ =?utf-8?B?RythaGNUcGJIOWtyWHVuSHpZd3dGbkxVQUlvRmpvdndMbklIUEY5Mm9UdStt?=
+ =?utf-8?B?dEg3bW4vekJFWmZtZnNpQ3hyUFErUndYdlpJK0hnem9iWDRQWkFOdGtHVjd3?=
+ =?utf-8?B?VExJbHlCSGFza1JNUHVXR1ZhbTNFNDZEZXl2WDkwQytEMmN0Ty9sbjdQVGxp?=
+ =?utf-8?B?RWEwT29Pa1dnY2VtL1Y1RDR5aEs3bExNbnY0WHp5N3lvc2ZxNXEwTU1LVzNn?=
+ =?utf-8?B?NUwyZXBXWHRqRXFyYkVoRFhBSjk2cGRrM2VqRmJCdG5iNzRXcnlUL1NoZ3hI?=
+ =?utf-8?B?QlpzR1hSaVdjYWtPZmYxUWFjRG43RE8wSisrQlRWaTVldVlDbDhRYy9VeUFi?=
+ =?utf-8?B?L3YxUnZkV1o0SFZXNU4zRXZCcDNRSmEza3Z2MnZHSTdYVmxJQ3ZIdDVJeTkx?=
+ =?utf-8?B?R0t6MGZFQk1FWE9HNU9JZGNOUm5MMG9hN0thWjdaaTZQZWVjdTZ2RHlraWVx?=
+ =?utf-8?B?elJjaHBNZldIdFJjNU5HRWlwUUgrVHZjdFg4bWQwTkdZcXRmd0pVTC9qT2hZ?=
+ =?utf-8?B?YVNGSjZNRlhCQW5GaTYyTGtDZUVoZFNkMXl5TUpzQ3ZHeFFwWUx3MHEwUTFn?=
+ =?utf-8?B?V0dtZ2J6OFJYdUU0alhoME9sb1BCUTVNMlNBTUFQVkMyUGxvTWhwZUFDOEtK?=
+ =?utf-8?B?aFhPbmZoTW1taWRsMk1DVkg5NFNGUE4xR2FaRDlOQS90Q0kwL3p2Z3VFVGx0?=
+ =?utf-8?B?c0M3RlBqdHBXZHBKRk5nTUh0eVFqNzM1bTlmV3FVb2k3dzk4bUhFKzNJRTJ4?=
+ =?utf-8?B?cEpYTUFscWtmRHFRVkgzNTJIZVZUT1U3WEI1V29heWVPYlVWZHdYcTRHOXZJ?=
+ =?utf-8?B?NHZtcGxXcnArdGQrMGpjVStLallVd2JydS9tU0VnUWJ6VWRNVzUyQjhBM1FZ?=
+ =?utf-8?B?UjBMakxDSXJJazRiaDZDYXJvakVQa1BoeE83bjRDamtROVMxRnVJMHpGQ1d0?=
+ =?utf-8?B?blVxWDlpWFNoRHlLdW9lL3BrV0ZWcThkZlVOc0NabXFpTTBzb2tEMkk5djlz?=
+ =?utf-8?B?UVA0ZkFmeitVK1poZDZuUzgxWGZWeHI1SjlSLzVHZ0Y5bk9BUUpNcXhjNGhm?=
+ =?utf-8?Q?arjoyBlosFX/F5RQYKcBVqwKsLPwz1ISQR34ghxgiAnCz?=
+X-MS-Exchange-AntiSpam-MessageData-1: DKivWvTQJdP57A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb9b7462-8b18-4d89-b35c-08df439671bf
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 04:03:02.9066
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gEhj76cTyvRhgTTERPdGvWljnUXhqfVdO0TRtBB0Pw+gqUhHCU2aDxMM6+HQkGWT6VYDvyaZCCB1HTXeOY3bFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB497579
 
+On Sun Nov 15, 2026 at 8:42 AM JST, Danilo Krummrich wrote:
+> Now that SGTable no longer requires pinning, remove the pin-init
+> machinery from Radix3 and GspFirmware.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/gpu/nova-core/firmware/gsp.rs    | 43 +++++--------
+>  drivers/gpu/nova-core/firmware/radix3.rs | 82 +++++++++++-------------
+>  drivers/gpu/nova-core/gsp/boot.rs        |  2 +-
+>  3 files changed, 56 insertions(+), 71 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-cor=
+e/firmware/gsp.rs
+> index 341a8b19aa38..ff92a12b2994 100644
+> --- a/drivers/gpu/nova-core/firmware/gsp.rs
+> +++ b/drivers/gpu/nova-core/firmware/gsp.rs
+> @@ -25,10 +25,8 @@
+>  };
+> =20
+>  /// The GSP firmware image, its signatures, and the GSP bootloader.
+> -#[pin_data]
+>  pub(crate) struct GspFirmware<'a> {
+>      /// The firmware image and the radix3 table that maps it.
+> -    #[pin]
+>      radix3: Radix3<'a>,
+>      /// Device-mapped GSP signatures matching the GPU's [`Chipset`].
+>      pub(crate) signatures: Coherent<'a, [u8]>,
+> @@ -39,34 +37,27 @@ pub(crate) struct GspFirmware<'a> {
+>  impl<'a> GspFirmware<'a> {
+>      /// Loads the GSP firmware binaries, map them into `dev`'s address-s=
+pace, and creates the page
+>      /// tables expected by the GSP bootloader to load it.
+> -    pub(crate) fn new(
+> -        dev: &'a device::Device<device::Bound>,
+> -        chipset: Chipset,
+> -    ) -> impl PinInit<Self, Error> + 'a {
+> -        pin_init::pin_init_scope(move || {
+> -            let firmware =3D request_tlv(dev, chipset, "gsp")?;
+> -            let tlv =3D Tlv::new(firmware.data())?;
+> -            dev_dbg!(dev, "loaded gsp firmware v{}\n", tlv.get_string(b"=
+VERS")?);
+> +    pub(crate) fn new(dev: &'a device::Device<device::Bound>, chipset: C=
+hipset) -> Result<Self> {
 
+`GspFirmware` is 312 bytes, that's not enormous but that's also not
+small... Shall we keep returning an `impl Pininit`?
 
-在 2026/11/14 0:14, Ben Horgan 写道:
-> Hi Jinjie,
+> diff --git a/drivers/gpu/nova-core/firmware/radix3.rs b/drivers/gpu/nova-=
+core/firmware/radix3.rs
+> index a3e43fc8ec86..2c8787d5930d 100644
+> --- a/drivers/gpu/nova-core/firmware/radix3.rs
+> +++ b/drivers/gpu/nova-core/firmware/radix3.rs
+> @@ -32,60 +32,54 @@
+>  };
+> =20
+>  /// A radix3 page table and the data it maps.
+> -#[pin_data]
+>  pub(crate) struct Radix3<'a> {
+>      /// The mapped data.
+> -    data: SGTable<Owned<'a, VVec<u8>>>,
+> -    /// Level 2: one entry per page of `data`.
+> -    level2: SGTable<Owned<'a, VVec<u8>>>,
+> -    /// Level 1: one entry per page of `level2`.
+> -    level1: SGTable<Owned<'a, VVec<u8>>>,
+> -    /// Level 0: one page, whose single entry is the DMA address of the =
+first `level1` page.
+> +    _data: SGTable<Owned<'a, VVec<u8>>>,
+> +    /// Level 2: one entry per page of `_data`.
+> +    _level2: SGTable<Owned<'a, VVec<u8>>>,
+> +    /// Level 1: one entry per page of `_level2`.
+> +    _level1: SGTable<Owned<'a, VVec<u8>>>,
+> +    /// Level 0: one page, whose single entry is the DMA address of the =
+first `_level1` page.
+>      level0: Coherent<'a, [u64]>,
+> -    /// Length of `data`, in bytes.
+> +    /// Length of `_data`, in bytes.
+>      size: usize,
+>  }
+> =20
+>  impl<'a> Radix3<'a> {
+>      /// Builds a radix3 page table over `data`, mapped for `dev` to read=
+. May sleep.
+> -    pub(crate) fn new(
+> -        dev: &'a device::Device<device::Bound>,
+> -        data: VVec<u8>,
+> -    ) -> impl PinInit<Self, Error> + 'a {
+> +    pub(crate) fn new(dev: &'a device::Device<device::Bound>, data: VVec=
+<u8>) -> Result<Self> {
 
-Hi Ben,
-
-> 
-> On 13/11/2026 08:35, tizi4590 wrote:
->> From: Jinjie Ruan <ruanjinjie@huawei.com>
->>
->> With assignable MBM counters, resctrl can be mounted while all CPUs of
->> a monitor domain go offline and one of them comes back, either through
->> CPU hotplug or because hibernation takes the non-boot CPUs offline. The
->> domain is destroyed and re-created, and the new domain starts with no
->> counters assigned. Counters are otherwise only assigned when a group is
->> created, when rdtgroup_assign_cntrs() takes a free counter in each
->> monitor domain for each MBM event, so no code revisits the groups that
->> already exist.
->>
->> Those groups read "Unassigned" on the new domain, on any system with
->> assignable MBM counters. A counter assigned to them later through
->> mbm_L3_assignments is the lowest free one in that domain, so the same
->> group can end up with a different counter ID on different domains. For
->> example, with the counter ID each group uses for mbm_total_bytes and
->> "_" for none:
->>
->>                                domain 0         domain 1
->>   mount, mkdir g1              default=0 g1=1   default=0 g1=1
->>   all CPUs of domain 1 offline default=0 g1=1   (destroyed)
->>   one CPU of domain 1 online   default=0 g1=1   default=_ g1=_
->>   assign g1 on domain 1        default=0 g1=1   default=_ g1=0
->>
->> Each domain has its own counters, so g1 can use counter 0 on domain 1
->> and counter 1 on domain 0 without affecting the other domain, but until
->> it is assigned on domain 1 it reads Unassigned there.
-> 
-> I brought this up before and it was assessed that no change was required:
-> https://lore.kernel.org/lkml/171f92a3-fa2e-44fb-b0d1-1250c72e31d1@amd.com/
-> 
-> Do you have any particular reason for wanting this behaviour?
-
-I discovered this issue during the testing process and feel it is not
-very reasonable.
-
-This patch doesn't assign anything new - it only restores the counter ID
-the group already uses on a domain that stayed online.
-
-So with the patch, Babu's two cases (`2=e;3=e` and `2=_;3=e`) both come
-back exactly as they were. The only case it can't know is a group that
-used a different ID on the domain that went away, and there it leaves
-the event unassigned rather than guessing.
-
-
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->> Assign the counters when the domain comes online, after its state is
->> set up. Give each enabled MBM event of every group, including the
->> monitor groups under mon_groups/, the counter ID the group uses in
->> another domain, and leave the event unassigned when that ID is already
->> taken on the new domain. Skip groups in pseudo-lock mode, as their RMID
->> has been freed and they are not monitored.
->>
->> A group that has no counter for an event in any domain stays unassigned
->> on the new domain, as it was before. mbm_assign_on_mkdir only applies
->> when a group is created, and counters that the user removed through
->> mbm_L3_assignments stay removed.
->>
->> Fixes: ef712fe97ec5 ("fs/resctrl: Auto assign counters on mkdir and clean up on group removal")
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> Cc: <stable@vger.kernel.org>
->> Cc: Tony Luck <tony.luck@intel.com>
->> Cc: Reinette Chatre <reinette.chatre@intel.com>
->> Cc: Babu Moger <babu.moger@amd.com>
->> Cc: James Morse <james.morse@arm.com>
->> Cc: Ben Horgan <ben.horgan@arm.com>
->> Cc: Dave Martin <Dave.Martin@arm.com>
->> ---
->> Changes in v2:
->> - Drop the MPAM part of the changelog, the MPAM driver is fixed by
->>   "arm_mpam: resctrl: Use the domain's counter ID".
->> - Link to v1: https://lore.kernel.org/all/20261106094537.2337188-1-ruanjinjie@huawei.com/
-> 
-
--- 
-Best regards,
-Jinjie
-
+Similar comment as `Radix3` is 216 bytes.
