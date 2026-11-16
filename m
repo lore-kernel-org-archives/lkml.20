@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794852656;
-	b=N8GKY9RbG/t+SzZqSOT5wNO9cuCDRI1G795H6oEO2c2MiRuqaBFZSH6j3AT66MfFmx2t
-	 W3qTFZLoL/V2nkI41FQc/v+upiEyEY7XpdS5XPXQuo/AqXcLEWPLxmcZNTbol3LDhMlRi
-	 k607nvTKmvX/Boyqawx9mw0xscjDIBZxnukgICTCjuPaLfHUyw5xt+IZqk7po7sCFr++5
-	 Eay7CpAsYiMI/W0P9zsZQ3Toap9m0RaRFxFdCvzlXs3Yi2YtC4YYSrKvusYQorZgkz39r
-	 LB1G/diq6mynTS3V3TDH4BpctmWrf3O8pABTHHMbZFKERTMBSVhYQBHHQ96sGARRH9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852656;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-	b=mK1O7F55k1k/q4Bg+HJPClXclUlpFCVhFl1rDEU0g7SfScBuITjDdPINCWyk+EA44WlH
-	 GOevlKs6nVp4um867/rNXg+07Z4sCQTH2kxT4NEGPqorlLQFlQuWdDbMNs8qEkVakSrr5
-	 2u9JuVe5VXhbPWYJfTaixYK9TZrEV29blEsnOLrav/80RSz6IjPDefppWutBAOsjyome7
-	 w/RI6jDQyD1EueneodXcwQFeq7q4weX2cqahxVXwI9Q7Ra8WnKYh/2mhT1VqSsFVMBFLk
-	 NSQ0LqY8oLIAhGEf5wMVZ8RhdHWV3yAbVZI6viGYleqXkVPphN849wk6htdTS6FHaAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CAWJE+r0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.175
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794852670;
+	b=2PBEq9BKp2ruak70chPwU1tbiPmIJ5NX/1GVdQoFa8AF4fhbMVsKmox4U44p6kVctvwl
+	 J/ww+r3MryUFJRlUiCkBe5wWm92/UQJLs3CSaLwhJzXKra6nj2VHzjM++xWGl81LRxoKm
+	 Q9O0zRvYYgIgAOwa6l8NUZ3tTn6Ze9OTEkWvJRE1AIaZ98o4JYBeq40+kgDOc6yq8Le3/
+	 1iJH+YrTJHwoh9ry+Ly5Y9WcEz19h0puc9u4CGaTleTwN/rbVM7LfVdgy79glQE6qdZko
+	 umfnfCQacydLMowlWNGdKi4EbNSSZNFRRZLq1pa4N4C8/eFolGP7bLctF8Wj1hFAUEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852670;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Cw9zGt+6BcAAxGXLKuxEpnFTLz0hNmcrTc0x1UP3Om0=;
+	b=a1h+skjxNkVqhoqZoxGDWxWNln6c7W3rD94ZVYk0Teby5clxTS2yFnJTlLg88GHxzqpK
+	 JkfMWoSukLXQILadIjOZCZTMQgjMrUxPpo8Yh6YBC+13LACEzjxwAzrrY4/MUaDueDQPa
+	 E6JUSJ+nM6F5AYgRgKNdtZikgv4xbjQSp4V0ip7PBYbAgT0rX5tMbVrIc/ODE69e3o6QE
+	 WFhHgXsBr7wL1WFa8ejzMvX9I7RtQs9TY38gzmElJaU5k6M5Lw7Qlu1wumZ35xmSMuZAW
+	 9j//uEd44UnWlLV6Mqc26/xLrg2l97UG0eP3m8ZzyPPnskVHSqA9DmyW2XwpjUaR39w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oN7MEyFk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B00F606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B00F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E13E606A322;
+	Mon, 16 Nov 2026 18:11:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CAWJE+r0
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso1160518e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:10:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794852655; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BEG83YJAK8EhMhCSpxz5ym7lVAk8EDQiH3TWUXB/xJTzkZQ9SIOzMwZuw80AuceN4q
-         FXdDbkjMbSsXJh87Tj7FTGemsHWMkxUH0gwMhDF/ofVuKLa1Y2w0uRXA2WJHNpr+uRvh
-         nYEWdyQq8J5TjVaMC+/mayfNFdscMkTBk4RytJ+EwoYu1EX5m7ru+QoADyv6mw5H5gQY
-         igl6sv6L0DZVacEU4V1er/1sLQ8pLfUIR/4/cFb2l6J3PoiEY+kNEueIIWGYAs2AaPzx
-         k9PMn+FzZbxfbS3DkRnqt3wwyC4xLQpko4VDRmjbbhvNXWnyonMfScYCHFLkyuoxwQrf
-         tQuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-        fh=TgTY+io7U85LuGvvx+P3FbrYCXjLnPqzKdqUYKrkj24=;
-        b=M7EIUxMKqjghQtyAo3HQgyI+prSoUo2EZH5bxEN+o3OKkl5yK6BzpCgH0adfskazsx
-         lteMmY18mpRD1vG0rv7J0Lo0AqtR3QD85kftfHNe62pNNjdgJe4aAJbhLyhO+NKKNwWD
-         EsHY4/OuEHjlzHsfcQKcZKsc6sUMyLLLMVdBkMlptIweBfn2zJEm9e6fcQMBJQDBvY+1
-         P0EiJqOImepgIUxTPeITwam5LozDX9VtI1IEmw5m/TFpJPZhKV+PnLcrV+ffHT9qOk7K
-         lmr7v5qjA8uo/x2DU+as8oAnbXiNEjmdBhFIn7ubJN6hZn6EBtnhNgiXa14Yl8XWaXwt
-         FmrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794852655; x=1795457455; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-        b=CAWJE+r0w0YEIIqqTqO72+PmfPHdnyhqxI3yHt9FiyzzJLzOnEy6gUZC5LGuTblhEH
-         3PzVKOrwiMWV5kBO28dJNngGSaYEnqIgI9q4Huq/rUMjz+Cv6F22LGPPzCGdvv1D6FLd
-         ybb3AX1+WGGYQBCbKFpQrJVtmpFngMJyYU1+n6BRo9rpJPBB6wYialBA24CD326m0uxZ
-         xsXogS6Sp5FuUn+cZStcb2T6eRN6PcmnIxRwY+CH5rvPqMAeQ4AWMklsjEE2/YxZ01y0
-         icOOSPxnZRFdtpqGvKoAi3a5KRamfgaG2fh3mhztZM4A4jUA60L33Lm4fhZM/guUde6V
-         9Ogw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794852655; x=1795457455;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-        b=xm7XiEJX+0Ethyg8jZMnt0p8Ta/LMjML8yLCx6dZFQLGcczXgR4XZN5wbJWvMWC9ot
-         VoO/hL4DerTqtHD9Esl8GNZm4pak5ovFnUwuhqGA+/Np0hiK7E7eUUH/XOIljfImHWHG
-         LNF8rQQyLxt7hQTWTXKl45fe1DlJkaZKUVpj4rLek/8eDdfsuEmTa7XVDXdCfcsHX29h
-         h+KC4XqsrEkZ/RN+XzPHZ7/ZZPUdicpoDtQP6yxcdqFHiCuft3kBLK2Lj+f5HVjh8nrP
-         UQDqoNlcIWUOyHQG9uEOVwzQLLyB3e4FE1rmf84aIOsavh0pxrQZvEOjb/YYYfc4nO5D
-         7K+w==
-X-Forwarded-Encrypted: i=1; AL+hErFjasDFPmSpNo8Dgxiv9+OMNPkqk8tXupapXB7jLIVGQgPl5mLzFmGTn/Q8qoFcj6rjVVbWXdmt4JD2ROk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dKzVlQjpm/xEp4cHK78FmJsozoNlupwx0iEbHN81YfNMpliG8
-	f1O0nG5agcEWzH9aTHRuKFS9u2XLmacsx7PjyVFWTvVBnsgupdFJjpdO+Hx+hO2zplPhQzsNddI
-	uKcB48sBQmrsvCpEeeUgrVwMHu28bryU=
-X-Gm-Gg: AYBFou2AyUBh5bdYq/6UuGdaiFyi9XYGcDjmEAQkCE4ZIsvAgiqbechM5bL0A5JnN6M
-	UyzUw6p3bb2GaUZhBR4/BRsMbLxdzWO94PLrbMQa7JJeis0cEGh6n45DDHqAXKFpaWGJRR8fOjG
-	IsKa2mIA7zwASoxUphjXNehe7M0f7J3V1YIGXq+riQ4sisY9ZHb4dn7CLzoRSJjZjsV1XdL5l0F
-	ss38YvpK5vLl9FIWf+p0K8YrAhPihHdzijl7qxbZw8TgREO/J42ycKLHPuYcW0vl/lDrioDa53R
-	1L75H+4pKKKhqrUC9yZJSt9ynMlbkHM3iIg/EWIyYbx9Vt0E6TjSO5pfkoexM8ViMesy03011cL
-	nOTgis/37yrxGC86L4qZH6UqiSsBFzCUGD0X0ZlGjZTm7NTq7/JuPyvwnXCOIoVBlo6DtnQ==
-X-Received: by 2002:a05:6122:1792:b0:5ec:d5e1:ee27 with SMTP id
- 71dfb90a1353d-5ee34aebcd3mr3588477e0c.20.1794852655533; Mon, 16 Nov 2026
- 10:10:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oN7MEyFk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B791F000C4;
+	Mon, 16 Nov 2026 18:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794852669;
+	bh=Cw9zGt+6BcAAxGXLKuxEpnFTLz0hNmcrTc0x1UP3Om0=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=oN7MEyFkmcArK3z2TUAxOyshqkJz25MvGPIiGf0a4czyOSLZD9y/DBC1EJHVojx6o
+	 v8NT0Sq5e5m/H+NpIcvklduHLyP2XPEdwbIEaeMAW1XeyrqFGSXDTRL5+6lt25rnZX
+	 fnH2BYKwFdFY6ZwKptVYd1NnNrRTn9UKWzdDz9L/2sOd6iDXWgF8qQfuHImENT+VDq
+	 BFyOHyqfUrFqkb5Uoe8QkRGKz57tQ/VxLa3R9QPJFsRAM0Hl9YrKb39oUrsHtOq/7D
+	 9NWMlp3LX/+499UJF935UscbrhGCAFDjaiLCFm2MISnqq1NcRuZBHXV1A3/g2EflJZ
+	 ld8R34R9KAOIA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 85D66CE097D; Mon, 16 Nov 2026 10:11:09 -0800 (PST)
+Date: Mon, 16 Nov 2026 10:11:09 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Guikun Yang <yangguikun19@qq.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	rcu@vger.kernel.org, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [Bug report] srcu_module_coming() dereferences unvalidated
+ ___srcu_struct_ptrs entries - wild kernel-memory write on module load
+Message-ID: <9e56774c-abf3-49bc-b6e8-34ae1db4cf9d@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <mod-r-offset-oob-20261113@qq.com>
+ <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +63,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-sunxi-orangepi-3-lts-v5-0-979cf5474913@gmail.com> <179485210124.3689664.6903721866612808429.b4-ty@kernel.org>
-In-Reply-To: <179485210124.3689664.6903721866612808429.b4-ty@kernel.org>
-From: Cristian Filipescu <filipescu.cristian@gmail.com>
-Date: Mon, 16 Nov 2026 11:10:44 -0700
-X-Gm-Features: AclHuK8Q7HwxDEIcfyXjUFUI9dASw3q3swCNJxLwvpsAisQFiqmZU_r7ygT_THk
-Message-ID: <CAH87RzQpJ3Nu31cDMqWJ_v_2SRm4mhKmf22nWXf4=c9CA75hAQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/2] arm64: dts: allwinner: Support Orange Pi 3 LTS
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
 
-Awesome thanks.
+On Sat, Nov 14, 2026 at 09:30:00AM +0800, Guikun Yang wrote:
+> From: Guikun Yang <yangguikun19@qq.com>
+> To: "Paul E. McKenney" <paulmck@kernel.org>
+> Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+>     rcu@vger.kernel.org, linux-modules@vger.kernel.org,
+>     linux-kernel@vger.kernel.org
+> Subject: [Bug report] srcu_module_coming() dereferences unvalidated
+>  ___srcu_struct_ptrs entries - wild kernel-memory write on module load
+> 
+> Hi Paul, Luis,
+> 
+> The module loader hands the contents of the ___srcu_struct_ptrs section
+> to SRCU as an array of absolute struct srcu_struct * pointers, with no
+> validation of any entry. srcu_module_coming() then writes through each
+> one during the MODULE_STATE_COMING notification, inside init_module().
+> A crafted module whose synthetic section contains an arbitrary 64-bit
+> value therefore gets a kernel-heap pointer written to an
+> attacker-chosen address.
+> 
+>   Oops: general protection fault, probably for non-canonical address
+>   0xe00006aaa0000021: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN NOPTI
+>   KASAN: probably user-memory-access in range
+>   [0x0000555500000108-0x000055550000010f]
+>   RIP: 0010:srcu_module_notify+0x480/0x610
+>   RAX: 0000607f57d191c0   (alloc_percpu return, the value being written)
+>   RBX: 0000555500000100   (the section entry, verbatim from the file)
+>   RDI: 0000555500000108   (&ssp->sda)
+>    notifier_call_chain
+>    blocking_notifier_call_chain_robust
+>    load_module
+>    __do_sys_init_module
+> 
+> ## The three pieces
+> 
+> Loader, zero validation (kernel/module/main.c):
+> 
+>   mod->srcu_struct_ptrs = section_objs(info, "___srcu_struct_ptrs",
+>                                        sizeof(*mod->srcu_struct_ptrs),
+>                                        &mod->num_srcu_structs);
+> 
+> section_objs() counts entries and returns sh_addr; the bytes' validity
+> is entirely up to the ELF file.
+> 
+> Generator, absolute pointer (include/linux/srcutree.h):
+> 
+>   struct srcu_struct * const __srcu_struct_##name
+>         __section("___srcu_struct_ptrs") = &name
+> 
+> Unlike __tracepoints_ptrs (PREL32 self-relative on x86), this is a
+> link-time absolute address. In a hand-built section the bytes are
+> whatever the attacker writes, and since no .rela entry targets them,
+> apply_relocations() never touches them either.
+> 
+> Consumer, write on load (kernel/rcu/srcutree.c, unchanged from 7.3 to
+> mainline 2026-11-14):
+> 
+>   ssp = *(sspp++);
+>   ssp->sda = alloc_percpu(struct srcu_data);       /* wild write */
+>   if (WARN_ON_ONCE(!ssp->sda))
+>           return -ENOMEM;
+>   ssp->srcu_ctrp = &ssp->sda->srcu_ctrs[0];        /* second write */
+> 
+> ssp->sda sits at offset 8, so an entry value V makes the kernel write
+> a freshly allocated percpu pointer to V+8, and a pointer derived from
+> it to V. The unload/rollback path (srcu_module_going()) dereferences
+> ssp->srcu_sup and frees ssp->sda through the same unchecked entries.
+> 
+> ## Why this is more than a crash
+> 
+> The write value is a kernel heap address and the target is a fully
+> attacker-chosen 64-bit address. Pointing the entry at a
+> userland-readable mapping leaks the percpu allocation address directly
+> to userspace, defeating percpu-base randomization and contributing to
+> KASLR defeat. Pointing it at any zero-filled kernel address lands the
+> write. A non-canonical target gives the deterministic #GP above
+> (reproduced 7.3.0, KASAN inline, DEBUG_PAGEALLOC).
+> 
+> ## The fix has an in-tree precedent
+> 
+> jump_label.c validates exactly this class of pointer in the same
+> module-notification path (kernel/jump_label.c:716):
+> 
+>   if (within_module((unsigned long)key, mod)) {
+>           static_key_set_entries(key, iter);
+>           continue;
+>   }
+> 
+> The suggested fix mirrors it in srcu_module_coming() and
+> srcu_module_going():
+> 
+>   for (i = 0; i < mod->num_srcu_structs; i++) {
+>           ssp = *(sspp++);
+> +         if (!ssp || !within_module((unsigned long)ssp, mod))
+> +                 return -EINVAL;
+>           ssp->sda = alloc_percpu(struct srcu_data);
 
-Regards,
-Cristian Filipescu
-------------------------------------
+Good catch, thank you!
 
-On Mon, Nov 16, 2026 at 11:01=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wro=
-te:
->
-> On Mon, 16 Nov 2026 16:44:29 +0000, Cristian Filipescu wrote:
-> > Continue Jernej Skrabec's April 2025 series, adding the board compatibl=
-e
-> > and device tree for the Allwinner H6-based Orange Pi 3 LTS.
-> >
-> > Use the common Orange Pi H6 include and describe the LTS differences.
-> > Follow the schematic's LED roles, remove unused USB ID detection, and
-> > use generic PHY discovery with bus-level reset. The binding patch is
-> > unchanged apart from rebasing.
-> >
-> > [...]
->
-> Applied to sunxi/dt-for-7.5 in sunxi, thanks!
->
-> [1/2] dt-bindings: arm: sunxi: Add Orange Pi 3 LTS board
->       https://git.kernel.org/sunxi/linux/c/903a676a19ab
-> [2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
->       https://git.kernel.org/sunxi/linux/c/a203a4bac331
->
-> Best regards,
-> --
-> Chen-Yu Tsai <wens@kernel.org>
->
+I presume that srcu_module_going() would instead do something like this?
+
+> +         if (!ssp || !within_module((unsigned long)ssp, mod))
+> +                 continue;
+
+Either way, would you be willing to send a proper patch?
+
+							Thanx, Paul
+
+> __tracepoints_ptrs and __bpf_raw_tp_map are sibling pointer sections
+> with the same exposure; a shared check in find_module_sections()
+> would cover the class, but the SRCU entries are the concrete
+> write-what-where primitive demonstrated here.
+> 
+> This is the second report in this series: the relocation r_offset
+> bounds gap went out as <mod-r-offset-oob-20261113@qq.com> yesterday.
+> Both are cases of the module loader consuming section contents that
+> its ELF validity layer never checked.
+> 
+> ## Reproducer
+> 
+> Carrier is a real xt_mark.ko built from the same tree as the test
+> kernel (vermagic, this_module size, 11 undefined symbols all
+> matching). A section synthesizer appends an 8-byte
+> ___srcu_struct_ptrs entry (0x0000555500000100), fixing shstrtab,
+> e_shnum and e_shoff. Same boot, three steps:
+> 
+>   1. load original xt_mark.ko   -> 0
+>   2. unload                     -> 0
+>   3. load synthesized module    -> the Oops above
+> 
+> The A/B pair, the synthesizer and the reproducer are available on
+> request.
+> 
+> Tested on 7.3.0; kernel/rcu/srcutree.c and the loader path are
+> unchanged in mainline as of 2026-11-14.
+> 
+> Thanks,
+> Guikun Yang
+> 
+> 
