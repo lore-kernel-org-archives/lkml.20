@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827589;
-	b=UODH1b6Z6JsAXdJ46Kc9dJkGLibC6+lLL606Hsf1mMyFUbRznczkwtXhT+9zeIKgLkCn
-	 GHcChTAcyS5BIG1zbEMGRebAxouwsSzfuBjwmIKSLHMzPK0+RPr+2l23H/T959DtDT2o0
-	 frXE2+MAzm4z2URPa2ADtVhqeo7iq4A9M6Jk3m+2tU9s6kPb1hJoo7+7HESppQ54AYFUD
-	 yZv/PmoKz2C/IxH+eruXj4/JHXEANjPNgwVVQeH3+745UvG4NbpwUuBYTO+3+m4JklmBF
-	 1FcDQy7Lw0gVKXTV2TtFURLmK9hJdHqbaUN9BEvAEFO+MPqF3SC0+jpvwE4MTXmbeNQ==
+	t=1794827619;
+	b=jG6I6PrnHneBHT8Ekkeg+8Spp6LRV4vtU4HS/Lhd8ifljs3JAkuD9WpYv0wecXavyf+3
+	 1iQWLkmlHrPWKk9tsi9puP/rAckjV2MEV0/bAtni3s8Bv3NMZJ4iLgYpYRBYC/9TXhTep
+	 QkcilxBq1LeTpPPR18pfRK4Ab5UikPN2ZOqAkuOvFqMXf0Ez3Vio8SCE4KLUjRHJ4YEvZ
+	 mN0N+A1dUBzJV+5z0CfY8h8hs7EH6FajkzrxjBwZvUFz+WZDqfF2CA4j3nljygt6MalnZ
+	 kKrMnL+z0eXeGhwv7Q1R7pXn1GsZasOek0VusEAYBOGbrhd+Y9Bv6EIlmk9lcuVu19Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827589;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rROGYk1aEiWG91xI09CLyS+cm7Q+TGC8+ehzSxVtxO4=;
-	b=5AlEx6urC3UANdzZGNL9utBA1xaTWa26QLX++epY2GNAtnbqpdgpsHNxthCBILgGrVD5
-	 4TDK6ToeAo2a3Y4Q2HrPOuSCedC1M65/BxdvmDwoRab1ih1jL4kbChMxWbk2iWm0UNSFm
-	 ZEL5OobpbMmW+Q5W/F9abkOTNJpgRYdfiO1MQLEOPwmNQ4QtAiN9kNasI+vQ00WK3b7Ge
-	 XtawpkHN8pwyzfi7Z4QbgpQuQ0wXVRAA/rkEFh3q4OiR8tPGXXEolQw3onYU5T27m8tDI
-	 cE1ylF84P4XgsBng8G8tRVO0HQmq3Guv0JMkplu4Waik+FGFixfjbTwwnHGuBAxVdHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827619;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=YujtF9aG5FJtZ1fqhFraeDow6hmwqE3ooTREx9HW1QQ=;
+	b=PZQmA/XBkCV7E7yE1iNMwQdK4KkqvNXj0i6fWNGPa3o0UjKg0/HIcYlVEvacUJZejXlY
+	 rk4tIVeDTFd+Cv+EuQ2xwNiaarA850zvygYXx24zsTEQ2dXpy/hlT416T7+OByK35RyPd
+	 MpSTWHHNM2te0NkIea6BRLRlyu3vKIQmS9NUbGpB3vqEaDDIAuy6RYOJLDbz5D2KeMiSA
+	 Y+KEnwFW2Y1KiIPupj5jei+lTnAVEZ6UZfaRqPQgks4+kSaaXUvfWP78qbFyssmPf9vop
+	 7g3sZcRTTlZ41A/r0cj3gBe2+B0fMiFzyG5TP8L2wIzNz4aPr3+GGug0OAGqUAls1Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sv0YrJHa;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9502C606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:13:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9502C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z+eSypcy;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E17EA606A31C;
+	Mon, 16 Nov 2026 11:13:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E17EA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sv0YrJHa
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso1890604a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:13:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794827588; x=1795432388; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rROGYk1aEiWG91xI09CLyS+cm7Q+TGC8+ehzSxVtxO4=;
-        b=sv0YrJHal6yKIbHCL09EvCkmGX1nNr6Oz3Eo9+cwRe4qV2BQB5IX6/WdaOVtxvElTI
-         Qf0Q8FeIIDU4oGJQkBviViZXVimGGETKdfnjEChfp2VrnGcSQB0KoHCYKEWv472Itoxd
-         ma431rEX8S2KcYPwCgSJIEXskkOe3CUKKk3TyXSd6PAeFXA2GdNx82VEY4ePRfrlmMMp
-         HQI4SYzAIpcTYVtT8R918YaptPLYAFzn8nKE/WmX0AzT0kd2Tsun8b7IsMMQkRkWcdwV
-         +F5lyKhqk4lX5X0PANjiKu7zziPr0o8xr52n3PQPoGsvNR3QH8xZbqSkrhFSjIMqZfZ3
-         2lbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794827588; x=1795432388;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rROGYk1aEiWG91xI09CLyS+cm7Q+TGC8+ehzSxVtxO4=;
-        b=TIx/d/4MhcKGZlBtmNUB2wExqOvI1cJtJWQ8ElT0EypiUQwuzpEnw6YDvRtLBFPv1x
-         XP6PcI8vsX2x1DgFxtUUOO+7jsWLOR+UNdQfjJZWYxpqgD6lQRUGopzVQogrc7EbfMtV
-         fcsx82wmrYS94vrPafcT3XFm+v8TGRohLnXQKX3ZBnnp8n7LPQtjAhT5LjawuW68Csyg
-         1Ufd+RvzyP/k4EuQ7NCcqPVXSIxO7VojKcXL5TW8ngYz8Tle1YSsq9gsnS8q/iVTRFJ0
-         oUK3aLKzYz7idiiz484Lxyn+ggzNZCTa3/81knulKL7nQUd46CMpbzYnzgwACpnTj+xF
-         5UZQ==
-X-Forwarded-Encrypted: i=1; AL+hErHDpuAk8YRzq7rJ/oOBEQWQLR4mBaM50Oh1E7YSLNGrfHE8uSFZ4JB9tuHKAKnHsgVfjFFy4iVtg6hhaUw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jhud/Rrvw9n8rNx4CDyUKTIV+qm9UdaHhbhY+W7+/MMYaGKAK
-	cY6N75dnANVYP96Nv1xZ0t+OZfnRX4g2YUJYxaDs/eFEjjEIaAuc1e7r
-X-Gm-Gg: AZFdTZdPJ2qmgZGnL7E2KwOdVBoFCiL5OdruzMVVqfpLGX64RQeFlm3Vwo2gS4Dbmqx
-	rlU9GaLwvfDEuWzxDAtctYnyBsGVEf3Ajw3ymenHL5q7JRtYoD9uBNZ4+QVk6JMoZrwDpNXpM0c
-	vAHJ37+otEQ0es8v4nj3IvfgWOV0s/5auKaR6pVcBh2qvsjzebvZp7quvtVX15nhcBPikE6dBA6
-	dHh3fJh5ZfmWlBkVKinONpWSLvd0N9PwVbVYw9T8HMAZN4rxmOxJKU8vcl2g8kuhu95Uwo04UO6
-	JXCeEtlGltT57vs2XAxqfag6X7Sm+i6a2MdVU54xYxVVdGvTG7S3WEnHP5wM37n5NVl/HT2wAac
-	mauyWrTV3zdPpMpODSQ27vx3Cg3//p2aDOHSSSHuBHeJlT3pkp5wz13dNoM17xFL+WtDuN85vhz
-	AOE9l26pCygkMK5NWzsZEuS1Qmx6FJObuqIoLmShVXiFpWOActx/idWRihv95hMiMT6gyAQ9UIn
-	X5yTmkwHakhi9xgFg2JYB49zob0cEEqo7yXjUJbdaR2RZP+55ClHJkkbB1kQRkI2F0qWvL0iUJa
-	dTRHwIueo+ZdK6JbJIWXpkOahSoHNfjEHgBSp4uoSWMlZsnnaJaRlUmvp9wGp2KBcP+c/DQPeFX
-	5z9rbd41BRBr5ctCImTHA7zS2q6ByOp9EtvCORO9BaC5jHzU/Yok9OkBuDe/I2xRuXQrfN9Blu7
-	2dcb4uVLRmqt8NRogf0ZgF7XwJSkw2cQwKGWVHqmmt9KNr+7YeGZSdEMyDor4ETkpGTu6DHwQmL
-	jE/5rzB0mcnbB8SrlBO6Zjw8vX2mVvIieONxDmKNz7FolTiiKAC9WR8VJjnHTEdjg==
-X-Received: by 2002:a17:90b:37d0:b0:3ad:b8c8:4a84 with SMTP id 98e67ed59e1d1-3b1b0a0d978mr10900837a91.26.1794827587617;
-        Mon, 16 Nov 2026 03:13:07 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f497sm21525599a91.8.2026.11.16.03.13.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:13:07 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	stable@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/memory: mark unshare copies dirty to fix MADV_FREE data loss
-Date: Mon, 16 Nov 2026 21:42:45 +1030
-Message-Id: <20261116111245.28871-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z+eSypcy
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 204451713;
+	Mon, 16 Nov 2026 03:13:35 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DA7643F632;
+	Mon, 16 Nov 2026 03:13:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794827618; bh=aQUXlrLmvLA3/9J6e20mDqf2MdnG5musjaN7p70UOk8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Z+eSypcy8fNRkVainTE6LqR1+ogDNwY6a5fVhPAHNZrjtwDKa2x+PGD88IsZlhlTc
+	 TO8sTnBMyTb/ujZzwOBZB+VofsKDHilkaEZ0sE/agL1JB7ZOYMRsxprEUHr9zYJf7B
+	 BGH12vWH3xRs6fGloUxxxS3Qpo7ZIGCQnnWKhI88=
+Message-ID: <9a2fab79-8266-4e23-b718-c9d7e128c5c0@arm.com>
+Date: Mon, 16 Nov 2026 11:13:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,78 +53,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drivers/virt: pkvm: Zero and clean memory before sharing
+ it with the host
+To: Fuad Tabba <fuad.tabba@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Mostafa Saleh <smostafa@google.com>,
+ Vincent Donnefort <vdonnefort@google.com>,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Fuad Tabba <tabba@google.com>, stable@vger.kernel.org
+References: <20261116110549.1863653-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261116110549.1863653-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-MADV_FREE in one process can make reclaim free an anonymous page that
-another process still maps and never gave up, which then reads zeroes.
-It happens with a page copied by an unshare fault and shared by a later
-fork().
+On 16/11/2026 11:05, Fuad Tabba wrote:
+> From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+> 
+> On pKVM, set_memory_decrypted() shares pages with the host in place and
+> without cache maintenance. The atomic pool, dma-direct and dynamic
+> SWIOTLB pools zero their memory only after sharing it, so unless the
+> page allocator has zeroed it, the host can read whatever the guest last
+> left in it. Zeroing first isn't enough on its own, as the zeroes may not
+> have been written back to memory, and a host that maps the pages
+> Non-cacheable then reads the old contents.
+> 
+> Zero the range and clean it to the PoC before sharing it, so that no
+> caller can hand the host stale data.
+> 
+> Fixes: ebc59b120c588 ("drivers/virt: pkvm: Hook up mem_encrypt API using pKVM hypercalls")
+> Fixes: e62decaf98e7c ("arm64/coco: Add pKVM as a CC platform")
+> Link: https://lore.kernel.org/r/20261116091137.94252-3-aneesh.kumar@kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> [fuad: take the pKVM hunk of v10 patch 2 as a standalone fix, add the clean to the PoC]
+> Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-MADV_FREE and lazyfree reclaim rely on an unwritten rule: an anonymous
-folio whose content a mapping still needs has a dirty PTE in that
-mapping, PG_dirty set, or a swap cache entry. madvise_free_pte_range()
-only checks for other mappers on a folio that is already dirty or in the
-swap cache. Any other folio it covers is marked lazyfree once the
-caller's PTEs are clean, even when other processes map it, and
-try_to_unmap_one() then drops those clean PTEs and frees the folio.
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-The copy wp_page_copy() makes for FAULT_FLAG_UNSHARE breaks the rule:
-pte_mkdirty() is applied only for write faults, so the copy has a clean
-PTE, no PG_dirty and no swap cache entry. Unshare faults come from R/O
-pins on non-exclusive anonymous pages, for example process_vm_readv() on
-a page shared with a child, or KSM unmerging one. If the process forks
-after the pin is gone, MADV_FREE in either process frees the page under
-the other.
+> ---
+> 
+> Notes:
+>      This is the pKVM hunk of patch 2 of Aneesh's v10 [1] plus a clean to
+>      the PoC, taken on its own because it fixes a bug that has exposed
+>      guest memory to the host since v6.12.
+>      
+>      Based on Linux 7.4-rc3 (aebb727447640).
+>      
+>      [1] https://lore.kernel.org/r/20261116091137.94252-3-aneesh.kumar@kernel.org
+> 
+>   drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> index 26fe9c3f22e36..81d1cd24a2eff 100644
+> --- a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> +++ b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> @@ -9,10 +9,12 @@
+>   
+>   #include <linux/arm-smccc.h>
+>   #include <linux/array_size.h>
+> +#include <linux/cacheflush.h>
+>   #include <linux/io.h>
+>   #include <linux/mem_encrypt.h>
+>   #include <linux/mm.h>
+>   #include <linux/pgtable.h>
+> +#include <linux/string.h>
+>   
+>   #include <asm/hypervisor.h>
+>   
+> @@ -61,6 +63,15 @@ static int pkvm_set_memory_encrypted(unsigned long addr, int numpages)
+>   
+>   static int pkvm_set_memory_decrypted(unsigned long addr, int numpages)
+>   {
+> +	size_t size = numpages * PAGE_SIZE;
+> +
+> +	/*
+> +	 * The host can read the pages as soon as they are shared, possibly
+> +	 * through a Non-cacheable mapping. No caller relies on their contents.
+> +	 */
+> +	memset((void *)addr, 0, size);
+> +	dcache_clean_poc(addr, addr + size);
+> +
+>   	return __set_memory_range(ARM_SMCCC_VENDOR_HYP_KVM_MEM_SHARE_FUNC_ID,
+>   				  addr, numpages);
+>   }
+> 
+> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
 
-Mark the copy dirty with folio_set_dirty(), as ksm_might_need_to_copy()
-does for its copy. pte_mkdirty() is not suitable: on x86 it also sets the
-soft-dirty bit, which this path carries over from the old PTE.
-
-Side effect: smaps and numa_maps now count an unshare copy as
-Private_Dirty or Shared_Dirty rather than _Clean. The PTE is unchanged.
-
-Fixes: c89357e27f20 ("mm: support GUP-triggered unsharing of anonymous pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
----
-Tested on mainline b3dfbde62cf1; mm/memory.c and mm/madvise.c are identical
-in v7.4-rc3. x86-64, KASAN and PROVE_LOCKING, 2 vCPUs under KVM, no swap,
-as uid 65534, with only this patch applied.
-
-The test gives an unshare copy to a child, has the parent MADV_FREE it and
-a control page it alone maps, then waits for reclaim.
-- without: "test page in the child (unshare copy): present 0, 4096 of 4096
-  bytes wrong"; an ordinary shared page freed the same way stays intact.
-- with: the child's page is intact, the control page still discarded.
-Same two results on v6.12.117, there with folio_set_dirty() placed earlier
-in the same function. No KASAN or lockdep report in any run.
-
-Two other ways to reach the same state are known and unchanged here:
-khugepaged collapse to a sub-PMD folio in a non-writable VMA (covered by
-"mm/khugepaged: mark a collapsed mTHP dirty"), and a swap-cache-skipping
-read fault in the stable trees that still skip it. Checking for other
-mappers in madvise_free_pte_range() covers all three and passed the same
-tests, but changes MADV_FREE for every shared clean page.
-
- mm/memory.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index ec3d9d99ccee..49f6dc92c020 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4130,6 +4130,14 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 		entry = folio_mk_pte(new_folio, vma->vm_page_prot);
- 		entry = pte_sw_mkyoung(entry);
- 		if (unlikely(unshare)) {
-+			/*
-+			 * The PTE stays clean, and pte_mkdirty() would also
-+			 * set soft-dirty, which is carried over below. Mark
-+			 * the folio dirty instead: MADV_FREE and lazyfree
-+			 * reclaim may drop a clean anon folio that has no
-+			 * swap entry, even one others still map.
-+			 */
-+			folio_set_dirty(new_folio);
- 			if (pte_soft_dirty(vmf->orig_pte))
- 				entry = pte_mksoft_dirty(entry);
- 			if (pte_uffd(vmf->orig_pte)) {
