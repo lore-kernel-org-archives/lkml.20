@@ -1,78 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816668;
-	b=yfleWpZmo9GkYBxjwVc+g5/HjcRTPlb4U+Pi6NBJg6SVBxb7z18+BfwVG4epvoj0cqB2
-	 13zqYjMNc4zabwZNRx0w8h36JZpFoF/bkGbFAD4b9hPmvshWP4Xc7XVsz507hLEk6S0db
-	 /2jP5RiZaTZN+EmyuMAK3uSLz6NJfydnGWvg+kHL9HD79v5U2aTfkHpLKJmp0G/RRAz0/
-	 Vlb39kmJSepA+F7p287wRLLq+24kVGjBxL06kEcIy1k74DtszPyXyBJjrqVW+u9gcrXEK
-	 uiMM8lbsz6kEqoX2eGM+nP5+77cjkqLP2VWos5D57gKhaxlHL3prAFIVovbTrb1YwCA==
+	t=1794816689;
+	b=b7jHqcdCsiloz5B5iPauO91H/JuNFA7XZYK5zIDoJ/KJSRiS8Uo6Vlhiaz9QntDXuqLU
+	 OPjjQKYgyXuiIT/dUg39KIV9YEJ3jjZPYMLFvzFT4H0unvqJCIMI4JYbJXvT28MCeu3oS
+	 5yDdHsldcd21If/vRvlSMJd4Qk2xgtRqyZPpdvzShe/rzPlXseLwyw5GyziXBFBN+uUU+
+	 Bvj31M38gplKiBYPdMm21ZzUPRapDwWASjiC1gj7MgIFiKUSC2AB8MMOXjKin+Grdcwfv
+	 M2wCnuksoFZq6WbBvivMAXSbQR1hqpPcAT5Iv2NVDUrqPJu/jyfj3QbGt0nXQKv3+Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816668;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:Date:X-OQ-MSGID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=XusKqhnxM/yWQdrnmEkU+hu9+GGtSe+ZGMgwKQgdJAI=;
-	b=eGJ2xDL87RTHBZQyN/12Ljr6dwWXQYxUGaNKkFY2TU9I/hNlMn81OUZjQZFJaD/jaSjE
-	 5110w3Znj3EV16Xk3nLmOzqnu7nYtZAFwtgYOsrTzM6/ppBZQ155gSQ7/fxaOGUjNC4kD
-	 3LsSmkYc1mYQvCi1xz+E3jQxWyep7i6PdBdTFbKMTiY0pSLeF2Mf2nrxw0rT9atMwLBOH
-	 lXvMWqACj2R/6TkzSQOw/9Lb/Njs5xtGeo/hTYEIrwb4Rua+jYClnkGlHkWzddMNZMMQI
-	 dK/n4GEIAHPkvCj0TJ+HYYsaqUykIS5Bb9G/LOliCHIOGCBEd9LuBLCo9YleITUUFNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816689;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-Id:Received:
+	 Received:X-Zmail-TransId:X-Mailer:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-MSS:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=4ZbHinStsFZ2Q0ZKVd8XlqOpxpEfGc64bTkAA6bl380=;
+	b=RUMS8fqlcHRkq4V+j6JRu33N+VpjTIPBEr/abAFp7CGEQ+bElRe5JYTjHNEzSFEkEaB5
+	 Pmst21DaHzklz1OsGhz1XVR2lu+bYRZdOQH+vESpCwjxewI1XgsN3NcE/ppv2okHfPGqB
+	 5HRnE5nT5f+cmmxwFR2pZKURQCG9c53Lw9jP7X6JsDXZc9MXFuN+0pqJSCX5mNKUvVbT/
+	 q0ALB5t4jfNjLRkHmDI0RGkM0geSD2PDfChBNwwk3B31O3mSBSqcGk5Zn+M4TS/MzHzIl
+	 2vAmpMxseinH28nMIPuVCARAljZZb/iDFUJG/Kq4ujbUQMdu4/6ICJJTu8IkSnbl/jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FPRWlP4P;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=J84VIi6F;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D22606A323;
-	Mon, 16 Nov 2026 08:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D22606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661D3606A337;
+	Mon, 16 Nov 2026 08:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 661D3606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FPRWlP4P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794816654; bh=XusKqhnxM/yWQdrnmEkU+hu9+GGtSe+ZGMgwKQgdJAI=;
-	h=From:Date:Subject:To:Cc;
-	b=FPRWlP4P4HOyMGheFZ7wlvbtlYdPW7bv34aE2uLrid0UchNj4lBEVJQ73/uj+UdcZ
-	 p0wD5dRPds/7toLeyZ8/9IMET1yQXW26XzUAGpJEf3aFcgD68SgAJX1Hu6zsWWefi6
-	 bzzpP869HsmRC7fLr8HDsQN3mt7VYgUvS73qXJI0=
-Received: from 2508871010 ([240e:36f:15d5:9321:d492:2643:ce55:ff7e])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 2B422A84; Mon, 16 Nov 2026 16:10:52 +0800
-X-QQ-mid: xmsmtpt1794816652tb8u1sujy
-Message-ID: <tencent_4D458B8B4F511E5B0F06C5C858627990C306@qq.com>
-X-QQ-XMAILINFO: MllZffuBkEb5NI1TIG5SPgjauQhtlI8otlmJIpTkeKE4nyh3+pnZvnLpZeHCHK
-	 WYG4fDGByf0oSQ5ekYkhCNmOas61Y/VHyKVld/08994HkCHixYctnPU7jNJMQZx+xAjATf8KUc59
-	 QkHmPwzJimcC/iQQv1uvpiPgI1HmbPzS2StRscJyBX6hwBR82EKzYta9D4D2jS8v9OrZM3XM3H05
-	 1Y/Y2dLDWou/mg6TEdI9y+76jY37UlQ8hqJfZb4rMKSaBv2efgxHeE7Yo858vVL6TGu7Htb+MIDg
-	 SBN/oaGEx7uDC5H8Ve8tqoO2kdzXxxzfk+OopOkaSbu6moSCaV0kgSLkbOtlIT4rJQXujWpvoLKe
-	 /Vl7gnggClDyc7scfAdxcG7zOLTkXtzQlAsjTKKh/dAmrO9KBdyQCc5RiEhs0PrBHb1ez+0ZmEFt
-	 L6rwZIRanP3UHHWmDA8BrtLZtJlGhwKrXfMfpj8B8vQjpYIN10S6kue/GqEIWdGh9VDEIHT6XCWU
-	 cOmvbwdBGlFxgjUIO+2/HYlwcPJt02z0z3NnnvtMdsk4jh4s+AM3dccE/Bl0tvcDvEe8188m3CUQ
-	 8onpEOO74x024dyqAD8vG50kjGlSKjy5ERFAA9f393eipyhh8kxyl+h/saMYuv8/1J/iPxwyMF5I
-	 nOssYIwcD2UdLHcqqBh+NeyJ2csnKFBvusJyyWsQInVolxBXEGIoJKVzR1fpXBN3tgnp9xYTMV/m
-	 zPNUvyy5GEYs7HkzkwN5+jdVY1BPmIZQnA3GbErdqQVCdHOw37p2Pl8rY0+qLeDFZrQF0ztgMyCZ
-	 h9YktZs1RTsHI0fTtnldAjIhjLJhHWK4XjXSGFAX7pryf5oBMNmIH/ufM4NsDejtvoPGqpD2mhJ4
-	 daaltlVC5E7vP/NWmegm4rWW8lPe9mRlx8C9/iz8ZJQE3RmQW86DlELhyVkkRqUfPevmBeFO0eHs
-	 gDB92uyK2IEF1kOCvLQno+M2889avOP6xPARba/xF2klpZTM2XEdCrq30ezDM0ueZvrfnL5xyLKe
-	 Li8ULU2aIFrMdehQVDW0XuAzQxY1p6dK67oeaLi7SpT7POm4/Tdhiu+JCpk4UZXg8ZxDg7ogec5F
-	 z4hLQ7SfnnHERhYaA=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: Chen Liu <2508871010@qq.com>
-Date: Mon, 16 Nov 2026 16:10:52 +0800
-X-OQ-MSGID: <179481665225.482942.4973717177724251703@qq.com>
-Subject:
- [PATCH v2] ASoC: wcd937x: bound the DT channel mapping to the channel tables
-To: linux-sound@vger.kernel.org
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- 2508871010@qq.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=J84VIi6F
+Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jSgY84f55z5B17r;
+	Mon, 16 Nov 2026 16:11:08 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794816668;
+	bh=tShg1f4Y0wrs6aXeclAtYsoXU3BahhonJla1y2uT88I=;
+	h=Date:From:To:Cc:Subject;
+	b=J84VIi6FmFOR6u6bpGLFQm6JZLhUQO3j2ScdwfLoGZnMBiWnES4LMo0TJCtKEKXZG
+	 3LQf2RVd2O2qDt+Mt4lUDrsGGy8VPVpHw01diQM65voEO1N0KQSZcd5RQLk1TcRF4n
+	 dPfcgbCklfFkCmZKuX7g5ANwtq7oijcZxalbuO0Ch5X9QNXmeTeSjs2CRccmgnjtwt
+	 iQK35gl9eR3chfbLiFIeqUqkqq/sh0lcI/KL0L4EHgIkf90zTmsD5bly03XVq7sF+5
+	 64qF1/ep35z0bQ5R91dgLo+Awg53BTleK4ZxItSoFKnZJnd4KR5vkduqiVUyOJmW0I
+	 C8sZ1ekO21fMA==
+Received: (from root@localhost)
+	by mse-db.zte.com.cn id 6AG8B8QM046993;
+	Mon, 16 Nov 2026 16:11:08 +0800 (+08)
+	(envelope-from lv.yating@zte.com.cn)
+Message-Id: <202611160811.6AG8B8QM046993@mse-db.zte.com.cn>
+Received: from szxlzmapp04.zte.com.cn ([10.5.231.166])
+	by mse-fl2.zte.com.cn with SMTP id 6AG838vr028538;
+	Mon, 16 Nov 2026 16:03:08 +0800 (+08)
+	(envelope-from lv.yating@zte.com.cn)
+Received: from mapi (szxl2zmapp05[null])
+	by mapi (Zmail) with MAPI id mid16;
+	Mon, 16 Nov 2026 16:03:10 +0800 (CST)
+X-Zmail-TransId: 2b076afab8be597-cd7d6
+X-Mailer: Zmail v1.0
+Date: Mon, 16 Nov 2026 16:03:10 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,124 +73,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+From: <lv.yating@zte.com.cn>
+To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+        <rdunlap@infradead.org>
+Cc: <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <liu.qingtao2@zte.com.cn>, <he.yilin@zte.com.cn>,
+        <ye.zhihao1@zte.com.cn>, <zhang.cheng35@zte.com.cn>,
+        <hu.shengming@zte.com.cn>, <lv.yating@zte.com.cn>,
+        <linux-doc@vger.kernel.org>, <wang.yechao255@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCAwLzJdIHJpc2N2OiBBZGQgQmVpamluZyBMZWFwUmlzZSBUZWNobm9sb2d5IHZlbmRvciBJRCBhbmQgdmVuZG9yIGV4dGVuc2lvbiBmcmFtZXdvcms=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-db.zte.com.cn 6AG8B8QM046993
+X-MSS: AUDITRELEASE@mse-db.zte.com.cn
+X-TLS: YES
+X-ENVELOPE-SENDER: lv.yating@zte.com.cn
+X-SOURCE-IP: 10.5.228.131 unknown Mon, 16 Nov 2026 16:11:08 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AFABA9C.000/4jSgY84f55z5B17r
 
->From 1121be9da86c87962c365f844af9b13dce9a64e3 Mon Sep 17 00:00:00 2001
-From: Chen Liu <2508871010@qq.com>
-Date: Mon, 16 Nov 2026 14:16:10 +0800
-Subject: [PATCH v2] ASoC: wcd937x: bound the DT channel mapping to the channel
- tables
+From: Lv Yating <lv.yating@zte.com.cn>
 
-wcd9370_probe() copies qcom,{tx,rx}-channel-mapping into the per-channel
-tables with the length of the DT property as the loop bound.  Nothing
-checks that the property describes no more channels than
-wcd937x_sdw_tx_ch_info[] (11 entries) and wcd937x_sdw_rx_ch_info[]
-(8 entries) hold.
+Hi,
 
-The DT binding requires exactly 12 entries for qcom,tx-channel-mapping
-("adc1, adc2, adc3, dmic0, dmic1, mbhc, dmic2, dmic3, dmic4, dmic5,
-dmic6, dmic7"), while the driver's table stops at WCD937X_DMIC6, i.e. 11
-channels.  Any board that follows the binding therefore writes one entry
-past the end of the table; both boards in mainline that use the property
-do so (qcm6490-idp.dts and sm7150-xiaomi-davinci.dtsi both spell out 12
-values).
+Beijing LeapRise Technology has been assigned a JEDEC manufacturer
+identity, encoded as 0x966 in the mvendorid CSR per the JEP106
+scheme (bank 0x12, final byte 0x66).
 
-Both tables live in .data right next to each other, so the stray write
-lands in wcd937x_sdw_rx_ch_info[0].ch_mask.  The 12th value, 4, stores
-WCD937X_SWRM_CH_MASK(4) =3D=3D 0x8 into HPH_L; the codec then asks for
-SoundWire RX channel 4 (EN_CHAN =3D 0x8) while the AFE keeps sending two
-channels (active_channels_mask =3D 0x3).  The CDC DMA never completes a
-block, the DSP never reports WRITE_DONE, and playback on the RX codec
-DMA path fails with -EIO after the wait_for_avail() timeout.
+This series lays the kernel groundwork for LeapRise RISC-V cores:
 
-Bound the length to the scratch buffer before reading the property and to
-the table size before filling it in, so that an over-long mapping is
-truncated instead of corrupting the RX table.  Only the upper bound is
-involved: a missing property still yields a negative count, so the
-existing fallback (the read fails, "Static channel mapping not
-specified ..." is printed) keeps working unchanged.
+Patch 1 adds the vendor ID constant (LEAPRISE_VENDOR_ID) to the
+RISC-V vendor list.
 
-The overflow was found while debugging RX codec DMA playback (no
-WRITE_DONE from the DSP, playback failing with -EIO) on an SM7150 phone:
-a temporary printk showed exactly one entry of the runtime table
-differing from .data, which led to the 12th iteration of the loop.
-Diagnosis, patch and this changelog were produced with the help of an AI
-coding assistant (Claude, Anthropic); the submitter reviewed the change,
-built it for arm64 with W=3D1 and verified on that phone that playback now
-completes and that the codec enables the SoundWire RX channel it actually
-needs (EN_CHAN =3D 0x1 for HPH_L) instead of channel 4 (EN_CHAN =3D 0x8).
+Patch 2 adds the vendor extension framework support: hwprobe key
+recognition (RISCV_HWPROBE_KEY_VENDOR_EXT_LEAPRISE_0) and an empty
+extension probe list hooked into the common probing path. The key
+reports an empty bitmask for now, allowing userspace to distinguish
+it from unknown keys (reported as -1), so LeapRise userspace
+libraries can be prepared ahead of the first hardware shipping
+vendor extensions. The key is documented in
+Documentation/arch/riscv/hwprobe.rst.
 
-Not done: qcm6490-idp was not booted, there was no KASAN or reproducer
-other than the phone, and the DT binding still advertises 12 TX channels
-while the table holds 11, so the last entry of a conforming mapping is now
-ignored instead of written out of bounds (binding update left as a
-follow-up).
+Follow-up patches will register extensions as their specifications
+are finalized.
 
-Fixes: c06c4f7cbea1 ("ASoC: codecs: wcd937x: Add static channel mapping suppo=
-rt in wcd937x-sdw")
-Signed-off-by: Chen Liu <2508871010@qq.com>
----
-v2: this is the first resend of the patch.  v1 reached the archive with a
-truncated Subject header ("...to the channel"), because the sending script
-did not unfold the RFC822 continuation line of the long Subject.
+best regards,
+Lv Yating
 
-It also addresses the Sashiko review of v1:
+Lv Yating (2):
+  riscv: Add LeapRise Technology to the vendor list
+  riscv: hwprobe: Add LeapRise vendor extension framework support
 
-  - The fallback diagnostic is preserved: bound the length with min_t()
-    instead of clamp(), so a missing property still yields a negative
-    count, of_property_read_u8_array() still fails and
-    "Static channel mapping not specified ..." is still printed.  Only the
-    upper bound changes, so boards without the property see no difference.
-  - Fixes: now points at c06c4f7cbea1 ("ASoC: codecs: wcd937x: Add static
-    channel mapping support in wcd937x-sdw"), which added the property
-    parsing and made the tables writable, instead of the original
-    SoundWire driver import.
-  - Author/Signed-off-by: full name instead of a single-word handle.
- sound/soc/codecs/wcd937x-sdw.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ Documentation/arch/riscv/hwprobe.rst          |  4 ++++
+ arch/riscv/Kconfig.vendor                     | 14 +++++++++++++
+ arch/riscv/include/asm/hwprobe.h              |  1 +
+ .../include/asm/vendor_extensions/leaprise.h  | 11 ++++++++++
+ .../asm/vendor_extensions/leaprise_hwprobe.h  | 20 +++++++++++++++++++
+ arch/riscv/include/asm/vendorid_list.h        |  1 +
+ arch/riscv/include/uapi/asm/hwprobe.h         |  1 +
+ arch/riscv/include/uapi/asm/vendor/leaprise.h |  3 +++
+ arch/riscv/kernel/sys_hwprobe.c               |  4 ++++
+ arch/riscv/kernel/vendor_extensions/Makefile  |  2 ++
+ .../riscv/kernel/vendor_extensions/leaprise.c |  7 +++++++
+ .../vendor_extensions/leaprise_hwprobe.c      | 18 +++++++++++++++++
+ 12 files changed, 86 insertions(+)
+ create mode 100644 arch/riscv/include/asm/vendor_extensions/leaprise.h
+ create mode 100644 arch/riscv/include/asm/vendor_extensions/leaprise_hwprobe.h
+ create mode 100644 arch/riscv/include/uapi/asm/vendor/leaprise.h
+ create mode 100644 arch/riscv/kernel/vendor_extensions/leaprise.c
+ create mode 100644 arch/riscv/kernel/vendor_extensions/leaprise_hwprobe.c
 
-diff --git a/sound/soc/codecs/wcd937x-sdw.c b/sound/soc/codecs/wcd937x-sdw.c
-index 575495187..5ad6b30d6 100644
---- a/sound/soc/codecs/wcd937x-sdw.c
-+++ b/sound/soc/codecs/wcd937x-sdw.c
-@@ -1003,6 +1003,8 @@ static int wcd9370_probe(struct sdw_slave *pdev,
- 	if (wcd->is_tx) {
- 		master_ch_mask_size =3D of_property_count_u8_elems(dev->of_node,
- 								 "qcom,tx-channel-mapping");
-+		master_ch_mask_size =3D min_t(int, master_ch_mask_size,
-+					    ARRAY_SIZE(master_ch_mask));
-=20
- 		if (master_ch_mask_size)
- 			ret =3D of_property_read_u8_array(dev->of_node, "qcom,tx-channel-mapping",
-@@ -1010,6 +1012,8 @@ static int wcd9370_probe(struct sdw_slave *pdev,
- 	} else {
- 		master_ch_mask_size =3D of_property_count_u8_elems(dev->of_node,
- 								 "qcom,rx-channel-mapping");
-+		master_ch_mask_size =3D min_t(int, master_ch_mask_size,
-+					    ARRAY_SIZE(master_ch_mask));
-=20
- 		if (master_ch_mask_size)
- 			ret =3D of_property_read_u8_array(dev->of_node, "qcom,rx-channel-mapping",
-@@ -1023,6 +1027,8 @@ static int wcd9370_probe(struct sdw_slave *pdev,
- 		pdev->prop.source_ports =3D GENMASK(WCD937X_MAX_TX_SWR_PORTS, 0);
- 		pdev->prop.src_dpn_prop =3D wcd937x_dpn_prop;
- 		wcd->ch_info =3D &wcd937x_sdw_tx_ch_info[0];
-+		master_ch_mask_size =3D min_t(int, master_ch_mask_size,
-+					    ARRAY_SIZE(wcd937x_sdw_tx_ch_info));
-=20
- 		for (i =3D 0; i < master_ch_mask_size; i++)
- 			wcd->ch_info[i].master_ch_mask =3D WCD937X_SWRM_CH_MASK(master_ch_mask[i]=
-);
-@@ -1040,6 +1046,8 @@ static int wcd9370_probe(struct sdw_slave *pdev,
- 		pdev->prop.sink_ports =3D GENMASK(WCD937X_MAX_SWR_PORTS - 1, 0);
- 		pdev->prop.sink_dpn_prop =3D wcd937x_dpn_prop;
- 		wcd->ch_info =3D &wcd937x_sdw_rx_ch_info[0];
-+		master_ch_mask_size =3D min_t(int, master_ch_mask_size,
-+					    ARRAY_SIZE(wcd937x_sdw_rx_ch_info));
-=20
- 		for (i =3D 0; i < master_ch_mask_size; i++)
- 			wcd->ch_info[i].master_ch_mask =3D WCD937X_SWRM_CH_MASK(master_ch_mask[i]=
-);
---=20
-2.43.0
-
+-- 
+2.27.0
