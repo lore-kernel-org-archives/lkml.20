@@ -1,87 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794865130;
-	b=lBySxWEFioIGcf0Ns3PjGA4wDR0cRI0oaOm7xpzTdfbDvbEiBQn56dJ39eF4T3JYkUK7
-	 poy8zDIE0WupkEdPPOUNxvFjjw/AtmJ5v9orbeTW9/0t4wrHJph4GpyaAbDfHcdJ/G6k/
-	 6kKKEBv4YFH03B9n/0TSxQ/UFCSbis6CljsbsWxEvcdVYgUeNLmdHbA/NyQ/izqRatSC/
-	 QQvHXjuVrSYAu8NImbMzljqcBg7/4aLATNcx5SZB1f0Bzeve6R77ywjkEYzKzCfHIHUk6
-	 CnbbChekuPuj/9GV1/heEVTr7eDCDfLvwRYOZvWQ8SCO5LHRGFVrRDodu1gn3/HdXBg==
+	t=1794865161;
+	b=c5UOL+arGqTxh9dKpbSeW6MQSnfxLJiZG2u40pHSL69pfujNyCcSIQpsCesGJNRxIaJ/
+	 xUKyrj/Mnes6H2wiasQiWFcd8OtI/b0HXHedv5bdfWokbOBFMZHp4m4YSQDPDEnDGCtAA
+	 CmN23suONS2baMNlFeKStNEytyXp9U6ytxcmXvyU5mCu4rXMYTldk7oUq7iYtlLkplnWr
+	 wxi34ewj5W2B8se+WuGE3yNZpfLP1FkvbThhWVQLCpWllJ/+iVa4HRmimdMyzD8bcG1nn
+	 awfILiVhhhbQ5VABOTpHPYnbtLA9yZChB5PR7tykV8wl5S68F6sSJPWaePUvIzNEpnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794865130;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:Content-Language:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=N/IRCZAR2uINU2Yz+quelX7uIQDJ1pWTDySOsZRw7Ps=;
-	b=uxUt0zJCFCv/YZSSm3e/g/xMrP+i5JAdz4nCuLY4ZmVrlcjfj7SBKVtJn6uxBoyE6lkb
-	 O4jsnygSivwMPmcspWdsFuqqO4mzOSohPwMCN/3555djMj4LTsLk1mxcWc5txbsbzifwF
-	 w8fN85rU6vTt8vuU95Vyla7wvtYnnEBgsVDtd/Q8XQdxcU+n+2h9XS77EQRuTKJpCQfXe
-	 l1OxrVV9zZvju1q0/WY8nGXc1IM598T9n/oF2u1IxQuUSrikjMOgik2Kg8Sw5OyKXjO/I
-	 YnfIlqrldy/HNXuQIRjMwI6VKIZDUGYTnyr+iestPXAX36VUqolZayjVi+kbQL/1GLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794865161;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=yYAsEB8BH3PiA+kHiYs4W3fhfHk22zC78uA+8Sl6HJg=;
+	b=fJ3rkS+SIM+FS+RPynnVSL6DJPqjX4qK6DRHktMG4nFvodWV4cfmjl+ZAeWr6NHipvzb
+	 xIBu82ybNWN/ipq6zYgUJ7W7a3EuFksqL7hrdGrmZtQQNFEGJsugIKxGQnJ8TPq8K2NOv
+	 HAfpCtAMH6PCUdNgcmpQFhezlfisVGEARGl0YLGdQboD1ak7ExVoVVPwh5PrU/GLwdckJ
+	 bua3UXQp5UxOsvhSoDLMjsmp64/Kepfv/oIWXT/BoRVu5wd8rhos+t/EQhIS+800U5jON
+	 rDaxl6BUHeuBdT+suReSwFy3X8jfYh7jB3whLlyBGAj/A2km0pnwWM9DvRnx8Rqf2Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tI8DQZF1;
-	arc=none smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bD7r6g/G";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236D6606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236D6606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7ECD606A31C;
+	Mon, 16 Nov 2026 21:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tI8DQZF1
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b0dba37a7fso37252277b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:38:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794865128; x=1795469928; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:content-language:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=N/IRCZAR2uINU2Yz+quelX7uIQDJ1pWTDySOsZRw7Ps=;
-        b=tI8DQZF1ueCSROoR1hS0wRY3UbfDhvHo6IbY5ani6kaucOW3vTxsx6DC6jqr5dWNvk
-         Z+y+ZOEWCBdj3QsPRmYG2xWh9s1TOfDIQ65xYveQknHqaABiBzrW3q6w1O3aFx4rvZ4h
-         +cU/wL6VnCTNUfZEbeR4LZCQK9SBiwopG9RmM2NJ4hwfsmYjhFvAOHNfoC5LJ0f7YE87
-         h9aRQKhwLjVrsatU2452PoWvbI7iKB/T+/O7XppTumbF6NfbRdRm66rYxZ/zSEd7YwQB
-         Xja30Cbn4zxleWKC6R8QIwJSyb14H1Ve2zp/jvZGnxQ1rR/sIDumbAhy5YglnjlDm9cX
-         4lQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794865128; x=1795469928;
-        h=content-transfer-encoding:content-type:content-language:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N/IRCZAR2uINU2Yz+quelX7uIQDJ1pWTDySOsZRw7Ps=;
-        b=ajhk0WlVVCBahLZl9Uu3e3ZeJ7i2/jo7XfI1NtMxh3xmV/YzILGm+lJdg+Z1m6j54H
-         XRNm4VtTbHoamHEysuLzi/ssKGEbmj9uP/SDZSOd+jyffhz80vk3J0ttGbEjoy8vLz6y
-         tTV5o9zIbzdq6aEj2nK9rbeYQ+gDdhDQnhSgGZxeXEkSywNbMckBL7Wamq+ylhb6b9/9
-         znlMtHm823eMb6G7PYQ7w0Ax4JzE1dKOzHZwxzch8aZuYj17BHZ7hCjJ4GfQ1dTR9Z6y
-         GluU28fn0m+aG3wzmpoiTphtDUcl/ZmtFubmtLei2IJtmQXvLugheEMrUD6XYomzYrNK
-         sjVg==
-X-Gm-Message-State: APuU4Z8zX/hOt3cVSWt4TQ0tsFrTqon51U+dBELwP+lRvg9G1q8xbCot
-	JltYPWg9qJB8Zd0aAbg2ushe9CugrM2712PSfnJmuH0a8F3XUpqu9D6P
-X-Gm-Gg: AZFdTZf8811a8N44iFoBeJvR8EZlCF7XrrxshZbuarm7J4OwYjaROt6ogY4wGiv3IMz
-	+V4Bjtrh5RveHB9/gXnr0CUcocM5RonMA02bTswgIxkTw18jtrzQKjla0sjRH2dQSGD19yTXLAb
-	Ovswyfk6S0W9xs2ulCBmg/XrGILeavRCTfGm+zUAgtUOGhOJnKAfh9TpYGc1g7k1YBnQGwvXbqy
-	i1e/iclzOeDroUmtY31cG2EyrLLs563oiZJXN+Uq6HUMBlYEjA91f/PY/Q9dZKdSfESN3i8Hqhs
-	brQ7tku6a+4vEQOuv4N75ifcyrQWgk/zzalJbfOob5rVH3wwE3GV7iGzbocg/XK0NGba0x+fqVg
-	3KwjpNv8yksHJzy0sZYaaI3n4Vpm0Rr0CAAfS3wjpsQyLjb2RzWKx1c7myI01c/4q6xzUYnBgBy
-	iywXhm8GMys/tzIDi3YaUpxw971C3O7Q3A0KBXksHTscNAOn6o3EiUwU8rkcoqu4cGBYoxG97pR
-	bSnxUvwTMKYmpDDWmr7gYgH9KMCB6KEnyMkChzoN2lTxP03k9bcv1H8JJCKMnmCyTvTOTOl6sR2
-	D9RQkppNz10EKcrTbyhqzu1stgLe8PrXh62fdYKQMlN1pEsCk0FzTEFmcrSkcFBDl+LK7nQEbsB
-	BMvZm0FIEAUs/1qajSU4fggZ8Hy1aAXKU1G+NwxYPKJU+JGMtjc9ANsbYFw0YRVO4npSGUVnOe+
-	wefUfWj1xk8NCUzXBDoR8IMxOI0FpAeBOqYlACvTLWBGJ5LxMdyZzgYxzraMpiqiw=
-X-Received: by 2002:a05:690e:1907:b0:67d:bb23:631e with SMTP id 956f58d0204a3-67dbb236663mr1529423d50.97.1794865128041;
-        Mon, 16 Nov 2026 13:38:48 -0800 (PST)
-Received: from [192.168.207.4] (104-12-105-135.lightspeed.miamfl.sbcglobal.net. [104.12.105.135])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec06ff89sm9325807b3.31.2026.11.16.13.38.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 13:38:47 -0800 (PST)
-Message-ID: <4a1efe5e-ec67-4caa-bb84-35759e66ef42@gmail.com>
-Date: Mon, 16 Nov 2026 16:38:46 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD7r6g/G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF461F000C4;
+	Mon, 16 Nov 2026 21:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794865161;
+	bh=yYAsEB8BH3PiA+kHiYs4W3fhfHk22zC78uA+8Sl6HJg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bD7r6g/GgoqGyQFIp8E6K19DS+GRyUpUTJsn7mfCafczJrGdjjMMrGndYsc/O9JKB
+	 /Z7f7iaGdJwRbaF3PqrST39wr8rBCCaD3i80ilUFBm9NJpzMFuHrFz7D2TSUfj0awS
+	 IajonQT2TUF1tkxg1f/4QOjdDIre/uXl12OqlaT0wka344eKQAWrUPH7MNSD1g5r/O
+	 pNS+Vnfi9WS06mjuyJbLg/I+D1bSqUqN2cP9e5U5g9KhYDV1NT/RXU+BkYpsmpelDI
+	 FJVdg9578X56Ak9XWgTSm3kVRZX7/SHUY7IPTJ5Xc5HNSgw2G4KmeGkU5cGZLvg7GV
+	 S23W+c0X5N25w==
+Message-ID: <88a268a3-20d1-4f1e-97dd-0076da92af6c@kernel.org>
+Date: Mon, 16 Nov 2026 13:39:19 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,51 +52,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jason Perlow <jperlow@gmail.com>
-Subject: [PATCH] Bluetooth: btbcm: Add entries for BCM4364B3 UART Bluetooth
-To: Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ata: libata-core: Add max sector quirk to INTEL
+ SSDSCKKB240G8
+To: Justinien Bouron <jbouron@amazon.com>, Niklas Cassel <cassel@kernel.org>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ "Martin K . Petersen" <mkp@kernel.org>, John Garry <john.garry@linux.dev>,
+ Hannes Reinecke <hare@suse.de>, Jens Axboe <axboe@kernel.dk>,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Gunnar Kudrjavets <gunnarku@amazon.com>, stable@vger.kernel.org
+References: <20261116205430.44305-1-jbouron@amazon.com>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20261116205430.44305-1-jbouron@amazon.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The BCM4364B3 combo chip on Apple T2 Macs, e.g. the MacBookPro16,1, has a
-UART Bluetooth controller that reports LMP subversion 0x3032 (001.016.050)
-on some units and 0x305b (001.016.091) on others.  Neither has an entry in
-bcm_uart_subver_table, so the controller is logged without a name:
+On 11/16/26 12:54, Justinien Bouron wrote:
+> INTEL SSDSCKKB240G8 with firmware version XC311102 runs into FPDMA
+> timeout errors when queue/max_sectors_kb is set to
+> BLK_DEF_MAX_SECTORS_CAP = 4096KiB / 8192 sectors. Similar to model
+> SSDSC2KG480G8, the issue disappears when setting this max size to 8191
+> sectors, thus apply the same quirk.
+> 
+> Firmware version X5A1ME59 for SSDSCKKB240G8 is un-affected by this bug
+> thus keep the quirk specific to firmware XC311102.
+> 
+> Fixes: 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP")
+> Signed-off-by: Justinien Bouron <jbouron@amazon.com>
+> Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+> Cc: stable@vger.kernel.org
 
-   Bluetooth: hci0: BCM4364B3 Trinidad Olympic GEN (MFG)
-   Bluetooth: hci0: BCM (001.016.091) build 0115
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-and the firmware lookup only tries the generic "brcm/BCM.hcd".
-
-Add both subversions so the controller is named and its firmware is looked
-up as "brcm/BCM4364B3.hcd" first.  Tested on two MacBookPro16,1 with a
-v7.4-rc3 based kernel carrying an equivalent change, one reporting 0x3032
-and one reporting 0x305b.  They now log:
-
-   Bluetooth: hci0: BCM4364B3 (001.016.050) build 0082
-   Bluetooth: hci0: BCM4364B3 (001.016.091) build 0115
-
-Signed-off-by: Jason Perlow <jperlow@gmail.com>
----
-  drivers/bluetooth/btbcm.c | 2 ++
-  1 file changed, 2 insertions(+)
-
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 065536d4ec..92ba7aeac3 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -519,6 +519,8 @@ static const struct bcm_subver_table 
-bcm_uart_subver_table[] = {
-  	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
-  	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
-  	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
-+	{ 0x3032, "BCM4364B3"	},	/* 001.016.050 */
-+	{ 0x305b, "BCM4364B3"	},	/* 001.016.091 */
-  	{ }
-  };
-  -- 2.56.0
-
+-- 
+Damien Le Moal
+Western Digital Research
