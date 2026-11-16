@@ -1,54 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794854250;
-	b=pM+F5Mu1s1GpI5NjOcCRtIfFkqsTr39FcSXVJ/lzEf/hWYLwHNWIt1Qcl9LmC4+qQjRX
-	 XLgsHUUov2j3iaewGbHZ2uYNU0qvbiwJeT9WVYAD6NSXE9IH9E8+4u8KGj5i/GmYBj/BC
-	 N/XXqB/UwARzmfgiaos/sZH6+yhNmDd3p6kjlWvjvttLCcNzGlHXjCxJxI9nOox/SWFh4
-	 nphgSkdE6v3S0a3JjwWIm1labT2hLFKsCsbO4OX3lsSOGR3aBTAMexf/oXNODczrGjQaS
-	 ZjKjWkMyH+25sUsUv8l++q7ZrisqDZYpFuftLA/FQu80s7n7xilZlpesdVZLmE0XSuw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854250;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=uI31bqOB59nepJfqf7G57PvJCgpDKr2+9y22AA7wNiI=;
-	b=tx2AFJf4u8Kf+zSNIUTOL10kIL6ieDR73s4ebEE1u4Veow5bjqUpSig0UAJMmnq9Ex32
-	 16L+fI+tfQPlT5X95PwXBoTtoGpFJJk4xNTMP7Ta00wr7O8JJ86jfT80aY8oSm/SARRsz
-	 WZ38szWkscBOp7087VEtiiBOi3+w1TZoszCLfViYu3AspJ/qQ//xzBvYx6SvTAEOV85uc
-	 MfIp7X33msM20GVViaNPF46mB8UKMS832lSRgrHdMqJyDLlfyTk0Rbuf6+TG3oFUIa29x
-	 2kjmcX10qHYHjiCtopIF0a5skB9Rvtk0CZkckH7aoYHeZMlxkMGa4o96wHTTBVa2P7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794854267;
+	b=tzAE+psQ3z6f2NE94hr05US1X42gVIhO8MtIXzJNDuL9dZftijTHDgy9hbHd+5udpf6s
+	 amF/pBn0iU2TiLu3TL0VW88DUMBclXWWiTQMDImeX9KZaEOu7ZmwJmgauSBtvIq8DLzGG
+	 LidX30Kf+hskuyfjMdJC2o8J3idfz8tcMDD85xa80Bh/kuApRljXBrkGr54k3sa8x51qr
+	 GRrc2yXgsOInLj3PVzoAvUeC3XYrkuKyVlyn5JYfbFeJgd9BEQwyveIs0W4W8wb2RxZeQ
+	 eWevbXVf0/Sxz7pGh0nV2D5KICTjf+ZEn+HTviJWSI18zWV+dyrifytPUwB+jdmlzZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854267;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
+	b=sJpoGlvwpCK1h22YadtWKZ+aTL+bOedYwHI1alKOvqY6ZOU1DoMeWStaWBjI6tvcL+W5
+	 fRzldWYlsh02b63tr0z2ubxeDSMYyrC5/hRPQrLh2z6jDsoZzebiOPb8MePafvbTtp+Ph
+	 aDXuDq7kmkYDGoXtuUoOJLwWptD8qa7ctdE21tk+RX9hmVXGmH0GYjpXfFks80vEwl/AJ
+	 wUV69ru7eEdIE0i0Mtql8RjYrtAQ3kmd+Z7saFn5WqP4Tco7mjl9YyN/DqEHTIkP4QRDR
+	 AthgGsZH76t7ud6SxSjXSj2YCl15Z4l/9N7r9BKM/TImPO4b1RC2vx1rfzgyaGW6lQg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqT3NYpP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FGHtMx61;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30756606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30756606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5641cd2cc13so4275352b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:37:29 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEED606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AEED606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqT3NYpP;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FGHtMx61
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGIE3j2264244
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=; b=OqT3NYpPMSWyNkoC
+	T0jU1MWCwoayrXSsHrUPBONXfgqAYtHpimmXXc8u1ZVZdF548egHztbTNmT85olL
+	2T/sThe5L7xH4V5dFkizBXkH0f32jZ1egUeaMGiHqXqS2zfgpiCopGrOmPm5Bz7r
+	tlIWpaai/x4fvD0utZIEYuJVungkk8BPlrSPvchKJrplzwjYFkeoGUieZRQIBI9Q
+	40KsMkT4PGroZwzOQZlbI58vK2HMhcQojkLzDr40iZ+GEP0h7oD6rmwAC2mfpGUq
+	rtTuPNtRLW6i9e+1QoEzwxHF+XadsCGLPTluN0ttmkZGKyM/Oh1ZJvOKzvbEztlg
+	l5hrWw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyrmc3kkp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:37:46 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94970ad532bso292382485a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:37:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794854265; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QEadcgdkpWU/ICGPmpqvGJpQnlMt7Jnhlxufv30pHVMPcr6Hgn3Do/c9YJuReV2vzU
+         aaBRi2nv8NyP2sBLt24sVeD4LNpNn00kUsLGgFSCSY9JoNQDxsxDihfdKHJTEgNy3gl3
+         f6mB3O/WiUC1iPo52oScEZqRHYbqWydSg3uC4XpkJ3QXidX6cbmRayeXSl1YJ5LHmm7l
+         XpgAB5qoAA3liBHNtjq89X4izz/LtASzLhijxxodRr5lTDF07hfGqpmF69B2i54gkIE2
+         Cd2Bju4d8dsaJBmc2Fs9jbjcxs/FBQz+nxWKT4LwLPbfXvjoK3c8SZe2r1GCsPjez02j
+         ipTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
+        fh=aEC+kMBSP9dKfE5X1xx6XIL9JBEob+nbr8oUc8eouWg=;
+        b=B5OnUpusElOWBUyCjoaUYTSc88tCcfPIh+ZeSr2ax/1uu6tugoBgE8j7EmALkcSH+x
+         rILE23bp1sbuBWwbhl5t2Q1AMO2YsmpCQBCyFM18OxYYHv2CdSyYpz8ny2ntF2QXlMIl
+         Sl0lRV/gPTaf7xsdRXzC8O1hGxJ5sSqmNWI9Yd0kQ8iF6Ru16t+p3pKW3zjsc4Fvaua0
+         TaIUCKqLqY7etTUvHdljl1KuFkEawrJCCgxkdv2clUEOQDio8GwJYXbvLqiYTcttbaYh
+         B1kfGdnbPG70FGynin6XCtY3Sj6ar+yqWK1gCTjNs7o9+hNEoFPWVvhq02Tb4tUOjOvp
+         1/0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794854265; x=1795459065; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
+        b=FGHtMx615S6WKXiU0sxjpk3GpFHkE+SxjYQmKQRpwu0wiYtIPHAVWaTcmTWnNoS9nk
+         4AF+fCD5GubW4ayYURUBZGVXNAzjAOMlSK3odHhsjfUb4XyjsGKHlWHMRHMvYyLquGSg
+         P617WGvbukts6GcMuFR1ZRZM3fbSipeM8MKlPRy/mXFfxUhWqBZpt1oeqrZPwsG7o6+i
+         Tvp01JTRjjRtdJmvMp0O4w+3NAaBIL6uSGyvDCSo0p4/c3b8lFz9mUwXyZo6SJm/iTx8
+         zmMrInOQXr9toZhPav/kUAw+BlVe307j64uVR6RlqVnnGc/wYyF2C3iTGNiZRQB8jLg3
+         4LdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794854249; x=1795459049;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uI31bqOB59nepJfqf7G57PvJCgpDKr2+9y22AA7wNiI=;
-        b=KjgRtrzJiTAXTjEN1/yqouCHnzSAJbSUDVXEKG4imN3K0hZp8CjJSo/KRN0u8CtE/8
-         uXcpWm+S8STXgCiIt/q/HJQbLayUcNWFbsVp4HSaDp4NjmihRaRvmsJSFj9Kw6/D1BPr
-         dJPlkNZK8Q0fq6BMczCGG88HHkCWmIMnj/0KdCkdtXPpuXaw+2UZOQnNzVJIEy9PAgw3
-         L/mL6uSaHz/Xq8ocGKH0YOc2e/1K3qX70i5L0CjKM0QHqI+0o/0qa+r5HWxqm0eAf2FK
-         GlA+LPG/jcyoP1nsQmrzBBn1skwy3tstjoH0Pj3EgNu5IlPTL9+K9s8ro2avpY9MCUvs
-         Jf1A==
-X-Forwarded-Encrypted: i=1; AL+hErG8VvyA4g9rZ8lNtuxacXNQqI7F5PR0RFG/jsfGS7Q14vyz9q8SEPE1/8IdGShO2QNyhBALtV5lkWwd82M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/GqV1JL2ba4KfIQ1RNXErpvLexzZ2G+0zEqBPJRFkOdmgl0q1
-	vNeaQ1QYRU9PEwD0Sfh11Iq7G+Jht6t5nOmB86bwNTxQD5g2AH/wJqgnca3rmmmh1gUNvOg9PHW
-	VfNjt90ztRqeom7h9+dVpMfgpUVJWJeOpgYDrux+TjbCknN3cUGTSI8lKI9w=
+        d=1e100.net; s=20260707; t=1794854265; x=1795459065;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ly0wSpOqETq67pj9QgQqaNP7QubSpXxkzzUxAFz3ui8=;
+        b=rgXAEkKUJE3Q91285rE+OzdJ+iyN5aQF7NsJRfT3EZV1cRkauTdeOBORk9AtTTB9Fr
+         ESFtATPErKcmpEnwNlfX0Qy0KTBl6ZsJtjw1cb2kzbl5qsH/ujfctP7wlJcqM2NJT42G
+         61bDNcV/hlxdShe8ekdPankm66Ls6k+NgDtiZASpJTDi46VLT05/bEZvvUn4f9AAJSDC
+         i0qPrBxlL8JilxrTGxUoH7D5bcUYe444BS4nK3kzES/iRrruxN0EsjgnMc+LUX/IASan
+         zRabh2fGScV+7Dldq7RNdzJvOPmenXRxg73ZunvIHKaTBOBupXjBGM5OfBuQmPm+GwhV
+         jkZg==
+X-Forwarded-Encrypted: i=1; AL+hErGmeOppfOPTV9+6wYbvOU+xSDqmsWT0kijjK8Ey33JOPm9z6e71lqhfpiJNWXye3foSy6XYjrmomGLb7WU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YbzFbgo+ij/KNdWX8B5feQiCRM6dMhMUHPk1gvzzhJL1YBcSS
+	PMwGMD0eHAUmoFv6XNydQciOvimT2onX0plKxZg9KzS/WJHKi3u2SIsccNlzSzirqdHD5MpHe/N
+	g3hMfR0xWJBDn8QLvFbC/mM8Z62+rjYGmf8CN+M7XkEobLDL8Jv55BGgTrwrFygXPTWsj+yAHtG
+	XxpoOxZW8HtmFitslYf/JFnmtTnr/4Sj3TME66abdEiQ==
+X-Gm-Gg: AYBFou0l7HQ2F8mveibIG1aSoGheKot9R+vNI/d0QfWPhPLGEm6/NUsHIco1J5g+xJK
+	qDCZZRnIJ0VRmdmsLM3U+HcXB4SUXYMR2hGJ12awyav20jmIBUOMPe6/ZmbkGTmb0W5IVOnQqsk
+	b2phpp4P3pGtnpScJQgp6mx6iOZx13ItoxdEGa7iJE+GlkL3pmKO26XOVho7kuoev1llU6ukxdw
+	9OXxGNQDs8cF4z9tEzTifkIdhnB903eTRIpYo5zcriKvdjjT2MpDW9u10Z7L6F6K590/hGzS9yc
+X-Received: by 2002:a05:620a:6910:b0:949:6476:91df with SMTP id af79cd13be357-94964769908mr1306134785a.27.1794854265156;
+        Mon, 16 Nov 2026 10:37:45 -0800 (PST)
+X-Received: by 2002:a05:620a:6910:b0:949:6476:91df with SMTP id
+ af79cd13be357-94964769908mr1306128585a.27.1794854264515; Mon, 16 Nov 2026
+ 10:37:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,190 +128,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe3:b0:573:2541:17fe with SMTP id
- 5614622812f47-57325512cc3mr5708474b6e.25.1794854249218; Mon, 16 Nov 2026
- 10:37:29 -0800 (PST)
-Date: Mon, 16 Nov 2026 10:37:29 -0800
-In-Reply-To: <6afb2dc7.e6a8accb.234e85.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afb4d69.27ea6653.1a0e84.0001.GAE@google.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in uvcg_streaming_class_drop_link
-From: syzbot <syzbot+8277294f653f005e64d8@syzkaller.appspotmail.com>
-To: a.hindborg@kernel.org, leitao@debian.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <20261102-pm-clk-resume-report-errors-v1-1-ba6e1dddd522@oss.qualcomm.com>
+In-Reply-To: <20261102-pm-clk-resume-report-errors-v1-1-ba6e1dddd522@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 19:37:33 +0100
+X-Gm-Features: AclHuK-5A642jlfrsRiFikZwKptRymZe-s-kt3fOZysrAU132IAw9jKbio5jyXg
+Message-ID: <CAFEp6-3GKHmc4y_mTTVMO6iPdnpmxEmRokpki4uVGoBuXTj6Hg@mail.gmail.com>
+Subject: Re: [PATCH] PM: clk: Report clock enable failures from pm_clk_resume()
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA3NCBTYWx0ZWRfX5Tyue0GXePDt
+ uL0aAgAOImfZdO3IUngJcKE5fT9NNDmckWNHhQcphjD3LMGnMwtnCS8KfKwgojuq66nsxf+tRxb
+ Dhz6tOBhdVzCtXVwXjuPCxFaSy5auvw=
+X-Authority-Analysis: v=2.4 cv=C9N8WgP+ c=1 sm=1 tr=0 ts=6afb4d7a cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=-LQT69PtjwrO-PJxn2MA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: YYf8IicSwc3CcBrJBDgPyPi2n0bAyE-b
+X-Proofpoint-GUID: YYf8IicSwc3CcBrJBDgPyPi2n0bAyE-b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA3NCBTYWx0ZWRfX3wtjieu77zeI
+ VLueUjEjQZzjF7u0z6C4dXrcn2+ZYbOZiosXFSwf46jQcK3IAN+L/5kc7+Iq/j0Z2wZb5mL2bOY
+ h7SjletfLdQsxKaXHZsGsdW0ipXBI73HmirWhY//a7wNbFa3zC53zAhz4V2MbUvyIpnt9bOgoOv
+ aenbpBoQTtI7z5NzSyCctAtzo6MgrfKQPYV+l8rsh4vfUySleoi7POkw9xK4q2Gq62cfUx1hSif
+ Y7v2au14Yu4wKjnS4VnmS2DKJCftiz/Wm2OWMmN+vIMqLWDFY9ycCKWaXkKs8oMTsy4IL0E7sJL
+ iKw3haWhvphaKk2JYllBIF9TaP0xuDMME6NfTcpcRGqxWFCjsFkdzze+Jf7vQDosuksoOxmXvfg
+ tZgX+4qZ2/Nnkgah38W68iecMFNZ8bxYqACI+oMkcYCaMv/P+tF30LBnCBaAMUI96RKBvEGqTR/
+ 6K2HJLtriC/WP/3g1yw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 spamscore=0 adultscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160074
 
-syzbot has found a reproducer for the following issue on:
+On Mon, Nov 2, 2026 at 11:23=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.c=
+om> wrote:
+>
+> pm_clk_resume() logs a clock that fails to start but always returns
+> success, so the runtime resume of a device using the PM clock helpers
+> succeeds without its clocks, and its driver goes on and accesses the
+> hardware.
+>
+> This happens to the devices in the Qualcomm LPASS, whose clocks are
+> provided by the ADSP: after the ADSP is gone, like right after a
+> hibernation image is restored, a sound card opened by user space
+> resumes the LPASS LPI pin controller without clocks, and the access to
+> its registers then brings the whole machine down:
+>
+>   qcom-prm gprsvc:service:2:2: CMD timeout for [100100f] opcode
+>   qcom-sm8550-lpass-lpi-pinctrl 6e80000.pinctrl: __pm_clk_enable: failed =
+to enable clk 00000000b90a5151, error -110
+>
+> Stop at the first clock that fails to start, stop the ones started
+> before it, and return the error, so that the resume fails and the
+> device stays suspended with its clocks off.
+>
+> The callers of pm_clk_resume() check what it returns, including genpd
+> and pm_clk_runtime_resume(), except the MMP2 audio clock controller,
+> which keeps ignoring it. A device with a clock that fails to start no
+> longer resumes though, even if it used to work without that clock.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-HEAD commit:    aebb72744764 Linux 7.4-rc3
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=10026dad580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d44b06612b68f56
-dashboard link: https://syzkaller.appspot.com/bug?extid=8277294f653f005e64d8
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15fd1bfd580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12026dad580000
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/b41932060b28/disk-aebb7274.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/8cebe8ee66ec/vmlinux-aebb7274.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5547adc1d9da/bzImage-aebb7274.xz
-
-AI-generated root cause summary:
-A circular locking dependency warning is triggered between
-gadget_subsys.su_mutex, tpg_instances_lock, and the VFS inode mutex
-(&sb->s_type->i_mutex_key). During TCM portal group creation, usbg_make_tpg()
-calls configfs_depend_item_unlocked() while holding tpg_instances_lock
-(previously acquired under gadget_subsys.su_mutex), which acquires the configfs
-root directory inode lock. When subsequently unlinking a UVC streaming class
-symlink, vfs_unlink() holds the symlink's inode lock and invokes
-uvcg_streaming_class_drop_link(), which acquires gadget_subsys.su_mutex for
-hierarchy navigation. Because configfs symlink inodes and the configfs root
-directory inode both share the default superblock inode lockdep class
-(&sb->s_type->i_mutex_key), lockdep detects a circular dependency (su_mutex ->
-tpg_instances_lock -> i_mutex_key -> su_mutex).
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=8277294f653f005e64d8
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8277294f653f005e64d8@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor251/5652 is trying to acquire lock:
-ffffffff91034be8 (gadget_subsys.su_mutex){+.+.}-{4:4}, at: uvcg_streaming_class_drop_link+0x70/0x540 drivers/usb/gadget/function/uvc_configfs.c:3502
-
-but task is already holding lock:
-ffff888071c99440 (&sb->s_type->i_mutex_key#18){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1027 [inline]
-ffff888071c99440 (&sb->s_type->i_mutex_key#18){+.+.}-{4:4}, at: vfs_unlink+0xd4/0x710 fs/namei.c:5653
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #3 (&sb->s_type->i_mutex_key#18){+.+.}-{4:4}:
-       down_write+0x91/0x200 kernel/locking/rwsem.c:1631
-       inode_lock include/linux/fs.h:1027 [inline]
-       configfs_depend_item_unlocked+0x153/0x420 fs/configfs/dir.c:1268
-       usbg_make_tpg+0x1e0/0x550 drivers/usb/gadget/function/f_tcm.c:1692
-       target_fabric_make_tpg+0xa8/0x6d0 drivers/target/target_core_fabric_configfs.c:947
-       configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
-       vfs_mkdir+0x411/0x660 fs/namei.c:5428
-       filename_mkdirat+0x284/0x550 fs/namei.c:5461
-       __do_sys_mkdirat fs/namei.c:5482 [inline]
-       __se_sys_mkdirat+0x35/0x150 fs/namei.c:5479
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #2 (tpg_instances_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       tcm_alloc_inst+0x65/0x1a0 drivers/usb/gadget/function/f_tcm.c:2687
-       try_get_usb_function_instance drivers/usb/gadget/functions.c:28 [inline]
-       usb_get_function_instance+0xe3/0x2f0 drivers/usb/gadget/functions.c:44
-       function_make+0x127/0x360 drivers/usb/gadget/configfs.c:626
-       configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
-       vfs_mkdir+0x411/0x660 fs/namei.c:5428
-       filename_mkdirat+0x284/0x550 fs/namei.c:5461
-       __do_sys_mkdirat fs/namei.c:5482 [inline]
-       __se_sys_mkdirat+0x35/0x150 fs/namei.c:5479
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (func_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       try_get_usb_function_instance drivers/usb/gadget/functions.c:18 [inline]
-       usb_get_function_instance+0x2e/0x2f0 drivers/usb/gadget/functions.c:44
-       function_make+0x127/0x360 drivers/usb/gadget/configfs.c:626
-       configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
-       vfs_mkdir+0x411/0x660 fs/namei.c:5428
-       filename_mkdirat+0x284/0x550 fs/namei.c:5461
-       __do_sys_mkdirat fs/namei.c:5482 [inline]
-       __se_sys_mkdirat+0x35/0x150 fs/namei.c:5479
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (gadget_subsys.su_mutex){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       uvcg_streaming_class_drop_link+0x70/0x540 drivers/usb/gadget/function/uvc_configfs.c:3502
-       configfs_unlink+0x44f/0x6b0 fs/configfs/symlink.c:258
-       vfs_unlink+0x279/0x710 fs/namei.c:5667
-       filename_unlinkat+0x297/0x5c0 fs/namei.c:5737
-       __do_sys_unlink fs/namei.c:5772 [inline]
-       __se_sys_unlink+0x2e/0x140 fs/namei.c:5769
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  gadget_subsys.su_mutex --> tpg_instances_lock --> &sb->s_type->i_mutex_key#18
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&sb->s_type->i_mutex_key#18);
-                               lock(tpg_instances_lock);
-                               lock(&sb->s_type->i_mutex_key#18);
-  lock(gadget_subsys.su_mutex);
-
- *** DEADLOCK ***
-
-locks held by syz-executor251/5652: 3, on CPU#0:
- #0: ffff88801eff0478 (sb_writers#8){.+.+}-{0:0}, at: mnt_want_write+0x41/0x90 fs/namespace.c:531
- #1: ffff888078fe4f80 (&default_group_class[depth - 1]#7/1){+.+.}-{4:4}, at: inode_lock_nested include/linux/fs.h:1072 [inline]
- #1: ffff888078fe4f80 (&default_group_class[depth - 1]#7/1){+.+.}-{4:4}, at: __start_dirop fs/namei.c:2924 [inline]
- #1: ffff888078fe4f80 (&default_group_class[depth - 1]#7/1){+.+.}-{4:4}, at: start_dirop fs/namei.c:2948 [inline]
- #1: ffff888078fe4f80 (&default_group_class[depth - 1]#7/1){+.+.}-{4:4}, at: filename_unlinkat+0x198/0x5c0 fs/namei.c:5718
- #2: ffff888071c99440 (&sb->s_type->i_mutex_key#18){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1027 [inline]
- #2: ffff888071c99440 (&sb->s_type->i_mutex_key#18){+.+.}-{4:4}, at: vfs_unlink+0xd4/0x710 fs/namei.c:5653
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5652 Comm: syz-executor251 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
- uvcg_streaming_class_drop_link+0x70/0x540 drivers/usb/gadget/function/uvc_configfs.c:3502
- configfs_unlink+0x44f/0x6b0 fs/configfs/symlink.c:258
- vfs_unlink+0x279/0x710 fs/namei.c:5667
- filename_unlinkat+0x297/0x5c0 fs/namei.c:5737
- __do_sys_unlink fs/namei.c:5772 [inline]
- __se_sys_unlink+0x2e/0x140 fs/namei.c:5769
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb28793a6c9
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fffe9611a58 EFLAGS: 00000246 ORIG_RAX: 0000000000000057
-RAX: ffffffffffffffda RBX: 0000200000000500 RCX: 00007fb28793a6c9
-RDX: 0000000000000000 RSI: 00002000000002c0 RDI: 0000200000000500
-RBP: 0000000000000001 R08: 0000000000000006 R09: 0000000000000006
-R10: 0000000000000006 R11: 0000000000000246 R12: 00007fffe9611bc8
-R13: 431bde82d7b634db R14: 00007fb2879cdc40 R15: 0000000000000002
- </TASK>
+> ---
+> pm_clk_resume() always returns success, even when a clock fails to
+> start, so a device using the PM clock helpers resumes without its clocks
+> and its driver goes on accessing the hardware.
+>
+> I hit this on the Qualcomm Hamoa CRD while working on hibernation: the LP=
+ASS
+> devices get their clocks from the ADSP, and when the ADSP is gone, like
+> right after a hibernation image is restored, a sound card opened by user
+> space resumes the LPASS LPI pin controller without clocks and the whole
+> machine resets on the first register access. With this patch, the
+> resume fails, the open fails, and the machine stays up until the ADSP is
+> restarted.
+>
+> The LPASS macro drivers already check what pm_clk_resume() returns, but
+> never saw an error so far.
+>
+> Prepared with help from an LLM-based assistant.
+> ---
+>  drivers/base/power/clock_ops.c | 56 ++++++++++++++++++++++++++++++------=
+------
+>  1 file changed, 40 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/base/power/clock_ops.c b/drivers/base/power/clock_op=
+s.c
+> index 3b8ba27802a8..a978eb3d5479 100644
+> --- a/drivers/base/power/clock_ops.c
+> +++ b/drivers/base/power/clock_ops.c
+> @@ -143,8 +143,10 @@ static void pm_clk_op_unlock(struct pm_subsys_data *=
+psd, unsigned long *flags)
+>   * __pm_clk_enable - Enable a clock, reporting any errors
+>   * @dev: The device for the given clock
+>   * @ce: PM clock entry corresponding to the clock.
+> + *
+> + * Return: 0 on success or the error from enabling the clock.
+>   */
+> -static inline void __pm_clk_enable(struct device *dev, struct pm_clock_e=
+ntry *ce)
+> +static inline int __pm_clk_enable(struct device *dev, struct pm_clock_en=
+try *ce)
+>  {
+>         int ret;
+>
+> @@ -156,13 +158,29 @@ static inline void __pm_clk_enable(struct device *d=
+ev, struct pm_clock_entry *ce
+>                 ret =3D clk_enable(ce->clk);
+>                 break;
+>         default:
+> -               return;
+> +               return 0;
+>         }
+>         if (!ret)
+>                 ce->status =3D PCE_STATUS_ENABLED;
+>         else
+>                 dev_err(dev, "%s: failed to enable clk %p, error %d\n",
+>                         __func__, ce->clk, ret);
+> +
+> +       return ret;
+> +}
+> +
+> +static inline void __pm_clk_disable(struct pm_clock_entry *ce)
+> +{
+> +       if (ce->status !=3D PCE_STATUS_ENABLED)
+> +               return;
+> +
+> +       if (ce->enabled_when_prepared) {
+> +               clk_disable_unprepare(ce->clk);
+> +               ce->status =3D PCE_STATUS_ACQUIRED;
+> +       } else {
+> +               clk_disable(ce->clk);
+> +               ce->status =3D PCE_STATUS_PREPARED;
+> +       }
+>  }
+>
+>  /**
+> @@ -483,17 +501,8 @@ int pm_clk_suspend(struct device *dev)
+>         if (ret)
+>                 return ret;
+>
+> -       list_for_each_entry_reverse(ce, &psd->clock_list, node) {
+> -               if (ce->status =3D=3D PCE_STATUS_ENABLED) {
+> -                       if (ce->enabled_when_prepared) {
+> -                               clk_disable_unprepare(ce->clk);
+> -                               ce->status =3D PCE_STATUS_ACQUIRED;
+> -                       } else {
+> -                               clk_disable(ce->clk);
+> -                               ce->status =3D PCE_STATUS_PREPARED;
+> -                       }
+> -               }
+> -       }
+> +       list_for_each_entry_reverse(ce, &psd->clock_list, node)
+> +               __pm_clk_disable(ce);
+>
+>         pm_clk_op_unlock(psd, &flags);
+>
+> @@ -504,6 +513,9 @@ EXPORT_SYMBOL_GPL(pm_clk_suspend);
+>  /**
+>   * pm_clk_resume - Enable clocks in a device's PM clock list.
+>   * @dev: Device to enable the clocks for.
+> + *
+> + * Return: 0 on success or a negative error code. If a clock fails to st=
+art,
+> + * the clocks started before it are stopped again.
+>   */
+>  int pm_clk_resume(struct device *dev)
+>  {
+> @@ -521,12 +533,24 @@ int pm_clk_resume(struct device *dev)
+>         if (ret)
+>                 return ret;
+>
+> -       list_for_each_entry(ce, &psd->clock_list, node)
+> -               __pm_clk_enable(dev, ce);
+> +       list_for_each_entry(ce, &psd->clock_list, node) {
+> +               ret =3D __pm_clk_enable(dev, ce);
+> +               if (ret)
+> +                       break;
+> +       }
+> +
+> +       /*
+> +        * A device whose clocks are not running cannot be accessed. Do n=
+ot
+> +        * pretend it resumed, and leave its clocks off as it stays suspe=
+nded.
+> +        */
+> +       if (ret) {
+> +               list_for_each_entry_continue_reverse(ce, &psd->clock_list=
+, node)
+> +                       __pm_clk_disable(ce);
+> +       }
+>
+>         pm_clk_op_unlock(psd, &flags);
+>
+> -       return 0;
+> +       return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(pm_clk_resume);
+>
+>
+> ---
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> change-id: 20261029-pm-clk-resume-report-errors-b5d538eb27de
+>
+> Best regards,
+> --
+>
+> Abel
+>
+>
