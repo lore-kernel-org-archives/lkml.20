@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794803616;
-	b=uJtNQd5ENG16ZZXNnxVK4oyH1/7TzNcpLy4ELLzLJNSCqATgCToU7DlMEXQEgR/+kr4D
-	 OZzAfRYdeVSGfwdHiFjMS4XD35+5wjB71XAAtDnGoLtQNkbyBVVQtu8MTnLkM7qBMZrLQ
-	 1GWKCkFqZdXZyZk51LU+sRcL3U44bSJGxnrSQoUCdQDexLbZojszNR5L+QIkWNR/PKmnJ
-	 0q5Rt7p7snGqSWdQ+T14jVc6a6TaJQOGtObX9t9iSOHmmB12YZKNE/EWl/MEZtYAraGBl
-	 2XYRObFObsU3w/Cq4lN31ORoqi9YXFUGigxQhcL4sd4D+1BL2fvz18MH7DvMO9Qn5PA==
+	b=f+KM9+YMfFsJ9rIhF8JNzYLjCiHf5giPps4N0ErDXC4ZShfTVxcYxTJoCNC76Aciu92M
+	 2zqWeaeB0/e63RuaAlN4pe0kzKcTR5s0n2tbMKdvddoNaDbq9mod7KBtKz01jrBIPe7yj
+	 X/UnqQDOLOigNN4mkfl0QmuilAdGDGauSthr1yLWF4pr1Ek3CQ438MfHTxRhJJWn5TEdS
+	 y/h6UJWSFtQAXxX76dbAGQ3/7FWBwm1yYNXvyXslBMXyn/rH4eJkEfUKMWEVYL36nr76D
+	 ohFBdgfVmK2bYfTnk7pMjhyvnBvROraMZ8geZKbVddmX+iGAs/r9U4SjJHct3srOVAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794803616;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:MIME-Version:X-Received:Date:
 	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
 	 Subject:From:To:Content-Type;
-	bh=2SWkMY6Morz5zWTeFku6KKcVFQ9yVAcTTQCwIrhHE9s=;
-	b=yqSZOtpjBnKYfQKpYrlbc+O/PJtB4FFjh5wVTRrMrwsH+c/jzIAf34LQvK7s6hKw5zTO
-	 p+6baNw8yUK6WmaXTzuRXSNlPSwoomap/ZVXrvkr0aeOWMtIraC/sNwPNTL6BWSy8GJH7
-	 sD/C9MwzMMCZ9I4TNqKo/itdjJur7BTIL7TH7UtL+dfBBfMlOgWj8EmvwO5hSQxFLJXa5
-	 Fz6ORxar8rSXN2STu1SmxyRmA6if3dfT7MuREiRrQqpQGiVw5jDUO0FdryYr9Nd+dCtXi
-	 8F+cdIH+AiTJXjeicadZyWxwL64d3o9UkhfC/XqjoFy0VUCKiLzO4bmq3t3UxlLSTDQ==
+	bh=tK1kQDQ9VFpYSF8W7MukIVOMVEC+nFZPGaW46BBVu68=;
+	b=PUV75EwYsqBBvyfEVSdMKD0ZS+ZbOlpEokM8TFY6uVx2MVAvw5CoJCYVr7bY8+SEAWT4
+	 q0al+Kmf6QCMQ7P7Jd6SAdjuyC+RFXOjyRLO4LtXulTwfCyW3rMy8iCRormibxmYtpKuY
+	 RGu861zHNBlQVk1Shcv7iXxq7koKVWckGkQHOMRfe+rWyrnQgEWmO0WMtVbdI6XmMO5Pj
+	 Jc48QYoV35MkDWJa3JSos8l8iYAuMCDo05SMLs1zrpERAk0cRr3P0XLQ1F3HTWfjTJPtq
+	 9QWPZhYziymUU5F54myX+NV89KWCyzBASFV6Uo8FevpwzmY3zoVOFrRZCXEI8dEoF1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA6B606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:33:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AA6B606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B050606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:33:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B050606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8626dd59f73so1226913a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:33:36 -0800 (PST)
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-5587351d419so2136470b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:33:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794803615; x=1795408415;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2SWkMY6Morz5zWTeFku6KKcVFQ9yVAcTTQCwIrhHE9s=;
-        b=lTKvdFdrjQy6vRfv1UlpVctijpAzpU3xjOeeBKKidz/Q+H2PmKEjM3ppEu4mOePgmp
-         itPc7+GF2PwnjUAAWhaI7w+AFK5fxelO2G/ynQNxK4ntQU0JkWhdkoLskOa12FCF2/T3
-         Ll0OlpkRXOYta/G3ftxfUPNfrDappuyTwOR5ivWTfVUZRwquXJ8YDlnm8tUvPvIlEoo4
-         eGNNv/AK8er0TXWfyv2B0KuEvRnjmgwgfGIY7BHsCxuZnGNHKN+4N32Rz7Qb7qEaaE/Z
-         fb9OthJYJ6n8EXr46H+cQMllUVUuJIyQ2jqtkPTGt1cKpSsi2c9KuJDD8JeFGjid6tdU
-         64Mw==
-X-Forwarded-Encrypted: i=1; AL+hErFwN+xvPj7t0S5LZRjamAP+lSdNdqzPXtIZakYJ0wzo2LdAtr9SgGHM+rzbawBniNgTBFTCOKtdwFSXjp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93CGSS6rfRjesN338sanvi7pCisXlr6BT7hLsJKOC1bXHs6pjX
-	1P/hWOfL6VRoZW4/j03FRZVnT5OWzMdHEgAcBU6wLufu26FRWc7YL159rDmv61CutQmTGMvpeEY
-	k51Ji9gIEGTpOzQOexUP4yvLjzMfubZ1EM51bTNtBXhcqUF+Wq7ewIg/Divk=
+        bh=tK1kQDQ9VFpYSF8W7MukIVOMVEC+nFZPGaW46BBVu68=;
+        b=IzcST6sk5KBAeymLdb/qq1XxzDIUr1uP0i5DzAzjgee+iKlcSvsOeKpsMEUHKf79ps
+         FD/+eZayihiRfWfkdCiyYHlrEiPHo0iWFod8hSzITqSrpPXhPpfJvsI+VlvYJNKX1pC0
+         PMdHWCK6odV37zUaUtBZmIQ8OQoFBVkvxkiJZgMxpZ/RdrZEMJ+ZSwZPTNEdzvyuDnkc
+         qKtmPt3kGhCuJ/rdPFnDRtaohciIP7ia2VJgGpMliLNStfuwuxKYs3uBrJBd4y2Y/6wd
+         L3cRSMZ4kjLmp/NTUIGzJgeVgiLm8CsgeSBmQM3gGKbqSiK0uq/NugahSKACHSJIpK8Q
+         +Brg==
+X-Forwarded-Encrypted: i=1; AL+hErFoZRdSUMMdD2Lj7JZc4JWiu9IJLK8rn65Iy04TqIg8iYU5a2Cc7eaZnRkIR93SbFC+UkhHhcrKcbIUvRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9e+p2hNqhT4Sib84cI3sgUwFlJfECXywGF+3L1eb6V/64qf8NQ
+	E4veW91ev3zgJS4aNjjTGDd2ipwYdzDE4vKBkIy+g6xLBA1df/uljP8IuSfuEEdz6G2KxSeFX4g
+	25Zeh6tD0YvdFx1F7DwdiTaLL+DkkXapxZRmTOTHVOpl4FLBvl6F0DtpGYrk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,39 +58,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6b8e:b0:574:6f37:6721 with SMTP id
- 5614622812f47-5746f382304mr1095716b6e.11.1794803615269; Sun, 15 Nov 2026
+X-Received: by 2002:a05:6808:3386:b0:4fc:248a:de3b with SMTP id
+ 5614622812f47-56e643c9297mr8008506b6e.23.1794803615054; Sun, 15 Nov 2026
  20:33:35 -0800 (PST)
 Date: Sun, 15 Nov 2026 20:33:35 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afa879f.920b2b3a.148c65.0062.GAE@google.com>
-Subject: [syzbot] Monthly f2fs report (Nov 2026)
-From: syzbot <syzbot+list6ddd297964bb51e043dd@syzkaller.appspotmail.com>
-To: chao@kernel.org, jaegeuk@kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+Message-ID: <6afa879f.920b2b3a.148c65.0061.GAE@google.com>
+Subject: [syzbot] Monthly dri report (Nov 2026)
+From: syzbot <syzbot+list7416c33635621b860c32@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello f2fs maintainers/developers,
+Hello dri maintainers/developers,
 
-This is a 31-day syzbot report for the f2fs subsystem.
+This is a 31-day syzbot report for the dri subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/f2fs
+https://syzkaller.appspot.com/upstream/s/dri
 
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 10 issues are still open and 84 have already been fixed.
-There is also 1 low-priority issue.
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 11 issues are still open and 44 have already been fixed.
+There are also 8 low-priority issues.
 
 Some of the still happening issues:
 
 Ref Crashes Repro Title
-<1> 2628    Yes   kernel BUG in f2fs_evict_inode (4)
-                  https://syzkaller.appspot.com/bug?extid=5c81eb8c0a380fa578b5
-<2> 1368    Yes   INFO: task hung in f2fs_balance_fs
-                  https://syzkaller.appspot.com/bug?extid=8b85865808c8908a0d8c
-<3> 305     Yes   INFO: task hung in f2fs_issue_checkpoint (2)
-                  https://syzkaller.appspot.com/bug?extid=8a7eea50810efde15b0a
+<1> 347     Yes   WARNING in virtio_gpu_alloc_vbufs
+                  https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+<2> 145     Yes   KASAN: slab-use-after-free Read in drm_atomic_helper_wait_for_vblanks (2)
+                  https://syzkaller.appspot.com/bug?extid=0f999d26a4fd79c3a23b
+<3> 123     Yes   WARNING in virtio_gpu_free_object
+                  https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
+<4> 70      Yes   general protection fault in drm_object_attach_property
+                  https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
 
 ---
 This report is generated by a bot. It may contain errors.
