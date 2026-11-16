@@ -1,62 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832024;
-	b=Df+hlYcGyRoqxvnZUd8AZ85RypKG5h3fqKlyK93KJXVC7BdUzJ1sRH2c0bCl6YznDA8E
-	 HfGixSvSALsoJD1489KMqiKLieptSf0pjY9bCPB62qgOsekdMj2UfGPkf6DiLsY8zLNHV
-	 BVf2UO6OVfehm/SyJF6GCJ6s0Y/umoNVZ3Qp+omYpPkWXH7fT3b/Da8LgaLVN+aPIZd+T
-	 gRjZbcu3ESs877jllUjl+EuWZ2+/o1gqoRiKCkbFBX6+sVlNL7LV9rC2CdVyOjX9Retah
-	 DEic3QNJPYB89BzeyFNRAmpmYLxZguWOlxBkr5yoiGPlDTL/1FAjQtjaSpDlQHtqN1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832024;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dnDC8kwE7249tTFrvzPYMbaxuX3Yw02/TxaNtz8codw=;
-	b=x+1TRWCWCnc6P0MLrS3J21qMjka/1JbfBCM9BD5kGQq4llIU2p/ZRPIMBn+cIv8GMajU
-	 T0RvWdbtnYb4LjIpSmL4VQYxMrBXV62YX0hL/2+W+1GUiT2NeG6SplbRemR51LirF/xCS
-	 EjCGYILC8MwGXorMJDmkxrm5Y4gGI4oDfHMYDwBhlFusRpgQgydJ2UKYZgANW7mOITACw
-	 eG/BvPuQkdAf5eXvFrpt/gWNa7vT2pgmKs6Oohgw0OcaffORwvOp/f2aOVh6crAVBDr4j
-	 n/N23qUTlAu9xMrWjPCXhejiYDNMglgaN+GZWN/PuE7jPd7tHz0anpEr6Imgi+KDMtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsH4mFLy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.83.39
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794832025;
+	b=M5b8S76hgMBnxoy5SHN2chkZy0jGLLGPRax1cgkcxvS3N9KvstNuwf02EyoxR9ESsfxg
+	 I1EYDI8DhDfgajVIZ5oNG9WVJ0jMwKkvBnZhYHYy25bDc4KI43czrvgWwM7CEgqWg/9P4
+	 Nc7hDl2dUqMIep6EoAPl8hULCzzNmVJcwrNNGytgAns4gq4DBcsC7DVAmUaplM6U3IiUa
+	 4G/vvVCYlke73MpnmSar4yK3MEIe0h6UQh93YJRRnO4zQ8opkaJ5LmuZfmd5metoEyES9
+	 rZU4M4U6k/dUQ69+GjsNz8r+yJZ+ue1zjdpXBbLgKEgIThCjKNtDZaWwp9EoS0iwQTg==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832025;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
+	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Gb6FHfUUTcGeGCBkdYD9HQQYS+FE19BLuIb7TB5ZLAM=;
+	b=PkhKEew8e/LCGSnz9Lb+czBqY6+VoG03xIwOXBC9oMsDjsa/DZM+SxuAYgbhVmTjE+rl
+	 ATDHX2hg/ifzd3JslC8bZ/iBGbKdXt4UDq9rfv9mR7yCb/k3SFXZO/ypl3+wjr0vCjvI+
+	 U9UKw1wWEebMGqB6qwRHqP78rpyh2124lSDcrHv0oZ1Q2AwDntBbgbG09J7EtGhnJbjhY
+	 nRgFKP6vR35QQ3dDoBiZYwyk8X5dCyeIx1VXC6w1aH4YTBfKx+X/gIX/kyHpAfydaYwkv
+	 TL6bzlerr5sGdGFDl2L1B32KbFD4oNNx/AcmWNO52ca7q4u/vttIwz2vMBpl8ZTz78A==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b="E4ACtHp/";
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b="E4ACtHp/";
+	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.83.39
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013039.outbound.protection.outlook.com [52.101.83.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AB7606A330;
-	Mon, 16 Nov 2026 12:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD23606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:27:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD23606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsH4mFLy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6041F000C5;
-	Mon, 16 Nov 2026 12:27:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832024;
-	bh=dnDC8kwE7249tTFrvzPYMbaxuX3Yw02/TxaNtz8codw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JsH4mFLyhjbwt935HUxFSnSGaThutUlYFl27mkdSbELFBjMksm+AGEioTf0gfmrIV
-	 YXmBIWgkpIB9TgVMDX3IAcAFB8vb2JJewrMXpQEiFybwtGnfCjmwgC9+NeUJpJQ12W
-	 haEGxO45ej2LQOaHaA5n2vbx0BgurCFs732yVjIaGw8BdHh/fdibB7nroBgDX4Zar5
-	 isek0VL+Uv1T1uSC1W/lqC3zarCjaLiTniIxwxkQ2JYLh5ESU57ipBmrlchdU5+xZy
-	 JDPFRpgcsBbD7VeOYGLhb9bak80v1Usu0xhkc4qCcfo9w/MkTAaIeGl2evIWYAgNrD
-	 2encfW80TtAzQ==
-Date: Mon, 16 Nov 2026 20:06:48 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 00/13] arm64: add Synaptics SL2610 SoCs and RDK boards
-Message-ID: <avrx2EhgZ10ED40P@xhacker>
-References: <20261115102401.3520-1-jszhang@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=E4ACtHp/;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=E4ACtHp/
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=mYyq1uWrs4yKB9r9F7tGMBOr/pau+gmWFeCj4K6qmcDXlbNVBeyZCeiwpEY/CAX6Gm08r3GQlqH8JW/ZDJpZ9yOsK8q0RFH0T258GtTS+kKrdHqLfZrCQ4URIdBM4cX3DimEjSzcsf5qTdMnCdvFow+cExBX/t+gVNyOeTdfuz+vyCd/ArWm/9+BLacmsDHdiaNOhkDGep5I/34mhqDrOPYwpchIAOqwfysaBpO/WiW0b0IO4HiFW2wCbhnb+HWMIubwDdkKBeMEkNb9xcyBSqW75odcXahQ+9XSEGeCmUnMhDe14J6FMgVGY6QB/ACHD2jNLHG3+HiiiGVgGRbf9w==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gb6FHfUUTcGeGCBkdYD9HQQYS+FE19BLuIb7TB5ZLAM=;
+ b=QfhIYxe8XFauEn0r58b7waKKIxYL0DsYCWzkj75BApGO8mq1XSDYy4n4mp5v+PTk4Mju0svcpfdHbBnboXVBKiHTSc72rNwWNnJ0hFkMohrITR8GJX2KFgw5Ap0djGam5OO4jXlM+lmBO/lzV9m/RtSOpX8RMyfrLD0qPt82cgdiio0khC0QGRYm9NGiwg/g15gob1+/wgX3rs8e0qoSROfz65sdCfemVI1WT15zkSdqzMshx2QGsSJaNxpPk2XTp0iQlucA0N1zOVnIdDc7ue652070hVlMOYl7yqgy4QhKcJbj+FzSL8WZl1fcIZNYQCvvz4xsrxL3nEQO9tAbyw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gb6FHfUUTcGeGCBkdYD9HQQYS+FE19BLuIb7TB5ZLAM=;
+ b=E4ACtHp/U6m7O7B6kwjUS7+r6zmmo5Zn3eFxz3FkPUzIeIfemgoIqJAYsldYu+5HipbCL7Sj7039LB+tTa1BfRfzsRkGWF8FC8XxXDg1RYQAJamgv4bIa8oxgf1J3YlCKzi+kajjOMhCd+4RMii6aw1zt9FkiAuu0QR2X7smvhk=
+Received: from DU7P251CA0011.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:551::13)
+ by VI0PR08MB11223.eurprd08.prod.outlook.com (2603:10a6:800:24f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
+ 2026 12:26:54 +0000
+Received: from DU2PEPF00028CFF.eurprd03.prod.outlook.com
+ (2603:10a6:10:551:cafe::9b) by DU7P251CA0011.outlook.office365.com
+ (2603:10a6:10:551::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 12:26:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DU2PEPF00028CFF.mail.protection.outlook.com (10.167.242.183) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Mon, 16 Nov 2026 12:26:54 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fNsaP2008rMbTbP5/XsohMOsalWlSIKxwa/QxBUVWSbSiMhS4qHCNjBXpLYbE3hacKHMMLOgLNu7KDmuuwstMmjGzpU8Thl0IPd8+MTE/PtmgCn4TsEm83xdTkNEx5JKN/qCRoKts5X5k4i73OgiV0b/Mj26qdfCCki88BA7pa7mp9CSfFs+guaRm95SNeG10ItV+wGgz8aJGx4qih10SZYKcZ/zuhXYxkXE4oNzgq+PwHIryiuLA7w/I9kGqtxRqgRYEBCE0SVEa5qxKKarLaXjL1l7TMyL0Ms37oDaz0hVOHei/mDEA4liykLUZjIGHQoYsS69JoGZXT36MuLbMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gb6FHfUUTcGeGCBkdYD9HQQYS+FE19BLuIb7TB5ZLAM=;
+ b=CA1IPiFsGMlQzwZAFZZCtAkF2L0SJMPo4lx43+L5/zGbsbuR6BuE1mJhiTXK6N/UUGZe/fotgMR64oXrWl7J5ML+8XaNwYBPH484rhDdFRB7+ZItr4JquJhDeCeiIxeLxcKL5FUIu3OIibStwyxOVhMg/SQ8m1Xin0egddH1UEx+XlEMDXR3hWCmNAZtI45LPYrtjq1x0Cce4+3OrxmoyuGv3av2LeSEYFWsfh8uGZwdURNh8kCxxLs3EDDEfqYrDhA6h0vWPFO6VmT/A0NBfffAjRDBbxIt5YqM7Z9R/qk4NaPBkYpxKOAdYAlkfIeCiR/xNjwbho/WtbDs4JxHUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gb6FHfUUTcGeGCBkdYD9HQQYS+FE19BLuIb7TB5ZLAM=;
+ b=E4ACtHp/U6m7O7B6kwjUS7+r6zmmo5Zn3eFxz3FkPUzIeIfemgoIqJAYsldYu+5HipbCL7Sj7039LB+tTa1BfRfzsRkGWF8FC8XxXDg1RYQAJamgv4bIa8oxgf1J3YlCKzi+kajjOMhCd+4RMii6aw1zt9FkiAuu0QR2X7smvhk=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
+ by AM8PR08MB5826.eurprd08.prod.outlook.com (2603:10a6:20b:1c6::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 12:26:21 +0000
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
+ 12:26:21 +0000
+Message-ID: <4cf391ff-804a-46a1-8d3e-d0ff8442841f@arm.com>
+Date: Mon, 16 Nov 2026 12:26:20 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 11/12] iommu/arm-smmu-v3: Skip RMR bypass for kdump
+ adoption
+To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
+Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
+ kevin.tian@intel.com, smostafa@google.com,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+ Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
+ xueshuai@linux.alibaba.com
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <22a06965287dd478ee92f8028ae8ac27e054555d.1793593923.git.nicolinc@nvidia.com>
+Content-Language: en-US
+From: John Garry <john.garry@arm.com>
+In-Reply-To: <22a06965287dd478ee92f8028ae8ac27e054555d.1793593923.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO3P265CA0005.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::10) To PAWPR08MB8959.eurprd08.prod.outlook.com
+ (2603:10a6:102:33f::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,124 +151,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261115102401.3520-1-jszhang@kernel.org>
+X-MS-TrafficTypeDiagnostic:
+	PAWPR08MB8959:EE_|AM8PR08MB5826:EE_|DU2PEPF00028CFF:EE_|VI0PR08MB11223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 769f6b30-58ee-4efc-b512-08df43dce634
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|10067099003|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info-Original:
+ Obo45zSvFZ/2Uq+sZCvGony9CfaSBG0IwB8XGu6bi0/KbCInvDkdumWxsKUKQzOEC1Q0aH/PNuHGVToSnOuwTxTu/1/XypYho3h/8/hTYFf2A39Nx1Kgt/NUJVxFxuYY4kb26r3hSGUW91hUjE3sRRcIZEOT4mt/a/m7Ddv9Khp0OhAcOacEZmU+s2ZhVQwy2BEzs9aIAzb67rJcDI9+KGa0MY6vPQemcQSzL7u0l8cyR3SXoH06m8Wzay3DwyomJ2eig15hHkCG2H+h2ByxUy9tVnaM0OxtG9ZeY35JbDS1hwDwUe9hTLMm1V+rvYOLHZG7Nujfhsb62uhgRsG5+sGy0ODrSy5gQOmLCOyHW3fbIQ5zRL5xrcvIai3VR6cMW+LZg9+W5euXUM2Vvm3pGMW+BjaazBMwH20EnBuH3mGpiBAAiyryO7er0AuIkkqvAthI5k9tqNxxotiKFJQa81CAJbFhTEPh6X17CFqpOgco6YSL/WkT2/lHjcrjawb31Yz5o5+nTpi4cfEIUx/n0/BeYQxolqobY98RJ6oBktfjd6t+twu2yUfuTiGWOL0alMtzwVLMHtzUaXorkPzSwUaxPPeTcoGshsnjXOZ450Gd0jYPi9CszhT6DVtDpAJd1kfMoTxqQv2NLj8DB0fQ+S2N9c8TMpz/T7bY16iqbPY=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ Vxqs1SyjvG+k5/YMCBUVnR7nYryn0bhmhxpEDroaUsxcO6hN55ksWqNrL543IiTEGbh3jpn/FrvH+rrZtqwsKQucS1UX9w8Fy6Q75/m1Wwp5NRYMOpISxbrR/ccHYcBnxpRrpk8QDDHd6+8u/fJlwPmZzv5hHrbirhTRrgVontRqp/sZnm4saFm6FUp6Ok6Ry5UOE6Uc2KigDaTGzu0DjE676PrQAjaZW0faJMWND2PA81cLyoLpSKAVuBtp6XTrAfR+rLT4eiIkp7de9MjxoUhVMjcXOrIC2mjPWrF1aHBILVFX+SF0RbiyUo3StssLs5zZu7eee1JLjcdDhh31oA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5826
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU2PEPF00028CFF.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	72d000c7-aa8d-4c47-a9ae-08df43dcd2a0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|14060799003|7416014|376014|30052699003|35042699022|1800799024|82310400026|36860700016|10067099003|56012099006|4143699003|11063799006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	vFbWKIwi+u4u4wPNB1DoynJvAA5xkVWuZ86ehL7/kMTj8HA33VGkb2ko1DnofYGefTdd/h4ufEfShokLiFcs/SNaSeNEpJKPcdHhxu3nbIVOYYzFBLzkFjLRJEW3WbwJH4GPiQh2Iz15TnBJXe/zDyDO2H0Yb1uuYqwdFZRU9wiImvTMAgcAT8VDc+7o4yZ9BQXg0XGTbXNxlYXwFM+pkYQoqy8ksKlfz9KpU2NU0dY5v5EQX+WJh5W3EHcq/Hw2hlbcgL+59J3R7TfmNlaCUFYfYBxs3IlrecMHro/goNz097mB4/tSmbr0g2h6rVhGz/OUgqDb5dPreAR0lve0mIAT3VcEHsNiSC7g35yPGMJLnCkPUWoMT2QIeQX/TO7QLKTFOrTPBdK1KyFCFBc0BhWj4gC0xBwLEH8970Qt96oChe4Gh9VBnBcQbW3iMYyG0ZBXzlDp9R2CM97oeJ076zbvKbP7EIU12T208X3rbGVdlXSstFM6lW1lN865j1bx0RoXAGi8j5tdIkcMMvJ90WBu85WQAuG9LX8jdS6P+aAom2vWN6xBYdpL5GHL52+R3RsiTYIZcfFEYty6MwY5n3/LuPUykwRVc+4E5PMGqschWqXxEVLeN1v6BobLFCMPkiYW0O40Of2LungTf82Oq4b5sLJOUcyt0Rz5dOxQtAi/B9GK7dfRORjyejuOmij7bJk6rxDkGFuoOvsKw3DXGw==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(14060799003)(7416014)(376014)(30052699003)(35042699022)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3OC3smq+OYNoMMw9bQOTQfglGJ68/7+r+gKK3abFa/loVNRztGTlL2xf+Mg3zfNmkyYD/OdVX93p94St8Gw0BLLf9n/oORpyGD8rLfvKOvAhRF3JKM9NaWR2jykk3/foCV8vEbVXhRHnctt0tq7EGmq1Zf2UER27gwOnLIxLJew7gsmwhicBAO5J0VEd1+t0ezwJkbvW8mVtZISQ05n2LN+QzosmOfNd4WsbodD9D+yeaysKJsqUTUCSi2FJQbBaQCEwsMxkWb38T/127hSsZ6oXaHvcAI5BiHftsJcjcgH+qf8HiRyXuWWnuhbAPQhKR+Qemz0qKlWaP+/oBZuBxH8xdNjeKsPTzIzAg6NkWclOji+Jndtq5JlEp1rWfwU/smff1J/v1Z9ImRY5WFKn1NgEvzmITmsSUO4eZMJi/fF3sZleck7Ro4kETiMkDNqQ
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:26:54.2910
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 769f6b30-58ee-4efc-b512-08df43dce634
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028CFF.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11223
 
-On Sun, Nov 15, 2026 at 06:23:39PM +0800, Jisheng Zhang wrote:
-> Add initial support for the Synaptics SL261X SoCs and corresponding
-> RDK boards.
+On 11/2/26 05:19, Nicolin Chen wrote:
+> RMR bypass STEs are installed during SMMUv3 probe for StreamIDs listed by
+> IORT RMR nodes. A normal boot switches the driver to a fresh stream table
+> whose initial STEs abort, so those RMR SIDs need bypass entries before it
+> becomes live. This preserves firmware/guest-owned traffic, including vSMMU
+> guest MSI cases built around RMR-described SIDs.
 > 
-> The SL261X SoCs include five pin-to-pin compatible SoCs: SL2611, SL2613,
-> SL2615, SL2617, and SL2619.
+> ARM_SMMU_OPT_KDUMP_ADOPT is the opposite case: the driver keeps SMMUEN set
+> and adopts the crashed kernel's stream table, so RMR SIDs already have the
+> only translation state known to be safe for active in-flight DMA. Replacing
+> an adopted STE with bypass can turn translated DMA into physical DMA, then
+> point it at the wrong memory.
 > 
-> Only reset, pinctrl, clk/pll, uart, gpio, i2c, spi, i3c are included in
-> this series. The support for Ethernet, USB, SDHCI, CAN, DMAC, XSPI will
-> be submitted after this series is merged.
+> arm_smmu_make_bypass_ste() also rewrites the STE in place after clearing it
+> first. While the table is live, a concurrent hardware STE fetch can observe
+> V=0 or mixed old/new state.
 > 
-> since v1:
->  - rebase on latest rcN
->  - drop some patches which have been merged
->  - let the "gbl" node export pinctrl/reset/clk devices with
->    MFD_CELL_NAME()
->  - use <linux/platform_device.h> instead of <linux/mod_devicetable.h>
->  - adopt some coding suggestions from Uwe
->  - Use 0 and 1 to select normal and strong pull-up on 10-bit pads 
+> Leaving the adopted STE unmodified keeps the kdump kernel using the crashed
+> kernel's translation. That gives the endpoint driver a chance to probe and
+> quiesce the device.
+> 
+> If the old STE was already abort or invalid, installing bypass would create
+> new DMA permission; leaving it alone is a safer failure mode. Later domain
+> setup still gets the RMR direct mappings through the reserved-region path.
+> 
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Breno Leitao <leitao@kernel.org>
+> Tested-by: Cristian Prundeanu <cpru@amazon.com>
+> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 
-Other SoCs doesn't use this defintion for pull up or strong pull up.
-After consulting our HW people, the strong pull up isn't used at
-all, so I will remove strong pull up support in newer version. We can
-add back its support when it's really needed in the future, nothing
-breaks.
+FWIW, regardless of comments below:
 
->  - collect Acked-by tag
+Reviewed-by: John Garry <john.garry@arm.com>
+
+> ---
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 13 +++++++++----
+>   1 file changed, 9 insertions(+), 4 deletions(-)
 > 
-> Jisheng Zhang (13):
->   arm64: kconfig: let ARCH_BERLIN cover Synaptics arm64 SoCs
->   pinctrl: berlin: use u16 instead of u8 for the offset
->   pinctrl: berlin: enable module build support
->   pinctrl: berlin: add optional pinconf support
->   dt-bindings: soc: synaptics: add SL2610 system controllers
->   soc: synaptics: add SL2610 system controller support
->   reset: add Synaptics SL2610 reset controller support
->   pinctrl: berlin: add Synaptics SL2610 pin controller support
->   clk: berlin: add Synaptics clock controller helpers
->   clk: berlin: add Synaptics SL2610 clocks and PLLs
->   dt-bindings: arm: berlin: add Synaptics SL2610 SoCs and RDK boards
->   arm64: dts: synaptics: add SL2610 family SoCs
->   arm64: dts: synaptics: add SL2610 family RDK boards
-> 
->  .../bindings/arm/marvell,berlin.yaml          |  20 +
->  .../soc/synaptics/syna,sl2610-soc-syscon.yaml | 178 ++++
->  MAINTAINERS                                   |   8 +
->  arch/arm64/Kconfig.platforms                  |   4 +-
->  arch/arm64/boot/dts/synaptics/Makefile        |   5 +
->  arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +
->  arch/arm64/boot/dts/synaptics/sl2611.dtsi     | 457 +++++++++++
->  arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +
->  arch/arm64/boot/dts/synaptics/sl2613.dtsi     |  12 +
->  arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +
->  arch/arm64/boot/dts/synaptics/sl2615.dtsi     |  46 ++
->  arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +
->  arch/arm64/boot/dts/synaptics/sl2617.dtsi     |  46 ++
->  arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +
->  arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  44 +
->  .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++
->  drivers/clk/Kconfig                           |   1 +
->  drivers/clk/berlin/Kconfig                    |  34 +
->  drivers/clk/berlin/Makefile                   |   4 +
->  drivers/clk/berlin/clk-sl2610.c               | 360 +++++++++
->  drivers/clk/berlin/sl-clk.c                   | 279 +++++++
->  drivers/clk/berlin/sl-clk.h                   |  31 +
->  drivers/clk/berlin/sl-sysmgr-clk.c            | 241 ++++++
->  drivers/clk/berlin/sl-sysmgr-clk.h            |  44 +
->  drivers/clk/berlin/sl2610-pll.c               | 145 ++++
->  drivers/clk/berlin/sl2610-pll.h               |  14 +
->  drivers/pinctrl/berlin/Kconfig                |  16 +
->  drivers/pinctrl/berlin/Makefile               |   1 +
->  drivers/pinctrl/berlin/berlin.c               | 259 +++++-
->  drivers/pinctrl/berlin/berlin.h               |  17 +-
->  drivers/pinctrl/berlin/pinctrl-sl2610.c       | 759 ++++++++++++++++++
->  drivers/reset/Kconfig                         |  13 +
->  drivers/reset/Makefile                        |   1 +
->  drivers/reset/reset-sl2610.c                  | 224 ++++++
->  drivers/soc/Kconfig                           |   1 +
->  drivers/soc/Makefile                          |   1 +
->  drivers/soc/synaptics/Kconfig                 |  14 +
->  drivers/soc/synaptics/Makefile                |   2 +
->  drivers/soc/synaptics/sl2610-syscon.c         |  84 ++
->  include/dt-bindings/clock/syna,sl2610.h       | 131 +++
->  include/dt-bindings/reset/syna,sl2610-reset.h |  80 ++
->  41 files changed, 3771 insertions(+), 20 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/soc/synaptics/syna,sl2610-soc-syscon.yaml
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611.dtsi
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613.dtsi
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615.dtsi
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617.dtsi
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619.dtsi
->  create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
->  create mode 100644 drivers/clk/berlin/Kconfig
->  create mode 100644 drivers/clk/berlin/clk-sl2610.c
->  create mode 100644 drivers/clk/berlin/sl-clk.c
->  create mode 100644 drivers/clk/berlin/sl-clk.h
->  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.c
->  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.h
->  create mode 100644 drivers/clk/berlin/sl2610-pll.c
->  create mode 100644 drivers/clk/berlin/sl2610-pll.h
->  create mode 100644 drivers/pinctrl/berlin/pinctrl-sl2610.c
->  create mode 100644 drivers/reset/reset-sl2610.c
->  create mode 100644 drivers/soc/synaptics/Kconfig
->  create mode 100644 drivers/soc/synaptics/Makefile
->  create mode 100644 drivers/soc/synaptics/sl2610-syscon.c
->  create mode 100644 include/dt-bindings/clock/syna,sl2610.h
->  create mode 100644 include/dt-bindings/reset/syna,sl2610-reset.h
-> 
-> -- 
-> 2.55.0
-> 
-> 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 1c53c690a2b02..3696d11c852a8 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -5810,6 +5810,14 @@ static void arm_smmu_rmr_install_bypass_ste(struct arm_smmu_device *smmu)
+>   	struct list_head rmr_list;
+>   	struct iommu_resv_region *e;
+>   
+> +	/*
+> +	 * Kdump
+
+mega nit: "kdump" could better better, as it is a keyword
+
+> adoption keeps the crashed kernel's table live. Rewriting the
+> +	 * adopted STE here could expose an in-flight fetch to a transient V=0
+> +	 * entry, or change Cfg=translate to Cfg=bypass. Must skip here.
+> +	 */
+> +	if (smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT)
+> +		return;
+> +
+>   	INIT_LIST_HEAD(&rmr_list);
+>   	iort_get_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
+
+Did you consider if we should sanitise the adopted ste against what 
+iort_get_rmr_sids() returns? I suppose that would add even more complexity.
+
+>   
+> @@ -5826,10 +5834,7 @@ static void arm_smmu_rmr_install_bypass_ste(struct arm_smmu_device *smmu)
+>   				continue;
+>   			}
+>   
+> -			/*
+> -			 * STE table is not programmed to HW, see
+> -			 * arm_smmu_initial_bypass_stes()
+> -			 */
+> +			/* The fresh stream table is not yet live. */
+>   			arm_smmu_make_bypass_ste(smmu,
+>   				arm_smmu_get_step_for_sid(smmu, rmr->sids[i]));
+>   		}
+
