@@ -1,97 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794847866;
-	b=uMl4g/6GPmEgNrtGALQK5+VKMQ+rVg8BD0eD/0W7562tSWfv/db7QsBq5dK8l9IsVcCO
-	 P2jWgDmgN9/VkiBqG9Mt2vE4JagjwBwMIRLczrUAo5A8QGeGnDQMM6PrMkN1GXDm0TOY/
-	 qP3AwZV2riiB64dSzQIFJBWsWtns5ftI0l1eBRnEDG5RwKyKyNpw8GGVRAbgpk+ysB12i
-	 BF+A5M05zccGNk1lJI8L6k2xwyLHgDE+Sq5J/ju5M7TNn2hw75Cla+y+W/vAg65Awc0ky
-	 N89RgI9cHxiXIX3Wzuhrowpp10FI9L88FQKWP942SuIfDq8bVhuv32xnNcE7YdOpoVw==
+	t=1794847886;
+	b=Tc/VPMMdPzOgOKkrxeiNun1y4US+U2Wr+SDtTJmdcS0ZKNhqLhIs2sYrDQMwnHHBLGY2
+	 8KtQz5ArULZps1DLVYLYFdsLUR7VbFvqAyg0ivTYwYHGlxowV9Eh1O0LP8bPrLAdMOxgR
+	 0saZVW5eOpmKNOIpgQb1q8o4PRnK1u62CqHHq/GoHJTLdgoGnSpNohyANdh5Dc98hZUVP
+	 xygXjwUd5Twa8ELWtX/jUTcqNCAS3wLmXS/kS89j30+YOX1MlTpNE2Lm0Tuk023Y89sGv
+	 9R+uLywadkRJy07m92flRKBU5l2+VZQLOwzygsVT3eB5oBndveVViybi08DyCQgOi6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847886;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=niX0/7kWjmLy1DxMm+YmwH5Ftvq6nAr9bzoEqjR0tSE=;
-	b=1tvD4W3iGJeFyrM6uQAN1vf7zJikJqMIqK1pUhYdppmXPEtIjn/LXSgqaBoQATQJjfmt
-	 7CaQHO/yqw9mUC7czJ1IuiUX+SrfB90+HSVnbto1TEQ6VtTPCmzD4jduoZJ6PCwbb+N8Y
-	 9Hvah13NRYVX6wqkrVO3LvFkLHqjjXOSVK5DwjFcedF5z+33rn6aCHzACr5DT1xyhqRtw
-	 xhGIDzlWylK1V1kMO4iZQmiQL9xMoxJH/I6BEMRSkq1jfB/Y2XGDU4UHKvkdDZjfQoO/t
-	 L0rxR17gfVTRl4AWefJgom3THEHS8kC4EoHRZ0cAmI8H0kbb1Hts/sQb0KkHQsW4u9A==
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Y/to8FbE5YYlWSFO4zTlQ+B5Zi7RN6gYp/qeiDpCb+c=;
+	b=oZR1O2DgiTRrL4vX1Trfbed2xhnZmWHGXjTyhhNzjVh6xapNS+ED6jz4aJnX18dVCqIf
+	 p9XXxLTBCkP2QUa5Z3d+cN+PqioAyudw87RdgmX5ccBA+4bgt9ZqdHzpD8fRKog+aSnC5
+	 FsfMZG1Bd/UzGJbRi2BIAGp56/ecwiT6cT5nRQy8P+0MCVvyTw9IyQirb8yTtJDWFBz7P
+	 fsQsIky3EbBrDVU1mGYSLD1btlbYGcDL/NWOgaNKRtBoQPTWSaVgmNW6RCu8p7jxa2cyk
+	 Kk6YKtSx1rq4i+Cc3WPBWflFzLmPHKYEzRObMt+hH8Rci4acY6pRC2riyaMOwgDuiUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="kwFoi3/9";
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=WwqjBALW;
+	arc=none smtp.remote-ip=50.112.246.219
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C90606A322;
-	Mon, 16 Nov 2026 16:51:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C90606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37416606A31C;
+	Mon, 16 Nov 2026 16:51:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37416606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwFoi3/9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794847866; x=1826383866;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=toMRuYLNs5jiuk2i/De6hLDe9tSlhsjDdzmsxSWix6E=;
-  b=kwFoi3/9h0RPo4joQTAVXBoc4WBNbkZXU0mTuaoWp8Sl/novtlTTx21B
-   W0C89lMfO5DHU78VqTWRkXBiME+Z6nQHQrVyw6MG7/S1pBJI/0op87UtP
-   pnA8F16dlwiOspovQfpUYBjr0rEwb+E1+7PBfqDFOp1VSQEWSzS+NGzy1
-   SoNkbfw6a9uS+LjvqbxdQo/pgyChayIRml8Jz26Eh4aW2eriCr3znnkvP
-   sBYBCqLoGT1u4RqJODrGCqr21NQcgOiMVH8IvrJhKVe/HoMiAVCDaTK5f
-   yrT7gHb2qg+l4V8sfNXwg7z8XILSq6+7oTIKonVYjRFwJFlqrOkW5hxpM
-   w==;
-X-CSE-ConnectionGUID: 7eF3vCsSSTCV1d7WEaPREw==
-X-CSE-MsgGUID: sZ0HgaggSH6JTAQMXcedMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3500091"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3500091"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:51:05 -0800
-X-CSE-ConnectionGUID: wAcIHMRTTfyy8TESlIw1MQ==
-X-CSE-MsgGUID: /5Xe1gOQRLyo46MHLbBr7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9762467"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:50:59 -0800
-Date: Mon, 16 Nov 2026 18:50:57 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jens Reidel <adrian@mainlining.org>,
-	Casey Connolly <casey.connolly@linaro.org>,
-	Val Packett <val@packett.cool>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] iio: adc: qcom-spmi-adc5: Add battery thermal
- channels
-Message-ID: <avs0cThxYLWyXE-X@ashevche-desk.local>
-References: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
- <20261113-bat-temp-adc-v3-1-743979a8fd90@fairphone.com>
- <avc5rnvIAEmZbyE1@ashevche-desk.local>
- <DMWR1CJJRHMF.33YRRRDXPMBDW@fairphone.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=WwqjBALW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794847886; x=1826383886;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Y/to8FbE5YYlWSFO4zTlQ+B5Zi7RN6gYp/qeiDpCb+c=;
+  b=WwqjBALWw3OBoHppM/qpL2XlPlLMhljw7SvjNo1hUwW2afYYDa/ZAvTV
+   6fLwvx5MZxxV/BMBLZ0DfG/IfXqKS5bsc2wkLlwZMb8+T7Rbas3b5T8ha
+   3jGFpZ2eV/inQrtdNtiWGWK99ai1e3sta08Orz4KlKx3QQkKrCesbzk/I
+   bfLwgUF3YuRMU8HYsbbb73E5QTu4RNTa5KSR82u5oyPfftR2/sEK4lj/c
+   IX1nZPczgCYMveD7PNkFhJmg0HIzoMKqfsYQ4mRcTaNzB/14MlB30WeyG
+   4tQYoQxIYGrv3iaRtjaFh1t5olCL8Qkwle8Wagn5Q8Etk16vOYg7e8d1Y
+   A==;
+X-CSE-ConnectionGUID: B4UU86T7RsaJkwobuu7DNg==
+X-CSE-MsgGUID: WbUfqfrqQrm0DTfPWBIAKw==
+X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
+   d="scan'208";a="34067393"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:51:19 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:6624]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
+ id 4fd3e899-5759-4ea8-9ac3-cac7db866744; Mon, 16 Nov 2026 16:51:19 +0000 (UTC)
+X-Farcaster-Flow-ID: 4fd3e899-5759-4ea8-9ac3-cac7db866744
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 16:51:19 +0000
+Received: from dev-dsk-avivb-1a-8cc559d6.eu-west-1.amazon.com (172.19.102.34)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 16:51:17 +0000
+From: Aviv Bakal <avivb@amazon.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, "Lukas
+ Wunner" <lukas@wunner.de>, Kuppuswamy Sathyanarayanan
+	<sathyanarayanan.kuppuswamy@linux.intel.com>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Zeev Zilberman <zeev@amazon.com>
+Subject: [PATCH v2 0/3] PCI/PM: Keep hotplug ports that can't wake from D3hot out of D3
+Date: Mon, 16 Nov 2026 18:51:07 +0200
+Message-ID: <20261116165110.2773301-1-avivb@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,64 +84,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMWR1CJJRHMF.33YRRRDXPMBDW@fairphone.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon, Nov 16, 2026 at 04:43:49PM +0100, Luca Weiss wrote:
-> On Fri Nov 13, 2026 at 5:24 PM CET, Andy Shevchenko wrote:
-> > On Fri, Nov 13, 2026 at 04:56:42PM +0100, Luca Weiss wrote:
+d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on
+non-x86 platforms") lets native pciehp ports runtime suspend to D3hot
+on non-x86. The PCIe switch ports on AWS instances advertise PME from
+D3hot but do not send it, so hotplug events such as an ENI attach are
+lost on Graviton. x86 keeps the old logic, so the problem does not show
+up there.
 
-...
+Patches 1-2 handle existing switch devices, which advertise PME:
+patch 1 makes pci_bridge_d3_possible() honor PCI_DEV_FLAGS_NO_D3, and
+patch 2 sets that flag on the Amazon switch ports.
 
-> >> +static int qcom_vadc_scale_hw_calib_therm_volt(
-> >
-> > This is broken indentation. Was `clang-format` being used to achieve that?
-> 
-> This is how the rest of the file is formatted, I didn't deviate from
-> that.
+Patch 3 handles switch devices that advertise no PME from D3hot: such
+hotplug ports are kept out of D3.
 
-Oh, I see, that's unfortunate.
+Changes in v2:
+- Patch 1: check a copy of NO_D3 taken in pci_pm_init(), so
+  pci_bridge_d3_possible() does not change when a FINAL fixup sets
+  the flag after portdrv has probed.
+- Patch 2: reuse quirk_no_ata_d3(), renamed to quirk_no_d3().
 
-> >> +				const struct u32_fract *prescale,
-> >> +				const struct adc5_data *data,
-> >> +				u16 adc_code, int *result_uv)
-> >
-> > result_uV
-> 
-> As Sashiko pointed out, this is labelled wrong, the result is millivolt.
-> 
-> The rest of the driver consistently uses "mv" for that, should I deviate
-> and use result_mV?
+v1: https://lore.kernel.org/all/20261115171831.1498006-1-avivb@amazon.com/
 
-In that case _mV, yes.
+Aviv Bakal (3):
+  PCI/PM: Honor PCI_DEV_FLAGS_NO_D3 in pci_bridge_d3_possible()
+  PCI: Avoid runtime D3 on Amazon PCIe switch ports
+  PCI/PM: Keep hotplug ports out of D3 if they can't signal PME from
+    D3hot
 
-> >
-> >> +{
-> >> +	*result_uv = qcom_vadc_scale_code_voltage_factor(adc_code,
-> >> +				prescale, data, 1000);
-> >
-> > 1000 is odd, can you use something from units.h or combination of those
-> > to show what this multiplier is for?
-> 
-> This is converting microvolt to millivolt.
-> 
-> Shall I use "(MICRO / MILLI)" as used in plenty other drivers?
+ drivers/pci/pci.c    | 22 +++++++++++++++++++++-
+ drivers/pci/quirks.c | 20 ++++++++++++++------
+ include/linux/pci.h  |  1 +
+ 3 files changed, 36 insertions(+), 7 deletions(-)
 
-Yes.
 
-> Two drivers in the tree also have "#define MILLI_TO_MICRO 1000"
-
-They should rather name it explicit with VOLTS inside. So, not a good
-example.
-
-> >> +	return 0;
-> >> +}
-
+base-commit: 23c62304dde29abe92013d85910d03a77dada35d
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.50.1
 
