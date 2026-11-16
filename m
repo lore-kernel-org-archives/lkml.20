@@ -1,75 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796277;
-	b=LDllQBh/s57FEs17FVqlBnK1D4R6rf1ZqsiXmpkHqR9ev0IueDlwf/MR85v8GTAea37E
-	 bfSLqkdhUh/86eyMDAzla04FciIRZMZkVy7JJuVv6C0lhAD7ciGa+QaSsDEX9aQxuFjWy
-	 ev9OOfxcmmY85VRZu4HgN/5Lfe24JVkdObd0xU72utvS3x/lwz53XaSSg6k07FU0wLmZD
-	 Y+GgqZxePnc0aZTxF2IvcrNqEvsFJKjshLSPZMtzZFL2Vxf7nJd4NXmdfUrm1Srfs2ogW
-	 u29lu7uRhAVbr5b9JuoU5JgJgKAiEv+lh63fVjV2QXIfHe30IxFEv1oeFwMtWAv9hUQ==
+	t=1794796298;
+	b=emyDmZd/JeKTNiK3EBZloZp2vunQN3ncYak8+cm57pm49YlLZwFx77WiTVSsoNQ5akud
+	 e433JDeF+nomkgOa4MvCatVGVDKZMb9S5I5VAUTCP700q0c0/s6X55uHDmBZwnVMLnO+X
+	 c4X+QonN7yoaJgXtkQirY7zGtRCqc7DKyoiYBr9J6NRJe7+LG5o2EsPWRkCMTRnblJKKu
+	 ReL2MCwlAwOvi9zX/ACqU+SaI0hEgGQN6cAdXiyAh7ypy2i0jqdaeY8esIbGdNblis0/z
+	 wF/RZpMVP+4aqKGQgsXrpCsHTRlXMhbP2WCkNll/DLlOGcOuSUHcY/d8JYLarVNpEKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796277;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=FKvjlHRiAkBBGldi8tqyRzKJUO6RZBtUR9E6f1vPWnc=;
-	b=VJra7yI8D7hdSJcpuMxnOvQcLjeC84CyLjuQGod0y6naKE7Lwt6bN2cgB/2qnYXA2Uz9
-	 kPOx5lEabhxU4cViqx5Nni8mzLgAV1ArZHm4c4uHePDGo4tKbY4D9DGvn+rwJCZRz5i+9
-	 6MTFRUiInqXOn4e8VkpbOSDXbAcG86SRsL57+ppWIlUN0v+47rQcIAVoD2jmNv7/e5xBg
-	 ArK4ggN7Z+FgfxBgMNnqCgdyQCcEqorRWc6zJ6ySlAUyeKNF6UUEMLPyJD3SnC0Yp4xru
-	 nt4p0yaFPvQCUbYW8w95TzqDKzyH0E914ug8U+/KVOh/VnIVSOv6lFWORJyjlTCWsrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796298;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=hfqntSgZEOiSlMbDpZIWb1KiGQmsm3Ec+5CbGoJgk7E=;
+	b=e5ES9sNNbDZY2387ICOcgtV/JB8sManWop/ef31Z4EqO7GEZv16E8JbgD2l1Sf8jcUi/
+	 v837i3qAa5teC/326boCpgaxPku622rQCQiHKQmOQlVR1OIagjA2GzzsOrdoc8m6oWknx
+	 743XexJXD3mZMIsB18S3/PISuChflNhhxmcO3sznLk65YFlZVAO9X1kbNxm/K/csUrmbE
+	 xk0CFhe5d2ERH/wepbN/9WyQfsFL+M+n1j+gjnenx8dlgdfJ/huUM/DggysGRXO378wqz
+	 SzrlRsHuv6dCjqnGUsqzmlpLKZgY/sGJyzIFo55WVOWVbdonYps4vEEcGoe0Ldl2owQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=qQGkvwKg;
-	arc=none smtp.remote-ip=209.85.221.197
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=WxeZfkmZ;
+	arc=none smtp.remote-ip=160.236.53.13
+Received: from mail-m1602365313.xmail.ntesmail.com (mail-m1602365313.xmail.ntesmail.com [160.236.53.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0398606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0398606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B3C606A31C;
+	Mon, 16 Nov 2026 02:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B3C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=qQGkvwKg
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eaad8219b0so945850e0c.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:31:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794796275; x=1795401075; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FKvjlHRiAkBBGldi8tqyRzKJUO6RZBtUR9E6f1vPWnc=;
-        b=qQGkvwKgwAzg0VnMZ6FFjeYVUpUB4G4gESIRB+Ywv+2DN09rzQiGU8vUDpVFIWU1S1
-         ZuAvM/aukev+kpYmOin8pWhcjmyM6SNl7u65+t02vJhqAt5JIBe/Y8KwgmncnZEjogAR
-         HCqQutGR8HYJY4jhJ0y+6fw8KhNNVpAAjXYhCHHOGFkWZP3P6kwyH1UPqajZaXMFkt04
-         iM124aJ+XvWt9dXZVP8oL7pqAtWAy5tgqdV1C7A9kr4WYwIDIOiWRQph5jovxFpAFKfF
-         M5xRDTpLrt5sRuymBZ1WQnEaAgTTr7HWmow0oj19uSqCkFhG/DPjo6fyAbohq/YmSWRO
-         75aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794796275; x=1795401075;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FKvjlHRiAkBBGldi8tqyRzKJUO6RZBtUR9E6f1vPWnc=;
-        b=IOCY6orFHLX/Xp36kw9BOxfOsMpTHOpqPqUR5DYqv6TTosSAbv7vN4oJWqo9uqQ3pN
-         7l7R9wsWu+MIhYknhh75kpisolwkPrpU5qKo3jKEOGPxTtI+d9cb8pxhwpry2871IBEq
-         PuHm5qlEjbtSL7gylQl81CP2poF82emzNQ7ELSFM5hNOdcZR0EMxls6hQAzSxHNN1XSQ
-         09FIlV4EqUWuXDPHtmsMN3P5Jydc6nrtU0XnoidVCJJzkMuxR6PbepvBM5GrOwkmMZIq
-         5pwfl/clUGK7p4EaS/opJwwIBdGXQh2oKL+APruxtNU3qqPeH5HNjgSqKr70DZ0M0ah9
-         3xkw==
-X-Forwarded-Encrypted: i=1; AL+hErELF1GCg0Q9tDriqMS0C+E5KIt3ZUC2rn/bMPTsJcnnKuAZ1+z4JcgtK6DoeY5L5BoZI8x7Fzbue4zBTEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ULmVfSFHmSPYH2e203bkWutoMAS1VoxawmV1tYsHVTBwN1oNj
-	UXeBQkOUGejt03cfPObYZNrgmfbroZXr1+nJ7Hkp6oOcsak84zhB0YRnACM8UH7qdboVs+nGoft
-	PPfqBeJZwLAQqPCAjnrL5fm+Ynw==
-X-Received: from uapk12.prod.google.com ([2002:ab0:734c:0:b0:99e:2b39:a3b1])
- (user=thaisonphan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6102:2922:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7d64db3c827mr2441486137.36.1794796275267;
- Sun, 15 Nov 2026 18:31:15 -0800 (PST)
-Date: Mon, 16 Nov 2026 02:30:29 +0000
-In-Reply-To: <CAL4Wiioi-t+gKL3dLDWcTrd57tv9TEoXUxh8gHjCQSDyT7Xxyw@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=WxeZfkmZ
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54c419283;
+	Mon, 16 Nov 2026 10:31:24 +0800 (GMT+08:00)
+Message-ID: <eb51e0bf-148a-4d8b-8110-b65094fa1b43@rock-chips.com>
+Date: Mon, 16 Nov 2026 10:31:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,45 +47,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261114161248.3428695-1-thaisonphan@google.com>
- <20261114161248.3428695-2-thaisonphan@google.com> <CAL4Wiioi-t+gKL3dLDWcTrd57tv9TEoXUxh8gHjCQSDyT7Xxyw@mail.gmail.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261116023029.128997-1-thaisonphan@google.com>
-Subject: Re: [PATCH net 1/2] tcp: initialize ir_rmt_addr and ir_loc_addr in cookie_v6_check()
-From: Thaison Phan <thaisonphan@google.com>
-To: edumazet@kernel.org
-Cc: chia-yu.chang@nokia-bell-labs.com, davem@davemloft.net, horms@kernel.org, 
-	ij@kernel.org, kuba@kernel.org, kuniyu@google.com, 
-	linux-kernel@vger.kernel.org, ncardwell@google.com, netdev@vger.kernel.org, 
-	olivier.tilmans@nokia.com, pabeni@redhat.com, stani@google.com, 
-	thaisonphan@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Lucas Tanure <tanure@linux.com>,
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Yifeng Zhao <yifeng.zhao@rock-chips.com>, stable@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH v2] phy: rockchip: naneng-combphy: fix RK3588 SATA
+ pipe_con1 register offset
+To: ricardo@pardini.net, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+References: <20261115-rk3588-combphy-sata2-6g-v2-1-778e0e8011fe@pardini.net>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261115-rk3588-combphy-sata2-6g-v2-1-778e0e8011fe@pardini.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e231e94703a4kunm17ffdc46316b32
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT0lOVk5NT0keGBlITkhPTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WxeZfkmZ5HroSFzNuKJdwY9gasYUv4nbix2/cXrP2RmCjDFaiag8JqeXgy6Lw32LPAlnUK/JDwgljR25116G2CTQRGcyB6duFeqPbq36WeCpMq1ZX0VQ3do+LrDW58KNesZ5AexQivXnWkr6tRuGJz1XIZfXwn2I6BRkg81Bipg=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=hfqntSgZEOiSlMbDpZIWb1KiGQmsm3Ec+5CbGoJgk7E=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sun, Nov 15, 2026 at 09:06:59AM +0100, Eric Dumazet wrote:
-> Nice catch, but KASAN does not report uninitialized reads.
-> Was this KMSAN, or did you notice garbage in the inet_sock_set_state
-> tracepoint output?
+在 2026/11/15 星期日 23:48, Ricardo Pardini via B4 Relay 写道:
+> From: Yifeng Zhao <yifeng.zhao@rock-chips.com>
 > 
-> Please say which in the changelog, and include the report or the
-> trace line if you have one.
+> On RK3588, the sata2 PHY speed is selected by sata2_phy_spdmode in
+> PHP_GRF_PHP_CON1[1:0] (offset 0x0004), with sata2_phy_rx_err in bit 2.
+> rk3588_combphy_grfcfgs has pipe_con1_for_sata at offset 0x0000 though,
+> so the value 0x2 (6.0 Gb/s, rx_err cleared) ends up in PHP_GRF_PHP_CON0
+> and CON1 is never written.
+> 
+> This leaves sata2 at its 1.5 Gb/s reset value, so the link only trains
+> at 1.5 Gb/s, even with a 6 Gb/s capable disk and no SControl speed
+> limit. sata0 and sata1 are not affected: their speed fields are in
+> PHP_GRF_PHP_CON0 and are set by pipe_con0_for_sata.
+> 
+> The misplaced write also lands in PHP_GRF_PHP_CON0[2:0], which are the
+> PCIe link reset grant bits, and turns on the one for pcie3x2 whenever a
+> combphy is put in SATA mode. No effect from that is known, but this
+> stops it too.
+> 
+> The register layout is described in the RK3588 TRM V1.0 Part1, section
+> 6.17 "PHP_GRF Register Description".
+> 
+> Tested with an mSATA SSD on sata2 (combphy2_psu). Before:
+> 
+>    ata2: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+>    Timing O_DIRECT disk reads: 374 MB in 3.01 seconds = 124.45 MB/sec
+> 
+> After:
+> 
+>    ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+>    Timing O_DIRECT disk reads: 1266 MB in 3.00 seconds = 421.78 MB/sec
+> 
 
-I should have explained KASAN's relation to the bug better. It was not caught
-by a KASAN/KMSAN report itself, but originally noticed via an out-of-tree
-socket hook observing inet_sk(sk)->inet_saddr != LOOPBACK4_IPV6 on KASAN test
-runs, and reproduced upstream via the inet_sock_set_state tracepoint.
-
-When KASAN is enabled, SLUB_RCU_DEBUG is enabled by default, introducing an RCU
-grace period before freeing the request_sock from the initial SYN. Without that
-grace period, cookie_v6_check() typically reuses the warm request_sock whose
-ir_rmt_addr and ir_loc_addr were already set to LOOPBACK4_IPV6. With the grace
-period, cookie_v6_check() gets a cold slab object instead, e.g. (with
-slub_debug=P, expecting 127.0.0.6):
-
-  ... sock:inet_sock_set_state: family=AF_INET6 protocol=IPPROTO_TCP \
-      sport=59839 dport=41050 \
-      saddr=90.90.90.90 daddr=90.90.90.90 \
-      saddrv6=::1 daddrv6=::1 \
-      oldstate=TCP_LISTEN newstate=TCP_SYN_RECV
-
-I'll clarify this and include the trace output in the v2 changelog.
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
