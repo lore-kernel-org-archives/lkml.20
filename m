@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813204;
-	b=GNHrltHOxf6kHacQzTU9Ymp9q5XMuHSacw7J3TFW3dkEg03LUesBqMjpWEROAaeZZASu
-	 6LVbW7xvTAEVQNunjFwNGHrUNb3lgM0hbE7Fe9ZL0KAhmzRc7AhrheDxyOKFsUVrC8Z79
-	 LSk4XcsziqNfLrx3NaMLnUZ2AaQ3rniVwd1DPHXceUMbFGwQrobQepqQUiEw/Lp9U74IS
-	 0JV0Ygx7+jVceWG1m7uWODYDgqUV5iUfbQ0lurQQ0Mk63RTLcPnr7p+Lh2MVYKF+So5G2
-	 mTt9WuZDX/Pkr+g2ZlCuYAaDLYGtfm/DCqV1U6WKsV7OIq3mj/Uv9XoVAjLzlpv26eQ==
+	t=1794813209;
+	b=IDypaCD5VrIC3CmSwICv1ioDyrxO4bJGXrx950F+NfHesH1U1MRxYt5a95SeYC5/C0rS
+	 Yy/mNQLxHRBJyC1E/qOPpg8q68IwVdH3E7jd/Ob+XMgPnMvm7iPnStdepvAoHbPLBFAyi
+	 kfksI8frErVUx6fGPNW2rW9jtASFRWLl6hRo/lRzw5PSlQMVlKr8end1Gg2GSMieFXCn6
+	 9/NKX05GO2rwmq5FMYIVA5BngW//+spoMjEULbD/s46dG0tQIJ7uCKHShX3TNsKdwIkuu
+	 rk0kJciE/qG4pI3yHsDfgGIROZPUx935jd19X2P1LZ0MOW6Q+rymt0Lo/1SxXvzjVUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813204;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813209;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=51h+wZNa35FD1EC1X1bdOrgyM+/7WSD6oz6H64NzSRs=;
-	b=gw6sFb/pJ6gSTdKFaK0eQrJOupsz9k40S9QDkSc/8hUOSw9sr6yFhjUbWewYbnp+eCbF
-	 MpHplsUvcvt7EQupZTLF8zXQHEFOHpiZAPYsabaofHUuPNWK0PC/NN7AR5TdxxdVnUm5J
-	 kKfAwmm+i39reWr9Kx553Wd1Wui5dioz5LdnSoFxbuO3Nww3ghsgjUQ1Zqu3Vwz0FM1aF
-	 hDmH0f4ejbMYYKWLKzRxSY27/OquoPdu0reDyFiQZykJhKS3YaRUydGLfvlrhX3cLPyTC
-	 hBRV/cBBENORromz6xp/pdeIRN1AYQHJIHyghfEvcUAKWTOHFWTLlXB35qx6ODcMD+A==
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lk80JFgg928CrLC0eQwio88WY0+Htp1D4M8ps95Hc3g=;
+	b=Of7wLhrV9F/7Fhs+Ex1d6+5/LaFJOlvMrjnTHmCE9GqN580aTlChkgJVtmBNT7Uh0Jxg
+	 M5AA1XyXAv/UIkuGiCrsicRl5vbJWNv7x06iElfYm3NUKT3/h/JM5oyyx1rPJASa+7NzF
+	 cY8OtOGZEMffcBAXIEPYnWiZdhThtwf3iFvFHnVR6a2tw3sQrQORQ89A6kmk3ab2ZtJCV
+	 csa5txPQD0yI0t554nLTynrGPGjCQJdJWA+3Sn3RBqEeutG2tuHFdYmr+vD2eUvHrgsZb
+	 2NmpowP6KveqbgxZxpE9aL/HnTDRbjD/Masy3BnE/37wumw0h3+qIB1ue4UIl2Xqj/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="BlyO/E4n";
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O4q2Zb4x;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A09E606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:13:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A09E606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F0DD606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:13:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F0DD606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BlyO/E4n
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O4q2Zb4x
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 676231476;
-	Sun, 15 Nov 2026 23:13:19 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE87D1713;
+	Sun, 15 Nov 2026 23:13:24 -0800 (PST)
 Received: from entos-yitian-01.Arm.com (unknown [10.168.196.233])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8B7D93F673;
-	Sun, 15 Nov 2026 23:13:17 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 17BB73F673;
+	Sun, 15 Nov 2026 23:13:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794813202; bh=a1hWSo6rMM5vS16uc45frAdAoXhN/qdOo7VriKqajX4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=BlyO/E4nt8iq9lAYlE026ZI86/KRvlSlPukz/xkGD1JqsEhSEyJ5YKGVhOmvgvoRI
-	 UmdcPTv0obqztZbi0g3L/061EbgR8F3xQUygRH+y8CDBKrWbyYWJcmLndlLsmHRVyj
-	 pRcLDoqOQOISTPx2EUpaZeVHlmf+C/JsQSx2CQms=
+	t=1794813207; bh=P3UEMyn2wpBrgjmF9RmDIUq18+/S6PMreyCiNru93bU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=O4q2Zb4xqJCVRY+nkfUjDNXrXhb5U87zLLYCIe81fNEv7Xy1hwW2GUnJ7d/MeDznc
+	 tnCu+oiOty3/7CHE3960x54v6znRYHPXj2485K7H6+5RhfJnymIzMnwCLTgqoc6Sm3
+	 ttJDiFOhvOg3XTfCMPaVzPjShvkappUiTKmK0YME=
 From: Jia He <justin.he@arm.com>
 To: maz@kernel.org,
 	oupton@kernel.org
@@ -55,10 +56,12 @@ Cc: fuad.tabba@linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	Jia He <justin.he@arm.com>
-Subject: [PATCH 0/2] KVM: arm64: gic-v5: Fix irq_desc locks taken under the runqueue lock
-Date: Mon, 16 Nov 2026 07:13:02 +0000
-Message-Id: <20261116071304.2037895-1-justin.he@arm.com>
+Subject: [PATCH 1/2] KVM: arm64: Give the host timer interrupts a separate lockdep class
+Date: Mon, 16 Nov 2026 07:13:03 +0000
+Message-Id: <20261116071304.2037895-2-justin.he@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116071304.2037895-1-justin.he@arm.com>
+References: <20261116071304.2037895-1-justin.he@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,66 +73,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With a GICv5 guest, kvm_sched_out() takes irq_desc locks with the
-runqueue lock held in two places. Lockdep reports both as a circular
-dependency with any interrupt that queues affinity notifier work under
-its own descriptor lock:
+With a GICv5 guest, kvm_timer_vcpu_put() clears the active state of the
+host timer interrupts with irq_set_irqchip_state(), which takes their
+irq_desc lock. On preemption this runs from kvm_sched_out() with the
+runqueue lock held:
 
-- kvm_timer_vcpu_put() clears the active state of the host timer
-  interrupts. These are per-CPU and never threaded, so this one is a
-  false positive. Patch 1 gives them a separate lockdep class, as
-  commit 7100185bdc11 ("irqchip/gic-v4: Use a separate lockdep class for
-  vPE doorbell IRQs") in kvmarm/fixes does for the GICv4 vPE doorbells.
+  &rq->__lock --> &irq_desc_lock_class
 
-- vgic_v5_put() can move the vPE doorbell with irq_set_affinity() when
-  the vcpu thread is scheduled out in the middle of WFI. This came up in
-  the review of "KVM: arm64: gic-v5: Request doorbells when VPEs enter
-  WFI", where the resident check was expected to make it unreachable.
-  It is reachable, because vgic_v5_load() makes the vPE resident again
-  when the halting vcpu thread is scheduled back in. As the doorbell can
-  be force-threaded, this can wake its irq thread under the runqueue
-  lock, so patch 2 stops moving the doorbell from kvm_sched_out()
-  rather than hiding it from lockdep.
+By default, all irq descriptors share a single lockdep class, so this
+closes a cycle with any interrupt that queues affinity notifier work
+under its own descriptor lock (mlx5, for example), as already seen with
+the GICv4 vPE doorbells:
 
-Tested on the Arm FVP Base RevC AEMvA GICv5 model (11.31.28, 8 CPUs,
-VHE) with PROVE_LOCKING, on top of eedaa7d61f1e.
+  &irq_desc_lock_class --> &pool->lock --> &p->pi_lock --> &rq->__lock
 
-Lockdep reproduction: to provide the other half of the cycle, a test
-module registers an affinity notifier on the UART interrupt and changes
-its affinity a few times.
+For the timer interrupts this is a false positive. Nothing that runs
+under their descriptor lock leads back to the scheduler:
 
-- Patch 1: the vgic_v5 selftest pinned to CPU0 next to a busy loop.
-  Without the patch, lockdep reports the cycle through
-  kvm_timer_vcpu_put(). With it there is no report, and &rq->__lock
-  depends on the new class instead of &irq_desc_lock_class.
+- They are requested only by KVM, with request_percpu_irq(). Per-CPU
+  interrupts are never threaded (irq_set_percpu_devid() sets
+  IRQ_NOTHREAD), so there is no irq thread to wake, unlike the vPE
+  doorbells with threadirqs.
 
-- Patch 2: a vcpu executing WFI in a loop, woken by an SPI every 5ms,
-  with halt_poll_ns at 50ms and the vcpu thread moved to another CPU
-  every 1ms. A kprobe on irq_set_affinity() saw 11 calls from
-  kvm_sched_out() without the patch, together with the lockdep report
-  quoted in the commit message, and none with it. The doorbell is still
-  moved from kvm_vcpu_wfi() itself (51 and 61 calls).
+- Their affinity is fixed and never changed, so no affinity notifier
+  work or thread affinity update is triggered.
 
-PREEMPT_RT reproduction: PREEMPT_RT force-threads the vPE doorbell, so
-patch 2 also fixes a real inversion. Without the patch, and without the
-test module, the same WFI test makes lockdep report the cycle closed by
-the doorbell's own irq thread: irq_set_affinity() from kvm_vcpu_wfi()
-wakes the thread under the descriptor lock, while kvm_sched_out() takes
-the descriptor lock under the runqueue lock. The model stops making
-progress right after the report. With patch 2 there is no report and the
-test completes. (Booting PREEMPT_RT on the GICv5 model also needs
-"arm64: smp: Don't force-thread the GICv5 IPIs", posted separately.)
+- The irqchip callbacks reached under the lock (the KVM timer_chip,
+  forwarding to the GIC) only access GIC registers.
 
-Jia He (2):
-  KVM: arm64: Give the host timer interrupts a separate lockdep class
-  KVM: arm64: gic-v5: Don't move the vPE doorbell from kvm_sched_out()
+Give them a separate lockdep class. This is done for all vGIC types, as
+none of the above is specific to GICv5. Both timers share the class, so
+dependencies between them are still checked.
 
- arch/arm64/kvm/arch_timer.c   | 15 +++++++++++++++
- arch/arm64/kvm/vgic/vgic-v5.c |  8 +++++++-
- 2 files changed, 22 insertions(+), 1 deletion(-)
+Fixes: 9491c63b6cd7 ("KVM: arm64: gic-v5: Enlighten arch timer for GICv5")
+Signed-off-by: Jia He <justin.he@arm.com>
+---
+ arch/arm64/kvm/arch_timer.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-
-base-commit: eedaa7d61f1ec8ae053a9ece0d553785350ac486
+diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+index b2c5ba499aa5..1088563d32a3 100644
+--- a/arch/arm64/kvm/arch_timer.c
++++ b/arch/arm64/kvm/arch_timer.c
+@@ -1362,6 +1362,17 @@ static void kvm_irq_fixup_flags(unsigned int virq, u32 *flags)
+ 	}
+ }
+ 
++/*
++ * With a GICv5 guest, the timer interrupts' irq_desc lock is taken under
++ * the runqueue lock (kvm_sched_out() -> kvm_timer_vcpu_put()). Give them
++ * their own lockdep class, so that they are not mixed up with interrupts
++ * whose affinity notifier queues work under the irq_desc lock. Nothing
++ * under the timers' own irq_desc lock leads back to the scheduler: they
++ * are per-CPU (never threaded) and their affinity never changes.
++ */
++static struct lock_class_key kvm_timer_irq_lock_class;
++static struct lock_class_key kvm_timer_irq_request_class;
++
+ static int kvm_irq_init(struct arch_timer_kvm_info *info)
+ {
+ 	struct irq_domain *domain = NULL;
+@@ -1374,6 +1385,8 @@ static int kvm_irq_init(struct arch_timer_kvm_info *info)
+ 
+ 	host_vtimer_irq = info->virtual_irq;
+ 	kvm_irq_fixup_flags(host_vtimer_irq, &host_vtimer_irq_flags);
++	irq_set_lockdep_class(host_vtimer_irq, &kvm_timer_irq_lock_class,
++			      &kvm_timer_irq_request_class);
+ 
+ 	if (kvm_vgic_global_state.no_hw_deactivation ||
+ 	    kvm_vgic_global_state.type == VGIC_V5) {
+@@ -1401,6 +1414,8 @@ static int kvm_irq_init(struct arch_timer_kvm_info *info)
+ 	if (info->physical_irq > 0) {
+ 		host_ptimer_irq = info->physical_irq;
+ 		kvm_irq_fixup_flags(host_ptimer_irq, &host_ptimer_irq_flags);
++		irq_set_lockdep_class(host_ptimer_irq, &kvm_timer_irq_lock_class,
++				      &kvm_timer_irq_request_class);
+ 
+ 		if (domain)
+ 			WARN_ON(irq_domain_push_irq(domain, host_ptimer_irq,
 -- 
 2.34.1
 
