@@ -1,80 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842691;
-	b=JmFC6vKrUjaVZmeFQ1XcpgNL6gWgStAkum2IrTOsHRFM2Xp6lrvvhLoVsz4m4Ng8nqrG
-	 pSDnMCMBcBu7dJozpaWpipdWJIsqqq1QpOkbzkL+GofgB6cB/ZCDAYzjqoZopthgvzKLq
-	 c5zwencuhQUREPeHzqPvqE9mpQwjNodx7Z64d6lk25+wIOo74wE6BvdS41Oz+YF99ZNvn
-	 MAXyHQ11plWAQcSzn2TiIOWAE6rZmjzT7G8E2oJhLLCK7teZxvXI7LlNff+DGCGDUNXpe
-	 mOp159XwNMmZIC4tS/Q8MJTuVn6LZaoRlqumMn3yZZVvDVHhPFmfbBn8Jao9skXRTyA==
+	t=1794842701;
+	b=xMc1Ao+kW4e4nCUgQ5TTOIWAkdimIXSekklPbbnQmHGVwJ3WMUPlKv/FDaj1zbshInBl
+	 lGMI5NQ4mNNNQ6BOUwrt/h7tHCcUzvb2zFnNKw+8mwXa+WJa4DW3fB9sHs6QgDi1/Npec
+	 zRzBWrefwbRAwD6YbJ6XpGwrmnV1vEJGeSJGdSi0N2kD6u2O7x/sIVEgwhYnQAUX7lmTX
+	 dcNfhwj6d/EqsO4/puxKfujU2nrMjPWYJWntZbJwX6OuJEFGkmHBBzIhzQhewzZLYLuPj
+	 L3Kv0zhGjxiHQgYpNrLa75t9cq3i+dFPG+986oVjGBxz96m/ktzKAHuluVnLP2MiKmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842691;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pr8sjRBaOsMM2QiF4ukN1zYZIF5Iort08uPjOr2zl4o=;
-	b=FE0Q2BybrRTNBF+l/eBE0MemmLaJ9FlKK96D8ZjqjKssf+WNn8iWdvggo1+6Jy/pymd+
-	 yG67THvyEQIxWU/E2/NfgG6hUJqOvJqs7W62SRgU/MO1XAxad8AhheX+WLRhx/kPQezoZ
-	 78S8lDxOTYwnh/YKKHUhY8S93bIxeDxBm+rc5+deDFbgblgi0ZGBW1R5wzu+f2c94y+mK
-	 HqPOinxGfkfc+TXLXKE8AtvQRBHpcFGNsu5WzK3LfXu/eqeGm0Yem9HRW331DA0UCgmfn
-	 e0tBA5Dd/29cnaoLhKi5J54VCXY6Ej7Wx9m2AZtc4NqMCOqy8s+dFx8w1nuN3vYGeFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842701;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OShwcgume0qsMyIroIng9kRw/hq2uAXrc3M/m6vyoT4=;
+	b=AbOiz0l/x3uUqUP9WK+3Z0wMiOg9T2aMuwUus28/jt5byCGdOny/ts+DDc5oc4MvdoXU
+	 HFLIx3BzzVllp2eFo4rzt29spoghBLk7ouhLfBoA/IOK1jh8gf3JJHKMVwRJQ8+/1xz7r
+	 IusR2CvsbMo3d5ehpF/O/g1zD5V+hvFlpAv+o9SRNeBOwZgxaJf4KdWe5vyGYy9M6n7P/
+	 Sln+vAPwi/zYXQ6uRIwJaTyNY2AwFjnxsT3muurPzygen9wLWDrRE3YxbcMRE3VAmQYJT
+	 KTJt1B9f7vdPM0KE7jRZTMrw5r2jtPkeOXqb6fKVvyi9TJ3eGEhsXpoTkqD8Cx0gPqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kDNwXUke;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xf4EfoLE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F69B606A322;
-	Mon, 16 Nov 2026 15:24:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F69B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A5E606A31C;
+	Mon, 16 Nov 2026 15:25:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kDNwXUke
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794842692; x=1826378692;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RZJgoVSkiph9AQSq+zO/Iue6IPpp1uB58j5mvRoOkuQ=;
-  b=kDNwXUke3uLQ3GJ/1PUCFqWnuuC1BThYkZt4HFzqlHLhHsR/gXcZlQol
-   6Ulp+w3qf6ZVhUyXaB9aXvDUTPVQfObhn2yDqH/9fqmz9+zRrTDfOwhd+
-   g1Fao6VUUSpPkg+eSKztsrLxIxARVotiNJBtPi4nE8NsDuBqGWwDhDV2f
-   kA1TDwDT5Dq1NH/k7y3tCnUh8PpRj00k5muZWHnzoJygqJemBdqWt2Sau
-   hWPbpJdYno4jMZdCoTXS9B6FrfzN3lpeFROkZxlX/wP6EKELz/iLYh/Wy
-   q9FnY+BiZalYKLWD8jBlLCjmFE9gck4EaRstoHT73s0WhWannXqW7+7wp
-   Q==;
-X-CSE-ConnectionGUID: ztJx8lwjS/+40O/uaFoZYw==
-X-CSE-MsgGUID: 9geo1jogRACcoMehvarwIA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3455511"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3455511"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:24:51 -0800
-X-CSE-ConnectionGUID: SU6rmxrWRauXUXNvY/iuGw==
-X-CSE-MsgGUID: fJOCtozvQo2DstUCkQtC3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9414128"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:24:48 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 03/13] PCI: Use guard(&pci_bus_sem) in pci_do_resource_release_and_resize()
-Date: Mon, 16 Nov 2026 17:23:48 +0200
-Message-ID: <20261116152403.2672-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
-References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xf4EfoLE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCFA1F000C7;
+	Mon, 16 Nov 2026 15:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794842701;
+	bh=OShwcgume0qsMyIroIng9kRw/hq2uAXrc3M/m6vyoT4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xf4EfoLEajFX2rYfuGfjGhxn0V16UuC0Gkc26HEpPAmEcT4XxwDIYJaGDq6O3mUKS
+	 JaFf2Qyd4qSfjRiUggJas4f0AJImSx70CU6tyrNajNRoo4in4AlnZ9OA/Qwgfkux06
+	 H0FQsgCWyRe1hgfVsUT85i7xBe+UFKATOMfr49X6DCNx3Wox9Yy1y16YTqFdTz3jXJ
+	 lTnYEHZTDhZ1oip22q6uyoqm+MOwZZMH1zE007qRK2bH9++oa2JMahEJ5ERw/x0pml
+	 LMIe+x96RDu0ThNG6IuxGT19ZhHr9VULtu8PK43AX5Hi6McOoluC+BBv29el1rySf2
+	 1a6++Ygt2kieA==
+Date: Mon, 16 Nov 2026 15:24:57 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Cristian Marussi <cristian.marussi@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Sudeep Holla <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org,
+	arm-scmi@vger.kernel.org, philip.radford@arm.com
+Subject: Re: [PATCH 3/3] powercap: arm_scmi: Refactor scmi_zones_register
+ error path
+Message-ID: <20261116-imperial-mighty-platypus-edbffe@sudeepholla>
+References: <20261115110546.2344308-1-cristian.marussi@arm.com>
+ <20261115110546.2344308-4-cristian.marussi@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,41 +60,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115110546.2344308-4-cristian.marussi@arm.com>
 
-pci_do_resource_release_and_resize() releases pci_bus_sem on its common
-exit path. Use guard() instead to make adding more locking simpler.
+On Sun, Nov 15, 2026 at 11:05:46AM +0000, Cristian Marussi wrote:
+> Refactor and simplify scmi_zones_register error path by using
+> cleanup handlers.
+> 
+> No functional change.
+> 
 
-The saved resource list is now freed while pci_bus_sem is held, which
-is harmless as the list is local to the function.
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/pci/setup-bus.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Hi Rafael,
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 29ec9ba59d92..f95f217f94e6 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2398,7 +2398,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	if (ret)
- 		return ret;
- 
--	down_read(&pci_bus_sem);
-+	guard(rwsem_read)(&pci_bus_sem);
- 
- 	pci_dev_for_each_resource(pdev, r, i) {
- 		if (i >= PCI_BRIDGE_RESOURCES)
-@@ -2435,7 +2435,6 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	}
- 
- out:
--	up_read(&pci_bus_sem);
- 	pci_dev_res_free_list(&saved);
- 	return ret;
- 
+Can you pick up 1/3 and 2/3 as fix for v7.4 and this refactoring for v7.5 ?
+
+IIUC, the refactoring is done at last to keep fixes simple for backport.
+
 -- 
-2.47.3
-
+Regards,
+Sudeep
