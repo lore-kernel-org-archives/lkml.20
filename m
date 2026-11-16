@@ -1,84 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833874;
-	b=tkekFeFvrvD3bElkA9r2EHtlJD3Mx5rl3sgF0HyR2PmJrS6/K/bSWzf6cfe1l6TVBPAK
-	 2BycRLYEZN/wcwn7BRo1JyJeVdLopesB0J5DHGnRtMczydtS38hcRku5v4X7uKapakxd9
-	 QIlFbRdtfroEqsO29bZmwM7hyDOcGbswKxxfBbhgOFJvQ1UYT5mNSLNFFNLFhJ65GVBun
-	 9phrxrMn7FxVMzA52jvEV7A/Vamc1fROagk8KxafQmyl8BqvSBvVktHsuvPr6SdU2KMFt
-	 +8tVKgMNURiSpzcSb/+XeXpGtvkdrCxxjWfa1OKBr2//eviQX/ZN38KpV8Yf6puAk5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833874;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
-	bh=b54vzCQbDLyQCU94ux+/8U6SB77amlsLWgVzT1nnN+Q=;
-	b=mtzpNPVbaBW9b6e1teo/QcEDKeZ0dCVochrJi5YdtlyI7augRJQzXp9juZsY2umKRQAY
-	 TTmj2dx64Ia5TyIeiVdZycRXJy2a0a1cz/fpfQZTxOlp+4fDHl3G26pS7XvF7DXSgvTEO
-	 4HslzIblwKPxwagcvX9tEt/u/nW0D/4p2OY7m5cWwBzEoqKKpvp4CK39X2va9dlyucxQ1
-	 DTYGdg2xzTi5JNhRAN8eq3c+W9BYYSCrQqGnN9qBDaDKV6THbwe8wQB01mHKVvq5CplU/
-	 a9Zf0ufCvJw2Jcjx00MKlsn6BaCQMCmQf6wj2EM6CHwszWLzdnZ9BnwW9NBMZx6FSiQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qkR61oGU;
-	arc=none smtp.remote-ip=74.125.224.52
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794833899;
+	b=c1QUXWGPAmkN0/w8WQtZNYPl7TNQI+b3xwCa3EMgua/pbwuUOjK8gqdo3gRsL3DRkn+e
+	 0pfDzPoh9/W/hOXLQu2GLpOZ81duq8K5azO9SLGnTIl/0HzJAeazHr+437DVFw0/amGbY
+	 BGi2smQZFU4WcEzwko1rHRSAwxhwIE9eZMka3K+7aYpLRYNs5Y2z8uJM/P9One4heqmeo
+	 mupP6hYbdO3NbqlbjwB6os5HMz7r3YUT0YLBTf6mdyjcAcQrQPH+DWgu/hIcWrx5VIPpm
+	 NsCai3UsSuK9wNsb0AiDI94dISj79yPWqf0pjO5M3W9w9MzESxdOTsnbnvGwKolfKsA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833899;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RIUQI0JQHvFeREU8Myb9hCMnj+Sb8GvxHUoTg7q4Gzk=;
+	b=rQEUgG8G5boR4fMcbbGF3XHr1J8w0GT3ddh1sp4s18Y3fGFTxGU7jdV3T25q5/ccnZk2
+	 YYzQHg7HXMNQuCxSprk0xOQsmGTNMO9khDH6HULB7NVchByOUEst0buR/zvynPjQrft8i
+	 k3BS2bwj2da3q+eaO07s+aNw+1GbPy+Ikdw2cLJBPWhpvAC7wBTz7vKHKTvs3AZ8IsbrZ
+	 v2g3vMalNblb0HYfrRFey722zxuBNXgqdfWiOeWHgYGqVtBFmLpr8yrk7Uc/C7vqXuUXe
+	 ulkA8kxdh3iPQgkSgV3xaqfgFk5VG2kOBTgOvI2S0Dr4zBWcy5zwQ8K2ZdARdSBULNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZIpBObUD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5117606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:57:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5117606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1632606A31C;
+	Mon, 16 Nov 2026 12:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1632606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qkR61oGU
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67c58f18765so2578549d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:57:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794833873; x=1795438673; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b54vzCQbDLyQCU94ux+/8U6SB77amlsLWgVzT1nnN+Q=;
-        b=qkR61oGUGfWXyq02W5NwpkdI7xWJvKjPbo4T6TzYJHy/q20X+owb18EINtxXGyeyiz
-         WrKGwDAePfVSPKmczk8CMIjBDXvpP7neyJi8+raNPzQY4aWlk4sR4R4bSnDg1kNeDTJg
-         gkvV0d20Pq9Hq4QzLU6ez1JIjSqR9wrT7XIckcZtEuZ/yXHnHFP9LuduXvnvLRMqLW/2
-         ZrkbNd8LTokrh1WbtXAOtCMMWxpX3EGTQlgoevge4vxCismIVePbFx2YyBRQI8pRbr7P
-         PxxEQwlclmc3AgwQO7qS9CbbyhI8KezTBFTDpgU+0vn2BvN1F/phbPcTZ/PLgsWJjyOJ
-         mtXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794833873; x=1795438673;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b54vzCQbDLyQCU94ux+/8U6SB77amlsLWgVzT1nnN+Q=;
-        b=g3o3qSI09JG5iuG7gsoa3IwfYAUTG+QAZ+GCOUSoLfw1vfT6H62l7bTNrHtesigIp1
-         U7MNLryNmKjzVj3/Xr8hQ8koiRzUkdXRQVr6tTUiFNuyED60/xUldmZ/4X0A2pxTMMRs
-         D3xRtYsbgePn/BOiiB1d1+M9CCc03LYwfhXTlisiifDB7nfJrM50drnjho1Z2DfEArXO
-         aspUVELexrgaNQPKCleJjuZnjt8B6xj5N7MoHT3oKQTrHnd53NB973L3H0JS2nJlf/WQ
-         xON+neUtj/wfxCvnNtR7nJTRa3j/3H1COWNlIW6Npld6JBf1dyR4l+dQHCYl3w1a9RsE
-         q+TA==
-X-Forwarded-Encrypted: i=1; AL+hErEU2PZO7q1QgmDUPGyYaLFCYmoUdxUYK94yjqUnmKRYrCDEDG2Jcmbx0ZcO9UOKuovefrImlBgUGHB9NKg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IaF01PGRNf9ywv7ApVWgRtlDfwd1Dk7b86U35ECPoJdrOhEcg
-	THvddIHeNq6ieYpuI4cGs8SyGS/p1cJV5WZz0DuIw6TUDzA6DcCyHl2F
-X-Gm-Gg: AZFdTZfK/3sq6wJi7TU4kvqh3tic8e4eVXKK8giPzdKGiK2D2r8slYnBgErTV2qXCxI
-	49yQVmOh86zg8mKIG83AgIPHNi3Ks5xmtPR22+J/Vim4P0MuCkbHugnpVMhJRYT9QOUtHNWdozW
-	psK2B5fapWjuu29GcewTqibX/9BKIULVgNQ1ogkeiGi5oukJudm8/0p5n/k806v5KXAbz4AhaQh
-	zMqwv/M3gYknJWMq0ELK0NWmDri4Rzc7iGkJk5RccE8A81dQVDguk/IVELEPFkN8opEaVmQRGQT
-	1mR1fKb7te0h2gkOlLz/1rabBs5PQMOuI52cCntyxhDE88Ol8+yReZLxfwo8CxePjD1j+OnYtro
-	u6fMn6H5b1NKujrKR2Ao6iGzNGGHSO8YSq5xo7EyfYk467MT9IfGNTVDRQtuBQjn2QdZaFA7KG8
-	cI+KHCr+LuIyNYbcLOndqPP9pdu8bKi+bY2k6LHJokJZ0OGJM8ZXJCQZQIgRoN9XbR1M+TK//bW
-	pvxG/m0E3XWG+m4vt9Ab+xlCLLVuA8xQODnI9/eS5/mFFiuyn3Y6BxrTGe3peJm3ugQWCKuo5QN
-	51Jg6r5WEkZYTFfJUQgKYBbWUtwsG43R1g==
-X-Received: by 2002:a05:690e:4504:10b0:67c:70cf:c90e with SMTP id 956f58d0204a3-67d8965ab34mr3362885d50.39.1794833872447;
-        Mon, 16 Nov 2026 04:57:52 -0800 (PST)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a55ab71sm9886911d50.4.2026.11.16.04.57.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 04:57:51 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZIpBObUD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eIx56i+5p6nlcgI6pB4/OOuon6MgHjIxvwXznoUfngjrSXTItNPZyYGM9yzUE6Ybf1+m2ZceFfIKzOBjd79UDgyiZgCgxe8QsQCZK7HfZU1zrznyFumQmFNqYQVIV3CW7X8r4CHcLNtp/PTfzcKv+9C73py2QEhafo8brgoXlB/pLicJMiMBMNDiVLbck1zW3RfWoj3ZMV5Vll57Rw4Is2LSNplih5smRKsyLHFWjTtV/WAURHbJaqMw52JFCs0WEhZkKk8pgrtPIkswuU2/fqIrtEs27aV6x7ty9uAil5Q3YTdtcN5Msu1C7Zy6V7jgXO0XmH9C1pwosUYzl54HIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RIUQI0JQHvFeREU8Myb9hCMnj+Sb8GvxHUoTg7q4Gzk=;
+ b=nVam01TbExNUd7ZSesGS5zGe/SKK37oESUTcebHd6ET5JBCHHIBi0PAbDBXz3mbaR6rGXH2Em8QdCmkYZPqbePLm0V9aEcnDp6+CEQU8inlB1KEKdVUgcpJWrQQ4u8u1A9cqsOrT3ZZTKRsF43303x7FyqvogiOBnc0z2WmuCWHmMaPAFFjGrMZyx96AJnVI2q8/alM/hav4JlR2YHdF8nl/cKhI62NcswHYiCKCNXGC1mxS+jEGXf/25djZhwB02jR7GF0RBOa32q3cfaDKMYWF7IwdBssKF5rfWmPTp8zecJSuFwy8zHyT5Wy0FBT//Pd+kX+O6U67DpImsjLjeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=synopsys.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RIUQI0JQHvFeREU8Myb9hCMnj+Sb8GvxHUoTg7q4Gzk=;
+ b=ZIpBObUDmPn6aorOt6T7bkKAb10Lec4GZcprMoVQLysD4V9n1Ti0yyJPpigWjvX8Wb9TrUnzbYwdCC69Bwq01VP5WGiyvbLZYqqllt6mWWNqdNb91UFY37Pf5Se73wJwyZwjlBQzrKzkSnljGbvhox02cRIOugmdvwqjyD+kTgQ=
+Received: from CH0P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::13)
+ by PH0PR12MB5680.namprd12.prod.outlook.com (2603:10b6:510:146::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 12:57:13 +0000
+Received: from CH2PEPF00000146.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::34) by CH0P220CA0011.outlook.office365.com
+ (2603:10b6:610:ef::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Mon, 16
+ Nov 2026 12:57:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000146.mail.protection.outlook.com (10.167.244.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 12:57:12 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 06:57:11 -0600
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Mon, 16 Nov 2026 06:57:09 -0600
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <Thinh.Nguyen@synopsys.com>, <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<git@amd.com>, Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Subject: [PATCH] usb: dwc3: skip extcon lookup for fixed-role mode
+Date: Mon, 16 Nov 2026 18:27:05 +0530
+Message-ID: <20261116125705.323670-1-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.44.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,166 +105,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 07:57:50 -0500
-Message-Id: <DMWNI97J4UZH.QK9260QE63ZJ@gmail.com>
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Todd Freed" <toddfreed@meta.com>, <netdev@vger.kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?=
- <bjorn@kernel.org>, "Boris Pismenny" <borisp@nvidia.com>, "Cosmin Ratiu"
- <cratiu@nvidia.com>, "Daniel Zahka" <daniel.zahka@gmail.com>, "David Ahern"
- <dsahern@kernel.org>, "Dragos Tatulea" <dtatulea@nvidia.com>, "Eric
- Dumazet" <edumazet@kernel.org>, "Ido Schimmel" <idosch@nvidia.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>,
- "Leon Romanovsky" <leon@kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-rdma@vger.kernel.org>, "Mark
- Bloch" <mbloch@nvidia.com>, "Paolo Abeni" <pabeni@redhat.com>, "Raed Salem"
- <raeds@nvidia.com>, "Rahul Rameshbabu" <rrameshbabu@nvidia.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>, "Saeed Mahameed" <saeedm@nvidia.com>, "Shuah
- Khan" <shuah@kernel.org>, "Simon Horman" <horms@kernel.org>, "Tariq Toukan"
- <tariqt@nvidia.com>, "Wei Wang" <weiwan@google.com>, "Willem de Bruijn"
- <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net v5 0/8] psp, tls: don't send offloaded contents in
- cleartext
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20261111001831.3710881-1-toddfreed@meta.com>
-In-Reply-To: <20261111001831.3710881-1-toddfreed@meta.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000146:EE_|PH0PR12MB5680:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf93f22b-6a6d-4e01-d966-08df43e1221a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	FehbWyn9SYWT/DLWZitl8+2YjvbBaHLzfDAMrglEuV1fgXo2ubWFSMoUVlmNvKnE0jtWEVaL7vyLepCifdKzxGuCFBjUdskt6/LYZonOoIlqAyuWjoRxYIAo1enCF9d4PmXLqCGsg8EfLbm7ERefvzPW5t5iX6IdfJfHfRbQiyyfKNvBPaT3J72hrUKdiGa3Ce3SrOuWvuo2FfrAklGdZniqXPFZb5pSE/K8OfOaSwpAoP08Mi594Ad8gzszBHwss56uwH7jO0RMueknC3cJ741afxR6HrZ6E4e8gFTam0Br/s1M/9uPiKr5iS/q42sTiri5DgNlIPuxgEEVl81Ji85xNOA7jH438c5ysXbStD4uIx83dgN9v748wsnTCtvocvtcPN7IJEnatXixWxta6zfCsn4j6Pqb1BOsVE2+5qfEdMlWCUJXmBz+/P837YiRyN3LbmR0pBqRRbxbj0/Y5zw5/RtdzdiZ1zHavk9nBgYlqnUIfe6zKJR92vtr0E+6wGHoZtBIE4LR2v3sNBQ42WDwRHHRUm8rWObyraseHKCSoLlqz0FwkHvjxdYTd6ZWQU/g5uDaBemrI8B6yMwznJnThe+/zkbn6kIkT7HPiIKQnNR6g/ok37odk7ZssB1KgvqR9bOWTcLKWunAnBY64m3bdHjZtPr3OM8yEMkw7PQOvuLieG3lKjbtwTsLTaQViExToyDFoLLyw3KbK9btnQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Suf24N7p49jN4A+x5widMRvxR7vJugXop0yCWiFUzDj8cyrxo3F8SotH87MPcT2A4p83LiVwqhAndh12qJa4TlemUbz7jL7OW7QCfQ4IKhOb842/JurAKgc+2sAScOsqpdvRx5CTvFkXBDqEWQhbEaLqq55bhQK4TZpv5lrzFsoV4OmlCbVwbLHGtt2S5wj9HEwdbBQ+JFCl5hVGSaZ2X7RfFa7ydLh42lm2fKmq7xkVne8h9fZuRMwb/vaZNaMfk49Cb6YiOLaSqnMvKm/lpzGl2XPwkw1i7oNAfX4zAsdzeCX/BrZ6IjwTVOiD91H/jUncorao121aEHvW+6l855aydUVbZ9cjFNvAoba/Is6ktbwASjNKHNajSvT9r6xEOyREH/Y6xzoH5Ug5i07FWUi4XgOI6M9j5+y4Ts9hUsP53WWzRSNxC1Z5KP/Hzn/R
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:57:12.8156
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf93f22b-6a6d-4e01-d966-08df43e1221a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000146.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5680
 
-On Tue Nov 10, 2026 at 7:18 PM EST, Todd Freed wrote:
-> While working on adding support for socket-less psp associations, I
-> noticed the case of ipv6 extension headers was not being handled
-> properly for psp packets. It will be relevant with that series, because
-> it adds udp support, for which the psp nexthdr needs to look at the
-> inner packet.
->
-> That led me to various other ways where packets on the crypto offload
-> path could be transmitted unencrypted.
->
-> Since the psp/tls association encodes intent to send encrypted packets,
-> but these various cases circumvent that, sending these as fixes.
->
-> The cases are,
->
->  1/ ipv6 extension headers (patch 2; patch 1 makes mlx5e flush its tx
->     queue when the resulting drop happens),
->  2/ fragments (patch 3),
->  3/ icmp errors (patch 4),
->  4/ icmpv6 errors (patch 5),
->
-> Cases 2, 3 and 4 are relevant for ktls as well as psp.
->
-> patch 8 fixes an mlx5e bug in tso checksum calculation for psp packets
-> when the l3 dest is an intermediate hop (ipv4 source routing). It's not
-> about preventing unencrypted tx, so could be considered separate.
->
-> netfilter refragments bridged packets and builds reject replies itself,
-> outside these paths. A separate series to nf-next, which follows this
-> one, applies the same rules there.
->
-> Testing:
->
-> all hardware testing was done on connectx-7 (fw 28.48), between two x86
-> hosts, plus netdevsim.
->
->  - drivers/net psp.py: on netdevsim, all 36 tests pass. on mlx5, 30
->    pass, 4 skip (gmac versions the device doesn't support), and 2 xfail
->    (netdevsim only).
->
->  - tso checksum seed: a psp tcp socket with an ipv4 loose source route,
->    the peer checking tcp checksums in software. hundreds of checksum
->    errors before the fix, none after.
->
->  - fragments, with tls offload and psp:
->    - ipv4 (route mtu above the device mtu, IP_PMTUDISC_OMIT): without
->      the fix, some fragments after the first go out in cleartext. with
->      it they're dropped.
->    - ipv6, through an ipvs dr service with a local client: without the
->      fix, fragments after the first go out in cleartext, and the peer
->      reassembles them. with it they're dropped.
->
->  - icmp and icmpv6 errors, on netdevsim psp, with an nft reject rule
->    (icmpx port-unreachable):
->    - in an input chain, of received decrypted packets: without the fix,
->      the errors go out on the wire, quoting the decrypted packets. with
->      it, no error reaches the wire.
->    - in an output chain, of a psp socket's packets: the error is
->      delivered to the local socket, with and without the fix.
->    - a PKT_TOOBIG from ip6_fragment() about a psp socket's packets is
->      delivered to the socket, with and without the fix.
->
-> v5:
->  - new patch 1: mlx5e rings the tx doorbell when an accel offload drops
->    a packet, and checks the stop room after the nop it posts (Sashiko)
->  - ipv6 extension headers: drop them in psp_dev_encapsulate() again,
->    instead of in mlx5e. it's the helper which can't encapsulate them,
->    for every driver (netdevsim sent them malformed). unlike the routing
->    header rejection in v2, this isn't a device limitation
+As a last resort dwc3_get_extcon() walks the OF graph from the "phys"
+phandle and asks extcon for a device bound to the remote node.  A PHY
+"port" node no longer implies an extcon provider though: it may link
+to a Type-C controller for orientation switching.  There
+extcon_find_edev_by_node() returns -EPROBE_DEFER, the same value it
+uses for "not registered yet", so the probe defers forever.
 
-Can you elaborate on this? You're saying encapsulating with the
-extension headers present was working for mlx5, but not netdevsim?
+An extcon is only consulted for role switching in OTG mode, so skip
+the graph walk for a fixed role.  dwc->dr_mode is still the raw device
+tree value here, as dwc3_get_dr_mode() runs after the lookup, so also
+derive the fixed cases it would force from GHWPARAMS0 and from the
+Kconfig role selection.  Its remaining OTG to peripheral downgrade
+cannot be covered because it consumes dwc->edev, but it is only
+reached once the lookup has already returned NULL.
 
->  - don't fragment decrypted skbs in ip6_fragment() either
->  - icmp and icmpv6: send no error at all about a received decrypted skb,
->    instead of quoting up to the tcp header for tls offload.
->  - icmpv6: decide whether an error about a locally originated skb goes
->    to a local address from the error's route (RTF_LOCAL), like icmp
->    (RTCF_LOCAL), instead of the address list (Sashiko)
->  - selftests: the extension header test runs on netdevsim too, and
->    removes the socket option before closing. the fragment test uses the
->    source address of the route, and turns off tcp_mtu_probing
->
-> v4: https://lore.kernel.org/netdev/20261103001143.246081-1-toddfreed@meta=
-.com
->  - back to dropping ipv6 packets with extension headers, but moved into
->    mlx5e instead of psp_dev_encapsulate()
->  - drop the psp core changes to rx and tx ipv6 extension headers
->  - new patch 2 to drop decrypted skbs instead of fragmenting
->  - new patches 3 and 4 to prevent quoting just-decrypted packet contents
->    in icmp errors, v4 and v6 respectively (Jakub, Bjorn, Sashiko)
->  - new selftest: ipv4 fragments of a psp tcp socket
->
-> v3: https://lore.kernel.org/netdev/20261023234640.1459291-1-toddfreed@met=
-a.com
->  - new patch 1 to fix tso checksum seed calculation in mlx5e (Daniel)
->  - accept routing headers and reject ah (Daniel)
->  - split the psp_dev_rcv() change into its own patch (Daniel)
->  - return -EINVAL instead of -1 (Daniel)
->  - selftest: one variant per extension header type (Daniel)
->
-> v2: https://lore.kernel.org/netdev/20261022223014.556388-1-toddfreed@meta=
-.com
->  - walk the extension headers instead of dropping (Daniel)
->  - reject fragment headers (Bjorn, Daniel)
->  - reject routing headers
->  - psp_dev_rcv() handle the rx case as well
->
-> v1: https://lore.kernel.org/netdev/20261021210200.788191-1-toddfreed@meta=
-.com
->
-> Todd Freed (8):
->   net/mlx5e: ring the tx doorbell when an accel offload drops a packet
->   psp: don't encapsulate ipv6 packets with extension headers
->   net: don't fragment decrypted skbs
->   ipv4: icmp: don't quote decrypted payload in icmp errors
->   ipv6: icmpv6: don't quote decrypted payload in icmpv6 errors
->   selftests: drv-net: psp: test ipv6 tcp socket with extension headers
->   selftests: drv-net: psp: test that ipv4 psp packets aren't fragmented
->   net/mlx5e: psp: tso: replace only the length in checksum seed
->
->  .../mellanox/mlx5/core/en_accel/psp_rxtx.c    |  21 +-
->  .../net/ethernet/mellanox/mlx5/core/en_tx.c   |   8 +-
->  net/ipv4/icmp.c                               |  12 +
->  net/ipv4/ip_output.c                          |   8 +
->  net/ipv6/icmp.c                               |  16 ++
->  net/ipv6/ip6_output.c                         |   9 +
->  net/psp/psp_main.c                            |  21 +-
->  tools/testing/selftests/drivers/net/config    |   1 +
->  tools/testing/selftests/drivers/net/psp.py    | 249 +++++++++++++++++-
->  9 files changed, 327 insertions(+), 18 deletions(-)
->
->
-> base-commit: 8012eec76b7e6c0d9fb338fe8e3db6ca1b419da4
+The check stays below the explicit "extcon" and "linux,extcon-name"
+lookups so those keep working for a fixed role.
+
+Fixes: d182c2e1bc92 ("usb: dwc3: Don't switch OTG -> peripheral if extcon is present")
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+
+Trace sequence before this change:
+dwc3-xilinx edec0000.usb: extcon-dbg: enter, raw dr_mode=1 node=/axi/usb@edec0000
+dwc3-xilinx edec0000.usb: extcon-dbg: phys[0]=/axi/phy@edeb8000 graph_present=1
+dwc3-xilinx edec0000.usb: extcon-dbg: graph remote node=/axi/i2c@f1000000/usb-pd@22/connector
+dwc3-xilinx edec0000.usb: extcon-dbg: HIT - no extcon bound to /axi/i2c@f1000000/usb-pd@22/connector,
+returning -EPROBE_DEFER
+---
+ drivers/usb/dwc3/core.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index 372737f4750b..a70cfa9e1df1 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -2003,6 +2003,26 @@ static void dwc3_check_params(struct dwc3 *dwc)
+ 	}
+ }
+ 
++/*
++ * dwc3_get_dr_mode() can force a fixed role from GHWPARAMS0 or from the
++ * Kconfig role selection, but it runs after the extcon lookup and consumes
++ * dwc->edev, so replicate the parts of that decision which do not.
++ */
++static bool dwc3_role_is_fixed(struct dwc3 *dwc)
++{
++	unsigned int hw_mode = DWC3_GHWPARAMS0_MODE(dwc->hwparams.hwparams0);
++
++	if (dwc->dr_mode == USB_DR_MODE_HOST ||
++	    dwc->dr_mode == USB_DR_MODE_PERIPHERAL)
++		return true;
++
++	if (hw_mode == DWC3_GHWPARAMS0_MODE_HOST ||
++	    hw_mode == DWC3_GHWPARAMS0_MODE_GADGET)
++		return true;
++
++	return !IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE);
++}
++
+ static struct extcon_dev *dwc3_get_extcon(struct dwc3 *dwc)
+ {
+ 	struct device *dev = dwc->dev;
+@@ -2032,6 +2052,14 @@ static struct extcon_dev *dwc3_get_extcon(struct dwc3 *dwc)
+ 	    device_property_read_bool(dev, "usb-role-switch"))
+ 		return NULL;
+ 
++	/*
++	 * An extcon is only used for role switching in OTG mode, and the
++	 * graph walk below cannot tell "no extcon" from "not registered
++	 * yet", so for a fixed role it would defer the probe forever.
++	 */
++	if (dwc3_role_is_fixed(dwc))
++		return NULL;
++
+ 	/*
+ 	 * Try to get an extcon device from the USB PHY controller's "port"
+ 	 * node. Check if it has the "port" node first, to avoid printing the
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.44.4
 
