@@ -1,111 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813563;
-	b=h8UzM6jrLJMqZZuZ0ePE7w9nsvaKZO9fdz21oJRMdk3NjTXodOF5ISzHFbboGpN2Qf3+
-	 ZL3WA+ypqAyMeLVbgvsfHPuWlNwnhodrgohwP2+zInP9CM40ImIXsUJxWJjTrBUwcggtb
-	 qgb5iRzvwm/aNqK3XFWDdi1+O5qAiBzAEbU5GAL4HgYy98ovLsfbMxJFJjOMBYeciILG+
-	 akMVQL8Nw7L1mrFDAF7tbVEhXmkpPUFBlAhJY0f28WP6F0wImyHqcWZgf0uehLpBswibY
-	 zpVPzczuOVGlsY7kSZsdp+p/HQ5MnqzICuBvZDDJBYBsCTIrTzwVM9SDMBwTqo3Hjig==
+	t=1794813570;
+	b=PyjTWtRyuAv0i87D1MboJ/Dj/YppiUROr2XERF5YNQnOB2P7pe6nKPbODKPC8Cj5H9wY
+	 RMhOyvpGLm29PruFf3qTSUWlS5oxGAOo7ko9q40B1+hDzEa1KuEnjAREJN1taBEn+k05z
+	 ONTrWBkB1Zqx0hmZoHJhBCUi7QCmzBI2co+x3EaXExEL5/qpIq+lj09Kg4WBpC993kBtz
+	 3Guzrbym5oFM4fGZuTYXz9fEWfeBHTc35skOkonRx3dK87h1UEx5yfjXBUNvrxIJhptc8
+	 eGK0BHx1Mg3M5FEggMj1bCr5iyk0LrsVnyQ4cFJ5+cAH3fv9FfFUep4XSATN4ps93Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813563;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=Q0TFgv26jI4kGOfBKYI66cOd8gITLH4wiXMswdZiu18=;
-	b=1aDqi+ftXgBW2/KKCH6bbOzBDmUrufTgf2ElmHhstGBk8yomjjw5NjzSNwSIOkAehIqE
-	 SYZfy4MV0fD8Gadm4fdCHCHuu8qutJG7G1yiC3NE3i6evPH4v1Ze9z1KCO2cPIhzUvilf
-	 9iqdAEM6duwOGRAO3m3jqRHa+rYN6Kpo/vs/TNe99nkI7nBOJQb9KtyzhGp4Cq3dyVUAS
-	 GhloOdjXwC8gYR2o8+ahQmmTyNiWxagD5RIfn0RInMV0Ozr9Vbyfoxi/H6aKm88IbtuDh
-	 H249QLJQEC5BhCBUDPoPLtwrbCnunQhecJBnPdQ+DIQskx50Gm0DG06ATZ41oNR8wtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813570;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hpArKDI1kvex7i5YNprU+XK4K7TRng2ZiTYQoXQGmQ0=;
+	b=IzrFcrtP6w3Mx8hXtiVDguNm0f3QSeimWlUeKxAQf7hXPfxZGbGJjTfwbxZnZHhjkpX2
+	 tkn84+vb/63APqNV8mqlfqrTzrmjYAvmkjmuANE17PQKUFbMRDW2toDTPW0LDK3ZeQ2S2
+	 TzX0oL5CWotIZ93xgXw+Mka1mASor8h0DWKcRC4+idg2BhMu6ocdWgjlgF6Vg9uFuDTi3
+	 mJz5JxtVDiynzFs1hKrm1tgF8xldTo8yedv9ZlFj2IClpXhc6u14swhE8lu0+myLXFHsB
+	 iIVunIDn8nyorReXyp3E09Fcu95tSEtWB+Rl8BfOOkqNZYOVAxXoV4IrHR+oRX6KfbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hJx7+72D;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=XZGyKgtp;
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMP10myj;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13763606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:19:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13763606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F76D606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:19:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F76D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hJx7+72D;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=XZGyKgtp
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 3ADD47A0167
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:19:22 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 16 Nov 2026 02:19:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794813557;
-	 x=1794899957; bh=Q0TFgv26jI4kGOfBKYI66cOd8gITLH4wiXMswdZiu18=; b=
-	hJx7+72D2Zf0H2JFyTbqPHWwB9Frwq6YlREIej4YNKsfapqR3Tc10Pq2QDT/+OLC
-	2uaqQvD/nLfQb0tmwoBHNvXDMGSAHzKRis075bn5b94T1G1/JTLUHqFGCQcNkNWb
-	kw7Js7YiFvOuygIzeWzYwHgcr9g9Pbpb0FBUgnzEmIBCyeixtAi/2/dS+BXcTzaO
-	ZsvXXFAVeLPVYw6oNKe5gNe6EqBqrM94rAwNnPt+ORyJrqtULEqZCa3wi9efbtBp
-	NFWbo3RxLCwMLczQAh34OENmhCgGOjdeH/I08JMz7HKyyqnZ3uI+gZo+Hb37r+qz
-	Rvvi90ZLk1jpNbhP2VNWuA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794813557; x=
-	1794899957; bh=Q0TFgv26jI4kGOfBKYI66cOd8gITLH4wiXMswdZiu18=; b=X
-	ZGyKgtpwPfhn9+A4AZcIo7i4C75y4GIqQPGSQtzNHNs0k+GH+DBdCwFRU06vnJsc
-	+08RafhxwU+l5m39nBHJ/V8nTDkt4iegcDEBAX8QS1ON+ukudNdlaLIrDNa/jTZN
-	4QWvS0TVXTUdcTsjtpk4sjOWA5XfDsDPANpMxKzyTLZXQUM6Pg92hlYuervGVoNg
-	eWuALRb3riq8FKHKL32fjye1TW9Hrchll4+xx+0Tgrj59Mzz6FSTfMUGFD8k/s2m
-	OcJ7b3YW9pK4laWUgQefp+zb9XEVEFjn0PzCpH5BI2VhWxzG30qxOgpMgADHEYi6
-	EX+ebWn51RnPOijWRAC+g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794813557; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:W0NJXxViZKua4o7pJmRPQkAnOmY/Sy/nRtsJ3RtzI4vxY4A
-	2ln4w7IgyRXQh1BU7NaaSn1nzG0+JbUr2s1m5qucFSfEng9N4N0yLV+tvbJhMtsh
-	26n9Fmgg4QrSGtqpmeklO1HlGAO4zXK9WGt7YNJchaqXAP3NMJdDthunhrDj+039
-	f1BgpBYzMiIqyNtnRlSmigX6VhCFwuH8hfo+nEtBgjRnUFZajPvTrvnw/Wr1Ko+x
-	sl/I3U+IIUuhb3Ws6GvbEP2MKQmVYQsleImw3wnikCLbSDIXMVjUGCzC8y4naaSy
-	O+/0rJZSKoSauWFCZJh6hnWOtw1fl2Qe8W4wfiQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:LM1Sb1tl1qynh80rn5D3cTs0lm/3agMt1ONentbmoa0=:Q0TFgv26jI4kGOfBKYI66cOd8gITLH4wiXMswdZiu18=;
-X-ME-Sender: <xms:ca76anB4AUw1DqI-WHDD8ksYHlu8PP2Ly63YtDi6aNsL4g_WMpsnTQ>
-    <xme:ca76aoW7o7FUUtwVrarqlAjdlVAUvQW00EpoAwIsCwCdK7JcpBwsWhcIQ2TTONHOO
-    pKgvBnxign5OmmnY-cE5eB4OIoE8A5N_WL2jBTJCM_9hXrKMnBPssw>
-X-ME-Proxy-Cause: dmFkZTF123o0lc1ZNONC6IHTRcYRdmv5B6bDrX1s571Mq6u7KreO6C3RvwaRcwjUgMnto7
-    C0bP7r0rrVpIOYSuaPpEud91ELs3Ye1XlrmhJ6U74AeVmo3/hSdnUprF1ab4qsKYNeDq+o
-    wu6Q5zGahlNpkbuyh2WMUkxbaGZ2r5UC5nOQAB82UprzUyo/TAF+o1H3MI9FUjy3hIYsmJ
-    6ihpOrK2uS3AjVzXT6KBHyzSMPpCQotKSEo5FmZ3wOpVTeZtWhcAmxRr52XZAKQzF0QGVv
-    kcWd3ti6HL2z4Rej96Om9z+PQEw74V97Od+rNW7uwbOPYGwOzDlGcDNaCdW9ACkbHBuic6
-    FbOUaRiR4n3529j3UFaQB4M5JUDn9VvwAuai1gL2DnkwqX8T6YhKvAdmL96nvS6oUE+LS/
-    bQggH9ePMCJddMsPYuQQ7cHQgde7VdVX8vegD1SNuRWP2NWf258wdb++v856dUkHK70QS+
-    aqHeiKHK3u0Hg7PIYQBePQnejqjByPwjkNReVqVt8eaIGN4D6xgSeJpKpjrpe9JP/0ka52
-    XTXOinJAGuzBYLM+gwhQJ2n7wGaGbsSoDVnD/CV6DBjX0rZ/d5HjiYQ1Le7Se8t+enk7WD
-    gKh4ooagE0M22L9bEcaIN+Ws8kiNpgyomcFBbwwrDdbnBzfObUWg3V/Qw22Q
-X-ME-Proxy: <xmx:c676ahyjZlVApz-K4fJ9vDRxXa2dM3Z92nwPSxbJc2Bq5jVzymLApw>
-    <xmx:c676aj17wmuvv9nKuAEfAyxgpFWLHzG4ZLlp7RdCU2jvIUHlFItnLw>
-    <xmx:c676au8b4aWGY7hE7U5Wg11YKsLCBj-yRg6Qs29sbtW8qngdd_l9eA>
-    <xmx:c676ajpU0u-oxkDPovkmYyAHj2eprwvOmGuYZs15L6BPc2VGT-W_9A>
-    <xmx:da76avR1A4_tbvlN4y4MgmTxZTF4WWKRvmW5GxwE98gEBnstDnE96w6z>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B774C32A0099; Mon, 16 Nov 2026 02:19:13 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMP10myj
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so6601935e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:19:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794813568; x=1795418368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hpArKDI1kvex7i5YNprU+XK4K7TRng2ZiTYQoXQGmQ0=;
+        b=sMP10myjEyJOAIwJkxpYGqqjq4g8UU4IaraQOM2Rt9WqHC1BUR/w11e3Og6qmJzAIa
+         /KGjsxIq/SiHOnCAoEhlZZVUPLOndhVOkwiKl8l8v+K8nLRigmvsrsqyYfME1mew7PDb
+         cbLjepnQlPI0pmAP47VvcGZGrewQPyRjE5lWocQZk5d3qK9sNimOzlA4ZEAsfxNUghQZ
+         IsamjtKH8QF1ztBcIOiEvXbog0ON4mv2er3Fg+3+vT0CiCUsM3993BPYYl6NMUIiNUM1
+         /6I0r8yKYdQ2461u9k0A7Ae4AaLrvIcX8a29zuActSdeZ6tPD7jb6Pd3deA/EKqlx2AS
+         iChw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794813568; x=1795418368;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hpArKDI1kvex7i5YNprU+XK4K7TRng2ZiTYQoXQGmQ0=;
+        b=L/xclQAeyGVM9a/qQLHlqLkeVgxt8b9Q2zBRS1DF1GsLdk4bsSynGj9m7sCwyLFgKD
+         YpFS/ZsUq1SrxJlUr/FJtV7Rj128hv0untZXpBl7YRs1jbhTcieVW8gdqH03S9tZmkMI
+         pPbQpBElm2XixbJNukJjn1ikjBpoGI5HJYqVgezE6m/+2wXJG/Tese3OaVgv5eMgK2un
+         pKq8N2GlRLeFwd4C6+zWp3NtsIZzZyMerBks4Gmr9wVB2LHXWGcl2hoGV687Rr4yba3c
+         XeAESuI17HSyzzsSuEeCE24/xXr6BZpOJg/qGX2as+PWHdwQDanjchKXh85lOM5T/n1O
+         w7SA==
+X-Forwarded-Encrypted: i=1; AL+hErGDaMvdaMPRrqrNfdBvTu2ykh2rW4/UOcd9GU4xfe6Oslcr82yR0vO31fsR70wjeR2vtzui6OfcislmHGw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9dWmwZVDg0bx/VR7h14wcXBgwJ2kC1AZyopbL6AAbimYmWkjBz
+	dKhvXLXupK5blk/LN6NfdQxLMQSgTjQdFQCv0oQp10SkOIYvFKQc/qma
+X-Gm-Gg: AYBFou18gJrE1RZOQlx5Z5bG2FN/MTQCEjZBYLxNM/fMpGoptjAZLJ+oiNwia5vAB2r
+	kOtYSzCBbT4F3TGEpd3tB09FPVHQm3GmeQSj858dr93jBlIo9Ev5I5WPusIuLiPfRhqje0nNuuT
+	YTksvlQJBXnwy65nXD9PVugiPjAZ1xJzrtlGUreLM4NhuGdblwFBKVK1Lr/jy/K+tCqBuQEK2l8
+	DmeqyovTHthSfXVeM3GR1BiuMvX56MPEkDXB6PWuOMbaSE8GHcFYy6iVDgMvTCWSverVIGFn1zb
+	sbYzE7KEmAMJ1e8czocDDCMZmAK+hTvztoPy9m/R2z+A2y7YYnMf0D6n20ZTAxyYiIncOdFAKbP
+	pGJpZVScBrswRyguJaM+FcHz/6+Jq5+wkRkvzdQloml7lXjHt8G+wYhvhmGFOvNGZJEPAnbGcdZ
+	g86XW1MHssVhR91181agr5EjTHO4TRfwTnt/TDNEssop+LmmtgS4u6ZFDEpipLERfZVrLdc6y9b
+	ucGyKYV+LjPW6kpLodEjT5zwAENe8rLa+76G2OhTH1fhIPlthNi0Cc8gfXcavp1I7kg/yYDzE/a
+	djweuvTs8IRMC8UtQo/0r+kYenP7L9D2Ce4QtuD+5vHufnbCZEFhDIxphlWcVZGcN3BwQb2Rm0w
+	=
+X-Received: by 2002:a05:600c:b86:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4bb55a67c61mr213009275e9.26.1794813567855;
+        Sun, 15 Nov 2026 23:19:27 -0800 (PST)
+Received: from ahmad-HP-ZBook-17-G3 ([37.63.251.213])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb729b2801sm50506845e9.5.2026.11.15.23.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:19:27 -0800 (PST)
+From: ahmad baghereslami <ahmad.b1995@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] Input: synaptics - support the touchpad LED on RMI function $30
+Date: Mon, 16 Nov 2026 10:49:06 +0330
+Message-ID: <20261116071906.30110-1-ahmad.b1995@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <7f9d0adf1f49c5a2b3919130caf0acb7@gmail.com>
+References: <7f9d0adf1f49c5a2b3919130caf0acb7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,33 +98,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AIwPeY0WxeBs
-Date: Mon, 16 Nov 2026 08:18:53 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Walleij" <linusw@kernel.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, "Philipp Zabel" <p.zabel@pengutronix.de>,
- "Ulf Hansson" <ulfh@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
- linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Message-Id: <e16f2781-af6e-46df-82ea-c584a8d9777a@app.fastmail.com>
-In-Reply-To: <20261116-ux500-sram-runtime-pm-v1-1-c554831d6b12@kernel.org>
-References: <20261116-ux500-sram-runtime-pm-v1-1-c554831d6b12@kernel.org>
-Subject: Re: [PATCH] misc: sram: Enable runtime PM
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026, at 00:02, Linus Walleij wrote:
-> Enable runtime PM for generic SRAM devices after probe has initialized
-> the SRAM mappings and partitions.
->
-> This lets SRAM devices with attached power domains be managed through
-> runtime PM references from their consumers.
->
-> Keep sysfs-exported SRAM and SRAM requiring platform initialization
-> powered while the driver is bound. This preserves exported contents
-> and avoids unpowered sysfs accesses or an unsupported resume sequence.
->
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+Hi Dmitry,
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+On Mon, Nov 16, 2026 at 04:41:48AM +0000, Dmitry Torokhov wrote:
+> Could you please check if booting with psmouse.synaptics_intertouch=1
+> switches the touchpad (and the pointing stick via F03) to RMI4 over
+> SMBus on the HP ZBook 17 G3?
+
+Yes, it does. With psmouse.synaptics_intertouch=1 the touchpad binds as
+"Synaptics TM2706-002" through rmi4_smbus, and motion, taps, buttons,
+scrolling and the pointing stick (F03) all work.
+
+The reason I kept it on PS/2 is a side effect on this laptop: the
+embedded controller turns the keyboard backlight back on when it sees
+PS/2 input after the backlight has timed out. Over SMBus the touchpad's
+traffic no longer passes through the EC, so touching the touchpad no
+longer wakes the keyboard backlight; only typing does. Nothing else
+differed in daily use.
+
+If you still prefer the RMI4 route, I can send a series that adds
+"SYN3040" to smbus_pnp_ids[] and implements LED class support in
+rmi_f30.c, and drop the PS/2 backdoor. Or, if the backlight behaviour
+is a reason to keep this touchpad on PS/2, I would keep the current
+approach. Which would you prefer?
+
+(Separately, sashiko found that v3 can leave the LED lit when a trigger
+is removed at unbind; I have a fix ready for whichever version comes
+next.)
+
+Thanks,
+Ahmad
