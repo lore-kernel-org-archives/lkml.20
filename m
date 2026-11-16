@@ -1,72 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794798648;
-	b=RDUUH/psC1fNuxn/fMwccZTaVMIfRvu7JCfvMe1eI3UmO8j+P0f4eTT9TFMAYYnqJKt7
-	 0LXJJeAtFPeQLJH1y6m6VAiT91ICWsFh9JRcHC+Dg6dMiOnHtBwHBrCdRyW2UE95sL8V2
-	 +J6ej1UckfEHCGHz4m26HNXUSGXluKmYsrmfI4oZgNPkn+7eX1gM9nKpRsRknu/9Li115
-	 DIlvaeIdmjTbFZHK+J9Pi0QY6vF27Pn7XZTmP48PK/wriZHjREeX8thO+Pbmo8RcthadX
-	 DxwtdfSpP+ChFuKzm7N+fOPZzsAYtkj9qS4d8eTEtIjUcv7mEzpSVPpS0vU5qqH6Phg==
+	b=0uH5UQ55oELHYAc2PYb066sgxB2/Rx5pTEm/15uwfxf7Vi+T5khMTgBfHmo9ZAI1MzQX
+	 LSKAE7kvMI6t27RIuB/v1uR8VRvv1leMjyetsw/m6vmzRcMmSvJCn6rKWs+eUoN+Q3O+u
+	 h6Jye+ggO02EpNtHJEO3VBUjYEZ+jdOux5JiZJ8yhuLy4FoqOBPr9H6zroRBXgdluxAKW
+	 uOR5KTU/Yo2YoTO7CBblEB9x7eTT6JOpikwjzGVWrgqUy7owGoeNN5JlzSTatyn8PJ9ex
+	 VdgnRcxHqhh3PJkrNUjL2oYj4q64HYebT0Qpp96tCQ4aDFhdhzxw7A7GI9uJa1fN2UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794798648;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/hrvyEM6Ru8j2MY7/K4Y0eZLUVmPIavguQMTvmC9co0=;
-	b=ZH+C4ynReZJZGhAr9evE0hG6xd1K4ko+mm8v5uiEcrNTDu3v9lbmeBq1fgQ8M7rjPnJi
-	 UqsSb8Wu3fSX/MGfe+NPhi9sdT/VfrVS2QeyYftz76sgjCHkEk+B1BvupgCUkuj29MI5Y
-	 SUf8xvpcGgi84d5ayAjQaQkpk6pyYhPi+DtyntmgedXSwZb+Wvam5S34wgDuEuerbbFJ3
-	 /VmkKbddTacoZSMPpZPqsz86G8jLx+lmubVsoTv6R5GG6DP3M4d1VZU4w/zhQPXxv9XEj
-	 ZDAuliH24OYH65FY3crRdT19VyzcuWu4XFgZ82Ha6zWBJ5Lhezp7Tx3PhxcvhonEZrw==
+	bh=ib/TsOvX0mYioLqo9PHpNPyJt50P9ND7jv2umTnaZ3E=;
+	b=BUqsuZCxxb117z/BCgoCYRRvjW1pDHudiq/cvkws3cWsuoO3Xtxte+SOeGJD0ehVj/IY
+	 VaehMPqAVnipmog6161/eRl8OgggBbcoERw7a4ueCdWphxWdxi+QQLLvt064156wBhYRT
+	 WyO9FtCu1WYzucFNlWeG46WF7zq4uuyZkyP7PbTrnwIIepOI+AOygnG9gsmxAMiOxKOt4
+	 J3wBce1XOk/m3sG/8Xi9L3hiJ47zYP5ENSJ9s0i5pD3s4Zy4dDCzIam3p4JXT3Ql8/bzo
+	 d8wFC8ixcpZQlp5MXHh1SUsBhAIG9laQ5aUrsQf46A70nLXfhMFIDpIPR+Hi7tKwkuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=buq+J3hA;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E58BA606A336;
-	Mon, 16 Nov 2026 03:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E58BA606A336
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=JWtFeB+Q;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A77EC606A881;
+	Mon, 16 Nov 2026 03:10:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A77EC606A881
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=buq+J3hA
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=JWtFeB+Q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=buq+J3hAwQnfDFduZU2G+tJsRWL/xW1+4sTFrayeIq3ylj1e76vdCGcSFUqYKJWFW+t07pva6Tg7b
-	 bFtwX++Yd+V3pFN2ACKsY08namg/HHNVG/kPqtHGC9dBPZKMx+NTkpnVxFPsyxR78pQ79IBaQ5Jq6m
-	 o8ukkNCRqGqzs6sw=
+	b=JWtFeB+Q9ETkVQYVGvtRjZZvtDJAEa7Za08FV43LRLETYBIlFy245oK7LGWpr+8QJagnRtWdGp4tl
+	 zvvf+9KrAWNSkVNjhvtjc9K/l0DVMDpuRNjSsQOqjKEQPlcS98AYXk1mBvRmqjuSIEaTEBQAN6NGTQ
+	 udGMT0hV1LSlIlh8=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86afa7434a66-9aee5;
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36afa743545d-c7086;
 	Mon, 16 Nov 2026 11:10:45 +0800 (CST)
-X-RM-TRANSID:2ee86afa7434a66-9aee5
+X-RM-TRANSID:2ee36afa743545d-c7086
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16afa74334a2-7a403;
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96afa74331d7-7a4df;
 	Mon, 16 Nov 2026 11:10:44 +0800 (CST)
-X-RM-TRANSID:2ee16afa74334a2-7a403
+X-RM-TRANSID:2ee96afa74331d7-7a4df
 From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: ukleinek@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	linux-pwm@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pwm: mxs: Disable clock on invalid period error path
+Subject: Re: [PATCH] usb: r8a66597-hcd: Fix clock leak and unchecked clk_prepare_enable()
 Date: Mon, 16 Nov 2026 11:10:43 +0800
-Message-ID: <20261116031043.508-1-laixiangwu@cmss.chinamobile.com>
+Message-ID: <20261116031043.505-1-laixiangwu@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261102105005.1007-1-laixiangwu@cmss.chinamobile.com>
-References: <20261102105005.1007-1-laixiangwu@cmss.chinamobile.com>
+In-Reply-To: <20261102100455.600-1-laixiangwu@cmss.chinamobile.com>
+References: <20261102100455.600-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,25 +74,19 @@ Content-Transfer-Encoding: 8bit
 
 Hi,
 
-I've noticed that Lee Jones' series "pwm: Fix various bugs
-reported by Sashiko" also fixes the clock leak addressed by my
-patch below, with a broader scope:
+gentle ping for:
 
-  [PATCH 2/8] pwm: mxs: Return early when disabling and fix error-path clock leak
-  https://lore.kernel.org/all/20261105143847.2559586-3-lee@kernel.org/
+  usb: r8a66597-hcd: Fix clock leak and unchecked clk_prepare_enable()
+  https://lore.kernel.org/all/20261102100455.600-1-laixiangwu@cmss.chinamobile.com/
 
-Besides balancing clk_prepare_enable() on the same -EINVAL error
-path, that patch also handles the !state->enabled case upfront,
-avoiding a division by zero when state->period is zero, and it
-already carries a Reviewed-by from Frank Li.
+On on-chip configurations r8a66597_clock_enable() ignores the return
+value of clk_prepare_enable(), and if the subsequent register access
+times out the function returns -ENXIO without disabling the clock
+again.  The patch checks the return value and disables the clock on
+the error path.
 
-My patch for reference:
-
-  pwm: mxs: Disable clock on invalid period error path
-  https://lore.kernel.org/all/20261102105005.1007-1-laixiangwu@cmss.chinamobile.com/
-
-Please feel free to drop my patch in favour of Lee's more complete
-fix; there is no need to keep both.
+Is there anything blocking this patch, or does it just need more
+time?
 
 Best regards,
 Xiangwu Lai
