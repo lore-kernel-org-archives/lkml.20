@@ -1,63 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814513;
-	b=EeTN42hpCgK7cBuFCmVZVxhxzeZvWqYFWSlxW4vifIoApelIuX12Ai828F6w4ccT0oPS
-	 UQRTUnyzPkvfsjoHbrFlG6n9HVpXVE3LZCOKP3ZmEncZfc9yUSd0z1YclnrBlHO2Lq+JZ
-	 qbD0JVbdSk46ucSsOugUhqnSJA+WzffKgYquhHuHZrnLx5/YI+oon41f59m7P9QJz7IBE
-	 C4ZYTOjZS1hFquK5VF7LSWujNzaHeN/dRb5zBinymU31fwAJ1UcOA4ogF/2ZKuKjfPhpt
-	 zFvqWmLNpvF7PRljj+uMH0NV5cMdlv6LZKxJKFTdACK4sfvirL1mR8rtWqLi6/50a5Q==
+	t=1794814545;
+	b=PrtL1GMJGc5DGqBdSdPKUg7Jw4CGMp5E+/YgLH3xNM3f5xZXwvvN1Zy+9xFJ469U6pZK
+	 OJzxMEqDChEhWY5j87Hof6tz9rnst9OzKZVXbnlsC+Ia7S2pO5qJrNMJ+Ks4DQj+lL/nu
+	 gCFpbACU5Uw+nBg2pmkg+DOgWtoDX3cBxH2ZonpPlVcyKrOcJPICmIh81vgdRtz09s4LX
+	 9IzeSRVxxzSrk+zLaWsgyvBff4v0Xyizkux2s+fFJOCU/V2Fc2BUPHYPp3UHN7HHfSjI6
+	 g9aS0VLNbqvxQBA28CnHuFnHmGHGVZSbTzJj+kbJ/i1ck1+K8L95oPC6MgktEFaEb+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814513;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=fIDdNcF/l0x9lZp8RfumuNlHiHkBHNTTSBewvQAJ4vY=;
-	b=XDinFIeoHl8z4CT2tDxxkTHWZCAfh268zZ+a8rHYkLmfnAQbn9fWoH+KpigKhTIwGORl
-	 ecVqygjg3ZZGb+QB+cPsY+9Vd+TeCGqwveQ8gblMUKZd79ZtptNK5gEM3/Hdou5X/O+Eo
-	 Kr5zyl+qbJYWgXL+gBRW5L/cDQbuWjfhGa/gJ71tHvZkck3wu2L/OghXA8I3VB4/XTR9w
-	 1AyiFlkgmUSQq9v+vTvQrQFF6Lv/ZgAVZrsCWnhFLtX5Rgh3WIOxrsOIA1Ux6VMh4CXUZ
-	 2rzKbVmv3agpnYh8uXUUL6fNt/xUm3egjRpgxGP1X1nWNr2BjObFWXKZom0pf7pz/6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814545;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gPZTbZk8SoJNpUJDON4Ig3GkkPgAjMgPKV23C0DMgpU=;
+	b=YMHuk8W5am2zo4BZYaNUHCg6y/1o/Fh0zt34BbnI/uVhqKpQbWhJr8AuOi014i0PohOR
+	 Rv75Ut6esrdSUXLWvZYpz+3OeTjfVJTaSglTz+Mexiry3u3lEPdZEPbudL9PLFMOWAaEF
+	 FVSXBe0NpWkvnc3K2fnsZdxiZq2x9KTUCto6it5Wi6E+eLd/lBS4aqTNO0OLL8c79mZlA
+	 JDEeYXe/eIQHBwLGQgKAB+LBsAfTyr7r99wnXAj6ztztQtSZRQVRBlOphhS6Z5D64nkKn
+	 p6OSXwvwDo6ys1Y+kPjSbwVOvBqonnweIBaF/k6kXK4GNRjNfH+aeS0T1g9iieBlzOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e5wR6+lB;
-	arc=none smtp.remote-ip=91.218.175.42
-Received: from mta0.migadu.com (out-42.mta0.migadu.com [91.218.175.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=m19tbZ5W;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C59606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C59606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358B9606A31C;
+	Mon, 16 Nov 2026 07:35:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 358B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e5wR6+lB
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=x4W9yp3gYy0iqIhiaZihhZVq/EH24yiSsMyRtu3ztFY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794814510; v=1; x=1795419310;
- b=e5wR6+lBOsAwBtaBKgbi5r01C59pveEpoxWK4HNiqUeaWkqAQWOU89MNWjqrz/quCBAMKdOA
- DRNkRWrPLPx3DoKCw0ERMs7I8ufHdahhqCyOQYzkg4Y3F19R+nqyIsOYyJMsxfg87205XMK1rWq
- PmkZDdr7h/1xZ4FvH2JHJT80=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 1092aa451d9b8fb9;
-	Mon, 16 Nov 2026 07:35:09 +0000
-X-Mizu-Trace-ID: 1092aa451d9b8fb9
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 15:34:49 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Lin Jiapeng <ljp1205831794@gmail.com>
-Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	sfeldma@cumulusnetworks.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Lin Jiapeng <jiapenglin@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>
-Subject: Re: [PATCH] bonding: unbind 802.3ad slaves on enslave failure
-Message-ID: <avqyGXhRkA0gfoEr@fedora>
-References: <20261113130454.63032-1-ljp1205831794@gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=m19tbZ5W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794814532; bh=gPZTbZk8SoJNpUJDON4Ig3GkkPgAjMgPKV23C0DMgpU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m19tbZ5WnGuKPYWjPPNwepbjA4QUPEQH4rUNG5Vyckd56/go7y0EXkFaC93h8h1dW
+	 Xg6RyKFC9jgiVJDMqfX7Ah2ijCw6nTcoVgL5OnaarY+xQv5gRPSoP7pULeRmDP3zYv
+	 Ca9okPL2DfIjsyB43xA4GjwXe639CUtXYFse3vQY=
+Received: from ikun ([221.176.157.242])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 8D3BD429; Mon, 16 Nov 2026 15:35:19 +0800
+X-QQ-mid: xmsmtpt1794814519tl5lnlj7n
+Message-ID: <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
+X-QQ-XMAILINFO: MAUQIEZVArhLaRAHwoTiol5Eu17QC9JGLGD4PHcJuT6LN1zjNUHNcIM05oWU26
+	 wyNGR9jWY5a/tzcgEoPwCEk8TwpkQTkplTdrFeP6TL4vi7dF1QeIlIru1AkXB7Q4HlFJO8KbRqIn
+	 FQlN0HkIHbrZP0nQpzK/NEvjmaAoAqo87M4ogtRFNMuCFnitg8C7siVQh+Y05w3XoCGYvLzVOamj
+	 trwcarLtqAY1FaPoOawK8mRzCnsBY8W2EG0jDS/GBK3z4M2xl1GbyV7XJXx0woh8Z3NPeCNiJy7m
+	 pLOAJkt+6p/g+OZJ0EpHdQApBXxUw1em1hdv5j0TYo4U4EQ7Oibk5WPKDftKej/UiJRUdcJNVpYt
+	 avDIv8MZL5gi1+TSM/ZMPAWr7+W6oX8Ntg1CHh8GxAQfapbAlyr11zREAmqwW9kUF4g6o4/fXite
+	 w2Sv+fH2/6nbT9abLemPG/B3qETPc9rbUG+BuwtIBG8T4zAOOLcvH1s4yc2geR36re5ZefiQ4u/0
+	 zHLyZKrcSq/Xo7cDJEowG2G10Ffm8Posz2Bwt9GvCdFt5LmMacE3b7sGHNo/JOKDPtXyKsIwPj/6
+	 P6NzWXqXkIJuXJnwF+g4bqw8l4qCukIqb5DY4QBanYj+363PnX5x6s70dxuaNMsljzeHKw7NQd1o
+	 HI2fseuS68VhoQgorkbdVWe8mlX+aemTsunomyJI1qV3SkN4SsLVBEMsEPMeaGI9j5hQllTAiBgo
+	 7SzucFk97OCvBNrQqJ6pgy2ojTFV5MLG5Fol8Cl2wM/of0jbzA7nCZqsaXR+AkE5jaenVI8IUnEG
+	 AOPUf9wvwevS/Pc/5ArXbWVxOKFQL08TxrZ3MbN00D8pnmzqW3VpFP4IhP7gI+fMXXy3/EYtSoDM
+	 +uF1c5Cqx2E+U5zH4AqgbDnpmqCOh3hJFtfDWeoK8VudQw/E6e/+jj9n8bHt/1ree3cBlmVE+49o
+	 4drTN6uA2uaW6xXpAfJ7XlBK8poZr7Ei5aNk82gbwz48UqzhqTQAyTjDwwbMrdUmhDjLGXrtrTXs
+	 WJZQQlz6ag8l2/s8ZAE4RATyLQ4Zs=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Alan <3164729207@qq.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	harshadshirwadkar@gmail.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: reserve inode write access before unlinking entry
+Date: Mon, 16 Nov 2026 15:35:19 +0800
+X-OQ-MSGID: <20261116073519.21804-1-3164729207@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
+References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,74 +87,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113130454.63032-1-ljp1205831794@gmail.com>
 
-Hi Jiapeng,
-On Fri, Nov 13, 2026 at 09:04:40PM +0800, Lin Jiapeng wrote:
-> From: Lin Jiapeng <jiapenglin@tencent.com>
-> 
-> The 802.3ad enslave path binds a slave to an aggregator before publishing
-> it in the bond's slave list. This lets the periodic state machine select
-> the port and attach it to a LAG while enslavement is in progress.
-> 
-> If a later step fails, the rollback removes the slave and frees its
-> ad_slave_info without unbinding its port. A port selected in the meantime
-> can remain linked from another live slave's aggregator, so later LAG
-> processing accesses freed memory. A test-only kretprobe forces
-> bond_sysfs_slave_add() to return -ENOMEM, after which KASAN reports:
->      BUG: KASAN: slab-use-after-free in ad_agg_selection_logic+0x1a0d/0x1fa0
->      Read of size 1 at addr ff11000109be946e by task kworker/u16:0/13
->      Freed by task 110:
->        kasan_save_stack+0x30/0x50
->        kasan_save_track+0x14/0x30
->        kasan_save_free_info+0x3b/0x70
->        __kasan_slab_free+0x47/0x70
->        kfree+0x1b3/0x550
->        slave_kobj_release+0xb6/0xd0
->        kobject_put+0x17e/0x300
->        bond_enslave+0x1acc/0x5090
-> 
-> Call bond_3ad_unbind_slave() in the common rollback for published slaves
-> before unlinking the slave from the bond. This detaches the port under
-> mode_lock and preserves the invalidate-drain-free ordering used by normal
-> release. Successful enslavement and earlier unpublished failures are
-> unchanged.
-> 
-> Fixes: 07699f9a7c8d ("bonding: add sysfs /slave dir for bond slave devices.")
-> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-> Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
-> ---
->  drivers/net/bonding/bond_main.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index e9f5e753f677..60cc9a6a4fc7 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-> @@ -2355,6 +2355,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->  	bond_sysfs_slave_del(new_slave);
->  
->  err_upper_unlink:
-> +	if (BOND_MODE(bond) == BOND_MODE_8023AD)
-> +		bond_3ad_unbind_slave(new_slave);
->  	bond_upper_dev_unlink(bond, new_slave);
->  
->  err_unregister:
-> -- 
-> 2.55.0
-> 
+Hi Ted, Jan and ext4 reviewers,
 
-Thanks for your fix. I’m also working on correcting some error rollback issues
-in `bond_enslave`, including the 3ad unbind problem. My patch still needs
-further adjustments[1].
+A gentle ping on this patch from October 27. Are there any comments on the
+approach?
 
-Just FYI, I’ll leave it up to the maintainer to decide whether to apply
-your fix first.
+I have additional validation from November 2 using QEMU blkdebug to fail an
+actual guest block READ. These results supplement the source-derived fault
+injection described in the original mail.
 
-[1] https://lore.kernel.org/all/20261113-bond_enslave_restruct-v1-0-364c549e78db@kylinos.cn/
+On the unpatched Linux 6.12.1 test kernel, with errors=continue, the failed
+read was at sector 2312, in the parent inode-table block (block 289, parent
+inode 13). The kernel reported:
 
-Thanks
-Hangbin
+  I/O error, dev vda, sector 2312 op 0x0:(READ)
+  ext4_get_inode_loc:4554: inode #13: block 289: unable to read itable block
+  __ext4_unlink:3469: inode #13: mark_inode_dirty error
+
+unlink returned EIO. After normal unmount, /p/file was absent, but raw
+inode 2064 still had Links: 1. e2fsck -fn reported:
+
+  Unattached inode 2064
+
+In this case the inode-table read fails in ext4_get_inode_loc(), before the
+journal write-access call. A separate run of the same block-read failure
+traced JBD2 through unlink, sync and normal unmount:
+
+  jbd2_journal_abort() probe hits: 0
+  unlink handle at jbd2_journal_stop(): TID 7, T_RUNNING
+  h_err=0, h_aborted=0, j_errno=0, journal JBD2_ABORT flag clear
+  jbd2_journal_stop() return value: 0
+  jbd2_start_commit: transaction 7
+  jbd2_end_commit: transaction 7
+
+The offline filesystem check still reported the unattached inode. This
+demonstrates that this read-error path can commit the directory change
+without a journal abort when mounted with errors=continue.
+
+With the fix, the same clean input and block-read error failed before the
+directory entry was removed. After normal unmount, /p/file remained present,
+inode 2064 still had Links: 1, and e2fsck -fn completed without diagnostics.
+
+Thanks,
+Alan
+
