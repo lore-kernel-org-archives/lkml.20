@@ -1,60 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832193;
-	b=N0Bv2bSopUM7dIsHY2mLZg1tGPPdOqv8bNDFDS2WC0z2vT7XlrvlTos0dyErqWoGgOJV
-	 XkWatVgY1iNcYe0Otdytdxxsx+80dLCq2JoaEIRJ34nys9UosexyNKluFk/jBWUylC7Xr
-	 sJT6UwsVoGtfhMHNCWehsjh0QkDriHY+K47urHKW75R5zdfG87PZuHaYI8yFfHXuHdX4E
-	 O+Svcoffl21XdociSKBlT6q9tA8vXlYztyoVnRjAyQU7ljEQiriBofl8uGvTohMSxxe9N
-	 3cXYTNTf3L+IcW/VLrM75KGVgJJEuzQlmAeL+aI6pH0vGrC0MKpztM6dthqB28TCotA==
+	t=1794832237;
+	b=ZH1NkMhQ8lCVcpTnczRA/3l0T02KuDZ2N0LQEpCDcQ/t92aKIVORdY2FK54pVlLShV9Q
+	 ldmO5BoS01N7swW0mxpuGvw82FDBU5vemidPRpggfXaJb03sOnp0d8cTKeckTYw6LRAra
+	 YiII5gfhLlZYfqpNy1128L3MSylaxX6qVUb1tBJnnwjcf4b3jT5TRo7aaM506p5r7/sMM
+	 t0luPmuZ46mCisfjM7e8whHuJU+XAvr2pfHXvV4z8oncN4P9SCm3ZKNW5fj8YUpWy6A6b
+	 8q1iLjB68RNpxKlLST4KbK7C/kx6g27U0qSOjp/kdwXwAvNb7jzN3SdOrYBXYNo5LhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832193;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=a8k2bclEmTtdQS8mWo/Qx23aRfnorAtJ6YsqEJUvo3c=;
-	b=2vGcPD8rzwLvZ1f0H4xS0DDdYOTHvlbiQ+XQPpSW0O9H77kdKI2rVs1MR0r3pDgcQJwT
-	 Y3IEsWxquxpRyQQx82XM9HKwUkPnn3KS7ukPG4PHHcs/aU0ukxBSoyLjfjJZuN+t2We5+
-	 2Ar0h54Y315n/Y/6OmZF8sG95QF558vzuCZk6C2yuqbMgTAdMtxW+y7MKE00S6fRmgt6m
-	 qdPDC4Fgm7rrcyJxTGY776xDFlpUGshzizh6iATeDZaGQ2j4TRXxt51DSo2+tWx04ISxN
-	 12fuugPHO+b14qxLjXUsv1sH+eyGAohgdaRjoODJ1GBtLaluc0Jd+qTRLbPwmcEs00A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832237;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z/bRCXejfhUAGNyTypvLnWT3Js4ffEtsgZQ/cFVYR6A=;
+	b=K8VUDJW8z0+KhG+8pj2H+vIf172p4praxg9gjBT7BUTAJqP/3SPRyBPtpQatjLd8Gfqt
+	 l4XJ3e+PN4EObXIP+oq9IPZbj9OmIg7rTKnhdO1Jm/14Wum5yYvzKl+OuWa2o+kYLlKhi
+	 NqpAlyFHOd1XWH4KAfY2yZTPGGDY/4zIwmCVm0sznYk61FlRASMRvvSihjSOXb8+mQkz4
+	 1kqgWh0sqS0dwBlVOISkfSAY/RK3Jvk8ffgetjTtJoYzxNoiBrQsyGwO+Bd33/ROgoKOT
+	 q5wYn4c7gISgqcGJCLaX3OPkC5PKq3NeachW3uZIXNiNVPLoUFz2khJbxmyfI3plZng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuxKQEHJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JXRuU56b;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303A8606A31C;
-	Mon, 16 Nov 2026 12:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3173606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:30:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3173606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuxKQEHJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136401F000C4;
-	Mon, 16 Nov 2026 12:29:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832192;
-	bh=a8k2bclEmTtdQS8mWo/Qx23aRfnorAtJ6YsqEJUvo3c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cuxKQEHJf9iH/9WWdbZB4zG+iTs9detr4t8JVow7S6YDFiTSbHhurPgl7aBxjjUgD
-	 qPtLHoxeLEdVShojdMRfGg24oL945ZtDxMQIMG+usuVXPO0Od3SmPQ4KyGJRHwUhk9
-	 IG9mZRcvzGAw7SkVz7LJVOhwcsh399ryZSsJ7v2u0ATmM4XCMAcCAX5QLT60wujGmi
-	 v/crVsE6uM5chxf3lKjV7ADUlDKi0nHTrZHV/0KA9NzparXNw5oGVPtTGLyRzgsITI
-	 pGUdziHulpjnYSndGTwv6ND/r0HmH8hFlK0SewqNyPm5YQE7Mpklgs3J0QeQZq+6rq
-	 MMvnrVNEdfBZw==
-Subject: Re: [PATCH net-next v3 4/5] selftest: seg6: explicit cleanup for SRv6
- End PSP test
-From: netdev-bot+sashiko@kernel.org
-To: hangbin.liu@linux.dev
-Cc: andrea.mayer@uniroma2.it, andrea@common-net.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- shuah@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, liuhangbin@kylinos.cn
-Date: Mon, 16 Nov 2026 12:29:51 +0000
-Message-ID: <179483219155.3136.11489476668944585319@kernel.org>
-In-Reply-To: <20261112-srv6_flavors_endx-v3-4-c9177bbbd965@kylinos.cn>
-References: <20261112-srv6_flavors_endx-v3-4-c9177bbbd965@kylinos.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JXRuU56b
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9eb579c0eso17863605ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:30:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794832236; x=1795437036; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z/bRCXejfhUAGNyTypvLnWT3Js4ffEtsgZQ/cFVYR6A=;
+        b=JXRuU56bJkJmEsn6/hkmKqNJb3k9D/chg7Yifho+iBFJUIHnaEuBU/AiUisJBBDhwZ
+         0GUcuAsq6FqdF9mYUe88PXqUYa/NkBc5bekgZjKkKDdpo/rqnXAR97FL4iiu/p5WvBoR
+         pq7q+4TIFDWeh7m3/3CGZYaYFedDfR7CV+3Phwv0svJ977p+fhvZO2+2hbL/Qqh+55JJ
+         hnRxsUyZSB6B/XPcibBYgr2R1Hs4lOjNJBThUw+yEB+jBJSG/FkTu1eKoHhHuQYFFvvG
+         tizDgviOoXVG/Py8ZKAKtGIIln2Opr3kFUx+w5I613bLZLacJoDr7YNXmO9cIBYCYgVx
+         OFxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794832236; x=1795437036;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z/bRCXejfhUAGNyTypvLnWT3Js4ffEtsgZQ/cFVYR6A=;
+        b=c3G/OXDlFzt2VZLEktLbSVKp2ERP3H7MIt5ZHmzvSh5EuBqRCbP1xUTg4Jo8k+YxsK
+         slr3+NWoGcOzDHoS8A7OHKSgp48yZPHGZRQ4MhjuPq2YUwtD1WRnWBmGWacyolVnpWn2
+         EUxoDlFm/s8u8yq1oMBLsYctSMVjS5/sxDR/OEuOA5BLjhu16h2x986Yw6MTmt6QE5UW
+         GdD/9Yaqvlzeflpmd2zEnkhViE3JEZ6gvyOqS+jpQXKyRZhxbFlnPhuMwzKZ82L0c3Pb
+         sKCHM8fadcrtZV2SeT/A1dvUx9xAeBaiPZhHBmDGIiIQeadRC4fl7I1SlNH/iFJHalG9
+         lIkA==
+X-Forwarded-Encrypted: i=1; AL+hErEvq7CpyGMMG1Yr3yayLFtHFy/bugfTPQp8O5bT9SkEm1kpwiY3GlZfu07tzGZjvKJNJ52cp7X82GtRgmM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cXp0tR0UDCXFg4LilcKrQS77MfjBVWungLOIzgrbBVpn9EZHK
+	YaS1yWVDbK20sVapU9tMvOD4Ql8CMENlD7u1rzZNMX20rN7XsOhnzRRw
+X-Gm-Gg: AZFdTZfljIlpyyrmb2wPCZ+6HEphq7uXUJZoCyBqPw+IoW8FDPeYpRTQIHglWTY1YL3
+	Jqg6Z/SzD7Ug1pnm9XEopHYrrdxJnhNBpDNZpusHqAyuhPS0Sx2I4ABQLq4zYsAlfld66JL0gAp
+	IxF0KHIcqU/exPdhko/OO9lraCQO7dF+zxx5ERdaJDQDmiXUZ+H1Krm/mcXspn0Qhsbh67iRWkR
+	9DNdrYhimzth26lp6fYmoqh4ZTH6mYPcxf+tAwDRDQJiauvhpx/o45uy85cr+W4ZpJzH+FQ500D
+	a3V8fobw5s1zHAeGh51Fbqiir41LXRghWnwwt+AfyOvJdKCD34qvXLkZUfh0fKKjHVhPTzCeo1R
+	K3o4xZvM9B0okyzSUj/gc8OH2yjNBVCsqT1is9ZhVN/+ctCVWAj3jJYsKbwnnWhU7lrYkKpN2Cf
+	KutQSw4oWbjKcm2V7dugbm7xPS9tzlauLALnS+RCQYLJJsPrE1Pt2fFNeAQ2MdTaUAp/waIFxuj
+	WTClcCcVOd+/5uegZ9ztCRUcCR1Zr5OtyNLR6OyVrG72fYeRbZjuAN3o84w1zTPGJ+Fs8DMg1F+
+	74a4POpCRxDmjsHF6plqvLS9+hyd8xi1nedTZ/c=
+X-Received: by 2002:a17:903:1844:b0:2e2:e24e:a88a with SMTP id d9443c01a7336-2ee0da7f49emr93338495ad.22.1794832235891;
+        Mon, 16 Nov 2026 04:30:35 -0800 (PST)
+Received: from arch.localdomain ([152.175.35.61])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f4acd77sm37607385ad.3.2026.11.16.04.30.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 04:30:35 -0800 (PST)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: [PATCH v5] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Mon, 16 Nov 2026 20:30:24 +0800
+Message-ID: <20261116123025.638531-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,106 +110,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+The DP PHY is optional: the Rockchip RK3399 eDP controller has an
+integrated PHY that is part of the Analogix DP block and is programmed
+through the controller's own MMIO registers, so its DT node has no
+"phys"/"phy-names" property. The other supported Rockchip variants
+describe a separate PHY and are unaffected.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+devm_phy_get() therefore returns -ENODEV on RK3399 and the driver logs a
+misleading "no DP phy configured" error before falling back to a NULL phy.
+Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+absent and propagates any other error, and drop the open-coded -ENODEV/
+-ENOSYS handling and the spurious error message.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The behaviour is unchanged for both CONFIG_GENERIC_PHY settings, because
+the real implementation never returns -ENOSYS:
 
-- [Medium] In tools/testing/selftests/net/srv6_end_flavors_test.sh, the
-  PSP defer scope does not remove everything the PSP block sets up.
-- [Low] The commit message says the patch uses "defer and
-  defer_scopes_cleanup", but srv6_end_flavors_test.sh never calls…
+- CONFIG_GENERIC_PHY=n: devm_phy_optional_get() is a stub returning NULL
+  (devm_phy_get() returns -ENOSYS, which the old code mapped to NULL).
+- CONFIG_GENERIC_PHY=y, no PHY described in DT: devm_phy_optional_get()
+  converts -ENODEV to NULL, exactly like the old code, which mapped
+  -ENODEV to NULL in its open-coded check.
+- CONFIG_GENERIC_PHY=y, any other error: still propagated, as before.
 
---
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+---
+Changes in v5:
+  - Fix the comment and the commit message to mention RK3399 only.
+  - Link to v4: https://lore.kernel.org/dri-devel/20261115053625.404795-1-jerrysteve1101@gmail.com/
 
-selftest: seg6: explicit cleanup for SRv6 End PSP test
+Changes in v4:
+  - Rework the commit message to explain why the behaviour is unchanged
+    for both CONFIG_GENERIC_PHY settings, with one bullet per case, as
+    requested by Luca Ceresoli.
+  - Link to v3: https://lore.kernel.org/dri-devel/20261110023721.2014061-1-jerrysteve1101@gmail.com/
 
-This commit adds defer calls to setup_rt_endpoint(), setup_rt_host_proxy()
-and __setup_rt_policy() in srv6_end_flavors_test.sh. It also wraps the End
-PSP setup and tests in a defer_scope_push/defer_scope_pop pair, so the
-PSP-specific configuration is removed when that scope ends instead of at
-namespace teardown.
+Changes in v3:
+  - Add missing changelog entries and reference links
+  - Link to v2: https://lore.kernel.org/dri-devel/20261013134659.335829-1-jerrysteve1101@gmail.com/
 
-> Use defer and defer_scopes_cleanup to remove the PSP specified
-> configurations. i.e.
+Changes in v2:
+  - Added comments to explain the changes made.
+  - Link to v1: https://lore.kernel.org/dri-devel/20260924020417.868588-1-jerrysteve1101@gmail.com/
 
-[Severity: Low]
-Is this description accurate? The script never calls defer_scopes_cleanup.
+ .../drm/bridge/analogix/analogix_dp_core.c    | 22 ++++++-------------
+ 1 file changed, 7 insertions(+), 15 deletions(-)
 
-The patch uses defer_scope_push and defer_scope_pop in the main script
-body. The EXIT handler is unchanged:
-
-trap cleanup EXIT
-
-and cleanup() only deletes the namespaces. net/lib.sh does not install a
-trap that runs pending defers either. If setup_end_flv_psp fails under
-set -e before defer_scope_pop, the queued jobs are simply dropped.
-
-This doesn't leak anything today, because every deferred command is an
-ip -netns command and cleanup() deletes those namespaces anyway.
-
-Could the commit message refer to defer_scope_push/defer_scope_pop instead?
-
-> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> index 0ed5bfe99029b..374b43661c285 100755
-> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-
-[ ... ]
-
-> @@ -1460,11 +1470,13 @@ set +e
->  router_tests
->  host2gateway_tests
->  
-> +defer_scope_push
->  set -e
->  setup_end_flv_psp
->  set +e
->  host_srv6_end_flv_psp_tests
->  host_srv6_end_flv_next_csid_psp_tests
->  host_srv6_end_flv_consumed_srh_tests
-> +defer_scope_pop
-
-[Severity: Medium]
-Does this scope pop leave the cafe::1:e9 and cafe::2:e9 addresses and
-routes in place?
-
-Inside this scope, setup_end_flv_psp() calls setup_hs_lo_addr() for both
-hosts:
-
-	setup_hs_lo_addr 1 1 "${END_CSID_PSP_FUNC}"
-	setup_hs_lo_addr 2 2 "${END_CSID_PSP_FUNC}"
-
-setup_hs_lo_addr() did not get any defer calls:
-
-	ip -netns "${hsname}" addr add "${addr}/128" dev lo nodad
-
-	ip -netns "${rtname}" -6 route \
-		add "${addr}" \
-		via "${IPv6_HS_NETWORK}::${hs}" dev "${RT2HS_DEVNAME}"
-
-So after defer_scope_pop, hs-1 and hs-2 still have cafe::<hs>:e9/128 on lo,
-and rt-1 and rt-2 still have their routes to those addresses. The commit
-message lists the cafe::1:e9 and cafe::2:e9 routes as state this patch
-removes.
-
-A later block that calls setup_hs_lo_addr with the same suffix under set -e
-would fail with EEXIST and be reported as a setup skip. Nothing fails yet:
-the End.X block added later in the series ("selftests: seg6: add PSP
-flavor testing for SRv6 End.X") uses a different suffix (a9). But
-setup_hs_lo_addr() is still not deferred at the end of the series.
-
-Would adding something like this to setup_hs_lo_addr() fix it?
-
-	defer ip -netns "${hsname}" addr del "${addr}/128" dev lo
-	defer ip -netns "${rtname}" -6 route del "${addr}"
-
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..6d50ffdae17f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1426,21 +1426,13 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->phy = devm_phy_get(dp->dev, "dp");
+-	if (IS_ERR(dp->phy)) {
+-		dev_err(dp->dev, "no DP phy configured\n");
+-		ret = PTR_ERR(dp->phy);
+-		if (ret) {
+-			/*
+-			 * phy itself is not enabled, so we can move forward
+-			 * assigning NULL to phy pointer.
+-			 */
+-			if (ret == -ENOSYS || ret == -ENODEV)
+-				dp->phy = NULL;
+-			else
+-				return ERR_PTR(ret);
+-		}
+-	}
++	/*
++	 * RK3399 uses the Analogix DP controller built-in PHY,
++	 * no extra PHY configuration is required.
++	 */
++	dp->phy = devm_phy_optional_get(dp->dev, "dp");
++	if (IS_ERR(dp->phy))
++		return ERR_CAST(dp->phy);
+ 
+ 	dp->clock = devm_clk_get(&pdev->dev, "dp");
+ 	if (IS_ERR(dp->clock)) {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-srv6_flavors_endx-v3-0-c9177bbbd965%40kylinos.cn
+2.56.0
+
