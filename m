@@ -1,86 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831072;
-	b=CgD79C9EbZqbQdb056FQSlsEeaHs8MwfiT9uEX2NUr6KftHEU9qfmSyLqCYkhfrZTzYD
-	 C96/MCqywQqeyXIvZ+5whi3j7qZQ6oEL1YwVVzKwTa0tqiXjtX1QUQmllGtyX6Os2xC5Y
-	 RU/eVtFC4dIy+TnTyLzUXtwFKWNCy0ot+mlrqx1/ygmXc4FJcwUwi9uTw1SyjPebesGyO
-	 ib+lGMaOPV/H+BPS0tLJ7tYD1yyWQ6BeN27gNOubsZrXSuJ7nqkbv2icIYTrkw3MNGkmw
-	 wZopufI9GJA2ESS16RDwj84nKJTYWo2rxqXOi54M5mBcgxX+YWSNmyde7k5ZZMbvANg==
+	t=1794831081;
+	b=w41ZfURgfR9JgeMYWPvyWYynzxDU26iIs1py3Qzb1sdqPlmdLrRpbPwWyq0nRsTMEBBk
+	 x3wJ4BAUwow5WzKolkSSMyCk7Idp/A6Hgu3F4N19MC6CJ8tNNT/0LNaxHKXXGIDM1gcOJ
+	 39EakWjn7lSVlmErTCyHgoBoRyyUfNcVHY1trZLsHmnVt228mG5k+IUr8ieHOtsx1fBih
+	 feqb8FY1s4jYTiVuBm466gZnK7eJXqG6mt2Yg7EgwkjLTg00W6+8GmhPlJkHe4YeVkZmP
+	 QYy6uUpFa2FIeVwl03/jP+XNZYsN+Keh9ToI6CLpzBu0bwlpRFDNPXtIMs62SJD0pOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831072;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831081;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=d1QNaqA4UuxT165UtFo9MygMRqXbXgGBeQ/kJMNr1F4=;
-	b=xGYMSqwMFYHMGZcPCU1WsO892slI06zNDHiZR8SDVELP9lb+dSmPcHCAVi1qPPMftqty
-	 1ULWGMVHV5kc3OiKeiqJf29Y92qz9ZtpVea2Dk3oJK0iRRW0pKiqIXYrFvEKiJi88WDRm
-	 bRmgMXDxPgUowTngTFa+DNmWjVJ99nPEUzwhepuR7s9nhTTfoaBaKSMe5tBOeSRyfmLR8
-	 Wz7YuVURdqyX1gCLJXtyo/Hzg3suGvpttPczcPtjGntW7LmYuk/xbFuXI7+FXfUBdZsxJ
-	 aI4Wp80trDIUod6XAWJYFpHMBbNEkjceodSHinbusnmpHT/oAccFjm79tDB9cJjOm3Q==
+	bh=MCrIfPa5jM55YGKgTWMhmNBiGurKE2IC0Lgd6Ge7QLE=;
+	b=f1BwxGBaBfn4Sc8HUdUz+uuhwjmfTRfkHQI8mvWtpRIV9pt3lCl266npYbrjhNyZj26c
+	 blQWTzYWb5ovDRP6GWxQOBuePuPqD4wEPcK4SYLq+brRr0ns0RVmKuNePhjfVzd/Hlql6
+	 G2JbgSfbk6nV6E3SG8ifgQp/3EWj+UIyw6GHup6BTGIzJ/xPb41tasIEbEE8hlCPiLS8o
+	 VTLS/Uk/4KMPDc178pFk8LB1tuqnWYmGx98BzGMYTvcCBHGyGFPBaNNmVc72Y5sToKJ1x
+	 210IDa8jAHq7wPDX/NJFlw4GyPNYzZHLTdxZZ34wdsUVJGjhlL2FVtCdtnfHZBrsm+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JkukwzGb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kf0ZpNba;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE9C606A31C;
-	Mon, 16 Nov 2026 12:11:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A881606A323;
+	Mon, 16 Nov 2026 12:11:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JkukwzGb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF391F000C5;
-	Mon, 16 Nov 2026 12:11:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kf0ZpNba
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86ADE1F000C9;
+	Mon, 16 Nov 2026 12:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794831072;
-	bh=d1QNaqA4UuxT165UtFo9MygMRqXbXgGBeQ/kJMNr1F4=;
+	s=k20260515; t=1794831080;
+	bh=MCrIfPa5jM55YGKgTWMhmNBiGurKE2IC0Lgd6Ge7QLE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JkukwzGbEvTcRYQiQbZwmA/mk2PVHTyXM6F56jbB+ZEQcpOrHLIY5pxO7kKiM6rQz
-	 0EwP5ZgG9DLK7jFGiSx9rNSP3jecoIEKdDYTO14xW1IttoAG5v+N1Aez3pwlJjjX4h
-	 b9xMXEbfDclbyVeamtQyzfwSgbEfbMjF9uY6+FyAidTnAxdoFPAPVSLekGMi7QSJU1
-	 emdILX1T7g10aAXHkb+Ax2GF/b+k8KVztp14ydhiNTchkHtPM7YD2i4zOANkI1QD4j
-	 LDuHomhf5257ArYnxVdxwLVpbtGt22Thq3Isp2WsCen8vZYobgCtY7pslu+Kg9qXRm
-	 chRxB8ZndPC5g==
-Date: Mon, 16 Nov 2026 14:11:08 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Alexey Kardashevskiy <aik@ozlabs.ru>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>
-Subject: Re: [PATCH v2 11/19] driver core: Introduce a generic device trust
- level
-Message-ID: <20261116121108.GK11319@unreal>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
- <20261109-device-trust-core-v2-11-3b12d9a9f861@nvidia.com>
- <de5772b3-c340-4822-a49a-1434ece1b144@ozlabs.ru>
+	b=Kf0ZpNbay3/botVgk4uLQ6lKN1Dp/8U4U1a6BPgJEQ/jmkeMAZbVWA5Vx8J7OvYAa
+	 Xx5YPpICA9XnQj1ry5M/iOi+KIfi9KXZoyXKVQFVEVxhxK+lj7kk8SbbZ3WL3C/ZZz
+	 MFQSeMyiRtDb0+SjvTTRTCZ34BLbJJ+kvZybx6NmeN4dihm06im1nh7lgxjG57iKwX
+	 87jwP61h6nYg/jwz0RPzOecRR3TPF3/vD+gFmTVK3encLn5J/mOno0FiPh0NFjP86K
+	 yWN5joya90STmAJqt9QUvReUNO4HPra5yhh1k2UMZMQKxVzfq7VSa3zF1yArbgl9vC
+	 91rNvWminUUyw==
+Date: Mon, 16 Nov 2026 13:11:15 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: Add LeMans Draco EVK board
+Message-ID: <20261116-colorful-cormorant-of-snow-cde6a0@quoll>
+References: <20261113-lemans-draco-final-changes-bringup-v2-0-3ae8cd1c9932@oss.qualcomm.com>
+ <20261113-lemans-draco-final-changes-bringup-v2-1-3ae8cd1c9932@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,27 +60,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <de5772b3-c340-4822-a49a-1434ece1b144@ozlabs.ru>
+In-Reply-To: <20261113-lemans-draco-final-changes-bringup-v2-1-3ae8cd1c9932@oss.qualcomm.com>
 
-On Fri, Nov 13, 2026 at 10:30:23PM +1100, Alexey Kardashevskiy wrote:
-> On 9/11/26 18:33, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Device setup needs a common operating policy before driver probing or DMA
-> > configuration. Userspace must be able to hold devices disabled until it
-> > authorizes them.
-> > 
-> > Add generic trust admission with an immutable global boot policy. Restrict
-> > the compatibility attachment API to explicit global full policy and full
-> > operation, checking admission before probe. Keep the operating level
-> > stable until teardown and retain normal locked admission for other callers.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+On Fri, Nov 13, 2026 at 04:58:57PM +0530, Gopikishan Thawre wrote:
+> Add compatible strings for the LeMans Draco EVK, an evaluation board
+> based on the SA8775P/QCS9100 SoC family.
 > 
-> this got many CCs except the one where I was (eagerly) looking for it: linux-coco@lists.linux.dev :)
+> The platform uses a two-board design: the LeMans Draco SoM carrying
+> the SA8775P/QCS9100 SoC and core connectivity, paired with the Draco
+> carrier board providing application-specific peripherals.
+> 
+> Add two compatibles to model this hierarchy:
+>   - qcom,lemans-draco-som: identifies the SoM layer, allowing the
+>     SoM device tree to be shared with a common carrier board.
+>   - qcom,lemans-draco-evk: identifies the complete board (SoM + Draco
+>     carrier), used in the board DTS.
 
-I will pay more attention next time and will CC CoCo list.
+Drop entire parapgraph. I asked to explain oddities, not standard and
+expected way how System on Modules are used.
 
-Thanks
+There is no point to explain the obvious.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
