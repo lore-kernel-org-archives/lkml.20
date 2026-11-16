@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.95.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828475;
-	b=GNiybRu/X4Kx3dQ4xTzkkq+nJ76Gp0Zfd1rwmTq/9UUvex2qKDIcaG8JaXr4tx+vW1JT
-	 xwns7o8cw+p+DWk7i1mM+zJ+yNwhxjBcUyWEqxxvg+YdGsgVQnrO5uCeMgcHdLujyCeSl
-	 /RaO5CeX6EYuPTLR4+FjwvFpvRpghy5E8Gx3LqWMPGJPaXMIR6mkE1JicKX5rT8LuGQnY
-	 mO4Ec7anUae5mFDBCm6BUv2SSnDr64UxAkkaTIPI0Hq0tqMiJE5FqkD+ygMVMEfyZeQMP
-	 91db/cwLCrR6fWInXSZb/HgwnhPWZMmYtOQhigbOi+cmPMfT+Oa1G/t0TN2MoSO/s9Q==
+	t=1794828503;
+	b=KAvNWUaTy4oXP742Yti6oJz+mm20zQuP9zHrUyxbsnba6PMxoTH6Alr/ajUeIAaiuQVS
+	 Jw8McTCcKiydwmcDQK3e2aDJr48E5FEQxhaQtj7xfbeOmYUzreOqafTg2CoG/BEk7rFiG
+	 YVwBuBZsV+bBy9kCgienNwC5oF+AsTYWShdlc1TtXQvV4UVldYkt6gmbhy71a2wO0Dy7Z
+	 uvjl2AketHQhQBlav5ztmJTdlFqW4Hy1kcJ8t3jeaCOQnb78q9tkyIoL0Ru+op6Pqn7dC
+	 DnDUUwkXSMSXEFYgvuJsQdngo847IdWXLff1Nx1lTKkTQO4LDs+dEhAR5ckDM+eN/dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828475;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NGdYE1LKN3He4j6aMDwu7jO4z9gNv0vtaxXDRhl5y3A=;
-	b=3vUi/lR1YhJec63Q57FRrOPEuyzgAR2e1mDerH8wojVNQSwFOwLLYkpUD7OC5qRcs6kp
-	 JObM6nY3oOoxpxWi3uKX2/bEgHpFz2zJ0QPQSLGCOL80jEPbKNvbra+1ZNWtQS0Vxi6No
-	 4H5r0/SloLjZh/rsLQKb9oDO/B4ePZn9r/VYkj7wHshLBdtmJy719fJyzchGYHVGiw6B9
-	 0Fz2ad6ZD+eQo+tvYT6QOduAVpVTSHKWDIM7uE+iCC829PD60h+YznZ7b0bpVaIV4ngaG
-	 Dj/AfEnN06GGeMtdHvCoTrfR86HNlzpQRj0gkMBsOcFsHo6WfL3N4UaBSvPvX7WIg0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828503;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=0hlTDBmIiuUpro0fpaSZFKNZWTALX/pKa1s/geMvaCU=;
+	b=k6u0b8sFSGK9QlP/e1HUXDC4z605Z1AJEauud7aBkMcI4KQzx0B4ibUVoGzbQDT/b060
+	 thXJisdM7ZSSaZ/ZhqkcvnDRvLMiaQFRF8hNd6PPqcUbmDMs4zrXMPVxMFJ25u9zIBKjC
+	 b7TsWP1ln39XI2KoufFGRxGvhr0I5UlBIWAuII0PCGu68UgrMH9XtjpkAN8wfUHU0nAXQ
+	 /qkOTrAdyMt3IhX583UxOn/AOCHcr0s+9kyBa3ETl2R6K8m0TnyX28zuk8c5OFSPkQEwt
+	 NoF+QYjeypk533cnJaZT+RYKABc1rhv6Mq9YGNAzCPVYo0tlsH0OYoVT/eS9p5T5KFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wunner.de;
-	spf=pass smtp.mailfrom=wunner.de;
-	arc=none smtp.remote-ip=83.223.95.204
-Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJiJs8Fl;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B65606A339;
-	Mon, 16 Nov 2026 11:27:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14B65606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout1.hostsharing.net (Postfix) with ESMTPS id F0C442973;
-	Mon, 16 Nov 2026 12:27:52 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id DAB806031F0E; Mon, 16 Nov 2026 12:27:52 +0100 (CET)
-Date: Mon, 16 Nov 2026 12:27:52 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] PCI/PME: Resume Catlow Lake Root Ports on PME with
- PME Status clear
-Message-ID: <avrouGIdiXIxE_5Y@wunner.de>
-References: <20261103193136.2410148-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF55B606A330;
+	Mon, 16 Nov 2026 11:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF55B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJiJs8Fl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794828504; x=1826364504;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=0o74o8kkP3rdi5jDk/1yA+QR72xMJzlJ2Xkc1vFvsI8=;
+  b=iJiJs8FlVSxQ/u+4lU2KftQ88CiZrL4eVMt3v5FvuL51QpNC7B0D44i3
+   KD0rCT+oEy8Y+F07D708BqUYJMi4jOMyDL3i9fpPld8oy6mEOu26mDgNw
+   7E3bK4Z4c5sEnOPa3hSH1w/reS5OCtGXmFb14PlEjiWig62q6YGrl2RK3
+   H3slhH3KwlOuSEbRSkPK/1bVUrOp4pT4u6SOQlJAQSAlZ8wq5HhT6ksnK
+   07sOAqwBj/NqqadY+wifgIFzXzTWfVTVMMtItMZ1sLP6cJY4XaSOY4q9S
+   6jNStB8tNeFljSLSvxPNEVpgodNp6Aj37ukcxliN0MXyWaU2nuQ7xSkLZ
+   w==;
+X-CSE-ConnectionGUID: PGciGPu4SJCVBrU3JpYuBw==
+X-CSE-MsgGUID: nl1ZFl/TSLa4Jt+RgQmdUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3431293"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3431293"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:28:08 -0800
+X-CSE-ConnectionGUID: pe6sw38ISzyAE3EXGwsZwg==
+X-CSE-MsgGUID: wxc/tGo9S/qv4ZgqhbZSmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9849782"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:28:04 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 16 Nov 2026 13:28:00 +0200 (EET)
+To: Hongyan Xu <getshell@seu.edu.cn>
+cc: Hans de Goede <hansg@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+    Chanwoo Choi <cw00.choi@samsung.com>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Mark Pearson <mpearson-lenovo@squebb.ca>, Rong Zhang <i@rong.moe>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] extcon: synchronize all-connector notifier
+ removal
+In-Reply-To: <179474326273.103840.4798359664806814358@seu.edu.cn>
+Message-ID: <4f3601df-029b-0ee9-41ea-c0ec29c5f80d@linux.intel.com>
+References: <179474326098.103840.15531040789536968458@seu.edu.cn> <179474326273.103840.4798359664806814358@seu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,28 +83,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103193136.2410148-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Nov 03, 2026 at 11:31:36AM -0800, Kuppuswamy Sathyanarayanan wrote:
-> Intel Catlow Lake PCH Root Ports do not set PME Status in the Root
-> Status register when they generate a PME for their own hotplug event.
-> The PME interrupt itself is delivered.  PMEs from devices below the Root
-> Port are reported correctly.
+On Sun, 15 Nov 2026, Hongyan Xu wrote:
 
-Reading the commit message, I'm wondering whether PME_Status in the
-Root Port's Power Management Control/Status Register is set?
+> extcon_sync() invokes the all-connector raw notifier chain after
+> dropping edev->lock. Unregister unlinks a block under that lock but
+> does not wait for an in-flight callback, so managed consumers can
+> release their state while a callback still publishes work.
+> 
+> Use an atomic notifier chain for the all-connector notifications.
+> Its RCU read section and synchronized unregister provide the
+> required callback quiescence. Use the notifier implementation's
+> own writer lock and perform its grace-period wait outside edev's
+> spinlock. Document callback and unregister context requirements.
+> 
+> The current all-connector consumers defer their operations to work
+> items and their callbacks do not sleep. Per-ID raw chains retain
+> their existing behavior: some OMAP callbacks perform regulator
+> operations and need a separate context-compatible repair.
+> 
+> Found by the author's in-house static analysis tool.
 
-If it is, an alternative approach to quirking a set of Device IDs
-would be to auto-detect affected Root Ports, basically by using
-the logic OR of PCI_EXP_RTSTA_PME and PCI_PM_CTRL_PME_STATUS.
+I think sashiko found this too:
 
-Sorry for not thinking about this earlier!
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260806060526.1189-1-getshell%40seu.edu.cn
 
-Otherwise I like this patch and I like how you managed to keep it
-unintrusive.
+> Fixes: 815429b39d94 ("extcon: Add new extcon_register_notifier_all() to monitor all external connectors")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/2ef4ad43-497f-c40f-b18a-f5b75799d95d@linux.intel.com/
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
 
-Thanks,
+-- 
+ i.
 
-Lukas
+
+> ---
+> 
+> Discovery: found by the author's in-house static analysis tool.
+> 
+>  Documentation/driver-api/extcon.rst |  2 +-
+>  drivers/extcon/extcon.c             | 28 +++++++++-------------------
+>  drivers/extcon/extcon.h             |  2 +-
+>  include/linux/extcon.h              |  4 ++++
+>  4 files changed, 15 insertions(+), 21 deletions(-)
+> 
+> diff --git a/Documentation/driver-api/extcon.rst b/Documentation/driver-api/extcon.rst
+> index d3217b9..384d743 100644
+> --- a/Documentation/driver-api/extcon.rst
+> +++ b/Documentation/driver-api/extcon.rst
+> @@ -70,7 +70,7 @@ The core structure representing an Extcon device::
+>          /* Internal data */
+>          struct device dev;
+>          unsigned int id;
+> -        struct raw_notifier_head nh_all;
+> +        struct atomic_notifier_head nh_all;
+>          struct raw_notifier_head *nh;
+>          struct list_head entry;
+>          int max_supported;
+> diff --git a/drivers/extcon/extcon.c b/drivers/extcon/extcon.c
+> index 98d85cc..b8d8c2a 100644
+> --- a/drivers/extcon/extcon.c
+> +++ b/drivers/extcon/extcon.c
+> @@ -456,10 +456,10 @@ int extcon_sync(struct extcon_dev *edev, unsigned int id)
+>  	raw_notifier_call_chain(&edev->nh[index], state, edev);
+>  
+>  	/*
+> -	 * Call functions in a raw notifier chain for the all supported
+> +	 * Call functions in the atomic notifier chain for all supported
+>  	 * external connectors.
+>  	 */
+> -	raw_notifier_call_chain(&edev->nh_all, state, edev);
+> +	atomic_notifier_call_chain(&edev->nh_all, state, edev);
+>  
+>  	spin_lock_irqsave(&edev->lock, flags);
+>  	/* This could be in interrupt handler */
+> @@ -967,6 +967,7 @@ EXPORT_SYMBOL_GPL(extcon_unregister_notifier);
+>   *
+>   * Note that this function registers a notifier block in order to receive
+>   * the state change of all supported external connectors from extcon device.
+> + * Callbacks run under the RCU read-side critical section and must not sleep.
+>   * And the second parameter given to the callback of nb (val) is
+>   * the current state and the third pameter is the pointer of extcon device.
+>   *
+> @@ -975,17 +976,10 @@ EXPORT_SYMBOL_GPL(extcon_unregister_notifier);
+>  int extcon_register_notifier_all(struct extcon_dev *edev,
+>  				struct notifier_block *nb)
+>  {
+> -	unsigned long flags;
+> -	int ret;
+> -
+>  	if (!edev || !nb)
+>  		return -EINVAL;
+>  
+> -	spin_lock_irqsave(&edev->lock, flags);
+> -	ret = raw_notifier_chain_register(&edev->nh_all, nb);
+> -	spin_unlock_irqrestore(&edev->lock, flags);
+> -
+> -	return ret;
+> +	return atomic_notifier_chain_register(&edev->nh_all, nb);
+>  }
+>  EXPORT_SYMBOL_GPL(extcon_register_notifier_all);
+>  
+> @@ -995,21 +989,17 @@ EXPORT_SYMBOL_GPL(extcon_register_notifier_all);
+>   * @nb:		a notifier block to be registered
+>   *
+>   * Returns 0 if success or error number if fail.
+> + *
+> + * Waits for in-flight callbacks. Must be called from process context and
+> + * outside a notifier callback.
+>   */
+>  int extcon_unregister_notifier_all(struct extcon_dev *edev,
+>  				struct notifier_block *nb)
+>  {
+> -	unsigned long flags;
+> -	int ret;
+> -
+>  	if (!edev || !nb)
+>  		return -EINVAL;
+>  
+> -	spin_lock_irqsave(&edev->lock, flags);
+> -	ret = raw_notifier_chain_unregister(&edev->nh_all, nb);
+> -	spin_unlock_irqrestore(&edev->lock, flags);
+> -
+> -	return ret;
+> +	return atomic_notifier_chain_unregister(&edev->nh_all, nb);
+>  }
+>  EXPORT_SYMBOL_GPL(extcon_unregister_notifier_all);
+>  
+> @@ -1300,7 +1290,7 @@ int extcon_dev_register(struct extcon_dev *edev)
+>  	for (index = 0; index < edev->max_supported; index++)
+>  		RAW_INIT_NOTIFIER_HEAD(&edev->nh[index]);
+>  
+> -	RAW_INIT_NOTIFIER_HEAD(&edev->nh_all);
+> +	ATOMIC_INIT_NOTIFIER_HEAD(&edev->nh_all);
+>  
+>  	dev_set_drvdata(&edev->dev, edev);
+>  	dev_set_name(&edev->dev, "extcon%d", edev->id);
+> diff --git a/drivers/extcon/extcon.h b/drivers/extcon/extcon.h
+> index 9461826..5a3f0c4 100644
+> --- a/drivers/extcon/extcon.h
+> +++ b/drivers/extcon/extcon.h
+> @@ -48,7 +48,7 @@ struct extcon_dev {
+>  	/* Internal data. Please do not set. */
+>  	struct device dev;
+>  	unsigned int id;
+> -	struct raw_notifier_head nh_all;
+> +	struct atomic_notifier_head nh_all;
+>  	struct raw_notifier_head *nh;
+>  	struct list_head entry;
+>  	int max_supported;
+> diff --git a/include/linux/extcon.h b/include/linux/extcon.h
+> index e596a0a..869bac9 100644
+> --- a/include/linux/extcon.h
+> +++ b/include/linux/extcon.h
+> @@ -209,6 +209,10 @@ void devm_extcon_unregister_notifier(struct device *dev,
+>  				struct extcon_dev *edev, unsigned int id,
+>  				struct notifier_block *nb);
+>  
+> +/*
+> + * All-connector callbacks must not sleep. Unregister waits for callbacks and
+> + * must be called from process context, outside a notifier callback.
+> + */
+>  int extcon_register_notifier_all(struct extcon_dev *edev,
+>  				struct notifier_block *nb);
+>  int extcon_unregister_notifier_all(struct extcon_dev *edev,
+> 
