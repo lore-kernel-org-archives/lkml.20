@@ -1,60 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842893;
-	b=AOSOQvdH/vxDGEHQ6cQHwpThHF3ybnSE8qQyEPLe1X35e9kZ1Duqj8T0b9Z+00J8x304
-	 AQW1Kmy22kahNBmwha6Ldzl6ALtv1qFWNIvDdWrUnOexInJ7wCHBlyyfJ/6lG3CqcGhs4
-	 dve2Jfr2PXhSkhcc3eXbVGz02+eyxCS2u1khS8HqDFR5QlkyAWYt/PTjHQRWYW8K4iLIa
-	 jW7wbKzHQR+VrkF9xwzoR0mTqEenvYtrslrmVszPcCKhCPQdlGFHqadtLrTpGv1RR90fg
-	 BGTYA8mkqcWbk3cbH8oW9OkEWOpvsOfMK0n7paeU5INJEnrNQ1Wa0HadnbyQCK1S6zw==
+	t=1794842901;
+	b=bbxOuFeb/cvFh+hmdl0KHt0UnvdqFI1xUi4B+2Yptcpw9QT3yb9fExhg5tMJ2HiguYwC
+	 6HCC/5KpUzuetU24VUI3dxDR7pXuISSBWFw1DA8n8o+X5/NV1/4GSZPcjbrD0L3ShPhRQ
+	 zPDnUWS2pKHhp9QMv3t5nf0lnCw/FtIpHQGBRqHjifimLIr22oMdjbqSTzItyQ5CJfO+y
+	 VQ2rL4RCNm9nugwcoPajtS8iHcva50jogFifKUbCp3ylAK7a7cwLo1mWdA9rAb9KLuRoW
+	 MCOMzL0keT9W97WIc0JE5zso6nHqhZLYmdNaLq4AQbnCHRZB0437Gb8tC7LEhvFFEyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842893;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=SuEFiNcp59oinyTRJDhBZEloO8wBbsl1tv0A9wdn0hk=;
-	b=xrz/sfEWFruXyxswJMA0kXzYC5V4hTCcSIsAd86iBuV1BKMXzz3hlk7SBTaUd/y0e49j
-	 cbVvRPK/46aRhKyNH3xgp/oc4kwY6XeIdJRd3V+fNeIXfoyvElwZN2wvzNJWIDTidspJg
-	 MyeIpewZ7Sa88lIvh5RDhRziTtlvBqhezqh+4JNR37u/E+thL3PUTIFfXpf7K5QF0XCWN
-	 VyMb0E8/G4DRGHWrx3Rszki4J1nFtJsg4HWfpZhg2DU/tJPjhEqcoD0OwAljlJA3jqf+X
-	 Il1wa2gFzUNMyOwGdXSmmzaK86+TBnqMcYzb8xEnK2cpfko+5Z+MlfBzMdwOWratG5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842901;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VUxoL+hkMuqSpkoWW3gH+I8KuNofLq4r+vKUcWDgU4I=;
+	b=3FtRcnumhbUHPsWtV/W4bKOojZR8X0ygjz6ZGAN4+gVV/yKCPHJWj6rwp/rknj7S9F8U
+	 Zk/0CKmQaXFqJAp8go3cXIIEcZOGKtcj2uk2CkBt3r6laUXhKgprz+oAXqxElwFv9VKgr
+	 S3y5eDoHItnBVOiAS92LYZ33Tgd8fUvytmjOIfIIT+LpiXeQzltsBNU7LpkWPJJU3nEcW
+	 6iFdePevPrBZm8FfNZGfzbGa2jQ96MouG7vKjn5MY10qH4oShDwzmlIVjWTydp4o+JqHV
+	 8JOZmYNIMzoAzHlQWLVIwdbAh0Z1vyG1LPpXRA2Hs8U8QDY73pCYfTGaePM1NPzN9Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SxnHZqRE;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lrd3cWTt;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA8D606A895
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABA8D606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC9F606A331;
+	Mon, 16 Nov 2026 15:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EC9F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SxnHZqRE
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6B47E1A169B;
-	Mon, 16 Nov 2026 15:28:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 390646023F;
-	Mon, 16 Nov 2026 15:28:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B635011BC0D9C;
-	Mon, 16 Nov 2026 16:28:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794842890; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SuEFiNcp59oinyTRJDhBZEloO8wBbsl1tv0A9wdn0hk=;
-	b=SxnHZqREMCZsroeL2ATb30HVSCsLvFHOounjpAaemoFnmzUsReQoWEFli3tkfiDS5xG2QR
-	RpYvl0NygBvF2TfPV/v9drFTyqDHASEHFpagVRLLeS7PSWuwNXqqz9FaedxAZABwdkfnJ1
-	NPtriiZLD2xCbvnBVuMCRimm80PrkZiJg7+nLgBiy1G3BHPyPL1ypmKe+0khDL9IWKQGu3
-	pM4S+sP4Tum97t5zFHQxWSM9mR5fY+q7CkpgPIQcPmgRdzky1k5xpcRbgAPIXh8X7BGIry
-	nc7cBjnXSMUKm0467jlQU9Ot7YhJtoyBp5iFZUbL3irOM4NTVm45JsKAs1HnoQ==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Mon, 16 Nov 2026 16:27:04 +0100
-Subject: [PATCH net-next v2 4/4] net: phy: marvell: add RGMII-to-Copper
- mode configuration
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lrd3cWTt
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGDuOqI2214172;
+	Mon, 16 Nov 2026 15:28:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=VUxoL+
+	hkMuqSpkoWW3gH+I8KuNofLq4r+vKUcWDgU4I=; b=lrd3cWTtW0CXO/4mmn7OcG
+	4NY8RsD+A0Knga30x+EUHjTod+7LaCfDm4uWJsdeoRjl3zEiRTID3haY6zEadipU
+	bz9q7t3oBrKO1/7e/rIsaizUmoKr3zGEGrbzdJ9ZL4cMHn7BxY+8aL7xNbAjuojq
+	kge7ju0pQsnCQN25GEYfCiw+Tmb03f2Py9FrwYuZkqoOVSzFziqptvJ257576Qfx
+	4KejQiDcA+34kbWZ0srUidNx/LWwIkAq8mQHGR+UypW+4EdoPTecmTnav5o4LsOo
+	nnCJIa9EA+DjfDKStV1bt+AZn/362WAESG5tlfGGXqGOGkv+aLXRYj7Eb7qEKquA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2d5vdg-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 15:28:06 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGF5tng1877673;
+	Mon, 16 Nov 2026 15:28:06 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hy46fyvkj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 15:28:06 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AGFRpVZ39518540
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 16 Nov 2026 15:27:51 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7EFB220043;
+	Mon, 16 Nov 2026 15:27:51 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3671520040;
+	Mon, 16 Nov 2026 15:27:51 +0000 (GMT)
+Received: from [9.68.31.53] (unknown [9.68.31.53])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 16 Nov 2026 15:27:51 +0000 (GMT)
+Message-ID: <f23d9c47-b254-484f-b0c4-d1053d337c64@linux.ibm.com>
+Date: Mon, 16 Nov 2026 16:27:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,87 +86,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Alexandra Winter <wintera@linux.ibm.com>
+Subject: Re: [PATCH net 0/2] net/smc: do not reuse the DMB of a nocopy device
+To: hexlabsecurity@proton.me, Mahanta Jambigi <mjambigi@linux.ibm.com>,
+        "D. Wythe" <alibuda@linux.alibaba.com>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Dust Li <dust.li@linux.alibaba.com>, Jakub Kicinski <kuba@kernel.org>,
+        Sidraya Jayagond <sidraya@linux.ibm.com>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Hidayath Khan <hidayath@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>,
+        Wenjia Zhang <wenjia@linux.ibm.com>, linux-rdma@vger.kernel.org,
+        Wen Gu <guwen@linux.alibaba.com>, Tony Lu <tonylu@linux.alibaba.com>,
+        netdev@vger.kernel.org, Simon Horman <horms@kernel.org>,
+        linux-s390@vger.kernel.org
+References: <20261113-b4-disp-19244662-v1-0-39b256b70ca7@proton.me>
+Content-Language: en-US
+In-Reply-To: <20261113-b4-disp-19244662-v1-0-39b256b70ca7@proton.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-marvell-phy-rgmii-v2-4-e04dca67e89a@bootlin.com>
-References: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
-In-Reply-To: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794842859; l=1938;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=2l5oMzXH+scX08Gvc0D3OEJ8LMAGR2j8N4VB8pOdCEo=;
- b=42GjufwWYJT5s0O7wuP9zKe8TQQN1h7ZI/CLJbxUgSc8PkzdPSTLKmu5Gp8nsKJOCNkeCQ6ql
- iywfNEwj4f4A0cc9vFtHYZor8KX9hlCfvUwoPI3HPYIPFNPMAzyAQ82
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2MSBTYWx0ZWRfX7GFluGf7knYh
+ ZkPNObjdlfA1qABHvN1snafOV/8xcqexBUH2iZUFTBiSwYUFVP5gvCLy6pK2l6a4huNlFj98+hb
+ 1CcGlyuQNEpuPF/B12XRe3+G3mcMNgY=
+X-Proofpoint-GUID: SZSbvN9P7F-mQt7A9Kks8pxZMBkQxRl7
+X-Proofpoint-ORIG-GUID: XZPaD2B7ZnPkgiM-p9UwiVPLnXQIlSXs
+X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afb2107 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VIMLV4syELct9QTXEHIA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2MSBTYWx0ZWRfXw1d4V5UKaK1u
+ 5yO8cNEBno8o4gMBlV+NVP8sBOOY+YHGhRQw4P02jKZxdzkroqYp09Oi7pJw0TBvnZn10JHVPe3
+ fAjOozB1Jpe+1iFe3NwjYnVcjU4HaLwpTs4xODY4qQrYsQcJ9MUIRXC5xaPUa8wWjGNyBdLmJco
+ AoC9XxeKUc+glPwayHvu72W1KdTE9k4MEcL32PipbW4wGoEPsJvO9Tx9aZNI0CHOGNK+bqrAABI
+ OOD+iBH43RJDeWUxUAL76+ipy6PImXrQzMtrNxSxcjSfSUSEIJqUotKLKFpcfwu8z+FFr5LTUwj
+ zxR2QMAP6PUUibDeNHMVfrw8K/It+QbwmsBD1jp2mRfkGDM2h5I1MLCFARxBy5x55fE0p67LUPO
+ /8wzn5aTnlyhM/nmJ2pbpJQWuvvszIrFZ5MrxhUce8L5Xvt3h5yCkjIfMELo7oferL56rEn34Bg
+ YqRY6jnZzTQ1WFqTCNQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160061
 
-The driver currently programs the mode only for SGMII-to-Copper, based
-on the PHY interface mode.
 
-Some MACs connect to the PHY via RGMII. Add code in
-m88e1510_config_init() to configure the device.
 
-Do not overwrite the media interface mode configured via
-m88e1510_port_configure_serdes().
+On 13.11.26 14:57, Bryam Vargas via B4 Relay wrote:
+[...]
+> 
+> ISM pools its DMBs the same way and an old ISM peer also writes its CDCs
+> by token, so AFAICT the reuse applies there too. This series does not
+> change ISM, and I have not tested it.
 
-Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
----
- drivers/net/phy/marvell.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ISM does not provide an attach operation. So nobody will write into a
+receive buffer dmb after dmb_unregister.
 
-diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-index a72d307eaf12..9748fdd843ff 100644
---- a/drivers/net/phy/marvell.c
-+++ b/drivers/net/phy/marvell.c
-@@ -1341,6 +1341,23 @@ static int m88e1510_config_mode(struct phy_device *phydev, u16 mode)
- 	if (oldpage < 0)
- 		goto error;
- 
-+	ret = __phy_read(phydev, MII_88E1510_GEN_CTRL_REG_1);
-+	if (ret < 0)
-+		goto error;
-+
-+	if (mode == MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII) {
-+		switch (FIELD_GET(MII_88E1510_GEN_CTRL_REG_1_MODE_MASK, ret)) {
-+		case MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII:
-+		case MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII_1000X:
-+		case MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII_100FX:
-+		case MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII_SGMII:
-+			ret = 0;
-+			goto error;
-+		default:
-+			break;
-+		}
-+	}
-+
- 	ret = __phy_modify(phydev, MII_88E1510_GEN_CTRL_REG_1,
- 			   MII_88E1510_GEN_CTRL_REG_1_MODE_MASK, mode);
- 	if (ret < 0)
-@@ -1403,9 +1420,11 @@ static int m88e1510_config_init(struct phy_device *phydev)
- 	if (err < 0)
- 		return err;
- 
--	/* SGMII-to-Copper mode initialization */
-+	/* RGMII/SGMII-to-Copper mode initialization */
- 	if (phydev->interface == PHY_INTERFACE_MODE_SGMII)
- 		err = m88e1510_config_mode(phydev, MII_88E1510_GEN_CTRL_REG_1_MODE_SGMII);
-+	else if (phy_interface_is_rgmii(phydev))
-+		err = m88e1510_config_mode(phydev, MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII);
- 	if (err < 0)
- 		return err;
- 
 
--- 
-2.56.1
 
