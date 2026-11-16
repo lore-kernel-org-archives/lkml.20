@@ -1,64 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849407;
-	b=JKB/Ek4eAZfTxC2nVZjOUrlCOPhieN17KO3B6beC7WnDGH3CqlN73DqguV378j10IHMd
-	 bZlAzdLgufUb52ma5PERzrrZf0iR4y7ret3UfOGnf1BpR+Xa5tCpDGy+nGhmQXotzjYkY
-	 h/BE6nv6UqKlBbqSjnGBbtxRxYoB4fOWp7YiaPdH6g/xx16U7uBdj72VI2LA4x7ogzN87
-	 XW+SOdznvnu7vzQOfH2iCa5r7D+hDmp+WpjkmTumc0sNks7zQRYS32y5I102l9jfkqOkc
-	 9fGAdHqoqsNdFOQskbHIOJgp2XQfUDjjWooiikqGg+MdDsO3ahIIgkZW3etzwP9/LrA==
+	t=1794849404;
+	b=M+pYbFO2Gya75FbwT+p8bsZpGuOfgiE2W3q5RVZD1/Wu7+RzLzQABUw+yBVo6WZnXfxb
+	 iPDFmd9ziPzvoVdGBcnyH/9jFoLiqaX6EQestLL8Ey1CmiB0S0xRrrimGurNfuqdSWqhX
+	 w7ulmbG/KPXl07X33fMC88nrgt4bzUTl0aVB1M0f9ENIEdW8y00ynDaG9odgYac3XtZ5b
+	 4h9/GZK1qIjv3LPouO/BTloafbl00bQiPo2L/eRANY9ht6cULYfR8LXeV3M6aJnyMX/p2
+	 36FP6KwlqYZTeb8HUiowrjat2a5cBW/PdpbwpQ3qEy89sDOqQkEpKTEFEa/J+gVycTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849407;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=DOVCQKbC8EVJ29olATow4IqCIcRcEPOW1cgJ8btRlI8=;
-	b=tRmCypy9Sqhb+H/tfUslJCAB2Gu1i24Z2+kpeOaYD3rR/1ZDsAXBQZA35/i9v3Vyof/W
-	 90lRlKWzKzJDtgzfWu6BpabaAOa7J3/ckZUYFZCSsYMfu4nuiTf6WHeFD5DdSxNNafEl5
-	 rRLa2Ps+I9qchXDGsQibPtDdl7qz1S++koV4Ep3mYMToqCtRNx1jiE2VV5EmZbdUfHWFJ
-	 6tmNBMCi91QcSl9ZmW0tEZW6/Z3Dw63vLVpvJIstv1IbAhiU4GsISCiaPiayIRsLWndpj
-	 R+Lnw6vCNvRdJrvGTBm4pPOFEd89WMeooj6VMxMw2Siz/Eu9BpmMVeDMF06YAM1w2eQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849404;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=2jNZLjz45UiZbFRBgtvkN5VBQQyio25/owAOWwzhQ9Q=;
+	b=PvI/2QfiDdgpzBK4Kv6lvXMbpID+FbUDVwm4VdB3hdMifPUDbDrr17oNwljywrTC/goj
+	 5KRkVAMFS+UJYzC14O8yuv7NV1tRvMGnxE/UWfgxuwz2YTed8b9mdE3T/It5ju7YxXjHn
+	 VszvLDuJ4hnYX13uQRFERfNXO7wLQrIcN+yuNPH8anWQi/L6RpCH1zGeyyig9jLzivJY5
+	 yJPdzh/HZPFZU4Y0pfELsnt5Lpbl8WVlQp04bx3FGqHwy32vC89KFxgeZwJ1XWyw5mxHb
+	 0dN64BnLkrpDhgCAocmtVWuzlVnugRvEn/2MrxVY9tCQk1ew1NkWWgSKnkNV54G3EoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eyrAceks;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iVO1Jzjz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fuo+nyMQ;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iVO1Jzjz;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fuo+nyMQ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFE3606A322;
-	Mon, 16 Nov 2026 17:16:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D643606A338;
+	Mon, 16 Nov 2026 17:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D643606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eyrAceks
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B251F000C4;
-	Mon, 16 Nov 2026 17:16:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794849407;
-	bh=DOVCQKbC8EVJ29olATow4IqCIcRcEPOW1cgJ8btRlI8=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=eyrAceksX7qtKZH+WN4ytGP7ofSMfSXzjPvQimGSrB4AblkuyU9z1Ud8Ftmbgx3Ve
-	 dz/OYxQkNYioAQMtc76Unf5Vkksq+afUjXwrmmHhDOD+ZOJnLDyfg/oIO0RKoYCoB+
-	 ELuelQvMfi28pGmOl1GUyXICCFI17vK9HvQSw71Uet1pFBKY22zcRPm5qNyYuqKHnI
-	 lkp1cHV1WVgVxtrwUMuBPsZFpF0T7pen7o+n6rCztRUzgS1GbS4lkLOZxVDLVZTYX+
-	 wPuNvPPb1MqQpQE9PARbCiR8C3ebTodsIUNz8jow+EBnAKM0ZNznVYm/ay21SC/+3S
-	 XFDaFwIXJchLQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1616391AFAE;
-	Mon, 16 Nov 2026 17:16:46 +0000 (UTC)
-Subject: Re: [GIT PULL] RCU fixes for v7.4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261116001556.763913-1-jfern@kernel.org>
-References: <20261116001556.763913-1-jfern@kernel.org>
-X-PR-Tracked-List-Id: <llvm.lists.linux.dev>
-X-PR-Tracked-Message-Id: <20261116001556.763913-1-jfern@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/rcu/linux.git tags/rcu-fixes.v7.4-20261115a
-X-PR-Tracked-Commit-Id: c3f98ff6309a29979e1867bc3c9d4172755ca122
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 7f6fccf6ee5a345b778706b22159c4e3b547c808
-Message-Id: <179484940579.3777341.12017219892480230758.pr-tracker-bot@kernel.org>
-Date: Mon, 16 Nov 2026 17:16:45 +0000
-To: Joel Fernandes <jfern@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, "Paul E . McKenney" <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Song Liu <song@kernel.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, llvm@lists.linux.dev
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iVO1Jzjz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fuo+nyMQ;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iVO1Jzjz;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fuo+nyMQ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2317F1F7C4;
+	Mon, 16 Nov 2026 17:16:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794849402; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2jNZLjz45UiZbFRBgtvkN5VBQQyio25/owAOWwzhQ9Q=;
+	b=iVO1JzjzibxZjBZngNFXSq6nsEm2L+NUjdtxqfB5/pA7XOKvI4Bt64FRnYqG8safLgFYaL
+	PcYRJEPxAem1s+Y9tM7Kk9EL6KsDedpBKTN122fmauqmcwB7LzQeyj2eXmfthdc3Ho+T8+
+	L1lWmWxdzChl44dJQGsFiARQSU2W9vM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794849402;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2jNZLjz45UiZbFRBgtvkN5VBQQyio25/owAOWwzhQ9Q=;
+	b=Fuo+nyMQhGcL5D1zj0ZN6TXnEvL1VhJ0seX7AwBbVWpbEksS/ILsnUD/sj24DsaY/Lp5d7
+	0LCxOgwrYmSSy6Dg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=iVO1Jzjz;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Fuo+nyMQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794849402; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2jNZLjz45UiZbFRBgtvkN5VBQQyio25/owAOWwzhQ9Q=;
+	b=iVO1JzjzibxZjBZngNFXSq6nsEm2L+NUjdtxqfB5/pA7XOKvI4Bt64FRnYqG8safLgFYaL
+	PcYRJEPxAem1s+Y9tM7Kk9EL6KsDedpBKTN122fmauqmcwB7LzQeyj2eXmfthdc3Ho+T8+
+	L1lWmWxdzChl44dJQGsFiARQSU2W9vM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794849402;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2jNZLjz45UiZbFRBgtvkN5VBQQyio25/owAOWwzhQ9Q=;
+	b=Fuo+nyMQhGcL5D1zj0ZN6TXnEvL1VhJ0seX7AwBbVWpbEksS/ILsnUD/sj24DsaY/Lp5d7
+	0LCxOgwrYmSSy6Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF75713408;
+	Mon, 16 Nov 2026 17:16:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Nw5EMnk6+2poIwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 17:16:41 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 7C19224E95; Mon, 16 Nov 2026 18:16:41 +0100 (CET)
+Date: Mon, 16 Nov 2026 18:16:41 +0100
+From: Jan Kara <jack@suse.cz>
+To: Partha Satapathy <partha.satapathy@oracle.com>
+Cc: Jan Kara <jack@suse.cz>, amir73il@gmail.com, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [External] : Re: [PATCH 0/1] fsnotify: Check parent watches
+ without child dentry flags
+Message-ID: <z3mdow3nbrj7tvch2akviandhv5n44lqh5phb5udumhbczsnx7@7vex7u7bdg3w>
+References: <cover.1791373689.git.partha.satapathy@oracle.com>
+ <qlw6x3hyky5yoievlkd6ylz3ov432hdjlzkcyboswqktnk43il@fvccpqnil5sp>
+ <9499fb1a-85f2-41da-88b7-5e7de6fdff0a@oracle.com>
+ <gnntcprg4f7ag7ictugnfza24nwfdmyubkuqac7plxbwtedfrz@xgxyvks3h2uv>
+ <2528e790-8913-45dc-a8d5-cc22908a441e@oracle.com>
+ <f9164f65-1a99-425d-b216-326de0eaee69@oracle.com>
+ <4ed59752-f01b-457b-81de-be1c446f18f6@oracle.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +117,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4ed59752-f01b-457b-81de-be1c446f18f6@oracle.com>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,zeniv.linux.org.uk,kernel.org,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 2317F1F7C4
 
-The pull request you sent on Sun, 15 Nov 2026 19:15:56 -0500:
+On Fri 06-11-26 12:10:50, Partha Satapathy wrote:
+> On 22-10-2026 13:17, Partha Satapathy wrote:
+> > On 13-10-2026 12:08, Partha Satapathy wrote:
+> >> Please compile : fsnotify_parent_ref_bench.c -o
+> >> fsnotify_parent_ref_bench. After that
+> >> run the script ./run_parent_ref_scale.sh
+> >>
+> >> Thanks
+> >> Partha
+> > 
+> > Hi Honza,
+> > 
+> > A gentle ping on the benchmark program, Have you had a chance to try it
+> > on your setup? Please let me know if any further tests or information
+> > would be helpful.
+> > 
+> > Thanks,
+> > Partha
+> 
+> 
+> 
+> Hi Honza,
+> 
+> Have you had a chance to try the benchmark on your setup? Please let me
+> know if you need any further tests from my side to move this patch forward.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/rcu/linux.git tags/rcu-fixes.v7.4-20261115a
+I'm sorry for the delay. I didn't get to this yet because with the firehose
+of LLM generated reports & fixes things get postponed. But I'm looking into
+this now.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/7f6fccf6ee5a345b778706b22159c4e3b547c808
-
-Thank you!
-
+								Honza
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
