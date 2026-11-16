@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835610;
-	b=hHa3F2YauPTW7fx7Q2hgFLmPWcBcitwZcJ+/ga2j4uIedMAa7DY8zYO0FdZWXvJsB3+W
-	 Qq3OauCI/NDeQ+0njOd5n0xKbsaTZaQrq/KEYqmkRvwAxfGRiZXPeXH/8K6BYvfezVdhW
-	 VoqfkKGE+xG+sbv0Qod3AF7CQsT6idURB6+6aJBNWCXoO03Teff+uVhl7la7xfn4qVGCU
-	 LdPhmwe9AjVq+pObp5bA8Y6RRpaouwlssuACn2ye61vaEduKtuV7IhwtDS1dQ8Ut2YtW9
-	 /IUBPfbtfVwuRBffNS09Ik0EpIZr4PQsnGo9I8hLBCGYyEPRImQXduyQ1AlWQg937pA==
+	t=1794835616;
+	b=VSbpPQ8EVrlGEu6RLudBPEwlGeKlqAd4nufHDdcwQ8HZqMBEkVN9ABJ3eyCa/3Fjp8Xk
+	 Xjjcpr92UOJG0pgZMFqwqy3TV/WxdOB2zU//7t+driHhBGOeSps6hqGTB16AT0qMW0V6U
+	 1+7wmzUQwO2BEyyaMQtxA50wTTgpcX/XsoOWC1tAUlCBnxWrH2rMgkJMhEP4IkXgFhUQ7
+	 vI1tgk2opXQiDdPfqURlALNiM432OTf0Wev8EcedpfqqDM6xuHi8VLsEitVs4oYxOO04H
+	 wohr509TYr0vhXaVuVN96YrCWxps4QgX1r3MB4+7BmllrY+wue4FZ1qwyoRHbmmi9Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835610;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:Mime-Version:Content-Transfer-Encoding:Content-Type:
-	 Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=Qopof/KzEChronzbaNdRS8yRUwb7T04Bp6EAIGWAg3s=;
-	b=elKzTcQrR1tTPwWi+6eerHixpq4QPcn2OCUIPaIjAogfhqKBLKJZJbN7IeJh9lYeSnTB
-	 D4N91mdZF8EqzYveAAZVIWKUU8qpjDWrUr31UyU+pdfqe/GXgWAXFfLsri2FKA6dTm5pY
-	 AXXQH524G60ydJ5X/rf7jhXsJ3GeUDKTZEUnwoHbvMRc6FnKnxVf/og3H+8vbsYtCMlQJ
-	 atZBiHFCJaL/2oQNKWFROXNm5lU2TV35PBriQwhr3RhyefNpI1CmCmb7g28LuxDyjHOQ+
-	 wb1zAR6Bk0vDGAghDfUwd8MR/visBs0ojN8CSTS/6CUshrF4LAO3P//JXjKh1hmoAtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835616;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Infomaniak-Routing;
+	bh=TCgq84WO/3cyokOtecMji3tTMIJuIqZrzNWkIKcIx0k=;
+	b=WvMUyu8LVfK6NzZ0JV/h2B55SCb4XmaqVLuk02I7xeeViGlCCKkAddkZg0En9lIv4JbM
+	 kbwN9rMnMv5XN0my/s9wItXZeSBJvoE2+/C5Jk5OYBOLGXalsuXUOelStwoIEJ0JQjW43
+	 P4A8/c6dTP71gr0eH7PEBBieihfrp3m/9wyIwu1T23NQAVbBuPKKsEb57Rx+71TYPA8rI
+	 ENL18Hv6cmOkDMb7zt1NScEHDB2wrBkI6t/grmLrqbwu5WTc5z2wFQwrymNrZxBoimOqk
+	 SPLy10xFLfLFmHpPiZU3Fw5jXwaUphfj6glEo/qQKJFHGC2+qJIK93jShMaNj5lWuIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ubuntu.com;
-	spf=pass smtp.mailfrom=fe-bounces.ubuntu.com;
-	dkim=pass header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=KJc2bQ3C;
-	arc=none smtp.remote-ip=121.127.44.66
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=lgj0Vnbt;
+	arc=none smtp.remote-ip=84.16.66.171
+Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0D606A33D
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54A0D606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5F6606A887
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:26:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF5F6606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=KJc2bQ3C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1794835603;
- bh=Qopof/KzEChronzbaNdRS8yRUwb7T04Bp6EAIGWAg3s=;
- b=KJc2bQ3CXrlbjNgV+d7q5odn1pt6I4/i2GPsj74FgWjAtF5ni3hlf9yRn+ix/HwXEiCpgTz+2
- rLuy+P4/ZCP9ySyVFLGaunErAG7L31abAO+Eh8oFihk5hYMWOmtzZvrx9NRpYC6LM2KVkmCkBE4
- 9xZHZyfkk7FnNaPMpmmxubnU7GZIbxtoUgkhBpbuBj/tRlpEilWp0rBTBpecP0ofXN/XYqt4s+9
- E95CgM6yJRIbzSiG4gDr+yoU02ECvQjQK4FjkXPvAkDogTIVH5knseiDFdaZ/noVkL/zTcQSnwb
- TIO7H8FSY88gbPzUuTVz0YmfuiMPuOaFRLOOn33abifg==
-X-Forward-Email-ID: 6afb048fb9d3ade89ee12d0f
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.19.26
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=lgj0Vnbt
+Received: from smtp-4-0001 (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jSpYJ6zryz1L6X;
+	Mon, 16 Nov 2026 14:26:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1794835604;
+	bh=TCgq84WO/3cyokOtecMji3tTMIJuIqZrzNWkIKcIx0k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lgj0Vnbt4KkN/1k4fsZPie+qFfCeFxZPLbG3wkr7ko1kCIzoVmZenCNH8zmdMIBwh
+	 RfhgJhZo2l1Uh6cv1mYQYahi/TcY+4Rp7RVr5cuZSJ1HIQlnQrSOdwxDJyd0FWOkUq
+	 DYZxj6QopUlCumNVJgAPkKQkCLnAs+p4bEeTx8OQ=
+Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jSpYF0pWnzZ3j;
+	Mon, 16 Nov 2026 14:26:41 +0100 (CET)
+Date: Mon, 16 Nov 2026 14:26:37 +0100
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>, 
+	James Morris <jmorris@namei.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <serge@hallyn.com>, kernel-team@cloudflare.com, 
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH 6/6] landlock: Fix capability restriction documentation
+Message-ID: <20261116.afieche0Te7E@digikod.net>
+References: <20261110202436.2408244-1-mic@digikod.net>
+ <20261110202436.2408244-7-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,82 +65,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Mon, 16 Nov 2026 08:26:37 -0500
-Message-Id: <DMWO4APJSZPS.16AA1EABR1AEJ@ubuntu.com>
-Cc: "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Sven Peter"
- <sven@kernel.org>, "Janne Grunau" <j@jannau.net>, "Neal Gompa"
- <neal@gompa.dev>, "Marc Zyngier" <maz@kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-perf-users@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <asahi@lists.linux.dev>, "Yuvan Shen" <yuvanshen09@gmail.com>, "Nick Chan"
- <towinchenmi@gmail.com>
-Subject: Re: [PATCH 00/13] drivers/perf: apple_m1: Add M3/M4/A18 Pro Support
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Myria Sarvay" <myrialsarvay@gmail.com>, "Joshua Peisach"
- <jpeisach@ubuntu.com>
-X-Mailer: aerc 0.21.0
-References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
- <DMQ0CENBZQGW.L35BD1BXYE9Z@ubuntu.com>
- <CAFTKyQziVo3COsPZSSZOaFs7R6HhXEWNHYfgTkjyACc7bkoBDw@mail.gmail.com>
-In-Reply-To: <CAFTKyQziVo3COsPZSSZOaFs7R6HhXEWNHYfgTkjyACc7bkoBDw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261110202436.2408244-7-mic@digikod.net>
+X-Infomaniak-Routing: alpha
 
-On Fri Nov 13, 2026 at 2:25 AM EST, Myria Sarvay wrote:
-> On Sun, Nov 08, 2026 at 12:32:46PM -0500, Joshua Peisach wrote:
->> On Tue Nov 3, 2026 at 5:14 AM EST, Myria Sarvay via B4 Relay wrote:
->> > This series adds support for the CPU PMU in the new M3, M4 and A18 SoC=
-s
->> > presed in apple devices. These PMUs have new encodings for events, alo=
-ng
->> > with larger codes for these events. All of these events are as Apple
->> > describes them in the various kpep files found under /usr/share/kpep o=
-n
->> > macOS 27. More events may exist, but we have no idea of their affinity=
-,
->> > or what they actually count, so we don't include them here.
->> >
->> > These patches have been tested on my own M2 (t8133-j413) and M3
->> > (t6031-j514c) devices, as well as by Yuvan on their M4 (t8132-j713)
->> > device.
->> >
->> > If possible, the device tree changes should probably go through
->> > apple-soc, as this is where the recently picked up M4 Pro/Max dts are.
->> >
->> > Tested-by: Yuvan Shen <yuvanshen09@gmail.com> # on t8132-j713
->> > Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
->> > ---
->> > Myria Sarvay (12):
->> >       dt-bindings: arm: pmu: Add Apple M3/M4/A18 Pro SoC CPU PMU
-> compatibles
->> >       drivers/perf: apple_m1: Remove unused variables
->> >       drivers/perf: apple_m1: Support per-implementation event size
->> >       drivers/perf: apple_m1: Use macros for per-implementation init
-> functions
->> >       drivers/perf: apple_m1: Add Apple M3 Series Support
->> >       drivers/perf: apple_m1: Add Apple M4 Series Support
->> >       drivers/perf: apple_m1: Add Apple A18 Support
->> >       arm64: dts: apple: t603x: Add PMU Device Nodes
->> >       arm64: dts: apple: t8122: Add PMU Device Nodes
->> >       arm64: dts: apple: t604x: Add PMU Device Nodes
->> >       arm64: dts: apple: t8132: Add PMU Device Nodes
->> >       arm64: dts: apple: t8140: Add PMU Device Nodes
->> >
->> Maybe the folder should be renamed to 'apple_arm' or something like
->> that?
->>
-> What do you mean by this? What folder are you referring too? If you mean
-> the device tree's, they're already under the arm64 folder, so apple_arm
-> seems redundant. If you mean the CPU PMU name, I get that, but I'm not
-> sure how to change that, given it's already hard coded with the config
-> option `APPLE_M1_CPU_PMU`. I feel like changing its name at this point
-> would cause backwards compatibility issues around kernel
-> configs/blacklists if people use them.
+Thanks, applied!
 
-Sorry, brain fart. I meant the file apple_m1, to consider splitting
-it up into multiple files. It's no big deal though :)
+I fixed some minor issues though, see
+https://git.kernel.org/mic/c/57493c3b7f449a60d1c43322158671b98684f9b1
 
--Josh
+On Tue, Nov 10, 2026 at 09:24:34PM +0100, Mickaël Salaün wrote:
+> Some documented claims about LANDLOCK_PERMISSION_CAPABILITY_USE do not
+> hold for every capability check.  Remove them instead of listing their
+> exceptions, and call it a permission instead of a hook.
+> 
+> Cc: Günther Noack <gnoack@google.com>
+> Cc: Paul Moore <paul@paul-moore.com>
+> Cc: Serge Hallyn <serge@hallyn.com>
+> Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
+> Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> ---
+>  Documentation/security/landlock.rst      | 8 ++++----
+>  Documentation/userspace-api/landlock.rst | 8 ++++----
+>  include/uapi/linux/landlock.h            | 6 +++---
+>  3 files changed, 11 insertions(+), 11 deletions(-)
+> 
+> diff --git a/Documentation/security/landlock.rst b/Documentation/security/landlock.rst
+> index d81f1c2cd236..98c2e7139e8d 100644
+> --- a/Documentation/security/landlock.rst
+> +++ b/Documentation/security/landlock.rst
+> @@ -8,7 +8,7 @@ Landlock LSM: kernel documentation
+>  ==================================
+>  
+>  :Author: Mickaël Salaün
+> -:Date: October 2026
+> +:Date: November 2026
+>  
+>  Landlock's goal is to create scoped access-control (i.e. sandboxing).  To
+>  harden a whole system, this feature should be available to any process,
+> @@ -359,9 +359,9 @@ framework in ``log.c``, compiled under ``CONFIG_SECURITY_LANDLOCK_LOG``
+>  (automatically selected by ``CONFIG_AUDIT`` or ``CONFIG_TRACEPOINTS``).
+>  
+>  Audit records respect audit configuration, the domain's Landlock log
+> -flags, and ``LANDLOCK_LOG_DISABLED``.  Tracepoints fire unconditionally,
+> -independent of these settings.  The denial counter (``num_denials``) is
+> -always incremented regardless of logging configuration.
+> +flags, and ``LANDLOCK_LOG_DISABLED``.  Tracepoints fire independently of
+> +these settings.  The denial counter (``num_denials``) is
+> +incremented regardless of logging configuration.
+>  
+>  Each denial tracepoint carries a ``logged`` field reporting the
+>  audit-logging verdict: whether the denial would be written to the audit
+> diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+> index 3d45b956b640..d00e94d8ed37 100644
+> --- a/Documentation/userspace-api/landlock.rst
+> +++ b/Documentation/userspace-api/landlock.rst
+> @@ -8,7 +8,7 @@ Landlock: unprivileged access control
+>  =====================================
+>  
+>  :Author: Mickaël Salaün
+> -:Date: October 2026
+> +:Date: November 2026
+>  
+>  The goal of Landlock is to enable restriction of ambient rights (e.g. global
+>  filesystem or network access) for a set of processes.  Because Landlock
+> @@ -532,7 +532,7 @@ acquisition via :manpage:`open_tree(2)` / :manpage:`fsmount(2)`.  Namespaces
+>  the process is already a member of when the domain is enforced are implicitly
+>  allowed (the process could not continue running otherwise); rules describe
+>  which new namespace types the process may acquire.
+> -``LANDLOCK_PERMISSION_CAPABILITY_USE`` gates every exercise of a capability
+> +``LANDLOCK_PERMISSION_CAPABILITY_USE`` gates the exercise of capabilities
+>  after the domain is enforced, regardless
+>  of how the capability was obtained (inherited credentials, ``CLONE_NEWUSER``
+>  grant, ``setuid``/file-cap-bearing :manpage:`execve(2)`, etc.).  Configuring
+> @@ -641,9 +641,9 @@ after a domain is enforced through user namespace entry or :manpage:`capset(2)`;
+>  privileged sandboxes that did not set ``PR_SET_NO_NEW_PRIVS`` may also gain
+>  capabilities through :manpage:`execve(2)` of binaries with file capabilities.
+>  In all cases, :manpage:`capget(2)` will report the credential's capability sets,
+> -but any denied capability will fail with ``EPERM`` when exercised.  Do not rely
+> +but any denied capability will fail when exercised.  Do not rely
+>  on :manpage:`capget(2)` to determine whether the policy permits a given
+> -capability; only the actual operation will return ``EPERM`` upon denial.
+> +capability.
+>  
+>  Truncating files
+>  ----------------
+> diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+> index 24510e5d8479..c9e4ce23778b 100644
+> --- a/include/uapi/linux/landlock.h
+> +++ b/include/uapi/linux/landlock.h
+> @@ -622,9 +622,9 @@ struct landlock_capability_attr {
+>   * - %LANDLOCK_PERMISSION_CAPABILITY_USE: Restrict the use of specific Linux
+>   *   capabilities.  A process in a Landlock domain that handles this permission
+>   *   is denied from exercising capabilities that are not explicitly allowed by a
+> - *   %LANDLOCK_RULE_CAPABILITY rule.  This hook is purely restrictive: it can
+> - *   deny capabilities that the kernel would otherwise grant, but it can never
+> - *   grant capabilities that the kernel already denied.  Support added in
+> + *   %LANDLOCK_RULE_CAPABILITY rule.  This permission is purely restrictive: it
+> + *   can deny capabilities that the kernel would otherwise grant, but it can
+> + *   never grant capabilities that the kernel already denied.  Support added in
+>   *   Landlock ABI version 12.
+>   */
+>  #define LANDLOCK_PERMISSION_NAMESPACE_USE			(1ULL << 0)
+> -- 
+> 2.56.0
+> 
+> 
