@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.147.23.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818533;
-	b=nTJ1HGcfaeCQ0poP8plZAR7mKCvzd4CzR7ye+v6rLzQCxFaBLTt6NToM+thw7Off5kXs
-	 4sSWpcfsrCCgoAPRsV33nThyOPmxgMZ97R8CR0S601s6IF98Ceyo3Bj/njB/xq5quyVMq
-	 /MGqa3a+/QSjTs6tql9VWjw2LvwSDd9sVBBaz5Umas2eEQ+PuR26A1o81YN0IttGW2Tpw
-	 Q57wtg9NvVtVe2Yx2fH0HhKdW62MdOxLnnRVBidEeIdyqTqg4rUsnBTwKj0S+DdfsV1UM
-	 NpSWbSgRIbR7i+UMMAtCPT6trHCf5pJIHcpl5x2wnEdGMlx3HdxyYNolhKqXYoUWrRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818533;
-	h=DMARC-Filter:Received:X-Original-SENDERIP:X-Original-MAILFROM:
-	 Received:X-Original-SENDERIP:X-Original-MAILFROM:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=f+cFLOyzRr/sNssA9Cxlc2L4U9sPUFBVvN814j9xtUc=;
-	b=wgn9HKXRQ8ugYzYM7ii1tXj55q5VjBSXvP0gcU+qH/bAOkCyoNvNxDq4apAMpo0h33po
-	 8gLDeKAF9XeTRsNZkDoWn+I/te2+XQFWFVdH918796m9Y8LyaMnohVyCupJcqjQG8tNPT
-	 uzCgcZ7M2EJVyGFk68gS+SCAx78svLlTS7iizqFpGiltawtQPCroDnmgHkkO0xHl5kVd0
-	 pLIR75mwCZFJ2HnvnuuvlGmqFbDOf6KC07f7F8XUVCfMcOfjYbfbJ/JGE9eWU8a6N6vuu
-	 5hx+M0sPmE2fyfoTkJUnRGLu6CIlIplbG51OHg+2P83qz0qxWDredt1fKl96mN4nEDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lge.com;
-	spf=pass smtp.mailfrom=lge.com;
-	arc=none smtp.remote-ip=156.147.23.53
-Received: from lgeamrelo13.lge.com (lgeamrelo13.lge.com [156.147.23.53])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794818607;
+	b=UEEAO5Q3XlxVx3R34fyt9QY4uxTfVmcgTwjVrwmZ0AChilPQ8lOUMpUfDzoiAM2HjlOa
+	 LqXdmqKXgMUocbJOQJ51HbI5hj/jm1L6dPW1NpztH1JWKsZ7qXxus3GJHKcITdXHocIZS
+	 inl/oNcs3Z3GXbC/W1ER0eznDEWAS412Cxqma9/NhH1WzAdJLppDhPHU+1w5PCbdEYdBj
+	 x+odHBvU/mFTnZDOTo/RMxE/mbhEP1YWlY1INQ3EZTloTPZ4FR39ySx+uWzUgfcDWhATY
+	 QdSjQTahP4Cu/WOp+QCDZM0yqsWXN1Gc4sL6UYUKvk+bIw5Mj2fZQciL2+B+HmYcSQw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818607;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nY+h2b3wsrKb5mJ3LIlCYXVGjCOvqpxj3QbUvlrfjKE=;
+	b=zOh5Ne10eWsmOT20yW342Gi3dCFnzakfNW7ZNAQB7yEtqeoSxJSOl6gmsVpevrEgF/pJ
+	 eiBFYCyOLN5CQmsgE8SOHrOSJw9/8wmDAzUjjUFml18GY5+7k48BaCktdvAeW6jwCRFM3
+	 4HJbsfaFz+tv02zEVI0iiHB1GlI4CTqa5QUiXEl0DwoVfFnUM6Bt2UIDS+EIv3VivCyyU
+	 fZvxlIfh5W2gzKyemDM4tQSLcuvBJ4oO33PERVK3hfAS+OxNgEXH6qz+BA6Ii+qVLnaxU
+	 AQFbpzWRmSVyD3Hok8otyAJh5wTenVuir6SehBue++WWFe8jvj22h2Nppi0/qK/SmJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aFoLXRey;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83B2606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B83B2606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO lgeamrelo01.lge.com) (156.147.1.125)
-	by 156.147.23.53 with ESMTP; 16 Nov 2026 17:42:03 +0900
-X-Original-SENDERIP: 156.147.1.125
-X-Original-MAILFROM: trieu2.huynh@lge.com
-Received: from unknown (HELO trieu2-huynh-trieuhpn-ubuntu24.bee-live.svc.cluster.local) (10.159.39.33)
-	by 156.147.1.125 with ESMTP; 16 Nov 2026 17:42:03 +0900
-X-Original-SENDERIP: 10.159.39.33
-X-Original-MAILFROM: trieu2.huynh@lge.com
-From: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Len Brown <lenb@kernel.org>
-Cc: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] PM: hibernate: exclude unusable free pages from image preallocation
-Date: Mon, 16 Nov 2026 17:42:01 +0900
-Message-ID: <20261116084201.30092-1-trieu2.huynh@lge.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED464606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:43:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED464606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aFoLXRey
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33fb4680717so8672583eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:43:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794818606; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jqgs9MH+s2sv6jUp4I1MalKaek8W8/21a2PfiHr8RKGKnY57TpB8Lcmxd4BV2fjyEL
+         6K8/bwdLSZew2E5uIqzpLbwrGPfYRFQ81wOsDyweWB2qQpYFDszPvUwtWsuO8MWen8fP
+         8FnIWyVStCost7XiDx99p0BWWS0uzVSyExAMaUnBv1LQlPDF6NO4Hlzq72dB1N89lpO3
+         kPrR+gLXIUkgUZ0i95w5rYvpm+Dv6Rpa7jfAHfFX5WrUeO4AJY+87dPq8yDucrmKTyDH
+         Q61UOMUBrtPu3M1vskaecQelSpJkkCVh+Ep1vV3wTSIZ11XsXPihQuYfLsxJ+TlEqxj3
+         1D8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nY+h2b3wsrKb5mJ3LIlCYXVGjCOvqpxj3QbUvlrfjKE=;
+        fh=l/+sB91vQSEkjCnQhcFBcf277b5z1GHB+pEUST5aBG4=;
+        b=fBXFwHz9pLFMNr53MYdVR3Px1HEKIUcS3ntcGmYSk8iY1+wcdXy2UTG2rWPQLiQ/km
+         JYtJK0t85iu1idWQ4ykgC8rjGo4DbGlG79Kcbs4gluDe358JJtFmu4mw8rhdueT8V1bE
+         NeWip6vMk5+CwBwsLA8BN8Ytrb8r1gwigUydk7eYhrj0YcBeyX5MP+QeBhOby8vqh34J
+         eywmyNqzvuUmO+OKQJRFOx88gG2g+buPlLimVEQgo7XubnsGCT0TPHs97CEX5vOksbTg
+         HitFVVPRtx0+OxfsYkhB4YMjW3E0XdIWbAFrlztHt5D86uL7kMPEKHhvXzPDOy3L3Cv1
+         b+8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794818606; x=1795423406; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nY+h2b3wsrKb5mJ3LIlCYXVGjCOvqpxj3QbUvlrfjKE=;
+        b=aFoLXReyupk43dXE0Bd8Ij6BK2NiknSHpzjU1u40qyGksAAyb1bLMBlYS0s6NFh1AY
+         dPupndtPEV5CcQ8zlesWggleFHSp6R7olXSiJO/2jaHX6dNXjIL/Nctv8liWpvh4lo14
+         8aKPlNa22PYGuYtosrzw7gWAVoaVV9tiAIydtZySFSBvKhuIWR2RZKnknmWx95H6ADSQ
+         DDUwPCOZGSB9bbc4bNTzxEDs+Gmtb0YnMyaqE2WmqcTLu2vdEjquvLLrjkp21BNAJ0ek
+         fAYPIAfEfLo0z3CcBiFhWbmJwgnSrNENJLZ0ieUXzsWh1NwQ2KgwqBnU/Vc/zfqSGHa2
+         2NoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794818606; x=1795423406;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nY+h2b3wsrKb5mJ3LIlCYXVGjCOvqpxj3QbUvlrfjKE=;
+        b=VndMDFVJV4/wGn8vYIUBFD+pN2lBBzgOaUm5hG/FIo6LTPZBvznhmfg+QJ4oY+cRPm
+         Z/2nTxE1PRMnuwGo4k2ytQe5Io2xAp6qTELEen0gvBx/7fY1USUFwK+PZVu2EUhwpD31
+         R9Lg/Gj+tMiP43XXmyQPh0knhTSobcz8j83mZix91AqbLuM4ugNa1TuobYDkW/n6GWcE
+         mdIMyRqliCjjaFnZ12Zl27WCdalQCENKR/q+gaJjXIfL7BywuVzwo0i2bSR+htLgk0iA
+         RGNE0hFm77hWQHhossmp36yFBpatkr4hY9n/CEPFOCeeNuUaCqoGVfOfFa+m7LxbQv6W
+         36YQ==
+X-Forwarded-Encrypted: i=1; AL+hErHyOuoVlKmMhO+dPmG7gV1ZELgEgK70K4Lbv82pn0+Xc0WxVrQVGHwQpv6/HxZiC4SEKCHyD8kMB+GaKZ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jcz8uBDnpqs0XtsSO+VymCTmbKZk0xbn/o4Hgkwb9c6BUbZLz
+	ltYSgBGipMXyAKJtOZKvh4+l6dP+YD/cZ5pEPnfV/QhT0iJg7scbp6lCpTpJQpQuSEOXsY2hNuu
+	dbC5ZzRyav1D9/exPfwPrfcMRanz/DT0=
+X-Gm-Gg: AZFdTZcPKvyF8UVx/B9boNWIPfnVZr4ls8pBlnGeCKMm6Mw4KKKlf+b05e5fkXQm0jn
+	nxn8S7X+6Fz9p+CPvpqMWB3wt45OaJ8FMCCLdq7MgWO7RSI2uX3Z1qDPg6aRIGnJtfczR6Ao7DQ
+	2PLyvLSwOMjKyM3oJdPCgW59qgZkEZjszmQG90Wt9PCgBvozmUi6WSZ4TyQ+Px1zWT8j7SS30n7
+	DvwikM7R5lpLEXaGJbbbmCbvtVF3s0UBF+zGl8QBFNDk7NTGZtKq7i4Lvc7JaGpH4legby67mE7
+	YyEyB0b/5E4LahHF9Q27dRl90+R1TfEn5YPAE98E0pV43jCgDAQHE5g94/e77JGxkPAMGMfHI1h
+	23Og2yru3jSdwk3hHR96SucJu61LfQCHBMVUNoGPCmTZNxTMT/ci6hwu2qU2MlyNIBtTOfCf0Zp
+	Oa7Tp5aBdF/Rg2edzuIr7IdLNsYT55K05Q4WIPhurv1c+Sw6DNUFU=
+X-Received: by 2002:a05:7300:dd03:b0:36a:437a:4c00 with SMTP id
+ 5a478bee46e88-37967314a08mr9190579eec.24.1794818606016; Mon, 16 Nov 2026
+ 00:43:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,144 +105,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261113145708.261530-1-clamor95@gmail.com> <20261113145708.261530-3-clamor95@gmail.com>
+ <179474058020.3790083.7531788945003507652.b4-review@b4> <CAPVz0n154OuYUG2RObrdh4TmASjRhKF9svF0Z=4iCrPyyNt0pA@mail.gmail.com>
+ <179478265643.13037.17097457582246933781.b4-reply@b4>
+In-Reply-To: <179478265643.13037.17097457582246933781.b4-reply@b4>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 16 Nov 2026 10:43:14 +0200
+X-Gm-Features: Aa3M54pMEr9UjE1zw6W6dd5jtUGbWeQ0qW9zBZkFj9pK7Jh0wgW3qgyddXi81sY
+Message-ID: <CAPVz0n21-_+G3cEVg98MwcYqhcaGi9nBa42YebNWiqUdo+vqjg@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] clk: tegra114: Add CSI pad clock gates
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, linux-clk@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-hibernate_preallocate_memory() derives the number of page frames to
-preallocate for the image from the per-zone NR_FREE_PAGES counters.  Those
-counters count every free pageblock regardless of its migratetype,
-including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
-free from the buddy allocator's point of view, but they cannot be used by
-the order-0, non-movable, non-reserve GFP_KERNEL allocations with which the
-image is preallocated (GFP_IMAGE = GFP_KERNEL|__GFP_NOWARN).
+=D0=BF=D0=BD, 16 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 00:4=
+4 Jerome Brunet <jbrunet@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On 2026-11-15 13:54 +0200, Svyatoslav Ryhel wrote:
+> > =D0=BD=D0=B4, 15 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+13:03 Jerome Brunet <jbrunet@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > > Tegra114 has CSI pad bits in both PLLD and PLLD2 clocks that are re=
+quired
+> > > > for the correct work of the CSI block. Add CSI pad A and pad B cloc=
+k gates
+> > > > with PLLD/PLLD2 parents, respectively.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  drivers/clk/tegra/clk-tegra114.c | 10 ++++++++++
+> > > >  1 file changed, 10 insertions(+)
+> > > >
+> > > > diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/c=
+lk-tegra114.c
+> > > > index ec537efac692..08e425365469 100644
+> > > > --- a/drivers/clk/tegra/clk-tegra114.c
+> > > > +++ b/drivers/clk/tegra/clk-tegra114.c
+> > > > @@ -1041,6 +1041,16 @@ static __init void tegra114_periph_clk_init(=
+void __iomem *clk_base,
+> > > >                                            0, 82, periph_clk_enb_re=
+fcnt);
+> > > >       clks[TEGRA114_CLK_DSIB] =3D clk;
+> > > >
+> > > > +     /* csia_pad */
+> > > > +     clk =3D clk_register_gate(NULL, "csia_pad", "pll_d", CLK_SET_=
+RATE_PARENT,
+> > > > +                             clk_base + PLLD_BASE, 26, 0, &pll_d_l=
+ock);
+> > > > +     clks[TEGRA114_CLK_CSIA_PAD] =3D clk;
+> > > > +
+> > > > +     /* csib_pad */
+> > > > +     clk =3D clk_register_gate(NULL, "csib_pad", "pll_d2", CLK_SET=
+_RATE_PARENT,
+> > > > +                             clk_base + PLLD2_BASE, 26, 0, &pll_d2=
+_lock);
+> > > > +     clks[TEGRA114_CLK_CSIB_PAD] =3D clk;
+> > > > +
+> > >
+> > > Change seems ok in itself, just a couple of things I'd like to check =
+with you.
+> > >
+> > > Seems both the CSI and DSI can use the PLL D and D2. Can they be used=
+ concurrently ?
+> > > If yes, are you sure you want to add CLK_SET_RATE_PARENT which the
+> > > DSI counter part does not have ?
+> > >
+> >
+> > CSI pad clocks are used only by CSI and CSI does not change rate of
+> > pad clocks. Saying "DSI counter part" would not be correct, DSI mux
+> > switched DSI clock parent while csi pad clocks do not touch clock
+> > layout of CSI nor DSI.
+>
+> Ok but they end up possibly using the same PLL from what I can see here.
+>
+> So if the consumer of csiX_pad calls clk_set_rate() on it, while the DSI
+> is using it, it won't go well. The rate of the underlying PLL may change
+> since you have set CLK_SET_RATE_PARENT. Taken alone, there is no problem
+> with this but can't CSI and DSI be active at the same time ?
+>
 
-(*) Reported free vs usable free:
+The clk_set_rate() call for csi pad and csi cil clocks for dynamic
+adjustments is not possible. These clocks are used only by CSI block
+and among 6 clocks CSI uses it can change clock rate only for its own
+clock (TEGRA114_CLK_CSI) PAD and CIL clocks must remain fixed  by CSI
+design and are not touched by any other driver.
 
-The mm subsystem already accounts for this in
-__zone_watermark_unusable_free() [1]. For order-0 GFP_KERNEL neither
-ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the free
-high-order atomic [2], and the free CMA pages from the free count before
-checking the watermarks. The hibernation preallocation, however, computes
-its target from the unadjusted NR_FREE_PAGES value, so it asks for about
-half of the unusable pages more than the allocator can deliver.  On arm64
-(no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
-hence even a small shortfall aborts hibernation, see [4] for example.
+This layout is used by Tegra30 for quite some time and I did not
+observe any regressions of DSI/CSI caused by this configuration.
 
-(*) Why those pages are not usable by GFP_KERNEL:
-
-(**) CMA is reserved for movable allocations, so GFP_KERNEL has no
-ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free CMA
-pages are therefore never handed to these allocations.
-
-(**) The high-order atomic reserve is only handed out to atomic, order > 0,
-__GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is not.
-These pages can be unreserved under memory pressure [3], but only all but
-one pageblock per zone and only after an allocation has already failed, so
-counting them as available still overestimates what the preallocation can
-obtain without failing first. Excluding them is conservative.
-
-(*) Consequence of not excluding the unusable pages:
-
-With M = managed, S = saveable, F = free, U = highatomic + CMA and
-R = reclaimable, count = S + F - totalreserve and alloc is about count / 2,
-while the allocator can actually provide about (F - U) + R pages. The
-shortfall is therefore inflated by exactly U compared with the usable
-memory.
-
-From [4], with U = 11430 unusable free pages (5120 highatomic + 6310 CMA),
-the preallocation target is inflated by about U / 2 = 5715 pages, while the
-allocator ends up 1247 pages short and hibernation is aborted even though
-the system is able to create the image.
-
-(*) What changes after excluding the unusable pages:
-
-Subtract U from the per-zone free accounting used to compute count and
-avail_normal. Then count' = count - U and, since max_size is roughly
-count / 2, max_size' = max_size - U / 2 and alloc' = alloc - U / 2.
-max_size' remains well above minimum_image_size() in practice, so the
-resulting image is effectively unchanged while hibernation no longer aborts
-unnecessarily.
-
-Testing
-=======
-(*) SA6155P running on AAOS with S2D feature
-(*) backport locally on GKI 6.1
-
-References
-==========
-[1] commit f27ce0e14088 ("page_alloc: consider highatomic reserve in watermark fast")
-[2] commit c928807f6f6b ("mm/page_alloc: keep track of free highatomic")
-[3] commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page blocks before oom")
-[4] Example of an abort:
-    Mem-Info:
-     free:344621 free_pcp:931 free_cma:6310
-    DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
-    Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
-    PM: hibernation: Image allocation is 1247 pages short
-
-Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
----
-Changes since v2:
-(*) Rebased on v7.4-rc3
-(*) Updated the stale comment above the min() clamp: it still referred to
-nr_reserved_highatomic, but the code reads nr_free_highatomic, and the
-clamp is needed because the counters are sampled separately (Reported by:
-Sashiko).
-
-Changes since v1:
-(*) Added a reference to commit c928807f6f6b, and correct the words and
-quotes in the description as well.
-(*) Switched from zone->nr_reserved_highatomic to
-READ_ONCE(zone->nr_free_highatomic) to accurately fetch the active free
-highatomic counter, reflecting c928807f6f6b (Reported by: Sashiko).
-
-Link to v1:
-(*) https://lore.kernel.org/lkml/20260921101446.1193565-1-trieu2.huynh@lge.com/
-Link to v2:
-(*) https://lore.kernel.org/lkml/20261001084115.2549761-1-trieu2.huynh@lge.com/
-
- kernel/power/snapshot.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
-index d5dba0e50b2e..24ba09db7fe6 100644
---- a/kernel/power/snapshot.c
-+++ b/kernel/power/snapshot.c
-@@ -1867,11 +1867,33 @@ int hibernate_preallocate_memory(void)
- 	highmem = save_highmem;
- 	size = 0;
- 	for_each_populated_zone(zone) {
-+		unsigned long free, unusable;
-+
- 		size += snapshot_additional_pages(zone);
-+
-+		/*
-+		 * Pages reserved for high-order atomic allocations
-+		 * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used by
-+		 * the order-0 non-movable GFP_KERNEL allocations that
-+		 * preallocate the image, so do not count them as available.
-+		 * This mirrors __zone_watermark_unusable_free().
-+		 */
-+		free = zone_page_state(zone, NR_FREE_PAGES);
-+		unusable = READ_ONCE(zone->nr_free_highatomic);
-+#ifdef CONFIG_CMA
-+		unusable += zone_page_state(zone, NR_FREE_CMA_PAGES);
-+#endif
-+		/*
-+		 * free is a per-CPU vmstat approximation and is not
-+		 * sampled atomically with unusable, so free - unusable
-+		 * can transiently underflow.  Clamp unusable to free.
-+		 */
-+		unusable = min(unusable, free);
-+
- 		if (is_highmem(zone))
--			highmem += zone_page_state(zone, NR_FREE_PAGES);
-+			highmem += free - unusable;
- 		else
--			count += zone_page_state(zone, NR_FREE_PAGES);
-+			count += free - unusable;
- 	}
- 	avail_normal = count;
- 	count += highmem;
--- 
-2.43.0
-
+> >
+> > Same layout is used in Tegra30 and Tegra114 inherits it.
+> >
+> > > Also the DSI get the PLL through a fixed factor 'out0' but not the CS=
+I ? is it something
+> > > you have checked ? it just seems a little odd.
+> > >
+> >
+> > Yes, out0 is a fixed div2 of DSI clocks and that is code reflection of
+> > hardware. CSI pad clocks do not have this setup in the hardware.
+> >
+>
+> Ok
+>
+> --
+> Jerome
+>
