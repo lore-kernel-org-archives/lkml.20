@@ -1,67 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822159;
-	b=G9zzJYvM/+jw89HHFTNq2QaFe1IHLiKOJXlVMKpFuuHrXgUy3D2MsuZyHHFiZcENLF3I
-	 TnttXgQjtV2L/eK81p7nr2hgZ9InugE1e9VCp/h3YnCSd/B5wa5TvJkltzgZvhozbzCm8
-	 HFhFZRR3spgxvptvASltLlbFeWt6Xc3WUM/P/FzrN3LxzI0Ng6qn7JG9/gsX/c/m/Zuhe
-	 0TTC0h4XV7I4BZUDDo6oq3d7bABAzrj/UOC68PJFS19e0pY9e0TwY4JvE0/S5CqrJATvY
-	 wK1qoWMZHzOqXBu/pCniB4w/z+/92jDSqDrVVWQcDiUo+z3GW6S/7kT37XtJoXJTbPA==
+	t=1794822182;
+	b=eI9fobWyO05S2eN/mC1C30Khr+a5QZbDGrX4gpv/7Cg1dUz/FGHMFfFpBU5xM6yYeHdw
+	 2xmhhgYGv/Jm+0S1OXW4vzaC1PVst1g3xbvw1Kf77YWe8KVSR03BXQp2os+cbSkq5WwWp
+	 xPsm/6OCoZB7lQKBhgCq0l4kMsJh8YdYT2jo7okb+2fETP7RXev18nbzeZv/trBIfac+O
+	 qesZAijnWj8iw7wbd2VHcapG7u+YmF9466zyE5YhO8M1yR6PnKN6NxiS+L4HwI9PRGZPX
+	 0V2si4vjMPyZMwnjBEUQHRhRXYpdD3SPTZauIiM2HLgb/4fcyaHA1IYggXB58zwFtLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822159;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=2jMiNtLEwivAxWblU1/xPh4v0Zlz45fkFKl4d1hiyhw=;
-	b=xpivw5l0vht2g7urcZEL7U1Qxm7QK/TUpEd9O0omWlZ6NhBPtIMX6VZLGhhPOhvh7fGK
-	 gqUpehg28WiL+3kBQVLSIukJTiNiCwZDyhiErkQecSQrdE9ShHeP3m2zWaMUwk3OnvK6o
-	 Q4I8s8HCX0NJPJzQUjkVOjLpu+gHP/7cc3U8UAZOhbffI9lV3PLZxTEFBdib27zI6rZ/8
-	 MCI0Sbag4pN10oxCt0iVNOGlwpodYMnmf4/F3TWvcRRTBFmjr8Xuf9QPWAz34gJCTPweF
-	 15Wf/4rpoYlS7B9RyQrvO1a5wwl+hww5PwWmc4xZTXQhaaFDTril7f4WD44BVEE0WCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822182;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=P08dLrh12a79aELYRdwJhJM6sHf6xDuxFDQdAiXSC4A=;
+	b=2Mu9lbvpM+q+RjI5uKeLOdoZuuxh3d8H9CBQvROreH+iXIJM8OSQ2RwZzcr3E/yo7tl4
+	 sXNLdN871Bs0wj+o3EM5D1G2f1gz1seZQFeQeQbQL9dcorY1o/nGXE+k5GL1qr06nvocD
+	 lJPjytuoj1m5QfGQ6TdA2loq+YFtxjh5u1EuvsR5LCEjpGyJ54vy1qVeqTD7Mo5a0YqEC
+	 +qjFCAg9d6n0fFKC2pRnBCbYD+WYWKJr3s/wJ5vu9E2HlwhsGJ9fr2F82HnIgqQzYoHvs
+	 VkJOOfFUxYtkURIOpAfJmWKQS3FQURszmvcaF0b+Ek3HSy3NdJl1XPN2rZOTF6Slgiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BeOdCh5w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LM0GTDnV;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60184606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:42:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE37606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:43:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AE37606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BeOdCh5w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3051F000C7;
-	Mon, 16 Nov 2026 09:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794822159;
-	bh=2jMiNtLEwivAxWblU1/xPh4v0Zlz45fkFKl4d1hiyhw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BeOdCh5wi/T+U1UT1RyK41HnGEiY547WWZs1wrDmMnMFs+lkszYw6NpE49bhMvi8k
-	 8AjDHbH5khCcDsrPZMZhEOTS5F1N0e5QGolzfToIA3+VE3RDil+Bge3+ckcPOsgNUI
-	 Z68h5ifBornjk96u9jzuNY/OcYHwv0S9FBAgd//q2pTfy+yVV2tg/JPb240dyERzAz
-	 5U40FSBPQKC+JOJuyu+y0xwiw4awyQD2xSIpU9UlMvxFeNBm5rGt+hZsMT7dThqpS1
-	 JUrHxa6BifZb9MFQCT4QonEh1AV5PPKrMsf989RUg8AUJrKeGkbxsk5Vha+/5Y0TlB
-	 EYQ1H+EBD7ycg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xStES-0000000GLIy-46Om;
-	Mon, 16 Nov 2026 09:42:37 +0000
-Date: Mon, 16 Nov 2026 09:42:36 +0000
-Message-ID: <86jymd159v.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <tglx@kernel.org>,
-	<radu@rendec.net>,
-	<jason@lakedaemon.net>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] irqchip/gic-v3-its: Size the collection table for all possible CPUs
-In-Reply-To: <20261116022330.273840-1-ruanjinjie@huawei.com>
-References: <20261116022330.273840-1-ruanjinjie@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LM0GTDnV
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-89d6bd67045so1443768b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:43:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794822181; x=1795426981; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=P08dLrh12a79aELYRdwJhJM6sHf6xDuxFDQdAiXSC4A=;
+        b=LM0GTDnVMxKPVB45UkzfAbxEhHH9XmnDNhonX8E7oY7fCsl6PShVyubOXPG4EiXmpo
+         04PSQTDMd/l3CdlW6nDFcEWfRjMhBRc8KU4IH0Gib1sFvJ6OpLpKKA0mTiFYm4G1nlmx
+         6i4QplVFyiO0e8wPhXtM7Vpalsf2VtQOzmqWASKjj/hxS8gLE1sDPC++Frtyw+jHmH+L
+         LY9LMmlgzDrDyPtCCOuEdHNFp4VC9pZGIKGXyxNuxcBgj39B8/TCkiAFhNrVeZQ4LoRC
+         X4/iN5tiU+nzC7FHcPJJhf7JXVxDX3/MhvuNwGaHG6C2lmIr7ncbt2q1A5KbPltYLLp9
+         f26A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794822181; x=1795426981;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=P08dLrh12a79aELYRdwJhJM6sHf6xDuxFDQdAiXSC4A=;
+        b=dwjO/FMxlhHw+yWz87ZMvH4ckPYEsvo6wIdkt9XVqPu+BVu7yyMBLp0DHExgvA1Lx9
+         wgXvfjamATRQf26Wcih4SFkqKhBsfymmf8nlF671WbuUl7l9edU3UMDL9/czi1vtSfwv
+         3g8T7UMj+7/yifhOPqKoqJR/ZRenShVeP7a/+JVHO5UEyDJh16azA/KNfebtl9+oOsTG
+         M1pR12gq10WFowuhgvivkuZH/xp2+Fjd+UmivEUcQpwdeRGIkcWVV545vNIcLTqyLmY8
+         nDTWJO47bPAoQfmHe1RNK4bGO0rZcpLYhkIodzyXnMMXwheB2TyTojmOT2BI5yyStkWr
+         pscQ==
+X-Forwarded-Encrypted: i=1; AL+hErEdTy/d7KBhBWxagM59h8PtF30Wx6srkbbsh1EwXlJ20LyV35knoDASG7lDNcTH8bDgwyBSokxFKHNKI4g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gqphKBjYQgpP6bOqFctniXyzoyRnP7XftQJrArOi2PzKxdts1
+	pNI/0P/GdKGnnb3Z4x7JpljYmThrYAAlW0Oua1HGagzZVqCnOjpQzs/F
+X-Gm-Gg: AYBFou2UMDePLiFRrodbfSLkmYZkqlL1kIZVYJz3hCbRuzNTzn0Xg2wbmQXpWqMWfRU
+	qHaY+OfTp5hCWqfyeLzMWkLS2LSqYmAlsfKVYMLxULQ6a6Qnlr9RE6dBmFhbjMV0962MAZdddOp
+	1xAesp962Xwiq2IluP0ROu990zuqNqwza5QwXA7fjmd0IHz0xxEgXPUonLuwVO6TRrIsLX8apj1
+	V5B614ziwn2FSQCVNYeLi/L4GEVtsZnvfzxXSx/f6kIU6cjT5+H3w4IztK1x94G/Vi/LL6GqlUQ
+	uF/nR0mzX1nPrYLl443SuCJtbJ9XrA7/HeDOGByCdT1l8ybCOVabE0azcZNC0Nmnb7n6Q/sCOH7
+	9woXCvhWSxaAhOkzWZvYTAXvp7vbEjvCgCeNjf8MYrYhtb1lbjM1Xuk1YYMJiCfBkBYKUHoiBmZ
+	aWkbcW1sLvasr0K4BscKFlf/kvWjIrQy9EhClEUl7rFVCLfkttucaALAjNLJ0lB/LGge/ywYqGr
+	qGUnKa3DExAcFvrcH4EFQ5ICQVU54lu46Rom6S4lP0ZPT/XdVelFbbkBcbsB7cNt4bxVyXtCdrB
+	2mdQag7QdHn6qZ2SET3HfntKpq7t7qYVbxrHGDZtzPTtL9G8j1uOICUPaRk7sVXlRPaVpKZiN7b
+	eBXF5qWZ+hex+eb+chQ==
+X-Received: by 2002:a05:6a00:802:b0:8a0:6417:8f9b with SMTP id d2e1a72fcca58-8bd62be6f46mr8425231b3a.32.1794822181479;
+        Mon, 16 Nov 2026 01:43:01 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:f133:af41:7614:f46c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a90fdsm3424231b3a.15.2026.11.16.01.43.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:43:00 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH 0/4] sysfs: support SYSFS_GROUP_INVISIBLE for unnamed
+ groups and ownership updates
+Date: Mon, 16 Nov 2026 01:42:52 -0800
+Message-Id: <20261116-sysfs-group-invisible-v1-0-94cd173a7d9a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,152 +92,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ruanjinjie@huawei.com, tglx@kernel.org, radu@rendec.net, jason@lakedaemon.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABzQ+moC/yXMTQqDMBBA4avIrDuQxD/oVaSLRCc6UqJkalHEu
+ xt1+S3e20EoMgm8sx0i/Vl4Cgn6lUE72NATcpcMRplKa12ibOIF+zgtM3K4AvclLIrcWVMr3yk
+ LqZ0jeV7vb/N5LIsbqf1dMziOE7UC9GF5AAAA
+X-Change-ID: 20261115-sysfs-group-invisible-443ba270fd0a
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Fernando Fernandez Mancera <fmancera@suse.de>
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev-6b8b8
 
-On Mon, 16 Nov 2026 02:23:30 +0000,
-Jinjie Ruan <ruanjinjie@huawei.com> wrote:
-> 
-> The ITS collection table is sized from the hardware default described by
-> GITS_BASER: a single ITS page holding entry-size objects.  With the usual
-> 16-byte collection entry and a 4K ITS page that is 256 collections.
-> 
-> its_cpu_init_collections() installs one collection per CPU using MAPC with
-> the CPU number as the collection ID, so on a system with more than 256
-> possible CPUs the MAPC commands for the remaining CPUs fail with
-> E_ITS_MAPC_COLLECTION_OOR (0x010903) and their redistributors end up
-> without a valid collection.  LPIs targeted at those CPUs, which is where
-> managed MSI/MSI-X affinity places a large part of the device interrupts,
-> are then dropped by the hardware: the DMA completes but the completion
-> interrupt never arrives, so drivers fall back to polling and time out.
-> 
-> On a 384-CPU HiSilicon HIP12 system running v7.4-rc2 every ITS reported
-> 
->   ITS@0x488000000: allocated 256 Interrupt Collections (flat, esz 16, psz 4K, shr 1)
-> 
-> and all four NVMe controllers logged repeated
-> 
->   nvme nvme0: I/O tag 256 (1100) QID 182 timeout, completion polled
-> 
-> while the hinic driver failed to probe with -EIO.  With the table sized
-> for num_possible_cpus() it holds 512 entries and both symptoms are gone.
+DEFINE_SYSFS_GROUP_VISIBLE() and DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE()
+evaluate the group visibility callback only for the first attribute and
+return SYSFS_GROUP_INVISIBLE when the entire group should be hidden.
+While internal_create_group() checks for this return value before
+creating or updating a named group's subdirectory, it skips that check
+for unnamed attribute groups and proceeds directly to create_files(). As
+a result, returning SYSFS_GROUP_INVISIBLE for an unnamed group only
+skips the first attribute while still creating all remaining regular and
+binary attributes, and leaves them behind on sysfs_update_group().
 
-Please drop all these examples, as they serve absolutely no purpose.
-Everybody understands that losing interrupts is deadly. The whole
-thing is also filled with implementation details that are not really
-relevant, and can be described in a more general way.
+In addition, sysfs_group_change_owner() checks SYSFS_GROUP_INVISIBLE too
+late inside sysfs_group_attrs_change_owner(), failing with -ENOENT when
+looking up the nonexistent subdirectory of a hidden named group and
+falling through to binary attributes when breaking out of the regular
+attributes loop. Furthermore, SYSFS_GROUP_INVISIBLE is currently tested
+and masked with bitwise operations even though it is a standalone
+sentinel value rather than a permission bit.
 
->
-> Handle GITS_BASER_TYPE_COLLECTION in its_alloc_tables() the same way as
-> the device and VCPU tables, requesting order_base_2(num_possible_cpus())
-> IDs.
+Switch SYSFS_GROUP_INVISIBLE checks to equality comparisons, and check
+group visibility upfront in both sysfs_group_change_owner() and
+internal_create_group() for named and unnamed groups alike. Drop the
+now-redundant SYSFS_GROUP_INVISIBLE checks from create_files() so that
+returning it for attributes after the first one triggers the
+invalid-permissions warning, and simplify error cleanup in
+create_files().
 
-Just say something like:
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Dmitry Torokhov (4):
+      sysfs: check for SYSFS_GROUP_INVISIBLE using equality comparison
+      sysfs: check group visibility upfront in sysfs_group_change_owner()
+      sysfs: support SYSFS_GROUP_INVISIBLE for unnamed attribute groups
+      sysfs: simplify error handling in create_files()
 
-"The collection table is currently sized at a single ITS page size,
- and the driver's allocation policy is to allocate a single collection
- per CPU. On systems with more CPUs that the ITS can fit in a single
- page, no LPI can be routed to the CPUs that don't have an allocated
- collection, and the system grinds to a halt.
+ fs/sysfs/group.c      | 93 ++++++++++++++++++++++++++++-----------------------
+ include/linux/sysfs.h | 52 ++++++++++++++++------------
+ 2 files changed, 81 insertions(+), 64 deletions(-)
+---
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+change-id: 20261115-sysfs-group-invisible-443ba270fd0a
 
- Change the allocation policy to allow two-level tables, similarly to
- the other tables."
-
-> 
-> Fixes: 1ac19ca6bf97 ("irqchip: GICv3: ITS: tables allocators")
-> Cc: stable@vger.kernel.org
-
-This is not a fix. This is new feature support for implementation that
-are both very wide and have a stupidly small ITS page size. These
-systems have *never* worked, and therefore there is nothing to fix.
-
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  drivers/irqchip/irq-gic-v3-its.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-> index c952c069f937..319b6edefd37 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -2716,6 +2716,21 @@ static int its_alloc_tables(struct its_node *its)
->  			indirect = its_parse_indirect_baser(its, baser, &order,
->  							    ITS_MAX_VPEID_BITS);
->  			break;
-> +
-> +		case GITS_BASER_TYPE_COLLECTION:
-> +			/*
-> +			 * Size the collection table for every possible CPU.
-> +			 * One collection per CPU is installed via MAPC with
-> +			 * col_id == cpu, so a table sized only for the
-> +			 * hardware default page (e.g. 256 entries with
-> +			 * esz 16 / psz 4K) is too small on systems with more
-> +			 * CPUs than that: MAPC for the remaining CPUs fails
-> +			 * with E_ITS_MAPC_COLLECTION_OOR and LPIs targeted at
-> +			 * those CPUs are never delivered.
-> +			 */
-
-This comment serves no purpose, and the code says everything that
-needs to be known.
-
-> +			indirect = its_parse_indirect_baser(its, baser, &order,
-> +							    order_base_2(num_possible_cpus()));
-> +			break;
->  		}
->  
->  		err = its_setup_baser(its, baser, cache, shr, order, indirect);
-
-Finally, it really looks like we could do better, since *all* table
-types are now able to use two-level structures. I'd like to see
-something like the below (untested).
-
-	M.
-
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index 282e4bafb084f..a058cb8373ef1 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -2682,7 +2682,7 @@ static int its_alloc_tables(struct its_node *its)
- 		u64 val = its_read_baser(its, baser);
- 		u64 type = GITS_BASER_TYPE(val);
- 		bool indirect = false;
--		u32 order;
-+		u32 order, nr_ids;
- 
- 		if (type == GITS_BASER_TYPE_NONE)
- 			continue;
-@@ -2696,8 +2696,11 @@ static int its_alloc_tables(struct its_node *its)
- 
- 		switch (type) {
- 		case GITS_BASER_TYPE_DEVICE:
--			indirect = its_parse_indirect_baser(its, baser, &order,
--							    device_ids(its));
-+			nr_ids = device_ids(its);
-+			break;
-+
-+		case GITS_BASER_TYPE_COLLECTION:
-+			nr_ids = order_base_2(num_possible_cpus());
- 			break;
- 
- 		case GITS_BASER_TYPE_VCPU:
-@@ -2713,11 +2716,11 @@ static int its_alloc_tables(struct its_node *its)
- 				}
- 			}
- 
--			indirect = its_parse_indirect_baser(its, baser, &order,
--							    ITS_MAX_VPEID_BITS);
-+			nr_ids = ITS_MAX_VPEID_BITS;
- 			break;
- 		}
- 
-+		indirect = its_parse_indirect_baser(its, baser, &order, nr_ids);
- 		err = its_setup_baser(its, baser, cache, shr, order, indirect);
- 		if (err < 0) {
- 			its_free_tables(its);
+Thanks.
 
 -- 
-Without deviation from the norm, progress is not possible.
+Dmitry
+
