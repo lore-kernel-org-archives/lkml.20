@@ -1,107 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822919;
-	b=j+ZdUfh6XMzj0itNKhTD+5dObfkGAG0p1eMt+EJyPuUQkRDKwf5qXU9LDDs1b257xY9j
-	 466sbZqB+jwNwieQfRQARI/+BmXi+GCSxHfkbtxIiyVa/YdY9hEOvhiMyirj+D6HfdeRA
-	 CBtEijAsAZJ4L0Tq1HDYjWlY8SZNPG5Srfl3R7gG5DVOUhyUa+lCwclXT/TDNHefNGw33
-	 rBTrptUr47zCngobK54HAjJxoubF5K4M6souWEKmO56YQ9ZFG5pxBIdfyX0Rn/2Z9Wa2B
-	 ARTe9rI1oFakBQdirwTdfe906NMOc5QjMdcnf7Ab33BUH5kt4H1Ha2hcXFeGfXyjabA==
+	t=1794822938;
+	b=RrsT3tckLRkqpd5lq+oB5TMd5HTbb5bMTBwFOcVvZAlXK6UDOMUwjf+vp0LWzGc8IXcX
+	 YrAz3xlyH04YNR+3cj2rfHQ3R8y2MYZpX9b9QAmqKNKaacQM8n6FxM8/G+LHKwCQR63a/
+	 TRw3wFL4hpzMT7xGJlQ7+cEHnXVahL8yY1MWvav7f6BGy6rDiOCElvXW+P97P3zrgao2d
+	 a4CTecCxKfznngDG0Wg5fPzweThTLG3Rt4BTnHOD9ij3rou1g7Vc1AJKgD4C/quMmTo9b
+	 WDNHnaSpwkP3RXwQhM32NvbvOamcry+saXZ4yYdt8cmjl749IGSXz+ME6R9CwNbocGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822919;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ALeSHsx30eLZ3CRWXR1RtD/2nxh7ufMDip6qkVreLtI=;
-	b=x2m+OhuqX7ij0ZHJ1zkbCOEaIE7i2J2UdwKcPi7EVenEWqX7pppLsYG2rHkvrxLv7+gw
-	 YCKPRwdjSHnlMOahn+Qv4uowJq9cUsv5HiI8xgh+mJogzbi1ZR+nIJfq5DFKuwzP/LIgy
-	 kJlei3ww0w1wp19ew4stNid0bHapTZ5wV8ZghDXgJuu+sc4ROq54aVxC0CRthQUOD0Pxt
-	 GdrswZvrefP0vZjv9UeFe1eTrbEVX98iQ7KhUUkj4tma6A7y2Ap18ZhTd5d/gPul7L+d8
-	 BrDrx4YUCc4bDNBhFQTDGCUBJ5DSFISaDX8U3v7Bq7KxgsLzjuDmChNUokXgmL78ATg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822938;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4JH33ii/O1IYJlAZS2nMThk6S+BnMzG8A9OXw4THRRo=;
+	b=HkDx+j20fKmhBxxxO9+jAohA7MLDjXNGfTMrgGj9pswkmZDEcGFUXQhazLhziX813r+Q
+	 6GyLKOgDGPJfGN6NZ1ZhQHzxifrOLkPBeOdgoHWRmNL5SYoHXdZ+EIS7FoJo9x0ec90b7
+	 s+Y188S9polGsubPkFmJJY0Lsd3eCoiaxPas+GsdhNi6uJYYiYp8gWNIf351cKm8Gt+oV
+	 4S//XJiiFKH76KO35gut1ZEWZLSA2dgPhmdrcMeEE9L9wRMw1qidxQxhikKx7JHxS315b
+	 0upaNcTBm7TRSfZhf0YmBIDKFD2hCdRFMFDgn9qIXPLZFGrnqA8i4dOUIiX+9D2HdJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="g0n/7uSq";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cssHXGGZ;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mmnAXTMO;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF39606A336
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:55:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EF39606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E36606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E36606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g0n/7uSq;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cssHXGGZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794822917;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ALeSHsx30eLZ3CRWXR1RtD/2nxh7ufMDip6qkVreLtI=;
-	b=g0n/7uSqmCyj9XePZleYfSC7LsPPH8U06D5NwNYjRgfb8PkftgZ0sJlDzjKAK3VkO7rcin
-	0JXLyTB7GWTYznq/ruHeoYqHA+AKaaIcxrMGzg9pf9MpElO51iIsJbfrEb9dmff+g0Izt+
-	B0uWbdDWzD8xx3tCtRNglCavFD6g13k=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-307-dQOr6h1vMQ-Wj7QFjGBpbQ-1; Mon, 16 Nov 2026 04:55:16 -0500
-X-MC-Unique: dQOr6h1vMQ-Wj7QFjGBpbQ-1
-X-Mimecast-MFC-AGG-ID: dQOr6h1vMQ-Wj7QFjGBpbQ_1794822915
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-492425d771bso1991581f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:55:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mmnAXTMO
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so1623278f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:55:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794822915; x=1795427715; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ALeSHsx30eLZ3CRWXR1RtD/2nxh7ufMDip6qkVreLtI=;
-        b=cssHXGGZoZoWeZuHuBpH7DMWZnmafYy8CwUKUVYH4VefxCZiEKOHReZ4EyT/hFSrh9
-         +PAh8d+tCwuFnDWbjyMOvDQPpLlRkrB5k4a2P83XrEWrBR7V+K5XUtt+pj+NLZhL8fww
-         NCR5qq7kxHmJedLzfeQA1DWM1PwscgmRaLevv+9FPGtlrvJxahHZozoY+UrHGpLCTeJG
-         s6YZs9mO5MYH3l9dE7LkgwZ2Ex2jiP9hbIpb2DTvEK5ixE5avbOOv1ARAWR4/B+KezU/
-         drGPjtVdns5unS2VuYxdlEI0ceXK9blzGTlHyuxwuMfnxzC2gTSbrB2snTaBXuxF7R0O
-         4PBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794822915; x=1795427715;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1794822936; x=1795427736; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ALeSHsx30eLZ3CRWXR1RtD/2nxh7ufMDip6qkVreLtI=;
-        b=myQpaTUQ7NCZpzvtPwqz7RO7foz4aPXOgJL6cKrJPvjI8MN4pl2el0TsmRcBwYY7ll
-         zzBaZCTxm12i+bJSbGUrYNUECm+M2ndW/zk0H+QmNjpak46RazBMfHlPlSNiw0xomePq
-         z/SQrWBNWbtrh/WLsS0cyUt7wPzBu7V2utlrpoS57R2Sp4pb42EO1MUCL5/s/5TQHGyc
-         MtaRNhbviugcWFAPX+iQwQIMTuYOLrOTJ+gPTNSrzMYxZLVSVZwBbQ039FWQJMX9J+8a
-         tFgxGHTekQwaIA5NG37unlpjR5LZyFQ7dEA8wWbmA1gznuVsnT442ajC38wkQjX2Xl4L
-         Cz5g==
-X-Gm-Message-State: APuU4Z9smSygJG+Xu/Vfrb1RIKK46bXWtQjPvZ1AaSJ8KFM8kPrqj9YK
-	ACtSdkkT5BB2F8PF0yVsAlD4g+l1rkV58odVOyDSgXDO9HUaX2iR8qx3ZVKmvq49YhEjJOEjaqF
-	ZqVOc3gMHSoSwWEcMbe0OZuHNcwsXtxkJcp6xBSD7DLBfcrZ+6+HWt2VI4nn3+7EtM8JSpzan3A
-	==
-X-Gm-Gg: AZFdTZcLMHfJDqMjFYtlrPDpMFaL0nyxI+4AAOdx0hNct5FCdGFxBqQ59AQu766BBlB
-	alfvQt8R8tPM+YF6KyTJAniGnlgB/9qLQUp35VHebm6IhQFbdsATfqncFd/e6mZykcaiuo5J8Oa
-	HimFX1xWKdIh6kgozAblSpziIa4Xc3qZ9GMjs8FQjCPeY7RdzFX8JStDY/t8v9Po9WMSMB8BW6v
-	CahPAo4kpPNZ/ANj/21Bc7BNQ2WAarwxgVqkRN4g0zOqlhbgS1YNq4lVrgVMq24Tj5tOw7XahT+
-	pze9KobZqI3Tn3Jj5/ggAg/Pg7CrwGxW1sadsKkZyDytLWgdPyaVHVEtVu2yVpktUvEWQMZnWJk
-	J5cNPEOVuWxwg+SDe08y2nby2p9BEz6tKg0WATaT3o8aB
-X-Received: by 2002:a05:6000:1a8c:b0:48e:6812:5ef1 with SMTP id ffacd0b85a97d-49c713ae346mr21453784f8f.25.1794822915113;
-        Mon, 16 Nov 2026 01:55:15 -0800 (PST)
-X-Received: by 2002:a05:6000:1a8c:b0:48e:6812:5ef1 with SMTP id ffacd0b85a97d-49c713ae346mr21453746f8f.25.1794822914741;
-        Mon, 16 Nov 2026 01:55:14 -0800 (PST)
-Received: from [192.168.0.9] ([47.64.115.75])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223b21sm23653382f8f.2.2026.11.16.01.55.13
+        bh=4JH33ii/O1IYJlAZS2nMThk6S+BnMzG8A9OXw4THRRo=;
+        b=mmnAXTMOBuaV1HOT4mxSu2WXbfTYSvZ47S63y0LCQlV6qnaVPxzK0XtAFgz+7ZT1GC
+         4hADawLO0EYqLdy/Z4xSxpGHou7iPli+gS7ietKmZ9CLCfULGkIjhhdkskx4E69sKIgS
+         hPAo4SxD3sI9YUm85RiAoHn2ehfJAWo2EOG5FlNbAKzoX72usezzoZ2ZU8lkk/IFvi+y
+         lqCsY8yiekgy2amsK/jcW4u+nOfmFthNU4kOTtj6FL+fEs/vjZizjdZdUROF43hpYXli
+         AAUwvZjtAlC1jv7aJCynha+gz2nmXuECNlwrcZzDkgxB49Sxa12DsW4artkTeiKCI3fO
+         p6fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794822936; x=1795427736;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4JH33ii/O1IYJlAZS2nMThk6S+BnMzG8A9OXw4THRRo=;
+        b=F12+UZ7QKSpWHb7299IvQif7ynNQz+8YTJqfobTv5KhnzuVgXU++dd0ILEHaX29Nd3
+         qsNQ2/9K3PWDx7B3X8Tj9f6ow8tJfzph36UtPfHqBorYYM34nsZJ2EmeAoA9jVskC3ez
+         olIZY5GyoJqrJChJH9ohG3ylJWqtRQRkCk3uwwKD+wYQOJ4tF0RWCAJHVjho8hkgFdJU
+         LkP0VBgaKRjjht7nbLhOm5EnujKAlYmxWWHcUiVLn3ws3PuNU6w2t7YqccfbjkvVZf1X
+         d2FXwq7S9mCyOPnF6vlUgdYU4WK3IYqrfGt8V5QTnkQt02Vjhecbn3YscDzmGs4Ytw82
+         B/xg==
+X-Forwarded-Encrypted: i=1; AL+hErERmmXLZiK3b/U1tTQ68v8D59+iG22IutrCRNUR6fK9LvQ4uRvuzekVVXGT955D+mbo3wA4K/aIL9NtbjY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87P0CK86CrA5ENHoi7kXWGBa9m2Ka81SE+hRYkpwtzv5eO9i0g
+	prIpbmc1WmVzVayV5XyfEy/vIIKOzWAoZnBhbCydOYHKftl3r3gYeTlE7w4P/zsAQySgNbLiHqZ
+	olhuhcds=
+X-Gm-Gg: AZFdTZflPN6K4JGi8TQiMIAfbK7SAME8G1g5imxcW6I4KRbBBwxZayFsMuUzF3zLpMt
+	PA7kXeSsYjZHVtgTQRSUwPTFxXPJOYWbLWVnwkKw55aOPEe00BYOiF1Ozp+u/rSBQI1OJ+Z8Nbx
+	rMSZox/0VDaU9/0qhV91evfkbd05DWCMZiN993YJTR56zWvmFJEk9vyC1QY/8wiWH7/NgIE+XUT
+	9XSPxnL+teGjgxo0GNJeLiaIhNAYtqZ233D8duzvQjKc6VpETv9YAIfyVQ4mY3OUpAZ4p73lVBp
+	k2wEpiK4QcFoOYykMLL3coY4/bcMn4qHDKLgP/YPEtUIN24OgHA3QC/3EOf1sEyFRyoKU9m/j00
+	OjyKe6V2Oop/EcYO1ES+UfCUDWAiKBnZec+NBVXyKBoBIszzHG6L2F9DKpy52X2q/eQF8Gblcrw
+	LAqjZqA4eNd3IX7Jg10dfek8aCtmdRe5baBC8NwYJpjkuMv8leJdE4XkkcMbXm9lWsRaABWLmmC
+	zWtRZ/f6F5PjX5k2t/8UJBNl2WufLKKmTSpVaVNHQxbqQzOiA3tCPQqg+mTcge+ti+1lZjg5s3z
+	4sLmP6TAJE35+FhTQm/algopg1NZTYmn7dxqmxzTy3O0K4JqyyVui+o3UJk2W2IXa0UMGs9nzWR
+	VFr+OKEKC
+X-Received: by 2002:a05:6000:26cf:b0:492:f6b7:f488 with SMTP id ffacd0b85a97d-49c6fc9dbf5mr23160002f8f.7.1794822936261;
+        Mon, 16 Nov 2026 01:55:36 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm20884339f8f.12.2026.11.16.01.55.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 01:55:14 -0800 (PST)
-Message-ID: <a2ccfd68-c773-416b-8aac-12a7f9caa801@redhat.com>
-Date: Mon, 16 Nov 2026 10:55:12 +0100
+        Mon, 16 Nov 2026 01:55:35 -0800 (PST)
+Message-ID: <19786c13-d3fd-4258-a1d5-2a28a1dccc31@linaro.org>
+Date: Mon, 16 Nov 2026 10:55:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,93 +95,93 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: build failure after merge of the asm-generic tree
-To: Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-next <linux-next@vger.kernel.org>
-References: <avcnFxad0xS5KrZs@sirena.org.uk>
- <cdd71b25-9149-476b-b31f-c29b3b2896b7@redhat.com>
- <c96b327e-959a-4363-bb39-f9e313c92b9b@app.fastmail.com>
-Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <c96b327e-959a-4363-bb39-f9e313c92b9b@app.fastmail.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/7] arm64: dts: amlogic: Fix dtc warnings with W=1
+To: linux-kernel-dev@aliel.fr, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Am 13.11.26 um 17:16 schrieb Arnd Bergmann:
-> On Fri, Nov 13, 2026, at 16:45, Thomas Huth wrote:
-> __signed__ char __s8'
->>> /usr/include/asm-generic/int-ll64.h:21: Error: unknown mnemonic `typedef' -- `typedef unsigned char __u8'
-> 1
->>>
->>> Caused by commit
->>>
->>>      625b37748a148 (treewide: Stop defining __ASSEMBLY__ for assembler files)
->>>
->>> I have used the tree from next-20261112 instead.
+On 11/15/26 23:29, Ronald Claveau via B4 Relay wrote:
+> Building the Amlogic device trees with W=1 CHECK_DTBS=y currently
+> produces several dtc warnings, all related to the same pattern:
 > 
->>
->> the fix is:
->>
->>    https://lore.kernel.org/lkml/20261030174323.370687-1-thuth@redhat.com/
->>
->> ... Arnd, could you pick it up into your tree, please?
+>    Warning (unit_address_vs_reg): /soc/bus@.../pinctrl@XXXX: node has a
+>    unit name, but no reg or ranges property
+>    Warning (simple_bus_reg): /soc/bus@.../pinctrl@XXXX: missing or
+>    empty reg/ranges property
 > 
-> Sorry about that, I had already applied it locally but forgot to push
-> out the updated branch. Pushed now.
+> The pinctrl nodes use an empty "ranges;" while having a unit address.
 > 
-> There was another report for the 0day build bot about the same error
-> on powerpc, but not enough information for me to reproduce, so it's
-> possible that we need another fix like this.
-I was finally able to get access to a ppc64 machine and tried to reproduce 
-the problem. But it was just the vdso_test_chacha test again that was 
-failing there due to the __ASSEMBLY__ still being used in /usr/include, i.e. 
-the same problem that we saw on aarch64. I double checked that it gets fixed 
-after applying 
-https://lore.kernel.org/lkml/20261030174323.370687-1-thuth@redhat.com/ , so 
-unless the 0day bot had a very unusal setup, I think we should be fine.
+> With this series applied, the Amlogic DTBs build without any warning
+> with:
+> 
+>    make ARCH=arm64 W=1 CHECK_DTBS=y amlogic/
+> 
+> Boot tested on Khadas VIM1 (GXL) and Khadas VIM4 (T7)
+> 
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+> Ronald Claveau (7):
+>        arm64: dts: amlogic: t7: Add ranges to periphs pinctrl node
+>        arm64: dts: amlogic: a1: Add ranges to periphs pinctrl node
+>        arm64: dts: amlogic: axg: Add ranges to periphs pinctrl node
+>        arm64: dts: amlogic: g12: Add ranges to periphs pinctrl node
+>        arm64: dts: amlogic: gxbb: Add ranges to periphs pinctrl node
+>        arm64: dts: amlogic: gxl: Add ranges to periphs pinctrl node
+>        arm64: dts: amlogic: s4: Add ranges to periphs pinctrl node
+> 
+>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi       | 2 +-
+>   arch/arm64/boot/dts/amlogic/meson-a1.dtsi         | 2 +-
+>   arch/arm64/boot/dts/amlogic/meson-axg.dtsi        | 5 +++--
+>   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi | 6 ++----
+>   arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi       | 5 +++--
+>   arch/arm64/boot/dts/amlogic/meson-gxl.dtsi        | 5 +++--
+>   arch/arm64/boot/dts/amlogic/meson-s4.dtsi         | 2 +-
+>   7 files changed, 14 insertions(+), 13 deletions(-)
+> ---
+> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+> change-id: 20261115-fix-amlogic-dt-warnings-7cba2a4eb9d4
+> 
+> Best regards,
+> --
+> Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-  Thomas
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
+Thanks,
+Neil
