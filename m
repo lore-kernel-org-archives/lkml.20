@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794864243;
-	b=I28DeST04JOtRptN0g41uO1mb3OlgiOlHZrsicvvZtBX8u2WEOXSEroIEtyWpY4fwPPN
-	 ll2LtFhDxKcUnKdsMN0TXSgSYOg6on9YBE/ugimUGMBQISJ4yTKUu+Eb+KbFJIGJsY31C
-	 SNjwvJPcBPVQ7hA+iAX7KaDWVP4WMDr66wOLrpMLf/eAGthZbJSLVsBsnrz9u5l7IENY3
-	 kdHsQyGCglHZOHA716cZXesXNag4NLPFwAblCqDNbo5VrqLdUn4zYpkaMxziibE5emHZ6
-	 LdIslaQ6vSMjvfeG8U7Sy4rlM+dUSeewkzZZGw6wuCoi2rxG9a1JgmOewczkefhOEjQ==
+	t=1794864246;
+	b=jDBDLnYh3Sm/2NXd5DEK9zlKf9/h5HkgEGZzxQqj2C6kGEVdzs9RCpbN/1YdMc4m4UNP
+	 1v8XG9J0Mfybeu4tjSRgAqSdiJQD8KVLrj3R8czvc6PjcqlVRstJTwyfzpYOeDSHldqce
+	 Uei7XSLtKtj/o+ctrX2c22XDn2NYBEnRvbqxuE3PiFHqaxuW/JSddat1F1CGtq2HNFOgE
+	 OAQgCFQtt+P1WA3MXlzT0AOksMlVKP+MS9x2n6MjJVFUNiyiKSNlwDSymQWtvDSngKOnd
+	 O01QMju/tgzV5pLtsS5i6PDHwZxWgiFxf/iSB6Hl/9Tyj9pfeI+Q26OhDmUENolAdWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794864243;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794864246;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=3NDCplZK7ik0X8Yf2ESiTaq7yDLCV4EImoCaTstoWM4=;
-	b=Ki9zo6lxaXjXmTNLXFEaHXAzTzQp2+oZ22N5HdXOR2yQRSo9Amf4/BFg+HkF+1oZlTzV
-	 l5xwL7HCk/I5918omQV61Yb1Vzf7Z0fdpNuSsn9eFfMMpXgt4IynrY/iiHsirLWui3xcQ
-	 i2mEwsAdlt/poSULCbhvR6mcmNTcsodSaSo1sWfh5T8lrF7pCkzB21zfe3J1bBgZRKWbu
-	 Basd66bFN4Pso9pW+5JyDutSeQp19Grh7NI6rvF6TXRqI5K308DCyO0GrTjMDqYc4cKqn
-	 L/79WFX6sB18LgikDxHnHGjizmm7R55CQ9ouJc9eeIEJHRK1zsPT8yK0SOEsZdhThHQ==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=klZLWCiok3TPdWsvwnwKQ9IY7VOb4Jw4L7nWDxuHtHQ=;
+	b=mXPsNUXyHfkGHKJo/5ApPnYO3mphfQk3A7vu3sVzev/4uJa2Lmvu5EX1NhjLTMrz5r9T
+	 UiUbXixcMc4UGKMucWZ6Y7Z6CuZ6ViQ5okDZkqNF4smUgg6OuvzkgCDXy3jPUs1cEHaM6
+	 bocqdcWaE2ebnRA+7VaBgUdsY0j2TnbMnVxZ2t9LumziR1lwAaz8SxGCXggwsTSrLIgVj
+	 PTkv6+bnrebhE8hW2YzwkYL3mU9EK9jMxFldN+hgl4eF+/WhXTIZBol8zugzvpUOaYlQb
+	 VPnIKDgRKGCIpoPFmZVD2ihsapxKiC/6xuTShk1yOWeH3kT79Nc6hVt2UdrDHMQSM6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dFXwQd7t;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="FrVzVN/7";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F35606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:24:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F35606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57177606A888
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:24:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57177606A888
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dFXwQd7t
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb6057b333so11312175e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:24:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FrVzVN/7
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so41517515e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:24:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794864241; x=1795469041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3NDCplZK7ik0X8Yf2ESiTaq7yDLCV4EImoCaTstoWM4=;
-        b=dFXwQd7tTuURj2BECf1IhZuZKNJtzMvXRCZY1JBMIbvQzl61PWtjZLwQb6DtvGAVNP
-         r2Jh6UvlMoDYUGGIUTooz/fVGQU1cYBgbRn1fYjXnMLGkO+j/rUJsjv7b4hsLbxCTnsP
-         Tygqyc3qziyZWxwkLhEhgmIo4yfpbR6HfjAya2uDzxoxPStl1nTjwrVSxxUIc6F/1tI3
-         qNlQxH+mRIxYcY+jcvoXQQgbCAe9dI+Kr4lIWtFnHqJzpOW65mD6FoafA4eBrUMKAAg4
-         UqSsiCjhMlDD3ABhRvMIS1h+CQgCgFngqhpNR3NCCFRhTfqYVnV23jSG4KrjvPRAQw+T
-         WWOg==
+        d=gmail.com; s=20260707; t=1794864244; x=1795469044; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=klZLWCiok3TPdWsvwnwKQ9IY7VOb4Jw4L7nWDxuHtHQ=;
+        b=FrVzVN/7M8VJOf7RTuhHp8/yRHlOH+DRPTKtOhVt6u/fag+es6Esis6pYgs8iyLlvX
+         Bj919y9GSQ3QC/2irvSwLiP9evSGkV8f/Q2ZT5ZaCPq6cvFC94YMDMTzE+1y+oc9xM+3
+         ACmHgTLgInBx71qLZTLRe34YZUmhkGF9m0uktlQx3fIBG+Pr6AlPQ0vliGMG8svdkafT
+         7gSjrkg0OI3JDU7Ob70hj9KnVK74R49PXhnNYiIv2mqivf8Bjn9iH3i/f5TOyL+9tMT5
+         DN7TXmHLJa4bgPfpWmLU8UFWkD0Qj4ZrNo/pZdAsaqQXxgWltVY3AEcWs88TlOddR+Tg
+         atZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794864241; x=1795469041;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3NDCplZK7ik0X8Yf2ESiTaq7yDLCV4EImoCaTstoWM4=;
-        b=Do/xBJoOrpxUmp7ncI3Q6DYFXp7KBcV1av6Rr2EKG+T9xSham1wISZoXWzHChAtM6P
-         32eysLR2MUwa1aemHVEexKqYGQv7wry02qn/bZ+9ptM+Z/PdLqmKlnyjCa1rRyRYSZcq
-         LpKKZb9l765h8YucmXrCSwpByHysLfd6cRfXirNhafB79ns9j/BpY3U6xfJ8mF8SCoR+
-         BopLilR5PGTVs7gMpEyw9tTnqklBgaio7BpAAsI1GrVn16+kL7wPVcvmhbAwOzMgoKHd
-         FHJFMmaWeLIA0R+2OHL76F0hi3eBrMkrnnHr18LY3Q9P+5i0n0ywHmt1Wt2FFMU0epND
-         zuPg==
-X-Forwarded-Encrypted: i=1; AL+hErEctvGzejU2PShscizdvNEiEOfCJoHTWDqq2Y1R4UbLCGcRdVc0t1oaAIpSFyfC0F9Lb8l24GdNyFnIeDs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Mywg4H8pLoRbvHKYJeVGCX0eOcd6JsiLwC12Q5wixCF8J6NDf
-	QumUBEO5+T8S31Z9a6x6T9mBpIakZUZ7e2JZ2KKC5fvqDVW+MW+tQWJVow562kAX9lM=
-X-Gm-Gg: AYBFou2hYp0xPpEj5M66pGpkmdvjd4v2ckqvyShdt4FsPKa39sX3ivVI3Q+bNIul5hu
-	JGZTcRQOc4I1ZH7UgiMdS7BFJXTwv721QnwqE3LxPb13Q6o8VMpbO5UjE75kg949ek5pTUZdPEE
-	lrT9WvQiEs6gKTd9wHiPmIFCAaKyHmxIKZCY32ZduDyVxbTPKPk64vum+9EnnyMCDmlxjAkjbgp
-	hs4966CPiJHYsexUFIuA09/px+GhrrYw8jHH/3qAB94D+9kvfEODybjvQYlWVgOEgw6AeRF7H3D
-	TEI5SVjFymz839QfwQnS3kj5nDrtSw7sd/KyxR8tnda0zgTmka/0kknr/YDXU+f1Rm7KRSq/D1W
-	5oddfxkUY+RAhDRIrs13QktipaszGQoZt7K2p1X0VHAEfGQawfrRvqzZy0qaxTvlZoJMm92a94a
-	9tIAZuNXAlQQ0cMFsSfxmAu/io1gu4oXda0aqhYuYyE5ryPuuVvNXls9AarP021wOXbC/yCrXYz
-	306Sn5u8hh0QNErXBwx1STFJHzcEdtPvZ+9JXqLTAKmeP54nHkM11pfkQCiiq8UyHYYcYPXVRPN
-	VKIjWBF/EwyRSncVu31cg4S/ZtKce56IBds0QsB7noXG3U5KeERvbmUYemh2FMsw3u03dQhauvp
-	yjOn3VHeR
-X-Received: by 2002:a05:600c:c84:b0:4a1:e57b:667c with SMTP id 5b1f17b1804b1-4bb55a68429mr264065535e9.26.1794864240857;
-        Mon, 16 Nov 2026 13:24:00 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:7319:1134:8f94:f341? ([2a01:e0a:106d:1080:7319:1134:8f94:f341])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571d7e87sm220605515e9.3.2026.11.16.13.24.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 13:24:00 -0800 (PST)
-Message-ID: <63a95c40-2371-439a-8974-4dd7a65d14c8@linaro.org>
-Date: Mon, 16 Nov 2026 22:23:59 +0100
+        d=1e100.net; s=20260707; t=1794864244; x=1795469044;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=klZLWCiok3TPdWsvwnwKQ9IY7VOb4Jw4L7nWDxuHtHQ=;
+        b=MV1mIPdtI0zQSt/mxw+vGsghDPT2q9XWmGYz3VDIwzvpzCHzZW6eXwx8xwXqIt+9qs
+         EVCezdUiFYlhVTT0MxpL/GZ/aRziBYuNI9MGvZWZ7cLgZWDKrtmoEReS4tMTuWd4Nvw5
+         0GJHqLeXtAjed38so6ut2/QZcOoEyAr3/zmgyO4f6E61ARpJfwRIw5EA1QT8HMEkhIWC
+         yWoTLc56KNX2WaLlRZJTaBd+xiudgWyZ+aMQflQvI1KAd86V9nOk+JYqVzbQYehg4ULC
+         3gz+WkdpeJiXnk9THT1M4XdhTGKQVdoSMtDJeYeJ3H1jg4bRZiFhLBGjJfDxHP8V3oIQ
+         pn2A==
+X-Forwarded-Encrypted: i=1; AL+hErHMMREjMe711K/Asik+ZiP9oaVz37Czgjaru3tJVVs/7dj99skJvPKowlk2ITmZyVf67m+SklnYB/xeb1U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/LOjTGDpeTDUAB7iH8im1DX+eKdMPOAm/btZQJr7hUR37Nxeae
+	uESQTVjVt9scu5IBwOiguNO6n0EePEVdXT0KaNEAsckD3OQ5RQCEbI40
+X-Gm-Gg: AYBFou2oP1PCSTUpFt5CKF4Eyr4YA+kRuo+0riA/QXqTFSvc9WQaY67CtGQAMQTPByx
+	9yxnWXBd2PTevha8idlelFbvegmdLk158KdG5BSS0qLGCOEh7RiEv2G6AaqiIZswBGNat+CyYRb
+	tyHFThHZ8gFLr9N1lymo+XLt7Kg+ApiKQcAlzF/UVUexbDPuNJ+xir/KDeXZz4oG3sdb0P4wV3a
+	5FyLGWHHGISLawCzSsl8e6x2yNsN0MjW7gRKmZBUjN16JGUD/ZGS9CVvqjfS/1RMVNGxBhkPVZ6
+	EFnfwWy+21P9wyoxBufCPn6TKkHeEWA+iwfxCYdCdBjqLCKaXRHVv9La1fTmiZEtvitBR7gFJW7
+	G2X/T0QWoJP3h5sqqvvGDGy7juxgg/2563G8Ec8KeK60c70uSRm3YyuZKkD+LgHEkHC+n330GGX
+	piCOVT8VEidARVcO5v3QWpNnvJ0L0fNIYon6pPGRH+MgdVPldO8gY+kagM6RO+8oV25Z/MXU6iF
+	+hKAlsJCqWkeGVeAohCpGvlPYCoFsv21MT4TCW6Ei13N3rsyhu99S/rTzXE+AU11hwmDEa6OSaO
+	H+DpzYJF3/V4r/kVRXaBKeHVxcSFkPwhezI8S7Nj
+X-Received: by 2002:a05:600c:3551:b0:4bb:534b:ada4 with SMTP id 5b1f17b1804b1-4bb55abdc18mr258614455e9.33.1794864243814;
+        Mon, 16 Nov 2026 13:24:03 -0800 (PST)
+Received: from [192.168.10.105] ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7839c5c3sm16520325e9.12.2026.11.16.13.24.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 13:24:03 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Subject: [PATCH v2 0/2] Add pinctrl driver for Qualcomm Halliday (SXR2250P)
+Date: Mon, 16 Nov 2026 21:23:57 +0000
+Message-Id: <20261116-halliday-tlmm-v2-0-b4dd502ca142@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,108 +92,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] interconnect: qcom: Don't read back BCMs without an RPMh
- address
-To: venkat.yadlapati@yahoo.com, Georgi Djakov <djakov@kernel.org>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261116-icc-bcm-readback-v1-1-36b533d66a69@yahoo.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261116-icc-bcm-readback-v1-1-36b533d66a69@yahoo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG10+2oC/12NwQ6CMBBEf4Xs2ZpuBUVP/ofhUNsF1rRgWiQSw
+ r9bMF48vszMmxkiBaYIl2yGQCNH7rsEapeBaXXXkGCbGJRUR0RZilY7x1ZPYnDei1oV8nDKU0I
+ S0uYZqOb35rtVX46v+4PMsErWRstx6MO0HY649n7u8597RCGFxhJtkSvMjb02XrPbm95DtSzLB
+ 6nbTti8AAAA
+X-Change-ID: 20261108-halliday-tlmm-f250374110e0
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Stanislav Aleksandrov <lightofmysoul@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794864241; l=1289;
+ i=lightofmysoul@gmail.com; s=20261108; h=from:subject:message-id;
+ bh=xrLm+TfVvJoEp6IAVQCzFe0JVQwue5fgBOr1usvJ8nI=;
+ b=7vzILpl8qrChpgALa3GHPPZN0zVDnay00lup4/uriiZw4XmAw75/hxuRsKAUVN+Q6+CVi4jHQ
+ 3dxYYOry4UtB0I+DDwkGBFfhcdaDos1AwtoUo4281yfyuVXiNDXDLWU
+X-Developer-Key: i=lightofmysoul@gmail.com; a=ed25519;
+ pk=jeRUlfmkhE53CJPoeIIXgu7rTE0ybDRH0HQrEwbydzg=
 
-On 11/15/26 21:19, Venkat Yadlapati via B4 Relay wrote:
-> From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-> 
-> qcom_icc_rpmh_probe() ignores the return value of qcom_icc_bcm_init()
-> and reads the initial vote of every BCM back with rpmh_read(). When the
-> command DB has no entry for a BCM, qcom_icc_bcm_init() fails before
-> setting the address, so the read goes to RPMh address 0. On Molokai
-> (SM8845), whose command DB lacks the QPC0 BCM of the Kaanapali gem_noc,
-> that read never completes and every later RPMh request times out, so the
-> regulators fail to probe and the boot stalls:
-> 
->    qnoc-kaanapali 31100000.interconnect: QPC0 could not find RPMh address
->    qcom-rpmh-regulator 18900000.rsc:regulators-2: failed to read ENABLE status ret = -110
->    Error sending AMC RPMH requests (-110)
-> 
-> Skip the read back for a BCM that failed to initialize, like before the
-> read back was added, when such a BCM was simply never voted.
-> 
-> Fixes: 11a44c6087c6 ("interconnect: qcom: implement get_bw with rpmh_read")
-> Assisted-by: LLM
-> Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-> ---
-> Found while bringing up the Motorola Signature (Qualcomm Molokai, SM8845)
-> on next-20261113: the boot stalled in the regulator probe and every RPMh
-> request timed out after the first one. The Molokai command DB has no QPC0
-> entry, so qcom_icc_bcm_init() fails for it, and the read back added in
-> commit 11a44c6087c6 then reads RPMh address 0, which never completes.
-> 
-> Tested on the Motorola Signature: no RPMh timeouts, the regulators and
-> the interconnect providers probe, and the rest of the boot is unchanged.
-> 
-> I used an LLM (Claude) to help write this patch and its commit message.
-> I reviewed it and tested the result on the device.
-> ---
->   drivers/interconnect/qcom/icc-rpmh.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
-> index 4a2a746a4e59..1fbf4c960e1e 100644
-> --- a/drivers/interconnect/qcom/icc-rpmh.c
-> +++ b/drivers/interconnect/qcom/icc-rpmh.c
-> @@ -332,7 +332,9 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
->   		return PTR_ERR(qp->voter);
->   
->   	for (i = 0; i < qp->num_bcms; i++) {
-> -		qcom_icc_bcm_init(qp->bcms[i], dev);
-> +		/* Don't read back a BCM without an RPMh address */
-> +		if (qcom_icc_bcm_init(qp->bcms[i], dev))
-> +			continue;
->   		qcom_icc_bcm_get_bw(qp->voter, qp->bcms[i]);
->   	}
->   
-> 
-> ---
-> base-commit: 3fd56a2833c22f62eb84297d0dbd47739632f1a0
-> change-id: 20261116-icc-bcm-readback-a339f8caeb09
-> 
-> Best regards,
-> --
-> Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+This series adds the devicetree bindings and pinctrl/GPIO driver for the
+Top-Level Mode Multiplexer (TLMM) on the Qualcomm Halliday (SXR2250P /
+Snapdragon XR2+ Gen 2) SoC.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+This is part of the initial bring-up effort for Qualcomm Halliday
+and Samsung Galaxy XR.
 
-Thanks,
-Neil
+This work was made together with Claude, ChatGPT and Gemini.
+Reviewed and tested on my Galaxy XR.
+
+Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+---
+Changes in v2:
+- dt-bindings: Add the tlmm label that gpio-ranges refers to in the
+  example (Bartosz)
+- Link to v1: https://patch.msgid.link/20261109-halliday-tlmm-v1-0-a181d54214cd@gmail.com
+
+---
+Stanislav Aleksandrov (2):
+      dt-bindings: pinctrl: document the Halliday Top Level Mode Multiplexer
+      pinctrl: qcom: Add Halliday pinctrl driver
+
+ .../bindings/pinctrl/qcom,halliday-tlmm.yaml       |  146 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   10 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-halliday.c            | 1825 ++++++++++++++++++++
+ 4 files changed, 1982 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-halliday-tlmm-f250374110e0
+
+Best regards,
+--  
+Stanislav Aleksandrov <lightofmysoul@gmail.com>
+
