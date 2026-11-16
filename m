@@ -1,54 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793710;
-	b=sMD2WqVcm7Ey3LUgR8aqkUGoHBnfQtmRWUvRz/5U/pErFuxSxBKrLtKXUqfZVZ1IwSJE
-	 59J7ntksDc4DHYmRF5al/Sx5nSg0IlJPlihdIuTHLB8lhNB7HUSm4m5W395VVksUMcqj5
-	 x8cU0IvGvvBfvSGcNtY67ISEsW9GNEr8c113pKSSj1VquqqYBqj9z1BapuKjadERV3hOg
-	 tEH/BgGYIcHId90dR8a/N/YKTcbG9jIT2V94SALvTogvI7HOC5PTZC8cAQb9FOJVzYhJa
-	 P0dfHxsKkY0fOxiqNKP1psy8Kcn5AI9gNeopCEpMxQL6995611ykA92r+JDYKHfZ4sA==
+	t=1794793726;
+	b=K1HcTHEcLCBWJ+xaUJaXqhtvDKTGnQkdqqUdsCxHHWbRXMF7FZTvt1MrOblfu1y/JrEI
+	 YPaLuOXYJTf8y4Yl7zGcqaBleZft5mg//x+V1E7x6aBGhQL5bO4vksMDbt/TZPkQsrWk3
+	 UYEOdsDOgMQVPaZF9FR9mYbXTU8XyNZ5szEmqHc/i6SErEDDCsE4nu0dbbIwOAJBt1su7
+	 ZSjsERrhn3NVyjIiTI4+1h01CaoQf6HXvVf8C7x5GGGdabTFFyEHtFvawGpk+VVkynmrC
+	 Fau+QMOh80WgqDfaEBHh+0q8TBfxDZdlxHUyEW1KlbjvK2NJECWP8WO/kJg9RUDqz+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793710;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SvYb2dbF8RnLfseYOjJpEqV6XDnyeEcsBNE/GmkQ/9I=;
-	b=4IukjJUnbvCG6Ic9i9ZfkuwU3zOgfiqcDDLn7qx2I9oPelKb0q1yNeVx825u88r+eEtZ
-	 x1s9ZfzPGJirSp3gABuf+YJPxHg5ZBO3l+jjXbErL6fuRyO2dcILhmK1KFN6dGEi5kYRh
-	 iySdtnvVRCwQx8sEc1FlPR9d9GABBqBA7NhGVG0YzNlYGzOIulUQMNRK9igM/7p1F5fB3
-	 AnXk6za7pwbmNC/8agJt6nUoQFVO9K6KPGVtdXKBIR4EROcpA6eWujMO/7GR+Lr8/XNZS
-	 CVnghoM06CWgmxZ0eVPvDVgNwoK6/FzvzzO4ZB6J7qkJ6DNovNX76Zl17WBu9mGE7nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793726;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ywtOqJAsM2bjb8qlWKSfscVg6+9YAEeCvH9RDxo3V7w=;
+	b=a7suVyIBSRYSH0H79fdUVTvjjP0+t8hcgDnEDqKnrd7IqpyztIflpLyOmhjlooUmI8Qe
+	 nseygksnDvYnYeSw5VYeByBpX9kf2jmjhwsoFtdO15xeaylxZtywtHqWWN4z8kRH8VpLC
+	 r53hrqhllG/Eu3CA/tjt5Nl+17jjuDsqfg5f1oMEuYYNv9CBz734RDEE1oHOZN/zrjeyD
+	 I1yAdTLx8nG7ATFR9QLzg+Zt4f8+Dzv9Bj5RdtC1mk8a5tTeIU7z/2pRQgr+HfmaXjbRK
+	 CjLI9qqRqm0SGamcH0wOH9Z9yfCurssJ2LUURhFzTiQifSCBmArjroGGYF54m7zr7Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lhFLmzbK;
-	arc=none smtp.remote-ip=91.218.175.176
-Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgWNSTzt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9509D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:48:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9509D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0091606A321;
+	Mon, 16 Nov 2026 01:48:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lhFLmzbK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Yho2xLjSCxu9gfbIDUeoWttJyXdMvsMQaSwbhg6fSYE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794793707; v=1; x=1795398507;
- b=lhFLmzbKTduR9ver9Ra7b8ZIeuudqIc1Km/1sdaQFfbTc3qOcio/1UfUJzCdI0xmywBPmRyz
- dN6wDg0rQmfbnVuqpj7gr9+01mahSzQjo2ropmTcq3wT+TuIFWwLDhWWNTd6or6Qj53ntlGCGwS
- H2KaLCRHbQk6XCRHLMTBNzh4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4b9c400b95ed6538;
-	Mon, 16 Nov 2026 01:48:27 +0000
-X-Mizu-Trace-ID: 4b9c400b95ed6538
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e4f50794-0c47-4fd3-8c3d-f3888f83dd2e@linux.dev>
-Date: Mon, 16 Nov 2026 09:48:21 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgWNSTzt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D921F000C4;
+	Mon, 16 Nov 2026 01:48:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794793726;
+	bh=ywtOqJAsM2bjb8qlWKSfscVg6+9YAEeCvH9RDxo3V7w=;
+	h=From:To:Cc:Subject:Date;
+	b=IgWNSTzt8U8o5SeNtfglHcQRf0/mYnUGkt7aixsvfAMphxlG99RgV7XUSBqsxxggz
+	 fmT1UHdKIN+7OpwTjpem+hp3HY4aQIKTKxLPyaITqKOQZefM2RO7XOGeTOAjR6Api1
+	 DRngc6NcsWWsRh7YgOBpKAwNjdlOzjgp09XLoJhNzPFTRzC6jyBo3QAQWiKtBSZEZh
+	 mQadyZqhfyaVpzpZnl6K6qIoJV/TR45PS37xIhAeMJEosiF2q3MTuxwIm6gh9O78tw
+	 VRmU5exlPrrlHTyigmNZEG4jFj4QmQt1RkVrqLBBAeI9AXO3B0Xdmolsxq1xMRxzmR
+	 rZ3ZGjEsA1iVg==
+From: Jonathan Cameron <jic23@kernel.org>
+To: linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Martin Tuma <martin.tuma@digiteqautomotive.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	Gustavo Silva <gustavograzs@gmail.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
+	Tomislav Denis <tomislav.denis@avl.com>,
+	Jorge Marques <jorge.marques@analog.com>,
+	Petre Rodan <petre.rodan@subdimension.ro>,
+	Dan Robertson <dan@dlrobertson.com>,
+	Jianping Shen <Jianping.Shen@de.bosch.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Maxwell Doose <maxwell@maxwelld.cc>,
+	Tomasz Duszynski <tduszyns@gmail.com>,
+	Esben Haabendal <esben@geanix.com>,
+	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Vasileios Amoiridis <vassilisamir@gmail.com>,
+	Abhash Jha <abhashkumarjha123@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Nishant Malpani <nish.malpani25@gmail.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH 00/35] iio: closing default trigger handling leaks
+Date: Mon, 16 Nov 2026 01:47:48 +0000
+Message-ID: <20261116014823.3132576-1-jic23@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,210 +85,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest
- generation
-To: Barry Song <baohua@kernel.org>
-Cc: Kairui Song <ryncsn@gmail.com>, David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-References: <20261112081928.3014946-1-ridong.chen@linux.dev>
- <avV52J2rD19cjM2J@KASONG-MC4>
- <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
- <c01ec177-da44-49bc-a542-35b64554526f@linux.dev>
- <CAGsJ_4xx8ivDeh1d5pvJOEgndRL8rf=CO2==T480pAm=j2X0ZQ@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4xx8ivDeh1d5pvJOEgndRL8rf=CO2==T480pAm=j2X0ZQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Note this is compile tested only!  I definitely want a few people
+to test that I didn't break everything.
+
+This is the first part of what I think is a long term solution to the
+currently really fragile ordering constraints around setting default
+triggers. Today these are set by iio_dev->trig = iio_trigger_get(trig).
+The reference is only released on the iio_dev.release callback and
+only if we have set the mode to include one that means there might be
+a trigger set. That mode set only occurs when a buffer is registered.
+Thus trigger release only works if we have already registered a buffer.
+
+One solution would be to reorder so that the default trigger is always
+set after the buffer registration (we have had various recent proposed
+patches to do that for individual drivers) but that is non obvious and
+fragile.
+
+The solution here is easier to reason about. Decouple the setting
+of the default trigger from the acquisition of a reference. Thus
+we can acquire the reference in iio_device_register() when we know
+all the conditions for it's release have been achieved.
+So that's all we do in this part 1 series.
+
+Part 2 will address immutable triggers and those that are effectively
+immutable but predate that logic. That is those that set a one to one
+relationship between device and trigger.  That change is rather less
+mechanical than this one and 35 patches is really a bit big anyway
+even if most of them are small!
+
+Part 3 and beyond will move to a situation where the iio_dev->trig
+will become opaque. That should stop anyone manipulating that directly.
+I have a few related cunning plans to test out before we get to that,
+not because the particular challenge is hard, but because they will
+trample on the same code.
+
+Jonathan Cameron (35):
+  iio: core: add default_trigger and take reference in
+    iio_device_register()
+  media: pci: mgb4: use IIO default_trigger
+  iio: chemical: ens160: use default_trigger
+  iio: adc: ad4130: use default_trigger
+  iio: adc: ad4170-4: use default_trigger
+  iio: adc: ad7768-1: use default_trigger
+  iio: adc: ad7779: use default_trigger
+  iio: adc: ti-ads131e08: use default_trigger
+  iio: addac: ad74115: use default_trigger
+  iio: addac: ad74413r: use default_trigger
+  iio: temperature: tmp006: use default_trigger
+  iio: adc: ad4062: use default_trigger
+  iio: accel: bma220: use default_trigger
+  iio: accel: bma400: use default_trigger
+  iio: imu: smi330: use default_trigger
+  iio: light: acpi-als: use default_trigger
+  iio: chemical: scd30: use default_trigger
+  iio: accel: bma180: use default_trigger
+  iio: accel: kxcjk-1013: use default_trigger
+  iio: accel: mma8452: use default_trigger
+  iio: chemical: ccs811: use default_trigger
+  iio: pressure: mpl3115: use default_trigger
+  iio: common: st_sensors: use default_trigger
+  iio: common: hid-sensors: use default_trigger
+  iio: pressure: bmp280: use default_trigger
+  iio: light: vl6180: use default_trigger
+  iio: gyro: itg3200: use default_trigger
+  iio: imu: bmi160: use default_trigger
+  iio: accel: adxl355: use default_trigger
+  iio: gyro: adxrs290: use default_trigger
+  iio: accel: adxl372: use default_trigger
+  iio: light: si1145: use default_trigger
+  iio: adc: ti-tsc2046: use default_trigger
+  iio: accel: mxc4005: use default_trigger
+  iio: gyro: mpu3050: use default_trigger
+
+ drivers/iio/accel/adxl355_core.c              | 19 ++++++++--------
+ drivers/iio/accel/adxl372.c                   |  2 +-
+ drivers/iio/accel/bma180.c                    |  2 +-
+ drivers/iio/accel/bma220_core.c               |  2 +-
+ drivers/iio/accel/bma400_core.c               |  2 +-
+ drivers/iio/accel/kxcjk-1013.c                |  2 +-
+ drivers/iio/accel/mma8452.c                   |  2 +-
+ drivers/iio/accel/mxc4005.c                   |  2 +-
+ drivers/iio/adc/ad4062.c                      |  2 +-
+ drivers/iio/adc/ad4130.c                      |  2 +-
+ drivers/iio/adc/ad4170-4.c                    |  2 +-
+ drivers/iio/adc/ad7768-1.c                    |  2 +-
+ drivers/iio/adc/ad7779.c                      | 20 ++++++++---------
+ drivers/iio/adc/ti-ads131e08.c                |  2 +-
+ drivers/iio/adc/ti-tsc2046.c                  |  3 +--
+ drivers/iio/addac/ad74115.c                   |  2 +-
+ drivers/iio/addac/ad74413r.c                  |  2 +-
+ drivers/iio/chemical/ccs811.c                 |  2 +-
+ drivers/iio/chemical/ens160_core.c            |  5 ++---
+ drivers/iio/chemical/scd30_core.c             |  2 +-
+ .../common/hid-sensors/hid-sensor-trigger.c   |  3 ++-
+ .../common/st_sensors/st_sensors_trigger.c    |  2 +-
+ drivers/iio/gyro/adxrs290.c                   | 19 ++++++++--------
+ drivers/iio/gyro/itg3200_buffer.c             |  3 +--
+ drivers/iio/gyro/mpu3050-core.c               |  2 +-
+ drivers/iio/imu/bmi160/bmi160.h               |  1 -
+ drivers/iio/imu/bmi160/bmi160_core.c          | 22 +++++++++----------
+ drivers/iio/imu/smi330/smi330_core.c          |  3 +--
+ drivers/iio/industrialio-core.c               | 15 ++++++++++---
+ drivers/iio/industrialio-trigger.c            | 21 +++++++++++++++---
+ drivers/iio/light/acpi-als.c                  |  2 +-
+ drivers/iio/light/si1145.c                    |  5 +----
+ drivers/iio/light/vl6180.c                    |  2 +-
+ drivers/iio/pressure/bmp280-core.c            |  2 +-
+ drivers/iio/pressure/mpl3115.c                |  2 +-
+ drivers/iio/temperature/tmp006.c              | 22 +++++++++----------
+ drivers/media/pci/mgb4/mgb4_trigger.c         |  2 +-
+ include/linux/iio/iio.h                       |  4 ++++
+ 38 files changed, 114 insertions(+), 97 deletions(-)
 
 
-On 11/16/2026 8:28 AM, Barry Song wrote:
-> On Thu, Nov 12, 2026 at 4:55 PM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->>
->>
->> On 11/12/2026 4:41 PM, Barry Song wrote:
->>> On Thu, Nov 12, 2026 at 4:38 PM Kairui Song <ryncsn@gmail.com> wrote:
->>> [...]
->>>>>    mm/folio.c | 11 ++++++++++-
->>>>>    1 file changed, 10 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/mm/folio.c b/mm/folio.c
->>>>> index ea3adb6a89d7..c412d9b398e4 100644
->>>>> --- a/mm/folio.c
->>>>> +++ b/mm/folio.c
->>>>> @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec, struct folio *folio)
->>>>>         lruvec_del_folio(lruvec, folio);
->>>>>         folio_clear_active(folio);
->>>>>         folio_clear_referenced(folio);
->>>>> -     lruvec_add_folio(lruvec, folio);
->>>>> +     /*
->>>>> +      * For MGLRU, lruvec_add_folio() places anon folios that are not in
->>>>> +      * the swap cache into the second youngest generation, which is an
->>>>> +      * active one. Add the folio to the oldest generation instead, like
->>>>> +      * lru_deactivate_file() does for clean folios.
->>>>> +      */
->>>>> +     if (lru_gen_enabled())
->>>>> +             lruvec_add_folio_tail(lruvec, folio);
->>>>> +     else
->>>>> +             lruvec_add_folio(lruvec, folio);
->>>>
->>>> Hi Ridong,
->>>>
->>>> One question here, why MGLRU/CLRU have to use two different ways to
->>>> add the folio back?  Will this cause over aggressive reclaim of the
->>>> folio?
->>>
->>> I guess that is because on mglru, that is lacing a way to add the folio to
->>> the head of the oldest generation for anon folios while CLRU can do
->>> that :-)
->>
->> Hi Kairui, Barry,
->>
->> Thanks for taking a look.
->>
->> Barry is right about the reason. With the classic LRU,
->> lruvec_add_folio() adds the deactivated folio to the head of the
->> inactive list. With MGLRU, lruvec_add_folio() can't put an anon folio
->> into the oldest generation at all: lru_gen_folio_seq() places a
->> swap-backed folio that is not in the swap cache into max_seq - 1,
->> regardless of its refs. The only way to reach the oldest generation is
->> the reclaiming path of lruvec_add_folio_tail(), and that path adds the
->> folio to the tail.
->>
->> And you are right that this makes it more aggressive than the classic
->> LRU. With this patch, a deactivated folio is evicted before the folios
->> already in the oldest generation, while the classic LRU puts it behind
->> the folios already on the inactive list. It also changes file folios:
->> before this patch they are added to the head of the oldest generation,
->> the same as the classic LRU, and now they go to the tail.
->>
->> So the problem in the current code is that a deactivated anon folio is
->> promoted into an active generation, and with this patch it goes one
->> step further than the classic LRU in the other direction.
-> 
-> I think MADV_COLD is fundamentally broken for anonymous folios
-> under MGLRU!
-> 
-> An anonymous folio may already be in an older generation, but
-> lru_deactivate() can actually promote it to the second-youngest
-> generation, effectively making it hotter instead of colder!
-> 
-> Right. For anonymous folios, we have no way to insert them at the
-> head of the oldest generation without introducing a new flag like
-> PG_cold, which is unlikely to be accepted.
-> 
-> If we instead insert them at the tail of the oldest generation,
-> I'm not sure whether that would be consistent with the historical
-> semantics of MADV_COLD.
-> 
-> But I've been thinking about how to insert a folio at the head
-> of the oldest generation. Why can't we simply move the folio
-> directly from its current generation to the head of the oldest
-> generation in lru_gen_deactivate_folio()?
-> 
-> For example, something along these lines:
-> 
-> lru_gen_deactivate_folio()
-> {
->          int type = folio_is_file_lru(folio);
->          int zone = folio_zonenum(folio);
->          int gen = lru_gen_from_seq(lrugen->min_seq[type]);
-> 
->          if (folio_lru_gen(folio) < 0)
->                  return false;
-> 
->          folio_clear_active(folio);
->          folio_clear_referenced(folio);
-> 
->          list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
-> }
-> 
-
-I think that works, and it is better than what this patch does. It
-puts both anon and file folios at the head of the oldest generation,
-which matches the classic LRU, and it avoids the two problems I
-mentioned (too aggressive for anon, and moving file folios from the
-head to the tail).
-
-A plain list_move() is not enough though. We also need to:
-
-- update the gen bits in folio->flags with a cmpxchg loop, as
-  folio_inc_gen() does, since folio_update_gen() can change them
-  locklessly from the page table walk;
-- fix up lrugen->nr_pages and the LRU sizes. lru_gen_update_size()
-  warns on an active -> inactive move ("demotion requires
-  isolation"), so this would be done as a deletion from old_gen
-  followed by an addition to new_gen.
-
-min_seq only advances under the LRU lock, so it is stable here.
-Something like:
-
-static bool lru_gen_deactivate_folio(struct lruvec *lruvec,
-					struct folio *folio)
-{
-	  int type = folio_is_file_lru(folio);
-	  int zone = folio_zonenum(folio);
-	  struct lru_gen_folio *lrugen = &lruvec->lrugen;
-	  int new_gen = lru_gen_from_seq(lrugen->min_seq[type]);
-	  unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
-	  int old_gen;
-	
-	  do {
-		old_gen = ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
-		if (old_gen < 0)
-			return false;
-		new_flags = old_flags & ~LRU_GEN_MASK;
-		new_flags |= (new_gen + 1UL) << LRU_GEN_PGOFF;
-	  } while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
-	
-	  if (old_gen != new_gen) {
-		lru_gen_update_size(lruvec, folio, old_gen, -1);
-		lru_gen_update_size(lruvec, folio, -1, new_gen);
-	  }
-	  list_move(&folio->lru, &lrugen->folios[new_gen][type][zone]);
-	
-	  return true;
-}
-
-
-> Right now, lru_deactivate() seems unnecessarily complicated,
-> incurring additional CPU overhead and LRU lock contention:
-> 
-> 1. Remove the folio from the LRU list.
-> 2. Add the folio to the LRU cache.
-> 3. Drain the LRU cache.
-> 4. Add the folio back to the LRU list.
-> 
-> Why do we need all these intermediate steps instead of moving
-> the folio directly in a single operation, given that we're
-> already manipulating the LRU list?
-> 
-> Am I missing something?
-> 
-I don't think the batch itself is the problem. The folio stays on the
-LRU while it sits in the per-cpu batch; only when the batch is
-drained do we take the LRU lock once for up to a batch of folios and
-do del + add under it. So the batch reduces lock contention rather
-than adding to it. What the in-place move saves is the del/add pair
-inside the lock.
-
-So I plan to keep the batching and, in lru_deactivate(), call
-lru_gen_deactivate_folio() instead of lruvec_del_folio() +
-lruvec_add_folio() when MGLRU is enabled. I'll test it and send v2
-if that sounds good to you.
-
+base-commit: 94921bc9eb214f838481faa847cda5c42e486013
 -- 
-Best regards
-Ridong
+2.56.1
 
