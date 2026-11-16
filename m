@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832340;
-	b=E2bXYZ3bto9uMlV46oD3wUgCpCExoDnU67OKDTxOTmMVX2Tg+z3NhOw9e2CnO6q67Czk
-	 Nq+mlo3t3t/Kbi/quVsIqIEmVoLDB32Mba8HSRJ+uk0/2SQ8ZxkwX+uE9KAOVql0QXuQ5
-	 HNmFpYvrnTTPly/HtgzO5ZwwXZN9tFnLs/IgQswFveNOlLoiIRxPlSe8lnCkdZhyK/Dsu
-	 lOyQwHROauiQXQ+Br7A8BcB04lqkRYTlXhhPcTsqSEVcnJuGN25GomrpjgDRk3LVDQC6D
-	 v4Cow0BZKGvqN96DHcBbDcDQErLd8n5I+NI95Xc2qv9NFByKBsm58gnwseTmYlVk/Ww==
+	t=1794832362;
+	b=eRuFCtWCPdQ/9QpWYQ7MpxxhgEe5D7H0xO3Vbi6iVTQTLENZI8cN2WyG7H0GMtuqOpdH
+	 V7GqoxaRtEqzpVkMUbfC7cnXgI4Ili0QY6PeSWV1aXOmYyEK3m9BAK0z+mJLfGgtEG0bw
+	 au93EuN18xHfPWqI/21QydLQw4Nu4mJozzZ9dFa+jkVQ1BQnHqDjdk/RFusA6dp+DpQMo
+	 VFzkJKV1gPirM1cu3BlOHXSSzG2SGS1mEXE0YBsV/VvMeCGuCIXetJbUUe5gIHmAkOlya
+	 fAlnK89BXBCIZzLe3xN9+LR7W1xE/3K3lw5UmhwsF1WKHycWRUWJGhzMIUf7jBl6O5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832340;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=POAt59CO+HOObTIBmjiEVtwCoQudsZPbe9vIDZNqOuU=;
-	b=aTU1/ANppnSWd0F8gQseaPH/GHruvBbVorHaT7C+jVDx4U9Har9EQjNi2nS11pqxi9IQ
-	 YkFldLIOO7gdZ1u0yKY06Eucu54EzsIOLRhn7lJabfUQl7HyAx7eVm5NOHLdX9F3Q7onh
-	 /gDD2oF96/JnMnSQCTu1LHFwK3eCFT7P5DwDHwjQB/uQguaeMJtLKKlflQnzt8YLffy13
-	 B6J7koQ5SqU1aUK4gN2tcoCgWGtqNQA4dCohr8qVHw0D6/fVQbBFhsjpFso/v4BrgH2V4
-	 cek/GrN7mLIsyPrZLjJbEbeWfqvoSzmLClRzFLfzK7yBa83TvbvzicbSuEmdZBFUyUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832362;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=Wu/xs78+R9EraA3QMxPnHPyldZGerV7oz+0ABoAixkI=;
+	b=qBC1GEDwwky2pdg4zxCYxYH1lyNKQvgIkBYsYJEBIkpyUDeqzJprb8Yg89gpEW5hsSDd
+	 m/O1wGv+GrQxmXV61JmNOOmJDmLMOUskc229pI2Ie7bBt0qBiflVo+K4I+mTw4Vd4XQhm
+	 JBtO7wWAdQ5q7fa4iHuLsvbRGk5Yy0hsfVv3Zrll8RuwYiGCyRKHN+nLQs0yFaDpxo8no
+	 s062Nmm66SED7bFBvXTVQkeB6Cut599pDHm0U/8AGDGcKqqxFo66Pp84rSK8W5OesKGHq
+	 odReM3VIFHkgluixlFRMa0nuV/9kOj6rujetSmlnTlegiK3rfOBGA+qHy+ATSXmWWFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XO9Vmy59;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53B94606A32C;
-	Mon, 16 Nov 2026 12:32:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53B94606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMiQvMwb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3CA606A32A;
+	Mon, 16 Nov 2026 12:32:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XO9Vmy59
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDC5A1BA8;
-	Mon, 16 Nov 2026 04:32:16 -0800 (PST)
-Received: from e121740.manchester.arm.com (e121740.arm.com [10.33.8.69])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C4C4F3F632;
-	Mon, 16 Nov 2026 04:32:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794832339; bh=b1HIH1QS2hnpdXK+KVzLC89n8/AQUCXzJMbaHXVM6Zk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XO9Vmy591ISO6V329xgF4MnvcaJwM7aTesr7PRZrzuzGCifI78qBxaUXvmt1GNcFt
-	 YF1ljIK5+VUs/HwNTz3oql2H9+AebItsNvF2T8On1mQngPmlE2mfllABDviR1HZ5/r
-	 OLY/a7ucrDK11uQm3z6fQXgsqUXYzkH2bmh4gQno=
-From: Philip Radford <philip.radford@arm.com>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org
-Cc: sudeep.holla@arm.com,
-	cristian.marussi@arm.com,
-	philip.radford@arm.com,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 2/2] firmware: arm_scmi: null pointer dereference in scmi_protocol_table_register()
-Date: Mon, 16 Nov 2026 12:31:53 +0000
-Message-Id: <20261116123153.2672631-3-philip.radford@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116123153.2672631-1-philip.radford@arm.com>
-References: <20261116123153.2672631-1-philip.radford@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMiQvMwb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E96D1F000C4;
+	Mon, 16 Nov 2026 12:32:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794832361;
+	bh=Wu/xs78+R9EraA3QMxPnHPyldZGerV7oz+0ABoAixkI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=OMiQvMwb1ijrWwKM0Yd3tH9V+K9XzlPKixQYRFrqxU4MTVmP9aERcqm51o2XyQRuK
+	 xzzvrtzDv5Rld9rBLvb3SiDX3JcxB2AnoekZ/j5fNVQDY5YIB4HfIw5cNNWRDb7V6M
+	 wbecA2nbywBhlSCPYoLWNLZOqLirT4TJ1iS7ncNejoEioZ9WGKU6WL8e48TeG0L4nh
+	 pu0ZQk1plVZQ5oV7cLz8rzp2wkti6a4onqf7u5b0xqHEr/jUwJ4UKf3DztLGO8Zslq
+	 CqgZIIYfm6DdxhhHqfP3wgZCrVNr1h4ivuriMU6T7rTO/sgM5Dg2khmjrti5CnHSbB
+	 QW+xx4Qp7zD9g==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bart Van Assche <bvanassche@acm.org>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Yong Liu <pkfxxxing@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, security@kernel.org
+In-Reply-To: <20261113083848.1517595-1-pkfxxxing@gmail.com>
+References: <20261113083848.1517595-1-pkfxxxing@gmail.com>
+Subject: Re: [PATCH v5 0/3] RDMA/srpt: Fix command initialization and read
+ buffer disclosure
+Message-Id: <179483235872.1361005.12065062548973022416.b4-ty@kernel.org>
+Date: Mon, 16 Nov 2026 07:32:38 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,47 +61,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-Add checks to avoid dereferencing a null pointer in
-scmi_protocol_table_register() and scmi_protocol_table_unregister()
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-7330d90b-8d81-478a-a227-4aa6f19393ba
-Fixes: 2858f6e5f064 ("firmware: arm_scmi: Add multiple protocols registration support")
-Signed-off-by: Philip Radford <philip.radford@arm.com>
----
- drivers/firmware/arm_scmi/bus.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+On Fri, 13 Nov 2026 16:38:39 +0800, Yong Liu wrote:
+> Thanks for the review and suggestions. This revision separates the BUSY
+> initialization fix and the target core control-read buffer fix from the
+> SRPT descriptor validation and read-tail clearing fix. Together they
+> address the NULL pointer dereference on descriptor parsing errors and
+> uninitialized target kernel memory disclosure to an initiator.
+> 
+> Changes in v5:
+> - Move BUSY command initialization into patch 1 and explain why the
+>   target_init_cmd() return value is ignored.
+> - Clear all control-read SG entries in target core in patch 2.
+> - In patch 3, log inconsistent descriptor lengths and zero the read tail
+>   with one sg_zero_buffer() call through the command's chained SG list.
+>   Remove the SRPT-specific DMA synchronization.
+> 
+> [...]
 
-diff --git a/drivers/firmware/arm_scmi/bus.c b/drivers/firmware/arm_scmi/bus.c
-index 25197197db8e..337aa445e42d 100644
---- a/drivers/firmware/arm_scmi/bus.c
-+++ b/drivers/firmware/arm_scmi/bus.c
-@@ -186,6 +186,9 @@ static int scmi_protocol_table_register(const struct scmi_device_id *id_table)
- 	const struct scmi_device_id *entry;
- 	int ret;
- 
-+	if (!id_table)
-+		return -ENOENT;
-+
- 	for (entry = id_table; entry->name[0]; entry++) {
- 		ret = scmi_protocol_device_request(entry);
- 		if (ret)
-@@ -206,8 +209,11 @@ scmi_protocol_table_unregister(const struct scmi_device_id *id_table)
- {
- 	const struct scmi_device_id *entry;
- 
--	for (entry = id_table; entry->name[0]; entry++)
--		scmi_protocol_device_unrequest(entry);
-+	if (id_table) {
-+		for (entry = id_table; entry->name[0]; entry++)
-+			scmi_protocol_device_unrequest(entry);
-+	}
-+
- }
- 
- static bool scmi_device_is_transport(const struct scmi_device *scmi_dev)
+Applied, thanks!
+
+[1/3] RDMA/srpt: Initialize commands before returning BUSY
+      https://git.kernel.org/rdma/rdma/c/fcce7700cc48e7
+[2/3] scsi: target: Clear all control read scatterlist entries
+      https://git.kernel.org/rdma/rdma/c/1ecb732b4524d3
+[3/3] RDMA/srpt: Prevent uninitialized read buffer disclosure
+      https://git.kernel.org/rdma/rdma/c/317128ea4f21c9
+
+Best regards,
 -- 
-2.34.1
+Leon Romanovsky <leon@kernel.org>
 
