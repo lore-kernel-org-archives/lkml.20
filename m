@@ -1,68 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845190;
-	b=NJOvO9j0vXPQciB+6piMqjI7dU/7mKq3vPDOzPNad0jFDvmRBzVNX176i9/JKFyoS4Xi
-	 kA25JqzQVeiYpXJ2WEjL4A+6O8slXD5I7ETRXG8nU7iGcsxPZf25ArafXmK4Iv9jYbWSa
-	 YUhrSbiG8IoBv7plZ/WKwtaKJljEuyohlSnAVjKapsWN84WjRNdG8ZkaE4fhmJNg7pk/X
-	 1kZEF7FkV80azf9f/VCz2FPCyaxq3wHN5od/WpU0cV9CW1tAXZUqYtwDEkKn2uGDgnSAu
-	 hZObw96i3Zh96+e1D0TCGm/rUFGuWRc/XcBHvLdrh6svkKpk4104ooD036Ih4McvuHw==
+	t=1794845212;
+	b=jS9hbACcfeqwztKqCBV7cyuUeLyU4S/VCMI4ZRr6yRwPGkHwGyL2bcreA7PV2/UCjvjY
+	 brScesLr6vHcn/9dAO92NezEko6b3LKIrcWkc0QV6gGf7NwdECF09XNdWkxIAr/OsoGKu
+	 /8PF/lM5ZLmbp7+OAjq1S+6V9RKQ76OvPEEj3FdACHeYCNMcd6DW1i0NfMDUp/cjiFTkb
+	 Q2hgtopS2uI8N4WSlYlzXj14t5A2o4q+33VsBRut0K9zcKSiGXsINXfSLYTrG3o26kIjF
+	 3Nf2jyAo5BaelAlf7Y0KKYoKVZT3lKVZearHk02mk7nsGht4g339EZc1h8RHb4NFe1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845190;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=KkPjuzoL5FbYvRRmju0PcrJ03uAzI07vEAWraSUh5PU=;
-	b=a+fz7zqLErjVHHCYjyxW2RYR0Whv17J5da+eHgJUHln5pA0FENpOqzh8td0qCJbz9fM6
-	 cDAK49jTHvZrcTF3i6tAHrFqlxEGp1DoSVBvhOZfMTXwl6tzycI0Ke1oPmxEj99nj3u/W
-	 7LuBDTX40XTET2ZGe+EIxZpiTVZC0X2C/VWQqMLrp+LrjgLU2R7PWwswruKPGvUH5rRTX
-	 q8aMMwYZmduF4/Lu6QyelzV+R57I383BPn8BJF+sItrJ7MByxChdvjnEyQM4I/Zv89TCj
-	 5N3QBpWDQmA5K6i4og8LRwXFmMJ/KIOnPV8KqbR/ULQmFRlvHbZ2cl79tKdO+9yKIRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845212;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/sMqsb3iNTMCRIUp97kCu/JOMgp6EIphZvrkAcwP2r0=;
+	b=0YM4rB7fg9EqA0Bk09eE7kRbWmmFi0oBOP/IUql80nkk7GZn0gCurshnTqz6sWa+Ou2V
+	 8zvh0fv/sAzc0X2I+iyiIxtbQ7C3/b0t8Ld34dkDdV8aUCrMcYoQil0cb5R4HnrZdvoCV
+	 0rDWzh3HXkUe0MEMT6zMICBeYBs5yUoIoS67wuaALWOS0lwWs4q1Z3iavhLMR0VA4K4kB
+	 8N/IrxT2SHpH79y0f9uC7LQvhRgJq4/ydPKIpPMQLHjfM/oDtAFNKbOVEH8HPoYx73mku
+	 T0K+4OUpC3MaQTw8RvGe4GcNuWICdkDu+NlwDzB4x8m35uM86OKxi0mLMlW+tl+75HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SZtO8pJh;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FKAEzz/9";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620AA606A31C;
-	Mon, 16 Nov 2026 16:06:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620AA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940D4606A31C;
+	Mon, 16 Nov 2026 16:06:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SZtO8pJh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794845190; x=1826381190;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Db9OHh0nkyuxQ9oXRsKOwiEZL3Lx5s1Vi/G1JI8chj0=;
-  b=SZtO8pJhtG9SVGUy7fFHeT5z3t9ey3+KZIqDkaYmFGKKXMnOwppKxm+/
-   Bgp+JOoaQs0WsNTM6KJ4lXuSaaOdXUq2R9YgtBeJaOc7i5futAHpfiMIj
-   5wibw68+gYUqHLZIlaIKdkNf02rySPk9GYKYVefzKGoIDcKsiMes+AmHU
-   zPZMUgbuPP3uCeJIK1XF7qB5VauV4n+uq3+qZeZ0JO5kR8sLFAD3xUWeq
-   CmoxQbH4I8zwDw/zA5wmjOjqgxvI850pHpdeOk0HHSqY6TZhBuYLp4S+b
-   GNsMEZHQFz3bBHD7M8j7WA4/nJ9ugZqJQ9XmcrvOCKDwJt6DslNwM0L3G
-   Q==;
-X-CSE-ConnectionGUID: +i/a4lXJQHG4y8JXbQQtwA==
-X-CSE-MsgGUID: 160xJzJnQg+TrW1TBArIqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3576266"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3576266"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:06:29 -0800
-X-CSE-ConnectionGUID: AfzR70nDQR+OMGXOrPQ3nw==
-X-CSE-MsgGUID: ti3VtIj+SwiLbX/gL4bSPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9751505"
-Received: from skuppusw-desk1.jf.intel.com (HELO [10.24.80.125]) ([10.24.80.125])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:06:28 -0800
-Message-ID: <9cb88cc0-f1f2-4c43-8a63-2698164da76b@linux.intel.com>
-Date: Mon, 16 Nov 2026 08:06:27 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKAEzz/9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65CB41F000C4;
+	Mon, 16 Nov 2026 16:06:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794845212;
+	bh=/sMqsb3iNTMCRIUp97kCu/JOMgp6EIphZvrkAcwP2r0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FKAEzz/9V6kR2oIuNxqWFMofssH54hENZXdEImDXAvz6lI9HpLiHIOFwXCFFoexeT
+	 wBa4GKdIxoZ5Htwy3CTvSUH8/b7CBdpxss0+pLB4m9hZr0zRYzg6W9OTqMojyNADeU
+	 R1GXtBnBS2DyeS+zXw9kqxevmSLYOZdVpR/90w5FDfSgAGk+61YRWPTec4TUeCgFI5
+	 rFL9Q+OD7K5aZeyj+uAXGUeMpCezuSK/ToiMAWz9te/ccq9icOqpLbZo+b2A3k8A5S
+	 7LChXQOgDIB6ETd0uqXkRMIpLlTOZp0TnioDBbK05BIfiHnyxr5vfNqyZXz8A3jRm2
+	 ywEcogbap1xZQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Petr Vaganov <petrvaganoff@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
+	Andrew Kanner <andrew.kanner@gmail.com>,
+	selinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5.15] selinux: prevent KMSAN warning in selinux_inet_conn_request()
+Date: Mon, 16 Nov 2026 11:06:41 -0500
+Message-ID: <2026-11-16-1-daily-reply-0006@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116105333.89809-1-petrvaganoff@gmail.com>
+References: <20261116105333.89809-1-petrvaganoff@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,58 +65,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] PCI/PME: Resume Catlow Lake Root Ports on PME with PME
- Status clear
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103193136.2410148-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <avrouGIdiXIxE_5Y@wunner.de>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <avrouGIdiXIxE_5Y@wunner.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+> commit 1df83cbf23a27174aee6ea5e52462f03f7e48a10 upstream.
 
-On 11/16/26 03:27, Lukas Wunner wrote:
-> On Tue, Nov 03, 2026 at 11:31:36AM -0800, Kuppuswamy Sathyanarayanan wrote:
->> Intel Catlow Lake PCH Root Ports do not set PME Status in the Root
->> Status register when they generate a PME for their own hotplug event.
->> The PME interrupt itself is delivered.  PMEs from devices below the Root
->> Port are reported correctly.
-> 
-> Reading the commit message, I'm wondering whether PME_Status in the
-> Root Port's Power Management Control/Status Register is set?
-
-No.  PME Status is set in neither Root Status nor PMCSR. 
-
-> 
-> If it is, an alternative approach to quirking a set of Device IDs
-> would be to auto-detect affected Root Ports, basically by using
-> the logic OR of PCI_EXP_RTSTA_PME and PCI_PM_CTRL_PME_STATUS.
-> 
-> Sorry for not thinking about this earlier!
-> 
-> Otherwise I like this patch and I like how you managed to keep it
-> unintrusive.
-
-Thanks.  Can I add your Reviewed-by?
-
-
-> 
-> Thanks,
-> 
-> Lukas
+Queued for 5.15, thanks.
 
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
-
+Thanks,
+Sasha
