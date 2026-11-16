@@ -1,79 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794872591;
-	b=VfJL1syiwRi9yW07te9h7ab21H2mYfCtV5V8a9QyvFEGPBWrxBMk7qVo8Y1MhUS+iHuh
-	 17NQN7XwQuxe613aEr7dr2mjmUoMZpICzfkK3gWQah/tChQmdSOV69lYnQtPZF/ahArb7
-	 zpMFjzGRLi7hqWzwaHUKQAxC6ZCPJ8SL9MHeWLrSNnD5BwRzyzYubHqTKIJqUUtBVbQqY
-	 wDI7A+5Ub9vMPl6mtqScsh3FDRG6BCK/0jTJMnWHUY29NjZIfNKzjpiF2Js4+zcaYxKqI
-	 PeK9YbMPBn2hWBujUJu0yDG6exsvA7zNV76mguRAk5GwmB93vZlaI9HyBdCNWGzDHbA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872591;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=90J7NfY2utkKUmptN6ZK3A2BwSBVX+JEiTL57egocE4=;
-	b=UunPeoBPaJy7CKkh92dOmeiPn0yh+qfXY+cLZdX3A7vG1qTHbR5zQgXuiLZUbXlriUmr
-	 hf1C7p565bhm6DfcNIMfy4Bm9xeBs5mXTCb7zBnp5jlQUC7grEV6HP04fCChURsr6gn0U
-	 DTUwXCbuqWMjOzOt/MqdiN34JhEFURjnBlzvWVyYVdms4BmHFsvziCZYMzUC21TZ0K2T+
-	 2pis3NiyG3AoSXbkFJf6scIy8eU8no7bmEe0hAiU+2oi/AsyRDF3hb7OjoBMP2yZQFhod
-	 k7MXpI82v28iecESjP8vkHSGmOZjB9n/Lqm6i/Gw28ZVK2qo4EAp6tDmPDrdyW6fXog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuac3FNc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C4A606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuac3FNc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794872591;
-	b=3EXYEP/VHtgbs6cfQQvYLUDgup7DRQprd1NBJqdjFh2rnao/Xy2PHBvSsiJgKe9mcP97
-	 CyhYoJukPfkzT+SqP4TdxkjBy09tjneCPJFasdUTcnxDrSVlX/CXPfuyap2H3akfEWTNJ
-	 QcfrEXvFxkkPbnPnkKuCKCZiU2s5UmXoROtdObiQpjAdbUb+fztrSRT1+x1KVQjHWO00f
-	 ihhuGnsjAopICsnkLc/Iefqggd3AfXtipObBmRUzrOxFi9oueKTslue+yeDAb+LF5NJ9P
-	 A/GZkUa8kfyiBz9bcSl0cQpogYPjTUfohBL1LmLCHIE3iE5JifgQPYk2BYQ6YmJ2Lhw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794872591;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=90J7NfY2utkKUmptN6ZK3A2BwSBVX+JEiTL57egocE4=;
-	b=ASXDsbgtGfa1nOkIdLZ9Mmw0T1z8J42puNaWLjw1UL2FiVWQQ8v+sTP1y/4Z0obURzsu
-	 mS2+317eYbSbGMs6tqnC3q9Fny0YISsibF9tBkUPuEaBXVZTOfOzF3GF9YPnaNTX5MaLt
-	 hg+UlaLBHzX+NBhakipBiEBXqcPJuXKKybP1gz1zM75gnMVCTShwky37Upx5snX3det/L
-	 p1NXKpowOW4okIkuuWxJBsu83cRUBjXjke1ocQhk8QcYig9oUa7VuK/O3In5UVUZ38cCm
-	 dJPStmTLTqICvUkI35rB7pZ8FWPGMc1MWnUvWrQ8Gji8mpu5tBmQgTCP/fE6pyjWO4Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794872747;
+	b=faztx2AbnKKgZeTewJlFFZ0ncK01IMuTyB4ZR3nRPcP6uoUZ4ZbnCbzNUNKx9gw6PR6o
+	 +PkDRwLbzZBI3aDVjbX5HGkLgONGdawzwdb4JhgGsJO99OjfTuT8DdoL6zIu35l0ED6De
+	 vXuDYqOunxgLTtvK6saP3wMnNTaXYM1TjL3LuZGZH4FtxH4j+XleGtWVgh7Y11RsUMmmR
+	 +Qr+chQm6/Zo0o4vGQanZgWiFdw7HkXUzh+kfKuiWybgHAdm0LEauti3FDHPJ21NtajK3
+	 yYixU6g9B5oYHfb7K/7o04ixpZ4M5cvGGHPQgjRfyJpErFiuZELBpTG76AYYY3tCAPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872747;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8io0HU9dwDVPEIPqWjgCxaStVmef8ZQiuaFzcnNz1Oc=;
+	b=cggBV6h3RHraicrtbDt08eH1osHrktHjg2b9w18SAhYrjyiIeOrG3r1MMHddfQiVyiz0
+	 dEkJ/RWKPjcxvKrg2ZAcXlUGCbnJowmBiynLqjJ0QDU3Gpx0zSdeIXPCpAjZ4ofpytUb/
+	 jiFyp8SDK6Dn1WQdpcJ5Wfyq4TJW9VNkT0/2xdDwRd3aNlZtM4Lv+4OzKtkcT7KkMMaBD
+	 6MRvOPDeA+aqWqTpfMCfHqtCrQkad69JEgyAuSVboxNuOEGiI5EG0PpKytlEI4BGB+WJL
+	 1cYYUFJRDTEcX7cO0ljzmqXsZh5kVcunsTofW6m5DqYFHVU1ZvrAfYXvrFlVYQ4Jhbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ip1z9ERb;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C5F061F000C4;
-	Mon, 16 Nov 2026 23:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794872591;
-	bh=90J7NfY2utkKUmptN6ZK3A2BwSBVX+JEiTL57egocE4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=cuac3FNcQyI77ZfxSz/79kJ7LlBzaJuEuwPGmVgTm8s62G5DniyvYJgMk4ywfJBCU
-	 hZ9K35l/qo7S5sElnwlx87r7/dW/BY/vYPJRAxfcTNmoxgZdOOfa2BXTql1D4EKzKS
-	 K9jaWdfgF2o3enAST3FvmNdPgHrK+S00kVqHLVprRPrEAClNVH6vCpYllLnNH7KcPO
-	 KXfaHyt8bQZdI7vJODEjOBnCdPOmcu+iSHsW2D+qv/J7tlndZvPH3YYyPwWmrqwoVu
-	 mMsuYS0eNWkijxKD6/YDSthm8IJeLbH8BUK9j9ZYBXQkhgc2yJXvriX2RA8IocNkuv
-	 5REg816NgFl7Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 537F04A62C;
-	Mon, 16 Nov 2026 23:43:10 +0000 (UTC)
-From: Brad Fitzpatrick via B4 Relay <devnull+bradfitz.tailscale.com@kernel.org>
-Date: Mon, 16 Nov 2026 23:43:10 +0000
-Subject: [PATCH] um: time-travel: don't use uninitialized fds from START
- ACK
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C60B606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:45:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C60B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ip1z9ERb
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36f6295304dso3443537eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:45:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794872745; x=1795477545; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8io0HU9dwDVPEIPqWjgCxaStVmef8ZQiuaFzcnNz1Oc=;
+        b=Ip1z9ERbiw445ZGeShkNE2OUQ1TNOHGfng7tNNn3ghEYmi35U1RI19iRZyjblfWPEb
+         5bHFtiYcmTfwUYHlShMYbTVuPfBcmpMP6E4ICbCyl6GBrrxp+TTWNKFnWlrit22K+Wq+
+         DksmUHal7X2TpA2EVyh9uiQShDyJvr0XmM3rTgiYm4lV3oBY0tTnXunQHbU3dLXOQg8m
+         FTOZKoRaOFmXJ4StDq/qYp9HPXitU1OZVYAzjnv9NJrBByIfJnDnDR0ehhoKzsKjhEeb
+         YE08nV1+1yJd2Na50yzZq4Tu3UxmzZOQG4tf+q8oZuUEti9DeeDE73xVnzuwv0BMUOwv
+         Lsvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794872745; x=1795477545;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8io0HU9dwDVPEIPqWjgCxaStVmef8ZQiuaFzcnNz1Oc=;
+        b=p+vLXqLlYrKfQXQV4euVP9MDwAjAGwWjxTL8w+aT1fbNxX/EleindFiWI3qqzuIrbX
+         LHMyKI8y/v407vxcTciZOmf9Fj84EIDAJbC1YUP6m4N6L6zY4r1SMkToIchihTigbedH
+         q0RL9Ujs+tIpDSPUznz3/yMF1xlWSsAq42+MA6rjG1Uap6RggsTGXPDi2p6K391gjYR8
+         Bvy50gxJ0Z2NW5IQNd0Nwc/Dwci7dHi0VdZec2B2WgsLyYchVZrOLx6LCd6PtUuaBGR8
+         JNVB0EukLMH5e51OzofySHkZADwJ11QF6FdBg4Q/Rzi3zkfEm3CG5qtpmboetNFmDerG
+         xH2g==
+X-Forwarded-Encrypted: i=1; AL+hErGO2j0zskbtzEc/SQgLPvgxItvUzdPMEnPHsvlQffMgcdyVnKdTsJjlGmPZupbSKSK5xn3ftWfHOLTe7Qc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wjVsUNc77K8tr+rhlIfEf31RgbqsU8JKQjIvC2CMEhmdk/s6n
+	bbfd94f7HuNo3zSBfoSJ+TiEQtAnJyowcVG86YcoUPyFmNqpU/8zEmYZ
+X-Gm-Gg: AZFdTZeTcdPrU6c9BzOC/vwGSxHihhmqWD2b070VSVLtyEG/9jxbvRYw6LUrpNNp1Fo
+	a+OYs79YJSHK1ry4/DI017mRhajOxeViW7NOEeKe6wwQCjCxBWkC+4eA2//pcQsjAs4L+iHZ5Vm
+	l/Y1o6RaYVAIZeKeEt52UQDtCSHXxCXz2eB2cjfJoxFSsmxHVZdteoxm+4RJ1VBHdk3zM4UoKZr
+	+6NS+Id5tSAUqM4moI9bvwGbpqw+oEtKgNEX9CsU9CBauY4HRmmw2yL55t1aQrHI76KRxY9V1gT
+	EE4/QwLuVD5ZzE1UhQHmKF7u/zSNLbqVXTBvItGlu/jiEnJt5/1Y0UFuW0E+eYwhMmHTdUX+KaZ
+	Mni6XJgzPMUSwQEId0f652svi6J5ZTIOiCb0jrYe45Zw5hqgHDh/ZhV974D8toayALXpTciLogs
+	ZG2A9Sa29J5/EupJIyv6HmQOJoAkwQFmQiP/EvPX4df0Qoh/1yHWfN864FHrhuO4GvfwQorfznw
+	tImZgX/1K6FHoPpDzebrW872WZp59+0r09PwaZZvrqa4mJh6MgkqMVvBrIDkkCVfPOywSe+l0aC
+	lAjpeQA0ftPoCNqN74TLWdCco9zrFMheB+iFBEG9fF6e0/EtN2oiGbg=
+X-Received: by 2002:a05:693c:60d0:b0:36d:9900:bb92 with SMTP id 5a478bee46e88-37965ca8056mr12098927eec.10.1794872745408;
+        Mon, 16 Nov 2026 15:45:45 -0800 (PST)
+Received: from localhost ([115.99.200.166])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm36175581eec.22.2026.11.16.15.45.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 15:45:44 -0800 (PST)
+Date: Tue, 17 Nov 2026 05:15:41 +0530
+From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
+Subject: Re: [RFC PATCH 1/5] cxl/mbox: Add Get Poison List snapshot support
+Message-ID: <avuVpZx_6dkch9c2@acer-nitro-anv15-41>
+References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+ <20261010162017.62506-2-shaikhkamal2012@gmail.com>
+ <20261016231827.074e0326@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,111 +113,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-bradfitz-um-tt-start-ack-fds-v1-1-c98901dfba85@tailscale.com>
-X-B4-Tracking: v=1; b=H4sIAA2V+2oC/yXMSwrCMBAA0KuUWTuQFIzRq4iLfCY6ilUy0yItv
- XujLt/mLSBUmQRO3QKVJhZ+DQ1210G6heFKyLkZetM7a63DWEMurDOOT1RF0VAVQ3pgyYLROxM
- O/uj3JkMr3pUKf379+fK3jPFOSb8nrOsGKAwxxYAAAAA=
-X-Change-ID: 20261116-bradfitz-um-tt-start-ack-fds-b860a789850d
-To: Richard Weinberger <richard@nod.at>, 
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Mordechay Goodstein <mordechay.goodstein@intel.com>
-Cc: linux-um@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Brad Fitzpatrick <bradfitz@tailscale.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794872590; l=3107;
- i=bradfitz@tailscale.com; s=20261011; h=from:subject:message-id;
- bh=svJ5VLX3SY7Jwr6l6XQ1OWwW8bhiwm/+jQGOHWzz8T0=;
- b=IOkJl5/z0TBUNrib7G4B/VeY4RTdfS4W6M/93O6qhhvWvl0no+N7OU0egfkK5LnBL2JdBbfBE
- 4/KxOKojlN/Dz9GzqVCiDuFx7wEyva2Tm4jpJMDzkO/BdC0/LOYQcNx
-X-Developer-Key: i=bradfitz@tailscale.com; a=ed25519;
- pk=RL25YdOUenVJzQaiZDrw/Aqu9ZEwUQBon30yMHGsIKY=
-X-Endpoint-Received: by B4 Relay for bradfitz@tailscale.com/20261011 with
- auth_id=1152
-X-Original-From: Brad Fitzpatrick <bradfitz@tailscale.com>
-Reply-To: bradfitz@tailscale.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016231827.074e0326@jic23-hlaptop>
 
-From: Brad Fitzpatrick <bradfitz@tailscale.com>
+On Fri, Oct 16, 2026 at 11:18:27PM +0100, Jonathan Cameron wrote:
+> On Sat, 10 Oct 2026 21:50:09 +0530
+> Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
+> 
+> > cxl_mem_get_poison() uses a device-owned output buffer for each Get
+> > Poison List response. It traces the records before issuing the next
+> > command, which overwrites that buffer when the device sets the More
+> > Media Error Records flag. A caller therefore cannot inspect the complete
+> > set of collected records after the function returns.
+> > 
+> > Add a caller-owned snapshot and copy each validated mailbox response
+> > into it. Preserve device overflow and scan-in-progress status, and
+> > indicate when the host stops collection before retrieving all available
+> > records.
+> > 
+> > Keep cxl_mem_get_poison() as the existing trace-only wrapper so its
+> > current callers, including trigger_poison_list, retain their behavior.
+> > 
+> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> > ---
+> >  drivers/cxl/core/mbox.c | 137 ++++++++++++++++++++++++++++++++++++++--
+> >  drivers/cxl/cxlmem.h    |  25 ++++++++
+> >  2 files changed, 156 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+> > index 55828a836c01..2752b46ffee2 100644
+> > --- a/drivers/cxl/core/mbox.c
+> > +++ b/drivers/cxl/core/mbox.c
+> > @@ -1376,14 +1376,91 @@ int cxl_set_timestamp(struct cxl_memdev_state *mds)
+> >  }
+> >  EXPORT_SYMBOL_NS_GPL(cxl_set_timestamp, "CXL");
+> >  
+> > -int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
+> > -		       struct cxl_region *cxlr)
+> > +int cxl_poison_snapshot_init(struct cxl_memdev *cxlmd,
+> > +			     struct cxl_poison_snapshot *snapshot)
+> > +{
+> > +	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlmd->cxlds);
+> > +	u32 capacity = mds->poison.max_errors;
+> > +
 
-When the kernel connects to an external time-travel controller, it
-expects the ACK of its UM_TIMETRAVEL_START message to carry two file
-descriptors: the shared memory area and a log file. It reads them with
-os_rcv_fd_msg() into an uninitialized on-stack array, and then uses
-both array elements whenever the message itself was received in full.
+Hi Jonathan,
 
-os_rcv_fd_msg() leaves the array untouched if the message came without
-an SCM_RIGHTS control message. That is what any controller that does
-not implement the shared memory extension sends, which the protocol
-allows: such controllers are why the kernel falls back to message
-based scheduling. In that case the kernel passes stack garbage to
-mmap() and then close()s both values.
+Thanks for review, and sorry for the late reply.
 
-With CONFIG_INIT_STACK_ALL_ZERO, the default where the compiler
-supports it, the garbage is 0, so the kernel closes its own stdin. The
-next file descriptor it opens, the epoll instance used for IRQs, then
-becomes fd 0:
+> > +	if (!snapshot)
+> 
+> That seems like a buggy use of the interface, so not sure we need
+> that defence.
+> 
 
-  $ ls -l /proc/$(pidof linux)/fd
-  0 -> anon_inode:[eventpoll]
-  1 -> /tmp/uml.log
-  2 -> /tmp/uml.log
-  3 -> /dev/shm/#200843
-  4 -> socket:[216518625]
+Agreed, I will drop it.
 
-Without stack initialization the kernel may instead close, or map as
-the scheduling area, any file descriptor at all.
+> > +		return -EINVAL;
+> > +	memset(snapshot, 0, sizeof(*snapshot));
+> > +
+> > +	if (!test_bit(CXL_POISON_ENABLED_LIST, mds->poison.enabled_cmds))
+> > +		return -EOPNOTSUPP;
+> > +
+> > +	if (!capacity)
+> > +		return -EPROTO;
+> > +
+> > +	snapshot->records = kvmalloc_array(mds->poison.max_errors,
+> > +					   sizeof(*snapshot->records),
+> > +					   GFP_KERNEL);
+> 
+> kvmalloc_objs()?
+>
 
-Initialize the array to -1 and only use the descriptors that were
-actually received. With the fix, fd 0 stays what it was and the epoll
-instance gets the next free number.
+Yes, will switch.
 
-Fixes: bfb80d8bc92f ("um: add shared memory optimisation for time-travel=ext")
-Signed-off-by: Brad Fitzpatrick <bradfitz@tailscale.com>
----
- arch/um/kernel/time.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+> > +	if (!snapshot->records)
+> > +		return -ENOMEM;
+> > +
+> > +	snapshot->capacity = capacity;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +void cxl_poison_snapshot_destroy(struct cxl_poison_snapshot *snapshot)
+> > +{
+> > +	if (!snapshot)
+> > +		return;
+> > +
+> > +	kvfree(snapshot->records);
+> > +	memset(snapshot, 0, sizeof(*snapshot));
+> > +}
+> > +
+> > +static int cxl_poison_snapshot_append(struct cxl_poison_snapshot *snapshot,
+> > +				      struct cxl_poison_record *records,
+> > +				      u32 count)
+> > +{
+> > +	u32 available;
+> > +
+> > +	/*
+> > +	 * Existing cxl_mem_get_poison() callers request tracing only and
+> > +	 * pass no snapshot.
+> > +	 */
+> > +
+> > +	if (!snapshot)
+> > +		return 0;
+> > +
+> > +	if (!snapshot->records)
+> > +		return -EINVAL;
+> > +
+> > +	if (snapshot->nr_records > snapshot->capacity)
+> > +		return -EOVERFLOW;
+> > +
+> > +	if (!count)
+> > +		return 0;
+> > +
+> > +	if (!records)
+> > +		return -EINVAL;
+> > +
+> > +	available = snapshot->capacity - snapshot->nr_records;
+> > +	if (count > available) {
+> > +		snapshot->truncated = true;
+> > +		return -ENOSPC;
+> > +	}
+> > +
+> > +	memcpy(&snapshot->records[snapshot->nr_records], records,
+> > +	       count * sizeof(*records));
+> > +	snapshot->nr_records += count;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int cxl_mem_get_poison_common(struct cxl_memdev *cxlmd, u64 offset,
+> > +				     u64 len, struct cxl_region *cxlr,
+> > +				     struct cxl_poison_snapshot *snapshot)
+> >  {
+> >  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlmd->cxlds);
+> >  	struct cxl_mailbox *cxl_mbox = &cxlmd->cxlds->cxl_mbox;
+> >  	struct cxl_mbox_poison_out *po;
+> >  	struct cxl_mbox_poison_in pi;
+> > -	int nr_records = 0;
+> > +	u32 nr_records = 0;
+> > +	u32 count;
+> >  	int rc;
+> >  
+> >  	ACQUIRE(mutex_intr, lock)(&mds->poison.mutex);
+> > @@ -1408,29 +1485,77 @@ int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
+> >  		if (rc)
+> >  			break;
+> >  
+> > -		if (!le16_to_cpu(po->count)) {
+> > +		count = le16_to_cpu(po->count);
+> > +		if (!count) {
+> >  			dev_dbg(&cxlmd->dev, "Poison empty payload!\n");
+> > +
+> > +			if (po->flags & CXL_POISON_FLAG_MORE) {
+> > +				if (snapshot)
+> > +					snapshot->truncated = true;
+> 
+> Count of zero and yet more? How would that happen? This smells like
+> a hardware bug.  Maybe we defend against it, but that's a separate
+> question from the rest of this patch.
+>
 
-diff --git a/arch/um/kernel/time.c b/arch/um/kernel/time.c
-index d620b6d6310a5..bcb141b419722 100644
---- a/arch/um/kernel/time.c
-+++ b/arch/um/kernel/time.c
-@@ -141,15 +141,23 @@ static void time_travel_handle_message(struct um_timetravel_msg *msg,
- 	}
- 
- 	if (unlikely(mode == TTMH_READ_START_ACK)) {
--		int fd[UM_TIMETRAVEL_SHARED_MAX_FDS];
-+		int fd[UM_TIMETRAVEL_SHARED_MAX_FDS] = {
-+			[0 ... UM_TIMETRAVEL_SHARED_MAX_FDS - 1] = -1,
-+		};
- 
- 		ret = os_rcv_fd_msg(time_travel_ext_fd, fd,
- 				    ARRAY_SIZE(fd), msg, sizeof(*msg));
- 		if (ret == sizeof(*msg)) {
--			time_travel_setup_shm(fd[UM_TIMETRAVEL_SHARED_MEMFD],
--					      msg->time & UM_TIMETRAVEL_START_ACK_ID);
-+			/*
-+			 * A controller without shared memory support
-+			 * sends no file descriptors with its ACK.
-+			 */
-+			if (fd[UM_TIMETRAVEL_SHARED_MEMFD] >= 0)
-+				time_travel_setup_shm(fd[UM_TIMETRAVEL_SHARED_MEMFD],
-+						      msg->time & UM_TIMETRAVEL_START_ACK_ID);
- 			/* we don't use the logging for now */
--			os_close_file(fd[UM_TIMETRAVEL_SHARED_LOGFD]);
-+			if (fd[UM_TIMETRAVEL_SHARED_LOGFD] >= 0)
-+				os_close_file(fd[UM_TIMETRAVEL_SHARED_LOGFD]);
- 		}
- 	} else {
- 		ret = os_read_file(time_travel_ext_fd, msg, sizeof(*msg));
+Agreed, it would be a device bug. I would still like to handle it: the
+current code breaks out and returns 0 on an empty payload even with More
+set, so the snapshot's caller can't tell the list was cut short, and
+region probe would online the memory on the partial list.
 
----
-base-commit: 7ea2308ccebce754fd1ac6295f26983a6878045d
-change-id: 20261116-bradfitz-um-tt-start-ack-fds-b860a789850d
+I will take it out this series and send it as a separate patch, so this
+only adds the snapshot.
 
-Best regards,
---  
-Brad Fitzpatrick <bradfitz@tailscale.com>
+> > +				rc = -EPROTO;
+> > +			}
+> > +
+> > +			break;
+> > +		}
+> > +
+> > +		if (struct_size(po, record, count) > mbox_cmd.size_out) {
+> > +			dev_err(&cxlmd->dev,
+> > +				"invalid poison record count: %u\n", count);
+> 
+> Also looks like broken hardware. I don't necessarily mind that sort
+> of defense, but not in a patch doing anything else.
+>
+
+Same, it guards against a count larger than the returned payload, I will
+move it into that patch as well.
+
+> > +			rc = -EPROTO;
+> >  			break;
+> >  		}
+> >  
+> > -		for (int i = 0; i < le16_to_cpu(po->count); i++)
+> > +		for (u32 i = 0; i < count; i++)
+> >  			trace_cxl_poison(cxlmd, cxlr, &po->record[i],
+> >  					 po->flags, po->overflow_ts,
+> >  					 CXL_POISON_TRACE_LIST);
+> >  
+> > +		if (snapshot && (po->flags & CXL_POISON_FLAG_OVERFLOW)) {
+> > +			snapshot->device_flags |= CXL_POISON_FLAG_OVERFLOW;
+> > +			snapshot->overflow_ts = le64_to_cpu(po->overflow_ts);
+> > +		}
+> 
+> I'm curious. What use is the overflow_ts in your scheme?  Lets keep things
+> minimal unless there is a reason to add data to the snapshot.
+>
+
+None, as it turns out. Only the overflow flag is used, to fail the probe
+when the list is incomplete. I will drop overflow_ts.
+
+> > +
+> > +		if (snapshot && (po->flags & CXL_POISON_FLAG_SCANNING))
+> > +			snapshot->device_flags |= CXL_POISON_FLAG_SCANNING;
+> > +
+> > +		rc = cxl_poison_snapshot_append(snapshot, po->record, count);
+> > +		if (rc)
+> > +			break;
+> > +
+> >  		/* Protect against an uncleared _FLAG_MORE */
+> > -		nr_records = nr_records + le16_to_cpu(po->count);
+> > +		nr_records += count;
+> >  		if (nr_records >= mds->poison.max_errors) {
+> >  			dev_dbg(&cxlmd->dev, "Max Error Records reached: %d\n",
+> >  				nr_records);
+> > +			if (snapshot && (po->flags & CXL_POISON_FLAG_MORE))
+> > +				snapshot->truncated = true;
+> > +
+> >  			break;
+> >  		}
+> >  	} while (po->flags & CXL_POISON_FLAG_MORE);
+> >  
+> >  	return rc;
+> >  }
+> > +
+> > +int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
+> > +		       struct cxl_region *cxlr)
+> > +{
+> > +	return cxl_mem_get_poison_common(cxlmd, offset, len, cxlr, NULL);
+> > +}
+> >  EXPORT_SYMBOL_NS_GPL(cxl_mem_get_poison, "CXL");
+> >  
+> > +int cxl_mem_get_poison_snapshot(struct cxl_memdev *cxlmd, u64 offset, u64 len,
+> > +				struct cxl_region *cxlr,
+> > +				struct cxl_poison_snapshot *snapshot)
+> > +{
+> > +	if (!snapshot || !snapshot->records || !snapshot->capacity)
+> > +		return -EINVAL;
+> > +
+> > +	if (snapshot->nr_records > snapshot->capacity)
+> > +		return -EOVERFLOW;
+> > +
+> > +	return cxl_mem_get_poison_common(cxlmd, offset, len, cxlr, snapshot);
+> > +}
+> 
+> Blank line here
+>
+
+Will fix.
+
+> >  static void free_poison_buf(void *buf)
+> >  {
+> >  	kvfree(buf);
+> > diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+> > index c401e3a1af06..1d6f8d958bd2 100644
+> > --- a/drivers/cxl/cxlmem.h
+> > +++ b/drivers/cxl/cxlmem.h
+> > @@ -812,6 +812,31 @@ int cxl_set_timestamp(struct cxl_memdev_state *mds);
+> >  int cxl_poison_state_init(struct cxl_memdev_state *mds);
+> >  int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
+> >  		       struct cxl_region *cxlr);
+> > +
+> > +/**
+> > + * struct cxl_poison_snapshot - Aggregate Get Poison List result
+> > + * @records: Copied Media Error Records from all mailbox responses
+> > + * @nr_records: Number of valid records stored in @records
+> > + * @capacity: Maximum number of records that @records can hold
+> > + * @overflow_ts: Timestamp associated with a reported device overflow
+> > + * @device_flags: Persistent device status observed during collection
+> > + * @truncated: Host stopped before collecting all available records
+> > + */
+> > +struct cxl_poison_snapshot {
+> > +	struct cxl_poison_record *records;
+> 
+> __counted_by_ptr() seems likely to apply here.
+> 
+
+Yes. I will use __counted_by_ptr(capacity), since capacity is allocated
+size and nr_records only says how much of it is filled.
+
+> > +	u32 nr_records;
+> > +	u32 capacity;
+> > +	u64 overflow_ts;
+> 
+> As above. I'd like to ensure this only stashes what we actually need.
+>
+
+Will drop, as above.
 
 
+Thanks,
+Shaikh Kamal
+
+> > +	u8 device_flags;
+> > +	bool truncated;
+> > +};
+> > +
+> > +int cxl_poison_snapshot_init(struct cxl_memdev *cxlmd,
+> > +			     struct cxl_poison_snapshot *snapshot);
+> > +void cxl_poison_snapshot_destroy(struct cxl_poison_snapshot *snapshot);
+> > +int cxl_mem_get_poison_snapshot(struct cxl_memdev *cxlmd, u64 offset, u64 len,
+> > +				struct cxl_region *cxlr,
+> > +				struct cxl_poison_snapshot *snapshot);
+> >  int cxl_trigger_poison_list(struct cxl_memdev *cxlmd);
+> >  int cxl_inject_poison(struct cxl_memdev *cxlmd, u64 dpa);
+> >  int cxl_clear_poison(struct cxl_memdev *cxlmd, u64 dpa);
+> 
