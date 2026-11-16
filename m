@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.232.247.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821032;
-	b=Uz3ZoAkNwkjPmZLozOyuiyOPomslVE8H0Enp5GQnj8MGwzAqwxLP90YtslIfBJWBgBjg
-	 5YQ5DzAtqnnd+F1pSLU0TCDFJ0aWDfP+80aSC30EHxldzxCaMuPnwnF4151NkNHZGG44U
-	 eYGdBaMYCJiBdDYAQeE3Aba2Oj3LKgvytoZD7X6AraVJheMBKpm3fimrIYUIgWrOvY5GY
-	 7x/6bXz48BD96KcYVJratueyzJv4fUQ55NFrt5S4D8dy0+B4SFvBnReG2D5WcuI7iylDR
-	 UXf2xzMfKzTJLUOBe4NwxtRsB+vqSij/tQdriVdYMd5Vggb8UdRRByBHJqiyNbmD6aA==
+	t=1794821054;
+	b=BgQupOzGjBrHNjPbw4W8ymsUxHRuvMKfw/DKmXWGH+Pv/QZUAZQhIb3OqCdl0gv9Q7oh
+	 Y0pLsVUv6yyaUxDLeTiBiQqidDupinoo+PSU4KirlxxlMY5TVmqIBVofMUa/EIn9gIcCX
+	 Y/0fXrkxP2U7ZV0Kj7py/Oi6/wU+jcrG0HRolvyuiJr9pRwXrHWyv7i1Z3eBrND4vYSWY
+	 BjxPSn8rdLMewT1xhTMWdi5rDkYMccj6ZXtjFdJ6P0IbyXv1c6FXVGNivz/ZjRyzy5REp
+	 TyTGezU9M8Anx/oYobWQGtqRvAq3XQUnMoRnZl6Z4QBCjh24XLJqBqmIzDjEVGn6OzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821032;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=6JF4UOJMPZGFw1tD8cF7gQzIg19LtWWgj1ffpuYUt0g=;
-	b=aOjJ4ocYanzasH/8RzqDk1ZUu3YmI26OBwhzViROsRPouwd66/nGSSRr7hjFqHG6l3SW
-	 f1WH+Gc9uHN6cjeTUn+ObeaUstNUEUIYvxgb2/+eX0DFdC0WgL2riCmC754RFHOCBisRM
-	 +yJCEirJ03vXRdljm3bH3ws3iumUXZln9qZFvjr4veDZgzeCFcf2qLG6AQI2ysK45jov5
-	 tCid6CeVzQCqUl5FYA33gH8jmMPTokF0QTYkUCe/vc+GbWKFPcR9nppm0VZbjEWb8NK/e
-	 v9HQqSucIxb9qgzMfCcjGMzbYeMMOitNBnEGrkElCjLhSgBfVYKXGwpkqtRPzGKglOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821054;
+	h=DMARC-Filter:Received:Received:Received:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:CC:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Originating-IP:
+	 X-ClientProxiedBy:X-FEAS-BEC-Info:X-FEAS-Client-IP:
+	 X-FE-Last-Public-Client-IP:X-FE-Policy-ID:X-FE-Hostname:
+	 DKIM-Signature;
+	bh=8wobkCk6U4WcewhXYiKu2e+Z8/2mRL6oNYJhqRpXCm0=;
+	b=gJmVyDCgYmwl2KdeEmSrqdq6SvP9odPfximc49sCqtMqOwKqi8eTTbprQj7uOOp+6xf1
+	 J/N8+AVg9PWjelFDLVV1yWfywLFU4WDDArDpF8N779g6E5xfZhA2kmpmqzQnpwpc29nsc
+	 5CN79mGp7035ZfVGsUFQpgq5mGXLW6v4LQhjtHGq43qITav2N1NxUoaHHLMXHNOIZVzuf
+	 iDg4BtZma8MKfQd2bQxmfSfWzbG7Bie2Xy9FKNczAJOp/j12EF2/jXLgTDFAW1vbDJjs6
+	 TSpzpviEZ6GmKIIngVkI+G3OnYoX4FImBmjZfRf2hLgFjohSrhUUcGf3a6qmKSd1s3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=vOONwTR4;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dmarc=pass header.from=utu.fi;
+	spf=pass smtp.mailfrom=utu.fi;
+	dkim=pass header.d=utu.fi header.i=@utu.fi header.a=rsa-sha256 header.s=out-utu-v3 header.b=fNqdFX9b;
+	arc=none smtp.remote-ip=130.232.247.4
+Received: from fortymile.utu.fi (fortymile.utu.fi [130.232.247.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F29606A32A;
-	Mon, 16 Nov 2026 09:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14F29606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3F7606A329;
+	Mon, 16 Nov 2026 09:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C3F7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utu.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utu.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=vOONwTR4
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jSj8z4Zx4zKnCY;
-	Mon, 16 Nov 2026 10:23:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794821027;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6JF4UOJMPZGFw1tD8cF7gQzIg19LtWWgj1ffpuYUt0g=;
-	b=vOONwTR4nIilD3gyoBNXuBYvhgcVSk6snE3qR5waIgJhzzVyXNfkaCafrdPgJPNLKOpKwW
-	/rL1iIjuGpUjiLpgEWgZC7t8mnWS9bo2N3VEGzdsHnQ9pa3QbWvN8NPefMp3pwQ7opcETe
-	NNd1SIjDED5zI4wH/C1BUQ1O7if4EJCyIYwuxXIdwp8uKMoOfdCTsvk194rgOq6mM9QTvb
-	5Ifg79w8qEBEZGodjy6wAbVo0dX6RLqKJFlQ9L8jajuTccZTQU9mpuFKuRAvVHT6tRSknC
-	5NWDIwr62L0Db+559SbuRKb/Pyx75FiivpJ/A2AbMyGXKMk58mVtG3vQCKBWow==
-Message-ID: <5032c246-d0e4-4c2f-a2b4-17b28c76c1f6@mailbox.org>
-Date: Mon, 16 Nov 2026 10:23:45 +0100
+	dkim=pass (2048-bit key) header.d=utu.fi header.i=@utu.fi header.a=rsa-sha256 header.s=out-utu-v3 header.b=fNqdFX9b
+Received: from smtp-04.utu.fi (smtp-04.utu.fi [130.232.207.47])
+	by fortymile.utu.fi  with ESMTPS id 6AG9Nlr2007444-6AG9Nlr4007444
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Mon, 16 Nov 2026 11:23:47 +0200
+Received: from ex19-16.utu.fi ([130.232.247.56])
+	by smtp-04.utu.fi with esmtps  (TLS1.2) tls TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <jaakko.ma.koivisto@utu.fi>)
+	id 1xSswF-0004aX-7T;
+	Mon, 16 Nov 2026 11:23:47 +0200
+Received: from localhost (91.145.105.139) by ex19-16.utu.fi (130.232.247.56)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 11:23:46 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,68 +59,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
- Gen5 DWC3 xHCI USB controller glue
-From: Marek Vasut <marek.vasut@mailbox.org>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- Thanh Quan <thanh.quan.xn@renesas.com>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
- <20260903213031.314473-2-marek.vasut+renesas@mailbox.org>
- <aptP39nVZPFLgekY@vbox> <be205518-ba8d-486f-b603-1d52321edc1a@mailbox.org>
-Content-Language: en-US
-In-Reply-To: <be205518-ba8d-486f-b603-1d52321edc1a@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 8ff5d6a3bc2bc829ece
-X-MBO-RS-META: ixp6qbz454jy3jzq3hkohwp3wz98nfm4
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 16 Nov 2026 11:23:46 +0200
+Message-ID: <DMWIYCXE9DLV.3T2MJYLQRGIQN@utu.fi>
+CC: Andreas Klinger <ak@it-klinger.de>, David Lechner <dlechner@baylibre.com>,
+	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
+	<andy@kernel.org>, <linux-iio@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 5/5] iio: chemical: sgp40: Implement
+ turn_heater_off-command
+From: Jaakko Koivisto <jmatko@utu.fi>
+To: Jonathan Cameron <jic23@kernel.org>, Jaakko Koivisto <jmatko@utu.fi>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261102091258.247402-1-jmatko@utu.fi>
+ <20261102095602.333752-1-jmatko@utu.fi>
+ <20261108010518.5d9c0016@jic23-hlaptop>
+In-Reply-To: <20261108010518.5d9c0016@jic23-hlaptop>
+X-ClientProxiedBy: ex19-04.utu.fi (130.232.247.44) To ex19-16.utu.fi
+ (130.232.247.56)
+X-FEAS-BEC-Info: WlpIGw0aAQkEARIJHAEHBlJSCRoLAAEeDUhZUEhYSFhIWkhZXkguLT4lWFxYWFhYWFBeUVxfSFhISFpdSAIJCQMDB0YFCUYDBwEeARscBygdHB1GDgFIWUhZXkgCAQta
+ WygDDRoGDQRGBxoPSFhIWkhZXEhZW1hGWltaRlpYX0ZcX0hQSFhIWEhdSFhIWEhYSFleSAkDKAEcRQMEAQYPDRpGDA1IWEhZXUgJBgwRKAMNGgYNBEYHGg9IWEhaWUgM
+ BA0LAAYNGigKCREEAQoaDUYLBwVIWEhaXUgEAQYdEEUBAQcoHg8NGkYDDRoGDQRGBxoPSFhIWVBIBh0GB0YbCSgJBgkEBw9GCwcFSFg=
+X-FEAS-Client-IP: 130.232.207.47
+X-FE-Last-Public-Client-IP: 130.232.207.47
+X-FE-Policy-ID: 3:5:2:SYSTEM
+X-FE-Hostname: fortymile.utu.fi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=utu.fi; s=out-utu-v3; c=relaxed/relaxed;
+ h=mime-version:content-type:date:message-id:cc:subject:from:to:references;
+ bh=8wobkCk6U4WcewhXYiKu2e+Z8/2mRL6oNYJhqRpXCm0=;
+ b=fNqdFX9bmWGBvfRGPlXcpCY6l0uk9zM8WvnDISY49bTfidKIP1Rq0MVgoGOoUi0qUeWdj5xBXmX+
+	6mBQuoD4PpSGb1HRQJpi9kMEasSHMV+TSPkcYz3Wz3DrRJyIOYh9zImTjNNMUl/vByh3GCFHEHcm
+	CnPHyLe9Yzbjp3REvvKEIdoxpGiTx0dsJcz6bUZwaoky830pjItujbmKVTOnLXDsyAzdPTQT7/P+
+	EaFNcR185mSj+axGZhB2cVcysGOPcb8qcbTaeNXLoqyF9EALForZuuFYwM25BM74+eKaEEWE2un/
+	DjV1vUo2WOiCw6BF/Tdrx1oPJKrVgqWkDvaJmQ==
 
-On 10/26/26 1:21 AM, Marek Vasut wrote:
-> On 9/5/26 1:10 AM, Thinh Nguyen wrote:
->> On Thu, Sep 03, 2026, Marek Vasut wrote:
->>> From: Thanh Quan <thanh.quan.xn@renesas.com>
->>>
->>> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
->>> controller with glue logic wrapper around them. Extend the generic
->>> DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
->>>
->>> Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
->>> Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> 
-> [...]
-> 
->>>   static const struct of_device_id dwc3_generic_of_match[] = {
->>>       { .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
->>>       { .compatible = "spacemit,k3-dwc3", },
->>>       { .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
->>>       { .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
->>> +    { .compatible = "renesas,rcar-gen5-dwc3", &renesas_rcar_gen5_dwc3},
->>>       { .compatible = "starfive,jhb100-dwc3", },
->>>       { /* sentinel */ }
->>>   };
->>> -- 
->>> 2.53.0
->>>
->>
->> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Hello everyone,
-> 
-> could these two patches possibly be picked up ? They should have all the 
-> necessary RB tags for about a month now.
-> 
-> Thank you !
-> 
-> (yes, I know everyone is flooded by emails recently, I apologize for 
-> making this worse for you)
+On Sun Nov 8, 2026 at 3:05 AM EET, Jonathan Cameron wrote:
+> On Mon, 2 Nov 2026 11:56:02 +0200
+> Jaakko Koivisto <jmatko@utu.fi> wrote:
+>
+>> Add functionality for turning the SGP40 sensor heating element
+>> on or off manually. After turning the heater off, the sensor enters
+>> idle mode. Track the state of the heater in the driver, as the device
+>> does not expose current heater state via any register.
+>>=20
+>> Turning the heater off saves approx. 2.5 mA compared to regular
+>> operation. The heating element is automatically turned back on
+>> when measurement is performed.
+> Hi Jaakko,
+>
+> Add something here on how long it takes to power up.  It
+> isn't obvious so far that this should be just done via runtime
+> pm and autosuspend.
+>
+> Normally the argument to have a manual turn off is that time
+> is huge. Otherwise, why not runtime pm?
+>
 
-Shall I maybe resubmit these patches ?
+I'm currently unsure which would be the better way, runtime pm or
+manual. There is another source in addition to the datasheet which says
+that turning the sensor on 170 ms before measurement is acceptable
+(https://github.com/Sensirion/gas-index-algorithm, Algorithm usage with
+SGP40 in low power mode).
+The datasheet values 60 seconds and 60 minutes warrant manual control,
+but 170 ms would be workable with automatic pm.
 
-Thank you for your help !
+From chemistry perspective the datasheet values refer to power-on from
+completely cold sensor, lot's of adsorped water and need to heat for a
+long time to reach steady state, while the 170 ms case is for periodic
+measurement and the sensor does not have enough time to cool down and
+adsorp more water between the measurements.
+
+I'm gravitating towards manual control, since that does not alter current
+behaviour, the proper heating times are based on how the sensor is used,
+and the sensor power consumption is quite small so it's not horrible
+having it on all the time.
+
+>
+> thanks,
+>
+> Jonathan
+
+
