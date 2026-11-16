@@ -1,112 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868038;
-	b=WQNsY5IxDw9a7Nknutx+0wX2QHoFq483id9ITsHPAzeKhESC2/HL73+CQUjxHiRd8iNe
-	 AwPevPnFAwdfpcxnssHYAjgXVevvFBZIqkMx3l1aeFANumOVwsdhiEpXZxHsuvhKUDtgo
-	 Bo0yThi1cEO+tzygOOecEfpKiVWrw4l+DRCD5Ldzpo4koOo2VR0fcJotU3J578Pvi8AVj
-	 c7jaXHP+ZZHMyHyIgDknofZ8T8JgEd1AGH+OzRE/XWais/B6XMmad2jOlAeTxCxh7qUYw
-	 dtPaxy4eDNHerhfWcNUtMUs/aP7n50XtdljmrQ+iRUTYXPKm38J14X+qTO/6mDs86cQ==
+	t=1794868054;
+	b=AuTwN0EcTr4Gx4ybbUDVv9Op4Ui3Dyv98gqA4wbKWtRqrZI2XVwOE/QHHK70T3+Q8cPa
+	 kywPGmNUAAoHkxd+Cwzepk2/AQrVWy0m6Z/N6Yoe9aaIFPo6rMQq2U+zRYqYWT6zoU1sm
+	 8dzxwdNFNnj5QP7I8c8GVlnXRSNphnZ0sdy/hC3C1v5bNJsyUmhNER7pkm83nihR9PlLd
+	 Zc2dUtkPYC4sGX/SdRItL8+9DrGDz7YRabRFPfEj3S+yEeTvWfV7WRUejpZCHTrNVtVW9
+	 EtF8VsK6YKWhRjfLEPN96XxaGlihS6xzomfwfpApk23H/KmDLV97E8hc8HWQcJ7hXWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868038;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4vyYjn5UPo/7vDc4ZQ9k3Cq0mbqo2jzpmjoiYSVxIwk=;
-	b=H/IR0aL9bDJCCK4AqEXMJCcP7mqBarRRKrJBsQD/7do43BiPtCqnlX404wRHQ4RrAShP
-	 +hWO/TDTmu6UZm7ojl51FpIkJnIUqoWY0MVtIH1/R+N5ilUmxJAsiDcTlv6KA868DGjaN
-	 b6lDbnztfkFQkt2+PyCldpwV02A68nLK3/2wFKQ3EaMt++orPbYw2HEkQG7xjTsZkNDuT
-	 l2O7P8SIb1xbeIQ4G4Y9lHH7bwu3fmvGV4f+BACI0UNArT/vCnf/eD41+haUvlSN/YCqw
-	 s1gVYG4+J2tKL8lOhhGb2cVeRAoAhFdxb8Qv2xH64DEnQcV7crkEgvayK/ibxJXEeRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868054;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RUvXiIcVm9hOpppwwCqg1ARGN5d5bhbmrIqkvTODPmQ=;
+	b=EAorzBm3/28VSpsnRY9XMf3WXi/njP9H+ZvUFs7hnfaIR97L5S+UofIRFK57xTf+i623
+	 f31X/j1mod5ifkmxV8xBiiu9DTeGahM0L4vDkfq76SAZXMTXV9Nadj7UMyr3GePpVsOuh
+	 cx6IIM0Szw3Lc4a7NEU5YIPTQmUN0ceZRnTKOVsIS+K9DP/e3obhmO2u3oiNznvRo4BbJ
+	 AZMyVxUfGFMvht8yBkSkCO0llXAWKqNtmz6F9AYNo2h4hqDGbZSuks4grHH9K4Vi/bR8Z
+	 194/Q9yEZKlvsGP51x/75AxP/DkoqpSdI2pXqv6uq+w+U3j5gB8oYlzceqvwzXTXNdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=X90VZJBR;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=OqjQShhK;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ni9kZ9z3;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606A5606A8A1
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 606A5606A8A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AD3606A8A1
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:27:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85AD3606A8A1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=X90VZJBR;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=OqjQShhK
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLZ0gr1763962
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:27:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=4vyY
-	jn5UPo/7vDc4ZQ9k3Cq0mbqo2jzpmjoiYSVxIwk=; b=X90VZJBRvXvcQtWvtSML
-	cYnBp83zg3R4X+C8UXFrR/0ste+aFkHEr5U77ylXLx4BUEcLYtTW6B1yLY5tikag
-	7hbIrco84ujOdJmB2/epEniEGsLrXYXe1ogsWavEfw24C3fPqOCdzA4WKEAhAoyl
-	W+BiUtmuvDa6x3vhdpUGfQ5zewpasoXg2DTVzpK9IPd5mjYO/hG+kBfhrQrDAV0h
-	TUtAwtC3EWjhSAGNAofYPlS0P3Hgb+oa8+ffNiiYvUKtYpZ8PZri4s2OAy1x1STh
-	BOsI2Jk34RJ5O2MDTpfuwmsMD70Zy63yJ+SR5N0pc/kQZMhE9m5dnWGWEc5XOo47
-	cw==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j059hk91r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:27:17 -0500 (EST)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91f1b3070f2so33599076d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:27:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ni9kZ9z3
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b18a173e48so3306977a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:27:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794868036; x=1795472836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4vyYjn5UPo/7vDc4ZQ9k3Cq0mbqo2jzpmjoiYSVxIwk=;
-        b=OqjQShhKdsOzCEp9sDHRO07pMjPNWkhEsx5D9hKW4kZheIOMb36jRTMc0L6Bqe//Ix
-         iftZ7ACLorkN1cC+x3lModR96EeXDIMQmNlssDAivIm7xwEBJRBakvSxealfGnpLw8yA
-         jpC/fUhORfKNP5xoxMVYgTjOZLcMGEqNvHSb09jtOP3J367nOTh8rVAT+/ggq0642FSb
-         Tg+VZvLepva5YrgLaXV/zDo2CURzn3tBpMki+mjgjQxqkRRj5XT9zYQBCBr4DCmr2I4f
-         rnEclJLdHDRCXy2OxQtXvH8bW2+p4neBZc2SIFa/BN5OS9ElMNZLdlIKoXBSlHk10bKF
-         0Niw==
+        d=google.com; s=20260707; t=1794868050; x=1795472850; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RUvXiIcVm9hOpppwwCqg1ARGN5d5bhbmrIqkvTODPmQ=;
+        b=ni9kZ9z3ndG3fR2W1CR/nXPGUaB4ZhicnRKeINuTayT2Oky75VTmjsp/DzFK86Cd9v
+         cPuoexhvixBJyC7j96hyx+yJVVOr7VBMAk8TLQNJT8bkATeR0B7k0ge7nhaUGONn/UOb
+         gEXkCJLiugSWUvSaIeV7WGRgINROsyHnlu/Fn50HVBM+HAJlzY/ll3zTYjoV/rYfHxxj
+         Ltpok75OWasipSzWml+SR4Th8dijeW+FKWIGF6HtVq3JO2m2NZbMKiQRrwLFEpcL++E7
+         RWLup/N/BkKUgkCU/Fe2e7Q57Ua0Yn4kx63U3lSePzsGhjAmmmW8lWZKaBAuuUSETbLk
+         H8Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868036; x=1795472836;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4vyYjn5UPo/7vDc4ZQ9k3Cq0mbqo2jzpmjoiYSVxIwk=;
-        b=WFv69rYGDieZeT1SZ5TPuK0nhYQZWGev8kpH1CC0KnPhQ2ET1tjCr9bewxTmzk5Vrk
-         VjZo3EJNl7fY0RyudS4xcGp1Vti4grM50kC9twcfoYEi6SejywkyrAahallNt89J63UK
-         N78dy31DJSM2VvfDeIY88M7TbsFrMdZYtiqDc3R/CQXQclZLuOAa4OGGW4B3uoxU3dLk
-         6ko0/DDOwD/g6i82FKkn2wVDv7Gn7t410uvEVtURw1q5NH5Lbbcjuot+EEkcQ6ZDHAEm
-         3uxvVUy1m994LQLj6S9hN+ZUFjF7lEMJ+NhoarLBMAapkzjXlyWKkC8b0Urp0/ikY9TR
-         adsg==
-X-Forwarded-Encrypted: i=1; AL+hErEO/PEYT8w9cAU9uQlrgPCxstbgx7cd9qDaXw89ErnC8Y0QnyjBtKKIbWr7rkfOAQkQWcBE7EhRX1UMVDI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yX93YLon4UoW1qbveCRdLtRKiayDbaeUHUCzfFrzyeAvPZURv
-	z7xZMzEFB72mlPYRlI7zsKG3Fe07QaJgWm5gzaR+E5M8QIN0bS1h3wUpBwfFVmgOrTSQWOqA62K
-	AhrDMLKjQsUq+NpaK3+vYCmT9dR3gdngBsk3yiIS5un2mRipFlLyG84rR8qpJfA==
-X-Gm-Gg: AYBFou0DObu6+lTQirOWhrOCkTfjJqjLwNd1Dur8a196NvqqDL+vkUvoStV4zMutJsC
-	3woQoCWVk3fydHFeNycofJn3rAQY54O6dLQ431VXLTVc76QzP+nMFmlxKC828d8C+K3dw1u9apF
-	9iEdOrTU9+xoI0iFBI3wTx2R1NDw5D0BbuGUZSGy0DZD+04pDn7pM8tX5epxwfrLlUGFyg9x3Rp
-	m1nLrfauo8186Qc/GeNmCzVg0TElgT/MBNOsfnWmJ9Gy8rNnyn2mUlU8hg0meEaU1pBMqvQJlYF
-	G43O29/zfmuQwP3md2xEdVknOJ9Q4tP+yQmUoo+EPAigG8Pb2lMcrrldf7sJ7VzY+fBkRrHkK04
-	93ofB/c58INw/yupTl0t1TLEiLgNTKBkj4u9pzaTKfDy99Pd+o1CxwhLdxfeyjBd4gC3c81K9BP
-	eCSBfUolY92gjTRAck+nEWGIvd
-X-Received: by 2002:a05:622a:4188:b0:55d:34d4:12f1 with SMTP id d75a77b69052e-55d34d41f99mr93205841cf.34.1794868035998;
-        Mon, 16 Nov 2026 14:27:15 -0800 (PST)
-X-Received: by 2002:a05:622a:4188:b0:55d:34d4:12f1 with SMTP id d75a77b69052e-55d34d41f99mr93205151cf.34.1794868035325;
-        Mon, 16 Nov 2026 14:27:15 -0800 (PST)
-Received: from [10.207.2.125] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55c3b7a4adbsm66513611cf.19.2026.11.16.14.27.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 14:27:14 -0800 (PST)
-Message-ID: <eba4fb71-6baa-455f-8899-87567af898aa@columbia.edu>
-Date: Mon, 16 Nov 2026 17:27:13 -0500
+        d=1e100.net; s=20260707; t=1794868050; x=1795472850;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RUvXiIcVm9hOpppwwCqg1ARGN5d5bhbmrIqkvTODPmQ=;
+        b=N3UD1JicOnI00uDEaom3mLixwDToBSXe2iSI02W0b/vlbLrmbKl/pSfUhtjNign6AS
+         IqKDY45ghceIq7WCXA7rMyjk8zOIjuHO91j1Y9RYlTtRdzb15W52VAkegY9v6H4f/1hZ
+         M+MDR2fXkkpqbW5XUYrj57rbVgvNvaUJpff+tKBKwsM02Jlslclwk9PYbO0XFAZFccjB
+         mw2YZvIFSIBzEc35d0JG9+pCqSSVXlSx6AbvM6Lvx51ftSVecwv5LgKedJK0fAnnuFhU
+         JsdOJYM5cKMswW0Z23nMYelFVnponj6M/oaDJ3E0ciqahWkE6wcgcDOOTx4cXJbtz17H
+         rQmQ==
+X-Forwarded-Encrypted: i=1; AL+hErGJ08Ue5jIyuc58/YZWahwfdmYu2XLy9/avj3HTX0WMnoYWi+SUkmmGa8l2nYdg3BLFoAAWSudICQKbMCU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Bhtqwdk8THw/cWegfNBYUUm0z21ldMPYaTN+enVL4V//2yTDg
+	UginUNOfDsQLV1UfGgIoFg5Jyadkq9bTTEB3ElH5qsMAIRrOTv4ZvxQF1RxdooVJqdI6V0PfXfh
+	UI6ebyQ==
+X-Received: from ploh2.prod.google.com ([2002:a17:902:f702:b0:2e3:1b6e:33bb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:574b:b0:3ae:2969:903f
+ with SMTP id 98e67ed59e1d1-3b1b0b8bcb7mr10699281a91.45.1794868049419; Mon, 16
+ Nov 2026 14:27:29 -0800 (PST)
+Date: Mon, 16 Nov 2026 14:27:28 -0800
+In-Reply-To: <ca9dffb64656a392965f95d35b9d13d829f34076.camel@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,165 +79,150 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
- UFFDIO_ZEROPAGE on private file mappings
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-        James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        Michal Hocko <mhocko@suse.com>,
-        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
-        Ying Huang
- <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
- <cc865bc8-b96f-4385-97b1-976de4465ca1@kernel.org>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <cc865bc8-b96f-4385-97b1-976de4465ca1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: -KGmoE5ZHnO7qPuufcGhZ_oWHKBkfQSX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4OSBTYWx0ZWRfX0YX/hvFP62QT
- PX9LQMWWIsV0/8lV9L4Ktl8inggPxj9rdz8ckV1OGs4P6zPkB2JVtLXpo+NF2kiKDQZRjQqMOvF
- QDUPu/UKJUFGjiUmOiMqMEE7MlcUmV1aFOjoQicZ5ctSBrdA7xzO
-X-Proofpoint-GUID: -KGmoE5ZHnO7qPuufcGhZ_oWHKBkfQSX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4OSBTYWx0ZWRfX7sel1ZWeaOba
- kIHMLCXDIuBwtiE+ufYBweGtoGf95r8J2mujfG1l/yWHi1VVJKPZKysx7HKdcJ6FgMeDfh6eY9F
- KxaX9Nx6z1K7tzMTm7Iq0otoXPeoJZccVF+exDtDKNA265yG7fJM6+VDkP/4E56XXE3NNkF7jP0
- Oqs54MPgIzEtB7RUATOZ/ydkkdfnjPpnBuFp1tCwmkUIS1DV06wlmV4tkYmhyAHkD95L0h7WlRL
- 3FvHYzzxJB3uQS+hVSGavCvrOOjSna78SZzr6WUJpL4ThLLaQHw9CZnVAHGbPvpwI40Hs0FKO8w
- l/F3E9lP/vDhKNsBZBdSVo0wc9HF8HNo8kWfgQzXxeKMf8U+THjp49woNlYaDnRwFwHHwjGdIdo
- JplzsBMXAaNVO17+23pmJ699LiFLhUPb1xoaMfdozriJdmyZ4exViuBCOHlZ5WfUpWRokdVQpC2
- Vqln8fZ4MQ4FrkmQ56w==
-X-Authority-Analysis: v=2.4 cv=NLlAaE6g c=1 sm=1 tr=0 ts=6afb8345 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=VwQbUJbxAAAA:8 a=U30RilsMMHCo0eZBjZ0A:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 impostorscore=10 clxscore=1015 spamscore=0
- suspectscore=0 bulkscore=10 lowpriorityscore=10 malwarescore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160089
+Mime-Version: 1.0
+References: <cover.1794374897.git.zack.rusin@broadcom.com> <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
+ <876c4f4fc442116c9bff8abd8c34f99fcfa65531.camel@infradead.org>
+ <CABQX2QNd7DehBsH-pGL=EJK4b5vC60PymL_YP27xDxGT6_6=uQ@mail.gmail.com>
+ <1bae109338ab6ff1ff14eac811f7e86ced785b22.camel@infradead.org>
+ <CABQX2QNhRZP1Td_HQ6QpMzw-_TjqhbooipWYg3VTgTOq2_U9+w@mail.gmail.com> <ca9dffb64656a392965f95d35b9d13d829f34076.camel@infradead.org>
+Message-ID: <avuDUNAU_a933zvp@seanjc-mac.roam.internal>
+Subject: Re: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to userspace
+From: Sean Christopherson <seanjc@google.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Zack Rusin <zack.rusin@broadcom.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	Doug Covelli <doug.covelli@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Shuah Khan <shuah@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Paul Durrant <paul@xen.org>, 
+	Xin Li <xin@zytor.com>, Francesco Lavra <flavra@baylibre.com>, 
+	"Radim =?utf-8?B?S3LEjW3DocWZ?=" <rkrcmar@ventanamicro.com>, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/26 3:16 PM, David Hildenbrand (Arm) wrote:
-> On 11/16/26 21:02, Tal Zussman wrote:
->> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
->> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
->> installs it through vma_uffd_ops(), no matter what kind of mapping it
->> is. An s390 KVM guest with storage keys or protected virtualization is
->> such an mm.
->> 
->> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
->> cache of the file. That is wrong: a private mapping must never modify
->> the file it maps, and the file might even be mapped from a read-only fd.
->> 
->> The ioctl can also fail where it should succeed. A missing fault is only
->> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
->> an address that did not fault, or can race with a write to the file. If
->> the file has a page at that offset by then, inserting the zeroed folio
->> fails and the ioctl returns -EEXIST although nothing is mapped at the
->> destination address.
->> 
->> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
->> shared zero page can be used, and what UFFDIO_COPY does: only check that
->> nothing is mapped at the destination address, map zeroed memory there,
->> and leave the page cache alone. The zeroed folio path did that before it
->> was moved to vm_uffd_ops.
->> 
->> To fix it, pick the ops in the common folio path, as
->> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
->> mapping, the ops of the VMA otherwise. That makes
->> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
->> so remove them and rename __mfill_atomic_pte() to
->> mfill_atomic_pte_folio().
->> 
->> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
->> if something is already mapped at the destination address.
->> 
->> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
->> Cc: stable@vger.kernel.org
->> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
->> ---
->>  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
->>  1 file changed, 16 insertions(+), 30 deletions(-)
->> 
->> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
->> index d65184d9a480..61a712e1f9f5 100644
->> --- a/mm/userfaultfd.c
->> +++ b/mm/userfaultfd.c
->> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
->>  	return 0;
->>  }
->>  
->> -static int __mfill_atomic_pte(struct mfill_state *state,
->> -			      const struct vm_uffd_ops *ops)
->> +static int mfill_atomic_pte_folio(struct mfill_state *state)
->>  {
->> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
->>  	unsigned long dst_addr = state->dst_addr;
->>  	unsigned long src_addr = state->src_addr;
->>  	uffd_flags_t flags = state->flags;
->>  	struct folio *folio;
->>  	int ret;
->>  
->> +	/*
->> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
->> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
->> +	 * COW it right away. The result generates plain anonymous memory.
->> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
->> +	 * generate anonymous memory directly without actually filling the
->> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
->> +	 * the pagetable (to verify it's still none) and not in the page cache.
->> +	 */
->> +	if (!(state->vma->vm_flags & VM_SHARED))
->> +		ops = &anon_uffd_ops;
-> 
-> Oh, but one comment: why not check for actual cow mappings?
-> 
-> 	vma_is_cow_mapping()
-> 
-> is your friend :)
-> 
+On Fri, Nov 13, 2026, David Woodhouse wrote:
+> On Fri, 2026-11-13 at 01:33 -0500, Zack Rusin wrote:
+> > > Userspace *already* needed to
+> > > know about those=C2=B9 because it can't migrate while those are pendi=
+ng;
+> > > it has to do at least one more run, even if it's with the immediate_e=
+xit
+> > > flag set.
+> >=20
+> > True, but, again afaict, that rule exists because those completions
+> > have to run, so I don't think it tells us they can be dropped.
+> >=20
+> > > If it's deemed clearer, I'd also be OK with an explicit
+> > > KVM_VCPUEVENT_CANCEL_HCALL which cancels *only* hypercalls. But I don=
+'t
+> > > really see the point; userspace shouldn't be getting confused when it
+> > > was actually some other kind of completion that was active anyway.
+> > >=20
+> > > =C2=B9 https://lore.kernel.org/all/20250111012450.1262638-1-seanjc@go=
+ogle.com/
+> > >=20
+> > > Looks something like this in my Hyper-V hcall series (except I alread=
+y
+> > > shouted at the agent for stupid struct layout and made it go run paho=
+le
+> > > on everything it's working on).
+> >=20
+> > FWIW, restricting cancellation to explicitly marked completions looks
+> > good to me.=C2=A0 If Sean/Paolo prefer that, I'm happy to mark our
+> > completion cancellable and drop our exception fields.
+>=20
+> I posted that as
+> https://lore.kernel.org/kvm/20261113170535.79246-3-dwmw2@infradead.org/T/=
+#u
+> and caught both Paolo and Sean here at KVM Forum and both seem OK with it
+> (although acquiescence when badgered at a conference doesn't necessarily
+> translate to applying the patch... :)
 
-Probably because I didn't know about it :)
+Heh, you jinxed yourself.
 
-This is already equivalent since uffd registration rejects VMAs without
-VM_MAYWRITE, but I can switch it over for consistency.
+Adding something to KVM_SET_VCPU_EVENTS is complete overkill, and will crea=
+te a
+confusing ABI for hypercalls versus MSR exits.  For the latter, KVM lets us=
+erspace
+signal success/failure, and injects a #GP on failure.
 
-> -- 
-> Cheers,
-> 
-> David
-> 
+The VMware case in particular is a bit different since that case needs to i=
+nject
+a variety of faults, with a payload, but the concept is the same: give user=
+space
+a way to cancel/reject the hypercall/action.  And that's dead simple, e.g.
 
+  static int complete_vmware_hypercall_exit(struct kvm_vcpu *vcpu)
+  {
+	if (vcpu->run->vmware.ret)
+		return 1;
+
+	return kvm_skip_emulated_instruction(vcpu);
+  }
+
+For Hyper-V exits, from what I can tell, the plumbing already exists, i.e. =
+I
+suspect that this:
+
+  A VMM implementing Hyper-V hypercalls behind KVM_EXIT_HYPERV_HCALL can on=
+ly
+  complete them: write a status, advance RIP.  The TLFS specifies some hype=
+rcalls
+  to raise an exception at the hypercall instruction instead, and the exit =
+has no
+  way to say that.
+
+is partly wrong.  Presumably the TLFS provides a HV_STATUS_xxx flag or thre=
+e to
+indicate "exception", KVM just needs to honor those, e.g. if the behavior o=
+nly
+applies to userspace exits *and* userspace is responsible for injecting the=
+ fault:
+
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 5d2e3617c952..7933389731e6 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -2430,7 +2430,12 @@ static int kvm_hv_hypercall_complete(struct kvm_vcpu=
+ *vcpu, u64 result)
+
+ static int kvm_hv_hypercall_complete_userspace(struct kvm_vcpu *vcpu)
+ {
+-	return kvm_hv_hypercall_complete(vcpu, vcpu->run->hyperv.u.hcall.result);
++	u64 result =3D READ_ONCE(vcpu->run->hyperv.u.hcall.result);
++
++	if (hv_result_exception(result))
++		return 1;
++
++	return kvm_hv_hypercall_complete(vcpu, result);
+ }
+
+or if the type of fault is hardcoded and we want to apply the behavior to b=
+oth
+userspace exits and KVM-internal exits:
+
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 5d2e3617c952..c726a707a7ca 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -2420,6 +2420,9 @@ static int kvm_hv_hypercall_complete(struct kvm_vcpu =
+*vcpu, u64 result)
+ 	kvm_hv_hypercall_set_result(vcpu, result);
+ 	++vcpu->stat.hypercalls;
+
++	if (hv_result_exception(result))
++		return 1;
++
+ 	ret =3D kvm_skip_emulated_instruction(vcpu);
+
+ 	if (tlb_lock_count)
+
+If it's a mix of those two, we can obviously sort that out.
+
+If the exception is communicated through some other means, then (a) that ne=
+eds
+to be explained in detail, and (b) we should be able to use the same apprao=
+ch,
+just with new "ret" field or whatever in kvm_hyperv_exit.u.hcall.
