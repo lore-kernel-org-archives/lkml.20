@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.30.189.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868995;
-	b=L5lpD3ICUq/3Vuy9fURCi5zZN5pmUXiglnWB2lOjyalpRXvDErbYH6E9YDHaBW2r1BM0
-	 c+WUuq+PIhg2Z4wiO4KF5mnLBDYAvS3wMdSJ5Xj8iYqPn4ThT4UeYXrN05O4W+cAUSSl0
-	 eayOOYwiqq1Pm6hmjF9HM1smMVn9PzWosOiJ6JOG5TGF98pn2UiR/kqDkAGnFRnL/6wqp
-	 NVXLfeTQ8ch0lNxqeUZrYsAUhIrVCPXmIVNPAYkhLx88VxedKTKEyl4Zs97uFpGhHiTXF
-	 ZVM4tcZtwyqqi9CN9cJYO1kzXKAE4qPTEEyyq4jC1/p7OoCxrkJsNZeNaY8UZr8CjEQ==
+	t=1794869017;
+	b=R8xb+tzOG8/WUQcPSUuFwbzwA5o5e3h9JkT/2jTEuLrdmUmodrRt4bdjrf3Ej14BPAmx
+	 uDz7GS2sV3Ap8hBsX/XRY/jONwpnvEgT8UaY8WDWBxElGRhs0z1LeFUC4xcI0B0gV8HqG
+	 +axS9YjJ9zMtWwc/KI+l4fNTo30Zj6XjrgkdQ9GV+LA8kiYQnUZH/h0GIF8dVD+pB7wAp
+	 EHFnr0hUz64JlZxroNcstk/+PN1cbU+SimWgzx2uq5He2hd7a70LJTFN+RvMhviqNgoqC
+	 wu3C0PlNFl1F/dKAmZdMkVXmDqJ1Y9lI6YDx9FPAoKSEm9SjikHuPKJy6znwVSRrmvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868995;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=kMpo0UJ75TruTVatPvi3CzUYgCxzkdWpyiDhvC9SSik=;
-	b=AxOXKODjiiROEhBHZUZm8k87KLgoT0qY2YoasNLzRciNM5pqqBTI3dnZJxkfsUdp+Nnc
-	 O6D2jJ6UlYveaDWV9+OnXKs3BOL7OVEBmvQtY3CRUKpbZ7eH6s511OnCZz/UUHVGJwW8W
-	 FSFrgfKeplqnG178iRmDlIWL2vuo7AUkW9D3JqeWrtagv3zx2W5R9NuYArW1FaXu3g3hl
-	 JMKAaREB1ABePLpS6PYWBGViGkEBpgRCCWUBPgZ4bGQMtNHFmQxQWT3hcxrHFmCbTA1oy
-	 5wbzH3yyLJo2ORWVsZ2EG0x53ew46yL4oMcx8tVtZR8haiGrYGAsSfQit7RZe+xAlvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869017;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=sdaEbcD2XZaPl22pAeGSKqV9WoFv2cLFB38xaXyA0vI=;
+	b=Ho9D6nMvB3EhdzU9zJ5ex/dM/DYtY1f/diWS3ReuljR38V7AotW4r6dqDr1uv+JVIIBD
+	 VEazf+APCANNjQ3SzsF+IGZ+G2hgUdcivQRixtgRChmLM4TFiLy2j+0sqWjqltZnjGSBW
+	 KzahbUqvzbOGcK7GPWSOO4veWDXT/d7mTMY6Ug6avp/7J9JfZn0waZUKlN6g3Q3iCFwE6
+	 Vy4rp8u8b3m4imkZ+3TZ17I0qwNAiQqft1Rh/DLItVE6I3vtH5NvR61xyfiY2jmQ/HpS9
+	 yw4x0E3H3euJFlTPn2IBLEX6fnhMXZtqfvZLGVz4n46/O3pTGzxI4uKjzDJpo9KsqVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oWveBScb;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8179E606A880
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8179E606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oWveBScb
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b3b4208826so2241a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:43:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794868993; x=1795473793; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kMpo0UJ75TruTVatPvi3CzUYgCxzkdWpyiDhvC9SSik=;
-        b=oWveBScboc2GJ2HTXjp7u0w8uDrmAAwCZR47rxj1Lx3GEz2TG5/4cIUouXtOKtgz8h
-         2dXKlj5kAXkNT9v8j0rE7gieT80yiWm885QDC6j3oWtMytdrSuZRCtDir+3J6WukikJ2
-         /bwh4IpXpReXYnVeBt7l2Ve3czfLB0ySnz3tgfD5GeawNYVGVnttaerAgGTOD9EPkFLW
-         20mefIa6MM59Y5gZaLqCbtNNCojrJWlq4LaNDC6N7tXtECt07hsRJaN32CWpPmFi/2BE
-         LKRyWmjEuhaJuJ/XWQ4S5+lH0P+f1ApX91CgE10Y8G3uIPEfNuqFKss8c/n4kXENohNO
-         eYsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868993; x=1795473793;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kMpo0UJ75TruTVatPvi3CzUYgCxzkdWpyiDhvC9SSik=;
-        b=p+KsZaomiO35ra3xo4Jl2ayBNDVwJrN2sV63Ltyp0uiu2ZkbwUlakM1KMnHOXrihNr
-         cqAzmaBcygcgsxrfQJcveYa2CmuMOAI1XEycoMbpKr0RFOK6wRwDofM9I5erophBUiqr
-         GFj/q3PClR5e8OrQ+lcYT0QPy5zp724R32TGWhSYessJR1e79KzsitwQWBTpLkv52o2g
-         7fiXtihSUsSooSWj4ZKURkVeoNmylCPFXSfHl+oIU1QD8uLU0GMMtXru67RtfP1D4ubW
-         F1PAlH/IzvMSZaJsbFv3GZoGkQGfKyBC8mP2MAQYR5VOMELkT+qt7N5rOkTra+iHjoyf
-         v6yw==
-X-Forwarded-Encrypted: i=1; AL+hErGLheRW7RvvoUFhS5K6maN9uJF2P4HVh52RT9cw+RkCZHjCXgguFfA7WO0B4p0L59X/rMMXLo6lj2yNjQU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AslZXrMb1rivWu4gqnNGXUo2RmPJh99W8My2Jh6Ade7SVB1jn
-	ipdABsyhSQyy8f71nkLoceQ+cgt2q/QZtLYg+6PkTFC1GjtNL8F3QFARII1ttSUSGTsFpiJA1mI
-	Pr4oPspfbRdq7bQ==
-X-Received: from pjbgz6.prod.google.com ([2002:a17:90b:ec6:b0:3ad:9e7b:240f])
- (user=joshwash job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3805:b0:3b0:e388:d9c9 with SMTP id 98e67ed59e1d1-3b3abb360a8mr465559a91.12.1794868992419;
- Mon, 16 Nov 2026 14:43:12 -0800 (PST)
-Date: Mon, 16 Nov 2026 14:43:08 -0800
+	dmarc=pass header.from=iodev.co.uk;
+	spf=pass smtp.mailfrom=iodev.co.uk;
+	arc=none smtp.remote-ip=46.30.189.100
+Received: from iodev.co.uk (iodev.co.uk [46.30.189.100])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0055606A334;
+	Mon, 16 Nov 2026 22:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0055606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iodev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iodev.co.uk
+Received: from localhost (unknown [79.116.217.174])
+	by iodev.co.uk (Postfix) with ESMTPSA id 39ECE5E22D8;
+	Mon, 16 Nov 2026 23:43:36 +0100 (CET)
+From: Ismael Luceno <ismael@iodev.co.uk>
+To: linux-kernel@vger.kernel.org
+Cc: Ismael Luceno <ismael@iodev.co.uk>,
+	Ismael Luceno <iluceno@suse.de>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	linux-btrfs@vger.kernel.org (open list:BTRFS FILE SYSTEM)
+Subject: [PATCH 4/8] btrfs: add a helper to scan all block devices
+Date: Mon, 16 Nov 2026 23:43:20 +0100
+Message-ID: <20261116224316.11237-14-ismael@iodev.co.uk>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116224316.11237-10-ismael@iodev.co.uk>
+References: <20261116224316.11237-10-ismael@iodev.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,213 +50,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261116224308.986555-1-joshwash@google.com>
-Subject: [PATCH net v2] gve: fix checksum state and gso_segs of HW-GRO packets
-From: Joshua Washington <joshwash@google.com>
-To: netdev@vger.kernel.org
-Cc: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jordan Rhee <jordanrhee@google.com>, Ankit Garg <nktgrg@google.com>, 
-	Tim Hostetler <thostet@google.com>, Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Praveen Kaligineedi <pkaligineedi@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Ankit Garg <nktgrg@google.com>
+btrfs learns about the devices of a filesystem from the mount source,
+from the device= mount options, or from userspace running the device
+scanner through the BTRFS_IOC_SCAN_DEV ioctl.  When btrfs is the root
+filesystem and there is no initrd, none of those is there: the root
+mount names one device and the rest of the array is left out.
 
-With HW-GRO enabled, gve_rx_complete_rsc() turns a coalesced packet into
-a GSO skb by setting gso_size, gso_segs and gso_type, but leaves it
-CHECKSUM_UNNECESSARY with th->check as the device wrote it. Unlike
-tcp4_gro_complete() and tcp6_gro_complete() for a SW-GRO packet, it does
-not seed th->check with the TCP pseudo-header checksum or set
-CHECKSUM_PARTIAL.
+Add btrfs_scan_all_devices(), which walks the block class and hands
+every candidate to btrfs_scan_one_device(), the same path the ioctl
+takes.  It is the kernel side of the scanner userspace would normally
+run, so that the devices can be found without userspace.
 
-The GRO stack completes a HW-GRO skb itself only if it holds the skb for
-merging (since commit 5eddb24901ee ("gro: add support of (hw)gro packets
-to gro stack")). Otherwise the skb is delivered as is, e.g. with rx-gro
-off or for a packet that is flushed immediately (e.g. with PSH set). If
-such an skb is forwarded out of a TSO-capable device, netif_needs_gso()
-accepts it as CHECKSUM_UNNECESSARY and the device segments it with a
-bogus checksum seed, so every segment is dropped by the receiver. This
-blackholes forwarded TCP traffic on VMs acting as routers or NAT
-gateways and was observed on VMs in real use.
+A whole disk carrying a partition table is skipped.  btrfs reads its
+superblock from a fixed offset near the start of the device, which on
+a partitioned disk can fall inside the first partition, and picking the
+disk up as a btrfs device when the partition is the real one would be
+wrong.  Partitions themselves, and disks with no partition table, are
+scanned as before.
 
-Fix it in a manner consistent with other drivers with HW-GRO: set the
-network and transport headers and, for packets whose checksum the device
-verified, seed th->check with the pseudo-header checksum and call
-tcp_gro_complete(), passing gso_segs through NAPI_GRO_CB(skb)->count.
-skb->data points at the Ethernet header on the napi_gro_frags() path and
-at the IP header on the header-split and copybreak paths, so account for
-that when setting the network header. Since the header layout now
-matters, tell IPv4 from IPv6 by the EtherType, as qede and bnx2x do,
-rather than by the packet type.
+The device is opened by its /dev name, which is what the rest of btrfs
+records in device->name.
 
-The device does not coalesce VLAN tagged frames, so the IP header always
-follows the Ethernet header. The IP and TCP header lengths are read from
-the packet, so check that the headers are in the linear part before
-using them, and drop the packet otherwise.
+This adds no behaviour on its own; a caller is added separately.
 
-Also compute gso_segs from the TCP payload length. It was computed from
-skb->data_len, which is 0 for a packet that rx_copybreak copied whole
-into the linear part, leaving such packets with gso_segs 0 and a
-non-zero gso_size. Such small packets usually carry a single segment, so
-deliver a packet with at most one segment of payload as a non-GSO skb.
+Partitions are registered with part_type and disks with disk_type, so
+iterating with a type filter for either skips the other.  Iterate
+everything and let btrfs_can_scan_disk() decide, so a partition is
+scanned and a disk that only holds partitions is not.
 
-Fixes: e637c244b954 ("gve: Advertise NETIF_F_GRO_HW instead of NETIF_F_LRO")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Reviewed-by: Praveen Kaligineedi <pkaligineedi@google.com>
-Signed-off-by: Ankit Garg <nktgrg@google.com>
-Signed-off-by: Joshua Washington <joshwash@google.com>
+Signed-off-by: Ismael Luceno <ismael@iodev.co.uk>
+Signed-off-by: Ismael Luceno <iluceno@suse.de>
 ---
-Changes in v2:
-- Check that the IP and TCP headers are in the linear part before
-  using them (Eric Dumazet)
-- Note in the changelog that the device does not coalesce VLAN tagged
-  frames (Eric Dumazet)
-- Do not mark packets with at most one segment of payload as GSO
-- Link to v1: https://lore.kernel.org/netdev/20261113195553.2220562-1-joshwash@google.com/
+ fs/btrfs/volumes.c | 79 ++++++++++++++++++++++++++++++++++++++++++++++
+ fs/btrfs/volumes.h |  3 ++
+ 2 files changed, 82 insertions(+)
 
- drivers/net/ethernet/google/gve/gve_rx_dqo.c | 84 ++++++++++++++++----
- 1 file changed, 68 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-index 82ed5e48b00a..b4dbfb1ba39b 100644
---- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-@@ -13,6 +13,7 @@
- #include <linux/ipv6.h>
- #include <linux/skbuff.h>
- #include <linux/slab.h>
-+#include <net/gro.h>
- #include <net/ip6_checksum.h>
- #include <net/ipv6.h>
- #include <net/tcp.h>
-@@ -1000,13 +1001,34 @@ static int gve_rx_dqo(struct napi_struct *napi, struct gve_rx_ring *rx,
- 	return -ENOMEM;
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index f1305f68b1f8..55f11c9fe24c 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -1531,6 +1531,85 @@ btrfs_get_bdev_and_sb(const char *device_path, blk_mode_t flags, void *holder,
+ 	return device;
  }
  
-+/* Prepare a HW-GRO packet the way tcp4/6_gro_complete() prepare a SW-GRO
-+ * packet, so that it can be resegmented by GSO or TSO if it is forwarded:
-+ * seed th->check with the TCP pseudo-header checksum and set CHECKSUM_PARTIAL.
++#ifdef CONFIG_BTRFS_ROOT_SCAN
++/*
++ * Return true if @disk is worth handing to btrfs_scan_one_device().
++ *
++ * A partition always is.  A whole disk only is when it carries no partition
++ * table: if it does, the first partition may well have a signature in the
++ * area btrfs reads from, and picking the disk up as a btrfs device would be
++ * wrong.
 + */
-+static void gve_rx_fixup_gro_checksum(struct sk_buff *skb)
++static bool btrfs_can_scan_disk(struct gendisk *disk, struct block_device *bdev)
 +{
-+	int len = skb->len - skb_transport_offset(skb);
-+	struct tcphdr *th = tcp_hdr(skb);
++	struct block_device *part;
++	unsigned long idx;
 +
-+	if (skb_shinfo(skb)->gso_type & SKB_GSO_TCPV4)
-+		th->check = ~tcp_v4_check(len, ip_hdr(skb)->saddr,
-+					  ip_hdr(skb)->daddr, 0);
-+	else
-+		th->check = ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
-+					  &ipv6_hdr(skb)->daddr, 0);
++	if (!get_capacity(disk) || (disk->flags & GENHD_FL_HIDDEN))
++		return false;
++	if (bdev_is_partition(bdev))
++		return true;
 +
-+	NAPI_GRO_CB(skb)->count = skb_shinfo(skb)->gso_segs;
-+	tcp_gro_complete(skb);
++	rcu_read_lock();
++	xa_for_each_start(&disk->part_tbl, idx, part, 1) {
++		if (bdev_nr_sectors(part)) {
++			rcu_read_unlock();
++			return false;
++		}
++	}
++	rcu_read_unlock();
++
++	return true;
 +}
 +
- static int gve_rx_complete_rsc(struct sk_buff *skb,
- 			       const struct gve_rx_compl_desc_dqo *desc,
- 			       struct gve_ptype ptype)
- {
- 	struct skb_shared_info *shinfo = skb_shinfo(skb);
--	int rsc_segments, rsc_seg_len, hdr_len;
-+	int rsc_seg_len, hdr_len, nhoff, thoff, gso_type, payload;
- 	skb_frag_t *frag;
-+	__be16 proto;
- 	void *va;
- 
- 	/* HW-GRO only coalesces TCP. */
-@@ -1017,20 +1039,11 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
- 	if (!rsc_seg_len)
- 		return 0;
- 
--	switch (ptype.l3_type) {
--	case GVE_L3_TYPE_IPV4:
--		shinfo->gso_type = SKB_GSO_TCPV4;
--		break;
--	case GVE_L3_TYPE_IPV6:
--		shinfo->gso_type = SKB_GSO_TCPV6;
--		break;
--	default:
--		return -EINVAL;
--	}
--
- 	if (skb_headlen(skb)) {
--		/* With header-split, payload is in the non-linear part */
--		rsc_segments = DIV_ROUND_UP(skb->data_len, rsc_seg_len);
-+		/* With header-split or copybreak, eth_type_trans() has already
-+		 * pulled the Ethernet header.
-+		 */
-+		nhoff = 0;
- 	} else {
- 		/* HW-GRO packets are guaranteed to have complete TCP/IP
- 		 * headers in frag[0] when header-split is not enabled.
-@@ -1039,7 +1052,6 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
- 		va = skb_frag_address(frag);
- 		hdr_len =
- 			eth_get_headlen(skb->dev, va, skb_frag_size(frag));
--		rsc_segments = DIV_ROUND_UP(skb->len - hdr_len, rsc_seg_len);
- 		skb_copy_to_linear_data(skb, va, hdr_len);
- 		skb_frag_size_sub(frag, hdr_len);
- 		/* Verify we didn't empty the fragment completely as that could
-@@ -1049,10 +1061,50 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
- 		skb_frag_off_add(frag, hdr_len);
- 		skb->data_len -= hdr_len;
- 		skb->tail += hdr_len;
-+		/* napi_gro_frags() pulls the Ethernet header later. */
-+		nhoff = ETH_HLEN;
-+	}
++/*
++ * Register every block device that holds a btrfs superblock.
++ *
++ * This is the kernel side of the device scanner userspace normally drives with
++ * the BTRFS_IOC_SCAN_DEV ioctl.  It exists for the case where there is no
++ * userspace around to do it, e.g. a multi-device root filesystem mounted
++ * without an initrd.
++ *
++ * Devices are opened by their /dev name, which is what the rest of btrfs
++ * records in device->name.
++ */
++void btrfs_scan_all_devices(void)
++{
++	struct class_dev_iter iter;
++	struct device *dev;
 +
-+	/* The header lengths come from the packet, so make sure the headers are
-+	 * in the linear part before reading them and writing th->check.
++	lockdep_assert_held(&uuid_mutex);
++
++	/*
++	 * Every block device, not just whole disks: partitions are registered
++	 * with part_type rather than disk_type, and a btrfs filesystem usually
++	 * lives on one, so a type filter here would skip exactly the devices
++	 * we are looking for.  A disk that has partitions is filtered out by
++	 * btrfs_can_scan_disk() below, which can say why.
 +	 */
-+	if (unlikely(skb_headlen(skb) < nhoff + sizeof(struct iphdr)))
-+		return -EINVAL;
++	class_dev_iter_init(&iter, &block_class, NULL, NULL);
++	while ((dev = class_dev_iter_next(&iter))) {
++		struct gendisk *disk = dev_to_disk(dev);
++		struct block_device *bdev = dev_to_bdev(dev);
 +
-+	skb_set_network_header(skb, nhoff);
-+	proto = nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->protocol;
-+	switch (proto) {
-+	case htons(ETH_P_IP):
-+		gso_type = SKB_GSO_TCPV4;
-+		thoff = nhoff + ip_hdrlen(skb);
-+		break;
-+	case htons(ETH_P_IPV6):
-+		gso_type = SKB_GSO_TCPV6;
-+		thoff = nhoff + sizeof(struct ipv6hdr);
-+		break;
-+	default:
-+		return -EINVAL;
- 	}
-+	if (unlikely(skb_headlen(skb) < thoff + sizeof(struct tcphdr)))
-+		return -EINVAL;
-+	skb_set_transport_header(skb, thoff);
-+	if (unlikely(skb->len < thoff + tcp_hdrlen(skb)))
-+		return -EINVAL;
++		if (btrfs_can_scan_disk(disk, bdev)) {
++			/* Longest is "/dev/" plus a BDEVNAME_SIZE name. */
++			char path[sizeof("/dev/") + BDEVNAME_SIZE];
++			struct btrfs_device *device;
 +
-+	/* With at most one segment of payload, this is not a GSO packet. */
-+	payload = skb->len - thoff - tcp_hdrlen(skb);
-+	if (payload <= rsc_seg_len)
-+		return 0;
++			snprintf(path, sizeof(path), "/dev/%s", dev_name(dev));
 +
-+	shinfo->gso_type = gso_type;
- 	shinfo->gso_size = rsc_seg_len;
--	shinfo->gso_segs = rsc_segments;
-+	shinfo->gso_segs = DIV_ROUND_UP(payload, rsc_seg_len);
++			device = btrfs_scan_one_device(path, false);
++			if (IS_ERR(device))
++				btrfs_debug(NULL, "skipping %s: %ld\n", path,
++					    PTR_ERR(device));
++		}
++	}
++	class_dev_iter_exit(&iter);
++}
 +
-+	if (!IS_ENABLED(CONFIG_INET) ||
-+	    unlikely(skb->ip_summed != CHECKSUM_UNNECESSARY))
-+		return 0;
- 
-+	gve_rx_fixup_gro_checksum(skb);
- 	return 0;
- }
- 
-
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
--- 
-2.56.0.679.gc527c65306-goog
-
++#endif /* CONFIG_BTRFS_ROOT_SCAN */
++
+ /*
+  * Find the first pending extent intersecting a range.
+  *
+diff --git a/fs/btrfs/volumes.h b/fs/btrfs/volumes.h
+index 1c4cfb21ad12..814d801db2e8 100644
+--- a/fs/btrfs/volumes.h
++++ b/fs/btrfs/volumes.h
+@@ -744,6 +744,9 @@ #define BTRFS_DEV_LOOKUP_ARGS(name) \
+ int btrfs_open_devices(struct btrfs_fs_devices *fs_devices,
+ 		       blk_mode_t flags, void *holder);
+ struct btrfs_device *btrfs_scan_one_device(const char *path, bool mount_arg_dev);
++#ifdef CONFIG_BTRFS_ROOT_SCAN
++void btrfs_scan_all_devices(void);
++#endif
+ int btrfs_forget_devices(dev_t devt);
+ void btrfs_close_devices(struct btrfs_fs_devices *fs_devices);
+ void btrfs_release_device_allow_freeze(struct file *bdev_file);
