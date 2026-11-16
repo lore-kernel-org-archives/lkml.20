@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794839918;
-	b=QPGGC8K/RvvaV+OuWV9iL3tpKE7Wpo87tkJvReK8gEYOpAEWUaYvtrkFP8hERQSKq9Ws
-	 /PCfGfBROOl23JtuGxT+MHBw02EeSZRPL2vEXM+QTWbUwjjJQaRs2am8k8wvhNQBMHVdY
-	 u2gNt8lheO6oDmBNXbPIoWPrMQVWTte+xcu9U1ya9j6LEgcK6Bhqk3j9wepLW0MbI9l0B
-	 MvJYKtz5whwbvT4yH1XU7eIZTD57VgKSLlG84cLlgtgjoAXFHa9MRBUeIQ4Vp4d1qJ63f
-	 He7wD34hQ65aLxhvfAZNRW1U7FGqTLvyqVvhxZekIlsUst2cjwb22LkvqJtsEEmafIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839918;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xwpWcgRm7qer0bIxGSmM3z4aZzr8WzaU7mJaPYvWRno=;
-	b=FbEllkR5SmG8MfVtEzgksoSuQZrUoyqEaVWLuNPm0l3/bznTKtVe6V76ixH2aY5Qo6Xa
-	 8hp6t+7/zBJgneE6VzkiUHebvIQPvvPtGxz883ZEA+peGce+9qWGNP4hZ179wz0im0SMG
-	 vWt4ftLRTtEupPFBNcMidAkinmDHo2QvtXvqGVOmazNMsZts25kyl8fHfKgOz17nVNufg
-	 xXjnZxeR4m83f+VupOHub5gqcL8Q72kpQJ9dEgMYJgMrvqx50kKi5F5gjnEn/sqlhZLTJ
-	 xVRFkLDULeSp7fkxwvRlYieDh/Au8AjKEtugJYaT0e8Sw3OAobjQdCqSJOsxSfhdXRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=cljvtMEF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.22
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011022.outbound.protection.outlook.com [40.107.130.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794839913;
+	b=SoXRNqd81msIgudDggiLSQHiRqN49QNhMNVZNWtUmLjP7IvXCwNgNTbef7Hat4j9qWDi
+	 jpZM+CQPYgSiZzDJ00HzZZbj+jWaiXq6T8nR7H6XDRCXyn88ysEfj9MDDGZoyeZk86Qjv
+	 QeGrkQFsyZmfX2MkC90DYHNruS+DUbNvI81MSHsnWmM/8TNCc69ke07Ei95GKyfa2W7yM
+	 B9zDXYLRYwtwZYHTBN8jN60KvL1QK4KlwEAyNAiePrPXM1dzZhMwC8RfzLoCBFxnbS15h
+	 IR1ksBaqxzp8ileW5JE+UgSZHNnfNehjkDyXGMalfJnhOxDWR+B1qxfstMSkOsSNmZg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839913;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LuZbrEms8/XjVfQuEiWI77RY5HstSttO4i4AHQMMfTc=;
+	b=KYiMFtiW3KK3eME5mND1lcnwmsYnx2meSyytW3WtIyXThSvkl9RHfBPJi/RR1evzbZX9
+	 ZMfr+8CsfeOg5u3aIrfWsSCQp9wfdnykks9TMaBLPXuDLVHY6j58vPlKT4Te0bayI6G9y
+	 X0LBLp0pLjsvkUhDF6dfOvrs6ljcUkhThwUxQ3Rpe7db5kwcmuZRehuLyUPLQZFCLMajL
+	 gTxqrWog7jFHtK0IT1hmVE8KfsiE2mdQeIhhj0cqgzflwooXbT9sSaaURFM+TjedLCV+C
+	 5rNq6RO7FNl6kNDdplw6VOX9nZDgGjpGoViMw812h49CWJill2LqpLZjpW7q/deHK9A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUIMehYn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EF4606A32C;
-	Mon, 16 Nov 2026 14:38:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68EF4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5C3606A32A;
+	Mon, 16 Nov 2026 14:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=cljvtMEF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eyr1T76X2qfdAn9S99vvnE9eHaJNY53vuvL58xizxwjK4tQkYfGOFdoRKaO+zBIH1svLyZtN/e1mqxGZB0HdxMTfUdA4iPGxKgp2Xc79Ckzng8c2LBjNH2OkEl/sA/eULtjv8KSP6unQZ0vIy7ojnZFnnt8WV8k8Lubwd0cpJJy53AaCp+Th1iTYn5vWTuD1L1jQOItsF93OfOZhAokByKsaOvyIlGNpK1LigMe3FTNlRgxUPPNxt5elUz4JTR0jaYY0GYlHkSZxGG+9KMUtGurr6vEL2i5humXRj7WRuReyTU8BFnRySms0bhr6UU7P+NUoJeENntnyzplQajuQWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xwpWcgRm7qer0bIxGSmM3z4aZzr8WzaU7mJaPYvWRno=;
- b=vVqS/5WQC/QxVWdUk3VaPmjIqoJLMc2Hi9TdRAPurXYqo4HOWROdSOPs99Hki0nPX1MUU1+aFozTU+Ns0BxljX7c0+S+zBEGHVfhekkopCL1MOvelenb6jc/PWHpL5/q1Zt12COfU5G89mSLp43MDS4oae+betaUtmFePlpjwanZL3MhyOIjYxbh/qNcU0q5NNmTBHhWyfHWiuAiNG8o4C8l7s6SQ0rsMbP2fva0PMXl4H1FUkV5aSJ5qPWdsIR+iJqv8xFMmDW8NnRgCU2PPHfdBo2HLDVTDpF6oW7oOoBHeAKaaRuhvM+BZrNKR/eau04Um6Oou1g0reBo58j/vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xwpWcgRm7qer0bIxGSmM3z4aZzr8WzaU7mJaPYvWRno=;
- b=cljvtMEFPmTjSwvOjvOKG/s8U/3ueY6kCJHTPVdm1KG7A5O90ITG3Q4jkYyLyln4/HidNqwa1ijQBdBw0bhQBeTG7Le+rOOOZ+waG1hB3DnM2TlanNjM5VxsN5q7IMCDxuK2Zxn0omP2WR1+w5MW7Ew0Qy7REHlcIQy4c5wvAFt2oZ1iuRbWDpje53f+EnG9huLfIScM9ySxO77Kr2i+jX5LoG1B1WJq80KvzMVKYhLv2iOHRPMOvfcCIuuARfeJp1bZ9qAMxBwXStbQGnTPL3YyopRx47QYwZuxUQKBoTWEo13FH5/4B5+ABKELvIMw/K2OBTTQDqr2wR3Wf1b+/Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by GV1PR04MB10967.eurprd04.prod.outlook.com
- (2603:10a6:150:203::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
- 2026 14:38:33 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 14:38:33 +0000
-Message-ID: <1fb7c21d-6852-4930-828f-c790ee49747c@oss.nxp.com>
-Date: Mon, 16 Nov 2026 16:38:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: ufs: core: Use ufshcd_query_attr_retry() for RTC
- update
-To: Enric Balletbo i Serra <eballetb@redhat.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Mike Bi <mikebi@micron.com>,
- Avri Altman <avri.altman@sandisk.com>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: Luca Porzio <lporzio@micron.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
- linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>
-References: <20261116-ufs-rtc-query-retry-v1-1-4de69b175e8d@redhat.com>
-Content-Language: en-US
-From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
-In-Reply-To: <20261116-ufs-rtc-query-retry-v1-1-4de69b175e8d@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P190CA0044.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d1::8) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUIMehYn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4A61F000C5;
+	Mon, 16 Nov 2026 14:38:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794839912;
+	bh=LuZbrEms8/XjVfQuEiWI77RY5HstSttO4i4AHQMMfTc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SUIMehYnz+NkUe0s2KVDqKyd60bR9BnVVKhVRKxgUTq24AJFSodw6eK+Vn7iSNqB9
+	 17mHZrB0TFnYq1Ka3dPkUDWrLOyKFdNgUT2fPUkmOujGS+6Zadkn0ReXMB8AFsj1zC
+	 h3qWLOnwIIpEFujVi8NKJIzw6UMpUcI0RWu+ogFDlwh2cqrt/fePQtDrcohX9d2QQq
+	 +r6SwrPXbN1mL/8Jx+j2n/YKQ3qdkiPOYHAe2l0jR4SN8KLBgImGZIQ3jTh4lPKbRU
+	 ZCGuM7VZwsht7BN4YjxY1QKsdOAfGB112ToEvM0u/nMhIrpJsZzoxyK/Pqu+7wL0XC
+	 z21YKetd2m2uw==
+Message-ID: <c32e4671-e785-400a-973a-7f973af08e2b@kernel.org>
+Date: Mon, 16 Nov 2026 15:38:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,125 +51,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|GV1PR04MB10967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8dd56249-10ec-4363-1bc5-08df43ef49f9
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|19092799006|366016|23010399003|921020|11063799006|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261102123227099003|261021123027099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	aGusbcFg/r05Ir/4B2JvUtpZ3csbKrA35m67FeZY6kXom4GT1AHyFBTvh0dQOOsC99ndjanTaztu6Eo1qrzQSS7+Z9FBgX/8suiWRFilFrGMcuYkQLuacXrkandtJZXb7QBmxcqKVNwMrMD3MSb9WmX7JrQIiPf7r2F/OgHgjjQqenCv8m9e1yYWITsnrKpIBglLAffOlQV9wiotSVqgQhbDS48viG0wSdekqvo8TS27HL+1oJTxebuvVhV3/clzQOlU9ir5kxtjiLvsn+5t8o5k3PrMWjqtmpLQBxoULDiXWLF/x2sRPsUIdl+MNyKx36ZC7Hh//TgP2Lz8poh2ZzCvS+O88zkg7KzbKqX3j6B+7YPlMhvYGIo6fMlNam/OP9vQpILcarDApoCABuvwgJq41lESO3512Ub/o4ZGfHnkGqQwZM+JpxNuivMvzfPb496vhqbRu5aZ1jkQDEuwcHPNkWv44sYoC/wyMt6vo8BVCnm5iQAiXLNRjX6bU+fjYBGX9IdGvzdoZ1AnW8BxlQAfrmkw6FxN0Hokj/Vy/bT7ayyuL9lNqH94Geimrl5789M9Lhc2eL3poCdYWKn5OU9YTjINYzGQXMvQhUYjk+Ko4XbOCilys5RbpD/Du8AZ3Xu5Em86ukG65pncFFNVqFiBQDMz3Cbd4bCm/Qv4fHLsn1W2xAWbcyXKhSpOM9Jdp9WOmz0UJ3OyTR1aMwWB2A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(19092799006)(366016)(23010399003)(921020)(11063799006)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261021123027099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L2hYemF2TzkzbnR6dFNCSm9XV1pyRUx5enNLNHl3K0JsSDZ4TWR4K3ZjRUhS?=
- =?utf-8?B?VWx6bEh1QmVVUTNhcFVwMTdBUGJMNFVQVWNKMm8zb3pzcjRQd3Q4OTRCV0g0?=
- =?utf-8?B?WnJBN0o3Ni9tRHFjY1p4ZXcyYzV6QURhK2VCME5tSVNNWlZpcFJFTGt6Y3Vm?=
- =?utf-8?B?MU1CVEEzWk94VVBYM0NkMllBMUtVbUxsalRNSnZSdTBLaGwxSVBQT2xMUTc0?=
- =?utf-8?B?QnFxaExvVHl2bFA4ZUg3N2tNS0FzSjhGbzEyUUVMaGlVazJPU1lwN1dieEY5?=
- =?utf-8?B?RlNrKzB0d242UTYxaXVlcDFIY3dyR2htSFV0TEt5bVpuS1ZXTExwWWlBMllZ?=
- =?utf-8?B?RFdRS1RGSVFMbnRRcTJleE01S0dRTmlITmdBYnpWMXlrWGhub0xzWS9melJO?=
- =?utf-8?B?M1Q1Q2hiVVhWa0NXWGhuWStKU0pya0RQZE5nNlJKaHFvVWd4VzFOM3FXRWtv?=
- =?utf-8?B?eDRFNVA0WGNoakdkZlFxT1h4TFdDQTJESmVQbHpkTVg4RWswRjZNYWtLaEk0?=
- =?utf-8?B?MUlVMGtMNU1ySTlDN1BMN1RaMjZ6N2pJQlhHbVl3NnFMblBwRDZGaEd4Uk9F?=
- =?utf-8?B?UkN4bU9xWDNzNHJ4R2xsNDg3d0txMnNJRGFtR1dLSzZvT3F6Y25qWCtZYUZD?=
- =?utf-8?B?S2ZmSHJLZDhZYUpQbXV0Y3Bpbzd0RGVHeVhiTjRvK2FUUDBiZmRodEFEV0hN?=
- =?utf-8?B?TktUUHhXWTZLdjRrWFhrY2N3U2dPZVdvWVd6d2pVdWMxYnpjZlZNd2FyaEdQ?=
- =?utf-8?B?YlhhaTBDamJzdzZYUFVtVVhVZ2JkYk10UFUxdGN3djUwZE10N2FDL2lHeXBN?=
- =?utf-8?B?SEF5ZFlyRzJiT294dHhPZXB6Ni80UnpVNkJtY0dxbXBtYXAxM0J0Ym4yaktY?=
- =?utf-8?B?ZDIrNkxySVpZMGxqcGdqU1hnZ3JnOVI2TVhNUVlDSTdNbnRORzBGRkRDWTBp?=
- =?utf-8?B?TFdzNDJBeFV3N3k4QU1IbHJKL1JLck5lOVJ1a1FHQmtSWk9jYzIvKzYzaSto?=
- =?utf-8?B?UmU3cW02MVBrS3NjL3ZuUkE2bnoxTHkyM0FjVVk3T2tNM3FXa0hwRFNlVTRr?=
- =?utf-8?B?b0RsczJGUjlsQkllRXpSK2NnLytPOGRLa2FWMGtUQ1FFQ1Z1NTNEMHJNa1dM?=
- =?utf-8?B?U3RjSXhXeE1LclFVSDJjTURrUjZzZUtmaTR4dFVzVlA3MzZKZlltY05za2ZC?=
- =?utf-8?B?dzZiMm95RmJVMFRyVU9yR01valVzWVVKNEtXWGwraHh5eGNETzNiSDlWb3cy?=
- =?utf-8?B?a2FucFRTanZ1aVVlZHhOeExMeXNDZWVINVVleUFXZzhaYlphbitMakdxb25r?=
- =?utf-8?B?OSsyWkxLb0ljK014YlBaVSt2NXBlZWNhaVhBOHFNWXh6YmFxWlpoVzZaMkRs?=
- =?utf-8?B?elY3bFc4a09td1F3OUJlN1V4b0lHNFBZQTk1dDZXRkM1UVZ2d0xYdUE4eXRo?=
- =?utf-8?B?ZlNySzFqNTh4OUFTQzJIREFFNmoxWGhFUVNXMU5YaDdVVEpPSXIxQkVyUE4r?=
- =?utf-8?B?SzJteGNteG5wK3FDS2dOVkdwbzhGQ2l2TUowTnBGY2FXQzVHYW4rM0J1T0lj?=
- =?utf-8?B?YmNpajB4QjA4RW5UdnY1UGpGVE1EU1VVVlJTRHp2dzJKVjBOOXhSVzFVZGg4?=
- =?utf-8?B?UktERkxFRDhPY3YrWFNHT0VsaWJVNVB5amRDbGJjRWc1dlBYUTFXeitqemZP?=
- =?utf-8?B?azcwZW9Wd3NCRksyRE4zanI4ZlZGODJ4ZjhvT2pvSWFHekhIUjA2WXhSYU5x?=
- =?utf-8?B?YWlpTGlBL2NJRk5xemJIT2t4VldlM0Z1dm1RVUtWM3paSHovcXJHdjVBNEhh?=
- =?utf-8?B?d0FabU5NbVlMMjZ5NXFpMnlZVXF2N0FwcVltMWx6OVVCcHVMS1hmbHE0enhE?=
- =?utf-8?B?eTNDZFh3OUtKRjFlOTNZd2VML1YvYTlTWDBwNWtDZXZJb0MxOFAwNzlEWHFE?=
- =?utf-8?B?c1piNzB1eEZVR0F3WHJwWlZDbzFHOGFyeUxWU2VXRkxkb1NMWVhuY1hGRmM2?=
- =?utf-8?B?TSs3ZUprMFZqcmVOWWlXblRPOWRBRnBjQTVERVUrME9NMEYzalBPQ3htelhv?=
- =?utf-8?B?SGd0OE5jRUc0SVdlRTMya1RkL2VwY0R4V3NXYzJ0N0VJODhjbml3L20rSU1i?=
- =?utf-8?B?eVFoOUxVaElVck4ySC9wTHZMUnhxVzcxTjc0Z251SThYSWU0SHM1THl2ZjhB?=
- =?utf-8?B?VHRXeVdyMmVXdUF2cm80bTQycFBVQWo5N0EzSFFNQnl1ZElOaGRpUG9RRFVP?=
- =?utf-8?B?MWErTHd1dCtKdjh6L2hPWTNtU2JvNVhPdC9pYUV2UjYrU05URHd2WUZLeDd6?=
- =?utf-8?B?UkhhUzA1RkIwRUdON3Vsd3MyeVkwQnMxOFFFYU9HRmtkTFVQNUV2ck1IR2VD?=
- =?utf-8?Q?5G5nnQ5FGdn+r4QM=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8dd56249-10ec-4363-1bc5-08df43ef49f9
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 14:38:33.0115
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AT7dF1C32Zy80Mi8f2d0RIA1zRPYPbH2EElT5sDN2891yS5rATSmZdzAUmtuYB2pqDiis7Mec918UBigmOle5Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10967
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: flush dirty file PMDs before removing
+ rmap
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Ross Zwisler <zwisler@kernel.org>,
+ linux-arch@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
+ <avrxOt_GyXLXNqtR@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avrxOt_GyXLXNqtR@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/16/2026 3:39 PM, Enric Balletbo i Serra wrote:
-> ufshcd_update_rtc() uses ufshcd_query_attr() directly to write the
-> bSecondsPassed attribute, making it the only query attribute caller in
-> the UFS core that does not use the retry variant. All other callers use
-> ufshcd_query_attr_retry(), which retries up to three times on transient
-> failures before escalating to dev_err.
+On 11/16/26 13:25, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Nov 13, 2026 at 06:15:26PM +0100, David Hildenbrand (Arm) wrote:
+>> Unmapping a file PMD can lose concurrent stores when it races with
+>> writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
+>> gather flushes the TLB. Writeback can then clean the folio while another
+>> CPU can still write through a stale writable TLB entry. Those stores do
+>> not fault and dirty the folio again. Filesystem DAX has the same problem
+>> with its dirty tags.
+>>
+>> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
+>> has been flushed") fixed the same race for PTEs by adding delayed rmap
+>> removal to the mmu_gather infrastructure. The PMD path still removes
+>> rmap before flushing.
+>>
+>> Flush the TLB under the PMD lock before removing rmap for dirty file
+>> PMDs. Skip the early flush at address-space teardown, when no users
+>> remain, and for mappings without writeback, including shmem and device
+>> DAX.
+>>
+>> Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
+>> On s390, clearing the entry already handles TLB synchronization, and
+>> __tlb_remove_page_size() immediately drops the mapping reference, so
+>> rmap must be removed first. UP cannot have concurrent stores from
+>> another CPU while holding the page table lock. Make the predicate
+>> side-effect-free and set the gather's delayed_rmap flag when an entry
+>> is actually queued for delayed rmap removal.
+>>
+>> Queue the folio before the early flush, while the gather still has a
+>> valid range. Keep batching references and drain a full batch only after
+>> dropping the PMD lock. The early flush resets the gather's TLB state,
+>> so draining the batch does not flush that range again.
+>>
+>> Although writing to files through mmap is generally discouraged,
+>> unmapping such mappings may become slower: each dirty file PMD now
+>> requires a TLB flush under the PMD lock. Future work should properly
+>> extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
+>> across multiple entries, so their TLB invalidations and rmap removals
+>> can be batched.
+>>
+>> Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+>> Link: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Suggested-by: Lance Yang <lance.yang@linux.dev>
+>> Suggested-by: Usama Arif <usama.arif@linux.dev>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  include/asm-generic/tlb.h | 10 +++-------
+>>  mm/huge_memory.c          | 38 ++++++++++++++++++++++++++++++--------
+>>  mm/memory.c               |  2 +-
+>>  mm/mmu_gather.c           |  2 ++
+>>  4 files changed, 36 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+>> index 4bba02fd5d543..2dcf4ce0de589 100644
+>> --- a/include/asm-generic/tlb.h
+>> +++ b/include/asm-generic/tlb.h
+>> @@ -250,11 +250,7 @@ bool __tlb_remove_folio_pages(struct mmu_gather *tlb, struct page *page,
+>>  		unsigned int nr_pages, bool delay_rmap);
+>>
+>>  #ifdef CONFIG_SMP
+>> -/*
+>> - * This both sets 'delayed_rmap', and returns true. It would be an inline
+>> - * function, except we define it before the 'struct mmu_gather'.
+>> - */
+>> -#define tlb_delay_rmap(tlb) (((tlb)->delayed_rmap = 1), true)
+>> +#define tlb_can_delay_rmap() (true)
+>>  extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+>>  #endif
+>>
+>> @@ -267,8 +263,8 @@ extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+>>   * remote TLBs to flush and is not preemptible due to this
+>>   * all happening under the page table lock.
+>>   */
+>> -#ifndef tlb_delay_rmap
+>> -#define tlb_delay_rmap(tlb) (false)
+>> +#ifndef tlb_can_delay_rmap
+>> +#define tlb_can_delay_rmap() (false)
+>>  static inline void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma) { }
+>>  #endif
+>>
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index 7791872f14af7..600a68a54ecf8 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -2508,10 +2508,12 @@ static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
+>>  	mm_dec_nr_ptes(mm);
+>>  }
+>>
+>> -static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+>> -		pmd_t pmdval, struct folio *folio, bool is_present)
+>> +static void zap_huge_pmd_folio(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>> +		pmd_t pmdval, struct folio *folio, bool is_present, bool *force_flush)
+>>  {
+>>  	const bool is_device_private = pmd_is_device_private_entry(pmdval);
+>> +	struct mm_struct *mm = tlb->mm;
+>> +	bool delay_rmap = false;
+>>
+>>  	if (folio_test_anon(folio)) {
+>>  		add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
+>> @@ -2519,23 +2521,41 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+>>  		add_mm_counter(mm, mm_counter_file(folio),
+>>  			       -HPAGE_PMD_NR);
+>>
+>> -		if (is_present && pmd_dirty(pmdval))
+>> +		if (is_present && pmd_dirty(pmdval)) {
+>>  			folio_mark_dirty(folio);
+>> +			/*
+>> +			 * Remove rmap after the TLB flush if other CPUs could
+>> +			 * still write to a mapping that supports writeback.
+>> +			 */
+>> +			if (!tlb->fullmm && vma->vm_file &&
+>> +			    mapping_can_writeback(vma->vm_file->f_mapping))
+>> +				delay_rmap = tlb_can_delay_rmap();
 > 
-> This causes spurious error messages during boot on some platforms when
-> the write-attribute command hits a transient OCS_INVALID_COMMAND_STATUS
-> error:
-> 
->    ufs-s32n7 4ac80000.ufs: ufshcd_query_attr: opcode 0x04 for idn 15 failed, index 0, err = 15
->    ufs-s32n7 4ac80000.ufs: ufshcd_update_rtc: Failed to update rtc 15
-> 
-> Switch to ufshcd_query_attr_retry() to handle transient failures
-> gracefully, consistent with every other attribute query in the driver.
-> 
-> Fixes: 6bf999e0eb41 ("scsi: ufs: core: Add UFS RTC support")
-> Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
-> ---
->   drivers/ufs/core/ufshcd.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-> index 3c28bc67c65f..1cd32b7cc967 100644
-> --- a/drivers/ufs/core/ufshcd.c
-> +++ b/drivers/ufs/core/ufshcd.c
-> @@ -8821,8 +8821,8 @@ static void ufshcd_update_rtc(struct ufs_hba *hba)
->   	if (ufshcd_rpm_get_if_active(hba) <= 0)
->   		return;
->   
-> -	err = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_WRITE_ATTR, QUERY_ATTR_IDN_SECONDS_PASSED,
-> -				0, 0, &val);
-> +	err = ufshcd_query_attr_retry(hba, UPIU_QUERY_OPCODE_WRITE_ATTR,
-> +				     QUERY_ATTR_IDN_SECONDS_PASSED, 0, 0, &val);
->   	ufshcd_rpm_put(hba);
->   
->   	if (err)
-> 
-> ---
-> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-> change-id: 20261116-ufs-rtc-query-retry-3f27084f878f
-> 
-> Best regards,
-Hello Enric,
+> Claude flagged an issue here - for UP arches this is false, so
+> zap_huge_pmd_folio() doesn't flush under the PMD lock or defer the rmap removal.
 
-Regarding the OCS_INVALID_COMMAND_STATUS seen on S32N79RDB, this 
-behavior is related to known errata that will be documented in the 
-future. I plan to submit a separate patch series to address these errata.
+Yes, and that's a preexisting issue in the PTE case. Let me dig.
 
-For this issue, OCS values 0xf and 0x3 are expected.
+-- 
+Cheers,
 
-Best regards,
-Larisa
-
+David
