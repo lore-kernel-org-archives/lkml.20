@@ -1,61 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842226;
-	b=QtgJYL+RTpW5wAH1rRCik26csxh3n5H2RNoPNrMzA3Y3PRu+zq8lGqUaO5Vyukp2e4jO
-	 x4drJ8dAVVS86SQRxd/rDGTxzdAtUtoJ1WZlXxavk1VPDpEKUAyl8zBSm18GrbqlDMJn9
-	 OVc+Tyk0RmpvmFIzzuuyHh9CWmqwFykNQhn75azhjbm9YwKv2V+U0hf5+N900Po9fcZym
-	 i+0yFbejK2tlDePNTnqLEEHznksBumGv20eZ+RTNs6dgpkTe4XjsI4kkdkksXQhSfgpYm
-	 yuJzDuqt395Qsjg0Gmg76TwWpL3a+wQhxX+jPJBHVul/NSXj9e7grBlPNPTO+0LjtjA==
+	t=1794842229;
+	b=Z24rVAYHHNp365lTE5jJRHWm5qzZIGaskurkCoaxqLGa4yzwRZIk0L45h0NKFg90k1wP
+	 aV7r7sD/7gOKBT58K2/as2kWdJFJX83TNFj4MMnB2cvloaG+BpcWocOboenqRUTpwN49m
+	 lHc+JWaHVhNluktf+6bvkHYm89ZZ/lmc7ypbsCd8xM8SnWNaG1XK1dJfHTeAoLHY5SiV/
+	 Pk44ZGen0Ow4ykDlrH6as3C571Q1O8IVgL9SiJ3lItGhdz7b4cgBkAAidikaBr3ewai2y
+	 HRV004b9IKV+t1VEEy6JaIS+VEVbSzozT/xCeS9FqtYxOGn3JJ0kiDAFAb/QH5xbN+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842226;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version;
-	bh=HLzCj0RuJsDmSLXUShLgTXOXCsX+4EAi5ae/ZnypCZI=;
-	b=Q50TEp4nBozPfc8fZbfbZgyWdOLcGOqd6oZZYxhn1SuK271dYrLgrc/83irfV29mGm/v
-	 1yjZ7Ty6AuTWzP//fRTXrdj9wolbJLDggQokPW/+Uq+NbUSUahgn30tDNYH82nd8Qs4Ov
-	 uk6bJCPAQs8IsneeWZcdxfFwS76WVl+HHvp15eH+nNsT5I6046cTJleJNp0u+GTRlMfRT
-	 lPyz+HSg2IO1oD/7riCFTgY7/4ACBR6KAipprfLVBhc/LrwjRQYktlpEWdM9aLjBd87FV
-	 kbhfYfv9iUm5Y9eh9cRc9uhm86o9QeJxEQDFC4fk3eqff1u9PYgThbMKPRTlU8UKNuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842229;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Ujqrk5GfnvZSQ47QPVWShAtgKW4tgnFTvG/p2sZDfiU=;
+	b=m8RBH5TWzfZ7wKYr/a39kynHWmSkW3u5QRAXghMfUg2dPoOjb9kOn1l9R/1iJOgTFS4P
+	 UzgznKk66agIf/W5sMmfQDKlFsZnZ93LEC6RkOALxUGtrMIC8JBTe0EtnunJukT7i+vyC
+	 pBAtbmH7JJTt8cFyTTszjKKxJNWoeCxGrgjBDmTRRKmaSr9+Ibbo8h+jN9jpWYyPdBeeh
+	 T4uOxf4/wWKZ3e2PR3JP8buIG57HihbGG+qVhgRpT69JJf/kCHFBW7fDqHdGNzmV7SUk8
+	 FgZU82YsdJcx3X2oBtBCc2CR5dsid+DfjuGOX9Mh6IeEtJrShqTxEr2n2JxGve9GOIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=kernel.org;
-	spf=pass smtp.mailfrom=meta.com;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9gb14EP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C421A606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:17:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C421A606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGBxG041957743
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:17:03 -0800
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hya5jp0bf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:17:03 -0800 (PST)
-Received: from twshared26372.02.snb2.facebook.com (2620:10d:c085:208::7cb7) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Mon, 16 Nov 2026 15:17:02 +0000
-Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
-	by devbig197.nha3.facebook.com (Postfix) with ESMTP id 97C7D2F083074;
-	Mon, 16 Nov 2026 07:16:49 -0800 (PST)
-From: Keith Busch <kbusch@kernel.org>
-To: <hare@kernel.org>, <hare@suse.de>, <hch@lst.de>, <kch@nvidia.com>,
-        <sagi@grimberg.me>, Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-nvme@lists.infradead.org>
-In-Reply-To: <20261110081559.2730-1-sreekuttan2156239@gmail.com>
-References: <20261110081559.2730-1-sreekuttan2156239@gmail.com>
-Subject: Re: [PATCH v2] nvmet: synchronize DH-CHAP secret removal
-Message-ID: <179484220961.249619.12113326051904353767.b4-ty@kernel.org>
-Date: Mon, 16 Nov 2026 07:16:49 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8283C606A332;
+	Mon, 16 Nov 2026 15:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9gb14EP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696291F000C6;
+	Mon, 16 Nov 2026 15:17:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794842229;
+	bh=Ujqrk5GfnvZSQ47QPVWShAtgKW4tgnFTvG/p2sZDfiU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c9gb14EPpkm2f4Xkve+woq2EcaqVAU6OWFg/jQQkk+LdeQMeL7wWdgnWrcehtDozj
+	 hlOPWzyc3otoJDc1BnWmnfcGkELE5ne9YdbXb8bOeqQgo2ANcdeP4VSohetQKo+bu6
+	 l5ph1oMq/97A/jF+1i6vYBlBI3MVXXqtcaOkV92iTMzuCIqe5tQ2pEfSD6ogMQ3HJh
+	 bic2UvECRtuYisN6i/RkebN7RRB6ItCm2WazrTPfpAne4MbT05QwixHEpiEAMU0J5O
+	 v3BC1siAMDf+wN5WhgY81rIR/ucUfVkxsvzUBcp2oLIQ5es2Gj6dI711oOZg0IHil4
+	 KlLYgJkBMlr0w==
+Date: Mon, 16 Nov 2026 15:16:59 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Hugh Dickins <hughd@google.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, 
+	Ross Zwisler <zwisler@kernel.org>, linux-arch@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/mmu_gather: delay rmap removal on UP as well
+Message-ID: <avseFdmK8zN8JTNe@gremlin>
+References: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
+ <20261116-dirty_file_pmd-v2-1-571883053174@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,48 +68,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
-X-FB-Internal: Safe
-X-Proofpoint-GUID: zb0YaHTUxTu9bMQQjrC24kQVo02LzZoE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2MCBTYWx0ZWRfXzR+VGLXptxXO
- 0zNBMutM4mVMX7uaKJSp2vUCQ2S1plQqmFCzs6Tgy1OjXjOpYkLlb24JeGo9zoEGaWxLP6v0Rbk
- brQark2+tGG6onNVQBOlbC8OWR5yYXHg7VbeEwNm7LDnTFejVADW6h0jrMWDLAmNmvn59SlkPnx
- ffHhxoLTqgzr6qZvrO5rjunNCtTty7ny5UglkaUGam9vYbCJa6oMONk8KAnm/5quG6lFOqPMeS1
- h4pXTghCw16hoe6rkF3l0IdLuBtCNj3BtDIM04jx7xbzEQH/1OD+uoncmjtQU22A8WzI0L6J/5C
- yRM9VMeU1Uy2Nl/+n9uZP81F4e6X9Gje9S1/P87Ny4wY5oRP9lCegr070nBL08yt4k8YN3iwuop
- W1JW5hTufymvAU0YKSUEp566bZNyno3W3gR6G2RmCV1oDYWRXudZqqp4c/1fUXskNrxa5eak/DO
- 3CCoEZ7uobmSvRLPwzw==
-X-Proofpoint-ORIG-GUID: zb0YaHTUxTu9bMQQjrC24kQVo02LzZoE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2MCBTYWx0ZWRfX9bYRRJRpP9yo
- sNVmdByKo/HS/GJLzc8p9DJSYmZZKjoW06I1Qezg/epTVFHaFEJYQcqAL2IOB+PckDio6tpPFva
- BGJvpJYvNWN8u9bqoBYS5NX/LVOt6BU=
-X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6afb1e6f cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=GbPsI2Ihf5RTnMjR_gZv:22
- a=VwQbUJbxAAAA:8 a=ErKaWFu-b7fWwdv8pp0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-dirty_file_pmd-v2-1-571883053174@kernel.org>
 
-On Tue, 10 Nov 2026 08:15:59 +0000, Sreeraj S Kurup wrote:
-> The empty-secret path in nvmet_auth_set_key() modifies and frees
-> host authentication secrets without holding nvmet_config_sem.
-> 
-> nvmet_setup_auth() accesses these fields under the read lock,
-> allowing concurrent secret removal to cause a use-after-free.
-> 
-> Acquire nvmet_config_sem for writing while clearing the secrets
-> to synchronize with authentication setup.
-> 
-> [...]
+On Mon, Nov 16, 2026 at 04:06:58PM +0100, David Hildenbrand (Arm) wrote:
+> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
+> has been flushed") introduced delayed rmap removal of dirty pages until
+> after the TLB flush, so writeback cannot clean a page that is still
+> writable through a stale TLB entry.
+>
+> It skips this on UP, because on UP there are no remote TLBs (single CPU)
+> and because the PTL prevents preemption.
+>
+> The PTL prevents preemption while removing the rmap, but the local TLB
+> flush is usually only performed after dropping the PTL.
+>
+> Consequently, after dropping the PTL we could reschedule to another
+> thread of the same mm, which does not flush the TLB. A kworker could
+> then run into the original race with writeback: it cleans the folio,
+> but the other thread can still modify it through the stale TLB entries,
+> and these writes get lost.
+>
+> Fix it by simply not special-casing UP. Now, only architectures that
+> select MMU_GATHER_NO_GATHER (s390) will skip delay_rmap handling.
+>
+> Fixes: 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB has been flushed")
+> Cc: stable@vger.kernel.org
+> Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Link: https://lore.kernel.org/r/avrxOt_GyXLXNqtR@gremlin
 
-Thanks, applied to nvme-7.4.
+Nitty, but I think better as Closes? :P
 
-[1/1] nvmet: synchronize DH-CHAP secret removal
-      commit: 706076f51eb78ebb4cc7fb06751bf09042fb515c
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  include/asm-generic/tlb.h | 6 +-----
+>  mm/mmu_gather.c           | 2 --
+>  2 files changed, 1 insertion(+), 7 deletions(-)
+>
+> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+> index 4bba02fd5d543..cb087315b4e72 100644
+> --- a/include/asm-generic/tlb.h
+> +++ b/include/asm-generic/tlb.h
+> @@ -249,23 +249,19 @@ extern bool __tlb_remove_page_size(struct mmu_gather *tlb, struct page *page, in
+>  bool __tlb_remove_folio_pages(struct mmu_gather *tlb, struct page *page,
+>  		unsigned int nr_pages, bool delay_rmap);
+>
+> -#ifdef CONFIG_SMP
+>  /*
+>   * This both sets 'delayed_rmap', and returns true. It would be an inline
+>   * function, except we define it before the 'struct mmu_gather'.
+>   */
+>  #define tlb_delay_rmap(tlb) (((tlb)->delayed_rmap = 1), true)
+>  extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+> -#endif
+>
+>  #endif
+>
+>  /*
+>   * We have a no-op version of the rmap removal that doesn't
+>   * delay anything. That is used on S390, which flushes remote
+> - * TLBs synchronously, and on UP, which doesn't have any
+> - * remote TLBs to flush and is not preemptible due to this
+> - * all happening under the page table lock.
+> + * TLBs synchronously.
+>   */
+>  #ifndef tlb_delay_rmap
+>  #define tlb_delay_rmap(tlb) (false)
+> diff --git a/mm/mmu_gather.c b/mm/mmu_gather.c
+> index e98397ac577c4..c022aeb7c84d0 100644
+> --- a/mm/mmu_gather.c
+> +++ b/mm/mmu_gather.c
+> @@ -49,7 +49,6 @@ static bool tlb_next_batch(struct mmu_gather *tlb)
+>  	return true;
+>  }
+>
+> -#ifdef CONFIG_SMP
+>  static void tlb_flush_rmap_batch(struct mmu_gather_batch *batch, struct vm_area_struct *vma)
+>  {
+>  	struct encoded_page **pages = batch->encoded_pages;
+> @@ -91,7 +90,6 @@ void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma)
+>  		tlb_flush_rmap_batch(tlb->active, vma);
+>  	tlb->delayed_rmap = 0;
+>  }
+> -#endif
+>
+>  /*
+>   * We might end up freeing a lot of pages. Reschedule on a regular
+>
+> --
+> 2.56.1
+>
+
 --
-Keith Busch <kbusch@kernel.org>
-
+Cheers, Lorenzo
