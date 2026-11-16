@@ -1,99 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862412;
-	b=EM+d0IaNw0oKJZ3pBNZo8chG7V63DtF8WlNqOVW6sCbM4UpYDL9zPT+fBrDnNk6P+jkZ
-	 heWyVi0ProPs+P6Zi0sN29XjvX7GeZkkaPwrmkOxqUZqJHh7s2fN9k68wIftpCHZ/Pmi3
-	 19HkpvXtXd07A2fu+fBOAJ9oCf/VjIttEh4IIVVaJI5gYtdob7k/jzSvQdYI2VCMMiNgb
-	 INhbYovYBv6AhAxR1JEqNS7ZsfcS738h9bR6LtA0kBgPDJPWmp2v+SkF5cBPuhk/3pxWN
-	 iXsn1x0kXUgCTiXJWtC1ONpOLxA2jLkAbJ/14VMJMNxxMlGdFC57pqEpswhhzYMGu9Q==
+	t=1794862414;
+	b=vs4BQOyz53OTZWcxSP6har0jKDS7UMd1BRXqotot4qUXt285EribCSIfSwz/Jy8bWlhy
+	 0gIDhpnkKIK+TqFsK+mcBEH0uXnZJu5iCLbQWuCNyU0Qx7ARIhVU56eI6aUzII4cUS3mi
+	 QvdZiLtEhQ1RbJV++GENcJ0DO5lcrLr7LrEO56SETRUmmBGVIDHHVWHVyhn18clLW4xwE
+	 JSPioAtXuVA0QWGisL6BPiQHww5b6KSwgTKQ/KJXFjiat/88y4ZRk9EmiuYYwKhyd6WgP
+	 h1CB/m2KuUbPj3RBpDIKJBqLU2accme/Z9BBX0U6eBHlfT4yuDpG3ZCMaoLnAmN/Z4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862412;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862414;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cvMupzOZtYxKix8i7YVSQn/OkBYaiL8fo+IIInVPVHE=;
-	b=bq+jHr8WhseD7H+VM6jqMwPyetvjEpkmukwb0vmrGgn/jfR/hgvuMNFZhBOICiP7ITJt
-	 CYB4gI5Ai/HadAIAis8BlM4Rtgrz/2xoDE/PGUMSU7JAta65rdh2Q1M9FRo/CSy95TN1y
-	 dvY//DaXo6MjV8dmojVyLf6D9i6DCF5SYGlLpoO31WIGjI5MKMGQ7aormmZQv1Qqu789c
-	 qYvw8qJ0rdY9G+FLdTykIkbZTMyyT1BJ8ZgAmBXdaCc4sRMFu71oY9dcSftUYp/s+xqzq
-	 L0gi6uPhYlEZs09ZiyWiXGhjQPVPO6WBmLo6roB4Ge0oUOhsTzkqq5GMG0Srmc3AsyA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kwurbT6fkm9GVYAy5srXA0bWDXvBD9gCK9tTWZEe7Ok=;
+	b=vxHsbAuEn0TN5HxzCZ6Q5Bhz5ZmR99FLfBldOj3ywQAq/SM1qnTgPboHAImOwfGirYQB
+	 1CDrsYCMAPQKmSpSqFkAYRzBE3pv98SdQ0W0+J7SHFAS3SWv1rfYYbKBFf924j6BN/Meh
+	 bLHA6XtQcAB+o6E/95V539HPG/RWrD5lIp2vEZtTZJN1Vtypf6oWqqH6e85ZWy2AU447H
+	 H8wNIdc80sYI7p9ineUriskGmrhk8xq//4ndt5ZD2kGxlyUzyHzWjS5beg8ySndLSAoAG
+	 4DI7Pu+LynpjQ3gijD4OkvNK3N0wkSNkPSxdWbk/1i5ZJQyGOSBntinnOx54SmuKUXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TkQD9kNY;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nCuNFi+1;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECC1606A33E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ECC1606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04038606A886
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04038606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TkQD9kNY
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14394530ec6so4901582c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:53:31 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nCuNFi+1
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-380b40319bdso1160062eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:53:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794862411; x=1795467211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cvMupzOZtYxKix8i7YVSQn/OkBYaiL8fo+IIInVPVHE=;
-        b=TkQD9kNYr0ubQles2l/V1+jSh7+ys0KC1QAirijznyR5rFoIh55v746WOULNwPqeNx
-         n+Fdy05eSychRqgXKCSpZ4iWzs3SwK1AxLvsiL5KWB2nuFv9Gl2XGHHwyWgo1AR6gtT6
-         cYw9YopVqdB7zw9FKjWQuTvVgPYHPIZzFjtdGv2XW41pAiHGT4dLumODZ/8dxrhfteul
-         DithxtNiWApU8WxvXqWdE2ulwdpMk5E90zbkALdi6SMXn5AX3Qhd2GTmoiUyPAajYhNx
-         bw1n3vQmR2FG/IiHCaHlc22311sR8DO+2fZcEk5eirijC11CgxoTfl/3jGumS3LLJz9a
-         Ui6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862411; x=1795467211;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1794862413; x=1795467213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cvMupzOZtYxKix8i7YVSQn/OkBYaiL8fo+IIInVPVHE=;
-        b=CzSAEWCwIwaGbNWgdYgMdbIegUdjC74mpI6L2sDB2O9jQ9QUTwv4d5E21sQHgZw+tn
-         3pvjRh7j3VHRYrAWfB5Aa3nnGAhC1v8oLHfSnpk2+WFovsLwkIeg7hITrqhRE8EtpqYo
-         ybZk3sQgn+qUFTLWccHTWu0f7228ZI8kadrbcMGbT+qSpyfaPJEhPr46ZYrYUAD/pSaR
-         RkUKqMETzY19xvJhbVvs9dzbOrv15yW0wOXFBDudz7/FjnIvj2Yej20boH5t+Uz3OHVH
-         nYYNTgtFQja7jYmz2+fo+zPZfFJFKGt9MePyVQQBhJPmbDeak33x4lPkkJ7Tkky/XcNz
-         lU7w==
-X-Forwarded-Encrypted: i=1; AL+hErHw+zF4PP5mM1ShW5R6qJwejbjQdM6oi6mQyD7ySqVcwtLYwRNynEAhHOHiX9RhMBY7HyyO1H/vLWrjMbY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HI5gtqi3+2/x8agtlbZxjOQrUtjeMKY1LysrLFRPN07SpKfce
-	sDg6GEQ9n87ahr868DxNCbYhYEkg79GZ9G2kEC8NMY4tY6+NtJuj16Hu
-X-Gm-Gg: AYBFou2kMEf8ZTsHKoQNI+aXsP0t40Q9WQ5oaZ7sRQuQm+brwh4U+aLxPlQ2AR5OgGg
-	nY0iU+nUzzDjMASQitBzLN7ZC8tICZNV1eKNxct9tFaS3tEtQ26hexmkIcn4znKSsIbdbPz97Sb
-	RHjkAt6dSb0LllBGL8HChWWo2kbXENfQqh4SxVE5llp24P1RBHalanMHSKr4Teo+rk9tRhSmS5x
-	KnBjFSlJjwiau/FJtB4nZjHc/r6znZprWq25JIGhspXRvFmj68DUw9OGJhDbtfSBASudh38BHLQ
-	RHLrpSLmjoiOJjVkiP2L5VSVUab00zVxQy828VUdETiNjt7RNrQyfLO9Z+MBA76IOtsL4HGvdrr
-	cxg+sirxt+3KVbWX7rG5OoLU5bGqczVLVUdYcgQHa298w5EqgOS6fOr/UejgV0GNnFpRKxweJXh
-	b7cnu488YY6b2NT4MqEC2vTkrIcPE6XzogMKYHqqgzViQ8tHX23G12IccATqSIFHIPiU3hZAyYK
-	3o7F3cuKNFEve5yroIi6emvejEYsp63W75Iw6x7aQO5LNXJHOVrigNrhT2rCDyeGK7p74U8dvU/
-	oEtN5Jhh6iDUS8bioFuDlRY7unGBAB1GEZxXbNP5jkpCRTdQ+tVtT9QIYOMRmDeVL6t/Ym23mXh
-	sHYMBINcQBogxpH7XtMooptLLi8dCgYQSGLZi8ygW7jo3lnGVnLq9+fH2D2uClKJZ00v8/qjoAb
-	APKQi1UP23ja7FbThtXJApAxxwQmH/6MPaAoMhveRi2w==
-X-Received: by 2002:a05:701b:4354:b0:143:26cf:8615 with SMTP id a92af1059eb24-1b5031111afmr10808448c88.25.1794862410435;
-        Mon, 16 Nov 2026 12:53:30 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm15293497c88.4.2026.11.16.12.53.25
+        bh=kwurbT6fkm9GVYAy5srXA0bWDXvBD9gCK9tTWZEe7Ok=;
+        b=nCuNFi+1jkX3+7y0KieRNcc1ZPYxF5feR9EqTRBbKdFSf8aj4dllCa+xbU8+oB3JTf
+         2DCX8D3cIDue6bSHWzfTY8YBOFRrKRjGlISMg5jDVyfQ79vajKoth8mF0cMgjBI0mT21
+         XsQv64ST+rxLF4dSXI7XOo7kqWQ0/UecgvABs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794862413; x=1795467213;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kwurbT6fkm9GVYAy5srXA0bWDXvBD9gCK9tTWZEe7Ok=;
+        b=vi/A/mRWsRNcz8JlCtgdgJDvPAU/xTCu60DqxTCvow5YyOmLemaBANfDSAx3jwoKuj
+         +Z6YUvDfTA9KR3hjQHI9QbpvJ1SAXJcNnZcmwsfrnujHZTFeheyU7dCQ2zt+Y0et3PL5
+         NnEbvYfiUvCdT8FPZHp+2RiLSN99ecdy2ZTcPyIQKuHHNy/umPkAvDxokWUvYE9VAdRY
+         ZycbP7BKy1k1BYmiXZVWX4YUUylV1eQ6hqxxPEn88+iEyyTNu1uQwG610FWOAg4IuOUh
+         JvesOx0q2+i6GryTNSFqwBEGMXd9aSDVxrYW/tDSTJNMrf8koIP3LwaNCqhmUxa9/bI0
+         yY3A==
+X-Forwarded-Encrypted: i=1; AL+hErFSuHmPoLjDPUf56dpzV9dB3762BcaW4eptDECPdJCVvfT71wY4dxkW59i8AhrE0dKso3Pa7JmQLXWhwEY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Tc3ci9P2+Da5Ih+IWieqkFOsntoPpnfLXBhvONbguCYHZeqHq
+	oB7f9q0nVNhoHpP7Lt61eKOlDnT6XCYKF5W7C2v7RqXl1k5wPmVk5qaE2inbEuTqJw==
+X-Gm-Gg: AYBFou1u1pwyQZ9ZsLJQjmGJvepPmh4iS8m4mOwRgOVP2UWKYWXkpg3kGE736WBSxlT
+	bkyY03/Jw/lElc76eB6/P0z4jpTk+MNPZ2SrUDEQUgsAW0BjiRSQTrTTz0tWYcN7DYaEPZlgGiG
+	hQ2gaqJtjYXo4KOKfgAQchGt0AnwyckFZcFSw9CO5KB6d9Sav3+XWGxqscNzX3GmT1zY4FP9Sra
+	7TkPqtFI+KKzCwQdHM0jrSkaaFpRRwON/Ru+qRsTgm76J3xBxIdNgxn9UMoGE95OIfVQRqwal10
+	Sk/tUsLzspKA635hCXkcZrztUL+twKdJpTxz9Ng7KYhzHx2DS2FsjbUf4kpVddQoIFIbm7Yksfr
+	dLsFfI94X52/UwMLLnv50fvGfg3P6LIxpX93VxWkEbdk+PJxBmfIrciNOI2t5IwE7wzQS2GUDn0
+	WyFAAQxJMbYBME3bIIwhJoIvpm6dfNGxPIloLyDVRR76PBwDXzOc1u11G0rZW1xb8IBHNgO8IJ1
+	xHJ7FqV0SwZk1FddOQmCXDwy6ASRjCZKo5ByrM54iHJ1pdiN6JLPUEUpvcbhXUMBWYybm2uXZQ7
+	qJYBo4XNGtTUvNzlJYk/J/lUDQS8sljpsG12wSpZFfnab5UyQk5DL9pwllXcJgQ/eppvLRRXKHe
+	Be9dOYqsbeeF+G/jXEM08WWzIxcPBM5MsD9k=
+X-Received: by 2002:a05:7300:7481:b0:375:c5e1:931d with SMTP id 5a478bee46e88-37966e3aff8mr16186461eec.25.1794862413017;
+        Mon, 16 Nov 2026 12:53:33 -0800 (PST)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:29 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Stephen Boyd <swboyd@chromium.org>,
-	linux-iio@vger.kernel.org,
+        Mon, 16 Nov 2026 12:53:31 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>,
 	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH 0/6] iio: proximity: sx93xx: fix raw reads, thresholds, hysteresis and gain
-Date: Tue, 17 Nov 2026 02:23:08 +0530
-Message-ID: <20261116205320.26070-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>
+Subject: [PATCH v4 01/14] README: Add overview blurbs for dtc and ancillary tools
+Date: Mon, 16 Nov 2026 12:52:58 -0800
+Message-ID: <20261116205320.1621386-2-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
+References: <20261116205320.1621386-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,57 +111,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The remaining sx93xx fixes I had, sent as one series and grouped by
-driver, as asked by Jonathan.
+`README.md` currently jumps directly from building `dtc` and `pylibfdt`
+to mailing list information without mentioning `dtc` itself or the
+ancillary utilities built and installed alongside it.
 
-1: sx_common: a raw read can return on a stale completion (left by an
-   interrupted read, or by conversions while another device uses the
-   sensor's trigger), and it then turns off the CONVDONE interrupt the
-   trigger depends on. The interrupted-read case was reported by
-   Sashiko on Zhang Jie's sx9324 resolution patch.
-2, 5: sx9324/sx9360 read_thresh() reports code r as r * r / 2, but
-   write_thresh() inverts it with int_sqrt(2 * val), so writing back a
-   value that was just read lowers odd codes by one; some negative
-   values also wrap around instead of being rejected.
-3, 6: sx9324/sx9360 write_hysteresis() turns negative values into the
-   largest hysteresis.
-4: the sx9360 gain encoding fix from the RFC, now a patch on top of
-   "iio: proximity: sx9360: reject out-of-range hardware gain
-   values" (in iio testing), as suggested by Jonathan. It uses the 
-   encoding sx9324 got in 108e4d4de2b5 and that Semtech's own SX9360
-   driver uses (codes 1..4 = x1..x8, 0 reserved).
+Add brief overview sections with basic usage examples for `dtc`,
+`dtdiff`, `fdtget`, `fdtput`, `fdtdump`, `convert-dtsv0`, and
+`fdtoverlay` (along with a pointer to `Documentation/manual.txt` for
+full command-line details).
 
-Based on iio testing with the patches applied there since it was last
-pushed (sx9324 reserved gain on read, sx9310 proxraw-strength = <0>,
-sx9360 out-of-range gain).
+Assisted-by: Gemini:gemini-pro-prerelease
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
-Changes to patch 4 since the RFC:
-- Rebased on the applied out-of-range gain patch; GAIN_8 becomes 0x4
-  and the range check uses ilog2(val) + 1
-- Commit message cites the Semtech vendor driver
+Changes in v4:
+- New patch adding README.md blurbs for dtc and ancillary tools (David
+  Gibson)
 
-RFC: https://lore.kernel.org/all/20261107112335.444813-1-kapoorarnav43@gmail.com/
+ README.md | 89 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
-The threshold change was checked against a userspace copy of both
-conversions: all 256 codes round-trip, and every write picks the
-largest code whose reported threshold doesn't exceed the request.
-Compile-tested only (W=1); I don't have SX93xx hardware.
-
-Arnav Kapoor (6):
-  iio: proximity: sx_common: fix raw reads while the trigger is in use
-  iio: proximity: sx9324: fix proximity threshold writes
-  iio: proximity: sx9324: reject negative hysteresis values
-  iio: proximity: sx9360: fix hardware gain encoding
-  iio: proximity: sx9360: fix proximity threshold writes
-  iio: proximity: sx9360: reject negative hysteresis values
-
- drivers/iio/proximity/sx9324.c    |  9 ++++++++-
- drivers/iio/proximity/sx9360.c    | 29 ++++++++++++++++++++++-------
- drivers/iio/proximity/sx_common.c | 25 +++++++++++++++++++------
- 3 files changed, 49 insertions(+), 14 deletions(-)
-
-
-base-commit: 8fda275449b68a96f0a38a61daa35cc39b0fb9d8
+diff --git a/README.md b/README.md
+index fcfc2e55d804..9d38c7e79fc6 100644
+--- a/README.md
++++ b/README.md
+@@ -112,6 +112,95 @@ $ meson setup -Dpython=disabled build
+ More work remains to support all of libfdt, including access to numeric
+ values.
+ 
++## dtc
++
++`dtc` compiles device tree source (`.dts`) into flattened device tree
++blobs (`.dtb`), decompiles `.dtb` blobs or `/proc/device-tree`-style
++filesystem trees (`fs`) back to `.dts`, emits YAML (`.yaml`, when built
++with `libyaml`) or assembly (`.S`), and runs semantic checks on the
++tree:
++
++```
++$ dtc -I dts -O dtb -o board.dtb board.dts
++$ dtc -I dtb -O dts -o board.dts board.dtb
++```
++
++See `Documentation/manual.txt` for full command-line reference
++documentation for `dtc` and the C utility tools below.
++
++## dtdiff
++
++`dtdiff` normalizes and sorts two device trees via `dtc -s -O dts` and
++prints a unified diff between them. Each input may be a `.dts` source
++file, a `.dtb` / `.dtbo` blob, or a `/proc/device-tree`-style directory:
++
++```
++$ dtdiff before.dtb after.dtb
++$ dtdiff board.dts /proc/device-tree
++```
++
++## fdtget
++
++`fdtget` reads property values (`<node> <property>` pairs), lists
++property names (`-p`, `--properties`), or lists subnode names (`-l`,
++`--list`) from a `.dtb` blob. Use `-t`, `--type` (e.g. `-ts` for
++strings, `-ti` / `-tu` / `-tx` for signed, unsigned, or hex integers, or
++`-tr` for raw bytes) to control formatting, and `-d`, `--default` to
++provide a fallback when a node or property is missing:
++
++```
++$ fdtget board.dtb / model /cpus/cpu@0 reg
++$ fdtget -tx board.dtb /soc/serial@1000 reg
++$ fdtget -l board.dtb /soc
++```
++
++## fdtput
++
++`fdtput` modifies a `.dtb` blob in place: writing property values,
++creating nodes (`-c`, `--create`), deleting nodes and their subnodes
++(`-r`, `--remove`), or deleting properties (`-d`, `--delete`). Pass
++`-t`, `--type` (e.g. `-ts` for strings or `-tx` for hex integers;
++default is decimal integers) to control value encoding, and `-p`,
++`--auto-path` to create any missing nodes along the target path:
++
++```
++$ fdtput -p -ts board.dtb /soc/i2c@3000 compatible vendor,i2c
++$ fdtput -tx board.dtb /soc/serial@1000 reg 1000 100
++$ fdtput -d board.dtb /soc/i2c@3000 compatible
++```
++
++## fdtdump
++
++`fdtdump` is a low-level debugging tool that dumps the FDT header,
++`/memreserve/` entries, and raw structure-block contents of a `.dtb`
++blob (`-d`, `--debug` prints tag offsets; `-s`, `--scan` scans a larger
++file for an embedded FDT). For general decompilation of a `.dtb` to
++`.dts`, use `dtc -I dtb -O dts` instead:
++
++```
++$ fdtdump -d board.dtb
++```
++
++## convert-dtsv0
++
++`convert-dtsv0` converts obsolete version 0 `.dts` source files to
++`/dts-v1/;` syntax, writing each output to `<filename>v1`:
++
++```
++$ convert-dtsv0 old-board.dts
++```
++
++## fdtoverlay
++
++`fdtoverlay` applies one or more compiled `.dtbo` overlays (`-v`,
++`--verbose` for progress) onto a base `.dtb` blob (`-i`, `--input`,
++compiled with `dtc -@` when overlays reference symbols) and writes the
++merged blob to `-o`, `--output`:
++
++```
++$ fdtoverlay -i base.dtb -o merged.dtb overlay1.dtbo overlay2.dtbo
++```
++
+ ## Mailing lists
+ 
+ * The [devicetree-compiler](mailto:devicetree-compiler@vger.kernel.org)
 -- 
-2.53.0
+2.56.0.679.gc527c65306-goog
 
