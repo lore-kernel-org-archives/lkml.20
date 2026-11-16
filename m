@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826360;
-	b=MUT5KuqzoO63CLHFSMbwYBaDNmbPUr7jtbm5FhT2j0PU1mnueJ10ovgimANHizPkk3ee
-	 TIA2UPDcey0QupPCrUW0KW0/VtHY5k/HqadQsNjlG/NG7LVrdMHS96jhECQcnPsHctlSR
-	 Xg3E4cWx/eziYne6rZVJSrABChTRxPFEtuUfUXtmDX9lBvlBMM3rqC/0JRskavo7ndV2c
-	 hO1PTgoINiQt4+WVWDou2yeeORzC3Y5aLrTO8Hl5tp/vIbEK1lBXjJwLyTb8wg7HQKGVv
-	 hKiIxFcFJft9NnDGvMvPIwCKcJu0I9ERbO5ylAkZvmX/pZteKDqYnxCKnRsq68QRq/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826360;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=UVdB4yH8xlc148639BsaqXg8zOFxV1Tx2mgUwlLZXoc=;
-	b=p7wwrQ8B3gpRygPociJprTpWSulruzBoRJAN3R7x7JpICqIUZV+3Wi9sah+9oqaf2EoX
-	 z38awClhHZdp7qvdCmLaRW41rHsIKkuvQFZgS2WqL4RMSUysQsmoKftNNthFz/iWmVkg9
-	 7qN07wxnJwwqwujdPbCqdh4fmsDoSz/rAavDi6LXsrLtJiWhdeSBP5VkiCEkCD3rrhje+
-	 R7/pROiHu9XQ/WSPp9Ayx84ZiK4cai4h62FffTYQr78ArF798pXEmf4vX3Cf2UR7lqth+
-	 cKFOIaJoJl5MQK6U9EUDlUdmtDL+f34D08G4kPLaTB9e+L+Es0py+dRL4fkurIhdTZw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OVHet9mq;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ITH5DgT7;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794826377;
+	b=x2FT2Np50Afad0rGJESHhph5m+aSJ5T5sDO3X2dvQiuW9jWz/YSJ2S8h/hu9E2r6cSu8
+	 NPQFSMmTYhuiAm3hQBnwRV+RUpEZ0pTJYkoN/RpuV/Ap525jhUfRv2YeVh6ZCXT24gfZ6
+	 OcUPWm4yJnqsY12fx1hrZdOxq8Zg9KS2OSiyGGeP6iyx8cDsFjcSv0q12PChuHG1my70q
+	 z+L8CtaHs82uCiK2x8UtCDSInw6ajXL2zIaoS8oVuVcBn2DBnldo0v6BxuxKXXN7QrbtH
+	 wzRMdFdKXXLNXCAShIAgj4Fqj7eGbZOskd1I60UBAS7lBraARd5mdCFC9dRshNKI+Gg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826377;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=s9FB/Bs8Bd5wsc28/znh0roBsQAvM1ySQVBJj73PwBo=;
+	b=pPZOArPVt9M/qYfSBYPqkBSVG3EQgaJUKIvZd/f19ll7GdZdj6ffIizuvTqtnqsP3kNR
+	 3O5OXyIHP8/PkAG6yJRFyEjZmYRAvRa+X+GFMwwikFCO165/ejPfP7WegEodK2AYVELv2
+	 1ODDM9dar6Z4+H5lOFDSoHtPvZiWuhUcFdufT6ajAqzyfWaLLPxmEKyau5pQqSG3cAvXd
+	 kKbipn1kNA0+bGCJLDw0zPkItwsiHih7feoUszSeXbgf82tphzNfmJLphz2Jw7cMvhCvz
+	 PApjeRpDRFfe4GYH+kZEWEqCXJDWUQ1eOrPR+sGsZS+SDndndCi+MD1ikQZcBBj7plA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=SoL0YF1w;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8576D606A329;
-	Mon, 16 Nov 2026 10:52:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8576D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA3E606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA3E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OVHet9mq;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ITH5DgT7
-Date: Mon, 16 Nov 2026 11:52:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794826356;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UVdB4yH8xlc148639BsaqXg8zOFxV1Tx2mgUwlLZXoc=;
-	b=OVHet9mqJB7WlNT3jlBvGzgcDtRa72k3k1DorZkwB454/FdXdX35kHdJDgzTlC4hJR+Yvc
-	VY1LfwP+/tyi3mck3Ht+8QtortzArb5PSomBY08wdw5im4REK6v27oAKCBLUbQhc/qDQOE
-	Zq4A4aVB/22WBtBIh704f8ILi6M4vwyS8xX/S1+Nd+9quBo5A8UHmB728A+3ldy6rcNmw9
-	kNq+xovrS44HCXlwGgYMBBqP7Qh/+N0+8YN58ITcCuj8cEnpwZAX7aEgKH9FZ9Oogh91y3
-	/Lw29ET5rmV09PX1WcRQdolKukwtp4ICdMm5ZjcaMpnFjMyyEuRuhNDkwLECrw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794826356;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UVdB4yH8xlc148639BsaqXg8zOFxV1Tx2mgUwlLZXoc=;
-	b=ITH5DgT7VtEiMJCal7bHMw9N5YiPZnAXMrlEskXVtwy3fThvHuVK+biFnbUhAsvyTO2C2B
-	KBdAq+5pK4DpPIBA==
-From: "Ahmed S. Darwish" <darwi@linutronix.de>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, arighi@nvidia.com
-Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
- code
-Message-ID: <avrgcfcsp2FBVG4u@lx-t490>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-4-darwi@linutronix.de>
- <9729a4c6-22f9-4102-b62f-c76a75488240@gmail.com>
- <avHD-3JwbQofpJdH@lx-t490>
- <81c91813-79ff-4d36-92e6-8c0ecc1772c7@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=SoL0YF1w
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso69269566b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:52:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794826376; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JaQszuHFV48J+OzVq/88Ckvs0UzrcpXeAGUkFHnt9y8UkdnwBN5BurUCjlvxPlid8E
+         GGlKq2BDQDIVgOvDID8PyVBM3FAlgOty5wS/zm+U3zr1VC9LeuvHUBsjhaRMgV+alWYj
+         mdQQYXkg3dyXQDt2FFZNWdkMXicJpC25sy4hBnu3vrwzQg2A3JrRI6B+jCLipBsVoa+a
+         7LBOVC0bbIOxXgrImlbYKtZBTgndU8qdfUd+XyHEcywmCwpO3vxzsJOIMn4z4sRuQ333
+         l7OQeMW/KGJaPlpMkyWiaeeF+TaqHuthW5jyHf8wYycJEBlrKxY5UQ9mcHwlZ6ESjx+0
+         xLzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=s9FB/Bs8Bd5wsc28/znh0roBsQAvM1ySQVBJj73PwBo=;
+        fh=NEBZyYJPhIwRptrg4Gtl5OACEwK5IhM7I82nlr8B3ew=;
+        b=F00YNaEL3PO1nrzg/8bXK654oqAeaOisSodaMchX1bc/llQEh5OdDetM3ZEQ9Ak9fi
+         32eDWs/cUzMS809wdnBEg0u9YqvfQUM376EQ03HKFsfjy1vB6RqAlkALYaOMuLF+X88z
+         ileXPt5gDXjFTbAVmaHtwRjvSjUC88CvaXbs5flHT2Xak1a40vyfUUQx5vPDrpIMc95C
+         4Q91XgU/feAMpKeOu3lh0Da9+ew/u2+/Zm9HrPaNxpyENUdP/QOEgQ130NUXrUiOdTF9
+         r+38QiK0ah0Url9Jw3536CJ4YeQ0erp7eOx4PCc8nGLayXh7NXGGUgxm/KQVXdI/Tclt
+         2Dhg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794826376; x=1795431176; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s9FB/Bs8Bd5wsc28/znh0roBsQAvM1ySQVBJj73PwBo=;
+        b=SoL0YF1w67O2J7dNyp48D+VRR2CeInfci74PcgSve1N1zOU87pUt/1L+2JjQv7NWVo
+         6FZKjNEDLi6GPBnAoXYDHkmSt8UJipbV0ytbV4La/B79RlFo+y9YqZEf9FBm2TGVpC1l
+         8Zz2KlqTnsYNOtDTfPFSNVqJUs3VBErYDiBugrGwQliZ7BSnLyhX+UZ3BFeObWf+LmeI
+         cJiqu2lBt/xjTfUpgIhb0urUvMHuyEKdGdcJDLLHO2t8tINlzYOPar49hJqEKYPnWb5q
+         AyRJJZ0P3fK/Y/gS4531TsrQ4/+xFEc7MrcWToxv0blPrPrwS+NVsQhLGvXzawNNCnl/
+         yNdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794826376; x=1795431176;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=s9FB/Bs8Bd5wsc28/znh0roBsQAvM1ySQVBJj73PwBo=;
+        b=1pduVgLzp/Gibdc+RYAIG+3zA+tHb8N6o7UJVVwmkBGLQDcPPMDCOvU1NrGwVys+7/
+         7lpver1HiHqUVfJIbHAJJl+YKNw0TSuM+lOEYq0ayT6i3101yyDpvH9NKVad1QGqJZ7R
+         AG8ALDBadWyixt5xZO5qmCbFkIYEeMkiN/Wga+2TJsM/7DBSiGKqPfmBJ0seJ8Ad4oDJ
+         CG0jjz9N5BDQrNFQQlkJqt9IYxrGaW+CVJr0fVL+hXUQ7pBhXVUEGFc8HOF4mtuyTD/q
+         twYhOC3tR7Wuwa4eqPOpRNdtlHGddoz6uXnvIBtXZEFHXF4MUjJVvdaDUADFXQMG/d1Z
+         O+SQ==
+X-Forwarded-Encrypted: i=1; AL+hErGpWtSO8mExlXtMgjySbDhbh3OenlsBjA3F3+ebgGpXrK4qY0iN1kxNZHnF+ULjoSjxb3EleV6oBhN0+yM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DZ5S8GRuiYXoCLlXXymzpXp923bVI1oGmDZatU/3Zizre+dnz
+	gaOxiXHQdxlJv5Ky/MWqXoIN+fWIWjXAyHIDF8u3fL9zQDacZyNVHjcSztenFehBlHVPu5InMkQ
+	kHFGfgmuCECJLcqB9jatJzFaE5NZnOg/WI85v7S+MLA==
+X-Gm-Gg: AYBFou0cFWuRj/hSZVt/RnW1thGnBBkMUmND/+6DWdKxaDf80DRUnYlORp9Sj48l0nl
+	/eSaR0xxIEr7dbySjIr71ByC9iPKYajBI4lcgDU/0sIsFcTB6JIi09OJyCHHvMVKOyz0AEgFpUh
+	cbuUayPqMFg/peO8Mp+t1BwWDWZIlal9QSCXRvQML5hvUW2vNiBt5sNA1yS9Vk3IWuD9z44ac/j
+	AO7i9SETE8qgBrSmwXCNs9dW3ccHUBjl+p/xrgMlVwzZRIsA5MPxTKnRuYQhBa4rrD9a2m/MzDu
+	se5r7QSVkdyU/fJ3o4OXq1HXdXrwPo9iuoxImGZy6b+KgSgV+tXzfWkjsBAAjme0b1lNeKYHFTL
+	EHxKxNeooNLrfDexD7SSfa7I+MIvHLu0azONZy5G6RwvqSSIdMixtZXdwF6262T+hn5vebA==
+X-Received: by 2002:a17:907:9492:b0:c2e:52d6:1fb7 with SMTP id
+ a640c23a62f3a-c509636a2ffmr724576366b.22.1794826375556; Mon, 16 Nov 2026
+ 02:52:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,88 +103,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <81c91813-79ff-4d36-92e6-8c0ecc1772c7@gmail.com>
+References: <20261108145028.2483131-2-thnkslprpt@gmail.com>
+In-Reply-To: <20261108145028.2483131-2-thnkslprpt@gmail.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 16 Nov 2026 11:52:43 +0100
+X-Gm-Features: AclHuK9cE-Mnx9JYe1o94mAtkN2_2exx_lHlsDO2PKsOefc_zOkSXXwznfhjwPo
+Message-ID: <CAKfTPtD5vLv_wqfGxVB7kEFDQmB6BQDTvJRGLkHXNZ3d0GHuOg@mail.gmail.com>
+Subject: Re: [PATCH v2] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is inactive
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: rafael@kernel.org, viresh.kumar@linaro.org, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, zhanxusheng1024@gmail.com, 
+	zhongqiu.han@oss.qualcomm.com, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Julian,
-
-On Thu, 12 Nov 2026, Julian Braha wrote:
-> On 11/9/26 13:00, Ahmed S. Darwish wrote:
-> >
-> > In v2 of this series, I'll make the schema explicitly versioned. This
-> > way, new features like the above can be cleanly added.
-> >
+On Sun, 8 Nov 2026 at 15:50, Avi Weiss <thnkslprpt@gmail.com> wrote:
 >
-> Adding schema versioning would be great.
-
-Yup.
-
-> > P.S., I can definitely implement such support, but I'm a bit hesitant
-> > to adding features that are not yet needed by the existing mainline
-> > policies.
+> sugov_hold_freq() uses the NOHZ idle-call counter to determine whether
+> a CPU has been idle recently. When NOHZ is disabled or fails to
+> activate, the counter does not advance, causing schedutil to treat
+> the CPU as continuously busy and potentially prevent frequency
+> reductions.
 >
-> I suppose it's not necessary to support these option types at the start,
-> as there are few of them, relatively speaking. But it would be good to
-> add some input validation in case a user attempts this.
+> Skip the busy-CPU hold when tick_nohz_is_active() is false. This
+> also handles systems where NOHZ was enabled but never activated.
 >
-> So I've finally had some time to sit down and test this:
+> Fixes: b7eaf1aab9f8 ("cpufreq: schedutil: Avoid reducing frequency of busy CPUs prematurely")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+
+> ---
+> v2:
+> - use tick_nohz_is_active() instead of tick_nohz_enabled to also
+>   handle NOHZ enabled but never activated, as suggested by Zhan Xusheng
 >
-> I created my own policy with these other types, and sure enough, if I
-> specify them as 'disabled' in the policy like this:
+>  kernel/sched/cpufreq_schedutil.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
->     rules:
->       - name: CONFIG_LOG_BUF_SHIFT
->         expected: n
->         severity: high
+> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+> index 14405a614991..50249cc1a594 100644
+> --- a/kernel/sched/cpufreq_schedutil.c
+> +++ b/kernel/sched/cpufreq_schedutil.c
+> @@ -397,6 +397,9 @@ static bool sugov_hold_freq(struct sugov_cpu *sg_cpu)
+>         if (uclamp_rq_is_capped(cpu_rq(sg_cpu->cpu)))
+>                 return false;
 >
->       - name: CONFIG_PHYSICAL_START
->         expected: n
->         severity: high
+> +       if (!tick_nohz_is_active())
+> +               return false;
+> +
+>         /*
+>          * Maintain the frequency if the CPU has not been idle recently, as
+>          * reduction is likely to be premature.
 >
->       - name: CONFIG_DEFAULT_HOSTNAME
->         expected: n
->         severity: high
+> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+> --
+> 2.43.0
 >
-> and my .config has these values:
->     CONFIG_LOG_BUF_SHIFT=17
->     CONFIG_PHYSICAL_START=0x1000000
->     CONFIG_DEFAULT_HOSTNAME="example"
->
-> then the config passes the check -- but it would probably be better to
-> provide a warning or something about these options.
->
-> Also, if I modify my policy to set 'expected' to 'y' for these, it
-> reports "not in .config" (which would likely be confusing to the user).
->
-> This regex stmt should match all int, hex, and string options for you:
->     unsupported = re.compile(r'^(CONFIG_[A-Za-z0-9_]+)=[0-9a-fA-F"-]')
-> by checking the first character of its value.
->
-
-You're definitely correct here, thanks.
-
-If a symbol is expected as enabled or disabled in the policy, but the
-.config has it as an int, hex, or a string, then the report must include
-that as a policy mismatch.
-
-So for the above case, the tool should report something like:
-
-  * Below option is set as an integer:
-
-     CONFIG_LOG_BUF_SHIFT
-
-    But it's expected to be disabled instead.
-
-And similarly for the other symbols.
-
-I'll fix that in v2.
-
-> The included preempt_rt policy worked as expected (nice).
-
-Glad to hear!
-
-All the best,
---
-Ahmed S. Darwish
-Linutronix GmbH
