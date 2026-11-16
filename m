@@ -1,86 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832061;
-	b=oBoUlboc2QAKK2OXt71E8nlMMaffvHT1bg9XA6MsfylNi7KgF3w6VeXD0+1DtcV2D37k
-	 X4IBGoBpE0bU2U0CGULTOX8vUlfFXo9/QJWqNx6/GmzD83kL36IZQKok+zqrAIC69SP2d
-	 16ZU9FML2fq2hP4qE6T9fhuV6pzYhzZhB6Y/ldZtLrLAbuaYQoMz1HEZq4aMz+/EKRYRG
-	 OgR1S6H3iIy3aEA3F5sJPtLXI3Bl92dSmwslyjW0h2iFlBPSxg48eZkjuISlg4sxiP486
-	 +mxvKawIY6saKBQ/V7NY0rGc4gfMyJ4+agoWFsusOKeH0c0JSM9sn+w8Qm69AQDobxg==
+	t=1794832074;
+	b=lZgTvV+gMs/1iKj4H/6EO1k79wvjgO4IuTDxqdk89chEtOyR8j3+UB/4c5gGRw5vNyCC
+	 T3wHOc3YGHcqKXRUcYNeerIfqvsgX/QfjxvqAGHVAoxyB6sjmMnAbsCFAVoYz8qpfm7jV
+	 h/Ey9d7yt6ufikIu6Mxoq1sOP2OgyT0AsoIbFkqLQKHCg7M0cyVLKsmDe5lYlBxOnfGT2
+	 8pdV/9AWhGHMkar3P4T6CwCtseXsvG1Lnf8mkWbdyC08XuFaTpuTLqmRNaPawyMgeo8gz
+	 pJNFdslv6rWxrv8ld9EY2b/H82ZRS2eJ/GzanFpY6s8wzWRGtB3ikFwgWVZM/8WTgxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832061;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wuf/Vb21lAKIWx5bIMQ7gAQDptG7l3Y/m/xV4mQ2rWs=;
-	b=e4oaMBotb5n/8h+rcirX3H74E9CVxNx9ZBkP1O1BFS22wBKKp2hr0SU9u96k6ahayhK8
-	 Esd2ETWrLOkT7fhpXwGySd8y/A8MEjm9J3UQaICnPl/4cneNqLffSAad5HW9n4SWPVugH
-	 Fed1UI9mDVb933lfe/yjNXfykDKhAyeWKVhiad91876UUk/xh9T65osDU9vI3fIwBr6Vs
-	 lvZIb4zGHKgXzeKfJKUi9KE9QTmfAhjsCUf1rP4oGpF3O/CGUjdzcFqyA30vSswx9WD3s
-	 kQ6RtyoT6dYBsQj2wIDzL5jcSpGVJPuNN/NOjbG5hATzgAhj+oWgqkujLSDm75f1zDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832074;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=3s2FlGJKR3wcdSBQfJcCEVfnWop9s28CwmbBMrvTzlAzKZc7Gza8KBUcIVNdEKncPT3Z
+	 DAV5Oge/4ysIQFL7zdSszmsLwmGtwIeSj8sDeGCLrVB45RZ/4kPfqC2q7UaMYxzYahVCD
+	 uCbHfQUtFa8Wy1/GJ+69V7+vI0u9mMeumSMeAVRv1iWvvPqC37+APORVMLGRxRR3T6I9o
+	 2/PbT4Zbp5uxvR1h+zDAXIPldMZfezw1FaxxBgOowq0MLZGjWX2xNHbi8k4lEkAEzptBI
+	 9DgJ17k0/m8xvLS0PUXsD57rIjmA+lkNKW9PkMErSyMJM2v/QbUAQgbQ7N+RDUnVxQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUogbiZ9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/r9kgd2N";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/r9kgd2N";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB9E606A31C;
-	Mon, 16 Nov 2026 12:27:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31AD606A31C;
+	Mon, 16 Nov 2026 12:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31AD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUogbiZ9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9EA1F000C4;
-	Mon, 16 Nov 2026 12:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832060;
-	bh=wuf/Vb21lAKIWx5bIMQ7gAQDptG7l3Y/m/xV4mQ2rWs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WUogbiZ9t9BJObRmhrxViyzM4DGbGCmdWU+/J509gYJyRcdNJqmvKcp/LNe2UB2Rz
-	 0DQXi+ux8crszv2ki8laXp/UrNNxVXcFFr4Q3hIGMcvsEezkaLulNItc8mPYn6GXfe
-	 Y9wkoN9KmMwSPc3TN3NhdHrOKfTZwDqEv6xsqeL1QTjvZpgIVECXvvOpSwzLXLu2C4
-	 UOnZ1gU/GEz06RPdx3Cv+dW1/R7Te7qGMzGucBd4Yl5lDnQt1Ytn2jqIqj48xRjqGw
-	 kUidydPVFHybinuOJj7J4/beXvQjyP4vFINKWCnzqOlbVXIIwXzobkoHreU29LfZ8h
-	 vmWM2c8JsAHYw==
-Date: Mon, 16 Nov 2026 14:27:36 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Alexey Kardashevskiy <aik@ozlabs.ru>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>
-Subject: Re: [PATCH v2 11/19] driver core: Introduce a generic device trust
- level
-Message-ID: <20261116122736.GL11319@unreal>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
- <20261109-device-trust-core-v2-11-3b12d9a9f861@nvidia.com>
- <de5772b3-c340-4822-a49a-1434ece1b144@ozlabs.ru>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/r9kgd2N;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/r9kgd2N
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6962F1FBA8;
+	Mon, 16 Nov 2026 12:27:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794832071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=wS1VS76rrPvkg0gqcRjss6l5d01px0tB0Sqv5HoaJGErh+upiraL9d116S+6l7XzYExIsi
+	wnZXjmtz+rbIP3/ZpHReVfNlTrrBSejQG+apS+LmNu8Og6evhvLDExkWDBaqSvIRA5g0HO
+	Pxmx5H5jCW7FGtn23PQrM6fnGOT8XGk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794832071;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=/r9kgd2NLXBMzmrpfkuCDKqGe5dq47rlkGEKccIrJ/QCZwEwRTwhwHfv7RLe76qFFCWeK7
+	SjyqhgZJiF/ZmoCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/r9kgd2N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794832071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=wS1VS76rrPvkg0gqcRjss6l5d01px0tB0Sqv5HoaJGErh+upiraL9d116S+6l7XzYExIsi
+	wnZXjmtz+rbIP3/ZpHReVfNlTrrBSejQG+apS+LmNu8Og6evhvLDExkWDBaqSvIRA5g0HO
+	Pxmx5H5jCW7FGtn23PQrM6fnGOT8XGk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794832071;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=/r9kgd2NLXBMzmrpfkuCDKqGe5dq47rlkGEKccIrJ/QCZwEwRTwhwHfv7RLe76qFFCWeK7
+	SjyqhgZJiF/ZmoCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 420141334C;
+	Mon, 16 Nov 2026 12:27:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LzwUCMf2+moUZwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 12:27:51 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id C8A8F24DE9; Mon, 16 Nov 2026 13:27:50 +0100 (CET)
+Date: Mon, 16 Nov 2026 13:27:50 +0100
+From: Jan Kara <jack@suse.cz>
+To: Qing Zhang <diasyzhangqing@gmail.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	kartikey406@gmail.com, yi.zhang@huawei.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Qing Zhang <diasyzhang@tencent.com>, 
+	Ahmed Khan <ahmadpsn95@gmail.com>, syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: attach jinode before inline data conversion in
+ setattr
+Message-ID: <xrpc6ogciidiydmvr2t5hvmnpezu4ftbvtrqjpukpva2evwg3f@tdexmd5dk2lb>
+References: <6afa2521.84fe3b82.798c4.0005.GAE@google.com>
+ <20261116054424.62067-1-diasyzhang@tencent.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,80 +119,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <de5772b3-c340-4822-a49a-1434ece1b144@ozlabs.ru>
+In-Reply-To: <20261116054424.62067-1-diasyzhang@tencent.com>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org,tencent.com,syzkaller.appspotmail.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[9c29b92a3b6500bb347d];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 6962F1FBA8
 
-On Fri, Nov 13, 2026 at 10:30:23PM +1100, Alexey Kardashevskiy wrote:
-> On 9/11/26 18:33, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Device setup needs a common operating policy before driver probing or DMA
-> > configuration. Userspace must be able to hold devices disabled until it
-> > authorizes them.
-> > 
-> > Add generic trust admission with an immutable global boot policy. Restrict
-> > the compatibility attachment API to explicit global full policy and full
-> > operation, checking admission before probe. Keep the operating level
-> > stable until teardown and retain normal locked admission for other callers.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-
-<...>
-
-> >   #define to_driver(obj) container_of(obj, struct driver_private, kobj)
-> > +enum device_trust_state {
-> > +	DEVICE_TRUST_SELECTABLE,
-> > +	DEVICE_TRUST_WAITING,
+On Mon 16-11-26 13:44:23, Qing Zhang wrote:
+> Commit ed9356a30e59 ("ext4: convert inline data to extents when
+> truncate exceeds inline size") added inline data conversion to
+> ext4_setattr(). Pathname-based truncate bypasses ext4_file_open(),
+> so the inode may lack a jinode. In ordered mode, the conversion
+> can pass this NULL jinode to jbd2_journal_file_inode(), causing a
+> NULL pointer dereference.
 > 
-> What is the exact difference between these? "Waiting" is waiting for what?
-
-This is internal device trust state which is not visible to the users.
-In this state driver is not yet allowed to be bound, but once will be
-approved, the driver will be able to continue.
-
-The difference between DEVICE_TRUST_WAITING and DEVICE_TRUST_SELECTABLE
-is what happens when you choose a policy: SELECTABLE allows further changes
-before admission, while choosing adversary or full from WAITING immediately
-locks that choice.
-
+> Attach the jinode before ext4_convert_inline_data() and propagate
+> attachment errors. The attachment in ext4_truncate_up() occurs
+> after the conversion and is too late.
 > 
-> > +	DEVICE_TRUST_AUTHORIZED,
-> > +	DEVICE_TRUST_COMMITTED,
+> Fixes: ed9356a30e59 ("ext4: convert inline data to extents when truncate exceeds inline size")
+> Reported-by: Ahmed Khan <ahmadpsn95@gmail.com>
+> Link: https://lore.kernel.org/r/CAOaS1==g3mdoqmS2AjOC0_-woXJbA_X0LJQt7+M7d1=+gfyQqw@mail.gmail.com
+> Reported-by: syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=9c29b92a3b6500bb347d
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
 > 
-> And exact difference between these two? Some documentation would be great.
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+>  fs/ext4/inode.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> dev->trust_policy is how we want the device to operate.
-
-Yes
-
-> dev->p->trust_state is where the device is on its way to that final policy.
-
-Partially, it is not only takes into account authorization (where the
-device on its way), but also commitment (what is possible to do).
-
-<...>
-
-> > +static int __device_trust_prepare(struct device *dev,
-> > +				  const struct device_driver *drv, bool full_only)
-> > +{
-> > +	enum device_trust_policy policy;
-> > +	enum device_trust_level level;
-> > +	int ret;
-> > +
-> > +	policy = dev->trust_policy;
-> > +
-> > +	if (policy == DEVICE_TRUST_POLICY_DISABLED)
-> > +		return -EPERM;
-> > +	if (dev->bus && dev->bus->trust_resolve) {
-> > +		ret = dev->bus->trust_resolve(dev, drv, policy, &level);
-> > +		if (ret)
-> > +			return ret;
-> > +	} else {
-> > +		level = policy == DEVICE_TRUST_POLICY_ADVERSARY ?
-> > +			DEVICE_TRUST_ADVERSARY : DEVICE_TRUST_FULL;
-> > +	}
-> > +	if (level == DEVICE_TRUST_DISABLED)
-> > +		return -EPERM;
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 10cd85d4c721..1e31933ae98c 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -7127,6 +7127,9 @@ int ext4_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+>  		 */
+>  		if (ext4_has_inline_data(inode) &&
+>  		    attr->ia_size > EXT4_I(inode)->i_inline_size) {
+> +			error = ext4_inode_attach_jinode(inode);
+> +			if (error)
+> +				goto err_out;
+>  			error = ext4_convert_inline_data(inode);
+>  			if (error)
+>  				goto err_out;
+> -- 
+> 2.43.7
 > 
-> This check can go right after trust_resolve() above. Thanks,
-
-Right, thanks
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
