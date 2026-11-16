@@ -1,60 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833336;
-	b=IVR7digpkAVkiOE+ZJMLc52QqVbcyOg3NymXVCWGCvGUj8Sc6pE0+BCzZjkq3RMhC1Ao
-	 zYyeOwTLCfpE6fN4vJnN6Yr3dL0RY0pHcGyB4IAGad8B0bjNBpAAZ1RSNOschF0sgwKvZ
-	 +RrnCP9Muqno7Kv5Yw/mDsmLxJY5Iiv7qLgqLL65IQ7Fw/RBz759H7BIZupJoRvi+Ac8I
-	 DMCg1HvMq7fi/Ja2KBYAOLxz8eWm8MZOYjEAW3vhvfjUcSpOKdGt/cEFn/nXT8PzmdjQ5
-	 Epb10GW3K6TLqnZFudFVoF2KiMMkr5hktTlRuPx8GOw5SY69S2wvdcT4Cr6Oyz4c4iQ==
+	t=1794833383;
+	b=Vsm7A6InTHIugKD7WrYvZ9wg8mg0K/ZAk/cyakVIZNnUPSc//AX1uLU0y1MMnq+vlJuw
+	 4EGytsqZOkLi7UHf1zI1XRT6f6czfuI9qtAqnaVtn+HnUgsiD8OSu7tJETNRLprGEVtJC
+	 H9IccpG8EeBtsuEpEHWoPCIIvLDAjdYIRgPacsJfCTHiUN4KkqW8PSEW/uccCiy7ecpRX
+	 5ZfTxcU4d7Lz13Q3tSSg7I5JRkoudL3QdjlfRd87h5+XflZUv0xv36n8ngTyH1+bl3dWZ
+	 cApNI2mTfpzYXFzHxq4Eea8rwN/Cz7aSUOaHHUMtAex4cnsAzrgI9eshsb98bzlWbIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833336;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=q+vj+2gwnCsvLuhkx5/eZ6hFIO5bSIxa0YO+wbxe2XI=;
-	b=b9uF+DhX/pu+YYwIc5iwvHrWfzYiUke2UJRH5i3ADYSBuUf7xHr1D5j2rjOVj4FUd+YB
-	 aOMZ3fTD3tHBb32mOEEFZ5L4Sv0MdHA1F8YAicFtsB79o4HjRBR9mkgFmAqVoXfSIAQUg
-	 5+CZ6wgALMW8ZljCZVBmzfYDeKBMWHTCV77/S4qcPBBdeaeYHBboT5CWqFyOaLK/7aNdH
-	 ZQJIRuWRi5ONHcGNssVJRII80sU1tcnzd+cAaIkeIGktnMg6oVjEZqScnIDxtGqLXL/SN
-	 E9sZvX/RGIW0nD+mdSwGRosMrKfPVLjcy3vPjdIt2sAjV3J/c3mI3E+69oyrmW2rvPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833383;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iOjXsp94ME04l5ZgdsqMTzmmF3foBeENjQDRF1pMd0E=;
+	b=DXJtlCWDsQrO9RKEZ4OGFOfnruInBwfULgaXdbR9RDokdLzlZaGPuGy/ew0LC5wxOQ27
+	 pH8TP83GVoBZkPQZGPv2TA/thyrnRu9nDrFjXmJKjuFcgz6ji8QsAB0tWN3LKNLxkRhtE
+	 iwzQitRMLztHkOtEsUcN/up0H7bS72eSohRb6DFUT+7eErHayrU4p+KK/ZZmWOqc0z5tn
+	 WrAiZPIvrO64/8zHU1I/yTUJKFEEJtmv/Bo04sUny4BeQsKUd92/9MJxbSRs0nC7MC2Ui
+	 xzbk7gaK7DVIwb48Q/oPWyLjfjxjLb78dNY0PTTcZm5ZCYwMm+6SpK6m10TMEKshkpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vXUnHieI;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0KAQDv0c;
+	arc=none smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA6F606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEA6F606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C18606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C18606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vXUnHieI
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261116124853euoutp0283e26578887b0ec8d8eb49ba510bad91~oh2guHv632074620746euoutp02j
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:48:53 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261116124853euoutp0283e26578887b0ec8d8eb49ba510bad91~oh2guHv632074620746euoutp02j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794833333;
-	bh=q+vj+2gwnCsvLuhkx5/eZ6hFIO5bSIxa0YO+wbxe2XI=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=vXUnHieIz2yw+ObZTGg5tyMTifGqwLhsQ1gYBSiha8L5jipBAijhFM7gQ3PAXm81c
-	 w0U1TKaoclXlzKfmNLWjueZ41UJuTJfo5KujIPpzcYH2sEvV2rB46NnMrEYD28ih8p
-	 y0KSQM2UEzOvKv20NF6qT2YhtGWVCAcx5sggoxY0=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261116124852eucas1p1b150cae3b2b4f5dac6550d7236791c35~oh2gXEqqS3152131521eucas1p1p;
-	Mon, 16 Nov 2026 12:48:52 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261116124851eusmtip129b1231d1435be7a0a2c4fa4d4861c9f~oh2fZOj-F3032230322eusmtip1O;
-	Mon, 16 Nov 2026 12:48:51 +0000 (GMT)
-Message-ID: <2be89ecd-2809-4182-b2c4-df062fcf68b6@samsung.com>
-Date: Mon, 16 Nov 2026 13:48:51 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0KAQDv0c
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c1479a959aso2727283e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:49:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794833381; x=1795438181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iOjXsp94ME04l5ZgdsqMTzmmF3foBeENjQDRF1pMd0E=;
+        b=0KAQDv0cQb7njVk1BHbRqcck4vCSUVlBVmeaOIs+c2Kr6zRJpgWqnxlu1lmly5DOaO
+         71fRfR5WDer849t7WDUDnZrp4EbVhxM2z2EnqJhrU3kvKmLhPKp4F5t5DU8uZisvYfgb
+         UcN9Z2UK27xbUl4/Q9TQNW5wLPTI5HP7yUIrGqMtf3Rv9YzvUcCAYcIq6m0dFrHOPb0R
+         70DicFaZPzHoaHfuVo9B6eTwmTTV+6syuF+JJrwCHaEcWHgY/Q0iaXoSkyzi/56hGPug
+         1daVKrpUQvpYvezoAHyabHj3wyYvGIfIqyfOqOQImCtAdY4epnzkTiEFmComZKhVUvxl
+         aj0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794833381; x=1795438181;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iOjXsp94ME04l5ZgdsqMTzmmF3foBeENjQDRF1pMd0E=;
+        b=har1kN81wWrLmSLUOpMuuqWq7f0pFtrK2DwebmvEBJYsq7uMN1N0Ne98UFoYFwwTzR
+         Tq8TaiH+1u+tYPSicvIZkHMtmfvVIrhNE1+QI8IGcYnehTKoW882bfETvcUyXo5ad2nQ
+         ClQaYhOY0z9mIbUVm1eRK9GT3fXduWq2IMlm/qHeQREd7y7cPHPW+f0AmxRQTOqxQ6i6
+         iIuXIl4ELld9mIA2h7s9ewWvfyy29rL5BHVbROlOxBiMXKo8LWuSNS28ealxhz7f2hMx
+         Ev5pODNspN4m+tOjhWIbImRhQtOV5+BJTIABJ4t9QAf0mtEmL3NWyS6aJfeHtMGM73xa
+         Dq/A==
+X-Forwarded-Encrypted: i=1; AL+hErEgSPSqR1dUxiAcTb17OZiwlcQhXhXK3O7HgVG6nkGyk4lm2YdiOof+3TUMCQzuY8WHJJUZ+6dbtvsauTM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZSUIOzoVnKUy/rbAxWU22x7zNnwEvswMq75OJDu3B0UWt0203
+	Wi7tEm3BvdbMKErJ9CrjZxows6x3yiYrxLIbekKNTQw4jxO5lU/uNAl5anpg5fAz
+X-Gm-Gg: AYBFou2o9EW2nmshZe8p6eETLzRhCDL5CZh1jqrOXd8kMddIFSRv4mEYso5he7kZxzN
+	1sgfScgXxaQKvFHCHvnzjOc4VyENyX1Qi80OaHCXNReFQEv36oJdtouAwUgHg5TS8Zl/k0AaBk5
+	BhlsaEecz3HNxU6RoYzKA/TOTPc5LKlKQ/5mg3Sv26hKKa/6L6eMdzOgZNKPL4pUr+VQSldt7xZ
+	KCYmj/WyMBwERkIQHl5MGQOZf7MaNjHBuryIiIbxt+BGH5daW8Ghq9F4xLtMMo41KHvnZeJkwmH
+	CMpVWx5X4CZqEJGSnvuzqSQDB6VO6jJHdtAnLmyGweoWFknzdt8/KN8k2vqeDUCCT/Y+6V5jF2s
+	hW6aMcqVnR57wcmFFk70S5NRXtOQFIXnWr+6P8H8mrCtXgAgzm3LPPdonxo7LXu9nyYFGkDOIK0
+	11ooX5SYGXLTFVbNU8G/wHWp/eqVWB8W/Y9I1Cp5JXw2N4tc7GCCOpeaiCEmSJsljVLCPG6xxc6
+	wAONdJeijWwKybstNDa5BaMluaNgybQzUlUNFJ+h3PAbhbnLQj/yvW/2C+ylB1yVD+VUHzFklDL
+	k0+G8feWzcIHMdIj64TnAEeoB6QLcMxz9xxu3XITUA==
+X-Received: by 2002:a05:6512:b91:b0:5c1:595f:2a6e with SMTP id 2adb3069b0e04-5c1709c9e08mr3973809e87.30.1794833380394;
+        Mon, 16 Nov 2026 04:49:40 -0800 (PST)
+Received: from kordpc.lan ([2a13:e746:396c:c600::8f9])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17135658csm3197739e87.69.2026.11.16.04.49.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 04:49:39 -0800 (PST)
+From: Kordian Chmielewski <kudzo51@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless-next v2] wifi: brcmfmac: delete the flowrings of an AP that stops or goes down
+Date: Mon, 16 Nov 2026 13:49:35 +0100
+Message-ID: <20261116124935.685189-1-kudzo51@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,130 +96,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 05/40] dma-contiguous: add dma_get_numa_cma_area()
- accessor
-To: Alexander Graf <graf@amazon.com>, linux-kernel@vger.kernel.org, Greg
-	Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, Shuah
-	Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>, linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>, David
-	Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	nh-open-source@amazon.com, linux-mm@kvack.org, Jonathan Corbet
-	<corbet@lwn.net>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <a1294df95fbe0a2ef5cc3585824d396854c7242c.1794393490.git.graf@amazon.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261116124852eucas1p1b150cae3b2b4f5dac6550d7236791c35
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261111224311eucas1p1eb735607894271094a8934b187647ad5
-X-EPHeader: CA
-X-CMS-RootMailID: 20261111224311eucas1p1eb735607894271094a8934b187647ad5
-References: <cover.1794300002.git.graf@amazon.com>
-	<CGME20261111224311eucas1p1eb735607894271094a8934b187647ad5@eucas1p1.samsung.com>
-	<a1294df95fbe0a2ef5cc3585824d396854c7242c.1794393490.git.graf@amazon.com>
+Content-Transfer-Encoding: 8bit
 
-On 11.11.2026 23:41, Alexander Graf wrote:
-> With Nitro Sandboxes, we want to allocate per-NUMA memory from the DMA
-> contiguous allocator, but have no per-NUMA struct device to pass in.
-> dma_alloc_contiguous() takes the node from dev_to_node(dev), and the
-> per-node areas sit in dma_contiguous_numa_area[], which is static.
->
-> So instead, introduce dma_get_numa_cma_area(), which returns the generic
-> per-NUMA DMA CMA area that cma_alloc() would use. This way, the
-> nitro_enclaves driver can build its own generic CMA pool per-node
-> allocation logic on top of those pools.
->
-> Signed-off-by: Alexander Graf <graf@amazon.com>
+An access point has a flowring for each station and access category,
+and one for its broadcast and multicast frames. The rings of a station
+are deleted when it leaves, by brcmf_proto_delete_peer() with its
+address. Stopping the AP deletes none of them, and neither does a
+link-down event: delete_peer then gets the address of the event, which
+names no station; on a BCM43684 it is the BSSID of the AP. When the
+interface is started again as an AP, it keeps the old broadcast ring.
 
-Take a look at the following patch and the patchset it belongs to:
+Seen with a BCM43684 whose AP was stopped and started again at boot:
+the firmware no longer read the broadcast ring in use when the first
+start ended. The broadcasts of that BSS, ARP included, stayed in the
+ring, and once it was full flow control stopped the interface for all
+of its stations, until the ring was deleted hours later by a change of
+the interface type; the firmware then served new rings normally. The
+vendor driver deletes all the rings of an interface on a link-down
+event.
 
-https://lore.kernel.org/all/20261106184433.761422-5-kuba@kernel.org/
+Do the same, and delete them in brcmf_cfg80211_stop_ap() after
+BRCMF_C_DOWN: brcmf_flowring_delete_peer() without a peer now deletes
+every ring of the interface.
 
+Fixes: 9a1bb60250d2 ("brcmfmac: Adding msgbuf protocol.")
+Signed-off-by: Kordian Chmielewski <kudzo51@gmail.com>
+---
 
-> ---
->  include/linux/dma-map-ops.h |  7 +++++++
->  kernel/dma/contiguous.c     | 36 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 43 insertions(+)
->
-> diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-> index afaf2c12189b8..5f7138ea6899a 100644
-> --- a/include/linux/dma-map-ops.h
-> +++ b/include/linux/dma-map-ops.h
-> @@ -93,6 +93,7 @@ static inline void set_dma_ops(struct device *dev,
->  #ifdef CONFIG_DMA_CMA
->  struct cma *dev_get_cma_area(struct device *dev);
->  struct cma *dma_contiguous_get_area_by_idx(unsigned int idx);
-> +struct cma *dma_get_numa_cma_area(int nid);
->  
->  void dma_contiguous_reserve(phys_addr_t addr_limit);
->  int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
-> @@ -115,6 +116,12 @@ static inline struct cma *dma_contiguous_get_area_by_idx(unsigned int idx)
->  {
->  	return NULL;
->  }
-> +
-> +static inline struct cma *dma_get_numa_cma_area(int nid)
-> +{
-> +	return NULL;
-> +}
-> +
->  static inline void dma_contiguous_reserve(phys_addr_t limit)
->  {
->  }
-> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> index 90937dc7c627d..363b84284d087 100644
-> --- a/kernel/dma/contiguous.c
-> +++ b/kernel/dma/contiguous.c
-> @@ -443,6 +443,42 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
->  	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp);
->  }
->  
-> +/**
-> + * dma_get_numa_cma_area() - get the CMA area a NUMA node can allocate from
-> + * @nid: NUMA node id
-> + *
-> + * dma_alloc_contiguous() picks a per-node CMA area from dev_to_node(dev),
-> + * which a caller cannot override on a per-request basis. This accessor
-> + * returns the area a specific node can allocate from, so a caller can
-> + * cma_alloc() from the node it wants.
-> + *
-> + * A per-node area comes from numa_cma= or cma_pernuma=, or from
-> + * CONFIG_CMA_SIZE_PERNUMA, which reserves the default area's size on every
-> + * online node on top of the default area itself, all three of which are
-> + * CONFIG_DMA_NUMA_CMA. Where there is one online node this returns the default
-> + * area, so a host that reserved only cma= reaches its reservation through this
-> + * accessor as well, and that holds however CONFIG_DMA_NUMA_CMA is set.
-> + *
-> + * Return: the area @nid can allocate from, or NULL if @nid has none or is not
-> + * a valid node (including NUMA_NO_NODE).
-> + */
-> +struct cma *dma_get_numa_cma_area(int nid)
-> +{
-> +	if ((unsigned int)nid >= MAX_NUMNODES)
-> +		return NULL;
-> +
-> +#ifdef CONFIG_DMA_NUMA_CMA
-> +	if (dma_contiguous_numa_area[nid])
-> +		return dma_contiguous_numa_area[nid];
-> +#endif
-> +
-> +	if (nr_online_nodes == 1 && node_online(nid))
-> +		return dma_contiguous_default_area;
-> +
-> +	return NULL;
-> +}
-> +EXPORT_SYMBOL_GPL(dma_get_numa_cma_area);
-> +
->  /**
->   * dma_free_contiguous() - release allocated pages
->   * @dev:   Pointer to device for which the pages were allocated.
+Notes:
+    v2:
+    - the call in brcmf_cfg80211_stop_ap() now comes after BRCMF_C_DOWN,
+      in both branches (Arend): before it, a broadcast could open a new
+      ring between the delete and BRCMF_C_DOWN
+    - commit message: rings per station and access category, what the
+      address of the link-down event names, and the restart at boot
+      without a guess at its cause
+    v1: https://lore.kernel.org/all/20261110231145.206744-1-kudzo51@gmail.com/
+    
+    Arend, you suggested this or dropping the call and relying on the
+    link-down event. I kept the call so that the stop does not depend on
+    the event: on my BCM43684 it comes with reason 4 (BSS disabled),
+    possibly from the empty SET_SSID rather than from BRCMF_C_DOWN, and
+    the mbss branch sends only BRCMF_C_DOWN.
+    
+    The mainline driver does not run my BCM43684 (it needs the BCA host
+    interface, about 60 patches that are not upstream), so this patch is
+    compile-tested only. In my tree, with the variants behind module
+    parameters, I stopped and started a BCM43684 access point 45 times
+    with hostapd_cli disable and enable while 500 or 2000 broadcasts a
+    second went to it:
+    - without the patch the broadcast ring outlived the stop (7 of 7), and
+      after the first restart in each of the 3 runs without the patch the
+      firmware did not read it again: the ring stayed full and its read
+      pointer did not move
+    - stopping the AP brought a link-down event (reason 4, BSS disabled)
+      at every stop, before the carrier went off; its address was the
+      BSSID at each of the 25 stops where I logged it
+    - with the call before BRCMF_C_DOWN, as in v1, a broadcast asked for a
+      new ring before BRCMF_C_DOWN at 2 of 5 stops; in one of them the
+      ring opened, and only the link-down event deleted it
+    - after BRCMF_C_DOWN no ring opened: the firmware refused all 29 it
+      answered in that time
+    - with the call after BRCMF_C_DOWN no ring was left (17 stops), also
+      with the link-down handling turned off, and the firmware read the
+      new broadcast ring after each of the 10 starts where I checked
+    - my tree has a lock around the ring table and mainline has none;
+      there brcmf_msgbuf_delete_flowring() marks the ring RING_CLOSING
+      before it waits, so the second caller normally skips it, but the
+      check and the mark are not atomic and the table is read without a
+      lock, as for any delete_peer call today
+    - the mbss branch and a P2P GO were not tested: my tree takes down an
+      extra BSS with the "bss" iovar
+    - the vendor driver also opens no new ring while the link of the
+      interface is down; this patch does not, and in my test the firmware
+      refused such rings itself
+    - under that load the delete of the broadcast ring timed out waiting
+      for tx status 20 times out of 35; in mainline that leaves the tx
+      status counter of the ring wrong, which "msgbuf: count tx status
+      only for the current flowring" fixes:
+      https://lore.kernel.org/all/20261112175754.396469-1-kudzo51@gmail.com/
 
-Best regards
+ .../broadcom/brcm80211/brcmfmac/cfg80211.c        | 15 ++++++++++++++-
+ .../broadcom/brcm80211/brcmfmac/flowring.c        |  5 +++--
+ 2 files changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index b0eaf9641..d5b0a0770 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -5492,6 +5492,8 @@ static int brcmf_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *ndev,
+ 
+ 		if (ifp->vif->mbss) {
+ 			err = brcmf_fil_cmd_int_set(ifp, BRCMF_C_DOWN, 1);
++			/* the BSS goes away, and so do all of its rings */
++			brcmf_proto_delete_peer(ifp->drvr, ifp->ifidx, NULL);
+ 			return err;
+ 		}
+ 
+@@ -5507,6 +5509,10 @@ static int brcmf_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *ndev,
+ 		err = brcmf_fil_cmd_int_set(ifp, BRCMF_C_DOWN, 1);
+ 		if (err < 0)
+ 			bphy_err(drvr, "BRCMF_C_DOWN error %d\n", err);
++		/* the BSS goes away, and so do all of its rings: no station
++		 * deletes the one for broadcast and multicast frames
++		 */
++		brcmf_proto_delete_peer(ifp->drvr, ifp->ifidx, NULL);
+ 		err = brcmf_fil_cmd_int_set(ifp, BRCMF_C_SET_AP, 0);
+ 		if (err < 0)
+ 			bphy_err(drvr, "setting AP mode failed %d\n", err);
+@@ -6750,7 +6756,14 @@ brcmf_notify_connect_status(struct brcmf_if *ifp,
+ 	    (e->event_code == BRCMF_E_DEAUTH_IND) ||
+ 	    (e->event_code == BRCMF_E_DISASSOC_IND) ||
+ 	    ((e->event_code == BRCMF_E_LINK) && (!e->flags))) {
+-		brcmf_proto_delete_peer(ifp->drvr, ifp->ifidx, (u8 *)e->addr);
++		/* the address of a link event of an AP names no station:
++		 * the BSS is down, and so are all of its rings
++		 */
++		if (e->event_code == BRCMF_E_LINK && brcmf_is_apmode(ifp->vif))
++			brcmf_proto_delete_peer(ifp->drvr, ifp->ifidx, NULL);
++		else
++			brcmf_proto_delete_peer(ifp->drvr, ifp->ifidx,
++						(u8 *)e->addr);
+ 	}
+ 
+ 	if (brcmf_is_apmode(ifp->vif)) {
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/flowring.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/flowring.c
+index 35cbcea0a..b9570d638 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/flowring.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/flowring.c
+@@ -432,9 +432,10 @@ void brcmf_flowring_delete_peer(struct brcmf_flowring *flow, int ifidx,
+ 	u16 flowid;
+ 	bool sta;
+ 
+-	sta = (flow->addr_mode[ifidx] == ADDR_INDIRECT);
++	/* without a peer: every ring of the interface */
++	sta = (flow->addr_mode[ifidx] == ADDR_INDIRECT) || !peer;
+ 
+-	search = flow->tdls_entry;
++	search = peer ? flow->tdls_entry : NULL;
+ 	prev = NULL;
+ 	while (search) {
+ 		if (memcmp(search->mac, peer, ETH_ALEN) == 0) {
+
+base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.56.1
 
