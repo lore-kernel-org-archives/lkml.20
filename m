@@ -1,195 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794849135;
-	b=z2CeBDUgHxU3syc8BVaPugparnCxAgiMMLvznquUO7obLwwjUCVS7plIqiBUthV6Nuoh
-	 OlI/fEN2mKzji7+W/P7ri/eehAppulPf1Y8r7MK7KEFwfXuEXi3CnJcoAmFwWuytUar01
-	 iLTEQmIGvCCYPyZqtm1bBXma1TMG5T8onREqY8yT0qRb1iLLR/iF2lmRIdny1Ug2F26Q8
-	 UMdjHDvAbpZgSxZkjTzVurGyIh274057kdDlN3so65wcADG9Qmq0LCil8NudZZgBF4fUn
-	 3GlX4Z48RWguM8Slnfgv07aYR/NrmqUr3XCXIlawxwpHZzj+PPby4gkpd+zuhJi3xNw==
+	t=1794849162;
+	b=xqxV03pfMzGwy/X5Q7ihF3X0frFDiQTJ4Ns1lfXZ87F/31lwrYQa46nsIxCvmgus6Fcz
+	 wiy6dsYMvnh7vdtTlvu+KLT0caLTddEBqa7yrbQKfzlgSSMBKY9JkahBTnyZv1OIUacSe
+	 n/qJgaeKKSFcpep6FwUMLw0E8x5hDaZVjHCuKsHT95qHbl7P54wYFZBp6p7envlmHanqg
+	 0rlwaPRAk4hcjEnjgZfyNHTj5ZyEy8s4Ykvhh8OeuJa4nzQIgBbicO+UGu3WK2FwGFmc0
+	 pmhauhmBf67Ha7Nmi3FGGeJmppWZL2G5kIW3/NbpDGP6Hi8BkMx+zOQVEjzMr+47G3g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849135;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849162;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=qxLe+CjLvP++hSHM+qRvYgljtr1q3hi8B3H718OcCtE=;
-	b=mmkuPeIsG5wPwY9rqZIsvYWAR6RBvAwkIKPtnMr+OboDzMv9Ati38xQlvwYaYmVnS6yF
-	 H4MlJABB1eq+BimpjtK45enJH3tSr2L6rLI/N9Y06H9SLAtGkKsy+Yydy/Zldzx+5UPvl
-	 Hh0sRIY14PsX0BIWvMiEBPoYNP8DMYf0vB3leDHne5vJcNpNtNz4ZsM33x2puwjl+8ahh
-	 mdiTUJvI5PtKlcdfTYqJ/wOmF9G4auyKCZss7ElC8Kry11vttu4qP9X7X7LlyTB2Lu8SZ
-	 i8aqAHHkkeMjQptDHdnR2G8OqNA2kxqqn7rTHp2TCgBK4cv1GL/asNW2K7nGj22e3Nw==
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Aamj86dzv2Ke/HgO9XDLo88lwbPM6q/7WVEi7BQ5bY8=;
+	b=orsy1RgmNPqoeKaaXXku1u7unS6TFu8vHNNd3oC6VMPYAJI7twyDyaw/QuPq+HYwigM0
+	 iG5U5ndOJ2XHLxdMjalDXDxPQ8mjDrGdRNH8SH1SoW7YviF3Q5PVglNiAM4300iRZYDrc
+	 YxffeDvaGq6Be+sXtQ9pZSPRreZj46iK5HgammdrdIToWuNcDSHasudI+bpquIYGYuTN1
+	 uTCj8Xx0wXCwIe2Gqd+sZzjcHkmUBhODU3bvSPKy4RfOc6FhNQfxoBlBALGqHiljin9jr
+	 l3tZOVGnSANSr0g0ySdJUSH90KscwGVk3Skli6Sz7tZDVa3eHDNcXQ/BbVsJMHpZTGw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Si7z5Q5d;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=ERFFKVJH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fE1TKMwN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35B1606A31C;
-	Mon, 16 Nov 2026 17:12:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C35B1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5715606A323;
+	Mon, 16 Nov 2026 17:12:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5715606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Si7z5Q5d;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=ERFFKVJH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794849134; x=1826385134;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qxLe+CjLvP++hSHM+qRvYgljtr1q3hi8B3H718OcCtE=;
-  b=Si7z5Q5dRLSrU1fDLAsUV03YTclJHnWSKQi5Qd1HbgDGds+0GmWC7mPh
-   UVg3SCuNqgYI0n5D33rpiFEDfHP3/NElJoT19nowp4MOs7jrnaBuAs+5F
-   /McjeWA19UNPQtQFHm/0sNEmAM6UnwjiWP9xiZ7Wc1jpcOzecMMxaQcbq
-   9Q3QPtoqSjU4EdIzPVh7owOgA3cb6tjzJYrowGh8e5tOV52ewhF8H+Lg0
-   F/T98o/XA7JHtMQw81SMYhWBf2/RcvZz3LDBtzvpyOmNduCZZ+Sp3rm8f
-   Lg53QLM9oaswLU25tXSkU63h5gRzOG0LEEcGTp5JAhf6YI80idtG2EcGB
-   Q==;
-X-CSE-ConnectionGUID: n6lpV2oGSiq/plesVZwhrQ==
-X-CSE-MsgGUID: QtuIYp0mQL6+KLwe4Bc2wA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3609546"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3609546"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:12:14 -0800
-X-CSE-ConnectionGUID: qX4aes+STn+ujMAhwLYfyg==
-X-CSE-MsgGUID: ScF23GQhTKKJJBIbgvOuBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9655430"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:12:13 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 09:12:12 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 16 Nov 2026 09:12:12 -0800
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.58) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 09:12:12 -0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fE1TKMwN
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M0LbevMLNaFo2zKRDeZvht+vXkQXhGRXZffBlGR1ZczXVOKqHHBdjQKyrDP7YBLTnnsRy9/X/MHyeIAyZbZVV5jQbQl6QKvNYnxuqz0ylIAKEKEhkPvDfZNg91Cp6gIfcx2v/+a0zbWsAddE7/AXfF6rsxyigT1o2+He9JiIJR2Sqf5YqLnQ5Rl5O9tAXq9UQqmFYDIhi9vP1vgEOLZmFBpDYhWrQs3/m66XIN6w1tpe/YFbkEeqSrCAJw+E9Ry1jqploVr8H/yem30uxvnVfOURvcAx2LbiMjpTsZOlrNAtD78A1AbaAllIs7vDUFOc65y0IgdsBjuxCqu8BXJ8fQ==
+ b=Io2PkWtPxGfsEn4BxVxdyuzrp7pj9A/u2u7B8/EV0jhRO6dLP0NwXoipokWJfYqnCoXftr37mGAECLBDFoFiGy8UwbHnJrbGIVfE0O+wYL1F5CqeHfVRZivWe9NdTMAPZnkWA1NnsPlH3ZN4eCS4v2HC0gclA4su85w9edg6o+7On/LWVmeyfohfqqP9dOkYQjj2w5dY6yAuHolYP1NJ8u3Z5ZTdZY9hRIpgbFciL2HuhTitcMahHCw233FBF3adtZ4xpp4jm/aenGGchCbnbzxuiG5T2tEanLiqt4MdwU0slIZSGtaJNg12SZvk/hzGM8X+U592Xa18JIMQkBMejg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qxLe+CjLvP++hSHM+qRvYgljtr1q3hi8B3H718OcCtE=;
- b=s5pSVoBPm47mmC/P4Bevhm99zAkF7Ftn1Iq0jD330famt19tAxmVK5zzXBcKxROrN3SHxq9UD4HoBsU72+wwbXEiySnqkKMRoyw5zMoQBFC7ZFsKM2H73GXDDs09nYEa8PpcYulsKpfqIGgpeQvqfgGK+7WEjHlbXHdWkhnZYgvV1u86n0O8f8A0K2I5daAzIYDxWAxsT6EQ2LwHjZvD/s2lnbLiWmhJPJdiiEXMnehoNY5TBedKx4jjXzVhusopNHFmAMEjh436xgmXEO6Mt+paMTnG/UDz7ObSzRu5EFQy9jndjKWXrJe4HCyJdULRLQhIHWbLfsc+6n7bYMK+RQ==
+ bh=Aamj86dzv2Ke/HgO9XDLo88lwbPM6q/7WVEi7BQ5bY8=;
+ b=B0RwoWUYkp6feo5x5WlyuaieOob/qjO4BGmebftn2NIAoomHBv08B7pvN7YB0cNmUwPc5+LgJyK3ztrKq5oeeSk8x6W8VMGMz8+qsH5v4sOjpMAPqRiXdgTgS84Qm3b6C6b1/mzgNDIrdkPhh1YVblYqGDmnSZiv/O33x1JMeZ7VjLquzAWngErBosVfl2I272e8cPPmknno3FWT8hBX3NCfyAbLQv/byNauHhbtf01VhjFw1bIt/DLbYYys4nvel8hST+hiZhe7WnFbtfegbMLA19ncjPyi4KlIRv95E6TfIXLEpBGGQq0S3fhd97DTIykxhChLVikKSjW+9gN3FQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
- s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qxLe+CjLvP++hSHM+qRvYgljtr1q3hi8B3H718OcCtE=;
- b=ERFFKVJHpss5gqynwecxJ15nOls+Uuu/koYgN1tlGgzBfe6h9j6nmmbusagHU6zGpQZI+6fWt6lc3fhsAmzPOCMzzAuWjsAbW/0vx/nB7Djd6Oyhh/Fl4s7vbIakMLLKgfR7umHpwOrMxN3xPQSnijxXVboK25aoQkU9By2K3jA=
-Received: from CH8PR11MB403433.namprd11.prod.outlook.com
- (2603:10b6:610:32f::10) by MW3PR11MB4522.namprd11.prod.outlook.com
- (2603:10b6:303:2d::8) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Aamj86dzv2Ke/HgO9XDLo88lwbPM6q/7WVEi7BQ5bY8=;
+ b=fE1TKMwNfsIDK4AeahuojwkSR5Jwwr4lXKyWDymt/DSu/NyKORE2r7GUgmEJvAMVn7GXQBpqr12qeVRXtuUyNe0P70Dm1KKTO8vxM1nhGEUQIgCck9IBCeWoNgpLwRvTbuBablvE/zohK/D9mcpiyW7c/pC6pvev93m6wxAqVWYrBa3jQ5pDF2dcHeyKVZzZM9IgktQaQs4CQUWAbzvaiValAfNS3gloji5VD8w2dpmDNiCXPQpK4FmPus9A7KTXislMmVUi2iDJ+gf1scXJKwrAXdR2Ha6yqQ/hHNuioyc/GtawBIQe9Ci9EiYX+tWdNhPDPt2jjZxvvj61m38t1w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV4PR04MB668163.eurprd04.prod.outlook.com (2603:10a6:150:40f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 17:11:10 +0000
-Received: from CH8PR11MB403433.namprd11.prod.outlook.com
- ([fe80::b087:96e4:50ea:b5de]) by CH8PR11MB403433.namprd11.prod.outlook.com
- ([fe80::b087:96e4:50ea:b5de%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 17:11:10 +0000
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Borislav Petkov <bp@alien8.de>
-CC: =?utf-8?B?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, Bjorn Helgaas
-	<bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, "Rob
- Herring" <robh@kernel.org>, =?utf-8?B?S3J6eXN6dG9mIFdpbGN6ecWEc2tp?=
-	<kw@linux.com>, "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 06/13] i82875p_edac: Convert to
- pci_assign_unassigned_bus_resources()
-Thread-Topic: [PATCH 06/13] i82875p_edac: Convert to
- pci_assign_unassigned_bus_resources()
-Thread-Index: AQHddd61ATuwfIOwQEq5go6vW/VTGbcw1cOAgAAYbsA=
-Date: Mon, 16 Nov 2026 17:11:09 +0000
-Message-ID: <CH8PR11MB403433B2B6C13E8AA2A31130FAFC7C2@CH8PR11MB403433.namprd11.prod.outlook.com>
-References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
- <20261116152403.2672-7-ilpo.jarvinen@linux.intel.com>
- <20261116154005.GAavsj1a11BRgBVtSd@fat_crate.local>
-In-Reply-To: <20261116154005.GAavsj1a11BRgBVtSd@fat_crate.local>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH8PR11MB403433:EE_|MW3PR11MB4522:EE_
-x-ms-office365-filtering-correlation-id: 886649ae-e6cb-4de4-f96b-08df44049c1b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|4143699003|56012099006|11063799006|261102123227099003|261021121427099003|38070700021|10067099003;
-x-microsoft-antispam-message-info: InZsNKkv08c4/Qy5FlHGAc6JQNuVwQsKFgui3C0SgCrZMxfj1JHO+HWq0DYmuUoG+pUbZlv2zVhrfcwsjZOU6znFCbZZWAIwqDqPehadKZUCMSRRVoFwibp5yuojR/JHhOGX0hW9idjeRYEPnlStw3LXAcJ75Mgyeo1CHIBTkdLmcM0GPZ+5A4twhLpUs1GtRRoWGsiLhc5vyKxIsLhinefXlMnocTgn3corOwfSGxeM8Q4ZbwOq60CmhcAt1iYz6+VxIPKMi+M9p9Iv67Osb+PwXbl/vQIVWe4FQ4gCgrebLgBv/40e5Svqk4eCVeztm7OR+An/gdKeaRu7C+iLxnGcoUs/ZeUG2KDTjxuhDvFMQV4ODIcoGLw2/PjI3IKonrV5JJgy9ChKQXgMKbC7MH3KWwCmtyvx0dqvilSOEHk1GSPfYLTobpCcffY/1KFP2XBob0x1KegFfFd+4xQvjIjpZ3/wxjckPQfbIhRpe/WQO9wZHaBa+xyoyEuTs/sCFPj1sHTMh0d8PS2mbn4UrVr6D+OiZ3ASh4Q+fkvr/dn+NNoxbAsrb120tyu+pNp9dvwp05gB+dtOFgIwnQfMW5pw7UaXa8JQzIj+g7hnXfZpOTJ1cKaiXPCdtySKjr1yBb1L9Psb0+iir5ISBj1nZqFHM9FmH5r8+CxXu6XYH5f9xuQKRp96Rm4x5miYqlMmnpWTQmPI+KrPAPd5vCdtNg/ZemR+l4kXO/t6Jn7uaQ4=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR11MB403433.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261021121427099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?amlpb2VxNFN2enJBSjRwMUVzeC92RGJUZzJ4Ulc2MGhVWnh1N2Y4SDRpa2dm?=
- =?utf-8?B?VUd2dzQyaHFEYVZrWk5LTStwNEVoRE5yRCtJSFVyWmUzTFdNZ21lbE1uVlA4?=
- =?utf-8?B?WUhPOHpzMzVQM3VMMkpNSEVIT0hlMTBGanVDNTJMUDEweDl1dURwanFsODNp?=
- =?utf-8?B?dEdTa1F0UHBTckNib29FcDkvT3RtVE1Yd0hmV0htdytEeElyeVMwUEJjUHRF?=
- =?utf-8?B?VmlmZVIrckgxU3dqSXlKaGdTL2hWN3lRWDVvR0VVb2JZZGhzcDZhN2h2MURC?=
- =?utf-8?B?OWFlb3lvQWYwZ3NiUFN5eFBTK3RSVVhiZDcyQ0FHbllSTTFOV28vaXZOOVZI?=
- =?utf-8?B?dUh3ano5dDZ4aU1HK2NNUXpHakU0bUFyQ2VvTkJNcWFmOThsS1BOWjZwL2RX?=
- =?utf-8?B?ekdydDdGS28xM3YwL1k1T0s2clcxSFZQY0tqUDFQOXVvNEhKQkpoL0thYzFJ?=
- =?utf-8?B?MGZOOHhrSHdsUlZFOEhES1djQU9SLzUrWTV3UlhkS1hzWElMY1F6M3RHaFJV?=
- =?utf-8?B?U0xTbjlFZGtNaW1FdE5Pd0pSYi95V05UL1NvL05rKzhvTGtrY0ZYNzZzNmtS?=
- =?utf-8?B?cnhlUnlnNUYvVGg3Vm5xVEh5WGJYU3Q4eDlPZlpJbzNVSnZuSnBXcE9VVmls?=
- =?utf-8?B?Z3FPRmJFRHM2NSt4Ly9jUDlTWUJWaVpkWmc4NHVreHU2NmdrR0x6QytXRy84?=
- =?utf-8?B?bE50UUtSK3o2bnkrQ1VTMXBXVFVlNmN3R29DQXorV0llcHdIMjc2TFI4dnl5?=
- =?utf-8?B?YXMwaTJ0ZHhnWm5TYVVCeVpQM3R3ZWErR2ZiMmhjOEdSUXhIVWRPbW4xYXdB?=
- =?utf-8?B?cEh0T0xqdk82cVZ0WlVtN0xMZnNWekJuVWJub21MNk1jeDFYOFp3WTl1WmRy?=
- =?utf-8?B?UVNwaDk3M3ErQU01OUlYWWlmRWN2Y2pRUkFUYnZDSVVrOVErdDZVVFlXR0lk?=
- =?utf-8?B?OWJnZnlsbzQzNGZ0dzBqR3NRREhJcUx6eUs0YWtLZW1sRjc4ejFQSGVkeUJa?=
- =?utf-8?B?NDdLSi9KTjRDelJGZkU1dU9uTWd6d1FYb3k5eTBNa20xM1VtemRlNkV5NEc2?=
- =?utf-8?B?N25tbWswRjZrWGhheGdyeVZzaGlVWHY5VzZ5bFQ2S2djUjZWeTJ2cFBzVzln?=
- =?utf-8?B?bzh3RXdSTFNDZzdSaE5wYXMwR2lNWjJGL0pVZHdidUhNUkhXQ2k3MWhFNFhS?=
- =?utf-8?B?WVZnbWRHdVNWYVB6Z2l4ZDZHdkZTemY2MDc0WVBYdTdIRXpLQ3E3bDZFTE02?=
- =?utf-8?B?N0ZqSytzN0RwUVR1cCs4aTAza25wTksxQUk3Sm9iVTN5SHF5Sml3Z1pEUFE3?=
- =?utf-8?B?TWtjTUM1bDhyTTk1b2F4czEzZ0hSMkh6WlRSMnBRb2t0d055aWdwbXZWK1Bv?=
- =?utf-8?B?eXpKSjY2Z2xndzVMWDJranRvYUZCcFdxRzYzS1d4TXhreDBMTEphdk1PaVpW?=
- =?utf-8?B?bFFtQ3IySEhPVzVsbzVwQm1ISnJXKytwWnFDWEdwK0tiY2p3U1Ribklsa011?=
- =?utf-8?B?UXQydVAvZWgxb2d5bXJlZHlJejlXanFkbFBpdklwTmN4cHVQT3p0bGo0NXIw?=
- =?utf-8?B?WGl0b3VqRk5yemZPT2Q1ZkhYeUQvM2R3MlB2R2ZaaDh0eHVlMW5FdXVaTE15?=
- =?utf-8?B?bEpFbXpoKy83MDcrcFE3bW1td1Q4UUJqdVZNcm9KK29DQ2htc2c2dkJQT2NF?=
- =?utf-8?B?c1h1bUk3bHZITEM5emVmb0dtTHljQUNyYitOSUEydkhNYkRGR0RvUGFyMUlh?=
- =?utf-8?B?RUNVdUJwSElIWFYya000UGVnNmJCR0M3QlF3RnB0MHJQY1Vsbno0Sy80SDJX?=
- =?utf-8?B?WEZ5endtd3FhTUl1WEkyMnQwbWNSbEhudzhiOTgrZkNsL1p6eEJLaXllV3Mx?=
- =?utf-8?B?eGg0NVVzc1BGbVhSWlhEYW9LVHhMVlFacWxRZm1ZSFFiL20vUDZCMWhXTmYz?=
- =?utf-8?B?QUIrZ21OMm5RZVQ3Tngzd294Ris2cmxQNTh5aWwvTHdXZWFQS0MzM2lJdVNm?=
- =?utf-8?B?NHczWHFMR1l2QzN6aVRWTzMvVU5OM215SDAxWVhjd0d0U3lOams4eHFtVUMw?=
- =?utf-8?B?b3QzTHRqTCtOSG1hU0EzYWJtK0JNZHZJQ3JGNll2WVpML1ZCSDgrZlcvZHFU?=
- =?utf-8?B?ZHdSNHgwTmxPTERJL0FuUmtXem9Yc21hTHZZUDNNek1lRXBudjF4cFU2WWFB?=
- =?utf-8?B?RTJYREQyRmIrWWs5NkVIVldSZG1TclpMQ3MvZUFaNXplYXdYU3hncG0yT2Yw?=
- =?utf-8?B?V0YwSnNkVkgzelZJV2JyL0hQUWNESGt2VW5YYUx3ZVBONGtENE9mMURCMmxq?=
- =?utf-8?Q?fKNurRKAJRgDZEn7oi?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 2026 17:12:35 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 17:12:35 +0000
+Date: Mon, 16 Nov 2026 11:12:22 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v6 4/5] pinctrl: freescale: add the Layerscape RCW
+ pad-mux driver
+Message-ID: <avs5doXCSvucsOdR@SMW015318>
+References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+ <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-4-fbdce4565a5c@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-4-fbdce4565a5c@free.fr>
+X-ClientProxiedBy: PH7PR17CA0022.namprd17.prod.outlook.com
+ (2603:10b6:510:324::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -199,22 +109,585 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: KOY+/bkDudimpAx5cQpwvjeV7N90/a1K+Z5QkDEKzRpnCrq4K7qCARqg1SXcJwO9cLl60nzjOCxuuPLseAi4+jRulYqvZMZkDPoqgMY/JIq0m2KqcVRbQjobaPCrJPoAVK3cBdpXVcDYnzk2xHRy1IKB4w7dUqncwwW5o5f35wfl8RQrl/OVkB8AjgkyPI5yq59fHv1MmttjSpexVyBq4k8U8fAvVg+myKCao1rW/SVI1aqPF9Y0rBeoAdu5ezjHNIEPmWLPNviD9c6/VCri26OOizuuEsargqpnkGNBPovge+pcMGXm32P5/qHwkxsD0JUc1MW/JQvLry6IfHwTyA==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV4PR04MB668163:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa79aa52-a0b1-42e5-3b55-08df4404cee6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|3023799007|4143699003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261022075727099003|10067099003|15866825006|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	EvOjHFTxUR1L566e8t5fFTadV/l7+M37j0G60CYtKgV5qevvwYWgafNy4UDVXe9L5U+Ir4m3UcGGgrTYyIylz7wJhlxRo6NFmR02mdUq5miM0zxvSK5RE77VrAscAx4eePcfnhWlfMZSZjdhOFKnsKWr9/+eP+5C2g+jlOGPmw0xlyHMxHFrwF+Q/Q+4mRFYaI9pfde392RElG0BqR9888HjsP+JFSu8idozOwdNksOaJurNCQEYppM/qKSXjZK4DnTmsNskOB724VD8FRBnxz78RTR0IqiypigGWjZ0a880HB7k5fkniLpfriBL7ROYckMSsSNbPJkOOCFG1EJvIi1wKTGaDpUID+XmTJdZAyB6zexPGQ+z2SOqxrAISgac/wwKl+JyEq0if0zkIUqYkZf70DU60aQJ0zuoCIp9wuiGhMY1tjKh7GQXfrAoT0/Le6XeRipcRJIXDMAczxApo61aB3EBts8XmXeCdI/GXBLPIarVb+j6w0iUnD9hB/+Xh9HbgkrF2n59i7YRLkvNH9qIq5IPvuonLgzCdL1q2Xkr+bQc2f69lGfn7BeXTtemvFTSc5hDGyoRn5fr12cMiw+wdFvIevG/3bBZrlCf98Eh7DpPhQYOhQF4nsB2bY/za+N4Gefap5cWeWKQ6IiPK7KLh9uvDV/vN9fs+CUXaK1AMK4Xgwbw3HXvpFLai9/Ui2Qisu8tkiAIkDItqoqqQLuo/rMGdo/j5DNvsl3cj/3l0m/ww9tf29bOtrMAY/mJ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(3023799007)(4143699003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261022075727099003)(10067099003)(15866825006)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Kx3RysL710ipzPzIFQaoi3MuI06iRu4Z/w7IMBiA3ektVUvoME6iUIO94L20?=
+ =?us-ascii?Q?nYPhgqFr0CnJnFfoKQp0bsSSTYoUf88puue6aCZr/Nu7cRgYRwC5bjqU3GE+?=
+ =?us-ascii?Q?Y8fjEZ0d2wTaxg3mkc4bR/SvJZKAW18/FrRKAC0meL0kIM6anu4Q22OnBsmX?=
+ =?us-ascii?Q?G2QfTobZpTueoNsT4LYMi52X7SAyD9BClNWcPYB9Zr5tOwkiM4KNUbqjQ1tK?=
+ =?us-ascii?Q?B6ZCB0I4toKPqq9MQ4SDL9wZ2nV2owOfvYKFXcTxYpKY5SfXuUk60EFwKVUv?=
+ =?us-ascii?Q?2c47JzUZd4fzu08gWNOlJZVrSNFeKbop0lbdcjBeE1bltxV8yZdXyNeoUE7S?=
+ =?us-ascii?Q?HUFlLLQK15KlyW3wXLeuFrdOXyOo34PhIilNqVDHD6ELB0cTJWNNs29RB1mX?=
+ =?us-ascii?Q?mq+eP/Fr8xBnCeV4wgt5Tbj3QJxVQNsgBSk7PDTiadTel0KReBQa+E/CG+ja?=
+ =?us-ascii?Q?At6SMhL9TkKNnmCfdvWCMbAosmQBEZT5ZfheV5rSTr32keLeZxvO2kahm42b?=
+ =?us-ascii?Q?Ee9Yih5vm2uoMFP1ivD8i3n+PhQwm+LuH6vx/EjeasH3U61b21/Rxq19pBZ2?=
+ =?us-ascii?Q?k27Zle7ivJqG8QlBPNskFo4zYZj/yH9Rgh6G9e8vQHbC7AsjCsdVEZ51v1Di?=
+ =?us-ascii?Q?ZoOLmH3FNdMYtdYDiIjXaLm2i84lwHNwg4Q9D0OZLOUGdkffM7akedLHgmVa?=
+ =?us-ascii?Q?WgyoKzoSsxtn8AaK0ey7CnsowVY3sc6pr7WOEGFFlXXO/WvRC5ewUJzkFUim?=
+ =?us-ascii?Q?61j7j17JBg1Ww/CtksZdDbfS9HYkD/IOv9uaZk8lWgGscYycZ7o3oFDBCjY3?=
+ =?us-ascii?Q?xfrpZrMdQ+wJatLtwWguCjxM5nq03/EnPKZ5j3P9ydBDUJUj18XIvRXGEnRD?=
+ =?us-ascii?Q?hxgvlgAujZGKKh6W/K3Lc0PmrWLjYYBesC0YqQO4RZxMSTEMPrW6F73NSzDg?=
+ =?us-ascii?Q?dO78g+VOF01mwl4G6s/AC5/LTOTfwr+kUoZBTvzyjbSd/oC5e8fp4tfiUxyC?=
+ =?us-ascii?Q?xwnISNCoYwAXm071QDFi0o5XlzO84xlfvu3UM4L+9Dr12lcm6vD58AaAzu2y?=
+ =?us-ascii?Q?08YTQbm01feVtSybPfRrZLatlkrnXJSDMFgf4FMOHcsvYxcPuqWYz575S3Qh?=
+ =?us-ascii?Q?W/RnybKZvS0FD2UFLBOSkzaYUKRLD2bG3+PDLyhIMsddH7Mf4tFZjkxsSFpM?=
+ =?us-ascii?Q?mkBMGV8ApNosv1Reld0UK18LuRR9rK6I7/gHcdvTdltMtorsCr8RG8YvkIu2?=
+ =?us-ascii?Q?V40iPhKquejOnCSRvClrntQ9rRImFDpqQ2SORoqacIQfD8TdVWy/AK460H2h?=
+ =?us-ascii?Q?boadoAMLuo25rizAhzM0fzDCWUZ4yA4p4FrTGvYuaOOKZTSB9kOAUAlHSEoW?=
+ =?us-ascii?Q?bDAQTxOccYse0VOXhSLMLGWcXq7SggYZpABEfsWDtQK2aYbun734pVsqjJJj?=
+ =?us-ascii?Q?ibCR+w2s3PAoWQgFyS2mU5XurP+azJTm984jS1ZtgWZBFXiSRLKbG+pRIZJi?=
+ =?us-ascii?Q?n407xP3X/h5Ty9cHIhnOhApAdEW4lhJdExVpNoEb760ZoDOH6pEQ7DNYAEds?=
+ =?us-ascii?Q?MWkN6w9F+d5HTpAw8+W5Xc6O9rJ7dyIbIl4XtHlMGt/z/+nzTgZzazzlFu4s?=
+ =?us-ascii?Q?Lkpd6+wqf+sukCUjTxiGA0dydksCS9Idu2DrkeEm0/VvIvDln0fSxkSorSK+?=
+ =?us-ascii?Q?PlJ94n+DVcxTxSt0giXUX9mcxUNEu7OMH8JdBbW+e7bAf5o7VWNdevAVhaAg?=
+ =?us-ascii?Q?3dts3XLOgRkNNNjmKJx3uizY/ZRCyBZVje6nX8Aedza0KDBThGVC?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa79aa52-a0b1-42e5-3b55-08df4404cee6
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR11MB403433.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 886649ae-e6cb-4de4-f96b-08df44049c1b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 17:11:09.9473
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 17:12:35.3849
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vpostiriuBcyqt9iQRtX43UhbIkC9LhpHjmERf3iEfawIur8MseXl9PvWg6D5M+PLe9QdZUQmnIvMW88hjRIvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4522
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yl3ewwPtD43taPMsXgYdwKjKO2bwl5bSzfiYohQcyCp5YfiNuzjN4UDq/yMQeXpzJLkufmc17OgrgZI1fUx3/RXvbWEkII08ySV0e9Z1QL8nS5+0HasbhqUCZJgKw+kg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB668163
 
-PiBJbiBhZGRpdGlvbiB0byB0aGlzLCBUb255LCBzaG91bGQgd2Ugb3JwaGFuIHRoaXMgb25lIHRv
-bz8NCj4NCj4gSXQgaXMgYSBQNC1zb21ldGhpbmctY2hpcHNldC4uLg0KDQpMb29rcyBsaWtlIGl0
-IHdhcyByZWxlYXNlIGluIDIwMDMgb3Igc28uIE9ubHkgc3VwcG9ydHMgNEdCIG9mIG1lbW9yeS4N
-CkV2ZW4gaWYgc29tZW9uZSBzdGlsbCBoYXMgb25lIHBvd2VyZWQgdXAsIHVubGlrZWx5IHRoYXQg
-dGhleSB3b3VsZCBydW4NCmFuIHVwc3RyZWFtIGtlcm5lbCBvbiBpdC4NCg0KSSdtIE9LIHdpdGgg
-bWFya2luZyBpdCBhcyBvcnBoYW5lZC4NCg0KLVRvbnkNCg0KDQo=
+On Sun, Nov 15, 2026 at 02:27:34PM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+>
+> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+> fields of the RCW, read-only in RCWSR12..14 of DCFG and changed at
+> runtime through the same fields of the override registers in its DCSR
+> view, which read 0 until written.
+>
+> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
+> gpio to support bus recovery") Linux drives them with pinctrl-single on
+> the override registers, so its first pin state clears every other field
+> of the word: a board whose RCW programs a non-zero pad mux loses those
+> pads at the first I2C probe.
+>
+> Add a generic Layerscape driver for the pad mux as a child of the DCFG
+> node. The fields and their encoding are per-SoC tables selected by
+> the compatible, so that other Layerscape SoCs can be added to it.
+>
+> Only the LX2160A is done: the fields of RCWSR12..14 and the EC1, EC2,
+> USB_EXT, GTX_CLK and SDHC1_DS ones of RCWSR27.
+>
+> Then pin states select them with the generic function and groups
+> properties, and every change goes through the RCW override
+> of fsl-guts, which reads the status register, writes the override and
+> waits for the status register to follow.
+>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  MAINTAINERS                                        |   8 +
+>  drivers/pinctrl/freescale/Kconfig                  |  15 +
+>  drivers/pinctrl/freescale/Makefile                 |   1 +
+>  drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c | 427 +++++++++++++++++++++
+>  4 files changed, 451 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..2df4866d37bb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20207,6 +20207,14 @@ F:	Documentation/devicetree/bindings/clock/*imx*
+>  F:	drivers/clk/imx/
+>  F:	include/dt-bindings/clock/*imx*
+>
+> +NXP LAYERSCAPE RCW PAD-MUX DRIVER
+> +M:	Vincent Jardin <vjardin@free.fr>
+> +L:	linux-gpio@vger.kernel.org
+> +L:	imx@lists.linux.dev
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+> +F:	drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c
+> +
+>  NXP NETC ETHERNET SWITCH DRIVER
+>  M:	Wei Fang <wei.fang@nxp.com>
+>  R:	Clark Wang <xiaoning.wang@nxp.com>
+> diff --git a/drivers/pinctrl/freescale/Kconfig b/drivers/pinctrl/freescale/Kconfig
+> index fd53cf5bb843..8e964cf620b0 100644
+> --- a/drivers/pinctrl/freescale/Kconfig
+> +++ b/drivers/pinctrl/freescale/Kconfig
+> @@ -283,3 +283,18 @@ config PINCTRL_IMXRT1170
+>  	select PINCTRL_IMX
+>  	help
+>  	  Say Y here to enable the imxrt1170 pinctrl driver
+> +
+> +config PINCTRL_LAYERSCAPE_RCW
+> +	bool "NXP Layerscape RCW pad-mux driver"
+> +	depends on OF
+> +	depends on ARCH_LAYERSCAPE || COMPILE_TEST
+> +	default ARCH_LAYERSCAPE
+> +	select FSL_GUTS
+> +	select GENERIC_PINCTRL_GROUPS
+> +	select GENERIC_PINMUX_FUNCTIONS
+> +	select GENERIC_PINCONF
+> +	help
+> +	  Say Y here to mux the pads of the Layerscape SoCs at runtime. The
+> +	  pads are muxed by fields of the RCW: the driver changes it in the
+> +	  DCSR view of the DCFG that fsl-guts drives.
+> +	  The I2C bus recovery needs it to switch the pads of a bus to GPIO.
+> diff --git a/drivers/pinctrl/freescale/Makefile b/drivers/pinctrl/freescale/Makefile
+> index d27085c2b4c4..34309ac7411d 100644
+> --- a/drivers/pinctrl/freescale/Makefile
+> +++ b/drivers/pinctrl/freescale/Makefile
+> @@ -35,3 +35,4 @@ obj-$(CONFIG_PINCTRL_IMX25)	+= pinctrl-imx25.o
+>  obj-$(CONFIG_PINCTRL_IMX28)	+= pinctrl-imx28.o
+>  obj-$(CONFIG_PINCTRL_IMXRT1050)	+= pinctrl-imxrt1050.o
+>  obj-$(CONFIG_PINCTRL_IMXRT1170)	+= pinctrl-imxrt1170.o
+> +obj-$(CONFIG_PINCTRL_LAYERSCAPE_RCW)	+= pinctrl-layerscape-rcw.o
+> diff --git a/drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c b/drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c
+> new file mode 100644
+> index 000000000000..46686c6923c3
+> --- /dev/null
+> +++ b/drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c
+> @@ -0,0 +1,427 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Layerscape pad muxes: fields of the RCW, changed at runtime.
+> + *
+> + * Copyright 2026 Free Mobile - Vincent Jardin
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/fsl/guts.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/pinctrl/pinconf-generic.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +#include <linux/pinctrl/pinmux.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/seq_file.h>
+> +
+> +#include "../core.h"
+> +#include "../pinmux.h"
+> +
+> +struct rcw_pmux_func {
+> +	const char *name;
+> +	u8 val;
+> +};
+> +
+> +struct rcw_pmux_group {
+> +	const char *name;
+> +	u8 rcwsr; /* one-based, as in RCWSR12 */
+> +	u8 shift;
+> +	u8 width;
+> +	const struct rcw_pmux_func *funcs;
+> +	u8 nfuncs;
+> +};
+> +
+> +/* The pad-mux groups of a SoC, one per field of its RCW */
+> +struct rcw_pmux_soc {
+> +	const struct rcw_pmux_group *groups;
+> +	unsigned int ngroups;
+> +};
+> +
+> +#define RCW_PMUX_FUNC(_name, _val)	{ .name = _name, .val = _val }
+> +#define RCW_PMUX_GROUP(_name, _rcwsr, _shift, _width, _funcs)		\
+> +	{								\
+> +		.name = _name, .rcwsr = _rcwsr,				\
+> +		.shift = _shift, .width = _width,			\
+> +		.funcs = _funcs, .nfuncs = ARRAY_SIZE(_funcs),		\
+> +	}
+> +
+> +/* LX2160A: RCWSR12..14 and RCWSR27 */
+> +static const struct rcw_pmux_func lx2160a_iic2_funcs[] = {
+> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("flextimer", 2), RCW_PMUX_FUNC("sdhc", 6),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_iic3_funcs[] = {
+> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("can", 2), RCW_PMUX_FUNC("evt", 6),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_iic5_funcs[] = {
+> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("sdhc-clk", 2), RCW_PMUX_FUNC("spi", 3),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_iic6_funcs[] = {
+> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("sdhc-clk", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_xspi1_funcs[] = {
+> +	RCW_PMUX_FUNC("flexspi", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_sdhc1_base_funcs[] = {
+> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("spi", 2), RCW_PMUX_FUNC("sdhc-spi", 3),
+> +	RCW_PMUX_FUNC("sdhc-data4", 4),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_sdhc1_dir_funcs[] = {
+> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("spi", 3), RCW_PMUX_FUNC("sdhc-data", 4),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_sdhc2_data74_funcs[] = {
+> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("i2c", 2), RCW_PMUX_FUNC("flexspi", 6),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_sdhc2_base_funcs[] = {
+> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("spi", 2), RCW_PMUX_FUNC("flexspi", 6),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_uart_funcs[] = {
+> +	RCW_PMUX_FUNC("uart", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_uart1_rtscts_funcs[] = {
+> +	RCW_PMUX_FUNC("uart", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("uart3", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_uart2_rtscts_funcs[] = {
+> +	RCW_PMUX_FUNC("uart", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("uart4", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_irq_funcs[] = {
+> +	RCW_PMUX_FUNC("irq", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_irq_flextimer_funcs[] = {
+> +	RCW_PMUX_FUNC("irq", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("flextimer", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_evt_funcs[] = {
+> +	RCW_PMUX_FUNC("evt", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("flextimer", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_clk_out_funcs[] = {
+> +	RCW_PMUX_FUNC("gpio", 1), RCW_PMUX_FUNC("flextimer", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_asleep_funcs[] = {
+> +	RCW_PMUX_FUNC("asleep", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("evt", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_reset_req_funcs[] = {
+> +	RCW_PMUX_FUNC("reset-req", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_iic1_funcs[] = {
+> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_ec1_funcs[] = {
+> +	RCW_PMUX_FUNC("rgmii", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_ec2_funcs[] = {
+> +	RCW_PMUX_FUNC("rgmii", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("tsec-1588", 2),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_usb_ext_funcs[] = {
+> +	RCW_PMUX_FUNC("usb", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_gtx_clk_funcs[] = {
+> +	RCW_PMUX_FUNC("gtx-clk", 0), RCW_PMUX_FUNC("gpio", 1),
+> +};
+> +
+> +static const struct rcw_pmux_func lx2160a_sdhc1_ds_funcs[] = {
+> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
+> +	RCW_PMUX_FUNC("spi", 2),
+> +};
+> +
+> +static const struct rcw_pmux_group lx2160a_groups[] = {
+> +	/* RCWSR12 */
+> +	RCW_PMUX_GROUP("iic2", 12, 0, 3, lx2160a_iic2_funcs),
+> +	RCW_PMUX_GROUP("iic3", 12, 3, 3, lx2160a_iic3_funcs),
+> +	RCW_PMUX_GROUP("iic4", 12, 6, 3, lx2160a_iic3_funcs),
+> +	RCW_PMUX_GROUP("iic5", 12, 9, 3, lx2160a_iic5_funcs),
+> +	RCW_PMUX_GROUP("iic6", 12, 12, 3, lx2160a_iic6_funcs),
+> +	RCW_PMUX_GROUP("xspi1-data74", 12, 15, 3, lx2160a_xspi1_funcs),
+> +	RCW_PMUX_GROUP("xspi1-data30", 12, 18, 3, lx2160a_xspi1_funcs),
+> +	RCW_PMUX_GROUP("xspi1-base", 12, 21, 3, lx2160a_xspi1_funcs),
+> +	RCW_PMUX_GROUP("sdhc1-base", 12, 24, 3, lx2160a_sdhc1_base_funcs),
+> +	RCW_PMUX_GROUP("sdhc1-dir", 12, 27, 3, lx2160a_sdhc1_dir_funcs),
+> +	/* RCWSR13 */
+> +	RCW_PMUX_GROUP("sdhc2-data74", 13, 0, 3, lx2160a_sdhc2_data74_funcs),
+> +	RCW_PMUX_GROUP("sdhc2-base", 13, 3, 3, lx2160a_sdhc2_base_funcs),
+> +	RCW_PMUX_GROUP("uart1-soutsin", 13, 6, 3, lx2160a_uart_funcs),
+> +	RCW_PMUX_GROUP("uart1-rtscts", 13, 9, 3, lx2160a_uart1_rtscts_funcs),
+> +	RCW_PMUX_GROUP("uart2-soutsin", 13, 12, 3, lx2160a_uart_funcs),
+> +	RCW_PMUX_GROUP("uart2-rtscts", 13, 15, 3, lx2160a_uart2_rtscts_funcs),
+> +	RCW_PMUX_GROUP("irq11-8", 13, 18, 3, lx2160a_irq_funcs),
+> +	RCW_PMUX_GROUP("irq7-4", 13, 21, 3, lx2160a_irq_flextimer_funcs),
+> +	RCW_PMUX_GROUP("irq3-0", 13, 24, 3, lx2160a_irq_flextimer_funcs),
+> +	RCW_PMUX_GROUP("evt4-3", 13, 27, 3, lx2160a_evt_funcs),
+> +	/* RCWSR14 */
+> +	RCW_PMUX_GROUP("evt2-0", 14, 0, 3, lx2160a_evt_funcs),
+> +	RCW_PMUX_GROUP("clk-out", 14, 3, 3, lx2160a_clk_out_funcs),
+> +	RCW_PMUX_GROUP("asleep", 14, 6, 3, lx2160a_asleep_funcs),
+> +	RCW_PMUX_GROUP("reset-req", 14, 9, 1, lx2160a_reset_req_funcs),
+> +	RCW_PMUX_GROUP("iic1", 14, 10, 1, lx2160a_iic1_funcs),
+> +	/* RCWSR27 */
+> +	RCW_PMUX_GROUP("ec1", 27, 0, 2, lx2160a_ec1_funcs),
+> +	RCW_PMUX_GROUP("ec2", 27, 2, 2, lx2160a_ec2_funcs),
+> +	RCW_PMUX_GROUP("usb-ext", 27, 4, 1, lx2160a_usb_ext_funcs),
+> +	RCW_PMUX_GROUP("gtx-clk", 27, 5, 1, lx2160a_gtx_clk_funcs),
+> +	RCW_PMUX_GROUP("sdhc1-ds", 27, 6, 2, lx2160a_sdhc1_ds_funcs),
+> +};
+> +
+> +static const struct rcw_pmux_soc lx2160a_soc = {
+> +	.groups = lx2160a_groups,
+> +	.ngroups = ARRAY_SIZE(lx2160a_groups),
+> +};
+> +
+> +struct rcw_pmux {
+> +	struct device *dev;
+> +	struct pinctrl_dev *pctl;
+> +	struct pinctrl_desc desc;
+> +	const struct rcw_pmux_soc *soc;
+> +	struct pinctrl_pin_desc *pins;
+> +};
+> +
+> +static u32 rcw_pmux_group_mask(const struct rcw_pmux_group *group)
+> +{
+> +	return GENMASK(group->shift + group->width - 1, group->shift);
+> +}
+> +
+> +static const struct rcw_pmux_func *
+> +rcw_pmux_find_func(const struct rcw_pmux_group *group, const char *name)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < group->nfuncs; i++) {
+> +		if (!strcmp(group->funcs[i].name, name))
+> +			return &group->funcs[i];
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static void rcw_pmux_pin_dbg_show(struct pinctrl_dev *pctldev,
+> +				  struct seq_file *s, unsigned int pin)
+> +{
+> +	struct rcw_pmux *pmux = pinctrl_dev_get_drvdata(pctldev);
+> +	const struct rcw_pmux_group *group = &pmux->soc->groups[pin];
+> +	unsigned int i;
+> +	u32 val;
+> +
+> +	if (fsl_guts_pmux_read(group->rcwsr, &val))
+> +		return;
+> +
+> +	val = field_get(rcw_pmux_group_mask(group), val);
+> +	for (i = 0; i < group->nfuncs; i++) {
+> +		if (group->funcs[i].val == val) {
+> +			seq_puts(s, group->funcs[i].name);
+> +			return;
+> +		}
+> +	}
+> +	seq_printf(s, "0x%x", val);
+> +}
+> +
+> +static const struct pinctrl_ops rcw_pmux_pctlops = {
+> +	.get_groups_count = pinctrl_generic_get_group_count,
+> +	.get_group_name = pinctrl_generic_get_group_name,
+> +	.get_group_pins = pinctrl_generic_get_group_pins,
+> +	.pin_dbg_show = rcw_pmux_pin_dbg_show,
+> +	.dt_node_to_map = pinconf_generic_dt_node_to_map_group,
+> +	.dt_free_map = pinconf_generic_dt_free_map,
+> +};
+> +
+> +static int rcw_pmux_set_mux(struct pinctrl_dev *pctldev,
+> +			    unsigned int fsel, unsigned int gsel)
+> +{
+> +	struct rcw_pmux *pmux = pinctrl_dev_get_drvdata(pctldev);
+> +	const struct function_desc *func;
+> +	const struct rcw_pmux_group *group;
+> +	const struct rcw_pmux_func *mux;
+> +	const struct group_desc *grp;
+> +	u32 mask;
+> +
+> +	func = pinmux_generic_get_function(pctldev, fsel);
+> +	grp = pinctrl_generic_get_group(pctldev, gsel);
+> +	if (!func || !grp)
+> +		return -EINVAL;
+> +	group = grp->data;
+> +
+> +	mux = rcw_pmux_find_func(group, func->func->name);
+> +	if (!mux) {
+> +		dev_err(pmux->dev, "%s has no %s function\n",
+> +			group->name, func->func->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	mask = rcw_pmux_group_mask(group);
+> +
+> +	return fsl_guts_pmux_override(group->rcwsr, field_prep(mask, mux->val),
+> +				      mask);
+> +}
+> +
+> +static const struct pinmux_ops rcw_pmux_pmxops = {
+> +	.get_functions_count = pinmux_generic_get_function_count,
+> +	.get_function_name = pinmux_generic_get_function_name,
+> +	.get_function_groups = pinmux_generic_get_function_groups,
+> +	.set_mux = rcw_pmux_set_mux,
+> +	.strict = true,
+> +};
+> +
+> +static int rcw_pmux_add_functions(struct rcw_pmux *pmux)
+> +{
+> +	const struct rcw_pmux_soc *soc = pmux->soc;
+> +	const struct rcw_pmux_group *group;
+> +	const char **groups;
+> +	unsigned int i, j, k, n;
+> +	int ret;
+> +
+> +	for (i = 0; i < soc->ngroups; i++) {
+> +		group = &soc->groups[i];
+> +		for (j = 0; j < group->nfuncs; j++) {
+> +			const char *name = group->funcs[j].name;
+> +
+> +			/* already added from an earlier group? */
+> +			for (k = 0; k < i; k++) {
+> +				if (rcw_pmux_find_func(&soc->groups[k], name))
+> +					break;
+> +			}
+> +			if (k < i)
+> +				continue;
+> +
+> +			groups = devm_kcalloc(pmux->dev, soc->ngroups,
+> +					      sizeof(*groups), GFP_KERNEL);
+> +			if (!groups)
+> +				return -ENOMEM;
+> +			n = 0;
+> +			for (k = i; k < soc->ngroups; k++) {
+> +				if (rcw_pmux_find_func(&soc->groups[k], name))
+> +					groups[n++] = soc->groups[k].name;
+> +			}
+> +			ret = pinmux_generic_add_function(pmux->pctl, name,
+> +							  groups, n, NULL);
+> +			if (ret < 0)
+> +				return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int rcw_pmux_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	const struct rcw_pmux_soc *soc;
+> +	struct rcw_pmux *pmux;
+> +	unsigned int i;
+> +	u32 val;
+> +	int ret;
+> +
+> +	/* The override needs the DCSR view of DCFG, mapped by fsl-guts */
+> +	if (!fsl_guts_pmux_override_supported())
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "no RCW override through fsl-guts: the dcfg node needs its DCSR reg\n");
+> +
+> +	soc = device_get_match_data(dev);
+> +	if (!soc)
+> +		return -ENODEV;
+> +
+> +	pmux = devm_kzalloc(dev, sizeof(*pmux), GFP_KERNEL);
+> +	if (!pmux)
+> +		return -ENOMEM;
+> +	pmux->dev = dev;
+> +	pmux->soc = soc;
+> +
+> +	pmux->pins = devm_kcalloc(dev, soc->ngroups, sizeof(*pmux->pins),
+> +				  GFP_KERNEL);
+> +	if (!pmux->pins)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < soc->ngroups; i++) {
+> +		pmux->pins[i].number = i;
+> +		pmux->pins[i].name = soc->groups[i].name;
+> +	}
+> +	pmux->desc.name = dev_name(dev);
+> +	pmux->desc.pins = pmux->pins;
+> +	pmux->desc.npins = soc->ngroups;
+> +	pmux->desc.pctlops = &rcw_pmux_pctlops;
+> +	pmux->desc.pmxops = &rcw_pmux_pmxops;
+> +	pmux->desc.owner = THIS_MODULE;
+> +
+> +	ret = devm_pinctrl_register_and_init(dev, &pmux->desc, pmux,
+> +					     &pmux->pctl);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "pinctrl registration failed\n");
+> +
+> +	for (i = 0; i < soc->ngroups; i++) {
+> +		ret = pinctrl_generic_add_group(pmux->pctl, soc->groups[i].name,
+> +						&pmux->pins[i].number, 1,
+> +						(void *)&soc->groups[i]);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	ret = rcw_pmux_add_functions(pmux);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < soc->ngroups; i++) {
+> +		u8 rcwsr = soc->groups[i].rcwsr;
+> +
+> +		if (i && rcwsr == soc->groups[i - 1].rcwsr)
+> +			continue;
+> +		if (!fsl_guts_pmux_read(rcwsr, &val))
+> +			dev_dbg(dev, "pad muxes of RCWSR%u = 0x%08x\n", rcwsr,
+> +				val);
+> +	}
+> +
+> +	return pinctrl_enable(pmux->pctl);
+> +}
+> +
+> +static const struct of_device_id rcw_pmux_of_match[] = {
+> +	{ .compatible = "fsl,lx2160a-rcw-pinmux", .data = &lx2160a_soc },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, rcw_pmux_of_match);
+> +
+> +static struct platform_driver rcw_pmux_driver = {
+> +	.driver = {
+> +		.name = "layerscape-rcw-pinmux",
+> +		.of_match_table = rcw_pmux_of_match,
+> +	},
+> +	.probe = rcw_pmux_probe,
+> +};
+> +module_platform_driver(rcw_pmux_driver);
+> +
+> +MODULE_AUTHOR("Vincent Jardin <vjardin@free.fr>");
+> +MODULE_DESCRIPTION("NXP Layerscape RCW pad-mux driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("FSL_GUTS");
+>
+> --
+> 2.43.0
+>
+>
+>
