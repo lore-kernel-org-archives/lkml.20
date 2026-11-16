@@ -1,103 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826875;
-	b=O/LhcbVTLioiABJ9sVuzEVTwbrmfl+mb62iDeNqxWexV0XfNmTGYquN5D3ZI3rCWXnUI
-	 sp2ULCE0nomJnBbZ5lXBZZQnQyM7okTDTndV6SV60ulJ+/6Xf5+QQH8fK+xk2RhDoeJob
-	 FKSzePWQ7ndwTWe6Gfc6PIJauALqmEAU0wFrhegzntpJGsAp/y+kKNX/KA+IjDJliAmvD
-	 nxOOom+um04J0cQ5PBirbxEpyxvG0mdlSrU9iMi2gDCWromsmgjxkFd+neaDp2xJM1YXN
-	 SloD0qrICeeudOLJyNk/XEjFVHcXWvDyHI/5I3XfYlZU1hOz+5E8BwIfAd/unvvWtYw==
+	t=1794826868;
+	b=TrJAoiimiCHAhL4o9AbnEWNf7MN8meUBohLIiuVzsSaEohvmvc8YsHVAHfBNpQ3/de+v
+	 T+h/+HY1aK4eiY9pi3Z10NVh8pjJSAUNxXHgh1cpSAMa0oRhikzMp+2myag1sHTkaYpeU
+	 kFauOUUwL/gzElwarsoqXyRQhNbVqKYT20Lcdz1bEKmTdaiMUgKJlNeoi1ThfgzkKS5aB
+	 PsgJURjLTQcayfVyaxxZbUyNljfmNZUw+wcIGxEGdgpeC8ddlw3UccVWdfmjblPhChIgr
+	 9FGBtxqCXXpHqf72IM0UBVAgswCVlpy26T8ceD4WA2m6dqGupr5i8RDLdBxgwkm9KoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826875;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=PO8kzyBm9V5PzLhTMJiyGSgb8yl8oDzcJ3dWIao7QlY=;
-	b=xKDkVScgBmQh9Ah9jW8PXXkIhGIIaZlLZTIJqpbrNG2xEkInD/xGzJrurfsunXoz/LHC
-	 d4xkxlJirsxbzF+FNehKiKleJQOKEZWt5fn6ATIq8JP3cMkfj/P1IQSQ5gjPG1VbtBsXE
-	 YnRb3pSv5xcyorU8RbV+8fnI1xQLmCVOlRJLcVU9wJ5uVZca6Xb48WCYLaktdFN0aOaxk
-	 fWClAm9jXEeKetYqZAEG8aoxDxfXQ46OP5jVtbel6WRdMXT7WLmNoEreQXpNOoTfDC+8D
-	 CDflhB7vEGQvL7FuUvggJukTr+oZ6q3X7C5+FYUb6w+hrzdjeqJ+VPCOevsz7J2WHyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826868;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=eim4R0oALlPhbXndhNtGDbbO6UebXkionbyh8Up2aOM=;
+	b=s8bWBKuWS7B+791Z+xLz2Xei6L2Zt4wrAmu2c4xGso5Gvly0xvW8tXmdXhnwcV40EDrA
+	 ftMIoqYMsx6eBHqx7kfKTYrpdDW69DeTTaejXDy/iA8ZNYiL1Ipm3nvOimmO1DOsAOmKE
+	 dTN5HZwmEBA84lXKD6quRR7dgj4Nw3+/xblHufRVz9z8zH0xRXo9oc8WZwfepPOmdLrJ1
+	 yo+2EpnoREZTfVRq42hXzimYoCKN6u1/d0Yk3aKxHCDnhcjVaWhisTh/npi8oe2vzPflf
+	 T4jxZcHXkOpMZ0rJXH/HXBAMmXPPR49BEhzURsX94hwHPmpznUDW+GNtJcapFGvPWcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=SvotkKRl;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cg+Kx9a7;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E5C606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:01:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59E5C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC337606A31C;
+	Mon, 16 Nov 2026 11:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC337606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=SvotkKRl
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so5347398a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:01:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794826873; x=1795431673; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PO8kzyBm9V5PzLhTMJiyGSgb8yl8oDzcJ3dWIao7QlY=;
-        b=SvotkKRlYBvwtIFWsX8nRzjtx/PzkSgkwTPAjzhHDPZbgzyc//SjhL3Da1P/qC8Z6M
-         KfC65hlK1ug1C9hhXyMscIf1OtiNcuApPmhy8IovSx5LQk6xiSxawQ8rrU4Gt+Q45krb
-         BCWAfTIAAbRSvtGro0l8FfuMwk8syj8t6LDfS63dghDVCmmH0hBQ8AjHf5D4a5vkDIza
-         IWMIqfrtfRsjsk183LcRkcpEylAhLhz/qeo5hyzpSV2Lh1EDmupHS6ySwIJ5/m8Cu/RD
-         166FXiA1HVe7HcxJTyaF1RhFCGZfQxg/4AUibgcqjpcbboqRqF4wz2h1daCYqgoJz/Pl
-         F3XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826873; x=1795431673;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PO8kzyBm9V5PzLhTMJiyGSgb8yl8oDzcJ3dWIao7QlY=;
-        b=I4AzYxmX1gVxqkFIXrHDh6HvXgwZ9D0WHYcnOItwGBh7uNjl/QozG1W02G5Jx+cKtM
-         jnQVNw4x30MlgjowBnvNLBYSlTCQQNsgzvgna2pyFcRBNDarmr6AIREbkhCSgXdL6uab
-         rP8ViDWsSiHjh9rJa+Fa4/77VoBzdE71TbIkLT9eozYpkm+VmLw9IqcsHvWe4Rx/fq0J
-         OyHIInKcrA1LR0AgzqK8hgwfLfB84nD7eyCz8ROuBN5+LXreXqBx+mzFNcRWKhVaZY94
-         ohEysEWtwJj1V4fKNfgNaMpySjUNKbf7ptEOqRHf7psouf5bRaksTDCVnsvoET6750Iu
-         MXeQ==
-X-Forwarded-Encrypted: i=1; AL+hErHzrmxLo2h3aKtP+EtJh75Z7V/ubtjwNModuKXEfTW41MWDMN4FcmNjIJfjOKn0qdt8U1mIpIqISNAENwc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6XQ/gMQuLu/+dgwf+55VKSALiAqrJqGIWQ4XT7mj8xBiGn7P1
-	J/SRbxb5Wm0qdzGqziZ9OKjXtnFbE13WNoy6NqVRuFTeNoGkhvgJ10QDlXVusQJUQ+uWK7f5HYo
-	qRahb
-X-Gm-Gg: AYBFou0NfnwhhWg9Ego/UfZCmjTY8vxO+cIPu/XCzF0QP6L/Uq64Q9l4OjCJU0l1iTL
-	WO4K0HBw/ZcXd7S/1aKrRLJjRpEYLWS8bjxsjrl3EpM/6WC3UML1jfCQURCqjdkwBya8k6ZJurO
-	eU//NdqWSVCpPq2VVafbWg07EuotUGdLQAQAEeb/eDlV0KGY0GIlDntreGuv4mMlFbNfYhq55Dq
-	OUYGmmmWnbpPq8O0Vba/q0DFcEgv1kLSIJ8GIfXdZV+SByJd1Ou+UQLdt/Xe3cH2Ned4E8uQajP
-	s+jA5bvrxyv261v6vxw++StgONeqoN3iNyHafjtHdPJyg59H+4lIRJGsCHOSj8NnBctQ892sNDw
-	OjZDLI5uhboh6gvk6ymCTVQVGUTxTYKFNdeMqxmwArfWZcsQGL3nYvLIuqBhew9Y6ICmHMMccor
-	ECJIBQec2+mA4fO24IO0KncNX1fZWVbyrh8QhHCKjS/ZZeW/JYh4733dG4CZ/Rg9tQ1i9HOEHho
-	XuCKTt55bW+0YuFfQVpjHB7RF1DwVwX4UK1MUBRHIRhgFhyoMQV6+J7suDgEafkLa2Gf8glElqu
-	CKJZ8p3W1IlqexV8rhs3AMB8dtqelWjg7pUyjO2xTqm+TOTB
-X-Received: by 2002:a05:6402:4024:b0:6b6:4dcd:968c with SMTP id 4fb4d7f45d1cf-6b7c0997f8fmr7094170a12.16.1794826872584;
-        Mon, 16 Nov 2026 03:01:12 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm21221288f8f.12.2026.11.16.03.01.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:01:10 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Brian Masney <bmasney@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, "linux-clk@vger.kernel.org"
- <linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
- <linux-riscv@lists.infradead.org>, Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v1 2/6] clk: starfive: jh71x0: Move reset controller
- registration to jh71x0 common code
-In-Reply-To: <ZQ4PR01MB1202C1DD9DE098DB4674A940F27C2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20261013102707.9207-1-changhuang.liang@starfivetech.com>
- <20261013102707.9207-3-changhuang.liang@starfivetech.com>
- <179475230833.3873592.13070196353304136001.b4-review@b4>
- <ZQ4PR01MB1202C1DD9DE098DB4674A940F27C2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Date: Mon, 16 Nov 2026 12:01:09 +0100
-Message-ID: <1jqzgl2g7e.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cg+Kx9a7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794826868; x=1826362868;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KGVQ04RLKs8bI5V89Lbr81euoVhR1N+VdoRT/hJlFCU=;
+  b=Cg+Kx9a7jks0BnDfRyjIxmmAceIuQYnP4s08vY9kct4ySkpQ6dtwtbaO
+   Am6LpnFIKmN/iLgl2Gp/DWuOiEFopO+o6lMfGx4jNwzioKoGr1Eontytu
+   g3W8XpDT4bq5lpVH2RfoXaYziYNyUx+Hw6DPb6itOUi53O+GqZ3gVWGUq
+   XKLRYgXxemkcqWddzMlflGOmmgnhw8Mv3TSttEF/wt1uUEmXo1K0MECu1
+   kUjj9z+KQTZQCc3nXVY4rw9hqfXJi8a+Scq4S+oTIEVOMFx5oBRUiYA51
+   VzesxLYK6wmI0/zreLQSDFsIXw4QFGLmANhIsTwLKTFHtIKTN2QAtRcjA
+   Q==;
+X-CSE-ConnectionGUID: ziTD9D5RT96F10Nqbvz9Gw==
+X-CSE-MsgGUID: s7HO3eQHQFuDLk+fubZCNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3412134"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3412134"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:01:07 -0800
+X-CSE-ConnectionGUID: umavc8asTIWzgqWjk4xFOQ==
+X-CSE-MsgGUID: +amdLsoJQGeQtAFweNlZAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9709537"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:01:00 -0800
+Date: Mon, 16 Nov 2026 13:00:57 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Hauke Mehrtens <hauke@hauke-m.de>, linux-mips@linux-mips.org,
+	Ralf Baechle <ralf@linux-mips.org>, Joe Perches <joe@perches.com>,
+	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Len Brown <lenb@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: Off-by-one in arch/mips/bcm47xx/time.c (was: [PATCH v6 02/19]
+ string: Add strprefix())
+Message-ID: <avriaVSTl4jL0OEo@ashevche-desk.local>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
+ <avi54hgKgovNHfKy@devuan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,92 +109,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avi54hgKgovNHfKy@devuan>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On lun. 16 nov. 2026 at 08:01, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
+On Sat, Nov 14, 2026 at 08:49:21PM +0100, Alejandro Colomar wrote:
 
-> Hi, Jerome
->
->> > jh7110_reset_controller_register() is only tied to the JH7110 system
->> > clock driver by its location. Its logic is generic: hand the CRG
->> > register base to the reset driver through an auxiliary device.
->> >
->> > Move it to clk-starfive-jh71x0.c as jh71x0_reset_controller_register()
->> > so that the clock drivers of other StarFive SoCs can reuse it, and
->> > make
->> > CLK_STARFIVE_JH71X0 select AUXILIARY_BUS accordingly.
->> >
->> > While at it, replace the open-coded auxiliary device allocation, init,
->> > add and release handling with devm_auxiliary_device_create(), which
->> > already implements all of it. The register base is now passed to the
->> > reset driver as platform data of the auxiliary device, so struct
->> > jh71x0_reset_adev and the embedded auxiliary device go away.
->> >
->> > The auxiliary device ID is dropped: every CRG already uses a distinct
->> > auxiliary device name, so the ID is not needed to keep the device
->> > names unique, and it is always 0 now.
->> >
->> > Since the helper now lives in clk-starfive-jh71x0.c, the auxiliary
->> > device names are prefixed with "clk_starfive_jh71x0" instead of
->> > "clk_starfive_jh7110_sys". Update the auxiliary_device_id table of the
->> > JH7110 reset driver in the same patch to keep the tree bisectable.
->> >
->> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
->> > ---
->> >  drivers/clk/starfive/Kconfig                  |  2 +-
->> >  .../clk/starfive/clk-starfive-jh7110-aon.c    |  2 +-
->> >  .../clk/starfive/clk-starfive-jh7110-isp.c    |  2 +-
->> >  .../clk/starfive/clk-starfive-jh7110-stg.c    |  2 +-
->> >  .../clk/starfive/clk-starfive-jh7110-sys.c    | 59 +------------------
->> >  .../clk/starfive/clk-starfive-jh7110-vout.c   |  2 +-
->> >  drivers/clk/starfive/clk-starfive-jh7110.h    |  4 --
->> >  drivers/clk/starfive/clk-starfive-jh71x0.c    | 24 ++++++++
->> >  drivers/clk/starfive/clk-starfive-jh71x0.h    |  2 +
->> >  .../reset/starfive/reset-starfive-jh7110.c    | 19 +++---
->> >  include/soc/starfive/reset-starfive-jh71x0.h  | 10 ++--
->> >  11 files changed, 45 insertions(+), 83 deletions(-)
->> >
->> > diff --git a/drivers/clk/starfive/Kconfig
->> > b/drivers/clk/starfive/Kconfig index bd29358ffeec..51716655554f 100644
->> > --- a/drivers/clk/starfive/Kconfig
->> > +++ b/drivers/clk/starfive/Kconfig
->> > @@ -2,6 +2,7 @@
->> >
->> >  config CLK_STARFIVE_JH71X0
->> >  	bool
->> > +	select AUXILIARY_BUS
->> >
->> >  config CLK_STARFIVE_JH7100
->> >  	bool "StarFive JH7100 clock support"
->> > @@ -32,7 +33,6 @@ config CLK_STARFIVE_JH7110_PLL  config
->> > CLK_STARFIVE_JH7110_SYS
->> >  	bool "StarFive JH7110 system clock support"
->> >  	depends on ARCH_STARFIVE || COMPILE_TEST
->> > -	select AUXILIARY_BUS
->> >  	select CLK_STARFIVE_JH71X0
->> >  	select RESET_STARFIVE_JH7110 if RESET_CONTROLLER
->> 
->> You've switched to imply for the new controller you are introducing later in
->> this series.
->> You should probably be consistent and align this one too. Not in this change
->> though, it would be unrelated.
->
-> I'm not going to put this suggestion into the current series for now. I plan to send it 
-> as a separate patch later. Do you think that's okay?
+[...]
 
-Ok
+> > And these are all candidates for converted uses to
+> > whatever is the function name or steq:
+> > 
+> > $ git grep -P '[^w]strncmp\s*\(\s*[\w\.\-\>\s]*,\s*\"\w*"\s*,\s*\d+\s*\)' -- '*.[ch]' | wc -l
+> > 946
+> 
+> Looking at those, I've seen a bug in BCM47XX, introduced in 2224de9d152b
+> (2013-10-29; "MIPS: BCM47XX: Fix clock detection for BCM5354 with 200MHz
+>  clock").
+> 
+> Look at this line of code:
+> 
+> 	$ grep strncmp arch/mips/bcm47xx/time.c
+> 			if (len >= 0 && !strncmp(buf, "200", 4))
+> 
+> That strncmp(3) call is wrong, as it's really behaving as strcmp(3),
+> since the 4 is off-by-one.  I'd like to know what was the intention.
+> Was it meant to be !strncmp(buf, "200", 3)?  Or was it meant to be just
+> !strcmp(buf, "200")?
 
->
->> 
->> This change otherwise looks good to me. It requires Philipp's opinion as it is
->> touching reset too.
->> 
->> --
->> Jerome
->
-> Best Regards,
-> Changhuang
->
+When in doubts, preserve current behaviour over refactoring.
 
 -- 
-Jerome
+With Best Regards,
+Andy Shevchenko
+
+
