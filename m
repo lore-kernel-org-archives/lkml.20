@@ -1,79 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794856222;
-	b=c2e2UsbsCjLMx2Q7bHUU3oaKvuhQntZb1gA9tyXnzcJzagEfl5OkaDOR+zY0o04SGZ47
-	 C53XE9n9rSN2Py8aj5Cm1vR+ctlCLFm6zMmTe98hoLv6j4uUnZv767LPvUyGEb/kF6nbQ
-	 kvNdQpM/XK6L1tMov9Qzwfx4TOXO2/4h7vnKa5vS3U+1ccwFaEKl14ZkbnAweQTR4KIMN
-	 WoKaL9Bh5NkG2mtYxWz/q4bTw4N+4QTB7tMVN3RMA5D8USTmF81O1SS9cz7ClHsey8YA+
-	 XKn2NCEDCPCmlrU1U8fQafW30NGj8xcqkoFbeFYg9tA2hQEJFikRLyaOg5V+HjeMZ/A==
+	b=3gVKbleHkT9L07C4DshTDKGE7bAD/4jx3sHiGRrl332gWYSrZwviig/Lh5i/yLPQV5aa
+	 woY/E2txtxSXqG/xuH4Jv8jr9yKvoaluSqYViSPElBt7E7WNBjiLCkQmuyU8xdl4FfpF9
+	 LAVhePV2swsMmoDWlvzHUeVHbMrSmKNTLvWdEIWzqItb7wrNqjN03mVCa1jE4uUVDpjQ2
+	 0fOY4iezplMfTo5f8TvQIWWdTw0g0y3IBx/pa7roC27WWjnqMSKbcEiL42A5tINrcrCC+
+	 v7PFZWEPKEZ8FPFYjnwaWb/YH8tnICOZKLDAqAv1WoNJwVBHrc6nW1WhrdQctZpvXKw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794856222;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1JBagyXxECIQ4yhDUegePc/CqbsWLNLNpVx2YFp7Whg=;
-	b=el9qxRctSXd1Y0N81vv2NvKzVaMgY/RatfrgLlvBSrN0AQEuuL8VpmqSSXQc3fG/Xnzb
-	 VH+Sx23JD/6mk0F+tq2fdktPMQelXI1dYeGIQQm7oY/JZM2VRfwE7SNNOfaLpb1y6aLZy
-	 Z1aLaEbZNQlkZpes1qkGzto4XEa15hRA8+6aFXs7wBkBUAL0zc+xjxfreJLsdIALZw8Ca
-	 gE06eN7vPVuvmOX8o92TM15EHzF+cqVooeQY1v3GD2cC2b+hl1L/KT9DQ6LF5mTgbY20P
-	 46yTqidXLhHgBoD+Yf8303ORk8t+9r/TtNEc5aTiM59Vjieag5MuXHUNrXc58MouM9g==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=hsDqUAO1D8l6U/LvbpHiSMYZs+O2HqscI6a/blXF0FQ=;
+	b=JSy1bHtzx9g4QcF6NjuVIm9ZcQ3TFEjFefuHyPDj6r1qvYx3VbkRyeVRXv5U0gFSwejj
+	 8ukN6l6CGPCfiEYz1n0m/ghcJP98X6uumLkYhrv21R/99BhstbbBG4ZKbcl32QAYsykfr
+	 O9GUx+adii3XR+fsqhjXqbRdiTwYwEzR3k4YJhdjCn29E9qYXdEcNLEOSq6MAiEKVgyE+
+	 kU1F7r38Eh61YUHn1IuRdNZolXNLQgksnwvvv1+ah2Sj8Ok+GLaifriQExSpbM0TySOA8
+	 ljEF1cIGD0Zl9kkb9HJmsMR3dnq8nhuFAYiIV1vMl2NW3fOTpnsHD7qHhAAk81Zjrhg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/ZYHIQJ";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BF8606A336;
-	Mon, 16 Nov 2026 19:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/ZYHIQJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794856222;
-	b=04+VEBHZ2mQ2DcIgAH/Szfnk+D/fK9E8Jt2+iDnZfFsnzy3OC5pdBkYRCa0KuOgflajk
-	 fRxYBihRsCEutNRtJCDK/0hmuU0xR3gfkU8KsnbTMWz0n40R1yX++wAELUUD9yCt70Bl5
-	 YBsMhTksBwrnou3kiOtPrSyNOg5rfvSK9a5MDjUqIBnlCk2i9tMF2yU87g6Ic2r4TIep/
-	 yKPTtw0YjxnWww+nbtV6+DTQrdgAdlZ1zr4ec9yyQpFXchBaLdWAGB6EU8u3fxEc3XCOt
-	 PA6xzEWYgKUIGoIuMzP8vhdWm8eP2jwI2KxNIi9gLktY4cgHbhH9w8Gny4krPvbJfhQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794856222;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1JBagyXxECIQ4yhDUegePc/CqbsWLNLNpVx2YFp7Whg=;
-	b=aMVLKAl4Vw1ZflzR+vdcSsCzgaAhb3Q9DhD2tO7fiDbozCNmtRjuDktzSlTl8NmVoA+3
-	 TmhRzV46oL3S6/4bS+XI7XEXrfSA4nwtLpICQ1YG4cXyEx+jWLa65u6MjAUBZ08RmXhMZ
-	 eIkxysZpCF5XWkK5Zp+lyB1zh6Njs4IocCKt61ISCUekWO/cNODefngjjdNO7yrG1utjF
-	 4f7hmhzIhiFySV2o9v8VkDyet22Kjpo78gi410uqRm67qzCQcH5jIYy7uDLNREFk9przb
-	 ET16G9LnggBcOZG1f9Cwvag4yMHu0V1DrUC2ARH8b9IrOUHU1ZWp3jA8Xp3DQ7lgSNQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=E0OZtB+N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB1771F000C6;
-	Mon, 16 Nov 2026 19:10:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794856222;
-	bh=1JBagyXxECIQ4yhDUegePc/CqbsWLNLNpVx2YFp7Whg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=j/ZYHIQJpplTAx6rKU57hXc6CDboNrxyxYGnUAnX8E3eWaVBZfdIPS6kHHL2qhx7y
-	 o2riqRtiWKsNRik6lJcpqZs0zvniAUNxoQgRVzx3wllpg+KnZP3oTC/u6JBtxNG2PJ
-	 JtS+15kNDmYAe2MnTCgiMEXANS4a0cUFCkQax7GOC7HrWj3NlrBkTKdI5dP3JMb8aK
-	 FIMw0f+8Hjwz0Z03urGbvsgufwOnQWYV+IfIGU8zPYgnKoM8pXj+FYwqncGBPiJRzG
-	 0kg8kyB/D43/GzDng6EZDS+enJe0+H7eJWP+Eg/1zdFUo7YOOSddVD5+Nh5856M+b8
-	 VWKKHWZRMOX9w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 52DA34A582;
-	Mon, 16 Nov 2026 19:10:20 +0000 (UTC)
-From: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
-Date: Mon, 16 Nov 2026 19:10:04 +0000
-Subject: [PATCH 1/6] mm/damon/core: introduce sz_ops_filter_passed_last
- stat
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D338C606A329;
+	Mon, 16 Nov 2026 19:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D338C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=E0OZtB+N
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
+	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C79AC20584B;
+	Mon, 16 Nov 2026 20:10:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794856215;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hsDqUAO1D8l6U/LvbpHiSMYZs+O2HqscI6a/blXF0FQ=;
+	b=E0OZtB+Nfvv9uNWiokiKpPEtZcbgJGGpBzGBrp01WR7hn48CPImAORz/4zwOjv6x+HU0Sl
+	uZz/T8pl9WE1WKN5eRoqIqfNxxWqeG2zY2FtF1Y1Ulfv6cbo96Ldvm2qD+Lhai6VHlWOLS
+	JQMjm3+oVFQCw5Mu1VY4gu1rcnr80R9mLrVYIq4AwunOfGsEWjifTu7OTm12exZDL92Uo0
+	2jJEwI8ZxzOagM0KMRVTSd8IeRcuEhXzn4DEPJsBP7fLoC/o0grRlnyUpaiyoY5t6KSSZN
+	ARXdMgNl/XJ/DhziMfRE3axB99uJD5v++QIU37K2fVKB3cUJpkCIPtTX6Q8gnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794856215;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hsDqUAO1D8l6U/LvbpHiSMYZs+O2HqscI6a/blXF0FQ=;
+	b=IHQk9jVHAMpYfZQQSPkuTv9qYdXwjkYMH2Me2TNJw3UYLFOlPZ+Y6e/Uzl/P1ZNc3nImUl
+	luCvUM6TIO8xVF3SNa3GbkxqNPiZWHhl/1e4XGlub/zZrLj08hv4OxOUfOUcH3JQEnKTLZ
+	HfL4+O1yGpeR2kfgXIqZxDXN79pYhIYI0HT4ssEAaURWDcorjKEIX98FyPPzU5dxdkYWIx
+	tD/MbQ4GAqxKBlGW9fN0zXilZg9MaSrRpb3dkc/rIcBFfoRvBLZmaX5zEhwXZzHDx1MOw0
+	eqmkbwU2IavW/XRAskBySBRcoq7UDLaGdWK/dvaYLIh8C8oKPorALI0dAEStMQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794856215; a=rsa-sha256;
+	cv=none;
+	b=K/wwlii2NhJXdQksH5OyH7l39Y+0YKsgOB4MbHlxVJ+qPTgLP8JKXZRKy+zf9g+KfL0BmK
+	7D/ioc0FiOCX940vxH3JCX/Wqubbw5jlwHuHXdDyekXImqKensKA1y6TjE7kM/bJRqG8se
+	Opg3x8DdAn6iPcz8JHAq58fKtCrKabKj7i2IWL58yczXPQxK9D9YFe/EJZ6k35o/hjaa55
+	fIvYTCK2uLPPLeiVfsszHWBZoX1UCsjJpk3+jPOIeL1qoiPxvOSH9lQe1XYQ7TvTIpO/Ux
+	25FmNiHJ14m26XtWfwqQWWN9XceyWUDDxf9KXDM4TwzuVV59CeNPNOPyAVr9rA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
+	id AB9AB380095; Mon, 16 Nov 2026 20:10:15 +0100 (CET)
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Date: Mon, 16 Nov 2026 20:10:12 +0100
+Subject: [PATCH net-next v3 01/10] net: ieee8021q: print traffic type and
+ queue count with %u
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,108 +87,66 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-damon-sz-ops-b4-v1-1-1cffe7227e6d@uber.com>
-References: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
-In-Reply-To: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
-To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, 
- Mattathias Pinchover <mattathias.pinchover@uber.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794856219; l=3175;
- i=mattathias.pinchover@uber.com; s=20261113; h=from:subject:message-id;
- bh=+LoR4vjeWULTWq1HaaBRt0DI5bIP4EpokrffEX6bIPk=;
- b=LTou6WHMxnLQienM9yJ0jomHPbYxEh+IIwzgRJywMRzgdUp/Z50xpB4I7QiEoZhPibPGUxjZW
- 4n90urIrykDDGR9PBUYhJ6jgH1FvfwjvLCsfiw5Gn6rhgTj4JjBUkUo
-X-Developer-Key: i=mattathias.pinchover@uber.com; a=ed25519;
- pk=6Bh6OEwWiU6dpON0CVcoipq8fXtEgvhsM1Tmm9CTmtY=
-X-Endpoint-Received: by B4 Relay for mattathias.pinchover@uber.com/20261113
- with auth_id=1515
-X-Original-From: Mattathias Pinchover <mattathias.pinchover@uber.com>
-Reply-To: mattathias.pinchover@uber.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261116-rtl8365mb-dcb-ingress-v3-1-657f5fdb4db7@pengutronix.de>
+References: <20261116-rtl8365mb-dcb-ingress-v3-0-657f5fdb4db7@pengutronix.de>
+In-Reply-To: <20261116-rtl8365mb-dcb-ingress-v3-0-657f5fdb4db7@pengutronix.de>
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Luiz Angelo Daros de Luca <luizluca@gmail.com>, 
+ =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Oleksij Rempel <o.rempel@pengutronix.de>
+X-Mailer: b4 0.14.2
 
-From: Mattathias Pinchover <mattathias.pinchover@uber.com>
+Switch the out-of-range diagnostic in ieee8021q_tt_to_tc() from %d to
+%u. The traffic class count num_queues is an unsigned int and the
+traffic type is an enumeration, so printing them as unsigned matches
+their types. The print sits on the range-check error path, which still
+rejects a negative traffic type; %u only changes how an out-of-range
+value is rendered, not which values are rejected.
 
-DAMOS stat sz_ops_filter_passed shows the total bytes that passed
-operations layer-handled DAMOS filters, accumulated from the beginning of
-the scheme's execution.  Users who want the amount for only the latest
-apply interval, e.g., the size of a workload's anonymous memory that is
-cold as of now, need to keep the previous values in user space and
-compute the difference with the help of nr_snapshots.  Because
-nr_snapshots is increased once per target per apply interval, the
-computation is complicated and error-prone, especially for contexts
-having multiple targets.
-
-Introduce a new DAMOS stat, sz_ops_filter_passed_last.  It is
-updated at the end of each apply interval of the scheme with the amount
-of sz_ops_filter_passed increase in the interval.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Alvin Šipraga <alvin.sipraga@analog.com>
 ---
- include/linux/damon.h | 6 ++++++
- mm/damon/core.c       | 5 +++++
- 2 files changed, 11 insertions(+)
+Changes in v3:
+- No changes.
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 06bd92981af2..3aff5c525132 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -351,6 +351,9 @@ struct damos_watermarks {
-  * @sz_applied:	Total size of regions that the scheme is applied.
-  * @sz_ops_filter_passed:
-  *		Total bytes that passed ops layer-handled DAMOS filters.
-+ * @sz_ops_filter_passed_last:
-+ *		Bytes that passed ops layer-handled DAMOS filters in the last
-+ *		apply interval.
-  * @qt_exceeds: Total number of times the quota of the scheme has exceeded.
-  * @nr_snapshots:
-  *		Total number of DAMON snapshots that the scheme is completely
-@@ -379,6 +382,7 @@ struct damos_stat {
- 	unsigned long nr_applied;
- 	unsigned long sz_applied;
- 	unsigned long sz_ops_filter_passed;
-+	unsigned long sz_ops_filter_passed_last;
- 	unsigned long qt_exceeds;
- 	unsigned long nr_snapshots;
- };
-@@ -578,6 +582,8 @@ struct damos {
- 	 * @action
- 	 */
- 	unsigned long next_apply_sis;
-+	/* @stat.sz_ops_filter_passed at the start of the current apply interval */
-+	unsigned long sz_ops_filter_passed_at_start;
- 	/* informs if ongoing DAMOS walk for this scheme is finished */
- 	bool walk_completed;
- 	/*
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 0a056949604f..6af3309691d4 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -769,6 +769,7 @@ struct damos *damon_new_scheme(struct damos_access_pattern *pattern,
- 	 * or damon_attrs are updated.
- 	 */
- 	scheme->next_apply_sis = 0;
-+	scheme->sz_ops_filter_passed_at_start = 0;
- 	scheme->walk_completed = false;
- 	INIT_LIST_HEAD(&scheme->core_filters);
- 	INIT_LIST_HEAD(&scheme->ops_filters);
-@@ -3533,6 +3534,10 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
- 		if (time_before(c->passed_sample_intervals, s->next_apply_sis))
- 			continue;
- 		damos_walk_complete(c, s);
-+		s->stat.sz_ops_filter_passed_last =
-+			s->stat.sz_ops_filter_passed -
-+			s->sz_ops_filter_passed_at_start;
-+		s->sz_ops_filter_passed_at_start = s->stat.sz_ops_filter_passed;
- 		damos_set_next_apply_sis(s, c);
- 		s->last_applied = NULL;
- 		damos_trace_stat(c, s);
+Changes in v2:
+- Drop the reference to a later patch from the commit message. The diff
+  is unchanged, so the Reviewed-by tags are kept.
+---
+ net/core/ieee8021q_helpers.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/core/ieee8021q_helpers.c b/net/core/ieee8021q_helpers.c
+index 669b357b73b2d7746e4856afdc8187cbaa4f9a6d..bbacdfff9b4c2ec14779baa79d341527fed1920c 100644
+--- a/net/core/ieee8021q_helpers.c
++++ b/net/core/ieee8021q_helpers.c
+@@ -99,7 +99,7 @@ static const u8 ieee8021q_1queue_tt_tc_map[] = {
+ int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues)
+ {
+ 	if (tt < 0 || tt >= IEEE8021Q_TT_MAX) {
+-		pr_err("Requested Traffic Type (%d) is out of range (%d)\n", tt,
++		pr_err("Requested Traffic Type (%u) is out of range (%u)\n", tt,
+ 		       IEEE8021Q_TT_MAX);
+ 		return -EINVAL;
+ 	}
+@@ -131,7 +131,7 @@ int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues)
+ 		return ieee8021q_1queue_tt_tc_map[tt];
+ 	}
+ 
+-	pr_err("Invalid number of queues %d\n", num_queues);
++	pr_err("Invalid number of queues %u\n", num_queues);
+ 
+ 	return -EINVAL;
+ }
 
 -- 
-2.54.0-uber3
-
+2.47.3
 
