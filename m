@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858461;
-	b=4kVfSaIgOTqzlkT0I+s7uQhSc0AfGwnGX0nrHp5nfQDDk7yZ+YwyJ/d/m/9Iv42o92+p
-	 jTw/Tf3u62mSHmGgaq4X1hlFuHGjETLywXxFySObNfHt5I7jqccvfwYtrjz4JzlzzhWv8
-	 fTRZ4i02mAx/PCoogrz1PihaneEEk+FJYqbPl7e7NWlmzMQtPsrEWx1poixat9iPOTc4Y
-	 CnvVmYW7obCAPWw/rCg0PvJaKXQ3ll8BHK/2pYhfnZC5V/bHZE/J4k5MeK0dVrv5WAdM6
-	 xRyjN9CO+5MvLSuiqZ0qL+3vB4NFjjLSAi6QbjmcMvU3HZluGM3104vyyAiRmm1mP9g==
+	t=1794858501;
+	b=e6ddhIDlO4jydGiT7bK4Ck1VaLjG0ijcRAP9ju8jc15LVGWUN3uRaedpkhwia0wp6N32
+	 WCW8eu52qBDdTw3eXRNe/kk7LNQGRsIyjerKqQCRdhgq0xG1QvA67fFLFMprCA2cdknIt
+	 SC0TLv418S/PL9JqG3yo/n57skwfpbLYuSUTlipe40BZxsGquKhFvsu5lOH8oC0jD0+hH
+	 Gtd8YWAUCKHlLR7P+bcyEsVamL7myGglpBe1f0QY/mWYORONUnJV7+YXRWkCLgc345osq
+	 RzXZ4pC7pPpjUcYs+Qgvmml3X0k0XumlAMIda3Pn2FLnSeuEiPfB6HhXcrLSE0AXf0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858461;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=L0zwR5x8kplTJ19R1oB6/sukw04QJPkLje3ObmX7HUo=;
-	b=Bhd9KE/wmln6n//lCsjUlU7r2eNSOW5ZKzWSlLnG3QQfUtjdRExf44sYhZwG7FYT/FVE
-	 Uc90M4Kr/FwRL/Bm1dAqS3CI0PkaCGvQLag5JRMlEiQF7uDbGSNHIw62MwBOkW47dJ3/0
-	 mtzCIBZPAVS21PQdmdW0SdVHqbsROiP2w9vTAMYndbXXEjcmk4+/ycFppQyygKS4uEbbe
-	 BLnPocURWmynoE4oqy8yJnPnTnWku/aztAnbi7KoImgE8n8Q+V6WGYgKf1ssE/WiQzzwe
-	 eUzbKkC+Hv/Qnl3xS6R3hUZxk0OVh6qU+JR8CvNAwLHFHFEj0mI2ToT8GNjKdTN9ksg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858501;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=NTJxvN6eVCRH9bYjo5+5T3IwZyMatLdqQn+ZAt89TIc=;
+	b=FlmBNG1Z1QGKPILZvRi5TR19ziHpizdWS2k7b5nP0/TERCnmps+I8UCIHRoeCW3vdkN6
+	 gmDT4iBqVAS9kEDCesJpsCXlrFoL8mqe/WJgCmk/JL0hIkLcGHkVj1xL86FT/DuH2W9xR
+	 KI4Xl0cqDkZOTWGxtgJGdcqqa9ukQd75TF7BIg9gUD9BA7tK1sKXM7uF//RIOGOZ707ge
+	 B3oC2HY50xKpJY2I/wT058Zn9HuWVNx0JzvErDi9aeKpB20Jj1LeOAZvCkLOoUV2guXm5
+	 CMBrO407KFpF2oXHlJpRsqInv3zgCFoY+xKZm00gWvOxkly+pSKODjpPmKBS/Tz5m+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzrGWouY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkdAc24K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49692606A335;
-	Mon, 16 Nov 2026 19:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD81606A322;
+	Mon, 16 Nov 2026 19:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzrGWouY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45BC1F000CD;
-	Mon, 16 Nov 2026 19:47:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkdAc24K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F3C1F000C4;
+	Mon, 16 Nov 2026 19:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794858461;
-	bh=L0zwR5x8kplTJ19R1oB6/sukw04QJPkLje3ObmX7HUo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FzrGWouYqvPPvRPqhLSR5B7Y4rwApyISmpTxCnOTHBa8XZ/q5KUUuGv5XJmK4ox/K
-	 6wgK8uSWlZxu+k6ls/DWFpPlIHsbG5pJXEvWYZ8xAiyymeoS1D9NiAyr2N64leF4F5
-	 myMIU4PSGWcvMCqB9EzgleNZdSNk9/rstVzaWgiG8cu3adVebgCxnJLwHuyOYlmyPi
-	 abm4dDF1TamyBuibVCjea0XMW8+RUxsJGoeaj/94O18qjP+AA4esyKUbok11HquCSL
-	 Xso6QxC8xtzMASUfjwp6c0e6irVrUkGp88qxvN4dh+X9KjMNXDAUirJllyG0pYVTq+
-	 bHMMb+mLDhl/Q==
-Message-ID: <sashiko-outbox-217613@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 25/37] sched/deadline: Move a task's bandwidth to the
- root domain it runs in
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261116190549.230119-26-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-26-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 19:47:40 +0000
+	s=k20260515; t=1794858501;
+	bh=NTJxvN6eVCRH9bYjo5+5T3IwZyMatLdqQn+ZAt89TIc=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=hkdAc24KoXrS9Wo07IgWag2ZQQSuPPvp1/gwGqKqn4jrtCrHSG1wv9HC8UWnVkTBO
+	 iwgidp9zMDxWT8RqAVAR2j1Fw6pigvbxW3SrnSphNOlYAo3QaWeS96lukZAAOqXq1T
+	 zmC6/koKylG8mFSyee4UQP8rfrsjU9FJs9UPc9/RhYZW9Ych2+Wff62dBcojSh/2Se
+	 P5oNC8N5imW9rsUT/IpWUSXLzRlL/INTlbwxPNCIkhoXAdwRjf+JZ5W/cGlCirinIg
+	 POczF+rc5rS6pS8Op7Wgw3H8NW7TjZ70MObfxMLUI2iGaXXgE2DFNADD3FpN8DSZbx
+	 0lcen3Y4tiu9g==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 6C128CE097D; Mon, 16 Nov 2026 11:48:21 -0800 (PST)
+Date: Mon, 16 Nov 2026 11:48:21 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Joel Fernandes <jfern@kernel.org>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	rostedt@goodmis.org
+Subject: Re: [PATCH 0/6] Additional miscellaneous RCU updates for v7.5
+Message-ID: <e173f3b7-de3b-4b3d-b0dc-c12a091c9723@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <bf761cab-7423-464b-ba8e-bd39ad0eb089@paulmck-laptop>
+ <20261116190040.GA946893@joelbox>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,101 +60,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116190040.GA946893@joelbox>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] sched/deadline: missing cpu_active() check in
-  dl_task_move_bw()
---
+On Mon, Nov 16, 2026 at 02:00:40PM -0500, Joel Fernandes wrote:
+> On 11/16, "Paul E. McKenney" <paulmck@kernel.org> wrote:
+> > Hello!
+> > 
+> > This series provides additional miscellaneous updates for v7.5:
+> > 
+> > 1.	MAINTAINERS: Add Puranjay Mohan and RCU reviewer.
+> > 
+> > 2.	Make torture.sh test NMIs for atomic SRCU on x86.
+> > 
+> > 3.	Avoid duplicate identify_qemu_vcpus calls in torture.sh.
+> > 
+> > 4.	Make torture.sh test NMIs for RCU on x86.
+> > 
+> > 5.	Make kvm.sh ignore empty-string arguments.
+> > 
+> > 6.	Use ${:+} to save a few lines in torture.sh's torture_one().
+> 
+> Thanks, I will apply all except 2. and 4. as they depend on Mathieu's series
+> which is not going in for 7.4:
+> https://lore.kernel.org/all/20261112133731.127221-1-mathieu.desnoyers@efficios.com/
+> 
+> For the others, I have replaced patches which were already there (in 7.4 next
+> tree) with the new ones you sent, with updated tags.
 
-commit 1138754ab6e05269e8ea3d708fa33a8aa8f05601
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Thank you, and apologies for missing that dependency.  Distractions this
+morning.  ;-)
 
-sched/deadline: Move a task's bandwidth to the root domain it runs in
+							Thanx, Paul
 
-This commit moves a deadline task's bandwidth to the root domain of its
-target CPU during migration and wakeup if its bandwidth is currently
-counted in another root domain or was left out of a rebuild.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index c765a403014a2..35f40185953a3 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -2910,11 +2910,69 @@ select_task_rq_dl(struct task_struct *p, int cpu,=
- int flags)
->  	return cpu;
->  }
-> =20
-> -static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __mayb=
-e_unused)
-> +/*
-> + * Return true if the root domain of @cpu may not count the bandwidth of
-> + * @p. Either another root domain counts it, or a rebuild left @p out.
-> + * Test without dl_departed_lock, so that a move inside a root domain
-> + * takes no lock. dl_task_move_bw() tests again under it.
-> + */
-> +static bool dl_task_bw_elsewhere(struct task_struct *p, int cpu)
-> +{
-> +	int bw_cpu =3D READ_ONCE(p->dl.dl_bw_cpu);
-> +
-> +	if (bw_cpu < 0 || !p->dl.dl_bw)
-> +		return false;
-> +	return READ_ONCE(p->dl.dl_bw_gen) !=3D READ_ONCE(dl_bw_gen) ||
-> +	       cpu_rq(bw_cpu)->rd !=3D cpu_rq(cpu)->rd;
-> +}
-> +
-> +/*
-> + * Move the bandwidth of @p to the root domain of @new_cpu. Count it the=
-re
-> + * also if a rebuild left @p out. Add it even without room, since @p runs
-> + * there. The caller holds the rq lock of @p, or its pi_lock for a wakeu=
-p.
-> + */
-> +static void dl_task_move_bw(struct task_struct *p, int new_cpu)
-> +{
-> +	struct dl_bw *dl_b;
-> +	int cpu;
-> +
-> +	if (dl_entity_is_special(&p->dl) || !p->dl.dl_bw)
-> +		return;
-> +
-> +	guard(raw_spinlock)(&dl_departed_lock);
-> +	cpu =3D p->dl.dl_bw_cpu;
-> +	if (cpu < 0)
-> +		return;
-> +	if (p->dl.dl_bw_gen =3D=3D dl_bw_gen) {
-> +		if (cpu_rq(cpu)->rd =3D=3D cpu_rq(new_cpu)->rd)
-> +			return;
-> +		dl_b =3D dl_bw_of(cpu);
-> +		raw_spin_lock(&dl_b->lock);
-> +		__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
-> +		raw_spin_unlock(&dl_b->lock);
-> +	}
-> +	dl_b =3D dl_bw_of(new_cpu);
-> +	raw_spin_lock(&dl_b->lock);
-> +	__dl_add(dl_b, p->dl.dl_bw, dl_bw_cpus(new_cpu));
-> +	raw_spin_unlock(&dl_b->lock);
-> +	p->dl.dl_bw_cpu =3D new_cpu;
-> +	p->dl.dl_bw_gen =3D dl_bw_gen;
-> +}
-
-[Severity: Medium]
-Can dl_task_move_bw() move p->dl.dl_bw to def_root_domain and record an
-inactive CPU in p->dl.dl_bw_cpu when new_cpu is not active?
-
-During CPU hot-unplug, sched_cpu_deactivate() clears the outgoing CPU from
-cpu_active_mask, attaches it to def_root_domain, and rebuilds root-domain
-accounting so a sleeping migration-disabled deadline task is counted on an
-active CPU in p->cpus_mask.  If that task wakes up before
-sched_cpu_wait_empty() finishes, is_cpu_allowed() still permits the
-online outgoing CPU, so ttwu_do_activate() -> task_woken_dl() calls
-dl_task_move_bw() on it.
-
-Because neither dl_task_bw_elsewhere() nor dl_task_move_bw() checks
-cpu_active(), this regression subtracts p->dl.dl_bw from the active root
-domain and moves it to def_root_domain, allowing the active root domain to
-admit deadline tasks beyond its capacity.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
-19-1-mathieu.desnoyers@efficios.com?part=3D25
+> thanks,
+> 
+> Joel Fernandes
+> 
+> 
+> 
+> 
+> > 
+> > 						Thanx, Paul
+> > 
+> > ------------------------------------------------------------------------
+> > 
+> >  b/MAINTAINERS                                       |    1 
+> >  b/tools/testing/selftests/rcutorture/bin/kvm.sh     |    3 ++
+> >  b/tools/testing/selftests/rcutorture/bin/torture.sh |   11 ++++++---
+> >  tools/testing/selftests/rcutorture/bin/torture.sh   |   23 +++++++++-----------
+> >  4 files changed, 22 insertions(+), 16 deletions(-)
