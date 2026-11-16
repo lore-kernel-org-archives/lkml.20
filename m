@@ -1,80 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828259;
-	b=1k7cBOUe27QVpaO0b3JAd1juiwTAJrnV6qARSDTDTfduiK1McQUxrJ3+Whb1GqeQzDNc
-	 rgyxRTSL5JnMu1tatT8iji9ACD7U6FMaqNsobl0xVRujAoSGrDUTb6vwxD3qHim5J0E/C
-	 UzO463dtIIZFT9KylRrPm0hv+LRboo3NbXIMWkv3rPHNWHI4CBPMwfkgHHjqn502ej73V
-	 x+OARNvrGoabcD+jMpsc58KgIqiGLQKMG9r/t9YPPYOHWjR+7+oCmLwsqsuww1Psjud6j
-	 LdhGxZVJNwTVxbmMDM52duVkNSBc/E+sQcjPhcZ2PqDLlvB8I33rN7hECT1760LHitQ==
+	t=1794828293;
+	b=BUC3caCIQ9M5eg7YdeonESl26TC2VCCpSLtpNc3MkkH0dNCVek5hdwwWh/EN26U+W0hM
+	 yxp10W0UKmsYnTz/S7GYHDBebUtPKW1QYH7oUAB8djiEhcdpBynt6yafTHFxVXM2opoQ6
+	 ZCIzX5t1dZesSdunwVemRJ8r1EIdLNDRrRhvcIBtT5Ia5xPybd7INR3MhrfnLB0bCbir9
+	 zxPrb2TsdSzsEQuUrTNJtuCaYe8dR1GIlBr12RYPwmLh8xJ1dlVapLYScbF2c8fdVaH/b
+	 iHpXYNGYPwKxF0B/gEPrdp+qsR+nO6r46N2bukR4kTFI3ty12lIdFMBYJP2i2qBk1vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828259;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=qS8X9zY4g75Ph9TyTHh9JXIcSypVMVgi0PbT8Mv/YYY=;
-	b=HyxXWQQqV7vMIBfe4Tk0q4wWOBfc+H/6j026Obdfh3GcphhGqjVR2qlLveUYmR6y5yvF
-	 Re1I+Jgajdp2CB8ph+wLa2GI6I1wPQaIejuFpenFVDgoZK/REE6rl3vko0f4aWLmtzPNI
-	 11MXBQPseg1/YQxk+EMVZfFQS4jjoPOO0E0YRUXn5mW7ha1rd+Z3wSkeGeG87NeBaSuoq
-	 fSZ7yluTTh3mGYDh1TVWBYyPxtt3oL/7wBcJuDJmh1pglos+eke4wUiKEJFAP13HaCyf4
-	 V9ny/QTHyn3ef1bgc7xztPeFE8Q85JOZMTQpPlDryT4WvH2pctBG9cfZ215xjsTikHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828293;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/G0OBqYYq6xIWzjTU/6NWOOkjhYFeYVJ9RAPumwh/FM=;
+	b=tma4yISBh0oz579BVbktUweiQPsiV9LHSzcVEiS/felTQ3z7HYAtftufWf7wLuTgnjiU
+	 cLCVY2HOvkxoZ5tpU4PJfgdJTwq5B4JdSgwpDNpFfmR0bBeuDAPEYQHWln3ylLhmDQm5w
+	 NGZWOD+/bjNHCcUZflA9k4zhqE8FtrcIQRWEX6tbsI2egRjBIV6uNqas6o0q+cmKyOyjc
+	 9Vy1Z+wbehwu8wg8hqcogqGZTwKiWndkB1Rj4/I/EB32xnzinvHg/GjZEMd7nZ/96Q0d5
+	 THVNvUZflqoxhcO4HKouiPXeDFt2MtQdMKVxoAZS0ytJ4Li9cQYYD2CMFeIegh8Umww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F9L89PkZ;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGuOCjnJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F18606A8AD;
-	Mon, 16 Nov 2026 11:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F18606A8AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2EDD2606A339;
+	Mon, 16 Nov 2026 11:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F9L89PkZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794828259; x=1826364259;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jmpwFgSQDJgOv8SI7+IJoXnvaUEcUwmlHF1P1RLN5wc=;
-  b=F9L89PkZ/uLv/j1mpRhtqrnPwVimDX7vmhX7na0b+6nI9+2Q6wYsCsIL
-   6LfsKfvKpJwV74Kyfk+TiNIrdH64Q9I2fE3EdhjXNfln1TTjTWJfnWw1p
-   ZRRoUl3r2rRPRnQCr0vGUQZL7nbJThVywXHeYyN/vNrfnl2s+c+VFdB4i
-   yD+/diPZM0UfYpL/hWBEz+bXTG1k2zMCEU7a2jCga2x2ZyjcpdIYpb0sq
-   HuzFLy+RBVftAwR2Yz/NFysaB5MOZoBSHZTB2eLNj8J6x7QaUc47TEv4u
-   5hNX7LCeEGzweg2p1SJpuuwK8qFW5hiJnLLa9PO8ajO00nxIvmQ3v6Of5
-   w==;
-X-CSE-ConnectionGUID: 5WcpvMXEQUqGqGK9Q/H2Og==
-X-CSE-MsgGUID: eeYWDiIVR6K1e7tVye3obA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3574107"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3574107"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:24:18 -0800
-X-CSE-ConnectionGUID: SWR86sO2SDqickORTQVMFw==
-X-CSE-MsgGUID: R6rtWsKsSMe6UmlwmjUkvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9769293"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:24:15 -0800
-Date: Mon, 16 Nov 2026 13:24:13 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Stuart Hayes <stuart.w.hayes@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Doug Warzecha <Douglas_Warzecha@dell.com>,
-	Andrew Morton <akpm@osdl.org>, platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] platform/x86: dell: dcdbas: Release the SMI buffer
- in remove
-Message-ID: <avrn3cn5yX2LTZ2u@ashevche-desk.local>
-References: <cover.1794633178.git.rosenp@gmail.com>
- <a486b9714c8e58761e6368e7d75169441ce87e96.1794633178.git.rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGuOCjnJ
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2C7311F000C4;
+	Mon, 16 Nov 2026 11:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794828292;
+	bh=/G0OBqYYq6xIWzjTU/6NWOOkjhYFeYVJ9RAPumwh/FM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VGuOCjnJRgL4l8T0yyJl+XIlzd2n9c4XWgneQU03EGq1tXs5HJFurQ7wV+9mTv0eA
+	 sIoZHG8uG7Cis89p0AyQ+tyWD0JmQFW42EyFJN2L3pclB46cRqyDMtO32K5QV+uIZh
+	 mdL/sRAdJWya3ZcTa9cPlilrSbGYxEbnkgmnYaKZ44abJMxpDpnyWNT0jzZCl1gY48
+	 HE6ALwNmXjCTQHN1rKuP8rZ4M2dy2YIY9yNTlTLwsB39YozcnCyB3wyL6WvCg1WTJr
+	 kRUC8idgaWRdWfS9RfoOQurQ/GLS549ATH8vRtQVkLCqdSM25wCH8sjmlkuiUYFJSj
+	 Sc0PuCxZaziQg==
+Date: Mon, 16 Nov 2026 12:24:50 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, 
+	"kernel@pengutronix.de" <kernel@pengutronix.de>, "linux-can@vger.kernel.org" <linux-can@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: Re: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
+ devices without match data
+Message-ID: <avrnzDmTgdpK9jQQ@monoceros>
+References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+ <20261114-fix-device_get_match_data-v1-4-2d82025e9646@pengutronix.de>
+ <TYYPR01MB660340F5E219C29045BF61F9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+ <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,39 +66,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i5ob7g33zo25fx6g"
 Content-Disposition: inline
-In-Reply-To: <a486b9714c8e58761e6368e7d75169441ce87e96.1794633178.git.rosenp@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Fri, Nov 13, 2026 at 10:17:56PM -0800, Rosen Penev wrote:
-> dcdbas_exit() frees the SMI data buffer before
-> platform_device_unregister() removes the sysfs attributes, and without
-> holding smi_data_lock. The comment claims that only at module exit can
-> all sysfs attributes be released, but device attributes do not pin the
-> module: while rmmod runs, smi_data_write() or smi_data_buf_size_store()
-> can still be executing. They can then memcpy() into the buffer as it is
-> freed, or allocate a new buffer that is never freed.
-> 
-> sysfs_remove_group() in dcdbas_remove() waits for running attribute
-> handlers, and dcdbas_pdev is still valid at that point. Free the buffer
-> there, or unmap the firmware-provided buffer when WSMT is in use, and
-> also do it when probe fails after dcdbas_check_wsmt() mapped the
-> firmware buffer. Reset the WSMT state with it so a later probe starts
-> clean.
-
-...
-
-> +/**
-
-Really? If so, can you validate this with kernel-doc?
-
-> + * dcdbas_release_buffer: free the SMI data buffer or unmap the WSMT one
-> + */
-
--- 
-With Best Regards,
-Andy Shevchenko
+In-Reply-To: <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
 
 
+--i5ob7g33zo25fx6g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
+ devices without match data
+MIME-Version: 1.0
+
+On Mon, Nov 16, 2026 at 09:54:58AM +0100, Marc Kleine-Budde wrote:
+> On 16.11.2026 08:39:36, Biju Das wrote:
+> > Hi Marc,
+> >
+> > > -----Original Message-----
+> > > From: linux-arm-kernel <linux-arm-kernel-bounces@lists.infradead.org>=
+ On Behalf Of Marc Kleine-Budde
+> > > Sent: 14 November 2026 12:56
+> > > Subject: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject =
+devices without match data
+> > >
+> > > A device bound through driver_override need not match an entry in of_=
+match_table. In that case
+> > > device_get_match_data() returns NULL, but
+> > > rcar_canfd_probe() dereferences the result.
+> > >
+> > > Reject devices without match data before continuing probe.
+> > >
+> > > Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> > > ---
+> > >  drivers/net/can/rcar/rcar_canfd.c | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar=
+/rcar_canfd.c
+> > > index 000a6433f46d..9d463a9c1766 100644
+> > > --- a/drivers/net/can/rcar/rcar_canfd.c
+> > > +++ b/drivers/net/can/rcar/rcar_canfd.c
+> > > @@ -2113,6 +2113,8 @@ static int rcar_canfd_probe(struct platform_dev=
+ice *pdev)
+> > >  	int i;
+> > >
+> > >  	info =3D of_device_get_match_data(dev);
+> > > +	if (!info)
+> > > +		return -ENODEV;
+> >
+> >
+> > There is a patch on the fly to disable driver_override by default [1].
+> > In that case if we plan to use driver_override, probe will return failu=
+re.
+> > I may be wrong. Please correct me if Iam wrong
+> >
+> > [1] https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a30=
+8.1790612298.git.u.kleine-koenig@baylibre.com/
+>=20
+> Thanks, I wasn't aware of this series. I tested the driver_override on
+> the flexcan driver with latest net/main, fixed it, and applied the fix
+> to all affected CAN drivers.
+>=20
+> Should I drop the driver_override related null pointer checks from this
+> series?
+
+IMHO yes.
+
+I just sent out a new revision of the change, find it at
+https://lore.kernel.org/all/20261116110853.3418077-2-u.kleine-koenig@baylib=
+re.com/
+as I failed to add you Cc.
+
+Best regards
+Uwe
+
+--i5ob7g33zo25fx6g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr65/8ACgkQj4D7WH0S
+/k7QDggAiTmuQNmh8+yNOaWxYwM2xqEF7KXcta6Zhrr5tw9dbPFOi1591HFVqoXF
+b+PrVbmxgaxpRIc2JJd+193U26DHWtmbSfZuJp16XUGreT3qZif3XIPXQItdHKX9
+iEfgiclP6EXqPncKeNY98MlLkT44xrcXxKHOuINAw5pmHD43QZLVMoNul9vvxHzp
+NjcRoO6YYv1alrkzDiCNghiXGFcIbB6NRSvcLg3pF8S+js6tyKC7yGPedHI22ul1
+0jPhDkdWfYmpFS8Mp6O9JkWZOAq07GnaQrOb9PfuT6R8hrsdL6SWg3Tcrj059/mu
+NIUb+nPT//FTZ9tIRjdXrU3JjDhlnA==
+=9hPs
+-----END PGP SIGNATURE-----
+
+--i5ob7g33zo25fx6g--
