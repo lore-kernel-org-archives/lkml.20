@@ -1,50 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850130;
-	b=gQ78rru2FwIKBCPjqb4sPu/2kcan5muOauh2Tz8e022GjYdc8na2bzxy+e9i7IiG5HBM
-	 MwXRtBpcrqgHgwwgDb3UNhWrOk1Cs0IhGkVl0pVNQbQMcwphdgPly576Gc054up1hFruP
-	 HpOsKFdDUfEOewgPcHvCDw8mAPZfP8tAjERym4wdLn4HHMh/oEZrTBizuAHJ5K6KByC4c
-	 vWb2H/+K7oB2NiWwoDfObsH4TxOPkmtkCV9LZMb3ITU2CljtVzpm7aboruLfgKhDMmxVv
-	 HPKib914qzS70cU7jAnLYFyEyZtJt8H2bm4Ret9BCv6DIgVk6cQANagWCMkAERY70hw==
+	t=1794850190;
+	b=dJ9B1bXo9CjghQs0JqF6qlcTG6pvNmXzlW+9FfTr23bEl0GC9J48xVzlT7zKB6Olgo/d
+	 bgeLzT/kavLiR0NiHDuSBtFnhIo8yqpM0Ey3zft1YuyomZObcCNpURyw98q8RiO3mQGG0
+	 IdzNWVxYaBuoM4ec47Nyi5gYn8VnXE5Irc6XYsFp8IQgp52pOQ1cvkA6kKMMbiRY6T2rK
+	 eTuWK70nIg967elAC+ibehrctkYawRGw7QLynXzCG+3Q6WTie9E/SunXcqeH1HgZ+6T19
+	 iiysC7Bnzj0KaeDce7IjOdQNBuP8Vf48zQvfHmKlX0APTYSV2odkflDMPOE8zEyMLxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850130;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 Feedback-ID:X-Infomaniak-Routing;
-	bh=sksj3erO0Akx5zzJjGKDAnrGDqLQmFXWSoMgfv5FcBI=;
-	b=EzsxXJgcxxMT4DtZqbwFfduzDNCN1DilCKwoYMVletAdrt3BEtgOlcyqBR9uvNFKpsis
-	 N1MYUSsfzn9T7+lQyUGXIkiEmLFmW2x+dieO7kzi/pcAW34JhmPZU/3nT1Bj0xanTOlK5
-	 Uq8LcwP+1vtXuPO/I2LWcSWDbffcEPQYh2UkLlLJRJXTlrRMpGB6o08xrUD+C52xSFg9N
-	 +pmgaadsUa9KI5nFaJ93/fn8ciZddReNaijiUcDOvhpSWz1DAZYdtBogiFC5AwFZDbrOl
-	 3Cn++SWQNXvI1b8lLjNh3ggPLdn27mPANLP87xZY9oLJqKGsxbOJ1W2sFTzXZm8AzHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850190;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=+SGNyo2gd+yAHxP5oh0Zgz170f3HEoeOAEryQ5ldO64=;
+	b=xUhn8QaCrPpGBIkq9B9yGXJ/o/+dGSCBhjFmpYOsVkLeIJ+lBpV4xZQhESz3FL3EeghO
+	 hC2zTcHlVZSB2fXNvL/TgvM6rVMY/7YBzf7XQTy3TCnym2W94v9SaRRo4qE2HIq4OHLcl
+	 1xkcUiMlc4awOadC13rms3p42/LJEJiDll3js+ZY02p1LwrbpLMZ9k+P3Vs9em46Ffxh4
+	 gGFbdS7xwp1EhCJi3Vn8J+a2lOSYLEJ8h+sCMKLQ0eVG3Qo5YyJ4Cd2f8FGaR4y9jtnYx
+	 NfE62LQryoR4Hc3D9Buw4lLugAeWnKA9QKUoJ2II68zNz/6oREWLgKjiaFUfuLUTQog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=etik.com;
-	spf=pass smtp.mailfrom=etik.com;
-	arc=none smtp.remote-ip=45.157.188.14
-Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Tp7Lgjfu;
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6860606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:28:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6860606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jSvwR05KVz2kNw;
-	Mon, 16 Nov 2026 18:28:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
-	s=20210927; t=1794850118;
-	bh=sksj3erO0Akx5zzJjGKDAnrGDqLQmFXWSoMgfv5FcBI=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=cQxdshKVjvsM39W9Gap2BRzIbXEaf1d/No2nWFKAUSwvNOUV8gHSyKC6R2d1cBd0C
-	 MYDXtX311AflSc+xrxIyZzAIJKlRBSmJPWHwajQQAvOoDVjRXhbkkUF8hQv1ogIlAi
-	 gGhu6QsEblH34EbgOm93qm2GRqDN3dpaW0DQdFEE=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jSvwN6vjBzcsX;
-	Mon, 16 Nov 2026 18:28:36 +0100 (CET)
-Message-ID: <999079c0-c728-445b-a122-720d93f112cc@etik.com>
-Date: Mon, 16 Nov 2026 18:28:36 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7F9606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:29:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC7F9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Tp7Lgjfu
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b633ddfad6so5808030a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:29:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1794850188; x=1795454988; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+SGNyo2gd+yAHxP5oh0Zgz170f3HEoeOAEryQ5ldO64=;
+        b=Tp7Lgjfu2afXXII2fz8CrRyZetQFL+byRcgFW4rBwrrXWRgS5DF5W/M4JwspcHWFDQ
+         03T0PO7JRVI8lcgefVEUr+tPjYCxijtl3VdDc7uu1vHj3I4h3iCCesOpMpas0ks7aLLB
+         S8Z4TOxTsns3OrmM2nVAFDV+ucv8wg2qiHqNI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794850188; x=1795454988;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+SGNyo2gd+yAHxP5oh0Zgz170f3HEoeOAEryQ5ldO64=;
+        b=ZY2xNMQzQBWRmMQbIMnZjcvde+84dhehXcQyqnkDw/dSPFS5Nlat0Rui1CcJlPw56e
+         +EPKurXsAv+A8hJPgWPhB3QjtpLBkIke+PFBSRY5SZrbqi/33DeDd40CbxeGErZL2kD4
+         0gDg/MVQfqNdVJ7Fo0qz6QbGzTMb2KG88a25RH+eYN98eB8JEzDmJOEv5bIIEVIDjDF6
+         PbiXAvzCVXx6xM5ReKTgwW7081WS8kIwVypGoChDd3I4ebTaiBTldGzgJd/y5tWM7H9n
+         TErdt9vcJltAkPX4ms4zHiaxrobD811xMSVQyYbZe0S24ODkb2zhZ0mdAP/upAygX2YL
+         REOw==
+X-Forwarded-Encrypted: i=1; AL+hErEnGVUafKf/nF41q7RnocBRiuOFVdP5/uytGGFajYoSD9mWsdyF28hgHlfteTh1kqvhLQP4DbEc52N94w0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+y0X/jUMz8Wk+ljs1fKmXUFnp8JQMqX3mb/mddOsDMlyXi/pqx
+	oRJV8wJe4wWxw2Z9ftpCd6Ww8LVzJbxa5N1nOrRFKBP5b4K5k+xh5fxO9eVdTDs1CnbtcFKZ+u7
+	TKbG60j5vsA==
+X-Gm-Gg: AYBFou0JUoCYlOaFRWxrgHG36DfGYDJzp1GTGhhHi/O9Dvdu2/QumQiNMBdigiVvOjQ
+	TsBgtGcL492yg3z2aM+0y+SpxSHs/dzsXNYDPc2qtPlhHwg6oxyywenqYWwM1ytZwgcluZxw2mQ
+	nRfoBNrSLeyHMjGpSZq1D9pHMTFpKvVYEnB6MgxsHnX//lJiWKxpxcDoZWJhg/XhgdomBQpC0Dh
+	PqO6Xtz/ASjHJjNWsQHOC8a6zADCDct2VxPelDErbW6dFdJs8kUrA5e7eclUP0Fg+PFLhci2xd1
+	8mRnMxJe8xqkbyQolfr4EP2FeJf66P0lvnykZtcfH5OSkYTFBkV1LkHmVWnGGmRNhmTAuPinVkq
+	wRSLuvKp1ByhjnPLXhB3uLRhWt8FEPwtHy3jXXgJa7CIeX763KhoI/EAzIgNNuKy91OCt2LbYsw
+	DrkvOJ898PxLog4wRib8Qz9A+iwxMyPXXuwqqp0jL6fSKFaEJ/XA3vaM0AGFMiEW9iszWesBM/l
+	qnD9vwXlVjyna7tw9m7nn9cL+Av1Sc18HV5PDZuF5AUQPZgA7V3MVtUCDgNbVXLLdvMo3J5kCh5
+	io64nntoTLX7xNZ3Z5yfEdPERjzSmhy4UBPinJ/CC0i23kF+AI523xSr4YzP+xqlYeRAshlcCyl
+	iWMM=
+X-Received: by 2002:a17:907:d40d:b0:c25:504a:1e25 with SMTP id a640c23a62f3a-c5096372189mr929868666b.13.1794850188085;
+        Mon, 16 Nov 2026 09:29:48 -0800 (PST)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5ad91sm452719566b.53.2026.11.16.09.29.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 09:29:47 -0800 (PST)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c50ac25cdd4so357935366b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:29:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF0x8thS0yCWHv8b3m2Sy/yI6LmwWYYwcVjMnsPQgmKi7GQ2TJwkx7VrGpg6ij/3HZ8Uv0IMA11/xcdAvg=@vger.kernel.org
+X-Received: by 2002:a17:907:ea8e:b0:c46:ca3a:10d5 with SMTP id
+ a640c23a62f3a-c509642379cmr926854066b.45.1794850187276; Mon, 16 Nov 2026
+ 09:29:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,78 +94,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: DV <dv@etik.com>
-Subject: Re: [PATCH] kvm: hyper-v: Delay firing of expired stimers
-To: Vitaly Kuznetsov <vkuznets@redhat.com>
-Cc: Alexander Graf <graf@amazon.com>, Sean Christopherson
- <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- hpa@zytor.com, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- nh-open-source@amazon.com, gurugubs@amazon.com, jalliste@amazon.co.uk,
- Michael Kelley <mhklinux@outlook.com>, John Starks <jostarks@microsoft.com>,
- David Woodhouse <dwmw2@infradead.org>, Marcelo Tosatti
- <mtosatti@redhat.com>, qemu-devel@nongnu.org
-References: <20260115141520.24176-1-graf@amazon.com>
- <aXO8I6xuZyZB7CxV@google.com>
- <769f538d-dd42-4d36-a4c5-7e6e48b209f6@amazon.com> <87bjigaeyx.fsf@redhat.com>
- <1435d106-d4b0-487e-85d3-4032a9fe9332@etik.com>
- <kupzev8hf8s.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
-Content-Language: en-US
-In-Reply-To: <kupzev8hf8s.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Feedback-ID: :74c292bbbde641d:ham:123049f310c9d1d
-X-Infomaniak-Routing: alpha
+References: <fb224bad9baf5f44cf17e1d664776a4e@kernel.org> <CAHk-=wg4jAWZvxWo0OZ+fFTU=SBtQ7dnsUCV7hx+UAifkwPUwQ@mail.gmail.com>
+ <avs4uWg9ch-Bqobj@slm.duckdns.org>
+In-Reply-To: <avs4uWg9ch-Bqobj@slm.duckdns.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 16 Nov 2026 09:29:30 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wg+MO19H7KVgA+SaZvvt5O+3Tp8AxHVhpN23JtaSq=G4g@mail.gmail.com>
+X-Gm-Features: AclHuK-PN9pJrcukp_FJTVGo2b1ouLrx-Y9KKzsMDulkaVd30B5Xk2QwkoWpwC8
+Message-ID: <CAHk-=wg+MO19H7KVgA+SaZvvt5O+3Tp8AxHVhpN23JtaSq=G4g@mail.gmail.com>
+Subject: Re: [GIT PULL] workqueue: Fixes for v7.4-rc2
+To: Tejun Heo <tj@kernel.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 16 Nov 2026, Vitaly Kuznetsov wrote:
-> From what I remember, direct mode synthetic timers were added
-> specifically to aid Hyper-V-on-KVM case as non-nested Windows was
-> preferring non-direct version anyway. So I believe we need a fix and
-> not 3).
+On Mon, 16 Nov 2026 at 09:09, Tejun Heo <tj@kernel.org> wrote:
+>
+> Hmm... so, draining looks like this:
+>
+>         set DRAINING;
+>         read seq;
+>         flush wq:
+>                 for each pwq:
+>                         flush them;
+>         for each pwq:
+>                 lock and check whether empty;
+>         if not drained or seq bumped, try again;
+>
+> and the queueing side tests DRAINING and incs the seq while the queueing
+> work item is still in flight on its pwq. The chained insertion is under the
+> pool lock.
 
-Thanks, that rules out 3).
+So now I don't have the patch in my tree any more (I could fetch it
+again, but I'm lazy), but from memory and my lkimited quoting the
+queueing side only incremented the seq number *if* it saw DRAINING.
 
-> I'm wondering if the issue is somewhat related to the nasty hack we
-> put in commit 0469f2f7ab4c ("KVM: x86: hyper-v: Don't touch TSC page
-> values when guest opted for re-enlightenment") but maybe hibernation
-> is somewhat different. Or maybe we misunderstood the problem in the
-> first place and only fixed one sympthom of it?
+And that seemed to be the biggest issue.
 
-I don't think the hack itself is involved here, but your second guess
-fits what I see.
+If the queueing side did *not* see DRAINING, it also wouldn't
+increment the sequence number, and it also didn't have any memory
+barriers.
 
-The hack only takes effect once the guest has written
-HV_X64_MSR_TSC_EMULATION_CONTROL. In the failing setup
-hv-reenlightenment isn't exposed, so KVM recomputes the TSC page on
-every masterclock update and every KVM_SET_CLOCK as usual. With
-hv-reenlightenment on, X was 494.7 ms and the timers were just as
-late. I didn't trace whether L1 wrote the MSR in that run, but it
-wouldn't change the lag at boot: L1 enabling the page sets
-HV_TSC_PAGE_GUEST_CHANGED, so the first setup is computed normally
-either way.
+So it looked to me like the code basically fell back to the exact old
+sequence that the patch claimed to fix: if the queuing side missed
+seeing that "set DRAINING" part, all the changes in the commit became
+no-ops. Yes, the draining side would re-read the sequence counter and
+retry, but the sequence counter didn't actually change because the
+queueing side wouldn't be updating it.
 
-What points to your second guess: X is already in kvmclock before the
-guest runs its first instruction, so when L1 enables the TSC page,
-KVM writes a tsc_offset of about -X into it. Yet on a boot with no
-pause and no migration, L1's counts were still X too far out. If L1
-used the values it read from the TSC page, even cached ones, it would
-have been right at that point. So L1 seems to take L0's reference
-time to be guest TSC / TSC frequency with no offset at all, perhaps
-because on a Hyper-V host the two start together.
+But I'll freely admit that I really only looked at the "shape" of the
+code, and it all felt wrong to me. This was not some deep-dive
+understanding, it was a "this doesn't feel right".
 
-If so, the 2021 migration storm and this are the same assumption
-broken in two ways. The hack keeps tsc_offset from changing after L1
-has started, which helps on migration, but it can't help when
-tsc_offset isn't zero to begin with. And without re-enlightenment,
-nothing keeps it from changing on pause/resume, which matches the
-virsh suspend result in my first mail.
+> I don't think it's broken but it is adhoc and difficult to get one's head
+> around including my own. It'd be a lot simpler w/ seqcount. I'm traveling
+> this week, so might be slower but will redo it.
 
-If it helps, I can rerun with hv-reenlightenment on, trace whether L1
-writes HV_X64_MSR_TSC_EMULATION_CONTROL, and repeat the suspend. If
-the hack engages, I'd expect X to stay the same across the pause,
-while the timers stay X late from boot.
+Thanks.
 
-As before, Claude Code did the code reading for this.
+The main problem with a seqcount might be performance - I'm assuming
+you tried to avoid the write for the common cases. I assume *draining*
+is the slow and uncommon case, and typically *that* side is where you
+want to do the writer side of the seqcount, and then the fast and
+common case is the one that wants to do the sequence number read.
 
-Thanks,
-David
+So maybe the generic seqcount code isn't what you want, and maybe your
+current code is the right thing, and my "it feels wrong" is the wrong
+reaction.
+
+Put another way: you should also just feel free to tell me that I was
+wrong, and explain *why* it all works the way you did it. Use small
+words and call me names.
+
+             Linus
