@@ -1,93 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842802;
-	b=RBhX2sE2LDHzdn7em3wpLprG94bfBrseKwAqSRDq47EGOg0tWeOb0byVXYifR0WmollZ
-	 X47spyfVCVgjxVQ2LQlvWoMKTqg6t2MDrFHuNtDwj3zLXLWE3qPplaBrdYJtCyn6SCUij
-	 OLPMBN+RMda3Bf2JGLuCY7zsKKH4AUGoZd4IHUyAiviyWAjk5IRh/IvaVaWyyTvjmh9Cw
-	 f+VSCbRretjFtyO9JObHzpXwgqWXW/TGD/GPp4iUvBo1db17xfFuVCnS2LKtClptcJazq
-	 UScp80+92YNQd3mdF5p36lKJsPlrWROVgQ0NyHOtElfjOGSNP8eHsZSUvCXXN2SAHzA==
+	t=1794842825;
+	b=V5YMATIE2p1UpXPM5dw/ScFL/NxIjU6Aq6ATtdGr2ougCWsETW2yYwlohaZegJFFGcL0
+	 qaKjnapF92szszIgMojPes1KMEL1DA77pVJgzpz1EhgI80RAlfVNgz8bSAyPy75pqDfGz
+	 ITvzRhBnOWqyh4LWYBqgt+/+oHkCf8+7knweMG2QjbacBhUCLqyzqZb/pS7TZs278zFLo
+	 C+ixxuvejGjkVweRTkt1T4bDMiqvi4u6pQRbUc9Xiieds+18EF60jWq8U6WI0fa0kZwzu
+	 zNU98J0yOAzC1YPBfGV1llOlmzbDYCVGjEibdp5aGJ7AJ0IOrlUSThiqika7HGwvg9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842802;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0dwK8TI6qy1OW1ri/FZaygFVxUbF5MpF9Rcdk0ygAxg=;
-	b=KINLPXB6lp7Gf8B5N99+/HPkrTSxyKf8N7X+PIyxDPtLv8NF/PoIdIeZPfmFJtRB1uly
-	 j25o4PiALI/IBdlbZgj/jwKpuilEqxWoEjNfoyxBO7eLhd/HhvOJAL8l81Ehv06jPQauQ
-	 Kg3KihEWp3N/9z4IOB3Lp4dziQ05gkrw6Tbyu0FyPJjobupKTDXAy1fB43qmp2Gj5DSnY
-	 dHAN1tObmxx76qJzK/NXSbcrkEnKREephR0d+FRe1+8xxqA7pPY4YLCeRB2PHEWh0BfIh
-	 XzYWEKNlbjfu+JLhQmdltV8XFiPWr5GfLf21TSRgO88K4HeACAA3Dd39GTyVOzkj/1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842825;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=jQ5moJAwspIDmVnleLy8zTs3Qhh1IMj9licNWg4LnQQ=;
+	b=lVsa0olsNJKRhFUGyr3Kb1Xgr3vK4QHer2vT41VSArKIxkY0Mk2sekEwlNDZ/oMzgxVo
+	 rDsDRsvAGhQ5ToVr7nF7Uw7WV+UbOzr/SVt2K00oNpztCb6QJUDVEQp2NSBDp6tM8X8c/
+	 dCfZBUACqCi/W+j/AZ4oZfAeLBWSTn0ji296U2zedUVpApSfumjBe2G/mZ5ZBWsASSS8A
+	 WvdS/8U2Vpn1OSeA1iDAFxIdRfl8WlExH149HzVtygiWeh8iArXO00eMiiX97wFIpyMUf
+	 HrBhq5tz7hV6p6B92Qc63R5HclNKqyviqsA3hicpBCe4l6Hf14wNLrQDgDC6glg+Ivg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=SAFQEOY9;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=RoYn+LGw;
+	arc=none smtp.remote-ip=35.162.73.231
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A155606A32A;
-	Mon, 16 Nov 2026 15:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A155606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28893606A88A;
+	Mon, 16 Nov 2026 15:27:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28893606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=SAFQEOY9
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGDuOv43631009;
-	Mon, 16 Nov 2026 15:26:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=0dwK8TI6qy1OW1ri/FZaygFVxUbF5M
-	pF9Rcdk0ygAxg=; b=SAFQEOY9K0TF6/76lgxBx3bHlrTcJ+GsIIM0PkVfkre54L
-	WUrNawywEsYtALjdlz7ofXdB9p0Pp3egTKhANOUbktufoRvmRT/MzARpdiSMVZlw
-	su0KVzmyx13KSmJLK/PiK3rpnVPhnEsn//9nY0gy36aoLcjLTyjFMQDbAOXVHf8j
-	nyNJ/1UQMv6LuzpTiAwhdbz4U+Jd/XdoA+qUAftLY9KteWw/Q5TnnzqUtvCym1ok
-	9JQbp2iasqQ/R24Kyd13VMvyjg2OER06mYerSObfIn1wg1XvQEnQj1F2xX+I2NRY
-	FMNNBsgYpHZd0WqQvY0BmE/YfaMtr6q2LA0mRymA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxf566bxy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 16 Nov 2026 15:26:36 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGFGaHc1877646;
-	Mon, 16 Nov 2026 15:26:35 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hy46fyvcd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 16 Nov 2026 15:26:35 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AGFQAP552429172
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 16 Nov 2026 15:26:10 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 643D920043;
-	Mon, 16 Nov 2026 15:26:10 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 06C4C20040;
-	Mon, 16 Nov 2026 15:26:10 +0000 (GMT)
-Received: from osiris (unknown [9.111.42.169])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 16 Nov 2026 15:26:09 +0000 (GMT)
-Date: Mon, 16 Nov 2026 16:26:08 +0100
-From: Heiko Carstens <hca@linux.ibm.com>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 12/14] s390/sclp_ftp: Replace get_zeroed_page() with
- kzalloc()
-Message-ID: <20261116152608.165348B07-hca@linux.ibm.com>
-References: <20261108-s390-sclp-ready-v1-0-3e7c90eb6676@kernel.org>
- <20261108-s390-sclp-ready-v1-12-3e7c90eb6676@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=RoYn+LGw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794842825; x=1826378825;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jQ5moJAwspIDmVnleLy8zTs3Qhh1IMj9licNWg4LnQQ=;
+  b=RoYn+LGwI8x7VDQWBqE/GNlCFbbC6JXTyMd872rVhR7U1cPmSlHVZoLN
+   /2wbrnc54+22BxA2/7D+GUQ2lFw5cw30rD2uCQkGpzeJr2wJbJQGFU7J6
+   CgNC4Il8QRApkLaNFHZ5vXoCvMkqqSoBUtfzC8iR1p4Z+R6md1pr3VbEk
+   exQNZhjQMEfSvtd4XA/IpbXbC087UD8FHrSZRQWPGvmNwyZHEf2lSCvZr
+   mDJ4GkPIlZYDr2gVD89SQZvP1q2H1o71s3hSJ7iY51Hay/1aeuZVs4dNu
+   xefRC2/8jD9uFwdppl9M2BKPqnfxD8miDLI+lv437e+H0K1foY1Bkp+HN
+   Q==;
+X-CSE-ConnectionGUID: h+nwA85wQxOElU/OXk1dqA==
+X-CSE-MsgGUID: upn+/RpeR+uulnF/EqUqLA==
+X-IronPort-AV: E=Sophos;i="6.27,216,1787011200"; 
+   d="scan'208";a="34092392"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 15:27:02 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:7890]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
+ id 86de6ce6-fd91-408d-b03e-71a42f531eb3; Mon, 16 Nov 2026 15:27:01 +0000 (UTC)
+X-Farcaster-Flow-ID: 86de6ce6-fd91-408d-b03e-71a42f531eb3
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 15:27:01 +0000
+Received: from dev-dsk-mrgolin-1c-b2091117.eu-west-1.amazon.com
+ (10.253.103.172) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Mon, 16 Nov 2026
+ 15:27:00 +0000
+Date: Mon, 16 Nov 2026 15:26:52 +0000
+From: Michael Margolin <mrgolin@amazon.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+CC: Eric Davis <eric.davis@broadcom.com>, Leon Romanovsky <leon@kernel.org>,
+	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH rdma-next v3 00/13] RDMA/core: Ultra Ethernet transport
+ verbs
+Message-ID: <20261116152652.GA8275@dev-dsk-mrgolin-1c-b2091117.eu-west-1.amazon.com>
+References: <20261109-uet-ib-core-v3-0-3e7e7ffed2e9@broadcom.com>
+ <20261116143656.GA34010@dev-dsk-mrgolin-1c-b2091117.eu-west-1.amazon.com>
+ <20261116144830.GN2532299@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,80 +86,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20261108-s390-sclp-ready-v1-12-3e7c90eb6676@kernel.org>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2MSBTYWx0ZWRfX28vpUqlOw2r1
- RkcZ7aGlRqN8/B2JmCvFltseg1TH2tw3HR7sWeoijQCc+GAC1EH075/kKK/AZCrVTwprGD1F9PM
- tgpccJdR/tIoS3K8ae2yMI76NUfS1a4=
-X-Proofpoint-GUID: BLvltcQCLTMTj6A-iBioRX8bDKVj9MqI
-X-Authority-Analysis: v=2.4 cv=ROImjIi+ c=1 sm=1 tr=0 ts=6afb20ac cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=20KFwNOVAAAA:8 a=cbU3o08U4KG32iXkhCkA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: BLvltcQCLTMTj6A-iBioRX8bDKVj9MqI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2MSBTYWx0ZWRfX9sgdr1ebrgLe
- Ln76Ip40/j/6weeD6F/mfUlMpvPsE2RYi5YfpZy9gnRqQ0VFKd+HW2KAnF52RPLdkXa5qFnEKBn
- JhSiNotNAqHadAroyAGROu3gbFRVml+ffds4biAjAC2jBMGjLBRhAOeBHL0lyhnp884756IDaQC
- dUdjWb5SDOR7sjcSq6cE06ntJC2spQbZhSPY2uC2H4P7md+85wPr8NcnjkGffWYzqn09pm2LwnK
- w9zAo/+HdZ2HRZdi5y0T7RFnEqOB3ZaNbNN8oqnG3tE7NZyF2Enf8I9IPYlA4/hnPNnbXN/m42V
- pNzl88LPOd2ewtLsSIJyPhw5cYy1TUcz4wT23b3tUm0CVl34xJhhxFDVQTwWxdktM5Ac/AkYTdi
- 9el8mwNmj1s/KZoWPfREvYnDmUEMQy9DF7y8tACCk5ZTWbkkTiE3pFHySe0pjffAbo/MYpsUKS8
- QjCeTO7vq4r4INxG/Mw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 spamscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160061
+In-Reply-To: <20261116144830.GN2532299@ziepe.ca>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sun, Nov 08, 2026 at 10:58:43AM +0200, Mike Rapoport (Microsoft) wrote:
-> sclp_ftp_et7() allocates the SCCB used for an HMC file transfer request
-> and sclp_ftp_startup() allocates the SCCB used to read the SCLP info in
-> the debug code.
+On Mon, Nov 16, 2026 at 10:48:30AM -0400, Jason Gunthorpe wrote:
+> On Mon, Nov 16, 2026 at 02:36:56PM +0000, Michael Margolin wrote:
+> > On Mon, Nov 09, 2026 at 08:00:33PM -0800, Eric Davis wrote:
+> > > Ultra Ethernet defines a reliable unconnected transport. A queue pair
+> > > sends to any peer in its job without a connection, incoming traffic is
+> > > demultiplexed on a JobID rather than on a connection, and what a device
+> > > orders is far weaker than IB or RoCE and varies between devices. None of
+> > > that has a home in the current uverbs ABI.
+> > > 
+> > > This series adds the generic half. The objects, methods, and attributes
+> > > any UET device implements. No driver is part of it, though two already
+> > > exist against this ABI. A reference device model that implements all of
+> > > it, and HPE's Slingshot driver implementing a large subset. That is the
+> > > argument for ib_core carrying this. What is device specific should come
+> > > from private interfaces per vendor.
+> > 
+> > Hey Eric,
+> > 
+> > Thanks for posting this. EFA's SRD is also a reliable unconnected
+> > transport (one QP reaches any peer, delivery isn't ordered), so we
+> > looked at the series as a possible second implementor of IB_QPT_RU
+> > that isn't a UET device. Other vendors might also want to support
+> > this interface in the future.
 > 
-> These buffers can be allocated with kmalloc() as there's nothing special
-> about them to go directly to the page allocator.
+> I'm not sure about this. If you have exactly UET programming
+> semantics, including the job, then sure.
 > 
-> kmalloc() provides a better API that does not require ugly casts and
-> kfree() does not need to know the size of the freed object.
+> But squeezing some EFA specific thing that doesn't follow the spec
+> isn't a good way to build the APIs.. Persumably EFA has its own
+> job-like mechanism for security that is different?
 > 
-> Performance difference between kmalloc() and __get_free_pages() is not
-> measurable as both allocators take an object/page from a per-CPU list for
-> fast path allocations.
-> 
-> For the slow path the performance is anyway determined by the amount of
-> reclaim involved rather than by what allocator is used.
-> 
-> Replace use of get_zeroed_page() with kzalloc() and free_page() with
-> kfree().
-> 
-> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> ---
->  drivers/s390/char/sclp_ftp.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
 
-...
+I see your point about trying to fit an API to a different use case it's
+not meant for, but I don't think this is the case here. EFA doesn't have
+a job-like mechanism, isolation is handled by the network, so jobs just
+don't apply there.
 
-> @@ -250,7 +250,7 @@ int sclp_ftp_startup(void)
->  		return rc;
->  
->  #ifdef DEBUG
-> -	info = get_zeroed_page(GFP_KERNEL);
-> +	info = (unsigned long)kzalloc(PAGE_SIZE, GFP_KERNEL);
->  
->  	if (info != 0) {
->  		struct sysinfo_2_2_2 *info222 = (struct sysinfo_2_2_2 *)info;
-> @@ -262,7 +262,7 @@ int sclp_ftp_startup(void)
->  				 info222->lpar_number, info222->name);
->  		}
->  
-> -		free_page(info);
-> +		kfree((void *)info);
+As I see it, RU can be (and this series gets quite close to this) just
+another QP type multiple vendors can support, with UET specifics like
+jobs being optional on top. I think that treating it this way during
+interface definition improves it.
 
-Sashiko is right here, the ugly cast can go away with a trivial code change.
+Michael
+
+> Jason
+
+
