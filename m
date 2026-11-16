@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803610;
-	b=oiWqBUGDyfkWcwraOEJQpW14rFLd78vrTT+fh4caUwY8HLY4EN71VGYWBk2Wj552vtvC
-	 Tjy1qBGkr2ZlagN+ZFu2IF1LmFBxiT9LXsfMcMGF4T0a5ZNqzdvGUZVZKB3c1d0bwpmJV
-	 U6ipnj0sNB4aj/U1zY2tK9ATeBlLmoWk9iwrKrxBdAHSVfq4KEXiSwPPDnKkpvXQAmNdF
-	 CaPgGGUC7DJ7qMXCChWGZTOfKuJMTGJ/rp1unXoUfPHF9jDX9XedSRYBp+YhzEwnfhR9w
-	 M3O4yZ4v/uCu/x55V54eW4rlBoZ6ps2aVUavDdbPq9+MtymiFfLMoc/Gj87VJCcuqkg==
+	t=1794803663;
+	b=Xfqsjj/ZbJKmk7tsdPOwCBPuSiYFoHQe6ptLQ+0pDSRQFCBbEXYEHoUNDJzQBE/4GRg+
+	 GgxfDj1m3/BvqDiYwLz8GI7YhNu4Y1PHx01ZMfM5nzwa9vhMyhzmqQkRkrDW9B6NSRwkE
+	 ENBSOKtJgQG4j8mV0ebw6NI5FWom10wujja8+IgZFS+mYzr3QY0Ga3IB2ebTm1cPt5kF8
+	 n/70E3hcu1dfWZoVKFmGJtl880BvS5do1WSxkcFkwfRs9ndIlO3Hnz4IGvAmIs8L3ASQI
+	 IvRK0eCUXmhhvfH4hOXGo3qGYvNrzXokZx6N860+k/KpKfyr25IQCK0Q7RSa1OPZaVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803610;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z3LalrofPDIIeLTWNYB/CEjeg90a8F55VBmkKs/2tdA=;
-	b=hMTBGOn7RRNCOEhn+cjXfVW5vTxCruEXVosBKNh4yZj9H6H49RkP5jaGcNNBWZHzW/DO
-	 5zQriUy8zV98peCPEehFdcCN0MnxszFEm/ZvZxTToFhf4T3bVPaky/WJ0DU0wr0zdIGC1
-	 TfqhwhHH8SpySL6D+ITLxUaiz4BbqojDeQb3+fdZwIAIoC+Hmtmbtaij2PEr726RUmhuT
-	 T64ieZMSWBO0V711zlT9Z7SkkwCm71cIeNUhvzOxis9y2LRnvycBltlCkPbJbA00fkAP+
-	 eTVfEp/OslO/7Oq1x2OoSVcNdUxYCdiuO1CocyxD0TeN1yL+18igVZGCEnf5E0QSplA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803663;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=0RTPkBSn8aHOwll0NIb+MH6Rxh2TXo2nlFC6RRntyeU=;
+	b=YG36feu+hhRPOij3vwzHyQS1Wx5/IGhuk78KsH4f9t6w7d6wpvo7IXcMM6c7luVYPTFs
+	 x99icJcIEMKtxqMPwwluZJvEHydtx588mkNJXohlUHznXSSy+qy1v7YhV4RQJxR0rO0Uw
+	 9xGvq9KNXYzs4xcSVSrkgj7NoYNNaA0FJPs+6++HJAdXUE6hXI3w+ESobqIvHhFeH7uSX
+	 ivddtnlWYv+HOFZVh50C6MIjpsR1CAcvNoQLXoafg5uIaoHhbJDt2jTqa/g+PCOduBct9
+	 ib4EFps003gGYRBMTPX9h+dMXVNZAiTcnsb9RY5YTERwhjIhrALVBrv1ijuSuzZnUPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=sqBi3acz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=IvrpsDuj;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4EA606A31F;
-	Mon, 16 Nov 2026 04:33:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F21606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:34:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F21606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=sqBi3acz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2781F000C4;
-	Mon, 16 Nov 2026 04:33:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=IvrpsDuj
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so3268143c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:34:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794803609;
-	bh=Z3LalrofPDIIeLTWNYB/CEjeg90a8F55VBmkKs/2tdA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=sqBi3aczOohYNZ2MSlWIKayDu5xpw0W3F7wwOlDpL2OK0VT5465nvxRWt3IMBF9Pw
-	 7j+GMTaBKKub8rE8LhwYRwuwrJ8BlH7UbNjNgkzn8D1MNRpGAjV93+RHJ69Na3BK+1
-	 89PJisfvxODwTNxETHKr/w/nSp/ksk9oTaVyf6EQ=
-Date: Sun, 15 Nov 2026 20:33:28 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara
- <jack@suse.cz>, Joanne Koong <joannelkoong@gmail.com>,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/readahead: look two windows ahead for the hole on a
- marker hit
-Message-Id: <20261115203328.f98ce9a068849c2f2fb32a41@linux-foundation.org>
-In-Reply-To: <20261022-bug-mm-readahead-async-overtaken-v1-1-c05b8d8bd2da@gmail.com>
-References: <20261022-bug-mm-readahead-async-overtaken-v1-1-c05b8d8bd2da@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=chrisdown.name; s=google; t=1794803662; x=1795408462; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0RTPkBSn8aHOwll0NIb+MH6Rxh2TXo2nlFC6RRntyeU=;
+        b=IvrpsDujkb8+xQxkW8bH57B/Njtz9j5nrLpeGfuYrBi6nX1JKFJylBRC6sdQEERIVw
+         HtGcx7CHi/CiN1Fk2bHltHeShULSWGB/FJStMTLzNEcxESGvjONp2O5O4N9PClo7TcFu
+         4beF6ymkhsh8+wfAWm4UkR+WNqUZfV0HV7UcM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794803662; x=1795408462;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0RTPkBSn8aHOwll0NIb+MH6Rxh2TXo2nlFC6RRntyeU=;
+        b=DmNljxgcM0kXyGAQUxzQLMZDU16SJzrswkQL/wKZ7X4E1wD9eCUkh0T+pOJfXESsf+
+         +DP7P47N+a+iSpNOXmJtVAsb27m0jZQWCbjrhWkUalWsByVK0gwgk2AB4xPRoMDGeRvP
+         VmXjuS5fe7mqMlbHjV+P5uXFvVpFn5h7DdiGQJR1Ow2UyKx9TVg95uA0rdYhAc+Un+Wp
+         eSPk2qAcpbrkXp0ta0mEvOVtZw0Js1AW/kZdIk1YLgAhD8jtadiMZDYNPlN+oQkJdRy6
+         pVkUzUGIe1mf2psh0hBr7Zua0FsT/LJ7ypx+w+lKYP7JS8f2tNTImOmYoGMXBqA4w49V
+         nm9w==
+X-Forwarded-Encrypted: i=1; AL+hErF9uvr0Q2QLydMRSk/Xfayxqtabe2Alz6m5ae/EgOqY/mmOD1sC/9Uf0bePDIkr3Xw+e87o3OJNOI2BXWI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pGCxlgHMrOkyUEhsI95GdvadUXkADwk/kH0/XF19cNDyuzFAq
+	MEx5it9GzYRBAqO0PRXE2fxpj+hLPLmSWWaxptKgzDN/huBrexImIx60EkeI/020MRY=
+X-Gm-Gg: AYBFou0PuAO0kI3tKh4G+yK2HragBGfPVstP8UumoRpyncsRqgdzrq/i1BXZJcfZ5Tr
+	/qgnR/vMjw3zMVZKMl8HJyuZ68ZoXM/Y2tC52Q9dYQeeBAtaNsIRuhL5l3kZ3QRIBDEaXKqK0LJ
+	ECK8o7kgtOwclgRjpfbRR+OQALLFys0yu7J8OwB3yUSg0Ris4JV/39rBdEgVvbkeFOUMgHdVJMw
+	0g8Cjth+wdRHLZTw2OY+akWEJgXcWpV0SqT1orG8kH3f31Xm7QHwhi8F72YX3dofoC6oBgNfKjm
+	vnYYsK8WTYZaRr40OEUDfF8l3QA4Q2ukr1Ppft0//QtSTN55P9WKlMTJSr2hABLHvgr/oD1DCL0
+	mpbjl+KkL5/pf9ltm4q0En6ODIafqZU/CqiXCHxJ5+cLQzn3W/niaelwywAimhf6zy+DsZ4swdj
+	ZiVYJM0SoqSjb7rgrNKRo7kvo9DpBgwgyfyRctdk4uIGRbZAA2En4UCmmyFaKP24W617oZGlJ59
+	X53z/QByuA/R2h4hM1lu+fOOCIhXdx8wguC8j200OfgQ+XYMo89K+YnEJ04u0nKUWjd3ec799vz
+	mTdprqBF2hisnM3jZ474daQzY+1LheKRcXMNfsFV+C3V+MYLU8OLpotWrCV28Ebayl200hgds9I
+	5+uMPPXLeX+YPV1Mt4NfofpRgx4enpq3aqHkdl2fWPK6RXfbF+rLgLtHyq6xCM+1Lby8C5PW0JE
+	BRGWbdZ+CPsueWw6s9rKXGCUugNlNU0aJowDwDPH7l/opU565zPyDHCv2TZKRhNjzn
+X-Received: by 2002:a05:701b:4508:20b0:194:9e7a:3ba2 with SMTP id a92af1059eb24-1b50306c4d3mr9813315c88.2.1794803662025;
+        Sun, 15 Nov 2026 20:34:22 -0800 (PST)
+Received: from [172.18.0.2] ([172.56.232.151])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm2576204c88.0.2026.11.15.20.34.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 20:34:21 -0800 (PST)
+Date: Sun, 15 Nov 2026 20:34:13 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Tarun Sahu <tarunsahu@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org,
+	will@kernel.org, David Matlack <dmatlack@google.com>,
+	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com,
+	loganodell@google.com, arnd@arndb.de, dwmw2@infradead.org,
+	baolu.lu@linux.intel.com, Bjorn Helgaas <bhelgaas@google.com>,
+	oupton@kernel.org, alex@shazbot.org, gle.com@google.com, pbonzini@redhat.com,
+	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com,
+	joro@8bytes.org, kvmarm@lists.linux.dev, linux-pci@vger.kernel.org,
+	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org,
+	kvm@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, skhawaja@google.com, sagis@google.com,
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 14/19] liveupdate: Add feature header to struct
+	luo_flb_ser
+In-Reply-To: <20261110050202.529473-15-tarunsahu@google.com>
+References: <20261110050202.529473-1-tarunsahu@google.com>
+	<20261110050202.529473-15-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,106 +107,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Message-ID: <20261115203413.eaa54fcba43adc22@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-On Thu, 22 Oct 2026 23:24:33 +0800 Qiliang Yuan <odys.yuan@gmail.com> wrote:
+Hi Tarun,
 
-> When a reader hits a folio marked for readahead that the readahead
-> state does not expect, page_cache_async_ra() starts the next readahead
-> at the first hole within one window after the folio. If that window is
-> fully cached, it reads nothing.
-> 
-> memcpy() in glibc loads the end of a large source before copying it
-> forward, so a loader that copies a file mapping out in pieces of a few
-> megabytes faults at the end of each piece first. mmap read-around then
-> reads a window centered on that fault, which reaches more than one
-> window past the readahead marker the copy has yet to hit. When the copy
-> reaches the marker, there is no hole within a window, no readahead is
-> issued, and the next piece faults on its end again. Every piece then
-> gets a synchronous read-around of order-0 folios, and threads copying
-> parts of one file also contend on the i_pages lock to insert them. A
-> copy from offset 0 avoids this as its first read-around is clamped to
-> the start of the file.
-> 
-> Look up to two windows ahead for the hole, which reaches past such a
-> read-around, so the reader keeps an asynchronous window and its folio
-> order keeps ramping up.
-> 
-> Copying a 16 GiB file out of a private mapping with memcpy() in 8 MiB
-> pieces, read_ahead_kb 8192, cold page cache, 32 vCPU VM, mean of two
-> runs:
-> 
->                                   before    after
->   1 thread from offset 2 GiB     7.62 s    2.00 s
->   8 threads, one range each      3.26 s    1.08 s
->   32 threads, one range each     4.05 s    1.34 s
-> 
-> Random touches read the same amount, and pread() copies and copies that
-> interleave 7 MiB chunks across threads take the same time within
-> run-to-run noise.
+Tarun Sahu writes:
+>+	for (u64 i = 0; i < fh->header_ser->count;
+>+	     i++, fhdr = (void *)fhdr + fhdr->size) {
+>+		struct luo_flb_ser *ser;
+>+
+>+		err = kho_ser_validate(fhdr, luo_flb_ser);
+>+		if (err)
+>+			return err;
 
-OK, thanks, nice numbers but there are complications.
+I think there's a problem with returning this error as it is. For an
+unknown required feature kho_ser_validate() returns -EOPNOTSUPP, but
+callers of liveupdate_flb_get_incoming() already take -EOPNOTSUPP to mean
+that live update is disabled. pci_liveupdate_flb_get_incoming() returns
+NULL for it, so instead of panicking, PCI carries on as if nothing was
+preserved, even though those devices may still be doing DMA.
 
-Readahead is all about contiguously batching physical IO.  So it
-matters whether the device is SSD, NVME, spinning FeO2, SATA, IDE, etc.
+ From a quick test with an outgoing kernel hacked to set an unknown
+required bit on its luo_flb_ser entries, that is what happens after the
+kexec, in that the PCI FLB is never retrieved and boot carries on.
 
-And you have QEMU in the way, so reads can get served from host
-pagecache (depends on QEMU setup), which also matters.
+Could you validate the entries once in luo_flb_setup_incoming() instead?
+They are all written with the same header by luo_flb_serialize(), so
+there's no need to check them on every lookup. Going by the code, a
+failure there would panic through luo_restore_fail(), like a bad
+luo_flb_header_ser already does. If the per-entry headers end up going
+away as David suggested, then this check goes away with them, of course.
 
-So I just don't know what to conclude from your numbers.  I *suspect*
-the gains are from reduced CPU & memory-access times which is of course
-good.  But was there any actual physical device access involved?  This
-would probably make the before-and-after numbers even more impressive!
+Thanks!
 
-
-I tested the patch on my LLM-driven test setup, which is similar to
-yours.  The results are...  ambivalent.  The things which you want
-faster are indeed faster, but other things slowed down (wall of words
-appended).
-
-The slowdowns happened because the present code misses the gap beyond
-mmap read-around, so each 8 MiB memcpy hunk can need another
-synchronous read.  The post-patch code finds that gap and keeps
-readahead going.  I measured both costs: a full second window added
-about 8 us to the access, while a gap there caused 512 MiB of unused
-reads across 64 accesses.
-
-
-: I tested the patch against the unpatched kernel with matching
-: configurations. Both booted a 32-vCPU, two-node, 24 GiB VM. The test
-: used a fully written 16 GiB ext4 file on the same raw scratch disk,
-: with guest read_ahead_kb set to 8192.
-: 
-: I ran the author's private-mmap test, copying the file with memcpy()
-: in 8 MiB pieces. Before each timed run, the previous process had
-: exited, I dropped the guest file cache, and mincore() confirmed that
-: none of the tested file pages were resident. Medians of three runs:
-: 
-:                          unpatched    patched
-:   1 reader, from 2 GiB      6.87 s      2.12 s
-:   8 readers                 2.18 s      0.70 s
-:   32 readers                1.98 s      0.76 s
-: 
-: Every paired run improved. Buffered pread() and 7 MiB interleaved
-: copies changed little. A shuffled mmap copy was about 1.3 times
-: faster with the patch in two paired runs.
-: 
-: I also tested the cost of looking farther ahead. The kernel marks a
-: cached page so that accessing it can start the next readahead. I
-: timed the test process accessing that page at 64 separate locations.
-: When both upcoming 8 MiB windows were already cached, the median
-: access time rose from 20 to 28 microseconds. When the first window
-: was cached and the second was empty, the patch read about 512 MiB
-: across those locations that the test deliberately never used. The
-: median access time rose from 17 to 470 microseconds.
-: 
-: A memory-limited run had more memory-limit events with the patch,
-: but did not establish a repeatable slowdown for a competing reader.
-: 
-: The guest file cache was cold, but QEMU's host cache was warm; host
-: NVMe read sectors did not increase during the main runs. These
-: measurements show the effect on guest readahead, not cold-drive
-: throughput.
-
+Chris
