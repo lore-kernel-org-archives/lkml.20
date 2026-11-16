@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870086;
-	b=eKPIAFDLVDASAAAetHDCoRMx58FzF//KEiyrrdgFL1noyaa/cHYZXVS8/kfig6Hv0vR9
-	 LV7ddUa9oWipuGtNPRnd00b0Pd7XWwlcRRc82i94jbp9Mi8ksgSwyosD0enh7xxRT4D8Q
-	 M6vkjmwyIof6WnxSaXNFYqJBe1GJyMcpgp9tXnoBqUtAU4yOrQgYMKbtaWYLhcyAsfEKL
-	 fTfS0ojmBa5m1rIM3yZYtlH8OGGwZev37SUhb7yKnVtxrFcdNeKC1L3HcWC8d7QYkzr2y
-	 sqdZIAbCCa9kauCbrhgcwrKRxwb6KAT5maiANL2O9TPqlukyCWnoCu09YmKs10fW5TA==
+	t=1794870090;
+	b=UwoPfhDSTlmYyWkUIsziAVMJK5AhceaKtXUsWqXgN1yjd/Zk8RKOPOHhKH4sr8O4z4hb
+	 Qk/a8TiunDMhmXeEpCzPIHFEuSsD05IRs/cfOQIjcWatdHPhX1loqnLrcJZqDqHUH4yf5
+	 KnkysvlDl+D9z5HIsCpA5GoYZjcXOLUL7mcbzqbxiVc6D8ogIL7wJOhUw77oOLwgAUJeR
+	 ezKV8b01b4wV/tY9+79Trpo55S1SOlStDrbHYRU5nzFjrK7u0aZEnZXnMHj2zfrCUDh5d
+	 H3T9LI9MFsHILCAMaXMuQwuQ5Un+b2EkKe197v4Q4p48SZ3fxEZrPKqqzNZ4iF3kMTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870086;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870090;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=cd4AfU3+6JbgZv3ifbNUaJf/Vq0mPKc6Jg1YGbbwxyc=;
-	b=qe/stPjEge3fodFn1fu4v4D6rwuqoddkmgtneK4s87XFV7qAPvyZ9D1WzekYzxqzs8B1
-	 TPFVFu4G1qUzykNa4X+kvAczhP+lIw6IAJDbQrfrkVB2lKFjmoOVGWwyNx8sWAgr6A3iN
-	 q7DJxzqzhLdqyJICmI+bfow53BQOqXV0/Dv5lc2UuLRRxDT5jXbfgPhKO320Cj2K6I3Py
-	 iP0/psHv7gsiI6qOUIimIQmt3+pV8ZbBHCGvSUGn6j3nMJF0L1hGPdsHQqx2ay+X+Ptsr
-	 aQAVaFIuxEruFO/a4rj/iJRaIetm3S4tncXYM/yMTG8SRKQLghptVJCtpZeuJBBCmzw==
+	bh=BI5cAJLbzLyxhSO6GkCitEL343rGe4SQ225WZ5x8QuE=;
+	b=MTEKAQb8G/QKpem7jN4wqI7zI7puex9fOGPp2GiGYxY+EAk14MMnJzdljdtZFeMC4NaQ
+	 AhZ3IkJu//8JtFRcL6dSCqcxSF9o1P3cl3MveJp39p1hIiZ5N3R5u3nqp7EsoxKaCSQwI
+	 0R7jKziE2bZQ+R2+2MXj1Zqgzd0D5NlnFcTfcYWvbpKzZw9XLRQ0pfd/rDv/y9g3XKh6s
+	 ryc4SFEDse2q+Y4q89y7tCpKe+fAipT/QQOyy3QARv/T2tpG2vi5j5kbxWGZ7fWm4LqZf
+	 8g9v+jH2WpE9jvm06kx8vSmAa8Rx08ffJBLNLcfGlHgvDM8sPm8eJzwjiwTDjUnIxvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=acm.org;
 	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Tcods78o;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=YCTCcS51;
 	arc=none smtp.remote-ip=199.89.1.14
 Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FC7606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12FC7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEB8606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BEB8606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Tcods78o
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=YCTCcS51
 Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jT3JP4j0Mz1XLkrn;
-	Mon, 16 Nov 2026 23:01:25 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jT3JT5phlz1XM0nk;
+	Mon, 16 Nov 2026 23:01:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
 	content-transfer-encoding:mime-version:references:in-reply-to
 	:x-mailer:message-id:date:date:subject:subject:from:from
-	:received:received; s=mr01; t=1794870082; x=1797462083; bh=cd4Af
-	U3+6JbgZv3ifbNUaJf/Vq0mPKc6Jg1YGbbwxyc=; b=Tcods78o4jGZt95oDhS9P
-	62ThNZ4+ewwUyGFz09otsKccsh2qCHc9H1kSv9XGqyl+uso4teyIfD1t4Vgzokka
-	D1AnBRBLcgpOqJgoD78bMlYWNoJK86mNXseRt/sDBDl+8eXj6evOGkDe3jCosaPb
-	5voEEsRXbT4/2vPrWVJuMdUU7pJjIb/2zJkZhv9y40jgsCraMcicuFp640LeOfIZ
-	YpUgIFk0qhBJI3kB6lfV/ar81x3lma+ydFRHZcacMnr6ah37EmGR8YQrTnOyJV1U
-	03KPlatEE6Dv/0CLjA533QayXrgRWlAHbjWyxiTN9gyheW2JHq5COBwXRn8yVXZ7
-	Q==
+	:received:received; s=mr01; t=1794870083; x=1797462084; bh=BI5cA
+	JLbzLyxhSO6GkCitEL343rGe4SQ225WZ5x8QuE=; b=YCTCcS51P6cTcyqwk+NvS
+	RhIWiMlbYW2alapmo57DQ7Ox007I4Sw2b8qZv8pWkgobQiYhmmT01guA5uFJhklL
+	zBLMcOqrtENUN/45Jc6SxlquMdXhHncKPgH5SWfhzKnn5cjXpiL5JpW3j2UeIE6H
+	680BGHQBb9uuocNQMkvKNPvhKdHcu2foyNgKTdXHzc/3Tj+Bn716gHNtdeSiUxHH
+	8ikLPjWfbdGKREalIVRila4QboVXfPuHKlu1WRbKcTupPRsFHE4L+DMuChnX1TB8
+	stq3UhwQ0wHTu9o+qme7A6rw8Z5jUQywhzyGDlJti+FxRZK3kp5eEROC8wWM1E9r
+	w==
 X-Virus-Scanned: by MailRoute
 Received: from 011.lax.mailroute.net ([127.0.0.1])
  by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id HgCmjfnzTN5L; Mon, 16 Nov 2026 23:01:22 +0000 (UTC)
+ id iGsySoz12FMx; Mon, 16 Nov 2026 23:01:23 +0000 (UTC)
 Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jT3JK3tNPz1XM0nk;
-	Mon, 16 Nov 2026 23:01:21 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jT3JL6gfwz1XLkrk;
+	Mon, 16 Nov 2026 23:01:22 +0000 (UTC)
 From: Bart Van Assche <bvanassche@acm.org>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -68,13 +68,13 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Marco Elver <elver@google.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>,
 	Bart Van Assche <bvanassche@acm.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Dmitry Ilvokhin <d@ilvokhin.com>,
-	Christian Brauner <brauner@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v3 2/3] cleanup: Disable context analysis for __free() helpers
-Date: Mon, 16 Nov 2026 14:59:34 -0800
-Message-ID: <d71ef58fdf6958ac524ecd3a81d527af0406c7bd.1794869902.git.bvanassche@acm.org>
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>
+Subject: [PATCH v3 3/3] srcu: Remove check from srcu_dereference_check()
+Date: Mon, 16 Nov 2026 14:59:35 -0800
+Message-ID: <8114def6bdc259f670f3d84f3ae0dad6809cd6c6.1794869902.git.bvanassche@acm.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <cover.1794869902.git.bvanassche@acm.org>
 References: <cover.1794869902.git.bvanassche@acm.org>
@@ -89,42 +89,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-The __free_##_name() helper functions defined by DEFINE_FREE() call the
-free expression that has been passed to DEFINE_FREE(). If that
-expression releases a lock, e.g. because it is a call to an unlock
-function, the Clang thread-safety analyzer complains because it cannot
-know that the variable that is passed to the helper function holds a
-lock. This is needed by:
-- __drm_for_each_bridge_in_chain_cleanup (include/drm/drm_bridge.h),
-  used by drm_for_each_bridge_in_chain_scoped() and
-  drm_for_each_bridge_in_chain_from_scoped().
-- netdev_unlock (net/core/dev.h), used by for_each_netdev_lock_scoped().
-- netdev_unlock_ops_compat (net/core/dev.h), used by
-  for_each_netdev_lock_ops_compat_scoped().
+Users of srcu_dereference_check() must either hold an SRCU reader lock
+or satisfy the lockdep condition 'c', e.g. by holding the update-side
+lock. However, srcu_dereference_check() calls
+__srcu_read_lock_must_hold(), which tells the Clang context analyzer
+that the SRCU reader lock must be held. That requirement is too strict
+for update-side callers. Hence, remove the __srcu_read_lock_must_hold()
+call from srcu_dereference_check() while keeping the fake RCU acquire
+and release around __rcu_dereference_check(). Retain the runtime lockdep
+check in srcu_dereference_check().
 
-Disable context analysis for the __free() helper functions.
+srcu_dereference() and srcu_dereference_notrace() do not accept a
+lockdep condition and hence may only be used by SRCU readers. Call
+__srcu_read_lock_must_hold() from these macros such that Clang context
+analysis keeps verifying at compile time that their callers hold the
+SRCU reader lock.
 
+Cc: Marco Elver <elver@google.com>
+Fixes: f0b7ce22d718 ("srcu: Support Clang's context analysis")
 Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 ---
- include/linux/cleanup.h | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ include/linux/srcu.h | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/cleanup.h b/include/linux/cleanup.h
-index 1fb8058b897d..f6afe80781a4 100644
---- a/include/linux/cleanup.h
-+++ b/include/linux/cleanup.h
-@@ -207,8 +207,10 @@
-  * Without the NULL test it turns into a mess and the compiler can't hel=
-p us.
+diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+index d4dcaeb83e2b..5ef07357507b 100644
+--- a/include/linux/srcu.h
++++ b/include/linux/srcu.h
+@@ -278,8 +278,11 @@ static inline int srcu_read_lock_held(const struct s=
+rcu_struct *ssp)
+  * No-op helper to denote that ssp must be held. Because SRCU-protected =
+pointers
+  * should still be marked with __rcu_guarded, and we do not want to mark=
+ them
+  * with __guarded_by(ssp) as it would complicate annotations for writers=
+, we
+- * choose the following strategy: srcu_dereference_check() calls this he=
+lper
+- * that checks that the passed ssp is held, and then fake-acquires 'RCU'=
+.
++ * choose the following strategy: srcu_dereference() and
++ * srcu_dereference_notrace() call this helper that checks that the pass=
+ed ssp
++ * is held, and srcu_dereference_check() fake-acquires 'RCU'.
++ * srcu_dereference_check() does not call this helper because its caller=
+s may
++ * satisfy the condition @c instead of holding ssp, e.g. on the update s=
+ide.
   */
+ static inline void __srcu_read_lock_must_hold(const struct srcu_struct *=
+ssp) __must_hold_shared(ssp) { }
 =20
--#define DEFINE_FREE(_name, _type, _free) \
--	static __always_inline void __free_##_name(void *p) { _type _T =3D *(_t=
-ype *)p; _free; }
-+#define DEFINE_FREE(_name, _type, _free)				\
-+	static __always_inline void __free_##_name(void *p)		\
-+		__context_unsafe(/* _free may release a lock */)		\
-+	{ _type _T =3D *(_type *)p; _free; }
+@@ -297,7 +300,6 @@ static inline void __srcu_read_lock_must_hold(const s=
+truct srcu_struct *ssp) __m
+  */
+ #define srcu_dereference_check(p, ssp, c)					\
+ ({										\
+-	__srcu_read_lock_must_hold(ssp);					\
+ 	__acquire_shared_ctx_lock(RCU);					\
+ 	__auto_type __v =3D __rcu_dereference_check((p), __UNIQUE_ID(rcu),	\
+ 				(c) || srcu_read_lock_held(ssp), __rcu);	\
+@@ -315,7 +317,11 @@ static inline void __srcu_read_lock_must_hold(const =
+struct srcu_struct *ssp) __m
+  * is enabled, invoking this outside of an RCU read-side critical
+  * section will result in an RCU-lockdep splat.
+  */
+-#define srcu_dereference(p, ssp) srcu_dereference_check((p), (ssp), 0)
++#define srcu_dereference(p, ssp)					\
++({									\
++	__srcu_read_lock_must_hold(ssp);				\
++	srcu_dereference_check((p), (ssp), 0);				\
++})
 =20
- #define __free(_name)	__cleanup(__free_##_name)
+ /**
+  * srcu_dereference_notrace - no tracing and no lockdep calls from here
+@@ -323,7 +329,11 @@ static inline void __srcu_read_lock_must_hold(const =
+struct srcu_struct *ssp) __m
+  * @ssp: pointer to the srcu_struct, which is used to check that we
+  *	really are in an SRCU read-side critical section.
+  */
+-#define srcu_dereference_notrace(p, ssp) srcu_dereference_check((p), (ss=
+p), 1)
++#define srcu_dereference_notrace(p, ssp)				\
++({									\
++	__srcu_read_lock_must_hold(ssp);				\
++	srcu_dereference_check((p), (ssp), 1);				\
++})
 =20
+ /**
+  * srcu_read_lock - register a new reader for an SRCU-protected structur=
+e.
