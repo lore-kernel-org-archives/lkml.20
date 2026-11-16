@@ -1,109 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827101;
-	b=MOEZJO8K92n306rRMxM1IY0ebMtwN9Ri2u4iXQf53jeRo0lHWz/ztwiKeUUFtrWX2hjV
-	 vagcdtO76f1bPoFTUDoN5iJ23cOfJ5ZZEMxrKOvntIyDBMK1zoMz4zMuotfPJx5JtbTY6
-	 TpqJ7HtZlHR6DayiK0G0Mi8rL9sxpiPubPhvrKlLE/x6sNV+34R9fFr7TNCL4x6BFCFgG
-	 LaDesWA7Ri9VO66sL6bHo+fQBkDcepsKtl6rpFY5r6ZiIkElHPebgBU90iEb7ex9Sl7qe
-	 /jZJOHoX8j3jHKu1mzYxfFCK+k/LiXe7qsVMv25T4iQxh8NNovjhy6o9W9oCSaSuXtQ==
+	t=1794827102;
+	b=eIHtmgUTsjK+wbTONZu/b9M2sdhptpJIyq6Avid7YM3itM9fcxjjTqLRc+EQ+bVTguKv
+	 0CWpz6ckFunO0AQwHh0P2o6NyoOsai8C1LV9sLUlGgVzCYuGuKtJoCH/7rGMpAwRP1Te8
+	 qjLUhH46/GgPFX+HdhJZa4yk0wszh2E9uo3F473CsA1suqWA9NCPO6w85OKGpoQ8THerc
+	 6jqpVhcLARiAPSfGZm0Wa2ViGT/IiUtalcUX8qIXp2DqeoutI2Olfq1amsktn7OTxUlTX
+	 Ph9Wr0U6CTBlkwfqkQCQLfFNgGT2nL3MKftx+/TzbD6/F7xWW0fw0RrIEaHkP/1A+uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827101;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dEwMuEk6L9PkuPwgRk5o/Rg0G4cgqI2PeNM611PKi+o=;
-	b=i9shYl/vicc/QrfOfQmSMZi6zIS47wDNyc+Hq3QnsInjxbr+G9gI4Pu+G38wce05fW/y
-	 msf2p0po4CxdDk1SZUCvOsA6wElhp7shiEWg2VXllcYAH33woIZrLeUsO2mptjIxZfkF1
-	 x9U3LQkFTnfsgEWvSYAVxYtKhOpTsfg2dWrbtUhkgKh5qMfNFcqAHa1G5EAwGc/LUsVrM
-	 gWGpeDXW3/rTdN5M0OQ13+P2fubmp4ZqbLDUa1Ugvvij5neWXXsi6pM1lVUfb6Di8n5kq
-	 ZUuuRQBArissc4tB1oSH50S/cnf3Trj/f9KK8rT32J10ziXWFICo8nRAwOuLIbnfiYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827102;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=jHld24Oo1MWppo8/tfsSpZWU26RUmIMv95z42v9sotY=;
+	b=NS2Udzdd6HxxBtWqP3kqoqR4bdZN9sQ4wl35hbcgcUCHn++u/nTn6UVC9dATn4YILUPQ
+	 lpciFmENhWGIKz9t2Dr2p7gFiIOKIDIEv9M1Xf8dEGMNbTT2fui5tqM+2OYGDrH4EIRD9
+	 5G/7QlaHTrYQSlaHTtkGTFwaZ3kKNiUr+2cV1Ho+Z6T/EsB4PaFrGxEdA7h8ki595j67V
+	 7W7b3KtvNWgsitdW7eT5ooI8J+FT//SAgcojjcRzCETkvlnH8yX8E4wowRPh0Eo62PXGE
+	 iyIfwYTgmHheuh/8uDJ7jyjqVhFOq1sPmngGoEV3YJh8PF1dDEW7g09ryrpOAxfyUUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOoGILCv;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQFtUDoF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984B1606F1EE
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:05:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 984B1606F1EE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4404606F1FF;
+	Mon, 16 Nov 2026 11:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOoGILCv
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a8cc11ac42so3002269c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:05:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794827100; x=1795431900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dEwMuEk6L9PkuPwgRk5o/Rg0G4cgqI2PeNM611PKi+o=;
-        b=GOoGILCvCuhzJ24yqD64fgscCFyZU2GvWZSgqXjeTyVP7A8Fq+LNSHIDWMeshGOlIh
-         jV+WSIm9E/WLuVBMGODfcM5ECbXAZAuFoPSSAHKQdoUE6uo7GionU8lEAIjMem2mD6EG
-         Fr58kwQ1ZrTpDa+aQ+NKbX7HzLGaKhTIYofTXX3LTHit1F/f6iBp0kPunM8k9pUXDwRR
-         7Ppq8/7R+6BdF9rBGnavJCeBHdF8PCV1lmUzSN8/ZnWGSV05mllpuGpJkC29nQk3lwnj
-         AWsqmx1WYUjzmGMBYNkU1IWmq9CROytYhsXgx95rIpKx0G/Z0qpiyqRN26ODOjnPLphC
-         IGaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794827100; x=1795431900;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dEwMuEk6L9PkuPwgRk5o/Rg0G4cgqI2PeNM611PKi+o=;
-        b=tBuaafcxMRMF3QCLt2Fx8Cokd8912udvM+mx699jJ3hjoui4THQvkvxIPTOGKh+d46
-         zSANLM55Aq1jKRsA7Yp/zerDAJslipbSP5sXPbdZyCfdUPTRiCV0is3+H2roViMIgEmS
-         Qirb5AA6vCwD0dDo/6iUl+hhywihRejC77iikC0XyBE4sXsVL4xeAAcgxq9g11DWsZB4
-         Ug7UlQr+UlgHElYi9nxTkwV6lxHLDpOteZSZyEkORKHcBbG3SMb6xghRgqjpYiAhjjV6
-         MlhCOk0WUuQ5KKrt16X5y2va+e+hZRuPzKpjkdT1nI1esuRzQPO3/Rj8g1VFY4HlspcE
-         0tXA==
-X-Gm-Message-State: APuU4Z/gzqAfm/IESJSKjt62f9qlGl+r+BE2THfAqQFrOQIZvK3fnDSL
-	Sqe9Q2G2f3w56/LhQVCDoJNwPovzQ36M6lV6gmZB0Hp61loe2MbGjPaY
-X-Gm-Gg: AYBFou1jtUm54C4YkYatmbQAklBmj4xnPcd3WJLKMZIKo/1kQPTyaSHdHwWSfwwlvP9
-	nBAMMUpeIJqwdW6Yw1O9k+nWAyTqn9q4sj5FZ78oo5G7SDiqOdVgzPbN7bfvRNAoMKDs8tykJfs
-	rJ/sxYQ6GWrkfK1NiweZjjruHjn8zwkXKMjL04xnhGaI2XXHDSZaRctkYS4B6cCcBH+ywb2QuXc
-	3n16wWM33gHmOfXOA9sBzmfthU5+6I1Pd+obaB92FINlbndIhBfEyA9p/YAimh566OTBb0F8Bf7
-	tQG5TIAfbT+jmUKanZZgNdKKWf3WLabDi0xS12xxAiErqLZe4VowsUcnvOsjvFras0eYY/js9n1
-	4kNANdiZJ/LUQMBTrmsgeMx5xDGL371Ltd138cQkkW3IvNeYMT5W5W4Qyj2eorw12ff13clzrKp
-	1HucGjqv6GEP1zeU00qEjmPlbvuE282PwRi+UW10uAdXuLzsqq12J0lDV3Am1hpBLZTzchvka5P
-	IJufQ6OKJVtiOYoN75EWuIXDiZ7hTtYQnlRM87bSnMDiwatLmfxpksnOGp6YqLXKcrgAa2Jtm9k
-	/s1hb0N9JBT8rRwQ2GRYg8m6yb6eRfXtedcZ+9x6FpMUOR4=
-X-Received: by 2002:a05:7022:ea81:10b0:193:3274:aac with SMTP id a92af1059eb24-1b50312f210mr9875871c88.37.1794827099537;
-        Mon, 16 Nov 2026 03:04:59 -0800 (PST)
-Received: from naki-PC.localdomain ([203.175.14.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm42999260c88.9.2026.11.16.03.04.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:04:58 -0800 (PST)
-From: nakixii <nakixii@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Minchan Kim <minchan@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Barry Song <baohua@kernel.org>,
-	Hugh Dickins <hughd@google.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	Suren Baghdasaryan <surenb@google.com>
-Subject: [RFC PATCH 15/16] mm: memcomp: add the design doc
-Date: Mon, 16 Nov 2026 19:01:21 +0800
-Message-ID: <20261116110122.309748-16-nakixii@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116110122.309748-1-nakixii@gmail.com>
-References: <20261116110122.309748-1-nakixii@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQFtUDoF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558C11F01573;
+	Mon, 16 Nov 2026 11:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794827102;
+	bh=jHld24Oo1MWppo8/tfsSpZWU26RUmIMv95z42v9sotY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=cQFtUDoFrQUz2WcbhXtkg02LHOrOLlYpUiFModvav8ZzlPl9cVV1Hd6Mzx97pXc8E
+	 uC9A9hM3FdwQDgXCii3ZlvLmTUSWghY0gyv6DTq2Bf7hrtzjJzlrZ+W9lGQazMtuR6
+	 q8WK06huhLK+DSB7eBUyu8cN4jTmRbZp520sbGPQtqw1zHjXF182+fiGQ63eN4SJdt
+	 yzlmcWsQK7yMX8m8MTzLT5pPVNZvCXbixSM1pKr7rj22/l5wh28GiSpnygnvBeLDgi
+	 Fi53LVfO78qk7qtdkRpPavVN5CQmViQGdt0QHOZaF9kN2LMnVGvoHEn6CPtk2AAmVw
+	 fjnHFGrm6VARw==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 16 Nov 2026 12:03:49 +0100
+Subject: [PATCH v2 09/17] zloop: take freeze protection when recording
+ write pointers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,279 +53,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-work-fs-frozen_writes-v2-9-ecc4a2aac40e@kernel.org>
+References: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
+In-Reply-To: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+ linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-nfs@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1992; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=RHFI0o15CfHlL7wXbapiTqB0SqtZl6Dvtj6uSPjdx74=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9eqyu897T6MG0jN4vHBm5s4MeGO7ISJJ2eH7JTaxHp
+ Ut6woSXHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMJ3MHI0OB33ZO3h+/nCrbg
+ SI0ZP5XmmskdebwqUIA9VuavjLv6FYb/WS1H99zdbuv1b83KI9OZ6g4yKabxZFuKXl4WcuH0td9
+ nuQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-The memcomp backend spans page-table ownership, compressed storage and
-real swap. Document the design so readers can follow which object keeps
-contents alive when reclaim, faults, fork and backing conversion
-overlap.
+With discard_write_cache a flush records the write pointer of each
+active zone in an xattr of its zone file. zloop_record_safe_wps() uses
+vfs_setxattr() for that which leaves freeze protection to the caller.
+So a flush rewrites the xattrs on a filesystem that is frozen. With the
+zone files on ext4:
 
-Describe token encoding, 16-byte slots, per-key clusters and temporary
-resident records. Explain the separate zero-owner domain, nonzero same-
-filled values and source-object-cgroup accounting without treating the
-slot layout as the entire per-page metadata cost.
+  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#0: kworker/u16:2/46
+  Workqueue: zloop0 zloop_cmd_workfn
+  Call Trace:
+   <TASK>
+   __ext4_journal_start_sb+0x7a/0x470
+   ext4_xattr_set+0x20d/0x380
+   __vfs_setxattr+0x10f/0x170
+   __vfs_setxattr_noperm+0xf4/0x5e0
+   vfs_setxattr+0x14d/0x3d0
+   zloop_cmd_workfn+0x384/0x1ff0
+   process_one_work+0x946/0x1820
+   worker_thread+0x4f1/0xd60
+   kthread+0x364/0x460
+   ret_from_fork+0x525/0x770
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
 
-Document anonymous unmap and rollback, single-PTE rmap restoration,
-fault revalidation, shmem shadows, writeback and swapoff. Explain the
-lookup, producer and mapping references and the locking boundaries that
-keep allocation or I/O out of non-reclaimable critical sections.
+Take freeze protection around vfs_setxattr() with mnt_want_write_file()
+like fsetxattr() does.
 
-Describe bounded compression contexts, foreground asynchronous batches
-and metadata aging in batches of at most 32 examined entries per storage
-lock acquisition. Document the stock crypto and zsmalloc dependencies,
-supported contexts and restrictions, and link the design from the
-memory-management documentation index.
-
-Signed-off-by: nakixii <nakixii@gmail.com>
+Fixes: 829def1e35ca ("zloop: forget write cache on force removal")
+Cc: stable@vger.kernel.org
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- Documentation/mm/index.rst   |   1 +
- Documentation/mm/memcomp.rst | 215 +++++++++++++++++++++++++++++++++++
- MAINTAINERS                  |   1 +
- 3 files changed, 217 insertions(+)
- create mode 100644 Documentation/mm/memcomp.rst
+ drivers/block/zloop.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/mm/index.rst b/Documentation/mm/index.rst
-index 0be1c7503a010de78c1c1965b43bffc6311a6ca6..dc00d0b5db14d1a323715ceb8bdefe66e4179d17 100644
---- a/Documentation/mm/index.rst
-+++ b/Documentation/mm/index.rst
-@@ -46,6 +46,7 @@ documentation, or deleted if it has served its purpose.
-    hwpoison
-    hugetlbfs_reserv
-    ksm
-+   memcomp
-    memory-model
-    mmu_notifier
-    multigen_lru
-diff --git a/Documentation/mm/memcomp.rst b/Documentation/mm/memcomp.rst
-new file mode 100644
-index 0000000000000000000000000000000000000000..08524581e26a88119d9b2bd0f327fc7c3ccf9cf9
---- /dev/null
-+++ b/Documentation/mm/memcomp.rst
-@@ -0,0 +1,215 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+================================
-+memcomp: compressed page backing
-+================================
-+
-+memcomp provides experimental in-memory backing for reclaimed anonymous
-+and shmem pages. It uses the crypto compression API and stock zsmalloc.
-+It does not route the first store through a swap block device. Optional
-+writeback can move cold payloads to real swap without replacing the
-+memcomp tokens held by their mappings.
-+
-+This document describes the lifetime and VM integration rules. The
-+administrator guide describes configuration and the existing sysfs ABI.
-+No particular compression ratio, latency or energy saving is guaranteed.
-+
-+Tokens and backing states
-+=========================
-+
-+A dedicated non-swap entry type distinguishes memcomp tokens from real
-+swap offsets, migration entries and PTE markers. Enabling memcomp consumes
-+one of the swap-entry type values. The implementation requires 64-bit
-+kernels: a token must round-trip through a PTE offset, and the compression
-+paths must be able to address a whole folio through its local mapping.
-+
-+An anonymous folio reserves a consecutive token span before reclaim
-+unmaps it. Each entry records its position and the size of the source
-+span. An entry can refer to the resident source folio, a compressed
-+payload, a same-filled value, or swap backing. A token identifies the
-+entry, not the address of a zsmalloc object or a swap slot.
-+
-+Entry references include mapping and internal references. Fork acquires a
-+reference before copying a token PTE. Zap and MADV_FREE drop only the
-+references represented by the PTEs they remove. Discarding one mapping
-+must not invalidate another mapping's reference to the same entry.
-+
-+An entry's owner relationship with a folio is distinct from the reference
-+that keeps a resident folio faultable. A failed store can release its
-+owner hold while a token that escaped rollback still refers to the
-+resident contents. Releasing that resident reference too early would
-+leave a valid PTE pointing at a freed folio.
-+
-+Anonymous reclaim and rollback
-+==============================
-+
-+Reservation requires a locked, swap-backed anonymous folio outside the
-+swap cache. KSM folios are excluded. Their reverse-mapping rules are not
-+the anonymous rules used by memcomp's restore walk; a still-merged folio
-+must not acquire a token even after its mapcount falls to one.
-+
-+Reservation pins the anon_vma while the folio still has its mappings.
-+The normal single-PTE reverse-map walk then installs token PTEs and takes
-+the corresponding entry references. Reclaim must flush pending unmaps
-+before reading contents for compression.
-+
-+Compression, backing allocation or a subsequent ownership check can
-+fail after some PTEs have changed. That is not an opportunity to overwrite
-+the reservation with a normal swap entry. The failure path restores
-+matching PTEs through the pinned anonymous reverse mapping, updates RSS
-+and reverse-map accounting, and drops the reservation. It re-walks a
-+maximum of three times while escaped references remain. The initial walk
-+can be retried even if it restores nothing; a later re-walk that makes no
-+progress stops the loop.
-+
-+When every page of a large folio has been mapped back, rollback repairs
-+the partially-mapped deferred-split accounting. Otherwise a failed store
-+could leave a fully mapped folio queued as though part of it were absent.
-+The anonymous reverse-map pin is released on both successful store and
-+rollback. Entries that escaped restoration retain resident backing until
-+fault or invalidation resolves them.
-+
-+Normal swap is a forward-progress fallback before a fresh reservation
-+owns post-unmap tokens. A failure after unmap restores or retains resident
-+backing first. An unchanged incompressible folio can take normal swap on
-+a later reclaim attempt instead of repeating the failed compression.
-+
-+A dirty anonymous swap-cache folio gives up its swap slot so that its new
-+contents can be compressed again. The locked-folio check also reads dirty
-+state still held only in PTEs or PMDs, without clearing or write-protecting
-+those mappings. Checking a clean mapped folio can require a reverse-map
-+walk, but its usual swap-backed eviction is unchanged. Writeback or
-+outstanding swap references leave the folio on the normal swap path.
-+
-+Compression and allocation
-+==========================
-+
-+The allocator is zsmalloc, called directly rather than through a custom
-+allocator interface. Compressor selection uses the crypto API and does
-+not require private hints or changes to a codec. Allocation and context
-+admission must obey the caller's reclaim constraints.
-+
-+Bounded compression contexts and detached staging buffers limit concurrent
-+resource occupancy and allow foreground admission to fail. They do not
-+guarantee bounded reclaim latency: background context acquisition and
-+asynchronous completion waits have no timeout. The lease
-+needed for a synchronous store is acquired before unmapping and consumed
-+by the store on every return. It is released before finishing or rolling
-+back the folio. Foreground admission failures can stop repeated anonymous
-+attempts in the current reclaim pass so that file reclaim can proceed.
-+
-+Same-filled pages store the repeated value without a zsmalloc payload.
-+A folio whose contents did not compress can carry an incompressible mark
-+and a content hash in folio->swap while outside the swap cache. The mark
-+is not a reserved token. Reclaim recomputes the hash and clears a stale
-+mark when contents change; migration carries the mark with the contents.
-+A split cannot assume that the original whole-folio hash describes each
-+new smaller folio.
-+
-+Payload thresholds depend on the allocator's actual class geometry.
-+Logical compressed length and allocator footprint are different costs.
-+The implementation must not assume that a threshold measured with a
-+modified allocator also applies to stock zsmalloc.
-+
-+Asynchronous foreground batches
-+================================
-+
-+A crypto implementation with an asynchronous form can compress a bounded
-+batch of already-unmapped folios in the reclaiming task's path. The
-+reclaimer flushes their pending TLB invalidations, submits requests,
-+waits for completion and then publishes the resulting payloads. Small
-+batches can use the synchronous path instead.
-+
-+A batch does not hold the limited store leases while waiting for the
-+compressor. Failure to acquire a lease when publishing a completed folio
-+fails that store and invokes the same rollback rules. No private crypto
-+execution hints or independent background compression worker are needed.
-+
-+Fault, migration and userfaultfd
-+================================
-+
-+A token fault resolves the entry and its backing, prepares a folio, and
-+revalidates the PTE before publishing a present mapping. A concurrent zap,
-+move or invalidation can require retry rather than installation of stale
-+contents. Fault results use vm_fault_t rather than negative errno values.
-+
-+A resident token must be restored where the source folio's reverse mapping
-+expects it. UFFDIO_MOVE first faults that token back at the source address
-+and retries through the present-PTE path. A nonresident exclusive token
-+can move like a swap entry. A stable entry reference spans the lookup and
-+PTE revalidation; entry locks must not be acquired while the temporary
-+PTE mapping keeps an RCU read-side section active.
-+
-+For a present PTE, UFFDIO_MOVE checks exclusivity on the actual source
-+page, not the first page of its folio. Reclaim can clear exclusivity one
-+page at a time. A genuinely shared page remains rejected, while an
-+exclusive tail page is not rejected just because the head differs.
-+
-+Migration transfers the resident/owner relationship together with the
-+contents and restores that relationship if the VM mapping transfer fails.
-+Splitting a folio with a live reservation is refused; rollback must first
-+resolve that reservation and repair deferred-split state.
-+
-+Shmem and memory cgroups
-+========================
-+
-+Shmem keeps memcomp tokens in its page-cache exceptional entries rather
-+than installing the anonymous reservation protocol on an inode mapping.
-+The writepage handoff and the swapin path balance the mapping's entry
-+reference separately from an anonymous folio-owner reference. Truncate,
-+fault races and allocation failures must undo the associated inode and
-+entry accounting.
-+
-+Compressed storage is charged to the source folio's object cgroup, not
-+the task that happens to execute reclaim. Metadata and allocated payload
-+bytes have distinct lifetimes. A pending charge must be refunded if
-+allocation, publication or a competing operation prevents its transfer
-+to the entry. Same-filled payloads still require entry metadata.
-+
-+Dropping a mapping does not necessarily destroy the backing entry. The
-+payload charge is refunded when allocated backing is freed, including
-+conversion to swap backing. The metadata charge and object-cgroup reference
-+remain until the RCU-delayed entry free. This is compressed-storage
-+accounting, not a separate per-cgroup admission controller or swap budget.
-+Normal VM charging is still required for folios allocated on refault.
-+
-+Swap writeback
-+==============
-+
-+Cold allocated payloads can move from the pool to real swap. Packed slots
-+share a swap page between multiple payloads; the hybrid representation can
-+also use an unpacked slot when packing does not fit. Slot ownership,
-+packed-member lifetime and read-cache references are balanced independently
-+of the mapping's token reference.
-+
-+Writeback selection and its drain budget are bounded. The policy derives
-+its limits from total RAM rather than a device-specific memory size.
-+The level controller observes zsmalloc's physical pool footprint. It must
-+not close its feedback loop on total stored logical bytes: moving a
-+payload to swap leaves those bytes represented by the entry, so that
-+quantity does not measure memory released by writeback.
-+
-+Writeback pressure scopes exclude inappropriate reclaim contexts and
-+avoid doing packed I/O in direct reclaim. Swapoff resolves entries backed
-+by the disappearing swap device into RAM, balances failures and lost
-+races, and does not report a failed conversion as successful. Allocation
-+and I/O must not recurse into reclaim under an entry lock. Conservative
-+packed-slot defragmentation remains separate from active pool draining.
-+
-+Observability and limitations
-+=============================
-+
-+The stable stat file reports logical stored bytes, compressed bytes and
-+allocator pool bytes, in that order. These are not interchangeable gauges.
-+Debug event counters can count repeated attempts for the same page; their
-+deltas are not counts of unique pages. See the ABI descriptions for each
-+field's units and accounting point.
-+
-+The current implementation is mutually exclusive with zram and zswap,
-+supports only 64-bit configurations, and reserves one swap-entry type.
-+Its multivalue sysfs files and large implementation are RFC limitations,
-+not the intended final upstream interface or source layout.
-+
-+Runtime validation of hibernation, memory hot-remove, DAMON and all
-+khugepaged interactions remains incomplete. A successful build or a test
-+in one VM topology does not establish coverage of those interactions.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 98c920275f276ba29fdd459a39aa8db7c83042e7..d1d8f578f62cd9c0b824b0a5f95b49433970c377 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14806,6 +14806,7 @@ MEMCOMP IN-MEMORY COMPRESSION
- M:	nakixii <nakixii@gmail.com>
- L:	linux-mm@kvack.org
- S:	Experimental
-+F:	Documentation/mm/memcomp.rst
- F:	include/linux/memcomp.h
- F:	mm/memcomp.c
- F:	mm/memcomp/
+diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
+index 76d54c9b89c0b..d20a0d2afa855 100644
+--- a/drivers/block/zloop.c
++++ b/drivers/block/zloop.c
+@@ -719,8 +719,13 @@ static int zloop_record_safe_wps(struct zloop_device *zlo)
+ 
+ 		if (!zloop_zone_is_active(zone))
+ 			continue;
+-		ret = vfs_setxattr(file_mnt_idmap(file), file_dentry(file),
+-				"user.zloop.wp", &zone->wp, sizeof(zone->wp), 0);
++		ret = mnt_want_write_file(file);
++		if (!ret) {
++			ret = vfs_setxattr(file_mnt_idmap(file),
++					file_dentry(file), "user.zloop.wp",
++					&zone->wp, sizeof(zone->wp), 0);
++			mnt_drop_write_file(file);
++		}
+ 		if (ret) {
+ 			pr_err("%pg: failed to record write pointer (%d)\n",
+ 				zlo->disk->part0, ret);
+
+-- 
+2.53.0
+
