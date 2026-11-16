@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.127
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794809260;
-	b=DlCU/6lVvv1ZG9mYyoIKa0H1R2wEKlKrN6adsuPd+TmvXVG3iq2HNKTihVU7Y7VGdmZ7
-	 X/uHLVddW3kHDHFVfIgnSzp/vvgjG5ei3c+QSJsPSMrubTMktdsYjMXMiaSVnPnj/F26R
-	 BDd785B2OeWvjI0++LU3x923meT8iXa6ta04tAoXJeviL+aGPBsv/eiu8ecctBzew0SRx
-	 nwtxQBU/750e6xydSR11K/6CTYngb4UqRkxGsJ2YEiAnEjlwEoWZgN0r/7gEB2UiLvB4J
-	 yI7TdcIX0lU3ngqHaMxVrJuYdlam9Y73z00UeqOPY4ijabi13rUA/v4ZyKdtXD4l9Tw==
+	t=1794809476;
+	b=fOlVxGnRxbyMc/nqaBaPAfOO/9ZRKw4TOg/fe9FMhjxMqDoENq9Bv6AwHatCM5v4ZMgz
+	 lGwczOYeMmCvok9dWgPc7Qe6O3JlNZ/YgFktYEln0alUl8i2IU/T2nHF6fuxdIa+dJEs4
+	 GABkAMllaZ82HrJt1ogjl9k0xV8fCQBxVILXk8/bxu/YJoeKX95jSxsNYKsxWJtstk6f0
+	 WnBRvv12mIZiplk2G0+gmedlq2toUA1JGu75SEYiAdkhQshq230phaU/EsHPkWwluktTV
+	 4Uv6DGTGHEF3jthQC06+hgJHJd8Ta9YYla3kDXix0LlxGyfguxWpeQynclaj+ZkshpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794809260;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ohY8oBfL9HsIxJ4pthQEE7H8EctHPP05752yO5BuBs0=;
-	b=rHel/+pAdXihrnRfF8TxgnS3WRkydrO9OeECNLNUGGd4+aEKkzEVOG2UbSlPVrqJHJV4
-	 tHemKUUMmI8xKvWZUFqNZ2lqUgHu2eb+Jra/sC1Q54nDEupxGl+vJXjRUczeiJyP0XhQm
-	 cce6OsWr0mZCrCoirdtzzDux7U1M3nsozZay9k7V6mZ8dHqR7fFTAKctQOVJ+YON/5XUq
-	 cWAk86VhWqrCL9bdQJ74RR24DK+buI7iK+zODrgkgdKEKhlacZfXNNjnoHXRF2FOjkrJz
-	 5ZyGLFkV3fEsP8NPv/8Qu0yCB2IVJP7SujlrXNDbAs6cbXDKi6UUSpycFEF/Na0E70w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794809476;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=MPd4pZJYXRdLwgYttFxn4aXXY1gb3aP+H41TDipbCho=;
+	b=p8FpmefYDGigF/1FDhEfKC4E+AHeVBJ/Cw4PTqq2MObFvwlKzYDULtcrQ1yn5G23uMl1
+	 XndRrNV2gNlIAeN7fDpuwdTrwo2/r878NTVJprfeMfl5P/ZwjVsct4J/o8GL6alBLMdo9
+	 +4gb5ggqRDJSgsEbWdvtUTmESGzsPTZu8PPzNGUAKoFSOntwKiUntV73ZKOhWzHqasW7W
+	 MaaZGFy7uQvx/SpKnb6o5dJ/0tmb5hBCuCSV9N/RSldhCTIOd15KQlr2PA8kje1cr1NeO
+	 t8kpb/v2Ko2ycPrAc/z1hPTm41Vn8C0jkA2xq31ygwn4c2KgGcOhqed9qkdDviW8FIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=justthetip.ca;
-	spf=pass smtp.mailfrom=justthetip.ca;
-	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=U5FfbXae;
-	arc=none smtp.remote-ip=95.215.58.127
-Received: from mta1.migadu.com (out-127.mta1.migadu.com [95.215.58.127])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c9mwc2wA;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE7C606A889
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AE7C606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F3C606A31C;
+	Mon, 16 Nov 2026 06:11:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05F3C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=U5FfbXae
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zjZz3AvtYv5pnFEpIMQaU/5mq50DMy49MjdfgWYYMaI=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794809255; v=1; x=1795414055;
- b=U5FfbXaeU+jYNMF0KT9tv0gGfHx6hLcpNHpi5D/znDQVLceXQCShfwamWP0xjpWWZqMXJaen
- +ovZN57sWfFS8DEn6jzGGjr6WXhVrLt8CULp+Kq7jZyDdhOhQfv0JTfJD5AaBcoL3GppH344MYw
- 9aGidJTYodMZvX3tHhuS4MXfC2HExYYVxwyQjePkPbBjqSnU0wsw6z/umfswkGIjDe0gIGSlpHs
- Nd/Nb0rKU0ZFF6KbjgwrncgBn1MYe9Bm1eHCUm7C7/tSbJk8g84JTwQS3f9HNmjvmHi78Yo6poD
- 0pd2MKQanBI1wVwTtrN19j8QhbBzEkoUdO3zarn52ThDQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3c946c982c1bf979;
-	Mon, 16 Nov 2026 06:07:35 +0000
-X-Mizu-Trace-ID: 3c946c982c1bf979
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Martin Moosbauer <martinmoosbauer@vivaldi.net>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c9mwc2wA
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MPd4pZJYXRdLwgYttFxn4aXXY1gb3aP+H41TDipbCho=; b=c9mwc2wADHZv5elZ8l8CkIYMV4
+	qdH6FKLk2ZruTT44EpmRQnmD03tFX0BkFk/LIpKht1j4muDs8nQ2pSBljsi6Jeb8LrLqub0JKABpb
+	rbw8vnhwChd0IlSh1BHAHf6WncyJnf7gNHoYxMsJfcBLYP7uWbxL9jF5JSH9FdHfunDffWcRwdq8l
+	VZe26yRp+dDJnU31z0WCedbgt82WK37Wz48Vxn3mYMyrqhBVrFGEUoAjGZ6+p/JSZSOQjf5YjBkba
+	XouTdV7GTeOJn2u7ZpP9L2Y6XUUVQe82/xxLQxFJxpaimwr73zPgB5weRw5H+th6Wif+ZPjW+DPmO
+	BggqAk7A==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xSpvt-00000001Dgt-45Tx;
+	Mon, 16 Nov 2026 06:11:13 +0000
+Date: Sun, 15 Nov 2026 22:11:13 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Miroslav Cimerman <mc@raidlab.org>
+Cc: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>, linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: cfg80211: don't call CRDA for a country regdb lacks
-Date: Sun, 15 Nov 2026 23:07:23 -0700
-Message-ID: <20261116060723.37130-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.56.1
+	Markus Stockhausen <stockhausen@collogia.de>
+Subject: Re: [PATCH] raid6: use normal stores in the x86 x4 xor_syndrome
+ functions
+Message-ID: <avqegZd_W0kce0UA@infradead.org>
+References: <20261109030805.25709-1-mc@raidlab.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,67 +69,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109030805.25709-1-mc@raidlab.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Connecting to an AP that advertises the country "EU", seen on
-Vodafone routers, looks up a country that isn't in regulatory.db.
-The lookup falls back to CRDA, nothing answers, and the CRDA timeout
-then restores the world domain and drops the user's setting.
+On Mon, Nov 09, 2026 at 03:08:05AM +0000, Miroslav Cimerman wrote:
+> xor_syndrome() updates P and Q in place for a read-modify-write. md
+> calls it twice on the same P/Q page per write, to remove the old data
+> and to add the new data. The x1 and x2 unrolled versions write P and Q
+> with normal stores since commit a582564b24be ("md/raid6 algorithms:
+> xor_syndrome() for SSE2"), which argued that non-temporal stores of
+> less than a cache line are slow, but kept non-temporal stores in the
+> x4 version, as it writes whole cache lines. The AVX2 and AVX-512
+> versions followed the same pattern.
 
-CRDA has the same data, so don't ask it for a country that the
-loaded regulatory.db lacks.
+Adding Markus as the author of that commit.
 
-Fixes: 007f6c5e6eb4 ("cfg80211: support loading regulatory database as firmware file")
-Reported-by: Martin Moosbauer <martinmoosbauer@vivaldi.net>
-Link: https://lore.kernel.org/linux-wireless/8db36875c56cd9703dee42c7a00b81c9@vivaldi.net/
-Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
----
-Connecting to an AP whose beacons carry Country "EU", with a user
-country set:
+> The non-temporal stores evict P and Q from the cache and the sfence
+> waits until they are written to memory, just before the second call
+> reads the same P and Q again, now from memory.
+> 
+> Use normal aligned stores in the x4 unrolled versions too, like the x1
+> and x2 versions and the other architectures.
+> 
+> md RAID-6, 4 KiB random writes, md thread on one core, Xeon E5-2699 v3:
+> 
+>   8+2 on null_blk (dm-raid):     85.6k -> 98.1k IOPS (+15%)
+>   6+2 on 8 Intel Optane M10:     57.3k -> 62.1k IOPS (+8%)
 
-  kernel                             card          before          after
-  7.4-rc1                            MT7925, USB   world after 3s  kept
-  7.3.4 (Fedora)                     MT7927, PCIe  world after 3s  kept
-  6.18.52, 6.18.63 (Arch)            MT7925, USB   world after 3s  kept
-  6.12, 6.6, 6.1, 5.15, 5.10 (Arch)  MT7612, USB   world after 3s  kept
+That's pretty nice numbers.
 
-"iw reg set EU" did the same and is now ignored, with no CRDA
-request. A CA element is still applied, and with regulatory.db
-missing or broken, CRDA is asked as before.
+Note that for the new xraid code we'd actually use the XOR code in a
+single pass, so non-temporal stores might make some sense.  But
+I can't good heatedly argue that mainline should care for this right
+now.
 
-Before 7.4 the database pointer isn't RCU protected, so stable trees
-need the plain pointer in the check. That form is what ran on 7.3 and
-older above.
+> - The sfence at the end of the xor_syndrome() functions (x1, x2 versions
+>   since 2014, x4 with this patch) is no longer needed, as it no longer
+>   orders any non-temporal stores. Removing it made no measurable
+>   difference. I am happy to send a follow-up patch that removes it from
+>   all xor_syndrome() variants.
 
- net/wireless/reg.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+This probably should go away.
 
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index 5cd3880ee384..cf79059b9992 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -1125,9 +1125,16 @@ int reg_reload_regdb(void)
- 
- static bool reg_query_database(struct regulatory_request *request)
- {
--	if (query_regdb_file(request->alpha2) == 0)
-+	int err;
-+
-+	err = query_regdb_file(request->alpha2);
-+	if (!err)
- 		return true;
- 
-+	/* CRDA has the same data, it won't have this country either */
-+	if (err == -ENODATA && !IS_ERR_OR_NULL(rcu_access_pointer(global_regdb)))
-+		return false;
-+
- 	if (call_crda(request->alpha2) == 0)
- 		return true;
- 
-
-base-commit: 831e33ad02ff884ecc793c07a9c9bd9e06941fe5
--- 
-2.56.1
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
