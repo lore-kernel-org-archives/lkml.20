@@ -1,95 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819376;
-	b=KsgwHBS7NAPZ+iEbyw1lJ4BgwzRyHbN98xlSpPSL4gvz8l9cadg/1kK1y/Ze7GnSrZVJ
-	 0CX+M8kRUzcKZ3K5LSmESNfOgnnB44LeQNiLi3bFPobbw/aFoCtQgrjhFL+Ew3xYL/NpM
-	 vt6eRgOykchUmAJxb0c7Vu/SHg3M5ujqWgy4eulswNC7yx/Qya11sRDAFvr3X7ivot5tX
-	 9p41EEPAzUS/n+h/7tkzRTsbdjgkPXtYO2IRkpJZ3bFGZwSM2+uJpvliBW445kprer+Sz
-	 H1ANVNjFW4Zytp5PjA+cEnzKloh/5G3Uh6JYfqsk9ZgLqRMiCoLXa4pczzfSH4GUxtg==
+	t=1794819392;
+	b=A7aG1alGYsUTzFCVBm5ObX3YPps5gEWNO5pFGPpnZhG837Bh8LCxYV7jbGyIVZF0iPlC
+	 5UEy4WW91WgdAMJfEBm/DQSKZtyGdXIqAtafaUBj318SM7tmgguumWq6aZEVBKQ6PF/Uh
+	 TMbqr78Of9hvUdk5Uer/AzFrnSrtNFB6NtaT0ME0p4aLGPZIWwGmENqobrtUdY6SIOIKO
+	 Uj78bynv1jO7xbbMFFWwfPLCIcYMGbDZMuuADhOIkHlqUCL76Bv8KFK/yEmEOggDWQApj
+	 VleUTG86amIyc51+NvqLeVC4er3zBv4lnNi2fJPsFra2Lty3mSo+schdbxaHz4HZuKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819376;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m7jLssS4b6/Hj/S1vChj9ooMCseYQvI7tiM2Tbkwxew=;
-	b=bnTV5iVSMDFr0A5YhLLuhHDHA0xuRCtM9XbsmNC/kDPq0JRjj9J4llPhof/EAgb/nHBB
-	 Ucup5spX/qxk7DrCXgKKv1J9yZcTWEpJiRZmdiVcNvfQruSspZfwOFoJcw9/7dOI8/z42
-	 aCXT5z6fDejuu28419SUsLlsfvBWVSr1A8eHBoxwfX/jA1t7nA4J8XrUGvnhMjmO5E9Ud
-	 sfmudp2exCX322ZD/EG3GsEX2HZ7goM76AKvbnhv/M/RQ6E4yXUvJbnVvvaFm6vrAoo4P
-	 ulT9ImGdEPwo4LfQlJnEsp9RMje5wXoZ+osIRKkZwT+FAkTHwXYq2gsD8HJDJHg7Ptw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819392;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TCOAmNe0BEFi8mKC+0PAv0vRnH09iyDNA3a8Nshj+co=;
+	b=NRFcqx5+LdxMEg74l7AcP8MKEtmrFZZxMwJOE625l8vTS9JJBTuSy/eMFjzipeSPIMtJ
+	 POlqwQwVSunasBANZ2S4rgy4K/YSILRWriFHoMQ+gNH3k29Vi2pWbjNweWCqy0Bfaq5HP
+	 GPR2OpO6mhWmi46BgMAeuRxkWh/YeAr7RA2zHVuiKE/Pz5ed12RRAvxWY6rFnWMSR0DEk
+	 YvaTXkKCf1ekj66aRj0op3De0lyGZE+d3qQP8GI02IwDFp59puxXK+4hDGV6cjvh3tMdp
+	 bXuVSlci3fy1UNToaOvU2O1PFYlwprvorkjQYn/qNtJAhab9ebfHP82r1Q+UfptNx/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjqR3QBo;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YKadq6xx;
+	arc=none smtp.remote-ip=95.215.58.198
+Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF07606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF07606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428F5606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 428F5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjqR3QBo
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e47347279so1315577f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:56:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794819374; x=1795424174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m7jLssS4b6/Hj/S1vChj9ooMCseYQvI7tiM2Tbkwxew=;
-        b=sjqR3QBo6dcQcSs+FIlADbeG//0UI0FrLNL4nEiGdYxFwTSM00vfVExbta/9a/lU49
-         3QkunhhLmlSqQLfuYtHrAYclwNPM9wG00D+Rgcpa4tm9/X0EcNRIqqFwONh5HgZF3eXl
-         ImdZF9Bu6EaH8eTjLLkUpozXh2UOpuLLAErMGBaEzAgMLpRE63YUnP7cNiunxoye/nf3
-         gwscc3ZBB8yNO9/iqgIpFp4uuMG15kRKKVeR0SLryYy3h7vEBZd5LnWz+uOLOka2GYVS
-         wDxb4OVTall9S1tmJGaURwMKS8k1phhYp7l3ZLMVwwS5odSidaIvZN4p05Q3V7t9pZnn
-         Hrkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794819374; x=1795424174;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m7jLssS4b6/Hj/S1vChj9ooMCseYQvI7tiM2Tbkwxew=;
-        b=jhcUBtX2ilfQ6mZk1RpUT5Jcv2zIlo/x1vrFEZnhzVKf96LBzxCnHpf6OViLb8G19P
-         PvncLAcgcD8FvymKCqVRuKdtNpCaRmabSPhsohTjS9pZwfeQlog/VXueK1yZVpg98cnq
-         UmDi46s1SxTiNgKK0HG7akycwTR2VoDoyBzc+nfqbXFOeu4HRzHdNUpcOTUwBHqfWxeN
-         7TtSqrtjlV5MCpUcyuGehy+w3QrdEJ+uXD0ih65V6+PjLRco+o51hX18ytl7rP5MvYiF
-         xpP3AHV0fUi2NRoB9wXnqTGTj36GmswsLQ+nUay7uxn0PqslxdOyfZWGS9gw2corznaO
-         GQCw==
-X-Forwarded-Encrypted: i=1; AL+hErG2Uh5URnXI2Lw2//nq/aeP1HWTeZLp6i6ROzknKpB/smgTwxG7VKdw3By/kZrDCsSdQD1MDhkIQCapzjE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IEfkuB5saYfNITf0hEfmeUa9WAvUhk3RCH3Bf2/aQxrpGZIkL
-	09TbpiDoxvDhZPznDcpetBZd0oRMlDeGCmV3esSajVAZCjAoZhhSCP6b
-X-Gm-Gg: AZFdTZd1egv632yPSQ4bfW8CClqjxxApwk8aUtRuTd/RIxigf1pRXrXBbxhk4EWt8Kc
-	PpqHvcOQZFYINpYc7u6BuCirexhDiGMYdT8c9S6m/VsJFbu3iRzM7Xkbl2b0umbmCoHXCJg+u1g
-	YjIA6OObFEnuhzIGOWPeTvmsT/gjX+Y0bjT74YP0QTYf5q2P1EYVEazp3KngkvlMWoFBDY8gvyS
-	DP4bR9bLClrcjH2ai3HixuxjalXKygW54IjmWGL++b3lbFyP8lUlX71zNX95G4JWxDpLMjLvpir
-	AKld/AAvWvErZWs1RVE/HXsFzyc1Y9QOemBVDTYZQC3wLaUVlVxPBT21NC7hBKNEG7WPKpBSrpN
-	b622NWDdi8CWAbK/RHqGUsgZk0VMVBbSnSvnk6BpJprrMDb944AYt8sWPn9TzENJuRnzfYbA/Yo
-	BzR7pyS4F8+5FHcTEdzkRuDXBZtCbPLae0vWA5ewE/2uAT2KJXlqS4C2ryHzBtdID2uvBndpNo3
-	5FjFot/VwNVYxOOcIGTndGc/yu4kYG69nM/29Ft9prfwZQZs0FaBPXDquumuhgckxVsrD2ybjSb
-	vAy7jaG3wUbKWbs85Oayy9bSVKqlBGVbyqY=
-X-Received: by 2002:a05:6000:220a:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-49c71d49137mr17428762f8f.29.1794819374287;
-        Mon, 16 Nov 2026 00:56:14 -0800 (PST)
-Received: from LAPTOP-AVI.lan ([2a06:c701:474b:1700:1c3:e2b2:8068:e97d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c6451sm22439034f8f.45.2026.11.16.00.56.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 00:56:13 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Chris Down <chris@chrisdown.name>,
-	Petr Mladek <pmladek@suse.com>,
-	John Ogness <john.ogness@linutronix.de>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] printk: Fix skipped entries after index iterator restart
-Date: Mon, 16 Nov 2026 10:56:10 +0200
-Message-ID: <20261116085609.476250-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YKadq6xx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7lolab2zVmmIzQhOdTNrMQkrZuGsVRndTA3iq4cS6mY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794819390; v=1; x=1795424190;
+ b=YKadq6xxRABnupfUM1Y3hNWq3Al7M1iv5OqCAbAfNTk17YILf3ZqtW36B6X1MXCCt1kkg91T
+ 6eHvksBn9PAi9rKa8wc5E1tikQsyX9npBRPn46zM/d8prnXNJ6tKrMyplef8SF2GgP+mcVSv6Oi
+ g6mYlUnstFLAeQrKREmEXLfI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 17b6a22d7d497bc4;
+	Mon, 16 Nov 2026 08:56:30 +0000
+X-Mizu-Trace-ID: 17b6a22d7d497bc4
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Date: Mon, 16 Nov 2026 16:56:11 +0800
+Subject: [PATCH] selftests/mm: protection_keys: use _exit() in aarch64
+ ptrace tracee
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,37 +60,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-for-pkey-exit-v1-1-ca4c76b32ff7@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqAIBBA0avIrBtQF0JdJVqkjjUFFVpRRHfPa
+ vkW/1+QKDIlqMQFkXZOPE8ZqhDg+nbqCNlng5baKCVLDHPEZaQT6eAVZShN8EY7Yz3kZokU+Ph
+ +dfM7bXYgt74TuO8HcVaD73EAAAA=
+X-Change-ID: 20261109-for-pkey-exit-0f96fd62c6bd
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: hongfu.li@linux.dev, linux-mm@kvack.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hongfu Li <lihongfu@kylinos.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794819387; l=2106;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=I343t2uR4wEtG+HLyp6H7kkFFFvE00XGS9N9j96x0BE=;
+ b=WBYHvXmoxaPSzAUK9OsLYlPhQpq9V9t4iR/GbU7w7PSrNgs3/neeELXubmCtAzFBv88Jh67QB
+ PJu87aQrbGhB3pKMntsmZzL9gPjVeV+SRoEasVfYnMQ81Pr6WhKMFkM
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-seq_read_iter() can advance the iterator before the next record
-fits in the read buffer. When iteration resumes, pi_start() calls
-pi_next() at the saved position and advances past the pending printk
-index entry. As a result, index reads can silently omit formats.
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-Return the entry corresponding to the saved position without
-advancing the iterator.
+Commit 25356081894d ("selftests/mm: protection_keys: use library code
+for HugeTLB setup") replaced the exit() calls in the x86 version of
+test_ptrace_modifies_pkru() with _exit(), but missed the aarch64
+version, which still calls exit() from the tracee.
 
-Fixes: 337015573718 ("printk: Userspace format indexing support")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+When the test runs as root, hugepage_save_settings() registers
+hugepage_restore_settings_atexit() with atexit(). The tracee inherits
+the atexit list across fork(), so its exit() runs
+hugepage_restore_settings_atexit() in the child. That handler calls
+hugetlb_restore_settings(), which writes nr_hugepages back to the saved
+original value while the test is still running. If the saved original
+value is 0 (or otherwise leaves fewer than the two free huge pages
+needed by the next allocation), subsequent iterations fail in
+malloc_pkey_hugetlb() when mmap(MAP_HUGETLB) returns MAP_FAILED.
+
+Use _exit() in the aarch64 tracee as well, matching x86.
+
+This was found by code inspection with AI assistance. No POE-capable
+arm64 hardware was available, so test_ptrace_modifies_pkru() was not
+runtime-tested; the change has only been compile-tested with an arm64
+cross-compiler.
+
+Fixes: 25356081894d ("selftests/mm: protection_keys: use library code for HugeTLB setup")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
- kernel/printk/index.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/mm/protection_keys.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/printk/index.c b/kernel/printk/index.c
-index a6b27526baaf6..642640a36abe1 100644
---- a/kernel/printk/index.c
-+++ b/kernel/printk/index.c
-@@ -59,7 +59,7 @@ static void *pi_start(struct seq_file *s, loff_t *pos)
- 	if (*pos == 0)
- 		return SEQ_START_TOKEN;
+diff --git a/tools/testing/selftests/mm/protection_keys.c b/tools/testing/selftests/mm/protection_keys.c
+index 5dece144ab95..a0f51be3fcbc 100644
+--- a/tools/testing/selftests/mm/protection_keys.c
++++ b/tools/testing/selftests/mm/protection_keys.c
+@@ -1530,11 +1530,11 @@ static void test_ptrace_modifies_pkru(int *ptr, u16 pkey)
+ 		 * checking
+ 		 */
+ 		if (__read_pkey_reg() != new_pkey)
+-			exit(1);
++			_exit(1);
  
--	return pi_next(s, NULL, pos);
-+	return pi_get_entry(s->file->f_inode->i_private, *pos - 1);
- }
+ 		raise(SIGSTOP);
  
- /*
+-		exit(0);
++		_exit(0);
+ 	}
+ 
+ 	pkey_assert(child == waitpid(child, &status, 0));
 
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
--- 
-2.43.0
+---
+base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+change-id: 20261109-for-pkey-exit-0f96fd62c6bd
+
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
