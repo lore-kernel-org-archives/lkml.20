@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836945;
-	b=LWHsVNH5+yCkL8VQBg/et+Ht92iECqvnD6cUh7lpwWQeEg3tewUmmIJJ/2qTZxoZB/Av
-	 Lj/aSVaaZ8nHfsnYT1BjPpdclOgFM0Umz/gfAI1pqasDQ2tEwTipiWBjW8j/Eg6N/cZkI
-	 Q7NaAbIMKqULz+NZUO1ygyIARTcJkoEoV8BSoLdZ8myWHIzyWX2L0nMXvCeN27cQv9UyV
-	 bA2jQlAwewYYCN0KuGWBTNdENtoLFvW0r5MELIQjwKNCgy0I7w5dtqed7hcKEgAmDCXas
-	 0mXxflTzkANvAVw3rqpX5j/Kn/Wc6wdIbh+6PW2Qge1rbsjjehbS5VQMwL3NKR8cr2A==
+	t=1794836963;
+	b=UjttySOQv3P7oGGm70k9ZuH+cSbTtyfk4YD2RygJxmhO9DFzeFe38CuKSrvZh+Z9yJ2t
+	 Hm1PnS15mAsb1JwJrWatPrFLluep8c/X+3T3vEB+QBX4q8l2O2OeCkeMRe6InNqNCCu1w
+	 tQRfUQdBply8cXZL1pwyS7WMbvPn4d/cXb7qh4uwnQOQqRu1bce8ZCFCmzRoA5nV9mZOn
+	 xPJuXY1EGKr9AiNbTpUFzihLK3VwO85K9i3ZmDXlqMXHsfhzRrJv3hbaX78iXBYzJHe7m
+	 HtfWhwwPw/4uKMrA4IvzZ6XlVN5an0L8Q3yXqqKZGV+pGv62IL9RhdvjfCBhGGFhnJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836945;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DFdOhWU6rrUNtBxs7OKZEKOfygj+nZIgN0RkgQ/IbpY=;
-	b=Bpv+zFRN+PUJNCul//ZGYc9yvnp2vUmnvXXD8vffUJLoV3WuBtsgYtKwf8e035rYpecj
-	 qrBfR9WlyW4F/i7n6zYIC83JBPKxav5JTQexoTEysdr0bV964Av62XM2u+1pM0snU4Z59
-	 6zYOHOISMfl+LwzsPMT4A+fnyU1innotxQxmoxT+VIIf1vF+D0Iiuw4dc4NuA/BgNMWnU
-	 y9lpsP5tMT10WYAzVkuUDGWg3LSZwf/tEPeGBp85cYXLT//DqKavz9QOePsHZ9UeAknmK
-	 /jDENv5k4G6HhOTywMVbWWbUTtpf8yyZ8KEe57OoWTdCSaW8Xa0eTDgLXc79Q+QhxbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836963;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=HsBOAvHt4DPYJf9JK1qI+m0zGVz1UopZeMnslAsrQqc=;
+	b=zIdCLxLqs9AH6X1ktoueAr9Phya2PiqaBflbajD2Xj+M0MOGd/Wr0ngKbueCEOJC63Kn
+	 FDcXotE4AAR2jm4aI56yCzBGfviy1Rb2LsKlFCf/xo48dNt6ElcSzlDBVHqozZBisYR4m
+	 WMvefIRgnrNKKH3mju7l9SaVxEwtPS6wtxJdUwEPWHuE9LWSVd9gaZ7gIzHAkFjX80z8X
+	 Odmq9+9CHWXedOj71tcKdFsCXAIYNK1yBZBxgS6y755egCEr2NM0VbYX/C+DrzV4Wpm7B
+	 t98/SCwFYyUvdcm7C11bH4p0I/5JUSOlR2wtgXZMXkKTWVphDyDAVcUY/EM/1DLQc5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4ljiRpJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=O3upmHsP;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A2606A32C;
-	Mon, 16 Nov 2026 13:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A73606A898
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:49:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11A73606A898
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4ljiRpJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6A81F000C5;
-	Mon, 16 Nov 2026 13:49:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794836945;
-	bh=DFdOhWU6rrUNtBxs7OKZEKOfygj+nZIgN0RkgQ/IbpY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h4ljiRpJ7By91NxPFN7fGycl52uOpbQxSl3PglYfE97LdMKgzkuTLMsLHieTtUT1G
-	 kvWGmijarYhsWpfAwo7py+gNHsu/Qs8nBraAKEjLwS2tVM45f+ZpeSchLVVOtojzPt
-	 +t58RUw/io9S/csondilcc1l2MjMnxcAOW/T2RaI+7VRwGvhkZQNmHjAsa+n8MjSmS
-	 UkrXX6eBdWFK+6yTXKQmfW787I62j7B8TA4kqVemzJQyJFH26F3fAB4kkw9Q3j8+gQ
-	 dBCa0Yv5ruRvRmuITpwm0trzCi8jRCP/gnmA3pzZegfVW+AxP4ZxiJ0v5JsiP7V8Ag
-	 WdCL6JTeAeEmQ==
-Message-ID: <3009a6bf-0a76-4891-852f-3dd4e527ee60@kernel.org>
-Date: Mon, 16 Nov 2026 13:49:02 +0000
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=O3upmHsP
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9496400270fso210365085a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:49:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794836962; x=1795441762; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HsBOAvHt4DPYJf9JK1qI+m0zGVz1UopZeMnslAsrQqc=;
+        b=O3upmHsPwNvkKSxtQnrME/cX2STCqM/diy/RcwXB6LzgKvEb+9NMhFAQ/E2egCzA5g
+         Mg7c5CkTs1b1fuSWpVz2KDcNZ7Scj5FKyDFadQHLv1lJ78inJrgshxU9uJORXBiazJQm
+         V1QWM7K325dojKmN+IzGBU22GRUgKqbxYUptJt4VYoyyvbW1amWzFCR62mY8AXggDzbO
+         /efWueyAHRB+vJiWlhpVdzR+ybJbUZTJDD6+1ngGLno6AVI8/WWRaGdmaAl+BAps9XUA
+         Ux9kb0M6GiHNOhTzSbtyiyZBUZmAIqPPZWUtlIq0iP8uQPK6jP44r44lS0tcM7F4QLzs
+         mUgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794836962; x=1795441762;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HsBOAvHt4DPYJf9JK1qI+m0zGVz1UopZeMnslAsrQqc=;
+        b=KqypjtOYDFlB2fh2vmtq4g95pXyYfYaPcZ6EVjuTBJSqq58Uk/qJJJRvFTpEuCqSpH
+         9wbJ4vVQjoG9afwQwRQNXPnagom0KliIMiMNa9QPeBpETg1MDK7Umm5DVcdTbCbkJH8g
+         oRlz0ytxEKecgNKeRyKEsuD0KqY0Rcv0Eq6ffAeHmQLY3gSjEFLaSMynwZzk5UPUKDUt
+         rqxnEDAscNUc3lACeDtZQAKIi8GP/d8clnhDdvyfJ7S1zG+pW0fMeIhTb4dvCHJWgVHx
+         N6EyKKz7FACMtYKrbK2YTR5xo6zd53YFc2AwSQV/rXfdocweh4vB1WE3qXMNldwStrU4
+         /RvA==
+X-Forwarded-Encrypted: i=1; AL+hErFu3i5X0re3enqhJOcWX9E/y9RYuUo91CXTiv5djcY1DsSSr8kaDv1UZUBUd7tgfqosJ7O75gW+FZEfcPM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cfMv9uqHz0zkb7B04Xw4SxIIfT7ATfHKcT3/8X63jMSWi/iCo
+	lNncHTacEmSRIiESOsk9E1myhrCjzOX5bdNmSl7IwaEsHC45HvmayHB24EcVWDz7bLA=
+X-Gm-Gg: AYBFou12CS0V2R+jFEIQDZiSE1rf+afpOH1GB0JFxFB3p8XD8FCNFkV2uRVgdVtzMG8
+	gHuuHgdAvASfIvsKQ6Ws+m7qhGEKQYy1+w+Vv5tDN+55LesR+gfV8mU7vHVMD5raTJfLjsWh51h
+	8mt8B5fxm7NCyNUKbi6Ykp4u1/wqwOba3rP7oFoVbkyX8tnGbgDEXkEb4N4JnaXCKvd4vrgLf7y
+	EyHZq1/wKJBTfomkqLFyh2cOJ5t8YYdOwDU13CR2Dn7RmwWAcwyNNmIYG6AC+bsgbDo3NTdAnOP
+	Ur3xFDXv6toOn2eSKyGxCJtNQKYOtsKNLmlGSXLsUDp5i78BSWlF/XjRauo5Hss3IBe2ZdVkeN+
+	nB8DCd0solbyQIjZbl0qZEkCkx4F6H+K7J2IGSxE7tWBWpkvdgGvu2ETur0WvMM3Bw3I2DhrukX
+	YnkaQ25s0Agx50aed+nmEWMkF5PUKfN+cKEPdcVGdsZouURGjwQUJjS70cUPkh7BRj/N1BLhQJH
+	kFIP2hLrDAuZilHcZUvph1URCdG/THr1XjtGmow6PUdrWc7/vwP+sTidVtaAv7LuJKJTM75sqA+
+	uDMrew==
+X-Received: by 2002:a05:620a:4155:b0:947:7691:731c with SMTP id af79cd13be357-9494bccb8d1mr1678517685a.65.1794836961959;
+        Mon, 16 Nov 2026 05:49:21 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9496bfb7fa0sm512919585a.34.2026.11.16.05.49.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 05:49:21 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xSx5E-00000009OXj-2xNY;
+	Mon, 16 Nov 2026 09:49:20 -0400
+Date: Mon, 16 Nov 2026 09:49:20 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
+Subject: Re: [PATCH] iommufd: reject mapping an iommufd file into an IOAS
+Message-ID: <20261116134920.GK2532299@ziepe.ca>
+References: <20261112105945.285526-1-xujiahao@cmss.chinamobile.com>
+ <20261114004101.GE2532299@ziepe.ca>
+ <20261116113808.560717-1-xujiahao@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,111 +106,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] misc: fastrpc: consume in-flight reference exactly
- once
-To: bo cao <treebacker@foxmail.com>, srini@kernel.org
-Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
- stable@vger.kernel.org
-References: <tencent_BA84E1B456527B98F8AB612A15AE6F5FA409@qq.com>
-From: Srinivas Kandagatla <srini@kernel.org>
-Content-Language: en-US
-In-Reply-To: <tencent_BA84E1B456527B98F8AB612A15AE6F5FA409@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116113808.560717-1-xujiahao@cmss.chinamobile.com>
 
-
-
-On 10/30/26 8:20 AM, bo cao wrote:
-> The response path is supposed to drop the in-flight reference taken
-> by fastrpc_invoke_send() exactly once: fastrpc_rpmsg_callback() calls
-> complete() and schedules fastrpc_context_put_wq(), whose worker drops
-> the reference.  Nothing enforces this: a second delivery of the same
-> COMPLETE response (identical ctxid and sequence, so it passes the
-
-Why are we even getting the response twice for the same ctxid?
-
-
-The driver expects only one response for a given request.
-Is this firmware bug?
-Which platform are you testing this?
-how can I reproduce this?
-
-> sequence validation) re-queues put_work after the first worker has
-> run and drops the in-flight reference a second time.  The context is
-> then freed while the invoking thread is still processing the first
-> completion, and the second fastrpc_context_free() also drops the
-> fastrpc_user and channel context references a second time.
+On Mon, Nov 16, 2026 at 11:38:08AM +0800, Jiahao Xu wrote:
+> Agreed -- the blocklist is the wrong direction.  A vfio device fd bound to
+> this iommufd holds an iommufd_ctx reference of its own, so it reaches the
+> same cycle, and any other fd type that can own an iommufd_ctx would too.
 > 
-> Track the first delivery with a plain bool checked under cctx->lock,
-> together with the sequence validation, and drop duplicates.
+> The reversal looks doable with what mm already enforces.  memfd_pin_folios()
+> accepts only these two kinds of file:
 > 
-> Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: bo cao <treebacker@foxmail.com>
+> 	if (!shmem_file(memfd) && !is_file_hugepages(memfd))
+> 		return -EINVAL;
 
-Thankyou for the patch, Please use get_maintainers to get the list of
-recipients for this patch, currently you have only send this to few
-people making it difficult for others to review and test your patch.
+And how do you let dmabuf go through?
 
-
-Second this does not apply cleanly.
-> ---
->  drivers/misc/fastrpc.c | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index c77048076aee..f56ba5e44e1f 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -271,6 +271,8 @@ struct fastrpc_invoke_ctx {
->  	bool is_work_done;
->  	/* process updates poll memory instead of glink response */
->  	bool is_polled;
-> +	/* first response already consumed the in-flight reference */
-> +	bool responded;
->  	struct kref refcount;
->  	struct list_head node; /* list of ctxs */
->  	struct completion work;
-> @@ -2725,6 +2727,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->  	unsigned long flags;
->  	unsigned long ctxid;
->  	bool stale = false;
-> +	bool dup = false;
->  
->  	if (len < sizeof(*rsp))
->  		return -EINVAL;
-> @@ -2749,8 +2752,13 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->  		ctx = NULL;
->  	}
->  	if (ctx && FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
-> -		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid))
-> +		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid)) {
->  		stale = true;
-> +	} else if (ctx && ctx->responded) {
-> +		dup = true;
-> +	} else if (ctx) {
-> +		ctx->responded = true;
-> +	}
->  	spin_unlock_irqrestore(&cctx->lock, flags);
->  
->  	if (!ctx) {
-> @@ -2773,6 +2781,14 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->  		return 0;
->  	}
->  
-> +	if (dup) {
-> +		dev_dbg(&rpdev->dev,
-> +			"Duplicate glink response ctx 0x%llx, dropping\n",
-> +			rsp->ctx);
-> +		fastrpc_context_put(ctx);
-this seems to be an extra put
-
---srini
-> +		return 0;
-> +	}
-> +
->  	ctx->retval = rsp->retval;
->  	ctx->is_work_done = true;
->  	complete(&ctx->work);
- 	 	
+Jason
