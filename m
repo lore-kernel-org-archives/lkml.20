@@ -1,53 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820728;
-	b=zf2I8mhtZ78QEyWzrfy79zU+QSABczuWUB/pG96eGGTkPNIXVu+Ok0Rs4wTQF868wS0a
-	 CRTqbfhnBvYHsXJhfnaCDfWAvfayarsTd8ezKAh92PvpX05tZlmpM08kmXyqkI+HSKxkh
-	 BfzaCUwu1oDQZhFBjqSeAJDVhFoVBi99yXKkwdNIYg06/5DQN42YIq2gN1QCyBV5GAkAb
-	 zjDkjKujaIQepuFYMFqX98G1J11D4UAhXJ8RNdSePRIeMlwZ12ySTG/69v9m6QhUUvUNL
-	 ILlKcMOK0qRPS9Xn4JYDIEuBzEayTo71w4bggMFawVMQ+8ZW/Rl+FbJx6kzxjMGOIlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820728;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=E8rkjePjz1Ut0WHRsT6b7Na+htFltLTMtUU6Wvnfv9I=;
-	b=3067AowMAAIDCpkQws+ZJbZuiGzAn6z4JZZDB9McTGAoqpKtkyxDpd3bt8YHgRp7eq6k
-	 S9VacyJegBgg4UIgEcgoIHdMsrPChpPz++iaKvvow5gYJziG4g3X6Jmz+YPchMJHWccDb
-	 8qRzdjKgxoQcC2DsM7jSRSaa+DTUHSk/C9v4qA9Fu/rg3J8ZD6bRDZk58Pn4bk1+uIH90
-	 /UnhJ7HiG+TSmRXNE4Ad75xJonh3Hw6dicDOxIdPVO+7QVVTuIhKe8HgK57tSZjqz1Itj
-	 HPTf8yIZ/mul2ZYURV+nsJZNLzGaSowl1ZlRFTP8s4F6hTWrZOSC6r3dNnmYGXhJ3WA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794820740;
+	b=rb8e34tYnswV0LCO5lHck1dy7n8gJYw92CEnVQ8cFmjUzCfQcaz5ZV/5pGpxHgba+Y69
+	 Sy9F/+whpaDdRC/BnmV5t0WiZOItDfdkg1RjjaQm3HzOFElzzSjmbpFTVjoQ09FhTZ6z7
+	 5hfe3IBt4QHO3RweK7jrYoEWswDZhmtFOoQtKI0eqADFbejF46LNQ6O+9RX3/9LiEecH7
+	 3RwR2wHgrpqDE5knhvG75xCRGqgci/YxSBB0Bp+ZUNHkYmCZXqC4+KyiUpqCvOE+SOCoA
+	 P/ptUbvpI20iU1Z74hV+g/T4JMU+LvgTZpLUMncHXRqvD0PLS68QzE1KP6q6fXWMWlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820740;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=H1bNKXIs8Y9hg0zuFF6AeWiKZcBanJn0P3Rm6+aW7kA=;
+	b=mUmlNIWJQOVIgsVF+TvH4kFh++zHBvCBX+uxTJK1FhxR4LxkUAjGZHMzEXl04H668Pn0
+	 thnitqhQxQHL8bIkjd09aHP2COVBPeCRhx19L402y3r7PE10EtB+w5UGoGa/4pPzeKXia
+	 oH1mcqyvQmVltsotMv2g08rMBkMX5DYdTb8kV+u/TklRFeLsHrQUdKbUUmj5a6Z9pyCuK
+	 pzWpUO7Cmwc3CEz2Z8lF995H1EIBKJI/J+zIag9gtgyldtvCE3I3dmRF5M6Q1H+EcfTUf
+	 G8uxAee3jxoRlAxIDJe4IzTadDl6dbPrk1QUoW3cEeyK1CW2UcEzzEHCjAx544JlGhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o9WIK9lK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.33
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010033.outbound.protection.outlook.com [52.101.85.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44295606A336
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44295606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-571bc0b66d7so1917298b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:18:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794820727; x=1795425527;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E8rkjePjz1Ut0WHRsT6b7Na+htFltLTMtUU6Wvnfv9I=;
-        b=2EKo7r0YSeXNuHWDzueyq7v9HBQlVkeq/XbrMxcKh1C+0ath4exJYjogWA5eNqYirs
-         JL71+WM7rTkT/j/n4CrnLfWe/9dbkhRN/R3K4QXnIkJqlbrUWlIZho60bjXSyJszIIQ/
-         EoeUF7Dg0YZ5PpSlhlofVwJhqbS3C6ZWjZa6qbkpAFVog6oObvzVeQmT1tW0Kq8813yb
-         Pd14EYBvOhPZX8VVGmadCJpZ9qbWsChDaj1LSTkEWAdh5jEWQ6w5fog1d9osNo36G9Q0
-         gRHTTbp4hUwe2jNks1qTZJgnxr2nk3t7sazGove5XEKb9UJdY0+SM0r3hxV4IvVIP0Yt
-         9s2A==
-X-Gm-Message-State: APuU4Z9LL93wNIeWOaKJ00HjIsC3EsgoMeJuG8OFKMUZeSY6t5k80dQY
-	DaSfwvy4Z0JpNu/xUTFR/UHdfN+vBKmefAe83n/uP1E18J2ZdgvKthZrn8Y80WvauJzxiftzOcJ
-	oAO0Xdt/whzZC9cqHjlcZpHZOqAWZvR6hDnCwb2Z21RdFcKXapLtIsJWnc4g=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2DC606A32A;
+	Mon, 16 Nov 2026 09:19:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B2DC606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o9WIK9lK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pU2Z9yNrSCq06RuoLUp+rzmr/6HAnMbdtPZ4SqtYcHl7Xk824cVrLdcJg0T1nnmOEl5vzVO6b1hwcEP0zyOQ7x8rGIahBzoLMmMfyst906hDBZ9nXpxgnKVQyo2Ittkz77GV4i4ET2nytylz1kAV6pCz48MTYmhX1jZU6vy7a2MJl8sTJlYOTApmck8CeoOzmSzc+3u6Wm/fLV8hUE6T2GgyiRfSXTRBToMy7u48PbYTAjnKiobbYmAJyDcgjqTskptutIW8sUxHPxxm2pWn5iv1kfST3ZH2sjoftApFeF/6mLhRjOu3py8cZ67ElBQVQB3pqSSGGBsAEkpiay7IjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H1bNKXIs8Y9hg0zuFF6AeWiKZcBanJn0P3Rm6+aW7kA=;
+ b=kPJBHKXYEhcYWHjwC3ltgbTPtD0CETnWGM9QGGXmZWIt/srI1zUloY7L7/xcEW5RmA7JLidQveXMKl99zmxqNlaDretgtooNFyS2RqGYJ52PXe63zGrul11hKLhVJKgbw8LtTM9yy4KZwjNdIhPHSi6crhIzxrkIciMqUUrkkRp0D4/YzSho3da2vkOYhJ47fSWVRI9p8ZcXmztHFmScTn/sNxOrpfjjWFIBXW4VfWi+nc8o0/WXZrOf/y7BsMU4x8AZxEs7T6ptr7rWVlziqtovXKtgnGHWfTL9cjAuCgVmQNxqOTaHsg0aqrsurqj31O9BRcM9Vt+LbhhULtM9eA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H1bNKXIs8Y9hg0zuFF6AeWiKZcBanJn0P3Rm6+aW7kA=;
+ b=o9WIK9lKTTzOv+cHCADFckz35HFDLS4RN6wa0TQoKzzsOp4F2Zbnl59kHYg/k5j012AfAxW9wilQCi+0/ToazBMDj4mcLI/N2z1gFhZUF/hgFwCApog7T5rZ4HsR81UgJ4XOaklXd+SbSexKlwclMbxAA37MrSMs0kIV2o4kiM8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
+ by PH8PR12MB7448.namprd12.prod.outlook.com (2603:10b6:510:214::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 09:18:57 +0000
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 09:18:56 +0000
+Message-ID: <b26ac838-2486-497c-abf4-f540927ffc24@amd.com>
+Date: Mon, 16 Nov 2026 17:18:50 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] drm/amd/display: Don't force a modeset when the
+ ABM level changes
+To: hugo@hsal.es, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Bhawanpreet Lakha
+ <bhawanpreet.lakha@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ David Weber <weber.aulendorf@gmail.com>
+References: <20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es>
+ <20261113-abm-sysfs-commit-v2-2-5808d17a7e89@hsal.es>
+Content-Language: en-US
+From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+In-Reply-To: <20261113-abm-sysfs-commit-v2-2-5808d17a7e89@hsal.es>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0049.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::20) To CY5PR12MB6132.namprd12.prod.outlook.com
+ (2603:10b6:930:24::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,250 +106,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:250d:b0:4d6:90f4:48b1 with SMTP id
- 5614622812f47-56e65206dfamr7856763b6e.51.1794820727231; Mon, 16 Nov 2026
- 01:18:47 -0800 (PST)
-Date: Mon, 16 Nov 2026 01:18:47 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afaca77.371d364b.254eb1.0015.GAE@google.com>
-Subject: [syzbot] KASAN: slab-use-after-free Read in ppp_disconnect_channel
-From: syzbot <syzbot+6b18da3ef22e33061add@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    6964ff21c5d8 net: mana: Allocate queue MSI-X vectors on de..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15f2ef35580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8fbc480f13a2deb8
-dashboard link: https://syzkaller.appspot.com/bug?extid=6b18da3ef22e33061add
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=116bd4d9580000
-
-AI-generated root cause summary:
-In `ppp_unregister_channel()`, `ppp_disconnect_channel(pch)` is invoked prior to
-clearing `pch->chan`. While `ppp_disconnect_channel()` disconnects the channel
-and waits in `synchronize_net()`, `pch->ppp` is NULL while `pch->chan` is still
-non-NULL, allowing a concurrent `PPPIOCCONNECT` ioctl to pass the `!pch->chan`
-check and re-attach the dying channel onto `ppp->channels`. Additionally,
-`ppp_disconnect_channel()` prematurely unlocks `pch->upl` after nullifying
-`pch->ppp` before acquiring `ppp_lock(ppp)` to delete `pch->clist`. As a result,
-the unregistering channel is queued for RCU release by `ppp_release_channel()`
-while its `clist` node remains linked into `ppp->channels`, causing a slab
-use-after-free and linked list corruption on subsequent operations.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=6b18da3ef22e33061add
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+6b18da3ef22e33061add@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x92/0x190 lib/list_debug.c:62
-Read of size 8 at addr ffff88807ee8aa10 by task syz-executor994/6046
-
-CPU: 0 UID: 0 PID: 6046 Comm: syz-executor994 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- __list_del_entry_valid_or_report+0x92/0x190 lib/list_debug.c:62
- __list_del_entry_valid include/linux/list.h:140 [inline]
- __list_del_entry include/linux/list.h:261 [inline]
- list_del_rcu include/linux/rculist.h:178 [inline]
- ppp_disconnect_channel+0xd6/0x2a0 drivers/net/ppp/ppp_generic.c:3645
- ppp_unregister_channel+0x64/0x270 drivers/net/ppp/ppp_generic.c:3085
- ppp_asynctty_close+0x79/0x110 drivers/net/ppp/ppp_async.c:183
- tty_ldisc_kill drivers/tty/tty_ldisc.c:613 [inline]
- tty_ldisc_release+0x23f/0x520 drivers/tty/tty_ldisc.c:781
- tty_release_struct+0x2a/0xd0 drivers/tty/tty_io.c:1656
- tty_release+0xc62/0x1670 drivers/tty/tty_io.c:1827
- __fput+0x408/0xa40 fs/file_table.c:512
- fput_close_sync+0x11f/0x240 fs/file_table.c:618
- filp_close_sync fs/open.c:1574 [inline]
- __do_sys_close fs/open.c:1597 [inline]
- __se_sys_close+0xa2/0x160 fs/open.c:1584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa749932e5e
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007ffdce7a74b8 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
-RAX: ffffffffffffffda RBX: 0000555594214400 RCX: 00007fa749932e5e
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
-RBP: 0000000000000005 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000005
-R13: 00007ffdce7a7540 R14: 00007ffdce7a7538 R15: 00007ffdce7a7570
- </TASK>
-
-Allocated by task 6046:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x31c/0x600 mm/slub.c:5680
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- ppp_register_net_channel+0x58/0x770 drivers/net/ppp/ppp_generic.c:2989
- ppp_asynctty_open+0x331/0x4c0 drivers/net/ppp/ppp_async.c:154
- tty_ldisc_open+0xa1/0x100 drivers/tty/tty_ldisc.c:432
- tty_set_ldisc+0x365/0x540 drivers/tty/tty_ldisc.c:563
- tty_ioctl+0xc30/0xde0 drivers/tty/tty_io.c:2718
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:598 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 6059:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2780 [inline]
- slab_free mm/slub.c:6630 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6923
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x92e/0x1230 kernel/rcu/tree.c:2919
- handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
- __do_softirq kernel/softirq.c:703 [inline]
- invoke_softirq kernel/softirq.c:542 [inline]
- __irq_exit_rcu+0xc6/0x220 kernel/softirq.c:786
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-
-Last potentially related work creation:
- kasan_save_stack+0x3e/0x60 mm/kasan/common.c:57
- kasan_record_aux_stack+0xbd/0xd0 mm/kasan/generic.c:556
- __call_rcu_common kernel/rcu/tree.c:3287 [inline]
- call_rcu+0x86/0x300 kernel/rcu/tree.c:3395
- ppp_release+0x98/0x130 drivers/net/ppp/ppp_generic.c:419
- __fput+0x408/0xa40 fs/file_table.c:512
- fput_close_sync+0x11f/0x240 fs/file_table.c:618
- filp_close_sync fs/open.c:1574 [inline]
- __do_sys_close fs/open.c:1597 [inline]
- __se_sys_close+0xa2/0x160 fs/open.c:1584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88807ee8a800
- which belongs to the cache kmalloc-1k of size 1024
-The buggy address is located 528 bytes inside of
- freed 1024-byte region [ffff88807ee8a800, ffff88807ee8ac00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88807ee8b800 pfn:0x7ee88
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88813ff25dc0 ffffea0000d8da10 ffffea0000a40a10
-raw: ffff88807ee8b800 000000000010000d 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88813ff25dc0 ffffea0000d8da10 ffffea0000a40a10
-head: ffff88807ee8b800 000000000010000d 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5684, tgid 5684 (syz-executor), ts 79942213210
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1860
- prep_new_page mm/page_alloc.c:1868 [inline]
- get_page_from_freelist+0x225d/0x22e0 mm/page_alloc.c:3950
- __alloc_frozen_pages_noprof+0x211/0x450 mm/page_alloc.c:5492
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab+0x7d/0x5e0 mm/slub.c:3499
- new_slab mm/slub.c:3550 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7539
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- __do_kmalloc_node mm/slub.c:5530 [inline]
- __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- ip6t_alloc_initial_table+0x6b/0x6d0 net/ipv6/netfilter/ip6_tables.c:40
- ip6table_filter_table_init+0x1c/0xb0 net/ipv6/netfilter/ip6table_filter.c:41
- xt_find_table_lock+0x311/0x400 net/netfilter/x_tables.c:1353
- xt_request_find_table_lock+0x26/0x100 net/netfilter/x_tables.c:1378
- get_info net/ipv6/netfilter/ip6_tables.c:983 [inline]
- do_ip6t_get_ctl+0x77b/0x12f0 net/ipv6/netfilter/ip6_tables.c:1675
- nf_getsockopt+0x26e/0x290 net/netfilter/nf_sockopt.c:116
- ipv6_getsockopt+0x34e/0x420 net/ipv6/ipv6_sockglue.c:1385
- do_sock_getsockopt+0x4aa/0x640 net/socket.c:2505
- __sys_getsockopt net/socket.c:2536 [inline]
- __do_sys_getsockopt net/socket.c:2543 [inline]
- __se_sys_getsockopt net/socket.c:2540 [inline]
- __x64_sys_getsockopt+0x1a4/0x240 net/socket.c:2540
-page last free pid 3332 tgid 3332 ts 79846699335 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1402 [inline]
- __free_frozen_pages+0xd1a/0xe10 mm/page_alloc.c:2958
- __slab_free+0x269/0x2c0 mm/slub.c:5926
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4720 [inline]
- slab_alloc_node mm/slub.c:5033 [inline]
- kmem_cache_alloc_node_noprof+0x34f/0x600 mm/slub.c:5105
- __alloc_skb+0x1db/0x7a0 net/core/skbuff.c:707
- alloc_skb include/linux/skbuff.h:1395 [inline]
- nlmsg_new include/net/netlink.h:1055 [inline]
- inet6_ifmcaddr_notify+0xfa/0x1e0 net/ipv6/mcast.c:940
- __ipv6_dev_mc_dec+0x2f3/0x3a0 net/ipv6/mcast.c:1038
- ipv6_mc_destroy_dev+0x33a/0x590 net/ipv6/mcast.c:2902
- addrconf_ifdown+0x1662/0x1bd0 net/ipv6/addrconf.c:4076
- addrconf_notify+0x1bc/0x1050 net/ipv6/addrconf.c:-1
- notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:86
- call_netdevice_notifiers_extack net/core/dev.c:2351 [inline]
- call_netdevice_notifiers net/core/dev.c:2365 [inline]
- unregister_netdevice_many_notify+0x1432/0x1dc0 net/core/dev.c:12802
- ops_exit_rtnl_list net/core/net_namespace.c:188 [inline]
- ops_undo_list+0x391/0x8f0 net/core/net_namespace.c:249
- cleanup_net+0x578/0x810 net/core/net_namespace.c:713
-
-Memory state around the buggy address:
- ffff88807ee8a900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807ee8a980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88807ee8aa00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                         ^
- ffff88807ee8aa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807ee8ab00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|PH8PR12MB7448:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1ceb938-1c2e-4fb2-778b-08df43c2a41f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|6133799003|261009223027099003|4143699003|11063799006|56012099006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	0eyxv/ZHWHxitGZK7VxG18Br0ncV3AZU30ljskrX2NXoy7X3xtXvchnV1SgZ3Nt7uvdkRHPmLjf9vGJ8OLSST93r6nuWQhslebyOSKtBIrMk4ZUH/VwsVhh7U/N0P4Vx1WvyUm+scD6gUAq3KdJIj2fsCUdoXK9AZt+6Nf3ApMjmG6A+brdPIenUYasqd0vSQsejbau8ITWK/oMC7sFAPOqmWRt2RD/bU9VnjU+9TWExTIu50eMO7rb9UTxQtNJXGYW4NWygUgR5G9jnXAwxlx7qbkqeBi85wD+le+A72HMaD6sclM6MO/Ma/iLXffqLakDAsQHe2aFdKT20+/hK7NfIUTAzJjJwffOzK+0dq6XHpwgV62fTgr7tlHd1Ki1PggTUkH0KwrU1DZ47wzDosb9YQrouyhW3URbpKiG4aidrf8ATihVCJZDRY5sAmhgMtqETHXcK9Se67T9X9uNlVd+LHg0SmNpQteejX1UvcqK742CbkPOyN8g9BRFer3Qnbh0GcvN1XVLDBKnO0If/id3ufoo4teE0blkDtgxyGbMW6ckCXxHvOVNbmEhC/jGNarTimeSR+k81F9fs/1oOoBmvfuurHhdvkYYK6GG80yg0Egl0qYPLmPX8/yOtMqu5
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6132.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(261009223027099003)(4143699003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MWs1KzZLQ3hXRzRlelZFREd4WHZVODRSeVRvalllbTJWeXVpeEo0bndKM3Bm?=
+ =?utf-8?B?TzY5Vmc3YncxSExCcHNqeldEZlVBL05RVUJnNWJyU1hKMzJmY0VtWDBEM1U0?=
+ =?utf-8?B?bkpIT3pQWmduWFdWQnJxYUo1SVl6ekdrQVJoVXhGb1FhK1ZyK0h5anhQRnJV?=
+ =?utf-8?B?M2l3ZjB4YnIxODVmWUt2akFSYk1GT3FNN0xQM0g4UTFES2M3eCtVVExxdStT?=
+ =?utf-8?B?VU1XT3pnTWdnVVc0S2Vxa2VOYWprb3VzWGEwVFU1Z0Q4WWxJdDAxM0l4aG1E?=
+ =?utf-8?B?aFVodGNWU3E4YklpdkpEQUdNVmdKdzJhYzJzL2NRNThtd3BMamowbmR0RVdq?=
+ =?utf-8?B?QllFTGRPN0RpTkpHRE1TQ25qeTltUGZ6aW9sZDJxYXhwMkJRaWRWV3lGZ0dv?=
+ =?utf-8?B?ZWJNdEZtZ3JjeVU1aXFVbTB1OUhEMDVDWGlUMmxXQzArSnhSUFdVbG05SU9h?=
+ =?utf-8?B?d0FiSVBESHhLSzk4K2Q2VFM3dXhOU0k4WmVCTGhmcFlvSEQ2TmRXU3Q5UFdo?=
+ =?utf-8?B?SXZKd0JtZzMzajdyMVlnemxlRkRKSm5mOHlKbVZzSWNTNHowWGM1T0YxOVh2?=
+ =?utf-8?B?Q1BrcjdWczhIZmVYZXJGR1YwL2xsd1gwMWVLWEQrUTkxcDM5aG8wSFhaS2pX?=
+ =?utf-8?B?UzEweW5zZjh0Ni94TVozZEI3MVlHUy9yMWJlcjM3ZE51UmdubUNyOW5zSlBO?=
+ =?utf-8?B?Q0tRQ24vWmJrQzRzWUhhUTJUQ0laVXVKL28rUE9hdERZV2JJS0hQMUR0a29C?=
+ =?utf-8?B?TlVYTFNwdkczSlBTR09pQzFOYzJSN2IxYy9sbWhmSEtuRDdjb21WeTdXUXl5?=
+ =?utf-8?B?Tkt2ZC9RS3FPM0oydDE0d1dVT3ByRmIvdm95eHFCYllMY3BmSUZJL1hETlBF?=
+ =?utf-8?B?KzB3T2xjdE5hVXZJMWxBUlFJT0M0T05NVEN1azVjMHhtMkhnUVd5M3BVSUZk?=
+ =?utf-8?B?M0s0ZUFnTnpwNWVpSnoyU1pKbVF1WFp3Vjg3MXE1ZEFDaHlwbEUydUZUY3dE?=
+ =?utf-8?B?YzgxYzZEajMwRENsSWx6bEl6VTUxelN5c2M5MW1PbGZSalBqZFdXTmJ0M09U?=
+ =?utf-8?B?SERZOEhmUXVTai9HZng0TGozZk1NNXNNK3BJa2Yxemd6TjZCQ2F2REN2bzN0?=
+ =?utf-8?B?bC80bFdRNk82Ulp0bkpVMzBHeXNXS0NyRkQwaXB2SFlZcGZjQ3ZjNmFTTHNk?=
+ =?utf-8?B?ak5SbHVRMXBWMzF2eFAzakpIMmwzYlBFYkJCcnNNck9VVTlwM09rZWJScTlj?=
+ =?utf-8?B?Z2ZsZjk0emdGazh6OUEvbFRtV2RVeWpLQXFhMENIME51NElaL2lHNTJ4NVdv?=
+ =?utf-8?B?Wk1mMVRRQnMvd2VxcmEvVzJRREtlSjZENkhCRkVRcjVScXJxU2swZVNKSVRz?=
+ =?utf-8?B?cTlCZW1ZTC9qelYvbURHd0NmR3RFYnE2NW1VT3NJLzRDT0JTamNrcE9vT2s0?=
+ =?utf-8?B?U1hRc1psMHZTcFlRWVhkWGVDZVRzYnM4S1FlVG15VnNpeElXN1RBMXFXRURY?=
+ =?utf-8?B?U0xoWUN0TjNLSkNUekVBR09kOS84K1g3aldYK1ozdVR1SUJnenR4bVQrcE5z?=
+ =?utf-8?B?UGFEaEtpK3Z5bjRaSGJybGxCSS9wUlVBSXlDSXA1RXBNenA2MWg5dTE4TWNa?=
+ =?utf-8?B?VHRUODVHb1BvcllTUHpuNVdyZCtwU1l3Q2hvNDd2ME96U1BpOUcrenRPQ3Nk?=
+ =?utf-8?B?Q3IrL0RNdm12QmtBYzFIdkhJa3ppa2VWanl4UUNBYWFCazZ5WXBpL3VXSGsy?=
+ =?utf-8?B?NVA2cVZUd01aaVZNUUdlZGNCK0VZam1ycG95Tng0Z0JKdXBxNEQvRTZpdUNn?=
+ =?utf-8?B?MnNWaXlMUDFteXBpWE9wVXhWRGdxdVVHUXg0bEZJOTNjWE5YZ2o5KzhZTFow?=
+ =?utf-8?B?QXFBcUJtc21Fd3JpTTZVL1VuOXJqdFZVenVJSGlacVNzcWpqYjRHOWRXTlho?=
+ =?utf-8?B?Z2ZiNEgweThjbE1sbitYYVArRUw2c3F6M2FpazV2eC9NUjExdTdGVEpQL3g0?=
+ =?utf-8?B?cmdVNkR4L09HVERNSVdYWjdoYVFGNS9MekhIOWF1T0ZRTEowWDV5aVIrZndS?=
+ =?utf-8?B?WkRDTFlzTW9jU3JQYm1JVkc5Q1kydThqRGZHcVJhdXVqWXdRWUExUUtyQXBO?=
+ =?utf-8?B?K2dQYno5eE9aR1YyUGNZWVFGdkV4UVhVeHFJOWVMU1NucVNObWVsT0ZwaGR3?=
+ =?utf-8?B?T1dPNmhXU09Vakp4RVdrL3h0c3M0T081b2xhOUdrWi9wTndUbHlIQUFZZkQ2?=
+ =?utf-8?B?emVuMHJVZWp6VVRTUHJ5aWVJVUtXUmlETklZM2RxSTlaT2M3OXN2UXlvUXRz?=
+ =?utf-8?B?U3l2OWZ5Vm1NTWpaYW5zWGxyTGJ1RnV2bHo0Y2VId2FVNGZHUDE4QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1ceb938-1c2e-4fb2-778b-08df43c2a41f
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:18:56.8829
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rhK8GJ0LTRwi1gFXzqQ8eWK2iIZHlj1wOdEhU+quG1kVRUJWdRzXpE+HIOuvtNhbtlfJiIe7oiD0OZr+KrdinQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7448
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On 11/14/2026 4:24 AM, Hugo Sales via B4 Relay wrote:
+> [Some people who received this message don't often get email from devnull+hugo.hsal.es@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> From: Hugo Sales <hugo@hsal.es>
+> 
+> An upcoming patch commits panel_power_savings writes from the kernel
+> without a modeset. amdgpu_dm_atomic_check() sets connectors_changed on the
+> CRTC when the connector's ABM level changes, so that commit would fail
+> with -EINVAL
+> 
+> The flag came in with commit c5892a102182 ("drm/amd/display: Fix dmesg
+> warning from setting abm level"), which also added the CRTC to the commit.
+> Setting the level alone left the CRTC out, so no stream update reached DC.
+> Adding the CRTC is enough for that. Since commit b05e2c5e81f9
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+David Weber sent the same atomic check change in August [1]. Since his
+came first, could you credit him in the commit message, for example
+with a sentence and a Link: to his patch?
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+[1] https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Regards,
+Chenyu
 
-If you want to undo deduplication, reply with:
-#syz undup
+> ("drm/amd/display: Update ABM crtc state on non-modeset"),
+> dm_update_crtc_state() copies the level from the connector to the CRTC
+> state on the non-modeset path, and the commit tail sends a changed level
+> as stream_update.abm_level. Neither needs the planes in the commit. The
+> commit tail walks the connectors and takes the surfaces from the stream
+> status in DC
+> 
+> This applies to every commit that changes the level. A compositor that
+> sets the "adaptive backlight modulation" KMS property no longer gets a
+> modeset either
+> 
+> The forced modeset also took the panel out of PSR or Panel Replay before
+> the level reached DC. The non-modeset path relies on "drm/amd/display:
+> Leave self-refresh before an ABM level update" for that, so it has to be
+> applied first
+> 
+> Keep the flag for scaling changes, which move the stream's source and
+> destination rectangles
+> 
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> ---
+> This needs "drm/amd/display: Leave self-refresh before an ABM level
+> update" [1] applied first. Without it, a level change on the
+> non-modeset path reaches DC while PSR or Panel Replay is active
+> 
+> [1] https://lore.kernel.org/r/20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es
+> 
+> Upstream, a level already reaches DC this way when a compositor commits
+> the connector after a panel_power_savings write. The store has already
+> written the level into the current connector state, so the old and new
+> connector states match and atomic check doesn't ask for a modeset. Only
+> the CRTC state, which still holds the old level, sees the change. With
+> this series, the hardware tests in the cover letter apply every level this
+> way
+> 
+> When a commit changes the level and also has planes on that CRTC, for
+> example a compositor that sets the property and flips in the same
+> commit, upstream sends the level to DC twice: from the connector loop in
+> the commit tail and from amdgpu_dm_commit_planes(). The same already
+> happens upstream after a panel_power_savings write, when the
+> compositor's next commit has both the connector and planes. [1] sends it
+> from the connector loop only
+> 
+> If a level change through the KMS property should still force a modeset,
+> the store could flag its own commits instead. It would set a flag in
+> dm_connector_state that atomic check reads to skip connectors_changed.
+> duplicate_state wouldn't copy the flag, so it only lasts for that one
+> commit. I think it's simpler to treat the change the same way whoever made
+> it, but I can send that version
+> 
+> Scaling has been in the same check since commit 3c6d1aeb4342
+> ("drm/amd/display: Fix set scaling doesn's work"). From my reading the
+> non-modeset path handles it too, as a src/dst stream update, but it
+> changes the scaler ratio and I can't tell whether DC needs the full
+> validation for that. Could it go as well?
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index dfbc384fbbdb4..256699cdd0b5c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6304,8 +6304,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+>                         goto fail;
+>                 }
+> 
+> -               if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
+> -                   dm_old_con_state->scaling != dm_new_con_state->scaling)
+> +               if (dm_old_con_state->scaling != dm_new_con_state->scaling)
+>                         new_crtc_state->connectors_changed = true;
+>         }
+> 
+> 
+> --
+> 2.56.0
+> 
+> 
+
