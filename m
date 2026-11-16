@@ -1,108 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848914;
-	b=qyI1p0OWWsf6Il1fWMrcHKTh82Z60fHAP+TZYd8KwNGsGyXoGLKIhnBzki7sVX8E8gZb
-	 daeiRJFe8HIewsluWSuNDNT6hVbh1Sao95MQRRwqrsujNG13zzkDaI2IlKtlu7bo9qdMe
-	 ZNVj7LdBdt9wTsZ0v9iQm84z75SBwZNYE5O7tt4og0U3CxCY4Pq14iBY3DfKAf0QsKD2v
-	 pUIlK36aqUzRKHhnq52tnbPuEhyXnURnLk89ZRgvz6WEKjifAg8JYIOgKmAHnWv3SeyPX
-	 YIGT5KV4SL+C7cmi/Qdpe51aTRzs10oykIrSYJpk8Bn9yPoIoZ/96TFZGpy5ZplIxzw==
+	t=1794848916;
+	b=bf71u54+gTzHyFF4eBB2qL2oUhiKaAFgEumvbPBe//iYrMWp1K2Q+ScXshuIEjswAA8k
+	 S0WILPJtmjJd/kiCeQBkzUjIAf/OhBoEARurZDVOkIAuhubfL8H73XSut2Le2HnwYlL0b
+	 05+phlCm8Y8CyvEYekRAB0bUAAN0zxyEKq3kQ5/HB112nVAo+sVN6o9lLa+maQveOEvwy
+	 62kkzXE9hFaHanl3iIXTHqkXVKJycepCA2gLUb5KQucZ75anDut5EI+DjXHfBlBxtLT1F
+	 zZwpqYmp16zG6dM6ffZYi3Ujo1GbOXaikWUevV6Uewsdq+2+DcFbxUrjefDib8kSqGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848916;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=z/lO0d4awc7COFA/57IeDRMAZfL8lXDL1xwEp8NDS/0=;
-	b=Ac8lLpe08DEV5Fem2D7iZpHxoujm/ZTgzKXNY2t50stzTKt8fG514dC4kkcBD00zQ0Lw
-	 OQb6fkJjpbBLFMs8BLlbDm05gHcnzDyE551s62Kvk/+4+n7FWs5+gpzdriebkVRbYK+W1
-	 VEbH8QNKVxgMB8zblPsB7GSAx71Ik5o0EFX4AEq0lFcCQdq0heUZmH0ZJUW3TZlwIIwrW
-	 xFiTj5uOgIkYahg701iXn2UJLRO8r5URvxQX3iFw53cAHsL7DdPc2FSyN1cqi2fb6jrzB
-	 51AqWxs6XZ3Sfty61h3k1bTXLtcABtDB4NnCDeJ8SstYbYWR28lto4WT5q2eXzlZlig==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=TyCAJqbOKleGpgFRMJoCvGXwTdjbSq8dLcDtNLIxJcA=;
+	b=yYvxSHio/OKwDIU/eGXaYiE6ZbLdZ+BHfIITEnwxycpCyQPausM6U3Tbf6DqGjwsuvtu
+	 u3/fF1Z62t4Xw3LGSrPz5wQVvrFoAQtOEpPF0B8eHxkxjT6ER8Cq2JYH6nYmtUBdfiUqR
+	 2Rw6xTdvTqcj10z0KSUcuz9dzgjnzb44QdVOx3+1XiUA0VUGf8jXjCrz5QxJVIlzya6e/
+	 ju+G6Wml7hl27nYpuG99O17cE1K2Xk+hwVHgDdyXsbWNxG5N0MYbcLbn+9clio0k+r2d8
+	 TmVp+sMRKDTqykmSG4UxuPSqqFLPKjLQa4sGRTX21QWozxaPWPwHBUGzYSTd7Onq5NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Ey7AZ+Zk;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Te7EjenT;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702C4606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 702C4606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1DE606A898
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D1DE606A898
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Ey7AZ+Zk
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a210470b49so30700685e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:08:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Te7EjenT
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccca948203aso1682541a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:08:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794848912; x=1795453712; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z/lO0d4awc7COFA/57IeDRMAZfL8lXDL1xwEp8NDS/0=;
-        b=Ey7AZ+ZkFFq27QRb5ss7YWBng2ZMQ3j1wzKQijz0gEmSQtB5G7cV7W2CSe+1bKAKpb
-         2/9rgiYbBd8iuZwF44uPq48BXRiVp1VYYgae7s7u5X5NKz7rwMEOvjx1MJ6JXJs1w4KA
-         hzo+SXFB4IG1b+2HSmx0Sfh/xZD+tjg4km32oyf0hDm/3iYQe0LqKPwl90xvHcoZSP0K
-         4KYZJPSExtGJGXVZJIHkrb71LTJdMxOsGCUFEgCxnYZOfWVmKIKg21R7klmwcGHh94B+
-         AyEQNk+zQx+T9ionWibHQ3ItgEI5ocKZCioaWcY9QtToa8W8ngo0rBAA+fnWiSg8MmuD
-         2Gkg==
+        d=gmail.com; s=20260707; t=1794848915; x=1795453715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TyCAJqbOKleGpgFRMJoCvGXwTdjbSq8dLcDtNLIxJcA=;
+        b=Te7EjenTdLjhLlJJK/DgwaeqvY3nzsOpzyFZoMLTyGvZKTrJmNbPSSbcde3cdrewaB
+         rR5fsCC3cNWscCz6FuZTnYaKXKGvRsFd3/ydandusDQyy6gzyjgiIntRbPSXtfP66Gg5
+         aYxZPu98Jc5uNTm0oyn1sG/L5N3ei0Yi7g2cmHKHNl7zgtd3ZRRukEttv3OnfrlUIxk0
+         hM3kbnhSwLvJyjp4I8t7PNu7Ve/5Wee4HkdkcNjiaTu7gUjPMz1JmagV/fYFi7WpETXE
+         pkyP8uaU/7dNQBVY3GLJKn8XcnOkJhPILKIL7Y27Q+L38MG+bWkrjwGu1dlTPPVOS5Bp
+         Sysw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794848912; x=1795453712;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z/lO0d4awc7COFA/57IeDRMAZfL8lXDL1xwEp8NDS/0=;
-        b=o9G6LlesYoQSg8rIB5QBBWEBzHfkLViVVoQY045RRO/87kjVPnbiDNBPkfd8EYtE8v
-         Cfm60W1HnviLi9VvzOsDK094SPKElw6VB2w3AZ6dAYYMpdIIj3HyQoOxsagMqpf5gTbH
-         E8dvpb9wrn3hLr9h1Iu/WcPcC3tY2m2C3aBe7Qu9JRplLD/tvWU9mjqNdDRh4PKJZ4WQ
-         kqid5pDy2iwbiTStyjrCNvgM29314mKl/Iku7faioHdLhJCRHuaK4D2pvBn0jIe6KNVD
-         D/K97TDewtisB9xODef61rfrP1IRaOkHimA/C9I5P1PNKtA3DVs0xgDyYhUGAxKvX/Nv
-         3nbQ==
-X-Forwarded-Encrypted: i=1; AL+hErFb92HLTHw9Z2yUeCSLfAb4XxZkxamhix0m218WebTPsIlmT8RuhaN0sNI1PotWWDasanAO0meQBsB5JJU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WpUbuQO64AOgedgBhi09t+WGOpAqeuYNrE0nVBAuMjHiW2UZq
-	KtpyyedvZwzwdID7xUYZj6rpDOWQMVVW1XrkY5AUvkBhk+SN5oi9+zldAgJ5r4ekkRE=
-X-Gm-Gg: AYBFou1aOrKARi9ORBMgsoZkNw0TUO5QGrpNfxyukdn4plJ2m8zGoSSvsmjzWWVhS9f
-	0hmDTqnIhB2TSeC9BiBjwGZO5UUpaOemRaFkxy+uEHhrORzQAYxel77R9ekkCI82lNskPDWONig
-	zwtMrE9rUW/kYlRe+k96tzpA+WJLVEMJjiEQxpfwtdwx81KR/gR6k2A1zK3758BcQs9cYZegJN7
-	xgiT+QK87MCZln1eluwOlXKJMf104UUcjUGmrauTAnnoYn8CGhV4NtpgWGjsQGRza7AuKcQiK68
-	26b13aEpp60IaV/iBSUKlKTjoyHRGD3S5rNeLp7K4Av7g+Bn4T6L4yxGm4dUAI4t/h/EZWr8A+r
-	+ibhDZnqHCjEcOTUo7dDAI/RcYdNICY6pgu+bADubTNwhGl93hAqVgLxY4z46HE2Fi50IorbCSL
-	f0ydEs6lhTfdziPXvm6i/rpsyBC/eIPzVBIxOnkCmraXD1TBN0Us9UUedkn37H0Lmq72Ng1RVCA
-	2K24tjuQ80Z8JdnisEBbScx5KFhZWzr8tKU4xgBEEy39luCILmZ/DMoyFtkGjJPtVVZjb4x8/2T
-	UptKN78sF3O3yXj9asoaVcBKZesyfDw=
-X-Received: by 2002:a05:600c:3494:b0:4bb:6c71:b268 with SMTP id 5b1f17b1804b1-4bb6c71c232mr97325545e9.6.1794848911805;
-        Mon, 16 Nov 2026 09:08:31 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c77393700sm22964108f8f.18.2026.11.16.09.08.29
+        d=1e100.net; s=20260707; t=1794848915; x=1795453715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TyCAJqbOKleGpgFRMJoCvGXwTdjbSq8dLcDtNLIxJcA=;
+        b=a9IPpepR3u5zK/EYJYEhCdGXF3QAFp2BK2vDKKjsGevzeXwlobkyERpodhykT3faCC
+         2X21aNii3q/T3uvnK1f0rjP4r0q/EfxoQFVafItk9hffRaaUDry4lbTEbh7k3pV1gpoy
+         j8/ly2mhh+CXEbZ7M4WTCdYHA+eYnO/40a2t04o/l1ftpTOIRGHg5rGuUPgQa0Q4Uk8T
+         gXmK61xhsyMh8TXtfX2jwKoqY0yMnnxvx70+J7JIRNHoaLOKIiJHvSjLihzQOkyuVVA/
+         MeJlnVOsWQQre9LX2HIzthm9p2pzRlyDts0MBj/oGrsAZKZrubREdRkTbjKcLzEGm0Xy
+         KhYg==
+X-Forwarded-Encrypted: i=1; AL+hErGAnHqaPn+5oB4fx+CdnBG3TWOH/mLY7x8tIIB9PCJs9pHcZtxJubnqWfrc/4z90kEq+GZ0DqCjFXcZtu0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88DRz0dBzEK571JqWNrp26h93xW/1anfe4kR7FzkANvG2tJYsV
+	hOE7K//NcU3Hnv3+53e+tXMSClxBcJ6Z+DdpLQBxy4cC3EEvPGvfH4BV
+X-Gm-Gg: AZFdTZeT0yI8pj4yAPZ4pubNV2YfMFPoIrC8qBRgXqmmMaEVQOBltWYsjmA7Wqxbt00
+	eOuV0UIwsa12vZx8wlvZ2/R+VHj0mvliOMpNi0J4WQ99U1YcG/A2q/0hR3v3OqdrlH2f/1YB7z3
+	laDu31NGX7Crv++qIb9x8sc6gxq9sZuCvbO+jNuBIYlDiAofcTfHFoIvLhcvfV35p8v/cAecnxM
+	uICo9YC5RY288RHZKvNduVtveNS/ChDYuXIthB8LDCOMF7/3zlsAWfnL8xIJWW9i1MlraJJ1qAV
+	KC3F5YZeyGuB0QXv7WDXDZccJsE4jQXaZNj+o9ZcSKToSjM+ByODkB95ZipTNgJsoqRYCuUaIG4
+	mjJBFwfhkXOLZd0F+9H72Vxiz65bYXjVrN1Qe9LuNSPr1AvoV0IPJOYsSx0tzgUJ3RWl2R42wBc
+	KTx1c6GFhaP03juOPC1tHZPnZ70ihZxu1anwrC9ep62lIai1N6+y9VAeamNORhNwXVBTmlJ4eU0
+	jzM/mQS2n5Mxm//+9m0LFwCT5PeGj+E7UL/U1JAoqD3wgj9X9A8wSQtNhsLW7QvNQYum8UfNh7Y
+	WF04DLmLtgJ6vBaMi4ciBJNmn1d2qNdlvVTg8qpGdfAub5lH8Z9+pHVpr0S/C7kadzmXJhjcqg=
+	=
+X-Received: by 2002:a17:90b:4a88:b0:3aa:6b5d:9fe4 with SMTP id 98e67ed59e1d1-3b1b09f37b1mr9809235a91.12.1794848915345;
+        Mon, 16 Nov 2026 09:08:35 -0800 (PST)
+Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abbad610sm150901a91.2.2026.11.16.09.08.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:08:31 -0800 (PST)
-Date: Mon, 16 Nov 2026 18:08:26 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: john.ogness@linutronix.de, rostedt@goodmis.org,
-	senozhatsky@chromium.org, mingo@redhat.com, peterz@infradead.org,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, kees@kernel.org, anna-maria@linutronix.de,
-	frederic@kernel.org, tglx@kernel.org, mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com, brendan.jackman@linux.dev,
-	hannes@cmpxchg.org, ziy@nvidia.com, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC PATCH v2 4/5] printk, tracing: Support console flush
- suppression and tail pinning
-Message-ID: <avs4igB_mEc9U-Yw@pathway.suse.cz>
-References: <20261103024453.922373-1-atomlin@atomlin.com>
- <20261103024453.922373-5-atomlin@atomlin.com>
+        Mon, 16 Nov 2026 09:08:34 -0800 (PST)
+From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dan Carpenter <error27@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Avishek Chaulagain <chaulagainavishek14@gmail.com>
+Subject: [PATCH v2 1/3] media: atomisp: Remove unused any_virq_signal()
+Date: Mon, 16 Nov 2026 17:08:11 +0000
+Message-ID: <ab38fba11a3d7c38f50c5bd4751494b4f6281d6e.1794845230.git.chaulagainavishek14@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,137 +105,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103024453.922373-5-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon 2026-11-02 21:44:52, Aaron Tomlin wrote:
-> When collecting high-volume diagnostic output into the printk ring
-> buffer during a kernel crash prior to kexec, synchronous console
-> emission can stall the panicking CPU for tens of seconds on slow serial
-> or IPMI Serial-over-LAN links, risking external hardware watchdog
-> resets. At the same time, uninhibited ring buffer rotation can wrap and
-> overwrite the initial Oops, faulting registers, and primary call trace.
-> 
-> Introduce two scoped mechanisms for in-memory crash telemetry
-> collection:
-> 
->     1.  Console flush suppression
+any_virq_signal() has no callers anywhere in the tree. Remove the
+unused function and its declaration.
 
-Nit: We already use the word "suppress" for filtering less important
-     messages on the console, see suppress_message_printing().
+Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+---
+ .../media/atomisp/pci/hive_isp_css_common/host/irq.c      | 8 --------
+ .../atomisp/pci/hive_isp_css_include/host/irq_public.h    | 6 ------
+ 2 files changed, 14 deletions(-)
 
-     I would prefer to use another name to avoid confusion.
-     We basically want to "block" or "pause" consoles here.
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
+index 61dea3863..f1b01f5f9 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
+@@ -215,14 +215,6 @@ void irq_raise(
+ 	return;
+ }
+ 
+-bool any_virq_signal(void)
+-{
+-	unsigned int irq_status = irq_reg_load(IRQ0_ID,
+-					       _HRT_IRQ_CONTROLLER_STATUS_REG_IDX);
+-
+-	return (irq_status != 0);
+-}
+-
+ void cnd_virq_enable_channel(
+     const enum virq_id				irq_ID,
+     const bool					en)
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h
+index 901e10f87..b487b7f31 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h
+@@ -103,12 +103,6 @@ void irq_raise(
+     const irq_ID_t				ID,
+     const irq_sw_channel_id_t	irq_id);
+ 
+-/*! Test if any IRQ channel of the virtual super IRQ has raised a signal
+-
+- \return any(VIRQ.channel[irq_ID] != 0)
+- */
+-bool any_virq_signal(void);
+-
+ /*! Enable an IRQ channel of the virtual super IRQ
+ 
+  \param	irq[in]				IRQ (channel) identifier
+-- 
+2.43.0
 
-> 
->         Provide printk_suppress_console_flush(bool) to clear the console
->         flush mask in printk_get_console_flush_type(), guard legacy
->         record emission and kthread wakeups, and suppress
->         wake_up_klogd() in vprintk_emit(). Records written via
->         vprintk_store() are stored in the in-memory ring buffer while
->         bypassing synchronous hardware console emission and kthread
->         wakeups.
-
-We already have similar infrastructure for suspend, see
-console_suspend_all().
-
-We should not use a completely different aproach to achieve
-the same. It would just complicate the code and design.
-
-I suggest to add CON_PAUSED flag and handle it similar
-way as CON_SUSPENDED flag. It should be enough to:
-
-   + update console_is_usable().
-   + add console_pause_all_in_panic()
-
-, where the console_pause_all_in_panic() would do similar
-things as console_suspend_all() with the following differences:
-
-  + no flush
-  + take console_srcu_read_lock() instead of console_list_lock()
-  + no synchronize_srcu()
-
-And I think that it will be only a one-way operation. We do not
-need a resume part.
-
-
->     2.  Ring buffer tail pinning
-> 
->         Provide printk_mark_panic_start(), printk_clear_panic_start(),
->         printk_freeze_tail(bool), and printk_is_tail_full(). Recording
->         the next reserved sequence number at the start of a crash (or
->         clamping to prb_first_valid_seq(prb) if the crash output itself
->         already wrapped the buffer) allows data_make_reusable() and
->         desc_push_tail() to continue recycling older pre-crash records
->         while refusing to advance the tail past the pinned crash
->         sequence number. Once the watermark is reached, prb_reserve(),
->         prb_reserve_in_last(), and ftrace_dump_one() finalize the last
->         record and stop reserving descriptors or consuming trace entries
->         so the primary crash context and remaining trace buffer remain
->         intact.
-> 
-> --- a/kernel/printk/printk_ringbuffer.c
-> +++ b/kernel/printk/printk_ringbuffer.c
-> @@ -377,6 +377,90 @@ static struct prb_data_block *to_block(struct prb_data_ring *data_ring,
->  	return (void *)&data_ring->data[DATA_INDEX(data_ring, begin_lpos)];
->  }
->  
-> +static atomic64_t printk_panic_seq = ATOMIC64_INIT(U64_MAX);
-> +static bool printk_tail_frozen;
-> +static bool printk_tail_full;
-> +
-> +/**
-> + * printk_mark_panic_start - record the ring buffer sequence at crash start
-> + *
-> + * Pin the next reserved sequence number at the beginning of a top-level Oops,
-> + * fatal warning, or panic so subsequent tail freezing can recycle older
-> + * pre-crash records without overwriting the primary crash output.
->
-> + * Context: Any context.
-> + * Return: true if this call newly pinned the crash start sequence from
-> + *         U64_MAX, false if a crash start sequence was already active.
-> + */
-> +bool printk_mark_panic_start(void)
-> +{
-> +	s64 panic_seq = atomic64_read(&printk_panic_seq);
-> +	u64 first_seq, next_seq;
-> +	bool pinned;
-> +
-> +	do {
-> +		first_seq = prb_first_valid_seq(prb);
-> +		if ((u64)panic_seq == U64_MAX) {
-> +			next_seq = prb_next_reserve_seq(prb);
-> +			pinned = true;
-> +		} else if ((u64)panic_seq < first_seq) {
-> +			next_seq = first_seq;
-> +			pinned = false;
-
-What scenario does this handle, please?
-Why do we need to move the "pin" when there are concurrent callers?
-What happens when the original caller clears the pin and
-the other racy caller continues with panic()?
-
-> +		} else {
-> +			return false;
-> +		}
-
-
-
-
-> +	} while (!atomic64_try_cmpxchg(&printk_panic_seq, &panic_seq, next_seq));
-
-Are the atomic64 operations safe in NMI? I would expect that they use
-some locking.
-
-I am afraid that we might need another approach.
-
-IMHO, it would be much easier when the caller knows whether it will
-panic() or not. And the panicing caller would just freeze buffer so
-that the next_seq will always stay there.
-
-Finally, please split the console pausing and ring buffer freezing
-into separate patches.
-
-Best Regards,
-Petr
