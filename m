@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794814815;
-	b=VBc6Wz7bLuzbC7A7IK2esA6TFz3+Ktecc2givzQ6DH8+rWHw2KywJsCnLZnfORMrvTyY
-	 sN5bikpNFL/UGZhTFNE3f32/sVXa/foBQAUizHvXC4bA+Ic7yBPbafxfnB17/x0xV6Q7Z
-	 Y/XIJ+50BoBK5KEsWrOJt8Pf/QQqYadaq3nO4naWVJKGGyen5L6K/rUjaXq1qZmxeETSb
-	 p544GjBtvxgORGshf+i+uuzttuhZhwlN0A/lbvmjJYiX+dwjO2qbS0Rbi6CK8GPatltpo
-	 KAym3fK4W95i5J2X0WbEBnB3sxsOeBbsSmpzcoFhAk6XVRyl9bo3SBVKiAQfRTWykgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814815;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=f+Gv5tlV4zUUkBpeUFywpbDeZDQcRUN2VFaqw3JTDhA=;
-	b=GXDif8AEkaGBfgyt/WNC2eD8WG7uHnSe/erRi0fEfwcnktLWBpEWPZpRuJu65iYFMgYB
-	 oswNXt35yeHIZjweH6gQJp5Ah2qfkWRxkAKAxx74L5yIzJp9emGh6O4PnY+DDaXOqhqaQ
-	 b4WsofOaMD8qWxU4JqA/jPCwEgwjCuhUbvj6Rz1rKKH4DdEIVaKzNYpjsXBtJVAeCD20Y
-	 hJf/DhIYkRzA5WV+93xCuxPlPRqOYkAoW3n5M2G9IsGIQfklHbh7DKVkOPep0VSi5P5RC
-	 5rkEXaMIrTxMNykvTUzMQ+PsYUxMu4nw2YzMs3cdjzDYGNSYEUNEsQFvKKUOiuHw1Ng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E3lrMefc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAF7606A89D;
-	Mon, 16 Nov 2026 07:40:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E3lrMefc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794814815;
-	b=CVMEMGzNiguu+YZi5pwC632QPkPp0Y/u3p4om1GkNdg47dESUUzMHm++85MzYzQjnIVF
-	 Gu1z61E12UEthEsbcUshw3VGiOZs1jtqv5p5wAc23SME66EPBvg7yyyg043fXllpAjo8L
-	 ZdHtqrCF8fk9pvufr88p3w+himN3EyvcuOFzNWGCFriYsQ2rPnBXfj23Hv8FuInG0STRy
-	 nmpxGzTt1BuWXKu4gzyQFHwlGcrQlPqU/3yIsmV7YhsW3YZ9el9zBlHQLSzs1zFoYuBGE
-	 ujGbprRSeRiHs5Ug8uLK9W+ql8Gh7rqkk8VSX3N/11XTGhPAf/+7iWk02xVqEgBeI9g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794814815;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=f+Gv5tlV4zUUkBpeUFywpbDeZDQcRUN2VFaqw3JTDhA=;
-	b=UNS813IUZJxKe/ZsfLGgwUfOlFWgNvKA9oBb6MRMcHCPxWmos+AKIzUFrjHkmBRGEAGN
-	 Ox8bKtCJeFOFpptZe340ZAFHufLRlIuLnyKXXvJFGIkfLJfoUyqgiYVpfATYou3O0LC9r
-	 Bze0z2BwFXchBqASLU0CKb06aqKLbIwpI5FTqV41psDtAJXw0OPMv2TB3XLTWnF+7JL2g
-	 TXwiBKVR3HiTY72MY+wbWaM4erGAoYnu+gWYpJzlZ3S8f9CvuSWWp4azG4Yye5lPdLB8/
-	 HPCeOVAZNYA7uIF2jEhP4VKw6DpWrlnP5s6rhb26BYrHmY+Aqadw3XTGKoxLdrTGfnA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794814822;
+	b=FGDVosD9zJQxlSS3C8Rl8HJJWViPWSBIpnd0ss4b5zc6Rypq7wmzOnRwvi/yzoYWd+WO
+	 TaEOSLAoVQTeWtp3zhVQBPmMYtM4BjkhxTpTVRhVWk5qr3YnqGM4twM2SNmXc6z2yllhG
+	 pUswGD5f6b0Xv1uyv4wIHJ4u0IQklN1xh4g0zycxpmxbEICo4Hfi2+m4Y83is7qQYQkMM
+	 bCdyZtTdH2dI0lcP2nEAPUHd9ZsSKtYjY8XegjWUZ6rRCzfCqNXwwlzyFRAWajIMmaL26
+	 PMFIG+gcmvm94UQhiplLYbNeTZ5VO2pkUp50hzUxq2xP9sTbqqvBJC9mXxX3T/9rWZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814822;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=5q2vqaLMVanG3uyAfck7GRBehYkwOnaylcFO6TLMMZ4=;
+	b=MdJ+WNpRJ92YSdmQHt8H179+JRCJctkXdvecXycxtkhXVInNq8BIbhFlvGOljCB0fenu
+	 rpxcLv8McfWpUfBYWicB9rLrpDmVj/FUA3YcGpDnxb2NwnIAystx5AAeHdkW3shIeQq1Q
+	 qcQjjDkUFAUxXQeOnV0lBfP9fA9hGeAOUxvrWIGw9NvGsa77UjPmErntyykncItGPovPr
+	 pcGDj9S2dsEXN/msUjlaWqduFh1IvYA8Gpg+3uiijIkUgUaJyyJOGIoxSaNCVjQeuMVPn
+	 RmxmrqJIt18IlRYzb7g+W6sMDYe/sT5dP90gD6AHB7MletEymfA7rio/RVYm4/2lNZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pCI96U4r;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 80D701F000C9;
-	Mon, 16 Nov 2026 07:40:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794814815;
-	bh=f+Gv5tlV4zUUkBpeUFywpbDeZDQcRUN2VFaqw3JTDhA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=E3lrMefclXp8wJlYc7jW8iE1QYYbPeAPJCVJcRX7F/F6s091AW9NQo2R55tclr4ry
-	 RD2p83TcNAI1Zu3akr6VwP9ToVBX2DnhXQMAurunWf1c0kuOpaajEjl7YhVYDkQMql
-	 UVJUyAgC4SkbBzYXqFgjIm9azbR0It0TACQqk3guMdo4Wriv4XdBaRVv63isBvzy7t
-	 ca3j2q02/0jfTdkRrab0hNnzOXtJV1PxAcSEBAn9sASUn4RxoFq0DjuOBGqxWsBTgZ
-	 H60gfMApPz7RoY+BZLVemEyfZLqPsROYaYPIf/B8vLMMS05mRMdv4Xsn/LrJBDoG4G
-	 FkIkGFDZmB+IA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0F5164A3A9;
-	Mon, 16 Nov 2026 07:40:13 +0000 (UTC)
-From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 13:10:13 +0530
-Subject: [PATCH v2 2/2] drm/panel: Add Ilitek ILI97680A DSC command mode
- panel driver
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4510160A3809
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:40:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4510160A3809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pCI96U4r
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so12258915e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:40:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794814820; x=1795419620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5q2vqaLMVanG3uyAfck7GRBehYkwOnaylcFO6TLMMZ4=;
+        b=pCI96U4rJ3fkfRXIUx1URe/cWvAnFzntHgbn4z5TXBsN6pPDnBCiJr6KNP7q3XXQ3h
+         JwbxVDQvjAMK1woQPW6l4daJZySeKjutVAjq2DXjArfWtE+JzHBWj4X7Fi8H4OAVTh0d
+         2hCeHAXj7CDZgNr32n/xU9rWdgZb92Xkg1RrOu/Sw7Idng7oT46NV4VhSDYhHeL6CN10
+         lJ5Ze7C0I4AqBY5VptB1XH3ylCbZkozCPYLo33g2+mWeT0Ubb3cV5jPYKBrAYI/XqHFb
+         4o9wgf3d2Le7IrVEGx/Sz9+zRHyOfE2qH6g2Bnmp7YVjt/aETU84YBRhhlo7k+3JesAE
+         omDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794814820; x=1795419620;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5q2vqaLMVanG3uyAfck7GRBehYkwOnaylcFO6TLMMZ4=;
+        b=JmcaEMhsfTt0Ycpe/Gk9KM4m4LYI/4sNhDIQWIaUWDjx/sh2UoP/+P8+2UFSPoTqGu
+         wr11LHb1ocAAVs4iyGXKdasC7YYqaDxF2bDaRLW5ty+2y0eVqMmRMB6lxMYswMhE9JJx
+         cNUGlAREfEIEzlGJgNUJe0g2QFhQjq7ujow7bo04Z7NzO22IuQZppmFH/mOOREDmZR6K
+         4uU7DNXl9UIKnYoGEcuIuZWjnHcAAjUQqvFSC/IPxtLmgswckVreFFSqkOn7SSXfUCsm
+         pIDTvashj5CG0craMo8TJ15q0rD7nlrtoBkIY+YRTx97Ys3kPji4bdB2k1uqrL1C1pT0
+         cmDw==
+X-Forwarded-Encrypted: i=1; AL+hErF4WBQVfax3hyDgaNacg9s63ZYfJGH+KX3sxLSD/bOAs9PtdrhOmFrfsYOlmnNvE3+wK4TDiRIaXaa1Nt0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/XBQU6M/Qd4J8fbzMapKFETamynonzp51ULcqVqlATvyCKcjx
+	VFb3+07jCCRFA5nDK4pNO45BBZ7w2P3r1s9ToICeZkIU++X/YtZOsesL
+X-Gm-Gg: AYBFou2/XfijMG0exH/Z43VYAvmcxZGByjjO9zIrCpXO6hcdVEHgiK/zNosjGt1f6Tf
+	wGWBVlQP0kkM8nftmJQFe2VhNX9mzqPAZLOZy1PW4u4hKXRjjzUAHFtAvg6ejZMj7a9KF8X7V+p
+	G+6SaQZ8Z8WQFj5DXOOUkuQevquzidu38O+pDtWAYIGbfozrA0gde3y8SwLi0VLIPYe9ZyItLOm
+	yZmKzCvyzRF3cFKaVb+lm11GbaIom4jA2KprC3K5qzUN54+VXCAADaLAJuvl0siA2YxMjBFV5jm
+	4LFyinPJAlvj5HN7kYjFUpepM8U155hd312nHrGc/d7asTuN53iT8P8XKXfk3c44eeey1Q3kHNy
+	bralfKXKIFrgrbjFwCPjgu5foqhhKvAmqzqge01wfFWmjSIy8HAvPVKB0am4toY9EIyN1X58QeX
+	qOneR16ozsBaGlGFcrN5KiC9Flj5EBQgzp3HWu5IRqQlNDxSoASsg+rZI6nNN8GX5qG+6TJgsLr
+	NaJ0fNbP8yjHBLbn3f1kgV35MuMq/NdV2NwrmsrKVdGqe0I5tYuSZ5BzZc4jUM3x12mpA73MWh9
+	+aKC0672veA=
+X-Received: by 2002:a05:600c:1f90:b0:4a1:fba8:b13d with SMTP id 5b1f17b1804b1-4bb55a475e2mr194341975e9.9.1794814819368;
+        Sun, 15 Nov 2026 23:40:19 -0800 (PST)
+Received: from dl360p ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571cfa2esm259712705e9.2.2026.11.15.23.40.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:40:18 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v1 2/2] iio: proximity: add Imagis ISG5320A SAR sensor driver
+Date: Mon, 16 Nov 2026 10:40:13 +0300
+Message-ID: <20261116074013.355363-3-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116074013.355363-1-tadilhusrev@gmail.com>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,594 +106,924 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-vantage-panel-v2-2-e2ab48645e2c@yahoo.com>
-References: <20261116-vantage-panel-v2-0-e2ab48645e2c@yahoo.com>
-In-Reply-To: <20261116-vantage-panel-v2-0-e2ab48645e2c@yahoo.com>
-To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814811; l=24564;
- i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=rjks1WaUFG1tSSADM6hxDU6nxQN8DAaPKVrlMMeE2Dk=;
- b=KG8CHfTxo4LX5XKJ+Y8igxWpiH8vqOq9N5A+6B+sm0pp1gkw51a9gmsfMy0zBvfa4bCYd+5u+
- LH2yJlEqCk8BnB0GHwTTu9I8Hw8gdHS0lK47KqpYA5sNGlEvl5DGv59
-X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
- pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
-X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
- with auth_id=1303
-X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Reply-To: venkat.yadlapati@yahoo.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Add an IIO driver for the Imagis ISG5320A capacitive SAR/grip sensor
+(I2C), as fitted on the Samsung Galaxy XCover5. It exposes one
+IIO_PROXIMITY channel (the B-channel signal minus its baseline) and a
+rising/falling threshold proximity event.
 
-Add a driver for the 1264x2780 BOE AMOLED panel driven by an Ilitek
-ILI97680A, found in the Motorola Signature. The panel runs in DSI
-command mode on four lanes with DSC 1.2 at 10 bits per component and
-8 bits per pixel, two 632x20 slices per line.
+The driver was derived from the Samsung vendor driver during XCover5
+mainline bring-up with the help of an AI coding assistant (Claude Code,
+Anthropic), which drafted the mainline IIO driver; I reviewed every line
+and tested it on hardware.
 
-The picture parameter set is not taken from the standard DSC PPS packet
-but written to a vendor register on command page 7. Brightness is
-controlled through DCS with a range of 0 to 16180.
-
-Assisted-by: LLM
-Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
 ---
- drivers/gpu/drm/panel/Kconfig                  |  16 +
- drivers/gpu/drm/panel/Makefile                 |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili97680a.c | 494 +++++++++++++++++++++++++
- 3 files changed, 511 insertions(+)
+ drivers/iio/proximity/Kconfig    |  11 +
+ drivers/iio/proximity/Makefile   |   1 +
+ drivers/iio/proximity/isg5320a.c | 857 +++++++++++++++++++++++++++++++
+ 3 files changed, 869 insertions(+)
+ create mode 100644 drivers/iio/proximity/isg5320a.c
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 26ffa2378f55..070f152f01e2 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -353,6 +353,22 @@ config DRM_PANEL_ILITEK_ILI9488
- 	  Say Y if you want to enable support for panels based on the
- 	  Ilitek ILI9488 controller.
+diff --git a/drivers/iio/proximity/Kconfig b/drivers/iio/proximity/Kconfig
+index bb77fad2a..c5df6f0e0 100644
+--- a/drivers/iio/proximity/Kconfig
++++ b/drivers/iio/proximity/Kconfig
+@@ -67,6 +67,17 @@ config IRSD200
+ 	  To compile this driver as a module, choose M here: the module will be
+ 	  called irsd200.
  
-+config DRM_PANEL_ILITEK_ILI97680A
-+	tristate "Ilitek ILI97680A-based DSC command mode panels"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
++config ISG5320A
++	tristate "Imagis ISG5320A SAR proximity sensor"
++	depends on I2C
++	select REGMAP_I2C
 +	help
-+	  Say Y here if you want to enable support for Ilitek ILI97680A-based
-+	  DSI command mode panels with DSC, such as the 1264x2780 BOE panel in
-+	  the Motorola Signature. The panel is driven in command mode with
-+	  Display Stream Compression and its brightness is controlled over DCS.
++	  Say Y here to build a driver for the Imagis ISG5320A capacitive
++	  SAR/grip proximity sensor.
 +
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called panel-ilitek-ili97680a.
++	  To compile this driver as a module, choose M here: the module will
++	  be called isg5320a.
 +
- config DRM_PANEL_ILITEK_ILI9805
- 	tristate "Ilitek ILI9805-based panels"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 365f2e73f6b4..3ac5685662e3 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -34,6 +34,7 @@ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7836A) += panel-ilitek-ili7836a.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9488) += panel-ilitek-ili9488.o
-+obj-$(CONFIG_DRM_PANEL_ILITEK_ILI97680A) += panel-ilitek-ili97680a.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_CORE) += panel-ilitek-ili9806e-core.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_DSI) += panel-ilitek-ili9806e-dsi.o
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili97680a.c b/drivers/gpu/drm/panel/panel-ilitek-ili97680a.c
+ config ISL29501
+ 	tristate "Intersil ISL29501 Time Of Flight sensor"
+ 	depends on I2C
+diff --git a/drivers/iio/proximity/Makefile b/drivers/iio/proximity/Makefile
+index 4352833dd..6aa606fa5 100644
+--- a/drivers/iio/proximity/Makefile
++++ b/drivers/iio/proximity/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_CROS_EC_MKBP_PROXIMITY) += cros_ec_mkbp_proximity.o
+ obj-$(CONFIG_D3323AA)		+= d3323aa.o
+ obj-$(CONFIG_HX9023S)		+= hx9023s.o
+ obj-$(CONFIG_IRSD200)		+= irsd200.o
++obj-$(CONFIG_ISG5320A)		+= isg5320a.o
+ obj-$(CONFIG_ISL29501)		+= isl29501.o
+ obj-$(CONFIG_LIDAR_LITE_V2)	+= pulsedlight-lidar-lite-v2.o
+ obj-$(CONFIG_MB1232)		+= mb1232.o
+diff --git a/drivers/iio/proximity/isg5320a.c b/drivers/iio/proximity/isg5320a.c
 new file mode 100644
-index 000000000000..c6fb8cff1a69
+index 000000000..533267035
 --- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili97680a.c
-@@ -0,0 +1,494 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/iio/proximity/isg5320a.c
+@@ -0,0 +1,857 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Ilitek ILI97680A based DSI command mode panel with DSC, as found in the
-+ * Motorola Signature (BOE 1264x2780).
++ * Imagis ISG5320A capacitive grip (SAR proximity) sensor.
 + *
-+ * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++ * Register map, init table and every write sequence below come from the
++ * Samsung vendor driver (drivers/sensors/isg5320a.c + isg5320a_reg.h,
++ * Galaxy XCover5 5.10 tree, Copyright (C) Imagis Technology). Citations of
++ * the form "vendor :NNN" refer to lines in that isg5320a.c. This driver
++ * writes no register the vendor driver does not write, and only with the
++ * values the vendor writes; regmap enforces that through writeable_reg.
++ *
++ * The chip is used as one proximity channel: the vendor's "diff" value
++ * (CDC16_T - BSL16_B, i.e. the B-channel signal minus its baseline) is
++ * exposed as in_proximity0_raw, and the chip's CLOSE/FAR interrupt is
++ * exposed as IIO threshold events (rising = grip, falling = release).
 + */
 +
-+#include <linux/backlight.h>
++#include <linux/bits.h>
 +#include <linux/delay.h>
++#include <linux/device.h>
 +#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/irq.h>
++#include <linux/kernel.h>
++#include <linux/mod_devicetable.h>
 +#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/pm.h>
++#include <linux/pm_runtime.h>
++#include <linux/pm_wakeup.h>
++#include <linux/property.h>
++#include <linux/regmap.h>
 +#include <linux/regulator/consumer.h>
 +
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
++#include <linux/iio/events.h>
++#include <linux/iio/iio.h>
 +
-+#include <video/mipi_display.h>
++/* Registers (vendor isg5320a_reg.h :19-79) */
++#define ISG5320A_REG_IRQSRC		0x00	/* read releases the INT line */
++#define ISG5320A_REG_IRQSTS		0x01
++#define   ISG5320A_IRQSTS_PROX		BIT(4)	/* ISG5320A_PROX_STATE, reg.h :81 */
++#define ISG5320A_REG_OSCCON		0x06
++#define   ISG5320A_OSC_SLEEP		0xB0
++#define   ISG5320A_OSC_NORMAL		0xF0
++#define ISG5320A_REG_IRQFUNC		0x07
++#define   ISG5320A_IRQFUNC_ENABLE	0x0D
++#define   ISG5320A_IRQFUNC_DISABLE	0x13
++#define ISG5320A_REG_BS_ON_WD		0x19
++#define   ISG5320A_BS_WD_OFF		0x0A
++#define   ISG5320A_BS_WD_ON		0x8A
++#define ISG5320A_REG_SCANCTRL1		0x38
++#define   ISG5320A_SCAN_STOP		0x00
++#define   ISG5320A_CFCAL_START		0xDD
++#define ISG5320A_REG_SCANCTRL2		0x39
++#define   ISG5320A_SCAN2_RESET		0x00
++#define   ISG5320A_SCAN2_CLEAR		0x60
++#define   ISG5320A_BFCAL_START		0x07
++/* CDC16_T_H, CDC16_T_L, BSL16_B_H, BSL16_B_L (vendor :453) */
++#define ISG5320A_REG_CDC16_T_H		0x5C
++/* B_PROXCTL3..5: threshold, close hysteresis, far hysteresis (vendor :890) */
++#define ISG5320A_REG_B_PROXCTL3		0x9B
++#define ISG5320A_REG_DIGITAL_ACC	0xA4
++#define ISG5320A_REG_PROTECT		0xCD
++#define   ISG5320A_PROTECT_UNLOCK	0xDE
++#define ISG5320A_REG_SOFTRESET		0xFD
++#define   ISG5320A_SOFTRESET_VAL	0xDE
++#define ISG5320A_REG_CHIPID		0xFE
++#define ISG5320A_MAX_REG		0xFE
 +
-+#define ILI97680A_SWITCH_PAGE		0xff
-+#define ILI97680A_PPS			0x81
-+/* The panel takes the PPS through a vendor register, without its tail */
-+#define ILI97680A_PPS_LEN		94
++#define ISG5320A_VENDOR_CHIP_ID		0x32	/* vendor :39, never checked */
++#define ISG5320A_RESET_CONDITION	5000	/* reg.h :99, for cfcal_th */
 +
-+struct ili97680a {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct drm_dsc_config dsc;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *supplies;
++#define ISG5320A_AUTOSUSPEND_MS		5000
++
++struct isg5320a_reg_data {
++	u8 addr;
++	u8 val;
 +};
 +
-+/* In power-on order */
-+static const struct regulator_bulk_data ili97680a_supplies[] = {
-+	{ .supply = "vddio", .init_load_uA = 300000 },
-+	{ .supply = "vdd", .init_load_uA = 300000 },
-+	{ .supply = "vci", .init_load_uA = 100000 },
++/*
++ * Vendor setup_reg[] for "XCOVER5 ALL" (isg5320a_reg.h :283-435). The other
++ * table (:130-282) is under CONFIG_SENSORS_ISG5320A_XCOVER5_KOR, which the
++ * stock exynos850-xcover5xx_defconfig leaves unset; it differs only in
++ * 0x9C (threshold low byte), 0xA0 (far hysteresis low byte) and 0xBA.
++ */
++static const struct isg5320a_reg_data isg5320a_setup_reg[] = {
++	{ 0x05, 0xFC }, { 0x06, 0xF1 }, { 0x07, 0x13 }, { 0x08, 0x01 },
++	{ 0x09, 0x80 }, { 0x0A, 0x20 }, { 0x0B, 0x00 }, { 0x0C, 0x00 },
++	{ 0x12, 0x89 }, { 0x19, 0x8A }, { 0x1B, 0x28 }, { 0x1D, 0x20 },
++	{ 0x1E, 0x00 }, { 0x1F, 0x18 }, { 0x20, 0x05 }, { 0x21, 0x10 },
++	{ 0x22, 0x10 }, { 0x23, 0x00 }, { 0x24, 0x00 }, { 0x25, 0x05 },
++	{ 0x26, 0x05 }, { 0x27, 0x10 }, { 0x28, 0x20 }, { 0x29, 0x00 },
++	{ 0x2A, 0x20 }, { 0x2B, 0x00 }, { 0x2C, 0x00 }, { 0x2D, 0x20 },
++	{ 0x2F, 0x18 }, { 0x30, 0xC0 }, { 0x41, 0x11 }, { 0x60, 0xF0 },
++	{ 0x61, 0x8F }, { 0x62, 0x0C }, { 0x63, 0x00 }, { 0x64, 0x00 },
++	{ 0x65, 0x44 }, { 0x66, 0x3C }, { 0x67, 0x01 }, { 0x68, 0x00 },
++	{ 0x69, 0x00 }, { 0x6A, 0x10 }, { 0x6B, 0x00 }, { 0x6C, 0x10 },
++	{ 0x6D, 0x40 }, { 0x6E, 0x22 }, { 0x6F, 0x00 }, { 0x70, 0x01 },
++	{ 0x71, 0x60 }, { 0x72, 0xFF }, { 0x73, 0xFF }, { 0x74, 0xFF },
++	{ 0x7B, 0x08 }, { 0x7C, 0x00 }, { 0x7D, 0x0C }, { 0x7E, 0x00 },
++	{ 0x7F, 0xF8 }, { 0x80, 0xF8 }, { 0x81, 0x00 }, { 0x82, 0xF0 },
++	{ 0x83, 0xF0 }, { 0x84, 0xF0 }, { 0x85, 0xF0 }, { 0x86, 0xF0 },
++	{ 0x87, 0xF0 }, { 0x88, 0x00 }, { 0x89, 0x00 }, { 0x8A, 0x08 },
++	{ 0x8B, 0x00 }, { 0x8C, 0x02 }, { 0x8D, 0x00 }, { 0x99, 0x21 },
++	{ 0x9A, 0x3C }, { 0x9B, 0x01 }, { 0x9C, 0x2C }, { 0x9D, 0x00 },
++	{ 0x9E, 0x00 }, { 0x9F, 0x00 }, { 0xA0, 0x96 }, { 0xA1, 0xC0 },
++	{ 0xA2, 0x22 }, { 0xA3, 0x00 }, { 0xA4, 0x08 }, { 0xA5, 0x60 },
++	{ 0xA6, 0xFF }, { 0xA7, 0xFF }, { 0xA8, 0xFF }, { 0xA9, 0x00 },
++	{ 0xAF, 0x40 }, { 0xB0, 0x00 }, { 0xB1, 0x60 }, { 0xB2, 0x00 },
++	{ 0xB3, 0xD0 }, { 0xB4, 0x10 }, { 0xB5, 0x28 }, { 0xB6, 0xF0 },
++	{ 0xB7, 0xF6 }, { 0xB8, 0xFD }, { 0xB9, 0xDE }, { 0xBA, 0xFD },
++	{ 0xBB, 0xF0 }, { 0xBC, 0x00 }, { 0xBD, 0xFF }, { 0xBE, 0x01 },
++	{ 0xBF, 0x5E }, { 0xC0, 0x00 }, { 0xC1, 0x69 }, { 0xC2, 0xF0 },
++	{ 0xC3, 0x00 }, { 0xC4, 0x00 }, { 0xC5, 0x00 }, { 0x13, 0x3A },
++	{ 0x18, 0xF1 }, /* A ch : CS0, B ch : CS1 */
++	{ 0x1C, 0x18 }, { 0x35, 0x00 }, { 0x36, 0x00 }, { 0x3A, 0x0A },
++	{ 0x3B, 0x50 }, { 0x3C, 0x0A }, { 0x3D, 0x50 }, { 0x3E, 0x60 },
++	{ 0x94, 0x10 }, { 0x95, 0xA9 }, { 0x96, 0x11 }, { 0x2E, 0x14 },
++	{ 0x0E, 0xE0 }, { 0x0F, 0x1E }, { 0x10, 0xC0 }, { 0x11, 0xC1 },
++	{ 0xD0, 0xE0 }, { 0xD1, 0x08 }, { 0xD2, 0x00 }, { 0xD3, 0xFF },
++	{ 0xD4, 0xFF }, { 0xD5, 0x1E }, { 0xD6, 0x32 }, { 0xD7, 0xFF },
++	{ 0xD8, 0x20 }, { 0xD9, 0x70 }, { 0xDA, 0x7F }, { 0xDB, 0xE0 },
++	{ 0xDC, 0x00 }, { 0x76, 0x08 }, { 0x77, 0x00 }, { 0x79, 0x02 },
++	{ 0x7A, 0x00 }, { 0xAA, 0x36 }, { 0xAB, 0xB0 }, { 0xAD, 0x04 },
++	{ 0xAE, 0x00 },
 +};
 +
-+static inline struct ili97680a *to_ili97680a(struct drm_panel *panel)
++struct isg5320a_data {
++	struct device *dev;
++	struct regmap *regmap;
++	struct gpio_desc *int_gpio;
++	int irq;
++	/* Serialises multi-register chip sequences and the cached sample. */
++	struct mutex lock;
++	/* Serialises event enable/disable (sleeps in disable_irq()). */
++	struct mutex ev_lock;
++	bool ev_enabled;
++	bool close;
++	u16 cdc;
++	u16 base;
++	u16 thresh;
++	u16 close_hyst;
++	u16 far_hyst;
++	u32 cfcal_th;
++};
++
++static bool isg5320a_writeable_reg(struct device *dev, unsigned int reg)
 +{
-+	return container_of(panel, struct ili97680a, panel);
-+}
++	unsigned int i;
 +
-+#define ili97680a_switch_page(dsi_ctx, page) \
-+	mipi_dsi_dcs_write_seq_multi((dsi_ctx), ILI97680A_SWITCH_PAGE, \
-+				     0x5a, 0xa5, (page))
-+
-+static void ili97680a_reset(struct ili97680a *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(3000, 4000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(1000, 2000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(1000, 2000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	msleep(20);
-+}
-+
-+static void ili97680a_send_pps(struct mipi_dsi_multi_context *dsi_ctx,
-+			       const struct drm_dsc_config *dsc)
-+{
-+	struct drm_dsc_picture_parameter_set pps;
-+	u8 buf[1 + 5 + ILI97680A_PPS_LEN] = { ILI97680A_PPS };
-+
-+	drm_dsc_pps_payload_pack(&pps, dsc);
-+	memcpy(&buf[6], &pps, ILI97680A_PPS_LEN);
-+	mipi_dsi_dcs_write_buffer_multi(dsi_ctx, buf, sizeof(buf));
-+}
-+
-+static void ili97680a_on(struct ili97680a *ctx,
-+			 struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	ili97680a_switch_page(dsi_ctx, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4d, 0x01);
-+	ili97680a_switch_page(dsi_ctx, 0x4f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0xa4);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa4, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa5, 0x48);
-+	ili97680a_switch_page(dsi_ctx, 0x71);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x00, 0x80, 0x0a, 0xf3, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x00, 0x66, 0x09, 0x8f, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x87, 0x00, 0x60, 0x09, 0x36, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x00, 0x53, 0x08, 0x84, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x00, 0x46, 0x07, 0xd2, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x00, 0x80, 0x18, 0xb3, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8b, 0x00, 0x66, 0x17, 0xc2, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8c, 0x00, 0x60, 0x17, 0x86, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8d, 0x00, 0x53, 0x17, 0x0e, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0x00, 0x46, 0x16, 0x95, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x00, 0x80, 0x26, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x00, 0x66, 0x25, 0x99, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x91, 0x00, 0x60, 0x25, 0x80, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x00, 0x53, 0x25, 0x4c, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x93, 0x00, 0x46, 0x25, 0x19, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x94, 0x00, 0x80, 0x04, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x95, 0x00, 0x66, 0x04, 0x00, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x96, 0x00, 0x60, 0x04, 0x00, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x97, 0x00, 0x53, 0x04, 0x00, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x98, 0x00, 0x46, 0x04, 0x00, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x99, 0x0c, 0x19, 0x00, 0x80, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9a, 0x0a, 0x7b, 0x00, 0x66, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9b, 0x0a, 0x13, 0x00, 0x60, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9c, 0x09, 0x43, 0x00, 0x53, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9d, 0x08, 0x74, 0x00, 0x46, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9e, 0x04, 0x00, 0x0a, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0x04, 0x00, 0x16, 0x80, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa4, 0x04, 0x00, 0x16, 0x00, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb2, 0x19, 0xec, 0x00, 0x80, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3, 0x18, 0xbd, 0x00, 0x66, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb4, 0x18, 0x71, 0x00, 0x60, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb5, 0x17, 0xda, 0x00, 0x53, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb6, 0x17, 0x42, 0x00, 0x46, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcb, 0x25, 0xb9, 0x00, 0x80, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcc, 0x25, 0x61, 0x00, 0x66, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x25, 0x4b, 0x00, 0x60, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x25, 0x1f, 0x00, 0x53, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcf, 0x24, 0xf2, 0x00, 0x46, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe4, 0x04, 0x00, 0x00, 0x80, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe5, 0x04, 0x00, 0x00, 0x66, 0x04, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x04, 0x00, 0x00, 0x60, 0x14, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe7, 0x04, 0x00, 0x00, 0x53, 0x24, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe8, 0x04, 0x00, 0x00, 0x46, 0x04, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x49);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x01);
-+	ili97680a_switch_page(dsi_ctx, 0x5b);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc8, 0x03, 0x06, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc9, 0x04, 0x07, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xca, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcb, 0x06, 0x07, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcc, 0x01, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x09, 0x09, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcf, 0x03, 0x02, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd0, 0x02, 0x01, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd1, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd2, 0x16, 0x12, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd3, 0x09, 0x07, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd4, 0x07, 0x06, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd5, 0x03, 0x03, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd6, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd7, 0x19, 0x15, 0x16);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd8, 0x0b, 0x08, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd9, 0x09, 0x07, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xda, 0x04, 0x04, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdb, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdc, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdd, 0x24, 0x21, 0x1f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xde, 0x13, 0x10, 0x0d);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdf, 0x10, 0x0e, 0x0c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x09, 0x09, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe1, 0x01, 0x02, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe2, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe3, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe4, 0x2e, 0x2b, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe5, 0x1b, 0x17, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x18, 0x15, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe7, 0x0e, 0x0f, 0x09);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe8, 0x04, 0x04, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe9, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xea, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xeb, 0x00, 0x00, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x5c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x02, 0x02, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x02, 0x02, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x04, 0x04, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x08, 0x07, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x87, 0x02, 0x02, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x01, 0x01, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x13, 0x11, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8b, 0x07, 0x07, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8c, 0x06, 0x06, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8d, 0x01, 0x02, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x16, 0x14, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x09, 0x08, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x91, 0x07, 0x07, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x02, 0x02, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x93, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x94, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x95, 0x30, 0x2c, 0x18);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x96, 0x0e, 0x0d, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x97, 0x0b, 0x0b, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x98, 0x05, 0x05, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x99, 0x01, 0x01, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9a, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9b, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9c, 0x45, 0x33, 0x1d);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9d, 0x12, 0x11, 0x09);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9e, 0x0f, 0x0f, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9f, 0x07, 0x08, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa0, 0x01, 0x01, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x10, 0x18, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcf, 0x10, 0x18, 0x10);
-+	ili97680a_switch_page(dsi_ctx, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc6, 0x01);
-+	ili97680a_switch_page(dsi_ctx, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd2, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xed, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x45, 0xff);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xee, 0xff, 0xfd, 0xff, 0xfd, 0xf9, 0xfa, 0xbe, 0x76);
-+	ili97680a_switch_page(dsi_ctx, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x01, 0x80, 0x23);
-+	ili97680a_switch_page(dsi_ctx, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x22);
-+	ili97680a_switch_page(dsi_ctx, 0x09);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0x03);
-+	ili97680a_switch_page(dsi_ctx, 0x1e);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc1, 0x70);
-+	ili97680a_switch_page(dsi_ctx, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x01);
-+	ili97680a_switch_page(dsi_ctx, 0x1c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe1,
-+				     0x10, 0x80, 0x9a, 0x65, 0x59, 0x54, 0x69, 0x95,
-+				     0x56, 0x6a, 0x55, 0x99, 0x9a, 0x55, 0x55, 0x25,
-+				     0x58, 0x55, 0x66, 0xa2);
-+	ili97680a_switch_page(dsi_ctx, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd5, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbc, 0x06);
-+	ili97680a_switch_page(dsi_ctx, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xab, 0xaf, 0x86);
-+	ili97680a_switch_page(dsi_ctx, 0x4b);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xee, 0x10);
-+	ili97680a_switch_page(dsi_ctx, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbd, 0xd1);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb, 0x29);
-+	ili97680a_switch_page(dsi_ctx, 0x1c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd3, 0x43);
-+	ili97680a_switch_page(dsi_ctx, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc8, 0x62);
-+	ili97680a_switch_page(dsi_ctx, 0x21);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa4, 0x38);
-+	ili97680a_switch_page(dsi_ctx, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x15);
-+	ili97680a_switch_page(dsi_ctx, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x08);
-+	ili97680a_switch_page(dsi_ctx, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x61, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x00, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x31);
-+	ili97680a_switch_page(dsi_ctx, 0x2d);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x55);
-+	ili97680a_switch_page(dsi_ctx, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x2d);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x98, 0x01, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x01, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf2, 0x01);
-+	ili97680a_switch_page(dsi_ctx, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8b, 0x21, 0xe0);
-+	ili97680a_send_pps(dsi_ctx, &ctx->dsc);
-+	ili97680a_switch_page(dsi_ctx, 0x00);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 120);
-+	ili97680a_switch_page(dsi_ctx, 0x53);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x3d);
-+	ili97680a_switch_page(dsi_ctx, 0x51);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0xac, 0xac, 0xac, 0xac, 0x22, 0x22);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0xac, 0xa5, 0xa5, 0xa5, 0x22, 0x22);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0xa5, 0x98, 0x98, 0x98, 0x22, 0x22);
-+	ili97680a_switch_page(dsi_ctx, 0x52);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0xe2, 0x94, 0x77, 0x77, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x77, 0x76, 0x76, 0x76, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x76, 0x6e, 0x6e, 0x6e, 0x00, 0x00);
-+	ili97680a_switch_page(dsi_ctx, 0x00);
-+	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 20);
-+}
-+
-+static int ili97680a_off(struct ili97680a *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	ili97680a_switch_page(&dsi_ctx, 0x00);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 190);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ili97680a_prepare(struct drm_panel *panel)
-+{
-+	struct ili97680a *ctx = to_ili97680a(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ili97680a_supplies), ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ili97680a_reset(ctx);
-+	ili97680a_on(ctx, &dsi_ctx);
-+	if (dsi_ctx.accum_err) {
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(ili97680a_supplies), ctx->supplies);
-+		return dsi_ctx.accum_err;
++	switch (reg) {
++	case ISG5320A_REG_OSCCON:
++	case ISG5320A_REG_IRQFUNC:
++	case ISG5320A_REG_BS_ON_WD:
++	case ISG5320A_REG_SCANCTRL1:
++	case ISG5320A_REG_SCANCTRL2:
++	case ISG5320A_REG_PROTECT:
++	case ISG5320A_REG_SOFTRESET:
++		return true;
 +	}
 +
-+	return 0;
++	for (i = 0; i < ARRAY_SIZE(isg5320a_setup_reg); i++)
++		if (isg5320a_setup_reg[i].addr == reg)
++			return true;
++
++	return false;
 +}
 +
-+static int ili97680a_unprepare(struct drm_panel *panel)
++static bool isg5320a_precious_reg(struct device *dev, unsigned int reg)
 +{
-+	struct ili97680a *ctx = to_ili97680a(panel);
++	/* Reading IRQSRC acknowledges the interrupt; keep debugfs off it. */
++	return reg == ISG5320A_REG_IRQSRC;
++}
++
++static const struct regmap_config isg5320a_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = ISG5320A_MAX_REG,
++	.writeable_reg = isg5320a_writeable_reg,
++	.precious_reg = isg5320a_precious_reg,
++	.cache_type = REGCACHE_NONE,
++};
++
++/* Wait for the INT line to reach @level: up to 10 x 5 ms (vendor :262, :281). */
++static int isg5320a_wait_int(struct isg5320a_data *data, int level)
++{
++	int cnt;
++
++	if (!data->int_gpio) {
++		msleep(50);
++		return 0;
++	}
++
++	for (cnt = 0; cnt < 10; cnt++) {
++		if (gpiod_get_raw_value_cansleep(data->int_gpio) == level)
++			return cnt;
++		usleep_range(5000, 5100);
++	}
++
++	return -ETIMEDOUT;
++}
++
++/* vendor isg5320a_reset(), :247-292, plus a CHIPID read the vendor never does */
++static int isg5320a_reset(struct isg5320a_data *data)
++{
++	struct device *dev = data->dev;
++	unsigned int val;
 +	int ret;
 +
-+	ret = ili97680a_off(ctx);
++	usleep_range(5000, 5100);				/* :255-256 */
++
++	ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :258 */
++	if (ret)
++		return dev_err_probe(dev, ret, "no response at IRQSRC\n");
++
++	ret = regmap_read(data->regmap, ISG5320A_REG_CHIPID, &val);
++	if (ret)
++		return dev_err_probe(dev, ret, "CHIPID read failed\n");
++	if (val == ISG5320A_VENDOR_CHIP_ID)
++		dev_info(dev, "CHIPID 0x%02x\n", val);
++	else
++		dev_warn(dev, "CHIPID 0x%02x (vendor header says 0x%02x; not enforced)\n",
++			 val, ISG5320A_VENDOR_CHIP_ID);
++
++	if (isg5320a_wait_int(data, 1) < 0)			/* :262-266 */
++		dev_warn(dev, "INT did not go high before reset\n");
++
++	ret = regmap_write(data->regmap, ISG5320A_REG_PROTECT,	/* :268-271 */
++			   ISG5320A_PROTECT_UNLOCK);
++	if (ret)
++		dev_warn(dev, "unlock protect failed: %d\n", ret);
++
++	ret = regmap_write(data->regmap, ISG5320A_REG_SOFTRESET,	/* :273-276 */
++			   ISG5320A_SOFTRESET_VAL);
++	if (ret)
++		dev_warn(dev, "soft reset write failed: %d\n", ret);
++
++	usleep_range(1000, 1100);				/* :278 */
++
++	ret = isg5320a_wait_int(data, 0);			/* :280-289 */
 +	if (ret < 0)
-+		dev_err(&ctx->dsi->dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(ili97680a_supplies), ctx->supplies);
++		return dev_err_probe(dev, -EIO, "INT not asserted after soft reset\n");
++	dev_dbg(dev, "reset done, wait cnt %d\n", ret);
 +
 +	return 0;
 +}
 +
-+static const struct drm_display_mode ili97680a_mode = {
-+	.clock = (1264 + 31 + 16 + 32) * (2780 + 58 + 2 + 42) * 60 / 1000,
-+	.hdisplay = 1264,
-+	.hsync_start = 1264 + 31,
-+	.hsync_end = 1264 + 31 + 16,
-+	.htotal = 1264 + 31 + 16 + 32,
-+	.vdisplay = 2780,
-+	.vsync_start = 2780 + 58,
-+	.vsync_end = 2780 + 58 + 2,
-+	.vtotal = 2780 + 58 + 2 + 42,
-+	.width_mm = 72,
-+	.height_mm = 157,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int ili97680a_get_modes(struct drm_panel *panel,
-+			       struct drm_connector *connector)
++/* vendor isg5320a_initialize(), :614-660, without the /sdcard override */
++static int isg5320a_initialize(struct isg5320a_data *data)
 +{
-+	return drm_connector_helper_get_modes_fixed(connector, &ili97680a_mode);
-+}
-+
-+static const struct drm_panel_funcs ili97680a_panel_funcs = {
-+	.prepare = ili97680a_prepare,
-+	.unprepare = ili97680a_unprepare,
-+	.get_modes = ili97680a_get_modes,
-+};
-+
-+static int ili97680a_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
++	struct device *dev = data->dev;
++	unsigned int i, val, mismatch = 0;
++	u8 buf[6];
 +	int ret;
 +
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++	guard(mutex)(&data->lock);
 +
-+	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++	ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :625 */
++	if (ret)
++		return ret;
++	ret = regmap_write(data->regmap, ISG5320A_REG_SCANCTRL1,	/* :626 */
++			   ISG5320A_SCAN_STOP);
++	if (ret)
++		return ret;
++	msleep(30);						/* :627 */
 +
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++	for (i = 0; i < ARRAY_SIZE(isg5320a_setup_reg); i++) {	/* :631-637 */
++		const struct isg5320a_reg_data *r = &isg5320a_setup_reg[i];
++
++		ret = regmap_write(data->regmap, r->addr, r->val);
++		if (ret)
++			return dev_err_probe(dev, ret, "init write 0x%02x failed\n",
++					     r->addr);
++		ret = regmap_read(data->regmap, r->addr, &val);
++		if (ret)
++			return ret;
++		if (val != r->val) {
++			mismatch++;
++			dev_dbg(dev, "reg 0x%02x wrote 0x%02x read 0x%02x\n",
++				r->addr, r->val, val);
++		}
++	}
++	dev_info(dev, "init table: %zu writes, %u read back different\n",
++		 ARRAY_SIZE(isg5320a_setup_reg), mismatch);
++
++	/* :646-650 reads the threshold; :890-897 reads all six bytes */
++	ret = regmap_bulk_read(data->regmap, ISG5320A_REG_B_PROXCTL3, buf,
++			       sizeof(buf));
++	if (ret)
++		return ret;
++	data->thresh = (buf[0] << 8) | buf[1];
++	data->close_hyst = (buf[2] << 8) | buf[3];
++	data->far_hyst = (buf[4] << 8) | buf[5];
++
++	ret = regmap_read(data->regmap, ISG5320A_REG_DIGITAL_ACC, &val);	/* :653-657 */
++	if (ret)
++		return ret;
++	data->cfcal_th = ISG5320A_RESET_CONDITION * val / 8;
++
++	dev_info(dev, "threshold %u, close hyst %u, far hyst %u, cfcal_th %u\n",
++		 data->thresh, data->close_hyst, data->far_hyst, data->cfcal_th);
++
++	return 0;
++}
++
++/* vendor isg5320a_set_mode(SLEEP), :749-755 */
++static int isg5320a_mode_sleep(struct isg5320a_data *data)
++{
++	unsigned int val;
++	int ret;
++
++	guard(mutex)(&data->lock);
++
++	ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);
++	if (ret)
++		return ret;
++	ret = regmap_write(data->regmap, ISG5320A_REG_SCANCTRL1, ISG5320A_SCAN_STOP);
++	if (ret)
++		return ret;
++	ret = regmap_write(data->regmap, ISG5320A_REG_OSCCON, ISG5320A_OSC_SLEEP);
++	if (ret)
++		return ret;
++	return regmap_write(data->regmap, ISG5320A_REG_BS_ON_WD, ISG5320A_BS_WD_OFF);
++}
++
++/*
++ * vendor isg5320a_set_mode(NORMAL), :749 + :757-758, which runs
++ * isg5320a_force_calibration(data, false), :302-321.
++ */
++static int isg5320a_mode_normal(struct isg5320a_data *data)
++{
++	struct regmap *map = data->regmap;
++	unsigned int val;
++	int ret;
++
++	guard(mutex)(&data->lock);
++
++	ret = regmap_read(map, ISG5320A_REG_IRQSRC, &val);			/* :749 */
++	if (ret)
++		return ret;
++	ret = regmap_write(map, ISG5320A_REG_BS_ON_WD, ISG5320A_BS_WD_ON);	/* :757 */
++	if (ret)
++		return ret;
++
++	ret = regmap_write(map, ISG5320A_REG_SCANCTRL1, ISG5320A_SCAN_STOP);	/* :303 */
++	if (ret)
++		return ret;
++	msleep(30);								/* :305 */
++	ret = regmap_write(map, ISG5320A_REG_BS_ON_WD, ISG5320A_BS_WD_OFF);	/* :306 */
++	if (ret)
++		return ret;
++	ret = regmap_write(map, ISG5320A_REG_SCANCTRL2, ISG5320A_SCAN2_CLEAR);	/* :307 */
++	if (ret)
++		return ret;
++	msleep(100);								/* :309 */
++	ret = regmap_write(map, ISG5320A_REG_OSCCON, ISG5320A_OSC_NORMAL);	/* :310 */
++	if (ret)
++		return ret;
++	ret = regmap_write(map, ISG5320A_REG_BS_ON_WD, ISG5320A_BS_WD_ON);	/* :312 */
++	if (ret)
++		return ret;
++	ret = regmap_write(map, ISG5320A_REG_SCANCTRL2, ISG5320A_SCAN2_RESET);	/* :313 */
++	if (ret)
++		return ret;
++	ret = regmap_write(map, ISG5320A_REG_SCANCTRL1, ISG5320A_CFCAL_START);	/* :316 */
++	if (ret)
++		return ret;
++	msleep(500);								/* :318 */
++	ret = regmap_write(map, ISG5320A_REG_SCANCTRL2, ISG5320A_BFCAL_START);	/* :321 */
++	if (ret)
++		return ret;
++
++	/* The vendor sw_reset path waits 300 ms after BFCAL before reading (:850-852). */
++	msleep(300);
++
++	return 0;
++}
++
++/* vendor isg5320a_get_raw_data(), :445-466; caller holds data->lock */
++static int isg5320a_read_sample(struct isg5320a_data *data)
++{
++	u8 buf[4];
++	u16 v;
++	int ret;
++
++	lockdep_assert_held(&data->lock);
++
++	ret = regmap_bulk_read(data->regmap, ISG5320A_REG_CDC16_T_H, buf,
++			       sizeof(buf));
++	if (ret)
++		return ret;
++
++	/* 0x0000 and 0xFFFF are discarded and the last value kept (:459-464) */
++	v = (buf[0] << 8) | buf[1];
++	if (v != 0 && v != 0xFFFF)
++		data->cdc = v;
++	v = (buf[2] << 8) | buf[3];
++	if (v != 0 && v != 0xFFFF)
++		data->base = v;
++
++	return 0;
++}
++
++static int isg5320a_get_sample(struct isg5320a_data *data, u16 *cdc, u16 *base)
++{
++	struct device *dev = data->dev;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return ret;
++
++	scoped_guard(mutex, &data->lock) {
++		ret = isg5320a_read_sample(data);
++		*cdc = data->cdc;
++		*base = data->base;
++	}
++
++	pm_runtime_put_autosuspend(dev);
++
++	/*
++	 * The vendor cal_work (:1640-1647) force-recalibrates when cdc drops
++	 * below cfcal_th. That loop is not ported; only report the condition.
++	 */
++	if (!ret && *cdc < data->cfcal_th)
++		dev_warn_ratelimited(dev, "cdc %u below cfcal_th %u (vendor would recalibrate)\n",
++				     *cdc, data->cfcal_th);
 +
 +	return ret;
 +}
 +
-+static const struct backlight_ops ili97680a_bl_ops = {
-+	.update_status = ili97680a_bl_update_status,
-+};
-+
-+static struct backlight_device *ili97680a_create_backlight(struct mipi_dsi_device *dsi)
++static irqreturn_t isg5320a_irq_thread(int irq, void *private)
 +{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 7001,
-+		.max_brightness = 16180,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &ili97680a_bl_ops, &props);
-+}
-+
-+static int ili97680a_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct ili97680a *ctx;
++	struct iio_dev *indio_dev = private;
++	struct isg5320a_data *data = iio_priv(indio_dev);
++	s64 timestamp = iio_get_time_ns(indio_dev);
++	unsigned int src, sts;
++	bool changed = false;
++	bool close = false;
 +	int ret;
 +
-+	ctx = devm_drm_panel_alloc(dev, struct ili97680a, panel,
-+				   &ili97680a_panel_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
++	scoped_guard(mutex, &data->lock) {
++		isg5320a_read_sample(data);				/* :581 */
 +
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ili97680a_supplies),
-+					    ili97680a_supplies, &ctx->supplies);
-+	if (ret < 0)
++		ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &src);	/* :583 */
++		if (ret)
++			break;
++		ret = regmap_read(data->regmap, ISG5320A_REG_IRQSTS, &sts);	/* :598 */
++		if (ret)
++			break;
++
++		close = sts & ISG5320A_IRQSTS_PROX;			/* :518 */
++		changed = close != data->close;
++		data->close = close;
++	}
++
++	if (ret) {
++		dev_err_ratelimited(data->dev, "irq status read failed: %d\n", ret);
++		return IRQ_HANDLED;
++	}
++
++	dev_dbg(data->dev, "irq src 0x%02x sts 0x%02x cdc %u base %u\n",
++		src, sts, data->cdc, data->base);
++
++	if (changed && READ_ONCE(data->ev_enabled)) {
++		enum iio_event_direction dir;
++
++		dir = close ? IIO_EV_DIR_RISING : IIO_EV_DIR_FALLING;
++		iio_push_event(indio_dev,
++			       IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 0,
++						    IIO_EV_TYPE_THRESH, dir),
++			       timestamp);
++	}
++
++	return IRQ_HANDLED;
++}
++
++static int isg5320a_read_raw(struct iio_dev *indio_dev,
++			     const struct iio_chan_spec *chan,
++			     int *val, int *val2, long mask)
++{
++	struct isg5320a_data *data = iio_priv(indio_dev);
++	u16 cdc, base;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		ret = isg5320a_get_sample(data, &cdc, &base);
++		if (ret)
++			return ret;
++		*val = (int)cdc - (int)base;				/* :465 */
++		return IIO_VAL_INT;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int isg5320a_read_event_config(struct iio_dev *indio_dev,
++				      const struct iio_chan_spec *chan,
++				      enum iio_event_type type,
++				      enum iio_event_direction dir)
++{
++	struct isg5320a_data *data = iio_priv(indio_dev);
++
++	if (type != IIO_EV_TYPE_THRESH || dir != IIO_EV_DIR_EITHER)
++		return -EINVAL;
++
++	return READ_ONCE(data->ev_enabled);
++}
++
++/* vendor isg5320a_set_enable(), :681-742 (minus the work items) */
++static int isg5320a_events_on(struct isg5320a_data *data)
++{
++	struct device *dev = data->dev;
++	unsigned int val;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
 +		return ret;
 +
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB101010;
-+	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+	ctx->panel.backlight = ili97680a_create_backlight(dsi);
-+	if (IS_ERR(ctx->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+				     "Failed to create backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	/* This panel only works with DSC */
-+	dsi->dsc = &ctx->dsc;
-+	ctx->dsc.dsc_version_major = 1;
-+	ctx->dsc.dsc_version_minor = 2;
-+	ctx->dsc.slice_height = 20;
-+	ctx->dsc.slice_width = 632;
-+	ctx->dsc.slice_count = 1264 / ctx->dsc.slice_width;
-+	ctx->dsc.bits_per_component = 10;
-+	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
-+	ctx->dsc.block_pred_enable = true;
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
++	scoped_guard(mutex, &data->lock) {
++		ret = regmap_read(data->regmap, ISG5320A_REG_IRQSTS, &val);	/* :700 */
++		if (ret)
++			break;
++		data->close = val & ISG5320A_IRQSTS_PROX;		/* :708-713 */
++		isg5320a_read_sample(data);				/* :704 */
++		ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :718 */
++		if (ret)
++			break;
++		ret = regmap_write(data->regmap, ISG5320A_REG_IRQFUNC,	/* :719 */
++				   ISG5320A_IRQFUNC_ENABLE);
 +	}
++	if (ret) {
++		pm_runtime_put_autosuspend(dev);
++		return ret;
++	}
++
++	WRITE_ONCE(data->ev_enabled, true);
++	enable_irq(data->irq);						/* :721 */
++	if (device_may_wakeup(dev))
++		enable_irq_wake(data->irq);				/* :722 */
++
++	dev_dbg(dev, "events on, initial state %s\n", data->close ? "close" : "far");
 +
 +	return 0;
 +}
 +
-+static void ili97680a_remove(struct mipi_dsi_device *dsi)
++static void isg5320a_events_off(struct isg5320a_data *data)
 +{
-+	struct ili97680a *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
++	struct device *dev = data->dev;
++	int ret = 0;
 +
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++	scoped_guard(mutex, &data->lock)
++		ret = regmap_write(data->regmap, ISG5320A_REG_IRQFUNC,	/* :726 */
++				   ISG5320A_IRQFUNC_DISABLE);
++	if (ret)
++		dev_warn(dev, "IRQFUNC disable failed: %d\n", ret);
 +
-+	drm_panel_remove(&ctx->panel);
++	WRITE_ONCE(data->ev_enabled, false);
++	disable_irq(data->irq);						/* :728 */
++	if (device_may_wakeup(dev))
++		disable_irq_wake(data->irq);				/* :729 */
 +}
 +
-+static const struct of_device_id ili97680a_of_match[] = {
-+	{ .compatible = "motorola,vantage-boe-ili97680a" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ili97680a_of_match);
++static int isg5320a_write_event_config(struct iio_dev *indio_dev,
++				       const struct iio_chan_spec *chan,
++				       enum iio_event_type type,
++				       enum iio_event_direction dir,
++				       bool state)
++{
++	struct isg5320a_data *data = iio_priv(indio_dev);
 +
-+static struct mipi_dsi_driver ili97680a_driver = {
-+	.probe = ili97680a_probe,
-+	.remove = ili97680a_remove,
-+	.driver = {
-+		.name = "panel-ilitek-ili97680a",
-+		.of_match_table = ili97680a_of_match,
++	if (type != IIO_EV_TYPE_THRESH || dir != IIO_EV_DIR_EITHER)
++		return -EINVAL;
++
++	guard(mutex)(&data->ev_lock);
++
++	if (state == data->ev_enabled)
++		return 0;
++
++	if (state)
++		return isg5320a_events_on(data);
++
++	isg5320a_events_off(data);
++	pm_runtime_put_autosuspend(data->dev);
++
++	return 0;
++}
++
++static int isg5320a_read_event_value(struct iio_dev *indio_dev,
++				     const struct iio_chan_spec *chan,
++				     enum iio_event_type type,
++				     enum iio_event_direction dir,
++				     enum iio_event_info info,
++				     int *val, int *val2)
++{
++	struct isg5320a_data *data = iio_priv(indio_dev);
++
++	if (type != IIO_EV_TYPE_THRESH || info != IIO_EV_INFO_VALUE)
++		return -EINVAL;
++
++	/* vendor normal_threshold_show, :896-897 */
++	switch (dir) {
++	case IIO_EV_DIR_RISING:
++		*val = data->thresh + data->close_hyst;
++		return IIO_VAL_INT;
++	case IIO_EV_DIR_FALLING:
++		*val = (int)data->thresh - (int)data->far_hyst;
++		return IIO_VAL_INT;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_event_spec isg5320a_events[] = {
++	{
++		.type = IIO_EV_TYPE_THRESH,
++		.dir = IIO_EV_DIR_RISING,
++		.mask_separate = BIT(IIO_EV_INFO_VALUE),
++	},
++	{
++		.type = IIO_EV_TYPE_THRESH,
++		.dir = IIO_EV_DIR_FALLING,
++		.mask_separate = BIT(IIO_EV_INFO_VALUE),
++	},
++	{
++		/* One chip-level IRQ enable (IRQFUNC) covers both directions. */
++		.type = IIO_EV_TYPE_THRESH,
++		.dir = IIO_EV_DIR_EITHER,
++		.mask_separate = BIT(IIO_EV_INFO_ENABLE),
 +	},
 +};
-+module_mipi_dsi_driver(ili97680a_driver);
 +
-+MODULE_DESCRIPTION("DRM driver for Ilitek ILI97680A based DSC command mode panels");
++#define ISG5320A_CHANNEL(_events, _nevents)			\
++	{							\
++		.type = IIO_PROXIMITY,				\
++		.indexed = 1,					\
++		.channel = 0,					\
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
++		.event_spec = _events,				\
++		.num_event_specs = _nevents,			\
++	}
++
++static const struct iio_chan_spec isg5320a_channels[] = {
++	ISG5320A_CHANNEL(isg5320a_events, ARRAY_SIZE(isg5320a_events)),
++};
++
++static const struct iio_chan_spec isg5320a_channels_noirq[] = {
++	ISG5320A_CHANNEL(NULL, 0),
++};
++
++static const struct iio_info isg5320a_info = {
++	.read_raw = isg5320a_read_raw,
++	.read_event_config = isg5320a_read_event_config,
++	.write_event_config = isg5320a_write_event_config,
++	.read_event_value = isg5320a_read_event_value,
++};
++
++static const struct iio_info isg5320a_info_noirq = {
++	.read_raw = isg5320a_read_raw,
++};
++
++/* vendor isg5320a_remove(), :2030-2033 */
++static void isg5320a_teardown(void *arg)
++{
++	struct isg5320a_data *data = arg;
++	struct device *dev = data->dev;
++
++	pm_runtime_disable(dev);
++
++	if (data->ev_enabled) {
++		isg5320a_events_off(data);
++		pm_runtime_put_noidle(dev);
++	}
++
++	if (!pm_runtime_status_suspended(dev))
++		isg5320a_mode_sleep(data);
++
++	pm_runtime_set_suspended(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++}
++
++static int isg5320a_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct isg5320a_data *data;
++	struct iio_dev *indio_dev;
++	unsigned long irqflags;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	data = iio_priv(indio_dev);
++	data->dev = dev;
++	data->irq = client->irq;
++	i2c_set_clientdata(client, indio_dev);
++
++	ret = devm_mutex_init(dev, &data->lock);
++	if (ret)
++		return ret;
++	ret = devm_mutex_init(dev, &data->ev_lock);
++	if (ret)
++		return ret;
++
++	/* The vendor node has no supply; the board relies on an always-on LDO. */
++	ret = devm_regulator_get_enable_optional(dev, "vdd");
++	if (ret && ret != -ENODEV)
++		return dev_err_probe(dev, ret, "failed to enable vdd\n");
++	/*
++	 * If the rail was just switched on, give the chip time to come out
++	 * of power-on reset. The vendor never switches it, so this value
++	 * (10 ms) is a guess, not from the vendor source.
++	 */
++	if (!ret)
++		usleep_range(10000, 11000);
++
++	data->regmap = devm_regmap_init_i2c(client, &isg5320a_regmap_config);
++	if (IS_ERR(data->regmap))
++		return dev_err_probe(dev, PTR_ERR(data->regmap), "regmap init failed\n");
++
++	/*
++	 * Optional: lets the reset sequence watch the INT level as the vendor
++	 * does. It is requested before the IRQ (same order as vendor :1873 vs
++	 * :1931), since on Samsung pinctrl the IRQ request switches the pin
++	 * back to its EINT function.
++	 */
++	data->int_gpio = devm_gpiod_get_optional(dev, "int", GPIOD_IN);
++	if (IS_ERR(data->int_gpio))
++		return dev_err_probe(dev, PTR_ERR(data->int_gpio), "int gpio\n");
++	if (!data->int_gpio)
++		dev_info(dev, "no int-gpios, reset uses fixed delays\n");
++
++	ret = isg5320a_reset(data);				/* :1915 */
++	if (ret)
++		return ret;
++
++	msleep(300);			/* vendor runs init_work 300 ms later, :1981 */
++
++	ret = isg5320a_initialize(data);			/* :1620 */
++	if (ret)
++		return dev_err_probe(dev, ret, "init failed\n");
++
++	ret = isg5320a_mode_normal(data);			/* :1621 */
++	if (ret)
++		return dev_err_probe(dev, ret, "start failed\n");
++
++	if (data->irq > 0) {
++		irqflags = irq_get_trigger_type(data->irq);
++		if (!irqflags)
++			irqflags = IRQF_TRIGGER_FALLING;	/* :1932 */
++
++		ret = devm_request_threaded_irq(dev, data->irq, NULL,
++						isg5320a_irq_thread,
++						irqflags | IRQF_ONESHOT |
++						IRQF_NO_AUTOEN,
++						"isg5320a", indio_dev);
++		if (ret)
++			return dev_err_probe(dev, ret, "irq request failed\n");
++
++		if (device_property_read_bool(dev, "wakeup-source"))
++			device_init_wakeup(dev, true);
++	}
++
++	pm_runtime_set_autosuspend_delay(dev, ISG5320A_AUTOSUSPEND_MS);
++	pm_runtime_use_autosuspend(dev);
++	pm_runtime_set_active(dev);
++	pm_runtime_get_noresume(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_put_autosuspend(dev);
++
++	ret = devm_add_action_or_reset(dev, isg5320a_teardown, data);
++	if (ret)
++		return ret;
++
++	indio_dev->name = "isg5320a";
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	if (data->irq > 0) {
++		indio_dev->info = &isg5320a_info;
++		indio_dev->channels = isg5320a_channels;
++		indio_dev->num_channels = ARRAY_SIZE(isg5320a_channels);
++	} else {
++		indio_dev->info = &isg5320a_info_noirq;
++		indio_dev->channels = isg5320a_channels_noirq;
++		indio_dev->num_channels = ARRAY_SIZE(isg5320a_channels_noirq);
++	}
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++/* vendor isg5320a_shutdown(), :2071-2080 */
++static void isg5320a_shutdown(struct i2c_client *client)
++{
++	struct isg5320a_data *data = iio_priv(i2c_get_clientdata(client));
++
++	guard(mutex)(&data->ev_lock);
++
++	if (data->ev_enabled)
++		regmap_write(data->regmap, ISG5320A_REG_IRQFUNC,
++			     ISG5320A_IRQFUNC_DISABLE);
++	isg5320a_mode_sleep(data);
++}
++
++static int isg5320a_runtime_suspend(struct device *dev)
++{
++	struct isg5320a_data *data = iio_priv(dev_get_drvdata(dev));
++
++	return isg5320a_mode_sleep(data);
++}
++
++static int isg5320a_runtime_resume(struct device *dev)
++{
++	struct isg5320a_data *data = iio_priv(dev_get_drvdata(dev));
++
++	return isg5320a_mode_normal(data);
++}
++
++/*
++ * Runtime PM only. System sleep leaves the chip as it is, as the vendor
++ * does (its suspend/resume only stop and restart the work items), so an
++ * enabled grip event can still wake the system.
++ */
++static const struct dev_pm_ops isg5320a_pm_ops = {
++	RUNTIME_PM_OPS(isg5320a_runtime_suspend, isg5320a_runtime_resume, NULL)
++};
++
++static const struct of_device_id isg5320a_of_match[] = {
++	{ .compatible = "imagis,isg5320a" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, isg5320a_of_match);
++
++static const struct i2c_device_id isg5320a_id[] = {
++	{ "isg5320a" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, isg5320a_id);
++
++static struct i2c_driver isg5320a_driver = {
++	.driver = {
++		.name = "isg5320a",
++		.of_match_table = isg5320a_of_match,
++		.pm = pm_ptr(&isg5320a_pm_ops),
++		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
++	},
++	.probe = isg5320a_probe,
++	.shutdown = isg5320a_shutdown,
++	.id_table = isg5320a_id,
++};
++module_i2c_driver(isg5320a_driver);
++
++MODULE_AUTHOR("Adil Hüsrev Tepe <tadilhusrev@gmail.com>");
++MODULE_DESCRIPTION("Imagis ISG5320A capacitive grip sensor");
 +MODULE_LICENSE("GPL");
-
 -- 
-2.56.1
-
+2.53.0
 
