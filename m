@@ -1,48 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826098;
-	b=VwWY+kaC3PAwe5hjkV3tDGhfNodZbm84NJfZGfq6YggpcUgjsTuTvz1XMcqJFlbzVscI
-	 iyjeiQC10lnqn5ShNImfKQeaT1dZAoMqIZ37lYcJs2hx0rN7Zm7UJXDNRH2/CpA55YuhG
-	 +YhqTYDS/bIgwE5spbgdzgG5RuMrHiS3v2SztHk5FoEwTbmov7PUwsy9gknluOVuz4vvE
-	 lOKtxC6/ZB/WajV/vR5Hat5fRWl3TPRIf1L0wPh9NNd8W79i0Jpm8N3k7xmbLDvI/OlLL
-	 7ijELZFsrzcEI/Lsb8i/XvGukOVSFTJbS5nd5bdwr7f3SXpRs2fjHWS6VU1lMaYoq0Q==
+	t=1794826109;
+	b=G9VgE/QPNTfah1VDMgpRi6WEugrdvzA5Mcxm0i1vZeJJMDTV+Rs5oVQ7w5dlSwvrwxGG
+	 /mlo8Mz1GMfk4OR6GS9CafoasBppRWATeA7zqnRKVj+lUXw+ivFe9pmV4cIFV89f6WmUY
+	 nQAYqqEoNgRiuWfmUDdNdeu0fztCFtSRP9r27YDGrJ/i4BmwECZXJqFEXswMky4WWa0HH
+	 ne49SnaZxEWnSqYTuqVzYnnA08qJYMDsnoKftZgpEwqSuzdm8ze1KLwc3LadV47uFTC/M
+	 w8heB3tVxshGTWm5Zc9Zn+pQA1zIk7yPeRpYMxdUDlGmp1cVD05KpTH4Nd9KdGq7x3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826098;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=ORgCn/zSCjaESonYZxaj8n9W6R9D+JiZRmk6Bhv3/vo=;
-	b=BZN5dwVZEtbgXK6zsgPt3Jxl5lgmQN9AlLM52kSh95HbalaSC3gKvFz817MwNbxFY/Or
-	 jsK5aZpgva1a9/Z3meARrfVKIKv12oFcCPUHLrjXJe/G9M5s9LMs4ZCkRKWtrG9tUjKtl
-	 vskCdfI6Xnt4fSbXDULpXa+XhcyBH1T0peaREinmq90lMF4Upemot5kyGksT3QHjV8/1H
-	 tElDiA4+L+YRfXCXGIjpbcrjF68x7+555+Yt/U1BKe5ye8RhVEFoqOqVXA2keGTnH0o3M
-	 zsBIhdw101n8bAK5DniQH+TNvgVkQ3lCwSew3ORogBMzddmLIN7pqM9UyAUGhUehuaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826109;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=8RXywwsZ9AZmLU1zClqzYGdbInCCuXneMgvMDOLwy/M=;
+	b=mAX1awtrxdOTESU9bH5gApQACMaxdQa3PYroEJGemHaGCj8RvvopOGzU5GmQDS/nOR7R
+	 2hGWsUZPNW7b17mvc3Kzankynkhv4EK5PkPNR6iyNPHNZ626Vh4bFGLcBs+LhloM5Ywfn
+	 y6+LwSH0iUWWOnQvGdxfEoYxxbPaig8loVi0VRlD1WT6Z5iDbLkOZobkKY8VJF7yX1ide
+	 6QAYQ/5MeEhuf8d+6DbwhoGWskjSNnoj2HZqWkXEmFhV4mPIwiHxmOfx2SXd5ham/LNvW
+	 IU92UMR5IUJm9p4bQGRLPdq8TUlycowJXnrcXOgDKDKoo4IofxVqSa+9QPEoaCwnfgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JXIl0QDP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="L+Q/deRn";
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A50606A339;
-	Mon, 16 Nov 2026 10:48:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32D0606A32A;
+	Mon, 16 Nov 2026 10:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E32D0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JXIl0QDP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552531F000C9;
-	Mon, 16 Nov 2026 10:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794826097;
-	bh=ORgCn/zSCjaESonYZxaj8n9W6R9D+JiZRmk6Bhv3/vo=;
-	h=Date:From:To:Cc:Subject;
-	b=JXIl0QDPHEqnWOFw+xu+M1f/zLs2gNRYXbXDO7oNqir1xyTmrfAXFEru4bXCihDSV
-	 Gp5PzG3DvCR8d5nnL6ZyyvOHIR0zbSg84MBCJcLRvjBdKb9EWeXRxTftxB81DcoVPV
-	 hdPhlBLsh+F6zvdD8HpfoHDb+qfZJQOu3B7rFqgg=
-Date: Mon, 16 Nov 2026 11:48:12 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Jiri Slaby <jslaby@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: [GIT PULL] TTY/Serial driver fixes for 7.4-rc4
-Message-ID: <avrfbLonPT9vBmMC@kroah.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+Q/deRn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794826108; x=1826362108;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=+qqV1FaPOgpA/CAWwvnFgJPa0wgo6U3qzrnbn+rslMI=;
+  b=L+Q/deRn8Lx9cEuH7tIucRhA/OpFM1SgYOs6OP5spw1Dnq35S4oRtGCW
+   q/tRLuaxFADtnlkVvzeZWyQYCzEXN+DM6my6OuuMPE/c7yrv8w6yS8xmD
+   Ne0TF6YUg0JdSAdtofwa44Nb+XzvoJanN44xNV3llJtOtt0gty2GR7ir0
+   oVxJUh8e0cAMUeY6AnIPpsbidh1sCGTL0SZXvZJzTHcBkqKdRzZ8hrnBX
+   XFjf5phbgZVcUqDuuembLc+pClPePUI6S6g0zb5hLNLewAS2LPcgX+9OO
+   XoqSNZjCf2ZG3nR/zPObtT8GcyAVUZit1+WgKAiU8t8hQu8QbLPqmF+eD
+   g==;
+X-CSE-ConnectionGUID: dd0wGUeWSl6M/HHhGo2Xdw==
+X-CSE-MsgGUID: 7Iuq3/v7QSqDDB72nwZI2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3474479"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3474479"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:48:26 -0800
+X-CSE-ConnectionGUID: aOaSJUSOT6euyHcLWqrl7A==
+X-CSE-MsgGUID: 5LFiVV7hQ6ygTvGIAcj/KQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="11228579"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:48:21 -0800
+Date: Mon, 16 Nov 2026 12:48:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Adil =?iso-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] iio: proximity: add Imagis ISG5320A (Samsung
+ Galaxy XCover5)
+Message-ID: <avrfcgqyASTtaVhu@ashevche-desk.local>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,65 +85,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261116074013.355363-1-tadilhusrev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+On Mon, Nov 16, 2026 at 10:40:11AM +0300, Adil Hüsrev Tepe wrote:
+> This series adds an IIO driver and its binding for the Imagis ISG5320A
+> capacitive SAR/grip proximity sensor, as fitted on the Samsung Galaxy
+> XCover5 (Exynos850).
+> 
+>   1  dt-bindings: add imagis,isg5320a
+>   2  the IIO proximity driver
+> 
+> The driver exposes one IIO_PROXIMITY channel (the B-channel signal minus
+> its baseline) and a rising/falling threshold event. Tested on an XCover5:
+> it probes, registers the IIO device and reads a stable baseline value.
+> 
+> Based on v7.4-rc1.
+> 
+> Tool usage
+> ----------
+> Derived from the Samsung vendor driver during XCover5 mainline bring-up
+> with an AI coding assistant (Claude Code, Anthropic), which drafted the
+> mainline IIO driver and the binding. I reviewed every line and tested
+> probe and read-back on hardware. Review comments are welcome and I will
+> answer them myself.
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+Why a brand new driver?
 
-are available in the Git repository at:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tags/tty-7.4-rc4
 
-for you to fetch changes up to eedf2cf3505c1562a2fb24f8b997056f023d242b:
-
-  serial: samsung: put the previous baud clock (2026-11-03 13:28:53 +0100)
-
-----------------------------------------------------------------
-TTY/Serial driver fixes for 7.4-rc4
-
-Here are some small tty and serial driver fixes for reported problems
-for 7.4-rc4.  Included in here are:
-  - tty driver and vt fixes reported and fixed by Josef Bacik and Chris
-    Mason.
-  - some serial driver fixes by Jiri for found problems.
-
-All of these have been in linux-next for almost 2 weeks now, with no
-reported issues.
-
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-----------------------------------------------------------------
-Chris Mason (1):
-      vt: serialise the producers of the flip buffer
-
-Jiri Slaby (SUSE) (3):
-      serial: 8250_exar: check priv->gpio properly
-      serial: 8250_hp300: reorder HPDCA code
-      tty: fix misapplied compat_ptr() in tty_compat_ioctl()
-
-Josef Bacik (8):
-      serial: core: respect runtime PM when sending x_char
-      serial: 8250_lpss: don't divide by 0 above 6.25 Mbaud
-      serial: 8250_mxpcie: handle hangup during break
-      serial: fsl_lpuart: fix tty ref of wakeup event
-      serial: imx: fix the tty reference of the wakeup event
-      serial: rda: free the interrupt on shutdown
-      serial: samsung: don't leak the tty on an RX IRQ
-      serial: samsung: put the previous baud clock
-
- drivers/tty/serial/8250/8250_exar.c   |  2 +-
- drivers/tty/serial/8250/8250_hp300.c  | 62 +++++++++++++++--------------------
- drivers/tty/serial/8250/8250_lpss.c   |  3 ++
- drivers/tty/serial/8250/8250_mxpcie.c | 13 +++++---
- drivers/tty/serial/fsl_lpuart.c       | 10 ++++--
- drivers/tty/serial/imx.c              | 10 ++++--
- drivers/tty/serial/rda-uart.c         |  2 ++
- drivers/tty/serial/samsung_tty.c      |  8 +++--
- drivers/tty/serial/serial_core.c      | 25 ++++++++------
- drivers/tty/serial/serial_port.c      |  4 +--
- drivers/tty/tty_io.c                  |  3 +-
- drivers/tty/vt/keyboard.c             |  6 ++++
- drivers/tty/vt/vt.c                   |  2 ++
- 13 files changed, 88 insertions(+), 62 deletions(-)
