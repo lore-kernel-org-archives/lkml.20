@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.127
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833002;
-	b=NwXTmpQOR2nR75WgF5aKDPYicmCJNXFEiJTK5wuzXYy8aHXJ8UzO6Ffu7KWmOEUtkB5Z
-	 TRQUtA8UMCRWro2w1SdAy6UraavzEg4VuGlao7Jyk92HSAYTKQcYOxJzPlSrlbFEP5BQU
-	 B5RgOtUKiyFs0kayXRw0G8woImXFqc75RgMbtEI3xUEsX8xXMW/alMevQqF+NFBAqDqL/
-	 hV073YZEi6evwOwbyHfO5L7p1h7aw/7tsIROIXA4mOKlcq0/M2GFdfhahrSeVNTtWZd/N
-	 szitroAeJcOkYjR9uknxUCSMx60cXUaPy6DVNwhQgaDVgzOPzjaOjcG33np9KCWrcQw==
+	t=1794833012;
+	b=G2PjKyInm8E8TL391qL9eAxq8QsTZZ/1TZSOaX/2D48DvpA6KxFst9csQo0Ksp8zWErv
+	 IF8JnS4ULU3uEh42x/0BJ/KxfiIu9jZw/1FQK0EZI+dTXJVOhUfsJlUK0deXJjJrXrlTR
+	 ppQwkjvhotOz3mf57r1nCTyik5+ig2+dteSvDmU/KdulSiwm0UhCknIf1XOsK17zHF1pi
+	 ZcNIQWIBzKnjbXA+3bVec5B5mPUduXxEEs0Y5t033t9ywsSPiqxrcMRz4sLzFQyWHmIs2
+	 1DcrCnPNMxowi7fCJTbJ0F4VtOAxOV/jSEA9HGSn4mX+GkkNp9Q+4AlvmduPPMxTVrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833002;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CUoPl1l8usOofd78Ed60am7yd2LiyfDr+gb/uSMrxrQ=;
-	b=3b4YgpTXHU66s4qltd1R6441Qx9rl6mdNf9RpgTo3cw+hLiUN5ZiDe/TDDRhcFhqsjkF
-	 2KQLGgkTEaF52VbaeDKeFJFPeNkaceVUH3H5XP7OWX5fbFkxWPXHILFModo8lMN+EIA3g
-	 llDHkNv3fXxjt5ZvKvOHyZvYQewF9XCY5km8zYGF8dTiSfnjOKzijVd66wmIrqYEmx9u+
-	 /jLuidbu7ARR0501MC9TWCjQNOiAornTw3CRKiKNi5BCrOPy3Pk7GX9UpRCFDSXthPm/N
-	 DulDZ1S/I3Marj5qsaMOrVJuWt8cYtbM67sLFuWrV5WKk/pJ/kY5UGLdC8B6G/vVcVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833012;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=5mEsGjrWIZvYwWKcXyRBgei2dljasiFhgTBybxUcBL8=;
+	b=Z8oLtv6R+s+ka1MxszZ7qgD042mupwoDe72tD2b+7rKLAtfoDWpb0jKkY5Fa2cQNq3gA
+	 6KjtqMBVnX0+JWb5sgyJAV9AklxyxGtyi5EdDcO2Oubn2oPTa5rvdOsNSVBO0nreZCNti
+	 jq9Hz5JHtfic+M15wlA8gCXuqfXAERAJksNe4iw5A9krsdz5s3S+cy8uLn9dyFysHFnQ1
+	 S/lN0/7PkEIEUsL6OjqhVOBzZpAsX+oEqzRK7wlBNdjjPjN7LaZxGeNH/y0EGQqsx9XBR
+	 cO4JXVR5ll5PB9vcKROJacblz/O6SPrU/yMEE5/a48OkAGgGat5UU6DH8zkuOfyzINA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I1s9A41H;
-	arc=none smtp.remote-ip=91.218.175.127
-Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA75606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DA75606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bV1jTo3e;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F5A4606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:43:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F5A4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I1s9A41H
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aV0qlpDNLooNPnrXY/O+0ggSMhmcS5vAI4Fpci/O2HM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794832998; v=1; x=1795437798;
- b=I1s9A41HT3FiYpPUzewZNWQf8vkqhHIR5ARVQKbAS7SluRlbI2ihtVhd5lhnKrQhcJUMCIoY
- eNwzEYRSRu+xLaJ5egcR9w3ULxO87tojrrLTl/r9R3iJElHDuTAqzvuuvVWpgRcAaxAzfBIIPQp
- KiXCd1WtAFdxn6UXLCj7xSVU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fca2d1d817ea616d;
-	Mon, 16 Nov 2026 12:43:18 +0000
-X-Mizu-Trace-ID: fca2d1d817ea616d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d0128189-f454-42bf-972b-90f6a8536b83@linux.dev>
-Date: Mon, 16 Nov 2026 20:43:08 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bV1jTo3e
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 966431A25
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:43:27 -0800 (PST)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5A5B53F632
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:43:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794833010; bh=dg7j36cEkL6YwieU84eZURhUe2r7Iw1mLinaBzUPWbM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bV1jTo3eXLSzzFc8z6NgGGFJSv93xitULAd0WiCvcYBjfYE0Gra3chgv0ndCGAvnD
+	 JLt+i0j27reWNgzIEZHzY6c3RuhtuWcHhtE8iB7Y44K2S/dxZesIFwB2yCQuco5/jS
+	 wox+clKDP5kOFdLCKV+PJAfLh2q7wWvlYzcg12cc=
+Date: Mon, 16 Nov 2026 12:43:19 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Tuo Li <islituo@gmail.com>
+Cc: boris.brezillon@collabora.com, steven.price@arm.com,
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix NULL pointer dereference in sync signal
+ cleanup
+Message-ID: <avr6Z-LoyfKvDH0U@e142607>
+References: <20261113094456.5000-1-islituo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,75 +62,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, tj@kernel.org, josef@toxicpanda.com,
- bvanassche@acm.org, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] blk-ioprio: check capabilities before promoting a cgroup
- to RT
-To: Hungyu Lin <dennylin0707@gmail.com>, axboe@kernel.dk
-References: <20261116090529.69650-1-dennylin0707@gmail.com>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261116090529.69650-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261113094456.5000-1-islituo@gmail.com>
 
+On Fri, Nov 13, 2026 at 05:44:56PM +0800, Tuo Li wrote:
+> In panthor_submit_ctx_add_sync_signal(), drm_syncobj_find() may return
+> NULL. The function then jumps to err_free_sig_sync, where
+> panthor_sync_signal_free() unconditionally calls drm_syncobj_put() on
+> the NULL pointer, causing a NULL pointer dereference.
+> 
+> Check sig_sync->syncobj before calling drm_syncobj_put() to avoid the
+> NULL pointer dereference.
+> 
+> Fixes: 4bdca1150792 ("drm/panthor: Add the driver frontend block")
+> Signed-off-by: Tuo Li <islituo@gmail.com>
 
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-在 2026/11/16 17:05, Hungyu Lin 写道:
-> ioprio_set() and the per-request I/O priority of aio and io_uring only
-> hand out IOPRIO_CLASS_RT to tasks that have CAP_SYS_ADMIN or
-> CAP_SYS_NICE. The io.prio.class cgroup attribute has no such check.
-> Writing "promote-to-rt", or its alias "none-to-rt", to it changes the
-> requests of the cgroup to the RT class.
-> 
-> The attribute exists in every cgroup that has the io controller enabled
-> and it is not hierarchical. A user that got a cgroup delegated owns the
-> files of the child cgroups it creates there, so it can create a child
-> cgroup, move into it and write "promote-to-rt" to its io.prio.class.
-> Its requests are then issued with IOPRIO_CLASS_RT although ioprio_set()
-> fails with -EPERM for the same task, and mq-deadline dispatches them
-> before the best-effort requests of everybody else.
-> 
-> The delegation model in Documentation/admin-guide/cgroup-v2.rst expects
-> the settings of all resource controllers to be hierarchical, so that a
-> delegatee can only distribute further what it received from its parent.
-> This attribute lets it raise the priority class of its own requests
-> instead.
-> 
-> Require CAP_SYS_ADMIN or CAP_SYS_NICE for the two policies that raise
-> the priority class, like ioprio_check_cap() does. The other policies are
-> left alone.
-> 
-> Fixes: 556910e39249 ("block: Introduce the ioprio rq-qos policy")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Best regards,
+Liviu
 
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
 > ---
->  block/blk-ioprio.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/block/blk-ioprio.c b/block/blk-ioprio.c
-> index 8fa8bca35062..ea32db727b16 100644
-> --- a/block/blk-ioprio.c
-> +++ b/block/blk-ioprio.c
-> @@ -14,6 +14,7 @@
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index dc8d0191aef4..8d73956530a8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -364,7 +364,9 @@ panthor_sync_signal_free(struct panthor_sync_signal *sig_sync)
+>  	if (!sig_sync)
+>  		return;
 >  
->  #include <linux/blk-mq.h>
->  #include <linux/blk_types.h>
-> +#include <linux/capability.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
->  #include "blk-cgroup.h"
-> @@ -91,6 +92,9 @@ static ssize_t ioprio_set_prio_policy(struct kernfs_open_file *of, char *buf,
->  	ret = sysfs_match_string(policy_name, buf);
->  	if (ret < 0)
->  		return ret;
-> +	if ((ret == POLICY_PROMOTE_TO_RT || ret == POLICY_NONE_TO_RT) &&
-> +	    !capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_NICE))
-> +		return -EPERM;
->  	blkcg->prio_policy = ret;
->  	return nbytes;
->  }
+> -	drm_syncobj_put(sig_sync->syncobj);
+> +	if (sig_sync->syncobj)
+> +		drm_syncobj_put(sig_sync->syncobj);
+> +
+>  	dma_fence_chain_free(sig_sync->chain);
+>  	dma_fence_put(sig_sync->fence);
+>  	kfree(sig_sync);
+> -- 
+> 2.43.0
+> 
 
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
