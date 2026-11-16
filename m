@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812900;
-	b=fXPF8YsTgT0tejfrxyq4zfcLxcPyLOeh59FduZXUmt55AUCUcOVq6AUsQs4zBMWfZ8jd
-	 Ptq0AJUzv6t4HtGozjAt0fm82P5YRI58FSEmkz0eU4D1nhmyL50c/ZSobhwfD/EkosqBA
-	 wcd4qhHJWKTHurVcUc9YxnllamfuyCLILik3KN2qcyOml4jF2QXTbQkkY5liTfr1Qd0Sh
-	 mHoKIOulNalO+YJc09nCnF32XDjIH0bsxY1jneN/hsVqcIVCF+q2PTQAGl4snFdI5AYae
-	 9zXRuMnLyP565F2bHxqyGBHkbOYRSlZ+d9Qfz/wpPLhrSiZmbY0dEA+MoHgXpXUKTnQ==
+	t=1794812903;
+	b=Ig3G8hZBUHaVgfGF0gpbnrykzHhHxewsIsp1GvULFxPUcrdOc25rw8RFUtEbBkgUDmz5
+	 Wf+XQJ7k8WUPWGZlo1Q6BtizcWr4nqfeBJaw3Qu3xuwb+QRGnXvbeCRa9zrcvkv9WJDNt
+	 fV7XW3W6PU1GXuDMFPjfmBz1GL4ra3oxGzx27qi5UvAOz0PUzmV5JIDJFQI2PmMx8QzjL
+	 3GZ71GCLg+YH8p5Giihap8/3ps1MScw5fNvSO9vVYfiLGf1SUn8FFrbPcLGT1lWZOWMLB
+	 d8Sf6jm8wKUJjGHXwEHokwKAo3bF1dy2vsehbkTnHkLl6Dp8oBww0BY/yViGeimSniA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812900;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ku1GaLDZkKaVwDYDZ0Af5dH0wVqeYKJe066PDuuveYg=;
-	b=0KaHUCVTQp2Cph2CZi85MsPcs9oHJ3mDyV4LdiJ/7UUfAXZIsGOQ7+AZOtJxFLVYbsq5
-	 HePwqS4CMo4+391qQNeyti+k8rIZnmzBkTKdCl1uPZ+uY9azlcAeafFD3nRDAN+tpsPd0
-	 aYgMFGO+AM+dTuimfNP8YEixBBikxvfm65xN2WM+P96/oFsr7T6qWYqljoP7KFgxCx9ZH
-	 BLEDQsH7id9PfyTKhvWEDvRyNPOUgd93/Sj8IfMfsldp94IbLWV1d+p8u7CH9xYZcZuQ1
-	 YXBAic56zT2rx4hvWX6TEcEVp2haGBUSLV1GeFxDRSjgOkqHVDYGDv8x7LPo2Qt6Nnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812903;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
+	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=4DRzpZUpuRm0hUM4odvz6rVRD3RRQoYbSMr/AYotmDg=;
+	b=lz0zrrRh0rAWvKdhleNgnAQSKbrgh57CgRDdl4AwmttH68q9YgP3VNIF/BI05wtM6K/a
+	 l7mfr1Oag4fxnL6cZd3rYFNzw2ZT9RAdN+F56LjMqFcVFxOwGmmnu64PszabbRj15PbzH
+	 RrMkgRvX88w94CUY3HXGFULA6uqadn8ge0CQTYMFdDWAIaDYjTEkG3vlCTUvzOH5KBu4z
+	 7PeU4dBeHz5be5HABmyL2bOONv0peWEOz2HUUwPXvb9UiDlS/TU7EJabqxL1XcMFrD9cW
+	 yQMTWcOiiZMErvN9JegD7BlnWgVmih6oe0amnzuNaZ5GlU4OBdTwM7ysovlDnti2Adg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=B1KV+0OO;
-	arc=none smtp.remote-ip=95.215.58.245
-Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EC6606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16EC6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=B1KV+0OO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6vrI7gFyIbpml94nt7zmiCUdpXp3+pLUaoOSBcJrx1g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794812897; v=1; x=1795417697;
- b=B1KV+0OOVFo2JP5I1KIbCCFTBhiwXJBAdoUaQWGW1pUTW1rl/rODGG7AC2YcJzg6FvoREkSi
- 0cEuOcBWjq7mqOVxLKsAydm8II6G2ol/ZRF4fmeobzb8S672znKUaBwm5QhBlzLDSQOgs00Ft7I
- ryZHEyJfRRw7Z4C8UVsq0ziQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 97b20a8296e0957a;
-	Mon, 16 Nov 2026 07:08:17 +0000
-X-Mizu-Trace-ID: 97b20a8296e0957a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b5d6f382-0e33-4737-8c8f-03f5536249d9@linux.dev>
-Date: Mon, 16 Nov 2026 15:08:08 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAFB606A334;
+	Mon, 16 Nov 2026 07:08:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AAFB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jSf8g6LZ4z562g;
+	Mon, 16 Nov 2026 15:08:19 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhangdaolong <dlzhangak@isoftstone.com>
+Subject: [PATCH] KVM: VMX: Disallow 16-bit busy TSS (type 3) for TR in IA-32e mode
+Date: Mon, 16 Nov 2026 15:08:19 +0800
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,63 +57,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v4 5/6] cgroup/cpuset: Handle remote partitions
- before local partitions in cpuset_handle_hotplug()
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- Guopeng Zhang <guopeng.zhang@linux.dev>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261116012330.2271010-1-longman@redhat.com>
- <20261116012330.2271010-6-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261116012330.2271010-6-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Mon, 16 Nov 2026 15:08:20 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AFAABE3.003 by FangMail milter!
+X-FangMail-Envelope: 1794812900/4jSf8g6LZ4z562g/6AFAABE3.003/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1794812900.6AFAABE3.003
+X-FangMail-Outinfo: 1794812900/6AFAABE3.003/4jSf8g6LZ4z562g/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1794812900.6AFAABE3.003.4jSf8g6LZ4z562g@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AFAABE3.003/4jSf8g6LZ4z562g
 
+According to Intel SDM Vol. 3C, "Checks on Guest Segment Registers", the
+TR segment type must be 11 (64-bit busy TSS) when the "IA-32e mode guest"
+VM-entry control is 1, and may be 3 (16-bit busy TSS) or 11 (32-bit busy
+TSS) only when "IA-32e mode guest" is 0.
 
+Currently, tr_valid() unconditionally allows type 3 even when the guest is
+in IA-32e mode (long mode). When emulate_invalid_guest_state is enabled,
+this causes __vmx_guest_state_valid() to falsely report a valid guest state
+for a 64-bit guest with a 16-bit busy TSS, resulting in a hardware VM-Entry
+failure (EXIT_REASON_INVALID_STATE / KVM_EXIT_FAIL_ENTRY) instead of
+emulating the invalid guest state.
 
-On 11/16/2026 9:23 AM, Waiman Long wrote:
-> When there is a valid remote partition underneath an invalid local
-> partition with subpartitions_cpus cleared because of missing active
-> CPUs in the top_cpuset partition, the current iteration logic in
-> cpuset_handle_hotplug() will handle the invalid local partition first
-> and potentially make the local partition valid. The remote partition
-> will be handled later with the potential that both the local and remote
-> partitions will be valid with overlapping exclusive CPUs violating the
-> cpu exclusivity rule.
-> 
+Check is_long_mode(vcpu) in tr_valid() and reject type 3 when the vCPU is
+in IA-32e mode.
 
-Hi Longman,
+Fixes: 648dfaa7df2d ("KVM: VMX: Add Guest State Validity Checks")
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+---
+ arch/x86/kvm/vmx/vmx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patch 5 and Guopeng's patch [1] handle the same case: after hotplug,
-top_cpuset has no usable CPU left (no active CPU, or no active boot
-domain housekeeping CPU). But they take different approaches:
-
-- Current code: clear subpartitions_cpus and invalidate all the
-  partitions.
-- [1]: only invalidate the partitions that can give an active
-  housekeeping CPU back to top_cpuset.
-- Patch 5: invalidate all the local partitions but keep the remote
-  ones valid if possible.
-
-I think we should agree on the expected behavior first. My preference
-is to keep it simple and invalidate all the partitions as the current
-code does. The problem is that in the same hotplug pass, after valid
-partition A is invalidated and its CPUs are given back to top_cpuset,
-partition B, which was invalid before, may become valid again. B puts
-its CPUs back into subpartitions_cpus, so a valid partition visited
-after B is not invalidated (patch 1), or B overlaps with a remote
-partition underneath it (patch 5). If invalid partitions are not
-allowed to become valid again in that pass, both issues go away.
-Do we really need to keep some partitions valid in this case?
-
-[1] https://lore.kernel.org/cgroups/20261111134250.16852-2-guopeng.zhang@linux.dev/
-
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index cc75feec05da..2a5db87fae0e 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -3898,7 +3898,7 @@ static bool tr_valid(struct kvm_vcpu *vcpu)
+ 		return false;
+ 	if (tr.selector & SEGMENT_TI_MASK)	/* TI = 1 */
+ 		return false;
+-	if (tr.type != 3 && tr.type != 11) /* TODO: Check if guest is in IA32e mode */
++	if (tr.type != 11 && (is_long_mode(vcpu) || tr.type != 3))
+ 		return false;
+ 	if (!tr.present)
+ 		return false;
 -- 
-Best regards
-Ridong
+2.48.1
 
