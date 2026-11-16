@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.30.189.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794869015;
-	b=izag45uEhA6No3CKihHSD1EASdTEdF5MAZ9ZKXwuHInb9IESeTt8o8oPV8jHpM7+FiRu
-	 7VL7gEknlyA0e1L7uf/KZrrOd/ee7Cwv5vNB6SobiurPv1nYqspb5bkqtG+EcR/5/ZfQn
-	 P/pq22xZ3nd6FTDAGvoT41mEZ66lvqZv1Hic3i0TC/3L4rDY1O4j+SVXCwnXX4YOQV7TK
-	 B3r2wGenNVjmkctR3kcCPrg2vTxr5EqlLygiPL3W22M7Er1GMR2Qwhejbqmuof2XOCumh
-	 gzrQEoSYkovesfXGqLOJSe/2fck4r0/q01xDnUHBJkIFLGREO8kFd6XmjFWPpAeGhYA==
+	b=ONmiL8ddMdhcQm0ml3KC8WiV1Alcv0JqjvJUfk9VbgomATG3CmQYtxmFS0YGZixBUmR1
+	 b4sjgTS6EXfDhKE8eLHTI8fvZkacDzdovAHYwG8PfcNf1eQVJarZhVgtxU/0mZn31SwVI
+	 Whslq6dJrzT2O8QuRbd4Y2dN8EiN5uaJVjwQNVRIUS/BV1uB35VP9pegDWw7jO00nNkPS
+	 ub4xRwBypvxxN1ZEz+VM3K09a/Ir5CoJscnyfqeoyitkzHCOR1f4p6nGbTdSHC52QYeIo
+	 JS83fEsMF0IvaIV/eAZCLDN4HNCuJegdZJyiIni8sK+s6Ppi6KE+Yp6tXAfVa+BiwMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794869015;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=N4dtWhUNiSukhf8R9NIb08lmkSRTINrzxb9Pf8lumPY=;
-	b=MpuxmbKMaInZktVXcDKbXAv4EbWYQyi1l5wLpT2dSpYGa4ld24oAB6a8AojcF7R8eLqS
-	 xBPm5JVo28cIpz2QVbThF120A8fYWK3Y5KNeA0XEGLpQKBqR8/ILo0Mk5c8dYD7GLg2iF
-	 pTS8pSgE0wegBzp5Fn0X9chRWyngt5CqS2Vowp7L09A6OykiUNcs2kZoS1jYwf3dh4Dif
-	 mU7MoV5zfw37hPSreIkPXiIhQJFnaJtrkLdRCGv2aHIvlLe8NPR42U+IqqQsadKJVL5u8
-	 yWfr3z57cjq5L1kOcBrF0Z3/MQGoZ+4q/9csuUff/P7hss1r9NUjCY4mUpZLbNkVJDA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=i0yAYEvuPiSMBvjuTW9H7cIjWMZDwnqjcTEXqfxJWYs=;
+	b=OJAQsyBQQrJncSdNC/BJsuvh5yl8uO3Uzd6+DbT4TbfpanD8hOpKIC8l65Bb2qTnO8pz
+	 qUUrS6n9HtJFj4XIjFJFBWgnR8xGNhPBf9ppYdN1ZLhzJk1VxnnNa+Pv/yDU/GuPBGr4W
+	 BGmqvA8szGdSptWetaUpRMDKdycvAHp2OvlttpZeI8rVetBTa1WCDVXNqVBa+aMWT2h2k
+	 1G5iDjyVZUlLM43qdP7yJk/jgxAfptk0IX69HfvOIiir0zMI4TiqgPcxypIXVfO9UL9nC
+	 PZI1uMjBfFubxFd93v3BysRlHsFYOVZHWIyCRedwB1olRSG9Psrq6iLPiyVIPfPd8dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=iodev.co.uk;
 	spf=pass smtp.mailfrom=iodev.co.uk;
 	arc=none smtp.remote-ip=46.30.189.100
 Received: from iodev.co.uk (iodev.co.uk [46.30.189.100])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 413F5606A31C;
-	Mon, 16 Nov 2026 22:43:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 413F5606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7D4DA606A323;
+	Mon, 16 Nov 2026 22:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D4DA606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iodev.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iodev.co.uk
 Received: from localhost (unknown [79.116.217.174])
-	by iodev.co.uk (Postfix) with ESMTPSA id EBE015E22CE;
-	Mon, 16 Nov 2026 23:43:26 +0100 (CET)
+	by iodev.co.uk (Postfix) with ESMTPSA id 4A1A25E22D1;
+	Mon, 16 Nov 2026 23:43:28 +0100 (CET)
 From: Ismael Luceno <ismael@iodev.co.uk>
-To: linux-kernel@vger.kernel.org,
-	linux-btrfs@vger.kernel.org
+To: linux-kernel@vger.kernel.org
 Cc: Ismael Luceno <ismael@iodev.co.uk>,
+	Ismael Luceno <iluceno@suse.de>,
 	David Sterba <dsterba@suse.com>,
 	Chris Mason <mason@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 0/8] btrfs: assemble a multi-device root filesystem without an initrd
-Date: Mon, 16 Nov 2026 23:43:16 +0100
-Message-ID: <20261116224316.11237-10-ismael@iodev.co.uk>
+	linux-btrfs@vger.kernel.org (open list:BTRFS FILE SYSTEM)
+Subject: [PATCH 1/8] btrfs: add config options for the root device scan
+Date: Mon, 16 Nov 2026 23:43:17 +0100
+Message-ID: <20261116224316.11237-11-ismael@iodev.co.uk>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116224316.11237-10-ismael@iodev.co.uk>
+References: <20261116224316.11237-10-ismael@iodev.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +51,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A multi-device btrfs root filesystem is normally assembled by the device
-scanner that an initrd runs before mounting the root.  Without an initrd
-nothing runs that scanner, so the root mount names a single device and
-the rest of the array is left out.
+Add Kconfig options to enable scanning all block devices for the remaining
+members of a multi-device btrfs root filesystem when no initrd is available
+to run the device scanner, plus a configurable polling interval for the scan.
 
-This series lets btrfs assemble such a root filesystem in the kernel:
+The scan relies on devtmpfs device nodes and is used by the root-device wait
+logic that follows in this series.
 
-  * mount devtmpfs on the initial root before the root filesystem, so
-    device nodes exist to open the other devices by name (init);
-  * let a filesystem tell whether it is mounting the root device and read
-    rootwait, and resolve root=UUID=/root=LABEL= values that name the
-    filesystem rather than a partition (init/VFS);
-  * scan all block devices for the remaining members of a btrfs root
-    filesystem, and wait for all of them to appear before mounting.
+Signed-off-by: Ismael Luceno <ismael@iodev.co.uk>
+Signed-off-by: Ismael Luceno <iluceno@suse.de>
+---
+ fs/btrfs/Kconfig | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-The scan and wait are gated on CONFIG_BTRFS_ROOT_SCAN (default y) and
-only act on the root mount when the user asked for it with rootwait, so
-non-root mounts and systems without the option are unchanged.
-
-
-Ismael Luceno (8):
-  btrfs: add config options for the root device scan
-  init: mount devtmpfs before the root filesystem
-  init: let filesystems ask whether they are mounting the root device
-  btrfs: add a helper to scan all block devices
-  btrfs: wait for the root filesystem to have all its devices
-  Documentation: btrfs: document waiting for the root filesystem devices
-  init: let a filesystem resolve a root device by UUID or label
-  btrfs: resolve root=UUID= and root=LABEL=
-
- Documentation/filesystems/btrfs.rst |  31 +++++
- fs/btrfs/Kconfig                    |  25 ++++
- fs/btrfs/super.c                    | 165 +++++++++++++++++++++++
- fs/btrfs/volumes.c                  | 196 ++++++++++++++++++++++++++++
- fs/btrfs/volumes.h                  |  25 ++++
- fs/filesystems.c                    |  37 ++++++
- include/linux/fs.h                  |  10 ++
- include/linux/root_dev.h            |  14 ++
- init/do_mounts.c                    |  51 +++++++-
- 9 files changed, 553 insertions(+), 1 deletion(-)
-
+diff --git a/fs/btrfs/Kconfig b/fs/btrfs/Kconfig
+index 4b10d78ed99b..c8ce06c9c3e7 100644
+--- a/fs/btrfs/Kconfig
++++ b/fs/btrfs/Kconfig
+@@ -82,6 +82,31 @@ config BTRFS_ASSERT
+ 
+ 	  If unsure, say N.
+ 
++config BTRFS_ROOT_SCAN
++	bool "Btrfs multi-device root scan support"
++	select DEVTMPFS
++	depends on BTRFS_FS
++	default y
++	help
++	  When btrfs is the root filesystem and rootwait is given, look in the
++	  kernel for the rest of a multi-device filesystem.  This is for systems
++	  without an initrd to run the device scanner.  It finds devices through
++	  the device nodes that devtmpfs provides.
++
++	  If unsure, say Y.
++
++config BTRFS_ROOT_SCAN_INTERVAL_MS
++	int "Interval between device scans while waiting for root devices (ms)"
++	depends on BTRFS_ROOT_SCAN
++	range 1 10000
++	default 100
++	help
++	  How often, in milliseconds, to re-scan the block devices while
++	  waiting for all of a multi-device root filesystem's devices to
++	  appear.  Only used together with CONFIG_BTRFS_ROOT_SCAN.
++
++	  If unsure, say 100.
++
+ config BTRFS_EXPERIMENTAL
+ 	bool "Btrfs experimental features"
+ 	depends on BTRFS_FS
