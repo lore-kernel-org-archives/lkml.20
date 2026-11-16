@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842729;
-	b=gG1hxrRJjpg/OXpmp4CHnUsqHVsbFfj9sZEgvp+MG+9ESuUiSHdGjLwu5kGoH77PowOZ
-	 +TpGeLdFEZzS6O6ieErt3mql4+B1ut3DD7NUJ1AV6U6JDIY8Ui127QAv+lQAXgtUFDJ5j
-	 g5YFeV1RZARtTJy+4Qh1ew1HzCtlN/V2F8RIf0BbXfJ1ZBVO6FgTFdTTk7tYFWlZBpmDh
-	 nNsmk/cR51ob4Q/dRcbuzgG24/MebstC3hHVkAOV41Uy2wM5ft4F/DLy6KmBhLhrWea9Z
-	 giscuMvM4i3qN8579DXJg/ZwKKoo+psmZ0OIzMECittk7reJBz3B9s3WnT5EoxONvKA==
+	t=1794842726;
+	b=P58sYg8Afbhlo1Ugk6je8VUF1TJVevgAS0C2IgdM6wdonsNRIYZs0dAHV3mAy+8LDwPY
+	 9yiwrjyrDcFKv14lseEO52LDHnXalWOl0G1JHbmlfAVrIoxu3eUeuDwITWpRLVUb7h7M+
+	 UHsb4lmRyxvV+kcrR6z1a527QJpheuA4ZP+DJW3KVCBZc2z45KoZOUgnSVz5M5QlJuceN
+	 nBvyVVKJq/9vD64LR0fiIhh6L29Cu55MrbQ4/+sAY4Hll69WM6/Gh71JpeaCzaTD+BnA3
+	 sskuOT6lso4YhwiIuZJhntMdge65IjNZA/CHmyPzU6N82MK+B9/equeskUspSZ51aMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842729;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tBrCJP9dOXojpsN85BTJhtl+ayGDg46qUwwBB1MbyTY=;
-	b=U/cjhoQ/vMBVY5KsCjnHDOh7sCKy/u1COB7vjJoL01MytXZpRp1vjmYMkF/P8BknUG//
-	 ojRl+GaE1nTmqqv3dYJX6DlfRCZVHabw0xsoQHeocW47VJXvGZnSeHPzo2wQuv2cmWaaJ
-	 b6nAI4vMIJKFY7D0s911AEA2eoPd9aMqwxCopltmQjB16lii7lRtL9386ZqaEUwNZQffK
-	 db6NzDldHFgbXwubkwmcshXejULpb7QHvD4X0QpuaFmYVS+HMF5Vgebs+YiHOefdAfTub
-	 PqHx6oCeadThGw3hR+ndVMg0SpWR6Lj81hkDpBPWGJF/EgC1jXQ7reOzW6XF61TkH5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842726;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=P7CiCzeZqW6W4HkMqWaCiuH37dTrqVBJZlhiRcSIZNg=;
+	b=UMBmS/cXH+VqFwqhnxG3z9zkMoOu+5u3HpLARvnnrvl8jX1jcp76edLzpW4kyNHxTYBX
+	 8qZgz/39LRtVo/92JyXLPvHYgCdDeosfcQq0p9WLN8zFit1c4v2eZlYyC9sdOKFnyhpVm
+	 Znz87miMxA5ntilfEYblDN9U1j6WBgtdjBGD326orhT7YwvBnlM8Hqh+54pu28Mv6mhgz
+	 ghvUJN9ztvCXDanlWyBe7WKmy+zjsLL7BYcA0EnmzA1E8yAGV0+vX6QXfftAfyJDGD1Vi
+	 tZTdyiZlMnMy624mrAZ5e5zFsBYWXLS0cRT2+5MUDHsYqDa3NYF+tjpvz0kibgoczSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XBaw/1vN";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ADw4HCF1;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F46D606A323;
-	Mon, 16 Nov 2026 15:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C31606A322;
+	Mon, 16 Nov 2026 15:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C31606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBaw/1vN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8301F000C8;
-	Mon, 16 Nov 2026 15:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794842729;
-	bh=tBrCJP9dOXojpsN85BTJhtl+ayGDg46qUwwBB1MbyTY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XBaw/1vNGcj/B/XDzkZuv61tm1PCF15ZgmGy9zbfQAGzgrvA3fsNxpmkWDLLDh2Hp
-	 GS6nXdDPPxTnBFR3NPl0ugVHqV8eGEAqn6CCphG/UFLQNd4EDFho9AJcbDnB5/Cfq7
-	 ns3nIC/dcZtyzIlMHLw3XjnGieUjL1STN3z81fAbdcwZ1/Hvj/0axkq7ysSlR1bdfL
-	 txRKKjxoE6Fk2DIBjDaf8VnUhtpQyvPSEKGAq53OqMh42dUqxtzEQVxFRxW8UP1ZPR
-	 IwoRDXIvdXzNgZqxzQZV0zJ5M7L0iX9bxxSOa14dXGiSesuvZW4Kq9RBEgcw02KO00
-	 +6OEXiLQPnJWg==
-Date: Mon, 16 Nov 2026 15:25:25 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org, arm-scmi@vger.kernel.org,
-	philip.radford@arm.com, Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	"Rafael J. Wysocki" <rafael@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] powercap: arm_scmi: Fix potential stale zones after
- a skipped leaf
-Message-ID: <20261116-influential-jackrabbit-of-criticism-c6c24c@sudeepholla>
-References: <20261115110546.2344308-1-cristian.marussi@arm.com>
- <20261115110546.2344308-2-cristian.marussi@arm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ADw4HCF1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794842726; x=1826378726;
+  h=from:to:subject:date:message-id:in-reply-to:references:
+   mime-version:content-transfer-encoding;
+  bh=VEz6TXDutA1qcIYXRFEeOZWHNXov1jEK666Uhs8dZiQ=;
+  b=ADw4HCF1tzPcEIZTr0Hz6X9AlozDdD7Ofa2pIy1N45bPa8YdrLZJ+bxi
+   6V8ks28ipGjm8fP0KRf2iroW7yQxvzQCpDXju0Yjgp7r5vIHBYa+jHbq9
+   EL4QJk87wvuZqKcTjh8JOTKkiu1/SzESITMP2exedoJSq/Z7TzC3mfPwQ
+   9f3JLkYMhHCsGh/3jt81USzZ+nhC8ubeu4x0B6OVfkWtqYDDgSTZoOHbR
+   dtVztNS+yr7bP42W1oeDEuJ9uIBfRmYFHdpPY72sPkK7YUf7MFBLGR04u
+   vtLiYpxKRTglmm8p5gzHglgQNVUbxgBKaBERGNv3mrYEnAN7qLqW5cSg7
+   w==;
+X-CSE-ConnectionGUID: HEoRrQDZS7S52wsJci61aQ==
+X-CSE-MsgGUID: HDuIUD2YTvGwlilt9vKmLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3457394"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3457394"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:25:25 -0800
+X-CSE-ConnectionGUID: XJq0pCoASDGRivN4KsaTOw==
+X-CSE-MsgGUID: C82BCpyHSaCPJN9hdXh7sA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9769634"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:25:21 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-pci@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D. Jones" <luke@ljones.dev>,
+	Denis Benato <denis.benato@linux.dev>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 07/13] platform/x86: asus-wmi: Convert to pci_assign_unassigned_bus_resources()
+Date: Mon, 16 Nov 2026 17:23:52 +0200
+Message-ID: <20261116152403.2672-8-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
+References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +89,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115110546.2344308-2-cristian.marussi@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 11:05:44AM +0000, Cristian Marussi wrote:
-> From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> 
-> scmi_zones_register() skips leaf zones that cannot be registered, but
-> returns the last leaf error when that leaf ends the traversal. Probe
-> then fails without unregistering the successfully registered zones,
-> whose private data is device-managed.
-> 
-> Return success after completing the traversal. Keep the existing error
-> return and full rollback for a failed non-leaf zone.
-> 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: 3e767d6850f8 ("powercap: arm_scmi: Remove recursion while parsing zones")
-> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> Cc: stable@vger.kernel.org
+The asus-wmi driver scans single device and then attempts to assign its
+resource using pci_bus_assign_resources(). That function makes bridge
+window sizing disjoint from the assignment phase and is going to be
+removed.
 
-Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+Convert pci_bus_assign_resources() to
+pci_assign_unassigned_bus_resources() which is likely no-op in this case
+as it looks like bridges are not involved here.
 
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
-> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/platform/x86/asus-wmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I may be wrong but sign-off when you repost means you are agreeing with
-the change and hence review tag is not needed ?
-
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index b33ebdb21aa2..9eb783eb53c6 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -2325,7 +2325,7 @@ static void asus_rfkill_hotplug(struct asus_wmi *asus)
+ 			}
+ 			dev = pci_scan_single_device(bus, 0);
+ 			if (dev) {
+-				pci_bus_assign_resources(bus);
++				pci_assign_unassigned_bus_resources(bus);
+ 				pci_bus_add_device(dev);
+ 			}
+ 		} else {
 -- 
-Regards,
-Sudeep
+2.47.3
+
