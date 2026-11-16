@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819424;
-	b=ZIqY1N7Q4HyQVp6kfQdBkgFpjS2x0zZzo2rONaJzG/qEhY4Yd+SchcBGoGyjD209zK93
-	 54GHJSghq3vivwnQ3tFsxwctxkcIbJK3S6SVdnRmNOdNdiwEyTRPDhmsGRrv2Ns5xMV8D
-	 zhiIYXSQa59neBdvX6fxpoz9xxNav7QLq6oMjWJNLxBE0tiLWnZz3JsMLnxS71iIUazKv
-	 ePV0vpox3PjcEwBs+u1VpD2FNcKEsNaclqXhwUGhLkmQCm5rHK9Ntp9Gzkyw9YicfMlqm
-	 4PlGeDzDMYp/t5Q9mv9B5ynnafpS+e8IyXj3LjY2pUPTQO9f+7V/DzKb45V/i6M9PTA==
+	t=1794819467;
+	b=cuiN7/sH5CCyj70VuFG3u6K1uIDiQl3WwnUK6veVhYiYkyT88CY+KBPmkg+84j+Uzk2a
+	 5OUrWOoqbyEThOo6IO51h40BeFJwSGX5hX76z9lhKrhJaHo287MxJofTTXLlMLTqV+kCt
+	 CzBNUUlPBi4vOprsVXeRFzSngpDkSv62Evd7b+H2NG5TL/w7wil5dne1sKLzMUdxnnEex
+	 Q7ZN0D5pqZAYcim1eAWk9Mmb7XSBQsKs5bdFIR6bLihXPW5ENmkv5T15Gr83NSYQQor7q
+	 c3ehJrwJSfuRJ9L5yj2ahDURdGp5VKn4GkL6wQpF5wDokF90YZ6SILtnpTZIV2XSoJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819424;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=jqqQIn5fN3ExvqQJ702aRkMFV4vd8sFUVArqXPGGWmU=;
-	b=fDZHPJEouu1fMn4g2lTrCxljnKsSs/44FfQN13WcW57+/0U3MK3TjNRMEVcNcyHLdrvL
-	 SZRVDMdxL/BVK0ORTV0b+WxBBHwOGTBbF43lZV8PUr9iwO/ZMcNWhzCmNvZkWbYLmEDhX
-	 TOc3cxB5bIdEl2Jtrtl1yqU6aTgHK/by2X/ZwaJ/eH+S1940YIVpNEzDDclaosS8I4hUR
-	 /NnbeC5cZLLlH7XZDKt2VTWMzNABVP4op/8Ze2EQ2LPFOrMjE5EfHGaKlQsV2zhGnnbQi
-	 jWhaU8S1FSua2LXQDBXbP3WJQ2kxHN7VL3Jz0sS0sOWsnfL6YFWaXh2ZCC9iISwh6sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819467;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:X-Mailer:Received:
+	 X-Lms-Return-Path:Cc:Subject:Mime-Version:Content-Transfer-Encoding:
+	 From:Content-Type:To:Date:X-Original-From;
+	bh=BTcZk/ysXO+x/psVKKTgMfCcFG9OUCtxSRwx0yIpMrg=;
+	b=J/qnzOJ8hoAWCE6UNTylY5jnQ44ExxFya6984OgYiQJO1CUZsk5THmsFQZ7I61bD3E6g
+	 j2RDBlTsqS6Gcfwjwr0rW2WLPEi5Vm0Asz4NrZiAWvs7MEofiW775RdwOR5w4re+HQQR2
+	 SpdIeKgIXJPaSuajG1ppnMM+4E48hnaSdxmJH8Y4NT1z157vj3mMZRCLCYdf2SE6otc6g
+	 0eI8pjbL7aDbG0LwRQD238BtD/sgRg8aATuZDeld/Gti7NbxPInvob/LOeeig0P8g5n3v
+	 bX28tM0loRInI4UYqM9C4GRAeDxWpgIraUIS8lx8FDpbnVYjW2Guf7OkOLxGMbH8ykQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GpZnQFXB;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=FXEdP6im;
+	arc=none smtp.remote-ip=209.127.231.39
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3C5606A31C;
-	Mon, 16 Nov 2026 08:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A3C5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031E2606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:57:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 031E2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GpZnQFXB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794819424; x=1826355424;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=j+APYi05VYl+fOsRhxa5u2olSjyXjy7TsU2aLGBHaSw=;
-  b=GpZnQFXB5YFxrIICpkK79qgC9H6v2smfS0X4Y7AIoHpeKs7bGOzSh7aX
-   Y4y62K93Uvd57/0kvBgM6jihBiIAoZZgbDOE3aqXoxNtUU1dJGwY4MDeV
-   77mDbQXXP4BQVuf3Zkd0Tb/ytHiafkU0o8ktfWDXy3mvPxUH6gLdt+SJ7
-   8z8FttEhlU3jGidPrM4iWrkJjv7lyThf5QNmrtP+PrKQ9LQhFXY7Apys1
-   2DAURllVmd5ed6jq6Wghp9QiSqENzQtk3tLF7FdeCl+EJj/7a9Q4LpF6Y
-   xin3ts3iKmIgyAty6Ykzanb4qOIvNPrIasNw9HdDvCzvYe1QJEL6qh1nV
-   w==;
-X-CSE-ConnectionGUID: tgJw/Sk8THGOaKvvXMBJhg==
-X-CSE-MsgGUID: CNWk83w8SBKot9mLmCdz7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3557084"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3557084"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:57:02 -0800
-X-CSE-ConnectionGUID: kVie1Q6rS9uiOHhXIECVrw==
-X-CSE-MsgGUID: +8zQcbTKQQ6zfgRIkv9O8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9384413"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 16 Nov 2026 00:56:58 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xSsWF-000000018AK-3xJI;
-	Mon, 16 Nov 2026 08:56:55 +0000
-Date: Mon, 16 Nov 2026 16:56:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH-next v4 5/6] cgroup/cpuset: Handle remote partitions
- before local partitions in cpuset_handle_hotplug()
-Message-ID: <202611161625.POIP7bQr-lkp@intel.com>
-References: <20261116012330.2271010-6-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=FXEdP6im
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794819454;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=BTcZk/ysXO+x/psVKKTgMfCcFG9OUCtxSRwx0yIpMrg=;
+ b=FXEdP6imxUa80WWfC+36CeHIOP2D7V8thM9xwarmZts2uMZVhoct/Y7OADD7Ck5PPr6Q3D
+ xjGB8BJWSsE/W2STuHBeHXve38RtKUI7ocAohE23bUOZkFijUtPn1Y15TvFazNmhFU5gNF
+ er+fPmFd8/1AQasJb0jnUzQ6e88/EoJpYcqIskOPWir1+Ng3Wv9eGbNtXVxTmiF23v+qJL
+ ZP2cUgAhbGPjLr7ea2cpwU3sDYoZWSX8KwDH6kgbK5EIo4MJAQumJvMJWJWlrk5GtQWgRO
+ mXIfAfBx0yIA/q/8WzdFf24ImAlgu3QYwxXs7HjJ8nROVRiFU7hqlPTpJ+0m1A==
+Message-Id: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
+X-Mailer: git-send-email 2.43.0
+Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Mon, 16 Nov 2026 16:57:31 +0800
+X-Lms-Return-Path: <lba+26afac57c+450d40+vger.kernel.org+sandie.cao@deepcomputing.io>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH 0/5] riscv: dts: spacemit: enable WLAN and Bluetooth on DeepComputing FML13V05
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,42 +60,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116012330.2271010-6-longman@redhat.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+Date: Mon, 16 Nov 2026 16:57:25 +0800
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
 
-Hi Waiman,
+This series updates the DeepComputing FML13V05 device tree to describes
+the console UART as 115200n8, add rfkill nodes for WLAN and Bluetooth,
+model the 3.3V supply of the WLAN module, and enable PCIe node.
 
-kernel test robot noticed the following build warnings:
+The series is based on next-20261113. The DeepComputing FML13V05 
+device tree depends on [1]. The PCIe driver depends on[2], which 
+in turn depends on [3] and [4]. The PCIe node depends on [5].
 
-[auto build test WARNING on tj-cgroup/for-next]
-[also build test WARNING on next-20261113]
-[cannot apply to linus/master v7.4-rc2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+[1] https://lore.kernel.org/all/20261109033154.361399-1-sandie.cao
+@deepcomputing.io/
+[2] https://lore.kernel.org/all/20260929083755.458238-1-inochiama
+@gmail.com/
+[3] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/
+drivers/pci/controller/dwc/pcie-spacemit-k1.c
+[4] https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama
+@gmail.com/
+[5] https://lore.kernel.org/spacemit/20260727094726.890179-3-inochiama
+@gmail.com/
+---
+Sandie Cao (5):
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add 115200n8 to
+    stdout-path
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add rfkill node for
+    WLAN
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add rfkill node for
+    Bluetooth
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add WLAN power
+    regulator
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: enable PCIe
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Waiman-Long/cgroup-cpuset-Fix-incorrect-partition-invalidation-logic-in-cpuset_hotplug_update_tasks/20261115-202304
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git for-next
-patch link:    https://lore.kernel.org/r/20261116012330.2271010-6-longman%40redhat.com
-patch subject: [PATCH-next v4 5/6] cgroup/cpuset: Handle remote partitions before local partitions in cpuset_handle_hotplug()
-config: riscv-defconfig (https://download.01.org/0day-ci/archive/20261116/202611161625.POIP7bQr-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project ca14e3d05c4e63d6e8103945c86b958ed2f55d5f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611161625.POIP7bQr-lkp@intel.com/reproduce)
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 60 ++++++++++++++++++-
+ 1 file changed, 59 insertions(+), 1 deletion(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611161625.POIP7bQr-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
-
->> Warning: kernel/cgroup/cpuset.c:1895 function parameter 'tmp' not described in 'remote_partition_scan'
->> Warning: kernel/cgroup/cpuset.c:1895 Excess function parameter 'tmpmask' description in 'remote_partition_scan' (did you mean one of: 'tmp')
->> Warning: kernel/cgroup/cpuset.c:1895 function parameter 'tmp' not described in 'remote_partition_scan'
->> Warning: kernel/cgroup/cpuset.c:1895 Excess function parameter 'tmpmask' description in 'remote_partition_scan' (did you mean one of: 'tmp')
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+base-commit: 4bc415760dd40fcff23deb073333984dd15d418d
+-- 
+2.43.0
