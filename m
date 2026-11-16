@@ -1,104 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814652;
-	b=EJ7nFD1UhFqaniCqj3bp774R/cv02prnC+/5WSm4fdT1psUqtR6oKteBrw+c10CRaX7N
-	 rPq3Rotr+sxg90OHW1X5FITvnEO7CEWXvmwEfMSg+w+zLVgyhp2gLvEby05OOClJyqdM5
-	 ZI8KHcluigU+AIQfqZIN87RTltv7sZgbH6nbsWVwcZBKKL/cBuOBIHeDzVFcTqHmxlajU
-	 I5hPROMEQsw1sfUQtKuK9VEC/O7b15Xuv9BJnqe+wukbV4NTf3HjqYkgtQw9VuKvoedm1
-	 2Csb3WMkDt0WOxZufihjol7KmhqJCrdMQ1DD3ao+bnUUCi5shVIpAKscJtUp4hRL2cQ==
+	t=1794814661;
+	b=niqb9o7vZr4DiUcPobDmFZ+Mfuaelku4iI8YLkmKnMNQ90PTYFkrj9ZPXqozMF+OT7mh
+	 Y4+YYyuqoOqecdzSRXc6AdTGHnXg/Axxb+5IHxEAFjUPUAf0jxcjTOcYikQ//KD+D8BTE
+	 +hInriqpjabQKX9kg2wZNKL3XLDCeC5lBdt1CYBnBXiuQp93H+V+l5lj6fuM69y2u9OQu
+	 raY1pBexQebwoC2kYbmhhcybjgNOdbUN4QSi+usHnIHCvNWk/6b7BBNjCKUbg2HOILqSB
+	 NgXqCuF8QE8t/lrDUGA7iLswoB+tnExrCqQQ36X3D1inhk2cKKfRVEpoSn77h+F6/jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814652;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
-	b=xXCCca/6oNEBrlgTYuq4ugeOrvb5jr9HW1sI1zY5E49Wl/P9clQ7QcTfBk5nvpA7aytV
-	 4F8F0QqovNgvTcn50G1SK9ULgq61znc4ae4M2NnjQOV1VYzg66quUSDZwJtqHABO9dJ2e
-	 hEtb+zzk6t6v8GgvcBcUGnB4RXCVxH5tkA1eTm/waDXj5Ledh+AQx58nTkvbLg7rwSQtZ
-	 P1rsg2eLJtPffDSkYTxWMTtGxvuh+7wfM7VHRHp+0gp5nNK7VHErj3jNZmfYxjLNj91J+
-	 34hk4mAd+I4b6bWmVyucgwkaZPfM8cqQHd7L7YRmb8d6iS6tedOFW5/O+29z/e68QtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814661;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ELGLnivSPBf/XoruTptZjLnaANO/5tU+GX+LXPFFz7o=;
+	b=B23O6xpxfhzN+IPjDDX2semi6Eiw2StReTVZtwA6hFvsEaiELBRikm1/VeN7CvZfstrn
+	 F0CgDqyDO7hrgvkJSr1DasegfG9ZCSNDft/RgZdJGx2Smlr3vqOLpkT/R82IRIOnkpD7v
+	 G1OyEXaPbnU4uQyN/kzddauBnoH9qyQE4uXjZavqu7Eoz8KG0fMKIyV3aFz6r3iMpFn8D
+	 36dLLNt+p6Zfm6Czhs/AY+Siirh56B2MJ+5Z9tyPC5MlrQtYz6EzVeqQxX64BnwAYxNGC
+	 5P7nyD5fz7p0Unhp/Lw7vKmJZisxL1f96blM6d7PDgqNNMwVxW8lCkbNbOfPO2wGZkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBW17kY7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ki+lfelX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znwH4v1y;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UoLu+QNi;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vnzW1sV3;
+	arc=none smtp.remote-ip=91.218.175.82
+Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92130606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92130606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C461606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:37:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C461606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBW17kY7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ki+lfelX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znwH4v1y;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UoLu+QNi
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5C8321FCF7;
-	Mon, 16 Nov 2026 07:37:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794814649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
-	b=aBW17kY7a/SJCSAemer7aZE355RkEQctEDunQO45ULQgnFZ5l8V9V919uEtyxCBp8Wnt3s
-	9iQ6n28HKkgtJTpVyBSRGX5rUEx4gyWaifGdvUOgVHehAugcCkgR/3S82TxASiN/qaslRy
-	O5kDruzeHCUHG1qJ/pj1oOmjO8kMSYk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794814649;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
-	b=Ki+lfelX+5JRg1KRn5F4jKSlDXvkoXYYhq82spafRNZ4pP+JutQQ0WfnegpXuj+3tgweeF
-	3SOVMmLJrvGolcCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=znwH4v1y;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UoLu+QNi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794814648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
-	b=znwH4v1yJ9EZYu/0cLfheLAW3yjQ6YBSc0RHIrCHOIde9VdJ60oqws3a+hypuLVTpLvIdQ
-	s0Kb2OUL/CKfFFZhl+T3HHZHbwSiRJWqtqEqKzLnqyfK3zgUoYah6bT5fZvJkeLyDP/VPA
-	dj9O4sKc4Zku+i8TDIWPqEzrZnbE690=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794814648;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ahlta8N83pw3OBdlmXEoRisYO+FVEctaK/N7UlSdVQs=;
-	b=UoLu+QNisU0gC/nj8ikOfX1gWh8R4Gfl8YpjaPVKn7AtAD6LSRjKydvwb9PqW3PckEsOFv
-	uDWqHnZY/XkV1WBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E0B0813408;
-	Mon, 16 Nov 2026 07:37:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1uQWLbey+moEMgAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:37:27 +0000
-Message-ID: <0cec2aa3-62c2-411f-a51b-9a3f3d25820b@suse.de>
-Date: Mon, 16 Nov 2026 08:37:27 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vnzW1sV3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=H6p33czRZZWahauFA0Jn1pndKd76EnVuASbuBmHSAtc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794814658; v=1; x=1795419458;
+ b=vnzW1sV3OqhljrZMjkJs6X5X2veHGbuRzjf3BuV6u8CbjHGIuZaInqU7ipJffKLDYu8zv7/W
+ dRXLuAOoNE59Imocx22u5NYAcpzOxW6oN52dBvPJBngvrkKXrYla/eJ0+5MmgSN/BW4MTYPWqaK
+ yJxAV0OaV14TJNacqiNluYgY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9ab298eabfac997d;
+	Mon, 16 Nov 2026 07:37:38 +0000
+X-Mizu-Trace-ID: 9ab298eabfac997d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8015ad75-0e4d-4928-8e56-8a495d752468@linux.dev>
+Date: Mon, 16 Nov 2026 15:37:30 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,193 +59,115 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 13/17] nvme-fc: perform error recovery directly from
- ioerr_work
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
- <20261114030454.2836543-14-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261114030454.2836543-14-mkhalfella@purestorage.com>
+Subject: Re: [PATCH-next v4 2/6] cgroup/cpuset: excpus parameter of
+ remote_cpus_update() must have at least 1 active CPU
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116012330.2271010-1-longman@redhat.com>
+ <20261116012330.2271010-3-longman@redhat.com>
+ <e437ac79-7999-43da-9fe8-6cfd475a5196@linux.dev>
+ <eb3fd5e1-aafe-4bbd-a9ca-afcdb1554fdb@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <eb3fd5e1-aafe-4bbd-a9ca-afcdb1554fdb@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,broadcom.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,purestorage.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 5C8321FCF7
 
-On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
-> Now that nvme_fc_start_ioerr_recovery() moves the controller to
-> RESETTING before queueing ioerr_work, the nvme_reset_ctrl() call in
-> nvme_fc_error_recovery() fails with -EBUSY and no recovery runs.
+
+
+On 11/16/2026 11:34 AM, Waiman Long wrote:
+> On 11/15/26 10:07 PM, Ridong Chen wrote:
+>>
+>>
+>> On 11/16/2026 9:23 AM, Waiman Long wrote:
+>>> It is reported that remote_cpus_update() fails to invalidate a
+>>> populated remote partition when an ancestor cgroup update reduces its
+>>> effective_xcpus mask to only offline CPUs.
+>>>
+>>> When update_cpumasks_hier() updates a descendant remote partition, it
+>>> passes the new effective_xcpus mask (excpus) to remote_cpus_update().
+>>> Because excpus still contains offline CPUs, cpumask_empty(excpus) is false
+>>> and remote_cpus_update() only checks tasks_nocpu_error() when adding CPUs.
+>>>
+>>> With the partition left valid, update_cpumasks_hier() computes an empty
+>>> effective_cpus mask and jumps to get_css. The populated partition stays
+>>> valid with no effective CPUs instead of inheriting its parent's CPUs,
+>>> and its tasks remain affine to the online CPUs returned to top_cpuset.
+>>>
+>>> Fix it by invalidating the remote partition if there is no active CPU
+>>> available in the given excpus parameter.
+>>>
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Link: https://sashiko.dev/#/bug/linux-936b7155-f652-4146-a4ab-ec48fd392a1d
+>>> Signed-off-by: Waiman Long <longman@redhat.com>
+>>> ---
+>>>   kernel/cgroup/cpuset.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>> index 631fb449cef8..195d4e3a283c 100644
+>>> --- a/kernel/cgroup/cpuset.c
+>>> +++ b/kernel/cgroup/cpuset.c
+>>> @@ -1810,7 +1810,8 @@ static void remote_cpus_update(struct cpuset *cs, 
+>>> struct cpumask *xcpus,
+>>>         WARN_ON_ONCE(!cpumask_subset(cs->effective_xcpus, subpartitions_cpus));
+>>>   -    if (cpumask_empty(excpus)) {
+>>> +    /* New effective_xcpus must have at least one active CPU */
+>>> +    if (!cpumask_intersects(excpus, cpu_active_mask)) {
+>>>           WRITE_ONCE(cs->prs_err, PERR_CPUSEMPTY);
+>>>           goto invalidate;
+>>>       }
+>>
+>> This also invalidates a remote partition with no task whose excpus
+>> only has offline CPUs. According to cgroup-v2.rst, such a partition
+>> is valid: cpuset.cpus.exclusive.effective may contain offline CPUs,
+>> and cpuset.cpus.effective can be empty if there is no task in the
+>> partition. The hotplug path and tasks_nocpu_error() follow the same
+>> rule. How about only invalidating it when it is populated?
+>>
+>>       if (cpumask_empty(excpus) ||
+>>           (!cpumask_intersects(excpus, cpu_active_mask) &&
+>>            partition_is_populated(cs, NULL))) {
 > 
-> Do the recovery in the work itself instead: stop the keep-alive and
-> the AEN submission, tear down the association so that any command a
-> core work item is waiting on is aborted at once, stop the controller,
-> move to CONNECTING and schedule a reconnect. If the CONNECTING
-> transition fails the controller is being deleted and the delete path
-> finishes the job. This is how rdma and tcp structure their error
-> recovery too.
+> A partition can only be created if there are active CPUs in the effective_xcpus. 
+> However, such a partition root can distribute its exclusive CPUs down to child 
+> local partitions with the results that effective_cpus can be empty if there is 
+> no task there. IOW, effective_xcpus must have active CPUs while effective_cpus 
+> does not need to have active CPUs if there are child partitions underneath. I am 
+> going to clarify that in the doc. I will check the hotplug path and 
+> task_nocpu_error() to make sure that it follows this rule. Does that rule make 
+> sense to you?
 > 
-> The work is only ever queued right after a successful transition to
-> RESETTING, so when it runs it owns the controller: a reset or a
-> firmware activation holding RESETTING cannot be in progress at the
-> same time, and the work does not need to re-check the state.
+
+Yes, the rule makes sense to me, and it is clearer.
+
+Note that the hotplug path currently keeps a partition with no task
+valid after all its CPUs are offlined, e.g. these test cases in
+test_cpuset_prs.sh:
+
+"  C2-3:P1  C3:P1   .      .     O3=0    .      .      .     0 A1:2|A2: A1:P1|A2:P1"
+"$SETUP_A123_PARTITIONS    .     O3=0    .      .      .     0 A1:1|A2:2|A3: 
+A1:P1|A2:P1|A3:P1"
+
+So the hotplug path and these test cases need to be updated together
+with this patch to keep the behavior consistent?
+
 > 
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> ---
->   drivers/nvme/host/fc.c | 57 ++++++++++++++++--------------------------
->   1 file changed, 21 insertions(+), 36 deletions(-)
+>>
+>> Also, it probably needs a Fixes tag, maybe:
+>>
+>> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make 
+>> update_cpumasks_hier() handle remote partition")
 > 
-> diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-> index c4603be38144..0ba621649afe 100644
-> --- a/drivers/nvme/host/fc.c
-> +++ b/drivers/nvme/host/fc.c
-> @@ -229,6 +229,8 @@ static struct device *fc_udev_device;
->   static void nvme_fc_complete_rq(struct request *rq);
->   static void nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl,
->   					 char *errmsg);
-> +static void __nvme_fc_abort_outstanding_ios(struct nvme_fc_ctrl *ctrl,
-> +					    bool start_queues);
->   
->   /* *********************** FC-NVME Port Management ************************ */
->   
-> @@ -987,7 +989,8 @@ fc_dma_unmap_sg(struct device *dev, struct scatterlist *sg, int nents,
->   static void nvme_fc_ctrl_put(struct nvme_fc_ctrl *);
->   static int nvme_fc_ctrl_get(struct nvme_fc_ctrl *);
->   
-> -static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg);
-> +static void nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl);
-> +static void nvme_fc_reconnect_or_delete(struct nvme_fc_ctrl *ctrl, int status);
->   
->   static void
->   __nvme_fc_finish_ls_req(struct nvmefc_ls_req_op *lsop)
-> @@ -1880,7 +1883,23 @@ nvme_fc_ctrl_ioerr_work(struct work_struct *work)
->   	struct nvme_fc_ctrl *ctrl =
->   			container_of(work, struct nvme_fc_ctrl, ioerr_work);
->   
-> -	nvme_fc_error_recovery(ctrl, "transport detected io error");
+> Yes, I miss the fix tag. Will update that in the next version.
+> 
+> Cheers,
+> Longman
 
-Hmm. _Some_ message would be nice here.
-
-> +	nvme_stop_keep_alive(&ctrl->ctrl);
-> +	flush_work(&ctrl->ctrl.async_event_work);
-> +
-> +	/* will block while waiting for io to terminate */
-> +	nvme_fc_delete_association(ctrl);
-> +	nvme_stop_ctrl(&ctrl->ctrl);
-> +
-> +	/* Do not reconnect if controller is being deleted */
-> +	if (!nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_CONNECTING))
-> +		return;
-Same here; it's the same condition than the original 
-nvme_fc_error_recovery() checked for, so we should keep the
-logging message.
-
-> +
-> +	if (ctrl->rport->remoteport.port_state == FC_OBJSTATE_ONLINE) {
-> +		queue_delayed_work(nvme_wq, &ctrl->connect_work, 0);
-> +		return;
-> +	}
-> +
-> +	nvme_fc_reconnect_or_delete(ctrl, -ENOTCONN);
-
-And you can move this under the 'else' condition from the above
-if-clause.
-
->   }
->   
->   /*
-> @@ -2528,39 +2547,6 @@ __nvme_fc_abort_outstanding_ios(struct nvme_fc_ctrl *ctrl, bool start_queues)
->   		nvme_unquiesce_admin_queue(&ctrl->ctrl);
->   }
->   
-> -static void
-> -nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
-> -{
-> -	enum nvme_ctrl_state state = nvme_ctrl_state(&ctrl->ctrl);
-> -
-> -	/*
-> -	 * if an error (io timeout, etc) while (re)connecting, the remote
-> -	 * port requested terminating of the association (disconnect_ls)
-> -	 * or an error (timeout or abort) occurred on an io while creating
-> -	 * the controller.  Abort any ios on the association and let the
-> -	 * create_association error path resolve things.
-> -	 */
-> -	if (state == NVME_CTRL_CONNECTING) {
-> -		__nvme_fc_abort_outstanding_ios(ctrl, true);
-> -		dev_warn(ctrl->ctrl.device,
-> -			"NVME-FC{%d}: transport error during (re)connect\n",
-> -			ctrl->cnum);
-> -		return;
-> -	}
-> -
-> -	/* Otherwise, only proceed if in LIVE state - e.g. on first error */
-> -	if (state != NVME_CTRL_LIVE)
-> -		return;
-> -
-> -	dev_warn(ctrl->ctrl.device,
-> -		"NVME-FC{%d}: transport association event: %s\n",
-> -		ctrl->cnum, errmsg);
-> -	dev_warn(ctrl->ctrl.device,
-> -		"NVME-FC{%d}: resetting controller\n", ctrl->cnum);
-> -
-> -	nvme_reset_ctrl(&ctrl->ctrl);
-> -}
-> -
->   static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
->   {
->   	struct nvme_fc_fcp_op *op = blk_mq_rq_to_pdu(rq);
-> @@ -3399,7 +3385,6 @@ nvme_fc_reset_ctrl_work(struct work_struct *work)
->   	}
->   }
->   
-> -
->   static const struct nvme_ctrl_ops nvme_fc_ctrl_ops = {
->   	.name			= "fc",
->   	.module			= THIS_MODULE,
-
-Cheers,
-
-Hannes
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Best regards
+Ridong
+
