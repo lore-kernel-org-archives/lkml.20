@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794856264;
-	b=Honbaesg+z4jyZMXDaXM0fvzlHum199hFirMd2UysLHh+F5aLbiHUpnX4WzCE9Rn/oac
-	 g+bhKaUWa/p/8S+RkZdnG0enqgn88XPsyXVx+kirX28y7iE3/jFMfYTemTDgHrzBywUPl
-	 pP/m9gh82WKVKzJyY+AauEgnZzbW/lmAIe7cZgZ9Pd73EEyDaZBX6jnC/WnbpUvb+wAM+
-	 45BtseEfMxEUaPxqAhPQx5U5lY1Y2fyRfInhSs+d7pcOQ7vCiBOQrYgq599f4Xa9AJSDL
-	 OeaEPKzW76hUd/FWb9cG6+KY3AerWO4sfA11kIthbgT1ORVebOJumoXeUTKjOGbbw2g==
+	t=1794856285;
+	b=vmCFV/4h6sdt1WjFKQ3uRxDfS7trhmTsk/zkTpUG66YQROSgKOYVuDNewP0JbcDPqHdk
+	 J+5FXql6qLKMVCVyGaN7EYoxCxSXIVGMhwlrql7vZ76bSYo3TJFPWWYqW7h9yZk8YSrgl
+	 o/jZ9V8t3lV5/HH/hcBEPQpSx8Fnx/ScMOjkhmzGhH7UjcgURYCwbzueOgTwyMh74Gb/3
+	 mFSxnvLNkqN9bYy/n/QgLfYQlqvgezIKFZq8Q4GFr0V8gmOuBJrVDxPSkN0K1tqsIjVs3
+	 ipPiTD/QyySZr9TS7SwcXhy0/3IL+9SfFRVcgheOFkAY0o6birFCgqBV3BGZ3aXtFMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794856264;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MP0jpTY9LnaMv+FuhHr1fqOh6qia1t305qae8DAZuCY=;
-	b=NqBTqwA1nwOZ3QUs8WoCT9w1jDK36fkuQ0MlhqXa31FzrL0x8XjsUf6PzKQgLfpEUwH5
-	 aROA15t+3wSAaF1xLawJtuxi3mAc2BBbcTmH46aQfYxF88q8Tg+eTt0ImJdUEpOw/ONoa
-	 Eyx8echk5PpC0WIvjEs8LXoEMDWNYUVK2Bmpi/2DPJWJZCzML/huPjPj+XgkQtR1fAxtE
-	 rcPhNhtxOsUpEZd6oFnch0xwQBtoMzBxjw3DsBC0GcIXt0IcA1JezcZcGj3kpqTEIvET1
-	 rVCMxR/WEM/dbFpGXpkX0Ci6W3Ukj526aV1bnUBvK9BcHTxeK2M98SHR2usCt6XxfGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794856285;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=l2y4MN7Q2AtsLMWjH9hP2piWATV0VLqCC4nNqGkTTHk=;
+	b=mMdHFX6F1QHEBaxGyk9vctta1r5qHmtX/0PyGj4IVoqRHfCioeEaHP6d653DNtZCqEkd
+	 f2q6wANBTUZyaHjBNejGxk0S8sooKsfIWFh7iQ5YgarZ+Sbvw344akfxj4Gei/aynYLTq
+	 bibfoKuCzMn0KepdMF09D4lo5KDcGiNsTpplURZ2T+XmGgOZGhyoQIESomOJscx8UUUT0
+	 chGhFd3cEy72nikwc08+73dPWP9/YCO+i/y/U6RdWBrNfKsaYZ7nlOweTstPgKHhvpsj0
+	 5pN4vaf1WEnX1XSNmPE44ZPFTH1hD8tjauPs7/3invYlhKeDASUsrl2nIJ9eVgqGUSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAJe2jaB;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZnPCR/Vm";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627AF606A336;
-	Mon, 16 Nov 2026 19:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627AF606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94DA606A336;
+	Mon, 16 Nov 2026 19:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAJe2jaB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794856264; x=1826392264;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=tTH2yYv0RoFv7DNoNzyxWTxTn/pZUD0Ygwt7ezZtpdE=;
-  b=aAJe2jaBQ96CvD0YIaI9MngFdFaxvtQIC6cKuUbjG++ff4CLUYLZKUT8
-   /gaMwr7DqSCjV1U0zxgLry9+cNrenUzTS/F3J/WdYr+KCZwgV4+jBoLiZ
-   DO9h/GV2oaeIQ7bZT1wrLJ4HEvvkjKFtZB6JAY44fTIu7S5jfQco6T4JY
-   NId7DQVvTsynsYHx7glEXmxDIHwdsjZzJDMdoPhGtCCccgFebQk5Uv63Z
-   rsL6vSBt3zQ74qs+6kWQBsMH8u+4FetVEC0qhlW+/Cv6ljZkrMwZ0+wzE
-   /YzPohvR/dP4Mk/uJXmsmDgMAVlr2V6FMF8Jh7tx27qVsnTeD4AH2DYmA
-   g==;
-X-CSE-ConnectionGUID: KPxAvjeQR5Kaif5jHvBMjg==
-X-CSE-MsgGUID: csLUeK+zQ4qMcjEcrgQ7SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3711793"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3711793"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 11:11:03 -0800
-X-CSE-ConnectionGUID: ux9f4A7UQBSug+6ZLw7B7Q==
-X-CSE-MsgGUID: qTRYJ6ZeTuKdWwOegtxqfw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9641465"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.108.118]) ([10.125.108.118])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 11:11:01 -0800
-Message-ID: <5616c825-454e-4eba-9352-b06d98dc123a@intel.com>
-Date: Mon, 16 Nov 2026 12:11:00 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZnPCR/Vm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1AE1F000C6;
+	Mon, 16 Nov 2026 19:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794856285;
+	bh=l2y4MN7Q2AtsLMWjH9hP2piWATV0VLqCC4nNqGkTTHk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZnPCR/VmpfSluwi+N8eSzvGc2Jo8NxsjSOKUdsz4e1mx0R/SQkRDQF/L2NSL27S3b
+	 tsaGvT2Zd8agKyr8EAfg95GDpiokgRnWdej//K1WA6c7g/UmHiBQII2nPoSlY94huI
+	 QDZNL82whlBr4KbBv5/PN4exvGE9i7YK1G435EzpT1wyXb6hHrwg1STEtpqj8zAAf7
+	 vTbADrDpEhSj5TyT760Ibi6sZ5eAWop50r6YWWJ8Ag262BwZbASKUATcgn7TiwZCMW
+	 XUDI+hvRbhAJtnahSSNFfQT+ht07ZCSp4YjYUWwqkp3YMAE7xmjPU707l+DADzbR1D
+	 SeaZVr4gtuTvg==
+Date: Mon, 16 Nov 2026 12:11:20 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
+ non-x86_64 hosts
+Message-ID: <20261116191120.GC1036192@ax162>
+References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
+ <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
+ <20261114204605.GA173332@ax162>
+ <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
+ <CAKwvOd=f+ib1XVvFfiW2mF8NoWo1jr55fJo=QOuZCJmzQCVmtg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,151 +66,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 00/19] PCI/CXL: Add CXL reset support for Type 2
- devices
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <iweiny@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Li Ming <ming.li@zohomail.com>, Joshua Machauer <machaujo@amazon.de>,
- Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261105185917.2667656-1-smadhavan@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261105185917.2667656-1-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKwvOd=f+ib1XVvFfiW2mF8NoWo1jr55fJo=QOuZCJmzQCVmtg@mail.gmail.com>
 
-
-
-On 11/5/26 11:58 AM, Srirangan Madhavan wrote:
-> Hi folks,
+On Mon, Nov 16, 2026 at 10:28:54AM -0800, Nick Desaulniers wrote:
+> On Sat, Nov 14, 2026 at 12:58 PM Borislav Petkov <bp@alien8.de> wrote:
+> >
+> > (If it were me, I'd simply whack that native thing. It is such a waste of
+> > energy).
 > 
-> This series adds CXL Reset for Type 2 devices through the existing PCI
-> reset_method and reset sysfs attributes. It disables CXL.cache, performs
-> supported cache writeback, initiates CXL Reset with Memory Clear, and
-> restores cached HDM decoder and CXL Device DVSEC state before PCI use
-> resumes. Active HDM ranges are reserved and CPU caches invalidated before
-> and after reset. The method remains limited to eligible single-function
-> devices with both CXL.cache and CXL.mem enabled. CXL bus reset restores
-> the same cached state and flushes the host and device caches around the
-> reset.
+> There's always KCFLAGS.  i.e. we _could_ remove it from the x86 build,
+> and <whoever cares> could still do
 > 
-> The reset sequence follows the CXL 4.0 specification [4], including
-> CXL.cache disable, optional cache writeback, CXL Reset Memory Clear,
-> ResetComplete polling, and ResetError reporting. Sections 9.7.2 and 9.7.3
-> define the completion timeout encodings and reset access restrictions.
+> $ make KCFLAGS="-march=native" ...
 > 
-> The userspace ABI is the existing PCI reset interface:
-> 
->     /sys/bus/pci/devices/.../reset_method
->     /sys/bus/pci/devices/.../reset
-> 
-> Userspace selects "cxl_reset" in reset_method and triggers the reset
-> through reset. Following Dan's v6 feedback, this uses the PCI interface
-> instead of adding a memdev-specific sysfs ABI.
-> 
-> For sysfs reset, the generic PCI path invokes the driver's reset_prepare()
-> callback when provided and disables PCI I/O, memory decoding, and bus
-> mastering. The CXL path reserves affected HDM ranges exclusively and
-> blocks IOMMU translations where applicable. It does not offline memory
-> or revoke mappings: userspace is expected to offline CXL.mem users before
-> reset. The reservation enforces this for claimed ranges by failing the
-> reset while a conflicting resource is claimed [9].
-> 
-> The global region lock is held from snapshot through restoration. Memory
-> Clear completion is awaited for the timeout the device advertises, up to
-> 100 seconds, so the lock can be held for that long plus cache flushes.
+> (I'm agreeing with Boris here)
 
-I think holding it across the bus reset can deadlock with pciehp and a
-PCI remove. I tested in QEMU with two cxl-type2 devices from Manish's
-RFC [1].
+I have no objections to deleting X86_NATIVE_CPU but as Ingo notes in the
+v2, people do use this and it is much more convenient for a regular user
+to adjust this single configuration option in their local configuration
+file than fiddling with KCFLAGS (potentially having to modify their
+distribution's packaging file in the process).
 
-For a device in a pciehp slot, pci_reset_bus_function() ends up in
-pciehp_reset_slot(), which takes the slot's reset_lock. The reset still
-holds cxl_rwsem.region at that point.
+> Nathan,
+> Was there a bug on file against clang for this?  I can picture a fix
+> in my head for this...
 
-Two other tasks can complete a cycle. pciehp_ist() for that slot can
-hold reset_lock and wait for pci_rescan_remove_lock in
-pciehp_unconfigure_device(). A PCI remove of a second Type 2 device can
-hold pci_rescan_remove_lock while cxl_decoder_detach() waits for
-cxl_rwsem.region.
+I am not sure I ever found one. I can file one later today.
 
-On v17 as posted, lockdep reports the cycle:
-
-  [   60.891789] WARNING: possible circular locking dependency detected
-  [   60.893014] irq/24-pciehp/103 is trying to acquire lock:
-  [   60.893367] ffff888072b4f128 (&cxl_memdev_key){+.+.}-{4:4}, at: device_del+0x8d/0x580
-                 but task is already holding lock:
-  [   60.894498] ffffffff84699e80 (pci_rescan_remove_lock){+.+.}-{4:4}, at: pciehp_unconfigure_device+0x93/0x210
-  [...]
-                 -> #3 (&ctrl->reset_lock){++++}-{4:4}:
-  [   60.916794]        down_write_nested+0x80/0x170
-  [   60.917826]        pciehp_reset_slot+0x6c/0xc0
-  [   60.918893]        pci_reset_hotplug_slot+0x5c/0x90
-  [   60.919928]        pci_reset_bus_function+0x161/0x330
-  [   60.920951]        cxl_reset_bus_function+0x1c6/0x280
-  [   60.921958]        __pci_reset_function_locked+0x96/0x170
-  [   60.922990]        pci_reset_function+0xc8/0x180
-  [   60.923977]        reset_store+0x84/0xd0
-  [...]
-                 -> #2 (cxl_rwsem.region){++++}-{4:4}:
-  [...]
-  [   61.013490] Chain exists of:
-                   &cxl_memdev_key --> &ctrl->reset_lock --> pci_rescan_remove_lock
-
-With a test-only msleep() after cxl_region_quiesce_lock() in
-pci_cxl_reset_prepare(), it turns into a real hang. The reset, a sysfs
-remove of the second device and a power off of the first device's slot
-all got stuck.
-
-Two region reads blocked behind the reset as well. A read of
-region1/commit timed out after 5 s, and cxl list -R stayed in D state in
-decoders_committed_show().
-
-To reproduce, I used Manish's RFC as posted. It allows one cxl-type2 per
-pxb-cxl, so each device has its own host bridge and window. On q35 with
-cxl=on, plus the memory backends:
-
-  -device pxb-cxl,id=cxl.0,bus=pcie.0,bus_nr=53
-  -device cxl-rp,id=hb0rp0,bus=cxl.0,chassis=0,slot=0,port=0
-  -device cxl-type2,bus=hb0rp0,volatile-memdev=t2mem0,id=cxl-t2,fmw-index=0
-  -device pxb-cxl,id=cxl.1,bus=pcie.0,bus_nr=191
-  -device cxl-rp,id=hb1rp0,bus=cxl.1,chassis=0,slot=2,port=0
-  -device cxl-type2,bus=hb1rp0,volatile-memdev=t2mem1,id=cxl-t2b,fmw-index=1
-  -M cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=4G,cxl-fmw.1.targets.0=cxl.1,cxl-fmw.1.size=4G
-
-The guest kernel needs CONFIG_CXL_REGION_INVALIDATION_TEST=y. Without it,
-the cxl_bus reset fails in an x86 guest with "failed to prepare CXL bus
-reset ranges: -6".
-
-I drove both devices with a small test module based on
-tools/testing/cxl/test/accel.c. It attaches each firmware-committed
-region with devm_cxl_probe_mem() and has no reset handlers. Then, with
-lockdep on:
-
-  echo cxl_bus > /sys/bus/pci/devices/0000:36:00.0/reset_method
-  echo 1 > /sys/bus/pci/devices/0000:36:00.0/reset
-  echo 0 > /sys/bus/pci/slots/2/power     # second device, 0000:c0:00.0
-
-For the hang, add msleep(10000) after cxl_region_quiesce_lock() in
-pci_cxl_reset_prepare(). Start the cxl_bus reset, remove 0000:c0:00.0
-through sysfs two seconds later, and power off slot 0 two seconds after
-that.
-
-Separately, pci_cxl_reset_prepare() returns with the quiesce held on its
-success path only, and cxl_restore_state_after_pci_reset() releases it.
-With Clang 23 and CONTEXT_ANALYSIS=y passed to make, that gives five
-cxl_region_quiesce warnings in drivers/pci/cxl.c.
-
-[1]: https://lore.kernel.org/all/20261106035911.1280066-1-mhonap@nvidia.com/
-
-DJ
+-- 
+Cheers,
+Nathan
