@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814315;
-	b=2PFryUnfATPzfmGmd0TGxE7/nhEVb0J4F98+Y+5qZFxbDDEyS7MtahiFSQ7PvyGxoRNL
-	 rhgiVjF7BrAEpqZLOm5H2VwI8cZ3a5c/nS8VUHy/3BNFC1wdhBmnUYwUS7uvgOjoukGO7
-	 4EZCoIcnO+8Lbrhgngr8RNEOc6YaeLgyN3ta/GdLQBtc70WwxtT8Ivwcq8cz5K8pegIks
-	 MlSEYePlHBohbKOvZED+5Q0Ydmz+HlxjkIokYbEFsd46WjEn/rJG/KJmGOvvd2CaUaz/G
-	 qcRE1Ii4udGpBWbIpfjZ9GvlU42126HV8hnt7PFx4gCNSvj52Z4dgbieB0Zk/n7D0zA==
+	t=1794814380;
+	b=IMFoDlJJxf3P13OA/LlJRO98FoEFNx9x56vQwV1THuiqLHbxCG5FZ/55DvTgZQFex/rT
+	 UYNVJZI7Tj09dz7Bv7EZUWkeH+ycrJcs9g7uPMELfLjLNJRvIi1qfWo5m0A/mEDKmIunG
+	 A6L9ttz65H1yOkF7DfrZyISAfZTJfmSNHm/fXIJxKB0WicHlu13F6HeZQqwwYndrLD9Pn
+	 QvbCx4fSdQ+mSuipWpG/lmeNpDeeGZVQFgt/5dSNvtc+qyVHUTtxCWcKiVsbjtrV04ywD
+	 ljZC47IDNAen2Zvi7eTR7CtCs2lmfLXGe/5bB8IskkbdcLKXv+6Z2L8ShH1/D+sQb4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814315;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Xu2+ZqWLiH8ac/CHEFRlUaMcIRQgTHmvl2/TbWN1jDE=;
-	b=WJdIFVnpBAzXHW+HPNwdfsmKnzcW2atn6yq/U8HtlCx5Ka27j00kpBAqMrAgG302uRcz
-	 LHbH8pvz9FaJeZ0rGUEYk3Oe551UDkuuF1Qj/I3LOJJntyvv2MzEwVsKwwKF1YhDbLl/Y
-	 ssCNhfcl28niCCulOwkMDlkz/IfbyzfHf/dU9Jnncq+R1qsNuhPCs6dZOSh7Sqo7xh17h
-	 +LiBL/hTHSk4c5csTnUMYjzgEazQBNidMW8nq+q1Y1+tZN9m7eNiWQo0N9alYCOdIowrS
-	 W4WM5vcKvQn4pomZdjOnJOJhEuMf8xrAqjHpZO2hfb6E/OCImZIvhb8mMbQzYSaZezw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814380;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1Lb0d+nlQPwj2uxwrjLTKUVhOeG90QM798BTau5rOQU=;
+	b=Ii14Ywu5EsRuLnqyT+fczMMdSq6nOqy/is/HaaG5R2RRGXTuss4H26Hs/ZJf5oye28rs
+	 752oWuNFgd9SBMq7TORq/TKhYTktpVXxCGc0f/7jaD/WCfmuzGukXzyitgDBNHo33wDmg
+	 7qeFO0W7e8eGUWcuAhRP2OaYS+8nyXpxfrCed3LZtl/rSIsPjf5/UP83JvaPiybMNARZe
+	 HFVxyhbyfRptq2B1LPn25QYfdXaXMyHmc4dn+l18/xQHh/+c1bZIdaJ+BLa8Xa5LQEift
+	 Gaq1Uz5BkxczalT84vVklFU+kL+ImltHHBKJDuRDonp7DzF/tjvyARzgwcjlTmuHc0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=m99FfT49;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aIT7S67W;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C789B606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C789B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D71606A31C;
+	Mon, 16 Nov 2026 07:32:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D71606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=m99FfT49
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Xu
-	2+ZqWLiH8ac/CHEFRlUaMcIRQgTHmvl2/TbWN1jDE=; b=m99FfT49cAacTyHuKC
-	ZVlrc/ddyosRz6FdT5OMNPUKS80vN/Zx7yTwkCJebC8IoVumS/Rse8b+ZTC14Bzn
-	mGcQFH5F9R5QQ0ae2l3+QsANZwRqgXtidwYsX3CSCTtcMzpHNdNDDAp1hh7b2sD3
-	XneAEZi1KkV2IYvdhw8VekmBg=
-Received: from mm (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgDnB4dFsfpqIKNJFg--.7882S3;
-	Mon, 16 Nov 2026 15:31:21 +0800 (CST)
-From: Qi Xi <xiqi5703@163.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Ben Niu <benniu@meta.com>,
-	Jinjiang Tu <tujinjiang@huawei.com>,
-	wangkefeng.wang@huawei.com,
-	sunnanyong@huawei.com,
-	xiqi2@huawei.com
-Subject: [PATCH v4 1/2] arm64: copy_template: add an offset-addressed 64-byte loop
-Date: Mon, 16 Nov 2026 15:25:11 +0800
-Message-ID: <20261116072512.1323883-2-xiqi5703@163.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116072512.1323883-1-xiqi5703@163.com>
-References: <20261116072512.1323883-1-xiqi5703@163.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aIT7S67W
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794814375; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=1Lb0d+nlQPwj2uxwrjLTKUVhOeG90QM798BTau5rOQU=;
+	b=aIT7S67WovzDeADTdzTC5uHCMJUj0JPN/oWtXIZK+F2DGHkeokGy0A1tCbRGCXVip6FSkXuyL7tGPpDFAM/OpNEI6c7KsUUTMVkuvsGTy52eAXJCB1mNk2DzQ8SyeA25WUazsJdUZooFFc9SecZ2HMfengSzapzfLImwMeKFP3s=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XEnXkf5_1794814373;
+Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEnXkf5_1794814373 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 16 Nov 2026 15:32:53 +0800
+Message-ID: <4bbe4321-ab91-40e4-bd15-6428660d8ea9@linux.alibaba.com>
+Date: Mon, 16 Nov 2026 15:32:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,89 +53,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgDnB4dFsfpqIKNJFg--.7882S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF17JF4fuF47trW3uF43Awb_yoW8KFWDpw
-	1xWrW3Kas8GwnrA3yfX3Z7CrWakan3JFyfWFZ7KFn7tw1jqa4Yqw43Gw1F9FWUJ39ay348
-	CF9YyF1DGas0gFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jsuc_UUUUU=
-X-CM-SenderInfo: 50ltxkqxqtqiywtou0bp/xtbC7QnXDmr6sUm9jQAA3l
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: flush dirty file PMDs before removing
+ rmap
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Ross Zwisler <zwisler@kernel.org>
+Cc: linux-arch@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Qi Xi <xiqi2@huawei.com>
 
-copy_template.S is shared by copy_from_user.S and copy_to_user.S.  In
-its 64-byte loop every load and store is post-indexed, which on the
-user side means two LDTR/STTR accesses followed by an address update.
 
-Add a COPY_TEMPLATE_PAIRS variant of the loop that uses offset
-addressing and advances src and dst once per iteration.  Without
-per-access writeback, the loads and stores of an iteration can overlap
-rather than serialise on the base register.
+On 11/14/26 1:15 AM, David Hildenbrand (Arm) wrote:
+> Unmapping a file PMD can lose concurrent stores when it races with
+> writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
+> gather flushes the TLB. Writeback can then clean the folio while another
+> CPU can still write through a stale writable TLB entry. Those stores do
+> not fault and dirty the folio again. Filesystem DAX has the same problem
+> with its dirty tags.
+> 
+> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
+> has been flushed") fixed the same race for PTEs by adding delayed rmap
+> removal to the mmu_gather infrastructure. The PMD path still removes
+> rmap before flushing.
+> 
+> Flush the TLB under the PMD lock before removing rmap for dirty file
+> PMDs. Skip the early flush at address-space teardown, when no users
+> remain, and for mappings without writeback, including shmem and device
+> DAX.
+> 
+> Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
+> On s390, clearing the entry already handles TLB synchronization, and
+> __tlb_remove_page_size() immediately drops the mapping reference, so
+> rmap must be removed first. UP cannot have concurrent stores from
+> another CPU while holding the page table lock. Make the predicate
+> side-effect-free and set the gather's delayed_rmap flag when an entry
+> is actually queued for delayed rmap removal.
+> 
+> Queue the folio before the early flush, while the gather still has a
+> valid range. Keep batching references and drain a full batch only after
+> dropping the PMD lock. The early flush resets the gather's TLB state,
+> so draining the batch does not flush that range again.
+> 
+> Although writing to files through mmap is generally discouraged,
+> unmapping such mappings may become slower: each dirty file PMD now
+> requires a TLB flush under the PMD lock. Future work should properly
+> extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
+> across multiple entries, so their TLB invalidations and rmap removals
+> can be batched.
+> 
+> Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Link: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
+> Reported-by: Chris Mason <mason@kernel.org>
+> Suggested-by: Lance Yang <lance.yang@linux.dev>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-Defining COPY_TEMPLATE_PAIRS before including copy_template.S selects
-the variant.
-
-Co-developed-by: Ben Niu <benniu@meta.com>
-Signed-off-by: Ben Niu <benniu@meta.com>
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
-Signed-off-by: Qi Xi <xiqi2@huawei.com>
----
- arch/arm64/lib/copy_template.S | 35 ++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/arch/arm64/lib/copy_template.S b/arch/arm64/lib/copy_template.S
-index 7f2f5a0e2fb9..12ab3bc8afa3 100644
---- a/arch/arm64/lib/copy_template.S
-+++ b/arch/arm64/lib/copy_template.S
-@@ -161,6 +161,40 @@ alternative_else_nop_endif
- 	*/
- 	.p2align	L1_CACHE_SHIFT
- .Lcpy_body_large:
-+#ifdef COPY_TEMPLATE_PAIRS
-+	/* pre-get 64 bytes data. */
-+	ldp2	A_l, A_h, src, #0, 9997f
-+	ldp2	B_l, B_h, src, #16, 9997f
-+	ldp2	C_l, C_h, src, #32, 9997f
-+	ldp2	D_l, D_h, src, #48, 9997f
-+	add	src, src, #64
-+1:
-+	/*
-+	* interlace the load of next 64 bytes data block with store of the last
-+	* loaded 64 bytes data.
-+	*
-+	* The loads can fault on user memory.  Since dst is not advanced
-+	* per access, each fault is fixed up to account for the 16-byte
-+	* blocks already stored.
-+	*/
-+	stp2	A_l, A_h, dst, #0
-+	ldp2	A_l, A_h, src, #0, .Lcopy_opt_fixup16
-+	stp2	B_l, B_h, dst, #16
-+	ldp2	B_l, B_h, src, #16, .Lcopy_opt_fixup32
-+	stp2	C_l, C_h, dst, #32
-+	ldp2	C_l, C_h, src, #32, .Lcopy_opt_fixup48
-+	stp2	D_l, D_h, dst, #48
-+	ldp2	D_l, D_h, src, #48, .Lcopy_opt_fixup64
-+	add	dst, dst, #64
-+	add	src, src, #64
-+	subs	count, count, #64
-+	b.ge	1b
-+	stp2	A_l, A_h, dst, #0
-+	stp2	B_l, B_h, dst, #16
-+	stp2	C_l, C_h, dst, #32
-+	stp2	D_l, D_h, dst, #48
-+	add	dst, dst, #64
-+#else
- 	/* pre-get 64 bytes data. */
- 	ldp1	A_l, A_h, src, #16
- 	ldp1	B_l, B_h, src, #16
-@@ -185,6 +219,7 @@ alternative_else_nop_endif
- 	stp1	B_l, B_h, dst, #16
- 	stp1	C_l, C_h, dst, #16
- 	stp1	D_l, D_h, dst, #16
-+#endif
- 
- 	tst	count, #0x3f
- 	b.ne	.Ltail63
--- 
-2.53.0
-
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
