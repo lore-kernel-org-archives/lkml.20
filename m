@@ -1,92 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794828250;
-	b=fbZnV4/a2KGvGrUT4kn3leKcUBLjvCy4jii7OPf5ZhZijWFB0UPxmeTM6kNVRth8G0ys
-	 CMNcHdRYlaiKOd5ICKgn55ffFQERBifMinyW3CU/UWox/pI087OUqc+jBkEkiVWZ7o1RD
-	 Pobu3i7AhL/ibYOLzyQxI2vaUR2aK2H0Lj0u9SUnFoG6bReqDJoU7BHgzDrc1MVMx/zgb
-	 zYwFwDbz1HvYzS5xsXuqQemA5AJRrjVsYmp9QXkjrbTn2cKh3U8GoZ2zG1it9GGlaAQuI
-	 clq3APe36azpgIIHlUzpEq2UtGVf2wlMyCC6MlmXkxDwGwHostezMlzTUewFGR1btdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828250;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vzStwCy/RenlnGwPxhdmBRynttxJciqHG6Wx71uoN44=;
-	b=E2muaW2DTLsnr7xUZa5tSpC4QrgRIpx4rDE7bxrCBunnhnbQpJDC/GFfKRIQEQmyQ8iW
-	 bsy/afTBCdz1aGUBCZEVtDQH7NMtRWvgfYaRz9lqUcSrpx+ysWzpBpNwD/eqcOXUxGZid
-	 OcitXQPsY6zJet/RpYvaJO2vg42lQVkLCuvRZT6/laAe2GmtOmWlwrpSqM0W7IrNJiJJt
-	 i5CTpZJo+KhfMWVYT6ZPWYZmUL6cRhDxK8eTj+zhBQFdYTdT5tJpiM7cSPrfxRB2N30vh
-	 Jqv85MimlfweflXkdZ7MGvjkj3V0STG2191MfgsV4qrfnmpU861ih8iJIfdgtbtCEiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=An15usLY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.65
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011065.outbound.protection.outlook.com [52.101.57.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794828259;
+	b=1k7cBOUe27QVpaO0b3JAd1juiwTAJrnV6qARSDTDTfduiK1McQUxrJ3+Whb1GqeQzDNc
+	 rgyxRTSL5JnMu1tatT8iji9ACD7U6FMaqNsobl0xVRujAoSGrDUTb6vwxD3qHim5J0E/C
+	 UzO463dtIIZFT9KylRrPm0hv+LRboo3NbXIMWkv3rPHNWHI4CBPMwfkgHHjqn502ej73V
+	 x+OARNvrGoabcD+jMpsc58KgIqiGLQKMG9r/t9YPPYOHWjR+7+oCmLwsqsuww1Psjud6j
+	 LdhGxZVJNwTVxbmMDM52duVkNSBc/E+sQcjPhcZ2PqDLlvB8I33rN7hECT1760LHitQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828259;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=qS8X9zY4g75Ph9TyTHh9JXIcSypVMVgi0PbT8Mv/YYY=;
+	b=HyxXWQQqV7vMIBfe4Tk0q4wWOBfc+H/6j026Obdfh3GcphhGqjVR2qlLveUYmR6y5yvF
+	 Re1I+Jgajdp2CB8ph+wLa2GI6I1wPQaIejuFpenFVDgoZK/REE6rl3vko0f4aWLmtzPNI
+	 11MXBQPseg1/YQxk+EMVZfFQS4jjoPOO0E0YRUXn5mW7ha1rd+Z3wSkeGeG87NeBaSuoq
+	 fSZ7yluTTh3mGYDh1TVWBYyPxtt3oL/7wBcJuDJmh1pglos+eke4wUiKEJFAP13HaCyf4
+	 V9ny/QTHyn3ef1bgc7xztPeFE8Q85JOZMTQpPlDryT4WvH2pctBG9cfZ215xjsTikHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F9L89PkZ;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B413B606BE09
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:24:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B413B606BE09
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F18606A8AD;
+	Mon, 16 Nov 2026 11:24:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F18606A8AD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=An15usLY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BYlpafMzNtO8lcx64wzP0jSrpoCEVFeZsAr2+ST9HVlv3yzpxY6AOcPIpQPhz4Yg1+Fy23tMxpFMlsDmSJh1EA7Wep8jehll84C3RkkoXcL85ATCImQ0c6QN/DgnNJW+9UTI9gWyo7JPkzE5+/4OT9VwGarF2cOcd/P1CMDUjilN+dKa6R6STFYl7EgPj+MJTCmDBPQ/FFalSGDfgWj7G5Kvzao7gpxKLMffNHoV+z2fdetieG+jMD46+qCK7MwH0JHthXmB5CJp4jj+9t41mXdLdayjVlPf/nvPt78+Zk9v0Siw1bV45Kpn8cbXmUFktfxGLnoRCurarc2AXABdSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vzStwCy/RenlnGwPxhdmBRynttxJciqHG6Wx71uoN44=;
- b=ey+LIVtYjaThoosVgpVfKB6wEF+D6xjt7VwzW8njN7tTZik4FkkLGdbIiANIzwZr1XzqUG1+byo/zW5Q6GDI2/WJkJglyI7+Dxq3Jc2PaWLWI52/CXUTOZIA7bYcLvewLiy9O2b0+DNQ+bJJIniutbWhS+tu72ohIL6fhiz7pwvZTc9KgtZhBUd+PHbL8L/2/7i0b1encxZDSdEQx67mTYKHM9L2sGrbC9ooekgNrjnLbDYAEYXLvaPn41oKh3ORk0lQ4fH40O22Uxo8nNRXJraweHCxpkgyICidjX57bdDfHWbD2136eXSa2xORne+CWSMGzpQ2TAgKuEIMxPS8Jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vzStwCy/RenlnGwPxhdmBRynttxJciqHG6Wx71uoN44=;
- b=An15usLYmA9LOIDrXvOVDwocUGgfgG2IrlmjCGfP4tiPwJxnhr/eobsbdiFsJl+uksQcuQAPSoVt54aHwcpD/aPb++a1J9cOwcWLmBRLVnUUvGf+JKowHNYu32BP5i3stdmjWPtj8abeiEP1mALj0mGOuAYMYTg/M3bas47JsrI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB6837.namprd12.prod.outlook.com (2603:10b6:806:267::10)
- by DS0PR12MB999079.namprd12.prod.outlook.com (2603:10b6:8:302::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 11:20:06 +0000
-Received: from SN7PR12MB6837.namprd12.prod.outlook.com
- ([fe80::42e1:d1c1:d50d:b2d0]) by SN7PR12MB6837.namprd12.prod.outlook.com
- ([fe80::42e1:d1c1:d50d:b2d0%6]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
- 11:20:06 +0000
-Date: Mon, 16 Nov 2026 11:19:55 +0000
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: joro@8bytes.org, vasant.hegde@amd.com, suravee.suthikulpanit@amd.com, 
-	will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev, 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F9L89PkZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794828259; x=1826364259;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jmpwFgSQDJgOv8SI7+IJoXnvaUEcUwmlHF1P1RLN5wc=;
+  b=F9L89PkZ/uLv/j1mpRhtqrnPwVimDX7vmhX7na0b+6nI9+2Q6wYsCsIL
+   6LfsKfvKpJwV74Kyfk+TiNIrdH64Q9I2fE3EdhjXNfln1TTjTWJfnWw1p
+   ZRRoUl3r2rRPRnQCr0vGUQZL7nbJThVywXHeYyN/vNrfnl2s+c+VFdB4i
+   yD+/diPZM0UfYpL/hWBEz+bXTG1k2zMCEU7a2jCga2x2ZyjcpdIYpb0sq
+   HuzFLy+RBVftAwR2Yz/NFysaB5MOZoBSHZTB2eLNj8J6x7QaUc47TEv4u
+   5hNX7LCeEGzweg2p1SJpuuwK8qFW5hiJnLLa9PO8ajO00nxIvmQ3v6Of5
+   w==;
+X-CSE-ConnectionGUID: 5WcpvMXEQUqGqGK9Q/H2Og==
+X-CSE-MsgGUID: eeYWDiIVR6K1e7tVye3obA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3574107"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3574107"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:24:18 -0800
+X-CSE-ConnectionGUID: SWR86sO2SDqickORTQVMFw==
+X-CSE-MsgGUID: R6rtWsKsSMe6UmlwmjUkvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9769293"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:24:15 -0800
+Date: Mon, 16 Nov 2026 13:24:13 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Stuart Hayes <stuart.w.hayes@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Doug Warzecha <Douglas_Warzecha@dell.com>,
+	Andrew Morton <akpm@osdl.org>, platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iommu/amd: Do not clear unobserved log overflow status
- bits
-Message-ID: <l6vwegv7ju3csy6calsdhdoxvu7tq3eza4wmujtdd2yno5lykw@tzhh53fljavd>
-References: <20261116033902.3277875-1-guanghuifeng@linux.alibaba.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116033902.3277875-1-guanghuifeng@linux.alibaba.com>
-X-ClientProxiedBy: MA5P287CA0130.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d2::12) To SN7PR12MB6837.namprd12.prod.outlook.com
- (2603:10b6:806:267::10)
+Subject: Re: [PATCH 3/5] platform/x86: dell: dcdbas: Release the SMI buffer
+ in remove
+Message-ID: <avrn3cn5yX2LTZ2u@ashevche-desk.local>
+References: <cover.1794633178.git.rosenp@gmail.com>
+ <a486b9714c8e58761e6368e7d75169441ce87e96.1794633178.git.rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,134 +84,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB6837:EE_|DS0PR12MB999079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c9e1df2-a9da-416a-746e-08df43d390dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|261009223027099003|18002099003|22082099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|261022105027099003|261102123227099003|261028144727099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	jXdv+Zm7XxEGnIXJvdhkL3NqNm7kLTKf/GDGnf/b2cBXbHb0a2S1p/Ty3nm+6veygEQcs5+X0vOH1RjsJIkGYijNGRtOh1KBxtSGd+hun2pJOXvlVQV34UUxX5MCq5g6COz9SXTewZ+/BrHQ7+UQuuOKEULA8ViQrbUhDCfAjtSujSgVkM0tOs4moNkBllQXuSfTsiwISMuWnx8a1+gjIl8bpl105S9wDGpcHloOTtiu45HnjyVv339JCtiJRm1cfZmKNx1IOPiuH5Tpysyso60cjD9IjWPcOcSL94QUg01omv3BspnA8MdXCPe/PB1F0hMMOH/MjYeMblEJB2kWe5ascRoq5YmDk9jyEacPF77oIJPGfg89rOEukpQKzrfLcK/o4ZnG0e6Y5QA7RO6TnUVSahV9PHwHcKrPbTKGW1EltbHzC1RHdJADFuRz5N8+oW8DdloeH1PeZrkP/dVfR5lQVI5TuPbRtA86g8xqlmw6D9BpcFfCYEUw1+UZQEV/HHUt0s5bYXbMgU89NSxIMNjXqR3ftiKzS+neNacX+j1qMztEtBdpWhqsu5JsRcMG5bYxBH4gw5R+XgVDERnqSirMn7DyisLV+ServvXExIfUT+xA2vB69uwWZCHn3x8JyewuWmXr7BR4lRCadeOC4+5HMy2EH+mT0hfEvnLh4bM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB6837.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(261009223027099003)(18002099003)(22082099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261022105027099003)(261102123227099003)(261028144727099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vxKKana4Ju40noKQwRpBY07P1Ei1f+aphiiwO4N8bYn1HFXRYgWOzi72P4FE?=
- =?us-ascii?Q?W6ikAJ6rqjGgjroyLAOxicVVUTS5f7e4I9cMyzKSDpfRAGVzcUg9DtBKoRoC?=
- =?us-ascii?Q?zkfE+rVyIDeXGIQpUR1MPQ6hGzw+Q95YHjuX3IRuHE8nuPSYA4O+05L25pVn?=
- =?us-ascii?Q?+qohz3IaTNRpcvxDZuEb/1Xv+PCE+QRyl4Tjd/n4ZegQ10OZ5WNhmaEs1f2y?=
- =?us-ascii?Q?ES2PFojOLxP6JI+DnB9yjrZL51FScKF4WoSLnC0HHZ0wXVWZ3jrDTryIuQLY?=
- =?us-ascii?Q?go9PcPOP53GwGT2jd03mxSBypEcSZ8mhhrzBebzG8NxHDN4LaYMDFHsHWl1V?=
- =?us-ascii?Q?OuiQZ07H83xjOkaY0pEhtiY3LDaifzY9Hl9zJtBhcOgckGe/uJCtm1jzq+Tz?=
- =?us-ascii?Q?ITeEfK8BD6EBmC2yLIL//b/yL6mho+9ToqAXx0H0er1gLPdB7emhTYJuiH4Y?=
- =?us-ascii?Q?t+9EMregYDUg1kHqAdzexmF9nApiqxd41PWKlmHHEwygSIRwpBMEqstx9ELT?=
- =?us-ascii?Q?FyRC3cGhi/nBmy8BoPrAlkZFuZlW1RINGmgm3aMWJVSMmxg/1A7MX3ZeQpBk?=
- =?us-ascii?Q?AHqHkbfw/E7OAkfzzeVmvq4xMUuRdxIfuov3jFRzpU9Lc2MVX81rPhijGWsO?=
- =?us-ascii?Q?Z0ICTcS+9obGIuJN0ybnIyXmG8PI+1bsg5fBxxUFNSmTt9jcdNjTIx76NwSM?=
- =?us-ascii?Q?KGp8yIq9VpAEZrw6TaM7fyC3AVQu4sYLscyxNmEJVn6toNshmtGrmxgDM2UM?=
- =?us-ascii?Q?J/a1iCc62BknYRkuA4B93zQCCkpvlzwrpx4DFBTXcr4nwhRWuG7UZtwspOKp?=
- =?us-ascii?Q?WBmOFVGwyta6uFvES05wKdcNIZSM3jfBEuvJQMklHqJ2JydCCKGxP8Mqgz0k?=
- =?us-ascii?Q?/KDJ+e98DhrN6EKhuTFpGuaw6S/RAb8nO83XOamSi6kbYpsy1MTVjkyHiK2e?=
- =?us-ascii?Q?b+cBiX8OOx3Pler3krgVPOHKO1QCUszOFCnlmnILqsFzU8TMQ/I2I9mdwlCE?=
- =?us-ascii?Q?a711q9O6mXxUZxoAAke+XcoLbuT6NOAdBR3oF9IFLcBBiCcGyfHd9xG9MIlh?=
- =?us-ascii?Q?l4QhbJ5x2aA931FxEfQ+BcnBuO91O8FckYm7qTDIY5uwYqGCkTPxFZMnjLEk?=
- =?us-ascii?Q?X0jARbCOFLqnwcpsThJGte6XR9tjlV9qD06CsK3qvJXw5RY1KURwSPLzaMM9?=
- =?us-ascii?Q?awRJMSXBz0jaF6Q+AwI+Ngyr+a1mcSNYP4sD59jk4m12QbraUG0Yzitu14+y?=
- =?us-ascii?Q?cLW3RbiiA5L6ahBgecqtvgG8n559Nex43SywmebUgJVvr5p0uGVjsGX8GLMR?=
- =?us-ascii?Q?9HEDkKbUzsDCoNtvOOCx3MhDtYLQttD2xlzwgnjvO+06avBTpkt62s+Ao7L2?=
- =?us-ascii?Q?d+VyzwvyZjU9opcjHqkJbieVICjeKq/obFwOJx+g6GoWHCPIhXfx9NK4Y60X?=
- =?us-ascii?Q?3/ou9E6gMsZCQCMg5vFs2QNbyfRy+QK56V7SQuZk/MAPk5cMV+KGvoPvs8Gd?=
- =?us-ascii?Q?YfEWSmjw9KUkwVB/8vCvfVtzGIUPVsgI0oc89Z5R/GdU0cuPvl5KBYiaHhh2?=
- =?us-ascii?Q?yE1wHTuKF717R4dzq8fyczFtAZMp9BX+cJ/qaM9bKRpjXVyA+3A4HE4kDbo8?=
- =?us-ascii?Q?EdJ5C05WJVhSe2d+yjhdd5iM7yjfwyzsjljO8X6j208xYSobDepMeVkjW/s4?=
- =?us-ascii?Q?KKzSX5GyZurj1qHsb9VpzuJbQzSvQPPCeGWti4UPsSeSNWCkWTMECLMj5iYl?=
- =?us-ascii?Q?xZOM1b7lEg=3D=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c9e1df2-a9da-416a-746e-08df43d390dd
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6837.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 11:20:06.3708
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9QsUkDKrlLG2XHJOReUILfYADv48iBn98REbil1+ipPqKTEGDe+S/TvORt/PSMKXgTYiPbSIet7PK0Yb5IvTfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999079
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a486b9714c8e58761e6368e7d75169441ce87e96.1794633178.git.rosenp@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 16, 2026 at 11:39:02AM +0800, Guanghui Feng wrote:
-> amd_iommu_handle_irq() clears the interrupt status with an unconditional
-> writel(mask, MMIO_STATUS_OFFSET), where mask is int_mask | overflow_mask.
-> The log overflow status bits (GALOverflow, EventOverflow, PprOverflow)
-> are RW1C and, per the AMD IOMMU spec, transitioning them from 0 to 1 does
-> not itself generate an interrupt; they can only be observed by an IRQ
-> round triggered by the corresponding log-interrupt bit.
+On Fri, Nov 13, 2026 at 10:17:56PM -0800, Rosen Penev wrote:
+> dcdbas_exit() frees the SMI data buffer before
+> platform_device_unregister() removes the sysfs attributes, and without
+> holding smi_data_lock. The comment claims that only at module exit can
+> all sysfs attributes be released, but device attributes do not pin the
+> module: while rmmod runs, smi_data_write() or smi_data_buf_size_store()
+> can still be executing. They can then memcpy() into the buffer as it is
+> freed, or allocate a new buffer that is never freed.
 > 
-> If hardware sets an overflow bit after the status register is sampled at
-> the top of the loop but before the unconditional writel(), that write
-> clears the freshly-set bit while the stale sampled status does not
-> contain it, so overflow_handler() is skipped for an overflow that really
-> happened. For the GA log this is fatal: amd_iommu_restart_ga_log() is the
-> only recovery path, and per spec section 2.7.4 logging stays halted until
-> GALogEn is toggled. A bare W1C of GALOverflow is not part of the
-> documented recovery, so the GA log stays halted, no further entries are
-> written, GAInt never re-asserts and the GA log interrupt line goes
-> permanently silent, losing all AVIC non-running vCPU wakeups on that
-> IOMMU.
-> 
-> Clear only the bits actually observed this round by writing status & mask
-> instead of mask. An overflow bit set concurrently is then left asserted
-> and is picked up by the existing ERBT1312 status read-back at the bottom
-> of the loop, which re-enters the loop and runs overflow_handler().
-> 
-> Fixes: 2379f3485239 ("iommu/amd: Refactor IOMMU interrupt handling logic for Event, PPR, and GA logs")
+> sysfs_remove_group() in dcdbas_remove() waits for running attribute
+> handlers, and dcdbas_pdev is still valid at that point. Free the buffer
+> there, or unmap the firmware-provided buffer when WSMT is in use, and
+> also do it when probe fails after dcdbas_check_wsmt() mapped the
+> firmware buffer. Reset the WSMT state with it so a later probe starts
+> clean.
 
-This commit only moved the existing clear into amd_iommu_handle_irq(). The
-unconditional write already cleared overflow bits before that refactor.
-The first commit that put an overflow bit into that write is:
+...
 
-Fixes: 5ce97f4ec5e0 ("iommu/amd: Recover from event log overflow")
+> +/**
 
-The GA and PPR overflow bits were added later, by af47b0a24058
-("iommu/amd: Handle GALog overflows") and 274c2218b8b2 ("iommu/amd: Handle
-PPR log overflow").
+Really? If so, can you validate this with kernel-doc?
 
-Otherwise, patch looks good to me.
+> + * dcdbas_release_buffer: free the SMI data buffer or unmap the WSMT one
+> + */
 
-Reviewed-by: Ankit Soni <Ankit.Soni@amd.com>
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks,
-Ankit
 
-> Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-> ---
->  drivers/iommu/amd/iommu.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index d0d55c93a480..39254671b924 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -1168,8 +1168,17 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
->  	u32 mask = int_mask | overflow_mask;
->  
->  	while (status & mask) {
-> -		/* Enable interrupt sources again */
-> -		writel(mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
-> +		/*
-> +		 * Clear only the status bits observed in this round.  The log
-> +		 * overflow bits (GALOverflow/EventOverflow/PprOverflow) are RW1C
-> +		 * and do not raise an interrupt on their own; clearing them
-> +		 * unconditionally here would drop an overflow that hardware set
-> +		 * between the readl() above and this write, without ever running
-> +		 * overflow_handler().  Leaving such a bit asserted lets the
-> +		 * existing ERBT1312 read-back below re-observe it and re-enter
-> +		 * the loop so overflow_handler() runs.
-> +		 */
-> +		writel(status & mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
->  
->  		if (int_handler) {
->  			pr_devel("Processing IOMMU (ivhd%d) %s Log\n",
-> -- 
-> 2.43.7
-> 
