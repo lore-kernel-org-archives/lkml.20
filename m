@@ -1,83 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821878;
-	b=UaFrbNqRbqQ+CJ1hhjSxx/ew220n9MR9PnhxlMzFXWC6RkO2zULSL3r4WsvAZj4NoLHg
-	 y7pSlHvRfpY04OqMP12RtJJt+kYHYNEgobMQyWeQp01Nj81VTVMjjOID/kxpvTKdXMAlu
-	 d83K0Nq/ej+1SNhcTbQLKzVN3xvgH1IkeAoOCRsxmmgpytk7kOmYBQeCQv26pGd+yJcgO
-	 KtIe/vdBNHDERxfGigypeOvyV+D6ptFJrrUPxmtTipif7b2h7mHBgBdxmFAifKTzjsxvr
-	 OL9nVKlyZ+Qjpm2PT5zbZOTAhwNzW0dvsTaO5pgZrSMyaegdZld2stM+W55dqbSpirA==
+	t=1794821909;
+	b=mDNjGx1608Ho6CJeK/taI6f/xqc2RI0aaTqhrrEuTMa7bGXQ8qBBUj5vnSt/Vo5xluol
+	 tmjaKiX5nYV14QBYsLJUVm+PGAdns2MD4pjxSjbGNsidZf0F4x+Fj+kCU8W9x3iGlr1HB
+	 7aRdQXjMyqvbGHIEwWGm0NGQTbL19302k0seKAF8P6ejnOGmS3nAgFntdMYpFoCuIX9lE
+	 WPqouLXxgAOGKCfCdzoNPC/TFRymIa8Cx+UEtkfDkUFg/Y7hRvuHM+jx+Ju7gcDjtL1aK
+	 ciErwujW//jNeO0v02B2MdjXyItiOw4SQEJoIc72qkjLwGpH/5pSJBJUc/QZyAD4FGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821878;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=poN85rMe5QId4iMdcTQDfelt0obOkpK/+0hyaRvyRto=;
-	b=ZkVQHtEhTxsrf85DgN0mJfArrKdGCEw3aeupvR0SQgJPgF5Sx9tkqm/f/DYV4rimEcGX
-	 sngIx/oabPmMyjgL9jWCSHogHtaqrHynsBRZ0x0nDAcsVpefG0hNNylEKrUCwxx1RMlir
-	 KgekVd4X/b4qvLdvuOD332KaYgWzTdfIbDqpAaMIf8lAUniGjI9UwyzCDD9PV/7Y6OZWC
-	 83kI2adueih6bksVduc1rFTSuAwuAZuvagVyH5SdHL+t3NSAWPFdQpWbBC2z9MsXZz/KP
-	 txPvNhRI0707EwLu53sPJzWiaIgmujykQQPoYADRvVkGn4LJNB9n5SGaGY8xIGHEovQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821909;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=TdayhSyZh6vGn33Vc/U0o8gSJexg4CB/0stotZ00Gco=;
+	b=GxsmRxXwHXpX3jMcyLQHd7giTISOU2UBtZVcYn8FU6MDq80hHmsxynZ9cYA3GJoxPCg5
+	 u0G3lysmhDK/YySuz8fD58xQip3Chf96SbKJrvo6w1D+Eh+WqjcC4T004043ZoGEty61J
+	 ir3sMKOVoSt/M1QNRhAFhoGyMGwfawoyElU6EfssoQ5mbhh43ivoRefJyjN7dsbmyFFXu
+	 K0Uz/i7F90OzhOYGDhkEU4QyrCMaStOflPTnHivEP4GFhXD+4mrSFUqMF7F8mlhkWdSKd
+	 ioshXTKCtJJhdGXymwNjasrvNlGF/5eJfy0MH/LpH0XAFjVwrTgel7ZCBmaeOzVoEAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bcXXJX7X;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=NL3aj6k7;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E61606A332;
-	Mon, 16 Nov 2026 09:37:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E61606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33242606A329;
+	Mon, 16 Nov 2026 09:38:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33242606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bcXXJX7X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794821878; x=1826357878;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=l7k1anJIvefmLqrhsIOUwvRFYKe0gu0pxDR2v70O7cQ=;
-  b=bcXXJX7Xt9kTF/WrIylI046koXRjWbqEQTJn/2li8IQNzWhEFvdBMXcj
-   xBv6t1xSG7olqp2iBgZwh8ExVOLkYm4ckx7d2Ow2Dl0gKQQdQTo9SuCls
-   CSlKoOGMRj2Gs/UQ7hre2bROa1/7GYWwqUU4hDXRBJiLv4SvgtbYtHW8o
-   QrVz2dbHPsMBMFL9BemdO/MU7PAqFbj9Bt8EhRlTeJxQtkbO7BPISTmJX
-   vNB3XFPG6R2bPZHxa7bIEJVeZPzVD8PbVbQg2Jb0hEQY2An8x1PdLvxYp
-   vvMINSDOtbi2gP7ftfQEcJGsIQVhFZqK07JJwiY3FXRwV7edLoAdkWGZQ
-   g==;
-X-CSE-ConnectionGUID: xi5qtQ2vRXuFqSgPLxm6qg==
-X-CSE-MsgGUID: V3vSlVxyTd20pNi/q/EySA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3588862"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3588862"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:37:57 -0800
-X-CSE-ConnectionGUID: 3lJaHCfBTMGuwWe4rRCjhw==
-X-CSE-MsgGUID: Sy2sEo+0RRCKyEIAbghp+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9663769"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:37:55 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 83E4C121B5D;
-	Mon, 16 Nov 2026 11:37:59 +0200 (EET)
-Date: Mon, 16 Nov 2026 11:37:59 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: BRETSCHNEIDER Max <max.bretschneider@leica-geosystems.com>
-Cc: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
-Message-ID: <avrO9yQ0-xu91gAO@kekkonen.localdomain>
-References: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
- <asywCh3X0yJVcxRd@kekkonen.localdomain>
- <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
- <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=NL3aj6k7
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jSjTl4tdfzKm6j;
+	Mon, 16 Nov 2026 10:38:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794821899;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TdayhSyZh6vGn33Vc/U0o8gSJexg4CB/0stotZ00Gco=;
+	b=NL3aj6k7IxOi/t++Gv0KJlHa1bM2usFwmgmUE84EjF7X8NSXNx2d8XGUqninLi4MriG/Ej
+	JxMmGvHJCqY8KbxxUZXMkSlbERjnOrqbwLSHQsxIDGUWfeuhDBzgJeuquvcfCecAbutUzD
+	XXzKhJU7wSxhPKvjobVhc4UmRZDqXqzjYmbqCYLZ4SbexUCYJ5he42c1E8canf31evwDtC
+	BwjOtYK6O5/JssNm6VO8f+VwJBVZXkTekdYMt0fISqjMyNxSNdIkIWjqqJdo/rXF9F/Loe
+	hVS463NWrNf4n197rLV3L2WPa+ITU2yRsHxNwFuktU+pIbQcsdbXyJkvbqSHTA==
+Message-ID: <32a4976792275c8ee903ca99728bae12bb3b9be3.camel@mailbox.org>
+Subject: Re: [PATCH] docs: doc-guide: add hint to review patch
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>,  Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 10:38:16 +0100
+In-Reply-To: <87ik1x3zwg.fsf@trenco.lwn.net>
+References: <20261116082209.1100175-2-manuelebnerli@mailbox.org>
+	 <87ik1x3zwg.fsf@trenco.lwn.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,28 +73,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
+X-MBO-RS-ID: 870eb5400e0e90f9b56
+X-MBO-RS-META: 4eonf97s57hihiejnw6w3ndz4yrai5b3
 
-Hi Max,
+On Mon, 2026-11-16 at 02:10 -0700, Jonathan Corbet wrote:
+> Manuel Ebner <manuelebnerli@mailbox.org> writes:
+>=20
+> > For the case of a duplicate patch, review the other patch instead of
+> > sending own patch.
+> >=20
+> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> > ---
+> > =C2=A0Documentation/doc-guide/contributing.rst | 4 +++-
+> > =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/Documentation/doc-guide/contributing.rst b/Documentation/d=
+oc-guide/contributing.rst
+> > index 46a44b39d6..ee2f896a21 100644
+> > --- a/Documentation/doc-guide/contributing.rst
+> > +++ b/Documentation/doc-guide/contributing.rst
+> > @@ -129,7 +129,9 @@ looked like this::
+> > =C2=A0The entire process only took a few minutes.=C2=A0 Of course, I th=
+en found that
+> > =C2=A0somebody else had fixed it in a separate tree, highlighting anoth=
+er lesson:
+> > =C2=A0always check linux-next to see if a problem has been fixed before=
+ you dig
+> > -into it.
+> > +into it.=C2=A0 If the other patch isn't applied yet it's good to give =
+it a
+> > +'Reviewed-by:' tag to help it get applied.=C2=A0 This way your effort =
+is not in
+> > +vain.
+>=20
+> Should we perhaps be explicit and say that the person involved should
+> actually review the patch?
 
-On Sat, Nov 14, 2026 at 06:40:15PM +0000, BRETSCHNEIDER Max wrote:
-> Hi Sakari,
-> 
-> > Can you test on a newer kernel? That being said, there are unlikely to be
-> > issues without that, but it's better to be sure.
-> 
-> I have now tested this on media/next (7.4.0-rc1, bf6c63ecc, from 13.11.2026) 
-> on the same hardware. The series applies cleanly, and get_selection, the 
-> per-mode crop, the flip-dependent media bus code and v4l2-compliance all 
-> behave the same as on 6.16.12. v4l2-compliance reports 52/52 on the sensor 
-> subdev with no failures, and dmesg is clean.
+Makes sense. I'll change it to:
 
-Thanks for testing. I've picked the patches to my tree and I'll push them
-to Media CI for merging soonish.
+into it.  If the other patch isn't applied yet it's good to review it and
+state that by replying with the 'Reviewed-by:' tag.  This helps getting the
+patch applied, so your effort is not in vain after all.
 
--- 
-Regards,
-
-Sakari Ailus
+Thanks
+ Manuel
+>=20
+> jon
