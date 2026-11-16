@@ -1,89 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825719;
-	b=BWHlSwAb81cRsDjVsLyLawA8T85Njly98tXMroZIBks1lUirbNYIEHYbbwQZHIbnr81F
-	 YRBwCFhIBPLbPqnF6DrXZt5Xmb2RjyKe4Nlb3EcN+/KXGM3sPYy1LeZpI/LRs1vp8jQje
-	 YeEfrEF8b+w3Mn9EOzkup6pH46kHnJR9uAoUT7hrzbjB7ko2iLUf8eitIQv7eNzdEj41V
-	 z1QejOhJHIJShETSNCuB3+5Te9ibqige1/m2TTuLZCwgYAdzbUWSD0aBhcC5G6sYjbAoa
-	 NIHCodGDAbtH783zepLCjKl7WM2FXiGzQGyI2mT3z4Cy/ghwV+b44InC1JDF5rXQsKQ==
+	t=1794825757;
+	b=dM+IICKunmr2WZiSvV2CIIDyuP2y6PzVsN9xKVMNziXkgg7HgsqX13xKhv4L2TESLgej
+	 INfXAHRnDTXUcgicUw38xOyo/ixnh94TXAUKKCAT9Y1ejrW8KLjy44Kr707NKAcOCyXIY
+	 9xlIMRgH+jg7jbqKxopgGbjJVlOaajmotf8/7onXKXAnLhP64TxmQz+Is0MvCSh6cyQFu
+	 6bFmYFZyCxMslUdVbtYqW6RYeg8O4z+1yB/vU13kJ3gJ59rj5gHhYwrP9ZZNmTuNwV6gm
+	 ifrWvXAEa7JYaU4RkZmip06AFz3k4/FfmBLDkwbLR+UzBDR3PmzI51yRVLvBicdD0Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825719;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=NIq308VQGUr/7Gxe2x540xjoV4Zdx2xWDIRiVtWnXPw=;
-	b=G+huw3xEyVZfFvDdrqESttzAZtKwGV6ZQOv1CAcEWVMaIKtyLz09E4W746F8BmvUTIDS
-	 yvaT7bmpOR9xz0vZwCZ6TSuIDhJv8PwIcAEhpxmEtI6QH6FSJko8yJWVnhdmmJPXny/Mk
-	 Qf13qiu+NdEBlUd58VHeUy9ccMJYP5VHbnqKj89yvUsn6BDufC14jV/oqixcT5WbJwyjB
-	 17N4lIYeE6Ne1ug9JSPiPIP5e+bwpigeOglNKRJgXSz0LP9EAKRA1W5oPocXSr4BQuWAQ
-	 GMkenviZXV20b1VRmNAVnFh9PaJMtVmiLapReApBbg/rKkDbCK6BPl0qG1joKHwisZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825757;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Vvrt3ksep/uByZ7+Whx51+tzPNsOAV7Zt47AvUyFumo=;
+	b=1Ceaw+AJ0k7NI3QuyJobr4pH1mxHjwneYdERwKJxSBxUAKfX92YAbQui3lBAwuBXPqoX
+	 +OJRl15C9DsHzDlsx7KyrIdJ3zg3j277O1+OwFMzZ99Lm15+PVw/4n8fnsi40TOX2ckVe
+	 buvXEdXfxtO+3zv2zGh6b/LKaQov17bYlEPfqeiDAVtVXCl3UTZGDLH6h8Yu2ES0iXePK
+	 hGz0ruyEuHNRs927KP1NZVWafMV78GeNRsBLQQ7hvds9Yoe2XdoTPQZ04wdIJ+yKZwif+
+	 30w5GVhpUeZJvY0Xsd+I0OUUKtHX+7BOTnTy/1akr5ai8A4Mkm/8UTG5MXMz4DU0+Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=hN0USg6S;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KH4TvZ1y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F54606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9F54606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE5D606A323;
+	Mon, 16 Nov 2026 10:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=hN0USg6S
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4b467581b98so26889785e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:41:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794825717; x=1795430517; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NIq308VQGUr/7Gxe2x540xjoV4Zdx2xWDIRiVtWnXPw=;
-        b=hN0USg6Sa3Y5g+9XzVi3ZgaYLhuQyWBIqQghnDZ16ETnPpDYiqoEjrDUQCj4oQWsxr
-         lVqeCsqDVZRrjJMi9wz6S6kAjxlauH55t2ejuOcaVAn9z7t5cnVjbE/RuUEpuYcTtuVn
-         mNMJKBRBxydA1RKVyy9GYzLYCJvwTNdRQldZGcXK7rh4X8Ie5dGFZV3ysJQtHzIkH10N
-         Fw6UmzNcztsb12cwcRrH5+hf2ew1ruCQ35k4i55TcckQhqHqNlVneLAOdvVtK68L5uYE
-         L//ZEvxsaFEOpfOYFpZdnkyeNTpkDtdUAMQnRk8ypBvLHSrdaqchRd7O/nzpRWl8KOVP
-         HPrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794825717; x=1795430517;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NIq308VQGUr/7Gxe2x540xjoV4Zdx2xWDIRiVtWnXPw=;
-        b=quFz5RhympdeJgH4KATKKfo5O7z+ZypLml3tGaklzFWUKqDCMtKMUWdVbWleWTrmQ0
-         oBV2IGfOHD2XBlKwXIB1vF2ePQjYL8iIXnohJ5yTfJpMYNwBeEGmYMQknTDheNFLUHwY
-         ucwE34HdIJT0XwSJ8ayvznQK5LmiVHC8PGhUQJv7nzes0kZTa9ivj10bpbnLz+jSyft5
-         yQ0pf4QVLDtyqLZt9Ork30DSQZGtvXzu3/hdEwV1hiHeCSZJobH38uoLMu/ifPgqYtvs
-         2md2hj89C3bu4ToujiqzjmfYZ2Cl9+4H/6bRqxuE/pcQiCN7SjewZ+Kc8L+qwoyHQ0kq
-         BJKA==
-X-Forwarded-Encrypted: i=1; AL+hErFZjEr0h9SAZt4lqIWd1MBa3KD7qeS0I2YOW42I83FFWF1M2b9zqFTFn0Wsfg0ZuaH7w6bL4PRzNT2ljRA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+k+HcUEi9PUJdG5ODkaAN7mlgpTP5inGarc3iMnU2byHzjFjab
-	5MuACxdhIr32n7omBz9s8RSG0KtgJ89r6VNiwpncV2cLkKrPE2fhULa2Mf9PulSHlWE=
-X-Gm-Gg: AYBFou1zN2RNlhBCKhsc3hxMKMhLH16+f1HIRpwI6VCKZcraUhVJBeuZ1Nrh+zxyky6
-	WjM9G7d50kqifGDmmiceC2w5dtRWJJ4VpLw9sv4p9KNin7iB67J8j6TIfHJCm2RzQ1tRPQoQ74F
-	9+/7Yc3bMJjiXjPivVdu7YgMCfXJB8ZU7LBzTlv8BBpe25UnLHCunG0rZoMlGZK0m0LjhHCaVX1
-	nBDQeenfVBSBX3mHEaIN3RPRHZAwKd8Mn11PvOUBX8UWVUQZVFaEcI3ZUi6eA52JNqrDk9sace+
-	Tcy6Zujk/WPBXHSX2cGmxXRTX/0DuL89IpujTAo65jFZHoUozBC46a4hRzREFsaszfUPZNVZYDK
-	YOGLRu5r4s7URjZJeiJpTgL60xqTn4yAIljIfAMxXO86CvrSYQWvaB0PpN2K3UGcnciaTmz0ugS
-	WIQX5Vd6VXQrQRyfaZrp36SFXv4caDYYN8M66nIBcAzfE6J+uMR9MX/bbe0kQpDOKouf2pBqobT
-	CkDOwAFz7HBnGvx+e5XdlifiPL69gXmBFHNLl0MN0KbqTAhTomFz0qmBllZrZ+XcL5mIrsTkwA/
-	qa86W8uTHW4Zy2GDZ81or748tYiCWsTBEVppPN/cyE0ek4MNxea2bOv/zXpzmid6FcHVBRpYCyn
-	8dvk30DLMmA==
-X-Received: by 2002:a05:600c:1989:b0:4bb:665c:a078 with SMTP id 5b1f17b1804b1-4bb665ca43amr133221345e9.28.1794825716789;
-        Mon, 16 Nov 2026 02:41:56 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb64ec7b58sm218180305e9.5.2026.11.16.02.41.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:41:56 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 16 Nov 2026 14:41:51 +0400
-Subject: [PATCH] power: supply: bq27xxx: Recheck the status after an
- external power change
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KH4TvZ1y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1779E1F000C4;
+	Mon, 16 Nov 2026 10:42:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794825757;
+	bh=Vvrt3ksep/uByZ7+Whx51+tzPNsOAV7Zt47AvUyFumo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KH4TvZ1y7FqJS9NZhglXOeRoWbic1VZhv9sft0QtxWHoN9oqww9kMSLfO8wRbdgEe
+	 eOvyfoZ3tgELJ4YAXT6sdieD52RFUS0BUFVvTBNdlztndeiHAFNz0BEpCZ/thog9xJ
+	 eWwuNy0PFzyaAFuKNhuuOwdJWeIUwfX+2MlnVCCZUr4d6c7eZECN3EB6fgditnh+EO
+	 9VDGPfWvHG0JG9QLSozn95r9XnToTGr62Uw1+EzaWAGtVwsoNAaewEyV57WM7FXauT
+	 fTuadLl4MDjRwJo9lRzCe7we/Y4JkpMn4HR6vWetdCiNKZQXmFjctx21CtmjkEugpD
+	 snjWzHNzLkOlw==
+From: Imre Kaloz <kaloz@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] net: sgi: ioc3-eth: apply the DMA attributes only to 64-bit addresses
+Date: Mon, 16 Nov 2026 11:41:12 +0100
+Message-ID: <20261116104113.5946-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179473759964.2199510.1259617691806814840@kernel.org>
+References: <20261111095138.1757-2-kaloz@kernel.org> <179473759964.2199510.1259617691806814840@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,158 +65,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-bq28z620-status-recheck-v1-1-e3ef211c7fd9@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxA0auUrA3MRBrUq4iLThptFKpOpiKW3
- r2jLt/i/xlcs6nDoZkh68vc7mNF3DQgQzdeFK2vBgrEMUbG9KTdhymgl65MjlllULkhs+heUmh
- 72kKtH1nP9v6dj6e/fUpXlfLdwbKs4H4B1HsAAAA=
-X-Change-ID: 20261116-bq28z620-status-recheck-66ce9cb05d23
-To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
- Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5560; i=alchark@flipper.net;
- h=from:subject:message-id; bh=yMAsrt3cEsFJF91tvPe7B50jfdiEKkYHfq19JenF93A=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWT9uvtZV++zgbDG9NSsmOWCK/eGRctOuvK56e05tav/t
- i+RUlF50jGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
- GRrpGOsYMXBxCsBUG69gZJhy8mGQiQnb07fuESo8Pp/X8FysSrgqb/7boi+iuWK62DNGhiV9yy4
- ve1DMaKFrzb1h2dxDnQYOldcTvj0KYJaxT2nP5QYA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Transfer-Encoding: 8bit
 
-The status of the signed-current gauges follows the sign of the current
-they measure, and that only flips once the gauge's next measurement picks
-up the charger change. A BQ28Z620 behind a BQ25798 charger shows positive
-current up to 0.8s after the charger reports charging, and negative current
-about 1.1s after its input goes away. The single check 0.5s after the
-change often sees the old sign, raises no uevent, and leaves the status to
-the next poll, by default 360s later, so userspace that only watches the
-battery (upower, for one) keeps showing the old status for minutes.
+> Can the code currently in the tree ever reach this branch?
 
-A property read in that window loses the check outright: its refresh
-pushes the pending work out to poll_interval. upowerd reads the battery
-right after the charger's uevent, so on unplug the check never ran at all.
+No. On IP27 and IP30 every IOC3 DMA address has a nonzero target
+widget in bits 63:60. The branch is for the IP35 series, where an
+IOC3 behind an XBridge or PIC uses the 32-bit window. v2 says so in
+the commit message:
 
-Keep the first check 0.5s after the change, but repeat it up to five
-times, 0.5s apart, until the status changes. Count a refresh from a
-property read as one of those checks instead of letting it postpone the
-rest.
+  https://lore.kernel.org/all/20261116102115.27574-1-kaloz@kernel.org/
 
-Stop at the first status change rather than running every check. Each
-uevent makes userspace reread all battery properties, and the window right
-after a replug is when a USB PD port controller on the same bus needs it
-most. A status that only lasts a moment then holds until the next refresh,
-the price of keeping the bus quiet.
+> Does the window path rely on platform code setting the D32 bits in
+> b_device for the IOC3 slot?
 
-Leave the gauges without a signed current (BQ27XXX_O_ZERO) with the single
-check. Their status follows a flag rather than the current, so it never
-counts as changed here and they would always use up all five checks.
+It does, and nothing sets them today. On a Fuel both XBridges leave
+PREF, PRECISE, COH and BARRIER clear in every b_device register,
+including the IOC3 slot (0x180010f8). That belongs to the bridge code
+in the IP35 series, which will set the attributes for slots that use
+the window. ioc3-eth itself needs no change for it.
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/power/supply/bq27xxx_battery.c | 39 +++++++++++++++++++++++++++++-----
- include/linux/power/bq27xxx_battery.h  |  1 +
- 2 files changed, 35 insertions(+), 5 deletions(-)
+> Should the ERBAR value be decided from the RX descriptor ring
+> address?
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index a955feb6cdfb..e4ea92e78a61 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -1124,6 +1124,10 @@ module_param_cb(poll_interval, &param_ops_poll_interval, &poll_interval, 0644);
- MODULE_PARM_DESC(poll_interval,
- 		 "battery poll interval in seconds - 0 disables polling");
- 
-+/* Status checks after an external power change, and the delay between them */
-+#define BQ27XXX_STATUS_CHECKS		5
-+#define BQ27XXX_STATUS_CHECK_DELAY	(HZ / 2)
-+
- /*
-  * Common code for BQ27xxx devices
-  */
-@@ -1898,6 +1902,7 @@ static void bq27xxx_battery_update_unlocked(struct bq27xxx_device_info *di)
- 	union power_supply_propval status = di->last_status;
- 	struct bq27xxx_reg_cache cache = {0, };
- 	bool has_singe_flag = di->opts & BQ27XXX_O_ZERO;
-+	bool status_changed;
- 
- 	cache.flags = bq27xxx_read(di, BQ27XXX_REG_FLAGS, has_singe_flag);
- 	if (di->chip == BQ27000 && (cache.flags & 0xff) == 0xff)
-@@ -1913,9 +1918,10 @@ static void bq27xxx_battery_update_unlocked(struct bq27xxx_device_info *di)
- 			bq27xxx_battery_current_and_status(di, NULL, &status, &cache);
- 	}
- 
-+	status_changed = di->last_status.intval != status.intval;
-+
- 	if ((di->cache.capacity != cache.capacity) ||
--	    (di->cache.flags != cache.flags) ||
--	    (di->last_status.intval != status.intval)) {
-+	    (di->cache.flags != cache.flags) || status_changed) {
- 		di->last_status.intval = status.intval;
- 		power_supply_changed(di->bat);
- 	}
-@@ -1925,7 +1931,22 @@ static void bq27xxx_battery_update_unlocked(struct bq27xxx_device_info *di)
- 
- 	di->last_update = jiffies;
- 
--	if (!di->removed && poll_interval > 0)
-+	if (di->removed)
-+		return;
-+
-+	/*
-+	 * Once the status reflects an external power change, stop checking for
-+	 * it; otherwise use up the remaining checks before going back to polling.
-+	 */
-+	if (status_changed)
-+		di->status_checks = 0;
-+	else if (di->status_checks)
-+		di->status_checks--;
-+
-+	if (di->status_checks)
-+		mod_delayed_work(system_percpu_wq, &di->work,
-+				 BQ27XXX_STATUS_CHECK_DELAY);
-+	else if (poll_interval > 0)
- 		mod_delayed_work(system_percpu_wq, &di->work, poll_interval * HZ);
- }
- 
-@@ -2201,8 +2222,16 @@ static void bq27xxx_external_power_changed(struct power_supply *psy)
- {
- 	struct bq27xxx_device_info *di = power_supply_get_drvdata(psy);
- 
--	/* After charger plug in/out wait 0.5s for things to stabilize */
--	mod_delayed_work(system_percpu_wq, &di->work, HZ / 2);
-+	/*
-+	 * After charger plug in/out the current takes a varying time to settle,
-+	 * so check the status a few times rather than once on gauges that derive
-+	 * it from the sign of the current.
-+	 */
-+	mutex_lock(&di->lock);
-+	if (!(di->opts & BQ27XXX_O_ZERO))
-+		di->status_checks = BQ27XXX_STATUS_CHECKS;
-+	mod_delayed_work(system_percpu_wq, &di->work, BQ27XXX_STATUS_CHECK_DELAY);
-+	mutex_unlock(&di->lock);
- }
- 
- int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
-diff --git a/include/linux/power/bq27xxx_battery.h b/include/linux/power/bq27xxx_battery.h
-index 731ea837aac3..dad3119454c6 100644
---- a/include/linux/power/bq27xxx_battery.h
-+++ b/include/linux/power/bq27xxx_battery.h
-@@ -68,6 +68,7 @@ struct bq27xxx_device_info {
- 	bool removed;
- 	unsigned long last_update;
- 	union power_supply_propval last_status;
-+	unsigned int status_checks;
- 	struct delayed_work work;
- 	struct power_supply *bat;
- 	struct list_head list;
+The IP35 series picks the window per device, not per address: an IOC3
+behind an XBridge or PIC gets a 32-bit bus_dma_limit and SWIOTLB
+bounces anything above it. The ring and every buffer of one IOC3
+therefore use the same form.
 
----
-base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
-change-id: 20261116-bq28z620-status-recheck-66ce9cb05d23
 
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
-
+Thanks,
+Imre
