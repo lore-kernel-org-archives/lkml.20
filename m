@@ -1,95 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839222;
-	b=M/PwJpbPnoQESYeNh1C5Kozd8PPiuMhoJLTeEgChJSr+q4CsS4n5U8Rp/IvWYbnk4qfU
-	 XqgXG9UrkjkagrDMXHxS0O7sWxSI+0/jDPgfNT33WLC9GVPy7tfK880ye2GlMlJEbqGls
-	 8dfv5rP8RRLAaPBaw0uzfEKwyWXpoi+Ky0TaHTsH4YntkDlx2d6M6UAdoEXsMYaZ5/K6Z
-	 84GWuj7e8ngdn6K8gvC78US221zxIv4pHaM+NHQelL+ojwV1Odw+xrpmsBvPuyVkSlxGk
-	 9CTspFGaHfeQc6beqimQAE/JKQK8YfQSH8XOjXKE7uQPKpbHBIluwmm1bYjDbOGipww==
+	t=1794839244;
+	b=ffr4VM/pJkKpRkAe9AHfwyjf/q6bnsFmkYX30UlOdc5N3MXqrwnHjWIroI8IBwCLcmCp
+	 6mPn2o70yjW5Dv7Mj2r6MZ819C47o+Xr25brqXGP96+l2MK7RITFwpr0eWnB9Cfh6QWWs
+	 v5307ifiK4/3/FgxrfVbqLt+1ozdomozhs8kfPT2/wDtZGFMPAJv+7NPXePWg81ytLKsv
+	 iAZ6SRwWT8qXWHFKcnXv9vtsiD6jPHUs57I2APtoIHIlYhxLxrbEvg1MA+IRZBozhqfzO
+	 9yQACsrNtVdGcE5U8rG7U6VFVfZWMjsdbotAgEYTnB4wja6VlaGegeaIGH+kwlg5GvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839222;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=REYPW0V0Hw8OeT1V1MVJj6gyXDEMPTMuQhc+KEFGz8g=;
-	b=EhA7CZAfbs0DdocNognSQTzKh8+guNUWQmhB7GEPUZ1T5cVTQ4UPKmva2syBWBlIvEqA
-	 oX65MfoTLzzuTDgt8Bh8W43q3aACpTSxHXfFDAOadEPEa0886wwzhPPpIS7O+M38HaSrF
-	 0S2v7Lu33D+SZhLcwXnPwNEtbrDzqevsdXwB7EMzXJFGq93qc8+jrUrsbxogwFjWnPzsF
-	 FtWjsjEj1E3of2PMPYIhj0vE5+bGTcB3jc8WY2MkLfWcSh+VF/FWWGjFHGfYHWopFCS7Q
-	 PosYsmzcYk2HNPcA3jCUafWOZM46ZLrPNy01gvQjtd6Yzas3jyQupjAk6LP1uLcbBNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839244;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=yZqYyYz6dpLdL8GHBDQVwB9zUDWf7FNjz92hLeD5y5Q=;
+	b=rBiCSxI6JeiVlSKhns5AE9gx7U0FR1UXqQF/BPG2BTNePUbeX6g/bF2kiqYvUWiFmRWE
+	 lryqLXge4+sRH3C7ujUZh16gIARuvFiksHdjORfKASQMLT4p+VR6epBkbd5ju5lePkJIW
+	 zbSWgAjNhRW78MmXwxChOcK/2WSNl58BmFnEE9U80FHkNQvrxHexowhXQyERF57A0Aktb
+	 Cq7c13ZVnKwzs51haczxqen1oNvUfzt5rMfyVMpknPJBFPrfsXoc10NSrl5YxrIFuNg6/
+	 LDI/kKJG0OUydY4b1MDLGok7tznpMEo4QPRQPLB2nZ2XZpW26AOhbt2nz6Ahq+TB1Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ti39duon;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=T50zmCMu;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A86606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:27:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A86606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FCE606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03FCE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ti39duon
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id Sm0qxvC9xAR1iSxfhxZU7o; Mon, 16 Nov 2026 14:27:01 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SxffxAzCYSeuLSxfgx3AbS; Mon, 16 Nov 2026 14:27:00 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6afb12b5
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=QcAV74sXaHvaKY3IglgA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=REYPW0V0Hw8OeT1V1MVJj6gyXDEMPTMuQhc+KEFGz8g=; b=ti39duonapH/OckZv4V65mFYnf
-	zWs7h8UMwiLZo2J345Xd1MIc1V2i/uT11BD6YIUFmVrEqZCXsO9fQ1jvtAMaO25lWzhppbx2yF+4u
-	ruqcZar0Loo0GHdG2gXsWh00FxIPx//KLYx+ZSiejT9Qi/DGXN7R6mXNzw9gYS4vTQNJ/10Ab/vel
-	6UzeNg8+YQpL9dna+rPlI4tCX/xCL97vCOg7jIrOKSBgj3i/jUU+LqBtA+4YXaBSiWjNtWS11PqA5
-	m+DBvkQP0aGuSlKhPgzQtbh2iK4SnicdvXrN7+1See3aaD7idxTocydr4+J8Q01Dmh/veAdatWoae
-	3zPs4Pug==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:49322 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxfd-00000003oF6-04lF;
-	Mon, 16 Nov 2026 19:56:57 +0530
-Date: Mon, 16 Nov 2026 06:26:56 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, linux-input@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 4/9] watchdog: mediatek: Add support for MT6895
-Message-ID: <eaaa1e62-ad8c-4cd7-9855-f8efca36cb70@roeck-us.net>
-References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
- <20261113-initial-mt6895-v2-4-4ab0aa9fa391@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=T50zmCMu
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so1863089a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:27:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794839243; x=1795444043; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yZqYyYz6dpLdL8GHBDQVwB9zUDWf7FNjz92hLeD5y5Q=;
+        b=T50zmCMutFQMf12qCJ9uwW4p4HoqLyAg9G0VLLlY1VlWSlAQ7o3XoEosx/OmNOPYRz
+         iaBbkJwXIvfIhUfmnmqFuuLLloBcgk7G+eiUc9bRXRnhcHb5BrKeH/IqYh/tz0DbNa1Z
+         2DmcpMMQ4p+6r3+aHH0dmuG+Yhms33ilXG6dI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794839243; x=1795444043;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yZqYyYz6dpLdL8GHBDQVwB9zUDWf7FNjz92hLeD5y5Q=;
+        b=TNBaRdSIMxiUlwtv8xmY19jJudXjm/P4eErOKwsyR2AxcdHUiojMkJAvwXqK0SleZh
+         FEjBG7Frj2o2xJR42aVjRKGYLesND1O5jrft3NrdROMOdQ9avM/iX1ywynJLhWIN1FPb
+         LWhsOuplVdCPlE54L5lbm0N7rIDcr0QaGIncEHAhtOOygFDY73dGrxeFIX5J1zfvZi/g
+         gb9mtERwud9aLQx+wWYq2RiRnhWiANlm+dqb/oyiiS66uC+FB+M2NeNjtftykko/z9qH
+         56mhwjbam2QOHiH5oJOKwKLnk+ZIwqQGlCxDKeVHZczXSrxUldJ8qCFEhsHmA+cfR5GW
+         iUOA==
+X-Forwarded-Encrypted: i=1; AL+hErE38CIhc4usmBKSFvK7F/Y7lQ35u0j9pJ32uEKyJ/GzjZChHc8qv68SJoIXKtwH1fMHiRTbUyuujhTeO3A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nPt+8Rbp/TSQ7QPuj/2VdTN7cd25dOOwNPG+TNivgYk3CMBEi
+	AfEArBhkohiz3jKUGULLT8iP1ILZIEl+qjRkvRuCJ84CmCnazw9u4fMeoLANG6LmXl7PTFBgqVj
+	WuXAYRQEW
+X-Gm-Gg: AZFdTZf7YHHfPtLVh+kAIUOHirgDYY4vGDstpHhJBdFJU7s0JrWsAVQiL/TSASbDHtT
+	M8q5pskokXO0h1vbJlN/oWR2boAEzhixwtkZJMObozMpGQIvIlawgpiztyb0h2ee2n1zVqaceWh
+	PXVVo/k2X+6oDbi7C+BVg9UBT+7YGxqpvTqKKm1pNS5FCyZGJ/T/t6+A7moik/aemqB97MpMI1t
+	f/EMkkChhmj5Fw/UqO/JJpKcVBjv6+DwjKIvTqRDcHFMZcJ4aB7ol1A31fbe4iZkq/Uk4tkH/Wc
+	LctwhSVVN042DCKoSzk2xhjjopqtu7jBGTyZbxSdM2Ofg78CkZ8RSvNa+XB3q2o3CaVBRUnPeRQ
+	gHwbQKXafDLlDDy2IULpZYDO0tGxMlUKJ+xYwPwi9lDgV3ZMkCGILNz+DtewCl3JIaY3BKbE7Rn
+	Jqco9hzVmOQWoTEN77fWT4jxqOom1mKmx0+/hACk5O9XLZbhIa2xrg53DBdH4HPn+dmPUHPFz/X
+	BbjIeSHterdXDJXntmV4NAa8G8PdjK4Xk1hLrbsQ5jAVCRNxWRHRMxZ3vPMVHA2bNSrqGk+PlSn
+	x8e4ayXo7uCYlYpzbWJwZMjL1cGnH3Jod/nuxyM/h7DRFaV6LZzI5GeaVrQdkSM5VA==
+X-Received: by 2002:a17:90b:184d:b0:3ac:7116:434a with SMTP id 98e67ed59e1d1-3b1b0a1f032mr9502680a91.15.1794839242999;
+        Mon, 16 Nov 2026 06:27:22 -0800 (PST)
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com. [74.125.82.45])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce49d6sm22751093a91.4.2026.11.16.06.27.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 06:27:22 -0800 (PST)
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so5246343c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:27:22 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHsRHhehsLX5yywxOLme/T88NVfkcM7C29wYsUu2A9zrMBAjG97ScNa3yq/mvogn2DPQvc+ppDyU4+e/vY=@vger.kernel.org
+X-Received: by 2002:a05:701a:844a:20b0:1b5:1a41:f3b6 with SMTP id
+ a92af1059eb24-1b51a41f403mr6681578c88.4.1794839241010; Mon, 16 Nov 2026
+ 06:27:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,41 +93,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-initial-mt6895-v2-4-4ab0aa9fa391@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxfd-00000003oF6-04lF
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:49322
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 57
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfKTTeLEPDUQin6aeVE6OovCK9/X8AN2YLz4/qQiZEtk9yE+t178xTW7wBXpY40qcipfuFM5rELc5tRrdxenLwRTBCF0g/dR2Mx6Hv60+x3i/B/SlwxT2
- 8uJ1dpu2a0xrZKe/HVL+bhERrA8GS8xcyzIAxFx1UlqSVM1xiD8MEHuRuv/XslunnwSrHCfc2IqqfEHfaAPfkKFMXUgOmBgU2jLYv2Ap538cfE7LvwoBu0q5
+References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
+ <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org> <20261116140114.GC1714298@killaraus.ideasonboard.com>
+In-Reply-To: <20261116140114.GC1714298@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 16 Nov 2026 15:27:06 +0100
+X-Gmail-Original-Message-ID: <CANiDSCvitQJU+RTO0MLJgJLPK3BZVPHPcrtU_7iJygGRxKpCgA@mail.gmail.com>
+X-Gm-Features: AclHuK9EY-9Q3Zcf3NUEcs1Z5UODzPpXwEEXxHoNI2jIHFloOBFHm9IQER-8PH4
+Message-ID: <CANiDSCvitQJU+RTO0MLJgJLPK3BZVPHPcrtU_7iJygGRxKpCgA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] media: uvcvideo: Fix unaligned and OOB access
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 13, 2026 at 10:05:00PM +0300, Alexander Letuchiy wrote:
-> Add the compatible for the watchdog of the MediaTek MT6895 (Dimensity
-> 8000/8100) SoC. Its watchdog registers are the same as on the other
-> supported SoCs.
-> 
-> The TOPRGU reset layout of MT6895 is not known yet, so the entry has no
-> match data and no reset controller is registered.
-> 
-> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
+Hi Laurent
 
-Applied.
 
-Thanks,
-Guenter
+On Mon, 16 Nov 2026 at 15:01, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> On Mon, Nov 16, 2026 at 11:56:39AM +0000, Ricardo Ribalda wrote:
+> > meta->buf and scr point to packed metadata and USB packet memory that do
+> > not need to be aligned to anything. Also, scr + 4 is a 16-bit field, so
+> > reading it as a u32 reads 2 bytes out of bounds.
+> >
+> > We use *_unaligned() in the rest of uvc_video_decode_meta(), but not in
+> > the debug print.
+> >
+> > Fix this.
+> >
+> > Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  drivers/media/usb/uvc/uvc_video.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> > index e9be0a627033..3e3296ec5c65 100644
+> > --- a/drivers/media/usb/uvc/uvc_video.c
+> > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > @@ -1532,9 +1532,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+> >               "%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
+> >               __func__, ktime_to_ns(time), meta->sof, meta->length,
+> >               meta->flags,
+> > -             has_pts ? *(u32 *)meta->buf : 0,
+> > -             has_scr ? *(u32 *)scr : 0,
+> > -             has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
+> > +             has_pts ? get_unaligned_le32(meta->buf) : 0,
+> > +             has_scr ? get_unaligned_le32(scr) : 0,
+> > +             has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
+>
+> I wonder if things would look cleaner if we introduced a struct uvc_scr
+> instead of fiddling with manual access to buffer offsets. What do you
+> think N It would look like this:
+
+I do not see a big point in introducing the struct: we still do the
+manual offset math and get_unaligned_le*() in the callers (and meta->buf
+is still unaligned), and marking an in-memory struct __packed just
+makes slower for no reason. I think it would make more sense to have a
+helper like uvc_video_parse_stc_sof_pts(*data, *stc, *sof, *pts) that
+processes the header for clock, stats, and meta.
+
+Comparing only SCR.STC in uvc_video_decode_meta() does look nicer
+though.
+
+Let me give it a try, and if I think that it looks nicer I will send a
+v3 with it; otherwise I will send a version of your proposal with my own
+added personal and funny bugs.
+
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
+
+-- 
+Ricardo Ribalda
