@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794828779;
-	b=EOgiua3h5pAT6kbnG90+6+oh6fGHHRuo4WCW1VUdSOTwvRW89iWJVyAPVwRZ35QmxMJY
-	 bJru6bCj54TtKPiM082E3GnExk7UnqcUHv+q7PI+ze0p0uWak/MEm5Kp3TLdU96k4HFHK
-	 TcasdM+2yvolwAZFm5tdWKpjP97bjPhff/8OZeHwFqvqsI5TEVtut2l9/MW9BXVrg0LiA
-	 sVP3RPwEUJWrXjUFEaJBGSvdBSKVlaXjkQdRwLrnXPhjIEa6D3BJFDHqbM1b0ZmYx8EME
-	 AYxUc4s0E9b+oahDdN1xwd+T2hF3/x6jYSifgSA16slLgC9SXnzNIBaFuS5LUE4QCxQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828779;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794828834;
+	b=qoot7BAAfiOjD/mwQ2oSriFMLLtCAQ+R/9fnb7+Kjrk8pESzN9oOzBO0ctbwvcwIxz+G
+	 qQPtd0o2J2qL+RkJ5O0P6si0lLoSrdBlluKeLkBORQJCo6+dEEW+S3DMuMrq5FoxYChDF
+	 btjT02K+chpiQibAKMv1diXHQ6bfRvxY0g2Pt1zQFnqPfPizuNqyYZvYZjoRmT5wat4iS
+	 rxNELsqriaSAFV4CSZZ6Cv86RrBvltAYE5glULDd5CZsff8vtVcIQ5Uh/OISbljuOWolZ
+	 IA4kjAJw+NJQGDs8dBgFKicH9FuaoyLO83xbkNK9z+2Bq6Vs/Y/0d/NB9RWW8dQ5l3g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828834;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WkFbdpqrAcDUqj+SkzGRxAQW493jh+pNn7c7c7yEn/k=;
-	b=knxaO1E7YhuXtvWNEeXxhZw3Q+L+FukIINhquaPIgUH4szinq+miG7cUG7MBH4FBMnrQ
-	 qb/uvfa8T+JrOLbaT4COZe2V+QieiPu2P3H12qJjuKQyVc5/Kt5IVMKWAGs8GJQekx5yD
-	 gOr7lxNXWfP0N51C1uwnWfTBrYnbErQd0Be1ReqmpC7UnaaLfVZJAq0JNrQgRPKjLK5oS
-	 WGRvWyp3IA2YDECM9aKD1mQUeZcB/S+kYcjaLAnY7sTFl+fE71DKNUF8Sfrov6DHK1rQ7
-	 Yt3w9TTJvjIbovy0HuUe/xNlzsKvATR/WW5ISbLF0fbbMqKLbnR0g1uaMnWgJ8jtzCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
+	b=syqan31xTR9b5X5hge0MZkATngYTGNJiQoURr73YoHOvZeRqzJdsukmebnxNqUmnd+DV
+	 8Cgmqy3NvRGUWfh+VrKbqeGstSdjVNNq3UWX2DwGr4XLUWRXA4cSjDE9zjxyHBPGB8s0d
+	 g0ItK6SFgqxwnMPPwtuDnPfLzoPCDxxlNHYu1FXgkvOCr0zwgcGLuRJ2p9QJPfxYaBmAO
+	 TX2tF5n0+fQQzIc3VD+gfrvZUZ4BLb3UOxzBWcdaeagi1RrJYn46EJHmlt8VElafv9xRX
+	 FWzlBFPyb2UFI/zMVOEe2lvshnpvEmFALsJvSgkQ5/lUyHeZSjf05IS7f2AsvGJp2yA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vRraYadp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FB1606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FB1606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DC0606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DC0606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vRraYadp
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6798af41644so2299127d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:32:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794828778; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SAErW2UxNR3HxFoN9RYuJDJdflEZQA2qr2wtniB4E1ejpQKrrE9GBdeHOY6cNtxAzI
-         GQue4g2oOF7JH7Fo34ZVNYs+nNE8nCdlwnKGmZuqClz6hDh2OFy59tYHNW7m8U5BN+Kg
-         +hUh2fzoYO9WSRVOplIBblWgA1ShCastspZZ0TTf7ROp5sOGdkCeHDXBtmbMu0o03Afl
-         6MfzCPD3TmonM5VF8CzIC++nGUVfTFJGc2Pt4RB5ofx5P2mRqN8uzCOPZlJixaFxCfTi
-         Gq2s6rdzy4R0JhBgUiKLCidy4xXAY+41pCtLtNJwg0b75mWQI29o0M7iD3zQfiYx7fQ7
-         EYaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WkFbdpqrAcDUqj+SkzGRxAQW493jh+pNn7c7c7yEn/k=;
-        fh=yD6E/iMyVJpL0pPUDkNcCMZCaZq4hbRs5ZQqTfb5FXI=;
-        b=Eo/dua/SKf/EP59VDhOCJGVz9/nPbrBPibbPS3mA0dYAabMABy6zZHWUklAHggV2jq
-         Dq+npw6uiLaYfQj4feXG+9MgBVumcdoA3moYAV/E3RmfLVzCwCW7wb1yDFkbPuqwzgqc
-         OYR7V7bH9GiE2lH+q7+sfUkVXsRF9SpLpKqEEwYf5KdT6f6+OWKu88Vn3Xbu22KX2qWq
-         7JAadW/i1aVF9n98IJMB0TLKDpXZV8nswYg3Z1Q1GY8aDszAsyoEcyNQZpLbff3SBR5h
-         ou6c8+e3L63QzHfN3k/ogl5DsTQDmDWqLMld8EsCCy1qc7Cb9UvUMJrna91hxKL6KCWy
-         ET+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso5014637a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:33:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794828778; x=1795433578; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WkFbdpqrAcDUqj+SkzGRxAQW493jh+pNn7c7c7yEn/k=;
-        b=vRraYadpNIVw/RbL/WNQGKYvSUeBs7DtrXW57WxAjtGzSdi/KYjHctMoQLXvM9FfjM
-         GNK4kBMFG3jAIxtlj5M6RY7SJOEGeQqIWReAPor+voM6n1E57lABvaoVY8KgajT00kkI
-         7wpaw8em6yCeEcvT766ZTBCENPyrw4BAxB6wHn9Pbn6G2AY5PjtwT52ajkVSvb1nrbve
-         1+3HGcpw84IEVT8njKEZc8yvyiNleQQaWb1N/yiUTLM79Wdo+9/9DvUqepNcr15SZWQ3
-         9WooTMQD5AYwcysCpshL6uTLOLrPlV1SnRb2Mn+q39W7TsPi9ArnafyVidFBwlyAk5Zb
-         sMdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794828778; x=1795433578;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794828832; x=1795433632; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WkFbdpqrAcDUqj+SkzGRxAQW493jh+pNn7c7c7yEn/k=;
-        b=HtCZdvj9BsrnnEv9ehKmgSUrQDjIE2Wq5katdITQ9i1nhLlLdblhg4jFLWYxf+wyNC
-         DZayEDDKSdOd86E3PeG/zU/5EI6FWUGmRSONmBmMrx4M8JkmXjh+/t6qBfvo5kZ4WY7U
-         Mz0wYs0LD8sz8uQtByQIdtJoqFez3nA5Okc0WgjCFYiLej7KSTq+eBovw+gR377zftpc
-         rXzvWY/GVR2ZCBC3dlLDUEPfxRWHO0T9/FlLjyfWwTed8vYiZV68XtlY8eGwTHZrxS0S
-         2kDVQ4HKX+S1DQ0MT3fgm6IvjoALc1VdiAqXq/sWEoc8iz5WerjdXPGfndgJ1aKgqIBK
-         98lQ==
-X-Forwarded-Encrypted: i=1; AL+hErEzBx05+hQAjzubD0ihKBc4+wuGwh72enQFBaYwpMCQ7QXR5rWOAH4DGyzzQVj33LUCqW/rmSu8gB5ib9s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CKHUF5WKPJElGazmzcB4nBymg0QpEm9NoNi5pe3B1gjlewyff
-	IhsBUiUvZ/FADSKsbeNvi3At7FVVzXqrBTSGm8rQKc1AJ7i21GnOI1EFNy3WJ4zjroWxhvthcec
-	NPuZ+JFEmQzoWOoMYpf1VHEfE5fRbRdQ=
-X-Gm-Gg: AZFdTZf2DrdXe8TWAG4aLM3pUy+RL2z/HIabDk0pedK4snkcrmqL+XV7CCg6gb725ft
-	Kt+p256uO+0ExXJpZcE65cXBTiHzSBRk+t4nykrHgcVJt6al3o+ZrzFtGohH5y9SBaN5rr30sU2
-	5FPXuvq/HY5FqU/q4AHHJlvhPr319k7gkbfF99K0jkTfxOOnsZVX2Bon+dRb+8Rgzdj78sbrbxe
-	5cu5d4xaFG4BE9xJ9ZNVHiYB2JYJsf798cQPuOxWt1OAwWRkfzDOixHHlK+S1a8j9S761T1h4HV
-	LMO6zNBZf6+UV6G9/WMPD0/GU04cCmMJlCzyvjOJRo5/MGsOs0rCbvcfneE1b5Sz1GMBMft+ram
-	STL+IUQDmjsipuQaWuDil96vGQ0ERh/pFR20LDxKnpw4eLrfl9VuAgB8q5t1tg9dq+732qBCQUy
-	TnGS2aY0F+5IOOMZshyV+KbbhRTw==
-X-Received: by 2002:a05:690e:400b:b0:675:5e46:36cc with SMTP id
- 956f58d0204a3-67d897d9483mr6388130d50.82.1794828777994; Mon, 16 Nov 2026
- 03:32:57 -0800 (PST)
+        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
+        b=bznbirs1W7KeLTcdGuIpmYZRxwnkpH5f/RlkezPsx5Zs2Dhfp3ec/lefIvLuX18cvt
+         NoHo1RgNL6dtz3aB/iO9bwSZ2pifRfzNuYCA+txJ7XIF9qmTspFwlHcl0aGGHRSepq1B
+         /TOeVLLVz41daiNJlAwZjifgbnod0SJgbT/IroLzExz8JT51sPXXN94sua4KXnRgJIyQ
+         CekQtxYPcK8+dRCrhd6uWNrtdVljKk6Xv6ungX6K/1e3VgZnTRko7umi4kFW/5Yt8hQt
+         rag4Ksak60RTN/ZX2aveiMw34rvA8uNIIEUFMLcrTryqj47WTpdbCXdDm0aNgjJupPYX
+         Hfcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794828832; x=1795433632;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
+        b=hbuh++JivL6huy9m5tcUAGdJNYr7UgEAj07dEtnhtGVKJBj8MDLa0RLv+PxgXJDtF4
+         d0CaZ+NR4xm0Upwy54HY+Ntury3f6lzCFVdEAicuBh1XH/TGee4mMg30exnq7EOx0QqZ
+         EePf9hVJTJabqlArPBizHxrZKBHEhlyS+nYLfXpvVtQl2uRRlDXgLSSchtvqXVMCM000
+         S6RJZBwo1nMV2Nu5mwZF8hHMgOUrBoeiVFI7bBAUvc7c/Tx96WKVdepr+02GSE4rYlmE
+         jKYAUl+/Li4SyXDkAXQnhauN6AwyTzibdOTIj/PCeAOVXpCmO8xMAWGp9hcclLcQ4Glz
+         6gtQ==
+X-Gm-Message-State: APuU4Z9yg/8qJ/FbD6ZxNuTuKz/NnyTGplL5Pm/hKftKLuyhYuZrC0Wb
+	wNWYBGOUNac7qGiZfAOUH/GzYhbdObVOw5UnXJx4cKNEbJnyhlGhQbdQDNuL23tML0k=
+X-Gm-Gg: AYBFou3zJaFhur4PfWKQV2w9s3Ph8lh82Ocrwd1mnMgrmv95k+Y5vyr6GEcppzpoHQc
+	DIvn+3b7Lv9yOPjibxVgds5Fn8LgLmf++ct1WGw/WPYbi6ZIRi56BBYP1QqflwcFFH1gXxQRXCF
+	QQaqdgNLgv0o93j/sS5Db1WdRmwlHTtgKBqhrEOS3D/0W1PZJL/QOvqNLcCDLglt3l/lh8EJHXd
+	f9DrBlMkPoEpYhI7u4LNB6n+KSPs4Thh0EfCuONtB9LsySClS6JZZ+cHknBnXEMY5bJVJZVbal6
+	vNeoAeUk/kHKyAzPxvgo1QKto0Y1HEIQGnuJGQbJICRHE1YXGUYqM+b4KnjjY53rUYHrV0bAxe/
+	U69Z7bLawC0k56x7lsWYBWsytZaZ7Ac73W/0q2shNH4O2WTGymyUUjgrRG+lDNcH60avRYe63WZ
+	j7vM2Tnw0OfAAB1qBC3Pfpc5UEGCJdJVlkl3QYrYbRFA4uUjDr4xxHncv3a+W0QSH3Di/Gr87fQ
+	0ZOVv5S7/ZErm0pNhvFVUQOarycSP2/HtcT+1ExOouUbN70mGfjAf/GCNc4Z/rwRwUcs50AAEAM
+	EHGcN9tdp1oLxEu9DG/1y1cb67oQGI7tqf/RSiPpdlNX7WvP
+X-Received: by 2002:aa7:df02:0:b0:6b1:e4cb:a23e with SMTP id 4fb4d7f45d1cf-6b7c0953c22mr5985412a12.14.1794828831465;
+        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
+Received: from localhost ([188.146.172.76])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23db711sm4334432a12.24.2026.11.16.03.33.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
+Date: Mon, 16 Nov 2026 12:33:47 +0100
+From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
+To: linux-media@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org
+Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	stable@vger.kernel.org, media-ci@linuxtv.org, patchwork@media-ci.org
+Subject: [PATCH v3] media: mxl111sf: initialize state->d and fe_lock in probe
+Message-ID: <xbzvgut6eavjeo3q5cpysxdirlvgatcr7qjkyadz4eolcchfeo@rjhvhba7lvdh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,100 +92,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115120534.2331911-2-thnkslprpt@gmail.com> <avrL1hGke3Hux2IM@U-2FWC9VHC-2323.local>
-In-Reply-To: <avrL1hGke3Hux2IM@U-2FWC9VHC-2323.local>
-From: Avi <thnkslprpt@gmail.com>
-Date: Mon, 16 Nov 2026 06:32:21 -0500
-X-Gm-Features: AclHuK_VZyh65L9sMYzi5VAiUspj5fkWhpWYhKx4YL3ocShAjw9Rms0HZoeOtmM
-Message-ID: <CA+jvY9HtQZtCW7c10gS03DBLshujocvZRZKseAYyZSjFrBy7mQ@mail.gmail.com>
-Subject: Re: [PATCH] dma-contiguous: reserve NUMA CMA areas after default
- reservation failure
-To: Feng Tang <feng.tang@linux.alibaba.com>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I think both quite clear, but I don't mind either way ;-)
+During device initialization in dvb_usbv2_probe(), the dvb-usb-v2 core
+allocates the dvb_usb_device structure and its private state (struct
+mxl111sf_state) via kzalloc(), then invokes dvb_usbv2_init(). Within
+dvb_usbv2_init(), dvb_usbv2_i2c_init() registers the I2C adapter with
+i2c_add_adapter(), which immediately exposes the I2C adapter to
+userspace via the /dev/i2c-X character device.
 
-On Mon, Nov 16, 2026 at 4:24=E2=80=AFAM Feng Tang <feng.tang@linux.alibaba.=
-com> wrote:
->
-> On Sun, Nov 15, 2026 at 02:05:35PM +0200, Avi Weiss wrote:
-> > dma_contiguous_reserve() returns when reserving the default CMA area
-> > fails, skipping independently configured NUMA CMA areas that might
-> > still be reservable.
-> >
-> > Register the default area only when its reservation succeeds, then
-> > continue with NUMA CMA reservation even if the default area fails.
-> >
-> > Fixes: 7e6ace2535d0 ("dma-contiguous: add kconfig option to setup numa =
-cma area if not configured explicitly")
-> > Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> > ---
-> >  kernel/dma/contiguous.c | 10 +++++-----
-> >  1 file changed, 5 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> > index 90937dc7c627..0b6500bb6cd9 100644
-> > --- a/kernel/dma/contiguous.c
-> > +++ b/kernel/dma/contiguous.c
-> > @@ -287,8 +287,6 @@ void __init dma_contiguous_reserve(phys_addr_t limi=
-t)
-> >                                                 selected_limit,
-> >                                                 &dma_contiguous_default=
-_area,
-> >                                                 fixed);
-> > -             if (ret)
-> > -                     return;
-> >
-> >               /*
-> >                * We need to insert the new area in our list to avoid
-> > @@ -305,9 +303,11 @@ void __init dma_contiguous_reserve(phys_addr_t lim=
-it)
-> >                * but we also need to insert it in our list to avoid
-> >                * having a default area but an empty list.
-> >                */
-> > -             ret =3D dma_contiguous_insert_area(dma_contiguous_default=
-_area);
-> > -             if (ret)
-> > -                     pr_warn("Couldn't queue default CMA region for he=
-ap creation.");
-> > +             if (!ret) {
-> > +                     ret =3D dma_contiguous_insert_area(dma_contiguous=
-_default_area);
-> > +                     if (ret)
-> > +                             pr_warn("Couldn't queue default CMA regio=
-n for heap creation.");
-> > +             }
->
-> Thanks for the fix!
->
-> Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
->
-> one nitpick is, is the below code more readable? (I'm OK with
-> your patch as is):
->
-> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> index 90937dc7c627..3daa9ae3ab7d 100644
-> --- a/kernel/dma/contiguous.c
-> +++ b/kernel/dma/contiguous.c
-> @@ -288,7 +288,7 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
->                                                   &dma_contiguous_default=
-_area,
->                                                   fixed);
->                 if (ret)
-> -                       return;
-> +                       goto numa_resv;
->
->                 /*
->                  * We need to insert the new area in our list to avoid
-> @@ -310,6 +310,7 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
->                         pr_warn("Couldn't queue default CMA region for he=
-ap creation.");
->         }
->
-> +numa_resv:
->         dma_numa_cma_reserve();
->  }
->
+However, state->d was only assigned later during frontend attachment
+inside dvb_usbv2_adapter_frontend_init() via
+d->props->frontend_attach(). If userspace performs an I2C transaction
+before frontend_attach() completes, mxl111sf_i2c_xfer() delegates to
+mxl111sf_ctrl_msg(), which reads state->d and passes it to
+dvb_usbv2_generic_write() or dvb_usbv2_generic_rw(). Since state->d is
+still NULL, dereferencing &d->usb_mutex inside dvb_usbv2_generic_write()
+triggers a null-pointer dereference crash. Although the crash report was
+captured in compat mode with PTI, the failure is illustrated by the
+following x64/NOPTI trace:
+
+Oops: general protection fault, probably for non-canonical address
+0xdffffc0000000018: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x149/0x1550 kernel/locking/mutex.c:821
+Call Trace:
+ <TASK>
+ dvb_usbv2_generic_write+0x26/0x60
+ drivers/media/usb/dvb-usb-v2/dvb_usb_urb.c:77
+ mxl111sf_ctrl_msg+0x160/0x2f0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:73
+ mxl111sf_write_reg+0xa9/0x1b0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:123
+ mxl111sf_i2c_start drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:130
+ [inline]
+ mxl111sf_i2c_sw_xfer_msg drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:-1
+ [inline]
+ mxl111sf_i2c_xfer+0x463/0x5060
+ drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:813
+ __i2c_transfer+0x7bf/0x1fe0 drivers/i2c/i2c-core-base.c:-1
+ i2c_transfer+0x1cb/0x2d0 drivers/i2c/i2c-core-base.c:2350
+ i2cdev_ioctl_rdwr+0x460/0x740 drivers/i2c/i2c-dev.c:306
+ i2cdev_ioctl+0x6a5/0x880 drivers/i2c/i2c-dev.c:467
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
+
+Additionally, state->fe_lock was initialized in mxl111sf_init() (called
+via d->props->init()), which runs after frontend attachment, leaving the
+mutex uninitialized during frontend registration. Although the reported
+I2C fault does not demonstrate a frontend lock race, fe_lock should also
+be initialized before frontend registration.
+
+Fix this by setting state->d = dev and initializing state->fe_lock in
+mxl111sf_probe(), which runs before dvb_usbv2_init() registers the I2C
+adapter or attaches frontends. Furthermore, remove the redundant
+mutex_init(&state->fe_lock) from mxl111sf_init() and the redundant
+assignments of state->d in the frontend attach functions.
+
+The fix originated in the linked syzbot AI patch job, which used
+Gemini:gemini-3.8-flash.
+
+Fixes: 4c66c9205c07 ("[media] dvb-usb: add ATSC support for the Hauppauge WinTV-Aero-M")
+Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
+Link: https://syzkaller.appspot.com/ai_job?id=c5284b5c-3f14-4e95-a4b7-6ee38f0d2e1f
+Cc: stable@vger.kernel.org
+Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
+
+---
+Changes since v2:
+- Drop the non-standard Assisted-by trailer. Upstream commit
+  1e035297ffdadf2184c3c773b8c098e372324aaf
+  removed the Assisted-by guidance and checkpatch exception.
+- Disclose the syzbot AI origin and model in the commit description.
+- Put the stable Cc after Link in the commit trailers.
+- The code diff is unchanged.
+
+diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
+index 6404eb74d..fc4010b6e 100644
+--- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
++++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
+@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
+ 	if (mxl_fail(ret))
+ 		pr_err("failed to get chip info during probe");
+ 
+-	mutex_init(&state->fe_lock);
+-
+ 	if (state->chip_rev > MXL111SF_V6)
+ 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
+ 
+@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
+ {
+ 	struct mxl111sf_state *state = d_to_priv(dev);
+ 
++	state->d = dev;
+ 	mutex_init(&state->msg_lock);
++	mutex_init(&state->fe_lock);
+ 	return 0;
+ }
+ 
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
