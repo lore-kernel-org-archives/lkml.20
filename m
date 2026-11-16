@@ -1,84 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851583;
-	b=ajHbTsuHPvAqAmrBUd55M/LfvE8UlX9D+19AAwe5GsF78n3ZJtQP1rxVAq+a/d/EtsKf
-	 HiKMf3gA2599qMI6KJskWk5kw1MivVhaKZO61KmTqKbPnmmj/NJrG8onLAC657y2S+Q9y
-	 MUFRjbiY53GbNo84v+zGDB5eMviCYPlpBFn/y5Y0+E33RReaOlPJGkNESup2E6CDfRqMQ
-	 HykRdbbmTmyBesrJrJBNq+wV//ob9MhsFYICQZNO93Pp/Qz3tnfM1B8974htod/0d3b7K
-	 Taxvf6yky3HweJvnsE35cTXPAAgYVSdBbeeRKfUL40ormkSD601FrHqIykk+y94pyeQ==
+	t=1794851641;
+	b=swpCrMnBwSuy90JUG5XWGNKzE/57C5JLVjIi42XxjwjTPeR1O4LPI3amXdrgqhil6whw
+	 yb+37RSOZhgR3pxTpZoIOgZ/Q/mUWmkMR2o7k7NKcZ2HFxBPKQjjDe1kEMKISCi9h9zQR
+	 SQMfMiGo52J2hhD8JyRdblOeOAy2XaJqF3wMI80p/4jghf7MB33NU9etja8P80CzpPSi9
+	 XHsImTT8jvCJlv6lHaqgk0eQv3N2y6SETPZSqNVu3yvjrl1Kq/4mstuHAdUNrPQGgkWhU
+	 2BFfuBeDmxD3ls/65gyr23P4r+seAg8PcOTP8+6b4xra5DjjyXUcJwF53ppja9Pbwzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851583;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=ZVha1LQJ+ZYa0pasaO7rOjBg6mtWgNhixYpeavUGJvw=;
-	b=5Z0OJ+v2n3vbICkbguUfQvWeiDqgrU6gSI7RUW9M1p/lNjo2FwCHsZiYwNs7leUHBRW9
-	 Nlk9lSfQ1QV/f739S/Lc/TTnWi4bzCLYGl8beKW0WDUBF05/M7GmVTDQpC/LUZgIHqT+n
-	 ZOb34lQwFv3yJtNk1KyK273c354iBojZ+bs6fuk+zzZnCNzB45hFcib2JRWnVBT2JWZYk
-	 fGDaV3bmOoM+HXl2IHx2beNh/Ca18RXYmisp0pv9Gi5KX0nG4C2jNDzwDbpqzbSIcSES/
-	 By1a+GopVAUDleZ6wgEN+h0sVbelZWyZcUu5OmqSmi/1eeSz0sbs/lJMNwkNYrdtV9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851641;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=d6JNnFfoaeyGY+wbe6iG5ANoRSPTTnQEghBDjZz1BM8=;
+	b=igwuEnuWutcTDm2holN+sHMuevYijOr6Fyumqk0pGJpe7IN5elPzJyTzM+xGSXhLfIU/
+	 Swbg8lGqh+/U6IFtx8JsKTloN4FTr5bWYbHX9q09a88Mps0JubL0LFZvidVYgfpcvt8UH
+	 IFvEj7SK0CP5oziUldmzG0KEGRJ0KM73Y4dTj01OmBc1ct/V3+aaYnmnUuOymBJpIm2Gx
+	 005yJh7nzmH1Y7r/WOHTLDCNUOTWZKcADWi0BR9HWVhoZo8Q6GdQdIOvRKsOmyj9oiADc
+	 fZnEuUrTtD0/bN2YH8j7McuEt6WR9St4Im3cQXEfRyCQLppkeIV/6J0j1Rak8XVNNJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Mr0MWBAM;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0775A606A880
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0775A606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Mr0MWBAM
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdba1bbde0bso1296566a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794851577; x=1795456377; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZVha1LQJ+ZYa0pasaO7rOjBg6mtWgNhixYpeavUGJvw=;
-        b=Mr0MWBAM4MLlHJMOKb/4Z6+dOhVz5cE+GMuRUduu9EHxuwhijBh3tXy8WJrkhaD0vh
-         PYAoy9x9sShYaRayE53yartClLeXdWk62a//vvYlSd2zLiJvKMc9TXh7Mof3XZRTu0rx
-         GxoGIFqRYzrwZ+dbFPfJk7TnrE7kr2+1NPV9kZnPO9acPHImQGPyrlGzUI/V+O9rL+lS
-         rW57l05EwtNh4ZKXuPgI4wU7DkeDNQM3yk0RZSB8ysyrRk6y/+Fsb3SJKn/X/NOmQar9
-         V386QxKbhvhnCZ98vZnrwlnUF9YPDTCdsBALgZVykIgXLyQJuXY30X/5rtUP6x7EcqzI
-         KKdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851577; x=1795456377;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZVha1LQJ+ZYa0pasaO7rOjBg6mtWgNhixYpeavUGJvw=;
-        b=sxR7lLoG6HQ/F4T/0J7YKof1CEkyL5cWDQ2YAQcf9Dasyz26KP1TYWXfpytEX/dm95
-         cMFo7BfP4qPiY4pFtX4WAcGp16n0UMbvMvnyGhujnmMTfJ69Bd0dt86vaezWKwJNJyg9
-         p2eFnspRzlVKUI5O+sEkK8SH6FksDEglOVmdiN8Ii8nPobXAHkckqbMEotfJ5t787FDw
-         wz0pM2UTMH5XEmid51BTGPMlj+Dcni9b0f06p9Ed5vBLM2Uz5je1kyK6scjQCbmVXYs6
-         C0/pIKmjF6BzxzoXkEsvCt4avtfdmDGYrTnD3MuJkmLfn7nXIOiKL7uu6a6w8SVK1lC8
-         kbjA==
-X-Forwarded-Encrypted: i=1; AL+hErGuJHP4s1GGNlswkbs3cevgpVgkxPpgpRwQciN6O+DS4sadpwGfmBFFF9QvKdRZ8miQJKvtv9iv00Vbqpw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85CFoRAfRv64PBI7KslhHtgXt8ny6RklA2gSG6M3XDxteREF2p
-	akQ6bglpgHKyj6+My1DPnhgBdKLyoaaIu9RN2IEyEgjWrN1rfnd0k1IE5VRS6J/l2w==
-X-Gm-Gg: AZFdTZfOR8MIDg/laisBRRmvVNaHUoS7JHl/2hfALCC1xEA44WoosM8tPBumzFhqc0Q
-	3hVRteMBreja4/IrKqd6HrNxkl0kI3tERWb78okaRJ19UGZ3fKVLzg20rzIKcBmvE0SEZ2dQpug
-	KdEpMWgkssZT0ytWYG0V5O4yLMycWJ3iHWKSN/lES1/HR5jN6MWJ626DoLOSqZXmAhlfH/3JaI5
-	Am4+KLkTiugzV277eEYPfGo62rSOsypHJMyUMCaRROQHGPWvRqsPJOsLozdgXZ+6WyoJo8O65wl
-	XYF7JshFeVy0eY45/5ro1+JHt5rWz/DvLqRf2832Y4I87jzdbly3sXVnGwSIBKzsxH8hwjerIVv
-	zmCGR829Jg2j6TSKuPNSTBOBKDtF1f5f3/epsnQakprtjSzf/7Naporgd943m8zSHPlrolOGZLp
-	0zwfuOVvMNa/yvJ2ZxH0dFKhGDs8oMPJQoDUXAR0ANJr4Ljs9ydfV+bJePyK0BcUWYXk4Tr5jWp
-	t/WhjbW3rq4r9ZhyuG7BGHFd6/2Qmsb68VDgqGpTZcRYlC1lOSFFvpUhfMzPX8tKtsXdlCTOKSc
-	6z+lQgdwbrvbYma6F6MvmkC8lxyQ3CQgu/ge3fub5FgOUBjy6xalx22aMtWkXmv9
-X-Received: by 2002:a17:90b:4c0c:b0:3a0:516d:9f87 with SMTP id 98e67ed59e1d1-3b1b0a1f01cmr12343648a91.13.1794851576505;
-        Mon, 16 Nov 2026 09:52:56 -0800 (PST)
-Received: from localhost (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac296b5fsm224574a91.8.2026.11.16.09.52.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 09:52:55 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC15606A886;
+	Mon, 16 Nov 2026 17:53:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DC15606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:e6fc:5f71:2c1e:7d62:945f] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xT0tp-004GoI-1y;
+	Mon, 16 Nov 2026 18:53:49 +0100
+From: John Crispin <john@phrozen.org>
+To: Stefan Roese <sr@denx.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH v3 0/3] i2c: mt7621: add Airoha AN7589 support
+Date: Mon, 16 Nov 2026 18:53:40 +0100
+Message-Id: <20261116175343.344425-1-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,256 +68,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 09:52:54 -0800
-Message-Id: <DMWTS6IPSI2R.3EJQC130JYVW3@google.com>
-Cc: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
- <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH v6 31/31] selftests/vfio: Add CXL Type-2 passthrough
- tests
-From: "David Matlack" <dmatlack@google.com>
-To: <mhonap@nvidia.com>, <alex@shazbot.org>, <jgg@ziepe.ca>,
- <ankita@nvidia.com>, <jic23@kernel.org>, <dave.jiang@intel.com>,
- <alejandro.lucero-palau@amd.com>, <smadhavan@nvidia.com>, <corbet@lwn.net>,
- <skhan@linuxfoundation.org>, <dave@stgolabs.net>,
- <alison.schofield@intel.com>, <vishal.l.verma@intel.com>,
- <iweiny@kernel.org>, <ming.li@zohomail.com>, <yishaih@nvidia.com>,
- <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <bhelgaas@google.com>,
- <dmatlack@google.com>, <kees@kernel.org>, <gustavoars@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20261016161839.2765592-1-mhonap@nvidia.com>
- <20261016161839.2765592-32-mhonap@nvidia.com>
-In-Reply-To: <20261016161839.2765592-32-mhonap@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Oct 16, 2026 at 9:18 AM PDT, mhonap wrote:
-> Exercise the vfio-cxl contract on a bound Type-2 device: the CXL
-> device-info flag and the two vendor-type regions, the HDM memory mmap
-> (including a 2 MB huge fault), the read-only trapped decoder region
-> against the live host-committed decoder, and the guest's DVSEC reset
-> doorbell and manual HDM discovery.
+The Airoha AN7589 carries the MT7621 I2C controller with a second
+control register that holds a 16 bit clock divider. It runs without
+SCL stretching.
 
-I tried running this test in a VM with the emulated cxl-type2 device
-from your QEMU RFC [1], on an x86 q35 machine with intel-iommu. Out of
-the box the device binds as plain vfio-pci and the fixture skips
-everything. v6 now requires that the host can do CPU cache invalidation
-for CXL Reset, and cpu_cache_has_invalidate_memregion() returns false in
-a VM (x86 refuses it under a hypervisor, and arm64 has no cache
-maintenance provider in a guest).
+Patch 1 resets the controller with reset_control_assert() and
+reset_control_deassert() instead of device_reset(), as the EN7581 and
+AN7589 reset controller has no .reset operation. Patch 2 adds the
+compatible, with mediatek,mt7621-i2c as the fallback. Patch 3
+describes the variants as match data and uses the wider divider for
+bus rates down to about 3 kHz.
 
-The QEMU RFC reports 19/19 passing in an Arm guest, but that was against
-v5, which didn't have this requirement. How did you run the v6 version
-of this test without hardware? Did you use something like
-CONFIG_CXL_REGION_INVALIDATION_TEST? That option only covers region
-management in drivers/cxl/core/region.c, and depends on CXL_REGION, so
-it doesn't help here.
+The series applies to next-20261105 and has no dependencies.
 
-I added a local test-only bypass (a CONFIG_CXL_RESET_INVALIDATION_TEST
-that skips the invalidation in cxl_reset_check() and
-cxl_hdm_quiesce_prepare()/cxl_hdm_ranges_invalidate()), I get 26 passes
-and 1 skip (pm_d3hot_restores_decoder, since cxl-type2 has no PM
-capability in QEMU). I think something like that belongs in the
-cxl_reset series. Otherwise this test can only be run by people with
-real Type-2 hardware.
+Changes in v3:
+- Patch 1: add the Reviewed-by of Philipp.
+- Patch 2: add the Acked-by of Conor.
+- Patch 3: compute the AN7589 divider with constant limits, so a clock
+  rate below 1 MHz cannot wrap it (kernel test robot, sashiko).
+- Link to v2: https://lore.kernel.org/r/20261112185820.1315718-1-john@phrozen.org
 
-[1] https://lore.kernel.org/linux-cxl/20261106035911.1280066-1-mhonap@nvidi=
-a.com/
+Changes in v2:
+- Add patch 1. It replaces "clk: en7523: add a reset operation" from
+  the clk series, as Philipp suggested.
+- Patch 2: add mediatek,mt7621-i2c as the fallback compatible (Conor).
+- Patch 3: the extended divider supports bus rates down to about 3 kHz.
+  Set it up before the controller is enabled.
+- Link to v1: https://lore.kernel.org/r/20261111093941.691801-1-john@phrozen.org
 
-> Check that the decoder register region reads fail with EIO while Memory
-> Space is disabled, and that the decoder reads back committed and HDM
-> access works after low power entry and exit.
+John Crispin (3):
+  i2c: mt7621: assert and deassert the reset line
+  dt-bindings: i2c: mt7621: add Airoha AN7589
+  i2c: mt7621: add support for Airoha AN7589
 
-The series says a Type-2 device loses its committed HDM decoder in D3hot
-and D3cold (patches 17 and 30), but the emulated cxl-type2 device in
-your QEMU RFC has no PM capability, so on it these tests never take the
-decoder restore path in vfio_cxl_power_up(). Please make the emulated
-device behave the same way as the real hardware across D3hot (PM
-capability, No_Soft_Reset, and whether the decoder is lost), so that the
-selftest exercises the same vfio-cxl code paths in a VM as it does on
-hardware.
+ .../bindings/i2c/mediatek,mt7621-i2c.yaml     | 10 ++-
+ drivers/i2c/busses/i2c-mt7621.c               | 70 ++++++++++++++++---
+ 2 files changed, 70 insertions(+), 10 deletions(-)
 
-To help get that right: what does lspci -vv show for the PM capability
-of the device you tested with (NoSoftRst+ or NoSoftRst-), and did you
-observe the decoder actually being lost?
 
-> Add a partial-mmap path to the vfio selftest library so the trapped
-> component BAR maps its sparse ranges, and an __iommu_map_file() helper fo=
-r
-> the dma-buf mapping.
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+-- 
+2.34.1
 
-Please split the library changes into separate commits ahead of the
-test: __iommu_map_file(), the sparse mmap support in vfio_pci_bar_map(),
-and each of the new libvfio helpers suggested below. That way each one
-can be reviewed on its own, and the final commit only adds the test, its
-Makefile entry, and the MAINTAINERS line.
-
-This series is already quite long (31 patches), and with the library
-changes split out the selftest changes will grow to several patches.
-Consider sending all the VFIO selftests patches as a separate series
-that depends on this one.
-
-> +/* Return the sparse-mmap capability in @info, or NULL if the region has=
- none. */
-> +static struct vfio_region_info_cap_sparse_mmap *
-> +vfio_pci_sparse_mmap_cap(struct vfio_region_info *info)
-> +{
-> +	struct vfio_info_cap_header *hdr;
-> +	u32 offset;
-> +
-> +	if (!(info->flags & VFIO_REGION_INFO_FLAG_CAPS))
-> +		return NULL;
-> +
-> +	for (offset =3D info->cap_offset; offset; offset =3D hdr->next) {
-> +		hdr =3D (void *)info + offset;
-> +		if (hdr->id =3D=3D VFIO_REGION_INFO_CAP_SPARSE_MMAP)
-> +			return (struct vfio_region_info_cap_sparse_mmap *)hdr;
-> +	}
-> +
-> +	return NULL;
-> +}
-
-This walks the region info capability chain looking for one ID, which is
-the same thing find_region_cap() does in the test. Please add one
-generic libvfio helper that looks up a region info capability by ID, and
-use it in both places.
-
-> + * Usage: ./vfio_cxl_type2_test <BDF>  (or export VFIO_SELFTESTS_BDF=3D<=
-BDF>).
-> + * The device must be bound to vfio-pci with the vfio-cxl module availab=
-le.
-
-Please document how to run this test in more detail: the hardware
-requirements, how to set up the emulated QEMU device, and the kernel
-config needed (VFIO_CXL, IOMMUFD, any test-only bypass), so others can
-reproduce your results.
-
-> +/* vfio-pci region-offset packing is kernel-internal, not UAPI; define l=
-ocally. */
-> +#ifndef VFIO_PCI_OFFSET_SHIFT
-> +#define VFIO_PCI_OFFSET_SHIFT		40
-> +#endif
-> +#ifndef VFIO_PCI_INDEX_TO_OFFSET
-> +#define VFIO_PCI_INDEX_TO_OFFSET(i)	((uint64_t)(i) << VFIO_PCI_OFFSET_SH=
-IFT)
-> +#endif
-
-As the comment says, this is kernel-internal and not uAPI, so the test
-shouldn't depend on it. Please use vfio_region_info.offset from
-VFIO_DEVICE_GET_REGION_INFO instead, as comp_bar_sparse_mmap already
-does for the BAR. Better yet, use region access helpers in libvfio that
-take a region index and apply the offset internally (see below), so the
-test never computes region offsets itself.
-
-> +/* Find a CXL region by subtype; returns the region index or -1, @buf le=
-ft holding its info. */
-> +static int find_cxl_region(int fd, uint32_t nregions, uint32_t subtype,
-> +			   void *buf, size_t bufsz)
-> +{
-> +	uint32_t i;
-> +
-> +	for (i =3D 0; i < nregions; i++) {
-> +		struct vfio_region_info *ri =3D buf;
-> +		const struct vfio_region_info_cap_type *t;
-> +		const struct vfio_info_cap_header *hdr;
-> +
-> +		memset(buf, 0, bufsz);
-> +		ri->argsz =3D bufsz;
-> +		ri->index =3D i;
-> +		if (ioctl(fd, VFIO_DEVICE_GET_REGION_INFO, ri))
-> +			continue;
-
-This is a generic lookup of a region by type and subtype. Only the CXL
-vendor ID is specific. Please make it a libvfio helper (e.g.
-vfio_pci_find_region(device, type, subtype)) built on the existing
-region info code in libvfio.
-
-More generally, please replace the raw ioctl() calls throughout the test
-with libvfio helpers: VFIO_DEVICE_GET_INFO, VFIO_DEVICE_GET_REGION_INFO,
-and VFIO_DEVICE_FEATURE for DMA_BUF and LOW_POWER_ENTRY/EXIT. Please
-follow the existing convention, e.g. __vfio_pci_device_reset() and
-vfio_pci_device_reset(): a double-underscore variant that returns -errno
-for the tests that expect failures or skip when something isn't
-supported, and a plain variant that asserts success.
-
-> +/* Walk the PCI extended capability list for the CXL Device DVSEC. */
-> +static uint16_t find_cxl_dvsec(struct vfio_pci_device *dev)
-> +{
-
-Same here, the extended capability walk and the DVSEC match aren't
-CXL-specific. Please consider vfio_pci_find_ext_capability() and
-vfio_pci_find_dvsec(device, vendor, id) helpers in libvfio, with the
-test passing in the CXL IDs.
-
-> +/* Read config space from sysfs, which is the hardware, not the vfio vie=
-w. */
-> +static int sysfs_config_read(uint32_t off, void *buf, size_t len)
-> +{
-> +	char path[128];
-> +	ssize_t n;
-> +	int fd;
-> +
-> +	snprintf(path, sizeof(path), "/sys/bus/pci/devices/%s/config",
-> +		 device_bdf);
-> +	fd =3D open(path, O_RDONLY);
-> +	if (fd < 0)
-> +		return -errno;
-> +	n =3D pread(fd, buf, len, off);
-> +	close(fd);
-> +	return n =3D=3D (ssize_t)len ? 0 : -EIO;
-> +}
-
-This and sysfs_config() further down do the same thing. Please replace
-both with one sysfs config access helper in lib/sysfs.c, modeled after
-the existing vfio config helpers: a sysfs_config_access(bdf, write,
-offset, size, data) core with sysfs_config_read{b,w,l}() and
-sysfs_config_write{b,w,l}() wrappers that assert on failure, like
-vfio_pci_config_access() and vfio_pci_config_read{b,w,l}().
-
-Taking the BDF as a parameter also gets helpers off the device_bdf
-global. Please only use device_bdf where the device is opened
-(FIXTURE_SETUP() and close_restores_open_time_command). Everywhere else
-can use self->dev->bdf.
-
-> +/* The trapped block starts at the HDM decoder registers; CTRL 0 reads b=
-ack. */
-> +TEST_F(vfio_cxl, comp_regs_hdm_read)
-> +{
-> +	uint64_t ctrl =3D self->comp_off + CXL_HDM_DECODER0_CTRL_OFFSET(0);
-> +	uint32_t val =3D 0;
-> +
-> +	ASSERT_GE(self->comp_size, CXL_HDM_DECODER0_CTRL_OFFSET(0) + 4);
-> +	ASSERT_EQ((ssize_t)sizeof(val),
-> +		  pread(self->dev->fd, &val, sizeof(val), ctrl));
-> +}
-
-Please add region access helpers to libvfio instead of open-coding
-pread()/pwrite()/mmap() on the device fd, which this test does in about
-50 places. Something modeled on the config space helpers:
-__vfio_pci_region_access(device, index, write, offset, size, data)
-returning the number of bytes or -errno, vfio_pci_region_access()
-asserting success, and typed vfio_pci_region_read{b,w,l,q}() and
-vfio_pci_region_write{b,w,l,q}() wrappers. Then this becomes:
-
-	val =3D vfio_pci_region_readl(self->dev, self->comp_idx,
-				    CXL_HDM_DECODER0_CTRL_OFFSET(0));
-
-The double-underscore variant covers the expected failures, like
-comp_regs_read_needs_memory and the unaligned and out of range tests.
-vfio_pci_config_access() could become a wrapper around the same code
-using VFIO_PCI_CONFIG_REGION_INDEX. libvfio would need to cache the
-region info for all regions, not just config space and the BARs, so it
-can apply the offset reported by VFIO_DEVICE_GET_REGION_INFO.
-
-Similarly, __vfio_pci_region_mmap() and vfio_pci_region_mmap() could
-cover the HDM region mappings and the expected mmap failures over the
-decoder block, and vfio_pci_bar_map() could be built on them.
-
-> +/* Find a standard capability through the vfio config view. */
-> +static uint8_t find_std_cap(struct vfio_pci_device *dev, uint8_t id)
-
-Please make this a libvfio helper too, e.g.
-vfio_pci_find_capability(device, cap_id).
