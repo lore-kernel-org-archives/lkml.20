@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794847271;
-	b=APkLuU9uwU0iXnCz3QgyuzmXQgfj5m4KUmqV7taA41SSIB8TTk5aV1i205S/2fH2DL8Q
-	 5gZgwPITOIv9uRc+T6tkxOu1xXpKYTUJhRGwbZXl2MbTqetvCxVifX4jRimhVtZefEEJu
-	 XFeiaYO+1GcmyzutieNHZaNk1JLzBv1Yg24ByOmKdsmRyWyD2o/60JC3mJnDM/dkyhqrs
-	 QVBr05/xqka148WGGRvw1jUPGEH/zE1q67q40c8XHjfIMkD+MD5QfIDpQk6MBb1s3hkKF
-	 qFLCe6RpZefIMJEToz+VeWj2PvXaAlS/m0kJbuo82xWv6bQhf4MJZyJAmkSMUbsje2g==
+	t=1794847274;
+	b=oPhaungnxHtH6+lG4di2pQngFhSOQ+ndgtVsH2vRW2w6XpY0IT9g0mndfYbJDD+JYpGo
+	 PU2AV0ADCJJ4ZerpBsxS97RJMojZRgWuZIxtzeE9UpVQWUtdOXTFBX0nSLLNB9U8dlsVI
+	 qXknyfEQIxnzt6sPRfJbM/VHvcYcquTti6jgrW7TnPMrQfMMVpW3bXDKSVfvOpx1r6eTH
+	 xRiif++BIBn+yAKhi8ml40hukMorvNpC5N7c8OXw44D5BsVsxLxdHCh3f8UQH8Q/LHPsJ
+	 IqkPLvQGcAOCv5jeNfjp8ClDO72dBJzmfNkjJrq5jrZpqJWGmkbcv/Z0SxZRMspqqng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847271;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=chqJkz8VlsxxYBzwxSZv+drgaTNPkj2FQ71kub19iKY=;
-	b=Z7DdIIDoAbo/ZYRWa+DT+DAom6R/elBAIMwH3OYIV2RZnUYn+T91T8eMIQNj5lQbyQSq
-	 zJSiSOUalRuSu0VbxhKetfldHnOGShRaDmJqS+xsThPRWw16jM3/mZI5suEUB43CJIWs6
-	 oXnUr0+aS7oogbEeQO3y1GADxJJxbzU+np6PDeI3fZj3aiXwWEvTBtYAShh2q+9qwDwsV
-	 q+CNo/AaUWmWgV6O1pGJFhrQY1Nqcpvv/V9Cr0Tk7grV5ZPD/unwI3epB+c/uzolwpihL
-	 a4goimD5967sTTltCKOFQWbYuuFjua1xr5RpOxCbPIV/ceIuBUXNqfCBbIHS0zMcVLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847274;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YA4HSjIeB4gPYXT/wWzHI76b1JmPd/ZJtbNmLZ/Ltrg=;
+	b=wqJMbofYEaQa2nmvpdfwpWhKR7NU62NLf6fXy8cdAh/2EQGwMpi+QkRT0VOMPqZ/2ADh
+	 YgD7eAw3k71dF9SieU+erWoAXXcRZx0R3eGIpTeiQz1Tyyc+L5kydFWQzzahCS8iWBMkn
+	 4R81rsw04n0I12nxbeuXAkawsCxHEA2fAJwX+UMnaQqJHC5uH8HDye38LK/W9TzKpIsJ+
+	 cZtzbct4BJQDvlNf/hn7nmIgOOTJiIEhe6kg4rPdmEydqrpRHKgfg8jRO0Ag8INLgMEBr
+	 1dCQswSjO0uPJj+WvZZ8Xo0ELDlmMKIi1IpVX4lVxllTNNpdjkeNO52bu64eeJAdvbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=empyreal.works;
-	spf=pass smtp.mailfrom=empyreal.works;
-	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=IKIt3OG2;
-	arc=none smtp.remote-ip=109.224.244.118
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=V29fsNcR;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A00606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:41:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71A00606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4E9606A881
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF4E9606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=IKIt3OG2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1794847268; x=1795106468;
-	bh=chqJkz8VlsxxYBzwxSZv+drgaTNPkj2FQ71kub19iKY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=IKIt3OG2HsEsLpr/PRRtCD0WbA/VO09bCQzrzTGfl5hV2/aatoI8BWDAeqCo7kFCk
-	 QyFYHs1BC4g4O8H1ULD/TNnEMayiZKMnG7aRM5pQZv7w5/L3N90U9v5qY9S56ynAai
-	 tRcAnd+8JseFlLTwK1XpG0u8ISULHtwYQMv2M5sufnM6F70C1cKFyIS2aLaSw99UqV
-	 9uXgZbCP0wnQoi3p3Ey+pYuzowo3PBdqGaHOoN5UGartyqKKyBL2KTy7+RxG20HsG3
-	 4nk6fg6768cdaHlgjqEahuoLyau6m4oCqKu1SZYofCqXoqNZZ7KzUlqqycWi/RSTMe
-	 h8A76OynK/E9Q==
-Date: Mon, 16 Nov 2026 16:41:04 +0000
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Emmanuel Grumbach <emmanuel.grumbach@intel.com>, Luca Coelho <luciano.coelho@intel.com>, Kalle Valo <kvalo@kernel.org>, Ayala Beker <ayala.beker@intel.com>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] wifi: iwlwifi: pcie: use the CSME path when the NIC cannot be woken at probe
-Message-ID: <bc42d99ffe982a5af20cd7dd7809680b3979789c.1794846777.git.arc@empyreal.works>
-In-Reply-To: <cover.1794846777.git.arc@empyreal.works>
-References: <cover.1794846777.git.arc@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 048c2f91cbabc8ee28a503f199514f1651a31764
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=V29fsNcR
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso23070685e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:41:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794847271; x=1795452071; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YA4HSjIeB4gPYXT/wWzHI76b1JmPd/ZJtbNmLZ/Ltrg=;
+        b=V29fsNcRoT+kHjA/1NgagaHF1FWALzsDmm3hWscsySkBhszGabODRevlhTC0yVyoA4
+         s5WpF8LIAA+ASvyLwlzN95LtYaxvmAkhMm1t+UVMyhOTpIJXZ7F3CnKrO0vugySdFw+l
+         /Sy1AucmfS/hf/lumS6MmQsmJmlfKeBbM62aAJdQ6RJbYO5s14O3uJdVlHkzh07+J+Zx
+         +xCwL17WqOe9D66UjthUMLVdO/A4jh+Gg36jfqbt9Mpryo8ynrhlp4LGtA8Zbvd4YLJs
+         yDD4DYf5zqcp8HBGoBIErVBVeRZS1Qp2zw4q57l0dGHIlSOB85C2G4Ppby9E3wIXXDKS
+         +G4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794847271; x=1795452071;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YA4HSjIeB4gPYXT/wWzHI76b1JmPd/ZJtbNmLZ/Ltrg=;
+        b=q+xEFRwQ03b0pxrAX+eNtfR5a/5HKBL23YPadVPZyFWkpy0M3s/gAlExYoBN3HXVK4
+         aN0wQFbCi133xhkD2F2pZIcsUo9Vm2++Ur7T339s5PZGfnnUAO6p0dQDSxuIf4AAQmuZ
+         hY5uG4kcfKT41uWZtvaXQN1kZ0NvCpF7GXTueRkaX0ySJlXqcVMa4dfU+NueKnT7KhQa
+         E7RaOcm+q9dEK9Ru2l+xmEW8kQd7sruNDUanVRMtr17JA7f6p1NS5fk4ULxqdKi+WRus
+         +njUBfg37/MDFfkaeG9EFPwJPVMG3X6FhdIluudQlGv803N1b+l5Oct9D3rmuvSc+Trf
+         4wEg==
+X-Forwarded-Encrypted: i=1; AL+hErEusP7HbmimjRjmmaMonDmPtAMXh04h5yxz773sElpU1Xy0WBnZ7h95CF1JbuTjyaEohTL3/BqOu4ikpb0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81mjobivBc/5Yw1WBeWPdbDEPyq5T81oA6nEmxHjwUtZWMDS9p
+	afqv1/gdkLexENUCG5P0cjgRjbljACAWWZNCfHyeUKunMn7vW58D66wxsG8axqbdafgfpbrWvqd
+	yoX3tw+o=
+X-Gm-Gg: AYBFou2Ktb3ojkOX0IRHEjWSIfgQ7PA11y/Nta69KaOO8Xdfr8iOVdEM/EnKXpHKUIG
+	LJssaa3FaobvVdx7tWby7zpJ/3rMQANuSKi9cNZq1qeCY3tlbfevIpCj1jqWnxBQzpX3wMu8gPX
+	ZBMV47+0K5svdZZgvyy9CRRZydoB6Tp57Cu/rlgDCgPOxYgeaszTDoSiCQlIKqPir4cOUCVz27X
+	JCur8T6K7ggiB58qutBmcyvI7g+PsY3IpE0qsjqiZTIzTmaJ1JF7UfrqbDmOnB9sAOuMgemtTVI
+	6qYLaxm2cT0eJ0/C5eYv2ql9qohzxfhn0wrucwQByHIVSMSki/2aMNaMFkVLBJm0L1VMZYWbHy7
+	8rH1Yq8tVNX4Nb6afs5jeeMYIRuq13IePphCS32hd52nqdu6ldi1UaaKtCaboxv7Hc8Scc+rSgT
+	zDTzJljHnkzAw3V5CfXC1cUBQzUmj8tbZWRVkSXrX4AU5DyvuOpc2PAGkncU7EuggM57dUHzMAd
+	6RkCSdRxcckAnL1nG9YULiThri5412vuaX0O0tZccMYeqWX/R/IpJVDqEVp/U4h77LbK7NWzKbM
+	GvTl6ngx3XAO7Xu3NtzDjkMmLZxznyfp
+X-Received: by 2002:a05:600c:34d2:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4bb55ac6cabmr228383715e9.34.1794847271206;
+        Mon, 16 Nov 2026 08:41:11 -0800 (PST)
+Received: from [192.168.3.100] ([151.61.248.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm154341245e9.4.2026.11.16.08.41.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 08:41:10 -0800 (PST)
+Message-ID: <34e02f23-1ace-4a13-9353-b73a1464a592@baylibre.com>
+Date: Mon, 16 Nov 2026 17:41:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,104 +92,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: meson: aiu-fifo: prevent sleeping when spinlock is
+ held
+Content-Language: en-US
+To: Manuel Ebner <manuelebner@mailbox.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Christian Hewitt <christianshewitt@gmail.com>, linux-sound@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261111-aiu-fifo-fix-sleep-on-spinlock-v1-1-dc9ee401a7cf@baylibre.com>
+ <0140bc0b3d1078bf8851340e0cb893b2907e146a.camel@mailbox.org>
+From: Valerio Setti <vsetti@baylibre.com>
+In-Reply-To: <0140bc0b3d1078bf8851340e0cb893b2907e146a.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-When Intel AMT powers the host on shortly after a shutdown, CSME can
-still be driving the NIC while it hands it back to the host. The host's
-NIC_READY semaphore is free then, so iwl_pcie_prepare_card_hw() succeeds,
-but the MAC clock does not come up within the 25 ms that
-iwl_pcie_activate_nic() polls, and the probe fails for good:
+Hi Manuel
 
-  iwlwifi 0000:00:14.3: CSR_RESET =3D 0x11
-  iwlwifi 0000:00:14.3: probe with driver iwlwifi failed with error -110
+> I have read your patch and have a question.
+[...]
+>> @@ -48,14 +49,22 @@ static int aiu_fifo_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+>>   				struct snd_soc_dai *dai)
+>>   {
+>>   	struct snd_soc_component *component = dai->component;
+>> +	unsigned int val;
+> 
+> Here is val.
+> 
+>> +	int ret;
+>>   
+>>   	switch (cmd) {
+>>   	case SNDRV_PCM_TRIGGER_START:
+>>   	case SNDRV_PCM_TRIGGER_RESUME:
+>>   	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+>> -		snd_soc_component_write(component, AIU_RST_SOFT,
+>> -					AIU_RST_SOFT_I2S_FAST);
+>> -		snd_soc_component_read(component, AIU_I2S_SYNC);
+>> +		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_I2S_FAST);
+>> +		if (ret < 0)
+>> +			return snd_soc_ret(component->dev, ret,
+>> +					   "Failed to write register on trigger");
+>> +
+>> +		ret = regmap_read(component->regmap, AIU_I2S_SYNC, &val);
+> 
+> So as I understand val/&val is just there to listen and forget what gets returned.
+> That's kinda weird, but not an issue.
 
-CSME then keeps the device, and the following boots fail the same way
-until AMT's wireless is switched off and on again.
+Well, I understand that it might be weird from a software point of view, 
+but it makes sense from the hardware one. According to the manual:
 
-At that point HW_IF_CONFIG reads 0x02080000 (ME_OWN and IAMT_UP set). If
-the SAP connection to CSME is up, or comes up within 5 seconds, continue
-as when CSME visibly owns the device at probe: drop the init-done request,
-set csme_own and let the op mode take the NVM from CSME and request the
-device over SAP before using it.
+     A read from this register indicates that the next sample to be
+     sent out of the interface should go into the left channel of
+     the dac.
+>> @@ -37,8 +38,11 @@ snd_pcm_uframes_t aiu_fifo_pointer(struct snd_soc_component *component,
+>>   	struct aiu_fifo *fifo = snd_soc_dai_dma_data_get_playback(dai);
+>>   	struct snd_pcm_runtime *runtime = substream->runtime;
+>>   	unsigned int addr;
+> 
+> Here it's addr. It's not yours, you just kept it.
+> 
+>> +	int ret;
+>>   
+>> -	addr = snd_soc_component_read(component, fifo->mem_offset + AIU_MEM_RD);
+>> +	ret = regmap_read(component->regmap, fifo->mem_offset + AIU_MEM_RD, &addr);
+> 
+> Similar as above. But why is addr here and val above? I think it's the same role in regmap_read().
+> Would it make sense to name both the same? If it does, I'm in favor of val, because that's in the
+> kernel-doc of regmap_read().
+> 
+>> +	if (ret < 0)
+>> +		return snd_soc_ret(component->dev, ret, "Failed to read FIFO pointer");
+>>   
+>>   	return bytes_to_frames(runtime, addr - (unsigned int)runtime->dma_addr);
+> Here addr is used, so it's not same as above.
+> 
+> Looking forward to your POV.
 
-Tested on an HP ZBook Firefly 14 G10 (AX211, CSME 16.1) with AMT's
-wireless enabled: without this change four of six AMT power-ons and
-resets left the host without Wi-Fi; with it, power-ons pressed as soon as
-AMT reported the host off came back on Wi-Fi 36-48 s later.
+Here I left 'addr' to minimize the number of changes in the patch.
+Looking at it again now, I'm more in favor of keeping it as 'addr'. I 
+understand that the regmap documentation uses 'val', but in this case we 
+know that the returned value is really an address of memory, not just a 
+generic value.
+Also keeping the name as it is makes the last line of that function 
+reading smoothly.
 
-Fixes: 2fd8aaaeb874 ("iwlwifi: pcie: try to grab NIC access early")
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- .../net/wireless/intel/iwlwifi/pcie/trans.c   | 40 ++++++++++++++++++-
- 1 file changed, 38 insertions(+), 2 deletions(-)
+However if you deem this unacceptable I can change as you requested. 
+Just let me know.
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/trans.c b/drivers/net/=
-wireless/intel/iwlwifi/pcie/trans.c
-index 0f4e309fe32b..e95b52332cea 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/trans.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/trans.c
-@@ -4182,6 +4182,40 @@ static void iwl_pcie_check_me_status(struct iwl_tran=
-s *trans)
- =09schedule_delayed_work(&trans_pcie->me_recheck_wk, HZ);
- }
-=20
-+/*
-+ * CSME (Intel AMT) can still be driving the NIC while it hands the device
-+ * over to the host, for example right after the host was powered on throu=
-gh
-+ * AMT: the host gets the hardware semaphore, but the MAC does not wake. I=
-f
-+ * the SAP connection to CSME is up, or comes up shortly, continue as when
-+ * CSME visibly owns the device: the op mode gets the NVM from CSME and as=
-ks
-+ * it for the device over SAP before using it.
-+ */
-+static bool iwl_pcie_csme_drives_nic(struct iwl_trans *trans)
-+{
-+=09int t;
-+
-+=09for (t =3D 0; !iwl_mei_is_connected() && t < 5000; t +=3D 100)
-+=09=09msleep(100);
-+
-+=09if (!iwl_mei_is_connected())
-+=09=09return false;
-+
-+=09IWL_INFO(trans,
-+=09=09 "Couldn't wake the NIC but SAP is connected, CSME owns it (HW_IF_CO=
-NFIG 0x%08x)\n",
-+=09=09 iwl_trans_pcie_read32(trans, CSR_HW_IF_CONFIG_REG));
-+
-+=09if (trans->mac_cfg->device_family >=3D IWL_DEVICE_FAMILY_BZ)
-+=09=09iwl_trans_clear_bit(trans, CSR_GP_CNTRL,
-+=09=09=09=09    CSR_GP_CNTRL_REG_FLAG_BZ_MAC_ACCESS_REQ |
-+=09=09=09=09    CSR_GP_CNTRL_REG_FLAG_MAC_INIT);
-+=09else
-+=09=09iwl_trans_clear_bit(trans, CSR_GP_CNTRL,
-+=09=09=09=09    CSR_GP_CNTRL_REG_FLAG_INIT_DONE);
-+
-+=09trans->csme_own =3D true;
-+=09return true;
-+}
-+
- int _iwl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent,
- =09=09   const struct iwl_mac_cfg *mac_cfg,
- =09=09   u8 __iomem *hw_base, u32 hw_rev)
-@@ -4218,9 +4252,11 @@ int _iwl_pci_probe(struct pci_dev *pdev, const struc=
-t pci_device_id *ent,
- =09ret =3D iwl_pcie_prepare_card_hw(iwl_trans);
- =09if (!ret) {
- =09=09ret =3D iwl_trans_activate_nic(iwl_trans);
--=09=09if (ret)
-+=09=09if (ret && iwl_pcie_csme_drives_nic(iwl_trans)) {
-+=09=09=09ret =3D 0;
-+=09=09} else if (ret) {
- =09=09=09goto out_free_trans;
--=09=09if (iwl_trans_grab_nic_access(iwl_trans)) {
-+=09=09} else if (iwl_trans_grab_nic_access(iwl_trans)) {
- =09=09=09get_crf_id(iwl_trans, &info, &hw_wfpm_id);
- =09=09=09/* all good */
- =09=09=09iwl_trans_release_nic_access(iwl_trans);
---=20
-2.55.0
+Best regards,
+
+-- 
+Valerio
 
