@@ -1,88 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841370;
-	b=oRxnwT7PmZDvxgs9YB6pr/C7X6YE7ntiY8mqLZPWXdyutAC6G6liXzDFEO8AafGw8Zi5
-	 FwONNcMiBdF1etHOCeP88GYrJSI/DsB82bKVn37SwMfEJapat/9YrPyegQJw68FrWph2/
-	 2236H4x1BJaQ2hzhj9+8EF7a6/0y8TRaIp500fIC+FmVpuiZkatIrOvxKkbg4LZHqEeTn
-	 QxiU2dABTqB1UyJ/90HowxhDL5IqvhZeJ7OgsXfbYFOykQadbeaqYA8sPJ9aRCNdIX820
-	 tdzu8pk50TsvsDKYfM11rpEBhEn0qdgjBrhImhOeAA7lMZirGrQnWDctun2N8a0e0Fw==
+	t=1794841376;
+	b=uavZ1uQttiNX8c8qqW34O+hVwMrnJ5g/etISk1WKwH6F5OwewEx3sYh+zWLgHF0HO698
+	 eRbI4nJvpz80+3rzez5dxB9At0NCQ7riBwLywwtyoHFO8DD1y+J18I4rSIBt/nIXgkGeA
+	 0yR1jhcHrBWgL9ed6rKtQwfdVtFDpPtkp7xa35Gstb6FFyYozdYUv4IyPEPSPMCWFXK5F
+	 PcVfjyon/uraeL5800rn7TFH3CXXOXR/WNK6PdEFj1hqXrzoowAF8qGOgG1YuKvgRuQGG
+	 PAy15MdcU8E6qUcIM5y7EBB3yrwyS6aEIvIdFwrMHFfArHS2lnzr5+BzQrv3VBq0JbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841376;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
 	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
 	 X-Spamd-Result:X-Spam-Score;
-	bh=tvmpwtkAtSUTu+R0wghNThvO5/uYBR5Qg46tLY3spXM=;
-	b=l/4wDN9Pz2r+LvpDfvYvcsFxRPjdsuMTQwdTNAh3ZkPdte7o90hfo7s0Io5juoq3dGh8
-	 4PROcbfQYvyDQmC3zyjqDwZ/sNkk3b7kPMUPcoOoSoJLJ0lYwQ09ED1M+Yk5BNRJYmonT
-	 TNyJoJvViF4NpspOShEcZnla7Uu9uDBJdUZLE6DY8XfCYWE/5zzQwfdaTUK36P/wg/K1m
-	 MnbAMeG4K5Ry3tpF2caUreyLRWq/33QWWxfb7blZGy/7F6WWP3t4rI9HEL9fq1dWcvY76
-	 nRRZCjpzJJleuQd/upGH49iv1kQ1X5M13MUc78eChIsqRc6vZEWKRV3B2sYkS/uKr4A==
+	bh=t0faRPOc49RzpC9aKPihikJDxKQc6PMkf1Bcnpy81rI=;
+	b=T0vvSjrLyZ0+oHsK2/g33/iKziwydzUOOsdT2Z0eq6zHuoPdreqYUJqEox3JO84flIG6
+	 M2ohcrjEo8WwvsNgH03btDYl+vWSZQ5YzY3cjsPLkazx5hS3TuQ7tpzf5oBIWY4QESFSt
+	 8QDxqc+6i+M2Sl+8/vHwNYiKI0UWM9L+rn31SKOf0xvBR2uS5YCBrtHxc6mJx/oqu6gak
+	 fV5wqvf8poiZD24oAKMCZySEQOVGp79kvZ5ezDty4WdhLYMhtsSnELBeSwdpY5uHlH1lK
+	 QVmBPDP1L/aYmYQ3jYH1aL0T6SFUsQmrw9xUMDwJcT5+ijkjkTVmVXMS4gyemAXZnkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=FEyTbsT1;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=FEyTbsT1;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eiSX0k0d;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eiSX0k0d;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F17606A31C;
-	Mon, 16 Nov 2026 15:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22F17606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959C7606A31C;
+	Mon, 16 Nov 2026 15:02:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 959C7606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=FEyTbsT1;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=FEyTbsT1
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eiSX0k0d;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eiSX0k0d
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 47B8E1F7EA;
-	Mon, 16 Nov 2026 15:02:48 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DF297221FE;
+	Mon, 16 Nov 2026 15:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794841368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1794841373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tvmpwtkAtSUTu+R0wghNThvO5/uYBR5Qg46tLY3spXM=;
-	b=FEyTbsT1ldGgF8fsccthUHmUCSfieVaYaqXXJbK9uKW4dKSW+yMC+2bvPGtPY6Br949C8G
-	6xl1EZk1KepGGbXz6sfSbpo4nr7gknqXF8kZWs+1L8Ou6E2vr0aJ1fVH1rle0U/AL2437A
-	+Hoh8PwM7ZSXHhSvIjizq8f1W+czz6Q=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=FEyTbsT1
+	bh=t0faRPOc49RzpC9aKPihikJDxKQc6PMkf1Bcnpy81rI=;
+	b=eiSX0k0dPp6MgGd6aWJClxtpF9cNKlDe13aZLkpsmigyYJoisYfzm51GuzGJkrBwtP8U/V
+	VwOBZcB1hneCZcORSmnrH7/thFeX2aQMy1BVk0en7sj7gbDVIDfLKpKc1MASvRudvCa6d0
+	XXRs9h84fKXju8LP3tLQ8H5RpBkqrAQ=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=eiSX0k0d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794841368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1794841373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tvmpwtkAtSUTu+R0wghNThvO5/uYBR5Qg46tLY3spXM=;
-	b=FEyTbsT1ldGgF8fsccthUHmUCSfieVaYaqXXJbK9uKW4dKSW+yMC+2bvPGtPY6Br949C8G
-	6xl1EZk1KepGGbXz6sfSbpo4nr7gknqXF8kZWs+1L8Ou6E2vr0aJ1fVH1rle0U/AL2437A
-	+Hoh8PwM7ZSXHhSvIjizq8f1W+czz6Q=
+	bh=t0faRPOc49RzpC9aKPihikJDxKQc6PMkf1Bcnpy81rI=;
+	b=eiSX0k0dPp6MgGd6aWJClxtpF9cNKlDe13aZLkpsmigyYJoisYfzm51GuzGJkrBwtP8U/V
+	VwOBZcB1hneCZcORSmnrH7/thFeX2aQMy1BVk0en7sj7gbDVIDfLKpKc1MASvRudvCa6d0
+	XXRs9h84fKXju8LP3tLQ8H5RpBkqrAQ=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EABAB13408;
-	Mon, 16 Nov 2026 15:02:47 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 94C7A13408;
+	Mon, 16 Nov 2026 15:02:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 17tqMBcb+2qAEAAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 15:02:47 +0000
+	id ZpvoGh0b+2qIEAAAD6G6ig
+	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 15:02:53 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
+	linux-crypto@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Helge Deller <deller@gmx.de>,
-	linux-geode@lists.infradead.org
-Subject: [PATCH v6 06/12] fbdev/geode: Stop using 32-bit MSR interfaces
-Date: Mon, 16 Nov 2026 16:02:02 +0100
-Message-ID: <20261116150208.1572254-7-jgross@suse.com>
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH v6 07/12] hw_random/via-rng: Stop using 32-bit MSR interfaces
+Date: Mon, 16 Nov 2026 16:02:03 +0100
+Message-ID: <20261116150208.1572254-8-jgross@suse.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116150208.1572254-1-jgross@suse.com>
 References: <20261116150208.1572254-1-jgross@suse.com>
@@ -96,7 +95,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 47B8E1F7EA
+X-Rspamd-Queue-Id: DF297221FE
 X-Spam-Level: 
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
@@ -111,24 +110,22 @@ X-Spamd-Result: default: False [-12.01 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:email];
 	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_CC(0.00)[suse.com,gmx.de,lists.infradead.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:email];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
 	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de]
+	RCPT_COUNT_FIVE(0.00)[5];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
 X-Spam-Score: -12.01
 
 The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
@@ -136,170 +133,69 @@ removed. Use the related 64-bit variants instead.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- drivers/video/fbdev/geode/display_gx.c |  8 +++---
- drivers/video/fbdev/geode/lxfb_ops.c   | 38 +++++++++++++-------------
- drivers/video/fbdev/geode/suspend_gx.c | 20 ++++++++------
- 3 files changed, 34 insertions(+), 32 deletions(-)
+ drivers/char/hw_random/via-rng.c | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/video/fbdev/geode/display_gx.c b/drivers/video/fbdev/geode/display_gx.c
-index 099322cefce0..b93aa21a1d2b 100644
---- a/drivers/video/fbdev/geode/display_gx.c
-+++ b/drivers/video/fbdev/geode/display_gx.c
-@@ -23,15 +23,15 @@ unsigned int gx_frame_buffer_size(void)
- 	unsigned int val;
- 
- 	if (!cs5535_has_vsa2()) {
--		uint32_t hi, lo;
-+		struct msr msr;
- 
- 		/* The number of pages is (PMAX - PMIN)+1 */
--		rdmsr(MSR_GLIU_P2D_RO0, lo, hi);
-+		rdmsrq(MSR_GLIU_P2D_RO0, msr.q);
- 
- 		/* PMAX */
--		val = ((hi & 0xff) << 12) | ((lo & 0xfff00000) >> 20);
-+		val = ((msr.h & 0xff) << 12) | ((msr.l & 0xfff00000) >> 20);
- 		/* PMIN */
--		val -= (lo & 0x000fffff);
-+		val -= (msr.l & 0x000fffff);
- 		val += 1;
- 
- 		/* The page size is 4k */
-diff --git a/drivers/video/fbdev/geode/lxfb_ops.c b/drivers/video/fbdev/geode/lxfb_ops.c
-index 2e33da9849b0..f5f1134cae9a 100644
---- a/drivers/video/fbdev/geode/lxfb_ops.c
-+++ b/drivers/video/fbdev/geode/lxfb_ops.c
-@@ -124,19 +124,19 @@ static const struct {
- 
- static void lx_set_dotpll(u32 pllval)
+diff --git a/drivers/char/hw_random/via-rng.c b/drivers/char/hw_random/via-rng.c
+index a9a0a3b09c8b..b718e78d3c1c 100644
+--- a/drivers/char/hw_random/via-rng.c
++++ b/drivers/char/hw_random/via-rng.c
+@@ -129,7 +129,8 @@ static int via_rng_data_read(struct hwrng *rng, u32 *data)
+ static int via_rng_init(struct hwrng *rng)
  {
--	u32 dotpll_lo, dotpll_hi;
-+	struct msr dotpll;
- 	int i;
+ 	struct cpuinfo_x86 *c = &cpu_data(0);
+-	u32 lo, hi, old_lo;
++	u32 old_lo;
++	struct msr val;
  
--	rdmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
-+	rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 	/* VIA Nano CPUs don't have the MSR_VIA_RNG anymore.  The RNG
+ 	 * is always enabled if CPUID rng_en is set.  There is no
+@@ -150,32 +151,32 @@ static int via_rng_init(struct hwrng *rng)
+ 	 * does not say to write them as zero, so I make a guess that
+ 	 * we restore the values we find in the register.
+ 	 */
+-	rdmsr(MSR_VIA_RNG, lo, hi);
++	rdmsrq(MSR_VIA_RNG, val.q);
  
--	if ((dotpll_lo & MSR_GLCP_DOTPLL_LOCK) && (dotpll_hi == pllval))
-+	if ((dotpll.l & MSR_GLCP_DOTPLL_LOCK) && (dotpll.h == pllval))
- 		return;
+-	old_lo = lo;
+-	lo &= ~(0x7f << VIA_STRFILT_CNT_SHIFT);
+-	lo &= ~VIA_XSTORE_CNT_MASK;
+-	lo &= ~(VIA_STRFILT_ENABLE | VIA_STRFILT_FAIL | VIA_RAWBITS_ENABLE);
+-	lo |= VIA_RNG_ENABLE;
+-	lo |= VIA_NOISESRC1;
++	old_lo = val.l;
++	val.l &= ~(0x7f << VIA_STRFILT_CNT_SHIFT);
++	val.l &= ~VIA_XSTORE_CNT_MASK;
++	val.l &= ~(VIA_STRFILT_ENABLE | VIA_STRFILT_FAIL | VIA_RAWBITS_ENABLE);
++	val.l |= VIA_RNG_ENABLE;
++	val.l |= VIA_NOISESRC1;
  
--	dotpll_hi = pllval;
--	dotpll_lo &= ~(MSR_GLCP_DOTPLL_BYPASS | MSR_GLCP_DOTPLL_HALFPIX);
--	dotpll_lo |= MSR_GLCP_DOTPLL_DOTRESET;
-+	dotpll.h = pllval;
-+	dotpll.l &= ~(MSR_GLCP_DOTPLL_BYPASS | MSR_GLCP_DOTPLL_HALFPIX);
-+	dotpll.l |= MSR_GLCP_DOTPLL_DOTRESET;
+ 	/* Enable secondary noise source on CPUs where it is present. */
  
--	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
-+	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 	/* Nehemiah stepping 8 and higher */
+ 	if ((c->x86_model == 9) && (c->x86_stepping > 7))
+-		lo |= VIA_NOISESRC2;
++		val.l |= VIA_NOISESRC2;
  
- 	/* Wait 100us for the PLL to lock */
+ 	/* Esther */
+ 	if (c->x86_model >= 10)
+-		lo |= VIA_NOISESRC2;
++		val.l |= VIA_NOISESRC2;
  
-@@ -145,15 +145,15 @@ static void lx_set_dotpll(u32 pllval)
- 	/* Now, loop for the lock bit */
+-	if (lo != old_lo)
+-		wrmsr(MSR_VIA_RNG, lo, hi);
++	if (val.l != old_lo)
++		wrmsrq(MSR_VIA_RNG, val.q);
  
- 	for (i = 0; i < 1000; i++) {
--		rdmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
--		if (dotpll_lo & MSR_GLCP_DOTPLL_LOCK)
-+		rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
-+		if (dotpll.l & MSR_GLCP_DOTPLL_LOCK)
- 			break;
+ 	/* perhaps-unnecessary sanity check; remove after testing if
+ 	   unneeded */
+-	rdmsr(MSR_VIA_RNG, lo, hi);
+-	if ((lo & VIA_RNG_ENABLE) == 0) {
++	rdmsrq(MSR_VIA_RNG, val.q);
++	if ((val.l & VIA_RNG_ENABLE) == 0) {
+ 		pr_err(PFX "cannot enable VIA C3 RNG, aborting\n");
+ 		return -ENODEV;
  	}
- 
- 	/* Clear the reset bit */
- 
--	dotpll_lo &= ~MSR_GLCP_DOTPLL_DOTRESET;
--	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
-+	dotpll.l &= ~MSR_GLCP_DOTPLL_DOTRESET;
-+	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
- }
- 
- /* Set the clock based on the frequency specified by the current mode */
-@@ -268,7 +268,7 @@ static void lx_graphics_enable(struct fb_info *info)
- 		config |= VP_DCFG_CRT_VSYNC_POL;
- 
- 	if (par->output & OUTPUT_PANEL) {
--		u32 msrlo, msrhi;
-+		struct msr val;
- 
- 		write_fp(par, FP_PT1, 0);
- 		temp = FP_PT2_SCRC;
-@@ -282,10 +282,10 @@ static void lx_graphics_enable(struct fb_info *info)
- 		write_fp(par, FP_PT2, temp);
- 		write_fp(par, FP_DFC, FP_DFC_BC);
- 
--		msrlo = MSR_LX_MSR_PADSEL_TFT_SEL_LOW;
--		msrhi = MSR_LX_MSR_PADSEL_TFT_SEL_HIGH;
-+		val.l = MSR_LX_MSR_PADSEL_TFT_SEL_LOW;
-+		val.h = MSR_LX_MSR_PADSEL_TFT_SEL_HIGH;
- 
--		wrmsr(MSR_LX_MSR_PADSEL, msrlo, msrhi);
-+		wrmsrq(MSR_LX_MSR_PADSEL, val.q);
- 	}
- 
- 	if (par->output & OUTPUT_CRT) {
-@@ -313,15 +313,15 @@ unsigned int lx_framebuffer_size(void)
- 	unsigned int val;
- 
- 	if (!cs5535_has_vsa2()) {
--		uint32_t hi, lo;
-+		struct msr msr;
- 
- 		/* The number of pages is (PMAX - PMIN)+1 */
--		rdmsr(MSR_GLIU_P2D_RO0, lo, hi);
-+		rdmsrq(MSR_GLIU_P2D_RO0, msr.q);
- 
- 		/* PMAX */
--		val = ((hi & 0xff) << 12) | ((lo & 0xfff00000) >> 20);
-+		val = ((msr.h & 0xff) << 12) | ((msr.l & 0xfff00000) >> 20);
- 		/* PMIN */
--		val -= (lo & 0x000fffff);
-+		val -= (msr.l & 0x000fffff);
- 		val += 1;
- 
- 		/* The page size is 4k */
-diff --git a/drivers/video/fbdev/geode/suspend_gx.c b/drivers/video/fbdev/geode/suspend_gx.c
-index 73307f42e343..6c0a526ee8a2 100644
---- a/drivers/video/fbdev/geode/suspend_gx.c
-+++ b/drivers/video/fbdev/geode/suspend_gx.c
-@@ -40,25 +40,27 @@ static void gx_save_regs(struct gxfb_par *par)
- 
- static void gx_set_dotpll(uint32_t dotpll_hi)
- {
--	uint32_t dotpll_lo;
-+	struct msr dotpll;
- 	int i;
- 
--	rdmsrq(MSR_GLCP_DOTPLL, dotpll_lo);
--	dotpll_lo |= MSR_GLCP_DOTPLL_DOTRESET;
--	dotpll_lo &= ~MSR_GLCP_DOTPLL_BYPASS;
--	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
-+	rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
-+	dotpll.l |= MSR_GLCP_DOTPLL_DOTRESET;
-+	dotpll.l &= ~MSR_GLCP_DOTPLL_BYPASS;
-+	dotpll.h = dotpll_hi;
-+	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
- 
- 	/* wait for the PLL to lock */
- 	for (i = 0; i < 200; i++) {
--		rdmsrq(MSR_GLCP_DOTPLL, dotpll_lo);
--		if (dotpll_lo & MSR_GLCP_DOTPLL_LOCK)
-+		rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
-+		if (dotpll.l & MSR_GLCP_DOTPLL_LOCK)
- 			break;
- 		udelay(1);
- 	}
- 
- 	/* PLL set, unlock */
--	dotpll_lo &= ~MSR_GLCP_DOTPLL_DOTRESET;
--	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
-+	dotpll.l &= ~MSR_GLCP_DOTPLL_DOTRESET;
-+	dotpll.h = dotpll_hi;
-+	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
- }
- 
- static void gx_restore_gfx_proc(struct gxfb_par *par)
 -- 
 2.56.0
 
