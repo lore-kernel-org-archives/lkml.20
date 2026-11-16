@@ -1,104 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830574;
-	b=h+cr1Gqmr+M2reVmhUEc2DZZInHD95hS+jM5hcPsh0c1TBBZwllu2HZF1bzDH5qWzNO8
-	 JFivF+/86eFgDf2ujYy8glLMIj7hFvkWwF2UIovv1e6IseBQEiWUk+6RK9kgglLyk798i
-	 MIdpTw7aIwNhi0Y4wOLqovBvesgLOyh+awMp64iwCZ3vr7AflCqRHE3kKNtzZjqbVoNKH
-	 hBHRTMNWO9GJcAPsu9Dn6Yyk3Sa8ppF6xz8tKkmYEpX7Y9NpWpHhLfII026db3Bmm5UK2
-	 k9om3qael4Zb1KOBrkQLfbmJNtqFSSeWkGkN55pmm93a2M7PFRuDHwhN/WKkVsGVMUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830574;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=syPS5w91SKjFrtVe9Mq28t/5RjkAfA5VSyynxYLl4rk=;
-	b=dSv9fIkEbgcfKZMLtINXeP7tFU+TTUGAuGSJAGhVltiubCAKv+K3Q0Zo/Nzbx33d10+7
-	 mFxD8JDGS0MV/Js7g6a+V3CRZRZKODm4E3EQnMP5BSm6g4krJatCwMVhzb4urUdMtmVwC
-	 zUxPRarqojdCsRVA4kbbmia+FJ580s5PdPVEt28mhEbNWLthNwblZPpbg20aFidnKtghL
-	 jgfNUNZsB7zJl0umdVTltolVXS04BYE80Hue32P8VWjattA/OiewM91/ICi7o6zhahdii
-	 gy1VPllsaIotkWgDlpVbBSRUd6iq/980A7mYSCByu0lA5sAaig3aOBsh1MTiE5AQ/wA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bhgTAwG2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013007.outbound.protection.outlook.com [40.107.201.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794830579;
+	b=tXNo40uA+wthF5tzsjZ7/HWLiwt+qpGkCE395mT6QOWlsiSFMn51AOFH1efqSMa3VTh4
+	 foZSQXwhrfWqAYmeO3JXLWv+S8zmTquJo4OevJyVyLHJzczNPHFiH1toc2CmwjxxtltpN
+	 daEI5vj8y3Dy7cIwV+rSa93DfTLjCF3tKLFA1LoCeuwKzgxxjuhbGdHEfU5vY8Dbfg4lx
+	 HVtzoqgyyvbefs5Jzy3GrJvjh+j+SL0kuV5dYkB4l8dFacwLEbgnFU8XXxZT/WJGbUWLB
+	 rdeNUMYNCkg5A4sO9oC0yZT46BhKc+sEgdjEjd+mrAXYByVIwOV0GFAU3bF8fRnzTbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830579;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=XakR3HwaA61RTSRKXiY8u1VTW14yNDhbXxD2aqPLa0k=;
+	b=ZzbwQaaSGQJlEdiIYhA5I6WnVH5/01CP9SYoSqCw2V+SrC5ijQ1JR8+CcFF+G3L5vwmZ
+	 tQRsxiNcfy4VcuKT7ZTXbYkSGeKVfg7C06cQJ14FNU+dPBbgiGVLKRXiKORgcMKZ9DQzk
+	 7NJQ7ih+zlJtIqsKRH2Dx/A5imMwYYe1liPs3g99EMNP9CKXvZK+qcmJCCwBoS3oLnazd
+	 8u7OWLxDnDipt2aZvFMIENyetGlmwbkzcfZL11o2XKm85wWERZyx03c+mgZso7tHDmnZ5
+	 6ps3acA1evEpI90mqk9cI78i2g8ekeYn2gyHdx135ry62RXh+6BiVSMbZ7vi08aNVow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FtaKOs8h;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GBSuIaQU;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=P3S+S1W2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m4uH2vq2;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00533606A31C;
-	Mon, 16 Nov 2026 12:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00533606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6003606A333;
+	Mon, 16 Nov 2026 12:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6003606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bhgTAwG2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hxypYPm3nc3kWantdgJN2ps1cJ/fX2+ynx4iqCT1tNm4xVNUN1aMsCu6ejznxkS2supeX5FqM+h/RVjl+Nu7cDWkldT0wnDn3ukfL1Bbp+1gIc2MNJ+62HoAJR6Gy6XUAono2bcxBc4d62S0gjRFfurvN+ZOhhoQ0EBnk4V8o6Ox1O2j0W9t3Qmnc7UkykJ4xJ06mcVfHBuYgcBVomoZTDQPppdqmjx72ri8cgoeCjRrkxgs6at/+KsGAFmfU3BEpY/bwH84y4mpH5ic3/uXCuR+zyoQ6L0+tjxT/DzF3e57NQT28/se/F2IexDHW7FS3M0O/0c2HeLSJD3PAL5KfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=syPS5w91SKjFrtVe9Mq28t/5RjkAfA5VSyynxYLl4rk=;
- b=mdapyXxie26U/XRUdwDV7DSw/geum1Dl62EKFEwivnlhNjYVMGGIKEQm19EYTepT6rknt9eeFDn6QOVvHp1SlDrFDC5TzEwBDkbAHWKcT1eMtwUOKi+hfygxEJ36Sftc2IxoyqEe83rWSfg/Oj9v+4PzzhAzbRe7JHh6+PxcTetEEBG+nqYfWohjk4jsvelQYxfXoSOLMUQ2MuK4VmP+9IOnXce5mW1ceIDiQG1MW4sBjPsh92g47WvjOI8u0GW2sS8bmn85TUECCNsQ3mlhx1YV7SXQ9QC9Ac6TcJLRKbZgB8gUR/P1zMrJZdnYbgq/fXqMvP7LiKffFOys55zStw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=syPS5w91SKjFrtVe9Mq28t/5RjkAfA5VSyynxYLl4rk=;
- b=bhgTAwG2oysenC9xgduhrxPQQI+5yr65aujRrC1Eoquw27czLNonpOLrcuOK2eo/XCrcSuZmLIpnIxG9Mr0JwvSvNyBQyungjXvbY58vUC7m61MiAOhYCWbDp156yW4hMKBJ3yy4ybacp2wB1YzSj3zwEXwPDAFPRChzr8CcFrQ=
-Received: from DS7PR03CA0210.namprd03.prod.outlook.com (2603:10b6:5:3b6::35)
- by SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:02:48 +0000
-Received: from CY5PEPF00000E7A.namprd02.prod.outlook.com
- (2603:10b6:5:3b6:cafe::60) by DS7PR03CA0210.outlook.office365.com
- (2603:10b6:5:3b6::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 12:02:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY5PEPF00000E7A.mail.protection.outlook.com (10.167.247.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 12:02:48 +0000
-Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 06:02:43 -0600
-From: Akshay Gupta <Akshay.Gupta@amd.com>
-To: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-CC: <linux@roeck-us.net>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <arnd@arndb.de>, <gregkh@linuxfoundation.org>,
-	<naveenkrishna.chatradhi@amd.com>, <Anand.Umarji@amd.com>, Akshay Gupta
-	<Akshay.Gupta@amd.com>
-Subject: [PATCH v1 0/4] misc: amd-sbi: add DIMM thermal sensors to sbrmi
-Date: Mon, 16 Nov 2026 17:32:24 +0530
-Message-ID: <20261116120228.865196-1-Akshay.Gupta@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FtaKOs8h;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GBSuIaQU;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=P3S+S1W2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m4uH2vq2
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A1ECF1FCCE;
+	Mon, 16 Nov 2026 12:02:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794830577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XakR3HwaA61RTSRKXiY8u1VTW14yNDhbXxD2aqPLa0k=;
+	b=FtaKOs8hvk+CE2ZxqchRuwfNwjPCWOBBQ7CutkK26oUGD1gNrt9zVCb5PxXoOHJehzZ/Z5
+	cggkNuBcYvs3rGBzd7/dpG1/zj2f5AUOd8HJp6r8II4mpLiQJGmtdem/U3WtuhAwJfOKI1
+	/Ip0wxIpQAp71btrl2gqKRbO+CqbI3M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794830577;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XakR3HwaA61RTSRKXiY8u1VTW14yNDhbXxD2aqPLa0k=;
+	b=GBSuIaQU5ThIrz/oluo1RR3cm1bwZBjvuXHvh0e46+prp8sjlDlRUuzXMaZHYO+wNvAmyb
+	sdTKkl+a2sWfp7Bg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=P3S+S1W2;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=m4uH2vq2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794830575; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XakR3HwaA61RTSRKXiY8u1VTW14yNDhbXxD2aqPLa0k=;
+	b=P3S+S1W2B+8RBnkjAEiL/iW91tFQ/ddvGRD6L3uZ6KiJo/PVj2r51SkeB04ijTsMedfDPT
+	RAkeYQ0mLgH7tAWyTQkdFvsuXYq6NsMtBJRCBeuz7WDuE3PCpg+oLHljOFwJdQ3eZSsm8Y
+	82//XxnPTT2sARbLGOgN+bP4EUoJyps=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794830575;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XakR3HwaA61RTSRKXiY8u1VTW14yNDhbXxD2aqPLa0k=;
+	b=m4uH2vq2lFTxM0W0B60ZOnueb9UoU+DZG+208VhICmOcB1wdjf1w/1b0vY41UpHocz4kDd
+	7VzlEY1J8gAqgaCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2CD4F1334C;
+	Mon, 16 Nov 2026 12:02:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id QYP5Au/w+moNTQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 16 Nov 2026 12:02:55 +0000
+Message-ID: <41d20d93-9961-4695-a9d1-cf80be0ec640@suse.de>
+Date: Mon, 16 Nov 2026 13:02:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,113 +108,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
+ host bridges
+To: gaohan@iscas.ac.cn, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Javier Martinez Canillas <javierm@redhat.com>, Borislav Petkov <bp@suse.de>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+ Han Gao <rabenda.cn@gmail.com>, stable@vger.kernel.org
+References: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E7A:EE_|SA1PR12MB5614:EE_
-X-MS-Office365-Filtering-Correlation-Id: a495a48b-9618-4705-448c-08df43d9884e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|82310400026|36860700016|10067099003|11063799006|56012099006|261021121427099003|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261021123027099003|261102123227099003|261009223027099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	b4XM1ZjjEmQfoA7qtAJzGHRX3eHR5IjnQdAjjh0fj9TJYorKzv5Oe53xcen7G7AQ0OjsUsyaFVW7KbbMf3YG6chTitvVqbSTUEoj1dPLD0hU1ecRopcxA9tzh+X9lNM4JyjFL8rorPJCIhsyDn9fRaM1cg+9dJnDI508Yk9ZYrnM3FJ/ja7hC9cloIvzT6I9m8pdKl1PfosxAhXglHB5d1sGnFlzzPBS1Awx0S4Bp7BxPCZ14nE7asLeTc/WlmigIoJhVj/V88ff4U9pXHUeRCFPHqKxTlOw5/cMgsgw7EFMGlM/1BmBW1ubTJal9B1fFiWxY0CVHj7AdkGj1uGsp9JWBjNtz8VB86yfDer0eCdZQfdGn9LnniXyhTR+3ebzWcwcTcn+MTZzsE++IfDiaqgnBUfwNuE7j2Rb4LD//1mghNp6mV/tHlSsdkKP5gibFTp6nj/ugjkRZjCo7xYELia9HzLZzn49dpkpCg/POvEraV4ekeZjHF2w4m+dAGlD2FYgkTgxfuau2l/MyVsWSHnbxagYfmITiT90qz/Cl17Vg2+lPNtSQE9xT6uos5qaPDKwJeHcohBJsVvzuUeHW6CammKTXKMlz91ZO45MMKmTti9dzTclJN6wDlSXDOpxdXfWz5vHQWKt039sD8U5cmM1cSlUZHGx/Ya7D6ru62ebQYFaZ0W6SIOI/Jg343dcil4WRAS2yVi4UCinID+1PA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261021121427099003)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LUFycC46AEqeuFgOj+ln6/33enQQaV1k/eh3r3nrhpuCZ0qolgbnKc3rp8lCO6ju3xvLy7SaHAGAotBWYQUMiHvbEfxcYh+4+ztB1NnnVVbF9B8RU7aE9apt0nwHD8V2Dr2JuRFWAnfIqp5HmTNH8JxIvnQmNzR/yA9CJVzX/Fs5Z/YkmvXF7WBwfUksnSxt5V0c2PuB19ZjHU5alkeglMgYmpbqEo4h97LZqE1JPEDmNpKCpJbbryJ3XKBakMES1bFGB3PKAByv5wDyIQirOgpOxnGmCvCGFMftD7G5BqpU27i+0dVwwFDgD6JxPYQwDPLT3waynv2Gw6DdGJd3JsiXDQr6zFdWL3U2iOT2/x0YSrqcAyTFxX3tJPjFczqrLjrV88xHBRJJ9VHaU3c+9n5QzV+PSHftX7bl5EFrldCP/35mM9SsuDDSOvlBl2ID
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:02:48.2795
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a495a48b-9618-4705-448c-08df43d9884e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E7A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5614
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,lists.infradead.org,gmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim,iscas.ac.cn:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: A1ECF1FCCE
 
-The sbrmi hwmon device reports socket power. SB-RMI can also read the
-TS0 and TS1 thermal sensors on each DIMM, which a BMC needs beside the
-power attributes. This series reports those sensors as temperature
-channels on the same hwmon device.
+Hi
 
-The read is mailbox command 0x48 with a Mode 1 DIMM_ADDRESS:
+Am 07.11.26 um 09:46 schrieb Han Gao via B4 Relay:
+> From: Han Gao <gaohan@iscas.ac.cn>
+>
+> With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
+> claims the framebuffer memory when it is added. On DT systems, the PCI
+> host bridge may probe later and then fails to claim its memory window.
+> On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
+> built as a module:
+>
+>    [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
+>
+> In that case, register an efi-framebuffer device instead. It claims no
+> memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
 
-  bit[7]   1 (Mode 1)
-  bit[6]   sensor select (0 = TS0, 1 = TS1)
-  bit[5]   reserved
-  bit[4]   DIMM slot
-  bit[3:0] memory channel
+But it should claim the memory exactly for detecting these collisions.
 
-Up to 16 DIMMs are reported, two sensors each. DIMM n is temp(n+1)
-for TS0 and temp(n+17) for TS1. Each channel is labelled
-DIMM_TS<t>_UMC<n>. With one DIMM per channel, n is the memory channel.
-With two, n is channel * 2 + slot, and the addresses interleave
-(0x80, 0x90, 0x81, ...). The temp index is the DIMM number, so a DIMM
-keeps the same tempN when other sensors are left out of the map.
 
-DataOut[31:21] is an 11-bit two's complement value in steps of
-0.25 degC. The driver reports it to hwmon in millidegrees Celsius.
+> of PCIe backed efifb on DT systems") makes it wait for the host bridge.
+>
+> Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
+> QEMU.
+>
+> Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+> In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
 
-Boards differ in how many DIMMs are fitted per memory channel and in
-which sensors are populated. Two optional firmware properties describe
-that:
+It's either efifb or efidrm. And the latter is strongly preferred.
 
-  amd,dpc        DIMMs per channel, 1 or 2. The default is 1.
-  amd,dimm-ids   Mode 1 address of each sensor to expose. Only those
-                 channels are visible. If the property is absent, all
-                 32 channels are exposed, and a read of a sensor that
-                 is not fitted returns the firmware error.
+> With pci-host-generic built in, simpledrm is still used.
 
-The binding and the driver reject an address without bit[7], with the
-reserved bit[5], with the slot bit set when amd,dpc is 1, with a
-memory channel above 7 when amd,dpc is 2, or listed twice. An empty
-or unreadable amd,dimm-ids property is rejected as well. With one DIMM
-per channel the allowed values are 0x80-0x8f and 0xc0-0xcf. With two
-they are 0x80-0x87, 0x90-0x97, 0xc0-0xc7 and 0xd0-0xd7.
+And that would be your workaround.
 
-The mailbox transaction and the existing hwmon registration both live
-in drivers/misc/amd-sbi, so the new channels are added there, on the
-hwmon device the driver already publishes.
+I discussed with Javier a bit. We agreed that a real solution would run 
+the sysfb code as part of the PCI initialization. That would fix a few 
+other problems, I think.
 
-Patches:
+Best regards
+Thomas
 
-  1. Switch sbrmi_data->lock to guard(). No functional change. The
-     DIMM reads go through rmi_mailbox_xfer(), and this lets the error
-     paths in that function return directly. The patch stands on its
-     own.
 
-  2. Add amd,dpc and amd,dimm-ids to the amd,sbrmi binding, and mention
-     the DIMM sensors in the title, description and example.
+> ---
+>   drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
+>   drivers/firmware/sysfb.c         |  8 +++++++-
+>   include/linux/sysfb.h            |  6 ++++++
+>   3 files changed, 29 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
+> index 2338de73c62c..5c2cb87178ff 100644
+> --- a/drivers/firmware/efi/sysfb_efi.c
+> +++ b/drivers/firmware/efi/sysfb_efi.c
+> @@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
+>   		dmi_check_system(efifb_dmi_swap_width_height);
+>   }
+>   
+> +/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
+> +__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
+> +{
+> +	struct device_node *np;
+> +
+> +	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
+> +		return false;
+> +
+> +	np = find_pci_overlap_node();
+> +	if (!np)
+> +		return false;
+> +
+> +	of_node_put(np);
+> +	return true;
+> +}
+> +
+>   __init void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd)
+>   {
+>   	if (si->orig_video_isVGA == VIDEO_TYPE_EFI && IS_ENABLED(CONFIG_PCI)) {
+> diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+> index 8833582c1883..8853a74560b9 100644
+> --- a/drivers/firmware/sysfb.c
+> +++ b/drivers/firmware/sysfb.c
+> @@ -164,8 +164,14 @@ static __init int sysfb_init(void)
+>   		goto unlock_mutex;
+>   	}
+>   
+> -	/* try to create a simple-framebuffer device */
+> +	/*
+> +	 * Try to create a simple-framebuffer device. It claims the memory
+> +	 * when it is added, so a DT PCI host bridge that probes later would
+> +	 * fail. Use an efi-framebuffer device there; it waits for the bridge.
+> +	 */
+>   	compatible = sysfb_parse_mode(si, &mode);
+> +	if (compatible && !parent && sysfb_efifb_behind_dt_pci(si))
+> +		compatible = false;
+>   	if (compatible) {
+>   		pd = sysfb_create_simplefb(si, &mode, parent);
+>   		if (!IS_ERR(pd))
+> diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
+> index ed23d6516223..b136fdebc746 100644
+> --- a/include/linux/sysfb.h
+> +++ b/include/linux/sysfb.h
+> @@ -95,6 +95,7 @@ static inline bool sysfb_handles_screen_info(void)
+>   
+>   extern struct efifb_dmi_info efifb_dmi_list[];
+>   void sysfb_apply_efi_quirks(struct screen_info *si);
+> +bool sysfb_efifb_behind_dt_pci(const struct screen_info *si);
+>   void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd);
+>   
+>   #else /* CONFIG_EFI */
+> @@ -103,6 +104,11 @@ static inline void sysfb_apply_efi_quirks(struct screen_info *si)
+>   {
+>   }
+>   
+> +static inline bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
+> +{
+> +	return false;
+> +}
+> +
+>   static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
+>   					  struct platform_device *pd)
+>   {
+>
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
+>
+> Best regards,
+> --
+> Han Gao <gaohan@iscas.ac.cn>
+>
+>
 
-  3. Report the sensors from rmi-hwmon: tempX_input and tempX_label,
-     visibility taken from the DIMM map, and the 0.25 degC conversion.
-
-  4. Document the temperature attributes and the DIMM-to-temp mapping
-     in Documentation/hwmon/sbrmi.rst, and point to it from the SB-RMI
-     section of Documentation/misc-devices/amd-sbi.rst.
-
-Thanks,
-Akshay Gupta
-
-Prathima Lk (4):
-  misc: amd-sbi: use guard() for data->lock mutex
-  dt-bindings: hwmon: add DIMM thermal sensor properties
-  misc: amd-sbi: add DIMM thermal sensor support
-  Documentation: hwmon: document DIMM thermal sensor channels
-
- .../devicetree/bindings/hwmon/amd,sbrmi.yaml  |  59 ++++-
- Documentation/hwmon/sbrmi.rst                 |  37 +++
- Documentation/misc-devices/amd-sbi.rst        |   4 +-
- drivers/misc/amd-sbi/rmi-core.c               | 148 ++++++-----
- drivers/misc/amd-sbi/rmi-core.h               |  10 +
- drivers/misc/amd-sbi/rmi-hwmon.c              | 236 ++++++++++++++++--
- 6 files changed, 395 insertions(+), 99 deletions(-)
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
