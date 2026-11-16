@@ -1,79 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794860933;
-	b=pDu6bDuGHbJwwqywvar9CcH6/1ce33YcenXeuGMNkFEdcLSo3WGsPTlVdJlQ6fyaqCQH
-	 UEVpXxSFom7G6HZYU0RdsFqdLFdcxSldQxCoAJUOtedr7TW8OMa0qNMr+/QhJqMM5MRJA
-	 QWyF1yGW/JuZKOOb6vu6s8Qt8zs3T3nDc+pUqNJevs13ZShrcmIQo6b0HDpzKIYyHqhVo
-	 a2LimKuIUqgF7gwRLcsecilAavkEKRaD7JbQfSvbXSh1QkqT6WXebIY6zzF86bouM38aF
-	 5zGrOKwnf1aHtiTGUcjroAIlnP/XxhMH3tjCXIY35Q/Z8V7xbce3JG6YO0+TU8ET85A==
+	t=1794860937;
+	b=rI5xs1DZnyyUAAlRi6fe/Yyt/R8Bm+Z/ccRuuwPQIPDZTxF8j+hLGocJYkQ8UpahJlXD
+	 g7ccn7Ss6mmGbnzkg9DdfJ0sZviMzTZjDO8/BaqDp9HcG0cTjekVuflMrAQSaaf/amzd9
+	 8o1tC/2nwLJDWf5vjifhmTg9D5k6gljAqcdXyK5HvcYmFTrVTHENFLBXCAhBx1/qqn7bu
+	 30o+2QdVRb4UsFMltIcEhZz9wqvmr2p9EksKDqeQfnsN2nhO8acVooAOOOCeJzmurOdBm
+	 IRUJ/OZCjNj1KmawAnE8W/ao/1vW9uZu6IrxznZPPhkJKY2UZz+vw9LoU0Eaydj2PdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860933;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=xS1o3rZDvoPcOnNn0jdvkSHcQJPQ12Zkrym3PMtGPos=;
-	b=rDdJ9OxXkd7+UirdaC19He8krei1JIg+ZYWub5b43ROfarWEeoBIJBrIbKvupkwAncid
-	 wuMJvqLC1GgugvRwRVy/TaG1UFx+Ch8qdfwz/tBmvwX9T+rMs9LJ/mGS8kxQQaJMBRopY
-	 60KV39H+jD/EXYXRQvB4T51GcWAB5mOBSCeUgA1kD6LSuisGhX0B25wv0plxYxDln0WFZ
-	 8poNPEwMfRDYeHCeEhhpsu8ehEWsjeML874Y3otaGVlg9WCIxlCk12AG72flY5a19VcBv
-	 FSKLPCyfDodWIjry3bxsBypsYjP0CFCJLurmR97Zt+FdY7kmbr6i6Y9XqnOy7BVTZIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860937;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2V63xxIdgKQBi65AnPtnz8ppdYY7iry1RAv9yEE7Ysg=;
+	b=hLRlWnRWJHB9rx3NdzSdp9ti+P+achYyIcnZm9DLrfHsht6WIQ294iwXlkJJTJwDZwHq
+	 tgRGcxja+1fvuP+wG/kmcx83/6UoWL9TNXbNqMcjcjd4vnSVQ38z66+fJkYWItYDWrPFg
+	 NtiTMHoU1wWTkmuV8YadyclOC5H9WpywgegvdKFFMT6E+1PA/q+DKO89172awhifANpNC
+	 t8pwYlGTghoIhhz9VXqBmVYu9rpnDTFboOXm/OKnHjG6eyEMBvjfKqAJSjK/KXDExmKNc
+	 ZJsiD5yLO1MM6q6uYhbWzkoSsktld0CZXf01y75IRFKaWZCQ5IR+p9YbsUiCNGnoyWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="ikdZBT/H";
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=I954Dlty;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B47606A333;
-	Mon, 16 Nov 2026 20:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8B47606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4176606A881;
+	Mon, 16 Nov 2026 20:28:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4176606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ikdZBT/H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794860933; x=1826396933;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2Bns3dpZyOx5SbBohcAl653V45jCd0xP5FBRlRQ1zuU=;
-  b=ikdZBT/HeUJA8rQ64NnxTb4Nvqrnr1XsFdBpL8m3MAKjrMm8UKA9YyWK
-   wujK/9ljmcvLqAkhgqEqCaAsZZP8uJ3gvTgRCsxxG4F3btoI+9DQDVrzY
-   3EEeqB69qVcYSPzKoVw605xxvUDg5aK0YEXMSm+hJl65tt3e+G9AVLVZW
-   W0/6/DJo/D2M76TWKaIoSP/Kj2vMO9wntkIO2oENLS7GWaGb78acA4cZT
-   zFFHhEb2PAz1pxifdDYDpTl3JA79Mx6/HxxHjRs62wpXt0iA9xTaHg+8V
-   7W/eTZsNyGhTNM6DY5E2yDEJ8sX93tvFWZP4sbeg2deHJdJihGsBysTJR
-   A==;
-X-CSE-ConnectionGUID: y29jIW7RTVC+XTxGYy2kRA==
-X-CSE-MsgGUID: R/vVhO92RAibefRr5NmptA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3510979"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3510979"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 12:28:52 -0800
-X-CSE-ConnectionGUID: v/ptN20pSu2PJ0fEedtNlA==
-X-CSE-MsgGUID: JG26hXrvS2GCbk9hXPN0ug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9689087"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 16 Nov 2026 12:28:51 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xT3Jo-000000019Ny-0ZuM;
-	Mon, 16 Nov 2026 20:28:48 +0000
-Date: Tue, 17 Nov 2026 04:28:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: William Chuang <founder@logarcheon.com>, akpm@linux-foundation.org
-Cc: oe-kbuild-all@lists.linux.dev, dhowells@redhat.com,
-	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
-	William Chuang <founder@logarcheon.com>
-Subject: Re: [PATCH 1/2] lib/assoc_array: add KUnit test suite
-Message-ID: <202611170414.5JNJifXz-lkp@intel.com>
-References: <20261116054112.39078-2-founder@logarcheon.com>
+	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=I954Dlty
+Received: by mail.grapheneos.org (Postfix) id C4A0C3C08B8E6;
+	Mon, 16 Nov 2026 20:28:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794860935;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2V63xxIdgKQBi65AnPtnz8ppdYY7iry1RAv9yEE7Ysg=;
+	b=I954Dlty+YR5ETHBGffpKC14kaY2iqid3/LCg0EV2nVGwSw2QwG+ZGGCrg4tCpfh+MzHRt
+	JoyQoStup5UZ+bN6kIjS1woyUxpvje9AonJYqlXoyXTVDQLh3SulBPCoenWDZSWTpKQ7KG
+	ezV/fdCtZ3kVHylpKyB5CE2esgXFNAz4R5GUCBlGguey6Sm7Ost8clN7gjMjSaqvo34O5s
+	H0ppZs/PKab/mo1cvtTkr44mCFy0WP9tsPP24RaPbYiGzCJo0/fORZc7Ct5JFWMguSBD3+
+	oU7b+mXP86h36FQz74c8pmFUAGFfV1G2G6ObaMWOqv0GFLXiEsQtMZHFL4mH2Q==
+From: liamsmith827 <liamsmith827@grapheneos.org>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liam Smith <liamsmith827@proton.me>
+Subject: [PATCH net-next v5 4/4] ipv4: replace obsolete routing comment
+Date: Mon, 16 Nov 2026 20:27:41 +0000
+Message-ID: <20261116202741.13106-5-liamsmith827@grapheneos.org>
+In-Reply-To: <20261116202741.13106-1-liamsmith827@grapheneos.org>
+References: <20261116202741.13106-1-liamsmith827@grapheneos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,46 +74,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116054112.39078-2-founder@logarcheon.com>
+Content-Transfer-Encoding: 8bit
 
-Hi William,
+From: Liam Smith <liamsmith827@proton.me>
 
-kernel test robot noticed the following build errors:
+Replace an existing comment which describes obsolete fib_lookup(),
+MSG_DONTROUTE and IPv6 behavior.
 
-[auto build test ERROR on akpm-mm/mm-nonmm-unstable]
-[also build test ERROR on akpm-mm/mm-everything linus/master v7.4-rc3 next-20261113]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Signed-off-by: Liam Smith <liamsmith827@proton.me>
+---
+ net/ipv4/route.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/William-Chuang/lib-assoc_array-add-KUnit-test-suite/20261116-054121
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-nonmm-unstable
-patch link:    https://lore.kernel.org/r/20261116054112.39078-2-founder%40logarcheon.com
-patch subject: [PATCH 1/2] lib/assoc_array: add KUnit test suite
-config: i386-buildonly-randconfig-1001-20261116 (https://download.01.org/0day-ci/archive/20261117/202611170414.5JNJifXz-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611170414.5JNJifXz-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611170414.5JNJifXz-lkp@intel.com/
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_destroy' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_delete' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_apply_edit' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_gc' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_find' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_iterate' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_insert' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_clear' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_insert_set_object' undefined!
->> ERROR: modpost: lib/tests/assoc_array_kunit.ko: symbol 'assoc_array_cancel_edit' undefined!
-
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 03db105303b4..fcdcb63ba09e 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -2856,24 +2856,18 @@ struct rtable *ip_route_output_key_hash_rcu(struct net *net, struct flowi4 *fl4,
+ 		if (fl4->flowi4_oif &&
+ 		    (ipv4_is_multicast(fl4->daddr) ||
+ 		     (!fl4->flowi4_l3mdev && err == -ESRCH))) {
+-			/* Apparently, routing tables are wrong. Assume,
+-			 * that the destination is on link.
++			/* When oif is specified, fib_lookup() is called
++			 * primarily to determine if the destination is
++			 * accessible directly or through a gateway. It also
++			 * checks whether there are any traffic restrictions
++			 * (blackhole, prohibit, unreachable), or if there's a
++			 * routing lookup miss.
+ 			 *
+-			 * WHY? DW.
+-			 * Because we are allowed to send to iface
+-			 * even if it has NO routes and NO assigned
+-			 * addresses. When oif is specified, routing
+-			 * tables are looked up with only one purpose:
+-			 * to catch if destination is gatewayed, rather than
+-			 * direct. Moreover, if MSG_DONTROUTE is set,
+-			 * we send packet, ignoring both routing tables
+-			 * and ifaddr state. --ANK
+-			 *
+-			 *
+-			 * We could make it even if oif is unknown,
+-			 * likely IPv6, but we do not.
++			 * Multicast is sent regardless of restriction or miss.
++			 * Non-vrf unicast honors restrictions but allows
++			 * oif-bound sends even when oif has no routes. In both
++			 * cases the destination is assumed on-link.
+ 			 */
+-
+ 			if (fl4->saddr == 0)
+ 				fl4->saddr = inet_select_addr(dev_out, 0,
+ 							      RT_SCOPE_LINK);
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.47.3
+
