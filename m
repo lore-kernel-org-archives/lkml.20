@@ -1,106 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862457;
-	b=n5aWwFaZjLVILj+8UiivQfx+Wy3mwn0lSBzeHA57wU9Rx2jOArRdW4IemglVukzUXkk9
-	 8c81RvbiGBWXybStpIZRp9ciZ5pfzjIq8fYEpBmiqTjgNEvNjbu79MTkl1aqlMMa1XKHg
-	 VOkAyyGoDwgF9kNrfkY5L5W2DWPA0G2Xc0XJq2IarvoJy/u9X80z+fHYmJCSX+9HzOmGI
-	 Ovn0EvwidaQoDIOs+hcsUD+nmmDi3krVUEvT9XAFcOe8CpcP+NXcJhD/tlwBxnjdwDVFi
-	 dJjry3AzdogFrj6tV5kCazo++fhhlgZ68hIo6Q0Ufk/KZ5RkHJ4f+/jp2T2Zg8pNZjQ==
+	t=1794862495;
+	b=3KdaP7/ePLGkxNHux+UyOxbTjvyBwUh+CmAqgBlPkT/RK9BaC1/6777RafyMTX6k4Hfd
+	 cnnZgaDvWVBovCZBOaZgAV3d1eYWNn2aJZjIxspYfGdjWiYJPS4tyWcPFXCz+55DPjAxx
+	 o1yqEQsXll27GAD0tKoodSvcOJSBXv3tTwiqVDrNyF28gSNrUJPjH8iZeV69/9wSIP4Uh
+	 gbjeXpvlvjLPGQo2kIpVPRhF9DmQhM6YjivTVOS7Z8T+DDLDqp7wycegCQKFlDsIOHJlR
+	 mLQEd0oGqRhLShmYMHmLdKJsdX47tOJ851B9UN2/8LDhVznUf2kuVr/SAyU+fRzCxUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862457;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wY23vVP26FclYf43DSPod+3AMaTOMObgwHZwGjSX/TM=;
-	b=sP0QO76R5LhQcwWS1Q6rzpGv0IskrfiZ7fPAjkxADU785w/JHSfAkfp0BAWPkwPp3VAg
-	 1liWiq6bETNgcEMjpKKwckFTQ8ijsW6w7+qBQB3fRKklcZDVLA+68hgoTJKA5AvRw7Prr
-	 LP3MRieYxTBY/Y/+5HB9Fw3FRVrclT9xUUHGddlA/ha4zzCeVYXM7/9w1H/yi4zglpuat
-	 SDPpZ2BmO0ILmHTVdwtDlFH67SOKUT2KIY9tV/b/ofXXswYxIgsJLR1HIG/2EPIU0+p2o
-	 nNb5xmul/ItzhBN5hNIrXvtYt2CbdOIJhCafZ3AQ/j542Sp3Al/k/XRKGTIzbk4ePVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862495;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=UAG6ybXWhgd9D/xMXlE5TO4WMq8Qm8ocklmlYGwsIOo=;
+	b=ZaCKiMDVK9k0tbdwEGBpl0OyaSF1g3200/Re9Gqq19ng9C04tnsuCu1XhTiXXYZlC3tf
+	 9877cMwm/3W3uTxPQBK3YE0rAL1HGb+mbUCcV4L0uqGg29iVl2nPEh8idtPXuSS14O8jA
+	 qaJ/vMVzdabRC1vXRdZ134Df8Hf6RQCWJo4OeE0nXtJ6cSNUbhqwpn6m6zmVY5xxdoZdt
+	 V6uWY5DYPrIOAzQFkB3bmNCIjq+gGzKWHbBxi4iYw81bPaSKuEHtbJpNlJF9v+F2UML78
+	 SccBXfqIgT+/hRWhdreDvHcKQO+9nHAD+5mKBpR8fOb/mE9AdIk9y3C/R9gLUOrwWOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Q6wL8QK+;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Et2ZYoFY;
+	arc=none smtp.remote-ip=52.26.1.71
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8921560A2616
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:54:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8921560A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC5D606A322;
+	Mon, 16 Nov 2026 20:54:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC5D606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Q6wL8QK+
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-380b40312e2so1792223eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:54:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Et2ZYoFY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794862456; x=1795467256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wY23vVP26FclYf43DSPod+3AMaTOMObgwHZwGjSX/TM=;
-        b=Q6wL8QK+VY9xx+ONDUwIFC6FoYn6h2EOxNhpRr0lXW0s0OR9kdjh9F26P5SZhxBqvt
-         s7mpPCa+m9D2lUEuynLelsGjX/50XOlz93ERGrMUqwsncVx6fnJWktyceqYkGfMjGu/r
-         khlaMciBwbYHKIACSjmasF7++5fez2yj8AQFk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862456; x=1795467256;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wY23vVP26FclYf43DSPod+3AMaTOMObgwHZwGjSX/TM=;
-        b=rfLoSccHjb7m7Ox8sfxgNLtiZqw6XLd6s0gmLV7Webqp80QkBVscuNpx+gcHjaa90R
-         dEy+gLlxWHKPLcL7QH8ta5HVsaI5wgFTfQG73Nf7CpqW9NKsNgSb4LgAGaX3eTYpqjyE
-         WV6KarisWGZFZH2Ot00fPP2nZYwHECUTooPhzuRl6uKxOJk/X43oWYGXZYRpaiT6uE+Z
-         yEVSalnw/Y3SsNB0k70OwFB3f3c/fsMkrOcwHrU84oQFsDwYGESg1eIUR97JHfQQgjpb
-         b2rONvM+SBwLfm6POkIVgZgW+n17UJlNuAXAMCbzjm0kWVJZa2QpHeghXK7wViPtBNVx
-         dnKQ==
-X-Forwarded-Encrypted: i=1; AL+hErGV5CMgzhMS9vFTh/xcFrYl68a+okK03KFQHTCOFjCpkq/zmJ9SJXIESvZKRbWi758Vk0+UdvLbcHIWd+c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8nFPIm2UWsADVn0mXoFJKM5urXGwZmw5opw4sQ483ZmFy7mzKE
-	sxt7BdUvfJu8SbFVKuS5DILeWS8Lbxn/PtVdtMPeJiCNskt0DAi+cnwhP8H//ZTfCw==
-X-Gm-Gg: AZFdTZfPnGsuqoUT2P915GlGEL7rB3QqY8FUDiteRFsZ0XXbaZZt+yuMBalSsWfdHmE
-	HG2gNfksjxP3wpH1qHCrkh41VLbP9c84yIDi9MoC/Rz6QqJCjcxXhSchZCU04UzRVXV0FQcNP/k
-	+vDW7+FokOsw+lhy8Ngvt7Yg36SiCZUDnwWBowhjB7kZn8e8r91fcMaobv3X0N5dRXaFRIbTWh7
-	bA47KEud3pdVTjfQvcKFbos2KJzJCaoEA6a0dJrd9Pf7WRqyar2nWymji59SzSJTkvZVizrnTB0
-	Od65c0s/56+6jze5hyiMB2IXupHRAvd2dOFRwvUES32L3KvI4QHekunbj/dLLwJpeXlubmrJZO/
-	B0nJnkffSEIX/hBK0RiTO9OSDVjm1rf8j9kXHsRvDwyDkBKkx0Xd7k1UkgF0iN2HC/ZgOBopmo/
-	t4zNTJMOb35xEue+UFEWrqLOGiZ+MytKy+vHrCnmB72a/P3Lq2+NRcgVHEbwCfsk6VTnIJTEGcy
-	FhNz0hqZblAYyuTxSKhvAztVM5oB3+/AtP6zS+Z5a4CPSBHR7CXPws7PyXuB74RcrS4eQpymEEL
-	5SvkjAqsGHWFaQjDGU6bNZyEn7ZjIAh8xNdlPkoZJkgCWGy14WcbeYYq33wHlKylcaUqlHz62nQ
-	SwkTz+BjnA4nT9w==
-X-Received: by 2002:a05:693c:83d4:10b0:37f:4fda:1a85 with SMTP id 5a478bee46e88-37f4fda20f2mr3778860eec.16.1794862455442;
-        Mon, 16 Nov 2026 12:54:15 -0800 (PST)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.54.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:54:14 -0800 (PST)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v4 14/14] fdtfactor: Parallelize blob compression and decompression
-Date: Mon, 16 Nov 2026 12:53:11 -0800
-Message-ID: <20261116205320.1621386-15-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
-References: <20261116205320.1621386-1-dianders@chromium.org>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794862495; x=1826398495;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=UAG6ybXWhgd9D/xMXlE5TO4WMq8Qm8ocklmlYGwsIOo=;
+  b=Et2ZYoFYABwQm7Je6xGMxPOh8BU5mA6c8UjfTBpMJuBPSOW/XvO7Jw7x
+   /f3gmAuz/piuEqd/5xZGMgOIAfjcD5qH0GrT8ePw1wPQrzMQ7v+R+hSvg
+   vtusABMsv+pK/2LLC5GY7PP4cCv+28Dm5qGs6O9Ng+BuqwxY7JHm0dqwz
+   u4Jz7dvG8V5rbOx05B4JSqHu8pAOsQU8bSnSYKnHpF/r3XtFBQ99IRhjw
+   otp+ngFxXKbNZU5yJv9tFadS3q/Z4G9yHkT+OgLZvUGSYOOrWEBj0uuED
+   JNrYzkmrxyBj9eP9A7GnCWHBXR6rXCMKk+9r3lmq2wx83r4Zp4YJnUkGi
+   g==;
+X-CSE-ConnectionGUID: 8XwXTjfrTo6CcMYkgV2Zgw==
+X-CSE-MsgGUID: tXoOGXwOS1uP+4QVietCjw==
+X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
+   d="scan'208";a="34339671"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 20:54:55 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:8311]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
+ id b7c41268-69a0-46a3-be2e-c11ff2b8e151; Mon, 16 Nov 2026 20:54:54 +0000 (UTC)
+X-Farcaster-Flow-ID: b7c41268-69a0-46a3-be2e-c11ff2b8e151
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 20:54:54 +0000
+Received: from 80a9970eed1e.amazon.com (10.106.101.27) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 20:54:53 +0000
+From: Justinien Bouron <jbouron@amazon.com>
+To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>, "Martin K . Petersen"
+	<mkp@kernel.org>, John Garry <john.garry@linux.dev>, Hannes Reinecke
+	<hare@suse.de>, Jens Axboe <axboe@kernel.dk>, <linux-ide@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Justinien Bouron <jbouron@amazon.com>, Gunnar Kudrjavets
+	<gunnarku@amazon.com>, <stable@vger.kernel.org>
+Subject: [PATCH] ata: libata-core: Add max sector quirk to INTEL SSDSCKKB240G8
+Date: Mon, 16 Nov 2026 12:54:30 -0800
+Message-ID: <20261116205430.44305-1-jbouron@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,351 +86,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-When factoring dozens or hundreds of compressed DTBs (either standalone
-with `-C` or inside a compiled FIT with `-F`), running `gzip`, `lzma`,
-`xz`, or external `lz4` processes sequentially spends several seconds
-compressing and decompressing blobs one at a time.
+INTEL SSDSCKKB240G8 with firmware version XC311102 runs into FPDMA
+timeout errors when queue/max_sectors_kb is set to
+BLK_DEF_MAX_SECTORS_CAP = 4096KiB / 8192 sectors. Similar to model
+SSDSC2KG480G8, the issue disappears when setting this max size to 8191
+sectors, thus apply the same quirk.
 
-Because Python's `zlib` and `_lzma` C extensions and `subprocess.run()`
-for `lz4` all release the GIL, add a small `_map_blobs()` helper using
-`concurrent.futures.ThreadPoolExecutor` to decompress input blobs and
-compress output base/overlay blobs across worker threads in
-deterministic input order whenever multiple compressed blobs are
-processed.
+Firmware version X5A1ME59 for SSDSCKKB240G8 is un-affected by this bug
+thus keep the quirk specific to firmware XC311102.
 
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Fixes: 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP")
+Signed-off-by: Justinien Bouron <jbouron@amazon.com>
+Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Cc: stable@vger.kernel.org
 ---
-Found this speedup while benchmarking fdtfactor. It's not critical to
-functionality, but seems like a nice win.
+ drivers/ata/libata-core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Changes in v4:
-- New patch parallelizing blob compression and decompression across
-  worker threads
-
- fdtfactor | 190 +++++++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 138 insertions(+), 52 deletions(-)
-
-diff --git a/fdtfactor b/fdtfactor
-index ebf40cdeaf92..ab59763d8863 100755
---- a/fdtfactor
-+++ b/fdtfactor
-@@ -18,6 +18,7 @@ its embedded `/images/fdt-*` blobs into base DTBs (`fdt-base-1`, `fdt-base-2`,
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index 5ff45a5cbfe4a..2a5ca1b9ee5c0 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -4204,6 +4204,7 @@ static const struct ata_dev_quirk_value __ata_dev_max_sec_quirks[] = {
+ 	{ "LITEON EP1-*",		NULL,		1024 },
+ 	{ "DELLBOSS VD",		"MV.R00-0",	8191 },
+ 	{ "INTEL SSDSC2KG480G8",	"XCV10120",	8191 },
++	{ "INTEL SSDSCKKB240G8",	"XC311102",	8191 },
+ 	{ },
+ };
  
- import argparse
- from collections import Counter
-+import concurrent.futures
- import copy
- import gzip
- import hashlib
-@@ -140,6 +141,32 @@ def compress_blob(raw_bytes, comp, filename=''):
-     raise ValueError(f'{prefix}Unsupported compression type: {comp}')
- 
- 
-+def _map_blobs(func, tasks, pool=None):
-+    """Apply `func(blob, comp, filename)` across `tasks`, parallelizing if compressed.
-+
-+    Python's `zlib` and `_lzma` C extensions and external `lz4` subprocesses
-+    release the GIL, so running multiple compressed tasks across a
-+    `ThreadPoolExecutor` overlaps compression and decompression across CPU
-+    cores while preserving deterministic input order.
-+
-+    Args:
-+        func: `decompress_blob` or `compress_blob`.
-+        tasks: Sequence of `(blob_bytes, comp, filename)` tuples.
-+        pool: Optional shared `ThreadPoolExecutor` instance.
-+
-+    Returns:
-+        List of processed `bytes` in the same order as `tasks`.
-+    """
-+    if len(tasks) < 2 or not any(
-+        comp not in ('none', '', None) for _, comp, _ in tasks
-+    ):
-+        return [func(*t) for t in tasks]
-+    if pool is not None:
-+        return list(pool.map(lambda t: func(*t), tasks))
-+    with concurrent.futures.ThreadPoolExecutor() as new_pool:
-+        return list(new_pool.map(lambda t: func(*t), tasks))
-+
-+
- def _is_dtbo_overlay(root):
-     """Return True if `root` is a `.dtbo` overlay tree rather than a base DTB.
- 
-@@ -1061,13 +1088,14 @@ def group_fit_dtbs(fdt_entries, min_overlap=50.0):
-     return [grp['entries'] for grp in groups]
- 
- 
--def _extract_fit_fdt_entries(fit_in_path, images_node, configs_node):
-+def _extract_fit_fdt_entries(fit_in_path, images_node, configs_node, pool=None):
-     """Extract and parse non-overlay `flat_dt` entries from `/images`.
- 
-     Args:
-         fit_in_path: Input FIT path (for error reporting).
-         images_node: `DeviceTree` for the FIT `/images` node.
-         configs_node: `DeviceTree` for the FIT `/configurations` node.
-+        pool: Optional shared `ThreadPoolExecutor` for decompression.
- 
-     Returns:
-         List of dicts (`{'name', 'node', 'dtb', 'fdt'}`) for all non-overlay
-@@ -1081,7 +1109,7 @@ def _extract_fit_fdt_entries(fit_in_path, images_node, configs_node):
-                     f'is not supported; sign the FIT after factoring'
-                 )
- 
--    fdt_entries = []
-+    candidates = []
-     for img_name, img_node in images_node.children.items():
-         if ('data-offset' in img_node.props or
-                 'data-position' in img_node.props):
-@@ -1112,7 +1140,19 @@ def _extract_fit_fdt_entries(fit_in_path, images_node, configs_node):
-             )
-         if comp == 'lz4' and raw_data.startswith(LZ4_LEGACY_MAGIC):
-             comp = 'lz4_legacy'
--        raw_bytes = decompress_blob(raw_data, comp, filename=node_label)
-+        candidates.append((img_name, img_node, node_label, comp, raw_data))
-+
-+    raw_blobs = _map_blobs(
-+        decompress_blob,
-+        [(raw_data, comp, node_label)
-+         for _, _, node_label, comp, raw_data in candidates],
-+        pool=pool,
-+    )
-+
-+    fdt_entries = []
-+    for (img_name, img_node, node_label, comp, raw_data), raw_bytes in zip(
-+        candidates, raw_blobs
-+    ):
-         fdt = _open_fdt(raw_bytes, node_label)
-         root = FactoredTree.unflatten(fdt)
-         if _is_dtbo_overlay(root):
-@@ -1194,13 +1234,15 @@ def _partition_fit_fdt_entries(fdt_entries, single_base_dtb, min_overlap=50.0):
-     return factorable_groups, unfactored_entries
- 
- 
--def _strip_fit_unfactored_local_fixups(unfactored_entries):
-+def _strip_fit_unfactored_local_fixups(unfactored_entries, pool=None):
-     """Strip `/__local_fixups__` from unfactored FIT `flat_dt` entries.
- 
-     Args:
-         unfactored_entries: List of single-board FIT `flat_dt` entry dicts left
-             unfactored by `_partition_fit_fdt_entries()`.
-+        pool: Optional shared `ThreadPoolExecutor` for compression.
-     """
-+    to_recompress = []
-     for entry in unfactored_entries:
-         fdt = entry.pop('fdt')
-         tree = libpydt.DeviceTree.unflatten(fdt)
-@@ -1210,17 +1252,26 @@ def _strip_fit_unfactored_local_fixups(unfactored_entries):
-             mem_rsv=entry['dtb'].mem_rsv,
-             boot_cpuid_phys=entry['dtb'].boot_cpuid_phys,
-         )
--        comp_bytes = compress_blob(
--            bytes(stripped_fdt.as_bytearray()),
-+        stripped_bytes = bytes(stripped_fdt.as_bytearray())
-+        to_recompress.append((
-+            entry['node'],
-+            stripped_bytes,
-             entry['dtb'].compression,
--            filename=f'/images/{entry["name"]}',
--        )
--        img_node = entry['node']
-+            f'/images/{entry["name"]}',
-+        ))
-+
-+    comp_blobs = _map_blobs(
-+        compress_blob,
-+        [(blob, comp, label) for _, blob, comp, label in to_recompress],
-+        pool=pool,
-+    )
-+    for (img_node, _, _, _), comp_bytes in zip(to_recompress, comp_blobs):
-         img_node.set_prop(libfdt.Property('data', comp_bytes))
-         _update_fit_hashes(img_node)
- 
- 
--def _factor_fit_group(entries, base_dtb_node_name, strip_local_fixups):
-+def _factor_fit_group(entries, base_dtb_node_name, strip_local_fixups,
-+                      pool=None):
-     """Factor one group of FIT `flat_dt` entries into a base node and overlays.
- 
-     Args:
-@@ -1229,6 +1280,7 @@ def _factor_fit_group(entries, base_dtb_node_name, strip_local_fixups):
-             node (e.g., `'fdt-base-1'`).
-         strip_local_fixups: If True, omit `/__local_fixups__` from the
-             generated base DTB.
-+        pool: Optional shared `ThreadPoolExecutor` for compression.
- 
-     Returns:
-         Tuple of `(base_dtb_node, stat_args)` where `base_dtb_node` is the
-@@ -1241,9 +1293,20 @@ def _factor_fit_group(entries, base_dtb_node_name, strip_local_fixups):
-     )
-     base_comp = group_dtbs[0].compression
- 
--    base_dtb_comp_bytes = compress_blob(
--        base_dtb_blob, base_comp, filename=f'/images/{base_dtb_node_name}'
-+    comp_blobs = _map_blobs(
-+        compress_blob,
-+        [
-+            (base_dtb_blob, base_comp, f'/images/{base_dtb_node_name}'),
-+            *(
-+                (dtbo_blob, entry['dtb'].compression, f'/images/{entry["name"]}')
-+                for entry, dtbo_blob in zip(entries, dtbo_blobs)
-+            ),
-+        ],
-+        pool=pool,
-     )
-+    base_dtb_comp_bytes = comp_blobs[0]
-+    dtbo_comp_blobs = comp_blobs[1:]
-+
-     base_dtb_node = copy.deepcopy(entries[0]['node'])
-     for prop in ('phandle', 'compatible'):
-         base_dtb_node.props.pop(prop, None)
-@@ -1272,12 +1335,9 @@ def _factor_fit_group(entries, base_dtb_node_name, strip_local_fixups):
-     _update_fit_hashes(base_dtb_node)
- 
-     dtbo_comp_sizes = []
--    for entry, dtbo_blob in zip(entries, dtbo_blobs):
-+    for entry, dtbo_comp_bytes in zip(entries, dtbo_comp_blobs):
-         img_node = entry['node']
-         entry_comp = entry['dtb'].compression
--        dtbo_comp_bytes = compress_blob(
--            dtbo_blob, entry_comp, filename=f'/images/{entry["name"]}'
--        )
-         dtbo_comp_sizes.append(len(dtbo_comp_bytes))
- 
-         if 'description' in img_node.props:
-@@ -1386,39 +1446,42 @@ def factor_fit(fit_in_path, fit_out_path, strip_local_fixups=False,
-             f'/configurations nodes'
-         )
- 
--    fdt_entries = _extract_fit_fdt_entries(
--        fit_in_path, images_node, configs_node
--    )
--    factorable_groups, unfactored_entries = _partition_fit_fdt_entries(
--        fdt_entries, single_base_dtb, min_overlap=min_overlap
--    )
--    if strip_local_fixups and unfactored_entries:
--        _strip_fit_unfactored_local_fixups(unfactored_entries)
--    else:
--        for entry in unfactored_entries:
--            entry.pop('fdt', None)
--
--    fdt_to_base_dtb = {}
--    insert_before_first = {}
--    group_stats = []
--    used_image_names = set(images_node.children)
--    next_base_idx = 1
--
--    for entries in factorable_groups:
--        while f'fdt-base-{next_base_idx}' in used_image_names:
--            next_base_idx += 1
--        base_dtb_node_name = f'fdt-base-{next_base_idx}'
--        used_image_names.add(base_dtb_node_name)
--        next_base_idx += 1
--        base_dtb_node, stat_args = _factor_fit_group(
--            entries, base_dtb_node_name, strip_local_fixups
-+    with concurrent.futures.ThreadPoolExecutor() as pool:
-+        fdt_entries = _extract_fit_fdt_entries(
-+            fit_in_path, images_node, configs_node, pool=pool
-         )
--        insert_before_first[entries[0]['name']] = (
--            base_dtb_node_name, base_dtb_node
-+        factorable_groups, unfactored_entries = _partition_fit_fdt_entries(
-+            fdt_entries, single_base_dtb, min_overlap=min_overlap
-         )
--        for entry in entries:
--            fdt_to_base_dtb[entry['name']] = (base_dtb_node_name, entry['dtb'])
--        group_stats.append(stat_args)
-+        if strip_local_fixups and unfactored_entries:
-+            _strip_fit_unfactored_local_fixups(unfactored_entries, pool=pool)
-+        else:
-+            for entry in unfactored_entries:
-+                entry.pop('fdt', None)
-+
-+        fdt_to_base_dtb = {}
-+        insert_before_first = {}
-+        group_stats = []
-+        used_image_names = set(images_node.children)
-+        next_base_idx = 1
-+
-+        for entries in factorable_groups:
-+            while f'fdt-base-{next_base_idx}' in used_image_names:
-+                next_base_idx += 1
-+            base_dtb_node_name = f'fdt-base-{next_base_idx}'
-+            used_image_names.add(base_dtb_node_name)
-+            next_base_idx += 1
-+            base_dtb_node, stat_args = _factor_fit_group(
-+                entries, base_dtb_node_name, strip_local_fixups, pool=pool
-+            )
-+            insert_before_first[entries[0]['name']] = (
-+                base_dtb_node_name, base_dtb_node
-+            )
-+            for entry in entries:
-+                fdt_to_base_dtb[entry['name']] = (
-+                    base_dtb_node_name, entry['dtb']
-+                )
-+            group_stats.append(stat_args)
- 
-     _update_fit_images_and_configs(
-         images_node, configs_node, insert_before_first, fdt_to_base_dtb
-@@ -1668,7 +1731,24 @@ def factor_dtb_files(args):
-     """
-     comp = args.compression
-     input_dtb_paths = args.dtbs
--    dtbs = [ParsedDtb(p, comp=comp) for p in input_dtb_paths]
-+    file_blobs = []
-+    for p in input_dtb_paths:
-+        with open(p, 'rb') as f:
-+            file_blobs.append(f.read())
-+    raw_blobs = _map_blobs(
-+        decompress_blob,
-+        [(b, comp, p) for p, b in zip(input_dtb_paths, file_blobs)],
-+    )
-+    dtbs = [
-+        ParsedDtb(
-+            p,
-+            comp=comp,
-+            fdt=_open_fdt(raw, p),
-+            uncompressed_size=len(raw),
-+            compressed_size=len(fblob),
-+        )
-+        for p, fblob, raw in zip(input_dtb_paths, file_blobs, raw_blobs)
-+    ]
- 
-     base_dtb_path = (
-         os.path.join(args.output, args.output_base_dtb)
-@@ -1706,20 +1786,26 @@ def factor_dtb_files(args):
-         strip_local_fixups=args.strip_local_fixups,
-     )
- 
--    base_dtb_file_bytes = compress_blob(
--        base_dtb_blob, comp, filename=base_dtb_path
-+    comp_blobs = _map_blobs(
-+        compress_blob,
-+        [
-+            (base_dtb_blob, comp, base_dtb_path),
-+            *((b, comp, p) for p, b in zip(dtbo_paths, dtbo_blobs)),
-+        ],
-     )
-+    base_dtb_file_bytes = comp_blobs[0]
-+    dtbo_comp_blobs = comp_blobs[1:]
-+
-     if args.output:
-         os.makedirs(args.output, exist_ok=True)
-     with open(base_dtb_path, 'wb') as f:
-         f.write(base_dtb_file_bytes)
- 
-     dtbo_file_sizes = []
--    for out_path, dtbo_blob in zip(dtbo_paths, dtbo_blobs):
-+    for out_path, out_bytes in zip(dtbo_paths, dtbo_comp_blobs):
-         out_dir = os.path.dirname(out_path)
-         if out_dir:
-             os.makedirs(out_dir, exist_ok=True)
--        out_bytes = compress_blob(dtbo_blob, comp, filename=out_path)
-         dtbo_file_sizes.append(len(out_bytes))
-         with open(out_path, 'wb') as f:
-             f.write(out_bytes)
+@@ -4474,6 +4475,8 @@ static const struct ata_dev_quirks_entry __ata_dev_quirks[] = {
+ 						ATA_QUIRK_MAX_SEC },
+ 	{ "INTEL*SSDSC2CT*",		NULL,	ATA_QUIRK_ZERO_AFTER_TRIM |
+ 						ATA_QUIRK_NO_FUA },
++	{ "INTEL SSDSCKKB240G8", "XC311102",	ATA_QUIRK_ZERO_AFTER_TRIM |
++						ATA_QUIRK_MAX_SEC },
+ 	{ "INTEL*SSD*",			NULL,	ATA_QUIRK_ZERO_AFTER_TRIM },
+ 	{ "SSD*INTEL*",			NULL,	ATA_QUIRK_ZERO_AFTER_TRIM },
+ 	{ "Samsung*SSD*",		NULL,	ATA_QUIRK_ZERO_AFTER_TRIM },
 -- 
-2.56.0.679.gc527c65306-goog
+2.47.3
 
