@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841224;
-	b=d+J71CJjAs6HLldJ5PclThvSW+QYInpQpFU4Olu2f3kb7rE9YFC+xBqazA/3fYBTkWu2
-	 CJLXMapKrihi/hM9lH98JvzNIGMtv3mpMEPMBgbGaJ9pkq9Tpl0qG4SkpNMo/RYFTLdoZ
-	 lbfQSCdk0ISu+28n196/Vgf0cfQvBh7v272G+VRzzKxZbWlFgOlaqlGcqMhvqCLN9sTTb
-	 65zKapsEAnyKuEPasG2W/khZ96kNhFl8MtlfAKpwBswgo+/jVi6oPdG8V1dPkUHy5jJ1d
-	 2I09wnIuj0lqYl4qiQ6kSq94jhH2ICA8mGIwmdPyZbxfrKYk9qdEF3w/W78gjDFFO1g==
+	t=1794841275;
+	b=g7rNEFdG0QGV0Ci5IiXlKAf7wBnjmMGwIPjwvAaMlTyrZ6jZPMQ20hos38bCL12j/xCV
+	 slVHFRfgvR8ftWIokPcaMMZDuPTotmDCmDnEFi9E+s3cmOix8ERqE/gUIo7GUasJIgmOs
+	 1mw1gKYFys/R+SQS/IwJN4Rh2NwFuBlx0nEWMWGKaJFHFEh3VEMjzyf0VW8HmIFoV7CzC
+	 L56ihJJSAfPxoz+geClUaHtAb0kv+UkaLEwFslOsipB6Xg8hyeQpp1Xo7KflgNnBfRK2A
+	 ++V+XDOCn2V/yohF2RroaxSnzjrMlk++vI+x9Br/dyUjGgHwkHA8NEsYBw1HaByYd1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841224;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=6vXeoSRVpAmCFFIYEk5DFqHsPl35CVOsvOWiLh063mo=;
-	b=ONJinPpP6bBnBRyG+d7MEwwcwq4kWPqQZ0QjS/wZFDGLN3ZuVsOr5zLSVGGq8PHBk86k
-	 wy801+TH0xWPAFWhKkLY79txeQgiH3bM9w7ldvJneytIIcoqsrKv6Pz6HrbPuW+0Nhc4+
-	 u/QDMTbSCiXDTGj+GB1zykQACPr4kgHcqGPZcmxSaDFN38XOqb/+mWXJ7TziIbgdYCAII
-	 l6oYR0bLuUhN6uHatZUdrUtaR4vw8+GLkzIu7MdI4iN4TdNfzl+4YWGno4QIkODUXiYNE
-	 5h7fIbvqKEUvJPQ3R6xKmAooL8E6hjSyhzqmfcyaBkSztAaHZeUQZe/1Q6sP0x2BNjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841275;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JM1zD3i7LF4wBwdktOmYzhj34P8A1bSegjMOIVKdeWY=;
+	b=JVbYAot0caxC9TAY3ZCMTxBCWLDyspCMUWdaCu2aPnsGiUICbPtcFF6zA8vnrg9bbWZI
+	 YrQkbHiyeoXZG4rgMMZoiKCWOWK1kAM4HaMwGgp6/CiO6aj/UGSanyuYLe59wtXQAhhhG
+	 ARl0WF+bgHE5R6t3nW338LhiRfw2LYMBdMhecimyOCOlmJsl/xsfs9odbjqRuvrhIq65Z
+	 lnQsNg4pOI5GFqQWf1CyxvVFODxryPPVvkW8mb2igqsFqVJK+ZHOS3uuL4gmnfyqHrMSr
+	 AC/a/1ZurPbx6NJqOdvr9x0Z2EESruLuhVAK1QMO4o+xuvR5oLwgixBV76a3STeQvbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.94.104
-Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0tBilb/g";
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56671606A32A;
-	Mon, 16 Nov 2026 15:00:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56671606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jSrcM0w9Dz1rqCH;
-	Mon, 16 Nov 2026 22:59:31 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 16CB64056B;
-	Mon, 16 Nov 2026 23:00:20 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgCHwvGDGvtq2ylhEg--.19855S2;
-	Mon, 16 Nov 2026 23:00:19 +0800 (CST)
-Message-ID: <c1f5c334-7668-403a-98a0-782184367113@huaweicloud.com>
-Date: Mon, 16 Nov 2026 23:00:19 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1472606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1472606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0tBilb/g
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49d05d51553so20184805e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:01:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794841272; x=1795446072; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JM1zD3i7LF4wBwdktOmYzhj34P8A1bSegjMOIVKdeWY=;
+        b=0tBilb/grq0KTWcpgfvZHJEhJHJDZoVB1ZNl6nBMtRzNU9Grh7NXlCcydHsYpJnJgk
+         NZ+yisV+ynLlIpvV3XwCmgWkRzI2tqeBaEiNchMgspDWjNESnlqJXrCMLvEMu+LtrM6G
+         kMKqO/HJKMBK6e04G2pz8bnRCS/eMrGM4KcGY7u91W9t8GJD5v42D41fYX6Wejj+IGbQ
+         nlL7cvjx5ZyJ2Hn2U3MMfOu6/QAFUC6A2iidq7Ha+eskKX5qkDmA9nV5JtipCK7x1otC
+         2uD6PLCuXcC3F7Ip/OI4jWmdIYIgMl5AMWLVWHJXbidriX6Y5sR4LUzpaNJZjpU1u6Yl
+         h2Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794841272; x=1795446072;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JM1zD3i7LF4wBwdktOmYzhj34P8A1bSegjMOIVKdeWY=;
+        b=WX+lodOkp+Faina4OTJvVnGGS+1rZvQa07LE59/hzcY1qz0t4kY/6ArYrgEakgOtpe
+         m0paKq1kx6YYSqppcJI/zuz32CCrYCAFKgomu8SuNymKws+1GjkSgVzjp9Aj9tR4Z57m
+         nvN3THhe3R21MJ1rgKL2l2/gF+sY8YD0wQD8tPH9y3jC6/QhXqWR1QmK8is8D6gZp3Uz
+         QmaKbNG6jw7ZtWMBIzTzQsgpsbzQ0stDA4CHlBZfL9VLURVVK0kpA3bAM6oQlezmdHQf
+         7AKtUEDxtD2UBnPz/VQjBEmsH8C4iVHd+m3GtyqhnP+sgscJpQtCnYWvzzRKb8XL9sNw
+         qLYg==
+X-Forwarded-Encrypted: i=1; AL+hErEMronXibSiMMDY7ZHdWJhBj/uejBSlISBczBllRfFir+Ghxq9y48QCobJnSU/iSBZSWIpBFJU37RKs+V8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/V2Y+buR3nAZDBg1CJuyUQCfC/+b4hYMLU289W/aGWi6cTOWbG
+	FqpmLQbJpjUsc+upprLDalGvdsUU6qyTHccBYmidk+S35PxZeJwpvOjj
+X-Gm-Gg: AYBFou2R4f1nJs73c2x9eN7uzRuwhj+axTIBMLxKIirQ2VxkJcXhEenvZ/1kGdAv4JT
+	IrFbqfKuaejzfiy9mYPK1vYRH6uzQ8QSnPJDTzNOpmz3QNpN9YHFnW0hiMqQa/e8hBW7LVcKelJ
+	9vGdTKS9kXsGBvQViqru8ZvRgo0VT4CGFZv2UMUlqCs3OM8uuIxKJGlak5bLbnCMQYb5lThX6XH
+	7X36ZLPa8c3uoFo+ihwRUic2oDzCzWtYvNuWCFDSiXPX5R/4BqSuRQGX52pbXGD589sSe35Cjn2
+	xi/HI0ldH7HlQyG3GINt3plZxxOzeD+7ZVhJ9Id+Aa4LnAUb+5Ne1ISDnj3z77I/Isae8xKbIG3
+	F15MuA68nPht8rUal54GL/i2u1i8FFfJTR7OgPsvFLykD4U19UjjpPGakCQmssDGAwOu9m0+hxu
+	eMQ2Vf0Q5OVY4xqTkoGHTjLXmtXfPhEGRmPyl3tc9avfKeEDrxtonmuLB0grtuzo3WMwadZ4Lwz
+	ecGP0lXCTodjDb3rTMscAQ0ld+aOsZHszx0pV4DYRVwgvLKB5zEU+Ddi1RIWPOoTgPiL3AgQJPF
+	MX8uTG5Wzc7tvAzWK9/XO34DafrlzxT/8hk=
+X-Received: by 2002:a05:600c:6989:b0:4bb:6823:3d3c with SMTP id 5b1f17b1804b1-4bb68233edamr150358065e9.20.1794841270609;
+        Mon, 16 Nov 2026 07:01:10 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm22912555f8f.23.2026.11.16.07.01.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 07:01:10 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Neill Kapron <nkapron@google.com>,
+	Krystian Kaniewski <krystianmkaniewski@gmail.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: [PATCH v3] usb: gadget: u_serial: implement flush_buffer
+Date: Mon, 16 Nov 2026 16:01:09 +0100
+Message-ID: <20261116150109.1474880-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,112 +97,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] perf/core: Disable context fast-swap for sigtrap
- events
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793870900.git.wutengda@huaweicloud.com>
- <f19b29b90fe1d0126fa8f5cd0e7c8d7da07e5a34.1793870900.git.wutengda@huaweicloud.com>
- <20261116101742.11G-Kmmb@linutronix.de>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <20261116101742.11G-Kmmb@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgCHwvGDGvtq2ylhEg--.19855S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWryrur4UJr4ftF1rAF4rAFb_yoW5WF47pr
-	WkCr15KrykXr12v3ZxKa1qg34rWw4rKr4DWw4vvay3Aw45XwnaqFW7J3WYgFn8Ar1Iya4r
-	t3yvvrZ3u34UJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkEb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
-	j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
-	kEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
-	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UQ6p
-	9UUUUU=
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Transfer-Encoding: 8bit
 
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
+gs_close() waits up to GS_CLOSE_TIMEOUT (15 s) for the write buffer
+to drain while the gadget is connected. When the host does not read
+the port, for example because no application on the host has it open,
+the last close blocks for the full timeout. tcflush(TCOFLUSH) cannot
+avoid that: u_serial has no flush_buffer operation, so the request is
+a no-op.
 
-On 2026/11/16 18:17, Sebastian Andrzej Siewior wrote:
-> On 2026-11-05 09:30:44 [+0000], Tengda Wu wrote:
->> perf_sigtrap() contains:
->>
->> 	WARN_ON_ONCE(event->ctx->task != current)
->>
->> The warning assumes that an event's ctx->task always matches the task
->> that ends up running the pending task_work. That assumption can be
->> broken by the context fast-swap path.
->>
->> The failure sequence is:
->>
->>   1. A -> B switch, perf_event_context_sched_out() takes the fast path
->>      and does WRITE_ONCE(ctx->task, next) / WRITE_ONCE(next_ctx->task, task).
->>      An NMI then hits while the context is swapped, and
->>      __perf_event_overflow() queues pending task_work on the *current*
->>      task (A), even though the event now belongs to B's swapped-in
->>      context view.
->>
->>   2. B -> A switch. Because A now has pending task_work,
->>      nr_no_switch_fast is non-zero, so the slow path is taken and
->>      ctx->task is *not* swapped back.
->>
->>   3. A returns to user mode, task_work runs perf_pending_task() ->
->>      perf_sigtrap(), and event->ctx->task no longer equals current,
->>      tripping the WARN_ON_ONCE().
->>
->> The context fast-swap path was already excluded for events that need
->> stable task association (inherit + sample read). sigtrap events have
->> the same requirement: the SIGTRAP is targeted at ctx->task and must not
->> be delivered after ctx->task has been swapped to another task.
->>
->> Fix this by also excluding events with attr->sigtrap from the fast-swap
->> path, i.e. bump nr_no_switch_fast for sigtrap events in
->> list_add_event()/list_del_event(), and update the comment describing
->> the invariant accordingly.
->>
->> Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
->> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
->> ---
->>  include/linux/perf_event.h | 6 ++----
->>  kernel/events/core.c       | 9 +++++++--
->>  2 files changed, 9 insertions(+), 6 deletions(-)
->>
->> --- a/kernel/events/core.c
->> +++ b/kernel/events/core.c
->> @@ -1999,7 +1999,7 @@ list_add_event(struct perf_event *event, struct perf_event_context *ctx)
->>  		ctx->nr_user++;
->>  	if (event->attr.inherit_stat)
->>  		ctx->nr_stat++;
->> -	if (has_inherit_and_sample_read(&event->attr))
->> +	if (has_inherit_and_sample_read(&event->attr) || event->attr.sigtrap)
->>  		local_inc(&ctx->nr_no_switch_fast);
-> 
-> This is already done in __perf_event_overflow() while the event is
-> added. You are saying this is not enough/ too late. This is required to
-> be done/ disabled once the event is created if I understand it.
-> If so, do we need to keep this nr_no_switch_fast inc/dec in
-> __perf_event_overflow() and perf_pending_task()?
-> 
-> Sebastian
+Implement flush_buffer: discard the buffered output under the port
+lock and wake up the close and write waiters. As on other tty drivers,
+a hangup and an interrupt character (ISIG without NOFLSH) now discard
+the pending output as well.
 
-Indeed, the now-redundant nr_no_switch_fast updates in __perf_event_overflow()
-and perf_pending_task() can be removed.
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
 
-Thanks,
-Tengda
+Notes:
+    This applies on top of Krystian Kaniewski's "usb: gadget: u_serial: pin
+    ports while TTYs are installed" in usb-linus, which keeps the port until
+    the tty is released. A flush from a hangup needs that.
+    
+    Tested on a Colibri VF50: with output pending and no reader on the
+    host, close() after tcflush(TCOFLUSH) returns at once instead of after
+    15 s.
+    
+    v3:
+    - Patch 1/2 of v2 dropped, Krystian's patch replaces it.
+    
+    v2: https://lore.kernel.org/linux-usb/20261019085855.3259716-1-mehmet.fide@gmail.com/
+    - Sent after a patch that keeps the port until the tty is released:
+      a flush from a hangup could use a freed port (Sashiko on v1).
+
+ drivers/usb/gadget/function/u_serial.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index 0a304f508bc3..ff912c29d6be 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -891,6 +891,19 @@ static void gs_flush_chars(struct tty_struct *tty)
+ 	spin_unlock_irqrestore(&port->port_lock, flags);
+ }
+ 
++static void gs_flush_buffer(struct tty_struct *tty)
++{
++	struct gs_port	*port = tty->driver_data;
++	unsigned long	flags;
++
++	spin_lock_irqsave(&port->port_lock, flags);
++	kfifo_reset(&port->port_write_buf);
++	spin_unlock_irqrestore(&port->port_lock, flags);
++
++	wake_up_interruptible(&port->drain_wait);
++	tty_wakeup(tty);
++}
++
+ static unsigned int gs_write_room(struct tty_struct *tty)
+ {
+ 	struct gs_port	*port = tty->driver_data;
+@@ -985,6 +998,7 @@ static const struct tty_operations gs_tty_ops = {
+ 	.write =		gs_write,
+ 	.put_char =		gs_put_char,
+ 	.flush_chars =		gs_flush_chars,
++	.flush_buffer =		gs_flush_buffer,
+ 	.write_room =		gs_write_room,
+ 	.chars_in_buffer =	gs_chars_in_buffer,
+ 	.unthrottle =		gs_unthrottle,
+
+base-commit: 3149e8b3237f58d4dd440fc64c45c93404c4b064
+-- 
+2.56.0
 
