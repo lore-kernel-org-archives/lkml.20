@@ -1,72 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833993;
-	b=Q9ixvaseLW72egnBiuyJAYh7AQCM/xsE3jWqtGW1/8XdadvJL6Hn7EyGWxuZVGIAsBkz
-	 uToDSYMwFjW8+YAha45pUnUzSiJV0i5K61ZhCV4PxntzGQwSJeIbAo1APZTIyQhOVsjuX
-	 eq5U7qnHJfGJa3cdiARue16pc+Bcq1/2L6WdCFvbw+de4KwLyARFxH6P6yLqO7ea0crg2
-	 yKlmMewue+WntGQOhvgG6yLv7ZrDhuyOVGoBTah6c+zg1xH45v1kpLlf8RZlALJLBUkSt
-	 9FbYDzRgAepfXa8plobD1/Q6fi2Vh29uwn6pAK0U7vipVY1oq8OwLXd9gvn+fkLwbcg==
+	t=1794834008;
+	b=aqwtaUovDHx2ctb4+xqLzb+v+xo6WLqyoK3M+aV6OlCxo1e7XYY+x0bIksXX8RggdcZw
+	 GOP1A7l6EeT+X6G7FOSWiaDARouSd1U/K1OeMifhOviohxnMNYmbu/ow82HKk28DYMiFE
+	 dra9MaqkCgJA0g/WrmJ8prdqX7uYf6tKgD11ny+lu2Vo9kje4VRqNeBxztQi0CYCnFeiz
+	 EYE57ZMaLdq33cKiTCifwEs5iIwx/wj31GiZqDb1OCv+Fvr4/1mfzDBMLYOrmyRMpoItB
+	 KH3nf/xx5mwrf1KDTDOjJvfG3a9/NWbRtckjrTDSalcdFBLqH9EBPrCt5ULHoMoi85w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833993;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=b+WRm1pLfUXQV9ESYSvE5bx1cY6BNCF73uIKV2V7MMs=;
-	b=MPcQG6JWzoJotrPg7XLz1E4XRXkrQFlYOwyMNjaTOWto/Vc6+A3XMxJki7n0dlbR4ute
-	 3IggC9rMmgWa54SxYLLEeqA4rlD6fyPU8JT0eraIC0f0nUbnL6ZgsADYUEJfOTsF3GPKM
-	 Siks8YFt0XXJfNk1pqHdgT1e4zU4brLfNYiEoXPAy7KGSXJqTyWjv5RNJXIcH0lBvzWbu
-	 GRAZkSQNV94+GayjQV0Sf/Mx/EU9itZZMEyDf/6XsFy74tB5qo5UQVx0iikJEc5bnMAlO
-	 p5Dd/mcQ29igNvsz+jlImYGRKZjys3EhmJ/yDVyinEb5XEYnC5snklL4JDq7fW/TJIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834008;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:X-CPGSPASS:
+	 X-Hop-Count:Content-Transfer-Encoding:MIME-Version:X-CMS-RootMailID:
+	 References;
+	bh=cwjy6PsFjKhadlM83IrAOfhjuE/Eo22fd3cBhQMRQ4U=;
+	b=KKTq6LnUiYiY33YCzIpZscV0UijfVjwtUTpLDXVvDzy35Hd0LV3LN9KSABwWNgaqRMnd
+	 49nyPQVGHfsGPm52WAguar/1l2FhSkcTQkNuZpL0Ff1/cjPjhZDaeNqyRwtrCNTJo62xd
+	 4Y/c9VjtOzR7zqbaISRrLHCFLvSH+BA1dalnjwtSDUTyeFD/8pRJN2TLOoCksTaat2KpC
+	 6QmvchhqNqesiEoySuBppRKI6vzUHJv5jAIBjB/DAHvI6Q7sUHfdUhbR9GcSLQ14VRg1P
+	 qsehtUbcJOkYCMlO47lAX9VkamCc4t33r3XPOTWEQmhDiuDwfsxGHYNmCBRxNpLXsXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=D17F8R+0;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=slhHjm68;
+	arc=none smtp.remote-ip=203.254.224.24
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3150360A5BCA;
-	Mon, 16 Nov 2026 12:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3150360A5BCA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3143606A33E
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:00:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3143606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=D17F8R+0
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=b+WRm1pLfUXQV9ESYSvE5bx1cY6BNCF73uIKV2V7MMs=;
-	b=D17F8R+0bWPLe+7mYnMb4V3J7iw/lJ+0oC+fjzZO/i7WXSJxs7GZze1wS2dqz0dnFQFxaijyK
-	fqIDGmNdCkemdPlpn+BTPI19U+0AIo5zXLbTiheO2lTyRMVAsiU8ct33QU3UTKDfHYad/3ovY4D
-	pNSNbDv2XDiLr7lENpLTLpo=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jSnx95bQ3zcZyT;
-	Mon, 16 Nov 2026 20:58:53 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id E973940679;
-	Mon, 16 Nov 2026 20:59:42 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 20:59:42 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<mark.rutland@arm.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <fustini@kernel.org>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v3 19/19] Documentation: arm64: mpam: Describe the L2 monitor events
-Date: Mon, 16 Nov 2026 20:59:14 +0800
-Message-ID: <20261116125914.498841-20-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116125914.498841-1-ruanjinjie@huawei.com>
-References: <20261116125914.498841-1-ruanjinjie@huawei.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=slhHjm68
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261116130004epoutp0111656e78ba570b75b471dca9071bf7c6~oiAR5nrFb2101321013epoutp01a
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:00:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261116130004epoutp0111656e78ba570b75b471dca9071bf7c6~oiAR5nrFb2101321013epoutp01a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794834004;
+	bh=cwjy6PsFjKhadlM83IrAOfhjuE/Eo22fd3cBhQMRQ4U=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=slhHjm68ewQWUVm6bRFUckzalB0fbQtsFeYR5SoNtLh2oIS5FJZpddqHoo4k1a6Lo
+	 qGgI4kxoNuiy1Wiyk1dMlr9BjTj31Iy4jNxRtO279sC0iLwH48rFh1hUMKkuA2TaRr
+	 LM25SJP5fkuNC37tIkq8mQkUiLCGX0vKZVyz9hu0=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261116130003epcas5p41505962cdb85baef807da63df4a4bdd6~oiARTemrZ1581715817epcas5p4X;
+	Mon, 16 Nov 2026 13:00:03 +0000 (GMT)
+Received: from epcpadp1new (unknown [182.195.40.141]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jSnyW4VT6z2SSKd; Mon, 16 Nov
+	2026 13:00:03 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6~oh9XF0EaC2880528805epcas5p1u;
+	Mon, 16 Nov 2026 12:56:43 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116125640epsmtip193698527cb698dd83aee2b514325cf77~oh9UdOLNZ1010810108epsmtip1O;
+	Mon, 16 Nov 2026 12:56:40 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: gregkh@linuxfoundation.org, shashank.mahadasyam@sony.com,
+	rahul.bukte@sony.com, hadess@hadess.net, dakr@kernel.org, gary@garyguo.net,
+	guanyulin@google.com, rafael.j.wysocki@intel.com,
+	mathias.nyman@linux.intel.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
+	hongpooh.kim@samsung.com, eomji.oh@samsung.com, alim.akhtar@samsung.com,
+	muhammed.ali@samsung.com, thiagu.r@samsung.com, cpgs@samsung.com, Selvarasu
+	Ganesan <selvarasu.g@samsung.com>, stable@vger.kernel.org
+Subject: [PATCH] usb: core: don't skip system resume for an already
+ suspended device
+Date: Mon, 16 Nov 2026 18:26:25 +0530
+Message-Id: <973576304.21794834003625.JavaMail.epsvc@epcpadp1new>
+X-Mailer: git-send-email 2.17.1
+X-CMS-MailID: 20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,94 +91,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-CMS-RootMailID: 20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6
+References: <CGME20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6@epcas5p1.samsung.com>
 
-Resctrl can now monitor at the L2 scope, so MPAM exposes the CSU and
-MBWU counters of an L2 group as l2c_occupancy and mbm_core_bytes.
+When offload is active on a USB device, usb_suspend_both() skips
+suspending it during system suspend so that the port is not pushed
+into its deep low power state.
 
-Also update the resctrl documentation.
+The commit bd3d245b0fef ("usb: core: use dedicated spinlock for offload
+state") made the resume path skip resuming the device whenever offload
+is active at resume time, instead of only when the corresponding suspend
+was skipped. That is wrong when the device was already suspended:
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+  1. Streaming is running with offload active and the AP side stops
+     using the device, the user pauses streaming, or the USB interface
+     simply becomes idle.
+  2. The device auto-suspends.  The auto-suspend path
+     (PMSG_AUTO_SUSPEND) does not carry the PM_EVENT_SUSPEND event, so
+     the offload state is not consulted.  The port goes into its deep
+     low-power state and the device enters USB_STATE_SUSPENDED.
+  3. The system enters PM suspend.  The device is already suspended,
+     so usb_suspend_both() returns early and the offload skip never
+     takes effect for this sleep.
+  4. On system resume, usb_resume_both() re-checks usb_offload_check(),
+     which is still true because the offload reference is held.  The
+     device resume is skipped even though the device is suspended, so
+     the connected USB device is never resumed and fails to function
+     after the AP resumes.
+
+Skipping the resume is only correct when the suspend was actually
+skipped, i.e. when the device was not already suspended.  Check the
+device state so that an already suspended device always goes through a
+normal resume, as before bd3d245b0fef.
+
+Fixes: bd3d245b0fef ("usb: core: use dedicated spinlock for offload state")
+Cc: stable@vger.kernel.org
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
 ---
- Documentation/arch/arm64/mpam.rst     | 25 ++++++++++++++++---------
- Documentation/filesystems/resctrl.rst | 11 +++++++++++
- 2 files changed, 27 insertions(+), 9 deletions(-)
+ drivers/usb/core/driver.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
-index e445f4078ee1..f0d24fdc7677 100644
---- a/Documentation/arch/arm64/mpam.rst
-+++ b/Documentation/arch/arm64/mpam.rst
-@@ -32,8 +32,9 @@ Because the user interface to MPAM is via resctrl, only MPAM features that are
- compatible with resctrl can be exposed to user-space.
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index f21b1e4f9c09..48addbd1a69a 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -1552,7 +1552,15 @@ static int usb_resume_both(struct usb_device *udev, pm_message_t msg)
+ 		goto done;
+ 	}
+ 	udev->can_submit = 1;
+-	if (msg.event == PM_EVENT_RESUME)
++	/*
++	 * Offload is only relevant if the device was kept active during the
++	 * corresponding suspend.  A device that is already suspended (for
++	 * example auto-suspended during an idle gap) must go through a
++	 * normal resume, otherwise the port would be left in its deep
++	 * low-power state after system resume.
++	 */
++	if (msg.event == PM_EVENT_RESUME &&
++	    udev->state != USB_STATE_SUSPENDED)
+ 		offload_active = usb_offload_check(udev);
  
- MSC are considered as a group based on the topology. MSC that correspond with
--the L3 cache are considered together, it is not possible to mix MSC between L2
--and L3 to 'cover' a resctrl schema.
-+the L3 cache are considered together, as are MSC that correspond with the L2
-+cache; it is not possible to mix MSC between L2 and L3 to 'cover' a resctrl
-+schema.
- 
- The supported features are:
- 
-@@ -61,9 +62,11 @@ The supported features are:
-   When the MPAM driver finds multiple groups of MSC it can use for the 'MB'
-   schema, it prefers the group closest to the L3 cache.
- 
--* Cache Storage Usage (CSU) counters can expose the 'llc_occupancy' provided
--  there is at least one CSU monitor on each MSC that makes up the L3 group.
--  Exposing CSU counters from other caches or devices is not supported.
-+* Cache Storage Usage (CSU) counters expose the occupancy of the cache they
-+  monitor: 'llc_occupancy' for the L3 group and 'l2c_occupancy' for the L2
-+  group, provided there is at least one CSU monitor on each MSC that makes up
-+  the group. Exposing CSU counters from other caches or devices is not
-+  supported.
- 
- * Memory Bandwidth Usage (MBWU) on or after the L3 cache.  resctrl uses the
-   L3 cache-id to identify where the memory bandwidth is measured. For this
-@@ -82,10 +85,14 @@ The supported features are:
-   have a corresponding L3 cache. 'mbm_local_bytes' is not exposed as MPAM
-   cannot distinguish local traffic from global traffic.
- 
--  All these restrictions based on L3 cache are due to resctrl, currently, only
--  supporting monitoring at the L3 scope. It is expected that going forward more
--  MBWU monitors can be exposed to the user after support for more monitoring
--  scopes is added to resctrl.
-+* Memory Bandwidth Usage (MBWU) on the L2 cache. An MBWU monitor in an L2 MSC
-+  counts the bytes the cache sees, which resctrl exposes as the
-+  'mbm_core_bytes' event on the L2 resource. The MSC is used for the L2 group
-+  in the same way as for the L3 group above.
-+
-+These restrictions are due to resctrl only supporting monitoring at the L2
-+and L3 cache scopes. MBWU monitors on caches at other levels, or on devices,
-+are not exposed.
- 
- Command line parameters
- =======================
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index 2750f2eabf70..506ba55793b4 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -510,6 +510,17 @@ with the following files:
- 		bytes) at which a previously used LLC_occupancy
- 		counter can be considered for reuse.
- 
-+If monitoring is available at other cache levels there will be a
-+"<LEVEL>_MON" directory for each of them. For example an L2 cache exposes
-+"l2c_occupancy" and "mbm_core_bytes" in "L2_MON". These directories have the
-+same "num_rmids", "mon_features", "mbm_assign_mode" and
-+"max_threshold_occupancy" files as "L3_MON", and when the resource supports
-+assignable counters, also "num_mbm_cntrs", "available_mbm_cntrs",
-+"mbm_assign_on_mkdir" and "event_configs".
-+
-+The "mbm_L3_assignments" file in the resource group directories is specific
-+to the L3 scope.
-+
- If telemetry monitoring is available there will be a "PERF_PKG_MON" directory
- with the following files:
- 
+ 	/* Resume the device */
 -- 
-2.34.1
+2.17.1
+
 
