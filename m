@@ -1,60 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794787349;
-	b=tigxMslloiGjN4dFSt90iTe8+YilpICDwnNnGVHg+BacvwMcqUBVDs+doBd/H6DMMPMM
-	 8moEHt+OswWBW6vcmQ4FDv/m0e6v3R32x7ehImb72l1iK9TJb4xtFAvNeQq3RQAVZNn/Q
-	 Vlp/UDX2KVAbUjtPrWL5C+TnPXjDVKJtGuYMarDb42p8JUJn713fH+X/DprS7svVvDSZx
-	 QMXdXHOnFhKPq3lK5yvSgNUKDZmOoBDkGIo0uq4+NN3VTt26DkvGQWdFMydnnLWA1oMM/
-	 u9MDq2XTZnuxQQ4o98pvAk8EjYxUXW4qsWgAC4iqMxaePsAM2/iL2xlEqz7ySqABlCA==
+	t=1794787444;
+	b=2cZXd6n2SHQ8/f74g1iI2XoyZTAAx5m7xZdjRZHa3Xr5MrCNuPkZ+sRuCSpm5yCa1X2f
+	 Q1BAwigypvz0DG2etJWQnFulfuuxcS/eE08t3RKwjZCmg7pC1ZyTKFYMIARm+6JsR5tBI
+	 z6sidNh3F6rxosl56d7cWAtS/CVdmYuTAWyb62ZRgjJ9kdU7+p0N1jHjyMZHvzDe7lhE5
+	 5FHOSJ6R5lqpBj3HQ0o0gidf9FUrJy6sRemKMHH18I28vBfweQWBCcQ8HLDPJ26pHFYNR
+	 8QPcCrT0VL0u4J2YKeu5Iicm5KkyAJDG/3ohnEBLvzgTAfKsr6Jj89IbH7OfNOdAuWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794787349;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0LiZaiovIoEgc2+KzKF9v3Bvxk8MU684up3WOQq16sY=;
-	b=geuFcUB7VQmuN3aBvSFS9sP5pTZOGRJ3GCX3pyqDSHQwPasETDJ534hgq9fZR5tQQW+E
-	 Bmk6NOYLueKiBq1RtQA7iwaHnmUqK+SaskLINxtzQ6R/9Q8q5G8243gpRqHfIhpzoklF4
-	 AsoSIya/rOudjGWkdlimhJO5Rk8utPkNFzINVIGF3yDnxNsMAzGlk6GcMJor57b63JQ7h
-	 pV4AitCHhy4f/pGNhebMvqK1VmklEkgS54Nvc2g2zuOsndKGfDNvjTMZs4nzgKHYinkkX
-	 WFCftugNK/EEVL/mUC/FJZ+vuNnFmniNfId90SDKIOjhmW9Vnagj4nVrxOQzDh+7OPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794787444;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZM38k2toVyR7ppkuiIRLOdyiu7F++Mngluv/6M3nt5s=;
+	b=vfVGxLjRTUzuG2gvHRtgAvE2u4C242AZo8iMSLQyoeaxU6Sc57iooPOgXq09qQSsSHad
+	 7SPxaBzKOsEAEjnoMzKx2pGawGY+Yekybt4TTvPS+ZX2Bz1zSj0oXu/wPG+TvLABQ7zQk
+	 5UvXka1kjgZ/qhaXHimWj8sQD/a8AP38PpnOFz6Iovy/P9y0kkRrhga+D8QZRwjGt1GN8
+	 hvZv2gVaU8FTUFS0jFwQo2qAn04XzNrTbXJvUtG0j+tnxKzTcd/aMeNaOV9ngg9utI+Uh
+	 MURGIO4i3M4ZhJRs6HrT1C9RlR+u+744tklpKwKdx1fyWCCb59SfPWKy6tQW9MyZZzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irUiT623;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvkpClqG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7A1606A31F;
-	Mon, 16 Nov 2026 00:02:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 78046606A329;
+	Mon, 16 Nov 2026 00:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irUiT623
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517CE1F000C4;
-	Mon, 16 Nov 2026 00:02:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvkpClqG
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 940191F000C4;
+	Mon, 16 Nov 2026 00:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794787349;
-	bh=0LiZaiovIoEgc2+KzKF9v3Bvxk8MU684up3WOQq16sY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=irUiT623aRt32I4fhbQ5pqZjzskjxyj/oIiFf4X64UuBPVJnLFBEooSWi5qHOsejM
-	 0ZKXg1cLffpgEOkAWwjPWjzFyO9HkVK00eyymwk4FiQppgTiRCW1Yb0I520qBx0fcQ
-	 dYbAULLLkF2hV9Kr6IrqpHlQzn1SdqQU1TMcl8Bjwl8HdgtmIj9tdziztL9dEZEr3F
-	 DbfY1UjHUUzrqbwrvvzTg1ycDJbeDl909lCiOPYliWDTmAzUdh5RrEz5jwFQ13PZy4
-	 fpmxYxK0Z7vMoJlMLLeU6T3veq+IMlUytVbdariGyV9z52/5Ex5fUUNqasVzGRR88G
-	 p1Yhk/viXd7kg==
-Subject: Re: [PATCH net v4 1/2] tls: restrict device-down TX fallback to
- hardware TX sockets
-From: netdev-bot+sashiko@kernel.org
-To: rjethwani@purestorage.com
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, john.fastabend@gmail.com,
- kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, horms@kernel.org, tariqt@nvidia.com,
- alice.kernel@fastmail.im, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 00:02:27 +0000
-Message-ID: <179478734781.3136.1664474557678569331@kernel.org>
-In-Reply-To: <20261111232930.2532497-1-rjethwani@purestorage.com>
-References: <20261111232930.2532497-1-rjethwani@purestorage.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794787444;
+	bh=ZM38k2toVyR7ppkuiIRLOdyiu7F++Mngluv/6M3nt5s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TvkpClqGpUKKahd4zD5YT7okMXYpofXGNKb0HMXGc6Mk2yoFBroE2RTL/1kMDG/fj
+	 lVfR5Bz9fKrLQsSYYzqrUnhgpkMiH4a+l/XwIR2hmlVgeURBmuSyDIJKsJA8xpvPWa
+	 nZQKUtVzt7OOF+YQUhCcl73VW7yYCEtTf79j9+YyH6PoBWvHl/XlyXAEGxHsK60uAo
+	 3s7Pd9ua+66LLKG4UEqUP1Y2AeDtXstPVH3tY7uqhDyZWLAlhXtEdSr3Xf/iMm6+2d
+	 IYsRqPASBWn2MSwhnikN0Hk2f7LuH2I44Rf+3OFP3b5RnYispsz4xNcFMl7LjD4d/L
+	 Oe/Ac8ykUovbA==
+Date: Mon, 16 Nov 2026 02:04:00 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+	Alec Brown <alec.r.brown@oracle.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	James Morris <jmorris@namei.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan McDowell <noodles@earth.li>,
+	Matthew Garrett <mjg59@srcf.ucam.org>,
+	Mimi Zohar <zohar@linux.ibm.com>, Paul Moore <paul@paul-moore.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Ross Philipson <ross.philipson@gmail.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [PATCH v2 0/4] Unsorted tpm2-sessions improvements
+Message-ID: <avpIcBVKGFikTkAN@kernel.org>
+References: <20261115233156.1485238-1-jarkko@kernel.org>
+ <avpDrQF4QAcCMnsr@kernel.org>
+ <avpFt2HzpKXN_uY5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,115 +70,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avpFt2HzpKXN_uY5@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, Nov 16, 2026 at 01:52:28AM +0200, Jarkko Sakkinen wrote:
+> On Mon, Nov 16, 2026 at 01:43:45AM +0200, Jarkko Sakkinen wrote:
+> > On Mon, Nov 16, 2026 at 01:31:52AM +0200, Jarkko Sakkinen wrote:
+> > > v2:
+> > > 
+> > > - Based on Sashiko feedback I changed "offset += tpm_buf_read_u16()" into
+> > >   "rc = tpm_buf_read_u16(...)" and "offset += rc". I'm convinced that this
+> > >   was necessary but since it does not have a cost, at least this should
+> > >   mute Sashiko.
+> > 
+> > No further Sashiko complains.
+> 
+> tpm_buf_read*() really should update the offset on success, and be
+> fallible calls. Overflow-flag, and eventual failure makes more
+> sense when building commands.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+I.e.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+diff --git a/drivers/char/tpm/tpm-buf.c b/drivers/char/tpm/tpm-buf.c
+index 233e81d3f149..1ea2f2121f37 100644
+--- a/drivers/char/tpm/tpm-buf.c
++++ b/drivers/char/tpm/tpm-buf.c
+@@ -204,39 +204,37 @@ void tpm_buf_append_handle(struct tpm_buf *buf, u32 handle)
+  * @offset:	offset within the buffer
+  * @count:	the number of bytes to read
+  * @output:	the output buffer
++ *
++ * Return:
++ * * 0		- on success, and @offset is advanced by @count bytes
++ * * -EIO	- if the read would cross the end of the buffer
+  */
+-static void tpm_buf_read(struct tpm_buf *buf, off_t *offset, size_t count, void *output)
++static int tpm_buf_read(struct tpm_buf *buf, off_t *offset, size_t count, void *output)
+ {
+ 	off_t next_offset;
 
-- [High] In tls_device_down() (net/tls/tls_device.c), this patch decides
-  whether to call tls_dev_del(TX) from the result of…
+-	if (buf->flags & TPM_BUF_INVALID)
+-		return;
+-
+ 	next_offset = *offset + count;
+-	if (next_offset > buf->length) {
+-		WARN(1, "tpm_buf: read out of boundary\n");
+-		buf->flags |= TPM_BUF_INVALID;
+-		return;
+-	}
++	if (next_offset > buf->length)
++		return -EIO;
 
---
+ 	memcpy(output, &buf->data[*offset], count);
+ 	*offset = next_offset;
++	return 0;
+ }
 
-tls: restrict device-down TX fallback to hardware TX sockets
+ /**
+  * tpm_buf_read_u8() - Read 8-bit word from a TPM buffer
+  * @buf:	&tpm_buf instance
+  * @offset:	offset within the buffer
++ * @value:	returns the 8-bit word
+  *
+- * Return: next 8-bit word
++ * Return:
++ * * 0		- on success, and @offset is advanced
++ * * -EIO	- if the read would cross the end of the buffer
+  */
+-u8 tpm_buf_read_u8(struct tpm_buf *buf, off_t *offset)
++int tpm_buf_read_u8(struct tpm_buf *buf, off_t *offset, u8 *value)
+ {
+-	u8 value = 0;
+-
+-	tpm_buf_read(buf, offset, sizeof(value), &value);
+-
+-	return value;
++	return tpm_buf_read(buf, offset, sizeof(*value), value);
+ }
+ EXPORT_SYMBOL_GPL(tpm_buf_read_u8);
 
-This commit changes tls_device_down() so the TX validator is switched to
-the software fallback only for sockets that use hardware TX. The cmpxchg
-result now decides whether the driver TX state is deleted. RX driver
-state is tracked with TLS_RX_DEV_CLOSED, which is set at context
-creation and cleared after a successful RX tls_dev_add().
+@@ -244,16 +242,23 @@ EXPORT_SYMBOL_GPL(tpm_buf_read_u8);
+  * tpm_buf_read_u16() - Read 16-bit word from a TPM buffer
+  * @buf:	&tpm_buf instance
+  * @offset:	offset within the buffer
++ * @value:	returns the 16-bit word
+  *
+- * Return: next 16-bit word
++ * Return:
++ * * 0		- on success, and @offset is advanced
++ * * -EIO	- if the read would cross the end of the buffer
+  */
+-u16 tpm_buf_read_u16(struct tpm_buf *buf, off_t *offset)
++int tpm_buf_read_u16(struct tpm_buf *buf, off_t *offset, u16 *value)
+ {
+-	u16 value = 0;
++	__be16 value_be;
++	int rc;
 
-> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-> index 4cdfbb57ecff0..a42cbc89db2bb 100644
-> --- a/net/tls/tls_device.c
-> +++ b/net/tls/tls_device.c
+-	tpm_buf_read(buf, offset, sizeof(value), &value);
++	rc = tpm_buf_read(buf, offset, sizeof(value_be), &value_be);
++	if (rc)
++		return rc;
 
-[ ... ]
+-	return be16_to_cpu(value);
++	*value = be16_to_cpu(value_be);
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(tpm_buf_read_u16);
 
-> @@ -1350,10 +1350,14 @@ static int tls_device_down(struct net_device *netdev)
->  	spin_unlock_irqrestore(&tls_device_lock, flags);
->  
->  	list_for_each_entry_safe(ctx, tmp, &list, list)	{
-> +		bool tx_hw;
-> +
->  		/* Stop offloaded TX and switch to the fallback.
->  		 * tls_is_skb_tx_device_offloaded will return false.
->  		 */
-> -		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
-> +		tx_hw = cmpxchg(&ctx->sk->sk_validate_xmit_skb,
-> +				tls_validate_xmit_skb,
-> +				tls_validate_xmit_skb_sw) == tls_validate_xmit_skb;
+@@ -261,16 +266,23 @@ EXPORT_SYMBOL_GPL(tpm_buf_read_u16);
+  * tpm_buf_read_u32() - Read 32-bit word from a TPM buffer
+  * @buf:	&tpm_buf instance
+  * @offset:	offset within the buffer
++ * @value:	returns the 32-bit word
+  *
+- * Return: next 32-bit word
++ * Return:
++ * * 0		- on success, and @offset is advanced
++ * * -EIO	- if the read would cross the end of the buffer
+  */
+-u32 tpm_buf_read_u32(struct tpm_buf *buf, off_t *offset)
++int tpm_buf_read_u32(struct tpm_buf *buf, off_t *offset, u32 *value)
+ {
+-	u32 value = 0;
++	__be32 value_be;
++	int rc;
 
-[Severity: High]
-Is ctx->sk still guaranteed to be allocated when this cmpxchg runs?
+-	tpm_buf_read(buf, offset, sizeof(value), &value);
++	rc = tpm_buf_read(buf, offset, sizeof(value_be), &value_be);
++	if (rc)
++		return rc;
 
-The cmpxchg is in the second loop, after tls_device_lock has been
-dropped. The refcount_inc_not_zero() in the first loop pins only the
-tls_context, not the socket.
+-	return be32_to_cpu(value);
++	*value = be32_to_cpu(value_be);
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(tpm_buf_read_u32);
 
-The final reference on a hardware TX socket can be dropped from skb
-freeing, and that path does not take device_offload_lock. The socket
-destructor then sees the extra ctx reference held by tls_device_down()
-and returns early:
+diff --git a/include/linux/tpm_buf.h b/include/linux/tpm_buf.h
+index f8c105d8b8bf..e86193fc6374 100644
+--- a/include/linux/tpm_buf.h
++++ b/include/linux/tpm_buf.h
+@@ -52,9 +52,9 @@ void tpm_buf_append(struct tpm_buf *buf, const u8 *new_data, u16 new_length);
+ void tpm_buf_append_u8(struct tpm_buf *buf, const u8 value);
+ void tpm_buf_append_u16(struct tpm_buf *buf, const u16 value);
+ void tpm_buf_append_u32(struct tpm_buf *buf, const u32 value);
+-u8 tpm_buf_read_u8(struct tpm_buf *buf, off_t *offset);
+-u16 tpm_buf_read_u16(struct tpm_buf *buf, off_t *offset);
+-u32 tpm_buf_read_u32(struct tpm_buf *buf, off_t *offset);
++int tpm_buf_read_u8(struct tpm_buf *buf, off_t *offset, u8 *value);
++int tpm_buf_read_u16(struct tpm_buf *buf, off_t *offset, u16 *value);
++int tpm_buf_read_u32(struct tpm_buf *buf, off_t *offset, u32 *value);
+ void tpm_buf_append_handle(struct tpm_buf *buf, u32 handle);
 
-__sk_destruct()
-  tls_device_sk_destruct()
-    tls_device_queue_ctx_destruction()
-        spin_lock_irqsave(&tls_device_lock, flags);
-        if (unlikely(!refcount_dec_and_test(&ctx->refcount))) {
-            spin_unlock_irqrestore(&tls_device_lock, flags);
-            return;
-        }
+ #endif
 
-The ctx survives, but the sock is freed. ctx->sk is left dangling. Each
-earlier context in the list adds a synchronize_net() before this one is
-reached, so the window can be fairly wide.
-
-If that happens, can the cmpxchg read and write freed or reused socket
-memory? There seem to be two bad outcomes:
-
-If the compare fails, tx_hw is false and tls_dev_del() is never called
-for TLS_OFFLOAD_CTX_DIR_TX. ctx->netdev has already been set to NULL,
-and the final refcount_dec_and_test() in tls_device_down() goes to
-tls_device_free_ctx(), which never calls tls_dev_del(). Would this leak
-the driver TX offload state?
-
-If the memory has been reused by another TLS socket whose validator is
-tls_validate_xmit_skb, the cmpxchg would switch that unrelated socket to
-the software fallback.
-
-The unconditional WRITE_ONCE() through ctx->sk in the second loop was
-already a use-after-free before this patch, so that part is pre-existing.
-What this patch adds is that driver TX teardown now depends on that
-unprotected access, where before it used the pinned ctx->tx_conf.
-
-The next patch in this series, "tls: fix socket use-after-free during
-device-down", seems to address this. It moves the cmpxchg into the first
-loop under tls_device_lock, records the result in TLS_TX_DEV_DOWN, and
-tests that flag in the second loop. Would it make sense to fold that fix
-into this patch, or reorder the two? Then this commit would not add the
-dependency on its own, which matters since it is marked for stable.
-
->  
->  		/* Stop the RX and TX resync.
->  		 * tls_dev_resync must not be called after tls_dev_del.
-> @@ -1370,13 +1374,14 @@ static int tls_device_down(struct net_device *netdev)
->  		synchronize_net();
->  
->  		/* Release the offload context on the driver side. */
-> -		if (ctx->tx_conf == TLS_HW)
-> +		if (tx_hw)
->  			netdev->tlsdev_ops->tls_dev_del(netdev, ctx,
->  							TLS_OFFLOAD_CTX_DIR_TX);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111232930.2532497-1-rjethwani%40purestorage.com
+Br, Jarkko
