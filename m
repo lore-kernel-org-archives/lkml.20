@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837039;
-	b=utm2YPXSrvqtVCnHG0nhxh54esZ7wHThRKOQxj0KhV2igif19BxcQ00pW7wXPi00M+B2
-	 mlC88WqvOTgJclGzsiMKIugpJYDmrOUZ4xMfCKXrY44H1tQphuHYUTtS71x/M1uI8kYb2
-	 JCICbv1/LiP5IHDfAqJEeucTXdKA2sBYovftmzopVINPfiQU3z+1yJv9YJ9WI/froPOio
-	 mhVolB9dMOdw+ta9P8mROQ2pg1BZkBkFu24pGJZ79R46a/axH/TiNb0MK+F22g5Cfb0Rx
-	 SSfrIEdwwu6R2+Xxc/sg7vA7+JEmkAk/9jFxNmfkL7SZ8CHFsSopGCcsZY3afHCkWHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837039;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/3e3TImcCJs1Ha+JQOqG/r2t+apyd9H8tJkNWnphjK4=;
-	b=V76eKd4cZYTXrRIf4G11rvnG4KHZ50J7k8kNBcZc3DKCP0+Z8lTExQlvBOe2Nyhsn4M2
-	 pJzGSZXqu1Pfo1xIpm0A/nZUq5kpgm5T4mo4OLTmc4p3G05eqdWcG0xKFRTBhr8yIUTtZ
-	 As9JAKEAOcntMLzzou/p5QWDYO62iBq0KmZhqfRZOkErz276Yw9OjVoVX12Xal3BtPhnd
-	 ioHL/QWeCT+VXcCpEcTjm5FJbtlaPz7g3RLQbXh+6Rfqh4unWIyJkocWGrmh2Fkl8KnJE
-	 qRMGgvXU2S5SpDSLgGM7Yga7PMOiNl8HgUpwFtHtgeyd+HYZ1yL5Ei97LXQsn0B0a4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FnbMR3k/";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794837045;
+	b=hPi4N4OcbfcQ78onzc1FE6u8IV3m+ykrf+ohs6Y0586b9Ef0SZY2GFfG+20OgJS8G+PJ
+	 Zptu2KON1dJ33XDtLKE7DN3MupT+V8NMPrBRWgqTOqNW97xHFHp9P5Hog3WHifziS8Vn+
+	 dyrpLefI7eWnNl9pnvc1hpLRvp/WLVmBYIfUugY/XTsx7tkIG11pCNE4sRSMIQt9Cf83V
+	 Yg/4Myo5qN+3o67Rii1EMsPcZ+v7mJH+02srPm2t4QgN7ix1UY3hiO2E5ylY6CnLWY8Rg
+	 ZHKTsifycpuHruT0jXW8t5WpdoRjv/3QrCyvauyQiHqR4P4sU7fndazTIp+QFUU+M3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837045;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received;
+	bh=tkbLrbTkKrmPpxYmc1G/c3qRueui5Pe/3v2IvJX2qp0=;
+	b=QdgHxOnefa8utfbzM8RTRiTzBp2Ep1yCLaEF53j7Ya4JMTKyEpqyfbe5D4ZHRO90Suvr
+	 Y2u4PyJWptS6egzRmGC80K51NPfyFfEfOCFCTpi/1p7acKD4ui8OYpoqy9VISHKa+2FNs
+	 cKY49v+TpqDpZWOKkOeRLn42WnLV7Oq7Bx8teBw63RaTBVKmVFcPBY6Sgq6nLridJh3rJ
+	 kLZVv2kSBw+DzZf5Ll6JQHYN7ik/RwJVgDDRm9zHUERLEhuhGduCWJhu3ZzsmRtbu1nuX
+	 h4suGcS70r/iwJ15xe4JaXjxgBebmK6bkIk9XP++wUizWzaixnvbm6SqgzDfES8ezVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=DtkQG75w;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F85B606A8BF;
-	Mon, 16 Nov 2026 13:50:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EE3606A333;
+	Mon, 16 Nov 2026 13:50:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FnbMR3k/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4631F000CA;
-	Mon, 16 Nov 2026 13:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837039;
-	bh=/3e3TImcCJs1Ha+JQOqG/r2t+apyd9H8tJkNWnphjK4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FnbMR3k/s1857WfSWh6tB9WVVi7dyXHR6AtKTHY8lgxg48vmtBjWsrOcT5gNOxYNh
-	 efyOBtSbehimVZruZ2K5iLWS9cBvHXWZOEVTPLkYu/BMgpSa9kaeh8/eEVbO67rROk
-	 OKmNONRqKaLYfByF8V0TAOsBY+NoS4JSrx4wcRBMRuBjzmb8mwVEFPZ/R+L36mVvUI
-	 lfOZjeL3v10Wd00CNtaNnR4w/XX5qbuBanlg0VwDjkYwymDn7ezV2R07mTClvdT/o6
-	 OOnYXOjg1IukP94opXGL85q6++NCt1EP6lHe5qk1/iKaHTgFQZOzh7A29ZSt+8nzjz
-	 /jpOhYmHUwrBA==
-Subject:
- Re: [PATCH net 2/2] selftests: net: check UDP tunnel GRO virtio offsets
-From: netdev-bot+sashiko@kernel.org
-To: bryon@fryer.io
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- horms@kernel.org, jasowangio@gmail.com, kuba@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- pabeni@redhat.com, shuah@kernel.org
-Date: Mon, 16 Nov 2026 13:50:37 +0000
-Message-ID: <179483703798.3136.17536195102947528618@kernel.org>
-In-Reply-To: <20261112030708.1915665-3-bryon@fryer.io>
-References: <20261112030708.1915665-3-bryon@fryer.io>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=DtkQG75w
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794837045;
+	b=rlkOPmEfQevXFNmd5YBdPm6ThQOTUZBYybfQfVahJAorsHAOVjWEo68gdhl5WtSsQaOc
+	 ruHEb0FxM7Nz6fIe0LqDB/1Cl6pEnGLSWKowFj08JowtUUh6b23XyJfrUHLaDpSYkv4vX
+	 lKMed84bVdpApZFb/uQ5WAnFAnCKHslXBRwfZq93z++/Q+iodAxeozx3rAhk9BfpQkc82
+	 pZsvC2fxMYICkugidLjH5PSDsoG6u15YWXmm0DIcHSdW53H2PH6/vHus1+3QsOApRGIES
+	 37zaTvnNFUuIkJFpO8ssxAbMn26Wjap+g7aOshU3vRd0yahZx7c2mKrJxd/RXzvWBQw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794837045;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received;
+	bh=tkbLrbTkKrmPpxYmc1G/c3qRueui5Pe/3v2IvJX2qp0=;
+	b=khc2IMQh7jNI01MeETPuCRthnQFRVD2Jebp0U3zBIUbL0xYIXNBywlANtd1HoQRgZKBk
+	 D+ILFnviMEQVqaFUYpRy0D2xdRaY0B9FtYW/sv9p/XhWMTN7TRi9j8w+S/yZk21wA+raD
+	 AlDwwC3lMFM+Wpk9Ldm3IdxsmEmiMXNpXpBPzzzcVjM9D4IsK6limERTKgopDg6apU5zN
+	 odzeHqsrS4ffRwSQc5bIDR5Z2KNaNIVrxvFLOsXW3L5UY048pagT/Gno32jwl0J0OjmEl
+	 YbVlWAq7z6VHJ/+LRUi6zcCQuT9aPkvCvoWHn/YQTX2vgOjVRgKPlCi78FR8sfZ1IVA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4017F1F000D0;
+	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
+	t=1794837045; bh=tkbLrbTkKrmPpxYmc1G/c3qRueui5Pe/3v2IvJX2qp0=;
+	h=From:Subject:Date:To:Cc;
+	b=DtkQG75w3Q653N2wZIdPU9AL0qiGpusaL+Lm/6ypmcG8X7u1xNqnoRoPJbdsVrnp0
+	 k8R2hKQTEnyHAJpoJFiLnTJn8sMYnqgaQ9wzM7zY1qHO5r2jufxBA3r4bsuMOMFq3k
+	 UU2EE5qC5cTLZTzshedTsSna4MX0JatLlVxSUrpo=
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 924014A493;
+	Mon, 16 Nov 2026 13:50:43 +0000 (UTC)
+From: Richard Leitner <richard.leitner@linux.dev>
+Subject: [PATCH v4 0/8] media: i2c: ov9282: fix strobe timing and control
+ handling
+Date: Mon, 16 Nov 2026 14:50:21 +0100
+Message-Id: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,133 +80,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XPyw6CMBAF0F8hXVvTTgFbV/6HcdGn1BgwFBoM4
+ d8taHzg8mbm3MmMKNjW24D22YhaG33wTZ1CvsmQrmR9ttiblBEQKIkgAjdRAAfs/GADNlLw0ki
+ lgXGUyK21yyCJ4+mZQ68uVndzx7xR+dA17X25F+m896qm+W91pJhgVwCRrhDGUXW4+roftsZGN
+ FdHeGNK/jAkzJRiu9JwRaVYY/bBlJIVZglrVRrHiU6vwTeepukBrucaAjQBAAA=
+X-Change-ID: 20260909-ov9282-fixes-da986dabc238
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+ "Paul J. Murphy" <paul.j.murphy@intel.com>, 
+ Martina Krasteva <martinax.krasteva@intel.com>, 
+ Richard Leitner <richard.leitner@linux.dev>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Jacopo Mondi <jacopo@jmondi.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794837042; l=3997;
+ i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
+ bh=Avrpj9TSbmW8HxXDV/hEDnUl7Dl+3qFFb1QyyA6F1Xo=;
+ b=AFBCuY8SUyde0cytqozu7FgSQKVyixaZAfC3CnKxKcTU0Q+/BZK11+ER+2lk2uxW/XXSHfW2F
+ YCrUa7FrH0eD+s4MpJXCNV8xCs6KCOrJfCzjjMf61cbzqnFaTHJWSGJ
+X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
+ pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
+X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
+ with auth_id=350
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+This series fixes a set of related issues in the OV9282 strobe timing
+and control handling code.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+The driver updated exposure- and flash duration-related control ranges
+in several places, but some of those updates used an incorrect timebase
+or were triggered too late, which could leave the controls clamped
+against stale values.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The series:
+- checks the return value of the exposure range update
+- drops the redundant vblank field
+- converts probe error messages to dev_err_probe()
+- fixes the 8-bit pixel rate (192 MHz instead of 200 MHz) and the
+  corresponding line time calculation
+- treats the strobe frame span as a line count and converts the flash
+  duration accordingly
+- fixes the flash duration range (min/max/default) and refreshes it on
+  HBLANK changes, independent of the sensor power state
+- refreshes the exposure and flash duration ranges on mode changes
+- reprograms the strobe span when HBLANK changes
 
-- [Medium] In the gro_on variant, TEST_F(tun_vnet_gro,
-  outer_transport_header) in tools/testing/selftests/net/tun.c reports…
-- [Low] In TEST_F(tun_vnet_gro, outer_transport_header)
-  (tools/testing/selftests/net/tun.c), `len` is an `int` that holds the…
+This series was tested with an ov9282 sensor on a vision components camera
+module attached to an i.MX8MP mainboard in a defined (dark) environment
+with a custom made LED flash pcb.
 
---
+Any feedback is warmly welcome.
 
-selftests: net: check UDP tunnel GRO virtio offsets
+Thanks!
 
-This adds a tun_vnet_gro fixture to the tun selftest. It writes Geneve/TCP
-frames into a NAPI TAP, bridges them to a second virtio-header TAP, and
-compares the exported tunnel offsets and checksum fields of the GRO
-aggregate with the parsed wire headers. A gro_off variant is used as a
-packet integrity control.
+---
+Changes in v4:
+- Replace DIV_ROUND_UP with DIV_ROUND_UP_ULL to fix 0-day finding
+- Link to v3: https://patch.msgid.link/20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev
 
-> diff --git a/tools/testing/selftests/net/tun.c b/tools/testing/selftests/net/tun.c
-> index 34de2580e32ec..192b3e0c0d172 100644
-> --- a/tools/testing/selftests/net/tun.c
-> +++ b/tools/testing/selftests/net/tun.c
+Changes in v3:
+- Adapt commit texts for 4/8 and 5/8
+- Thanks to Dave the review!
+- Link to v2: https://patch.msgid.link/20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev
 
-[ ... ]
+Changes in v2:
+- New patch: fix the 8-bit pixel rate.
+- New patch: re-write strobe span and HTS in s_ctrl when HBLANK changes
+- Calculate line time in ns using 64-bit math instead of 32-bit µs
+- Treat the strobe frame span as a line count and reuse the helpers of the
+  exposure -> drop OV9282_STROBE_SPAN_FACTOR
+- Flash duration range: min is 1 line, max is S32_MAX instead of the
+  current exposure time, default is converted from the register default
+- Refresh the flash duration range on HBLANK changes instead of on
+  exposure/gain writes, so it is also correct while the sensor is idle
+- Add missing "\n" to dev_err_probe() messages
+- Add Fixes: and Cc: stable tags where applicable
+- Reorder patches to keep non-fixes at the end
+- Reword commit messages and subjects
+- Thanks to Dave, Bryan and Sakari for the review!
+- Link to v1: https://patch.msgid.link/20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev
 
-> +TEST_F(tun_vnet_gro, outer_transport_header)
-> +{
-> +	uint8_t input[GRO_BUFFER_SIZE], output[GRO_BUFFER_SIZE];
-> +	unsigned int seen = 0, aggregates = 0, records = 0;
-> +	/* Bound the wait even if forwarding fails or packets are lost. */
-> +	int64_t deadline = gro_milliseconds() + GRO_RECEIVE_TIMEOUT_MS;
-> +	struct pollfd pfd = { .fd = self->fd[1], .events = POLLIN };
-> +	int i, len, frame_len, ready;
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Daniele Alessandrelli <daniele.alessandrelli@gmail.com>
+To: Paul J. Murphy <paul.j.murphy@intel.com>
+To: Martina Krasteva <martinax.krasteva@intel.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: Bryan O'Donoghue <bod@kernel.org>
+To: Jacopo Mondi <jacopo@jmondi.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Gyula Kelemen <gyula.kelemen@advasolutions.com>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-[ ... ]
+---
+Richard Leitner (8):
+      media: i2c: ov9282: handle error from exposure range update
+      media: i2c: ov9282: fix pixel rate and line time calculation
+      media: i2c: ov9282: fix flash duration to/from microseconds conversion
+      media: i2c: ov9282: fix flash duration range calculation
+      media: i2c: ov9282: add refresh of additional ranges on a mode change
+      media: i2c: ov9282: recalculate strobe span on HBLANK change
+      media: i2c: ov9282: drop redundant vblank field
+      media: i2c: ov9282: harmonize dev_err_probe usage
 
-> +		ASSERT_NE(pfd.revents & POLLIN, 0);
-> +		ASSERT_LT(records++, 128);
-> +		len = read(self->fd[1], output, sizeof(output));
-> +		ASSERT_GE(len, TUN_VNET_TNL_SIZE + ETH_HLEN);
-> +		frame_len = len - TUN_VNET_TNL_SIZE;
+ drivers/media/i2c/ov9282.c | 236 +++++++++++++++++++++++++++------------------
+ 1 file changed, 144 insertions(+), 92 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20260909-ov9282-fixes-da986dabc238
 
-[Severity: Low]
-Can a failed read() get past this assert? len is an int, but
-TUN_VNET_TNL_SIZE is sizeof(struct virtio_net_hdr_v1_hash_tunnel), so the
-right-hand side is a size_t. __EXPECT() keeps the type of each operand:
+Best regards,
+--  
+Richard Leitner <richard.leitner@linux.dev>
 
-	__typeof__(_expected) __exp = (_expected);
-	__typeof__(_seen) __seen = (_seen);
-	if (!(__exp _t __seen)) {
 
-That means a -1 from read() is compared as SIZE_MAX, and the assert passes.
-
-read() can fail even after poll() reports POLLIN. tun_do_read() dequeues
-the skb and calls tun_put_user(), which can return -EINVAL from
-virtio_net_hdr_tnl_from_skb(). The skb is freed either way:
-
-drivers/net/tun.c:tun_do_read() {
-    ...
-	ret = tun_put_user(tun, tfile, skb, to);
-	if (unlikely(ret < 0))
-		kfree_skb(skb);
-    ...
-}
-
-When that happens, frame_len goes negative. The later ASSERT_GE(frame_len,
-...) checks against size_t or unsigned operands pass for the same reason.
-
-On the first iteration, output[] is uninitialized stack memory. The MAC
-memcmp() then most likely mismatches and the error is dropped by the
-continue. On later iterations the stale previous frame is parsed until the
-tot_len check fails with a misleading message.
-
-The test still fails in the end because seen never reaches 0xff, but the
-real errno is never reported. Would an ASSERT_GE(len, 0) before this check,
-or an (int) cast on the size, give a clearer failure?
-
-[ ... ]
-
-> +		if (!variant->gro || vh->gso_type == VIRTIO_NET_HDR_GSO_NONE) {
-> +			ASSERT_EQ(vh->gso_type, VIRTIO_NET_HDR_GSO_NONE);
-> +			ASSERT_EQ(segments, 1);
-> +			ASSERT_EQ(le16toh(vh->gso_size), 0);
-> +			ASSERT_EQ(gro_build_packet(input, first), len);
-> +			ASSERT_EQ(memcmp(frame, input + TUN_VNET_TNL_SIZE, frame_len), 0);
-> +			continue;
-> +		}
-
-[ ... ]
-
-> +	ASSERT_EQ(seen, (1U << GRO_PACKETS) - 1);
-> +	if (variant->gro && !aggregates && _metadata->exit_code != KSFT_FAIL)
-> +		SKIP(return, "No multi-segment GRO aggregate observed");
-
-[Severity: Medium]
-Does this match the commit message? The commit message says:
-
-  Require a multi-segment GRO aggregate ... No output or no merge is not
-  a pass.
-
-In kselftest_harness.h, SKIP() is documented as forcing a "pass" after
-reporting why the test is skipped. It sets _metadata->exit_code to
-KSFT_SKIP, which appears as "ok ... # SKIP" in the TAP output.
-
-In the gro_on variant, the GSO_NONE branch above accepts unmerged frames
-after only an integrity check. Those frames never reach the
-outer_th_offset and inner_nh_offset checks. virtio_net_hdr_tnl_from_skb()
-only fills those fields for SKB_GSO_UDP_TUNNEL or SKB_GSO_UDP_TUNNEL_CSUM
-skbs, which means only for aggregates.
-
-Suppose Geneve GRO stops merging, or the tunnel GSO export path stops
-producing tunnel GSO skbs. All 8 packets would then arrive as valid
-singles, seen would become 0xff, aggregates would stay 0, and the test
-would report SKIP.
-
-Wouldn't a regression in the path this test targets then look like an
-environment skip instead of a failure? Should the gro_on variant fail
-here instead?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112030708.1915665-1-bryon%40fryer.io
