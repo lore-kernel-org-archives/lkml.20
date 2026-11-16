@@ -1,118 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848026;
-	b=TnOr3OebfOofdh5KlWuSfd/5YYPcSzzSZVbsC1m5imXhOJyOZaafstqf5h+/LmCk1acq
-	 Q2yAzzc0bPBfpRNn31tUVkgpxSfGZSWwPFKYi27tCI+rnvKhFZaF3LHXJi5628uXPE7LF
-	 imAm9UDThR5XXHjOTMF/Zz7FqzBwNJOlH2UPLIHFtjvuGVtzU3bG8/XvRlZ/irHRaTsbx
-	 3AhdmUWJ6LpgVgAMjv8cOSfQR+3Y9oOnh5foEbSdaIc4XjjXScGs3FiEFcFLLIuoG5+dh
-	 wmqYaNF00YzLenDH/dO3xLxYfLGLgwzrP/1UCeFGE0OlsiLNDo5Nze4Wb0tFXtzuKaw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848026;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=bqpnbYez4VTwdSzKiZ+UbbzzA5hwXKGpfw1yO2qEZlA=;
-	b=3jVM3aDKoHbTJgILn2UX2nU9vHo2JBKOLIkk5XfE/TYpA1gi4dichVqa0/fQW/P5SDMg
-	 ZPdz0Mh6nZ3jqEZBCtRpXO6CIPtSpDEX8uVxtYy+35F0gyL2rwEvV8WpANFIspyMuw10g
-	 nBaKcmZU+LFnzyA8RVxzNxXKvlJySbDrZEaqYSJKGJqeI+17x7nNffCNlhKOPkLCOclct
-	 eu2DsXkpbsPC48DWcUuDV8ZTctrxV46zj4gpC1OhQNxmEIvNnALPelBk/SU2GSZfQmhuJ
-	 UtiB15kuQEPge+HanxTiI/OJr4y9ONiOshB+hqFnpr9cNyvg+L9JIDc8vYLAuVki+lw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=U9Gocixy;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=SE+07uiP;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794848055;
+	b=mQ4Sut57E/ZBKfP7JG9T1VDpgYWWYPy9jtP0I7/Ld+olv2oWqvd/R2eE+i4nEJ7th0mB
+	 2RMvNzjRnydCWaYF/ZOiAjH6InQVvIqgxMaepQb3ogMiTkMQC92191eK6TctDHjVh9DhN
+	 7VHMzLTzCvG7ZFCTUZhzncOvSkqQKYhLvY2NM7ZwyE0Hgr/zT5E7jK0J2A5KgS4ZzGGg0
+	 AaxwgNlFDuAGRnM7Hv9Ny0xMGqRW9u0wSBcB0q0VOqvI9mgQYbPtOY3FNrPRadZzBgpya
+	 jZ2uj6Cyhv3NzVOitlJ+biC5JGrP+07TJE2lltLO5gyTuLOVhwc8ivxUd4K5CPJnaew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848055;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xSrVfB9D5irp0CfUCRWxc9PFSLvScyMJMovECZufq0U=;
+	b=4/jzL+VuomQhKtQWLZpMIjxBXA+CZP5Jpn6l3APa5quGH5O7hzO8HR5VCBmIg4Hl/9ZN
+	 nvqC8KANSm0sis2nCgaD4JKbz8VRWC2PbYTrYLIA+mBT8m33XkQN/y7Puum3EJtPXvmDl
+	 Bn+Bjpgd1IQGS57umnfnjq+zDKf8f9g6Im7FQGRI+O0NA812fhtndE/vHfU/+HiOBRz49
+	 vK7FGotDVbsfp91QusrFWWMfwW0l2OCdQsqTWCGcTTdcDjmZTkW6JVVxNONXrYVCYI7jh
+	 mfZ9POYgAbo+JWPjr/uHU30VlVz+aSNC1b/5qz9pEG2/B0jNOt7LqdP8wK+TXDVONGw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ejDtPRXR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.66
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011066.outbound.protection.outlook.com [40.107.130.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6A8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:53:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC6A8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26B9606A323;
+	Mon, 16 Nov 2026 16:54:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E26B9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=U9Gocixy;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=SE+07uiP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794848024;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bqpnbYez4VTwdSzKiZ+UbbzzA5hwXKGpfw1yO2qEZlA=;
-	b=U9GocixyeT/ApaFWnDfVF5NJmlgZhcYi40Jtxe2gbXqe38rMlVc+uUyPyewC45JFXMDPdX
-	loD4+4hlQls7F4vcTC5Q448tJlSjOshx3EWFrZLukbUV4t6/azwXU2ru6VGxGb19sP8Wpc
-	V4VdKKhpMomJgGbQBW6rRT8runG64ho=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-586-Z4yHiqu-Mw6khGYVoWMSkQ-1; Mon, 16 Nov 2026 11:53:43 -0500
-X-MC-Unique: Z4yHiqu-Mw6khGYVoWMSkQ-1
-X-Mimecast-MFC-AGG-ID: Z4yHiqu-Mw6khGYVoWMSkQ_1794848022
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-492b5408dedso2037963f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:53:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794848022; x=1795452822; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bqpnbYez4VTwdSzKiZ+UbbzzA5hwXKGpfw1yO2qEZlA=;
-        b=SE+07uiPRANfOae9uHA6lpUhLnyyI3yoGIF6YSZHHNWoKWqv8mVOWSGe3UcAR/eGp6
-         awjVK0/kbixD7ZevMMZ39D92SD9BfYcpbwG4TgAj2z/Fn32fQFS5Jlhx9/FfKMUF/54x
-         B+vG7VTRd/8+tH8zJd5pijq//kgYt3LdFOrXzksFjD4xs7OVSWpBYNETB8NXdpUWH7Vz
-         s7pzzXi4NFnYLbhTDLdf4QyCF7ASDABJmg5CWTxDU9mFs2fdndFb2x8Wg0SkZSn4xBMt
-         3IGoq7IPC/5N+6j+HQxRvS6yGq81sWOePx1VlgIWfOU8tSS+vMkfC21brGUtxkJtHG+g
-         LWcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794848022; x=1795452822;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bqpnbYez4VTwdSzKiZ+UbbzzA5hwXKGpfw1yO2qEZlA=;
-        b=w7YABV+2qBoBlk3MKdn3dNwMYV1aMESwcHih5+mOuofOkxvMqYO24o+gMWK7Ll8TX3
-         UnIzHuKNcQhEAO9BposztVYLTDQjFYVkQ5s9hVBg3KsMcyIKx/BBD9sVQGM6pnY4iMXE
-         w/QOAeaEYDxZSer6JF7zstNJfiGsQ5iCKQ+Owl5ib0PiIs69hWbcw9JO4ieLx1oqY+iN
-         QaHcH5PzLejRw7w1X56nNRqmNG5GRmo/aSJ9OVowi8C6J8rYPIrVi7OQigK2z3SY2fql
-         hQCTpUc60IABwXElDWXvh9dToDYLeYAAj75IMKe0Z8AbwZJZaEsgZVBvfZjd8ohOhIEs
-         nP5w==
-X-Forwarded-Encrypted: i=1; AL+hErHjmQwdT3AV8uNSrN94h2/LiwaK/h5edK9T0+yZWOsOFnktGuKtMZ3JzfS3bozlA4xvYpjN9axfVXEQePI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UCoL08avxBvADUmFV+gQq7WbjrrWNwMfn4FZ8FbPgF9Y547of
-	Qfnt75w7rzR8X2iBQy/X75ZNVPPNs5MGJ1hSkJCSB8Fs+cMQDDmDh7AnZevQxn8eAlU0U83bCy2
-	lTmtBawGvwaJggqQkypYtMX/7Mp+SFtP3il+ZdqpXHY87N3N+7uvhoxRUVp6LZ1SWnA==
-X-Gm-Gg: AZFdTZfrRYOxBO+weeSDD129WIS7aoCyAckF6JdnCPctIsepES1TTjc8TcFac+nImxC
-	8ActYJuBfbWwnXKmYV8Z2FxXu8dHMnfyFb5vjEDh8pxhik8PP1g24KZHVCkYuG8MZfKyX20GWqj
-	9tdf3sWuOWqxPnX1VA4DM/eDD643mTtCUwRdvHkxJn1mj+12zUwGsFRE+p7xG5hj2f6RjhvfYIO
-	6P5/4kHUPNDxOD3aehz75uOct5ekYJ+bPRs16yBbE3NrOE1Wcxdowup8GoSN1/8rz9AgW3jkooB
-	eYpwarPlXFzfZ71HmdrwQ2oyInBoI8p4mPmyUYfv3eYZqKLeFCcnVTRqyvN5Z1HckKkpYGjMNdC
-	UCNSFHLirasWZnMVrEytMnPrTkPbUv0O2z8ezlfC2ikl6SIwS2a8lVauraTmKbzGKYmfXqgcEaz
-	tjqmZdyX8MCykoD6I=
-X-Received: by 2002:a05:6000:2dc9:b0:491:8462:20b6 with SMTP id ffacd0b85a97d-49c73ed0fbemr27790077f8f.38.1794848021734;
-        Mon, 16 Nov 2026 08:53:41 -0800 (PST)
-X-Received: by 2002:a05:6000:2dc9:b0:491:8462:20b6 with SMTP id ffacd0b85a97d-49c73ed0fbemr27790045f8f.38.1794848021334;
-        Mon, 16 Nov 2026 08:53:41 -0800 (PST)
-Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (g3.ign.cz. [91.219.240.17])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm23833104f8f.5.2026.11.16.08.53.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 08:53:40 -0800 (PST)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Michael Kelley <mhklinux@outlook.com>, Mukesh R
- <mrathor@linux.microsoft.com>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Cc: "haiyangz@microsoft.com" <haiyangz@microsoft.com>, "wei.liu@kernel.org"
- <wei.liu@kernel.org>, "decui@microsoft.com" <decui@microsoft.com>,
- "kameroncarr@linux.microsoft.com" <kameroncarr@linux.microsoft.com>
-Subject: RE: [PATCH V1 2/2] Drivers: hv: Fix bugs and issues around repeat
- hypercall
-In-Reply-To: <MN2PR02MB6863E6C4F59864B7833681FCD47D2@MN2PR02MB6863.namprd02.prod.outlook.com>
-References: <20261114025313.1257042-1-mrathor@linux.microsoft.com>
- <20261114025313.1257042-3-mrathor@linux.microsoft.com>
- <MN2PR02MB6863E6C4F59864B7833681FCD47D2@MN2PR02MB6863.namprd02.prod.outlook.com>
-Date: Mon, 16 Nov 2026 17:53:39 +0100
-Message-ID: <kup33t0iup8.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ejDtPRXR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ccEHPgmX9K1sijWRySKB6W1F8utc/5pd2JG+CdEbiL+UIS/MhNwhv9/H4rvz/WGDNZxRAYiSlGNcSxvLbFgkGzESot8vSRXVYzy6nSpgwrFXpitx1oHJxS7x2M+iGnNH4Fu6d8KQIQMQZ7ADf59Yep1BT5uYcl5NobOc3aYLOYeVPD+1i1BO2Xzk8sO5h77GTbYvNgozelKTfSv6hKz9LMU50iR7TxImFvJ82ZBQoGztH5wWew779PKk9adUsHtNpCFWaHMqD6NwedYbYX3+2YpAVGyjSTQ4ubNQFF2n3TYihF9HeAOGzt9cppO7uHbiH4wDxVPfrUvdlAxzfbx2fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xSrVfB9D5irp0CfUCRWxc9PFSLvScyMJMovECZufq0U=;
+ b=S0etp19UQmStXpvLoFGugkIMWZ2CK/Ds8IuZA9MzJkscz3XBkLh0PkwdM7kW99s5OvKO3VZX2GXxeucjwBnsPRF9Lmqt0USVGy4gozGkp5PXLdWmKixBMuqfwxcACv7jeC/sboB2u4SZ2Zt1SSEeiHqLabwoY8LFDHCfiJ1iSk5Wn06PKQBLtXW0RlvCwzcMCxN4Y48SEE3jtg7kqeYPkbA+5qLdhtIzIMT7+zL+km4pFsphxLp3f37OpQfArOnXNnLcQLF39SnThh1M9pw63hIT1RlUuy5sY3A/UGszcqfjOZivYA9paTghZTANmxpAwLpYqY1kj69JwXfvP4wwww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xSrVfB9D5irp0CfUCRWxc9PFSLvScyMJMovECZufq0U=;
+ b=ejDtPRXR7h3/fXUZPATJsNWlaShjhAsHss/mSbzm1QU9UwCriQ1XQ02+nYbC1/FLLYP7In8eCzEF9CTPTsuFI5kLgLgEhvUw0P1hVh8lIW+9Iso0t34J6kR+Vm2F9u2JW5GDms0cHwzKW0lr4fnorTcKiILzf1cyU382A3LXuy5wahf+QMdrfkgcXfxa3s1lw6BJqjBzVvj3JSjDeSeEU1zpgZqoapLkYMeujEn3pf/SL6cmG4Sj1yT2abnoNB0mzT4h/o5yq9MMjKEzN+lSFSozpCKmESOUr8iYMS9ZDYroprW5CWUNgI0WsiPxOPY3BtwSeTZwXZGfoocLc//9jQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB8557.eurprd04.prod.outlook.com (2603:10a6:102:214::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
+ 2026 16:54:09 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 16:54:09 +0000
+Date: Mon, 16 Nov 2026 10:53:57 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 08/11] media: imx8-isi: Exclude RAW10/12/14 output
+ formats on i.MX95
+Message-ID: <avs1JcPW9mtX1k0A@SMW015318>
+References: <20261116-isi_imx952-v5-0-46de1d24efd4@oss.nxp.com>
+ <20261116-isi_imx952-v5-8-46de1d24efd4@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-isi_imx952-v5-8-46de1d24efd4@oss.nxp.com>
+X-ClientProxiedBy: PH8PR05CA0022.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,71 +107,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 828be0f7-8ffa-4f89-3cdf-08df44023b8e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|7416014|376014|23010399003|366016|1800799024|18002099003|22082099003|3023799007|4143699003|11063799006|56012099006|10067099003|261026140227099003|261022105027099003|261028144727099003|261022075727099003|261021123027099003|261021121427099003|261009223027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	v8N27usmRqNorMRbgVtihTbKfgO4KTUO6YFC0UdSgabcF45yqrAdK5UNDDn77UK+DnMQEmvCMX6LVD85Jb9m4l1Z3rjdE7y/oEzlyLEmdH2m3BAqqwuiSLkX+81bFOX//8MDj5/Nh75DWYoS32ro/HWzdigr6ynAyWWveIsiIro3MVkx4dSnZhUfwwLgl7tbz03iCG/6ZUiGqW86bsqsL6CXVHRjWkxZgOwlrhCENlXmaBIprqqI5P/xMpTrnDlQD3cXsoYqNG+1fA/h2K/9B4Q1sTa5YWDszejheD+Em0K8zCIv4XWb9Bb4xrjcaqevf3pCd1EBXRNVD2SgoFwGSZ1ULvVyEEBaRRULK+det2ZH7iwHXEx3bGkDgDXYgi5JtpQON7nuCK4TK0ou+kIut3bGoy6tye2qglKSpXHSvxiYY8vDwj5UKuzozX4+dHZSIXUh4InoIIlcL5kUCxAQ9ZuAt8Wg9j8Q4C5/hVkxnH4Buptj+BwxUhLQzZVcf67e16mYZdqNJjAtRQ+FviYXrjT6IUL+Li8tLGB6twmbNRUX7HDhRa5asumsZWkdhQB4ncYgDDBL6sVWAYIVpQH/VHRvYFTjq6MP+5ODJqKjL7979VyC5caWSDBcXekQBxFa2eU6iqGMRdbhyvJ+07OqzSwQnnobuqCUFs83MpE7Jc4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(56012099006)(10067099003)(261026140227099003)(261022105027099003)(261028144727099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5u2E5xs4+BQd+FkwzVFB/XvJQCxnKRS7r50afidNxi5Vm8tUtVn1GzluiTL+?=
+ =?us-ascii?Q?qerYTOlnPVN3uRoN4IEqB6gQu7nqNUFBdsYeGm1+J7wzgn6MZXea7x+Ody2i?=
+ =?us-ascii?Q?AQM+TlgVJrucsxGBTX3pmcT7ai6lbyLsvWiWBiiTVM0cEUCoh736yA3w5AKE?=
+ =?us-ascii?Q?xjFfLvHLxAvxYr9v3YREHwSYI79Ji5m2XTNVflrwei/z5BKrqCY/4Ar6UTYd?=
+ =?us-ascii?Q?CGbSR8dY7Mg4q3vjKcUxTN1VjPB5Go9yqxzd7tUkq99StutOFdXOujVs0YLt?=
+ =?us-ascii?Q?9Y1s/6n+f30kA0k0CVYhk859ELdquA6V5bLpMWbnLqrHQJcsXj845IvbLVQQ?=
+ =?us-ascii?Q?Zs5axZcmxvUHcQQmDmBg7oFX9t+lXJL5AHPfSgcGa3tmDRvxUCnjA5i4nAvg?=
+ =?us-ascii?Q?QQfMCJTP30awCdqn+8GkkPcEHO22+RRP9g3Fxl27kGfm83mgoyqy6rEx924c?=
+ =?us-ascii?Q?PQ6AXPGI8Es7RWRFYHudJMCuVLLihIx1Ob05onJInAFpXF7mu1VF8qDkyTn0?=
+ =?us-ascii?Q?m2bLAx47ZrCtHB3cAOLByKa4v1eokIh446llwiNbSz78vdKvF79N/Q8d20fC?=
+ =?us-ascii?Q?HCkJCMdmfAb7mV0ch8KTQPoPjxhH9eTJUunLbLnn0ImTUkIge0HM1BalCAVU?=
+ =?us-ascii?Q?65RpXS478YgCDnMvJhGtlE1pOxHgNoTVhWcl5m7A/zYx9Go28l82FkOZMPUq?=
+ =?us-ascii?Q?6wEqcpSRtOqU9iOkDpkhFAKe9ubsI1wBWhmXnPkEy02FX9156bJZBNl31hkc?=
+ =?us-ascii?Q?0jcFHemqxDHu8EtmMlAsnO+I4BnJqjSWm1xouTBY/aVTBQDUKgNPxTlQYG8t?=
+ =?us-ascii?Q?j2s0wkS5J3BB7yPelPQ/VF+3yEMkWouSmLgN3z0TGwSJzi9aUxyA90GjjWux?=
+ =?us-ascii?Q?WdSUHGSrd690c8bHh8M5RzGSaE34xSpvkD9AwLh4UHA3+PfRDgRY/6zUYKAn?=
+ =?us-ascii?Q?yf5K4zh81Z/HS+KGycHgmxSRVKzCpgkNv+HJz+1CtClCKFSRofQGIUOqS0Vx?=
+ =?us-ascii?Q?GXCarhRTzLVPRrzo0rud/oxKjAIZIgR03spAvwdBDLTqEataLGY11+P70Lqg?=
+ =?us-ascii?Q?v/A6Q2kMFQ/9yd25bTD/jnq6qzHLMhV8ELysqluClEw3No1J9NKIdg8GKkNM?=
+ =?us-ascii?Q?4eG3SXu/5jppKruXUD1/z24fDZNANQhRAzL8/sOURgNodGLrmXtppLZmh90j?=
+ =?us-ascii?Q?Uwu1TjZFqGdBJt43gfZCLV/1TGSzb+DshmNQdfASt1/4l4odvyw5TrdKtLy8?=
+ =?us-ascii?Q?fG3ZHo54da6mnHc4fdtJGacxrOcTCZkl84reuyHLaUaAq8b4eWCmr0x6+OYp?=
+ =?us-ascii?Q?SjIxHYVg1YZ+zw6e3H7jYZ91CqDbwoKYyQSuPo4dRYnpcj6AECK984MrIT/t?=
+ =?us-ascii?Q?xFDZxG1vKQCbMalwlFs4sCs//Z7OScxJA2eDpaTlJWrykJMLypNhHPzbYxSc?=
+ =?us-ascii?Q?DLwJCxJd51PjfNWpfLlJd4lw+1fUIjEBfuU1AItjZzxK3rgYj+ghtqC/pFQ1?=
+ =?us-ascii?Q?0mOmoBo9N8ao48NnxwxHgy+bIgWGQIp3TYvUxf8lN6uHmihAALHDJVJHvStm?=
+ =?us-ascii?Q?2QWq3xf+4nCDdXdJaDPrvXdcpSbu+KqNkUhZBxJqnQw8vrM3H7VScDVfylBz?=
+ =?us-ascii?Q?yq1PMRAz5mZnvcpeO7fL/RUJfIyUZgH72Iup38iLfGG+a+EWnPOCytIyjJ8q?=
+ =?us-ascii?Q?wArvU2yAutG/jgCBCZeHATJvIhNGc3h0T/zKKT0vcSZj2jz8wXi4IjQUXvN3?=
+ =?us-ascii?Q?W1iPFocJUrnpeinA3i+iT6vYgStTHRNGTEnQwI7qSLxkC0m8txIO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 828be0f7-8ffa-4f89-3cdf-08df44023b8e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:54:09.1861
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b048nJ34JfGTfbTBGLmBsueYiBVKwvOqkYx0u/9X1RI2fLyXes30yzJ8BxPirYuWBxSMEHDRrToq4iipeqsJTdPyAZ+8+ISbb91uriob3WjV0Ub48Kn84d5yyKG23RDB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8557
 
-Michael Kelley <mhklinux@outlook.com> writes:
+On Mon, Nov 16, 2026 at 11:28:26AM +0800, Guoniu Zhou wrote:
+> On i.MX95, the CSI formatter provides MSB-aligned RAW data to the ISI
+> via the Pixel Link. The RAW16 passthrough that older platforms use to
+> produce LSB-aligned output now passes through MSB-aligned data instead,
+> so it no longer produces correct V4L2-compatible output. Exclude
+> RAW10/12/14 from format enumeration on i.MX95.
+>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
 
-...
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
->> 
->> -	do {
+> Changes in v4:
+> - New patch
+> ---
+>  .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |  6 ++--
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c |  2 +-
+>  .../media/platform/nxp/imx8-isi/imx8-isi-regs.h    | 10 +++---
+>  .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 38 ++++++++++++++++++----
+>  4 files changed, 42 insertions(+), 14 deletions(-)
 >
-> Dropped the looping behavior here may be much more significant
-> than just "streamlining" as described in the commit message. The looping
-> behavior was included when rep hypercalls were originally added in
-> commit 806c89273bab in kernel 4.14, long before any SNP/TDX/CCA
-> functionality was added. So it was present for "normal" VMs doing
-> hypercalls on x86/x64 the normal way. The looping ensured that
-> rep hypercalls could not return with no errors but with the completed
-> rep count less than the requested rep count.
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index a30633a7e2e9..ba0d6df98fd4 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -320,9 +320,11 @@ mxc_isi_bus_format_by_code(u32 code, unsigned int pad);
+>  const struct mxc_isi_bus_format_info *
+>  mxc_isi_bus_format_by_index(unsigned int index, unsigned int pad);
+>  const struct mxc_isi_format_info *
+> -mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type);
+> +mxc_isi_format_by_fourcc(const struct mxc_isi_plat_data *pdata, u32 fourcc,
+> +			 enum mxc_isi_video_type type);
+>  const struct mxc_isi_format_info *
+> -mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type);
+> +mxc_isi_format_enum(const struct mxc_isi_plat_data *pdata,
+> +		    const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type);
+>  const struct mxc_isi_format_info *
+>  mxc_isi_format_try(struct mxc_isi_pipe *pipe, struct v4l2_pix_format_mplane *pix,
+>  		   enum mxc_isi_video_type type);
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
+> index 1178947bb548..1ad0fd1af3b1 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
+> @@ -492,7 +492,7 @@ static int mxc_isi_m2m_enum_fmt_vid(struct file *file, void *fh,
+>  		MXC_ISI_VIDEO_M2M_OUT : MXC_ISI_VIDEO_M2M_CAP;
+>  	const struct mxc_isi_format_info *info;
 >
-> However, in my mind it *is* debatable whether that scenario could
-> ever occur. The Hyper-V TLFS describes "Hypercall Continuation" [1]
-> as essentially transparent to the caller. If a rep hypercall stops
-> processing reps because of hitting the 50 microsecond time limit,
-> it should restart and continue with the next set of reps without
-> the caller having to loop. Commit 806c89273bab mentions
-> hypercall continuation, but does not describe why the explicit
-> looping was added or how that aligns with the TLFS statements.
-> Vitaly -- it was a long time ago, but do you have any recollection?
+> -	info = mxc_isi_format_enum(f, type);
+> +	info = mxc_isi_format_enum(NULL, f, type);
+>  	if (!info)
+>  		return -EINVAL;
 >
-> Have you gotten an explicit assurance from the Hyper-V team
-> that the transparent hypercall continuation really does work,
-> and the explicit looping has all along been unnecessary? This
-> assurance would be needed back to and including Windows
-> Server 2016, which is now the oldest Hyper-V version supported
-> by Linux. Also note that the rep hypercall code is architecture
-> independent, so the transparent hypercall continuation would
-> also need to work on arm64 when the hypercall is invoked via
-> the standard path of using the HVC instruction (the TLFS doesn't
-> cover arm64, so this is unclear).
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> index 35438abf3172..b83a25a58ebe 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> @@ -425,11 +425,11 @@
+>  #define CHNL_IN_BUF_XTND_ADDR					0x00b8
 >
-> If you have such assurance, then I'm good with the removal of
-> the looping. But please make the removal a separate patch, with
-> sufficient discussion in the commit message to justify why it's OK
-> to do the removal (including that evidently the original commit
-> misinterpreted how continuation worked). And instead of looping,
-> perhaps do a sanity check that the completed rep count matches
-> the requested rep count.
+>  /*
+> - * The ISI shifts the 10-bit and 12-bit RAW formats left by 6 and 4 bits when
+> - * using CHNL_IMG_CTRL_FORMAT_RAW10 or CHNL_IMG_CTRL_FORMAT_RAW12 respectively,
+> - * to align the bits to the left and pad with zeros in the LSBs. The
+> - * corresponding V4L2 formats are however right-aligned, so
+> - * CHNL_IMG_CTRL_FORMAT_RAW16 must be used to avoid the left shift.
+> + * The ISI shifts the 10/12/14-bit RAW formats left to MSB-align the output.
+> + * On platforms where the Pixel Link provides LSB-aligned data, the RAW16
+> + * passthrough must be used instead to preserve LSB alignment. On platforms
+> + * where the Pixel Link provides MSB-aligned data (i.MX95), these formats
+> + * cannot produce correct V4L2-compatible output and must be excluded.
+>   */
+>  static inline bool isi_out_raw_shifted(u32 format)
+>  {
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> index ca8fe8782af8..708aa4c775c7 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> @@ -458,14 +458,32 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+>  	}
+>  };
 >
-> Without such assurance, I think the looping needs to stay. Callers
-> are not prepared for a rep hypercall to return with no errors, but
-> with the completed rep count less than the requested rep count.
+> +/*
+> + * On i.MX95, the Pixel Link provides MSB-aligned RAW data, so neither the
+> + * RAW16 passthrough nor the native RAW10/12/14 output formats can produce
+> + * correct V4L2-compatible LSB-aligned output. Exclude these formats.
+> + */
+> +static bool
+> +mxc_isi_format_is_raw_unsupported(const struct mxc_isi_plat_data *pdata,
+> +				  const struct mxc_isi_format_info *fmt)
+> +{
+> +	return pdata && pdata->model == MXC_ISI_IMX95 &&
+> +	       isi_out_raw_shifted(fmt->isi_out_format);
+> +}
+> +
+>  const struct mxc_isi_format_info *
+> -mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type)
+> +mxc_isi_format_by_fourcc(const struct mxc_isi_plat_data *pdata, u32 fourcc,
+> +			 enum mxc_isi_video_type type)
+>  {
+>  	unsigned int i;
 >
-> [1] https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/tlfs/hypercall-interface#hypercall-continuation
+>  	for (i = 0; i < ARRAY_SIZE(mxc_isi_formats); i++) {
+>  		const struct mxc_isi_format_info *fmt = &mxc_isi_formats[i];
 >
-
-It's been almost a decade since the looping behavior was added, it is
-very possible that I was using WS2012 for development back then. The
-commit says that the feature was required for HvFlushVirtualAddressList;
-I don't have any evidence left but I'm pretty sure 'incomplete' returns
-were observed. It is, of course, possible that I only observed them in
-synthetic testing when stuffing hypercall input to the maximum by some
-random data. 
-
-Overall, I agree with the proposal: keep the looping unless we get an
-explicit assurance from the host team that it can be dropped.
-
--- 
-Vitaly
-
+> +		/* Skip formats unsupported by the platform. */
+> +		if (mxc_isi_format_is_raw_unsupported(pdata, fmt))
+> +			continue;
+> +
+>  		if (fmt->fourcc == fourcc && fmt->type & type)
+>  			return fmt;
+>  	}
+> @@ -474,7 +492,8 @@ mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type)
+>  }
+>
+>  const struct mxc_isi_format_info *
+> -mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type)
+> +mxc_isi_format_enum(const struct mxc_isi_plat_data *pdata,
+> +		    const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type)
+>  {
+>  	unsigned int index = f->index;
+>  	unsigned int i;
+> @@ -482,6 +501,10 @@ mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type)
+>  	for (i = 0; i < ARRAY_SIZE(mxc_isi_formats); i++) {
+>  		const struct mxc_isi_format_info *fmt = &mxc_isi_formats[i];
+>
+> +		/* Skip formats unsupported by the platform. */
+> +		if (mxc_isi_format_is_raw_unsupported(pdata, fmt))
+> +			continue;
+> +
+>  		if (f->mbus_code && fmt->mbus_code != f->mbus_code)
+>  			continue;
+>
+> @@ -509,7 +532,7 @@ mxc_isi_format_try(struct mxc_isi_pipe *pipe, struct v4l2_pix_format_mplane *pix
+>  		  ? MXC_ISI_MAX_WIDTH_UNCHAINED
+>  		  : MXC_ISI_MAX_WIDTH_CHAINED;
+>
+> -	fmt = mxc_isi_format_by_fourcc(pix->pixelformat, type);
+> +	fmt = mxc_isi_format_by_fourcc(pipe->isi->pdata, pix->pixelformat, type);
+>  	if (!fmt)
+>  		fmt = &mxc_isi_formats[0];
+>
+> @@ -803,7 +826,8 @@ static int mxc_isi_video_validate_format(struct mxc_isi_video *video)
+>
+>  	state = v4l2_subdev_lock_and_get_active_state(sd);
+>
+> -	info = mxc_isi_format_by_fourcc(video->pix.pixelformat,
+> +	info = mxc_isi_format_by_fourcc(video->pipe->isi->pdata,
+> +					video->pix.pixelformat,
+>  					MXC_ISI_VIDEO_CAP);
+>  	format = v4l2_subdev_state_get_format(state, MXC_ISI_PIPE_PAD_SOURCE);
+>
+> @@ -1222,9 +1246,10 @@ static int mxc_isi_video_querycap(struct file *file, void *priv,
+>  static int mxc_isi_video_enum_fmt(struct file *file, void *priv,
+>  				  struct v4l2_fmtdesc *f)
+>  {
+> +	struct mxc_isi_video *video = video_drvdata(file);
+>  	const struct mxc_isi_format_info *fmt;
+>
+> -	fmt = mxc_isi_format_enum(f, MXC_ISI_VIDEO_CAP);
+> +	fmt = mxc_isi_format_enum(video->pipe->isi->pdata, f, MXC_ISI_VIDEO_CAP);
+>  	if (!fmt)
+>  		return -EINVAL;
+>
+> @@ -1281,7 +1306,8 @@ static int mxc_isi_video_enum_framesizes(struct file *file, void *priv,
+>  	if (fsize->index)
+>  		return -EINVAL;
+>
+> -	info = mxc_isi_format_by_fourcc(fsize->pixel_format, MXC_ISI_VIDEO_CAP);
+> +	info = mxc_isi_format_by_fourcc(video->pipe->isi->pdata,
+> +					fsize->pixel_format, MXC_ISI_VIDEO_CAP);
+>  	if (!info)
+>  		return -EINVAL;
+>
+>
+> --
+> 2.34.1
+>
+>
