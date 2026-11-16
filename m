@@ -1,54 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798273;
-	b=GXKFrlNX4c4WdGNfdixnDbQyNiJIcK029nAzK7+DjJeXYzMz/BHHZROYJk6W4dpZLMk5
-	 ffY19ndTrei6Q5TBBhhBbUHdC9PJJfB6BxADj0wDNgpObJ/4IM+RobrgiziR5p74GTOgP
-	 jVqWqOP/bJghg8MbCfaRZixd5p41O0fhLDvdt2jAdhhSXYddeUKRGHAG89S9qgiiqAsmo
-	 bePGNpB5HRSuJQMTBps8QdJsFacd6QxyDnpOT1bKmgwLWI3L627DlJDToq+dDNvK8TwaI
-	 jsCfXNGwq4EjaP68PBOvTeE/rW81ddho9Pv947uiDqiCeFqJZY7iLFfP0QTFMRLKyWQ==
+	t=1794798322;
+	b=wqmdQiNOFHKJk57xbD1vVSiIHDEGnfOjtmw3grl6hJoXdeQ/nZLl3lg2kstUGzUStULK
+	 4VL1KTAyBnZZyBWUqoeBwA/ffGR3tOXr992eplbPAbGz/jI7NNSQzY0YuE0yxJ5hRIsNB
+	 unZ1bYzn7l/5f2qRwShoEy3i4ySV0kp40enn+viQUEKG1le4aD8sqaq7+CfHgJudSYkQ1
+	 JL0UAswiSPEy16doyrguiBpvbe9cyk/w8JQb1pJwRSDWg2Wm24ecfOWFMC2H6ZaD/nmOo
+	 cqjzbnrJGlTZnbD+lklqwnILn+JDm5n1ReveeQlCXbbnndcXIFNmIkWzldZ51dP5tEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798273;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gjvOzc12J2sR02D1SD6105ACjek4G9ZZ21f6s6C+IuA=;
-	b=LS2hq7/FKAqij4YvTOJPbe+7oqpOPxhq0EG2iJn29wl5RKypwhNHl/SjPq1+zQuTuMQj
-	 9nJGlIH9se64r8XaO8vQOGTn7OlX3/2JUgQvSTG/yJC5ZRmp17Udf6DHzKtDykSG1+JFS
-	 lNFFgq18Ny9gFJ+kpQZb/rQ+h6BYhUaYnHvOp8ZdVRBGfvJ4cww3e3G00OAhGYqVPFVCj
-	 Ol0fgupUxzhRfarAEFZz8a64QuQVg1toJ2VENNDciMo8yl6+qRgUTMVFqLEY+j39xa6ZM
-	 nSGZXJdTU6A3gGtHtpdLl3nADfg8eTGX+Hf+htr+5H2l7vllYSiW9HrGbNSi7e9OmRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798322;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 DKIM-Signature;
+	bh=3h/hJhe2m7bMzYPZBQs2LlpH/xz1SgYRRDuDOQgzgJU=;
+	b=dZVYd4YK19xuWupZipt2KTK/cFFO8DTCWvCITn9a9pjYK6nGrbsEoOvvoLJobVianW85
+	 Y7BQD/GxvOX4waWVVobiawyj2JHM+i271Fr00XQECrjegMrB1wXgwDM7iUQQXBbvZIZxL
+	 UpOHgixzOLWQP5d5V0mLMbPNxc7UVzbOMY4Q1b5VfgXXgZaWOOLNyk+bfpl1fXQl/mKFb
+	 Fv6bzb+CkbCDjxtyURhpA+p4XVtdHwP5NVQDwSXdmysGVHkHsshaMl4lKYftjHdFhTFRv
+	 hEiG2QMqBdKp1KiG0tteztX1Em5ReVz8k7SEBMKe7T0jOcz8sVEYO8sqWNMDMY4tlXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hXVNTbRS;
-	arc=none smtp.remote-ip=95.215.58.104
-Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07956606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07956606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=BOHm6Nro;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 37D39606A337;
+	Mon, 16 Nov 2026 03:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D39606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hXVNTbRS
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2kSxzvz8rnLMULtMF34NYKP/UIdl2tqu/nArinaMAV8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794798270; v=1; x=1795403070;
- b=hXVNTbRSvJ5Yv2vb3g1NJ1Utmd4/yMHzivP2SbiFL4NQRwXZsEkn8qFyftbuIXgK5PyvkEmn
- hNWfF7bKfUAMYJtekHS2Bogq7bP9Oo6JliMxQNc1S3Ffbfst/GzGzhkylFvTrqkwRBi7/jttQqB
- C+N9ynck+E4yq/GLefbCURtg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 80d53e618474a42b;
-	Mon, 16 Nov 2026 03:04:29 +0000
-X-Mizu-Trace-ID: 80d53e618474a42b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bbb07259-a2e8-40b5-9933-eb3d5d7a4bba@linux.dev>
-Date: Mon, 16 Nov 2026 11:04:19 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=BOHm6Nro
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.3.14
+From: "Li,Rongqing" <lirongqing@baidu.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIIHYyXSBQQ0kvQUNQ?=
+ =?utf-8?B?STogQ2hlY2sgdGhlIGZvdW5kIGhhbmRsZSBpbiBhY3BpX2dldF9yY19yZXNv?=
+ =?utf-8?Q?urces()?=
+Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSCB2Ml0gUENJL0FDUEk6IENoZWNr?=
+ =?utf-8?B?IHRoZSBmb3VuZCBoYW5kbGUgaW4gYWNwaV9nZXRfcmNfcmVzb3VyY2VzKCk=?=
+Thread-Index: AQHddOFxtRU/PxmmZk61qzZICDwANLcu14WAgAEtJ2A=
+Date: Mon, 16 Nov 2026 03:05:07 +0000
+Message-ID: <0b5ce94eb1bf496781dd89c12295d229@baidu.com>
+References: <20261115091221.2217-1-lirongqing@baidu.com>
+ <CAJZ5v0hBVwOksptV2ThK9iCpHbSZDh0Z+R3dtojCtkze4_0eQg@mail.gmail.com>
+In-Reply-To: <CAJZ5v0hBVwOksptV2ThK9iCpHbSZDh0Z+R3dtojCtkze4_0eQg@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,139 +66,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (macOS/Intel)
-Subject: Re: [PATCH bpf-next] selftests/bpf: Skip memcg_proactive_reclaim when
- data lands in shmem
-To: Kurt Lin <lylin1023@gmail.com>, Hui Zhu <zhuhui@kylinos.cn>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman
- <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- Emil Tsalapatis <emil@etsalapatis.com>, Barry Song <baohua@kernel.org>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261113180159.602033-1-lylin1023@gmail.com>
-Content-Language: en-US
-From: Hui Zhu <hui.zhu@linux.dev>
-In-Reply-To: <20261113180159.602033-1-lylin1023@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1794798310;
+	bh=3h/hJhe2m7bMzYPZBQs2LlpH/xz1SgYRRDuDOQgzgJU=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=BOHm6NroPpLdqm5zBykgI6UseH1BCSOxS9Ah024JoVRHZy4uQkJsrXIzhx8cImx4S
+	 Kg7BHWNpYyIuTtDwVdL4gZjGs3lgt5zTYCrdUMNR/4gWaAciqwE74PH5QWTDfXlG/Q
+	 dc2Rb5+EXZhmUf8Z7fHX3WfPtuU1jYtZp3VrCKoNVv+HUYT6p3VypEF9ITb5zLKQYR
+	 1S67aRGmj+AvnB0SI4ZiY4uSomd2eD6WEJDDEFUGC3J/owl3LJI5wdx8Vlm76eWVbW
+	 MNwo9Vs/pFyMC0SCBxZMr/SMQVNhm+PNBElgttXLSr9Efmvnm2PibaoAWEzBYJAbiB
+	 rRGiLIQCLmI/w==
 
-Hi Kurt,
-
-I have two suggestions below.
-
-2026/11/14 02:01, Kurt Lin:
-
-> workload_dir() keeps the data file off tmpfs because shmem cannot be
-> reclaimed without swap. But statfs() only sees the top of a stacking
-> filesystem: with /tmp on overlayfs over tmpfs, as in virtme-ng guests,
-> the check passes and all 32 MiB are still charged as shmem. Whether the
-> test then passes depends on unrelated page cache in the cgroup; in a
-> full test_progs run it fails with:
->
->    test_memcg_proactive_reclaim:FAIL:reclaimed unexpected reclaimed: actual 0 <= expected 0
->
-> Check memory.stat after writing the file and skip when most of the
-> data was charged as shmem.
->
-> An AI coding assistant (Claude) was used to find and analyze the
-> failure and to draft the fix and this changelog.
->
-> Fixes: 0f9b1e9ef584 ("selftests/bpf: Add bpf_proactive_reclaim test")
-> Signed-off-by: Kurt Lin <lylin1023@gmail.com>
-> ---
->
-> Notes:
->      Tested in a virtme-ng guest without swap: with /tmp on overlayfs over
->      tmpfs the test now skips; on a disk-backed directory it passes.
->      
->      After writing 32 MiB, memory.stat shows shmem 32.0 MiB on overlayfs
->      /tmp and on tmpfs, and 0.0 MiB on a disk-backed filesystem.
->
->   .../bpf/prog_tests/memcg_proactive_reclaim.c  | 28 +++++++++++++++++++
->   1 file changed, 28 insertions(+)
->
-> diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c b/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
-> index c22dcfabe856..c03550676041 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
-> @@ -46,6 +46,28 @@ static const char *workload_dir(void)
->   	return NULL;
->   }
->   
-> +/*
-> + * statfs() only sees the top of a stacking filesystem. When /tmp is an
-> + * overlayfs whose upper layer lives on tmpfs, as in virtme-ng guests, the
-> + * check above passes but the written data still ends up as shmem. Ask the
-> + * cgroup how the pages were actually charged.
-> + */
-> +static bool charged_as_shmem(void)
-> +{
-> +	static char buf[8192];
-> +	unsigned long long shmem;
-> +	char *p;
-> +
-> +	if (read_cgroup_file(CG_PATH, "memory.stat", buf, sizeof(buf)))
-> +		return false;
-Would it make sense to turn the silent "return false" into an explicit
-assertion, e.g.:
-
-     if (!ASSERT_OK(read_cgroup_file(CG_PATH, "memory.stat", buf,
-                     sizeof(buf)), "read memory.stat"))
-         return false;
-
-My reasoning: memory.stat exists on every cgroup v2 hierarchy and the
-"shmem" key is emitted unconditionally (not behind any CONFIG), and
-cgroup_setup_and_join() has already succeeded by the time this runs.
-So a read/parse failure here likely means something is genuinely
-broken, rather than an environment limitation. With the silent
-fallback, a shmem-backed dir falls through to the old confusing
-"reclaimed: actual 0 <= expected 0" failure and the real cause is
-never reported. The ASSERT_* macros are statement expressions, so this
-works inside the bool helper: the failure is recorded with a clear
-message first, and any subsequent "reclaimed" failure becomes
-obviously secondary. (Skipping on the error path would be worse still
--- a genuine breakage would be counted as a pass, so I'd keep it as a
-failure either way.)
-> +
-> +	p = strstr(buf, "\nshmem ");
-> +	if (!p || sscanf(p, "\nshmem %llu", &shmem) != 1)
-> +		return false;
-> +
-> +	return shmem >= FILE_SIZE / 2;
-
-
-Small nit: a one-line comment on the threshold might help future
-readers, something like "all-or-nothing: the data file is either fully
-shmem (stacked tmpfs) or not shmem at all (disk-backed), so half of
-FILE_SIZE is a safe midpoint". Also, printing the measured shmem value
-in the SKIP message could be handy when debugging odd environments.
-
-Best,
-Hui
-
-
-> +}
-> +
->   void test_memcg_proactive_reclaim(void)
->   {
->   	struct memcg_proactive_reclaim *skel = NULL;
-> @@ -99,6 +121,12 @@ void test_memcg_proactive_reclaim(void)
->   	if (!ASSERT_OK(fsync(data_fd), "fsync"))
->   		goto out;
->   
-> +	if (charged_as_shmem()) {
-> +		printf("%s:SKIP: %s is backed by shmem\n", __func__, dir);
-> +		test__skip();
-> +		goto out;
-> +	}
-> +
->   	args.cgroup_id = cgroup_id;
->   	args.size = FILE_SIZE;
->   	skel->bss->reclaimed = 0;
->
-> base-commit: 0021f17128de5dc0b19f1a523f448df2440d8088
+PiA+IEZyb206IExpIFJvbmdRaW5nIDxsaXJvbmdxaW5nQGJhaWR1LmNvbT4NCj4gPg0KPiA+IGFj
+cGlfZ2V0X2RldmljZXMoKSByZXR1cm5zIEFFX09LIGV2ZW4gd2hlbiB0aGUgbmFtZXNwYWNlIHdh
+bGsgZmluaXNoZXMNCj4gPiB3aXRob3V0IGEgbWF0Y2gsIGluIHdoaWNoIGNhc2UgdGhlIHJldHVy
+bl92YWx1ZSBhcmd1bWVudCBpcyBub3Qgd3JpdHRlbi4NCj4gPiBUaGUgY2FsbGVyIHBhc3NlcyBh
+biB1bmluaXRpYWxpemVkIGFjcGlfaGFuZGxlIGFuZCBoYW5kcyBpdCB0bw0KPiA+IGFjcGlfZmV0
+Y2hfYWNwaV9kZXYoKSwgd2hpY2ggZGVyZWZlcmVuY2VzIGl0IGFzIGFuIEFDUEkgbm9kZS4NCj4g
+Pg0KPiA+IEluaXRpYWxpemUgdGhlIGhhbmRsZSBhbmQgcmVqZWN0IGEgbWlzc2luZyBtYXRjaC4N
+Cj4gPg0KPiA+IEZpeGVzOiAxNjlkZTk2OWMwMTggKCJQQ0kvQUNQSTogUHJvdmlkZSBhY3BpX2dl
+dF9yY19yZXNvdXJjZXMoKSBmb3INCj4gPiBBUk02NCBwbGF0Zm9ybSIpDQo+ID4gU2lnbmVkLW9m
+Zi1ieTogTGkgUm9uZ1FpbmcgPGxpcm9uZ3FpbmdAYmFpZHUuY29tPg0KPiA+IC0tLQ0KPiA+IERp
+ZmYgd2l0aCB2MTogYWRkIGZpeGVzIHRhZw0KPiA+DQo+ID4gIGRyaXZlcnMvcGNpL3BjaS1hY3Bp
+LmMgfCA1ICsrKystDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDEgZGVs
+ZXRpb24oLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3BjaS9wY2ktYWNwaS5jIGIv
+ZHJpdmVycy9wY2kvcGNpLWFjcGkuYyBpbmRleA0KPiA+IGUyNjAwODkuLmU5MGU3NDkgMTAwNjQ0
+DQo+ID4gLS0tIGEvZHJpdmVycy9wY2kvcGNpLWFjcGkuYw0KPiA+ICsrKyBiL2RyaXZlcnMvcGNp
+L3BjaS1hY3BpLmMNCj4gPiBAQCAtODIsNyArODIsNyBAQCBpbnQgYWNwaV9nZXRfcmNfcmVzb3Vy
+Y2VzKHN0cnVjdCBkZXZpY2UgKmRldiwgY29uc3QNCj4gPiBjaGFyICpoaWQsIHUxNiBzZWdtZW50
+LCAgew0KPiA+ICAgICAgICAgc3RydWN0IGFjcGlfZGV2aWNlICphZGV2Ow0KPiA+ICAgICAgICAg
+YWNwaV9zdGF0dXMgc3RhdHVzOw0KPiA+IC0gICAgICAgYWNwaV9oYW5kbGUgaGFuZGxlOw0KPiA+
+ICsgICAgICAgYWNwaV9oYW5kbGUgaGFuZGxlID0gTlVMTDsNCj4gPiAgICAgICAgIGludCByZXQ7
+DQo+ID4NCj4gPiAgICAgICAgIHN0YXR1cyA9IGFjcGlfZ2V0X2RldmljZXMoaGlkLCBhY3BpX21h
+dGNoX3JjLCAmc2VnbWVudCwNCj4gPiAmaGFuZGxlKTsgQEAgLTkyLDYgKzkyLDkgQEAgaW50IGFj
+cGlfZ2V0X3JjX3Jlc291cmNlcyhzdHJ1Y3QgZGV2aWNlDQo+ICpkZXYsIGNvbnN0IGNoYXIgKmhp
+ZCwgdTE2IHNlZ21lbnQsDQo+ID4gICAgICAgICAgICAgICAgIHJldHVybiAtRU5PREVWOw0KPiA+
+ICAgICAgICAgfQ0KPiA+DQo+ID4gKyAgICAgICBpZiAoIWhhbmRsZSkNCj4gPiArICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FTk9ERVY7DQo+IA0KPiBhY3BpX2ZldGNoX2FjcGlfZGV2KCkgd2lsbCBy
+ZXR1cm4gTlVMTCBpZiBoYW5kbGUgaXMgTlVMTCwgd29uJ3QgaXQ/DQo+IA0KDQpBZ3JlZWQgdGhh
+dCBhY3BpX2ZldGNoX2FjcGlfZGV2KE5VTEwpIGlzIHNhZmUgdG9kYXkg4oCUIGFjcGlfZ2V0X2Rh
+dGFfZnVsbCgpIHJlamVjdHMgTlVMTCB1cCBmcm9udC4gQnV0IHRoYXQgc2FmZXR5IGlzIGluY2lk
+ZW50YWwsIG5vdCBjb250cmFjdHVhbDogdGhlIGhhbmRsZSBsYXllciBkb2Vzbid0IHVuaWZvcm1s
+eSByZWplY3QgTlVMTCAoYWNwaV9uc192YWxpZGF0ZV9oYW5kbGUoKSBldmVuIG1hcHMgaXQgdG8g
+dGhlIHJvb3Qgbm9kZSksIHNvIHJlbHlpbmcgb24gaXQgbWFrZXMgdGhlIGZpeCBmcmFnaWxlIHRv
+IGZ1dHVyZSBjaGFuZ2VzLiBUaGUgZXhwbGljaXQgY2hlY2sgc3RhdGVzIHRoZSAibm8gbWF0Y2gg
+4oeSIC1FTk9ERVYiIGludGVudCBkaXJlY3RseSBhbmQgY29zdHMgMyBsaW5lcy4gSWYgeW91IHBy
+ZWZlciB0aGUgbWluaW1hbCBkaWZmLCBJIGNhbiBkcm9wIGl0IOKAlCB0aGUgaW5pdGlhbGl6YXRp
+b24gYWxvbmUgaXMgYWxzbyBjb3JyZWN0LiANCg0KVGhhbmtzDQoNCg0KW0xpLFJvbmdxaW5nXSAN
+Cg0KDQo+ID4gKw0KPiA+ICAgICAgICAgYWRldiA9IGFjcGlfZmV0Y2hfYWNwaV9kZXYoaGFuZGxl
+KTsNCj4gPiAgICAgICAgIGlmICghYWRldikNCj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIC1F
+Tk9ERVY7DQo+ID4gLS0NCg==
