@@ -1,77 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845008;
-	b=dxCrDh0wOoNaRyEPJQOp5TIwTobksAuxVphza1gTF9TMTcXL07v5MJyksFu5gzKhXTY5
-	 EBRk7bhSyo/rYSv6VcK1WZS5O5c5l2nfv7OPv124g9chuU0SBym8b/X451F1xReMbDGqT
-	 bfkGMioLWgK5AHINCQZf84QxSmgF0RSDm4OMLhBh85ls3wQEp/E2oRopeI6iC6B2mwjv+
-	 U3qyXXAFS2Fto1W7YbeOkifirg3U1l5Wj0WSJPSbWlGRu6H4GzE2dZQg9xXKFiSrnFkCR
-	 M7SuTzst+3PvxJfxA90lF2ckiYj7iSgmEjfcvqgOtibsqbzScPwaWWks+dlhyzUcXkg==
+	t=1794845013;
+	b=M8+ACPCeIyM6WeramlYVd3URoefAMJFu54jjQklYDMGwQvN4aQb+fQvNu+R1zYCT8txN
+	 YEWmTb6sSWPX6PbHhmFSvpXSPTaGmd4wKME9h+5PxAPqq3tijYSsdZPuNI5CiSq5vnbui
+	 vz4XIjssq3ooTy3k9l9PxxcJt+rEURRBWkY9Ob44m47vuEDHdGTFrJMZ/MSUNRmd9E5WE
+	 gmAJRabulAh3LD5d9+9p8ViILXbqDfKTsAPk9jm967GuGFJnn9isvO7G9dpOOu0mUOA4p
+	 gUuBiXkemREDrRds70Kfl7ejRLqBo0H6d2CfvfNgvzAIePm7fiLkBwvMdutQJ4XY1Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845008;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=XkqPB03SAz7WZka/YffSghw9wnh55+GSjFw+ElTS6gY=;
-	b=LU8S59Fm8YHMinW3vSQ7mDlPiyaNVzoUWNhMBG//u5qWzwxAkYdJqKXJQyZn3k/UqBpU
-	 yVkMqkU5tlQ+xbEQabN/757KuHloCKKmDF/s8ZYDmPwySCOF7cnnRe3o4Y0vP8UXASEuV
-	 LEgn8iHhy/ArL5lkczGOTugwJXOikfItPtpOoT6X77n4XUvb0/NLpQ8r5N3qnkpVamBl5
-	 /Q84Gp3x5o48kOEEsR0vYh5a6TKoRC0/xnWA04K9Qo5/iVetwWTnrKJoPyGq8+DZYuRT0
-	 SW630MHcgMQvQPxqCV3jhSRacwCvxRCBNiEMwvnjz9Le69IL6WNR2O/dMYA/zR0Opqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845013;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Pre-Result:X-Rspamd-Server:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id:X-Rspamd-Pre-Result:X-Rspamd-Action;
+	bh=PCR1dfBuCyi4j9Ex1YrBVtOtnXdJ51S+UwcIuHoQVfg=;
+	b=Hq9EqtPROP4ouBGvbBujczPAMA53o0pI6QzdutdRihZHUmaEzinkdiJvULcwg400KlRJ
+	 dnwknE2REIMbs3pU5YhjkmlMgR0DRzjEWz2icwtEPh9c6I+wwHOYi5m6oMqKhCXZFQ//m
+	 8DU532b95BalwXTuQLPHiO5/19T7CdjGj1ywZnM2wi5purciw964INrECIWGhUfqHnYmR
+	 alqyhib8u337xy9Df2qIxqU3Y6rDCpmBZHIiVqPQuor2CZC6EmdGSdgM7QkN5R991VUgM
+	 58ccihPMEHbVxD2V5nT6xC8cXCittUT7mlcEFaJHj7j17fiqo/0V+3TwDcRrexhS8xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Sn2gIe4K;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Sn2gIe4K;
 	arc=none smtp.remote-ip=195.135.223.130
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C926D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C926D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495B6606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 495B6606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Sn2gIe4K;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Sn2gIe4K
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 26FC52230F;
-	Mon, 16 Nov 2026 16:03:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794845006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XkqPB03SAz7WZka/YffSghw9wnh55+GSjFw+ElTS6gY=;
-	b=Sn2gIe4KnN9hXRrVJnK62vpkdEeXa+ONfho9hCU7cPF66qCgAykDIDjE30lppRh4DSVO5b
-	VdzH0MrijrndhPAwZqhxvnFSrtYVE7ObNeRUPIMjDc76fxELjRTt4vjbxYReeV6HK6XCmF
-	aWP6JmXt13px5n7UBE2ssHDANNIkPLo=
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DC35322311;
+	Mon, 16 Nov 2026 16:03:31 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794845006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XkqPB03SAz7WZka/YffSghw9wnh55+GSjFw+ElTS6gY=;
-	b=Sn2gIe4KnN9hXRrVJnK62vpkdEeXa+ONfho9hCU7cPF66qCgAykDIDjE30lppRh4DSVO5b
-	VdzH0MrijrndhPAwZqhxvnFSrtYVE7ObNeRUPIMjDc76fxELjRTt4vjbxYReeV6HK6XCmF
-	aWP6JmXt13px5n7UBE2ssHDANNIkPLo=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C12B01334C;
-	Mon, 16 Nov 2026 16:03:25 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7333A1334C;
+	Mon, 16 Nov 2026 16:03:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fdyXJU0p+2qJUwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 16:03:25 +0000
+	id tyGxFFMp+2qwUwAAD6G6ig
+	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 16:03:31 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org
@@ -81,9 +59,9 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v4 4/5] x86/msr: Remove native_rdmsr()
-Date: Mon, 16 Nov 2026 17:02:58 +0100
-Message-ID: <20261116160259.1579333-5-jgross@suse.com>
+Subject: [PATCH v4 5/5] x86/msr: Switch native_wrmsrq() from macro to inline function
+Date: Mon, 16 Nov 2026 17:02:59 +0100
+Message-ID: <20261116160259.1579333-6-jgross@suse.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116160259.1579333-1-jgross@suse.com>
 References: <20261116160259.1579333-1-jgross@suse.com>
@@ -97,57 +75,45 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-Spam-Flag: NO
+X-Spam-Score: -4.00
 X-Spam-Level: 
-X-Spamd-Result: default: False [-15.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.995];
-	MIME_GOOD(-0.10)[text/plain];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -15.80
+X-Rspamd-Queue-Id: DC35322311
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
 
-As native_rdmsr() has no users left, remove it.
+Make native_wrmsrq() an inline function.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- arch/x86/include/asm/msr.h | 7 -------
- 1 file changed, 7 deletions(-)
+ arch/x86/include/asm/msr.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index bfad2b96a892..7bb5bf408fa6 100644
+index 7bb5bf408fa6..3b33d432bc24 100644
 --- a/arch/x86/include/asm/msr.h
 +++ b/arch/x86/include/asm/msr.h
-@@ -83,13 +83,6 @@ static __always_inline void __wrmsrq(u32 msr, u64 val)
- 		     : : "c" (msr), "a" ((u32)val), "d" ((u32)(val >> 32)) : "memory");
+@@ -88,8 +88,10 @@ static __always_inline u64 native_rdmsrq(u32 msr)
+ 	return __rdmsr(msr);
  }
  
--#define native_rdmsr(msr, val1, val2)			\
--do {							\
--	u64 __val = __rdmsr((msr));			\
--	(void)((val1) = (u32)__val);			\
--	(void)((val2) = (u32)(__val >> 32));		\
--} while (0)
--
- static __always_inline u64 native_rdmsrq(u32 msr)
+-#define native_wrmsrq(msr, val)				\
+-	__wrmsrq((msr), (val))
++static __always_inline void native_wrmsrq(u32 msr, u64 val)
++{
++	__wrmsrq(msr, val);
++}
+ 
+ static inline u64 native_read_msr(u32 msr)
  {
- 	return __rdmsr(msr);
 -- 
 2.56.0
 
