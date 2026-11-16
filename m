@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794806506;
-	b=q97fLDVIKyvcMofK44QSdjl8DibpsFSzj6fS2DXToX62GagCYqmwAjiB1A0FltaWcSpR
-	 Zas6kjP0+/UEYoJ+ptaxKQvpbhd0PLcy2LPfE8OJ6XiFwET3xftaPT1YZPa79vFIRHHp3
-	 Mkr5awwml7OsWpaMeOaP4gdTlPxT/SZRj6l5Nm6RYbp+oGlIJatPGgy93dB3f9lzAsd8G
-	 gqPqz/H72io1YX73q+vAvidtqscmaSoCf71fp8DE+FJa3q/7Di/5UNOncfBKeIizngTZW
-	 gCbR5adAkX4yUjkSp9YTJRcv6XZcdbG7Yi9sYdtt3cV/TLXkqdbSIRzhSIWUiVcyf5A==
+	t=1794806654;
+	b=Kz3OFbdcUYiBBWlsPNdyoe9gCHmBXLjExOpGL0G9yZixF/ra1NVNC5Hx6rgANH4osqWt
+	 4rACkxanLcO4MjM5UUD2WO73BxahPrFEwXcOxGhTqUhD+VWuvHyHmHclIPoljBdlGZJic
+	 LgAwOZeel+OHRHWeW+1UCEFJ90MrLjR8rtPV3nGjFGqAKOHCOPFVg+0zGpJ17sqBvubgi
+	 EGVdOg1USvlsgm9PwJOyoReqHgCsM9HW2YL1W2h2kqzNX2MvaVCFCnwr4P/bV59Gr52AD
+	 nMARAVv8ehpXL4kX8IgMiTFf9KSwQU1UAJobU7ngLC1+0F5QCPYEKW0Jvf2A5LoSLNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794806506;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=jEfV+JQF7FD38ojElSzO1mtu8Ghpnr4QfBw1VO2XPSQ=;
-	b=q2FSFaQcKAH7o/aGzNmQDG7Y9PrzUVqBseWKS7xhs+AgrHrNX9KgknePMQoRtObuZdRL
-	 DpiwxmxWQwnTZ7DB6bnP024oVMByWSrJWHvrwkpr7Z1Vu4OzlzuggUGvOWK5SHBnM1wik
-	 FBzGOipQ/1IAA2kc1qfkh8u5n0e3hFhqBADeFjGi0mJ+ts6swwdZeaRqCHM2ksIbyrDgc
-	 x7aFdkNiTSKOAPniKAg0o8Z5D0eWIMI8scSgn0EZ6Ly7+4udQcOcwjFUfY1fgnUcDAByT
-	 HEcFyyd5iNEqI7jiXHQdSNzs9kOC+25AzL5hGnFHQpA7ClfgWroD1R9vRFvaSM1Gbgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794806654;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=nETJmKCVqPlTrkNAEmg4/bOwp28yMSUgmfSsOnU7Qbw=;
+	b=ZelUZLiD45Kax6/lqjH6c9kSCaw3rr7lSrHY7amCfY5f4xxWl0wrewcbQmX8zaOfD9qv
+	 wuYDxWIcvySPHaS9rc8b9aBHXHufzT8sPCyKiicqWGfG6rW7XPuGme3Pne2rz7JlfKaY4
+	 1bNZ/GnwWdDBZJ0wih/wgFSpfz1qflKdKVHXDwC9E8M6ts5inHztlPxrUrEvL+mG2vr9f
+	 xdWbYGN4+M9BkjrTItcYbtSiuy4Lo1ZZs8Z036xKwlxSujFhxNu2/aNPg/OfO/E3Z1VVJ
+	 IUe/NX8iwHlEwniJJWLCDXcSkci/kEUEyaV+WNgl55H/FAJT2dsvfdztmIueXcp077w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9xEqbK8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B7XoiCVB;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5A5606A334;
-	Mon, 16 Nov 2026 05:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FED606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22FED606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9xEqbK8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C991F000C4;
-	Mon, 16 Nov 2026 05:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794806506;
-	bh=jEfV+JQF7FD38ojElSzO1mtu8Ghpnr4QfBw1VO2XPSQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M9xEqbK8ku6TWTxTq5yvkeE98zgiMdOubhckbSmZq2fehatceTUvvOt6B/Xg+69Mq
-	 TtsweDShv4do/NIiGebsAFq4Gj+Fgd14ptYRa7T3a3nF8pQ/Ym5lR9apF4tMSFsDAX
-	 SttAb/pY9sDt06vkKNvxUlKJJHxwAApReIfRY3niXP58rZ4ZLCoNpAwR5fzHCtKS4v
-	 yHbVDJaQ65eOb9t9Qytur1d5G5fwN0JMZ+ziI55498x3vyY0wS6SdbPncYXzajmgkF
-	 TkE3heWXrvUJ8lmc4zQ8DgVRSwcMpYA0iFsCSTTDfYJpo/UACiYi4HF4SpXUTekeBN
-	 eDRGq+q1xgg6A==
-Subject: Re: [PATCH net v2 2/2] mptcp: avoid wrapping blackhole timeout
-From: netdev-bot+sashiko@kernel.org
-To: x-professor@outlook.com
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-doc@vger.kernel.org, edumazet@kernel.org,
- ncardwell@google.com, gang.yan@linux.dev, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org,
- ycheng@google.com, weiwan@google.com, stable@vger.kernel.org,
- yangang@kylinos.cn
-Date: Mon, 16 Nov 2026 05:21:44 +0000
-Message-ID: <179480650425.3133.15313880518132043396@kernel.org>
-In-Reply-To: <070c69fa36f83fe47a5eb6d1434f543dabe930e7.1794672619.git.x-professor@outlook.com>
-References: <070c69fa36f83fe47a5eb6d1434f543dabe930e7.1794672619.git.x-professor@outlook.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B7XoiCVB
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1411853f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:24:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794806652; x=1795411452; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nETJmKCVqPlTrkNAEmg4/bOwp28yMSUgmfSsOnU7Qbw=;
+        b=B7XoiCVBWcLLauFc4QQM/czqNFSGW1NPGEfC+PyLmIqjrGv1oyrbV/aVLl6zGTvISY
+         mXsfDCE4NkfbirtgGxoAe3r5ZJ2pFCadwgOvvA73ODxZMbLJ3t0AGec7DKCvU5vvQPIS
+         hQsfJOOHDDQ26/tEpqe4AYDkTinH3kqYEldVRAl2ShxhnOKGWBm0SZlUx+tvh318kmI+
+         +kpKyUGjpB2S8IAoK/fVAH24W01WgTtGLEQThqfETm5D3u8eGhSVwS7cq0ZAjo/6u7UC
+         4eYSgPjmbTzW35oP8Yb4JsqZBZCUfeBam8p/y8NtkVw9SIFOO4ghTbXX2FynX7L+0d7x
+         qkNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794806652; x=1795411452;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nETJmKCVqPlTrkNAEmg4/bOwp28yMSUgmfSsOnU7Qbw=;
+        b=I4BWWWPlyStFrfqopUN0auo0mMlc3SsNMhVM5yogleeu/itA7+JBWo1BHZxGPJIcPm
+         FJNvj3U2vKFMcM2wiIPm/9scArxLIDMIKRppEz+age9DMR/XXM9rSQEf+nOhPAkWaRF/
+         BDQhz0UHhhXTnfiHPXjKLYf6NaiT/CfxUFHvhzUoiuMS7DzGO784z11byQALXHaAFIBJ
+         JSZGbaTlVy1uJ9XQdoUANUqWkZmr4Mr584p3hgz31d5cpi2Q8lZM6iGX79utnpWAQaah
+         762KiWIcBwXBbwKPey79TJ5UtGcvz1IXTkFKgXHurfZ1Px5wNq83bRl8gca7nGrZD1d/
+         cXhw==
+X-Forwarded-Encrypted: i=1; AL+hErHeJhE7KkL+SwtiIl7VO8wgmvTm+zfWBYAj+aBsQYQM2LZ7iY7RfBuVQG6ymgqohTnhYsw+HlqwsFtTdM4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cRk3eU9mnNNP0SXrFRxA6Yn87sivciCC+Yk7uR0oe32sMzITG
+	qc1BLykpcULUWE0GsrS6E4K+nPiRnTyhTKSHE3yaFz2/Ao6DtuNz0g4y
+X-Gm-Gg: AYBFou23FaKAq29bSegti+/MH0oABcF1NAwZ+q9j9Eazmepr/6Va5oPaan9APFfJug8
+	bCgYKyP1cvziakVQw5G3mQmI/O1ZNN2VrYP3ca4KcfiVAVizjE1Yg2ZtdMoG7iPTYs/2tP/MM0W
+	4/K4UTib7aAMIKZK5Aozd3ctHblv6q6r00zzCxRgvRJWaC3OLMmQtduoQLMVrjfTypeL0I1nTRY
+	Lta7Or2vWswn1/UoFeVGi2dALu5cCxSImre5DwXNouliw0UQHQHKQHQZ6lAwZZFDDmTjFJ1tU7c
+	hvtCpoVXD9WyvFAm5nSKreNCqaspi7IiGFNnrRiKHhe6IijT4HRapQ/eoxpxmXy4YViGM7Lvay4
+	OBKXTLmk2OPW2Can13udTqBDBCrVYi0Xnb557pbWlRDq8KfYAcOwOAdVU4F0aP2ySWO0PqBDMSH
+	o3eZGahSDFfDhSEKiPtfLxjMuXIg6/wiKHrAa9m692tieqDN/RzzLvgxk9EOQgkO1eYzmpAAdYw
+	LsHW1vl7WxNOPAhVR5XZHdvYy5YGvgCUj/EykjaOjgRZayow/RRVlHsmsOx9hW+g6O2EbAmJXH9
+	hJJ057r3i4xyODpRThYJBNGy13R+psMrLgVkdYS/soI6h57ydOFRYG2m17i4piyRwtNUeyucNtN
+	KnOovqv51s4PiCtNm1g60EpSrpfllZ8Z2WbR1J/4RTr9lHJjFpnoClmSRf5CwwS4OlOw=
+X-Received: by 2002:a05:600c:4ecd:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4bb5599a73fmr224061135e9.0.1794806652295;
+        Sun, 15 Nov 2026 21:24:12 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb64ec7b58sm194039565e9.5.2026.11.15.21.24.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 21:24:10 -0800 (PST)
+Date: Mon, 16 Nov 2026 08:24:07 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Leon Pelzmann <brunonick1801@gmail.com>, sudipm.mukherjee@gmail.com
+Cc: gregkh@linuxfoundation.org, teddy.wang@siliconmotion.com,
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: sm750fb: remove ineffective sw_i2c_wait() busy
+ loop
+Message-ID: <avqTdwA-2E_-lKL9@stanley.mountain>
+References: <20261115215427.112315-1-brunonick1801@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,127 +99,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115215427.112315-1-brunonick1801@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Sudip, Is anyone still using this driver?
 
-Low priority / nit picks for your consideration:
+On Sun, Nov 15, 2026 at 10:54:27PM +0100, Leon Pelzmann wrote:
+> sw_i2c_wait() is meant to insert a delay between the bit-banged I2C
+> operations, but it only consists of a loop that computes a value into
+> a local variable which is never read. The loop has no side effects, so
+> the compiler removes it entirely and the function compiles to nothing.
+> With W=1 this also triggers:
+> 
+>   ddk750_swi2c.c:95:16: error: variable 'tmp' set but not used
+>   [-Werror=unused-but-set-variable=]
+> 
+> Remove the function and all of its call sites. The I2C timing is not
+> changed by this: the object code of ddk750_swi2c.o (x86_64, gcc,
+> allmodconfig) is identical before and after this change.
+> 
+> The W=1 warning was found by building the driver, and the change was
+> prepared with the help of an AI coding assistant (Claude); it was
+> verified by comparing the objdump output before and after the change.
+> 
+> Signed-off-by: Leon Pelzmann <brunonick1801@gmail.com>
+> ---
 
-- [Low] The commit message body refers to earlier revisions of this
-  patch: "In the v1 arithmetic-only test, the unpatched kernel retried…
-- [Low] mptcp_active_should_disable() (net/mptcp/ctrl.c:514-515) now
-  silently clamps the disable interval to MAX_JIFFY_OFFSET.
+This driver is old and when it was written the loop did add a delay.
+It does the silly stuff to hide that the loop is a no-op from the
+compiler but then compilers got clever and saw that it still a no-op.
 
---
+The busy loop was added based on testing and is presumably required.
 
-mptcp: avoid wrapping blackhole timeout
+Your patch doesn't break the driver but it disguises the bug to make it
+look as if the driver works.  We don't want that.  We want the bugs to
+be obvious.
 
-This commit computes the active-disable interval in
-mptcp_active_should_disable() in u64, so multiplier * blackhole_timeout *
-HZ no longer wraps in 32-bit arithmetic. The result is capped at
-MAX_JIFFY_OFFSET before it is added to active_disable_stamp.
+We have some guesses as to how to fix the driver, but actually we can't
+do it without testing so we are in a bind.  We can't move forward
+without testing.  To be honest, the most likely way forward is to remove
+the driver if no one is using it.
 
-> This issue was found using a static analysis tool. A loopback reproducer
-> induced 12 MPTCP blackholes and waited 1.2 seconds before opening another
-> connection. In the v1 arithmetic-only test, the unpatched kernel retried
-> MP_CAPABLE, while the fixed kernel used TCP fallback directly. The
-> reproducer required neither kernel modifications nor fault injection.
+regards,
+dan carpenter
 
-[ ... ]
-
-> On the v2 kernel, the loopback blackhole reproducer completed all 12
-> clients and the probe used TCP fallback directly instead of retrying
-> MP_CAPABLE.
-
-[Severity: Low]
-This isn't a bug, but the changelog refers to earlier revisions of the
-patch ("In the v1 arithmetic-only test" and "On the v2 kernel"). After the
-patch is merged, v1 and v2 mean nothing in git log. This is also tagged
-for stable, so backporters will read it without the mailing list thread.
-
-Could the reproducer results be described once, against the final code,
-with the per-version history moved below the --- line?
-
-The numbers themselves check out. 64 * 6912213 * 1000 = 442,381,632,000,
-which is 512 mod 2^32. With 12 blackholes the multiplier is
-1 << min(11, 6) = 64, and a 1.2 second wait is longer than 512 jiffies at
-HZ=1000.
-
-> diff --git a/net/mptcp/ctrl.c b/net/mptcp/ctrl.c
-> index 63c5747f0f63c..0b10e94e7f43c 100644
-> --- a/net/mptcp/ctrl.c
-> +++ b/net/mptcp/ctrl.c
-
-[ ... ]
-
-> @@ -501,12 +502,17 @@ bool mptcp_active_should_disable(struct sock *ssk)
->  	/* Paired with smp_mb__before_atomic() in mptcp_active_disable() */
->  	smp_rmb();
->  
-> -	/* Limit timeout to max: 2^6 * initial timeout */
-> +	/* Limit the backoff multiplier to 64. */
->  	multiplier = 1 << min(disable_times - 1, 6);
-> +	delay = (u64)multiplier * blackhole_timeout * HZ;
->  
-> -	/* Paired with the WRITE_ONCE() in mptcp_active_disable(). */
-> +	/*
-> +	 * Cap the delay for safe jiffies comparisons on 32-bit systems.
-> +	 * The timestamp read is paired with WRITE_ONCE() in
-> +	 * mptcp_active_disable().
-> +	 */
->  	timeout = READ_ONCE(pernet->active_disable_stamp) +
-> -		  multiplier * blackhole_timeout * HZ;
-> +		  min(delay, MAX_JIFFY_OFFSET);
-
-[Severity: Low]
-On 32-bit kernels MAX_JIFFY_OFFSET is ((LONG_MAX >> 1) - 1), which is
-0x3ffffffe jiffies, or about 12.4 days at HZ=1000. Does this clamp
-silently shorten blackhole_timeout values that the sysctl still accepts?
-
-The sysctl entry only sets a lower bound:
-
-net/mptcp/ctrl.c:mptcp_sysctl_table[] {
-	...
-	{
-		.procname = "blackhole_timeout",
-		.maxlen = sizeof(unsigned int),
-		.mode = 0644,
-		.proc_handler = proc_blackhole_detect_timeout,
-		.extra1 = SYSCTL_ZERO,
-	},
-	...
-}
-
-So values up to INT_MAX are accepted. Anything above about 1,073,741
-seconds is cut short even on the first blackhole (multiplier 1). Smaller
-values stop doubling before they reach the 64x factor.
-
-time_before() handles deltas up to LONG_MAX, so the cap is half of what
-the comparison can take. The old code compared intervals between 2^30 and
-2^31-1 jiffies correctly, and those are now shortened.
-
-For example, take HZ=1000, blackhole_timeout = 2000000 and a first
-blackhole. The old code disabled active MPTCP for 2e9 jiffies (about 23
-days). The new code disables it for 1,073,741,822 jiffies (about 12.4
-days).
-
-The commit message says:
-
-    Preserve the existing sysctl input range and backoff
-    for representable intervals.
-
-But this interval is representable and still gets shortened.
-
-Documentation/networking/mptcp-sysctl.rst, and the zh_CN translation,
-still describe blackhole_timeout as an initial period that will "grow
-exponentially", with no upper bound mentioned.
-
-Should the clamp be documented, or should the sysctl get an upper bound
-that matches it?
-
-64-bit kernels are not affected, because MAX_JIFFY_OFFSET there is far
-above 64 * INT_MAX * HZ.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794672619.git.x-professor%40outlook.com
