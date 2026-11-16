@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794790586;
-	b=NogjzRiatibLUxfQ4MdmjVRxxxTAbd68czgnlF6IP7Ik0B5L6LgCIqm5riTFWDfCLjt/
-	 Z0/Pvsl5a9xpTvnQCHwvrXGWnu2b8OhhCBGzZ1IRcAYgPez1uPfHGT3Q+Td4X1/rkL3MS
-	 wLfRz10o/scMgzcnKpE3jqmDwju5O02M9NuNlKc/UQDwG7FFyLl1HprKoImu7cX5njR6T
-	 GtiZbCEG5Q2na3keaD3Wjk63bJuRefloaCyTkIq69SNGw9TE8+X/C8k2YUOIxULPuSdC/
-	 WbuuIWh30epAZZayZLAsBZz2Tfk3mghMLgh0PT0jfrHcqLz19aJ/nclTKObXw4jBGpw==
+	t=1794790590;
+	b=vaaM5xOSkc7gQRcELw9ko6C+Apsnw7PeleUTgTuM3xxWO0/X98Qscx0j2QJgkb37yyKB
+	 bkbxtOL+h67YndBWWvWJf0VxejXOQ5MxOaHTZTQfFNVwPZHu0n45ik2OBtbRH/F/5Caea
+	 0UPAfa9biux/jzAQXqlFc4bsZWbc1aWlDjI0loC+ZuLOuTf6290eF7S7KrW5alT+gc0q9
+	 oPecBBB7t/rt/IDMwLkf2vbEPt/Cknq8Aa3ydUfsHwdYzymaehWvoDaCbYt2i3TFTpsUU
+	 Fmxresr9tbUsrsRuc1r2FPIC5Tenb+S70C8xexx4oOsQWVKOGvIVycvjIouL87zPoxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794790586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790590;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=WEMs7rQw6AdOQXqzfBdwPxPdLU8/256/fvh0xtNBmOc=;
-	b=jdHhq9t55OnS0hxsRW87cC0wVDTCCKnNnDETnkGqg2h2N01lLLu5vTVfawtcPGlq5Fx/
-	 rqA0TnD664wB0ugm1VnBuGOkIK0q46rC+0QTeJCB1ilkEK4hW/c72Ke7jNvDeErXoA3kD
-	 4CW4VuqZuPceCpNQBOU5vMUpd10sQivzFJpBRPLqXmTxP5oUoP7WVKRKQ9W+iTB9OKw/+
-	 twvpK5wMftGeN0tl0AUrhEBaT7Nl1beNTTpWO9lCihU0oITJ1BseIgyLMKwt7eV3mDd0v
-	 Gnr+hXHZG3X1frQC7jvtKCmHnnSOMCuNvniSRUvn1Efo4xjLq61O34yEOeTzUUx95mg==
+	bh=ko5kqGhgHwooBo9nYlQ3VK6wSF/SfHcCMRUqpSfdLdE=;
+	b=arGFJ4kiMrs/xWw+aCAbqoHNtuNmB8ft/Zu/wWpSgW3kBFT15Iu2D5Qs612303Une9kX
+	 uKsyKKqrTlHhpNcDl4cJAZ0TJ7NbODAoibvbpmMalTWOlF4PF37a7oGi1hj+IkrvDCNpo
+	 Kc2Vkx0+uVWVwR0veEUpkBVxoX1H6KByFy8hlklTLOJqGku2xrRy3w5t2TIGh8WudcSLR
+	 gwFETFcpFqJ+0jx1gtmNW9AYyoFzhwNlvykZ2b2qg7w+EqTEF/tlf1DcHxoHUicNtJANS
+	 PomCqZsutgkb/tDAkronTiAmpA1Gp4mKskdY5tG5L2KYnbQKZWj6weuSEhrjvddxuQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=empyreal.works;
 	spf=pass smtp.mailfrom=empyreal.works;
-	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=YdfZe3IM;
-	arc=none smtp.remote-ip=185.70.43.17
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=owGlM0jW;
+	arc=none smtp.remote-ip=109.224.244.118
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A95606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A95606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D330606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:56:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D330606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=YdfZe3IM
+	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=owGlM0jW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1794790582; x=1795049782;
-	bh=WEMs7rQw6AdOQXqzfBdwPxPdLU8/256/fvh0xtNBmOc=;
+	s=protonmail2; t=1794790587; x=1795049787;
+	bh=ko5kqGhgHwooBo9nYlQ3VK6wSF/SfHcCMRUqpSfdLdE=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=YdfZe3IMJh9UK2QUTD8C9oZHJJjYWijt8eG832SY94Y9MzV0ehDK4QYgitek3Byo8
-	 WQ5vlmmfyJbQVo4OnCYMqffqO9UexPjsKa5+gFg1ZwOs25zBW+8YrF4mebhcYPnOEc
-	 shHqSEAEO+t8AdgwGl34u7BdOdyzoHgtehT0eZi87PvuHD0sR1MmxXIiQercjbTFKa
-	 XouzeJXzUMkbrdTX2ZTkbG8OTEO6PAUXBMAz1S4LKUn1EVMZLF250CcoApY6CrRp7/
-	 NSoNoLO8mb05mkMm5PqidhywCnvhpeHrXPiKwfGPJlqoDo8icWTs74DhDJu5qBgIGd
-	 ZxB3HMRhN1G0g==
-Date: Mon, 16 Nov 2026 00:56:17 +0000
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+	b=owGlM0jWwaqkpXgm/k1/8swIyyO346F5NBnAOPAAYs2fa2vSz6bMS2Tu18dJtF3/k
+	 WXARs5Q72JWoNXbiRVjtcCVmLuMmOKbMYSOqfXAki7nLELIMCqPQ2CDhBIUAqWUU6C
+	 x4v1Be9HLIFJpG/9YcHb7aPqhBqwcoKzg3oEdUpERshfYENh5T47LVl578mQ5pbNjy
+	 2trSrDNXEKpjTqfxsyM4s6JVL8O4/nLXU7enr/LYKTD9BPPq9RrAKsF0cGR8NJEEzj
+	 GBb9K5Nj8hSDr+ewB4JddqDOmHdH2q6vSmtmTlLFjT9I5JodLYqThd3M0KSFk8UJqV
+	 f0/byopGGHZ/g==
+Date: Mon, 16 Nov 2026 00:56:21 +0000
+To: Alexander Usyskin <alexander.usyskin@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
 From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: Avraham Stern <avraham.stern@intel.com>, Kees Cook <kees@kernel.org>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: iwlwifi: mei: fix const qualifier of the NVM allocation
-Message-ID: <20261116-iwlmei-nvm-const-0c16d1de@empyreal.works>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] mei: allocate client DMA buffers on the parent device
+Message-ID: <20261116-mei-cl-dma-parent-60802f47@empyreal.works>
 Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 56ac4cd561a6979cdeab8ce325c7b2d3c160fbf7
+X-Pm-Message-ID: 523e79637488fe821cb55ccabd4dbbaaef135987
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,49 +64,63 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Commit 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj for
-non-scalar types") turned the allocation of mei->nvm in
-iwl_mei_handle_nvm() into kzalloc_obj(*mei_nvm). mei_nvm points to the
-received SAP message and is const-qualified, so the allocation is typed
-const struct iwl_mei_nvm * and assigning it to mei->nvm discards the
-qualifier:
+Since commit 7704e6be4ed2 ("mei: hook mei_device on class device"),
+struct mei_device embeds its class device as dev and keeps the PCI
+device in dev->parent. The DMA ring moved its coherent allocation to
+dev->parent, but mei_cl_dma_alloc() and mei_cl_dma_free() still pass
+&cl->dev->dev, the class device, which has no DMA mask. The allocation
+warns in dma_alloc_attrs() and fails, so mei_cldev_dma_map() returns
+-ENOMEM and iwlmei, its only user, cannot bind:
 
-  drivers/net/wireless/intel/iwlwifi/mei/main.c:890:18: error: assignment d=
-iscards 'const' qualifier from pointer target type [-Werror=3Ddiscarded-qua=
-lifiers]
+  WARNING: kernel/dma/mapping.c:639 at dma_alloc_attrs+0x48/0x300
+  ...
+   dmam_alloc_attrs+0x5b/0xb0
+   mei_cl_dma_alloc_and_map+0x152/0x6a0 [mei]
+   mei_cldev_dma_map+0x77/0xf0 [mei]
+   iwl_mei_probe+0x19e/0x6b0 [iwlmei]
+  ...
+  iwlmei 0000:00:16.0-13280904-7792-4fcb-a1aa-5e70cbb1e865: Couldn't alloca=
+te the shared memory: -12
 
-This is a warning by default and breaks the build with CONFIG_WERROR. It
-went unnoticed because IWLMEI depends on BROKEN.
+This was seen on an HP ZBook Firefly 14 G10 (Intel Wi-Fi 6E AX211, CSME
+16.1) with IWLMEI built. It went unnoticed because IWLMEI depends on
+BROKEN.
 
-Size the allocation by the destination instead and drop mei_nvm, which
-has no other use.
+With this change iwlmei binds and the Wi-Fi handover between CSME and
+the host works on that machine.
 
-Fixes: 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj for non-sc=
-alar types")
+Allocate and free the buffers on dev->parent, as the DMA ring does.
+
+Fixes: 7704e6be4ed2 ("mei: hook mei_device on class device")
 Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
 ---
- drivers/net/wireless/intel/iwlwifi/mei/main.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/misc/mei/client.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mei/main.c b/drivers/net/wi=
-reless/intel/iwlwifi/mei/main.c
-index ce92e26c42d7..d260bc5b96c3 100644
---- a/drivers/net/wireless/intel/iwlwifi/mei/main.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mei/main.c
-@@ -883,11 +883,10 @@ static void iwl_mei_handle_nvm(struct mei_cl_device *=
-cldev,
- =09=09=09       const struct iwl_sap_nvm *sap_nvm)
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 26d2b2742d50..a0f698b5d296 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -2248,7 +2248,7 @@ int mei_cl_irq_dma_unmap(struct mei_cl *cl, struct me=
+i_cl_cb *cb,
+=20
+ static int mei_cl_dma_alloc(struct mei_cl *cl, u8 buf_id, size_t size)
  {
- =09struct iwl_mei *mei =3D mei_cldev_get_drvdata(cldev);
--=09const struct iwl_mei_nvm *mei_nvm =3D (const void *)sap_nvm;
- =09int i;
-=20
- =09kfree(mei->nvm);
--=09mei->nvm =3D kzalloc_obj(*mei_nvm);
-+=09mei->nvm =3D kzalloc_obj(*mei->nvm);
- =09if (!mei->nvm)
- =09=09return;
-=20
+-=09cl->dma.vaddr =3D dmam_alloc_coherent(&cl->dev->dev, size,
++=09cl->dma.vaddr =3D dmam_alloc_coherent(cl->dev->parent, size,
+ =09=09=09=09=09    &cl->dma.daddr, GFP_KERNEL);
+ =09if (!cl->dma.vaddr)
+ =09=09return -ENOMEM;
+@@ -2262,7 +2262,7 @@ static int mei_cl_dma_alloc(struct mei_cl *cl, u8 buf=
+_id, size_t size)
+ static void mei_cl_dma_free(struct mei_cl *cl)
+ {
+ =09cl->dma.buffer_id =3D 0;
+-=09dmam_free_coherent(&cl->dev->dev,
++=09dmam_free_coherent(cl->dev->parent,
+ =09=09=09   cl->dma.size, cl->dma.vaddr, cl->dma.daddr);
+ =09cl->dma.size =3D 0;
+ =09cl->dma.vaddr =3D NULL;
 --=20
 2.55.0
 
