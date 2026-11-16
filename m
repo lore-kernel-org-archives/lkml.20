@@ -1,62 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.143
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843630;
-	b=dHSiNHCAb9Q+TcLhGFoBKZzEDVHVVQbwdED7IXuak7qm/DxWs9pNwQDEQ+/VP9/j++4c
-	 fXKgXvSZz+BgMRQ+DW/YULHx5MUuB21gMNKHDM1YOGoW3UhGFMgvQDTbxUzc5OY5TocwE
-	 uP5igZZc35fipAo3g1D/UM3pXHnGFRlhvA0A0CB+Ryv55/q/PIhoSC4aTSgGeZPhK+nXc
-	 AeBcbDytLiqHbeKTwqr5zPraEDXZNHpUYei0Z7f/Wx7A57pevTG5Rz3T+MpFB9l0Yq4Hn
-	 255xUEr3o+NWm/aogeWZoRSzQlOe+dzcB02/qHPrher3JK8iQoptlvwiAufn20hBr6w==
+	t=1794843632;
+	b=mMwI4KmlhzZlIcKyeYgL6Ni6upS81VTodrCXZvar2sk4sKhBhejyOn/OL3y9Gyhwouei
+	 xA2paW1+sqZXJde0FjBZzfHuPe2u0xnhujpFteLqNJrYpuTwCCpR1EttUkASNoEYtykXE
+	 7BD6YGyO+xKQEuyUPUbs7iFQHVi0AV+xyd1aUKBbMFtWkzWoyIe717rynFHZkU6hRuEGe
+	 g/FEUtVtuEscSsFcSkcFt0h+u+VZPupU2DQWMpY6wRSaGFWpLiIApl97gl63t6/b6q+ka
+	 YtXxBVzN2diH1xsWXIh3tu2pEATbBzJGoZYrc97kx8XOq7xr3C7+Uk0lHA8iDBvkygA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843630;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Rspamd-Queue-Id;
-	bh=pFgl2BRMAGjKsT4FqmcSVd40/qC3NQVtDe6l2Yqur2U=;
-	b=z3Y5z64JukSlLyjfv+z9C+U32/UwSlh8Ye9+D4VdO0uiAGIZrzVBVCq9ELeVZBxtwYsK
-	 fKw8zPL7ulnDTku+HlElmWOOLHJj8qFTnlmRM8DC2UluiRKoyGddbovvoIAQM8e1zkFX0
-	 iSqfg665l9NZbONGq90akm15qScfRSCH/FHgjHvbNMeG+fXS71xp0JcbYcQvCWwGWbSKq
-	 e6djg6rYVXC0ioKW4IdklVW8li67zMhyyQLuNfUQAmdjTZ5CpucVfrH4Ji8pBaF2ZgTqW
-	 mwZoSxtfhn9E81JPo/a08ViZTVODQQ7Z7SGTT+1CkOg+rq7lRHAmmtU7uKvWSB5H5Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843632;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=K9QCMgU3/qNmk6i5Ld3qHCb7sElYSI3GaLa7Dwr1/Es=;
+	b=ueUy3g93TX5i8aqsSpGArdBamT0ppaTqW6pYGPT3PU1FbnQ+HA/SCcl7rAC6O83xJFYL
+	 gnckcZJzg+R4+4gYydkvNMvjbtVmrxSX+SjLGGe1vlw2v45EUyz3liIen9x0p5dA4oLCk
+	 gWk7RGFLFcO/T3aDd1849ShTpmzgXVBsEEyzlq+Ni5XzLv/n2iLSU+ywgcJMpWWAWzsfU
+	 0dRI8kTnQvkcTv6n4jGxJ0SFNxQqZ5jVTOfITSM2A5WpYOUMC7VeygzWwxg6Axio+TX0h
+	 LiAc0qlqNDlPIhniZp+0oxB+1l36aOHRPl6dOtGit9iuvrYR7kYbZJf+Qb/fod2n0Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pablofraile.net;
-	spf=pass smtp.mailfrom=pablofraile.net;
-	dkim=pass header.d=pablofraile.net header.i=@pablofraile.net header.a=rsa-sha256 header.s=MBO0001 header.b=aU85FW07;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=c5vejlrL;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=J+07JrxK;
+	arc=none smtp.remote-ip=103.168.172.143
+Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D92606A32C;
-	Mon, 16 Nov 2026 15:40:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D92606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pablofraile.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pablofraile.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F8B606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:40:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19F8B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pablofraile.net header.i=@pablofraile.net header.a=rsa-sha256 header.s=MBO0001 header.b=aU85FW07
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jSsWb0Sgsz8tys;
-	Mon, 16 Nov 2026 16:40:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pablofraile.net;
-	s=MBO0001; t=1794843627;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pFgl2BRMAGjKsT4FqmcSVd40/qC3NQVtDe6l2Yqur2U=;
-	b=aU85FW07T2R+SoecrpqLp3+yfKd+UGufqjBV3zXgdG7NS32k0HmYrpP6hKEniLpfAj9OFh
-	66iSJDw5djLJRMC9O1QjZuuLQaghtjosT3DpM/Dq+Vd5quzZZaBcm+C1PLH+cy2trGe7/b
-	GN5Rm/0PwlKqWHE/hpsd3udDRxoqNXxSfQF+sf+qoksOoSS3GHL9oOXY7tYq0SYfwZKAah
-	yBJ7TEreZK7emu1pXs+Dx5Ujri7yN4s/7xDohyXQB3g2Sp8bWNJn1OE7YgByUuh0y6QKS4
-	EKzmyG3nVsrbelxEFxbAM6aQM+YJ3FHGXmBhrafMjg822r0I19ff2eGPJ698Jg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of pablo@pablofraile.net designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=pablo@pablofraile.net
-From: Pablo Fraile Alonso <pablo@pablofraile.net>
-Date: Mon, 16 Nov 2026 16:40:22 +0100
-Subject: [PATCH] uprobes/x86: Fix bypass of two-byte opcode validation
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=c5vejlrL;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=J+07JrxK
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.phl.internal (Postfix) with ESMTP id BB6F41381A26
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:40:25 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Mon, 16 Nov 2026 10:40:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794843625;
+	 x=1794850825; bh=K9QCMgU3/qNmk6i5Ld3qHCb7sElYSI3GaLa7Dwr1/Es=; b=
+	c5vejlrLPwZAjCGmX1QTNDJKlbwsc42YdY1kTMK8LGTmO33r29yZEezj1WeE+l6e
+	LzavMdwNWrdwT/bFvi6WiZXAncS80b3WFjqtyTAGRbA17nevA6YwcV2mrLS9Pah6
+	0MwtGPHw4k8/XXSiuTZcy61KQLhvUkYPEIHOfoE9lx04aJIpdaVSxoiEi1qF+eWC
+	KyiTi2ASZYzgmTwfeyETmCb7Q9jH0j+8DuaNNhuMupXd9heLoX2NiUauCT5XSP6q
+	ZCbIxoBSa2ZpDZYdHpp8R69D4NixGjOmf2dymmoYUrEVMzAYVAYSHmyqgU0GuRxp
+	K1q46lYEZIwMbnw5sbseMA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794843625; x=
+	1794850825; bh=K9QCMgU3/qNmk6i5Ld3qHCb7sElYSI3GaLa7Dwr1/Es=; b=J
+	+07JrxKGH89agZwZypxfZOwjMdUvqyIWG4VSNZDpLZ3aWzRSBuSgwskD4DEjFwcv
+	H4cMAPVZ3dUNdsCmoUxxXW6lfi/biM3fs0dtH3+0Wood2ClPEYAizxyoR2Ji+1ek
+	MBf+V9PI1dLKngSamvhS6tTIWcfbla5yYKfwNgh+ytjtDE4+p4AZxkVkLjR14lpO
+	4CyE822JCpUu8UnSmdukEpszWMhCedT15Q0JLVClPVGOMb79kRceK43TqMdWSdCM
+	RAIdEJpeCqfDXs00vBE0A/kdjhRlicnOefNKMWxNzpyO1Hq/Ur31BxiJeCg4Yx+n
+	2BPaeNU3AxqS6XW+vTroA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794843625; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:XJawagLKZQGHQvtEtjdv2Qm7uKC9E0qYy3dx4oN4L9kOu1O
+	iGok9xepIoiATE4N+IcCzoosaXwU+XnSIl19STlcG88whheNLlkwuQ/t4K6EsmOG
+	Fo4I9Qx1lHcVs9nO6mzodNNV4AhRZ6C4nLm8h+HBxxybT+T0QhVJdUxthlf1mWrg
+	WmPGOsA6rE7/YSBpmes3cFlM/bhvVMtRCcwTYtpcge2S2UHrngDaR1ygAKccBcWk
+	9/cKxBD94CCYoOsfC79TFEr4kmBoTsJoeIk6I2gX58MMfGgrEXFsWPAv2GQlFYkp
+	ps8DT6IdEyJJtsP7qh0BgFZ/RPxfKiPTAHwPgLg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:0Y5rUBlQcrCj4l8SJGkaqp48B/WhxzlQss1o6ZgaDmk=:uyJPaLysvvX+DG/VcmnnuDeB94OwMehxNJ/NW9IPFc4=;
+X-ME-Sender: <xms:6SP7arbYZxLPnoqMSJbkzf9bdAqGrjncVRwkrH2noefuznsS0958tw>
+    <xme:6SP7akcpABGQBr1tLLLtqwITwXUQNYDOzlB3bIgjLvSNGTLvU5CWbFdymGThdBEXQ
+    dMZI6lIuTYRd1Ey9Qk7mh84x-tlDeUbVMQwDjnpAjxsbWNGWZ0ieA8>
+X-ME-Received: <xmr:6SP7at24dXWer6LLNFjK-_EXxHTW7spVtv_325TekFAm15kWI8DANB8pOwPVSg>
+X-ME-Proxy-Cause: dmFkZTGVW5RRIjhX0vofYqB5DQwzIH4ybjoBD4H/QKyxz1CgmLXHNktxjRFTVAf2AvyeKF
+    q73hIbVzdZcvzHkbuLgB3bgpka+Ug6AAEs8Bf2IjKC7E0HggYTQA+yLwxz9iUkVxNDR5aL
+    /wiFcJarF2w4gyZSM+s656/q8Ksgd+nc9p7/Z7I1nCWW24fZ4zKmXtRnhrBVT8MFnGS7m/
+    AcexrVX9bO0ySKLQMR1zz1zMvDqPTk1xvBtKwBgnC9ecCoOUPoomm+ySUKIymCN597SCI2
+    0SE56QdXXrscD5un8UpxCccGd2CfIvFBLGmPf7KHRj3/y9EV3C3mHhhrzsjqLGs9u44XTT
+    lTJBjENqyAI4S5w1H1CWASLIVCxdMABFZI3UaCUBr7xHTji1N9B8vlEYztE6ZNGUheoFOZ
+    pyxFLcXsortIvWGBWl7Aa8CoyRSTE5UytnhaxlOCIlTaZWX2nvnA5fbu7r5w055BXPx4vo
+    IKSYh5DV+Pp7C7uZcmcRJZSq0UTYKiMsEipR46uitMqpsc9Uql/TfhYD8MxtcWUNzn9+Dn
+    FE0M+wS0CYePpKJ6gETx9tL823rgTdlDqPdOM3o6uqNE3naF8uBydpuB23OiF/slAbzyQi
+    4G5KLqTp4Zk+bYJDQaoN9qxTJhWVyc7mpTUwy1GUuC4rsAIKnywSmehO+PBA
+X-ME-Proxy: <xmx:6SP7ajI_W2ctdjKLR08yW-lQhzJfuw6i4mxy1P0tnyJb6ri6Bocqtw>
+    <xmx:6SP7akGSRS6L9OdvhkuliQaAc0n1pm_b16N1RMOV5vNAI53LXAB1sg>
+    <xmx:6SP7anXJ2ttPjNpQijSJ7NkwK2nEWru2_xacgV3Jnr9MIrO1GTT0yg>
+    <xmx:6SP7akxzQYMKm-59M-TQwflBtldcBipCBTPtKYdb3k6nlLcm5iXBZw>
+    <xmx:6SP7atCj-hTWBKlPFqZIWsyF72xYi-2OlrzTmDMDw3IDjzBzse2a97Iq>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Nov 2026 10:40:24 -0500 (EST)
+Date: Mon, 16 Nov 2026 07:40:22 -0800
+From: Alex Williamson <alex@shazbot.org>
+To: Gustavo Andrade <gustavogyn@gmail.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alex@shazbot.org
+Subject: Re: [RFC PATCH 0/1] vfio/pci: Wait for GB202 firmware after reset
+Message-ID: <20261116074022.29d96bd7@shazbot.org>
+In-Reply-To: <CAPZV9qUMZcwVF=CUK4LY4G6Qoqd5ykCXE5ocX8VCy_f1c6+aBw@mail.gmail.com>
+References: <CAPZV9qUk3-eKOGEjVc7f0QzZcjb3L5QwUceAEUV0nuCdo90eGw@mail.gmail.com>
+	<20261114235828.GF3706007@nvidia.com>
+	<CAPZV9qUvgKjoBXGjYXJzwnCmqzSfu781ZSG8zW6Fn4PokUN2uQ@mail.gmail.com>
+	<CAPZV9qUMZcwVF=CUK4LY4G6Qoqd5ykCXE5ocX8VCy_f1c6+aBw@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,117 +129,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-x86-uprobes-two-byte-opcode-v1-1-2b6dbabead52@pablofraile.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAwA0F8hPduEMjPQXzEe2Cg6D3RZh2II/
- +7A47u8FZRTYIVrtULid9AgUwGdKvDPfnowhqEYmrqxRGRx6SzOMYljxfwRdN/MKNHLwNiOfXs
- 2nakvhqAMMfEYlmO/3f/W2b3Y572EbfsBbXP5438AAAA=
-X-Change-ID: 20261116-x86-uprobes-two-byte-opcode-7fa743830931
-To: Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Denys Vlasenko <dvlasenk@redhat.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- Pablo Fraile Alonso <pablo@pablofraile.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3214; i=pablo@pablofraile.net;
- h=from:subject:message-id; bh=gwaVMd4k5FYsrQI8K3YbuuiRNsSmGdpy4BVh44IaoNY=;
- b=owJ4nJvAy8zAJbZmdbncrUW3dBhPqyUxZP1WfhHp1iSl8PuEccoXf/YjfoLHhdZ4yqsu08/5G
- njCY7KY/7aOUhYGMS4GWTFFFvuf8UwKtnsXn5se9hFmDisTyBAGLk4BmMgLP0aGi9IMP+YeXvpU
- UPf/7mQumUkfW6SnPy7x+2OzJrLN/3P2O0aGrkMTndQulLq/q41dv/ecdn6ZXydTSUlU4p2gZEW
- zPR38AD9rSjo=
-X-Developer-Key: i=pablo@pablofraile.net; a=openpgp;
- fpr=8F6EE99CF702CAF8A8333DF5A6FFF50CA3F27559
-X-Rspamd-Queue-Id: 4jSsWb0Sgsz8tys
 
-Commit 67fc809217dc ("uprobes/x86: Fix 1-byte opcode tables") set
-bit 0x0f in both good_insns_32 and good_insns_64, assuming that
-the opcode escape byte would not be reported by OPCODE1(insn).
+On Sat, 14 Nov 2026 22:47:34 -0300
+Gustavo Andrade <gustavogyn@gmail.com> wrote:
 
-However, unlike ordinary instruction prefixes, 0x0f is an opcode
-escape byte retained in insn->opcode.bytes[0] by the x86 instruction
-decoder. Subsequent opcode bytes are stored in the following positions.
+> Hi Jason,
+> 
+> Thanks for the feedback. I submitted this as an RFC because, while the
+> workaround solved the issue for me, it seemed unusual that only my
+> card required it, since I haven't seen recent reports of this issue.
+> 
+> How would you suggest I proceed? I am currently running the latest
+> VBIOS available for my card (Palit RTX 5090 GameRock, version
+> 98.02.2E.80.10), which is also the most recent version listed in the
+> TechPowerUp database.
 
-For example, SYSCALL (0F 05) is decoded as:
+I imagine a better shape for a quirk is a resetfn in QEMU.
 
-    insn->opcode.bytes[0] = 0x0f;
-    insn->opcode.bytes[1] = 0x05;
+The fact that nova knows about this issue and has code to handle it
+suggests to me that it's only the guest initial boot and reboot, where
+the VBIOS is run before the FSP is initialized, that's causing the
+problem. We don't want to pollute every vfio-pci reset with this
+wait-for-device action (if we did, a reset_done callback would be a
+better solution) and I also don't think we want to implement a
+kernel PCI-core device specific reset.  Either of those would make the
+device behave differently in a VM, or modify the current bare metal
+behavior that's clearly expected by drivers like nova.
 
-Consequently, OPCODE1(insn) returns 0x0f, causing the first
-test_bit() in uprobe_init_insn() to succeed and return 0 before
-good_2byte_insns is consulted.
+A resetfn in QEMU can be device specific, wait for FSP to initialize,
+and not affect runtime resets where it would be the driver's
+responsibility to wait for FSP, as nova already does.  For example
+something similar to vfio_radeon_reset(), but calling the
+VFIO_DEVICE_RESET ioctl and then stalling for the FSP initialization
+to complete.  Thanks,
 
-This bypasses the secondary opcode allowlist for all legacy
-two-byte instructions, including SYSCALL (0F 05), which is
-explicitly disallowed by good_2byte_insns.
-
-Three-byte opcodes (0F 38 and 0F 3A) are also affected by the
-early return, since their decoded opcodes begin with 0x0f.
-
-Fix the validation logic so that legacy two-byte instructions
-are checked against good_2byte_insns. Preserve the existing
-behavior for three-byte opcodes, which are not currently checked
-against a dedicated allowlist (in my opinion, this should be
-audited on another patch, instead of returning -ENOTSUPP).
-
-Fixes: 67fc809217dc ("uprobes/x86: Fix 1-byte opcode tables")
-
-Signed-off-by: Pablo Fraile Alonso <pablo@pablofraile.net>
----
-I created two reproducers (and a brief explanation of them). One it's a simple one that demonstrates what I told (that you can attach to a non-allowed instruction), an another one that freezes a system by attaching a "poisoned" uprobe to glibc.
-
-- Dummy: https://gist.github.com/Pablito2020/077fc8d8b6d7a75c23c702c7021d68e6
-- Poisoned Glibc: https://gist.github.com/Pablito2020/bdda586ab023ec4760716b3be7cff102
-
-After the fix, registration of the uprobe should fail because
-the instruction is rejected by the secondary opcode bitmap.
----
- arch/x86/kernel/uprobes.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 0f60c0d076b6..1cf901d18688 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -292,14 +292,24 @@ static int uprobe_init_insn(struct arch_uprobe *auprobe, struct insn *insn)
- 	else
- 		good_insns = good_insns_32;
- 
--	if (test_bit(OPCODE1(insn), (unsigned long *)good_insns))
--		return 0;
--
--	if (insn->opcode.nbytes == 2) {
-+	switch (insn->opcode.nbytes) {
-+	case 1:
-+		if (test_bit(OPCODE1(insn), (unsigned long *)good_insns))
-+			return 0;
-+		break;
-+	case 2:
- 		if (test_bit(OPCODE2(insn), (unsigned long *)good_2byte_insns))
- 			return 0;
-+		break;
-+	case 3:
-+		/*
-+		 * As of today, allow three-byte opcodes, although
-+		 * one day  we should investigate which instructions may
-+		 * not be  compatible with XOL and reject specific
-+		 * problematic encodings.
-+		 */
-+		return 0;
- 	}
--
- 	return -ENOTSUPP;
- }
- 
-
----
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20261116-x86-uprobes-two-byte-opcode-7fa743830931
-
-Best regards,
---  
-Pablo Fraile Alonso <pablo@pablofraile.net>
-
+Alex
