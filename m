@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803663;
-	b=Xfqsjj/ZbJKmk7tsdPOwCBPuSiYFoHQe6ptLQ+0pDSRQFCBbEXYEHoUNDJzQBE/4GRg+
-	 GgxfDj1m3/BvqDiYwLz8GI7YhNu4Y1PHx01ZMfM5nzwa9vhMyhzmqQkRkrDW9B6NSRwkE
-	 ENBSOKtJgQG4j8mV0ebw6NI5FWom10wujja8+IgZFS+mYzr3QY0Ga3IB2ebTm1cPt5kF8
-	 n/70E3hcu1dfWZoVKFmGJtl880BvS5do1WSxkcFkwfRs9ndIlO3Hnz4IGvAmIs8L3ASQI
-	 IvRK0eCUXmhhvfH4hOXGo3qGYvNrzXokZx6N860+k/KpKfyr25IQCK0Q7RSa1OPZaVg==
+	t=1794803668;
+	b=E76pe8mkKgFBcqjyPUSrG0fFxToLEwrvA1Hk3yIJtGXT0M3YRyDxIoj7O38lTd0ejfXi
+	 0yau4BCdkzko5DwF1XGzEzw36gS8tRRWxV/Fubrs76S51FTIsMjdQKByoZVdS4uuBqOPw
+	 YWBln4VxMhuY3K183EpZOe57MhP7t/kN8LbUhhoq41AHlyysvXo22nBVPhzTPXuPyP1a1
+	 D1i+iJdXehdslldndnVSd8gz5U4NklW60YGhLzAHL1SqtUCrZUv+5auTWnEjuOeRIBM7U
+	 N4aq9yjiDMrvCpONzcU/5srto6V9DmPKQW4LFWKAEFrej5Qqdz5a3KzPxfYomIE0OvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803668;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=0RTPkBSn8aHOwll0NIb+MH6Rxh2TXo2nlFC6RRntyeU=;
-	b=YG36feu+hhRPOij3vwzHyQS1Wx5/IGhuk78KsH4f9t6w7d6wpvo7IXcMM6c7luVYPTFs
-	 x99icJcIEMKtxqMPwwluZJvEHydtx588mkNJXohlUHznXSSy+qy1v7YhV4RQJxR0rO0Uw
-	 9xGvq9KNXYzs4xcSVSrkgj7NoYNNaA0FJPs+6++HJAdXUE6hXI3w+ESobqIvHhFeH7uSX
-	 ivddtnlWYv+HOFZVh50C6MIjpsR1CAcvNoQLXoafg5uIaoHhbJDt2jTqa/g+PCOduBct9
-	 ib4EFps003gGYRBMTPX9h+dMXVNZAiTcnsb9RY5YTERwhjIhrALVBrv1ijuSuzZnUPw==
+	bh=yb0ouDgf9S/OdWev3vcVfqdIAaKZrYAoDUUyKNG3AEU=;
+	b=oVBreR8GWRC+Aj5ElZC7XB4NDv4r68yQNYzD01vjHj7JkFZDwiGkgG3Gwd7Uheqe9C9w
+	 9TYFOV95Fwp6bpY3rBB9hG6/sbKblduPkFIzsZPW0TKVkImf1s7XBt5rf5SkyvXtdhW4u
+	 vblF94p6+VxP5B25+ASAUSrJht2e+JlRpzgnMBX/Ja15JFjE3ZiLyFcPABq0Hvxq5UbpU
+	 vZVgUYOUugl7hY331KOoTjeDMEcsyHkNtAaXqqCyFbmRmfSzeh7oqtDdvKPiiyKCe+4uR
+	 sPjTDMP3lcZZ6+nHknREjD6mactAIoFZUPDz7khVUB3BkVBCGdDUgwX0adviO77oQow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=IvrpsDuj;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Hf3+VtbD;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F21606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:34:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F21606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD17B606A331
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:34:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD17B606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=IvrpsDuj
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so3268143c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:34:22 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Hf3+VtbD
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1aefd1bf74aso2245494c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:34:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794803662; x=1795408462; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794803667; x=1795408467; darn=vger.kernel.org;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0RTPkBSn8aHOwll0NIb+MH6Rxh2TXo2nlFC6RRntyeU=;
-        b=IvrpsDujkb8+xQxkW8bH57B/Njtz9j5nrLpeGfuYrBi6nX1JKFJylBRC6sdQEERIVw
-         HtGcx7CHi/CiN1Fk2bHltHeShULSWGB/FJStMTLzNEcxESGvjONp2O5O4N9PClo7TcFu
-         4beF6ymkhsh8+wfAWm4UkR+WNqUZfV0HV7UcM=
+        bh=yb0ouDgf9S/OdWev3vcVfqdIAaKZrYAoDUUyKNG3AEU=;
+        b=Hf3+VtbDTfzgXLI/sO1VMbmiG3HjPWLPXQC9K/x0cUqbiQ8byVDXCgJVkDqWGH94aR
+         b30c7OGKR5Ve2w8uFEu7hCMIH5aAu5hXb4FYyBCKKc8AKtr3mECcpxs948DTD0bMi/BB
+         Zn5fcARDQKEQQ52hBvf9q416lDQQd52msqG+E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794803662; x=1795408462;
+        d=1e100.net; s=20260707; t=1794803667; x=1795408467;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0RTPkBSn8aHOwll0NIb+MH6Rxh2TXo2nlFC6RRntyeU=;
-        b=DmNljxgcM0kXyGAQUxzQLMZDU16SJzrswkQL/wKZ7X4E1wD9eCUkh0T+pOJfXESsf+
-         +DP7P47N+a+iSpNOXmJtVAsb27m0jZQWCbjrhWkUalWsByVK0gwgk2AB4xPRoMDGeRvP
-         VmXjuS5fe7mqMlbHjV+P5uXFvVpFn5h7DdiGQJR1Ow2UyKx9TVg95uA0rdYhAc+Un+Wp
-         eSPk2qAcpbrkXp0ta0mEvOVtZw0Js1AW/kZdIk1YLgAhD8jtadiMZDYNPlN+oQkJdRy6
-         pVkUzUGIe1mf2psh0hBr7Zua0FsT/LJ7ypx+w+lKYP7JS8f2tNTImOmYoGMXBqA4w49V
-         nm9w==
-X-Forwarded-Encrypted: i=1; AL+hErF9uvr0Q2QLydMRSk/Xfayxqtabe2Alz6m5ae/EgOqY/mmOD1sC/9Uf0bePDIkr3Xw+e87o3OJNOI2BXWI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pGCxlgHMrOkyUEhsI95GdvadUXkADwk/kH0/XF19cNDyuzFAq
-	MEx5it9GzYRBAqO0PRXE2fxpj+hLPLmSWWaxptKgzDN/huBrexImIx60EkeI/020MRY=
-X-Gm-Gg: AYBFou0PuAO0kI3tKh4G+yK2HragBGfPVstP8UumoRpyncsRqgdzrq/i1BXZJcfZ5Tr
-	/qgnR/vMjw3zMVZKMl8HJyuZ68ZoXM/Y2tC52Q9dYQeeBAtaNsIRuhL5l3kZ3QRIBDEaXKqK0LJ
-	ECK8o7kgtOwclgRjpfbRR+OQALLFys0yu7J8OwB3yUSg0Ris4JV/39rBdEgVvbkeFOUMgHdVJMw
-	0g8Cjth+wdRHLZTw2OY+akWEJgXcWpV0SqT1orG8kH3f31Xm7QHwhi8F72YX3dofoC6oBgNfKjm
-	vnYYsK8WTYZaRr40OEUDfF8l3QA4Q2ukr1Ppft0//QtSTN55P9WKlMTJSr2hABLHvgr/oD1DCL0
-	mpbjl+KkL5/pf9ltm4q0En6ODIafqZU/CqiXCHxJ5+cLQzn3W/niaelwywAimhf6zy+DsZ4swdj
-	ZiVYJM0SoqSjb7rgrNKRo7kvo9DpBgwgyfyRctdk4uIGRbZAA2En4UCmmyFaKP24W617oZGlJ59
-	X53z/QByuA/R2h4hM1lu+fOOCIhXdx8wguC8j200OfgQ+XYMo89K+YnEJ04u0nKUWjd3ec799vz
-	mTdprqBF2hisnM3jZ474daQzY+1LheKRcXMNfsFV+C3V+MYLU8OLpotWrCV28Ebayl200hgds9I
-	5+uMPPXLeX+YPV1Mt4NfofpRgx4enpq3aqHkdl2fWPK6RXfbF+rLgLtHyq6xCM+1Lby8C5PW0JE
-	BRGWbdZ+CPsueWw6s9rKXGCUugNlNU0aJowDwDPH7l/opU565zPyDHCv2TZKRhNjzn
-X-Received: by 2002:a05:701b:4508:20b0:194:9e7a:3ba2 with SMTP id a92af1059eb24-1b50306c4d3mr9813315c88.2.1794803662025;
-        Sun, 15 Nov 2026 20:34:22 -0800 (PST)
+        bh=yb0ouDgf9S/OdWev3vcVfqdIAaKZrYAoDUUyKNG3AEU=;
+        b=LjUqSYl8goj8pqGM75Tn83I6XY8VOLpwe/aQ3yN9X9EXGy/70Ua0uOI64Kj0QPRPfF
+         0neBhgNEqT9FmF4BwWYxrxqXvhoRBmBuiShpB7myLofBcWlPaAuKTGNdkt6YNIWojaAd
+         wwDaNkosI9uVyo84XgKxA5PtbChXSp4JSDYYj9OWhKxrDInKgRxQFWghn+TPYAdnmiEL
+         ZA+461987YRnHGueqiRsd6stmDZDDjENasHEf+i2YQ51BZA9VQ1VaXWmcE7mj/IWJReY
+         jfN2HHigx0Dx/Jkif3k+aeb1ASlSU5qgX8f1Az1XcZJPf5wacLVLtv1/f36bJv0cpuJR
+         0Wfg==
+X-Forwarded-Encrypted: i=1; AL+hErEdGVmspXIXo1prLFejWesHrKnGFzfpmcyhcBKl4bZkRUp6KgJ+DA+0jMAIqx3Ol2GlN+gV36EKcWIi3yk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ZklAqDo2ERJfbVKoF+vw3U9VtE2SNYG7KGnwTIFopFK0u9KvV
+	gdhgZTuyHyZx/j/7qrS13EQXuKasM/DgQioH3DXJnjl5a9OSTchu0TnktDlIs9+KglU=
+X-Gm-Gg: AYBFou3QjLkPSfNplXpUjc+zLd4HiBhhU47IwBU26m5Gp9t8Fv9T8Hv+u1FvsVcL4n2
+	DMJlNTqPphLB33FVZEdKSAV5cBKowaKhT6UQnwB4qeexOyCDg/Fa8Rj5fIib8bvYWeOb8WgrwXN
+	TtXyrOr50bIPJ7Dn4LrW6D+bMb+ffGrKx7NKquX3fq/JHi2I6QWrB3YLQ7jXm8PEhOrw6SgkvWX
+	4nQvqK1SfW5mEJ60hxI4pKM1oLu+EIShg66D8WjKX0shXd9yJmb0ApQktAM9DYhOzb4wJVI/ubn
+	pU/GUN7Epl/Wj9hZqBtve2mYMsWF0tiCm+eiEN5BoluH4s84SlUjfJ//6m/NSNocldo9PcAxWDE
+	EbbcbrzlTXo3qy+9Dc3cWHhgxUZHUti6htkU+K1nlRvc5IeXL8xvG0FEYoYmhXr7i5PaSwSsuIe
+	ui0OZlt3JPBtsgG55mm0qem82UK0PuE7NYDcMBcsS5XrqcwoytdbSnoMzuQeN62lUsNWq3cKZIx
+	WZQDxhhPwbVorcrJD1B3h1VLygWNMH9d0H6okfXZ7kI1P8gJhXjUWGhs0NlmW7JmBpxygTeOSy5
+	2GeajRX1B1ASOzK8m+PZKYvBiLK+hJ2MDUZZKMgtKoECCH8/JEXVjhE6wFVCdHAz2hqG9KgesDn
+	IKM2dbRMALEf0QhLr6FzuKsgD5v1YWBnAv2xmqdN3l6FPfFBJ+VyLFUGaX+u5sqTzgd/QvBcDD2
+	qoIP2xP//7Zvr6DbSiN7p0bfjC7PDkjA0c/f6mDOCKu35L+nZSgG68TNlNe5mcfuTU
+X-Received: by 2002:a05:7022:b0c5:b0:181:6b8:31f1 with SMTP id a92af1059eb24-1b4f5f3475fmr11110443c88.10.1794803667022;
+        Sun, 15 Nov 2026 20:34:27 -0800 (PST)
 Received: from [172.18.0.2] ([172.56.232.151])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm2576204c88.0.2026.11.15.20.34.19
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm38362148c88.9.2026.11.15.20.34.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 20:34:21 -0800 (PST)
-Date: Sun, 15 Nov 2026 20:34:13 -0800
+        Sun, 15 Nov 2026 20:34:26 -0800 (PST)
+Date: Sun, 15 Nov 2026 20:34:21 -0800
 From: Chris Down <chris@chrisdown.name>
-To: Tarun Sahu <tarunsahu@google.com>
+To: tarunsahu@google.com
 Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org,
 	will@kernel.org, David Matlack <dmatlack@google.com>,
@@ -94,11 +94,13 @@ Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
 	kvm@vger.kernel.org, iommu@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org, skhawaja@google.com, sagis@google.com,
 	linux-arch@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 14/19] liveupdate: Add feature header to struct
-	luo_flb_ser
-In-Reply-To: <20261110050202.529473-15-tarunsahu@google.com>
+Subject: Re: [PATCH v4 05/19] kho: Add feature header for fine-grained ABI
+	compatibility
+In-Reply-To: <9huz5wy4tufo.fsf@tarunix.c.googlers.com>
 References: <20261110050202.529473-1-tarunsahu@google.com>
-	<20261110050202.529473-15-tarunsahu@google.com>
+	<20261110050202.529473-6-tarunsahu@google.com>
+	<DMRMLZSZ0LAZ.D4P70QWX0IHB@soleen.com>
+	<9huz5wy4tufo.fsf@tarunix.c.googlers.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,38 +112,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-Message-ID: <20261115203413.eaa54fcba43adc22@chrisdown.name>
+Message-ID: <20261115203421.38c206b35f5b12e6@chrisdown.name>
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
 Hi Tarun,
 
-Tarun Sahu writes:
->+	for (u64 i = 0; i < fh->header_ser->count;
->+	     i++, fhdr = (void *)fhdr + fhdr->size) {
->+		struct luo_flb_ser *ser;
->+
->+		err = kho_ser_validate(fhdr, luo_flb_ser);
->+		if (err)
->+			return err;
+tarunsahu@google.com writes:
+>Techinically this is just for readability.
+>
+>WDYT?
 
-I think there's a problem with returning this error as it is. For an
-unknown required feature kho_ser_validate() returns -EOPNOTSUPP, but
-callers of liveupdate_flb_get_incoming() already take -EOPNOTSUPP to mean
-that live update is disabled. pci_liveupdate_flb_get_incoming() returns
-NULL for it, so instead of panicking, PCI carries on as if nothing was
-preserved, even though those devices may still be doing DMA.
+It doesn't help readability in the generated docs, though. kernel-doc
+splits the parameter list on the comma inside the macro, so
+kho_preserve_vmalloc() comes out as
 
- From a quick test with an outgoing kernel hacked to set an unknown
-required bit on its luo_flb_ser entries, that is what happens after the
-kexec, in that the PCI FLB is never retrieved and boot carries on.
+     int kho_preserve_vmalloc (void *ptr, DECLARE_KHO_SER_HDR(kho_vmalloc# *fhdr))
 
-Could you validate the entries once in luo_flb_setup_incoming() instead?
-They are all written with the same header by luo_flb_serialize(), so
-there's no need to check them on every lookup. Going by the code, a
-failure there would panic through luo_restore_fail(), like a bad
-luo_flb_header_ser already does. If the per-entry headers end up going
-away as David suggested, then this check goes away with them, of course.
+and the struct memfd_luo_ser and struct luo_session_ser definitions in the
+ABI docs end up with a member like
 
-Thanks!
+     DECLARE_KHO_SER_HDR(kho_vmalloc folios_fhdr;
+
+I'd go with Pasha's suggestion and use struct kho_ser_hdr directly. The
+pointer can then say which payload follows it with a comment.
 
 Chris
