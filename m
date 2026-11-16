@@ -1,82 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794856226;
-	b=xJFOg1GPBOxbgg5CYEzlx6SrTKSXiHaZHcqoa3zhnGbQqef5D/GGwylJKTczIfIBBA8K
-	 zIHqiBrk7tp5B65UORt50SpoZRmx+drC14ZeIImZpszoRW2kiKmAJUOyB3w7zUn5LXpU/
-	 UEjTHezsZOiSY5xFAzUL/i5zd6NQZhq0V+pNd7iqPdre/+ckssbaGkHg+QF3PQjcRs+Ns
-	 A7w7yJeC1Dauc9OtOD4qQ+9eo/y1xp3sza8pMiEWPsoDnnCzaCsVUfedUsuh9wAYBYYf4
-	 FACLIcgK0Uwt3Od0RLi1eriSUWYweoXeewA3hRXGGxsBUUJw/ThgQkzaQIVSbNdHu6Q==
+	t=1794856222;
+	b=wgECmcIQSShPSHHst3H3KIzZ+8sOfxDMpuBY5CviXBOMv8C6s7E6IkJlSBoJ1cERSrxm
+	 z5WoxPIAZFKjRe409xoRNM08NETmsFX5OsPAT5p2VmUkD3kNgVDiPzs7j92gDuMC85hg4
+	 K7sfQaO734+eqTC566nxlKL1F9PIgVdfNVxKegrKcXT4O9BaLbGdFG3LKX8EuFt2dWrbj
+	 tTbWYVpt59+/wA8Mx4zEy+ufgH7YeNE3MJYDDlUwm5BhJ+itUPY+v3qsnme4H4DWbEqW/
+	 zhbDIle7oKNN1Krf0ZQrMIm7dRMilzAdLaq1hX2Z5nWcQhaMDmS/TkPU12BGZXD74oQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794856226;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=R8h/1u82nAsp/z0eA2iVxRK1Q1LDSnAV70Vy7GJyLJM=;
-	b=H9DBNNbq478X6Q21ea+tSwmL8Or5yo1bHCKFNOu4SagU3KdaXf4fpQIFEZH2gF/aVlG4
-	 jARuxsburBCdY8VgWnVSwyCWJC1N6lxGuz7je7/2GIxdzI2Fm/cCVSOc/tcrsLoI73Mb9
-	 3t5C3Mf27pyWORF+Q4Imh66EzFQVA1t8ghcluYvozO/6jargjHo6SBbffO7KNCVFZob+b
-	 UHCm+9TOwnjTjDmll5XU50yfFBzdJgObzFLXIupqXR0lONkwnlRBojOv+KIKAt2HyJRxc
-	 9PuIQxcA89Qj49JKIhdusS/B6n7Qmicj8XWzM1R9Z+qFyw3asOYpZXXk3zKxOnR+GXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794856222;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Va0EwVY7Jk2HkM+Pck50ew1/raTtCTxdQw7XogRQQbc=;
+	b=UERCArBHJFlsYvTfwXv0AriAqMxOqs/NZkxHLkrKKTr535Rd8FWNRXd6EVdhiCfM715j
+	 WEcFz499bAXere0VFZIcWONQN+qm13YU1SGk14MghWrqjDXz6UQoOxHtrB2itQ+mdJTbW
+	 sON9U12bmyw0ACvoIC1qNdT6CMS/LoyW6l8JF7IvzxeUxPXAp9eg8JjolWMcfaTRfIOd8
+	 +rlE/sbOVovA4wSgpCGwqQbK1Ayj35PJljMdaYQMfV6BXmV4nvBiEkBPBsOKxsnM6Bufu
+	 C1O2ORDPY+bxNEmCGZNrDanrRxY9ZzadW0JladHieZ5e/bPowQJEfN88izZ0hwaUa7w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="ArKYIk/s";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEqi4qKr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A8760A3815;
-	Mon, 16 Nov 2026 19:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A8760A3815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E635606A33F;
+	Mon, 16 Nov 2026 19:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ArKYIk/s
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 15C87205A39;
-	Mon, 16 Nov 2026 20:10:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794856220;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R8h/1u82nAsp/z0eA2iVxRK1Q1LDSnAV70Vy7GJyLJM=;
-	b=ArKYIk/sofuUsDbMaIKD+35zuhwkrWm2+uQBdE0UiIy54ZxHLsIYOvEAMFyti30u0O7AoX
-	6DOhmX/xK6XEVK+6DT4XvqaHQaCkSyQYcnTOloVhXILAEHAZiwF1eLO/lTkl5oUxIvafWQ
-	u5anrOubBpEx7CO/KAV7ACzCe5Rojx5Yi8IUgnSBtGwyWkpBZcHWLA3Bg9LDEZ/n5RTMZ1
-	X5WlIZr5LMbfSjR8Q3zqnPAn/TcrRu38aoXqTj7dXQVvPvpJzjIrbbki8NEEGtpNbB6Uhb
-	Hmu+PjJzi9fF6FX+q/EXvhd4vO5nPL8g1WFQVzVg+tmqnDh8SmfFIH/k/q0w7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794856220;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R8h/1u82nAsp/z0eA2iVxRK1Q1LDSnAV70Vy7GJyLJM=;
-	b=TjP40hzAdDHeazfpj4iJll7XEupw/TmC0yFrQtQataeJMCnnWSfAcOSSBan2MgxQfXGYhC
-	s0FgP/OjUVTsAwaP1Zd3KckilPLhfzJdsu4X46qwCXhM+lfnNDZ869gcPrr3udUkCHdyUg
-	nNR/+qD/59RS7goXypaRVlIb3v8yz/TQAENDHPRQiithBDb1Fr2Y7ARAgm4+WT3SWOYY8D
-	X4walEt+zwrfzfwQus8Mo09TuI1SVJ98CB5IjKA1XTmOrcY3trv8eQtz1ZJCnyCNEJvQf1
-	y/8zWkFqzQM0hq153Uc4duwo3oDqFqzfxZCsJ3g6nKdNoZux8PeSFQC8iC5RYw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794856220; a=rsa-sha256;
-	cv=none;
-	b=TWzxLkOzoEfUI+PBCg8hQ10XJUjzmY/tmzOcnf5jOcSbH1hQayL/5KVN7AO9INbtI0NVTU
-	6+9NauGS+29HuC/2K72Y1rFaldP8ZLhMpfxy+4henBfJz5YgfSwkKb2a9K0nLBGzUZJRMo
-	qMgZcdMOWb7y1Gotmt7KsRvQV9hiwDVtMcUpqh3M61BB9nrJIRbhtE6T4SPz8QTk1Vyo1O
-	pEpzZLEmeqpJ/ZGSFOpe5xgjbEhFgV8SLLwEueDQIHg1Xh6WUfYTTAvwtl/Xs2uZICDJ2g
-	nmGIhCemWDBqpyioknpCEd+6hS3Ji4+A+d6MTj8xlymJWbGOOT1+Qg8DljeMJw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id B98A5381F75; Mon, 16 Nov 2026 20:10:15 +0100 (CET)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Mon, 16 Nov 2026 20:10:20 +0100
-Subject: [PATCH net-next v3 09/10] net: dsa: realtek: rtl8365mb: offload
- DCB apptrust
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEqi4qKr
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794856222;
+	b=R70SqA6towqWskxr/hI/d3cXyXY6tYoFZEbUHvBtctQwDSe3aeTrlCv/HrHKHaZ5ldj6
+	 gTRz1EA53DMujbD8IJYtB1bQs+iSTGfxSqPZJH25sFOpLb7iHvzuEDKc+aYTcDMdStt0n
+	 ny/hurG+rmVNAiijhaqVn6JUkxrkbBicoGp6m/Gp+EATbI6Q8o/yE7j6W4rVOYqYE4hCc
+	 fZ803ztZDecN+kUailsr6wTG26Ho6GhaqEMc8Pqf+zZ2AaAmH2wVKRdAYokRDLCDAa+9N
+	 wr4Lph/YoZSFjXo8Hk2zI/0mRwvJwZs6N8rpAPrF8KOkndJF11FrUazyCnYmYA1GLLQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794856222;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Va0EwVY7Jk2HkM+Pck50ew1/raTtCTxdQw7XogRQQbc=;
+	b=SLSWDH3o6JTfbcrNpQEO9h7q5yjPcFzXKppUXge6zoDgd6fczdfwUSQbLc1+4k/adTnh
+	 OnisjPg6MxDMaQgBdVNEGzvonO+Ud4PBCJC4mE35Dc4o4ByuuiYFDBDm94jZqfKbDc4Jt
+	 BWLfs5/ldQDVvqTyli78YRZPrQCAcHh14KlAj0JhohdcFZw2leZ9TIwV0J6JIeZt6PlHC
+	 UhfIdU1tiCl5FJZ1yCam06q7oPKSgDt2UHBmQCD2JCm6dAA3LKABk9wGQeekR8jAtbvkl
+	 2wREwBtG1zxaXUXhhw5sVaRv/femdtD/L9URE0GO8CCj1bakH8uepeilMwUyY5TblUQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 03BDB1F000C8;
+	Mon, 16 Nov 2026 19:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794856222;
+	bh=Va0EwVY7Jk2HkM+Pck50ew1/raTtCTxdQw7XogRQQbc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EEqi4qKr9nCqtr+8Zmcasng84XJwpUYbmiqwErOq4K+R+xFSEfk0TO8CkipbcJweJ
+	 cqGy0F7jD02rb/cK8BXnviEudnwEOH1MOFK0RQQBgS8CYU8xKgbbhyG7rlmf8kDNZF
+	 oknAVbHaplbTuNZZQo+GPUhb2lisT4+0zC5tqkuq2P2N8MKpF/iWHDatUhq8BclgAq
+	 OEh6WBZn0UJ+2eV/6IxvH15Cr19tFBC75WKMWFuTXbSKl6AoGqxgvX/VG9hMdRuJ9u
+	 IJ73v5eL2vjHLgMWMz+2D71on1xdVmf5xTyuN+PeqS135hZVqv+bfvvRvBCVQRD4mE
+	 Wj7MLzPMn1Hdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7EEC94A59D;
+	Mon, 16 Nov 2026 19:10:20 +0000 (UTC)
+From: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
+Date: Mon, 16 Nov 2026 19:10:06 +0000
+Subject: [PATCH 3/6] mm/damon/tests/core-kunit: test
+ sz_ops_filter_passed_last
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,459 +84,156 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-rtl8365mb-dcb-ingress-v3-9-657f5fdb4db7@pengutronix.de>
-References: <20261116-rtl8365mb-dcb-ingress-v3-0-657f5fdb4db7@pengutronix.de>
-In-Reply-To: <20261116-rtl8365mb-dcb-ingress-v3-0-657f5fdb4db7@pengutronix.de>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, 
- Luiz Angelo Daros de Luca <luizluca@gmail.com>, 
- =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Oleksij Rempel <o.rempel@pengutronix.de>
-X-Mailer: b4 0.14.2
+Message-Id: <20261116-damon-sz-ops-b4-v1-3-1cffe7227e6d@uber.com>
+References: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
+In-Reply-To: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
+To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, 
+ Mattathias Pinchover <mattathias.pinchover@uber.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794856219; l=4165;
+ i=mattathias.pinchover@uber.com; s=20261113; h=from:subject:message-id;
+ bh=UFGCYkPDB1A1PqGUSxc/9uQS5JCp5qLJGKRVY3lIpTw=;
+ b=z6AHg3v78OFP9tox8IrSuvIggfioYOad3FwiX6QaKwoVYoRaeS58Vefw6kCy1ZTkr0ygHXLya
+ Qwt4+0k/Mt/AVt3nYT8cxpMOUoo7FWdvUYMln+Q1tf3eNhWDlmK+7rS
+X-Developer-Key: i=mattathias.pinchover@uber.com; a=ed25519;
+ pk=6Bh6OEwWiU6dpON0CVcoipq8fXtEgvhsM1Tmm9CTmtY=
+X-Endpoint-Received: by B4 Relay for mattathias.pinchover@uber.com/20261113
+ with auth_id=1515
+X-Original-From: Mattathias Pinchover <mattathias.pinchover@uber.com>
+Reply-To: mattathias.pinchover@uber.com
+Content-Transfer-Encoding: 7bit
 
-Wire up port_get_apptrust and port_set_apptrust. The admin can then
-choose through dcbnl apptrust which ingress classification a port trusts
-for its priority: 802.1p (PCP), DSCP or both. A port that trusts nothing
-keeps the port default priority.
+From: Mattathias Pinchover <mattathias.pinchover@uber.com>
 
-In the driver's model of the hardware, the trusted priority-decision
-table is switch-wide, so all ports that trust something must trust the
-same selectors. While another port trusts a set of selectors, a request
-to trust a different set is refused with -EBUSY.
+Add a kunit test for the sz_ops_filter_passed_last DAMOS
+stat.  The test runs kdamond_apply_schemes() for multiple apply intervals
+with a stub apply_scheme() operation that reports a given ops
+filter-passed size, and checks that the stat is set to the value of the
+last apply interval rather than the accumulated value, and that it is
+kept unchanged until the next apply interval is completed.
 
-When both are trusted, DSCP must come first. When PCP is trusted, the
-switch classifies an untagged frame by the PCP given to untagged
-frames. A PCP source ranked above DSCP would then hide DSCP from
-untagged IP frames. Refuse the order pcp dscp and any unknown selector
-with -EOPNOTSUPP.
-
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Alvin Šipraga <alvin.sipraga@analog.com>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
 ---
-Changes in v3:
-- wrap lines at 80 columns, splitting long calls into local variables
-- keep the Reviewed-by tags: v3 only rewraps lines and adds local
-  variables
+ mm/damon/tests/core-kunit.h | 92 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
-Changes in v2:
-- move selector and precedence validation into rtl83xx-qos.c behind new
-  qos_get/set_apptrust callbacks; weights and -EBUSY stay here (Linus)
-- use one-hot decision weights; in the driver's model, the v1 linear
-  weights could tie PCP with DSCP (Linus)
-- define the apptrust slot order once (enum rtl83xx_apptrust_slot) for
-  the shared selector table and the backend source table
-- write the PCP and DSCP weights with one register update, so a failed
-  write cannot leave the trusted table half programmed (sashiko)
-- check that all apptrust sources share the one register that is updated
-- rank DSCP above PCP and refuse pcp dscp with -EOPNOTSUPP, because
-  with PCP first, untagged IP frames never reach DSCP
----
- drivers/net/dsa/realtek/realtek.h        |  16 +++
- drivers/net/dsa/realtek/rtl8365mb_main.c |   4 +
- drivers/net/dsa/realtek/rtl8365mb_qos.c  | 172 +++++++++++++++++++++++++++++++
- drivers/net/dsa/realtek/rtl8365mb_qos.h  |   4 +
- drivers/net/dsa/realtek/rtl83xx-qos.c    |  76 ++++++++++++++
- drivers/net/dsa/realtek/rtl83xx-qos.h    |   4 +
- 6 files changed, 276 insertions(+)
-
-diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
-index c79a026c7999b1d0055f336dedff64f80e1d30ec..8d2293dc12b22257e5615e5d66e85f3d4653b5b0 100644
---- a/drivers/net/dsa/realtek/realtek.h
-+++ b/drivers/net/dsa/realtek/realtek.h
-@@ -100,6 +100,15 @@ struct realtek_priv {
- 	void			*chip_data; /* Per-chip extra variant data */
- };
- 
-+/* apptrust selector slots: the index into the trust[] array of the
-+ * qos_get/set_apptrust callbacks, in precedence order (highest first)
-+ */
-+enum rtl83xx_apptrust_slot {
-+	RTL83XX_APPTRUST_DSCP,
-+	RTL83XX_APPTRUST_PCP,
-+	RTL83XX_APPTRUST_COUNT,
-+};
-+
- /*
-  * struct realtek_ops - vtable for the per-SMI-chiptype operations
-  * @detect: detects the chiptype
-@@ -175,6 +184,13 @@ struct realtek_ops {
- 				    u8 iprio);
- 	int	(*qos_set_dscp_prio)(struct realtek_priv *priv, u8 dscp,
- 				     u8 iprio);
-+	/* @trust is indexed by enum rtl83xx_apptrust_slot and has @n entries.
-+	 * The trust scope (per port or switch-wide) differs between chips.
-+	 */
-+	int	(*qos_set_apptrust)(struct realtek_priv *priv, int port,
-+				    const bool *trust, unsigned int n);
-+	int	(*qos_get_apptrust)(struct realtek_priv *priv, int port,
-+				    bool *trust, unsigned int n);
- };
- 
- struct realtek_variant {
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index e3d1dadf893646addd617b68013550e2f8ab8974..9be0842831486f6f90f94cc1862099b42d6f2225 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -3480,6 +3480,8 @@ static const struct dsa_switch_ops rtl8365mb_switch_ops = {
- 	.port_bridge_flags = rtl83xx_port_bridge_flags,
- 	.port_get_default_prio = rtl83xx_port_get_default_prio,
- 	.port_set_default_prio = rtl83xx_port_set_default_prio,
-+	.port_get_apptrust = rtl83xx_port_get_apptrust,
-+	.port_set_apptrust = rtl83xx_port_set_apptrust,
- 	.port_stp_state_set = rtl8365mb_port_stp_state_set,
- 	.port_fast_age = rtl83xx_port_fast_age,
- 	.port_fdb_add = rtl83xx_port_fdb_add,
-@@ -3526,6 +3528,8 @@ static const struct realtek_ops rtl8365mb_ops = {
- 	.qos_set_port_prio = rtl8365mb_qos_set_port_prio,
- 	.qos_set_pcp_prio = rtl8365mb_qos_set_pcp_prio,
- 	.qos_set_dscp_prio = rtl8365mb_qos_set_dscp_prio,
-+	.qos_set_apptrust = rtl8365mb_qos_set_apptrust,
-+	.qos_get_apptrust = rtl8365mb_qos_get_apptrust,
- };
- 
- static const char *const rtl8365mb_supplies[] = {
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.c b/drivers/net/dsa/realtek/rtl8365mb_qos.c
-index bf11a5974d6c7cf56e2ccce47f364a7dee549304..e96a99f3fbf5fca0af40dff9be221d7ceb5e885c 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_qos.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_qos.c
-@@ -12,6 +12,7 @@
- #include <linux/build_bug.h>
- #include <linux/dcbnl.h>
- #include <linux/regmap.h>
-+#include <linux/string.h>
- #include <net/dsa.h>
- #include <net/dscp.h>
- #include <net/ieee8021q.h>
-@@ -114,6 +115,8 @@ static_assert(RTL8365MB_QOS_WEIGHT_BITS * RTL8365MB_QOS_WEIGHTS_PER_REG <=
- #define RTL8365MB_QOS_PRIDEC_TABLE_UNTRUSTED		0
- #define RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED		1
- 
-+static_assert(RTL8365MB_QOS_MAX_PORTS <= RTL8365MB_QOS_REG_BITS);
-+
- /* Priority-decision sources, in the hardware's numbering */
- enum rtl8365mb_qos_pridec_src {
- 	RTL8365MB_QOS_PRIDEC_PORT = 0,
-@@ -141,6 +144,36 @@ static_assert(RTL8365MB_QOS_PRIDEC_REG(RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED,
- #define RTL8365MB_QOS_WEIGHT_DISABLED			0
- #define RTL8365MB_QOS_WEIGHT_PORT			BIT(0)
- 
-+/* Priority-decision source of each apptrust slot */
-+static const u8 rtl8365mb_qos_apptrust_src[] = {
-+	[RTL83XX_APPTRUST_DSCP]	= RTL8365MB_QOS_PRIDEC_DSCP,
-+	[RTL83XX_APPTRUST_PCP]	= RTL8365MB_QOS_PRIDEC_1Q,
-+};
-+
-+/* The 1Q source also classifies untagged frames, by the PCP given to untagged
-+ * frames. Ranked above DSCP, it would hide DSCP from untagged IP frames.
-+ */
-+static_assert(RTL83XX_APPTRUST_DSCP < RTL83XX_APPTRUST_PCP);
-+
-+static_assert(ARRAY_SIZE(rtl8365mb_qos_apptrust_src) ==
-+	      RTL83XX_APPTRUST_COUNT);
-+
-+/* Register of source @_s in the trusted decision table */
-+#define RTL8365MB_QOS_APPTRUST_REG(_s) \
-+	RTL8365MB_QOS_PRIDEC_REG(RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED, _s)
-+
-+/* The top trusted rank must fit in the weight field */
-+static_assert((RTL8365MB_QOS_WEIGHT_PORT <<
-+	       ARRAY_SIZE(rtl8365mb_qos_apptrust_src)) <
-+	      BIT(RTL8365MB_QOS_WEIGHT_BITS));
-+
-+/* Each trusted slot outranks the port default and every later slot */
-+static u8 rtl8365mb_qos_apptrust_weight(unsigned int slot)
-+{
-+	return RTL8365MB_QOS_WEIGHT_PORT <<
-+	       (ARRAY_SIZE(rtl8365mb_qos_apptrust_src) - slot);
-+}
-+
- static u32 rtl8365mb_qos_sel_mask(unsigned int idx)
- {
- 	unsigned int off = RTL8365MB_QOS_SEL_OFFSET(idx);
-@@ -303,6 +336,15 @@ static int rtl8365mb_qos_set_pridec(struct realtek_priv *priv, int table,
- 	return rtl8365mb_qos_regmap_update_field(priv, reg, mask, weight);
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index a5ca4bfe2f0d..ec83598fff0e 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -2541,6 +2541,97 @@ static void damon_test_last_region_quota_reset(struct kunit *test)
+ 	damon_destroy_ctx(ctx);
  }
  
-+static int rtl8365mb_qos_get_pridec(struct realtek_priv *priv, int table,
-+				    int src)
++/* bytes that damos_test_apply_scheme_passed_stub() reports per region */
++static unsigned long damos_test_sz_passed;
++
++static unsigned long damos_test_apply_scheme_passed_stub(struct damon_ctx *c,
++		struct damon_target *t, struct damon_region *r,
++		struct damos *s, unsigned long *sz_filter_passed)
 +{
-+	u32 reg = RTL8365MB_QOS_PRIDEC_REG(table, src);
-+	u32 mask = rtl8365mb_qos_weight_mask(src);
-+
-+	return rtl8365mb_qos_regmap_read_field(priv, reg, mask);
-+}
-+
- /* Program every source in both tables rather than relying on the reset state */
- int rtl8365mb_qos_pridec_init(struct realtek_priv *priv)
- {
-@@ -327,3 +369,133 @@ int rtl8365mb_qos_pridec_init(struct realtek_priv *priv)
- 	/* In the driver's model, a clear bit selects the untrusted table */
- 	return regmap_write(priv->map, RTL8365MB_QOS_PRIDEC_TBL_SEL_REG, 0);
- }
-+
-+/* Read the trust state of each apptrust slot from the trusted table */
-+static int rtl8365mb_qos_apptrust_read(struct realtek_priv *priv, bool *trust)
-+{
-+	int table = RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(rtl8365mb_qos_apptrust_src); i++) {
-+		u8 src = rtl8365mb_qos_apptrust_src[i];
-+		int weight;
-+
-+		weight = rtl8365mb_qos_get_pridec(priv, table, src);
-+		if (weight < 0)
-+			return weight;
-+
-+		trust[i] = weight != RTL8365MB_QOS_WEIGHT_DISABLED;
-+	}
-+
++	*sz_filter_passed = damos_test_sz_passed;
 +	return 0;
 +}
 +
-+int rtl8365mb_qos_get_apptrust(struct realtek_priv *priv, int port, bool *trust,
-+			       unsigned int n)
++/* run one apply interval and return the last apply interval's passed bytes */
++static unsigned long damos_test_apply_interval(struct damon_ctx *c,
++		struct damos *s)
 +{
-+	u32 trusted_ports;
-+	int ret;
++	c->passed_sample_intervals = s->next_apply_sis;
++	kdamond_apply_schemes(c);
++	return s->stat.sz_ops_filter_passed_last;
++}
 +
-+	if (n != ARRAY_SIZE(rtl8365mb_qos_apptrust_src))
-+		return -EINVAL;
++static void damos_test_sz_ops_filter_passed_last(struct kunit *test)
++{
++	struct damos_access_pattern pattern = {
++		.min_sz_region = 0,
++		.max_sz_region = ULONG_MAX,
++		.min_nr_accesses = 0,
++		.max_nr_accesses = UINT_MAX,
++		.min_age_region = 0,
++		.max_age_region = UINT_MAX,
++	};
++	struct damos_watermarks wmarks = {};
++	struct damos_quota quota = {};
++	struct damon_ctx *c;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damos *s;
 +
-+	ret = regmap_read(priv->map, RTL8365MB_QOS_PRIDEC_TBL_SEL_REG,
-+			  &trusted_ports);
-+	if (ret)
-+		return ret;
++	c = damon_new_ctx();
++	if (!c)
++		kunit_skip(test, "ctx alloc fail");
++	c->ops.apply_scheme = damos_test_apply_scheme_passed_stub;
 +
-+	/* On the untrusted table nothing but the port default is trusted. */
-+	if (!(trusted_ports & BIT(port))) {
-+		memset(trust, 0, n * sizeof(*trust));
-+		return 0;
++	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
++			NUMA_NO_NODE);
++	if (!s) {
++		damon_destroy_ctx(c);
++		kunit_skip(test, "scheme alloc fail");
 +	}
++	damon_add_scheme(c, s);
 +
-+	return rtl8365mb_qos_apptrust_read(priv, trust);
-+}
-+
-+/* The trusted table is shared by all ports. A port may switch to it only if it
-+ * trusts the same sources as the other ports already on it.
-+ */
-+static int rtl8365mb_qos_apptrust_check_shared(struct realtek_priv *priv,
-+					       int port, const bool *trust)
-+{
-+	bool other[ARRAY_SIZE(rtl8365mb_qos_apptrust_src)];
-+	u32 trusted_ports;
-+	int ret;
-+
-+	ret = regmap_read(priv->map, RTL8365MB_QOS_PRIDEC_TBL_SEL_REG,
-+			  &trusted_ports);
-+	if (ret)
-+		return ret;
-+
-+	if (!(trusted_ports & ~BIT(port)))
-+		return 0;
-+
-+	ret = rtl8365mb_qos_apptrust_read(priv, other);
-+	if (ret)
-+		return ret;
-+
-+	if (memcmp(trust, other, sizeof(other))) {
-+		dev_err(priv->dev,
-+			"trust profile is switch-wide; another port already trusts different sources\n");
-+		return -EBUSY;
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(c);
++		kunit_skip(test, "target alloc fail");
 +	}
++	damon_add_target(c, t);
 +
-+	return 0;
-+}
-+
-+int rtl8365mb_qos_set_apptrust(struct realtek_priv *priv, int port,
-+			       const bool *trust, unsigned int n)
-+{
-+	u32 reg = RTL8365MB_QOS_APPTRUST_REG(rtl8365mb_qos_apptrust_src[0]);
-+	u32 mask = 0, val = 0;
-+	bool any = false;
-+	int ret, i;
-+
-+	if (n != ARRAY_SIZE(rtl8365mb_qos_apptrust_src))
-+		return -EINVAL;
-+
-+	ret = rtl8365mb_qos_check_port(priv, port);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < n; i++)
-+		any |= trust[i];
-+
-+	if (!any)
-+		return regmap_clear_bits(priv->map,
-+					 RTL8365MB_QOS_PRIDEC_TBL_SEL_REG,
-+					 BIT(port));
-+
-+	ret = rtl8365mb_qos_apptrust_check_shared(priv, port, trust);
-+	if (ret)
-+		return ret;
-+
-+	/* Collect all slot weights into one mask and value and write them once,
-+	 * so a failed write cannot leave the trusted table half programmed.
-+	 */
-+	for (i = 0; i < n; i++) {
-+		u8 weight = trust[i] ? rtl8365mb_qos_apptrust_weight(i) :
-+				       RTL8365MB_QOS_WEIGHT_DISABLED;
-+		u8 src = rtl8365mb_qos_apptrust_src[i];
-+		u32 src_mask = rtl8365mb_qos_weight_mask(src);
-+
-+		/* A slot missing from rtl8365mb_qos_apptrust_src[] is 0, which
-+		 * is the port source. Reject it. Also reject a source whose
-+		 * weight is in a different register than reg.
-+		 */
-+		if (WARN_ON_ONCE(src == RTL8365MB_QOS_PRIDEC_PORT ||
-+				 RTL8365MB_QOS_APPTRUST_REG(src) != reg))
-+			return -EINVAL;
-+
-+		mask |= src_mask;
-+		val |= field_prep(src_mask, weight);
++	r = damon_new_region(0, DAMON_MIN_REGION_SZ);
++	if (!r) {
++		damon_destroy_ctx(c);
++		kunit_skip(test, "region alloc fail");
 +	}
++	damon_add_region(r, t);
 +
-+	ret = regmap_update_bits(priv->map, reg, mask, val);
-+	if (ret)
-+		return ret;
++	KUNIT_EXPECT_EQ(test, s->stat.sz_ops_filter_passed_last, 0);
 +
-+	return regmap_set_bits(priv->map, RTL8365MB_QOS_PRIDEC_TBL_SEL_REG,
-+			       BIT(port));
-+}
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.h b/drivers/net/dsa/realtek/rtl8365mb_qos.h
-index 71949ece4af8fae5c49cf105ddaa3db9bc622cf2..eed5ea5fa7f345ce6989e3e890d7cd755da9d0fc 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_qos.h
-+++ b/drivers/net/dsa/realtek/rtl8365mb_qos.h
-@@ -24,5 +24,9 @@ int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio,
- 				u8 untag_pcp);
- int rtl8365mb_qos_set_pcp_prio(struct realtek_priv *priv, u8 pcp, u8 iprio);
- int rtl8365mb_qos_set_dscp_prio(struct realtek_priv *priv, u8 dscp, u8 iprio);
-+int rtl8365mb_qos_set_apptrust(struct realtek_priv *priv, int port,
-+			       const bool *trust, unsigned int n);
-+int rtl8365mb_qos_get_apptrust(struct realtek_priv *priv, int port, bool *trust,
-+			       unsigned int n);
- 
- #endif /* _REALTEK_RTL8365MB_QOS_H */
-diff --git a/drivers/net/dsa/realtek/rtl83xx-qos.c b/drivers/net/dsa/realtek/rtl83xx-qos.c
-index 08091586901291e45ad1a2c64730cdcc30298b7a..d08ffd585caf7d91f4ddff10b90d6eafd2a2a734 100644
---- a/drivers/net/dsa/realtek/rtl83xx-qos.c
-+++ b/drivers/net/dsa/realtek/rtl83xx-qos.c
-@@ -10,6 +10,7 @@
-  * The backend maps internal priorities to its egress queues itself.
-  */
- 
-+#include <linux/build_bug.h>
- #include <linux/dcbnl.h>
- #include <linux/errno.h>
- #include <net/dscp.h>
-@@ -19,6 +20,25 @@
- #include "realtek.h"
- #include "rtl83xx-qos.h"
- 
-+/* dcbnl selector of each apptrust slot */
-+static const u8 rtl83xx_apptrust_sel[] = {
-+	[RTL83XX_APPTRUST_DSCP]	= IEEE_8021QAZ_APP_SEL_DSCP,
-+	[RTL83XX_APPTRUST_PCP]	= DCB_APP_SEL_PCP,
-+};
++	/* each value is for the last apply interval only, not cumulative */
++	damos_test_sz_passed = 1000;
++	KUNIT_EXPECT_EQ(test, damos_test_apply_interval(c, s), 1000);
++	KUNIT_EXPECT_EQ(test, damos_test_apply_interval(c, s), 1000);
++	KUNIT_EXPECT_EQ(test, s->stat.sz_ops_filter_passed, 2000);
 +
-+static_assert(ARRAY_SIZE(rtl83xx_apptrust_sel) == RTL83XX_APPTRUST_COUNT);
++	damos_test_sz_passed = 300;
++	KUNIT_EXPECT_EQ(test, damos_test_apply_interval(c, s), 300);
++	KUNIT_EXPECT_EQ(test, s->stat.sz_ops_filter_passed, 2300);
 +
-+static int rtl83xx_apptrust_sel_to_slot(u8 sel)
-+{
-+	int slot;
++	damos_test_sz_passed = 0;
++	KUNIT_EXPECT_EQ(test, damos_test_apply_interval(c, s), 0);
++	KUNIT_EXPECT_EQ(test, s->stat.sz_ops_filter_passed, 2300);
 +
-+	for (slot = 0; slot < ARRAY_SIZE(rtl83xx_apptrust_sel); slot++)
-+		if (rtl83xx_apptrust_sel[slot] == sel)
-+			return slot;
++	/* not yet the time to apply, so the last value should be kept */
++	damos_test_sz_passed = 500;
++	damos_test_apply_interval(c, s);
++	c->passed_sample_intervals = s->next_apply_sis - 1;
++	kdamond_apply_schemes(c);
++	KUNIT_EXPECT_EQ(test, s->stat.sz_ops_filter_passed_last,
++			500);
 +
-+	return -EINVAL;
++	damon_destroy_ctx(c);
 +}
 +
- /* Seed the PCP and DSCP tables, although neither source is trusted yet */
- int rtl83xx_qos_init(struct dsa_switch *ds)
- {
-@@ -113,3 +133,59 @@ int rtl83xx_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
- 	return priv->ops->qos_set_port_prio(priv, port, tt, prio);
- }
- EXPORT_SYMBOL_NS_GPL(rtl83xx_port_set_default_prio, "REALTEK_DSA");
-+
-+int rtl83xx_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
-+			      int *nsel)
-+{
-+	bool trust[ARRAY_SIZE(rtl83xx_apptrust_sel)];
-+	struct realtek_priv *priv = ds->priv;
-+	int i, ret;
-+
-+	if (!priv->ops->qos_get_apptrust)
-+		return -EOPNOTSUPP;
-+
-+	ret = priv->ops->qos_get_apptrust(priv, port, trust,
-+					  ARRAY_SIZE(trust));
-+	if (ret)
-+		return ret;
-+
-+	*nsel = 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(rtl83xx_apptrust_sel); i++)
-+		if (trust[i])
-+			sel[(*nsel)++] = rtl83xx_apptrust_sel[i];
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(rtl83xx_port_get_apptrust, "REALTEK_DSA");
-+
-+int rtl83xx_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
-+			      int nsel)
-+{
-+	bool trust[ARRAY_SIZE(rtl83xx_apptrust_sel)] = { };
-+	struct realtek_priv *priv = ds->priv;
-+	int i, prev = -1;
-+
-+	if (!priv->ops->qos_set_apptrust)
-+		return -EOPNOTSUPP;
-+
-+	/* The backends use a fixed precedence, so the selector list
-+	 * must follow the slot order.
-+	 */
-+	for (i = 0; i < nsel; i++) {
-+		int slot = rtl83xx_apptrust_sel_to_slot(sel[i]);
-+
-+		if (slot < 0 || slot <= prev) {
-+			dev_err(priv->dev,
-+				"unsupported apptrust order; supported: dscp, pcp, dscp pcp\n");
-+			return -EOPNOTSUPP;
-+		}
-+
-+		prev = slot;
-+		trust[slot] = true;
-+	}
-+
-+	return priv->ops->qos_set_apptrust(priv, port, trust,
-+					   ARRAY_SIZE(trust));
-+}
-+EXPORT_SYMBOL_NS_GPL(rtl83xx_port_set_apptrust, "REALTEK_DSA");
-diff --git a/drivers/net/dsa/realtek/rtl83xx-qos.h b/drivers/net/dsa/realtek/rtl83xx-qos.h
-index 82ad9338d78db9062d8ceed06378b31e467ee04d..fbddc7b7d9dd37918423afc5373b684596637a05 100644
---- a/drivers/net/dsa/realtek/rtl83xx-qos.h
-+++ b/drivers/net/dsa/realtek/rtl83xx-qos.h
-@@ -11,5 +11,9 @@ int rtl83xx_qos_init(struct dsa_switch *ds);
- int rtl83xx_qos_init_port(struct dsa_switch *ds, int port);
- int rtl83xx_port_get_default_prio(struct dsa_switch *ds, int port);
- int rtl83xx_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio);
-+int rtl83xx_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
-+			      int *nsel);
-+int rtl83xx_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
-+			      int nsel);
+ static struct kunit_case damon_test_cases[] = {
+ 	KUNIT_CASE(damon_test_target),
+ 	KUNIT_CASE(damon_test_regions),
+@@ -2585,6 +2676,7 @@ static struct kunit_case damon_test_cases[] = {
+ 	KUNIT_CASE(damon_test_rand),
+ 	KUNIT_CASE(damos_test_esz_goal_temporal),
+ 	KUNIT_CASE(damon_test_last_region_quota_reset),
++	KUNIT_CASE(damos_test_sz_ops_filter_passed_last),
+ 	{},
+ };
  
- #endif /* _RTL83XX_QOS_H */
 
 -- 
-2.47.3
+2.54.0-uber3
+
 
