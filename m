@@ -1,61 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813837;
-	b=fs0uCdURg8TYL+AIRGf9+jUDZVeay++eQzNGSHoSAmUKOjbh3im53xot/egTijLeNLMb
-	 DNqVRWSDB/oYmK6vYQM/RvMrAwPOInpcrPeFF00TkarHvGUU/TbxWmuCzfCL2IYXx2WFI
-	 E7bWcTlgb6V0ocurj1+ENntWJABK6UR1vhrQEH+Iu30qIAq/79fkKSN1328jxNG/UDzoA
-	 bGjOPv4wB/8a/Eku1zIKaJHXIqBDgBIYoLtVoTpKye/r4RSUu6oF6uNawNWIg0lZVxZoS
-	 LZe6JvZAvfFVYSnyLTgyPEO8X2hki5oTDcrINJFSOYUZm/ki6JAwJwO6yEKVEe5nh9Q==
+	t=1794813845;
+	b=03LUqT/tfQ4EfeCEonZ9ay3t7uIFEjMIozWvtsKIkSLS/YMXixOA7/EgcbGefj8ZBbKC
+	 urN5McERB+WjMjbI45EH3kp/6EqYBeFdwp7Bm6yb4UwXpU6gxrMl72k7dGYY9f5BWLCXi
+	 cgeyS7orhhE18w6bSi0Dfz3/Cay6p3isQGigDeiYU3as6seTd2K0//mnquRuqLbBIjlbH
+	 v15WWN3vkQ604zfspTeeT57Ja9YccP6DawIzn+H89r8WNHtdHZNflZo4NkUvKsPW6he4A
+	 1OvKJl1MLBPB06N5sWchatkZcuiilv+zyoelOHgNPLqRVNBbhU43M6jEWXOI0ks9s/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813837;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:X-Lms-Return-Path:To:Cc:From:
-	 Subject:Date:Mime-Version:X-Original-From:Received:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ROYrK381p27dvJFAOgNa/krOl71oQtj1ox7sTaYSwVs=;
-	b=KMbUL6stEfX56d7ut4njlByihy9Ca4o6DCb3IzEXP66eDqUfCfYb6zI3808RowOjGauD
-	 1vgbEz3tLxn98X3OnZd1sbS+4vt+RGj/m40NYmxJW3s4YGhmx2x4bTBWdQPzoTVZAU68S
-	 2qJk/vCLYrAwYLRqLgErulC8sx2RpjDpdo9Wzmgq+bp4PY/f9NSf19r7BFJ0/u/GAbyzz
-	 V174akmAH4LukfELIFoFV54saO3G4bf1XissIJfi5AuS+B43OZm9I5PiI/gI1Mys03d1A
-	 pN2CJBKFoEQAv+ffRC3dKYd8jv17oO9cq5/ReqsAetcwZhpugXSZrI8/HO5SCgtx5gA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813845;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZnkZ1InoVqbMzJo0ykriEGYJYWNq2vEyk285i6Z8tWE=;
+	b=Mn99xCxg29iujVBfs6eIIbbV0ih397Ylfm9iu7r24df/8I/k3AGCC31tY8qUfGTyAPpK
+	 FbgvxKnYmin4XLJ6O8mVCiGM3Rb8iWPoyZVm4q6+KQXSvIh5dVTsG592FYjA/JGGFqRpC
+	 YSSDRuwd5dTOVLMzG6JuA7Jn34yAJNBI8mO08KJXG1mV9TZoMbwvYRt87scDAQ41gdNQN
+	 9IRQG5h+fRIMnbOhIQ/JnboJ+s709CPBE7O8ztxxcnpbqo5w02CMTEOG52tuR0c0865kC
+	 SJIQrfF+U4Qn6TDl8INoEe0H27o/wmA1gi8qIGrNUsQ4kMj3Mp4I+5bEKdd8t3O4rtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bedmex.com;
-	spf=none smtp.mailfrom=bedmex.com;
-	dkim=pass header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=IA5bIaoI;
-	arc=none smtp.remote-ip=71.18.227.4
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="sV/HY1gt";
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED62B606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED62B606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B406606A8B3
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:24:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B406606A8B3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=IA5bIaoI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1794813823;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=ROYrK381p27dvJFAOgNa/krOl71oQtj1ox7sTaYSwVs=;
- b=IA5bIaoIu6wk4gCyIG5mttRnt1kNysQBsGj0kgtlWRodVjxSdpo6es+xVlRy0WXJ00jh2O
- WRe0MnT/XC4AFJDVdgjkSVkMc1c2+ZroSnCvfZGy07THksebzoikeeriuVbxg1/PB98ZoS
- CCm55+ny6O18aeCb951tpdHlJaAInuuCSwHemT9fVXL8WhDsUhKVN8LSh31g7Xneem8MfU
- zvIiQR2y69aJv7WZMnhwBSq6EsmeF7UNg0TpH9sJ9pOyfUhUICOJ2mLAGDXX0AE9JjKVth
- YMiC1iUtvdqqRMvVzZwZWN/bTaySlwuoxXvfPRKR0NFfTEo728TeSmo0bO+Vsw==
-Message-Id: <179481380235.4.7388336477392853157@bedmex.com>
-X-Lms-Return-Path: <lba+26afaaf7d+7d1dcc+vger.kernel.org+yanli.yang@bedmex.com>
-To: <linux-wireless@vger.kernel.org>
-Cc: "Johannes Berg" <johannes@sipsolutions.net>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, "Zhirun Liu" <zhirunliu@aicsemi.com>, 
-	"Dijia Xu" <dijiaxu@aicsemi.com>, "Chunqiu Liu" <chunqiuliu@aicsemi.com>, 
-	"Liheng Wei" <liheng.wei@bedmex.com>, <yanli.yang@bedmex.com>
-From: "Yanli Yang" <yanli.yang@bedmex.com>
-Subject: [PATCH wireless-next v5 0/4] wifi: aic: Add AIC8800D80 and D80N SDIO FullMAC driver
-Date: Mon, 16 Nov 2026 15:23:22 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sV/HY1gt
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cddac941ed1so1386165a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:24:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794813844; x=1795418644; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZnkZ1InoVqbMzJo0ykriEGYJYWNq2vEyk285i6Z8tWE=;
+        b=sV/HY1gtIBmJlEnpqZ5GtCSoI7vFi1ijznjmJzDid/6dMqhULkair+am/xzHJf7sb6
+         giP/t5xi8w5TCfmY2WcwtFxrlWwBspQPMtkOBeTYiLsqIEzmFTNQOILagk0YOB1l3KPD
+         S1ZvFIQTX+pKMcTuH03QXg0BtVq66kAg3ch29tEBd9V+oy/p/x/+zh7JIb2iLNbjWTnH
+         PALE6ObljSUAddTZeNMRX0mNWTeE/f/aFEijzWYfJR3FVqqjVqzU6UjfE5og51zESEo6
+         LC9Vl1YoTYOx/X1nY1mxMktQRM7KTuCpQPMsIIVaE5EIajAB7HsW2JC+lrDVQuednAGM
+         Amjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794813844; x=1795418644;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZnkZ1InoVqbMzJo0ykriEGYJYWNq2vEyk285i6Z8tWE=;
+        b=G72GDhOciOtTa9At8XLOlxpXlppSGeSc7rIZMMI9cPh8NMWXQl1gIOXKvWrelFCos0
+         pj/qGiIO0yVcUx59DYsi6RbM9Hw6pFmWApOYf93auh5HiP5pCtsX80DkFIyo9H5mUJMp
+         3JiJx2ajiUd3GTvlsM+sdO3wtRjxTAGh/xPOQG17h5G6kvvkf7m0thRF+2zzX7bPWLqV
+         Gp3kJYmizuepA4BdGWH4IkcECJIEzVH2Hrok94hzllRRgfh/AzPPt7COFtYU6K9xDic8
+         CqojqvYZRvAzgLn5Coxc8mZOlRDK1+4cGn+Yp7qiqNpm5UvvdyAumpH1KWnTckm2rnWK
+         5aSw==
+X-Forwarded-Encrypted: i=1; AL+hErFCP+o2GMDsHDTniPDdCHgfst/C2dF93NVkBo7jUzrx3Crwe9+yU8jt73igikOCuduIcAg4WSAEGjWSzZo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fGlamupJkIuATJ7Dee4SO1yhexoInjNwZ5KmmiOQ8GDXyUPp2
+	dGQa36jRRTfmti8Xv7+7YJjDHXyKQ+y/aTb8k7DDjRrETmMRrnjDCJEXq6e/TQ==
+X-Gm-Gg: AYBFou2k9C74BSVEVUuTtXR53mPZLnq4Idna5OJujl5sjXS9HUtjeNWwidiYlfKE12b
+	LAz1zq1lqvfcMHzQdinNfpigJ6xtEs1BM+UJnloYV7YcRAJ9mJZwhg/+zFdFSy3NG+neAKASf5k
+	LwcOz+/XwvGmVjbp0eF3NXMQ8urck61Vk7Tv0WsYyMHXWD2nfrudC8Q5CQq2rjcs5uPmRMkZjkE
+	6dRQcJPwZs2cf5tqI9z0j3dDqxq7ijvMQIHo426KqnrlS3SB1cdtp+mEP7Npa84znlJOj8GdTZg
+	Galyzs8M/hsISJbRfBXnXJ/ReVDJu+JkAxlUyixqHxyCfvtFnMuWwq0xBlH5c5i1lHKhasZOyZg
+	Jyk9S1NrlNAY75yk5ZQemExOXYlS+WnCXC8RRPpJ4ZtR/avkG1T1E9zBQUPRhpyCr4xIwhlvsKQ
+	EkwZ4vPlr2Xd3F2YcSwDGv86pwQ+SrveOuhbMN1DUlKCrg+K8b/hixADZ6QC/z7pY8F1Cf6KQHs
+	vcHsfw2bMLv6RnCA34drZCBhoO1LrNcNxjH5y8+uy9fIa25pCcReYuVn3VhkmCpHJA5VvcNNOrL
+	Zut4k5DpfYyGEhJ0OXX/B8Or13MVZ8S2CAI3UxoOVnm64Zj5+9i1C6q+yPSePE1a3nuoDsY=
+X-Received: by 2002:a05:6a20:6a22:b0:3fa:df2d:d3cf with SMTP id adf61e73a8af0-3fadf2dd8c7mr2922085637.14.1794813844225;
+        Sun, 15 Nov 2026 23:24:04 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:f133:af41:7614:f46c])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18b4e68sm3816508a12.25.2026.11.15.23.24.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:24:03 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:24:00 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Haowen Tu <tuhaowen@uniontech.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: max77693-haptic - disable bias on failed open
+Message-ID: <avqvjEZfFOzvRdXe@google.com>
+References: <98F5ACA9EADBEC89+20261116022442.3298673-1-tuhaowen@uniontech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,240 +94,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
-Received: from [127.0.1.1] ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Mon, 16 Nov 2026 15:23:40 +0800
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <98F5ACA9EADBEC89+20261116022442.3298673-1-tuhaowen@uniontech.com>
 
-This series adds an SDIO FullMAC Wi-Fi driver for AIC8800D80 U02 and
-AIC8800D80N devices, with an initial station-mode configuration using
-cfg80211/nl80211 on the 2.4 GHz and 5 GHz bands.
+On Mon, Nov 16, 2026 at 10:24:42AM +0800, Haowen Tu wrote:
+> max77693_haptic_open() enables the MAX77843 bias before enabling the motor
+> regulator. If regulator_enable() fails, the function returns without
+> turning the bias off. The input core does not call the close callback
+> after a failed open, so its bias cleanup does not run either.
+> 
+> Disable the bias before returning the regulator error. The bias helper
+> already handles reporting register access errors and is a no-op for the
+> other supported chip variants.
+> 
+> Fixes: 56bbc99e6914 ("Input: max77693: Add support for Maxim 77843")
+> Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
 
-This is the first non-RFC revision, following RFC v1 through v4. It
-reworks the driver into a single aic8800_fdrv module, adds D80N support
-and documents the SDIO device tree binding. Firmware boot, transport and
-network-interface lifecycle are managed within the same driver.
+Applied, thank you.
 
-The series is organized as follows:
-
-  1. register the vendor prefix and document the SDIO Wi-Fi binding;
-  2. add firmware definitions, command/event handling, SDIO transport
-     and D80/D80N chip-specific initialization;
-  3. add cfg80211 operations, TX/RX paths and driver build configuration;
-  4. connect the complete driver to the wireless build and MAINTAINERS.
-
-Parent build integration is last so that intermediate source states are
-not selectable through the wireless Kconfig.
-
-Changes since RFC v4:
-
-  - merge the BSP and FullMAC implementation into one module; remove
-    aic8800_bsp/ and its private cross-module exported interface;
-  - consolidate driver sources under aic8800_fdrv/ and rename
-    the FullMAC rwnx_* source files and core driver symbols to aicwf_*;
-  - add D80N chip operations, SDIO IDs and U02/U02C firmware boot paths;
-  - remove the private generic-netlink family and private-command
-    implementation retained in RFC v4;
-  - remove the bundled regulatory database and rwnx_settings.ini parser;
-    use cfg80211 channel restrictions and transmit-power limits when
-    configuring firmware;
-  - remove module-parameter entry points and use internal configuration
-    defaults and standard cfg80211 operations;
-  - replace Makefile-generated CONFIG_* definitions with Kconfig symbols
-    and internal resource-limit definitions;
-  - load firmware through the standard firmware loader under aic/ and
-    declare the required filenames with MODULE_FIRMWARE();
-  - add the shared D80/D80N device tree binding and vendor prefix; and
-  - rebase and repartition the series for the current source layout.
-
-Because the BSP layer has been removed and the source layout and patch
-boundaries have changed, RFC v4 patches do not map one-to-one to this
-revision. This is a new-driver series against wireless-next; the changes
-above describe its evolution from the earlier submissions.
-
-Scope:
-
-  - the selectable baseline is SDIO station mode on D80 U02 and D80N;
-  - AP, P2P, monitor and mesh modes are not enabled by this configuration;
-    some associated source and disabled branches remain;
-  - optional per-device TX-buffer and TX-queue preallocation remain;
-  - the binding documents optional out-of-band wake lines; this revision
-    uses the SDIO interrupt path and does not consume those optional
-    wake-line properties; and
-  - firmware binaries and user configuration files are not part of this
-    kernel series. The driver requests them from aic/aic8800d80/ and
-    aic/aic8800d80n/ in the firmware search path.
-
-Validation of the current source:
-
-  - Both AIC8800D80 and AIC8800D80N passed probe and firmware boot,
-    module unload/reload, active/passive scanning on 2.4 and 5 GHz, open,
-    WPA2-PSK and WPA3-SAE station connections, disconnect/reconnect,
-    IPv4/IPv6 connectivity, suspend/resume and rfkill tests.
-  - TCP and UDP TX/RX throughput testing was completed on both chips.
-    Reported TCP TX/RX rates were 196/210 Mbit/s on 2.4 GHz and
-    375/445 Mbit/s on 5 GHz; UDP TX/RX rates were 218/225 Mbit/s and
-    422/511 Mbit/s, respectively.
-  - Both chips passed 10 hours of sustained traffic testing. No kernel
-    crashes, warnings, lockdep reports or firmware crashes were observed
-    during testing.
-  - GCC module builds, sparse and coccicheck checks passed, with no new
-    compiler or sparse warnings reported.
-  - 32-bit, allmodconfig warning-check and Clang builds succeeded in a
-    newly created container.
-
-AP mode and smatch were not run.
-
-Previous submissions:
-
-  RFC v4: https://lore.kernel.org/r/cover.1787991457.git.yanli.yang@bedmex.com
-  RFC v3: https://lore.kernel.org/r/cover.1787903339.git.yanli.yang@bedmex.com
-  RFC v2: https://lore.kernel.org/r/cover.1784724170.git.yanli.yang@bedmex.com
-  RFC v1: https://lore.kernel.org/r/cover.1784544076.git.yanli.yang@bedmex.com
-
-Tool assistance: OpenAI Codex assisted with the cover letter, commit
-descriptions and patch-series preparation.
-
-Zhirun Liu (4):
-  dt-bindings: net: wireless: Add AIC8800D80 SDIO Wi-Fi
-  wifi: aic: Add firmware protocol and SDIO chip support
-  wifi: aic: Add the AIC8800D80 and D80N FullMAC driver
-  wifi: aic: Integrate the AIC8800 SDIO driver
-
- .../net/wireless/aicsemi,aic8800d80-fmac.yaml |   78 +
- .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
- MAINTAINERS                                   |   10 +
- drivers/net/wireless/Kconfig                  |    1 +
- drivers/net/wireless/Makefile                 |    1 +
- drivers/net/wireless/aic/Kconfig              |   16 +
- drivers/net/wireless/aic/Makefile             |    3 +
- drivers/net/wireless/aic/aic8800_fdrv/Kconfig |   90 +
- .../net/wireless/aic/aic8800_fdrv/Makefile    |   36 +
- .../net/wireless/aic/aic8800_fdrv/aic_bus.h   |   99 +
- .../wireless/aic/aic8800_fdrv/aicwf_bfmer.c   |   93 +
- .../wireless/aic/aic8800_fdrv/aicwf_bfmer.h   |  100 +
- .../aic/aic8800_fdrv/aicwf_chip_8800d80.c     |   96 +
- .../aic/aic8800_fdrv/aicwf_chip_8800d80n.c    |   74 +
- .../aic/aic8800_fdrv/aicwf_chip_ops.c         |  197 +
- .../aic/aic8800_fdrv/aicwf_chip_ops.h         |  116 +
- .../wireless/aic/aic8800_fdrv/aicwf_cmds.c    |  629 ++
- .../wireless/aic/aic8800_fdrv/aicwf_cmds.h    |  122 +
- .../aic/aic8800_fdrv/aicwf_compat_8800d80.c   |  281 +
- .../aic/aic8800_fdrv/aicwf_compat_8800d80.h   |   17 +
- .../aic/aic8800_fdrv/aicwf_compat_8800d80n.c  |  402 ++
- .../aic/aic8800_fdrv/aicwf_compat_8800d80n.h  |   17 +
- .../wireless/aic/aic8800_fdrv/aicwf_config.h  |   33 +
- .../wireless/aic/aic8800_fdrv/aicwf_defs.h    |  657 +++
- .../wireless/aic/aic8800_fdrv/aicwf_events.h  |  938 +++
- .../wireless/aic/aic8800_fdrv/aicwf_main.c    | 5114 +++++++++++++++++
- .../wireless/aic/aic8800_fdrv/aicwf_main.h    |   22 +
- .../wireless/aic/aic8800_fdrv/aicwf_mesh.c    |   33 +
- .../wireless/aic/aic8800_fdrv/aicwf_mesh.h    |   39 +
- .../aic/aic8800_fdrv/aicwf_mod_params.c       |  644 +++
- .../aic/aic8800_fdrv/aicwf_mod_params.h       |   59 +
- .../wireless/aic/aic8800_fdrv/aicwf_msg_rx.c  | 1412 +++++
- .../wireless/aic/aic8800_fdrv/aicwf_msg_rx.h  |   12 +
- .../wireless/aic/aic8800_fdrv/aicwf_msg_tx.c  | 2499 ++++++++
- .../wireless/aic/aic8800_fdrv/aicwf_msg_tx.h  |  201 +
- .../aic/aic8800_fdrv/aicwf_mu_group.c         |  653 +++
- .../aic/aic8800_fdrv/aicwf_mu_group.h         |  163 +
- .../aic/aic8800_fdrv/aicwf_platform.c         | 1507 +++++
- .../aic/aic8800_fdrv/aicwf_platform.h         |   91 +
- .../wireless/aic/aic8800_fdrv/aicwf_radar.c   | 1969 +++++++
- .../wireless/aic/aic8800_fdrv/aicwf_radar.h   |  289 +
- .../aic/aic8800_fdrv/aicwf_resv_mem.c         |  106 +
- .../aic/aic8800_fdrv/aicwf_resv_mem.h         |   54 +
- .../net/wireless/aic/aic8800_fdrv/aicwf_rx.c  | 2434 ++++++++
- .../net/wireless/aic/aic8800_fdrv/aicwf_rx.h  |  363 ++
- .../aic/aic8800_fdrv/aicwf_rx_prealloc.c      |   99 +
- .../aic/aic8800_fdrv/aicwf_rx_prealloc.h      |   39 +
- .../wireless/aic/aic8800_fdrv/aicwf_sdio.c    | 2439 ++++++++
- .../wireless/aic/aic8800_fdrv/aicwf_sdio.h    |  280 +
- .../wireless/aic/aic8800_fdrv/aicwf_strs.c    |  267 +
- .../wireless/aic/aic8800_fdrv/aicwf_strs.h    |   31 +
- .../net/wireless/aic/aic8800_fdrv/aicwf_tx.c  | 1469 +++++
- .../net/wireless/aic/aic8800_fdrv/aicwf_tx.h  |  165 +
- .../net/wireless/aic/aic8800_fdrv/aicwf_txq.c | 1368 +++++
- .../net/wireless/aic/aic8800_fdrv/aicwf_txq.h |  353 ++
- .../aic/aic8800_fdrv/aicwf_txq_prealloc.c     |   55 +
- .../aic/aic8800_fdrv/aicwf_txq_prealloc.h     |   31 +
- .../wireless/aic/aic8800_fdrv/aicwf_txrxif.c  |  666 +++
- .../wireless/aic/aic8800_fdrv/aicwf_txrxif.h  |  161 +
- .../wireless/aic/aic8800_fdrv/aicwf_utils.c   |   32 +
- .../wireless/aic/aic8800_fdrv/aicwf_utils.h   |   61 +
- .../net/wireless/aic/aic8800_fdrv/hal_desc.h  |  359 ++
- .../wireless/aic/aic8800_fdrv/ipc_shared.h    |  767 +++
- .../net/wireless/aic/aic8800_fdrv/lmac_mac.h  |  437 ++
- .../net/wireless/aic/aic8800_fdrv/lmac_msg.h  | 3092 ++++++++++
- .../wireless/aic/aic8800_fdrv/lmac_types.h    |   21 +
- .../net/wireless/aic/aic8800_fdrv/sdio_host.c |  136 +
- .../net/wireless/aic/aic8800_fdrv/sdio_host.h |   43 +
- 68 files changed, 34143 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/wireless/aicsemi,aic8800d80-fmac.yaml
- create mode 100644 drivers/net/wireless/aic/Kconfig
- create mode 100644 drivers/net/wireless/aic/Makefile
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/Kconfig
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/Makefile
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aic_bus.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_bfmer.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_bfmer.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_chip_8800d80.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_chip_8800d80n.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_chip_ops.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_chip_ops.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_cmds.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_cmds.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_compat_8800d80.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_compat_8800d80.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_compat_8800d80n.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_compat_8800d80n.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_config.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_defs.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_events.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_main.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_main.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mesh.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mesh.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mod_params.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mod_params.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_msg_rx.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_msg_rx.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_msg_tx.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_msg_tx.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mu_group.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_mu_group.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_platform.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_platform.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_radar.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_radar.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx_prealloc.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_rx_prealloc.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_sdio.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_sdio.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_strs.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_strs.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_tx.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_tx.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq_prealloc.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txq_prealloc.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txrxif.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_txrxif.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_utils.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/aicwf_utils.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/hal_desc.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/ipc_shared.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/lmac_mac.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/lmac_msg.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/lmac_types.h
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/sdio_host.c
- create mode 100644 drivers/net/wireless/aic/aic8800_fdrv/sdio_host.h
-
-
-base-commit: b8e5b0ae8ff47240366d38e5d12c65f878724316
+-- 
+Dmitry
