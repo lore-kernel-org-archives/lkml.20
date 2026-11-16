@@ -1,80 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870414;
-	b=mwDjSzDILc6sU9lHS6ODPaUT7013aqsfGFwahRB9FFRtDyYm3xdqwj6uEMO1OYobpHoW
-	 VwYpIEunD3bQfeDqUXpi2ZK/hQK8veucEAyyxgGbezQ2Q0PaHXKAP2bVs6A4dck6VvElU
-	 l3wljS6TuYwD2JXGnL3FgZ/11mea23DwKv5EfmdM42zt64QIm6czpvHkG7IuiKk1uIdsX
-	 Ahmyi8ARngRUd/8Td3y6qjiNlm9/DqwtkAMMaKUK4RLF8NZuLZwu+uN5PeEAxHPc98gGC
-	 DDFXCHmP13vk6XgS2Mymo9RyrkHlxAL/itomah7szM3EO+OB1leN3r72iyZPwX2FyIg==
+	t=1794870420;
+	b=JQevWcfBp/qd/JZ29FmS2f+9Kn8jG6no81MrFkTHAujL5/t4C1+fbA7BWASEiXSqxUai
+	 sCD2T+1oxnsUfHounLXMeYMo9lYzty0LJ+QbvNvgxRlpeRjkXf4x3vY7ezJfYUV0N73hT
+	 7Yp8gLzX1Rh/XZnJnTnQHXkbl7l3J7iqt8pOOJcId7ctqNBGGJMhIWJeiEHu9BUBMOZ9v
+	 F0rJJ2VIow3x1HiFKR4xj284t9wGdZjkkfH39HtK9MRKNX798T0+g/7MEXRtYejLE0ZLk
+	 FXLAz5mEQzmE0mphVDp79BB4UuViNUbJYLR9yv1bFq2QYYDUS/v7LEQ83caN+9jKYlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=AjhVL/tzJIhPQa9pnWiA/Lzn5A7WcpHhkbmWbBd9Z/A=;
-	b=cu7WoY7lrqo+pQtaCqhRRNelg7kNj1NwQz2WQS/RydJwLRSB/GsRMYN9BzyVpE55jBsR
-	 Yc+z4Cm9hs0K+DG/OrWGjUfkNH/x3iY9iqqxP//xIMr9yKy8LOj6Eht0FSn0sQPpgb4pS
-	 sBlF1VhfH4/v9o8oT4VS4/qXchJMotBQJRoQJE2fiSotIcX8qdqkcJ+DQ2UbltWcgo9VH
-	 EPT0SzgE1MQVEo9vlSDTXRklRILSV/mwpby1vXEUot7+r061ctulL1OqSXUw2fAlIkRet
-	 Rsta6gUzNhelFB+TDcCTSJh1VYhNBLkNa/Ed2c/iunUsRpnSYbYWcG6saXv/j+NBZ/w==
+	bh=GHp/rfBUvBjHE1yqZXzAoWkqkfTsJ4axSlVmhZm3xoI=;
+	b=W4OcG6PykabmjDXXRPf5af76RQZNX1hGcnA2JKaZ5zxXXWBydYOJFNQcmWkHIxVqqo71
+	 qOZzeGB0LYHD/PygedSoU78B5h3q7eSrgxpdjZZ72cIITeGMqCFqSjOgCipU7nIGGR8bK
+	 ZWXQVoUWKlIot8N0A+S2ELTXmNE/yBCUdqfc6OQJVrT7MzAcV7hmo5UMkuLS16cXVeKzW
+	 e3jJQQfnQpwbj5IxTMyTMs2wCbgRrGc/rn0tkFLRzXzc5XayFzM95/AXg5i9Gog0PkXjO
+	 /Qe2CCk6jUlBRAWFhC9t6uPOfQq+OfMDfD4Rdbl7On27mP2fdbbExaUnQGpWznYUSXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OEasZFiC;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U8vQJ77T;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB2360A260F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB2360A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EEA606A8B5
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46EEA606A8B5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OEasZFiC
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b5e147f101so405793b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:06:53 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U8vQJ77T
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd6b9a2735fso250719a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:06:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794870413; x=1795475213; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794870418; x=1795475218; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AjhVL/tzJIhPQa9pnWiA/Lzn5A7WcpHhkbmWbBd9Z/A=;
-        b=OEasZFiCCXd7n/M/UcduiXgq0vhYk4srVVnzKHpXRqoD95nlXtUP3TeLNkX0JweEo9
-         DxSjeVsQyDj3Vhdhc9KfpT8C8oXNfziWnGdNY++4B+7gzbqkQMK37k0UZd5fFUA9gqnx
-         UyWgZrw0eNM/Fg/dLZoy8VwoY7prhxICFZjNQ=
+        bh=GHp/rfBUvBjHE1yqZXzAoWkqkfTsJ4axSlVmhZm3xoI=;
+        b=U8vQJ77TmiXizLLTYpTIm9+gitbnabCJ96M6Fbqx5R1zQI8fXlThA4pV1lA7/19UkC
+         fj86wRzZIQ2LTfjSCFJvLs8UnUIIRHO4mHl1ONAj1Z5SIlmIQMN90ubtUwNIo7LGtY4J
+         Gs7C6vD4eR3Zbsi4QdwfCBXt9Ks2h6SL+Uaxc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870413; x=1795475213;
+        d=1e100.net; s=20260707; t=1794870418; x=1795475218;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AjhVL/tzJIhPQa9pnWiA/Lzn5A7WcpHhkbmWbBd9Z/A=;
-        b=kGBu5+snErDTjI7vFkA4tz309aOF4pIDMSLtYhdex9cu6s5UqzAPxq3r918XW+J+XW
-         68JAbwGbYc0b+M/SQh08FbF7NDPb+sWM4vxhJ2yO0sujO4GH0CK+1q7W7nmukOx6CPh2
-         XYkUmWgwABLV7BMNeCzOSFVEuUAuJYvLjj4BNFvToZ4mXd75w4SshfpG+dMyvzWM44r/
-         W717APKxEbUn6IT62HmnsDHfjV+QXER+gHZE5EtZ1b7tTiKWZsIVtreuwMcPGd3rTB3O
-         zpSosy1M7MzElzeHsEOwu6MCi6i6wm+wQyWX6hIzYZsjQDjCZBRGKmbjoBJDIdeqbIDL
-         bhMw==
-X-Forwarded-Encrypted: i=1; AL+hErHEB0uxhjXg0p184yvBrDSHR1itDpTu0lU2wWEzacno/CvH4hvchxhpGNCG7r19iAKpz7jGaXo/S69BcFU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+44Fjf78bWms640rnfGeU89C2XZNOfS4Yop4Cf/X4pEN7sAoLN
-	F9MRuaiuXj+4iJUyVZDjBen/HrK8iT3Q+2hJwaftZK10/XIrVwB7x2hjG6tbM/KbNQ==
-X-Gm-Gg: AZFdTZeljMCYgzcGo1uGjOR99ILJ5MuCVNEYaVecHs93vqBS1GWB0cKIz4M8cr/A1xi
-	Ju9ApmPQowAb9H5ikn2RCJ5MQnnwE6uCKl8kGA3Z7kfOPgq/YdE1/g4mioXqP1f0ZzTW4TDT5sx
-	/SanOyxRAqKDJ1LeImAsggBaYrulRTh8GInyaDfnBFO7aP+SEImbvX/uIokREodq4J7b4YGsGZ/
-	umKa0vKbzG0UIlQEVfRr1K7wc9caFtDS+svvJd5Xs4P/PViHJN/TfOstStZ9N+NAmgfGBTIE2++
-	9bK7zwC3WL5mk6KTfO3qhG3hR5oxbbkOREHehF68ccFecwD1sBiA+tQcJn6L3lHTJoqC9P6Ck8s
-	BTT89XDLII2UvdJAp4s2wt9c2WjCx8qfMm7srrvj6FFad+27KP5v/R4+fEVHyBv3OO0GK0k64aS
-	erw6Z5IzbaEaYAui5zk4xQ7e+2FkXj/BvxOw6JOzvzP6L3AWNaAspXueY1zXKhfAmzrdHbQJSUZ
-	GLa7WQh+yX8A/qGs0+YClH83lUSrYpry4qWYUzTX4f3V+3HzCWyxH+B4O+zIGoyz6tR/BUCtDRP
-	HXvg5ACytLMMSl1XZPNhbIcBmcyNGAiYbU5zxrU9tHp+ldk/sH/2/GetZOhSvpw99pQH+mk=
-X-Received: by 2002:a17:90a:9f98:b0:3b3:b15f:eb89 with SMTP id 98e67ed59e1d1-3b3b15feeb1mr322004a91.1.1794870413060;
-        Mon, 16 Nov 2026 15:06:53 -0800 (PST)
+        bh=GHp/rfBUvBjHE1yqZXzAoWkqkfTsJ4axSlVmhZm3xoI=;
+        b=h3pjClS+Es3f9Cd6vVy3SZnsjPXlXDYHOqA9Mc7AfiEVJBWYicXLkscAkQqVLsJv0s
+         042us11d1ZH398hqeZzhS6qY+HcuF01T2UK4S+XlnQee0LziZVONhuxsHMeQtU5DY4L/
+         5atceUIzVRGk734HePCRESzg1tPDvTGubQXRUfYTifQIFRjlba47BirlMA+X0k9zFZ3c
+         WpvktWBe6SUqxRaxke8EJcUCgE85BG8YYOGjE8ursZCwLqMeoUGkoWx0iPP5mjSTPTn0
+         wNHXA5hvGyzx/4YoRT0T7bornPhVfPQfaNWH/of+Orw5zTuxF0QQm3Sw9b4yZHTWaIgA
+         dg+A==
+X-Forwarded-Encrypted: i=1; AL+hErFiQrZ4mdTfr/PpwZhuroPwd0Yig7TvB8t0LwmpP1qYkwkrffmwl9yfbCgAVYhR4yE6R98+76Ch0dX8kJ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pWJlOI9N5MmVNHeeaStBTefCsy6ivTU7JKASyjVurp77EAjO1
+	SjJ4lA4NdxC8rx7iVxWOefoGIg4u6IIPoYtSSOsaem+sP/pk/C2cbDccpXkcivEaow==
+X-Gm-Gg: AYBFou1RAQFZuptHg2vJ5nDmM1slDTe3YHzIYuL0W8EHLw564PZNNMwHoBG0zoFfHBk
+	g6zJl3/Y81ZsEZJM51KuVNr1FCTqr/CZtZOB1ZVv0vJwKVLSsKT1UbSJbt7XUNEVmCKHDB2XP5w
+	TjKsxtmR7fN8R+R3hxAZTtQanQedARVJo0xBGqI6VUGF6229DmqUGQPzAHzFapjq/gQ6hkV+Hx6
+	rPr1giBK/NTslaug8s8a80WnhZ2wn7ENwG800uD261J/sdQ/lg9Hh+DsQ2JQcybNJXXcnDvEs8B
+	7khzcXAj/FXHaSHSmKmaaDUqcqiF2QCN/G+vkA56Sa26iDDq0CQnSK62Ks6Y2qRrVUv3k/ptPm8
+	l6E/uxPUfvMxITGHhCNFelOSDNuMNs3yNH3t+HJ8O5oITV0rKGwkltasxL2LlMrfSsf9VgNotys
+	3mLX6ps2gZj0iw27Baup2Q8xmtOlOKA6RUNW5g7dC0ZHFoh6lLRtYZlq45/J5H8yvxlBHLAVpo/
+	xUq/G6BIUX5OYIZIUmHFBA5DcitRYGIJ+yCxY3i+tLMRDw2NW+Wvx6EwDMNyuBje6VsCdNeo/ll
+	qBjJfBJhmYDGlcnUbIM1ZVcD+gOKRrgygdRB3ymmUZiSs3AAOaHze6YeaBvxCYck36/WpRQ1Iu9
+	G8tvp96aiuU4fgGY33A==
+X-Received: by 2002:a05:6300:40d:b0:3f9:aef5:48 with SMTP id adf61e73a8af0-3f9aef5038fmr8109961637.1.1794870418391;
+        Mon, 16 Nov 2026 15:06:58 -0800 (PST)
 Received: from localhost (221.247.125.34.bc.googleusercontent.com. [34.125.247.221])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b3abe8b263sm1120450a91.13.2026.11.16.15.06.51
+        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-8bed1a6dbd9sm4131985b3a.27.2026.11.16.15.06.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 15:06:52 -0800 (PST)
+        Mon, 16 Nov 2026 15:06:58 -0800 (PST)
 From: Jeff Xu <jeffxu@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -133,9 +134,9 @@ Cc: Jeff Xu <jeffxu@chromium.org>,
 	linux-rdma@vger.kernel.org,
 	rds-devel@oss.oracle.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 3/7] kexec: use GFP_HIGHUSER_KASAN for segment pages
-Date: Mon, 16 Nov 2026 15:06:23 -0800
-Message-ID: <20261116230627.3537051-4-jeffxu@chromium.org>
+Subject: [PATCH v1 5/7] mm: kasan: skip KASAN for GFP_HIGHUSER
+Date: Mon, 16 Nov 2026 15:06:25 -0800
+Message-ID: <20261116230627.3537051-6-jeffxu@chromium.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261116230627.3537051-1-jeffxu@chromium.org>
 References: <20261116230627.3537051-1-jeffxu@chromium.org>
@@ -150,39 +151,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kimage_load_normal_segment() allocates the pages that hold the segments
-of the next kernel. The kernel clears and fills them through
-kmap_local_page(), and they are never mapped into userspace.
+Move __GFP_SKIP_KASAN from GFP_HIGHUSER_MOVABLE to GFP_HIGHUSER so that
+both GFP_HIGHUSER and GFP_HIGHUSER_MOVABLE allocations skip KASAN
+unpoisoning on allocation and poisoning on free in HW_TAGS mode.
 
-Allocate them with GFP_HIGHUSER_KASAN, so that they keep their KASAN
-tagging when GFP_HIGHUSER starts to skip it later in this series.
+Previously, commit c275c5c6d50a ("kasan: disable freed user page
+poisoning with HW tags"), commit 70c248aca9e7 ("mm: kasan: Skip
+unpoisoning of user pages"), and commit 0a54864f8dfb ("kasan: remove
+PG_skip_kasan_poison flag") added __GFP_SKIP_KASAN to
+GFP_HIGHUSER_MOVABLE because user pages are not intended to be used as
+directly addressable kernel data structures, and the lower likelihood of
+catching a kernel linear-map bug on user payload pages does not justify
+tagging all 256 16-byte MTE granules per 4 KB page on every allocation
+and free.
 
-No functional change: GFP_HIGHUSER_KASAN has the same value as
-GFP_HIGHUSER at this point. Build tested only.
+GFP_HIGHUSER shares the same kernel-accessibility contract in
+include/linux/gfp_types.h ("for userspace allocations that may be mapped
+to userspace, do not need to be directly accessible by the kernel but
+that cannot move once in use"). The only semantic difference between
+GFP_HIGHUSER and GFP_HIGHUSER_MOVABLE is __GFP_MOVABLE.
 
+For every 4 KB page without __GFP_SKIP_KASAN under CONFIG_KASAN_HW_TAGS,
+mte_set_mem_tag_range() tags all 256 16-byte MTE granules (via STG/STZG
+and DC GVA/GZVA) on allocation (__kasan_unpoison_pages) and again on
+free (__kasan_poison_pages). For users of GFP_HIGHUSER, this can
+significantly impact performance when allocating and freeing large
+buffers. For example, in graphics and interactive UI workloads, large
+DMA-BUF and DRM/GPU buffers are allocated with GFP_HIGHUSER: while
+steady-state rendering reuses swapchain buffers, UI window resizes,
+surface creation/teardown, and app or scene launches synchronously
+allocate and release tens to hundreds of megabytes of DMA-BUF
+framebuffers (~32 MB per 4K RGBA frame, or ~96 MB for a triple-buffered
+surface) and GPU shmem pools directly on UI, compositor, and render
+threads. Touching millions of 16-byte granules stalls these critical
+threads for milliseconds per buffer, a significant share of the 8.3 ms
+(120 Hz) / 16.7 ms (60 Hz) frame budget, while polluting CPU L1/L2 data
+and MTE tag caches, evicting hot working-set cachelines, and saturating
+DRAM bandwidth (especially on free when DMA pages are cold in the CPU
+cache).
+
+GFP_HIGHUSER is used by subsystems such as the DMA-BUF system heap, DRM
+GEM shmem/TTM and non-movable HugeTLB. They use it instead of
+GFP_HIGHUSER_MOVABLE only because their pages are pinned for DMA or
+cannot migrate.
+
+What skipping KASAN means for the kernel's own accesses to these pages:
+
+- Through vmap(): nothing changes. With CONFIG_KASAN_HW_TAGS those
+  pointers already carry the match-all tag, so the page tags never
+  protected these accesses.
+- Through kmap_local_page() or page_address() (for example ramfs):
+  post_alloc_hook() now gives the pages the match-all tag, so these
+  accesses are no longer checked. GFP_HIGHUSER_MOVABLE pages already
+  behave this way. Callers that want to keep the checks use
+  GFP_HIGHUSER_KASAN: the previous patches in this series converted
+  pipe, FUSE, kexec and RDS, and backports of this patch should
+  include them.
+
+Slab allocations cannot use GFP_HIGHUSER, because they do not accept
+__GFP_HIGHMEM. GFP_KERNEL, GFP_USER and vmalloc() allocations are not
+affected.
+
+This patch does not address the false-positive KASAN report after shmem
+swap-in readahead with MTE that was reported on drm/panthor [1, 2].
+There, swap_cluster_readahead() allocates swap-cache folios for
+neighboring swap slots with the gfp mask of the shmem mapping being
+swapped in. If such a slot holds a page that userspace maps with
+PROT_MTE, the folio keeps a KASAN tag in page->flags that does not
+match the userspace tags restored by arch_swap_restore().
+
+This patch only removes one way to hit it: shmem mappings that use
+GFP_HIGHUSER (such as drm_gem_shmem_helper or panthor) now pass
+__GFP_SKIP_KASAN to readahead, so the neighboring folios no longer get
+a KASAN tag. The readahead path itself is unchanged, and shmem mappings
+with other gfp masks that lack __GFP_SKIP_KASAN can still trigger the
+report. That issue should be followed up separately, for example in
+[1].
+
+On an Armv9.2-A device running a 6.12-based kernel with kasan.mode=sync,
+this reduces the allocation + release time of a ~32 MB buffer from
+/dev/dma_heap/system by ~80%: allocation is ~59% faster and release ~98%
+faster. Poisoning on free accounted for ~55% of the total before. In an
+application loading benchmark, the OpenGL score improves by 15-23%,
+recovering 60-80% of the regression that enabling MTE causes.
+
+Link: https://lore.kernel.org/r/20260519-panthor-kasan-v2-1-b7384458f076@gmail.com/ [1]
+Link: https://lore.kernel.org/r/20260521105148.5497c281@fedora/ [2]
 Assisted-by: LLM
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>
-Cc: kexec@lists.infradead.org
 Signed-off-by: Jeff Xu <jeffxu@chromium.org>
 ---
- kernel/kexec_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/gfp_types.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-index f4a31565c447..a3abbb6a2d75 100644
---- a/kernel/kexec_core.c
-+++ b/kernel/kexec_core.c
-@@ -839,7 +839,7 @@ static int kimage_load_normal_segment(struct kimage *image, int idx)
- 		char *ptr;
- 		size_t uchunk, mchunk;
- 
--		page = kimage_alloc_page(image, GFP_HIGHUSER, maddr);
-+		page = kimage_alloc_page(image, GFP_HIGHUSER_KASAN, maddr);
- 		if (!page) {
- 			result  = -ENOMEM;
- 			goto out;
+diff --git a/include/linux/gfp_types.h b/include/linux/gfp_types.h
+index 567c93fc1cfb..bcc4827deb4c 100644
+--- a/include/linux/gfp_types.h
++++ b/include/linux/gfp_types.h
+@@ -386,9 +386,9 @@ enum {
+ #define GFP_USER	(__GFP_RECLAIM | __GFP_IO | __GFP_FS | __GFP_HARDWALL)
+ #define GFP_DMA		__GFP_DMA
+ #define GFP_DMA32	__GFP_DMA32
+-#define GFP_HIGHUSER	(GFP_USER | __GFP_HIGHMEM)
++#define GFP_HIGHUSER	(GFP_USER | __GFP_HIGHMEM | __GFP_SKIP_KASAN)
+ #define GFP_HIGHUSER_KASAN	(GFP_USER | __GFP_HIGHMEM)
+-#define GFP_HIGHUSER_MOVABLE	(GFP_HIGHUSER | __GFP_MOVABLE | __GFP_SKIP_KASAN)
++#define GFP_HIGHUSER_MOVABLE	(GFP_HIGHUSER | __GFP_MOVABLE)
+ #define GFP_TRANSHUGE_LIGHT	((GFP_HIGHUSER_MOVABLE | __GFP_COMP | \
+ 			 __GFP_NOMEMALLOC | __GFP_NOWARN) & ~__GFP_RECLAIM)
+ #define GFP_TRANSHUGE	(GFP_TRANSHUGE_LIGHT | __GFP_DIRECT_RECLAIM)
 -- 
 2.56.0.611.g1030f0b940-goog
 
