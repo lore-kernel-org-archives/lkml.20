@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794808710;
-	b=DZdFBqpQ1dMyAdQGuHx3fUZM49+nWehIbFhhbvpezewEwp0TYZg6oC4kjsM5CGSDBZYk
-	 BV/x+rDbW+KdosdWn23r82aoj8nlguDxymOb9SXVibmMC2aTQ8kpL3oYBvt9G8q86SB01
-	 hfEE7JNUDu3mKRzzOJd5/QJ1+lThgrgsFA2M8Dj3BtYweUE/qxu7/Qx6VhY40w1bWZ+VL
-	 l2tyZvQw0B7ljZVZByHwNjfYFCPxVBHwacCGBili+zSpGkFt5y4E3nQyctvrHpveL/Pb+
-	 di9563eZYI/dl8ZN7f0v2sASoKCfJsH9yVTQ+gXsYFld1o4aavhwfqIVTpkV+QBMDkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794808710;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Qtjxe/UkLfMtfJgLawV+AiEqNNAopf39+TFUQLWRVLY=;
-	b=BlAX7BkL6wPhPq5gzKI3wPITSt3iIHpy+woscGUzm3a7edTmq2N7iV+N/FcCUpXeipec
-	 LfiE6hCs2k5fw8BJ/xotMzCRI4EQjqplvNlg0CBVp7hJ3o7zNC9UOFaWs7lDAm3OkRudf
-	 iw1BomVWb6/pnxIdwAAXqTdtsjOX6g7WzZGlrzEia9u851fmkUg126pYeQeEvkY/JNjr1
-	 vX23yi/8oVB5S+0nyAQFyGwqIEYdvSoGLkaxX8nDU2n28R3TiDrSg+2HhtTDwXXESoZgk
-	 p16Tdgm8X2KVivFPcOcfEs9WQm+bZ/NIXZvjyr3relDRtIC65E3lcvXcBbmudZc8VBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkRIot3E;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.86
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794808725;
+	b=Xn/yxU5DI4C1vkIH1vpxtrwcDfhyYa8eRrXKskP6lTrhm0qoGD3I5DB/7IzGefVpcJjz
+	 k2SgjFjyzEfX4aA34iyMnMtwTZo1j0p8jcp6m9jwsXbp/br0YA9uZ0C8RrYyxfBGUhvLo
+	 0lXSqG3Z46Cfx1ECypiQ5rWrJ00LXEtyin4aTO+B7+KaFb5QMG8DIl7w0D/upklMFJafj
+	 GmSHlkmjaZO+N9NBmw76Ds6VBaZV+GHDHjwLEYbKbm7bH2NxBvUizlQvmDHn0BOToH/Bl
+	 AhuD/KZ4BmwRXf9FeIa8l6DVl5BOaeAMq8LHi2Ni1toxhXR/Aiz7yIRvP7tf/ENuxYw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794808725;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qnnYjSElROxlLYRKcwdsAyizSYiPkxc0w3EtC8UVORU=;
+	b=U9A2N58tB1/tWQKo2kdJE46nLotgee21OSMnfmC1c+Tn6/fo1Xe1tnBwMteRxDj6s2Hu
+	 pXBiEukAGxqG9/+93vrqr7TNcKrrng8A6Ll8tIuxgtuc093irxvjx155y3dqZzIzA267b
+	 ZiOIX3X6AwdpMCiqyOeasPxJLBo65zZQpbtKWCsD2V9WFDI+fwSL1N198o8g8oRNldWL1
+	 t21MvBvM4Llo1liLisfbC6aN0PdVgCuROfjs6SzngBKLOWr0R3Ur+hE+O7UCrciB5UgXO
+	 lab50EKXGDgmsHbi0pRt3oPC5MgUWUfM09juebpbGP9P40RSqvShYS5L/Wjj4d4FYLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.86
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023086.outbound.protection.outlook.com [52.101.127.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0E6606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkRIot3E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A42A1F000C9
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794808710;
-	bh=Qtjxe/UkLfMtfJgLawV+AiEqNNAopf39+TFUQLWRVLY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NkRIot3E/qWwu1CwaGVWtl8JrHrQEzwk73mAjwkGenfeXOeLlAkS4uJkFbojGWqBS
-	 tnysZQBg7zogpJCz+vWbFtmXYS1R6HekG6vyke7+nI2F0ve5j0QooBv22/039TVoWQ
-	 3A93oSmtM8SJCrrHGYSWfFPRMqWIITpyA6ZT1nkaj0lnKhXOHaoJDHHfzFglbbfVuo
-	 m+IqdJ7ZjVmZiWBIfY4y6o62zDVeTKojcpdaSIJTApxBB2f3q2a8/jFOalPA5Iwf9m
-	 lrZpAUzGZPkhFe0lKdnE/7FYvPeNO1tzVL4pHRAgD4aLK3qgH/7lXIqKnE9+OpnDo4
-	 UExrJ35QRXK8A==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso6907892a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:58:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEiGSv/uZSucqoUj+HT+u6qhDfb81Kw0MyrrnFMuJTk0x3FaX9vBVcGFCb8CmsT8y2Gd/RlxUTTYFuJQ1I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Yf+J6R+qENeY+JKTmTHlzpH5iYX8Urw8gmvWjUA2r01QIAGzE
-	7GkQ7zKR8+8FKYNcjqY0IZ+++B+KYbHqYPyowIZ8DRiaxXKcfMIRUEbRHQ2fuZPuEZx/EDH+Dox
-	irqyLpO9cgGtzp/VsTiIagjTb4LPZsMY=
-X-Received: by 2002:a05:6402:438f:b0:6b5:5ee4:c9d8 with SMTP id
- 4fb4d7f45d1cf-6b7c0c8232bmr7182338a12.32.1794808709070; Sun, 15 Nov 2026
- 21:58:29 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B47606A331;
+	Mon, 16 Nov 2026 05:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53B47606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ho6lKtos4lBY2LweR+Gi5xaqlz4O2O54HfXRCsCFLNMWZxGgdMsQbB4+ld3iZgqGo7uga1zCC8mrvBEqBd+M7StI6jmAH9Lte6K7sD+FNgJlmI2JTrWI0EVjm5S1Qi0NV4ugiQlPZAw+J3hGvmjK7PllXcok6RYyVbc2m/yP1KnSqWfIqdTeY6B4l/rdLkxjc70bnOPlRbcA0iiYuw/8dLPvds0y1nH13kfTEU3Z87uVdJLqYxHfDbVwy+uxobk786JzR2TPrzd62JeecrALmxcbAdnTmlmhSEF60oypjxZCvmXDdC73fyoz+kH+lm59QjB4l1ThFGcKKtm7gurgkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qnnYjSElROxlLYRKcwdsAyizSYiPkxc0w3EtC8UVORU=;
+ b=WHlECzlgEToJvdHbHQQaRm3vQ6ZUrwt4AhmIyLhrfy0XJ3JHxYdi5yJH8RTBBj6scRcoweuRPILxrmM0bDO5U/GVD+51cGyY4ySPrEeeBXp7KOGL7l3WIgRXKt7cRrOzN9ex1pxgHEd5U1rifgxfKL4x57c4tKq9xo9gdio5iOs6t4nUO4KveJFb0VBlweYMnt5PYL3oWJafQ3Q6o2AnG3DtleIpACTvWS7oweY1n0mAbM5si0xmYUXWvELSTvf1PZszEQ9pKe6FpcdLuCDrDst3HbR/suRla2WN/BYlQaAyDiEWhkxooOl08wkJuxHgNgylqpsEUyqXlpiFVpahLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TY6PR01CA0018.jpnprd01.prod.outlook.com (2603:1096:405:3bb::16)
+ by SEYPR06MB8193.apcprd06.prod.outlook.com (2603:1096:101:2f4::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
+ 2026 05:58:41 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:405:3bb:cafe::a6) by TY6PR01CA0018.outlook.office365.com
+ (2603:1096:405:3bb::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
+ 16 Nov 2026 05:58:41 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 16 Nov 2026 05:58:40 +0000
+Received: from cix (unknown [172.16.64.42])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 71C2E427EFC7;
+	Mon, 16 Nov 2026 13:58:39 +0800 (CST)
+Date: Mon, 16 Nov 2026 13:58:38 +0800
+From: Cunyuan Liu <cunyuan.liu@cixtech.com>
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, boris.brezillon@collabora.com,
+	steven.price@arm.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, gary.yang@cixtech.com, fugang.duan@cixtech.com,
+	daniel.almeida@collabora.com, aliceryhl@google.com,
+	p.zabel@pengutronix.de, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com, robin.wang@cixtech.com
+Subject: Re: [PATCH v2 2/3] drm/panthor: Add initial support for CIX Sky1
+Message-ID: <avqbjnqaU1kdxDzK@cix>
+References: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
+ <20261109120902.125242-3-cunyuan.liu@cixtech.com>
+ <avLsAlL048MtIX4x@e142607>
+ <avRm82TLBe6I6LAD@cix>
+ <CAPj87rOi0+T7E7Kge4z-8L9FuCSTt6dCqT+9+YtF3wDkd4vRVg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,310 +105,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
-In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
-From: Saravana Kannan <saravanak@kernel.org>
-Date: Sun, 15 Nov 2026 21:58:17 -0800
-X-Gmail-Original-Message-ID: <CACRMN=fuqk67Z+OSEhTUnFK-owMyU7iV-Fk=AQexpnz4_mqR9A@mail.gmail.com>
-X-Gm-Features: AclHuK-zpUdb2F46bithlUxQxaDMREUiER_9wRVuxeroYiWCzxmoBbULZP0FN9w
-Message-ID: <CACRMN=fuqk67Z+OSEhTUnFK-owMyU7iV-Fk=AQexpnz4_mqR9A@mail.gmail.com>
-Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared fwnode
- owner is rejected
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPj87rOi0+T7E7Kge4z-8L9FuCSTt6dCqT+9+YtF3wDkd4vRVg@mail.gmail.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|SEYPR06MB8193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0080510e-87e7-4a5d-27be-08df43a6aa25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|10067099003|4143699003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	YpDBwB5DlkefatVpzQ+qadK4hnJdlc6j6Rg2IQx42cIbALXr5raredX+zXysn0y65GWLBwHfWgRg9g2/TakKvFjIt2PAwGLtmTeulq9YCXsS7N1NDAPijcGl7J7GZRN6qM/gzSFg60fBD1goW5eBu+SRxKdDwb/v44X8XXXWlqiywxZaOfNP2TFNdMoNmHAhnjTC6hHGqQujO1FpWPGeFTcLa0aQxtZGFbXjujAB2XIhU9gdfHH0QUvyYDLc64+FyGbgNRjddGpUznpyAMS3U/Yz5v/CKlNK7DiqIffQhEubBTOV30CEGHEGx1n1SFmy3tczC/73awd8VhMbyqrkBsB8yLP40PknX/JFzSLl8VgYfCImLK/EXg2MX7pxxUIwcLrLCo326+nHZcqpu6zvnXHMJTQItyY39SS3Fxo35GarnJzKTdsd9xdTQOfbF+k3mOUC5UE7CFq5uaUAWM5YNIyXCLdpDXKFX3sdurxIgkbegML/66KvPy2YH06edMKqiQ4ODWyYsRkxzeCWZokGeeML4iB+49Uk+vwpO1ND5XjpQkZ+BUy6nsSkyenZOA2Y9tzxxB0Bz6bBlV+pX/UzXyM99Rd+BU9Q2R0ekjeOqkCk09x5Q+lJqmGRh0HJAuY9WKCzf7NYgizIGlfLPBjYYpIv2DKQFbwbeUgxL/r7RSGUh5sHd5kx/Vo3PzHrV2HU1uHEz4Sev9T0ZaashOSwEQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(4143699003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SStTx4UDK6IeYH/rKABHvNJ1whRkL6bbFvSADNCGeXcQpVsucT9eaj/aOEwLGLgTVo4q4N0KGRPFwD8uyA6J0sa03iyi/LY+MHoaefKhbIc5dzSMxQEOGuAf5+Ki6JDzmYRe0bpS/eU9WPQueVHm6JgKeWMEljnes+cUJTpaClffZd4ZJPZ0FJZ1qg+Jch9GnSP+mkRe4di2aH1mb57rIkhgvrhepJTMopbtBfztzCvGB18FkXza0S2F4qePpyzSTrpABGrLvmjXbXg/DQBXe8OcuIfb7sjDYKxJmAKkG8HoLJa4fGZREGJrEVDwN/rMTJgwbaJkr6HioK/kvS+EY6YiMnFX0jrWJ6HKqj19Dru2y1v7lMhKlWihplgKf6EqUgkLtTPg3FP1wtdXxIHpiGbp6jKTH91cWBAu53v4pRfaZuuonhulxBFiFXmhMECP
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 05:58:40.2741
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0080510e-87e7-4a5d-27be-08df43a6aa25
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB86.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB8193
 
-I'd like to reject this patch. More details below.
+Hi Daniel,
 
-On Mon, Sep 28, 2026 at 4:51=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
+Thanks, this is a good suggestion. Separate read and write policies
+make the configuration much easier to understand.
+
+On 2026-11-13 12:24:18 +0000, Daniel Stone wrote:
+> > > > +static const struct panthor_sysc_config sysc_config_cix_sky1 = {
+> > > > +     /* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
+> > > > +     .alloc = {
+> > > > +             0x00230000, 0x00000023, 0x00000000, 0x00000000,
+> > > > +             0x00523222, 0x00523200, 0x00000022, 0x00000032,
+> > > > +     },
+> > > > +};
+> > >
+> > > These should not be in the driver but in the device tree bindings. If you extract
+> > > the system cache code into a separate patch we can have a proper discussion there.
+> >
+> > I will move the eight SYSC_ALLOC values into a DT property, such as
+> > arm,sysc-alloc, and submit the system-cache support as a separate patch.
+> 
+> Whilst doing this, please break the properties out. At the moment,
+> it's written as 32-bit groups of 4 source+RW pairs. I would much
+> prefer to have groups of [<sourceR, sourceW>, <sourceR, sourceW>, ...]
+> than just the raw register values to be dumped into SYSC_ALLOC*.
+> 
+> FWIW, I agree with everything else Liviu said. I don't have a strong
+> opinion on skipping out devfreq if OPPs are not present vs. exposing a
+> single fixed OPP from the clock provider, but the former does seem
+> better for me.
 >
-> From: Peng Fan <peng.fan@nxp.com>
->
-> When multiple devices share the same fwnode (e.g. the SCMI bus creates
-> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
-> the first device registered becomes the fwnode owner (fwnode->dev, set in
-> device_add()). If that owner never binds -- for example its driver return=
-s
-> -ENODEV because it is blocklisted on this SoC,
 
-If it's blocklisted, why is the driver registering itself to match
-that device? Register a different match list during driver
-registration if you realize you are running on a particular SoC?
-Saying your driver supports a device and then not probing it when
-requested is not right. Honestly, this is the simplest fix.
+I will change the DT property to use <source-id read-policy write-policy>
+entries. I will add an explicit source ID so that the DT only needs to list
+sources with nonzero policies. The Sky1 configuration would look like this:
 
-> or because its driver is
-> not compiled in at all -- then driver_bound() is never called for it, so
-> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
-> are never run for the fwnode. The child fwnode supplier links (pin group
-> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
-> consumer of those child nodes defers probe forever.
+  arm,sysc-alloc = <2 3 2>, <4 3 0>, <16 2 2>,
+       <17 2 3>, <18 2 5>, <21 2 3>,
+       <22 0 5>, <24 2 0>, <28 2 3>;
 
-For the not compiled in part, after a timeout, fw_devlink unblocks all
-probes. You can even set it to a very small number using
-CONFIG_DRIVER_DEFERRED_PROBE_TIMEOUT too. So it should never block for
-the scenario of the driver not being compiled in or ever loaded.
+When this property is present, the driver will start with all source
+policies set to 0 (L2 allocation), then apply the entries from DT. Sources
+not listed will keep policy 0. If the property is absent, the driver will
+leave the SYSC_ALLOC registers unchanged.
 
-> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl=
-"
-> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
-> the vendor "pinctrl-imx" device binds successfully. Because
-> dev->fwnode->dev still points at the rejected "pinctrl" device,
-> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
-> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
-> controllers wait forever for their pinctrl suppliers.
->
-> Fix this in two places:
->
-> 1. In really_probe() failure path: when the driver definitively rejects
->    a device (-ENODEV / -ENXIO),
+I will also add checks for the GPU architecture and supported read/write
+directions. Unsupported directions will have to use 0. Duplicate source
+IDs, out-of-range IDs and invalid policies will be rejected.
 
-This is just arbitrary. Why not do this for all the error returns
-other than -EPROBE_DEFER and -ENOMEM? This might work for your case,
-but I don't think you can make a sweeping call for all drivers.
+Would this format, with an explicit source ID added to the read/write
+pair, be suitable? I will submit the system-cache support as a separate
+patch, as Liviu suggested.
 
-> fw_devlink_release_shared_fwnode() is
->    called. If the rejected device is the fwnode owner, it either
->    transfers ownership to an already-bound sibling (and runs the
->    purge/pickup on its behalf) or clears ownership so the next sibling
->    to bind can re-acquire it.
->
-> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
->    unowned (!fwnode->dev) or when the current owner has no driver at
->    all (!fwnode->dev->driver, meaning the driver was never compiled in
->    or loaded as a module). This covers the case where probe rejection
->    never happens because no driver ever matches.
->
-> fwnode->dev is not serialized by a lock; instead every writer only ever
-> touches a fwnode->dev it already owns (=3D=3D dev, as device_del() does w=
-hen
-> it clears ownership) or one that is currently unowned (=3D=3D NULL, as
-> device_add() does when it claims ownership). This patch follows the same
-> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
-> when this device is the current owner; device_links_driver_bound() only
-> claims fwnode->dev when it is NULL or when the current owner has no
-> driver (and therefore cannot be in the process of binding).
->
-> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
-> This issue is triggered by
-> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard pro=
-tocols")
-> in linux-next next-20260925.
->
-> But I think this is a fix to
-> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
->
-> Detailed information could be found in patch commit log.
-> ---
->  drivers/base/base.h |  1 +
->  drivers/base/core.c | 63 +++++++++++++++++++++++++++++++++++++++++++++++=
-++++++
->  drivers/base/dd.c   |  9 ++++++++
->  3 files changed, 73 insertions(+)
->
-> diff --git a/drivers/base/base.h b/drivers/base/base.h
-> index a5b7abc10ff0..36d34aa328c5 100644
-> --- a/drivers/base/base.h
-> +++ b/drivers/base/base.h
-> @@ -292,6 +292,7 @@ void device_links_unbind_consumers(struct device *dev=
-);
->  bool device_link_flag_is_sync_state_only(u32 flags);
->  void fw_devlink_drivers_done(void);
->  void fw_devlink_probing_done(void);
-> +void fw_devlink_release_shared_fwnode(struct device *dev);
->
->  #define dev_for_each_link_to_supplier(__link, __dev)   \
->         list_for_each_entry_srcu(__link, &(__dev)->links.suppliers, c_nod=
-e, \
-> diff --git a/drivers/base/core.c b/drivers/base/core.c
-> index 5daa88fa724a..e76153d5f124 100644
-> --- a/drivers/base/core.c
-> +++ b/drivers/base/core.c
-> @@ -1376,6 +1376,20 @@ void device_links_driver_bound(struct device *dev)
->         struct device_link *link, *ln;
->         LIST_HEAD(sync_list);
->
-> +       /*
-> +        * Multiple devices may share the same fwnode (e.g. the SCMI bus
-> +        * creates several devices per protocol node).  The first one
-> +        * registered owns the fwnode; if that owner's driver is rejected
-> +        * it relinquishes ownership (fwnode->dev =3D=3D NULL, see
-> +        * fw_devlink_release_shared_fwnode()).  If the owning device has
-> +        * no driver at all (driver never compiled / loaded as module), i=
-t
-> +        * will never bind, so it is safe to take over.  Re-acquire the
-> +        * fwnode here so the purge/pickup still happens.
-> +        */
-> +       if (dev->fwnode && (!dev->fwnode->dev ||
-> +           (dev->fwnode->dev !=3D dev && !dev->fwnode->dev->driver)))
-> +               dev->fwnode->dev =3D dev;
-> +
->         /*
->          * If a device binds successfully, it's expected to have created =
-all
->          * the device links it needs to or make new device links as it ne=
-eds
-> @@ -1390,6 +1404,7 @@ void device_links_driver_bound(struct device *dev)
->          * consumers to defer probe indefinitely waiting for a device for=
- the
->          * child firmware node.
->          */
-> +
+Thanks also for your feedback on devfreq. I plan to use the generic
+no-OPP approach based on Panfrost, unless there are further concerns.
 
-Did you add a blank line for no reason? Or am I missing something?
-
->         if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
->                 fwnode_links_purge_suppliers(dev->fwnode);
->                 fw_devlink_pickup_dangling_consumers(dev);
-> @@ -1474,6 +1489,54 @@ void device_links_driver_bound(struct device *dev)
->         device_links_flush_sync_list(&sync_list, dev);
->  }
->
-> +static int fwnode_shared_bound_match(struct device *dev, const void *dat=
-a)
-> +{
-> +       const struct device *rejected =3D data;
-> +
-> +       return dev !=3D rejected && dev->fwnode =3D=3D rejected->fwnode &=
-&
-> +              device_is_bound(dev);
-> +}
-> +
-> +/**
-> + * fw_devlink_release_shared_fwnode - Hand off a shared fwnode on probe =
-reject.
-> + * @dev: Device whose driver just definitively rejected it (-ENODEV/-ENX=
-IO).
-> + *
-> + * Several devices can share one fwnode (e.g. the SCMI bus creates both =
-a
-> + * "pinctrl" and a "pinctrl-imx" device for one protocol node). Only the=
- first
-> + * one registered owns the fwnode (fwnode->dev). If that owner's driver =
-rejects
-> + * the device, driver_bound() never runs for it, so the dangling consume=
-rs of
-> + * the fwnode's child nodes are never picked up and defer probe forever.
-> + *
-> + * When the rejected device is the fwnode owner, relinquish ownership so=
- those
-> + * consumers can be resolved by a sibling that does bind:
-> + *
-> + *  - If a sibling has already bound, transfer ownership to it and run t=
-he
-> + *    purge/pickup the owner could not do.
-> + *  - Otherwise clear ownership so the next sibling to bind re-acquires =
-it in
-> + *    device_links_driver_bound() and runs the purge/pickup there.
-> + *
-> + * fwnode->dev is not lock-serialized; this only ever writes it when @de=
-v is
-> + * the current owner (fwnode->dev =3D=3D dev), the same ownership-gated =
-rule
-> + * device_del() uses when it clears fwnode->dev on the owner.
-> + */
-> +void fw_devlink_release_shared_fwnode(struct device *dev)
-> +{
-> +       struct device *sibling;
-> +
-> +       if (!dev->fwnode || dev->fwnode->dev !=3D dev)
-> +               return;
-> +
-> +       sibling =3D bus_find_device(dev->bus, NULL, dev, fwnode_shared_bo=
-und_match);
-> +       if (sibling) {
-> +               dev->fwnode->dev =3D sibling;
-> +               fwnode_links_purge_suppliers(dev->fwnode);
-> +               fw_devlink_pickup_dangling_consumers(sibling);
-> +               put_device(sibling);
-> +       } else {
-> +               dev->fwnode->dev =3D NULL;
-> +       }
-
-This is not even correct. If you don't have a sibling that's bound,
-you are just clearing the fwnode->dev and leaving a bunch of device
-links stuck to the old device. And in the case there is a sibling
-device, you are assuming all the consumers are only pointing to the
-child devices. If a consumer was pointing to this device, then you are
-just deleting the device link and not moving it to the sibling.
-
-This patch is just a hodge podge of ideas that happen to fix it for
-the imx case, but not really a sound/principled design.
-
-This patch also makes a lot of assumptions that I'm not comfortable
-with. Please try the simpler fix I suggested above. Essentially, edit
-drivers/pinctrl/pinctrl-scmi.c so it doesn't always register the
-driver. Register it only if it's not one of those blocked machines.
-
-If we really want a systemic solution to the "two device point to one
-fwnode" problem, then we have a couple of options:
-
-1. Have the bus code that's adding the two devices to make one of them
-to be ignored for fw_devlink.
-2. For any fwnode with multiple devices, give up enforcing fw_devlink
-for that node and all its descendants.
-3. Have the bus code that's adding the two devices to go through all
-the fwnode_links and mark which link is for which device.
-
-(1) is simplest and an opt-in.
-(2) will affect a lot of current cases where the first added device is
-the right one and has no problem (eg: PCI)
-(3) will work well if the bus can actually tell the devices and their
-consumers apart, but will also increase the memory usage a bit (need
-to store a dev pointer or cookie for every fwnode link)
-
-Neither of these are great options, but they are better than some
-partial heuristics that can't be easily applied for all systems and
-depend on timing.
-
--Saravana
-
-> +}
-> +
->  /**
->   * __device_links_no_driver - Update links of a device without a driver.
->   * @dev: Device without a drvier.
-> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-> index f6525a7ee8c5..e19cfc91ebe1 100644
-> --- a/drivers/base/dd.c
-> +++ b/drivers/base/dd.c
-> @@ -762,6 +762,15 @@ static int really_probe(struct device *dev, const st=
-ruct device_driver *drv)
->  dev_groups_failed:
->         device_remove(dev);
->  probe_failed:
-> +       /*
-> +        * -ENODEV/-ENXIO mean the driver definitively rejected this devi=
-ce
-> +        * (errors are returned as positive values at this label). If it =
-owns a
-> +        * fwnode shared with sibling devices (e.g. SCMI creates several =
-devices
-> +        * per protocol node), hand the fwnode off so its dangling child
-> +        * consumers can be resolved by a sibling instead of deferring fo=
-rever.
-> +        */
-> +       if (ret =3D=3D ENODEV || ret =3D=3D ENXIO)
-> +               fw_devlink_release_shared_fwnode(dev);
->         driver_sysfs_remove(dev);
->  sysfs_failed:
->         bus_notify(dev, BUS_NOTIFY_DRIVER_NOT_BOUND);
->
-> ---
-> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
-> change-id: 20260928-driver-core-f1d9e991edb2
->
-> Best regards,
-> --
-> Peng Fan <peng.fan@nxp.com>
->
+Best regards,
+Cunyuan
