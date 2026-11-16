@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839173;
-	b=lKIt3sqt7tenJ9Ccxf2ujeCdZfbxByQ70Kh3NcywxqjTnXffFJyyuraBwzquAUgOmMqn
-	 uqz1AMrr7sSwiVnnz72C0OA7eSA2x455lduwTYXEATw7BD6xCyP93PehGn0JY0nnUfGdq
-	 FuY7rMx8dNxzKYVyeD6WL/XVWDEMSujFcl6s9cJEJvF4PJhBHwOYCba7OMmTjKrhV/271
-	 zNyi28amR2W5w/+2zNa96s9Qf79eMq1HBvbBF1DPZwUDk+4bNEgTu2G+VsPCdCWYk+RWX
-	 BaTXnL6WyMhfu6lxEd/buzMVqGx2ZEm1JdfUAqUer2T3NCIEGVpyOgcjhpev/eRBGhQ==
+	t=1794839176;
+	b=O3L6ppsSWJGFdndV4Wi+xCffO5wuIlYDTIE5t1t3eDCn0Y+YcORwIyN+SJ/F97HKU1v2
+	 ygagP0vtUeeDXAs5RcidbVby0RKrImgKTSyXuPiOQgFJ8oX71w6ezmg9CZHz7BKplVVPf
+	 VyMQkqt5uTYxmcttoUV9BekVvnDukj1DmJM3VFTY8+cFmo5jgKjJj3IsmuLrEFo7nrd2I
+	 1VzA/dOIx/dYWVopVs12MZOY7QuS5K1kfksm8c7zTWc0OOkg0boyr6pLH3dROIO07sJqH
+	 byb/SECg+iD3fOliC6IQjgnAenEpUQuKkBLHu3O9KqsgRSB0yIF9AdCxUbgaQ+QBgZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839173;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4oxKujtqx5IgmdP1CS1qJ3X/KUwSuoYjTR+SbgKHxNs=;
-	b=lHQOd12tlpKTcXXAzZH3WvtMPwgQOP2nE0CG6yN3nIhun9jhwMjDTBxuxfKUM2Fextib
-	 +KFXk2jkTCQmNBaUwfCOJ5FVYmQtpmuQRZgOtqwxsqRFl37y5Ad8ppoy7hGJbhA3ctp2y
-	 IrlnesIAl3LfrtY1eXA1aP34LU9KhhrK9IqsVTkAFcSxhS6+P9Tf0iEvIVQHfkU/RG4y7
-	 ksiBYnb70jMJZlWbUQEt17cs2BXIuUTkpjjUSHzx6QUvy/lr276+j1Z9V2bzXiGlHcOQf
-	 6DxhV+rstHAYUvA/pRGtThW9xCMOvWO2JmdYYq6O7kUQClTv43r7UPJ0P73aLrUIXDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839176;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9v7IDc0XEQ/Yk1qnAZPnPR4yqpr5gQdLDRALdUC+Ed0=;
+	b=kWuknqp+M/l579YQfBl0Zj+RWMTpKuidYe1SABskQGQVNUu/ryGgTgJVvMJNrFuox+vF
+	 3Ntsbwu71jLw+S/wYBtzidbLPA1lMkut7/Nmi/Pmf5sZWQXghovg5pBipguPfnyk5VaPf
+	 A8Fv6kBjON+qlXLirQ92DNCeBm67p3dXcoyUW6xy1YTLSV0QR5P5O3oCBy4gA6gMli6KW
+	 Z62tpaa3q5nKoeWbTOjaJoHsHtYyQfaV3QBJW6WeFxFdstapRJw8/kpGx4fzWzuDPUyn7
+	 MaLIK3yRNQIkjPeuEguVJpZ0ufGVWfsToMcRsV24OUpjiVRa0ba817Z1+lpuuC+7LJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=nl7eOqVE;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t9me4bv4;
+	arc=none smtp.remote-ip=91.218.175.158
+Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9B4606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E9B4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96549606A33D
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96549606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=nl7eOqVE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794839170; x=1795098370;
-	bh=4oxKujtqx5IgmdP1CS1qJ3X/KUwSuoYjTR+SbgKHxNs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=nl7eOqVE5wmcUEY6QOOWyWpGH2kGgwbYegHLeh5wEoAl8oAX6kiX1ysshZcnXDu4+
-	 NesWGebKNLSLPTOvDYh6Q7fIQ0oGzCWZjgatxhxl7zVfgxwCKHn+n4TzU3rxniiyLy
-	 CtJxd+y1oSvJepFLpaWbqYShiBEVVAKOwA8C2VJd/MpU6gV9OYbBABnXif5SbrmHQO
-	 OQK0tig6s+ukKqDIff+um0DDyqnKO6sJwNI8L7K1uu7eT0iWo2QWRCJ1NBHUoQluY8
-	 d+9gbSj3NKEM58bVpJ7h4Z175upZUIzDK3b9biZlz7JM7OMGZtoUZ7pmhIiNDqxKeR
-	 XaLXB7sZHGHkA==
-Date: Mon, 16 Nov 2026 14:26:03 +0000
-To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
-From: Devin Christensen <dchristensen8@proton.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, rafael@gexdigital.net
-Subject: [PATCH 2/2] ALSA: hda/ca0132: Add Sound BlasterX AE-5 on-card RGB LED support
-Message-ID: <20261116142542.4178770-3-dchristensen8@proton.me>
-In-Reply-To: <20261116142542.4178770-1-dchristensen8@proton.me>
-References: <20261116140237.4137662-1-dchristensen8@proton.me> <87qzgkyi5l.wl-tiwai@suse.de> <20261116142542.4178770-1-dchristensen8@proton.me>
-Feedback-ID: 45895322:user:proton
-X-Pm-Message-ID: 7eac2773c3782d640315739678fb217841e4cace
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t9me4bv4
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IuGJsoC0pmJAX6hry79QbatSHX6/kXJiJDDUCZT6m6w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794839172; v=1; x=1795443972;
+ b=t9me4bv4F06LjfbJh74ndc9WUKFiu50R4lG8dIqxVgk7JHQRbCg2GOxvfAJBCt1ugamYP5Rk
+ 8xBiPdVXUVBc5iHpvPZRXzJCKqbweL4jBHW62bC49wjVWajTpgWuvwWmQ+NKsBEWEFpa/9HmqQE
+ bMa5AOzt5FQ/Rft5pR07PEbg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4054c6750560ac8d;
+	Mon, 16 Nov 2026 14:26:12 +0000
+X-Mizu-Trace-ID: 4054c6750560ac8d
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 15:26:12 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Mehmet Fide <mehmet.fide@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v11_3/3=5D_wifi=3A_rtw88=3A_?=
+ =?US-ASCII?Q?time_the_countdown_downloads_from_the_TBTT?=
+In-Reply-To: <20261116071952.1142013-4-mehmet.fide@gmail.com>
+References: <20261116071952.1142013-1-mehmet.fide@gmail.com> <20261116071952.1142013-4-mehmet.fide@gmail.com>
+Message-ID: <781999FE-B0CB-4D6E-8A1B-06A38082202F@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,173 +66,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-The Sound BlasterX AE-5 and AE-5 Plus feature 5 on-board APA102
-(DotStar) RGB LEDs providing logo and shroud accent illumination.
-These LEDs are driven directly by CA0113 bridge GPIO pin 2 (data)
-and pin 3 (clock) mapped through PCIe BAR2 at MMIO offset 0x320.
+Hi Mehmet,
 
-Expose the on-board LEDs through a volatile card control element:
+Thanks for the v11. One comment below.
 
-  "AE-5 On-Card LEDs"  (RW, BYTES): 15-byte RGB payload representing
-                       the 5 on-board LEDs (3 bytes per LED).
+On November 16, 2026 8:19:52 AM GMT+01:00, Mehmet Fide
+<mehmet.fide@gmail.com> wrote:
 
-Writes bit-bang the 32-bit start frame, 5 APA102 LED frames (8-bit
-brightness and 24-bit BGR color), and 32-bit end frame over GPIO
-pins 2 and 3, and leave the pins idle low. Access is serialized
-using spec->ae5_strip_mutex to prevent concurrent MMIO register
-access with the external LED strip, and codec power is managed
-via CLASS(snd_hda_power_pm, pm)(codec).
+> diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
 
-This allows userspace RGB lighting controllers (such as OpenRGB) to
-drive both the on-card LEDs and the external strip purely through
-standard ALSA card control devices (/dev/snd/controlC*) without
-requiring /dev/mem, PCIe resource sysfs mmap, or root privileges.
+[ ... ]
 
-Signed-off-by: Devin Christensen <dchristensen8@proton.me>
----
- sound/hda/codecs/ca0132.c | 97 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 96 insertions(+), 1 deletion(-)
+> +     rtwdev->csa_tbtt += interval;
+> +     delay = rtwdev->csa_tbtt + RTW_CSA_TBTT_MARGIN_US - tsf;
+> +     if (start || delay > interval + RTW_CSA_TBTT_MARGIN_US ||
+> +         delay < -(s64)interval) {
+> +             /* at the start, or the download ran too late: the next TBTT */
+> +             div_u64_rem(tsf, interval, &rem);
+> +             rtwdev->csa_tbtt = tsf - rem + interval;
+> +             delay = rtwdev->csa_tbtt + RTW_CSA_TBTT_MARGIN_US - tsf;
+> +     }
 
-diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
-index b127fe50f..b7c97a079 100644
---- a/sound/hda/codecs/ca0132.c
-+++ b/sound/hda/codecs/ca0132.c
-@@ -1062,6 +1062,7 @@ enum dsp_download_state {
-  */
-=20
- #define AE5_STRIP_MAX_LEDS 100
-+#define AE5_ONCARD_LEDS 5
-=20
- struct ca0132_spec {
- =09struct hda_gen_spec gen;
-@@ -1167,10 +1168,11 @@ struct ca0132_spec {
- =09bool use_alt_controls;
-=20
- #if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
--=09/* AE-5 WS2812 strip control */
-+=09/* AE-5 WS2812 strip and on-card LED control */
- =09struct mutex ae5_strip_mutex;
- =09u32 ae5_strip_cur_colors[AE5_STRIP_MAX_LEDS];
- =09int ae5_strip_cur_num_leds;
-+=09u8 ae5_oncard_cur_colors[AE5_ONCARD_LEDS * 3];
- #endif
- };
-=20
-@@ -8690,6 +8692,90 @@ static int ae5_strip_num_leds_put(struct snd_kcontro=
-l *kcontrol,
- =09return 1;
- }
-=20
-+static void ae5_oncard_write_bit(struct ca0132_spec *spec, bool bit)
-+{
-+=09writew(bit ? 0x102 : 0x002, spec->mem_base + 0x320);
-+=09writew(0x103, spec->mem_base + 0x320);
-+=09writew(0x003, spec->mem_base + 0x320);
-+}
-+
-+/*
-+ * Caller must hold spec->ae5_strip_mutex.
-+ */
-+static void ae5_oncard_send_frame(struct hda_codec *codec, const u8 *rgb_c=
-olors)
-+{
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09int i, bit;
-+
-+=09if (!spec || !spec->mem_base)
-+=09=09return;
-+
-+=09lockdep_assert_held(&spec->ae5_strip_mutex);
-+=09CLASS(snd_hda_power_pm, pm)(codec);
-+
-+=09/* Start frame: 32 zeroes */
-+=09for (i =3D 0; i < 32; i++)
-+=09=09ae5_oncard_write_bit(spec, false);
-+
-+=09/* 5 APA102 LEDs: 8-bit brightness (0xFF), Blue, Green, Red */
-+=09for (i =3D 0; i < AE5_ONCARD_LEDS; i++) {
-+=09=09u8 r =3D rgb_colors[i * 3 + 0];
-+=09=09u8 g =3D rgb_colors[i * 3 + 1];
-+=09=09u8 b =3D rgb_colors[i * 3 + 2];
-+=09=09u32 val =3D 0xff000000 | ((u32)b << 16) | ((u32)g << 8) | (u32)r;
-+
-+=09=09for (bit =3D 31; bit >=3D 0; bit--)
-+=09=09=09ae5_oncard_write_bit(spec, (val >> bit) & 1);
-+=09}
-+
-+=09/* End frame: 32 ones */
-+=09for (i =3D 0; i < 32; i++)
-+=09=09ae5_oncard_write_bit(spec, true);
-+
-+=09/* Return GPIO pins 2 (data) and 3 (clock) to idle low */
-+=09ca0113_mmio_gpio_set(codec, 2, false);
-+=09ca0113_mmio_gpio_set(codec, 3, false);
-+}
-+
-+static int ae5_oncard_ctl_info(struct snd_kcontrol *kcontrol,
-+=09=09=09       struct snd_ctl_elem_info *uinfo)
-+{
-+=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_BYTES;
-+=09uinfo->count =3D AE5_ONCARD_LEDS * 3;
-+=09return 0;
-+}
-+
-+static int ae5_oncard_ctl_get(struct snd_kcontrol *kcontrol,
-+=09=09=09      struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09memcpy(ucontrol->value.bytes.data, spec->ae5_oncard_cur_colors,
-+=09       AE5_ONCARD_LEDS * 3);
-+=09return 0;
-+}
-+
-+static int ae5_oncard_ctl_put(struct snd_kcontrol *kcontrol,
-+=09=09=09      struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09bool change;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09change =3D memcmp(spec->ae5_oncard_cur_colors, ucontrol->value.bytes.da=
-ta,
-+=09=09=09AE5_ONCARD_LEDS * 3) !=3D 0;
-+=09if (!change)
-+=09=09return 0;
-+
-+=09memcpy(spec->ae5_oncard_cur_colors, ucontrol->value.bytes.data,
-+=09       AE5_ONCARD_LEDS * 3);
-+=09ae5_oncard_send_frame(codec, spec->ae5_oncard_cur_colors);
-+=09return 1;
-+}
-+
- static const struct snd_kcontrol_new ae5_strip_ctls[] =3D {
- =09{
- =09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-@@ -8709,6 +8795,15 @@ static const struct snd_kcontrol_new ae5_strip_ctls[=
-] =3D {
- =09=09.get =3D ae5_strip_num_leds_get,
- =09=09.put =3D ae5_strip_num_leds_put,
- =09},
-+=09{
-+=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-+=09=09.name =3D "AE-5 On-Card LEDs",
-+=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+=09=09.info =3D ae5_oncard_ctl_info,
-+=09=09.get =3D ae5_oncard_ctl_get,
-+=09=09.put =3D ae5_oncard_ctl_put,
-+=09},
- };
-=20
- static int ae5_add_strip_controls(struct hda_codec *codec)
---=20
-2.56.0
+[ ... ]
 
+>       ieee80211_queue_delayed_work(rtwdev->hw, &rtwdev->csa_beacon_work,
+>                                    usecs_to_jiffies(max(delay, 0)));
 
+Could the first count still be replaced before it goes out if the first
+work runs late? With patch 3 that work is also the first download of a
+CSA beacon.
+
+For example, with a 100 TU interval and a count of 2:
+
+        first work due:        TSF 112400
+        first download done:   TSF 224800
+        csa_tbtt after +=:     TSF 204800
+        delay:                -10000 us
+        next TBTT:            TSF 307200
+
+The delay is not below -102400, so this queues the next work immediately.
+The download just installed count 1, and that work can call
+ieee80211_csa_finish() before the next TBTT. So if I read it right, no
+CSA beacon has gone out at all, even though the download succeeded.
+
+I understand skipping an intermediate count when a download runs late,
+but with a count of 2 there is no earlier CSA beacon for the station to
+follow. Could the next step wait for a TBTT that can send the first
+download, including when the first work has missed its scheduled one?
+
+Best regards,
+Luka Gejak
