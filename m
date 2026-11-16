@@ -1,127 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795300;
-	b=0T0hDE4i2ds8ryThWHgTFM8e+Z5fs4NyCqni0slrwCzs8SeOOzuydLyNq3m1dmYENLFy
-	 OIIi+JF0UfLpcZ9pHhPSxO+Jcz4ikZvoM505il+G95HuXo46oFEi5c1eweXAY+qiUqqMl
-	 slhM9TSB7KF5PKk+lfVFn5xZtPSF3IRTokphbS4qkjKM1UYSyzYWlKggxzMw32/otGjME
-	 0LfgOIIzyapQM87qJUPXQQTBo10cbNIS/NEgbug52feX7bAsj0YfbZwxJD4400dVcXriH
-	 7vuEmGFrECRH0jrQID/cdDIaPXEzrLe4MIhYuy7ozoSja21Y1mgqVAYWKshQnedl80A==
+	t=1794795336;
+	b=BvYHAHn4cT41Dp1uYyKcbI+A1NtBhmhDhm29U05vwGbOqGuxSOhec260tPLf0jlryDLw
+	 TVjwRDxzMCbvyEBDLvTlw1nHLzUmV0iSPFQT2qZQGTNUEMwTBe6C7t9St//jv55DlbN4O
+	 iuVld8y47w8z2rezRvPx7vCnQe5tKQXfkaVly14+96knVECRZP7uhvRjE621jijv4qYkg
+	 fKYKXsEUGj0aIG5X3KhhNBkt4C48w24HkPM4qb6ZBhnMzBTk3RGS785UFN/C3ds54cgSt
+	 KRaPACt4ZOC3Tb5X65M76FDalOUmtWx1hMJvw1MlmRf4fYzHZvfDy52SzEXM5B6HkjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795300;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=rfaxPZTK/QbMCHFi6RkGMIRhTOgUbQXDaCoH945uFQs=;
-	b=ZdJHTvPHJ9WjTWIlBGpEQNNtmTDD3nOigJPSBVCiH76GZYXn5ZjsFPbhZphosQFlVw/Q
-	 QEtHUyK68e3wupRRMHgFNzI1y93nYPPWox/E9NPZa73vaqX9KRSCibuwuS8Z8XbDRNa9q
-	 1FLocVjiX7JMTXCYyIlr7sZQY2CXoYYPZPMQWrBb1WNAlhtqdzL6E+ph51J5FNUxWbtOM
-	 LrkVYv3EAIX9riKPd2v7fO0oVABARNmWwb77XE+4SGF0Bj7i7CFsf9IRldJbfaZBdTMu9
-	 RJKMQKUWnjdZIWYPpZaJ0vergltkSw748Zbk1YVQVN5URo++z8TYZxjwW6PAZY1EnFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795336;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wZItRaySY14g5BVC2viKZy/bcmMP3lZf5uclPF7bOgQ=;
+	b=ZCYqnpHQ7cKO8XDWRB7S6c58VZ3Bwn4Xjqvt5h0Z4yJShpoSp38ZLrsoSOQ6u8gsM79I
+	 N60UDe9/FzBPzcET78jAaH8zy8qfTO3ZPsPne5tvusuk23j8IEawa/+Z/lkhaat2iUTnv
+	 fq0v5zPptvE1qQTgl24dm94MCNPOtzqwdsYPUtxZCaXsfX9jhF4X50OnWLmAtpiMgG3LE
+	 nkibcKEbzFgO7bgMyPJJ79hgtNpKWObLLp2B99qKT7+YrDFTNlRv+EJQrMAk3igV1eKQM
+	 H7kGaMwZFsUQOSG1RFxn7vDhJJr+A3WDecDK4yAKFi9mX205KZIxg7bxbCLlvtBsaVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=sIuQyFl6;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=isOCFcL6;
-	arc=none smtp.remote-ip=202.12.124.137
-Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+SASHCL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C034606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:14:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C034606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1128606A31C;
+	Mon, 16 Nov 2026 02:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=sIuQyFl6;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=isOCFcL6
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.stl.internal (Postfix) with ESMTP id BE5C41302C6A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:14:58 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Sun, 15 Nov 2026 21:14:58 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794795297; x=
-	1794802497; bh=rfaxPZTK/QbMCHFi6RkGMIRhTOgUbQXDaCoH945uFQs=; b=s
-	IuQyFl6U9Dv3kVGlpPMrkBwnIRvnpCy38BWAvNklUcFa8OlaDRrGSEElHK7/pdgH
-	CTAzingEcshphh/iKHQMkA1cECMsdwBsmniKTHhKgzqdnvCqF8HRoDr0fD8pZ4iw
-	UNeT8dVBRnt8ttT+3WQ9TOyEVYIm+99swmfXU8Izr+GBWLkIdlfe3jPUWyTzzmBK
-	XHgddYAeCQarCsjjC6KjQ7GJkcRA8KuETFWlpG8TFjvFrZilXw6rX5tATRlZbJnh
-	4uu0I+Df050rYWRQ9Arra2E6Gk7w2NlZvtkiLJWFDp8Hc+GDMvVoe8jexryn9g5x
-	5asJGnR9AAmvVtnn84kcw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794795297; x=1794802497; bh=r
-	faxPZTK/QbMCHFi6RkGMIRhTOgUbQXDaCoH945uFQs=; b=isOCFcL6XU19IfOlK
-	ZvgcH+XcXFViesRjSlntGVolyxMLPmVTxiTI7iqF2/fQgFfD8HE/g8FCwKgSsQPC
-	q0uHgdDEJiOx1NnFmj4GrevN3Pf/N5/ee4R54PEMaWytU1ve5yDwk1MLMZP86poR
-	mzgGYv/jjCWPbMIvGgIWMjpv2fbuHi+JSC79DKGWYfROULHn8WDLW7rHFuVmzL47
-	xlqH5lPrH28LWfXw9SYjSjqS4PDKTIl2jRtOt/QQCFiV0eZbfdpGMdnggn/0hpYB
-	SS1ob2iX5HdNWR7BbuIgJE4UDvBQI4QhqWSHluAzQQ8+xx0jrQHLUZ46N70FuDdk
-	1EHBw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794795297; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:SOVcOGeNvwa3k4ejdl3W0ZpONobDNcTexlQEr3zFEUpX7N8
-	n5bzXWkdITzL43eR3wNaqbUAsfp9woYQ6SosDyN2hkXqTR2Qe/knIlRf9iqaQieA
-	oTsUrG9S4C44wMMyMHwagnzW8nSZlig3G/ALuXGff+L7rZ9aa3WmjPLnF8IxQrna
-	T9tRRoWEEQ0dQmRMALVF9sruPNWQA+76Hc/eRQCVjou+OytkoGlM53Xb6bSQ0wl6
-	H6Dr3fCLyARmPx+QNyuT+6QFcPW4+oXc29bbTtuvIH+fYZBKw9AwAXztJ2C6oLue
-	tfBCkleoDSEHYiIzV/6F47cmWNEQvNOjFKMk4Pw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:xZiIPiMo1RsjLCYWjE1klgNgqzU0DS3eClQ9FWI/0/w=:rfaxPZTK/QbMCHFi6RkGMIRhTOgUbQXDaCoH945uFQs=;
-X-ME-Sender: <xms:IWf6anqUpxeMofp4EIyNBQePX7UZPzmb1Hsw6hTp8lJh-WXPa6dciA>
-    <xme:IWf6ammJxFvnVYG7b6z8TaVNjGK5HoC3tA9KALL3n1A8FaFOYpi0FWY16-Q8a-4s3
-    d9z18_sH4u7UHcweIK_IiLR4Y1dMD7K14DWUEbpHpjRn45Wd_PUIhoV>
-X-ME-Received: <xmr:IWf6aocHb-J135Db1lAkX_xJSCHUwpJ-5Ewqh7-qDrfhoqfNsoaR10Eil8Ucn0Wu>
-X-ME-Proxy-Cause: dmFkZTGFIhyhDLa8hCqx+pHyX8RXm1/F8IxDFWP8po2umGjNomO14L385ifnOaol0e1Q5S
-    mozlZXmxCzAlnLWsWrciqC6HsT5r/gK8BNB9f9TVyiBE7J9LY1DnAVrwQx2I38fNqJl3sB
-    RszqqvNLy5iEFfWM2ZaJt4+ymipA1yv7b4IC0rIe5AT/vDy6OaPXXuZksIR1iB1AkBSIxm
-    VAeH3j5Z1CSzyCYYnL6dC47Odz3LiGX0GVTlZTL/K9Q13klpH3uZA+NemLKVnbCa9OneN1
-    SLWhBX7j4vD66cdqEqh91UULtg0ueJ31/Quw5mTnuG2s9j+ffvQX8JabMhbsmSAtzLuYCK
-    JU+r09UPdYzJg/UUthyMu6YLs17qghLalfJQztGnJrelFRkJ7nD/fZTkE3xxXOCSuXf/7o
-    7mqjdhjPCgs2t/Rn0QazZvd497rPTjGQweoMuz9XJcdq6v1Wle0v0IZr8o6JI2zmQWDAQn
-    +KattwYgtuPvPr4+fQvUUaT4bpupFpJ9UmO/sIB6/cQhr9Ak39A2ySRIIqH+4ordDvwnn+
-    pTwdlMS0EpHmYmq28nDWvIIvnbQhZWGfb1pgf4r814ZueGU8lbZGuxd6IkIiVSBH4N60FR
-    jIQH5/Ju/sXcQk5KdEbhaMj3PJNvKzPqVWZ0pUp1jsGYkyVEiarAk5eSEJkw
-X-ME-Proxy: <xmx:IWf6aqo0Hz5IesFDkv3XsjUfclh3ZjOvwGaiqCeOOHPLAXBqNOKkrA>
-    <xmx:IWf6aqMkWT4owQqlCj850764vWHlSLNpKPxdW6e8dBKZZwfO0o9g4w>
-    <xmx:IWf6aljy7jqYOA00bdxKnVcJOqW1r-U_vuSJZZcx50n7HEk8_KFUHA>
-    <xmx:IWf6alt4PvKJytobHXo_6s2K0A-cpzmP9I5CLuDPT6LpGRCR4aEhgg>
-    <xmx:IWf6ar52K0Ndv1I2F_1SIwCdbdMqKWfJtgk4RDeZOmdgQ0Tw8QKhWxQe>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 15 Nov 2026 21:14:56 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: koray.fra@gmail.com
-Cc: linkinjeon@kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH v3 2/2] ksmbd: decode version 3 fields in ndr_decode_dos_attr()
-Date: Sun, 15 Nov 2026 20:14:48 -0600
-Message-ID: <20261116021448.2485495-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261115155308.415734-2-koray.fra@gmail.com>
-References: <20261115155308.415734-1-koray.fra@gmail.com> <20261115155308.415734-2-koray.fra@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+SASHCL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20BAF1F000C4;
+	Mon, 16 Nov 2026 02:15:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794795336;
+	bh=wZItRaySY14g5BVC2viKZy/bcmMP3lZf5uclPF7bOgQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=d+SASHCLD8J4UyxeKcK5oLKoxcClXd8k5ryvD/8KFbfu+YIKJ2OFjkOVuo1Wt6+4E
+	 m8y9bvEo/UOhwCNw341Wd91Spx6B86BfiIeLpuuCluMfauvIF431hg5kEY/ErDd+N5
+	 EI7vwGGAkH6ZC9iVa+DrJQEH34oa2uUaEnAQ/7LoO7LfvD5ijMntJWLcEjku70yip2
+	 ywJV8kjZttCIMz0dAoYg+2izpohn2AUUyoyTx8q1AX59mRWU3/GzmGuOoKx8n6BOko
+	 33cfOspRIROCSX/OwzfZkDBZYFIhU3JucE2ekUkxLFzTymB0+xk+FwcKPxgCo8t68s
+	 pWGrplZc9XcHw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: mhiramat@kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH v19 04/11] tracing/wprobe: Add wprobe (watchpoint probe) trace event support
+Date: Mon, 16 Nov 2026 11:15:31 +0900
+Message-ID: <undine-1794795331149989582-cc3cda1a799c5477@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <179101398088.22872.14081308855446744398.stgit@devnote2>
+References: <179101393469.22872.5895666191299551553.stgit@devnote2> <179101398088.22872.14081308855446744398.stgit@devnote2>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,20 +58,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+On Sat,  3 Oct 2026 16:53:01 +0900, Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
 
-On Sun, Nov 15, 2026 at 04:53:08PM +0100, koraynilay wrote:
-> When decoding a version 3 user.DOSATTRIB xattr, ndr_decode_dos_attr()
-> discards ea_size, size, alloc_size, and change_time into NULL. When the
-> xattr is subsequently rewritten, ndr_encode_dos_attr() writes zeros for
-> these fields, clobbering their existing values on disk.
+> diff --git a/kernel/trace/trace_wprobe.c b/kernel/trace/trace_wprobe.c
+> --- a/kernel/trace/trace_wprobe.c
+> +++ b/kernel/trace/trace_wprobe.c
+> @@ -0,0 +1,775 @@
+> +	if (system && strcmp(trace_probe_group_name(&tw->tp), system))
+> +		return false;
+> +
+> +	return trace_probe_match_command_args(&tw->tp, argc, argv);
 
-I tested this on top of 1/2. A version 3 xattr keeps its flags and its
-size fields when ksmbd rewrites it. Without the series the rewrite
-cleared the creation time flag and zeroed the sizes. smbtorture gives
-the same results as without the series, and KASAN reports nothing.
+Oops, this wrongly checks the command argument and targets.
+The argv[] is originally something like this:
 
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+argv[] = {"w:[system/event]","<target>","<arg0>","<arg1>" ...}
+
+Since the dyn_event_release() passes `argv+1` to .match() function
+(original argv[0] is already parsed as @system and @event), 
+@argv[0] = "<target>" here, and trace_probe_match_command_args()
+only for comparing {<arg0>,...} parts.
+So wprobe need check "<target>" part by itself, and pass the
+@argv+1, @argc-1 to trace_probe_match_command_args().
+
+
+> +}
+> +
+> +/*
+> [...]
+> +
+> +	for (i = 0; i < tw->tp.nr_args; i++)
+> +		seq_printf(m, " %s=%s", tw->tp.args[i].name, tw->tp.args[i].comm);
+> +	seq_putc(m, '\n');
+
+This patch adds `FETCH_OP(BADDR, none)` to `trace_probe.c` for
+`CONFIG_PROBE_EVENTS_DUMP_FETCHARG`, but `trace_wprobe_show()` is missing
+`trace_probe_dump_args(m, &tw->tp);` before `seq_putc(m, '\n');`.
+(Yeah, this debug dump was introduced recently. I missed it.)
+
+Thanks,
+
+> +
+> +	return 0;
+> +}
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
