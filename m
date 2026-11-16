@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858365;
-	b=ey0s0fA9J1+zP8reBp/ctJU0kgoQiDjSugdMFTDrxm8LPNN280RbmygysMr2Law70fn5
-	 k1CX+H21NwqE09j1Ytf3VzZXqZ1E0xXbIRznLovYcySU8UmLMQhe59/n4EpQQtWatQqiu
-	 i9yDlsmdv9tCt+f2EDRQBCIGSjjk9b5xwrIxyGjO0TehhCHFFoBpO0jy+daNU99K3nW4Y
-	 2yU+Ye47BqcPD9uFlCJba7dkHjjscVcL2YLYJ18WlrsyC98txPIAByiQmHJYRbW00cnCh
-	 8ED7wQwMLuUU7+8vpcXgnKaBCXSgsJtd+yN3K9nsq7UUXKE/oMfK0l9v7shcaHfgyqQ==
+	t=1794858403;
+	b=CGSFSgI8w9dmxPjMFgypukgrhGs1E2LmJt9ZqeMZTtpo7d/QiKyKpHVn73a6qiMgiQ7d
+	 F5IvAW0mad+58hFQM0Ot3iMAgtfrG2S1S4bcXh6cxeW6AXGlwT+vrW66L8DMmI4uWH1jT
+	 MvCyokpRwDjEG8WGnH1CtmT3JebfERF/GmHFnEUgDRlzcJfhlziYJxr15LkcIAMgtuqmP
+	 K9jACkO8KElX8MR00hWupaht07oZ3OI3XbeafBA4gdRRVYFpYYMQe7DBq8cabBe3N3S7r
+	 5Qqj0ThF1ajDVdL9LnwFzobJh60WjLbuIDpXVdHIdK+1UNyTUCJjA6unQew7YN2+4/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858365;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Zth0Y6oSyHMC+KMbtHEQCSeMMwH12xJ7JeHMhVyP3EM=;
-	b=HAS50QlOCIDyXbn8nedThYfGBdSGQzCwNFiWAM3BDSt35GjqR14bfcCpPFBqP1BUMaKM
-	 8ZdAMGsJpd7CBLDNB5hS+tkfcGXqAPkyw6G4TUqyZ0CQn97LT8bvxNgqoPzRzV+XW66Px
-	 bo0f5OH7f+Q7T8SzK6YVr0SEG/DWG9/cKMHeuzssoh4Eas+WzRvuxE5mGTTsNLXt/frxC
-	 T0zb0semeZ6QGN8v7i1GMT6FyqFg0nUFsuMMrw0WfIuVjfOK1jv1optfseI9GWrATaAbI
-	 mVKNAXUfiUFBmxYnINJoBKja9a4NXpLEosmHhiQ2PoxhVrRp1Et96A0qwch7ffUsPVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858403;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rb4amnB1VYxDSnvAGyLyVc2GTkn7Gl6f5gxVefQoqyA=;
+	b=xpwlZDUnTEpp3aJ4zn93ROL+75aN2m+RTvTIG5b2Xo9Q9M6J0oH5XgBvkz9kVy11z5Uh
+	 OLPo506KcqzNDzK85fxz4o24tX1idMJ+ezi5mfwnBGEaC0QW33L3U5WIdU+b00lrNLpIK
+	 NnVXDPiK2GYfg3f1iUeZVpnLorKaWWGmAYuMu7v4MAAa+EvJRDq1M1ix4E4A07KUf3sMT
+	 mv3mGO4cYP4gcJlm80dn+xIbsNWvCRhBibdAypEBKPH7iWUsuS7R9AxEQ/BMZxTaRatIU
+	 hrDlLACp02pGa8dUY4fawgOfG6gOu85MmEztAYW4Lk8KTWHxv1OlCORIPCW9L87iEEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ay4xwc/U";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Whvh/yBW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 93E07606A31C;
-	Mon, 16 Nov 2026 19:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88451606A31C;
+	Mon, 16 Nov 2026 19:46:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ay4xwc/U
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9205E1F000C4;
-	Mon, 16 Nov 2026 19:46:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Whvh/yBW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703D81F000C4;
+	Mon, 16 Nov 2026 19:46:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794858365;
-	bh=Zth0Y6oSyHMC+KMbtHEQCSeMMwH12xJ7JeHMhVyP3EM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ay4xwc/UvqfWEsw3VsBIkMmWMZ9Jq+4o4kDUtj5+DkOGNPrhcCT8M6iVc+9iRHjLr
-	 AJnvztMdBQJjVh2WEosqf8CZJf/9xKgkB0AXAmvgqM7vFPpTrkrJmwi5ECW1FLvIVA
-	 fPtYXB4wBCzOT5AN1rSBaVs6ZX+A0XN12DIDkZkwS7AaleBs5ccpJQhEHXG6spCYcz
-	 /p9TWdGFPPsM760Cf5klfPNcuOYiJD4KhhpdaDzfoRx3p1Pxx09/hjEsec4WuQn7IW
-	 7xyU1XO/FnWU83TCxyNKwp0Hz24410XuZKgO7/zbMm22bpsSlZ6Dkm9hq+Nxm4G0Ce
-	 3bDG5UnD/vn8A==
-Date: Mon, 16 Nov 2026 21:46:01 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: manual merge of the tpmdd-keys tree with the
- mm-fixes,rxarray tree
-Message-ID: <avtdedZFfQQXbm9f@kernel.org>
-References: <avtYu0Ze50s_CtFu@sirena.org.uk>
+	s=k20260515; t=1794858403;
+	bh=rb4amnB1VYxDSnvAGyLyVc2GTkn7Gl6f5gxVefQoqyA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Whvh/yBWQP8P4jnBEcySSvK8dMq1EiELToOKyevOUi8LDPUsa0gdUd5im6CAlRD49
+	 o6ZYCSMJ84ijHtui/M5Q/hhEsuKb3EXRXfBEudhNbp4d/rtuXULXn4dvidnIlCV+MN
+	 9j0MDqdBd6STtQe7SI+r52mmHonGVoaY+pWbDIxknEzzRw7oQ3Au0v+6KX6uERmVVw
+	 7NxxkpQc2bGdUahNmAn/XBW581869pURbIdG6tG0hncak77RW0EKZomYysa0q/R7H3
+	 QsQZ9e/lpnq2WQ5t1InwB8P2JyXaaVz3dkGQI0u3ZB7/8AQ/pbC8Ad/jBqDJeC/+pT
+	 iTu/nugQUTBkA==
+Message-ID: <818e80bc-4b7c-404a-9c64-b103935eea15@kernel.org>
+Date: Mon, 16 Nov 2026 13:46:40 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,35 +51,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avtYu0Ze50s_CtFu@sirena.org.uk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] lockdown: Prevent booting with lockdown enabled but
+ IOMMU disabled
+Content-Language: en-US
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>,
+ Xiu Jianfeng <xiujianfeng@huawei.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+References: <20261102-lockdown-iommu-v1-0-00f3c2be4c9f@kernel.org>
+ <20261116194430.GD2452510@ziepe.ca>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261116194430.GD2452510@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 07:25:47PM +0000, Mark Brown wrote:
-> Hi all,
+On 11/16/26 13:44, Jason Gunthorpe wrote:
+> On Mon, Nov 02, 2026 at 08:00:24AM -0600, Mario Limonciello (AMD) wrote:
+>> Lockdown is a kernel LSM that restricts access to sensitive kernel
+>> resources (e.g. /dev/mem, kernel modules, perf, tracing, kprobes,
+>> BPF access to kernel memory). However, without IOMMU, any PCI/PCIe
+>> device can perform DMA to arbitrary physical memory, effectively
+>> bypassing all lockdown protections.
 > 
-> Today's linux-next merge of the tpmdd-keys tree got a conflict in:
+> I don't see how this is enough?
 > 
->   lib/Kconfig
-> 
-> between commits:
-> 
->   37ff457ec4679 ("assoc_array: discard shortcut when collapsing a leaf-only node")
->   29f1617aa1dbd ("rust: rxarray: add rust xarray support")
-> 
-> from the mm-fixes,rxarray tree and commit:
-> 
->   1dbbde3bc4b80 ("lib: Remove assoc_array")
-> 
-> from the tpmdd-keys tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
+> You can have an iommu but the commandline can put the whole thing in
+> DMA passthrough, which is the same functionality as not having an
+> iommu.
 
-Thanks, I'll resolve this.
+Well that's why I was suggesting that we explicitly blocked manipulating 
+IOMMU from the command line when lockdown is enabled.
 
-Br, Jarkko
+> 
+> It is not like "any" PCI device can do this DMA. Lockdown
+> systematically prevents any userspace from triggering such an
+> uncontrolled DMA.
+> 
+> This is more about preventing someone with physical control of the HW
+> from access all of memory, which IMHO, is not part of the threat model
+> lockdown should have.
+> 
+> If external attacks through PCIe are part of your threat model then
+> lockdown is the wrong direction. Leon's driver trust series is how we
+> are trying to solve this issue comprehensively in a useful way.
+> 
+> Jason
+
