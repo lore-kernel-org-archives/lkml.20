@@ -1,82 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794790384;
-	b=veEk0M1ndnVsTFO8SES0hoOhxNEhscMiQ3YwTyUcVHPx5W8JV8SntndEyQWVzBP0XoX9
-	 l9SWcVtfEL9DRIQ0mJt6+RLgodoIZVHHPVt912sRqN5sq56PWoiyZ8mfbMPtcxzF/zOEg
-	 1C/ylvLknFwsy/aj0X7I47vstLb/5X8IWTRcEhla7tNyqhE8zjwytHALxkkW97JGR0tz8
-	 TRwf+SQ6zOjm9v1tpL2vO5xHNT7RV0SwdYq0H+OwG2/OaqtC65BHsZ7HNzOPjXb6iHcbM
-	 IPkrIq5H+XQbA3ImjVHF3tvCbEPzEIjK80A/CwqKTAmzt27nhAOjIxYNCCKolLFUtCA==
+	t=1794790403;
+	b=KzD/NHJl8uezfDvOiwxPJF1Dure5DWgInhuKv1Py564iGnFE+OTQGnn9WqfWxIRZs/Az
+	 VEBgt6jRg6t+wY0vlyVPtsUWEESXQgUENIzBSA4DRTxYtFHNKSxQh+0gZ8w4qCuJ35+Hq
+	 YM8IhSMqMNlgoZE+wHVsHbhdwwhjkchv3Iztbf0Vi0FAJZf2TjQrSJx/W+VBVTEstMU7y
+	 28g5ulGSLHO3tkzKM+bcE1/+BZqgb28oHiJQyoSTXrCP++1eqjhrZtG5exB4UkL90QYZE
+	 dN3yc+sbG4dUUcKNbmGJ03r/jWER+JAoAzFcJpdALkFl43bTbcgpRFrojMy0CTGIBlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794790384;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TbXR1DlKKuOwhV3PqlSfdkNh4TOa9cw6NjlogJdKa+E=;
-	b=mDoRDuR+GP1qnQUvsQW3oH18fjhg2hH0LwWwq3obBcEZAVopMzEMLY6L0/0hRfpBzxxR
-	 Zfx3rc23irOIj8xyvgWpVY8/HB221wR/7hhwNr8Iu+ZbNd4cq/oPd4DC7KUeYlkLKTaY9
-	 KUFG/mUWuzmyQJznEw6cM48tGfWgZH1LIv4LWIDiePJYNYQ1v2Gy9rUVycS6TjwGkMPav
-	 J9iU2xCqelbClVZyZYpqclqnDf80EcLjv/9U7qPZY4yg4vjgFDR+jPUiijx2e1hER4zFE
-	 gPUVgpRjsjsk8yTdt65ps7kCN8csL7++HLSCELMUC3YBOgchKiDgc2xs0jDobPm/WAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790403;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Ld9+YyGfs/W/wYUchYl+G0tuTdeNOsMW/DqiAiz5bT8=;
+	b=FwRnRqpq3nq96Jhxm0SmvGfw3D5PN4HcFAMTo6aLqCWXiWQomd6b3GPUGY9PfuXA7S8R
+	 55HiMDOVZNDJGB/NDmXogN8lknkRga6A5qnh9BzGlSGCAKlvBhkuf8VjXbxw2NSpjxCXO
+	 CqFIKZKw8cUTjvw0K/JvBGdLWA5r0McZA9SENoWRv1AftW//r26LECBRU3+ndDxXeXbeA
+	 pdq0QW54kl8cFjXClEU/ZHt8+JG5Lf2XA/qSnscUNl5fo1VYp4CVkrpMBp76SNAMH0B4T
+	 /4WlJ2swinTFd5cZofhyDOWQZ8LE/4wcIxL2ccDj7xbczXcBwz8xW6zv867J/vfzobQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ov0zrn7S;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6BaEmd6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35A8606A32F;
-	Mon, 16 Nov 2026 00:53:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D35A8606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7C9606A329;
+	Mon, 16 Nov 2026 00:53:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ov0zrn7S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794790384; x=1826326384;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oC4EL+G54eJpi+ckY286iUB3+w/3VL3BuLJIsdbKVSo=;
-  b=Ov0zrn7SH4OOOV0OUcesz/WiMjxwqCq9H7EucNOcS9TrGeRB6eshldqG
-   MJrSQZEHPgXjAyJ409UqbaPENJfZiNVyUzXObKkE6iJu06Qo923sIBiF2
-   oj6yTGNeFJSCmXKKPU8/ZYTiYILBESNJKym5LYOT+4JdBmGaalDd4GBZK
-   G7PWZB7biuB7aAeIwcNvD7pMi31DzMGSwSui3HFG7gg+9WFrHINBHee5s
-   qbpe2EQPYSkTs27hwk5IBoz/ViX827JYDG8xiWQ78+1j7zW9GanEFOApI
-   XVEoIhGhfDXgHxSMVTjOAil8mTRCEVWKWJD7XxCaE74wCQtEFgICytJtm
-   g==;
-X-CSE-ConnectionGUID: zk/I/jEVRJqNssHpk3ITEg==
-X-CSE-MsgGUID: AszOYwQgTEa+uPsMBFIgbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3436245"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3436245"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 16:53:03 -0800
-X-CSE-ConnectionGUID: XlWbHG4ZTUaLA2VnjtdcFg==
-X-CSE-MsgGUID: qIe+KKi/QrmnQzUK/p+f1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="11141439"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 15 Nov 2026 16:53:01 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xSkxu-000000017YW-1ua5;
-	Mon, 16 Nov 2026 00:52:58 +0000
-Date: Mon, 16 Nov 2026 08:51:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sasha Levin <sashal@kernel.org>, Kees Cook <kees@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Petr Mladek <pmladek@suse.com>, linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: always inline seq_buf_terminate()
-Message-ID: <202611160835.RPhYOuAv-lkp@intel.com>
-References: <20261115153430.1607764-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6BaEmd6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EA11F000C5;
+	Mon, 16 Nov 2026 00:53:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794790402;
+	bh=Ld9+YyGfs/W/wYUchYl+G0tuTdeNOsMW/DqiAiz5bT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m6BaEmd6/6JVCZV3/nQyBbu3lsT24dNLmn6+nc7NS4ubLXA+uzYCP5oXtFurSwoOx
+	 Pi/Nh651Dp6dbgc+q/ez4Fiaa4RwxdHNuQWkSbjkc2G8DSbZSmER4rx4sPZ+R2j9D8
+	 RkThNnuip/lW1JXPgCFKhplRBsHNnMp8h7OcAtxVyuVgj60a1c3IqYvy+3ZMzxDKVI
+	 0nPH6CeOpLKvMeQ+NYYVA2Xns0b/fpKUxNx0GxAbTbOHj82+kX9+u7rtUJ6xZP6EHB
+	 if9ceRzE01sRr+J+SevQD48PfwAzSkccJrGWk8QmJ9ourWP+g6iL8P6wN+i1natAGy
+	 m0EimnnPdPLCg==
+From: netdev-bot+sinfo@kernel.org
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: netdev@vger.kernel.org, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe CAVALLARO <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: preserve RX checksum capability when
+ offload is disabled
+Date: Mon, 16 Nov 2026 00:53:21 +0000
+Message-ID: <179479040161.3291.5723238689308327095@kernel.org>
+In-Reply-To: =?utf-8?q?=3C20261115-submit-stmmac-rx-checksum-capability-v1-v?=
+ =?utf-8?q?1-1-ea26fa3689be=40gmail=2Ecom=3E?=
+References: =?utf-8?q?=3C20261115-submit-stmmac-rx-checksum-capability-v1-v1?=
+ =?utf-8?q?-1-ea26fa3689be=40gmail=2Ecom=3E?=
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,38 +69,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115153430.1607764-1-sashal@kernel.org>
 
-Hi Sasha,
+Hi!
 
-kernel test robot noticed the following build warnings:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-[auto build test WARNING on 7b8cd26b6aab8cf147165610d13964f79200a5a7]
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Sasha-Levin/seq_buf-always-inline-seq_buf_terminate/20261115-103429
-base:   7b8cd26b6aab8cf147165610d13964f79200a5a7
-patch link:    https://lore.kernel.org/r/20261115153430.1607764-1-sashal%40kernel.org
-patch subject: [PATCH] seq_buf: always inline seq_buf_terminate()
-config: x86_64-kexec (https://download.01.org/0day-ci/archive/20261116/202611160835.RPhYOuAv-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160835.RPhYOuAv-lkp@intel.com/reproduce)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611160835.RPhYOuAv-lkp@intel.com/
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-All warnings (new ones prefixed by >>, old ones prefixed by <<):
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
 
->> WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x3 (section: .text) -> bootup_event_seq (section: .init.data)
-WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0xd (section: .text) -> bootup_event_seq (section: .init.data)
-WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x16 (section: .text) -> bootup_event_seq (section: .init.data)
-WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x1d (section: .text) -> bootup_event_seq (section: .init.data)
-WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x2b (section: .text) -> bootup_event_seq (section: .init.data)
-WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x35 (section: .text) -> bootup_event_seq (section: .init.data)
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
+-- 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
