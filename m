@@ -1,98 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857269;
-	b=zNjaoSviSH6c9rAs72SCSmW/0D2G6AWD8GuOYyIDBvCU+JrMeMuL2dFYJjIK9XDGv5Aa
-	 BajugvCS98EHr2kRn8y3PKSC4kbUog2uebw5UJK3lSKnUm1E4NLdkHSXl3SuS7uYmDtI9
-	 LwIc2fxsbooVdXYp+jNhZnAuAdH2hWDDtB3Ne0Yap+XFRAVq8nqTeqbJCNDUMHwCelfse
-	 1eNZVIqRP1Z3CQZ/buSkyI3ngA8M0wy6MkhvKzQuSTeqSuhBo49SmhCSddjEBWmyaLmXl
-	 96aWi6ETyHNI5co4qGcWze3lnN/JFbl5NkVcb4IuKnenfxWtsxMYIN9T34PqruxR3Og==
+	t=1794857379;
+	b=KOcZR3I38gWDO7juHbsZLJsG/oIsQzrkl+9q5udP/AN9+c1MJU4NrMxbRgKDHnnSd+FX
+	 PvWs1lKHh5SXOIIWqqnf5fKbEeY7FoQEbyaRt4f26Y6rQmcoQOgLfYhfVq9ACNKGVVtHq
+	 1PLzYtj+Pb4X9INQNHYPKqTAeSCCFT+t5EC67slW0GyU+T6FhW8KPcI14ozJAaq/IoP1q
+	 +0Dvb+C683Vn5fkDRWoQciS9XzazXEQ+MeV7UJZhuU0mHaOtXNE0n8DsIcaYH+oNM9hIg
+	 JmXbLieIlWrHrJEdDqsDT/78d+Glfc2OPpeD5uflry4s9WdPWxBXO0NOle7e0EFjlwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857269;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=69B1V6c92uxkOVI/GSaEx8ffeFLnYru6WXWWNBickDw=;
-	b=q9+1bCRGTJiG+cEgEm/NwNrZy5Iv9LoYcnMIl2utkZQ6xpVXPvw/zZos70gujpM1jshl
-	 o93yHennqyPrYLq7Ellb68FwSqoCYl13SAOJVGu6MLvHgsfS6wDH83M4w0FwBrZvPTKDr
-	 oiXq2Nlg8hHS5+6d11aM1sPg07v16nd53iFuz3d1HGgjYLdqNU5c3Xc9bXQl5/HIGRvOY
-	 L5yr4HQbSFQA9EbqD4hUkkVTnFkqdyaDgkWsWjuD/AIknrLyo7cJygMlc8iHJUgT0d8r4
-	 fZOjgsGJb4QNj+xKHqKDg5BUWtsQYzCZPDnQkw8nzV0sYknO2eug/dOp9mK16WBTWUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857379;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=yEoaC/Ng0V2goYlLZqCkotlSndxwpWoQ6P14GTUf1pI=;
+	b=m1SFuAZJLOXihYS91rYD8kUXc8/iWOQhLtOpdEwlc+Y/r7B3gtbqz/FT78oXdR3zJgt6
+	 Z6b1eFswF1FbSi1SYlSamMgekKy48H2PZ4o9rQX9UtQAvYLtlLkeqOA2JjwaiFFwkVI68
+	 BA2giZ3N9wW2HJ24R8a2X0Z0RKbAwO7bi4vINLRoJO5sa++R6LHuwlewG8A+XWdyn9fUO
+	 IKeznCWYJ7rfmRRk8RbdBiNkL69s+XZg+oT8XZZAaYg/9JD8yfaOpdxenl0Rjd4OYsUZ6
+	 E6BCW2Rt6RF6OCx8BtZt3HqN39jvmNw0fMWy7LiwIO7mjRdexzCjPSeCI7bksNrxSOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zwcL+C9b;
-	arc=none smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JP0ZNSRo;
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122E1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:27:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 122E1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BB1606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24BB1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zwcL+C9b
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4fea434bso172537e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:27:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794857267; x=1795462067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=69B1V6c92uxkOVI/GSaEx8ffeFLnYru6WXWWNBickDw=;
-        b=zwcL+C9b8sK5tkvLYQ0gFDmYS23SEx2+Upj6V/Dmt0bUxKqfjANqiHVVY+XgybZjDE
-         s2lK7GdlC4cSNmQWVJUNB0VqOuGlU/yNlTs7aOwGK/uWuE42an4qm9gDbe9Hp0kCPy65
-         DrmZoexrsiS+KTYKq1ZSmLdnPphP404R+HJqPTwoIktpEC9YF+6DtZ9UdBdiaqjkqJmM
-         Olc3n9uSLZIeO5L7wWngF7SHGmOjKAdhJY8rAW64q1GSscZAbt9uvEHWmW1wgWwqEYF/
-         TWrWASE5TIP1a9vUxGNwWS59gyaH+vRUSavP0j7dLDxNDdgMaZ9GqJbTiW6cCrVTtP9K
-         D6+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794857267; x=1795462067;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=69B1V6c92uxkOVI/GSaEx8ffeFLnYru6WXWWNBickDw=;
-        b=SlL4U0Ajuvgc94eie8S8XxiYlCE7Fc4LsCRprsmwFmmuREi4ovP8OriN/0vLAKu82B
-         ukr82/e4JRkgl/hYSw0hqdz3BVIwIyIbvWc3s3m0sFOY/3e2Ns60KuCm3SzpFiFO4VVH
-         0pdVg8oKtpqNk1R1L1r3LgQGYh+PBCNBPXvXQOZO/Y7ckWyblb3L4fDp0WTDTdXgnewP
-         jkyTkDelxSRXLcAadA7enBGAROGsBWRkbE0R3ZVUAe9mWib/UdkOu+j4Hyk0F9/fFGu1
-         DDj1yqDXSzOOdYkbabEB1Bte+3apmQlZ0Iu9ceEMEoGVh+arMxpMaSakEBvy+SPiOl0E
-         Mjjw==
-X-Forwarded-Encrypted: i=1; AL+hErFBQRuukkc1oW6Xu13oobQNICLZE0bbN/ijZd5LMHRTPrMyaAlqgjxlBwyWIgbFgkOQ3CzCu6lFiAGaUeU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EPZTy2qQdMksI6N2jEHnw4ZLwSHtNxfuR5BAKO06d3122bG0z
-	hDxCNGIlqK+GGFJrDfF3YP8lki8utWAqvWAW+gpVfRvg9DviXWtWdDU=
-X-Gm-Gg: AYBFou2xQVO/zzT6f55e8w8wVI8nXUb6FFsUxo+VFvlqK9K4yGQe55q2C9Y09k48D53
-	e+7niOEcLvCMdd62qqODiki8hqeyri2OSsE7HJco2bBbvo0yZIS+CSUzoINW4tnncbHpYv20ZeX
-	XmVUlivMuK1hw7NEbn6k/echJT6zXYzQ6dBY4i9DkFsLMu8mS6mrfG7uPPqzes++QLjvLVardzt
-	MAmSZCjkWrGGibQb8L2qIj6pr0CG3jPrkBUmM2AZM/Ge4XeCL5TRjhXXMlCqC5ELad7pMS4YT/2
-	TUmANvin81Q0fvCNIpGYgXox0WpaP8h/ylx4E6HsO9FYrhi/iu9uXEMM2t4l0UNZO+0bdjm9SyX
-	+msaqSGkTNUBetwOraMqWFvLewk3cyvT7KrCZ+ho1MwC5floW+hB+35PFuKsfCkOpFamX9avCKO
-	tRLjfsn06LgXPLIrsA2K2IAyLTIrfrS651ZQ+qcoqv6WWeeMrYTexSSVXeeNA15LEOINoBCwrx5
-	OXCWVkBySQYFpW9YrHnzhzrtAduVUNiyp3mJuC8IfyyqREsuyxHJISvW/2zakL/zqZQxWqQ5hp2
-	8kMUBY3WbnK72yf3CVU=
-X-Received: by 2002:a05:6512:23a0:b0:5bf:ec95:41c7 with SMTP id 2adb3069b0e04-5c1a0dcba0cmr126555e87.1.1794857267093;
-        Mon, 16 Nov 2026 11:27:47 -0800 (PST)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171357289sm3414749e87.71.2026.11.16.11.27.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:27:46 -0800 (PST)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: miquel.raynal@bootlin.com
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mikhail Zhilkin <csharper2005@gmail.com>
-Subject: Re: [PATCH] mtd: spinand: confirm ready state on SkyHigh S35ML chips
-Date: Mon, 16 Nov 2026 21:27:14 +0200
-Message-ID: <20261116192714.320454-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <87eccksvwn.fsf@bootlin.com>
-References: <20261030203342.91172-1-sochnev.v.74@gmail.com> <87eccksvwn.fsf@bootlin.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JP0ZNSRo
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZesdBexgj2dtrVEUReJJ1M0k0i4FtmIJXWQsOeWtkmI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794857375; v=1; x=1795462175;
+ b=JP0ZNSRor3iBh+5fJ0JweER8NJdExIiIjYISdEPhNFuMmzpJIPLxWFs0v/f/Syl4kFFRZyYZ
+ kytu2TltqMWiJ4xoL468V2MckcUoLSU28yG1WjEHfWQL450fhG8N0j8iCK0UomWTQZWr20grFtt
+ gTHUy0Hie56odw32//Q5uh34=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 55524de43ae1481a;
+	Mon, 16 Nov 2026 19:29:35 +0000
+X-Mizu-Trace-ID: 55524de43ae1481a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/5] irqchip/gic-v3-its: Fixes to table allocation and the ITT pool
+Date: Mon, 16 Nov 2026 19:29:28 +0000
+Message-ID: <20261116192933.3266502-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,38 +72,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Miqu=C3=A8l,
+Hi folks,
 
-I instrumented the SkyHigh SPI-NAND path on a Nokia XG-040G-MD with ktime_get=
-_ns() and bounded kernel log messages, without tracing. With INFO messages su=
-ppressed on the serial console, 512 page-load waits, 510 program waits and 8 =
-erase waits returned READY on both the polled result and the subsequent statu=
-s read. The pairs were 0x00/0x00, except for nine 0x10/0x10 read pairs (1=E2=
-=80=932 corrected bit-flips according to the SkyHigh driver; STATUS_BUSY clea=
-r). I did not capture a READY-to-BUSY transition in these attempts.
+Changes since v1 [1] [2]:
+  - Combined the ITT pool fixes [1] and the table zeroing fixes [2] into
+    one series. (Marc)
+  - Dropped "Zero ITS pages before sharing them with the host". A
+    separate patch fixes it in pkvm_set_memory_decrypted() instead [3],
+    for every caller. (Suzuki)
+  - Order the zeroing with dsb(ishst), as its_flush_cmd() does, rather
+    than dma_wmb().
+  - Clean the vPE table to PoC unconditionally.
+  - Point the vPE table patch's Fixes: at the commit that added the
+    table.
+  - Rebased on 7.4-rc3.
+  - Collected Reviewed-by from Suzuki on patches 3-5. (thanks!)
 
-For 128 read waits, I also recorded the individual GET_FEATURE transactions: =
-each had BUSY (0x01 or 0x11), then READY (0x00 or 0x10), followed by a READY =
-confirmation. The poll transactions took 10.80=E2=80=9317.08 us. The interval=
- from completion of the READY poll to the start of confirmation was 6.84=E2=
-=80=9311.52 us (median 7.22 us); confirmation took 11.12=E2=80=9315.24 us. On=
-e sequence of ktime_get_ns() start/end timestamps in ns was BUSY 0x01 at 3881=
-0096120/38810107840, READY 0x00 at 38810158640/38810170520, and confirmation =
-0x00 at 38810178320/38810189840. Logging in the poll path adds latency, so th=
-ese intervals do not represent uninstrumented timings or exclude a shorter tr=
-ansient.
+Five fixes to how the ITS driver sets up the memory the GIC reads.
 
-For SPINAND_RESET_INITIAL_DELAY_US, I measured three boots each at 5, 9 and 2=
-0 us. The reset wait returned READY 19.68=E2=80=9319.80, 23.56=E2=80=9324.12 =
-and 105.76=E2=80=93358.68 us after the reset command, respectively; an additi=
-onal status read returned 0x00 each time. At boot, reset runs before the chip=
-'s quirk flag is assigned. spi_mem_poll_status() uses udelay() below 10 us an=
-d usleep_range() at 10 us and above, accounting for the larger and more varia=
-ble 20 us result. Increasing the RESET delay changes this wait, but does not =
-add a second status sample to the page-read, program or erase waits. Whether =
-it addresses the reported events remains unverified.
+The first adds the barrier that was missing between zeroing a table
+page and the write that makes the page visible to the GIC. The second
+cleans the GICv4.1 vPE table to PoC, as the driver already does for the
+pending table. Without the clean, only a redistributor that accesses
+the table as non-shareable can read stale contents from it.
 
-Thanks,
-Vitaliy
+The other three fix the ITT pool. Its 1-byte granule keeps ITTs aligned
+only while every ITT's size is a multiple of 256, which holds for
+power-of-two ITE sizes but not for QEMU's 12-byte ones. The third gives
+the pool a 256-byte granule. The fourth zeroes an ITT reused from the
+pool, as MAPD requires. The fifth frees the page when gen_pool_add()
+fails.
+
+Based on Linux 7.4-rc3 (aebb727447640).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20261106092625.3977163-1-fuad.tabba@linux.dev/
+[2] https://lore.kernel.org/all/20261106120221.347309-1-fuad.tabba@linux.dev/
+[3] https://lore.kernel.org/all/20261116110549.1863653-1-fuad.tabba@linux.dev/
+
+Fuad Tabba (5):
+  irqchip/gic-v3-its: Order table zeroing before the GIC can see it
+  irqchip/gic-v3-its: Clean the GICv4.1 vPE table to PoC
+  irqchip/gic-v3-its: Align sub-page ITTs to 256 bytes
+  irqchip/gic-v3-its: Zero ITTs reused from the ITT pool
+  irqchip/gic-v3-its: Free the page when gen_pool_add() fails
+
+ drivers/irqchip/irq-gic-v3-its.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.47.3
+
