@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802159;
-	b=16wwDIxaDO/Vyb2KehDlzVOnFdvvLK23BNbQnOVKGF3Hh6nURZMr0UJl+z7M53TdwwY7
-	 6ed/09aowguR+HN0FX1wm+2rikA7Oa4UNc/M4osWoa9Dhc2dTHwvjIZrEmETH0QdTfjQ8
-	 0ITD3n4FJPARjJRcZV7MzgHfDMrc5twCZQ/pKLf7v+7mQRUwVOMniDgCFgSUYVbhFZ2fz
-	 iFGtnPL/BfZoto/kKerzPaM7wc6Hun0vbT7mdHUt/GIE5zbVuJcauO3uM0Bieo/h2exTe
-	 Zi9aoYu24zlsymr48Mfl2P8xPtu1+twXbABUenkB1PtLt0ghwMXTYf53EkCJog5Auwg==
+	t=1794802161;
+	b=NUxA2ReSR2sVmwQS4W0YEqUxi/P6vMHqfLZiPArFnslchd0hyoAmYNW/j4u623g1Yjj0
+	 oKPWRuj0tUBVNojuknGeBVsFWU+i1LtDKtjAipjyq5hVnTXXMczHK9+P/uuFhI2oJpcGI
+	 ohkGJtKBFcLogL5eV+d+J3F3NhadAkTcEbgtGqsyRo1Myk/9fQVNH404fV1KhuhgkLLJk
+	 3/sUj0kgHrf7jDcd5H0c55p0xtH6O+oAsFYhSTMqXY2JxzFiz90R5jwYhoAUy4Z9iAwuB
+	 aiDLRUZiutiR/VV6r9oA7h25EJ1tewbuPI0+3au5wCdzNwPBlqXxfcHiiFJbxyeyZhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802159;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802161;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=AMdUKRQlAJUKk0DcfTjI5nVHuAmHsiYW7/Tij+xmyXk=;
-	b=b3PKzfrp1/RASGh0k2eqm2kK0hT5U3n7h4/KVaLneQjqvupnwk3USCwuVStwa9HdL8Z2
-	 8tFhLIfcJ/60mNNj+ml3HrIDnNkkzdY4La2jHZM8Sjkjo5EDwpI2QQpx4JahsX/i0Tdlf
-	 MFC2ZzJLFHhcDYIxHELhLc6A8dMXH29S5+P9gEUKuHRFfrMBBi7w4Y1MPLRgp95sGznyD
-	 b7rDamoxxVIcUg4UNaskN+aws7tfM6+FKXm6f3r95FTdXEXUrOkBfY9FNoGmtiDonCvWe
-	 P6WURqKpgq6MZnf6S6zeRQEyrwzisF850KxiMr7Xnw+7fHEG3tWamXBkc1n7CHsxWYA==
+	bh=X33thUbLKIiMz+y447VVVI/W+Uwf4DWtbchYH8A4ZZg=;
+	b=bNa4V3Vah2+xRZE3p6GLQU9C3iEI4DBXeU5zA4QexZTK4QnjD1oUAdeMzlZFoRKSdOxX
+	 nJyIoQMwnNinxf5bKCVFmPf4UY7KWLnTfHyPR9pK3/DI4F8/ETQn2qxF/PQNEYTQHAteI
+	 MdLC4eThlTR1v7ZweqaUwpzELptzXdAQWOk+Mx1WKGToCjpnI2QJHJyu05hTC+A8gi7k1
+	 PkZWRbbGUFNFspRPj6SxIKbXB9fOvUvYZ3RFflXjQAuyMEttMMGdEYiEA4s85MAj/Y1qL
+	 o8kL1GwsZBvlBX1oj6aJHenTIKW04/n3meZtuGLITAqG/T8F+k69LYa2MUagIeEvzTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aVfcvAsf;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FFFQ5BdN;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA48606A893
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCA48606A893
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5FF606A8A7
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D5FF606A8A7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aVfcvAsf
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso3506354a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:09:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FFFQ5BdN
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so2455630a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:09:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794802158; x=1795406958; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794802161; x=1795406961; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AMdUKRQlAJUKk0DcfTjI5nVHuAmHsiYW7/Tij+xmyXk=;
-        b=aVfcvAsfW2PeG0kRgYoDPmtMw+SFaAdAAgB/ChaeStprrzwpJEGFxeYTOzAgb7Bb/i
-         ymu/Jm4fTKkRHzkwraBXUVyqtXM4eiXOFFmDwGZ2sVMNe9hpXXw1eFXePcCL1O/sGnmF
-         pf0WwDkg9CVZZp2gLEM/wx+TEncbzxopfU3wlauMxDNckl3MUC5nyyrcctUfBOOEFzax
-         0E6rbQMgEiFJw5CB960fYeNuW0UKR0pxvGWohwjZf4P/dAi9kq+z486QZq+SLSIx1uDg
-         Tc/WCi4SLrd3IjOY+5RTKLx+8oIDg1x5xKzV0trQJGKb8gx2ei3T0WlVETwYdqmtFCOu
-         eO0A==
+        bh=X33thUbLKIiMz+y447VVVI/W+Uwf4DWtbchYH8A4ZZg=;
+        b=FFFQ5BdNGAMiBUfstcbgjs0f/OCbB4qjVL20LQ8s8kI94UW2KgudkDjOR4IxrNOLQU
+         2mf75rwEiCzg2hPgMg1IVnF41zk69cw3NXdWF+gtrCfxueoBxkWQqkOIbYVpiWzIsL6v
+         RKIxQPN1V1a9ajjmtlJ6SW8WEYVQhVIJ6g5071hjX9U2ML+Ji+VvDfoxynfZybmdFWgx
+         0gz0jENIvZU9VOrqlMbi7nnG1U7CSF7gq/56FsXkNMRj//BqsxFeYh5P0J5hbulKp+li
+         IVNSjrWiyrOupz6GXEUAykwZq1zY3eOgB6sypiznBf+WbAnLaPDBrghInZ16ZYl3USNn
+         ceZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794802158; x=1795406958;
+        d=1e100.net; s=20260707; t=1794802161; x=1795406961;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AMdUKRQlAJUKk0DcfTjI5nVHuAmHsiYW7/Tij+xmyXk=;
-        b=VpbGpKJt3pG0brbp3IG8FApVM4GoexuOkfsuawKCLPJvqUTUj6Es6ZkpovoPLCKX2C
-         rznfVZm08TkeSSUIFKTDxJ//U/n1IBVwC/wZeVvWjCBHwh+DWPJs+liyfIxiZULNqI6l
-         p6vQ2E2gBAMtLTKIs+tTenh80UbF7bpoMUyAu2bvDOFkGYNBJWb18IJntW+3GmsPqkqz
-         JabRZh+3El2rHqeBd7Pl5dUdGwbkCrljbMojyQgkuDXXChpy47N9oS+J5Betfidg+zTc
-         drEAtI4mivV+eKMxoILfx0WpDvM+JUQas/1j2vGMYrcn/yqj90Ypdic8A9EUsLSYA3gj
-         nJwg==
-X-Gm-Message-State: APuU4Z9y88l5QOWO25sNVShcrBbmTeUp1+7yLZhDgc9XBdhsy8uskCUo
-	/apg/A9LHDiY0qMPOTTesLy4rcwUHNRlYSvkHdcDUAeY8NGMfSSEz0BTS3bwfg==
-X-Gm-Gg: AYBFou11fFha0jGPLtQq/2ZyqsfM3y4dfne0yAEYY7vdsYNWmpkLbMuE965Vs4N4jJF
-	2DtFI333swbonsgrNvfO0Ii2Ok8h3DL/N5xaw1i6A46bMqX6rMkUnvSZZopWuCVzewdbZ0DrGRy
-	g5voJ3HBdVRvwWBQiM1j8pjY3V8Ed0or/xIUQx9WRQcEgcTIcDgvd9pB6tEcHDovrkbOryuzPb1
-	zSG/JKVMfSGZqlNqCkMQkENSXs3P7x7lNWHR2Q58guBTz4G6pOjYh2j1HksYNtvJI3KHDReo4GV
-	hL5wx/NGi4Rs/OLYfSv+AWMuElwWNdMFD32OZSfT1fW1s/AlHPo+E397kAPFaO34O30+oedIl+T
-	wj/vwhOLiOJ0X+FDsQq9pQBsWW8kQGRAHYjyrtrxgVheZ/LpBFqQAE9ycbatH3soDWPmYu82lIn
-	9nkr0CjExciu1vko/An/sexPFd5w/C6nD8R2dj93csV1y2qbHBeeYAeu5kTe07lUJp8rueQibr0
-	DFoKEXLv1HsyxEH+qVqaGMaB7uq/d5+hF7sHG+htZeSF4yGFEsyuEmlDTOWiiVH+u7h6l/fAJzX
-	7ajxFa6J6EORlsA5nESpEkdEIlYWQArol6mn6xcG4fgbst4Ql8WWKTk+VjvTZoFcPaeRSZT0N6N
-	aF08+Qej5b85uz9ICnSBO/78oEk6qxSgf66lsjic/wbhIeJo=
-X-Received: by 2002:a17:90b:2cc3:b0:3b0:9e42:b67c with SMTP id 98e67ed59e1d1-3b1b0d800e0mr9276558a91.61.1794802157998;
-        Sun, 15 Nov 2026 20:09:17 -0800 (PST)
+        bh=X33thUbLKIiMz+y447VVVI/W+Uwf4DWtbchYH8A4ZZg=;
+        b=AHVlbv7V57NBOARyJw9XxopWu+ZcDoUhrFkKPAASt/WBlumnVGDMNzqJSCxGzoI9+J
+         wteUYKJpsP42cec0i1u9vRo4bEKAcvBE8r9GRNXspVnnDyQq8Q8IgJF61wjG5rJZcihg
+         kRRzRJEb3RI20m8GYmiK3aD7sJSb5TISkYKeIsyY2RqwrAmvcujJbp/LYlPmFZZpGXDX
+         xlSmNLqDSZqBJ4wH6ovs/wWhjvUR3NrzFe3M05MEoofDlXBoQMxLiiv/MvVtPR/foNF5
+         l7XNogNeLCQRMLFu+wEmcFQLuFk4gJky3Tc4dJ3hKp0c0/KFdpTnPSwOLYFjlscSfL9i
+         2G4w==
+X-Gm-Message-State: APuU4Z84NfDakxazukHBkQl6Sx9Cx6kK2hsXpnVzTGnwqfUJkZklGr54
+	mgTYum7IdSXDVLLW0n3J/gTTeaBcocHcwsetsCkQyWLXtnJuI90VTtlVb3b8IA==
+X-Gm-Gg: AYBFou0aeXFnXiMW+Y3TufAGatwsI81J519qyG+2embdR69CcKBWgyRr1eJ91UijUs4
+	dY468fgcjxTJZSPW2w/X4jpwrF7uwKeHIYWohTYHbtZOcpjmZhxugha8is3nP8vyNQ3ta7Vz4jd
+	WcQDiEqrl/RW1mqYA1pMgQkw0HS5Wk0nwv0Mg7dOWrVaSSl0pqGIXrnKt7Obmo9AY9m+jJMG82L
+	VyfkuvrCsTBVy6gNimtwKQa+fP0B2VYuWo/KRHmJQh4BWikXZ+7GmyQsvVk/EM7uQEluxkcoH4l
+	fyhuMHOHzHLOLyRbwotMQnWD/nZ4SWSwl7kblNsFKWk9YLpyuIkhEehKtHZh/Y8EUYXKBMSn2LO
+	4eQi41gptgCHj20OXhASOap6QYKDhqsnIbmGJ8yTCe1hxm5JQSHmfc69mPZOI35blD8oI+dRdRS
+	es84QQtkJjsw1s9icW2c23Nr/FBNA7yhnznTTHjJ1ivAMtTHVEwtMT8kU+ph5YrOLq95O67NcpI
+	4Cm+lc6bO846uMyScClpaUL5haXay3BsSAdJaGja+w2Ip1vRD2wM+M8PaIoiTWiY6+omCm4XmZl
+	UrTzmdyMnmOD+kQorQvtiNyjW3KYGuIgBMpd8CkGy6+sB7Io+BPJTSeKPedPJMKtrFr5fC8U4Ln
+	8LTD+uHhjQilU8P55qGU85x5lcSyjkL/abhGg95dfAvXSXaBZ
+X-Received: by 2002:a17:90b:1dc3:b0:3b0:9782:8721 with SMTP id 98e67ed59e1d1-3b1b0a0e116mr8704980a91.36.1794802160765;
+        Sun, 15 Nov 2026 20:09:20 -0800 (PST)
 Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3f09b92sm7191989a91.4.2026.11.15.20.09.16
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3f09b92sm7191989a91.4.2026.11.15.20.09.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 20:09:17 -0800 (PST)
+        Sun, 15 Nov 2026 20:09:18 -0800 (PST)
 From: Daeho Jeong <daeho43@gmail.com>
 To: linux-kernel@vger.kernel.org,
 	linux-f2fs-devel@lists.sourceforge.net,
 	kernel-team@android.com
 Cc: Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH v2 10/20] f2fs: support subpage blocks in collapse and insert range
-Date: Sun, 15 Nov 2026 20:08:41 -0800
-Message-ID: <20261116040851.2849696-11-daeho43@gmail.com>
+Subject: [PATCH v2 11/20] f2fs: support subpage blocks in move range
+Date: Sun, 15 Nov 2026 20:08:42 -0800
+Message-ID: <20261116040851.2849696-12-daeho43@gmail.com>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 In-Reply-To: <20261116040851.2849696-1-daeho43@gmail.com>
 References: <20261116040851.2849696-1-daeho43@gmail.com>
@@ -102,252 +102,139 @@ Content-Transfer-Encoding: 8bit
 
 From: Daeho Jeong <daehojeong@google.com>
 
-The folio holding offset may hold blocks before the shifted range.
-Write back the page cache from the PAGE_SIZE boundary below offset
-under invalidate_lock before truncating it from there, so that no
-data is lost. Detect src and dst in the same folio by folio index
-instead of block index, as a folio holds several blocks. Remove the
--EOPNOTSUPP check.
+Folios at both ends of the moved ranges can straddle the range
+boundaries. Write back and truncate the page cache from PAGE_SIZE
+boundaries, and hold invalidate_lock of both inodes during the exchange
+so that faults and readahead cannot bring back stale data. After the
+exchange, also after one that failed part way, drop the source blocks
+that it read into the page cache, and call pagecache_isize_extended()
+for the gap between the old EOF of dst and the moved data. The page
+cache was not truncated before, so this also applies when the block
+size equals PAGE_SIZE. Remove the -EOPNOTSUPP check.
 
-Also take i_gc_rwsem[WRITE] and invalidate_lock before that writeback
-and keep them until the moved blocks are written back and the page
-cache is dropped, as move range does. After the block exchange, the
-page cache holds the old data of the source blocks until then. With
-subpage blocks, page_mkwrite dirties every block of a folio up to EOF,
-so a store to a neighbouring block in between writes the old data back,
-over a hole or over the moved data. This also keeps GC away from the
-inode until then, for any block size.
+Zero the cached data past the old EOF of dst with
+f2fs_zero_post_eof_page() before the move extends dst over it, as the
+other paths that extend a file do. Otherwise data stored past EOF
+through a mapping becomes file data. This also applies when the block
+size equals PAGE_SIZE.
 
 Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
- fs/f2fs/file.c | 115 ++++++++++++++++++++++++++++---------------------
- 1 file changed, 65 insertions(+), 50 deletions(-)
+ fs/f2fs/file.c | 73 +++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 58 insertions(+), 15 deletions(-)
 
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 72c601d240d4..d4472143dea0 100644
+index d4472143dea0..4499a461be86 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -1671,6 +1671,7 @@ static int __clone_blkaddrs(struct inode *src_inode, struct inode *dst_inode,
- 		} else {
- 			struct folio *fsrc, *fdst;
- 			size_t src_off, dst_off;
-+			pgoff_t dst_fidx = f2fs_lblk_to_folio_index(sbi, dst + i);
- 			bool same_folio;
+@@ -3435,7 +3435,7 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
+ 	size_t olen = len;
+ 	loff_t dst_max_i_size = 0;
+ 	loff_t dst_osize, dst_end;
+-	int ret;
++	int ret, err;
  
- 			fsrc = f2fs_get_lock_data_folio(src_inode,
-@@ -1683,11 +1684,11 @@ static int __clone_blkaddrs(struct inode *src_inode, struct inode *dst_inode,
- 
- 			/*
- 			 * For same-inode operations (collapse/insert), src and
--			 * dst may fall within the same large folio. Detect this
-+			 * dst may fall within the same folio. Detect this
- 			 * to avoid self-deadlock on folio lock.
- 			 */
- 			same_folio = src_inode == dst_inode &&
--				     folio_contains(fsrc, dst + i);
-+				     folio_contains(fsrc, dst_fidx);
- 			if (same_folio) {
- 				struct dnode_of_data dn;
- 
-@@ -1795,30 +1796,30 @@ static int f2fs_do_collapse(struct inode *inode, loff_t offset, loff_t len)
- {
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct f2fs_lock_context lc;
--	pgoff_t nrpages = F2FS_BLK_ALIGN(sbi, i_size_read(inode));
-+	pgoff_t nrblocks = F2FS_BLK_ALIGN(sbi, i_size_read(inode));
- 	pgoff_t start = F2FS_BYTES_TO_BLK(sbi, offset);
- 	pgoff_t end = F2FS_BYTES_TO_BLK(sbi, offset + len);
- 	int ret;
- 
--	f2fs_balance_fs(sbi, true);
--
--	/* avoid gc operation during block exchange */
--	f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
--	filemap_invalidate_lock(inode->i_mapping);
-+	/*
-+	 * Write back under invalidate_lock, which blocks page_mkwrite, so
-+	 * that truncate_pagecache() below cannot drop a racing mmap store to
-+	 * the blocks before @offset in the head folio.
-+	 */
-+	ret = filemap_write_and_wait_range(inode->i_mapping,
-+					   round_down(offset, PAGE_SIZE), LLONG_MAX);
-+	if (ret)
-+		return ret;
- 
- 	ret = f2fs_zero_post_eof_page(inode, offset + len, false, false);
+ 	if (file_in->f_path.mnt != file_out->f_path.mnt ||
+ 				src->i_sb != dst->i_sb)
+@@ -3516,17 +3516,6 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
  	if (ret)
+ 		goto out_unlock;
+ 
+-	/* write out all dirty pages from offset */
+-	ret = filemap_write_and_wait_range(src->i_mapping,
+-					pos_in, pos_in + len);
+-	if (ret)
 -		goto out_unlock;
-+		return ret;
- 
- 	f2fs_lock_op(sbi, &lc);
- 	f2fs_drop_extent_tree(inode);
--	truncate_pagecache(inode, offset);
--	ret = __exchange_data_block(inode, inode, end, start, nrpages - end, true);
-+	truncate_pagecache(inode, round_down(offset, PAGE_SIZE));
-+	ret = __exchange_data_block(inode, inode, end, start, nrblocks - end, true);
- 	f2fs_unlock_op(sbi, &lc);
 -
--out_unlock:
--	filemap_invalidate_unlock(inode->i_mapping);
--	f2fs_up_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	return ret;
- }
- 
-@@ -1839,28 +1840,35 @@ static int f2fs_collapse_range(struct inode *inode, loff_t offset, loff_t len)
- 	if (ret)
- 		return ret;
- 
--	/* write out all dirty pages from offset */
--	ret = filemap_write_and_wait_range(inode->i_mapping, offset, LLONG_MAX);
+-	ret = filemap_write_and_wait_range(dst->i_mapping,
+-					pos_out, pos_out + len);
 -	if (ret)
--		return ret;
-+	f2fs_balance_fs(F2FS_I_SB(inode), true);
+-		goto out_unlock;
+-
+ 	f2fs_balance_fs(sbi, true);
+ 
+ 	f2fs_down_write(&F2FS_I(src)->i_gc_rwsem[WRITE]);
+@@ -3536,6 +3525,39 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
+ 			goto out_src;
+ 	}
+ 
++	/*
++	 * Hold invalidate_lock across writeback, truncation and the block
++	 * exchange so neither faults nor readahead can repopulate the page
++	 * cache with pre-exchange data.
++	 */
++	filemap_invalidate_lock_two(src->i_mapping, dst->i_mapping);
 +
 +	/*
-+	 * Avoid GC during the block exchange, and keep both locks until the
-+	 * moved blocks are written back and the page cache is dropped. Until
-+	 * then, it holds the old data of the source blocks, which neither
-+	 * page_mkwrite nor GC may write back.
++	 * Zero the cached data past the old EOF of dst, such as mmap stores
++	 * past EOF, before the move extends dst over it.
 +	 */
-+	f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
-+	filemap_invalidate_lock(inode->i_mapping);
- 
- 	ret = f2fs_do_collapse(inode, offset, len);
- 	if (ret)
--		return ret;
-+		goto out_unlock;
- 
- 	/* write out all moved pages, if possible */
--	filemap_invalidate_lock(inode->i_mapping);
--	ret = filemap_write_and_wait_range(inode->i_mapping, offset, LLONG_MAX);
-+	ret = filemap_write_and_wait_range(inode->i_mapping,
-+					   round_down(offset, PAGE_SIZE), LLONG_MAX);
- 	if (ret)
- 		goto out_unlock;
--	truncate_pagecache(inode, offset);
-+	truncate_pagecache(inode, round_down(offset, PAGE_SIZE));
- 
- 	new_size = i_size_read(inode) - len;
- 	ret = f2fs_truncate_blocks(inode, new_size, true);
--out_unlock:
--	filemap_invalidate_unlock(inode->i_mapping);
- 	if (!ret)
- 		f2fs_i_size_write(inode, new_size);
-+out_unlock:
-+	filemap_invalidate_unlock(inode->i_mapping);
-+	f2fs_up_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	return ret;
- }
- 
-@@ -2040,7 +2048,7 @@ static int f2fs_insert_range(struct inode *inode, loff_t offset, loff_t len)
- {
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct address_space *mapping = inode->i_mapping;
--	pgoff_t nr, pg_start, pg_end, delta, idx;
-+	pgoff_t nr, blk_start, blk_end, delta, idx;
- 	loff_t new_size;
- 	int ret = 0;
- 
-@@ -2053,8 +2061,8 @@ static int f2fs_insert_range(struct inode *inode, loff_t offset, loff_t len)
- 		return -EINVAL;
- 
- 	/* insert range should be aligned to block size of f2fs. */
--	if (offset & F2FS_BLKSIZE_MASK(F2FS_I_SB(inode)) ||
--	    len & F2FS_BLKSIZE_MASK(F2FS_I_SB(inode)))
-+	if (offset & F2FS_BLKSIZE_MASK(sbi) ||
-+	    len & F2FS_BLKSIZE_MASK(sbi))
- 		return -EINVAL;
- 
- 	ret = f2fs_convert_inline_inode(inode);
-@@ -2069,29 +2077,34 @@ static int f2fs_insert_range(struct inode *inode, loff_t offset, loff_t len)
- 	if (ret)
- 		return ret;
- 
--	/* write out all dirty pages from offset */
--	ret = filemap_write_and_wait_range(mapping, offset, LLONG_MAX);
--	if (ret)
--		return ret;
--
--	pg_start = F2FS_BYTES_TO_BLK(sbi, offset);
--	pg_end = F2FS_BYTES_TO_BLK(sbi, offset + len);
--	delta = pg_end - pg_start;
-+	blk_start = F2FS_BYTES_TO_BLK(sbi, offset);
-+	blk_end = F2FS_BYTES_TO_BLK(sbi, offset + len);
-+	delta = blk_end - blk_start;
- 	idx = F2FS_BLK_ALIGN(sbi, i_size_read(inode));
- 
- 	/* avoid gc operation during block exchange */
- 	f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	filemap_invalidate_lock(mapping);
- 
-+	/*
-+	 * Write back under invalidate_lock, which blocks page_mkwrite, so
-+	 * that truncate_pagecache() below cannot drop a racing mmap store to
-+	 * the blocks before @offset in the head folio.
-+	 */
-+	ret = filemap_write_and_wait_range(mapping,
-+					   round_down(offset, PAGE_SIZE), LLONG_MAX);
++	ret = f2fs_zero_post_eof_page(dst, dst_end, false, false);
 +	if (ret)
-+		goto out_unlock;
++		goto out_inval;
 +
- 	ret = f2fs_zero_post_eof_page(inode, offset + len, false, false);
- 	if (ret)
- 		goto out_unlock;
--	truncate_pagecache(inode, offset);
-+	truncate_pagecache(inode, round_down(offset, PAGE_SIZE));
- 
--	while (!ret && idx > pg_start) {
-+	while (!ret && idx > blk_start) {
- 		struct f2fs_lock_context lc;
- 
--		nr = idx - pg_start;
-+		nr = idx - blk_start;
- 		if (nr > delta)
- 			nr = delta;
- 		idx -= nr;
-@@ -2103,20 +2116,23 @@ static int f2fs_insert_range(struct inode *inode, loff_t offset, loff_t len)
- 					idx + delta, nr, false);
- 		f2fs_unlock_op(sbi, &lc);
++	/* write out all dirty pages from offset */
++	ret = filemap_write_and_wait_range(src->i_mapping,
++					round_down(pos_in, PAGE_SIZE),
++					round_up(pos_in + len, PAGE_SIZE) - 1);
++	if (ret)
++		goto out_inval;
++
++	ret = filemap_write_and_wait_range(dst->i_mapping,
++					round_down(pos_out, PAGE_SIZE),
++					round_up(pos_out + len, PAGE_SIZE) - 1);
++	if (ret)
++		goto out_inval;
++
++	truncate_pagecache_range(src, round_down(pos_in, PAGE_SIZE),
++				 round_up(pos_in + len, PAGE_SIZE) - 1);
++	truncate_pagecache_range(dst, round_down(pos_out, PAGE_SIZE),
++				 round_up(pos_out + len, PAGE_SIZE) - 1);
++
+ 	f2fs_lock_op(sbi, &lc);
+ 	ret = __exchange_data_block(src, dst, F2FS_BYTES_TO_BLK(sbi, pos_in),
+ 				F2FS_BYTES_TO_BLK(sbi, pos_out),
+@@ -3549,6 +3571,30 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
  	}
--out_unlock:
--	filemap_invalidate_unlock(mapping);
--	f2fs_up_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	if (ret)
--		return ret;
-+		goto out_unlock;
+ 	f2fs_unlock_op(sbi, &lc);
  
--	/* write out all moved pages, if possible */
--	filemap_invalidate_lock(mapping);
--	ret = filemap_write_and_wait_range(mapping, offset, LLONG_MAX);
--	truncate_pagecache(inode, offset);
--	filemap_invalidate_unlock(mapping);
 +	/*
-+	 * Write out all moved pages, if possible. Keep both locks until the
-+	 * page cache is dropped. Until then, it holds the old data of the
-+	 * source blocks, which neither page_mkwrite nor GC may write back.
++	 * __clone_blkaddrs() reads the checkpointed source blocks into the
++	 * page cache before punching them, so drop them again. Do it after a
++	 * failed exchange too: the blocks moved before the failure were
++	 * punched as well.
 +	 */
-+	ret = filemap_write_and_wait_range(mapping,
-+					   round_down(offset, PAGE_SIZE), LLONG_MAX);
-+	truncate_pagecache(inode, round_down(offset, PAGE_SIZE));
++	err = filemap_write_and_wait_range(src->i_mapping,
++					round_down(pos_in, PAGE_SIZE),
++					round_up(pos_in + len, PAGE_SIZE) - 1);
++	if (!err)
++		truncate_pagecache_range(src, round_down(pos_in, PAGE_SIZE),
++					 round_up(pos_in + len, PAGE_SIZE) - 1);
++	if (!ret)
++		ret = err;
++
++	/*
++	 * Write-protect the folio straddling the old EOF of dst, so that mmap
++	 * stores to the blocks between it and the moved data fault.
++	 */
++	if (i_size_read(dst) > dst_osize)
++		pagecache_isize_extended(dst, dst_osize, pos_out);
++out_inval:
++	filemap_invalidate_unlock_two(src->i_mapping, dst->i_mapping);
++
+ 	if (src != dst)
+ 		f2fs_up_write(&F2FS_I(dst)->i_gc_rwsem[WRITE]);
+ out_src:
+@@ -3603,9 +3649,6 @@ static int f2fs_ioc_move_range(struct file *filp, unsigned long arg)
+ {
+ 	struct f2fs_move_range range;
  
- 	if (!ret)
- 		f2fs_i_size_write(inode, new_size);
-+out_unlock:
-+	filemap_invalidate_unlock(mapping);
-+	f2fs_up_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	return ret;
- }
- 
-@@ -2298,8 +2314,7 @@ static long f2fs_fallocate(struct file *file, int mode,
- 	}
- 
- 	if (f2fs_has_subpage_blocks(F2FS_I_SB(inode))) {
--		if ((mode & (FALLOC_FL_COLLAPSE_RANGE | FALLOC_FL_INSERT_RANGE)) ||
--		    f2fs_is_atomic_file(inode) || f2fs_compressed_file(inode)) {
-+		if (f2fs_is_atomic_file(inode) || f2fs_compressed_file(inode)) {
- 			ret = -EOPNOTSUPP;
- 			goto out;
- 		}
+-	if (f2fs_has_subpage_blocks(F2FS_I_SB(file_inode(filp))))
+-		return -EOPNOTSUPP;
+-
+ 	if (copy_from_user(&range, (struct f2fs_move_range __user *)arg,
+ 							sizeof(range)))
+ 		return -EFAULT;
 -- 
 2.56.0.611.g1030f0b940-goog
 
