@@ -1,105 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862441;
-	b=B6D6uafqYIESaYE39PRbuMLX9XQSlRXUQBVM0J0NZw/Kb9OWM1XI1U+JFmjo2QwltAje
-	 hLLsbSuaiYgUu1carKEsodk7DaeKG5rCHergNHBKeNNYVDkRaL4crffbNOniAVg61vYhn
-	 qDJETuwRKUZmlZnm4AicP7SWgkyF8SisIdnGWs5s94mr7bAmBlHeNgXF5UrIgMvartNmR
-	 VkQApEha7piP/+p0XI//opFy8S1b6WvYgR6+0KYRWhZDV4UPW8E9bGL4tweohg/Ft90Wb
-	 Q+GEqRwqSz3kE3xC+BkCIT3b1u2SFdZfrmjZrqiSI/CRwZ8MShOQuB3eZUdXt0qFC/g==
+	t=1794862444;
+	b=X7rUl5JdhUrl00PxESUuSorX/gMyYBF6o7adFtqXHoNVnZe05Wk11rEOfmzz5iIqTluH
+	 6f1TeuQ0fx3023mDV9MrbwuRA+Dyu/WZ7dtJNqKpFT+dBQEGIRhPGR1Cc+EvNrRoQpPHq
+	 CbgvlTxws8cL+NtJaKsQvP4yKZVCvwPY0SOK00opQlOBQQ35N7+Nnd7F0cxRjsYq6mml3
+	 BqRKsI0rYXB4S3IQuUMbtmLVz07q4aaj/pR1LSprRf28fsnyEUTQvkj04wwI7Iim98XYU
+	 uUx0vGOzUsEptENoSYFZFeHgi3KS0Hgpfz/A38DqMNTjo6/1PNKJiI6+OI0Uqa8CVPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862441;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862444;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
-	b=VgMJEQ5BYcD8Xzu/PqW5E6ltO/Ui0DkQemb4gB6lgKNXfKXuX7AaG+7H7iXqp1beueC8
-	 Ny5PPRpbna1J70dzNBhEoIBn3S8AbTCDa2AV6VtTvHWIEdbFLS16pqIu5dj08/bKYeBbK
-	 5fHtoUgQDKwoZmCP03g17dNAmgycICsdm6guIbn8CmeEheV2BhBNjCvSBoWfRHIIx8cMj
-	 stQSi8EcCIaNIoOHvAORAgiDkOrMQvFKTgup+38TOvq9Bz9JEsqh/trp5RTw7gDVsnDtw
-	 U9MEwmvsjfSC32B/6MXx/zCs7OJwiP/nGsvzm8UeUSrrSCvPTqL5R5xu31+dYoeHpbg==
+	bh=lks8iSR/YB9Fv1EKmwN4RwxJYQhW1H8zwNcnF60o0Bg=;
+	b=DWeQYfwv4jyQv+o5Aw9xvqzLWH6V1743Ff5TvxuyOCAHhwiAaUfKCX1tBTLyl7v2chL5
+	 +JkR/V9KckAVC6g6EOHp1iNs1+CNGI8sfkC+3uNsiAiIKFclFbHKEnV1xrmXSsk8/yf9j
+	 IECTGsZxnXEr3D/hbplCp2adEHDf6BNyQDn2CDJmSA68hvjBXQhvgfDamOatoirJi0slI
+	 0hXI+G4AZfRkV29wngKJWODibhuJwzOrxZkAA9wagkCh+uZea20Nq8RBNsbLdPFWvhI7O
+	 23ZWO0rN4HWEUozkBUNipdT96dt9xRFlXDgTPYA9bVVEyZnfTQvRGYSl7Zbws9gmolA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="V/WQ14Z5";
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J2vettTH;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575D160A2602
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:54:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 575D160A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A21606A886
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:54:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A21606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V/WQ14Z5
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3791619605cso7363297eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:54:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J2vettTH
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37628596783so6576524eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:54:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794862439; x=1795467239; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794862443; x=1795467243; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
-        b=V/WQ14Z5JsS299GMVO38nLTCesW0lZD2nRskeGbbhT6RTJz/XsPAzhwpwkvVmvVjSS
-         l5OxNg1HaYGVQrA9bJeY4mXPTZVTSZHNUYMyFCxIbkas13W86sKNbEsiA6qzSBiH+vQd
-         jBw9vYYYOoUOFDhvmirgTPn/SH21BNtQ3OBVg=
+        bh=lks8iSR/YB9Fv1EKmwN4RwxJYQhW1H8zwNcnF60o0Bg=;
+        b=J2vettTHgsS3OLXWhZpK71if72T6oJJ5C9sEEdbna2c8iwlSnH996+tXAzKcgCa/MK
+         i6BilnY49BHNkt8TGEXFgyEMbw59KzEqMejO5gKAJx1oAoBFE+x/5LmhyiVswt3dJj2l
+         HCKhHT2UKcwBSgrR9t02XBj8iYFtYC0/ntdcytpJJrd4BXG9E3J2xpMEoP0KIag3sJet
+         paOXKI8MBwKyNp9VFZXUHoOMIs0b6nHqwuKSkqFJiM1cu+XBfQScuCSQ4+hyY/j0+iuc
+         N/tfv44r3j6lFxSGEmHIs+lZyMiQFyOT9GCtxOUbx/EtdZ/JzTGuVooHN3y3j+wkm7fX
+         S17A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862439; x=1795467239;
+        d=1e100.net; s=20260707; t=1794862443; x=1795467243;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
-        b=VprRFYdZ4k/bDmVRBEjkrq6YMF+wRxP3biNFCcXqUjSB4KjH+43pIyYGbdsMrr1qbG
-         nRNiHDyqnQziNR4yB8I9FYuLAe/DOeFkS3QvcyK6vo0oKAOdG5Pm/3snVYizM23ChLqx
-         3GCdm/W6jA5yfGg6ePOH7jIUX65GTTn0KXzMRg5qRIE1gtVHk/fI6ZJGsChOcXYAvIwW
-         eqjkdtcH62JE+HqfRKhAGlX90qsYZanrhAOGGoDGuWFrczztZb/jYmitzp6D6fRjfy9Y
-         yKO+tF9HUXkWdoMJZgOka8f/Rc0Hx60JCYEBXb5564neNZ0Yavwq9RfCisdPtkRByt73
-         YTLQ==
-X-Forwarded-Encrypted: i=1; AL+hErFL22vQ8Q3jhOgZT4f0FANBxb6QayZbZ9BSQO5UoZo1ElFY2fpbmbisQvCOaPetM/qblKK1v0HkqdmCOtc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+uhNp9UGkBmt9IhsYyRh0iCelii90p9OcHxPvRcWVcstgVXhIs
-	6sfGaFB7R4CFYS7xwe8GfkAbQVmYQ1V/XtIwIOHNAyEoMHolftYQoTgqVn7hwwEPoA==
-X-Gm-Gg: AYBFou0oqRtwjMy2YjGOnwewxXZCyT43g+2AVoAQ4LgyzGBPZuMGueBHK/HZOPniqm8
-	ykDuADkw9JCO869nQsi74qGzzJANIE83EFh+o79Iki/ZHdRTvncBOcB3mI+UxyVVHeQHzLszswv
-	Zaru/D5UAYPIcVwyITyRnOl8aUKZ6AsoWihmYRN+7t0YGR1wOoC/85SAd1jKkIH7U8VX1xITgdW
-	/BFpu2d0RV5jF09iJELVLCxid6lkL8je7SqUpzXjWw/SPCLt02wwfPwxC8hlcAtNLt7C6Dpbg+d
-	SKoyk+YyWkBz4oXprlzAV2EFqpR9dGc7vDAkvi7ari1D4RdtU6bdsHXm2kbX+m91t5apuLMGfsw
-	y5sZZqGK4hzw0C/fjAyW9IZtQHQdvgpb1UloKDPvh5X4aFP1bENnLvfxoE6mHN+ZVAKknrgq/Ml
-	UVGlqbjX/wnd85xIsCddMz8cVfYUFr71IwjMTuZEprhZKfTvr/exUOJOxQyT2AVKAdE/eTRnjo3
-	ZC2tHaznmZwdC355AJf1cqrezDN/nUaw+QYfE/jYvoYnyPfL9f1PY3xait4QKqWyR+ycFHBYMCX
-	HfOHJZVMXLozMUKMdwqNZaZVi52PzCYtXPCLyQVwEdTzDCOM7NaPnDAu8bP3G4pplX/Mu5NujAo
-	jqW3IwZleaRkPTw==
-X-Received: by 2002:a05:693c:4146:20b0:36f:551:2bd5 with SMTP id 5a478bee46e88-379e16d093cmr11060171eec.32.1794862439198;
-        Mon, 16 Nov 2026 12:53:59 -0800 (PST)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.56
+        bh=lks8iSR/YB9Fv1EKmwN4RwxJYQhW1H8zwNcnF60o0Bg=;
+        b=nH88vVk9/2yNof2ZKSsfu5AEv3g7oLwFdYjqk3Jn25LyCAb3zVm7RPyCtiQXrp6NuO
+         wq9NG01lTpPsLjjeFzp5ZXgZSWVmrHNY/58x02eEABqZlEda2f7ERCfMHd9HSJrdHFUX
+         sRg+A+oeJolroBLwxWcD3GZwSHKkt6GxTzkX3kY/wTMRn0Mp+xdvcbM83Sk+M3A4XyXd
+         ZI3oXbqGtTPn1MDJAF8vTZwfwQYhl6WWz7HcbugGYEsoWzrHmbrge6TV7s+sQhMl5NGm
+         RKYygy1CqNkEYxzOaHsd6UqJCTke+bzVpITIDPaWHcbQY8JGD4MRdjqxzbjnvy9T5qL/
+         yVbw==
+X-Forwarded-Encrypted: i=1; AL+hErG0GchyRuPuHi4zMm7VcNEo+7HgrGlKD79w2lcXxtgzsIX6eDqGfP1uUe80JpZBuPBPjnFMSu0MG5TRZds=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Hd7VsanACM+QVsuctA3c0vnGPKB7UtB8R6OAhWTGNJe8OJRE7
+	prtt4uIbGLaNCXDmGNrbfZA8pTg8lJV5FuEmKpB8fo0r4qouNmtDZFNa
+X-Gm-Gg: AYBFou3kaNZxaoI/lLavGk5TM37TGx9IShALpS3m2VI4+3ShBZY1SgsDJJLZgXaYpu2
+	41iqVp9ookxzJZ1s2X7FMBwZS+tA19jnoMTF7t5zbo/jwsg8fPQ5NdAIoRx99a9z7QOUMe/pwJF
+	uKdKPSk+WbelDG2cxXHAJUrC+eYhRbXDL00pg7VSvWEHUWdlXwOSRtrSZIqf+FkeSqFBI+h7yZ2
+	tFdKc3sPx7d1g6HC1/sDLr882bTNd5q6dAlc8PyiGpK78mVDsc5vkwRC8D+qUSa9Hd9OTr5qdYZ
+	A7f3bJNc9QGh7JWXWvLfspARupJgvI0hhqDe7Jbm/0VESrE639YoLimGa4ARGKsNPOBiOdgBIYk
+	RP5K1lQnvjZo8pd48PCRk2/qXLScYTon78vtJCLWCI9OeO55r16xOVlf4XCKqKls6JDcsAWVluA
+	4JxrZ+sA7Y2MZ7MufTO2HC8CWK52aDizF//dzdZXb28xnU/2EJV2l6yCuMDfXFnWXEclr1kG+j7
+	MTcgWueoezYxDcgoNR7KILnVQ+RtzHg06EZSy81kdLEZraS7mTQJ7+Ub1SvKv4m7GN/c9TSyr/o
+	EW4jV8aqAjq5y7hthtsZjcHxCl68IKgYd0DhCeEaFc+q+4tKs69sP5NgCfqhAA4aIRCmHiJUoMF
+	bUtrazjLROS+g2/ljgKtcLivxaeAuqfIchPRmxHUECl7u9XMNB+PfB6gThAq3uzy86JBP2Lafgi
+	xAhX+9GWQJp55/lQ+HUUW2FvjmbuO7+IE3DPwpI3p79w==
+X-Received: by 2002:a05:7022:130a:b0:1b3:beea:eee5 with SMTP id a92af1059eb24-1b5030613cemr9666041c88.1.1794862442632;
+        Mon, 16 Nov 2026 12:54:02 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm15293497c88.4.2026.11.16.12.53.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:57 -0800 (PST)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>,
+        Mon, 16 Nov 2026 12:54:02 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Stephen Boyd <swboyd@chromium.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with memchr()
-Date: Mon, 16 Nov 2026 12:53:05 -0800
-Message-ID: <20261116205320.1621386-9-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
-References: <20261116205320.1621386-1-dianders@chromium.org>
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH 6/6] iio: proximity: sx9360: reject negative hysteresis values
+Date: Tue, 17 Nov 2026 02:23:14 +0530
+Message-ID: <20261116205320.26070-7-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116205320.26070-1-kapoorarnav43@gmail.com>
+References: <20261116205320.26070-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,61 +108,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
-across the string table (`for (p = strtab; p <= last; p++)`). When
-building or modifying trees with large string tables (such as DTBs and
-overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
-`fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
-byte dominates serialization time.
+sx9360_write_hysteresis() copies the value into an unsigned int before
+comparing it with the threshold, so a negative value becomes a large
+one, passes the "val >= pthresh >> 2" check and sets the largest
+hysteresis instead of being rejected. Return -EINVAL for negative
+values.
 
-Advance `p` between candidate first-byte matches using `memchr()` (with
-an explicit `slen == 0` check for empty property names and a `tabsize <
-slen + 1` bounds check before computing `last`), preserving identical
-suffix-sharing behavior.
-
-On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
-DTBs) this reduced `fdt_property()` time by ~5.6x.
-
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
-Found this speedup while benchmarking fdtfactor. It's not critical to
-functionality, but seems like a nice win.
+ drivers/iio/proximity/sx9360.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Changes in v4:
-- New patch speeding up fdt_find_string_len_() with memchr()
-
- libfdt/fdt.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-index d9ccb70345d0..c7cedfba7815 100644
---- a/libfdt/fdt.c
-+++ b/libfdt/fdt.c
-@@ -348,12 +348,20 @@ int fdt_next_subnode(const void *fdt, int offset)
- const char *fdt_find_string_len_(const char *strtab, int tabsize, const char *s,
- 				 int slen)
- {
--	const char *last = strtab + tabsize - (slen + 1);
--	const char *p;
-+	const char *last;
-+	const char *p = strtab;
+diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+index 26190f9c6c1f..9989b0dbeae0 100644
+--- a/drivers/iio/proximity/sx9360.c
++++ b/drivers/iio/proximity/sx9360.c
+@@ -529,6 +529,9 @@ static int sx9360_write_hysteresis(struct sx_common_data *data, int _val)
+ 	unsigned int hyst, val = _val;
+ 	int ret, pthresh;
  
--	for (p = strtab; p <= last; p++)
-+	if (tabsize < slen + 1)
-+		return NULL;
-+	if (slen == 0)
-+		return memchr(strtab, '\0', tabsize);
++	if (_val < 0)
++		return -EINVAL;
 +
-+	last = strtab + tabsize - (slen + 1);
-+	while (p <= last && (p = memchr(p, s[0], last - p + 1)) != NULL) {
- 		if (memcmp(p, s, slen) == 0 && p[slen] == '\0')
- 			return p;
-+		p++;
-+	}
- 	return NULL;
- }
- 
+ 	ret = sx9360_read_thresh(data, &pthresh);
+ 	if (ret < 0)
+ 		return ret;
 -- 
-2.56.0.679.gc527c65306-goog
+2.53.0
 
