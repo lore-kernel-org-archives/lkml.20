@@ -1,61 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802352;
-	b=BFLZjlj2lIB/3/DUGAkJN8Z3DG1+JnWd5WeSgnWXgtFZCuwzeuQ25WuxjCpwvIzA2yxz
-	 PnZSj/MaKwajRM7MLGD4o3SNj/g0USyEtgxuAekWuMdobE44Ce9umZUUmFjyHmrplkhoP
-	 yG7NUXP6+hEUVv/bJ6RjlP8zQuBxSsL10VESeOpxsxBinw3htEo63EoMQUxEWM7XyPaFR
-	 eRhx1On6Zpe+Ylbce6dvZTgB6JzCVGZb3BsomYjy37UEbcl9pJE49X+AsPcA8QKO6thKi
-	 2vv59Y1E/Yp6arPxujIntW3hQgjfa0Tf6M+k0IssZXa2PbmNuHhERUV4wajt4+oj1nA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802352;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=8oYOY2NTfu9tj/qa/VJPJPG8PtiGkUvPv1hgkWBpXVo=;
-	b=WYfQn33y70MC/pL5awoRMdaPfp6sEIpme3ZxyR19LKNjsAvpBP7WzhfFkZSUFTqriFhF
-	 NF8f4JZKV1HRWhHoTJ89HkvgS70z1t7xqwPSoKaZJon41xU66g0vBww1iEQ6/AwOkyhuN
-	 vXodEOH0bHN5q66iFRj5qfOmUJ8qyqGAwlDl+egMKXxNzCiebIzr5PLMZcCmutFhsMwOR
-	 L89WKRUAAeq5Cj69LmfQdbZzQyNzZTuCS/hWgs8cAVzvfQ/dpvm/1uF4wEhDIik8aOwET
-	 LPcO3U4jlYsW9TW9AbgouqI2c75E1WdV8/oUvx5BOYAZ8jdk7ZQkXa83XiGOUCoIciw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxbPub6O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794802368;
+	b=yfaAxVC4valbexby7tfHitpzVw4WDpjJ3ejPPrcgT4NyYNxSlvvtTEA8vbcPf7ogTkzj
+	 StRs7O1YEgfVverZ+xAtBRGVNewmqbO0cJc+Z5Xid5hLcn23NnMt54G29w+Ur/mzboOxN
+	 P1oxx5mR8UOqTM5iShRhqWlk4igw3oUDftYxDm38hGQIc/S1JLM3K1d09OHWQwmSwW0bV
+	 jpsADjKGKWijEjnKFOmYZZlaTIvdY4HnB+91cMDGKqZVee8GWIb9s7vMwfg8RQ1K5iAs7
+	 5nDNx7rMcEalwEkII72YSM6ySlBDCnU/59FnSl0HgsYdOHRE03Il6b+d/wZvVBKjb3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802368;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=02Znqn8yz/ktSadMwkToSavZ3zbFTsFGNf4SxxWIuWc=;
+	b=c//sqMecF04wo+opyuDo7uEXIlnM0G2+rcfBh/g6Es8OanF8DGdIv7cUvQzO02/G+Sa0
+	 1HTt2r+TtbfyFzDrnVkU2cY2CES3PyAUxDbpXtGo2cf22QmCrVmttpmw3fnF+J3rlvhw2
+	 g1U9bWcUL1Yqw/VtXf6a1rMJoqNzKPPfzEk2qVYM4buKv74DKtNKlPDvXA+OKHCn/CWTG
+	 Zs639GKXjep4LTu1Ry8I6kkXBJQa6fI/LGpvjrM9vsFv26WkQouzO5viVwLSLj6iAQt8h
+	 pdnOHHX6Q3lgvZ/aIsfkbfM9ki3wZG/zVR5fxqdreMe6HHzgZ3ISvOeUx8q7SIUvDrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TXuPr6SE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.178
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64529606A89C;
-	Mon, 16 Nov 2026 04:12:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCDD606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:12:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CCDD606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxbPub6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488EE1F000D3;
-	Mon, 16 Nov 2026 04:12:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794802352;
-	bh=8oYOY2NTfu9tj/qa/VJPJPG8PtiGkUvPv1hgkWBpXVo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fxbPub6Oq5pwAmxc9yexlpIHNy7YnWpTd04/yXPEKnnfC3Rl1gzb8CISsUoPJK/4Q
-	 /aE+aUiniwgzMuNFEHSHuLjU+EjNGQHwu5ZUZ7fqUCmzaUcw8zeDEXd4rVZE15sbJS
-	 6NXFO7KpjoS3Ln2t4iTp59zP95K7CaqBuPbmNrbzMo+gtVorawjMMVRX9xOdG6PYLj
-	 4Bi6EAqjKqiWW5+OiFIs6ILQo+2a5w0JZmfOpK/2evBIX/BHYKcuByH5afC7uc7tF4
-	 ToqNjbj80tlP2y9/89VQAfxiqfobHEm06aCJ02J+P+8ax97uOAVv9lhU51eAgKElMe
-	 SdrqeUOWh/Aug==
-Subject: Re: [PATCH net-next v5 4/6] net: xilinx: axienet: Add 10G/25G (XXV)
- ethernet support
-From: netdev-bot+sashiko@kernel.org
-To: suraj.gupta2@amd.com
-Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 04:12:30 +0000
-Message-ID: <179480235080.3136.8103502035761762075@kernel.org>
-In-Reply-To: <20261114182947.2908628-5-suraj.gupta2@amd.com>
-References: <20261114182947.2908628-5-suraj.gupta2@amd.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TXuPr6SE
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so4691963e0c.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:12:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794802367; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XaZ54AdJ3EVW6Sz/L1ZzJ3YXtOjDf8vWCvEbtIqwTYANHvwTWpQb0a6KaNS3P1mte8
+         y1YbuqPal4taB9EzZ0N1Or7OaZyIxkpVdBIKfdFT6vuL09frTV0kU/NDe2kV6LoagoEp
+         RHRJQn1Dvw+O7WYfVscKlrexTq78G4QnswYjlM6QfU+x0oOpcb2zw74pkG3xyOt82bP6
+         1NJSiFlmO8P23NR9GdRU9MlzjDhBi+WhTEwDdO6Y+sptGBjcTGLtEzGXn4JxKIjPD6Uv
+         da6b8aApq7CiFQO5FBpoDEr3z2zAYXHxYk9WmxpDTW1M1hg5Kr6TcVz3TZZZPdgTFFuo
+         1Nwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=02Znqn8yz/ktSadMwkToSavZ3zbFTsFGNf4SxxWIuWc=;
+        fh=7vaPmCDq/VZ+CjyHTDoYh9bp+0wcWM7AbpAKxRKrM5A=;
+        b=XsCC6h43wIvMKhaZKMEPaad4iNae2qFSV+kx3zxxTI9P0a9C+Wv92qpmzEAG2nrqJs
+         TEap9UOjL8Ti7Q/8hWoosWPRjPra8qbLlNViOp+qYUsXkR5r6/Mpc9yS742ULuT0UEd5
+         V6es2NZbdFjZlx1o6Ua8iO7CgdmkqvzUU0msqfOtx5egNW43NHGxQ61IXCHL9tTfGBwE
+         ieScwvAwAWWCJcKCTbnpjM4Clr2jEZZlTk7cGSTKR+BxbKLpZI8s90kUDalaUp0ZyXu8
+         5uyZW9JqpRfP+oD4iuX4wl2EeI+MccrRUXvORR0kMDHAfNO/RG7oentSLk7b0atJgPV0
+         jDCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794802367; x=1795407167; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=02Znqn8yz/ktSadMwkToSavZ3zbFTsFGNf4SxxWIuWc=;
+        b=TXuPr6SEkNx59MeEiBxkERt5f4mWr/KLQDwLa2jrvJYieaT+qwMYtqe9ZaojTHhZHG
+         AJ7lHgR8xxpjk51JCJIadB37QGvLRiP0FBhk3yEvDf2lPtFkkJLF90wQu2Nb4O6kIf4n
+         zZTlOkFImdMHRYpm3Uy2EfdKdMtJfA/3jteb9E4VGVwYJMWXf9j9hzcoPZu/AaDp2LFa
+         0cDrWZEbL6WdhqLbjlTg/btbj0ILHRNIJZJYgX0J7h+us/HHw5W40QvqwH9YTLQRNAfF
+         fTZ2SCX5ooqvF/KXBuYoINgxOHsrXPaKwcKZzhWOjTqLOZjq+6bIkxVBjdmcC8NhevmQ
+         qkiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794802367; x=1795407167;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=02Znqn8yz/ktSadMwkToSavZ3zbFTsFGNf4SxxWIuWc=;
+        b=KNYjFIkTnvXodABnFPVFy48WGhIRQ84nVedkFomRzWwvWf4CY/LGAqYZfoD1javjlr
+         ouis7mIY32/6s/9uXb/C4yaQPIa4k9DPGJWb4qBb0edqL9Bn21uhhB5ULl6/34eqav32
+         a2aM70xWzNcZglXLWDYB1YORlKqOF7mRFkaAOgUf4lGs3gc8egAJAq3VwKYQh6CCpy1T
+         ouVAlWseR61hDoCeXI/lhVcR9yMY6uoUIMXEDvfMUJwUE+3Pl/2bM9C0PUce1khpfdDg
+         j6EyzTXWlHCBKe3QP3kiD5Hg5hVt1AbLPaBnYfHpYb+ACr9lzaXZnpGoIS/B+XH9npq/
+         CcBQ==
+X-Forwarded-Encrypted: i=1; AL+hErHjFIo05gk+VE6d8pygGEcPYu12Nw2L1N2JFyIRCXjevoTj482BPkSHE3loAZGmXpXzkvlIiXzScHkguz4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93KnlvbIV/oKavrOpyrL80zS/BB0xajPSkEcRDtZmKwdxRAsgh
+	Zn/RbYG64IaILE103+0ezKZGP76jCs3ALEQEihcqqKYBxzmJkpOKKIApdT5mM2Ba2LuHxJGrkfD
+	w0Id7PUrf8FB9VYMD/qx89Sod3NS1Bbf0G4La
+X-Gm-Gg: AYBFou3o9nsOWpaZOTT+FyzGQNWMgd3t0MBdAxJx7MZH7DQOoKMDEjrj1YavQN76d8l
+	gRA+4pCpMsH2XMMJv3VGz+kGtdapmGeqfP3nbl+MU9Z9s5FBrmGiRq/B+Tcy8815XF2JNvZJ7f1
+	OnTEj35wIEgNjF8f7eKFhapbVLNXQaLWqF5qtxxxcJnDcB9ED3aIhST8Hv5K8WXpsR6aKMOrEgW
+	4W/Sb3SOHWyoiA5jOpmKdWAgTbgKNZk82MYTxP3k7fOhnScz/YBFoKFjtArnydavlS/zTPvMn0k
+	truuZflF7kCtIAR1AjCcScdbjrAEdFT7R46OMycp+9hafmyqgQIWB1O4kSNL0YFAwKHbOSntgeo
+	v32hQBvlDpNP/a0aMS1L9pImKwgaRJ69r5JB2/0RU2VHIyXF//+zk55JFhIQkD5OprZgjozUoW3
+	Ry1TRpJsk4bYxiKX/m2X2f/U6Nh9L3/qVYKMhSjvlUSB1CgEqXFXbCL9il//SUsCVrH+XsTiGyu
+	1O4ESYVAcxg5OnBvxlRdli216lIcA==
+X-Received: by 2002:a05:6102:6050:b0:7bb:64cc:1362 with SMTP id
+ ada2fe7eead31-7d64d727889mr1664247137.6.1794802367378; Sun, 15 Nov 2026
+ 20:12:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,309 +106,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261115-submit-acx00-phy-stats-v1-v5-0-ed81a7f54373@gmail.com>
+ <20261115-submit-acx00-phy-stats-v1-v5-2-ed81a7f54373@gmail.com> <37e4b9b8-d381-448f-a2b3-b92d7bd9033d@lunn.ch>
+In-Reply-To: <37e4b9b8-d381-448f-a2b3-b92d7bd9033d@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 15 Nov 2026 21:12:35 -0700
+X-Gm-Features: Aa3M54rSYwnxbv99PItlCP4qZptsSVG-Nk2eGb_2dwgIzFKw24XwIBCbb3Igc1g
+Message-ID: <CADvTj4qh8Pvss+xEwcjshodwv-yN6haP-9aaeRXg1ydSu5ibVg@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 2/3] ethtool: add a PHY receive byte total
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+On Sun, Nov 15, 2026 at 8:25=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Sun, Nov 15, 2026 at 12:45:46AM -0700, James Hilliard wrote:
+>
+> > The generic PHY receive-byte counter describes successfully received
+> > traffic. Some PHYs instead count bytes in all received frames,
+> > including frames with errors.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 4
+That restriction comes from the current kernel-doc definition of
+ethtool_phy_stats.rx_bytes: "Total successfully received bytes".
+It was the reason for introducing a separate inclusive byte counter.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I checked the PHY statistics callbacks in net-next and couldn't find
+any driver populating rx_bytes. The original series [0] introduced
+the byte fields, but its initial drivers only populated packet and
+error counters.
 
-- [High] XXV receive is routed through the shared dmaengine RX callback,
-  axienet_dma_rx_cb()…
-- [Medium] axienet_mac_select_pcs() is shared by all MAC types.
-- [Medium] PG210's XXV MAC flags bad-FCS, oversize/length-error and
-  truncated frames only through rx_axis_tuser at end of packet, and…
-- [Low] axienet_xxv_get_regs() reads every STAT_* status register on each
-  'ethtool -d'.
-- [Low] axienet_ethtools_get_regs() always sets regs->version = 0 and
-  regs->len = sizeof(u32) * regs_n, then dispatches to…
-- [Low] The patch builds xilinx_axienet_xxv.o into xilinx_emac under
-  CONFIG_XILINX_AXI_EMAC, adding 10G/25G XXV support to that option, but…
-- [Low] In axienet_open(), axienet_device_reset() runs first.
+>
+> In the general case, that is wrong. A PHY basically does digital to
+> analogue conversion. It takes a stream of bit from the MAC and
+> converts them to analogue signals on the media. In the opposite
+> direction, it recovers the analogue signals, converts it to digital,
+> and passes it to the MAC.
+>
+> Thinks about SGMII. When running to 10Mbps, the MAC has to duplicate
+> the bits 100 times. At 100Mbps, it duplicates the bits 10 times. The
+> PHY then puts the bits onto the wire, it has no need to understand the
+> duplication, the boundary between the MAC level bits, it is just a
+> dumb DAC/ADC.
+>
+> In order to see frames, not a stream of bits, you need a MAC.
+>
+> Now, some PHYs do in fact have MACs. Those that implement PTP for
+> example need to reassemble the bit stream into frames. Anything which
+> does MACSEC. Or rate adaptation.
+>
+> But in the general case, its just a stream of bits. And the byte
+> counters should be for the general case. And for SGMII, the definition
+> is a bit more fuzzy, does it include the repetition or not?
 
---
+Should we instead clarify the existing rx_bytes definition to include
+errored traffic and use it for ACx00, dropping rx_bytes_total? That
+would leave the existing packet counters unchanged.
 
-net: xilinx: axienet: Add 10G/25G (XXV) ethernet support
+For ACx00, the byte counter includes FCS and bytes from CRC-bad
+frames. We also tested at 10 and 100 Mb/s over RMII: the byte counts
+showed no tenfold inflation at 10 Mb/s despite its repeated interface
+cycles.
 
-This commit adds support for the Xilinx XXV 10G/25G Ethernet MAC to the
-axienet driver. The XXV-specific code goes into new xilinx_axienet_xxv.c/.h
-files and is described by an axienet_10g25g_config. The shared paths use
-the callbacks from that config, and axienet_mac_select_pcs() now also
-handles 10GBASER and 25GBASER.
+[0] https://lore.kernel.org/r/20250110060517.711683-1-o.rempel@pengutronix.=
+de/
 
-> diff --git a/drivers/net/ethernet/xilinx/Makefile b/drivers/net/ethernet/xilinx/Makefile
-> index 7d7dc1771423e..db90e691fec58 100644
-> --- a/drivers/net/ethernet/xilinx/Makefile
-> +++ b/drivers/net/ethernet/xilinx/Makefile
-> @@ -6,5 +6,6 @@
->  ll_temac-objs := ll_temac_main.o ll_temac_mdio.o
->  obj-$(CONFIG_XILINX_LL_TEMAC) += ll_temac.o
->  obj-$(CONFIG_XILINX_EMACLITE) += xilinx_emaclite.o
-> -xilinx_emac-objs := xilinx_axienet_main.o xilinx_axienet_mdio.o
-> +xilinx_emac-objs := xilinx_axienet_main.o xilinx_axienet_mdio.o \
-> +		    xilinx_axienet_xxv.o
->  obj-$(CONFIG_XILINX_AXI_EMAC) += xilinx_emac.o
-
-[Severity: Low]
-This isn't a bug, but should the XILINX_AXI_EMAC Kconfig entry be updated
-too? XXV support now builds under this option, but the prompt still reads:
-
-    tristate "Xilinx 10/100/1000 AXI Ethernet support"
-
-The help text also still says "This driver supports the 10/100/1000
-Ethernet from Xilinx...". It is unchanged at the end of the series, so
-nothing points someone configuring an XXV-based board at this option.
-
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index a553150faa89b..47c84014921c8 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> @@ -801,6 +801,12 @@ static int axienet_1g_mac_init(struct net_device *ndev)
->   * Ethernet core. No separate hardware reset is done for the Axi Ethernet
->   * core.
->   *
-> + * It also recomputes @max_frm_size from the current MTU and runs the
-> + * MAC-specific mac_init() callback, so it is the point at which length-related
-> + * MAC configuration (such as the XXV RX max-packet-length) is reprogrammed.
-> + * Because it is reached from the open path, a new MTU takes effect on the next
-> + * interface up.
-> + *
->   * Return: 0 on success or a negative error number otherwise.
->   */
->  static int axienet_device_reset(struct net_device *ndev)
-
-[Severity: Low]
-Is the ordering in axienet_open() safe for XXV? The XXV receiver is
-enabled before any RX DMA buffer is posted:
-
-axienet_open()
-    axienet_device_reset()
-        axienet_setoptions(ndev, lp->options)   <- sets XXV_RCW1_RX_MASK
-    phylink_start()
-    axienet_init_dmaengine()                    <- RX channel and buffers
-
-PG210 describes the XXV RX AXI4-Stream as having no tready backpressure.
-If a frame arrives before the S2MM channel accepts data, could the first
-RX buffer capture only the tail of that frame (ending at tlast) and pass
-it up as a frame?
-
-On the 1G core, its internal RX FIFO made this ordering safe. With XXV it
-depends on the FPGA logic between the MAC and the DMA.
-
-[ ... ]
-
-> @@ -2788,7 +2789,9 @@ static struct phylink_pcs *axienet_mac_select_pcs(struct phylink_config *config,
->  	struct axienet_local *lp = netdev_priv(ndev);
->  
->  	if (interface == PHY_INTERFACE_MODE_1000BASEX ||
-> -	    interface ==  PHY_INTERFACE_MODE_SGMII)
-> +	    interface == PHY_INTERFACE_MODE_SGMII ||
-> +	    interface == PHY_INTERFACE_MODE_10GBASER ||
-> +	    interface == PHY_INTERFACE_MODE_25GBASER)
->  		return &lp->pcs;
->  
->  	return NULL;
-
-[Severity: Medium]
-Can this hand phylink a PCS with NULL ops on a 1G MAC?
-
-axienet_mac_select_pcs() is shared by all MAC types. On the 1G config,
-axienet_probe() sets lp->pcs.ops only for SGMII/1000BASEX, and
-axienet_1g_config has no internal_pcs.
-
-axienet_1g_phylink_set_caps() still does this for any phy_mode:
-
-    __set_bit(lp->phy_mode, config->supported_interfaces);
-
-So a 1G compatible node with phy-mode = "10gbase-r" or "25gbase-r" is not
-rejected at probe.
-
-With fixed-link, probe still succeeds. phylink_validate() prints
-"uninitialised PCS" with a dump_stack() and returns -EINVAL, but both
-phylink_create() and phylink_parse_fixedlink() ignore that result. Then
-on ifup:
-
-axienet_open()
-    phylink_start()
-        phylink_major_config()
-            pl->pcs = &lp->pcs;
-            phylink_pcs_pre_config(pl->pcs, ...)
-                if (pcs && pcs->ops->pcs_pre_config)   <- pcs->ops is NULL
-
-Before this patch, these modes returned NULL here. Should &lp->pcs only be
-returned when lp->pcs.ops is set?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> new file mode 100644
-> index 0000000000000..3c204dbbf6aec
-> --- /dev/null
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> @@ -0,0 +1,351 @@
-
-[ ... ]
-
-> +static int axienet_xxv_mac_init(struct net_device *ndev)
-> +{
-> +	struct axienet_local *lp = netdev_priv(ndev);
-> +	int ret;
-> +
-> +	ret = axienet_xxv_poll_link_ready(ndev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Bound the MAC's RX max packet length to the posted buffer size so an
-> +	 * oversized frame is truncated to a single buffer instead of spilling
-> +	 * across several DMA descriptors (PG210 CONFIGURATION_RX_MTU).
-> +	 */
-> +	axienet_iow(lp, XXV_JUM_OFFSET,
-> +		    FIELD_PREP(XXV_RX_MAX_LEN_MASK, lp->max_frm_size) |
-> +		    XXV_RX_MIN_LEN_DEFAULT);
-
-[Severity: High]
-Where does XXV get the RX frame length from? axienet_10g25g_config does
-not set non_dmaengine, so every XXV RX completion goes through the shared
-dmaengine callback:
-
-drivers/net/ethernet/xilinx/xilinx_axienet_main.c:axienet_dma_rx_cb() {
-    ...
-	if (IS_ERR(app_metadata)) {
-		if (net_ratelimit())
-			netdev_err(lp->ndev, "Failed to get RX metadata pointer\n");
-		dev_kfree_skb_any(skb);
-		lp->ndev->stats.rx_dropped++;
-		goto rx_submit;
-	}
-
-	/* TODO: Derive app word index programmatically */
-	rx_len = (app_metadata[LEN_APP] & 0xFFFF);
-	skb_put(skb, rx_len);
-    ...
-}
-
-app_metadata[LEN_APP] is APP4. Only the 1G AXI Ethernet IP fills that
-word, through its RX status stream. The PG210 MAC has no status stream,
-and nothing in the XXV config or binding provides one.
-
-In xilinx_dma.c, software never writes the S2MM app words: hw->app is
-copied only for DMA_MEM_TO_DEV, and segments are zeroed. For MCDMA, which
-the XXV binding example uses, xilinx_dma_get_metadata_ptr() returns
-&seg->hw.s2mm_status for DEV_TO_MEM, so index 4 lands on app[2] and not
-on a length field.
-
-What happens then depends on the DMA setup:
-
-- Without xlnx,axistream-connected on the DMA, no metadata_ops are
-  attached. Every frame is dropped with "Failed to get RX metadata
-  pointer".
-
-- With it, rx_len comes from a zeroed or unrelated word. Each frame
-  becomes a zero-length skb and rx_bytes stays at 0.
-
-- If that word ever holds a stale non-zero value, rx_len is not checked
-  against lp->max_frm_size. Anything above the skb tailroom (up to
-  0xFFFF) reaches skb_put() and hits skb_over_panic().
-
-The DMA does report the real transfer count, via
-xilinx_dma_get_residue() into result->residue, but the callback ignores
-it.
-
-The comment above says CONFIGURATION_RX_MTU keeps frames within one
-buffer. However, the length passed to skb_put() never comes from the MAC.
-
-The last patch in the series ("net: xilinx: axienet: Add statistics
-support for XXV ethernet") does not change axienet_dma_rx_cb() either.
-Does XXV receive work on any of the documented DMA configurations?
-
-> +
-> +	lp->options |= XAE_OPTION_FCS_STRIP;
-> +	lp->options |= XAE_OPTION_FCS_INSERT;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-How are errored frames dropped on XXV? Per PG210, the XXV MAC reports
-bad-FCS, length-error and truncated frames only through rx_axis_tuser at
-end of packet. It still forwards those frames on the stream.
-
-AXI DMA S2MM does not record tuser. axienet_dma_rx_cb() also checks no
-per-frame error status before it calls __netif_rx().
-
-With XAE_OPTION_FCS_STRIP set here, the FCS is gone before software
-could check it. The oversized frames that ctl_rx_max_packet_len
-truncates, per the comment above, would also go up as valid packets.
-
-The 1G core drops errored frames in its own RX FIFO and raises
-XAE_INT_RXRJECT, so the shared datapath never needed this check.
-
-Does the FPGA design need a tuser-aware drop stage between the MAC and
-the DMA? If so, should that be documented or detected?
-
-[ ... ]
-
-> +static void axienet_xxv_get_regs(struct axienet_local *lp, u32 *data)
-> +{
-> +	bool has_gt_status = axienet_xxv_ip_has_gt_status(lp->xxv_ip_version);
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(axienet_xxv_reg_dump_offsets); i++) {
-> +		u32 off = axienet_xxv_reg_dump_offsets[i];
-> +
-> +		/* The GT registers only exist on the IP versions that report
-> +		 * reset-done. Leave their slots zero on the others so the
-> +		 * dump keeps a fixed layout.
-> +		 */
-> +		if (!has_gt_status && (off == XXV_GT_CTRL_OFFSET ||
-> +				       off == XXV_STAT_GT_OFFSET))
-> +			continue;
-> +
-> +		data[i] = axienet_ior(lp, off);
-
-[Severity: Low]
-Can an ethtool -d dump interfere with link reporting? This reads every
-STAT_* register, including XXV_STAT_RX_STATUS_OFFSET. PG210 describes
-that register's bit 0 as latched and cleared on read.
-axienet_xxv_pcs_get_state() uses the same bit for the link:
-
-	state->link = axienet_ior(lp, XXV_STAT_RX_STATUS_OFFSET) &
-		      XXV_STAT_RX_STATUS_MASK;
-
-lp->pcs.poll is true for internal_pcs. A dump taken between two phylink
-polls could therefore clear a latched link-down event, and phylink would
-never see the flap. STAT_RX_BLOCK_LOCK, STAT_TX_STATUS and the AN/LT/FEC
-status registers are read the same way.
-
-The skip logic is also uneven. GT_CTRL/STAT_GT are skipped on IP older
-than v3.2. But STAT_CORE_SPEED is read unconditionally, and the commit
-message says it exists only on 64-bit AXI4-Stream builds. The same goes
-for the build-optional RS-FEC/AN/LT/1588 registers.
-
-> +	}
-> +}
-
-[Severity: Low]
-Should the dump version tell the two layouts apart? The caller reports
-version 0 for every MAC type:
-
-drivers/net/ethernet/xilinx/xilinx_axienet_main.c:axienet_ethtools_get_regs() {
-    ...
-	len = sizeof(u32) * lp->axienet_config->regs_n;
-	regs->version = 0;
-	regs->len = len;
-    ...
-}
-
-After this patch, the driver produces both the 1G layout (AXIENET_REGS_N
-words with the DMA registers at fixed indices) and this 46-word PG210
-layout, both under version 0. That leaves userspace decoders no way to
-tell which format they have.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114182947.2908628-1-suraj.gupta2%40amd.com
+>
+> If the PHY has a MAC, it can additionally fill in the frame counters.
+>
+>        Andrew
