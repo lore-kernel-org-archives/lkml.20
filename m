@@ -1,88 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832021;
-	b=g/rpX0zd9sudGizVPnZ1Xnrr78fbiUAq+24sCeH+I0N4vkGX3k6Ui1DOs5J0JcF8hHix
-	 JtHE64cFJOmJwdqtLAttz5ZniNx9uI1J4AL6Qpca0qYduzCEdmnmq6dwnkbrwkrRNhM8r
-	 cJpEQ7Z1yNTH7R6MUxCZ+TlKPSSG4WpUMmK1mWN+rNaLxo3bxW14s+YIx5kbol3IVkPx0
-	 UR7fiNwel11H08MdKmD6LWzS5+iSy/1ZbDt5aoGUgo77bZQs/OnDn8nLfnfN+8eiOkX9n
-	 nnne7xx0c9b7AVuR+soY8b79yGZt9qaRBd7f5zml4CZps1SAs7WC2xBAMuQC+peZfnw==
+	t=1794832024;
+	b=Df+hlYcGyRoqxvnZUd8AZ85RypKG5h3fqKlyK93KJXVC7BdUzJ1sRH2c0bCl6YznDA8E
+	 HfGixSvSALsoJD1489KMqiKLieptSf0pjY9bCPB62qgOsekdMj2UfGPkf6DiLsY8zLNHV
+	 BVf2UO6OVfehm/SyJF6GCJ6s0Y/umoNVZ3Qp+omYpPkWXH7fT3b/Da8LgaLVN+aPIZd+T
+	 gRjZbcu3ESs877jllUjl+EuWZ2+/o1gqoRiKCkbFBX6+sVlNL7LV9rC2CdVyOjX9Retah
+	 DEic3QNJPYB89BzeyFNRAmpmYLxZguWOlxBkr5yoiGPlDTL/1FAjQtjaSpDlQHtqN1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832021;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LztVH/Br0K4gtRrkNgsVN8G2Ix17Zkmh6T5nMPGmD4I=;
-	b=rB+FAyl4/Jz15S+XncWWpAaScCwihnY20NQj1oQNy4Ynxwdc/GTV3ukmLdzeIPXkOV57
-	 CazfzZuJ6fa7FTDpsr/jTbKT7sN5sKFifJ41wEtl4O2X/NSfoOASMNL3kDtAy6+1kAdDC
-	 Qyb/7PBkrPSP0nmvg1ZCOcyHZynB8+gZnSwPh3FCFil47Emcy7SJdG2k+zFuexdFmTnGa
-	 EgQSrPwhHTxhrNQT9dfkZ9qcCNTIGUX6ZQST7ZEM/FkSdcem4RhiTcHm6pJ5fSXd5eoFZ
-	 8BcWUqilpyKhX7AEhNZgpY3LnSchkRjmQJwbftHCHSAtws+cextPrCt82CPcGusPFZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832024;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dnDC8kwE7249tTFrvzPYMbaxuX3Yw02/TxaNtz8codw=;
+	b=x+1TRWCWCnc6P0MLrS3J21qMjka/1JbfBCM9BD5kGQq4llIU2p/ZRPIMBn+cIv8GMajU
+	 T0RvWdbtnYb4LjIpSmL4VQYxMrBXV62YX0hL/2+W+1GUiT2NeG6SplbRemR51LirF/xCS
+	 EjCGYILC8MwGXorMJDmkxrm5Y4gGI4oDfHMYDwBhlFusRpgQgydJ2UKYZgANW7mOITACw
+	 eG/BvPuQkdAf5eXvFrpt/gWNa7vT2pgmKs6Oohgw0OcaffORwvOp/f2aOVh6crAVBDr4j
+	 n/N23qUTlAu9xMrWjPCXhejiYDNMglgaN+GZWN/PuE7jPd7tHz0anpEr6Imgi+KDMtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsH4mFLy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2997B606A31C;
-	Mon, 16 Nov 2026 12:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2997B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AB7606A330;
+	Mon, 16 Nov 2026 12:27:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794832020; x=1826368020;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cFOAVePZVgxrC8JkOnzlLlxAgWuxq2P3Pj4zDMgFhLs=;
-  b=X2TwkGhS/Q6d99fUCmP8WdNH+YSFnJuZ6JTGWQz+dqz6fw5WXhDIT9S5
-   KhQ1UJhQbJ8pvtVkwYwqSGu//YOphSKI7kXHuFbfIPgMXgdaAUYyUwvvL
-   gjPWSKT/oMbbTxNLBqX7j+OZHd6DvAVhalptld9k72d1q9uOEhJt6u+tn
-   eRauWhRbVd++HOIlLRAXivLAnmnH0jspJyXN/LO6Ui43nquKeVhlkGZ85
-   8FC+1c1iOQ1crF12pFvdw2G6ApaCDtaxF4lRwd68mHXIZisvLPNq1s2Dl
-   KF3mEcaX8CoaFdBhDt8CXMX8w07flMYzTxCne6eEdgYEYK/ssxki+l4YN
-   Q==;
-X-CSE-ConnectionGUID: NaABzIO2T+KZrfeQoi4fCg==
-X-CSE-MsgGUID: 3weAZLfjSQeBxj+XISluOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3444669"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3444669"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:59 -0800
-X-CSE-ConnectionGUID: PpbZemL8SG2DHsPDCH0gZQ==
-X-CSE-MsgGUID: j+5TbJsdQlSLfmB3YkmOPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9535089"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:57 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3BB55121B5D;
-	Mon, 16 Nov 2026 14:27:00 +0200 (EET)
-Date: Mon, 16 Nov 2026 14:27:00 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
-	"Paul J. Murphy" <paul.j.murphy@intel.com>,
-	Martina Krasteva <martinax.krasteva@intel.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/8] media: i2c: ov9282: fix strobe timing and control
- handling
-Message-ID: <avr2lDQxiFnv2Gq8@kekkonen.localdomain>
-References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsH4mFLy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6041F000C5;
+	Mon, 16 Nov 2026 12:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794832024;
+	bh=dnDC8kwE7249tTFrvzPYMbaxuX3Yw02/TxaNtz8codw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JsH4mFLyhjbwt935HUxFSnSGaThutUlYFl27mkdSbELFBjMksm+AGEioTf0gfmrIV
+	 YXmBIWgkpIB9TgVMDX3IAcAFB8vb2JJewrMXpQEiFybwtGnfCjmwgC9+NeUJpJQ12W
+	 haEGxO45ej2LQOaHaA5n2vbx0BgurCFs732yVjIaGw8BdHh/fdibB7nroBgDX4Zar5
+	 isek0VL+Uv1T1uSC1W/lqC3zarCjaLiTniIxwxkQ2JYLh5ESU57ipBmrlchdU5+xZy
+	 JDPFRpgcsBbD7VeOYGLhb9bak80v1Usu0xhkc4qCcfo9w/MkTAaIeGl2evIWYAgNrD
+	 2encfW80TtAzQ==
+Date: Mon, 16 Nov 2026 20:06:48 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v2 00/13] arm64: add Synaptics SL2610 SoCs and RDK boards
+Message-ID: <avrx2EhgZ10ED40P@xhacker>
+References: <20261115102401.3520-1-jszhang@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,44 +66,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+In-Reply-To: <20261115102401.3520-1-jszhang@kernel.org>
 
-Hi Richard,
-
-On Tue, Nov 10, 2026 at 02:10:09PM +0100, Richard Leitner wrote:
-> This series fixes a set of related issues in the OV9282 strobe timing
-> and control handling code.
+On Sun, Nov 15, 2026 at 06:23:39PM +0800, Jisheng Zhang wrote:
+> Add initial support for the Synaptics SL261X SoCs and corresponding
+> RDK boards.
 > 
-> The driver updated exposure- and flash duration-related control ranges
-> in several places, but some of those updates used an incorrect timebase
-> or were triggered too late, which could leave the controls clamped
-> against stale values.
+> The SL261X SoCs include five pin-to-pin compatible SoCs: SL2611, SL2613,
+> SL2615, SL2617, and SL2619.
 > 
-> The series:
-> - checks the return value of the exposure range update
-> - drops the redundant vblank field
-> - converts probe error messages to dev_err_probe()
-> - fixes the 8-bit pixel rate (192 MHz instead of 200 MHz) and the
->   corresponding line time calculation
-> - treats the strobe frame span as a line count and converts the flash
->   duration accordingly
-> - fixes the flash duration range (min/max/default) and refreshes it on
->   HBLANK changes, independent of the sensor power state
-> - refreshes the exposure and flash duration ranges on mode changes
-> - reprograms the strobe span when HBLANK changes
+> Only reset, pinctrl, clk/pll, uart, gpio, i2c, spi, i3c are included in
+> this series. The support for Ethernet, USB, SDHCI, CAN, DMAC, XSPI will
+> be submitted after this series is merged.
 > 
-> This series was tested with an ov9282 sensor on a vision components camera
-> module attached to an i.MX8MP mainboard in a defined (dark) environment
-> with a custom made LED flash pcb.
+> since v1:
+>  - rebase on latest rcN
+>  - drop some patches which have been merged
+>  - let the "gbl" node export pinctrl/reset/clk devices with
+>    MFD_CELL_NAME()
+>  - use <linux/platform_device.h> instead of <linux/mod_devicetable.h>
+>  - adopt some coding suggestions from Uwe
+>  - Use 0 and 1 to select normal and strong pull-up on 10-bit pads 
+
+Other SoCs doesn't use this defintion for pull up or strong pull up.
+After consulting our HW people, the strong pull up isn't used at
+all, so I will remove strong pull up support in newer version. We can
+add back its support when it's really needed in the future, nothing
+breaks.
+
+>  - collect Acked-by tag
 > 
-> Any feedback is warmly welcome.
-
-Can you fix the issues 0-day bot found? I think the patches seem fine
-otherwise.
-
--- 
-Regards,
-
-Sakari Ailus
+> Jisheng Zhang (13):
+>   arm64: kconfig: let ARCH_BERLIN cover Synaptics arm64 SoCs
+>   pinctrl: berlin: use u16 instead of u8 for the offset
+>   pinctrl: berlin: enable module build support
+>   pinctrl: berlin: add optional pinconf support
+>   dt-bindings: soc: synaptics: add SL2610 system controllers
+>   soc: synaptics: add SL2610 system controller support
+>   reset: add Synaptics SL2610 reset controller support
+>   pinctrl: berlin: add Synaptics SL2610 pin controller support
+>   clk: berlin: add Synaptics clock controller helpers
+>   clk: berlin: add Synaptics SL2610 clocks and PLLs
+>   dt-bindings: arm: berlin: add Synaptics SL2610 SoCs and RDK boards
+>   arm64: dts: synaptics: add SL2610 family SoCs
+>   arm64: dts: synaptics: add SL2610 family RDK boards
+> 
+>  .../bindings/arm/marvell,berlin.yaml          |  20 +
+>  .../soc/synaptics/syna,sl2610-soc-syscon.yaml | 178 ++++
+>  MAINTAINERS                                   |   8 +
+>  arch/arm64/Kconfig.platforms                  |   4 +-
+>  arch/arm64/boot/dts/synaptics/Makefile        |   5 +
+>  arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +
+>  arch/arm64/boot/dts/synaptics/sl2611.dtsi     | 457 +++++++++++
+>  arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +
+>  arch/arm64/boot/dts/synaptics/sl2613.dtsi     |  12 +
+>  arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +
+>  arch/arm64/boot/dts/synaptics/sl2615.dtsi     |  46 ++
+>  arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +
+>  arch/arm64/boot/dts/synaptics/sl2617.dtsi     |  46 ++
+>  arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +
+>  arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  44 +
+>  .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++
+>  drivers/clk/Kconfig                           |   1 +
+>  drivers/clk/berlin/Kconfig                    |  34 +
+>  drivers/clk/berlin/Makefile                   |   4 +
+>  drivers/clk/berlin/clk-sl2610.c               | 360 +++++++++
+>  drivers/clk/berlin/sl-clk.c                   | 279 +++++++
+>  drivers/clk/berlin/sl-clk.h                   |  31 +
+>  drivers/clk/berlin/sl-sysmgr-clk.c            | 241 ++++++
+>  drivers/clk/berlin/sl-sysmgr-clk.h            |  44 +
+>  drivers/clk/berlin/sl2610-pll.c               | 145 ++++
+>  drivers/clk/berlin/sl2610-pll.h               |  14 +
+>  drivers/pinctrl/berlin/Kconfig                |  16 +
+>  drivers/pinctrl/berlin/Makefile               |   1 +
+>  drivers/pinctrl/berlin/berlin.c               | 259 +++++-
+>  drivers/pinctrl/berlin/berlin.h               |  17 +-
+>  drivers/pinctrl/berlin/pinctrl-sl2610.c       | 759 ++++++++++++++++++
+>  drivers/reset/Kconfig                         |  13 +
+>  drivers/reset/Makefile                        |   1 +
+>  drivers/reset/reset-sl2610.c                  | 224 ++++++
+>  drivers/soc/Kconfig                           |   1 +
+>  drivers/soc/Makefile                          |   1 +
+>  drivers/soc/synaptics/Kconfig                 |  14 +
+>  drivers/soc/synaptics/Makefile                |   2 +
+>  drivers/soc/synaptics/sl2610-syscon.c         |  84 ++
+>  include/dt-bindings/clock/syna,sl2610.h       | 131 +++
+>  include/dt-bindings/reset/syna,sl2610-reset.h |  80 ++
+>  41 files changed, 3771 insertions(+), 20 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/soc/synaptics/syna,sl2610-soc-syscon.yaml
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611.dtsi
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613.dtsi
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615.dtsi
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617.dtsi
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619.dtsi
+>  create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
+>  create mode 100644 drivers/clk/berlin/Kconfig
+>  create mode 100644 drivers/clk/berlin/clk-sl2610.c
+>  create mode 100644 drivers/clk/berlin/sl-clk.c
+>  create mode 100644 drivers/clk/berlin/sl-clk.h
+>  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.c
+>  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.h
+>  create mode 100644 drivers/clk/berlin/sl2610-pll.c
+>  create mode 100644 drivers/clk/berlin/sl2610-pll.h
+>  create mode 100644 drivers/pinctrl/berlin/pinctrl-sl2610.c
+>  create mode 100644 drivers/reset/reset-sl2610.c
+>  create mode 100644 drivers/soc/synaptics/Kconfig
+>  create mode 100644 drivers/soc/synaptics/Makefile
+>  create mode 100644 drivers/soc/synaptics/sl2610-syscon.c
+>  create mode 100644 include/dt-bindings/clock/syna,sl2610.h
+>  create mode 100644 include/dt-bindings/reset/syna,sl2610-reset.h
+> 
+> -- 
+> 2.55.0
+> 
+> 
