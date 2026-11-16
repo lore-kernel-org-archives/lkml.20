@@ -1,49 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822152;
-	b=xaC4sJY+O1sVr1kC/URzo32WomWe10VvZ5XJtlEDjuZnleUDJilw11PC3CyX9D4edXZ0
-	 KEpRfeopD2RwooF51me7Vl4CLNb9YfAsWJ2VV95cfhEbxv0hIR+fhcJvg+yChxM6uQOgS
-	 HpsBiIKnnnFVrY23VgmnJ6ci5HK5XrLXD+tp7NjpECnrZiSYPxPlu1GyM+/DsVW1vqxg5
-	 36DjppC4UIXIvhoAI8jOHdRp+53cK7kucJbAqiv0q5YPNs/LDLBNCnaUn4R+iUGuunfl6
-	 JnSQlyEpLVDJDU19jcI+OT+fY+kdj+TFyS0I3S30tf0WDw/NJMSC0BhTGiLgIPvANXA==
+	t=1794822159;
+	b=G9zzJYvM/+jw89HHFTNq2QaFe1IHLiKOJXlVMKpFuuHrXgUy3D2MsuZyHHFiZcENLF3I
+	 TnttXgQjtV2L/eK81p7nr2hgZ9InugE1e9VCp/h3YnCSd/B5wa5TvJkltzgZvhozbzCm8
+	 HFhFZRR3spgxvptvASltLlbFeWt6Xc3WUM/P/FzrN3LxzI0Ng6qn7JG9/gsX/c/m/Zuhe
+	 0TTC0h4XV7I4BZUDDo6oq3d7bABAzrj/UOC68PJFS19e0pY9e0TwY4JvE0/S5CqrJATvY
+	 wK1qoWMZHzOqXBu/pCniB4w/z+/92jDSqDrVVWQcDiUo+z3GW6S/7kT37XtJoXJTbPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822152;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=An7UuIxp03IASJQVhCkrJ11j5LJvQXg6N+oWMG7q8QQ=;
-	b=F60g6BydugNe5jL8lJk7h/JZwt56ZE+Oaj8HQNkkn6WfeMEeLVF6H0275x1URgomGWJu
-	 aozA6lxtytiAA5qJQDSx8gBOWnzw1WUo49Y1sIXJS99/UplwwETi/7jKI4Oq5RkBSGnsR
-	 hPE+ytxEXTxLnie3ckvQJ2ho5XHcckQkgTX7oPObAx2XTEeKjfkXvU70BNv7Uj4uRjLk/
-	 abZCYEEXiQ8m9pOI8JiLfdWsL7IiPAl78CZiovpDMAvGdNFjl/SpF60ss4CuOavVrSAjg
-	 LLfJRfrkGk2nxv0lLunNTHIgsbhRKEKOzVk19iBfZcZt6j67lHfwFO0jAwsInMu96GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822159;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=2jMiNtLEwivAxWblU1/xPh4v0Zlz45fkFKl4d1hiyhw=;
+	b=xpivw5l0vht2g7urcZEL7U1Qxm7QK/TUpEd9O0omWlZ6NhBPtIMX6VZLGhhPOhvh7fGK
+	 gqUpehg28WiL+3kBQVLSIukJTiNiCwZDyhiErkQecSQrdE9ShHeP3m2zWaMUwk3OnvK6o
+	 Q4I8s8HCX0NJPJzQUjkVOjLpu+gHP/7cc3U8UAZOhbffI9lV3PLZxTEFBdib27zI6rZ/8
+	 MCI0Sbag4pN10oxCt0iVNOGlwpodYMnmf4/F3TWvcRRTBFmjr8Xuf9QPWAz34gJCTPweF
+	 15Wf/4rpoYlS7B9RyQrvO1a5wwl+hww5PwWmc4xZTXQhaaFDTril7f4WD44BVEE0WCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ultrarisc.com;
-	spf=pass smtp.mailfrom=ultrarisc.com;
-	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=f9ipurVX;
-	arc=none smtp.remote-ip=218.76.62.146
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C40C5606A31C;
-	Mon, 16 Nov 2026 09:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C40C5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BeOdCh5w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60184606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:42:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=f9ipurVX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
-	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	To:Cc; bh=An7UuIxp03IASJQVhCkrJ11j5LJvQXg6N+oWMG7q8QQ=; b=f9ipur
-	VX/UghcfN/mb558IYBHJS+c63qswbFranYLmCjgbj/iokuRDa0D2fMmMXEZueWi8
-	4eBZKfLOqSYxXm8kMIeCMGHRmkhN+xGSgrLDdOQiMs/VbJBY5KpGBlRni+TMjA33
-	K+NLZ9kXCoIvYrziIQsGg88KXVcP/SPVFS4sg=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwbGz_pqSvUDAA--.1734S2;
-	Mon, 16 Nov 2026 17:41:26 +0800 (CST)
-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Date: Mon, 16 Nov 2026 17:41:31 +0800
-Subject: [PATCH] MAINTAINERS: Update UltraRISC driver maintainers
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BeOdCh5w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3051F000C7;
+	Mon, 16 Nov 2026 09:42:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794822159;
+	bh=2jMiNtLEwivAxWblU1/xPh4v0Zlz45fkFKl4d1hiyhw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BeOdCh5wi/T+U1UT1RyK41HnGEiY547WWZs1wrDmMnMFs+lkszYw6NpE49bhMvi8k
+	 8AjDHbH5khCcDsrPZMZhEOTS5F1N0e5QGolzfToIA3+VE3RDil+Bge3+ckcPOsgNUI
+	 Z68h5ifBornjk96u9jzuNY/OcYHwv0S9FBAgd//q2pTfy+yVV2tg/JPb240dyERzAz
+	 5U40FSBPQKC+JOJuyu+y0xwiw4awyQD2xSIpU9UlMvxFeNBm5rGt+hZsMT7dThqpS1
+	 JUrHxa6BifZb9MFQCT4QonEh1AV5PPKrMsf989RUg8AUJrKeGkbxsk5Vha+/5Y0TlB
+	 EYQ1H+EBD7ycg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xStES-0000000GLIy-46Om;
+	Mon, 16 Nov 2026 09:42:37 +0000
+Date: Mon, 16 Nov 2026 09:42:36 +0000
+Message-ID: <86jymd159v.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <tglx@kernel.org>,
+	<radu@rendec.net>,
+	<jason@lakedaemon.net>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] irqchip/gic-v3-its: Size the collection table for all possible CPUs
+In-Reply-To: <20261116022330.273840-1-ruanjinjie@huawei.com>
+References: <20261116022330.273840-1-ruanjinjie@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,141 +70,152 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ultrarisc-maintainer-v1-1-f58706ae438c@ultrarisc.com>
-X-B4-Tracking: v=1; b=H4sIAMrP+moC/yXMQQqDMBCF4avIrBtwIkr1KqWLGEc7oqnMRCmId
- 2/UxVt8i/fvoCRMCk22g9DGyt+QgI8M/MeFgQx3yWBzWyFibtYpihNWb2bHIaaRmLoqu2dZo3V
- FC+m6CPX8u7Kv921d25F8PFtwHH+phzXFeAAAAA==
-X-Change-ID: 20261110-ultrarisc-maintainer-965d85912a3b
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Linus Walleij <linusw@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
- linux-clk@vger.kernel.org, netdev@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Fei Chen <chenfei@ultrarisc.com>, 
- Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Xincheng Ji <jixincheng@ultrarisc.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794822092; l=3017;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=ISg1g4ONyICVsyMrVHbkY7NCHgvfTE297DDq/TSYiOU=;
- b=nczyInXsPH5sXfo1MLZNPno9PuLSKd3gFkJQMiE/xCgmrwPeQuSEY8uiC49TYcn3m9dHbb7IP
- QWW6JkKynTlAaOBT2GxoeMmkYPYBFn/kkvxpTc/A8PIQFWZtE/f5n+S
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-CM-TRANSID:AQAAfwDnrwbGz_pqSvUDAA--.1734S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFy8ZFWDKrW5JFWxuw1rZwb_yoW5Cw1fpr
-	45CF15Cr97Jr13Wan7Ka4fZas5X3W0krWUCasrKw1jyF1Fkw18Jrs5Kw15u3Wq9F48AFZI
-	yw13urnrta109a7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRM6wCDUUUU
-X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAKDmr2s7AAAQALsQ
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ruanjinjie@huawei.com, tglx@kernel.org, radu@rendec.net, jason@lakedaemon.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Jia Wang and Xincheng Zhang have left UltraRISC and are no longer
-maintaining its drivers. Jia's listed company email address is
-no longer available.
+On Mon, 16 Nov 2026 02:23:30 +0000,
+Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+> 
+> The ITS collection table is sized from the hardware default described by
+> GITS_BASER: a single ITS page holding entry-size objects.  With the usual
+> 16-byte collection entry and a 4K ITS page that is 256 collections.
+> 
+> its_cpu_init_collections() installs one collection per CPU using MAPC with
+> the CPU number as the collection ID, so on a system with more than 256
+> possible CPUs the MAPC commands for the remaining CPUs fail with
+> E_ITS_MAPC_COLLECTION_OOR (0x010903) and their redistributors end up
+> without a valid collection.  LPIs targeted at those CPUs, which is where
+> managed MSI/MSI-X affinity places a large part of the device interrupts,
+> are then dropped by the hardware: the DMA completes but the completion
+> interrupt never arrives, so drivers fall back to polling and time out.
+> 
+> On a 384-CPU HiSilicon HIP12 system running v7.4-rc2 every ITS reported
+> 
+>   ITS@0x488000000: allocated 256 Interrupt Collections (flat, esz 16, psz 4K, shr 1)
+> 
+> and all four NVMe controllers logged repeated
+> 
+>   nvme nvme0: I/O tag 256 (1100) QID 182 timeout, completion polled
+> 
+> while the hinic driver failed to probe with -EIO.  With the table sized
+> for num_possible_cpus() it holds 512 entries and both symptoms are gone.
 
-Replace Jia Wang with Xincheng Ji and add Fei Chen as a co-maintainer
-for the DP1000 PCIe, clock, DWMAC and pinctrl drivers. Remove
-Xincheng Zhang from the PCIe maintainer entry.
+Please drop all these examples, as they serve absolutely no purpose.
+Everybody understands that losing interrupts is deadly. The whole
+thing is also filled with implementation details that are not really
+relevant, and can be described in a more general way.
 
-Having two maintainers provides continuity for maintenance and
-patch review when either maintainer is unavailable, as suggested
-by Conor Dooley during the UltraRISC maintenance handover.
+>
+> Handle GITS_BASER_TYPE_COLLECTION in its_alloc_tables() the same way as
+> the device and VCPU tables, requesting order_base_2(num_possible_cpus())
+> IDs.
 
-Link: https://lore.kernel.org/all/20261112-legend-outcast-c2226b5e02a1@spud/
+Just say something like:
 
-Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
----
-Hi all,
+"The collection table is currently sized at a single ITS page size,
+ and the driver's allocation policy is to allocate a single collection
+ per CPU. On systems with more CPUs that the ITS can fit in a single
+ page, no LPI can be routed to the CPUs that don't have an allocated
+ collection, and the system grinds to a halt.
 
-Jia Wang and Xincheng Zhang have left UltraRISC and no longer
-maintain these drivers. Jia's listed company email address is
-no longer available.
+ Change the allocation policy to allow two-level tables, similarly to
+ the other tables."
 
-Fei Chen and I will share maintenance and patch review for the
-UltraRISC DP1000 PCIe, clock, DWMAC and pinctrl drivers. Having two
-maintainers provides continuity when either of us is unavailable,
-as suggested by Conor Dooley during the maintenance handover.
+> 
+> Fixes: 1ac19ca6bf97 ("irqchip: GICv3: ITS: tables allocators")
+> Cc: stable@vger.kernel.org
 
-Thanks,
-Xincheng
----
- MAINTAINERS | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+This is not a fix. This is new feature support for implementation that
+are both very wide and have a stupidly small ITS page size. These
+systems have *never* worked, and therefore there is nothing to fix.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ccbcdc0799b9..994c3555c423 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21869,8 +21869,8 @@ F:	Documentation/devicetree/bindings/pci/starfive,jh7110-pcie.yaml
- F:	drivers/pci/controller/plda/pcie-starfive.c
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  drivers/irqchip/irq-gic-v3-its.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index c952c069f937..319b6edefd37 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -2716,6 +2716,21 @@ static int its_alloc_tables(struct its_node *its)
+>  			indirect = its_parse_indirect_baser(its, baser, &order,
+>  							    ITS_MAX_VPEID_BITS);
+>  			break;
+> +
+> +		case GITS_BASER_TYPE_COLLECTION:
+> +			/*
+> +			 * Size the collection table for every possible CPU.
+> +			 * One collection per CPU is installed via MAPC with
+> +			 * col_id == cpu, so a table sized only for the
+> +			 * hardware default page (e.g. 256 entries with
+> +			 * esz 16 / psz 4K) is too small on systems with more
+> +			 * CPUs than that: MAPC for the remaining CPUs fails
+> +			 * with E_ITS_MAPC_COLLECTION_OOR and LPIs targeted at
+> +			 * those CPUs are never delivered.
+> +			 */
+
+This comment serves no purpose, and the code says everything that
+needs to be known.
+
+> +			indirect = its_parse_indirect_baser(its, baser, &order,
+> +							    order_base_2(num_possible_cpus()));
+> +			break;
+>  		}
+>  
+>  		err = its_setup_baser(its, baser, cache, shr, order, indirect);
+
+Finally, it really looks like we could do better, since *all* table
+types are now able to use two-level structures. I'd like to see
+something like the below (untested).
+
+	M.
+
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index 282e4bafb084f..a058cb8373ef1 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -2682,7 +2682,7 @@ static int its_alloc_tables(struct its_node *its)
+ 		u64 val = its_read_baser(its, baser);
+ 		u64 type = GITS_BASER_TYPE(val);
+ 		bool indirect = false;
+-		u32 order;
++		u32 order, nr_ids;
  
- PCIE DRIVER FOR ULTRARISC DP1000
--M:	Xincheng Zhang <zhangxincheng@ultrarisc.com>
--M:	Jia Wang <wangjia@ultrarisc.com>
-+M:	Xincheng Ji <jixincheng@ultrarisc.com>
-+M:	Fei Chen <chenfei@ultrarisc.com>
- L:	linux-pci@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
-@@ -28749,7 +28749,8 @@ F:	drivers/usb/common/ulpi.c
- F:	include/linux/ulpi/
+ 		if (type == GITS_BASER_TYPE_NONE)
+ 			continue;
+@@ -2696,8 +2696,11 @@ static int its_alloc_tables(struct its_node *its)
  
- ULTRARISC DP1000 CLOCK DRIVER
--M:	Jia Wang <wangjia@ultrarisc.com>
-+M:	Xincheng Ji <jixincheng@ultrarisc.com>
-+M:	Fei Chen <chenfei@ultrarisc.com>
- L:	linux-clk@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
-@@ -28757,13 +28758,15 @@ F:	drivers/clk/ultrarisc/*
- F:	include/dt-bindings/clock/ultrarisc,dp1000-clk.h
+ 		switch (type) {
+ 		case GITS_BASER_TYPE_DEVICE:
+-			indirect = its_parse_indirect_baser(its, baser, &order,
+-							    device_ids(its));
++			nr_ids = device_ids(its);
++			break;
++
++		case GITS_BASER_TYPE_COLLECTION:
++			nr_ids = order_base_2(num_possible_cpus());
+ 			break;
  
- ULTRARISC DP1000 DWMAC GLUE LAYER
--M:	Jia Wang <wangjia@ultrarisc.com>
-+M:	Xincheng Ji <jixincheng@ultrarisc.com>
-+M:	Fei Chen <chenfei@ultrarisc.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml
- F:	drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
+ 		case GITS_BASER_TYPE_VCPU:
+@@ -2713,11 +2716,11 @@ static int its_alloc_tables(struct its_node *its)
+ 				}
+ 			}
  
- ULTRARISC DP1000 PINCTRL DRIVER
--M:	Jia Wang <wangjia@ultrarisc.com>
-+M:	Xincheng Ji <jixincheng@ultrarisc.com>
-+M:	Fei Chen <chenfei@ultrarisc.com>
- L:	linux-gpio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
+-			indirect = its_parse_indirect_baser(its, baser, &order,
+-							    ITS_MAX_VPEID_BITS);
++			nr_ids = ITS_MAX_VPEID_BITS;
+ 			break;
+ 		}
+ 
++		indirect = its_parse_indirect_baser(its, baser, &order, nr_ids);
+ 		err = its_setup_baser(its, baser, cache, shr, order, indirect);
+ 		if (err < 0) {
+ 			its_free_tables(its);
 
----
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20261110-ultrarisc-maintainer-965d85912a3b
-
-Best regards,
---  
-Xincheng Ji <jixincheng@ultrarisc.com>
-
+-- 
+Without deviation from the norm, progress is not possible.
