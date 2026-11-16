@@ -1,72 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.68.154.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794847762;
-	b=xeCrEW1ZbtkOi2enh1/gUoBRWG7OIZL4obZSo18fLqcCYRIxhMRjrMN+/dt3XCPGxUY3
-	 YViDUm1lFuEJ+HcIGwh0b7Ae3Y9/1tIMYvCroiUTbquUI1wA/C6KbQsxe4r+LPpwRv/sS
-	 0iRFLh2KmLBcm3DmPhp+OLIunQ897OXdEmoQf5g58Wi+NtxOmwPtgWcFJ3EkhPQBXePnJ
-	 YknWte4nQ0A4oPb3+fehBB/xW4uooOhnSvx1R3InrCJ5Ux3pNCUmdydU/Q/vXwHCayxMX
-	 8M+g9a/i2Oe5RBaRvqxba1f2w6m3kmr0aVZLbGiV24piozCJBifHY1oSKTq6pXdqrUg==
+	t=1794847799;
+	b=zIkWLxL3fQfEAC8qamRBSReRKAKvu8CUrofY6LN57YoAK/MrGd4cy/lG/8Z61PS+Er6B
+	 6CgW8dFKHPrwdYkwQOgaeP5Np/DDPhs8NSwGTh7lf/W6xLmB/Tm5kDHah9qC7CKo9dWeJ
+	 MzsnirYNlzRU9J8ALSWwCJOGtaVehNt+ruUmlBtIq+oGufuNcYKavBxrP+yyy9+NlHVSP
+	 iNoAzzBQAT3RjiF/UttQXOeAtqbTDKDQuVJIueAF9+7sbc8Kbv4zQtzS9nkk7SdZReBgR
+	 zCZeq8JfD0kegUiwplRbD6GTuAU0vI4FqhblC2uR2BKJnM889EION73JiV3XDOA/1UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847762;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847799;
+	h=DMARC-Filter:DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:
+	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=vfyJOsUskHlLJmN+D44oLPMzWH54O2TfU7FlES5/KAc=;
-	b=p7z3On4cxTZ/EJTnsAKMKB9TgXQx6i/U7XUzqEs0qoiVVAtjwR6fqQ43fDT7W9m10Lya
-	 x1CX6D1htBZRSoXNBs2Wo5HV7laaZsczesA6SCCslF0A13z+LnOpM4cF+p8+0id3xuUwL
-	 kkdAK+77KyA+l1EoYowbobzlhLoUihld1G4r94t9WBvFP+KxMCxoT0Z2M3MMlkyJee00y
-	 IXowaMS9Mp6335Sy8DxZrT3PDCGAriQe2p2UKsQXTGIyzyikVCUDWeDy6xabLRDj04Z11
-	 M1uspfDO01F8ymA6mfhym9xLkKQP6dErj24uS2g/3CX5KwHJ8zioXFoa3aIIOqY263Q==
+	bh=Z3Zzcxxpelx4gEL/kT3/ZLWHYXMTo8mzCTcRc+QcWaI=;
+	b=4f2TWGu74jGia4kI7e0LBfYD7GysmGcGBrU3erpfozoGnr/1TZxp4ZQGnOOb0hwdLplK
+	 h8iN240x24JUkHU61UGGblaG8pZ6HElDrm0aZlDbv155E3AjSmmpdYCFnyiAu6w9ENHfp
+	 YB0cyocVqtzKaH3hHZ7KxrcqSPksxEp0GiMrcvGTkOUydbJ4Dk8kJa1XQ14o3vl2eJnM3
+	 x/Ua+5cp9CM3qBsnSLaADV0uYgFpCcAKK2KizmYSt+N676a3g+kwmHTe8G3deblJQZfdl
+	 Jly3A3MXVfIrD29zx09N3IVG5Dd388DPQdaZ6sYEOdGYKpFXn3k1fom2NeONp3kw5PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelriot.com;
-	spf=pass smtp.mailfrom=kernelriot.com;
-	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=niEZmZ8C;
-	arc=none smtp.remote-ip=74.208.142.49
-Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
+	dmarc=pass header.from=fromdisposition.org;
+	spf=pass smtp.mailfrom=fromdisposition.org;
+	dkim=pass header.d=fromdisposition.org header.i=@fromdisposition.org header.a=rsa-sha256 header.s=mail header.b=bhWL4nsU;
+	arc=none smtp.remote-ip=51.68.154.128
+Received: from 4do.net (4do.net [51.68.154.128])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0378606A322;
-	Mon, 16 Nov 2026 16:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0378606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kernelriot.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA08606A31C;
+	Mon, 16 Nov 2026 16:49:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AA08606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fromdisposition.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=niEZmZ8C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
-	s=kr2026; t=1794847760;
-	bh=Mg+KnOr2PFN0W5qEG2JQtutKLFPy/XXNDzadik7RWfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:From;
-	b=niEZmZ8Ca5/vAfQ5KRtxF/P+bkvPeRTeQn5UTp3DSmBcefuKctoSECS1Ut9jo5HU5
-	 2OYtEUInAqTff99qAA4wiWLO4SGL5g1y5Hhc9vZDXU6ARDDnrn19WzRpPopHgCfuEF
-	 TQoa50oYjzc7sCvBe1coRxpd7xHg5mvA/xvU/RacKj598V/8WU+hqDJqekIGIsBEak
-	 7WTLcj9zcmKeKkn/yGf+V11Q6cwIfQbsTP3PfE1zQyqYxAc+hAfmdmmELj1QFOOuOn
-	 kRIP5HRmi1/9YTQ5b/k8RI5Y0apg2WGFVYqx+78pRqbgjnatfbwLOUaFyXLf7IZzr2
-	 KlOooQGbuNJeQ==
-Received: by mail.kernelriot.com (Postfix, from userid 995)
-	id DE1DE819D7; Mon, 16 Nov 2026 16:49:20 +0000 (UTC)
-From: Magnus Leatti <magnusleatti@kernelriot.com>
-To: me@ziyao.cc,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Nespolino <g.nespolino@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] net: stmmac: dwmac-motorcomm: support Wake-on-LAN from S5
-Date: Mon, 16 Nov 2026 13:48:47 -0300
-Message-ID: <20261116164847.3432765-1-magnusleatti@kernelriot.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <avsebFtnIASV-KpV@pie>
-References: <20261116091757.1656602-1-magnusleatti@kernelriot.com> <20261116091757.1656602-3-magnusleatti@kernelriot.com> <avscVrGbi7mFicuz@pie> <avsebFtnIASV-KpV@pie>
+	dkim=pass (2048-bit key, unprotected) header.d=fromdisposition.org header.i=@fromdisposition.org header.a=rsa-sha256 header.s=mail header.b=bhWL4nsU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fromdisposition.org;
+	s=mail; t=1794847796;
+	bh=Z3Zzcxxpelx4gEL/kT3/ZLWHYXMTo8mzCTcRc+QcWaI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=bhWL4nsUV1SCCKT9MhEA+cUPtbzrmzj2Fxa2fgEy49BJUFchTQ3kFm/syglXnhaRP
+	 gbNoKWRkoC6rMHPethxI0ohjh7eKQUSRkgXd9eHGxb27CO59rkKiBE32z7R+l8SWtO
+	 +MoLNPSNR+hBas8X9reAuW8blpMbM0bfBgipUzHOAXaYcou8kZW1PWVPLmXSe9rH68
+	 Dm9/fFC+5XVm1c16GvA7154m7kR/wqHyqza9SkH7E++4OlieCAjOf1edXRXcYSOETz
+	 9EDN56okjTLO0v46bNgbkHgkfUhnlI+Tm8+aoQhqdZ7t0OITrjHvPNWGqvhtWr/fAB
+	 l0LoBwt1tSkeg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,65 +52,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 16 Nov 2026 16:49:55 +0000
+From: Demeter Barna <me@fromdisposition.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Michael McAllister <me@michaelmcallister.org>, Srinivas Kandagatla
+ <srini@kernel.org>, Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
+ perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ASoC: qcom: q6asm: Correct the 24-bit PCM format
+In-Reply-To: <b9143689-e390-463d-b486-ffd468be0805@oss.qualcomm.com>
+References: <179355993304.51321.11135059681945648585.q6asm-capture-format-v1@michaelmcallister.org>
+ <f3485a790ffdafe635b84b5d68730dad@fromdisposition.org>
+ <179416102230.53258.7301268454500974217.q6asm-pcm-format-v2@michaelmcallister.org>
+ <16b8f649-f464-43a3-b372-868351df9117@oss.qualcomm.com>
+ <8832ef4d735b3fcdf48a2bf2a9997975@fromdisposition.org>
+ <b9143689-e390-463d-b486-ffd468be0805@oss.qualcomm.com>
+Message-ID: <b6287bf200500db6b8f358b22bfe99e7@fromdisposition.org>
+X-Sender: me@fromdisposition.org
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Yao,
+On 2026-11-16 15:02, Srinivas Kandagatla wrote:
+> If its easy, Could you try:
 
-On Mon, Nov 16, 2026 at 03:17:00PM +0000, Yao Zi wrote:
-> > Does the chip automatically enables WoL and loads MAC from eFuse on
-> > power-on?
-
-Yes. I pulled the power cable, kept the driver from loading and dumped
-the registers before anything touched the chip: OOB WoL enabled, eFuse
-address in filter 0, PMT armed for magic packet, receiver on. The
-packet wake bit in WOL_CTRL is clear.
-
-> Aside from a clean power-on, its behavior on reset also matters.
-
-Same state, about 2 s after SYS_RESET. Probe disables OOB WoL before
-that, so a cold and a warm boot look the same to the driver. But the
-chip arms with the eFuse address, not the one in use. The vendor
-driver writes the address again after enabling OOB WoL, for the same
-reason.
-
-> we might probably call stmmac_dvr_remove() in .shutdown() to detach
-> the NIC from kernel's infrastructure, then reset it with SYS_RESET to
-> get a functional WoL state in S5.
-
-YES! Bingo, and I built AND tested now :) .shutdown calls
-stmmac_dvr_remove(), then with "wol g":
-
-  reset only                          no wake, 1 of 1
-  reset, wait, address                no wake, 1 of 1
-  reset, wait, packet wake            wake on the eFuse address, 1 of 1
-  reset, wait, address, packet wake   wake on the address in use, 3 of 3
-  "wol d", remove only                no wake, 1 of 1
-  reboot, remove only                 link back, 1 of 1
-
-"wait" polls PMT until the chip has armed itself, 2.6 to 2.7 s, 7 of 7.
-"packet wake" is the bit in WOL_CTRL, the reset clears it. PME was
-enabled in every row but the first. It also wakes without PME and in
-D3hot, 1 of 1 each. No warning in any shutdown log.
-
-So v2 would be, glue only:
-
- - every shutdown: stmmac_dvr_remove()
- - power-off with WoL set: motorcomm_reset(), poll PMT, write the
-   address in use, set the packet wake bit, pci_wake_from_d3(), D3hot
-
-Two questions:
-
- 1) The glue writes MAC_ADDR0 directly after the remove, two writel().
-    Is it reasonable?
- 2) Power-off takes about 2.7 s longer with WoL set. I can't write the
-    address earlier: in a test that left the registers returning
-    garbage until the driver was bound again.
-
-Maxime, this needs no helper in the core, please ignore my question.
-
-So my plan for this week: I'll write a v2 that addresses everything
-you've mentioned (once again, thanks) and send it your way. If
-something else comes up there will be a v3, and a v4, until WoL works
-on every YT6801, NUC, laptop or add-in card. Deal?
-
-Magnus
+Tried it: mode 0 behaves the same as mode 23 and as without the patch.
+S24_LE playback is still 48 dB below S16_LE (the same samples shifted
+into bits 31:8 play at the S16_LE level), and S24_LE capture still
+comes back in bits 31:8. So the mode doesn't seem to matter on this DSP.
