@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849880;
-	b=mCN4KY/BqAeQHeG9DyENsHd/QgHbnuiMeNTxB+TyqqmYGHtptJTQAwX2Uy6DJLyB1N+x
-	 ym9iuTgOb5j+gnvHilYqie3UZwz49cKmKpTY0OPDaexxSsVtbgOqYSZAaFI4BvVjprfaK
-	 8P9zSPVt/k5tjl6PIzSveXIgcQM/sCKuMKj3oV2VR+iurJZY6bEPiPER8/QeuXs4BXAVO
-	 FVI96ua8JE+BvQMWky9by3YRGqxDONcTlYNu1l6Q0qWuia3ZhqRRIpfVr1XILmr2Y1O05
-	 AHBhqzNbmlpz45wlGs32Ln7+5R1phCdxd7Pm7KthHpmKsnXSCBO/j3Z0829azlUFPNg==
+	t=1794849888;
+	b=dOwoXD5ZADS7jGMQr/qPJunAMBLUaycBCo72nEZLqV3hBiv8mNylXMKZrdAa022CNXon
+	 dt0KmyAdaXJHY4S+tUe0ZqMuFxt/8GM+54nR57gKuvoo/QVWF+Ode4tA9XN0Jz5O8L7EL
+	 yBGzzrgOfXhZsFWbND4/wahNBKu1UAjyZfzjak6HGD15kBVqg+7BiVXwR0GjT5SemMbQP
+	 F+2gl6urr15gOV29LU6pp0KXA5C6WQhfrUzs3LFY3VS+GaGrFUP95hVwrtYQpEJFtDtW4
+	 RbYUssyyzdR8OHKesRCLXbZUKjsq6wvjNAbBCNob/mxwrFWbrhneADzxskVIKDbgTsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849880;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wKQl+YigGDBDremvuG6tzQKQ4x5z4Gx5JaxzCuaqXF4=;
-	b=p8xbyAPs+o/S7x8eHiClmlcecMp0tAFnqSmmFMaRa0DQIH5J/7fgrqwigLDUvN7RXhW+
-	 g/MYGvZKy6BS7WI+sMEh+/cN4fFd+bLJxf6FCHZdd2lmicQhulksCXDhym/bbT8wPV5Jy
-	 XlmcHnhaCf1sK+wgRphOeAYCIJCtjaiK3xLdb6Ew/m91XCSFLyB66nYjnT2qt7kF2fv1f
-	 XvlDWehm4/aaaE0AREOhPZPGejxmjkxWcEG8B0BbgmC9iLnsLT3Zo4vSdYe8ohyagHyx9
-	 5U0JKGnhg+JhEWKF+GbVdNW2JRPAigfBSfCo0/gZkM3LX64y1do8ovFXR3wnPcxHfdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849888;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=UkGGtC4MrT++RRjl6LlCaknnygwt1Don0oHcvwreUSY=;
+	b=wxdSqWv6jo8LiSlASh9nFEwUBpDMOQshL6t3UXYkSI6eJ74+bTCvB83GzjMrr0Es9gfo
+	 5IhRj9tsR142kWmibPOK6I89oiwtYILh49DSVL7/MEhh2Z7qCFe49/9/nXEJoHtpvDAAp
+	 68zeyTuedXUnS8w6Tz9b7x2h6ZiG3YrlG4k8ruLgNtqGeIvvi42vW0vqiFrCKDNAQSiAm
+	 rrdPwaFeMXdWZPfKvIhGMNznNPJMKoU1Aj6jDWcgCcaGfDfpS0Tk+BVq83L7Px/66MBdL
+	 p6/eEs5BYAB0XNwHt2d/u7pq+SYEjZuLgF3zxWIW5Ri7SxWMenRE0LeiRJB6AOMVfXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MXXMR/5e";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88441606A31C;
-	Mon, 16 Nov 2026 17:24:40 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="hishp/Px";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7456D606A31C;
+	Mon, 16 Nov 2026 17:24:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7456D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXXMR/5e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FC41F000CA;
-	Mon, 16 Nov 2026 17:24:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794849880;
-	bh=wKQl+YigGDBDremvuG6tzQKQ4x5z4Gx5JaxzCuaqXF4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MXXMR/5eSUhzFqIsmILdpZpp67LQl+0b3nk7gWOHu7vKzhWScTZ1iJwnHN2akub6a
-	 JvghUsEihIJCO9vx0uaDUH/Pnpn42tuxYA0IMFkMBt0ZpiW3oO8xIGDlMCJ0W0TjsR
-	 sL6saXhL3qp26TEUMSWYwxzc06nyXP1UH8rI6NVNsqQoVP20hbMdvODPboqGQcwKqH
-	 7WtG8n+h5zhQHrxdVPJw7sPjDhmjOu5t/65r0DvhFyyWv8OmtRIaEhuD+SMY3tvvMn
-	 7DWGfcixyEJeUAsTH9ugO0lG3sg9Uy4pPigO33kMRKhFsSJxbgq+z6qLqXk43J1fJQ
-	 1SQJEKXSuQJpA==
-Date: Mon, 16 Nov 2026 18:24:36 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>
-Cc: shao.mingyin@zte.com.cn, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] ata: libata-scsi: reject reserved bits in 32-byte
- passthru
-Message-ID: <avs8VMjIphKkvc9S@ryzen>
-References: <20261114014801031Y999WJfhmUrM7FRlZ-2Qf@zte.com.cn>
- <40839783-b23d-41df-8c71-19fdcca00323@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hishp/Px
+Received: from [100.64.208.118] (unknown [52.148.138.235])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8F9EE20B7169;
+	Mon, 16 Nov 2026 09:24:41 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8F9EE20B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794849882;
+	bh=UkGGtC4MrT++RRjl6LlCaknnygwt1Don0oHcvwreUSY=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=hishp/PxqZKawN7+bLX36R+bUBwplR/xTWnv4ogc8XDWBEMg25urlixBfdJU2Yn2/
+	 7Xp+E9/2U3yEPYzTmE7wbmT08K4N4dPsqk6BKVowGF26G9zlxrAKJtY1/Oj1FntGtc
+	 gKBTvdtXb6464pQbrINjkZ4o4RjgT/kFA4ecQGX4=
+Message-ID: <c0638e6a-678f-43b8-9cc7-5dc05395b898@linux.microsoft.com>
+Date: Mon, 16 Nov 2026 09:24:46 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,36 +53,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <40839783-b23d-41df-8c71-19fdcca00323@kernel.org>
+User-Agent: Mozilla Thunderbird
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Wei Liu <wei.liu@kernel.org>, easwar.hariharan@linux.microsoft.com,
+ Robin Murphy <robin.murphy@arm.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, Yu Zhang <zhangyu1@linux.microsoft.com>,
+ Jacob Pan <jacob.pan@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ iommu@lists.linux.dev, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iommu/hyperv: Keep a new domain's page tables if
+ it cannot be deleted
+To: Yuho Choi <oss.patchbox@gmail.com>
+References: <20261112195710.1417744-4-oss.patchbox@gmail.com>
+ <20261112195710.1417744-6-oss.patchbox@gmail.com>
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <20261112195710.1417744-6-oss.patchbox@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello Damien,
-
-On Sun, Nov 15, 2026 at 11:01:10AM +0900, Damien Le Moal wrote:
-> On 11/14/26 02:48, shao.mingyin@zte.com.cn wrote:
-> > From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> > 
-> > ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
-> > including vendor-specific bits 7:6, but libata interprets bits 7:5 as
-> > MULTIPLE_COUNT. This rejects non-multiple commands with those bits set
-> > and can print spurious count mismatch warnings for multiple commands.
-> > The reserved bits 7:5 of byte 10 are not checked.
-> > 
-> > Reject nonzero reserved bits in byte 10 with field pointer 10. Skip
-> > the MULTIPLE_COUNT checks for the 32-byte form while retaining the
-> > device multiple-mode check for READ/WRITE MULTIPLE commands. Also point
-> > to byte 10 for invalid PROTOCOL. Keep the 12- and 16-byte count checks
-> > unchanged.
-> > 
-> > Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-> > Suggested-by: Niklas Cassel <cassel@kernel.org>
-> > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+On 11/12/2026 11:57, Yuho Choi wrote:
+> When hv_iommu_domain_alloc_paging() fails to configure a new device
+> domain, hv_create_configure_device_domain() deletes the domain again,
+> and the caller then frees the page tables with pt_iommu_deinit(). If
+> the delete fails as well, the hypervisor still has the domain, which
+> may already point at the page tables, and they are freed anyway.
 > 
-> Reviewed-by: Damien Le Moal <dlemoal@wdc.com>
+> Create and configure the domain in hv_iommu_domain_alloc_paging()
+> itself, and leak the page tables and the domain when the delete fails,
+> as hv_iommu_paging_domain_free() does.
+> 
+> Fixes: 2690d4156b51 ("iommu/hyperv: Add para-virtualized IOMMU support for Hyper-V guest")
+> Reported-by: Jacob Pan <jacob.pan@linux.microsoft.com>
+> Closes: https://lore.kernel.org/all/20261105141427.00005946@linux.microsoft.com/
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> ---
+>  drivers/iommu/hyperv/hv-iommu-guest.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/hyperv/hv-iommu-guest.c b/drivers/iommu/hyperv/hv-iommu-guest.c
+> index aa1db9db1e97..ef486ffa0be4 100644
+> --- a/drivers/iommu/hyperv/hv-iommu-guest.c
+> +++ b/drivers/iommu/hyperv/hv-iommu-guest.c
+> @@ -540,10 +540,18 @@ static struct iommu_domain *hv_iommu_domain_alloc_paging(struct device *dev)
+>  	settings.page_table_root = pt_info.gcr3_pt;
+>  	settings.flags.first_stage_paging_mode = pt_info.levels == 5;
+>  
+> -	ret = hv_create_configure_device_domain(hv_domain, &settings);
+> +	ret = hv_create_device_domain(hv_domain);
+>  	if (ret)
+>  		goto err_pt_deinit;
+>  
+> +	ret = hv_configure_device_domain(hv_domain, &settings);
+> +	if (ret) {
+> +		/* See hv_iommu_paging_domain_free() */
+> +		if (hv_delete_device_domain(hv_domain))
+> +			return ERR_PTR(ret);
+> +		goto err_pt_deinit;
+> +	}
+> +
+>  	return &hv_domain->domain;
+>  
+>  err_pt_deinit:
 
-I replaced this with your @kernel.org email.
+With the commit message and comment fixes as requested by Yu:
 
-
-Kind regards,
-Niklas
+Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
