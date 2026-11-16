@@ -1,66 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825570;
-	b=2CV0wXnGXTwr/xcM+MBumDfONJCNXaNzBZmaWXvv1XYHCMq0zIpNXv1YC7gunFQBXyF6
-	 9TmSBD882w+dMh5S9SBqhhIhIm1ZnbZOq/6kiGDDnQOTkiUktCVxBZUFX0gT6agQozZfp
-	 7j0Rc5JmdtM+o9w6wHNsWdORtM3XPJOs+cwgOulP9riEJDbeeMaS6DrgjYrG0fyUkKwwl
-	 5KsOEbEZailXGdSVL02yi6Fyznb9i2KLgzAjVkGvvvphcZCFaOnEQT1/zv6z0A1zSNvld
-	 SAvDEwRPAHuibTbE4Soe6ex6cqDEGvpU1fcBKfI+YL/z5psl57EDpBA+r5jGg2yfqNQ==
+	t=1794825663;
+	b=Z4SIyHb/rwZgp7moOK5x48uw8atLucmBBsTrWUmO02+mDBbVYMRa8AvzJnYSOWa/btWk
+	 l0w8/aBy1fvR3HL8ncsVk9lLufvr42LeUPaqEfCac5eoAoth0nsscap0a4aQlpUjQv+25
+	 i1MnEtZntuAJYmzbTkWb5uwqdIrtwgMiBnMQF+8BjZQFKqbGz8lA3vE3cXi6ujWWaZXpW
+	 +rl2NI44fK3vGaNhW/kHu3bQ1osx9Z0XFcdtNZ0WVWgOhjpoDywLxmuo1nPYiuKGzf0JU
+	 JEK2zB8fkjSypKcBnPnGj7VI8J3mu6LU1ugSm2w0HkdUKAYf+ZS++scnrABcJj5xs/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825570;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TMelqXmuFWpq266Nr/pmiKLHwnbkJ+vOhcI3eV5hwDA=;
-	b=jVtCLN/QNjhie8oB6Q/rGNJvJvqb3Av1oXrDQZ4h9BLyNMUgBRb0nlOYLHtjs8rhIlS0
-	 QoYjufPYL2cg8naojquJAvtDmAsS44DRBLneBWwj4zqXcSzzFGUBHJllI8jD5MldHFNoz
-	 2g1JqsRR1+3YsdlF5K3IE8KT06zzdW+WmmrZZy/Ddu1LlDIwhHyI5T7v/5uSbmhoFeIrg
-	 aB42YFVTbIV6OoxCM7clGzMwfzqxY4OTouWgdcZAuKJGs4hruCyrATaCDteCh/xuTYZka
-	 YTRHoiS9CvZvvENA2upRmbOclxpNGXuGaAwFSO/nSBnPE0z3nG2b1xEVVLtPCwu5KIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825663;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=2TCqoHL/J0SsDH6/vJSFiplWvK6vRV56F4pJ10IuqzI=;
+	b=TrCYw5WIebgVtiNQSI2Lu23Dr6qaQMRRSQNzRHmHXIHJVZjrEAz8xRgAazHeRInZB1vK
+	 cZqAvbeTcuSy9jckDYsAPlFYO84Ye5BJXfuOI1lE5K8uF4VBZ+ntFLeS+SEM8lPIxgd7d
+	 pYSKdkjlz4alYwpVT+lvs4jIyKygVV52p+o0gq6MdaRdutzmWtvW87qz653kM3O+05zzF
+	 uOisrEFihIGhElHqF4hw9q1ZIxgl+U9YJMCHpX5/3VB1t3n5cgMRk51NySUIPLrzoDSrc
+	 zGe8nlvO0Y7VLNHeZ0j/mdH20dGvt9KZIJkpuWDR5OVv6Ei0lo34SnJn0qYXX+ghupQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfPaonkH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b="M8/kr0gf";
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9792B606A31C;
-	Mon, 16 Nov 2026 10:39:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD76606A336;
+	Mon, 16 Nov 2026 10:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfPaonkH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A2B1F000C4;
-	Mon, 16 Nov 2026 10:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794825570;
-	bh=TMelqXmuFWpq266Nr/pmiKLHwnbkJ+vOhcI3eV5hwDA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jfPaonkHOoYzcERjBg2syjUH1ZjbOZW510AZoG3aEu9g6XfzbK7P33m9ATRC31esW
-	 Xdy9/p9SL1vp5YScPnoZkhd8sVwgcnULVsMki3bbR4zQefs8PpiDZuz0ZqhCOt6RWp
-	 ENGj+45YyD6EKciWwBHU0oBFk9rPTStNk4HVH9AirjxPTr0eor9hBctsI1seXZ2+Zu
-	 4/mfcU4KVWiVz273BitBNYXa7+D314Sy8pztPLGBhohMUyVcesjgCXt9TlGh1Wzrwk
-	 Dn8KStfHUrWAEq6iE0wEG8R/m9M+PT2AOFE6fVlIk7R74aliyfOqErZCgZ0efGghdr
-	 fWDFAvIqvWOTw==
-Date: Mon, 16 Nov 2026 11:39:25 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
-	Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Del Regno <angelogioacchino.delregno@somainline.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Danila Tikhonov <danila@mainlining.org>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
-Message-ID: <20261116-flexible-uppish-uakari-3f1b07@quoll>
-References: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
- <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=M8/kr0gf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=2TCqoHL/J0SsDH6/vJSFiplWvK6vRV56F4pJ10IuqzI=;
+	t=1794825662; x=1796035262; b=M8/kr0gfCjmHRYIqbtKgAajWDhMddYgCIdRMhoL2SFWSkg6
+	1yfsdonDFAwxY2/RKrGFodcuhfgwQpJ3qYEUEzQaI+ciHFtLUPT+qG19a2InF2OC+FhHHplGNQGLd
+	XPEiGs2sIFkPOUlLuShExU08jzrQAlXDTjNpLZ5A0VvYen73sjy+c6a2yP1N26zO/sAnLOi3bs7+P
+	vXOV+qPYt6lCBKbE750CKPaJ4/svnq+ikOvhdcmQy3ejsThSoz+0lDb/9EAHPEvPSh2Mf9mle3oXr
+	/SoPfbj0THCKMrL3mN5IcD/v2Yjv6CyTq2yjeBsWM+B0h0n0YHBpfYWabEqID6Ug==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xSu8x-0000000GXAQ-2upT;
+	Mon, 16 Nov 2026 11:40:59 +0100
+Message-ID: <61c6b777341edd1343ad1959abc9e2313a05ef25.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 01/21] wifi: nl80211: define Seamless
+ Mobility Domain (SMD) device capability
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 11:40:59 +0100
+In-Reply-To: <05d0e51a-7189-4095-8243-fdc1c424e37b@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-1-62e39487f51a@oss.qualcomm.com>
+	 <7638714d73cda9a2538952f577be1a236ddee55f.camel@sipsolutions.net>
+	 <24917e113f203e6f6606dc5adefeefc4ebc27d9c.camel@sipsolutions.net>
+	 <05d0e51a-7189-4095-8243-fdc1c424e37b@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,32 +72,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
+X-malware-bazaar: not-scanned
 
-On Fri, Nov 13, 2026 at 04:28:51PM +0800, Yongxing Mou wrote:
-> Kaanapali (SM8850) has two display GDSCs. CORE_GDSC supplies shared
-> MDSS hardware and most of the DPU, while INT2 GDSC supplies the
-> VIG2/VIG3/DMA5 source pipes. Without INT2 GDSC, these source pipes
-> remain inaccessible.
-> 
-> Describe CORE and INT2 as power domains of the DPU device, matching
-> the hardware partitioning. INT2 only supplies DPU-local source pipes,
-> while CORE also remains attached to the parent MDSS device because it
-> supplies shared MDSS hardware. DPU performance-state votes on CORE are
-> propagated through the genpd hierarchy to its parent MMCX domain.
-> 
-> Keep the widest valid constraints in dpu-common.yaml, including the
-> power-domain-names definition, and narrow them in the platform-specific
-> bindings. Require two domains and their names for Kaanapali, while
-> retaining the existing single-domain constraint for all other DPU
-> platforms.
-> 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+On Fri, 2026-11-13 at 20:53 +0530, Pooventhiran G wrote:
+>=20
+> On 11/10/2026 07:56 pm, Johannes Berg wrote:
+> > On Tue, 2026-11-10 at 15:15 +0100, Johannes Berg wrote:
+> > > > + * @NL80211_ATTR_SMD_SUPPORT: Flag attribute to indicate SMD suppo=
+rt. Used with
+> > > > + *	multiple commands to indicate appropriate SMD support (refer DO=
+C).
+> > >=20
+> > > This (with the wiphy flag) is the wrong way to do this, we have exten=
+ded
+> > > flags that don't need the double enum value and pass through to
+> > > userspace directly.
+>=20
+> I changed the EXT_FEATURE flag to WIPHY_FLAG based on the comments in v2 =
+and
+> NL80211_ATTR_MLO_SUPPORT implementation.
+>=20
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Yes, but I think then you had more intricate feature advertisement and
+that went away entirely?
 
-Best regards,
-Krzysztof
+>  I will change this back to
+> EXT_FEATURE flag to indicate driver support.
 
+Sounds good.
+
+> NL80211_ATTR_SMD_SUPPORT passed to ieee80211_start_ap is parsed into link=
+_conf
+> and (will be) read by the driver in assign_vif_chanctx drv-op. ath12k
+> implementation needs this indication to instantiate vifs and workflows in=
+ both
+> the driver and firmware.
+
+I guess that'll be one of those "trust me FW needs it" cases, but...
+why? I don't see how it has any impact on anything?
+
+johannes
