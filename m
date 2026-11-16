@@ -1,65 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794792184;
-	b=BnNNVslgQCDpgGtxfy9HH7yD+VcYTxDSTCzkUb0TiU+rBiTvjbtveTBU1Lhns/bL1aSG
-	 qvbOzgZvynL3uYZwrKSmF4NosRINAeq1FBBQNG1d4N5l4WYNHZGSBP4BQN7o96T5ROpvk
-	 VZgdpcuYLMy0D5bV6vUHt+F7wYLrQ6Q2nf+NIZo/8Q0SpihnMitEFhh3vnMRPiUF04kaG
-	 t9fRJLy9wzMXGsb45Al7G03Ypjeb3v6TQOaGv39hLYzAyTCjqMAh/wT0eY/jv7rus3fIP
-	 gFJ0OrOaAWnnV/WXj3ZkLAYsqBmz6U+vFLV9xV8nO4zNwq9fFDKq8juTyr6tfG0LQhw==
+	t=1794792237;
+	b=u7gMa6BOx1gJFmsnWQLrNDNvHM+Nn/C6u8w1OcPqDkz9koPycMNWtLXranqHjHvmdbg3
+	 TKuwh/7jDDbo45U3ZlF3DG1iY9iKo1VEE2yJco8DGYIP3wEjbo/jF7162oCXN79owrOHv
+	 I4rynCRtAjltzh1dS20m2nbg1nlw+gAOtS8Emmohjf7a4IuNM4ylI75/mdhvpOeq3TSDf
+	 estfn4BedaJOG6IBmGz2OYuqHAMV9xzRyWMxs6HiSN+rUNgcL43jOeSMs1Yr5/Wjn1w23
+	 I6ZfsdDVVy6N66k4cXVz/6EgxS2shgK/b5Bv86KPIUg++2ri7ExJKvionwv5Olaum0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794792184;
-	h=DMARC-Filter:Received:Received:Received:Date:From:To:CC:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent:X-Originating-IP:X-ClientProxiedBy:
-	 X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
-	bh=9JDkqFxFxJjvUaiAPs450ZRmRiqw4sJhppIRqRfsXbA=;
-	b=B2sd96OwC2t8M0j9f6RvNFohyNpmYG6d5TeDQtUYaXETHsm7zaVchafyr9oSWlTlVm5Q
-	 myOrPJ7VQZ7Gg+CvREZ2yq8BJ3waaKnnqTv9zjDrXK8Jq6e9rJ0UjHaQG/G71ksH0loGL
-	 iXsaQzCCxtgWrHf/KNvOTYRGLdXB4SOIm1p8iQiDzhhbcntghX4kGqGK8ZLmJ+zr1IK/J
-	 7aXzpvA4AbQWye5rer+I75LnFhoMMI67T0t8yrE1neUK2h0qeIevqjFH+GWuE4RjB0uIx
-	 1lU7kSn88j9ey+0NK+2zIOEUSNLgqhH4bLsPrlvP4msHGIp1z4BCkDHvOTEpv/HnFyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794792237;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=7/foLeZWh6mOx/E6h1htnKBNjksry5ms+vKjgn4bpO8=;
+	b=3YvhgQ9467oOKwRObl+EKTx0wYk0KVzKRn7NSNJT5F4wCDzVVENClZ1vPDAHy/JSiIeZ
+	 jaov+DWwE5FmsDODmHS6mrnlZYHNr+NZn04q1tondAwdffF9p6hwZl5GLjBX1lpYv4Ko9
+	 WXtPuIVK8Ehnjym3r3LfI8bMjaMyorJNBPya6XurqvlKxl50mw1ZQ1JRW2WK823lt41lq
+	 MJlSWxL5lRO/2esk4jfrwcEhbdWHZRh+BcQ9OnamDq4cqAn8/QoXM0jnPHlLkqvYl09OG
+	 5Ciwuc4XlWVKI1HkwSK+Q1E2KaC/dgiGlYQf6dz1RSORSLwJjl1z6GmyC9H9ylMvhzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andestech.com;
-	spf=pass smtp.mailfrom=andestech.com;
-	arc=none smtp.remote-ip=220.128.198.184
-Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jNmNSCjh;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC3D606A31F;
-	Mon, 16 Nov 2026 01:23:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC3D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from mail.andestech.com (atcpcs54.andestech.com [10.0.1.154])
-	by Atcsqr.andestech.com with ESMTPS id 6AG1MShj096367
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 16 Nov 2026 09:22:28 +0800 (+08)
-	(envelope-from minachou@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs54.andestech.com
- (10.0.1.154) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 16 Nov
- 2026 09:22:28 +0800
-Received: from atcsi01.andestech.com (10.0.15.32) by ATCPCS34.andestech.com
- (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Nov
- 2026 09:22:27 +0800
-Date: Mon, 16 Nov 2026 09:22:23 +0800
-From: Mina Chou <minachou@andestech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
-        <alex@ghiti.fr>, <jic23@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <geert+renesas@glider.be>,
-        <magnus.damm@gmail.com>, <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-        <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <randolph@andestech.com>, <cyyang772@andestech.com>,
-        <tim609@andestech.com>, <az70021@gmail.com>
-Subject: Re: [PATCH v2 00/19] riscv: andes: make the LLC driver and cache
- errata generic
-Message-ID: <avpaz5nZ6UsSNo1Q@atcsi01.andestech.com>
-References: <20261113071143.1446167-1-minachou@andestech.com>
- <20261113-overcoat-facedown-fcac3e162931@spud>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6899606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6899606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jNmNSCjh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794792237;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=7/foLeZWh6mOx/E6h1htnKBNjksry5ms+vKjgn4bpO8=;
+	b=jNmNSCjhUiAU3J/sYK+ge2dUOmQYY/cAeHlUtgNSMcI9AB79c8ak6hXPCH/PgHzhHRS7f2
+	SzKZkQDvmsUGzBL7n9I+QLwoAfPbSoI+q8D4pl2EiqBVLArpDrUjUnrD0khqD+y83M1Yxe
+	WfiXw7nMgkUyqvtU+gVEvhoxt8LjLds=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-36-uAdGMwHPM7yOni6GEiFIQQ-1; Sun,
+ 15 Nov 2026 20:23:51 -0500
+X-MC-Unique: uAdGMwHPM7yOni6GEiFIQQ-1
+X-Mimecast-MFC-AGG-ID: uAdGMwHPM7yOni6GEiFIQQ_1794792230
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4EDD619560AF;
+	Mon, 16 Nov 2026 01:23:49 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 21029436;
+	Mon, 16 Nov 2026 01:23:46 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH-next v4 0/6] cgroup/cpuset: More fix patches
+Date: Sun, 15 Nov 2026 20:23:03 -0500
+Message-ID: <20261116012330.2271010-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,29 +81,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261113-overcoat-facedown-fcac3e162931@spud>
-User-Agent: Mutt/2.1.4 (2021-12-11)
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs54.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6AG1MShj096367
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Fri, Nov 13, 2026 at 04:21:53PM +0000, Conor Dooley wrote:
-> > - Patch 19 adds the andestech,a27l2 CPU compatible. The V821 devicetree
-> >   will be submitted separately by Allwinner.
-> 
-> This patch is missing.
+[v4]
+  - Drop v3 patch 1 as it is fixed in a different way in patch 5.
+  - Add a new patch 2 fixing a minor bug reported by sashiko.
+  - Add patch 4/5 to fix a remote partition hotplug problem reported
+    by Guopeng.
+  - Add patch 6 to fix a bug in lockdep_is_cpuset_held().
 
-Thanks for catching this. Patch 19 failed to send with the rest of the
-series, so I have resent it here:
+[v3]
+  - Drop patch 1, 4 & 5 of v2 as they are merged.
+  - Update the new patch 1 as suggested by Chen Ridong
+  - Add a new fix patch 3.
 
-https://lore.kernel.org/all/20261116003937.1776888-1-minachou@andestech.com/
+[v2]
+  - Reorder the series by putting the original patch 4 before patch 2.
+  - Update the Fixes tags in patch 1 and 5 as suggested by sashiko.
+  - Update the new patch 3 to remove obsolete WARN_ON_ONCE() and update
+    comment as reported by sashiko.
+  - Minor fix to the test case in patch 5 as reported by sashiko.
 
-Thanks,
-Mina
+This patch series contains an additional set of cpuset fix patches.
 
+Waiman Long (6):
+  cgroup/cpuset: Fix incorrect partition invalidation logic in
+    cpuset_hotplug_update_tasks()
+  cgroup/cpuset: excpus parameter of remote_cpus_update() must have at
+    least 1 active CPU
+  cgroup/cpuset: Check remote partition underneath before making an
+    invalid partition valid
+  cgroup/cpuset: Revert "remove global remote_children list"
+  cgroup/cpuset: Handle remote partitions before local partitions in
+    cpuset_handle_hotplug()
+  cgroup/cpuset: Fix lockdep_is_cpuset_held()
+
+ kernel/cgroup/cpuset-internal.h               |  10 +-
+ kernel/cgroup/cpuset-v1.c                     |  16 +-
+ kernel/cgroup/cpuset.c                        | 178 +++++++++++++-----
+ .../selftests/cgroup/test_cpuset_prs.sh       |   6 +-
+ 4 files changed, 149 insertions(+), 61 deletions(-)
+
+-- 
+2.56.0
 
