@@ -1,106 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794864910;
-	b=cvnutaKwRUYSwmHuO2I4qfKjqojCpbLRMLmAxN3zrvYBCX5mDQqJmAucfnZnG3cunvpZ
-	 xPeSau4AnQ2wHz6yVMFQBCQaTjyTA971XkyT2h2LaP7TpOYuMjjpjUVY97RcSAIu6nnYV
-	 a1u+gAGvzb9KgiWQT+ZTLMOWG8xsoEXnBcrgLxsjEV0VugD70xB8tJSmRJLbFB24da01u
-	 4Jk7t80ms17HjgTATofrU69MTeRO5vcs4X8+Ygnr/wxxajzbFsl4Vi+uJwwN10pgV8aF8
-	 Nub/PIM+bNeQruIqNPjHhnyw154NYKXlu7l8poVWdlsXwtWKZhu5YoJdReWj0GJDHcQ==
+	t=1794864912;
+	b=Nyo5KFDdEYgrtqC6zYVA0AchpdPPqNhGtPB2nefF3sfCdxLkhiG50YvCbUG4+43auvIO
+	 eqDHikc7Ui4nb+SDH/cfyhxyr3KWhkJsmH/uJ3TkytI8vRSnNA13y16LH47rN1fWZZCVk
+	 TnerczPP/jVOnDsPND8PB4G5JazZtil69xXeGE9VKNo/jNwGlvlhVaLFHoWO0mtUeXRlg
+	 sKCYQj65iovkkZQJLJZGnNg/bLF9w42LYAS4No4DhvNy7cGg2uGPmexsui+iDyXjNz9Yf
+	 IkIIeUa3wRs/4fLO1W4O4DTJCrGwvWzEsic2+4eP9oWSSW+fMbxX3uo7xw8vyIVqkwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794864910;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794864912;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=MUef634+Hi/Fgg3bEDigIW+3XODyCYJ/zUjM8ZRF2oI=;
-	b=LEI/7aBDJmvA+ftkl8zdm82VPDBI7PoYej3pnLT3PR2t0EkN1eFIbln5Bbc0r8FekXoV
-	 qzRnao6CtAljvsQvomAZrX9h5ffz4iDUJTkK8NbQD7Jyn8LveVXyJzPqsMea8RuwwIRJA
-	 hHfYn9L2akjkiTWK0z35rVdaSD2N4oSisRV2NJCpLgFgnA+F5sIjmB+M5BJEXplFknSSR
-	 +N86xWvS7W0+gg3NyXkigs9MKIe39FbuiwTGuxL8/pQOXoTGT+IPsZL7H7HEtcdLO8+pF
-	 qKIf7qiY+vo5vj1trnc7m/p/mpEBT+cHMiEeDumap8rRIiQuoJe4rKPqBjjDEeBe2Kw==
+	bh=Q9toRHBa6MBu8qE2ThH7+Bc5sQBwNumh+43a7Mu4fio=;
+	b=Midw5SgTp7SB6SOUZ5f7bu7n9lbmAH1Qwxs3x2jMyH7QdKxaaPSm9MlVZkGbYvQAcoU/
+	 uyw0k3a6bV53zMqUMBN6JzVmbNdi2r8kBVYUft4CGne2Na40OwdqCYOHV5eQgsb3gn8Je
+	 oYxTJWQCW1eAukBWfrFwml3qQ02k2lhTdYR6TQzN8xM8F/PufwjoDS47fK8gYdEdP0l8s
+	 r4ROYJ1iXjGvfeg8NMDqUEV9CVH0THqsezy5m33u9YzLznIlIG0D1SVICXFf3VosjGOv5
+	 tIkuC+oB+riF8rBi24ARGwbtWWE8uDodIC1qH8mx/3I+dlDaNqXDT5rA+IKcQ9QWREg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MPgdHzXP;
-	arc=none smtp.remote-ip=209.85.216.100
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WevZLBeM;
+	arc=none smtp.remote-ip=209.85.217.99
+Received: from mail-vs1-f99.google.com (mail-vs1-f99.google.com [209.85.217.99])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0843D606A336
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:35:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0843D606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF57606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:35:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF57606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MPgdHzXP
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso1907196a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:08 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WevZLBeM
+Received: by mail-vs1-f99.google.com with SMTP id ada2fe7eead31-7cc0ccc2fddso1107868137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794864908; x=1795469708;
+        d=1e100.net; s=20260707; t=1794864910; x=1795469710;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MUef634+Hi/Fgg3bEDigIW+3XODyCYJ/zUjM8ZRF2oI=;
-        b=zrp177abmFbD3fvILF60BL4oOnKkg/cOyqFJ8LUZwfs4qAALtv4LFvww5n2BB2nDjV
-         20iBDjFx9bD9uEc1jmxy9ZHTEBo8Dmy4VLzfFX2t2EOslpSXfko2wk5Yd8Ti9/L5sk2/
-         oot+UYDHtkktFcL3l5+2hxJOVoZvwCz6IBnzlG9O94CAcbrXi0RfG85GGv3Ao/gDNZ1R
-         c8VRFOzjsiu+4C3XBltStMMs88pVufGN+FHvL6gHmXhO+nx0smBw/iJvZok0jel7I5zk
-         JUqbfR7PawsbkqdoJCPwhkOhBS/+3dK95WrfEr2XkoqYGi5h9J9nwo9RpmznSf2SDauN
-         foWg==
-X-Forwarded-Encrypted: i=1; AL+hErGm1X8wvz/BGA22eKc8ktXp6fSNiGFCq0ukiIyejtOIIzIJBgvlA7HkHRj0dQiwDB3V+rwbS0rYLP3mTUc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aOLF7HPEEaaAEwpLnB6V++G/enAM+fVKCdi6pGALOOlh7KI/h
-	AOBmg6Cu1AaNH62+p3TlH557eWBWdb5PEErdDdZIH4IK4e9xGWgAhLT7tkBPoD5ahxI7Ed7MGur
-	VQyHHG8x+flq0WmCk9VRxVS9Z3CLbeP7Ctc5d7LoSUCPIu5f7LHyPLZ2CttqNp3PxLtcEhL31Oy
-	XSaTSEeLzZ/7nb8FfHOogUgJDEXMdY/QuYbNmFF4WR6xKWZ0tB8Rb8yHoSWWXpfMbAQNxXZ1VNN
-	rrC7zi0f8RdQzX1rVC9GuaW
-X-Gm-Gg: AZFdTZc0WZXbJ6lh7VQdw5RSVHQOLjzAPAaD8cCRARSTi/jVt3gmGU2ou9JSnSbxpo5
-	Oj4EsymPUxDroUk8eWj+YlAHO34Ys38vehlP6VKpvNHM5THXnpuvVVzROkoCQjBhF76ZcDdZCwE
-	zg0s9WBCkCwPuPzUOjR8NW68412xl6WAttJ7taAnFHgw9D8xe+eECb/kZRXdwDrNz+uBI7EGNqB
-	8BgBrqTLh5jL5a2jmoT2Tqt32Enbe+/QToePqBCUtzUWWtRsuzoMTPsmU1+jQYym7XLCXvc/OnP
-	Q/B8xMZVRQtH7onPwVkGAaE452VEq8rrT0iBgupgIcJ6cfS6AJ+oSrwpy7rzTOhDrziH+DVhqQg
-	Laq6xTtY6+BVJgzncOLqwTwVpzwuZzQqUFDqMYRBYUgbDvjzbO/HCmoav20IC57SUDlU5x7FJ3M
-	LA91OjtVj9LpM4ABuHiw2NyYWGhUu0/hcZLWkOGHJR
-X-Received: by 2002:a17:90b:56cb:b0:3b0:a9de:9880 with SMTP id 98e67ed59e1d1-3b1b0a3c5e9mr10697285a91.33.1794864908049;
-        Mon, 16 Nov 2026 13:35:08 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3a2d07d60sm494138a91.2.2026.11.16.13.35.06
+        bh=Q9toRHBa6MBu8qE2ThH7+Bc5sQBwNumh+43a7Mu4fio=;
+        b=UhicPqEX3icT7fj8VEHRy4FqodwmdH+lZfNaLWUuWqcXbRt9RN16cI7xiWcBCOdlMj
+         23F3J6yC9aZ2KYCeg5th3AQ/Ah9fpeLUczjJ4DQY9mHx8hgvYrZYc59sO9SOTGEuoSAc
+         eCuX5ZUShvLLISmPNhcz53GtZpQqh+fUO6X1R5TvCCo5MFe6PSnZwlNiKTiqP+B9CMlg
+         Yfsv7Jx9UxnSxBFAocO9Fc41oKAzZ0MsmccrJphAnSgxx5DFpf81LWvQ1fSeX1VXv01i
+         MGYzn8XUrRWeYfFPN97jTik1IoaAVDNvOuBGmcUT9W8RJTqnYIzEsfzqd1yOg5SjiQar
+         mAtQ==
+X-Forwarded-Encrypted: i=1; AL+hErEB6McMdH80NDC8C+xDC1x8qC1zDS/b0p4UYwe6B3oIFL4TPioDzf2mS+FQWCovV55/KPkiDmgcP2EBMp0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/h7Y+17ai3QJGFpAdBJD+6YULeFEm4Zfi4aI+JeArpoNt5Vv/T
+	OyOFiI/RjswjVEce6E+9nno8L+KxynHF0dTgxDOnvetTsjUu3uXLO5KbjyN8wElkSKYNTYEUVHA
+	q6c/B8e2YLlakQdepx/7P8Hd78I04xNNhmPzLPbTscunRxCPf8lnkYNsW1dUimi4H6kE2txp5/3
+	YxbUbmu3D6Ducx9imtwaA35SalCOMRDQNka4pzLjZ1KxzqkPEGL0DnWlPJP0DwBbDTMqK6e0+4c
+	g/Idr11NrCoGlG2p1Xw64/8
+X-Gm-Gg: AYBFou2g92HmvlKL+6A2BxJ7Kw4OLLGw6QQ3PJ0Qg5t2Htq//qHAY4Tjg6YWsuqJIxr
+	qLkGMutSK7II0j2A915GyRy+1pg1aKkGj+K031yEzBZu6KrW22bsdbKChUtPFqh4swbKUbEMUd3
+	wstWzffHgWQpbOrsGqZbWGoy5bZmJMZbvJ3m56KSycxS1DPVcLiPHn5DheqFelUss2JLFuvU6je
+	acARTh2TJuP08WDbA+2SNU7bs3EDX10CTKsW0wNEI7WOVblrZHdMx6pH+9f6UUwDVu7/lrIan/3
+	+Bbku5pG37ekAQsrkB6adejHswNsLQHBdzuPegKD9DsOgiVIIohNpWPPaC6GUrUL5xo0mgAblyW
+	BdZ4T4MRwSwPM17ybmR7mZecdvNvOgjfAzMyVwQPpwsp/uz/qftRWo6c/9/CzZ6iUnPnNfuowvq
+	3BzsgTEOAzHAwwVoL9nm9EFDa5k8xibCsV4eCqyrlC
+X-Received: by 2002:a05:6102:61c9:10b0:7d6:864a:5509 with SMTP id ada2fe7eead31-7d6864aac91mr1120418137.24.1794864910285;
+        Mon, 16 Nov 2026 13:35:10 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-99e3389c647sm93844241.13.2026.11.16.13.35.09
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 13:35:08 -0800 (PST)
+        Mon, 16 Nov 2026 13:35:10 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5363763b556so76157701cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:06 -0800 (PST)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53661e036a2so32864051cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794864906; x=1795469706; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794864909; x=1795469709; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MUef634+Hi/Fgg3bEDigIW+3XODyCYJ/zUjM8ZRF2oI=;
-        b=MPgdHzXPSH4Rlvp+TcnOObqGjdGqrAamrexVUMXv0S+68/Ls4HEidRERhx5l1HCJ/p
-         ugjlahj+fh/iTQUe1rXtLMJtAxK0zrg1TQRy+oga5eKOJvVTDdum3x3kHeg+C4GyviUO
-         QdyLuUWF88JX8ebydjRf0QHhywcdswbljO2Fk=
-X-Forwarded-Encrypted: i=1; AL+hErFZJ0GIpRmK+7KAmGlQZSumYujRZavD64fWpaJevimJSB9olSBBrXtTlAvqvSQkNN+bZqi3kF7FrZVHIVU=@vger.kernel.org
-X-Received: by 2002:a05:622a:ea18:10b0:55c:2c73:ba86 with SMTP id d75a77b69052e-55c2c73be22mr105400541cf.28.1794864905652;
-        Mon, 16 Nov 2026 13:35:05 -0800 (PST)
-X-Received: by 2002:a05:622a:ea18:10b0:55c:2c73:ba86 with SMTP id d75a77b69052e-55c2c73be22mr105400291cf.28.1794864905236;
-        Mon, 16 Nov 2026 13:35:05 -0800 (PST)
+        bh=Q9toRHBa6MBu8qE2ThH7+Bc5sQBwNumh+43a7Mu4fio=;
+        b=WevZLBeMOmOtoyL5E/4Uw8oQjvjPdHLK1DkZqNHmwQH2GVEmjPSHcActM72+3+ceS9
+         3YnTBQj6M8UCjNAZU/RWK8SoISM2TYnGHui7WhSW7EsuRdg2W5DO+pOWEDIx4VJl9ENQ
+         HmOkkGMKuCgOytFIedM897Ty7Z3eooJ9wnmkA=
+X-Forwarded-Encrypted: i=1; AL+hErHJxOpMvq09bCVP84kGZffoqdfoTYSi0NdXbSOscApH31wd8+rJC25vf9CK+Mm+fPMsRgbPe/Yx39pV4hA=@vger.kernel.org
+X-Received: by 2002:a05:622a:17c9:b0:53f:8b6e:5380 with SMTP id d75a77b69052e-55ac867bea8mr173364991cf.62.1794864909275;
+        Mon, 16 Nov 2026 13:35:09 -0800 (PST)
+X-Received: by 2002:a05:622a:17c9:b0:53f:8b6e:5380 with SMTP id d75a77b69052e-55ac867bea8mr173364461cf.62.1794864908749;
+        Mon, 16 Nov 2026 13:35:08 -0800 (PST)
 Received: from stbirv-lnx-1.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d34a139f6sm40744171cf.22.2026.11.16.13.35.02
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d34a139f6sm40744171cf.22.2026.11.16.13.35.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:35:04 -0800 (PST)
+        Mon, 16 Nov 2026 13:35:07 -0800 (PST)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
 	Carlos Soto <carlos.soto@broadcom.com>,
+	Justin Chen <justin.chen@broadcom.com>,
 	Doug Berger <opendmb@gmail.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
 	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
 	Russell King <linux@armlinux.org.uk>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -109,9 +110,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org (open list),
 	Mlody12 mlody12 <kudzo51@gmail.com>
-Subject: [PATCH net-next v2 3/4] net: mdio: mdio-bcm-unimac: Poll for completion at 1us granularity
-Date: Mon, 16 Nov 2026 13:34:48 -0800
-Message-Id: <20261116213449.1682731-4-florian.fainelli@broadcom.com>
+Subject: [PATCH net-next v2 4/4] net: mdio: mdio-bcm-unimac: Add Clause 45 support
+Date: Mon, 16 Nov 2026 13:34:49 -0800
+Message-Id: <20261116213449.1682731-5-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261116213449.1682731-1-florian.fainelli@broadcom.com>
 References: <20261116213449.1682731-1-florian.fainelli@broadcom.com>
@@ -127,82 +128,201 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The current polling code unconditionally waits 30us, which was sized for
-a ~25us Clause 22 transaction, and then polls MDIO_CMD with a sleep of up
-to 2ms between samples.
+Add Clause 45 read/write support to the UniMAC MDIO bus controller driver
+by implementing the read_c45/write_c45 bus callbacks. Each access performs
+the two-step C45 sequence (ADDR cycle followed by a READ/WRITE cycle) under
+the bus lock and switches MDIO_CFG between C22 and C45 mode as needed;
+MDIO_CFG is only written when the mode actually changes.
 
-Adding Clause 45 support means that every access becomes two back to back
-transactions (an ADDR cycle followed by a READ/WRITE cycle), so a fixed
-delay sized for a single C22 transaction is no longer meaningful, and a
-sleep of up to 2ms between samples can add significant latency to each
-access when the transaction has not completed at the first sample.
+Also skip the BMSR workaround read in unimac_mdio_reset() for children
+compatible with "ethernet-phy-ieee802.3-c45", since such PHYs are not
+expected to respond to C22 accesses.
 
-Instead, poll the MDIO_START_BUSY bit every microsecond so that the
-completion is noticed as soon as it happens, regardless of the type of
-transaction. This turns the wait into a busy wait, which is bounded by a
-timeout reduced from 100ms to 1ms: a 64 bit MDIO frame takes about 33us at
-the lowest MDIO clock the driver can program from a 250MHz reference clock,
-so even a two frame C45 access completes well within that.
+Note that providing read_c45/write_c45 also makes the MDIO core scan for
+C45 PHYs at registration time, on addresses that are not masked and do not
+already have a C22 device.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 Co-developed-by: Carlos Soto <carlos.soto@broadcom.com>
 Signed-off-by: Carlos Soto <carlos.soto@broadcom.com>
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Co-developed-by: Justin Chen <justin.chen@broadcom.com>
+Signed-off-by: Justin Chen <justin.chen@broadcom.com>
 ---
- drivers/net/mdio/mdio-bcm-unimac.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/net/mdio/mdio-bcm-unimac.c | 105 +++++++++++++++++++++++++++--
+ 1 file changed, 98 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/mdio/mdio-bcm-unimac.c b/drivers/net/mdio/mdio-bcm-unimac.c
-index 5f79f31220f2..df267bb82696 100644
+index df267bb82696..6059b32580c5 100644
 --- a/drivers/net/mdio/mdio-bcm-unimac.c
 +++ b/drivers/net/mdio/mdio-bcm-unimac.c
-@@ -6,8 +6,8 @@
-  */
+@@ -24,10 +24,16 @@
+ #define  MDIO_OP_SHIFT		26
+ #define  MDIO_RD_C22		(2 << MDIO_OP_SHIFT)
+ #define  MDIO_WR_C22		(1 << MDIO_OP_SHIFT)
++#define  MDIO_ADDR_C45		(0 << MDIO_OP_SHIFT)
++#define  MDIO_WR_C45		(1 << MDIO_OP_SHIFT)
++#define  MDIO_RD_C45		(3 << MDIO_OP_SHIFT)
+ #define  MDIO_PMD_SHIFT		21
+ #define  MDIO_PMD_MASK		0x1F
+ #define  MDIO_REG_SHIFT		16
+ #define  MDIO_REG_MASK		0x1F
++#define  MDIO_DEVAD_SHIFT	16
++#define  MDIO_DEVAD_MASK	GENMASK(20, 16)
++#define  MDIO_C45_REG_MASK	GENMASK(15, 0)
  
- #include <linux/clk.h>
--#include <linux/delay.h>
- #include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -36,6 +36,13 @@
- #define  MDIO_CLK_DIV_MASK	0x3F
- #define  MDIO_SUPP_PREAMBLE	(1 << 12)
- 
-+/* A 64 bit MDIO frame takes ~25us at 2.5MHz and ~33us at the lowest MDIO
-+ * clock the driver can program from a 250MHz reference clock. A C45 access is
-+ * two frames, so a 1ms timeout leaves a wide margin.
-+ */
-+#define MDIO_POLL_DELAY_US	1
-+#define MDIO_POLL_TIMEOUT_US	1000
-+
- struct unimac_mdio_priv {
- 	struct mii_bus		*mii_bus;
- 	void __iomem		*base;
-@@ -79,14 +86,14 @@ static int unimac_mdio_poll(void *wait_func_data)
- 	struct unimac_mdio_priv *priv = wait_func_data;
- 	u32 val;
- 
--	/*
--	 * C22 transactions should take ~25 usec, will need to adjust
--	 * if C45 support is added.
-+	/* C22 transactions should take ~25 usec, C45 transactions take about
-+	 * twice as long since they need an address and a data cycle.
- 	 */
--	udelay(30);
--
--	return read_poll_timeout(unimac_mdio_readl, val, !(val & MDIO_START_BUSY),
--				 2000, 100000, false, priv, MDIO_CMD);
-+	return read_poll_timeout_atomic(unimac_mdio_readl, val,
-+					!(val & MDIO_START_BUSY),
-+					MDIO_POLL_DELAY_US,
-+					MDIO_POLL_TIMEOUT_US, false, priv,
-+					MDIO_CMD);
+ #define MDIO_CFG		0x04
+ #define  MDIO_C22		(1 << 0)
+@@ -96,7 +102,43 @@ static int unimac_mdio_poll(void *wait_func_data)
+ 					MDIO_CMD);
  }
  
- static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
+-static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
++static u32 unimac_mdio_c45_devad(int devad)
++{
++	return ((u32)devad << MDIO_DEVAD_SHIFT) & MDIO_DEVAD_MASK;
++}
++
++static int unimac_mdio_addr_c45(struct unimac_mdio_priv *priv,
++				int phy_id, int devad, int reg)
++{
++	u32 cmd;
++
++	/* Prepare the addr c45 operation */
++	cmd = MDIO_ADDR_C45 | (phy_id << MDIO_PMD_SHIFT) |
++	      unimac_mdio_c45_devad(devad) | (reg & MDIO_C45_REG_MASK);
++	unimac_mdio_writel(priv, cmd, MDIO_CMD);
++
++	/* Start MDIO transaction */
++	unimac_mdio_start(priv);
++
++	return priv->wait_func(priv->wait_func_data);
++}
++
++static void unimac_mdio_set_clause(struct unimac_mdio_priv *priv, bool is_c45)
++{
++	u32 cfg = unimac_mdio_readl(priv, MDIO_CFG);
++	u32 new_cfg = cfg;
++
++	if (is_c45)
++		new_cfg &= ~MDIO_C22;
++	else
++		new_cfg |= MDIO_C22;
++
++	if (new_cfg != cfg)
++		unimac_mdio_writel(priv, new_cfg, MDIO_CFG);
++}
++
++static int unimac_mdio_do_read(struct mii_bus *bus, int phy_id, int devad,
++			       int reg, bool is_c45)
+ {
+ 	struct unimac_mdio_priv *priv = bus->priv;
+ 	int ret;
+@@ -107,8 +149,19 @@ static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
+ 		return ret;
+ 
+ 	/* Prepare the read operation */
+-	cmd = MDIO_RD_C22 | (phy_id << MDIO_PMD_SHIFT) |
+-		(reg << MDIO_REG_SHIFT);
++	unimac_mdio_set_clause(priv, is_c45);
++	if (is_c45) {
++		ret = unimac_mdio_addr_c45(priv, phy_id, devad, reg);
++		if (ret)
++			goto out;
++
++		cmd = MDIO_RD_C45 | (phy_id << MDIO_PMD_SHIFT) |
++			unimac_mdio_c45_devad(devad) |
++			(reg & MDIO_C45_REG_MASK);
++	} else {
++		cmd = MDIO_RD_C22 | (phy_id << MDIO_PMD_SHIFT) |
++			(reg << MDIO_REG_SHIFT);
++	}
+ 	unimac_mdio_writel(priv, cmd, MDIO_CMD);
+ 
+ 	/* Start MDIO transaction */
+@@ -136,8 +189,8 @@ static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
+ 	return ret;
+ }
+ 
+-static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
+-			     int reg, u16 val)
++static int unimac_mdio_do_write(struct mii_bus *bus, int phy_id, int devad,
++				int reg, u16 val, bool is_c45)
+ {
+ 	struct unimac_mdio_priv *priv = bus->priv;
+ 	u32 cmd;
+@@ -148,18 +201,50 @@ static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
+ 		return ret;
+ 
+ 	/* Prepare the write operation */
+-	cmd = MDIO_WR_C22 | (phy_id << MDIO_PMD_SHIFT) |
+-		(reg << MDIO_REG_SHIFT) | (0xffff & val);
++	unimac_mdio_set_clause(priv, is_c45);
++	if (is_c45) {
++		ret = unimac_mdio_addr_c45(priv, phy_id, devad, reg);
++		if (ret)
++			goto out;
++
++		cmd = MDIO_WR_C45 | (phy_id << MDIO_PMD_SHIFT) |
++			unimac_mdio_c45_devad(devad) | (0xffff & val);
++	} else {
++		cmd = MDIO_WR_C22 | (phy_id << MDIO_PMD_SHIFT) |
++			(reg << MDIO_REG_SHIFT) | (0xffff & val);
++	}
+ 	unimac_mdio_writel(priv, cmd, MDIO_CMD);
+ 
+ 	unimac_mdio_start(priv);
+ 
+ 	ret = priv->wait_func(priv->wait_func_data);
++out:
+ 	clk_disable_unprepare(priv->clk);
+ 
+ 	return ret;
+ }
+ 
++static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
++{
++	return unimac_mdio_do_read(bus, phy_id, 0, reg, false);
++}
++
++static int unimac_mdio_write(struct mii_bus *bus, int phy_id, int reg, u16 val)
++{
++	return unimac_mdio_do_write(bus, phy_id, 0, reg, val, false);
++}
++
++static int unimac_mdio_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
++{
++	return unimac_mdio_do_read(bus, addr, dev, reg, true);
++}
++
++static int unimac_mdio_write_c45(struct mii_bus *bus, int addr, int dev,
++				 int reg, u16 val)
++{
++	return unimac_mdio_do_write(bus, addr, dev, reg, val, true);
++}
++
+ /* Workaround for integrated BCM7xxx Gigabit PHYs which have a problem with
+  * their internal MDIO management controller making them fail to successfully
+  * be read from or written to for the first transaction.  We insert a dummy
+@@ -190,6 +275,10 @@ static int unimac_mdio_reset(struct mii_bus *bus)
+ 			if (addr < 0)
+ 				continue;
+ 
++			if (of_device_is_compatible(child,
++						    "ethernet-phy-ieee802.3-c45"))
++				continue;
++
+ 			read_mask |= 1 << addr;
+ 		}
+ 	}
+@@ -301,6 +390,8 @@ static int unimac_mdio_probe(struct platform_device *pdev)
+ 	bus->parent = &pdev->dev;
+ 	bus->read = unimac_mdio_read;
+ 	bus->write = unimac_mdio_write;
++	bus->read_c45 = unimac_mdio_read_c45;
++	bus->write_c45 = unimac_mdio_write_c45;
+ 	bus->reset = unimac_mdio_reset;
+ 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%d", pdev->name, pdev->id);
+ 
 -- 
 2.34.1
 
