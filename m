@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837388;
-	b=I6qN63jTEW+enEVBEKLsarpPklElcT439roJRveWh8I28TNijUmuke1IujS72dl01+jo
-	 U4wZ47tJlh+hC9ffxob9FYDOeO60X/H/gG/xnI1YETVGCzb6/H2yb62eGQJo2pxXGODqm
-	 NldzheeHqDmwjcEkfHJVEoH2Nt1/Qz/avNMEBG1Y1a3DZwZmcrPKu24jV4nyOc1B1TuqZ
-	 WlgHHaZT7ypllF7Psv0Wh1m8kPYoE9AuHzaUd6UyXI25bQgzoBmngWW1uig0SfUqZBGol
-	 4kDWhKq+YlAhnDYIopCvQbevFLACcZrZZPeBk8Fk/yMFMlT2qtQarooxLcYA/nUMo3A==
+	t=1794837436;
+	b=LXaJUwwQDKzb3igHBS3FfGWepst+vto3wUg8HXJxI+3q6Irm0cgGULBDtyeE4laTdhnN
+	 YCJudgpqu4pp4iDhOulga1pHSdtUSLa7nSAzrjjk9lr8d1MRG/M//OpfL9ukzTrQLBfs2
+	 ETM0CKl847WTXcFyGdIRUShvAp/lc+E5AVe6BqB3MlSp/CxR3yTsYpWaakuxCsvx3BDTP
+	 54j8qmnZoER1ZnW9XxRXiz8M3WXyRhjmQJ0I9AF92UR/M4n19Gu/MDGQL7u66MkNslxA/
+	 dTwocssXN235IhDjghYBClWRqxuw0roe4WaFpRX/PWIRP+FNiHN7CiNXee0+rldA9+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837388;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Last-TLS-Session-Version;
-	bh=lRLh+6ly/zzKoywkZKGuB1GGj84cUkixJQdHrkjHSDI=;
-	b=seCXnJzSlUL2Nzc3Dg2BR9tfbtstBcincRT5BG/mVjmIvu6lWNqWzO7cfKvH1brKuQJv
-	 5hlm/LzCkLvoI2EynevklwdUea/NXe038HTqB96qFtvCdOjN4uW48Uri4S3Jc6AQdI4f7
-	 fahANQy06gmzlJjL5mP+iMh6eWgwmnRfKGpz4zjyS4NdWVklhKNA4VBuuyOpX8wbNfDgy
-	 MgPHebDgJ8qNTXtlZTzuQKAuPSysH2xSiba+YrjDw6anNqhOmUZ9udgc7bBguwKBmpUaY
-	 OyKxIy9rBcmpLekphqn3TybH/6yaEQ/3U4MjhmTBM0X8NZz651z9+j9rXf5I1oRn8bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837436;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=VfRZDaWu3mTeK1q7W9hztmEL/1IXE/SN2J1h/Ct3wbM=;
+	b=1v+jxevpoNXhycgDlxnvKWAXtL6NRSUTNintlauxSZEnR6gXAUVzI+abct6BK77sRUDZ
+	 A4tytFDac3t6cYH8HFa54Gqc8U96ZuWWbKwFlgUXhRbQmqZSEzcrOyZQAXufoULP75VSl
+	 D9ys8RsAyVsMAQ6nIJaSzCvk7gH5L0dM5BWmB0dLV2jRL86RoSlsH5OBQ2Jj93t1a9ngF
+	 k3HclocBSImtqkoSsJu9YvW272C9nu8F+rWjLfOqxeskG2sIKHB4OQPvzRyjMbrHc1M2B
+	 wDcOFvhotXL3fwKlSbBMhpWAp4Aq/ao+j58tSm1sgydTuY7UiHTUang4PUlbfbtWiYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UU4rwlcq;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzV4EIZi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C068606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C068606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E34606A333;
+	Mon, 16 Nov 2026 13:57:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UU4rwlcq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C74D1C4EFD7;
-	Mon, 16 Nov 2026 13:56:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CD6436023F;
-	Mon, 16 Nov 2026 13:56:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9801611BC051A;
-	Mon, 16 Nov 2026 14:56:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794837386; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lRLh+6ly/zzKoywkZKGuB1GGj84cUkixJQdHrkjHSDI=;
-	b=UU4rwlcqjirfQp7/rZvYV3fF/Eo9GbwHtJ54CuOcxg87TpP36NfPrWr9BhCUWWEb0cp06T
-	KcJGSg+JEUZeB6kMhgBNP8NaCgbzGr0OFdq/lNw70lKM/TX9lSSGf8+QC9yxTOLuzHW1v1
-	y/k1lEPAEP08cbpDIoN1wUwcWEdyepaBZEjSNQTMObIQ1TeUHcZwed00oHrW+aHtbmzKCH
-	03Jdoc4miFHVQurIg7Yh4vDeF2b9Omy4SmBVaCfxFAStZqWQmUkJHVeWu0cibgQnfgpk8M
-	rIMbrnxzxfZWmTsxB+8TOT3o1Qgfr8Aunb6JDQojaQkAgIyXmsZV28X1j2jS3g==
-Message-ID: <2a117360a6842fd3b1929aeade3b05320c9ad4d8.camel@bootlin.com>
-Subject: Re: [PATCH] clkdev: Improve clock discovery with clk_find()
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Date: Mon, 16 Nov 2026 14:56:23 +0100
-In-Reply-To: <20261103084915.8405-1-paul.cercueil@bootlin.com>
-References: <20261103084915.8405-1-paul.cercueil@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzV4EIZi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C171E1F000C8;
+	Mon, 16 Nov 2026 13:57:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837436;
+	bh=VfRZDaWu3mTeK1q7W9hztmEL/1IXE/SN2J1h/Ct3wbM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=VzV4EIZiG19u4MHeJLjqMGDXH5euTIdK/SELkr8O05rPjl/9nusx4QLkVUHaUM5rA
+	 kE8jNVOLBIgzLyOKSr3jM8TZevBUvgH/tsq00gO23bxB77ao35zzdZxGI/m1gSKz29
+	 utpXu8Smmhvo4yyf0Rfv1g1I5BHpnqVbJAX3yt8F/ODGuXe9Ux6gUON1G+TMy9lYVT
+	 wbv+9ThOq9pUwU/N/sdSDw1U9yj77KwUBsBHfAW6IzSiSteQSb4CXIuB12/CnbCgBT
+	 fzOLkmeqTnnab91HChXjYToi7Tz/WJMQfbUttRWySpWqGg7PcshDJlSHJPtpH27iTq
+	 qTyPXLU/Ken4Q==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Thierry Escande <thierry.escande@linaro.org>, 
+ Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>, 
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Tyler Baker <tyler.baker@oss.qualcomm.com>
+In-Reply-To: <20261116-fastrpc-probe-fixes-v3-0-3cd56d9d9a93@oss.qualcomm.com>
+References: <20261116-fastrpc-probe-fixes-v3-0-3cd56d9d9a93@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/2] fastrpc: fix probe-time races between rpmsg and
+ userspace
+Message-Id: <179483743344.37272.11839722342354246118.b4-ty@kernel.org>
+Date: Mon, 16 Nov 2026 13:57:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,56 +66,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-Hi Russell,
 
-FYI I merged this patch into another patchset (of which you're in Cc)
-called "ACPI: platform: ACPI 6.5 fixed clock support":
-https://lore.kernel.org/linux-acpi/20261116135217.37038-1-paul.cercueil@boo=
-tlin.com/T/
+On Mon, 16 Nov 2026 18:57:29 +0530, Vinayak Katoch wrote:
+> This series fixes two races in fastrpc_rpmsg_probe() that can be
+> triggered when userspace opens a fastrpc device node concurrently with
+> the rpmsg probe sequence.
+> 
+> fastrpc_device_register() calls misc_register() before the channel
+> context is fully initialised. A concurrent open() in that window hits
+> kref_get() on a zero refcount, and because of_platform_populate() has
+> not yet run, sesscount is 0. The error path then calls kref_put() on the
+> saturated refcount, which kfree()s the channel context. A subsequent
+> IRQ-path fastrpc_rpmsg_callback() dereferences the freed spinlock,
+> causing a kernel panic.
+> 
+> [...]
 
-So that you also get the context about why it's needed.
+Applied, thanks!
 
-Cheers,
--Paul
+[1/2] misc: fastrpc: fix NULL rpdev dereference when session alloc fails
+      commit: 2b22e3266386190d2027d9f12f317e0662a40711
+[2/2] misc: fastrpc: fix init ordering race in rpmsg probe
+      commit: 1bf78aac760fd25b684153f8c477aede9b9dd634
 
-Le mardi 03 novembre 2026 =C3=A0 09:49 +0100, Paul Cercueil a =C3=A9crit=C2=
-=A0:
-> With a setup where a clock provider registers a clock with a device name
-> "mydev" and a clock name "myclk", calling clk_find("mydev", NULL) would
-> not actually return any match.
->=20
-> Update the code so that we can support this while maintaining the
-> existing behaviour:
->=20
-> - clk_find("dev", "con") matches in order of priority ("dev", "con"),
-> =C2=A0 ("dev", *) and (*, "con");
-> - clk_find(NULL, "con") matches (*, "con");
-> - clk_find("dev", NULL) matches the first case of ("dev", *).
-> =C2=A0 Note that in that case we don't handle wildcards for the device na=
-me
-> =C2=A0 or it would end up matching everything.
->=20
-> Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> ---
-> =C2=A0drivers/clk/clkdev.c | 4 +++-
-> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/clk/clkdev.c b/drivers/clk/clkdev.c
-> index 919fc680ae4d..ee6c0afd6ec0 100644
-> --- a/drivers/clk/clkdev.c
-> +++ b/drivers/clk/clkdev.c
-> @@ -53,7 +53,9 @@ static struct clk_lookup *clk_find(const char *dev_id, =
-const
-> char *con_id)
-> =C2=A0			match +=3D 2;
-> =C2=A0		}
-> =C2=A0		if (p->con_id) {
-> -			if (!con_id || strcmp(p->con_id, con_id))
-> +			if (!con_id && !p->dev_id)
-> +				continue;
-> +			if (con_id && strcmp(p->con_id, con_id))
-> =C2=A0				continue;
-> =C2=A0			match +=3D 1;
-> =C2=A0		}
+Best regards,
+-- 
+Srinivas Kandagatla <srini@kernel.org>
+
