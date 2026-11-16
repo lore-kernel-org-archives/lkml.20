@@ -1,190 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.28.197.132
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794839125;
-	b=XgoZ9nrjg2vmQh0NcGklWX8ZfB23vBhI224niy1+m53un0IgeyKy6blDXNqCXcm5fcQD
-	 K2/a3SRwjiJ5iEcnzegQwYSmlzrbWgiQ6VUsYyLt2OK14BRP7mtuVhtzNRUKhlxkYMh1Q
-	 iOgqXadfc88c/REn6ZQwpM0d00YXMkL+vd4iM0OruDqf1B3HgIt/J4azK+OhSFQczXsS4
-	 NNRLBrezu9ExGSwaGdW4faunp3ZrWRDtUkm0Rs0clVBj5wVpp4tckpk/2m7mBfMb6wgXV
-	 6hQQnt2hoi9Ldh/oeq56ivgW2Nyfq41cc2NrpKwm66SfLtqUGrZ3wNBZBWWyCyWyu0Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839125;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=7Y/W+T3mQYr/h4OdDSuI0AlR+5U4+rDF+oH/5ePJ4zU=;
-	b=2YSFrZqMT0wicTi11oKzaA8BO34c2Pj4j3Xgpayqkr9XJH9pkHWtFiR8gTUWwsEPd9T2
-	 7zYNpReLvpaN+UCD6uHh3+9lSNNlY6VMggi2BK0A4jt6Bf/WcnFS9LfVf8N3uT85nAzlK
-	 DrPPzga2zBbfZRlse8MsPeG97xFENPPQ4PsKUQglvSEbc2uq0czFGdU/VXLlbasSOz2nN
-	 6kpmg5pgtIX2MeRF2Tzn8ci6GgWYRcmd7OLG+US1wDEMZAoTcTCXIziZd5GXEjLUbp89F
-	 S7C9MXT1rRXlBP3c+LWI1kSAc7wVKl2O/cLFB8XdjTAn9TaGlokiP1fJ9WXCZoiFXWg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=fo+8Nqbl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.28.197.132
-Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com [52.28.197.132])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794839134;
+	b=tzljt02CcHhF9TkPl4q1GX9wnPaE6ng1ur7+M5cJ/cLGt/VdSoR7Agsr+RK8Fdbd37ek
+	 5lzV90FyGPqewMaPsr7QXFqXEyxIOrjFdhZZlhVGkZ5z3OnHmUdKuTb3oopzCQWh1WVFY
+	 xB4pbKz3/PYJisss4PIJB4xXYHrlXWVZJklMPEByBPEFAaQHDG5FradC63ggBFJ2u9JCH
+	 CHYGOdApq6MnUb0jUGBOJW1OSWBrUVi1+GsTEpDi0Ibyty34M/FLtOTpuhyzlPdUdOm+Z
+	 7itByrwcZjaCagtGKA4VjXky9I8c9YjTvIGJ1Csm4cHKSjG7zxd6iZhgTsIyOOnTW1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839134;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=bnKc3IJSrt3IePIy9TsoCqbRk4dzHod7cZj0q0eSHH8=;
+	b=EO7HVDdWIHxCfm+cr7dK6Q1d02b6I748ye0Z5oc52vjadgDtxHvMghsSorlEmiiE/hpS
+	 V6uW5gzVAzlRdmw+p/XvUPuQeYGsMzH1GXib3T01t0LeyzUr97g/zRcCDazQmyi00hiq8
+	 LZAjRPAPhxfnbCjowNs92e2IJ//scrIX/QZ9EIqqNxsZ/aQeFDwDLvfENyPH7nNhAqoQM
+	 ziqmrEdhllA90xR/XZpjURnrGT6Fvx6F+ZP4o8fXa+rX3nG7GtzTR12tnAQKj92n0AIVz
+	 vvkblk0mXmbwG+l8Nc6+YBtmtwPgISCzrdpBKxmOqiJJizkmWDSimg/cwa8YECIZqDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0sk6mFXH;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0369B606A329;
-	Mon, 16 Nov 2026 14:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0369B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D6E606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90D6E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=fo+8Nqbl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1794839123; x=1826375123;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=7Y/W+T3mQYr/h4OdDSuI0AlR+5U4+rDF+oH/5ePJ4zU=;
-  b=fo+8Nqbl0ojXbmOwk4L56LQsQRQYm5ywF/MdSkGp+osEOLYyhb+kwREQ
-   iGAU5VbAnr+n6KEyqyxWJMKb7vFhHewl12kudUWZSHnvNVNNsdZN/se1V
-   6zExJ8XPNY/ECn+/iJQRFH4s1aWjwBYZNi6R3bJPgUSZMa4of3kB0y9wn
-   kZ9jhL/LZTq9gB0lhqWQ+nxMYpJ+ixLrGIQcqRYW9tLrZq+GDIsi36ZFf
-   47gyemTNyl1KDz/kh4q4J7IqTXvrcvE7oGy3ZZpVqGuHK0WuWH13U9/nf
-   uPo9b+q+JrXIb32tj/JKIMPzjBT2cNDYmCCdWTe7DpU6vO2Dy2mPNzdmF
-   g==;
-X-CSE-ConnectionGUID: JVhUv8eyQ2GJSvdP8mXovA==
-X-CSE-MsgGUID: OsVPV1SyQMCURvXVOftPFw==
-X-IronPort-AV: E=Sophos;i="6.27,216,1787011200"; 
-   d="scan'208";a="22880647"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
-  by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:25:18 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.234:11664]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.36.162:2525] with esmtp (Farcaster)
- id 28e45152-4665-42ea-8316-556d2be5ed7c; Mon, 16 Nov 2026 14:25:18 +0000 (UTC)
-X-Farcaster-Flow-ID: 28e45152-4665-42ea-8316-556d2be5ed7c
-Received: from EX19EXOEUC002.ant.amazon.com (10.252.51.145) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.26) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 14:25:17 +0000
-Received: from EX19EXOEUA002.ant.amazon.com (10.252.50.139) by
- EX19EXOEUC002.ant.amazon.com (10.252.51.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 14:25:17 +0000
-Received: from BEUP281CU002.outbound.protection.outlook.com (10.252.50.44) by
- EX19EXOEUA002.ant.amazon.com (10.252.50.139) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56
- via Frontend Transport; Mon, 16 Nov 2026 14:25:17 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UDnT1fDpnfuGb4VdnRRbRdO7yO4uipZ5kj2QUDQk6WbJOHzIFNp7Ql2eSu6whJB6hfQ290Cz+nIdhRkJq5gfeKSDOvXm9xWmRymMgLN0/TiM9ebKpd1ppELyccEtGy+tblaizbcoPKxFYFRj1TPz+5rnDzN9PEd6W0HWdddP2cVYllbECLY9OKJ1sCuam2Qq8xI48inmYOxQ8fEIhM6in6ogTD6AAWKH73wX0SrmJghVjYGPXchA8c1aQiu9+TxfYdCP2mA/P3L0AyJw9i9wOj1NyyjSsYCMk4OQyLX4ynZKP/kra3HDhTgvFrqNu/UavNL8KVaan90HdEUAMNnEUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Y/W+T3mQYr/h4OdDSuI0AlR+5U4+rDF+oH/5ePJ4zU=;
- b=a1RP2ppt2/CnaATFicaCOLkNYaA8SD134ClgeU7Edf0pcpiEmtMoCsHmohhSaye5hYWFveTk3uAGabOGl4IrgiEiH/u+i3IS7fvlJeY5asoyKHIEZ0ev0QE7Bwm6c0e+EbKbxLRvcMqPBumBDkCVJFZb+v3e9MnGg/uy7Fop9mA38kzNH2U+7bFOWOoYIACbTavL8SavqD4w9Hws5z5QhP+OZwyXyCAbolFnJMmM5o2pHfU7UrqjG5pNCdS5qZx07WhLOZEI1uaG6Kn/tGu5C6eFV6frpNCh404kTh4BUNM+FT/JZVX9PPWRvZp3OP1R7jFe02ioJA1app0EnLNclQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.de; dmarc=pass action=none header.from=amazon.de;
- dkim=pass header.d=amazon.de; arc=none
-Received: from FRVP281MB744463.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:20d::13) by FR5P281MB6289.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e8::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 14:25:15 +0000
-Received: from FRVP281MB744463.DEUP281.PROD.OUTLOOK.COM
- ([fe80::7b1c:7a5d:c405:6c4d]) by FRVP281MB744463.DEUP281.PROD.OUTLOOK.COM
- ([fe80::7b1c:7a5d:c405:6c4d%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 14:25:15 +0000
-From: "Graf (AWS), Alexander" <graf@amazon.de>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	"nh-open-source@amazon.com" <nh-open-source@amazon.com>, "linux-mm@kvack.org"
-	<linux-mm@kvack.org>, Jonathan Corbet <corbet@lwn.net>
-Subject: Re: [PATCH 05/40] dma-contiguous: add dma_get_numa_cma_area()
- accessor
-Thread-Topic: [PATCH 05/40] dma-contiguous: add dma_get_numa_cma_area()
- accessor
-Thread-Index: AQHdci4rOtGOjUeI40aBT+WSWM89XLcwrUyAgAAa7gA=
-Date: Mon, 16 Nov 2026 14:25:15 +0000
-Message-ID: <021dc899-3e57-447d-851a-ae05529e2a43@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
- <CGME20261111224311eucas1p1eb735607894271094a8934b187647ad5@eucas1p1.samsung.com>
- <a1294df95fbe0a2ef5cc3585824d396854c7242c.1794393490.git.graf@amazon.com>
- <2be89ecd-2809-4182-b2c4-df062fcf68b6@samsung.com>
-In-Reply-To: <2be89ecd-2809-4182-b2c4-df062fcf68b6@samsung.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.de;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: FRVP281MB744463:EE_|FR5P281MB6289:EE_
-x-ms-office365-filtering-correlation-id: c989bca7-6d12-43b8-0559-08df43ed6ee6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|38070700021|4143699003|11063799006|10067099003|56012099006|261022075727099003|261021135927099003|261021121427099003|261021123027099003|261102124227099003|261102123227099003|261009223027099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: CgynSsyirAt7IH8rzgI7UUX/QiZA0oTi1GU/GMTZXtnRjAKoI+we92PN+0MIcKNDgHGIlu3+K6aLjtY2UGPUCVSLVC1yCN6MN2WKZlL4DvADqbBoON74FIgSTZeJUWAEi3shIW9WkXh8/54E5w2j61K+5UTPY4Hsl5j3Qc2IgN79aJxHBKD7IKql6NXhpOVOXoMhZcdO6EpNlw6Gj8c9bQ3r3vvB88cAaqDm/eqBFMkDXyDOdjvL4iIEwFNrtgNVOpD0IhxPmMwGwNdIQNwmkLjccCcBeQQYgShrTww16SMf3H2s+fQ3T6ZcvhCF7656W4GzG3dVa7Q15Gqxu0iJEis2/5CXtKpUiUZmOmGDxXHGK8W+SQTvnZDx7XtmRPLAdOqNXAWnqVCG58jSSdq/VEOSmp0e+mdRHq/jSIaLZ503gt/9QhAFYxBqkU2IBhz6hBGASO+DtRka68eue7MQM4ZQT8hRxrC6O8qdYeSENqAGyQwT+6BE8wGB6WeKEXhovqyfekf9Ql3Wk1I0UMbv7DJKo9llvg6XMLyuIABJ8OjKYTS5/F8lklEkLAUustfLQlbDnJgrKx1P6pjWfk3WJf7KSR/Qm1A6VRSQj3qltivYW7IhgKRFvHz4VW1DbEm5u4m1senNG6EE+XSokvMcb/2rU4XxImLu4h0UOzHI15U=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FRVP281MB744463.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(38070700021)(4143699003)(11063799006)(10067099003)(56012099006)(261022075727099003)(261021135927099003)(261021121427099003)(261021123027099003)(261102124227099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ODNtaGdHT09MTEd3dC9wVVU1U0pWanp3L2Q0VTZOMXBBOTJUM05KQzJqUno3?=
- =?utf-8?B?b05pSThCdTBzQlBYYTduR1Q2dXY5UGxueks4VlBWcisrTXk5T3NHMnF2YXN3?=
- =?utf-8?B?aWJ4UjgvVHJRM1d5eVVRaE5Eb3NQKzhTSHJZNnhGTzVUdi9vNmVzME5tMzFi?=
- =?utf-8?B?dFNQRURBUnEwRURYMnJqQU9YSkF3dzlLVHVMa0hEOC9DanlEckVueEo1Ym9C?=
- =?utf-8?B?Q1hVVzZtQlc0czN3U2crbXVSbWJ3SlBPWGdOOFB5VTFRcGl5clBhVFhtRkRX?=
- =?utf-8?B?Mi9BN29uekp0YVV6VGxRTkFYUXRmNmdEQWxLNE03SWpDWWo1NmVqYVA2MjNs?=
- =?utf-8?B?em9HNlMzL21TbTE0bG5SY1FmbEN1WEExK3BaWHBWU3VYVEJ5VEJxdzdvbDZB?=
- =?utf-8?B?eFFDYUhuYjFKR2h6Q2tXcVA2bGt5bnlpY1ZieThPVHBwSTRzRGxQYXphOEZJ?=
- =?utf-8?B?WVdkalFxZWgzTTR5a3ZIdXlMajlSYUFPKzkxbFdLU1NkeW5UV09HNkppMlZa?=
- =?utf-8?B?YzR6akV2Z1lkME5ZdlhYbmtFLzVOeDBVSEN3WkFsU3JBVzZoaHVwRXIzQ3VG?=
- =?utf-8?B?WlZKbmFNMmFSMkdvSTk5VjVzQ0NDNXBOSEJPWjczL3ZZN1FYUUpmTWdaMG5H?=
- =?utf-8?B?NXIrVWZZald4Vk50U0h6UW56SXBGUThIVGoyM1k4aU1JSElwQ0lFZ1pCMit5?=
- =?utf-8?B?NmVjbVFBRW5PVWphMmZudXhTMUZ3UUVLRnd2VlNhTjczZjJZalpYY2l2eFJO?=
- =?utf-8?B?REJUcmdMMmh3QTJrY3hrZnluVmN2VTZLdjlpYU5mRUJvc3Q2OHhjRFhoY2VC?=
- =?utf-8?B?OE1rRWpFM05lNC9KMytpLy9GN3NBbml5WW9CWTNQTXBmZEVZY1krV0xyVmwr?=
- =?utf-8?B?S1hudFdTdlY3U1g1ZjYyYWNNOFhaWGRkNDVoN1ZTaDdvL0cvZHNQVFBDWWFT?=
- =?utf-8?B?c1lnRDd6SUtrcWVWNlBnT0c4M1huNE10YkxaSWVZQ1NNVDJYUnpuVmNJcVRY?=
- =?utf-8?B?TnVjdWVjNEFRUi8xTFpmT3MvNWNRVDlsL1BxQmhLcGsyUExCWHZZTE91WWJJ?=
- =?utf-8?B?akdFVDV0VnhsT0MzVllybGwxK004NXVGamxEdVNBNStvTlZpRldoRm1YaytG?=
- =?utf-8?B?Sld5VXhaTVk1b2dhbGtSTXF2Q3ljLzlSYmFvWmdJNExNSmtwL1VSTGlUMmVE?=
- =?utf-8?B?dFlQT3N3aklHZE9UbzRVNDRxUGhENG5xbmxOejl6NytOang5dWQxb3FMRDJk?=
- =?utf-8?B?QmhJbEN4TFFRQTgxQlE3VnZ3NS9WNkVIMDNYRnpaemFjMHZ1VjAxM3hWM3E0?=
- =?utf-8?B?K29RR3E0YlhKSHp5dnE2cXRuNjVGaWwwQms5R0NKUVBJekkvWlJEeDBRUmc2?=
- =?utf-8?B?TFBLdVJkVTF1NGpLNzlSd1pCaStWUkNvZG1Uc1NrUG1Bei9EbnNMT255bnVC?=
- =?utf-8?B?V1lYWE5zUkY5dVBvbXE4SHNUU0YraThOSDNyK1hxVk5KQWVWekdUaXd2eFZR?=
- =?utf-8?B?M3N6TUpYR0FRU0s4WTlSL2g1REtuWmVrT2t4Y3RWdUlxTWwrOTJkc2NoRXc0?=
- =?utf-8?B?am4wNTJaQWREYUxOZEhrU3NJaU10cWJjbzAyaFg5ZGFKWmlJSlZLRWJQUlli?=
- =?utf-8?B?NDBQUVkvY1BjOE9zUW1RTGV5MEpDU0NiVjVFMlArbW9mK1ZZWnJYMmovc3hr?=
- =?utf-8?B?SDM3VzZwa2o2M1ROTUFFM2lvbWZlNzg1bVQrZDZTa1JFb2RBb08xckRsbG5G?=
- =?utf-8?B?ZWdsOWZDY1l0T0VSVHQ3MmZtTGZGZHhzMG1SaTc0MGNrUlM4VDlEOXNVUjNN?=
- =?utf-8?B?Qk53c1V1NDlNQmRtVXdWNjRhSnFkK2ZWMzFQMmxLbC9wZGdKKzg1RFdZc3NV?=
- =?utf-8?B?M1IrTDdFZXozRjFiK2tvWGFVT1pqWE1ocytqNjh0b0oxM2FTNWZQQjM1S1Zw?=
- =?utf-8?B?Yk51ZW5MT2JEenVXNzJPMGx5eFg3UVRRRzdvdDd3bC9TS3gwWWtsWk5ITEow?=
- =?utf-8?B?TFJkcE9iTVBFR2grS0MySkVycFZubHVBcUQzdVRUTDN6dmw1b0lvb0xHcWlE?=
- =?utf-8?B?YSthWlJCZTU0Rk5vMDNhVzQ1eFBqR1ZXbll2WnJXVDBrRUJFUjhSUnNOZmdL?=
- =?utf-8?B?NmhlZ0RsZEZMT29LNmRPbzJwMWY5T0Z2cWgwc3Ftd3o3K2RvaTlXblMrSWhG?=
- =?utf-8?B?L0laTzF5MjZJak11QXJHdmhqeld5bHlnQjRaTExHeTN0VWhSWUJZV01rQWRO?=
- =?utf-8?B?bUV3emdidGZmOGV6MjdOcmRSL3Bnbnh4ejlLN2p4NzRKMVUyWVNWTytUckFa?=
- =?utf-8?Q?ZoFg4iNXR/dDpUdiUh?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4ACCBB7BA83DD148AAD3EE139A9AE1E7@DEUP281.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0sk6mFXH
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id Sxe7xOHM04vCDSxeBxBhDF; Mon, 16 Nov 2026 14:25:27 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SxeBx9QNBYskhSxeBxeawZ; Mon, 16 Nov 2026 14:25:27 +0000
+X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6afb1257
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=gUJwKisUJcuna-pPN7wA:9 a=CjuIK1q_8ugA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=bnKc3IJSrt3IePIy9TsoCqbRk4dzHod7cZj0q0eSHH8=; b=0sk6mFXHdazpnAR1pwYEQWKC6I
+	X1E8ekQhO0z3VayxRm1NfHDKZPYKtSjVyBbOQ6BXgsKnbsaQijZg9Njwvi72ApNtUv8cSMNdGc4Vd
+	QyBkQyIPDzLAZFyuqMD232Y8huOEnhHlwlN1r/1BLq79zhy1fepUalqTHRZt7AQpgRJ/hNNVCJ4/W
+	+wjozLlctGicx/oK/1NIvMu3BrlohLbRxPWhx6Kl99HdJQN9Ph/a5KSW52HJ5bvDy+eWL6YxSlBW3
+	Pv6/DkmHUpcXaGr7B2cKNOjA017mfcKr12cerSqK+iWNmuAk3le8gG/O8AgxGgOr0CZNuR51nIbhz
+	RUC4xEhA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54554 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSxe8-00000003nQw-0sPf;
+	Mon, 16 Nov 2026 19:55:24 +0530
+Date: Mon, 16 Nov 2026 06:25:23 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Alexander Letuchiy <asalde.le1@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, linux-input@vger.kernel.org,
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/9] dt-bindings: watchdog: mediatek,mtk-wdt: Add
+ compatible for MT6895
+Message-ID: <20ace44c-2385-4561-9e69-c6c7bd3a3fb6@roeck-us.net>
+References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
+ <20261113-initial-mt6895-v2-3-4ab0aa9fa391@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -194,34 +101,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: cvfEm240ZXIxry2T8ZcoXBzRoEXTOm3lkH7zr6MatQOrzVgtUB4qgzvpGsWZHy0KLrf+rVjhNZoa62NiYSxIUP2DbxpqYDVYc7NX2H41ls+GfegLuQGza/PKnV/pssTs2wJWQCkyuqIiuePOxptWNZbZaB8QE0vvKOK01qMqjrWQ62bi7kOOxSKgUmqLFlF1JAp4z8xAwsJJcdC78bHVYg162mHQp6/q93v4jHYvqIVmuZyefZuccNbAFHqAPBYLc2O57j8a+RixH20aiB7VNJ83VRxqO4AxknvlMDLitnbBqOZ/9BuQ/Zub5acV3Sd75Q3Vvd3dW9hqQEno4ydodw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: FRVP281MB744463.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: c989bca7-6d12-43b8-0559-08df43ed6ee6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 14:25:15.6565
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yQ99mQ0bhKCgxT8pX62165sqIHqlLi/6krR31Vk0Iu7VAmwqx4EfFyEBKS6PK/L1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR5P281MB6289
-X-OriginatorOrg: amazon.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-initial-mt6895-v2-3-4ab0aa9fa391@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSxe8-00000003nQw-0sPf
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54554
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 31
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfCgxoQnLh8+Z1Nk3CtUwPabPGXi3jcq7exOkPxLjcII2d12DXb1Bcs5QIHIL49POHC9asYMfFIuGW6P4ian9I+duAEoCXNWwhBQP0e/BmKfj6M1u1TDW
+ vPp4hFJ5UPOJNdd4NchaLC3Azy8gisrRQ0wwhWCIUzSw+b2BvZ0SAjp+M8DNsQGUFTDp+wm79YT76fBgl6rrIOqPsPoXwuqLaEIk0EWYG4b0gdmb5enBKFNi
 
-DQpPbiAxNi4xMS4yNiAxMzo0OCwgTWFyZWsgU3p5cHJvd3NraSB3cm90ZToNCj4gT24gMTEuMTEu
-MjAyNiAyMzo0MSwgQWxleGFuZGVyIEdyYWYgd3JvdGU6DQo+PiBXaXRoIE5pdHJvIFNhbmRib3hl
-cywgd2Ugd2FudCB0byBhbGxvY2F0ZSBwZXItTlVNQSBtZW1vcnkgZnJvbSB0aGUgRE1BDQo+PiBj
-b250aWd1b3VzIGFsbG9jYXRvciwgYnV0IGhhdmUgbm8gcGVyLU5VTUEgc3RydWN0IGRldmljZSB0
-byBwYXNzIGluLg0KPj4gZG1hX2FsbG9jX2NvbnRpZ3VvdXMoKSB0YWtlcyB0aGUgbm9kZSBmcm9t
-IGRldl90b19ub2RlKGRldiksIGFuZCB0aGUNCj4+IHBlci1ub2RlIGFyZWFzIHNpdCBpbiBkbWFf
-Y29udGlndW91c19udW1hX2FyZWFbXSwgd2hpY2ggaXMgc3RhdGljLg0KPj4NCj4+IFNvIGluc3Rl
-YWQsIGludHJvZHVjZSBkbWFfZ2V0X251bWFfY21hX2FyZWEoKSwgd2hpY2ggcmV0dXJucyB0aGUg
-Z2VuZXJpYw0KPj4gcGVyLU5VTUEgRE1BIENNQSBhcmVhIHRoYXQgY21hX2FsbG9jKCkgd291bGQg
-dXNlLiBUaGlzIHdheSwgdGhlDQo+PiBuaXRyb19lbmNsYXZlcyBkcml2ZXIgY2FuIGJ1aWxkIGl0
-cyBvd24gZ2VuZXJpYyBDTUEgcG9vbCBwZXItbm9kZQ0KPj4gYWxsb2NhdGlvbiBsb2dpYyBvbiB0
-b3Agb2YgdGhvc2UgcG9vbHMuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogQWxleGFuZGVyIEdyYWYg
-PGdyYWZAYW1hem9uLmNvbT4NCj4gVGFrZSBhIGxvb2sgYXQgdGhlIGZvbGxvd2luZyBwYXRjaCBh
-bmQgdGhlIHBhdGNoc2V0IGl0IGJlbG9uZ3MgdG86DQo+DQo+IGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2FsbC8yMDI2MTEwNjE4NDQzMy43NjE0MjItNS1rdWJhQGtlcm5lbC5vcmcvDQoNCg0KTmlj
-ZSEgVGhhdCBsb29rcyB2ZXJ5IG11Y2ggbGlrZSB3aGF0IEkgbmVlZC4gVGhhbmtzIGEgbG90LCBs
-ZXQgbWUgdHJ5IA0KYW5kIHNlZSBpZiBJIGNhbiBiYXNlIG9uIHRvcCBvZiBpdCBpbnN0ZWFkLg0K
-DQoNCkFsZXgNCg==
+On Fri, Nov 13, 2026 at 10:04:59PM +0300, Alexander Letuchiy wrote:
+> Add a compatible string for the watchdog of the MediaTek MT6895
+> (Dimensity 8000/8100) SoC. It does not fall back to mediatek,mt6589-wdt,
+> which implies the MT6589 TOPRGU reset layout, as the MT6895 one is not
+> known yet.
+> 
+> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Applied.
+
+Thanks,
+Guenter
