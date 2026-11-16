@@ -1,106 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794845130;
-	b=SDyBNEQPtsaqLFVSGQ4jlinBHz79jbBfWPXex1Jok+WO9++b2FRkfLeSKTYr1uJi8AsC
-	 7x9Dg0eInNqJ0IuC17CspVjYmnW90/beKbA6FMxGqrg1j9xWgP2yQhb+G268Ql0GSXxcl
-	 uG2XS3r7+i/sHiIz8aANvN/sDwKT/sHe7VA+Pb0okNWDTSlHyFUJKfLOyzw7g0MWpDVhW
-	 okxCcCtiagrgQRNbExoWKVuW1jMp0bvvYWXrMDH5XK7LQD5RbNor9VfoKNzwSR7ZP5jHn
-	 EJKfRObTirQ9tf8uWqIc/xSH/2KtdTOvXC4WAFgGagb/8LBJNZr5LV+7zIBj+TPbuYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845130;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=909fGxJj8pcbDn0gjsDKGhAGHncEpAXdhzKPe6Jd3lw=;
-	b=YGzxusb2GBXvEClcfVoCzbwQffqxnOqWfzB13KpNC2GOloso5XlN52CAVWlkOEBqBOCp
-	 4w8+sLm4cTb7HkezI27CHRSfuVPhuFrkqs6wJEeBfdAzZH6DMKVH4hdGAZeAXThl/5tkP
-	 It7qvIK1ZDP3eSveH8OFMbPu0UAHkX3uGZTWoDCj8/HVI6BeYB+FtfwEKeFJ4hV/8452a
-	 A4W/uo2n5RIOEHM35KV3SB2d66OC1u1nnGafcv8cjZI7CHtLYVRfMW11YB/tnl2SxPBzo
-	 +wwqGKRgpPbbZWKBXmtwrl3hhbq27ENslnG3T9QuC2Ak20xzzjBntxKG+KYN6ni/Ozw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=co2D1OUk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.71
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011071.outbound.protection.outlook.com [52.101.65.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794845133;
+	b=pdA1MseVKj0Us570xGRqYZMm+DDVdbyWBlHIQ6a+mpT+3kemOY+cdExavFRTRtJQduFw
+	 MOdbKVVEXF4Ebfqqa6sSLLaXC/ucANziey5TNtaEWO4oK/BAfb99QLCL2BiaDXZFhwq5C
+	 1JDVyxpyO3s836wy2IrqzD/Qj6MnCOYbc7/ZoUqFK0gB3eEaeDuPY/BaL6MGC396/+nFC
+	 vL5tVto3Q/QXPaGcL5HRPRE+IlGwX7Hq0JCz0Hd2Wsx1RS1pVkhwd6rW4pvJmisT5V7Qh
+	 GIpd+QB0/BgvVok81+YBHyPAI2EeMgbsiOkaV9ETAmrpFXUoJLRsFjIOtsTI4zH6lOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845133;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=xBu8GzeDrk7xvt8Bx0CRjK8uvrfVOw0/hRdHRPrcQig=;
+	b=deJya/UFzyusMzB+gOT6ZgETqDXvOW6hXdx6Ul4B8vBttCGcAiRGA9swFLLPtgMzE9PQ
+	 9Yk8mx5tOgu8E13PD2hzSaLDGlRX/vXTLt5sVFxH9d6JxJYt/qfhLnhUbXhhPhAB7dRbh
+	 2o7N9xKh7eT/BB3Pv7TSz/vXM24C7TvfN7aLsVsAW7a69JHxDUCnI42CqMj0AH61Rvgxr
+	 wnY1arkA6u4cL04vFAAq07MNsHseQVNjh1e6v3pvrXL+1kc8d1u7FHE4Knh/sgXo/48IE
+	 7Y6JhqLMRwg9JKPVN97hK+Ib5p0G1YJcGaGsYi80xlM4x20dhtlQ5kfPYfKdDf7/gVw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=iM++q2JP;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF3A606A322;
-	Mon, 16 Nov 2026 16:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF3A606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F77606A332
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37F77606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=co2D1OUk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h3bko/I+kKp+6Vn2fs+vB4jNgaOYyDPZMSY7cPlBqICykD13EHx/uwWVAysX7Fc4Nzlhfq4eilGENMt3Ll6R/DhOuIf3DSV7UEy33IvAOLDDNK/cjW2XxpEQM6B++fiORFtKN58vrS/WcwKBjyPHiim4yFxTo/Z64aRmIFeVWpXnZfeMmHmeHH8peXTOMobl/xfac8SR8xv+2KhF/EM0mF//CVefCGHY7ejidx7U81SsAWy8LMk4PEzHNjAspBMTqLKzKiRRdu/lURS5wNMbKV2VreeO+zuHFGEel1F9i8kRgGJdu6ibw7IjwjjDUYFtFAqDnpL3avYOmirEcKiEwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=909fGxJj8pcbDn0gjsDKGhAGHncEpAXdhzKPe6Jd3lw=;
- b=EKNIyWd3YO/C9A4xrYBB9teXAbYLkC295sEq3ChJ32Gne9jrISeDVWKPEtlbI5Gvyd7g/zcgqxksYG+hlemyqvwCwwycFgQEhF3XDKPrE1ew1JF/p6ssGh9/YtFw+lG8iixRQCm9852FAXSCqyb+ISMP18zcbQu6SWxErOA5tyQ4Hk8k45RYk44hvDCuRRW2TA1ctuHKpaU3PXleJcG9EHUqT/zcDh3HuAIJ4gJ/v+tlUmhoeccE0YYhq7jB7tpQb0aQXi/XzMexaVK0RNpBI1M4w9l1jAfavxwRI/qwcidNoIz1FP+5DZey7l43bTUKiM3Rd4R+jCm4KUkOD9/MUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=909fGxJj8pcbDn0gjsDKGhAGHncEpAXdhzKPe6Jd3lw=;
- b=co2D1OUkQbzM/nbdF1JrX8RdYkzwdAMhXqJkJnuAeuuQ/hr3q42tX1tSLkVkYcc4dz5/KhBdnNGtgDFJLE3KLyxFjr00DvRxyQ1jegARtVAxma+vxC0aRH9tHpagNQKoz2l3CZNtMqeD4LvyRh5DXf5lSnGhgTUoqK0ysrfd7okMGpZunqCoVez25R02ttsv3RINQ1f9+orXTBbZSEhnNmJt7rtiymqOjXpbwefeb85+YkDCT9HHHx+jiSSrgazEMmcVSagGgNGndheok1Ufd4D68o4tqhcsuGlUcSAxbDj/OrLOKCjeXPzYEXpgT1FvVo6D4h/kju5QQAakh7ESSg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS1PR04MB9405.eurprd04.prod.outlook.com (2603:10a6:20b:4db::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:05:26 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 16:05:26 +0000
-Date: Mon, 16 Nov 2026 10:05:15 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
- alias
-Message-ID: <avspu5VpQ6OtbJF2@SMW015318>
-References: <20261112150236.164850-1-francesco@dolcini.it>
- <20261112150236.164850-2-francesco@dolcini.it>
- <avXeK-IRXbKqI-pc@SMW015318>
- <20261113073135.GA8515@francesco-nb>
- <avc2nzql-JV7a-JH@SMW015318>
- <20261113171927.GA762258@francesco-nb>
- <aveChu8WqYM2JZcN@SMW015318>
- <20261116114509.GA101185@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116114509.GA101185@francesco-nb>
-X-ClientProxiedBy: PH8P221CA0020.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::33) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=iM++q2JP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794845126; bh=xBu8GzeDrk7xvt8Bx0CRjK8uvrfVOw0/hRdHRPrcQig=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=iM++q2JPHV9nYNTsHPvMfOPZaNaQnxA+K7vcHVN9KBpSdtBSq2bcxMiUYXMScaBn2
+	 XUWR9F2Lfmq8YI8oZ7lbYwlznLDMLvQGh5E5ABMs5rU/NxUqIB/Bq1DGO6WnjcOOoO
+	 GCo73jetIdWRY9iOSi8x5peT6GKJdv7EOSgmShuY=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: MMvVzQSdFuTp9sTjQOGIRK8xE+zYC9uRyfQxc8yQGv9al2Q86T3U8Tzb/wwbfi
+	 aEYwdjK9wwqzxGmtd/dRL/uYlGaaJrEvZLD68OamQgJpzd1jysozGF3l0R2K49mU1Wh32y6QHN1OK
+	 CP+q5v5O3WNbfZcQ0D1oVVVpOOx9qBYBemSJQtIQDCAOmIS0by1p75q0wquKAyKkizoivj+bjZoXu
+	 Nx5xA4W/hf6md+c2QeI20aw3nROdPRtL21B/26o6ql+gdyu9mIPRrcJ0daKcUBMsxxLjlyoS0ps7E
+	 mqWVPewoJoRy35xa4zicXEhYTBsqdGv0IVP0ufEJ8a8SFj7X9JK+5gaVOUcMoSWd+54X6lAruy8HR
+	 mbWVWrBCmNBz2gi7N+Ne7E4RAVg1xwdU+R8/QzreX0m+YGTbP9Up/ai4xzH82JvrqyAcNGF/YwM9A
+	 WjvZtCROQjQB2fNhhHPD+++tsLmf7a+s6ox2rK3l29J4ecXjEcmUPWchXFJYYOKW40XCJDcx6DKCU
+	 8TNuPzp2y65pGQhAMpwxDyibahFSLAMFaY371/pTejPwUwqu3RfulRRtZwAJRxZwlJe794V815O18
+	 UtxDooDoDRoyd7tyaUkt+zioxTmVTgjYZScNBIVDY1fsOtl/hopv3U6yvhXfGFK5WEeoBoy/vkZet
+	 tcl0OjlPgMQgNZqszcW8Pi1d3up5tdpZKot9D6KOarOJUJhC63ygNplMYdLMQrVzyCw30tvzaGA2s
+	 IE+RZWRjTuG9MdBlaHr9tqUwhbiSiAsefsz96aXmWo5gQ40flFNZOh7nmGyjLfoWVOmQAeUet9Aas
+	 lC7UJU+RiURBJMuEMDpMLm27z3RCXvXjRaLNDXDrpTz0StR50aRIiNAa/LTw8c3czPjE4sEyAqFGm
+	 BXmmF9eILYukDytP4YLrkkr75SiU8xLnLmXCWZJUbYeoNZEYl4Q+Y2/ioYiQp2Mi9qaQrbRK7ynUr
+	 6EjwQY7QN9KyXbb9QQ59puWj4sAWsjx9zMrVhT3Tmj2y0hZI8s36amx5OuhTU/rnCWzaS5JAdP327
+	 t4icK/h/GDz3kybqmAobWzolPd4IRsXD4q6r6emLF7fvNrYJaloeRdP5BfV3xdczXjxq9y256arXU
+	 JzkM7LPPIk8H81YKvQ1oH79T
+From: "=?utf-8?B?Q29uZ2ppZSBaaG91?=" <zcjie0802@qq.com>
+To: "=?utf-8?B?TWljaGFlbCBTLiBUc2lya2lu?=" <mst@redhat.com>
+Cc: "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?amFzb3dhbmdpbw==?=" <jasowangio@gmail.com>, "=?utf-8?B?ZXBlcmV6bWE=?=" <eperezma@redhat.com>, "=?utf-8?B?eHVhbnpodW8=?=" <xuanzhuo@linux.alibaba.com>, "=?utf-8?B?YW5kcmV3K25ldGRldg==?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?dmlydHVhbGl6YXRpb24=?=" <virtualization@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: Re: [BUG] virtio_net: RX stall caused by masking callbacks after NAPI ownership release
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,155 +68,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS1PR04MB9405:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf72f224-9e22-48ce-bf63-08df43fb6d65
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261021123027099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261022075727099003|261102123227099003|261028144727099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	T085JXDYDORSzZc25Y3tSVX4PSmNdNajwIpXnO5IhteJ3d9ybGbN8ca425+HlNyRWAuvQOUaNW/YFdeNgoyeUXWrr4RBUpaD+VjBkppZZiAAmsstHqSYyx1iQDhDze4jKrxHSmHjXC+D/oWdQLyHxgPfgVR+Qz5MWRrO2wG7X4GbakPvKpKefKfCXsv6Empbm9IXe97qo80vFuPfGhA9MPx3yYhvYPQXwSHYtWZso51bb3E65WOdAxpJDl7aqDT2vRXNV6S1EdDVM430U4ugmMJ70nJK0H5wHVbiHi2qdVu9iEtDq0YiJamTOoFlXQk5ZjkSNv+nRnvexJgtcevHK1rMqN33Leb848n+8esvHbGd4NQc04gwMXgahHqMb5+sntv/Z7KSI17Ibp8czCYKDiVyhMBQz5UdmZMemgLUWn3yPaO5OHVoU4sCvXtNEcsnkeDzyFbuFejIYxLtt0+YLTegJvnHv52y6l2foA6kOoEtyF7eoG4KsuDYMiqJAJ6rYXw82hSbkoQq9B0tzaCXQk35jaL7uwZvZEd3MLvBxSnp8RSiYIfiOEx0f87Q7m0m6ekIK2gasbRHoJwBm6xzTpsR4vLFneLiJYwcTMrQcpa5BG0DaBYFMhPZkW+c74C0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261102123227099003)(261028144727099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y5ZHA+iop8kvjRVm9oR8b/a4GGR14oTp7ptUlJhZU+8qNDEgQPgs2r+i9Qa1?=
- =?us-ascii?Q?I+Ok1uUwbc5znpl4xO6rLLu5kQfJbclxwmPVXJEj3zIV1dXZVVcUOTgzSS0d?=
- =?us-ascii?Q?GTDiXuvDccP2gq3JBvCNZHP3sagOsqNu61YECJlX5oBJ1bJo1dXI6SatgeuP?=
- =?us-ascii?Q?GuHCB2X5XVHf6zT/QdrgTHZK37N6kYqnmplMr0E4LMZeNV2L7MbMXkN7/Acy?=
- =?us-ascii?Q?1NovLTx8fvt4U99KOZjTrr40c/kjgWW0EwnUotdX6ZXMEAthbMeYOnnArgiR?=
- =?us-ascii?Q?+dgcsw51Z9AsjeRH9i5E4vFXlKNxYyW7PLHni/HDQU4eD6jENteXsGaenn6X?=
- =?us-ascii?Q?gd9jgF9tJesM5nG7v98mnGm7++QwHFalSP/JQ+196FrztLiXt3qDewwQL5Nf?=
- =?us-ascii?Q?NvrwR0g1b5RYy8g7f5rhUbmkDiHroVcQOSKNmSoAUp79lwI3MzmCbdMFPOOW?=
- =?us-ascii?Q?T5K9Ek9WyXEGmdzpd50Xj2UWBa0BSyl4TS47vD/wTyKQOyzVjBYR9BdwVPUZ?=
- =?us-ascii?Q?xJKb/bsPeUmDIco9XivtODYgAWvVsbYt7nbv9LluRNwGmhtlEwEy15/9UsO2?=
- =?us-ascii?Q?uk0wATRyBiW57d74EdJcW8PkCN6T+raxKnpsUbFyo0Z0aRmkqvRR2wz9LEvx?=
- =?us-ascii?Q?VFChOgBSmoqJfhbUOe8mhQyOZCgJEes3H2GhgdCp8L+UB3U+81LeAole4Z53?=
- =?us-ascii?Q?5SIWB5Kjt1yHOChG7mEflK2R12Gs9ON1UW60ZP3mDHbOQEH/AwsnPKX/9d7O?=
- =?us-ascii?Q?MYTajFtm9+WDwDz8SdJuuTIbNevPojCz0sRvav4u2BSetYKOgM0dWdPhYF5B?=
- =?us-ascii?Q?Sp2NqE+r8uKaPx3rDVJH3WDabC4gnrA99TL/oYpP41jgGOHL7losJ0kQ6ks0?=
- =?us-ascii?Q?8wVxEWkwvjIbzYb+5FMEHz0piisFndpbLck+Hm1+NJO4QVsvhLlXz9J8iAVx?=
- =?us-ascii?Q?8cEK1QntA6OoPQOz+7wIDLzSlIIOBw80STSg/j3+ggh7uh8Uf8+5Kaqr2wQw?=
- =?us-ascii?Q?Udu9Hf7KOZeWZTY7WboPsiEiyjR802sz05hcsO02kKZp6ANHHAteojOXJ4nx?=
- =?us-ascii?Q?qbecMrObNy3aTFP2s5sq6RWUvxGAn5I5qjBsxN1BFUq0ZCi8lYmFua8YTC0F?=
- =?us-ascii?Q?ClBSK1o6yL8+/5Zx+zGfULt9LPjm9SKj4j5+FdhpgsLquNITYjjZDvYS+sNA?=
- =?us-ascii?Q?1GqACWrFevtn4NG2+lODl2V9rzJ6rR7iwHRcrAnlgyxdjDAmzMkHE49/AVWW?=
- =?us-ascii?Q?yKkGV8qAshEXJ2mtUBi/N6tNBM30nNxAlDoBjEBuDs2CPMfIfAXMQOyQHGke?=
- =?us-ascii?Q?bmr3K3BMC51tYt33Hc7VTt3dtARC278vlM3nhlY/EkZhLT4qtd/xE19nkdwv?=
- =?us-ascii?Q?nBnVOXZQfOIzMi7ofV7BJt+vuKzwC6NPZwO3pAlN67icP1CronSmkR+qeAwl?=
- =?us-ascii?Q?TaBHjdcVMMm2RhDgkM8LvR9IGY9y2jwuPanCUUX1haYVk6pdX28mvDu5Nnsl?=
- =?us-ascii?Q?0Pvj2WmwIaN+A0p+3WfOieh7ehxciZ/0yaTLnTIe6Tb6m6UpNUXSHfAT3F/l?=
- =?us-ascii?Q?V6YKULmOcg6KVIseCaWxxIePNgD2auL6EMQMdHgj+xrpGfJ1p9CtwLtLI2t0?=
- =?us-ascii?Q?kT6nwU0Pw0UHh0HakbzKfETB3y1ATDjrjjfJlJIjlAV9FQK3oybMyXi8LItY?=
- =?us-ascii?Q?Kb4SZWCqkH/lVM2xMqToeWHDaNrwu0YjByjslRREFYHsZOLcJH3+20qgPLrs?=
- =?us-ascii?Q?BTmsZLqqHavHi45bFLy9gK2VeJRHQVFzcYh2nBi1AsJIw69UAW8H?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf72f224-9e22-48ce-bf63-08df43fb6d65
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:05:26.3309
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V8l//ku9NoDfpKfskDQ122EbL+84sK/vi684jsOqxT7IaFxTmFbcQiMnPPVD9H9Sd2/f7dAZjmFbAqslkNyeFeH+5yfnoYbBTgO1MOPv877fDE5Q39SteSfQrEdId585
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9405
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 17 Nov 2026 00:05:24 +0800
+X-Priority: 3
+Message-ID: <tencent_D0650F8CA2AAE4C258BFE5BCE805CDB4CA0A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+ <20261115175445-mutt-send-email-mst@kernel.org>
+ <tencent_94953697D2BA27275BEF7A26404E69800605@qq.com>
+	<20261116044750-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261116044750-mutt-send-email-mst@kernel.org>
+X-QQ-mid: xmsezc52-0t1794845124tuizgangp
 
-On Mon, Nov 16, 2026 at 12:45:09PM +0100, Francesco Dolcini wrote:
-> Hello Frank,
->
->
-> On Fri, Nov 13, 2026 at 03:35:02PM -0600, Frank Li wrote:
-> > On Fri, Nov 13, 2026 at 06:19:27PM +0100, Francesco Dolcini wrote:
-> > > On Fri, Nov 13, 2026 at 10:11:11AM -0600, Frank Li wrote:
-> > > > On Fri, Nov 13, 2026 at 08:31:35AM +0100, Francesco Dolcini wrote:
-> > > > > Hello Frank,
-> > > > >
-> > > > > On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
-> > > > > > On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
-> > > > > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > > > >
-> > > > > > > The Verdin family pinout defines the SoM interfaces and their
-> > > > > > > numbering, SPI_1 being the SPI bus available to the carrier board,
-> > > > > > > implemented by ecspi2 on Verdin iMX8MM.
-> > > > > > >
-> > > > > > > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
-> > > > > > > and the spidev name do not match the Verdin interface. Add a spi0
-> > > > > > > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
-> > > > > > > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
-> > > > > > > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
-> > > > > > > the spi2 alias inherited from the SoC.
-> > > > > > >
-> > > > > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > > > > ---
-> > > > > > >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
-> > > > > > >  1 file changed, 2 insertions(+)
-> > > > > > >
-> > > > > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > > index 1ac9d000d415..0369803a4d46 100644
-> > > > > > > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > > @@ -16,6 +16,8 @@ chosen {
-> > > > > > >  	aliases {
-> > > > > > >  		rtc0 = &rtc_i2c;
-> > > > > > >  		rtc1 = &snvs_rtc;
-> > > > > > > +		spi0 = &ecspi2;
-> > > > > > > +		/delete-property/ spi1;
-> > > > > >
-> > > > > > Can you avoid delete property for new platform?
-> > > > >
-> > > > > Unfortunately this is needed.
-> > > > >
-> > > > > The included imx8mm.dtsi has
-> > > > >
-> > > > >   spi1 = &ecspi2;
-> > > >
-> > > > Create patch move aliase to each boards' dts from imx8mm.dtsi, which is
-> > > > board feature, not soc features.
-> > >
-> > > Please see the linked thread [0][1]. It's not a viable option.
-> >
-> > where [0] and [1]
->
-> Please see my previous email,
->
-> https://lore.kernel.org/all/20261113073135.GA8515@francesco-nb/
->
-> in which I tried to explain the issue.
->
->
-> > > In addition, I can do this for my boards (Toradex), how do I know what I
-> > > have to move for boards I do not know? I can't do that. The only way
-> > > would be to duplicate the whole aliases on *every* board.
-> >
-> > at imx9, already move aliase to each boards, dupicate it and just make
-> > sure build finial results the same.
-> >
-> > i.mx8 is still not too old yet.
->
-> Do you want me to duplicate the whole aliases block on every board? I
-> cannot do anything better then just duplicating everything, given I do
-> not know what aliases make sense for each board. I can do better for my
-> boards (Toradex), but for the others I can't.
->
-> And this will likely break out-of-tree users (and to be clear, I think
-> that out-of-tree users of Linux DT files is a fact, see U-Boot, barebox,
-> ... and more), as I discussed in the previously linked discussion.
+PiBNYXliZSBsZXQncyBqdXN0IGNoZWNrIHRoZSBwb2xsIGxpc3QuCgpDaGVja2luZyB0aGUg
+cG9sbCBsaXN0IGZpeGVzIHRoZSBlYXJsaWVyIHJhY2Ugd2hlcmUgdGhlIHdhdGNoZG9nIGhh
+cwphbHJlYWR5IGZpbmlzaGVkLiBIb3dldmVyLCB0aGUgdGltZXIgY2FuIHN0aWxsIGJlIGNv
+bnN1bWVkIHdpdGhvdXQKdHJpZ2dlcmluZyBhbm90aGVyIHBvbGwgaWYgaXQgZmlyZXMgYWZ0
+ZXIgdGhlIG9sZCBjYWxsZXIncyBjaGVjazoKCiAgb2xkIHBvbGwgLyB3YXRjaGRvZyAgICAg
+ICAgICAgICAgICBzdWNjZXNzb3IgYnVzeS1wb2xsCiAgLS0tLS0tLS0tLS0tLS0tLS0tLSAg
+ICAgICAgICAgICAgICAtLS0tLS0tLS0tLS0tLS0tLS0tCiAgbmFwaV9jb21wbGV0ZV9kb25l
+KCk6CiAgICBjbGVhciBTQ0hFRCwgYXJtIHRpbWVyLAogICAgcmV0dXJuIGZhbHNlCiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhY3F1aXJlIE5BUEkKICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVuYWJsZSBjYWxsYmFja3MsCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGVuIHBhdXNlIGJlZm9yZSBjb21wbGV0
+aW9uCiAgZGlzYWJsZSBjYWxsYmFja3MKICBuYXBpX2hhc19wZW5kaW5nX3BvbGwoKToKICAg
+IHRpbWVyIGlzIHN0aWxsIHF1ZXVlZCwKICAgIHNvIHNraXAgbmFwaV9zY2hlZHVsZSgpCiAg
+b2xkIHBvbGwgZXhpdHMKICB3YXRjaGRvZyBleHBpcmVzLCBzZWVzIFNDSEVEPTE6CiAgICBu
+byBzY2hlZHVsaW5nLCBubyBNSVNTRUQKICB3YXRjaGRvZyByZXR1cm5zCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBuYXBpX2NvbXBsZXRlX2RvbmUoLi4uLCAwKToK
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xlYXIgU0NIRUQsIHJl
+dHVybiB0cnVlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBxdWV1ZSBp
+cyBlbXB0eSwgZXhpdAoKQXQgdGhhdCBwb2ludCwgdGhlIG5leHQgdXNlZCBlbnRyeSBlbmRz
+IHVwIHdpdGggbmVpdGhlciBub3RpZmljYXRpb25zCmVuYWJsZWQgbm9yIGEgcGVuZGluZyB0
+aW1lciBvciBzY2hlZHVsZWQgcG9sbCB0byBwcm9jZXNzIGl0LgoKU3RlcHBpbmcgYmFjaywg
+dGhlIGZ1bmRhbWVudGFsIG9yZGVyaW5nIGlzc3VlIGhlcmUgaXM6CgogIG9sZCByZWxlYXNl
+cyBTQ0hFRAogICAgLT4gc3VjY2Vzc29yIHJlYXJtcyBjYWxsYmFja3MKICAgIC0+IG9sZCBt
+YXNrcyBjYWxsYmFja3MKClJpZ2h0IG5vdywgbm90aGluZyBndWFyYW50ZWVzIHRoYXQgdGhl
+IG9sZCBtYXNrIGhhcHBlbnMgYmVmb3JlIHRoZQpzdWNjZXNzb3IncyByZWFybS4gRXZlbiBp
+ZiB0aGUgc3VjY2Vzc29yIHN0aWxsIGhvbGRzIFNDSEVELCBpdCBtaWdodApoYXZlIGFscmVh
+ZHkgZG9uZSBpdHMgZmluYWwgcmVhcm0uIFNpbWlsYXJseSwgaGF2aW5nIGEgcXVldWVkIHRp
+bWVyCmRvZXNuJ3QgZ3VhcmFudGVlIGFub3RoZXIgcG9sbOKAlHRoZSB3YXRjaGRvZyB3aWxs
+IHNpbXBseSBiYWlsIG91dCB3aXRob3V0CnNjaGVkdWxpbmcgYmVjYXVzZSBTQ0hFRCBpcyBh
+bHJlYWR5IHNldC4gU28gYWxsIHRoZXNlIHN0YXRlIGNoZWNrcyBjYW4KbG9vayBjb21wbGV0
+ZWx5IHZhbGlkIGF0IHRoZSB0aW1lLCB5ZXQgc3RpbGwgZmFpbCB0byBndWFyYW50ZWUgcmVj
+b3ZlcnkuCgpUaGUgcm9vdCBjYXVzZSBpcyB0aGF0IHdpdGggdGhlIHRpbWVyIGludHJvZHVj
+ZWQgYnkgTkFQSSBkZWZlciwKbmFwaV9jb21wbGV0ZV9kb25lKCkgY2FuIHJldHVybiBmYWxz
+ZSB3aGlsZSBzdGlsbCBnaXZpbmcgdXAgU0NIRUQKb3duZXJzaGlwLCBsZWF2aW5nIHVzIHdp
+dGggbm90aGluZyBlbHNlIHRvIHN5bmNocm9uaXplIHRoZSBjYWxsYmFjawpzdGF0ZS4gQmVm
+b3JlIE5BUEkgZGVmZXIsIHJldHVybmluZyBmYWxzZSBtZWFudCB3ZSBzdGlsbCBoZWxkIG9u
+dG8KU0NIRUQsIHNvIGV2ZXJ5dGhpbmcgd29ya2VkIGFzIGV4cGVjdGVkLgoKVG8gZml4IHRo
+aXMgcHJvcGVybHksIEkgdGhpbmsgd2UgZWl0aGVyIG5lZWQgdG8gY2FsbAp2aXJ0cXVldWVf
+ZGlzYWJsZV9jYigpIGJlZm9yZSBnaXZpbmcgdXAgU0NIRUQgb3duZXJzaGlwLCBvciBpbnRy
+b2R1Y2UgYQpzZXBhcmF0ZSBzeW5jaHJvbml6YXRpb24gbWVjaGFuaXNtIChsaWtlIGEgbG9j
+aykgdG8gZW5zdXJlIHdlIGNhbiBhbHdheXMKcmVjb3ZlciBOQVBJIGV4ZWN1dGlvbi4gU2lt
+cGxlIGZsYWcgY2hlY2tzIGFsb25lIGRvbid0IHNlZW0gZW5vdWdoIHRvCmNsb3NlIHRoaXMg
+cmFjZSBjb21wbGV0ZWx5Lg==
 
-This is validate reason. We can try move one platform firstly later.
-
-Frank
-
->
-> To me this is not the correct thing to do, it will work for my boards,
-> but I do not think this is the right decision for the whole i.MX
-> ecosystem.
->
-> And it's not about being old or not, it's about not introducing
-> regressions and caring about the users.
->
-> Francesco
->
