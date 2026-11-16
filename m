@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841843;
-	b=cobJE0lgg7mGiM9fZsste/j4k9nrj6QxCWM2wqXFKaJd8mxTWkGtpfVFW2ZbjHsp0hNi
-	 R6/FcZV6RfL9sU8lisuAASPP/IEuv6SlLLnqrylZTKkmjlICSTIeP+yLhG+X23vsRn9u0
-	 8tVJ3qbxK//gF5pZwVk6X8qHfsroGQoKCbtW/HMdP8ZKbNFwLBVclkI7TNIU2ogLc7qaU
-	 J9m1ZzsCrpfXG7c3QN3EYWTQJQ/J7pHth/CrTBqDMjm2XPemJlbvXPMy5tmBF7as3xRL9
-	 uZXMb8ymx5RfkOZQdPmSV6Tnh495srFbsLwkf8Kk7XeHMUh9F9a+T7aH1f3emT/EuIA==
+	t=1794841844;
+	b=R9OY67XEifaAKWZiXE85fcEgM0ME9m1P3y+cStoEM5ca8xAzMxH39bMDIvpvf2BrEa0S
+	 kVf0mQNiaeKfocAiQOWEyipoBrCUb6uokMvDUIbU4+9OTCENZdjKJO3SRGgIbGMI+UAmZ
+	 TKmq9Ohqnf+td2hNjcqoiM0N5HseK7ztHvtvnYnqubjdS2A+viRg1HBDjZiv3uQRvx8A3
+	 Xmd7zC0cCu0N6eZ5PfZ4mmAvkp7KhFQw/KhllIlrAhH5c8RXPi3wZn6nfxaQA3s/D9LHQ
+	 75pSR56bur7lGFIV9hBmb9i0ONTEUS9f4mLPJrXFh6vli6QCGAOySBQlv+RGepIiFjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841844;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=p3WSfUrzAFZ6C8avlWVorHXjO1aUqVAyT5MLm+GUqW8=;
-	b=OSpTwFo6ku2uQVjMJMoktN4ucTzZUsl0pWoUT3Az4BNivyn0hp4CtNTJgOyPJ4xwva/E
-	 XuypMocKHmhxgO+yjCEw6Cz4xAp8KYeVxjFwORC4TuYjqTrbvYTRLqMiYT1XmzkhAfAG6
-	 4CATCEf+c1qHPfuqqs2B0WNCVkNwiduCVq1UdmxL80NLI+tcTEgVSITzLONEwYCIK4Ane
-	 Mq/P7qmC6Ml1F1yn6yDpNLUAgZfU6kyQS4KQsQK0a1kBjQpPkMZd9jhCdijkBbuz7ETyD
-	 7per/tkKK6y3Wbs/oX+rMVGwtxg8F1a1useJphJOm6YktBYMSRB1LLFTayZAPQNOiaw==
+	bh=mbvLcy9HUv2G6MMG8rNmvtC6ROCR4D1d+RS6v72Z6yA=;
+	b=eQq8xjz7uEVQnDaly7tjnyiFT7Vvr4qZYIpCOBJpwLvoyrowwOXhzlzAhnjBks73WO/8
+	 7TWpC2+wuy5vTcjzRzFfMSV6E/2GVa9JBrPCYvZdsAde5Kx85V9vXFBKEBlrWv+NmxMEn
+	 1lHGovcLzGD+WWfyOl35FWJPBq6FFe3EXo/eJ75o9+ncPRJpo2SMqUI2SaGfjvGKdNEJY
+	 QN16vHXRZ/RVfLHp8o/0jxNCDxnFalNLG1HCA9Dkq+evxn2OPhqiaHUO/zDhhidOHPkEE
+	 AFzjmaFAYgTNStAKQ5At9YZ9yYQr2FKuN3pYMm94hBu8DWExMnGh4l4u63dCGLT3aIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ISHujfWx;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="TFN8p1e/";
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2636606A896
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:10:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2636606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18706606A89C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18706606A89C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ISHujfWx
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50604721c8so578629066b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:10:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TFN8p1e/
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c50e26763a4so131544766b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:10:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794841841; x=1795446641; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794841842; x=1795446642; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p3WSfUrzAFZ6C8avlWVorHXjO1aUqVAyT5MLm+GUqW8=;
-        b=ISHujfWxChiC7AbQ1qkRWzaVsdz0aoKzaTEL/eJjn5CNVAWxWoycBjni4G/oWBXeq+
-         q0tPd36ecYI+tWR/sKoiLjhfRPSV5Awa3tzxtMsrofblVldGlOqDy5RUF4h38zm2//aF
-         gdR1ASZWg7jHH5LDGoSVVVpAMdkucT98caGO2zWxNPOgtkckfupJ+KkAgATcpNjkfi0C
-         goDZ7jKzf6tODPF8Kwfg7lCRKX7LF5rGY+DT+CzY2PXKwP93mjHweNQF70xr27WUPhAb
-         0ZIUWX0w2vpLkZhRRb52ppmhqyYa57LXqaec7jZCEEXeK0hhzAIV8KgiEtZXNH4vNHP5
-         ZJ4w==
+        bh=mbvLcy9HUv2G6MMG8rNmvtC6ROCR4D1d+RS6v72Z6yA=;
+        b=TFN8p1e/uSzKxrjcenNwkH1QG5fZ7s+9FWDCaDpCd6eWIWq7HTDxfuqFQuqLs4XrAl
+         TE7DT6E+SExpy3/sDwNYKRzlo3ZaISXpZanItqvbsUFxn0hNX71BusAt1CDEmqQHZdnD
+         RFm6e+XgA2WAe+OIn2dbVE3RHhF47VlpqXj4xatsl6nOJjf9csqCHT3Vu3nNSDdHQQ54
+         YaGrQYjz4DQuQf8b2tgWOm4NJ+2wFbXbaS9aByDDs9NPF+47zIo/a1tvASJ++aaFpRXc
+         3IFKGdcALDq0konLECwZIKh2OIXUVWkoK9k1P2tS8iDJGZs9DwmuFU6Bl9th1onY1hcM
+         3gCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794841841; x=1795446641;
+        d=1e100.net; s=20260707; t=1794841842; x=1795446642;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p3WSfUrzAFZ6C8avlWVorHXjO1aUqVAyT5MLm+GUqW8=;
-        b=kHQA84vW8IOcMdNp+LkrbTNmV/ttQUyRbMCt4ZbmqiQilkFS4ac8hDmUC8lj0TZvLs
-         VK1K/Sy4sx42Jy9HyQo6odFxWGCraPNaTRg7vLULYUv0InlL9R9SVoL91L0qJRNzZPqw
-         K5fmp73eq/tTUY615swlMPn5XQ0HBuGEE34LubpLHXLdMx+aIXB2VHU02vijnRTKKaDn
-         9QbDNQScQjOb/zdRHJ3KRDTf5HI4ZQtHbH4c75ieJvPYBFDmOSbD0kJjHoOw6KIlDt5t
-         84/JgXHhdRoqAQoabICcWeWOLTo8TwhE3DYO08ftfQP7V+onD/7vB/9OKEwnT9mruhwH
-         pM7A==
-X-Forwarded-Encrypted: i=1; AL+hErFDxZ9Yz9Uuvrxa2+lX0TEbFzGTPulaw/3Sxsf5teWC6mqHMANonPOJPuZ6jZF/r5wcgiZ58RgAGN4LUMo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8U0e+DXO1Sm65toKnzuiHqfODPJiBKPp1rZigNiGrqpsIUeUPq
-	SSIZjnQlqa43iQhIjG3p5XxbHn1NG94EzTnbKojcmsotIqTnz+MzD0JO
-X-Gm-Gg: AYBFou2nlng71A8A/jqI7LEtdpoWYmgI9g7MuNc2yD3MDW+Fv+0p+UTfDlP5xhif8JI
-	f9iHH+fPSErcOZOxoIsQS+lY7V/OAASMmnR2QWDD0huAiUD7JkYFIMlnct9LYVEehtXW27qWvGB
-	nMfnooIrgUXkWWJTgw6UCYz6IyHS0bajvK59Gk0MoO7EIdGj8N23Ubo3aR7Y8S6uffU4NEugWXo
-	mb7Nx8WPD+LpjRMzSGmd8hDMhI7Kfdq63+q5fqyGFlePMy3LGipZd7uSlWjso+krmBgkHGaNYg7
-	Ene2AxdxBEwg9TbBXjQoWL5QQ/oRw5rP/NaAbPNQuXhacJhLGzSLQnv4RWGIVwojmWOFH4IZszk
-	G4MW/+kH3DL7rYGjfK8bYLBTWH8wy8sW6loiFoTO9WCG2GDrgdrTdBC5Aa02tuFb4Kz9MXAGkIA
-	HtDQODYigIjhSASJtu33Y+p4HKLps7qW7OtHynIwsI/d7giuiMzYrmRQwhHwY9zo/lbgYWrU6GA
-	l6fb6259bZ4P8tdufzIzQQsN7HqgiUmb6PmkPBdO3xCssu90UFNUzTQM5zam5K0OD38POC3xS3N
-	3so6h+aX+Czzc9wHVN5MQPrJm7qSJvTk+sRJkkj89JPEC1gOXcqRYVwBMJ+FLTOnGHlIa1UvkGx
-	M2iOADF722wU=
-X-Received: by 2002:a17:906:9c93:b0:c50:5186:a428 with SMTP id a640c23a62f3a-c50963b3380mr940379266b.27.1794841840334;
-        Mon, 16 Nov 2026 07:10:40 -0800 (PST)
+        bh=mbvLcy9HUv2G6MMG8rNmvtC6ROCR4D1d+RS6v72Z6yA=;
+        b=fPen7IyY4uw+kpP08j5F6ETD2iTt4mIGOhDyOKekIX6rKUuWIvW2OZfm/9q6MttYh8
+         lK+t0qK4kPKC7rSUdQTwHvY4ahSQ3JhzS0auCc3l6oYGNjtu9nPW4U3AqPLZu8Z12yzj
+         zpP3joDCZ6Hh0aiS9pNTmXB+UnTC9ZkqWRYOOct9q9seWqK/rL4yOOonSd/ycgtuwge5
+         O7PUUrc9dukUtlKbv/qvztkoocU609f/5a0dbBRbkrivHtnuEfY1PvUgwlpc+XYtea8H
+         Xrw3Hlr0An/v/qrmfzedkUJKrhYzmlwelyXUi/C87lDHXB5TPubeDcptzZZPh8csDJJw
+         OaXQ==
+X-Forwarded-Encrypted: i=1; AL+hErG/UhuTAQCEGicm4Ak4nXiMR+f7cQS29kkN1OmIEchsvPbrYgYZDOvBFOEKpyqlOLmd6vaMVxpItz9NYRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GDVH2DLNb/5pn9m52b1J9pTrZSDSdqh4FkAZMgKaDlX4Qshwc
+	QH/y9/PMuBrZWoHhWdipJr99vfH+zYr2/X5Ekb01q5bHODmvAx89eGnv
+X-Gm-Gg: AYBFou3rtHzw+9VHtr2U0IkA6F5ITzF9xlcwr2GuJKC2Eq7fvQAHCVqxJq7ZPmcunOu
+	gF4x3H/uokUvd6RV7ycWHI8CNiBvSoISTmPKZeKK+r+sIA2HIUGO3bDn2KGT2W6GBfDCAMJ8M1c
+	ZNRV9vd2LfANLMWIwP1ynDQAIDAIKAFpqbD/sM9dF1G6D+cQptKjbXIDngiIEb8BLx5goZXc13+
+	3DdssQ+CjKYKl14ely3feBHj+ibsS8RLc3Z/WETV42OsZwX5pZRaSYeszcMahlA2JnJlS0ITkWu
+	4Y6xIZni/glAdMm5dpoTDTTEiweRv3M5YyyVuzjSkA+3MAKtMMtXAUhq+5rSm27UvYaoC7H6TLN
+	HVMkRx+ZySMzsANb9m+f/3esa/e+VXlKMJI1usoMXq5DH50tyEdHTz//y7GB3XjzOVZP/7FHAmw
+	EfTfBThTdmv9kPRhjddyU3BIeQriAdL0FBHKrWUuN5uSrweMDfVMYIMeyZP/KL0qQdU8pEJqndm
+	PnZiGc29eJTaBqx8/5yDFobR43cW5wH8WGOsO9TfxgtSFPmDFjXgqfLGtT+RxGRph/N13coNv27
+	8hjWTul3vePW4MTnLeG1wDbYJlLTQdySs/cNWAskanmHqpHxa/MMrp5eHKPXD/maVpdH1wOWZVc
+	31HIi2TxzQq0=
+X-Received: by 2002:a17:907:8686:b0:c40:b59:1b with SMTP id a640c23a62f3a-c5096389f41mr846550366b.44.1794841842225;
+        Mon, 16 Nov 2026 07:10:42 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.38
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 07:10:39 -0800 (PST)
+        Mon, 16 Nov 2026 07:10:41 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -98,9 +98,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 04/12] drm/panel: panel-lg-lh400wv3: Convert to use MIPI DBI bus
-Date: Mon, 16 Nov 2026 17:10:09 +0200
-Message-ID: <20261116151017.274764-5-clamor95@gmail.com>
+Subject: [PATCH v7 05/12] drm/panel: panel-lg-lh400wv3: Drop redundant disable() operation
+Date: Mon, 16 Nov 2026 17:10:10 +0200
+Message-ID: <20261116151017.274764-6-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261116151017.274764-1-clamor95@gmail.com>
 References: <20261116151017.274764-1-clamor95@gmail.com>
@@ -115,117 +115,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Switch from a generic platform driver to a dedicated MIPI DBI Type B
-driver.
+Squash the disable() and unprepare() functions, since there is no need for
+host adjustments between them.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 27 +++++++++++------------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-index 557bcb6f2ca70..63efeb434be13 100644
+index 63efeb434be13..c6834e5312089 100644
 --- a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
 +++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-@@ -14,6 +14,7 @@
- #include <video/mipi_display.h>
- 
- #include <drm/drm_mipi_dbi.h>
-+#include <drm/drm_mipi_dbi_bus.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-@@ -25,7 +26,7 @@ static const struct regulator_bulk_data lg_lh400wv3_supplies[] = {
- 
- struct lg_lh400wv3 {
- 	struct drm_panel panel;
--	struct mipi_dbi *dbi;
-+	struct mipi_dbi_device *dbidev;
- 
- 	struct regulator_bulk_data *supplies;
- 	struct gpio_desc *reset_gpio;
-@@ -40,9 +41,10 @@ static inline struct lg_lh400wv3 *to_lg_lh400wv3(struct drm_panel *panel)
- ({ \
- 	const u8 d[] = { seq }; \
- 	struct drm_panel *panel = &(priv)->panel; \
-+	struct mipi_dbi_device *dbidev = (priv)->dbidev; \
- 	struct device *dev = panel->dev; \
- 	int ret; \
--	ret = mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
-+	ret = mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d)); \
- 	if (ret) \
- 		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
- 	ret; \
-@@ -54,10 +56,6 @@ static int lg_lh400wv3_prepare(struct drm_panel *panel)
- 	struct device *dev = panel->dev;
- 	int ret;
- 
--	priv->dbi = dev_get_drvdata(dev->parent);
--	if (!priv->dbi)
--		return -ENODEV;
--
- 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
- 
- 	ret = regulator_bulk_enable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
-@@ -129,7 +127,7 @@ static int lg_lh400wv3_disable(struct drm_panel *panel)
- 	usleep_range(10000, 11000);
- 
+@@ -115,7 +115,7 @@ static int lg_lh400wv3_enable(struct drm_panel *panel)
  	return 0;
--};
-+}
- 
- static int lg_lh400wv3_unprepare(struct drm_panel *panel)
- {
-@@ -182,9 +180,9 @@ static const struct drm_panel_funcs lg_lh400wv3_panel_funcs = {
- 	.get_modes = lg_lh400wv3_get_modes,
- };
- 
--static int lg_lh400wv3_probe(struct platform_device *pdev)
-+static int lg_lh400wv3_probe(struct mipi_dbi_device *dbidev)
- {
--	struct device *dev = &pdev->dev;
-+	struct device *dev = &dbidev->dev;
- 	struct lg_lh400wv3 *priv;
- 	int ret;
- 
-@@ -203,6 +201,9 @@ static int lg_lh400wv3_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
- 				     "Failed to get reset gpio\n");
- 
-+	priv->dbidev = dbidev;
-+	mipi_dbi_set_drvdata(dbidev, priv);
-+
- 	ret = drm_panel_of_backlight(&priv->panel);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-@@ -211,9 +212,7 @@ static int lg_lh400wv3_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to add panel\n");
- 
--	platform_set_drvdata(pdev, priv);
--
--	return 0;
-+	return devm_mipi_dbi_attach(dev, dbidev);
  }
  
- static const struct of_device_id lg_lh400wv3_of_match[] = {
-@@ -222,14 +221,14 @@ static const struct of_device_id lg_lh400wv3_of_match[] = {
- };
- MODULE_DEVICE_TABLE(of, lg_lh400wv3_of_match);
+-static int lg_lh400wv3_disable(struct drm_panel *panel)
++static int lg_lh400wv3_unprepare(struct drm_panel *panel)
+ {
+ 	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
  
--static struct platform_driver lg_lh400wv3_driver = {
-+static struct mipi_dbi_driver lg_lh400wv3_driver = {
- 	.driver = {
- 		.name = "panel-lg-lh400wv3",
- 		.of_match_table = lg_lh400wv3_of_match,
- 	},
- 	.probe = lg_lh400wv3_probe,
- };
--module_platform_driver(lg_lh400wv3_driver);
-+module_mipi_dbi_driver(lg_lh400wv3_driver);
+@@ -126,13 +126,6 @@ static int lg_lh400wv3_disable(struct drm_panel *panel)
+ 	panel_dbi_command(priv, 0xc1, 0x01);
+ 	usleep_range(10000, 11000);
  
- MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
- MODULE_DESCRIPTION("LG LH400WV3-SD04 MIPI DBI Type B panel driver");
+-	return 0;
+-}
+-
+-static int lg_lh400wv3_unprepare(struct drm_panel *panel)
+-{
+-	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
+-
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+ 	regulator_bulk_disable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
+ 
+@@ -175,7 +168,6 @@ static int lg_lh400wv3_get_modes(struct drm_panel *panel,
+ static const struct drm_panel_funcs lg_lh400wv3_panel_funcs = {
+ 	.prepare = lg_lh400wv3_prepare,
+ 	.enable = lg_lh400wv3_enable,
+-	.disable = lg_lh400wv3_disable,
+ 	.unprepare = lg_lh400wv3_unprepare,
+ 	.get_modes = lg_lh400wv3_get_modes,
+ };
 -- 
 2.53.0
 
