@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.91
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794860306;
-	b=Itb6Y1BkXOBiPV8ee+q/bFyPzULWdOzXhESpbENx2hrwGP0Y233aohmGshHkBJ1AlHaX
-	 UuVi4qqgTYCKSenzJlE7HfKelMI5oKnXro0+i4X108Ps+/KraH8aahToudCKdcWfEn090
-	 gGRk2MNobrfmKkK5w1MfkKdyzHXPtSbdFXI5taa25GbjkFBw66wPO/1Kz/Plm7v2HbaQL
-	 XKhd/XhMBoW5o5eW74JJJs25aoR8fBm8/TCYefYxvjS7w3v3M4SYtlhkIAiHmyaL/cbs+
-	 qBTwIrdt0TsScxVyCs2A5jpG98jtFiek2IJKcYQcg7CQrnOKN1HmtR9lztpF/bHifhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860306;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=xr+vU2Zqa/z93J8db0TarH/417S2TioNRzo32FWgIQY=;
-	b=YKPTbrFgMT8//YrekgQNkQNP7isRxKj5Aau5ip60mAzDqGFvaptnuoVRqzsPAywbyS7k
-	 JCC9GUikZy7mdvzbjI0h2zOuEaIA4kNlUFjSXuvZmiDEfEOIBAeCs4Ul5xxNAgLcHejtv
-	 7NYTnEs1edV6Kq8h5AMkXzXwtAFS3Xm/suWMm8Xh9KdnzbIj+3FfkW6f+pBxHf53YyI2r
-	 ITVbsEsirJD8YVWWmr5+2AB2Emf1OwLWnyelzyful1Ikuu9jKBrjX2Sw5FYR1C4kxMv+g
-	 I4Y+fmCqnFE1TxG2weEbB6FN7nfJsAUoaSj3K8uQuOkIXkJGXgTFR3tCZN5b0kXbPsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.in;
-	spf=pass smtp.mailfrom=zohomail.in;
-	dkim=pass header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=nIizi3eZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.91
-Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794860319;
+	b=TocSYxBwePWEy1R1esicjyddtSp3uml7SABciNV1ceBnave2cO/PJSQFUwozouXNf2fH
+	 yVrZr0Tm31zz2X41CFnJq5FAI7wrPCPUMneabxAPUckQBsJweiKatwPfU2tuZ20ihEYjo
+	 H3OjgxcYNjL5wForfWMDkk3bEsdcO0oDBJaUYrPb2W8CzUyMDFjm9sySyY7b9+aq8yHJh
+	 GTch7UosKJa6T9JU4CDSsrP+7e/F0zYC1WmhfEb1L0g3jxonDmcGBu9Q8AiQhHo3u1/dU
+	 pEc3WVbLbBnY2zBBKdDc+52GFZBptbvugHM3j6gu7p5hgLkQmN+Qjbc+pCPQMBxtLsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860319;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=e+F00mSOHoN5Y69YJ4eI5U2asF3iwsD+sP6+Uxjzv+w=;
+	b=S+IFhUS4WwNPaS1zvdyYxBAQuF9PTLLpAOdnl7IeT10QWzpKvRC81q/cL4EjitRT8j3G
+	 JE+8EqBex6UBM+M6Hct+kN7s3wBt0IM54UUjGztGrbYvoKFZGnNFe9IcB4Zw2Y0DUBYM4
+	 U9+bbfZVC8zHytv4d8SjNjr/YplGTudPkw2as8AVMeWYTewTcgfD06z6kVDLNDoiNuKI9
+	 l+boqR6O3PAWG/MbVH6rECYG6ni6+d5zK/0J4wNQipvaBBV6bo2/uHMowfBvOlaqVg7Vv
+	 zpd18SNTynRjc5WSj5A2E+GtDmp0b4NWHBgvzeDrI0RzCFALjemPxAec8N1jn9pHEcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fK50WbwQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9B9606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:18:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B9B9606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81358606A33E;
+	Mon, 16 Nov 2026 20:18:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=nIizi3eZ
-ARC-Seal: i=1; a=rsa-sha256; t=1794860253; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=Qf4mdUrHCEhVFBJsuCmqp+3BO2XTYQ+8+rfhG8bcZokP5FtDlesum8C4mKxYsD8VAp/RTClJE+kbyEE2sf6JY4TWAI72eFddk6yXaOp5xLaGCg1lTlDc7FdCzJ7EtmYPeMBKjoBqs0nrrysZGuC+5SJP59F0obBcjFtUPRgX+sw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1794860253; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xr+vU2Zqa/z93J8db0TarH/417S2TioNRzo32FWgIQY=; 
-	b=QihpJMzrTsa8sj0xphg8hXnpFjDi3xkish56eBG/RUvnpDBYmD92YiAoirf06hcJufNOaMgOlib1gVxFCH+2OJFgYNFzpyRSVexXGv6HSM8EN5OmcILHE/Bh7c4/AGr2CmB+8t0dcMFXOMLBECoUFatJU7nf7vrwLv5hcVNdBog=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=zohomail.in;
-	spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
-	dmarc=pass header.from=<shivamkalra98@zohomail.in>
-DKIM-Signature: a=rsa-sha256; b=nIizi3eZ2DcGoxK8k+jRLdTqWDQzzD8Glb9m0F0jIPGhDLIKQuwalRjV+6Zeu4LenrjBUk1tyjElOgxu260Pw2GLvY47GW1PEfaHVHBSzedZqZS/b1ZNlvfZ98fflidee7p6V1eln6bdktFXvGJRM0SK2YG//sXudox0SuLt0oQ=; c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1; bh=xr+vU2Zqa/z93J8db0TarH/417S2TioNRzo32FWgIQY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.in with SMTPS id 1794860251599240.5767861719902;
-	Tue, 17 Nov 2026 01:47:31 +0530 (IST)
-Message-ID: <39ecbbd3-8ff1-4040-9d93-1ee74dfecd69@zohomail.in>
-Date: Tue, 17 Nov 2026 01:47:30 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fK50WbwQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E151F000C8;
+	Mon, 16 Nov 2026 20:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794860319;
+	bh=e+F00mSOHoN5Y69YJ4eI5U2asF3iwsD+sP6+Uxjzv+w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fK50WbwQZf1UckiVFuoJyhG3L6gG5PUkQqa+LYTxJcv21cV+DLK8s0i3FYnoxx+6C
+	 ToQuoG4KYN61wvCzqaocY4176QIWc8krihZm/MWCpg8jG0DUrC0R3xQMRTsouqW/Yx
+	 CBqdMq3l4HbNuXCPuvlbsQy+vnIF/lZS/DSqnJyVoounP0T0WIgOhxqnpZz8e/aOBv
+	 eQEYYDVHpspI3aC1UIdxtIuNOqZcNAbSDBWxjeCE8b4Vx0JFJO1I+P4oyDfDiDQcDH
+	 u5yGgLcnJZLhmS7hJwSwaHwHkU5pMR/Oea6MfeipvbNWAnHySLKN7VoGFW/igkRF1h
+	 dzD2/+i/WgkAQ==
+Message-ID: <17b98593-5f56-45a3-922f-99dee2b917c1@kernel.org>
+Date: Mon, 16 Nov 2026 21:18:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,37 +52,143 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: use atomic commit for panel power
- savings
-To: Hugo Sales <hugo@hsal.es>, "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
- Alex Hung <alex.hung@amd.com>
-References: <20261111-abm-sysfs-atomic-v2-1-6dfb19c51ebe@zohomail.in>
- <ffbea2f6-c2d1-4e61-9e58-fc458d7abf0d@amd.com>
- <1629832733.648780.1794838345723@app.mailbox.org>
+Subject: Re: [PATCH v2 2/9] userfaultfd: refuse UFFDIO_MOVE into a non-present
+ huge destination PMD
+To: Tal Zussman <tz2294@columbia.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
+ <20261116-uffd-state-fixes-v2-2-4397a0196479@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Shivam Kalra <shivamkalra98@zohomail.in>
-In-Reply-To: <1629832733.648780.1794838345723@app.mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261116-uffd-state-fixes-v2-2-4397a0196479@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 16/11/26 19:42, Hugo Sales wrote:
-> Shivam, v3 of "Commit panel_power_savings writes from the kernel"
-> replaces the v2 Chenyu linked:
-> https://lore.kernel.org/r/20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es
+On 11/16/26 21:02, Tal Zussman wrote:
+> move_pages() refuses to move into a destination PMD that already maps a
+> THP, but checks for that with pmd_trans_huge(), which is only true for a
+> present THP. A device-private THP or a THP under migration is a PMD
+> softleaf entry and is not refused.
 > 
-> It adds a fix for an overlay plane dropped while VRR is active, so
-> please test it on top of "Leave self-refresh before an ABM level
-> update" v2
+> The destination PMD is then treated as if it pointed to a PTE table. It
+> is not empty, so pte_alloc() leaves it alone, and move_pages_ptes()
+> fails to map a PTE table from it and returns -EAGAIN. move_pages()
+> retries on -EAGAIN, with both VMA read locks held. If the source is a
+> THP, it is split first for nothing.
 > 
-> Hugo
-Thanks for the update, I'll take a look.
+> For a THP under migration, the loop ends once the migration finishes.
+> A device-private THP can remain in device memory indefinitely, so the
+> caller of UFFDIO_MOVE hangs until it receives a fatal signal, and
+> anything in the mm that needs to write-lock one of the VMAs blocks along
+> with it. This requires a driver that migrates THPs to device memory.
+> 
+> To fix it, check the destination with pmd_is_huge(), which is true for
+> a present THP and for a PMD softleaf entry. UFFDIO_MOVE now fails with
+> -EEXIST in these cases, as it already does for a present THP.
+> 
+> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>  mm/userfaultfd.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 61a712e1f9f5..ad9d243dc64b 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -2021,12 +2021,13 @@ static ssize_t move_pages(struct userfaultfd_ctx *ctx, unsigned long dst_start,
+>  
+>  		dst_pmdval = pmdp_get_lockless(dst_pmd);
+>  		/*
+> -		 * If the dst_pmd is mapped as THP don't override it and just
+> -		 * be strict. If dst_pmd changes into TPH after this check, the
+> -		 * move_pages_huge_pmd() will detect the change and retry
+> -		 * while move_pages_pte() will detect the change and fail.
+> +		 * If the dst_pmd is a huge leaf, present or not, don't
+> +		 * override it and just be strict. If dst_pmd changes into a
+> +		 * leaf after this check, move_pages_huge_pmd() will detect the
+> +		 * change and retry while move_pages_ptes() will fail to map
+> +		 * the PTE table and the next iteration will see the leaf.
+>  		 */
+> -		if (unlikely(pmd_trans_huge(dst_pmdval))) {
+> +		if (unlikely(pmd_is_huge(dst_pmdval))) {
+
+Insert the usual ranting about stupid thp helpers
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
