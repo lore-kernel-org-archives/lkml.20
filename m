@@ -1,109 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853271;
-	b=kEabb9PBSNb978m2Z428C93gpURHry4BrxnqobD/MEgP5OcqUg2xpIA43p4HLUGjP8fb
-	 JFGiC1gMRciSnu5hB0c5WEiNJM3euPfpmirXVWLvOs87IvT0gOPiRRGDaJKBs5o8U7Bss
-	 8or0rNx+HgieaIMDkcsLFlGBMmAwNLmwN72T+ElZm/NQ9q9UM5/R2/ozDW/HRwYWaqmun
-	 VDBaaMrjgTXKY8ox6ROOWEPcMs/hD3T//st7NAORVCCUMa6jy05sCmtvgawKUQLiycBey
-	 fiy0TcLsyYEEZH8cjE6ayrL5zgtemyNW+BUlTDXIuuzWh4odpkvZqvVib3dK8dHM5sA==
+	t=1794853273;
+	b=KboF5Ei5zbCUYaC5MtGsOJvRUsqAXRRwqfnS4lWhARKKrAWPKpvpFW9rZNi9js/UgfqC
+	 RgNW5zxApViYksdTenKe/mHfCN8Hbu8iT7f19CDoKdkVjXnzSGSiJ0s7DZkz+mWPZgRBC
+	 X1zrXN3aFOFaduguYKkp6Za+RJdS8ILJapo4DXq5nOORB+t+Ov2LKPUbQX2tGOOIJSZ8P
+	 xx6yQX1hmXeE4/+4jIhUaO3d1XtuaJF4INyWVTl4O2o2lt7tMr9oJt2LyOHJgTHf9k5EN
+	 dfy3++f7eFA7o9T3adRHrSP6scQRCLkPb8RRg0Vr1RkZcwvrC9tf+PmcpbNy/lSxS5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853271;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WPqbI4E7aPhF78xzJBa631u/COojzZ+RvMgbm6UKZ2I=;
-	b=EbS6M3oqZlQN5eyD6Kr6kAO8h3jQdxUm9MdBiLPTRdvHl+9Hvijjn9e8R/eAX08pwg3E
-	 s3YNNrMc8/1N2eXHOGCKnIDDB1AnqKUq0UpP8m/DEUSLI4wX0OwEY0FmYKkfmJtg/WFQu
-	 QrCZMj7N7OCqUo+SbGAyezIU9Rlw4DhXAjZhZgda1LN/xCq0dSUPUHwtkIp4NlWP7hNth
-	 9cfV0Smg+odaIl3ZmB/vM5iLZyYF2fSFAL1hiaz7G1lHf54rqjLK0QKcOwuOHuWiT2Hy3
-	 LiPPyoHvjiCAgNLlm+dR71kdpcIEqp1Oig2rx2nyXPps4zDGhwRcHT3p3UY8i7u+pYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853273;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=t+D9qVbzCCKAJlVz/auwzp1cE+wp8QYsKc77PmPP+qg=;
+	b=FzE85iHmJrrAbUN35H1TeaXZFVCBeaY4Hl7gzIzRaR9bFxJDH/U0aEJoMh1dTDVyyjZK
+	 1Gn/I3PdrfrWL/W9zAiqCvYxZwVHiNDoUevyf4fgksDVr7yK6ZozFqr5Sq6J5zbPKHEOH
+	 YtlbYrOmf5AUK4EEr0nBopWunNsrjPRaL5ibBUvFA49Oz8dTd+ZIaOTu6IfM9BHOdVbLb
+	 sDccijV8mpFw+ty5FMIZqOvm7Xv2X5ijHHPCNm9/9e5tVeEQkCVgeMMRfB3+Pq0W5fFKM
+	 NPnWzhvswVe7dT91foY0oKAANmyx/5g1GRXgOkRpkoxWHOnOeAKyMQCqztCVeYPKPZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PbHWy/OO";
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=szelinsky.de;
+	spf=pass smtp.mailfrom=szelinsky.de;
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b="Cx/7cwdI";
+	arc=none smtp.remote-ip=85.214.127.56
+Received: from szelinsky.de (szelinsky.de [85.214.127.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C7A606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C7A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2BE606A33A;
+	Mon, 16 Nov 2026 18:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2BE606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PbHWy/OO
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9995ce866so36703595ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:21:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794853270; x=1795458070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WPqbI4E7aPhF78xzJBa631u/COojzZ+RvMgbm6UKZ2I=;
-        b=PbHWy/OO/p6lbs9pGg3i2CMxwEbrtuKliGLYdedBT6TXPPbt31Hgd/M6eFVsm2cldq
-         h/4UZo4BITMQgH9DqV475AKu2iBD4n5ShUSaey4NSQy1MBq6O9ic96YTyTn1naEhZ3Q/
-         CHS3RIQLxlzHcMGTdN5QRK1+ct/dvIuqAIJcQImStiZ2WNSLAF0ThwL7iCbiywDeptYg
-         rDUzR60dRlDSBJk3QmV87gRKa//yp4ipS6/WIzFogO1wVoWwDpPqUvQlqhOEdP6tOI4J
-         FVNihNhKN5WkszEhxRgVRTq3i/gIDCjWjzwu9ue0EyPPGAnGaxngVKAQa4xAAf0tkueb
-         +GKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853270; x=1795458070;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WPqbI4E7aPhF78xzJBa631u/COojzZ+RvMgbm6UKZ2I=;
-        b=Ap9ZJ2OYifwB1K+TvSEOIOvCenozPVa+29UwiyTf0BnAEAizkSYr7+VE/AjqtYzHTi
-         Wd8EmSdX+TZTgu1OOojbBkxWqw4Yyb/UHrNkhjBRf3IjqGD4bVANheTG4beixbRZawE1
-         zT089eN/BSPT0ud7lDef8eU79kTEq19iI0zdYWmPc0u4MeX48eRVn9yRhZ9c9iDnJdNu
-         D8LH6Xqfpk66FwGf9dN7yNu2AOmr++KGhU9HZqGIb+riFkf9iQkosI/yumoCthAkff4I
-         KP3JAcFT1f6TFLwgPSo0hxf1bp94mKr/fHuR4jeYnckcdIUW49ubbMUou/heeDHie4fW
-         ByWQ==
-X-Forwarded-Encrypted: i=1; AL+hErHH//c31vnDeNZ5WBAeXnMkGsomOg+LwYmux75elT0ChiWQB0OdsO00hV778G6gYHlxWCwf6jfkMIYB9ao=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PiMo1nLx7F4UoX9bMnWXGsuXU54ewXylLWpNSiVo0GhkcgExv
-	RN4TfUtl9WCn5BkYdELsDXVL7jkGRicovA84eLiBw7qQbKNBXNH4PXCG
-X-Gm-Gg: AZFdTZeR0YyzdcYwAI8YknOeWTdze33Ff+RNz+9Gf8piMPQpc3twpEJ1S9x/dWfzhDG
-	HjWr+ogdNLge4I80Urkmh0eVjzwBTA7w7kwVwkJB1vOARvUqUjthImZepJmKkovZKlRxeohZtlV
-	VS+izC3WErsGyawQ7fOp+OOVystYhf2tt8S5zFKlf7J168W/8To9clfgY/cR2WDs75E4CWRk4ij
-	YEWNTopPsnoRRDwJDkt0nLmCS5fJfKHnOBlVH/cYjK7lQSeaEINRkC5sUfC5FiRj2f62b+zqjmL
-	L0IbpCaIoFbYJW5yZGlkqb712peBK+jmny8hRuyjihwXUDlXOZ5dqwm7CxLO745xVuDD1/No4Ot
-	wuAt6BByl3CBgqwJOl7prOu0jwOkYiWrN5kWZDkmoPk+zzPvLlF0jVKmG4nfV9VxB7yEGPt7f/i
-	Enh1T7CqU+2oYm0kkFTRs29tzHwivl+iFBBc5VlQXQVpvg0nGfFDpo9VN5dxC31FGuiBSWMZqlL
-	13EybNcscKTNN14vPwcnS72v6feOqsatDoH1atSNZ/n4eQE0zXNSz9i7qnczIKBPp5o1oc0DOoU
-	E+FPYm8lXvWEPYH8JQ5IZpFbMyAdcU3C3EtxBiaOOg2pPZy/cG7k8pRZ01SnELf6an5ZWvPsGxs
-	rTAaMjrYN26QsniZXG/9eLdUgKynak4QIkiDEXqTiMQ5/d+6WWJWYmvP24g==
-X-Received: by 2002:a17:903:41c4:b0:2ed:cab:e977 with SMTP id d9443c01a7336-2ee0da966e7mr123690405ad.12.1794853270245;
-        Mon, 16 Nov 2026 10:21:10 -0800 (PST)
-Received: from localhost.localdomain ([12.162.234.74])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a161a3sm2885265ad.18.2026.11.16.10.21.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 10:21:09 -0800 (PST)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: andi.shyti@kernel.org,
-	andrew+netdev@lunn.ch,
-	corbet@lwn.net,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	jiri@resnulli.us,
-	kuba@kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=Cx/7cwdI
+Received: from localhost (localhost [127.0.0.1])
+	by szelinsky.de (Postfix) with ESMTP id 88F3DE838C9;
+	Mon, 16 Nov 2026 19:21:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
+	s=mail; t=1794853264;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t+D9qVbzCCKAJlVz/auwzp1cE+wp8QYsKc77PmPP+qg=;
+	b=Cx/7cwdIkgU93nX8vlrCf93E8a1L/z4qI4Rs3UskVgqIWhaKgJQNxPICpAhLGfhn5V4hJd
+	fZUd7CAyNoDFPwVflrokYJNBvdTRaUcoXj6E2EwZBSjBWDduRbRq1Hx5aRcEudtgEKyDTD
+	C9bM6MnIeBiO8W9l81W+w8RA8XFpPnvGXny7uLON8dk00TrRCdLGMCPlB4OAJBbsjA+T2U
+	TNilQPp9FkT0LKykELdy+CTh/VhNH7Wdl9retX+/yQxnjAFzqrnZpB93tdGbX73iP9PXHa
+	rfIPluYx/B3FiWLr8+xq7u+R9XB1S0u6BzvghZ9h9FU9+Zy6iHqa7QZJH0zhGg==
+X-Virus-Scanned: Debian amavis at szelinsky.de
+Received: from szelinsky.de ([127.0.0.1])
+ by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
+ id 9X1y2t5B0bOc; Mon, 16 Nov 2026 19:21:04 +0100 (CET)
+Received: from p14sgen5.. (unknown [91.25.97.186])
+	by szelinsky.de (Postfix) with ESMTPSA;
+	Mon, 16 Nov 2026 19:21:04 +0100 (CET)
+From: Carlo Szelinsky <github@szelinsky.de>
+To: netdev-bot+sashiko@kernel.org,
+	Kory Maincent <kory.maincent@bootlin.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Kyle Swenson <kyle.swenson@est.tech>,
+	Ross Cawston <ross@r-sc.ca>,
 	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	rdunlap@infradead.org,
-	richardcochran@gmail.com,
-	skhan@linuxfoundation.org,
-	vadim.fedorenko@linux.dev
-Subject: Re: [PATCH net-next 3/3] ptp: ocp: add WiWi Time Card production image support
-Date: Mon, 16 Nov 2026 10:21:06 -0800
-Message-ID: <20261116-wiwi-v3-87afa10a8-r3-ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <179456532138.2199510.9610534349392524646@kernel.org>
-References: <20261111041904.48916-4-ahmadexp@gmail.com> <179456532138.2199510.9610534349392524646@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 06/14] net: pse-pd: check the PI state under the lock when setting a power limit
+Date: Mon, 16 Nov 2026 19:20:52 +0100
+Message-ID: <20261116182052.1262742-1-github@szelinsky.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179477645553.3136.3930514306381646741@kernel.org>
+References: <179477645553.3136.3930514306381646741@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,17 +89,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-WiWi shares the peripheral layout, not the PCI transport, with the legacy
-Celestica entry. Only the WiWi match uses these offsets, vector mapping
-and gate.
+On Sun, 15 Nov 2026 21:00:55 +0000, netdev-bot+sashiko@kernel.org wrote:
+> Does this description understate what the old race did? It looks like
+> the budget was leaked permanently, not just reserved for a while.
 
-I have not verified whether this FPGA replays a masked event. Instead, the
-proposed change refuses requests to arm a timestamp, PPS or generator
-until probe reads back the open gate. A request made too early gets
--EAGAIN and can be retried. Disable remains available for cleanup. There
-is no speculative acknowledgement after opening the gate. The mock-MMIO
-test covers early refusal and a successful retry; it is not an MSI-X
-delivery test.
+Right, the budget is lost until the controller is bound again.
+v5 says that, and fixes the old "powered" comment.
 
-v3:
-https://lore.kernel.org/r/20261116-wiwi-v3-87afa10a8-0-ahmadexp@gmail.com
+> Is admin_state_enabled && isr_pd_detected enough to show that the port is
+> actually powered?
+
+> Does this still leave part of the race with pse_isr() open?
+
+Both were there before this patch, which only moves the old check
+under the lock. They need their own fixes, so I keep them out of
+this series. The cover letter lists both.
+
+Kory, are you OK with fixing the two older problems in a follow-up?
+I am happy to work on them next, if you have a preferred approach.
+
+Also, are you fine with the rest of v4? I kept your Reviewed-by on 8
+after the small change there, so please tell me if that is not OK.
+
+pw-bot: cr
+
+Carlo
