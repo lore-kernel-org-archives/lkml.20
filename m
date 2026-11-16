@@ -1,76 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=63.250.43.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855529;
-	b=tS0ttSD20mf/eo3VRIYdFVtPu0HI5KqKKdp8A0yO0JTOHNclO2EbCbenlpiXWn8a5d8m
-	 +4IlI6pg6esmMWZGeToUHn4xre0lbzMFxsEsg8b79JjUMB2QGbvBImPB9+prLd7wj3h9p
-	 /BKH79eJi2QmY08XPWyulpm3PJ2MGLdYfsVqq/ojhC6caoSCFUdzLFx3SFH51tmfHRlqK
-	 ZnBCMVndrwjnfffTVR0x9JrzEViiiRTtRNl/aOeH1iOQl2HKnLBqoz/achbvj20+ze/mC
-	 sOJiS/oGP0KzPy5JvJVNRxi8g0waC+fOpHSDLxooIP5UN7mpaar5/vjUpd+Z+Tcsc2A==
+	t=1794855533;
+	b=3ZkMPRnDtlA9nBPyYZ2f9npKT5fxoXgk7kWaz/cy1fssisUrglCgDJhontF9mKG1YBHX
+	 KSBlz97ag3uQ7zxkRjojGF7ures0Yr+/ZHCCnc3b8w20VUhKjsWlwB32Lyltwc60RmQ7x
+	 iIcSkXjEWD4OLO3LGaXpUpYYSIBxXxtrEf5pUBwmncFg0T5FEJ0vIADppz+Z1rgRMQbEe
+	 ecMWsuWhCxkKJ6Kgzzbk0+nFojgM7rFVFEnxPr9+CQU1BbExcO/z8NDz+S8cNVfrPBtF7
+	 xnVpAdiBdBjJYlyfoPOLAwRzgXgUNlh2sstKU2GfFfIykdQRjw6EqOM8Q4PpS3mOZVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855529;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Envelope-From;
-	bh=OnERbGbeZyB4DLRh/yAtoGCkeRPa0jQKYunCmHKvjZ8=;
-	b=ijP42BvdnlpAyUw2LM0rVX+B7Fcv2AS2KK+jZMb4VvfxlzulZZ5/Xy64eHn+w0mlEMtH
-	 YGbR2cEyvELUpPRV7Kg8ELTv+lBTt76WfQP1WyoPhgW4HP0CqwMCpu9T7Qs2R2X1EyQxe
-	 bPUmkkAiFp+MOt3lWFJj+7l82ztuM3zsUsx4pt+8BZX01k0CY4t2v4e3yqsh2Glgfb69S
-	 dNa2b7XQW1LhsuJe1YAqBCfYMhFpLxQrZkmkptork2oWPLnYnd7uPh4PxBHCjEsHoczFl
-	 O/nqiC0UxJCy8suwEwt5+DfoPIWsbTLxoDrxEgG19w5MBZclJAT7Nz7OYLmSIZT+Fpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855533;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ad5dFKw+CLO5JX/Tnr2WBnwMJWSG8HNIuJVYxZG860s=;
+	b=LA57GNtWjWRjlGJYy64oZwa+evkJ5c6sFpjwj/WyXgzEwVfWyT6cZC8Cemm58Iucgy0b
+	 Eo3TOdtEZ1h++qgQDYxTOy9Pyesj/IWXw+mXVTjeQSSEC6AeeLcT7mkACmVjT5rgGLXzT
+	 N4wnNAVEZhMPIf4EyibFBXcWLNwiux7ZkyYTa2NGODHEcfu/NaqeCjBqxRrHgyd5q2plM
+	 EiUtyhT32iXeIwISRTscJPZcMx9iiz/j2aHHnyhU/xWdZl6O/7cWWTeyYt5RB6pkS+TNB
+	 i+zcCK0J2wcxezDuLfyFLaZeJ11lcrWC9YhktukZ/NQvrvcl1jYbdQU6H/9EPphQLhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrispinetinega.com;
-	spf=pass smtp.mailfrom=chrispinetinega.com;
-	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=uQ6QP9qj;
-	arc=none smtp.remote-ip=63.250.43.98
-Received: from out-2uec-a98.jellyfish.systems (out-2uec-a98.jellyfish.systems [63.250.43.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0g2YEcD;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EE2606A8A8
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97EE2606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1C8606A883
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E1C8606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=uQ6QP9qj
-Received: from mail.privateemail.com (unknown [62.8.90.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4jSxvv4QzWz8sWS;
-	Mon, 16 Nov 2026 18:58:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
-	s=default; t=1794855506;
-	bh=OnERbGbeZyB4DLRh/yAtoGCkeRPa0jQKYunCmHKvjZ8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=uQ6QP9qjtMfL1xyoY0p5DQkJsjPV8GcHjzwZMLGFt2XTkFz+ZG8S3V/77PWtQkrtH
-	 0LxHx0rVcj6KYhC0y0jQvPAx3ILqg0eWMdsS+39ewAbySmx3hvkl227W2auY6N5ad2
-	 /pHr+D48jqFkGvahmcKAb9PasmQgSpoROoWksgWCN1dq+bMHzoGw06RFTX9ipKzJV8
-	 AFwlADs93WWGtqBUcs/awBYtlfe0RjZ7ieEh2niLcdJjnJJGOgRTpyuyRBrrqb60P1
-	 pEo6LRWrZuO2MjNbsDM1wbZ7WMxsDkDwH5/lfMEdL4+KiA8Mi3mZyPyUIZ/Xq5nxCo
-	 Iuw4YpXlAhNsw==
-From: Chrispine Tinega <dev@chrispinetinega.com>
-To: Lee Jones <lee@kernel.org>
-Cc: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	aaro.koskinen@iki.fi,
-	andreas@kemnade.info,
-	khilman@baylibre.com,
-	rogerq@kernel.org,
-	tony@atomide.com,
-	jerome.neanne@baylibre.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0g2YEcD
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso1291175eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:58:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794855522; x=1795460322; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ad5dFKw+CLO5JX/Tnr2WBnwMJWSG8HNIuJVYxZG860s=;
+        b=i0g2YEcDeidHN8wm9CcxCq5SoRkb3tmS/L72+eeURILaUQ/CB39bmWdQIIN3/I+WLX
+         oCl4WBaNj/7nc5ujxBVziB8HdlERBejMx3BJagy/xvatfLb6jzIqAyzgUEN4rfC+qXz8
+         MIXtNs9gcR8xw636Ke/vZ+piHf/xBHJKuRgFLc5sXt9dBhOKCqq7vpRKj4DdXiY7sHDo
+         kealraA1vD2tMcMxuLIOFZRbvG38/H51s0DGy4M0QPSQnt27mNkmQkernnAqp6aTxqLM
+         +o+9zXGqD+59W5R96qUgG4AMBsVUZoCgcUCrNow+uPFDozEQjCXMQpHkL0uiAOYzq8TE
+         i/sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794855522; x=1795460322;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ad5dFKw+CLO5JX/Tnr2WBnwMJWSG8HNIuJVYxZG860s=;
+        b=JH/QPXKPDBNwPmqb9PJ3NmX0vvBSJ7jgUyUOiY4kWWYbd7xkaXgn+9vb4YhYJeDDug
+         9Mf2Hn7D/xr/8LJ2pZCFK7jSDM9sOY8yhAOf+cHRIPUEM36oSnRAl1hdTqphJMyAbIhx
+         MdeNyT+Qu3ozfcktMmn4AJa2OJix4YANaLSLQrAJ7mfKN/BHv0zpHvqvqfGsq3vWDOdu
+         6qz6V1pCHM8DUoRuDO43k/4QuuhxvRFc4zkVATLhxFMcoIQ+RR2p8LqBkUmPiaW0d4LG
+         zeuE3bKtYfwpM0qe666gQrxxf7r5T8MXA27NsL4Vit3C/GTE56QxYjtbhONURAWO+9dh
+         wTmg==
+X-Forwarded-Encrypted: i=1; AL+hErFJdpaeFts733+pNBKL/mZqJRScznuDl+uowR0TYhC9Ps37XNxZX3IScyJtwWvSbOm9+L1qNn/9xtGEKK8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8N4YjidUc7GMQ7WPVhgPrts9/LVjN5cptyy1VAEp5A/uQt39ik
+	4Oun+1ZRZfNbGFHbpeIY+7Kl0+WFnt7amC+/UKjRwVwggk7SynjOUCkd
+X-Gm-Gg: AZFdTZeVrlzrmo7V17woJYOOsM33XDk1y6tQIhppFgiS6L/IjV/kCglMp3u+xpO4vdQ
+	TzGNTfNk/4B3dImgRrw74kO23Wx7Hr3WtbfTWj5Y0MiGt7Km+tjExAvL5UfW8hNx1hY5Rj1MGAu
+	C1KwErnSr6OIeFOX5A/60A3o9NhthM32Sh5rr4qv6JBE/3RbxeIL2AY/TrtNTwrgWrFnKleATVD
+	HDlN9I34URxySM8OdcNOmPovpGScv02hQI9NeJ31nVkTw3qItHx0sjodJYfdPoygktAdXxGqPXt
+	qKLZc0sQxchmhesLSq47feEQaeStqDawEshLwIlAbt8aH7i9jU20Kbe5RfRRcoTHuCA5TGi5ViW
+	eY6Pi5p9u6iX591d3W7fcyEUcp5CFkvTMIixEVQva5yqLmDKEAdJaLssCdw6WmQT2KDiSlmwAaO
+	bqtcLcFG3xW6EkJWyflJHUcw4ueOcme0BbMyX8htnB/WZbuDg0iNBxvH3df55ODaTMMu6A6SNN0
+	4G9M2yTlTL1kK0TmtPBjkR27yVIJddP7POHd2e3Vh0Ssbhbxg1LlI6DvSvnZMUzFoAo+MtTRKRp
+	FjE8SKpVfRlMIljG3Vt7yc8WHxjrP0rjNq6cdSj3T3Yet18n1s4Fg6uMqGhdn/oijW8619DkeK+
+	4DvmtzSVpIQlLmeWrP55G035Y0fV8IZkZl98/2YhUqI9uwLeDpCGEqONbFMY=
+X-Received: by 2002:a05:7301:428f:b0:369:5583:bf4c with SMTP id 5a478bee46e88-379684ae79dmr11080301eec.28.1794855522299;
+        Mon, 16 Nov 2026 10:58:42 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm35583453eec.26.2026.11.16.10.58.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 10:58:41 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	namjae.jeon@samsung.com,
+	a.sangwan@samsung.com,
+	linux-ext4@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev,
-	Chrispine Tinega <dev@chrispinetinega.com>
-Subject: [PATCH v2 0/3] mfd: tps65219: Let a board run past the warm threshold
-Date: Mon, 16 Nov 2026 21:58:08 +0300
-Message-ID: <20261116185811.1907811-1-dev@chrispinetinega.com>
-X-Mailer: git-send-email 2.53.0
+	dennylin0707@gmail.com
+Subject: [PATCH] ext4: check RLIMIT_FSIZE in insert range
+Date: Mon, 16 Nov 2026 18:58:10 +0000
+Message-ID: <20261116185810.82581-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,51 +105,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Envelope-From: dev@chrispinetinega.com
 
-The TPS65219 has four die temperature sensors, each with a warm and a
-hot threshold. With a sensor's warm warning unmasked, the PMIC sequences
-all its outputs down at the warm threshold, 110 to 130 C. With all four
-masked, it only reports the warning and powers off at the hot threshold,
-130 to 150 C. The masks come from NVM, so a board that wants the second
-behaviour has to set them on every boot.
+ext4_insert_range() grows the file by len bytes but only checks the new
+size against s_maxbytes. FALLOC_FL_INSERT_RANGE can therefore make a
+file larger than RLIMIT_FSIZE allows, while ftruncate() and the
+fallocate() modes that extend a file fail with -EFBIG and SIGXFSZ. xfs,
+f2fs and ntfs3 already refuse to insert a range past the limit.
 
-The BLIIoT ARMxy BL350, an AM6254 industrial controller rated to 85 C
-ambient, ships a vendor kernel that does this from a devicetree flag.
-This series adds a binding for it and the driver code, and corrects the
-MASK_EFFECT macro on the way: it named bits 2:1 of MASK_CONFIG, which
-are warm masks, instead of bits 6:5. Nothing used it yet.
+Fix this by validating the new size with inode_newsize_ok(), as
+ext4_do_fallocate() and ext4_zero_range() do.
 
-The property is limited to the TPS65219. I have not checked the
-MASK_CONFIG layout of the TPS65214 and TPS65215.
+Fixes: 331573febb6a ("ext4: Add support FALLOC_FL_INSERT_RANGE for fallocate")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/ext4/extents.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-This series is build-tested for arm64 with W=1, and dt_binding_check
-passes. It has not run on a board in this form. On a BL350, the
-vendor's equivalent code sets the same four bits, and the PMIC reads
-MASK_CONFIG = 0xef.
-
-A runtime override, for a user who wants the PMIC to shut down at the
-warm threshold anyway, is left for a follow-up once someone needs it.
-
-Changes in v2:
-- Patch 1: add the Fixes: tag. (Sashiko)
-- Patch 2: the binding no longer says the operating system reacts to
-  the warning, since nothing does today. Mark's Reviewed-by added.
-
-v1: https://lore.kernel.org/all/20261114032457.3434248-1-dev@chrispinetinega.com/
-
-Chrispine Tinega (3):
-  mfd: tps65219: Correct the MASK_EFFECT field of MASK_CONFIG
-  regulator: dt-bindings: ti,tps65219: Add ti,no-warm-shutdown
-  mfd: tps65219: Keep running past the warm threshold when asked
-
- .../bindings/regulator/ti,tps65219.yaml           | 10 ++++++++++
- drivers/mfd/tps65219.c                            | 15 +++++++++++++++
- include/linux/mfd/tps65219.h                      |  8 ++++++--
- 3 files changed, 31 insertions(+), 2 deletions(-)
-
-
-base-commit: c92739a23a80f5f0a7c6f3c10aa792102d252ac4
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index ad0d80e33f60..94b9e091ef5f 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -5803,6 +5803,9 @@ static int ext4_insert_range(struct file *file, loff_t offset, loff_t len)
+ 	/* Check whether the maximum file size would be exceeded */
+ 	if (len > inode->i_sb->s_maxbytes - inode->i_size)
+ 		return -EFBIG;
++	ret = inode_newsize_ok(inode, inode->i_size + len);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 * Persist the pending zeroed EOF block to ensure i_disksize
 -- 
-2.53.0
+2.43.0
 
