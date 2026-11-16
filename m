@@ -1,96 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850400;
-	b=WN8Rtwtic4pWWixlHb6L4romfN+w4+4gqj6DXv+iu4fun9px8coMdWlCULXr9cJRM6Lm
-	 kz0IqjHnHBjKw9tLbXyQiUgoL9MOEToI4KQbMhRNhxRXqWVf1Ci2HsXNZBIBcicA41Lp4
-	 Y63NOj0zxNiZtPiFfOiWrMM6fGUurOC1CRjCD726l1FMMelwb75zj8TLtbXqLnCt8Aepe
-	 1f3DmI7a0p6fxG0Sln79qUBawN7N95sc3NMun5zA2E2RWXvxHyareyz1bP7LHwo0XMyTY
-	 w+d4Qx3iLD+xPq/BKTkSU/k9T3j6eVgEnwm3QqVHQ+AQoj6Ay8Brc3pN61Y13oh3aBA==
+	t=1794850427;
+	b=K7WI3ydmm7IeRKHLgkzmBX9gSeZBUHePO/CD9jlxV6FFHPK4s+deG+cjCt5Ndkx9+0aS
+	 Lhs7/nIKoqhAit+8ghJRj0bfYGJbH1PCGof1+nAmg1k8AYx2tipAQZCw3dA4YTu4HlOgR
+	 m7n2Bee+joZJT2NEyMTcCKh28VUGxAIYQb/FyMMfpNkQaB/9MIZw2UWLeL9XUAZEB7nEM
+	 3IVWdjPZkQbJ3Gjf3LG+tFkFmZ4KkqI7LR8k8xDKl6EsFVx/CH7tPkmiykgFpE608P7Ci
+	 ZkMEd6+wTCIc5DDlAlStzgiqkSeRpfeBtsyDVTG9A3lWZn5TXm7j9qVV7JH0VT1YmXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Hg9Uic1Jci3EVD6ABAnH87aOxyU3YxP5Q27E7GZD9Wc=;
-	b=dLzJoR9ezC3hpasmjQmKA76YvXqxmiORBa20wFQCI/GXQR8ScumaIneQpRtc2xZ65ZPz
-	 MQaocbcmgoPElFylN3FMgTWO/w6CY9SSVf1tKKrL4ZNmpFAdjFwmvIEHdrJoKnHlaAfWV
-	 XRqdZeC96hyCvtK0gtSqUtf7cqCv7t9bw6z+8MTfnYKFN9OAwdK9IXz+H5ILZHIZ3mA74
-	 LNIf8qtwR6fyZxmyVhNPDEKMtfYzlnD6mjWkMHo9mS/HOi93bi3gxjMalX8oLJhCBV2rJ
-	 QQtdMgUo0VEZSLXZvyiuzw3IFqkbc57VmUjubnCuRBISP177LoEZs284o49dy6pqHMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850427;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wD/xDzn2jI7CsEgGWOahq5nyJwZ09hv/n/XJlVnPNHk=;
+	b=t65W4Wlrl2Ewt3vdDHhC1vzO2ASbLv3oW+NvVIoG3Gqd2771WArkQAsQcxvLDjVaC1MB
+	 PsmmTzftGoqvxCve7+fIsm5qYnD6GpN7qfpAOGq2UskQwrFOBlCRqJwDMZkWOhtK+Mr+y
+	 8sZTPA4d+jBlLzfvC2KXOgBqsSh605MAGUzfC2fU1G0rRj+gMtB9nYO1lFjsthPhUJTcT
+	 4Aq03TcEs1b+1c8UNR9qYDh0yvE7LejbYqqgsyvTFwU2l/cuVtfQQfh7V6BNCGdQpD9Ya
+	 kwBCN7AEuPGmo7/SZfLFA0Q5+iCOQZCkB8/HhzLexI6vARxAcnCJMOXH4EQ5VeeTlEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SnKDhOwR;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NXS4DyYl;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C09C606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:33:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C09C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476FD606A31C;
+	Mon, 16 Nov 2026 17:33:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 476FD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SnKDhOwR
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb606491faso12216305e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:33:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794850398; x=1795455198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hg9Uic1Jci3EVD6ABAnH87aOxyU3YxP5Q27E7GZD9Wc=;
-        b=SnKDhOwR5tgdadrFwvHn93b37aN4q5Gh7FM4QLzz9gohk/670mFtGsPCOz6Rx77nvn
-         T2/LRf4LAEbDHfP2RSUTr69b4x3uKiW2FqfeEVBgO9XQs2HgOQXvb+dF7BaBm0dQ3WCT
-         sEOzMTz1Ket9y0lVXKPRejygv8nhSSpRPwPmEvCM0aWEeZg0/qW7BiH7HsctunmZx7sv
-         3VraXx1ZR3FCS6wO5hjrrK3rjFEAd44vQFieUFgURPcgtX2v17VxYxLvYJ9FyVMIqmjO
-         bvPiE+0oufmlt9h5BubvDGooNrFksu0X2Yl5OccED8qW2WKqcj8y5Vrqyu4NLrn4wb54
-         U5GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794850398; x=1795455198;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hg9Uic1Jci3EVD6ABAnH87aOxyU3YxP5Q27E7GZD9Wc=;
-        b=u5WfbYm39+gwx2Kz3akzKK9vXfMAleI3izkZk/b1TvP2aLdtxN0GJW8x8CBZcetT4i
-         K397Ubm7Wb9zl+zgOfx3fVlxKXJvdxNr9PzQlyarmSZEuXwnEz7MgCT96nBxTTD+/vrV
-         Wvraw819r/v51rhV6P1j/34WaLxmThtPyinLUTsDk44vgGPqa+AMRt3KQqwIZevLoFWG
-         EJpcWh5XfFUyJ3BF5IoFqxc82zwwpbhzdp2x4CQ14X23XNt+Iltv5WEqRQDpFP4/tmes
-         UsewAaz17BHplFDs3/MlEGNo3iKyBspeld7Qw9498XCBtIgsbgnt1tiWvWDVNiwj8YWJ
-         4KWQ==
-X-Forwarded-Encrypted: i=1; AL+hErGEmLOREaLEJgUP2Tpmups7k7AjLxUu7EMy0HpqrMxDVI8hVwgn2N9DZ3y7CgJ4mVi8osUblElAZcTOGBc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QT+mq1vctDwTyEeJaMiVzwQEgV+n6AorT171Vel/uxNG1UBJl
-	FGaqFfAPxHREe0NzPVwDz6lojEX1M5X16JuwGNBGxgYy3OBrd0PbONF+
-X-Gm-Gg: AYBFou1nkM61uD4hnCzSP7ba75n79dO5qKAGup2wCDX1PyJS6cCiX7GMJiEkhVyrZ2a
-	I4rePV9AJGGlIkaaERNqo5+RdpXKPVNIkSxMyCOZw1+s0SmG2qDUSZj56rXtP6ZPG0wfQ+TPYlb
-	9Sm5lrdLTbbMs7p+jQBXrxc376XEqW5xZ88MaDIWErHUtE9GA/FmYgdwXSxcOhAYkAi7kaTeuZ6
-	3DRqdv6vcgMaJ/3caja/dGUDSlTtH2iiZEvbKcARx7KiI4uwXaWGOk+n5laNbxOTJS6W2sqrYix
-	+i5YYMNj0VPr+ueI1XhKwoKYn4P1srdLjZRb/grm2bSwBNIhFDUGLZkqzuYDofV8o3r07Ic+JAG
-	DRy4j7l2I66P19GUFnMaGOJ6j2DZRdpFUc02SP977MohxmU5PrJVZOMyVPikKT1bqQEGnxsYl/8
-	YX4H618bNUmiIeeGZ6xmLE2ruqgk4tm6ZwfIFciprrDo5zN1AMFkmA9pXAsGqMeZ1psEOVSVe4G
-	pUOvhRSgPDyR5IDO6vUUDkrFNN87VrmDZN+lOapXghOUqcxMHRBUDwOTE/P+18kMrtVeB6Te4yK
-	PfeHIbSh8TG8unEYRN1OhqtaA2e2ffkZvhtykS/dg3VjrLVqe9nKTfyIpCx3X+bCI60=
-X-Received: by 2002:a05:600c:8905:b0:4a3:5a98:c279 with SMTP id 5b1f17b1804b1-4bb55a57c66mr161878745e9.8.1794850398200;
-        Mon, 16 Nov 2026 09:33:18 -0800 (PST)
-Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78430752sm3327525e9.12.2026.11.16.09.33.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:33:17 -0800 (PST)
-From: Volodymyr Chapman <volodymyrchapman@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Volodymyr Chapman <volodymyrchapman@gmail.com>
-Subject: [PATCH] media: atomisp: csi2-bridge: Don't cycle the PMC clock if its rate is correct
-Date: Mon, 16 Nov 2026 17:33:06 +0000
-Message-ID: <20261116173307.14169-1-volodymyrchapman@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NXS4DyYl
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGQ7pf2536576;
+	Mon, 16 Nov 2026 17:33:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=wD/xDz
+	n2jI7CsEgGWOahq5nyJwZ09hv/n/XJlVnPNHk=; b=NXS4DyYlxkXcHgeoVKyjau
+	xLRLHmDGV5bpKJECci3n9h0YFnIsBWwQrLTuK3nlG5gMonKyYZ8MZntDDX1MfZRJ
+	JgbSdIzVNJq5SeO+UEEfKWOUeH5ngkl+bVQ5eWFx+h9p4/wWwkqMzRmSNydqlON+
+	5Q6ec+pD7ZiQ/ueCYzZkUmlqoII+iWlnoAqjbiZC2zWZyPnYy4Ld9boO7EQgwOoK
+	+/FgKn73nop+AuhHDpiXZEmFDfbKMwrNkXUsCU7M4+QbOwGOf/A/SIVDNiJxGJPk
+	R3uvYu55vp5C0EDNu/RB69jkK6sNsSLOIsSr+lJ/WrxQxmUCr6QZBOa+WMH7QVZg
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2d68kk-980
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 17:33:38 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC5AC2210607;
+	Mon, 16 Nov 2026 15:29:11 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hyxwt0cyj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 15:29:11 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AGFSp7B46203166
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 16 Nov 2026 15:28:51 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 31D7620043;
+	Mon, 16 Nov 2026 15:28:51 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DA1D120040;
+	Mon, 16 Nov 2026 15:28:50 +0000 (GMT)
+Received: from [9.68.31.53] (unknown [9.68.31.53])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 16 Nov 2026 15:28:50 +0000 (GMT)
+Message-ID: <0941abe1-9ecc-470b-a52d-e804fd125ac9@linux.ibm.com>
+Date: Mon, 16 Nov 2026 16:28:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,79 +86,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/2] dibs: loopback: reset the client id when the
+ owner unregisters a DMB
+To: hexlabsecurity@proton.me, Mahanta Jambigi <mjambigi@linux.ibm.com>,
+        "D. Wythe" <alibuda@linux.alibaba.com>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Dust Li <dust.li@linux.alibaba.com>, Jakub Kicinski <kuba@kernel.org>,
+        Sidraya Jayagond <sidraya@linux.ibm.com>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Hidayath Khan <hidayath@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>,
+        Wenjia Zhang <wenjia@linux.ibm.com>, linux-rdma@vger.kernel.org,
+        Wen Gu <guwen@linux.alibaba.com>, Tony Lu <tonylu@linux.alibaba.com>,
+        netdev@vger.kernel.org, Simon Horman <horms@kernel.org>,
+        linux-s390@vger.kernel.org
+References: <20261113-b4-disp-19244662-v1-0-39b256b70ca7@proton.me>
+ <20261113-b4-disp-19244662-v1-1-39b256b70ca7@proton.me>
+Content-Language: en-US
+From: Alexandra Winter <wintera@linux.ibm.com>
+In-Reply-To: <20261113-b4-disp-19244662-v1-1-39b256b70ca7@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2OSBTYWx0ZWRfX4xg3aCi4BR0s
+ AOM5gZM2nmFw56eCpdGr3WK58ePm9oY6ihQOboxviqK4wgQGjjQz+oaaR6LRGFTimZs6UHPZXc9
+ G6x8zjUtqtSguRuu131dW3weK13onXs=
+X-Proofpoint-GUID: rKqczh8Tr3VUsV0bVncyj8-yeyM-vQlc
+X-Proofpoint-ORIG-GUID: -3MSq1Ohx6ABc1M3AOA5NxIsT9w7SBwA
+X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afb3e72 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=Ogwv88QQDbgmfivA3BsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2OSBTYWx0ZWRfX9eTGEnI1Ke9S
+ +bt+1AT3KDeF4aWdFx1IEc3HSVUdXE0DfNVMHT8+3pH0veueQFsNUmCpi+8OcGH8uOq9mOS4haA
+ 8AHnXzkbmwtyzZwjW/jkHLzSebITTGwEBbhdrpODXXAaJ+72fl35YYtsfSOgMkSEguSzPtk5d/z
+ JgPjEtDnvm782+H3y4kYhjdw6uPY3UEKdPGDyao3rw/9EUBEivs/A1WLn8uPyiJrLlidN+gemmH
+ 8z39tzlqB7gSf5PCYPvIE/hEM2WtzLOCcKVmXQxCOyqLK66RdNqQM9zhm46AxDYtC3grcLjwXmX
+ u2l7KIuf3HLc8nYlnlhIrE7KZ4X4utcusx27oaabc02zj8gbPd7KKzJbvAHL/7kqa1IexT2XbAX
+ TJWaEIhHslzkH/bn8fF5yT3ggCbTPAIJdwtFAGQNbDjWcLeBD1D3sFNfTR4ykqtGw5Cr4qLvQd3
+ KB9QA2VaDPKVfvjQmNA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160069
 
-atomisp_csi2_set_pmc_clk_freq() enables and disables the sensor's PMC
-platform clock to be able to change its rate to 19.2 MHz. ACPI however
-also controls this clock, through the CLKx power resource in the sensor's
-_PR0, and caches the state of that power resource. When ACPI has already
-turned the clock on, the clk_disable_unprepare() turns it off underneath
-ACPI. ACPI keeps considering the clock to be on, so a following power-on
-of the sensor does not run the clock's _ON method and the sensor does
-not respond on I2C.
 
-On a Lenovo ThinkPad 10 (20C3) with an IMX175 rear sensor this makes the
-sensor's probe fail intermittently, depending on probe ordering:
 
-  atomisp-isp2 0000:00:03.0: Found supported sensor INTCF1A:00
-  imx175 i2c-INTCF1A:00: Error reading reg 0x0000: -121
-  imx175 i2c-INTCF1A:00: probe with driver imx175 failed with error -121
+On 13.11.26 14:57, Bryam Vargas via B4 Relay wrote:
+> From: Bryam Vargas <hexlabsecurity@proton.me>
+> 
+> dibs_lo_unregister_dmb() resets the DMB's dmb_clientid_arr[] entry only
+> on the last put. If an attacher still holds the DMB, as when an SMC link
+> group is freed while a peer is still attached, the entry stays set after
+> the attacher's dibs_lo_detach_dmb() frees the DMB.
+> dibs_unregister_client() then warns at rmmod smc and returns -EBUSY,
+> which smc_ism_exit() ignores: smc stays in clients[] and dibs->subs[],
+> and a later dibs_dev_add() or dibs_dev_del() (rmmod dibs, ISM hotplug)
+> calls into the unloaded module.
+> 
+> Reset the entry when the owner unregisters, before its put, as
+> ism_unregister_dmb() does. The index stays allocated until the last put,
+> and the attacher's writes no longer raise an interrupt for a client that
+> gave the DMB up.
+> 
+> Fixes: cc21191b584c ("dibs: Move data path to dibs layer")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+> ---
+>
+[...]
 
-The effect of the clock cycle was also reproduced directly: with the
-sensor powered through ACPI, a single clk_prepare_enable() +
-clk_disable_unprepare() of pmc_plt_clk_0 makes it stop responding.
+Thank you Bryam.
+Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
 
-Only cycle the clock to change its rate when it does not already run at
-19.2 MHz. The DSDT's CLKx._ON methods on this machine already select the
-19.2 MHz PLL.
 
-As a side effect, a clock which the firmware left enabled at 19.2 MHz is
-no longer turned off by atomisp_csi2_set_pmc_clk_freq(). It is turned off
-when ACPI powers down the sensor, e.g. when the sensor driver
-runtime-suspends it.
 
-Tested on a Lenovo ThinkPad 10 (20C3, Atom Z3795, BIOS GWET50WW 1.50),
-with this file built out of tree against a 7.2.15 kernel: without this
-change the IMX175 probe failed on 2 out of 10 boots, with it on 0 out of
-10 boots. The probe failure and the direct reproduction above match;
-the boot counts on their own are too small to be conclusive. This change
-was also part of a media.git next kernel (7.4.0-rc1) built with the
-pending IMX175 driver, on which the IMX175 probed on both boots tested.
-
-The problem was investigated and this patch drafted with the help of an
-AI coding assistant (Claude); the testing was done on the hardware by the
-submitter.
-
-Fixes: 0af9078315c1 ("media: atomisp: csi2-bridge: Set PMC clk-rate for sensors to 19.2 MHz")
-Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
----
- .../staging/media/atomisp/pci/atomisp_csi2_bridge.c   | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index cca91c6d7..a49996e26 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -257,6 +257,17 @@ static int atomisp_csi2_set_pmc_clk_freq(struct acpi_device *adev, int clock_num
- 		return ret;
- 	}
- 
-+	/*
-+	 * ACPI turns this clock on and off through the sensor's _PR0 power
-+	 * resources, without the clk framework knowing. Cycling the clock
-+	 * below turns it off underneath ACPI, which keeps considering it on,
-+	 * so only do so when the rate must change.
-+	 */
-+	if (clk_get_rate(clk) == PMC_CLK_RATE_19_2MHZ) {
-+		clk_put(clk);
-+		return 0;
-+	}
-+
- 	/*
- 	 * The firmware might enable the clock at boot, to change
- 	 * the rate we must ensure the clock is disabled.
-
-base-commit: 3fc9303dba01676c2090768126e5327e341b7761
--- 
-2.43.0
 
