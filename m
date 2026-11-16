@@ -1,108 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831910;
-	b=0w9yerHmBDxjvlFSPbuLVZoJZTlD6WsW1/V04uF9AdC0NNUY0O9nJJobKdd7mayE8kJJ
-	 aEPSF02WI/eGgJKb19W0zS18laxNqYqXToTjW/9W6p/jYSx0U7vuljqayJxR6w5b067Tv
-	 qmiRKuUioJVgIWT1HwrWzTLCpW1UaqgcLNeAAQb5m/Ov0HbcHx5bYoW0qdZ73S7BiHBnM
-	 zwAwWAP0pddoS01yqUrkgbULmHRGajzP1P5CZlpYxu1hEP130sKdBzFdTzYsxRlUWIfR9
-	 jF+Rydyv3aFDeR1J/gNmsOgUTwTKkhTRr0jXhxuk5E0gre9b3A4vZ4Icu4d/7tpd6Zg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831910;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=oIsCiYO41Z/uGBZ4XLwF06pD8GYIXinrsDJnv8EiOi0=;
-	b=MX7pvai7djSmlJySxQF7rFnxTxtx10gW7qqrNoBmcc5egjTg8HjDsEt5kMo9wxtGkBzX
-	 EpQS8GvjOycI9CMD/XMRqjmuHEnpqcaNpUUCAPIzMMXE93jMII+W8b4Fqkmog8DRmRFWV
-	 sDwCPl7w+v+mD4ioRwGi37KO++YZSscmJ8kJFYm19YKXMtSrA+ML4ggWl2lL36REN61Sl
-	 vxb+ZwKabtVma/08MPpp8Y08CBei0W7rKe//wj28NPWAC+nrHd0P6FprsnJFzFGUcIUYO
-	 3zEH1pR7NAO+YpdNQlxk6UPKuF/9FO1rBtnuMcdOVMX1Soy7JBAjTu+Yl+p0avDIHzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="g/c7pRd6";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Plm3FqYL;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dksJdIMx;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dQVDTq1T;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794831924;
+	b=aOON90md6nVhIzILidzw8izWK7TJqrR9+GQYPXxiykGYgHZhvfTrkNescoCF7HjBbMtd
+	 /MG57T+41+rxDuriwICHK4YHWFJh8x3aF7CfLgHHLlipzkZCZgiEx8TT7qbOzaxY8Hhto
+	 AVPl6n5doC4k/QZZ0YVt1b9nlXgWAsKPsbdK/cxfwvn95/8UEapbaDvDOtEatKY+UFCE6
+	 QOWasSnLznfNdYFyn12JjzPyEts3mlQgbK3u9juJQx2+5fKrfJokc++pPAmP2Vvr46e+c
+	 esbUf2haOiVt/ATH4pG8A0uagOaPFpTNTTr2MuAl+udasuTAmhUYgtXnqPq1bJ1apvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+	b=KGHiq7FO3FnVu4v7YvL/JGSBVtAO6j8wzQfqJX/ASi+pclmOfphm4TQXK4afuN2Gkxm7
+	 St4KbHl2c6fZ4pir/PYRbyfmMrAWUzMYmrxGmMrDT6riKKB5+HJNT2C6hlcueQulGlbOW
+	 tuDpRudEZ1i2tIEZpmzJIRjOXbj7rj33RUQqCuE767RpTQ9HTWXYx+7m4zQZQRTsso1TS
+	 taHI37UDlywnu0GvculZgyIg+m47j8n49NXF7sAdzlTlrVkqSqe9EoM++ldFsoek+piM0
+	 chv8KVM2xzaTSNHIq6fZ9RDzolF/zpP/q9KZ78ysRx8kCF1TcqbuCp5T8oFJnZPckFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Io6RcOzD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860F7606A884;
-	Mon, 16 Nov 2026 12:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 860F7606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41208606A336
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:25:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41208606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g/c7pRd6;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Plm3FqYL;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dksJdIMx;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dQVDTq1T
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 97F191FBB5;
-	Mon, 16 Nov 2026 12:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794831905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oIsCiYO41Z/uGBZ4XLwF06pD8GYIXinrsDJnv8EiOi0=;
-	b=g/c7pRd6MkSQoiLKSaxsthQAxK7rBAYQEkxMDRweDBimiYxqEjUvz4GT1ZVNmb4dHHIAgH
-	cUBUm9aSwxyT2PKzvs9/yhQO2lfR7SomZpjNxxwVwliCtlDt/SK3fMU9i1IUmAC9brXFCK
-	Q4Xx9VjIUoNz+ZzfhTaXOAv4Cjyh6Ok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794831905;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oIsCiYO41Z/uGBZ4XLwF06pD8GYIXinrsDJnv8EiOi0=;
-	b=Plm3FqYLaRmzL2GsQ9HJou3IclOzyzOpCXQWDNeQKCp65HTt4+BaTmVKulCM3cBPV71uRg
-	MSkylbxEgEd4b+Bw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794831904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oIsCiYO41Z/uGBZ4XLwF06pD8GYIXinrsDJnv8EiOi0=;
-	b=dksJdIMxscb7WkjoEYPxBkxTFWzDeWRDl7FIlRXs1tgf3X8FNBIuxZLn970pilg0kpWunP
-	aYEgQ2eK+lJSF2ujroKP2my4dbP4afeBG1Dqqj2VYGlU3KTp/4oJmcLHBzq5daP2oJfgrk
-	JIXSV9Q5DJVbHiVVk71z4+os5OpyPNU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794831904;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oIsCiYO41Z/uGBZ4XLwF06pD8GYIXinrsDJnv8EiOi0=;
-	b=dQVDTq1TdS4lx+9fQJ721aJ5wX6qrhWCDP2MXe5vFH5izvfSiPbWSI/1BpF65dpz/UWuqd
-	jeqOevV5c06x0FBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 236711334C;
-	Mon, 16 Nov 2026 12:25:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id TmoxOR/2+moaZAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 12:25:04 +0000
-Date: Mon, 16 Nov 2026 13:25:03 +0100
-Message-ID: <8733t1ynds.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sungwoo Kim <iam@sung-woo.kim>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Dave Tian <daveti@purdue.edu>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] ALSA: hda/realtek: fix missing chained flag in fixup
-In-Reply-To: <20261115132215.4084031-2-iam@sung-woo.kim>
-References: <20261115132215.4084031-2-iam@sung-woo.kim>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Io6RcOzD
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3acd523a802so33843061fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:25:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794831920; cv=none;
+        d=google.com; s=arc-20260327;
+        b=js+AfjmAipLiF2Oaip0sGnaMyKjv2jzLJ0Cuqt6TPuzj8OJSHTAp4CdWCqIz7Dx0xP
+         RQ6l46sflUF+cjqp+Oq7Fb0G/S+4XCbYP1K47x5b/sPoMNfJzH1ETo0n3JMPUueNKgNL
+         invwEEMw7jgChAE0DEChsMjiia/kYHXNIPAolc9f60nueRZz6qcQsN7Ro2fjJnrYriWd
+         D+LQjPxn2Z6UaFffP4K2TE7sz/+H2lecXxdX+onkgFcnHep53Ch0RWq5tyXT4zFGSBOC
+         k3ab6PCyt/AH3p6yLDFL+NPDCer1lhwMqO3XdthFjB2DSo/aORZ7HDl3o3FfvLWZF2x+
+         Bcaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+        fh=Kj64QI36aBtUJ3etjIfyOPSFxcsSTxbQiRbCW1PMCv0=;
+        b=E8ffQQ0w6NtXap1oAn/11w9noOKzyskwSLl9xJmCc5a0RP6pSLefXWitHhMPrZCkba
+         v4oFkRwBFnqy/sMKKlehaD1+8C0xN3VIaHVMgh5eccIE/iG4zVgFVviqwofTStJMEFc+
+         6QUyd8Pv3Qn9jv3O/gD8qs/hOm+q2VdpdS5rE2qtVTh4nJcB4LwA0VyHp4ChhiZUJ43z
+         aVU009kkP0bmo57gJZKhX9HA6O0cS0kbGzSQ1oRJiMu8ktZWxbWNIluabLKLJy81o9mx
+         goYFi7F0Fj+3ficIe4Df3ADx2uwbXH+fDuylovYbJdtByyYQdlWAdfnPht8yvlIomFYY
+         od4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794831920; x=1795436720; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+        b=Io6RcOzDR0JwQSOMZ2h/dhataExRAczwSTQYM2gQGcvveSLFkoliJjGCFbhzZ99VwP
+         9xDPwkg0P3o4hEJS2bKPbWl/SIDSTT5vif+ZberzXGPC1gJ2yEZDQb+TVWFrP7aBagAM
+         RYdX+hW9Ys6Vx4eHmulxcgkFXEX7FzLwsnbKwoKQeQrQcqbGwro95zEANdjKwE2PWuPO
+         I27p838Yp1sAveGpu2sNwbQgbBkK3CP3eIenSSnNb5EWDY7e7UYKfhDUJw1t460K430F
+         P2ILgEKZwkxcbRYmPC5i4YfVKTbPg9BldMzn191ptyulfkn5XEb6Zl02u/O5HvzMmSqI
+         FM6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794831920; x=1795436720;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+        b=KLuCHfr7uwwN88htQSAzyzKtEqFSxuCS2lUYsLCEJBqowyuV/FEQkuGeIIF8ZZOfml
+         M/3P5V81TGydiTaO6nWKaH1LxwUTNbrUSgR3Ry/HP+fwSbRGEB6nM5+Z39+q+mGncinu
+         qugOqOFgm/hKCp3MhmgeUBE9/UoSlRR3BCfBr/GsQMqSnrQK2qXGaaj4VUXTjM8E+gPQ
+         67i9BS26GHo7xWkWoS7rw/l5zJM51Cej5U7+KRYzwgrmCH3zldHnjgcjncVvGzoZzfRB
+         6iNe/jmytudOjCMTs04c+is2zf8oIyiZuqm+eGCDOrempBYyd/GyFXl9Pk+vrBwaZVjd
+         /JTw==
+X-Forwarded-Encrypted: i=1; AL+hErE0e5jcTYKcku0TNoarkcj/Plgh04t4qZHHWw1qH3NjaIOW80GB0RvlIY3lVS7G9gYkB/pP7Q4xXCFY/oE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+05eSTa2r9OeGPLvjNoMWLnNCVWZG1ikKSpnC8powx10UMv0Vy
+	CuJ5yG1YItbqFwjUdLNiQQxVZJ3PpaOv9GZTm7v6Bh7luxVuhprTwdY8Ow9jVp7qkjgGBNjhQQR
+	Mijt5pf7x0FEVfnndSCERnKnYHkgZhp0=
+X-Gm-Gg: AYBFou3MpHCU5OURk9HR7YQzPbF6WLtnhcyu22xWV8wwXJ/hKZAkO+J6V6JZkGsbVYt
+	0XVostpybL6idTgdqUWdraqElU7idVPLXSpI0PfR1yRTohTUs1ieQ50NPnaQloY6Kyzahagq2uR
+	ul++sALlU+CG/9t4GVJNDqRtOY73G0t6pYStB60FcjLghtDgaW7F9DKtmjs+Nzqac0WCaSKp0N9
+	AI+eJ8HIsrM3GAJ02JD8rTMJKk1ccpXXwzYM2JmhP8qrWhgTvmiyFRhCWRQY7pKf1Ixv0iJkWds
+	b9OLAYdNmfUdoQhn1X59rYW8kj2yi7YdVcaZoJId37H46QfD08Y7LvJQnHjswRVr4COmrreuHrI
+	zYKMqcJlDWdya0FzdC8cvcV9RPXzeJ+W1/8bwcw==
+X-Received: by 2002:a05:651c:b2c:b0:3ad:fb2d:a757 with SMTP id
+ 38308e7fff4ca-3ae2b5302cfmr27450321fa.24.1794831920174; Mon, 16 Nov 2026
+ 04:25:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,105 +102,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sung-woo.kim:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+References: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
+ <20261115210952.2140036-3-graypanda.inzag@gmail.com> <CAOQ4uxhR=ERNBYsxQ06-sKGrTXvePpzv-xi+62oceNff6Mzzbw@mail.gmail.com>
+In-Reply-To: <CAOQ4uxhR=ERNBYsxQ06-sKGrTXvePpzv-xi+62oceNff6Mzzbw@mail.gmail.com>
+From: Junyoung Jang <graypanda.inzag@gmail.com>
+Date: Mon, 16 Nov 2026 21:25:07 +0900
+X-Gm-Features: Aa3M54r2Viw7fFeJwPagRzK9IYztsTnUnL-IHLph1k3bGx9UGsJ-OXrvkjOjw2M
+Message-ID: <CAO7ntTQvav7mhK6caZ82afGadP8jeOJ_thanAf8DXBMBboN14g@mail.gmail.com>
+Subject: Re: [PATCH 2/3] inotify: zero-pad event names after an embedded NUL
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Jan Kara <jack@suse.cz>, Matt Bobrowski <matt@bobrowski.net>, 
+	Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 15 Nov 2026 14:22:15 +0100,
-Sungwoo Kim wrote:
-> 
-> The fixup specifies a chain_id but does not set the chained flag,
-> which prevents the chained fixup from being executed.
-> 
-> Should chained be set to true here?
-> 
-> This was identified through static analysis and has not been tested
-> on actual hardware.
-> 
-> Signed-off-by: Sungwoo Kim <iam@sung-woo.kim>
+On Mon, Nov 16, 2026 at 7:32 PM Amir Goldstein <amir73il@gmail.com> wrote:
+>
+> On Sun, Nov 15, 2026 at 10:10 PM Junyoung Jang
+> <graypanda.inzag@gmail.com> wrote:
+> >
+> > inotify_handle_inode_event() allocates the variable-length event with
+> > kmalloc() without zeroing the name buffer, sets event->name_len to
+> > name->len, and copies name->name with strscpy().
+> >
+> > If a dentry qstr contains an embedded NUL byte (for example, via a
+> > crafted FUSE READDIRPLUS entry aliasing an open directory), strscpy()
+> > stops at the first NUL while event->name_len still covers the trailing
+> > bytes. copy_event_to_user() then copies event->name_len bytes to
+> > userspace, leaking uninitialized slab memory from the tail of the
+> > event allocation.
+> >
+> > This mismatch dates back to
+> > commit ce163918cd33 ("inotify_handle_event(): don't bother with strlen()"),
+> > which replaced strlen(file_name->name) with file_name->len, and remained
+> > in commit b8f2688258f8 ("inotify: Use strscpy() for event->name copies").
+> >
+> > Switch to strscpy_pad() so any trailing bytes up to event->name_len + 1
+> > are zeroed.
+> >
+> > Fixes: ce163918cd33 ("inotify_handle_event(): don't bother with strlen()")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+> > Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+> > Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+> > ---
+> >  fs/notify/inotify/inotify_fsnotify.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
+> > index 6e3af6452dcc..78eb1e92a14c 100644
+> > --- a/fs/notify/inotify/inotify_fsnotify.c
+> > +++ b/fs/notify/inotify/inotify_fsnotify.c
+> > @@ -121,7 +121,7 @@ int inotify_handle_inode_event(struct fsnotify_mark *inode_mark, u32 mask,
+> >         event->sync_cookie = cookie;
+> >         event->name_len = len;
+> >         if (len)
+> > -               strscpy(event->name, name->name, event->name_len + 1);
+> > +               strscpy_pad(event->name, name->name, event->name_len + 1);
+> >
+>
+> I am not sure it is inotify/fanotify responsibility to hide awkward names
+> which filesystem emits.
+>
+> First of all, I think the solution should be consistent with d_path(), so memcpy
+> instead of strcpy here may be enough to avoid leaking uninit memory.
+>
+> If we want to be nicer to userspace, then we could for example pad the
+> garbage bytes with "???" for here and for d_path(), but I don't think
+> this is worth the effort and also don't think that hiding the fs flaky name
+> with strscpy_pad() is the best way to go.
+>
+> Thanks,
+> Amir.
 
-Interesting, and yes, the flag should have been set to make the
-chain_id effective.  OTOH, those entries are all pin-config updates
-for Loongson & co, and ALC269_FIXUP_DMIC is also the pin-config
-update, so I guess your change is superfluous or breaking.
+Hi Amir,
 
-I'd rather delete or comment out those dead lines unless anyone
-actually hitting the problem, instead.
+Agreed, matching __d_alloc() and d_path() is cleaner than zero-masking
+the trailing bytes.
 
+For v2, I will switch both inotify (patch 2) and fanotify (patch 3) to
+memcpy(..., len) followed by an explicit '\0' at index len so the full
+allocated buffer is initialized. I will give others a bit more time to
+comment before sending v2.
 
-thanks,
-
-Takashi
-
-> ---
->  sound/hda/codecs/realtek/alc269.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 96fa8c2782bb..1be2e609c28d 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -6431,6 +6431,7 @@ static const struct hda_fixup alc269_fixups[] = {
->  			{ 0x1e, 0x411111f0 },
->  			{ }
->  		},
-> +		.chained = true,
->  		.chain_id = ALC269_FIXUP_DMIC,
->  	},
->  	[ALC269_FIXUP_CZC_TMI] = {
-> @@ -6449,6 +6450,7 @@ static const struct hda_fixup alc269_fixups[] = {
->  			{ 0x20, 0x8000ffff },
->  			{ }
->  		},
-> +		.chained = true,
->  		.chain_id = ALC269_FIXUP_DMIC,
->  	},
->  	[ALC269_FIXUP_CZC_L101] = {
-> @@ -6467,6 +6469,7 @@ static const struct hda_fixup alc269_fixups[] = {
->  			{ 0x1e, 0x411111f0 },
->  			{ }
->  		},
-> +		.chained = true,
->  		.chain_id = ALC269_FIXUP_DMIC,
->  	},
->  	[ALC269_FIXUP_LEMOTE_A1802] = {
-> @@ -6485,6 +6488,7 @@ static const struct hda_fixup alc269_fixups[] = {
->  			{ 0x21, 0x03214020 },
->  			{ }
->  		},
-> +		.chained = true,
->  		.chain_id = ALC269_FIXUP_DMIC,
->  	},
->  	[ALC269_FIXUP_LEMOTE_A190X] = {
-> @@ -6497,6 +6501,7 @@ static const struct hda_fixup alc269_fixups[] = {
->  			{ 0x1b, 0x0201401f }, /* front lineout */
->  			{ }
->  		},
-> +		.chained = true,
->  		.chain_id = ALC269_FIXUP_DMIC,
->  	},
->  	[ALC256_FIXUP_INTEL_NUC8_RUGGED] = {
-> -- 
-> 2.47.3
-> 
+Thanks,
+Junyoung
