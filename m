@@ -1,103 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794861259;
-	b=gTqoZ8cJmGzIslz8F+i5Iv7Z2i5p+BBcv7IUARuOze0F0i7EapZbl4Bfnt57ur1b7RjF
-	 /puu5J/naCTXuGx2giGHsAs7rt6QBs70NfLyWM/+XT6rHV8rjIlbQMq5KuoRYEcxfJqKl
-	 n64FYEhOKs0v7fqgZcM6lZfsH4J0HyNTbjLzIDMLgvxvtBakB2TLErbHoAycFHdXrZ+Zx
-	 KOj5JCBERbljSMn4BBky5B4CwZVpurnytM7VuAj5sMFr5Gr4TUPrYscEj4qH6BEiEysNT
-	 uF1dnnDwERp0dJK2+XQIm8StmKOvz/XMPEyaWuNbBQMaG/EA4W1vl5MZzqSE85678Yw==
+	t=1794861379;
+	b=ylnYH5+aUQ6COGWPulqPqIog5jLc9V/kbS2+V0s+zJKZOngObmEft0LJu0O9gqieTUTM
+	 ++209nNdexoWWMRXKXJ7XeLKHB71jC3NH0c1c6W816TdMkZS2tYl8G1jQ7hSAF1YPRWn0
+	 OTiQud1U+mHy6RAF84MFgWkpGz0LDzEmQo4udeirPLyD8c05ayyJ/BNc6ChfCRz+NaocG
+	 OD0WgRt0zgCR/UvUwZDf3dFLe6sNfeK7X1oSuo5YiQ2QgFNF/AZpzHxwLOhL7AZ+8EbJV
+	 49qgEyVSGv0+jJ8n/eDdqiwldG0lkn7+3XENJOQv4qLznl4UQXiTJa4NOfZl2DjOSYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861259;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=FuP841QZILSYrGI+sOs3ttqavD6cxIfZJ60TQUpud2E=;
-	b=g+zN6lkPc5f7CFfbCDjMKE6VMk0j6aeU3t3TTFFfq1dgzmvmpHJbDCnFTjGi3FONhteZ
-	 PVxyOEh/H1EtEx78R+FZICD8MkT0Sb37tv3COZDsOwPANoFMU1QOsHj453o+vCHJREtXW
-	 0RFMC4B6HT/EW1fQ9DMYXExj4j+ROBKRW+lZr9PT/c2wYAFBxROlDG0pZBFukVHKUG1iD
-	 e8+AhoddesysW7BdopATAOPKkGorcikbA53yaYIf7NrES4XJRkFvRhhRArbbSEPXQ12S7
-	 Rnja/Fm9VicoR41m/qH97EYlYKqGw3XAnaFRmxj7D3eFJJOnF0Xc8axZsznTaaEXA4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861379;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=LR/ENSG1Oy0ZonFJqw+WDSGwM0wFAggM+KWeiz7ZDrc=;
+	b=MvXW72OF0aZaPlTARwJTOAfRDDZfifp2nD3UaG9HHk5GSF2QNyni2zOD62pps4m0x7iC
+	 3scSLkPPDrwYSrkzFLJQVRvq9houeMteccDvTGRevnVUcLzDakGdxqd5hbOohr1Kz+pe9
+	 Rdp4Qyh9sQoPj9NsYVgxsgjha0/rpa7ZiMlPp3nJnBf0LTPMMq3Qza/O5M07tzCZ1sTVO
+	 +9d37aSsi+afXJ1xdHVR1m8niArK3JbEPSUFlaoKvs5L7RYxU2Ds+HlSzWNUsj8+5ZFAT
+	 YFtD7OE35AjX9ClQxNFT0aDSYj5nB1MtqgK2dHAO2GGmvYppsQzDl7N/pfz20Hj/vow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dmIh0sGt;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Z0UzdlB+;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B99606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:34:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B99606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B173F606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:36:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B173F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dmIh0sGt
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ee254f6eefso18095ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:34:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794861257; x=1795466057; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FuP841QZILSYrGI+sOs3ttqavD6cxIfZJ60TQUpud2E=;
-        b=dmIh0sGtUdCAx8LVvuF/0RO/gJohVjpsrtSP6D1QcLtRNEi2/v8twNsF/c14q5WWea
-         5aJpv6F0z2BBmb203b94WEPy4PXC6rPyo6J6qignUfTVY4xU1ee1WA+qn3DvYU3KJWPM
-         dO8vtHLvA4gSIufqC84szJg9Payfl1GxRnA+yj/LMoXwNhpCe1YTz9Wc24b3KkCFcWTx
-         AamxzZn8M2rcTxGe1aCkt6LGHqA2EhAWiYmonxn+RRDOAFTv6tSYKxAZ3GgzqmIqqY5d
-         MPpUrwTmupi2pLnunFZs9nEcLvGteQGea9UzdaVTBPPTcCoivc5w5biFVnrG4KR57E1E
-         eedg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794861257; x=1795466057;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FuP841QZILSYrGI+sOs3ttqavD6cxIfZJ60TQUpud2E=;
-        b=gU/dIdxjdDL4carZPyl5iGQmtLm+hshupwoCH437S8vVLu0d18wsRjUosqBdX3jBT9
-         qa5+WU1c7oO1EvjatRFUkA/y7wmNIxNdlOlCYaoQHWqjQoxcHWIJGwhITemyNMgyuSK3
-         oi0J5nU6RRToeBLAcwBFqzbZL8h0UGsrvxaefTaIz6u8PQHKvvUrtYsZoZ7gLza13j8G
-         UjAT1IvmvXuGnrYJMtnU3KSlJZJmOsVinJdrlJW2HQHT+38K8oFWNKysq15iGHeUniBt
-         9MjxceNgcXqhPR7Uh5OAlxbvGJ6maOW3TLKAf4+hLOM5r9x2UnWS9fJGjywntSC1v6tS
-         Y4Lw==
-X-Forwarded-Encrypted: i=1; AL+hErGlPF4K1rI+ONK8YF08AgAsgTYtho4RYsnSRBnc7vupJ6gJ9bL1G01Gj7aJSMz0CdEgao6Er/o878KePdw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uAfkOeO0xDwf44laL5fV8hcNz0mtRbRX9VgQwFbZzAdMbx4yE
-	+zwNoSFZXRrXnogW0jVyaykferWkIkCA5AnT7TS7ajFCBjjaFgY2ssy0s/PtU1+0pQ==
-X-Gm-Gg: AZFdTZftypm1HbucoPX3Z2Kj9SL5gMoxoku1JRZ1D8kV4/lYs9H99ZnuIqVgNuQI31A
-	r89HpFY1kc1hCUFDsj+A7X6lzKac7wb5PQzbxdzNhXXu1Uevdj8A2iG+WI9s8Jzo3AW/Vat0tk3
-	SW3CoOE2vEUeFn7QpbA1VfNioQhLTc1A7D67fP8s22huFofckM9ndeisJ6DV95IrbOKgHGe3j7m
-	vKlG9JliRbx5B19fkmBiyguHJFsR2/myHIwGBvW4kMt9Yo5wvS4zPIzG4SUQ6Z8+ZlJzARLPOwT
-	03AnBzEHM3S/0iss953qWH/BuvwxooSAYCz2F7px1WchtU6wrTZd29rPcWVR70Nylfyxgdq+LfG
-	oAxgmTYe7OjSThZV+wkrzg5WOzuD974zhoCrINvAN3DcGZ8VI9YCkvDvfADgw+VUxlfts9ZylQJ
-	gC/7Lqf7vrNDMl/4uegtpI8zdo4aDuXr+BOALpXHQcAjDEFxAZa0CouNOXkGcywtsXAPLPPxPCp
-	Fk+cEih5fdoo4QAnkXkOYlD8jwZJkMFIRtZTr4xgjJLGU7ehlVkMbXWX8QRozZoPALmaZXcChMQ
-	jJiAXixIxRxSkHc+SHX7NFbvQ9BxUivA9TGeK3NXazrA7NxSshP4pF5pocqeS2UVPE3uqfNSiuh
-	GxJzRrekv5qGaN9Ffs/qHZg==
-X-Received: by 2002:a17:903:37cc:b0:2ef:d87f:8a20 with SMTP id d9443c01a7336-2efdc89d1a2mr134375ad.12.1794861256762;
-        Mon, 16 Nov 2026 12:34:16 -0800 (PST)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ab9f4c98sm775625a91.0.2026.11.16.12.34.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:34:14 -0800 (PST)
-Date: Mon, 16 Nov 2026 20:34:11 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v7 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
- domain ids
-Message-ID: <avtiC6VfIf7uc5gj@google.com>
-References: <20261110040828.1774343-1-skhawaja@google.com>
- <20261110040828.1774343-11-skhawaja@google.com>
- <57c85edf-8400-4b45-9a64-5eddc0d29134@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Z0UzdlB+
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id T0VXx75xOJFmFT3R3xDW57; Mon, 16 Nov 2026 20:36:17 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id T3R2xQCpeuJrPT3R3x2UVT; Mon, 16 Nov 2026 20:36:17 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6afb6941
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=c92rfblmAAAA:8
+ a=8b9GpE9nAAAA:8 a=VwQbUJbxAAAA:8 a=mZs5ITWgARj6bgJpHwcA:9 a=CjuIK1q_8ugA:10
+ a=GvGzcOZaWPEFPQC_NcjD:22 a=T3LWEMljR5ZiDmsYVIUa:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=LR/ENSG1Oy0ZonFJqw+WDSGwM0wFAggM+KWeiz7ZDrc=; b=Z0UzdlB+3hd953Y5/M8siTEDip
+	lgctCrYmv6Ow9mBHNRoS2tETGaOcfQTQgQ95EZOflVRGaZdAsRI9YgBCDqsPbg1+8erYm8pgbE0W0
+	N0JPEdoEo7kvOfGy3+dbFPE9sL2QkoNTaMgJIBuMgtg8Bfy3C/+VgLhEpcTKgz7eclfB4XRylHV2C
+	R5FyFK9moofQKcLHC4kiU/MPcNNJmNWEhxrjbu81+wp6MxZrEzsD8Q1lveTeJ+oVyOISbFZSE9C4l
+	uyRELnL1EJ8gNXu+nacu+v529orF5hlGjOMuexFc6+p6/8S/RgFQxJYmU7VIpodJBC9hOnldiSVAW
+	mbqYhtVg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:43056 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xT3R2-00000002IjR-0mCZ;
+	Tue, 17 Nov 2026 02:06:16 +0530
+Date: Mon, 16 Nov 2026 12:36:15 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	=?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>,
+	Marek Vasut <marex@denx.de>, linux-watchdog@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] watchdog: stm32_iwdg: use managed variant of
+ dev_pm_set_wake_irq()
+Message-ID: <88ad5eb0-78a0-4ee7-9731-b04916307749@roeck-us.net>
+References: <20261116190130.1191501-1-antonio.borneo@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,105 +89,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <57c85edf-8400-4b45-9a64-5eddc0d29134@linux.intel.com>
+In-Reply-To: <20261116190130.1191501-1-antonio.borneo@foss.st.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xT3R2-00000002IjR-0mCZ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:43056
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 2
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHL36bLscr0z+XEthDOCoMQzYdqEAgDQNAM5BTnoZyAma3pN8WjA72SA4z+8jGYKfZkizQ7Wqlll2/V2dUCsD8+1i0j+KMJ+DNocaZ9eGJK+GDEyULrw
+ 8x9rFtbeBNFz6Bbe7iWHZ5apxSKUI67niR+8S3OE+6ixvWKIP+zCbUoQ+YdKIR93ZGWSGkA9ESg47ZusB1w9Wefy6ZffDfn1tsKZa+sJwkNh0hVgVdPw7JS1
 
-On Mon, Nov 16, 2026 at 11:31:29AM +0800, Baolu Lu wrote:
->On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
->>During boot fetch the preserved state of IOMMU unit and if found then
->>restore the state.
->>
->>- Reuse the root_table that was preserved in the previous kernel.
->>- Reclaim the domain ids of the preserved domains for each preserved
->>   devices so these are not acquired by another domain.
->>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/iommu/intel/iommu.c      |  57 ++++++++++---
->>  drivers/iommu/intel/iommu.h      |  14 ++++
->>  drivers/iommu/intel/liveupdate.c | 139 +++++++++++++++++++++++++++++++
->>  3 files changed, 197 insertions(+), 13 deletions(-)
->>
->>diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
->>index 6c86c155d12b..a83971368bef 100644
->>--- a/drivers/iommu/intel/iommu.c
->>+++ b/drivers/iommu/intel/iommu.c
->>@@ -987,6 +987,8 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
->>  static void release_dmar_iommu(struct intel_iommu *iommu)
->>  {
->>+	intel_iommu_handle_drhd_restore_failure(iommu);
->>+
->>  	/*
->>  	 * All iommu domains must have been detached from the devices,
->>  	 * hence there should be no domain IDs in use.
->>@@ -1452,7 +1454,7 @@ static void intel_iommu_init_qi(struct intel_iommu *iommu)
->>   * Returns 0 when the ID is reserved, was already reserved, or cannot be
->>   * re-assigned, and a negative errno for a genuine allocation failure.
->>   */
->>-static int reserve_domain_id(struct intel_iommu *iommu, int did)
->>+int reserve_domain_id(struct intel_iommu *iommu, int did)
->>  {
->>  	int ret;
->>@@ -1743,12 +1745,16 @@ static int copy_translation_tables(struct intel_iommu *iommu)
->>  static int __init init_dmars(void)
->>  {
->>+	struct iommu_hw_ser *iommu_ser;
->>  	struct dmar_drhd_unit *drhd;
->>  	struct intel_iommu *iommu;
->>  	int ret;
->>  	for_each_iommu(iommu, drhd) {
->>+		iommu_ser = iommu_get_restored_state(iommu->reg_phys,
->>+						     IOMMU_SER_TYPE_INTEL);
->>  		if (drhd->ignored) {
->>+			intel_iommu_handle_drhd_restore_failure(iommu);
->>  			iommu_disable_translation(iommu);
->>  			continue;
->>  		}
->>@@ -1766,7 +1772,9 @@ static int __init init_dmars(void)
->>  		}
->>  		intel_iommu_init_qi(iommu);
->>-		init_translation_status(iommu);
->>+
->>+		if (!iommu_ser)
->>+			init_translation_status(iommu);
->>  		if (translation_pre_enabled(iommu) && !is_kdump_kernel()) {
->>  			iommu_disable_translation(iommu);
->>@@ -1775,14 +1783,18 @@ static int __init init_dmars(void)
->>  				iommu->name);
->>  		}
->>-		/*
->>-		 * TBD:
->>-		 * we could share the same root & context tables
->>-		 * among all IOMMU's. Need to Split it later.
->>-		 */
->>-		ret = iommu_alloc_root_entry(iommu);
->>-		if (ret)
->>-			goto free_iommu;
->>+		if (iommu_ser) {
->>+			intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
->
->What happens if the incoming kernel is booted with intel_iommu=off?
->
->intel_iommu_init() calls intel_disable_iommus() before reaching this
->restore path. A preserved device may still be issuing DMA, which would
->then bypass translation.
->
->Could we detect preserved IOMMUs and force VT-d on in that case? We
+On Mon, Nov 16, 2026 at 08:01:30PM +0100, Antonio Borneo wrote:
+> On probe failure after stm32_iwdg_irq_init() or on driver unbind,
+> the struct wake_irq allocated by dev_pm_set_wake_irq() is leaked
+> and dev->power.wakeirq remains attached to the device.
+> Any subsequent attempt to re-probe the device hits the
+> dev->power.wakeirq check in dev_pm_attach_wake_irq(), triggers a
+> dev_WARN_ONCE() splat, and fails probe with -EEXIST.
+> 
+> Use the managed version devm_pm_set_wake_irq().
+> 
+> This is reported by Sashiko inside the raw log of another commit
+> that touches the same driver.
+> 
+> Fixes: 3ab1663af6c1 ("watchdog: stm32_iwdg: Add pretimeout support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/message/20261116132416.1184447-3-antonio.borneo%40foss.st.com
+> Link: https://sashiko.dev/#/log/249869
+> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 
-Booting the new kernel with intel_iommu=off after a live update is a
-configuration mistake. I will check for preserved IOMMU state in
-intel_iommu_init() and force VT-d on like you suggested.
-
->should also ensure that the ACS configuration for preserved devices and
->their upstream bridges remains consistent with the previous kernel.
-
-The ACS configuration of the preserved devices and their upstream
-bridges is preserved and restored by the PCI live update series.
-
->
->Thanks,
->baolu
+Applied.
 
 Thanks,
-Sami
+Guenter
+
+> ---
+>  drivers/watchdog/stm32_iwdg.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> 
+> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+> index a8d2db2d3cf8b..f1056f8100cf0 100644
+> --- a/drivers/watchdog/stm32_iwdg.c
+> +++ b/drivers/watchdog/stm32_iwdg.c
+> @@ -298,7 +298,7 @@ static int stm32_iwdg_irq_init(struct platform_device *pdev,
+>  		if (ret)
+>  			return ret;
+>  
+> -		ret = dev_pm_set_wake_irq(dev, irq);
+> +		ret = devm_pm_set_wake_irq(dev, irq);
+>  		if (ret)
+>  			return ret;
+>  	}
