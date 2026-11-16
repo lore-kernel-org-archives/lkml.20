@@ -1,90 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829378;
-	b=oYvWDEasbZLsAjN5baMGGzUeX2SiXRoNOJ3QgDVhR9hZE7rLAacYjoYAROzF3SjnBSob
-	 G3upaHVH6eCDnWEDwexwmOwagdhcBTWr5nk/42EnvLIbOrAIzM4SamEWuZn3IfNLNEy4A
-	 u0GxGNQVDeRP4+GfLMdkOZz/+eM3QKZtBKomXdG6Xd5ov43nnwjgHfP92BJbOHV2MZkVz
-	 HdwBtA8cjx4BYLoL+3zMJHYb6pll18Wr19j0faMB/K6zxScUy40BHAeLp3gVH2AS3OvKK
-	 6qbqbmCMPBpLB1vlYPI0jGBFz23F7jl7oXjMfRgEv3W0wVlfLetdg+KxAlX9DYbCy0w==
+	t=1794829408;
+	b=uMNi1n/5z0bwswoZi7/EbE6fWw2LBj/NByPXZc27OfY28Av7JbWydxFXDghZ/LA9KeYq
+	 f9OmT9VzwvLI0UEOjJonortFq5Kr8k0QtTUZwbDIBBPlqmdheqfZvJN5GoGsyy+lE/BSL
+	 Rfz4GiteFqI2J0Mpz1h8KEW+yqu94ZcAb725bVv4VgzITOHn9MB2A6xHcN7ueSqK+Z4aH
+	 scJ1FXYVX7BCtDwlIlt/utHqjtw3PFEA6M2XlgKZEY2RcoKaEzxeHcciV+nUzNBYrdgDH
+	 1Pn1p4htiPeu13MsrWOWV7yaTgjdjJiu9BnwEq6TtRBbSweW6jf23DM14nWILrYswbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829378;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DAVS+080rf6STw++O+Ktz26PTMaNyuHuh8VnsXWcVTA=;
-	b=CFAUuIpWOnoSXgeE9EEPfK0foSAzQw4NecRZ7zECVxO6ovhCHQQj7rzvIkDwcewIZvb/
-	 PlXFJTaHQGh0q7eV7LYEkW1bWb6BkOnPEa7FO50HKRFpiZamvIRYa5uz8qyQkGX9iPgOy
-	 agFhNY6L6xJsc+Dv/InqOcA7pRZin+Bp0vi8vQDghm0sb/LFnkoGbg+mNS5jewTO2FP28
-	 3UIHGz8sHklMpLFWerhI8PzSLNtvXtFIuPxE86P/rb38gpRwxiw+Eoaymi16zsghbAba6
-	 bZbJf+c1UA/fmWBiIlZVc/sBvlwP6G9mNCQ13aOhs6VeBSornpzTrZq7pk+iSqu/Tfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829408;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UNxB/MAdt+gBiYZi9+h90GfQPjbz1uTEcNanTmhdqdE=;
+	b=1hfJC0I0b9nUlkmSpSGHYzoQdcV8A6ZT9eExk1AcE1dXgnKdiuA8W/Cgh2OwgRO97UCK
+	 b5TcCm+rTvTIhLPFJse4t9DUdNRqJg70keIGG8EucWAkz+uUqal5OcBsS/j7XoGFgDZ1S
+	 QWvCMkZwAZunrNrCGYTo71wJcJWCCkLFhkfzFBvjdL2pnpTQvxGkDLNkqQz6Re6JOBzou
+	 xsG6nT0U17T02BjS6r+gupmtqtFSwM5FxT9JCVF/BLLG2dnk+ndPf/QkQeLfBgdc7Rgvv
+	 gP/MZhbausURDDFZJY3GQhKO8GYBc+TDml7S1MI4q4iX0aBys3veEMfHVvt5idPgvtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zZwHgNCp;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70853606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70853606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m84TdWAv;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2478606A31C;
+	Mon, 16 Nov 2026 11:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2478606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zZwHgNCp
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so1392902b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:42:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794829377; x=1795434177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DAVS+080rf6STw++O+Ktz26PTMaNyuHuh8VnsXWcVTA=;
-        b=zZwHgNCp0kDTJAqMBY2Isy+TzBvWveIlg02slOrFeJNcGt5HPmU3Gzj3UZU+Ed002S
-         8sm8qEyR82CT/iArr1A8dP4BMZhX4xZbv5x1MA052yRjv5N3SiDvURWWuAAp7yHoa98y
-         1FJMAYbj7G8VPnQ4u2wVJvpQBvvvtPNyUcrdN/aqQYtuOvPW+hwmDPvU//sh7V4KwwDG
-         WR4S13Tiik25jzUKzlAs5J7s4FuQ8VYt+ksmfpUNMrvMSgKt6WNmd/CwqQBAlIBsfOv0
-         UlXI9PN2FmeqKfyN2/H07HcASv2tigDJ9Kfn8hMKU8kOcx1uEDn4cHnE2mgd+S3KEV3d
-         2yEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794829377; x=1795434177;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DAVS+080rf6STw++O+Ktz26PTMaNyuHuh8VnsXWcVTA=;
-        b=B5fiwXOO0MZbCRqO7q4WIedTUoL8mHAuL6hJ3imUDgT07N92rE8N0hG19QstY017Wv
-         yr+eim2A25eqBllebNdcE2MCuKfpdPHwH6rKq+zh3COXBjNFECI1ss7yWmCPGejhtI7A
-         +RdHKoXhtwcuS2k4brHJrqgc8sqYQbB3+IVINMit04nHlA0oqblf2clbVMvvdYl4DUd2
-         rN/l3OvnoQPbrhCzFhQuaA7MbOfdz9mHSnAyEuUgb0GcBP6+yD2yFIUG00pxFOB5AOG4
-         kGBPPrm7ofJAlySV+DKKp/fSa9ucwfhV/GT9gAETAuu/AEGccHIbXYbF2OS+FU1XLijr
-         kU4A==
-X-Forwarded-Encrypted: i=1; AL+hErEO376mVc2Q54OmSazSKjRf3SGKY3uMfJAHm5VhUv93JavdGx3ZoiyJNC7mcIbE21S6ebkl/xZzZ9uz9gA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UQbxKvsktQajhDA905bqnBVM/MWCnF5CzBUBi289kPLR1JwYl
-	JIG0nHsckHbmgv12oFg1IqwAvdBP75nazxPQOy9rvHrvruUMSq3yCpeDA5pk2x/R
-X-Gm-Gg: AYBFou0NRFOYOVaCHML4gddtVDCvEQePW9+tEEXtDAS/ZHC6+F5ZBip/5UIMkaKMCAl
-	dX4cYCfRdHHhZsnNTTZxgrsJkknTDA6FUmEqA7zoZfZl4j4AbGy6uDI1gV33nlwRGjq0FBnaft0
-	z1UTPYMoWMF9S9WLEsX+gHp+msFfp72e82K/hRtWFs6/xySlpV/KuHxt+Ssg9jDTWBZsQJ5TZIT
-	txCNLR8vxjvtq7YxE9yCW/E0IPN9Avjul+/3Jp2N6IDejWl8QmpkvcUmO4QCtNZt7awyEqw6cMD
-	gi/158jR+VPWnRcwakED3AoOP8DTocFXxR/5hXLyFd1ntleD7rX3AhJ3OOHbvr2gapUkWWNnv7c
-	Y6dvko2MncEfYGQgz1kPCcbWU9ZPFfTeEh8oa2XlJwNmBgxV9VlolUojH741Bv/UjNL6HHcOdIx
-	YQX11pUe24VT++EpefwaUMzBDRAeV0i/JevNaCgjoTr4YL2sIgIc64CVWuTGcM3ZgUHCGdBhRbr
-	cLjc7xVkMUqY23LfVMUgGJoBI5qoPoOqv9tF9S8MFQvzPZ3oNXgbrrw5cFvu2Xwc2S1i7UaeirI
-	mM+6tG7svfluQgtz4Y5opnsHe0VtFsoP9r/Uup+BqbrAyFZZzk7arnH96yvaTrQWPF/CELDkjg=
-	=
-X-Received: by 2002:a05:6a00:230a:b0:8b5:d6be:3ded with SMTP id d2e1a72fcca58-8beb53d9dc5mr9471317b3a.10.1794829377516;
-        Mon, 16 Nov 2026 03:42:57 -0800 (PST)
-Received: from ?IPV6:2408:8607:1b00:8:401e:3331:e6b7:ac3a? ([2408:8607:1b00:8:401e:3331:e6b7:ac3a])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcce6bsm3527392b3a.1.2026.11.16.03.42.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 03:42:57 -0800 (PST)
-From: huangzheng <huangz6756@gmail.com>
-X-Google-Original-From: huangzheng <huangzheng1@xiaomi.com>
-Message-ID: <d9ba27e6-45f8-47a4-b0bc-c9ccdbfd3c14@xiaomi.com>
-Date: Mon, 16 Nov 2026 19:42:50 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m84TdWAv
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06E321713;
+	Mon, 16 Nov 2026 03:43:24 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19B573F632;
+	Mon, 16 Nov 2026 03:43:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794829407; bh=2dyLKEkAWPNPtKzCqr1huVrQGEVlKrXOa1GPJW7iyfg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=m84TdWAvepZygknD58SVmSIjo9SB9pJmQGTt8FEz7wVT920JL2MMhtA+0GXuDWJ0V
+	 lmOmfsbH9OFahhY8mUlFV7TuCeDEIRUsA5KLAxVub01U89PBCmp9PDPJ+rAOlANWCh
+	 0HbYRTNYuoy8kSyzsZVmB5kMk252B2SN/+eebnPI=
+Message-ID: <e621c3a7-5633-4d03-9494-a6fa45daea02@arm.com>
+Date: Mon, 16 Nov 2026 11:43:23 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,121 +54,236 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [f2fs-dev] [PATCH] f2fs: add checkpoint step timing statistics to
- debugfs
-To: Chao Yu <chao@kernel.org>, huang zheng <huangzheng9869@gmail.com>,
- jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-References: <20261103091215.180531-1-huangzheng9869@gmail.com>
- <b2253246-48ba-4c48-899c-9f568fa2df71@kernel.org>
+Subject: Re: [PATCH v18 5/8] qcom-tgu: Add TGU decode support
+To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
+ alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
+ konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+ songchai@qti.qualcomm.com, Jie Gan <jie.gan@oss.qualcomm.com>
+References: <20261116074118.822731-1-songwei.chai@oss.qualcomm.com>
+ <20261116074118.822731-6-songwei.chai@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <b2253246-48ba-4c48-899c-9f568fa2df71@kernel.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261116074118.822731-6-songwei.chai@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-在 2026/11/11 16:19, Chao Yu via Linux-f2fs-devel 写道:
-> On 11/3/26 17:12, huang zheng wrote:
->> From: Huang Zheng <huangzheng9869@gmail.com>
->>
->> This patch adds detailed timing statistics for each checkpoint step
->> to the debugfs stat_show interface. It displays the time taken by
->> each phase of the checkpoint process, including:
->>
->> - lock acquisition
->> - block operations
->> - flushing data/node/meta pages
->> - flushing NAT/SIT
->> - syncing metadata
->> - waiting for dirty meta/checkpoint data
->> - device flushing
->> - waiting for last checkpoint
+On 16/11/2026 07:41, Songwei Chai wrote:
+> Decoding is when all the potential pieces for creating a trigger
+> are brought together for a given step. Example - there may be a
+> counter keeping track of some occurrences and a priority-group that
+> is being used to detect a pattern on the sense inputs. These 2
+> inputs to condition_decode must be programmed, for a given step,
+> to establish the condition for the trigger, or movement to another
+> steps.
 > 
-> Well, all spot times should be consistent only after checkpoint(), if stat_show()
-> captures times during checkpoint, the times could be inconsistent.
-Fix by v2 patch>
->>
->> This information is valuable for debugging checkpoint performance
->> issues and identifying which steps are taking the most time during
->> the checkpoint process.
->>
->> The statistics show the longest recorded time for each step, helping
+> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+> ---
+>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
+>   drivers/hwtracing/qcom/tgu.c                  | 200 +++++++++++++++---
+>   drivers/hwtracing/qcom/tgu.h                  |  35 ++-
+>   3 files changed, 214 insertions(+), 28 deletions(-)
 > 
-> It didn't, it record the time every time, but only printing the stats in
-> kmsg if the total time exceeds the threshold (5sec).
-I want to check `cat /sys/kernel/debug/f2fs/status` to get the longest 
-time and see the elapsed time of each step， as follow:
-CP steps (longest):
-   - Total : 524(ms)
-   - lock : 0(ms)
-   - block_operation : 13(ms)
-   - flush_data_node_meta : 0(ms)
-   - flush_nat : 93(ms)
-   - flush_sit : 56(ms)
-   - sync_meta : 32(ms)
-   - sync_cp_meta : 0(ms)
-   - wait_dirty_meta : 0(ms)
-   - wait_cp_data : 0(ms)
-   - flush_device : 0(ms)
-   - wait_last_cp : 0(ms)
-   - unblock_operation : 327(ms)
+> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+> index 3be0b912c937..c7e6f13da83d 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+> @@ -14,3 +14,10 @@ KernelVersion:	7.5
+>   Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
+>   Description:
+>   		(RW) Set/Get the sensed signal with specific step and priority for TGU.
+> +
+> +What:		/sys/bus/amba/devices/<tgu-name>/step[0:7]_condition_decode/reg[0:3]
+> +Date:		November 2026
+> +KernelVersion:	7.5
+> +Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
+> +Description:
+> +		(RW) Set/Get the decode mode with specific step for TGU.
+> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
+> index 917d506cddf9..1809cca4a94f 100644
+> --- a/drivers/hwtracing/qcom/tgu.c
+> +++ b/drivers/hwtracing/qcom/tgu.c
+> @@ -18,8 +18,8 @@
+>   
+>   struct tgu_attribute {
+>   	struct device_attribute attr;
+> +	enum operation_index operation_index;
+>   	u8 step_index;
+> -	u8 priority;
+>   	u8 reg_num;
+>   };
+>   
+> @@ -27,11 +27,36 @@ struct tgu_attribute {
+>    * drvdata->priority is a flat [priority][step][reg] array.
+>    */
+>   static int calculate_array_location(struct tgu_drvdata *drvdata,
+> -				    int step_index, int priority,
+> +				    int step_index, int operation_index,
+>   				    int reg_index)
+>   {
+> -	return priority * (drvdata->num_step) * (drvdata->num_reg) +
+> -		step_index * (drvdata->num_reg) + reg_index;
+> +	switch (operation_index) {
+> +	case TGU_PRIORITY0:
+> +	case TGU_PRIORITY1:
+> +	case TGU_PRIORITY2:
+> +	case TGU_PRIORITY3:
+> +		return operation_index * (drvdata->num_step) *
+> +			(drvdata->num_reg) +
+> +			step_index * (drvdata->num_reg) + reg_index;
+> +	case TGU_CONDITION_DECODE:
+> +		return step_index * (drvdata->num_condition_decode) +
+> +			reg_index;
+> +	default:
+> +		break;
+> +	}
 
-> 
-> Thanks,
-> 
->> developers and users understand where checkpoint bottlenecks occur.
->>
->> Signed-off-by: Huang Zheng <huangzheng1@xiaomi.com>
->> ---
->>   fs/f2fs/debug.c | 24 ++++++++++++++++++++++++
->>   1 file changed, 24 insertions(+)
->>
->> diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
->> index 6fe606e2c70d..8fd76a69dcad 100644
->> --- a/fs/f2fs/debug.c
->> +++ b/fs/f2fs/debug.c
->> @@ -445,6 +445,22 @@ static const char *ipu_mode_names[F2FS_IPU_MAX] = {
->>   	[F2FS_IPU_HONOR_OPU_WRITE]	= "HONOR_OPU_WRITE",
->>   };
->>   
->> +static const char *cp_time_names[CP_TIME_MAX] = {
->> +	[CP_TIME_START]		= "begin",
->> +	[CP_TIME_LOCK]		= "lock",
->> +	[CP_TIME_OP_LOCK]	= "block_operation",
->> +	[CP_TIME_MERGE_WRITE]	= "flush_data_node_meta",
->> +	[CP_TIME_FLUSH_NAT]	= "flush_nat",
->> +	[CP_TIME_FLUSH_SIT]	= "flush_sit",
->> +	[CP_TIME_SYNC_META]	= "sync_meta",
->> +	[CP_TIME_SYNC_CP_META]	= "sync_cp_meta",
->> +	[CP_TIME_WAIT_DIRTY_META] = "wait_dirty_meta",
->> +	[CP_TIME_WAIT_CP_DATA]	= "wait_cp_data",
->> +	[CP_TIME_FLUSH_DEVICE]	= "flush_device",
->> +	[CP_TIME_WAIT_LAST_CP]	= "wait_last_cp",
->> +	[CP_TIME_END]		= "unblock_operation",
->> +};
->> +
->>   static int stat_show(struct seq_file *s, void *v)
->>   {
->>   	struct f2fs_stat_info *si;
->> @@ -631,6 +647,14 @@ static int stat_show(struct seq_file *s, void *v)
->>   		seq_printf(s, "  - Total : %4d\n", si->nr_total_ckpt);
->>   		seq_printf(s, "  - Cur time : %4d(ms)\n", si->cur_ckpt_time);
->>   		seq_printf(s, "  - Peak time : %4d(ms)\n", si->peak_ckpt_time);
->> +		seq_puts(s, "CP steps (longest):\n");
->> +		seq_printf(s, "  - Total : %llu(ms)\n",
->> +			   (u64)ktime_ms_delta(sbi->cp_stats.times[CP_TIME_END],
->> +					sbi->cp_stats.times[CP_TIME_START]));
->> +		for (j = 0; j < CP_TIME_MAX - 1; j++)
->> +			seq_printf(s, "  - %s : %llu(ms)\n", cp_time_names[j + 1],
->> +				   (u64)ktime_ms_delta(sbi->cp_stats.times[j + 1],
->> +					sbi->cp_stats.times[j]));
->>   		seq_printf(s, "GC calls: %d (gc_thread: %d)\n",
->>   			   si->gc_call_count[BACKGROUND] +
->>   			   si->gc_call_count[FOREGROUND],
-> 
-> 
-> 
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+ > +
+ > +	if (result == -EINVAL)
+ > +		dev_err(drvdata->dev, "check array location - Fail\n");
+
+see more below
+
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int check_array_location(struct tgu_drvdata *drvdata, int step,
+> +				int ops, int reg)
+> +{
+> +	int result = calculate_array_location(drvdata, step, ops, reg);
+> +
+> +	if (result == -EINVAL)
+> +		dev_err(drvdata->dev, "check array location - Fail\n");
+> +
+> +	return result;
+
+Could we not fold this check in to calculate_array_location as shown
+above ?
+
+
+
+...
+
+
+> index d769379b8421..7d88ad8e730f 100644
+> --- a/drivers/hwtracing/qcom/tgu.h
+> +++ b/drivers/hwtracing/qcom/tgu.h
+> @@ -16,7 +16,8 @@
+>   	((int)FIELD_GET(GENMASK(17, 10), devid_val))
+>   #define TGU_DEVID_STEPS(devid_val) \
+>   	((int)FIELD_GET(GENMASK(6, 3), devid_val))
+> -
+> +#define TGU_DEVID_CONDITIONS(devid_val) \
+> +	((int)FIELD_GET(GENMASK(2, 0), devid_val))
+>   #define TGU_BITS_PER_SIGNAL	4
+>   #define LENGTH_REGISTER		32
+>   
+> @@ -44,6 +45,7 @@
+>    */
+>   #define STEP_SIZE		0x1D8
+>   #define PRIORITY0_OFFSET	0x0074
+> +#define CONDITION_DECODE_OFFSET	0x0050
+
+nit: s/CONDITION_DECODE_BASE	0x50
+
+>   #define PRIORITY_STRIDE		0x0060
+>   #define REG_SIZE		0x4
+>   
+> @@ -54,6 +56,7 @@
+>    *
+>    *   TGU_MAX_STEPS         matches the static step0..step7 sysfs tables.
+>    *   TGU_MAX_PRIORITY_REGS matches the static reg0..reg23 sysfs tables.
+> + *   TGU_MAX_CONDITION_DECODE decode region 0x50..0x5F holds 4 u32 registers
+>    *
+>    * Each priority level's block spans a full PRIORITY_STRIDE (0x60 bytes),
+>    * i.e. PRIORITY_STRIDE / REG_SIZE = 24 registers, all of them implemented.
+> @@ -61,15 +64,40 @@
+>   
+>   #define TGU_MAX_STEPS                  8
+>   #define TGU_MAX_PRIORITY_REGS          24
+> +#define TGU_MAX_CONDITION_DECODE       4
+>   
+>   /* Maximum priority that TGU supports */
+>   #define MAX_PRIORITY                   4
+>   
+> +/*
+> + * Values for struct tgu_attribute.operation_index: TGU_PRIORITY0..
+> + * TGU_PRIORITY3 select a priority level, TGU_CONDITION_DECODE selects the
+> + * condition decode registers instead.
+> + */
+> +enum operation_index {
+> +	TGU_PRIORITY0,
+> +	TGU_PRIORITY1,
+> +	TGU_PRIORITY2,
+> +	TGU_PRIORITY3,
+> +	TGU_CONDITION_DECODE,
+> +};
+> +
+>   /* Calculate compare step addresses */
+>   #define PRIORITY_REG_STEP(step, priority, reg)\
+>   	(PRIORITY0_OFFSET + PRIORITY_STRIDE * priority +\
+>   	 REG_SIZE * reg + STEP_SIZE * step)
+>   
+> +#define CONDITION_DECODE_STEP(step, decode) \
+> +	(CONDITION_DECODE_OFFSET + REG_SIZE * decode + STEP_SIZE * step)
+
+Please
+
+#define CONDITION_DECODE_OFFSET(step, reg)		\
+	(STEP_OFFSET(step) + CONDITIION_DECODE_BASE + REG_SIZE * reg)
+
+
+> +
+> +/*
+> + * Neutral ('NOT') value for the condition decode registers. This is the
+> + * driver's default so that, before userspace programs a real decode, an
+> + * enabled step does not spuriously match. Used both when seeding the shadow
+> + * table at probe and when clearing it via reset_tgu.
+> + */
+> +#define TGU_CONDITION_DECODE_NOT 0x1000000
+
+minor nit: TGU_CONDITION_DECODE_DEFAULT 0x1000000 ?
+
+
+
+> +
+>   /**
+>    * struct tgu_drvdata - Data structure for a TGU (Trigger Generation Unit)
+>    * @base: Memory-mapped base address of the TGU device
+> @@ -79,8 +107,11 @@
+>    * @enabled: Flag indicating whether the TGU device is enabled
+>    * @priority: Per-step, per-priority-level, per-register values staged by
+>    *            sysfs writes and flushed to hardware by tgu_enable()
+> + * @condition_decode: Per-step, per-register decode values staged by sysfs
+> + *                     writes and flushed to hardware by tgu_enable()
+
+
+>    * @num_reg: Number of priority registers implemented per priority level
+
+This now looks awkwardly generic with other registers coming in. Should
+we name it num_prio_regs from the beginning ?
+
+Suzuki
+
+>    * @num_step: Number of steps implemented
+> + * @num_condition_decode: Maximum number of condition_decode
+>    *
+>    * This structure defines the data associated with a TGU device,
+>    * including its base address, device pointer, the lock serialising
+> @@ -92,8 +123,10 @@ struct tgu_drvdata {
+>   	struct mutex lock;
+>   	bool enabled;
+>   	unsigned int priority[TGU_MAX_STEPS * MAX_PRIORITY * TGU_MAX_PRIORITY_REGS];
+> +	unsigned int condition_decode[TGU_MAX_STEPS * TGU_MAX_CONDITION_DECODE];
+>   	int num_reg;
+>   	int num_step;
+> +	int num_condition_decode;
+>   };
+>   
+>   #endif
 
