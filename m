@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838511;
-	b=h+T2aV1I9oTfeeQO1Nn2N4m71igy3jV64Mq2QfL5eJ0BBUAeBLLlVPNO+U9YNEKsv0eo
-	 6dID6Js2UV26bgg3dhcVg4/y5SGlCdKnjp7oXZzyWGtbtv4XxWhNB95lF3N02Of197yZq
-	 vIi2JsabjAxyR49Eqr+HCVdPSB6eJ9U2dNgqaUFzFsDxJIFxnD9bPoo7rUNuV0dSX/Qc3
-	 eSIg98uAye/DUkjj9jjV0y15725M1CYwPGCz73+TOHVS1n6urKqXHN2Qzd07Ch+Ca5NCH
-	 BrdTpPaIiRo37KTG2hi2kxhHf2s3spuTzVLlO3BPOG0j7r8WIbjzlDI0nnISrCoxc+Q==
+	t=1794838519;
+	b=JS4abebOaT+WYPFhGOe+8BBNLmqdxAJvGwnsj3tWFSoLso4xI+z6WESgiHsBHXNEqhFE
+	 xho35lCIn4s0zVLHgYqe9TwfPlHSr1snOOrh79/8mVOtjOMPF2zNqt35cCZ9ab0kfRsWX
+	 r9xu0QYFDSKpUL/R3i5C8VnZhrfjTwKuVwWlLVAPzaS2Vhe5+volTeBBVki4fVbMk8TAU
+	 lxnh3NH+JkZhrieBgN2PWg4RdZYsGFYP+WrO2diUU4c8F0UNk+u1gi2QMaVFzHrDR4/Gy
+	 +vHQ1K6g8yb5zMca7hgqzMdetimZwpJ/rc7rMWkSTjkH3IHrSCEIqEUXvDHs1DfLTrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838511;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838519;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zrNMcwKWc2ghyWtCVArBKi7uk7SjPzETXM2uwDrQ724=;
-	b=d1Eww3LMrM0IqKDq7BxiTfvMhyjHGLiS42GSAU87JIGedO8Is3yzmjfctMfIS45tzWZa
-	 KwMgE6vht165UMn3PrxIFq0vDpJ8cwjKaSupvsk5q7STaUmYLcagwe9mdOAjWIBGh8jXe
-	 Vfnux3+7TztNsFyRzG46tw8gnd/9flHnOgI/Z5WIUb6sq74q1IvKmN5CD/lbzlKKwLmTq
-	 g5SWzLwwJ82lwwuYja5AeZK4wgAYD++1VmAEKZBqKeoi4bFBfy2v7/gBVpnqElSHXKnKK
-	 RY1PL5M6wLXEv13dmD9/In02iLxXT6MWSSCqG53DYaxrbt0B71Kjz9brzollo2MN3tw==
+	bh=K5NHzVXY3LRAB3acJJ9610fRkwObgwH6kG7Ys1BqKf4=;
+	b=tZXmhhwOl3fcSa3WBtBomlKtfNNC9NnQiwkE6c0sck04pjxPtcGa/JlRkrtlzPAljIR0
+	 fL5/Wih9maMGbCXrl+rgU0MlC4s4PPpvJpk9NT3cbTOUvjAMf0MHu43+qvednJ7kDbKRq
+	 U9D2N/3RzXPrvyg9YnjhHOme/mg1hoOD3Qs0OxJAM2FTcdQxO4BdkD+xh0h5dpRtWMbur
+	 FwP32K3DXO3cn2aj8HPMu1+H+wTnyWGalVGkXc0m2OxF9cdlLUCEGq6rw3zTka2yuJ/Ax
+	 Rk3XNPl6zizzsBcOWTqg/Z6V/OOi79271F4fGoeQ07TQEI9wdFz7K4lwJsjOoPQXM2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHhyWqPo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GCmhV8qt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA69C606A33E;
-	Mon, 16 Nov 2026 14:15:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4DE606A31C;
+	Mon, 16 Nov 2026 14:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHhyWqPo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738371F000CD;
-	Mon, 16 Nov 2026 14:15:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GCmhV8qt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67A91F000C7;
+	Mon, 16 Nov 2026 14:15:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838511;
-	bh=zrNMcwKWc2ghyWtCVArBKi7uk7SjPzETXM2uwDrQ724=;
+	s=k20260515; t=1794838519;
+	bh=K5NHzVXY3LRAB3acJJ9610fRkwObgwH6kG7Ys1BqKf4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FHhyWqPoyoVyfN4+TR1sGcXzFwDSfEd/eV4fH9vj8nCXp+1PzK9pU4TZjW3OVbXVH
-	 zGZqmZQbjXadv0tdl7C5VOuz+mEz/P1C6ms7csArSURCkUnUZOe4F8x6bb4BrI4mra
-	 qNTbpwdU9IWyKTeTWlJBFhhH6YOlwpHQs6gmm49WjGu104XBzoLJ15OgM3Coyd2Flr
-	 zVrVhPN5mLMtE70SCUu5Gx+J9y0629qr3kBOegVFY9dAjMKo0kB2W0r5qZe/CUPICr
-	 jJvD/01/5drfbJgQjwGmIolUUfsbipuXEknBasBKFBGfj1a/xzddtJmkfoHBNhb1Lx
-	 HYSE6dliQDViA==
+	b=GCmhV8qttAXwtE2U3WfGcYJoOZxQXn3T24ec0r0wHcRoDrYG24fqdn1QwTQeeIBzr
+	 Q9RbjmU2yYDLyLImV3rfJi4dITgG+a70I/YND49iJ+WZJfpWE7vIgpDBcIvfp7Yn/m
+	 xOvyVNPJ5N46SHpMArhs0BTb/8j8kgYW0/v/1fMA4j4CpPLe3fIYUL2sEJ/HRrUaPv
+	 nK8QQ6XFJUGRaq2fZCitRLP0IpXyFa9PqLA5YBPiJJfS1YuCnwsw1VkBrup34Wpop1
+	 /87SDUDWY+r+SyjN2ZagnW8w4MRtW6qU6VGANJefu2w7ARbGRdtlfhilN6Mu8QMGQF
+	 vxAiEmk/irFew==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -58,9 +58,9 @@ Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 2/8] net: mdio: Add MDIO demultiplexer driver
-Date: Mon, 16 Nov 2026 21:54:36 +0800
-Message-ID: <20261116135442.4827-3-jszhang@kernel.org>
+Subject: [PATCH 3/8] dt-bindings: net: Add Synaptics SL2610 DWMAC
+Date: Mon, 16 Nov 2026 21:54:37 +0800
+Message-ID: <20261116135442.4827-4-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261116135442.4827-1-jszhang@kernel.org>
 References: <20261116135442.4827-1-jszhang@kernel.org>
@@ -75,375 +75,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Assume we have the following implementation:
-          ----------
-          |mmio reg|
-	  ----------
-             |
- --------    |      -------
- | MAC0 |--MDIO-----| PHY |
- -------- |     |   -------
-          |     |
- -------- |     |   -------
- | MAC1 |--     ----| PHY |
- --------           -------
+Describe the Synaptics SL2610 integration of the Synopsys DWMAC 5.20.
+The PHY interface mode is selected through a system-controller register,
+identified by a syscon phandle and register offset.
 
-Both MAC0 and MAC1 have MDIO bus masters, and tie together to
-a single set of clock and data lines, which go to some PHYs. While
-there's a mmio reg to control which MAC mdio master can operate
-the single mdio clock and data lines, so only one MAC can operate
-the mdio clock and data lines.
-
-We also need to fully support three use cases: only MAC0 + PHY is used
-on board; only MAC1 + PHY is used on board; MAC0 + MAC1 + PHYs are
-all used.
-
-To support this kind of usage, we need a kind of mdio demuxer. This
-patch add the driver code.
+Restrict PHY modes to the RMII and RGMII variants supported by the glue
+and extend the common DWMAC compatible list for the new integration.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Assisted-by: LLM
 ---
- drivers/net/mdio/Kconfig      |  12 ++
- drivers/net/mdio/Makefile     |   1 +
- drivers/net/mdio/mdio-demux.c | 298 ++++++++++++++++++++++++++++++++++
- 3 files changed, 311 insertions(+)
- create mode 100644 drivers/net/mdio/mdio-demux.c
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
+ .../bindings/net/syna,sl2610-dwmac.yaml       | 75 +++++++++++++++++++
+ 2 files changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
 
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index d44278f26fab..e4a3ff594881 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -289,5 +289,17 @@ config MDIO_BUS_MUX_MMIOREG
- 
- 	  Currently, only 8/16/32 bits registers are supported.
- 
-+config MDIO_BUS_DEMUX
-+	tristate "MDIO bus demultiplexer"
-+	depends on OF_MDIO
-+	select MULTIPLEXER
-+	help
-+	  This driver provides child MDIO buses backed by separate parent
-+	  MDIO buses. A shared mux control selects which parent bus is
-+	  connected to the physical MDIO lines for each transaction.
-+
-+	  To compile this driver as a module, choose M here. The module
-+	  will be called mdio-demux.
-+
- endmenu
- endmenu
-diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-index 048586746026..1f9bb8672fc8 100644
---- a/drivers/net/mdio/Makefile
-+++ b/drivers/net/mdio/Makefile
-@@ -35,3 +35,4 @@ obj-$(CONFIG_MDIO_BUS_MUX_MESON_G12A)	+= mdio-mux-meson-g12a.o
- obj-$(CONFIG_MDIO_BUS_MUX_MESON_GXL)	+= mdio-mux-meson-gxl.o
- obj-$(CONFIG_MDIO_BUS_MUX_MMIOREG) 	+= mdio-mux-mmioreg.o
- obj-$(CONFIG_MDIO_BUS_MUX_MULTIPLEXER) 	+= mdio-mux-multiplexer.o
-+obj-$(CONFIG_MDIO_BUS_DEMUX)		+= mdio-demux.o
-diff --git a/drivers/net/mdio/mdio-demux.c b/drivers/net/mdio/mdio-demux.c
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2c4842404bf6..267340a5f45c 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -119,6 +119,7 @@ properties:
+         - sophgo,sg2044-dwmac
+         - starfive,jh7100-dwmac
+         - starfive,jh7110-dwmac
++        - syna,sl2610-dwmac
+         - tesla,fsd-ethqos
+         - thead,th1520-gmac
+         - ultrarisc,dp1000-gmac
+diff --git a/Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml b/Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
 new file mode 100644
-index 000000000000..a64c1e1bf4ff
+index 000000000000..0748b623599b
 --- /dev/null
-+++ b/drivers/net/mdio/mdio-demux.c
-@@ -0,0 +1,298 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
++++ b/Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/syna,sl2610-dwmac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/atomic.h>
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/mux/consumer.h>
-+#include <linux/of_mdio.h>
-+#include <linux/phy.h>
-+#include <linux/platform_device.h>
++title: Synaptics SL2610 DesignWare Ethernet MAC
 +
-+#define MAX_MDIO_PORT	2
++maintainers:
++  - Jisheng Zhang <jszhang@kernel.org>
 +
-+struct mdio_demux_port {
-+	struct mii_bus *pb;
-+	struct mii_bus *bus;
-+	struct mdio_demux_priv *priv;
-+	int port;
-+};
++select:
++  properties:
++    compatible:
++      contains:
++        const: syna,sl2610-dwmac
++  required:
++    - compatible
 +
-+struct mdio_demux_priv {
-+	/* Serialize selector changes and transfers across all parent buses. */
-+	struct mutex mdio_demux_lock;
-+	int current_port;
-+	bool do_deselect;
-+	struct mux_control *muxc;
-+	struct mdio_demux_port dmxport[MAX_MDIO_PORT];
-+	int id;
-+};
++allOf:
++  - $ref: snps,dwmac.yaml#
 +
-+static atomic_t mdio_demux_id = ATOMIC_INIT(0);
++properties:
++  compatible:
++    items:
++      - const: syna,sl2610-dwmac
++      - const: snps,dwmac-5.20
 +
-+static int mdio_demux_switch(struct mdio_demux_port *dmxport)
-+{
-+	struct mdio_demux_priv *priv = dmxport->priv;
-+	int r;
++  syna,syscon:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: Phandle to the SL2610 system controller.
++          - description: Offset of the Ethernet interface control register.
++    description:
++      Phandle and register offset used to configure the Ethernet PHY
++      interface mode.
 +
-+	if (priv->current_port == dmxport->port)
-+		return 0;
++  phy-mode:
++    enum:
++      - rmii
++      - rgmii
++      - rgmii-id
++      - rgmii-rxid
++      - rgmii-txid
 +
-+	if (priv->do_deselect) {
-+		r = mux_control_deselect(priv->muxc);
-+		priv->do_deselect = false;
-+		priv->current_port = -1;
-+		if (r)
-+			return r;
-+	}
++required:
++  - compatible
++  - syna,syscon
++  - phy-mode
 +
-+	r = mux_control_select(priv->muxc, dmxport->port);
-+	if (r) {
-+		priv->current_port = -1;
-+		priv->do_deselect = false;
-+		return r;
-+	}
-+	priv->do_deselect = true;
++unevaluatedProperties: false
 +
-+	priv->current_port = dmxport->port;
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
 +
-+	return 0;
-+}
++    chip: syscon@f7e10000 {
++        compatible = "syna,sl2610-soc-syscon", "syscon";
++        reg = <0xf7e10000 0x10000>;
++        clocks = <&osc>;
++        #clock-cells = <1>;
++        #reset-cells = <1>;
++    };
 +
-+static int mdio_demux_read(struct mii_bus *bus, int phy_id, int regnum)
-+{
-+	struct mdio_demux_port *dmxport = bus->priv;
-+	struct mdio_demux_priv *priv = dmxport->priv;
-+	int r;
-+
-+	guard(mutex)(&priv->mdio_demux_lock);
-+
-+	r = mdio_demux_switch(dmxport);
-+	if (r)
-+		return r;
-+
-+	return dmxport->pb->read(dmxport->pb, phy_id, regnum);
-+}
-+
-+static int mdio_demux_read_c45(struct mii_bus *bus, int phy_id, int dev_addr,
-+			       int regnum)
-+{
-+	struct mdio_demux_port *dmxport = bus->priv;
-+	struct mdio_demux_priv *priv = dmxport->priv;
-+	int r;
-+
-+	guard(mutex)(&priv->mdio_demux_lock);
-+
-+	r = mdio_demux_switch(dmxport);
-+	if (r)
-+		return r;
-+
-+	return dmxport->pb->read_c45(dmxport->pb, phy_id, dev_addr, regnum);
-+}
-+
-+static int mdio_demux_write(struct mii_bus *bus, int phy_id,
-+			    int regnum, u16 val)
-+{
-+	struct mdio_demux_port *dmxport = bus->priv;
-+	struct mdio_demux_priv *priv = dmxport->priv;
-+	int r;
-+
-+	guard(mutex)(&priv->mdio_demux_lock);
-+
-+	r = mdio_demux_switch(dmxport);
-+	if (r)
-+		return r;
-+
-+	return dmxport->pb->write(dmxport->pb, phy_id, regnum, val);
-+}
-+
-+static int mdio_demux_write_c45(struct mii_bus *bus, int phy_id, int dev_addr,
-+				int regnum, u16 val)
-+{
-+	struct mdio_demux_port *dmxport = bus->priv;
-+	struct mdio_demux_priv *priv = dmxport->priv;
-+	int r;
-+
-+	guard(mutex)(&priv->mdio_demux_lock);
-+
-+	r = mdio_demux_switch(dmxport);
-+	if (r)
-+		return r;
-+
-+	return dmxport->pb->write_c45(dmxport->pb, phy_id, dev_addr, regnum, val);
-+}
-+
-+static int mdio_demux_probe(struct platform_device *pdev)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct device_node *child_bus_node, *parent_bus_node;
-+	struct mii_bus *parent_bus;
-+	struct mii_bus *bus;
-+	struct mdio_demux_priv *priv;
-+	int r, v, i = 0;
-+
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->current_port = -1;
-+	priv->id = atomic_inc_return(&mdio_demux_id);
-+	mutex_init(&priv->mdio_demux_lock);
-+
-+	priv->muxc = devm_mux_control_get(&pdev->dev, NULL);
-+	if (IS_ERR(priv->muxc))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(priv->muxc), "Failed to get mux\n");
-+
-+	for_each_available_child_of_node(np, child_bus_node) {
-+		if (i >= MAX_MDIO_PORT) {
-+			r = -EINVAL;
-+			goto err_child;
-+		}
-+
-+		parent_bus_node = of_parse_phandle(np, "mdio-parent-bus", i);
-+		if (!parent_bus_node) {
-+			r = -ENODEV;
-+			goto err_child;
-+		}
-+
-+		r = of_property_read_u32(child_bus_node, "reg", &v);
-+		if (r) {
-+			dev_err(&pdev->dev,
-+				"Failed to find reg for child %pOF: %pe\n",
-+				child_bus_node, ERR_PTR(r));
-+			goto err_parent_node;
-+		}
-+
-+		parent_bus = of_mdio_find_bus(parent_bus_node);
-+		if (!parent_bus) {
-+			r = -EPROBE_DEFER;
-+			goto err_parent_node;
-+		}
-+		if (!device_link_add(&pdev->dev, parent_bus->parent,
-+				     DL_FLAG_AUTOREMOVE_CONSUMER)) {
-+			r = -ENOMEM;
-+			put_device(&parent_bus->dev);
-+			goto err_parent_node;
-+		}
-+		of_node_put(parent_bus_node);
-+		parent_bus_node = NULL;
-+		priv->dmxport[i].pb = parent_bus;
-+		priv->dmxport[i].port = v;
-+		priv->dmxport[i].priv = priv;
-+
-+		bus = devm_mdiobus_alloc(&pdev->dev);
-+		if (!bus) {
-+			r = -ENOMEM;
-+			goto err_parent_bus;
-+		}
-+
-+		bus->priv = &priv->dmxport[i];
-+		bus->name = "mdio_demux";
-+		snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%x.%x", bus->name,
-+			 priv->id, v);
-+		bus->parent = &pdev->dev;
-+		if (parent_bus->read)
-+			bus->read = mdio_demux_read;
-+		if (parent_bus->write)
-+			bus->write = mdio_demux_write;
-+		if (parent_bus->read_c45)
-+			bus->read_c45 = mdio_demux_read_c45;
-+		if (parent_bus->write_c45)
-+			bus->write_c45 = mdio_demux_write_c45;
-+		r = of_mdiobus_register(bus, child_bus_node);
-+		if (r)
-+			goto err_parent_bus;
-+		priv->dmxport[i].bus = bus;
-+		++i;
-+	}
-+
-+	if (!i)
-+		goto err_no_children;
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return 0;
-+
-+err_parent_bus:
-+	put_device(&parent_bus->dev);
-+	of_node_put(child_bus_node);
-+	goto err_registered_bus;
-+
-+err_no_children:
-+	return -ENODEV;
-+
-+err_parent_node:
-+	of_node_put(parent_bus_node);
-+err_child:
-+	of_node_put(child_bus_node);
-+err_registered_bus:
-+	while (i > 0) {
-+		i--;
-+		mdiobus_unregister(priv->dmxport[i].bus);
-+		put_device(&priv->dmxport[i].pb->dev);
-+	}
-+	if (priv->do_deselect)
-+		mux_control_deselect(priv->muxc);
-+	return r;
-+}
-+
-+static void mdio_demux_remove(struct platform_device *pdev)
-+{
-+	struct mdio_demux_priv *priv = platform_get_drvdata(pdev);
-+	int i;
-+
-+	for (i = MAX_MDIO_PORT - 1; i >= 0; i--)
-+		if (priv->dmxport[i].bus) {
-+			mdiobus_unregister(priv->dmxport[i].bus);
-+			put_device(&priv->dmxport[i].pb->dev);
-+		}
-+
-+	guard(mutex)(&priv->mdio_demux_lock);
-+	if (priv->do_deselect) {
-+		mux_control_deselect(priv->muxc);
-+		priv->do_deselect = false;
-+	}
-+}
-+
-+static int mdio_demux_suspend(struct device *dev)
-+{
-+	struct mdio_demux_priv *priv = dev_get_drvdata(dev);
-+	int ret = 0;
-+
-+	guard(mutex)(&priv->mdio_demux_lock);
-+
-+	priv->current_port = -1;
-+	if (priv->do_deselect) {
-+		ret = mux_control_deselect(priv->muxc);
-+		priv->do_deselect = false;
-+	}
-+
-+	return ret;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(mdio_demux_pm_ops, mdio_demux_suspend, NULL);
-+
-+static const struct of_device_id mdio_demux_dt_ids[] = {
-+	{ .compatible = "mdio-demux" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, mdio_demux_dt_ids);
-+
-+static struct platform_driver mdio_demux_driver = {
-+	.probe = mdio_demux_probe,
-+	.remove = mdio_demux_remove,
-+	.driver = {
-+		.name = "mdio-demux",
-+		.of_match_table = mdio_demux_dt_ids,
-+		.pm = pm_sleep_ptr(&mdio_demux_pm_ops),
-+	},
-+};
-+module_platform_driver(mdio_demux_driver);
-+
-+MODULE_DESCRIPTION("MDIO bus demux driver");
-+MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
-+MODULE_LICENSE("GPL");
++    ethernet@f7a06000 {
++        compatible = "syna,sl2610-dwmac", "snps,dwmac-5.20";
++        reg = <0xf7a06000 0x2000>;
++        interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "macirq";
++        phy-mode = "rgmii-id";
++        syna,syscon = <&chip 0xa3c>;
++    };
++...
 -- 
 2.55.0
 
