@@ -1,60 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849992;
-	b=m5JnkaE86f/z3lrzyR0hnb8EYu0LxPh7Uje1m4XICBMk6gxsA1jjkT1AQauZIMHYhtZh
-	 ueBtb+42+4Uducj/94ECzbHoxv+ScldJPekI4vhNELtFzWRofdg6ES6FNEl6r2BuIA0G7
-	 npEGZODWlMdeKCtwtpeDEdZvcpGsQDOC59L0Q4fcnrHbrSylhSEV8sCZF9QD0bv4F4qTP
-	 MJVx6yiE+0Hhlx2r+d1YfdQ4+W67riOdyNnFz3X0SIbgep2ebuTk1KpY9OEq8+S//+9Zi
-	 G10KBhU/lMlBEZADuKyxihlpkyWbSyVXJ7v2PbOCiL/yaFsidaT/FPsdmshNg5ZQhXw==
+	t=1794850039;
+	b=FzSdd8Co+MHUJmGLCT4y4obCxV8huYZDvBGVlVC4sEF2czxm3Q96L9H1XW+QZlXGU9FF
+	 5uONZL3WR1eARnOS8pV2TdHGOILa/GpeZNq0/MBvChBb/cpIvSxjeqJDIKtE9qd0js4HG
+	 6VQIt1u5PINufYagBnJANU0ijv47uxOCVwEMC0OpK5UjaWMRo0UmMO6NtZp/td7fWhLC9
+	 GCzgwDQGKbVymNq2YsW49tfUg85SncxpWE8s3tHZP92cULCn/z12UAkvVSowXpxX15HL2
+	 BChy3VsVOGzudgLgd4gnagChy8eQJLuevJtNKHxZeb5RwaCF4gM5INGjxjjGlLcFyaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849992;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850039;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=nhLOHK/dpua/6acFbU7FUzubhaP/+1tuaiXs558a9CI=;
-	b=mTi380fTWvCqUuL22fsOLbV9QH5aIoL8/R9zLpPM/3hNkCAF00KPqERAh1x5rLVccI/S
-	 X/3jrne67Vs4SFlmS6ze3dAFzbWAMnXMQqX3Dc2CBfaHGLixod3dEZUbt0tedAjfRtLdn
-	 5N7HHu4ZlfN9FmMokUP5Wq21MZlgGJgjv5bR+q0illTQWMQPcWxn7XgpIYzqkTJ6i7IXW
-	 7SEMKXd6LvlILolFxsUCvt0A+QtEN+1mNoAEuXXK/0YlWLwfI538UQaaJ86YbMki7rAwr
-	 4U/fPsHyYdCZ0mtBtoYNq29eGmOIROio1TiqcMvyZl0I6wOA/x90eaT3r202H83nodg==
+	bh=2yzovXHP1AKSCJkwBWUXIlAv/gwCI3e2QnitbG71KNI=;
+	b=Jc2wQOyMUXZs12VErG3uuDzSXQf7N6d1JxU/SD33tuuUK4eV5ysJXoTQ5LD/9pnqAPEQ
+	 VHwM3GGRclX8ME89SrDPBDwYHQ9qQfA6lOBamLnyt2MJ/NEFRsgVQ44ZVOlCtl6ao5yQc
+	 0amcuc4p5Bn/pqvxdYBwzCDTsC6WollS/Sd8gZ4N1f2PDwBn9R5eXcVJ2vTTkXTrRD9jf
+	 pGzK8Wc5mDHM51xu8joC3uvS8JDG4m9xseeTHQUCKah3SmPe3vsE7OQ91hhqMKdnke0BJ
+	 BBnD/2ePH0CrTFyATx2bqUz0koKKSo9v6aD1HYthFC4EVFPoAr/qY54gfWuX4pGVUEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5s9IZ17;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5hxH+zw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA52B606A332;
-	Mon, 16 Nov 2026 17:26:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4613C606A31C;
+	Mon, 16 Nov 2026 17:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5s9IZ17
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A589A1F000CF;
-	Mon, 16 Nov 2026 17:26:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5hxH+zw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE66B1F000C4;
+	Mon, 16 Nov 2026 17:27:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794849992;
-	bh=nhLOHK/dpua/6acFbU7FUzubhaP/+1tuaiXs558a9CI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f5s9IZ17z3owS2Do7e6A7hv06g0k1ATf0YSMLLjfEsEorxMTD16mpkl5wVZ6TZAbb
-	 svDYb0P8RTEeD/151AwnG52/zbSLZhRh+vLKFP96FzBtX6mV0MQYeBljx0VDYxjhk2
-	 PfEie6lZ2z0SjCgcfd+4Yo7UnkWziUI8ZJhVTn+nLathfA+63iVPOiEIBct+pYaQ1J
-	 fT40E6Jmozl/yt1cPUpNQcyEfAMLc7EINt/RI+3787XqItnx6X0/v46YyIYOz/XLC4
-	 kpXLiGjYx0RqLHrIIA075pAYg5myLB5Yj4v3NxMaqN1rqeEEk1pbPK1hkA/3xxIMUA
-	 kB1b9HFoSf63g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4D5E9CE10EC; Mon, 16 Nov 2026 09:26:32 -0800 (PST)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	rostedt@goodmis.org,
-	Joel Fernandes <jfern@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 5/6] torture: Make kvm.sh ignore empty-string arguments
-Date: Mon, 16 Nov 2026 09:26:29 -0800
-Message-Id: <20261116172630.3845508-5-paulmck@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <bf761cab-7423-464b-ba8e-bd39ad0eb089@paulmck-laptop>
-References: <bf761cab-7423-464b-ba8e-bd39ad0eb089@paulmck-laptop>
+	s=k20260515; t=1794850038;
+	bh=2yzovXHP1AKSCJkwBWUXIlAv/gwCI3e2QnitbG71KNI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=k5hxH+zwKwGfx7QdReyl1QJaN/qK8ywteGD6Fh7gfC9K+nWXHzPHJzqPAhBgOFFny
+	 aVeJIOfTh8ctP1Kb5boKwRehnhxRxMDlMIvsY784RAHvlMplgVXAB8pkylsz0jysND
+	 pq+mhkdcUlNd4qUUxsTJSxxTVZubXFsS3Iy9mG4636ymDrUGIG850CzjJ2YtcvtSe+
+	 TV9/K2VMzdjZODo3HhcNWeDXWlDLGNg2ir84s/0GFrmYfZq5QSQ2PCl/TfNp5Xu7Qv
+	 PI3eqA+jCWNF8f451GvMRr1/tANkKypYGQ3gM0YeMn+NOA/rR2mk2FQIl6mQ1pb3IU
+	 WVahsIxww5NnA==
+Date: Mon, 16 Nov 2026 07:27:17 -1000
+Message-ID: <e6062944917f1c9a87ab084bae9352a9@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: josef@toxicopanda.com, axboe@kernel.dk, alexei.starovoitov@gmail.com, cgroups@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com
+Subject: Re: [RFC PATCH v13 1/4] blk-iocost: add BPF struct_ops cost model support
+In-Reply-To: <20261106122356.3224638-2-cui.tao@linux.dev>
+References: <20261106122356.3224638-1-cui.tao@linux.dev> <20261106122356.3224638-2-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,34 +57,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-This commit makes kvm.sh ignore empty-string arguments in order to
-simplify some scripting use cases of kvm.sh.  In many cases, as pointed
-out by Mathieu Desnoyers, the calling script would do better to use the
-bash ${:+} substitution pattern.  For an example already in torture.sh,
-${qemu_args:+--qemu-args "$qemu_args"} expands to nothingness if qemu_args
-is empty, but otherwise expands to a "--qemu-args " prepended to it value.
+Hello, Tao.
 
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
----
- tools/testing/selftests/rcutorture/bin/kvm.sh | 3 +++
- 1 file changed, 3 insertions(+)
+On Fri, Nov 06, 2026 at 08:23:53PM +0800, Tao Cui wrote:
+> Attaching an iocost_model_ops struct_ops binds the model to one
+> device: the target is set in the dev member from userspace and
+> .reg creates the ioc if needed like an io.cost.model write and
+> ...
 
-diff --git a/tools/testing/selftests/rcutorture/bin/kvm.sh b/tools/testing/selftests/rcutorture/bin/kvm.sh
-index 32c3199976388..86dd5c131d226 100755
---- a/tools/testing/selftests/rcutorture/bin/kvm.sh
-+++ b/tools/testing/selftests/rcutorture/bin/kvm.sh
-@@ -271,6 +271,9 @@ do
- 	--trust-make)
- 		TORTURE_TRUST_MAKE="y"
- 		;;
-+	"")
-+		# torture.sh can pass empty arguments.  Ignore them.
-+		;;
- 	*)
- 		echo Unknown argument $1
- 		usage
--- 
-2.40.1
+From here on, the description mostly walks through what the code does.
+Can it instead explain why it works this way and what it guarantees, and
+leave the mechanics to the code?
 
+> +enum {
+> +	IOCOST_COST_F_MERGE	= 1 << 0,	/* called from the merge path */
+> +};
+
+Maybe name the flags after the callback they're passed to, e.g. enum
+iocost_calc_flags, IOCOST_CALC_MERGE and a calc_flags parameter, the way
+sched_ext pairs ops.enqueue()'s enq_flags with enum scx_enq_flags and
+SCX_ENQ_*? An unnamed enum type can't be looked up by name through BTF,
+so BPF programs can't test whether a flag exists.
+
+Also, can the comment say what the flag means to the model rather than
+where the call comes from? The bio is being merged into an IO which was
+already charged its base cost.
+
+> +	/* holds a reference on the struct_ops map, NULL if none is attached */
+> +	const struct iocost_model_ops	*attached;
+> +	struct bpf_link			*attached_link;
+> +	/* either NULL (linear) or ->attached */
+> +	const struct iocost_model_ops __rcu *model;
+
+Can the comment say why iocost holds its own reference on the map? If the
+link is destroyed after del_gendisk() has unhashed the bdev but before
+rq_qos_exit(), .unreg can't look up the disk and returns without
+detaching, and the link drops its reference. iocost's reference keeps the
+map alive until ioc_rqos_exit() detaches the model.
+
+Also, why are attached and attached_link updated under ioc->lock in
+ioc_bpf_reg() and ioc_detach_model()? Everything which reads the two
+holds rq_qos_mutex: .reg, .unreg, ioc_detach_model() and
+ioc_cost_model_write(), which gets it from blkg_conf_open_bdev(). Only
+model is read under ioc->lock alone, by ioc_autop_idx() from the timer
+and the io.cost.model show path, besides the RCU readers. What is
+ioc->lock protecting for the two? Can you document the locking on the
+fields?
+
+> +static const struct iocost_model_ops *ioc_model(struct ioc *ioc)
+> +{
+> +	if (!IS_ENABLED(CONFIG_BLK_CGROUP_IOCOST_BPF))
+> +		return NULL;
+> +	return rcu_dereference_check(ioc->model, lockdep_is_held(&ioc->lock));
+> +}
+
+ioc_model() returns NULL while the builtin linear model is in use, which
+is a model too. Maybe rename the accessor and the field together, e.g.
+ioc_bpf_model() and bpf_model, or ioc_model_bpf() and model_bpf?
+
+> +	spin_lock_irq(&ioc->lock);
+> +	rcu_assign_pointer(ioc->model, NULL);
+> ...
+> +	ioc->autop_too_fast_at = 0;
+> +	ioc->autop_too_slow_at = 0;
+
+Resetting to 0 is right, but maybe ioc_bpf_reg() is a better place for
+it? .reg is the only path which switches pricing to the BPF model without
+a forced ioc_refresh_params(), which is what zeroes the timestamps for
+io.cost.qos and io.cost.model writes. If ioc_bpf_reg() zeroes them, they
+stay zero while the BPF model is in use, which covers both detach and the
+"model=linear" switch sashiko reported on this posting.
+
+Thanks.
+
+--
+tejun
