@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794837658;
-	b=NqawMZn/puqqclwAgQ7oosRm66N+rEJNX/A9iv4W5sA+Xf6/He9vS1o2WXYbR2vAlLYL
-	 7uftjMEmLjEw/i2YJs2/OrpMfG/mceR7BVET05K5rOelHJu6G3ga/sdDwD34g70c3irfz
-	 8/g/nk70Y6/g155LDi+c1o2YFAcO0JZKaD04LE9g/F54ZQkfGZVCF+F78tLrCotbOFUc4
-	 q0q9p/bhSNEY0Iwg0boSt+xxv/O7GpNoXmg8S2nN5dR0jdRUSYxrsbQr7QUECw9i1WI8a
-	 tXRck2x1rSwM9SrfSPlv813GTUBKfBotdimFaGFUfuBGizwo2om2l/1WZ3nh/OBSX/Q==
+	t=1794837666;
+	b=ZfY1kJqcBVZl6BiZWm9Fjd+tGByty2gb2yI91DfawEUK+PUyQvOWdVAOCaINYhpnvQLz
+	 OVXjAR91HDc8j+xH3JauVDOmjctjL0iwawgw8R9i5S0vDZwxLj3WJaYCWpzmcQrWdt/KX
+	 QFDv+g1fbA3n9SXCmvdZngAcEpixwB6XatGgm6mh5XexAw1bq7mOcbMhbhH3gDtWjzuqS
+	 G/MIclZX4DrKXI0hnvkF4PXTNuAOKmR3GOaj/UNvOXhIzLLLm0Ero4QCCMH2JRWJMjE+B
+	 g6N0teL43nIAWnqdZpyLXROr6P9hNVhn+XLsKhHIfOL2VNlfWCYyxUUWTxv+gfDoWLA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837658;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
-	b=KjIhAIGF5GS6xorst3adCVhtsRPQh4MeLh3KQqH0It4tkl2WsqFEGIUOO6NnlAg5q6+j
-	 //fvyNiRE/zy0B8QPo1FnVB32GfDSr33rHrXaPhcrL9jFbvXyjU+X8hKB4G3Z0/bCCAul
-	 ISed/N2ZWls5cf3YtNxGSuYNQb87V+5WJrfnDV2sxLwL/cj4sju70vqMyLOaH4n8+uxnl
-	 mcOlW0cpsO46lGrROCqfCTTrBLjWTMwym7et8MQvsbn+db61xq+2xcI3alFS2y8r/ia9J
-	 qYcqnQYSyyKnW4z4x+rw4bc1b44u4nrtmsRn2gIDyQu3PI9eRWwtlKZtiAJ5LBWTXJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837666;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TlcNcFV/e6ku1Q/CV6lyI3bgB/SHhlBbcUeMj52adDI=;
+	b=3chMEsibcGrvicjfdRYnVsSYGL8Ai6Ik/r+MQA5yTCF0agih4E7T8IDFLJOSkLNfNcR4
+	 jMChVWKp66SiYFozPNKUIy9qecl8HXCVm/ZGqGZAfaXH+s0rJPn4CCz5SZZvRL3q7nK52
+	 1JJtUTiO6XFWX3mXmDhEHhMxhHY3A3c5DENENm9hIP0fPDT30jqQDsCxuNLszgD5H+zHE
+	 oA81rRtqIM6qkUiGOtoyfdGU52Dey3toTDnLnsX+HkW8qK77lRBq5Y+Lzr/HDNFBMJES8
+	 VUNyQlVonUnftNQkfWUz4f9A/RrCJiyuaMFMJwG7SNoYO4G/K2kqVZpCXW04fA6w6xQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GZ0EpYEv;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ZsulkOhB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ey29Xf6J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22458606A339;
+	Mon, 16 Nov 2026 14:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ey29Xf6J
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794837665;
+	b=cxt0vokZIJV4iLuPIHUR+VJ3CEdW8Ii5idcs0cf/4iBRIq36ydOl1kBwCU7gCJXPMRUA
+	 nMUGDz+SlQdvcjwSY+viQnyZFk9Nuru/YHkeHMHBJz1ATcdMwnUtkE9fYqtVcfpmPQQYH
+	 eWiGxfB5Z7U4Jvg4JEMhFkSRXl1t1V95UBjjlsPUpRc3a0zxKLRxIbJO8mw5VEGJCDUCq
+	 5YqmfWLH6SNGHi19mW//PctK9F1HjJ0pryIET0NfqiuuWpz++/twa3Z/ltw5PNdykhLPp
+	 ZKJ8wOfSA2H5DBIpy8kRp9xYnW0t4hSB+zkivNPdTr01oFAbgw6P6QVCeEcfi1Y9X3A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794837665;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TlcNcFV/e6ku1Q/CV6lyI3bgB/SHhlBbcUeMj52adDI=;
+	b=1Pm//x55opp/ieEqJvvwfTjQ9Hs/5KQbRhvFMHDzPdF8XUb7GNV1KWMiNsafgdi50D0R
+	 SMpXHosxJi2if6q/eERla3G/hX5Hx0j4THqmNiPouK2a3A0fUuvmWME3dR37IqvDUiiV6
+	 aVG6bfLzEK/4MQRyrRk+46M2whRuOd95iN/oQdiRVR5QZ+DGdvJnk1ZTnLF/NAf9dSS9s
+	 +lntrXkVWiB5G0JaFHF66WQywNbvMRGn0XVvSvVUdOxJMCLivYMRGyTNuCU3RHbJhx9L5
+	 h58y9MGBiQveSjhPFcvYL9lhsUvLGq0W8iwEKrTNNdE3LWcPZKCffA3mR341sPGabIA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E0D606A33D;
-	Mon, 16 Nov 2026 14:00:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43E0D606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GZ0EpYEv;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ZsulkOhB
-ARC-Seal: i=1; a=rsa-sha256; t=1794837625; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=lgVHsmdocWSs7r/FyeFoikXvqW8JIkDYyGAsxbrCU6G/MkekNirYkChR2B6Ub+JS7Q
-    0hJ3ck5io6TO0Cc4OQ8Z+j6xQkjXEw/k3B2FyOlU8VjseWm8+BIsCq/YhgI+HDmZGUu4
-    mS6boDMrZN1FEJwxXpBzSvEsyPAHmpviUTps1e/0zJQ+7p7omM8q7wZFgatfq1yqZctW
-    SvotPd24Buo99EaU0cdBOa1KYxKQDOd3V/jNGY3i+CcDAXamR35fqLEQ4V8Jm7XhAYMq
-    gnqAlVu0PIvLUCX97I0M5QvidkY0x9py4kRo8fQaDBNqF2w/wf9Ik1vRgcPsrgAsXUqH
-    38BQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794837625;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
-    b=T7aYHukIISyS1/iJO1RKFuVDHqfFK79O90tIjy9qO7YU8l0Z2kGMFbSwB39G7K+MMi
-    t5IYDE5gg6afGnJa3YWlbZyvftHO7xgy1S2SPLO1tsRI8P4ngRuiFGK5Q/PRiwUWmxvb
-    WHx5pGR0glt88C0GRKEbN7y1SWPmU8rWDQZ6Yp2pTxwgvxbS/xntN6XTu3jwpvXPd+Ht
-    ypcMsi/0gyMAQWSMwd+9W9GtEESz0fwdtndHI+EUv5hS6P/AlccesK5+16vP9ei0fnZ0
-    XAt9T9+e6J12shTUKs8Gm/6u49KUx9dXo3GNxI7r7NkzBD2uCNugI8uRJU80Y6kFyGuP
-    fuDA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794837625;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
-    b=GZ0EpYEvfUFQzSBlQBulXGqScWt8COibJDcCkq/pewr9sREUqaUGAFV5GHknkmm2N2
-    E0wIvf/ZUYDmIEbcrAz/ktWvq7i3eu1iWB5wH2BUhYqpkuvnCWirW8+5MIoUONifF9FO
-    /GPq+NYmRnFna6ShpK17R30NoorE3kOcmrZPTOnMBlP4PxncgLNhU1qb6VQ1ybJvPxqU
-    kiDioFzl9Pklwe+79m8160RD1em1Eh0zN4FSxSqluocFZW7pOhlw5iKK19zoac19VhEr
-    bWyF4SUftyFlU2wBZz+nJWwL9vWDC4qia/Be97SKoazHWIQwjhioHAbkJE9YzECdT0ZJ
-    xaiQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794837625;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
-    b=ZsulkOhBrDtnlAgZniLF8HAIcYMCsFNbF9IjSTC6Kf2offCZtw1rJSi4wrrlxtsL0j
-    gdRLJ9ZOs5WoHgRTMoBg==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.78]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad2AGE0Oyda
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 16 Nov 2026 15:00:24 +0100 (CET)
-Message-ID: <34fdf9f5a04e05d1713f57f63dcd2cd0b81ee959.camel@iokpp.de>
-Subject: Re: [PATCH v2 1/4] PM / devfreq: Fall back to previous_freq when
- get_cur_freq() fails
-From: Bean Huo <beanhuo@iokpp.de>
-To: chanwoo@kernel.org, linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi
- <cw00.choi@samsung.com>, "Martin K . Petersen" <mkp@kernel.org>, "James E .
- J . Bottomley" <James.Bottomley@HansenPartnership.com>, Avri Altman
- <avri.altman@sandisk.com>,  Bart Van Assche <bvanassche@acm.org>, Alim
- Akhtar <alim.akhtar@samsung.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Bean Huo <beanhuo@micron.com>
-Date: Mon, 16 Nov 2026 15:00:23 +0100
-In-Reply-To: <a813b1ea-6971-4fde-b310-659a03963fba@gmail.com>
-References: <20260907192140.2701755-1-beanhuo@iokpp.de>
-	 <20260907192140.2701755-2-beanhuo@iokpp.de>
-	 <a813b1ea-6971-4fde-b310-659a03963fba@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	by smtp.kernel.org (Postfix) with ESMTPS id 0B03C1F000C9;
+	Mon, 16 Nov 2026 14:01:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837665;
+	bh=TlcNcFV/e6ku1Q/CV6lyI3bgB/SHhlBbcUeMj52adDI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Ey29Xf6JyFJfpHI71UBshi9RsQA901NIwWdnTM2fMzynsr1vQVWsEjsYP0tsf5eun
+	 iyP7OwLxs/d/SLygG8ElkXIeuLqNVZmowjo/0FpGROimtjdfBum8a+7K9015kcM8s3
+	 3LzLa732mmQjR5p44NyUUoFakzM2iy1v6HK2ibU+yHa63rgsuijTGqPeTvRCNtXJ7E
+	 OV0ahGjVm0S0hjpfQLYrLknlxj+PpZRrqqEAL8GaabXW3+jqOxpDeOZ2jnePRyn5NY
+	 zsnViM3tJIAXpJpgT1SWCmcW2IlMQX7s+jYUKzc/i0GMZHhD1amtsaZ0FYV2CDS53C
+	 tl7p7Tk7VnuXA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 847074A4AB;
+	Mon, 16 Nov 2026 14:01:04 +0000 (UTC)
+From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
+Date: Mon, 16 Nov 2026 14:01:03 +0000
+Subject: [PATCH v3 1/6] drm/amd/display: Render the panel power savings
+ kernel-doc
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,25 +83,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-abm-sysfs-commit-v3-1-7a3d84a5328e@hsal.es>
+References: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
+In-Reply-To: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, 
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
+ David Weber <weber.aulendorf@gmail.com>, 
+ Shivam Kalra <shivamkalra98@zohomail.in>, 
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hugo Sales <hugo@hsal.es>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=972; i=hugo@hsal.es;
+ h=from:subject:message-id;
+ bh=FVHKsTcB+kzVbQ+9zevb2MG6df7WbrsHz6OXzX6yqvM=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn7zzGdpqd6kKRUbEfRwLk8ZC0f8l2DxucdPWyQcL
+ w3OtG69xNtRysIgxsUgK6bIonvDk4Fl4uSZOUXPl8DMYWUCGcLAxSkAE8lJZPgfkvfy3CKbJtZ3
+ Dw0D5yWVVd+wNfn9997sl/vLWc45M98TZfif9GdGXfVTky+7z7+R/Ob15TTzVgXWg/E3JQ4FVAR
+ d/tzKCQCkuUxx
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
+X-Original-From: Hugo Sales <hugo@hsal.es>
+Reply-To: hugo@hsal.es
+Content-Transfer-Encoding: 7bit
 
-T24gU3VuLCAyMDI2LTExLTE1IGF0IDA5OjI1ICswOTAwLCBDaG9pIENoYW53b28gd3JvdGU6Cj4g
-PiAtwqDCoMKgwqDCoMKgwqBlbHNlCj4gPiArwqDCoMKgwqDCoMKgwqBpZiAoIWRldmZyZXEtPnBy
-b2ZpbGUtPmdldF9jdXJfZnJlcSB8fAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgIGRldmZyZXEt
-PnByb2ZpbGUtPmdldF9jdXJfZnJlcShkZXZmcmVxLT5kZXYucGFyZW50LCAmY3VyX2ZyZXEpKQo+
-ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjdXJfZnJlcSA9IGRldmZyZXEtPnBy
-ZXZpb3VzX2ZyZXE7Cj4gPiDCoCAKPiA+IMKgwqDCoMKgwqDCoMKgwqBmcmVxcy5vbGQgPSBjdXJf
-ZnJlcTsKPiAKPiBJIGFncmVlIHRoaXMgcGF0Y2guCj4gQnV0LCBJIGRvbid0IHJlY29tbWVuZCB0
-byBleGVjdXRlIHRvIGZ1bmN0aW9uIG9uIGlmIHN0YXRlbWVudC4KPiBJbiBvcmRlciB0byBpbXBy
-b3ZlIHRoZSByZWFkYWJpbGl0eSwgY291bGQgeW91IHBsZWFzZSB1cGRhdGUgaXQgYXMgZm9sbG93
-aW5nOgo+IAo+IMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgY3VyX2ZyZXEgPSBkZXZmcmVx
-LT5wcmV2aW91c19mcmVxOwo+IMKgwqDCoMKgwqDCoMKgwqB1bnNpZ25lZCBsb25nIGZyZXE7Cj4g
-wqDCoMKgwqDCoMKgwqDCoC4uLgo+IMKgwqDCoMKgwqDCoMKgwqBpZiAoZGV2ZnJlcS0+cHJvZmls
-ZS0+Z2V0X2N1cl9mcmVxKSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBlcnIg
-PSBkZXZmcmVxLT5wcm9maWxlLT5nZXRfY3VyX2ZyZXEoZGV2ZnJlcS0+ZGV2LnBhcmVudCwKPiAm
-ZnJlcSk7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAoIWVycikKPiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjdXJfZnJlcSA9IGZy
-ZXE7Cj4gwqDCoMKgwqDCoMKgwqDCoH0KPiAKPiAtLQo+IEJlc3QgUmVnYXJkcywKPiBDaGFud29v
-IENob2kKPiBQcmluY2lwYWwgRW5naW5lZXIsIFNhbXN1bmcgRWxlY3Ryb25pY3MKCkNoYW53b28s
-IAoKdGhhbmtzLCB3aWxsIHVwZGF0ZSB0aGVzZSB0d28gcGF0Y2hlcyBvbmx5IHNpbmNlIFVGUyBw
-YXRjaGVzIGhhdmUgYmVlbiBtZXJnZWQuCgpLaW5kIHJlZ2FyZHMswqAKQmVhbiAKCg==
+From: Hugo Sales <hugo@hsal.es>
+
+The DOC section for the panel_power_savings sysfs file is not included
+in any rst file, so it never shows up in the built documentation. Add it
+to the Display Properties section next to the 'adaptive backlight
+modulation' property it interacts with
+
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+ Documentation/gpu/amdgpu/display/display-manager.rst | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/gpu/amdgpu/display/display-manager.rst b/Documentation/gpu/amdgpu/display/display-manager.rst
+index f6de9e7779e29..ca4a956d2aa17 100644
+--- a/Documentation/gpu/amdgpu/display/display-manager.rst
++++ b/Documentation/gpu/amdgpu/display/display-manager.rst
+@@ -187,3 +187,6 @@ Display Properties
+ 
+ .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+    :doc: property for adaptive backlight modulation
++
++.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++   :doc: panel power savings
+
+-- 
+2.56.0
+
 
