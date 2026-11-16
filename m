@@ -1,80 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813290;
-	b=W1NaDuL9a58htt2B0KgUAqOUZ6/cYs/E8XIG+W6F5x4tw26BfnWvumwXluVn+jngXAqe
-	 Ali7YmWX5UN236LHANLB1dOFdSa7+Q6BcYSRl+eTq/x+xH6UZlyyeyYOnNLaCMOIyrUNY
-	 TqzZlaYakwI1T8kmV+E8ZL/MeYOM333RBStqvIB2G6z6Mo3KZ08UT54UZoMo/0MGYv4OO
-	 t6xpD2NrzJd+bXcqYTNBCQ/gCExYTpB/qsAkPBbHx0qwl+DDt3HLeqlz3k+P4H4plKOTq
-	 so6C/mHQozWS3rrSUa3BUAl8pR/f+BPDmMb9gpkRd2dYjHjCCmyFvoTJk3A+Nilg+FA==
+	t=1794813412;
+	b=20tiJPXNhWCOZH6huz/Rol43ZHfEeZBvLkJ0pzMjOUVp4imMcN63ApnZWQiafzbwunBs
+	 iRi74V5sv8sE2I78UVRmyUB10FYP1UdFPAJhgFXdNrSQh+naume0HoqdJM6mk5S08M7kO
+	 MPML+LyuTijDVlBDZIJei/jAIuON8O0ig8Kw1PGiU5qUbaIJpPhrGV2LSAhAfRQVk8vP3
+	 uBtRsJultb5xcZpjWxhSLc0WPgNvQz9H5thDjqmZPqX07WR/Qz0n8e+b04YbGXTMdk8xs
+	 TnMnt6M3stkpknfHdLXZxTW1sVfqTLnl/u5qPIBj1kEAYoa+VeePUEd5RPATuSc024A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813290;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xXtS8nqPI8bMiiZsI5aMJRhf4Xi82nV2lL/o/RcncNM=;
-	b=HysJvXezfOq2bLni6vSsbYeIt2r2Gn/sr4GouYdvEk35cIEn+FHq3E1aKN8s08KIvE2G
-	 szok2ECEx/PPalFHlj3l3R9gkR9bQsFn2x6atZVG5MVssXAglD5JHsQocwC0LoLVqX46t
-	 Llc/isDlxBVV9SZXrXSaXRLbVClDH8iDnRTcbJKF14WiKyiox2G3bPfmQDCt5WmFnaaKw
-	 RTFG8EPsKTwjbtdPxNP7brphSTGdieYDRlBQxhDkYakZhXSiDuCXfLRib+mYoZeorr191
-	 WvsJOdxWV7MluNOqPFCXudfpSKuXcDiFUQamHwUXS6RtFEkjWVYGZNoZYy9EbWtwISQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813412;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=fagWDItK4XbVnpvcxpRoePwZb9o5Z6tPZlWBpzn+8YE=;
+	b=s1JlrbMztRUEMTmMO3sMVa9lwsXlzFtBfZE2z7LX0mOvy1qlK0YdkyZdFmkk4u3GGflu
+	 JEr3gxfe/JvUAiIF0lOFQcv0F3hDujpfcxthyZq+wdKvhIxm25Q93oeFLY0uYxenqQX3M
+	 T3l4J6wS8Ui4zi/C3Lype/e6CFT0w/bJ31/MT1ICyId3i/TgUkUPaTwvF7HmG07hXw0z7
+	 xIRD9DAMWMFUucMY9yBzzbciQUEgHTipv5uiGPxlFIB34YaB49B1mr/T/DgD57LBRboYg
+	 jqkLicavgCPRDlv8lESLh1uOpB48g58g2IXbnww5yjix8YXwWdwdpyq1DCr8vTJrOiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hwW9YhVo;
-	arc=none smtp.remote-ip=91.218.175.251
-Received: from mta0.migadu.com (out-251.mta0.migadu.com [91.218.175.251])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jZRR80y2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IwFRHcGI;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wya7dYoC;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sGeH+I+t;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540A4606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 540A4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44AD5606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:16:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44AD5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hwW9YhVo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5qs+zHZlkyqRDMqx7SNWEDLyLXIGQ6DciwEgGF1OF3Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794813287; v=1; x=1795418087;
- b=hwW9YhVodGXQJ1SMJ5tKIVZJv+KYSxSceP42gqINXso1YdzeZOzoS2c40U1gZ5n9WTR6mpmi
- ChJMcf4AMP59hs1b8XuGJ/ouZsWslrs4xAfKddroMXyez2vs92fd2aBSySV0bXFVUbj16QE6IRt
- Hgpl1RWjbZEYXUnPam2X1Vvo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4fd46d42d037db8b;
-	Mon, 16 Nov 2026 07:14:47 +0000
-X-Mizu-Trace-ID: 4fd46d42d037db8b
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>
-Subject: [PATCH v5 11/11] mm/percpu: stop unmapping the CPU that failed to map
-Date: Mon, 16 Nov 2026 15:13:25 +0800
-Message-Id: <20261116071325.263682-12-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261116071325.263682-1-hao.ge@linux.dev>
-References: <20261116071325.263682-1-hao.ge@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jZRR80y2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IwFRHcGI;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wya7dYoC;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sGeH+I+t
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 164F2221D7;
+	Mon, 16 Nov 2026 07:16:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794813410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fagWDItK4XbVnpvcxpRoePwZb9o5Z6tPZlWBpzn+8YE=;
+	b=jZRR80y2gCswXM5c8hycLmh2IDCqXTLh6/Y089/SxDrQQKmkEKqv1gHpF+qFn06KdO8gwp
+	UiDkFXmCCz/4nH5L+i1a38KGzqqQIenYHXcY1VgYILawM7GvMhg+y5DAmmoNvhbaxUu4Qk
+	rYCAYvlcLJLGtT5Es4GVvTq7toEXWQw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794813410;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fagWDItK4XbVnpvcxpRoePwZb9o5Z6tPZlWBpzn+8YE=;
+	b=IwFRHcGIPrtuVlVCIg1/qk/QQf7TWfiVweAznZgichbAQj8vkbTxNt1T7uVuX4mh23f/p/
+	rMTYaS4xZotePpBQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wya7dYoC;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sGeH+I+t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794813409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fagWDItK4XbVnpvcxpRoePwZb9o5Z6tPZlWBpzn+8YE=;
+	b=wya7dYoCa2MS4TS2vrZkGyUqe3sfH9mC3t2DPIia3wiZZtTQIlKmTuQzu8WG8InKUUli2I
+	+OER9XBWlV1NwfAKqv05oki3l/nttyAzKrm0svYn85uq6+P+NfisThNaoCWXUm34qtBlUG
+	tFAvtmwJmYt4AxquNSgQJaj3eQ5vbfo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794813409;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fagWDItK4XbVnpvcxpRoePwZb9o5Z6tPZlWBpzn+8YE=;
+	b=sGeH+I+tCso0ARYPXnSy414Eedz2jJt4doKZCa1zMUbiEDa9WA+ImqFBlL9CFOAoP4kOwa
+	41vnCxXseHRiPWAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 933DA13408;
+	Mon, 16 Nov 2026 07:16:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id KKSsFuCt+mq3HAAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:16:48 +0000
+Message-ID: <fdebda8c-6669-423f-b20c-562b8d996d07@suse.de>
+Date: Mon, 16 Nov 2026 08:16:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,37 +108,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 07/17] nvme: Introduce FENCING and FENCED controller
+ states
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-8-mkhalfella@purestorage.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261114030454.2836543-8-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,purestorage.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 164F2221D7
 
-__pcpu_map_pages() clears the PTEs it installed when it fails, so
-pcpu_map_pages() only has to tear down the CPUs it mapped before
-the failing one.
+On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
+> Introduce two new controller states, FENCING and FENCED, and the state
+> machine transitions needed to support them. Transports will move a LIVE
+> controller into these states when an error is encountered; this patch
+> only adds the states themselves.
+> 
+> FENCING is entered from LIVE. While in FENCING the queues remain alive
+> but new requests are not allowed to be sent, and the controller cannot
+> be reset, since a reset cancels inflight IOs that must be held until
+> either CCR succeeds or time-based recovery completes. A new request
+> issued to a controller in FENCING or FENCED is failed with a host path
+> error, so a multipath request is retried on another path.
+> 
+> FENCED is a short-lived state entered from FENCING once fencing is
+> over. It is the only state from which RESETTING is reachable, so a
+> manual reset cannot take effect while the controller is in FENCING.
+> 
+> Deletion is allowed from both states. Callers of nvme_delete_ctrl()
+> assume deleting a live controller cannot fail, and they cannot wait for
+> the fence either. RDMA device removal and the TCP/RDMA module exit
+> paths hold the transport's controller list mutex, which ->free_ctrl
+> needs when the fence drops the last reference on another controller.
+> Instead the transport's ->stop_ctrl flushes the fencing works, so the
+> delete path waits the fence out without holding any lock.
+> 
+> A controller deleted while fencing does not keep the fence's hold on
+> its inflight requests. Once the state leaves FENCING they complete as
+> in any other delete and may be retried on another path before the
+> fence would have ended. This is a known limitation, to be addressed
+> separately.
+> 
+> Update nvme_available_path() to treat a controller in FENCING/FENCED
+> as an available path, both states are non-terminal, add the state
+> names to the sysfs state attribute and document them in
+> Documentation/ABI/stable/sysfs-nvme.
+> 
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> ---
+>   Documentation/ABI/stable/sysfs-nvme |  5 +++--
+>   drivers/nvme/host/core.c            | 29 +++++++++++++++++++++++++++--
+>   drivers/nvme/host/multipath.c       |  2 ++
+>   drivers/nvme/host/nvme.h            |  4 ++++
+>   drivers/nvme/host/sysfs.c           |  2 ++
+>   5 files changed, 38 insertions(+), 4 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- mm/percpu-vm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Cheers,
 
-diff --git a/mm/percpu-vm.c b/mm/percpu-vm.c
-index 509d8901835c..59d3a336a6bd 100644
---- a/mm/percpu-vm.c
-+++ b/mm/percpu-vm.c
-@@ -252,10 +252,11 @@ static int pcpu_map_pages(struct pcpu_chunk *chunk, struct page **pages,
- 	return 0;
- err:
- 	for_each_possible_cpu(tcpu) {
--		__pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
--				   page_end - page_start);
-+		/* The failing CPU's partial mapping undoes itself */
- 		if (tcpu == cpu)
- 			break;
-+		__pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
-+				   page_end - page_start);
- 	}
- 	pcpu_post_unmap_tlb_flush(chunk, page_start, page_end);
- 	return err;
+Hannes
 -- 
-2.25.1
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
