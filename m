@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794852906;
-	b=zjmAj43WsE6PBMEeKirYMbzqgG06IxmcZ6wpZ+Jso50i3bHkRkSiCuwH6yZyKjHFxrOs
-	 PWwhXQZKTlwYExymi0DI15AjYtab4p9/8SeaBYTHyOisPWFWEXy7Qe496LbcWksk6+YVd
-	 EoIDuou4mDQ+tXbgf+KFEevnnJSOZY0z1Up5Mmibu5lO0QKR+xVbkyqidlRUJGs9TJNYC
-	 5f9sbxSa9QhtwyWFl7qF3IrrywPe/t0Zn4OHY0K9As2kFmp8tvF2KoglUT89hQHbgXC7t
-	 9ApXxuE3XqJtYoSHuBS7sr4AR9Vqh2HlbdjdXZy230ToyhMywuCnk8hfzgc96z+1kUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852906;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
-	b=uVR1LJ5QkaGfjcW1eXBb1/1/EHsiFqh9oWdbWLjqeIWJI4fyFUaxKUAmAlQCGmWYSPya
-	 9E7/DdLQTXy79WEsLui9ayKrbZ0UwxUqmT0NElrZNGTB4Un0YChtCcwy7ml7LG7A2XRYt
-	 CBQZNclVKOawQGIdRnc2NXaVrFIYzOCc7Xbx96wE/iY7Zjg33ehbYkARv9hb4mmxKwU/r
-	 sdMJmsPUjltNs+hP4aZ/tyGP+A3p7Z+tyDzF2t0y3KsVXjuSO2Vm1aguZ5YBKYyuRS5hd
-	 iIRkalsN2pd/EH9YJejoAMs9qygeg4G257eO92dE5+8BHRybjWLM+VKfd22m3xRNxZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QhWWSQNC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794852963;
+	b=hUCNNi2OPNQrSvVQjl7YDw6oe92gh4Nvsp9CzmvXqsnCFrmERVwtiWomKjaIGmKk8lEr
+	 VsHjL7a4t/Z+nuqB/wUq20+52L4y2lw4T6JVUjv8hTB4Ga/mvz6OkadTurJj3sSHaoUId
+	 1LbjVYvRPqXm2PxpnCwj+D5EAAsfW3DrUWE93xKjAi7Yk2vT8sCrrfWDT5kiXNTBo0vz6
+	 KpWyjLUMTKNDMzbul4hhxMWxdlQdU3HPgwIPtjbBbDYaBpfMFojQXQZ/k+QOg1eI6gCLB
+	 ulUnLrsaSVwkd99H2rYQDaGbJGBMOyKs520GqO7HYLNYT0ziJ4uYqSAfacGgUB304lQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852963;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZzX9V4TTBmSlkYz6J8Lbn80e+REH2S26Di72JYTGVqM=;
+	b=Ww9xPo7x3n8upf2sN6Raz0HGirXofCJMbJFSDVZ6c7/pmjQbeBQ4k1KBhzi5jzKklIS3
+	 EuqiJGHXUUoE961IGXwToCbnR8CP4/3Hf5bbchLVd1jYq5tVxS7dEsnNGBbKMT0ZynCMq
+	 5ON448STMFAo1rEMhtxqNnGpSEu6+r5D6PI5U8fMlg6Wjz/xvuygXqGKMBGP1b5cDfKET
+	 m8KOG23jK8L0QySSp+FYnIVNgJEsk2LeLubpoffiyjPX+DPhA8nNi6xueuip3d2Gvq2T+
+	 pw0EudzWUi3d7Vn89qYv8XphCvOM6s4mphO23ywgQwHPy0i21HAAne5OvARGnGjGH/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkEwXMjM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1C5606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D1C5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E73606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QhWWSQNC
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-833e671ee9fso4869343a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:15:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794852905; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GL47PJWqURxEjuOJmyrB/ZWDty8LXs0plNm8paviZP5HvT1OZng34IsCck5QpchyTk
-         00v4+OrInBdFWtjo3zU8N5hXsbI3tcU/JIPmyiEWU2dXExFIlX7ZcKcBUoGpRWSnNoUE
-         nAQEH/NzbYx92VZujRRVw13jZoZy7UqXZjXX66Ur/ygLnBkJWZ5iZ+Ftg3HUlcut2195
-         0bTcCVt9bWYyBHzv24mAWrpvaOiqwtLlE5c4Eq0v85OwaHnTuG3zfj7xo0z0MVzOkSRn
-         GM/p1aINnnFtUTBXuk+7mVxPZ8RaI4wZiUqB8oJ6QXwC1vbqw1NC3sUZzTSzwqrNOmX1
-         LvdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
-        fh=ai57wYhUAZ1CBshZtgyb7/BGBO0dQdKckpLSbchU+UM=;
-        b=gWd4wUTtJRtFnzouJ6rgWgX3aBbpyJ52+ZnUEP3zlhAjYSY7FS106lYaxuQ0WbvSVN
-         Dvl8Lggpv6Vl602iH86cO8pwgSvSV6Be4r9WYtn24low7bI4vmXi/Je2bIgCrzzQyazp
-         S95j4hBuKQ4qtwuki9oNm0+s8jWRIhuqaXn85W+4u5nDoVb3t7zzbneQpqii4lHMklzP
-         kf5brvH311GuM6qZU7i9TQJF3cUQ4bEijJl2MVaw2G0hfxW8iOhIXUB1GLabdvoC8Z6g
-         69D2HAeNBP64UyWcBDUhM8Mt6M9oALbc+FXj9atoOATHkD0vS7cQQCVzJr7fYvFiWZBG
-         QR2A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794852905; x=1795457705; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
-        b=QhWWSQNCk10MpZxFAn4KuGpIJAF4P77J7SSuEGqoIAaIM0BOw+iKR8DDOhyqeExaXf
-         n/K1YTcJgppZuHacJ0p1qj/tgEWXtM/NgrIf9lvsi5VCsR5uI7y01bELgWeEr73KyTJU
-         ra+AyeGXH3h4+Ir2Rov/FQGtnSG1y6Omkhk3WgJI4MtHvpJoueQ4/LgepGgV1TNSM6ue
-         rw7ZmpMfdF98OgvEf5B/so4dCcwHzO/67+r+6cgtPbHi4T3ezegmYpjJE5dKAJXF/S1G
-         V8ybNX4EcZF8entUHqx1cnQj8Q24jYHM48DEkQC6I2TfT5jAW9bqSYnglTx5xsRN429J
-         1+qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794852905; x=1795457705;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
-        b=F+CyNdbiuJ/I4M8GSXmyPbGVAJBVEteFlaUuNCwO55ltx0/mSl9R74Vq1bV+PmA16p
-         OwknZhaIVqMiBWHes/ZRi7TXSmSgNSQisW9PhZVWtEu/sIcrSwkn09sheu59jcHDsDfw
-         +8KejuhThMYI74ZsCzMCBIM3PEs+ng3RNff1S30DiJpPzS4UtZcYKlSieGs4P5X+RBv8
-         BzXQOy0GB0zzgyJxSNUDgqpjRObS4SqRCXyfMsfGSkyxqjHTmUNFjPHUo53ZdeY/iEDn
-         kmAsYvR5i89EoOobicIJiV+y8pND1v7K8jsj9QJlE3B+S8jB2w9c3Q7aJks5Lmxr0W51
-         VizA==
-X-Forwarded-Encrypted: i=1; AL+hErFPFPE908IW5Xyg9J0+5Fi8HWM8gcm83ngY0uS+CsisYOGCYt2OAiF/JpwHqpCRuzUGzQXt1AeSRPuQcTs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+EVjK29Hxp99PEetv+zNycYkx9eWw39xHfnd8M+UYowf8bwNS8
-	9QuKpKT9mb+Ch5lBl+D/D3imdCtzVM8qa234lc2LPcg8MrhbY9z2fRPdlFKd8K5mhpHc3/moXWw
-	lQStA4iBuyqGRXJNQs6C7wJiJQ0zCvts=
-X-Gm-Gg: AYBFou3kKRokaQEUfM0k9Iu7SXKuktlM76yruSPowFDmWtGeqmy4wXUUS3jb+6g7aJ5
-	NbDN/XW551cFzcjOSjuPbwSi15oxfYY4o+G1BGwHlofguGrhBWRLJMARKOAGJEoqHQH+uN7xG+u
-	kSNOw6QBX1cPYGYp+c9XY4gXTh/BwxF+zY7p6R858Eizi8PndaBMA8uRnzPapEZD4gwa91fiPGr
-	OhShxvklsoCBn0C49KW0/zpNxPc2McsuGlGaD8Nmi4n5to6jzqosWt+TbzEzBMmobNypFGpNGCb
-	YZa02ogwfsXkFy4YrX93eRpRIOiegopHz1n30+45ue5oyqGUOkymoZLXnAVPVcTz7yl7ijLWB5P
-	YC3fEcqu9pLnBfKoV6zpQ5kNZ892CdjQHMEcjRRna821o4XqvfWQTjQruEWjX6XLwAsNJZ1puAA
-	TmBUkDtotev8mFYKdCeoN55MrnSIhwVL1XhHHws2rmeAQ+cgTGbw==
-X-Received: by 2002:a05:6808:4f5e:b0:53b:11c7:2da0 with SMTP id
- 5614622812f47-56e63285bd9mr11614093b6e.21.1794852905260; Mon, 16 Nov 2026
- 10:15:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkEwXMjM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB451F000CC
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:16:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794852962;
+	bh=ZzX9V4TTBmSlkYz6J8Lbn80e+REH2S26Di72JYTGVqM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=CkEwXMjMGSDd9Jyf0aI46LScxzgItIsBaRf8Q9l5eAORBkXopGaa7iIhiGIZ7mGrA
+	 5CA1yxO3sD34U/yF/V1notyK9oLYVj/U97pWdlB4jqFl5zP5m2gQVTrY3d3shUnNbB
+	 7rvPI4k26XltupsNLYGmujI/vVrzLp/9PIxW8imSqMIwFs3QnN50BHdfsjkGX7G7UY
+	 iA815OxjWUoVL20FYHH1kVNWAKqEprje/GVx8CMjDAJsCeWO4eE/TEptQAEfSE/8M5
+	 pPB+FDWx2ryUZRgUEX2Swq+DPRqM5f1Ko0NovgIqrghdG+FyF+JkCVFjnIt423d4Um
+	 4PPJaFSvB0kOw==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ae0eb56ba1so38182971fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:16:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEXbAbax3jBHNdqxcugtNQG2FNrG+cedpxWJGjFVqNAX1Hxe+Myuyjc+bcsZ3oLV2PJ10z2r2+dl9SyKPY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yO6X03kHF0lESIH7m0A6C0aSKys39ZqS93bBtfogPWmgdX1RF
+	CLm2LeIv5ZfBylfx3+cqn06HbXhi80H3+n/fCx9o8DjUZdobrrw/dRzl87R5XMYAP1dqKmi5oRQ
+	pw/IPg+ciR6Sl55q1pe4wsHHGFdFnFXY=
+X-Received: by 2002:a05:651c:e0a:b0:3ab:3bf3:1604 with SMTP id
+ 38308e7fff4ca-3ae2b522732mr39554201fa.26.1794852961071; Mon, 16 Nov 2026
+ 10:16:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,97 +59,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108060418.4554-1-sowmyatorra@gmail.com> <20261108075335.13248-1-sowmyatorra@gmail.com>
-In-Reply-To: <20261108075335.13248-1-sowmyatorra@gmail.com>
-From: Sowmya Torra <sowmyatorra@gmail.com>
-Date: Mon, 16 Nov 2026 23:44:54 +0530
-X-Gm-Features: AclHuK80DRIS82kx7xBKjBoqWiP5iWpB5RL4yuJG733QwPO3EG-EZ7zh6pOiZ0o
-Message-ID: <CAFsBPPnsv2xbLXHQfM66h6RdK1+mGR91S=D86OzKzmds1cTPnA@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/xe: Remove unused xe_vm_restart and xe_vma_flush tracepoints
-To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
-	rodrigo.vivi@intel.com
-Cc: airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	outreachy@lists.linux.dev, rostedt@goodmis.org, julianbraha@gmail.com, 
-	julia.lawall@inria.fr
+References: <cover.1794567577.git.ukleinek@kernel.org> <CAJZ5v0jC5YXsLgB6Qd55KNCU0oCsN86X5WpRfL+Ycz0MJ8vGqA@mail.gmail.com>
+ <avs5thXfoZA4TBnE@monoceros>
+In-Reply-To: <avs5thXfoZA4TBnE@monoceros>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 16 Nov 2026 19:15:48 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iSJVszOCLCuK+ifCzTgx1RgDAExaYUbij=jaWmaTsb8Q@mail.gmail.com>
+X-Gm-Features: AclHuK94GxXVADZ_eYaxYKF2omkpVW60DdECEGw9yQWKt3TSZ2-Rx4HqR0isNuY
+Message-ID: <CAJZ5v0iSJVszOCLCuK+ifCzTgx1RgDAExaYUbij=jaWmaTsb8Q@mail.gmail.com>
+Subject: Re: [PATCH v1 0/4] ACPI: Use named initializers for acpi_device_id arrays
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Dan Williams <djbw@kernel.org>, 
+	Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, 
+	Alison Schofield <alison.schofield@intel.com>, Ira Weiny <iweiny@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Zhang Rui <rui.zhang@intel.com>, 
+	"Mario Limonciello (AMD)" <superm1@kernel.org>, Saranya Gopal <saranya.gopal@intel.com>, 
+	Gergo Koteles <soyer@irl.hu>, Jakob Riemenschneider <riemenschneiderjakob@gmail.com>, 
+	Yauhen Kharuzhy <jekhor@gmail.com>, Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, nvdimm@lists.linux.dev, 
+	linux-pci@vger.kernel.org, Kai-Heng Feng <kaihengf@nvidia.com>, 
+	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Chu Guangqing <chuguangqing@inspur.com>, Andy Shevchenko <andy@kernel.org>, 
+	Mika Westerberg <westeri@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi everyone,
+On Mon, Nov 16, 2026 at 6:16=E2=80=AFPM Uwe Kleine-K=C3=B6nig (The Capable =
+Hub)
+<u.kleine-koenig@baylibre.com> wrote:
+>
+> Hey Rafael,
+>
+> On Fri, Nov 13, 2026 at 05:17:30PM +0100, Rafael J. Wysocki (Intel) wrote=
+:
+> > > Uwe Kleine-K=C3=B6nig (The Capable Hub) (4):
+> > >   ACPI: Unify acpi_device_id list terminators
+> > >   ACPI: Drop unused .driver_data initializers in acpi_device_id array=
+s
+> > >   ACPI: Use named initializers for acpi_device_id arrays
+> > >   ACPI: Unify *_device_id list terminators
+> >
+> > All patches applied as 7.5 material, thanks!
+>
+> While rebasing these patches (as part of my wip tree that contains a lot
+> more similar patches) to next-20261113 I hit some merge conflicts. If
+> you tell me where you applied it, I can take a look and provide my merge
+> conflict resolution to allow double checking.
 
-I received a CI notification saying that testing could not start
-because my email address is not on the allowlist.
+I've rebased a couple of patches on some material merged previously.
 
-The notification refers to my earlier patch removing only
-xe_vm_restart. I have since sent v4, which combines the removal of
-xe_vm_restart and xe_vma_flush.
+Please see
 
-Could someone trigger CI for v4? Please let me know if I need to do
-anything on my side.
-
-Thanks,
-Sowmya
-
-On Sun, Nov 8, 2026 at 1:28=E2=80=AFPM Torra Sowmya <sowmyatorra@gmail.com>=
- wrote:
->
-> Commit f3e9b1f43458 ("drm/xe: Remove async worker and rework sync
-> binds") removed the calls to trace_xe_vm_restart() and
-> trace_xe_vma_flush(), but left both event definitions behind.
->
-> Remove the unused definitions from xe_trace_bo.h to avoid
-> generating code and data for events with no remaining callers.
->
-> With the tested x86-64 configuration, size reports a reduction of
-> 888 bytes in xe_trace_bo.o, from 20262 to 19374 bytes: 296 bytes
-> in text and 592 bytes in data.
->
-> Fixes: f3e9b1f43458 ("drm/xe: Remove async worker and rework sync binds")
-> Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
-> ---
-> Changes in v4:
-> - Combine the xe_vm_restart and xe_vma_flush removals as requested
->   by Steven. This replaces the separate patches for these events.
-> - Report the measured combined object-size reduction.
->
-> Changes in v3:
-> - Add the Fixes tag.
->
-> Changes in v2:
-> - Document the measured object-size reduction.
->
->  drivers/gpu/drm/xe/xe_trace_bo.h | 10 ----------
->  1 file changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_tra=
-ce_bo.h
-> index 86323cf3be2c..a6802f6d3a01 100644
-> --- a/drivers/gpu/drm/xe/xe_trace_bo.h
-> +++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-> @@ -115,11 +115,6 @@ DECLARE_EVENT_CLASS(xe_vma,
->                               __entry->end, __entry->ptr)
->  )
->
-> -DEFINE_EVENT(xe_vma, xe_vma_flush,
-> -            TP_PROTO(struct xe_vma *vma),
-> -            TP_ARGS(vma)
-> -);
-> -
->  DEFINE_EVENT(xe_vma, xe_vma_pagefault,
->              TP_PROTO(struct xe_vma *vma),
->              TP_ARGS(vma)
-> @@ -228,11 +223,6 @@ DEFINE_EVENT(xe_vm, xe_vm_cpu_bind,
->              TP_ARGS(vm)
->  );
->
-> -DEFINE_EVENT(xe_vm, xe_vm_restart,
-> -            TP_PROTO(struct xe_vm *vm),
-> -            TP_ARGS(vm)
-> -);
-> -
->  DEFINE_EVENT(xe_vm, xe_vm_rebind_worker_enter,
->              TP_PROTO(struct xe_vm *vm),
->              TP_ARGS(vm)
-> --
-> 2.47.3
->
+https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git/commit/=
+?h=3Dlinux-next&id=3D58d4ba8979133c41cd491dff1dab40626daa924a
