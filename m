@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873160;
-	b=b00h6qqn/GI08rp2qDj9YStcvFjhe8GB2KxHneA31gDoPnH7+h0e0rHS92oag/kYuoSD
-	 7fZPCy54ze0GjK4AAShwzD7LUgywsWvOGIQzJSAHAThjOotWX8URdW2UqSNcQDeip6tKs
-	 R53rGkddSxcubTLl6IoX6l4DThcCV7daePhgw23Vob7VEpe/b+B8gORHcIfmeAOfCymHu
-	 +QpaKGCiPgVOsqFaP1H0ORulMuVWJGttMaPGF//9cVQCe1iei4d+JDdpacmq7a2v191HO
-	 y8R0YguFME7x13hac8lBnL9qFSEgKygrRG8TO3M6jq22aQUk0WK/J4ZZShc/1ZyrLmQ==
+	t=1794873225;
+	b=NNGXJCAcKdvGKDb+aUvGTX4asulPEob3AHnx+bZBykndGuuW572ByZPpU+1vqYCvn+uY
+	 a2g4U1gT0U79ma2+mv6kGGX45Xcqg9G3NhoZlVLs7qlr47lJ8/DkJGyBnmUlpmHb3/XTd
+	 72LO0dAQ3FXiwWGEKXPRr/6RFm0CCtfo2bW6pkVX576tVMUmR/XBRwhHEQdbrtG7wC6zM
+	 cRFMgyhoV8qu8b9CSEt14CqvBmQOcgMBJMIpqeoCB3ITJChfCQroa3bSTrH2kWGWxobaz
+	 jSvSJWA5gQNCsm1IhxJ/6dKtG/lOVQwjSyGUnj57vCIO7XYOM3I0VfHdH8RBwUyFhsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873160;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
-	b=eOH7g5/0hgt8+48CXosE/GDQbrziwEaRn+3ytCzl98Eslu+aQxgnzyyaDhYposh/3y4/
-	 CmVs8wLA2kvFTY3LUhtQwsaa7TZGE/qucP6sZKWfMJpa/GSlR2qSqUjgb1BWwNLjpWCWU
-	 S9ZcIIblvjzzJhUUxO7eLCBjDfx2mEyS6O9fNdpOCWhYcaJb+RGgDvW515HzHPQj1KM6B
-	 uoAAm9xgybyGtNkd48xceax4bV19F0pemtHh+reuV2KeZutgIrvHe93NQh1E7bnQXtvxR
-	 Rkwo1M7nqbLj1U4dOCk02iRqM6SiIdxafVRuLd7/w7laYAekcw0SaC5SVU//wMz3Svg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873225;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NNrK36daNZtQN0yQpzsNCwHN/e1UlEP86bn5liD8cbA=;
+	b=fu01ljm/PrqjeYQjSDgETVZo5TeOOteD+JK9gAIRzMaZdfDKVKJISYTDt2IPB9W2e/J/
+	 1uFQCkTRySaMzIABgoA+tsIGlTaFEv/CCOh7RZIF026RE3jWA0KIDuH7fA5axCHoLH/h9
+	 a5NokBkUxGiEs7vjfBxkT+LQ8f5pLYo0tXlFfPPZpfIvcgN3ZloFlTLjLvOJq1Is7XuvZ
+	 V8k5+XgmGFMjAayKt8IrqrjxP+Hpo/7O2waUhl9MwmHD3zUZ+amPHI0zSz8XKxPRIvx1c
+	 StX4XoW1TDAf6Zz/47P7B9V18YDYiuqSTiFCmlWXxJ3QW+4sw/+f2Pv5rIhJDwIovUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2cdKXwp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZEpmsOQO;
+	arc=none smtp.remote-ip=95.215.58.172
+Received: from mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E49606A32F;
-	Mon, 16 Nov 2026 23:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D31606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6D31606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2cdKXwp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF161F000C4;
-	Mon, 16 Nov 2026 23:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794873159;
-	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I2cdKXwpKnMpTII5LkX/pgrtz+M5xpCpMEOm0Td/SBKSRmO3f9LdjYz1BUKk0nziN
-	 skg8TQ1JXNcGcAg6xBIrdYeUkD7m0vNwmzqHIhq8HqNRadEU417+OYN9O4MP8fVAvB
-	 fMZqtYV/1I6/89pSm0o7DGSEEXHdiAuJPa5qlnC96mUi0k6g9QxhA66cHFc2BL8l2V
-	 0dVisxBhG/N/ESNxa0+IPMXbZqsUSPqcXVw69232qaToqZn+uTeyjDR4A1ATmS7T4s
-	 jmlkqYF8GvQCPYyagYaC8xKpkCp69NoZjCuz3VFa/a06pKJfNt9RjHWisiW25AAaKm
-	 DIeMQKFd6sNOw==
-From: netdev-bot+sinfo@kernel.org
-To: Bobby Eshleman <bobbyeshleman@meta.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- Eugenio =?utf-8?q?P=C3=A9rez?= <eperezma@redhat.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] vsock: only deliver taps to namespaces that can reach
- the device
-Date: Mon, 16 Nov 2026 23:52:38 +0000
-Message-ID: <179487315810.3291.12142099363352099423@kernel.org>
-In-Reply-To: <20261116-vsock-tap-net-v1-1-7e24f45adad3@meta.com>
-References: <20261116-vsock-tap-net-v1-1-7e24f45adad3@meta.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZEpmsOQO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NNrK36daNZtQN0yQpzsNCwHN/e1UlEP86bn5liD8cbA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794873217; v=1; x=1795478017;
+ b=ZEpmsOQOBxwsaBy/JoIlh/lFTwA9kQHivTVw3eBBUA77yH0OYbq44NoBrLGQ3c8nFesrA3ay
+ pbOJHUbTTNzFCTmxyS7i2RAHdwL2rpklMeHOtoZIZi9FV8cQyjHiApUKcrfk0BvzWNXzi2JNDCo
+ vtOAdsAO4VQ/6J57veZ4ZoF4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a333d897c954cd59;
+	Mon, 16 Nov 2026 23:53:37 +0000
+X-Mizu-Trace-ID: a333d897c954cd59
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <def9fb29-3212-4d1f-8041-4bbb1c18e89e@linux.dev>
+Date: Tue, 17 Nov 2026 00:53:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,26 +58,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
+ readback support
+To: bartu alev <bartualev@gmail.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
+References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com>
+ <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
+ <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
+ <228df241-da5e-49cb-b29f-6b9158557f55@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <228df241-da5e-49cb-b29f-6b9158557f55@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On 11/16/26 23:00, bartu alev wrote:
+> On 11/9/26 9:02 PM, Ilpo Järvinen wrote:
+>> What do you (or Denis) think on sashiko's mention about 
+>> asus_wmi_evaluate_method_buf() casting integer.value to int which might 
+>> end up aliasing high-bit on return values with errnos?
+>>  
+>> The other caller seems to also return that value directly out of _store 
+>> function().
+> Hi Ilpo and Denis,
+>
+> I checked the DSDTs across 102 ASUS models we have dumped as well as the
+> UEFI/SMM path on my FA507NV (BIOS 318) to see what firmware actually
+> returns on the DSTS path:
+>
+> 1. Across the 102 DSDTs, no static DSTS branch returns 0xFFFFFFFF or
+>    Ones. Models without 0x0010005B either hit a DSTS tail of
+>    0xFFFFFFFE (15), fall through to WMNB's trailing 0xFFFFFFFE (45),
+>    or return Zero (3 older models: GL553VD, GL553VE, FX505DT).
+>
+> 2. On modern models (including FA507NV, FX517, GA403, GA605WI), DSTS
+>    delegates unlisted DEVIDs via WCHK/W15H (SW SMI 0xAA, cmd 0x9603).
+>    Disassembling the FA507NV modules (AsusSmmService ->
+>    AsusWmiToProtocol -> QuantaDxeWrapperPkg) shows that this dynamic
+>    chain also returns 0 (unmatched consumer / missing table entry), 1,
+>    capability/presence bits (e.g. 0x00010000 for 0x00100056/57), MMIO
+>    reads, or 0xFFFFFFFE -- never 0xFFFFFFFF.
+>
+>    (Note: on FA507NV, 0x0010005B itself is static in AML and calls
+>    EC0.KBLS(), while 0x00100056/57 go through WCHK/W15H and return
+>    0x00010000 on DSTS.)
+>
+> However, checking those tables did uncover one real mismatch and a clean
+> reason to still harden asus_wmi_evaluate_method_buf():
+>
+> - On models like FX505DT, DSTS(0x00100056/57) returns 0x00010000 (so
+>   kbd_rgb_mode/kbd_rgb_state are registered), while 0x0010005B hits the
+>   DSTS tail Return (Zero).  asus_wmi_evaluate_method_buf() turns 0 into
+>   -ENODATA, so v4's `err < 0 ? err : -ENODEV` would return -ENODATA
+>   instead of -ENODEV as documented in the ABI patch.  The same happens
+>   if W15H hits an unmatched consumer/table miss in SMM (returns 0).
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Not good.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+> - Even though 0xFFFFFFFF didn't show up in this set, an unseen BIOS or
+>   SMM branch returning 0xFFFFFFFF or any bit-31-set integer would still
+>   alias a negative errno in asus_wmi_evaluate_method_buf().
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+Yeah this much is clear, as I said we are lucky asus isn't using the
+most significant bit on wmi dev id we support.
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
--- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> To avoid disturbing older devices, would a minimal approach like this be
+> acceptable for v5?
+>
+> 1. Add a small prep patch to asus_wmi_evaluate_method_buf() using a u32
+>    retval: keep 0xFFFFFFFE -> -ENODEV and 0 -> -ENODATA as today, also
+>    map (u32)~0 (0xFFFFFFFF) -> -ENODEV (matching asus_wmi_get_devstate()),
+>    and return -ENODATA for any other unexpected integer (matching the
+>    `default:` case; the only existing caller fan_curve_get_factory_default()
+>    already treats any non-zero return as failure).
+>
+> 2. In kbd_rgb_read_status(), translate -ENODATA to -ENODEV so FX505DT /
+>    0-returning firmware matches the ABI while preserving -EIO / -ENOSPC.
+
+Yes, it's absolutely reasonable. If the return either doesn't have the
+presence bit set or is 0xFFF..... it is to be counted as "not implemented".
+
+And also yes, we should respect ABIs whenever possible...
+
+However... now that I think about it asus_wmi_evaluate_method_buf() can
+be used on setters and those don't have the presence bit, do we have that
+covered?
+
+> Thanks,
+> Bartu
