@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855678;
-	b=s9ey1hMU81aWKXUTBYGDuZWR3/Vq9p+UEq5+6ZqNQYA+s8vld07T5NYefdMvihby+qw8
-	 YDxCfk34ZDSGWehi5XzNwIiMYMKPJHYs5kTp+AWmqD9/CyiGPVPB+buUrD3MYZMjBGf/f
-	 z2cFZ0lGFgJVRYNQ5IryH9pKR8GlXdy8HQ+eUikRGD8Yqn9dAeClGUWEzghaeX9jCPPc7
-	 VBgDjWOJWMQ7TvtQbSXtLBTmNDAkWPN5L+6kxpZtvsuo4ZUfZBOtRbJZkXDkuTaOhbyaG
-	 D7uyu88UtRVLRQcvbY8nJ7pn+3MWpQHZrug5ln2wHc4qa5TTyla0tjFHjgFiKcVhmtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855678;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=mElhP/ecybx1CHryPEfZ2rqVqQNJPxmya9RqbFWTsKg=;
-	b=hN/DOk1ydTIjnNghiOAaQIQMJxS8Nn4osVOlO8DFnAvCaDNrNtwTl+9+nySmU2rOmK6f
-	 c7KK2khJAOuRIgt48dOPp35XWnuqz4InOmwDLA4J+15xJVFHnSsFbUOe4dTZzjzsf/6f7
-	 9s/+n1+NFkHP7dvMd9lxzhEVFlesooaIZ1EROypXr/uPi41fqQGrPRhV+c/9bkUbqnwti
-	 0Vhv5qpF5CLn57/+/96HEdtrQgQDb1/6tIUWDgkvkZecOzTzmxGuB9TEBXsV/JVmT9CGF
-	 74K3oowHNmCOz8T6TSiuiGl/c0K3KjIp7ntBdju6xj6rMC0XOZQVoCRAzY4zxBOimug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=MIGThasu;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794855703;
+	b=JNDKYXF6PBqEyqID5UlRUMO4YCu8iR+hr1HTv6Mj09y6alWbdwppg5jqk4CZqW+wVUJ4
+	 hhtaaOhdMqvTVwjiNNxECS52F8O9fxN6wshlN0BHusADNvkVi/APaAQiJ2Y9Fd0abVcc7
+	 fLAqcCMp9dncFsxMVvgMdz9+2Q3+FUBuQS6tadHdoVbufwTlGjX3GIZw1toRqBmI97pp4
+	 DcKN6Cgkl0iiW28y3rOYqE5WiXM6crf5QcjtM/XWSEAv8siV6VPNnFG1wtG+BnUQR5v0z
+	 /kHSjfwTRz5TQQX+CLeN6md8Qy+WOESSYuG446/pM9doWaNJRWh/sVqGa4lv8nk24HQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855703;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wEEmZjD0vKv79FlaKUDu+FMv5V2rsZ7LB2NoBC7xmrI=;
+	b=pPsE1SvUHgSy3UQChYS0sA1lOoZdRodLRNE3RsVOrROtYAxMzi4lIBUYCnsWEZ8L5ZY2
+	 iUKGQ2YgjveOeQfBHeo9/oK94W5pc1dtVsDZUciQsouhdCXy/C6lneukH/gUimW172kS/
+	 dyOKmVUGSbvBd9Q6pPDcA+wI0FFf729tsgaGl5guN1oV7H+2/XOR+AoPANxBLM1DA8nnd
+	 E0jAczJQzlE9HaudGqsmC9Z3APIoqZVMb+QETldG16tVhvUURKFSLKUztCQTvNNqgDZUz
+	 PJMmPrV6HtM+iiWVeIG3WReLbl84ZiFr/nFBIrpiUgXaB/7u4UL459/EO9vR+aLlTPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=hHf+ZY18;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7417E606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7417E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA68606A31C;
+	Mon, 16 Nov 2026 19:01:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AA68606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=MIGThasu
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso1991530a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:01:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1794855678; x=1795460478; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mElhP/ecybx1CHryPEfZ2rqVqQNJPxmya9RqbFWTsKg=;
-        b=MIGThasu67UTC+QQ89EKRNcs0Hu3rQJi1FQP2JeEHovAQ/8sluTZBgMC5zcpkSt2Oy
-         WEc9VNlLZwFWyuh9tURYWWRTaQwpLYN2EaYrmw6XZ8SKuq7limgeDx4hZYABIliYxZKb
-         cQosdCN8wW8EfzSWdz4HtIgkfvWp4PEjqcnCZvrwsyQrNVZnPxv/LLHxdcLPsu1XiAhM
-         Y4QwpzbN/gLRTgKH7rPF5B3Wyv56+Ghgq2YSFMb3MQHuaXY2uzQwVaepIOgpt060CH8x
-         IGDyery1M2x4IPwSkUd+3CwIdpUNeoU3Ldml3ovEIlgpFrnN+C9aki2nL8OjJcGIS1v7
-         RrMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855678; x=1795460478;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mElhP/ecybx1CHryPEfZ2rqVqQNJPxmya9RqbFWTsKg=;
-        b=zDZsnVRKBKQh/gtT8PjBu7THVYSTu7qnLyUoS7w1D+efS7CyQ7rpBaZ98BaO9Z4CYf
-         by46JCS7NeZcmLemS6uOjtr0PWan+U/P/PKdWKHkg80ncLR+y3qqA1Aj/lObyDtt3IB9
-         gc2hSuqOGDiXoQxrtQvRadgyaZgd+EmPiCWEefQsd/up3+8FD9sGtzeDqt+uMdgjqKwW
-         ZNC2TE8SpPCkoGhHTCeCWnHOWq8sglpnImUx2Z+zQmpIoFehp5oGEOwgnaEzYySuIG2d
-         xnh5lZ3IlQXBe2HqoxXX7jjgc/5PFqNoqryIWnLKjspEdlz9pNNToDflWkcSgf6mlvht
-         q76g==
-X-Forwarded-Encrypted: i=1; AL+hErEzhzSwZH3FE316kZ2sxqgA1GXRvASTtkZBsNZ/HmxlHwGwMMSTELS75eDAhbf/khqd+M/ZvNOoixs5k9Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Sqr8bgaQDdxX3/5zL+z3tf1AtY1gHp5lyZSPFWhdzI/osppbQ
-	7uN8tchc85GWFEAMMtxIFjFi2ZBGr2WzxyWrjT3e8PWIJon2dmu4KT39cZj4TedAkJH+l+IaLhI
-	HyUtqI1trPpUcIkd+z1Wjn9KQyx+CVeP1I0kO9KeSsLbH/0xxmaeM
-X-Gm-Gg: AZFdTZdxo63c8QuWgmjLzQRWzq/xu7kqE0gigu7h+hfY/chGCKCupRqFnqWCCpSfViW
-	R0Rwk2C8iRM3i9+sjBnF+QoTWcxz+SrdnKU04GRFBqLXYY06jsNHkz6HlPjy9qST3ntBDQ2NWPe
-	ga9icKyZrEJhMNbgmDjllVDm2BX2JK6xEYyAoQAuIj2U6WP13KJ5TQQzehy3N+xwcE4G2T+Zf1R
-	6DBxy4JPtVHaWj5t3cEaMGQcb8XiCI5X7/CZWUlkvQBDzLigAJS8m96v48ofllhbORy8SRZyfcc
-	gw5dO1ld2wrlUlGD3cRncSvPDYDVyDe47XIaTYyi0FxJSOSVi3YD4Xq04pcMeFLc05c1OR0pm7w
-	NCD6QayMv8XK5U9U1BDcl
-X-Received: by 2002:a17:90a:c88b:b0:3ac:7449:40b4 with SMTP id 98e67ed59e1d1-3b1b0b5316cmr11493330a91.45.1794855677419;
-        Mon, 16 Nov 2026 11:01:17 -0800 (PST)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3af69e8d4sm8366a91.2.2026.11.16.11.01.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:01:17 -0800 (PST)
-X-Relaying-Domain: purestorage.com
-Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 88344401CE;
-	Mon, 16 Nov 2026 12:01:16 -0700 (MST)
-Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
-	id 8205DDC0D05; Mon, 16 Nov 2026 12:01:16 -0700 (MST)
-From: Rishikesh Jethwani <rjethwani@purestorage.com>
-To: netdev@vger.kernel.org
-Cc: jiayuan.chen@linux.dev,
-	Rishikesh Jethwani <rjethwani@purestorage.com>,
-	stable@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Dave Watson <davejwatson@fb.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v8] kcm: reject TLS on attached TCP sockets
-Date: Mon, 16 Nov 2026 12:01:08 -0700
-Message-ID: <20261116190111.3317976-1-rjethwani@purestorage.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=hHf+ZY18
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WoD+ROPwD0u8Vol1616PCBapiDfOnU5WDFYeTPuVeo89hAdtxq5BeFN1LHk8uoLKk8LhRDxsMU+fQYHO5TKi55QkAR6838j6Yoz4/tvSdmOHJc2hNM+8OFV2J0vtcY48qH5c9l3ZPvEP2SkkH3GYsS6vTMtWqBTyEq4MJWTrnK5HSKK2wQXHe48ONy/06Zq2Qc+Kr9ipPrrwZNsXgH85QSBScLOUXzGBmMAqlHxH/4nf/tfyoHcVp8E2a9m7C3hZzOLVs9eryPSsRwk2a8qsnKb4Fd3uZbJN9Iezx9PAU/ztTvqwRmeVh/eb0uItopbLOcO0JWpm8iA3+K0vzQFK0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wEEmZjD0vKv79FlaKUDu+FMv5V2rsZ7LB2NoBC7xmrI=;
+ b=nNqfbcGWleVWnK/QmhCCf+GRnmQ75dSoDSuwqe3Z6VrBO422iM0y3Ngin094QcC1bjohI6vd8EVaYhCdKnRv5BhR0JbIHQIayditRCELg4qlvjxDPyna9EZOrhEyqoaw3SmCZE5a8wF/JLS+7LD8XxO4jfcDtQVD9pUHSQsno5G1vQ18HKxDkI02B1g/kv5aFWEJhzmft0wHWNYIaQgVdMf9NqfpBNVF7fVKaLc3Brs4zyRmWMTb/afBA2c8FZC5v3CGowZvsxvtEF94MhCjBsRgIgHB6ePvSDvO2+i60gfwuvpmDD9zxwlAVAWVoZjI057a4zp/BijHyBHrudITmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=linux-watchdog.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wEEmZjD0vKv79FlaKUDu+FMv5V2rsZ7LB2NoBC7xmrI=;
+ b=hHf+ZY18mQ58hpF/gtxNu3Hs2xboUCtzA5coFskh4JI0FnDgmn1thZsxmeOPaFeR/hzfq4c+WQ+Ydjtm/bUwtDObn3b3zaFugBlTv3A6GxcvSBmeFv9h1R2kQw929tFCbE8RAqd4VXyU5zquFuCrONLjfxpN2GmQkgMH0r/vJy+RQmiCURGE19guSEuDUYmaWrvFNef8VAzWvZfWyjp6UHGwVqvCIhQMdFsj/vDiysnVFZho9fNEkDrwTAz7qF4iNgEX+jlkSQ2wMKBP507TaJgcs1XJlWWn5gx6bMaruLLAMEK/AfniKUhobsjR7tqikGNTvQMf7SWInvfwUB1/kg==
+Received: from PR3PR09CA0026.eurprd09.prod.outlook.com (2603:10a6:102:b7::31)
+ by VE1PR10MB3886.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:16a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
+ 2026 19:01:35 +0000
+Received: from MI3PEPF0000847D.eurprd02.prod.outlook.com
+ (2603:10a6:102:b7:cafe::ad) by PR3PR09CA0026.outlook.office365.com
+ (2603:10a6:102:b7::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 19:01:35 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ MI3PEPF0000847D.mail.protection.outlook.com (10.167.240.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 19:01:35 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
+ 2026 20:02:18 +0100
+Received: from localhost (10.252.15.73) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
+ 2026 20:01:33 +0100
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+	<linux@roeck-us.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
+ Torgue" <alexandre.torgue@foss.st.com>,
+	=?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?= <clement.legoffic@foss.st.com>, Marek
+ Vasut <marex@denx.de>
+CC: Antonio Borneo <antonio.borneo@foss.st.com>,
+	<linux-watchdog@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] watchdog: stm32_iwdg: use managed variant of dev_pm_set_wake_irq()
+Date: Mon, 16 Nov 2026 20:01:30 +0100
+Message-ID: <20261116190130.1191501-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,165 +116,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000847D:EE_|VE1PR10MB3886:EE_
+X-MS-Office365-Filtering-Correlation-Id: 202283bd-ab5d-40af-ea0d-08df4414090b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|18002099003|6133799003|13003099007|11063799006|10067099003|56012099006|261026121527099003|261022105027099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	trZ+WQKHD9KK7P8KlygY0SopexucDKtCN0QCQS3/nAHyzomWiyASwb9Ei3Pqd00Nh1jl7ZYbnLDwhp4Zw4GBFli60hZrYnpmft9vhYNWserpOOGN5PMMzIzegBrG9cj1nYiVVfw/rzzxS5GQWciWHlCUHgdptXsrsFhiYnz3LwMjq11O4PPxwrCQdmYsUX4/xJcL2izjiKehWwBe2wCnkqJ7daAIrhUYWIbYWvq7piFvutm9SHiVU6ayJZ5g2cquw8ByfWRXOMFtfkR2ag7YCr8HGyvgazqkISZIR4TJKnbZZ4TCGlY3I+cAOSuax7Og6LCx9W4ZclV4eskOkJYwZ/imZhKFLDEKYmhwwFzbJWwlGdZ7D+DwJ92YoNsuCWdRH6cKlVhH5R9jwXoxRlRvSnXFXLqGpaqv1NzK8ZaOM4Ac17onMPsj7fs347UYz2ch6pXIooumrnAVxm61CFzLX4hZh5h9AMmBGowos6NlNzbrm2ITT2hBLqm6gWeGBWSRex7ep17vN8lppcly9QMNFLawwMurdmhh+ZtLmvfOmpULH9XHdRlmXRWlLdUKB8i5KGWLFjGXuidYcq0MUuBJVfhDxxnfFen3UHt2ilGBnrD2h5ORA7WZQL8s0wTrCKOXj9jrd7CtzoyaSowhsT8sHg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(6133799003)(13003099007)(11063799006)(10067099003)(56012099006)(261026121527099003)(261022105027099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kHMOZSrYRdZyV9nKMrY0Qnx3vfM3FJmSd7/N/9mZhQR4grVGUFW2ssdNbjz74TCWlJJBonzTyOKGQY+tLZel6c8thZzd1WspjhmLaYTat4eqwVIF3JpA0ssexKQeJCoq2ndZpHhv6zb8JdaRD5QsjM1DTXGkPa4xEhQPGANa8T5IetF8c7wbgHoGAVrwze1569rZcspFWj6LXIIZdkRysv1v9ehCw8QhGhRpKfzjVlJ2q7+OiJzsh/DIypuPc1N0NVx8wDs9hVFkjPl5fkIfRV9PQqzzGfPhzJGQoou+f1tLWamPQ2XI0e+UmYXmgctIBXYh2/v/X44UNQCajZ1ykOsiT09e+5KvE2QAJsdDRmX5V5oOlEDIRQDLLCpyucLKcTN1O5/cmCZBbJ2g3aGHcaLH/lcyCtGg1yKMf8ssm5/ScGzvIBZNGwYZ37mbkBvG
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 19:01:35.0905
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 202283bd-ab5d-40af-ea0d-08df4414090b
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000847D.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB3886
 
-Neither kcm_attach() nor tls_init() rejects the other, so KCM and kTLS RX
-can be stacked on the same TCP socket in either order. This breaks in
-several ways:
+On probe failure after stm32_iwdg_irq_init() or on driver unbind,
+the struct wake_irq allocated by dev_pm_set_wake_irq() is leaked
+and dev->power.wakeirq remains attached to the device.
+Any subsequent attempt to re-probe the device hits the
+dev->power.wakeirq check in dev_pm_attach_wake_irq(), triggers a
+dev_WARN_ONCE() splat, and fails probe with -EEXIST.
 
-- KCM calls read_sock() from its receive callback in atomic context.
-  With kTLS RX this reaches tls_sw_read_sock(), which can sleep.
-- Before tls_sw_read_sock() existed, read_sock was tcp_read_sock(), so
-  KCM consumed raw ciphertext from the receive queue that TLS parses.
-- Both install socket callbacks. kcm_unattach() restores the pre-KCM
-  sk_data_ready over tls_data_ready, so TLS RX stops getting notified.
+Use the managed version devm_pm_set_wake_irq().
 
-The sleep in atomic context was reproduced on an unmodified kernel with
-CONFIG_DEBUG_ATOMIC_SLEEP.
+This is reported by Sashiko inside the raw log of another commit
+that touches the same driver.
 
-Reject sockets with a ULP in kcm_attach(), and make tls_init() fail while
-KCM is attached. A tcp_sock boolean, present when CONFIG_AF_KCM is
-enabled, tracks attachment. It is set and cleared under the transport
-socket lock.
-
-Also switch the transport check to sk_is_tcp(). The family and protocol
-checks alone also accept raw IPPROTO_TCP sockets, which have no tcp_sock.
-
-Validated with KASAN and lockdep: connected IPv4/IPv6 raw sockets, both
-attach orders, detach, and concurrent installation.
-
-Backports without commit 8cc3aef0cb198 ("tcp: Do not allow buggy
-transitions between ehash and lhash2.") must also prevent attached
-sockets from becoming listeners after disconnect.
-
-Fixes: c46234ebb4d1 ("tls: RX path for ktls")
-Cc: <stable@vger.kernel.org> # needs 8cc3aef0cb198 or equivalent, see above
-Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
-Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+Fixes: 3ab1663af6c1 ("watchdog: stm32_iwdg: Add pretimeout support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/message/20261116132416.1184447-3-antonio.borneo%40foss.st.com
+Link: https://sashiko.dev/#/log/249869
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- Documentation/networking/kcm.rst |  3 +++
- include/linux/tcp.h              |  3 +++
- include/net/tcp.h                |  9 +++++++++
- net/kcm/kcmsock.c                | 16 +++++++++++++---
- net/tls/tls_main.c               |  3 +++
- 5 files changed, 31 insertions(+), 3 deletions(-)
+ drivers/watchdog/stm32_iwdg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/networking/kcm.rst b/Documentation/networking/kcm.rst
-index 71f44d0beaa3..07778f29211c 100644
---- a/Documentation/networking/kcm.rst
-+++ b/Documentation/networking/kcm.rst
-@@ -167,6 +167,9 @@ The kcm_attach structure contains:
-   - fd: file descriptor for TCP socket being attached
-   - bpf_prog_fd: file descriptor for compiled BPF program downloaded
+diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+index a8d2db2d3cf8b..f1056f8100cf0 100644
+--- a/drivers/watchdog/stm32_iwdg.c
++++ b/drivers/watchdog/stm32_iwdg.c
+@@ -298,7 +298,7 @@ static int stm32_iwdg_irq_init(struct platform_device *pdev,
+ 		if (ret)
+ 			return ret;
  
-+The transport socket must be a TCP stream socket with no TCP ULP installed.
-+TLS cannot be enabled on a transport socket while it is attached to KCM.
-+
- Unattach transport sockets
- --------------------------
- 
-diff --git a/include/linux/tcp.h b/include/linux/tcp.h
-index e6b79cf4798f..d4b07fbae2d5 100644
---- a/include/linux/tcp.h
-+++ b/include/linux/tcp.h
-@@ -516,6 +516,9 @@ struct tcp_sock {
- #if IS_ENABLED(CONFIG_MPTCP)
- 	bool	is_mptcp;
- #endif
-+#if IS_ENABLED(CONFIG_AF_KCM)
-+	bool	kcm_attached;
-+#endif
- #if IS_ENABLED(CONFIG_SMC)
- 	bool	syn_smc;	/* SYN includes SMC */
- 	bool	(*smc_hs_congested)(const struct sock *sk);
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 5c9203aae834..5e99d3142f5e 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -2882,6 +2882,15 @@ void tcp_cleanup_ulp(struct sock *sk);
- void tcp_update_ulp(struct sock *sk, struct proto *p,
- 		    void (*write_space)(struct sock *sk));
- 
-+static inline bool tcp_kcm_attached(const struct sock *sk)
-+{
-+#if IS_ENABLED(CONFIG_AF_KCM)
-+	return tcp_sk(sk)->kcm_attached;
-+#else
-+	return false;
-+#endif
-+}
-+
- #define MODULE_ALIAS_TCP_ULP(name)				\
- 	MODULE_INFO(alias, name);		\
- 	MODULE_INFO(alias, "tcp-ulp-" name)
-diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-index a7f94d42036f..ca789812124e 100644
---- a/net/kcm/kcmsock.c
-+++ b/net/kcm/kcmsock.c
-@@ -30,6 +30,7 @@
- #include <net/kcm.h>
- #include <net/netns/generic.h>
- #include <net/sock.h>
-+#include <net/tcp.h>
- #include <uapi/linux/kcm.h>
- #include <trace/events/sock.h>
- 
-@@ -1259,9 +1260,10 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
- 
- 	lock_sock(csk);
- 
--	/* Only allow TCP sockets to be attached for now */
--	if ((csk->sk_family != AF_INET && csk->sk_family != AF_INET6) ||
--	    csk->sk_protocol != IPPROTO_TCP) {
-+	/* Only allow TCP sockets to be attached for now. A raw socket
-+	 * created with IPPROTO_TCP has that sk_protocol but no icsk.
-+	 */
-+	if (!sk_is_tcp(csk)) {
- 		err = -EOPNOTSUPP;
- 		goto out;
+-		ret = dev_pm_set_wake_irq(dev, irq);
++		ret = devm_pm_set_wake_irq(dev, irq);
+ 		if (ret)
+ 			return ret;
  	}
-@@ -1272,6 +1274,12 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
- 		goto out;
- 	}
- 
-+	/* KCM and ULPs cannot share the receive path and socket callbacks. */
-+	if (inet_csk_has_ulp(csk)) {
-+		err = -EOPNOTSUPP;
-+		goto out;
-+	}
-+
- 	psock = kmem_cache_zalloc(kcm_psockp, GFP_KERNEL);
- 	if (!psock) {
- 		err = -ENOMEM;
-@@ -1305,6 +1313,7 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
- 	psock->save_write_space = csk->sk_write_space;
- 	psock->save_state_change = csk->sk_state_change;
- 	csk->sk_user_data = psock;
-+	tcp_sk(csk)->kcm_attached = true;
- 	WRITE_ONCE(csk->sk_data_ready, psock_data_ready);
- 	WRITE_ONCE(csk->sk_write_space, psock_write_space);
- 	csk->sk_state_change = psock_state_change;
-@@ -1386,6 +1395,7 @@ static void kcm_unattach(struct kcm_psock *psock)
- 	WRITE_ONCE(csk->sk_write_space, psock->save_write_space);
- 	csk->sk_state_change = psock->save_state_change;
- 	strp_stop(&psock->strp);
-+	tcp_sk(csk)->kcm_attached = false;
- 
- 	if (WARN_ON(psock->rx_kcm)) {
- 		write_unlock_bh(&csk->sk_callback_lock);
-diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-index b8d5a843f761..fa71c75c2861 100644
---- a/net/tls/tls_main.c
-+++ b/net/tls/tls_main.c
-@@ -1067,6 +1067,9 @@ static int tls_init(struct sock *sk)
- 	if (sk->sk_state != TCP_ESTABLISHED)
- 		return -ENOTCONN;
- 
-+	if (tcp_kcm_attached(sk))
-+		return -EBUSY;
-+
- 	/* allocate tls context */
- 	write_lock_bh(&sk->sk_callback_lock);
- 	ctx = tls_ctx_create(sk);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.50.1
+2.34.1
 
