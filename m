@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830728;
-	b=117DLZiWBz0RaoBlqKjfo4iZ57hv5VH+8xhjeWkNHpNvfvsZnEK78Q8pei7Wzvcqn8zy
-	 bVbpGz8QWwAeMPmC8MFUpYs41F3oERL5xUo4VaBoeRu7MLkYRAyv1XqO5V1RXF3yTuDxd
-	 2nDpWShrMZJM9uV1tA+2nCHwJl6elaqPyB/OJdudHlAjvcvgobH0s4qA6WOgOUfmjBw/2
-	 9TasEVZdZQliGmuC8d5PAIpCz5nd0g1MEBhFuNNMV4/dKvZf3i5omN8GxfucR11ItsvPR
-	 Rcqfu7xZFjRtMDLsVMqydZ6bboc9tPAbzl24QMLH6oDf8s8evddugAifrhIRqiTsg9A==
+	t=1794830762;
+	b=Th1iB1njTjKf752YUkU3RQF0a3/UuVoA3eOGIvCwOZWepDkvpLF/7vnZyu8MTVCPvHuo
+	 hiMA0mBrR5VfH0YzCvfaJCh7bFXBy/9Qn10V1H3SKJtjiH34sUXPrMPHGNlV8IsJT8WKK
+	 sSXtVI0lLPZwcbghADMLllZQwj6bNV5hiTMyXKIWwqqW/10Bu8Wt4b325AXkh00mpf1/N
+	 IsoVygMmum/D4aP3CbdVTXRt8up28ogoXXgNcH1FVtuLixxb2Y2OKCmISUgw5QcEwFQ8g
+	 dJOuCJIUiVKsGTPr6iMVmrElQcYB5Ta3FlgCkawd+cm8amnKHhrknqwlQ/OUsPy85QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830728;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=gnU4+EwBT9Yy+gbxDxLRhY3mmvHPY7F2R3oFBIuWmPk=;
-	b=fyV/R7K2yz3VAeOOuyFzufTlmfy+CP5CV6owyaTaMwfkpX3OPBGkMRGCWvjFcpNuNZI6
-	 QPDkDIIwFintdoJlVRpFWRwpm3vydCZjr3nknWCgoaG3SViG3WbHpxwfUDujsKszKZN54
-	 QG9RWQMr0I5B2zHyya5ZJZB3FG1TO5VdofwKDCYdGTwpOEfwbeth9QKBU8ybu1/uwSJjH
-	 JxM0scU9N5C5cSE6uCM37oR0vRnog94a1fY1eAbp5hddAVM6fOZG7oNyQmDFwre1LfFAM
-	 sPXVcEChqhLXYpO4fMPBLNNbYsAj/ZRLHyU7yJ4eyEw6m0cjl4BMKVarewBioJzLVFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830762;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NvzKt0ABqG9czfX7CCvo3D1asfWGOA5KuXZFSV0WPCo=;
+	b=CGtXDuceUaU114gbAwmJHm9TT0U+8UAxtX/TT0bsuy3nEyO21JiCuv+H7dMltHlKHL7w
+	 /D+O/XoqqMK3+aWVq0SGaqm8btiNC2JAmkzDvu2yOowUERQloVRpCSeX7Yj/2ccTWfwTc
+	 wQf3pvXEtszP8tePAYhrG3bJJZSE5pcl9/1Dj9b5uyrlOiuoZecTphrESQeGuNEX1TFzh
+	 NRnLPIm8CgFzamIhfWTVGhPRMnPVaUpLjOIS4VRDwlfBSYxDQMq5fLFzOdaNDq9Gh5XdE
+	 iZvCFOcmQ3/HtN43NVIRlD1hvbKT8Uq5keJDs1VB7MN4EWfFtjS9T41ZkaXow3hK58A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF484606A330;
-	Mon, 16 Nov 2026 12:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF484606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gnU4+EwBT9Yy+gbxDxLRhY3mmvHPY7F2R3oFBIuWmPk=; b=YP+HyxR72saZz
-	eQkLbzd8u4286T09fnvSMZ0HA6rSrZDugya5ChoVOzhviHHxQB4f9KifGdLgvroz
-	TMfOel5heuKsvLOx3zGkF1/TIcsZQSPiG3k6IZnLsXfQi+R8csp7qSNiMKwpMX0T
-	7oVKnyqJ39MtvzQmiRQ0dI1LZY+Uf4=
-Received: from LAPTOP-FRMFRHCN.localdomain (unknown [240e:454:8411:e49:29:34e0:92e:39c2])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkAGC_5o8fpqGke3AQ--.45651S2;
-	Mon, 16 Nov 2026 20:04:58 +0800 (CST)
-From: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	jolsa@kernel.org,
-	irogers@google.com
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+56ad4cdaff8716472033@syzkaller.appspotmail.com,
-	Jinning Zhang <25031212117@stu.xidian.edu.cn>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Haoli Zhang <26031212468@stu.xidian.edu.cn>
-Subject: [PATCH] perf/core: Protect ctx after dropping its reference
-Date: Mon, 16 Nov 2026 20:04:52 +0800
-Message-Id: <20261116120452.22269-1-26031212468@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gq0ZgjZX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56052606A323;
+	Mon, 16 Nov 2026 12:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gq0ZgjZX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8FE1F000C4;
+	Mon, 16 Nov 2026 12:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794830761;
+	bh=NvzKt0ABqG9czfX7CCvo3D1asfWGOA5KuXZFSV0WPCo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gq0ZgjZXMXmWGTeDHa0/IfFWDr/tAYv2vQqhdEtIDdXLzXi58xq+03HRF5FAg8B5p
+	 E2kjKiRHq4NJ6dA4P9UKTUyvgvM4wv7bWq61jsziLfpSiWz3fJ0i2iTZzQIqUE2dNa
+	 0kZDs9luJvX66qVN6GCgLtjs7usFZGeQFXzWvNZRiZHIpIxERre0BSr7+fb7eSG3BT
+	 Rr8cXP3yGJeCJ/RBumUbI45Lw8bNfysejg619nd7Y+rN6EuqBOTQxLRJY2jkEN4JqN
+	 0YEWi8JutYVa8yughDBF/O5svzGj76oeDUgU08BNXCx5hVCYrZWjlVUkRPbXcWNnZO
+	 yQ5UFfjmt5nPQ==
+Date: Mon, 16 Nov 2026 13:05:52 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Mina Hui-Min Chou <minachou@andestech.com>, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, jic23@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
+	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, randolph@andestech.com, cyyang772@andestech.com, 
+	tim609@andestech.com, az70021@gmail.com
+Subject: Re: [PATCH v2 12/19] dt-bindings: cache: andestech: update schema
+ for generic LLC support
+Message-ID: <20261116-crazy-adventurous-cockatrice-61c62b@quoll>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113071143.1446167-13-minachou@andestech.com>
+ <20261113-emporium-provolone-0e7b0e39c97a@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,85 +64,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkAGC_5o8fpqGke3AQ--.45651S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr4kWw48tryxKF13Gr4kZwb_yoW5Jry5pr
-	WkAr1Yk395WFnIya1DKwnrWw18Cws5JrZrAryvg3WxZrnxX3yaya4Igr45ZFZ8Zr92ya40
-	qF4qyr45Ca98ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4
-	vEIxC_Xr1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
-	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUnbyZ
-	UUUUU
-X-CM-SenderInfo: yswqjiasrskluy6v33wo0lvxldqovvfxof0/1tbiAQUTEWr5ytfRTwABsX
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-emporium-provolone-0e7b0e39c97a@spud>
 
-Take an RCU read lock before decrementing the reference and retain it
-through the non-final branch's tombstone check and wakeup. This keeps ctx
-alive until that branch has finished. When the decrement is final,
-release the read lock immediately; that caller continues the final
-cleanup and queues the RCU callback.
+On Fri, Nov 13, 2026 at 02:05:29PM +0000, Conor Dooley wrote:
+> On Fri, Nov 13, 2026 at 03:11:36PM +0800, Mina Hui-Min Chou wrote:
+> > The last level cache controller of Andes cores is not specific to
+> > AX45MP. Other Andes cores, such as the A27L2, use the same controller
+> > with the same register interface, but the binding only accepts
+> > andestech,ax45mp-cache. Add andestech,llcache for them, and describe
+> > the binding as an Andes last level cache rather than an AX45MP L2
+> > cache.
+> > 
+> > The cache-level, cache-sets and cache-size constraints describe the
+> > AX45MP L2 cache, so apply them to andestech,ax45mp-cache only. The LLC
+> > of other Andes cores can be level 3 and have other geometries, so
+> > allow cache-level 3 and require cache-sets only for AX45MP. Match
+> > renesas,r9a07g043f-ax45mp-cache explicitly instead of through the else
+> > branch, which would otherwise also apply to andestech,llcache.
+> > 
+> > Also add an example for andestech,llcache, and add myself as a
+> > maintainer of the binding.
+> > 
+> > Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
+> > ---
+> >  .../cache/andestech,ax45mp-cache.yaml         | 71 ++++++++++++++-----
+> >  1 file changed, 54 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.yaml b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.yaml
+> > index b135ffa4ab6b..da9688cc95f7 100644
+> > --- a/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.yaml
+> > +++ b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.yaml
+> > @@ -5,14 +5,15 @@
+> >  $id: http://devicetree.org/schemas/cache/andestech,ax45mp-cache.yaml#
+> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> >  
+> > -title: Andestech AX45MP L2 Cache Controller
+> > +title: Andestech Last Level Cache Controller
+> >  
+> >  maintainers:
+> >    - Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > +  - Mina Hui-Min Chou <minachou@andestech.com>
+> >  
+> >  description:
+> > -  A level-2 cache (L2C) is used to improve the system performance by providing
+> > -  a large amount of cache line entries and reasonable access delays. The L2C
+> > +  A last level cache (LLC) is used to improve the system performance by providing
+> > +  a large amount of cache line entries and reasonable access delays. The LLC
+> >    is shared between cores, and a non-inclusive non-exclusive policy is used.
+> >  
+> >  select:
+> > @@ -21,18 +22,23 @@ select:
+> >        contains:
+> >          enum:
+> >            - andestech,ax45mp-cache
+> > +          - andestech,llcache
+> >  
+> >    required:
+> >      - compatible
+> >  
+> >  properties:
+> >    compatible:
+> > -    items:
+> > -      - enum:
+> > -          - andestech,qilai-ax45mp-cache
+> > -          - renesas,r9a07g043f-ax45mp-cache
+> > -      - const: andestech,ax45mp-cache
+> > -      - const: cache
+> > +    oneOf:
+> > +      - items:
+> > +          - enum:
+> > +              - andestech,qilai-ax45mp-cache
+> > +              - renesas,r9a07g043f-ax45mp-cache
+> > +          - const: andestech,ax45mp-cache
+> > +          - const: cache
 
-Read ctx->task with READ_ONCE(), matching the WRITE_ONCE() used when the
-task context is marked as a tombstone. Keep smp_mb__after_atomic(): it
-preserves the existing wait_var_event() ordering, while RCU protects the
-context's lifetime.
+Illogical split of patches. If this was to stay, then THIS commit is the
+reason to rename so rename would happen here, not in some time in the
+future. Same for everything you do.
 
-A similar fix was posted by Weiming Shi in October:
-https://lkml.iu.edu/2610.0/09721.html. This version releases the RCU
-read lock immediately on the final-put path and uses READ_ONCE() for the
-lockless ctx->task check.
-
-The report shows the access in put_ctx() reached through event release,
-and the free callback was queued from task-exit context cleanup. These
-stacks are consistent with the post-decrement lifetime race described
-above.
-
-Fixes: 59f3aa4a3ee2 ("perf: Simplify perf_event_free_task() wait")
-Reported-by: syzbot+56ad4cdaff8716472033@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=56ad4cdaff8716472033
-Link: https://lkml.iu.edu/2610.0/09721.html
-Co-developed-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Signed-off-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Haoli Zhang <26031212468@stu.xidian.edu.cn>
----
- kernel/events/core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -1385,13 +1385,17 @@ static void put_ctx(struct perf_event_context *ctx)
- {
-+	/* The non-final path accesses ctx after dropping its reference. */
-+	rcu_read_lock();
- 	if (refcount_dec_and_test(&ctx->refcount)) {
-+		rcu_read_unlock();
- 		if (ctx->parent_ctx)
- 			put_ctx(ctx->parent_ctx);
- 		if (ctx->task && ctx->task != TASK_TOMBSTONE)
- 			put_task_struct(ctx->task);
- 		call_rcu(&ctx->rcu_head, free_ctx);
- 	} else {
- 		smp_mb__after_atomic(); /* pairs with wait_var_event() */
--		if (ctx->task == TASK_TOMBSTONE)
-+		if (READ_ONCE(ctx->task) == TASK_TOMBSTONE)
- 			wake_up_var(&ctx->refcount);
-+		rcu_read_unlock();
- 	}
- }
+Organize your patches correctly, not doing things half-baked... but
+anyway do not rename files just because you added one compatible.
 
 
+> > +      - items:
+> > +          - const: andestech,llcache
+> > +          - const: cache
+> 
+> Device specific compatibles are mandatory. I would accept this patch
+> with a
+>           - not: {}
+>             description: Need a SoC specific compatible
+> like the safexcel eip binding.
 
+But why all others cannot use ax45mp as fallback? Is this really a
+generic block among multiple generations of SoCs?
+
+What sort of arguments from contributors are to support that?
+
+
+> 
+> pw-bot: changes-requested
+> 
+> Thanks,
+> Conor.
+> 
+> 
+> >  
+> >    reg:
+> >      maxItems: 1
+> > @@ -44,13 +50,11 @@ properties:
+> >      const: 64
+> >  
+> >    cache-level:
+> > -    const: 2
+> > +    enum: [2, 3]
+> >  
+> > -  cache-sets:
+> > -    enum: [1024, 2048]
+> > +  cache-sets: true
+> >  
+> > -  cache-size:
+> > -    enum: [131072, 262144, 524288, 1048576, 2097152]
+> > +  cache-size: true
+
+
+See writing bindings. Widest constraints stay here.
+
+Best regards,
+Krzysztof
 
