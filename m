@@ -1,71 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827724;
-	b=4spAWsVtENMIMLo3S7k7wBftMZSxnAaL6sw/Njd32BVV2GVyZYR44vPFA6J9cMVp7q3o
-	 KscRUfsnmfSm92n70YMXlysmpVYCw1fdVIEZ1G1Bs5Cxz9Ezj2RxfCRiM1vdR3Q9SUpgL
-	 LWVgEk/aGwmF4HReRoc60U3d3KfASXEqgZOp/RDbVt2+17IXMctmrbv/M1FfC0KZ3Tejf
-	 728S08ir/9DuU9SamjgBMLJlZquWkRlM+q+711mZXLeFLQFkEMhaheEY6eJu+31fOi118
-	 +eM1ebMOZoUrSTU8359efM49lBdTWjO9rNaI+/yfvlvruadDIlQwKEuxt/+64ZWXxug==
+	t=1794827730;
+	b=jqDadgMDRcntiXwWZKiaqbUuBWxmXpMDPEtNgvBF9W/O4KjEudxog3ucjw6GrLN4biN/
+	 /jrlcrx+z6R/6DR7+AwfsnJiRUoae51ln/HQbTBWtA5O7u5QUELAojmGqF1QOQK+SPl73
+	 2zaxGnti/hVMOuadJ65aYdqaaVFwMxuaIdupAtySyRLA20mRI33TKO+wK07Te/+iukljL
+	 GHV6UF7WljrX4QxlFyy1y5gNBFXB/nFpevCA7Y3z8m1H9OCmmAubPlkhKqQt/Y8aiXEYg
+	 Y0u+/uOHTpusKtJvhQrjB732d1qSvcj1CPHN2QB/FYHkaYYD1+WZHa/YRmyNGoOylQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827724;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=VlOwmRJ6zFrXMNm4jjAsPeKlyueK5n2WoPT5vBxkKJI=;
-	b=GnucDFu3U+ziNcDGcTLLkZJrr1ddMku0L+fBaY4tQGXSECzzw0fAWwvTfD/kfetgUmGA
-	 0JHJVwqbrZoFXgZaHJoMKtv3IO234bR92+9bmgrFN5S/QkUn9SCvQfTj55ANsPER+yGYN
-	 8K3tfUVhHWbsI7ZEyxK83KbOFu3/B5LJpjTmzR7YUqRDEcfPOLEYrFopOdiPk6MaL+Oca
-	 P2U25irax3PYBdC5xdchu2wfOKBIBx4dWgYqRGaXpcVnQfxZMVOkqjD18xOFWMkHIaR0R
-	 mnJb9EAtwga0cSioqU5kDkVXiO5+M5I0gZjH+xYjjl7YQalc0kD8c/xcM9CqEErv2LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827730;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ydckW8oreVdglh0/os1ZEAzHkaThw7PcNlQbyjNKfnw=;
+	b=46x1EYBJkFOznm/hHo5LP4V9uusYbwGoNKFHJ0QAt2R54Y4ugrPzvF3PBaBE9KUc95NS
+	 UoN4N3vSi2bjU4P3XHvZbMU5qenhkreFUjHYWVOsWOR5HGM45Dneazwgpw6oW+1kgiVgk
+	 27wM8k86Hw6cpr9iNPIIKCiRxPHmdJMNq6+7jDON/eR1QmE1St0SQ2uQ8hBi45DiylwvL
+	 mnMj3OWkfsEmstKb2qtaO3Mx9UOC5cu0/YPZy+zRxNidPVhb3ONHGLdqKPY3E8SDsGM0R
+	 JdJFn2ErTLtH/VgdNHFEE1FX5OPz14a4XKN4/9XlkDXmrqRAYAe9OIh4s/SLvOPCJ+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cSMqNg1R;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB43E606BE16;
-	Mon, 16 Nov 2026 11:15:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB43E606BE16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljt+SaR4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635B1606BE34;
+	Mon, 16 Nov 2026 11:15:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cSMqNg1R
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 320BA1713;
-	Mon, 16 Nov 2026 03:15:20 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A0F273F632;
-	Mon, 16 Nov 2026 03:15:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794827723; bh=oK5X7pOb5zR3dPUJXccq0aNQazUBTMDBGcS29i8/5uY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cSMqNg1R9Q2gOxA5Ggegka0ibVag1/eoYwD9/HVphzVtlyB/8Frrv5D0ngMmz6H0k
-	 o+9jIjmvWFoGHSjD08gCpA+fqirVXuCztu9GTdQr+CUdXRvwn1zPT9d0/rFGOyn1Y6
-	 FV3TQI0xpWXCqmMDvokiqkvCDfMBHLbhp4b0CyX0=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	David Matlack <dmatlack@google.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Oliver Upton <oupton@kernel.org>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Josh Hilke <jrhilke@google.com>,
-	Wu Fei <wu.fei9@sanechips.com.cn>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljt+SaR4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442931F000C4;
+	Mon, 16 Nov 2026 11:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794827729;
+	bh=ydckW8oreVdglh0/os1ZEAzHkaThw7PcNlQbyjNKfnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ljt+SaR4D98ygNDHQlQlA5jDPNRphrXLiOEvs4unFRGXb58Yx69WDAIbSZTC83vlI
+	 yeRxnNdrmftttmE9fN1R/qLEKtN38ls8EmuXEINjT5HfUgld/mmfrgqS0o0bciAytZ
+	 Xh7fI3H9bxncDBd91lEb45KPKC73PfryDn1JXphTTvqvROOHm52t6WFUwBMJwgdAQB
+	 iZsPpFJIe+P1nvW33/9eGYptqJCC8Kf7sHWr1V/5mGIR0EEXe+RcBWYTvI37aEDhsE
+	 7HIXC5q5lsCJhY1/UhW6x6nnDIAViJMO7pyYkZLh8GzDpxKqQ2UjBBGZPRfC7aiLHl
+	 oZN3ZgO+p/3MQ==
+Date: Mon, 16 Nov 2026 13:15:26 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Changyul Lee <lcy8047@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] KVM: selftests: Add support for dirty-ring on dirty_log_perf_test
-Date: Mon, 16 Nov 2026 11:15:11 +0000
-Message-ID: <avrlvzq4LWrWeScS@LeoBrasDK>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261009130054.3312154-2-leo.bras@arm.com>
-References: <20261009130054.3312154-2-leo.bras@arm.com>
+Subject: Re: [PATCH] RDMA/cm: Read the remote_id_table root under cm.lock
+Message-ID: <20261116111526.GH11319@unreal>
+References: <20261111191913.98044-1-lcy8047@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,32 +58,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261111191913.98044-1-lcy8047@gmail.com>
 
-On Fri, Oct 09, 2026 at 02:00:45PM +0100, Leonardo Bras wrote:
-> Add support to dirty-ring on dirty_log_perf_test, so we can measure
-> performance differences when we change / improve the mechanism.
+On Wed, Nov 11, 2026 at 02:19:13PM -0500, Changyul Lee wrote:
+> cm_find_remote_id() reads the root of cm.remote_id_table before it
+> takes cm.lock. While it waits for the lock, cm_destroy_id() or
+> cm_reset_to_idle() on another CPU can remove that cm_timewait_info from
+> the tree and free it, and the lookup then starts from freed memory.
+> This lookup is done for a REJ with reason IB_CM_REJ_TIMEOUT.
 > 
-> One big change in this set is that dirty-ring needs to be enabled
-> after the VM was created, but before any cpu is created, so for that,
-> I made a few changes on memstress so it can actually take dirty-ring
-> size as a parameter for VM creation. (Patches #1 & #2)
+> Read the root after taking cm.lock.
 > 
-> Also added some checks in dirty-ring enable, so an error message on
-> ring size is more informative.
+> Fixes: cfa68b0d0440 ("RDMA/cm: Make find_remote_id() return a cm_id_private")
+> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+> ---
+> Found with a static analysis tool we are developing.
 > 
-> Please provide feedback :)
-> 
-> Thanks!
-> Leo
- 
-Hello,
-Just a friendly ping on this series.
-It still applies cleanly on v7.4-rc3. 
+> Reproduced in QEMU (x86_64, KASAN) on rdma_rxe over virtio-net, with a
+> test module that connects to a listener on the same device through
+> rdma_cm and destroys each active cm_id while it is in IB_CM_REQ_SENT,
+> so a REJ with IB_CM_REJ_TIMEOUT is sent. Another kthread destroys the
+> passive cm_ids. The window was widened for the test with an msleep(20)
+> between reading the root and taking cm.lock. Without this patch, KASAN
+> reported 46 to 48 slab-use-after-free reads in cm_work_handler() per
+> 20 second run in three runs, on a cm_timewait_info allocated by
+> cm_create_timewait_info() and freed by cm_destroy_id() through
+> cm_reset_to_idle(). With it, there was no KASAN report in three runs.
 
-Please let me know if you have any feedback or if anything needs to be 
-adjusted.
+I'll take this patch, since it's simple enough. However, using a test module
+that misuses an in-kernel API is not the right approach.
 
+Thanks
 
-Thanks,
-Leo
+> 
+>  drivers/infiniband/core/cm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/core/cm.c b/drivers/infiniband/core/cm.c
+> index 1a2c2775b14d..5347b7519a8d 100644
+> --- a/drivers/infiniband/core/cm.c
+> +++ b/drivers/infiniband/core/cm.c
+> @@ -734,11 +734,12 @@ cm_insert_remote_id(struct cm_timewait_info *timewait_info)
+>  static struct cm_id_private *cm_find_remote_id(__be64 remote_ca_guid,
+>  					       __be32 remote_id)
+>  {
+> -	struct rb_node *node = cm.remote_id_table.rb_node;
+> +	struct rb_node *node;
+>  	struct cm_timewait_info *timewait_info;
+>  	struct cm_id_private *res = NULL;
+>  
+>  	spin_lock_irq(&cm.lock);
+> +	node = cm.remote_id_table.rb_node;
+>  	while (node) {
+>  		timewait_info = rb_entry(node, struct cm_timewait_info,
+>  					 remote_id_node);
+> 
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> -- 
+> 2.43.0
+> 
