@@ -1,68 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844349;
-	b=IrUC/Vpf2OEeIyospG46adQ4vAsdV1611fVDI2WnHBtT4DZwAKR36qg9PMtRHyAIpzIw
-	 GLm8Tg21qFBlDsRI7rAXRTLVFaiZmW4CXV7ps79Ss7UyFoIHZLe66olOovR9bitSw5PFq
-	 xj5yoQt1d6ogVQ3dmW3h8JWQsVojkYsJWDCknkFpgoVDDsHUzywz7FUBkTbi4q7uYrLz1
-	 LnDX+JH2KZejVSadsrke8H8Q2OcG2JvaAiEdtdwuBReQO8BSl9HbkAkluc5etyEBfTkEk
-	 t4XIIMOHvm2ywWKtMYd5FlskOgKhMF5+mUivIGAV3DOtGtJFEUheOmvrobNGjUZDDSA==
+	t=1794844358;
+	b=ZQo/m+da+Ibr5BAbCbfKkik9/+95SThfNEiCIeIKUYzyRZdFTNEvm8hmHEDsg3uIE9Ko
+	 PZ5qSA1Yem3hDo8Qf0t79RGAvYXPmbCJPcNzRjccyDa8KOdvTFV1tkj7Qy+IuE4byB0QT
+	 Fx40Mv12Xx09wiVYImIcxDuRgFDHSsv1qas0bk8UIan568hHVmZU4IGWXXiv11AzhvypI
+	 XGdMVmRdEpuSkVdimWW3AH+AVAz20OfXm4s1Vo5sZhdi6o1/oJ+YjVjc7ovyo172z8vXI
+	 0qgf242St9sMv4rdVQyx9ky98YcESV6yvi27FgLFckOViqOhqVajzk1eR1YZiFsg3gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844349;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=WPIgPkplQXYcdgIP2HZXNUASrSQ30h2/EQrrK2TSh2g=;
-	b=ND1cdTkpqm3uwq/glFgLFs6SsoapjFhaMVNsuZtUKAT84gjm9qdIQ8gcLndh+nbOqdQK
-	 2hk2ISWPo+LrtTQcGYcsq2nnm3jGRjpdHtCpWxxt8bYGZ9OZuuwxZPgihjlryomKENaqP
-	 Qhx+kihiwLQ+a/C18E5eVaUVkcXpETtrWc2KfedhYQ1leNNYK0jgddjSK2AZHBKMXji/3
-	 55Dh0ZH73A2gHxLhAruNs4tFluq22N4Img03i3BfExaaXbEKPYz35CV3IMMK6NNHoq39s
-	 le0UsAP+NmEqR8PWtskkBsH8GFdXXelDotG8fSlfYbcZ271k3HfGYwoRrCLy4FM2A9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844358;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/jmAse/nXpg22et2TT3BCaD1tUokDIRAMdasm8SKXqw=;
+	b=oTtWbexsZjo/j527A2NMcFqNx8C+FiQCR5rcwu5LEkEjUnYQC1WbynHwpyni3yFnjkNf
+	 HxO6NVpTr2g/xNk4R26np24iiCablchJvORMTyAgbfMXSFTxBfwx4YWmRhuRdsPVBYqO0
+	 ojqZmkAxu6sconFqRNFN1mqbuxINLcMPOHVNh1j8Ru6Wa/IQK9yK6VS02fctdSSyNne0l
+	 vOE4IL6yPePyEcD9i6oXjCKHhq0hrOQTBsA4MV6+Dy43aaPqg2PTIzi1NOUycQnhWkq81
+	 +Rio+X8RgRzZrZyKTn5M9rwWJVREa7K6UjnoOr7PEBJmncZBMZ5PqY1txQ8GUmXtNkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xxGaSkpO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bqJxEwMP;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OSOtCNyY;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAB3606A323;
-	Mon, 16 Nov 2026 15:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CAB3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10798606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:52:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10798606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xxGaSkpO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bqJxEwMP
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794844347;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WPIgPkplQXYcdgIP2HZXNUASrSQ30h2/EQrrK2TSh2g=;
-	b=xxGaSkpOIXcLNPTFf6AkudcAhEr78jeua8vlh/m7m1mxCzy5+2QevqqUFGNwx2hkLUG8D7
-	TEM5gRnnLL7STjx78ypyEgHSv1/ax2kOR1fCtMZO1dMQbgjAuAYkavj6Sy7Rhb1ouJYLe2
-	tW3NR94LXsr3jmRZRUWXsWTLaDKOO5vOr/u+52EODWHl0q0ZGxxrHDPESeh7B3DDRc6Se0
-	t8b5M4Ki8QbLlikW8ZmnA/oI7qUHDxc9ujiks0qXnuX+buv9kX0RKnRJn7oAK5zd2Sf3Cl
-	UMPAoLtJMYY0zjt11Oea0ORMysOzGTKfGOMDZXLcgtKW0domVcJ++vWDfaC0dw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794844347;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WPIgPkplQXYcdgIP2HZXNUASrSQ30h2/EQrrK2TSh2g=;
-	b=bqJxEwMPxKYdmx2Eo+k88h/knBfiFt4y1s/FS+gZ/VQINVWcad+mfRbyLysUGRy5CiPr1A
-	l3QNcb1iXzwkpIBw==
-To: Breno Leitao <leitao@debian.org>, pmladek@suse.com, kuba@kernel.org,
- gustavold@gmail.com
-Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
- netdev@vger.kernel.org
-Subject: Re: [RFC] netconsole: plan for a safe atomic write
-In-Reply-To: <avcI9gVR7brRHQSQ@gmail.com>
-References: <avcI9gVR7brRHQSQ@gmail.com>
-Date: Mon, 16 Nov 2026 16:58:26 +0106
-Message-ID: <87h5hgyds5.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OSOtCNyY
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so11843405e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:52:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794844356; x=1795449156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/jmAse/nXpg22et2TT3BCaD1tUokDIRAMdasm8SKXqw=;
+        b=OSOtCNyYYYp4f4uyOL1UD4QfRKFr4ZM2M/ja25y+B7ShZI3ZKk5+DD2CZyKB8mszER
+         RUxMuSu10skSJrM1oVggl4G4IHoseiGsVSoGV1kZy3KUj+nVAGMqN70i6CZWegmYct7r
+         EOGd1fQydb51RKd70atB/NV4AOwcQ4sVdSKQN17RLdOjOj6ZsIQVH47aEvpnQ8WWTyh4
+         dOC6Vw0nHRm0Zr+MtoR4sADSq4bxV46PW96796MqhuuVBebzCwRrKBobQKqIHVI7Ge55
+         0YM/PtUGk072QzjWor8Qf6mRGCmq+/IlZdM9lSS+DGbPtNwH3hZ9663cXmcUAmwJTAB+
+         +BzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794844356; x=1795449156;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/jmAse/nXpg22et2TT3BCaD1tUokDIRAMdasm8SKXqw=;
+        b=TWYuqQP/qj79V//u/wSjh5Zz++GLJxwmc+H4swRx7DAhZPzllck7giSLiV0a8ynIKg
+         xC8jTlRCmaRPdDTApmGuC1l1ebomLW9/5YRRh4OACqc9zyLeoWHRevVMocNM5/GVmXlB
+         sfDhOWnK/wr6dMH/M7oNdrE8/jKdYAV3D8/BjQJPn9LC4bo29t8m3v/2NRJyeFIoSCSy
+         RK/qqXfU3wzt2luSm5HdQfg1N4ArU7BH1ZoWcxjLwNDASVPxv29UaPPUgO8rR1zE0d3d
+         JK8BNzoV0vKdbmx59lsMdLtf6KA869x8BzAxosTOtNaDSCRZAtDCId31+A00xaH7EALw
+         rdag==
+X-Forwarded-Encrypted: i=1; AL+hErHID6w90nKuJceyMS2wb3nt1TfgEBsH0RSE1ZtEiIWZd0ichJP/Ci0oNKOLRNActxyvlz2YLP+DEjOk80g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/q/YgrCUQiaj9U9dUl9qvUj+3GqTRdPowCnkmN0m3g8Qv0/z+S
+	MkS97rx1dDjpx5ABhixMzGjYim1xmSiKSCmm1BRT0ZA5xVpouQLLxtv2
+X-Gm-Gg: AYBFou3WplGhGC1NrHqH5Wfhd2S6V2VZLKFiSJPHGIuY8CcrwZpsP/GO+L8qPrpCbCy
+	RWvI5+8KbBBPymKZKI5RTcl/MDQlSRvZal1XVXa+igs1MuTKgcxlMw7SF8QYPoYTxDqQsfj0ttL
+	MKJoS3665epYo8A8KaVAzB8siRrfGIPjoXa9gytk2q1wRZBWPZnGgGVR6gm0LxJwibCdNMoP8QM
+	YX/XKOfyFLJI1of9yupCjLRGixr4z/0Wz9bdzjf4CcwebOLqYs2wg/uBj06SftZMg+cq9opq3GU
+	7WhDizg0rD6hjyN7YSca1uoVroW29ip/mQRofn/uynk9F+VO4Ckmz98VIliZgWTCVfdIXVtbwXg
+	4iGxjPkISheDWKFXmeicLQlY8jeqZgWDIcGRt2+QVjxM8WAFrne+pFvdXdx96X4x6U1HqOKykui
+	+XLTVUgFG297p283eQeYgJMMMpuJxPiHGnQ7RMJsi4YNjcFiX8SRcqjFmMX4OVrdAE5kZ7NleNA
+	g6o4T8ovNkA+bAu2S+rnFtcWBubyklXM/owAv0rQ1uxMABSBI6XYkfplih2QmCTo18V4hRsJa9O
+	wg3ZXR1hctDJraqhOFQUFuTCRYOfJgBeaizAXb++Mq905ij4F1f4hnKFNuzJSKDbGsAn1ophx1v
+	dQzJG/95w02hUxCZVm7nKGdAdr/5xkNQGns0gY0Bd
+X-Received: by 2002:a05:600c:1993:b0:4bb:659c:b8db with SMTP id 5b1f17b1804b1-4bb659cb9e8mr149452915e9.12.1794844355635;
+        Mon, 16 Nov 2026 07:52:35 -0800 (PST)
+Received: from B87454BG30364.retailmedia.com (284035233.box.freepro.com. [82.96.134.200])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae501bsm321279415e9.10.2026.11.16.07.52.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 07:52:35 -0800 (PST)
+From: Erwan Velu <erwanaliasr1@gmail.com>
+To: Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: Carlos Bilbao <carlos.bilbao@kernel.org>,
+	Muralidhara M K <muralidhara.mk@amd.com>,
+	Suma Hegde <suma.hegde@amd.com>,
+	Muthusamy Ramalingam <muthusamy.ramalingam@amd.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Erwan Velu <e.velu@criteo.com>
+Subject: [PATCH v2 1/5] platform/x86/amd/hsmp: Move per-socket sysfs attributes to common code
+Date: Mon, 16 Nov 2026 16:51:43 +0100
+Message-ID: <20261116155147.769630-2-erwanaliasr1@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116155147.769630-1-erwanaliasr1@gmail.com>
+References: <20261116155147.769630-1-erwanaliasr1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,78 +105,790 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Hi Breno,
+From: Erwan Velu <e.velu@criteo.com>
 
-On 2026-11-13, Breno Leitao <leitao@debian.org> wrote:
-> netconsole is CON_NBCON_ATOMIC_UNSAFE, so write_atomic() only runs at
-> the very end of panic. There is a desired to have called safe atomic
-> printing[1].
->
-> This is the plan I would like to agree on before posting patches:
->
-> 1. Now that we have one console per target, use one lock per
->    console/target.
->    - printk holds the target's device_lock around write_thread(),
->      write_atomic() runs under the console ownership, and stopping
->      a target takes both. target_list_lock and the cleanup list go away:
->      the list changes under dynamic_netconsole_mutex and RTNL, and is
->      walked under either.
+The per-socket telemetry attributes (c0_residency_input, ddr_max_bw,
+pwr_current_active_freq_limit, ...) are implemented in acpi.c, so only
+the ACPI driver can expose them, although they are plain HSMP messages
+the platform driver can send as well.
 
-This synchronizes the console against itself and the user interface
-(netconsole configuration). IIUC it does not provide any synchronization
-against non-netconsole usage of the port.
+Move them to a new sysfs.c in hsmp_common and export the attribute
+groups as hsmp_sock_groups, so they can be shared by both drivers. The
+ACPI driver keeps exposing them on its socket devices via dev_groups.
 
-> 2. A per-target field to track atomic writes.
->    - In that mode, skbs come only from a pool popped without a lock and
->      refilled through irq_work.
+No functional change.
 
-IIUC the risk here is that the garbage collector is deferred and there
-may not be skbs available. In that case, what do you expect to happen?
-The printk record is dropped? Or the console disables itself from printk
-flushing until some (hopefully) later time when skbs are ready and it
-can enable itself, thus resuming the flush?
+Assisted-by: claude-opus-5-5
+Acked-by: Carlos Bilbao <carlos.bilbao@kernel.org>
+Signed-off-by: Erwan Velu <e.velu@criteo.com>
+---
+ drivers/platform/x86/amd/hsmp/Makefile |   2 +-
+ drivers/platform/x86/amd/hsmp/acpi.c   | 331 +----------------------
+ drivers/platform/x86/amd/hsmp/hsmp.h   |   1 +
+ drivers/platform/x86/amd/hsmp/sysfs.c  | 348 +++++++++++++++++++++++++
+ 4 files changed, 351 insertions(+), 331 deletions(-)
+ create mode 100644 drivers/platform/x86/amd/hsmp/sysfs.c
 
-> 3. A try-once netpoll transmit, as Jakub outlined [2]:
->    - One HARD_TX_TRYLOCK, then busy, with no polling, freeing or
->      wakeups, which can deadlock under rq->lock[3].
->    - It refuses when this CPU owns the queue (netif_tx_owned()), is in
->      the device's NAPI poll (netpoll_owner_active()), or is in NMI on
->      PREEMPT_RT.
+diff --git a/drivers/platform/x86/amd/hsmp/Makefile b/drivers/platform/x86/amd/hsmp/Makefile
+index ce8342e71f50..21fc1d185550 100644
+--- a/drivers/platform/x86/amd/hsmp/Makefile
++++ b/drivers/platform/x86/amd/hsmp/Makefile
+@@ -5,7 +5,7 @@
+ #
+ 
+ obj-$(CONFIG_AMD_HSMP)			+= hsmp_common.o
+-hsmp_common-y				:= hsmp.o
++hsmp_common-y				:= hsmp.o sysfs.o
+ hsmp_common-$(CONFIG_HWMON)		+= hwmon.o
+ obj-$(CONFIG_AMD_HSMP_PLAT)		+= amd_hsmp.o
+ amd_hsmp-y				:= plat.o
+diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
+index 167c76c13ad0..a1e13aff9c86 100644
+--- a/drivers/platform/x86/amd/hsmp/acpi.c
++++ b/drivers/platform/x86/amd/hsmp/acpi.c
+@@ -12,9 +12,6 @@
+ #include <asm/amd/hsmp.h>
+ 
+ #include <linux/acpi.h>
+-#include <linux/array_size.h>
+-#include <linux/bits.h>
+-#include <linux/bitfield.h>
+ #include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/dev_printk.h>
+@@ -27,7 +24,6 @@
+ #include <linux/rwsem.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+-#include <linux/sysfs.h>
+ #include <linux/topology.h>
+ #include <linux/uuid.h>
+ 
+@@ -55,11 +51,6 @@ static struct hsmp_plat_device *hsmp_pdev;
+  */
+ static struct kref hsmp_acpi_sock_kref;
+ 
+-struct hsmp_sys_attr {
+-	struct device_attribute dattr;
+-	u32 msg_id;
+-};
+-
+ static int amd_hsmp_acpi_rdwr(struct hsmp_socket *sock, u32 offset,
+ 			      u32 *value, bool write)
+ {
+@@ -270,262 +261,6 @@ static int hsmp_parse_acpi_table(struct device *dev, u16 sock_ind)
+ 	return 0;
+ }
+ 
+-static ssize_t hsmp_metric_tbl_acpi_read(struct file *filp, struct kobject *kobj,
+-					 const struct bin_attribute *bin_attr, char *buf,
+-					 loff_t off, size_t count)
+-{
+-	struct device *dev = container_of(kobj, struct device, kobj);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-
+-	/*
+-	 * metrics_bin is a sysfs binary attribute and is capped at PAGE_SIZE.
+-	 * It can therefore only carry the protocol version 6 metric table
+-	 * (struct hsmp_metric_table).  The larger tables defined from protocol
+-	 * version 7 onwards do not fit; userspace on those systems must read
+-	 * the snapshot through HSMP_IOCTL_GET_TELEMETRY_DATA on /dev/hsmp.
+-	 * Surface the unsupported case here as -EOPNOTSUPP rather than
+-	 * silently truncating the snapshot.
+-	 */
+-	if (hsmp_pdev->proto_ver != HSMP_PROTO_VER6)
+-		return -EOPNOTSUPP;
+-
+-	return hsmp_metric_tbl_read(sock, buf, count);
+-}
+-
+-static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
+-					 const struct bin_attribute *battr, int id)
+-{
+-	/*
+-	 * Keep metrics_bin visible on protocol version 7 and later as well,
+-	 * so that userspace which expects the file to exist gets a clear
+-	 * -EOPNOTSUPP from the read handler instead of -ENOENT, and is
+-	 * pointed at HSMP_IOCTL_GET_TELEMETRY_DATA as the supported path.
+-	 * Hide metrics_bin on client platforms.
+-	 */
+-	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)
+-		return battr->attr.mode;
+-
+-	return 0;
+-}
+-
+-/* Defined below by HSMP_DEV_ATTR() */
+-static struct hsmp_sys_attr hattr_smu_fw_version;
+-static struct hsmp_sys_attr hattr_protocol_version;
+-
+-static umode_t hsmp_is_sock_dev_attr_visible(struct kobject *kobj,
+-					     struct attribute *attr, int id)
+-{
+-	/* Hide every attribute except smu_fw_version and protocol_version on client platforms */
+-	if (is_client_platform() && attr != &hattr_smu_fw_version.dattr.attr &&
+-	    attr != &hattr_protocol_version.dattr.attr)
+-		return 0;
+-
+-	return attr->mode;
+-}
+-
+-#define to_hsmp_sys_attr(_attr) container_of(_attr, struct hsmp_sys_attr, dattr)
+-
+-static ssize_t hsmp_msg_resp32_show(struct device *dev, struct device_attribute *attr,
+-				    char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%u\n", data);
+-}
+-
+-#define DDR_MAX_BW_MASK		GENMASK(31, 20)
+-#define DDR_UTIL_BW_MASK	GENMASK(19, 8)
+-#define DDR_UTIL_BW_PERC_MASK	GENMASK(7, 0)
+-#define FW_VER_MAJOR_MASK	GENMASK(23, 16)
+-#define FW_VER_MINOR_MASK	GENMASK(15, 8)
+-#define FW_VER_DEBUG_MASK	GENMASK(7, 0)
+-#define FMAX_MASK		GENMASK(31, 16)
+-#define FMIN_MASK		GENMASK(15, 0)
+-#define FREQ_LIMIT_MASK		GENMASK(31, 16)
+-#define FREQ_SRC_IND_MASK	GENMASK(15, 0)
+-
+-static ssize_t hsmp_ddr_max_bw_show(struct device *dev, struct device_attribute *attr,
+-				    char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu\n", FIELD_GET(DDR_MAX_BW_MASK, data));
+-}
+-
+-static ssize_t hsmp_ddr_util_bw_show(struct device *dev, struct device_attribute *attr,
+-				     char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu\n", FIELD_GET(DDR_UTIL_BW_MASK, data));
+-}
+-
+-static ssize_t hsmp_ddr_util_bw_perc_show(struct device *dev, struct device_attribute *attr,
+-					  char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu\n", FIELD_GET(DDR_UTIL_BW_PERC_MASK, data));
+-}
+-
+-static ssize_t hsmp_msg_fw_ver_show(struct device *dev, struct device_attribute *attr,
+-				    char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu.%lu.%lu\n",
+-			  FIELD_GET(FW_VER_MAJOR_MASK, data),
+-			  FIELD_GET(FW_VER_MINOR_MASK, data),
+-			  FIELD_GET(FW_VER_DEBUG_MASK, data));
+-}
+-
+-static ssize_t hsmp_fclk_show(struct device *dev, struct device_attribute *attr,
+-			      char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data[2];
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, data, 2);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%u\n", data[0]);
+-}
+-
+-static ssize_t hsmp_mclk_show(struct device *dev, struct device_attribute *attr,
+-			      char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data[2];
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, data, 2);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%u\n", data[1]);
+-}
+-
+-static ssize_t hsmp_clk_fmax_show(struct device *dev, struct device_attribute *attr,
+-				  char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu\n", FIELD_GET(FMAX_MASK, data));
+-}
+-
+-static ssize_t hsmp_clk_fmin_show(struct device *dev, struct device_attribute *attr,
+-				  char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu\n", FIELD_GET(FMIN_MASK, data));
+-}
+-
+-static ssize_t hsmp_freq_limit_show(struct device *dev, struct device_attribute *attr,
+-				    char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	return sysfs_emit(buf, "%lu\n", FIELD_GET(FREQ_LIMIT_MASK, data));
+-}
+-
+-static const char * const freqlimit_srcnames[] = {
+-	"cHTC-Active",
+-	"PROCHOT",
+-	"TDC limit",
+-	"PPT Limit",
+-	"OPN Max",
+-	"Reliability Limit",
+-	"APML Agent",
+-	"HSMP Agent",
+-};
+-
+-static ssize_t hsmp_freq_limit_source_show(struct device *dev, struct device_attribute *attr,
+-					   char *buf)
+-{
+-	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
+-	struct hsmp_socket *sock = dev_get_drvdata(dev);
+-	unsigned int index;
+-	int len = 0;
+-	u16 src_ind;
+-	u32 data;
+-	int ret;
+-
+-	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
+-	if (ret)
+-		return ret;
+-
+-	src_ind = FIELD_GET(FREQ_SRC_IND_MASK, data);
+-	for (index = 0; index < ARRAY_SIZE(freqlimit_srcnames); index++) {
+-		if (!src_ind)
+-			break;
+-		if (src_ind & 1)
+-			len += sysfs_emit_at(buf, len, "%s\n", freqlimit_srcnames[index]);
+-		src_ind >>= 1;
+-	}
+-	return len;
+-}
+-
+ /*
+  * Bring up one ACPI HSMP socket: parse its ACPI table, run the mailbox
+  * handshake and register its sysfs/hwmon interfaces.
+@@ -593,70 +328,6 @@ static int init_acpi(struct device *dev)
+ 	return 0;
+ }
+ 
+-static const struct bin_attribute  hsmp_metric_tbl_attr = {
+-	.attr = { .name = HSMP_METRICS_TABLE_NAME, .mode = 0444},
+-	.read = hsmp_metric_tbl_acpi_read,
+-	.size = sizeof(struct hsmp_metric_table),
+-};
+-
+-static const struct bin_attribute *hsmp_attr_list[] = {
+-	&hsmp_metric_tbl_attr,
+-	NULL
+-};
+-
+-#define HSMP_DEV_ATTR(_name, _msg_id, _show, _mode)	\
+-static struct hsmp_sys_attr hattr_##_name = {		\
+-	.dattr = __ATTR(_name, _mode, _show, NULL),	\
+-	.msg_id = _msg_id,				\
+-}
+-
+-HSMP_DEV_ATTR(c0_residency_input, HSMP_GET_C0_PERCENT, hsmp_msg_resp32_show, 0444);
+-HSMP_DEV_ATTR(prochot_status, HSMP_GET_PROC_HOT, hsmp_msg_resp32_show, 0444);
+-HSMP_DEV_ATTR(smu_fw_version, HSMP_GET_SMU_VER, hsmp_msg_fw_ver_show, 0444);
+-HSMP_DEV_ATTR(protocol_version, HSMP_GET_PROTO_VER, hsmp_msg_resp32_show, 0444);
+-HSMP_DEV_ATTR(cclk_freq_limit_input, HSMP_GET_CCLK_THROTTLE_LIMIT, hsmp_msg_resp32_show, 0444);
+-HSMP_DEV_ATTR(ddr_max_bw, HSMP_GET_DDR_BANDWIDTH, hsmp_ddr_max_bw_show, 0444);
+-HSMP_DEV_ATTR(ddr_utilised_bw_input, HSMP_GET_DDR_BANDWIDTH, hsmp_ddr_util_bw_show, 0444);
+-HSMP_DEV_ATTR(ddr_utilised_bw_perc_input, HSMP_GET_DDR_BANDWIDTH, hsmp_ddr_util_bw_perc_show, 0444);
+-HSMP_DEV_ATTR(fclk_input, HSMP_GET_FCLK_MCLK, hsmp_fclk_show, 0444);
+-HSMP_DEV_ATTR(mclk_input, HSMP_GET_FCLK_MCLK, hsmp_mclk_show, 0444);
+-HSMP_DEV_ATTR(clk_fmax, HSMP_GET_SOCKET_FMAX_FMIN, hsmp_clk_fmax_show, 0444);
+-HSMP_DEV_ATTR(clk_fmin, HSMP_GET_SOCKET_FMAX_FMIN, hsmp_clk_fmin_show, 0444);
+-HSMP_DEV_ATTR(pwr_current_active_freq_limit, HSMP_GET_SOCKET_FREQ_LIMIT,
+-	      hsmp_freq_limit_show, 0444);
+-HSMP_DEV_ATTR(pwr_current_active_freq_limit_source, HSMP_GET_SOCKET_FREQ_LIMIT,
+-	      hsmp_freq_limit_source_show, 0444);
+-
+-static struct attribute *hsmp_dev_attr_list[] = {
+-	&hattr_c0_residency_input.dattr.attr,
+-	&hattr_prochot_status.dattr.attr,
+-	&hattr_smu_fw_version.dattr.attr,
+-	&hattr_protocol_version.dattr.attr,
+-	&hattr_cclk_freq_limit_input.dattr.attr,
+-	&hattr_ddr_max_bw.dattr.attr,
+-	&hattr_ddr_utilised_bw_input.dattr.attr,
+-	&hattr_ddr_utilised_bw_perc_input.dattr.attr,
+-	&hattr_fclk_input.dattr.attr,
+-	&hattr_mclk_input.dattr.attr,
+-	&hattr_clk_fmax.dattr.attr,
+-	&hattr_clk_fmin.dattr.attr,
+-	&hattr_pwr_current_active_freq_limit.dattr.attr,
+-	&hattr_pwr_current_active_freq_limit_source.dattr.attr,
+-	NULL
+-};
+-
+-static const struct attribute_group hsmp_attr_grp = {
+-	.bin_attrs = hsmp_attr_list,
+-	.attrs = hsmp_dev_attr_list,
+-	.is_bin_visible = hsmp_is_sock_attr_visible,
+-	.is_visible = hsmp_is_sock_dev_attr_visible,
+-};
+-
+-static const struct attribute_group *hsmp_groups[] = {
+-	&hsmp_attr_grp,
+-	NULL
+-};
+-
+ static const struct acpi_device_id amd_hsmp_acpi_ids[] = {
+ 	{ACPI_HSMP_DEVICE_HID, 0},
+ 	{}
+@@ -814,7 +485,7 @@ static struct platform_driver amd_hsmp_driver = {
+ 	.driver		= {
+ 		.name	= DRIVER_NAME,
+ 		.acpi_match_table = amd_hsmp_acpi_ids,
+-		.dev_groups = hsmp_groups,
++		.dev_groups = hsmp_sock_groups,
+ 	},
+ };
+ 
+diff --git a/drivers/platform/x86/amd/hsmp/hsmp.h b/drivers/platform/x86/amd/hsmp/hsmp.h
+index 3302c1517369..7a0e3af67691 100644
+--- a/drivers/platform/x86/amd/hsmp/hsmp.h
++++ b/drivers/platform/x86/amd/hsmp/hsmp.h
+@@ -104,6 +104,7 @@ int hsmp_create_sensor(struct device *dev, u16 sock_ind);
+ static inline int hsmp_create_sensor(struct device *dev, u16 sock_ind) { return 0; }
+ #endif
+ int hsmp_msg_get_nargs(u16 sock_ind, u32 msg_id, u32 *data, u8 num_args);
++extern const struct attribute_group *hsmp_sock_groups[];
+ 
+ /*
+  * Gates the HSMP data plane: hsmp_send_message() takes it for read; probe and
+diff --git a/drivers/platform/x86/amd/hsmp/sysfs.c b/drivers/platform/x86/amd/hsmp/sysfs.c
+new file mode 100644
+index 000000000000..06c0a5a02ca2
+--- /dev/null
++++ b/drivers/platform/x86/amd/hsmp/sysfs.c
+@@ -0,0 +1,348 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * AMD HSMP sysfs support
++ * Copyright (c) 2024, AMD.
++ * All Rights Reserved.
++ *
++ * This file provides the per-socket sysfs attributes of the HSMP interface.
++ */
++
++#include <asm/amd/hsmp.h>
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/device.h>
++#include <linux/sysfs.h>
++
++#include "hsmp.h"
++
++struct hsmp_sys_attr {
++	struct device_attribute dattr;
++	u32 msg_id;
++};
++
++static ssize_t hsmp_metric_tbl_acpi_read(struct file *filp, struct kobject *kobj,
++					 const struct bin_attribute *bin_attr, char *buf,
++					 loff_t off, size_t count)
++{
++	struct device *dev = container_of(kobj, struct device, kobj);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++
++	/*
++	 * metrics_bin is a sysfs binary attribute and is capped at PAGE_SIZE.
++	 * It can therefore only carry the protocol version 6 metric table
++	 * (struct hsmp_metric_table).  The larger tables defined from protocol
++	 * version 7 onwards do not fit; userspace on those systems must read
++	 * the snapshot through HSMP_IOCTL_GET_TELEMETRY_DATA on /dev/hsmp.
++	 * Surface the unsupported case here as -EOPNOTSUPP rather than
++	 * silently truncating the snapshot.
++	 */
++	if (get_hsmp_pdev()->proto_ver != HSMP_PROTO_VER6)
++		return -EOPNOTSUPP;
++
++	return hsmp_metric_tbl_read(sock, buf, count);
++}
++
++static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
++					 const struct bin_attribute *battr, int id)
++{
++	/*
++	 * Keep metrics_bin visible on protocol version 7 and later as well,
++	 * so that userspace which expects the file to exist gets a clear
++	 * -EOPNOTSUPP from the read handler instead of -ENOENT, and is
++	 * pointed at HSMP_IOCTL_GET_TELEMETRY_DATA as the supported path.
++	 * Hide metrics_bin on client platforms.
++	 */
++	if (!is_client_platform() && get_hsmp_pdev()->proto_ver >= HSMP_PROTO_VER6)
++		return battr->attr.mode;
++
++	return 0;
++}
++
++/* Defined below by HSMP_DEV_ATTR() */
++static struct hsmp_sys_attr hattr_smu_fw_version;
++static struct hsmp_sys_attr hattr_protocol_version;
++
++static umode_t hsmp_is_sock_dev_attr_visible(struct kobject *kobj,
++					     struct attribute *attr, int id)
++{
++	/* Hide every attribute except smu_fw_version and protocol_version on client platforms */
++	if (is_client_platform() && attr != &hattr_smu_fw_version.dattr.attr &&
++	    attr != &hattr_protocol_version.dattr.attr)
++		return 0;
++
++	return attr->mode;
++}
++
++#define to_hsmp_sys_attr(_attr) container_of(_attr, struct hsmp_sys_attr, dattr)
++
++static ssize_t hsmp_msg_resp32_show(struct device *dev, struct device_attribute *attr,
++				    char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%u\n", data);
++}
++
++#define DDR_MAX_BW_MASK		GENMASK(31, 20)
++#define DDR_UTIL_BW_MASK	GENMASK(19, 8)
++#define DDR_UTIL_BW_PERC_MASK	GENMASK(7, 0)
++#define FW_VER_MAJOR_MASK	GENMASK(23, 16)
++#define FW_VER_MINOR_MASK	GENMASK(15, 8)
++#define FW_VER_DEBUG_MASK	GENMASK(7, 0)
++#define FMAX_MASK		GENMASK(31, 16)
++#define FMIN_MASK		GENMASK(15, 0)
++#define FREQ_LIMIT_MASK		GENMASK(31, 16)
++#define FREQ_SRC_IND_MASK	GENMASK(15, 0)
++
++static ssize_t hsmp_ddr_max_bw_show(struct device *dev, struct device_attribute *attr,
++				    char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu\n", FIELD_GET(DDR_MAX_BW_MASK, data));
++}
++
++static ssize_t hsmp_ddr_util_bw_show(struct device *dev, struct device_attribute *attr,
++				     char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu\n", FIELD_GET(DDR_UTIL_BW_MASK, data));
++}
++
++static ssize_t hsmp_ddr_util_bw_perc_show(struct device *dev, struct device_attribute *attr,
++					  char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu\n", FIELD_GET(DDR_UTIL_BW_PERC_MASK, data));
++}
++
++static ssize_t hsmp_msg_fw_ver_show(struct device *dev, struct device_attribute *attr,
++				    char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu.%lu.%lu\n",
++			  FIELD_GET(FW_VER_MAJOR_MASK, data),
++			  FIELD_GET(FW_VER_MINOR_MASK, data),
++			  FIELD_GET(FW_VER_DEBUG_MASK, data));
++}
++
++static ssize_t hsmp_fclk_show(struct device *dev, struct device_attribute *attr,
++			      char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data[2];
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, data, 2);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%u\n", data[0]);
++}
++
++static ssize_t hsmp_mclk_show(struct device *dev, struct device_attribute *attr,
++			      char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data[2];
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, data, 2);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%u\n", data[1]);
++}
++
++static ssize_t hsmp_clk_fmax_show(struct device *dev, struct device_attribute *attr,
++				  char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu\n", FIELD_GET(FMAX_MASK, data));
++}
++
++static ssize_t hsmp_clk_fmin_show(struct device *dev, struct device_attribute *attr,
++				  char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu\n", FIELD_GET(FMIN_MASK, data));
++}
++
++static ssize_t hsmp_freq_limit_show(struct device *dev, struct device_attribute *attr,
++				    char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%lu\n", FIELD_GET(FREQ_LIMIT_MASK, data));
++}
++
++static const char * const freqlimit_srcnames[] = {
++	"cHTC-Active",
++	"PROCHOT",
++	"TDC limit",
++	"PPT Limit",
++	"OPN Max",
++	"Reliability Limit",
++	"APML Agent",
++	"HSMP Agent",
++};
++
++static ssize_t hsmp_freq_limit_source_show(struct device *dev, struct device_attribute *attr,
++					   char *buf)
++{
++	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
++	struct hsmp_socket *sock = dev_get_drvdata(dev);
++	unsigned int index;
++	int len = 0;
++	u16 src_ind;
++	u32 data;
++	int ret;
++
++	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
++	if (ret)
++		return ret;
++
++	src_ind = FIELD_GET(FREQ_SRC_IND_MASK, data);
++	for (index = 0; index < ARRAY_SIZE(freqlimit_srcnames); index++) {
++		if (!src_ind)
++			break;
++		if (src_ind & 1)
++			len += sysfs_emit_at(buf, len, "%s\n", freqlimit_srcnames[index]);
++		src_ind >>= 1;
++	}
++	return len;
++}
++
++static const struct bin_attribute  hsmp_metric_tbl_attr = {
++	.attr = { .name = HSMP_METRICS_TABLE_NAME, .mode = 0444},
++	.read = hsmp_metric_tbl_acpi_read,
++	.size = sizeof(struct hsmp_metric_table),
++};
++
++static const struct bin_attribute *hsmp_attr_list[] = {
++	&hsmp_metric_tbl_attr,
++	NULL
++};
++
++#define HSMP_DEV_ATTR(_name, _msg_id, _show, _mode)	\
++static struct hsmp_sys_attr hattr_##_name = {		\
++	.dattr = __ATTR(_name, _mode, _show, NULL),	\
++	.msg_id = _msg_id,				\
++}
++
++HSMP_DEV_ATTR(c0_residency_input, HSMP_GET_C0_PERCENT, hsmp_msg_resp32_show, 0444);
++HSMP_DEV_ATTR(prochot_status, HSMP_GET_PROC_HOT, hsmp_msg_resp32_show, 0444);
++HSMP_DEV_ATTR(smu_fw_version, HSMP_GET_SMU_VER, hsmp_msg_fw_ver_show, 0444);
++HSMP_DEV_ATTR(protocol_version, HSMP_GET_PROTO_VER, hsmp_msg_resp32_show, 0444);
++HSMP_DEV_ATTR(cclk_freq_limit_input, HSMP_GET_CCLK_THROTTLE_LIMIT, hsmp_msg_resp32_show, 0444);
++HSMP_DEV_ATTR(ddr_max_bw, HSMP_GET_DDR_BANDWIDTH, hsmp_ddr_max_bw_show, 0444);
++HSMP_DEV_ATTR(ddr_utilised_bw_input, HSMP_GET_DDR_BANDWIDTH, hsmp_ddr_util_bw_show, 0444);
++HSMP_DEV_ATTR(ddr_utilised_bw_perc_input, HSMP_GET_DDR_BANDWIDTH, hsmp_ddr_util_bw_perc_show, 0444);
++HSMP_DEV_ATTR(fclk_input, HSMP_GET_FCLK_MCLK, hsmp_fclk_show, 0444);
++HSMP_DEV_ATTR(mclk_input, HSMP_GET_FCLK_MCLK, hsmp_mclk_show, 0444);
++HSMP_DEV_ATTR(clk_fmax, HSMP_GET_SOCKET_FMAX_FMIN, hsmp_clk_fmax_show, 0444);
++HSMP_DEV_ATTR(clk_fmin, HSMP_GET_SOCKET_FMAX_FMIN, hsmp_clk_fmin_show, 0444);
++HSMP_DEV_ATTR(pwr_current_active_freq_limit, HSMP_GET_SOCKET_FREQ_LIMIT,
++	      hsmp_freq_limit_show, 0444);
++HSMP_DEV_ATTR(pwr_current_active_freq_limit_source, HSMP_GET_SOCKET_FREQ_LIMIT,
++	      hsmp_freq_limit_source_show, 0444);
++
++static struct attribute *hsmp_dev_attr_list[] = {
++	&hattr_c0_residency_input.dattr.attr,
++	&hattr_prochot_status.dattr.attr,
++	&hattr_smu_fw_version.dattr.attr,
++	&hattr_protocol_version.dattr.attr,
++	&hattr_cclk_freq_limit_input.dattr.attr,
++	&hattr_ddr_max_bw.dattr.attr,
++	&hattr_ddr_utilised_bw_input.dattr.attr,
++	&hattr_ddr_utilised_bw_perc_input.dattr.attr,
++	&hattr_fclk_input.dattr.attr,
++	&hattr_mclk_input.dattr.attr,
++	&hattr_clk_fmax.dattr.attr,
++	&hattr_clk_fmin.dattr.attr,
++	&hattr_pwr_current_active_freq_limit.dattr.attr,
++	&hattr_pwr_current_active_freq_limit_source.dattr.attr,
++	NULL
++};
++
++static const struct attribute_group hsmp_attr_grp = {
++	.bin_attrs = hsmp_attr_list,
++	.attrs = hsmp_dev_attr_list,
++	.is_bin_visible = hsmp_is_sock_attr_visible,
++	.is_visible = hsmp_is_sock_dev_attr_visible,
++};
++
++/*
++ * Per-socket attribute groups. Every show/read handler expects the drvdata of
++ * the device carrying the group to be the struct hsmp_socket it reports on.
++ */
++const struct attribute_group *hsmp_sock_groups[] = {
++	&hsmp_attr_grp,
++	NULL
++};
++EXPORT_SYMBOL_NS_GPL(hsmp_sock_groups, "AMD_HSMP");
 
-Same question. What happens when the trylock fails or it refuses?
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.53.0
 
-As I have mentioned before [4], UART atomic printing uses the console
-ownership to synchronize against _all_ port activity. What if the
-_xmit_lock had console ownership underneath it (only for txq's shared
-with a netconsole)? Then it would be enough to acquire console
-ownership.
-
-See, for example, include/linux/serial_core.h:uart_port_trylock().
-
-> This does not make ndo_start_xmit() safe, so the flag stays until
-> drivers can opt in to atomic transmit.
-
-IIUC it makes it safe, but not reliable. It is more reliable than
-kthreads, which can still be considered a win.
-
-> It is still unclear to me whether write_atomic() should depend on the
-> context (regular NMI/panic): 
->  * For regular NMI use the try lock as best effort
-
-HARD_TX_TRYLOCK() is not NMI-safe.
-
->  * Ignore the locks only in the final panic flush. (unclear if this is
->    an option)
-
-As a final unsafe flush before an infinite loop, this is always an
-option.
-
-John
-
-> [1] https://lore.kernel.org/all/874ie4y5mw.fsf@jogness.linutronix.de/
-> [2] https://lore.kernel.org/all/20260617132127.645534d1@kernel.org/
-> [3] https://lore.kernel.org/all/20260610183621.3915271-1-vlad.wing@gmail.com/
-
-[4] https://lore.kernel.org/all/87tsr1m6y5.fsf@jogness.linutronix.de/
