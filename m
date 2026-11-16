@@ -1,93 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796615;
-	b=YYFvU6ynD4og1PmQAxbn02MCU5vVgv1izBx38RE8WIulDB+zMH1hflpr5Vi5tPdk9wTx
-	 TiqejOlRZ3c/ZSo7Y/igM4wBlMGI5ZCCCSEgdWPuGO9X/tQb9rjkQfxlD9IOrTL2dTm7e
-	 Ra+3CS0hrfy9yF1vQS/NOkMtIlGmmjtoxyoMzC504amQN7x7LZGxuSUDMnXIhmSffPFyr
-	 r92SoD3pXkKaLtcxcgC9Nbun4MzJUMsg3hePhbeJDiX4xqcrZiveDr69GF3oK3ZGmY0oU
-	 udgQXurKhE4hbXJQjTkFM0rck4MbSeTTFr1xBAAH50safmWNBp/vlW1jBtHYDP4RE8A==
+	t=1794796638;
+	b=LqfhP+qSVo2lcEqmCMi+V5nOhDT0vxrntrl/rn055I5Ugn76Qr5OSLMUW76i2LSYT+aZ
+	 EvafYpAp875G1tvwhYX+/n+sYCMgj8jmGYaLOqvtQoMx4EnKUIUVHOhmkBRvWG3IqXlGR
+	 GoVzS79UkFIES+bcEJ4hjMRZwsmC3t/D5itO6wz2X3eU2OkS7nYl4yof9cx+9Rtdwq0Bu
+	 ks+CQY0jVUglp8HID9MRh0f3y5gxk+URCWX/D/76yIlrPJShLM8leGR+vBo878z/IL5Fm
+	 sndFyvs3+cWre66eBcRJctKmK5owRoCMlY+xdJXbcN+cc7kNKh6oN64eTlGyp05Ut0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796638;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xX6CkA6Wx5SU/AcLVgEPrjNCEuQtMzhCBWWoMNoHGPg=;
-	b=mmTu+RE37D3rt49AJUwRCk+YsSnFdwZIhlhfqKmgUE3AG2lyTcwszId9mphWTY0Gh9Ky
-	 Y+eW25aAv/mVGCQ/0Oz9Bkgfy4vB/KGyCa3fED42+kV238kPsixgsRX3axb2ALpLzHGXH
-	 JXP6YbHol79q+0qvzNKgvrwWUtOcQnmsfHs+q6n1zCIgogCzUkoqofIM9sfyFYOGLWPqP
-	 F5NzyezYACUv5qedpYVv396LIu/lZ6ervFLsGBxFlccLoCdY3pitaROCu8IouydmTUbfD
-	 aYkUEf85GluKpfA8OhbOWyeWZQB5k10tsZGL4lFSHHTA+l+BJZRgUCCY2WoZm27QxdQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=C5mb6nf+FAaI0BVTJRL0UIr+aUTcLOUOBCeg1JSMkZ8=;
+	b=e+8NWBv194vwSgDWlH1VtbVLdaJUtReAXrSxBXbDOeJQTf+ZETXGH6ZgoJnQGfg3Sywh
+	 1eYF6ewKeLXbzGgwA5qMjO5HxgIsbUwbONC2f3dioeWigroBVdyMXNKBiN24jJeQQ6UwH
+	 3QNYF3ph/LOl/gc6XtPgSkaVs/K7JZ64xVuAiFC/hNlkEAAq5Zy0ltTSFLqkzl3rIJA+C
+	 9hdPJjXr5B/pJy7WqOjs8xU+m8tv3pCpqOrHaVR+9zy2EeZ73LDsaCAaPKJKqiKMjbi0t
+	 Tm9vySWuW63fFpEusn+D7QHGPzrOUML4cZAUegYqIOIr6VVtLefwQG7zSLvTlJIxGww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l4Rist4w;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cbHPXLsU;
+	arc=none smtp.remote-ip=209.85.217.69
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70239606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:36:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70239606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889CA606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 889CA606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l4Rist4w
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b3b4944a0eso1091130c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:36:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cbHPXLsU
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7d2eba206f4so927460137.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:37:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794796614; x=1795401414; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xX6CkA6Wx5SU/AcLVgEPrjNCEuQtMzhCBWWoMNoHGPg=;
-        b=l4Rist4wafGh61eo+v58em7wU81hSwBFHNcD+KdFFPB/2ZsmziQbgN4UCq0bUSgPOQ
-         OCnFSgfdhP+BhEcshU/sZAqDpIZRdp9InRNM+i2epJBSi4G0CPQWPtDfiVWXskF8xqkG
-         Y6yMCfVibIRJi394ZetkeDRrTjcYYJj46Uks2VMnki52NNBd39hKR6e6lyrxmurii+lp
-         idoVVpPPh/o/p738Ayfw0jixFgwvI0Pjbmf66JxDM+vYaU/bMx0f+nJgQPOExfLDSkpQ
-         cOEXtDa+lTuLBBbV9a2Zotb/5yq8vDyi4VjZ4oKoPTw6s5Pkfa51AqqbyXCMauvFdOwk
-         EN0A==
+        d=google.com; s=20260707; t=1794796636; x=1795401436; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C5mb6nf+FAaI0BVTJRL0UIr+aUTcLOUOBCeg1JSMkZ8=;
+        b=cbHPXLsU+2/tNpUoRit7PJk2fMqdPTuKKFL4bxq5lGS4eK+xNtP0paVoKNWF4/8zaw
+         P93b1vOzhgRdEadX597kwprlBFEKbmxK+6e3hzEFDpW9VtLtVLme/aqHZkNkgT7XT8bA
+         4YHf9bolBarrHhiBD6NpDeGHtOPXb0LxpDZcziTafAy4MBIVwaPtrEU75lGjaObE21oX
+         /lDuJ9SBy7eoAHFn9SoDQLURMPX3iBOMF6e2L2p02KK/q7i+fSAMunzWR5c/3tZv32Gd
+         7OMlGMv7WpYbP6EnvLRnsCKfCV4umm9CJEvxtpYZ9rkwtboKK85aHRucQX1vG1dNGzqc
+         i5Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794796614; x=1795401414;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794796636; x=1795401436;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xX6CkA6Wx5SU/AcLVgEPrjNCEuQtMzhCBWWoMNoHGPg=;
-        b=CjudnvhWyXZ5xoXIjhlsZirVO/Smq7iG+RH2FDP5yy1r5UJlWubYEJjdBurXGbQ042
-         sfKFq7bO876aiX1bM0vTkQN+yr10m3Qa+HmjWVPUu68hPgHIUFSnsTTYDuVMAiuE8rQh
-         TX6cmyivitenVrK4Pzc8Ie665rBY5TSJp6bHeHqn9DWX/Q677FZbnQPCaxhN2EBgUk+o
-         ZCA61lN9O+0oaKSj+g3ILPTeiaeobdpd3qWvCqfiI6P5OxIGOiugw7XEQ00Jb2W+/aXt
-         GJSf2mW/TVxhTAAzdLGEN8j5+kYmUxEnRixNIgbhndcItVg9jVV5J8AQalW605266mHA
-         Ubfg==
-X-Forwarded-Encrypted: i=1; AL+hErE7RC8Wpbgvhqo80X4iPVjoUeI8Xgf++xi2OXdE87tGD7vVVB53kpJ8q2DKNCYIgGBVS8LdOE/wUCtCaVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ttn/ZYlKvEv+Sng5EIR4hW/ZWuSQN5h8J7JUeYUlw+ZiaHhW5
-	exHprRspK5SKLgy4+d39BUESnSZHOkkjzgG4vfy9fYJ0g/JUVQ4DrQ9JJbsKlQ==
-X-Gm-Gg: AYBFou3qykGv+A/WYFnNc8EWVpsIgImbh9XfdUcNUS7hj2D1qbaoXRSXnG1vEaPzk6M
-	qkYCq7S44YhGPRUeoNm7mz38lbpOlMgmFbCqoHUXPpiUDNSyLrDvSJQ6hNOfSCJAV03ZGK1/wxI
-	Ctl1sl3vdybg+HNtIm7sJKKkCiofh5ZSD3S07WNIzHOijUKyWfkjv/0WTnFsXnVkY1CR73PwynQ
-	yawb4PE6L5pXX+zpGICoBP4LpkHEwfQSCC8P/rt9Njaxs98t6DVV4l3edIiSOIFrj0k55jVc0YZ
-	g+TaHlC5bgfY7D+y9EYd1+LjyARc70URsoMvxEmPx68xG8IFNhteHz4+J7kPbSgDIYBGospYHac
-	xM9FP/tp/tlzm57gJ3JucpOugL/B5Tb2EYrA1to/mug8xLWieqVes4PdofAHhW7Iwus/UfM943O
-	k26mm0Zi2jx3a+EMnA9AtLyVXWGkkUADnZ3AsjS9UdHcpl+oL2CV1DogEqbtycv9lXo1nVZaT8h
-	s6EjaKYa/IXErtm+MlwwB2oauE8yu+VE00LPIo6cmETZw5CbN2f6Nvts3LMb5TSW+kzJHMFX0x2
-	mS7Dh7GcNSyxONEC302wN0pOYocwVRnloIro+e9ivzJ1IvlxkkOlXknojSdc19JkuPBCsw==
-X-Received: by 2002:a05:7022:f109:b0:1ad:4ef5:ffed with SMTP id a92af1059eb24-1b50313d936mr8152988c88.38.1794796614479;
-        Sun, 15 Nov 2026 18:36:54 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:203f:d9b9:dda8:24e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm37357720c88.9.2026.11.15.18.36.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 18:36:53 -0800 (PST)
-Date: Sun, 15 Nov 2026 18:36:50 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Hongyan Xu <getshell@seu.edu.cn>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] Input: lm8323 - drain PWM work and finish with
- outputs disabled
-Message-ID: <avpr6qngp8rfJ9Fe@google.com>
-References: <179474329214.103840.17616107855531843241@seu.edu.cn>
+        bh=C5mb6nf+FAaI0BVTJRL0UIr+aUTcLOUOBCeg1JSMkZ8=;
+        b=P2CWg9hlpVVsk8AuKqDTqLeXJrAHMevrI9q/4ka1EkXqYye6lOWBUdp8m9mOGZkgOr
+         8gFzZdAxLrzyvWhEwzgc8OO2fJEYueD4bxIaAYKYPWJUrfvSCkECMVLwI30EMPX1tMcn
+         4GuyAFoGflyIOGfXR5RjbqQ3+2ex97oAiBzlbZFpYps5VDWIa25X4Rh6by37J5z0ikwx
+         LY+RownrijaPq3QrLmaYxdrmop5POzlCinskAvks/tW1TJe5WY8JnB36dftwv0Ha+34G
+         3Gwq3SH/nKHmo7crbgF71lYXKALhxy1+Q4ewSi94RUNZwqYAVXwV5/BHvHRDZMO49tHs
+         UBzw==
+X-Forwarded-Encrypted: i=1; AL+hErFIMTCWL6CeR0zkmMyNftkv5OA9UOs0pbRiJEk0Rjsj5q0GvyE+TUe1gPLjB5sxxKdCZKaFyBJfGL+2cvs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8e8RfT/uA0uUEtuRxV07bYsxnB7+SSipJpKs3NYebSHgvaKNs7
+	49SR6G8uX/B8IvpOH6opuYyoeirkCJM6SVLX/mG47warzwD+qp0/KRJDY5BupqkN2zeXYNT2iBT
+	6nBz/0ePF5k1hpc2wRjXqKfMs5g==
+X-Received: from ualq22.prod.google.com ([2002:ab0:70b6:0:b0:999:5998:2860])
+ (user=thaisonphan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6102:6892:b0:7c0:4d52:8cc9 with SMTP id ada2fe7eead31-7d64d73ad39mr3509745137.14.1794796636284;
+ Sun, 15 Nov 2026 18:37:16 -0800 (PST)
+Date: Mon, 16 Nov 2026 02:37:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,37 +75,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179474329214.103840.17616107855531843241@seu.edu.cn>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261116023709.132684-1-thaisonphan@google.com>
+Subject: [PATCH net v2 0/2] tcp: initialize missing request_sock fields in
+ syncookie path
+From: Thaison Phan <thaisonphan@google.com>
+To: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, "=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ij@kernel.org>, 
+	Olivier Tilmans <olivier.tilmans@nokia.com>, 
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, Stan Iliev <stani@google.com>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Thaison Phan <thaisonphan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Hongyan,
+Initialize missing request_sock fields for TCP connections accepted via
+SYN cookies, where cookie_tcp_reqsk_alloc() and
+bpf_sk_assign_tcp_reqsk() allocate without __GFP_ZERO:
 
-On Sun, Nov 15, 2026 at 07:48:12PM +0800, Hongyan Xu wrote:
-> A PWM brightness callback can leave private work pending when the
-> managed LED and chip state are released. Merely cancelling that
-> work also discards the final LED_OFF requested by LED unregister.
-> Flushing alone is insufficient if an earlier fade is still
-> running: the worker waits for an IRQ to requeue it, and the
-> managed IRQ is released before the LEDs during teardown.
-> 
-> Install cleanup before registering each LED. Once LED unregister
-> and IRQ teardown have stopped the producers, cancel its work and
-> use the documented single-END shutdown sequence: put END with
-> RESET set in unused script slot 59, stop the channel and restart
-> at that slot. Do not overwrite a running brightness script. The
-> engine then disables its output autonomously without another IRQ
-> or a worker accessing freed driver data. A current long RAMP can
-> delay completion, as documented by the device specification.
-> 
-> Found by the author's in-house static analysis tool.
-> 
-> Fixes: a48b2d4a0091 ("Input: introduce lm8323 keypad driver")
+- Patch 1 initializes ireq->ir_rmt_addr and ireq->ir_loc_addr to
+  LOOPBACK4_IPV6 in cookie_v6_check(), matching tcp_v6_init_req().
+- Patch 2 initializes saw_accecn_opt, accecn_fail_mode, and syn_ect_rcv
+  in cookie_tcp_reqsk_init() and sets syn_ect_snt in
+  cookie_{v4,v6}_check(), matching tcp_openreq_init() and
+  tcp_{v4,v6}_send_synack().
 
-This driver is being removed, no need to patch it. 
+An AI coding assistant helped audit the request_sock initialization
+paths, write the QEMU reproducer, and draft the changelogs.
 
-Thanks.
+v2:
+  - Patch 1: clarify how KASAN (via SLUB_RCU_DEBUG) exposed the bug,
+    explain how it was observed, and include the inet_sock_set_state
+    trace line (Eric Dumazet)
+  - Patch 2: drop redundant treq->syn_ect_snt = 0 in
+    cookie_tcp_reqsk_init() and clarify how the bug was found and
+    observed via TCP_INFO (Eric Dumazet)
+  - Add Eric Dumazet's Reviewed-by tags
+v1: https://lore.kernel.org/netdev/20261114161248.3428695-1-thaisonphan@google.com/
 
+Thaison Phan (2):
+  tcp: initialize ir_rmt_addr and ir_loc_addr in cookie_v6_check()
+  tcp: accecn: initialize AccECN fields in syncookie path
+
+ net/ipv4/syncookies.c | 4 ++++
+ net/ipv6/syncookies.c | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
 -- 
-Dmitry
+2.56.0.611.g1030f0b940-goog
+
