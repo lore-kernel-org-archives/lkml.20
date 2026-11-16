@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794867993;
-	b=tQaFp5gLLoTLKK6w9fpeY3tUP/An+ayBJvh7wepZYMnq+1vnFaROG6u6vtvJ2QnaYO+v
-	 mW0DFXvUqsGMdBcRvYCY/epcxngyRhZ62uJcay0+TuXZJ1T9210ldzSNcyfJ5ROTObqJB
-	 eUcmq0V6Rfmowqy8GKaQAToSchHijvr72LdcdYrr7wYizdWV77rgFj2PICeNauk9mrGBz
-	 Md9hiz+yQ48zd+jgw98bRvKJfOfYqkPmfJfTeKeFUvI4XrnzU9XQjA9CAm19hBKHFXsJC
-	 V8O8ZJ8V/9J8ovPvmXSABgiqGkTNJX12wXdLB2AMDgfJxrZgjnuYX0Bn+nScAt8g9Lw==
+	t=1794868001;
+	b=g/1amithA+FRifRrbQuWezWDsnRnNs+Op4dt9nWDOjK2qkpqYADGyQrjfVlzJYGKnLra
+	 ks5DjxQcmQ/VNuQ92sxMscAYw/TMwP/HxPdF3vx4/lTXZgWzXbjw0l6cpnrXyIJLrOPkr
+	 ZOHMbKxyUYxVNdkeGHNE8+XaUiAF6ZeliCI/aMaR06ykOHbwFy5MVlvXXtP4/9CL1WTad
+	 vkNv+wpk6JGug7aKJX+nUx2b79SAjLeXQEHqgtss2MlwTyPGnT06tOPWtjgAwnV2A22jU
+	 ufPkEgPIE4MwTKZq1G068qf6SrMQmgH9JH7UC+tF9JqLCuVXRatsUUkJNBzqVkk43Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794867993;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868001;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=cVMKW7fB8h0SnQR2hp0PSgoEdY8qiS0OoOpSG4SZZnE=;
-	b=BU+Okyb6Z4IMTrRbSnw82P5VrrF9CZx5eDvZcR0mpFq+35U0OqA7ByR5lnkI+FeDXRcS
-	 INpNazErgd0xvvD2ZQoDNQwMFU7Fexz35X1g1z+E968mVYptoRk4Iwe4qjU86jiG01EYw
-	 5kVEk4NKbOv9OBXM4eONTaXNGDKWdtyZmfrheXGTo50na4lRWbeIS1bJzZg9SqG+SbM4p
-	 6V/IhG1YTleeyBxfQI+4JUZ5FMv3j1CkDZy/arNA+aSzf71RAYAg7CSO6kdv/9NCjvyiE
-	 13YV/QUDQmJ6hiG/SYZCzmr1cyuSIoasv+3OCCl0GdUOO3B+YdJefwoweKlTaPTRPaA==
+	bh=V3wZFfi8ysQ6Ok1PCACbsrquVcIk7f7cYNcZ/2x7GgA=;
+	b=AiEISTK+zvijSYImjMvx+m+a4VyVx+ilcIeDUyHPI8h67gk7emOO2wMy5N6QKmf3svuQ
+	 GGBseHfHQuRg3pCCakk7oRAtBdgtjcGbALHp2Co4yOUMmfczhB4EO3XcBb9omESvUnFWK
+	 bGxoVI9cwkcm87L5R66K+tcofV5crMtfYH/BFmCt7f4EhFditOJtReOAaOg37UaIcU7Xk
+	 l6jtQmmLU0S90a5eFVxSCrdQKJPclrIaYz/nZkqWPK38sRurVZFwIJR8sW9Y/RrWbeNcQ
+	 g6q/5d7c9qhYvA64DJQsjkFdMZ4zcObftJyNCYK4n50j4Gscqq3jduS0buGcG49ZYZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GDdgrtPS;
-	arc=none smtp.remote-ip=209.85.222.225
-Received: from mail-qk1-f225.google.com (mail-qk1-f225.google.com [209.85.222.225])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="ZY/ImITZ";
+	arc=none smtp.remote-ip=74.125.224.99
+Received: from mail-yx1-f99.google.com (mail-yx1-f99.google.com [74.125.224.99])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEDD606A8A5
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAEDD606A8A5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A99606A8BB
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:26:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A99606A8BB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GDdgrtPS
-Received: by mail-qk1-f225.google.com with SMTP id af79cd13be357-949657a20d7so230892385a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:32 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZY/ImITZ
+Received: by mail-yx1-f99.google.com with SMTP id 956f58d0204a3-67db3a48dc6so2047520d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794867992; x=1795472792;
+        d=1e100.net; s=20260707; t=1794867997; x=1795472797;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cVMKW7fB8h0SnQR2hp0PSgoEdY8qiS0OoOpSG4SZZnE=;
-        b=KZI/C2RyF1f4A6ozjHkEfnGk3rhCz0Bh8sYxo1cCsGMBCmZDVZLex+M9PfKNF22OqF
-         +OokUDKZA5z2nM2y9+7kiZ8wnkPcCJ1TAL51JIwSbR/Mdjc3G5O+4InmXIKKSRmXpVX6
-         sB+FhjnncoGCNo3XRQjIFFsLk1BHuMN6iNfsz8sykKVSyBOiCU7c5x1M0vNhoDQ1GAkS
-         Mh6LNacFIWzIjr5zRbL02Qi8Z0Z1veNPWCrXW3qljRtMvwUkRkfOQd8P7WR3DAdpNLXO
-         8CqfHXX/ObU4MQO9LEr3qKX19c9EeJTyyesWxGW49MJXDnsp4ijhNxBSR5Q3Cg4dIC6R
-         d9+Q==
-X-Forwarded-Encrypted: i=1; AL+hErH3c06S5h4kP3PtDdp0YACAit7khIMrIwvc54z0cTSlzQeOPTFlTGkR78EuhfMP/yqg8i16Sexo+p3T4n4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lAETMQF7fq/7aW056+MP6CQcRptz1gux+dTsIRPPFDWTV0hxi
-	HXrfbhy5jQUQiJpe4R0UMgxDW95GScNSRpKbmZf2CUMnLMZdtQJnw8TEHrdgHU33KC0qr42YUQk
-	NGCf9IgX839ILD99IXQ6xhllVhCkahWac2t9gIj8XErp8QnQTRwhP0lb7Tmc6rXFKR9Iu1aWynY
-	OwoZHnoHGNe20C/XExh2Dno7E84ALSdB/nLqi3A7o86rHcwiVmayI1YVf7JetYqQVhCF2FoAomv
-	NStYPA0rcYCsTKMZZ5FThWL
-X-Gm-Gg: AYBFou3WPFfhNtYJO9Rsy1jKSm8YUicSXASSGozDKLdaqKKn2w11WaU/jTKWD/CMOBc
-	SLnYAy3qg9UJt7DCDQfj2w/54ofgvuPxcypHjkbu0R09+hLjwRyXwMRcqf0491X6FXbpP2Mzi+f
-	24I3VxOJjCVGB32i0ah+QWHgDqg+5ANBIyothL+s1MVafopO2EITwb1/MVb17oXvIneGwcDNh1f
-	i8huMcT1aw/O0FAn4Guad4GmioqaijsWGwfvfINbpuYIRtNLirg1GJ9ND5dbv6Mf8hFGnntMN4e
-	ERzDIVVPEatbFw9aG6eZZNEwnKPcJDoLXvFjlIVcSCAkwiamG1DVbQOWL87Zp+21q00fUWwJHTG
-	jz3s1RpIHjSNQnHUupIv9ExW6jg7U9wfwYYgUWYAdCtV/NDfRgK7TbbIeAsWpjAWp26kmikaPdA
-	lfdH6QKb+Mmr2KxW1P1hGRGoFkyLDRB9cdsyIh4bnR
-X-Received: by 2002:a05:620a:a012:b0:949:615d:c79e with SMTP id af79cd13be357-949615dca93mr1186048785a.53.1794867991832;
-        Mon, 16 Nov 2026 14:26:31 -0800 (PST)
+        bh=V3wZFfi8ysQ6Ok1PCACbsrquVcIk7f7cYNcZ/2x7GgA=;
+        b=Cm3998gn9qxKVeaEBmv485Yc1ziMBHXRL4z0dnetkskVdZxU434MS2UsFfBSY0PQ4g
+         ZkAsY1c2BqzoKD3+0ezVlCNHkMg6Va7qEiVz2RmXbcE3d4JIqEDzJcJ084jXS7Uu/URF
+         ZLaqMHmGQTNaBCzruF5MZQpgHsYynwMJyBXKmvmPEzbqbrTQ2thksiuqvNE1jYIFUBqt
+         /kGeHUWC3RgoFE16GfyV6e+X1cAOf3dm6fWDeB0YCmTRsaA+WAN4UZYfIgV3zwPMxzDa
+         f0Rb9TBQIKIrbr1GU/ySYGJg6Qdy02oG6pH+xFawtuUu1RQhOhcNO1alCXEDs2A/nfD9
+         CdAw==
+X-Forwarded-Encrypted: i=1; AL+hErFRL7J3xulz1bJG0VHTP1LlBRHWmT0mJUya+RVB1WQ9HCjLuObqPeKvAeNjApD8qPoJENY7V4PG4tfhHHE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+h21VtlxF6zaGqDUKBh+acQyEcKuhDXKb50lBxeQ8OL+FKixrJ
+	DOT1R2Z60AnfW+qf1Pz5G4cW6W+Esf5p5ituJng7vXb1kOh1P3KtbIj/FaksWbJN8zkiEkYO71C
+	bIHNoZ3X9pNbCrPiQq6FoBwltNiQUKLj12LC09Ti2pvmCZX45798HdE2dsl44vXKH5SaeYz+nCQ
+	q3IzumdJplti01YZqsmTVsSEBIl6mUfukWT7/YOqa8GNrHz9fJAqNwmurR0AuPQjVQF3JGKks+U
+	51JvJ3B5+/K5esh3e+c5chB
+X-Gm-Gg: AZFdTZe749QnBRBHx67gXgo19v7JmwPfy2R1lVbdARJjZesMFqsBaYTNtBH7lC7xspa
+	WprEyOGwdPgXvqYaXpQAumzZpVvjX3Hyq9fC35Vv3Xx5VsuTcQ6D7bi6tgg51F4UicEhgO55EjI
+	nLWllaUsOuomUgVEdx4R+0PwwMKN7xSRL7WP/9a+ry5gXQDldGUxK5h/rPY9GpHecVBSUbBz7xc
+	hhjHQ7fAP//RBGs0fNVtTHuXHNWOEvu/MEvBPujuA37AMzl3ziPPMzeRiOLyl8zfOAzOYeIJ3/s
+	Lpy7JNBDPNATuU7BOdlxKc2hXcMBJ2iw8yq8FsvP6xR8K8ey9VsHfY4frXIDv7yYd9lW/qY3IdY
+	lQOZsRLoNbH5oeV5WzBLyfRAXwaFlegkgi8T54gTeEhIDX+qzdHMfXswIsYPKck9ssKgn5YVeAu
+	UIoqi1ZHpmFYaSW7vTjAXbFYx5qbebVCyLcu35/PkI
+X-Received: by 2002:a05:690e:80d:10b0:679:95cd:1aed with SMTP id 956f58d0204a3-67d896a6008mr3213458d50.60.1794867997427;
+        Mon, 16 Nov 2026 14:26:37 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9496db13871sm41846185a.5.2026.11.16.14.26.31
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-67d8a6473a7sm139347d50.29.2026.11.16.14.26.36
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 14:26:31 -0800 (PST)
+        Mon, 16 Nov 2026 14:26:37 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36ecd5db581so4942982eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:31 -0800 (PST)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-378722fd4a3so4434404eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794867990; x=1795472790; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794867996; x=1795472796; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cVMKW7fB8h0SnQR2hp0PSgoEdY8qiS0OoOpSG4SZZnE=;
-        b=GDdgrtPSd1A//IcT5eYJN7ELhJmZHj6CaZY8PbDuGhKTQ/Ny1TPsXW3dBR1RqTY/q3
-         SppgckwO4LBEoMHB0cJEDUXFPEI9d91o1JTXPSogva4ccX8/g5wDzIecehf05QtV3P6F
-         X0cVF3ubcRC0or/0ACDYXFYOHMrwDWmo57mTA=
-X-Forwarded-Encrypted: i=1; AL+hErFBcyaSCZakHxmVNAjbi99izNcAWArxEMDaLKsMOS9xPgylAHcduVhD13oZALPN8edoQMFWeICymsZEpnc=@vger.kernel.org
-X-Received: by 2002:a05:7300:7952:b0:381:3b6:6c3d with SMTP id 5a478bee46e88-38103b682f6mr849633eec.35.1794867990192;
-        Mon, 16 Nov 2026 14:26:30 -0800 (PST)
-X-Received: by 2002:a05:7300:7952:b0:381:3b6:6c3d with SMTP id 5a478bee46e88-38103b682f6mr849591eec.35.1794867989331;
-        Mon, 16 Nov 2026 14:26:29 -0800 (PST)
+        bh=V3wZFfi8ysQ6Ok1PCACbsrquVcIk7f7cYNcZ/2x7GgA=;
+        b=ZY/ImITZLgF2sGx4ovrhGDf/MOr6Uvss1KTwsJPGVzUpxFMX3g/JYeVHNvFTTZBNiY
+         yKP5oy3zeqwfeZuEdbmWq1LVlPUOi5g12MMTx5eL123yMEXk9iecHou964tI5c/v1IBf
+         1KPoEtH8EE6E9AfCe5yq/pTXfD7DLMNznYjnI=
+X-Forwarded-Encrypted: i=1; AL+hErH88iYlHN9pF4Rm6CdbL0smLD1FoxamEEB9P4LabDdmKEOqObRRDfRpvjaeflrGk0LHqwTHYRHOFF2CbMw=@vger.kernel.org
+X-Received: by 2002:a05:7300:d0a2:b0:36e:ff7e:e57f with SMTP id 5a478bee46e88-3796628f98fmr11580057eec.19.1794867995300;
+        Mon, 16 Nov 2026 14:26:35 -0800 (PST)
+X-Received: by 2002:a05:7300:d0a2:b0:36e:ff7e:e57f with SMTP id 5a478bee46e88-3796628f98fmr11580026eec.19.1794867994411;
+        Mon, 16 Nov 2026 14:26:34 -0800 (PST)
 Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379560f5e06sm50176624eec.19.2026.11.16.14.26.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379560f5e06sm50176624eec.19.2026.11.16.14.26.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:26:28 -0800 (PST)
+        Mon, 16 Nov 2026 14:26:33 -0800 (PST)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -118,9 +118,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
 	netfilter-devel@vger.kernel.org (open list:NETFILTER),
 	coreteam@netfilter.org (open list:NETFILTER)
-Subject: [PATCH net-next 3/9] netfilter: flowtable: retain offload ownership until deletion completes
-Date: Mon, 16 Nov 2026 14:25:13 -0800
-Message-ID: <20261116222519.1416501-4-florian.fainelli@broadcom.com>
+Subject: [PATCH net-next 5/9] net: dsa: add Broadcom FA metadata and IPv4 exception paths
+Date: Mon, 16 Nov 2026 14:25:15 -0800
+Message-ID: <20261116222519.1416501-6-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
 References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
@@ -136,249 +136,925 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Teardown clears IPS_OFFLOAD before asynchronous hardware deletion and
-hash removal. A new packet can therefore create a replacement flow on
-the same conntrack while the old owner still exists. Repeated teardown
-can clear the replacement's IPS_OFFLOAD, and the old hardware delete
-worker can clear its IPS_HW_OFFLOAD after a new hardware rule was
-installed.
+Add a brcm-fa tagger for the prepended Northstar miss descriptor, with
+hash, bucket and parser status fields distinct from ordinary switch
+tags. Select it only for an explicitly connected accelerator on
+GMAC2/port 8.
 
-The FA route-change reproducer observed four fresh hardware rows but
-only one of two connections still carrying HW_OFFLOAD. Two deterministic
-KUnit cases also fail before this change: repeated notification releases
-a new claim, and hardware retirement admits a new claim before deletion
-finishes.
+Original FA ignores standalone switch exceptions and its key lacks input
+port, TTL, packet length and TCP flags. Reserve B53 CFP rules to
+redirect SYN/FIN/RST, TTL 0/1 and lengths above 1500 through port
+5/GMAC0, outside FA. Per-port router-MAC allow rules and a default IPv4
+trap prevent a live tuple from bypassing Linux ingress policy on another
+switch port. Nine masked length prefixes cover 1501 through 65535.
+Preserve VLAN, EAP and STP filtering, and keep ordinary data flooding
+off the auxiliary CPU.
 
-Release IPS_OFFLOAD after both hash entries have been removed. For
-hardware flows, GC reaches this point only after hardware deletion is
-complete. NF_FLOW_TEARDOWN immediately excludes the old software fast
-path. Packets reaching software still use normal conntrack and
-forwarding; TCP state and timeout repair run at first teardown. Hardware
-deletion may remain pending. Holding the admission bit prevents
-overlapping owners.
-
-The delayed release is observable: conntrack dumps may temporarily
-report OFFLOAD or HW_OFFLOAD and omit TCP state after a FIN or RST has
-returned to the slow path. The status covers ownership pending cleanup
-during the GC and asynchronous delete interval, rather than guaranteeing
-acceleration. This trades transient reporting for correct ownership
-serialization and prevents an old cleanup from clearing its
-replacement's status. Document the interval and use packet
-captures/counters to identify the packet path.
-
-Include the private lifetime tests and their KUnit configuration here,
-independently of the FA series. They cover real hash removal, deferred
-hardware retirement, late RCU notification and balanced conntrack
-references. The nf_flow_table.config configuration runs these two cases
-on its own.
-
-Fixes: e5eaac2beb54 ("netfilter: flowtable: fix TCP flow teardown")
+Update MAC guards through a netdevice notifier after DSA registration.
+Coordinate guard and conduit readiness with an RCU-protected backend
+registry. Disable admission and retire entries before removing any
+exception path. Keep incomplete or failed guards disabled across bridge
+join and leave, using the same readiness checks as conduit changes.
+Decode embedded auxiliary tags before delivering those packets to Linux;
+retain strict validation of ordinary Broadcom tags.
 
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- Documentation/networking/nf_flowtable.rst     | 13 +++
- MAINTAINERS                                   |  1 +
- net/netfilter/Kconfig                         | 10 +++
- net/netfilter/nf_flow_table_core.c            |  9 +-
- net/netfilter/nf_flow_table_core_test.c       | 86 +++++++++++++++++++
- .../kunit/configs/nf_flow_table.config        |  9 ++
- 6 files changed, 127 insertions(+), 1 deletion(-)
- create mode 100644 net/netfilter/nf_flow_table_core_test.c
- create mode 100644 tools/testing/kunit/configs/nf_flow_table.config
+ drivers/net/dsa/b53/Kconfig      |   1 +
+ drivers/net/dsa/b53/b53_common.c | 423 ++++++++++++++++++++++++++++++-
+ drivers/net/dsa/b53/b53_priv.h   |   6 +
+ drivers/net/dsa/b53/b53_regs.h   |  39 +++
+ include/linux/dsa/brcm.h         |  19 ++
+ include/net/dsa.h                |   2 +
+ net/dsa/Kconfig                  |   9 +
+ net/dsa/tag_brcm.c               | 116 ++++++++-
+ 8 files changed, 603 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/networking/nf_flowtable.rst b/Documentation/networking/nf_flowtable.rst
-index d757c21c10f2..b9b444435775 100644
---- a/Documentation/networking/nf_flowtable.rst
-+++ b/Documentation/networking/nf_flowtable.rst
-@@ -205,6 +205,19 @@ refers to the software offload mode, so there is a distinction between [OFFLOAD]
- which refers to the software flowtable fastpath and [HW_OFFLOAD] which refers
- to the hardware offload datapath being used by the flow.
+diff --git a/drivers/net/dsa/b53/Kconfig b/drivers/net/dsa/b53/Kconfig
+index 915008e8eff5..8e2a8c20bc4a 100644
+--- a/drivers/net/dsa/b53/Kconfig
++++ b/drivers/net/dsa/b53/Kconfig
+@@ -7,6 +7,7 @@ menuconfig B53
+ 	select NET_DSA_TAG_BRCM_LEGACY
+ 	select NET_DSA_TAG_BRCM_LEGACY_FCS
+ 	select NET_DSA_TAG_BRCM_PREPEND
++	select NET_DSA_TAG_BRCM_FA
+ 	help
+ 	  This driver adds support for Broadcom managed switch chips. It supports
+ 	  BCM5325E, BCM5365, BCM539x, BCM53115 and BCM53125 as well as BCM63XX
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index b7aff5e238e8..3e8c9679836d 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -17,19 +17,25 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
  
-+During teardown, software fastpath lookups immediately stop matching the
-+flow. Packets reaching software follow the classic forwarding path, while
-+hardware deletion may still be pending. The OFFLOAD status
-+bit remains set until hash removal and asynchronous hardware deletion are
-+complete, preventing a new owner from racing the old owner's cleanup. As a
-+result, conntrack dumps can temporarily retain [OFFLOAD] or [HW_OFFLOAD]
-+and omit the TCP state after a FIN or RST has returned to the slow path.
-+TCP state and timeout repair still run at first teardown. The transient
-+status describes ownership pending cleanup, rather than guaranteeing that
-+packets are still accelerated. It clears when garbage collection finishes
-+the deletion; packet captures and forwarding counters identify the actual
-+forwarding path during that interval.
-+
- The flowtable hardware offload infrastructure also supports for the DSA
- (Distributed Switch Architecture).
++#include <linux/bitfield.h>
+ #include <linux/delay.h>
++#include <linux/dsa/brcm.h>
+ #include <linux/export.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/in.h>
++#include <linux/iopoll.h>
+ #include <linux/kernel.h>
+ #include <linux/math.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/platform_data/b53.h>
+ #include <linux/phy.h>
+ #include <linux/phylink.h>
+ #include <linux/etherdevice.h>
+ #include <linux/if_bridge.h>
+ #include <linux/if_vlan.h>
++#include <linux/unaligned.h>
+ #include <net/dsa.h>
  
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c583367c88bc..56212dbc9a0d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19396,6 +19396,7 @@ F:	net/*/netfilter.c
- F:	net/*/netfilter/
- F:	net/bridge/br_netfilter*.c
- F:	net/netfilter/
-+F:	tools/testing/kunit/configs/nf_flow_table.config
- F:	tools/testing/selftests/net/netfilter/
- 
- NETRONIX EMBEDDED CONTROLLER
-diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
-index 09874c26fd13..f565f87b3a6c 100644
---- a/net/netfilter/Kconfig
-+++ b/net/netfilter/Kconfig
-@@ -718,6 +718,16 @@ config NF_FLOW_TABLE
- 
- 	  To compile it as a module, choose M here.
- 
-+config NF_FLOW_TABLE_KUNIT_TEST
-+	bool "KUnit tests for flowtable ownership" if !KUNIT_ALL_TESTS
-+	depends on KUNIT=y && NF_FLOW_TABLE
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Test conntrack offload ownership during flowtable teardown.
-+	  Require hash and asynchronous hardware deletion before re-enrolment.
-+	  Verify that late notifications cannot release a replacement owner.
-+	  These private tests are embedded in the flowtable core.
-+
- config NF_FLOW_TABLE_PROCFS
- 	bool "Supply flow table statistics in procfs"
- 	depends on NF_FLOW_TABLE
-diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-index 2aa2647ed9df..4c82097cd50b 100644
---- a/net/netfilter/nf_flow_table_core.c
-+++ b/net/netfilter/nf_flow_table_core.c
-@@ -393,12 +393,15 @@ static void flow_offload_del(struct nf_flowtable *flow_table,
- 	rhashtable_remove_fast(&flow_table->rhashtable,
- 			       &flow->tuplehash[FLOW_OFFLOAD_DIR_REPLY].node,
- 			       nf_flow_offload_rhash_params);
-+	/* Release admission only after both hashes and async hardware state
-+	 * have gone. An older owner must not clear its replacement's status.
-+	 */
-+	clear_bit_unlock(IPS_OFFLOAD_BIT, &flow->ct->status);
- 	flow_offload_free(flow);
- }
- 
- void flow_offload_teardown(struct flow_offload *flow)
+ #include "b53_regs.h"
+@@ -667,9 +673,10 @@ static void b53_eee_enable_set(struct dsa_switch *ds, int port, bool enable)
+ int b53_setup_port(struct dsa_switch *ds, int port)
  {
--	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
- 	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
- 		flow_offload_fixup_ct(flow);
+ 	struct b53_device *dev = ds->priv;
++	bool auxiliary = dev->fa_cfp_enabled && port == 5;
+ 
+-	b53_port_set_ucast_flood(dev, port, true);
+-	b53_port_set_mcast_flood(dev, port, true);
++	b53_port_set_ucast_flood(dev, port, !auxiliary);
++	b53_port_set_mcast_flood(dev, port, !auxiliary);
+ 	b53_port_set_learning(dev, port, false);
+ 	b53_port_set_isolated(dev, port, false);
+ 
+@@ -678,7 +685,8 @@ int b53_setup_port(struct dsa_switch *ds, int port)
+ 	 * dropping frames because it isn't allowed to forward there.
+ 	 */
+ 	if (dsa_is_user_port(ds, port))
+-		b53_set_eap_mode(dev, port, EAP_MODE_SIMPLIFIED);
++		b53_set_eap_mode(dev, port, dev->fa_cfp_enabled ? EAP_MODE_BASIC :
++			 EAP_MODE_SIMPLIFIED);
+ 
+ 	if (is5325(dev) &&
+ 	    in_range(port, 1, 4)) {
+@@ -728,6 +736,8 @@ int b53_enable_port(struct dsa_switch *ds, int port, struct phy_device *phy)
+ 	pvlan &= ~0x1ff;
+ 	pvlan |= BIT(port);
+ 	pvlan |= dev->ports[port].vlan_ctl_mask;
++	if (dev->fa_cfp_enabled && (dev->fa_cfp_ports & BIT(port)))
++		pvlan |= BIT(5);
+ 	b53_write16(dev, B53_PVLAN_PAGE, B53_PVLAN_PORT_MASK(port), pvlan);
+ 
+ 	b53_imp_vlan_setup(ds, cpu_port);
+@@ -1326,6 +1336,315 @@ int b53_setup_devlink_resources(struct dsa_switch *ds)
  }
-@@ -876,3 +879,7 @@ module_exit(nf_flow_table_module_exit);
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Pablo Neira Ayuso <pablo@netfilter.org>");
- MODULE_DESCRIPTION("Netfilter flow table module");
-+
-+#if IS_ENABLED(CONFIG_NF_FLOW_TABLE_KUNIT_TEST)
-+#include "nf_flow_table_core_test.c"
-+#endif
-diff --git a/net/netfilter/nf_flow_table_core_test.c b/net/netfilter/nf_flow_table_core_test.c
-new file mode 100644
-index 000000000000..378a1c60b50b
---- /dev/null
-+++ b/net/netfilter/nf_flow_table_core_test.c
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <kunit/test.h>
-+
-+static void nf_flow_test_teardown_repeat(struct kunit *test)
+ EXPORT_SYMBOL(b53_setup_devlink_resources);
+ 
++static int b53_fa_cfp_wait(struct b53_device *dev, u32 mask)
 +{
-+	struct flow_offload flow = {};
-+	struct nf_conn *ct;
++	u32 val;
++	int ret, err;
 +
-+	ct = kunit_kzalloc(test, sizeof(*ct), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ct);
-+	ct->tuplehash[0].tuple.dst.protonum = IPPROTO_ICMP;
-+	flow.ct = ct;
-+	set_bit(IPS_OFFLOAD_BIT, &ct->status);
-+	flow_offload_teardown(&flow);
-+	KUNIT_EXPECT_TRUE(test, test_bit(IPS_OFFLOAD_BIT, &ct->status));
-+	clear_bit(IPS_OFFLOAD_BIT, &ct->status);
-+	/* A late notification for this retired flow cannot clear a new claim. */
-+	set_bit(IPS_OFFLOAD_BIT, &ct->status);
-+	flow_offload_teardown(&flow);
-+	KUNIT_EXPECT_TRUE(test, test_bit(IPS_OFFLOAD_BIT, &ct->status));
++	ret = read_poll_timeout(b53_read32, err, err || !(val & mask),
++				10, 10000, false, dev, B53_CFP_TCAM_PAGE,
++				B53_CFP_ACC, &val);
++	return ret ?: err;
 +}
 +
-+static void nf_flow_test_hardware_retirement(struct kunit *test)
++static int b53_fa_cfp_write(struct b53_device *dev, unsigned int index, u32 ram)
 +{
-+	struct nf_flowtable table = {};
-+	struct flow_offload *flow;
-+	struct nf_conn *ct;
-+	unsigned int dir;
 +	int err;
 +
-+	ct = kunit_kzalloc(test, sizeof(*ct), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ct);
-+	err = rhashtable_init(&table.rhashtable, &nf_flow_offload_rhash_params);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	flow = kzalloc_obj(*flow);
-+	if (!flow) {
-+		rhashtable_destroy(&table.rhashtable);
-+		KUNIT_FAIL(test, "flow allocation failed");
-+		return;
-+	}
-+	ct->tuplehash[0].tuple.dst.protonum = IPPROTO_ICMP;
-+	refcount_set(&ct->ct_general.use, 2);
-+	flow->ct = ct;
-+	set_bit(NF_FLOW_HW, &flow->flags);
-+	set_bit(IPS_OFFLOAD_BIT, &ct->status);
-+	set_bit(IPS_HW_OFFLOAD_BIT, &ct->status);
-+	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
-+		flow->tuplehash[dir].tuple.src_port = htons(10000 + dir);
-+		err = rhashtable_insert_fast(&table.rhashtable,
-+					     &flow->tuplehash[dir].node,
-+					     nf_flow_offload_rhash_params);
-+		KUNIT_EXPECT_EQ(test, err, 0);
-+	}
-+	flow_offload_teardown(flow);
-+	/* nft_flow_offload must not admit another owner during async DESTROY. */
-+	KUNIT_EXPECT_TRUE(test, test_and_set_bit(IPS_OFFLOAD_BIT, &ct->status));
-+	flow_offload_teardown(flow);
-+	KUNIT_EXPECT_TRUE(test, test_bit(IPS_OFFLOAD_BIT, &ct->status));
-+	/* Model completed hardware deletion before the GC removes the hashes. */
-+	clear_bit(IPS_HW_OFFLOAD_BIT, &ct->status);
-+	set_bit(NF_FLOW_HW_DEAD, &flow->flags);
-+	rcu_read_lock();
-+	flow_offload_del(&table, flow);
-+	KUNIT_EXPECT_FALSE(test, test_bit(IPS_OFFLOAD_BIT, &ct->status));
-+	/* Re-enrolment is safe now; an old RCU reader still cannot undo it. */
-+	set_bit(IPS_OFFLOAD_BIT, &ct->status);
-+	flow_offload_teardown(flow);
-+	KUNIT_EXPECT_TRUE(test, test_bit(IPS_OFFLOAD_BIT, &ct->status));
-+	rcu_read_unlock();
-+	rcu_barrier();
-+	KUNIT_EXPECT_EQ(test, refcount_read(&ct->ct_general.use), 1);
-+	rhashtable_destroy(&table.rhashtable);
++	err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACC,
++			  CFP_ACC_INDEX(index) | ram | CFP_ACC_WRITE | CFP_ACC_START);
++	return err ?: b53_fa_cfp_wait(dev, CFP_ACC_START);
 +}
 +
-+static struct kunit_case nf_flow_lifetime_cases[] = {
-+	KUNIT_CASE(nf_flow_test_teardown_repeat),
-+	KUNIT_CASE(nf_flow_test_hardware_retirement),
-+	{}
++#define B53_FA_ALLOW_BASE 16
++#define B53_FA_DEFAULT_RULE 24
++
++static void b53_fa_udf(u32 data[8], u32 mask[8], unsigned int udf,
++		       u16 value, u16 bits)
++{
++	unsigned int bit = CFP_TCAM_UDF_OFFSET + 16 * udf;
++	unsigned int word = bit / 32;
++	unsigned int shift = bit % 32;
++
++	data[word] |= (u32)value << shift;
++	mask[word] |= (u32)bits << shift;
++	if (shift > 16) {
++		data[word + 1] |= value >> (32 - shift);
++		mask[word + 1] |= bits >> (32 - shift);
++	}
++	data[5] |= CFP_TCAM5_UDF_VALID(udf);
++	mask[5] |= CFP_TCAM5_UDF_VALID(udf);
++}
++
++static int b53_fa_rule(struct b53_device *dev, unsigned int index,
++		       const u32 data[8], const u32 mask[8], bool trap)
++{
++	unsigned int i;
++	int err;
++
++	for (i = 0; i < 8; i++) {
++		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_DATA(i), data[i]);
++		if (!err)
++			err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_MASK(i), mask[i]);
++		if (err)
++			return err;
++	}
++	err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(0),
++			  trap ? CFP_ACT0_FWD_MAP_REPLACE | CFP_ACT0_DST_PORT5 |
++				CFP_ACT0_REASON_TERMINATION : 0);
++	if (!err)
++		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(1),
++				  trap ? CFP_ACT1_CLASS_ID(1) | CFP_ACT1_FWD_MAP_REPLACE |
++				  CFP_ACT1_DST_PORT5 : 0);
++	if (!err)
++		err = b53_fa_cfp_write(dev, index, CFP_ACC_ACTION);
++	if (!err)
++		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER, 0);
++	if (!err)
++		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER + 4, 0);
++	if (!err)
++		err = b53_fa_cfp_write(dev, index, CFP_ACC_METER);
++	return err ?: b53_fa_cfp_write(dev, index, CFP_ACC_TCAM);
++}
++
++static const u16 b53_fa_lengths[][2] = {
++	{ 1501, 0xffff }, { 1502, 0xfffe }, { 1504, 0xffe0 },
++	{ 1536, 0xfe00 }, { 2048, 0xf800 }, { 4096, 0xf000 },
++	{ 8192, 0xe000 }, { 16384, 0xc000 }, { 32768, 0x8000 },
 +};
 +
-+static struct kunit_suite nf_flow_lifetime_suite = {
-+	.name = "nf-flow-lifetime",
-+	.test_cases = nf_flow_lifetime_cases,
++static int b53_fa_guards(struct b53_device *dev)
++{
++	u32 data[8] = {}, mask[8] = {};
++	unsigned int i;
++	int err;
++
++	/* UDF A1: IPv4 TTL/protocol; A2: IPv4 total length. */
++	err = b53_write8(dev, B53_CFP_PAGE, B53_CFP_UDF1_A0 + 1,
++			 CFP_UDF_BASE_END_L2 | CFP_UDF_OFFSET(4));
++	if (!err)
++		err = b53_write8(dev, B53_CFP_PAGE, B53_CFP_UDF1_A0 + 2,
++				 CFP_UDF_BASE_END_L2 | CFP_UDF_OFFSET(1));
++	for (i = 0; !err && i < 3; i++)
++		err = b53_write8(dev, B53_CFP_PAGE, B53_CFP_UDF1_A0 + 3 + i, i);
++	if (err)
++		return err;
++	data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1;
++	mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK;
++	mask[6] = CFP_TCAM6_L3_FRAMING; /* IPv4, including options and fragments. */
++	b53_fa_udf(data, mask, 1, 0, 0xfe00); /* TTL 0 or 1. */
++	err = b53_fa_rule(dev, 3, data, mask, true);
++	for (i = 0; !err && i < ARRAY_SIZE(b53_fa_lengths); i++) {
++		memset(data, 0, sizeof(data));
++		memset(mask, 0, sizeof(mask));
++		data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1;
++		mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK;
++		mask[6] = CFP_TCAM6_L3_FRAMING;
++		b53_fa_udf(data, mask, 2, b53_fa_lengths[i][0], b53_fa_lengths[i][1]);
++		err = b53_fa_rule(dev, 4 + i, data, mask, true);
++	}
++	if (err)
++		return err;
++	/* Only a port's own router MAC may take the inline data path. These
++	 * allow rules are populated after DSA has registered its user devices.
++	 */
++	memset(data, 0, sizeof(data));
++	memset(mask, 0, sizeof(mask));
++	data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1;
++	mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK;
++	mask[6] = CFP_TCAM6_L3_FRAMING;
++	return b53_fa_rule(dev, B53_FA_DEFAULT_RULE, data, mask, true);
++}
++
++/* Original FA ignores switch exceptions on its inline port. Redirect IPv4
++ * exceptions through GMAC0/IMP5, outside FA, while GMAC2/IMP8 carries data.
++ * Reserve classifier rules only when the board describes both CPU paths.
++ */
++static int b53_fa_setup(struct b53_device *dev)
++{
++	struct dsa_port *dp;
++	unsigned int rule, i;
++	u32 data[8], mask[8];
++	int err;
++
++	if (!is5301x(dev) || dev->tag_protocol != DSA_TAG_PROTO_BRCM_FA ||
++	    !dsa_is_cpu_port(dev->ds, 5) || !dsa_is_cpu_port(dev->ds, 8))
++		return 0;
++
++	err = b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL, 0);
++	if (err)
++		return err;
++	err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACC, CFP_ACC_RESET);
++	if (!err)
++		err = b53_fa_cfp_wait(dev, CFP_ACC_RESET);
++	if (err)
++		return err;
++	/* Slice 1 UDF A0 extracts TCP bytes 12..13, relative to the parsed end of L3.
++	 * This also works with IP options. Match the individual
++	 * FIN/SYN/RST bits, never payload bytes in UDP packets. Slice 0
++	 * with a nonzero class ID would request a chained search instead.
++	 */
++	err = b53_write8(dev, B53_CFP_PAGE, B53_CFP_UDF1_A0,
++			 CFP_UDF_BASE_END_L3 | CFP_UDF_OFFSET(6));
++	if (err)
++		return err;
++	for (rule = 0; rule < 3; rule++) {
++		memset(data, 0, sizeof(data));
++		memset(mask, 0, sizeof(mask));
++		data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1 | CFP_TCAM0_UDF0_FLAG(rule);
++		/* Slice 1; FIN, SYN or RST. */
++		mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK | CFP_TCAM0_UDF0_FLAG(rule);
++		data[5] = CFP_TCAM5_UDF_VALID(0); /* UDF A0 valid. */
++		mask[5] = CFP_TCAM5_UDF_VALID(0);
++		data[6] = FIELD_PREP(CFP_TCAM6_IP_PROTOCOL, IPPROTO_TCP);
++		mask[6] = CFP_TCAM6_L3_FRAMING | CFP_TCAM6_IP_PROTOCOL | CFP_TCAM6_IP_FRAGMENT;
++		for (i = 0; i < ARRAY_SIZE(data); i++) {
++			err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_DATA(i), data[i]);
++			if (!err)
++				err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_MASK(i), mask[i]);
++			if (err)
++				return err;
++		}
++		/* Both meter outcomes redirect to IMP5, with class 1 and a
++		 * termination reason. Preserve VLAN, EAP and STP filtering.
++		 */
++		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(0),
++				  CFP_ACT0_FWD_MAP_REPLACE | CFP_ACT0_DST_PORT5 |
++				CFP_ACT0_REASON_TERMINATION);
++		if (!err)
++			err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(1),
++					  CFP_ACT1_CLASS_ID(1) | CFP_ACT1_FWD_MAP_REPLACE |
++					  CFP_ACT1_DST_PORT5);
++		if (!err)
++			err = b53_fa_cfp_write(dev, rule, CFP_ACC_ACTION);
++		if (!err)
++			err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER, 0);
++		if (!err)
++			err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER + 4, 0);
++		if (!err)
++			err = b53_fa_cfp_write(dev, rule, CFP_ACC_METER);
++		if (!err)
++			err = b53_fa_cfp_write(dev, rule, CFP_ACC_TCAM);
++		if (err)
++			return err;
++	}
++	err = b53_fa_guards(dev);
++	if (err)
++		return err;
++	/* Ordinary flooding must reach only the data CPU, not both MACs. */
++	b53_port_set_ucast_flood(dev, 5, false);
++	b53_port_set_mcast_flood(dev, 5, false);
++	err = b53_write8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(5), PORT_CTRL_RX_UCST_EN);
++	if (err)
++		return err;
++	dev->fa_cfp_ports = 0;
++	dsa_switch_for_each_user_port(dp, dev->ds)
++		dev->fa_cfp_ports |= BIT(dp->index);
++	/* The conduit state callback enables these rules after GMAC0 is up. */
++	err = b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL, 0);
++	if (!err)
++		dev->fa_cfp_enabled = true;
++	return err;
++}
++
++static bool b53_fa_ready(struct b53_device *dev, bool operational)
++{
++	return operational && dev->fa_guards_ready && !dev->fa_guards_failed;
++}
++
++static int b53_fa_port(struct b53_device *dev, int port, bool standalone)
++{
++	struct dsa_port *control = dsa_to_port(dev->ds, 5);
++	bool ready;
++	u16 ports;
++	int err;
++
++	if (!dev->fa_cfp_enabled)
++		return 0;
++	ports = dev->fa_cfp_ports & ~BIT(port);
++	if (standalone)
++		ports |= BIT(port);
++	ready = b53_fa_ready(dev, dsa_port_conduit_is_operational(control));
++	err = b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL,
++			  ready ? ports : 0);
++	if (!err)
++		dev->fa_cfp_ports = ports;
++	return err;
++}
++
++static void b53_fa_conduit_state_change(struct dsa_switch *ds,
++					const struct net_device *conduit, bool operational)
++{
++	struct b53_device *dev = ds->priv;
++	struct dsa_port *control, *data;
++	bool ready;
++	int err;
++
++	if (!dev->fa_cfp_enabled)
++		return;
++	control = dsa_to_port(ds, 5);
++	data = dsa_to_port(ds, 8);
++	if (conduit != control->conduit)
++		return;
++	ready = b53_fa_ready(dev, operational);
++	/* Retire offloads before removing any of the physical exception paths. */
++	brcm_fa_control_set_ready(data->conduit, false);
++	err = b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL, ready ? dev->fa_cfp_ports : 0);
++	if (err) {
++		dev_err(ds->dev, "failed to update FA exception path: %d\n", err);
++		return;
++	}
++	if (ready)
++		brcm_fa_control_set_ready(data->conduit, true);
++}
++
++static int b53_fa_netdev_event(struct notifier_block *nb, unsigned long event, void *ptr)
++{
++	struct b53_device *dev = container_of(nb, struct b53_device, fa_netdev_nb);
++	struct net_device *netdev = netdev_notifier_info_to_dev(ptr);
++	struct dsa_port *dp, *control, *data_cpu;
++	u32 data[8] = {}, mask[8] = {};
++	unsigned int i;
++	int err;
++
++	if (dev->fa_stopping || !dsa_user_dev_check(netdev) ||
++	    (event != NETDEV_REGISTER && event != NETDEV_UP &&
++	     event != NETDEV_PRE_CHANGEADDR && event != NETDEV_CHANGEADDR))
++		return NOTIFY_DONE;
++	dp = dsa_port_from_netdev(netdev);
++	if (dp->ds != dev->ds || dp->index >= 8)
++		return NOTIFY_DONE;
++	control = dsa_to_port(dev->ds, 5);
++	data_cpu = dsa_to_port(dev->ds, 8);
++	brcm_fa_control_set_ready(data_cpu->conduit, false);
++	if (event != NETDEV_PRE_CHANGEADDR) {
++		data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1;
++		mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK;
++		mask[6] = CFP_TCAM6_L3_FRAMING;
++		data[7] = BIT(dp->index);
++		mask[7] = CFP_TCAM7_SOURCE_PORTS;
++		for (i = 0; i < 3; i++)
++			b53_fa_udf(data, mask, 3 + i, get_unaligned_be16(netdev->dev_addr + 2 * i),
++				   0xffff);
++	}
++	err = b53_fa_rule(dev, B53_FA_ALLOW_BASE + dp->index, data, mask, false);
++	if (err) {
++		dev->fa_guards_failed = true;
++		dev_err(dev->dev, "failed to update FA ingress guard: %d\n", err);
++	} else if (event != NETDEV_PRE_CHANGEADDR) {
++		b53_fa_conduit_state_change(dev->ds, control->conduit,
++					    dsa_port_conduit_is_operational(control));
++	}
++	return NOTIFY_DONE;
++}
++
++static void b53_fa_unregister_notifier(void *ptr)
++{
++	struct b53_device *dev = ptr;
++
++	unregister_netdevice_notifier(&dev->fa_netdev_nb);
++}
++
+ static int b53_setup(struct dsa_switch *ds)
+ {
+ 	struct b53_device *dev = ds->priv;
+@@ -1391,11 +1710,20 @@ static int b53_setup(struct dsa_switch *ds)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = b53_fa_setup(dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
+ static void b53_teardown(struct dsa_switch *ds)
+ {
++	struct b53_device *dev = ds->priv;
++
++	dev->fa_stopping = true;
++	if (dev->fa_cfp_enabled)
++		b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL, 0);
+ 	dsa_devlink_resources_unregister(ds);
+ }
+ 
+@@ -2332,6 +2660,7 @@ int b53_br_join(struct dsa_switch *ds, int port, struct dsa_bridge bridge,
+ 	s8 cpu_port = dsa_to_port(ds, port)->cpu_dp->index;
+ 	u16 pvlan, reg, pvid;
+ 	unsigned int i;
++	int err;
+ 
+ 	/* On 7278, port 7 which connects to the ASP should only receive
+ 	 * traffic from matching CFP rules.
+@@ -2339,6 +2668,10 @@ int b53_br_join(struct dsa_switch *ds, int port, struct dsa_bridge bridge,
+ 	if (dev->chip_id == BCM7278_DEVICE_ID && port == 7)
+ 		return -EINVAL;
+ 
++	err = b53_fa_port(dev, port, false);
++	if (err)
++		return err;
++
+ 	pvid = b53_default_pvid(dev);
+ 	vl = &dev->vlans[pvid];
+ 
+@@ -2417,8 +2750,11 @@ void b53_br_leave(struct dsa_switch *ds, int port, struct dsa_bridge bridge)
+ 	}
+ 
+ 	/* Enable redirection of unknown SA to the CPU port */
+-	b53_set_eap_mode(dev, port, EAP_MODE_SIMPLIFIED);
++	b53_set_eap_mode(dev, port, dev->fa_cfp_enabled ? EAP_MODE_BASIC :
++			 EAP_MODE_SIMPLIFIED);
+ 
++	if (dev->fa_cfp_enabled)
++		pvlan |= BIT(5);
+ 	b53_write16(dev, B53_PVLAN_PAGE, B53_PVLAN_PORT_MASK(port), pvlan);
+ 	dev->ports[port].vlan_ctl_mask = pvlan;
+ 
+@@ -2439,6 +2775,10 @@ void b53_br_leave(struct dsa_switch *ds, int port, struct dsa_bridge bridge)
+ 		vl->members |= BIT(port);
+ 		b53_set_vlan_entry(dev, pvid, vl);
+ 	}
++	if (b53_fa_port(dev, port, true)) {
++		dev_err(ds->dev, "failed to restore FA classification on port %d\n", port);
++		b53_disable_port(ds, port);
++	}
+ }
+ EXPORT_SYMBOL(b53_br_leave);
+ 
+@@ -2552,6 +2892,7 @@ static bool b53_can_enable_brcm_tags(struct dsa_switch *ds, int port,
+ 	switch (tag_protocol) {
+ 	case DSA_TAG_PROTO_BRCM:
+ 	case DSA_TAG_PROTO_BRCM_PREPEND:
++	case DSA_TAG_PROTO_BRCM_FA:
+ 		dev_warn(ds->dev,
+ 			 "Port %d is stacked to Broadcom tag switch\n", port);
+ 		ret = false;
+@@ -2564,6 +2905,46 @@ static bool b53_can_enable_brcm_tags(struct dsa_switch *ds, int port,
+ 	return ret;
+ }
+ 
++static bool b53_uses_fa_tag(struct dsa_switch *ds, int port)
++{
++	struct device_node *ports, *node, *ethernet = NULL, *fa = NULL;
++	struct b53_device *dev = ds->priv;
++	bool enabled = false;
++	u32 index;
++
++	if (port != B53_CPU_PORT)
++		return false;
++	/* CPU5 may be parsed before CPU8 has a dsa_port firmware node. */
++	ports = of_get_child_by_name(ds->dev->of_node, "ports");
++	if (!ports)
++		ports = of_get_child_by_name(ds->dev->of_node, "ethernet-ports");
++	for_each_available_child_of_node(ports, node) {
++		if (of_property_read_u32(node, "reg", &index) || index != B53_CPU_PORT)
++			continue;
++		ethernet = of_parse_phandle(node, "ethernet", 0);
++		fa = of_parse_phandle(ethernet, "brcm,flow-accelerator", 0);
++		enabled = IS_ENABLED(CONFIG_BCM_NS_FA) && of_device_is_available(fa) &&
++			  (dev->chip_id == BCM53011_DEVICE_ID ||
++			   dev->chip_id == BCM53012_DEVICE_ID ||
++			   (is5301x(dev) && of_device_is_compatible(fa, "brcm,bcm4708-fa")));
++		of_node_put(node);
++		break;
++	}
++	of_node_put(ports);
++	of_node_put(fa);
++	of_node_put(ethernet);
++	return enabled;
++}
++
++static struct dsa_port *b53_preferred_cpu_port(struct dsa_switch *ds)
++{
++	struct b53_device *dev = ds->priv;
++
++	if (is5301x(dev) && dsa_is_cpu_port(ds, B53_CPU_PORT) && b53_uses_fa_tag(ds, B53_CPU_PORT))
++		return dsa_to_port(ds, B53_CPU_PORT);
++	return NULL;
++}
++
+ enum dsa_tag_protocol b53_get_tag_protocol(struct dsa_switch *ds, int port,
+ 					   enum dsa_tag_protocol mprot)
+ {
+@@ -2583,6 +2964,11 @@ enum dsa_tag_protocol b53_get_tag_protocol(struct dsa_switch *ds, int port,
+ 		goto out;
+ 	}
+ 
++	if (b53_uses_fa_tag(ds, B53_CPU_PORT)) {
++		dev->tag_protocol = DSA_TAG_PROTO_BRCM_FA;
++		goto out;
++	}
++
+ 	/* Broadcom BCM58xx chips have a flow accelerator on Port 8
+ 	 * which requires us to use the prepended Broadcom tag type
+ 	 */
+@@ -2763,6 +3149,8 @@ static const struct phylink_mac_ops b53_phylink_mac_ops = {
+ 
+ static const struct dsa_switch_ops b53_switch_ops = {
+ 	.get_tag_protocol	= b53_get_tag_protocol,
++	.preferred_default_local_cpu_port = b53_preferred_cpu_port,
++	.conduit_state_change = b53_fa_conduit_state_change,
+ 	.setup			= b53_setup,
+ 	.teardown		= b53_teardown,
+ 	.get_strings		= b53_get_strings,
+@@ -3385,7 +3773,32 @@ int b53_switch_register(struct b53_device *dev)
+ 	dev_info(dev->dev, "found switch: %s, rev %i\n",
+ 		 dev->name, dev->core_rev);
+ 
+-	return dsa_register_switch(dev->ds);
++	ret = dsa_register_switch(dev->ds);
++	if (ret || !dev->fa_cfp_enabled)
++		return ret;
++	/* Registration replays existing user devices, after their MACs and
++	 * DSA private data are initialized. Keep lookup gated until it finishes.
++	 */
++	dev->fa_netdev_nb.notifier_call = b53_fa_netdev_event;
++	ret = register_netdevice_notifier(&dev->fa_netdev_nb);
++	if (ret)
++		goto unregister_switch;
++	ret = devm_add_action_or_reset(dev->dev, b53_fa_unregister_notifier, dev);
++	if (ret)
++		goto unregister_switch;
++	dev->fa_guards_ready = true;
++	if (!dev->fa_guards_failed) {
++		struct dsa_port *control = dsa_to_port(dev->ds, 5);
++
++		rtnl_lock();
++		b53_fa_conduit_state_change(dev->ds, control->conduit,
++					    dsa_port_conduit_is_operational(control));
++		rtnl_unlock();
++	}
++	return 0;
++unregister_switch:
++	dsa_unregister_switch(dev->ds);
++	return ret;
+ }
+ EXPORT_SYMBOL(b53_switch_register);
+ 
+diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
+index c4d2a41c714f..ed663067a865 100644
+--- a/drivers/net/dsa/b53/b53_priv.h
++++ b/drivers/net/dsa/b53/b53_priv.h
+@@ -153,6 +153,12 @@ struct b53_device {
+ 	u8 num_arl_bins;
+ 	u16 num_arl_buckets;
+ 	enum dsa_tag_protocol tag_protocol;
++	u16 fa_cfp_ports;
++	bool fa_cfp_enabled;
++	bool fa_guards_ready;
++	bool fa_guards_failed;
++	bool fa_stopping;
++	struct notifier_block fa_netdev_nb;
+ 
+ 	/* used ports mask */
+ 	u16 enabled_ports;
+diff --git a/drivers/net/dsa/b53/b53_regs.h b/drivers/net/dsa/b53/b53_regs.h
+index cfdb5ed38326..4ca7ea64efc6 100644
+--- a/drivers/net/dsa/b53/b53_regs.h
++++ b/drivers/net/dsa/b53/b53_regs.h
+@@ -614,4 +614,43 @@
+ /* CFP Control Register with ports map (8 bit) */
+ #define B53_CFP_CTRL			0x00
+ 
++/* Northstar CFP indirect table port. */
++#define B53_CFP_TCAM_PAGE		0xa0
++#define B53_CFP_ACC			0x00
++#define  CFP_ACC_START			BIT(0)
++#define  CFP_ACC_WRITE			(2 << 1)
++#define  CFP_ACC_TCAM			BIT(10)
++#define  CFP_ACC_ACTION			(2 << 10)
++#define  CFP_ACC_METER			(4 << 10)
++#define  CFP_ACC_RESET			BIT(15)
++#define  CFP_ACC_INDEX(n)		((n) << 16)
++#define B53_CFP_DATA(n)			(0x10 + (n) * 4)
++#define B53_CFP_MASK(n)			(0x30 + (n) * 4)
++#define B53_CFP_ACTION(n)		(0x50 + (n) * 4)
++#define B53_CFP_METER			0x60
++#define B53_CFP_UDF1_A0			0x20
++#define  CFP_UDF_BASE_END_L2		(2 << 5)
++#define  CFP_UDF_BASE_END_L3		(3 << 5)
++#define  CFP_UDF_OFFSET(n)		(n)
++
++/* Slice 1 IPv4 key fields, indexed by DATA/MASK word. */
++#define CFP_TCAM0_VALID			GENMASK(1, 0)
++#define CFP_TCAM0_SLICE1			BIT(2)
++#define CFP_TCAM0_SLICE_MASK		GENMASK(3, 2)
++#define CFP_TCAM0_UDF0_FLAG(n)		BIT(8 + (n))
++#define CFP_TCAM_UDF_OFFSET		8
++#define CFP_TCAM5_UDF_VALID(n)		BIT(24 + (n))
++#define CFP_TCAM6_L3_FRAMING		GENMASK(25, 24)
++#define CFP_TCAM6_IP_PROTOCOL		GENMASK(15, 8)
++#define CFP_TCAM6_IP_FRAGMENT		BIT(7)
++#define CFP_TCAM7_SOURCE_PORTS		GENMASK(7, 0)
++
++/* Both meter outcomes replace the destination map with CPU port 5. */
++#define CFP_ACT0_FWD_MAP_REPLACE		(2 << 24)
++#define CFP_ACT0_DST_PORT5		BIT(19)
++#define CFP_ACT0_REASON_TERMINATION	BIT(6)
++#define CFP_ACT1_CLASS_ID(n)		((n) << 20)
++#define CFP_ACT1_FWD_MAP_REPLACE		(2 << 11)
++#define CFP_ACT1_DST_PORT5		BIT(6)
++
+ #endif /* !__B53_REGS_H */
+diff --git a/include/linux/dsa/brcm.h b/include/linux/dsa/brcm.h
+index 47545a948784..9bfba22b4977 100644
+--- a/include/linux/dsa/brcm.h
++++ b/include/linux/dsa/brcm.h
+@@ -8,6 +8,25 @@
+ #ifndef _NET_DSA_BRCM_H
+ #define _NET_DSA_BRCM_H
+ 
++#include <linux/list.h>
++#include <linux/types.h>
++
++struct net_device;
++struct sk_buff;
++
++/* Original FA control packets arrive through the auxiliary CPU port. */
++struct brcm_fa_control {
++	struct list_head list;
++	struct net_device *conduit;
++	void (*receive)(void *priv, struct sk_buff *skb, unsigned int port);
++	void (*state_change)(void *priv, bool ready);
++	void *priv;
 +};
 +
-+kunit_test_suite(nf_flow_lifetime_suite);
-diff --git a/tools/testing/kunit/configs/nf_flow_table.config b/tools/testing/kunit/configs/nf_flow_table.config
-new file mode 100644
-index 000000000000..7f2aa55190c2
---- /dev/null
-+++ b/tools/testing/kunit/configs/nf_flow_table.config
-@@ -0,0 +1,9 @@
-+CONFIG_KUNIT=y
-+CONFIG_NET=y
-+CONFIG_INET=y
-+CONFIG_NETFILTER=y
-+CONFIG_NETFILTER_INGRESS=y
-+CONFIG_NF_CONNTRACK=y
-+CONFIG_NF_TABLES=y
-+CONFIG_NF_FLOW_TABLE=y
-+CONFIG_NF_FLOW_TABLE_KUNIT_TEST=y
++void brcm_fa_control_register(struct brcm_fa_control *control);
++void brcm_fa_control_unregister(struct brcm_fa_control *control);
++void brcm_fa_control_set_ready(struct net_device *conduit, bool ready);
++
+ /* Broadcom tag specific helpers to insert and extract queue/port number */
+ #define BRCM_TAG_SET_PORT_QUEUE(p, q)	((p) << 8 | q)
+ #define BRCM_TAG_GET_PORT(v)		((v) >> 8)
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..5f926b7fde5b 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -62,6 +62,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_KSZ8463_VALUE		34
+ #define DSA_TAG_PROTO_MT7628_VALUE		35
+ #define DSA_TAG_PROTO_KS8995_VALUE		36
++#define DSA_TAG_PROTO_BRCM_FA_VALUE		37
+ 
+ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
+@@ -69,6 +70,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_BRCM_LEGACY	= DSA_TAG_PROTO_BRCM_LEGACY_VALUE,
+ 	DSA_TAG_PROTO_BRCM_LEGACY_FCS	= DSA_TAG_PROTO_BRCM_LEGACY_FCS_VALUE,
+ 	DSA_TAG_PROTO_BRCM_PREPEND	= DSA_TAG_PROTO_BRCM_PREPEND_VALUE,
++	DSA_TAG_PROTO_BRCM_FA		= DSA_TAG_PROTO_BRCM_FA_VALUE,
+ 	DSA_TAG_PROTO_DSA		= DSA_TAG_PROTO_DSA_VALUE,
+ 	DSA_TAG_PROTO_EDSA		= DSA_TAG_PROTO_EDSA_VALUE,
+ 	DSA_TAG_PROTO_GSWIP		= DSA_TAG_PROTO_GSWIP_VALUE,
+diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+index 4f44bf3ede23..2dffff2f6c34 100644
+--- a/net/dsa/Kconfig
++++ b/net/dsa/Kconfig
+@@ -69,6 +69,15 @@ config NET_DSA_TAG_BRCM_PREPEND
+ 	  Broadcom switches which places the tag before the Ethernet header
+ 	  (prepended).
+ 
++config NET_DSA_TAG_BRCM_FA
++	tristate "Tag driver for the Broadcom Northstar flow accelerator"
++	select NET_DSA_TAG_BRCM_COMMON
++	help
++	  Support the prepended four-byte FA metadata tag on Northstar GMAC2.
++	  The receive format includes a hash, bucket, parser status, and input
++	  switch port. Transmit uses the ordinary prepended Broadcom tag.
++	  Enable this for a B53 switch explicitly connected to an accelerator.
++
+ config NET_DSA_TAG_HELLCREEK
+ 	tristate "Tag driver for Hirschmann Hellcreek TSN switches"
+ 	help
+diff --git a/net/dsa/tag_brcm.c b/net/dsa/tag_brcm.c
+index b7c49822ca88..8d13a3c7de5e 100644
+--- a/net/dsa/tag_brcm.c
++++ b/net/dsa/tag_brcm.c
+@@ -9,6 +9,7 @@
+ #include <linux/etherdevice.h>
+ #include <linux/if_vlan.h>
+ #include <linux/list.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ 
+ #include "tag.h"
+@@ -17,6 +18,8 @@
+ #define BRCM_LEGACY_NAME	"brcm-legacy"
+ #define BRCM_LEGACY_FCS_NAME	"brcm-legacy-fcs"
+ #define BRCM_PREPEND_NAME	"brcm-prepend"
++#define BRCM_FA_NAME		"brcm-fa"
++#define BRCM_FA_OPCODE_MISS	2
+ 
+ /* Legacy Broadcom tag (6 bytes) */
+ #define BRCM_LEG_TAG_LEN	6
+@@ -84,7 +87,8 @@
+ #define BRCM_EG_PID_MASK	0x1f
+ 
+ #if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM) || \
+-	IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_PREPEND)
++	IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_PREPEND) || \
++	IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
+ 
+ static struct sk_buff *brcm_tag_xmit_ll(struct sk_buff *skb,
+ 					struct net_device *dev,
+@@ -146,9 +150,10 @@ static struct sk_buff *brcm_tag_xmit_ll(struct sk_buff *skb,
+  */
+ static struct sk_buff *brcm_tag_rcv_ll(struct sk_buff *skb,
+ 				       struct net_device *dev,
+-				       unsigned int offset)
++				       unsigned int offset, bool fa)
+ {
+ 	int source_port;
++	u8 opcode;
+ 	u8 *brcm_tag;
+ 
+ 	if (unlikely(!pskb_may_pull(skb, BRCM_TAG_LEN))) {
+@@ -158,8 +163,12 @@ static struct sk_buff *brcm_tag_rcv_ll(struct sk_buff *skb,
+ 
+ 	brcm_tag = skb->data - offset;
+ 
+-	/* The opcode should never be different than 0b000 */
+-	if (unlikely((brcm_tag[0] >> BRCM_OPCODE_SHIFT) & BRCM_OPCODE_MASK)) {
++	/* Opcode 2 is a four-byte FA miss descriptor. Its middle bytes
++	 * contain the flow hash and parser status, not classification/reason.
++	 * Timestamp descriptors (opcode 1, eight bytes) are not supported.
++	 */
++	opcode = (brcm_tag[0] >> BRCM_OPCODE_SHIFT) & BRCM_OPCODE_MASK;
++	if (unlikely(opcode && !(fa && opcode == BRCM_FA_OPCODE_MISS))) {
+ 		kfree_skb(skb);
+ 		return NULL;
+ 	}
+@@ -167,7 +176,7 @@ static struct sk_buff *brcm_tag_rcv_ll(struct sk_buff *skb,
+ 	/* We should never see a reserved reason code without knowing how to
+ 	 * handle it
+ 	 */
+-	if (unlikely(brcm_tag[2] & BRCM_EG_RC_RSVD)) {
++	if (unlikely(!opcode && (brcm_tag[2] & BRCM_EG_RC_RSVD))) {
+ 		kfree_skb(skb);
+ 		return NULL;
+ 	}
+@@ -205,7 +214,7 @@ static struct sk_buff *brcm_tag_rcv(struct sk_buff *skb, struct net_device *dev)
+ 	struct sk_buff *nskb;
+ 
+ 	/* skb->data points to the EtherType, the tag is right before it */
+-	nskb = brcm_tag_rcv_ll(skb, dev, 2);
++	nskb = brcm_tag_rcv_ll(skb, dev, 2, false);
+ 	if (!nskb)
+ 		return nskb;
+ 
+@@ -392,7 +401,7 @@ static struct sk_buff *brcm_tag_rcv_prepend(struct sk_buff *skb,
+ 					    struct net_device *dev)
+ {
+ 	/* tag is prepended to the packet */
+-	return brcm_tag_rcv_ll(skb, dev, ETH_HLEN);
++	return brcm_tag_rcv_ll(skb, dev, ETH_HLEN, false);
+ }
+ 
+ static const struct dsa_device_ops brcm_prepend_netdev_ops = {
+@@ -407,7 +416,100 @@ DSA_TAG_DRIVER(brcm_prepend_netdev_ops);
+ MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_BRCM_PREPEND, BRCM_PREPEND_NAME);
+ #endif
+ 
++#if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
++static LIST_HEAD(brcm_fa_controls);
++static DEFINE_MUTEX(brcm_fa_control_lock);
++
++void brcm_fa_control_register(struct brcm_fa_control *control)
++{
++	mutex_lock(&brcm_fa_control_lock);
++	list_add_rcu(&control->list, &brcm_fa_controls);
++	mutex_unlock(&brcm_fa_control_lock);
++}
++EXPORT_SYMBOL_GPL(brcm_fa_control_register);
++
++void brcm_fa_control_unregister(struct brcm_fa_control *control)
++{
++	mutex_lock(&brcm_fa_control_lock);
++	list_del_rcu(&control->list);
++	mutex_unlock(&brcm_fa_control_lock);
++	synchronize_net();
++}
++EXPORT_SYMBOL_GPL(brcm_fa_control_unregister);
++
++void brcm_fa_control_set_ready(struct net_device *conduit, bool ready)
++{
++	struct brcm_fa_control *control;
++
++	/* State callbacks can sleep while retiring hardware entries. */
++	mutex_lock(&brcm_fa_control_lock);
++	list_for_each_entry(control, &brcm_fa_controls, list)
++		if (control->conduit == conduit && control->state_change)
++			control->state_change(control->priv, ready);
++	mutex_unlock(&brcm_fa_control_lock);
++}
++EXPORT_SYMBOL_GPL(brcm_fa_control_set_ready);
++
++static struct sk_buff *brcm_fa_tag_xmit(struct sk_buff *skb,
++					struct net_device *dev)
++{
++	struct dsa_port *dp = dsa_user_to_port(dev);
++
++	return brcm_tag_xmit_ll(skb, dev, dp->cpu_dp->index == 5 ? 2 * ETH_ALEN : 0);
++}
++
++static struct sk_buff *brcm_fa_tag_rcv(struct sk_buff *skb, struct net_device *dev)
++{
++	struct dsa_port *cpu = dev->dsa_ptr;
++	struct brcm_fa_control *control;
++	struct dsa_port *data_cpu;
++	unsigned int port;
++	u8 reason;
++
++	if (cpu->index != 5)
++		return brcm_tag_rcv_ll(skb, dev, ETH_HLEN, true);
++	if (!pskb_may_pull(skb, BRCM_TAG_LEN))
++		goto drop;
++	reason = skb->data[0]; /* Embedded tag byte 2 after eth_type_trans(). */
++	port = skb->data[1] & BRCM_EG_PID_MASK;
++	skb = brcm_tag_rcv_ll(skb, dev, 2, false);
++	if (!skb)
++		return NULL;
++	dsa_strip_etype_header(skb, BRCM_TAG_LEN);
++	skb_set_mac_header(skb, -ETH_HLEN);
++	if (!(reason & BRCM_EG_RC_PROT_TERM))
++		return skb;
++	data_cpu = dsa_to_port(cpu->ds, 8);
++	if (!data_cpu || !dsa_port_is_cpu(data_cpu))
++		return skb;
++	rcu_read_lock();
++	list_for_each_entry_rcu(control, &brcm_fa_controls, list)
++		if (control->conduit == data_cpu->conduit)
++			control->receive(control->priv, skb, port);
++	rcu_read_unlock();
++	return skb;
++drop:
++	kfree_skb(skb);
++	return NULL;
++}
++
++static const struct dsa_device_ops brcm_fa_netdev_ops = {
++	.name = BRCM_FA_NAME,
++	.proto = DSA_TAG_PROTO_BRCM_FA,
++	.xmit = brcm_fa_tag_xmit,
++	.rcv = brcm_fa_tag_rcv,
++	.needed_headroom = BRCM_TAG_LEN,
++	.promisc_on_conduit = true,
++};
++
++DSA_TAG_DRIVER(brcm_fa_netdev_ops);
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_BRCM_FA, BRCM_FA_NAME);
++#endif
++
+ static struct dsa_tag_driver *dsa_tag_driver_array[] =	{
++#if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
++	&DSA_TAG_DRIVER_NAME(brcm_fa_netdev_ops),
++#endif
+ #if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM)
+ 	&DSA_TAG_DRIVER_NAME(brcm_netdev_ops),
+ #endif
 -- 
 2.53.0
 
