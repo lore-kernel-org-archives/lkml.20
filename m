@@ -1,73 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830197;
-	b=SiHoAWsrszsNUoGKrcoOXLuhj+B6bbN6vMEt5mKBBoLE7y7sHAFenOqldn5FkCmuLML3
-	 pMVH/lnbT5Lzn1R2pETRw3qz3D7ceJnZ8JlbpPh2CSTCNmw1yn8jG1ah30gUdSuk7LlgU
-	 iwWSN6U7YSbWFu1NSCefn5ONUGSxYVRtQvQXxpxuEUZiVtWBcGzN03H4szHlHcNY+/VG4
-	 nrWwyDnGqzA+YZox5RAHrwD1Z/oiKW1OZqX8JaOzoRCJRrtDwogBaKwlkJtQqMGyYEBkU
-	 RJ4e8L06KgqRkLOQEJga9Q0HIUw3f47A86t4mDQ5ay76DdRLA8tdstkgtc3vKGkMZGw==
+	t=1794830204;
+	b=xClg7sU/W0WTCVP5bcKaXSEuER5DEknAph9hT4Izl0mtRo6LwfOmgfPBIh66Dqik+I42
+	 gYelEI3bniG292a0/5yes1/z3bcFdQzQDOX2OuqEpoLuk/646JoS11dBYMgEuHTizDVbP
+	 P/94NATGgou1YpbXm2q8CmF6+n/LD2M+D/9r6CQWv5Ha0kGQjOrSWmW+XO+Csf+y7fVJc
+	 of3EVmJRlhRk3W1BrLz0/RsDwOxHw7uf3y3XARzvC5qK7MQMEvZ3cLxAbR9AgOQmox/OY
+	 igZUkuCdb0pq3QL2ArMQLyxny/fCYuZupHOl6vLhpBWWGuilR5cgXx/IGSj/i/j7YHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830197;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Language:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=GeVXqqtOBRanGI741BAYhJK/fg1GAPjaiJ5K9yFk9wM=;
-	b=X4UNphJ/NQjLUC3Wpz6meA/6RIkEWAqzYD3ffNORPOpHM16QdkPiAUo/JvtuT4IBy+zK
-	 HAfnH0sNLziaS4CkvDZtLnV4j5QUgOf8n9mKEF6PW+9HoKuEbT7CvxnF+9E+PB7n0wc7V
-	 eJ+3FeOLYk045ds6P6XlmZVZ/FQVPWVJZtvd+v285GsTQOQZhTl1XNm9l2FC5aJ8pewfA
-	 3P8nNS2AJ2UwDxB25trMA+1rB0dpZpFq6VeDnXnOI2H5n1KkClHWU7rKSwyvxzWmIbrfQ
-	 Iv3Yz9tl6f67av/432KiT+YMWizQkRYK7cWSbC/NZGvEaMr5n9sf4tCm4kIzGM6uE9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830204;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
+	b=APbJyYN94RhOqb64SGlMPwpGd+pFiS5vDdUIulaH9wSIQi3Xt1HzMmwgRdCSsgdAhGyT
+	 kwWvtmDOD4dTScd22DOYeBxXPPUrsXcaiygrWhuf/frnk5XwHHYNsrG1OVhRYMZY5zMyI
+	 savhcsZpVhHgM/iV94Sn8vSp2eSC/znRf/PCeH7zM0JiziAmGOv3jO0Gyw4KRSgd4qC+u
+	 b6tmyH7XQbo9aHwnq4M52Wej+GuBC18mJ6pqJn85dmAxqg00ujP0wVlkW/0M2ntkn26jS
+	 vTZ9U+mJ2uHMAefjxlC0K6Nxu7Ea2o2tWNRzyUAbM2rul5wkSQeddqqrv7X2tfLkkWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6jI6RStq;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R7eMeQvc;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB845606A323;
-	Mon, 16 Nov 2026 11:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB845606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0275F606A334
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0275F606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6jI6RStq
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=GeVXqqtOBRanGI741BAYhJK/fg1GAPjaiJ5K9yFk9wM=;
-	b=6jI6RStqoCtlvQpe4IYTr3xlXv3TnYB2PW2fNNOWwVLG28g9WsqWYNxCahxVcveX3PWQ0OIWf
-	OyarOUpcQmFb1UTa/vsBsjrhJboksjzWcNvt7LeAi68MEoF5/Ezhx3bbUvFY7eb9NuW1IB/sOSz
-	Qp+hzZ9QZwTJ3AYuPZQbuQI=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jSmXr6Vqpz1cyPf;
-	Mon, 16 Nov 2026 19:56:12 +0800 (CST)
-Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8BAEC4055B;
-	Mon, 16 Nov 2026 19:56:31 +0800 (CST)
-Received: from [10.174.178.219] (10.174.178.219) by
- whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 16 Nov 2026 19:56:29 +0800
-Subject: Re: [PATCH 5/7] KVM: Fix comments that refer to non-existent
- identifiers
-To: Fuad Tabba <fuad.tabba@linux.dev>
-CC: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
-	<seanjc@google.com>, <kvm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>, Christian
- Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
-	<frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, Huacai
- Chen <chenhuacai@kernel.org>, <linux-mips@vger.kernel.org>, Will Deacon
-	<will@kernel.org>, Fuad Tabba <tabba@google.com>
-References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
- <20261111085448.1130701-6-fuad.tabba@linux.dev>
-From: Zenghui Yu <yuzenghui@huawei.com>
-Message-ID: <4fb0e902-32c6-727f-7aaa-e1a7381dbe15@huawei.com>
-Date: Mon, 16 Nov 2026 19:56:27 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R7eMeQvc
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3acff56a300so29122691fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:56:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794830201; x=1795435001; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
+        b=R7eMeQvcKmV+YQ0RO1A52l9WKu6AgEr6CjleT4AbxpCF087ib+8qBbk7ylI3LyhvGW
+         nl9mwEBSL5R3YwT8HcD8fSldh9XD0xvhB1oGKgsDUm3nfxN2sXcfT0rJRpvYfdS+rI0B
+         ano23tip8N3VL1zCVMp+MZ4hN0+YQDLDOcFQ8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794830201; x=1795435001;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
+        b=XVprCl0tl01npbZ/YEmM/i+IyntNPagAK0hXzqPPwhrpATHwnjR/3qxcjJZS+vIg63
+         /A47c4hA+U+1dGzLCzvS2CJ/33Y6QLvkUIuqw8NY/yncSGGS0SR/g79rPPCF2uHj6uij
+         Ewu1K3qJKmJORu4TM6svA6uxhC95BUKWjF4xUpQxIb3X1i000snWD+aADwTgX/UtOeYy
+         VnvB2uUF2c4zBbD1DUA5tJ2QjXwml6h+bnJyNIz1TWThcf3wwQErnUgeqNpwBrFkWTh7
+         4ihLONjXuWzNS+QZm/LOgzvTG9YFOUggiAmzAn8u1iE6i/QCpMr0OH+KboEMBSw/CL9n
+         R6lA==
+X-Forwarded-Encrypted: i=1; AL+hErG04ZmKKwStk394oKGyUfFyQhNHk5ZdBdZKeujz8MiskIZM46oEaJKDyQluR20cHdQ3N5rQDAadgi7ZQRM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/y/lyLn5ogS8nyQ0BCk4tULac6iURssfCIaRB4ztG4BvlTaeg3
+	EuVQI8Zv+Hm/pIFXKELC5ooZPTbvEMPa9mdtA/TVpEeCvzENdZfAgMuqxh9Vb3cKwQ==
+X-Gm-Gg: AYBFou2Aa2bfOhrzgO9X4LPPdr9dbKWl4A0kad7itm9Dt8iUFVnu/fB2b9xmuH6LoHg
+	1P0yhM3eRBQhRvByN+oU76OZ960hkVaKTDIyUOM+AUUs2rxYMhNChGbzXhPC6azGEwOfx2LpRW7
+	NxI3E2NkY514vMTVQcdE+fp8KkUhAE0+HwY+orE2SEiG+wyT6qmdpaCplkST2J9bU4lxtAkh4kI
+	WwxyWvYvPM2fmeJFZmW37cXmlHCF9TJok6u/MnA1CLTO+N6SJDdiMGQeYfbuSX8gyMdOd1uTf/1
+	GYuhjoPC/w5bFfd+7lvAPnZJfaQxr9/i0OmWXE3FbdiBgGfuXkEVhBMpAHyASNoNa4sRfN7HZ25
+	OQHHR4fIGfWT9IjykXoUcHejyvF3HkZieonOtAkMDOKvY8ZBEogtXncd9LhNViqaIAE7YN6rcBk
+	WLl0SWYj1mY60LODiIdMRS0W7UqnGo6V4po616xdOexDApuFrWkg6ZHWUe0gevYf/5LLnW5aISX
+	q7qVeMCda7C+Byg8doba93nDkZ1CFT2bl67Ej8HM/OPvad9ogD9M3ZWff/oHJZUb40G8MsUurqy
+	ExUtBRDbFxSzmK1s35Nm4L1iBxwvAheEYnN9SubdPcnhuUxJpEw/7Hh7IKLlhFe2PZE3VYjwpS7
+	FAmk012lvOw==
+X-Received: by 2002:a2e:8a88:0:b0:3aa:fd7d:6164 with SMTP id 38308e7fff4ca-3ae2b68121fmr25930611fa.25.1794830201228;
+        Mon, 16 Nov 2026 03:56:41 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad7dsm3183754e87.9.2026.11.16.03.56.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:56:40 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH 0/3] media: uvcvideo: Improve checks for medatata size
+Date: Mon, 16 Nov 2026 11:56:36 +0000
+Message-Id: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,48 +89,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261111085448.1130701-6-fuad.tabba@linux.dev>
 Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemo200006.china.huawei.com (7.152.185.252)
+X-B4-Tracking: v=1; b=H4sIAHTv+moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Mz3dKyZN3ijPyiktzUkkRdc9Pk5CQzcwPzFMsUJaCegqLUtMwKsHn
+ RsbW1ALgAAO5fAAAA
+X-Change-ID: 20261116-uvc-shortmeta-75ccb6707d9d
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, Sinan Turunc <enscrpt@pm.me>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On 2026/11/11 16:54, Fuad Tabba wrote:
-> Comments in the generic KVM code and its headers refer to functions,
-> structures, fields, capabilities and Kconfig symbols that have been
-> misspelled or renamed. Use the current names.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  include/linux/kvm_dirty_ring.h | 2 +-
->  include/linux/kvm_host.h       | 4 ++--
->  include/linux/kvm_irqfd.h      | 4 ++--
->  include/uapi/linux/kvm.h       | 2 +-
->  virt/kvm/binary_stats.c        | 2 +-
->  virt/kvm/eventfd.c             | 2 +-
->  virt/kvm/kvm_main.c            | 2 +-
->  7 files changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-> index eb10d87adf7d5..8679ba17bd1ff 100644
-> --- a/include/linux/kvm_dirty_ring.h
-> +++ b/include/linux/kvm_dirty_ring.h
-> @@ -29,7 +29,7 @@ struct kvm_dirty_ring {
->  
->  #ifndef CONFIG_HAVE_KVM_DIRTY_RING
->  /*
-> - * If CONFIG_HAVE_HVM_DIRTY_RING not defined, kvm_dirty_ring.o should
-> + * If CONFIG_HAVE_KVM_DIRTY_RING not defined, kvm_dirty_ring.o should
->   * not be included as well, so define these nop functions for the arch.
->   */
+In some parts of the code we have not been very strict when checking the
+payload header size; fix this.
 
-The comment looks a bit obscure. We can rewrite it as
+While doing that, I also spotted an unaligned and OOB access in a debug
+message, so I added a fix for it to this series.
 
-" If CONFIG_HAVE_KVM_DIRTY_RING is not defined, dirty_ring.o will not be
-  built either, so define these nop functions for the arch. "
+This work was triggered by:
+https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me
 
-And personally I tend to remove it :-)
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Ricardo Ribalda (3):
+      media: uvcvideo: Reject short metadata
+      media: uvcvideo: Check header length in uvc_video_clock_decode()
+      media: uvcvideo: Fix unaligned and OOB access
 
-Thanks,
-Zenghui
+ drivers/media/usb/uvc/uvc_video.c | 20 ++++++++++++++++----
+ drivers/media/usb/uvc/uvcvideo.h  |  1 +
+ 2 files changed, 17 insertions(+), 4 deletions(-)
+---
+base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
+change-id: 20261116-uvc-shortmeta-75ccb6707d9d
+
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
+
