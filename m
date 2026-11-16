@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794789853;
-	b=l7QCk8cW3yoQgAfsPTHAjE87j4ndriIa5gLL+O5T/dmjYoeuIxrm6DVd+3hFivaXfOLh
-	 RhMCAIJ2TjSuhxM+l9MtZ02I08mx0VKO5wYooJSxDTkseU7TiiAyKK+WSR8SClWHcTVQa
-	 s6iXuQKJXxWad+TYJCAgmMrXsJubfQYNvPcOeTWvXH8oSJgMAREYQPgOWY6+Abgahn4Wo
-	 7B1izBW84uJfiYRppfGFDIcuujJqsb//Rc8XA8GErUI+5bnCH35idVbe4lyy+iSh+vdwu
-	 ZrtKjam1j/aaH4H6U7CPTC9rR3AloD7XQe5kpY1EBLgZSoVaIZuC3YEwKEpczIfhP6Q==
+	t=1794789855;
+	b=2G7R8cXLILRb3lqFxJpbfaGJ2psCldAdP2Bk9o5/uLLVVEYSQBLtNdITlN/7W2JazsGv
+	 Yb/AwctSyGGAbfQn1cp+xSXOfmbLY2/KWk8rR32VeIVA1M2NH3PeNHIc9gu5OxpDWJ8TY
+	 M0FjGyLEdC6ZbO9G6+hTg/OUHsl9NTEADA3h/WLfaHSU9Z8FcBlE3ddudlUw1YaoHinAJ
+	 qj3tZv4+46sW8DwpXtSQDfZlmvVkISkTvKY+cVOxFYAdoPoa/xQilJ8ZxwQJ9G4QusUTm
+	 sRQov0EuSzrOuxKVYP/A6Zg9DET46HK95NqAihWhahtpXuc7nrc1Hukxk2uKanuyI/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794789853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794789855;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=boP3TDoFz59Ih81IUQg+NDTi2BNfV6i2vvoA7UF1O/o=;
-	b=IALCaT6Tb7KOvtdncJz1sxsaMe+B7M5XfDCpQrWZYeSOIs5aLAkLpomr4fsf8dfvbBfM
-	 lX1DAo+t8ZFLgklOo3v//zIKW6WZyMUfPkPs1Xvc4s0rurAdJ/QPK38YkfXBHvWjF9r2t
-	 52ifDSqf1WN2WiOubpP8X1qrdMzLWESEsWKzq3X8qsc+9+cvAmWVZBR7zPuXfTQ6yNwBp
-	 M3AoZNXyEK2SstKmC/qtfoTJjVzSYKRGwPIwsgf30NuUFk8bwRGWV9SwqeH6I1Xjf9evv
-	 NIpeFyfHRQPBLM51WP4hK3+DGXMwGpYuE2cC+YdnsGvRofk0HHWr2d9sf7Bfxq/+Kvg==
+	bh=ISEuVjYQM8NCj0mZGFd4fsXBhv05BIQupK8d1+cRaYE=;
+	b=UzsuWr6djodHRtJVSfJTJLjlcF32IDfvKBA22p3l5l0TxtIp9/lAbUDl2k+DOKBKcKX3
+	 XoLluieB5RJckTCip2h9T8F/z8Sa/9cv2rGUNuHjTgw6R94WZtDY7WTow8Ovn/x9NcK+O
+	 1gJ1kbPzNuam84KNd6py4jRFz3WtXq/CTG/nbUUars5Dk3aLq6VxTIBW6RHZS68rpNqEk
+	 UZFFx+0Gk3Wcf/jz2MbQ0YE4TZL+jUmJmCSveZ9XdYa+I6h1gHdXAkgQZyom1q7iN4KjF
+	 Q63s4EeagncW91vs97iLvNkAExt3a74vgLnuflqt+Aa2YiqlhvdhQ+fQPT5ibv5eV3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOWrmDTo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhKuUoN2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E0B606A32F;
-	Mon, 16 Nov 2026 00:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78B9606A337;
+	Mon, 16 Nov 2026 00:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOWrmDTo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB3B1F000C4;
-	Mon, 16 Nov 2026 00:44:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhKuUoN2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DE31F000C9;
+	Mon, 16 Nov 2026 00:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794789853;
-	bh=boP3TDoFz59Ih81IUQg+NDTi2BNfV6i2vvoA7UF1O/o=;
+	s=k20260515; t=1794789855;
+	bh=ISEuVjYQM8NCj0mZGFd4fsXBhv05BIQupK8d1+cRaYE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oOWrmDTogG20YLkFe/iPh+utOr2EnTfiQRd9sOHgZ7uM5Fgf+PYrx32vKk1pdFFAo
-	 ve3l2wVYahMq6xlHCGjG5pJbIqVFnckIO3ReiPA6N36hBPwHqY7RulYtNupMbps3z5
-	 myDQJ0wcfU9GnR1TvyTKfCokAzJFS2c8+po+JFtO9E1+pcvLjZCU4yoGPTELhJnUK1
-	 FyHWbePJMIzwBWjh7L+UgLfkZ9ZeiFg9MSfDoyT9DsWIIWvcUxikvjZqPoQ3fY00xi
-	 /qayuR7NSOjxw26QCxTRzi7gbGYOGJUf8aZgYZAFxNC7BSYUiUKyiyTbM8duxor4Jp
-	 VIH4ypphiUD9A==
-Subject: Re: [PATCH net-next v6 1/4] net: qrtr: Allow the host QRTR to assign
- a unique node id
+	b=JhKuUoN2sfEI9yRCyu1pG3d3cKdyt4ERpoS8Y53YUTXlWV2wA4MXSnKolapdX6jyK
+	 mfjBWb6JMNeJY7Iyh3zBogRLSlmAjVZaXAMDrUxML6yNpjKO4764Rmj65MoE9D5Cxs
+	 fKzR+OZguQGjsa1Y3NIFHR8jmwE7qi7P5klN/IJpjBdd2QrIKzTyIao2RDZsdW22zh
+	 +WTEO5z9zDChgcMo55NcKv/aJTXL8VQT13+h6+Uj2L432f9x0/v+HZBmuAO/Ff7i8x
+	 0WQnk1TTqK1RhhgSMe72cuA5E7qtnAYLLazNoGCcoQOzb13Pi3JTUwMW0AuX1QZ4tu
+	 WPbz0nQdOYGmg==
+Subject: Re: [PATCH net-next v6 2/4] net: qrtr: Assign unique node id for MHI
+ endpoints
 From: netdev-bot+sashiko@kernel.org
 To: manivannan.sadhasivam@oss.qualcomm.com
 Cc: mani@kernel.org, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
@@ -53,10 +53,10 @@ Cc: mani@kernel.org, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
  raj.bhagat@oss.qualcomm.com, juha-matti.tilli@iki.fi,
  jeff.hugo@oss.qualcomm.com, daizhuang.bai@oss.qualcomm.com,
  jeff.johnson@oss.qualcomm.com
-Date: Mon, 16 Nov 2026 00:44:11 +0000
-Message-ID: <179478985187.3136.15328141866524028119@kernel.org>
-In-Reply-To: <20261114-qrtr-multi-ep-v6-1-2eb9885659e2@oss.qualcomm.com>
-References: <20261114-qrtr-multi-ep-v6-1-2eb9885659e2@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 00:44:13 +0000
+Message-ID: <179478985375.3136.1235406838106549470@kernel.org>
+In-Reply-To: <20261114-qrtr-multi-ep-v6-2-2eb9885659e2@oss.qualcomm.com>
+References: <20261114-qrtr-multi-ep-v6-2-2eb9885659e2@oss.qualcomm.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -73,7 +73,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 3
+Critical: 0 · High: 0 · Medium: 3 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -81,280 +81,234 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] A failed node-id insert now drops the packet, where the old
-  code still delivered it, and a dropped HELLO is never recovered.
-- [Medium] In AUTO mode, nid and ep_nid can end up different, which the
-  commit message says cannot happen, and the rewrite logic then…
-- [Low] The TX path now uses node->ep_nid as the destination, but the
-  readiness guard still checks node->nid, so packets can go out…
-- [Low] The new control-packet handling is keyed on the QRTR header type
-  (cb->type), but the consumer acts on the payload cmd field.
-- [Low] The struct qrtr_node kernel-doc describes @ep_nid as the
-  "endpoint's own node id as received", but qrtr_endpoint_post() latches…
+- [Medium] Both the commit message and the new comment in
+  include/net/qrtr.h say that 'an endpoint using v2 can never claim an…
+- [Medium] MHI QRTR now registers a fixed nid, 0x10000 +
+  mhi_cntrl->index, and this id is reused.
+- [Medium] net: qrtr: missing sysfs ABI for host node ID in
+  qcom_mhi_qrtr_probe()
+- [Low] The comment in include/net/qrtr.h says 'A collision is caught
+  when the id is added to the node lookup table.' One case is not…
+- [Low] The host nid is now in qrtr_nodes from the moment
+  qrtr_endpoint_register() runs.
 
 --
 
-net: qrtr: Allow the host QRTR to assign a unique node id
+net: qrtr: Assign unique node id for MHI endpoints
 
-This commit lets the host QRTR use the nid passed to
-qrtr_endpoint_register() as the key in the qrtr_nodes radix tree. The
-endpoint's own source id is stored in a new qrtr_node->ep_nid field.
-Node ids in incoming packets are rewritten from ep_nid to nid, and
-outgoing destinations are rewritten from nid back to ep_nid. Errors from
-radix_tree_insert() are now passed back to the caller.
+This adds include/net/qrtr.h. The header defines QRTR_NODE_HOST_BASE
+(0x10000) and a qrtr_host_node_id() helper that returns the base plus a
+per-device index. The MHI QRTR driver now registers its endpoint with
+qrtr_host_node_id(mhi_cntrl->index) instead of QRTR_EP_NID_AUTO.
 
-> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-> index 45cb8e8c36ca2..fff1d70fd8bfc 100644
-> --- a/net/qrtr/af_qrtr.c
-> +++ b/net/qrtr/af_qrtr.c
-> @@ -118,7 +118,8 @@ static DEFINE_XARRAY_ALLOC(qrtr_ports);
->   * @ep_lock: lock for endpoint management and callbacks
->   * @ep: endpoint
->   * @ref: reference count for node
-> - * @nid: node id
-> + * @nid: node id assigned by the host QRTR
-> + * @ep_nid: endpoint's own node id as received
-
-[Severity: Low]
-Is this description accurate? qrtr_endpoint_post() sets ep_nid from the
-src_node of the first packet that arrives, whatever its type:
-
-	if (node->ep_nid == QRTR_EP_NID_AUTO)
-		WRITE_ONCE(node->ep_nid, nid);
-
-Nothing checks that this packet is a HELLO, or that it came from the
-endpoint itself and not from a node it bridges. The commit message itself
-says incoming source ids can belong to bridged nodes.
-
-Suppose the first packet is forwarded from a bridged node Y. Then ep_nid
-becomes Y, and the endpoint's real id X is treated as a bridged key. Y's
-traffic is rewritten to the host nid in qrtr_endpoint_post() and
-qrtr_node_rewrite_ctrl(). TX addressed to the host nid in
-qrtr_node_enqueue() goes to Y.
-
-With the later explicit-nid MHI change, would the ath11k/ath12k host nid
-filter in their qmi_ops_new_server() callbacks then accept Y's services
-and reject X's?
+> diff --git a/include/net/qrtr.h b/include/net/qrtr.h
+> new file mode 100644
+> index 0000000000000..e2a8d93564b58
+> --- /dev/null
+> +++ b/include/net/qrtr.h
+> @@ -0,0 +1,27 @@
 
 [ ... ]
 
-> @@ -371,10 +374,14 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
->  	hdr->src_node_id = cpu_to_le32(from->sq_node);
->  	hdr->src_port_id = cpu_to_le32(from->sq_port);
->  	if (to->sq_port == QRTR_PORT_CTRL) {
-> -		hdr->dst_node_id = cpu_to_le32(READ_ONCE(node->nid));
-> +		hdr->dst_node_id = cpu_to_le32(READ_ONCE(node->ep_nid));
->  		hdr->dst_port_id = cpu_to_le32(QRTR_PORT_CTRL);
->  	} else {
-> -		hdr->dst_node_id = cpu_to_le32(to->sq_node);
-> +		/* Put back the endpoint's own node id */
-> +		dst_node = to->sq_node;
-> +		if (dst_node == READ_ONCE(node->nid))
-> +			dst_node = READ_ONCE(node->ep_nid);
-> +		hdr->dst_node_id = cpu_to_le32(dst_node);
->  		hdr->dst_port_id = cpu_to_le32(to->sq_port);
->  	}
+> +/*
+> + * Base for the node ids the host assigns to endpoints. It sits just above the
+> + * 16-bit range a v2 header can express, so a v2 endpoint can never claim an id
+> + * in it. A v1 endpoint can claim any 32-bit id, so a collision is possible,
+> + * but unlikely as the firmware assigned node ids are either smaller than this
+> + * base or in the range of 0x08e5ff85. A collision is caught when the id is
+> + * added to the node lookup table.
+> + */
+> +#define QRTR_NODE_HOST_BASE 0x10000u
+
+[Severity: Medium]
+Is it accurate that a v2 endpoint can never claim an id in this range?
+The commit message makes the same claims:
+
+  "The base is chosen just above the 16-bit range a v2 header can
+  express, so an endpoint using v2 can never claim an id in the host
+  range."
+
+  "Such a collision is caught when the id is added to the node lookup
+  table."
+
+In qrtr_endpoint_post(), the NEW_SERVER handler reads a 32-bit node id
+from the payload, whatever the header version:
+
+net/qrtr/af_qrtr.c:qrtr_endpoint_post() {
+    ...
+	if (cb->type == QRTR_TYPE_NEW_SERVER) {
+		...
+		nid = le32_to_cpu(pkt->server.node);
+
+		if (nid != READ_ONCE(node->ep_nid)) {
+			rc = qrtr_node_assign(node, nid);
+    ...
+}
+
+That means a v2 endpoint can insert an id such as 0x10001 into
+qrtr_nodes as a bridged key. A v1 endpoint can do the same through
+src_node_id. __qrtr_node_assign() does not check the id against
+QRTR_NODE_HOST_BASE.
+
+The only collision handling is radix_tree_insert() returning -EEXIST,
+so whoever claims the id first keeps it:
+
+	rc = radix_tree_insert(&qrtr_nodes, nid, node);
+	if (rc)
+		return rc;
+
+The host ids are easy to predict. They are 0x10000 plus the lowest free
+IDA index, and they stay the same across MHI recovery. Another remote
+endpoint could claim 0x10000 + N before MHI controller N registers, or
+while it is between remove and re-probe. That endpoint could be another
+MHI card's firmware, an SMD/rpmsg remoteproc, or a /dev/qrtr-tun user.
+
+In that case, wouldn't
+qcom_mhi_qrtr_probe()->qrtr_endpoint_register()->qrtr_node_assign()
+get -EEXIST and abort the probe, so the device's QRTR link never comes
+up? With QRTR_EP_NID_AUTO, registration could not fail on an id
+conflict.
 
 [Severity: Low]
-Can ep_nid still be QRTR_EP_NID_AUTO at this point?
+One collision is not caught the way this comment describes: a
+remote-claimed id that equals the endpoint's own host nid.
+__qrtr_node_assign() returns success without an error in that case:
 
-The readiness guard in qrtr_bcast_enqueue() still checks node->nid, not
+	if (radix_tree_lookup(&qrtr_nodes, nid) == node)
+		return 0;
+
+Suppose the remote behind MHI endpoint N sends a v1 src_node_id of
+0x10000 + N (which differs from ep_nid), or a NEW_SERVER with
+server.node = 0x10000 + N. The assign succeeds silently. The source id
+is not rewritten either, because qrtr_endpoint_post() only rewrites
 ep_nid:
 
-	/* Skip nodes with no assigned node ID yet. */
-	if (READ_ONCE(node->nid) == QRTR_EP_NID_AUTO)
-		continue;
+	if (cb->src_node == READ_ONCE(node->ep_nid))
+		cb->src_node = READ_ONCE(node->nid);
 
-When qrtr_endpoint_register() is given an explicit nid, node->nid is set
-at registration time. ep_nid stays QRTR_EP_NID_AUTO until the first RX
-packet. The later commit "net: qrtr: Assign unique node id for MHI
-endpoints" makes this the normal MHI case.
+A local reply to 0x10000 + N is then rewritten in qrtr_node_enqueue():
 
-Consider the window after hello_sent is set but before the remote's first
-packet arrives. Would ns broadcasts (NEW_SERVER, DEL_SERVER, DEL_CLIENT)
-and data packets sent to the host nid go out with dst_node_id 0xffffffff
-during that window?
+		dst_node = to->sq_node;
+		if (dst_node == READ_ONCE(node->nid))
+			dst_node = READ_ONCE(node->ep_nid);
 
-In QRTR_EP_NID_AUTO mode, ep_nid and node->nid are written by separate
-WRITE_ONCE() stores in qrtr_endpoint_post() and __qrtr_node_assign(), with
-no ordering between them. qrtr_bcast_enqueue() and qrtr_node_enqueue()
-read both without taking qrtr_nodes_lock. Could a weakly ordered CPU see
-the new nid together with the old ep_nid?
+Wouldn't that send the reply to the endpoint's own node rather than the
+bridged node that sent the packet? It would also merge the bridged
+node's services with the endpoint's own.
 
 [ ... ]
 
-> @@ -533,14 +597,36 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
+> diff --git a/net/qrtr/mhi.c b/net/qrtr/mhi.c
+> index 1040c3c8cfd68..e9377f818b4dd 100644
+> --- a/net/qrtr/mhi.c
+> +++ b/net/qrtr/mhi.c
+
+[ ... ]
+
+> @@ -127,7 +128,8 @@ static int qcom_mhi_qrtr_probe(struct mhi_device *mhi_dev,
+>  	if (rc)
+>  		return rc;
 >  
->  	skb_put_data(skb, data + hdrlen, size);
->  
-> -	qrtr_node_assign(node, cb->src_node);
-> +	nid = cb->src_node;
-> +
-> +	spin_lock_irqsave(&qrtr_nodes_lock, flags);
-> +
-> +	if (node->ep_nid == QRTR_EP_NID_AUTO)
-> +		WRITE_ONCE(node->ep_nid, nid);
-> +
-> +	/*
-> +	 * Add the source id to the lookup table only if 'node->nid' is auto
-> +	 * assigned or the packet came from a bridged node.
-> +	 */
-> +	if (node->nid == QRTR_EP_NID_AUTO || nid != node->ep_nid)
-> +		rc = __qrtr_node_assign(node, nid);
-> +
+> -	rc = qrtr_endpoint_register(&qdev->ep, QRTR_EP_NID_AUTO);
+> +	rc = qrtr_endpoint_register(&qdev->ep,
+> +				    qrtr_host_node_id(mhi_dev->mhi_cntrl->index));
 
 [Severity: Medium]
-Can node->nid and ep_nid end up different for an endpoint registered with
-QRTR_EP_NID_AUTO? The commit message says they stay the same for these
-callers.
+This changes the node id that userspace sees for every MHI QRTR
+endpoint. Before, the remote's own id was what ended up in qrtr_nodes
+and in the NEW_SERVER notifications delivered to AF_QIPCRTR sockets.
+Now a host nid is passed to qrtr_endpoint_register(), and
+qrtr_endpoint_post() and qrtr_node_rewrite_ctrl() rewrite the
+firmware-advertised id (node->ep_nid) to node->nid. Lookups therefore
+report 0x10000 + mhi_cntrl->index.
 
-ep_nid is set before __qrtr_node_assign() runs, whether or not it
-succeeds. Consider an AUTO endpoint where:
+How is a userspace client supposed to map an MHI device to its QRTR
+node after this? As I understand it, on QAIC the firmware nid matches
+the serial number exposed through sysfs and the QAIC control channel,
+so a client could correlate the two. The lookup notifications only
+carry service, instance, node and port. They have no device
+identifier.
 
-1. The first packet's src X is already owned by another node (-EEXIST),
-   or the GFP_ATOMIC insert fails (-ENOMEM). ep_nid = X is set,
-   node->nid stays QRTR_EP_NID_AUTO, and the packet is dropped.
+In-kernel users such as ath11k and ath12k can call
+qrtr_host_node_id() on their own mhi_cntrl->index. However,
+include/net/qrtr.h is not UAPI. The only option left for userspace
+seems to be parsing the mhiN controller name and hardcoding
+QRTR_NODE_HOST_BASE. That would turn an internal constant into ABI
+without documenting it.
 
-2. The next packet is forwarded from a bridged node Y. node->nid is still
-   QRTR_EP_NID_AUTO, so __qrtr_node_assign(Y) succeeds and adopts Y:
-
-	if (node->nid == QRTR_EP_NID_AUTO)
-		WRITE_ONCE(node->nid, nid);
-
-Now nid == Y and ep_nid == X. From then on, packets from X have
-cb->src_node rewritten to Y. qrtr_node_rewrite_ctrl() also rewrites
-NEW_SERVER, DEL_SERVER, DEL_CLIENT and RESUME_TX payloads that name X so
-they name Y.
-
-In qrtr_node_enqueue(), packets addressed to the real bridged node Y are
-rewritten to dst_node_id X, so Y can no longer be reached. X is never
-inserted later either, because the condition above skips the insert once
-node->nid is set and nid == ep_nid.
-
-Before this patch, node->nid would simply have become X, and Y was routed
-through its own key. Is this change in behavior intended?
-
-> +	spin_unlock_irqrestore(&qrtr_nodes_lock, flags);
-> +
-> +	if (rc)
-> +		goto err_nid;
->  
->  	if (cb->type == QRTR_TYPE_NEW_SERVER) {
->  		/* Remote node endpoint can bridge other distant nodes */
-> -		const struct qrtr_ctrl_pkt *pkt;
-> +		const struct qrtr_ctrl_pkt *pkt = data + hdrlen;
-> +
-> +		nid = le32_to_cpu(pkt->server.node);
->  
-> -		pkt = data + hdrlen;
-> -		qrtr_node_assign(node, le32_to_cpu(pkt->server.node));
-> +		if (nid != READ_ONCE(node->ep_nid)) {
-> +			rc = qrtr_node_assign(node, nid);
-> +			if (rc)
-> +				goto err_nid;
-> +		}
->  	}
+My understanding from earlier review of this series was that the
+assigned node id would be exposed through a sysfs attribute. I can't
+find that anywhere in v6. Was it dropped on purpose, or is it planned
+for a follow-up? Since this is the patch that changes the ids
+userspace sees, shouldn't the attribute land together with it?
 
 [Severity: Medium]
-Is it intended that a failed node id insert now drops the whole packet?
+Can a re-probe fail here while the previous qrtr_node is still
+referenced?
 
-Before this patch, qrtr_node_assign() ignored the result of
-radix_tree_insert(). The packet was still delivered, and node->nid was set
-anyway. Now __qrtr_node_assign() can return -EEXIST, or -ENOMEM because
-qrtr_nodes is a GFP_ATOMIC radix tree. Both goto err_nid sites above then
-free the skb.
+This nid is now fixed and gets reused. mhi_unregister_controller()
+frees the IDA index, and mhi_register_controller() gets the same value
+back from ida_alloc(). MHI SYS_ERR recovery or a power cycle also
+recreates the devices on the same controller.
 
-For QRTR_EP_NID_AUTO endpoints (smd and tun, and MHI as of this commit),
-these cases seem to follow.
+qrtr_endpoint_register() now inserts the nid into qrtr_nodes at
+registration time and returns -EEXIST if the slot is taken. However,
+qrtr_endpoint_unregister() only drops its own reference:
 
-If the source id X is already a key owned by another qrtr_node, every
-packet from this node is dropped. node->nid stays QRTR_EP_NID_AUTO, the
-insert is retried and fails on every packet, and qrtr_bcast_enqueue()
-skips the node.
+	qrtr_node_release(node);
+	ep->node = NULL;
 
-If the first packet hits a transient -ENOMEM or a stale key, the remote's
-HELLO is dropped before hello_rcvd is set and before it reaches the ns
-control port. Stale keys are possible because keys are only removed in
-__qrtr_node_release() at the final kref put, not in
-qrtr_endpoint_unregister(). qrtr_sendmsg() and qrtr_send_resume_tx() can
-hold that reference.
+The radix tree slots are removed only in __qrtr_node_release(), on the
+final kref put:
 
-In that case qrtr_hello_work() does not reschedule:
+	radix_tree_for_each_slot(slot, &qrtr_nodes, &iter, 0) {
+		if (*slot == node)
+			radix_tree_iter_delete(&qrtr_nodes, &iter, slot);
+	}
 
-	/* Pairs with smp_store_release() in qrtr_endpoint_post() */
-	if (!smp_load_acquire(&node->hello_rcvd))
-		goto out;
+qrtr_sendmsg() takes a node reference with qrtr_node_lookup() and holds
+it until qrtr_node_release(). In between it calls
+sock_alloc_send_skb(), which can block, and memcpy_from_msg(), which
+can fault on user memory. qrtr_send_resume_tx() holds a reference in a
+similar way.
 
-Would the ns then never see this node's HELLO, even after the conflict
-goes away?
+qrtr_create() has no capability check, so an unprivileged user can
+sendmsg() to the predictable host nid with a slow-faulting buffer, for
+example a FUSE-backed mapping. That keeps the old node referenced.
 
-Even with an explicit nid, a whole NEW_SERVER is now dropped when its
-bridged server.node is owned by another node. Before, only the extra key
-was skipped.
-
-The commit message says:
-
-    Currently, all QRTR endpoint drivers pass 'QRTR_EP_NID_AUTO' as the 'nid'
-    during qrtr_endpoint_register(). So 'ep_nid' and 'nid' are same and the
-    routing behavior is not changed.
-
-Given these new drops, is that statement still accurate?
-
-> @@ -548,6 +634,15 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
->  		smp_store_release(&node->hello_rcvd, true);
->  	}
->  
-> +	if (cb->src_node == READ_ONCE(node->ep_nid))
-> +		cb->src_node = READ_ONCE(node->nid);
-> +
-> +	if (cb->type == QRTR_TYPE_NEW_SERVER ||
-> +	    cb->type == QRTR_TYPE_DEL_SERVER ||
-> +	    cb->type == QRTR_TYPE_DEL_CLIENT ||
-> +	    cb->type == QRTR_TYPE_RESUME_TX)
-> +		qrtr_node_rewrite_ctrl(node, cb->type, skb);
-> +
+If the device is re-probed during that window, wouldn't
+radix_tree_insert() return -EEXIST and make qcom_mhi_qrtr_probe() fail?
+The QRTR link would then stay down until the next probe. With
+QRTR_EP_NID_AUTO, registration always succeeded and later packets
+retried the assignment.
 
 [Severity: Low]
-Should these checks and the rewrite be keyed on the payload cmd instead of
-cb->type?
+Does passing a concrete nid here open a window where DATA packets go
+out with a broadcast destination node id?
 
-qrtr_ns_worker() in net/qrtr/ns.c dispatches on the payload and never sees
-the header type:
+The node can be looked up by 0x10000 + index as soon as
+qrtr_endpoint_register() runs. node->ep_nid stays QRTR_EP_NID_AUTO
+(0xFFFFFFFF) until qrtr_endpoint_post() receives the first packet.
+qrtr_hello_work() sends HELLO right away, and hello_sent is set once
+xmit succeeds, whether or not the remote has replied.
 
-	cmd = le32_to_cpu(pkt->cmd);
+Consider a qrtr_sendmsg() of a DATA packet to (0x10000 + index, port)
+in that window. It passes the lookup and the hello_sent check, and then
+qrtr_node_enqueue() does:
 
-qrtr_endpoint_post() accepts any header type sent to QRTR_PORT_CTRL. So a
-remote can send a QRTR_TYPE_DATA packet to the CTRL port carrying a
-NEW_SERVER, DEL_SERVER or DEL_CLIENT payload. For such a packet, the new
-NEW_SERVER server.node ownership check and qrtr_node_rewrite_ctrl() are
-both skipped. The cb->src_node rewrite above still runs.
+		dst_node = to->sq_node;
+		if (dst_node == READ_ONCE(node->nid))
+			dst_node = READ_ONCE(node->ep_nid);
+		hdr->dst_node_id = cpu_to_le32(dst_node);
 
-This seems to lead to the following.
+Wouldn't that put dst_node_id = 0xFFFFFFFF (QRTR_NODE_BCAST) in a
+unicast DATA header sent to the firmware? With QRTR_EP_NID_AUTO, a node
+only became findable in the same critical section that set ep_nid, so
+this state could not occur.
 
-A NEW_SERVER payload that names another device's host nid gets past the
-new -EEXIST rejection and is registered in the ns.
-
-For a DEL_CLIENT payload under a different header type, from is rewritten
-to the host nid but client.node stays at ep_nid. The anti-spoof check in
-ctrl_cmd_del_client() then rejects it:
-
-	/* Don't accept spoofed messages */
-	if (from->sq_node != node_id)
-		return -EINVAL;
-
-NEW_SERVER payloads are recorded under ep_nid instead of the unique host
-nid.
-
-Also, qrtr_node_rewrite_ctrl() chooses the union member from the header
-type:
-
-	if (type == QRTR_TYPE_DEL_CLIENT || type == QRTR_TYPE_RESUME_TX)
-		nid = &pkt->client.node;
-	else
-		nid = &pkt->server.node;
-
-With a DEL_CLIENT header and a NEW_SERVER payload, would this rewrite
-client.node? That field is at the same offset as server.service.
+>  	if (rc)
+>  		goto err_unprepare;
+>
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114-qrtr-multi-ep-v6-0-2eb9885659e2%40oss.qualcomm.com
