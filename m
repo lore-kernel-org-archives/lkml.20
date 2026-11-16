@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794837459;
-	b=niWe2O1DPBbeYYjI3QvQ7BhvaTz295Td1b83oh9mNiK7MOfJ5Euqez1fF/uaisENPt0g
-	 Ly6FcPhnamnLVQZR0Uyn8U9bux6yOz0ZrstJ0YQ94YlI0wreRSKkPabY0rjauxE6XMHd8
-	 CZdLJBmg0vMZ5k1thjKA+G6sPBQK8x9t//xqo/P2VLYu7ExUusxSpxmcuaDfXv+KYeIEE
-	 wn+v0vZa4Rlnsljzuo+E9cwdYhS9bFd/OEUXDGgIg4nVSsTcdvjhbQpO+e2DyofHqoPRg
-	 7LzCzzI6DkF91jqbvHdhnhLvFYUK5sorVTtr79H54nQSv+OoEMuaCQik1ROWOy2mQKg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=bmx76yOwwerRw1jqIyHjcD/GpLaW3f1Ktdo1bTs3ETMVqUlsLCngV0s5Fmp38zVVr0gs
+	 QCaGlPeQ3d4dMkTY8XkunbdAuBeX+VLZ6W0Skj6q4hrlx8mrIA3muiAdmu+plU5tiNc+l
+	 NaOhtp0RXxTMzdxyOnVXOKa/98GYHIVCX26HIoGlMhAnSUxHZh/LuOcK3xJ1Yv65j2XAj
+	 2wfJ3xDfyUOnmnvREnbthuRc1bCeEa28SNTLBCJc0MJvVUU+GvnxhjIijUPK94RGZnJ5Q
+	 P90FlJ/C/spaJ5YcTY7LxHU5qhKhEsBmX5DCjFC2qr8JiBeBvE9V1qq2mcRa9SxesLg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794837459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=1UODTzCnkI/AIIgb2/kXpLhCU+2zXpd05+blvCLXolQ=;
-	b=ouSmSizVJn4AkUNqaFWgIJe5wl+TuMBgJjaKCxJ1NFPNX2pvAK3MIS1CZrCFLXbaSl6m
-	 QBs1jC/UrTkAlB1xIK3U8ojghzzXscNJgaeMYk0QRMEMva8U3ze7hw5r8VhETeXNAJvvM
-	 bTB43hrTAzuURh2neQEwyMbT6/cl8v3r7j5x7BUN9+vfL+Ao6IwDnJXP9mbhhDe18A34h
-	 CGBdcDR4MYqwFy7mdQogttRRd7Il3OtrSWrxcTh30lT1osa3PqhzFXtL3T1j8jBR17Iet
-	 /7WJTT55knJn9g6QseclkRW/CxrW8m0ZNOaZDo94QtccGAuI/wJzQA0X7+zVfZmrcfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dF63jNl2;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
+	 From:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=rkp8vFu/vOfIGXcOsL7K+kfY/ai4JGh2nOn6IBVxcjQ=;
+	b=lKVzfRgkt3A7XnnNMBJwQfOGnqb92hGCOlwqSiunlMiCNrXEkuax97OTVcJtlgjH6rny
+	 b5+trt1gtWr0YxhUZGGB5nhKAkNkIm1P7/i7dqefXnuJ7YGCpQC3Oh85sUGo4m94Yh/fu
+	 ljBokN5UxH8zyiuJEYFl334M9MMJqvkayA04bhGxWjgIxAIahvk55zCxYeE4uBv1F5/TB
+	 Z/gl+tU1c00/9xsKDoXbTi0wpVEdEaXZtcDDAE/gqG7yabkyzDrsdBc8e8jLv0HmUP9jN
+	 WenSgmbnGhZCAnrDVXUvDFEjpm/kZQJczOHKK8IYIwEwj/im8mZvDTZjZfu47E6LCEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sr2mHKmA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.56
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013056.outbound.protection.outlook.com [40.93.196.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA16606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA16606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA05606A31C;
+	Mon, 16 Nov 2026 13:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FA05606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dF63jNl2
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a7a3b29c11so3533655e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:57:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794837457; x=1795442257; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1UODTzCnkI/AIIgb2/kXpLhCU+2zXpd05+blvCLXolQ=;
-        b=dF63jNl2utyC7Dk8MA6m6jSU8aaCH0pedIAX+QPwbLp4dDHT1DjyBU97VD6g8mxGKP
-         IaJPUcaMnCSYti428ZN8zSQusKjFqv6o4Bl9s/ACGcUlmje5qG8HDJVHZpEbauHqW4qf
-         uFJKjeHMT/CQAxnIOpR+RgNaoWNOGZTZqKHBOgK57OIrXqhwE6jQ57kLQNt1xYqZccAr
-         7gj1761iHJw2aNB/mwEqufUP564IrqLXNubed2IUigwmMFgSUu8sirIlY10MJ1tQgo5d
-         LWo7QOcFlSlsTuxu4yPHfo8ZqH/HEdZP4w/SpmORgFlaSHFIpmQsdXkdQ50wWBUnzsJ2
-         jU8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794837457; x=1795442257;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1UODTzCnkI/AIIgb2/kXpLhCU+2zXpd05+blvCLXolQ=;
-        b=qANkXhKOooFzZLgPpDO/sb6urfOKBSQGKthzm+ozl2YeIR3VybEPR9NbNFUZCKB4Uq
-         B+u832lYdxtCuI1eiRH8JLQPdDQ7riqKvYpwI6xb2Ne9r56EL+sMRszmaitVSefcmrqF
-         mcWt4nWTys63UCcBwfUUlhg0bTMLOLEzJdp/Vy3FHaKFZ7Wur8DZoXLJi6mUclYpQoZx
-         faF/n9XIV3jlggtqtDibt70P4Nhj4lyoe+i0Gzxc0KZwr3Y685fAf61l+S9ZK2Uz55fY
-         aTJqqCuy6tgVuvJPXZgLIsybCRYPaZt9JRIje+YaFLYWQ2Qw9LzUoNaYshITnEdAIp/n
-         GJ7g==
-X-Forwarded-Encrypted: i=1; AL+hErHn8C2U3PE+SsDqOExvgJ1RcGxUZ5dlrqw5HOfAosRyIiATTHutzuozUJ3/S9E+E1Z+vSXDGlagoVa/J+s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Z6XDB7TeRqKBU59W8AoVdehcPa2jN6I+l3yedYdIv1vUhL6UU
-	f+1/5KR7X60hrrWm3fTfk5DNyDFSgoEDXA6C8pjTLqZcxKJrVcIVZttc
-X-Gm-Gg: AYBFou2BR3IwqhOAknRUqwSXnbiHeoT7TdqIb07ip2QWumTpDxT+9zGa8U5YLElyns0
-	Y5B3DM540GSsf59wJz0K0op78JQfgzuJpRsPxYNnw/dlAV/WpQeXJgpjIo1YZGF7ETcwuC3Twyh
-	/f/xyEfXEfDdsEMKLFuvlqs++/1JyPK5s8Zj8crpL9OHy6zfICS2x3vP1Xm2tBwuCuHCrUjrXq+
-	DDyJTiaRxfxOM0Z1g5KCHywl8Q8Q33TH8i/Wb8CvgOY5U98QRiFyFbEWYzTyhOYOMeQpJTW9OqD
-	pLPzySIVubNRMpnIq80pthMrFWu7TJfUqgo68gbo3kX7WClAkNDq1kz178UL1fQuqIoYjoEC+gP
-	L1T6hidZZv5aq48s60m6wwJ1raxoBn/NAVw0tb1ZYOai0Cov/LezPXbygE3gKd7te8aLRvVCfmj
-	m5UrvgaSTQypz5mDCX/LF1JflJ4leeK39EbMkPIa/fZA2Iej6OdEXYxY2Hwf9GEzbePBA3VgFDC
-	hDlhpJIlmRJawgtVisnglmynAjrYqB+oKk12m02QMvBBEDIPTVKNMpv4nN5ipJydFkQf83O4zLf
-	Qd6RUnoTbxMvMrDZ2omW/2gYJUegBP/g5nPGdBB0hcQwCnwmMw0HwAQ=
-X-Received: by 2002:a05:600c:3d96:b0:4ad:5ec2:d3b3 with SMTP id 5b1f17b1804b1-4bb55a35c14mr209953705e9.1.1794837457182;
-        Mon, 16 Nov 2026 05:57:37 -0800 (PST)
-Received: from scheduler.schedules ([85.100.69.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb675200e4sm126280195e9.0.2026.11.16.05.57.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:57:36 -0800 (PST)
-Date: Mon, 16 Nov 2026 16:57:31 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	lukasz.luba@arm.com, rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
-	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
-	pierre.gondois@arm.com, sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
-Subject: Re: [PATCH 01/20 v3] sched/eevdf: Decay positive lag of sleeping
- entities
-Message-ID: <avr4MsRsjGfGHKKk@scheduler.schedules>
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-2-vincent.guittot@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sr2mHKmA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A1u+c4OaRk4YG8LM1jd7WlymmQhsGSF0h4XIRZuA3dfilgHofcW5S3oId8/HzhNOkvCdqcfA/TfBX+Hhcq3IsVYIT6TxW+sFeGoJ53PBizjv89TumX6amRA5iIB6qthqsDLmvihd/0o0xhUcESj4qTGLFBpLKNx8hcRyOKPJ02k5Tl6BSfdozzK+82P26ssmzcgexzzeIPezftyxHvzYI0R12dZgigyP3PMFeqNlMpiK7qtWZ/JzDpjrk3mBoYkf2NsACr2RzCdtyzak1QU0Fu0XjjGQ+EN3rpIkCGYRxRvii2Q1x1vFDfDg/o9lMho0t6b9ffqIxyB/G0r4n5IFEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rkp8vFu/vOfIGXcOsL7K+kfY/ai4JGh2nOn6IBVxcjQ=;
+ b=aH7ERz18XKqdtYTIAtSsXi0ccF/XLRMgY0EF56XJgVGDD7EmZDs4b7vcL7Yc2A28gt0NdHfzp0E6/CWJBmLUGZHWm1UX89iTq3rIoNka97LkSHDpOHGj16zqgKz2geiN88w/TE9Fq3X70MnaW2TrVgr9Zrbdd27YHP47gtQwfrpILnn8pL2BZmZwr3GMjkO75DvsKHG0J1pdwB/B1aO8XuMNuz1wav2YOqIQqz5kVB4CS8RPnUPnT1y7dHt58yI8RRWDst80Li/LB/bhtxHXXXd6IWYx9RxtuaPC900k2C0gaOgA0f+Wm1jfT7JC4i8BjXnqdZ9m9nE+Mf2lWUi9zA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rkp8vFu/vOfIGXcOsL7K+kfY/ai4JGh2nOn6IBVxcjQ=;
+ b=sr2mHKmAuUAk6TLFCoidP/ROoANs6vAqTQK57Lj3Pz7fJbTohAlf5QFDMqVlOxxa/pGckk3wt+no70zmjd4wOhXnfMxafS7jzWEpOtVFC12X2Rqi38jrWE8Dln99f/G2wmIEFFpmAmKa+LLlqtGHuDKqupIOmx7ihIVoeByOcOBBdsI6sprVjFD+peV50KZdai/mlh7Txf6RSGQ1H+qOEoQabaln+8kxynoRSpwHeiK55RnqX2W+xntpdETwEKVZkRL7cLRO+Ajp1yy8fBH4A8dawfQ5WDfp8Oli/Xdu199sU2pX2w83cCnSZMtzPn81uAIDBCO5TLwlWxhab+RWVw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA0PR12MB7649.namprd12.prod.outlook.com (2603:10b6:208:437::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 13:57:23 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
+ 13:57:23 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 22:57:14 +0900
+Message-Id: <DMWORQGE56HJ.1EHZVZ1M4NVTW@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: <aliceryhl@google.com>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <a.hindborg@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: remove unnecessary firmware
+ pin-init
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20261114234324.82387-1-dakr@kernel.org>
+ <20261114234324.82387-2-dakr@kernel.org>
+ <DMWC44MU9W7N.3TBNH0HCKK065@nvidia.com>
+ <DMWMWJV23VO4.1V6D60QKD5KT5@kernel.org>
+In-Reply-To: <DMWMWJV23VO4.1V6D60QKD5KT5@kernel.org>
+X-ClientProxiedBy: TY4P286CA0119.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,163 +106,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106151947.3991524-2-vincent.guittot@linaro.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PR12MB7649:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83514b28-a918-4aa4-5c29-08df43e989b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|10070799003|1800799024|376014|7416014|10067099003|56012099006|11063799006|4143699003|261026121527099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AfxDrDJLMdvB5St9wS0VOzQBZ/n2WkTYucGHABb03pD1UsR1zM9t+PES550gUfL8kfi7RndZs8UlfL7jsWKAq1mNErWVPm5DcCkv7V7LYnsIk80FmgjbKdbGemhKjr7lIGPEzIJp8TlNsGiR4F7ATcTVtcMVGs8gtVVsJy8eVZWkAJ2KNeW/VvlwCl2A95NpGZD+hSRnQ1PMDIg6fi5RM2IS1Mfm1IAVSTyZV1Z0Coh85UXmdRATehtCfaSs907hU99rw8hOXo8AlbM5ah7ygLscuiOP0oA5hmgHQl5Oa7NQtzId4/XvMH6MCJGKm47wRgh3HNHNO3C5GgiLNvbrnB1OvbYj3QDz4v4zQ1JIqNBF62Lk9OYZrFOI4RSxlVJ9zNd/pEFgoytdYSudjpe/uscGcAGRo0rmePXtwi+AFCJ3tCLTg561U1NoP4TGAVB1+hB7O/TKk/y2Zdq4vR4/vxsgq59lrVEh3ritGaRtRgOTD+hUf+osdpC8BYeAfOdsof0HYDkn9w1D2Wjbcr9fdqLUOimeVX/r/chaidXz0KaYLGEEaZ+0unySHpIIdyNuOQfjlc+DJRdEoZEr16IW3SSfyeXIEYRvkaj6veI2wOCHhJ1dnNIAc41xBotkpoP0wOE5nObXbOG/5jZbIjoFp4/u53c+jqSPAUkCrUPbsb0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(1800799024)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U25sVnV5QnB6YXNYcUZDSXNxaERsdXliaDFXdktEZ3FWaXdiVnlpWG91OURt?=
+ =?utf-8?B?MW5zcmdlUysza2FwK0kyaldoaXRoMVEzdzU5QkZZUW5kTG5XWWZjYnhrR3hH?=
+ =?utf-8?B?TTFqS1hrUmNrQWJZQTJrejE4VDNHU0duZTFXRVo5SUxJWWkyTU9JY0t6bkxs?=
+ =?utf-8?B?akRQNkxFQXpsaDFNMWV3REF2eE9MbFFGTmUzdUgzUVpRWGhJamh4T2FLSVVI?=
+ =?utf-8?B?Tkd4YjhGZmFXU1VNUE13d0tXb1RGeVplSENjenF4djRQdkVlcndTU29GSmhV?=
+ =?utf-8?B?WHVRWDkyLzJuY2VXTEhIQVhwTElYL2M4cXExTVloaXYxcHYvNUdsSFpsb1Yx?=
+ =?utf-8?B?ZzBkVDY1RmRDeUdWNWZRYVdnbS9mcFo3VnoxVDRrc3NrUmlvb3pTMFYyaEda?=
+ =?utf-8?B?NGwvSnc0Q1FtMXJIc2drM09nUU1FcS81L2dNM2NxRGQ1LzMrM0Z2T2pYalc1?=
+ =?utf-8?B?R1VJT3ZDWlpLaEJlU0ZlNVFNY1FEUHFjdWJkZHRER3pYZHNhcVpsYUpocmhP?=
+ =?utf-8?B?QkF6ZUI3UzMwK1NEa213TnRnd3pKYndpbVZ6U29jdUx1TEovK2RvV05BMytx?=
+ =?utf-8?B?bHRYdVVjOXlBbXRrdSt3bDU1cEpNcXgwZE9mWllPNzIxZndOVStlTVM3T3hF?=
+ =?utf-8?B?bXdaR3cvYnBFc2ZaMTNXZUxySHlKY0tBYjkyL1RvTFF1QmQrT2txQWxvUkVB?=
+ =?utf-8?B?LzNZeXdNZlhZN2xheUZEYXFiNWlDdlU1a3N0K3B0b05TaExTYm13dUoyUGph?=
+ =?utf-8?B?Tm8xZ0daU2tQOWFRNGVYVGtLMmw0VlNiczU0TG5TMUVxS3ZndDdUSE0yV2JQ?=
+ =?utf-8?B?cS83SlNGeW5nL1RyUmVjbVQ3WU9MbHptUUxLemhoUXlzZFkyemRzckxra2Z5?=
+ =?utf-8?B?NExqTXUyb3gvcDNhTml1RUgyK3Y0WUNEeFNjNzdTaUNFaWhwVldkZS9DbUZC?=
+ =?utf-8?B?MVdoNWRMa1ZsTUhJQTJKN3ZSdkJpRFh0RXVqaG51ZjVFTDY3YzdLanU4eUFW?=
+ =?utf-8?B?YmJiV1krc1dVMmFkQlhYSmtqcUhnQy81UFpGbk9ZQmtJWnAvMDdIb2Zxa2dZ?=
+ =?utf-8?B?Wjd2dG5XTXVicnZTbmw4UUZHclVVM09IVzNmbjBxeG5oeFJ3UzRHc2dDRUlQ?=
+ =?utf-8?B?Y1BGTGMyRnVJdmV5NGx2MGZXcnFRSWI2bGt0amFhMDZoNU9heWhHVTN4MEtD?=
+ =?utf-8?B?TWhJeVFOZWF0cnYxejdjYTVNODQ5Vk5JMVIrbWdsL2VjNllEVGlhZ3BPRks4?=
+ =?utf-8?B?SG5xMW1aSUtaOHZES1EwN3EzYTg2RVFuNlhVbzBrUTA1bldWYWJCblhHekpM?=
+ =?utf-8?B?Rk43WUUrTFdyVXFxeXdLbW1ObUVad3cybkthY29LNlc2cVQwS2Y4VjVsdUJj?=
+ =?utf-8?B?Q3lmWmlOWHF5eUluVEsvR1lKakswUDl5b2lqQmF3b3dWcXdKbGVpMk9Wcm9y?=
+ =?utf-8?B?NlFhVXRFVHh4dkpIMDE0TStJaHVCS2crZlB3VlJPQThhWXFRR0RSaXE5UDBU?=
+ =?utf-8?B?bSt6ZVJZTW4zVEMvcjhpWmU4WXpLSFZTekpaMzhMeVBzaTBwdDdmZ1hkeU92?=
+ =?utf-8?B?eDBhbElsQ0hGb2gzYnRpR09jNlNnbEs4RU9LbkVYM3c4cGxUMzB2RjdTNDB4?=
+ =?utf-8?B?N1l6L0hyQUdzelRJQnFueDNwMGo3emdTQnVvRitnY1N5N2phenJnQkttdFBT?=
+ =?utf-8?B?d2xKUGRLclZ1cEd1VTFQWnc1dTFvZmtkaUpWTHg5M0lRaGRJTW9uQ2NVNWJy?=
+ =?utf-8?B?UFlUTGx2ZDJyU2hGUDdRWVJ3UnJ2OC8zOGVwS1ZMRGRmbWYzTS9TeU1IbjRF?=
+ =?utf-8?B?MC9zN2lWZFlBbzgwT290QmpvOGxTU2FJaThXTldPZjhpeC9LZHB4c04vVklL?=
+ =?utf-8?B?ODZFSU9Cd2tPclB2U2FjY0RiWkZ1TS9SWnJUMnlWbFpOcVp0UXRGL0IyUktO?=
+ =?utf-8?B?dFVyUCtMdWxpZHU0RkM3RFNRbzA4cmRYQnpaZi9IWGY0c29hbHBNb1h4WmMr?=
+ =?utf-8?B?M3lNSWRQbFF3SUdhYjlvTG9lelYvQ29iVGovOG5RLzZnMVg1Y2xXZitqdW5H?=
+ =?utf-8?B?UjZIQXdLRnRTWFdLc2dlS3Vsb1dRT1UrTFlzSzhJQjJpSE5KenRxVGVlM2hV?=
+ =?utf-8?B?bDk1dGJGaW1hZHhHTkxhY1dJRUluT0hzRnQxbXhvRlF1ajVoUFJ3UXQrUmRr?=
+ =?utf-8?B?eWxnd015VTNVVjFwckU5c1FyK3JjeUh4NWhTNWhOMkVUZDljby9wbk56Vm14?=
+ =?utf-8?B?c3pRenR4ZXk4YlAxMWJTdldEWkorYzU0TTd5aG8rdGJ4WHFyTTNzRTVDRDFq?=
+ =?utf-8?B?VkNkVVEzMHpYSXJBV01tZTlST1hkcElNSER5RHdSQXorcnFyNUROM292VStD?=
+ =?utf-8?Q?0/pzT4grg17Zr+rFmWSTdueo+USOpOHUXBy/uLrTzHmLD?=
+X-MS-Exchange-AntiSpam-MessageData-1: pJidfZuqHvFdwQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83514b28-a918-4aa4-5c29-08df43e989b8
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 13:57:22.9164
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /7IA2Ugur6ohFe834QUk+7HzV+vEG4F0B2JP3b9PuWifTagI27J5JVYBk4D0gyvdjgV1g+fI6tPF+P8Lhfp5kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7649
 
+On Mon Nov 16, 2026 at 9:29 PM JST, Danilo Krummrich wrote:
+> On Mon Nov 16, 2026 at 5:02 AM CET, Alexandre Courbot wrote:
+>>> +    pub(crate) fn new(dev: &'a device::Device<device::Bound>, chipset:=
+ Chipset) -> Result<Self> {
+>>
+>> `GspFirmware` is 312 bytes, that's not enormous but that's also not
+>> small... Shall we keep returning an `impl Pininit`?
+>
+> I considered that, but it's only ever constructed in Gsp::boot() and does=
+ not
+> outlive boot(), so I think it should be fine.
 
-Hi Vincent!
+Sgtm.
 
-On Fri, Nov 06, 2026 at 04:19:28PM +0100, Vincent Guittot wrote:
-> Similarly to delayed dequeue, which enables an entity to decay its negative
-> lag while sleeping, a task should not keep a positive lag forever.
-> 
-> The sleep duration and the weight are used to decay the positive lag at
-> wakeup.
-> 
-> Apply the decay when enqueueing on prev rq for which we hold the lock to
-> get rq_clock_task().
-> 
-> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> ---
->  kernel/sched/fair.c | 124 ++++++++++++++++++++++++++++++++------------
->  1 file changed, 90 insertions(+), 34 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 0feec172fd37..5cd171f830d8 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -897,6 +897,91 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
->  	return avruntime - vlag != se->vruntime;
->  }
->  
-> +/*
-> + * Signed add and clamp on underflow.
-> + *
-> + * Explicitly do a load-store to ensure the intermediate value never hits
-> + * memory. This allows lockless observations without ever seeing the negative
-> + * values.
-> + */
-> +#define add_positive(_ptr, _val) do {                           \
-> +	typeof(_ptr) ptr = (_ptr);                              \
-> +	__signed_scalar_typeof(*ptr) val = (_val);              \
-> +	typeof(*ptr) res, var = READ_ONCE(*ptr);                \
-> +								\
-> +	res = var + val;                                        \
-> +								\
-> +	if (val < 0 && res > var)                               \
-> +		res = 0;                                        \
-> +								\
-> +	WRITE_ONCE(*ptr, res);                                  \
-> +} while (0)
-> +
-> +/*
-> + * Remove and clamp on negative, from a local variable.
-> + *
-> + * A variant of sub_positive(), which does not use explicit load-store
-> + * and is thus optimized for local variable updates.
-> + */
-> +#define lsub_positive(_ptr, _val) do {				\
-> +	typeof(_ptr) ptr = (_ptr);				\
-> +	*ptr -= min_t(typeof(*ptr), *ptr, _val);		\
-> +} while (0)
-> +
-> +static inline unsigned long cfs_rq_load_avg(struct cfs_rq *cfs_rq);
-> +static unsigned long task_h_load(struct task_struct *p);
-> +
-> +static __always_inline
-> +void decay_entity_lag(struct cfs_rq *cfs_rq, struct task_struct *p, int flags)
-> +{
-> +	struct sched_entity *se = &p->se;
-> +	s64 delta_exec, vlag = se->vlag;
-> +	unsigned long cfs_load;
-> +	struct rq *rq;
-> +
-> +	WARN_ON_ONCE(se->on_rq);
-> +
-> +	/* Negative lag is managed by delayed dequeue path */
-> +	if (vlag <= 0)
-> +		return;
-> +
-> +	rq = rq_of(cfs_rq);
-> +
-> +	/* No fast access to prev rq task clock */
-> +	if (flags & ENQUEUE_MIGRATED)
-> +		return;
-> +
-> +	/* Compute sleep time */
-> +	delta_exec = rq_clock_task(rq) - se->exec_start;
-> +	if (unlikely(delta_exec <= 0))
-> +		return;
-> +
-> +	/* For anything above ~4 seconds, save computation and clear the lag */
-> +	if (unlikely(delta_exec >> 32)) {
-> +		se->vlag = 0;
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * Use cfs' load and p's weight to estimate what would have been the
-> +	 * share for p. task's load contribution to cfs' load is replaced by
-> +	 * its weight.
-> +	 */
-> +	cfs_load = cfs_rq_load_avg(cfs_rq);
-> +	lsub_positive(&cfs_load, task_h_load(p));
-> +	if (cfs_load) {
-> +		unsigned long weight = scale_load_down(se->h_load.weight);
-> +
-> +		delta_exec *= weight;
-> +		delta_exec = div64_long(delta_exec, cfs_load + weight);
-> +	}
-> +
-> +	vlag -= calc_delta_fair(delta_exec, se);
-> +
-> +	/* vlag can't become neg while sleeping */
-> +	se->vlag = max(0, vlag);
-> +}
-
-Look:
-
-Let's say we have 3 tasks named TA, TB and TC. They all have the same
-weight and the same slices. So TA gets picked, works for a while and then
-sleeps for less than the rest of its slice.
-
-So the part that I hate and love, math. For your diff, we do:
-
-(sleep_time * weight) / (3 * weight)
-
-3 * weight here is TA + TB + TC, it equals to 3 * weight since they all
-have the same weight.
-
-So if sleep_time equals 2, weight equals 1, and slice equals 3 this equals
-2/3. If the lag is 2, we do 2 - 2/3 resulting with 4/3.
-
-
-Later, place_entity() uses this formula to do V - ((Sum(weight) + weight) * lag) / Sum(weight)
-So ((2 + 1) * 4/3) / 2 equals to 2. But this is wrong, no?
-
-If we didn't decayed lag: ((2 + 1) * 2) / 2 equals 3.
-So we would do V - 3.
-
-Now our objective is to add the sleep_time of the task to -3.
-Because if the task didn't slept, in that time it would be working
-instead of sleeping.
-
-So, we should do V - 1. But we do V - 2.
-
-
-AFAICT, we can't already know for sure how much will a task run even
-when the sleep_time is smaller than the slice. Because of preemption
-:-(.
-
-The cleanest, the simplest and maybe the worst or the best solution I can think of
-is just setting lag to 0 on every wakeup with positive lag TBH.
-
-Or maybe, try to calculate when sleep_time is smaller than the slice,
-but just set the lag to 0 when sleep_time is bigger or equal to slice.
-
-What you think?
-
-Sreehc,
-
-Kayra
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
