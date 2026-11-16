@@ -1,78 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794866706;
-	b=bUyF3NxiYFf73l0ZbiwA4jqYzmsKQ9xjYZ8TfrKXyF3aqcaW6uaRGc1NcotslXJgBq/s
-	 UwZT8JKvE0T8rCTRQXaHXm8AMsdBdJuBB9LKJ/nXb8jc9o8qydbaGbvKGvI6IhKS+en5K
-	 k+jOpfKSWWSym6/UONleveXAIw4x9VOk4yeXLh5XtM4FuUMcb7rza4BT8gYwS34sQeWWW
-	 K/PS0/w0esDNfisnDznGOzqJBE9hu2bmDYMyFu7RwT+l0ZZJLQ+l+rSl3bpjyS4m/f07B
-	 2lb8tUYHgVvoYmdgeKBkDo3iGcESIdK75m3x58KiL6nXpQ2opHRryUVDFWMfVGqEteQ==
+	t=1794866704;
+	b=cYRZAmbe/BpVZy2MD2nPQ8OoLV5qqWobt8A2lgML8lQ5fKKwDSTKEsBEqqKSG8TQGf3U
+	 sa2MVf0gG8PbA8ULxil4lgJ/1Y581Fb8MJahfYDdGMLLDfq5G3lo7q4Rt6Xmac0dhhM/P
+	 StLXgZzOtqk47FP02q1X5i7Njtx7nBt3xq2hSpOwIEvwbZXxWnsOU1U1jPhsnvAC7zaPW
+	 +KjKixmLIdOdoKZ/pwGSzOlCcer6xL4WuYgUBvVG7HCRfOKa/fxbunNFhSmZmp3woG81Y
+	 p0kec6zH4miCYfiAxEF0PLh23UmcowoD54DDCBzg3W4ihxcRik/3oY6Akx6BhIqVm7g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866706;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866704;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=pqfjoRPW9FAi1vBGma/nHWJMmtrTvJonmEBfpfTO4vA=;
-	b=L4rWjMCrateAUIIldcaQns+aGiGcP//MYurzjC0IySDuT4ws/flrAyuuSXsrJtrhtZaB
-	 cwsYkf+Hnb89NODW534rWEaNHnTfhchErDSX6Rfj/zj1Ev26FJ4880HdlLQhR890KLYks
-	 hKRT/4KjGBYawwfFkQqwa5s4fITMx8gWkkOaoh3og2AONrMUznNN4xw4TjGmnGIhfuVWb
-	 7JQFnQpN4XEndwlOUQxB4pjFea3cK+niW5G/eEvER1p3DKJ6r6084aHDIFXGRsCaOwYqx
-	 Zm5Po6zPPrQvHK6hGRdiMWHRJbIaVnsR7JbcQL3+cM89BibnsaBaNcTRyAPHXnB//QQ==
+	bh=o3DAJ0HRnUrcXoNvv8+08efsKdySAWu+2qsLbILDMv0=;
+	b=ZYxW012Pmu4bi5Rb//T3LfIhs0iQjypQQMn/nj8u7cpJjQLs9oDQ7vgVJEyZHJ7umS6m
+	 b61EJBDG+dqzBu3Y9E/mYOj6KFOGquJ8+wN43uEclr/7QIkdsZeK6OeeMmEWxYbsxvGJA
+	 ShPdnawvd4oVG45Uctb5eWnCl/slmAXWtKoet5PSxs3aEQupUoApj014QiDcD3yx4stNB
+	 bH50qtUwovy5bS50FsH6T/i+e4bZ31kxRJ7sGlLh7F9ZSRzeSt69jKizeWsZZNpgGvCqB
+	 4ICwtgLOStBpFr115bDn49vLc+Y1ZLVuxKlJe529RO9g+oMd66MZBCdejySH8FUKHGQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTAVr3d8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2DuPZa6;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33530606A88F;
-	Mon, 16 Nov 2026 22:05:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48413606A333;
+	Mon, 16 Nov 2026 22:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTAVr3d8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2DuPZa6
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794866706;
-	b=kif8Vh8IHF3J7A+xGAK1M5jhb4jrtIoCdqPqVsB3wK61q9M8wzissE6fpUiGPgggkCkL
-	 PS/uypwDlEUL6tGu6jwXU6qfNO71GTmsploq0FPRjzwPw+K9GAAtaPRBkZzzUbe5ADbJW
-	 LqRjiTI2tj5au0uU7PZh5GqrJkdsZYAShgDdP88i/f+CjQrQMPCfhQTxWzokI6xa1OnTi
-	 8yEv6l369nRELQFcxF7N77jV0+DvkdISgj0W8J5+mF6BAL/lZepIjsbErxfk/fPPkkP8o
-	 U16cnyRPDaeHlSTG6bls0GL3LP+RjwihbTApxBb6nU2BSBs9MInhrXmXna75QIpdHZw==
+	t=1794866704;
+	b=cJerBDnibBNp8gfXfDZ830W8VHTUii8auGP8qaXEWLLteXDwaaO7WmL37TN3VVnASuSb
+	 FSU9z8JeO9VPWTD5Aeq6Bq1CGhdrz0fTyTAm0VC6iNBM1dtvirG+N3ncSuqMz9JSZSKot
+	 JYpl83ILgTdfYxlK5QtlJAunrzl3Tgfjv4PUfql3Y8XHIlHNAfAgt4VC5f8u7dfdVO7kg
+	 qH3jUPdEiKyRpRqNo1mYkiXMTf4tjdvc8Rdq6scwgpqdtNCKgFq5iyOqX7mFshgi0ocxm
+	 VPV2DeQh9UxQqMgxoMalBC+JN6dYzMtFE4CNvBi3tBBzxJyG4M/9LRcM2hcXUbc8tIA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794866706;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	c=relaxed/relaxed; t=1794866704;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=pqfjoRPW9FAi1vBGma/nHWJMmtrTvJonmEBfpfTO4vA=;
-	b=Mi6GQGCLhZKh+PwpZ2m7owYG0m+2gh7RMt6aPYG2wLLqwiN5nj2ShFLUHEScpeW+7tUH
-	 d+PG8TJBaFLxGEt9u7zRC06PdXYr2GgNhNZhq78Qi9tl9Brsjh4IOc6Q1Rc951JagNlhC
-	 Nbva8qPpUbPH8OyFGZiQqQETdi1EFMG7NQiYQLPYKbX/4PuZSmb2acudvkBZcOaHpvo1B
-	 oe4lfVKKTxU4v/+xkdJCl5f9cJ+oJEMqLIgmdKlW2DeVW5mtVsPMRenIK8d3AZyk03YfU
-	 1F867Xwzn+VmSUGlWMuGmIC6d3ECW4RVjasf/9b1uvBStmJoGhUTIyKDvef+Nd1htng==
+	bh=o3DAJ0HRnUrcXoNvv8+08efsKdySAWu+2qsLbILDMv0=;
+	b=tSAezXygdL/M6baR9pKvCX4zoT+3m2MakEOmYop91x4YfCRa5S82OzTzzO/If7iPZBoM
+	 56W8qMFlx8dQ6qylfN2wDaMKygjpOTDYihOvrrWM7orJV028GXvqh0CLfl4CWv5o3kzKx
+	 9/WTMHxMbNVG/s/aZtXkdLf3bWvqhLLIg48kQR26rW6D8M6ReMpfz66DgLxCC2C8AbVqy
+	 geApkLcLFZUrbThBifv13Hk2BPI5q1ZB0O2Kc0XJx2WQqOl+NBHv4xNkHZ3ZbOZSO+31Q
+	 FKKg9NUmpPQFPiLVkWJyEXTCHJ1LCSkK/ZQSQVnvwOpeHMJI5ubFVZr4e94oEX533tg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 141B61F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 016AD1F000C5;
 	Mon, 16 Nov 2026 22:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794866706;
-	bh=pqfjoRPW9FAi1vBGma/nHWJMmtrTvJonmEBfpfTO4vA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TTAVr3d8Nh2mhlvE1gTZvq9Luh7++76tbPJJAWX+glQ0eveVkqI0yxglkGIIXYPOD
-	 E4ftlurhnL4S+/URiaqxTl2mGa8aC9Yjy4zQVu10ijg9SkcGkrxPtkZmLdK66VEnqB
-	 2nCNY6ZYhFxSIDCg/0Ena3VVjihUbbKn7Z8EOiCIu5Pm4jQpM/2s2ik3x6SxnX8f2b
-	 mU4YipLp3L37ZmSyb8ofz3p+uR5Vwd7/5T4Dg2v+aDGiZYyrGVtMNbuleHsg0LKsQu
-	 z/18vTwxxsuOPutZub7VivgMyXZbWk/kII5v7qTP72OriHw1LlT1rD2DwV8CsvZB7m
-	 sIpVRUtg6ARrA==
+	s=k20260515; t=1794866704;
+	bh=o3DAJ0HRnUrcXoNvv8+08efsKdySAWu+2qsLbILDMv0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=X2DuPZa6ToXmzzrJKJAQHfyWctdN+TMSSI2cImS+iPFgnZy62FeUWjIAlvzbqskHZ
+	 7dVizIUVS7AaIi7lLtcSUx/7+2r8VHkf1Avw6Msf9ikajNKEPPVWdAYGjXEXOYcIMb
+	 /jl93qDJV67wBDgmATXkD5DN7pLTMIhiLJqqmDxd/kSomX+63QBxIVaL1FIACPydXR
+	 giBQhRsaUwRgapvuMdnVyy6PJjuoGBTL+OIntKBQD5McZXtuBw+aQRvcTcUYMp6mVj
+	 0Fi7eIP8jb5K8AzBfjjDjar5BLVhuGiLuc1r9JFxNNas1GHtiy9DX9MY9o/dyFMB/7
+	 aAaBe90FIYpaw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 945E74A608;
+	by lkml.kernel.org (Postfix) with ESMTP id 56F654A604;
 	Mon, 16 Nov 2026 22:05:02 +0000 (UTC)
 From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Mon, 16 Nov 2026 17:04:48 -0500
-Subject: [PATCH v3 2/4] clk: siflower: Add SF19A2890 clock manager driver
+Subject: [PATCH v3 0/4] clk: Add the Siflower SF19A2890 clock manager and
+ peripheral clock and reset managers
+Date: Mon, 16 Nov 2026 17:04:46 -0500
+Message-Id: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +86,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-sf19a2890-sysm-v3-2-b07bc7833a87@telaak.dev>
-References: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
-In-Reply-To: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
+X-B4-Tracking: v=1; b=H4sIAP59+2oC/2WOSQ7CMAxFr4KyJih2CwVW3AOxSBOHhpm4jahQ7
+ 07KIKbls/7731fBFDyxmA+uIlD07I+HBNlwIEylD2uS3iYWqHACoFCyg5nG6UxJbnkvtQFXmhL
+ B2rFI0imQ85d74XL1YG7KDZm6b3kmAp2btFS/Y5Xn+hja+xsR+utrMf9djCCV1LnTRhXWTTFb1
+ LTTejuyFEXfFfHDB/jzMfkWnSkLzCh38OV3XXcDf8V9gBQBAAA=
+X-Change-ID: 20261102-sf19a2890-sysm-ac1fbcb21dd5
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
  Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -95,13 +99,14 @@ Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
  linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
  Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866701; l=16790;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866701; l=4774;
  i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=85nYvyJXmOciEyOGFARN0/3WANrHys1XsiGl7lYZQ4Y=;
- b=+AsXhd7DQg55Dth/Pz9VFz7Hr50TqVOPOe2FHG5WlvMD71bW+/EtbLxRIYaq96ciU5LhbgcL2
- 6+QTNpAe/LzDUkO8po5CbrxVI5mqhop4qhvdb4/RGTLpsJL8wSyxa+e
+ bh=lj+d99xoFwkdyN2+RnvfppViMpO8GlW8yclhuqv6J6I=;
+ b=63QImwQ1uC8d3XutETgwiR66VqeySik1W+fW3phzPCG4D9Hk0TSkvRLSBDHKvlL+RM6StiF+D
+ mC8qobbjblTCIZEwdEvx4kdVEpnIRJbAxIWyx0Uafxbidik/4Eg0TAG
 X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
  pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
 X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
@@ -109,530 +114,101 @@ X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
 X-Original-From: Joseph Telaak <joseph@telaak.dev>
 Reply-To: joseph@telaak.dev
 
-From: Chuanhong Guo <gch981213@gmail.com>
+The Siflower SF19A2890, a MIPS SoC for home routers, has a clock manager
+with its PLLs and the muxes and dividers that feed the CPU, the buses
+and the peripherals, and for each peripheral block a small clock and
+reset manager with its gates, its resets and a bus output enable. This
+series adds bindings and drivers for both.
 
-Add a driver for the clock manager of the Siflower SF19A2890: the CPU,
-DDR and common PLLs, and the muxes with dividers that derive the bus,
-CPU and peripheral clocks from them. The GIC timer needs the CPU clock,
-so the driver registers early, from CLK_OF_DECLARE.
+Both drivers are Chuanhong Guo's, from his SF19A2890 branch [1], with
+his authorship kept and my changes noted in each. The clock manager's
+driver is unchanged apart from fixes. The peripheral managers' binding
+is rewritten: Chuanhong's described every block with one compatible and
+its bit layout in properties (siflower,valid-gates, siflower,reset-masks
+and so on); here each block has its own compatible and the layouts are
+tables in the driver. Clock N of a block is its input clock N, gated.
 
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-[Joseph Telaak:
-  - take it from Chuanhong's siflower-7.1 branch
-  - read the PLL power-down register at the PLL's offset, not at
-    offset 1
-  - take the oscillators from the node's clocks and the PLLs by
-    pointer, not by global name
-  - count the clocks in the driver, not in the binding header
-  - drop the spinlock and sf_rmw(), which nothing used
-  - unregister the clocks and unmap on errors
-  - return 0 for a zero divider and compute the VCO rate in 64 bits
-  - scale the fractional part of the VCO rate by the reference, not
-    by the integer rate
-  - reject a rate of 0 in the mux dividers instead of dividing by it
-  - pr_fmt, u32 offsets and sorted includes
-  - one Kconfig symbol without the menu, depending on
-    MACH_SIFLOWER_MIPS
-  - checkpatch --strict cleanups, commit message and subject]
-Co-developed-by: Joseph Telaak <joseph@telaak.dev>
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+Following Conor's review of Chuanhong's SF21 clock binding, the header
+has no count at its end.
+
+The clock manager registers from CLK_OF_DECLARE because the GIC timer
+runs from the CPU clock. The SoC support itself (MACH_SIFLOWER_MIPS)
+goes through the MIPS tree; until then the drivers build with
+COMPILE_TEST.
+
+Tested on a GL.iNet GL-SFT1200: the rates in clk_summary match the
+vendor firmware's (CMN PLL 1.5 GHz, buses 300, 300 and 375 MHz, PBUS
+100 MHz, UART 125 MHz, GMAC reference 125 MHz, USB PHY reference
+50 MHz), and the CPU clock reads 800 MHz, the rate the GIC timer was
+checked at against a reference clock with the MIPS series; the console,
+DDR and buses survive the unused clock sweep; the UART, SPI NAND, I2C,
+GPIO, GMAC, USB and watchdog drivers probe with these clocks and resets;
+and the I2C controller works again after an unbind and bind, which
+cycles its reset.
+
+[1] https://github.com/981213/linux/commits/siflower-7.1
+
 ---
- MAINTAINERS                          |   1 +
- drivers/clk/Kconfig                  |   1 +
- drivers/clk/Makefile                 |   1 +
- drivers/clk/siflower/Kconfig         |  11 +
- drivers/clk/siflower/Makefile        |   2 +
- drivers/clk/siflower/clk-sf19a2890.c | 419 +++++++++++++++++++++++++++++++++++
- 6 files changed, 435 insertions(+)
+Changes in v3:
+- Patches 1 and 2: name the NPU clock CLK_MUXDIV_NPU_PE, without the _CLK
+  suffix that no other clock has (Brian).
+- Patch 3: add Conor's Ack.
+- Patch 4: take the spinlock with guard(spinlock_irqsave) (Philipp).
+- Patch 4: explain each multi-bit reset group in the commit message, not
+  just the GMAC's (Philipp).
+- Patch 4: add Philipp's Reviewed-by.
+- Link to v2: https://patch.msgid.link/20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ce8d0596939c..de087d1c255d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25703,6 +25703,7 @@ M:	Joseph Telaak <joseph@telaak.dev>
- L:	linux-clk@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
-+F:	drivers/clk/siflower/clk-sf19a2890.c
- F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
- 
- SILEAD TOUCHSCREEN DRIVER
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index 37a8e35d4178..8e73490cb702 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -536,6 +536,7 @@ source "drivers/clk/renesas/Kconfig"
- source "drivers/clk/rockchip/Kconfig"
- source "drivers/clk/samsung/Kconfig"
- source "drivers/clk/sifive/Kconfig"
-+source "drivers/clk/siflower/Kconfig"
- source "drivers/clk/socfpga/Kconfig"
- source "drivers/clk/sophgo/Kconfig"
- source "drivers/clk/spacemit/Kconfig"
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index 52d138d4ffc8..d2f07584783e 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -160,6 +160,7 @@ obj-y					+= renesas/
- obj-$(CONFIG_COMMON_CLK_ROCKCHIP)	+= rockchip/
- obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
- obj-$(CONFIG_CLK_SIFIVE)		+= sifive/
-+obj-y					+= siflower/
- obj-y					+= socfpga/
- obj-y					+= sophgo/
- obj-y					+= spacemit/
-diff --git a/drivers/clk/siflower/Kconfig b/drivers/clk/siflower/Kconfig
-new file mode 100644
-index 000000000000..ad1b04b4bb9b
---- /dev/null
-+++ b/drivers/clk/siflower/Kconfig
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config CLK_SF19A2890
-+	bool "Clock driver for Siflower SF19A2890"
-+	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-+	default MACH_SIFLOWER_MIPS
-+	help
-+	  Supports the clock manager of the Siflower SF19A2890: its PLLs
-+	  and the muxes and dividers that feed the CPU, the buses and the
-+	  peripherals. The GIC timer runs from the CPU clock, so a kernel
-+	  for this SoC needs it built in.
-diff --git a/drivers/clk/siflower/Makefile b/drivers/clk/siflower/Makefile
-new file mode 100644
-index 000000000000..3f4d689f7d9b
---- /dev/null
-+++ b/drivers/clk/siflower/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_CLK_SF19A2890) += clk-sf19a2890.o
-diff --git a/drivers/clk/siflower/clk-sf19a2890.c b/drivers/clk/siflower/clk-sf19a2890.c
-new file mode 100644
-index 000000000000..cc3ee5c904a2
---- /dev/null
-+++ b/drivers/clk/siflower/clk-sf19a2890.c
-@@ -0,0 +1,419 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#define pr_fmt(fmt) "sf19a2890-clk: " fmt
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk-provider.h>
-+#include <linux/io.h>
-+#include <linux/math64.h>
-+#include <linux/of_address.h>
-+
-+#include <dt-bindings/clock/siflower,sf19a2890-clk.h>
-+
-+#define CLK_SF19A2890_NR_CLKS	(CLK_MUXDIV_NPU_PE + 1)
-+
-+#define REG_PLL_BASE		0x0
-+#define REG_PLL_PD		0x0
-+#define  PLL_PD			BIT(0)
-+#define  PLL_PD_VCO		BIT(1)
-+#define  PLL_PD_POSTDIV		BIT(2)
-+#define  PLL_PD_4PHASE		BIT(3)
-+#define  PLL_PD_DAC		BIT(4)
-+#define  PLL_PD_DSM		BIT(5)
-+
-+/*
-+ * PLL_PARAM is a 48-bit value put into 6 registers, 8-bit per register:
-+ * REFDIV = PLL_PARAM[47:42]
-+ * POSTDIV2 = PLL_PARAM[41:39]
-+ * POSTDIV1 = PLL_PARAM[38:36]
-+ * FRAC = PLL_PARAM[35:12]
-+ * FBDIV = PLL_PARAM[11:0]
-+ */
-+
-+#define REG_PLL_PARAM(_x)	(0x4 + (_x) * 4)
-+#define  PLL_REFDIV_HI		47
-+#define  PLL_REFDIV_LO		42
-+#define  PLL_POSTDIV2_HI	41
-+#define  PLL_POSTDIV2_LO	39
-+#define  PLL_POSTDIV1_HI	38
-+#define  PLL_POSTDIV1_LO	36
-+#define  PLL_FRAC_HI		35
-+#define  PLL_FRAC_LO		12
-+#define  PLL_FRAC_BITS		(PLL_FRAC_HI - PLL_FRAC_LO + 1)
-+#define  PLL_FBDIV_HI		11
-+#define  PLL_FBDIV_LO		0
-+
-+#define REG_PLL_CFG 0x1c
-+#define  PLL_CFG_BYPASS		BIT(0)
-+#define  PLL_CFG_SRC		GENMASK(2, 1)
-+#define  PLL_CFG_OCLK_SEL	BIT(3)
-+#define  PLL_CFG_OCLK_GATE	BIT(4)
-+#define  PLL_CFG_LOAD_DIVS	BIT(5)
-+
-+#define REG_PLL_LOCK 0x20
-+
-+/*
-+ * Read-only register indicating the value of the hardware clock source
-+ * override pin. When the first bit of this register is set, PLL clock
-+ * source is forced to the 40M oscillator regardless of PLL_CFG_SRC
-+ * value.
-+ */
-+#define REG_PLL_SRC_OVERRIDE 0x24
-+
-+struct sf_clk_common {
-+	void __iomem *base;
-+	struct clk_hw hw;
-+};
-+
-+struct sf19a2890_clk {
-+	struct sf_clk_common common;
-+	u32 offset;
-+};
-+
-+#define SF_CLK_COMMON(_name, _parents, _op, _flags)				\
-+	{								\
-+		.hw.init = CLK_HW_INIT_PARENTS_DATA(_name, _parents, _op,	\
-+						    _flags),		\
-+	}
-+
-+static inline struct sf_clk_common *hw_to_sf_clk_common(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct sf_clk_common, hw);
-+}
-+
-+static inline struct sf19a2890_clk *cmn_to_clk(struct sf_clk_common *cmn_priv)
-+{
-+	return container_of(cmn_priv, struct sf19a2890_clk, common);
-+}
-+
-+static inline u32 sf_readl(struct sf_clk_common *priv, u32 reg)
-+{
-+	return readl(priv->base + reg);
-+}
-+
-+static inline void sf_writel(struct sf_clk_common *priv, u32 reg, u32 val)
-+{
-+	writel(val, priv->base + reg);
-+}
-+
-+static u32 sf_pll_param_get(struct sf19a2890_clk *priv, u32 hi, u32 lo)
-+{
-+	struct sf_clk_common *cmn = &priv->common;
-+	u32 ret = 0;
-+	int reg_hi = hi / 8;
-+	int reg_lo = lo / 8;
-+	u32 reg_hi_pos = hi % 8;
-+	u32 reg_lo_pos = lo % 8;
-+	int i;
-+
-+	if (reg_hi == reg_lo) {
-+		u32 mask = (BIT(reg_hi_pos - reg_lo_pos + 1)) - 1;
-+		u32 reg_val =
-+			sf_readl(cmn, priv->offset + REG_PLL_PARAM(reg_hi));
-+		return (reg_val >> reg_lo_pos) & mask;
-+	}
-+
-+	ret = sf_readl(cmn, priv->offset + REG_PLL_PARAM(reg_hi)) &
-+	      (BIT(reg_hi_pos + 1) - 1);
-+	for (i = reg_hi - 1; i > reg_lo; i--)
-+		ret = (ret << 8) |
-+		      sf_readl(cmn, priv->offset + REG_PLL_PARAM(i));
-+	ret = (ret << (8 - reg_lo_pos)) |
-+	      (sf_readl(cmn, priv->offset + REG_PLL_PARAM(reg_lo)) >>
-+	       reg_lo_pos);
-+
-+	return ret;
-+}
-+
-+static unsigned long sf19a28_pll_recalc_rate(struct clk_hw *hw,
-+					     unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+	u32 refdiv = sf_pll_param_get(priv, PLL_REFDIV_HI, PLL_REFDIV_LO);
-+	u32 fbdiv = sf_pll_param_get(priv, PLL_FBDIV_HI, PLL_FBDIV_LO);
-+	u32 postdiv1 = sf_pll_param_get(priv, PLL_POSTDIV1_HI, PLL_POSTDIV1_LO);
-+	u32 postdiv2 = sf_pll_param_get(priv, PLL_POSTDIV2_HI, PLL_POSTDIV2_LO);
-+	u32 pll_pd = sf_readl(cmn_priv, priv->offset + REG_PLL_PD);
-+	unsigned long ref;
-+	u64 rate;
-+	u32 frac;
-+
-+	if (!refdiv || !postdiv1 || !postdiv2)
-+		return 0;
-+
-+	ref = parent_rate / refdiv;
-+	rate = (u64)ref * fbdiv;
-+
-+	/* With the DSM on, the VCO runs at ref * (fbdiv + frac / 2^24) */
-+	if (!(pll_pd & PLL_PD_DSM)) {
-+		frac = sf_pll_param_get(priv, PLL_FRAC_HI, PLL_FRAC_LO);
-+		rate += ((u64)ref * frac) >> PLL_FRAC_BITS;
-+	}
-+
-+	return div_u64(rate, postdiv1 * postdiv2);
-+}
-+
-+static u8 sf19a28_pll_get_parent(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+	u32 cfg;
-+
-+	if (sf_readl(cmn_priv, priv->offset + REG_PLL_SRC_OVERRIDE))
-+		return 1;
-+	cfg = sf_readl(cmn_priv, priv->offset + REG_PLL_CFG);
-+	return (FIELD_GET(PLL_CFG_SRC, cfg) == 1);
-+}
-+
-+static const struct clk_ops sf19a28_pll_ops = {
-+	.recalc_rate = sf19a28_pll_recalc_rate,
-+	.get_parent = sf19a28_pll_get_parent,
-+};
-+
-+static const struct clk_parent_data clk_pll_parents[] = {
-+	{ .fw_name = "osc12m" },
-+	{ .fw_name = "osc40m" },
-+};
-+
-+#define SF19A28_PLL(_name, _offset, _flags)				\
-+	struct sf19a2890_clk _name = {					\
-+		.common = SF_CLK_COMMON(#_name, clk_pll_parents,	\
-+					&sf19a28_pll_ops, _flags),	\
-+		.offset = REG_PLL_BASE + (_offset),			\
-+	}
-+
-+static SF19A28_PLL(pll_cpu, 0x0, 0);
-+static SF19A28_PLL(pll_ddr, 0x40, 0);
-+static SF19A28_PLL(pll_cmn, 0x80, 0);
-+
-+#define REG_MUXDIV_BASE		0x400
-+#define REG_MUXDIV_CFG		0x0
-+#define  MUXDIV_USE_NCO		BIT(3)
-+#define  MUXDIV_SRC_SEL		GENMASK(2, 0)
-+#define REG_MUXDIV_RATIO	0x4
-+#define  MUXDIV_RATIO_MAX	0xff
-+#define REG_MUXDIV_NCO_V	0x8
-+#define REG_MUXDIV_EN		0xc
-+#define REG_MUXDIV_XN_DIV_RATIO	0x10
-+#define  MUXDIV_XN_DIV_MAX	3
-+
-+static unsigned long sf19a28_muxdiv_recalc_rate(struct clk_hw *hw,
-+						unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+	u32 div;
-+
-+	div = sf_readl(cmn_priv, priv->offset + REG_MUXDIV_RATIO) + 1;
-+	return parent_rate / div;
-+}
-+
-+static int sf19a28_muxdiv_determine_rate(struct clk_hw *hw,
-+					 struct clk_rate_request *req)
-+{
-+	unsigned int div;
-+
-+	if (!req->rate)
-+		div = MUXDIV_RATIO_MAX + 1;
-+	else
-+		div = DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate);
-+
-+	if (!div)
-+		div = 1;
-+	else if (div > MUXDIV_RATIO_MAX + 1)
-+		div = MUXDIV_RATIO_MAX + 1;
-+
-+	req->rate = req->best_parent_rate / div;
-+	return 0;
-+}
-+
-+static int sf19a28_muxdiv_set_rate(struct clk_hw *hw, unsigned long rate,
-+				   unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+	unsigned int div;
-+
-+	if (!rate)
-+		return -EINVAL;
-+
-+	div = DIV_ROUND_CLOSEST(parent_rate, rate);
-+	if (div < 1)
-+		div = 1;
-+	else if (div > MUXDIV_RATIO_MAX + 1)
-+		div = MUXDIV_RATIO_MAX + 1;
-+	div -= 1;
-+
-+	sf_writel(cmn_priv, priv->offset + REG_MUXDIV_RATIO, div);
-+
-+	return 0;
-+}
-+
-+static int sf19a28_muxdiv_enable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+
-+	sf_writel(cmn_priv, priv->offset + REG_MUXDIV_EN, 1);
-+	return 0;
-+}
-+
-+static void sf19a28_muxdiv_disable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+
-+	sf_writel(cmn_priv, priv->offset + REG_MUXDIV_EN, 0);
-+}
-+
-+static int sf19a28_muxdiv_is_enabled(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+
-+	return !!sf_readl(cmn_priv, priv->offset + REG_MUXDIV_EN);
-+}
-+
-+static u8 sf19a28_muxdiv_get_parent(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+	u32 cfg = sf_readl(cmn_priv, priv->offset + REG_MUXDIV_CFG);
-+	u32 src = FIELD_GET(MUXDIV_SRC_SEL, cfg);
-+
-+	if (src <= 2)
-+		return src;
-+	if (src == 4)
-+		return 3;
-+	return 4;
-+}
-+
-+static int sf19a28_muxdiv_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf19a2890_clk *priv = cmn_to_clk(cmn_priv);
-+	u32 src;
-+
-+	if (index <= 2)
-+		src = index;
-+	else if (index == 3)
-+		src = 4;
-+	else
-+		src = 6;
-+	sf_writel(cmn_priv, priv->offset + REG_MUXDIV_CFG, src);
-+	return 0;
-+}
-+
-+static const struct clk_parent_data clk_muxdiv_parents[] = {
-+	{ .hw = &pll_cpu.common.hw },
-+	{ .hw = &pll_ddr.common.hw },
-+	{ .hw = &pll_cmn.common.hw },
-+	{ .fw_name = "osc12m" },
-+	{ .fw_name = "osc40m" },
-+};
-+
-+static const struct clk_ops sf19a28_muxdiv_ops = {
-+	.recalc_rate = sf19a28_muxdiv_recalc_rate,
-+	.determine_rate = sf19a28_muxdiv_determine_rate,
-+	.set_rate = sf19a28_muxdiv_set_rate,
-+	.enable = sf19a28_muxdiv_enable,
-+	.disable = sf19a28_muxdiv_disable,
-+	.is_enabled = sf19a28_muxdiv_is_enabled,
-+	.get_parent = sf19a28_muxdiv_get_parent,
-+	.set_parent = sf19a28_muxdiv_set_parent,
-+};
-+
-+#define SF19A28_MUXDIV(_name, _offset, _flags)				\
-+	struct sf19a2890_clk _name = {					\
-+		.common = SF_CLK_COMMON(#_name, clk_muxdiv_parents,	\
-+					&sf19a28_muxdiv_ops, _flags),	\
-+		.offset = REG_MUXDIV_BASE + (_offset),			\
-+	}
-+
-+static SF19A28_MUXDIV(muxdiv_bus1, 0x0, CLK_IS_CRITICAL);
-+static SF19A28_MUXDIV(muxdiv_bus2, 0x20, CLK_IS_CRITICAL);
-+static SF19A28_MUXDIV(muxdiv_bus3, 0x40, CLK_IS_CRITICAL);
-+static SF19A28_MUXDIV(muxdiv_cpu, 0x100,
-+		      CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT);
-+static SF19A28_MUXDIV(muxdiv_pbus, 0x120, CLK_IS_CRITICAL);
-+static SF19A28_MUXDIV(muxdiv_mem_phy, 0x140, CLK_IS_CRITICAL);
-+static SF19A28_MUXDIV(muxdiv_uart, 0x180, 0);
-+static SF19A28_MUXDIV(muxdiv_eth_ref, 0x200, 0);
-+static SF19A28_MUXDIV(muxdiv_eth_byp_ref, 0x220, 0);
-+static SF19A28_MUXDIV(muxdiv_eth_tsu, 0x240, 0);
-+static SF19A28_MUXDIV(muxdiv_gmac_byp_ref, 0x260, 0);
-+static SF19A28_MUXDIV(muxdiv_m6250_0, 0x280, 0);
-+static SF19A28_MUXDIV(muxdiv_m6250_1, 0x2a0, 0);
-+static SF19A28_MUXDIV(muxdiv_wlan24_plf, 0x2c0, 0);
-+static SF19A28_MUXDIV(muxdiv_wlan5_plf, 0x2e0, 0);
-+static SF19A28_MUXDIV(muxdiv_usbphy_ref, 0x300, 0);
-+static SF19A28_MUXDIV(muxdiv_tclk, 0x320, 0);
-+static SF19A28_MUXDIV(muxdiv_npu_pe, 0x340, 0);
-+
-+static struct clk_hw_onecell_data sf19a2890_hw_clks = {
-+	.num = CLK_SF19A2890_NR_CLKS,
-+	.hws = {
-+		[CLK_PLL_CPU] = &pll_cpu.common.hw,
-+		[CLK_PLL_DDR] = &pll_ddr.common.hw,
-+		[CLK_PLL_CMN] = &pll_cmn.common.hw,
-+		[CLK_MUXDIV_BUS1] = &muxdiv_bus1.common.hw,
-+		[CLK_MUXDIV_BUS2] = &muxdiv_bus2.common.hw,
-+		[CLK_MUXDIV_BUS3] = &muxdiv_bus3.common.hw,
-+		[CLK_MUXDIV_CPU] = &muxdiv_cpu.common.hw,
-+		[CLK_MUXDIV_PBUS] = &muxdiv_pbus.common.hw,
-+		[CLK_MUXDIV_MEM_PHY] = &muxdiv_mem_phy.common.hw,
-+		[CLK_MUXDIV_UART] = &muxdiv_uart.common.hw,
-+		[CLK_MUXDIV_ETH_REF] = &muxdiv_eth_ref.common.hw,
-+		[CLK_MUXDIV_ETH_BYP_REF] = &muxdiv_eth_byp_ref.common.hw,
-+		[CLK_MUXDIV_ETH_TSU] = &muxdiv_eth_tsu.common.hw,
-+		[CLK_MUXDIV_GMAC_BYP_REF] = &muxdiv_gmac_byp_ref.common.hw,
-+		[CLK_MUXDIV_M6250_0] = &muxdiv_m6250_0.common.hw,
-+		[CLK_MUXDIV_M6250_1] = &muxdiv_m6250_1.common.hw,
-+		[CLK_MUXDIV_WLAN24_PLF] = &muxdiv_wlan24_plf.common.hw,
-+		[CLK_MUXDIV_WLAN5_PLF] = &muxdiv_wlan5_plf.common.hw,
-+		[CLK_MUXDIV_USBPHY_REF] = &muxdiv_usbphy_ref.common.hw,
-+		[CLK_MUXDIV_TCLK] = &muxdiv_tclk.common.hw,
-+		[CLK_MUXDIV_NPU_PE] = &muxdiv_npu_pe.common.hw,
-+	},
-+};
-+
-+static void __init sf19a2890_clk_init(struct device_node *node)
-+{
-+	void __iomem *base;
-+	int i, ret;
-+
-+	base = of_iomap(node, 0);
-+	if (!base) {
-+		pr_err("failed to map the registers\n");
-+		return;
-+	}
-+
-+	for (i = 0; i < sf19a2890_hw_clks.num; i++) {
-+		struct clk_hw *hw = sf19a2890_hw_clks.hws[i];
-+
-+		if (!hw)
-+			continue;
-+		hw_to_sf_clk_common(hw)->base = base;
-+		ret = of_clk_hw_register(node, hw);
-+		if (ret) {
-+			pr_err("failed to register clock %d: %d\n", i, ret);
-+			goto err;
-+		}
-+	}
-+
-+	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get,
-+				     &sf19a2890_hw_clks);
-+	if (ret) {
-+		pr_err("failed to add the clock provider: %d\n", ret);
-+		goto err;
-+	}
-+	return;
-+err:
-+	while (--i >= 0)
-+		if (sf19a2890_hw_clks.hws[i])
-+			clk_hw_unregister(sf19a2890_hw_clks.hws[i]);
-+	iounmap(base);
-+}
-+
-+CLK_OF_DECLARE(sf19a2890_clk, "siflower,sf19a2890-clk", sf19a2890_clk_init);
+Changes in v2:
+- Write my notes on Chuanhong's patches as lists, with Co-developed-by.
+- Use GPL-2.0-only, not the deprecated GPL-2.0 identifier, in the clock
+  header's SPDX line.
+- Add a MAINTAINERS entry for the drivers, their bindings and the
+  headers, with an F: line per driver, since drivers/clk/siflower/ will
+  also hold the SF21 drivers.
+- Include <linux/device-id/of.h> instead of <linux/mod_devicetable.h>
+  (Uwe).
+- Word the error messages the same way, and use the current SPDX
+  identifiers in the new files.
+- Explain in the commit message why some resets cover more than one bit
+  (Philipp, Chuanhong).
+- Patch 1: add Conor's Ack.
+- Patch 2: with the PLL's fractional modulator on, scale the fraction by
+  the reference rate, not by the integer VCO rate; and reject a rate of 0
+  in the mux dividers instead of dividing by it.
+- Patch 3: add include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h,
+  naming the clocks and resets of each manager, instead of listing the
+  resets in the description; patch 4 indexes its tables by it (Conor).
+- Patch 4: no comma after the match table's sentinel (Uwe).
+- Link to v1: https://patch.msgid.link/20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev
 
--- 
-Git-155)
+---
+Chuanhong Guo (2):
+      clk: siflower: Add SF19A2890 clock manager driver
+      clk: siflower: Add SF19A2890 peripheral clock and reset manager driver
+
+Joseph Telaak (2):
+      dt-bindings: clock: Add Siflower SF19A2890 clock manager
+      dt-bindings: clock: Add Siflower SF19A2890 peripheral clock/reset managers
+
+ .../bindings/clock/siflower,sf19a2890-clk.yaml     |  57 +++
+ .../clock/siflower,sf19a2890-periph-crm.yaml       | 166 ++++++++
+ MAINTAINERS                                        |  11 +
+ drivers/clk/Kconfig                                |   1 +
+ drivers/clk/Makefile                               |   1 +
+ drivers/clk/siflower/Kconfig                       |  22 ++
+ drivers/clk/siflower/Makefile                      |   3 +
+ drivers/clk/siflower/clk-sf19a2890-periphcrm.c     | 362 ++++++++++++++++++
+ drivers/clk/siflower/clk-sf19a2890.c               | 419 +++++++++++++++++++++
+ include/dt-bindings/clock/siflower,sf19a2890-clk.h |  27 ++
+ .../clock/siflower,sf19a2890-periph-crm.h          |  87 +++++
+ 11 files changed, 1156 insertions(+)
+---
+base-commit: fc1f8f0ceb3b949b58c2f7819976644f5cf84249
+change-id: 20261102-sf19a2890-sysm-ac1fbcb21dd5
+
+Best regards,
+--  
+Joseph Telaak <joseph@telaak.dev>
 
 
