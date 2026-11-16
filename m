@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794872519;
-	b=MsEbxbIDbVy41CGbiTlJuwHJILIgPVVYt9JukSCNViffSRwNggciv7PeepCvbODFaQrx
-	 3ljnBvpyJXayU2IGg6Eds5dOj6mLJuUmf/hwQRyREs2lubDTGCwvIzdOLD4H/KQrZZoWF
-	 lRon7B51CuJesBKs2kNSS0uGuBYP3Vi3vxVE19PiSj/gdmGMEVFisQH6dPI3D8p1AaGgu
-	 XJ0ea5zvi3ZfScL8jjNp5ukB9ocaXhflqKHYegUjLH4z/xFbgbc39OX2CxBiUnMP+8Ti3
-	 NaeDkdpmyplmrJHOYhKir+q1F8h1ph/DaShXzIal4pMu3gtQ0Ey1FBNWSHeN3FBh9AA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872519;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LfK0P8wpQhjKU73faMZJ7aS0+N+WOnHsL569QrZcsKU=;
-	b=SQwQG1ohSWV/yDukknuxog3nxwDMq8PP9t46Q6cl3FZZTIPidOKSAxVHXxkOi/ttDA2g
-	 0pI5+4wkAmHm25ggRPY9eaKSG1bLb6bbQ19lgwkqMhla6HntgHm+nPE2jZFew3HPcqA27
-	 pVeJ2BTB7lt7u4rRXGgGb9Zb7GIWj4mV2ezm6oMXKd4dTKsfd6stvmOSFJ32WXca3qPEQ
-	 jWhffIYyFSoyNk5YK/Niq+BIGBPAe35vtUgPZIyuyxJiCYrIT3nLSMPv1M7duP+k8Gh9X
-	 o2yQuezCsPUUP7V0uHICJk3U/L2QJLUWg/Uzx0yYDnlfzvd0dtLDzPHLoUBW06eLkPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JdtTDxg2;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794872591;
+	b=VfJL1syiwRi9yW07te9h7ab21H2mYfCtV5V8a9QyvFEGPBWrxBMk7qVo8Y1MhUS+iHuh
+	 17NQN7XwQuxe613aEr7dr2mjmUoMZpICzfkK3gWQah/tChQmdSOV69lYnQtPZF/ahArb7
+	 zpMFjzGRLi7hqWzwaHUKQAxC6ZCPJ8SL9MHeWLrSNnD5BwRzyzYubHqTKIJqUUtBVbQqY
+	 wDI7A+5Ub9vMPl6mtqScsh3FDRG6BCK/0jTJMnWHUY29NjZIfNKzjpiF2Js4+zcaYxKqI
+	 PeK9YbMPBn2hWBujUJu0yDG6exsvA7zNV76mguRAk5GwmB93vZlaI9HyBdCNWGzDHbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872591;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=90J7NfY2utkKUmptN6ZK3A2BwSBVX+JEiTL57egocE4=;
+	b=UunPeoBPaJy7CKkh92dOmeiPn0yh+qfXY+cLZdX3A7vG1qTHbR5zQgXuiLZUbXlriUmr
+	 hf1C7p565bhm6DfcNIMfy4Bm9xeBs5mXTCb7zBnp5jlQUC7grEV6HP04fCChURsr6gn0U
+	 DTUwXCbuqWMjOzOt/MqdiN34JhEFURjnBlzvWVyYVdms4BmHFsvziCZYMzUC21TZ0K2T+
+	 2pis3NiyG3AoSXbkFJf6scIy8eU8no7bmEe0hAiU+2oi/AsyRDF3hb7OjoBMP2yZQFhod
+	 k7MXpI82v28iecESjP8vkHSGmOZjB9n/Lqm6i/Gw28ZVK2qo4EAp6tDmPDrdyW6fXog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuac3FNc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C4A606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuac3FNc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794872591;
+	b=3EXYEP/VHtgbs6cfQQvYLUDgup7DRQprd1NBJqdjFh2rnao/Xy2PHBvSsiJgKe9mcP97
+	 CyhYoJukPfkzT+SqP4TdxkjBy09tjneCPJFasdUTcnxDrSVlX/CXPfuyap2H3akfEWTNJ
+	 QcfrEXvFxkkPbnPnkKuCKCZiU2s5UmXoROtdObiQpjAdbUb+fztrSRT1+x1KVQjHWO00f
+	 ihhuGnsjAopICsnkLc/Iefqggd3AfXtipObBmRUzrOxFi9oueKTslue+yeDAb+LF5NJ9P
+	 A/GZkUa8kfyiBz9bcSl0cQpogYPjTUfohBL1LmLCHIE3iE5JifgQPYk2BYQ6YmJ2Lhw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794872591;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=90J7NfY2utkKUmptN6ZK3A2BwSBVX+JEiTL57egocE4=;
+	b=ASXDsbgtGfa1nOkIdLZ9Mmw0T1z8J42puNaWLjw1UL2FiVWQQ8v+sTP1y/4Z0obURzsu
+	 mS2+317eYbSbGMs6tqnC3q9Fny0YISsibF9tBkUPuEaBXVZTOfOzF3GF9YPnaNTX5MaLt
+	 hg+UlaLBHzX+NBhakipBiEBXqcPJuXKKybP1gz1zM75gnMVCTShwky37Upx5snX3det/L
+	 p1NXKpowOW4okIkuuWxJBsu83cRUBjXjke1ocQhk8QcYig9oUa7VuK/O3In5UVUZ38cCm
+	 dJPStmTLTqICvUkI35rB7pZ8FWPGMc1MWnUvWrQ8Gji8mpu5tBmQgTCP/fE6pyjWO4Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05D0606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D05D0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JdtTDxg2
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so688243766b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:41:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794872516; x=1795477316; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LfK0P8wpQhjKU73faMZJ7aS0+N+WOnHsL569QrZcsKU=;
-        b=JdtTDxg2OshVl5HbGUg/g/K8tqtpzSXsRw+dWKvLKKXmTrDoJenmWSadRI/ljuJccf
-         7wk0mZn38OFN2LDLLbyGrlHWWq6f5pwNt2qbKdRXPXUQMeSDZjij66Y9MaJPPfn34Nrm
-         n2hV7TprcOLQ34PZpxKvGrWxA2Qjg+J+mm+F7BysHJoYt0ZpHVZ0VRkSH1EH3JJ42tde
-         7P2cLOnRkwBjiOlI28fM/z9y1dUJVzdkS5+UnzrzIryL6R8xGgDH4deKFO+FPqqo5759
-         MfozIS3U46rx+lkCDA8uTpidJQmKhl3cp2CAliW7D+h+kNkntoC6DR728pbgrgLn+jDF
-         4WTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794872516; x=1795477316;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LfK0P8wpQhjKU73faMZJ7aS0+N+WOnHsL569QrZcsKU=;
-        b=0bs2jDGWPZz4Ho4vuI9ue0lIFixhmqrF9dRVYB8h2AI6mV5Ju0rx7P/4KpOC9faS/U
-         +9RiIt3QB+N8hCj7orRlUeLVi5GToLVaWKqIFvF4z+J+xiWanmw0Cq6Kbg9AUKrh3w/8
-         rN8IBWKRQAcQxfz8QdLJTz3yWfPd773DZYPIHESw2oeDTcvs8kMky0WAFEQmBWWXcroY
-         hN2bxDzDlthoZVF9GNMptM1HiSlx75xiXa7O/R90560uTrmis28Z1SRhd6R4Owg3WFeO
-         dXv2XvdVQLqIsuiYJEaA03w3cpaKykBpG9/c2qXp9g0ZVHhvPukQJnGjEpZ0zfAIVRxJ
-         utTA==
-X-Forwarded-Encrypted: i=1; AL+hErEAweeYTUnA04aA4XUtBkHVrh0ZPg/n4Apb/P0ScUlFxUC2vosaBBN6Iw7L59yfhzYN6mXKeLzA1O3PLN8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TyUihkGRrIUZcIxq4povJb2K+Pxuafo9lqLB0b9CsYrtx4Kmk
-	gGimx68h5dhKptLXSuOp5m5Bgzel6bzfMFdswnRc1VbjCyadKnCFyygd+guEkDdwAPI=
-X-Gm-Gg: AYBFou1NXdL9qjobCJka2G/+/6S0KsyffQX29RJz/OcEo+ktAenwu9tWx5BTLu/5PFv
-	kwriRtkDchyyAbjQJJyfbe8xOVx4K3VeEwHv7pD9P9hr2hkPwOFmW1GbSU++R3F1Hf92k0sebr2
-	3Ld4gdti0JUndRaytX0ESmhHTdKBqowL6In29nVwOR77I2i9gPdj5BbTxrJ1e9fTZHq0Yj3Gd3z
-	/27utWoY3/qf9vy7QD1yM7XKgvH3Ju79ztJwNF/MOZOHMC3XT8FKxQhNwc6IvCsHRWj4pygM3L8
-	+afxkC2NDyhrrt14zUQIGxHFfIGaQyD+nucO6fkaS4vhcT/BFUOabhfisAtg/lzdeGLsHPvDPK+
-	7dripYuAYPLhieDo2HdpUki21sMU1xnsjRybyWTKAdqFbdbY01vdRsi7rKIZ/+6u9ICbqh4+xX2
-	gYuQumw/W4akvbG/XD7CdyubZ/7MSNEisUL/4shqnxNFCNm65f+gnkA5R+8h0U4nb5OJsPfQwlS
-	Xc9snK5acznx35AJ3RoovS8M1R5s+8+hccQQqw1uT4h5QVc8RdRpFQGQLi2AGipUdGH98taV1Ch
-	vqpZoDs9GpZGdrCYPIsKV4WSyEY7ewE4ITI/aRdPk6N9
-X-Received: by 2002:a17:907:3e13:b0:c2e:3ed7:7db4 with SMTP id a640c23a62f3a-c5096340feamr1038815166b.23.1794872516213;
-        Mon, 16 Nov 2026 15:41:56 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac2550e1sm1103294a91.3.2026.11.16.15.41.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 15:41:53 -0800 (PST)
-Message-ID: <fc1f9f58-71ad-410e-bf03-8b27e607ab76@suse.com>
-Date: Tue, 17 Nov 2026 10:11:46 +1030
+	by smtp.kernel.org (Postfix) with ESMTPS id C5F061F000C4;
+	Mon, 16 Nov 2026 23:43:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794872591;
+	bh=90J7NfY2utkKUmptN6ZK3A2BwSBVX+JEiTL57egocE4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=cuac3FNcQyI77ZfxSz/79kJ7LlBzaJuEuwPGmVgTm8s62G5DniyvYJgMk4ywfJBCU
+	 hZ9K35l/qo7S5sElnwlx87r7/dW/BY/vYPJRAxfcTNmoxgZdOOfa2BXTql1D4EKzKS
+	 K9jaWdfgF2o3enAST3FvmNdPgHrK+S00kVqHLVprRPrEAClNVH6vCpYllLnNH7KcPO
+	 KXfaHyt8bQZdI7vJODEjOBnCdPOmcu+iSHsW2D+qv/J7tlndZvPH3YYyPwWmrqwoVu
+	 mMsuYS0eNWkijxKD6/YDSthm8IJeLbH8BUK9j9ZYBXQkhgc2yJXvriX2RA8IocNkuv
+	 5REg816NgFl7Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 537F04A62C;
+	Mon, 16 Nov 2026 23:43:10 +0000 (UTC)
+From: Brad Fitzpatrick via B4 Relay <devnull+bradfitz.tailscale.com@kernel.org>
+Date: Mon, 16 Nov 2026 23:43:10 +0000
+Subject: [PATCH] um: time-travel: don't use uninitialized fds from START
+ ACK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,101 +83,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] btrfs: assemble a multi-device root filesystem
- without an initrd
-To: Ismael Luceno <ismael@iodev.co.uk>, linux-kernel@vger.kernel.org,
- linux-btrfs@vger.kernel.org
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
- Christian Brauner <brauner@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261116224316.11237-10-ismael@iodev.co.uk>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261116224316.11237-10-ismael@iodev.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-bradfitz-um-tt-start-ack-fds-v1-1-c98901dfba85@tailscale.com>
+X-B4-Tracking: v=1; b=H4sIAA2V+2oC/yXMSwrCMBAA0KuUWTuQFIzRq4iLfCY6ilUy0yItv
+ XujLt/mLSBUmQRO3QKVJhZ+DQ1210G6heFKyLkZetM7a63DWEMurDOOT1RF0VAVQ3pgyYLROxM
+ O/uj3JkMr3pUKf379+fK3jPFOSb8nrOsGKAwxxYAAAAA=
+X-Change-ID: 20261116-bradfitz-um-tt-start-ack-fds-b860a789850d
+To: Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Mordechay Goodstein <mordechay.goodstein@intel.com>
+Cc: linux-um@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Brad Fitzpatrick <bradfitz@tailscale.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794872590; l=3107;
+ i=bradfitz@tailscale.com; s=20261011; h=from:subject:message-id;
+ bh=svJ5VLX3SY7Jwr6l6XQ1OWwW8bhiwm/+jQGOHWzz8T0=;
+ b=IOkJl5/z0TBUNrib7G4B/VeY4RTdfS4W6M/93O6qhhvWvl0no+N7OU0egfkK5LnBL2JdBbfBE
+ 4/KxOKojlN/Dz9GzqVCiDuFx7wEyva2Tm4jpJMDzkO/BdC0/LOYQcNx
+X-Developer-Key: i=bradfitz@tailscale.com; a=ed25519;
+ pk=RL25YdOUenVJzQaiZDrw/Aqu9ZEwUQBon30yMHGsIKY=
+X-Endpoint-Received: by B4 Relay for bradfitz@tailscale.com/20261011 with
+ auth_id=1152
+X-Original-From: Brad Fitzpatrick <bradfitz@tailscale.com>
+Reply-To: bradfitz@tailscale.com
+Content-Transfer-Encoding: 7bit
 
+From: Brad Fitzpatrick <bradfitz@tailscale.com>
 
+When the kernel connects to an external time-travel controller, it
+expects the ACK of its UM_TIMETRAVEL_START message to carry two file
+descriptors: the shared memory area and a log file. It reads them with
+os_rcv_fd_msg() into an uninitialized on-stack array, and then uses
+both array elements whenever the message itself was received in full.
 
-在 2026/11/17 09:13, Ismael Luceno 写道:
-> A multi-device btrfs root filesystem is normally assembled by the device
-> scanner that an initrd runs before mounting the root.
+os_rcv_fd_msg() leaves the array untouched if the message came without
+an SCM_RIGHTS control message. That is what any controller that does
+not implement the shared memory extension sends, which the protocol
+allows: such controllers are why the kernel falls back to message
+based scheduling. In that case the kernel passes stack garbage to
+mmap() and then close()s both values.
 
-What is the problem here?
+With CONFIG_INIT_STACK_ALL_ZERO, the default where the compiler
+supports it, the garbage is 0, so the kernel closes its own stdin. The
+next file descriptor it opens, the epoll instance used for IRQs, then
+becomes fd 0:
 
-Is generating an initramfs really that complex?
+  $ ls -l /proc/$(pidof linux)/fd
+  0 -> anon_inode:[eventpoll]
+  1 -> /tmp/uml.log
+  2 -> /tmp/uml.log
+  3 -> /dev/shm/#200843
+  4 -> socket:[216518625]
 
-Multi-device filesystems/storage solution requires initramfs to do the 
-scan, no matter if it's btrfs or device-mapper, it's already the common 
-knowledge.
+Without stack initialization the kernel may instead close, or map as
+the scheduling area, any file descriptor at all.
 
-I just see no strong reasons to do this at all.
+Initialize the array to -1 and only use the descriptors that were
+actually received. With the fix, fd 0 stays what it was and the epoll
+instance gets the next free number.
 
-And Sashiko is already reporting over 10 high level problems, which is 
-not a good sign either.
->  Without an initrd
-> nothing runs that scanner, so the root mount names a single device and
-> the rest of the array is left out.
-> 
-> This series lets btrfs assemble such a root filesystem in the kernel:
-> 
->    * mount devtmpfs on the initial root before the root filesystem, so
->      device nodes exist to open the other devices by name (init);
->    * let a filesystem tell whether it is mounting the root device and read
->      rootwait, and resolve root=UUID=/root=LABEL= values that name the
->      filesystem rather than a partition (init/VFS);
->    * scan all block devices for the remaining members of a btrfs root
->      filesystem, and wait for all of them to appear before mounting.
-> 
-> The scan and wait are gated on CONFIG_BTRFS_ROOT_SCAN (default y) and
-> only act on the root mount when the user asked for it with rootwait, so
-> non-root mounts and systems without the option are unchanged.
-> 
-> 
-> Ismael Luceno (8):
->    btrfs: add config options for the root device scan
->    init: mount devtmpfs before the root filesystem
->    init: let filesystems ask whether they are mounting the root device
->    btrfs: add a helper to scan all block devices
->    btrfs: wait for the root filesystem to have all its devices
->    Documentation: btrfs: document waiting for the root filesystem devices
->    init: let a filesystem resolve a root device by UUID or label
->    btrfs: resolve root=UUID= and root=LABEL=
-> 
->   Documentation/filesystems/btrfs.rst |  31 +++++
->   fs/btrfs/Kconfig                    |  25 ++++
->   fs/btrfs/super.c                    | 165 +++++++++++++++++++++++
->   fs/btrfs/volumes.c                  | 196 ++++++++++++++++++++++++++++
->   fs/btrfs/volumes.h                  |  25 ++++
->   fs/filesystems.c                    |  37 ++++++
->   include/linux/fs.h                  |  10 ++
->   include/linux/root_dev.h            |  14 ++
->   init/do_mounts.c                    |  51 +++++++-
->   9 files changed, 553 insertions(+), 1 deletion(-)
+Fixes: bfb80d8bc92f ("um: add shared memory optimisation for time-travel=ext")
+Signed-off-by: Brad Fitzpatrick <bradfitz@tailscale.com>
+---
+ arch/um/kernel/time.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/arch/um/kernel/time.c b/arch/um/kernel/time.c
+index d620b6d6310a5..bcb141b419722 100644
+--- a/arch/um/kernel/time.c
++++ b/arch/um/kernel/time.c
+@@ -141,15 +141,23 @@ static void time_travel_handle_message(struct um_timetravel_msg *msg,
+ 	}
+ 
+ 	if (unlikely(mode == TTMH_READ_START_ACK)) {
+-		int fd[UM_TIMETRAVEL_SHARED_MAX_FDS];
++		int fd[UM_TIMETRAVEL_SHARED_MAX_FDS] = {
++			[0 ... UM_TIMETRAVEL_SHARED_MAX_FDS - 1] = -1,
++		};
+ 
+ 		ret = os_rcv_fd_msg(time_travel_ext_fd, fd,
+ 				    ARRAY_SIZE(fd), msg, sizeof(*msg));
+ 		if (ret == sizeof(*msg)) {
+-			time_travel_setup_shm(fd[UM_TIMETRAVEL_SHARED_MEMFD],
+-					      msg->time & UM_TIMETRAVEL_START_ACK_ID);
++			/*
++			 * A controller without shared memory support
++			 * sends no file descriptors with its ACK.
++			 */
++			if (fd[UM_TIMETRAVEL_SHARED_MEMFD] >= 0)
++				time_travel_setup_shm(fd[UM_TIMETRAVEL_SHARED_MEMFD],
++						      msg->time & UM_TIMETRAVEL_START_ACK_ID);
+ 			/* we don't use the logging for now */
+-			os_close_file(fd[UM_TIMETRAVEL_SHARED_LOGFD]);
++			if (fd[UM_TIMETRAVEL_SHARED_LOGFD] >= 0)
++				os_close_file(fd[UM_TIMETRAVEL_SHARED_LOGFD]);
+ 		}
+ 	} else {
+ 		ret = os_read_file(time_travel_ext_fd, msg, sizeof(*msg));
+
+---
+base-commit: 7ea2308ccebce754fd1ac6295f26983a6878045d
+change-id: 20261116-bradfitz-um-tt-start-ack-fds-b860a789850d
+
+Best regards,
+--  
+Brad Fitzpatrick <bradfitz@tailscale.com>
+
 
