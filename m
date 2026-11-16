@@ -1,97 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794865854;
-	b=pEqw+Q++9q4BTzAIQweLhMWYmBOjIRrJSawwj9eO5Vs1oBsIEK/MMVA43Cpj70xy1Jv5
-	 w2YF5A5RsIXv5F9u0JF/AN2MlIhxeaAer1uFfOBqZgYYkfJyDlZ90PyCKUmi8gdfMEJAX
-	 nGRFXm52Gqar/x3TLlNh0wbrj3nN+HALhVYeqe/oBCEQvJx4Z8W9sEPJSoN31Bd4vbwme
-	 CRkeTfAMgaAqe4cbpTAFPvkDMlO7H/HAM0W54wFJtBrKzGYmKV680HLZAIZaNeuKZyf15
-	 0ih9kjoCalKaVWEnn9zuQ1UalEwJqao2RwpcjRlG1XiOpEV4Gqh5NpnM1F8trqzcLCg==
+	t=1794865886;
+	b=fPO3OThMKp1JsQLqigRmJz00tiQ+H3FXPu7adYZzjhGdO3HUKpDaFsCPZaS4/prp8rON
+	 NWQqPvYLBpa51xbe5X2EsG7UXj5FYJZlDzKm2WP+T4ZP3iXB82gtef8XZ+NDtZ8SOY8NQ
+	 UHJk7djahRQadZNScLUcKTCreSgHk5Pz8wOsHQEjwzCW/gg3GV3QwUtd9wr2sE1TtZxGG
+	 U1cS1E4p+uPcfaHwvjDPjgwHmeDnvja+8x03AaL6x2PTtZ+IQ+Vp1xo3pvVi+dv5MLAPc
+	 Ccykz3Q+aO280AcnIHcbW0dJ13JAGd1BKF3NEGm57hC7kIf2HZ8bRX6o1cvOjS1ONlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794865854;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794865886;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=qwbrzd7fYBYLMbcYStT4Nw+sPoOjHywyjBxJxGcabSk=;
-	b=rPknFc54jGNvFIKF4q8hJWbTfWc5TquSj/AMsHGi9iolzYr9Ql5lXl6Vnos+xi9mqHxn
-	 FFN8iF+xjrjB9E2BInb4obTx6tGPM/y7BTDqhKWsZ7pbHBWKzTxAOIdL8FfAF1e1R5j+k
-	 SJjW1f9wakwNyUh8gQNLLp0IsjoH5TRQo3Kn+/xPU+bhwxXh4kHHMxEzZJoWWHAlsZXfW
-	 ZzjIybl+w5a50ZhlWNoP3Gj02GEqRUjVAnv5jJDpYz5zCiSFKnXQ5UpIact0CnpCdOgAz
-	 tZLtYtMVi5TKxPFfZvL7w79BS+ZRYg98Bor6264hrVl5eUnCsz4b4lZkZtLAIM1YV6w==
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7lJe8kmJzwkxCohIpMmOFr2cyMS4kAHxtVA3UYeyvFI=;
+	b=d+zjUpKwoPHpetVtsthnIpnEvhLNMud6QZe/OuNApYeNydWjk2wttt2thvlSSty6LuIR
+	 yBs7BsgsmT6+1nu9cBQLG9igMZoK3NdUpOPFyU3WTMUzuk2aLOcn3PuR4xd3VmEtV5hMc
+	 lQA579H02NlwKvMTQ0wo2dINO89HHUjWEvpqjPcFmgQa5H3Xi+wJCdhLDadQNiWGHOZM3
+	 nqZTJHg0s0ByH1NrY7s/k6wTGoueIcg2nZ1wFG5EmrvWi7NVD7qY/tpiiJPhZdy5CZ6Zc
+	 TNIMFhfhIzlbtSqfJjgmNtBZhIkUNMztzQisQZRs99iIDEkM1EGDyrimFddRFHdo0LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=tGNwHDCD;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GIlS45dx;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00958606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00958606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9A1606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:51:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF9A1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=tGNwHDCD
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-380c28f9e35so313257eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:50:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GIlS45dx
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-37071c0f42aso5879088eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:51:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794865853; x=1795470653; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794865885; x=1795470685; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qwbrzd7fYBYLMbcYStT4Nw+sPoOjHywyjBxJxGcabSk=;
-        b=tGNwHDCDLKla2E18ZcotYovPFx9z0XaxN+o43JDW3M7piMhhdeMm8S7/GGjvxD0xzk
-         HlEuUaC0AK147O9pAIrHvwLm93QEKBOtcFxzYAJl4P5eM4fPtcNfEf1V5KoZrCnpOtZT
-         yp8enqxqbZ0HuEFpYT9XixESnW6taSo6n36rA=
+        bh=7lJe8kmJzwkxCohIpMmOFr2cyMS4kAHxtVA3UYeyvFI=;
+        b=GIlS45dxM46zCqCVsKj3fogvCEax8ZdzJSu2aKWOEI5WtCXsl0Ol5GbL0HkL/zi3Jl
+         FB+AeW1u0BPPuoEJBsBcwvUYJ9isOLJM8MbLHds9JajvMLMxTMrAfSSQnda46QlS92zc
+         kdpS+6drU/to3s9Z6FX3uD+kidIcnss4DXs9oqlAhuM6s2ZmxPYAFPy+NP5IBtORg5pj
+         wwc8XUjUJk/lriakHIIxJcUhS1ohPDq30AwRG8w+4fmn+cT3WaQH88LgXOKt9XjvYday
+         3aXlnooMhWE2tdL5SKKH/n3VeiDjYjdr3iOk7prd88bc6NRZnopgA2HZRRGMrlAq5drd
+         BTfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794865853; x=1795470653;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794865885; x=1795470685;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qwbrzd7fYBYLMbcYStT4Nw+sPoOjHywyjBxJxGcabSk=;
-        b=oDzFvI7z6WOOOJUv8cPQWv1Xige4WirfQZiIi07OYCbfiDH69RXy/NMKBp+raSyz0s
-         zMRTQiWLhk22NEhBNdYSTB/w35DJF5t+ugsZ9T6/On0xHIQi5XDamUbeGq/fEZ9XaFSH
-         rkJDjsikQbYqnSPurYSoveMHHgZ3YasXG76bbQDKMB/eso6OzsMo3A4YjzYY82kGvhB7
-         Ur2b3301DHjsIYJOjJDI5uxbqyoop7ez3wfy+uxszCqnzAckBzZqzBTLGv6n7QjcbctW
-         Ki62lZf6Lub+DIoiGyrkeKvedGcTRIiL9NdeYYPJSIoJxeZwZ00tvk3mJ2zDrafCjvIV
-         tGGA==
-X-Forwarded-Encrypted: i=1; AL+hErHCvNKJQPZWw0O46gWb10+Y0wWf0f2hgKZWRg/02mkxRxNGeGJDyJyREHkHJ0LNagpVfMkjafCos0uR0Us=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bi/bN5dWXaHAv5ellLRTnADzhYEe6kyVETL9PHNTOvdAE8jvF
-	OoRN250oTf1uTGDoGE0aFwIsFmKTSBH+Ds2MrOC2qlLlzYBPVxatGGw+Epz7T0SA7Ow=
-X-Gm-Gg: AYBFou0CSBgftXRvDiKKiKKBKIcA38tA/5S5cJyGvVVitqBjRNepwG2yaYoXTzlfDZF
-	Dsn+dIlhP3B1VmLY5zF/G+7rjUzJg0sNfg/mPvo0H6blvJfHaVtOOwJpRJjcqHmrewdFnU3DyOX
-	Fjvdleb3lPqyKCKBKOAHjbcH04jx1YOuBBHeQRsbQxssF0A9mLRTTdXYuz+kgOtM85JgTXM8UT1
-	WLYsMsQGoFF0Xrmi/BYaGo32VgOq7a5ukHimQjJzow/asBhKR+5NxCtjETsW8Ti3GwKEHTVRpyV
-	95RKm0Z9KIQVcvZ9ghUx+QEw6JxUoZJOsg1rYN1u4Gn8MCjxm2sEo8+17q9oBhPhHxQ+hQL0LJe
-	gr/pYT681kgdB5ulC1vI4HrajnLwUy6c1nyibA54QKRSJupi9H5lM6rZaVZDLpYltUYNI/VGLzw
-	2t7dpn++xzt6tyikKU6KT4dkRky6MaABLaj6DUkW75yWvjzt5QbUTJtDvcJ3drTJqyWt5hPp9y2
-	r7E2dmhW8Ar/LDkB08A6jAjWKUtl66upb6NMy8iojhx/Btl8Zk6TmqbfbyC67hIHh0DmaKFfSfW
-	/eg+OZDvDMmk5mMxpaHJkY0vP3cFsdGWIun7EdT/llvsvEeNvQIX974DDJUJfWCY9TVKj4VWUfl
-	Fdq1Y1RqObJpKAOGVahbDv3Um/+fGHJFTBwZ9vNN2xgkXV2mot1bF+xVZrt0tc1l0oF1lgc8R2I
-	op5tUhKdFj1hbFWzC00Zv+kHp/X7G3Hk0O9/6CHUkVh7LRk1Db/1qAWSd75pYuas8BixGAhnACp
-	LRsu1CGch6WoA==
-X-Received: by 2002:a05:7300:b0af:b0:381:5665:df21 with SMTP id 5a478bee46e88-3815665e29bmr58724eec.6.1794865853121;
-        Mon, 16 Nov 2026 13:50:53 -0800 (PST)
-Received: from [172.20.0.3] ([172.56.235.113])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-380e0fdcc36sm2436124eec.25.2026.11.16.13.50.51
+        bh=7lJe8kmJzwkxCohIpMmOFr2cyMS4kAHxtVA3UYeyvFI=;
+        b=M2UgZ+935/hyRWGRnH8vP0kvW2ET8y/ZPhP6aa5oG6ukm0+Y9NZ/VIqzSNYzVqv6jh
+         Q3o5mkBUfWjyi8JCk7gq7g7NSzkci8Vc5IaDXhYO/k6KcWWSTMvEm3TOfSOuu+5NNuYW
+         ajiCaLPfGHlV+HLoqDoEj/HNpUYi097E1ue1hnPaKc8ofNsuUr5L6sVkCBXdDvfbSRKB
+         FwigPHOuiyuuOAu/7g1SdRjkC5tiC1sX8n3nBOZyyFgC4KGPrDbCtR4RCY+2llrJGpuG
+         zyNv4OJDb6QLKirg8PxLtCkEiuyHR8y3Rlf9piLuDbk/0PFBV33qa3KqBzCvjrLWYHZW
+         p0ng==
+X-Forwarded-Encrypted: i=1; AL+hErFy8/06+nw0GT0eRv0VN0TTQ0aYhrn7TmPYivYWgkTvkttvPb+jvFsn7iDTZj+W41ZthnTCmQzn9ezA3Hw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+QN8MHtzjMvYyqnX2a6/v0no1xsG5OLuJd3sq0kPp0VIaOWHW
+	d4McBLM/kD3r7r6v1m9fhLo3EfZocefK4Ol4aDYMAZUw3nhwb5mE4AfY
+X-Gm-Gg: AZFdTZc3UOHCv8tTLcW/oYvNFRNNyoMOdCuHWTEWL3bbyASCaYr/11hD1Uk4OipN9s4
+	bxWAyJmihrTDjYog5mQsjHLhlhjEUdBNv88YbE/jRjxRu4xb6h1fFgjK0QEaqrBWF3yntdcgNKW
+	zyFb1U3Rfjsc7VK87foHDpHmgi8W8tUdYzg5i1mG7Bb6kzZ0UT9SmjyAjL9pCSUBwVoLEFUQLLP
+	bMaQyLE4/cj9+WxBMqafWg1jz0x91m2GQmMQM6ebyqg4GCEIT5R4iNJ5LQclmcFmbSAWFd1/FNo
+	JWjULKVIBFp8vKKqQbNb6efOU0Gbig+5/A4Qjq5ifHviEjP1nvH20wOiDU8tLv4wdUoXzx7jJLy
+	l+05/QgvtHRbjg9uy75bz5ns/kbkNrrGeMFyqpns0ug8N7skvGjMnU6NJpItXv6fdvdRXdXexFI
+	opkC+F8RMmATrE1vr07S6ckaeIcbYozzrhRrDr1Q7k9zIbUHFOKTxsiXN0ioM/3Uqn0Yrqbx2uZ
+	3kzdpspGeSUFVpxFAX4lU57poSqV/IGyFcuRtoxTsWTgnggN2RCqhDiqIbr/MSDoAY8+xlXvPKY
+	Dsrdt2dK5w4iA4f7o8iCs+hPz/o=
+X-Received: by 2002:a05:7301:db83:b0:375:dc5b:43fa with SMTP id 5a478bee46e88-37966b522f1mr10637100eec.8.1794865884452;
+        Mon, 16 Nov 2026 13:51:24 -0800 (PST)
+Received: from cxlqual ([220.120.90.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm35601313eec.22.2026.11.16.13.51.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:50:52 -0800 (PST)
-Date: Mon, 16 Nov 2026 13:50:49 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Breno Leitao <leitao@debian.org>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, John Ogness <john.ogness@linutronix.de>,
-	Petr Mladek <pmladek@suse.com>, Toshiyuki Sato <fj6611ie@aa.jp.fujitsu.com>,
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] serial: amba-pl011: touch the watchdogs in
-	write_atomic()
-In-Reply-To: <20261106-pl011_touch-v2-1-8f4996113320@debian.org>
-References: <20261106-pl011_touch-v2-1-8f4996113320@debian.org>
+        Mon, 16 Nov 2026 13:51:24 -0800 (PST)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+Date: Tue, 17 Nov 2026 06:53:41 +0900
+To: Richard Cheng <icheng@nvidia.com>
+Cc: Anisa Su <anisa.su887@gmail.com>, linux-cxl@vger.kernel.org,
+	nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Fan Ni <nifan.cxl@gmail.com>, Li Ming <ming.li@zohomail.com>,
+	Benjamin Cheatham <benjamin.cheatham@amd.com>,
+	Gregory Price <gourry@gourry.net>
+Subject: Re: [PATCH v1 06/14] cxl/extent: Handle DC Add Capacity events
+Message-ID: <avt7ZWXUvp9JrO80@cxlqual>
+References: <20261104230445.66625-1-anisa.su@samsung.com>
+ <20261104230445.66625-7-anisa.su@samsung.com>
+ <avUsyj-2n-qB-ZIu@MWDK4CY14F>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,21 +107,512 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Message-ID: <avt6uX_CAZmu2ior@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+In-Reply-To: <avUsyj-2n-qB-ZIu@MWDK4CY14F>
 
-Hi Breno,
+On Thu, Nov 12, 2026 at 11:34:45AM +0800, Richard Cheng wrote:
+> On Thu, Nov 05, 2026 at 08:02:30AM +0800, Anisa Su wrote:
+> > From: Ira Weiny <iweiny@kernel.org>
+> > 
+> > Replace the refuse-all stub for Add Capacity chains in
+> > handle_dcd_chain_event() with the real add pipeline.
+> > 
+> > DC Event Records can be grouped together with the 'More' flag. The
+> > previous commit completed the set up for holding onto extents in
+> > the pending list until receiving the last event record of the group,
+> > marked by 'More'=0.
+> > 
+> > This commit fills in the logic for processing the pending list and
+> > adds basic validation for extents before they are added to the
+> > device model as a child of the cxlr_dax region. More complete
+> > checks for tags/sequence numbers/alignment are added in subsequent
+> > commits.
+> > 
+> > For each tag that appears in the pending list:
+> > 1. Extract all extents in the pending list with that tag to a
+> > local list.
+> > 
+> > 2. The spec requires that shareable extents are ordered by
+> > shared extent sequence number, which "instructs each host
+> > on the relative order these extents must be placed in adjacent
+> > virtual address space" (r4.0 Section 9.13.3 Figure 9-23
+> > Shared Extent List Example). Otherwise, retain arrival order.
+> > 
+> > Thus the tag group is stable-sorted by shared_extn_seq; for non-sharable
+> > extents every key is 0 and the stable sort preserves arrival
+> > order.
+> > 
+> > Individual extents are checked for the following:
+> > 1. The extent's DPA range fully resolves to an endpoint decoder.
+> > 
+> > 2. Doesn't overlap or repeat a previously accepted extent; the device
+> > rejects a DPA range reported twice in an Add response (r4.0 Section
+> > 8.2.10.9.9.3, Invalid Physical Address).
+> > 
+> > A tag group is one allocation, and for sharable capacity the host
+> > must accept all of it or none (r4.0 Section 8.2.10.9.9.3, otherwise
+> > the device returns Invalid Extent List). So an extent failing any of
+> > these checks drops its whole group.
+> > 
+> > Upon passing these checks, extents are "onlined" together as a
+> > tag group:
+> > 
+> > online_tag_group() registers a tagged group as a tag_groupX.Y device
+> > under cxlr_dax->dev and a struct device per dc_extent under it.
+> > 
+> > A single "untagged" device is registered under cxlr_dax when
+> > accepting the first untagged extent. All future untagged extents
+> > will be registered under it.
+> > 
+> > A group that fails to online is dropped from the Add response.
+> > 
+> > Once the pending list has been fully processed, send the
+> > DC_ADD_RESPONSE.
+> > 
+> > Region teardown invalidates the region's cached lines and releases all
+> > extents under it.
+> > 
+> > Based on an original patch by Navneet Singh.
+> > 
+> > Signed-off-by: Ira Weiny <iweiny@kernel.org>
+> > Co-developed-by: John Groves <John@Groves.net>
+> > Signed-off-by: John Groves <John@Groves.net>
+> > Co-developed-by: Anisa Su <anisa.su@samsung.com>
+> > Signed-off-by: Anisa Su <anisa.su@samsung.com>
+> > Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+> > Tested-by: Junhee Park <jh9934.park@samsung.com>
+> > Tested-by: Heesoo Kim <habil.kim@samsung.com>
+> > ---
+> >  drivers/cxl/core/Makefile     |   2 +-
+> >  drivers/cxl/core/core.h       |  33 +++
+> >  drivers/cxl/core/extent.c     | 513 ++++++++++++++++++++++++++++++++++
+> >  drivers/cxl/core/mbox.c       | 248 +++++++++++++++-
+> >  drivers/cxl/core/region.c     |   2 +-
+> >  drivers/cxl/core/region_dax.c |  78 +++++-
+> >  drivers/cxl/cxl.h             |  87 ++++++
+> >  drivers/cxl/cxlmem.h          |   2 +
+> >  drivers/dax/bus.c             |  13 +
+> >  tools/testing/cxl/Kbuild      |   5 +-
+> >  10 files changed, 974 insertions(+), 9 deletions(-)
+> >  create mode 100644 drivers/cxl/core/extent.c
+> > 
+[snip]
 
-This looks good, thanks! I reproduced the issue and have verified that it
-goes away with this patch.
+> Hi Anisa, Ira,
+> 
+> I'm thinking CXL/DAX should have a clearer boundary split.
+> 
+> - CXL owns the device protocol, capacity acceptance, and recovery
+>   when the mailbox outcome is uncertain
+> - DAX owns local resource management, all-or-none group insertion,
+>   and userspace claims.
+> 
+> 
+> The interface should distinguish preparing resources from making them available.
+> CXL can ask DAX to prepare a group before sending the Add Capacity Response,
+> but those resources must remain unclaimable until CXL confirms acceptance
+> with the device.
+> 
+> CXL then tells DAX to make the group available. On a definite refusal,
+> CXl requests cleanup. On an uncertain result, CXL keeps the group unavailable
+> and reconciles the device state.
+> 
+> The current ordering adds DAX resources before the Add Capacity Response
+> completes. A successful dax_region_add_resources() only means that local
+> insertion succeeded, it doesn't establish that the device accepted the
+> allocation.
+> 
+> That coordiation belongs in CXL. DAX should provide the resource
+> operations and enforce availability according to CXL's decision.
+> 
+> Best regards,
+> Richard Cheng.
+> 
+Hi Richard,
 
-Feel free to add:
+Thanks for the review. I agree with your point, but it seems simpler to
+re-order the steps in cxl_add_pending() than to add a new "prepare" step.
+So in cxl_add_pending(): validate and build tag groups, then send the
+Add Response. If rc == 0, online the groups to DAX.
 
-Reviewed-by: Chris Down <chris@chrisdown.name>
-Tested-by: Chris Down <chris@chrisdown.name>
+If onlining to DAX fails, then send a Release DC Response. If Release DC
+response fails, maybe we can retry X number of times.
+
+Does that keep the boundary between CXL/DAX you have in mind?
+
+Also is it harder to review the series separately? While I was
+splitting the series, I thought it may be difficult to make a very clean
+split. Since you mentioned about onlining to DAX, which is not in this series,
+I assume you looked at the DAX half.
 
 Thanks,
-
-Chris
+Anisa
+> 
+> >  static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
+> >  				  struct cxl_event_dcd *event)
+> >  {
+> > @@ -1359,11 +1601,9 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
+> >  	chain->armed = false;
+> >  	cancel_delayed_work(&chain->timeout_work);
+> >  
+> > -	/* Nothing is tracked yet: refuse every add, acknowledge every release */
+> >  	if (event->event_type == DCD_ADD_CAPACITY)
+> > -		rc = cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
+> > -					  &chain->pending_extents, 0);
+> > -	else
+> > +		rc = cxl_add_pending(mds, &chain->pending_extents);
+> > +	else	/* Nothing is tracked yet: acknowledge every release */
+> >  		rc = cxl_send_dc_response(mds, CXL_MBOX_OP_RELEASE_DC,
+> >  					  &chain->pending_extents,
+> >  					  list_count_nodes(&chain->pending_extents));
+> > diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+> > index fc9139ce358f..1b7031b2f159 100644
+> > --- a/drivers/cxl/core/region.c
+> > +++ b/drivers/cxl/core/region.c
+> > @@ -224,7 +224,7 @@ static struct cxl_region_ref *cxl_rr_load(struct cxl_port *port,
+> >  	return xa_load(&port->regions, (unsigned long)cxlr);
+> >  }
+> >  
+> > -static int cxl_region_invalidate_memregion(struct cxl_region *cxlr)
+> > +int cxl_region_invalidate_memregion(struct cxl_region *cxlr)
+> >  {
+> >  	if (!cpu_cache_has_invalidate_memregion()) {
+> >  		if (IS_ENABLED(CONFIG_CXL_REGION_INVALIDATION_TEST)) {
+> > diff --git a/drivers/cxl/core/region_dax.c b/drivers/cxl/core/region_dax.c
+> > index 47c9c52a3902..790176a8aadd 100644
+> > --- a/drivers/cxl/core/region_dax.c
+> > +++ b/drivers/cxl/core/region_dax.c
+> > @@ -13,6 +13,8 @@ static void cxl_dax_region_release(struct device *dev)
+> >  {
+> >  	struct cxl_dax_region *cxlr_dax = to_cxl_dax_region(dev);
+> >  
+> > +	xa_destroy(&cxlr_dax->dc_extents);
+> > +	ida_destroy(&cxlr_dax->tag_group_ida);
+> >  	kfree(cxlr_dax);
+> >  }
+> >  
+> > @@ -27,6 +29,20 @@ const struct device_type cxl_dax_region_type = {
+> >  	.groups = cxl_dax_region_attribute_groups,
+> >  };
+> >  
+> > +static void cxl_dax_untagged_release(struct device *dev)
+> > +{
+> > +	struct cxl_dax_region *cxlr_dax =
+> > +		container_of(dev, struct cxl_dax_region, untagged);
+> > +
+> > +	/* Drop the pin taken in cxl_dax_region_alloc(). */
+> > +	put_device(&cxlr_dax->dev);
+> > +}
+> > +
+> > +static const struct device_type cxl_dax_untagged_type = {
+> > +	.name = "untagged",
+> > +	.release = cxl_dax_untagged_release,
+> > +};
+> > +
+> >  static bool is_cxl_dax_region(struct device *dev)
+> >  {
+> >  	return dev->type == &cxl_dax_region_type;
+> > @@ -49,7 +65,8 @@ static struct cxl_dax_region *cxl_dax_region_alloc(struct cxl_region *cxlr)
+> >  	struct cxl_dax_region *cxlr_dax;
+> >  	struct device *dev;
+> >  
+> > -	guard(rwsem_read)(&cxl_rwsem.region);
+> > +	/* Publishes cxlr->cxlr_dax, which the event paths read under the read lock */
+> > +	guard(rwsem_write)(&cxl_rwsem.region);
+> >  	if (p->state != CXL_CONFIG_COMMIT)
+> >  		return ERR_PTR(-ENXIO);
+> >  
+> > @@ -57,11 +74,14 @@ static struct cxl_dax_region *cxl_dax_region_alloc(struct cxl_region *cxlr)
+> >  	if (!cxlr_dax)
+> >  		return ERR_PTR(-ENOMEM);
+> >  
+> > +	xa_init_flags(&cxlr_dax->dc_extents, XA_FLAGS_ALLOC1);
+> > +	ida_init(&cxlr_dax->tag_group_ida);
+> >  	cxlr_dax->hpa_range.start = p->res->start;
+> >  	cxlr_dax->hpa_range.end = p->res->end;
+> >  
+> >  	dev = &cxlr_dax->dev;
+> >  	cxlr_dax->cxlr = cxlr;
+> > +	cxlr->cxlr_dax = cxlr_dax;
+> >  	device_initialize(dev);
+> >  	lockdep_set_class(&dev->mutex, &cxl_dax_region_key);
+> >  	device_set_pm_not_required(dev);
+> > @@ -69,16 +89,70 @@ static struct cxl_dax_region *cxl_dax_region_alloc(struct cxl_region *cxlr)
+> >  	dev->bus = &cxl_bus_type;
+> >  	dev->type = &cxl_dax_region_type;
+> >  
+> > +	/* Parent of the untagged extents, see cxl_dax_untagged_add() */
+> > +	dev = &cxlr_dax->untagged;
+> > +	device_initialize(dev);
+> > +	device_set_pm_not_required(dev);
+> > +	dev->parent = &cxlr_dax->dev;
+> > +	dev->type = &cxl_dax_untagged_type;
+> > +	get_device(&cxlr_dax->dev);
+> > +
+> >  	return cxlr_dax;
+> >  }
+> >  
+> > +/*
+> > + * Clearing cxlr->cxlr_dax here cannot race an Add or Release event.
+> > + * Event paths find cxlr_dax through cxl_dpa_to_region() and use it with
+> > + * cxl_rwsem.region held for read, from resolving an extent through
+> > + * onlining its group.  Taking the write lock waits those paths out, and
+> > + * later lookups find NULL, so the teardown that follows sees no events.
+> > + */
+> > +static void cxlr_dax_unpublish(struct cxl_dax_region *cxlr_dax)
+> > +{
+> > +	guard(rwsem_write)(&cxl_rwsem.region);
+> > +	cxlr_dax->cxlr->cxlr_dax = NULL;
+> > +}
+> > +
+> >  static void cxlr_dax_unregister(void *_cxlr_dax)
+> >  {
+> >  	struct cxl_dax_region *cxlr_dax = _cxlr_dax;
+> >  
+> > +	cxlr_dax_unpublish(cxlr_dax);
+> > +	/* Unbind first: the driver's teardown empties untagged and the groups */
+> > +	device_release_driver(&cxlr_dax->dev);
+> > +	if (device_is_registered(&cxlr_dax->untagged))
+> > +		device_del(&cxlr_dax->untagged);
+> > +	put_device(&cxlr_dax->untagged);
+> >  	device_unregister(&cxlr_dax->dev);
+> >  }
+> >  
+> > +/*
+> > + * The dax_region's driver may probe, and its extent scan run, before
+> > + * devm_cxl_add_dax_region() returns, so the untagged device is registered
+> > + * on first use instead.  Callers are serialized by the memdev's
+> > + * dc_chain.lock; a DC region has a single memdev behind it.
+> > + */
+> > +int cxl_dax_untagged_add(struct cxl_dax_region *cxlr_dax)
+> > +{
+> > +	struct device *dev = &cxlr_dax->untagged;
+> > +	int rc;
+> > +
+> > +	if (device_is_registered(dev))
+> > +		return 0;
+> > +
+> > +	rc = dev_set_name(dev, "untagged");
+> > +	if (rc)
+> > +		return rc;
+> > +	return device_add(dev);
+> > +}
+> > +
+> > +DEFINE_FREE(unpublish_cxl_dax_region, struct cxl_dax_region *,
+> > +	if (!IS_ERR_OR_NULL(_T)) {
+> > +		cxlr_dax_unpublish(_T);
+> > +		put_device(&_T->untagged);
+> > +		put_device(&_T->dev);
+> > +	})
+> > +
+> >  int devm_cxl_add_dax_region(struct cxl_region *cxlr)
+> >  {
+> >  	struct device *dev;
+> > @@ -90,7 +164,7 @@ int devm_cxl_add_dax_region(struct cxl_region *cxlr)
+> >  		return -EINVAL;
+> >  	}
+> >  
+> > -	struct cxl_dax_region *cxlr_dax __free(put_cxl_dax_region) =
+> > +	struct cxl_dax_region *cxlr_dax __free(unpublish_cxl_dax_region) =
+> >  		cxl_dax_region_alloc(cxlr);
+> >  	if (IS_ERR(cxlr_dax))
+> >  		return PTR_ERR(cxlr_dax);
+> > diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+> > index 64138e1768a1..f7d7749d704c 100644
+> > --- a/drivers/cxl/cxl.h
+> > +++ b/drivers/cxl/cxl.h
+> > @@ -325,6 +325,42 @@ enum cxl_decoder_state {
+> >  	CXL_DECODER_STATE_AUTO_STAGED,
+> >  };
+> >  
+> > +struct cxl_dc_tag_group;
+> > +
+> > +/**
+> > + * struct dc_extent - A single dynamic-capacity extent surfaced to the host.
+> > + *
+> > + * One per device-stamped extent.  Multiple dc_extents that share a tag
+> > + * (see &struct cxl_dc_tag_group) form a single logical allocation, but
+> > + * each dc_extent has its own HPA range.
+> > + *
+> > + * @dev: device representing this extent; child of its tag_groupX.Y
+> > + *	device, or of the dax_region's untagged device for a null tag.
+> > + * @group: tag group that this extent belongs to; shared across siblings.
+> > + * @cxled: endpoint decoder backing the DPA range.
+> > + * @dpa_range: DPA range this extent covers within @cxled.
+> > + * @hpa_range: HPA range that @dpa_range decodes to, relative to
+> > + *	       cxlr_dax->hpa_range.start.
+> > + * @uuid: tag uuid (matches @group->uuid).
+> > + * @seq_num: 0..n-1 assembly-order index within the tag group.  For a
+> > + *	     sharable partition the order follows the shared_extn_seq given
+> > + *	     by the device; for a non-sharable partition, where
+> > + *	     shared_extn_seq is reserved, the order is the order in which
+> > + *	     extents arrive.  Either way @seq_num forms a dense range 0..n-1.
+> > + * @rcu: rcu_head for the kfree_rcu() deferred free in dc_extent_release(),
+> > + *	 so RCU readers walking the tag group's extents finish safely.
+> > + */
+> > +struct dc_extent {
+> > +	struct device dev;
+> > +	struct cxl_dc_tag_group *group;
+> > +	struct cxl_endpoint_decoder *cxled;
+> > +	struct range dpa_range;
+> > +	struct range hpa_range;
+> > +	uuid_t uuid;
+> > +	u16 seq_num;
+> > +	struct rcu_head rcu;
+> > +};
+> > +
+> >  /**
+> >   * struct cxl_endpoint_decoder - Endpoint  / SPA to DPA decoder
+> >   * @cxld: base cxl_decoder_object
+> > @@ -490,6 +526,7 @@ struct cxl_region_params {
+> >   * @type: Endpoint decoder target type
+> >   * @cxl_nvb: nvdimm bridge for coordinating @cxlr_pmem setup / shutdown
+> >   * @cxlr_pmem: (for pmem regions) cached copy of the nvdimm bridge
+> > + * @cxlr_dax: the region's cxl_dax_region while it is registered, else NULL
+> >   * @flags: Region state flags
+> >   * @shareable: (for DC regions) backing partitions must be shareable
+> >   * @read_only: (for DC regions) backing partitions must be read-only
+> > @@ -508,6 +545,7 @@ struct cxl_region {
+> >  	enum cxl_decoder_type type;
+> >  	struct cxl_nvdimm_bridge *cxl_nvb;
+> >  	struct cxl_pmem_region *cxlr_pmem;
+> > +	struct cxl_dax_region *cxlr_dax;
+> >  	unsigned long flags;
+> >  	bool shareable;
+> >  	bool read_only;
+> > @@ -570,8 +608,57 @@ struct cxl_dax_region {
+> >  	struct device dev;
+> >  	struct cxl_region *cxlr;
+> >  	struct range hpa_range;
+> > +	/*
+> > +	 * dc_extents is keyed by an allocator-assigned u32 (see
+> > +	 * online_tag_group()).  Tag groups have no first-class identity in
+> > +	 * this xarray; siblings within a tag find each other via
+> > +	 * dc_extent->group.
+> > +	 */
+> > +	struct xarray dc_extents;
+> > +	/* ids for the tag_groupX.Y devices registered under this region */
+> > +	struct ida tag_group_ida;
+> > +	/* parent of the extentX.Y devices of untagged allocations */
+> > +	struct device untagged;
+> >  };
+> >  
+> > +/**
+> > + * struct cxl_dc_tag_group - A tagged dynamic-capacity allocation.
+> > + *
+> > + * Container for the &struct dc_extent siblings that share a tag.  A
+> > + * tagged group is a tag_groupX.Y device under the dax_region and the
+> > + * parent of its extentX.Y devices; untagged extents, each a group of
+> > + * one, sit under the region's untagged device instead.  The group
+> > + * exists to keep tag-scoped invariants (atomic add, atomic release,
+> > + * ordered carve by seq_num) in one place.
+> > + *
+> > + * @dev: device representing a tagged group; child of cxlr_dax->dev.
+> > + *	Holds the group's memory: the last dc_extent release drops the
+> > + *	final reference.  Never registered for an untagged group.
+> > + * @cxlr_dax: back reference to parent region device.
+> > + * @uuid: tag identifying this allocation; same across all member dc_extents.
+> > + * @dc_extents: xarray of &struct dc_extent in this group, indexed by the
+> > + *		dc_extent's @seq_num (0..n-1, dense).  See &struct dc_extent
+> > + *		for how seq_num is sourced for sharable vs non-sharable
+> > + *		allocations.
+> > + * @nr_extents: live count of dc_extents in the group; the group is freed
+> > + *		when the last dc_extent device is released.
+> > + */
+> > +struct cxl_dc_tag_group {
+> > +	struct device dev;
+> > +	struct cxl_dax_region *cxlr_dax;
+> > +	uuid_t uuid;
+> > +	struct xarray dc_extents;
+> > +	unsigned int nr_extents;
+> > +};
+> > +
+> > +bool is_dc_extent(struct device *dev);
+> > +static inline struct dc_extent *to_dc_extent(struct device *dev)
+> > +{
+> > +	if (!is_dc_extent(dev))
+> > +		return NULL;
+> > +	return container_of(dev, struct dc_extent, dev);
+> > +}
+> > +
+> >  /**
+> >   * struct cxl_port - logical collection of upstream port devices and
+> >   *		     downstream port devices to construct a CXL memory
+> > diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+> > index 52c936ec15a9..73f01efc0172 100644
+> > --- a/drivers/cxl/cxlmem.h
+> > +++ b/drivers/cxl/cxlmem.h
+> > @@ -433,6 +433,7 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
+> >   * struct cxl_dc_event_chain - staged Dynamic Capacity event chain
+> >   * @pending_extents: extents received so far; flushed when the chain
+> >   *		     closes (More=0)
+> > + * @group: tag group being assembled from an Add Capacity chain
+> >   * @timeout_work: watchdog that fires if a chain is opened with
+> >   *		  CXL_DCD_EVENT_MORE but the closing record never arrives
+> >   * @lock: serialises updates to the chain state against the watchdog
+> > @@ -454,6 +455,7 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
+> >   */
+> >  struct cxl_dc_event_chain {
+> >  	struct list_head pending_extents;
+> > +	struct cxl_dc_tag_group *group;
+> >  	struct delayed_work timeout_work;
+> >  	struct mutex lock;	/* chain state, against the watchdog */
+> >  	bool armed;
+> > diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+> > index d8cc1c012f46..7d28aedfd2f7 100644
+> > --- a/drivers/dax/bus.c
+> > +++ b/drivers/dax/bus.c
+> > @@ -539,6 +539,8 @@ static int alloc_dev_dax_id(struct dev_dax *dev_dax)
+> >  	return id;
+> >  }
+> >  
+> > +static bool is_dev_dax(struct device *dev);
+> > +
+> >  static ssize_t delete_store(struct device *dev, struct device_attribute *attr,
+> >  		const char *buf, size_t len)
+> >  {
+> > @@ -555,6 +557,12 @@ static ssize_t delete_store(struct device *dev, struct device_attribute *attr,
+> >  	if (!victim)
+> >  		return -ENXIO;
+> >  
+> > +	/* Tag groups and the untagged device are children of the region too */
+> > +	if (!is_dev_dax(victim)) {
+> > +		put_device(victim);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> >  	device_lock(dev);
+> >  	device_lock(victim);
+> >  	dev_dax = to_dev_dax(victim);
+> > @@ -1443,6 +1451,11 @@ static const struct device_type dev_dax_type = {
+> >  	.groups = dax_attribute_groups,
+> >  };
+> >  
+> > +static bool is_dev_dax(struct device *dev)
+> > +{
+> > +	return dev->type == &dev_dax_type;
+> > +}
+> > +
+> >  /* see "strong" declaration in tools/testing/nvdimm/dax-dev.c */
+> >  __weak phys_addr_t dax_pgoff_to_phys(struct dev_dax *dev_dax, pgoff_t pgoff,
+> >  			      unsigned long size)
+> > diff --git a/tools/testing/cxl/Kbuild b/tools/testing/cxl/Kbuild
+> > index e49ce644b4b1..f1ab25872e76 100644
+> > --- a/tools/testing/cxl/Kbuild
+> > +++ b/tools/testing/cxl/Kbuild
+> > @@ -67,7 +67,10 @@ cxl_core-y += $(CXL_CORE_SRC)/hdm.o
+> >  cxl_core-y += $(CXL_CORE_SRC)/pmu.o
+> >  cxl_core-y += $(CXL_CORE_SRC)/cdat.o
+> >  cxl_core-$(CONFIG_TRACING) += $(CXL_CORE_SRC)/trace.o
+> > -cxl_core-$(CONFIG_CXL_REGION) += $(CXL_CORE_SRC)/region.o $(CXL_CORE_SRC)/region_pmem.o $(CXL_CORE_SRC)/region_dax.o
+> > +cxl_core-$(CONFIG_CXL_REGION) += $(CXL_CORE_SRC)/region.o \
+> > +				 $(CXL_CORE_SRC)/region_pmem.o \
+> > +				 $(CXL_CORE_SRC)/region_dax.o \
+> > +				 $(CXL_CORE_SRC)/extent.o
+> >  cxl_core-$(CONFIG_CXL_MCE) += $(CXL_CORE_SRC)/mce.o
+> >  cxl_core-$(CONFIG_CXL_FEATURES) += $(CXL_CORE_SRC)/features.o
+> >  cxl_core-$(CONFIG_CXL_EDAC_MEM_FEATURES) += $(CXL_CORE_SRC)/edac.o
+> > -- 
+> > 2.43.0
+> > 
