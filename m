@@ -1,108 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794848159;
-	b=pJQCmmsHsJkah6j0S5NxPMmLYAqzimCOixa+Pr1KV0LkzVtgMJQDvhSXSLF4DWoJNkf9
-	 0epinkDsQRSUeFp5GicJZveuhg74T2hCuNFxpc4Bf6MUqGGLRsJWR6zClT8By2HhD3tK0
-	 JG4b3oHbgtI1Q/uhfYVkdOa/xpuATdCFPtkk51SxW2n5tr7mqIo9snXm+BVvWSfn0pXys
-	 KegjaH4Wzo5Ox3jz2AH1mTT8SkCGs0bp80w1amflcq7E1Bd/y2zCDSTo6MYgxluWFuY5W
-	 oig6+yINscP61tvyd2cV/lhV/Mmprn4aO9NcrnJ3JR+UhmnJhRPdyVkg7nqQo6uKFsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848159;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=b5jmQ+tC0YavRr54vIVtQOf5BBZ6aEk4FcFpuCpy7PQ=;
-	b=yeXNpVNOvqKEL67iTUw+DxBnljmOh1bXK4NA5Tv4rfuqvsNSDYHGHSYMCCD/nuySd+/t
-	 N94kllF3hXYbnngeBp5slDsOjw+UN9YLlGRlIv7OSErDRkCvZiTeP8u0oEZ67KQXUNbrR
-	 NyBUIGBsAcs58qlU4BvL6Fjor3UeB+K+ikKo5p+nsnO0BmbZtsqWt9uPbKcC2rk5rfAvR
-	 ZMbbDqQYZyZ89hPSDBgj3WSZnCDtlLevi8dFp76UtIILeB3SKrSIYdkMmjT7aCbTZELKx
-	 eOF7n5E2E88CK46Ov9/R8CL4ZbkjegNJRVHOcfXawRRPVfv/c7rYQbUcrOM1wPjH+6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Q4A7PA8H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.7
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010007.outbound.protection.outlook.com [52.101.69.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794848174;
+	b=PnWz1Q3eVeZeoR5OchHxYEO66Bg51PDP30gaH8W8giDU7hgEjkRVEmgUPU8XqydlCEcx
+	 g5UzKQeqkOqSS0ezFnDrj3hGc6txG/f6wvm5llYFxTndAA5/evtpn+G4ficj+26MZLibQ
+	 BqvUK3zjoJ8LwQdmRXtXzrxdC+7idv3+2VYA3DjEabPYM6NlDtself68xCdoEWjZUCco1
+	 FqY3Tbsf7v+b2fEBZmVdz+Ktpc7cXkYVcMXwAtYeXRYCT9RKb4vukE3yThkZqEWBauLWW
+	 QCmJ4L2M4WBo9dNDXzAUTOZefYEjnSFOEf3HFnxv3DCphmnVaCOi7RFxtHkFD6DWI4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848174;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=RDsIwsWu1KfQS3Aqtw59xAzqiLwWxmSzDSkW35hSn/U=;
+	b=Y0JilnxO2daCs+SAlGGxYE9Ee0G0Yr9ZGNM0UIQZ4aUHdKnhVlXfNMP9GknBnMlsxai1
+	 xIdLxwd08oXOVT3AJStWbKzeE+RXpIV30OXA7maXoJ6TFApWCTietokCboGE20w0O3fm7
+	 25LfDEyl+/WhlAMkXKWqu6SWO3Ts1G4QSBNPr8K7nVI6pyewTxXRguZBgFL2TEMW3Z8sA
+	 av0ScBZZAFbzvv4AwVnx0ktPikjt2pwpNRC78BJnYYRZEeVpeQRv0Jz6SpK2BlTKBICg8
+	 wl24zob4R9JXn86yxRlq8jGzgZ616KCqBAr/p6sniO9MbA+isuTeDTnsEasnyqxMlGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=X671Sey6;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=e1DFnPa7;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B317606A32A;
-	Mon, 16 Nov 2026 16:55:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B317606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA805606A33E;
+	Mon, 16 Nov 2026 16:56:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA805606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Q4A7PA8H
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RhO0wnRNJ3sDlFUG3wKMIMUlZivkMRvjmWXQyOKYJ4ibcaiFXYUq/3nm5Q75eeGeLsFg+jg2A1CvKt7GCtH6flpVo/bcbGXRhFSCDcn3STyzpbU2ef4Ctpux7fAqPt60itePriGeDPQe0Am7uVWAp3pOMcpTLQ1mBCR2wCdho173Eo1H2aWtxLXSubUw8p2T4rD6kulnueaX2j04jWOk8QJYrxa3VQx83UdPUIW5GxfBJhqdEBiGkyLtpLE9iDpTZyyjb0YK3fEAA9+vrnB/7sU5KiklZY63WDTcVf5fhNEaOIWvhMSp19jMkY1BH0UVZq7DpyDffj/5DpYenLr7gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b5jmQ+tC0YavRr54vIVtQOf5BBZ6aEk4FcFpuCpy7PQ=;
- b=tXSFoRJlqBhUBuORwj0fLXeh743Snzp8UZomoe/yqRo0iq83GxIw/0qsRXWbpSuABBDVeC4ltYmpHPs6Z0j3eqVMtpu6WL6Z3TKB+xRIQBIK9RUcgceqtyjaaciY3P3DUBJp3VXsidF6OqfNwflK9AnDfJXC06LmjJcnjxZzgRNBlT9wSRB8NSe2sHK7P+l+f6W3VZ6qqZUoiXJR0LD3pN2MrEv6kDQbUt+WEC8xBRFSY8wURCvkP+CzRNjs6+NBNVJ/1f9NaUsgeMj89ytWTzlAFOkixu3xrvkCgNe08mHGtAsV2hlZGN4WACW3aTwKbcoLScSt4Od83dXJPzpWGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b5jmQ+tC0YavRr54vIVtQOf5BBZ6aEk4FcFpuCpy7PQ=;
- b=Q4A7PA8HR/071GfIxTnB3Clh5NpgF/ZOlAtE8XmP+Z7ueY7SyE0YrqAQGUWAaWVcYsLa3J0FAZTf+fBvupbkKbR0sq5Dhh4LpPWq/3KH3EV+R4kyMfdFmwbfI0+pUn2JOwE1kHM0FO4gGoKSDfsq3ESW83yQErj8hXqPSq9qID4gYVsOmbel7e/NokXWldevgtXSzNhj7a0Ui0tshvgcPUlWmTu+S66SXGZA91rgtdx/lVanlXEyXZVi6hlN1lEWAnHcbO7SUYCMUTj4IK8bUQC1Z2J9Wv767vMvDhzhcmYRVQKC+mFe1J/BbSQZ5ASLPCAShbHH3LXTECOylkOeVQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB8349.eurprd04.prod.outlook.com (2603:10a6:102:1bd::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:55:55 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 16:55:55 +0000
-Date: Mon, 16 Nov 2026 10:55:42 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v7 3/9] iommu: register the DMA channel bus for IOMMU
- notifications
-Message-ID: <avs1jnMrYjHkQss3@SMW015318>
-References: <20261116-edma-iommu-v3-v7-0-32794ba8efbf@nxp.com>
- <20261116-edma-iommu-v3-v7-3-32794ba8efbf@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-edma-iommu-v3-v7-3-32794ba8efbf@nxp.com>
-X-ClientProxiedBy: PH5P220CA0008.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=X671Sey6;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=e1DFnPa7
+Date: Mon, 16 Nov 2026 17:56:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794848170;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RDsIwsWu1KfQS3Aqtw59xAzqiLwWxmSzDSkW35hSn/U=;
+	b=X671Sey6zOnA4g/Gc3LkOkWUY5RmzW1FV6Vp94tpgKxE81m3B7vjOcb6xeWO2gOzVuiM59
+	IRFp5B1mblt52QtidkWxOPXJUlBfnQ/rDO1d9BXcBvB1f6zaO5j0LfHGjIua7dtmOEC+fa
+	neVgQS5+otpe5uI5mrtcKlVbw5DSEbV9KXE40zLgv48IXVwcSNlCgb6KwpemsrVzi9JhrL
+	d07FX3hgqnm5CMF9OYGDGza5/6oFlOx8CE5+ZTbgdU7yID3LDaV+9YsVpxmFVB9jkOqxJY
+	IqPUQYVrZF6c63VzXOGFeKDPG67J/hyrpVZ2gj7cipxwGKjfu+9bWrVt7N6lgw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794848170;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RDsIwsWu1KfQS3Aqtw59xAzqiLwWxmSzDSkW35hSn/U=;
+	b=e1DFnPa7JHJPmVtStbW0ulMaQP6TI4B9OVTYKVGf+WNc5CrKG4/2wIDCCiE0jqn3cpIQF3
+	t8hYYoMxdAHHpmDg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
+	linux-kernel@vger.kernel.org, will@kernel.org, boqun@kernel.org,
+	longman@redhat.com, rostedt@goodmis.org, clrkwllms@kernel.org,
+	dvhart@infradead.org, dave@stgolabs.net, andrealmeid@igalia.com,
+	shuah@kernel.org, juri.lelli@redhat.com,
+	linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] selftests/futex: Test priority inheritance on PI
+ futexes
+Message-ID: <20261116165609.RMK-DX1Z@linutronix.de>
+References: <20261108141347.1525532-1-mathieu.desnoyers@efficios.com>
+ <20261108141347.1525532-5-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,110 +79,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 119da20d-6b64-4518-0c92-08df44027a9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	lAS3hJTm0k+U9BC9qfaDDoOM5w4ciN0A1Gs4bh0RttiouLeDPk0QJWJrO+yvyGacHR/gaKyNWLELeyVRO/YAO7H1YBOiIAbVT00cd2riolj1W0b1RdZ0VkIwsFjGKy6cB52yIkRw+KlHpcHxMbA1S5472R+HT4M4VSPYwb7m6UcJ9Ml5Iqk6iq+uxXtMSNxWhosJPTNEHUrM49aNq8GRON+fbHW8zyEyXW6ICply4n6A0ksrylaJdKeUdtm/BUYwx0QZ9P/agvtkQZHKYcSv2fNoWF7/uPqTNluYet45p48zQJkadBCoCluHR5u1XbDjdhn+BMw5ZtcbKoQdHIqnjWOBYvxRY1BTkcZG28mp4LgDL9MvTSdlH2kL9G2jM+wMG1blfzwGz0WtVXG2Wr9LnHlxgYkWtzu3JWk1ONwYpFUg6EFfoCCbiy9mRdMJSWf3X2wpOoXYn5NCAM/MpGhPLqqCkHq45VuZZbcQyhGhpSvmgMEQpVLL/CLOvU39h3nYD2xjSX6+f2PrAy5LCkUsBpJxuSdCmP7XzuWuLr9EIexEY1ZCBhYonuIIjS1rcmlHEjUzm4qKBpL7D79Idb0/GUbcIQ59BYZgBIRmGVR8dLYZbKwmZZtOUjP4V9gHR7M5CdLHOD4/Ov928KzizmxnzucXhn/g9Rug9J2BTdmM0Xc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JGgEbNQbgvQ81CtOmRcJ9ORJpgnTNh0aIpVwgSid8NerR1xuXR3e8hO1SRvA?=
- =?us-ascii?Q?XfSeOdrS/q6IeEbv3NP2T3zx8LNtrf9mS6jArOQj/uD5LZImhFIYIHmpJBON?=
- =?us-ascii?Q?JFdpg54DCiFHSmWe/yvplTA8RZ1RzjfNfuWLATbFckdohJxuM3lfSM3hTfPC?=
- =?us-ascii?Q?DwwVJNaw5XSVy1/h3KTfOMofzahjfCJ/iemWgHcAQ6mPmggMRUQ/j/UDbk27?=
- =?us-ascii?Q?ZbS38N21j18ClpEkWOpUdbv04aQut2HCPg+258bJi1tpyvzqaD0d4JeYS1i+?=
- =?us-ascii?Q?2cDaKhli5DCv8Arn8j9WCyQ3j4ty5uYEXuorV9E7PsUFuf1130oBPkZoupKM?=
- =?us-ascii?Q?zx8uQmV+0hy+FBVhOAKWpDOzkgJvpic6RPNq8Bd89RULgUw/VreaDijL9U1V?=
- =?us-ascii?Q?AJHFhlzIzU2XqAHnvWdM2JRgZtXjke8kJl1ny/2RnkDA2Yzb/E/YW0lCB72h?=
- =?us-ascii?Q?0dWqyMZcp6R6y3ydqM65m+RYAsRfHETFH8PbAj8e+nB4QEaqLg+dmN+uzAul?=
- =?us-ascii?Q?AS8rcIMaxxGKJErBnT/+uCA793fvBf/MUhdqGTdJ6bwAQoGNnOB2Fw5CcZGv?=
- =?us-ascii?Q?Vvh1jzdAAoJsHY31riC3ZMQu9BdGzs8NsOa1bU+8kOVTTLzTqPB4z7rX7OTi?=
- =?us-ascii?Q?duNN3rOEf7ZVHz8fbbKSah2LYbqlN09x4T4Tiq9EAJ1Gk5G1QyBYmOCOVbA4?=
- =?us-ascii?Q?t5ccvx4xZ9Lp4hm3nisJF5iPEnE96dLhywEftbj6dnTCID3txUuSUCFQ0ok3?=
- =?us-ascii?Q?H3Ty4u4M6WaeANJpj7ZXwmfbQOpwmOiHXrIC7IvdMWgLA/jNwaEogGaRk0Al?=
- =?us-ascii?Q?eLkU2iVQEQ3dsfta5gzRtvwodoruogw46qOhO76WXwmifwBdQd5Caduw59It?=
- =?us-ascii?Q?9xFCn980v8rTMr3yS1U9HpmNCH41jBb9PNy/+hzgLB5Mv6RKWSLppDP5YD75?=
- =?us-ascii?Q?qYcEZtO53gj67UGVzoVs138dS3SW+K+d6IydJUi4muRFM/ehPsp5mAz4w3c0?=
- =?us-ascii?Q?CNHKV4WHXbAoiiVLbjAvuIpeh50EComq6QOaDnMuJ3zXySgqcCTzYUem/hkg?=
- =?us-ascii?Q?UBh5Dj6LxbQWyH2fGtZXYC9kGJO8HxEeqJpIze34IrTf4oG7okO8Mubo/T8X?=
- =?us-ascii?Q?Pqe8XusxSjtnfU0yc50w07ZBP5ZNpqgjDsMCOjPuLtzviixQCpgQ7+19zYZH?=
- =?us-ascii?Q?AB/oIQWAIwRFu+vVuuSjfEiSA5DUc/XpcdTznD76RvprKxK3+lyceNPT2OBR?=
- =?us-ascii?Q?U/jRoj0Y1Bvg///+EOJl8wKlLmxRE/BcVtCGm0zRAYVY23bgrP7oAuGTDH/p?=
- =?us-ascii?Q?Sdvobiv/pOLUtO3AUU0HhwrgAnWNDUe3HRT1oArOFNhRFHqBTDcIN3ZS33R7?=
- =?us-ascii?Q?RlFrNuSmeG6kltGMTSQYduKCdWnUBV4IZ+lkMf3f5gZyLbAJhB6ZiWqOHlHX?=
- =?us-ascii?Q?EeydZjWgvgtAfZheLl5CkS7mf158Xk5AIiEURvGXkRFCne1PXleiZoQZCI2Z?=
- =?us-ascii?Q?sQ8a9FRvOSdvG1Nue1VnLo4uP2ufi0wSWDHbZgPAI9F1C3FWV3fr/kWY6ef8?=
- =?us-ascii?Q?3gvNNHpQJZQvy/QomcP4bXnWrnhsDyEClJcr5O1pJapjQ0/GFnmXjw9DJzUX?=
- =?us-ascii?Q?5nfI1KkBUrL2mQs87Wx4Jh62vSXt3TS9mp7A2AhO7Fu+K4Z8vMDmuYlaNZCm?=
- =?us-ascii?Q?nh97KmlOmf+fcPhOGEPjS7aBe6Rhtngx4xoqQ/74SF7s+bfqBxVatxdDJ3Yr?=
- =?us-ascii?Q?Y6mJ1XyYsFAIB/X6uGFRzCsLwMte9aZZF1qTF1Jh9KwSOWkL3vO8?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 119da20d-6b64-4518-0c92-08df44027a9d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:55:54.9741
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4x7HfUm0jNGmjbLNC12fBqhhp1nx53ooSQD6xkbP/Ru0tco060G73bnYocr7oxXOr4f04VCX+nu6SguhnpJl3zCwd9xVXpNasxBWZpl0uEDL16zSbKVF38Fub50Ohe6k
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8349
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261108141347.1525532-5-mathieu.desnoyers@efficios.com>
 
-On Mon, Nov 16, 2026 at 11:05:24AM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> DMA channel devices are about to be registered on a dedicated DMA channel
-> bus so that they get a properly balanced bus association before
-> device_register().
->
-> Add that bus to iommu_buses[] so the IOMMU core installs its bus notifier
-> for it. This allows of_dma_configure() to probe a per-channel IOMMU and,
-> more importantly, lets BUS_NOTIFY_REMOVED_DEVICE release the IOMMU group
-> and domain when the channel device is unregistered.
->
-> The dmaengine bus is registered from a core_initcall, before any IOMMU
-> driver can call iommu_device_register(), which iterates iommu_buses[] and
-> fails if a bus has not been registered yet. Guard the entry with
-> CONFIG_DMA_ENGINE because the bus does not exist when the DMA engine core
-> is not built.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+On 2026-11-08 09:13:46 [-0500], Mathieu Desnoyers wrote:
+> The PI futex selftests check what FUTEX_LOCK_PI returns. In these tests,
+> the owner always sleeps. No test checks the priority an owner runs at.
+> No test waits behind an owner that keeps running.
+=E2=80=A6
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I did play with this and looks it catches the errors you reported/ fixed
+earlier in this series.
 
->  drivers/iommu/iommu.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index b486b8bbd1fc..ab31cd15d1d5 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -8,6 +8,7 @@
->
->  #include <linux/amba/bus.h>
->  #include <linux/device.h>
-> +#include <linux/dmaengine.h>
->  #include <linux/kernel.h>
->  #include <linux/bits.h>
->  #include <linux/bug.h>
-> @@ -191,6 +192,9 @@ static const struct bus_type * const iommu_buses[] = {
->  #ifdef CONFIG_ARM_AMBA
->  	&amba_bustype,
->  #endif
-> +#ifdef CONFIG_DMA_ENGINE
-> +	&dmaengine_chan_bus_type,
-> +#endif
->  #ifdef CONFIG_FSL_MC_BUS
->  	&fsl_mc_bus_type,
->  #endif
->
-> --
-> 2.34.1
->
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+> --- /dev/null
+> +++ b/tools/testing/selftests/futex/functional/futex_lock_pi_inherit.c
+> @@ -0,0 +1,773 @@
+=E2=80=A6
+> +static pid_t sys_gettid(void)
+> +{
+> +	return syscall(SYS_gettid);
+> +}
+
+glibc-2.42+ has pthread_gettid_np(pthread_self()) but this is fine.
+Debian Trixie has just 2.41 which is a bit sad.
+
+> +static uint64_t now_ns(void)
+> +{
+> +	struct timespec ts;
+> +
+> +	clock_gettime(CLOCK_MONOTONIC, &ts);
+> +	return ts.tv_sec * NSEC_PER_SEC + ts.tv_nsec;
+> +}
+> +
+> +/* An absolute CLOCK_REALTIME timeout @ns from now, for FUTEX_LOCK_PI. */
+> +static struct timespec abs_timeout(uint64_t ns)
+> +{
+> +	struct timespec ts;
+> +
+> +	clock_gettime(CLOCK_REALTIME, &ts);
+> +	ts.tv_sec +=3D ns / NSEC_PER_SEC;
+> +	ts.tv_nsec +=3D ns % NSEC_PER_SEC;
+> +	if (ts.tv_nsec >=3D (long)NSEC_PER_SEC) {
+> +		ts.tv_nsec -=3D NSEC_PER_SEC;
+> +		ts.tv_sec++;
+> +	}
+
+This breaks if your timeout is something like 1.5s and ts.nsec is
+already > 0.5s. We usually do
+|         while (ts->tv_nsec >=3D NSEC_PER_SEC) {
+|                 ts->tv_nsec -=3D NSEC_PER_SEC;
+|                 ts->tv_sec++;
+|         }
+
+and in worst case gcc does a div. But other than that=E2=80=A6
+
+> +	return ts;
+> +}
+=E2=80=A6
+> +/*
+> + * Start @t and wait until it sleeps where it blocks. Return false if it
+> + * could not be created, if it failed, or if it did not block within 2s.
+> + * Unless it could not be created, the caller must still join it.
+> + */
+
+Could rename it to start_pi_thread() or pi_start_thread() rather than
+just start?
+
+> +static bool start(struct pi_thread *t)
+> +{
+> +	uint64_t end =3D now_ns() + 2 * NSEC_PER_SEC;
+> +	pthread_attr_t attr;
+> +	char state =3D 0;
+> +	int err;
+> +
+> +	pthread_attr_init(&attr);
+> +	pthread_attr_setstacksize(&attr, 64 * 1024);
+
+it makes me wonder what you did use as a template for this or who wrote
+this. I can't imagine why one would set a stack size 64KiB here.  It
+shouldn't matter.
+
+> +	err =3D pthread_create(&t->thread, &attr, pi_thread_fn, t);
+> +	pthread_attr_destroy(&attr);
+> +	if (err) {
+> +		t->thread =3D pthread_self();
+> +		t->err =3D err;
+> +		atomic_store(&t->done, 1);
+> +		ksft_print_msg("pthread_create: %s\n", strerror(err));
+> +		return false;
+> +	}
+=E2=80=A6
+
+Sebastian
