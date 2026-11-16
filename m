@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862540;
-	b=CvxR97oxUc+Mhslqo0cvNYum3MhAyP4JaCEXBdXKdKlhEWoUSNkEemXX57ZnQeKCAFeq
-	 Z+vJ0bZOgTlXkuO1NgDaeQ8UVmrGepNlDVxQv/GVUteG/Sj54Qef9lqLMqtwwqbsNFHJX
-	 sl1yjfMaC7tmFBioEiAFrLFvWNq49krESH3BCKvE/oZFAX9bT0gwVoZWxIxVe2Z61KmNE
-	 wtAC6L11UHsYff2o56bh6SSRvtgafZn5hn+Aok8K4VeJ6kZUyZB+BdCikIGrg4UAolN9j
-	 LncbOZcc5FuxBY3B86uHfXNTiOZPbfJGu2AzZFcFaCL6b4HWmiCX23z4SFY0yeu7nSw==
+	t=1794862544;
+	b=lzvfV6FSQSaSZrPSgSO0qsxktDx9JA3rINbBGhp98ja+zkXBIsHonDb5Fno6KjyvOe2z
+	 15rFDaEPaGpozTykc1AMi6nSgQ3+FePaapyAEejIO9Eamg6+G64eD/UPkZMmn7NIqcneu
+	 uPofS+3td5Yy93bYhfSXy/Kbw3K8I7frlEVBwrhofTKIHIf2Hz6MJsp+3enwP/m5B2GrC
+	 YmBA6EMudf1nlGOUmbjNq1QGMi4I4EiJDaqsxnyF11TnszcZCnxzMvRx+evXnSbuxcbT2
+	 Uybgw1HiWtqADKHub4tL9ABaWeElIc70xPrU+xceg9NI3Om1hT7U624GAv0C9cuuWwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862540;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Cc:
-	 Subject:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=K1X6aptp9cb54EH6/S3+8Xic6Zq/P6tKc736rXZO270=;
-	b=U0jiZLMlrbtMJCtFXuU1KsBKyE+aWy8PRd8TkSXWD248I0TlO4mmX6n+HVMiw+w6fO3M
-	 XBPo+EvIRlyEzEYj952ls1j4K84dKpb7rIU2uFQp/GpgLBrN2UAwFQhIBZ2f/7Rnh7pR7
-	 WTv8XKCqcvTecdDv6eU8Vw/xXskcDncLv9HahrgAgL0sXfc4mvZPO4i/pLlf3t024p44i
-	 kD7YRf5J55FQfAK7tH1ZTAuTYm+PtIQB87iWIaHbMdALmsKpBzMh05N8VrlvsRhwlZjGN
-	 vEaYXYFrjXYeZEKTlyuqu0bE4ujXbuKZRC1bZCpi3mj9A/D9eirUrgcU4yKJbeP1Kjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862544;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JpiHRtIiEHYG0g+BY20ZAPvVQUUBUsrr7vJkSH72tOE=;
+	b=CgW6G2Wb7dqHUESHZMwxSLUgu8S4OQmVgNZ0LrYk8xADsWeh5oq1XWa88rBO/2oCUFLG
+	 Qu4ChQcUSeQZUiRPDpTsEYRLyahqr741i6OOoA1shLLWfX+WITRUorJbj/X/kZM13Ly8Q
+	 31iQpSImxUeU/fFRzKjdw4sHRLM4Qxt9naiKdhdl45qRgZIU9tf+Fqunj6Edc+KqobW/V
+	 5rPQXwN60fZrvfRmJySIQ7ZCzs7cy7vICvnq66E2MA8y+wMfmJnjLj7smGypUkhPiuc6G
+	 ZRDfHQWZqUttYnpw9/A0YwPaUGMWQlLjK00joXnhmwwk0cNIoHD9kVwa3WwToXqA2SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u2QgY5C3;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bW0xtvpI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12701606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12701606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1003606A323;
+	Mon, 16 Nov 2026 20:55:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u2QgY5C3
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1986857f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:55:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794862538; x=1795467338; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:content-transfer-encoding
-         :mime-version:content-type:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=K1X6aptp9cb54EH6/S3+8Xic6Zq/P6tKc736rXZO270=;
-        b=u2QgY5C3if5uWiUzZPM8txeCtbFhDBPrzEMoHeTc5cOUW1a6m+yJEOsHyjTGKYv5Br
-         2hSq/IcbD6pZi+sd73S4n67ieExHp6zRxGM9IjP+O44xbz09zLMWbowhMeyyRAWGbIuK
-         Q7Y8RY0lJKTIww8tbVcR0rzr+fKDLuN29Fk5SxwLtIviFdn7AyBhOC4fGiNLluF5QZ0m
-         G9wxEbaF3SDTPQzdEUBgPeNz+y+ca2sV/soJ0BzaWB6rstoI+PF8XC135FGOfQ3f4Ijc
-         J90MHeSJ3ULZMvmhEqS7GuyQzjZtkGPyRlPdp6pUkM98FxRrWTlOGvcW6eoD3yUkCBkS
-         hv8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862538; x=1795467338;
-        h=content-disposition:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:content-transfer-encoding
-         :mime-version:content-type:date:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=K1X6aptp9cb54EH6/S3+8Xic6Zq/P6tKc736rXZO270=;
-        b=WeIovQGLFcWLrWlTieB3ecBHvjRtnfzKpLTIzSJTepCO1V+bktkVtWoOBpgfN1t3Kd
-         yR2K4YlfRODBZKGvZnS6ow6FIQmBEeF+nSILWkbHhH+BmXPDH7yxEsUqJx1+xwo+3V2r
-         /Jno1a7oyVkJX9S0Q/6jJ/6DsQ17dTs0Mo8c024lwCNeUO8+AzpaxnJ9EaJI1CkaiJSB
-         P6DBPUBwpNIqV+3LxMBehUS5U/89R/aRb8tR7Ghodk/HnS+9WkI6XiJEVlkmF7y7jf1o
-         1M6vSzZcLc59NyYDMthyLdPbnA2RpVxGR4URuWJ6oo8z7mT5q1Iqg+hUJhY0afQBNalK
-         4HNA==
-X-Forwarded-Encrypted: i=1; AL+hErHuM/O8rSvlS4lPxOQMn9AlvZgn0iGXUaK+TsUJNYJOyItTeuuTNb37BnutnT6cPQsa4A99c9N9C1pItsc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/80IW1sJSdpjQmK8yqGGRh6SWNJlvYQvbNlYfBow1r1NPtJwgb
-	U8olZvWFpSaqtPD+pyM9VwWhxPSI12svKosdOS0PNNh1tfoaP2MCalbV
-X-Gm-Gg: AZFdTZcnRmMnYwxpUOCWm/fXfUdBp5Dkqk4YojRAgZ8oIBZuUbRBIk0+UcO4I89GyED
-	qKgF5dhs9LaPo0MFWXYM0kPULd6cbK1ZqtSQEOhoZP97qwxn5kUm0XrHefcMpZMxvxwtJZSrRu4
-	VHPnhAjIC2HBhBWMHQ7GDrFwO4Yx2bYhHW/C69T0Wx2TKlW9Iy0aur6AxE7Mlagx6P9nTapcTaj
-	mYYberYdo+6JdArnCXsbhAoGHttARtQX3gJ3CjbhapMowF54Jq9VRVOHi56mE6K02f8wKhqhvZ0
-	kDp9E3fsMjSGpT5SOp3K50R7OkVqWjdNHibsgWtMK4SikZgQm5KjijhIGJJHX0qF6M8dvpVrZDZ
-	q8r3uIjM2Ld69vMgVKCqRMyN7UYeXEYBl9HUni2L+Vb3IYMVXJXc0giO1AcOyfCTbHo/Amcj78D
-	zwmUsEGVHlb5q1gOt2m37ea3J2Uxf+BZisteCqzfL5AOlDANPC/KMV+wOGquGpDuZ+8sd7Z7acH
-	44N/oNiUYSidFPWqE223GSoezCeMZKzUcJIDCZ1CKz8ZkLPeAjX2BzQ
-X-Received: by 2002:a05:6000:26c8:b0:491:ed89:a38f with SMTP id ffacd0b85a97d-49c73631471mr27391944f8f.23.1794862538469;
-        Mon, 16 Nov 2026 12:55:38 -0800 (PST)
-Received: from [127.0.1.1] ([196.237.227.176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm24696949f8f.56.2026.11.16.12.55.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:55:36 -0800 (PST)
-Date: Mon, 16 Nov 2026 12:55:36 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bW0xtvpI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750B11F000C6;
+	Mon, 16 Nov 2026 20:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794862544;
+	bh=JpiHRtIiEHYG0g+BY20ZAPvVQUUBUsrr7vJkSH72tOE=;
+	h=From:Date:Subject:To:Cc;
+	b=bW0xtvpIH1XUubxCLTSIEBtaQQyg+fazIdPDGXNY86c6zXktXDVmhyTfNLzAD8ugJ
+	 u7+PX310dxqG31Pa+RI6ES1tR1fMO9R/yB+kY9guEXM+bfXCX5sAOylgNs2DFW1O2r
+	 xpF6M+teOaYzJxeAJrWYxV7K+qNXN+lI/8Y5XZrWuxV/bgfPbL64yX02JjWvNuaSvu
+	 jPjQKVWLcyBmQzjx+xO84EgpwnSE9brLjB3WmyzZ/NaDyk376RjAw0j31GSmzCtmA3
+	 yFHdwji3ujdLpw8aDC69snJEadkHi7IGopqf+JzF7PclgB5jCHsQZxIX0oGkq6KdEP
+	 sysGAj3aF5kSA==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 16 Nov 2026 13:55:26 -0700
+Subject: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,36 +53,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Daniel Carter <yass27106@gmail.com>
-To: krzk@kernel.org, andersson@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@oss.qualcomm.com, konradybcio@kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, tiwai@suse.com,
- perex@perex.cz, lgirdwood@gmail.com, pierre-louis.bossart@linux.dev,
- yung-chuan.liao@linux.intel.com, abelvesa@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, yass27106@gmail.com
-Subject: [PATCH v5 1/3] dt-bindings: arm: qcom: document Asus Vivobook 16
- X1607QA
-Message-ID: <954a5e65e7424694ba29836fba08c802@gmail.com>
-In-Reply-To: <45f11591823b4395aa19dd3a3ee6dc90@gmail.com>
-References: <45f11591823b4395aa19dd3a3ee6dc90@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4WNQQ6CMBBFr0JmbY1TtKIr72FYQJlClbTYFpSQ3
+ l2KB3D5kvffX8CT0+Thmi3gaNJeW7MC32Ugu8q0xHSzMvADF4h4ZMEOtrftzN6j8fQayUhqGBY
+ Km7y+oDhLWLeDI6U/W/de/tiP9YNkSLFkdNoH6+bteMLk/fuYkCEThahyoUigOt2e5Az1e+taK
+ GOMX9uN8PXNAAAA
+X-Change-ID: 20261114-topology-wunsequenced-18f1d3b9167c
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3664; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=kYoFFxXOitrN11C8It6IfIw2VCFnijveRC0lPF68XnM=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/c09tmnxCc8eMrmxHnqOuzdsizu91Zdxc/OrjhPgDu
+ 0xFJY1YOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEli5nZNhnP/3XDyt+/+aX
+ fFai6m+4eC54Zt254f1q8sH5mh25d8UY/oddPMc1oWNaZs7T+6e6WzTVUv5fly875sKqnOi45v/
+ E52wA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-RG9jdW1lbnQgdGhlIGNvbXBhdGlibGUgZm9yIHRoZSBBc3VzIFZpdm9ib29rIDE2IFgxNjA3UUEg
-bGFwdG9wLApiYXNlZCBvbiB0aGUgUXVhbGNvbW0gWDFQNDIxMDAgKFB1cndhKSBTb0MuCgpTaWdu
-ZWQtb2ZmLWJ5OiBEYW5pZWwgQ2FydGVyIDx5YXNzMjcxMDZAZ21haWwuY29tPgpBY2tlZC1ieTog
-S3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBvc3MucXVhbGNvbW0uY29t
-PgotLS0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vcWNvbS55YW1sIHwg
-MSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9Eb2N1bWVu
-dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3Fjb20ueWFtbCBiL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vcWNvbS55YW1sCmluZGV4IDEyMWNhNTU3Y2UxLi5kMjJm
-MWIwYjRlZiAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Fy
-bS9xY29tLnlhbWwKKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9x
-Y29tLnlhbWwKQEAgLTEzMDYsNiArMTMwNiw3IEBAIHByb3BlcnRpZXM6CiAKICAgICAgIC0gaXRl
-bXM6CiAgICAgICAgICAgLSBlbnVtOgorICAgICAgICAgICAgICAtIGFzdXMsdml2b2Jvb2stMTYt
-eDE2MDdxYQogICAgICAgICAgICAgICAtIGFzdXMsdml2b2Jvb2stczE1LXgxcDQKICAgICAgICAg
-ICAgICAgLSBocCxvbW5pYm9vay14MTQtZmUxCiAgICAgICAgICAgICAgIC0gbGVub3ZvLHRoaW5r
-Ym9vay0xNgotLSAKMi41NS4wCg==
+After a recent improvement in clang to warn on unsequenced accesses to
+volatile variables [1], an instance appears in sd_init(), which can
+break the build with CONFIG_WERROR=y / W=e:
+
+  In file included from kernel/sched/build_utility.c:86:
+  kernel/sched/topology.c:2008:29: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+   1998 |                 .last_balance           = jiffies,
+        |                                           ~~~~~~~
+   1999 |                 .balance_interval       = sd_weight,
+   2000 |
+   2001 |                 /* 50% success rate */
+   2002 |                 .newidle_call           = 512,
+   2003 |                 .newidle_success        = 256,
+   2004 |                 .newidle_ratio          = 512,
+   2005 |                 .newidle_stamp          = now,
+   2006 |
+   2007 |                 .max_newidle_lb_cost    = 0,
+   2008 |                 .last_decay_max_lb_cost = jiffies,
+        |                                           ^
+
+Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+6.5.2, unsequenced side effects on the same scalar object are undefined
+behavior. Per C11 6.7.9.23, the evaluation of the initialization list
+expressions in a designated initializer is indeterminately sequenced
+relative to each other, meaning any side effects in the initialization
+list are unsequenced.
+
+Add a local variable to hold the value of jiffies before the designated
+initializer so that there are no unsequenced side effects while using a
+consistent value, clearing up the warning.
+
+Cc: stable@vger.kernel.org
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2190
+Fixes: 2b4cfe64dee0 ("sched/numa: Initialize newidle balance stats in sd_numa_init()")
+Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+Changes in v2:
+- Use a local variable with one access to jiffies before designated
+  initializer (Nick)
+- Link to v1: https://patch.msgid.link/20261114-topology-wunsequenced-v1-1-686a36fe61f5@kernel.org
+---
+ kernel/sched/topology.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 99878da03bce..60fad1690894 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -1956,6 +1956,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 	int sd_id, sd_weight, sd_flags = 0;
+ 	struct cpumask *sd_span;
+ 	u64 now = sched_clock();
++	unsigned long j;
+ 
+ 	sd_span = sched_domain_span(sd);
+ 	cpumask_and(sd_span, cpu_map, tl->mask(tl, cpu));
+@@ -1973,6 +1974,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ #endif
+ 	sd_flags |= asym_cpu_capacity_classify(sd_span, cpu_map);
+ 
++	j = jiffies;
+ 	*sd = (struct sched_domain){
+ 		.min_interval		= sd_weight,
+ 		.max_interval		= 2*sd_weight,
+@@ -1994,7 +1996,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 					| sd_flags
+ 					,
+ 
+-		.last_balance		= jiffies,
++		.last_balance		= j,
+ 		.balance_interval	= sd_weight,
+ 
+ 		/* 50% success rate */
+@@ -2004,7 +2006,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 		.newidle_stamp		= now,
+ 
+ 		.max_newidle_lb_cost	= 0,
+-		.last_decay_max_lb_cost	= jiffies,
++		.last_decay_max_lb_cost	= j,
+ 		.child			= child,
+ 		.name			= tl->name,
+ 	};
+
+---
+base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261114-topology-wunsequenced-18f1d3b9167c
+
+Best regards,
+--  
+Cheers,
+Nathan
+
