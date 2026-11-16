@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795963;
-	b=HZdOTyy8fJVUTVrATRjfrXqqhgCP4DoajOaU/x1H+BGERGl6BnA75x9xS/htpbb1GVUm
-	 uuOovTPN0pvV1LBsk3SeqRaVRndOVDUnq+M+cex5U1X3O9OmEtCBoouR1bzhNQOVLfLhm
-	 dL7SkeiKDRqfG3DIjL3hUrE/0csqhqcCFp2DYQLhFNxAK1Xfb8KBC8878ccmlBR2uj53Y
-	 E/u5oU65Nrq3A330cRI0zYoJBC0umnaguEeKB4n0v/1f8y9Rx7Ni6wr5oKCsvJcL7xf6g
-	 /Lph3yEpBqeVkfVTwhSueZcYrHf2wldauvnP0oHZAOyPo4MdwHW1L66cv2X3n4EjCSA==
+	t=1794795970;
+	b=h0Wgq55IdOmTweQ+HYCum8AGtdr4+Nh4PAjeU/hbJndEza7YCsHRdjgEHJBDhmNIksPn
+	 vYwtQ6eVfmSaegJVCAAnP9jaIi0iAv6Ab5F+6sA6kWcoPaK+VnBK4vrTOLel1qjXXlTVh
+	 lyWwGFvfQgJuNKYZIp0Y4V472shfUg+QBhKlI4yNICk6RXkUva2lSiI5uPgzl7nVXvowt
+	 oiBV7lOfPt2mNA7PcstnMYzltdmGp/oeV5fO4NKU0dUGtPHlJcNlEMBARt9xWnqS8Jk1A
+	 QU3vAyJ+KEux05sFApIXUoIpOF/GO+A1TemWj+8hqQUYqVrU+sRTf0ebBM9tuio7YqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=60NXe0aph5ZMdSm2+R+aQQFvNAI/XZMFjJbvfurWO3U=;
-	b=PPYsBvYtTLfvr4xkCYUV5dlv86a6ec+OcEBbw071xc8j4ZZn28oNIY+5qAZCPMaRUK1i
-	 KSbBpYA1cTt7B7cJnu7de6ksXDFwYRLv+qP/upl5vXPy5j2e/bFUFXLSJuq2EYVVDovkH
-	 i54C/NqmpbYlwIPhI2z20EFgAfHe24g1FzXOuoyVe39jdHCiHviJlPtxaFJEPF12av+eq
-	 M3ItTGKugdBLUiDCs2Z757jFpPpZWrjU1asRCsLpoYDDqgI8uavZnZXQUmsjC5GQR//ev
-	 kgczZJ2Z2+8ZmllRTEeTGGTlMBi03kMc9rqvaxSLffJtyBK1uqUaGnQfNDrNQqc456A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795970;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=iMwI1VtTle8M9U1HzORWMowXiI+tJHvMIGehr7XKFPA=;
+	b=DG9zzTfkMaPd92dd+rA9YMovqzjgqIMAaRa1k9HrNewP5S1Py6gQ+/XwHVtE2m2oEIh+
+	 YCOKbgrgDLwxQGMfMybmr7+6Q4l8qrFfnDBLx3eGEbjThS5XHrExpVHHVVZ+VfA7arZUC
+	 2al4bgYBHCamHhC5f+b0A3Dl4JvX50UkYsbRAaQ3eg7bricpojQQHbxixjYiVH38w0ovE
+	 T1jbwIJIuZu6SP4eoGcm3Z3qttVcq5ZsL+32xiM0Nb8p5v/0siRCUZvkMI8NS8ySMd7Vt
+	 g0IquqXSjhSInGblOu+k8GmgfAWiymiv307J8yP4GdxL9W9sCWkA0RTfmNpZaQpflbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=USLvXQ7y;
-	arc=none smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=j+DMDLtr;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE147606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE147606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115E2606A329;
+	Mon, 16 Nov 2026 02:26:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 115E2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=USLvXQ7y
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-55d2f5f1e26so10667021cf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:26:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794795962; x=1795400762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=60NXe0aph5ZMdSm2+R+aQQFvNAI/XZMFjJbvfurWO3U=;
-        b=USLvXQ7yslUy3kKAnPIHDIwjgyAd6GE5uuPzlyJX3LLahr9NOEP4f5imYOZQvrIP3G
-         wbUWIY4GMLQqmUWsoawpQEj2Zt2wG3jFaSMoM1APIXBNDVPXZXxuyWoq/ktqhcirdeEk
-         eYJieKLQjFkmx77ONkqcfQFI6dJfq4j6x5oJa4Xreo/joXvhJHqJF8cgRS+WCTOBKXsS
-         sYusybscVG6rmMqWOljT6131sPI00s09swJxTh6HaXF+FT++Lk/7gV+rvlmBeUHvNaRI
-         gkubWO0tkCZqLg0PhNLQJYGmah6A0y2HGEaZijyjp0DdiwS7HTUI2XGli9FWB/HLrfDK
-         Jh2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794795962; x=1795400762;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=60NXe0aph5ZMdSm2+R+aQQFvNAI/XZMFjJbvfurWO3U=;
-        b=m3ZHdRJS4GAFLf+nHKSErnLa+YU6ntYJ9N8M1JMGldxjTepuhAXA/y7KlE5BV3rQIH
-         N1OrH2fmqQyRig2StXBSrG0rQ5DxW9hfr/3ZodWaDh1zGIT+nIV1nNOP9/b2PC7uWC/p
-         f3Ne/3MxKmjUpO1lEJsfPrPEydH395uNIq8CwF6iF9qLc7eQyK/b4BO0II5OhAO/QHRd
-         rBfy/ie+4h3kAVtIcLULL4vwZ8Eif3mWTdEHV1/CQNAywn93yntUFNC84Yzg0MAN2GJc
-         6xAIYlyRIoq69C/Sis2v//4oOL1cYkpsKaEXfP3LjxDxNYkK/iOEchJM7oHXKBTBCyaq
-         rCvw==
-X-Forwarded-Encrypted: i=1; AL+hErFX0+w9J8zzf27kyQZ54Z7rzf+ppBIYFGiQxg51GPOwF0aFDFpv3qNSZRoeyDI+wBhIHZ/TcYulOEZKx+s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yBMCtpYD1+DKrYgpOYpKb4Jky97OuWjzODKYKgtnjYZDm6zga
-	tGgbcpRXcoov8p18ZqjpIkCvmmBr/Ju0ljYvHDR8QVzK3vfCVZOo3CFE
-X-Gm-Gg: AYBFou3gGN2zE1fqQ10MV2i8fq1DlUnwOZp5Wn03r+EjDpn13ffpgQUtTPhoEHgOk3T
-	gDhenE3LUkkG8ShV0SjBf/V7tbwPOTTsT6Iuk84wDJsfwifvx29lN25DvAwawya6yY+1DXmo5n3
-	Np5lBH6pnpZUfc6djMScDGl75Qe1oor21i4oiKh71Y2KGzwLflvjqTfzytj72TddVQRIqYBEWQd
-	bVCAZxiwFty9jN3kFotyRA2YmWxXRN0hzALPukZouvcUF1NaM70iqBr1Uk6eFDUhYPfLulrkn7A
-	iVAeWvu5G+fRRsZ9uJJBra6xs0jxph0lwdk8KdTxbCQSVf6ovx2avXi/mejYEnQnxSec4yjIPb3
-	stmFlgT+FnUlq9sThUgr9rMJpVQVQiAD5rICWjLplKCioWbWJ6XMQ1eyx9iKNIm1/RaBjXYGck9
-	3yAOrkU+Scm3PvzN6o/VDZVOhNX+EuhvfborTIVQQBZ+QMPpaZzPX/0XXlsGJuvVphq0xbKFo/9
-	JedhZQOtipYvgpXUklQenRSlkT2/hrNjkMhDY35fG1MVIfjAhd5f9JtjnvRoaph896YyU4V/54S
-	wxPP+F0HDTI5Sxlr3MAQWkqw+djfAc6BX3OeRfhR8ewVkQ0BAr+omeJVIvLz/8Z6rCeSCwnYUhE
-	=
-X-Received: by 2002:a05:622a:5793:b0:54f:863d:92c7 with SMTP id d75a77b69052e-55ac786019emr156129861cf.41.1794795961766;
-        Sun, 15 Nov 2026 18:26:01 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d34f869dfsm21962901cf.6.2026.11.15.18.26.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 18:26:01 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Logan Gunthorpe <logang@deltatee.com>,
-	Stephen Bates <sbates@raithlin.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-nvme@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=j+DMDLtr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794795900;
+	bh=iMwI1VtTle8M9U1HzORWMowXiI+tJHvMIGehr7XKFPA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=j+DMDLtrzPISajByd2CEXW1vk5mRx4Z29d1DJ1sMT/bx5YCgKvYqYxj31JMmo1oii
+	 kZcx87MCb+UFWodRVglWiFPX1543yMd3qJgtBiYCh+yR5de5kCd2mYmCdwk3HyTYr9
+	 tZxQSIxyq4H0CUetJwpa6H/cPsJtCE+QKiAkBTtQ=
+X-QQ-mid: zesmtpsz5t1794795885t8c81686d
+X-QQ-Originating-IP: cFmbniOkH1g3yGyZqiLib/FZuxHl6JNGbIW4KR2ghyY=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 16 Nov 2026 10:24:44 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 16673752541823333651
+EX-QQ-RecipientCnt: 4
+From: Haowen Tu <tuhaowen@uniontech.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] nvmet: look up the P2P device under rcu_read_lock()
-Date: Sun, 15 Nov 2026 21:25:58 -0500
-Message-ID: <20261116022558.560013-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Haowen Tu <tuhaowen@uniontech.com>
+Subject: [PATCH] Input: max77693-haptic - disable bias on failed open
+Date: Mon, 16 Nov 2026 10:24:42 +0800
+Message-ID: <98F5ACA9EADBEC89+20261116022442.3298673-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,53 +69,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MqYBrkL3Jva45cpPfqEbhpDyh5WMta+8lGtPKSu1X/fF2LlqC6DDpIpM
+	vMkGrMXuTiP2XeAtOITd6eerIkKY8a+mKr8j7i8hy6ImKGbpB39PIHgz688VN3TRLDHgfg+
+	BFRk+cjoa1ImLhzjDL4YKMutCyq+kSPgWiXjAOTjRf2ZzB36M+fV36tLDT4Z6QLQIbZTWLk
+	0qVXH99cfHrid4aVi6NmpqrdOUVBJTT1yXGO6Qq2o9UFZ3Vxr7z6y7mYFzjTWt9SEw1frZt
+	3WQOMew0zzkD9wK0PnkE+JGG2grfo4zMqR35l5FiMswBTBeMpE/CZjotwFtCCaTjA9vGnE2
+	Tyz5v0pwZcvDpqn/1DF63ubpJmq2Ff4Wiqfw0Zd4tqkLIeOS94SDXhdyA+kO2mh8iMg59hA
+	uvwrf3MLOCryEXPc0LNnGbRwVPrXbP9HSx1qjmbEUfc2yEwdmRHSSx7+DueVt+gB4OnYMiH
+	jk6caQH2OBVWDVq4CRhwnsODelnGK4++7wZU0RvkKVe39kGFyNtZ8zBLx7d07dR+tfPSetv
+	XUtdTn98PaFNv9odWP+vwxAqQV2oNKGzN4bep9pw5r6Ui+2+y7X6oZazPI/vzo9j61hsP6Q
+	TkS2ZOi/Rbz5XmNhkcgnZWN+Is8IWkNQCbjEWvpCNbjM6XUvOKrdtjcdmKLzH/+1VVKJhcU
+	xWVsE2T8nxJlzU7S5SgfJ00+K2nKh+kHo/yXtGJsMAhKFha3SV4UwgNemKijhn5ZKgssaDA
+	VhPSyWlB9u+AeY/a+WQsOSKYfcRTSHl6LnWSCMPmCAzhO5+C1OW+IJwbhGmjHb0c+T3RTXT
+	vMxcZFDzMIUmAj69ACvjxAeWcLRHkUtLGL+QcPlUkWiGzpTipYzFFMFxJBX9kXal1BdpvNU
+	PR43EiT64pFeed6kNgtBprz0N9RGgnmmftM44kdG01LbrRRFHON3XgcnjEKH5Y81NKoZHG/
+	w9WigALj+mZoNXKGPiuVpNaTCb6vW7fOTwYbFkUvbwwZ7sKQO/Ef/sjXjVB+wGQnaWAMZUX
+	KTR7z/OYrniZiQdM0vdx2y4Y6V5+4=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-nvmet_req_find_p2p_dev() looks up ctrl->p2p_ns_map in the I/O path
-without subsys->lock and outside an RCU read-side critical section.
-nvmet_ns_disable() can meanwhile delete an entry from the same radix
-tree, and radix_tree_delete() frees the nodes that become empty with
-call_rcu(). With preemptible RCU, the grace period can end while the
-lookup still walks such a node, and the lookup reads freed memory.
+max77693_haptic_open() enables the MAX77843 bias before enabling the motor
+regulator. If regulator_enable() fails, the function returns without
+turning the bias off. The input core does not call the close callback
+after a failed open, so its bias cleanup does not run either.
 
-radix_tree_lookup() without the tree lock must be called under
-rcu_read_lock(). Take it around the lookup.
+Disable the bias before returning the regulator error. The bias helper
+already handles reporting register access errors and is a no-op for the
+other supported chip variants.
 
-Fixes: c6925093d0b2 ("nvmet: Optionally use PCI P2P memory")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+Fixes: 56bbc99e6914 ("Input: max77693: Add support for Maxim 77843")
+Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
 ---
-Found with a static analysis tool we are developing.
+ drivers/input/misc/max77693-haptic.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Compile-tested only, with x86_64_defconfig plus NVME_TARGET_RDMA,
-PCI_P2PDMA and W=1.
-
- drivers/nvme/target/core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index e31d65228c11..1b34fc5549f6 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1341,10 +1341,17 @@ static int nvmet_req_alloc_p2pmem_sgls(struct pci_dev *p2p_dev,
+diff --git a/drivers/input/misc/max77693-haptic.c b/drivers/input/misc/max77693-haptic.c
+index 96d6d4620eb4..2bf4581b6adc 100644
+--- a/drivers/input/misc/max77693-haptic.c
++++ b/drivers/input/misc/max77693-haptic.c
+@@ -278,6 +278,7 @@ static int max77693_haptic_open(struct input_dev *dev)
+ 	if (error) {
+ 		dev_err(haptic->dev,
+ 			"failed to enable regulator: %d\n", error);
++		max77843_haptic_bias(haptic, false);
+ 		return error;
+ 	}
  
- static struct pci_dev *nvmet_req_find_p2p_dev(struct nvmet_req *req)
- {
-+	struct pci_dev *p2p_dev;
-+
- 	if (!IS_ENABLED(CONFIG_PCI_P2PDMA) ||
- 	    !req->sq->ctrl || !req->sq->qid || !req->ns)
- 		return NULL;
--	return radix_tree_lookup(&req->sq->ctrl->p2p_ns_map, req->ns->nsid);
-+
-+	rcu_read_lock();
-+	p2p_dev = radix_tree_lookup(&req->sq->ctrl->p2p_ns_map, req->ns->nsid);
-+	rcu_read_unlock();
-+
-+	return p2p_dev;
- }
- 
- int nvmet_req_alloc_sgls(struct nvmet_req *req)
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.43.0
+2.50.1
 
