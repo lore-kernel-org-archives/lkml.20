@@ -1,62 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857047;
-	b=1wEG/Azd+OubK9QjBmCEEtYXBVOqBBHs5VMrYaVp5Yhr6+MRDgbXoB8wzc4N1b+2NAFL
-	 3OV4Iy/llX/GQHUiuqPr9St767b+BvY4XFPMyCAhOtd3UyD9TkLM6I/EjCIsvOEBUf6tq
-	 5LszBJVzVWCXgbv+A/v1c5lbCXjvoVxd7xR+P/3WqU5nQDi6IKhPcVpgh1XwtVzNQjbzv
-	 aDvqn1Ao6sVg3z9EOfyMcmK3yt6VXjUqDb0MEh1aiNDo8cqtkEfTx28fAgM+wutz5VJLy
-	 cSYVqNI/Oo0GcPSs3ir8fegE0JOaeVInT6jBVRFVtesg1c3pBRWubDPlcv6cxOdbhYg==
+	t=1794857080;
+	b=hYge3uEIbGLs4a2VMEWoFVrkm6JEbtqYOBV3P07apNzmD56jSfB8rtSn6SavgJSNqqRo
+	 WCd6pFsNaAsaNcJ9J72KtmC7Oj+qVj8e5cbop+8Hp96KnLWQ1PS+zeQM2gFeHLzr74STU
+	 r3filf7mDjcdTXUtvTAD15J0jd7QhM7QtQ5l0FJpiGtHN6KTlAgriZeoEDgkuKTgFoa9H
+	 ih4BHxf0vWjM/UJIK80VUzNIWR4ZIWuuCdnjU3d1EwexU+i3ShoPsFDZWjF9gecCmr9CS
+	 S7eguuES82ERH53jlEmYYWseOld4BJnrGTXJ7pHRkxroZh8YSCTlRVJ+bFc90vFefVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857047;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=B/UNoClSHX853aynsyAH0lzmqdVObyKe2mic7O4QnJA=;
-	b=X4NpeBDgWJsb47Gw/PbBtRKvZZm3FbGK6umxCJVFawShzAj3WMlxcNVcLv020LU8kQCL
-	 9Y8c9vEseLLEA38DXCCkH1/PNjcCOSJx4D9rkFraSHW4DiVTXqTAVN799DOlK6FzRMG+t
-	 Pfzs9Xb9BU0ExOVntWyfD5S66iRgP3DuQXD5vxb+QWc9epCryEtPO8RTN6U3SNBDNoW9O
-	 zpJae+TC0AWsUK1HP+TJnR/1gDU38GJkrmFOmJqUFqgvc2eCNLUReBG9qWHaX5UCc4sUG
-	 Iz6uY9V8w2HhwLvbOCcwxIsYDI2DlPOYVcPglNK9jqC6gWa7KoDO3SV64BmXepuHm9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857080;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=/jMq9zexFNDpH3C/DDQ7uqTP8N2QQoRe+wPcLSvmhEo=;
+	b=vdXpyHIBCv7wIQjjFsxbhFQWJgqVNfQhFYbll1nEdvvmvn4U3H3p7XG+hWE4ZgEiJ0mt
+	 pjEOJ60YUazYd+MrevTtKyMVN6sUQkcDq3+1Ao9xat+zqWmuiGyMpyMGHM4jY3tbay/fj
+	 CcQMMymLPH2TpPmBsx7GX2LvIz4OsGkPSQTlJNtjasZOYK6vcnVS905UEAfyobhLGgXBx
+	 5EaZmM13DjsicERjDbprMJNnnaBNqQUoPYGjqYMpjMPRsKWB2d8oerLhe2AKG9c4S9wtr
+	 tuec7VYf+z9PcSCgkWOidm0lYkNFOu3bb/FWkJRxk8PrbVEipIMWYHdnxOJvdis14Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0HnLTg4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90081606A31C;
-	Mon, 16 Nov 2026 19:24:07 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Ns0YTHGC;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0802606A322;
+	Mon, 16 Nov 2026 19:24:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0802606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0HnLTg4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2581F000C4;
-	Mon, 16 Nov 2026 19:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794857047;
-	bh=B/UNoClSHX853aynsyAH0lzmqdVObyKe2mic7O4QnJA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=d0HnLTg4UYS+02ZceRAq1SAzNv9teK0zSpw1hF4LeP1EhlGqen++8v6PBXbecHSFw
-	 3tfT/JdKK2HfqN943WW7ERohLvHPz2k35pwbnEyR6oJa0XdSaa4A95ob9ukCjNnEIJ
-	 x1F1WPV4mN91DUB0iw+d5HLKxZZCkOPCvfayhB96LAPrDkFrgZLplx8yVsmU1UuDSx
-	 SBWZVN0zkFHNKTLqn89qNTrKHtsdj6TXWpaw8p867+kv6M3VwJ3bPv27WPjGtmLK7O
-	 OaZVOSiP2QLdEg8SgaSladmfoIDBPbfWP7FLasxyAJ884pZBY+4x7u/NXBbere48+K
-	 gBOugeETJ/5QQ==
-Subject: Re: [PATCH net] net: mdio: mux-meson-g12a: keep the MAC data path
- when switching MDIO
-From: netdev-bot+sashiko@kernel.org
-To: iav@iav.lv
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
- martin.blumenstingl@googlemail.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 19:24:05 +0000
-Message-ID: <179485704584.3136.17355463997361048256@kernel.org>
-In-Reply-To: <20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv>
-References: <20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Ns0YTHGC
+Received: from [10.4.158.9] (unknown [52.172.102.187])
+	by linux.microsoft.com (Postfix) with ESMTPSA id AA7BC20B7168;
+	Mon, 16 Nov 2026 11:24:15 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AA7BC20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794857073;
+	bh=/jMq9zexFNDpH3C/DDQ7uqTP8N2QQoRe+wPcLSvmhEo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ns0YTHGCbVFg2Ub/fyOigOpJU4J0TcfQ1eFpxC7YU2ez5cfaxEAqlsCeoFHMafjQB
+	 Ez21+qjTVZjGl/1e16SSmBLT0c3QjSJd1Dr1ZlO6K32I+mEy5ExN1Oz2KUyhddLCiu
+	 C5msXOJN0zT1P0CREAiPCpuIL1JchPIGpXm94mdE=
+Message-ID: <2965c691-82fc-49f3-abdb-383860f6e82f@linux.microsoft.com>
+Date: Mon, 16 Nov 2026 11:24:17 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,140 +53,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 18/19] PCI: Replace untrusted state with device trust
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, David Woodhouse <dwmw2@infradead.org>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Johan Hovold <johan@kernel.org>,
+ Eric Dumazet <edumazet@kernel.org>, Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
+ Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-input@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, iommu@lists.linux.dev
+References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+ <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
+ <193e4130-9c2f-4a0f-b218-f5fcf0b3d508@linux.microsoft.com>
+ <20261116190417.GD2299285@ziepe.ca>
+Content-Language: en-US
+From: Kameron Carr <kameroncarr@linux.microsoft.com>
+In-Reply-To: <20261116190417.GD2299285@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 11/16/2026 11:04 AM, Jason Gunthorpe wrote:
+> On Mon, Nov 16, 2026 at 10:46:25AM -0800, Kameron Carr wrote:
+>>> @@ -1738,24 +1738,24 @@ static void set_pcie_cxl(struct pci_dev *dev)
+>>>  
+>>>  }
+>>>  
+>>> -static void set_pcie_untrusted(struct pci_dev *dev)
+>>> +static void pci_set_default_trust_policy(struct pci_dev *dev)
+>>>  {
+>>> -	struct pci_dev *parent = pci_upstream_bridge(dev);
+>>> +	struct pci_dev *parent = pci_physfn(dev);
+>>> +
+>>> +	if (parent == dev)
+>>> +		parent = pci_upstream_bridge(dev);
+>>>  
+>>>  	if (!parent)
+>>>  		return;
+>>
+>> Hi Leon,
+>>
+>> The default policy here works for physical hierarchies, but there's no
+>> opportunity for a paravirtual host bridge to participate in the trust
+>> resolution when the host bridge driver itself knows the appropriate
+>> trust level for a device.
+> 
+> HW doesn't really "know" the trust level, it can suggest a default but
+> the kernel command line and userspace should always be able to
+> override it.
+> 
+>> My scenario is pci-hyperv in a confidential VM with a paravisor. The
+>> paravisor is inside the guest's trust boundary and owns TDISP. It locks,
+>> attests and accepts the device, then answers a VMBus query describing
+>> which BAR ranges are private and whether the device's DMA may target
+>> private memory. Before a driver can bind pci-hyperv has to:
+> 
+> Sounds like a user in such an environment just wouldn't use the trust
+> level mechanism at all.
+> 
+> What use do you see for enabling trust level but having all the
+> devices unattestable and accepted already?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Previous iterations of device trust used the trust level to make
+decisions around DMA bounce buffering, etc. Is that no longer the case?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+You're right that my scenario doesn't really care about the device trust
+per se. I'm primarily interested in how device DMA bounce buffering will
+be turned off for TDISP devices and how MMIO setup will be managed.
 
-- [Medium] The patch only sets the internal-PHY data-path bits when it
-  finds the internal PHY through the MAC's "phy-handle" property.
+> 
+> Your bigger issue is the below:
+> 
+>>   - query the paravisor,
+>>   - refuse to operate the device if the query failed or if the response
+>>     is invalid,
+>>   - decide whether the device may operate.
+>>
+>> The modular host bridge driver in this scenario needs a hook to be able
+>> to participate in trust resolution.
+>>
+>> I'm also looking for the right place to setup MMIO and configure DMA
+>> in my scenario. Let me know if you have guidance.
+> 
+> Well, you are very far outside what Linux expects for a CC flow, and
+> these special requests conflict with the arch code flows we need to
+> have.
+> 
+> So, I don't know. Maybe somewhere in the arch code hyperv can hook and
+> say the device is special? You'll have to see when we get more of the
+> CC stuff layed out.
 
---
-
-net: mdio: mux-meson-g12a: keep the MAC data path when switching MDIO
-
-With this change, switching to the internal MDIO bus no longer sets
-USE_INTERNAL and RX_CLK_EPHY in ETH_PHY_CNTL2 unconditionally. Those two
-bits route the MAC data path and RX clock to the internal PHY. They are
-now set only when the MAC's phy-handle points at a PHY on the internal
-mux bus. The aim is to stop external-PHY boards from losing RX after
-suspend/resume, when phylib touches the unattached internal PHY.
-
-> diff --git a/drivers/net/mdio/mdio-mux-meson-g12a.c b/drivers/net/mdio/mdio-mux-meson-g12a.c
-> index 71c44385489d4..ed688d48eaf08 100644
-> --- a/drivers/net/mdio/mdio-mux-meson-g12a.c
-> +++ b/drivers/net/mdio/mdio-mux-meson-g12a.c
-
-[ ... ]
-
-> @@ -169,10 +171,11 @@ static int g12a_enable_internal_mdio(struct g12a_mdio_mux *priv)
->  		PHY_CNTL1_CLK_EN |
->  		PHY_CNTL1_CLKFREQ;
->  	writel(value, priv->regs + ETH_PHY_CNTL1);
-> -	writel(PHY_CNTL2_USE_INTERNAL |
-> -	       PHY_CNTL2_SMI_SRC_MAC |
-> -	       PHY_CNTL2_RX_CLK_EPHY,
-> -	       priv->regs + ETH_PHY_CNTL2);
-> +
-> +	cntl2 = PHY_CNTL2_SMI_SRC_MAC;
-> +	if (priv->mac_uses_internal_phy)
-> +		cntl2 |= PHY_CNTL2_USE_INTERNAL | PHY_CNTL2_RX_CLK_EPHY;
-> +	writel(cntl2, priv->regs + ETH_PHY_CNTL2);
-
-[ ... ]
-
-> @@ -301,6 +304,41 @@ static int g12a_ephy_glue_clk_register(struct device *dev)
->  	return 0;
->  }
->  
-> +/* Like dwmac-rk: the PHY named by the MAC's phy-handle decides the data path */
-> +static bool g12a_mac_uses_internal_phy(struct device_node *mux_np)
-> +{
-> +	struct device_node *parent_bus, *mac, *phy, *phy_bus, *mux;
-> +	bool internal = false;
-> +	u32 reg;
-> +
-> +	parent_bus = of_parse_phandle(mux_np, "mdio-parent-bus", 0);
-> +	if (!parent_bus)
-> +		return false;
-> +
-> +	mac = of_get_parent(parent_bus);
-> +	of_node_put(parent_bus);
-> +	if (!mac)
-> +		return false;
-> +
-> +	phy = of_parse_phandle(mac, "phy-handle", 0);
-
-[Severity: Medium]
-Can this check pick a different PHY from the one stmmac actually
-attaches?
-
-Only "phy-handle" is read here. stmmac_init_phy() and
-phylink_fwnode_phy_connect() find the PHY through fwnode_get_phy_node().
-On DT, that function also falls back to the legacy "phy" and
-"phy-device" properties:
-
-drivers/net/phy/phy_device.c:fwnode_get_phy_node() {
-	...
-	phy_node = fwnode_find_reference(fwnode, "phy-handle", 0);
-	if (!IS_ERR(phy_node) || is_acpi_node(fwnode))
-		return phy_node;
-	phy_node = fwnode_find_reference(fwnode, "phy", 0);
-	if (!IS_ERR(phy_node))
-		return phy_node;
-	return fwnode_find_reference(fwnode, "phy-device", 0);
-}
-
-ethernet-controller.yaml still lists both names as deprecated aliases of
-phy-handle.
-
-Take a DT such as:
-
-  &ethmac { phy = <&internal_ephy>; phy-mode = "rmii"; };
-
-Before this patch, stmmac attached internal_ephy, and every switch to the
-internal bus wrote USE_INTERNAL | SMI_SRC_MAC | RX_CLK_EPHY.
-
-After this patch, g12a_mdio_mux_probe() sets mac_uses_internal_phy to
-false. stmmac still attaches the EPHY over MDIO, but
-g12a_enable_internal_mdio() writes only SMI_SRC_MAC. The MAC data path
-and RX clock then stay on the external pins. Would RX on such a board
-stop working, even though the link can come up?
-
-Every in-tree internal-PHY DT (sei510, u200, fbx8am, sei610,
-sm1-a95xf3-air, sm1-x96-air, s4-aq222, s4-vim1s, c3 boards) appears to
-use phy-handle. So this would only hit out-of-tree or
-bootloader-supplied DTs that use the deprecated names.
-
-The comment refers to dwmac-rk. dwmac-rk has read only phy-handle from
-the start, though, so it never broke a working setup. Here a setup that
-used to work would break.
-
-Would fwnode_get_phy_node(of_fwnode_handle(mac)), or the same
-three-property fallback, keep the mux in step with the PHY stmmac
-attaches?
-
-> +	of_node_put(mac);
-> +	if (!phy)
-> +		return false;
-
-[ ... ]
-
-> @@ -313,6 +351,7 @@ static int g12a_mdio_mux_probe(struct platform_device *pdev)
->  		return -ENOMEM;
->  
->  	platform_set_drvdata(pdev, priv);
-> +	priv->mac_uses_internal_phy = g12a_mac_uses_internal_phy(dev->of_node);
->  
->  	priv->regs = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(priv->regs))
+I am looking for good hook candidates. I was hoping that trust levels
+would end up directing DMA behavior, etc. but maybe I am
+misunderstanding the design direction for these trust levels.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-g12a-mux-data-path-v1-1-011dad738698%40iav.lv
+Regards,
+Kameron
+
+> Though, FWIW, I don't like it at all as a model. Denying the tenant
+> the ability to directly attest the HW is far away from what I'd
+> consider as necessary for CC.
+> 
+> Jason
+
+
+
