@@ -1,76 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.133.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828618;
-	b=dODo9evauVWaidzDQjJ7ow79+eFoP+btQ2sGxCaKCm/qQUFZq7vxyMjPFsS/Babcm+CR
-	 02HsgXCIqY6bgmCay9H+VI14lqXALXPpe8ILIrlSxG2RwuzTDiZ3+M5xPFZVqGdb4Z+UU
-	 WQl91uV5M5XAazezUHRqxXcds6wvshg4KoU/mVOE+sn+A313FE4GMBXVmiyyNxmZE4WSv
-	 E8p8mD3wPFm5e+9MDZ3EM4nH5o6TRk7HsOEUgaysEiO2ES2YVmtFCfWakNj+OnWcC00pY
-	 hcYggPZDj3rKvUzCYkzVI5+IzBbXLZRyiBub5yFvs+HdOkW8xK5lYjOnA4gJvsWhNfQ==
+	t=1794828620;
+	b=4o+Hex3xPXQCxDiySeKS6fjkTZbyDhaX3SGj+Sjs7MqBsz9ehr6fj6229EsjHq32LHyK
+	 nMJUZaBwfQg1eKOc7wfqAjhg1VZcbpQLYp5NLnGLB2ukZqt8/t5q02qWPgmvYWlIv1bhp
+	 ZpgMcwgdMnor9YYl71j5Iqu/jrQkdidG0FQL/Av6vWOY6joKf/RkiF1w703+xBbIwdDgx
+	 DtU+7d21zO93fxDFf506EiW9pk7v7sahcOQojr4kM1on5JC2LaoGDzlQQNG9mN2kxXN71
+	 2w42Q89YFeZtYTw5A4ZgFkmCPfB39aybk3Q30Taf4vdTcyouuvJcU95kyyHo2WvnGYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828618;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=rBI0xKCFSwQwaGtUO8dGutiqQgQZ6MHPL54xhDwdbMQ=;
-	b=BuymJGoeQAhfFP7oT6yeCajenSp8Xc2KKoJQ3fKeuzZXdQqZIFjXM7qBsRQB9hP+xb1o
-	 WQN7ZrdqSJjcA20kixrNCH/D9SHr7zRgEmMB9gVCJ3tbur/0drtbq1EGBsbDnvCPc0h2C
-	 JFPu3ENKh5kQRN+wqN7zsfzYIAq8Nysr31nZgbQqEJXGnyyIeSHm0pSHiMePKFaxyU3el
-	 x5bscEu9k3a3y4+li10tbuKCGpvmLyiD+I32uzPm6VqCvi4A3Yb6U+6FT2r+9MBGIQ9OI
-	 a7c6mqsZQLuSTEDdTCXlJ5Q4UaIvSzpWexqbVDM8MRbX5fxpVaE8cojthrzpzr+5oSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828620;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QC1iH90zbIMkxbgTSySSELyaokORPyV/ZfuBqoBCxz8=;
+	b=NNxPpCwqEs6i5L5xqd/JhRbdTQ9uqBj2FovC7T0EJGHQj3GCXQfTMYfwOtylnjm+ny7P
+	 d1OGJzdSPG5pJiIBm22VRzF6umz3wofssIV19uBJvLimqh7cx6SnXgya/ei9w4R3Gb8ho
+	 RgPd2rK5Y+VtzEAX6YrAV2DpLwwXCUeOy4YhWjLN9w17pn+Yf+3UTUvvwSscY0vWCX4gx
+	 cajQCRNzRWDVQIQnCxj2wJpYYOH+wRbUfS2BlI9RsYkEbgpfb0YbMn8uWhm+nfot63Yx9
+	 3TLAfNI15TtdaI+LBB+prEW8RJxLBkYRicDC8pnpOywnE7ojPPvwtVvzX6e28CjJQpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a9lboo9f;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=wunner.de;
+	spf=pass smtp.mailfrom=wunner.de;
+	arc=none smtp.remote-ip=144.76.133.104
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net [144.76.133.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFF8606A333;
-	Mon, 16 Nov 2026 11:30:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AFF8606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a9lboo9f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794828618; x=1826364618;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=9XOSwT5JW2ijSJUIYeVtIP4yMnEK9GMSIOyn+dx9S4I=;
-  b=a9lboo9fAYYPrOdO+8savLEIgFCrjPtSEpD7HePToSSO5ctxgaWr/kfg
-   kD6451pkwjtP/LedmWLfvqkwF27Z+rXX4DoRGi95PJ/Mwo/06IP7l1/+T
-   Z6CTrZh3ke25qivCtutpQEliN2+huoZrAU49/BkVmjFEHKrajZGB2QeOp
-   LH4e/jhUb0aLNZzR87BZ6M0a7IcOhcQaXG/piLBa1j6acFU4qTaQqtNhL
-   kwiYI53LxRTgBwKuJgKt23bMr15mtsuOqiLNH3CZB5YlT57mYHwm03W5j
-   RWpr+XLsXRGdRQf0JrbAx2mezQYO+spfYdCJH1TVXZe5l0MZOCQ1RUu+o
-   Q==;
-X-CSE-ConnectionGUID: M5goKHFkQvG4Rs9uiU16Ng==
-X-CSE-MsgGUID: 2gyOZVpYS2ORTc9d9xESKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3549603"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3549603"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:30:17 -0800
-X-CSE-ConnectionGUID: lLLbJStWQBSlUSn99xC9zA==
-X-CSE-MsgGUID: sVTXLZzlR4++YckX4vGqpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9711855"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:30:14 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 16 Nov 2026 13:30:10 +0200 (EET)
-To: hyunjungg <hj351016@gmail.com>
-cc: Hans de Goede <hansg@kernel.org>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, Rong Zhang <i@rong.moe>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: lenovo-yoga-tab2-pro-1380-fastcharger:
- cancel work on teardown
-In-Reply-To: <20261106074316.2204392-1-hj351016@gmail.com>
-Message-ID: <6857ee54-81b3-4c8e-106f-d5c871f44375@linux.intel.com>
-References: <20261106043621.1903211-1-hj351016@gmail.com> <20261106074316.2204392-1-hj351016@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6703606A33E;
+	Mon, 16 Nov 2026 11:30:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6703606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout3.hostsharing.net (Postfix) with ESMTPS id BABAB2F66;
+	Mon, 16 Nov 2026 12:30:17 +0100 (CET)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 92DE16031F0E; Mon, 16 Nov 2026 12:30:17 +0100 (CET)
+Date: Mon, 16 Nov 2026 12:30:17 +0100
+From: Lukas Wunner <lukas@wunner.de>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] PCI: pciehp: Fix hotplug on Catlow Lake with
+ unreliable PME status
+Message-ID: <avrpSRJ0ONIYZHI8@wunner.de>
+References: <3a97fb38-70c7-4ca9-8c49-4c95e1623c91@linux.intel.com>
+ <20260327111616.GC3552@black.igk.intel.com>
+ <633cef07-2991-4ce8-b8c6-6b091deaeb0b@linux.intel.com>
+ <20260407070800.GF3552@black.igk.intel.com>
+ <bd8e9c59-afd8-48ac-ad54-64abad8bfbd1@linux.intel.com>
+ <161e11c7-af4c-4cc7-8ad5-a5901f231d54@linux.intel.com>
+ <20260925051922.GU106095@black.igk.intel.com>
+ <c5754240-1768-44a2-869c-6b159fd54907@linux.intel.com>
+ <ara-_IPXV_i90if1@wunner.de>
+ <c7a3ef34-27f0-4b0b-8eab-db0fff15588d@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,94 +68,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c7a3ef34-27f0-4b0b-8eab-db0fff15588d@linux.intel.com>
 
-On Fri, 6 Nov 2026, hyunjungg wrote:
+On Wed, Oct 07, 2026 at 12:55:58PM -0700, Kuppuswamy Sathyanarayanan wrote:
+> So both drivers are possible places for
+> the fix, and I would like your and Bjorn's preference before sending v5.
+> 
+> 1. pciehp route (v4)
+[...]
+> 2. PME route
 
-> From: Hyunjung Ko <hj351016@gmail.com>
-> 
-> fc->work is scheduled from the extcon notifier callback
-> yt2_1380_fc_extcon_evt() (and once from probe), but it is never cancelled.
-> The containing struct yt2_1380_fc and the extcon notifier are both
-> device-managed on the serdev device, and the serdev driver has no
-> ->remove callback, so teardown happens entirely via devres unwinding
-> when yt2_1380_fc_pdev_remove() calls serdev_device_remove().
-> 
-> devm_extcon_register_notifier_all() unregistering on teardown only stops
-> future notifications; it does not drain a work item that the notifier has
-> already queued. A fast-charger extcon event that races device unbind can
-> therefore queue fc->work just before teardown; the work then runs after
-> devres has torn the device down. yt2_1380_fc_worker() dereferences not
-> only fc itself but also fc->pinctrl (pinctrl_select_state()) and the
-> serdev (serdev_device_write_buf()), so it must be drained before those
-> device-managed resources are released, not merely before fc is freed.
-> 
-> Cancel the work via devm_add_action_or_reset(), registered after the
-> serdev is opened and pinctrl is acquired but before
-> devm_extcon_register_notifier_all(). Because devres runs cleanup in
-> reverse order, teardown then unregisters the notifier first (so it can no
-> longer queue the work), next cancels the work while fc->pinctrl and the
-> serdev are still valid, and only then closes the serdev, releases pinctrl
-> and frees fc. This closes both the re-arm window and the use-after-free
-> of fc and of its sub-resources in the worker.
-> 
-> Found by static analysis / code review; compile-tested only, not
-> reproduced on hardware (requires the Lenovo Yoga Tablet 2 1380 charger).
-> 
-> Fixes: b2ed33e8d486 ("platform/x86: Add lenovo-yoga-tab2-pro-1380-fastcharger driver")
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> ---
-> v2:
->  - Move the devm_add_action_or_reset(cancel_work) registration from right
->    after INIT_WORK to after devm_serdev_device_open()/devm_pinctrl_get()
->    and before devm_extcon_register_notifier_all(). The v1 placement
->    registered the cancel action first, so devres (LIFO) drained the work
->    last - after the serdev was closed and pinctrl released - leaving the
->    worker's fc->pinctrl / serdev dereferences racing freed resources.
->    The new placement drains the work while those resources are still live.
-> 
->  drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-> --- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-> +++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-> @@ -148,6 +148,11 @@
->  	.write_wakeup = serdev_device_write_wakeup,
->  };
-> 
-> +static void yt2_1380_fc_cancel_work(void *data)
-> +{
-> +	cancel_work_sync(data);
-> +}
-> +
->  static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
->  {
->  	struct device *dev = &serdev->dev;
-> @@ -209,6 +214,18 @@
->  	serdev_device_set_baudrate(serdev, 600);
->  	serdev_device_set_flow_control(serdev, false);
-> 
-> +	/*
-> +	 * Register work cancellation after the serdev is opened and pinctrl
-> +	 * is acquired, but before the extcon notifier.  devres unwinds in
-> +	 * reverse, so teardown unregisters the notifier first (no new work
-> +	 * can be queued), then cancels the work while fc->pinctrl and the
-> +	 * serdev are still valid, and only then closes the serdev and
-> +	 * releases pinctrl.
-> +	 */
-> +	ret = devm_add_action_or_reset(dev, yt2_1380_fc_cancel_work, &fc->work);
-> +	if (ret)
-> +		return ret;
+I am very sorry for not responding earlier.  I just wanted to say,
+I think you made the right call to pick the PME route in v5.
 
-Why not devm_work_autocancel() ?
+Thanks,
 
-> +
->  	ret = devm_extcon_register_notifier_all(dev, fc->extcon, &fc->nb);
->  	if (ret)
->  		return dev_err_probe(dev, ret, "registering extcon notifier\n");
-> 
-
--- 
- i.
-
+Lukas
