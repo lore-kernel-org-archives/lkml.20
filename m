@@ -1,72 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850124;
-	b=Z5Y5/DFwOIr4v8VyqrY4vSzQ+llKNXX6dlTuBY2wT0DNsNIgxnWRbfLaeH9iSlXZFaDK
-	 MqLOh3D72UUn0sR67z+8AVrGgprxzWFkgLmArz8Eh+hSQEZetedUP6QVMiFKEMrW8iWhJ
-	 Y99/bFhfZL2uljx9/qY+bN47PVqEczM3WHkymMreEUc0ZGfYWYdyo/TR5zdhpRQvtGg5Y
-	 1VRxLEfP0HAyVnWhb1fxH+EKmsUCVRy6kMlfJPG6R5Lzjj2fJAOuTr/N7s1nwUkH/Z+Rx
-	 IgBv0Rmzpkx9HuYBTAjo3k0jZgA5RYqn0f7rbPCSlImyXx8oTjZUqmEwW+F2YGcS0xg==
+	t=1794850130;
+	b=gQ78rru2FwIKBCPjqb4sPu/2kcan5muOauh2Tz8e022GjYdc8na2bzxy+e9i7IiG5HBM
+	 MwXRtBpcrqgHgwwgDb3UNhWrOk1Cs0IhGkVl0pVNQbQMcwphdgPly576Gc054up1hFruP
+	 HpOsKFdDUfEOewgPcHvCDw8mAPZfP8tAjERym4wdLn4HHMh/oEZrTBizuAHJ5K6KByC4c
+	 vWb2H/+K7oB2NiWwoDfObsH4TxOPkmtkCV9LZMb3ITU2CljtVzpm7aboruLfgKhDMmxVv
+	 HPKib914qzS70cU7jAnLYFyEyZtJt8H2bm4Ret9BCv6DIgVk6cQANagWCMkAERY70hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850124;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ITO9BPI77frVV4rkGXz0VQmzGcGlDjhdfLPbJDSjlxw=;
-	b=SiLc4AryNZ+dOR9PsuJGHrKTVpg650B0wXlv1IcaRIic6y//7cDZiDIqX0LU3vqI+S1h
-	 Gy0lHOYm1A3H35xEh1SxEdHRZjJL9VE1y7yWhqgg+F1k+5sqq6+CKz+RGLAXApjLza8SX
-	 Bae5pba4XBKOkE0DfA+6IKyGA2n+mEysaR94DS7QD41C9x1cIu/oEm5eWUruAOl6L1+dH
-	 sRSgNy8Dk+6KxkYTMdRMMymelAaNo4DFB1yKyjkTdztUVmJMxfjCdlcRg8d/+jt44vLG0
-	 3bg1PSrJVKvIi42FT3bdjqeiv7yBj5CH+dLfp9JiNLCcyzjSwEdJcsz56O2tRzt8tbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850130;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 Feedback-ID:X-Infomaniak-Routing;
+	bh=sksj3erO0Akx5zzJjGKDAnrGDqLQmFXWSoMgfv5FcBI=;
+	b=EzsxXJgcxxMT4DtZqbwFfduzDNCN1DilCKwoYMVletAdrt3BEtgOlcyqBR9uvNFKpsis
+	 N1MYUSsfzn9T7+lQyUGXIkiEmLFmW2x+dieO7kzi/pcAW34JhmPZU/3nT1Bj0xanTOlK5
+	 Uq8LcwP+1vtXuPO/I2LWcSWDbffcEPQYh2UkLlLJRJXTlrRMpGB6o08xrUD+C52xSFg9N
+	 +pmgaadsUa9KI5nFaJ93/fn8ciZddReNaijiUcDOvhpSWz1DAZYdtBogiFC5AwFZDbrOl
+	 3Cn++SWQNXvI1b8lLjNh3ggPLdn27mPANLP87xZY9oLJqKGsxbOJ1W2sFTzXZm8AzHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Mz136crB;
-	arc=none smtp.remote-ip=209.85.221.70
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=etik.com;
+	spf=pass smtp.mailfrom=etik.com;
+	arc=none smtp.remote-ip=45.157.188.14
+Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A30606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:28:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24A30606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Mz136crB
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-490ab0a20ebso2257202f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:28:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794850122; x=1795454922; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ITO9BPI77frVV4rkGXz0VQmzGcGlDjhdfLPbJDSjlxw=;
-        b=Mz136crBiUC70tCqynoE9UwbJj9fdUfn3W09AfUon7VKWLHuNZZCIVFC68HPb7/shE
-         wOP6EUdjyEF5CccyglJGSvAkjsqS4mpUawspZu+JKbLkYEhF11p/Naal0XPrQKtjXshr
-         vCMBlS6OTlhrI98tEguNu7qkzvmC1jx6NpPcneAVLdCQ5mME+LkLS1OeJolNJfDLZJZ4
-         3eTsZ/JimspnBsTAb7K5bmNPfu2WZskW02HIJ/EKFAdX0sdTrGKYLsT49kpaZJt7VQpy
-         WO4zWDUlw9mvW55Ahe9nAdvbD23JTmhAUvk6DUVWfA3Dxrxmgdhu5g5xQOcud47qY1eB
-         lPjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794850122; x=1795454922;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ITO9BPI77frVV4rkGXz0VQmzGcGlDjhdfLPbJDSjlxw=;
-        b=FxAp7QB7pqcb5D9C/Ufjdcxl14Z13syrsCE5nqtBKOcdvLPxclBP8J242c1xU+VN84
-         u7R+IE6WMXtocg4TlYkZOTzI0jsGdPsiVrXedqA8NbmU8RU7kW/CDV8PbzpqenJcIyBd
-         VpAdLiJv5/gpBv3yZc6ddW9pkaa+P+fhJ+g7ro+/eE8QimmMf2r9zeatCPB4u+fuRReJ
-         1q9ZfrroQdaupjtPsDg151CmFo1NSgzQHofXvoVWpr9SWcp/wQWGq/UvmmhnX23xvTrS
-         YD7GfD3x/uLxIihlYq5Af4HMjJmf6Y9//AK6HUTDrNX5NIf5fwanmg3UCdCd8sZH3SBR
-         ZDPQ==
-X-Forwarded-Encrypted: i=1; AL+hErFRdY+gucsVbV8sVkWdNzqe/gD9llWRuhHFeMxo/xhzG8U07ukgA6nPisqyTB/yUNWvk+SrqUJxoM93tc0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/enfYljLtcfHD4TfzgVU1o721hBTvsd6QDAcXe9yWPFMM8YhO
-	U7vxoLM9lUPimK1ppiU+8J800/4Bi68jzZX4UfZ1X5SaCXjiXk6VPXTWJ6MEjoyXwHqcOrcFvzX
-	4MMEllvEMc9kEQpC8f3QAyA==
-X-Received: from wmxa14-n1.prod.google.com ([2002:a05:600d:644e:10b0:4bb:6962:19b2])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:a00d:b0:4bb:6842:66ef with SMTP id 5b1f17b1804b1-4bb6842670dmr149710885e9.30.1794850122432;
- Mon, 16 Nov 2026 09:28:42 -0800 (PST)
-Date: Mon, 16 Nov 2026 17:28:36 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6860606A337
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6860606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jSvwR05KVz2kNw;
+	Mon, 16 Nov 2026 18:28:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
+	s=20210927; t=1794850118;
+	bh=sksj3erO0Akx5zzJjGKDAnrGDqLQmFXWSoMgfv5FcBI=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=cQxdshKVjvsM39W9Gap2BRzIbXEaf1d/No2nWFKAUSwvNOUV8gHSyKC6R2d1cBd0C
+	 MYDXtX311AflSc+xrxIyZzAIJKlRBSmJPWHwajQQAvOoDVjRXhbkkUF8hQv1ogIlAi
+	 gGhu6QsEblH34EbgOm93qm2GRqDN3dpaW0DQdFEE=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jSvwN6vjBzcsX;
+	Mon, 16 Nov 2026 18:28:36 +0100 (CET)
+Message-ID: <999079c0-c728-445b-a122-720d93f112cc@etik.com>
+Date: Mon, 16 Nov 2026 18:28:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,102 +53,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116172836.2254432-1-vdonnefort@google.com>
-Subject: [PATCH v2] checkpatch: Add context-analysis attributes
-From: Vincent Donnefort <vdonnefort@google.com>
-To: apw@canonical.com, joe@perches.com, akpm@linux-foundation.org
-Cc: dwaipayanray1@gmail.com, elver@google.com, linux-kernel@vger.kernel.org, 
-	vdonnefort@google.com, kernel-team@android.com, mkl@pengutronix.de
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: DV <dv@etik.com>
+Subject: Re: [PATCH] kvm: hyper-v: Delay firing of expired stimers
+To: Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: Alexander Graf <graf@amazon.com>, Sean Christopherson
+ <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ hpa@zytor.com, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ nh-open-source@amazon.com, gurugubs@amazon.com, jalliste@amazon.co.uk,
+ Michael Kelley <mhklinux@outlook.com>, John Starks <jostarks@microsoft.com>,
+ David Woodhouse <dwmw2@infradead.org>, Marcelo Tosatti
+ <mtosatti@redhat.com>, qemu-devel@nongnu.org
+References: <20260115141520.24176-1-graf@amazon.com>
+ <aXO8I6xuZyZB7CxV@google.com>
+ <769f538d-dd42-4d36-a4c5-7e6e48b209f6@amazon.com> <87bjigaeyx.fsf@redhat.com>
+ <1435d106-d4b0-487e-85d3-4032a9fe9332@etik.com>
+ <kupzev8hf8s.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+Content-Language: en-US
+In-Reply-To: <kupzev8hf8s.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Feedback-ID: :74c292bbbde641d:ham:123049f310c9d1d
+X-Infomaniak-Routing: alpha
 
-Checkpatch doesn't know about the context-analysis attributes and
-misparses annotated declarations (e.g. mistaking __guarded_by() fields
-for extern prototypes). Add them to the known attributes list with
-support for a single nested set of parentheses.
+On Mon, 16 Nov 2026, Vitaly Kuznetsov wrote:
+> From what I remember, direct mode synthetic timers were added
+> specifically to aid Hyper-V-on-KVM case as non-nested Windows was
+> preferring non-direct version anyway. So I believe we need a fix and
+> not 3).
 
-Handle context-analysis attributes with parentheses like __attribute__
-in annotate_values() so unary '&' in their arguments is not mistaken for
-binary bitwise AND.
+Thanks, that rules out 3).
 
-Cc: Marco Elver <elver@google.com>
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- scripts/checkpatch.pl | 37 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 32 insertions(+), 5 deletions(-)
+> I'm wondering if the issue is somewhat related to the nasty hack we
+> put in commit 0469f2f7ab4c ("KVM: x86: hyper-v: Don't touch TSC page
+> values when guest opted for re-enlightenment") but maybe hibernation
+> is somewhat different. Or maybe we misunderstood the problem in the
+> first place and only fixed one sympthom of it?
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index b8b64f720191..5ca2a1fc2607 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -527,6 +527,32 @@ our $InitAttributeConst = qr{$InitAttributePrefix(?:initconst\b)};
- our $InitAttributeInit = qr{$InitAttributePrefix(?:init\b)};
- our $InitAttribute = qr{$InitAttributeData|$InitAttributeConst|$InitAttributeInit};
- 
-+# Match (...) attribute arguments, allowing one level of nested parens
-+# (e.g. __guarded_by(__bitlock(3, &bits))).
-+our $AttrParens = qr{\s*\((?:[^()]++|\([^()]*+\))*+\)};
-+our $ContextAnalysisWithArgs = qr{
-+			__guarded_by|
-+			__pt_guarded_by|
-+			__must_hold|
-+			__must_hold_shared|
-+			__must_not_hold|
-+			__acquires|
-+			__acquires_shared|
-+			__cond_acquires|
-+			__cond_acquires_shared|
-+			__releases|
-+			__releases_shared|
-+			__cond_releases|
-+			__context_unsafe
-+		}x;
-+our $ContextAnalysis = qr{
-+			(?:$ContextAnalysisWithArgs)$AttrParens|
-+			__rcu_guarded\b|
-+			__no_context_analysis\b|
-+			__acquires_ret\b|
-+			__acquires_shared_ret\b
-+		}x;
-+
- # Notes to $Attribute:
- # We need \b after 'init' otherwise 'initconst' will cause a false positive in a check
- our $Attribute	= qr{
-@@ -551,6 +577,7 @@ our $Attribute	= qr{
- 			__ro_after_init|
- 			__kprobes|
- 			$InitAttribute|
-+			$ContextAnalysis|
- 			__aligned\s*\(.*\)|
- 			____cacheline_aligned|
- 			____cacheline_aligned_in_smp|
-@@ -2141,6 +2168,11 @@ sub annotate_values {
- 			push(@av_paren_type, $type);
- 			$type = 'c';
- 
-+		} elsif ($cur =~ /^(__attribute__|$ContextAnalysisWithArgs)\b\s*\(?/o) {
-+			print "ATTR($1)\n" if ($dbg_values > 1);
-+			$av_pending = $type;
-+			$type = 'N';
-+
- 		} elsif ($cur =~ /^($Type)\s*(?:$Ident|,|\)|\(|\s*$)/) {
- 			print "DECLARE($1)\n" if ($dbg_values > 1);
- 			$type = 'T';
-@@ -2193,11 +2225,6 @@ sub annotate_values {
- 		} elsif ($cur =~ /^(\\\n)/o) {
- 			print "PRECONT($1)\n" if ($dbg_values > 1);
- 
--		} elsif ($cur =~ /^(__attribute__)\s*\(?/o) {
--			print "ATTR($1)\n" if ($dbg_values > 1);
--			$av_pending = $type;
--			$type = 'N';
--
- 		} elsif ($cur =~ /^(sizeof)\s*(\()?/o) {
- 			print "SIZEOF($1)\n" if ($dbg_values > 1);
- 			if (defined $2) {
+I don't think the hack itself is involved here, but your second guess
+fits what I see.
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.1.703.gf848ed807c-goog
+The hack only takes effect once the guest has written
+HV_X64_MSR_TSC_EMULATION_CONTROL. In the failing setup
+hv-reenlightenment isn't exposed, so KVM recomputes the TSC page on
+every masterclock update and every KVM_SET_CLOCK as usual. With
+hv-reenlightenment on, X was 494.7 ms and the timers were just as
+late. I didn't trace whether L1 wrote the MSR in that run, but it
+wouldn't change the lag at boot: L1 enabling the page sets
+HV_TSC_PAGE_GUEST_CHANGED, so the first setup is computed normally
+either way.
 
+What points to your second guess: X is already in kvmclock before the
+guest runs its first instruction, so when L1 enables the TSC page,
+KVM writes a tsc_offset of about -X into it. Yet on a boot with no
+pause and no migration, L1's counts were still X too far out. If L1
+used the values it read from the TSC page, even cached ones, it would
+have been right at that point. So L1 seems to take L0's reference
+time to be guest TSC / TSC frequency with no offset at all, perhaps
+because on a Hyper-V host the two start together.
+
+If so, the 2021 migration storm and this are the same assumption
+broken in two ways. The hack keeps tsc_offset from changing after L1
+has started, which helps on migration, but it can't help when
+tsc_offset isn't zero to begin with. And without re-enlightenment,
+nothing keeps it from changing on pause/resume, which matches the
+virsh suspend result in my first mail.
+
+If it helps, I can rerun with hv-reenlightenment on, trace whether L1
+writes HV_X64_MSR_TSC_EMULATION_CONTROL, and repeat the suspend. If
+the hack engages, I'd expect X to stay the same across the pause,
+while the timers stay X late from boot.
+
+As before, Claude Code did the code reading for this.
+
+Thanks,
+David
