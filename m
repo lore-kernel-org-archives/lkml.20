@@ -1,80 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803165;
-	b=HvkvSXx40jxmnhd87rDst6sgAI+vf9oaUAOrVoA7U2bC/+p6a+OJ9uuGpzhYh0UaZjYB
-	 xKjjhSheG7N2Qi2ZYwxiXaci84aXLYHgd2+PmTRGPMG/Annfk0xaFcn0+EiO6oRswLRVc
-	 QKLEIY/nRLFrbXc5l3sSHzpbLlyKwoBSFB7TKc9ghE9Fs5E9CPF3ZywYt52Jm0VVNZUMr
-	 6rpYM8CuJeHQg/vLTzBhFugRi+lVRmtGrj3kWkg3p6J8TZCdPUthw2ki5HuIiTBqKU/pA
-	 1Q7wX177VDPbZRksxRm25kQpzA+OzMZ7WXFqR+Vj9oWLsENIemk/YgyahWU/FOJDaxQ==
+	t=1794803213;
+	b=00+AFOQmp5Npy5J4kNfxhjlWuoXQeEG8y7NI6LTlLcLtFok8eomiA2CVgMKsfGSDIATN
+	 PzQSutMk+uEWITwl0WlPCZIx1FmE7AOoTbzFeHfVvUfPhArtPJcJDOt3pha9HxJ6OiA+t
+	 Xf8jaNMlGRv5bEuTYu1XxCzaxJg5JOd5w/MJl5jMMesvLi3biEWQQrs8gtUvjEqRC3Q0i
+	 Ygc+BByVEyAaE9FUUCPDsbxMqsxbd+kSqYtIxi+XASkiA6zBjN7xtf2sPG3GOgAYqrNFg
+	 f3NAN8aFV2xHkCmgxEC/ArJZrJ1X6yAR+ce3GOXH9ZiVR6Lo/u378OG5ndy61zV/enA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803165;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803213;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/LkyRBu/5B33gc+px/Ls1cEcSKMTU4Ac1+7qctKCFxg=;
-	b=YY9xEXZqZfySss7nGQYPANQQSc6ALR+adXEq/2gnAdQ2VY7YYV4scEImgTfp+W78SnJ7
-	 nw98nkzMixm+CAuBT06R+xd5fZQw0uCKm8mIQ4LEBEhVGeZChwHSPogwHhQ8NUXTr7Eyx
-	 dfwCBglhO0mkn+l/KRp2wBei0VVtzHgJZ05C9Z/dYC5F06Uu/LtlrGtEPt5UVwN0JUewa
-	 TCchoHiZqmUFWqAEtjqamDz6Va8cdoS3Bhi8s8iuNRxgYVzs++akzue48MyMPZo+5wGz+
-	 Y3L8imYBBG4hK5/4+F43fZ4+a9eJDIWDtXozhU7lac+MC1didW1gJOK2GbAeRWTlcug==
+	bh=Ncn3Uh93DO1XOndirHgHGxexD/qxamHF0C1Hl9kfn8k=;
+	b=qcq3xvMQVA19JV6HObIxmgLseU/CaBOJj61ghrSAB9UqVPHax61ywORVy7lHwG5cA+4X
+	 EVSCaUrv3vjmNUQHppBkLr6pgb+maWKrGGiHsuwNS7yxrqQf5ASihC/MdW9itZRbFPkR9
+	 90khxEIDaXTqmHroT/1ipXXXWtRHm9kn1EZTOQEsU2R/4/A7vsn3u05iM9Cus13+95x7n
+	 negzAnHwQJeUDyaHqVTxNsI4DbGvseJbpzNoXBTdbj0D5C8qZaPBGu3dx3YBLLAxLTgkb
+	 vfkkyG4/33BLSHSpjTGdKEFY/B1CG0Op9pjPiWrc/pPFt/P5RnQUtHHSwyjdefNL6hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/1x+Z8S";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aP3Ww7e5;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C748606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBC8606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:26:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBC8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/1x+Z8S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E431F000C4;
-	Mon, 16 Nov 2026 04:26:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794803165;
-	bh=/LkyRBu/5B33gc+px/Ls1cEcSKMTU4Ac1+7qctKCFxg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P/1x+Z8SBTzvYebmgDsdMGRRD7fx6+3XftHMitJYDWsBlYqWfRxM6cF8I3PnAoj4c
-	 nQEnQWNkCipsScimqgjX9baO6PjZqnM4GCGFYkizDvtrUThXVPXVOpayXLqDW4MEI8
-	 /7fC142hGrzkcvcuw59vsOkSHj1mMhmrspDmvmD3xIv2LT7JgXq5B2G4TzK+N5nCFA
-	 JTQbkgTArK9TRwD14Uc7sIbnBpUT0tv7/jTEBStmjPhoAjURAQV5IzvcHM61R2CGvo
-	 KwAq9P8suIO1Yxk/Cfe5C7fSdSOV0U9vM3+N5C6S1OsRYL5CjJWCzh4x+Ow49LwDkI
-	 PZ+1ccBQEu20w==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: ryncsn@gmail.com
-Cc: akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	hannes@cmpxchg.org,
-	hui.zhu@linux.dev,
-	kunwu.chan@gmail.com,
-	liam@infradead.org,
-	lianux.mm@gmail.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aP3Ww7e5
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36e795af1d4so2163252eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:26:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794803212; x=1795408012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ncn3Uh93DO1XOndirHgHGxexD/qxamHF0C1Hl9kfn8k=;
+        b=aP3Ww7e50cv3jnIO7KWkHTl6lutK2933t8INJUv7OZZum7NzMaO/TWusjU69vIFEAu
+         yi/42o98IDYPrCmV0UJq29ozY99J+hGkHMUzX8PJSuAuzMpBBFHv/Nb3o08UMP/TcKll
+         WWGQFnoFi6iB80+ExcM9KFnRs3VUfRiZZKdRbc7uPaDnbw4JZhjOUtUiVzMuvjHo+YSO
+         MQzJ+8FRl9/acM8Mp2G3xcokg76/kjgxl0ckrWQfIMTYbotnCONzlONoeIefhFt8xMeP
+         DwW+Pm8fYWpVaSmpVX3QvU86JXOTV/TyTRrrv59KXVoxOSMg31TIql4uWIDNcw2jh1af
+         oVGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794803212; x=1795408012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ncn3Uh93DO1XOndirHgHGxexD/qxamHF0C1Hl9kfn8k=;
+        b=pYhZgyviQ4ghKaIX9TglhN9CxPpl45beJxjbK7AGiqkU2pmELYevx+bl8fIgF1Zf8I
+         /6cDGDZf+4Hlb6qNw8mFDekAayY83MgTqeNJn3RQvZD/qf+Z/474FNHnD5jvKUe6O1xF
+         QxOboUKevkcznkIL3VfAQSBRpm1dGyqOkejQ9JvC1QW2AbbO8hUV2PXef6fm7PqquijC
+         sVmZrEJzoPJmLaoFESJQ81gGxX1sXXzpgsmaNWQvAWm4U1IHT3EM4GEaAe42k2To7ekX
+         EyoKXWnWleSHMo7HnvJdf4NIKecr1dJMti+nOfHr6gWQn0yEgs3dGAA/VFh4YwNESyy7
+         t3/Q==
+X-Forwarded-Encrypted: i=1; AL+hErEO75xnOYz97ebutElFSPOX8TBOT0iP9ieUG2jTE/A3i4i5uQYCXy9u114r2xdZflyBC51Hh/IqfAxBcmc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/mCxuuiXKqsWyPfbckZd82S6lFHyrGMfVA0xuRfu5K53Qtgu7g
+	ddWSHDJ32atL+yqG2aDlKuf3LmrgNd402pw1u5XLPWuU8jcx7Y6i1dkP
+X-Gm-Gg: AYBFou1er3h2rWzd506M91P4id+RKl3rLodXLurng7Rr1jkBUdg46PEDdvcOs2TWZt1
+	0uJxg7w+Gtov1WChXVbuLff/6xqwh64AHTgW2I8ktfmsgL+p+k5kggfm8NRQgd93cRz7j/99TwE
+	fo2wIF5Y7UsOnc23f/ihDHnlV91KyvNdmtW5fjz2rzvryk0h8p3xQNoSxou+3y+DL3L+47lVQew
+	0SnJ5hAdV3nZ+uswXrc6/jqIQZCkPYyWDUxYYMgnmHbWNsAjgZDMzwK/w5j398tvjBD9QD+ShHd
+	jH/0iklFvnoVXU3YYJ59wzzNrk+nBxL3hLyG7iF1LLM+dmEO28qMPE9F1sxBU4gXEKxKDqN9GCZ
+	cVIuT2lsx64nY6W/HlsdPgmL8uIZ9tpn318TMWOh7ggu6nIy12O7Do3AYyDdkrdA3usUrdJTBms
+	PgzY39Kp2tTxcgf8ucPim3mgpb+1q34JQoryz3h2iNbDmMTslhPl79e6sJSllQWSaKnignr97pj
+	EHQIKHt/alzV0TMXO2ZJJJUWoml3oV0EJ3QtYwOtIhhFkmNbFKc8H+fFRn5fwWXNgX1jLAvJ8ds
+	aqNQCa3S09X0eC9KAUjDpXXS5O3vQvTegdcWZVFu4amH6BH56d8QVhOOdoR+AAWmFfrvJ1kUnss
+	3CJRnss62ULaTWn1ZRb2NkxcMPRz0YYGqL3BQarWCUGEV
+X-Received: by 2002:a05:693c:63cd:b0:36d:be15:2dd6 with SMTP id 5a478bee46e88-379668667ccmr8906944eec.11.1794803212184;
+        Sun, 15 Nov 2026 20:26:52 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm30053500eec.13.2026.11.15.20.26.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 20:26:51 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	liuxiang.277@bytedance.com,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	ridong.chen@linux.dev,
-	rppt@kernel.org,
-	shakeel.butt@linux.dev,
-	sidchintamaneni@gmail.com,
-	surenb@google.com,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	zhuhui@kylinos.cn
-Subject: Re: [PATCH v9 10/16] mm/mglru: Run aging when pages are rare outside the youngest gen
-Date: Mon, 16 Nov 2026 12:25:56 +0800
-Message-Id: <20261116042556.42111-1-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com>
-References: <CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: atmel-classd: Improve clock and probe handling
+Date: Mon, 16 Nov 2026 11:26:31 +0700
+Message-ID: <20261116042633.497423-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,79 +104,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 11:55 PM Kairui Song <ryncsn@gmail.com> wrote:
-[...]
->
-> A little nit: with the rounding above, I think we don't need youngest
-> / old as an array, just an accumulative value seems enough now? But
-> feel free to ignore this so we can avoid more update noise in this
-> series.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Makes sense to me!
+Hi all,
 
-I guess Andrew could help squash the cleanup below into the patch?
+This series simplifies probe error handling and fixes the 
+peripheral clock lifecycle management in the Atmel CLASSD driver.
 
-From 972664cf8d40449899b54ee3c7abe6d1a9f72271 Mon Sep 17 00:00:00 2001
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Date: Mon, 16 Nov 2026 11:48:44 +0800
-Subject: [PATCH] 
- cleanup-mm-mglru-Run-aging-when-pages-are-rare-outside-the-youngest-gen
+Link v1 : 
+https://lore.kernel.org/all/20261113103727.30449-1-phucduc.bui@gmail.com/
 
-As suggested by Kairui[1], we don't need youngest and old as
-array. just an accumulative value should be enough.
+Change in v2:
 
-No functional change.
+ - Rebase the patches on the latest for-next branch after checking the 
+   Sashiko review page and discovering that the patches could not be 
+   applied cleanly.
+ - Use dev_err_probe() for devm_regmap_init_mmio() error handling.
 
-[1] https://lore.kernel.org/linux-mm/CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com/
+Compile-tested only.
 
-Suggested-by: Kairui Song <ryncsn@gmail.com>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
----
- mm/vmscan.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Best regards,
+Phuc
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 7acc9acad985..b97dc3103b25 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5086,8 +5086,8 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
- 		int swappiness)
- {
--	unsigned long youngest[ANON_AND_FILE] = {0}, old[ANON_AND_FILE] = {0};
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	unsigned long youngest = 0, old = 0;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 	int type;
-@@ -5107,14 +5107,13 @@ static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
- 	for_each_evictable_type(type, swappiness) {
- 		unsigned long seq;
- 
--		youngest[type] = lruvec_gen_size(lrugen, type, max_seq, sc->reclaim_idx + 1);
-+		youngest += lruvec_gen_size(lrugen, type, max_seq, sc->reclaim_idx + 1);
- 		for (seq = min_seq[type]; seq < max_seq; seq++)
--			old[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
-+			old += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
- 	}
- 
- 	/* the vast majority of pages sit in the youngest gen */
--	return youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
--	       (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS;
-+	return youngest > old * MAX_NR_GENS;
- }
- 
- static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+bui duc phuc (2):
+  ASoC: atmel-classd: Simplify probe error handling
+  ASoC: atmel-classd: Enable pclk during probe
+
+ sound/soc/atmel/atmel-classd.c | 50 ++++++++++------------------------
+ 1 file changed, 15 insertions(+), 35 deletions(-)
+
 -- 
-2.39.3 (Apple Git-146)
+2.43.0
 
-> > +       return youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
-> > +              (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS;
-
->
-> Reviewed-by: Kairui Song <kasong@tencent.com>
-
-Thanks!
