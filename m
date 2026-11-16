@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826404;
-	b=euRCDHJj+kQMO4SlGwBZ5T/FWMm7RMVs6RjQtEv332pp7iAKZRFRXeILdmb4eqk8pNr4
-	 NWaXgRPolQsE1V+CpcvOgYhxD3zpDh+wYro/26PgDF96nKFNgU+ftQ835ZhCz539ePFwY
-	 LABjk+yoKTTQ1fBiZ/9AU3LUU0uG8713KaM8uOrsF8/CFtMohR1ypu7Tlf/4Ut9fsUFZk
-	 V7KXW91myl4/jCDvDZzkZiEyuEiSfux1bUB8OT/VfHdqJr7EVWO2+EEe2hI5CfI3h0XF3
-	 k5OvffvPd2NNyztK7xWHP4i8STcSieLiBZMCY9ZDDJ43LvMTGp4rkRgJmlK4DC7iYEg==
+	t=1794826409;
+	b=P4UxX3UiPqnhj9BZrHAx/zBzAoGjRTvnThJAMohsMS+zN0/uLbTxF6iu8bHDGU1RRxw4
+	 AvwbMNJcpPT7nsLpnYXMW1yuiM+8ahC6iQTQ+i7nUCt/llQRZwOJK9/Sbmt6+IswWIidf
+	 nOIb/6arPCpXpvw8FOd/TwHkRqi3JkUj0YiTVuejTTIfXrfiua7QIGNL0biEoA1eOYpNn
+	 2qstLAXbkGnvAkhTj6SIVqKETfIgtDcpjW6iYrw/DxvQ1Ua+RoSlNnZ+nMwwihPrpoavq
+	 3/MHvAz8GP3DDaMVGqd/4npkvZe6YhJqdnQsHAp/Dw7FUnE22vmefWH57I3M7GMFV3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826409;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C9XkwvpUokenqd29JuI3QrAxLajRAdLPVH8Z6H0RKZE=;
-	b=x1dTjeY/IvJF9x9FBqwLXmN/6lFeJqXV1T+2keJvITDT6fJj7/3cfHugaVP/XsaHBBr1
-	 rOWRILEdVzla3OvO6xN4VE5PvjNq3dSILeEoyNSXW0tdMLtZmfn48x4JXU/6vLmJq4yDN
-	 YMKHc5Fet7IdNKwXkTVQ23O/73qZp7m17VwGMbTMHZmojWDhAZrlkMyVz7giZVdJyWHmz
-	 5DnobyDaqfxXrGuxnlnVWASQhU57Zg/B5HxHIikaD1JhwIxgWv/pqnIF0HZUUd7FnHJmA
-	 F3J6fHvUZKwLg80rHiohUJ9M0v5sIqGOvKwgL2kQtnJ2UpPn1FoDNc5NKz8Iw9JrHAQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PAvLjaQHm95bpI85WuhjYZDGCvdWFtQOLeuhomlJrGw=;
+	b=YbOJ7Zbb5uOj3jmh5Lhna+jDBrQt+R4g/bGaagSMKxjKsUqC8KEvEAQY7rrkoshHaUaF
+	 FbT9o04Mfm2U6J70HGpDaSNlsMOwIOpTx5h05DySDSt5qu6pljzVR95/PiRZviD7FsGpI
+	 U++v0as17rMw+jhxCtDKaOb2p1JMJJOeMvvP1q1I9XDL/ZAWcOgsu337LxhsRe6mJSWl4
+	 yVP1vR2O8mp1KxR9B/oT0YyWlhoz1Vf39x3MAsHAR95tH0n5xYJ2Dz3Srx87Rljx/qzxE
+	 DQAkbPQTQnk+PnFkXRycMcrK92Lflya/w8JVs+gTXrwQw5TIoNYZU+neaQDDVS0Sc6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lLuQW7u6;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z3Ea0nlK;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3144606A8BB
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3144606A8BB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D91E606A88A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D91E606A88A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lLuQW7u6
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14e307f29so3806389e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z3Ea0nlK
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b6399ebb41so3775248b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794826402; x=1795431202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C9XkwvpUokenqd29JuI3QrAxLajRAdLPVH8Z6H0RKZE=;
-        b=lLuQW7u6Q4kNTLsC5pVKBRxBayX4JLg406lxIRCZFZ1bJsl2ZonFKAGhFUcKIUbxir
-         6SRCnCrcGHktrMrZJbi5RBAEiU1H+qGGu7ehhIEFTNQ3slkKYdr2jASll5CPlhj8Q/wN
-         9DYGY8N/GFolGvAOj1TJnTYI+3qM6hnwO5IJlwZjOb7NzZNIXdfjNf+3rZ9PCYk/xNk9
-         MEfisYR8O7amsgMOS99rxPjT68zy2QaFbPL3eCGhh387KoJREMMqhoPGPrUcVJ01oWNG
-         s31Uqe6ppoP2dv0Q1gnaCg6OrfWFKLNdc24I2gw7eq+BvW2oXisZNC+ybQ7wQrbdiokb
-         +HPw==
+        d=gmail.com; s=20260707; t=1794826408; x=1795431208; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PAvLjaQHm95bpI85WuhjYZDGCvdWFtQOLeuhomlJrGw=;
+        b=z3Ea0nlKzoHzWrHQ00kEDJl5rfOB2Dg7M+zjuDwFFVeBB1B41crdVBP2TX0y6p8Xop
+         2gxeoqI0JOQJaigUbRP1y7Z01mOIqd0eXV3Rn2TSyHontQL5gyoGWDO6hBlrnqyXQ0sl
+         S8RaDDEvazFivPJ2N4Zy7MqbAq/+85l0ppFvkPD1purZvKrq4PGmdkA5qtHqOzKlK8Ta
+         /z4lAL45RJ7TbpKpDqOKOOUGj+D45dgmYTBejinZQFcwmxBKT+tSjGGH6JoafZRH0cBm
+         0jM1fZgwW95QXXGkqnP0H2BBG8AVF0trDAL9o/SWv6PSeJJ7MPajgtp2yqtGRHmUPzmk
+         lOGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826402; x=1795431202;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C9XkwvpUokenqd29JuI3QrAxLajRAdLPVH8Z6H0RKZE=;
-        b=CAXh9olMbbXCrtrIUT6/SpKIzjf4Ys1FuSxb3ju/Xr53rezt9LQQ7xRAAcrzwhmheQ
-         zV86PE8snwRxEJbSlaqOPyYt9xoQBVgbyAh3TMP+KyFoOJoP1z1vNrRLdeuftpW2Rb9D
-         qRT/WTQkimYtMXq4hxHPYl15kc3G8Z2hNNABzIX8ppDLR+uEzGduQjLros7ybzhl2JUD
-         Cr5s/5QHErSDVwTrReNh1vekNvTOtIQpllsBb9HI0U63pL0xjH7X70VezyfDLkzfemoQ
-         9SkukSNMWCx9LN6mIfBrJqbSjOaAHrpvDWXuntR5a7fKjHYmxr16tfAN4vi01H62uujE
-         iFvw==
-X-Forwarded-Encrypted: i=1; AL+hErGvdF4jFAKm+etViE8Y9kW126vE6sGCekuz9SkvG7xp2lpDTSqzgJYqZE4mZQbab0/ZLaWG26R0gUWkNjk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Nr1M0n+WH9DRR+d3DBEntFb6q+55x2oAuugjm5cHHC1M2a5fD
-	OEeSNY1aufc2JW65uPXRfa841P1eVwm8ZWWIf3yGaQAwEDyS5BM9uvHG
-X-Gm-Gg: AYBFou0uCt3dZHs9Kr8dLf/tgilKv5RYXoWbERczTG5auyc8EoTvlj+jb8OXE67RqLg
-	8UHznMqrcFP4gu8sWVrElYDVS+2V197NVi+AAbJqG5SQkyT61S1CnVUgHEhqIbGovftW+h+dxnc
-	3D4LckwDjuRlCFYQ502T/2lUm2muwuognAPyGuP0omG8Wrj6W+Wwpiw3Lu7Jyj9elZR9r4T7F3l
-	QvOYcDAuDLbzStLAYAJK60TdNjJ87zxYwe6lj20d0yaKeXL24jhe90sjjwxeTxDFl7Zo96SR0B3
-	Ep6QDHa72He1wnbttdGU5STky6B+5l5Av/BcAckmHxxvl2Sll5bhbj9N+7TFrPFALF7+8gMqU9p
-	1zC9TCCN00vOfMp5U2mwJ1sBa3X92iQqg+2tNraerzBI5i3YZJWNUKa9aFIFr0IdrO6oFLCpJwK
-	MOAYLKHDhXHAKrWMbbhCyaVjVErL5NI5bYlCrlrIRQXHAVkx0Tc1WkrwTn0gSzEmbHEyEnWh/Tj
-	mv3W7pBgGPPdvHnCi4H/DOc9eeYv2OHnCGJpEJzTeKLx8cf0iNpwnglQaUGbDKIy7IEtezbRtjQ
-	D+KXt7vMYUpDZ/jzopO1RQ==
-X-Received: by 2002:a05:6512:3345:b0:5bf:b603:365d with SMTP id 2adb3069b0e04-5c1709d6b21mr3686877e87.10.1794826401844;
-        Mon, 16 Nov 2026 02:53:21 -0800 (PST)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7ae909sm31601781fa.25.2026.11.16.02.53.19
+        d=1e100.net; s=20260707; t=1794826408; x=1795431208;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PAvLjaQHm95bpI85WuhjYZDGCvdWFtQOLeuhomlJrGw=;
+        b=Nbs0L9gz4fbYE9H1s7zKVRLyS+WaRr9IR+l+cu0NuPk/vUawEwx4XzTVznWyx0rMPJ
+         fK9b1ULxwrNvFi+F/BCPddU+paw7vZ0LCcvR7mDd3/4bgoYomh75Yk+zJUwnuy90+XWk
+         oypnpDMyaB+s5lPws4F0vI/y3KFInZk2dJU2ptiS4DVpieT3Cjd9hjevBFQMZ7RgU9GP
+         Tv4GQgZLCy3sIiz1rzdTWazAslUMqttfeNUZ5IOuocKWbfWXwrDqzAXXvrquT6Rsug45
+         0XwSB2/Elvx6965ybRYTJEYLKHWnZP2gbRZe0EzmMOocWhQAg4FMmQPv5HONYdxUhpjn
+         Ue9g==
+X-Forwarded-Encrypted: i=1; AL+hErFDnzXfE05KOQbD+Ab2PvSPoP2gqApeizwre1ozFtZp3f95/FGmx145yfzSPjD9R8UUGJu8Z/ShmshKw1k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ESqJ9yz8Jn1kWF52hY1Hb+I2r+SvY/O2vidSeIo8u5Zg4IP6R
+	RXlKeaB1/8+yHoW6YOIJrKWl6rm1CvTjyNClB38XXQmUiKm0E5KmMhiV
+X-Gm-Gg: AYBFou0wBIUsNs93/3qWWx//ZsFCx14f3k+taOUwqJIFnGwmBbJNSo/CK8iTD1VIZHQ
+	WwhqJ5MJ2N/fWA+BZHCrr/Jb0G0HPDs7MeK89+Bjc1irPxUWy4k1dDRUvCLdQ23vpopCRyD2hE2
+	/UItw4knxMu1hrYCRSGO8v/Qt5WU5b9FpIR71d5KH95b7E5x7jQVZYZ494wGcE8v4GCx0TxfqZm
+	eX18cUn4ua1vmwU0AZZvf1453hXcAKjuemSII955It1MgS2ev8+AXFoMUdXcEULM0f7lBAE/uHs
+	G5AxoBIw+DycuZlhtYgpupmviDASsncscY7BOCYkzpsf/TKG+hTAWWJiax0ph4at+zZlo8BXrfh
+	0l1RjRca3HIlo6R768TLoSKtbDq92adsRBgXa3mWMkp5gWC8lZApkfNP65uQghc6V3+Iq+q8Tfz
+	1uO4SqGxbgyHapn7oZ0DqJa/gQ22GdNvZTuA8Q6HbVrMgdYLNWINJJ8y7o8NbGbZm1uAOng1SEa
+	WD8Yyb+5tUzQvdMNc0Hpo00Adb6Y3lXcSm0OpirwxlzVz4v664DZ5H2JQ2EOVOYXiazgD9mB2pJ
+	qr59O6M0NoM23xE7cm49WnKeC0ttK9A6cu8=
+X-Received: by 2002:a05:6a00:94c4:b0:89d:7f51:6492 with SMTP id d2e1a72fcca58-8beb65953fdmr9351345b3a.32.1794826408064;
+        Mon, 16 Nov 2026 02:53:28 -0800 (PST)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263b354sm3407230b3a.47.2026.11.16.02.53.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:53:20 -0800 (PST)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Petr Vaganov <petrvaganoff@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
-	Andrew Kanner <andrew.kanner@gmail.com>,
-	selinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1] selinux: prevent KMSAN warning in selinux_inet_conn_request()
-Date: Mon, 16 Nov 2026 17:53:06 +0700
-Message-ID: <20261116105307.89727-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Mon, 16 Nov 2026 02:53:27 -0800 (PST)
+Date: Mon, 16 Nov 2026 07:53:20 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: simple-bridge: Enforce input bus flags via
+ atomic_check
+Message-ID: <mvwowftpwgn6vypc25fkqgajpizsnnmkceoaclot4ms2b43y56@q2oiqnpwrled>
+References: <20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,86 +103,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com>
 
-commit 1df83cbf23a27174aee6ea5e52462f03f7e48a10 upstream.
+Hi all,
 
-KMSAN reports the following issue:
-[   81.822503] =====================================================
-[   81.823222] BUG: KMSAN: uninit-value in selinux_inet_conn_request+0x2c8/0x4b0
-[   81.823891]  selinux_inet_conn_request+0x2c8/0x4b0
-[   81.824385]  security_inet_conn_request+0xc0/0x160
-[   81.824886]  tcp_v4_route_req+0x30e/0x490
-[   81.825343]  tcp_conn_request+0xdc8/0x3400
-[   81.825813]  tcp_v4_conn_request+0x134/0x190
-[   81.826292]  tcp_rcv_state_process+0x1f4/0x3b40
-[   81.826797]  tcp_v4_do_rcv+0x9ca/0xc30
-[   81.827236]  tcp_v4_rcv+0x3bf5/0x4180
-[   81.827670]  ip_protocol_deliver_rcu+0x822/0x1230
-[   81.828174]  ip_local_deliver_finish+0x259/0x370
-[   81.828667]  ip_local_deliver+0x1c0/0x450
-[   81.829105]  ip_sublist_rcv+0xdc1/0xf50
-[   81.829534]  ip_list_rcv+0x72e/0x790
-[   81.829941]  __netif_receive_skb_list_core+0x10d5/0x1180
-[   81.830499]  netif_receive_skb_list_internal+0xc41/0x1190
-[   81.831064]  napi_complete_done+0x2c4/0x8b0
-[   81.831532]  e1000_clean+0x12bf/0x4d90
-[   81.831983]  __napi_poll+0xa6/0x760
-[   81.832391]  net_rx_action+0x84c/0x1550
-[   81.832831]  __do_softirq+0x272/0xa6c
-[   81.833239]  __irq_exit_rcu+0xb7/0x1a0
-[   81.833654]  irq_exit_rcu+0x17/0x40
-[   81.834044]  common_interrupt+0x8d/0xa0
-[   81.834494]  asm_common_interrupt+0x2b/0x40
-[   81.834949]  default_idle+0x17/0x20
-[   81.835356]  arch_cpu_idle+0xd/0x20
-[   81.835766]  default_idle_call+0x43/0x70
-[   81.836210]  do_idle+0x258/0x800
-[   81.836581]  cpu_startup_entry+0x26/0x30
-[   81.837002]  __pfx_ap_starting+0x0/0x10
-[   81.837444]  secondary_startup_64_no_verify+0x17a/0x17b
-[   81.837979]
-[   81.838166] Local variable nlbl_type.i created at:
-[   81.838596]  selinux_inet_conn_request+0xe3/0x4b0
-[   81.839078]  security_inet_conn_request+0xc0/0x160
+On Fri, Oct 02, 2026 at 04:15:23AM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
+> 
+> The input bus flags set at each bridge's timings are never actually
+> added to the bridge state and are not considered during modeset.
+> 
+> Implement the atomic_check function, to allow simple bridges to declare
+> their required input bus flags.
+> 
+> Existing bridges that configure specific flags (currently the ADV7123
+> and THS813* bridges, which set DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE) now
+> write them to their bridge state, and have them propagated to the
+> previous bridge in the pipeline.
+> 
+> Fixes: 0a01de65a741 ("drm/bridge: simple-bridge: Switch to atomic bridge callbacks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
+>  drivers/gpu/drm/bridge/simple-bridge.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> index 3fba7002322e9..848c2df2a276a 100644
+> --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> @@ -158,11 +158,23 @@ static void simple_bridge_disable(struct drm_bridge *bridge,
+>  		regulator_disable(sbridge->vdd);
+>  }
+>  
+> +static int simple_bridge_atomic_check(struct drm_bridge *bridge,
+> +				      struct drm_bridge_state *bridge_state,
+> +				      struct drm_crtc_state *crtc_state,
+> +				      struct drm_connector_state *conn_state)
+> +{
+> +	if (bridge->timings)
+> +		bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct drm_bridge_funcs simple_bridge_bridge_funcs = {
+>  	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+>  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+>  	.attach		= simple_bridge_attach,
+> +	.atomic_check = simple_bridge_atomic_check,
+>  	.atomic_enable = simple_bridge_enable,
+>  	.atomic_disable = simple_bridge_disable,
+>  };
+> 
+> ---
+> base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+> change-id: 20261001-v1-simple-bridge-atomic-check-e7b7eb8381e9
+> 
+> Best regards,
+> -- 
+> Leonardo Costa <leonardo.costa@toradex.com>
+> 
 
-KMSAN warning is reproducible with:
-* netlabel_mgmt_protocount is 0 (e.g. netlbl_enabled() returns 0)
-* CONFIG_SECURITY_NETWORK_XFRM may be set or not
-* CONFIG_KMSAN=y
-* `ssh USER@HOSTNAME /bin/date`
+Just gentle ping, could we get this fix merged?
 
-selinux_skb_peerlbl_sid() will call selinux_xfrm_skb_sid(), then fall
-to selinux_netlbl_skbuff_getsid() which will not initialize nlbl_type,
-but it will be passed to:
-
-    err = security_net_peersid_resolve(nlbl_sid,
-                                       nlbl_type, xfrm_sid, sid);
-
-and checked by KMSAN, although it will not be used inside
-security_net_peersid_resolve() (at least now), since this function
-will check either (xfrm_sid == SECSID_NULL) or (nlbl_sid ==
-SECSID_NULL) first and return before using uninitialized nlbl_type.
-
-Signed-off-by: Andrew Kanner <andrew.kanner@gmail.com>
-[PM: subject line tweak, removed 'fixes' tag as code is not broken]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
----
- security/selinux/netlabel.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/security/selinux/netlabel.c b/security/selinux/netlabel.c
-index 800ab4b4239e..1c316af68bf3 100644
---- a/security/selinux/netlabel.c
-+++ b/security/selinux/netlabel.c
-@@ -196,6 +196,7 @@ int selinux_netlbl_skbuff_getsid(struct sk_buff *skb,
- 	struct netlbl_lsm_secattr secattr;
- 
- 	if (!netlbl_enabled()) {
-+		*type = NETLBL_NLTYPE_NONE;
- 		*sid = SECSID_NULL;
- 		return 0;
- 	}
--- 
-2.55.0
+Best regards,
+Leonardo
