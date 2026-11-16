@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.253.219.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843345;
-	b=USl01U4DA8KfAaBT/X8pRgrDaPWkO3wonfGAKA2rQF9/8fSe53/u77pAZTdpr5DsLz5o
-	 gz98ahABgNUcfVbnGxdtaqIg869GJAq9CFb8W2243HFhTtRi28UcLvgPdxbd0KHEZ7dVs
-	 6lFjDmb5toassXrmkq3/FNuA20TWIq0CL+eCO6C9VauWX/gGz6KpqNVGTK/23dc7vGBX/
-	 Cd8kAEc6B4nELUkH5pg1Cv95u6iwIvKHDdC8+FVX+r20tnfHzFVZnVsXlKzcK52M+fTb+
-	 J4L1oVyyp709t7tIeynafY+QRR5gLji9OD645i5ww3sQtEYVQLeFtHEvJsezOu7FKeQ==
+	t=1794843375;
+	b=y9Sivj7fP9M2OMn4X7bNix7RA75rNnDy+6bp4eopMNgAcrKcTuJTEhozq/p+5niNBRyd
+	 FElEoijN52u7Xwls3AYBuI/37npV4if6O/+odzkHiwHHnjQR1bvurxzIIjekBePNefTS9
+	 dxbwFo3qqfqQPzFA+b/fnoqy/lJRLNB8ATqF7iWFMCum9T4aQL2DaN8ScUbvuXgMnS8gA
+	 2lB3yLZ/XzQZsY6Ye6uMauFXelNFxnE0X2hwkBbdtDysE+EyJNt9JrNzpDDoUbyxjzeiG
+	 aA8g29R4LTbF6aeuCL7kXjrWbWMj5/gX7OoWjxnstC5yjMRk6QZpQoHkJrQGIVoT99A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843345;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ocTX1eLGCcY0UnxIPxYh0q5pPPMjLNIQ71WhlX+5BuI=;
-	b=LCYEU71lgnOIO+wWZdre1YL2ayYiln4E/wMSmA5b8aK4CZRc+KQe3vszlVWr1KjdWhHj
-	 5XpMsu/f3p1AZSrWT0CZXUNpf3TeuxqmZngV0QBYSaOYIG0jG76ibcAHBz50pnIlPQJ3O
-	 HlOoeJJ2uxPW1JoRpmoPhAg1x/2YsQvRk50fZywbLm+PcE1eKpw7vvEVOVik1yDnRcV7M
-	 vKWtEFmZo13QxwBvTqrccQeOMSTLtxG+a4OkwHCAD3HTvdYlHyTwYscM29tYzz1sV5TNN
-	 xJnFH8eXggoYZy+w+Bx7BM5+kuSXa0VibQ5ixh2EUQmNxOZgbMnp9hJboG/i9Ou7hYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843375;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wwsLEHMebjRIZ6cm6aRO0/os5Z7Wo6Sx/qPBcxQH3m0=;
+	b=r6aCc6tpG5dZZ1bIZpPZtrlWguiMUY9cPorhw373DJSYGqg6RLkJMYOwUGHZ6tEBOeYt
+	 K257Cg8+uVt1m/ctM/+kUhLyd1H4Hg30IHnDw7UHXP7AqkSR/exUy7486sdMrbLgVHHL0
+	 UgZ19LrBAEUPBkIDkh5QNvSJ585bbmTQLeK327PqeNVMufzRkhEbbA52DHyONoz9LzVIU
+	 Q0dOVqJiXlqV5AbD3qeDqh0Db5Lgv+sh7ZP2vxpuJUfMskT93En/ko72nSUXhEm9RrGgn
+	 udtC3rjBBYtocvg/lmWFWRjTcfaeI91sZVVKDTymbO0XNwFfk6MqAClht88UlyFDy/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pavel.bz;
-	spf=pass smtp.mailfrom=pavel.bz;
-	dkim=pass header.d=pavel.bz header.i=@pavel.bz header.a=rsa-sha256 header.s=primary header.b="Y1Ms/lar";
-	arc=none smtp.remote-ip=89.253.219.113
-Received: from mail.pavel.bz (mail.pavel.bz [89.253.219.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mOuGKedZ;
+	arc=none smtp.remote-ip=91.218.175.60
+Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8AB606A31C;
-	Mon, 16 Nov 2026 15:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D8AB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pavel.bz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pavel.bz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7CB606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:36:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A7CB606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pavel.bz header.i=@pavel.bz header.a=rsa-sha256 header.s=primary header.b=Y1Ms/lar
-Received: from p-745-g5.lan (unknown [182.53.106.11])
-	by mail.pavel.bz (Postfix) with ESMTPSA id 3C9BF6169C;
-	Mon, 16 Nov 2026 15:35:35 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.pavel.bz 3C9BF6169C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pavel.bz; s=primary;
-	t=1794843336; bh=ocTX1eLGCcY0UnxIPxYh0q5pPPMjLNIQ71WhlX+5BuI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Y1Ms/larYct8Hpj1DAWT2k8758/Kms9673VoEXCsF2W1eD6DFRoWYpzFZNcn+v1ZJ
-	 tOGYoJ7toRRa1EGz/bsOCjafi4z9PBaDbujcYpUHxk/uv/JQiY1WCLn14bMhaJmCZy
-	 mnqbveelXQaMa16r6bePFtSfEWgpFfH/8320i/ik5P1uObP2ySP0LT0xPsvHNjwgOX
-	 JTqNZmwkV54pksgaPTc5xjDWgdjiUJX2Ntqg03p4z3MZDCl6C8VQVSWeyOevzlKQCa
-	 aCCc1wXLsXKkYqx0lHNKjo8HA+CwvYTpgRfLuhQAfoHpQFtbXrTZWy5qUENXFsE35r
-	 uC3jVyBkPCIfQ==
-From: Pavel Artemev <a@pavel.bz>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/2] ALSA: usb-audio: working hardware volume for XiiSound headsets (040b:0897)
-Date: Mon, 16 Nov 2026 22:35:19 +0700
-Message-ID: <20261116153521.188570-1-a@pavel.bz>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mOuGKedZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oPKPgBXpCregrS1C96Nn7lFsq7OnOEEdtVUsZzmJR48=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794843371; v=1; x=1795448171;
+ b=mOuGKedZfsYbdumuWblFKyNTZUrt2u9GsKvKimd+F3zUMdp5Gs4uFZUcSFf1Eb0yGbQSgvFW
+ JGaerYFtqKOK9YX8DggY+7KoALO2phN45+YQY6Ja4ecKFLCvHb+4fECGF3f0eYht/LFhEWitZEH
+ GETIrVcgnhyiSYujWyqwVROc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fefba341e4ad7393;
+	Mon, 16 Nov 2026 15:36:11 +0000
+X-Mizu-Trace-ID: fefba341e4ad7393
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 23:37:23 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Andrea Righi <arighi@nvidia.com>, Usama Arif <usama.arif@linux.dev>,
+	peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, samuelcrossley@gmail.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	kas@kernel.org, riel@surriel.com, Arnav Aghav <aghav@meta.com>,
+	tim.c.chen@linux.intel.com
+Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
+ select_idle_capacity()"
+Message-ID: <avsfYA0fM5eaPPY1@three-body>
+References: <avdIycF_mZV8CHKb@gpd4>
+ <20261113182601.569981-1-usama.arif@linux.dev>
+ <aveB5xbos9hRa3Nn@gpd4>
+ <CAKfTPtCgzJakXU1o7C2EMEVTnD_mVS_xrdOJkQ9d_70U4_yCPg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,134 +73,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKfTPtCgzJakXU1o7C2EMEVTnD_mVS_xrdOJkQ9d_70U4_yCPg@mail.gmail.com>
 
-During a two-week campaign to make a Temple (XiiSound/Weltrend
-040b:0897) wireless dongle audible I captured the complete control
-traffic of the device on both Linux (usbmon) and the vendor's own
-Windows 10 stack (USBPcap).  This cover letter summarizes what the
-wire says about this chipset, because it differs from the device model
-encoded in the recently merged workaround, commit ba9bccdf711a
-("ALSA: usb-audio: Skip broken playback feature unit on XiiSound
-chips"), which is queued for 7.5.
+On Sat, Nov 14, 2026 at 10:06:25AM +0100, Vincent Guittot wrote:
+> 
+> On Fri, 13 Nov 2026 at 22:32, Andrea Righi <arighi@nvidia.com> wrote:
+> >
+> > On Fri, Nov 13, 2026 at 10:26:00AM -0800, Usama Arif wrote:
+> > > On Fri, 13 Nov 2026 18:28:41 +0100 Andrea Righi <arighi@nvidia.com> wrote:
+> > >
+> > > > Hi Usama,
+> > > >
+> > >
+> > > Hello Andrea!
+> > >
+> > > > On Fri, Nov 13, 2026 at 07:31:57AM -0800, Usama Arif wrote:
+> > > > > This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
+> > > > > select_idle_capacity()").
+> > > > >
+> > > > > That commit applied the SIS_UTIL scan budget to select_idle_capacity().
+> > > > > The early checks in select_idle_sibling() consider a few specific
+> > > > > candidates: the target, previous and recently used CPUs. If none is
+> > > > > selected, the asymmetric path calls select_idle_capacity() to search
+> > > > > the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
+> > > > > return -1 before that search. The caller then returns the selected
+> > > > > target, even if an unexamined CPU in the domain is idle and fits the
+> > > > > task.
+> > > >
+> > > > Isn't this consistent with select_idle_cpu(), which also skips the scan
+> > > > when the SIS_UTIL budget is zero? Missing an idle CPU is an intentional
+> > > > tradeoff of that heuristic. Could you clarify why we should remove the
+> > > > budget specifically from the asymmetric path?
+> > > >
+> > >
+> > > It is consistent.
+> > >
+> > > Symmetric path also has this (I didnt check this before sending the patch).
+> > > The service is running on Grace servers which report capacity differences
+> > > and updating the kernel from 6.16 resulted in the problem I outlined below.
+> > >
+> > > Maybe the symmetric path needs to be audited as well?
+> > >
+> > > Or maybe this service should not have ever run with SIS_UTIL at all..
+> > > (The only thing is that kernel upgrade caused a serious regression)
+> > >
+> > > (Should have made this patch RFC :))
+> > >
+> > > > >
+> > > > > The budget is derived from aggregate CFS utilization. High aggregate
+> > > > > utilization can coexist with idle CPUs when a task wakes.
+> > > > >
+> > > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
+> > > > > (1013-1024) within the single LLC activate asymmetric selection. Both
+> > > > > the reference and affected kernels were observed with a zero scan
+> > > > > hint. The reference kernel ignored it and still searched the domain.
+> > > > > A latency-sensitive, wakeup-heavy production workload saw its reported
+> > > > > minute p50 latencies average 129 ms on the reference kernel and 223 ms
+> > > > > on the affected kernel.
+> > > >
+> > > > Have you tried forcing the symmetric idle-selection path through
+> > > > select_idle_cpu(), with SIS_UTIL both enabled and disabled?
+> > > >
+> > >
+> > > This cant be done from a running kernel, right? My understanding is
+> > > that the cpu capacities come from firmware, so cant be changed at
+> > > runtime to be constant across all CPUs in kernel?
+> > >
+> > > Changing kernel on a production service can be a bit of a process.
+> >
+> > Yeah, this would require a patch and a reboot. Unfortunately there isn't
+> > an existing runtime switch to force symmetric/asym idle selection.
+> >
+> > >
+> > > > It'd be useful to see whether disabling SIS_UTIL produces the same
+> > > > improvement there and whether symmetric idle selection performs better
+> > > > overall on this system.
+> > > >
+> > > > >
+> > > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
+> > > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
+> > > > > raised the rate to 73.7k/s. A five-minute disabled run also reduced
+> > > > > kernel CPU time per request by 10.9%. The available minute p50 samples
+> > > > > averaged 149 ms, compared with 241 ms before the trial.
+> > > > >
+> > > > > These measurements come from disabling SIS_UTIL on the installed
+> > > > > kernel. The feature toggle also disables the symmetric scan limit and
+> > > > > shared scan-hint updates.
+> > > > >
+> > > > > Restore the search of the allowed domain, retaining the capacity,
+> > > > > uclamp and SMT selection rules and their early returns. Domains with
+> > > > > no suitable idle CPU can again require a full scan, potentially increasing
+> > > > > scan CPU cost.
+> > > >
+> > > > Yeah, this is my main concern, full scans can become quite expensive on
+> > > > large systems with lots of CPUs in the same LLC.
+> > > >
+> > >
+> > > Yeah I imagine this was the reason for the initial patch.
+> > >
+> > > The same workload on 6.16 kernel placed 69% of wakeups on an idle CPU,
+> > > the affected kernel with the patch that this is reverting only placed 7%.
+> >
+> > That's a substantial difference, I agree the regression should be
+> > addressed. Perhaps this points to a limitation of the SIS_UTIL
+> > heuristic?
+> >
+> > We could investigate incorporating observed idle CPU availability into
+> > the SIS_UTIL budget calculation, rather than relying solely on aggregate
+> > utilization. Periodic load balancing already collects idle CPU
+> > statistics, which might help distinguish actual saturation from high
+> > utilization with CPUs still available.
+> 
+> We want to keep same behavior for select_idle_cpu and
+> select_idle_capacity with both using the same SIS_UTIL algorithm.
+> 
+> That being said, the current algorithm is probably a bit too cautious,
+> particularly for systems with a small number of CPUs
+>
 
-To be clear up front: that commit fixes the user-visible bug (the
-dongle coming up silent or one-eared), nothing here is a regression
-report against it, and this RFC is not asking for its immediate
-removal.  It proposes the alternative I ended up running locally -
-keep the playback feature unit exposed and make its hardware volume
-work - and offers the captures as evidence, both for this design
-discussion and for whoever debugs these devices next.
+OK, maybe we can scale the minimal scan number according to the number of CPUs in an LLC,
+the smaller the LLC, the more CPUs should be scanned, and vice versa. This "minimal scan guarantee"
+was once in SIS_PROP, which is 4 IIUC. Now we can make it triggered when there are idle CPUs in
+the domain, per Andrea:
+"We could investigate incorporating observed idle CPU availability into
+the SIS_UTIL budget calculation, rather than relying solely on aggregate
+utilization."
 
-What the wire shows
-===================
+scale by 256 / llc_weight, Grace would have to scan at least 3 CPUs, not sure if
+it works for Usama
 
-1. The playback feature unit is a working hardware volume.  Per-
-   channel SET_CUR writes apply deterministically and independently
-   (a fast pair CN1<-50 + CN2<-100 applies exactly; a lone channel
-   write does not disturb its sibling), the master gates both ears
-   symmetrically, and intermediate values are audible and graded.
-   The vendor's Windows driver drives this exact unit on every slider
-   and hardware-button step, mapped linearly from its slider percent
-   (10% -> raw 9, 50% -> raw 49), and every intermediate value is
-   audible there too.
+LLC CPUs   nr_min
+    8        8
+   16       16
+   32        8
+   64        4
+   72        3   Grace
+  128        2
+  256        1
+  512        0
 
-2. The "any volume below the maximum mutes one or both channels"
-   behaviour that motivated the skip is host-side, in three stacked
-   layers:
-
-   - the unit advertises a bogus 0.00..0.39 dB range, under which
-     every user-space volume at or below 0 dB - the whole normal
-     PipeWire range, 100% included - resolves to the raw minimum,
-     which does silence the channel;
-   - the stereo control's GET_CUR returns a constant value, so the
-     sticky-GET sanity check classifies it broken and the probe
-     writes the minimum to both channels at every mixer build;
-   - user space applies one logical volume change as fragmented
-     writes (one per channel, the first carrying the stale sibling
-     value), and the device silently drops control writes in the
-     first seconds after enumeration (measured: the window closes
-     6.5-9 s after enumeration, with a ragged tail), so a stale
-     channel can survive until some later write happens to refresh
-     it.  The per-ear asymmetry users report is exactly this stale
-     state, not a channel-mapping property: under wire-verified
-     canonical writes the attenuation is symmetric (12/12 steps).
-
-3. The Windows driver never reads back (GET_CUR is broken, so it
-   cannot), and does not need to: it keeps the whole channel picture
-   at a single source of truth, writes every channel of a control in
-   one short burst - master first - and re-pushes the complete state
-   at every device open.  That every-open re-push is what repairs
-   whatever the enumeration window swallowed.
-
-One consequence worth recording: the create-time pin writes of the
-merged quirk sit inside the loss window and are dropped along with
-every other early write.  The dongle still comes up audible because
-it powers up with every volume channel at the maximum - which is what
-the pin intended to enforce anyway - and the resume re-pin added in
-its v3 is the part that does real work.  So the merged fix is sound
-in effect; only its description of the hardware is not.
-
-The RFC
-=======
-
-Patch 1 replaces the skip-and-pin with three quirk flags for
-040b:0897: the new QUIRK_FLAG_MIXER_INIT_VOLUME_MAX (initialize all
-channels of every volume control to the maximum at mixer creation,
-superseding the probe-time minimum writes) plus the existing
-PLAYBACK/CAPTURE LINEAR_VOL flags (linear scale instead of the bogus
-dB range).  Hardware volume then behaves like on Windows.
-
-Patch 2 adds QUIRK_FLAG_MIXER_STATE_REPUSH, which replicates the
-vendor's write discipline for write-lossy devices: puts only record
-values, one deferred flush writes each touched feature unit in a
-single canonical burst (master first, derived from the loudest
-channel), and every PCM stream open re-pushes the full cached state -
-the every-open repair the Windows stack relies on.  This is new
-mechanism territory (I found no prior proposal for write batching or
-re-push in the archives), hence RFC.
-
-Both ran as locally built DKMS modules (7.2 tree, the port here is to
-current sound.git master) through wire-verified end-to-end rounds -
-replug, suspend/resume, balance, mute, rapid gestures during playback
-- and in daily use; details in the commit messages.
-
-Known limitations, stated for the record:
-
-  - Through the linear scale PipeWire applies its cubic, so the
-    mid-slider feel is quieter than on Windows (50% -> raw ~12).
-    Users who want the vendor loudness feel can set
-    api.alsa.soft-mixer = true - which is effectively what the merged
-    skip approach gives everyone.  The value of this RFC is that the
-    choice stays with the user and the hardware volume keeps working
-    for stacks that do drive it.
-  - After a replug the device sits at its power-up state (maximum)
-    until the first write lands past the loss window; with patch 2 a
-    stream open re-pushes and heals, provided streams actually open
-    and close (a wedged PipeWire session that holds the device open
-    indefinitely defers the heal to the first user volume gesture).
-  - Hardware buttons keep stepping an internal device state that the
-    host cannot observe (no readback); neither approach - skip or
-    drive - syncs with the buttons.
-
-I am happy to rework or drop either patch; the capture evidence is
-offered independently of the design preference.
-
-Pavel Artemev (2):
-  ALSA: usb-audio: drive XiiSound playback volume instead of skipping it
-  ALSA: usb-audio: add MIXER_STATE_REPUSH quirk flag
-
- Documentation/sound/alsa-configuration.rst |   9 +
- sound/usb/mixer.c                          | 286 +++++++++++++++++++-
- sound/usb/mixer.h                          |  10 +
- sound/usb/mixer_maps.c                     |  19 -
- sound/usb/mixer_quirks.c                   |  99 ++++------
- sound/usb/pcm.c                            |   4 +
- sound/usb/quirks.c                         |   7 +
- sound/usb/usbaudio.h                       |  27 ++
- 8 files changed, 376 insertions(+), 85 deletions(-)
-
-base-commit: f930156051f6a3dcd454ff723ca36b14d49650d2
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index d1f3b179013e..fdde96564030 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -12890,7 +12890,8 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ }
+ 
+ static void update_idle_cpu_scan(struct lb_env *env,
+-				 unsigned long sum_util)
++				 unsigned long sum_util,
++				 bool has_idle_cpus)
+ {
+ 	struct sched_domain_shared *sd_share;
+ 	struct sched_domain *sd = env->sd;
+@@ -12954,6 +12955,11 @@ static void update_idle_cpu_scan(struct lb_env *env,
+ 	/* equation [2] */
+ 	y *= llc_weight;
+ 	do_div(y, SCHED_CAPACITY_SCALE);
++
++	/* scale the minimal scan number for small LLC */
++	if (has_idle_cpus)
++		y = max_t(u64, y, min(llc_weight, 256 / llc_weight));
++
+ 	if ((int)y != sd_share->nr_idle_scan)
+ 		WRITE_ONCE(sd_share->nr_idle_scan, (int)y);
+ }
+@@ -12970,6 +12976,7 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
+ 	struct sg_lb_stats *local = &sds->local_stat;
+ 	struct sg_lb_stats tmp_sgs;
+ 	unsigned long sum_util = 0;
++	unsigned int nr_idle_cpus = 0;
+ 	bool sg_overloaded = 0, sg_overutilized = 0;
+ 
+ 	env->dst_core_idle = !sched_smt_active() || is_core_idle(env->dst_cpu);
+@@ -13002,6 +13009,7 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
+ 		sds->total_capacity += sgs->group_capacity;
+ 
+ 		sum_util += sgs->group_util;
++		nr_idle_cpus += sgs->idle_cpus;
+ 		sg = sg->next;
+ 	} while (sg != env->sd->groups);
+ 
+@@ -13027,7 +13035,7 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
+ 		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
+ 	}
+ 
+-	update_idle_cpu_scan(env, sum_util);
++	update_idle_cpu_scan(env, sum_util, nr_idle_cpus > 0);
+ }
+ 
+ /**
 -- 
-2.56.1
+2.43.0
 
+ 
+> And for a latency-sensitive workload, it would be good to consider
+> setting a shorter slice to the latency sensistive task would run 1st
+> even on a busy CPU
+>
+
+Yes, and a short slice task will be pushed to another CPU if it is waiting on the runqueue.
+ 
+
+thanks,
+Chenyu
