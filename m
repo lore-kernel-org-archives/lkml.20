@@ -1,63 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824088;
-	b=opxFeJFnI3WLbooKaMNQ6bt+TQFAc1qjTyF3hzG7HRGdaQThEfhFNjCR1PfUWq3rDCqG
-	 xnttqqhF2ANH0P7qATG404YjywDoiL8cTGpB6PUPNF0dYK1Cd5OTI0oYLoFaNNxR+4BDh
-	 r5uyFKCWSA2Cyt1i9N/qkevixM5up97ibm4FwTD03sCR0GBYyhpWHrlEN9hQvcqLeGR0q
-	 VceVkz8uo2yOBTAuOY+8m7FSxFT58z36ecTcQdoZXDtYhZ8B01Dr1Gp3cnWMGEW/wjuux
-	 TuhsYuuYmgGw16sgckLOqtXwieMJb0ok4D8+fUo1rWD9E87v9U4PnhPDNeOC3KlLVZg==
+	t=1794824097;
+	b=UBblydfAK4GvI1++/lhpOgTgyJSvt8gYJdWWa/xBGk9yxz4OI7ytd6VgCwaKKNH5S4/Z
+	 di4yn9orOL/R1q+yt+s7Qf78k7c/Ohj5M3LoXjG6E+GCVIxRvu0fjLaFCtwl0VPk0B3mK
+	 OCODAd/JeDlhu01H0P5naYlZqV1pmZzwMdKCZgq+ZsGjNST0vJn/RJVMuninkMlGzaWNs
+	 8uSCaLrc07JVurbA0Q6A/Lz4jRKRmfLoDACiYoGSyHtvmCYPJaOfGzzHxBRzxft7L8eM7
+	 E6YPHdYQjpvRK8Zw14a6T5Nksji81O6vrZYxxzkNilZv0eOFTYTQ1PQbN4q+kl7Ri+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824088;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=T030N8s2iM3qCbFH6IrWtzoTyw/pZ1cXkifyK3pJJbg=;
-	b=xuonhMki2SHRA11k+Q359sZy3gk2YN8KIf6KkF+93hOxJYZ2eXsoU7FhMDCbCtzAcjyH
-	 boHKjY2lgmCIFMRl0bic/lY/HLJqTIdWsX82/6j8/opAN9njZd3B8KKvB5KEPO+FK82eb
-	 sprKEoM/ShSbIVIp0QyNQglU0cqBxVXqk8ZS9EbvSfEI4sUNr1B9FcPUg1ZYGw65tRVm8
-	 +tD0ZEopMcOCoo25ezf7gaDReXgiCc3lvPao3WbAtpRRo9OSs6LKucfzmC7wf5Enc3rtW
-	 v6TSxbSWBZsVSI0UIC+IyWIv11zUUwbjAmfxe9Qt0UDJtqNo4Uvh5Jd1RhaN09i+yVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824097;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Classification-ID;
+	bh=SQ/dI9dsVM147KmQyCu8940dPv7eiRNbyoonkE+v7wY=;
+	b=Vp9Y52vhnrj41J9NaWxkl5ZrfBq0RlYnDdQaRRBjCRIFs8YDXynvhsGVDNtekBdfbLPM
+	 5xVfmYUjoGMnggJ99/CMxW0Jw2dOFuIbEGL73/a7bNNVsV+b80VDpLXVGYUYyVKJ6l+zv
+	 zh5OANgQyPn5JTeGQU6hTQTp2Hb8U0CeGDa5J9mD7qGltQrZzPFBfcZpQmZGXitY4fl5U
+	 sS6iPjsd5XjOqhE93j9/8LiTbuM4/LGcDSgXqR8lFXx5cb1lvuDb1C8SQO/G+DTMuUP3D
+	 V5iU7w7LFtXAI/EfDLYlGyZ3dgYeL+kKD1tbd9c0d1b7rqg/Rm8lS4/fWcBXlWUuH8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcm3NmAW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=niRxiDUG;
+	arc=none smtp.remote-ip=184.106.54.122
+Received: from smtp122.ord1d.emailsrvr.com (smtp122.ord1d.emailsrvr.com [184.106.54.122])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F70606A31C;
-	Mon, 16 Nov 2026 10:14:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D586606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D586606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcm3NmAW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C9651F000C5;
-	Mon, 16 Nov 2026 10:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824088;
-	bh=T030N8s2iM3qCbFH6IrWtzoTyw/pZ1cXkifyK3pJJbg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jcm3NmAWyKfMuUe2fQ9WMjsdJGzI8zu9Be35CHYChSzGxxcV0eZlryDP7s/Fd5CS/
-	 L4CSVHTZDH312gV3xC8UvRkuTMUsq/i1WcZYrEvWNezLhtXH49DwDE65pCNTBi+eu7
-	 kiLTzooUmcwNxhQiQmu52Tnilu1lS2YjH0rqqmz3+kt987bHLicuz3bXLyIPk/iT2x
-	 7MhfiSSDo+Fio2FGmbD6BOZKzNk8tJGEXujR9hZBcmpOy7D6M7byeww0LVv6ykXBJ4
-	 kFKN0tgc2aPsC7E4DCNX9KmJv8CDiX+89+Ohd6t7GrMQ7Yrv8zMe8yFWlqKYK0iFXO
-	 BL3X3VCXWhDfA==
-Date: Mon, 16 Nov 2026 11:14:43 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Frank Li <Frank.Li@nxp.com>, linux-phy@lists.infradead.org, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v7 03/23] dt-bindings: media: qcom,sm8750-camss: Add
- SM8750 CAMSS
-Message-ID: <20261116-dangerous-nano-caterpillar-7052a6@quoll>
-References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
- <20261114-add-support-for-camss-on-sm8750-v7-3-8ff2a11835f6@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=niRxiDUG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1794824090;
+	bh=eoWnZRZmALCF+kIvIYZxN9W8oA7hh9Q0a3aJPfpZ4ck=;
+	h=Date:Subject:To:From:From;
+	b=niRxiDUGNCRJ7A8iSPYeqfSkHs+QNzNTzGQND1Jbilp1adIoaeHvB1AxHDgZKE03f
+	 iBkr7hoblP83/DEEjmQogWb2Ggjmzffqpu3PyGV9+L+shZZ892WqspPHWhD8QvpY5/
+	 7miQSRNiSqMix1A9MzeFGB8qJFZHNn616z8tdofs=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp8.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id A6C81C01F2;
+	Mon, 16 Nov 2026 05:14:49 -0500 (EST)
+Message-ID: <68cfd12f-5e86-45d6-b186-46058cbacc1b@mev.co.uk>
+Date: Mon, 16 Nov 2026 10:14:49 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,29 +54,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-3-8ff2a11835f6@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] comedi: defer freeing async areas that still have pollers
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+References: <20261116085328.11090-1-25031212351@stu.xidian.edu.cn>
+Content-Language: en-US
+From: Ian Abbott <abbotti@mev.co.uk>
+Organization: MEV Ltd.
+In-Reply-To: <20261116085328.11090-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Classification-ID: 36dd1f15-91be-4f68-b55c-f259251cbc73-1-1
 
-On Sat, Nov 14, 2026 at 07:29:20PM +0800, Wenmeng Liu wrote:
-> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+On 2026-11-16 08:53, YuanZhe Liu wrote:
+> comedi_device_detach_cleanup() frees the async area of every subdevice.
+> The async area contains the wait queue head that comedi_poll() queues
+> pollers on, and a poller is not removed while comedi_poll() runs:
+> comedi_poll() only holds dev->attach_lock while adding the wait queue
+> entry, and the entry is removed later by poll_freewait() when the poll
+> system call returns.
 > 
-> Add bindings for Camera Subsystem (CAMSS) on the Qualcomm SM8750 platform.
+> Detaching through the COMEDI_DEVCONFIG ioctl is guarded by
+> is_device_busy(), which refuses to detach while the wait queue has
+> sleepers.  Removing the hardware is not: comedi_release_hardware_device()
+> calls comedi_free_board_dev(), which detaches unconditionally.  Unplugging
+> a USB COMEDI device while a task is polling it therefore frees the async
+> area from under that task, and the task hits a use-after-free when
+> poll_freewait() locks the freed wait queue head:
 > 
-> The SM8750 platform provides:
-> - 6 x CSIPHY (CSI Physical Layer)
-> - 3 x TPG (Test Pattern Generator)
-> - 3 x CSID (CSI Decoder)
-> - 2 x CSID Lite
-> - 3 x VFE (Video Front End), 5 RDI per VFE
-> - 2 x VFE Lite, 4 RDI per VFE Lite
+>    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+>    Write of size 4 at addr ffff888004508498
+>    Call Trace:
+>     _raw_spin_lock_irqsave
+>     remove_wait_queue
+>     free_poll_entry
+>     poll_freewait
+>     do_sys_poll
 > 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> Every task that can have an entry queued on async->wait_head holds a
+> reference to the COMEDI device file, and comedi_open() holds a reference
+> to the COMEDI device for as long as the file is open.  The device
+> therefore cannot be released until the poll system call is done with the
+> wait queue, so move async areas that still have waiters to a list and
+> free them from comedi_dev_kref_release() instead of freeing them at
+> detach time.
+> 
+> Fixes: 2f3fdcd7ce93 ("staging: comedi: add rw_semaphore to protect against device detachment")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 > ---
+>   drivers/comedi/comedi_fops.c     |  8 ++++++++
+>   drivers/comedi/drivers.c         | 14 +++++++++++++-
+>   include/linux/comedi/comedidev.h |  8 ++++++++
+>   3 files changed, 29 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
+> index 9a65dc5d62a4..932e35d7f68c 100644
+> --- a/drivers/comedi/comedi_fops.c
+> +++ b/drivers/comedi/comedi_fops.c
+> @@ -106,6 +106,7 @@ static struct cdev comedi_cdev;
+>   static void comedi_device_init(struct comedi_device *dev)
+>   {
+>   	kref_init(&dev->refcount);
+> +	INIT_LIST_HEAD(&dev->async_free_list);
+>   	spin_lock_init(&dev->spinlock);
+>   	mutex_init(&dev->mutex);
+>   	init_rwsem(&dev->attach_lock);
+> @@ -116,6 +117,13 @@ static void comedi_dev_kref_release(struct kref *kref)
+>   {
+>   	struct comedi_device *dev =
+>   		container_of(kref, struct comedi_device, refcount);
+> +	struct comedi_async *async, *tmp;
+> +
+> +	list_for_each_entry_safe(async, tmp, &dev->async_free_list,
+> +				 free_list) {
+> +		list_del(&async->free_list);
+> +		kfree(async);
+> +	}
+>   
+>   	mutex_destroy(&dev->mutex);
+>   	put_device(dev->class_dev);
+> diff --git a/drivers/comedi/drivers.c b/drivers/comedi/drivers.c
+> index 3f75485338a1..f91535fccd2b 100644
+> --- a/drivers/comedi/drivers.c
+> +++ b/drivers/comedi/drivers.c
+> @@ -168,7 +168,19 @@ static void comedi_device_detach_cleanup(struct comedi_device *dev)
+>   			comedi_free_subdevice_minor(s);
+>   			if (s->async) {
+>   				comedi_buf_alloc(dev, s, 0);
+> -				kfree(s->async);
+> +				/*
+> +				 * A task that is polling the device file may still
+> +				 * have an entry queued on the wait queue inside the
+> +				 * async area.  Such a task holds a reference to the
+> +				 * device file, which keeps the COMEDI device itself
+> +				 * alive until the poll is done with it, so defer
+> +				 * the release until the device is released.
+> +				 */
+> +				if (wq_has_sleeper(&s->async->wait_head))
+> +					list_add_tail(&s->async->free_list,
+> +						      &dev->async_free_list);
+> +				else
+> +					kfree(s->async);
+>   			}
+>   			kfree(s->readback);
+>   		}
+> diff --git a/include/linux/comedi/comedidev.h b/include/linux/comedi/comedidev.h
+> index 577a08f37aee..54e324c0614f 100644
+> --- a/include/linux/comedi/comedidev.h
+> +++ b/include/linux/comedi/comedidev.h
+> @@ -15,6 +15,7 @@
+>   #include <linux/spinlock_types.h>
+>   #include <linux/rwsem.h>
+>   #include <linux/kref.h>
+> +#include <linux/list.h>
+>   #include <linux/completion.h>
+>   #include <linux/comedi.h>
+>   
+> @@ -365,6 +366,11 @@ struct comedi_async {
+>   	unsigned int cb_mask;
+>   	int (*inttrig)(struct comedi_device *dev, struct comedi_subdevice *s,
+>   		       unsigned int x);
+> +	/*
+> +	 * Link in &struct comedi_device.async_free_list when the async area
+> +	 * cannot be freed at detach time because pollers may still use it.
+> +	 */
+> +	struct list_head free_list;
+>   };
+>   
+>   /**
+> @@ -558,6 +564,8 @@ struct comedi_device {
+>   
+>   	int n_subdevices;
+>   	struct comedi_subdevice *subdevices;
+> +	/* async areas waiting for the last user of the device */
+> +	struct list_head async_free_list;
+>   
+>   	/* dumb */
+>   	void __iomem *mmio;
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The patch looks interesting, but I have already sent a patch that fixes 
+the problem in a different way, by waiting for the queues to clear 
+before freeing the storage.
 
-Best regards,
-Krzysztof
+https://lore.kernel.org/lkml/20261112173314.118594-1-abbotti@mev.co.uk/
+
+-- 
+-=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
+-=( registered in England & Wales.  Regd. number: 02862268.  )=-
+-=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
+-=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
 
