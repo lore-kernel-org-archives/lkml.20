@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858614;
-	b=o/hsNbBN6bcS4GkILv40w5VmM1yx9s5K7cxfp4iQ1/rM2Fcd8F3F/Vxe+PuStNj3QhQt
-	 h3vdY8OfG/yRIcb1qOCZivn74m3sodMDFE+qGnVUKzM3XLedNivDuscfjA8vyxXhGEaOm
-	 n8nq/R8t/MRqUBMrl6q5K2puCxZg6uUdkKcyWzLb9bil+WosOLlBV8y5gQtP3hcWxsbQi
-	 SOGYBMiy2hCjrOhwzZjF6aTY0cSFQjkcFdEyu30nznF0IkVRPEf0WctH821cCS9QfvSDi
-	 IqwhT7bCdTGiltAbTQCvM4fEN74NGEo769Qsi+yHZlcLrDPMPpJgsWL4SLj1+33LHPA==
+	t=1794858626;
+	b=G6p0VcqnnOF3NTdz/IaxolxXSpYINUWUP/OTCVQuHijuKW14PnNAli7XbVAp11ky/OVQ
+	 lLCLube5FLpAT1W1GyPpVtM3YrVMgL6y48iiiDWyCovShY1HjdlvGPOINLlZrp2T8nVa2
+	 vkz+IONNQs1HT65rTzb3OJ24N2OfhQUwWhcOX2BuvmTjRFrbKrBBXY3oA/vs984Y3LxVw
+	 rpzLgrv07YSqxF+H+58cHmfNJW2+FMs444ZoVoS+vop2lRfXCkMrlzUa/pLgnoUkvzq05
+	 21kGIvXILppTtIQE7D4lOfniifVcZFzKSpfc6vlxTHdV7OKKq+YqCxPIgXTbmTDg4fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858614;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=IIvFx80GjTB9EGYhrWhLVrexyzalzFYFMysPWbOV+sc=;
-	b=I2SJfO2CcpxJYygX7i07V7S2Dhn6dnd78sOYcPAb6X7ICusIpFg7gs/BBLedMnt4Mx2T
-	 Xyq4T8/2hwTPqZOD3HG1K2QU37XFmuXRJKEEzRmcosAQa8O48Xghj7Fv8lBXlCgyDMHpR
-	 1V82NnGtpdlAGnzWnSYDIXLpUroE9CSZFbgYL40rZr2D41MqB8JmDu6EGFQaD15rKeXBr
-	 sNglgEHGk5IVERTrFSdBoZx9FwA7LX6BNnypTQDlgWn9r8paBy7YhmraBqdzbfxZFYgS/
-	 r2uzYUvmMv9qcLRwrXoLrM6oe9/OnJdlDHRa+BsyQsFMTT8apyltmHNLKg3pLLePmdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858626;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tcLO68CSt/fn/aruBlJyttBvDc08aJeTjSqJH/iM54g=;
+	b=zYTs9/7mu2mL4hosYP7IsdeA1lzxxGcWUUiAvd8x32e5VdmERi8Dhsh3yI/onjkJfZMD
+	 B2MxA6e3Eg+HqWOWnfvjUwnW9EN98mntiS3X84EokKaaoOvw2I2vwJmh8fX9DJ22fA01V
+	 1Xow+OjWKkmPC8IFTM/b2Q0fGSScqgxc5bGIkXZk7qFExLdrpZtp5XYTzDV7G0eDsOs/I
+	 I2PWFWofETx3lFpS93T8vQvTdIBhIK2HtAa26SumKmOIKYoV4lvKi44hjvKR46+SFDyT2
+	 KRwR02IjkyTU3KVmGTuP2wkz2hWwLy3cXQdnsVmhN+HCZm/8VHrUu6Ftszwy9Ts99Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R5U37/PQ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iO1wfEH7;
+	arc=none smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA7D606A329;
-	Mon, 16 Nov 2026 19:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B631C606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:50:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B631C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R5U37/PQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3519C1F000C7;
-	Mon, 16 Nov 2026 19:50:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794858613;
-	bh=IIvFx80GjTB9EGYhrWhLVrexyzalzFYFMysPWbOV+sc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R5U37/PQW8PaVqe7TNoKWnmH1a4YAkPlXHHXbiIQBxt7qqOvF+Hs+NWq1pyB9kiQ3
-	 KWrP0cbISNKbvddq9EvvTfsYcLP+lGF/H7ajxFlZgMrhkX39k9f858O/UfDv9HDiDz
-	 Vfrq2Oy6kS0i0ps9tj3YFrwSU2i/bOciLGtYuPW0PwrgyheyBVlF+2JDtNKtCfDBdX
-	 4V9zqLlQZMXnTsmsYrJz5ITUZvzAEuJalcoS+Nre/BHP0CW5BOTnBXlb30qpRp8+5V
-	 55Mw6zq5eX0S7OGLK+icnp+zOXDqTIKlXQXiwXdUhAvSfYwIitSuNJ7M7ePOw34/XT
-	 77YFqeg8p7HYg==
-Message-ID: <sashiko-outbox-217620@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 26/37] sched/deadline: Keep a task in the root domain
- that counts its bandwidth
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261116190549.230119-27-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-27-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 19:50:12 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iO1wfEH7
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab4354db11so39842591fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:50:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794858624; x=1795463424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tcLO68CSt/fn/aruBlJyttBvDc08aJeTjSqJH/iM54g=;
+        b=iO1wfEH77BdvTe03f2vR6SIZsaqxqrzv/hspvJcji784qZYr4ktfe4ZXCJwRCuqQ7x
+         tr7FxVtKa5mtseRn2IsWjGjfdLyk66TwELHGvmCiSAlfa/cDRNy04NklFAloasnXdvE1
+         71Xyn2JmmZ2yM7X+KgdCKY8+/0m/pQloM6siSYjOj+qgQ19n1aKUg6/vZ4RbLG1UcVKT
+         tQoVYkn11FysKnWgYJrBtiRkMrnyrVKtokOYoHAtkVHzrdMNQgRjzNfgEJg89vctqcGG
+         UlVkWBPabtLgacvTwJreKg0lwW9ZSaCnB9KKkLqs6k9+KfNkfkLg8d/lfHb1cTxphdWQ
+         UgoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794858624; x=1795463424;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tcLO68CSt/fn/aruBlJyttBvDc08aJeTjSqJH/iM54g=;
+        b=jAW4oHyohzlka2rGLyTbS2AQyantTbv5b2yHvV+eEHZxd2tZp422+k6hZOYOW6aRxC
+         FLBbs+ovXzM2sU2U4D7AvgziORJhXL3MVJjrfMBnH15TYjUPSxIMgr0RC2X6Qgv8kWZ/
+         cv4nrWnafIs9iIk1RSxaVEmIQu1uHgBe91cy/WNJ6iKzALiQh3G7TTHiNHphPVhgXJCE
+         rC6DPZJkPvkloEgETTXl4eWiz3OoxxuL5nYfoDNoi9E98G2QwKkE2rU2giR2uIa5rHZY
+         5+zSCwP84detuoJusA44LevSTbB6/L10QtjcrMvLfeHvzlmcjwKddjlQQ54ohczKZ9e3
+         SQ2w==
+X-Forwarded-Encrypted: i=1; AL+hErF4FJBUl3mmyXNxRK4AyR5Hl2D3+g5Tw/yTbzxNOCGU/umU2MsSe3tIW9iDPoZsugi0ZF5UV0vXACTiet8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NHM/dltcu7hVgH5Juk2twnZWkGf1E442lKoyFyvYr0KH6Od5L
+	eYISLxRntQeTEtFOK9bw8i0o6CokplE3UgjLTfxVLx3NhvtSixcLNFgENLTfBUq9ZD0=
+X-Gm-Gg: AYBFou15QP0ex4X/xJ0/a9mPILFtz99Fk+bniFMqj59ZnfttWpkqJCYnxOb5M9wHv3q
+	MyxKqHcQn/OYSYCLbxNOrKpHGzMS0pYa6TT6tVXgf2c92sESAns+cA9SzJCb0mjtzmmM4CLnt7R
+	Q9eb7vRWABpfUPZ+TW2rOSJw3qUQzpLcz9f0kwsT4zJFsxttAngj4tPVnEG+jWX+qTZs5ADMV7I
+	Hh0r6c5nuTpvHqZ3vIoojnnqoPARjSpv8TdP34oBvUBONPQ07lg1bL6iR1DYfhKwhigg0MJnN3A
+	b+EJ/fxrQ7xYQTjSJn+NXxPBaY/Gvh0D8NeWbLt1pK5SHB6j0pcTkgXY9TDCz9nvIvpbHzW/UWN
+	wwwIAgPIN48/pqo0lDFaqwcQ7Vs5Bh63Q+mjGbIMMXW09ireiCiOPisGbzIZWXQ6bJLh0F+vUke
+	TQi4wachpdb4h2HxFgpLju7PW7MuBPl5vFVK+YSK7qGHk1ZhLbYggR/rDW44O7+0ptYQ0o6G8Lb
+	yVUndfD8evWQ0DxCFdRSEOKm6kzfp1BPPIH3M5+oP6lYc6pFiSdl+hE9xO0mjSAg9WDQn2bvx2P
+	vE13c9FNDoGn/TbLBpNj1RvBu1uAB7LJc+5ZV/I=
+X-Received: by 2002:a05:651c:1445:b0:3aa:fa3e:21bd with SMTP id 38308e7fff4ca-3ae2b4bc383mr36582541fa.12.1794858623655;
+        Mon, 16 Nov 2026 11:50:23 -0800 (PST)
+Received: from IuseArchBTW ([194.28.181.64])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7d1ff0sm35700701fa.32.2026.11.16.11.50.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 11:50:23 -0800 (PST)
+From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] rust: sync: atomic: Update safety requirements for `AtomicAdd`
+Date: Mon, 16 Nov 2026 21:50:08 +0200
+Message-ID: <20261116195011.24156-1-mbkchelofficialdev@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,176 +110,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] sched/deadline: dl_task_offline_migration() bypasses
-  dl_task_bw_span()
-- [Medium] sched/deadline: dl_task_bw_span() returns NULL for
-  deactivating dl_bw_cpu
-- [Low] sched/deadline: dead branch and fallback order in
-  dl_task_rebuild_cpu()
---
+The `# Safety` comment on `AtomicAdd` contained an unresolved TODO and a
+broken sentence ("...to must yield...") without properly defining
+`wrapping_add`. Remove the TODO, fix the phrasing, and define it as
+wrapping two's-complement addition (`v.wrapping_add(delta)`), which
+accurately reflects the behavior of the underlying integer primitives
+since `AtomicImpl` itself has no `wrapping_add` method.
 
-commit a54933b747047e1dd4434be5e5299159be0de9fe
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
+---
+ rust/kernel/sync/atomic.rs | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-sched/deadline: Keep a task in the root domain that counts its bandwidth
+diff --git a/rust/kernel/sync/atomic.rs b/rust/kernel/sync/atomic.rs
+index 6d27898add42..5f6491fafd34 100644
+--- a/rust/kernel/sync/atomic.rs
++++ b/rust/kernel/sync/atomic.rs
+@@ -127,10 +127,11 @@ pub unsafe trait AtomicType: Sized + Copy {
+ ///
+ /// # Safety
+ ///
+-// TODO: Properly defines `wrapping_add` in the following comment.
+-/// `wrapping_add` any value of type `Self::Repr::Delta` obtained by [`Self::rhs_into_delta()`] to
+-/// any value of type `Self::Repr` obtained through transmuting a value of type `Self` to must
+-/// yield a value with a bit pattern also valid for `Self`.
++/// Given a value `v` of type `Self::Repr` obtained by transmuting a value of type [`Self`], and
++/// a value `delta` of type `<Self::Repr as AtomicImpl>::Delta` obtained by
++/// [`Self::rhs_into_delta()`], the wrapping two's-complement addition of `delta` to `v` (that is,
++/// `v.wrapping_add(delta)` on primitive integer types) must yield a value with a bit pattern also
++/// valid for [`Self`].
+ pub unsafe trait AtomicAdd<Rhs = Self>: AtomicType {
+     /// Converts `Rhs` into the `Delta` type of the atomic implementation.
+     fn rhs_into_delta(rhs: Rhs) -> <Self::Repr as AtomicImpl>::Delta;
+-- 
+2.56.1
 
-This commit adds dl_task_bw_span() and updates CPU selection paths and
-dl_task_rebuild_cpu() to prefer CPUs in the root domain that counts a
-deadline task's bandwidth.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 35f40185953a3..5294546786f12 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -864,13 +864,19 @@ static struct rq *dl_task_offline_migration(struct =
-rq *rq, struct task_struct *p
-> =20
->  	later_rq =3D find_lock_later_rq(p, rq);
->  	if (!later_rq) {
-> +		const struct cpumask *span =3D dl_task_bw_span(p);
->  		int cpu;
-> =20
->  		/*
->  		 * If we cannot preempt any rq, fall back to pick any
-> -		 * online CPU:
-> +		 * online CPU. Try the root domain that counts @p first.
->  		 */
-> -		cpu =3D cpumask_any_and(cpu_active_mask, p->cpus_ptr);
-> +		cpu =3D nr_cpu_ids;
-> +		if (span)
-> +			cpu =3D cpumask_first_and_and(cpu_active_mask,
-> +						    p->cpus_ptr, span);
-> +		if (cpu >=3D nr_cpu_ids)
-> +			cpu =3D cpumask_any_and(cpu_active_mask, p->cpus_ptr);
-
-[Severity: Medium]
-Can find_lock_later_rq(p, rq) bypass the dl_task_bw_span(p) check and
-migrate p onto an isolated CPU in def_root_domain?
-
-When a housekeeping CPU goes offline, detach_destroy_domains() attaches
-its runqueue to def_root_domain while dl_rebuild_rd_accounting() moves a
-throttled task's bandwidth to the new housekeeping root domain.  When
-dl_task_timer() later fires on that offline CPU and calls
-dl_task_offline_migration(), find_later_rq() searches
-task_rq(p)->rd->cpudl, which is def_root_domain.cpudl:
-
-kernel/sched/deadline.c:find_later_rq() {
-    ...
-	if (!cpudl_find(&task_rq(task)->rd->cpudl, task, later_mask))
-		return -1;
-    ...
-}
-
-With isolcpus=3Ddomain, isolated CPUs also belong to def_root_domain.  If
-p->cpus_mask includes an isolated CPU that is free or running a later
-deadline in def_root_domain.cpudl, find_lock_later_rq() returns that
-isolated CPU's runqueue and skips the !later_rq fallback entirely,
-moving p and its bandwidth into def_root_domain without admission
-control.
-
-[ ... ]
-
-> @@ -3669,6 +3690,29 @@ static unsigned int dl_task_root_domain_cpu(struct=
- task_struct *p)
->  	return cpu;
->  }
-> =20
-> +/*
-> + * Return the CPUs of the root domain that counts the bandwidth of @p, or
-> + * NULL if none does. The mask of @p can hold CPUs of another root domai=
-n,
-> + * with isolcpus=3D"domain". Where a CPU is picked for @p, a CPU of this
-> + * root domain comes first: no other root domain admitted @p.
-> + *
-> + * The caller holds the pi_lock or the rq lock of @p. With interrupts
-> + * off, the root domain is not freed.
-> + */
-> +const struct cpumask *dl_task_bw_span(struct task_struct *p)
-> +{
-> +	int cpu;
-> +
-> +	if (!task_has_dl_policy(p) || dl_entity_is_special(&p->dl) ||
-> +	    !p->dl.dl_bw)
-> +		return NULL;
-> +	cpu =3D READ_ONCE(p->dl.dl_bw_cpu);
-> +	if (cpu < 0 || !cpu_active(cpu) ||
-> +	    READ_ONCE(p->dl.dl_bw_gen) !=3D READ_ONCE(dl_bw_gen))
-> +		return NULL;
-> +	return cpu_rq(cpu)->rd->span;
-> +}
-
-[Severity: Medium]
-Does rejecting !cpu_active(cpu) here cause dl_task_bw_span() to return
-NULL while a CPU is being deactivated?
-
-In sched_cpu_deactivate(cpu), set_cpu_active(cpu, false) runs before
-balance_push_set(), synchronize_rcu(), and cpuset_cpu_inactive(), and
-cpuset_handle_hotplug() also calls cpuset_hotplug_update_tasks() before
-rebuild_sched_domains_cpuslocked() runs dl_rebuild_rd_accounting().
-Throughout that window, cpu_rq(cpu)->rd still points to the root domain
-that counts p's bandwidth, but any task whose p->dl.dl_bw_cpu is the
-outgoing CPU gets dl_task_bw_span(p) =3D=3D NULL.  Tasks pushed by
-balance_push, updated by cpuset_hotplug_update_tasks(), or woken during
-deactivation can then be placed on an isolated CPU in def_root_domain
-and move their bandwidth there without admission control.
-
-> @@ -3903,6 +3947,27 @@ static unsigned int dl_task_rebuild_cpu(struct tas=
-k_struct *p)
->  	 */
->  	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
->  	cpu =3D task_cpu(p);
-> +	/*
-> +	 * Keep the bandwidth where it was counted: with the housekeeping
-> +	 * CPUs, or with the CPUs that isolcpus=3D"domain" isolates. The root
-> +	 * domains are new, and the CPU recorded can be offline. So prefer a
-> +	 * CPU of the mask of the same kind as the CPU recorded: housekeeping
-> +	 * or not.
-> +	 */
-> +	if (recorded >=3D 0) {
-> +		const struct cpumask *hk =3D housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
-> +		bool rec_hk =3D cpumask_test_cpu(recorded, hk);
-> +		unsigned int same;
-> +
-> +		if (cpumask_test_cpu(cpu, msk) && cpumask_test_cpu(cpu, hk) =3D=3D rec=
-_hk)
-> +			return cpu;
-> +		if (cpumask_test_cpu(recorded, msk))
-> +			return recorded;
-> +		for_each_cpu(same, msk) {
-> +			if (cpumask_test_cpu(same, hk) =3D=3D rec_hk)
-> +				return same;
-> +		}
-> +	}
->  	if (cpumask_test_cpu(cpu, msk))
->  		return cpu;
->  	if (cpumask_empty(msk)) {
-
-[Severity: Low]
-Because the new (recorded >=3D 0) block returns recorded whenever
-cpumask_test_cpu(recorded, msk) is true, the existing else-if branch
-right below this hunk is now unreachable:
-
-kernel/sched/deadline.c:dl_task_rebuild_cpu() {
-    ...
-	if (cpumask_empty(msk)) {
-		if (recorded >=3D 0 && cpu_active(recorded))
-			return recorded;
-		dl_get_task_effective_cpus(p, msk);
-		cpumask_and(msk, msk, cpu_active_mask);
-	} else if (recorded >=3D 0 && cpumask_test_cpu(recorded, msk)) {
-		return recorded;
-	}
-    ...
-}
-
-Also, when cpumask_empty(msk) is true and recorded is inactive,
-dl_get_task_effective_cpus(p, msk) refills msk after the kind-matching
-loop has already run, so the fallback at the end of the function will
-pick a housekeeping CPU even when recorded was an isolated CPU.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
-19-1-mathieu.desnoyers@efficios.com?part=3D26
