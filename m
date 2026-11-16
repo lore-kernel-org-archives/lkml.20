@@ -1,48 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824297;
-	b=ECF2jWbfoFuDf2+7Uas8S4NOBp2jUKceinP01jTlpH2WmLmTLRIIj5PW8kOpk/2BYig6
-	 Y2kCy2y49zp6RqhQP/dD5WIxV56gnu8MbppvipTmCgsWfi9B8QK+17t4cgO0hrNEAZzE/
-	 W+KEuYq71SxxqZ8HPwV7RowTYZucKiHqMXcdsdq1IeXjfPePG8GUmGyvb8+4xHnanwLRZ
-	 ATrKLfd6906G9c+tLShLa230lKHenwGv/BXIF7QJs42zW943CYP1n1Ld0qXmAfJNHPvA+
-	 sI54flGGsMcwSou4Ka5XSS7uCQqBrqe7RG2u7LdUuGpRPXggbGNDdx5AeUND8u2Xj5g==
+	t=1794824354;
+	b=skZpTCrB2esbHtYeC5qETI0lh/KwySuKvwZ8q1MG+rwlV7Y0TJ78BW//mEeazHOWbkmZ
+	 BYb6FVERO6jQZrJ5fI0ueR6nxOXusT1q2U49952HPvFjZIZdjWQpueK2McsM/EToUtIbZ
+	 vx10gJ+swSXqCBGs+A/mqrRr6DhSJw+6f6m4CV1NJai+Ye9eSTAzckq2NCTE7UcUZ+sds
+	 IPsOMfjSCPESeSzHBj8V/SNDjY5mWFI4cQNac+yyHIDgZJbdE415RB9+w9v3R7oI/F6lq
+	 xnqLn536EGkBT6SC16Z3HwhnlFxPSjdrnRkwr+O2LZ4FyLK4p4zc5moGk5AkRnLWbeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824297;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=42WQvqgp+QaH5oQhmusBg6D+zZ/4xvV/MU8Zg3jcRsE=;
-	b=UQCaWvYtqGhYWW5jjKJO9HAek6jsh5lYn2E5LoWnNosxfbpuoHiuLKQBqqzs/jOBPow/
-	 TckveT6Jb88IRaZOos5ZHd4BGF1nH6YQ+a9ZEHYYm1p3aXzm+Agnj6H+/fKdk2nPMYQx+
-	 Y8gOvB5RryOZLQpvUBo0XQ1dmp21feU+QRxXJaFRSLsmuTj8x4fOwiwnmEvgP8729N7u/
-	 3Yb6mtdB0qcH6LvrgQ3SNm/OTOQYFJdel9zvqAh7ARY/0GI17o+Piv3ugTx4Y0Kwe4GAv
-	 CMEX+bBRspBaFYAC6yKlGtPvZ8s3YX5gQ8VDb+1dm9Km35rEXmHq45RVRnzKINhh5sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824354;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=I3dgu4sJ5j0i8iuAWSr5Xv5VZDVuEVHCMp+jfORUzD8=;
+	b=u1aT1y5B65a9IbvH9OFfVEVsbN6M5wUJzV1FbZmu4CZzMoBsffGMtiUzJU3DEPqsdf5e
+	 1t5WK0ZisrK913CztkZ5jCjvbqkCstzIajb/CwNKQzdmp1C2pwBbZhQWSn8z3SEjoB4rE
+	 1VikxSuMz67tc2rRnVI8JrbLiksmKF7vAc3jYwBsB2fjg5IHoo9+vceYLhUfC44u4GI6R
+	 YweXosy91iOT/EtdshATKK4S1/4PSlERewag38FW+De860vyJsa4v2MH4CVRsLS+GhOxj
+	 K5In4jFdTtANFnLXRPUBlCiuoBCqjwasKYseB3CeyvNgMmIzzcLxA6hHB5q9rkyMFTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehfH0CVM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vZbu2+xG;
+	arc=none smtp.remote-ip=95.215.58.52
+Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E55606A334;
-	Mon, 16 Nov 2026 10:18:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545BC606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 545BC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehfH0CVM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717F81F000D3;
-	Mon, 16 Nov 2026 10:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824297;
-	bh=42WQvqgp+QaH5oQhmusBg6D+zZ/4xvV/MU8Zg3jcRsE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ehfH0CVM5o5rG62dBGoLg32exqjKOmBdYlKyFSVAKPYc2zJVT42WRMYJikxUpkdLs
-	 SXV8istAxHa3g9ifQsBkMGoWrXgmt9QDNWeaXw2rkeBmzQi4oQNxuoUdcahVimtB22
-	 runqgVok21nmhZ/i0NUW0wsvXokBZ7eLTQF67z9eH0ZFJddlh+UqO32Ga7YJvazAZn
-	 RD0amq7f3XGI0QvTzOPzNnHbH2aNAyxIZmvoPZ1lA+R4PN1qE0ioc/VkYY9sleZhVu
-	 dFnv8OVpR4TErZaynDsmzj8rpxQ3tUQeQeV2cPiiVX2vkNkITzO+ZH0Vqy9SsQpLVJ
-	 C3ej7lwIrW1sQ==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 11:18:09 +0100
-Subject: [PATCH 3/3] ARM: dts: ux500: Remove DB8500 EPOD regulators
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vZbu2+xG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dAkZ1pi6os0A3n/isJiL0EDETLn5Jfcuu+R3wOlJ064=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794824351; v=1; x=1795429151;
+ b=vZbu2+xGJQRrpkoKjjnmzVkQK4sDovQi/wVw4K4dovxLrMNbDR375q8QoZXrssepKEK0FBM6
+ agIH4qQQW7Q/rsD1FumG0Df5hMeqqj8EShjUccU6uR5l+qW+aCHo00bCMaPTr0VV9VH+LfTDOnV
+ BeF+ANITgbEigidtrhG+X3hs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fc8e9ceddc689f5f;
+	Mon, 16 Nov 2026 10:19:10 +0000
+X-Mizu-Trace-ID: fc8e9ceddc689f5f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <be80dba8-aeab-4e2a-92ac-bd5bb560a887@linux.dev>
+Date: Mon, 16 Nov 2026 18:19:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,185 +58,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ux500-powerdomain-dts-v1-3-e0f4459c3ab1@kernel.org>
-References: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
-In-Reply-To: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>, 
- linux-pm@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v4 1/6] cgroup/cpuset: Fix incorrect partition
+ invalidation logic in cpuset_hotplug_update_tasks()
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261116012330.2271010-1-longman@redhat.com>
+ <20261116012330.2271010-2-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261116012330.2271010-2-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Delete the deprecated db8500-prcmu-regulators node and all its EPOD
-regulators, including VAPE and VSMPS2. Their external consumers now use
-the AB8500 or AB8505 buck regulators, so no compatibility regulators
-are needed.
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm/boot/dts/st/ste-dbx5x0.dtsi | 103 -----------------------------------
- 1 file changed, 103 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-index b3b3cec69656..967444e4a618 100644
---- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-+++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-@@ -675,97 +675,6 @@ thermal: thermal@801573c0 {
- 				interrupt-names = "IRQ_HOTMON_LOW", "IRQ_HOTMON_HIGH";
- 				#thermal-sensor-cells = <0>;
- 			};
--
--			/*
--			 * TODO: Delete these bogus regulators and replace with power
--			 * domains.
--			 */
--			db8500-prcmu-regulators {
--				compatible = "stericsson,db8500-prcmu-regulator";
--
--				// DB8500_REGULATOR_VAPE
--				db8500_vape_reg: db8500_vape {
--					regulator-always-on;
--				};
--
--				// DB8500_REGULATOR_VARM
--				db8500_varm_reg: db8500_varm {
--				};
--
--				// DB8500_REGULATOR_VMODEM
--				db8500_vmodem_reg: db8500_vmodem {
--				};
--
--				// DB8500_REGULATOR_VPLL
--				db8500_vpll_reg: db8500_vpll {
--				};
--
--				// DB8500_REGULATOR_VSMPS1
--				db8500_vsmps1_reg: db8500_vsmps1 {
--				};
--
--				// DB8500_REGULATOR_VSMPS2
--				db8500_vsmps2_reg: db8500_vsmps2 {
--				};
--
--				// DB8500_REGULATOR_VSMPS3
--				db8500_vsmps3_reg: db8500_vsmps3 {
--				};
--
--				// DB8500_REGULATOR_VRF1
--				db8500_vrf1_reg: db8500_vrf1 {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SVAMMDSP
--				db8500_sva_mmdsp_reg: db8500_sva_mmdsp {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SVAMMDSPRET
--				db8500_sva_mmdsp_ret_reg: db8500_sva_mmdsp_ret {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SVAPIPE
--				db8500_sva_pipe_reg: db8500_sva_pipe {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SIAMMDSP
--				db8500_sia_mmdsp_reg: db8500_sia_mmdsp {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SIAMMDSPRET
--				db8500_sia_mmdsp_ret_reg: db8500_sia_mmdsp_ret {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SIAPIPE
--				db8500_sia_pipe_reg: db8500_sia_pipe {
--				};
--
--				// DB8500_REGULATOR_SWITCH_SGA
--				db8500_sga_reg: db8500_sga {
--					vin-supply = <&db8500_vape_reg>;
--				};
--
--				// DB8500_REGULATOR_SWITCH_B2R2_MCDE
--				db8500_b2r2_mcde_reg: db8500_b2r2_mcde {
--					vin-supply = <&db8500_vape_reg>;
--				};
--
--				// DB8500_REGULATOR_SWITCH_ESRAM12
--				db8500_esram12_reg: db8500_esram12 {
--				};
--
--				// DB8500_REGULATOR_SWITCH_ESRAM12RET
--				db8500_esram12_ret_reg: db8500_esram12_ret {
--				};
--
--				// DB8500_REGULATOR_SWITCH_ESRAM34
--				db8500_esram34_reg: db8500_esram34 {
--				};
--
--				// DB8500_REGULATOR_SWITCH_ESRAM34RET
--				db8500_esram34_ret_reg: db8500_esram34_ret {
--				};
--			};
- 		};
- 
- 		i2c0: i2c@80004000 {
-@@ -1118,8 +1027,6 @@ msp0: msp@80123000 {
- 			#sound-dai-cells = <0>;
- 			reg = <0x80123000 0x1000>;
- 			interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
--			/* TODO: delete and replace with power-domain handling */
--			v-ape-supply = <&db8500_vape_reg>;
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 
- 			dmas = <&dma 31 0 0x12>, /* Logical - DevToMem - HighPrio */
-@@ -1138,8 +1045,6 @@ msp1: msp@80124000 {
- 			#sound-dai-cells = <0>;
- 			reg = <0x80124000 0x1000>;
- 			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
--			/* TODO: delete and replace with power-domain handling */
--			v-ape-supply = <&db8500_vape_reg>;
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 
- 			/* This DMA channel only exist on DB8500 v1 */
-@@ -1159,8 +1064,6 @@ msp2: msp@80117000 {
- 			#sound-dai-cells = <0>;
- 			reg = <0x80117000 0x1000>;
- 			interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
--			/* TODO: delete and replace with power-domain handling */
--			v-ape-supply = <&db8500_vape_reg>;
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 
- 			dmas = <&dma 14 0 0x12>, /* Logical  - DevToMem - HighPrio */
-@@ -1180,8 +1083,6 @@ msp3: msp@80125000 {
- 			#sound-dai-cells = <0>;
- 			reg = <0x80125000 0x1000>;
- 			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
--			/* TODO: delete and replace with power-domain handling */
--			v-ape-supply = <&db8500_vape_reg>;
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 
- 			/* This DMA channel only exist on DB8500 v2 */
-@@ -1225,8 +1126,6 @@ gpu@a0300000 {
- 			clocks = <&prcmu_clk PRCMU_ACLK>, <&prcmu_clk PRCMU_SGACLK>;
- 			clock-names = "bus", "core";
- 			power-domains = <&pm_domains DOMAIN_SGA>;
--			/* TODO: delete and replace with power-domain handling */
--			mali-supply = <&db8500_sga_reg>;
- 		};
- 
- 		mcde@a0350000 {
-@@ -1234,8 +1133,6 @@ mcde@a0350000 {
- 			reg = <0xa0350000 0x1000>;
- 			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
- 			power-domains = <&pm_domains DOMAIN_B2R2_MCDE>;
--			/* TODO: delete and replace with power-domain handling */
--			epod-supply = <&db8500_b2r2_mcde_reg>;
- 			clocks = <&prcmu_clk PRCMU_MCDECLK>, /* Main MCDE clock */
- 				 <&prcmu_clk PRCMU_LCDCLK>, /* LCD clock */
- 				 <&prcmu_clk PRCMU_PLLDSI>; /* HDMI clock */
+在 2026/11/16 09:23, Waiman Long 写道:
+> When most of the active CPUs of a system are allocated to
+> sub-partitions below the top_cpuset partition, it is possible that a
+> CPU offline operation may remove the last active CPU in the top_cpuset
+> partition. When that really happens, cpuset_handle_hotplug() will clear
+> the subpartitions_cpus to make sure active CPUs are present in the top
+> partition and let the other sub-partitions get invalidated and then
+> competes for their exclusive CPUs again.
+> 
+> In cpuset_hotplug_update_tasks(), the current code use
+> "cpumask_empty(subpartitions_cpus)" to determine if that partition
+> should be invalidated. That is fine if there is only one sub-partition.
+> As reported by sashiko that when there are more than one sub-partitions
+> and the first sub-partition will get invalidated and then it will
+> try to acquire the exclusive CPUs and become valid again. When this
+> happens, the subpartitions_cpus will no longer be empty. The remaining
+> sub-partitions will assume their exclusive CPUs are safe and proceed
+> as normal. As a result, active CPUs owned by those sub-partitions
+> remain in both top_cpuset.effective_cpus and the sub-partitions'
+> effective_cpus while missing from subpartitions_cpus, breaking partition
+> CPU exclusivity and triggering WARN_ON_ONCE() in generate_sched_domains()
+> and remote_partition_disable().
+> 
+> Fix that by checking if the sub-partitions' effective_xcpus are subset
+> of subpartitions_cpus to determine if they should be invalidated. Also
+> remove the obsolete WARN_ON_ONCE() call in remote_partition_disable().
+> 
+> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/bug/linux-bf69cd3c-833a-4599-a1f9-8dd9e044cd7c
+> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c | 19 +++++--------------
+>  1 file changed, 5 insertions(+), 14 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 1b88a93b3db4..631fb449cef8 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1768,15 +1768,6 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>  static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
+>  {
+>  	WARN_ON_ONCE(!is_remote_partition(cs));
+> -	/*
+> -	 * When a CPU is offlined, top_cpuset may end up with no available CPUs,
+> -	 * which should clear subpartitions_cpus. We should not emit a warning for this
+> -	 * scenario: the hierarchy is updated from top to bottom, so subpartitions_cpus
+> -	 * may already be cleared when disabling the partition.
+> -	 */
+> -	WARN_ON_ONCE(!cpumask_subset(cs->effective_xcpus, subpartitions_cpus) &&
+> -		     !cpumask_empty(subpartitions_cpus));
+> -
+>  	spin_lock_irq(&callback_lock);
+>  	cs->remote_partition = false;
+>  	partition_xcpus_del(cs->partition_root_state, NULL, cs->effective_xcpus);
+> @@ -3983,9 +3974,9 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>  	if (!tmp || !cs->partition_root_state)
+>  		goto update_tasks;
+>  
+> -	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
+> -				       (cpumask_empty(&new_cpus) &&
+> -					partition_is_populated(cs, NULL)))) {
+> +	if (is_remote_partition(cs) &&
+> +	    (!cpumask_subset(cs->effective_xcpus, subpartitions_cpus) ||
+> +	     (cpumask_empty(&new_cpus) && partition_is_populated(cs, NULL)))) {
+>  		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
+>  		remote_partition_disable(cs, tmp);
+>  		compute_effective_cpumask(&new_cpus, cs, parent);
+> @@ -3997,12 +3988,12 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>  	 * 1) empty effective cpus but not valid empty partition.
+>  	 * 2) parent is invalid or doesn't grant any cpus to child
+>  	 *    partitions.
+> -	 * 3) subpartitions_cpus is empty.
+> +	 * 3) effective_xcpus isn't a subset of subpartitions_cpus.
+>  	 */
+>  	if (is_local_partition(cs) &&
+>  	    (!is_partition_valid(parent) ||
+>  	     tasks_nocpu_error(parent, cs, &new_cpus) ||
+> -	     cpumask_empty(subpartitions_cpus)))
+> +	     !cpumask_subset(cs->effective_xcpus, subpartitions_cpus)))
+>  		partcmd = partcmd_invalidate;
+>  	/*
+>  	 * On the other hand, an invalid partition root may be transitioned
 
--- 
-2.56.0
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
+Thanks,
+Guopeng
