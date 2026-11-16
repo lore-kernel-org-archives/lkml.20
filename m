@@ -1,121 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794864912;
-	b=Nyo5KFDdEYgrtqC6zYVA0AchpdPPqNhGtPB2nefF3sfCdxLkhiG50YvCbUG4+43auvIO
-	 eqDHikc7Ui4nb+SDH/cfyhxyr3KWhkJsmH/uJ3TkytI8vRSnNA13y16LH47rN1fWZZCVk
-	 TnerczPP/jVOnDsPND8PB4G5JazZtil69xXeGE9VKNo/jNwGlvlhVaLFHoWO0mtUeXRlg
-	 sKCYQj65iovkkZQJLJZGnNg/bLF9w42LYAS4No4DhvNy7cGg2uGPmexsui+iDyXjNz9Yf
-	 IkIIeUa3wRs/4fLO1W4O4DTJCrGwvWzEsic2+4eP9oWSSW+fMbxX3uo7xw8vyIVqkwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794864912;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=Q9toRHBa6MBu8qE2ThH7+Bc5sQBwNumh+43a7Mu4fio=;
-	b=Midw5SgTp7SB6SOUZ5f7bu7n9lbmAH1Qwxs3x2jMyH7QdKxaaPSm9MlVZkGbYvQAcoU/
-	 uyw0k3a6bV53zMqUMBN6JzVmbNdi2r8kBVYUft4CGne2Na40OwdqCYOHV5eQgsb3gn8Je
-	 oYxTJWQCW1eAukBWfrFwml3qQ02k2lhTdYR6TQzN8xM8F/PufwjoDS47fK8gYdEdP0l8s
-	 r4ROYJ1iXjGvfeg8NMDqUEV9CVH0THqsezy5m33u9YzLznIlIG0D1SVICXFf3VosjGOv5
-	 tIkuC+oB+riF8rBi24ARGwbtWWE8uDodIC1qH8mx/3I+dlDaNqXDT5rA+IKcQ9QWREg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WevZLBeM;
-	arc=none smtp.remote-ip=209.85.217.99
-Received: from mail-vs1-f99.google.com (mail-vs1-f99.google.com [209.85.217.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794864940;
+	b=vGqt7kKwczSu0cCut8RIYnUxNBjcpa8EPLu3IZSTxExSp0xVNUPrJUF3aFA3Ee2wgPrQ
+	 rb0EGnqOqDKv2rId+WXAQY1SYk+YNhAfSiMvhRaefpj9NK7fkvUmKdzMtqVX0BNqcvwbm
+	 RJbf1sE6bxfnlXgs/3lnrl6DELPyld1XFAXmM4bmqBaAQIFp2yu9mWc3/uperZPgO1Uf/
+	 AFQ+LMlS0gSlsjUT7wqTln8ITGE2xO7ntAz5YabR2ZFmipSYOt2db8jAfLD61EwZc2Ar2
+	 ORIaVohKpOIg3SY4YNSgT4/4UDf4VMw5O4e2PSKctOL/zFgkEIq7z1aj7MxbLOnJuTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794864940;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OIy31LYEsRFTV1eFgZfVwe217CIL5Q5t7WG9zGrh51Q=;
+	b=Ts/Q/SRX2aq+i2HWsBQGnoDqH45m+HLbaBKyTRY7TmMg7vtjOyAsyfWqVPITcWYQOF2J
+	 0SXtIfxBlSN+jeqnWHwPDVcLSeiwVYHBurVZB7yJgQG7jGIBEGbbS5t31jWxKunUOdqP4
+	 gNenEOjZ/d+mKCscmighI1BkBdelqx7hxtSlYW0tnL2DXB7jQWOWX4M8IMb4SU0GzQQJB
+	 x4GAn8JqlVocBvhyjl84HNaSVf8DtSZQ8Mgn1u+UbEWuZNRQBU2DTSuQbJsmR7y1TyJxW
+	 qOCLa4znKg6N+IO9j1TeueX4yZzUHzKTRiz7jopYBc9JOkT4ImwhIfvRxF/nYKFME6Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xBc77XhS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.42
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010042.outbound.protection.outlook.com [52.101.84.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF57606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF57606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F143D606A88F;
+	Mon, 16 Nov 2026 21:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F143D606A88F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WevZLBeM
-Received: by mail-vs1-f99.google.com with SMTP id ada2fe7eead31-7cc0ccc2fddso1107868137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794864910; x=1795469710;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q9toRHBa6MBu8qE2ThH7+Bc5sQBwNumh+43a7Mu4fio=;
-        b=UhicPqEX3icT7fj8VEHRy4FqodwmdH+lZfNaLWUuWqcXbRt9RN16cI7xiWcBCOdlMj
-         23F3J6yC9aZ2KYCeg5th3AQ/Ah9fpeLUczjJ4DQY9mHx8hgvYrZYc59sO9SOTGEuoSAc
-         eCuX5ZUShvLLISmPNhcz53GtZpQqh+fUO6X1R5TvCCo5MFe6PSnZwlNiKTiqP+B9CMlg
-         Yfsv7Jx9UxnSxBFAocO9Fc41oKAzZ0MsmccrJphAnSgxx5DFpf81LWvQ1fSeX1VXv01i
-         MGYzn8XUrRWeYfFPN97jTik1IoaAVDNvOuBGmcUT9W8RJTqnYIzEsfzqd1yOg5SjiQar
-         mAtQ==
-X-Forwarded-Encrypted: i=1; AL+hErEB6McMdH80NDC8C+xDC1x8qC1zDS/b0p4UYwe6B3oIFL4TPioDzf2mS+FQWCovV55/KPkiDmgcP2EBMp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/h7Y+17ai3QJGFpAdBJD+6YULeFEm4Zfi4aI+JeArpoNt5Vv/T
-	OyOFiI/RjswjVEce6E+9nno8L+KxynHF0dTgxDOnvetTsjUu3uXLO5KbjyN8wElkSKYNTYEUVHA
-	q6c/B8e2YLlakQdepx/7P8Hd78I04xNNhmPzLPbTscunRxCPf8lnkYNsW1dUimi4H6kE2txp5/3
-	YxbUbmu3D6Ducx9imtwaA35SalCOMRDQNka4pzLjZ1KxzqkPEGL0DnWlPJP0DwBbDTMqK6e0+4c
-	g/Idr11NrCoGlG2p1Xw64/8
-X-Gm-Gg: AYBFou2g92HmvlKL+6A2BxJ7Kw4OLLGw6QQ3PJ0Qg5t2Htq//qHAY4Tjg6YWsuqJIxr
-	qLkGMutSK7II0j2A915GyRy+1pg1aKkGj+K031yEzBZu6KrW22bsdbKChUtPFqh4swbKUbEMUd3
-	wstWzffHgWQpbOrsGqZbWGoy5bZmJMZbvJ3m56KSycxS1DPVcLiPHn5DheqFelUss2JLFuvU6je
-	acARTh2TJuP08WDbA+2SNU7bs3EDX10CTKsW0wNEI7WOVblrZHdMx6pH+9f6UUwDVu7/lrIan/3
-	+Bbku5pG37ekAQsrkB6adejHswNsLQHBdzuPegKD9DsOgiVIIohNpWPPaC6GUrUL5xo0mgAblyW
-	BdZ4T4MRwSwPM17ybmR7mZecdvNvOgjfAzMyVwQPpwsp/uz/qftRWo6c/9/CzZ6iUnPnNfuowvq
-	3BzsgTEOAzHAwwVoL9nm9EFDa5k8xibCsV4eCqyrlC
-X-Received: by 2002:a05:6102:61c9:10b0:7d6:864a:5509 with SMTP id ada2fe7eead31-7d6864aac91mr1120418137.24.1794864910285;
-        Mon, 16 Nov 2026 13:35:10 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-99e3389c647sm93844241.13.2026.11.16.13.35.09
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 13:35:10 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53661e036a2so32864051cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794864909; x=1795469709; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q9toRHBa6MBu8qE2ThH7+Bc5sQBwNumh+43a7Mu4fio=;
-        b=WevZLBeMOmOtoyL5E/4Uw8oQjvjPdHLK1DkZqNHmwQH2GVEmjPSHcActM72+3+ceS9
-         3YnTBQj6M8UCjNAZU/RWK8SoISM2TYnGHui7WhSW7EsuRdg2W5DO+pOWEDIx4VJl9ENQ
-         HmOkkGMKuCgOytFIedM897Ty7Z3eooJ9wnmkA=
-X-Forwarded-Encrypted: i=1; AL+hErHJxOpMvq09bCVP84kGZffoqdfoTYSi0NdXbSOscApH31wd8+rJC25vf9CK+Mm+fPMsRgbPe/Yx39pV4hA=@vger.kernel.org
-X-Received: by 2002:a05:622a:17c9:b0:53f:8b6e:5380 with SMTP id d75a77b69052e-55ac867bea8mr173364991cf.62.1794864909275;
-        Mon, 16 Nov 2026 13:35:09 -0800 (PST)
-X-Received: by 2002:a05:622a:17c9:b0:53f:8b6e:5380 with SMTP id d75a77b69052e-55ac867bea8mr173364461cf.62.1794864908749;
-        Mon, 16 Nov 2026 13:35:08 -0800 (PST)
-Received: from stbirv-lnx-1.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d34a139f6sm40744171cf.22.2026.11.16.13.35.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:35:07 -0800 (PST)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Carlos Soto <carlos.soto@broadcom.com>,
-	Justin Chen <justin.chen@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org (open list),
-	Mlody12 mlody12 <kudzo51@gmail.com>
-Subject: [PATCH net-next v2 4/4] net: mdio: mdio-bcm-unimac: Add Clause 45 support
-Date: Mon, 16 Nov 2026 13:34:49 -0800
-Message-Id: <20261116213449.1682731-5-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116213449.1682731-1-florian.fainelli@broadcom.com>
-References: <20261116213449.1682731-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xBc77XhS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f6ocXbVEBuXZJDYg4wwr7FSPOzyeGH8fsAxcLJuYkQScTrHN+1AWg/sleQK9cKnqOeW2x5VY86kFKkT2saBes5qMKOy7IarjSqY44aMQTYnVLkjF1VfKmkGY7EXkVaob4v7KI7gQRDHzMUq6/n489mgnObdPDBoLYKLTxfdMd2lKhR3oDuJzSQ9Gz1/D/1r6l4Mt6/bvo0TodcwJBGciDUSD3DvyurhNW8ay/qXilrEK2o5lK75WDyVntU9r8kTADACytvYqSSgoHMTNzVUwGDLaqEM3IhZibNXM5Y2BT3TifFltNlSyrp6gvEoRgb/2teMZBjn+u7gALgUaYyuC/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OIy31LYEsRFTV1eFgZfVwe217CIL5Q5t7WG9zGrh51Q=;
+ b=CbDHbakDyQaYmVf+KmW3jBolkALD+RWTBhVi/T8HH42Swt6pHjDWExiUyLQanzgKbxKorpw8JnPgHo4kiqeiJwguuCTw7Cz3sX45K7zHept1DBhh6NW33HUD5TiZ4763hYo4TBC+bcaFGxMBzrzOg4R5i9eYOvH8U1Ba7GNYRu187OW842rxScMsfLlcI9uIJx8nmiaBsvY+Znlqmd46V/76OtiUIol3rFTlFPgQuNCCqRxvH4gd5T3cCdMphKNjtszrZl3/N0InVs6woo2ezrldehd7P43xicfjnyOAePN0rORvrl6iCaVPAx1aNKVqWkgPUTpCWpnmKp/vUmOLfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OIy31LYEsRFTV1eFgZfVwe217CIL5Q5t7WG9zGrh51Q=;
+ b=xBc77XhSsXCajlnUm9Z9GqMwz4Hqac/JArtPplHB8bdVQVzoCz0H+dFgLzdCBO630M0Mv9o8uVyrNduoaEvzNSG5C+wgsP2SU0iM44GiKgOMtFT/UK4+zwe9dlFO12UTdxAJ8UfeuyIbgybCiWZ92KH6qN2IeotsCVhDZB/yZKR+Vakq/DYXutW91RD5uTfmbg2KvlGnfrixAVA8pphuV2rGc773+VM4iwNiEJljXfmU9hv9SyDPPeOpsfCDv3ZJx0aa/Bkzh8sGcKCSdQ5oYpD/D41y0iQynoJLAI8ThJXTd4nGa9bIzk262kDZV5EAtkM3NlqMHMT60tUWUnLWlQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB10378.eurprd04.prod.outlook.com (2603:10a6:150:1d4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 21:35:33 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 21:35:33 +0000
+Date: Mon, 16 Nov 2026 15:35:23 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: amelie.delaunay@foss.st.com, vkoul@kernel.org,
+	dmaengine@vger.kernel.org, Frank.Li@kernel.org,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	ae878000@gmail.com
+Subject: Re: [PATCH v2 2/2] dmaengine: stm32-dma3: defer clock cleanup to
+ managed teardown
+Message-ID: <avt3G8DLXbFgSfxi@SMW015318>
+References: <CAGEsz8ENCW++SA9cdh5=2EVmto=2-2axzTwuNhaKv+xW02Vvtg@mail.gmail.com>
+ <CAGEsz8Hrng-rnKE8hVKUo0RZD484HuSUGc5rWWeGNa6JsdaKoA@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGEsz8Hrng-rnKE8hVKUo0RZD484HuSUGc5rWWeGNa6JsdaKoA@mail.gmail.com>
+X-ClientProxiedBy: PH7P220CA0094.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:32d::30) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,204 +101,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10378:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d74b92a-8f22-4c92-fe8e-08df44298b8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|7416014|376014|18002099003|22082099003|6133799003|11063799006|4143699003|5023799004|56012099006|261009221727099003|261026121527099003|261026140227099003|261102123227099003|261022075727099003|261022105027099003|261021121427099003|261009223027099003|261028144727099003|261009223327099003|261009221227099003|261009220027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	I5mRqysQiTXzJ1AaeCnj8BUoTf6P2e6JWVMSN/mt98kHBHaptbcOh/Fxg07dO9itbiQxf6N373ZUOCd7UYgF/jIFJ6yk3WM/Xl8AbAN4YC0UbnusGFG5A460RJlCAIPVbJ1ytKrmp6fmxLdcjbQf2jpeY7oFNTsd9eFUPPbH7AS+DgV+rELLm5f8VAdtOyKgb7PwCYjZFWQwsiw1t3iLQv2Bf3fYXfZXUQzJX4vhXz+ZnuRy3c7TDtYJGJW+2VHo0Zk8YjU2aqR79MfLvIBu6bxenFzYq7miyM68or8X/9a84zZiWAlCJzXVaOT5spGuyY2kJuIfvM+7rrK27y4+40lVh6NaUEw8qfZBBB/yJrzBkQndkYVW6G0MapVJ2IHfEVoKP6GQ54pR54blW8wDjLNBYdOeyb+RiTKr0af7lHVChOAPr5t/ZMr5k+vO1Klih0bdoXmoKneihHFRcH55RXESO5WMIEam+KudBR7E9kDl0CoZywLlR4LLFQAUH/8kELpJPjmSakIguBjKcJlHN4RrnzMxZy8JTBIg9qOgqeLlh07G9joIfr9Ge7OkfkwgsnewKUZVYGbROT3jZiOy6snYT2KfSkK/IvoAzpL+jDni600Rh6qc6dAVKXSIDVKqXGI+6b3vF4WgX9pH/sKDgEa9tm8Vg8oQe9QUMyGL4cg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(6133799003)(11063799006)(4143699003)(5023799004)(56012099006)(261009221727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261028144727099003)(261009223327099003)(261009221227099003)(261009220027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5mVpfAwDxNcH+/o3ffS7nMEloHAP2F0QaIMZrd6v74NxwCiqx9MeJPWktHOY?=
+ =?us-ascii?Q?NzTgizQUKKE2KUNc3V9Li9Oghk8qt8952UUVLJuXSORnymWhY4swPPmf/Rli?=
+ =?us-ascii?Q?bq+CVjSUVY+Myp7KtULiudPKmvE5abBIxhQg/X9+K7vat9bmXWvfFlHjDgFr?=
+ =?us-ascii?Q?gFgWlpN75UTfv+S9bOeoHGQjsH9tXszbhZLExUflJPpAfn9OacgTC8REbhsZ?=
+ =?us-ascii?Q?8Tfo1DD1n8odZieiofUba6V/wF9pI9m9yespUmMw2VMwzkDSnhQUgx7XBttQ?=
+ =?us-ascii?Q?w40/czIwR7nz9PBcrUiZa0uP+7K3HN7aNbd6sb18h4hXT6eteM0NfDyi26I0?=
+ =?us-ascii?Q?tEaFUQr8SUvsMp/jHWWPp+4GFTLKTVZag9y2ZLABh5wNvpj9Q+Drjtf3Konh?=
+ =?us-ascii?Q?LCqYcM/FvpVHCMwD5lxCKelKpnfLOyKRbZeoXyvYNoL+n1jZ+/O8o1tlBDzi?=
+ =?us-ascii?Q?+Gl6W6DcnGKh9Qb25BsEW9YCEWNqnWoOF7WtloeAQvu2C4N/Y7wWZ0/eR53z?=
+ =?us-ascii?Q?HSYU6nPbFq64eVmEXWjexzwAU8VKjpRvZ6QKtU7+ecxMkzhPJ8DN2YPip16g?=
+ =?us-ascii?Q?wdWAriHcjs6+JVWYWxNVlovPTGAZwDHFTW715h7dlTSNrS2TA36j5RPSZBXv?=
+ =?us-ascii?Q?oKm0NStwY/3KPjmiHXZhFIUFUV8/sn4gTPpdcvszqU27X4ZUL+nqmwN4c+nR?=
+ =?us-ascii?Q?CE3FZNJCcY3KbGdY0D5KjSc1VbETzqhhqpY1hfefS0LxUZ+V5C1y7G+GlyrK?=
+ =?us-ascii?Q?IJmGY2VjtDDyZdhAcbsLnJm28SFb1Fh/u2oRyzKyYXAPx8ilu7rcdByDnlZf?=
+ =?us-ascii?Q?C30m+4z/hrLdammXMLfgHjsAAtsFyETx7peXqYsiGx8YYq+yGH4PPjw1DQOc?=
+ =?us-ascii?Q?sxWGh78Ezr9yZQ1IJY3sBA9IaGLnSvknXCamTOFsHfQ8YAVj7j7Hf3GksoEb?=
+ =?us-ascii?Q?rDHrlwruQEueRBWqVEJcItg085p44mRQUlsUl0KLwi4inMfBaYm0m7Vl8mok?=
+ =?us-ascii?Q?dgZeAoSE2t5WsBhG3AcuyLE+bBng8gnjtvq6MVd+1I58ecNyHYXLfXo72fqZ?=
+ =?us-ascii?Q?pzKPs18Wc1Yl92mXSYVOeWmxMpa416iT64rnGxTvXUH4H41tf45+r1XSCt+/?=
+ =?us-ascii?Q?TBYjxOgl0mk52m174fR5Vrs9pWoKkQIz+KcpngnRF/2XlLXgP0crRm4RAx/Q?=
+ =?us-ascii?Q?H+De5Lomakr9nPIfF7mZfK7blYMYsU/hnpDqv4XBaUpKPlHmG2/tj/2QjWhe?=
+ =?us-ascii?Q?iRTCPKTW9AhgrW7hc1ok+R73M/3vVYpI13+IepRDlz6fdsc+rihsYPY4Mv2c?=
+ =?us-ascii?Q?W99y3iQHGVCL+u54PbmK8fy+0gCiTjmXysKzCdteXLOfc6mHxqbnVBa86XGR?=
+ =?us-ascii?Q?7wqEM8NOYJrlmJ2ur1BifsS33Uz88DKZcaPs4axC3XAWrNtyHjC1HLOim3vZ?=
+ =?us-ascii?Q?qzJfcYO9Sj1dfapPqOFv6EsYN+QYmfytNSAPxThoStlRoHRwmBMmgKYAk+Vw?=
+ =?us-ascii?Q?bxqSQ+mO3zEuwyeuLByULOcDDeL1KLgqbA2l+8lbJXpjZ/mkKxTLAojXIVEn?=
+ =?us-ascii?Q?rt8+ZN+tFfj3OTxtvLdRlqJml07u+6yB/hgczQ/iJcFZr0pLvfLgGJ7S7gpQ?=
+ =?us-ascii?Q?KDwAs9j5s7un+RL2wKo4BVZeuhtMD5lT6a1yozDZujjfYZZ/yk1xy0Q3OBcW?=
+ =?us-ascii?Q?z0nGxVJehajchBAClvHk+sYeMExh32wjQo0lmcD57ypVkKs+Tite9U9fr5g8?=
+ =?us-ascii?Q?yUnmBvLEKJOGBt8MjvgmezsYU1rZuj+1hHxEDn34cL7gD/7m5ozI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d74b92a-8f22-4c92-fe8e-08df44298b8c
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 21:35:33.7652
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hFXM1FCDqVSZghZ1GgsSbTnBa1QsVddWVUxIhedgMykxiJ7wR2x+7CFFHOTvcFNAjfV0jfCbk+EJzpo4kL2HBt1j3vNBK65XqtWV4gWwb/JxOttuUH06I/Ez7U4ORQUS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10378
 
-Add Clause 45 read/write support to the UniMAC MDIO bus controller driver
-by implementing the read_c45/write_c45 bus callbacks. Each access performs
-the two-step C45 sequence (ADDR cycle followed by a READ/WRITE cycle) under
-the bus lock and switches MDIO_CFG between C22 and C45 mode as needed;
-MDIO_CFG is only written when the mode actually changes.
+On Tue, Nov 10, 2026 at 01:05:14AM +0000, Myeonghun Pak wrote:
+> Probe enables the controller clock, but remove only disables runtime PM.
+> Disabling runtime PM does not invoke runtime suspend, so removal of an
+> active controller leaves its clock prepare and enable references held.
+> Probe error paths also disable the clock before managed DMA registration
+> and IRQ resources have been released.
+>
+> Register a clock cleanup action before acquiring those managed resources.
+> Keep the existing remove-time runtime PM disable barrier, and let devres
+> release the remaining clock reference after the DMA and IRQ resources.
+> Skip the clock disable if runtime suspend has already released it, then
+> mark the device suspended. The PM stubs also cover CONFIG_PM=n.
+>
+> Set the initial runtime PM state next to clock enable so that probe unwind
+> can distinguish that reference from a runtime-suspended device. If setting
+> the state fails, release the clock immediately and return the error.
+> Use direct error returns once devres owns the remaining cleanup.
+>
+> Fixes: f561ec8b2b33 ("dmaengine: Add STM32 DMA3 support")
+>
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> No hardware runtime testing.
+>
+> diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
+> --- a/drivers/dma/stm32/stm32-dma3.c
+> +++ b/drivers/dma/stm32/stm32-dma3.c
+> @@ -1721,6 +1721,16 @@
+>  };
+>  MODULE_DEVICE_TABLE(of, stm32_dma3_of_match);
+>
+> +static void stm32_dma3_clk_disable(void *data)
+> +{
+> +	struct device *dev = data;
+> +	struct stm32_dma3_ddata *ddata = dev_get_drvdata(dev);
+> +
+> +	if (!pm_runtime_status_suspended(dev))
+> +		clk_disable_unprepare(ddata->clk);
+> +	pm_runtime_set_suspended(dev);
+> +}
+> +
+>  static int stm32_dma3_probe(struct platform_device *pdev)
+>  {
+>  	struct device_node *np = pdev->dev.of_node;
+> @@ -1755,6 +1765,16 @@
+>  	ret = clk_prepare_enable(ddata->clk);
+>  	if (ret)
+>  		return dev_err_probe(&pdev->dev, ret, "Failed to enable clk\n");
+> +
+> +	ret = pm_runtime_set_active(&pdev->dev);
+> +	if (ret) {
+> +		clk_disable_unprepare(ddata->clk);
+> +		return ret;
+> +	}
+> +	/* Release the clock after the managed DMA device and channel IRQs. */
+> +	ret = devm_add_action_or_reset(&pdev->dev, stm32_dma3_clk_disable,
+> &pdev->dev);
+> +	if (ret)
+> +		return ret;
 
-Also skip the BMSR workaround read in unimac_mdio_reset() for children
-compatible with "ethernet-phy-ieee802.3-c45", since such PHYs are not
-expected to respond to C22 accesses.
+devm_clk_bulk_get_enable()
 
-Note that providing read_c45/write_c45 also makes the MDIO core scan for
-C45 PHYs at registration time, on addresses that are not masked and do not
-already have a C22 device.
+if (devm_pm_runtime_set_active_enabled()) {
+	...
+}
 
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Co-developed-by: Carlos Soto <carlos.soto@broadcom.com>
-Signed-off-by: Carlos Soto <carlos.soto@broadcom.com>
-Co-developed-by: Justin Chen <justin.chen@broadcom.com>
-Signed-off-by: Justin Chen <justin.chen@broadcom.com>
----
- drivers/net/mdio/mdio-bcm-unimac.c | 105 +++++++++++++++++++++++++++--
- 1 file changed, 98 insertions(+), 7 deletions(-)
+At remove function
 
-diff --git a/drivers/net/mdio/mdio-bcm-unimac.c b/drivers/net/mdio/mdio-bcm-unimac.c
-index df267bb82696..6059b32580c5 100644
---- a/drivers/net/mdio/mdio-bcm-unimac.c
-+++ b/drivers/net/mdio/mdio-bcm-unimac.c
-@@ -24,10 +24,16 @@
- #define  MDIO_OP_SHIFT		26
- #define  MDIO_RD_C22		(2 << MDIO_OP_SHIFT)
- #define  MDIO_WR_C22		(1 << MDIO_OP_SHIFT)
-+#define  MDIO_ADDR_C45		(0 << MDIO_OP_SHIFT)
-+#define  MDIO_WR_C45		(1 << MDIO_OP_SHIFT)
-+#define  MDIO_RD_C45		(3 << MDIO_OP_SHIFT)
- #define  MDIO_PMD_SHIFT		21
- #define  MDIO_PMD_MASK		0x1F
- #define  MDIO_REG_SHIFT		16
- #define  MDIO_REG_MASK		0x1F
-+#define  MDIO_DEVAD_SHIFT	16
-+#define  MDIO_DEVAD_MASK	GENMASK(20, 16)
-+#define  MDIO_C45_REG_MASK	GENMASK(15, 0)
- 
- #define MDIO_CFG		0x04
- #define  MDIO_C22		(1 << 0)
-@@ -96,7 +102,43 @@ static int unimac_mdio_poll(void *wait_func_data)
- 					MDIO_CMD);
- }
- 
--static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
-+static u32 unimac_mdio_c45_devad(int devad)
-+{
-+	return ((u32)devad << MDIO_DEVAD_SHIFT) & MDIO_DEVAD_MASK;
-+}
-+
-+static int unimac_mdio_addr_c45(struct unimac_mdio_priv *priv,
-+				int phy_id, int devad, int reg)
-+{
-+	u32 cmd;
-+
-+	/* Prepare the addr c45 operation */
-+	cmd = MDIO_ADDR_C45 | (phy_id << MDIO_PMD_SHIFT) |
-+	      unimac_mdio_c45_devad(devad) | (reg & MDIO_C45_REG_MASK);
-+	unimac_mdio_writel(priv, cmd, MDIO_CMD);
-+
-+	/* Start MDIO transaction */
-+	unimac_mdio_start(priv);
-+
-+	return priv->wait_func(priv->wait_func_data);
-+}
-+
-+static void unimac_mdio_set_clause(struct unimac_mdio_priv *priv, bool is_c45)
-+{
-+	u32 cfg = unimac_mdio_readl(priv, MDIO_CFG);
-+	u32 new_cfg = cfg;
-+
-+	if (is_c45)
-+		new_cfg &= ~MDIO_C22;
-+	else
-+		new_cfg |= MDIO_C22;
-+
-+	if (new_cfg != cfg)
-+		unimac_mdio_writel(priv, new_cfg, MDIO_CFG);
-+}
-+
-+static int unimac_mdio_do_read(struct mii_bus *bus, int phy_id, int devad,
-+			       int reg, bool is_c45)
- {
- 	struct unimac_mdio_priv *priv = bus->priv;
- 	int ret;
-@@ -107,8 +149,19 @@ static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
- 		return ret;
- 
- 	/* Prepare the read operation */
--	cmd = MDIO_RD_C22 | (phy_id << MDIO_PMD_SHIFT) |
--		(reg << MDIO_REG_SHIFT);
-+	unimac_mdio_set_clause(priv, is_c45);
-+	if (is_c45) {
-+		ret = unimac_mdio_addr_c45(priv, phy_id, devad, reg);
-+		if (ret)
-+			goto out;
-+
-+		cmd = MDIO_RD_C45 | (phy_id << MDIO_PMD_SHIFT) |
-+			unimac_mdio_c45_devad(devad) |
-+			(reg & MDIO_C45_REG_MASK);
-+	} else {
-+		cmd = MDIO_RD_C22 | (phy_id << MDIO_PMD_SHIFT) |
-+			(reg << MDIO_REG_SHIFT);
-+	}
- 	unimac_mdio_writel(priv, cmd, MDIO_CMD);
- 
- 	/* Start MDIO transaction */
-@@ -136,8 +189,8 @@ static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
- 	return ret;
- }
- 
--static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
--			     int reg, u16 val)
-+static int unimac_mdio_do_write(struct mii_bus *bus, int phy_id, int devad,
-+				int reg, u16 val, bool is_c45)
- {
- 	struct unimac_mdio_priv *priv = bus->priv;
- 	u32 cmd;
-@@ -148,18 +201,50 @@ static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
- 		return ret;
- 
- 	/* Prepare the write operation */
--	cmd = MDIO_WR_C22 | (phy_id << MDIO_PMD_SHIFT) |
--		(reg << MDIO_REG_SHIFT) | (0xffff & val);
-+	unimac_mdio_set_clause(priv, is_c45);
-+	if (is_c45) {
-+		ret = unimac_mdio_addr_c45(priv, phy_id, devad, reg);
-+		if (ret)
-+			goto out;
-+
-+		cmd = MDIO_WR_C45 | (phy_id << MDIO_PMD_SHIFT) |
-+			unimac_mdio_c45_devad(devad) | (0xffff & val);
-+	} else {
-+		cmd = MDIO_WR_C22 | (phy_id << MDIO_PMD_SHIFT) |
-+			(reg << MDIO_REG_SHIFT) | (0xffff & val);
-+	}
- 	unimac_mdio_writel(priv, cmd, MDIO_CMD);
- 
- 	unimac_mdio_start(priv);
- 
- 	ret = priv->wait_func(priv->wait_func_data);
-+out:
- 	clk_disable_unprepare(priv->clk);
- 
- 	return ret;
- }
- 
-+static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
-+{
-+	return unimac_mdio_do_read(bus, phy_id, 0, reg, false);
-+}
-+
-+static int unimac_mdio_write(struct mii_bus *bus, int phy_id, int reg, u16 val)
-+{
-+	return unimac_mdio_do_write(bus, phy_id, 0, reg, val, false);
-+}
-+
-+static int unimac_mdio_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-+{
-+	return unimac_mdio_do_read(bus, addr, dev, reg, true);
-+}
-+
-+static int unimac_mdio_write_c45(struct mii_bus *bus, int addr, int dev,
-+				 int reg, u16 val)
-+{
-+	return unimac_mdio_do_write(bus, addr, dev, reg, val, true);
-+}
-+
- /* Workaround for integrated BCM7xxx Gigabit PHYs which have a problem with
-  * their internal MDIO management controller making them fail to successfully
-  * be read from or written to for the first transaction.  We insert a dummy
-@@ -190,6 +275,10 @@ static int unimac_mdio_reset(struct mii_bus *bus)
- 			if (addr < 0)
- 				continue;
- 
-+			if (of_device_is_compatible(child,
-+						    "ethernet-phy-ieee802.3-c45"))
-+				continue;
-+
- 			read_mask |= 1 << addr;
- 		}
- 	}
-@@ -301,6 +390,8 @@ static int unimac_mdio_probe(struct platform_device *pdev)
- 	bus->parent = &pdev->dev;
- 	bus->read = unimac_mdio_read;
- 	bus->write = unimac_mdio_write;
-+	bus->read_c45 = unimac_mdio_read_c45;
-+	bus->write_c45 = unimac_mdio_write_c45;
- 	bus->reset = unimac_mdio_reset;
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%d", pdev->name, pdev->id);
- 
--- 
-2.34.1
+{
+	pm_runtime_get_sync(&pdev->dev);
 
+	...
+	pm_runtime_put_noidle(&pdev->dev); //return pm count drop to 0,
+					     devm_clk*() will disable clock for you
+}
+
+
+Frank
+
+>
+>  	reset_control_reset(reset);
+>
+> @@ -1831,17 +1851,15 @@
+>
+>  	ddata->chans = devm_kcalloc(&pdev->dev, ddata->dma_channels,
+> sizeof(*ddata->chans),
+>  				    GFP_KERNEL);
+> -	if (!ddata->chans) {
+> -		ret = -ENOMEM;
+> -		goto err_clk_disable;
+> -	}
+> +	if (!ddata->chans)
+> +		return -ENOMEM;
+>
+>  	chan_reserved = stm32_dma3_check_rif(ddata);
+>
+>  	if (chan_reserved == GENMASK(ddata->dma_channels - 1, 0)) {
+>  		ret = -ENODEV;
+>  		dev_err_probe(&pdev->dev, ret, "No channel available, abort registration\n");
+> -		goto err_clk_disable;
+> +		return ret;
+>  	}
+>
+>  	/* G_FIFO_SIZE x=0..7 in HWCFGR3 and G_FIFO_SIZE x=8..15 in HWCFGR4 */
+> @@ -1861,7 +1879,7 @@
+>
+>  	ret = dmaenginem_async_device_register(dma_dev);
+>  	if (ret)
+> -		goto err_clk_disable;
+> +		return ret;
+>
+>  	for (i = 0; i < ddata->dma_channels; i++) {
+>  		char name[12];
+> @@ -1878,12 +1896,12 @@
+>  		ret = dma_async_device_channel_register(&ddata->dma_dev,
+> &chan->vchan.chan, name);
+>  		if (ret) {
+>  			dev_err_probe(&pdev->dev, ret, "Failed to register channel %s\n", name);
+> -			goto err_clk_disable;
+> +			return ret;
+>  		}
+>
+>  		ret = platform_get_irq(pdev, i);
+>  		if (ret < 0)
+> -			goto err_clk_disable;
+> +			return ret;
+>  		chan->irq = ret;
+>
+>  		ret = devm_request_irq(&pdev->dev, chan->irq, stm32_dma3_chan_irq, 0,
+> @@ -1891,19 +1909,18 @@
+>  		if (ret) {
+>  			dev_err_probe(&pdev->dev, ret, "Failed to request channel %s IRQ\n",
+>  				      vchan_chan_name(&chan->vchan));
+> -			goto err_clk_disable;
+> +			return ret;
+>  		}
+>  	}
+>
+>  	ret = of_dma_controller_register(np, stm32_dma3_of_xlate, ddata);
+>  	if (ret) {
+>  		dev_err_probe(&pdev->dev, ret, "Failed to register controller\n");
+> -		goto err_clk_disable;
+> +		return ret;
+>  	}
+>
+>  	verr = readl_relaxed(ddata->base + STM32_DMA3_VERR);
+>
+> -	pm_runtime_set_active(&pdev->dev);
+>  	pm_runtime_enable(&pdev->dev);
+>  	pm_runtime_get_noresume(&pdev->dev);
+>  	pm_runtime_put(&pdev->dev);
+> @@ -1912,11 +1929,6 @@
+>  		 FIELD_GET(VERR_MAJREV, verr), FIELD_GET(VERR_MINREV, verr));
+>
+>  	return 0;
+> -
+> -err_clk_disable:
+> -	clk_disable_unprepare(ddata->clk);
+> -
+> -	return ret;
+>  }
+>
+>  static void stm32_dma3_remove(struct platform_device *pdev)
