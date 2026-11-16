@@ -1,64 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846096;
-	b=4VuAoKjhPiL/gV5qI8MpqS8+JwDrIk6wBvsEmRCjtI6T24nLBGN2O5un4HTlSz/XSUZx
-	 m27gvAzbvhnLsIW39fSpn1GUnuSOHmOPOYEqtoAISK/pMdb6nGdjCsSiFuOvG8zuo7iCi
-	 74ybI89rqRPRoNwcivLSMkLWAfRYAUKPPYWCXW/DIXOGjThglsCW4din6+tZPgLKexnpm
-	 fAMjLh7vGngZ39myKgmxiANyycU8zTOjmio1/eTERJ6BVIlSOQM4iDLqq6myj8o4NCUCA
-	 2pyDf/q1Ix/4MPNnhYO5rse1aXiSdMpWDG5OjLWkxmClaFbEPKjVVQIGKsTyq8+rGzA==
+	t=1794846126;
+	b=kp38teWgnTFCCOknrd/KUB8ESLln9megEx04yT/iDQTIRlx87PcK+il7Tiy5I3hECtYp
+	 0wKp4MWxFNRj2FnyoBVDqqOEhm9afvxMoEukxSq56oB6GyByAoSuqkqm6WFTX/lIEcaja
+	 PgCXjv5Y1eBZyW+0JCo0nz4rwFkNMi3J/0H+9rywX47eInvWwjT/WRRVM+1fCmsbxxr5S
+	 3N/JUBIiDqh/yf8t2meufFSe46pPoOJ/IFKQby5MpUrShfGSy1He+ysokR0nXGZpEpmo1
+	 nU8ZolEYI+FHQ9Qb9xq2Iq+CSY8YsyDIqUeNC90f234kveDBQojRvfdFy3Df0zOu6Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846096;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=nvFyqL3Y0/F0u1N6y6kg8ykuU4M2/XUEp7+RfXlmBzs=;
-	b=Pm2cQA2F1KbGr4kYbzoNAdI7as8eJgovjemhe+7iv8loN3ogPeOxfR+RIkRTw49aYdbe
-	 3Tvdz+KuOrgOKFJYmFb2Os30abBUPloz8+CZRHMiIXhzN69xBW9Y1mu9DhFzn/M7BmksF
-	 SbN5pP1N4U7+5CQ/JKwJ67OXA8y2K2DeXMancUABOi/RxTqG0aNmRVateDyi/fyFefScz
-	 w04kVfcLsMIQGGY9REagCCJ/XiWLPT0OvDFzn4r3kr+esSBS75AM2ksbl2dLs+ea18TOR
-	 3H5YcX/XHIfcpKaFbVH0VUOaGOdivomrTeLoAgeAgHF2BxdSjzttGLXD/HD62jeumNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846126;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=jOFnPdS9OzKd2pQAuWQI40FvjqklDv0OYhhO4gHPm10=;
+	b=uomJFAE1Hvxr5KLnnSB3ba4CwBQJ31eMTVDIZiusGiD/TqBnoHml/TkO1X8O3qHMpffw
+	 I8uhVaIIF8uVXWMdZe0VinP0bNwxMjw2gNIBwKVMi20lE3QGW6AACucanVnOcSrgIRMWd
+	 WsdJAJCRlj0iaglauyI5WgtvMNp/qIm5ULjt8FXDE3XjDDcLT4hwwH9pMdyTViKMQkZ8k
+	 YJyjjKRHwlYavVg5qd4q0L+OMIuOTcR8QZEBm/XRJnNNq5n5C7bUNK403DsTUKaPMZcEO
+	 YmIlv4dvJU6A9N61CN8D/yvr4vnRyFEl29BLMLkuCdT1Mu+Ku7tWhrauRScyITSHz6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=kernel.org;
-	spf=pass smtp.mailfrom=meta.com;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p7OfNETp;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xn6B8mkZ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3731606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3731606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGIfAv2660633
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:21:35 -0800
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hya99p6gj-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:21:35 -0800 (PST)
-Received: from twshared77744.15.frc2.facebook.com (2620:10d:c085:108::150d) by
- mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Mon, 16 Nov 2026 16:21:21 +0000
-Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
-	by devbig197.nha3.facebook.com (Postfix) with ESMTP id A7B112F08A7BA;
-	Mon, 16 Nov 2026 08:18:29 -0800 (PST)
-From: Keith Busch <kbusch@kernel.org>
-To: <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>, <shao.mingyin@zte.com.cn>
-CC: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>, <kch@nvidia.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-In-Reply-To: <20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn>
-References: <20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn>
-Subject: Re: [PATCH v2 0/6] nvme: fix transport request and queue error
- handling
-Message-ID: <179484590968.648177.5424785032446332753.b4-ty@kernel.org>
-Date: Mon, 16 Nov 2026 08:18:29 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAF7606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:22:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CAF7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p7OfNETp;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xn6B8mkZ
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGISG51677115
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:22:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=jOFnPdS9OzKd2pQAuWQI40FvjqklDv0OYhh
+	O4gHPm10=; b=p7OfNETpEr68CLI0FHZnru+WSdSkOWcv95PEkSOO17XhebYpD14
+	DfEypxXf9qv30Nno20G5GbZdH4vUA3yytNSqTdr3jQyerOMYoNX1kbXLqUeE8Xm3
+	z2Amb0sNDDdy1hNjpFWoKsJuhvJIplQtmtAZGdMXE+f5NlINe+yFbbK4RRC5Ytyb
+	tAUx0aeQRf8n+viyoAihM06FWVfPSZD9kU71jhEz7na1nkNmtBuqcuBgrY+rrbAR
+	ZFAyEDhlZ/4gSypJ2dXu9AQmSvDFrhSrR2tpFFbE04k+Y47f95sguXhUF7fnxqGz
+	TLMba/Bnqx6GI/MB5R1SWBV8ytMR4dK7m2A==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0003hc4c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:22:04 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1a5005fd0f8so5244563c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:22:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794846123; x=1795450923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jOFnPdS9OzKd2pQAuWQI40FvjqklDv0OYhhO4gHPm10=;
+        b=Xn6B8mkZSfmNeEcNaeCxnrHt/+2ZgdGHpcMa5RaA87K7Hbkk7M4aPYMvkrEhFiZ2vm
+         Rar/ENgh/HHaZ4bTPH4FLFFlLcYSD3ATSZWPZpgLjLTwMNzBByyDlqWlJauPNryGHRlQ
+         69591C/kHb280LmTy8Ch9EnuOFohfsuDTq+ZGB4Y0GRLTQXv7SCQn3Fat0dxcV4jpmNN
+         SZAWwunZ+vsmhJKbvFDN4/moW3PjPJ/MCJV2HynRxRDHzuv69KIEFUYweqkseCQKSzHL
+         5T4Y8lJzf+pyYLvjj9R3S4KhJ0470t2TdJLUmP4kkJETvASA6Ha67lfn+432dJvU+PQI
+         Vd5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794846123; x=1795450923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jOFnPdS9OzKd2pQAuWQI40FvjqklDv0OYhhO4gHPm10=;
+        b=0TlHZoP4J6y+GnSco45NWVzk/gzgqOgPCQTqiVXcmnUweR8VzGnembfqChcUaJmK1y
+         31RpoGMPApUAI3TMXXAsbhMY3GAbv8tEdDDZHsINvzRBWJ0J3MuOL4ds+fDKhFIYOENo
+         fiiqVHV1ZHmt/g7flnjsOqBdj72WEHIgWQz7Be/HoBsX3d5Z0zr294Df+u3EaUXhB5Yb
+         wPhe3xRdrjW4e3kJ9bSZo/5cjZAKDlRh0lpGGO1kNFp8gFfQgMVuFTsEL8s7lR7zqtnw
+         jTW+0CxIvJGT8LXQmCOfScCdOBUKhz17rkP5k+iMmDlF1XTxgLpTga0Je1V+I5leabru
+         s0Vw==
+X-Forwarded-Encrypted: i=1; AL+hErFFC5tZ3i+o1Pk0NRwJQ3YSAxMtOtsIZNQDMW8AVvbT24oexwK6mH+rPMBvPj7jWBkPsaXxSawA9IfI9Q0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+REnuCYQEInEvLhmi2RaFK8eCQl0jTjwhYZb8gtKiRjyjc+gwq
+	9Uztg39bO7IjBAcHf5vZtL3kDXXQcprWsCwpXM+yGXyqAMaTzn5qrSOVoIm7O7DunRwT9VxXuJg
+	rwI/PeXsmdQRAAwtgnMQeMD25srndQo3ai5LvxBWm9uuI2wPyfhTkRhdFzsw0ZDLbmWg=
+X-Gm-Gg: AYBFou325MlKxJevJAMyL/TV2agNgaYSmG9ZcJ9WuXh3vc5lYg9K3g9FhElrvKXCuzY
+	ZjyduJIoFBtnh80apI76i+2ubLUvl+InHPYxlVm11g4B6AI3YaBqVZsOjKe2yqSMvb4dKDUnRs1
+	2FCZFrDu5AD5D/icKP7bQTJh+gkLptfWC3DECLMVtgj1dP3hdmxElP3rJ6F0ycjrJE1LctJ38HT
+	VmLeuZ1DiEA4LYEGGy6Acbj5X3+j0tSQz8fg1Vas4N865eYD1IUO8nBjCu95z0N4Hr6NmZGcvst
+	ZbKg1c0roy3Q/VMprrud+VJrFwWLcv2i0gt888sKcwk6RfEuKVrNoAYqxBv+TGi1UQpWV1ohYXc
+	OsEF/dGrPpn52W7JDP06QCgj1WAqxGDzLHScGQocRG1kNVFSnAGnCKAwSPw2bDS7nIon+mxKoAT
+	+m
+X-Received: by 2002:a05:701b:42c6:10b0:1b3:ba92:145a with SMTP id a92af1059eb24-1b503171008mr11928406c88.19.1794846123215;
+        Mon, 16 Nov 2026 08:22:03 -0800 (PST)
+X-Received: by 2002:a05:701b:42c6:10b0:1b3:ba92:145a with SMTP id a92af1059eb24-1b503171008mr11928366c88.19.1794846122515;
+        Mon, 16 Nov 2026 08:22:02 -0800 (PST)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm38623826c88.5.2026.11.16.08.21.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 08:22:01 -0800 (PST)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+        Simona Vetter <simona@ffwll.ch>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-media@vger.kernel.org, netdev@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-remoteproc@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH v3 0/9] Migrate PAS clients to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+Date: Mon, 16 Nov 2026 21:51:39 +0530
+Message-ID: <20261116162148.2864501-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,57 +140,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
-X-FB-Internal: Safe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfX/1ZJp2zeeYv9
- tw9ofh48RkPaD7b8GWz7dlulFcvqMNHPyTE4G4iBA+Fnzc03REXp4CaEhHG8xopTA+dHZt8Pj7a
- gdDc4FXQWk3t+AZKfmp+abs0T5uyCNE=
-X-Proofpoint-ORIG-GUID: S6Rev8UqnXxm-pi73EcX5_xX31eD6cUC
-X-Authority-Analysis: v=2.4 cv=ZuN4uN7G c=1 sm=1 tr=0 ts=6afb2d8f cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=U_y8lYiYyhHBU5rMqhb2:22
- a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=0v5wFFy9qJCc6wKa7McA:9 a=QEXdDO2ut3YA:10
- a=kRpfLKi8w9umh8uBmg1i:22
-X-Proofpoint-GUID: S6Rev8UqnXxm-pi73EcX5_xX31eD6cUC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfXx4z1RUJVHsjO
- Ypr7h52w5lNGo7XqxLiVFdrBOoENet8mdEhSz5/9Ez7zBj5sNmPlfeEm0xDWb5Y9kgVd/EHwb+F
- 0GwocFjf2ymTHMzTJetMRdFd1R/ZF7sv8BdVxLEYyYTTnc9MqpI7OTC3JgddqOZylUBx001nqaL
- IaoiUSsRzz/bUtPMbf2Y2WA8q6+HIqwv2LuGhnpKvp5CUrHnJM2xcvTuZwdwZ0f72vVulAiLqSe
- aXzDhejMD29blcN7AozINz/3xvlpGWf/711qUA69C3wmQKTxr7nu5mq7boqMwjfPLiaqRX6FLcL
- /2vySanL2Z10WVysK+/xDRHgYnhYiNdK9X/6qvxCxMXJSBq5ZSXxD72SbQfgVryUnnwI7YJB7Hi
- 9yMZHuWzHHs0ik5s9DcKPhxqOjGuvIlVssiUVzIG0pQU69OijfA84OdZvRzUFmu2VbvOoTAzUhr
- NKwdfTEoGbHCjxIJOyw==
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: nvOs6twdr-wDKHPav9BTfPSI3F-CbGkt
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfXyjXp8DeLcQc5
+ VU9CBKNmQWKSdeMV+zugCM3inDb9f4LIrt10r/wgf4jhXEu3TTURJZu2+KX0wVCfG1Eis0l6WxZ
+ TEF0tV1jWM/zLiJkwnXyERuNTQKxlFA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfXwNhKRyGAouoL
+ ss7ihxl1zbO6n4UwZ6jb5VdlYP7GPb9j/BgDp87A8ZH11T/GAZ+64EiCwUduczXwZ7ubFaJ5TMe
+ sB6vM1bOhkTa3vhM09998lS1ZimbKhP1EDscd80b+O30DZU0sM8Qs42nmir2EGevAr32yK/kz09
+ H+ar38eQMBhu7pwnA0HKvdszFZf/w/BzbLUKn2wPCiWPXGMO2wL5P4CH1wIrPKBPLSfkC4HABLE
+ /0SE2gD2aTos8IEV62f4Q0gBjuPWFD8yGM7vuahCr6X0H4oIq260lWYoN1X65ct+pHCcK7ZNJzO
+ Oy+esMJf3zb7hzoBPlUWa6Ar0xE1M75hpBKbmAgNHJzpSxntEue5GZRKgBfm7eWGPv6K03qFCpr
+ zkLKxBrOVLvfzVxzHVHZnIlX/9/MIIpl2HnzvOSt6iLeVoJtGHSvMj6kd/2rgdGarTD1Xju6rjh
+ HdQlwAkN56ybLzKqVvg==
+X-Authority-Analysis: v=2.4 cv=Z4N5j3RA c=1 sm=1 tr=0 ts=6afb2dac cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=HLFs0uR_R7ZgEvxmAyIA:9 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-ORIG-GUID: nvOs6twdr-wDKHPav9BTfPSI3F-CbGkt
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160064
 
-On Sat, 14 Nov 2026 02:02:45 +0800 (CST), shao.mingyin@zte.com.cn wrote:
-> The six patches fix independent error paths in the NVMe transports.
-> 
-> Patch 1 releases the target request in nvme-loop when SG setup fails.
-> nvmet_req_init() has already taken the queue, namespace and reservation
-> references, and blk-mq retries the same request, so each failure leaked a
-> set of references.
-> 
-> [...]
+In preparation to remove qcom_mdt_load() and qcom_pas_auth_and_reset()
+public function, migrate every user to the new PAS context-aware API
+qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset().
 
-Thanks, applied to nvme-7.4.
+This series migrates every remaining caller of the deprecated APIs
+(qcom_wcnss, adreno zap shader, iris, venus, IPA, ath12k) and then
+removes qcom_mdt_load() and qcom_pas_auth_and_reset() entirely.
 
-[1/6] nvme-loop: release the target request when SG setup fails
-      commit: f2937481c28033e10e8a29b8742a767e73c696df
-[2/6] nvmet-tcp: only wait for in-capsule data for inline SGLs
-      commit: 9dac3b1aa2a99e126a5504b7f5bc781c8b2771e0
-[3/6] nvme-tcp: require the R2T offset to match the data sent
-      commit: 347d50d92e25d4b9c50c5f5c1d8b727b9c88d12c
-[4/6] nvmet-fcloop: free the LS request when delivery fails
-      commit: 8c1f99419b6cc51892e259497c8e10a5d079621a
-[5/6] nvmet-fc: reject duplicate queue IDs on Create Connection
-      commit: 153eac284ebf68be74993643e9b2fe2f9b2b1d88
-[6/6] nvmet: roll back queue bindings on connection failure
-      commit: 3f82752e089283eb8204b9d2ebd8246077031173
---
-Keith Busch <kbusch@kernel.org>
+Requesting the Ack from subsystem owners to get this series merge
+through Bjorn's tree.
+
+Changes in v3:
+ - Added Acked by tag.
+ - Fixed build warning.
+ - Link to v2: https://lore.kernel.org/lkml/20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com/
+
+Changes in v2:
+ - Addressed Sasiko comments.
+ - Addressed Alex comment and added 1/9 as new patch in this
+   series and use the  API to other patches.
+ - Commit description change.
+ - Link to v1: https://lore.kernel.org/lkml/20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com/
+
+Mukesh Ojha (9):
+  firmware: qcom: pas: add qcom_pas_context_init() for pre-allocated
+    context
+  remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  drm/msm/adreno: migrate zap shader loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  media: iris: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  media: venus: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  net: ipa: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  wifi: ath12k: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  soc: qcom: mdt_loader: remove qcom_mdt_load()
+  firmware: qcom: pas: remove qcom_pas_auth_and_reset()
+
+ drivers/firmware/qcom/qcom_pas.c              | 42 +++++++------
+ drivers/firmware/qcom/qcom_pas.h              |  3 -
+ drivers/firmware/qcom/qcom_pas_tee.c          |  6 --
+ drivers/firmware/qcom/qcom_scm.c              |  7 +--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 22 ++-----
+ drivers/media/platform/qcom/iris/iris_core.h  |  2 +
+ .../media/platform/qcom/iris/iris_firmware.c  | 27 ++++----
+ drivers/media/platform/qcom/venus/core.h      |  2 +
+ drivers/media/platform/qcom/venus/firmware.c  | 29 ++++-----
+ drivers/net/ipa/ipa_main.c                    | 23 +++----
+ drivers/net/wireless/ath/ath12k/ahb.c         | 23 ++++---
+ drivers/remoteproc/qcom_wcnss.c               | 12 ++--
+ drivers/soc/qcom/mdt_loader.c                 | 63 +++++++------------
+ include/linux/firmware/qcom/qcom_pas.h        |  3 +-
+ include/linux/soc/qcom/mdt_loader.h           | 12 ----
+ 15 files changed, 116 insertions(+), 160 deletions(-)
+
+-- 
+2.55.0
 
