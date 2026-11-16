@@ -1,49 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838352;
-	b=abgCc2ZCiveajnkem3V/LpxMsyyEI/ltrjT7GcADboLedvRz1e2usikGuG78BVbRBKdf
-	 4an7BRkkQB4XyfAe36GBxrf/B6aqcs5IMO/uqbCabqwJOWE7hRnrU4MMx8EeHJCbiTpzL
-	 KVvJxvDPQWpRVZtb0oV+b0+3reSlq79QecHxjWWPVyRDQineJ+OCqzTDNWqAPSybAgLca
-	 KSFTVNPyN0Hwk6HoRRZkzOdHh8HyTCP5NHG+ZGjiP6X6OLAY+qKwLUANLznor+mUrVM18
-	 0p6M3Lpr7RxeUFae9UJsDcqm0nL8mvlhE1jLE0Acrt4OqVAxz1GFQV4soj+trbnWMbg==
+	t=1794838411;
+	b=MsdaoVB5XmBAjA9VnnsLWHSVKMngx7nRFmxgDuAcp7Unrf7VA03Ku8cTXcvgDYv+LYXU
+	 qCF/qP9XCPelN+0rlmLm8JWe9fazPdpQ+lMvUgqhhTPip6LoqPvpMyDWXdxiN61cgK4X4
+	 PhSNwoQ29fhN+bdCEPkUyvVWQE9I2tjsfnkKlHtLLaaZlddaYuRX0yHSsRaAYBk3OjlME
+	 HBjdU/usyx6bHFZYWKfsdROiuM2RU2lRGApv9uvLCtKLRnKfxLadaa5JD6dlzmE6cuIOC
+	 H+8tb6EdiVNpbA8l6apiHdJTIJGLMNEPGZoucu+3bPAy4gb9+4iRwU9eQrZcixc7voQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838352;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=+dmzKoW9rqQ/GFF0qt6AUTCWAnyMLfoMYNhlMKd90Ao=;
-	b=eiCV3wCzEFZ8j9kj5qzp98sEV/ZsrcdsorDcYqsBSLqhQadMzkK5sAVyltN3F97kMO30
-	 NTHFAwjQt/OYUINQJ8tMsQ9VAF4WTjduj8mp/UeEMdxv08OjbPXShFMWFDz6XfviC0NK2
-	 L7EtN3z+0sEfrYf+pcvPnmB7oZCAQ0mhpdM4FZXu1PNtxj3KSb86T0rG1h52+iDA3dE83
-	 pPm+9Bs9i3U4W3epre3BTE05WicCL8IXHfLHZhSZcHYZq/CeJiPVF5TzWi9w/kGxTzbSb
-	 m+mxbjjrd7FtkoT5tQcpCyPtbyJP5dAc7IrHwalFxz1HVpz+SVI1vVwpUpZ1Z7kXX3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838411;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=A27FojnMSCXdxXUOAkXHhWqJrm39BoVP2wyO2sii3vo=;
+	b=okVZeqgSaaaoUlFRtk7mZg1cYnQspXYcPlFnkrwOiLON2XrL/M/yXtNQVX4DjVRs4CO7
+	 gQF9AldAYfrh1hnPMYEGfov/Io3rNiOSM4EP70vtUgwCHiXLEpzXgySdJRLsmqsnzbqha
+	 bQ85lvurUkVDnDZjWC8LgWhAR+8xT1fwJbYP/F5cewBOCoWdQ0Pnmu2lX4LHnK7krswzs
+	 k6/4xcRcEC/o17AlPxq4KG6EqNtvc/GCaFn6DZ8pZkLC5UhE55sC2hAeF0gQnSqliN2SQ
+	 Q436fTA4a0vzfv6lOFhOlxjeHuH9TJhYBaH1k61UK6bFRNtP0ottnHUwD9Kge54MyeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwPJ9S4t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=UwaqgKW2;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CE8606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F453606A329;
+	Mon, 16 Nov 2026 14:13:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F453606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwPJ9S4t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72791F000C4;
-	Mon, 16 Nov 2026 14:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838351;
-	bh=+dmzKoW9rqQ/GFF0qt6AUTCWAnyMLfoMYNhlMKd90Ao=;
-	h=From:Date:Subject:To:Cc;
-	b=NwPJ9S4toer+MZWLv9AL252Uy/YxDC2arIwhOOTfzI9UAD5n4Zfy1g6B2y57eiCKM
-	 RKqEV2TODOQwoQqILNAmM5kxbL4U6KpULDqCgGVp1f9bxAY1G0vnRFpTrOK45JLTPO
-	 i1dzS4zcwix/L91sLefxMGLEg3GLYWa/TLD6mua8oi/bg+QzxFTTni3651bNLCQ6Vz
-	 R2FPzW033/l9c62TtfvjCMmAyI4Os2uLHy+8RO0B35+NppvWRnvfaP16EYPECtwU8h
-	 l9lg72CE5D0N5Tg4JCz9Ha+tKShCM2qFYwTA4Ef0HjH6403tHABO2Gprf7bNowkDvi
-	 cceTCIxHAoavA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 16 Nov 2026 15:12:13 +0100
-Subject: [PATCH] mm/util: fix retry detection and handling in
- snapshot_page()
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=UwaqgKW2
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54db44702;
+	Mon, 16 Nov 2026 22:13:25 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: brcmfmac: Fix potential use-after-free on monitor registration failure
+Date: Mon, 16 Nov 2026 22:13:24 +0800
+Message-ID: <20261116-c29ba55625-wifi-brcmfmac@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,99 +55,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-snapshot_page_fix-v1-1-8e425984e8d1@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQrCMBAF0KsMf92AUzRoriJSYpy04yINmSqF0
- ruLunybt8GkqRgCbWjyVtO5IBB3hDTFMorTBwKhP/Semb2zEqtN8zLUOMqQdXU5Cp9P4jldjug
- ItUnW9Xdeb3/b6/6UtHwj7PsHXPscFHUAAAA=
-X-Change-ID: 20261116-snapshot_page_fix-fae185e61c94
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Luiz Capitulino <luizcap@redhat.com>, Shivank Garg <shivankg@amd.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Shao Mingyin <shao.mingyin@zte.com.cn>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2764; i=david@kernel.org;
- h=from:subject:message-id; bh=oCOpJKthFANmJ/4lv+Nsq0+6JUVPxiCs7IZPnL+gr7g=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJ+8zucO6spVSgjlyJ3pUu780n0QtvlR9d43uXcflYqf
- cnpo5mvOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiI/ktGhvWxsSfEssvPJPM+
- uug9wfzImusp73YYb93L4+vs+jfufDgjw76Le6+ey3kqZXP3ADM7R2FfzJE8vwW502tfZu46bHv
- JnAcA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e4b49fc903a1kunmbe64bfd010dd11
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQx1LVk5MGBkaTk1ITkgfHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=UwaqgKW2kIBsddT2o+CY9HxEt87u68np9Q3If3U5fcIXVtYYF/3Z48eBf5iMtvzug4TDMOsvoj6AQYZDsm4/mr7j24dzrTKVXDN+HMHGlTVDuUSr5+0MDJOMi3B/qCvmny8x7kDI+iMjLmd6l7ELBdBmkhg+CeL5TBJc2WXe5QA=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=A27FojnMSCXdxXUOAkXHhWqJrm39BoVP2wyO2sii3vo=;
+	h=date:mime-version:subject:message-id:from;
 
-snapshot_page() detects races with concurrent folio split+construction by
-checking whether the given page still falls into the folio. Unfortunately,
-we have an off-by-one error in there, and we should be checking for
-"ps->idx >= nr_pages", because idx 0 is valid.
+A failed netdevice registration can invoke priv_destructor while
+cfg80211_register_netdevice() still needs the wireless_dev embedded in
+the vif. The caller also frees the vif on this error path.
 
-For example, we might currently report a tail page at idx 1 as faithful,
-although the snapshotted folio is now a small folio.
+Install the destructor only after registration succeeds, as done for
+regular interfaces, and leave failed registration cleanup to the caller.
 
-However, there is one complication: As we don't hold a folio reference,
-folio_nr_pages() can return 0 on races (or when called from page freeing
-code). Handle that by just setting it to 1 in that case, so we don't
-wrongly report a head page as "page does not match folio".
-
-In addition, we should reset ps->flags when retrying, by just resetting
-it to PAGE_SNAPSHOT_FAITHFUL. Otherwise, PAGE_SNAPSHOT_PG_BUDDY and
-PAGE_SNAPSHOT_PG_IDLE from a failed attempt could stick around.
-
-These races are fairly rare, so this is not really critical, we simply
-report something slightly wrong. No need to CC stable.
-
-Fixes: d863a12108f2 ("mm/util: introduce snapshot_page()")
-Reported-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-Closes: https://lore.kernel.org/r/20261115004657890Pz8ERDf5nCtE-B6M7KFzu@zte.com.cn
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+This issue was found by our static analysis tool under development.
+Fixes: 20f2c5fa3af0 ("brcmfmac: add initial support for monitor mode")
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- mm/util.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/util.c b/mm/util.c
-index 80f6c714844f2..338f259b00351 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1406,9 +1406,9 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
- 	int loops = 5;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 46714d871260..aebc8f7b2a41 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -933,7 +933,6 @@ static struct wireless_dev *brcmf_mon_add_vif(struct wiphy *wiphy,
+ 	ndev->type = ARPHRD_IEEE80211_RADIOTAP;
+ 	ndev->ieee80211_ptr = &vif->wdev;
+ 	ndev->needs_free_netdev = true;
+-	ndev->priv_destructor = brcmf_cfg80211_free_vif;
+ 	SET_NETDEV_DEV(ndev, wiphy_dev(cfg->wiphy));
  
- 	ps->pfn = page_to_pfn(page);
--	ps->flags = PAGE_SNAPSHOT_FAITHFUL;
- 
- again:
-+	ps->flags = PAGE_SNAPSHOT_FAITHFUL;
- 	memset(&ps->folio_snapshot, 0, sizeof(struct folio));
- 	memcpy(&ps->page_snapshot, page, sizeof(*page));
- 	info = ps->page_snapshot.compound_info;
-@@ -1437,14 +1437,15 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
- 
- 	if (ps->idx < MAX_FOLIO_NR_PAGES) {
- 		memcpy(&ps->folio_snapshot, foliop, 2 * sizeof(struct page));
--		nr_pages = folio_nr_pages(&ps->folio_snapshot);
-+		/* On races, or when freeing pages, we can read 0. */
-+		nr_pages = folio_nr_pages(&ps->folio_snapshot) ?: 1;
- 		if (nr_pages > 2)
- 			memcpy(&ps->folio_snapshot.__page_2, &foliop->__page_2,
- 			       sizeof(struct page));
- 		set_ps_flags(ps, foliop, page);
+ 	ifp = netdev_priv(ndev);
+@@ -951,6 +950,7 @@ static struct wireless_dev *brcmf_mon_add_vif(struct wiphy *wiphy,
+ 		goto err_free_vif;
  	}
  
--	if (ps->idx > nr_pages) {
-+	if (ps->idx >= nr_pages) {
- 		if (loops-- > 0)
- 			goto again;
- 		clear_compound_head(&ps->page_snapshot);
++	ndev->priv_destructor = brcmf_cfg80211_free_vif;
+ 	cfg->pub->mon_if = ifp;
+ 
+ 	return &vif->wdev;
 
----
-base-commit: d164c7d754f0e1f020298366ea92430e62476089
-change-id: 20261116-snapshot_page_fix-fae185e61c94
-
-Best regards,
---  
-David Hildenbrand (Arm) <david@kernel.org>
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
