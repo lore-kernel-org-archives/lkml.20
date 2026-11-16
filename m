@@ -1,116 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826402;
-	b=L/hVmwRHXd37p3cwhk1tPfQh75YCS6QJNudSXMPfPx9WI0Odrv8w4LyqprayXE1BqGpB
-	 k4nvRwZscqqOpiswd+LMZK8y96nrUwn5lVqlC3U8fvg8nN+MNwtT8bo8pTSlSO0kUc5OI
-	 mwfpT0Q07ik7wt1cawaXSpYvzAtWOE3Mm0aGvgtyKlqwRlmeCRNMkP/PqMCaGoW0wOIcJ
-	 YVOcHYmNB/iJf5BfGZVv/PRS+pMOlaK12gyYGOjHfeZB/0RcbhTDA4aYRolMfFH4TqF0X
-	 XyNgxvXTXxm3gC7aV1xmtlVTIAmZwv/z29lKO73mS70GPRN4Ed6MYlBcUlR5qapEVRA==
+	t=1794826398;
+	b=xFu49GAAfF9OM8/07ReDdJ1oXmJrg0JdmupzYIb63uBlVIdT6NjBqcNt1nBwYzwhqnBG
+	 RtLO9dYE4zcPfSE5CHalKcsB6omdZtlP/ut2HcAzbRnAQ3WMVF8VqggdS+eSDbwdu4rry
+	 NPlbdk27y0ty1MxsQZbA202vhU89LzkPg6SBkK69nh682P2rYuF7j6lG7WtssePyQ+yi0
+	 dNX3fu/30h995g6oXAwrJM/QK19twMXz61xp/nMdUFaNsD+03WZjElR1xtCJND4yKbaEa
+	 2KnOasjN4w403e6m68nAWkwRCNES7CbcFN9dq0wyRijPmwr9dcI5E6Un5Zyglaof1bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826402;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=HVQaD9JPLSlypPeoMjV3YW5/MfO3VO8SRm2wJMatWzY=;
-	b=OKprWWsiMHe6EyUDQ4lnbpc8OzRCjK0qqQbsU6ise/OlJ0XRK2ssAMSidS7CC8halh2C
-	 8HORlipxVC91sWhZ028hdF27mTBuG9fhvIUZV/qx/2umqx4w+2tZiD9bz/3MsDkzz+Smp
-	 Fh8DSAN063/CHq0NgYjGtFAv5eNLAzQv1iPIRykDG/oQZoD5hgK44Lulu/leKdXylc3XM
-	 rKxPq6Nx37cOMIZ6llD401qrwKiS4541xOxaj8xAKGVLWhtYBS5S5QHueidBjN7KZruLz
-	 v8MTig09tP4NQ9Ls+KtEYA/HfFhHxaIQ0toeyDvysszyADF8sE5GlIiieSwajWO82tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826398;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=8JNO3jIP8ubuMUWYxInJDGmVrvGcsBEC3HKKFdaVcMs=;
+	b=VL30cA3Rjcban1Z9unLZsY2jt+IkZaNPC2A7NllTNK3PKFl9oIGq38Ef+MBYlLpTQ0+l
+	 0vR2CJgTSdeyyFzB5V5uWw7Z+Af0LGnh5tltAItIWwovr1M3lc8tU5oIbXRhZZEm0QTYH
+	 80yB6o2fCKDduz4mUGUe4OD07H8xtvGD6Q6k79JGqmnzrgxGeExs5aODH3rdShDgoD+Cs
+	 WZbavPKqHl2Tb7nDSNizRym3suJ/kF488ZlGyY+h1Twzkioagh0sbz7dExUhhBoJNcmXP
+	 PUnTyFdKt4he/ZzBSAF9pE2ijPeYL9vaV4cmOgq/mZudev7ESZ4l0r0uMYl1thrBiMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="gVOy/ThH";
-	arc=none smtp.remote-ip=209.85.216.100
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgXsrd0O;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CB3606A8A7
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:53:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77CB3606A8A7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EE0606A338;
+	Mon, 16 Nov 2026 10:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33EE0606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=gVOy/ThH
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso3758623a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826400; x=1795431200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HVQaD9JPLSlypPeoMjV3YW5/MfO3VO8SRm2wJMatWzY=;
-        b=JYxkXuSGXgPpvgtmzIWzxnD15FtI5OkWUSemTJ/hINLQC+/XNiKrYafwJPl5/RejgD
-         Nmx2o1t9uJ7aVMXwRO3LhB/AyFwJptJBGXqsrMxP1GSdJv8IW4B20PkaV1TXdBIgDETi
-         4QiIRewJYUfHXet7Gw4pW6uZVPeRvCiTnJa/cIz/TJeH05+1mfqx1D1+ZulqIyrRNjKF
-         1Zv8y1CJMKS/iwzqo9ZKAyxMeDdiTEitF5k1sxtnDbyuj7mKLuYkaQSHHI5lbfQpBtOR
-         NKRTINQuyZn7uUvy2a1ADMF4ZSdhABK+MvMLyOz4M2Kxo3Bsr+gLoCznfNlGdx3yO9QT
-         J1KA==
-X-Forwarded-Encrypted: i=1; AL+hErE+VJbYXigBLjCon7/W7NvaAnb/X0zNSyYwzJ/aj7DGBbgh+BJAHyb4eTjkXx4jQBoMqkk8XLX4I+2FVRY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KgwiUGrObmc964SiovvL9qUR3YJNF9ajKgXGgqdYVXy8YH8rD
-	u5b7r85jz+lmSHSpWlsbl/NXZKqCi9wHrv+4AIo6sv3w4iZBWrfaK5UmMKr0k5EeBRpp42e13tN
-	2+6/XqxUUkYI4d+t8s0Bry17d2cE2+7Zmt2HvWuKjtvIy77jv22VmQAlqpkSkxybZKO5A8Ay95l
-	kdeq9YQopT1u27M5akeV0NOxEP6BRbgBj/8PHHKH28R3xsdVn+lQGr90wuc/xxz3G2YBZixkmih
-	Wwd67WJy0PQ6jI+Ung83oZiDA==
-X-Gm-Gg: AZFdTZe9wq8tA/bH2JjqIs1xzjb2K9ea67ntNkD4yOBJZOulHSWzo/cySb5B2TGv6pE
-	g7hPjokkovJ1WM3huUj/2I1ErzkpMMblBhtKuYVefRcYSfWNhQFG7xFzyJo+5CLnkRsjGSTxIsA
-	oBIoL7ZxYIwryDGtrf5UtJ4LUqiPFsHGcLMRfis9/cOFM00p2sJM8Ft3XpGsXysObtkqDjja5J9
-	eynZLmffzB4lWiSnqOCWU3+z3BdOckN6+Dm+rqdOpV6qFoApLiM1FLseIcJrR7uTykzUxqs2mhC
-	b16fgFngM1szgawYgIXwg1gPlLW4nZKdJ5TA7WKQGziNywLsf5pKEPCuYLUJg4jp/tvGdYaF89j
-	lipfbr9w+kBrS7SWESUAm2SgV4IgMWQLhVcGxLIz4Nm9HbP6zMQ8VS1UNm+lsP/SmFT+BEXQqIs
-	R7aUA6bZ7YS+/Wg6JqD0kn7TxRMhec0Y/k54rZg/xOzA==
-X-Received: by 2002:a17:90b:35cf:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3b1b0d08f37mr9761209a91.53.1794826399585;
-        Mon, 16 Nov 2026 02:53:19 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae97e783sm11810309a91.6.2026.11.16.02.53.19
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 02:53:19 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9495a1f5e47so177040185a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794826398; x=1795431198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HVQaD9JPLSlypPeoMjV3YW5/MfO3VO8SRm2wJMatWzY=;
-        b=gVOy/ThHKXUgs1OvPpLYhMH/sQgjvWOvzLAUqnIZKQn69+idgqqFb0nESnT7u8LyjC
-         9MyPVIZjBhBRKAbr9Hqjb7OcJtCQhztZdUnayjXqb2fH7CQ8Dr+dqODaj6gP5NoX0opu
-         xWSBP8Ywx5mA6kVppv2sCNbG4ApEfpMXpAXkw=
-X-Forwarded-Encrypted: i=1; AL+hErE8uNEv1oIEmGKCSYo6nagANc2jBMskIPq90RKEV6+XZnLhgcEkDEOSqI2QaXGiut6Y3LJJ0FrpHgmJL8s=@vger.kernel.org
-X-Received: by 2002:a05:620a:4541:b0:945:afc1:a73e with SMTP id af79cd13be357-9494ba601efmr1588959685a.8.1794826398320;
-        Mon, 16 Nov 2026 02:53:18 -0800 (PST)
-X-Received: by 2002:a05:620a:4541:b0:945:afc1:a73e with SMTP id af79cd13be357-9494ba601efmr1588957785a.8.1794826397898;
-        Mon, 16 Nov 2026 02:53:17 -0800 (PST)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949825e08b4sm125151785a.37.2026.11.16.02.53.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:53:17 -0800 (PST)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Kordian Chmielewski <kudzo51@gmail.com>
-Cc: dev@deq.rocks,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	asahi@lists.linux.dev,
-	j@jannau.net,
-	marcan@marcan.st,
-	sebastian.reichel@collabora.com,
-	linux-kernel@vger.kernel.org,
-	Arend van Spriel <arend.vanspriel@broadcom.com>
-Subject: Re: [PATCH wireless-next v2] wifi: brcmfmac: msgbuf: count tx status only for the current flowring
-Date: Mon, 16 Nov 2026 11:53:13 +0100
-Message-ID: <20261116105313.3479803-1-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261112175754.396469-1-kudzo51@gmail.com>
-References: <20261112175754.396469-1-kudzo51@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgXsrd0O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794826399; x=1826362399;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=elMYf75p47axVkuHQr1fRg10imF3Fueinq9fdu1mc78=;
+  b=EgXsrd0O3ggm1vAkK/abOg6govcbcNUHdSk+Li0/JW784eljta+hOVcv
+   UzQoZP+9864M+bB7WIHUeHkj2DmtVXaPbP4ikcanwWT2mytW/xdEyU6bh
+   yKMdKeem0DhmCLcCFIjb+HmTo47XLzEqX/FwX6KpN2tbpad4z/sI5R/HX
+   /4VhEVB4AwRv/7DqzfS/q6MW8Nnp9Ua+sgqOJff6UiICuM6TOxj8b1hJS
+   5BkpPGcm2PEnDt4AeZcE/nPZxSlcun1LCL3eZkpyfsJ/6H5ddp0bIoqTL
+   gh44RU/iXnjXi4JhEhRPbq2/mcNN8IRqrUU6lPV50WakusZmuNKLhh/vk
+   g==;
+X-CSE-ConnectionGUID: JU0Me+cdTDqGKdCQGgLgtA==
+X-CSE-MsgGUID: 7v6uT3MKSf+8aavIvYwryA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3546162"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3546162"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:53:18 -0800
+X-CSE-ConnectionGUID: 80Oi81awQ/WfXfRCSSBQEg==
+X-CSE-MsgGUID: U8+P76kGQGO3qpIEOOZsdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9356809"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:53:15 -0800
+Date: Mon, 16 Nov 2026 12:53:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Adil =?iso-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] iio: proximity: add Imagis ISG5320A SAR sensor
+ driver
+Message-ID: <avrgmAFpY7hvuwNh@ashevche-desk.local>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
+ <20261116074013.355363-3-tadilhusrev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,28 +86,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+In-Reply-To: <20261116074013.355363-3-tadilhusrev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 12 Nov 2026 18:57:54 +0100, Kordian Chmielewski wrote:
-> brcmf_msgbuf_delete_flowring() waits for the outstanding_tx counter of a
-> flowring to reach zero before it sends the delete. When the wait times
-> out, it sets the counter to zero with packets still out. Their tx status
-> still comes and takes the counter below zero, and since the counter
-> lives in the commonring of the flowid and nothing resets it, the next
-> flowring that gets the flowid starts from there. With the counter below
-> zero, the next delete of that flowring waits until it times out as well.
+On Mon, Nov 16, 2026 at 10:40:13AM +0300, Adil Hüsrev Tepe wrote:
+> Add an IIO driver for the Imagis ISG5320A capacitive SAR/grip sensor
+> (I2C), as fitted on the Samsung Galaxy XCover5. It exposes one
+> IIO_PROXIMITY channel (the B-channel signal minus its baseline) and a
+> rising/falling threshold proximity event.
+> 
+> The driver was derived from the Samsung vendor driver during XCover5
+> mainline bring-up with the help of an AI coding assistant (Claude Code,
+> Anthropic), which drafted the mainline IIO driver; I reviewed every line
+> and tested it on hardware.
 
-[...]
+...
 
-> Reset the counter when a flowring is created. Give each flowid a
-> generation that goes up when the flowid is released, and keep it in the
-> tx pktid of every packet posted to the flowring. A tx status of an older
-> generation still releases its packet, but no longer touches the counter.
+> +config ISG5320A
+> +	tristate "Imagis ISG5320A SAR proximity sensor"
 
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Make sure this, top level comment and MODULE_DESCRIPTION() have the same or
+quite similar text.
 
-> Signed-off-by: Kordian Chmielewski <kudzo51@gmail.com>
-> ---
->  .../wireless/broadcom/brcm80211/brcmfmac/msgbuf.c  | 36 +++++++++++++++++++++-
->  1 file changed, 35 insertions(+), 1 deletion(-)
+
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y here to build a driver for the Imagis ISG5320A capacitive
+> +	  SAR/grip proximity sensor.
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called isg5320a.
+
+...
+
+> +#include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/irq.h>
+
+> +#include <linux/kernel.h>
+
+Definitely no.
+Also, please follow IWYU principle.
+
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/pm_wakeup.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+
+...
+
+Also, take in use *ACQUIRE*() macros, in particular for runtime PM where it
+makes sense.
+
+...
+
+I stopped here. You can now go via mailing list archive (linux-iio@) and check
+what are the usual comments against new drier. You have many small things to
+improve, I believe.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
