@@ -1,52 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794792018;
-	b=FJ7bnsrHpXWxMtBQ9/6hvHm8aUcGXmN5WTyjBO457YL8qK03BLyLVhZw+BaJXSI9+gqw
-	 iEZrZiVKCGjswOr28j9NjnmCHsnsM4sNNcq09AH/R8IjTDYVJAiBtPuAm09ei6zpaix3W
-	 TgG8CpFUoqRbZdxqrf5bzlM9jqkheXyO2x1+E9CdbUZowENXhk/NKO1ML1Pd0wDbiUgLQ
-	 fHc/0SAui8kG4bklLchxewo8clYailLGB98qvc7zwihiCJqOZf+Qtzqobd8olhqVjcTF+
-	 0RJ/FRL1aLkHZYbjO9iVSJAqU5YrC8JOEC/J+rNvBK/xA20yY/joL8lg50SKAKFl0Lg==
+	t=1794792184;
+	b=BnNNVslgQCDpgGtxfy9HH7yD+VcYTxDSTCzkUb0TiU+rBiTvjbtveTBU1Lhns/bL1aSG
+	 qvbOzgZvynL3uYZwrKSmF4NosRINAeq1FBBQNG1d4N5l4WYNHZGSBP4BQN7o96T5ROpvk
+	 VZgdpcuYLMy0D5bV6vUHt+F7wYLrQ6Q2nf+NIZo/8Q0SpihnMitEFhh3vnMRPiUF04kaG
+	 t9fRJLy9wzMXGsb45Al7G03Ypjeb3v6TQOaGv39hLYzAyTCjqMAh/wT0eY/jv7rus3fIP
+	 gFJ0OrOaAWnnV/WXj3ZkLAYsqBmz6U+vFLV9xV8nO4zNwq9fFDKq8juTyr6tfG0LQhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794792018;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=dWm0RA0tqTSQdhSoSRmxYRJkKHnJc3RlGD6s85ZFy6o=;
-	b=iT/IQ2hrjyzxVtzg4Lo4hIYMaHQYMVx49G2dzSpQ5vWlcbzXh2R107LbBnw/WfoJSuPw
-	 psvjn122bV+xRCMGCHNYmGdUt8CtLPWuoPiZKAUMvPn/JUJ38MiK+cjHLb6sQfdxin2d5
-	 K8owsFPamd+rJEMM1YECLyrUVPKmDn2a50dtXOtjL3k0MRFjpaFHBeXNEHM3jFS/QNNi4
-	 qX/Hk7d8PDTAn28b3TN7pMSTKq1Iqan211DgFVOiAOXC/zHsKCBfd5oCx7PoYKR+0RNIh
-	 t59sSzq44lpX6hTsnu13xBB5bGlyQt+R+CpACyfq5LL1T8uMZl0VizEIt+277DqOnng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794792184;
+	h=DMARC-Filter:Received:Received:Received:Date:From:To:CC:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:User-Agent:X-Originating-IP:X-ClientProxiedBy:
+	 X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
+	bh=9JDkqFxFxJjvUaiAPs450ZRmRiqw4sJhppIRqRfsXbA=;
+	b=B2sd96OwC2t8M0j9f6RvNFohyNpmYG6d5TeDQtUYaXETHsm7zaVchafyr9oSWlTlVm5Q
+	 myOrPJ7VQZ7Gg+CvREZ2yq8BJ3waaKnnqTv9zjDrXK8Jq6e9rJ0UjHaQG/G71ksH0loGL
+	 iXsaQzCCxtgWrHf/KNvOTYRGLdXB4SOIm1p8iQiDzhhbcntghX4kGqGK8ZLmJ+zr1IK/J
+	 7aXzpvA4AbQWye5rer+I75LnFhoMMI67T0t8yrE1neUK2h0qeIevqjFH+GWuE4RjB0uIx
+	 1lU7kSn88j9ey+0NK+2zIOEUSNLgqhH4bLsPrlvP4msHGIp1z4BCkDHvOTEpv/HnFyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=NkpujxrM;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=pass header.from=andestech.com;
+	spf=pass smtp.mailfrom=andestech.com;
+	arc=none smtp.remote-ip=220.128.198.184
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0442C606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0442C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=NkpujxrM
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CE91310ECE5;
-	Mon, 16 Nov 2026 02:20:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794792009;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=dWm0RA0tqTSQdhSoSRmxYRJkKHnJc3RlGD6s85ZFy6o=;
-	b=NkpujxrMWHvpHm5fXyGZ4jZJd6IkJyOnFtBYv9hthQrvQQH+xPgGUzZUg/z36bh7FsdTtw
-	Q/FogVUucUP8XnscyICVSkneDDNsUFVM65R9JkeLI3pepRHkYK2JlaUx+pOgbheXE+xhXx
-	9oFqbVd7YqXzen7fzurK37eRhYYM3UjPFHX72E1SBswuqvuZcXmdtyXSv2FNi0JKimnLfu
-	Di/8uZxX+JYTmzq/Fqfcv4Hmdxci3dilZLpLYqz8rz0Dw1dmVpzmKjtHo4pe64AfuybM30
-	HCYtj/u+IG5vuGjfWc6EC9ZtD2WOSunsfyFW5xeGd+Ch5dYa7x85tADcCAHsYA==
-Message-ID: <293083d1-1085-40a7-9d6d-1776ed649238@nabladev.com>
-Date: Sat, 14 Nov 2026 17:37:55 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC3D606A31F;
+	Mon, 16 Nov 2026 01:23:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC3D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs54.andestech.com [10.0.1.154])
+	by Atcsqr.andestech.com with ESMTPS id 6AG1MShj096367
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 16 Nov 2026 09:22:28 +0800 (+08)
+	(envelope-from minachou@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs54.andestech.com
+ (10.0.1.154) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 16 Nov
+ 2026 09:22:28 +0800
+Received: from atcsi01.andestech.com (10.0.15.32) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Nov
+ 2026 09:22:27 +0800
+Date: Mon, 16 Nov 2026 09:22:23 +0800
+From: Mina Chou <minachou@andestech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <jic23@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <geert+renesas@glider.be>,
+        <magnus.damm@gmail.com>, <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+        <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <randolph@andestech.com>, <cyyang772@andestech.com>,
+        <tim609@andestech.com>, <az70021@gmail.com>
+Subject: Re: [PATCH v2 00/19] riscv: andes: make the LLC driver and cache
+ errata generic
+Message-ID: <avpaz5nZ6UsSNo1Q@atcsi01.andestech.com>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113-overcoat-facedown-fcac3e162931@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,75 +69,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@debian.org>,
- dri-devel@lists.freedesktop.org
-Cc: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Li Chen <me@linux.beauty>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Ole Carlsen <ole.carlsen@tutamail.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org
-References: <20261025213027.842978-1-marex@nabladev.com>
- <aviIPk4xbKhgqcTy@monoceros>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <aviIPk4xbKhgqcTy@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261113-overcoat-facedown-fcac3e162931@spud>
+User-Agent: Mutt/2.1.4 (2021-12-11)
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs54.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 6AG1MShj096367
 
-On 11/14/26 5:20 PM, Uwe Kleine-König wrote:
-
-[...]
-
->> -static void
->> -nouveau_drm_shutdown(struct pci_dev *pdev)
->> -{
->> -	struct nouveau_drm *drm = pci_get_drvdata(pdev);
->> -	int ret;
->> -
->> -	if (!drm)
->> -		return;
->> -
->> -	if (drm->dev->switch_power_state == DRM_SWITCH_POWER_OFF ||
->> -	    drm->dev->switch_power_state == DRM_SWITCH_POWER_DYNAMIC_OFF)
->> -		return;
->> -
->> -	ret = nouveau_do_suspend(drm, false);
->> -	if (ret)
->> -		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
->> -
->> -	pci_save_state(pdev);
->> -	pci_disable_device(pdev);
->> -	pci_set_power_state(pdev, PCI_D3hot);
->> -	/*
->> -	 *  This is just to give the pci power transition time to settle
->> -	 *  before an immediate kexec jump. it’s mirroring the existing
->> -	 *  nouveau_pmops_suspend() behavior, which already does
->> -	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
->> -	 *  ->shutdown() we’re allowed to sleep, so I used usleep_range()
->> -	 *  instead of a busy-wait udelay().
->> -	 */
->> -	usleep_range(200, 400);
->> -}
->> -
+On Fri, Nov 13, 2026 at 04:21:53PM +0000, Conor Dooley wrote:
+> > - Patch 19 adds the andestech,a27l2 CPU compatible. The V821 devicetree
+> >   will be submitted separately by Allwinner.
 > 
-> I cannot reproduce it
+> This patch is missing.
 
-I can surely reproduce it, because since Linux 7.1 I cannot shut down my 
-computer, something which worked since the beginning.
+Thanks for catching this. Patch 19 failed to send with the rest of the
+series, so I have resent it here:
 
-> , but maybe it's helpful to find out where/how the
-> driver hangs. Adding printks might be enough, and if not, remove stuff
-> from nouveau_drm_shutdown() until it works.
+https://lore.kernel.org/all/20261116003937.1776888-1-minachou@andestech.com/
 
-The laptop screen goes off, the machine is unresponsive this late during 
-shutdown, so adding printks() does not help.
+Thanks,
+Mina
 
-> I'd guess this gives the
-> needed insights to determine a fix without reverting the identified
-> commit.
-The problematic commit should be reverted and reworked, since it breaks 
-existing users. I am open to testing patches on that machine.
+
