@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794821747;
-	b=jaKS5rcVGh7rh73wPiDQqSrKDLVamfHLKjK4b2MrzaXkKvcg3STW0e1yDiq/APOECUf0
-	 v4KrzyVvJ10vNG6k8MGDVFVbrLL19NtVRlNWO5FKUn+XPMn5VDzvztw6bN3FJabxln0Tv
-	 RW6M0JyEQVoz0dWCsRn+zYaDcMNqZGEhEg0pbHaLrkDcxxuR1IvacLKNjyTmFyP5S3lVs
-	 K0RtLqYwtYi2C6kRCLLmRLkRxSCcd2JpQe6egvrdrn1/uKRvT2BY7HNpvBHB+YYsK7IcD
-	 B0V0gY+qP97FK4z8ZIs9nVQ29Xex4lKWXeVh+5PX1KXDfj5+BKr65pNAT3G4XifiKYQ==
+	t=1794821748;
+	b=dKm4tam5iABqNKQgX+77LCoar3sRcuuCIhSOSjd5h0n+R/lO0gQA+gxL0H/bpF1L1K/b
+	 KZYG6+9D5/9XgMpCbspf+QZvS36imSfx7MuP4m6Xox2r3ENmruHVoDekmM0224/GRjS9P
+	 hyh32/SY/n2c1Qdi+lqxny4118mqRVzW1GIFbS/64ZA8rdxaFpyC8OyaRWcPvmRQBT7UR
+	 y6sD9QgoKKV666Aw2V6y9tPdTlDqHRlWY+1ozs5NIGOnEpbeHRuxVcXpQVnOSUiGsEBFF
+	 TUXsH6L+Gv1ocYtKWmE9gmLm2xyIfTVmy5byCOhBTh28nnvDrXmY1ZYHAVhr3K8VGsg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821748;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OOcLabl5ezZ1UkzwIkQf5ogcQm5sNSJAbcdcVxctfRc=;
-	b=p+oEs6ppc0/+Gw2pVQ6rlCRjF8xOluc+5DfMN0grDOyrCWMtwLVP6Yc1/km8nwNBr6fa
-	 XscK7NOkmPFE4ove0LrSolYTazsWcqnpLGvCGmbO1n85qVTCVaa6SIuObtAoLUMSAbTRx
-	 YIhLZEROuO/758BBTCDs9+5tS1genNq4+3mC7cVuRxzcbPGQl6fZCeGpSfAx8tuyXE0x/
-	 33GVcDZ/VwowF550MbQ1s2gk9NcWL5SGEcBRDo2ktT+KcLsf11LRNN6ZZGK+SvQzpMJy7
-	 12pllR4PVgl55y1BQuZP0W59zqS0HGudyLO9ORaQ+kyA9Vg2FrMpQLIDCIoSiyyTeQw==
+	bh=LkOtS9QLJh/Ed55JHkela6po+qyGdBl1lvnUWZZTMEA=;
+	b=T/h9CyB6n05q5HZT81JdcCnbepAlHfkODMRZE65XjKg1wFHxdIN2C9c8vSmrrwAWZrfQ
+	 rr6yyHSZzzQmkwRZmDeyqqNaNjuUka01DdKGne4putGaQu5j9OlKRcVZ2cnoTUyIyD8kx
+	 JA/bmn71H69GW7jv3q3E1L8XpppKcqZ1uJWQTLR7pGLlTvScUskMteeh9FNUb7YhngF1S
+	 RydBnf0PmwuMtHg5ITf/TV3daNnLQh+k6g5zuT/72TQplvuLeUUEVwM/rxW0jKCEtlqLj
+	 24nEAZjebhE8XS0zCWUsFgWqUjWG6vvtEGY5/ah9vgdf0zFehtNvKW2xQxEvUH2syaw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRLOv1uS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpNDt5fb;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51085606A338;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF261606A333;
 	Mon, 16 Nov 2026 09:35:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRLOv1uS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpNDt5fb
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794821747;
-	b=urM/kOmB3J7+gMAKEBOXPzsw1Ps4yPAW2CR2csrFtTwNozoozRu3Yy7s68BUpXG+Nljs
-	 PD8OdVXPvSMSQoAJ5L1WJiWEwmbYZuWkg/LYZpgN7SUYAXzINlX7zr9P/rpdik5E6uJIb
-	 ZGMk9hnUQLPBnH8YwwyRgADUOoI5eDsJVtqpEcOy0aILp998WOk7civa41UW3zJ6z0fRm
-	 C+xM7mRG2AG5n4RC9Y2dPB2G5QJ9bPYrKIiFDVcm3ucfsHWyU1aG3nEsXMixBkENwkDUT
-	 OwbKyhAVgmWDsXrUBw069uTCylrnT0mNekfKxgpRRTs+IlS81zeXcZEhG1t/lBXW8iQ==
+	b=rRVn42L6CcLhMp7Wx27bxbnAPn4xFmycbCYSlwjdM+RqKqfka7a50s/xj+TIOzEE78tN
+	 AenwU6UvugnaT6hQHgY84YjEtIGR3Seh+FGmgpAfr0BeJUJa3V7aK5+/7RMehnckF2ID1
+	 J/BdtzKRDLiS2CAz90WASuj+ekv5OSLsTx5Fe63c39qLtbkAWLi3pK10BUQXHpBtSFOGz
+	 Z1qSGKAL57VeBTxn3sBdHC5ZypaHJakPoHLC1zySXFc942VqCt0c8xyU/8lTYp5sXmMni
+	 Lqhs4omDJHSFKjcuaCUuP8GJ2PRJrAwdO1BIy729mARPdwMQm61jU5XTMjsDePpWH4w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794821747;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OOcLabl5ezZ1UkzwIkQf5ogcQm5sNSJAbcdcVxctfRc=;
-	b=AN8nayaHP6a1TmU0YwzHAd0kLlPbWC7kOTiRqAl2+kDNaw66RclxIHYzPOl1V8XM8Gbj
-	 ese/p9faoWodwZbwh7GYDZEUWi6KJVe/kjsj8X8IQ47V1LbPFe2G8s5pFdb1MurJDDJaO
-	 Ygfh9pDsyu813s5G/4OFFY0ahEwzUJm3pdT7a8AeWX7wyNnwop94JMQY+iRRwaQANhptw
-	 qrqK8IzuD+RkkQnH0OPtfZtXWVXpJnnYRRBVcEPWTVPjKDh/S8A6z7ccSXbWEs3opq2eq
-	 q/rYzULlOgmihmY0EuyUC4TrLHaNOVi1CHYBx82V4gwypbmcuaCiYwfNSFNvJa6DOpw==
+	bh=LkOtS9QLJh/Ed55JHkela6po+qyGdBl1lvnUWZZTMEA=;
+	b=uwysEjOFVE6RIkentkt38dD9lGRU6FvpZGLN/SXheq3MJZjB9AqK6szb51zugF4URC8G
+	 +6BRzA54ENQA7EOedP23v99gCBcEWkq9C+U87IK8h9YZ6yMA2pGicVXyx8PuO2Mgd/29x
+	 uXH4nh4EE8zwpMIgKoH1NvgCHL4VlWGCwgPD4K3yRqVQhexvXJeXb4EpzwO+9dHhdZrEn
+	 GxQ/3NEK6n48bro9J+pTaDmbpE3XvZJ7355555VtloVTNnHzftI5UMic2QoFVKZcFuxSE
+	 Kz3fqssV/JCe/YIixa9gufMRvxfBKmLjh3pssrvdY4tlzTtIwNgpVyfpPEGHKC6W57Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E87F71F000C7;
-	Mon, 16 Nov 2026 09:35:45 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id F28141F000CA;
+	Mon, 16 Nov 2026 09:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794821747;
-	bh=OOcLabl5ezZ1UkzwIkQf5ogcQm5sNSJAbcdcVxctfRc=;
+	bh=LkOtS9QLJh/Ed55JHkela6po+qyGdBl1lvnUWZZTMEA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WRLOv1uSdSbZFTwVFFWPGCGBL1HfY/7vFePsewkla6SuM3zFz4tnsEVuw/HqyMPtZ
-	 lffVNhQMMwuLSqMkrWEdNeBY33AGA4AxhGufKsGaGbOPtrue/MuxJWUPTjkQKgTTiG
-	 c7uZsExAiRzABWWUiqZEC1O8SkmmvsW5BjgIKsmEZYEg5mkZXcdC8/gKYVWrGlb1FF
-	 2nYMYWuqetzPfUHvj5I+/HL/qFG6j70BKg3ae/FWTYYnK8SDIddWkARXN8TwkoGC+4
-	 CNP4ApNggFWioGVbWIdIb2I3K58Sk7VA9MjI11LdJoOSs3EvCpQwjejxKOmTp7eYqN
-	 M8fHItzqdv6DA==
+	b=IpNDt5fbgmfJ7LrIpaFQ+MlMePRI9YSSFeV9b9oAVwiDvLaA3zC7IbvvSd4hk7mU5
+	 fM79N4gvBZhbxjJ6z5pC5Rzox62SxzenNneOiv5qoMY8xNodk5duNJDtGqgtB5hz/Q
+	 xT/oIdhy/6mA45XL5UeMVbb2rCNAW7VVyCjKLMVAJcAPbV0UbD1L4wS3HXWpFnCJ3l
+	 q6bgntJ2wLnO5YWiuoIw76i1crj+yzVOLGmjAr99VPqONt6SfJgci9kcjsLOioE5fR
+	 NVzZwy2XPxKRXjoO6FOAYl7OUaOEaRKmD2trBafUex2XDaUvbQV+cA4WyqX5YlNKvc
+	 Knsc0LibYzq9A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 745EA4A406;
+	by lkml.kernel.org (Postfix) with ESMTP id 9BB6F4A40E;
 	Mon, 16 Nov 2026 09:35:45 +0000 (UTC)
 From: Matt Thompson via B4 Relay <devnull+matt.boondocker.io@kernel.org>
-Date: Mon, 16 Nov 2026 02:35:45 -0700
-Subject: [PATCH RFC v3 3/6] PCI: rockchip-host: Recover downstream
- configuration access
+Date: Mon, 16 Nov 2026 02:35:47 -0700
+Subject: [PATCH RFC v3 5/6] PCI: rockchip-host: Defer retraining during
+ initial link training
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-rfc-b4-v3-3-0bf052b68f2a@boondocker.io>
+Message-Id: <20261116-rfc-b4-v3-5-0bf052b68f2a@boondocker.io>
 References: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
 In-Reply-To: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
 To: Shawn Lin <shawn.lin@rock-chips.com>, 
@@ -98,11 +98,11 @@ Cc: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821744; l=4966;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821744; l=4671;
  i=matt@boondocker.io; s=rk3399-rfc-20261113; h=from:subject:message-id;
- bh=t7P6yz1ZPt577IkVoaPXVx7wOD2MZniq6qTtpmWpQv0=;
- b=BnKbzR8+U/NVEHw0lN+x9zQOZ26TegMsjXzgJThVUDaAmKioqOd2YPUmM15W5G/Frro19sTKP
- voN91EOgr2vAkKaHiiQYK9AnhG7gGHpbrC04uvt8/d4MSuZlKp8NdqU
+ bh=KUXpKSAKyk225bpT79IH2hk0YJswSkRu8Uhog5/Ier8=;
+ b=sNVtW5seraedhdRLtk/01tgNfKXot3Oe0ZrNnzO7kxnYpnZRc9MJhR0eFYN8XN15mSkDH8B5P
+ iKpB8swdS4NCD8ogtJv+gkpNAEPatfYGTf7msQ1lNr7PkDL9KlitTKG
 X-Developer-Key: i=matt@boondocker.io; a=ed25519;
  pk=WMnh3kwFFRkrqamL/FbDcdl1/9rBF2uT03VdvGGP40k=
 X-Endpoint-Received: by B4 Relay for matt@boondocker.io/rk3399-rfc-20261113
@@ -113,146 +113,126 @@ Content-Transfer-Encoding: 7bit
 
 From: Matt Thompson <matt@boondocker.io>
 
-The link status can change between the readiness check and a downstream
-PCI configuration read. A link that reports up can also fail to return
-a usable completion.
+Clearing Link Disable starts initial training. A retrain request can
+arrive while the PHY is still in Detect, when it cannot recover a data
+link that later stalls in initialization. On RockPro64 the link could
+reach L0 while the data link remained unable to pass configuration
+traffic.
 
-On arm64, annotate downstream loads for all three access widths so a
-synchronous external abort returns PCIBIOS_DEVICE_NOT_FOUND with all-ones
-data. Keep little-endian conversion and I/O read ordering on success.
-
-After retraining, the controller can continue to block configuration
-traffic until its AXI link-down latch is cleared. Clear the latch before
-downstream config reads and writes once the link readiness checks pass.
-
-Link: https://lore.kernel.org/linux-pci/20261024-rockchip-pcie-resume-v1-2-58e54a5cf5f1@iav.lv/
+Remember an early request and give initialization 50 ms to finish.
+If a later downstream access finds the PHY ready with data link
+initialization still pending, issue the saved request once and leave
+configuration access blocked until the data link becomes ready.
 
 Signed-off-by: Matt Thompson <matt@boondocker.io>
 ---
- drivers/pci/controller/pcie-rockchip-host.c | 62 +++++++++++++++++++++++++++--
- drivers/pci/controller/pcie-rockchip.h      |  1 +
- 2 files changed, 59 insertions(+), 4 deletions(-)
+ drivers/pci/controller/pcie-rockchip-host.c | 45 +++++++++++++++++++++++++++--
+ drivers/pci/controller/pcie-rockchip.h      |  3 ++
+ 2 files changed, 46 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index 35105c1..64ac6f4 100644
+index 64ac6f4..d6c494f 100644
 --- a/drivers/pci/controller/pcie-rockchip-host.c
 +++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -29,6 +29,10 @@
- #include "../pci.h"
- #include "pcie-rockchip.h"
- 
-+#ifdef CONFIG_ARM64
-+#include <asm/asm-extable.h>
-+#endif
-+
- static void rockchip_pcie_enable_bw_int(struct rockchip_pcie *rockchip)
+@@ -19,6 +19,7 @@
+ #include <linux/irq.h>
+ #include <linux/irqchip/chained_irq.h>
+ #include <linux/irqdomain.h>
++#include <linux/jiffies.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_pci.h>
+@@ -123,11 +124,28 @@ static int rockchip_pcie_wr_own_conf(struct rockchip_pcie *rockchip,
+ 				     int where, int size, u32 val)
  {
- 	u32 status;
-@@ -149,16 +153,36 @@ static bool rockchip_pcie_downstream_ready(struct rockchip_pcie *rockchip)
- 	       PCIE_LINK_TRAINING_DONE(rockchip_pcie_read(rockchip, PCIE_CORE_CTRL));
- }
- 
-+#ifdef CONFIG_ARM64
-+/*
-+ * An absent completion can raise a synchronous external abort even when
-+ * the link status indicated up immediately before the config transaction.
-+ */
-+#define rockchip_pcie_cfg_load(insn, addr, val)			\
-+	({								\
-+		int err = 0;					\
-+		asm volatile("1: " #insn " %w0, [%2]\n"			\
-+			     "2:\n"					\
-+			     _ASM_EXTABLE_MMIO_READ_ERR_ZERO(1b, 2b,	\
-+							    %w1, %w0)	\
-+			     : "=&r" (val), "+r" (err)			\
-+			     : "r" (addr) : "memory");			\
-+		err;							\
-+	})
-+#endif
-+
- static int rockchip_pcie_rd_other_conf(struct rockchip_pcie *rockchip,
- 				       struct pci_bus *bus, u32 devfn,
- 				       int where, int size, u32 *val)
- {
+ 	u32 mask, tmp, offset;
++	bool link_control = where == 0xc0 + PCI_EXP_LNKCTL;
  	void __iomem *addr;
-+#ifdef CONFIG_ARM64
-+	u32 data;
-+	int err;
-+#endif
  
--	if (!rockchip_pcie_downstream_ready(rockchip)) {
--		*val = ~0U;
--		return PCIBIOS_DEVICE_NOT_FOUND;
--	}
-+	if (!rockchip_pcie_downstream_ready(rockchip))
-+		goto absent;
+ 	offset = where & ~0x3;
+ 	addr = rockchip->apb_base + PCIE_RC_CONFIG_NORMAL_BASE + offset;
  
- 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
- 
-@@ -174,6 +198,28 @@ static int rockchip_pcie_rd_other_conf(struct rockchip_pcie *rockchip,
- 		rockchip_pcie_cfg_configuration_accesses(rockchip,
- 						AXI_WRAPPER_TYPE1_CFG);
- 
-+	/* Clear the AXI link-down latch before downstream config traffic. */
-+	rockchip_pcie_write(rockchip, 0, PCIE_CORE_AXI_LINK_DOWN);
-+
-+#ifdef CONFIG_ARM64
-+	if (size == 4) {
-+		err = rockchip_pcie_cfg_load(ldr, addr, data);
-+		*val = le32_to_cpu((__force __le32)data);
-+	} else if (size == 2) {
-+		err = rockchip_pcie_cfg_load(ldrh, addr, data);
-+		*val = le16_to_cpu((__force __le16)data);
-+	} else if (size == 1) {
-+		err = rockchip_pcie_cfg_load(ldrb, addr, data);
-+		*val = data;
-+	} else {
-+		*val = 0;
-+		return PCIBIOS_BAD_REGISTER_NUMBER;
++	/*
++	 * Let the PHY finish initial training after Link Disable is cleared.
++	 * Retain a request made during this phase in case the data link does
++	 * not finish initializing on its own.
++	 */
++	if (link_control && (val & PCI_EXP_LNKCTL_LD)) {
++		rockchip->retrain_pending = false;
++	} else if (link_control && (val & PCI_EXP_LNKCTL_RL)) {
++		rockchip->retrain_pending = false;
++		if (!PCIE_LINK_TRAINING_DONE(rockchip_pcie_read(rockchip, PCIE_CORE_CTRL))) {
++			rockchip->retrain_pending = true;
++			rockchip->retrain_after = jiffies + msecs_to_jiffies(50);
++			val &= ~PCI_EXP_LNKCTL_RL;
++		}
 +	}
-+	if (err)
-+		goto absent;
-+	/* Preserve the I/O read ordering of readl/readw/readb. */
-+	__io_ar(*val);
-+#else
- 	if (size == 4) {
- 		*val = readl(addr);
- 	} else if (size == 2) {
-@@ -184,7 +230,12 @@ static int rockchip_pcie_rd_other_conf(struct rockchip_pcie *rockchip,
- 		*val = 0;
- 		return PCIBIOS_BAD_REGISTER_NUMBER;
- 	}
-+#endif
- 	return PCIBIOS_SUCCESSFUL;
 +
-+absent:
-+	*val = ~0U;
-+	return PCIBIOS_DEVICE_NOT_FOUND;
+ 	if (size == 4) {
+ 		writel(val, addr);
+ 		return PCIBIOS_SUCCESSFUL;
+@@ -149,8 +167,29 @@ static int rockchip_pcie_wr_own_conf(struct rockchip_pcie *rockchip,
+ 
+ static bool rockchip_pcie_downstream_ready(struct rockchip_pcie *rockchip)
+ {
+-	return PCIE_LINK_UP(rockchip_pcie_read(rockchip, PCIE_CLIENT_BASIC_STATUS1)) &&
+-	       PCIE_LINK_TRAINING_DONE(rockchip_pcie_read(rockchip, PCIE_CORE_CTRL));
++	u32 status = rockchip_pcie_read(rockchip, PCIE_CLIENT_BASIC_STATUS1);
++	u32 core = rockchip_pcie_read(rockchip, PCIE_CORE_CTRL);
++	u32 control;
++
++	if (!PCIE_LINK_TRAINING_DONE(core))
++		return false;
++	if (PCIE_LINK_UP(status)) {
++		rockchip->retrain_pending = false;
++		return true;
++	}
++
++	if (rockchip->retrain_pending &&
++	    time_after_eq(jiffies, rockchip->retrain_after) &&
++	    (status & PCIE_CLIENT_LINK_STATUS_MASK) == PCIE_CLIENT_LINK_STATUS_DL_INIT) {
++		rockchip->retrain_pending = false;
++		rockchip_pcie_rd_own_conf(rockchip, 0xc0 + PCI_EXP_LNKCTL, 2, &control);
++		if (!(control & PCI_EXP_LNKCTL_LD)) {
++			rockchip_pcie_wr_own_conf(rockchip, 0xc0 + PCI_EXP_LNKCTL, 2,
++						  control | PCI_EXP_LNKCTL_RL);
++		}
++	}
++
++	return false;
  }
  
- static int rockchip_pcie_wr_other_conf(struct rockchip_pcie *rockchip,
-@@ -208,6 +259,9 @@ static int rockchip_pcie_wr_other_conf(struct rockchip_pcie *rockchip,
- 		rockchip_pcie_cfg_configuration_accesses(rockchip,
- 						AXI_WRAPPER_TYPE1_CFG);
+ #ifdef CONFIG_ARM64
+@@ -914,6 +953,8 @@ static int rockchip_pcie_suspend_noirq(struct device *dev)
+ 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
+ 	int ret;
  
-+	/* Clear the AXI link-down latch before downstream config traffic. */
-+	rockchip_pcie_write(rockchip, 0, PCIE_CORE_AXI_LINK_DOWN);
++	rockchip->retrain_pending = false;
 +
- 	if (size == 4)
- 		writel(val, addr);
- 	else if (size == 2)
+ 	/* disable core and cli int since we don't need to ack PME_ACK */
+ 	rockchip_pcie_write(rockchip, (PCIE_CLIENT_INT_CLI << 16) |
+ 			    PCIE_CLIENT_INT_CLI, PCIE_CLIENT_INT_MASK);
 diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index b5da156..1cc3621 100644
+index 1cc3621..5fdd06b 100644
 --- a/drivers/pci/controller/pcie-rockchip.h
 +++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -164,6 +164,7 @@
- #define MIN_AXI_ADDR_BITS_PASSED		8
- #define PCIE_ADDR_MASK			GENMASK_ULL(63, MIN_AXI_ADDR_BITS_PASSED)
- #define PCIE_CORE_AXI_CONF_BASE		0xc00000
-+#define PCIE_CORE_AXI_LINK_DOWN		(PCIE_CORE_AXI_CONF_BASE + 0x824)
- #define PCIE_CORE_OB_REGION_ADDR0	(PCIE_CORE_AXI_CONF_BASE + 0x0)
- #define   PCIE_CORE_OB_REGION_ADDR0_NUM_BITS	0x3f
- #define   PCIE_CORE_OB_REGION_ADDR0_LO_ADDR	PCIE_ADDR_MASK
+@@ -58,6 +58,7 @@
+ #define   PCIE_CLIENT_NEG_LINK_WIDTH_SHIFT	6
+ #define   PCIE_CLIENT_NEG_LINK_SPEED		BIT(5)
+ #define PCIE_CLIENT_BASIC_STATUS1	(PCIE_CLIENT_BASE + 0x48)
++#define   PCIE_CLIENT_LINK_STATUS_DL_INIT	0x00200000
+ #define   PCIE_CLIENT_LINK_STATUS_UP		0x00300000
+ #define   PCIE_CLIENT_LINK_STATUS_MASK		0x00300000
+ #define PCIE_CLIENT_INT_MASK		(PCIE_CLIENT_BASE + 0x4c)
+@@ -325,6 +326,8 @@ struct rockchip_pcie {
+ 	void    __iomem *msg_region;
+ 	phys_addr_t msg_bus_addr;
+ 	bool is_rc;
++	bool retrain_pending;
++	unsigned long retrain_after;
+ 	struct resource *mem_res;
+ };
+ 
 
 -- 
 Git-155)
