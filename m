@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825300;
-	b=4SeHzbVrC5HWjYxC3u6Wx3R8/hS4kMLCqhSJ73nE3GKEyli0M2NK8WQc8/cBzOdQob4K
-	 RMDdGfM6iaQO04bPNKle3VgaIiBnAf7xVb/HjB+93KUqZAEMH/Oio+CCT5rw4czFL8Qv0
-	 j9RYGhXEZfl5RaOXzZkzIEwVzIorKAp25uc4pF33OZImUq6tpOYb900g9kBnclGmx+tSw
-	 hEEo5PrJNfjFU6LswUdCVcsheMk92GZkcmrDoQoeDg5+M8HxZZFLF4Tdb6hXSUDTwCfct
-	 OKddr0SXCL/Uvp2A/Dh8xLJLfKBLaDUSxa01D9Zk4tFoAOyYfWdphLToWJCkfLltt7A==
+	t=1794825322;
+	b=WmiIDV7D88mQJOEVyPi1ypQKQ0qja2G42wcwFPSekCWYEWFaGOEMPf9F44/wGWYFYc7y
+	 JnddB52A6Y2bAIAk/VYqflZ3RQMjJg57ljfdF7BrO5wb1IK11zqTN4pyrj60RBk8TPfxX
+	 Au1aquiONEccguasuu6WKaf5HlT0Lxw8MQ3ozZoivbrj0O7W6qwsj+5ebXlM4tNlZ0tMk
+	 0M7JuPwU++PZJMhjzF08D4KKbd9tcHTOpOQZ9BUGeL26aiVACWI4g6EbidpqMNYiyA0/S
+	 zlmV5THTvHEDpm5RtErMYzEz7apibFVm2Wm3FbaRibPMUAqz0iGyXxYUIgCacB25Xpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825300;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yikXnRJLxnLtVC9Ln+DjCqllVeUBUbcwr+u9b9IybI0=;
-	b=3dSj4N1P6Rhc7puqtBzPD3Sc3we6PozFJIMfcpEywO2GELKVhJoWq65KWkRnbI9bKxDY
-	 Ti4quUbqxKL4/Cx+nF4vVgatTGOe2yoD2MoNJiLsqD4Dn3I+pVJgHs3Oge1nYQSt59cVr
-	 /oClcYi4G9bW6QyJNizcfP3Da/82zKYqBCI891dlc3sJzOZaDLDoUtrIDGtHQQrfHSZ88
-	 MF70vSapv3A2J2UwIYxvHn07Bo/VCtUGNYrDVNRqtY9+8iwIe7+acZ3d6cLqBdNgEac5y
-	 lXnjxpbjLffdXe6nO4sJEFzHZTQsIk4HVGH0FVtElceEo+Zo47z+/hcFs2RDOlpyKIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825322;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iyaQZx4YaB2JOzxstluIUEtBMcc33AW6Ym2vysf33mM=;
+	b=qettT/1f7atLgIShRP4Chj4LlSa2rpS+SEGbDodqOuF8gnwVFS9gMZml0tb7dfEPVwSV
+	 W4ND60wfDlu0Xey+Ks1szJ16/WL44QM16+9/leLadqmKJwejEoO6ibv8a3Wnops/Glw0i
+	 BjhEHz5oFF3uJ9SbVDUgH2t4eJ037lOeNXoKnUbm5Mhvk/gCUIWDzXtv8xL3QHNhskhvA
+	 PZMWnuvKHtY4YM2nbB9Zado2ZvsqpXGrqmxr8lf3640Ugmw37MK6yaKH1R1wd5kZS+pQm
+	 VAaalt1iqctT/LwLxK9kQY8lRsj0SBDnXvhJqXMaPbd162XfGtbQwSBMSwNnZHVLWzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="n/BhCQ/g";
-	arc=none smtp.remote-ip=95.215.58.175
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HPBhVP3o;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A6A606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A6A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7C8606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D7C8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n/BhCQ/g
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DiiFUk/4tUTLvbNzUGI2/8Tf6ZVtfi2gRA7MyWTek2I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794825297; v=1; x=1795430097;
- b=n/BhCQ/gqUAjCwWAmbZ7GXBn6RbR1/EScd9hLcXvfNFXFiFCDRX5rIALbhjs0+PqL7Fa49jo
- jsJW8TiJhVFatNkP+bx4g2i26nwZvsOxeg74gRyaP5nynntCJMKfy8TtKSclNodHBXv5T2fVsUW
- owLwFKwCIPdQAEpuE3/pwihM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 45cbc879b98febbf;
-	Mon, 16 Nov 2026 10:34:57 +0000
-X-Mizu-Trace-ID: 45cbc879b98febbf
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e330c9bd-c454-4bdd-b786-052dd2e263d9@linux.dev>
-Date: Mon, 16 Nov 2026 18:34:53 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HPBhVP3o
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4910b863b84so2365451f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:35:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794825321; x=1795430121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iyaQZx4YaB2JOzxstluIUEtBMcc33AW6Ym2vysf33mM=;
+        b=HPBhVP3opbkndZbX/Njn+mhPHqIItUqxsBMit4KhMA7OxLH9lvreIW6onmS0+qbsFZ
+         qo6ic04s2pX1PpDsHyk8Ryzhsl09JF5tbU7BvwHPN6X7RNbmE+sydbvmFCazqA3wizZ5
+         8MlrMaFC00CNNoJY8Zf9QY7fG+zrAnQeopEJrL7vLiKU05gOadWRDbkR80JvwPQHKXD1
+         vvnPbRiFagghTyBYC5VFRim1WBxUGE2YXmlDACBgNm9+BQsBHLfxLCGcK887RJNgGWt1
+         Xi/v06icK3D/0RvVfndeM5GgGfU3sEeM6PdHMWuVMviXpmW0Y7p2DjayIvrtg6NP9TxF
+         C4Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794825321; x=1795430121;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iyaQZx4YaB2JOzxstluIUEtBMcc33AW6Ym2vysf33mM=;
+        b=SLYJskU83cnZRkFGYq2e/DuChO3ESusrbju42WU4nQUI6qaPQ6L/tz1djG83ex7SGR
+         xCEgqK2h8M8k2F5PuG9+wa6kC6HTZwjUvo85f9dlXR50xpCMlxYLLSDYdSSvMNxPWRZ7
+         SR0VtHLkDRwpaoehU281ZMZ51JzN/J259zigDvDhABHfxF/1i8hpSfz/XtMc01oRvSdz
+         fSAWAbNrZtCZ4ru8IsZvsXJytsfU6vrbtJzwKN1rTA5qTeZpnCgHg0RAzbjKp3ARFUXc
+         /irTR9hgg8nz4Z4Gd1tyDwQCtfP/QFuSYUzRmvXrTLGcXaKPcuNtJ71CLuqGqQTDsyAb
+         r6bQ==
+X-Forwarded-Encrypted: i=1; AL+hErFSRnjJ03xcxbn+DOqSLERn8CBzCKwLjL94IPIFf4rJjkys/zXGgfUUGOnCLpX9iFNwy23yjv3prcQWjVI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xHuNk/8b+sKcn7LgKgBFdL4maXrGXWoKwnZaUoH72jHSqIfPm
+	SlUpVhslG81O3Sm1lW0DsoBsjZU1ZXbbohjHL7cJQGp6mBLheVfepqnz
+X-Gm-Gg: AYBFou0h178ffSWH9myiArs9xQCQ8NWacdtk7IcbqQGdCXeuThY0BHCqpmGHmWmjzfY
+	CI1QhjQp4gZ6v3RJkLT91pdxUaezbblTOADK8QDyFNrawdSQ3PG3vNJvmm0nTaB6UA7pYLTKWJV
+	sZBOXiRl+70ukEqMSqUueVmtgE7ORoX9BpTjXZwT5gRqw/aNl7Q3ZSPStHGPfnI6LhphoadwXw3
+	3eS4gRgAIDzLRpShNSf25lO49QB8EP+PS3uvzwHVs4CBvE4lM3unJO1hODHQYv3cBZbPSFvyIvQ
+	9uIM2P+emm9ytHukyB4vrmOeydIduHg6mL1c96gIrqWfGGV7MOoD5oW231dnti3pRepVBDox/Jg
+	bZlk2DuUcFo6Z8D5HpK+XkdsrV59mTgmBwv9WD3K/JTL3NfFr5cnaUItNpsa5fKYvG9b70FLjBP
+	etPSNVm7d7QkMC+/ewW5TMj2JLf1WJzseu3HbuPXvdlYu6/WMhpvx4bCXtatvWLopTySivYBVwp
+	w+BAdh8q+48MXZubxC48b6VH29Em5FS9eEU2eq6jVv5qAe/q5lYqSMi6VJJV8i2qUmlHq8WeUOp
+	eNC9QzQ4eH4DEhALWi82A5lMcg==
+X-Received: by 2002:a05:600c:4f86:b0:4bb:5fd1:92aa with SMTP id 5b1f17b1804b1-4bb5fd19428mr160740475e9.15.1794825320590;
+        Mon, 16 Nov 2026 02:35:20 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb675200e4sm118113715e9.0.2026.11.16.02.35.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 02:35:20 -0800 (PST)
+Message-ID: <b3183fe8-5e7f-40c2-a534-c643d0fd2bed@gmail.com>
+Date: Mon, 16 Nov 2026 11:35:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,146 +93,69 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v4 6/6] cgroup/cpuset: Fix lockdep_is_cpuset_held()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261116012330.2271010-1-longman@redhat.com>
- <20261116012330.2271010-7-longman@redhat.com>
+Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
+ walk_to_pmd()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Roman Kisel <romank@linux.microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Naman Jain <namjain@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
 Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261116012330.2271010-7-longman@redhat.com>
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-
-
-在 2026/11/16 09:23, Waiman Long 写道:
-> Commit a84097e625f2 ("cgroup/cpuset: Call housekeeping_update()
-> without holding cpus_read_lock") changes lockdep_is_cpuset_held()
-> to return true if either cpuset_mutex or cpuset_top_mutex is held.
-> lockdep_is_cpuset_held() is used by housekeeping_dereference_check()
-> as one of the conditions that rcu_read_lock() is not needed to
-> access HK_TYPE_DOMAIN cpumask that can be changed at run time.
-> In reality, it should return true only if cpuset_top_mutex is held as
-> housekeeping_update() is called with only cpuset_top_mutex held.
+On 11/15/26 9:58 PM, Lorenzo Stoakes (ARM) wrote:
+> From: Eliav Farber <farbere@amazon.com>
 > 
-> If only cpuset_mutex is held, it is possible that there can be a parallel
-> housekeeping_update() call leading to a potential use-after-free situation
-> when HK_TYPE_DOMAIN housekeeping cpumask is being accessed. It also
-> means that rcu_read_lock will be required if only cpuset_mutex is being
-> held like when calling from hotplug, scheduler or cgroup.
+> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
+> so without holding the PMD lock, so the assertion is only valid if nothing
+> can concurrently install a huge PMD entry in the range.
 > 
-> Fixes: a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without holding cpus_read_lock")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset-v1.c | 16 ++++++++++------
->  kernel/cgroup/cpuset.c    |  9 +++++++--
->  2 files changed, 17 insertions(+), 8 deletions(-)
+> This is not the case for a VMA whose driver implements both ->fault and
+> ->huge_fault and which invokes vmf_insert_pfn() from the former.
 > 
-> diff --git a/kernel/cgroup/cpuset-v1.c b/kernel/cgroup/cpuset-v1.c
-> index 7c7f2887dfaf..6bf6da639fec 100644
-> --- a/kernel/cgroup/cpuset-v1.c
-> +++ b/kernel/cgroup/cpuset-v1.c
-> @@ -686,6 +686,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t **domains,
->  	int csn;		/* how many cpuset ptrs in csa so far */
->  	int i, j;		/* indices for partition finding loops */
->  	cpumask_var_t *doms;	/* resulting partition; i.e. sched domains */
-> +	cpumask_var_t hk_cpus;	/* HK_TYPE_DOMAIN housekeeping CPUs */
->  	struct sched_domain_attr *dattr;  /* attributes for custom domains */
->  	int ndoms = 0;		/* number of sched domains in result */
->  	int nslot;		/* next empty doms[] struct cpumask slot */
-> @@ -698,6 +699,11 @@ int cpuset1_generate_sched_domains(cpumask_var_t **domains,
->  	dattr = NULL;
->  	csa = NULL;
->  
-> +	alloc_cpumask_var(&hk_cpus, GFP_KERNEL);
-> +	scoped_guard(rcu) {
-> +		cpumask_copy(hk_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN));
-> +	}
-> +
+> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
+> takes the mmap write lock and faults taken under the VMA lock are
+> unaffected by this.
+> 
+> This can result in two concurrent threads faulting the same thing
+> disagreeing as to whether to attempt a huge fault and thus ->fault and
+> ->huge_fault running at the same time and triggering this assertion.
+> 
+> So just remove the assert.
+> 
+> Target the commit which introduced the first driver able to do this for the
+> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
+> them using its own mapping entry lock.
+> 
+> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> [ ljs: rewrote commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Can alloc_cpumask_var() fail? Should we add the following check?
+LGTM:
 
-	if (!alloc_cpumask_var(&hk_cpus, GFP_KERNEL))
-		goto done;
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Thanks,
-Guopeng
-
->  	/* Special case for the 99% of systems with one, full, sched domain */
->  	if (is_sched_load_balance(&top_cpuset)) {
->  		ndoms = 1;
-> @@ -710,9 +716,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t **domains,
->  			*dattr = SD_ATTR_INIT;
->  			update_domain_attr_tree(dattr, &top_cpuset);
->  		}
-> -		cpumask_and(doms[0], top_cpuset.effective_cpus,
-> -			    housekeeping_cpumask(HK_TYPE_DOMAIN));
-> -
-> +		cpumask_and(doms[0], top_cpuset.effective_cpus, hk_cpus);
->  		goto done;
->  	}
->  
-> @@ -736,8 +740,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t **domains,
->  		 */
->  		if (!cpumask_empty(cp->cpus_allowed) &&
->  		    !(is_sched_load_balance(cp) &&
-> -		      cpumask_intersects(cp->cpus_allowed,
-> -					 housekeeping_cpumask(HK_TYPE_DOMAIN))))
-> +		      cpumask_intersects(cp->cpus_allowed, hk_cpus)))
->  			continue;
->  
->  		if (is_sched_load_balance(cp) &&
-> @@ -794,7 +797,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t **domains,
->  						*(dattr + nslot) = SD_ATTR_INIT;
->  				}
->  				cpumask_or(dp, dp, csa[j]->effective_cpus);
-> -				cpumask_and(dp, dp, housekeeping_cpumask(HK_TYPE_DOMAIN));
-> +				cpumask_and(dp, dp, hk_cpus);
->  				if (dattr)
->  					update_domain_attr_tree(dattr + nslot, csa[j]);
->  			}
-> @@ -806,6 +809,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t **domains,
->  
->  done:
->  	kfree(csa);
-> +	free_cpumask_var(hk_cpus);
->  
->  	/*
->  	 * Fallback to the default domain if kmalloc() failed.
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 64cbcbdbf6da..d18439e13bce 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -343,10 +343,13 @@ void cpuset_full_unlock(void)
->  }
->  
->  #ifdef CONFIG_LOCKDEP
-> +/*
-> + * Holding cpuset_top_mutex will guarantee that a parallel
-> + * housekeeping_update() call modifying housekeeping cpumasks is not possible.
-> + */
->  bool lockdep_is_cpuset_held(void)
->  {
-> -	return lockdep_is_held(&cpuset_mutex) ||
-> -	       lockdep_is_held(&cpuset_top_mutex);
-> +	return lockdep_is_held(&cpuset_top_mutex);
->  }
->  #endif
->  
-> @@ -1416,8 +1419,10 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->  		}
->  	}
->  
-> +	rcu_read_lock();
->  	cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
->  		    housekeeping_cpumask(HK_TYPE_DOMAIN));
-> +	rcu_read_unlock();
->  	cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
->  	cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
->  	res = !cpumask_weight_andnot(full_hk_cpus, new_cpus);
-
+-- 
+cheers,
+jose a. p-a
