@@ -1,100 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851548;
-	b=qU/8fRQzQF+dI7ra6x7LMQtxn2Ocgl34ltfdItKWQYDp5XVAGgmtIHSvSBVVAKzpBJND
-	 q47vTh42WCYFXfjlUEJHab5ru9wQAmrFXhhe1vhqawggrVs9oAP92zH401IyxWNh6HFZu
-	 Q1CFqs8RSjSlqsDP7hp+PwZg0OkGahcrP5zXAWL69VqciS0aBAnBRAm1KW03F2SnTFtv8
-	 Dso9jJAwdgQ6zmoR3jPd25rtZ+Bp/hNWY+od52G3k/NBNhAQ/HI/E7YBJY3+N+HmPg6d3
-	 oXMtEq5jmJtUOD27p1rt7Ecnn2XYs+rPwiEf2DIisn129uzOWRoZo6RAKpQhdWQI60A==
+	t=1794851543;
+	b=pG98uKxJz7D0ZRZGDJEntRE7OdISK2AEKU4fYEKsmYPDd0HAhEUzxXq8vXcCz+XFmlfz
+	 8TAOjZrplPA9n/mUKEcDluea7+oIKY0I/SY1x4sQgPXquHHP2VaOybHPqjnxWZdijU6aR
+	 IKoFuo/hYbrKu6s4XO2BnF5fH+fDZA15jUJJdQGjHOzrZt9arjuyegCWdHS8aF1RW4gXC
+	 A+kOAz+W7d44A+QMGI0FZF7VxrOnYh2yRp5YZK/4nxQi22N6H7pK0nJDcNTIiWe3u39lB
+	 YbFIuNCYk3XBILCESZe2Wgte3xdjqlsl8coj4pXvSw6mAzcPQYKoVsw0gzs+NafI+7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851543;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=27hTMuZJ1nA66i2pyU7gbAoW+DUnYiuiRAEIvnlQvps=;
-	b=Uj3rBEd3FcxWGoOOFhEzHASCrQxLmVHniNVIDtge7dI5r0U3F8Kccq2TNrg5LJG32kg+
-	 pqiDAgNSGokx0pyHFNrGnZgqIzrbBj9nn7RuDW5ZHiCunDuBoBEVc0JSNHYNCtodorBFN
-	 yCJXkDcYZ6uWiEZaPD1KHzUsVFq3jvRcmDjSl2QLn1801r8oCgxBzw3EeKIzh05UO/PYv
-	 UdktNu6SFrUMiKqfEU9nI1ol0QDSlrabg1TDSKP+ZsxwIEObnuMNZNwzGtNlemo7rFSHF
-	 m2ioFL1ufdmG0u+Z8VnjBVM0QDt39ffGMn13stfPnOhgcOhVdAVpZIaTUJyYpJJHhXA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=mLXA5MYZQzhnIjUN4es5XUBRMGwezqL22aWBvXkcOLc=;
+	b=dZRWPIeFBUDEH+wUsjAbvPDaXa8+qJHD1nO04RMxB3BwWTATgi9k3xphlCUFsNSvcsYO
+	 LtpnZAPq96hL18B8IlGGF6hA4A/nTZmuBUaN4jV+DMCAQS5FSEhmoQPERNreESx6KrBl6
+	 m8siUexEGpcF/Ekm0W/UW/+RLguCKP5skovc0sqSEQZSlXUAlQ1bO6+RfItw+MAW4WZTO
+	 aN2gv8odZ+BI2Smu29Mf8ZFuMFoclnCypEwHdOvcRuOECQ7sygqa/CYeKx0hQTBHaqBEj
+	 MvMvuVVxIF+962oES81nxVGNnGrtiCSekjN7Y7soCPByBPYxqDFrsbTrW9+kCD6mw6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="EiHA6/VL";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Clfk5jH8;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514A1606A897
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514A1606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24F0606A8A2
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24F0606A8A2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EiHA6/VL
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so23313305e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:18 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Clfk5jH8
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ae25c846edso30888261fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794851537; x=1795456337; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1794851535; x=1795456335; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=27hTMuZJ1nA66i2pyU7gbAoW+DUnYiuiRAEIvnlQvps=;
-        b=EiHA6/VL7T0syc28WB7DUZlL9JItrTQFkuyP5mHTAqSdArLCtgFfTxjWkVTyNsn5I7
-         2/l5Nr3JawGIpB41F6WSjbSMO2fKd92MukNU29kyHsVIPQovbSW8Pta114C93mfnhKF7
-         1N405J2LtLyA6Q0Z70LxwpocOxSAvICqG/q9OHETafOXYHfXWjqJs/GwhSK9tC2EO3CT
-         jC11ZsvgVIe3JyRAauk5ZMh9mglon2gQy7iC1RXiXuxsryEDIzD6jdcT9OFPDB1kw7Sr
-         XeT/XrnIeZxHmqUWicMd3XzrR9t9u6fqFYRn4OAk5IlihdVxto9aYhxbbQhsxq33xSd3
-         vhzg==
+        bh=mLXA5MYZQzhnIjUN4es5XUBRMGwezqL22aWBvXkcOLc=;
+        b=Clfk5jH8durmCpYxgXWONWZnvGvbgI3g7xEo51hDcgnjL8gE+wlgNoDySxVR+CfOqB
+         v5e3U21vbHUsh7d31kO+GQBco2jwfY0vpjNUm3GppwvpIVEZajTOpAbK7mHZ9qn9k9Pw
+         EGBcuFmTnL/f5KUsdfrD5IYVeS2r0/U6VmBnw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851537; x=1795456337;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=27hTMuZJ1nA66i2pyU7gbAoW+DUnYiuiRAEIvnlQvps=;
-        b=EXe8Gu/1G4ckvsiIonbmctUbcPW3uJEjeY7I+oFNLXOZP/YKX6gOiawuP7wPzZndo6
-         bvRWjruuEMkNfn5GpFfo2iKknoSqfIBVTG0ZavWsbc+3gkqePd9l37iAyPgiGkaUExCl
-         A4CrTIqR/mSamk2xoXJ/5V1PMh/oA/k3S/5SYuHbvXInscIjcMo+FLO/z9L2ZJ10k/XG
-         7Ntje9beVGl77l+3GTjRTfSj5mU0dxLvEYX83MzyrIOZCDf19UELrvSOUoCHTRnu72My
-         gpl7YUjVnZ6ogDCd/tWn9y8D/JS6SVA2oR/7XeWEyQo1wKdoKjWenzg1otPVUmiGlQi6
-         QJag==
-X-Forwarded-Encrypted: i=1; AL+hErGNeVsIYfqUbETWgPoqvQkeJ4kpEbthlxl7rVOuTgwyagWMpqKWcgOWoy7FUHbwZ3/QpsCv69tgMcX+gPw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Wc4vVnWlrbLngOO72FFnB0Fiae4ZwrssWeI4gy7e+bKLqL34C
-	Xru4n1wLeQpJrpPLbktLzXH4awaydRFT8xWbOufPDqf+yw9atxcDNN0eujC2DymDH9t9ztUu
-X-Gm-Gg: AYBFou1SFwI0iibYUxG1fYSlkhgwiAf4kKVubi5yJzvDm2oQUYjfVZeLM9UDlaVMucM
-	85v19N71bIJSyuVNbWlVp7nrbBYBJ1bBK6PnSa1Rd9TVJ76DIx1vkaUcw7nOzPFDPeU7JPxxx1M
-	nE4GBRLUxQZNQy9ENBVOETqB88TYSO8ysgPN4n1nALQIvRtJZPeCAO6SmSD0ahtlI2nsmgJSPjn
-	jTJfyLkH+QVF0MCBsbLMLuwjnXFq4np1HhbUYrA3KqG4BjgPbkzXBUc+xuerZiBnYYOtcYHZ6cX
-	nmtP0zXN9VgGTiTLSEjp0vb1IOjQKuxlSAYo3NHv0F7I/mURx6mVnvUvTvtan0R/8go3vE29HjE
-	iRG0Qm30xGJzj9an01hWbLfKHCSDWX9IuumhEAhoaLt20UVanDoT+Nlj6JBBknTgrv+7IGNAQg6
-	GC6b6oefpi2wv/Uy5BZinlQUultTxDnC3TW15TUjz5/mdU2fSVKnP76WCihWgX5Vmd5mnZLAYQa
-	0XOAyaPI6O9Y+FWJeTB+I38WExF2ZElookfHO05ucdulUb7ng85sh9gtB/0UM3NFS7wGbsOFBzj
-	tkJ9c8S+WCSA5dxIPjcO5LpMtIm8nPnggRXw3u5pJBE9LDGlAmZ0qarE/Zo+P6uL2iE=
-X-Received: by 2002:a05:600c:8b8a:b0:4a1:9078:911 with SMTP id 5b1f17b1804b1-4bb55abbadamr247795715e9.31.1794851536667;
-        Mon, 16 Nov 2026 09:52:16 -0800 (PST)
-Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78430752sm4546075e9.12.2026.11.16.09.52.15
+        d=1e100.net; s=20260707; t=1794851535; x=1795456335;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mLXA5MYZQzhnIjUN4es5XUBRMGwezqL22aWBvXkcOLc=;
+        b=UkvHcmCIVxNJKy64CQ18w6y5i9E6lpNW2F5I2yCj4H5zHNwoa5d/hoZIEXek/cx1Na
+         jJ3yvn2I5FpRNpDzWrJ6cPvSsj78VlH7m8StQtVjJAnt1ecGvXGKDPe6aMmNXaMSNsp8
+         F/norwwenAHGJQgpKMLpA7GlnTYMH8/FfMmPabOcrBE+VtxOJ9shS4ZtRRyZmfAwlufo
+         U8K1QJLA2WksWlz4pJ6EGPDhtT1U+D1B04aZRXNBhelSW+jAhLSkFrQRpDrZK0fkgao6
+         TjHApBHfm85iEvkch+CYotj9cL+7jmeGrZp5WpiGIo8dFglBWi9uR6v6RIIDsPS6zd1/
+         5sdA==
+X-Forwarded-Encrypted: i=1; AL+hErGJxswixbdDJNxbOjtcM6UBOlhVC+Sg3OG7GYIpV4XxsgwumL/ocTjk2msu2nzfW4dOUNLTrKIi3Qu0Y7Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/x1Kk6MytdVeSpgRhe7vL7geT1se2VaZCqptidg+ZkZxTZFYiu
+	skAgK3ppyZJ0YpUcRXh5IeK8/SnbyYHROoTNc9U8NYP8G6KOPJcn5NzpjISRDGU8RQ==
+X-Gm-Gg: AYBFou1IcwR1KVeKW8NK9Ku26UamWztq2VJpRoW+wWhm3roPZM7i1ye4fp9mtdnuoN3
+	cK0l/BVNGBTZdBMaMsY92kzEio3DSfca9QAGLlmt8zzutBAUCGIFL1iJfUlBKzcIpVAe9iOfvdy
+	KKYsu25wmAnevZtYy0BJPI4ZtpFmExjuBAzPftXntsMp07NkFHPwmjtEnRwXXFYmqCyRHVTx3OG
+	qds7YA+WyD6lT2QKGwmQdoog83xWdBGTx9sBaraNKJbwFTIRk+bTQKT6az18OusQBo+okNREBnI
+	oarXoGzQd9u0qWtcuo+LU4b+crwEdGU928gvuYJOfB1lT6el7/kSEVdKLBGyK1xg5n8SgCswDt4
+	XTHgwZEiquUIEOYgV6wg3kCtTIeVMuBOJzmZbrYh8D4ARNi5S3PyuC0pkcwdHu+b87EEFJGC689
+	LYOZCOUHzs3ooCzhIALSbm8mD09Fwqq40ycT4e8TH9AqkI9fchcPUyfSU9SmcHjc64DkGUmfa9j
+	R1f8ibrIFLCCZFgtu4SnvDq9EaZeRvTy4Qif1ns+BuKA1mnhEsRF0mbe72VaPNOHXJqHFyHBrct
+	rQU9fjIQypwVFSKDvxT6qHRT/VU2EsiuDj8nTe5S3LV/hIu9CauZ+8pOaeF3JP9C7upDrB5o3MW
+	WM7vfoq6REA==
+X-Received: by 2002:a05:6512:131c:b0:5bf:ddd7:8896 with SMTP id 2adb3069b0e04-5c1706062aemr3775316e87.7.1794851534902;
+        Mon, 16 Nov 2026 09:52:14 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:52:16 -0800 (PST)
-From: Volodymyr Chapman <volodymyrchapman@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Volodymyr Chapman <volodymyrchapman@gmail.com>
-Subject: [PATCH 3/3] media: atomisp: csi2-bridge: Add IMX175 sensor config
-Date: Mon, 16 Nov 2026 17:51:51 +0000
-Message-ID: <20261116175151.20150-4-volodymyrchapman@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116175151.20150-1-volodymyrchapman@gmail.com>
-References: <20261116175151.20150-1-volodymyrchapman@gmail.com>
+        Mon, 16 Nov 2026 09:52:14 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 16 Nov 2026 17:52:08 +0000
+Subject: [PATCH v2 1/6] media: uvcvideo: Reject payloads with a short
+ header
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +90,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-uvc-shortmeta-v2-1-62d4a8176fb8@chromium.org>
+References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
+In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, Sinan Turunc <enscrpt@pm.me>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Sensors without an entry in atomisp_sensor_configs[] default to 1 CSI-2
-data lane, unless the firmware provides a CsiLanes setting, which the
-Lenovo ThinkPad 10 (20C1/20C3) does not. The IMX175 rear camera of this
-machine uses 4 lanes, which the imx175 driver requires, so add an entry
-for its ACPI HID INTCF1A.
+The UVC header starts with a byte containing the length of the header
+itself, and then a byte indicating which optional fields are present in
+the header.
 
-The firmware's own camera _DSM data is consistent with this: it returns
-0x0104 for the IMX175 and 0x0101 for the 1-lane OV2722 front camera from
-the same method (GUID 918ab242-c37c-450a-9d0f-f47ab97c3dea), which
-appears to encode the lane count in the low byte.
+Currently, uvc_video_stats_decode() checks that the header is big enough
+to contain the optional fields, uvc_video_clock_decode() only checks the
+packet size (allowing payload data to be read as timestamps), and
+uvc_video_decode_meta() fails to check it altogether (leading to
+out-of-bounds reads).
 
-The VCM is left disabled: the firmware does not name the VCM type and
-driving it has not been tested.
+Instead of adding the same check again and again, check the header
+earlier in uvc_video_decode_start(), dropping non-compliant packets with
+a warning.
 
-Tested on a Lenovo ThinkPad 10 (20C3) together with the rest of this
-series: atomisp configures the primary port for 4 lanes and the IMX175
-streams in both of its modes.
+Note that this changes the behaviour for non-compliant devices: until
+now, the payload data of such packets was still copied into the video
+buffer, now it is dropped together with the header. On bulk endpoints,
+the rest of the payload is skipped as well.
 
-This patch was drafted with the help of an AI coding assistant (Claude)
-and tested on the hardware by the submitter.
-
-Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Reported-by: Sinan Turunc <enscrpt@pm.me>
+Closes: https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me/
+Fixes: 66847ef013cc ("[media] uvcvideo: Add UVC timestamps support")
+Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/usb/uvc/uvc_video.c | 24 +++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  1 +
+ 2 files changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index cca91c6d7..239c287ce 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -360,6 +360,7 @@ static const struct acpi_device_id atomisp_sensor_configs[] = {
- 	 * an i2c-client for the VCM, so it is disabled for now.
- 	 */
- 	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),	/* OV5693 */
-+	ATOMISP_SENSOR_CONFIG("INTCF1A", 4, false),	/* IMX175 */
- 	{}
- };
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index a92a986ab714..e801874e272e 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -553,6 +553,18 @@ static inline u16 sof_diff(u16 a, u16 b)
+ 	return (a - b) & 2047;
+ }
  
++static unsigned int uvc_video_min_header_len(u8 header_info)
++{
++	unsigned int min_header_len = 2;
++
++	if (header_info & UVC_STREAM_PTS)
++		min_header_len += 4;
++	if (header_info & UVC_STREAM_SCR)
++		min_header_len += 6;
++
++	return min_header_len;
++}
++
+ static void
+ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
+ 		       const u8 *data, int len)
+@@ -1192,7 +1204,9 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 	 * Sanity checks:
+ 	 * - packet must be at least 2 bytes long
+ 	 * - bHeaderLength value must be at least 2 bytes (see above)
+-	 * - bHeaderLength value can't be larger than the packet size.
++	 * - bHeaderLength value can't be larger than the packet size
++	 * - bHeaderLength value must be large enough to contain the PTS and
++	 *   SCR fields signalled in bmHeaderInfo.
+ 	 */
+ 	if (len < 2 || data[0] < 2 || data[0] > len) {
+ 		stream->stats.frame.nb_invalid++;
+@@ -1200,6 +1214,14 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 	}
+ 
+ 	header_len = data[0];
++	if (header_len < uvc_video_min_header_len(data[1])) {
++		uvc_warn_once(stream->dev, UVC_WARN_SHORT_HEADER,
++			      "UVC non compliance: payload header length %u is shorter than expected (flags 0x%02x), dropping packet.\n",
++			      header_len, data[1]);
++		stream->stats.frame.nb_invalid++;
++		return -EINVAL;
++	}
++
+ 	fid = data[1] & UVC_STREAM_FID;
+ 
+ 	/*
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index af8cef94ffff..278c7b0e535c 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+ #define UVC_WARN_PROBE_DEF	1
+ #define UVC_WARN_XU_GET_RES	2
+ #define UVC_WARN_QUERY_CTRL	3
++#define UVC_WARN_SHORT_HEADER	4
+ 
+ extern unsigned int uvc_clock_param;
+ extern unsigned int uvc_no_drop_param;
+
 -- 
-2.43.0
+2.56.0.679.gc527c65306-goog
 
