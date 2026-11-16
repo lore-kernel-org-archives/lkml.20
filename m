@@ -1,109 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827834;
-	b=X40lR4GqFhDwqyND/huStZu+7O6jS6PEJ/JXCvnlb7xWaHr6sgUh9ekc41N6iOL4xoeg
-	 yYHaSMs/SQ5comD1Pzv3reOVlK5sZ5wrezYjMnyjfRMdmjZSBf7+J+k/lqQfvgkSagvQU
-	 5p74lvcc6UujJLK4b3dTb92FOFPuy0VWraFuklHgw/OCkiC2xflmzJtPV5idwd5w2Fzqi
-	 P91YTNjB5rJo30q1e2BemaMlIj+2CHa9rG5aiQmY6mjpiNb3MqYJcBco1RAgv1QyXNx+8
-	 QjwbnG29ncH/wJKnCigi/ocdEXjJzHfsh7TB741hyd4HsDokbwfuRZtFL+BcWBNpC/Q==
+	t=1794827877;
+	b=x4LmcKdgl5Qb06pxrbsDYn18+eUmeAc1hRkbMImnUXgbH/K+d1PJXYpXp6p0EmuBUMYt
+	 AA/4M+W8+MUudXb+qF+dd/+BHDcnEiRj44xnYMWxx3U1W8hFSpiCsr4KYZpAk24VXksYk
+	 p36rj3QIoENiKU1hhrN769NR68HO/B2fjwNDE1gNqVUDpVRzozdxgy7cdRTMBm1sccACk
+	 +7enNNHxQ3GYnsctR1xwrgc5FTngaJcWgD5DWGIFSQZhqIubxux8tUhj4MtX5Ll6yC6jk
+	 g0kPgS2D1gLGXElfVv+ptN1DRKsqZswz4aevMccnmSFTVNz39EG3GmsKF3/FO+2OtqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827834;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ITw6ygw2AXNWGd7QRacWknaddhmjMVGAScdWdo2ralM=;
-	b=UrOzB97RVO4aEDavx2DB9alax7g+GZVllaIWsQlTFYmBR46MMM1gm1WHIwUB2JXIyPvg
-	 KU4IX4vNNHe6vVF1WPSD5Jriwbf3iE+9DQ/ng+KiaCzfrmoTNgAnVbCV6H/GziinuspB7
-	 Sx4Y3Y3el3GOifQzTrggmNX6kj0EUC4wX2V3C6ZmVHfoT/l3IGzOPZpvlgY0rzxRr86CO
-	 DjreTnu3rue1WDfLCLFL+LTvnY817OOeQ9XZhfepu6C/KHxjIjkHsQhbv5DPCmiBK4+rf
-	 yzbnD+NL8mVe9tJXmRdkMsVEKC1lZCadbZXtdnB8HXbVW0ebrz2pKDqnxZSHRSw/YHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827877;
+	h=DMARC-Filter:DKIM-Signature:Content-Type:Content-Transfer-Encoding:
+	 From:Subject:Date:Message-Id:X-Original-From:X-Lms-Return-Path:
+	 User-Agent:Cc:Mime-Version:To:In-Reply-To:References;
+	bh=gcSYfJo9DBtW87ibrEcEB+4TxGxQarLrxm69h/JCdcA=;
+	b=NLVovbIzuzodQWzgSik6AOsnNmfH789Xk2Nijox8/UGri/nbTMiyLLFN4vTHy2oOcgEI
+	 FyEjlpfu65zRaeSWccqZFoKjmYbCsqLJsekqPoCHBPKMo92giW+sRWzZfKP3zp7IIh2yI
+	 ZhEHvH91wOMinddSRHOL4I6AaPTZ2+DfHBaA/vVUANp/kMgEzH7z6otqcOuUE74LLCJ3F
+	 k98cvvJuLyb3I4Rb7O4B4cBbyXeCKet0VHgHugwpAeMLjzppgYTvmgJNmG8qhS7Yru8RI
+	 GRtt11gmAMZPmbe2uKkOIYSY6DfmgRG3j7A6fTQhQtSutrqQz8HgcXQGkISqwz6zCPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rVdhtEjQ;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=mQcxeC6t;
+	arc=none smtp.remote-ip=209.127.230.111
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F9C606F1E3
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F9C606F1E3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B85606E487
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B85606E487
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rVdhtEjQ
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-498f5fa5103so1387490f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:17:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794827833; x=1795432633; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ITw6ygw2AXNWGd7QRacWknaddhmjMVGAScdWdo2ralM=;
-        b=rVdhtEjQT5FeVSjeb6g1KeCSlR5WAzfAQy36NgBy24G8Giox2QE9LPzzbt6UaGFg20
-         dmoHkqnkTYm0HKTFVPgXMm50xQ7zxGmwscbQp9b2ezCn9mA436p3+7JIgS1yW8dgeXC9
-         nfYhNw53+TIFpt6+SE4H+9FUJIhbR8zphpCjI1+mIXv8dvNLdbmO05X5YWYCAlkPK7eb
-         f6iCEfx46EWybkK2aiebuDDLI6wMPFOvAPoZC07MvR6rqVRHexrTmKf50yOkAIscUDkB
-         SZu3GAngH4UyKACxxK2RRwNXPcsz6NLOW7SZFKczhfldBlGdj5FDcsiVAzFHA7oS8Ygd
-         nDGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794827833; x=1795432633;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ITw6ygw2AXNWGd7QRacWknaddhmjMVGAScdWdo2ralM=;
-        b=zXDkLgQc1SRSDr21gmATgstJ/TFmvwn/JnBo3BNKu+3eaSOn+zQ8JCbAIge6xFAyNg
-         5RjX15KLa07XlAKh2cXSqIupuYIK3S6XrxCzBxtFx1EjFMFE5ZHzs0RWohbi99MjawGf
-         f/V9zLNNPYKz6SwxIv4z6oqc1PXv2iaYPP/EWG2uuJMvbNuiI3rwJIbslL5gppJpQc/3
-         OA0xs1s08Egp2OqppoovvpAGhnuKuz+i4RWItqVUC+BgxhI3/LXoCoJTJ/KdIqdXPos4
-         CKEJM2VbuFtCLiR1L6v+IPtB0e9zJm/s8wKP/lRcrHH4lSpKyvKb6ZBD9Spe5NIHxMDo
-         Q6/g==
-X-Forwarded-Encrypted: i=1; AL+hErEOBNRaAKnN4Pk0Y/Jw5cf6LDq+EwwbPdiOLkLfRO2C6EZnMWz7yduxM3V3tiAkoCf4OuGAM2WfwSVMjQk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8BJyszGsyyrf4XC1KTuFWDyL45GFYKBae9hR5okpC/W21MtuLG
-	Itq530IDeuqi1HRyhaNu42MQNNajyODSnHAXr6LcNL1YjstL0gRlUKef
-X-Gm-Gg: AZFdTZf6SIMJZN9H1UO2eGwgIK4wR9IPXrr+89wkl6bbUJpMavIXVZQ1niSzOds+JtA
-	dNUNdc4HZCnuqeRMmT4Wp6zX2TL3jxjWeNumitjRggZHMXDRLCBn2BTm697RXOPTUvn2u7NDYXy
-	ObeoJX8j28vbesEv+DjdG2hJQaKf/ZGAN7ebK7iVHcmsUaGMDuwXtJSBX1OEcmTvvSDia6RhQCh
-	4mLMH5znBxmKohpKHcOYO9FRgZfBQCHd+H+6CAaFBjfYdQ+3n/2Mv83Fpxzr4vgn6+vgl9XT7cE
-	EWzDAajE4uxbEvdqdfUPesTZWg9O2t2rxJwGSiCAR3AaDFaAcy30K1PYQaxkkvsl8BVMyywdvs3
-	A13FQ0ETTwntUITmuGw77i1O5S43BawTr+o3hsIQobZBLucqG8+I3pMD5NU+XPrZj0HefI0+zmL
-	dsx9qEOCum0rsAwhS5S0OUPjIj8LHJTC35xQG2Fe66uImKqK5ekxbxCRrWbBk+lAmyrAANsHN9J
-	sEKCRlC0dgRFPFpUO9eFiKY/rTdSZFUt7YuexuvZ24yvvzYVc3vqS1Fk/bccZJx7oSkNMRQwcOW
-	WsLxMjZXiRjtnxlmvJQWM0/CjDVUDQnCAHQ9VXo23iw7/w6WSZOpcNhe7qW8A91UXGVsodRFkhM
-	NnVJQzK2JjzGc
-X-Received: by 2002:a5d:6f07:0:b0:490:f98f:addc with SMTP id ffacd0b85a97d-49c71d48742mr21084457f8f.27.1794827832625;
-        Mon, 16 Nov 2026 03:17:12 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm39476298f8f.7.2026.11.16.03.17.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:17:12 -0800 (PST)
-Date: Mon, 16 Nov 2026 11:17:11 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Pavel Popov <pavel.e.popov@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, Arnd Bergmann
- <arnd@arndb.de>, Leon Romanovsky <leon@kernel.org>, Lukas Wunner
- <lukas@wunner.de>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, Jim Chow
- <jim.chow@broadcom.com>, Radu Rugina <radu.rugina@broadcom.com>, Alexey
- Makhalov <alexey.makhalov@broadcom.com>, Wei Liu <wei.liu@kernel.org>,
- Michael Kelley <mhklinux@outlook.com>, Nathan Ciobanu
- <nathan.d.ciobanu@linux.intel.com>, bcm-kernel-feedback-list@broadcom.com,
- virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server
- CPUs
-Message-ID: <20261116111711.7b473feb@pumpkin>
-In-Reply-To: <avqhIQ2krd1qgp6K@infradead.org>
-References: <20261111234439.4098-1-pavel.e.popov@intel.com>
-	<20261111234439.4098-4-pavel.e.popov@intel.com>
-	<avqhIQ2krd1qgp6K@infradead.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=mQcxeC6t
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794827870; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=gcSYfJo9DBtW87ibrEcEB+4TxGxQarLrxm69h/JCdcA=;
+ b=mQcxeC6tNSjEUQqT1PHD9V7k1HbfoEE3KELg89HubxEA97yFDXM9EtbD4F9tKVWOGoQ2gY
+ RMfsd1avzgnoSVOBDbDRW5wKY5iSx9e3Bh3m2YMbQIOvOohcMR1FLEbqvM3/a02HtWwi15
+ cSY7pzarXdhyHFfiq/lg8h9E8CDXgbv266+7lwOIn7nVjkC7Sfw+NOSb3bQ9q4qBryBSZ+
+ WYLa3mUGNEDq7zs79X3YBv8aVRNSLNbdO9utyS7I9gDoFc8mSd3TTTAE99n3c9zDbKd/DD
+ DzyD6y/VGMkCGaKuQ6m8yfFJVFyTQxqBAaNp95lIPoMIsXpGq3C9gGQl23O2Uw==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: Re: [PATCH v2 00/14] mm: Unify memmap initialization for compound pages
+Date: Mon, 16 Nov 2026 19:17:27 +0800
+Message-Id: <f38322fb-abb7-4284-b6d5-bd6e747333bb@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26afae65c+33a578+vger.kernel.org+lizhe.67@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, 
+	"David Hildenbrand" <david@kernel.org>, 
+	"Oscar Salvador" <osalvador@suse.de>, 
+	"Andrew Popple" <apopple@nvidia.com>, 
+	"Balbir Singh" <balbirs@nvidia.com>, "Lorenzo Stoakes" <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka" <vbabka@kernel.org>, 
+	"Suren Baghdasaryan" <surenb@google.com>, 
+	"Michal Hocko" <mhocko@suse.com>, "Muchun Song" <muchun.song@linux.dev>, 
+	"James Houghton" <jthoughton@google.com>, 
+	"Lance Yang" <lance.yang@linux.dev>, "Qi Zheng" <qi.zheng@linux.dev>, 
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,29 +72,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+To: "Mike Rapoport" <rppt@kernel.org>, 
+	"Muchun Song" <songmuchun@bytedance.com>
+In-Reply-To: <179482576829.2379196.3205677806966393313.b4-review@b4>
+References: <20261113033442.62970-1-songmuchun@bytedance.com> <179482576829.2379196.3205677806966393313.b4-review@b4>
 
-On Sun, 15 Nov 2026 22:22:25 -0800
-Christoph Hellwig <hch@infradead.org> wrote:
+On 11/16/26 6:42 PM, Mike Rapoport wrote:
+> Hi,
+>
+>> Hi,
+>>
+>> This v2 is based on the mm-new branch at commit daed51c91051.
+>>
+>> This series is split out from the earlier, larger series
+>> "mm: Generalize HVO for HugeTLB and device DAX" [1]. That series
+>> generalized vmemmap optimization across HugeTLB and device DAX. One
+>> remaining piece is the separate compound struct page initialization used
+>> by boot-time gigantic HugeTLB pages and compound ZONE_DEVICE ranges.
+>>
+>> This v2 also folds in Li Zhe's two-patch series, using that series' v2
+>> as the integration point [2].
+>>
+>> Li Zhe (2):
+>>    mm/mm_init: factor out memmap_init_page_from_template()
+>>    mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+>>
+>> Muchun Song (12):
+>>    mm/mm_init: verify zones for template-initialized pages
+>>    mm/mm_init: factor out common struct page initialization
+>>    mm/mm_init: simplify zone device page initialization
+>>    mm/mm_init: factor out frozen compound page initialization
+>>    mm/hugetlb: drop boot-time HVO handling for gigantic folios
+>>    mm/hugetlb: initialize all struct pages for bootmem hugepages
+>>    mm/hugetlb: use common compound page initialization helper
+>>    mm/mm_init: make __init_single_page() static
+>>    mm/mm_init: make memmap_init_page_from_template() static
+>>    mm/cma: centralize CMA pageblock initialization
+>>    mm/cma: localize init_cma_pageblock() to cma.c
+>>    mm/mm_init: move pageblock migratetype init to memmap helpers
+>>
+>>   include/linux/mm.h   |   8 --
+>>   mm/cma.c             |  24 +++--
+>>   mm/hugetlb.c         | 111 ++-----------------
+>>   mm/hugetlb_vmemmap.c |  17 +--
+>>   mm/mm_init.c         | 247 +++++++++++++++++--------------------------
+>>   mm/mm_init.h         |  13 +--
+>>   mm/sparse-vmemmap.c  |   7 +-
+>>   7 files changed, 129 insertions(+), 298 deletions(-)
+> That's nice :)
+>
+> The series would be easier to review if Li Zhe's patches were integrated
+> rather than stacked in. I hoped that the changes for template
+> initialization would fit into the patches that rework other parts.
+>
+> The way it's done now several patches in the beginning of the series
+> change code that the later patches remove or turn some of new functions
+> into static.
+>
+> Another thing is that the numbers Li Zhe measured were for a different
+> implementation, so they would be stale for the state after these
+> changes.
 
-> On Wed, Nov 11, 2026 at 04:44:39PM -0700, Pavel Popov wrote:
-> >  #ifdef CONFIG_X86
-> > +/* Intel Xeon CPUs whose host bridges support p2pdma */
-> > +static const struct x86_cpu_id p2pdma_intel_cpu_ids[] = {  
-> 
-> Why is this in drivers/pci/ instead of behind a clean abstraction in
-> arch code?
-> 
-> (and the fact that the CPU vendors still haven't managed to provide
-> a firmware interface to expose the P2P capabilities is just insane)
-> 
 
-Isn't it a motherboard issue?
-Since it depends on all the PCIe bridges on the motherboard.
+Agreed. I would be happy to provide updated performance numbers once the
+final integrated form is ready.
 
-IIRC P2P can also deadlock under load.
-So it needs to be use with extreme care.
+Thanks,
+Zhe
 
-David
+>
+> I have some nits and naming comments in a few patches, other than that
+> the series LGTM.
