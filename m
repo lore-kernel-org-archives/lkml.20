@@ -1,67 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834291;
-	b=fAem2VaM4a+QB+NulFspI91WNF2PEs9KQYKjUavexoRmqtdf4upmuoySV3hUD3w65t2v
-	 iw2eizEr0zjA48Kzvzg5yhJ/LbPY97wXfqnubTyUPzklMIEcJttywhf1yETC6UFeiNAez
-	 41dXj5uDMr3fnnsdT/jlTPqqmyFwn2J5OF//vHb32rj8wWmr0TAagwyOerGbSQcFUxaaz
-	 VX99ED4LRBQ4dXlpiuKVLX/gmqeeqSRZAxZQ3T/JM1kXpmgcb00PFAWpswe+8Di3f+2p3
-	 KdrSAo5CTO5sLnk7ZimCLLUnmuvEBPODNrmV1LUdVGPzLzSQmKqMM7ht+OWVfi+aBDg==
+	t=1794834308;
+	b=kmgghf2OLfsbClSdkd9cs3ngFctU4aI4pDhg2UTgWJrN51db14NmJN0q4nQ7Ei32TWS6
+	 7kzqUr7p0PhBWt9V/OSCgQcRPwZZQdD8508l+P/7D0Yq+lbK64GoOoF3neGkV2mhEYJAb
+	 Ecnb5shlah0AlffLHR3cEgJY4I2744d+1XuDf8iqm8t9n0QoZ0eoSlXZSlzw5ziakchLC
+	 /iHicTnKdL1yrmgUnw8wgBXF3HepPe6IrV/CTbas0/hTjTOJ4AAAjnVpftplAWfmdhFku
+	 WeS8o9PrXqSf3CGEajCjh9KCeZ8nnDfvm3sNL8L+Asvw/O0CIo3uAej0J1u/ZSbMsFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834291;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=hkRhjLI8m+2MS20ZyRinnJZ2ay6VhwhiznxVcw80VDs=;
-	b=oMa8EhxHlawj17jAKwWMcm4n3vqzdtQZLLbELlq8aK+tKubU/IGYbobs3z0CrVfsUwEl
-	 MWiqgqLmAUto2KfXFfj55Js/9I8wuId1Dtun+GhhQjvyeyCBXiKFRmS0pNbzIlmQpIr02
-	 iXTYF6BCASFwhGUxEpBVxkfA1pa/qVnP+kXLPdGkaE72Wfx4wrWCctHBLn/e2Y4fdodba
-	 3Dyfr6oBIn2gNUsrvgScm2TZAhCA6e5HZlKA7+U1pPILElEbcY6Sy3Ltr4zJrxtvgyCWp
-	 IqivRc+zLna6kiMLUd7vxCku9PxtCs2c/JkcAE+kviTlLY0OOheTub7BJAywzHzH65A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834308;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3qxXqZ/X61M4+HhIEifAtVtiu8v8azVt8M4fLiSx3jA=;
+	b=zt/TAPj3cte4uPmecpkgFRKHSe636LdtSqn3yGzrZK6pe1IwyUH7aldoAIZ6hyIjOlNx
+	 IbanhpvlhPHUcBYd7ZXIKZm8YKHrpmWVelaF19fHFyX0j0FozZb3KgaVaFCXu/kLSYppx
+	 FhAuVN+DddOmbhGxcu+p9wArwJLH6xax0nFtcwgYjjQ2XrBZ9weft9LUKAdAI69v1/xU7
+	 unqr96EPuE/RRepWOaiwpIirIA81WaMJpT7t2Qpz0YXJHMju8UHSy92nAVX8aO9ZG/NM6
+	 CtEOEHlsSRD0IsCnqrHCvajMVhBp7sL/2MzvguqXYjL5eXWd9TiwSMr+dd8ZDcZZQ0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JDV2DY1k;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D50E0606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D50E0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=PMCgDYtB;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A57606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A57606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JDV2DY1k
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1CEED1713
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:04:47 -0800 (PST)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D4F9B3F632
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:04:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794834290; bh=sLJkYT+jK0R1uMOruWdRoY7YCqhcUnkEqFSDjvSeAC0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JDV2DY1kgLktvw4Ci+pgOnutUEGyHIVgPRxzULdI4JWfQErfl7RF/0EdI3SSOr5CU
-	 RSSkqdyLyFqse98NyxC5/iuM9/gW7s1DkaO+dHBMqopFhWW5B+N0nEzh34z7WAqjZj
-	 8hqSxxvh4frqa+0YWzR+oBWMvjLyExmKmnqs5zaI=
-Date: Mon, 16 Nov 2026 13:04:36 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Karunika Choo <karunika.choo@arm.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/panthor: Fix race when retrieving the new chunk
- in panthor_heap_grow()
-Message-ID: <avr_ZM6cR9jr7qxl@e142607>
-References: <20261113110217.6c1513be@fedora1.home>
- <20261113204717.35195-1-osama.abdelkader@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=PMCgDYtB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794834303; x=1795093503;
+	bh=3qxXqZ/X61M4+HhIEifAtVtiu8v8azVt8M4fLiSx3jA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=PMCgDYtBnBPK1ZKDQ7DbnjyZw5Qk8BtfbXCcziXA94NnKabLlz80iNChAR/1/B67u
+	 1D5oHPSidcBa5aUQO4dN+E+SKDDag6JdGLy2y9FCkxMAHTelOVlDCVA4juKALkBGTR
+	 dhR43jW2CwcBQyDJhxKU5y3bEdBnDO7VHxMtT0W4sfB599FR5YK1r9qtf5ca9UL1o+
+	 CdGIUIeRplMXXL1ADGrxho1cjxJ13X3vv+roabnRfh2wyJLj9iuQaheqo/LFfCxm3x
+	 aFsFA15DLIJcYEj1FnPhu3j+Wy5i/LlzHKDr+nfi8D8DHG2r2597iAYoB5vfDBDiWf
+	 ihu+u6LQNgfTQ==
+Date: Mon, 16 Nov 2026 13:04:59 +0000
+To: Takashi Iwai <tiwai@suse.de>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>
+Subject: Re: [PATCH v2 0/5] ALSA: usx2y: us144mkii: fix PCM stream lifetime bugs
+Message-ID: <9nzdZSQp5vd2r7Mg_R549ViuvvmKFsd-c_XQfH6NUPj4efLJUQKDjZ-XW65QKX5nFWjoT7XJ251ZT4wXANpSkfVVE-Y_5oP8jS85HKpxfG8=@becholey.ch>
+In-Reply-To: <878q2tynuy.wl-tiwai@suse.de>
+References: <20261116071707.217448-1-alex@becholey.ch> <878q2tynuy.wl-tiwai@suse.de>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 34096f1d90684ec1ed54783d7d5f8273453d75db
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,174 +65,124 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113204717.35195-1-osama.abdelkader@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 09:47:16PM +0100, Osama Abdelkader wrote:
-> panthor_heap_grow() allocates a new chunk with panthor_alloc_heap_chunk(),
-> which adds the chunk at the head of heap->chunks under heap->lock, and
-> then drops the lock. panthor_heap_grow() then assumes the head of the
-> list is the chunk it just added, and reads its GPU VA through
-> list_first_entry() without holding heap->lock.
-> 
-> panthor_heap_grow() and panthor_heap_return_chunk() only take pool->lock
-> in read mode, and tiler OOM events of different groups are processed in
-> parallel on the unbound heap_alloc_wq. If two groups use the same heap
-> context, they can modify the chunk list concurrently:
-> 
->   group A OOM work                     group B OOM work
->   alloc C_A, list_add()
->                                        alloc C_B, list_add()
->   list_first_entry() -> C_B
->                                        group scheduled out:
->                                        panthor_heap_return_chunk(C_B)
->                                          list_del(), destroy BO, kfree()
->   C_B->bo                              <- use-after-free
-> 
-> Even without the free, both groups end up being handed the same chunk,
-> and the chunk allocated by group A is never linked to the heap context.
-> 
-> Fix this by having panthor_alloc_heap_chunk() return the GPU VA of the
-> chunk it allocated, retrieved before the chunk is published in the list,
-> instead of looking it up afterwards. Do the same for the initial chunks
-> allocated by panthor_heap_create(), so the first chunk GPU VA is
-> returned by panthor_alloc_heap_chunks() rather than retrieved from the
-> list.
-> 
-> Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5.5
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+On Monday, November 16th, 2026 at 1:14 PM, Takashi Iwai <tiwai@suse.de> wro=
+te:
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> On Mon, 16 Nov 2026 08:17:25 +0100,
+> Alexandre Becholey wrote:
+> >
+> > Hi,
+> >
+> > Five bugs in the snd-usb-us144mkii PCM code, all reproduced with an
+> > emulated US-144MKII under KASAN on torvalds/master and v7.3.1:
+> >
+> >  1/5 stop_pcm_work calls snd_pcm_stop() on a substream that is being
+> >      closed (use-after-free of the runtime); the device can schedule
+> >      the work at any time by sending bad feedback.
+> >  2/5 capture_work keeps using the capture runtime after the capture
+> >      PCM is closed while playback is running (use-after-free).
+> >  3/5 the capture work and the playback URB completion use the buffer
+> >      of a substream that was never started (NULL dma_area), because
+> >      the URBs of both directions always run together.
+> >  4/5 the playback and feedback URB completions use the substream
+> >      runtime and buffer without waiting for close (use-after-free).
+> >  5/5 a START retried while stop_work runs submits URBs that are still
+> >      in flight (URB submitted while active, anchor list corruption).
+> >
+> > The patches depend on each other and are meant to be applied in this
+> > order: 2/5 builds on the close callback of 1/5, the check added in 3/5
+> > is only safe once 2/5 guarantees that the capture work does not outlive
+> > the substream, and 4/5 and 5/5 apply on top of the first three. In
+> > testing, 3/5 without 2/5 crashed in the new check, and 1/5 + 2/5
+> > without 3/5 still crashed on the NULL dma_area. Each patch has its
+> > testing notes below its '---' line.
+> >
+> > Hanxiang Xu reported the bugs fixed by 1/5, 2/5 and 4/5 on this list
+> > on 2026-11-13, from source inspection and without a patch; we found
+> > them independently with emulated devices. v1 was sent as a reply
+> > to that report, and 1/5, 2/5 and 4/5 carry Closes: tags for the two
+> > messages. The reports also mention close racing with disconnect:
+> > that concerns a fix that kills URBs in .close, which this series does
+> > not do (the .close callbacks only touch the card private data), so
+> > nothing is changed for it.
+> >
+> > Changes in v2, both from the Sashiko reviews of v1:
+> > - 3/5: also count the hardware position and the elapsed periods in
+> >   feedback_urb_complete() only while the substream is running, so that
+> >   a substream started after the other one starts at the beginning of
+> >   its buffer.
+> >   https://lore.kernel.org/all/sashiko-outbox-214859@kernel.org/
+> > - 4/5: make playback_substream and capture_substream __rcu pointers,
+> >   published with rcu_assign_pointer() and read with rcu_dereference();
+> >   the capture work now also uses the substream inside an RCU read-side
+> >   section.
+> >   https://lore.kernel.org/all/sashiko-outbox-214863@kernel.org/
+> > - 1/5, 2/5: no change; 5/5: rebased, no change.
+> >
+> > v2 was tested on v7.3.1 and on torvalds/master 97d73c825122 with the
+> > reproducers of all five patches, with KASAN, PROVE_LOCKING and
+> > PROVE_RCU: no us144mkii report in 84 runs (the same reproducers
+> > crashed unpatched v7.3.1 in 8 of 8 runs).
+> >
+> > v1: https://lore.kernel.org/all/20261114172806.88710-1-alex@becholey.ch=
+/
+> >
+> > How we found it: the bugs were found, and the reproducers and these
+> > patches were written, by AI agents (Claude Mythos and Claude Opus
+> > models), in QEMU with emulated USB devices (raw-gadget/dummy_hcd,
+> > emulated xHCI, USB/IP).
+> > A human reviewed the analysis and the patches. The reproducers are
+> > available on request.
+> >
+> > Thanks,
+> > Alexandre Becholey
+> >
+> > Alexandre Becholey (5):
+> >   ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
+> >   ALSA: usx2y: us144mkii: wait for the capture work on capture close
+> >   ALSA: usx2y: us144mkii: only touch the buffer of a running PCM stream
+> >   ALSA: usx2y: us144mkii: wait for the URB completion handlers on stop =
+and close
+> >   ALSA: usx2y: us144mkii: do not restart the stream while stop_work run=
+s
+>=20
+> Thanks for the patch.
+>=20
+> But, I believe that we should rather address the whole us144mkii
+> driver issues differently: this kind of duct-tape fixes won't work
+> well for this driver simply because the current code isn't designed
+> well for the concurrent playback / capture changes at all.  That is,
+> it needs a redesign about how to keeping the streaming for full duplex
+> and concurrent open/close or parameter changes.
+>=20
+> And, those patches generated by AI often make the same mistake.
+> Basically, at the close callback, we shouldn't deal with the cleanup
+> for work, etc.  At the time of close callback, all streams must have
+> been already turned down and cleaned up.  The work stop and sync
+> should have been done at PCM trigger and sync_stop callbacks, instead.
+>=20
+> I guess AI has been trained more with the older code changes that
+> didn't use the sync_stop, so it tends to produce a quite old-fashioned
+> code.  You can give hints about the above point, I suppose.
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
+>=20
 
-Best regards,
-Liviu
+Hi Takashi,
 
-> ---
-> v2:
-> - Always write chunk_gpu_va in panthor_alloc_heap_chunk().
-> - Have panthor_alloc_heap_chunks() return the first chunk GPU VA, and drop
->   the list_first_entry() lookup in panthor_heap_create().
-> 
->  drivers/gpu/drm/panthor/panthor_heap.c | 39 +++++++++++++++-----------
->  1 file changed, 23 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-> index 99311abdf1e9..febc18b43af8 100644
-> --- a/drivers/gpu/drm/panthor/panthor_heap.c
-> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
-> @@ -139,7 +139,8 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
->  
->  static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
->  				    struct panthor_heap *heap,
-> -				    bool initial_chunk)
-> +				    bool initial_chunk,
-> +				    u64 *chunk_gpu_va)
->  {
->  	struct panthor_heap_chunk *chunk;
->  	struct panthor_heap_chunk_header *hdr;
-> @@ -181,6 +182,14 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
->  
->  	panthor_kernel_bo_vunmap(chunk->bo);
->  
-> +	/*
-> +	 * Retrieve the GPU VA before the chunk becomes visible in the heap
-> +	 * chunk list: once heap->lock is released, a concurrent grow or
-> +	 * return_chunk on the same heap can modify the list, and the chunk
-> +	 * can be freed.
-> +	 */
-> +	*chunk_gpu_va = panthor_kernel_bo_gpuva(chunk->bo);
-> +
->  	mutex_lock(&heap->lock);
->  	list_add(&chunk->node, &heap->chunks);
->  	heap->chunk_count++;
-> @@ -210,13 +219,19 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
->  
->  static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
->  				     struct panthor_heap *heap,
-> -				     u32 chunk_count)
-> +				     u32 chunk_count,
-> +				     u64 *first_chunk_gpu_va)
->  {
->  	int ret;
->  	u32 i;
->  
-> +	/*
-> +	 * Chunks are inserted at the head of the list, so the last chunk
-> +	 * allocated is the first chunk of the heap.
-> +	 */
->  	for (i = 0; i < chunk_count; i++) {
-> -		ret = panthor_alloc_heap_chunk(pool, heap, true);
-> +		ret = panthor_alloc_heap_chunk(pool, heap, true,
-> +					       first_chunk_gpu_va);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -280,7 +295,6 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
->  			u64 *first_chunk_gpu_va)
->  {
->  	struct panthor_heap *heap;
-> -	struct panthor_heap_chunk *first_chunk;
->  	struct panthor_vm *vm;
->  	int ret = 0;
->  	u32 id;
-> @@ -315,15 +329,11 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
->  	heap->max_chunks = max_chunks;
->  	heap->target_in_flight = target_in_flight;
->  
-> -	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
-> +	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count,
-> +					first_chunk_gpu_va);
->  	if (ret)
->  		goto err_free_heap;
->  
-> -	first_chunk = list_first_entry(&heap->chunks,
-> -				       struct panthor_heap_chunk,
-> -				       node);
-> -	*first_chunk_gpu_va = panthor_kernel_bo_gpuva(first_chunk->bo);
-> -
->  	down_write(&pool->lock);
->  	/* The pool has been destroyed, we can't create a new heap. */
->  	if (!pool->vm) {
-> @@ -437,8 +447,8 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
->  {
->  	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
->  	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
-> -	struct panthor_heap_chunk *chunk;
->  	struct panthor_heap *heap;
-> +	u64 chunk_gpu_va;
->  	int ret;
->  
->  	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
-> @@ -473,14 +483,11 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
->  	 * further jobs in this queue fail immediately instead of having to
->  	 * wait for the job timeout.
->  	 */
-> -	ret = panthor_alloc_heap_chunk(pool, heap, false);
-> +	ret = panthor_alloc_heap_chunk(pool, heap, false, &chunk_gpu_va);
->  	if (ret)
->  		goto out_unlock;
->  
-> -	chunk = list_first_entry(&heap->chunks,
-> -				 struct panthor_heap_chunk,
-> -				 node);
-> -	*new_chunk_gpu_va = (panthor_kernel_bo_gpuva(chunk->bo) & GENMASK_ULL(63, 12)) |
-> +	*new_chunk_gpu_va = (chunk_gpu_va & GENMASK_ULL(63, 12)) |
->  			    (heap->chunk_size >> 12);
->  	ret = 0;
->  
-> -- 
-> 2.53.0
-> 
+Thanks for the review. Yes AI have a tendency to go down rabbit holes inste=
+ad of taking a step back to see the bigger picture. I also tried to run the=
+ Sashiko bot locally but with the models I have access to, they wouldn't fi=
+nd those issues consistently.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+We don't have a real US-144MKII, which matters for a redesign of the stream=
+ing. What we can do is to send the reproducers and our analysis of the five=
+ bugs to whoever takes it on.
+
+Thanks,
+Alexandre
