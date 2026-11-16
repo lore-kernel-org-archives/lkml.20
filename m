@@ -1,88 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828834;
-	b=qoot7BAAfiOjD/mwQ2oSriFMLLtCAQ+R/9fnb7+Kjrk8pESzN9oOzBO0ctbwvcwIxz+G
-	 qQPtd0o2J2qL+RkJ5O0P6si0lLoSrdBlluKeLkBORQJCo6+dEEW+S3DMuMrq5FoxYChDF
-	 btjT02K+chpiQibAKMv1diXHQ6bfRvxY0g2Pt1zQFnqPfPizuNqyYZvYZjoRmT5wat4iS
-	 rxNELsqriaSAFV4CSZZ6Cv86RrBvltAYE5glULDd5CZsff8vtVcIQ5Uh/OISbljuOWolZ
-	 IA4kjAJw+NJQGDs8dBgFKicH9FuaoyLO83xbkNK9z+2Bq6Vs/Y/0d/NB9RWW8dQ5l3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828834;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
-	b=syqan31xTR9b5X5hge0MZkATngYTGNJiQoURr73YoHOvZeRqzJdsukmebnxNqUmnd+DV
-	 8Cgmqy3NvRGUWfh+VrKbqeGstSdjVNNq3UWX2DwGr4XLUWRXA4cSjDE9zjxyHBPGB8s0d
-	 g0ItK6SFgqxwnMPPwtuDnPfLzoPCDxxlNHYu1FXgkvOCr0zwgcGLuRJ2p9QJPfxYaBmAO
-	 TX2tF5n0+fQQzIc3VD+gfrvZUZ4BLb3UOxzBWcdaeagi1RrJYn46EJHmlt8VElafv9xRX
-	 FWzlBFPyb2UFI/zMVOEe2lvshnpvEmFALsJvSgkQ5/lUyHeZSjf05IS7f2AsvGJp2yA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1;
-	arc=none smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794828852;
+	b=BNVveh/m4/VSVMRVkZSHv4jALBGk6TTNQENBQgIh9B/eDNSDXV6QgfCeMwl+y40EKUz1
+	 STW6lqgBvol8CY7KfPZYq1vP7sRXLXG4ZsQ+U7DO94QAiXDZg0csGqRl+gz++aALJtzwB
+	 p+loCPQEkFQne4QVhpoFuWTc6WwsmTJc74NtXQ0qcmRxww0BwchXO7yc0ri+o+iNQnmHa
+	 L50Q/l5ZNGfw9luyWvnHgIB/6f9ediwpf4M9vmac8DiCjnSUDdrYSLBcpXMACwpgb1B1z
+	 ej7uMECHXsx/Zj8wVOCt655WmBiKBGOA9xeVDikSo2YbAS20w6TlTV26VIHGC5abv3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828852;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=uT9p29CP5TaQqhIQyuGR92oIMf1czgXzBLABvdt/mJU=;
+	b=U2fxw5tRs8e4N3KuWwSJWJTJfigxPqnFtfvOoiNJZxM/bzZi2VcnsjefzaR9lXL9PGIo
+	 BjUrIP6eVEGhKlkCE/it/l95is5uwhTLpba8ftDpk+LFdpkuCeUCn935fLS+3WOkjyfT0
+	 X68nXtq6y+CqdvmCDStTdEVyltdBC0YbcivZDqeISxRemPf5c8GXvBWEhQK5G2OLMUTuf
+	 EJH4ew/omH4znToFiHSX4eAPD3e/2qS80eySsIWA3OjNI7kxKaBYz1uorNJaB/QpIWDIb
+	 Nrvy/XD827RybN0t4qgZHhCPNP5F0NUZk2MNeZjs2Ndip+f+LAsMjHHJ5cFMBHkH00w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b="ny2yEN/3";
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=V6NF1bWH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DC0606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DC0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3F3606A31C;
+	Mon, 16 Nov 2026 11:34:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC3F3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso5014637a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:33:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ny2yEN/3;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=V6NF1bWH
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AGBKIBB1950201;
+	Mon, 16 Nov 2026 05:33:54 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=uT9p29CP5TaQqhIQyuGR92oIMf1czgXzBLABvdt/m
+	JU=; b=ny2yEN/3Et7/2xzFK9nekUxUKm5pFyrLNDzRPHJzhEhyW8uixHYO5hKGj
+	TyVcrtzF3N8t5PfBV3dHbVzA1TIxAKDSb5ox++VNP1FJDIeidg7Rx+v3JM9HEZGI
+	aCs3vK17Ba7WyEkQ1+SEu1OBAL6C5G8DJbLwSsk/AleYzonvYXttOVc+7Yo7zULh
+	074ioLLEqul7s4vndlmlsy6mUThrj6lnhvr+c9b00dxgfa6td3Dx/WyhViV3KGJu
+	CS6wzNCyPNGaYoCsGtnCR8UypL6NW5dL4z0TQu1nG58MnxKAARCPYt0V3YG/zGh3
+	OnNkRPmYxjJRBMkVYzKldGlF4hKPg==
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010019.outbound.protection.outlook.com [52.101.193.19])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4hyafsdg40-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 05:33:54 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OgR5Se1bT/FDK8WnDI1K9JC0GFXfyd2nVMKypBXSm8U7p7UeTJy8M6mniF5vULWjo+VY8HLnCmcwNC0p+RZMGk0ZhADxWwNn8aPq02MF06FWMOieQN4wbjnaxvH1KAwZix7n5/Tel8nXzBNUCqHgj65gcf+OcWmw+T3NYfWFYpH+uMO3I8XIcM3xKQmDYqKkwBF2llUTv2pMnCr5KZSefbxssrNkMe8QILwUWV1EI//nKlq5b+/QJ+8R3Z09L4nmyJH8SAEirvtcUaFH7Mq9AmtLSstEkh423fyi4DGWAmuarTHTRAWttScGGqYOrHFfa1eEzZPjFNe9Ss6NfzOYyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uT9p29CP5TaQqhIQyuGR92oIMf1czgXzBLABvdt/mJU=;
+ b=A2jl+vQIobF0kP/msB1eueqD1fROuWTRDAoTXLeqN6sqMxFEEETIo29tkhaYsl4zH8IEF53bPVZfxwq5XFETTGRj0BIpeVY7JwG7LUYJcg2tGhc0m50nel2Q0p638hTl9dA9TXt3v9N5lpVICzlYysdLJxQnjZxIKfjOuhUuarrj/zKDnhhDihDiYp++FqflauhWbe+UC3siw14hyyE/MP2BV2HvAFLx3Zk0YUGuyIZ/3HoBBj7Lvo2ktVeAj6B63P4MHYN7iowhHxrG3Kf2WA0PzYQE/lwqjT745pTK9cVCQKdKYknhIBPTGrMG1/rG4dGRHn4CWQDCsEIB7xhrzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794828832; x=1795433632; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
-        b=bznbirs1W7KeLTcdGuIpmYZRxwnkpH5f/RlkezPsx5Zs2Dhfp3ec/lefIvLuX18cvt
-         NoHo1RgNL6dtz3aB/iO9bwSZ2pifRfzNuYCA+txJ7XIF9qmTspFwlHcl0aGGHRSepq1B
-         /TOeVLLVz41daiNJlAwZjifgbnod0SJgbT/IroLzExz8JT51sPXXN94sua4KXnRgJIyQ
-         CekQtxYPcK8+dRCrhd6uWNrtdVljKk6Xv6ungX6K/1e3VgZnTRko7umi4kFW/5Yt8hQt
-         rag4Ksak60RTN/ZX2aveiMw34rvA8uNIIEUFMLcrTryqj47WTpdbCXdDm0aNgjJupPYX
-         Hfcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794828832; x=1795433632;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
-        b=hbuh++JivL6huy9m5tcUAGdJNYr7UgEAj07dEtnhtGVKJBj8MDLa0RLv+PxgXJDtF4
-         d0CaZ+NR4xm0Upwy54HY+Ntury3f6lzCFVdEAicuBh1XH/TGee4mMg30exnq7EOx0QqZ
-         EePf9hVJTJabqlArPBizHxrZKBHEhlyS+nYLfXpvVtQl2uRRlDXgLSSchtvqXVMCM000
-         S6RJZBwo1nMV2Nu5mwZF8hHMgOUrBoeiVFI7bBAUvc7c/Tx96WKVdepr+02GSE4rYlmE
-         jKYAUl+/Li4SyXDkAXQnhauN6AwyTzibdOTIj/PCeAOVXpCmO8xMAWGp9hcclLcQ4Glz
-         6gtQ==
-X-Gm-Message-State: APuU4Z9yg/8qJ/FbD6ZxNuTuKz/NnyTGplL5Pm/hKftKLuyhYuZrC0Wb
-	wNWYBGOUNac7qGiZfAOUH/GzYhbdObVOw5UnXJx4cKNEbJnyhlGhQbdQDNuL23tML0k=
-X-Gm-Gg: AYBFou3zJaFhur4PfWKQV2w9s3Ph8lh82Ocrwd1mnMgrmv95k+Y5vyr6GEcppzpoHQc
-	DIvn+3b7Lv9yOPjibxVgds5Fn8LgLmf++ct1WGw/WPYbi6ZIRi56BBYP1QqflwcFFH1gXxQRXCF
-	QQaqdgNLgv0o93j/sS5Db1WdRmwlHTtgKBqhrEOS3D/0W1PZJL/QOvqNLcCDLglt3l/lh8EJHXd
-	f9DrBlMkPoEpYhI7u4LNB6n+KSPs4Thh0EfCuONtB9LsySClS6JZZ+cHknBnXEMY5bJVJZVbal6
-	vNeoAeUk/kHKyAzPxvgo1QKto0Y1HEIQGnuJGQbJICRHE1YXGUYqM+b4KnjjY53rUYHrV0bAxe/
-	U69Z7bLawC0k56x7lsWYBWsytZaZ7Ac73W/0q2shNH4O2WTGymyUUjgrRG+lDNcH60avRYe63WZ
-	j7vM2Tnw0OfAAB1qBC3Pfpc5UEGCJdJVlkl3QYrYbRFA4uUjDr4xxHncv3a+W0QSH3Di/Gr87fQ
-	0ZOVv5S7/ZErm0pNhvFVUQOarycSP2/HtcT+1ExOouUbN70mGfjAf/GCNc4Z/rwRwUcs50AAEAM
-	EHGcN9tdp1oLxEu9DG/1y1cb67oQGI7tqf/RSiPpdlNX7WvP
-X-Received: by 2002:aa7:df02:0:b0:6b1:e4cb:a23e with SMTP id 4fb4d7f45d1cf-6b7c0953c22mr5985412a12.14.1794828831465;
-        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
-Received: from localhost ([188.146.172.76])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23db711sm4334432a12.24.2026.11.16.03.33.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
-Date: Mon, 16 Nov 2026 12:33:47 +0100
-From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-To: linux-media@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org
-Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	stable@vger.kernel.org, media-ci@linuxtv.org, patchwork@media-ci.org
-Subject: [PATCH v3] media: mxl111sf: initialize state->d and fe_lock in probe
-Message-ID: <xbzvgut6eavjeo3q5cpysxdirlvgatcr7qjkyadz4eolcchfeo@rjhvhba7lvdh>
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uT9p29CP5TaQqhIQyuGR92oIMf1czgXzBLABvdt/mJU=;
+ b=V6NF1bWHu/m2PB0FaR9FyPEi4RILBecfncXQ59kj67byqtc88HC6f6TuWYHyvkFHYqKYp9ycBI7bCu1R0lJc+w/Ty/QHZyTodQO2G1xg5wwmiR+qjZ8AkiJoHN/EXjlfZAlj5gh8Br5iVN7mIGNp4eJGK5Og0udBu6ili36GoHQ=
+Received: from BN9PR03CA0280.namprd03.prod.outlook.com (2603:10b6:408:f5::15)
+ by PH3PPFE03343C9B.namprd10.prod.outlook.com (2603:10b6:518:1::7d0) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 11:33:50 +0000
+Received: from MN1PEPF000793FF.namprd05.prod.outlook.com
+ (2603:10b6:408:f5:cafe::34) by BN9PR03CA0280.outlook.office365.com
+ (2603:10b6:408:f5::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Mon, 16
+ Nov 2026 11:33:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ MN1PEPF000793FF.mail.protection.outlook.com (10.167.249.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 11:33:50 +0000
+Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
+ 2026 05:33:40 -0600
+Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE206.ent.ti.com
+ (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
+ 2026 05:33:40 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 16 Nov 2026 05:33:40 -0600
+Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AGBXZOU1657459;
+	Mon, 16 Nov 2026 05:33:35 -0600
+Message-ID: <699420d5-28b8-4238-8fc4-3a4e762265ba@ti.com>
+Date: Mon, 16 Nov 2026 17:03:34 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,155 +133,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] dt-bindings: soc: ti: Document the
+ ti,tda54-mcu-scm-conf
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: <conor+dt@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <nm@ti.com>, <ssantosh@kernel.org>, <u-kumar1@ti.com>,
+        <gehariprasath@ti.com>, <vigneshr@ti.com>, <afd@ti.com>,
+        <a-limaye@ti.com>, <y-abhilashchandra@ti.com>, <johan@kernel.org>,
+        <kees@kernel.org>, <jm@ti.com>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20261112091027.1601122-1-m-shah@ti.com>
+ <20261112091027.1601122-2-m-shah@ti.com>
+ <20261113-fancy-trogon-of-saturation-16fc66@quoll>
+Content-Language: en-US
+From: Moteen Shah <m-shah@ti.com>
+In-Reply-To: <20261113-fancy-trogon-of-saturation-16fc66@quoll>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF000793FF:EE_|PH3PPFE03343C9B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c9268b6-a99d-4bd2-96e2-08df43d57c64
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|22082099003|18002099003|3023799007|4143699003|56012099006|10067099003|261022105027099003|261028144727099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	EY0eBxsA2JbPqphrvIdIb/it8pJIGP2DJA0wfkQGDu6PIhco2idO6Plyu5hxowAPu1zW0+c0QtEix/nHhFHwTlFFXzBupwDB1r0Q7WvFR+aPrkFpK6YaWyXAMIKWf9LuSFyrgyDHuVxkEgDWjxikwyOdb+c21Rp2oj9mqjKOplnvZVGK4fY8xfvJNT1p02I5WiDX4nM6FnaTVt87XBIDY7APG9BN97QuikGnYKk5CH9XOVDomFn3vM4FABzhKgronA5QlCfyUW4tOovoWqsuY6gRHJKHMedDaR4WmS7dCec4FFrps5+WpfuFUk7YGBqdh4d/RG/EeZ6t4A+yPERc5vyFobMoVh7OAwx2GHEZD2UKQ54DZVDJOG2BsHbJNQ7QXbmshMxtRaQZF3eW6OZE0mNbHCDZnZaSIkbovQ2Ju5e+/FAB3SpUfzRyiLCpMoD3INdXMijjl7cjvr3joNxTtOLbiQDK59cGO/YQfPdJEnaqhKzbXSHLX/M8UMqlYp4tZvyc8IfZ+Bi/EhJfZa2KpRTLjztcKRVmYMPmphNNTvqK1luMU8rQFCaV8WPeEZ4f/WSlbHNKiM6DvltLaJhkOnoeQfxhYBEJm0MnFZfIrBU+K4yLdCWnwe2y5emDxqstqoC9QD4Z8wI45zKeoWs5CVNQTji/avuNPGtQtgAVxNuMVGyFLPn7cWxMvJtTbCi600Ulxe2TJjlDNeBO1r00xw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(3023799007)(4143699003)(56012099006)(10067099003)(261022105027099003)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NnAQGBMEjLtuaX9qHio3C0XOnGTYYv656+D77sC97YBs48mgoEbEps5B8Npx0/GhpoKfBzB15ssfWYXcQ0bBWucOOII13sHP1MemR1VIs07/TDHfg91kMOU3ecGnpjL4eXStDt0bhhyTR2Qev6/XEH79S7AdK5y/U7zTr/Eurm2CbyigBEbE2VbFfZVPBAmaxIT+dH2tm+UasZk3Xr3nnhErub+P4ko8sdW+uMhm4ikBSOtrcMwTfmJjXKudRJvuAfQGenToDZ3MBEb7czfpyJ7WeBCu5HTzgynRO3lBftOGGyvDrrv2ivN7rKIXvAZ2uAz6OIk+9ykIXl/E+A5xXeflUGMqKjsWn8+lSZUwMvxAsrDV28TA+olhvJJ7RW/8NmOeBvohqREJZuUm4IeChetLZYhHRcDPcuPnSIJl7kl8CEko8YxTiJCzM+NMmczJ
+X-Exchange-RoutingPolicyChecked:
+	WwDiLdezIZfisbmcxORXSH7cJMg3khSFFAsuTkM5G2Lr3ei1rLyNEhjZvFy67L/F/WjXUENYT3ShnTIWpKGoLfK3BGnxHxR8NCFfZMdyhJgzc3keupYyjjbn2Z4ecky0xTc/JrlVKkHLb4BzW+ShOYDtpJbufI47EJX3+K2oJ/bcBZDcHIkmeZz8ntW5ETyKDCpS0k3qANf8YwOP8jM1J9jmtOtdPZ7+RAr6FbgTx/pmVOgtGgOFtzSl/1nKd1TX9Ezsf0uPZumr5bhf60oN2Cs2kUmUOtUKk/suJp1rBGYvGGBtAwIh8z/el+wuzBDY+JzxvtxNiGrnpnXBsf9Y3w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 11:33:50.2821
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c9268b6-a99d-4bd2-96e2-08df43d57c64
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF000793FF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFE03343C9B
+X-Proofpoint-ORIG-GUID: kDtsOvddIpxbGL8UzwvObflF5G_H2tdu
+X-Authority-Analysis: v=2.4 cv=UanE26SN c=1 sm=1 tr=0 ts=6afaea22 cx=c_pps
+ a=pRydOQwFKDU45SaoCSWz9A==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=mpRNqdfHd_oUoT-jwrkA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA0NSBTYWx0ZWRfXz/KPjtDcezZD
+ SU1XSi4LyF0fy1rWf2yreYassfIoh3ouhHVL49K588ms3Jb1d7WY6D/H38EKqPv2x5+8VmaIMwr
+ tqA3h4Pmyjl7wEZk3b5nQQBx9S4r4js=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA0NSBTYWx0ZWRfXwEfK/FG7Nlyp
+ MBuiLCPoqPVu26aVo1eLtwKAg+Zg2FVEa5QvKfsE+raHuNIr8oF0Mi7LKsLhXS/xWifJcSC7NEE
+ A8rou//fmFoQ9q3FoxZ2Owd5YT5iISXO+qf8Ay0dGf8xJpY7zr8mURpIdLf38LDzKTIg4ICs6uB
+ FsjtLCwfPa3at5nXuXjmqmqP1KQ0Ebj9ogs3eyB9/16J9OFKUm9fcLNOqgKua/Mxh9IAva7VPAR
+ byPpClA03bZna5Bk9H3BUZbx28LukwzIVzOYobDn8jIwwPeZI8JcGpY37KYf8GNyKxjkG0N7dWD
+ zpSM/h4aoovwNj21+CifB4kYIqST1oO5/aVOwveE9CYcipNe+lrc+ZQ6E7sZj1z9BMxocVvPfP9
+ vvR4LGok7HGDRi/MGRd9M3WotSwApiOgu/XWzBhr3EW4Wk4MqTaxu/uZlcS8a+Lt4kEmamOLVge
+ zxJxhQHbOcRlsjkseqQ==
+X-Proofpoint-GUID: kDtsOvddIpxbGL8UzwvObflF5G_H2tdu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160045
 
-During device initialization in dvb_usbv2_probe(), the dvb-usb-v2 core
-allocates the dvb_usb_device structure and its private state (struct
-mxl111sf_state) via kzalloc(), then invokes dvb_usbv2_init(). Within
-dvb_usbv2_init(), dvb_usbv2_i2c_init() registers the I2C adapter with
-i2c_add_adapter(), which immediately exposes the I2C adapter to
-userspace via the /dev/i2c-X character device.
+Hey Krzysztof,
 
-However, state->d was only assigned later during frontend attachment
-inside dvb_usbv2_adapter_frontend_init() via
-d->props->frontend_attach(). If userspace performs an I2C transaction
-before frontend_attach() completes, mxl111sf_i2c_xfer() delegates to
-mxl111sf_ctrl_msg(), which reads state->d and passes it to
-dvb_usbv2_generic_write() or dvb_usbv2_generic_rw(). Since state->d is
-still NULL, dereferencing &d->usb_mutex inside dvb_usbv2_generic_write()
-triggers a null-pointer dereference crash. Although the crash report was
-captured in compat mode with PTI, the failure is illustrated by the
-following x64/NOPTI trace:
-
-Oops: general protection fault, probably for non-canonical address
-0xdffffc0000000018: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x149/0x1550 kernel/locking/mutex.c:821
-Call Trace:
- <TASK>
- dvb_usbv2_generic_write+0x26/0x60
- drivers/media/usb/dvb-usb-v2/dvb_usb_urb.c:77
- mxl111sf_ctrl_msg+0x160/0x2f0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:73
- mxl111sf_write_reg+0xa9/0x1b0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:123
- mxl111sf_i2c_start drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:130
- [inline]
- mxl111sf_i2c_sw_xfer_msg drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:-1
- [inline]
- mxl111sf_i2c_xfer+0x463/0x5060
- drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:813
- __i2c_transfer+0x7bf/0x1fe0 drivers/i2c/i2c-core-base.c:-1
- i2c_transfer+0x1cb/0x2d0 drivers/i2c/i2c-core-base.c:2350
- i2cdev_ioctl_rdwr+0x460/0x740 drivers/i2c/i2c-dev.c:306
- i2cdev_ioctl+0x6a5/0x880 drivers/i2c/i2c-dev.c:467
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
-
-Additionally, state->fe_lock was initialized in mxl111sf_init() (called
-via d->props->init()), which runs after frontend attachment, leaving the
-mutex uninitialized during frontend registration. Although the reported
-I2C fault does not demonstrate a frontend lock race, fe_lock should also
-be initialized before frontend registration.
-
-Fix this by setting state->d = dev and initializing state->fe_lock in
-mxl111sf_probe(), which runs before dvb_usbv2_init() registers the I2C
-adapter or attaches frontends. Furthermore, remove the redundant
-mutex_init(&state->fe_lock) from mxl111sf_init() and the redundant
-assignments of state->d in the frontend attach functions.
-
-The fix originated in the linked syzbot AI patch job, which used
-Gemini:gemini-3.8-flash.
-
-Fixes: 4c66c9205c07 ("[media] dvb-usb: add ATSC support for the Hauppauge WinTV-Aero-M")
-Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
-Link: https://syzkaller.appspot.com/ai_job?id=c5284b5c-3f14-4e95-a4b7-6ee38f0d2e1f
-Cc: stable@vger.kernel.org
-Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-
----
-Changes since v2:
-- Drop the non-standard Assisted-by trailer. Upstream commit
-  1e035297ffdadf2184c3c773b8c098e372324aaf
-  removed the Assisted-by guidance and checkpatch exception.
-- Disclose the syzbot AI origin and model in the commit description.
-- Put the stable Cc after Link in the commit trailers.
-- The code diff is unchanged.
-
-diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-index 6404eb74d..fc4010b6e 100644
---- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-+++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
- 	if (mxl_fail(ret))
- 		pr_err("failed to get chip info during probe");
- 
--	mutex_init(&state->fe_lock);
--
- 	if (state->chip_rev > MXL111SF_V6)
- 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
- 
-@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
- {
- 	struct mxl111sf_state *state = d_to_priv(dev);
- 
-+	state->d = dev;
- 	mutex_init(&state->msg_lock);
-+	mutex_init(&state->fe_lock);
- 	return 0;
- }
- 
+On 13/11/26 13:26, Krzysztof Kozlowski wrote:
+> On Thu, Nov 12, 2026 at 02:40:24PM +0530, Moteen Shah wrote:
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  ti,proxy-id:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    minimum: 0
+>> +    maximum: 7
+>> +    description:
+>> +      Proxy region (0-7) through which this node's clients access
+>> +      claimable registers and their fault status registers.
+> Partially continuing discussion from v2, IOW, device cannot access
+> entire address space and you need to limit the address space to specific
+> window of it? At least this is how it looks in driver code.
+>
+> This looks like the MMIO space is wrong. Listen, if you claim that the
+> DTB represents the host (or VM) view on hardware and based on that you
+> add proxy-id property to restrict the MMIO, then why do you claim that
+> entire MMIO is correct for this host (or VM) in the first place?
 
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+Thanks for the review, I got your point.
+One thing I wanted to clarify before sending a revision: a nonzero proxy 
+sets a bit in its CLAIM register to claim a register but for proxy 0 it 
+shouldn't be doing that as per the hardware. If we choose to use proxy 
+0's reg window we just have to check if any other proxy has claimed it 
+previously or no. Are you fine with having a property in the binding 
+something like "proxy-0" or alternatively "ti,claim-required", because 
+the driver won't be able to makeout which proxy it has the view of.
+
+
+Regards,
+Moteen
+
+>
+> Best regards,
+> Krzysztof
+>
+>
