@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793848;
-	b=CljmbKYGpIan5l0ByfOoo56kFBOK4sT1Oya/RFTjYmRqjzp4InzMKWIeQx3HKgDtqILz
-	 zhQ0SHIjREB+ap5RKNsWPFI8FtK6SvfVcWTQuEQ4xI+rBKyk03LgpX5hc/ed9orc0bVvj
-	 /j+NuATas3xnmvOr/n3Xja9+rHRDbO5pugQBmBXNbiMJzdkIcsI1CE8BeXxOOIsqVY2PP
-	 4Bip6pQ9rZlvuOHl3q6T1XLSHwXuIhMqQGjwYAyzxZdiE0vSVk34seBMm+ZYdAdZd6dTk
-	 c8j0aiURueVG+MRfHlNUe9VdJojKQwkGnL7n3CGGc37A0Hk5xzdb1DOhzG+59SnG5xA==
+	t=1794793853;
+	b=cVR1HevcmHTlmxLaI+zX/wgNWq8lQp8/voERtjLySjKnx6T2LClQbEtRB0BcRe2jvZDC
+	 vY3EoC3lZkPOkNQzv0IIgVX4Imtwsfz4xzJvI6HdoMW3suoSwthY6VleW9QYJ/r/L5F+F
+	 91gdsqgdBkfkRhUL5bYVeIwE12g/RILTU3Te0BsJxOG9Skf/yfB7ar05nDhYA1EVdVKRm
+	 /jrayu+G666TOx7LS48c493NJjnYyVv8yQlTVfCjZ+5PmhK2iJrRHND7IX3qbIlxZB7Os
+	 ieBENNQeTiBG/fpW9uiwLLclFnQnbXmMVs2hHk56+mmKh/qawsI0rW4XpqttbrzlWBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793853;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nZ6NMqTef0qGROEviLfYHdCWVArz8lChGLub16DzNzw=;
-	b=xw5mLDuoILOBrotLJxlF4BQH2kcvMOCXM5b1S0XcnYBzcxQOnq24Gb3zBo3nqcvUdv6o
-	 Bxga+0AqjlF4XnGNGK1CyA6Z2+8Ci50IwlHJ+BckxT8kv1zbw3Hzt2KpVQdGXzUvCBZ5J
-	 xncXK2+p2AyTPlMpe4qo4rB5OG7QF3wqESt2ZU9aT9YAVhtZzVw3nSKGAsIZk6JRuDxVR
-	 N1/wBR/yGRpykRHVlQy+tdkHeuOwh8KD/qn0C7kFHhoM3ZeFsjl+ENFSU9uW2pK9WQfO0
-	 K98N/SPVquOYAhhix1Yh3CbI1ND2FPub/eF0BROlQQY9TWdjzIWYWfrL/BEaBnpT6Cg==
+	bh=B6KCe+IfaTxTcL1yex+HoKG7FtMVLlnwihy0XT1ygvU=;
+	b=JuEchFhOlFEsjVLtzxGxZFybrTMBLFPuYIt59SjaroGSxZq6SO82K8rHndNE4tYULSJO
+	 4rPfUO4DPjUCJPqjyWPJXAQUJQQxxzbLE18ZtKDyzp1I81GXz8U8BAIAiZWHeeo0ZEf9b
+	 82UpN2XA3w0G+JbS1/tqWuIbGomnKA4XS2W6JFyjvCXjo1bw/mvsGROu5QVkYJeaZarQF
+	 dVXO3r/hXab/PnEn7J+VWzVEXElb/6MEQaYuU51o5ka8CyF/QYyr3pRF0BUPwG1sRo3w1
+	 f1Tv1yzNo03KkUEKhduJC2+lVdQqvISkgET/Hymm9VH3hZbwUKX+lWwMeD5eMvngxTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GsmURwN5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8bjF3S3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24646606A33E;
-	Mon, 16 Nov 2026 01:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5D9606A896;
+	Mon, 16 Nov 2026 01:50:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GsmURwN5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A2C1F000CF;
-	Mon, 16 Nov 2026 01:50:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8bjF3S3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFCC1F00939;
+	Mon, 16 Nov 2026 01:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793848;
-	bh=nZ6NMqTef0qGROEviLfYHdCWVArz8lChGLub16DzNzw=;
+	s=k20260515; t=1794793853;
+	bh=B6KCe+IfaTxTcL1yex+HoKG7FtMVLlnwihy0XT1ygvU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GsmURwN52Xp76zxQUUnmtgV+syaLlSt5VBQMZ4Ts+lkFuX3QgW9mnx1Dvy1if0MPk
-	 yRshjBc4u5FnYWoj1/Uu1gEoqlormws+0bRzmb4PSelr1912OISUzIWnaBv4WoI/+2
-	 TzHL5SlVaQpXjY9lBMe2fBZ2rNXjPCDsfMO3HlBMNjFiDKCzE8Igh/6xgvjzC2qu8i
-	 u1UK898BsFIU93XwuBC0bx/IlARWUkdTw7JH/izzJP8qAsYkiVtTSLLjy+TZmXSR4t
-	 WKuslVXeAUpM+cAWFzh7sFv9IO5XtQrxV5/Y9uK9ScRZLyUpBNAsF+JDCuO5XSHCoP
-	 Yf/lIHrRNtbOg==
+	b=P8bjF3S3QW8RpZWqSMNhw/BZ2R5Q1rcGfYO07mvtvqMLCNltd5j2d53kQJHzMs6xQ
+	 ANOD6WaXabeJzwau5ufudSG/KLcdNp54V4uue+fUBQ5ap4N0U8D4dfxdFEusw5rLai
+	 bsg1cI/12xgoKsBpiHPt1iAPIjpPIeSqbYkpxLpegKGmLRSNvg84mQa4oQiBZ6HeLU
+	 p7NiE28QU4QoVedLwVMB+1NMqt79DxEqn38pbAUJ32CXfOf/p1WOiq0iW5alFE+kIo
+	 X1hQYRVKAWAa2lLs3rxAwrNW7a2XxDO4KYxsQAX0EYt1epoTmwlxnVlNbPx+Yh8h7Q
+	 KOklg/li9Cdzw==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	David Lechner <dlechner@baylibre.com>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Linus Walleij <linusw@kernel.org>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 21/35] iio: chemical: ccs811: use default_trigger
-Date: Mon, 16 Nov 2026 01:48:09 +0000
-Message-ID: <20261116014823.3132576-22-jic23@kernel.org>
+Subject: [PATCH 28/35] iio: imu: bmi160: use default_trigger
+Date: Mon, 16 Nov 2026 01:48:16 +0000
+Message-ID: <20261116014823.3132576-29-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
 References: <20261116014823.3132576-1-jic23@kernel.org>
@@ -94,28 +94,78 @@ From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Set indio_dev->default_trigger rather than taking a reference to the
 trigger in probe(). The IIO core now takes the reference during
 iio_device_register(), so it is not leaked if probe() fails after
-the trigger is set up. As well as closing the leak, this should make
-the ordering a lot less fragile.
+the trigger is set up. This particular driver doesn't have that leak
+due to the specific ordering of calls. Hence this is just making
+things less fragile and enabling further rework on top.
 
-Fixes: f1f065d7ac30 ("iio: chemical: ccs811: Add support for data ready trigger")
+The copy of the trigger pointer in data->trig is only used during
+probe(), so replace it with a local variable.
+
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/chemical/ccs811.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/imu/bmi160/bmi160.h      |  1 -
+ drivers/iio/imu/bmi160/bmi160_core.c | 22 +++++++++++-----------
+ 2 files changed, 11 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/iio/chemical/ccs811.c b/drivers/iio/chemical/ccs811.c
-index d126ee12ffe5..ad3266444aad 100644
---- a/drivers/iio/chemical/ccs811.c
-+++ b/drivers/iio/chemical/ccs811.c
-@@ -502,7 +502,7 @@ static int ccs811_probe(struct i2c_client *client)
- 		if (ret)
- 			goto err_poweroff;
+diff --git a/drivers/iio/imu/bmi160/bmi160.h b/drivers/iio/imu/bmi160/bmi160.h
+index 629844c34f1a..1c4ce2e07b68 100644
+--- a/drivers/iio/imu/bmi160/bmi160.h
++++ b/drivers/iio/imu/bmi160/bmi160.h
+@@ -7,7 +7,6 @@
  
--		indio_dev->trig = iio_trigger_get(data->drdy_trig);
-+		indio_dev->default_trigger = data->drdy_trig;
- 	}
+ struct bmi160_data {
+ 	struct regmap *regmap;
+-	struct iio_trigger *trig;
+ 	struct regulator_bulk_data supplies[2];
+ 	struct iio_mount_matrix orientation;
+ };
+diff --git a/drivers/iio/imu/bmi160/bmi160_core.c b/drivers/iio/imu/bmi160/bmi160_core.c
+index a27efa42e682..50007725f4cc 100644
+--- a/drivers/iio/imu/bmi160/bmi160_core.c
++++ b/drivers/iio/imu/bmi160/bmi160_core.c
+@@ -778,31 +778,31 @@ static const struct iio_trigger_ops bmi160_trigger_ops = {
+ int bmi160_probe_trigger(struct iio_dev *indio_dev, int irq, u32 irq_type)
+ {
+ 	struct bmi160_data *data = iio_priv(indio_dev);
++	struct iio_trigger *trig;
+ 	int ret;
  
- 	ret = iio_triggered_buffer_setup(indio_dev, NULL,
+-	data->trig = devm_iio_trigger_alloc(&indio_dev->dev, "%s-dev%d",
+-					    indio_dev->name,
+-					    iio_device_id(indio_dev));
+-
+-	if (data->trig == NULL)
++	trig = devm_iio_trigger_alloc(&indio_dev->dev, "%s-dev%d",
++				      indio_dev->name,
++				      iio_device_id(indio_dev));
++	if (!trig)
+ 		return -ENOMEM;
+ 
+ 	ret = devm_request_irq(&indio_dev->dev, irq,
+ 			       &iio_trigger_generic_data_rdy_poll,
+ 			       irq_type | IRQF_NO_THREAD,
+-			       "bmi160", data->trig);
++			       "bmi160", trig);
+ 	if (ret)
+ 		return ret;
+ 
+-	data->trig->dev.parent = regmap_get_device(data->regmap);
+-	data->trig->ops = &bmi160_trigger_ops;
+-	iio_trigger_set_drvdata(data->trig, indio_dev);
++	trig->dev.parent = regmap_get_device(data->regmap);
++	trig->ops = &bmi160_trigger_ops;
++	iio_trigger_set_drvdata(trig, indio_dev);
+ 
+-	ret = devm_iio_trigger_register(&indio_dev->dev, data->trig);
++	ret = devm_iio_trigger_register(&indio_dev->dev, trig);
+ 	if (ret)
+ 		return ret;
+ 
+-	indio_dev->trig = iio_trigger_get(data->trig);
++	indio_dev->default_trigger = trig;
+ 
+ 	return 0;
+ }
 -- 
 2.56.1
 
