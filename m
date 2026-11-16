@@ -1,47 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797746;
-	b=X69P1UEHOB8O7VwlNBZur91EqjDAE6rrPbct+uJ7U7y14UcldbdY6dmmbKCtY1NC8oRV
-	 JcuqWsXV5J47y/E7/35RoGGcaIfvFpGsHU0+vPmRoc+bQYJIHDAH7I7o+zmKUCFaEA/8k
-	 iU4u3qijMNOryXjYlBBRDMq0GD6IDGLTl7U7Y55+vL/raqWbkm/leyc6zNbPArViCQ68w
-	 nKTPdlYEGuzvwMr1xUCUJ+PnoVcjYkmau/sabd9U9RNakCEfUDbzhTczv9yV8zhluXlZA
-	 6uqJoFxK7SmL54x7hzA87tnAV7+2g6o0h/Yhqd3/EQc0l0MG+wkmZB0YtXPUL2slNQQ==
+	t=1794797796;
+	b=kOMTA9OZra6K+9sJbrRZGBIKUzJ4DWyhYNq0u0q3UeJGFSOPGI1DEj/p/BEkqB1UIjeg
+	 12NkccHw6zi6tYOELyT5Jdaqy7N/USqLao3y6AZNAI8+494T4U/eTX3AucJTas25jBfqV
+	 D9BV691tyX62LstkftfA6L/WbPdXKznatXYI6XZWxATR3qN1LMmYOl0Kycz1jqxP1yKQA
+	 OG/Dt6OnFC+GaDb+CVJbaFqpvS3AMjAmuDVjgqYbO4qMLlez+L5fXsOj9z/kVu54hl3/9
+	 I4p54+q62sXuu7KlgGE085S4wCWah0rXwY5nw417zZ2BvGpKkngGtW0c0kbSKec/Xyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797746;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=gsj7jd7AfoGtFg0we3Hz9aAVPLheZu59lIGqgYGY0k4=;
-	b=ChRa8Wg06yVA/cFMtpQgpxiEAs62y5WrSIZyb7K/65P7slMCSjLX1iEOJoDhT5gnf93X
-	 qL/J/JPy8wEWjbL2vPdWYVObnXyX2jEiuHfXl43+mXM7MmW+vvoGZqNUkDgR28Pm/PpB/
-	 vjHADahmWxI93H3SBB/7qF2kUoH6gyL+vz6OLxC8GEYXFPDJF1guab9H/9/7ALyPXmpTX
-	 GJkJDQWMQOFY/X6vR5VNr8XXE7nXhlhGsXmMsFRe/2WwQVNB8KR6WdzYwOr+gh+yhFEn2
-	 miZxOq6dqBNOnaMwucCtH18XYSxUp2Ru86RO3BExB+NU3coGcoeFoN3opUSxWtsSNAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797796;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=mCOgjwJKSs2Rv/DfiBRwTMq+z3t/zgr11rpBBh/KKnw=;
+	b=g8FZdOCpoxYAndOwT66jA2kQlyCeeYD2iTuX/hI8oQ2Cl9aTGsSVSZet+M31ch153Glj
+	 5BEjAC0DpZ2Tl5jO4XKOul9Iz7EEnGZH1/dRqklB397lR6UskfQhqbj9nVhOfjCstOntu
+	 k10D1I/dRk3m6MifjcBSvsYiM7wBzRs2sdwnE0ml8uPgaGKoeffsK4UYL8P1+dJzquX6Q
+	 6He79q+tY+ltIG2ICWH+jBwWBj7iteS2wrSZdlUkjiptBWbuD4rFnnHkd5ug3RoJGApKJ
+	 IsGIJQFClGwsNjJuPqVWXhni4T0ePH13pdQXxHo+m6yKtwiRAdiFivTvNQqY0AHwjDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qXmz27kl;
-	arc=none smtp.remote-ip=117.135.210.8
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="J7iCkH/0";
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D73606A31C;
-	Mon, 16 Nov 2026 02:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31D73606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6D6606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:56:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC6D6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qXmz27kl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=gsj7jd7AfoGtFg0we3Hz9aAVPLheZu59lIGqgYGY0k4=;
-	b=qXmz27kln8N9k7u9+HSiPuz0MdzTnYwkO8vNHz3NPEobvoN6y3FOifOWFah20/
-	hlEdGFoHysxSRgVEedGLKPfXtKOYbQpmg9KQw9QcGJ7a55IFO0bkVFwUKwhstBQY
-	t6IVw6Re1LQwvjVxZ4yjCk8AlTV4yKqhWsC5y5QUMX6sQ=
-Message-ID: <cc161d10-9f0f-4074-888e-161f3399a10d@126.com>
-Date: Mon, 16 Nov 2026 10:54:21 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J7iCkH/0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794797796; x=1826333796;
+  h=date:from:to:cc:subject:message-id;
+  bh=kWNo2spHP8ubkHqe7vCfuhXds3F30K5yzt72lCfjHEM=;
+  b=J7iCkH/0wFUyUWPt4+WAQqLrpQ3XvFBIdWAm8RaOALVLsdj2Y4W0CnKH
+   Lm/9xGfU57PZkBwE9g0aA7kGW6iuhVXC40UgjqtZ3modIE7cImPCWrTgi
+   YONncCbL3VR+ryF/rZLLWvpNB+y1+npgMR8K+5PN/pU9UwWQYjINb4HCk
+   Mahd4HMRnARRI+rUHnYerP5svLjpQDts1bZ4VYTc0iviAiGZcorSMYh1P
+   EQ8UkScgRE6OuSs5eUb8VZv++MhXvnCLcAKev/uEur9PabENCu+oLFrLI
+   hYD1MgY1s6niJQ1Fm2mSAzL2Ece9Z3wcgzVkCW6+T7aXNsrVwM91BrbDS
+   A==;
+X-CSE-ConnectionGUID: 1rX8LLnZSeyodSTiLfaP7Q==
+X-CSE-MsgGUID: c3HyDHUoSQu3X0HBHmEO1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3523081"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3523081"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 18:56:35 -0800
+X-CSE-ConnectionGUID: eNl3SAULSnic5jIiuK3FxA==
+X-CSE-MsgGUID: 6+V0A4JZQOGw2ak4PioGGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9686477"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa008.fm.intel.com with ESMTP; 15 Nov 2026 18:56:33 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSmtT-000000002Zv-1fss;
+	Mon, 16 Nov 2026 02:56:31 +0000
+Date: Mon, 16 Nov 2026 03:55:59 +0100
+From: kernel test robot <lkp@intel.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+Subject: error: kernel-address sanitizer is not supported for this
+ target
+Message-ID: <202611160342.C2Ii8PRu-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,119 +81,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: ethtool: request rtnl_lock for
- ETHTOOL_MSG_PORT_GET
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: andrew@lunn.ch, kuba@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
- jacob.e.keller@intel.com, bjorn@kernel.org, alexanderduyck@fb.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>
-References: <20261111072724.3295527-1-xiaolinkui@126.com>
- <avX2MdTZePW5ssrq@devvm16445.scu0.facebook.com>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <avX2MdTZePW5ssrq@devvm16445.scu0.facebook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3N6hdcPpq8GeaDQ--.431S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr1rKF4UCrW3Kr1rAry3CFg_yoWrGr4fpa
-	sYkFyUGr4DXr92gFnrWa1UuF10yanxCw1rCr18KFyUCw45Wr1xGFWxKr9aga45Cr97G34r
-	trWDJFWkZa1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlR+MY2r6cF91-AAA3T
 
-Hi Stanislav,
+Hi Link,
 
-On 2026/11/13 01:24, Stanislav Fomichev wrote:
-> On 11/11, Linkui Xiao wrote:
->> From: Linkui Xiao <xiaolinkui@kylinos.cn>
->>
->> port_prepare_data() resolves the requested port through
->> phy_link_topo_get_port(), which requires rtnl_lock to be held before it
->> reads topo->ports:
->>
->> 	/* ports in the topo are RTNL protected, but may be accessed under
->> 	 * netdev_lock for ops-locked devices. For now keep them under rtnl
->> 	 * protection, as no ops-locked devices have phy_port capabilities
->> 	 * yet.
->> 	 */
->> 	ASSERT_RTNL();
->>
->> The dump side honours this, port_dump_one_dev() takes rtnl_lock()
->> itself. The doit side does not. ETHTOOL_MSG_PORT_GET is served by
->> ethnl_default_doit(), which keeps rtnl_lock only when the device is not
->> ops-locked, or when ethtool_nl_msg_needs_rtnl() asks for it:
->>
->> 	need_rtnl = !netdev_need_ops_lock(req_info->dev) ||
->> 		    ethtool_nl_msg_needs_rtnl(req_info->dev, cmd);
->>
->> ethtool_nl_msg_needs_rtnl() has no case for ETHTOOL_MSG_PORT_GET and
->> falls through to "return false", so on a device that opts into the
->> instance lock (request_ops_lock, queue_mgmt_ops or net_shaper_ops)
->> PORT_GET runs with netdev_lock only. Such a device that does have a
->> link topology trips the ASSERT_RTNL() warning and reads topo->ports
->> without the protection the xarray is documented to need.
->>
->> Add the missing case. Like TSCONFIG_GET/SET, PORT_GET has no
->> corresponding ethtool ioctl, so it is Netlink-only and always needs
->> rtnl_lock.
-> 
-> [..]
-> 
->> The bug is latent as no device opts into the instance lock while also
->> carrying a link topology, so it cannot be observed yet and the change is
->> compile-tested only.
-> 
-> Then why fix it if there is no bug? And phy_link_topo_add_port has
-> a big comment explaining the expectations?
+FYI, the error/warning still remains.
 
-You are right, and I withdraw the patch.  It fixes nothing, and the comment
-you point at is why.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   aebb7274476403040d582c61478df8f4a7bf9cd3
+commit: 73b741adb264967093ef4eb59905618a7e0d0de0 rust: Add PowerPC support
+date:   4 months ago
+config: powerpc-randconfig-2001-20261116 (https://download.01.org/0day-ci/archive/20261116/202611160342.C2Ii8PRu-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project cbfac21cd384f6c7c480c2d0026ecedfe2d619e7)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160342.C2Ii8PRu-lkp@intel.com/reproduce)
 
-phy_link_topo_get_port() returns before the ASSERT_RTNL() when the netdev
-has no topology:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 73b741adb264 ("rust: Add PowerPC support")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160342.C2Ii8PRu-lkp@intel.com/
 
-	struct phy_link_topology *topo = dev->link_topo;
+All errors (new ones prefixed by >>):
 
-	if (!topo)
-		return NULL;
+>> error: kernel-address sanitizer is not supported for this target
 
-	ASSERT_RTNL();
-
-and dev->link_topo is only ever allocated from phy_link_topo_get_or_alloc(),
-i.e. from phy_link_topo_add_port() and phy_link_topo_add_phy().  Both refuse
-an ops-locked device before they get that far:
-
-	/* Ports can now be queried without rtnl for ops-locked devices, which
-	 * we don't support now as port retrieval is done under rtnl.
-	 */
-	if (WARN_ON_ONCE(dev->netdev_ops && netdev_need_ops_lock(dev)))
-		return -EOPNOTSUPP;
-
-(phy_link_topo_add_phy() has an equivalent check.)  So an ops-locked device
-never has a topology to begin with: port_prepare_data() gets NULL back from
-phy_link_topo_get_port() and returns -ENODEV, well before the assert.
-With my patch applied it would take rtnl_lock() and still return -ENODEV,
-so the patch is a no-op that only adds a lock - not something I want to
-send.  For devices that are not ops-locked need_rtnl is already true, so
-the assert is satisfied today.
-
-My commit message was wrong on the point that mattered: it claimed such a
-device trips the warning, when the guard at the producer makes that state
-unrepresentable.  I should have read the expected design out of that comment
-first - retrieval stays rtnl-only until an ops-locked device actually grows
-phy_ports, and whoever wires that up will have to move the reader to the
-instance lock instead of threading rtnl_lock() through ethtool.
-
-The other topology readers gate their assert on the topology existing as
-well (ethnl_req_get_phydev() uses phy_link_topo_empty()), so they are not
-separate instances of the same issue.
-
-The patch is already marked rejected in patchwork.  Thanks for the pointer.
-
-Regards,
-Linkui
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
