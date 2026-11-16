@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843301;
-	b=3vYFNqLLnt0XYeY/Cc4ii1Y1hfKOZ6zf73cBw32IOnjEX+lhluBfhrBoWdFQf42VJdJ9
-	 3LpvuaZX6Jz03vRGqxvXh6fHmwqhX7RS6eQEeuIBGnvUwLDM5f5cVtdWyEg8UI3NgHBz4
-	 81GYFDTIFqik/g6oU9W/KQUIiB+rnS0gvZ/lKXfH0TLyBVPUrMIl51hcL5/uaWPruDVRj
-	 1FO3aItHsHdaZTjGKPL56oKuY4lcY6tRiHKlxlmUKjSpIxaKTn50jyT3VjNzlUgSEZ+CE
-	 4+rQ2ylgFkophE7xkWlxLiV/QikxFIrC48i1oWTfWq2FDIUO1WfApeHPp4yeR7+PFmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843301;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
-	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=fbxTxlVd+uVhJASLdAzyK6UAyh6+fjwIt3spRNPcd/4=;
-	b=HmD4LMhI8NXjmmG+au6c4dMZWSn7m7eqzfpYcgd1CA+wfDMBIMIcRlR3zz7G9y/FON1r
-	 icYWPycW96DoO6b0DgOXTxs3xWBd0d+98QLpNTKCRRAxF2M2ubBJ6dsXm0f8aI0BG0pHR
-	 ZV08EKd0P5rnS19D9znB96ua3gCAOeABgeFHUvSVLSTU48NwfrOHPZOF8Irc3ZJLazd2V
-	 NkYc+SN0KE+9z0N+z8hKe/aFK9eIYhYTt6akkI8rifuWaEN1mA6/EKFIdEVPCKyaG7grS
-	 xjIJ3fpvfno1LDlvNL9avxBRuPKzLg1V9jxC+qBGt5dv/111oacoFh9SuXqvLrl1sMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QPnWo2OA;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794843323;
+	b=szmqY09FF5qg6X27TMFDOPyzNhdvdKGlzXgSOmRt7HzuRxjpmbp7dB7orth5TNAjH1Ck
+	 iMcysXfD9sZwzgOpaf4D00ryHArVCU/N97L5glTvtZmvceHiobE295vMuuE9Gf7WPj5hj
+	 3JMMdt65erUN+KyTI2MI/A3ZnrM86jILj0mwhYLIXgBXMVaottr6li5qIcScr7irP1rs4
+	 uEtd357aOhGZ4q/NnSYTawtcvIAkF3YLbjH4Cg3SymGz3oqrY9JHWC+P6H34yI8u00r8x
+	 w9ySfU3fIDu124YKHQ71xC5Wllj6wpz6oucwy+sCcx/UGJwOLIbBodihFckEFLSXOqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843323;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=4aOMTTBZR1ErUxEvB1ZFzGz22JMPQUGZDxbq8pbmpHg=;
+	b=bw97A00ig+7+OQVVSk4aL9Ywn/vhgEoHJ+uge2I33dfQMPzRbFX8V0kl0b3h7r9Isi73
+	 wKLDIKtASSsnWDbUuOgZMQOUFssB56uSRy9rkPxGsyTjccZNm0wqbVowjOYoIe6oAEWdY
+	 ewibpOL+uFpbXH65/KBge8rmnecbHK1ANLb84uJnPw6XQcCwTaW5ogU0RipQ3XD8V020i
+	 pO5PHc13clyMUJLHK9j6F3HGUL33a12igufCi/lv/qq8GSessq8m1PXbjUb7cs08hV2aF
+	 OhsaA/Ozdbzf4Fh0v3IIn4Mu19/mJjAIoJlqkcAbx+Bn3tZNgaFW7lHWYm4tL98L5fg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ph4ntom-rev.uz;
+	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=VXcLlK1I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA265606A32A;
-	Mon, 16 Nov 2026 15:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA265606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121D6606A31C;
+	Mon, 16 Nov 2026 15:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 121D6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QPnWo2OA
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id D6A7812014C;
-	Mon, 16 Nov 2026 15:34:53 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id 096E53D;
-	Mon, 16 Nov 2026 15:34:51 +0000 (UTC)
-Date: Mon, 16 Nov 2026 10:34:50 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Song Liu <song@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- live-patching@vger.kernel.org, mhiramat@kernel.org, mark.rutland@arm.com,
- kernel-team@meta.com
-Subject: Re: [PATCH v2 07/16] tracepoint: Mark __do_trace_##name() notrace
-Message-ID: <20261116103450.4575d61b@gandalf.local.home>
-In-Reply-To: <CAPhsuW5t2OqERqVm5LDCGDjae17LNpijqRgB3mbi8Mmv41P2RQ@mail.gmail.com>
-References: <20261023011049.1164625-1-song@kernel.org>
-	<20261023011049.1164625-8-song@kernel.org>
-	<20261023093256.20d3e300@gandalf.local.home>
-	<CAPhsuW78w86tV3gwRWQMOdWUK7Rcc8dSsp==XypKdB5BMP6QiQ@mail.gmail.com>
-	<20261028210844.105c431f@fedora>
-	<CAPhsuW54Tco1Y_khWHeomq_ZTxvDoHFuX77w9cqojuXCrhGKWg@mail.gmail.com>
-	<20261029134721.66bb584c@gandalf.local.home>
-	<CAPhsuW5t2OqERqVm5LDCGDjae17LNpijqRgB3mbi8Mmv41P2RQ@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=VXcLlK1I
+ARC-Seal: i=1; a=rsa-sha256; t=1794842918; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=j3PPxqC/blelrGTVhCr792Qhi4y1wsj+39F/KEcX5CCLDekdyLh4c9YUFzFnYf+gETIeEf5oDf6otmwvfjyPBTjsa7lV5gqpI6Img1yi5/O3vErgTBX1dZ+tDWgPGC1ZUBVnOMdNjDomlqx4y5VDwkgc/L4L0aZtBmT6CrE8wsY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794842918; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4aOMTTBZR1ErUxEvB1ZFzGz22JMPQUGZDxbq8pbmpHg=; 
+	b=XqG12CPg5SDszoVzpVZX+aEE/46+oAV2hwnS7VYe9CCmBYBhv4qBLDqyYnLfd6LljIVcPuF7aDE/gKNWc0A2aWqSIWT8bvK3MkTc7mU0PF6VkyMY6RdHNoje0yO78VZpKa09uSdkx8C2TYACNAwe29P0xTSJ4QDovfIhRyyihj8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ph4ntom-rev.uz;
+	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
+	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
+DKIM-Signature: a=rsa-sha256; b=VXcLlK1Is35Ja4S0OZGkl2VGEbD/Ue5brR049JQOm+21K3lcU5/qc4V4GBV9j8oJcV39/CFgUSO0JDnnN9DlvLYsIdPG5WjJR5q1bNnR4iO3YJINOELt0F3Zp9wDIgT/Bgn4rymwg0zqzEX4CSD0qBTKDPngI0J0aMGVDK1K3yscQnob7LAcHrzRmc9Fsy5BGW+cRl6fernZsqaVxwdZ7yd2xv8aU+ozovoJNZ5asK7e1hae4MP6+dB2XsW1aVW1U6VtxNMyFHSUlrvdf024vudTZoyGhg34w4rEfdkYuBN04GdvoEE6tGsQzxDFRznXwXBs473Bj39qSGqAUlX3rw==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=4aOMTTBZR1ErUxEvB1ZFzGz22JMPQUGZDxbq8pbmpHg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794842916732904.5678721982117;
+	Mon, 16 Nov 2026 07:28:36 -0800 (PST)
+From: Enver Ikromov <owner@ph4ntom-rev.uz>
+To: Zong-Zhe Yang <kevin_yang@realtek.com>
+Cc: Enver Ikromov <owner@ph4ntom-rev.uz>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rtw-next v5 10/10] wifi: rtw89: restore channel when leaving idle on non-chanctx devices
+Date: Mon, 16 Nov 2026 20:28:03 +0500
+Message-ID: <20261116152804.781-13-owner@ph4ntom-rev.uz>
+X-Mailer: git-send-email 2.56.0.windows.4
+In-Reply-To: <a7c3ba85576b43ff99b7ffddfd925014@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-11-owner@ph4ntom-rev.uz> <a7c3ba85576b43ff99b7ffddfd925014@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,50 +69,25 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: m185ocok44yffeiw317ru69m8dnfh96c
-X-Rspamd-Queue-Id: 096E53D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/CLaBGFac+wOUf4n5koLZBa+3VG96c2CE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=fbxTxlVd+uVhJASLdAzyK6UAyh6+fjwIt3spRNPcd/4=; b=QPnWo2OAFe765QZ3Dkre7L3vRamihQipXkGhvp/w/3zCvVCorn/9/j0Y085qQWLyRl+yQU14qt6Cp712ft783XunkGMuWrzg8P/jN6ABrH4bZtlIphqXLAOU+Gz0Qlesgqci+RMmUBn9Tuvdlbr2hUhsAwViYVaXO85zOiLXIEs=
-X-HE-Tag: 1794843291-662085
-X-HE-Meta: U2FsdGVkX1/a8ZJeQga2chop/pZQoJCt9NQZdw4dBlfaxs5Vzeq60J1gQyTIeCOxSeBI5qt4cMRb+6i/44AsTmGwahwcaK2c0hQsVS/DebXVvP9EySQzVe4cSdteB7M3rT6jMKAwblSwiZ+DZLhMukhsrJiu1buceNyJHmZpRwGx0u6GhodHhLihsU9k47mPbDttMq4QOVfevP+EfuJBgMkUya6zzVZAcT6pVhe4T2H2qcgcv9KDausA0Ee0gbMxBmTmd+SIl9mngO9l+w/8qCPbU1DF9FCZ/3VEW+LVYimzadpE5rcq1Fn742ofEkx5D5EZG9nK8/YTV0fluVLn7SebO+fabO4PaER6KW8OIp+Ik6+aQkWKVwPgKyBYAVddL+0M9XDPj+XD+FdYnZ/hFA==
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Fri, 13 Nov 2026 12:33:28 -0800
-Song Liu <song@kernel.org> wrote:
+On Mon, Nov 16, 2026 at 07:56:25AM +0000, Zong-Zhe Yang wrote:
+> I think you can just call rtw89_set_channel() in rtw89_ops_start().
+> And since this is more like an improvement to UX, please place this
+> patch before the patches you add features.
 
-> Hi Steven,
->=20
-> On Thu, Oct 29, 2026 at 10:47=E2=80=AFAM Steven Rostedt <rostedt@goodmis.=
-org> wrote:
-> > =20
-> [...]
-> > >
-> > > I think this should go through the ftrace tree. It has very little to=
- do with
-> > > BPF. We discovered the need for this change when building live patche=
-s.
-> > >
-> > > Regarding ACKs, it is a bit tricky. For the code we touched in this s=
-et,
-> > > there is actually no behavior change at all. OTOH, the real change
-> > > happens to "inline"s that we didn't touch in this set. If such a func=
-tion
-> > > was left out-of-line by the compiler, it was not traceable before, bu=
-t is
-> > > traceable after this set. How should we approach this? Maybe we can
-> > > just ask ACKs from the maintainers of all the code touched here.
-> > > =20
-> >
-> > OK, I'll just add it to Linux next around -rc2 then. =20
->=20
-> I haven't seen this set in linux-next yet. I guess we would like to queue=
- it
-> up soon so it gets enough pre-upstream testing?
+I checked rtw89_ops_start() against ieee80211_do_open(): mac80211 calls
+drv_start() before ieee80211_add_virtual_monitor() and
+drv_add_interface(), so rtwdev->pure_monitor_mode_vif is still NULL
+during rtw89_ops_start() and rtw89_chip_rfk_channel_for_pure_mon_vif()
+would be skipped (and on chanctx devices rtw89_set_channel() would run
+a second time right after when the chanctx is assigned).
 
-Sorry, I've been traveling. I'm trying hard to catch up on all my patches t=
-his week.
+Setting changed |= IEEE80211_CONF_CHANGE_CHANNEL in rtw89_ops_config()
+for no_chanctx as Ping-Ke suggested runs after pure_monitor_mode_vif is
+set and calls rtw89_set_channel() once. I will move this patch before
+the feature patches in v6 as you suggested.
 
--- Steve
-
+Thanks,
+Enver
