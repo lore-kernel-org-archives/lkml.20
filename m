@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812470;
-	b=CrohLf+Zf5pzU92oHHMKdBUN6I6wcDFBRT1oTy93UVu9Pegx9oYkpjkvC9XMth+Gk75r
-	 r4IIZ4MJXoUJhmUMAXAxbVx9qIqMXzkIDwcGZHahorDhtWKRWNy8zhKt1EelWeF7dXEsO
-	 XigXY6j+pOWMJB8mAf6PUObZoI1qVtoGZVeqCANtntjSOeQYsMg6hcxHd5iX3SEA+IeeD
-	 EuoZbLGlwaoSk3sa17bCWNUj+m5/5AgiX9/HFflgucoNbcdt6uSDQz1kV52kNqTOSOA8h
-	 OueYteoCPMNb/kFg4/hGSHE2vRED9+rIKLuCiqWyDtP0mA3QJxBaglWDpca6pqzA8yg==
+	t=1794812467;
+	b=iV/ZAYroc2t3F6x5IS4LvsUzCP8CfIwDDLiMrzh9Bz4DBcJSCYVKym23OO1maYB1oMKe
+	 6dsFbIb8hm8DR4L9Rig/xVDZe5vtWLhM/Cy0x5shI2uLiIQpmNsqK0f1gI2Qqg4GBCf3i
+	 FvKwoK2ex01LVtxaXR/FOBzduCSkWw/EolWxDnr32V3I7CrH82Gp0PizpwjsxMuEq4pdt
+	 3bnm9WGTT08Fj0RuWs/XZ7Umw6qtskBOe3tRLKk7RT3luv7s1iQF5mRYAGX29I8SBq63i
+	 1mceRt/KHsZn5v9tcSQiyiGapG380++ypcM7FTzhWDvA9a58SsXGnzwEdK8o3hc14RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812467;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=l87qNe2gCFMnCequO/xk6r+49OIRAbJukp+a4aoGAGg=;
-	b=u3TJV1TudUcDjmsPPLYt+OBVkTm1hOtVT2y4RgdtlLMTqCRMECqJt/NAuEc8NLTgGRa+
-	 zJQO5g1vWYoS97Rc6b+tGm6npZczJojOSZYfNT9bwUyO7kZRoBAI6vcY+4ZLlkPMrmc2I
-	 HiNX8Vb7gOVnjDo1fp+dUwBv6S5P35q7REeyOMjloiBuGOPufTApkEvHBj2aXZ/Y/qpjF
-	 sKdWECn63kbvv3y+yzKCfEUv8mzLIHOJeELswuYC2ff9JASzCYHiLXMMftPJvcTY7PDZI
-	 aK83SAr8rYr5BZlkizPYGfXNfkfD73krdn/kRjOBlIhUONPHnvYFbd6XW+GCK7JzVgw==
+	bh=++1ntAHxYp1b3dxKL8jJq9n8qLU3ShgVGvnl2PLKljY=;
+	b=ij3Bpm8Z6wqT5WI4N343WeoICmCy5GRtjdzkH7jZv5ZpMiGsoIppysV4kvFAZ8pbfvf5
+	 ad/bl0iRHtg0NGXTgI4UlcpZildF968gqESERtxHzdIdKo09wNgjj0bPUu4YXDQzjh/MA
+	 OG60dCyWehGx1FWI+4C6aQ0pHLdKFpUXVQbLiYn4GP2HNGv6h9xuVJF78Dt1mdcteItQs
+	 jfXAR0jISUqT4XjBbd48+0HtT6i3RRRRhYFQo5vGVQOorxV+1JeFcNBxCKIZ0vKKGSFH/
+	 Iyl8phaLsI+gbd95QX29aqBR9ivUV0SgkWdu1IWX8NMmWBXEIgZeZskhUq7cseca4IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BZLCgEQ8;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZBnMn4Yk;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA999606A888
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:01:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA999606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AB9606A8B5
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12AB9606A8B5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BZLCgEQ8
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-378722fd4a3so3656573eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:01:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZBnMn4Yk
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a3451ea93so3220862eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:01:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794812469; x=1795417269; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794812465; x=1795417265; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l87qNe2gCFMnCequO/xk6r+49OIRAbJukp+a4aoGAGg=;
-        b=BZLCgEQ8tezqDyR1vVE+LO6AjL31cHcMHBLlI6fH5OwgOVLGhYsGHeS+WEjeDTS9b9
-         /6VIv9HWSQ8wsdAUoYP/AVo+CCmeqLTyjV1P5f9m8cmCcMKyZW2bv/7U9gzXlprSnE7U
-         nf4WYrDHvnUP9u77hvQ8LYupQ09gvUcwf2J7zXwavb0LuIfWRHRa5q/WmIz2HSweDQjh
-         IlfWAvt7uMzI/HbO0O/8A/vB6cZUiAkCJuVKy/U3ybUUkZcaaby+3d6hYr0eIo0IRXbw
-         hDhmbIwtRD0q9q8G2k2Ll4BGt91S7vyYwZRjXRonWzVUQDV3kf5yIiBKjz8jx7u1R+Ew
-         u+DQ==
+        bh=++1ntAHxYp1b3dxKL8jJq9n8qLU3ShgVGvnl2PLKljY=;
+        b=ZBnMn4YkychZWvYbSxbV2LS4ZOdHXPSPw6sYk34YtJJyLRy+BmrQVdpqip7QrHbDwG
+         8nh7fUEweT1zxzUHZvKH4i2BbrMEitHWhzKonbsQp3qTM9h/VYUb6vO73YlIQuj3xOtv
+         3YP+QHQ8DR9dhnMN+LdibtjOT2LFCsTwBO4BsOimUh9fINRT6wsBo9ILiOV5u65klykN
+         xm39J6WUjM2beDXSGGSjA0LKhAwxQQaNLkAO3fkft5AbL1EDfCq+PhKo515CDQSkmrZC
+         tnLJ1AWNj84/fm45exzlvgFK4T/E5fsggCduJsoo/jvlNPAQOmh+Ruw0mSsbTCHsXgoz
+         vtkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794812469; x=1795417269;
+        d=1e100.net; s=20260707; t=1794812465; x=1795417265;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l87qNe2gCFMnCequO/xk6r+49OIRAbJukp+a4aoGAGg=;
-        b=pRG/bQ41Sf6y2AnVUOTaHh3q3WQr9IQRtJ2znC7T4TwxX+akP1E06o3FqNOMDSIo93
-         E44u6HJSe7Zz2LyscqpIpDXIoosD4+lW62KzI9nfR5JIIuGfgjrdwDLX4b0wKvXQkZ19
-         FZhysF/gRpdyBnWQ30W4M4ysYt/nnYm8WZkfQG9Q/r79g57nDQNdjkO39Na9tItppYqd
-         uUAcLCSj9/8Mx0iF7+wLACpzIVKh8O6JpSNKpyUXc7KaITGcgWbUa3BafXNhDCzi8FTv
-         lV+iKNGNK9GcORG4YkHJevuWzx8t4uUi8DXWNjtFz5BAyQIQYddCgTmIwHy/yM2I84FM
-         H5ew==
-X-Forwarded-Encrypted: i=1; AL+hErE2vk/tiLJdmgEgeblTUhh7B/t5OHRDA+f7dNdLbQXa0Jj5nOfG2anQbbnmZabHu3LRvf22fGWoW927euc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aoLCCGDmpdZtNb+rL1y/BCj3YELmZkdeSP3lWfu1WQPh19DJi
-	Yk779qDHAgJNT/4SBIp0g0K4lowvkMXDiUyZwqFyRTrC/IrhmejSYpul0aY2xTlPf46IdxPGZBO
-	pFc5c9x37bw==
-X-Received: from dybpi7.prod.google.com ([2002:a05:7301:4207:b0:369:f3e9:e087])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:db8c:b0:36e:20ee:b297
- with SMTP id 5a478bee46e88-37965ca8716mr8484135eec.6.1794812468691; Sun, 15
- Nov 2026 23:01:08 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:00:35 -0800
+        bh=++1ntAHxYp1b3dxKL8jJq9n8qLU3ShgVGvnl2PLKljY=;
+        b=AWY1P546VEd1IvrNNEp74uhTULa25lAB26VHH3nzPsHF+amfxWh4cxWLa/2bvD7QM4
+         2mgV+1sQUtTDulU+lAjP8Cqp1Y3ff3gh8kFIc4rh4yc9rMhVipzYuFvu6cV3NJP2kxhU
+         4Pe0JbFbFcmQYvlZqLQ71+XBPKHSTeAZprya5y0UxGm13AY74c5HesiY+ux+nRT2o5fn
+         r+vaYzNTdxy9/eMBjRnKjUpOLHJupu39WdHnI+07yuvTxjfl6LuHQ5V4go7xWlud0Zxw
+         3XFHTkCWt2Rz4KveUuXaJZxwtetc6kbC2bl5FMZeaiRVVowE1RNND8sDnj1xBSpw7jyi
+         E4vQ==
+X-Forwarded-Encrypted: i=1; AL+hErFbm9sdboClP8gbvw8fXax8hfA7AXM0tF10ZC2DSXHXj7ev1aIMyM9B0GGE1kZx0ocFnchUL2fZ8bVbS3c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aDp5QjwnyzekMekdjlPySJpT7UkNQ3jprJk9w+xqFImAaukiD
+	eX13E9rvDtEJC9Uku+8SAiUPZLSAY9BrCSb9xz9sshPPESWUdYzyUrV4eQ84O12thkS1tmXHwC3
+	ELK18XgviSA==
+X-Received: from dyay11.prod.google.com ([2002:a05:693c:62cb:b0:370:71c0:f285])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:4006:b0:369:2f25:33a7
+ with SMTP id 5a478bee46e88-3796676adaamr8952349eec.15.1794812464881; Sun, 15
+ Nov 2026 23:01:04 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:00:33 -0800
 In-Reply-To: <20261116070038.2968725-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261116070038.2968725-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116070038.2968725-9-irogers@google.com>
-Subject: [PATCH v2 08/10] perf build: Enable jevents string compression when available
+Message-ID: <20261116070038.2968725-7-irogers@google.com>
+Subject: [PATCH v2 06/10] perf jevents: Add --compress=lzma block compression backend
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -91,192 +91,81 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
 	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Pass --compress=<available> to jevents.py during regular builds to
-enable block-indexed string compression (packing generated PMU event and
-metric strings into independently compressed ~8 KiB blocks decompressed
-on demand by (block_id << 16) | sub_offset), constructing the fallback
-list from CONFIG_ZSTD, CONFIG_ZLIB, CONFIG_LZMA, and none so jevents.py
-only emits decompression C code for libraries actually linked into perf
-(e.g. falling back to zlib when built with NO_LIBZSTD=1, or uncompressed
-strings when all three are disabled).
+Add an 'lzma' block-indexed string compression backend to jevents.py
+using Python's standard-library lzma module (imported lazily) to
+compress each ~8 KiB string block independently as a raw LZMA2 stream
+(FORMAT_RAW + FILTER_LZMA2, dict_size=64 KiB) decoded on demand via
+liblzma's lzma_raw_buffer_decode() in pmu-events-string.c.
 
-Expose JEVENTS_COMPRESS=<zstd|zlib|lzma|none> (or a comma-separated
-preference list) in Makefile.perf to override or disable compression, and
-track NO_JEVENTS, JEVENTS_ARCH, JEVENTS_MODEL, and the active compression
-selection in $(OUTPUT)pmu-events/jevents-flags so changing build flags
-triggers regeneration without rerunning jevents.py on incremental no-op
-builds. Also cover JEVENTS_COMPRESS=none in tools/perf/tests/make.
+This provides random-access per-block string decompression indexed by
+(block_id << 16) | sub_offset on builds where liblzma is enabled without
+libzstd or zlib. On x86, --compress=lzma shrinks pmu-events-string.o
+from ~6.90 MB to ~819 KB.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/.gitignore       |  1 +
- tools/perf/Makefile.perf    | 10 +++++++-
- tools/perf/pmu-events/Build | 47 ++++++++++++++++++++++++++++++++-----
- tools/perf/tests/make       |  2 ++
- 4 files changed, 53 insertions(+), 7 deletions(-)
+ tools/perf/pmu-events/jevents.py | 44 ++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-diff --git a/tools/perf/.gitignore b/tools/perf/.gitignore
-index 3b968c5158b8..faf88857abff 100644
---- a/tools/perf/.gitignore
-+++ b/tools/perf/.gitignore
-@@ -39,6 +39,7 @@ trace/beauty/generated/
- pmu-events/arch/common/common/legacy-cache.json
- pmu-events/pmu-events.c
- pmu-events/pmu-events-string.c
-+pmu-events/jevents-flags
- pmu-events/jevents
- pmu-events/metric_test.log
- pmu-events/empty-pmu-events.log
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index b74b534e1153..53ab82681569 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -129,6 +129,12 @@ include ../scripts/utilities.mak
- # Define NO_MYPY if you do not want to run mypy during build
- #
- # Define NO_PYLINT if you do not want to run pylint during build
-+#
-+# Define JEVENTS_COMPRESS=<zstd|zlib|lzma|none> to select or disable
-+# block-indexed compression of generated PMU event and metric strings, where
-+# strings are packed into ~8 KiB blocks compressed independently and
-+# decompressed on demand by (block_id << 16) | sub_offset (defaults to the best
-+# enabled library among zstd, zlib, lzma, or none).
+diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
+index 51d44550b0b0..293c6ee10e60 100755
+--- a/tools/perf/pmu-events/jevents.py
++++ b/tools/perf/pmu-events/jevents.py
+@@ -238,10 +238,54 @@ def _compress_blocks_zlib(blocks: Sequence[bytes]) -> Optional[CompressedStringO
+   )
  
- # As per kernel Makefile, avoid funny character set dependencies
- unexport LC_ALL
-@@ -593,7 +599,7 @@ strip: $(PROGRAMS) $(OUTPUT)perf
  
- PERF_IN := $(OUTPUT)perf-in.o
- 
--export NO_JEVENTS
-+export NO_JEVENTS JEVENTS_ARCH JEVENTS_MODEL JEVENTS_COMPRESS
- 
- build := -f $(srctree)/tools/build/Makefile.build dir=. obj
- 
-@@ -1036,6 +1042,7 @@ pmu-events-clean:
- ifeq ($(OUTPUT),)
- 	$(call QUIET_CLEAN, pmu-events) $(RM) \
- 		pmu-events/pmu-events*.c \
-+		pmu-events/jevents-flags \
- 		pmu-events/metric_test.log \
- 		pmu-events/test-empty-pmu-events.c \
- 		pmu-events/empty-pmu-events.log
-@@ -1044,6 +1051,7 @@ ifeq ($(OUTPUT),)
- else # When an OUTPUT directory is present, clean up the copied pmu-events/arch directory.
- 	$(call QUIET_CLEAN, pmu-events) $(RM) -r $(OUTPUT)pmu-events/arch \
- 		$(OUTPUT)pmu-events/pmu-events*.c \
-+		$(OUTPUT)pmu-events/jevents-flags \
- 		$(OUTPUT)pmu-events/metric_test.log \
- 		$(OUTPUT)pmu-events/test-empty-pmu-events.c \
- 		$(OUTPUT)pmu-events/empty-pmu-events.log
-diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
-index 5147139bbb6f..88b6b47951e0 100644
---- a/tools/perf/pmu-events/Build
-+++ b/tools/perf/pmu-events/Build
-@@ -22,19 +22,48 @@ $(OUTPUT)pmu-events/pmu-events-string.o: $(PMU_EVENTS_STRING_C)
- # the destination to save space in the build log.
- quiet_cmd_cp   = COPY    $(patsubst %$<,%,$@) <- $<
- 
-+JEVENTS_FLAGS_FILE := $(OUTPUT)pmu-events/jevents-flags
++def _compress_blocks_lzma(blocks: Sequence[bytes]) -> Optional[CompressedStringOutput]:
++  """Compress blocks using stdlib lzma raw LZMA2 streams."""
++  try:
++    lzma_mod = importlib.import_module('lzma')
++  except ImportError:
++    return None
 +
- # --- NO_JEVENTS=1 build ---
- ifeq ($(NO_JEVENTS),1)
--$(PMU_EVENTS_C): $(EMPTY_PMU_EVENTS_C)
-+JEVENTS_FLAGS_STR := $(NO_JEVENTS)
++  dict_size = 1 << _BIG_C_STRING_BLOCK_SHIFT
++  filters = [{'id': lzma_mod.FILTER_LZMA2, 'preset': 6, 'dict_size': dict_size}]
++  compressed_blocks = [
++      lzma_mod.compress(block, format=lzma_mod.FORMAT_RAW, filters=filters)
++      for block in blocks
++  ]
 +
-+$(PMU_EVENTS_C): $(EMPTY_PMU_EVENTS_C) $(JEVENTS_FLAGS_FILE)
- 	$(call rule_mkdir)
- 	$(Q)$(call echo-cmd,cp)cp $< $@
- else
- # --- Regular build ---
- 
--# Setup the JEVENTS_ARCH and JEVENTS_MODEL
-+# Setup the JEVENTS_ARCH, JEVENTS_MODEL and JEVENTS_COMPRESS
- ifeq ($(JEVENTS_ARCH),)
- JEVENTS_ARCH=$(SRCARCH)
- endif
--JEVENTS_MODEL ?= all
-+ifeq ($(JEVENTS_MODEL),)
-+JEVENTS_MODEL=all
-+endif
++  decompress_fn = f"""static bool decompress_block(const unsigned char *src, uint32_t src_len,
++\t\t\t     char *dst, uint32_t dst_len)
++{{
++\tlzma_options_lzma opt = {{
++\t\t.dict_size = {dict_size}U,
++\t\t.preset_dict = NULL,
++\t\t.preset_dict_size = 0,
++\t}};
++\tconst lzma_filter filters[] = {{
++\t\t{{ .id = LZMA_FILTER_LZMA2, .options = &opt }},
++\t\t{{ .id = LZMA_VLI_UNKNOWN, .options = NULL }},
++\t}};
++\tsize_t in_pos = 0, out_pos = 0;
++\tlzma_ret ret;
 +
-+JEVENTS_COMPRESS_AVAIL :=
-+ifeq ($(CONFIG_ZSTD),y)
-+JEVENTS_COMPRESS_AVAIL += zstd
-+endif
-+ifeq ($(CONFIG_ZLIB),y)
-+JEVENTS_COMPRESS_AVAIL += zlib
-+endif
-+ifeq ($(CONFIG_LZMA),y)
-+JEVENTS_COMPRESS_AVAIL += lzma
-+endif
-+JEVENTS_COMPRESS_AVAIL += none
++\tret = lzma_raw_buffer_decode(filters, NULL, src, &in_pos, src_len,
++\t\t\t\t     (uint8_t *)dst, &out_pos, dst_len);
++\treturn ret == LZMA_OK && in_pos == src_len && out_pos == dst_len;
++}}
++"""
++  return CompressedStringOutput(
++      name='lzma',
++      c_headers=['<lzma.h>'],
++      compressed_blocks=compressed_blocks,
++      extra_c_decls='',
++      decompress_c_fn=decompress_fn,
++  )
 +
-+ifeq ($(JEVENTS_COMPRESS),)
-+JEVENTS_COMPRESS := $(subst $(space),$(comma),$(strip $(JEVENTS_COMPRESS_AVAIL)))
-+endif
 +
-+JEVENTS_COMPRESS_ACTIVE := $(filter $(JEVENTS_COMPRESS_AVAIL),$(subst $(comma),$(space),$(JEVENTS_COMPRESS)))
-+ifeq ($(JEVENTS_COMPRESS_ACTIVE),)
-+$(error JEVENTS_COMPRESS='$(JEVENTS_COMPRESS)' requires libraries not enabled in this build (available: $(strip $(JEVENTS_COMPRESS_AVAIL))))
-+endif
-+JEVENTS_COMPRESS_ARG := $(subst $(space),$(comma),$(strip $(JEVENTS_COMPRESS_ACTIVE)))
-+JEVENTS_FLAGS_STR := $(NO_JEVENTS):$(JEVENTS_ARCH):$(JEVENTS_MODEL):$(JEVENTS_COMPRESS_ARG)
+ _COMPRESS_BACKENDS: Dict[
+     str, Optional[Callable[[Sequence[bytes]], Optional[CompressedStringOutput]]]
+ ] = {
+     'none': None,
++    'lzma': _compress_blocks_lzma,
+     'zlib': _compress_blocks_zlib,
+ }
  
- # The input json/csv files
- SRC_DIR		:= pmu-events/arch
-@@ -181,7 +210,7 @@ $(EMPTY_PMU_EVENTS_TEST_LOG): $(EMPTY_PMU_EVENTS_C) $(TEST_EMPTY_PMU_EVENTS_C)
- 
- 
- # Dependencies for jevents.py
--JEVENTS_DEPS := $(OUT_JSON) $(GEN_JSON) $(JEVENTS_PY) $(METRIC_PY) $(EMPTY_PMU_EVENTS_TEST_LOG) $(METRIC_TEST_LOG)
-+JEVENTS_DEPS := $(OUT_JSON) $(GEN_JSON) $(JEVENTS_PY) $(METRIC_PY) $(EMPTY_PMU_EVENTS_TEST_LOG) $(METRIC_TEST_LOG) $(JEVENTS_FLAGS_FILE)
- 
- # If there are orphaned files remove them.
- ifneq ($(strip $(ORPHAN_FILES)),)
-@@ -204,14 +233,20 @@ endif
- # and inputs are dependencies.
- $(PMU_EVENTS_C): $(JEVENTS_DEPS)
- 	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,gen)$(PYTHON) $(JEVENTS_PY) $(JEVENTS_ARCH) $(JEVENTS_MODEL) \
--            $(OUT_DIR) $(PMU_EVENTS_C) $(PMU_EVENTS_STRING_C)
-+	$(Q)$(call echo-cmd,gen)$(PYTHON) $(JEVENTS_PY) --compress=$(JEVENTS_COMPRESS_ARG) \
-+            $(JEVENTS_ARCH) $(JEVENTS_MODEL) $(OUT_DIR) $(PMU_EVENTS_C) $(PMU_EVENTS_STRING_C)
- 
- $(PMU_EVENTS_STRING_C): $(PMU_EVENTS_C)
- 	@:
- 
- endif # ifeq ($(NO_JEVENTS),1)
- 
-+$(JEVENTS_FLAGS_FILE): FORCE
-+	$(call rule_mkdir)
-+	@if [ "$$(cat $@ 2>/dev/null)" != "$(JEVENTS_FLAGS_STR)" ]; then \
-+		printf '%s' "$(JEVENTS_FLAGS_STR)" > $@; \
-+	fi
-+
- ifneq ($(NO_JEVENTS),1)
-   PY_TESTS := $(wildcard pmu-events/*.py)
- else
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index 7524de522802..5a04f67257ac 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -77,6 +77,7 @@ make_clang_nondistro := CC=clang BUILD_NONDISTRO=1
- make_extra_tests    := EXTRA_TESTS=1
- make_no_jevents     := NO_JEVENTS=1
- make_jevents_all    := JEVENTS_ARCH=all
-+make_jevents_compress_none := JEVENTS_COMPRESS=none
- make_no_bpf_skel    := BUILD_BPF_SKEL=0
- make_gen_vmlinux_h  := GEN_VMLINUX_H=1
- make_no_python_module := NO_PYTHON_MODULE=1
-@@ -172,6 +173,7 @@ endif
- run += make_extra_tests
- run += make_no_jevents
- run += make_jevents_all
-+run += make_jevents_compress_none
- run += make_no_bpf_skel
- run += make_gen_vmlinux_h
- run += make_no_python_module
 -- 
 2.56.1.703.gf848ed807c-goog
 
