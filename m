@@ -1,60 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794794016;
-	b=RLHc8QG+AWfmCX/EtN/uVRKu+vd1C/Y59JXxFc+cI7//xe5Qd2I3ibHH8mOu5ex57yTV
-	 zANghLczddFx8WkBg9AlvkF1y/RjCo9UF+4Hj1hg83VcixdVAtmNx/ih30u7DvcC0Hc1B
-	 DQM5ARqMGJCAe0IVGsnQDArIDCLJ8X4wl44t7NjWVdEw/rUyhWXR0QxDIxTwtu1CU40Vt
-	 dQnGBygvgWDUvQdwY6ZawxoRjOeYuYr33cTTD14V98SoF2GKWivVi1TiOccw4BIBLZd6n
-	 DTKokfzBeMbxKqf6H7WlzBZ55szsQCfFP0SkKZC4W82kVrapVjYQqupAMxaa+99tWYw==
+	t=1794794255;
+	b=YtVdW8tE4f5yE8P6z8A4pFTzRwJbubDSXU3r8lp74UOYnOVw2HjXORVOCzJF9MQEGoVG
+	 aLijVysM2vkNwOfyYxlT2/mX2nw3PDHwlL4mRZVkpW9VwtiJS8s0DxF8XOBFkMM/3mxOn
+	 NOz45z0fjgWtsIkRE0iYltVUh0cUL/PbBHycxHgpsZ2BrRyx44w+Cd5Mk1eo+0QxZtO0L
+	 9OI59Bu1LZb11FqMesz5Qq4mGG/zLQVCIboypdZWI5An+/wEp2agPro2sN9FQ8JccjjKH
+	 x0viqJDdQThpGfCqsP6v6xCZKJxJ2y7HXm2sR+CWM20A4sJWmKHOHmuoWDDMYup2o6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794794016;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
-	b=FaMF9q09Bw2LR5DsSGZbxIphg1AfJ/shA1S+4rRhPAX01OOSBEip+kMHX9u3NA3zZ8Nw
-	 /ZJLVayKJWT4vezQPsAva3KWMVTag5P4GETuQJCbLv0oI+6qWxA1Zq0Suu1En9u2i+HAS
-	 LF0YZUzB+R7TlE9aVdku/GBcf0Nfo+epYbUUq3iCwUFfkLBDifzIGGgysCb1XezmMBj1L
-	 OesIGImSvst+UlIPP/m78jIZsmXhhCujxtAkiIXMBVpdFTfzgy4MjFMWx+qMlu8KEd5xi
-	 ADuBm62pBdjbNa+XmzANBBdfY97O72tnsQfP0AUHznqDBNm8GmZY9mRQ0p6ukrh9GqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794794255;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7mjaddvdfdXIqJHMDGeE0zxMt8d1OR3a8cVa2gY6S28=;
+	b=wW0RoGxakATsyxmkI3tLXWbRsjrVmr0mxhxCmhOfc0wQaxO/A0grdhHrXn/f5sfS1Byu
+	 23sPN5s1ANZFYgrw7NxbbozKIjcSOEhURFXpOsMbKOiNTP1ilcbcUyz5/UA8nfE+pnA57
+	 PrPSR68B2L1m8Vk2eqUCAFgU6hLHgJnm3H65cho6nZM7AyAr9tYxp3LFuW4zFOfxsCcET
+	 U7ue//cw5ROCxHiMaZJhMvHR0NgECfPMWuNKbnwNf9K+FVeSfVrL/Y/0ouhMmyUIm9C1w
+	 4iw7FIgwuoDtjcawJzx8f18JrQEh4RONSej4BMYZOrLFgAwVL2e2Um1uVfmxiL+x11w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Re1xpfAR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YZr6S5Md;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DE5606A333;
-	Mon, 16 Nov 2026 01:53:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7593606A31C;
+	Mon, 16 Nov 2026 01:57:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7593606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Re1xpfAR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B621F000C5;
-	Mon, 16 Nov 2026 01:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794794015;
-	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Re1xpfARMmkV01o0MDBkpGmtGAocM3j+kx+eaBC5ZWZ2U27Vy3wmLZAuZPlbVBS/j
-	 JB+4pfA/9XkXfioUeaT56A2qp+o9TIhnLE/pBX/ZnI9PSDlK3S0nR92WHD+7wCozCJ
-	 rvnKdAAQPF6XVh1W5EUEtVaA7LBRRB72OVBwdCNerGT4Ne3+tSrHZjbUzbzyLWcBk+
-	 byf/W6gM1oPG4VEz2gKtARa4eG0leoQYx8uvrDzRqf3Klm8YAb3tlBvTzE9ExHakgn
-	 1oySDGz133bBTOlC9XaTkVaKLig0VxAvyUyRSlQNj/uAITFZugX1vtPbEZrgCLELK0
-	 4Z3SyERfZo8RA==
-From: netdev-bot+sinfo@kernel.org
-To: Aibing Chen <chenaibing@cmss.chinamobile.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: hso: cap the MTU to the mux tx buffer size
-Date: Mon, 16 Nov 2026 01:53:34 +0000
-Message-ID: <179479401486.3291.17345716560777690357@kernel.org>
-In-Reply-To: <20261116014904.556-1-chenaibing@cmss.chinamobile.com>
-References: <20261116014904.556-1-chenaibing@cmss.chinamobile.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YZr6S5Md
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794794255; x=1826330255;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gr3NUTKOR9X04vWpQlUnShjx5c3VBNHn9Snx+3Wmlv8=;
+  b=YZr6S5Md1rpkdV4o6QEB7JdGWa5J2flkI64uqhLRPc+fo0pjAGHYummC
+   D06G36PQCmoj7iUz3MdAdtwseOsZT3nDV5WHvyLk3KS+4iv2zqKUENtRV
+   uREc4i2Vb1sc+jGJw4JB0OvJHmYxqffhqubbOe7HJkOL6Se3oRJeCQ2+h
+   LJiol9gYlMoS5PYSjVDlFnIKxxmYOba5TpeAu1g81oKOkUAYyxqeKrpo7
+   PA5/s151cI0aEcAaN7OfBoSEv+P7NjBbm7sNzcVT5ajGYeV8QUtZ5VsN4
+   ivNIjzwwF3XjViHMLYWZ04mk7X1xexNlNZokgDc6ZCzBHfhv0XVxoVzM9
+   w==;
+X-CSE-ConnectionGUID: 8AGO8sOiSnOwwz4zRR1wZw==
+X-CSE-MsgGUID: i3xaBU6gTBiUQTPVsYVCgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3537210"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3537210"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:57:35 -0800
+X-CSE-ConnectionGUID: IADebuhCQ4CUXARAYLMORg==
+X-CSE-MsgGUID: FuyDH1K1QKOl3dWmwOcyIw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="11202770"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 15 Nov 2026 17:57:32 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSlyL-000000017eC-0say;
+	Mon, 16 Nov 2026 01:57:29 +0000
+Date: Mon, 16 Nov 2026 09:57:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sasha Levin <sashal@kernel.org>, Kees Cook <kees@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Petr Mladek <pmladek@suse.com>, linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] seq_buf: always inline seq_buf_terminate()
+Message-ID: <202611160950.wYHyNZ3g-lkp@intel.com>
+References: <20261115153430.1607764-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,26 +86,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115153430.1607764-1-sashal@kernel.org>
 
-Hi!
+Hi Sasha,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+kernel test robot noticed the following build warnings:
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+[auto build test WARNING on 7b8cd26b6aab8cf147165610d13964f79200a5a7]
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+url:    https://github.com/intel-lab-lkp/linux/commits/Sasha-Levin/seq_buf-always-inline-seq_buf_terminate/20261115-103429
+base:   7b8cd26b6aab8cf147165610d13964f79200a5a7
+patch link:    https://lore.kernel.org/r/20261115153430.1607764-1-sashal%40kernel.org
+patch subject: [PATCH] seq_buf: always inline seq_buf_terminate()
+config: i386-buildonly-randconfig-1004-20261116 (https://download.01.org/0day-ci/archive/20261116/202611160950.wYHyNZ3g-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160950.wYHyNZ3g-lkp@intel.com/reproduce)
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160950.wYHyNZ3g-lkp@intel.com/
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
--- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+All warnings (new ones prefixed by >>, old ones prefixed by <<):
+
+WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x1 (section: .text) -> bootup_event_seq (section: .init.data)
+>> WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x9 (section: .text) -> bootup_event_buf (section: .init.data)
+WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x13 (section: .text) -> bootup_event_seq (section: .init.data)
+WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x19 (section: .text) -> bootup_event_buf (section: .init.data)
+WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x25 (section: .text) -> bootup_event_seq (section: .init.data)
+WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_set_overflow+0x2c (section: .text) -> bootup_event_buf (section: .init.data)
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
