@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794838800;
-	b=CXdVfcqzlzVk9PJWpTyl6bpKR45ruS7SQCOQNKamFIUG93bveYnOxXeRsXCC4f5Tgr/3
-	 JtGu/VCvAxGcAku7dBPTYIoDyTlBkhSirRL8ikgPnrloil54VETvPAepI1kvQw9SvGKnB
-	 280qQ0mLgkTiKPuXUIpxJOZ6zM70nfNpcz/fymYg72hIzTMGDSDFkhOn8OczvXQqw0aVN
-	 d0bPiJP7iESvUqR7jff82o9OcQjpKXJr3SIUsAV2TzU4cQsPFR25gJyIQgUvBBhH7MSLz
-	 8c8P9Fro6OKMExSc/MkCdHyC5eLIL06xjbQONtP1m41d6v0GrTDOUUROFjBoO85PIRQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838800;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794838811;
+	b=0G7Aztp0errgJJskOfAEmOZ4ZAA9ZmXtLVqukTBe6gWy1yZbSjIQZHhJgdZl9DeUnLeT
+	 VVuP3mko2ha7OB/gsL7MipacWatJbNma6pF0iFmP9Rww/zTGdoRw6YSMWc9z64yFiMPXn
+	 8tFeHTgmbu6czHhSZ2ooDhnV8X/xP92U6DHbwoy1/CiF1QcEZl206ejSa+3kxDUhkePhd
+	 RvWnolKNpDIkAO5kwUU9P0FsycgmrhNMiDK/Bn3CuJFJvAUyImNvAA1I4qntyJ6iGAItz
+	 LUax4FYzd1eQDDFWPYx2Zl8BekFdzwnHVu4E3m8kbVw5U4lfLyAKT0UIWhcR+UW4/Dg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838811;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NCkH8am+CesP32jpnMDJrTNEnxrT6Fp4c5piNhAYB/U=;
-	b=n1CwggK677eOqoekg6v1v8jjYAMEX+Oo/G9Qf6ZvvC0fmFoN3vDngm676xqULmlAtCSl
-	 4MIZxwQsHL57nBiY3CwriJMnCixC6/chREJW2TlrQG+7A4ZaW3yYuObgHLKb14awqdkB3
-	 g522px2vTcH7xQYeSzZjB87RQ8RRCNkdtNo6jJ7BOn9/KepLHufSlEFZPBN3rZwgh7xM7
-	 amSE8CHxuY3hNHlK2+Vvvb8RENFYsal36C21T9vOWII3R3W8TgSpBwZL/r/SouSBP1qGV
-	 WXuf7Ud61o4iQnOEX7DpHWLxLvTxQSHVFLBq03RjPHt9icjcfj+uFbEJdBUNnEGV4ug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=evFJZD34;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=ZPnF7AXJqqhQH9EkBttMT76JzK8rqfInXWI5291QWiY=;
+	b=vIPmyoYjTZTbqZ6jHJQFm7IY4vTtigT1pbbRYpT87tYaZMVYFkPBPuzd+Ey4MP8mq+GJ
+	 qlD05C/b8OPSqXP7Qc+McsvTYtolhauktRWq0UVYSYhbiY30CHCmCCcws7XOaa4FwHF4I
+	 K0vWZPe8ti0wGa1gEfE2nRuw12eTLhE/oCS8+PTbRIj1Vs/2oGZZvBSISEt9jW1CuMSvN
+	 Ppx54QVWMABQUMXLAYf0wgi8XzLXE6IcEZwxoUW4uc4jFV8qOgoPQV2sHyH/edqxs3aA2
+	 l4YIYc1yDGMHFCxmIau3FBImudpfgI9VMj9yBVty/tEdlBFl0teR+Rj4ghasAhYcVOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MRPME3eZ;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAE9606A31C;
-	Mon, 16 Nov 2026 14:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAAE9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E8E606A329;
+	Mon, 16 Nov 2026 14:20:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E8E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=evFJZD34
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6751205A1F;
-	Mon, 16 Nov 2026 15:19:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794838792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NCkH8am+CesP32jpnMDJrTNEnxrT6Fp4c5piNhAYB/U=;
-	b=evFJZD34br3OHRs0gGoIN+b/2R+6bh75AQltPNP8tFO0JWQNsjG62pMtpQlF5V9xdYFYGj
-	S5yhRph0JWnoV08N8ZdqKs/jMY4bSvD1yk+b0aXuievN0Ci85r764WaPnInHAm3yW72JB9
-	dYCbw3bydaWeG447cz8CrxP5RYRDmETzW4vfN6j2VZtYKqphofTNivfiDKBDmyr28HJr3M
-	9lgB8dQk2vk9woBp2TwfFo9AMYjUS6MdiCulYGkpGU5fPy9cfneeDBD/WPcUauHDr9GGca
-	NKTbEQFYKt62uKZ/8WMf1U3FLG7R/VAI1SCU2ipLgVntRCWCa4qOR42FUnzP4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794838792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NCkH8am+CesP32jpnMDJrTNEnxrT6Fp4c5piNhAYB/U=;
-	b=Zj6PSv0kJRMcMHZEcBfwXw94xSSQCsHIZCtHY5+oPxjC9aXb+sGhQHorDPbdXnbRXEhEb6
-	ImRa+232s3FiKWlt3PYBJ7+C+h5OfFYhO0Se3gveAA9ajSzLKl3Rl8+3Bezvm8tVhoU9ca
-	lKrzHQDUJBNGkRlIGdvQb1DfteFclD0icivAf6XX8JCXArz1hjtMV1hohESWd0/6fBDvrk
-	boygNFXeYdR57n8e9R5KPEREnyH9kLJ/H3uTNF6DaT4cSKHLgI6rpLiQrsAIiP+O0R+Rap
-	jSagc6yt3gnJPafwS8CRmPR/yaMIOoNOYGNSlbVMa+W+0QmXPMAwZf7ErgwKXQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794838792; a=rsa-sha256;
-	cv=none;
-	b=d7ZeHxQsS4YDHiBlEa1HicRjJ4TaeqsrvZbKkc6cEax65bXu3VE357E1zGztd2tUJ8wqa1
-	UQVLaHslp1LFBOmVu9KyepN1JX/uMFAi1ek85AhZu/mfufv9nZHgvWwfpRRV7V5S0FLtVG
-	0Mq6YDlFKlmW8MeMy3HhM+7cYFLDrvG50CuunNDJgitiFVcNrLou3FkTX8FzPBdnK4kyH1
-	ZD69w5WPNNPBKig5ZyZkSE09JzAzF7IDX0dhSiK00XoZAVvwemoRvD2+bKmvkvdzB8j80O
-	qMcfofvYQ5Dz0Upp2zECia7LNzbLrWcNrzhdojrhiBHmP+d4ylTJihudc0M5zg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
-	id A80F91BFA16; Mon, 16 Nov 2026 15:19:52 +0100 (CET)
-Date: Mon, 16 Nov 2026 15:19:52 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
-	Martin Tuma <martin.tuma@digiteqautomotive.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MRPME3eZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794838810; x=1826374810;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bDcsy2RPjNi+n7ijKnyp08tkF7Mr2ciXEhvTTatXinw=;
+  b=MRPME3eZiX3gJPtnIO6vGSS/5pS1kRuQ1E8XZrN77d0BJFFKzYMBbxYF
+   thg7QPyl2doaMJgPxy2dLzsfr9iewL30p2laqozdFmYSk2O+/Bkl0YIDu
+   mQ/nqmDQ2YitBur7sZl6C6jGej0wJ35kHjNmepwOcspcdQBWIlPwwiicu
+   eExHWNAud/swm/8wt91AabWnvDZsiUFCSiXqBAA6ofAL4/d7l5budouXq
+   TBtG/JEJlkRllNlgDaY2/fGCn51KhtTkD8Y0fj/cXGWeuzFo6QHdO3Rmd
+   WimkjeyDzEkoFRo7kvAvv68lKXa4HdrkVVcvr3MLEYyC4DTAlHNzYaCfV
+   A==;
+X-CSE-ConnectionGUID: dwj5e5TIRXSzbJet8WqMyA==
+X-CSE-MsgGUID: jhg3YKIbRXWUBW8vq8MPsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3611249"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3611249"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:20:09 -0800
+X-CSE-ConnectionGUID: ON7eFZe5QFeg9R62tTKoEA==
+X-CSE-MsgGUID: cEwgaYxaQGmvBCzhcXi0fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9554452"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:20:07 -0800
+Date: Mon, 16 Nov 2026 16:20:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, Gustavo Silva <gustavograzs@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
-	Tomislav Denis <tomislav.denis@avl.com>,
-	Jorge Marques <jorge.marques@analog.com>,
-	Petre Rodan <petre.rodan@subdimension.ro>,
-	Dan Robertson <dan@dlrobertson.com>,
-	Jianping Shen <Jianping.Shen@de.bosch.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Maxwell Doose <maxwell@maxwelld.cc>,
-	Tomasz Duszynski <tduszyns@gmail.com>,
-	Esben Haabendal <esben@geanix.com>,
-	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Vasileios Amoiridis <vassilisamir@gmail.com>,
-	Abhash Jha <abhashkumarjha123@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Nishant Malpani <nish.malpani25@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH 33/35] iio: adc: ti-tsc2046: use default_trigger
-Message-ID: <avsRCJ3tsoQkoldG@pengutronix.de>
-References: <20261116014823.3132576-1-jic23@kernel.org>
- <20261116014823.3132576-34-jic23@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] media: atomisp: Remove unused any_virq_signal()
+Message-ID: <avsRFGZYgz7KYcHD@ashevche-desk.local>
+References: <20261116120703.6681-1-chaulagainavishek14@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,22 +82,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116014823.3132576-34-jic23@kernel.org>
+In-Reply-To: <20261116120703.6681-1-chaulagainavishek14@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 16, 2026 at 01:48:21AM +0000, Jonathan Cameron wrote:
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->
-> Set indio_dev->default_trigger rather than taking a reference to the
-> trigger in probe(). The IIO core now takes the reference during
-> iio_device_register(), so it is not leaked if probe() fails after
-> the trigger is set up. This particular driver has ordering that means
-> this leak doesn't occure. So this just removes a fragile ordering
-> constraint and enabled further rework on top.
->
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+On Mon, Nov 16, 2026 at 12:06:56PM +0000, Avishek Chaulagain wrote:
+> any_virq_signal() has no callers anywhere in the tree. Remove the
+> unused function and its declaration.
 
-Reviewed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+...
 
-Thank you!
+>  
+>   \return any(VIRQ.channel[irq_ID] != 0)
+>   */
+
+Do we still need a comment?
+
+> -bool any_virq_signal(void);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
