@@ -1,118 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832261;
-	b=BNk/CLpBYwmTlaC6ZaFNOpjjjfrZaW8d4Bbpew74dx+HmWqrl2evOa9r/1oGXe6MwSTx
-	 sQ2mGSX6xCRmD4qdy/faIPVH/weXTEyAI74HebNawv/P82vnsRq5vMrk1OQMUOdKS+/8u
-	 Z0TY8W9zXls3ijD6t6sptL9uNx9m28a2XaDvcJburQ4geXZT+46vSobgkhag2usBfRQHP
-	 NabeszDB5sspaA81yWTjMrpEY9ZkH+h54gbnBiynpXkSTCcBrFSmGIJdNDFliuoo8y4ew
-	 lcCpfyPqQx+KJ9qgmzsSF3eVQDDSIx/PK+5SesZBe/DpnsdWjbBZdAMW6rfNJQxfDzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832261;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=knADILq5PgI4KuorUbpvDWBdF7yfkOwdnlZ7YCzAKbI=;
-	b=z/deU7R9dQxrZaSXdJMYR+gH3YRjKzS1yFfOgeqGPElfGQ8j3+yZjye3a9zn8OoYo7IK
-	 CjokzbwXJPNEDx5ezPf5jEge4J5Lec01FmPkSInHF+lEzQ/1UVps6mokFAika19S3EGq8
-	 tVnC+bti3d5aBv6cSrQsuKQGpu7NxLq9D6wKcnd4PtZanDwObWk3A0z5ka31DUR8DAWKK
-	 srCutRruR1fYM0lIgOEitQkjbIWOWp8DetbggcW8tHbRbXXk6purLnzjYNOS+bi/cRgTI
-	 3j7CYW1yCq0DOf9ax97aTZaNDxGPhY4rPp7qmdoF3R7R/BN0tmwor66PO/ZNaFFPHYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tZTfbG7T;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5wfT1DGo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AsjTXVYm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qUtY3QDY;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.96
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794832301;
+	b=i6PShKCfx6vIjzUAYfUtfBo9ca5DGEfkqL9Y9VafiY/Byd5jaPsYVjEFDiSDOP20Lq6t
+	 6QOyJ4yq4j+26onOWyjKQOdDP9aciXgVN88R2GEoVlqFMNA2b/WC1umOUu4C0KSThQCww
+	 aAA8tgn5I3A2GuyjCB24cIaTQzhM907MymCRVSxJA8eBVhN0Nx/1M2sJXceOCABatvAPJ
+	 ZqQxaM/PM26aysmuxftcBM5dTkbNm2AYbxkQtmS3Ve5U6raHltXe/EZHbT1jYjc1F1Hg5
+	 ZMZUgugpCj+9b5Bi0+Pzjg85NHi6p0LLFvC6IjNqeINyg/dnKtOao7LoIhGT7D5Bzew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832301;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QKLY2jXyrAx2FalvWMFlssOa0JIKEGBWkZkA9F1hY2Y=;
+	b=2I2V6driMee8cYYRHckRPDXJ7wDMHK5DRG1aBwpqdi4TQIop0G6+ShFHvBidAysGvUmo
+	 4/KSVZkka+YIQ3oCPoJQTK0arWYr/LcG2DBsUYqWQp/i9+YRPaK9Tevaj2VgboDZ0CVfm
+	 tl9aCjpwhqcubacTWCWJtHWbwZb29X16yaR4OeJ27/kpwcW/V+GQAV6cwb+KBnR4NevZu
+	 uofylFdLmiYQZ5HABl2HBsiJty0np19tkZvsnT1hdhzxo0ZU1LAhuPSOgEncqp4UdVvVF
+	 mHfmCiOs15KyJPwiWe3g8aeEpwnoWJPG9EueliX3Ej39/iJlaUmX8vOen8WdUAx8rQg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.96
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022096.outbound.protection.outlook.com [40.107.75.96])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32A4606A323;
-	Mon, 16 Nov 2026 12:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C32A4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tZTfbG7T;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5wfT1DGo;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AsjTXVYm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qUtY3QDY
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E139E221D9;
-	Mon, 16 Nov 2026 12:30:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794832259; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=knADILq5PgI4KuorUbpvDWBdF7yfkOwdnlZ7YCzAKbI=;
-	b=tZTfbG7TmWN/aqYe2MXVQPaC2xjqHfGA6pVyaYZqATGptR544p23JDVcopw0TJp6fDNz4a
-	157pPsYg+8uZhqykFEt8/RnJNMpwtXIlJJDexjdfq2kO+9sJS+Y2HqIflEt0O6qpSOUAvc
-	CyzcSY3R0Vj8zXyXOVBvTHxivyctPqg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794832259;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=knADILq5PgI4KuorUbpvDWBdF7yfkOwdnlZ7YCzAKbI=;
-	b=5wfT1DGoXn7BgmBfyy5tfUkImCITvYXkkiENIWTO4k4trYrfHfKzNbUvRgjcCBVcRCv48G
-	/Vl28q9hSEa3uODA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794832258; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=knADILq5PgI4KuorUbpvDWBdF7yfkOwdnlZ7YCzAKbI=;
-	b=AsjTXVYmhqfbvc7E/XBao7JVlknoQCjPGoTmw2gWxmYUvRzWzt4YsWdQ4GAvOYkkpRjHoY
-	wmzBx3iMerg+4n/D4dVSx0PTlY8UQ61SAHgiUwnezAapjljoWG2HvXb7wNJi6GHcsbWu7o
-	Oa7gfdhVSisWfP2UTIwXaYx7m/oI0cg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794832258;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=knADILq5PgI4KuorUbpvDWBdF7yfkOwdnlZ7YCzAKbI=;
-	b=qUtY3QDYRBlTR2mENVIOLSl1X/x9jC4DJAJd6kyqA1FxdY9STvEafMLLv9EurmLfi77Ql+
-	h7tHHUMuACUhOjCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 773FE1334C;
-	Mon, 16 Nov 2026 12:30:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id D6KHE4L3+mpdagAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 12:30:58 +0000
-Date: Mon, 16 Nov 2026 13:30:58 +0100
-Message-ID: <87zev9x8jh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
-	linux-sound@vger.kernel.org,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH] ALSA: doc: cs35l56: Point to kernel.org firmware repository
-In-Reply-To: <575412a7-9f7d-47af-83b8-a0933b4c729a@opensource.cirrus.com>
-References: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
-	<fd865483-1485-4042-b938-2012eaa65043@mailbox.org>
-	<3b620222-ba1c-4c6c-a06b-2dd5fb391fb6@opensource.cirrus.com>
-	<49f749ff-8d34-4806-bca7-403005600c0d@mailbox.org>
-	<575412a7-9f7d-47af-83b8-a0933b4c729a@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAB4606A31C;
+	Mon, 16 Nov 2026 12:31:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAAB4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yclTqoHlCOtBVHSStUftblHFMXkkgSUldog+Dpf7MTEUJgoULOCZMH8MLMFEy9FM0SLkZWVaIRxYCaB3obO5KqaLKf3S5Q1b+EG4XseZxztx3qBg/L93LfJeAwFaMUCsTkasmC33UIlY2YGZt2D8dg1r7bUl8Rl2yLPSiZWUZ1P2VN2KgzWpUx8yyqydBTW/aZouFrk6nfzJx8hB27X4EJHOKH3dnQpBtOGhTK2KAVPEnYXckr8JhKlM4AICPJDZa06NlgEeVeUiyQFkiObuL9H23h3oYESbYEN99PmJgtyN7/uHt9LmZHGGijzp+BM1O5za4/ZOecvmWrDmipAUSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QKLY2jXyrAx2FalvWMFlssOa0JIKEGBWkZkA9F1hY2Y=;
+ b=nasDwe8mu0HHdkqbQ/uMQNzoSdNsw8Dj1hnS3ZNohsXMg4I1xLqLcZOevcZLklQ2tNmQrGpl7DqZCBesc7D1R5siMqbegfw6sunrTWnX2L9E+iPEzNtkmMXEMTJgTrB479PLiAgUCenT2oCs0GC84ZqbMsT+WpgFfcVuS7sZO7OHxIW+oiPipHOg3FoQdtvT/FL/OXJ2E2VqyUO4DzUF3B/ToKHztw6bxSdLZ/ksT2jfKkwqX5BcDOcVL7dq1buu56zk0KZ9opuDIXv0f0ncSW2jvqxdMWMDQVZLEl4NKeW/azCmgoFBwk0JlkeoH5lnXImSpd24a1bVG7LKsSTejw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR01CA0012.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::8) by OS8PR06MB7322.apcprd06.prod.outlook.com
+ (2603:1096:604:28c::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.6; Mon, 16 Nov
+ 2026 12:31:36 +0000
+Received: from SG2PEPF000B66CF.apcprd03.prod.outlook.com
+ (2603:1096:4:191:cafe::16) by SI2PR01CA0012.outlook.office365.com
+ (2603:1096:4:191::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 12:31:36 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CF.mail.protection.outlook.com (10.167.240.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 12:31:34 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 6EBA8427EFC6;
+	Mon, 16 Nov 2026 20:31:32 +0800 (CST)
+Date: Mon, 16 Nov 2026 20:31:31 +0800
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
+Subject: Re: [PATCH v3 1/5] dt-bindings: soc: cix: Describe the Sky1 AUDSS
+ DMA IRQ controller
+Message-ID: <avr3o+uIV6llV8yw@ubuntu>
+References: <20261106013520.1134450-1-Jelly.Jia@cixtech.com>
+ <20261106013520.1134450-2-Jelly.Jia@cixtech.com>
+ <20261111-victorious-persimmon-chimera-de9e4e@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,70 +102,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,lwn.net:email,suse.com:email,infradead.org:email]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-victorious-persimmon-chimera-de9e4e@quoll>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CF:EE_|OS8PR06MB7322:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddb5f2bf-bdcb-46c0-c6af-08df43dd8dad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|82310400026|36860700016|10067099003|4143699003|56012099006|261022075727099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Pf0zm+RYeCYxviEVSMwjkWdxPNpyFyEXs1i2C4PIrdnu1whXG2aLTMKMw7fUGnKN0oSEXMUzJDvDrxsCqNiP4e71cBFjyjqX2laUhql6hqApo17hJHgQDNIrEf9m/J4RtF+CwaOOnhtUdwnCxgL6gpaaMcolrK5JL2yVzShzoVLWdXtyd3rynwxo2OL9WCJd8lpAW2TsIaryXFb7IIWaDBVXVeFPDtuEsr8OnPqUnqbd0KjqRPS3ccrdrCXZfbiWHFGYPaTxZLcEQOLP31SObm9PoAaEW5GwrSBe5gQxi0SzFrSTpIdbIIC8DmzHPK11qzVQgzlhnMOtI0lL1Dfg4WypiKYGeFqyaqNm93R7fxdxwZ3yh+FwGgsKLrD1JuP+fohWNlw3GqzOuLXM5Ji1/NquXTAnNgyZ4UZ0/PBgOhY8tRStmjtG+YAgLHck0zeSDItjdMaG1r1wMX+MHAW80pZRaT2PaSfr+S9c+OGewg6buVJOHhMfY0ClVZ1GG+IzXkHR9UzMgoFEhIy38KWNCBCCGcMvNeN3W99iIFIZt4iqvoAbL/aGKuIDXG140Dvdo0cI8RSLBS+xl4yPhzsF3VB4lbgGbx0yCzDYuVlqXIU1ctGdvgRLrDihau3hIhq4bkKt0mD47NP7o/vh1zns5vck/pNlO/SxGNF+kZFQ59qwF0/pEHOJ6ORgCv6+C3tWMa9Zw+8TZwiFVD7PoHjNsw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(82310400026)(36860700016)(10067099003)(4143699003)(56012099006)(261022075727099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	q0OxCsUTiZ0PfdzvSfUzksAXy/S0fXobh2bzl7mBwesSt1+VKJPE4g7pXLlV9o8SQ7T/0ZGVqq1oxU1FOyZylJ+pM7la51NREiuSzGlGl28TSHN9EiiwWlU/iUlGuEhu5uON8wXkkSMHJqGjVlAwp3Ibxf3UsVUgHWY+KF7QdJXAGT7DmHfiF7uWOpBK0EAd1OkbpSljKifP7dSuPpWhcYYVKZsNBzyAOz6SgCa9agIh2VF0nKejcMSIUncY06g7HiO6MPTdoGjbg27nm628+SxZcKliX6YA0GAMQFRdIQakkEX4jaLuoJM6dflC73Hn4BCzwnCKLhyifNha/TIwpF8kLbAJtkjAPvc9ZbxzL9jX97+JlH1hOCEwgHyD3RogB3ZH95woU8dqqNzmi67SUHKIofU1kxgIJl4aZbk9Q+zjPe3kXqebQmhGQ7gzKuUY
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:31:34.4863
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddb5f2bf-bdcb-46c0-c6af-08df43dd8dad
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CF.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS8PR06MB7322
 
-On Mon, 16 Nov 2026 12:26:32 +0100,
-Richard Fitzgerald wrote:
-> 
-> On 16/11/2026 10:57 am, Marek Vasut wrote:
-> > On 11/16/26 11:14 AM, Richard Fitzgerald wrote:
-> >> On 16/11/2026 9:22 am, Marek Vasut wrote:
-> >>> On 9/14/26 5:12 AM, Marek Vasut wrote:
-> >>>> Use the primary mirror of linux-firmware at kernel.org.
-> >>>> No functional change.
-> >>>> 
-> >>>> Fixes: 088fb4ee17fc ("ALSA: doc: cs35l56: Add information about
-> >>>> Cirrus Logic CS35L54/56/57")
-> >>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >>>> ---
-> >>>> Cc: David Rhodes <david.rhodes@cirrus.com>
-> >>>> Cc: Jaroslav Kysela <perex@perex.cz>
-> >>>> Cc: Jonathan Corbet <corbet@lwn.net>
-> >>>> Cc: Randy Dunlap <rdunlap@infradead.org>
-> >>>> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
-> >>>> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> >>>> Cc: Takashi Iwai <tiwai@suse.com>
-> >> ...
-> >> 
-> >> 
-> >>> Is there anything left over to do with this change ?
-> >> You should send patches To: a maintainter if you want them to merge it.
-> >> They are not guaranteed to see it if you only CC them.
-> > 
-> > Who is the maintainer in this case ?
-> > 
-> > I used the get_maintainer.pl script which should have done the right thing.
-> 
-> You have the correct people but you sent it to them CC: instead of TO:
-> Takashi would be the best person for this.
+Hi Krzysztof,
 
-It seems that the patch fell into a crack during my vacation, sorry!
-Now applied.
+> And everything could be simplified with:
+>
+> dependentRequired:
+>   interrupt-controller: [ interrupts ]
 
+Thanks, I'll use dependentRequired as suggested and drop the redundant
+conditional requirement for '#interrupt-cells' in the next revision.
 
-thanks,
-
-Takashi
+Best regards,
+Jelly
