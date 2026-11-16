@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814806;
-	b=ncRmdM9YbtF0R1Ys6DonHRCeU+4gkvtcsaQe0i29AL7IuguDRQCgiqf4Q35pUJS6PcLP
-	 +Fp8XqZOXI4V0TQL4Tf1c7MQFBjiEvVWNYWTx2grsBfwONbC5jEgv1xraP1TwejPRzuIg
-	 uoUIsEJqCKlXpvaM4qCvdI7tVWXLj9tefuQDqw4Xx7soYTsB5DkDnH/wQy6ZEwjq2k3mi
-	 4XgJLSlhIDVGZbQJrp4IToBJdnEL7GEDg7ZGGIy3/rGic+VqK7m3PFBOYNq4jo1BR8zG5
-	 zNPTO/RbHDWRTmXXXDkMNftEOCck0tZvviRDyJyEGbkvmRbc/xxzbc9HUHcgYrXyBMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814806;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7HwD/9cyl5yU69DIEKa52hPN8DCHL8GdVhIFYuxqFrc=;
-	b=mUA/1/p/wsEjNz7aTDYwh9raiuX3tQqCl6BwYsQQ76hSuJCyVFSinNipk5wsAOZlhSiz
-	 Neuw5bM6uumnSYMNqiGJJ5USitsCPxLVKwbcPGjkNKRsXJELynpWQnw9u9slttQdA+lqa
-	 j7ScgUBj4VlHWCGcr2XMJaH4FRdjL3CFmZZA13pmnoxpFbSXQKE41ctfyXp6u7k42+Glj
-	 +NKQ6IFrHCmX3SnWSupBJRWfSa85jjgJMsMDNyIsK/YveUrx3vBBU1CALLzS3GLTnio6Z
-	 qlmhGHZ4RbYwD3IM9U7utekAxpp3zevnUJGRo0jNRCd1adxwoDtLoRL7O9ccGEUJ1OA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S6LdmkbQ;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794814802;
+	b=lTRiQg/J09iFBcKyOwKlyKStnWf5+R7e9qKROT+WH2ACD3yjM0n8ouL34IoQ8p6M0SnD
+	 K9Az7O2XIz4blWb8Mw0j9c/eUynQZHv4kCYYOSDI0vaR2BdOKHn/RD/GifoK9JOkegqke
+	 ENAwYTRWqtWeroKpifPPYLOYZPqD34bIS3r9Rwc19JbXKGAzpqBtzLrmbfxaTVsKdNJEQ
+	 7Obawv4WE8I4/G4I9hI8tpgZ1VJwssa984xa885ONpDJ6eYYqpz6TZXT7aIuZLy9VW8EW
+	 PQ5N5zJ7jNsEPEMqyKtq4z9mWcvYGi6UlX1a0vuq8RAc8WiKVveEnnAHjXolCcVD3NQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814802;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8Kon/6Uqe5Kpe9D41AWo9kl1LoUswztrLzTZdnau53g=;
+	b=TjxQY4yVnFq3mc84iW1v3LoyJCZ0HoVaG/1SpojT+hzEaDyCf4wtooKF1g2H2crQJ7mc
+	 Kb9jKMZ5/O3x2LDvSbVuewnD+1QI4az//6r8286J6WLuGqPGxKfA5ouPke9uCdAhjYTWM
+	 FyPAWMFlVjZXtsvr0YRpRTUldEDw8VfTa/gQLxj8rbkUywEfAORD/PD5WVDUE25Q6emSI
+	 ZIKk8DzRJUbUSvAt5LDo0p5axqXyAKbGQUgyOoZYdjPxE3gFBkPm7SwPspRRksFFGuoq8
+	 ibAtk9uXkEL89ECzfnOGfK1CrAHSpWzeH83Id5szicm6p1nz+f2WiO1JotrriBYImEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGQszKD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C5F606A883;
+	Mon, 16 Nov 2026 07:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGQszKD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794814802;
+	b=O4jkz4DbMS60OTm+75kIr5WrupT5pM0T2U96Y/Kmr4Jup3zfAbme+A7xzuHq2FfvjgZK
+	 HohrkX0Ys4bXXAYtQ2DElNd/GcAJLXY8zT5igUNb/s/m6fMRWUJR8LtVSUxVVL1l10E2D
+	 OOa0mYK53sha+vMwoXkSw7GHv2rrUuU8RMfjvua5M1yhaT7387ujWvzvrMP0bZEOgvX7U
+	 /ydqTteBTY5KYnMz+JR9mMveYatSytlXJHzPW7ihCB/ns56ydJOZhmv0lJ1Z85QzzVgRe
+	 HMhXLpaWSMbXievrPAsslSXvA6J0GESqPNDr0S+tY6pMr92gkbDsJuk5OllC33b6ZDg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794814802;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8Kon/6Uqe5Kpe9D41AWo9kl1LoUswztrLzTZdnau53g=;
+	b=oep9oZ0WllzEdDEi/D/PkM6VDvQJHzouhhVkSL1JJmIzkXiPXb0YNWGxmMXMnTCcRLGf
+	 ZwStu09qF4hMUgnQ9+vrbZv5eydLc2qPqJoYb7GJGOdMbjD2qUXAY5JtpKpfvGitHyV0Q
+	 maY80xRvaaNCf4jsIdpcls7VPwDgNFqPGRCi4zp07ZdmHm1ti/5AsMd/zSsBWlFJoikSL
+	 oD3hvovQxeBiv6ue5Ykf9DY8fPDN9wYxvYLCNQ9KbG6OheD/SRTDKEy3fnm2gExGewo6Q
+	 vd3EpcbHTuXDB4oG9kMLveaX5Mp1BX8ClijhoXSd6IAqT8suW+I90NzK2MbtD0ff1qw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8D560A3835
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:40:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE8D560A3835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S6LdmkbQ
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4919a880834so1455356f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:40:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794814804; x=1795419604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7HwD/9cyl5yU69DIEKa52hPN8DCHL8GdVhIFYuxqFrc=;
-        b=S6LdmkbQVA541jEVdicLwZOEbw2MGB5A6Cr+05flbgQjzuZkxsmnZrhjTKDEa9Zs9L
-         r+eLO8DS/9pPo3yU4ZUGL+J1Uqm8LB4KRn3Hi00Upp3AKhs7ARcEQcrSlv6tnTYocw7d
-         6EtSnQSBTXMJmUOcuWSNz32eYMVEZcOTq+qs5Oek/WJoeas9kePEPria3pXpOzaWy1Z6
-         alfBNg22E/VfuCkUMvYNVnWKIsA939GGnQl75JbUBFwuog54IVABVFi7Kq0j8BxwR+2D
-         ZvuIjx9nv9Jp3G8FFGHLyYvumznDoN2tgYKty8ER9u8BO9QZ9C2wOV6o6uo88Ts0EUA4
-         6gzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794814804; x=1795419604;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7HwD/9cyl5yU69DIEKa52hPN8DCHL8GdVhIFYuxqFrc=;
-        b=ZPv04Av+0fzAkr2CuBcTm2TgQkbMAVcq9ojcliQn3e9/RUvzflhd5K7gejcrTlZbOy
-         XaYOaqVrwUoOWOjBBsaqj1Y01VAybI9ZbAYroXkayHDZ7BpVeV+XzPuXuq6S6xpprt43
-         G53dORK/jaAsx39UsbIB4g9skQDq1lKG7YxQ5trCsDCHcF8vN6LEW8nMn72N9vXlfd24
-         XfblEep7a4exxMl8cR1bigA7u9y9KoUxdYHu5qkGDV45SpBYyFsJc8DP8BzUMbqQ9R4p
-         mTULiPQWobTxW2mc66q9KXMHIxLCHa0oSqzFClDX1BHCUiASuews3EBcUmB0d1DkpY+e
-         RADA==
-X-Forwarded-Encrypted: i=1; AL+hErH8ZIsVoPOw9q8nxyh51ZX8AsA440p+EU8RbD3OxUbPRPwY3BcNPzYWVsDWaEtZNPyvUsE1wJadphBvzG8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+0aJZ8ect5nrKR4THsN1uz0sMlE6QT36UjZ0FTwBXmcKw0oVy
-	1zPqohG83lAHIXTRVS/VGLNIuTcu/8p0jaVkhedZ3gFjiKLI/xYSZuJJ
-X-Gm-Gg: AYBFou3QiW0KQQTKjqfBM1QlYbBBP2IbVnxuaCiK2CCjElxMeZZTYmZGS/bELuH/jLe
-	FWXA2foJJgAp5ee5GLxfBRLvo5M7O2sGOQNtidmTMFlpCZ0cuEjfH1A8mBhwInVrASW7zeDjkXI
-	rPa6LaQ6qc6/FB054nXSDPqmwE8KqDPUEF+s+fp32KirzzIXBA1CXhUBuKA+D08gFHfrG1n2bmM
-	HNPUVDHdfOYOpewLrWPVCoeB72850NL7Zu9x1HUmTpfwJr4bGncS095Y2iL7GZ7j3BX40b6AALB
-	fScve9onoyZHS5H0Cfxk48MbNWzcDnb26808DBL9lv+asS8TDWTeqg4LM1QqY3F4TzexHfZF2dY
-	gIGdzE+wEqG3RQtBkOIV/xe3dmXeAG1VK+Ydeguvd9OxEXZyftJ99nzMSz7CLdIZiC/fO81DPXF
-	0S/Umvcbw8diAJF84OFYMJ9FoGOWh2zDw7lChtHqmN+oTVEdmJg/tu3qcJT2XX4OusehciJMD1m
-	krEcybT6lKMFB4Q8XRkKZlHV+gig7pKOEDsksE9OXwADmu+vF28VyIrxiBHxpl4wsFy12XdNBdk
-	eDEjRiu6WgXlqfrp6wap3tcY+CUvvF4=
-X-Received: by 2002:a05:6000:46c4:b0:494:bf39:21a5 with SMTP id ffacd0b85a97d-49c70ed910dmr12914294f8f.10.1794814804277;
-        Sun, 15 Nov 2026 23:40:04 -0800 (PST)
-Received: from dl360p ([130.61.107.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c603f4d29sm20354115f8f.35.2026.11.15.23.40.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:40:03 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Yassine Oudjana <y.oudjana@protonmail.com>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-Subject: [PATCH v1 1/3] dt-bindings: power: supply: samsung,s2mu005-fuel-gauge: add S2MU106
-Date: Mon, 16 Nov 2026 10:39:58 +0300
-Message-ID: <20261116074000.355176-2-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116074000.355176-1-tadilhusrev@gmail.com>
-References: <20261116074000.355176-1-tadilhusrev@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 9CDB61F000CA;
+	Mon, 16 Nov 2026 07:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794814802;
+	bh=8Kon/6Uqe5Kpe9D41AWo9kl1LoUswztrLzTZdnau53g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=mcGQszKDrEaNnZix1zz8MWFCNNfw3YbcJgYGIkIZhPUHmo2HCnmhcvEkT1cr+hIxZ
+	 COlzWXI8IeVIPJ6w+Cyo+rrL0QSi/IyBMCTg67xuEb+t+RnYUl4ryq1BfgvXv0rm0f
+	 ReC0jTz3jqLuTT+S1zG1qAxLaaNeyF1WOJXg9JLUd0coJhG6oICPYjrx5aCxI5Zmhy
+	 LvuRpHjbQPBgiQLP91IeMSIjfgOfdE+tboVJJpk1HI6tYemWzfToV1AOqV2zClYCE8
+	 /VUphpi6UWvmjxZKel+6I+cD6EQrTT/xh0hG8K41it9nPx1n4lMJIOOPNWphM+iKzE
+	 ibMPeqvMAIyoQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2E2974A39D;
+	Mon, 16 Nov 2026 07:40:00 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Date: Mon, 16 Nov 2026 13:10:00 +0530
+Subject: [PATCH v2 02/11] soc: qcom: socinfo: Add SM8845 SoC ID
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,41 +82,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-molokai-soc-v2-2-9dc4dddc4e96@yahoo.com>
+References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+In-Reply-To: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814798; l=723;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=u3GVb+FW18KBEBTsCyqY576uTv9UwXATV3TTXWEJaAI=;
+ b=WfT+0AlMZTcwLtG4i80A32c06+mykbcApYnSYZCUWQQL8ZgVTBsZ6w914U+g01P2wZoM28FNq
+ ZAcEqLMe1o8DjdEhj3YwnGHoF1D4JutO6sbw9BBR96MSIKq91I9D1gQ
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
+Content-Transfer-Encoding: 7bit
 
-The fuel gauge in the Samsung S2MU106 PMIC shares the S2MU005 fuel
-gauge's register layout and scaling for the direct voltage, current and
-state-of-charge registers. Add a "samsung,s2mu106-fuel-gauge" compatible
-with the existing "samsung,s2mu005-fuel-gauge" as a fallback.
+From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-This was verified on a Samsung Galaxy XCover5 (Exynos850): the s2mu005
-fuel-gauge driver, bound to the S2MU106 fuel gauge, reports voltage,
-state of charge and the sign of the charge current correctly.
+Add the SoC ID for SM8845, a variant of SM8850 (Kaanapali).
 
-Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
+An LLM was used to help write this commit message.
+
+Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- .../bindings/power/supply/samsung,s2mu005-fuel-gauge.yaml  | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/soc/qcom/socinfo.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/power/supply/samsung,s2mu005-fuel-gauge.yaml b/Documentation/devicetree/bindings/power/supply/samsung,s2mu005-fuel-gauge.yaml
-index 05e420316..7b9d56d38 100644
---- a/Documentation/devicetree/bindings/power/supply/samsung,s2mu005-fuel-gauge.yaml
-+++ b/Documentation/devicetree/bindings/power/supply/samsung,s2mu005-fuel-gauge.yaml
-@@ -14,8 +14,11 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - samsung,s2mu005-fuel-gauge
-+    oneOf:
-+      - const: samsung,s2mu005-fuel-gauge
-+      - items:
-+          - const: samsung,s2mu106-fuel-gauge
-+          - const: samsung,s2mu005-fuel-gauge
- 
-   reg:
-     maxItems: 1
+diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
+index 18105ddcf04d..718d1fa7e830 100644
+--- a/drivers/soc/qcom/socinfo.c
++++ b/drivers/soc/qcom/socinfo.c
+@@ -541,6 +541,7 @@ static const struct soc_id soc_id[] = {
+ 	{ qcom_board_id(QCS8275) },
+ 	{ qcom_board_id(QCS9075) },
+ 	{ qcom_board_id(QCS615) },
++	{ qcom_board_id(SM8845) },
+ 	{ qcom_board_id(SA8797P) },
+ 	{ qcom_board_id(SM8975) },
+ 	{ qcom_board_id(CQ7790M) },
+
 -- 
-2.53.0
+2.56.1
+
 
