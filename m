@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794844258;
-	b=mrrRaK/oRfaXTMWC5aPikxWTP38gyOEeDto6JW+WQLPQALdZnnBCBddnjKgNLcb4yIcz
-	 ILMIlOyiV0zqSAVYAqSfHIz5cqNqz3aLFrhuyy3GERNmelt3eHXUojJI56JlQrmBKVe/Q
-	 lqjC1PuH9Ry2/Xk4NGaJA7DBAlGojUG9nAsQ6jhsRzDP/IA1xWaJ5sCQtz2EMXulkBBjW
-	 9qN/UvGEv+cHY1t5jgqLAJm7NoQyrDpeM/mO4C9uGPlkn4qy1mfStu9i58eVq1zDmhiOl
-	 oPwj53XVwU+xD0hCJ8j8J0JaCn8LL0K+TNL7FKbdDBk6X8Pt2y8Vxjg4hp2mNymjxrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844258;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NFYTEVwUBh6mmSdP2BVJJwhHCUzO3ElTCEe1TC7PL/Y=;
-	b=Q9fwMXmPmqDwgeUoZ4spvSGwzq6dzK0cAGQBGXCmdVzmKXtalP0En44kdEq7cfbTDTa8
-	 70OLRrrX1/bDvnaVTjX5j3wSTUxUkU/FSaay4uLXZoiui3g3+mSGnOCOdZmYg0xI+54FN
-	 9uwsIJx4hVidMwhioAmQ/vdQJsqw1MA6fsA17I9BUEiJOh/uUnFz3S6ybz8IaenTgDgw2
-	 4P/mSi1sZddCnCujUrxmxBz7rA6hv/BEFacbT+DOJXXI3KYRZeZKyQ5vqqAn0LxsvryCP
-	 sHQmZ5Wf1l2m7ys/4sOFOd2hri9s82lVdVKBDC/HKBKjXaG8ZM7LhH1XsPeDatIvw3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkZoGBUL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730D7606A882;
-	Mon, 16 Nov 2026 15:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkZoGBUL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794844258;
-	b=m3R3csgAE1GTNx/+YzJlRgHMOCKRZrg9lxzeY9QOM+PzeCMk2HnJe39c8Qwy/kt4Vd5s
-	 lGX/D2UqM6nvAvATCm/hKoeeqAZxoZWqsK3PS7EtJ+Jb2XCC+b8mV3vm3hTa0xkeJWKsQ
-	 1o+B8Y14RJv6SNwi1oZXyvQeO+GlfBKJlf2GeP2AIsogHsC42HM2TSTOjX03kRzldm0j7
-	 ZDQdWxeOoBK7ACLyvtnE26V5Hv8SNhm0zk97WCH7kRSNNKa/MSXQBZ7FojmnyJ4sirYLO
-	 MwgPWJSbss+B9BZFGcyEK3PvqUS6Ir8ykG+W8JYaNaWEcRsPqoOHzQIASuW2wdaSN2Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794844258;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NFYTEVwUBh6mmSdP2BVJJwhHCUzO3ElTCEe1TC7PL/Y=;
-	b=bF55xMcdGkolqN4M0Mf+IwH27s2KquNkipuS7Ep8xPGL6rZz6p7ITbXSCa3wFI89TyXF
-	 ChkRImimvDc4FLMlO236wPDkl1hUELeSnbQjLPybNAFBkg0UWbtM4jTY9Tb1UbKa/AISH
-	 5PKPb9P/8hFi1TKBkSQZBOMqoY8Uz/0E6L1Fy8sVLuSjE7Y/dvO0Nk68kkvPDMaTUNelF
-	 Z2y3tn7zymyPUtlq+HCesdAQMwr2T+KnZo1j5pDVt5grHfPq44eHhXS8XcbnhuXwkapmR
-	 AgMezO1NlNJF9/rwnfHbsU9Pso865f+qKJV+1DrUsCiIyf+oCkGMMgsMDqyXm2a9mKw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794844276;
+	b=Wm4TMLRauChSo6yXf6p+nS/m7JdFxXe8DdtnyVXWm6rTdN7kyvP4k9Hkd4NI5oWMwprL
+	 y87kOpfeKQ8jDOPVVDO7eqK4LGjI4nx3A7mAnQG9V3tI00UhaX9qJLrL8aQ7KDz/Ck1tC
+	 eFKlFl/endYVerv6z0p2xGGxoPRFpSUP3tMP91487bolQOl2Se65k4mp+JNM/5SH48WMB
+	 JBwIeCL4evL5CZLI/Rmfe1CloAgQIAN6H0OkEA1PhyehtlLwAyHeVpKEROp+U1lAVyLzM
+	 g3NwjycKxpjvctx2tkJvD/nehvegr9JuF+cyEdO5vAP64X0Q7+sGfo46X+YkfRo9txQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844276;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KuEmaduXqciZDVP0GI6ZaQ4598wl41gB7SolsK2cplM=;
+	b=3zAt0HIayHTk96vebJraI6P/Wi+JNMNhFnNlx+SYhnB+touGMfj80AvcyusyoWjXGqCD
+	 Rr7zFITkTRSnjP2QvjwbXMHmqA8Up1jLePRHCdQJ7Rz7zQqrzo6MeHYJPCdQdeyp36szh
+	 0IJ05zhpk6KVSSYASCAuBplpHIN30JaTeBbDjf5WhF7NvnI04bRxuQVdZM7IVJe2f99hi
+	 IpiIm9S+BM2wjbEjxl0UWJG0Fidxqf6Hx6445THC+XmD4o5VxdLVEbjzkjownp7VSTSw9
+	 6QXcybD6d+i0L6jztEaTZOXcPrlyFdftgbUN48EeRGcSL6Mf/o8LhXriy0I0bLGia+w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Eq3XQJno;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1F1571F000CA;
-	Mon, 16 Nov 2026 15:50:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794844258;
-	bh=NFYTEVwUBh6mmSdP2BVJJwhHCUzO3ElTCEe1TC7PL/Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FkZoGBULSgvSL5sKZQ/NQhuZA1WDSM69vQfSLAo7PArbb15iiIi8TSu8b5onet+10
-	 RhRa5wBrb6YoWEhz+5gcyVLmi18SaBqpxCH/m+VIHcP0Yq06DgO2zK8QvEW7b1ozcH
-	 eZNKf805a79u+PQ4UxMEgPYK4d0mQ222Jak6KILSITR4T0FTwSrxJcVZkfREEObMbt
-	 AQGsDYw0pvLwBGJ0xEvbGyWIOp4/HrjNLnRYDbnprwaCFqjavm9bwCSj8L9i7Ks/lt
-	 cvwCQWlEphIPt64xneZlZUTLPzXCc1FpNntLxqROnbfwfwSNe/SBAjkPk+piUtAEZT
-	 CEPUYZVu7f2ZQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A347C4A4F8;
-	Mon, 16 Nov 2026 15:50:56 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 16 Nov 2026 16:50:44 +0100
-Subject: [PATCH v3 2/3] remoteproc: qcom_q6v5_mss: Publish socinfo for
- Pixel modems
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C7F606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:51:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C7F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Eq3XQJno
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso41286565e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:51:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794844274; x=1795449074; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KuEmaduXqciZDVP0GI6ZaQ4598wl41gB7SolsK2cplM=;
+        b=Eq3XQJno5POIUugEpYPzRDqLrfBR6gzuxKn17bJSJLQ5+8rWUpj6KskKJLKcyjEgbN
+         f5WY+tr+UHR1bOUzcZGnoSSDH1yhip4o4ouipVuhBG/iIIFB/f3FFPX2rKwJkQtPzf3j
+         Wn2vMtNzr56RKyqzQfWq5gAebW6S26Kdiu1KYV+paZxNVozmKfGfIHatqVPGUk0i3wQh
+         sXWzXBxGBI0lve57f0LCpNXVIfuhIRmLItImnX0ZEVuUKOpV2euWJc3zLEOqW0f3KtIH
+         PW1I+bPPkCEMgfDx8NwHLTuAcTUOnpmvUAuDYJzWThLOyCfM0ZHpRc9EUeDeSy3gb0ZV
+         1jSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794844274; x=1795449074;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KuEmaduXqciZDVP0GI6ZaQ4598wl41gB7SolsK2cplM=;
+        b=flPHD4PXWrjretk7i6L5nTCyo7KCLduQkqNRFH2nN7EzdqG/kggDJdMlRjm1m8y4Gr
+         MEdqcdr23Y0hSQ3N3qTsRFJktgF58bA6v7K4HIimo3S8JyCKlJoq69kHS8d1qQbTs8In
+         8AFVAXkmC54e5tAIihL2SdCgy6RIkoY7ktcuBx+aPGl22X7gjDLKt2FAM1xxl48FX6jS
+         uogabGNUKG4qzUe5zn1xuN5waw+4f8zXIn8qHWeILmUu+pzAyswKygKDcBSYYkuV7Ecc
+         O05jbsB7FDhzVVVCxWdm6DGCWvT8jnq0ErOWkzrNtOfGx5PBo7pGU+e+W1Hmq8rUKD/i
+         L+2g==
+X-Gm-Message-State: APuU4Z/hX8M5mHWVr0UZfCLoPZO8wDzo0GjE3MGsEYnInyArDtRFWb3q
+	bDofM7cdQ8S/27Tv2UHau4EbynPm0T1iVoqJNNQrgHlkDDciZf/lOSf+pI5ZTYc5XNq9KdKIuap
+	f0SxHe4k=
+X-Gm-Gg: AYBFou0uoAfL94R6TjGg0lNCTVVtm/PmRGx3Sv/EBzCgwzoaNIzo7GRVMes3CfFAPHG
+	SjOrqecaI83hf0UtOzAx/0vS//Zkep8rzSYBLQT4ZKAhJm2xctQ1piujF4BfjNw5jIIOKazVKA5
+	djoFZSkihwPGk9b8kOdn3gNUrzn7Stme4T/+p0tt09kv7ObqMEV2mxkWast4I9ojLCoOwZKw2UI
+	rZf8dYzDWVVVr4aDHrCkEZdbr5lMHk44SRjDR5ItSIEabp+oIf6+T0jawIEwEGv+FhuGE+1AQMm
+	Y2nHR8GGGsQuAzxB62rd+sRzBf52V9/GKB4/cx26CIWaZPKLoz++S0OedsBTdOPsY6IV5ZVsdCz
+	J1ZosGk8G69zDikKm7d3+0XsAjsgtsY93FdW2YPou3jxRYcx6VmgiFH01Cqw34t6MqiSr28ph6l
+	/MAuo7y02HU7eHy5j5X7H3tqRRS7RCpYEXMvw6R/5jkSy9LVsVHjh2dao5DktJdJwAXSYccMMB9
+	2efTyz8jdfVMGra60WFu0DdRUZFiPfQ+rhPirYzX7qfArWMtnNhSTl0xbeYWIbO6c56RXfyWW16
+	Cr9ol8Gm2P2X8YEU9y3InzrH0BodwE3RX+8IJmL8Oy7lYLrApHs=
+X-Received: by 2002:a05:600c:4313:b0:4a1:f377:5c68 with SMTP id 5b1f17b1804b1-4bb55a83305mr152337155e9.34.1794844274043;
+        Mon, 16 Nov 2026 07:51:14 -0800 (PST)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb679b7e1asm298063515e9.6.2026.11.16.07.51.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 07:51:02 -0800 (PST)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: [PATCH v6 0/2] workqueue: Make WQ_UNBOUND the default behavior
+Date: Mon, 16 Nov 2026 16:50:49 +0100
+Message-ID: <20261116155051.157875-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,237 +98,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-modemsmem-v3-2-24ebc7ed6eb9@ixit.cz>
-References: <20261116-modemsmem-v3-0-24ebc7ed6eb9@ixit.cz>
-In-Reply-To: <20261116-modemsmem-v3-0-24ebc7ed6eb9@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Miro Mraz <mraz.miro@seznam.cz>
-Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5814; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=RwIpafmzT0uNWBF3Nvx6g7u04fLCPqObCGKjspl4C0I=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq+yZfxGoYmj7ZU7NGjvRKdLI7GxJj4I2EElBW/
- mKkcpn398KJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavsmXwAKCRBgAj/E00kg
- cgsWD/40nzeSboMn70E0bkKamrMeAAnRJFC/Jn1K+JN9+9hNpjlhBHq626/rK2gqJP4QRZZVLzZ
- Ai6YVcoMO7fg98MoT90Hlv4FJoFd30nSLJvaLvilFXeAMcZjc03TFYshI9HsuDqU1bhMV0Z+PS+
- r0OXWnklfz8NwDiIFwLWBbKO7Do5voQaQyL4DB4/a4UMzGFBD++AupsoLqbDdA6sp6Ndl7hklUz
- JM/KHYyVY5RTEFOmA+X8P/CDCMFWHwn8lJklh7R5OBokozwkD2u67j1cXC2RILWzTIngvfVqCAr
- GyhXaJZZZonwOJItg8fI65n7xI5lH2ZI9fGun+z4e7H3E/3Tx4dqRReY1klkTqtv2vjX731JyZ1
- G3ZUsYChV5bafBmWWJ9PT1Ds8tfgQ7bs8xBatJ3He9rqixuXgnOMKqHjDHhtx9jUqEG7Qui2TbH
- l7fvI54NZJYyXzapDOvdZld7wXrEwskYKknTydZKnW+3zFtgks2wyQNWZ8zqOHuXNzqifuwAgth
- S8NwyXJbY07WuCjca+RXhrw7QdtH8hql2gP4uyUvJ2zHdogiqFkUoCdv2hIY/1IFCukNUwBkt8l
- YuDiLM2ALOF4YBavpiVzQDC16jedyQCpw2GvDfoe9OT6C7Z/qY1WKZSSBF78n6jaOl1jvdPsiTa
- U7uoy0MLgnE1XHQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+Hi,
 
-The modem firmware on Google Pixel boards (Pixel 3 through Pixel 5a)
-reads the SoC platform type, subtype and revision from the first
-vendor-reserved SMEM item (item 134) when it boots, and refuses to
-come up unless the application processor has filled it in.
+Currently alloc_workqueue() make sure one among WQ_UNBOUND or WQ_PERCPU is
+present with the current default being WQ_PERCPU.
 
-When the "google,require-socinfo" property is present on the MSS
-remoteproc node, copy the relevant socinfo fields into that item from
-the socinfo SMEM data before starting the modem. The SMEM item id and
-layout are a contract between Google's downstream kernel and the modem
-firmware rather than hardware, so they are hard-coded in the driver.
+Per-CPU workqueues provide strict CPU affinity and concurrency
+management. Some users rely on these properties, but many don't need
+them, and for those users per-CPU workqueues significantly restrict
+what the scheduler can do with their work items.
 
-The item is written in full: modem_flag, efs_magic and ftm_magic are
-left zero. Downstream fills modem_flag from a bootloader-provided
-/chosen/cdt/cdb2 property that is not always present, and the two magic
-values only matter for factory test mode.
+Unbound workqueues now use non-strict (soft) affinity scopes, so they
+keep part of the locality benefits while giving the scheduler more
+flexibility. This helps system-level concerns such as power management
+and CPU isolation.
 
-Based on work of: Richard Acayan.
-Adapted from the original form using both human & LLM work.
+This series therefore transitions alloc_workqueue() to unbound as the
+default. Users that need per-CPU behavior can still request it
+explicitly with WQ_PERCPU.
 
-Suggested-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
+The behavior changes as follows:
+
+[ P1 ]
+
+  - keep WARN_ON() if WQ_PERCPU and WQ_UNBOUND are present and drop
+    WQ_PERCPU.
+
+  - defaults to WQ_UNBOUND except for WQ_BH, that it is always per-CPU.
+
+  - WQ_POWER_EFFICIENT description, kernel parameters and konfig
+    description changed to reflect what this patch introduces.
+
+[ P2 ]
+
+  Documentation updated accordingly.
+
+Thanks!
+
 ---
- drivers/remoteproc/qcom_q6v5_mss.c | 75 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
+Changes in v6:
+- rephrase cover letter
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index dd052a62b8583..53deabea62259 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -23,27 +23,35 @@
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/remoteproc.h>
- #include <linux/reset.h>
- #include <linux/soc/qcom/mdt_loader.h>
- #include <linux/iopoll.h>
- #include <linux/slab.h>
-+#include <linux/soc/qcom/smem.h>
-+#include <linux/soc/qcom/socinfo.h>
- 
- #include "remoteproc_internal.h"
- #include "qcom_common.h"
- #include "qcom_pil_info.h"
- #include "qcom_q6v5.h"
- 
- #include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/firmware/qcom/qcom_scm.h>
- 
- #define MPSS_CRASH_REASON_SMEM		421
- 
-+/*
-+ * First vendor-reserved SMEM item; Google's modem firmware reads the SoC
-+ * platform information from it when the modem boots.
-+ */
-+#define SMEM_ID_VENDOR0			134
-+
- #define MBA_LOG_SIZE			SZ_4K
- 
- #define MPSS_PAS_ID			5
- 
- /* RMB Status Register Values */
- #define RMB_PBL_SUCCESS			0x1
- 
- #define RMB_MBA_XPU_UNLOCKED		0x1
-@@ -247,16 +255,17 @@ struct q6v5 {
- 	bool need_pas_mem_setup;
- 	bool has_alt_reset;
- 	bool has_mba_logs;
- 	bool has_spare_reg;
- 	bool has_qaccept_regs;
- 	bool has_ext_bhs_reg;
- 	bool has_ext_cntl_regs;
- 	bool has_vq6;
-+	bool need_socinfo;
- 	u64 mpss_perm;
- 	u64 mba_perm;
- 	const char *hexagon_mdt_image;
- 	int version;
- };
- 
- enum {
- 	MSS_MDM9607,
-@@ -1668,22 +1677,86 @@ static void qcom_q6v5_dump_segment(struct rproc *rproc,
- 						false, true,
- 						qproc->mpss_phys,
- 						qproc->mpss_size);
- 			q6v5_mba_reclaim(qproc);
- 		}
- 	}
- }
- 
-+/* Layout of the vendor-defined SMEM item read by the Pixel modem firmware */
-+struct modem_smem_info {
-+	__le32 version;
-+	__le32 modem_flag;
-+	__le32 major_id;
-+	__le32 minor_id;
-+	__le32 subtype;
-+	__le32 platform;
-+	__le32 efs_magic;
-+	__le32 ftm_magic;
-+};
-+
-+#define MODEM_SMEM_VERSION	0
-+#define PLAT_VER_TO_MAJOR_ID(v)	(((v) >> 16) & 0xff)
-+#define PLAT_VER_TO_MINOR_ID(v)	((v) & 0xff)
-+
-+static int q6v5_socinfo_publish(struct q6v5 *qproc)
-+{
-+	struct modem_smem_info *info;
-+	struct socinfo *socinfo;
-+	u32 plat_ver;
-+	int ret;
-+
-+	socinfo = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
-+	if (IS_ERR(socinfo))
-+		return dev_err_probe(qproc->dev, PTR_ERR(socinfo),
-+				     "could not get socinfo\n");
-+
-+	/* hw_plat_subtype was added in socinfo format 0.6 */
-+	if (le32_to_cpu(socinfo->fmt) < SOCINFO_VERSION(0, 6))
-+		return dev_err_probe(qproc->dev, -EOPNOTSUPP,
-+				     "socinfo format too old\n");
-+
-+	/* -EEXIST: the item survived an earlier boot */
-+	ret = qcom_smem_alloc(QCOM_SMEM_HOST_ANY, SMEM_ID_VENDOR0, sizeof(*info));
-+	if (ret && ret != -EEXIST)
-+		return dev_err_probe(qproc->dev, ret,
-+				     "could not allocate modem smem\n");
-+
-+	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_ID_VENDOR0, NULL);
-+	if (IS_ERR(info))
-+		return dev_err_probe(qproc->dev, PTR_ERR(info),
-+				     "could not get modem smem\n");
-+
-+	plat_ver = le32_to_cpu(socinfo->plat_ver);
-+
-+	/* modem_flag, efs_magic and ftm_magic are left zero */
-+	*info = (struct modem_smem_info) {
-+		.version   = cpu_to_le32(MODEM_SMEM_VERSION),
-+		.major_id  = cpu_to_le32(PLAT_VER_TO_MAJOR_ID(plat_ver)),
-+		.minor_id  = cpu_to_le32(PLAT_VER_TO_MINOR_ID(plat_ver)),
-+		.subtype   = socinfo->hw_plat_subtype,
-+		.platform  = socinfo->hw_plat,
-+	};
-+
-+	return 0;
-+}
-+
- static int q6v5_start(struct rproc *rproc)
- {
- 	struct q6v5 *qproc = rproc->priv;
- 	int xfermemop_ret;
- 	int ret;
- 
-+	if (qproc->need_socinfo) {
-+		ret = q6v5_socinfo_publish(qproc);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = q6v5_mba_load(qproc);
- 	if (ret)
- 		return ret;
- 
- 	dev_info(qproc->dev, "MBA booted with%s debug policy, loading mpss\n",
- 		 qproc->dp_size ? "" : "out");
- 
- 	ret = q6v5_mpss_load(qproc);
-@@ -2127,16 +2200,18 @@ static int q6v5_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, qproc);
- 
- 	qproc->has_qaccept_regs = desc->has_qaccept_regs;
- 	qproc->has_ext_bhs_reg = desc->has_ext_bhs_reg;
- 	qproc->has_ext_cntl_regs = desc->has_ext_cntl_regs;
- 	qproc->has_vq6 = desc->has_vq6;
- 	qproc->has_spare_reg = desc->has_spare_reg;
-+	qproc->need_socinfo =
-+		of_property_read_bool(pdev->dev.of_node, "google,require-socinfo");
- 	ret = q6v5_init_mem(qproc, pdev);
- 	if (ret)
- 		return ret;
- 
- 	ret = q6v5_alloc_memory_region(qproc);
- 	if (ret)
- 		return ret;
- 
+- change comments in workqueue.c, workqueue.h, power/Kconfig, kernel
+  parameters so that they now reflect what has been done.
+
+Link to v5: https://lore.kernel.org/all/20261102110047.115375-1-marco.crivellari@suse.com/
+
+Changes in v5:
+From Tejun / Breno:
+
+- Dropped the pr_warn_once() when neither among WQ_PERCPU | WQ_UNBOUND is
+  present and add WQ_UNBOUND.
+
+- move wq_dropped_percpu declaration on top
+
+- improve comments and commit log, so that it better describe also the
+  reasons of this change.
+
+- prefix "workqueue: doc:" on documentation improving descriptions about
+  the flags.
+
+Link to v4: https://lore.kernel.org/all/20261015140148.231126-1-marco.crivellari@suse.com/
+
+Changes in v4:
+- WQ_BH: add documentation about BH workqueue implying WQ_PERCPU
+
+Link to v3: https://lore.kernel.org/all/20260904141421.287647-1-marco.crivellari@suse.com/
+
+Changes in v3:
+- WQ_BH require WQ_PERCPU
+
+Link to v2: https://lore.kernel.org/all/20260903165251.481362-1-marco.crivellari@suse.com/
+
+Changes in v2:
+- if/else to add/drop WQ_UNBOUND/WQ_PERCPU moved before wq_size assignment
+
+Link to v1: https://lore.kernel.org/all/20260903152204.401638-1-marco.crivellari@suse.com/
+
+Marco Crivellari (2):
+  workqueue: Make alloc_workqueue() unbound by default
+  workqueue: doc: Update WQ_UNBOUND and WQ_BH documentation
+
+ .../admin-guide/kernel-parameters.txt         | 15 +++-----
+ Documentation/core-api/workqueue.rst          | 11 ++++--
+ include/linux/workqueue.h                     | 23 +++++-------
+ kernel/power/Kconfig                          |  7 ++--
+ kernel/workqueue.c                            | 37 +++++++++++--------
+ 5 files changed, 46 insertions(+), 47 deletions(-)
 
 -- 
-2.55.0
-
+2.56.0
 
