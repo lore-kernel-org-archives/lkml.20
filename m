@@ -1,59 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824616;
-	b=fdnKqD1G53Tg+BqTQHmNPpX99bFhWQdJe1YWAhL7650fm7DqCGa3TKA8NgvUgLwA8w0U
-	 IyOaAV/DwGGGMLEV7TmVSZhKanImuB5yAt5FGFeYjeWS7TiDzpmBqv4B8O0NhVZhXFj11
-	 aoLZ3G0cv+JCZSz7YcCky+4KAbUxdTJk4dZPHBhsh/zqQYJJeJKXgMfyzazAQ/6nafblL
-	 z3Ps+4Qr9bl5OJleVjaMwJjs+1OhDn5HEMdMEbzkTQV6gh93tzgwtLaHP7x2m6+dQQrsx
-	 Ad+I9aILcIlSNbAZpFy1kOhGtEp65UE2mfcEV2hBLq25ZxwQoy6C2XJu0gWTk+1BRZg==
+	t=1794824626;
+	b=r6hGSF524xsYK+IcjNWpjT+WWVc6tkD7n1YnqMRCX2nuWcz9wF9HCXv8Ss/ifQZUXO2V
+	 Amv66Hrm7CHhNcwoHKqWp2f+3qXND2kX7vNfqdcWtyO8z8xWJUOrdGbFsLvOhVffQZ+B6
+	 ZP+mdfd0PUCS6HkrBMpz0an5PRhEf8bvfo/7jRaTpAWApuhXlgDSzLzkkoYBtLO2F4kbR
+	 h7QNmO3pDIVxr57KpJxpVycMPhQLQaN2pGv1z2vWYOKxBC9CAfTtfnK4guiz+V2egykb9
+	 gYQ/f9isHEHr1va9N88q7j4K+QZH7eoL1S98/qEu+1WvxtfxreqrwNb44RsUf3lwkfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824616;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=aBwn/FZxnh0n0zhteaBKF/cx+9D+nKGywQr5rRvRjQw=;
-	b=PnabviMbsGoyHikLGXey4nVPi/0WydgJMBCkw/hAQwFsA/e7rvmBk8wuRgjFE7C+wCQN
-	 u/lm4vTt0hkzeVqR2sHVkjnDTeoDQmg9sMXu63sXSxsqH8DtMx3DtlXd9OoPd+dUHz0em
-	 75ojH3Q+mF4SG8njcx5ribibPRemftVMEpp/G8NAP4ji3WjdXyAP5jOvslpB1saySQqQg
-	 QVmvcmNKAqWWXvjcvUtxp5O4D79yIkN6Be9v94z4DIuyWpdHRSaPbt1fLISoDV/eTpmoI
-	 zIRDeImfLcnnwrLpP5cnEblu3hFDQcZv5gAXITijLyfSGOktV628Hw4znFyGei8WF7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824626;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9q/zYfokBxKaBTPYcerPDmA3MfY1ZL37DCfWtL2KbVM=;
+	b=jepwO0vhrgsmfrXLxn5MYFto3DYHpsQWiKKQ8K1AQ7Ut25BLFHclo3TQ75TT2uiZnfNj
+	 TutYFVlGUDYqgUejMVPNtHnw6Gh2BtyRIp1dZrxx+S1pEFOGjhnYNxgQ7teqLpZWNFaQT
+	 IvTml8Ut0RVy1LvIBoVyNMnyNAPN6hakqSBLKsvbhUojnGTlAqelYqFJcW0TP0MQzZlCi
+	 vTUKyRrnN76bB4rQmShe4BquyqwrnWwK7fc/iVhyAlbr5QEWeeA7QNbwWh1UTy69fSpul
+	 skOazhxKu6q9xNFq7Yl92RWCOC+ksZdfAus0KFXx7NUrHkqZjxoUmlGLmyGVythk4IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8TQkxh8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nlwp1ta5;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD95606A33A;
-	Mon, 16 Nov 2026 10:23:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4A1606A88E
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:23:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4A1606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8TQkxh8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30CC41F000C4;
-	Mon, 16 Nov 2026 10:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824615;
-	bh=aBwn/FZxnh0n0zhteaBKF/cx+9D+nKGywQr5rRvRjQw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X8TQkxh89SfKOCAA8cO6hnyISMYFq93b5suocjtWdmfjAKdxF6JqUIcpUjdvP75U0
-	 3w9htdmr7pmO8NbAiufIdXfl/Vpx4DovAswlXDtiK5JYIz6gesblbNjlu0zmRjYfir
-	 Ow8DZWDgryXZgLOcOkPR9MRFsKt9aKvfzacHS3t8LkS5/XxiOKj6GCgByeRdwvO4gi
-	 aebYOUB6iwFQdkCaKkHAKIgaILWmZxfZ2VGHjlTfq3h+Zi00RL/r/wSgj1Bqm0645N
-	 uQ235i46N92iHwjePpdxWRfZdfNNoLoCTbVkorDPwdl2GysNmZ5YLrInE5dMEanJKy
-	 PC7hBEuBIGBXA==
-Subject:
- Re: [PATCH v2] net: hso: fix tx skb leak and a race on the stashed skb
-From: netdev-bot+sashiko@kernel.org
-To: chenaibing@cmss.chinamobile.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 10:23:34 +0000
-Message-ID: <179482461473.3136.10520991197009365626@kernel.org>
-In-Reply-To: <20261115101646.244-1-chenaibing@cmss.chinamobile.com>
-References: <20261115101646.244-1-chenaibing@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nlwp1ta5
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a210470b49so26204455e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:23:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794824623; x=1795429423; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9q/zYfokBxKaBTPYcerPDmA3MfY1ZL37DCfWtL2KbVM=;
+        b=nlwp1ta5SDEnakttiqWxdmNJS38raYe5iE7G79agIpBYLhpLANEdpEp8DcRTIZeMpN
+         bogWAayszJMdKU+SePBWmx4W7Tnq4dL2QSzWiWxe8dpAmxr30RWcECUKJLlRxt8sAJa/
+         UxLI4DvIYigUXepwY+2uiEgOm5qNI+oCd9imaotrC8l3HIShcGnk7nvECW7V+8ITcWC2
+         SqKu4siD3nUV85hlP3i6bvYohTFXXq7NT9gWUsDGVgrgO0+d8gsDj/camLCiUAhpAf+J
+         zWFG9ycTDvA9iLwAgrU3LldqLMCRf00pO4bMzSjTthvzT1bNxIEXda3oWAJHaRYo0tv6
+         1MUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794824623; x=1795429423;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9q/zYfokBxKaBTPYcerPDmA3MfY1ZL37DCfWtL2KbVM=;
+        b=KpYKerqioLjQY13kUbiieo82m4R26JDHD8hZIEb7WV8Tkl2C7w08bQpV0TsyDnk66b
+         1UNyuK+ObR/dEY4UwFp+j1wk7FcCPQ3hiZj0dCQ+aQHd4/gJ8snJJ9JY0cv+lYRNxdfU
+         2ZbLHXozJJuEjAynPZdurd6GRzH4vDJtRxuOHcWi6ruyc9wZf+uqIHeluK3DpvkxdShr
+         rgWofD8v9+l7xIChjMli6pfmURS2S3tkhWpyxL+lyDGrB/Pq0EhOGP8NQ6hk2MkgpRE4
+         XRbeivXauxYfd9C9M0VgxtG3lVbj9SgcNxVzhyApKMdORhhSg8DhXg+KYPkw/a5Q1gnx
+         HWsQ==
+X-Forwarded-Encrypted: i=1; AL+hErGt2QxnWGt4ErdAL2Z9ndVMRsnqp9F3dQrKS0H5mILS5sf8dfC1L9C+e2kaWvnVEvhGnFEuXuDrveZueSg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/QCK5rQov60Od7fo/IH7E1MNqB38+PuSjBafKR5v8I/PZWgII
+	Dobs97YlMxzArGh2jzHSWVStiDtHk+SbNFyA0eLQ8DAOZaBze5dHfrsk
+X-Gm-Gg: AYBFou1qA3iWNjxFQDiKssG58iMa2F4hhv1Tcfzc5YEEr+LSdlQfSKMoQVlCuWMu+WV
+	pcGd8WRxMSh/PtlbLzezJH5cwhKTkTgw0JH1ePEiDGZgEx5ykh1c9q6Uxw3szX0UP+Ny4vqb8Fr
+	X2PZ1Bb+tdvzNHFMFdJ64SSPIz6JqtAWZq7QIpKm810U8VM2Dc2dZcHJjJdklg0Lv8/HXWbtPu9
+	PZnnTeJFMPZsyYrxl8F0NHXSg20yaN1/oX6fyEMfibb/MkY0Q9vaYNHJGPmMBBS0ZUu40I+KH3d
+	ZVORKyIYQ0eMvvnvxsYcBxMcSES+rgjYUSrx84MD1bof397SuPwq6/Yvpq0i+Ue6IthV8jpkzxv
+	pD4lnVWWJ6YrI2M3mHulvDcwPujrRKGqEmjeKzcL3mgtmrvyzet6V81FlDRFkIc5Rp0rO3vGX18
+	HfUoCZXRV10l4kZoCamLEvHEtLYO5uyanqP66jt5WkS0PnoO8UmV0v5c1Efh4qZC6aGw8fB91aF
+	+FTEfrAWCXiVM/EPHQI+qFlQEcoWhDfwvYSDxokGW3nC2cCi/KHerogBDBLbA6LdVhdgkRpYxuy
+	Hl5eDBL20I+hVgRaJ4Jt
+X-Received: by 2002:a05:600c:5395:b0:4ab:e27d:e241 with SMTP id 5b1f17b1804b1-4bb55a95d09mr204699015e9.15.1794824622940;
+        Mon, 16 Nov 2026 02:23:42 -0800 (PST)
+Received: from fedora ([5.131.7.59])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571f6a40sm108149375e9.2.2026.11.16.02.23.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 02:23:42 -0800 (PST)
+From: Petr Vaganov <petrvaganoff@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Petr Vaganov <petrvaganoff@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Su Hui <suhui@nfschina.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.15] fs/stat.c: avoid harmless garbage value problem in vfs_statx()
+Date: Mon, 16 Nov 2026 17:23:23 +0700
+Message-ID: <20261116102324.81107-1-petrvaganoff@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,194 +101,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Su Hui <suhui@nfschina.com>
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
+commit 0fac3ed473dd2955053be6671cdd747807f5e488 upstream.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Clang static checker(scan-build) warning:
+fs/stat.c:287:21: warning: The left expression of the compound assignment is
+an uninitialized value. The computed value will also be garbage.
+  287 |                 stat->result_mask |= STATX_MNT_ID_UNIQUE;
+      |                 ~~~~~~~~~~~~~~~~~ ^
+fs/stat.c:290:21: warning: The left expression of the compound assignment is
+an uninitialized value. The computed value will also be garbage.
+  290 |                 stat->result_mask |= STATX_MNT_ID;
 
-- [High] The v2 ownership protocol (xchg() in hso_net_close() and
-  hso_resume(), plus an unlocked test_bit(HSO_NET_RUNNING) in…
-- [Low] In hso_resume() (drivers/net/usb/hso.c), the new inner
-  `test_bit(HSO_NET_RUNNING, &hso_net->flags)` re-reads a bit that the…
+When vfs_getattr() failed because of security_inode_getattr(), 'stat' is
+uninitialized. In this case, there is a harmless garbage problem in
+vfs_statx_path(). It's better to return error directly when
+vfs_getattr() failed, avoiding garbage value and more clearly.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  hso_net_start_xmit() copies the whole frame into the fixed-size TX…
+Signed-off-by: Su Hui <suhui@nfschina.com>
+Link: https://lore.kernel.org/r/20250119025946.1168957-1-suhui@nfschina.com
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+[ Petr: There is no vfs_statx_path() in this tree. The fix is applied
+  directly in vfs_statx() by jumping to path_put() via a new out_path
+  label, preserving the reference drop and the ESTALE retry. ]
+Fixes: fa2fcf4f1df1 ("statx: add mount ID")
+Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
+---
+ fs/stat.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
---
-
-net: hso: fix tx skb leak and a race on the stashed skb
-
-This patch frees the skb that hso_net_start_xmit() stashes in skb_tx_buf
-when the interface is closed. It also uses xchg() in both hso_net_close()
-and hso_resume() so that only one of them takes ownership of that skb.
-On top of that, hso_resume() now drops the stashed frame instead of
-transmitting it when HSO_NET_RUNNING is clear.
-
-Link: https://lore.kernel.org/all/6af74e31.fe96acdb.12252b.0009.GAE@google.com/
-
-> diff --git a/drivers/net/usb/hso.c b/drivers/net/usb/hso.c
-> index 71caa3764b239..ba59bdefd203d 100644
-> --- a/drivers/net/usb/hso.c
-> +++ b/drivers/net/usb/hso.c
-
-[ ... ]
-
-> @@ -728,6 +729,14 @@ static int hso_net_close(struct net_device *net)
->  
->  	hso_stop_net_device(odev->parent);
->  
-> +	/*
-> +	 * Take ownership of a frame stashed by hso_net_start_xmit() and drop it.
-> +	 * hso_resume() takes it the same way, so only one of the two paths frees
-> +	 * it.
-> +	 */
-> +	skb = xchg(&odev->skb_tx_buf, NULL);
-> +	dev_kfree_skb(skb);
-
-[Severity: High]
-
-Does only one of the two paths really end up owning the frame?
-
-hso_net_close() runs under RTNL. hso_resume() runs from USB PM context,
-for example the usb_autopm_get_interface() work that hso_get_activity()
-schedules. The two paths don't share any lock.
-
-Consider this interleaving:
-
-CPU0: hso_resume()
-    skb = xchg(&hso_net->skb_tx_buf, NULL);
-    test_bit(HSO_NET_RUNNING, &hso_net->flags) returns true
-
-CPU1: hso_net_close()
-    clear_bit(HSO_NET_RUNNING, &odev->flags);
-    hso_stop_net_device(odev->parent);
-    skb = xchg(&odev->skb_tx_buf, NULL);    /* returns NULL */
-
-CPU0: hso_resume()
-    hso_net_start_xmit(skb, hso_net->net);
-
-Suppose hso_get_activity() returns -EAGAIN at this point. That is the
-"device is still not ready" case from the commit message.
-hso_net_start_xmit() then puts the skb back with a plain store:
-
-	if (hso_get_activity(odev->parent) == -EAGAIN) {
-		odev->skb_tx_buf = skb;
-		return NETDEV_TX_OK;
-	}
-
-Does this leak the skb? Nothing frees it after close has done its xchg().
-A later hso_net_open() overwrites the pointer with
-odev->skb_tx_buf = NULL, and on disconnect the pointer is lost when the
-netdev is freed.
-
-If hso_get_activity() returns 0 instead, usb_submit_urb() on
-mux_bulk_tx_urb runs after close has killed that URB. hso_resume() then
-calls hso_start_net_device(), which resubmits the RX URBs on a closed
-interface.
-
-When that TX URB completes, write_bulk_callback() returns early:
-
-	if (!odev || !test_bit(HSO_NET_RUNNING, &odev->flags)) {
-		dev_err(&urb->dev->dev, "%s: device not running\n", __func__);
-		return;
-	}
-
-That skips hso_put_activity() and netif_wake_queue(). Can this leave the
-activity state and the autopm reference raised?
-
-The new test_bit() narrows the window, but it is still an unlocked flag
-check used as a gate. Would this need real serialization between three
-places: the stash in hso_net_start_xmit(), the check-and-transmit in
-hso_resume(), and the teardown in hso_net_close()? That could be a lock,
-or having close wait for a resume that is already in progress.
-
-[ ... ]
-
-> @@ -3054,13 +3064,17 @@ static int hso_resume(struct usb_interface *iface)
->  			if (hso_net->flags & IFF_UP) {
->  				/* First transmit any lingering data,
->  				   then restart the device. */
-> -				if (hso_net->skb_tx_buf) {
-> +				skb = xchg(&hso_net->skb_tx_buf, NULL);
-> +				if (skb) {
->  					dev_dbg(&iface->dev,
->  						"Transmitting"
->  						" lingering data\n");
-> -					hso_net_start_xmit(hso_net->skb_tx_buf,
-> -							   hso_net->net);
-> -					hso_net->skb_tx_buf = NULL;
-> +					if (test_bit(HSO_NET_RUNNING,
-> +						     &hso_net->flags))
-
-[Severity: Low]
-
-Isn't this test_bit() checking the same bit as the enclosing
-"if (hso_net->flags & IFF_UP)"? hso_net->flags is the driver's private
-bitmap, and HSO_NET_RUNNING is bit index 0:
-
-/* These definitions are used with the struct hso_net flags element */
-/* - use *_bit operations on it. (bit indices not values.) */
-#define HSO_NET_RUNNING			0
-
-IFF_UP is 0x1, so the outer check already tests HSO_NET_RUNNING. The new
-else branch with dev_kfree_skb() can only run if hso_net_close() clears
-the bit between the two reads.
-
-The commit message says:
-
-  hso_resume() also drops the frame instead of transmitting it when the
-  interface has already been stopped.
-
-If the interface was stopped before resume, the outer check skips the
-whole block. In that case hso_net_close() has already freed the frame
-through its xchg().
-
-Could the outer check be changed to
-test_bit(HSO_NET_RUNNING, &hso_net->flags)? Could the commit message also
-be reworded to describe what the new branch actually handles?
-
-> +						hso_net_start_xmit(skb,
-> +								   hso_net->net);
-
-[Severity: High]
-
-This is a pre-existing issue, not one introduced by this patch.
-hso_net_start_xmit() copies the frame into the TX bounce buffer without
-checking its length:
-
-	memcpy(odev->mux_bulk_tx_buf, skb->data, skb->len);
-
-hso_create_net_device() allocates mux_bulk_tx_buf with
-kzalloc(MUX_BULK_TX_BUF_SIZE), which is 2048 bytes (HSO__MAX_MTU).
-
-hso_net_init() only sets net->mtu = DEFAULT_MTU - 14 and never sets
-net->max_mtu, and hso has no ndo_change_mtu. dev_validate_mtu() in
-net/core/dev.c only enforces the upper bound when dev->max_mtu > 0.
-
-This means something like "ip link set hsoX mtu 4000" is accepted. Can a
-frame larger than 2048 bytes then overflow mux_bulk_tx_buf in
-hso_net_start_xmit()? usb_fill_bulk_urb() would also send skb->len bytes
-from that buffer to the device, reading past the end of the buffer.
-
-The patched hso_resume() still passes the stashed frame to this function.
-
-Would it make sense to set net->max_mtu = MUX_BULK_TX_BUF_SIZE in
-hso_net_init()? Another option is to drop frames with
-skb->len > MUX_BULK_TX_BUF_SIZE in hso_net_start_xmit().
-
-> +					else
-> +						dev_kfree_skb(skb);
->  				}
->  				result = hso_start_net_device(network_table[i]);
->  				if (result)
-
+diff --git a/fs/stat.c b/fs/stat.c
+index 246d138ec066..43c4a60b773f 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -223,11 +223,14 @@ static int vfs_statx(int dfd, const char __user *filename, int flags,
+ 		goto out;
+ 
+ 	error = vfs_getattr(&path, stat, request_mask, flags);
++	if (error)
++		goto out_path;
+ 	stat->mnt_id = real_mount(path.mnt)->mnt_id;
+ 	stat->result_mask |= STATX_MNT_ID;
+ 	if (path.mnt->mnt_root == path.dentry)
+ 		stat->attributes |= STATX_ATTR_MOUNT_ROOT;
+ 	stat->attributes_mask |= STATX_ATTR_MOUNT_ROOT;
++out_path:
+ 	path_put(&path);
+ 	if (retry_estale(error, lookup_flags)) {
+ 		lookup_flags |= LOOKUP_REVAL;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115101646.244-1-chenaibing%40cmss.chinamobile.com
+2.55.0
+
