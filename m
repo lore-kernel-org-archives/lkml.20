@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813619;
-	b=f7paYB9UtvJpibDVuoa84UB/PBaccIP1f+Zq52Pi79F4iCC0XBQN+3uh7Hg0sKdCIBlD
-	 CWeAl4puo4RZqSGpHGkPfYIbcdBeI7Y8uxUQuxTProlje0W7eL8SZWPS3FQJTrGBXAjc0
-	 lPsIfttIu+B3HCosq8GZfmj0dn3CFiZJ9ahnySUytxF0g11ZlWMnu69x5JHlEwpqrXBod
-	 XscJ38C5DNuYj+DzhMYanFMTL+/Qw2HpwTX+bu5BJ4cN/zsqEr9kfpx564K4PSxV15R5u
-	 t02C3skplO8+r14+j5lgjCG8Oh08r2VaQx8a5FdcCh2lxRwACD1IZShJqJnnmjhtijA==
+	t=1794813620;
+	b=Lo2C7lNZ80WQqSABT2N0DzDaW25mC8RYwMeZHC/01arHfHj0LmvZ8LYcfEl3PRb2lS5f
+	 Dg8PQw23ewjuWOAPoqBT7nkEDgBzFGOYxXc5Fzf/20w9zpjaYsCKgvKwfXKl7PJYO77RT
+	 DpZ52CzCsYpYK0h//0qXn8BfuIEGDM6/FGlVmzaRPm3I0rphDiUhR/7wVRsf5aW8yFO/S
+	 jkurwxLjF7R56WRDfXx5vitfJUGKp6ayUFuq1W7IdCRdJLvuriCvXNI5Av+aONDrEn4Le
+	 0xLEq45YNLeaGpPaRzH47Sh0dlc6h1u02E96QnzSd9LzFCUuggeTQPEnW+MP90fZnVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813619;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813620;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=XA/9oFJowkjJrzyOPt6JWQLdeTS8v2v+5BiRAILsqRo=;
-	b=33AboxP2xWPEjhRSWKpiACp8SAGeEi+xc9w4SFgLYpRxlUJVEFxJLqxgoi53U4X+7hKh
-	 VM3Rjj2GKGuz0admuAlO5s+B7hhvABdh3QiIxSn8CCjidxBGifHM71Bqyd+yCm0kYEGRg
-	 JNJOeBnO8yWoO1lU49iZfkonICxH00zUTuzinYN9lWw+kkdw3PHrODXOtRTwMw+OucNmB
-	 /0YlZ0hRe7FhiUguM5qeuhwpA6iDkmzWpbBtTUSEh9hz4jUa/UcyFjAO5mKF1l/eULtrB
-	 MiJTrkAz7Bl1YOUDXTSNTiTsF2TIlI/y9ZRv8PMsUuELpMpYgadNPsMoKtReOsSuy2g==
+	bh=CIz7ndvsyCbyZH1g3tFJ/ivm98WOfmiEiM1uFEhXtY4=;
+	b=IyPXEMmHgjQwg4zz1CsZ4Fqfcb3/qt1BhjMFy5Sz3nvyv+BqO1vywhLmYVc0vmyjZ8eG
+	 SHqEqeo7F9ietyHWaPOsoaq6/IT9aB3zXM77H/3C3e6EB3ibx1J2F8R9bfpxpejtmgd9x
+	 BSBgy23zO8CH++20s8xldlDv5zZVQJ7pe181sFHP68jUdRbalV1J/4y4Ee2H+Wc0ML3N8
+	 dS9Eh1sPmwSZm6SthlVVg/QHbj9iReI5ukeRP2nInxTH2y3FX8xX3LFCoci5L3CaCpSfv
+	 fC5JtuL5kgV/CpLY37MuY1G4MSdBS4fRB6Lf41ckJuVJNYyNNKeRyBmkPlSucKKZntw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PFREsfOC;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="L/oWxr9t";
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7557B606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:20:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7557B606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E1F606A881
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E1F606A881
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PFREsfOC
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso17838265e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:20:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L/oWxr9t
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so18020575e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:20:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794813618; x=1795418418; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794813619; x=1795418419; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XA/9oFJowkjJrzyOPt6JWQLdeTS8v2v+5BiRAILsqRo=;
-        b=PFREsfOCeFYMfGzTmYfGW74TGfRj2TeVaJJglwobLRTmFEwHZqiUVHtoafiUP16PYd
-         11ROQfYGEx2kwctCVAHewW+Q5yXlZpU10qYdepN2cibji7DD3FwIT3oCtaNX+Ly0gWtl
-         rThvoH+GGDeV/wQjr8wA1SJ5GomF4095+F9R31W6vGvcTuxBjsvIz9h2kIKHgpY+5VJ8
-         gv9I9FEQVUEM+BKvwJ8MJfoWtLWIp9Nw9cb8lHxwGKCEjEcnhBNRnG8OXVHWPXNkNnxL
-         StHZWZkWLOeJQy4ewnkuGTbs8nPoPajANof0qXMqkoP3n0mGyygLefTwFjrnkkkNED3v
-         qBig==
+        bh=CIz7ndvsyCbyZH1g3tFJ/ivm98WOfmiEiM1uFEhXtY4=;
+        b=L/oWxr9tjvuL2Yp32Shj9PCOiIar/2DY8yCtKcTm7hA96hMDTMNSt6gaUfEfVN7k2A
+         cHOsDrz4l45bl/dRM91b9rkgKJXHAcyUjssKdxetIF7A/DCuQ+ww9JtM4LIoOGP5uFmf
+         K5JVVr6YInoqn+6S2HZfykI1lu+1/+EURakGvTu1mc5dSVmjxWpA4D7KoFj4vqS98WIK
+         mudIDDQLs8G/sZBIMCR6f5pMOmQICsahmQvXJv1o8K46RUTvBEnAYCKZoZE3+01J1DQf
+         hxgKCJBc6rP5y3j7nlUkwg0qbIXVvd+zsLSQ4ijn/zmI6U9raCuzGhfNNkbB280zm8yO
+         yMGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794813618; x=1795418418;
+        d=1e100.net; s=20260707; t=1794813619; x=1795418419;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XA/9oFJowkjJrzyOPt6JWQLdeTS8v2v+5BiRAILsqRo=;
-        b=HYkAbezomvf/8DCfbAMDuavBVQobUpIBrp1UqB4hn8o3dOFA2bt0cmen+s1S9Kwoep
-         XxuuV/DqvafoLKuQ6oni5fukGzgShMRbju+iOgFHcIk9M4qLu9zGyTcVUVMSjEr66IAH
-         wVxKLk/1WZeHD6lSvhmpK/UmopBxhm8L1/fxFuOcZ2QUqiyXmNSM2MGWBcP4rWj1M1CW
-         mN2bNEIJfaHXPi9J3SOYVyRVRBm502WGAd70Ou9SaYbHWJ8gjVdYXHEtPq2EdRjR0++Q
-         v4311sVbHmTs++6M2YhWe8AEJ8V6mx0ujlpCrw047AChaWTyzBTAEtJ2lh9ofHYRaB+4
-         4BYQ==
-X-Forwarded-Encrypted: i=1; AL+hErE9jW5vRHZoKxPhUxNSoLAjLuhdrr//9Oef0YZ+J/Oo/O/d16gWcDPo50+gI2ddSR0lH+z+r1e8+gfMtSk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/lA803UWmGx9BxVQ3CnqoM2lx5dkpUPgwwwnIWYbEBPKPTbA+h
-	iJGMQSokAmVQOAB7JODHqAD31enFSIiBHnP7+tWyElU8U4zxImOeIi+EWBH/R8qL
-X-Gm-Gg: AYBFou0NH/ppCVUFw8zZFBEX5hQ5VBVhNACPAafYD02WT0GRHKmk4jwwpf83N4y+yLd
-	/I9mjSbcqO2M77arkOMrwh1NPSArzAM1UQG3Z8eAsRsMHaF22AFuUdsl2Y4P5AAl+US+bYhCsJQ
-	V4zIFriHz/51KkjWd4H1iRc1b/iniE/zWMa2FRDSUn8onB8d6A+wTTA+3Oo4wic6nM71XkJnTvS
-	oih9z+AJmbQB3/kOAgdy8I4/rocR2aqsq9tLCxp24fbZAw9kcKXSs2GYY+0NrAkFqHxx5BtRjpD
-	WqAW9kMEQVbfNESFINcBIe6a1CM1Eb768dpBrprsG2ovr660KKl5mrU1Lvtqzi/ocPDpoZ796j8
-	HEMYTKD2KWV7Y9FQcj3MbQP45dxOQcvaVef6Hge5bt/5KRvQ3ymRL2lZqISWAgxdFtX3LQz4EWz
-	/6DcDVVbOw2Txv/oRqyW6619+G+m9j3SbNRG6tz5exWQIaCN4vcJETqpJtX/o8hmu7sT0wVpb7+
-	TwCEEYP5Kr5ZjgIeMNtPbzUJHGi+fqADwD1OCqsgw0NeLisSgL0IYHROCfmnvuyj8ry1dgIKy9g
-	rJAL1Pa4DMWwvxxLpFZUvvbgXQcBCYljtYQ=
-X-Received: by 2002:a05:600c:3ba4:b0:4bb:741d:ea8 with SMTP id 5b1f17b1804b1-4bb741d1220mr24878165e9.7.1794813617856;
-        Sun, 15 Nov 2026 23:20:17 -0800 (PST)
+        bh=CIz7ndvsyCbyZH1g3tFJ/ivm98WOfmiEiM1uFEhXtY4=;
+        b=RsQq119uecoDDF3lmAznkdJIVXkzZ+0ZcaFaAQDHI6CoA5syve9zU0g7dLh3dgY4cL
+         S30YxIQUKEKlacBcG9UgVP9F3FFNAD0FcsD6WKRIc1rMtuexSMD/hG2op0ZHRwe62K17
+         xKzo69pvUYaR1XvWemDTM82Xbx066Ev8WHsSra9V4eBD/Sp7XgiluJVwXYUlLG9snZFw
+         xvjUVR0a4aEsIc1L6L/NQfc4Ic3fDITXmWNlTvGq7EFOZpUmVdztl7AVarlBB1CMTAxj
+         cOD++S2P3QGqX9bVSsfu0gmsywxHMD/XLmZmomKLcsrJr3gaJd3WiNpxKUVKuUATjf2I
+         q8fQ==
+X-Forwarded-Encrypted: i=1; AL+hErEUMvFtiiKTrihHz0uaFS62sXz3nLcMxrQPM5wbSwRLy6ljKyNh1bl5OWuBFghn//MOlTtuFZZp27esRKQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VJdteRD559GAjFmJXBBSBWUn57xfVhqJDwZR3TZ06LOckF4Pu
+	60MZntV3GWOvQif1+BqKC9AC7tjvwJfU1IgO/IIfTtEUXPGUbyq9yfKY
+X-Gm-Gg: AYBFou2cxWjipQEeosT31BHTdUKOaJBGgIorqDB2NzjvW3A/Saqv75lT+0usmHNbTYg
+	mpN0fSu/9gITfOoCxpbKrkKvgOkSFQmCPCU4TlW5zGA4bckhIe6oe/Y1kZL8QUe5kubHPstHdXE
+	LLqggLNX//ud8KEMtjmcGMSiySTJh006DviR5eM6/mbBhOQVWiyo7Oj09WoDBTczDwSRUrWOLH1
+	TTv5imG0aKYZr01fpsQWfAoMZPUHk/fvHZ0+S4gF1JhqFnFrpkZSfYUe5AJzLCrv9ko+0AQ9dPW
+	+4G3pKmNkJaI6OizwYaEfwnr9jnDvMlYk7/fC0AOJmZMeZJwJrK5Xd4GlY2Vjbab3TaJRLf9AK+
+	dPVQDWLRQuMjyX0ohJOBx4FegFA5ypjWPTHU8EUv/AoHXGKAUyxgCIB8KXLdDEeYIYlfZpi0iAL
+	HZ4i61AhZAf0rcpc0wct+yfRkggSfxCLkq3j+4ER4/xbmasuriyVeHbrzr1qj0fYUuFqi5p/Bbe
+	ZDIbcyC62cI5UOkSDE7e/FEUVcUWdXSJjp2EjW5fLugyZdw1Sp+N8iio4F7/rZ/cQHHtaSpH6Lp
+	SGDPjru55oM9s8CoA23uqsSPBGJ7z3rQn8U=
+X-Received: by 2002:a05:600c:4ecd:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4bb5599a73fmr228474695e9.0.1794813618803;
+        Sun, 15 Nov 2026 23:20:18 -0800 (PST)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm22953761f8f.1.2026.11.15.23.20.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm22953761f8f.1.2026.11.15.23.20.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:20:17 -0800 (PST)
+        Sun, 15 Nov 2026 23:20:18 -0800 (PST)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: Luka Gejak <luka.gejak@linux.dev>,
@@ -90,9 +90,9 @@ Cc: Luka Gejak <luka.gejak@linux.dev>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	mehmet.fide@screeningeagle.com
-Subject: [PATCH rtw-next v2 1/3] wifi: rtw88: free the reserved pages of an interface on firmware recovery
-Date: Mon, 16 Nov 2026 08:20:12 +0100
-Message-ID: <20261116072014.1142494-2-mehmet.fide@gmail.com>
+Subject: [PATCH rtw-next v2 2/3] wifi: rtw88: report the frames purged from the TX report queue
+Date: Mon, 16 Nov 2026 08:20:13 +0100
+Message-ID: <20261116072014.1142494-3-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116072014.1142494-1-mehmet.fide@gmail.com>
 References: <20261116072014.1142494-1-mehmet.fide@gmail.com>
@@ -109,75 +109,118 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The recovery after a firmware crash resets the driver state of every
-interface, and mac80211 then adds the interfaces again without removing
-them first. rtw_ops_add_interface() starts with an empty reserved page
-list, so the pages the interface had before the crash are lost: the
-next page build takes them off the build list and nothing frees them.
+A frame whose sender asked for its TX status waits in the TX report
+queue for the report of the firmware. When no report comes, the purge
+timer frees the frames with skb_queue_purge(), and rtw_core_deinit()
+does the same. mac80211 is not told: the sender gets no status, and the
+copy mac80211 keeps for the status of a frame from user space stays in
+its list until ieee80211_free_hw() warns about it. On an RTL8822CE with
+hostapd, after a firmware crash and an unbind of the driver:
 
-kmemleak after a firmware crash with an AP interface:
+rtw88_8822ce 0000:01:00.0: failed to get tx report from firmware
+[...]
+Have pending ack frames!
+WARNING: net/mac80211/main.c:1761 at ieee80211_free_ack_frame+0x4c/0x70 [mac80211], CPU#1: sh/24725
+Call trace:
+ ieee80211_free_ack_frame+0x4c/0x70 [mac80211] (P)
+ idr_for_each+0x6c/0xf4
+ ieee80211_free_hw+0x30/0x8c [mac80211]
+ rtw_pci_remove+0xd8/0xf0 [rtw88_pci]
+ pci_device_remove+0x44/0xd4
 
-unreferenced object 0xffff0000cbe22c60 (size 96):
-  comm "hostapd", pid 25545, jiffies 4296463067
-  backtrace (crc cbdc21c4):
-    kmemleak_alloc+0xcc/0xe4
-    __kmalloc_cache_noprof+0x234/0x3bc
-    rtw_add_rsvd_page+0x38/0xa8 [rtw88_core]
-    rtw_add_rsvd_page_bcn+0x30/0x58 [rtw88_core]
-    rtw_ops_add_interface+0x144/0x2cc [rtw88_core]
-    rtw_ops_change_interface+0x6c/0x80 [rtw88_core]
-    drv_change_interface+0x100/0x258 [mac80211]
+Take the frames off the queue under its lock and hand them to
+ieee80211_purge_tx_queue(), which reports each one as not sent.
 
-Free the pages where the recovery resets the interface.
-
-rtw_ops_set_tim() can queue the beacon update work between this reset
-and the reconfiguration, for a frame buffered for a dozing station. The
-work would then find no page to build and warn about an empty reserved
-page. Let it do nothing while RTW_FLAG_RESTARTING is set: the
-reconfiguration downloads the beacon again.
-
-Fixes: 5c831644e1f4 ("rtw88: handle and recover when firmware crash")
+Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
 Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
 ---
 
 Notes:
-    v2: the beacon update work does nothing while RTW_FLAG_RESTARTING is set
-        (Luka Gejak): rtw_ops_set_tim() can queue it between the reset and the
-        reconfiguration, where it found no page and warned
+    v2: Reviewed-by Luka Gejak, no change
 
- drivers/net/wireless/realtek/rtw88/fw.c   | 6 ++++--
- drivers/net/wireless/realtek/rtw88/main.c | 1 +
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/net/wireless/realtek/rtw88/main.c |  5 +----
+ drivers/net/wireless/realtek/rtw88/tx.c   | 20 ++++++++++++++++----
+ drivers/net/wireless/realtek/rtw88/tx.h   |  1 +
+ 3 files changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
-index 945fedcd375b..c9224749826d 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.c
-+++ b/drivers/net/wireless/realtek/rtw88/fw.c
-@@ -1800,8 +1800,10 @@ void rtw_fw_update_beacon_work(struct work_struct *work)
- 					      update_beacon_work);
- 
- 	mutex_lock(&rtwdev->mutex);
--	rtw_fw_download_rsvd_page(rtwdev);
--	rtw_send_rsvd_page_h2c(rtwdev);
-+	if (!test_bit(RTW_FLAG_RESTARTING, rtwdev->flags)) {
-+		rtw_fw_download_rsvd_page(rtwdev);
-+		rtw_send_rsvd_page_h2c(rtwdev);
-+	}
- 	mutex_unlock(&rtwdev->mutex);
- }
- 
 diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index f7708ad17b6f..adc54b063382 100644
+index adc54b063382..ce65a1a80840 100644
 --- a/drivers/net/wireless/realtek/rtw88/main.c
 +++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -627,6 +627,7 @@ static void rtw_reset_vif_iter(void *data, u8 *mac, struct ieee80211_vif *vif)
- 	rtw_bf_disassoc(rtwdev, vif, NULL);
- 	rtw_vif_assoc_changed(rtwvif, NULL);
- 	rtw_txq_cleanup(rtwdev, vif->txq);
-+	rtw_remove_rsvd_page(rtwdev, rtwvif);
+@@ -2225,7 +2225,6 @@ void rtw_core_deinit(struct rtw_dev *rtwdev)
+ 	struct rtw_fw_state *fw = &rtwdev->fw;
+ 	struct rtw_fw_state *wow_fw = &rtwdev->wow_fw;
+ 	struct rtw_rsvd_page *rsvd_pkt, *tmp;
+-	unsigned long flags;
  
- 	rtw_release_macid(rtwdev, rtwvif->mac_id);
+ 	rtw_wait_firmware_completion(rtwdev);
+ 
+@@ -2237,9 +2236,7 @@ void rtw_core_deinit(struct rtw_dev *rtwdev)
+ 
+ 	destroy_workqueue(rtwdev->tx_wq);
+ 	timer_delete_sync(&rtwdev->tx_report.purge_timer);
+-	spin_lock_irqsave(&rtwdev->tx_report.q_lock, flags);
+-	skb_queue_purge(&rtwdev->tx_report.queue);
+-	spin_unlock_irqrestore(&rtwdev->tx_report.q_lock, flags);
++	rtw_tx_report_purge(rtwdev);
+ 	skb_queue_purge(&rtwdev->coex.queue);
+ 	skb_queue_purge(&rtwdev->c2h_queue);
+ 
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
+index 701ed7c4f3f7..87d993282b1c 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.c
++++ b/drivers/net/wireless/realtek/rtw88/tx.c
+@@ -176,21 +176,33 @@ static void rtw_tx_report_enable(struct rtw_dev *rtwdev,
+ 	pkt_info->report = true;
  }
+ 
++void rtw_tx_report_purge(struct rtw_dev *rtwdev)
++{
++	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
++	struct sk_buff_head purge;
++	unsigned long flags;
++
++	__skb_queue_head_init(&purge);
++
++	spin_lock_irqsave(&tx_report->q_lock, flags);
++	skb_queue_splice_init(&tx_report->queue, &purge);
++	spin_unlock_irqrestore(&tx_report->q_lock, flags);
++
++	ieee80211_purge_tx_queue(rtwdev->hw, &purge);
++}
++
+ void rtw_tx_report_purge_timer(struct timer_list *t)
+ {
+ 	struct rtw_dev *rtwdev = timer_container_of(rtwdev, t,
+ 						    tx_report.purge_timer);
+ 	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
+-	unsigned long flags;
+ 
+ 	if (skb_queue_len(&tx_report->queue) == 0)
+ 		return;
+ 
+ 	rtw_warn(rtwdev, "failed to get tx report from firmware\n");
+ 
+-	spin_lock_irqsave(&tx_report->q_lock, flags);
+-	skb_queue_purge(&tx_report->queue);
+-	spin_unlock_irqrestore(&tx_report->q_lock, flags);
++	rtw_tx_report_purge(rtwdev);
+ }
+ 
+ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.h b/drivers/net/wireless/realtek/rtw88/tx.h
+index 168f48e87853..363f63525965 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.h
++++ b/drivers/net/wireless/realtek/rtw88/tx.h
+@@ -98,6 +98,7 @@ void rtw_tx_pkt_info_update(struct rtw_dev *rtwdev,
+ 			    struct sk_buff *skb);
+ void rtw_tx_fill_tx_desc(struct rtw_dev *rtwdev,
+ 			 struct rtw_tx_pkt_info *pkt_info, struct sk_buff *skb);
++void rtw_tx_report_purge(struct rtw_dev *rtwdev);
+ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn);
+ void rtw_tx_report_handle(struct rtw_dev *rtwdev, struct sk_buff *skb, int src);
+ void rtw_tx_rsvd_page_pkt_info_update(struct rtw_dev *rtwdev,
 -- 
 2.56.0
 
