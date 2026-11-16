@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814749;
-	b=qsvmhpu1W7YKvDowFjYdUYP+DNzhDxs0Npf1ygKB8LBUa+aHgUZ2q9IueypV4Ej3BjIQ
-	 t+iqNGF+FGxKnkGvnZdoFUrT/V+/AZvtYDM+zLzI7y4KN0KpfIfMDQfQr6tYitDpDd6AU
-	 bDJcU8nfevST1rsSoOY0rDG58ZF/xMeELE+efnT/luakeHkwDK7fLxCp5LNk13fMEbz96
-	 7hy1/A8DGJ4tt4A3fRP8D8ZAyVAnlpFMzhgUFTDdn96UJDdFBxuF3Gnt7Bu+GxVr27z68
-	 1Uffwo+EYEgBeYPawcgQQc8570N5tfb3n/Sk8vb1DsYiN0fjYqd1WTO6/yoS1bLTgiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814749;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=5v0X5pblnqRU7bFZThrTf/EG1Qe5N4R8+2m/NO3/YPI=;
-	b=gYtIsi7s708UNMh2m95rF8fKWv4WsgRpdW1u6GdQVHcJmgLJPlym87kmcZxVuMQQRLMI
-	 Ped8ASmJdn0h2ZKzIw/VraPvnhvv2BNj6wG0mTLMoN/ywGu9VZQsmvVEIpuyJMGZNRYb5
-	 zfveuwBPJ71KgrA/cZjLVjb5Yv/qk2KDnGWmWPiHsiL9bYH+2HuA+M+BlpjfgdMU3JnR1
-	 Az63SwECZ5IcBS4Zlr38LD18dk8Ugaf4gcC7i1ZxE6bt54XCYPvefYiaIN+iMnddl0jMt
-	 vPAcFGHyQ/79gADr8Hff7H6M3748E31VpEtwtPp3F00mSN0CLJbmWjNU/HFvlr5DBwg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=h4H8rGBq;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794814762;
+	b=tuxcEOSj7h4jnqO2egkXxTvVq2XL84q/V0hj3Q3p0LSCILwoYlY+k/am1J86s2xy2Hc6
+	 AftFPb0Rm0FdR8ZAFOvmydquBHoTnp+prWWfvlIXB+Y6HjNi/gewISHQFvdYvDX9cEJQb
+	 OHQeyXhWn/VToUOKd0QFL50VU3ZlmE/sJWLMSWs34YR1Hwi80Ucx4Uajyrk1fWW6ho70w
+	 XGahh+bQu9DB6pePhgBbmS+KgB7dcYpkDgzFsCHwhYK8iImEXonxmlDa8Zvca9KmydvTD
+	 AcsrC5cBsdSTXTtdg2EwNd/fJiB4YFAhjydL6VYm5fJcft8ksDsE7HmLNWyzMNrCFWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814762;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=hVoFltioV/Os7uCTNOdUtsATLlsQ2VJPx1x+e8Pga0k=;
+	b=EjbJR6cjY1HjhiKjc6bParmghary6BzAxidwlIRx8xtwLUjkpPYpAvjZO58VMa2duSQQ
+	 VrMKTYvaftarivgZLWKkzUWA85atMmqM429eJOot/v0FdvLxQy4YQHDDu1AskL4OINwnF
+	 X2NiQqTKK+hJb41uKjUeWkYg5WDx5rj3ZXwAuxsTWKt1TxeF7QZl4mMOZhNubbPaXWLNc
+	 Pzitf7ZBb/W9uwlVg8zqjkwRJJvwTdS78GCBWHa/iQaKYHYJdVJj7MdYSfpW29HZOFEW4
+	 lD+1j8Jwy66GmCnlGRRSvBVr6GQgmVrU5ihlcig1IjuMTSR1ycoh3WKMuq8M6v9l1Pg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmieTsc5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0347F606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:39:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0347F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565BA606A31C;
+	Mon, 16 Nov 2026 07:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=h4H8rGBq
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261116073904epoutp04b9486fe46c68c99cd52992da1d8be257~odoAvDffD0444904449epoutp04e
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:39:04 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261116073904epoutp04b9486fe46c68c99cd52992da1d8be257~odoAvDffD0444904449epoutp04e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794814744;
-	bh=5v0X5pblnqRU7bFZThrTf/EG1Qe5N4R8+2m/NO3/YPI=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=h4H8rGBqO/eKHQ0sleJ0/p+DzneuIVNSxFlr2Xa1VTUqE1bnqd6tDCde9TTNb2gpE
-	 DYmsoI5py4nB963XgiKfmiMVWhZRJUbcPZQulljluCcPPUatC3aEabxkhy4EXR2gp/
-	 3LCpHQaqLEG2yjUBcwUSRjHYJV5t8baInBTPuLQE=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261116073903epcas2p45252b5310b81720a5c2b16b7ae2ec306~odoAPYs-k1963719637epcas2p4h;
-	Mon, 16 Nov 2026 07:39:03 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.203]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jSfr746Jfz6B9m9; Mon, 16 Nov
-	2026 07:39:03 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmieTsc5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794814761;
+	b=LazHn8VXC39dkRzj9xqZTP20d04KjrRvprABsh5B5kySm/wUrpYBQNgHH6PSgGKt1bSn
+	 Gzek/g8jx9UgZTF1hwNz/x1qk4ng3uEjWxuvUTKwJhQTlOsPIwYMeyKlw+GyOu8h2xRR0
+	 t8YnoqrxX9BiEO6/3vXRdtXx4EpENqBMK8deyBAnOYSjCfXi78zs5W4fmh6k/nTuR9lPq
+	 H8PETrUm/V+u9lPchaPaHyEd/ySCDj9eXkbPGUjOwrSZe2vdXX0Ac2woByRvvwRsBCOFm
+	 rh1JmcFnuPb93ZGr3glXgZVRjrg41A0Yx+wZFFD4vb5ANFqFyll2GPewOAGnjxbTzsg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794814761;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hVoFltioV/Os7uCTNOdUtsATLlsQ2VJPx1x+e8Pga0k=;
+	b=ZYvsIm21+ljd0+XDC6VBDucvMv8blTLR4NwKMUxfa1sFo/ZaP9BIgK0YY7LQib3U+NQJ
+	 XcuEbV19wmFs0ccdPRFKVVffLw8qGVjx407gWprQ3kV2h9aLoPy9ylVXvyRFAB53uKU8H
+	 HYnQPnKNi8CVi6a5aHvCc6ocZJDomyS/7gUUCej7yYfGwDc22dYPJr36VPsvkvV37heZ1
+	 lK6FANYq4j79trGEvNK2TFyo3EbcfXK6c29kKzlJqp7AcKkkJ+iGtO3KmNFbwh5RWJ2Ez
+	 Z9PUA3+XJvxfVEmUsMwfOQ3pLBqtGXJqCyQ3mNfSIAZ3/yPASLyefy5RJJd4qSrYBzQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4BA8C1F000C5;
+	Mon, 16 Nov 2026 07:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794814761;
+	bh=hVoFltioV/Os7uCTNOdUtsATLlsQ2VJPx1x+e8Pga0k=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=FmieTsc5pYgqzStptuxvxIcMb+6tg8ZK7ZR2vHAyx98ipkfnYKZdOzARBQH5xrnwb
+	 zjoQ+PyHMRB7E5QA2I08pyyYvaWXO31pXwaqTuywsoJBd15ZMg0g13affj1jSJOVai
+	 yY73YIhTBj2L5Pk1WZ7X759rlT2QgXER1H160xJcpSKM5iBJtKHsU4tjYrnsaJoKAc
+	 kmvtd5pfzUN2fRf1vV0H3e9lQmU57aisoIbTmoa4trv1PFbBczIjoCNMM0CDrI7OGe
+	 4Y6dDjUzdUbPTPoGnCYvs2bXXcjLro3pDIpc4yCdpcAYY9D8UTzgv83Qj3jf1ohjwf
+	 RnVH37adQsCgg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 982104A37F;
+	Mon, 16 Nov 2026 07:39:20 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Subject: [PATCH net-next v3 0/2] net: stmmac: Add RK3572 support
+Date: Mon, 16 Nov 2026 15:39:13 +0800
+Message-Id: <20261116-add-board-ok3572-c-net-v3-0-a957fdcd9c7a@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,80 +82,156 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE:(2) (2) [PATCH v2] xfs: check the disk address for hardware
- atomic writes
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: John Garry <john.garry@linux.dev>, Carlos Maiolino <cem@kernel.org>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>
-CC: Pankaj Raghav Partha Sarathy <p.raghav@samsung.com>, Pankaj Raghav
-	<pankaj.raghav@linux.dev>, "Darrick J. Wong" <djwong@kernel.org>, Christoph
-	Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <b34aac03-0d43-4ed1-9561-cb6e0e9c582f@linux.dev>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261116073903epcms2p13ca5bac24c591ae487f0b30dc45b87f8@epcms2p1>
-Date: Mon, 16 Nov 2026 16:39:03 +0900
-X-CMS-MailID: 20261116073903epcms2p13ca5bac24c591ae487f0b30dc45b87f8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261112082952epcas2p1f902c4243d451635ff27fe1a1c5035fe
-References: <b34aac03-0d43-4ed1-9561-cb6e0e9c582f@linux.dev>
-	<b1fba95d-97c8-44ae-a5be-6d2fba7e7e78@linux.dev>
-	<20261112-xfs-hw-atomic-align-v2-1-c90394805e7b@samsung.com>
-	<20261113025544epcms2p575490538b97c26387515f8b5fc90c321@epcms2p5>
-	<CGME20261112082952epcas2p1f902c4243d451635ff27fe1a1c5035fe@epcms2p1>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACGz+moC/32OzQ6CMBCEX8X07JrSH348+R7GA7SLVCOVFhsM4
+ d0tNdGLcW+TnflmZuLRGfRkv5mJw2C8sX0UfLshqqv7M4LRURNGWZ7Fg1praGztNNgrlwUDBT2
+ OILSQZVkoWciWxPDdYWumBD6S1dDjNJLT++MfzQXVuHJXb2f8aN0zbQhZSqQ6ytivupABBdrQV
+ pey5hniYRh2yt4SPbBv/s/cwCKDUyHynFeiKuiHsSzLC7dkfdQVAQAA
+X-Change-ID: 20261111-add-board-ok3572-c-net-4d45887c575f
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ David Wu <david.wu@rock-chips.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Cunhao Lu <1579567540@qq.com>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814757; l=4122;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=LxqYt0+Iq/eihPSSDe3HWKJJWGmfN3WZKQQ1CIPyjfo=;
+ b=Uv0jByIhY6SMGv/IOvRZ0MFtcNERUxMqvPm8PXX2lYwiWrEEb0oJqbPCqEAKh39fMcKW+79ME
+ dpBa6uGGrACA499afQ4s4iS0QQfxq+qIcRCxSkK6JoHWon8aZqhynRh
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 
-On Fri, Nov 13, 2026 at 09:45:22AM +0000, John Garry wrote:
-> hmm.. I am still not confident that this the best fix. And if it is, 
-> then I think that we should still change the size pre-check in 
-> xfs_file_dio_write_atomic(). Here's a combined change which I am 
-> thinking of:
-[...]
-> bt_awu_max is the HW max, and you are saying that it is not aligned with 
-> the AG size (and so need a disk alignment check). However, opt max 
-> should be (aligned to AG size), so we could check that vs size instead.
+This is one of the subsystem submissions for RK3572 support.
 
-Thanks, agreed. v3 will check the size instead of the disk address,
-in both xfs_file_dio_write_atomic() and
-xfs_bmap_hw_atomic_write_possible(). The limit is the one max_opt
-applies: the smaller of bt_awu_max and the largest power-of-two factor
-of the group size. Below that limit the existing br_startblock check is
-enough, so v3 drops the disk address check.
+This series adds the RK3572 GMAC bindings and support for both Ethernet
+controllers in the Rockchip stmmac glue driver. It provides RGMII and
+RMII mode and clock control, together with RGMII delay configuration.
 
-v3 puts this limit in a helper that xfs_get_atomic_write_max_opt() also
-uses, so max_opt and the checks use the same hardware limit. The checks
-call the helper rather than max_opt, since max_opt is 0 on a filesystem
-without reflink. When I tried max_opt there, the one-block atomic
-writes went to COW and failed with -EINVAL. The helper returns
-bt_awu_max when there are no groups, which is the rt device without
-rtgroups.
+The RK3572 SoC has eight CPU cores: two Cortex-A73 cores and six
+Cortex-A53 cores. It also integrates an Arm Mali-G310V2 MC1 GPU.
+The OK3572-C board provides two Gigabit Ethernet ports, three USB3 Type-A
+ports, a Type-C dual-role port, eMMC, microSD, and UART.
 
-> BTW, with your proposed change, since HW size is not aligned to AG size 
-> and we only check the size vs HW size for HW offload, it is in theory 
-> possible to have an atomic write which straddles the AG and is rejected, 
-> right?
+Testing was performed with Debian 13 minimal and Linux 7.3 on the
+OK3572-C with the FET3572-C module.
 
-Userspace does not see a rejection. Such a write maps to two extents,
-so xfs_bmap_hw_atomic_write_possible() returns false and the write goes
-through COW. This is the same in v2 and v3. In v3, a write sent to the
-hardware is also aligned and no larger than the group alignment, so it
-cannot cross a group boundary.
+Passed functionality:
+
+- SD and eMMC complete the firmware, kernel, and root filesystem
+  boot chain.
+- UART console works at 1500000 baud.
+- SD read/write and data persistence checks pass.
+- All eight CPUs start; CPU frequency scaling and hotplug checks pass.
+- Both Ethernet ports obtain IPv4 addresses and pass bidirectional file
+  transfers.
+- All three Type-A ports pass USB2 and USB3 enumeration, data transfers,
+  and reconnect persistence checks.
+- Type-C host and device modes pass in both plug orientations. Physical
+  reconnects correctly select the expected device, host, and device roles
+  in sequence.
+
+Stability:
+
+- Repeated cold and software reboots complete on SD and eMMC without data
+  integrity failures.
+- A combined CPU, memory, network, SD, and USB3 stress test completes
+  without a crash, lockup, CPU offline event, or thermal shutdown.
+- Ethernet error and drop counters do not increase during bidirectional
+  network tests.
+
+Build and checks:
+
+- The kernel, modules, and board DTB build successfully.
+- The series passes checkpatch with --strict.
+
+Untested hardware and paths:
+
+- NPU
+- PCIe
+- GPU, video output, and audio
+- Other low-speed external interfaces
+
+Some files in this series are derived from the Forlinx OK3572-C BSP
+Alpha1. Thanks to Forlinx for their support.
+
+AI assistance:
+
+- Codex / DeepSeek V4.1 Flash were used for:
+  - Reviewing and adjusting code style to follow community conventions
+  - Automating tests
+  - Collecting data
+
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+Changes in v3:
+- Deprecate tx_delay and rx_delay and disallow them for RK3572.
+- Link to v2:
+  https://patch.msgid.link/20261111-add-board-ok3572-c-net-v2-0-304466394970@qq.com
+
+Changes in v2:
+- Split the original RK3572 support series by subsystem.
+- Add rockchip,rk3572-gmac to the shared Synopsys compatible list in
+  snps,dwmac.yaml.
+- Link to v1:
+  https://patch.msgid.link/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com
+
+---
+Raw dmesg: see the v1 cover letter.
+
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: David Wu <david.wu@rock-chips.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+To: Jose Abreu <joabreu@synopsys.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+
+---
+Cunhao Lu (2):
+      dt-bindings: net: rockchip-dwmac: Add RK3572
+      net: stmmac: dwmac-rk: Add RK3572 support
+
+ .../devicetree/bindings/net/rockchip-dwmac.yaml    | 15 ++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |  1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     | 53 ++++++++++++++++++++++
+ 3 files changed, 69 insertions(+)
+---
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+change-id: 20261111-add-board-ok3572-c-net-4d45887c575f
 
 Best regards,
-Daejun
+--  
+Cunhao Lu <1579567540@qq.com>
+
+
