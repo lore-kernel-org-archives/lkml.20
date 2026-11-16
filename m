@@ -1,144 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794790952;
-	b=SUhNVIvdzW+Ltt4crX0xzsW0OPUtlTrlPsGM0mRAvo0yRb5MiADLwprf2zXZ3Eia5yF3
-	 DcF5YCQExNoqwVAXbrwC4eTZWlpBRip4FqUTraWKLsuQ+dhBej8BgXcqj3PP4K7Jl/1y8
-	 pevM706TeU8weJ24E0vnCMuRV6pqg4Os8Rfh1DkWp/TkTRnh5j9mBQQovgFeuUFvFMU2u
-	 Y3Ha2tfQE3g5uBLBeIAEs0s0u4dqvY3gAjyyrfkcUSPQuWbkFGVDUGD244jei2Avt//sh
-	 7pMlJS1Xc5cXQZB7+i8Lg8hnuQ97uc+mBT212I3nBansIUreZcWeHnXwLHnsesDzURw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794790952;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
-	 Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=qQgYsM5vinnLXK0UIGtDewY/yq6H9Ak+x+6Q/hQDpvI=;
-	b=5KTQ7NmQxfmSYT1expjv8VA8DFZAnOQfiyKA2Obe0mkziUJDQbNqQKP1dNMNNPHdEWZO
-	 /vb+IIkex+V2USuLEuZvPgFH4cZZuZ0k7kMu9kY33OTcpkAGQh6XwwSsX/dZw2ZcMYAb8
-	 MaR2s367gf3C/x5RNNXqWJL8nVpjLFEx3D1UQwyruTtEqspePY4cvsPWgTGoeJ85blehH
-	 vg8EAZrctnjjkaN3O4ssN7dtfZAQLPak9r3RHIVd1p4vQqTTnqbFd0rTwMAuKUyLemvlA
-	 d6B6+fxkstHaDCbCwtamWHy23IF5uyLBnd00PS4rLM4obpfDGYjE+gLO5iN0NEuowKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuhT4iao;
-	dkim=fail reason="signature verification failed" header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=lpqPxnut;
-	arc=fail smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794790984;
+	b=RDJNhZg1/SZAZD7rduSndMOh6ahXraeswqmg4BOF7uvsiRcKsTd49kwrUY30Un6gpzla
+	 sp3HfXlH5xyaQJraFUV97ZnJl+AUoiLP0KKZ/blR1PFl78Fp/VZSVjNy+QMWAKDozH8+c
+	 7U56SWqhDVdlYG39XKb6uMv0DuxDG46cmj/A7v9W4tTPmW8mP17k7yP30RAQk3NLJDfT+
+	 X35glT8NizkLySdhuPbTuDyfjJGNa+OL8Bo7V5g/Sf/8f/S6LANMLayjmKYde/QnyfiVr
+	 O5/rOrbSs1wPWq+YjprGxwpa32vracyhXNtOd4h35IDYz6dirrxfr5e2vBSlPsT6Usg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790984;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=Y1Y7jbh3BiDTU1EyRzCfkFXW+8tN+LCDZmGqBMRDTkc=;
+	b=bADmem7rBxhetRemjBisuBVPIvDieoFchcnXHkoM7wf+aCrHfY4A7DEv/ORt6+4rEPwg
+	 s4+NN2sbrcbcj/qretBAXTEagvtZP2Cx/MsYs9KFQLrwGiw77p2ehAn+p6IIVMijFXbM0
+	 83YNfFT8Y/JSJaZvH4ENPh/8EnXioNNITIz6egLBvEd8VFi9+sxoqwqYb0ODsg6BKkwQk
+	 4MjZKz9zFI/m+JsYCUdz6lD66qIvPxjI1oHIs2PEd1AUlgPN/4anMqIoolNualmjSFAf3
+	 Y/xz92sbnLh4QeEb8Qm/WrMMnyCBbEBIBft/cafpJBjVZthAmybZF3VPkG5p1SgqPYQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmx.com;
+	spf=pass smtp.mailfrom=gmx.com;
+	dkim=pass header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=Jd4JBDKl;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0542A606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0542A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA91E606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:03:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA91E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuhT4iao;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=lpqPxnut
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794790952; x=1826326952;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=0nAL0lEwShlyeTwz3Z0ivVqmmCmZAhU7IX3hD688alU=;
-  b=DuhT4iaosGcg3lK5sVGHChNBczhToExe+AQjWAaFwHL2rwa8jzegA5f8
-   dNNHaCsGLPsUfLJJqE3j+vN4/afhXPZwOg8y0wdxofhEOGKKIf0ttd0vm
-   ipL1tUpdY//0VmOKhPIW3AqbY7g1G4sal0EqQVgGoOs/o73wllVPjqfER
-   PKUmFJ6NZ7dXX6SfPlO1JLM1XMekFpF14ZEtJ8KsrBqu6qqFQP6gNX5wN
-   fAIlZahkoin6WxbwtdFcdpaIE1rdOdYO2R2AeMZmDWXUOcM5xu+X+mVEa
-   B73rJEqbJzxCAPY1wIWaAbsRuDAJ+hHxVqhqBdOaL2j9s2fPwiY+di+gK
-   w==;
-X-CSE-ConnectionGUID: hb3l0KL5TOqFj9r9rBvkZw==
-X-CSE-MsgGUID: fugoI3yeRwiWn9tqQ7G1XA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3558874"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3558874"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:02:29 -0800
-X-CSE-ConnectionGUID: TRUMyIaGS++v2pguy/b/LA==
-X-CSE-MsgGUID: 8ckfye+BQe+6PqXLbLkv+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="9761487"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:02:27 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 15 Nov 2026 17:02:27 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Sun, 15 Nov 2026 17:02:27 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.71) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 15 Nov 2026 17:02:09 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jh8pVxsYebga+IuZS5EdkKzJhGlANUKYvkLGnoBTqFgqme/FhFF0Q1NQ6fBZYWgP+1ZLMx2V89mShYd7L+37K5kEPlygv3RRxJNpjO97V+i5nfXsWZmmBcQn38FGBDePoe0a8okdz9CCaJJAnfChQHjij6WsyS7l6FYYGT/LodoGyZT367HOs5iUIHl/1+pCwQFTQDjuyiLxi6MfDoVYOP1oVjTuaO8s0dpkiqowKbwtG/UcUgdnrLu0Va/UbeoLB8xTldwjpjuxpKAho28la9Yp/ABo2ZvaBjaJOQrmnmZkttguBZEyWHnwtm2VawL5n4OVkjyFPwkCJMFWrRv97w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NU0eJ/4RY3RQ+GLqzABtIGExPU7FKtF5yPjamMxBq60=;
- b=PjRomKTAfNmxUGCpN0HpSSZ5ueQOHtfgI7KelPMRYIaySn9HUBRskVqHoUPAXltgXPxwfPoaGL5kcsaCQK+vQ+0WpZKhfHB01252G2Bwtm++cUpMqc54igH7+1wXz6VJvkUZ/zHUZFiY+xjGZv33YQorBsj/9AXYdywtRetGiXxM5+3gpCKdEY5e+dWsOETkgMNxVet1pEmQadBiRqSh62qQzI53+X9UVbuiRVQMwQyRVd7O19iVYisKQtak76l9sn1KRyrtFO95QfNCjsFuznBzNbhIZOdT6k8mnydoK7a76r30DOaJ25qlk/Oh+OI71jOZmGHr3cPX9ZbLeHwAeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NU0eJ/4RY3RQ+GLqzABtIGExPU7FKtF5yPjamMxBq60=;
- b=lpqPxnutYdWO0Vd74fpWiVW7Ji0P8bo+mEDIxtFjrzbMefEix2LXTa+6BsQ6aaYxsI4nsAa+pC8wjOcCWnCE+Za9nkyi7fa648tWIOEyqMaPqbmHuA/qOpFfkLjfEVPoYjntwgO8GLUFPvNC+n7GH/7y/j5ANPuxhafi59JbI3o=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by DS0PR11MB7766.namprd11.prod.outlook.com (2603:10b6:8:138::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
- 2026 01:01:27 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 01:01:27 +0000
-Date: Sun, 15 Nov 2026 17:01:24 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
-	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
-	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 00/33] drm/ttm, drm/xe: Minimize dma-resv hold times
- and defragment sub-optimally backed BOs
-Message-ID: <avpV5E1PgH3YKzwk@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0147.namprd05.prod.outlook.com
- (2603:10b6:a03:33d::32) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+	dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=Jd4JBDKl
+DKIM2-Signature:  i=1; m=1; t=1794790981;
+ mf=PHF1d2VucnVvLmJ0cmZzQGdteC5jb20+;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.com;
+ s=s31663417:rsa-sha256:p5qB5Q0S+H7Z9J96FyKCYqCPdPHG
+   dF21KBU/riwcAwiJGH2mnBfKerSekmgRpynPf543/q6zT8TJ2xUgdApwMGtHn2U61wIe66Z+P2p
+   7mVaiJOkCKDQdaizaWqKqmYyOs7fY7ElEL+siXke+4pdQjfcolXQp4x5iDn+Qz/9uM5EOriHgLM
+   7MFTnFD+umqZNwPnKsI/DlCWmn1G1VqJHkZl2ONHH27+gIIuW86yo12lcztuHLtsaUyT7eYKGkr
+   BpiTaNTa+0CvNQy+SpbH1kVnGUPTnZMUsgJmDnEJWnNDLG6uadtyWcTtN+/EIOFMK9/MmeFIfXt
+   buEMagC2aKxbVQ==;
+Message-Instance:  m=1;
+ h=sha256:
+   1ZIv1zpkvhIhp29a4QEjeG0La/eA15ZjOtr3pPW73ZM=:
+   k9dOj6/Jr0ariC3GLfAsNMc9jNeArIiF3E08lY6gAVU=,
+  sha512:
+   rzZJXt70/CR4dOpDXBOVfrcBjuU+np+OmD9LOZyp0gUbjFom5nxfp43YV1shp/HZXI2wMI5vHG4KjX40pxAd9g==:
+   llRzvcmKOretsDRyEXhZ3PJAWPJTFo6K2VK0cdKx3bpp4ky2T3vdKjVlrXpeihlRJTf9qbso6kPnjOhumK9n3g==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1794790972; x=1795395772; i=quwenruo.btrfs@gmx.com;
+	bh=Y1Y7jbh3BiDTU1EyRzCfkFXW+8tN+LCDZmGqBMRDTkc=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=Jd4JBDKlUA8rjRx+wUV0FFhi2B77xrrG07pYXKx7gmA60b8jOkGZ8jmQS0JcmgGJ
+	 1Fi+Ahd00wk8djldapWAHFS7U/2UJmt/U03vzU0XHD6ZNKg9dmpf0zQtj94foFVvk
+	 IR/gwRRhztaOFzxQwgbfKqPK+o/tBLrhmL2fHTaXWtGpqFMOzvwOrpbMKSyi9gjeF
+	 6M6Dn/EVCGi56nzjALECsbnHexjiKiKdF3cGDae5x4Jl8NMqf0TbOWhmjrQ/VUxtI
+	 lmwYjWXq/4jWcrPZvaAqkf8pDNjEcu5yGp95ygOm3E/EZ2WGPk6HtqphAk7CjI3ja
+	 eeOaLVlXKgYLY7oHAg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MGQj7-1xEl0g3fFF-00FZSt; Mon, 16
+ Nov 2026 02:02:52 +0100
+Message-ID: <29d117e7-8ccd-4d55-a8d5-1ef78d851700@gmx.com>
+Date: Mon, 16 Nov 2026 11:32:48 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,248 +81,403 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DS0PR11MB7766:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8ac48b1-b295-4c8d-56ca-08df437d242f
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 44HCP+s9JkSUaGAAgRBMjHubEalXej4o/fjNoPPHGtfV+j8sYpeoJ9T5p21KEBqdbj+fy6NB+jF2s0irFEXS0LPpRjpnj6fPVmNvpU4rrz/hJIWzjjEG9Xay0+yYPBNkBVrBW+0qit1xVQr3XEfhD4JRtmWBjFU2T5oeR8Nil+rdPkkFdUbR1UI3RYLbyWJajN0q9Yg165ircIlzXbaaxGjBTrXLputgn1CLgPGp1McvJRTUcXyeu7PTh9VVCXbwR912xo9EyefXVw6jB8IsryUb8UI7mTV2wF+ls8p3OiV7FpN7+x/GQR/jaH8t7/9JjhGUwJaQUHvhlUiFbGvxduxDeyvycFhqkE8W2en8Yr+jAp9jSMG9YfoIziV/uU4opzvsJ4Q+bF9LV3sSeJhp9upsdSNmDq6WA4/23ZFqy6LOcvp3i4r8xEhLXPzvOofrCBXQ2gN4+a9BxD49cgn3lyIz15hG1am/E9EemX0IPPMJcYZ4mCcvKJgGZSMSjVU1pWIA6YV3yHzCr6xjW70bKkSgrSrrO99QrpjST9jZFFxN98+OSXF1zLV6vPwRJxlRSiSd7oV9jSR6x3jU/wdp+U6z9Nw5epyPONtx/rn5Z58=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?CEicS0vzPVZg/4AAM2mmMSaZBr6eUhSpOTdSZeAfnl4qJGNpeymyccAXGR?=
- =?iso-8859-1?Q?83kSkG6QCVFSqGvalFI23ui9eoliMEPxbJhmYtvUfZhZCOqw5fMrDOZ5ha?=
- =?iso-8859-1?Q?7xRO0Ov6j2hrnuUMPxfRVUq2p1lgm9GTKz46/kClRXTpC1XJuZWfgEJ/5/?=
- =?iso-8859-1?Q?81GE7htHoWu+97pVqEC22k5bsbJ3lLMMDvDO4diXQF9mm6648qhV0pzo0B?=
- =?iso-8859-1?Q?43YQDaEyPy6HEFWeSMdFzV8hZdI8Ru11OsSOUr5S0olOhN8vRAUWxwG2qg?=
- =?iso-8859-1?Q?AoPaZaz4J/RATM0D0Bq45Tzmrm4dIluAGbhC0nwb2yan0qlwdOrBApgIHt?=
- =?iso-8859-1?Q?ygEL6l6V3gBYBAP56ZUsuxXpr1qZ2woUeNrNSGDvPfmMgGRZNgGS68c64G?=
- =?iso-8859-1?Q?nFhK2gJhKskeUFaoFyrh0qKOzhSQ7otqoMZ3xDxZcsy4njafy+Cvo3JDoC?=
- =?iso-8859-1?Q?xlTz7P4ixvUWeB1tbvQJGSbJJjmG6hB6RJzl5F6iN31dDp16nV6THEuorc?=
- =?iso-8859-1?Q?4oMC9Grbj3doWupOZbqhaZQrIxp360zCmJWvXKiV55dM2fmkxK1BBL2ido?=
- =?iso-8859-1?Q?HEzE5vBO7BvyqREYnciq2yiWGDt2wKvPL1ceFREWu8Alf+59viHCtJwI08?=
- =?iso-8859-1?Q?YDPvctGGCXXZmF3xOFtD8NOuJINrIWqiyZFq+X9HwrJAk/J9RtH8fkPmvp?=
- =?iso-8859-1?Q?ozCTqJy1QRK+ckCGPt47axDlAdGSdxcY8zOqlKtxgkh+oRRNDYbkJHDkt5?=
- =?iso-8859-1?Q?8W7dFk8qXtamR9xk0KBeJBXsZ0fJ4dJzGyK/VnLSzsx/cRk26iYXKMpoVf?=
- =?iso-8859-1?Q?+2M++SIgh0Ht8Iz+Hm5c9RvWS2OzBQRCDVABaShH8smMMqh/vocaggHrAv?=
- =?iso-8859-1?Q?BHGoeM1oDNKuOohkIZHXJ4fIHXhszxki48s/j1C7W/GDjnQjz8D9wKo+AM?=
- =?iso-8859-1?Q?HITcofI1vfJ5wjMGOXz+6CwLSuD9mYAmd3jCjvunRYaaTd4CREWkYA/fhf?=
- =?iso-8859-1?Q?WwIsgFCf+s+9E6gOmZd6GfVudgBDqKzi6jtWiQAEbip8q6gCz4bK/0FSvo?=
- =?iso-8859-1?Q?CR/axW86ECqbAypjupdfzK2TjWD5k7VaclJhwLjXjhP57jCc1tx9PC14v8?=
- =?iso-8859-1?Q?0jmOXrzlL2RdNqOqtJFaKWy4X8+AxkGoa5CGVxNH62O5smY9gh0jsFQrqw?=
- =?iso-8859-1?Q?AubEhl1kaqClmlWteNew3j72IsRrCxbzK6mWuqqo/2WCJ7pDivkNW+F+Qx?=
- =?iso-8859-1?Q?x6/hc+olDi0wJoGbQhqguCTrvsa2rABdvBGQRw5YqWECegl20fqTu3Pd0N?=
- =?iso-8859-1?Q?Q4qzaGCv53Pb2I9KfJ8k9ks0+ogZeId9xz9wVpf9dt7RWbhMPZOEAZCFOJ?=
- =?iso-8859-1?Q?7k/DHDos0MogmMhxAMQbiGzHL2sZNnSYEh0KI1P33Cuv8mCubXR+Y38L5Z?=
- =?iso-8859-1?Q?ynousGGYAlf0Sou/MixorP/9UDUW3h5KT6Yhl5YIJ74whyjfzNncHg+9HK?=
- =?iso-8859-1?Q?riPGi5f3fc7DUn2a9488SGFLVq6T51ubm3HxvKl8JVjgwVBMQCxnASMHrk?=
- =?iso-8859-1?Q?Gz1CU/pmoTWBwR/Fzw65Oa7bZfp7TrXHJ09cESU05Gj0f8qE5SMJdnHgSz?=
- =?iso-8859-1?Q?ZmyvITUAAiUqtMRshall+QQHf1mOZUtt42nVvUkIQ6sN7oEmEWtp5GlCw/?=
- =?iso-8859-1?Q?KD59ytlAnCmbkrY1aCTwsM5saaI7nsLQD8d8W6M11Mvx/NnT23d9UhkKHd?=
- =?iso-8859-1?Q?OqPmdBI7ZlOX1amjbsOjwDl92iuAVWHfq8LP0B9EPTxDTZ09VBouTxRGa8?=
- =?iso-8859-1?Q?rYeq2bME2uBAHFkiEzkNAS8UHxXCOa2kCc63R10DjifPzKgO97ol?=
-X-Exchange-RoutingPolicyChecked: i6LpSbg27spJQ1WmgTcnC/o6Nc3FHis+pmqXz8U3lyggvh7jIpWhfRaxmMTsIESxUSsHfwLZww8wOsfEoDJFkFMe96YyKFW70bnsnCiLwfiljvaWzP0f5PpjZFmXaCLsDigLJUMXw8a4lGMK7qHPwVKEZmOBYlEA0afgd+h3dGMhkSHojIjfyQyZhKLsPt6DJ15/cc5fcRzWGnDxGYrbMpLDaN1dLycgtMkbtbleD2/BGzvHjGe/iGWOodLpPN68phH4qIuDAlfpiEWDOs6q3IJo5QP0ZRZMUqJpDup80OmuTd6oQDbT9xFn5xvOVjX8xmjt1OaWTXKJ/kOhM412VA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8ac48b1-b295-4c8d-56ca-08df437d242f
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 01:01:26.9416
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ve5swCPy0JRGhJJIK4uHjhrmY12Js1pCWXsD0nxQT0a5w1TiF91Z7oWft7NTd5xRdRfYpl6Hl9moa5rVp4+B5RlO1dqqHoFHPOJt9KjHamueG/cOIvQ5XLdnD6hsLlmf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7766
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] btrfs: raid56: fix use-after-free when waking up the
+ rbio I/O waiter
+To: Miroslav Cimerman <mc@raidlab.org>, linux-btrfs@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ Qu Wenruo <wqu@suse.com>, linux-kernel@vger.kernel.org
+References: <20261116001903.63524-1-mc@raidlab.org>
+Content-Language: en-US
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
+ BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7o8gUJFKS8
+ OQAKCRDCPZHzoSX+qAogB/9C5ErH7KGAGpcLPte3Wcfdt3acCkGAuMpCjqOt8BVw30mX0kmF
+ SRo2nODjz8YsYhWR1T8L3ylANAS/IGIJ64idBmObaqGHQn845nXLIvG33LqMsAGXmOJdRgTT
+ BnBA+QFCEIZpo7L9Qt1dOQdHSpHT31Ta1kKsbDm582KPVBl6KRcJJBnjudIerOA1/L/zEyDa
+ YjIfHIcvuM3Xm8AS00iBpsmc151QgCPljqnSRXBiup9C1oMgVlaROhY1iDam4UIQB6glkHQs
+ LZhUmFDNimX5LxfOzi2pFJSjJvPclRZVX7Sq6XhK/OFb6IvswN7i0nUYZMQfuGDNqGn70ic3
+ AQImzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
+ CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
+ /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
+ GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
+ q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
+ ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7pCgUJFMw7KQAK
+ CRDCPZHzoSX+qEjbB/9crFFjips2NKxkt2XUutUIKjBoUlg/xCeFIj8PsTuJePhrV9HzgKsa
+ rJgSqo3t78oQWmeaP9WPoDYjfhOkQXEs+G9UwHe/LENm70+Q1jrwY3nlcR3YrkDCJ+EvMZOW
+ ackgcOYn46Iri9DN91FbSTszPMnwHi/nf0aeJXicO9krrY5C8mUxv4CSKeKSRg/5BR59uDiy
+ 9CMRHDtIDnpDWaLOXtUeowCdiC5O/jA571PMFx3Aolc7g4SSyNbYodblCBOdJrh0CVm2LlQW
+ 3SXrvFpSAw7LMVDgsS8pTRt4A11eTIS7mz0zqafTohXP1wt+575IBHK5ZpThQb+PzSQmxAqa
+In-Reply-To: <20261116001903.63524-1-mc@raidlab.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:BLfZMUw2qhZtMoeEzlh6K1FRls/v2CAneVzAGW/z5Gj+Ly+9HKs
+ ARLkCrP26s1rSHQlYPWo/UdvleVTrwaE1EwBOjN8cBXoo6qtV7gqqaQ6z72QJDaBBRQeUz2
+ A30lcy0l3B4H1wKRkWXs9lSfwmnPVIGT8VcIZUUlQiq6nSJAgygX3yUkAXTQdSvgNHKczWA
+ Hsnp1+36jYFvSSsa0vV3A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:8X4DgaQHlAw=;zeR+P8SAf9RvP7+rXd5qrcZD8wz
+ 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
 
-On Fri, Jul 10, 2026 at 07:55:46PM -0700, Matthew Brost wrote:
->The overarching goal of this series is to keep user-facing IOCTLs snappy
->by holding the BO dma-resv lock for the shortest possible time, and to
->push the expensive, best-effort work - page (re)allocation, DMA mapping
->and placement fixups - into the background or out of the locked critical
->section entirely.
->
->Two related mechanisms fall out of that goal:
->
-> - Out-of-lock backing. Page allocation and DMA mapping are the dominant
->   cost of gem_create and of BO moves, and doing them under the dma-resv
->   lock serializes otherwise-independent clients. This series preallocates
->   the backing pages (and, where applicable, builds the DMA/IOVA mapping)
->   outside the lock, then transfers the result into the BO under a brief
->   lock hold. The user gets a fast IOCTL return; the heavy lifting happens
->   without contending the reservation.
->
-> - Page defragmentation. A BO allocated under memory pressure keeps its
->   scattered, sub-optimally-ordered backing for its entire lifetime,
->   costing TLB efficiency forever. TTM grows the plumbing to track
->   order-failure and to re-back a populated BO in place at the beneficial
->   order, and Xe wires up a background delayed worker that promotes such
->   BOs on the GPU once memory is available again - again, off the hot
->   path and without stalling the submitting thread.
->
->Since v1 [1] the series has grown considerably. The bulk of the new
->material is a direct result of profiling: once the defragmenter was in
->place, the remaining dma-resv hold times and the per-BO
->allocation/mapping costs showed up clearly, which motivated the
->out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
->counterpart. Rather than land the defragmenter alone, v2 folds in these
->optimizations since they share the same infrastructure and the same
->"hold dma-resv briefly, fix up in the background" architecture.
->
->The series is organized in sections rather than described patch by patch:
->
-> - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
->   the defragmentation move, reclaim backoff, and out-of-lock page
->   preallocation plumbing.
-> - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
->   series builds on (DMA-mapping accounting, per-order DMA stats, async
->   L2 flush, and a VM-teardown ordering fix).
-> - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
->   the on-GPU defrag copy, xe_bo_move() handling, and the background
->   worker with its stats and configuration.
-> - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
->   in gem_create, moving page allocation out of the dma-resv lock.
-> - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
->   and finalizing the mapping outside the lock.
-> - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
->   preallocation for amdgpu, exercising the shared TTM plumbing.
->
 
-Assisted-by: LLM
 
-All components in the patch series seems to be essential, but probably
-below ordering of the features along with how much incremental benefit
-they offer would have been easier to follow.
+=E5=9C=A8 2026/11/16 10:49, Miroslav Cimerman =E5=86=99=E9=81=93:
+> The end_io functions of the RAID56 read and write bios decrement
+> rbio->stripes_pending and call wake_up(&rbio->io_wait) when it drops
+> to zero. The submitter waits with wait_event(rbio->io_wait,
+> atomic_read(&rbio->stripes_pending) =3D=3D 0) and then can drop the last
+> reference to the rbio, which frees it.
+>=20
+> If the submitter checks the condition after the last decrement and
+> before the wake_up(), it does not sleep at all:
+>=20
+>    CPU0 (endio, irq)                  CPU1 (submitter, rmw_rbio)
+>    raid_wait_write_end_io()           rmw_rbio()
+>    |                                  |-submit_write_bios()
+>    |                                  | \-submit_bio()
+>    |                                  |
+>    |                                  |-wait_event()
+>    |-bio_put()                        | ^^^ checks the condition without
+>    |                                  |     taking io_wait.lock
+>    |-atomic_dec_and_test()            |
+>    | ^^^ stripes_pending hits 0       |
+>    |                                  | ^^^ sees 0, doesn't sleep
+>    |                                  |
+>    |                                  \-rbio_orig_end_io()
+>    |                                    \-kfree()
+>    |                                      ^^^ last rbio reference, rbio
+>    |                                          freed
+>    |
+>    \-wake_up()
+>      \-_raw_spin_lock_irqsave()
+>        ^^^ io_wait.lock is in freed memory
+>        Too late.
+>=20
+> Even when the submitter sleeps, the wake-up takes it off the wait
+> queue, so finish_wait() returns without taking the queue's lock while
+> wake_up() still holds it:
+>=20
+>    CPU0 (endio, irq)                  CPU1 (submitter, rmw_rbio)
+>    raid_wait_write_end_io()           rmw_rbio()
+>    |                                  \-wait_event()
+>    |                                    |-prepare_to_wait_event()
+>    |                                    \-schedule()
+>    |-atomic_dec_and_test()
+>    | ^^^ stripes_pending hits 0
+>    |
+>    \-wake_up()
+>      \-__wake_up_common_lock()
+>        |-_raw_spin_lock_irqsave()
+>        |-__wake_up_common()
+>        | ^^^ autoremove_wake_function()
+>        |     takes the waiter off the
+>        |     queue and wakes CPU1       finish_wait()
+>        |                                |-list_empty_careful()
+>        |                                | ^^^ entry already removed,
+>        |                                |     returns without taking
+>        |                                |     io_wait.lock
+>        |                                |
+>        |                                \-rbio_orig_end_io()
+>        |                                  \-kfree()
+>        |                                    ^^^ rbio freed
+>        |
+>        \-_raw_spin_unlock_irqrestore()
+>          ^^^ io_wait.lock is in freed memory
+>          Too late.
+>=20
+> The same happens on the read side (raid_wait_read_end_io() and
+> submit_read_wait_bio_list()) and in the parity scrub. On 6.12.117
+> (bio_endio() and the end_io function are tail calls, so they do not
+> show in the trace):
+>=20
+>    BUG: kernel NULL pointer dereference, address: 0000000000000000
+>    RIP: 0010:__wake_up_common+0x25/0xa0
+>    Call Trace:
+>     <IRQ>
+>     __wake_up+0x31/0x60
+>     blk_update_request+0xfd/0x410
+>     blk_mq_end_request+0x1d/0x1a0
+>    Kernel panic - not syncing: Fatal exception in interrupt
+>=20
+> With KASAN on v7.4-rc2 and a test-only delay between the decrement
+> and the wake-up:
+>=20
+>    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x76/0xe0
+>     __wake_up+0x1c/0x60
+>     raid_wait_read_end_io+0x132/0x10f0
+>     blk_update_request+0x21e/0xea0
+>    Allocated by task 82:
+>     alloc_rbio.isra.0+0xa8/0xbf0
+>     raid56_parity_recover+0x10a/0x9c0
+>    Freed by task 84:
+>     kfree+0x154/0x420
+>     rbio_orig_end_io+0x1c4/0x340
+>     recover_rbio+0x393/0x590
+>=20
+> Wait with a completion instead. complete() wakes the waiter under the
+> completion's lock and does not touch it afterwards, and
+> wait_for_completion() returns only after taking that lock, so the
+> rbio may be freed as soon as the wait returns. The parity scrub waits
+> for its writes only when finish_parity_scrub() submitted them.
+>=20
+> Fixes: d817ce35d24a ("btrfs: raid56: switch recovery path to a single fu=
+nction")
+> Fixes: 5eb30ee26fa4 ("btrfs: raid56: introduce the main entrance for RMW=
+ path")
+> Fixes: 6bfd0133bee2 ("btrfs: raid56: switch scrub path to use a single f=
+unction")
+> Cc: stable@vger.kernel.org # 6.2+
+> Reviewed-by: Qu Wenruo <wqu@suse.com>
+> Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
 
-1. dma_iova usage
-2. out-of-lock preallocation
-3. Defragmentation support
+Pushed to for-next branch.
 
-Just a thought, not a suggestion to change.
+Thanks,
+Qu
 
-LLM also suggests a light compaction (with __GFP_KSWAPD_RECLAIM) in
-between the backoff and heavy reclaim (RETRY_MAYFAIL), mainly for the
-gem_create preallocation. Not sure how much real value it adds though.
+> ---
+> Changes in v2:
+> - ASCII race charts (Qu)
+> - drop the FuzzyRAID sentence and the completion.h include (Qu)
+>=20
+> Found with FuzzyRAID, a fault-injection tester for RAID that is not
+> public yet. The analysis, the fix, the tests and the commit message
+> were prepared with the help of an LLM. I reviewed everything.
+>=20
+> The crash: 4 of 10,711 fault-injection scenarios on a 3-device data
+> RAID5 in QEMU (6.12.117). With KASAN on v7.4-rc2, a test-only delay
+> (20 ms between the last decrement and the wake-up, 0.5 ms before the
+> read wait) shows the use-after-free above in the first pass of reads
+> over the RAID5 with one device dead. With this patch and the same
+> delay there is no report and every block reads back correctly.
+>=20
+> v1: https://lore.kernel.org/linux-btrfs/20261115232358.58163-1-mc@raidla=
+b.org/
+> ---
+>   fs/btrfs/raid56.c | 30 ++++++++++++++++++++++--------
+>   fs/btrfs/raid56.h |  3 ++-
+>   2 files changed, 24 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
+> index a8a8004bb14c..60f270c3a339 100644
+> --- a/fs/btrfs/raid56.c
+> +++ b/fs/btrfs/raid56.c
+> @@ -1019,7 +1019,7 @@ static struct btrfs_raid_bio *alloc_rbio(struct bt=
+rfs_fs_info *fs_info,
+>   	}
+>  =20
+>   	bio_list_init(&rbio->bio_list);
+> -	init_waitqueue_head(&rbio->io_wait);
+> +	init_completion(&rbio->io_done);
+>   	INIT_LIST_HEAD(&rbio->plug_list);
+>   	spin_lock_init(&rbio->bio_list_lock);
+>   	INIT_LIST_HEAD(&rbio->stripe_cache);
+> @@ -1619,7 +1619,19 @@ static void raid_wait_read_end_io(struct bio *bio=
+)
+>  =20
+>   	bio_put(bio);
+>   	if (atomic_dec_and_test(&rbio->stripes_pending))
+> -		wake_up(&rbio->io_wait);
+> +		complete(&rbio->io_done);
+> +}
+> +
+> +/*
+> + * Prepare to wait for the nr bios about to be submitted. With none the=
+re is
+> + * nothing to wait for.
+> + */
+> +static void rbio_prepare_io_wait(struct btrfs_raid_bio *rbio, int nr)
+> +{
+> +	reinit_completion(&rbio->io_done);
+> +	atomic_set(&rbio->stripes_pending, nr);
+> +	if (nr =3D=3D 0)
+> +		complete(&rbio->io_done);
+>   }
+>  =20
+>   static void submit_read_wait_bio_list(struct btrfs_raid_bio *rbio,
+> @@ -1627,7 +1639,7 @@ static void submit_read_wait_bio_list(struct btrfs=
+_raid_bio *rbio,
+>   {
+>   	struct bio *bio;
+>  =20
+> -	atomic_set(&rbio->stripes_pending, bio_list_size(bio_list));
+> +	rbio_prepare_io_wait(rbio, bio_list_size(bio_list));
+>   	while ((bio =3D bio_list_pop(bio_list))) {
+>   		bio->bi_end_io =3D raid_wait_read_end_io;
+>  =20
+> @@ -1640,7 +1652,7 @@ static void submit_read_wait_bio_list(struct btrfs=
+_raid_bio *rbio,
+>   		submit_bio(bio);
+>   	}
+>  =20
+> -	wait_event(rbio->io_wait, atomic_read(&rbio->stripes_pending) =3D=3D 0=
+);
+> +	wait_for_completion_io(&rbio->io_done);
+>   }
+>  =20
+>   static int alloc_rbio_data_pages(struct btrfs_raid_bio *rbio)
+> @@ -2329,7 +2341,7 @@ static void raid_wait_write_end_io(struct bio *bio=
+)
+>   		rbio_update_error_bitmap(rbio, bio);
+>   	bio_put(bio);
+>   	if (atomic_dec_and_test(&rbio->stripes_pending))
+> -		wake_up(&rbio->io_wait);
+> +		complete(&rbio->io_done);
+>   }
+>  =20
+>   static void submit_write_bios(struct btrfs_raid_bio *rbio,
+> @@ -2337,7 +2349,7 @@ static void submit_write_bios(struct btrfs_raid_bi=
+o *rbio,
+>   {
+>   	struct bio *bio;
+>  =20
+> -	atomic_set(&rbio->stripes_pending, bio_list_size(bio_list));
+> +	rbio_prepare_io_wait(rbio, bio_list_size(bio_list));
+>   	while ((bio =3D bio_list_pop(bio_list))) {
+>   		bio->bi_end_io =3D raid_wait_write_end_io;
+>  =20
+> @@ -2444,7 +2456,7 @@ static void rmw_rbio(struct btrfs_raid_bio *rbio)
+>   	/* We should have at least one bio assembled. */
+>   	ASSERT(bio_list_size(&bio_list));
+>   	submit_write_bios(rbio, &bio_list);
+> -	wait_event(rbio->io_wait, atomic_read(&rbio->stripes_pending) =3D=3D 0=
+);
+> +	wait_for_completion_io(&rbio->io_done);
+>  =20
+>   	/* We may have more errors than our tolerance during the read. */
+>   	for (sectornr =3D 0; sectornr < rbio->stripe_nsectors; sectornr++) {
+> @@ -2915,7 +2927,9 @@ static void scrub_rbio(struct btrfs_raid_bio *rbio=
+)
+>   	 * and writeback the good content.
+>   	 */
+>   	ret =3D finish_parity_scrub(rbio);
+> -	wait_event(rbio->io_wait, atomic_read(&rbio->stripes_pending) =3D=3D 0=
+);
+> +	/* It submitted its writes if and only if it returned 0. */
+> +	if (ret =3D=3D 0)
+> +		wait_for_completion_io(&rbio->io_done);
+>   	for (sector_nr =3D 0; sector_nr < rbio->stripe_nsectors; sector_nr++)=
+ {
+>   		int found_errors;
+>  =20
+> diff --git a/fs/btrfs/raid56.h b/fs/btrfs/raid56.h
+> index 8700910b8dc9..c86ffd655360 100644
+> --- a/fs/btrfs/raid56.h
+> +++ b/fs/btrfs/raid56.h
+> @@ -175,7 +175,8 @@ struct btrfs_raid_bio {
+>  =20
+>   	atomic_t stripes_pending;
+>  =20
+> -	wait_queue_head_t io_wait;
+> +	/* Completed by the last end_io when stripes_pending drops to zero. */
+> +	struct completion io_done;
+>  =20
+>   	/* Bitmap to record which horizontal stripe has data */
+>   	unsigned long dbitmap;
+>=20
+> base-commit: 3aefd67f08f8ed59ed0fa90619b25856df415031
 
-Niranjana
-
->Testing
->=======
->
-> - 3D benchmarks on Ubuntu and on Android, with memory intentionally
->   fragmented by a separate program at launch (plus beneficial-order
->   error injection). BOs are initially backed at a sub-optimal order and
->   scores start lower; the background defrag worker then promotes the
->   backing to the beneficial order and scores climb back in line with the
->   unfragmented baseline.
-> - IGT:
->   https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
->
->Matt
->
->v3:
-> - Fix valid raised raised by Sashiko on v2 [2]
->
->[1] https://patchwork.freedesktop.org/series/169053/
->[2] https://sashiko.dev/#/patchset/20260710215442.2444235-1-matthew.brost%40intel.com
->
->Cc: amd-gfx@lists.freedesktop.org
->Cc: Alex Deucher <alexander.deucher@amd.com>
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->
->Matthew Brost (31):
->  drm/ttm/pool: Allow backing off reclaim at the beneficial order
->  drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
->  drm/ttm: Record sub-optimal page order allocations in ttm_tt
->  drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
->  drm/ttm: Support defragmentation moves
->  drm/ttm: Add fault injection for beneficial-order allocation failures
->  drm/ttm: Harvest beneficial-order pages on defragmentation moves
->  drm/ttm: Bound page (re)allocation per defragmentation move
->  drm/ttm: Preallocate beneficial-order defrag pages outside the lock
->  drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
->  drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
->  drm/xe: Destroy page tables after unlinking all VMAs on VM close
->  drm/xe: Track BOs backed at a sub-optimal page order
->  drm/xe: Back off beneficial-order reclaim under defrag pressure
->  drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
->  drm/xe: Handle defrag moves in xe_bo_move()
->  drm/xe: Skip self-copies for borrowed pages on defrag moves
->  drm/xe: Add a page defragmentation worker
->  drm/xe: Add defrag GT stats
->  drm/xe: Add Kconfig.profile options for BO defrag configuration
->  drm/xe: Defrag using out-of-lock page preallocation
->  drm/xe: Add defrag profiling tracepoints
->  drm/xe: Preallocate system BO backing outside the dma-resv lock
->  drm/xe: Add tracepoint for xe_gem_create_ioctl
->  drm/xe: Add IOVA-based xe_res_cursor variant
->  drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
->  drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
->  drm/xe: Add packed copy-step IOVA mapping for defrag
->  drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
->  drm/xe: Finalize defrag-IOVA moves with post-copy job
->  drm/amdgpu: Preallocate system BO pages outside the reservation lock
->
->Thomas Hellström (2):
->  drm/gpusvm: Add a DMA-mapping accounting callback
->  drm/xe: Add debugfs stats for DMA-mapped pages per order
->
-> .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   73 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
-> drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
-> drivers/gpu/drm/ttm/ttm_bo.c                  |  118 +-
-> drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
-> drivers/gpu/drm/ttm/ttm_pool.c                |  947 ++++++++-
-> drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
-> drivers/gpu/drm/xe/Kconfig.profile            |   40 +
-> drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
-> drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
-> drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
-> drivers/gpu/drm/xe/xe_bo.c                    | 1699 ++++++++++++++++-
-> drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
-> drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
-> drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
-> drivers/gpu/drm/xe/xe_device.c                |   41 +
-> drivers/gpu/drm/xe/xe_device_types.h          |   57 +
-> drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
-> drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
-> drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
-> drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
-> drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
-> drivers/gpu/drm/xe/xe_migrate.h               |   17 +
-> drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
-> drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
-> drivers/gpu/drm/xe/xe_svm.c                   |   44 +-
-> drivers/gpu/drm/xe/xe_svm.h                   |    4 +-
-> drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
-> drivers/gpu/drm/xe/xe_userptr.c               |   63 +
-> drivers/gpu/drm/xe/xe_userptr.h               |    1 +
-> drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
-> drivers/gpu/drm/xe/xe_vm.h                    |    5 +
-> include/drm/drm_gpusvm.h                      |   19 +
-> include/drm/ttm/ttm_bo.h                      |   64 +
-> include/drm/ttm/ttm_pool.h                    |   46 +
-> include/drm/ttm/ttm_tt.h                      |   43 +-
-> 42 files changed, 4179 insertions(+), 190 deletions(-)
->
->-- 
->2.34.1
->
