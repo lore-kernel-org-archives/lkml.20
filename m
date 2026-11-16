@@ -1,77 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844991;
-	b=TvP8EtVXgINbKGBgLrhi5jeyciHtv7YaeYjcATZBTi5MkUyIDikVGGJiL9GDmNmllBPI
-	 tBXvojcyZjWPjI1nEI/OPC6FpKjhc6dCJA+iDGdUp9bvPtzi5claX60F+Z1dK4g6mVxCZ
-	 kpzhqhaZ5iNpuEu7BbCsjcU7PrNnZgw8IrMOdFKltJ3PWpw7pXquH5paGItWz4GAkCjFm
-	 pF5K4lfouPXNKMdw0x6RpsOliTfezcGEJr0YF4QKY1JwuMsfBz5DJS6Pd+DEOJm/QaVNL
-	 7VB//mIhq5vwDiwvJSSYBRO323GRgfweaifkwqcFaayJO7TfNByvwmWKlulqmaFPqYw==
+	t=1794845002;
+	b=5TtboQF82gtRD6sdxiA6kUgboojQYRgt64GN13yOBgRMGci51c+yiSO7YEQ8wC50OEiY
+	 sH2FwqoEOVW2JggZZMNeoxA5QNwUs20whqDPWIeMRaik7ii7duhcUPqpH0NrmobSSAzA0
+	 Pgzc4nb/VkWq6fNrAhnn/dGDh/t4sdgD4xLZEZR5RYYuNB4L5d9kcGZaJKc1ldv+6SDYN
+	 c4av53JzwcT43TkIe7jA+wQqpT3qx22l4F5mM3yFoLC3i4VvWhKvY03zPAWe5ZOWo0CND
+	 77s7rR/fePGW6/2bJJpHsnEZv2XydfqbxgkHfpis+I36dbxh1tw6Bw3Qf3+uP8hKw/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844991;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=gq8JU+JQ/dsUDLNIdMHe4BCKqz+Gvvf+BSq2uB24YK4=;
-	b=RTlLmA7Ct9idheeMPTE2ujCBO9k4h1sXm8O298Eo1IaZks7HIlDYAD7ZXs+0eiLt9U6H
-	 LWSFbs4H00LTCynZdUPGRH5B8pTryEkI0eoqWA1kae/B8Qof6XELEqQH8u5NfmLr7AIQO
-	 Ld/gWbIzpTf5OwptF4WXAicACrmzzzcpbQSe4SxPgURsMbW5NzgIBYZOuRdEsRTLzYyOR
-	 xj4Dq8IY7hx09aekhIV5RSRoFl0mO3+hublNeHfBQ4Jeydp5qqbxKMWqg9uNS7wIcpmWP
-	 9Ln2zpJN/XpTZIRLe0BpqpBWRhFPyC+1WrhpHQV8iDUDEOVteuT2auIimm7p1in33QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845002;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Pre-Result:X-Rspamd-Server:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id:X-Rspamd-Pre-Result:X-Rspamd-Action;
+	bh=HSoTJR0escZOmXQpgBHoen0JojHZeXrEQphMnwyZLSc=;
+	b=bZUayKpLXjpDb8XzGRIZeysIORW0oeUuwkl1uBugx0PqtmKTXJOrtu+jBxEwFltOShtW
+	 aP6YNsYg/DfHR8UeDqaNMbR+u/2Szgg9AwsgZhZwDWY1VrMSmnk4iGhXqC10KJ5hH19XD
+	 ASr6ArRo9gWiwF9LYAOZjhlw3WBfpZUkmqGU0Ge+xVvI4UG939GfaKlwSFCWYet4X85d2
+	 EVncbJ21Pm47wmFWlR5fZUGGxD6taIVn4YPOQoGCNC2HuR8JurVj75oo3cHw3Hfkwn82T
+	 UFr/wQglAv/cH2CbMZxglqm1YeooM+OCjb/N020L1gQayNStwLbnLfxcLfghmbt1a1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=UEe9tgP+;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=UEe9tgP+;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7192606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7192606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2112F606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2112F606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=UEe9tgP+;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=UEe9tgP+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 008852212E;
-	Mon, 16 Nov 2026 16:03:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794844989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gq8JU+JQ/dsUDLNIdMHe4BCKqz+Gvvf+BSq2uB24YK4=;
-	b=UEe9tgP+oqHpf/0sZ8MttD5RIQauegNUwRbA6ZFtpAyFe9TlvnPQwsHNDWNJA8IAwsW6Mi
-	Fe0iuhs76MaZF+LKoaII9TepqG6x5ehx7LQk7adzPcmKSDvuAfGbexctq18Jbkuz1e0Y5r
-	H7Ib0Zkb9bhk+37fJmwNi51OjPEaG7g=
-Authentication-Results: smtp-out1.suse.de;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7413E1FD53;
+	Mon, 16 Nov 2026 16:03:20 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794844989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gq8JU+JQ/dsUDLNIdMHe4BCKqz+Gvvf+BSq2uB24YK4=;
-	b=UEe9tgP+oqHpf/0sZ8MttD5RIQauegNUwRbA6ZFtpAyFe9TlvnPQwsHNDWNJA8IAwsW6Mi
-	Fe0iuhs76MaZF+LKoaII9TepqG6x5ehx7LQk7adzPcmKSDvuAfGbexctq18Jbkuz1e0Y5r
-	H7Ib0Zkb9bhk+37fJmwNi51OjPEaG7g=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F3211334C;
-	Mon, 16 Nov 2026 16:03:08 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 160401334C;
+	Mon, 16 Nov 2026 16:03:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5whFETwp+2phUwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 16:03:08 +0000
+	id laieN0cp+2pxUwAAD6G6ig
+	(envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 16:03:20 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org
@@ -80,17 +58,10 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Drew Fustini <fustini@kernel.org>
-Subject: [PATCH v4 1/5] x86/msr: Switch users of native_wrmsr() to native_wrmsrq()
-Date: Mon, 16 Nov 2026 17:02:55 +0100
-Message-ID: <20261116160259.1579333-2-jgross@suse.com>
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v4 3/5] x86/msr: Switch users of native_rdmsr() to native_rdmsrq()
+Date: Mon, 16 Nov 2026 17:02:57 +0100
+Message-ID: <20261116160259.1579333-4-jgross@suse.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116160259.1579333-1-jgross@suse.com>
 References: <20261116160259.1579333-1-jgross@suse.com>
@@ -104,88 +75,122 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-15.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -15.80
-X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 7413E1FD53
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
 
-Switch all users of native_wrmsr() to native_wrmsrq() in order to
-prepare removal of native_wrmsr().
+Switch all users of native_rdmsr() to native_rdmsrq() in order to
+prepare removal of native_rdmsr().
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V2:
-- switch order of hi and lo parts when oring them (Reinette Chatre)
-V3:
-- fix another lo | hi instance (Reinette Chatre)
-V4:
--drop unnecessary parentheses (Reinette Chatre)
----
- arch/x86/coco/sev/internal.h              | 7 +------
- arch/x86/kernel/cpu/resctrl/pseudo_lock.c | 4 ++--
- 2 files changed, 3 insertions(+), 8 deletions(-)
+ arch/x86/include/asm/microcode.h     | 6 +-----
+ arch/x86/kernel/cpu/intel.c          | 6 +++---
+ arch/x86/kernel/cpu/microcode/amd.c  | 4 ++--
+ arch/x86/kernel/cpu/microcode/core.c | 4 ++--
+ 4 files changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/coco/sev/internal.h b/arch/x86/coco/sev/internal.h
-index b9632c0fc391..2e2ff48a7aae 100644
---- a/arch/x86/coco/sev/internal.h
-+++ b/arch/x86/coco/sev/internal.h
-@@ -80,12 +80,7 @@ static inline u64 sev_es_rd_ghcb_msr(void)
+diff --git a/arch/x86/include/asm/microcode.h b/arch/x86/include/asm/microcode.h
+index 645e65ac1586..6eef329def4b 100644
+--- a/arch/x86/include/asm/microcode.h
++++ b/arch/x86/include/asm/microcode.h
+@@ -64,17 +64,13 @@ static inline int intel_microcode_get_datasize(struct microcode_header_intel *hd
  
- static __always_inline void sev_es_wr_ghcb_msr(u64 val)
+ static inline u32 intel_get_microcode_revision(void)
  {
--	u32 low, high;
+-	u32 rev, dummy;
 -
--	low  = (u32)(val);
--	high = (u32)(val >> 32);
+ 	native_wrmsrq(MSR_IA32_UCODE_REV, 0);
+ 
+ 	/* As documented in the SDM: Do a CPUID 1 here */
+ 	native_cpuid_eax(1);
+ 
+ 	/* get the current revision from MSR 0x8B */
+-	native_rdmsr(MSR_IA32_UCODE_REV, dummy, rev);
 -
--	native_wrmsr(MSR_AMD64_SEV_ES_GHCB, low, high);
-+	native_wrmsrq(MSR_AMD64_SEV_ES_GHCB, val);
+-	return rev;
++	return native_rdmsrq(MSR_IA32_UCODE_REV) >> 32;
+ }
+ #endif /* !CONFIG_CPU_SUP_INTEL */
+ 
+diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
+index 2aabe9affa0c..99474f160b86 100644
+--- a/arch/x86/kernel/cpu/intel.c
++++ b/arch/x86/kernel/cpu/intel.c
+@@ -214,7 +214,7 @@ static u32 intel_cpuid_vfm(void)
+ 
+ u32 intel_get_platform_id(void)
+ {
+-	unsigned int val[2];
++	u64 val;
+ 
+ 	if (x86_hypervisor_present)
+ 		return 0;
+@@ -229,9 +229,9 @@ u32 intel_get_platform_id(void)
+ 		return 0;
+ 
+ 	/* get processor flags from MSR 0x17 */
+-	native_rdmsr(MSR_IA32_PLATFORM_ID, val[0], val[1]);
++	val = native_rdmsrq(MSR_IA32_PLATFORM_ID);
+ 
+-	return (val[1] >> 18) & 7;
++	return (val >> 50) & 7;
  }
  
- enum es_result __vc_handle_msr(struct ghcb *ghcb, struct es_em_ctxt *ctxt, bool write);
-diff --git a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
-index 0408ac7f66fd..affa80d6f698 100644
---- a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
-+++ b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
-@@ -175,7 +175,7 @@ int resctrl_arch_pseudo_lock_fn(void *_plr)
- 	 * pseudo-locked followed by reading of kernel memory to load it
- 	 * into the cache.
- 	 */
--	native_wrmsr(MSR_IA32_PQR_ASSOC, rmid_p, plr->closid);
-+	native_wrmsrq(MSR_IA32_PQR_ASSOC, (u64)plr->closid << 32 | rmid_p);
+ static void early_init_intel(struct cpuinfo_x86 *c)
+diff --git a/arch/x86/kernel/cpu/microcode/amd.c b/arch/x86/kernel/cpu/microcode/amd.c
+index 6cdc410e7547..f6dc79dd18dd 100644
+--- a/arch/x86/kernel/cpu/microcode/amd.c
++++ b/arch/x86/kernel/cpu/microcode/amd.c
+@@ -315,7 +315,7 @@ static union cpuid_1_eax ucode_rev_to_cpuid(unsigned int val)
  
- 	/*
- 	 * Cache was flushed earlier. Now access kernel memory to read it
-@@ -212,7 +212,7 @@ int resctrl_arch_pseudo_lock_fn(void *_plr)
- 	 * Critical section end: restore closid with capacity bitmask that
- 	 * does not overlap with pseudo-locked region.
- 	 */
--	native_wrmsr(MSR_IA32_PQR_ASSOC, rmid_p, closid_p);
-+	native_wrmsrq(MSR_IA32_PQR_ASSOC, (u64)closid_p << 32 | rmid_p);
+ static u32 get_patch_level(void)
+ {
+-	u32 rev, dummy __always_unused;
++	u32 rev;
  
- 	/* Re-enable the hardware prefetcher(s) */
- 	wrmsrq(MSR_MISC_FEATURE_CONTROL, saved_msr);
+ 	if (IS_ENABLED(CONFIG_MICROCODE_DBG) && x86_hypervisor_present) {
+ 		int cpu = smp_processor_id();
+@@ -332,7 +332,7 @@ static u32 get_patch_level(void)
+ 		return microcode_rev[cpu];
+ 	}
+ 
+-	native_rdmsr(MSR_AMD64_PATCH_LEVEL, rev, dummy);
++	rev = native_rdmsrq(MSR_AMD64_PATCH_LEVEL);
+ 	if (!rev) {
+ 		if (x86_family(bsp_cpuid_1_eax) < 0x17)
+ 			return rev;
+diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
+index 0dd0c7241c57..ea696a202c31 100644
+--- a/arch/x86/kernel/cpu/microcode/core.c
++++ b/arch/x86/kernel/cpu/microcode/core.c
+@@ -94,13 +94,13 @@ struct early_load_data early_data;
+  */
+ static bool amd_check_current_patch_level(void)
+ {
+-	u32 lvl, dummy, i;
++	u32 lvl, i;
+ 	u32 *levels;
+ 
+ 	if (x86_cpuid_vendor() != X86_VENDOR_AMD)
+ 		return false;
+ 
+-	native_rdmsr(MSR_AMD64_PATCH_LEVEL, lvl, dummy);
++	lvl = native_rdmsrq(MSR_AMD64_PATCH_LEVEL);
+ 
+ 	levels = final_levels;
+ 
 -- 
 2.56.0
 
