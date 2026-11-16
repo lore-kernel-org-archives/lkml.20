@@ -1,65 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845133;
-	b=pdA1MseVKj0Us570xGRqYZMm+DDVdbyWBlHIQ6a+mpT+3kemOY+cdExavFRTRtJQduFw
-	 MOdbKVVEXF4Ebfqqa6sSLLaXC/ucANziey5TNtaEWO4oK/BAfb99QLCL2BiaDXZFhwq5C
-	 1JDVyxpyO3s836wy2IrqzD/Qj6MnCOYbc7/ZoUqFK0gB3eEaeDuPY/BaL6MGC396/+nFC
-	 vL5tVto3Q/QXPaGcL5HRPRE+IlGwX7Hq0JCz0Hd2Wsx1RS1pVkhwd6rW4pvJmisT5V7Qh
-	 GIpd+QB0/BgvVok81+YBHyPAI2EeMgbsiOkaV9ETAmrpFXUoJLRsFjIOtsTI4zH6lOw==
+	t=1794845135;
+	b=DWGbB+y6BQEGcm0pFgEyahT8PPOrsAT9bIwDUFg6WBKj2zcynyf00MGsKnhEfxriLg8D
+	 1E6dy/eFgOPLkbXwDgXU+ul38+fFCUI8eNqPdB64tXMCbflBvyj/d/HKh64D74isAFvrf
+	 PHAmvimXPCz+K7nDgbbWJ91YBG3QaSV4IXrcQITdP+7p3zBUg1BQDbYvmx2n2NQQ7UHjb
+	 vNbYfLwJj0ZkQlE0vTQ5UJZeX4VadkOvpPNhTr/VuQJ4z1YG72z+MjwQtOappwzbXtZDP
+	 85+o9Ill4mECkn1iJwAhx90e23oQD5sOmydc5CEJ7/esFWnBBHtlUve7cRPkamkUYAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845133;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=xBu8GzeDrk7xvt8Bx0CRjK8uvrfVOw0/hRdHRPrcQig=;
-	b=deJya/UFzyusMzB+gOT6ZgETqDXvOW6hXdx6Ul4B8vBttCGcAiRGA9swFLLPtgMzE9PQ
-	 9Yk8mx5tOgu8E13PD2hzSaLDGlRX/vXTLt5sVFxH9d6JxJYt/qfhLnhUbXhhPhAB7dRbh
-	 2o7N9xKh7eT/BB3Pv7TSz/vXM24C7TvfN7aLsVsAW7a69JHxDUCnI42CqMj0AH61Rvgxr
-	 wnY1arkA6u4cL04vFAAq07MNsHseQVNjh1e6v3pvrXL+1kc8d1u7FHE4Knh/sgXo/48IE
-	 7Y6JhqLMRwg9JKPVN97hK+Ib5p0G1YJcGaGsYi80xlM4x20dhtlQ5kfPYfKdDf7/gVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845135;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=Z6GJeZyhspEK9H70fX1DcI2DBfw4fiKDtn37Gz+XydI=;
+	b=iEBw05kJ4qFTsYSTzMN4T9FYz2OzY7ygnM5ySeX0/Tg2ui3buHceGb8oK9iJv2xcyu9O
+	 H/BKve+K2h0hggZiGLrn1cxlZpoOxSsihUO/XbG14pC26svdzg2pf7fak/E7ahrlHDmGo
+	 7W3QCXJg6nRlSoirf+BVoDS58O0spAoQrvFnetBG+AndT8Ln0rDSc81uocf+GKNvUiKuo
+	 SajvTrHMKmg1yzoPOoqsLQ9gDrbnsP2bRGlpivpPO52whUxwEHGnRinBiPZOAKNx0WfOP
+	 ep3oWHFTew2NaYagL7JC/ARUyLIZ4pYPuMD2LM2Rp+MCRprJR8JhXHueP5hw+pjPQKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=iM++q2JP;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F77606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37F77606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=iM++q2JP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794845126; bh=xBu8GzeDrk7xvt8Bx0CRjK8uvrfVOw0/hRdHRPrcQig=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=iM++q2JPHV9nYNTsHPvMfOPZaNaQnxA+K7vcHVN9KBpSdtBSq2bcxMiUYXMScaBn2
-	 XUWR9F2Lfmq8YI8oZ7lbYwlznLDMLvQGh5E5ABMs5rU/NxUqIB/Bq1DGO6WnjcOOoO
-	 GCo73jetIdWRY9iOSi8x5peT6GKJdv7EOSgmShuY=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-XMAILINFO: MMvVzQSdFuTp9sTjQOGIRK8xE+zYC9uRyfQxc8yQGv9al2Q86T3U8Tzb/wwbfi
-	 aEYwdjK9wwqzxGmtd/dRL/uYlGaaJrEvZLD68OamQgJpzd1jysozGF3l0R2K49mU1Wh32y6QHN1OK
-	 CP+q5v5O3WNbfZcQ0D1oVVVpOOx9qBYBemSJQtIQDCAOmIS0by1p75q0wquKAyKkizoivj+bjZoXu
-	 Nx5xA4W/hf6md+c2QeI20aw3nROdPRtL21B/26o6ql+gdyu9mIPRrcJ0daKcUBMsxxLjlyoS0ps7E
-	 mqWVPewoJoRy35xa4zicXEhYTBsqdGv0IVP0ufEJ8a8SFj7X9JK+5gaVOUcMoSWd+54X6lAruy8HR
-	 mbWVWrBCmNBz2gi7N+Ne7E4RAVg1xwdU+R8/QzreX0m+YGTbP9Up/ai4xzH82JvrqyAcNGF/YwM9A
-	 WjvZtCROQjQB2fNhhHPD+++tsLmf7a+s6ox2rK3l29J4ecXjEcmUPWchXFJYYOKW40XCJDcx6DKCU
-	 8TNuPzp2y65pGQhAMpwxDyibahFSLAMFaY371/pTejPwUwqu3RfulRRtZwAJRxZwlJe794V815O18
-	 UtxDooDoDRoyd7tyaUkt+zioxTmVTgjYZScNBIVDY1fsOtl/hopv3U6yvhXfGFK5WEeoBoy/vkZet
-	 tcl0OjlPgMQgNZqszcW8Pi1d3up5tdpZKot9D6KOarOJUJhC63ygNplMYdLMQrVzyCw30tvzaGA2s
-	 IE+RZWRjTuG9MdBlaHr9tqUwhbiSiAsefsz96aXmWo5gQ40flFNZOh7nmGyjLfoWVOmQAeUet9Aas
-	 lC7UJU+RiURBJMuEMDpMLm27z3RCXvXjRaLNDXDrpTz0StR50aRIiNAa/LTw8c3czPjE4sEyAqFGm
-	 BXmmF9eILYukDytP4YLrkkr75SiU8xLnLmXCWZJUbYeoNZEYl4Q+Y2/ioYiQp2Mi9qaQrbRK7ynUr
-	 6EjwQY7QN9KyXbb9QQ59puWj4sAWsjx9zMrVhT3Tmj2y0hZI8s36amx5OuhTU/rnCWzaS5JAdP327
-	 t4icK/h/GDz3kybqmAobWzolPd4IRsXD4q6r6emLF7fvNrYJaloeRdP5BfV3xdczXjxq9y256arXU
-	 JzkM7LPPIk8H81YKvQ1oH79T
-From: "=?utf-8?B?Q29uZ2ppZSBaaG91?=" <zcjie0802@qq.com>
-To: "=?utf-8?B?TWljaGFlbCBTLiBUc2lya2lu?=" <mst@redhat.com>
-Cc: "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?amFzb3dhbmdpbw==?=" <jasowangio@gmail.com>, "=?utf-8?B?ZXBlcmV6bWE=?=" <eperezma@redhat.com>, "=?utf-8?B?eHVhbnpodW8=?=" <xuanzhuo@linux.alibaba.com>, "=?utf-8?B?YW5kcmV3K25ldGRldg==?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?dmlydHVhbGl6YXRpb24=?=" <virtualization@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: Re: [BUG] virtio_net: RX stall caused by masking callbacks after NAPI ownership release
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223DD606A333;
+	Mon, 16 Nov 2026 16:05:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 223DD606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <caea62a9e456cc2dc83c16747ff47838291d01da.camel@crapouillou.net>
+Subject: Re: [PATCH v5 3/4] MIPS: Ingenic: Add XBurst SMP support
+From: Paul Cercueil <paul@crapouillou.net>
+To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
+Cc: =?UTF-8?Q?=E5=91=A8=E7=90=B0=E6=9D=B0?= "(Zhou Yanjie)"	
+ <zhouyanjie@wanyeetech.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>,  Paul Burton <paulburton@kernel.org>, Stephen
+ Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,  Jerome
+ Brunet <jbrunet+clk@baylibre.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ open list	 <linux-kernel@vger.kernel.org>, "open list:COMMON CLK FRAMEWORK"
+	 <linux-clk@vger.kernel.org>, hns@goldelico.com, paul@boddie.org.uk
+Date: Mon, 16 Nov 2026 17:05:28 +0100
+In-Reply-To: <20261113184210.470320-4-f.fainelli@gmail.com>
+References: <20261113184210.470320-1-f.fainelli@gmail.com>
+	 <20261113184210.470320-4-f.fainelli@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,64 +54,598 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 17 Nov 2026 00:05:24 +0800
-X-Priority: 3
-Message-ID: <tencent_D0650F8CA2AAE4C258BFE5BCE805CDB4CA0A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
- <20261115175445-mutt-send-email-mst@kernel.org>
- <tencent_94953697D2BA27275BEF7A26404E69800605@qq.com>
-	<20261116044750-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20261116044750-mutt-send-email-mst@kernel.org>
-X-QQ-mid: xmsezc52-0t1794845124tuizgangp
+MIME-Version: 1.0
 
-PiBNYXliZSBsZXQncyBqdXN0IGNoZWNrIHRoZSBwb2xsIGxpc3QuCgpDaGVja2luZyB0aGUg
-cG9sbCBsaXN0IGZpeGVzIHRoZSBlYXJsaWVyIHJhY2Ugd2hlcmUgdGhlIHdhdGNoZG9nIGhh
-cwphbHJlYWR5IGZpbmlzaGVkLiBIb3dldmVyLCB0aGUgdGltZXIgY2FuIHN0aWxsIGJlIGNv
-bnN1bWVkIHdpdGhvdXQKdHJpZ2dlcmluZyBhbm90aGVyIHBvbGwgaWYgaXQgZmlyZXMgYWZ0
-ZXIgdGhlIG9sZCBjYWxsZXIncyBjaGVjazoKCiAgb2xkIHBvbGwgLyB3YXRjaGRvZyAgICAg
-ICAgICAgICAgICBzdWNjZXNzb3IgYnVzeS1wb2xsCiAgLS0tLS0tLS0tLS0tLS0tLS0tLSAg
-ICAgICAgICAgICAgICAtLS0tLS0tLS0tLS0tLS0tLS0tCiAgbmFwaV9jb21wbGV0ZV9kb25l
-KCk6CiAgICBjbGVhciBTQ0hFRCwgYXJtIHRpbWVyLAogICAgcmV0dXJuIGZhbHNlCiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhY3F1aXJlIE5BUEkKICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVuYWJsZSBjYWxsYmFja3MsCiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGVuIHBhdXNlIGJlZm9yZSBjb21wbGV0
-aW9uCiAgZGlzYWJsZSBjYWxsYmFja3MKICBuYXBpX2hhc19wZW5kaW5nX3BvbGwoKToKICAg
-IHRpbWVyIGlzIHN0aWxsIHF1ZXVlZCwKICAgIHNvIHNraXAgbmFwaV9zY2hlZHVsZSgpCiAg
-b2xkIHBvbGwgZXhpdHMKICB3YXRjaGRvZyBleHBpcmVzLCBzZWVzIFNDSEVEPTE6CiAgICBu
-byBzY2hlZHVsaW5nLCBubyBNSVNTRUQKICB3YXRjaGRvZyByZXR1cm5zCiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBuYXBpX2NvbXBsZXRlX2RvbmUoLi4uLCAwKToK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xlYXIgU0NIRUQsIHJl
-dHVybiB0cnVlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBxdWV1ZSBp
-cyBlbXB0eSwgZXhpdAoKQXQgdGhhdCBwb2ludCwgdGhlIG5leHQgdXNlZCBlbnRyeSBlbmRz
-IHVwIHdpdGggbmVpdGhlciBub3RpZmljYXRpb25zCmVuYWJsZWQgbm9yIGEgcGVuZGluZyB0
-aW1lciBvciBzY2hlZHVsZWQgcG9sbCB0byBwcm9jZXNzIGl0LgoKU3RlcHBpbmcgYmFjaywg
-dGhlIGZ1bmRhbWVudGFsIG9yZGVyaW5nIGlzc3VlIGhlcmUgaXM6CgogIG9sZCByZWxlYXNl
-cyBTQ0hFRAogICAgLT4gc3VjY2Vzc29yIHJlYXJtcyBjYWxsYmFja3MKICAgIC0+IG9sZCBt
-YXNrcyBjYWxsYmFja3MKClJpZ2h0IG5vdywgbm90aGluZyBndWFyYW50ZWVzIHRoYXQgdGhl
-IG9sZCBtYXNrIGhhcHBlbnMgYmVmb3JlIHRoZQpzdWNjZXNzb3IncyByZWFybS4gRXZlbiBp
-ZiB0aGUgc3VjY2Vzc29yIHN0aWxsIGhvbGRzIFNDSEVELCBpdCBtaWdodApoYXZlIGFscmVh
-ZHkgZG9uZSBpdHMgZmluYWwgcmVhcm0uIFNpbWlsYXJseSwgaGF2aW5nIGEgcXVldWVkIHRp
-bWVyCmRvZXNuJ3QgZ3VhcmFudGVlIGFub3RoZXIgcG9sbOKAlHRoZSB3YXRjaGRvZyB3aWxs
-IHNpbXBseSBiYWlsIG91dCB3aXRob3V0CnNjaGVkdWxpbmcgYmVjYXVzZSBTQ0hFRCBpcyBh
-bHJlYWR5IHNldC4gU28gYWxsIHRoZXNlIHN0YXRlIGNoZWNrcyBjYW4KbG9vayBjb21wbGV0
-ZWx5IHZhbGlkIGF0IHRoZSB0aW1lLCB5ZXQgc3RpbGwgZmFpbCB0byBndWFyYW50ZWUgcmVj
-b3ZlcnkuCgpUaGUgcm9vdCBjYXVzZSBpcyB0aGF0IHdpdGggdGhlIHRpbWVyIGludHJvZHVj
-ZWQgYnkgTkFQSSBkZWZlciwKbmFwaV9jb21wbGV0ZV9kb25lKCkgY2FuIHJldHVybiBmYWxz
-ZSB3aGlsZSBzdGlsbCBnaXZpbmcgdXAgU0NIRUQKb3duZXJzaGlwLCBsZWF2aW5nIHVzIHdp
-dGggbm90aGluZyBlbHNlIHRvIHN5bmNocm9uaXplIHRoZSBjYWxsYmFjawpzdGF0ZS4gQmVm
-b3JlIE5BUEkgZGVmZXIsIHJldHVybmluZyBmYWxzZSBtZWFudCB3ZSBzdGlsbCBoZWxkIG9u
-dG8KU0NIRUQsIHNvIGV2ZXJ5dGhpbmcgd29ya2VkIGFzIGV4cGVjdGVkLgoKVG8gZml4IHRo
-aXMgcHJvcGVybHksIEkgdGhpbmsgd2UgZWl0aGVyIG5lZWQgdG8gY2FsbAp2aXJ0cXVldWVf
-ZGlzYWJsZV9jYigpIGJlZm9yZSBnaXZpbmcgdXAgU0NIRUQgb3duZXJzaGlwLCBvciBpbnRy
-b2R1Y2UgYQpzZXBhcmF0ZSBzeW5jaHJvbml6YXRpb24gbWVjaGFuaXNtIChsaWtlIGEgbG9j
-aykgdG8gZW5zdXJlIHdlIGNhbiBhbHdheXMKcmVjb3ZlciBOQVBJIGV4ZWN1dGlvbi4gU2lt
-cGxlIGZsYWcgY2hlY2tzIGFsb25lIGRvbid0IHNlZW0gZW5vdWdoIHRvCmNsb3NlIHRoaXMg
-cmFjZSBjb21wbGV0ZWx5Lg==
+Hi Florian,
 
+Le vendredi 13 novembre 2026 =C3=A0 10:42 -0800, Florian Fainelli a =C3=A9c=
+rit=C2=A0:
+> From: =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) <zhouyanjie@wanyeetech.co=
+m>
+>=20
+> Add support for the second XBurst core on the JZ4780, based on Zhou
+> Yanjie's 2020 series and Paul Burton's original CI20 SMP implementation.
+> Use the CP0 mailboxes for inter-processor interrupts. Initialize CPU
+> presence and core IDs explicitly for generic kernels, and reject CPU
+> offlining until CPU teardown and restart are implemented.
+>=20
+> XBurst stops its private cache clock when executing WAIT. Write back
+> the data cache before entering idle so that the other core can access
+> data belonging to the sleeping core. Select this wait handler only when
+> multiple CPUs are possible, and check pending work after the cache flush.
+>=20
+> Enable the secondary clock outside the raw SMP lock. Use the CKSEG
+> aliases and pointer-sized assembly helpers for generic 64-bit builds.
+> Development and build/CI20 boot validation used Codex assistance; Sashiko
+> AI review identified the locking, topology and generic-kernel issues.
+>=20
+> Link: https://lkml.iu.edu/hypermail/linux/kernel/2005.2/03488.html
+> Link: https://lists.openwall.net/linux-kernel/2020/05/13/1482
+> Link: https://lists.openwall.net/linux-kernel/2020/05/19/1099
+> Signed-off-by: =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) <zhouyanjie@wany=
+eetech.com>
+> [florian: forward ported to latest version]
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+Tested-by: Paul Cercueil <paul@crapouillou.net>
+
+Cheers,
+-Paul
+
+> ---
+> Changes since previous posting:
+> - Move the generic IPI initialization guard into a separate prerequisite.
+> - Remove Paul Cercueil's Reviewed-by and Tested-by tags after the changes=
+.
+> - Remove the CONFIG_HOTPLUG_CPU guard around xburst_cpu_disable() and mar=
+k
+> =C2=A0 it __maybe_unused. Retain the initializer guard because plat_smp_o=
+ps has
+> =C2=A0 no cpu_disable member when hotplug is disabled; PTR_IF() cannot fi=
+x that.
+> - Document the intentional work recheck after the data-cache flush: the
+> =C2=A0 first need_resched() avoids an unnecessary flush, and the second c=
+hecks
+> =C2=A0 for work arriving during it.
+>=20
+> Earlier changes since v3:
+> - Enable CPU1's clock outside the raw SMP lock.
+> - Initialize CPU presence and core IDs; reject unsupported CPU offlining.
+> - Use CKSEG aliases and pointer/long assembly helpers for 64-bit builds.
+> - Restrict the XBurst idle handler to systems with multiple possible CPUs
+> =C2=A0 and check pending work after the cache flush.
+>=20
+> Validation:
+> - Affected objects build for CI20 without CPU hotplug and generic Ingenic
+> =C2=A0 32-bit and 64-bit configurations with CPU hotplug.
+> - The previous tree booted on CI20 with both CPUs online and successful
+> =C2=A0 workers pinned to each CPU. All 11 functional boot-smoke checks pa=
+ssed;
+> =C2=A0 the kernel-log check failed on DRM bridge/refcount warnings.
+> - This revision changes no runtime behavior and has not been rebooted.
+>=20
+> Development and validation used Codex assistance. Sashiko AI review
+> identified the issues addressed by the changes since v3.
+>=20
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0arch/mips/Kbuild=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0=C2=A0 1 +
+> =C2=A0arch/mips/generic/init.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +
+> =C2=A0arch/mips/include/asm/ingenic-smp.h=C2=A0=C2=A0 |=C2=A0 20 ++
+> =C2=A0arch/mips/ingenic/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0arch/mips/ingenic/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +
+> =C2=A0arch/mips/ingenic/ingenic-smp-entry.S |=C2=A0 54 ++++++
+> =C2=A0arch/mips/ingenic/ingenic-smp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 260 ++++++++++++++++++++++++++
+> =C2=A0arch/mips/kernel/idle.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 31 ++-
+> =C2=A09 files changed, 377 insertions(+), 2 deletions(-)
+> =C2=A0create mode 100644 arch/mips/include/asm/ingenic-smp.h
+> =C2=A0create mode 100644 arch/mips/ingenic/Makefile
+> =C2=A0create mode 100644 arch/mips/ingenic/ingenic-smp-entry.S
+> =C2=A0create mode 100644 arch/mips/ingenic/ingenic-smp.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..7128df320bab 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13150,8 +13150,9 @@ L:	linux-mips@vger.kernel.org
+> =C2=A0S:	Maintained
+> =C2=A0F:	arch/mips/boot/dts/ingenic/
+> =C2=A0F:	arch/mips/generic/board-ingenic.c
+> +F:	arch/mips/include/asm/ingenic-smp.h
+> =C2=A0F:	arch/mips/include/asm/mach-ingenic/
+> -F:	arch/mips/ingenic/Kconfig
+> +F:	arch/mips/ingenic/
+> =C2=A0F:	drivers/clk/ingenic/
+> =C2=A0F:	drivers/dma/dma-jz4780.c
+> =C2=A0F:	drivers/gpu/drm/ingenic/
+> diff --git a/arch/mips/Kbuild b/arch/mips/Kbuild
+> index e901bf554483..4912ab80d143 100644
+> --- a/arch/mips/Kbuild
+> +++ b/arch/mips/Kbuild
+> @@ -12,6 +12,7 @@ obj- :=3D $(platform-y)
+> =C2=A0# The object files are linked as core-y files would be linked
+> =C2=A0
+> =C2=A0obj-y +=3D generic/
+> +obj-$(CONFIG_MACH_INGENIC) +=3D ingenic/
+> =C2=A0obj-y +=3D kernel/
+> =C2=A0obj-y +=3D mm/
+> =C2=A0obj-y +=3D net/
+> diff --git a/arch/mips/generic/init.c b/arch/mips/generic/init.c
+> index 1d712eac1617..38f294887c17 100644
+> --- a/arch/mips/generic/init.c
+> +++ b/arch/mips/generic/init.c
+> @@ -13,6 +13,7 @@
+> =C2=A0
+> =C2=A0#include <asm/bootinfo.h>
+> =C2=A0#include <asm/fw/fw.h>
+> +#include <asm/ingenic-smp.h>
+> =C2=A0#include <asm/irq_cpu.h>
+> =C2=A0#include <asm/machine.h>
+> =C2=A0#include <asm/mips-cps.h>
+> @@ -113,6 +114,8 @@ void __init device_tree_init(void)
+> =C2=A0	unflatten_and_copy_device_tree();
+> =C2=A0	mips_cpc_probe();
+> =C2=A0
+> +	if (!register_ingenic_smp_ops())
+> +		return;
+> =C2=A0	if (!register_cps_smp_ops())
+> =C2=A0		return;
+> =C2=A0	if (!register_vsmp_smp_ops())
+> diff --git a/arch/mips/include/asm/ingenic-smp.h
+> b/arch/mips/include/asm/ingenic-smp.h
+> new file mode 100644
+> index 000000000000..ea81c333820d
+> --- /dev/null
+> +++ b/arch/mips/include/asm/ingenic-smp.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/* Copyright (C) 2013 Paul Burton <paulburton@kernel.org> */
+> +#ifndef __ASM_INGENIC_SMP_H__
+> +#define __ASM_INGENIC_SMP_H__
+> +
+> +#include <linux/errno.h>
+> +#include <linux/init.h>
+> +#include <linux/kconfig.h>
+> +
+> +#if defined(CONFIG_MACH_JZ4780) && defined(CONFIG_SMP)
+> +int __init register_ingenic_smp_ops(void);
+> +void xburst_secondary_cpu_entry(void);
+> +#else
+> +static inline int register_ingenic_smp_ops(void)
+> +{
+> +	return -ENODEV;
+> +}
+> +#endif
+> +
+> +#endif /* __ASM_INGENIC_SMP_H__ */
+> diff --git a/arch/mips/ingenic/Kconfig b/arch/mips/ingenic/Kconfig
+> index f595b339a4b8..583f8d3651df 100644
+> --- a/arch/mips/ingenic/Kconfig
+> +++ b/arch/mips/ingenic/Kconfig
+> @@ -64,6 +64,8 @@ config MACH_JZ4780
+> =C2=A0	select MIPS_CPU_SCACHE
+> =C2=A0	select SYS_HAS_CPU_MIPS32_R2
+> =C2=A0	select SYS_SUPPORTS_HIGHMEM
+> +	select SYS_SUPPORTS_SMP
+> +	select SMP_UP if SMP
+> =C2=A0
+> =C2=A0config MACH_X1000
+> =C2=A0	bool
+> diff --git a/arch/mips/ingenic/Makefile b/arch/mips/ingenic/Makefile
+> new file mode 100644
+> index 000000000000..fc3b1bf1f25a
+> --- /dev/null
+> +++ b/arch/mips/ingenic/Makefile
+> @@ -0,0 +1,5 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +ifdef CONFIG_SMP
+> +obj-$(CONFIG_MACH_JZ4780) +=3D ingenic-smp.o ingenic-smp-entry.o
+> +endif
+> diff --git a/arch/mips/ingenic/ingenic-smp-entry.S
+> b/arch/mips/ingenic/ingenic-smp-entry.S
+> new file mode 100644
+> index 000000000000..290e23c65707
+> --- /dev/null
+> +++ b/arch/mips/ingenic/ingenic-smp-entry.S
+> @@ -0,0 +1,54 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Copyright (C) 2013 Paul Burton <paulburton@kernel.org>
+> + * XBurst secondary CPU reset entry
+> + */
+> +
+> +#include <asm/addrspace.h>
+> +#include <asm/asm.h>
+> +#include <asm/asmmacro.h>
+> +#include <asm/cacheops.h>
+> +#include <asm/mipsregs.h>
+> +
+> +#define CACHE_SIZE	(32 * 1024)
+> +#define CACHE_LINESIZE	32
+> +
+> +	/* The CP0 REIM register only stores the upper 16 address bits. */
+> +	.section .text.smp-entry, "ax"
+> +	.balign 0x10000
+> +	.set noreorder
+> +LEAF(xburst_secondary_cpu_entry)
+> +	mtc0	zero, CP0_CAUSE
+> +	li	t0, ST0_CU0
+> +	mtc0	t0, CP0_STATUS
+> +	ehb
+> +
+> +	/* Invalidate both private caches before entering cached code. */
+> +	PTR_LI	t0, CKSEG0
+> +	ori	t1, t0, CACHE_SIZE
+> +	mtc0	zero, CP0_TAGLO
+> +	ehb
+> +1:	cache	Index_Store_Tag_I, 0(t0)
+> +	cache	Index_Store_Tag_D, 0(t0)
+> +	addiu	t0, t0, CACHE_LINESIZE
+> +	bne	t0, t1, 1b
+> +	 nop
+> +
+> +	mfc0	t0, CP0_CONFIG
+> +	li	t1, ~CONF_CM_CMASK
+> +	and	t0, t0, t1
+> +	ori	t0, t0, CONF_CM_CACHABLE_NONCOHERENT
+> +	mtc0	t0, CP0_CONFIG
+> +	mtc0	zero, CP0_PAGEMASK
+> +	ehb
+> +
+> +	/* CPU0 publishes these in RAM before releasing CPU1 from reset. */
+> +	PTR_LA	t0, xburst_cpu_entry_sp
+> +	LONG_L	sp, 0(t0)
+> +	PTR_LA	t0, xburst_cpu_entry_gp
+> +	LONG_L	gp, 0(t0)
+> +
+> +	PTR_LA	t0, smp_bootstrap
+> +	jr	t0
+> +	 nop
+> +END(xburst_secondary_cpu_entry)
+> diff --git a/arch/mips/ingenic/ingenic-smp.c b/arch/mips/ingenic/ingenic-=
+smp.c
+> new file mode 100644
+> index 000000000000..27b9b573a7e0
+> --- /dev/null
+> +++ b/arch/mips/ingenic/ingenic-smp.c
+> @@ -0,0 +1,260 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * XBurst SMP support, based on Paul Burton's CI20 implementation and
+> + * Zhou Yanjie's 2020 JZ4780 SMP series.
+> + * Copyright (C) 2013 Paul Burton <paulburton@kernel.org>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/cpu.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/of.h>
+> +#include <linux/of_clk.h>
+> +#include <linux/sched/task_stack.h>
+> +#include <linux/smp.h>
+> +
+> +#include <asm/addrspace.h>
+> +#include <asm/irq_cpu.h>
+> +#include <asm/mipsregs.h>
+> +#include <asm/r4kcache.h>
+> +#include <asm/smp-ops.h>
+> +
+> +#include <asm/ingenic-smp.h>
+> +
+> +#define read_c0_corectrl()	__read_32bit_c0_register($12, 2)
+> +#define write_c0_corectrl(val)	__write_32bit_c0_register($12, 2, val)
+> +#define read_c0_corestatus()	__read_32bit_c0_register($12, 3)
+> +#define write_c0_corestatus(val)	__write_32bit_c0_register($12, 3,
+> val)
+> +#define read_c0_reim()		__read_32bit_c0_register($12, 4)
+> +#define write_c0_reim(val)	__write_32bit_c0_register($12, 4, val)
+> +#define read_c0_mailbox0()	__read_32bit_c0_register($20, 0)
+> +#define write_c0_mailbox0(val)	__write_32bit_c0_register($20, 0, val)
+> +#define read_c0_mailbox1()	__read_32bit_c0_register($20, 1)
+> +#define write_c0_mailbox1(val)	__write_32bit_c0_register($20, 1, val)
+> +
+> +#define XBURST_MBOX_IRQ		(MIPS_CPU_IRQ_BASE + 3)
+> +#define CORECTRL_SWRST(cpu)	BIT(cpu)
+> +#define CORECTRL_RPC(cpu)	BIT(8 + (cpu))
+> +#define CORESTATUS_MIRQ(cpu)	BIT(cpu)
+> +#define REIM_ENTRY		GENMASK(31, 16)
+> +#define REIM_MBOXIRQ(cpu)	BIT(cpu)
+> +
+> +static struct clk *cpu1_clock;
+> +static DEFINE_RAW_SPINLOCK(smp_lock);
+> +
+> +/* Referenced by the uncached secondary CPU reset entry. */
+> +unsigned long xburst_cpu_entry_sp;
+> +unsigned long xburst_cpu_entry_gp;
+> +
+> +static irqreturn_t xburst_mbox_interrupt(int irq, void *dev_id)
+> +{
+> +	unsigned int cpu =3D cpu_logical_map(smp_processor_id());
+> +	u32 action, status;
+> +
+> +	raw_spin_lock(&smp_lock);
+> +	if (cpu =3D=3D 0) {
+> +		action =3D read_c0_mailbox0();
+> +		write_c0_mailbox0(0);
+> +	} else {
+> +		action =3D read_c0_mailbox1();
+> +		write_c0_mailbox1(0);
+> +	}
+> +
+> +	status =3D read_c0_corestatus();
+> +	write_c0_corestatus(status & ~CORESTATUS_MIRQ(cpu));
+> +	irq_disable_hazard();
+> +	raw_spin_unlock(&smp_lock);
+> +
+> +	if (action & SMP_RESCHEDULE_YOURSELF)
+> +		scheduler_ipi();
+> +	if (action & SMP_CALL_FUNCTION)
+> +		generic_smp_call_function_interrupt();
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void __init xburst_smp_setup(void)
+> +{
+> +	struct device_node *np;
+> +	u32 entry, reim;
+> +	unsigned int cpu =3D 0;
+> +	u64 hwid;
+> +
+> +	for_each_of_cpu_node(np) {
+> +		hwid =3D of_get_cpu_hwid(np, 0);
+> +		if (!of_device_is_available(np) ||
+> +		=C2=A0=C2=A0=C2=A0 hwid >=3D ARRAY_SIZE(__cpu_number_map))
+> +			continue;
+> +		if (cpu >=3D nr_cpu_ids) {
+> +			of_node_put(np);
+> +			break;
+> +		}
+> +		__cpu_number_map[hwid] =3D cpu;
+> +		__cpu_logical_map[cpu] =3D hwid;
+> +		set_cpu_possible(cpu, true);
+> +		set_cpu_present(cpu, true);
+> +		cpu_set_core(&cpu_data[cpu], hwid);
+> +		cpu++;
+> +	}
+> +
+> +	/* Program the shared reset vector with mailbox delivery masked. */
+> +	reim =3D read_c0_reim();
+> +	reim &=3D ~(REIM_MBOXIRQ(0) | REIM_MBOXIRQ(1));
+> +	write_c0_reim(reim);
+> +	write_c0_mailbox0(0);
+> +	write_c0_mailbox1(0);
+> +	write_c0_corestatus(0);
+> +
+> +	entry =3D CKSEG1ADDR((unsigned long)xburst_secondary_cpu_entry);
+> +	write_c0_reim((reim & ~REIM_ENTRY) | (entry & REIM_ENTRY));
+> +}
+> +
+> +static void __init xburst_prepare_cpus(unsigned int max_cpus)
+> +{
+> +	struct device_node *np;
+> +	u32 reim;
+> +	int ret;
+> +
+> +	ret =3D request_irq(XBURST_MBOX_IRQ, xburst_mbox_interrupt,
+> +			=C2=A0 IRQF_PERCPU | IRQF_NO_THREAD, "core mailbox",
+> NULL);
+> +	if (ret) {
+> +		pr_err("XBurst: cannot request mailbox IRQ: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	reim =3D read_c0_reim();
+> +	write_c0_reim(reim | REIM_MBOXIRQ(0));
+> +	set_c0_status(STATUSF_IP3);
+> +	irq_enable_hazard();
+> +
+> +	if (!cpu_possible(1))
+> +		return;
+> +
+> +	np =3D of_get_cpu_node(1, NULL);
+> +	cpu1_clock =3D of_clk_get(np, 0);
+> +	of_node_put(np);
+> +	if (IS_ERR(cpu1_clock)) {
+> +		pr_err("XBurst: cannot get CPU1 clock: %ld\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PTR_ERR(cpu1_clock));
+> +		return;
+> +	}
+> +
+> +	ret =3D clk_prepare(cpu1_clock);
+> +	if (ret) {
+> +		clk_put(cpu1_clock);
+> +		cpu1_clock =3D ERR_PTR(ret);
+> +		pr_err("XBurst: cannot prepare CPU1 clock: %d\n", ret);
+> +	}
+> +}
+> +
+> +static int xburst_boot_secondary(int cpu, struct task_struct *idle)
+> +{
+> +	unsigned long flags;
+> +	u32 ctrl;
+> +	int ret;
+> +
+> +	if (cpu_logical_map(cpu) !=3D 1 || IS_ERR_OR_NULL(cpu1_clock))
+> +		return -ENODEV;
+> +
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	ctrl =3D read_c0_corectrl() | CORECTRL_SWRST(1) | CORECTRL_RPC(1);
+> +	write_c0_corectrl(ctrl);
+> +	back_to_back_c0_hazard();
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +
+> +	ret =3D clk_enable(cpu1_clock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	xburst_cpu_entry_sp =3D __KSTK_TOS(idle);
+> +	xburst_cpu_entry_gp =3D (unsigned long)task_thread_info(idle);
+> +	/* Publish bootstrap state before CPU1 starts using its private
+> cache. */
+> +	r4k_blast_dcache();
+> +	/* Complete cache writeback before releasing reset. */
+> +	mb();
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	ctrl =3D read_c0_corectrl();
+> +	write_c0_corectrl(ctrl & ~CORECTRL_SWRST(1));
+> +	back_to_back_c0_hazard();
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +	return 0;
+> +}
+> +
+> +static void xburst_init_secondary(void)
+> +{
+> +	clear_c0_status(ST0_IM);
+> +	irq_disable_hazard();
+> +}
+> +
+> +static void xburst_smp_finish(void)
+> +{
+> +	unsigned int cpu =3D cpu_logical_map(smp_processor_id());
+> +	u32 reim;
+> +
+> +	raw_spin_lock(&smp_lock);
+> +	reim =3D read_c0_reim();
+> +	write_c0_reim(reim | REIM_MBOXIRQ(cpu));
+> +	raw_spin_unlock(&smp_lock);
+> +
+> +	change_c0_status(ST0_IM, STATUSF_IP3 | STATUSF_IP2 |
+> +			 STATUSF_IP1 | STATUSF_IP0);
+> +	irq_enable_hazard();
+> +	local_irq_enable();
+> +}
+> +
+> +static void xburst_send_ipi_locked(int cpu, unsigned int action)
+> +{
+> +	if (cpu_logical_map(cpu) =3D=3D 0)
+> +		write_c0_mailbox0(read_c0_mailbox0() | action);
+> +	else
+> +		write_c0_mailbox1(read_c0_mailbox1() | action);
+> +	back_to_back_c0_hazard();
+> +}
+> +
+> +static void xburst_send_ipi_single(int cpu, unsigned int action)
+> +{
+> +	unsigned long flags;
+> +
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	xburst_send_ipi_locked(cpu, action);
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +}
+> +
+> +static void xburst_send_ipi_mask(const struct cpumask *mask, unsigned in=
+t
+> action)
+> +{
+> +	unsigned long flags;
+> +	int cpu;
+> +
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	for_each_cpu(cpu, mask)
+> +		xburst_send_ipi_locked(cpu, action);
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +}
+> +
+> +static int __maybe_unused xburst_cpu_disable(void)
+> +{
+> +	/* CPU teardown and restart are not supported yet. */
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static const struct plat_smp_ops xburst_smp_ops =3D {
+> +	.send_ipi_single =3D xburst_send_ipi_single,
+> +	.send_ipi_mask =3D xburst_send_ipi_mask,
+> +	.init_secondary =3D xburst_init_secondary,
+> +	.smp_finish =3D xburst_smp_finish,
+> +	.boot_secondary =3D xburst_boot_secondary,
+> +	.smp_setup =3D xburst_smp_setup,
+> +	.prepare_cpus =3D xburst_prepare_cpus,
+> +#ifdef CONFIG_HOTPLUG_CPU
+> +	.cpu_disable =3D xburst_cpu_disable,
+> +#endif
+> +};
+> +
+> +int __init register_ingenic_smp_ops(void)
+> +{
+> +	if (!of_machine_is_compatible("ingenic,jz4780"))
+> +		return -ENODEV;
+> +
+> +	register_smp_ops(&xburst_smp_ops);
+> +	return 0;
+> +}
+> diff --git a/arch/mips/kernel/idle.c b/arch/mips/kernel/idle.c
+> index 80e8a04a642e..6c44715d81d5 100644
+> --- a/arch/mips/kernel/idle.c
+> +++ b/arch/mips/kernel/idle.c
+> @@ -18,6 +18,7 @@
+> =C2=A0#include <asm/cpu-type.h>
+> =C2=A0#include <asm/idle.h>
+> =C2=A0#include <asm/mipsregs.h>
+> +#include <asm/r4kcache.h>
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * Not all of the MIPS CPUs have the "wait" instruction available. =
+Moreover,
+> @@ -71,6 +72,28 @@ static void __cpuidle rm7k_wait_irqoff(void)
+> =C2=A0		"	.set	pop					\n");
+> =C2=A0}
+> =C2=A0
+> +/* XBurst gates its private cache clock in WAIT; write back dirty data f=
+irst.
+> */
+> +static void __cpuidle xburst_wait_irqoff(void)
+> +{
+> +	unsigned long pending;
+> +
+> +	if (need_resched())
+> +		return;
+> +
+> +	r4k_blast_dcache();
+> +	/* Recheck work that may have arrived during the cache flush. */
+> +	pending =3D read_c0_cause() & read_c0_status() & CAUSEF_IP;
+> +	if (!need_resched() && !pending) {
+> +		__asm__ __volatile__(
+> +			".set push\n"
+> +			".set arch=3Dr4000\n"
+> +			"sync\n"
+> +			"wait\n"
+> +			".set pop\n"
+> +			: : : "memory");
+> +	}
+> +}
+> +
+> =C2=A0/*
+> =C2=A0 * Au1 'wait' is only useful when the 32kHz counter is used as time=
+r,
+> =C2=A0 * since coreclock (and the cp0 counter) stops upon executing it. O=
+nly an
+> @@ -156,10 +179,16 @@ void __init check_wait(void)
+> =C2=A0	case CPU_CAVIUM_OCTEON_PLUS:
+> =C2=A0	case CPU_CAVIUM_OCTEON2:
+> =C2=A0	case CPU_CAVIUM_OCTEON3:
+> -	case CPU_XBURST:
+> =C2=A0	case CPU_LOONGSON32:
+> =C2=A0		cpu_wait =3D r4k_wait;
+> =C2=A0		break;
+> +	case CPU_XBURST:
+> +		if (IS_ENABLED(CONFIG_MACH_JZ4780) &&
+> +		=C2=A0=C2=A0=C2=A0 IS_ENABLED(CONFIG_SMP) && num_possible_cpus() > 1)
+> +			cpu_wait =3D xburst_wait_irqoff;
+> +		else
+> +			cpu_wait =3D r4k_wait;
+> +		break;
+> =C2=A0	case CPU_LOONGSON64:
+> =C2=A0		if ((c->processor_id & (PRID_IMP_MASK | PRID_REV_MASK)) >=3D
+> =C2=A0				(PRID_IMP_LOONGSON_64C |
+> PRID_REV_LOONGSON3A_R2_0) ||
