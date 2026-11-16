@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846536;
-	b=vnRbMnTigVqEu1HI4buJGG+HpfeFo6jcrT/IibSbFn11pwxWIbX93EC4kqnFE4Yjkefa
-	 WM/cR8+tiYhMURECiMr7WAQWbj6M8oRzbRbBSKPWQiz89TbK+wjT4/k4QCFjqewfhL0eq
-	 FWeAhPha0le7E8TBWwK80ssmmcGF4umJA7lOuBPuoVCxfsbv0SUgLEQhxbwLvoAj5n/0b
-	 8U9GWfuAeizaD2K7Da2eFda5VVEdefAfY9tdao4Yl/0naI0PHKDjLx32MZZzVclFf1wRj
-	 Nf/XJyJjt3A6QLVNPMEqWcJbXHEkVuUEDr0o8pA5/HZcqPcfTaVNZ+2V2hgQsO/ywDA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846536;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=s77Wh0jGQ82biYhvC+IxcW28aNcho8DkaL0D/lxzBTs=;
-	b=XfEYxb3mqDpsWl5eijjjNlrkEp00ewIdi57Cti56tsWfJddNnlEC+kQE6lmvnYwBJuEX
-	 OP+GJ+/+kOpSCq1JHOssSvPPsqzijjmGsGeqjDg9t6Ky/tdY+qYzTXJFFXDneXITr/e4I
-	 LUis7x2E8f6jlTqvgNiV/besmbMcYQ0FuhzR0GToMQQ9WVo4pD8/M4UXYTFyvrWO7LecE
-	 nmoMuVTaldkvoUuyItmj7cNTc9qnbIJ63pfq2DNDckcADv0g8YOTYXbHWYaP3J7vSEa/p
-	 z8NXK2yCHJQUfCVdDKopCYW5b9SJfXjTCNp/C845CM+A3kEXBYNaQn/dM/SXsRmNfRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxKlPkkV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794846577;
+	b=QU12FFl58JUCXA0jzykpwO4L8XhkR5kEiyz7z6W2yDaDjdoLZ9OiAlWmL0h1wtMX7MLY
+	 ME+pEaTgv9nma7dk9TIBev0FKicG2lS5UYBMpBqjuCo1kkA+RORSky0PgNPda1JTS7RA1
+	 lGObm2AtHCzXgUV2Nmsw3275VSv98XadP2AU3cJE5K4TjemSVKmVVuqhoF5itr1tkGdHW
+	 EtvJ/qZ443aQFQMf2E1eI0kWGRV9bEwunPIa8ZD1CtTCnDtmzQlCCX/g4vWFxiv91u4wG
+	 PSHMQNtG8YPgyiOppvZciAyDYo/sD2KKUxL57MWTuOZhh6TUCRJePUWRgZx8M6sEOWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846577;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ShKIQFI3uGIhr4DBTVUmVEiZQKVcNYjQ9vNtabc3Rxc=;
+	b=GkuxDM8SCe8yYdKBloyQFcrLZbgVAkZ+0cxR3yFy0Isxp7jJKqKwBxomQPWcIbtx8Eco
+	 Vq0zwx+8zqrCp23bVOaoQKj8A6CILBBG5urFpz4/4mEoyoT0iZj9UwmXvGmrX/HrC2rAf
+	 ViGMTkxYfCzprqqobxh6D1CHyb/jIlhPAHWMGJmf2cbowzrDMcSpDMHyYkG40h08oGWnb
+	 43o9WPVYOLlhAoiNaJGbAMcYBCqFGMF609drWbY9I/AKA9XHPH8he+s2g8pL3WM2hTHii
+	 xeXX6jQshlt95iRa8I0biZlGqHi8l3Ns+ScA7UfFchd3MLojp/j4AqhkC2Ca02SHWnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Lzxl7IrK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACF6606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:28:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3368606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3368606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxKlPkkV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6F51F000CB;
-	Mon, 16 Nov 2026 16:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846536;
-	bh=s77Wh0jGQ82biYhvC+IxcW28aNcho8DkaL0D/lxzBTs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MxKlPkkVR1FsjE3mEQJVUol+8UMOol2qBT7EUt/kL+t2ip/cnTVOkJH2xJus5gfSr
-	 gzFXaUOblD82dGHJVBT6xvKQrGT2NuhEYmhp3IgeepmD7cDsJ/TXA3wy7e8sYoYOGn
-	 xMQybATeb/yYkRK2+B2GpjA2dy5PAqfjowqXnhZPWFJYzcq84jz7P0YgSv7/9E+8kv
-	 nL7i2rYP9yYdUp85N9TOuWyxamOeZCMWR/PUvJdHaQJMa4Vl5lVGG3QCXdbxb6HRiJ
-	 qVpyBEYRnZnkeWrc0CzTvN/pg+rowgYJpGGwihM1QqvohAOxOjqWRHv7LeZV31Y74Y
-	 MXyEuwpGreqzw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A3AA4198003A;
-	Mon, 16 Nov 2026 11:28:51 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Mon, 16 Nov 2026 11:28:54 -0500
-X-ME-Sender: <xms:Qy_7arRLG_UdUq8qkXEY64ChlNdb-LHvpETpAU0Zyh3u2ujO9Z1OUg>
-    <xme:Qy_7aqauMhLertWeNoutVTp3WOHQryiIEwrplJkYySJenfhzHpbO9rGldJn8Ggdb-
-    QCEFyzJXf_5npbKbm1aLDBp4p_-91MF22M2HgFjqDgCCN-Sw-Ovm_s>
-X-ME-Received: <xmr:Qy_7aoMSvgxEWgNaEKzT4wwcmsyaFttmuUwSFhQWUMSTolZBlcGk3vU6Q0E>
-X-ME-Proxy-Cause: dmFkZTEHeSQUqRY1YhiGAt9xbok3Cz6xVJ5Xo3cfdcttzCYoRzXc8WXErePFu68Wle087D
-    hXsQKfmFrb/APDBx0g1pr2Aa+HutXDgbWTbRTP7Oo4JH2epfiwmDtil9XvIHCmQRToNqD0
-    H37WvBxy3jdygoEsZvmgMNfREfThGuE+f1/fQTxm/5o0v3LXAV6tA0KFr/8qm28SqLjKBC
-    JIvQB7db13NmMEUQ6uicY6Wj1U2YPutN0ED61sQdotiWYJBY0erPuQxPjQAoZZKOHKEm1P
-    CcSCuYQ79IWhDlSdDxsyaZJRWpg89Aij3uhmqBQtQttevR3Vm1wzASR/0SeNIObM2C2xnc
-    RDA/5KFfa/eqjJkob8y6n3L2MsOHrmPlrRpVfQC4I7oC2NWb+2vU7DYstulbXClianeZvN
-    hz6SpjO39Ug9ZQ9ldDmdTx8WrmCVG8/XGh2O8iMUMjsenDS7ogCZBAcLKOfGb5lwwV4BOy
-    xMJxsm6FAEssW8JYs7csY51OzSNtNcNJf32P8O8w4Z+WCEbU1IgN4oDHIoGGPUqMaHSrpt
-    WLylfruposUCDi1TPyDRkd3nHjmwduhDPEk6w0SUmiEfAuaYkx/jakAsxrW6kCFoaSF4NB
-    GAlj9jnGsaNPLN0GfrTeUoHX6ZQNuRsSpHF4/7fYdpsUtSsVlNp6gigN1Y9g
-X-ME-Proxy: <xmx:Qy_7ajNge65h59gJ5PeEE4jYojBTyP81J2yA0FOeaNDJOF898dHpPQ>
-    <xmx:Qy_7asN_4RXOPsYejL8M9bOECto9bUKVRQOfA7r4uOzVXy-zSAocxw>
-    <xmx:Qy_7avYYIK8u7x9s4QIZQgEyAGr7Qyrd0MSDYwg9VZwPuipYISLVug>
-    <xmx:Qy_7aqjvvcj8KRi33l3BF_wnKOr2tP_Du7Vi1mYrMA_i-fhiCOXmkQ>
-    <xmx:Qy_7arMWZXpiHu1sTF9s648ng43bZU-wyYhpHTqjt7OGLV8d113gqrBZ>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 11:28:50 -0500 (EST)
-Date: Mon, 16 Nov 2026 16:28:49 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Peter Xu <peterx@redhat.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>, 
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH v2] Documentation/userfaultfd: document RWP behavior when
- the PTE is dropped
-Message-ID: <avsu-yTSPKtZn_Ez@shutemov.name>
-References: <20261116101004.15322-1-azpijr@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Lzxl7IrK
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c247f6687dcso660693266b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:29:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794846575; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GQWpbTRnOmqoWhCJ4h9ETVFPgEK/q4hjpqnN4SUsThCnsQB2BrwWnF1AlsbUyeFnwW
+         XaImLucUEvQbECqUfZSa6fl0xDDPmZyiDi6uoyQ0KKopUCPnkZJ8ZNPCSVN0VsCLAE93
+         K/0v71+ACw7UsS8yP8bym24oFWhdhHErQCYgTUlRcAhj2r6aOtqnRbIB9SyiVsQXhOCP
+         xaaBjMcou6kyBBEuLKAJZCGvszbU7Qdm+j44G41aIMjDnxLW1Y4MmTaL7F2O9kHhyvnY
+         IUWFayVyn53v70aSqZ2tYIB1/N6B+ooO3OBUSrYm6czHnGK6FX68KgUSYhGoRW1kKirW
+         lvjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ShKIQFI3uGIhr4DBTVUmVEiZQKVcNYjQ9vNtabc3Rxc=;
+        fh=zlw9j6lj3hVzCuwItEx6P0WNK83CKKcOQRJI3Qn0vUo=;
+        b=U5RQdZcsYk5ii6dvE/geRzidypvvPiSnuDejCqwpwiRMhpxnic5EeiaepLpgz1UcIx
+         LhNrW4oSfu9KH9Lvo222PE3e5LuVDV153KQsffxT2GmrhsUiy/nQB50fIKlZAjholH5c
+         69w0b+qH1rKCHm9eTFdnKRSP2GSvepf9VQoHMgpdlFLeAqpBMeWo6dI+d0RWEpPJimfF
+         oWBtVW1ZfIvslincxAcSy6XdBOlgKsBmpAOc3jTcMZNcYtC4ST30E7/8dgJ76RlyJ49R
+         PMpk+0/HfbpX/0sr3IRDpvHfSt3ZIM4/nIUUjGTG6z3VXFM4kDLdO8rJ7R9lf91hUG8m
+         JN1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794846575; x=1795451375; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ShKIQFI3uGIhr4DBTVUmVEiZQKVcNYjQ9vNtabc3Rxc=;
+        b=Lzxl7IrKBnOjWRIlFbpbgmaOzwb/Tt4Q9mmVoQw5uewTDrJaxojWYhYJQuLAjF4MDg
+         0nUjATIixH6tF8AV9p6rvqcdNZOTOKhTL6wCPqWSZCUa0Bue2qr74R0LFBQqS+b2a9ka
+         hTlCQNy/cboNjjpygqP1jiyeVlPbqvcvVIC5OPo7uFbKhIQh6aSTzHcSXG/jEHL+Hs6e
+         TqkT84cp5v+Q+q14/8HEzfm2p+IQylYQNZ3xASlO2baA8S9NdmR93n5v1IeKptJz97Es
+         L6UAB1tmwxlBpg9cfXKQm9cxe4EuvBZTRHtkBz7QJeM0b1r7jzqmEfLUIZTqmvx31tt1
+         QqUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794846575; x=1795451375;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ShKIQFI3uGIhr4DBTVUmVEiZQKVcNYjQ9vNtabc3Rxc=;
+        b=GfokPsw3L+cSjxCwgoq8L0ZeS+O/kDhKV+GA2RdiZNy88fwwuh+/PZ1qbDNmGauhLP
+         j/SOTeNE5A+ASnqaDOmn7i2iHhzEMPQgOYG36c1f+mFGrNbARgZ2NvPjwpfTnwdnwhhj
+         QzTMX1Z0MyuRW3LgCbR3PhiGpRtrFXqJNBFLRKHSOkKr0mg1XbvOGYUl/q7RxiWa+aN9
+         PgVHy1+IfZP7YUP6ZzOe+qbxUfGy+dtcmhZL+bivwJor3KqouhAwNzGGGAHB0ycFJz/L
+         WuoO+6AIiS9U0u1J62gkOGVA1L9HMp3eoM5F6c8mfxQ6ms1vkh7zNbkfjLFa17zIEbp9
+         nuNg==
+X-Forwarded-Encrypted: i=1; AL+hErG7L3lE+peYjjaE1mLFgTFN1snrwlqIdjARldw8k+hvGrTCC1ehSNBk8HSSuZVXq0NamGp6F9Oq1xfEiFo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8klvYrckpQzf7IgL7vKOQ8M/4O8CrkDotrSkbzvlu7VpahIybx
+	Wbzpyhlvhpf327ZTCjyynyOVXaNStLf0bD/lhk6rHWRGjKRt7OsRCKkYNJ1BHm5jt5oKKxZuOfd
+	89ARuzuOqLh4XdvotTDEskGynqDdG2L0dyYyv7uEz
+X-Gm-Gg: AYBFou1HPcAGNHc70PJ3Tqe0n8arAjl5hDFKuC0DLlQAR7A8jjxgnJD4edLTlzf/NO4
+	mK8wvnkR1JdjC3g79KjXX3Uz85Mv6EtefhGekzEqif1qi8huwWkD85egDkc7wjUz/ekW7jQH7ka
+	DRWqd0DT1jf/RJsIE7JRrJDNpuYPWRUyHUKyzqJiTcowHjJy6fvXBZc6RwPVbFmoUqh6WRuNf/L
+	T0H1jqgbwcp/yqH0EQ83I5iQJ0nVwgfOMWCPlnakgP19g3Fp645c9KmU4qI3vI+MtQPTFi9kKtH
+	hg962qnLPKZqQ7sE0Cu6t5HSCMcyLUz0pqkYsVsSkO/E+kosjAIJZm9ARINcwmND7uPf99Vg5vC
+	+FB7VEsUsg7dPoE8bXzNG8La90E3f/bxYe/s3hOTqRMgHkLxb2OwqeRde4Q/eW0hptw7C3XSVH6
+	hv22TnTSIg/wGON7chSahGmUVMXC+M9uOsyxgZWUPp8cFLXSXg
+X-Received: by 2002:a17:906:ee85:b0:c4d:906:e979 with SMTP id
+ a640c23a62f3a-c50961992c5mr881499666b.3.1794846574496; Mon, 16 Nov 2026
+ 08:29:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,39 +105,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116101004.15322-1-azpijr@gmail.com>
+References: <491B482A-8177-447A-8CDB-AF83C13A5DEE@linux.dev>
+ <20261021212738.321547-1-jthoughton@google.com> <11457D37-5AF9-46C2-95BC-CAD4B22741A1@linux.dev>
+ <7C857138-E17C-40E8-9F72-6FD3E3AB493D@linux.dev>
+In-Reply-To: <7C857138-E17C-40E8-9F72-6FD3E3AB493D@linux.dev>
+From: James Houghton <jthoughton@google.com>
+Date: Mon, 16 Nov 2026 08:28:57 -0800
+X-Gm-Features: AclHuK-zpZUq8W9nNoH-Fxmelqg6hPrcZtO370EgGILVe_jjsPQzSM8Wu11E_Lw
+Message-ID: <CADrL8HUkUJHW0oT+tPhhyYdx+5+boSb8QRk9Bwp4mzVGpgRg0w@mail.gmail.com>
+Subject: Re: [PATCH v2 01/20] hugetlb: Don't restore vmemmap of non-HVOed
+ folios on bulk restore error
+To: Muchun Song <muchun.song@linux.dev>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, 
+	David Hildenbrand <david@kernel.org>, fvdl@google.com, linu.cherian@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, mark.rutland@arm.com, nikos.nikoleris@arm.com, 
+	osalvador@suse.de, rientjes@google.com, ryan.roberts@arm.com, 
+	sunnanyong@huawei.com, will@kernel.org, yuzhao@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 11:09:56AM +0100, Jose A. Perez de Azpillaga wrote:
-> +The registration is fixed, but the tracking mode is not: a context that
-> +switches to sync mode with ``UFFDIO_SET_MODE``, as the workflow below does,
-> +needs the sync registration. This has a cost in async mode, because minor
-> +faults are always synchronous: an access that takes a minor fault blocks
-> +until the handler resolves it, even while RWP faults are resolved by the
-> +kernel.
+On Wed, Nov 11, 2026 at 7:46=E2=80=AFPM Muchun Song <muchun.song@linux.dev>=
+ wrote:
+>
+> Hi James,
+>
+> Could you send it as a separate fix patch so that we could merge it first=
+?
 
-Nitpick, and my fault: I said in v1 that the registration is fixed. It
-is not. UFFDIO_REGISTER on an already registered range with the same
-context can add or drop MISSING and MINOR; only dropping WP or RWP needs
-an unregister first. So the cost in async mode is optional: the VMM can
-add MINOR before it switches to sync and drop it after it switches back.
-
-Maybe something like:
-
-  The registration does not follow the tracking mode: a context that
-  switches to sync mode with ``UFFDIO_SET_MODE``, as the workflow below
-  does, needs ``UFFDIO_REGISTER_MODE_MINOR`` while it is in sync mode.
-  Minor faults are always synchronous, so keeping it registered makes
-  them block in async mode as well. Re-registering the range to add
-  ``UFFDIO_REGISTER_MODE_MINOR`` before switching to sync, and to drop
-  it after switching back, avoids that.
-
-The example can stay as it is.
-
-Otherwise:
-
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Sure! I'll post it today.
