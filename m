@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.60
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794805936;
-	b=mHY1MKMkYFZF70ndSfRsr664K3nYd4bsOmvKj/HD/lmFZtBTjGGOcVuckhB5wWC3H5hI
-	 gL/5/LTFJNb+3FJvhL82dxnSn88XchYncO9KtWWECwm/9rEZpmbu2LgHdil4CxqeESxFh
-	 3e619i3n2/417qbHCpEcmk+WuFze34+4gyDWobc+4QgbiX1cdfro2AO0t0OE+de+ARqbY
-	 gIpcVcQCJ0Dz8nkYln6kcUxI7c4ZYPAPlB1DsBcrG2gcC/rm3IkuUfc6Au7uLhQKoauwo
-	 WZo0Aw+zvKS981YN2xU1N7G4+qGukMSA5zq2vJR70oemDvTwMxlCBM5sHdSHwu0ujlw==
+	t=1794805939;
+	b=e9pa3rdptEaVrUnwqOJP/wttWhIOnHCUmBvBD4Rf00VBlc3wJhXqUqSMQE0UUV17+XL5
+	 qzmyIgepHStdAsCrsZUkdtWPjMXnrFwOryhzGrPkrLITcv70YyX27CUvAsVd/IKV0/5HM
+	 7tpM7wNX6WRlmGzzz1byR+It99X9PfRTMsPogmVJURaz0Mq4JMEZw97X9nnh1TZRSuSFB
+	 anlBGwMcEvl/wNSGwiaIr4vhGSLBzFC69ul/nUwSAamVRt/54uQYYJbyFWOjwdCJ28eCU
+	 yPu8W8Ckai1oxTIcbkxzz6LQSAImwRwHlcD8wPC2Eml0cChU0+HTEbjsBo8/Ltvon4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794805936;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794805939;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer;
-	bh=Z9POl9I4jcuj/IXKCybXSL9Ryns15ceDvYW9lVzUk4g=;
-	b=5I2UW24vpUoFCEXDf18Oq8Pv5xA2fh4bxdwhW4uuCNKQqbJRro3LxvYOEKlANCKZnE2E
-	 ISasXZG0hJPFi7i2hYrao9jrIgTLJKPEOpLEhI3/rnwgjgINbWwj2n/A1/Tj81+4US6Ab
-	 Q8UrtlHiwSALf9LEvj/WsITWv7+n7BpgdNIzW+dZuXeEVTEiCdax8xF/D7Tk4Gk20aT5K
-	 brQBLx5XmEAxgDp9g/ElVXwxgRk69Y6EekdbP4dx/5XPB5Zoj4vGEks0O1EdwXn/PkirD
-	 hX2LeZjC0jZH7v0XGQdRGADWR6crbwx/QJNxHxL12OGiUL8P5nL0mUpgKu7e31OW7vw==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=W+wXT11nJhSS19tcilV3uSfJ8bLtuBDroFYijxy12Es=;
+	b=RpBKmGNJULFtnyy+obWV5DGsDiAOAq5yUQnS4+6rtIzMfIxCKOSw932kQEAaBLwTj+z9
+	 ISbSvAejXwWhSssSBmf4ON/3ljVm3JcehvHNQRMMtaqjUcJs0wnLOMzgqblp15WWb0FUH
+	 ooQKFr01C0tg7WuKy8l/JIDx3vZP3EhsJ/X3egtiEgeA+SU4lFvWJW+t8Neg4rEeA98/n
+	 FTcPLw6cZvRnP6dn8C6cV0jqKIPFyY+YeiTpXIdFKCa0lddW1UQntYKA86u6lte0j6fOg
+	 Sizrpe2AlNxKhkZY8xAiouobOZ7OzdHFJWoxX+jIsPF311c4dEDqTa/enySozfs0tdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FnXjxtij;
-	arc=none smtp.remote-ip=95.215.58.60
-Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AZP6Xdib;
+	arc=none smtp.remote-ip=95.215.58.65
+Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E74606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:12:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E74606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843EB606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 843EB606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FnXjxtij
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AZP6Xdib
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Yz4k/P4RhOoUI14DZ6GNPt25I0TqwKwgFQ4BR8IZWf0=;
+DKIM-Signature: a=rsa-sha256; bh=Km7OfgZ8PltK3tbudPrmRK16be4ZvZVYx5fTaD1GRto=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794805932; v=1; x=1795410732;
- b=FnXjxtijQkhxdYMcxeyPm9T+kdwx2937lBxlq+dpWWLoAsP86LVIDVqlJlM29C3fWN6FS7ll
- 8EfFex0sMyG0xum3K09pDsQOXJj4UpeNi2DlIvarwb/GGZn9leXEPd4YBVkTFb6eUPgwNJEfWZn
- 9LdN/xUt/m66nkvVlaf345s8=
+ t=1794805936; v=1; x=1795410736;
+ b=AZP6Xdib0eobM3tgY02R8sGzoBCTPKgCVT22JckDko1B2KI8Oy9tBO+l/jTg3kTEMzboMhD+
+ J0boA/WqJ4l6Cd6mIbnpQw6Io/WjMJy1Xn8HNy7mQf1ys/b5R/1HmY0xIy4O3xBDuGrnUMA8W/K
+ UWuZqEXHBma+mV1GdCm27wJY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 896e38f19e08f5bf;
-	Mon, 16 Nov 2026 05:12:12 +0000
-X-Mizu-Trace-ID: 896e38f19e08f5bf
+Received: by smtp.migadu.com with ESMTPS id 338ac73156b1b968;
+	Mon, 16 Nov 2026 05:12:16 +0000
+X-Mizu-Trace-ID: 338ac73156b1b968
 X-Migadu-Flow: FLOW_OUT
 From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Subject: [PATCH 0/2] dm thin: stop waiting for grace periods when
- activating and removing thins
-Date: Mon, 16 Nov 2026 00:12:02 -0500
-Message-Id: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
+Date: Mon, 16 Nov 2026 00:12:03 -0500
+Subject: [PATCH 1/2] dm thin: drop the grace period from thin_ctr()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,9 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKOQ+moC/x3MTQqAIBBA4avErBtQkf6uEi0yJ51FFpoRRHdPW
- n6L9x5IFJkSDNUDkS5OvIcCWVew+Dk4QrbFoIRqpJQaTXZoNzw9B4xLRnegVb3VptWzMB2U8Ii
- 08v1Px+l9P0k+2DdkAAAA
+Message-Id: <20261116-bug-dm-thin-rcu-gp-v1-1-14ed3567da3e@linux.dev>
+References: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
+In-Reply-To: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
 To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
  Mikulas Patocka <mpatocka@redhat.com>, 
  Benjamin Marzinski <bmarzins@redhat.com>
@@ -73,29 +71,49 @@ Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
  Qiliang Yuan <qiliang.yuan@linux.dev>
 X-Mailer: b4 0.13.0
 
-Activating a thin device waits for an RCU grace period in thin_ctr(),
-and removing one waits for another in thin_dtr(). Tools that create and
-remove thin snapshots for every container, such as the containerd
-devmapper snapshotter, pay for both each time.
+thin_ctr() adds the new thin to pool->active_thins with
+list_add_tail_rcu() and then calls synchronize_rcu(), so that a
+wake_worker() call can't miss the bios of a thin that isn't visible yet.
 
-Patch 1 drops the grace period from thin_ctr(), which isn't needed.
-Patch 2 lets the active_thins walkers skip thins whose last reference is
-gone, so that thin_dtr() can free the thin with kfree_rcu() instead of
-waiting. Activating a thin device gets 51% faster and removing one 15%.
+The grace period doesn't make the entry any more visible. A worker that
+walks the list after list_add_tail_rcu() finds the thin, and the thin
+gets no bios before its table is resumed. A walk already in progress may
+miss it, but the wake_worker() for the first bio queues the worker
+again. Still, activating a thin device waits for a full grace period,
+which takes about half of the activation.
+
+Remove the synchronize_rcu() call.
+
+Activating 100 thin devices of an idle pool with dmsetup create takes
+per device (mean of five rounds, min-max of the rounds in parentheses):
+
+  before (ms)        after (ms)       change
+  15.4 (14.9-15.9)   7.6 (7.3-7.8)      -51%
 
 Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
-Qiliang Yuan (2):
-      dm thin: drop the grace period from thin_ctr()
-      dm thin: free thins with kfree_rcu() instead of waiting in thin_dtr()
+ drivers/md/dm-thin.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
- drivers/md/dm-thin.c | 37 ++++++++++++++++++-------------------
- 1 file changed, 18 insertions(+), 19 deletions(-)
----
-base-commit: 23c62304dde29abe92013d85910d03a77dada35d
-change-id: 20261114-bug-dm-thin-rcu-gp-d29d4b74a0b8
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 358ed77ffb2be..d5ff937eeacba 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -4289,13 +4289,6 @@ static int thin_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	init_completion(&tc->can_destroy);
+ 	list_add_tail_rcu(&tc->list, &tc->pool->active_thins);
+ 	spin_unlock_irq(&tc->pool->lock);
+-	/*
+-	 * This synchronize_rcu() call is needed here otherwise we risk a
+-	 * wake_worker() call finding no bios to process (because the newly
+-	 * added tc isn't yet visible).  So this reduces latency since we
+-	 * aren't then dependent on the periodic commit to wake_worker().
+-	 */
+-	synchronize_rcu();
+ 
+ 	dm_put(pool_md);
+ 
 
-Best regards,
 -- 
-Qiliang Yuan <qiliang.yuan@linux.dev>
+2.43.0
 
