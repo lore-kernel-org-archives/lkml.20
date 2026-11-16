@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831425;
-	b=oWs+QnNs40RP4Wpm4mn3cb3YnqOePSnEdb7ZF4GKoINxWu9iBtwF+BOXjCw33AE2gDO1
-	 nt61lf8EB88BWUToJmXMEw4YNokWsdFgEXrISwaWmLgTzAtS16Wswi+0ilCphiNvUBgHv
-	 qE61s09DCk7o5WmbuEC5ipVI3h7mC6AY860VRdo1tz9WoAHDb7YmOPGnYw/iifnflwbeA
-	 REtBcSaeP3VkKWxQwmKAp7rQCxVy0/n5cpEHfm1zbmH6rQokpU9E6Zh6ZxNMLLvYq2zbu
-	 cif/lWFttQmNgPWPs0SUD6Pv5lKQ8mZBmKXKXI6XOGsY/JQZ+uOzMzBGI9J52NdwOlg==
+	t=1794831448;
+	b=Jy1tmaHrkXOh8+0T0ixoDAPKC3hVa0+k0bVKtEaVkJ87FrcEEgLRaVZsgTllTgVhs4o4
+	 SZgGR08W73kKcYUXhbrPXXgL1AtwwfIKS/4/Atk+dMjBUaFKSbV5nIrvw2bp8N34KWV/V
+	 LawVUkyjE/zb3CqFFMAn9plcPA2n1Pg1pCV2t6KCpii3Mnq0nZ1OFpbhy1Zos7gKXoeaR
+	 BjSSy8GxlUWwqlt4polzc/Dg+zZeJ0lZFDdMHLVgby0cqQZjdobEuFX5EcJclQMgQ9/xN
+	 xKVpr9lMI9gZy74PutXGSBF8s8gZxL8t4Si96g1G4SWicsrpYM04O53EyLey0ElstPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831425;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=kRV4hRk2MNBPO2QdckWnPBfCWx84W7jJRJFVVEtCjZo=;
-	b=U6ulr3I8rg9QHSgArC9tRiTI85/bNokudeTjep727g+QgfyvHEQeyNVlAwhZnZzWge02
-	 91HZzHqCTGRLoD1YJRGgzabqVoVquaNFmoGGYVhmg3bCzIrSXj0LpEbPSCgDt3gQAu4E8
-	 8Y8Rt/z+0MoIlpuWElC6gUP4Q6368veFhZ78qBW/d7+RtPRcy0lXyNbPh9u/A1C/VFcZp
-	 GNsqM3j57Tcbn1zniTSu/3RbKCaXZ+Mg0xXmrN8McVi+irJ7yiVdFh0xTqk5IcKTY8dbq
-	 O59pScDFPmqNmCLo79/Fhf68YUxlhJei9BVkN8uD6ENMShBQgyLhoDh64M4RoAT4aqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831448;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2DvzYjKrOUzMqNS33zIkMu1E1h8ZRESapVtIQDWP32I=;
+	b=z2tOS/xP6Km1eBfxZUPnFTc6Bj2hJbxG88ltX5P5r0RRArLes+5KXaVLLHa6NS8snq7d
+	 VCSEbSgETntmpgBIjnGfjOG8DftqfjpgMKCKCq674xeCLQjbbrfHSQPDbWqPnm2t0v3nE
+	 /tjqd7hWR89XcpuUapINy/91PcNGfVVjzamwOgIi/Rcau7SBlhlM+TiPKIW8lQVYK2n8o
+	 bGeZjH35ZflNwTfWXYEzzaRRGHcEttVyCbNYDAooSOK9V500rr37d94Oxnq7mM2cBOF/5
+	 wuMBXae0w6YwP/9EVBGPDYZAKN2BGR4cHNOjLjBd8Yee5kbXp04/Pm4q5PNQLhNZFwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dx2WKFmz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zsx4xFdk;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dx2WKFmz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zsx4xFdk;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gZ07fxG0;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8099606A32A;
-	Mon, 16 Nov 2026 12:17:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8099606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65558606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65558606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dx2WKFmz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zsx4xFdk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dx2WKFmz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zsx4xFdk
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3E7AA1FBA8;
-	Mon, 16 Nov 2026 12:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794831423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kRV4hRk2MNBPO2QdckWnPBfCWx84W7jJRJFVVEtCjZo=;
-	b=dx2WKFmzkR1qGmGhNlbR16KwKmHdB4znygcRQBQobld0V/Ki4b/axzqCOOxpdfxiZhqRbK
-	TjGGxqAE+T8o6yd93E91j/XML+TIvq/WjzsMKl18wu5QSh0o609/iaR7PNmxNJXz1xLHeZ
-	Oxd0jHkgEcZphhQV3cmAmZvKi+Kq/Oo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794831423;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kRV4hRk2MNBPO2QdckWnPBfCWx84W7jJRJFVVEtCjZo=;
-	b=Zsx4xFdkH5iTW9IegQE7wXwVyFuUrbHPU5wmiI25LKrgptQi4ubacs9Jzgnw2uX9E+vblt
-	mDtOrpPtKKa7VFCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794831423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kRV4hRk2MNBPO2QdckWnPBfCWx84W7jJRJFVVEtCjZo=;
-	b=dx2WKFmzkR1qGmGhNlbR16KwKmHdB4znygcRQBQobld0V/Ki4b/axzqCOOxpdfxiZhqRbK
-	TjGGxqAE+T8o6yd93E91j/XML+TIvq/WjzsMKl18wu5QSh0o609/iaR7PNmxNJXz1xLHeZ
-	Oxd0jHkgEcZphhQV3cmAmZvKi+Kq/Oo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794831423;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kRV4hRk2MNBPO2QdckWnPBfCWx84W7jJRJFVVEtCjZo=;
-	b=Zsx4xFdkH5iTW9IegQE7wXwVyFuUrbHPU5wmiI25LKrgptQi4ubacs9Jzgnw2uX9E+vblt
-	mDtOrpPtKKa7VFCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D67681334C;
-	Mon, 16 Nov 2026 12:17:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oZULKz70+mq8WwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 12:17:02 +0000
-Date: Mon, 16 Nov 2026 13:17:02 +0100
-Message-ID: <877bidynr5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Mark Brown <broonie@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gZ07fxG0
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so2902939a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:17:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794831447; x=1795436247; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2DvzYjKrOUzMqNS33zIkMu1E1h8ZRESapVtIQDWP32I=;
+        b=gZ07fxG0GDEsvNe+/QJVmTRxfgb2FWsXZ/lBK6luvLHmnXXJsoClsVy6w6cibCo/BZ
+         W6JW7C0AxGumMIZd02DNEil/vj16J07rdtxwwSjrTwKB/GrZcIm/Tntka4IaN6tT/aGh
+         aIaBvHPQy95jiSO4GnAZThpF8PiOOuEB0WjhTrFwFFLkju0t+UcLwBrL6K0wpvAN+ZRn
+         Mn0xPUprvk8WahWgRYdJi1YfEezaUBJ8JGdu3CI3sEgJEkKM0XwKTBw/aZF1uR8jW5qT
+         U68GFHJCLL7wAS0Knrie+BXLYzRukpXZtlvKbJ273YihjETl9ikeoUiGO0Q3ZL9VLFDX
+         LxDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794831447; x=1795436247;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2DvzYjKrOUzMqNS33zIkMu1E1h8ZRESapVtIQDWP32I=;
+        b=b0VTd9P1sdIe7FFhYOR+sZI7tXhsEdIGoanmwmft9zG9pJ/98rvXohu6bKMiHO/pZd
+         WdzmWUOy0GFI7Wl2+rF2rDUvphrmXipYILj2UAPdmZr4+jNCz+iw3EVavfgQ18RuyPrD
+         z7w/vHEsB2jD5ML45yYoO3FRZli4fM/zO0cCkfdzHciIREDhs9nncBeuNHjb6c520s2e
+         7fm9hhVa+pklVyfiYd0g/OMGDM8VkWFLGRrpB755mv8FFIaZ30FCLw/b0fJ15MRqSJcu
+         HY0tBzUfuutCz93PxjPznGQaKj6JNGMKlWLq+OhKVnr7MgOupcc2EwL4tHYdPGw9SO4i
+         w2+w==
+X-Forwarded-Encrypted: i=1; AL+hErFzlarTi+c+zfOey8c4kjr0vOnRNkuNTYbXkVQeSuNpuL2BQPF6zpPFiv7fZhXtQr+cmwUtef0FU2kIHs8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9z109VPxFvA+jP4L/hHgcsODwNwfkv+BctdEVw+OQQgDj4li25
+	+7dUmrKGcuk1BUh3t1Xpymg61Aflp3ihM8CR38sYU28i1ySp4Ds2E0fo
+X-Gm-Gg: AZFdTZchG3ZH4J0k9px+1dfJTPs06jQKimZeR7ALaXnIiJnwOC/j10z2Om/0bmq1H5k
+	OFm20YCO1a60ZDSNkuzWfY13PKPcqiwJL3oKHjYcXWIwPbBY2WASIKHtnEVT8jsZW2jU169U0zO
+	ViFj1nWTGmw51mltX00iDBVuUNO5lM8+zFUtqtr5VLOyjfnBHadl/vuVPTc2Fmi+ItZI+XyQwd2
+	sCrEfyM6kfyslH0a2o6IUC7MjQQijsF2LHVZQn2T3xYbFK06RE6xv+rTqtaleKO4t8iQXHxxRwn
+	D/61xemZ/Mpo3GZkFTgle4q6O3DKvpN14umB0xBjoCHvvNZxwHKItn1sgAzkEpdrEl5arktB1qf
+	X6jOF+Wp1pIAu08L0mEBZfQQGJFvirjeXeUG+9hb1MfLFhPL7ppCXYc6SAGpk9aq972aDJjyERL
+	f4U1uxpgJ1y4ISJxP3QrEunJ0iAEkdCF5PJinOAWjEpB2iuOE84OFQ0q5vZuCV7FkENLUOPKMD5
+	3fSnoSC2qmz+CLPqLGF2mCtL4OgLa46y+H8bzocktJH4tre4xdxpjgh8S1eCOZLH0ZoE6GycecN
+	6hOgbX4blc1rmvDtKvc7Bk7ZMipUzaQTQU7/GTTccwkbfF2VWjOvs+qx28pOmnL1NvOjM7DHEg=
+	=
+X-Received: by 2002:a17:90b:134b:b0:3ad:50a2:9abf with SMTP id 98e67ed59e1d1-3b1b0cae71dmr10511167a91.38.1794831447522;
+        Mon, 16 Nov 2026 04:17:27 -0800 (PST)
+Received: from JIAPENGLIN-MC0.tencent.com ([43.132.141.20])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18b4352sm4384178a12.24.2026.11.16.04.17.24
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 04:17:26 -0800 (PST)
+From: Lin Jiapeng <ljp1205831794@gmail.com>
+To: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	paolo.valente@unimore.it,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] ALSA: seq: ump: Fix Note On/Off and key pressure conversion
-In-Reply-To: <20261116030338.422671-1-sammiee5311@gmail.com>
-References: <20261116030338.422671-1-sammiee5311@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Cc: Lin Jiapeng <jiapenglin@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>
+Subject: [PATCH net] net/sched: sch_qfq: bound backward slot rotation
+Date: Mon, 16 Nov 2026 20:17:07 +0800
+Message-ID: <20261116121710.77403-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,63 +103,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 16 Nov 2026 04:03:33 +0100,
-HyeongJun An wrote:
-> 
-> Hello Takashi,
-> 
-> While extending seq-ump-test, I found three conversion bugs in
-> seq_ump_convert.c. In each case the UMP core or the other sequencer
-> path already does the right thing, and the fix follows it.
-> 
-> Patches 1-3 are the fixes. They also apply to for-linus. Patch 4 adds
-> the tests on top of seq-ump-test.c in for-next.
-> 
-> Without patches 1-3, the new tests midi1_key_pressure,
-> ump_midi1_to_midi2_note and ump_midi2_to_midi1_note fail and the other
-> 25 pass. With them, all 28 pass.
-> 
-> Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64 under
-> qemu, on sound/for-next.
-> 
-> Best regards,
-> HyeongJun An
-> 
-> HyeongJun An (4):
->   ALSA: seq: ump: Don't turn a zero key pressure into a Note Off
->   ALSA: seq: ump: Convert a zero-velocity Note On to Note Off for MIDI
->     2.0
->   ALSA: seq: ump: Keep a soft MIDI 2.0 Note On from becoming a Note Off
->   selftests/alsa: Test the sequencer UMP Note On/Off conversion
+From: Lin Jiapeng <jiapenglin@tencent.com>
 
-Applied all four patches now to for-next branch.  Thanks.
+QFQ+ keeps aggregates in timestamp-ordered slots and rotates the
+occupied-slot bitmap when a group's start time decreases, avoiding the need
+to move the aggregates themselves. Insertions are capped so that occupied
+slots leave room for a later backward adjustment.
 
+A stale aggregate can make the start-time decrease larger than the bitmap
+can represent. Rotating then pushes existing members beyond full_slots,
+and a later qfq_slot_remove() clears a bit in the following slot-list
+pointers. KASAN reports the resulting corruption when the group is
+selected:
+  BUG: KASAN: slab-use-after-free in qfq_choose_next_agg+0xd04/0xd90
+  Read of size 8 at addr ff11000102f73010 by task repro/92
+  CPU: 0 UID: 1000 PID: 92 Comm: repro
+  Call Trace:
+   kasan_report+0xe4/0x1a0
+   qfq_choose_next_agg+0xd04/0xd90
+   qfq_dequeue+0x365/0x14b0
+   qdisc_peek_dequeued+0x91/0x280
+   tbf_dequeue+0x91/0xcd0
+  Allocated by task 91:
+   qfq_change_class+0xca5/0x1c50
+   tc_ctl_tclass+0x4ee/0x1400
+  Freed by task 37:
+   kfree+0x1b3/0x550
+   qfq_rm_from_agg+0x228/0x300
+   qfq_destroy_qdisc+0x118/0x1e0
+  The buggy address belongs to the object at ff11000102f73000,
+  which belongs to the cache kmalloc-128 of size 128.
+  The buggy address is located 16 bytes inside of
+  freed 128-byte region [ff11000102f73000, ff11000102f73080)
+The report is followed by a kernel panic.
 
-Takashi
+Limit the backward adjustment according to BITS_PER_LONG and the
+largest insertion slot. If it exceeds that limit, move the activating
+aggregate's S/F and rounded start time forward by the same slot-aligned
+delta before rotating. This preserves the timestamp and physical-slot
+mapping, keeps every removal offset inside full_slots, and leaves
+representable rotations unchanged.
+
+Fixes: 462dbc9101ac ("pkt_sched: QFQ Plus: fair-queueing service at DRR cost")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
+---
+ net/sched/sch_qfq.c | 13 +++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+index e900890e9c54..e83105ce9015 100644
+--- a/net/sched/sch_qfq.c
++++ b/net/sched/sch_qfq.c
+@@ -1300,7 +1300,7 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg)
+ {
+ 	struct qfq_group *grp = agg->grp;
+-	u64 roundedS;
++	u64 roundedS, slot;
+ 	int s;
+ 
+ 	roundedS = qfq_round_down(agg->S, grp->slot_shift);
+@@ -1318,6 +1318,17 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 		if (!qfq_gt(grp->S, agg->S))
+ 			goto skip_update;
+ 
++		slot = (grp->S - roundedS) >> grp->slot_shift;
++		if (unlikely(slot > BITS_PER_LONG - QFQ_MAX_SLOTS + 1)) {
++			u64 deltaS = grp->S - roundedS -
++				((u64)(BITS_PER_LONG - QFQ_MAX_SLOTS + 1) <<
++				 grp->slot_shift);
++
++			agg->S += deltaS;
++			agg->F += deltaS;
++			roundedS += deltaS;
++		}
++
+ 		/* create a slot for this agg->S */
+ 		qfq_slot_rotate(grp, roundedS);
+ 		/* group was surely ineligible, remove */
+-- 
+2.55.0
+
