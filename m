@@ -1,86 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855341;
-	b=tryf5IoLuDhxVJNHuPaDBfL9cauxRPBtSl+C2d4vlm1a6ZpjO+JH/YL8Ki2rpwQfACDK
-	 69JPhSklO2oLuey5j+KdeBwjjiEkzLVzKmKo4ak0j89qjeZs5QtpYimP/E/BEBQ0E/axU
-	 k7imRnHvoFvhNK8+UDJtDZdTebCXsfT3y+Eq8PXhJcLQ8dGIy3+7RsnnlFcP5YvieN8wx
-	 7SgXEA8sbcITIszpPuWTv33Ts02aqthB7tkR8O6eJ3OnWRCSwDTKcytwTFC1E2+mRTfTl
-	 6tmBlF0yOcGRzehU9zY2mWKVOimIVt0YkFb3bsCu5VJYIH8cpDBIedFUdejo8rz+lSg==
+	t=1794855356;
+	b=aHy0nQLpceulJ0hzKN8k9vBy5LxXVq+2vZ5Uiw9kqHCbPjw7fEbalRNj30LWm/fxHbcH
+	 nZ7yWSea6LwMxgcGj8qiPDqC+Gzshxo7t1lllnMJFFPIWJAJKvwWEKMPKzSty+5K6VQuC
+	 l9CTTfD8i1g65w0PDUjmihSyCIrW3nG9HxjBuN5UMcsCko35pcWTqlFrgXFJKEypRa2OK
+	 t7dDdgA4NarOpOipcm7lCZTlbxjrA2tz5n6hl/MdW13BQIwA6xj//s1Qm5WjyPR79qR30
+	 iBJ9VT/7x+hLyIQq4OkJlwNIVOAK585Qsz2JlJxWiZrZJPR4irfz22EL6zFsNmCPdoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855341;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 DKIM-Signature:Mime-Version:Content-Transfer-Encoding:Content-Type:
-	 Date:Message-Id:Subject:Cc:To:From:X-Mailer:References:In-Reply-To:
-	 X-Last-TLS-Session-Version;
-	bh=iZtb3tH4xNYkL76uno5UGFzxRxz8bGX3F04QPuTuxWc=;
-	b=PdZuAXr2q1CDkkjBHHKOstHUa/IC92C5e0WZhJfzSo9TCRpjJNFbEIEMERgF7Gy/ZwFx
-	 vquKU9iwlTohdZcbafts7LrHqIZ9a8+kRq3Pm3sLOzKwSsUhHqSVNXtGUcihxfq1c15/M
-	 3JCWTbZFjXLlOo1ILTG42qbou9ZHTDhBiAQhumvuhD5LOsR3qJfFzGe8VL7R+AmgmhaRB
-	 BfqeRxCmrU0X6Y6yRyQ4buuClm53P5Qf3kfGOx/qJt51zy3GBrEnPgEb3ez7NaUJmm+QQ
-	 JlEQTv6Tvqg2yyr3IP9Dwixg8iA/Ve9CsTgDfNBR2lmw1FxaRO1aapEwUXzoLhC6mqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855356;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=3MwGTia29hoI59AYQaU2Ez4dH29GW4k/UQmwogH8ApU=;
+	b=gK7IjyXl7UhdxMlBSqo0LoXYlv3kbV9PSuV8LYtITauKkVdy55DZb6XborOH668S8TI8
+	 bEsBRxes0yCkT6XdpSnYBwXy34RMFAP/B01gpjgUBoboefmdvLcgyahWL86eb3n2nLuGp
+	 JDxfQzVn46nS3LR2pAlGEm1Nk1A7mlMu87+Hlsw9uay5f4ocSpGo2y9zHFLQKCckEa8Y9
+	 N6HgXe6HtGz5oVmIQ4/qqPU7U9+Acq1c9lFnnV40wBremMmwImUGvwSeqe1CITKjGhWeF
+	 4ZAm8Ope5EIXilb42kfT1IkT110Nmhgl+PeMU8YPKorqCbtYN8O4xxondI4HrbhXoiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marliere.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=marliere.net header.i=@marliere.net header.a=rsa-sha256 header.s=dkim header.b=Hdv+rSQS;
-	arc=none smtp.remote-ip=209.85.167.171
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI5Ywpeq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFB8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:55:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFB8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0A4606A322;
+	Mon, 16 Nov 2026 18:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.a=rsa-sha256 header.s=dkim header.b=Hdv+rSQS
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-57148b8ec14so1104336b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:55:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855339; x=1795460139;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iZtb3tH4xNYkL76uno5UGFzxRxz8bGX3F04QPuTuxWc=;
-        b=hFFpEnF9AJmw3WN04kDk5bpB73h2uBb3L4Z5WHnjwQcyRVkPkLT//lgvNpkN8MV71I
-         9UMiWeF5mzUtAvDe7i0SnfAqQtdBSp/1Llu6PZj8tPjSRItNwJpnJ8Jgr1b5wAiXB8ij
-         rbx/3yVFM7RLmPM7aY27GdvrAGAnnHpv+C1nZqs1KYn2ME89p5Lik0u07ZbRGvoGhnAT
-         McFl8VP0YD8swLPTbg7wx56HQMa63VNmQUihxsRKCN+7iqzGI5Si68xt1rcSyjYuNCWN
-         JsBizemwn4f/kyb6qBWZ76kdyo42aRQaY0pQQ1TGqR03+neftM332Rif8W39mCewsaTK
-         8YEg==
-X-Forwarded-Encrypted: i=1; AL+hErEqvFB6r+VKvKe7Qpcj9TBVpgZvHUUCKg/5qz5FTaSd4/B6vfUH1qzY4muCJNyjFuSZIOCcXRmazv+6RaI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/QWAtp1pV09uTC3mDKMUv9z7WGeZ8p2bpCbmYSWyIRjv7ol7p
-	xk0/201MiBOKHXGkv49DFv3NgOUrdulj89NoQja3NIllrAsHGTg+CWBW
-X-Gm-Gg: AYBFou0WFORKta0UneWHzVg5iyKSMymM8gDYW06kjuiOX0/2DOR6rD6XbNgc4BI87qb
-	kHmhdZ7YP4SuS7fQ8gd/5EMltxvwMzgSgbdha70v04JyxxATtoUx25UHHOY5Y0Qm6g41JSxPVzF
-	uu9/u+OR2rQ4YTEV0X7E++/c7ZdmvirvVI3FmjjNpflgxJ9fXNRFsEIMYerE4hyJG8ZiipfwM7u
-	XGoRmbb6xMGMyGBr9mwbh3FiU0FUTh5wjG+APEQEKwDa2yO9NcfFwNaeHJlk9SWCsDV9SHS2u+O
-	RFDUE8MSKszfcwfzn36HN15+q4zdPtLTIHQncMeqHXuR4edxF3a8oopm+5Yi9z0ypliXU+ONoWx
-	VFFhSNy21PEHq2+QjIRM68GGHI0rctLMqWEUZpxrZ0Dld5GJhGusxCiumdbDR3Pf1ekGsTww/Uh
-	X/VRVwYbSnQY0OuhUGy8XJnBhUZ/TWqGNOPs2PT6V4aCTbnp3GFFBbiJ9zDf/tvk6LroqOEhgMv
-	pW5ke0LNHwTKvF3uBTjNYG7XwPwIsq5TnrlhUQj84HhL40eRlrmJ/gjFVZUXIwCO6MCYRLznx3T
-	dMcRiU55E4NByEOHUZExkxAXUgGfrK/U8N7VdiVeR3eFQbQMWEJelvYfTfU+tCdrSEq8mbLasA1
-	Rt+Gwk6FDklrIZI/LToSO1YkXnBegeVNOji3xwAepBOCo8IGpWD1p
-X-Received: by 2002:a05:6808:3086:b0:574:82cd:a022 with SMTP id 5614622812f47-57482cda6f3mr3160064b6e.15.1794855338711;
-        Mon, 16 Nov 2026 10:55:38 -0800 (PST)
-Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70650e91sm10359756b6e.10.2026.11.16.10.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:55:37 -0800 (PST)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DE26605D4;
-	Mon, 16 Nov 2026 18:55:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
-	s=dkim; t=1794855334;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=iZtb3tH4xNYkL76uno5UGFzxRxz8bGX3F04QPuTuxWc=;
-	b=Hdv+rSQSDPv5yuuTaPLYD3fJbxUOeZFBKK2OysFIBS3B6sULeKrSih7aTWt5amgr+BWKWN
-	epcmd9uHu8BA0WpQ7zMVtXYUSUXP9dwjueimkB+fvbUaFikXjFwhYPCoYKvx97cSMEIDii
-	B+ZS3Nc2ZRAdvcIw3M4DhETmrnxylBGDohG1/KBG+/bJTiljjJ0mPl5IziP36dRPqJb4OS
-	eQopJXQiQacpZRoUAvofRfi8juhfQEN4+tcq2JgHJH/rr661nVZh4EwkkvHEfScVyYJMwy
-	Ip3zObxcd2X7e7OlEuZsBOOmr9tV5Rmi9P7AiugdFKIOatj+6HYrkaG218Gqpg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI5Ywpeq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA571F000C4;
+	Mon, 16 Nov 2026 18:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794855356;
+	bh=3MwGTia29hoI59AYQaU2Ez4dH29GW4k/UQmwogH8ApU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RI5YwpeqRU57kQQWAFDUJRI5bEo4fI8+rmCJLhGn9A3llbMJsF4YoKFvGsBkr0yBL
+	 cqrd2c0RNIirTEO6PINH2Lo4/35mrVpFmhWBLxVXikHrWvlaS7bLaV1U/GOwQdtigv
+	 s750fDUw1UdKNtLAQ3CIyFUB+2Fs6GrsRDG2EgehBvuANEdrQVgEJ+wByoa5Y+cHfm
+	 AbePJMoj4FrMX3Vfybceg/YA5m+iitTxs8t5Y5kmscYEXzMivISIhqepF1/20FhRQB
+	 Vu5KGLxdA7G++XQeEghBbwopbceLVJjE2SPzu3KI43PH7SDBhmdkM6Pa+mt+N0nUNM
+	 NkU/wGwqOyZ1Q==
+Subject: Re: [PATCH net-next v10 07/12] net: dsa: realtek: rtl8365mb: set and
+ get vlan 4k for family D
+From: netdev-bot+sashiko@kernel.org
+To: namiltd@yahoo.com
+Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
+ fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
+Date: Mon, 16 Nov 2026 18:55:54 +0000
+Message-ID: <179485535493.3136.1068069637622995619@kernel.org>
+In-Reply-To: <915a9103-82e6-4504-8d6e-3d12c4e7af1a@yahoo.com>
+References: <915a9103-82e6-4504-8d6e-3d12c4e7af1a@yahoo.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,60 +65,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 15:55:30 -0300
-Message-Id: <DMWV43RJBJPY.3OZT23NFSC6YU@marliere.net>
-Subject: Re: [PATCH] selftests: quote tr character classes in runner.sh
-Cc: "Shuah Khan" <skhan@linuxfoundation.org>,
- <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Jori Koolstra (CIQ)" <jkoolstra@xs4all.nl>, "Shuah Khan"
- <shuah@kernel.org>, "Cristian Marussi" <cristian.marussi@arm.com>
-From: =?utf-8?b?UmljYXJkbyBCLiBNYXJsacOocmUgKFNVU0Up?=
- <ricardo@marliere.net>
-X-Mailer: aerc 0.22.0-17-g7220139118bb
-References: <20261116-kselftest-runner-quote-tr-v1-1-e6270326db66@xs4all.nl>
-In-Reply-To: <20261116-kselftest-runner-quote-tr-v1-1-e6270326db66@xs4all.nl>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
 
-On Mon Nov 16, 2026 at 11:27 AM -03, Jori Koolstra (CIQ) wrote:
-> The unquoted [:lower:] and [:upper:] arguments are subject to
-> pathname expansion, so a single-character file such as 'l' or 'r'
-> in the current directory would replace them and break the
-> KSELFTEST_<TEST>_ARGS name sanitization. Quote them like the other
-> tr invocations.
->
-> Fixes: e005ff01bfdb ("selftests/kselftest/runner.sh: Pass optional comman=
-d parameters in environment")
->
-> Signed-off-by: Jori Koolstra (CIQ) <jkoolstra@xs4all.nl>
-> ---
->  tools/testing/selftests/kselftest/runner.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/kselftest/runner.sh b/tools/testing/=
-selftests/kselftest/runner.sh
-> index 311811dc55a0..e81a35e607da 100644
-> --- a/tools/testing/selftests/kselftest/runner.sh
-> +++ b/tools/testing/selftests/kselftest/runner.sh
-> @@ -77,7 +77,7 @@ run_one()
->  		BASENAME_SANITIZED=3D$(echo "$BASENAME_TEST" | \
->  					$TR_CMD -d "[:blank:][:cntrl:]" | \
->  					$TR_CMD -c "[:alnum:]_" "_" | \
-> -					$TR_CMD [:lower:] [:upper:])
-> +					$TR_CMD "[:lower:]" "[:upper:]")
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Reviewed-by: Ricardo B. Marli=C3=A8re (SUSE) <ricardo@marliere.net>
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
->  		kselftest_cmd_args_ref=3D"KSELFTEST_${BASENAME_SANITIZED}_ARGS"
->  	fi
-> =20
->
-> ---
-> base-commit: 4d038dae9e5ba5b3fec87fad5b7bf3dc45523ca1
-> change-id: 20261116-kselftest-runner-quote-tr-467bb5fe6dac
->
-> Best regards,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] On family D, the per-VID IVL_EN bit (CVLAN word 1, bit 3) is
+  set only inside rtl8365mb_vlan_4k_port_set()…
 
+--
+
+net: dsa: realtek: rtl8365mb: set and get vlan 4k for family D
+
+This adds two-word pack/unpack helpers for the family D CVLAN (4K VLAN)
+table entry, rtl8365mb_d_vlan_4k_read() and rtl8365mb_d_vlan_4k_write().
+It also changes rtl8365mb_vlan_4k_port_set() so that on family D, IVL_EN
+is set only while some user port has VLAN filtering enabled. Family C
+keeps IVL always on.
+
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+> index 566c6bc1449af..bf1a6a9916114 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+
+[ ... ]
+
+> @@ -314,7 +391,21 @@ rtl8365mb_vlan_4k_port_set(struct dsa_switch *ds, int port,
+>  		vlan4k.untag |= BIT(port);
+>  	else
+>  		vlan4k.untag &= ~BIT(port);
+> -	vlan4k.ivl_en = true; /* always use Independent VLAN Learning */
+> +
+> +	/* Family C always uses IVL. On family D, IVL is on while any user
+> +	 * port has VLAN filtering enabled, so that static entries match
+> +	 * learned ones in a VLAN-unaware bridge (SVL).
+> +	 */
+> +	if (!rtl8365mb_is_d(priv)) {
+> +		vlan4k.ivl_en = true;
+> +	} else {
+> +		struct dsa_port *dp;
+> +
+> +		vlan4k.ivl_en = false;
+> +		dsa_switch_for_each_user_port(dp, ds)
+> +			if (dsa_port_is_vlan_filtering(dp))
+> +				vlan4k.ivl_en = true;
+> +	}
+
+[Severity: Medium]
+Can the per-VID IVL_EN bit go stale here when vlan_filtering changes?
+
+The bit is only computed when a VLAN is added or deleted.
+rtl8365mb_port_vlan_filtering() in rtl8365mb_main.c changes ingress
+filtering, the transparent masks, the frame filter and the egress mode.
+It never rewrites the 4K table entries:
+
+rtl8365mb_port_vlan_filtering() {
+    ...
+	ret = rtl8365mb_port_set_ingress_filtering(priv, port, vlan_filtering);
+    ...
+		ret = rtl8365mb_port_set_transparent(priv, port, dp->index,
+						     !vlan_filtering);
+    ...
+}
+
+rtl8365mb_setup() sets ds->configure_vlan_while_not_filtering = true, so
+VLANs are programmed while the bridge is still VLAN-unaware. Take a
+common sequence:
+
+  ip link add br0 type bridge
+  ip link set lanX master br0
+  ip link set br0 type bridge vlan_filtering 1
+
+VID 1 is written with IVL_EN=0 and keeps it after filtering is turned
+on. VIDs added after that get IVL_EN=1, so the table ends up with a mix
+of IVL and SVL VLANs inside one VLAN-aware bridge.
+
+The reverse also happens. If filtering is turned off, the VLANs stay in
+IVL mode. Later in the series, rtl8365mb_d_l2_uc_to_data() and
+rtl8365mb_d_l2_mc_to_data() key vid 0 static entries with SVL (FID 0):
+
+	bool ivl = uc->key.ivl && uc->key.vid;
+	u16 id = ivl ? uc->key.vid : uc->key.fid;
+
+In both cases, would static FDB/MDB entries and learned entries end up
+with different keys? The commit message says this logic exists to
+prevent that.
+
+The bridge join ordering seems to add a further case. In
+dsa_port_bridge_join(), switchdev_bridge_port_offload() replays the
+bridge VLANs through br_switchdev_vlan_replay() before
+dsa_port_switchdev_sync_attrs() sets dp->vlan_filtering. When the first
+port joins a bridge that already filters, are the replayed VLANs written
+with IVL_EN=0?
+
+The policy is also switch-wide. With one VLAN-aware bridge and one
+VLAN-unaware bridge on the same switch, the unaware bridge's VIDs would
+be forced to IVL.
+
+The commit message says:
+
+  The stored IVL_EN is refreshed on the next port_vlan_add/del for the
+  VID, not on a vlan_filtering change.
+
+Nothing in the driver triggers that refresh, so the final hardware state
+depends on the order of configuration steps. Should
+rtl8365mb_port_vlan_filtering(), or the family D join path, walk the
+existing 4K entries and rewrite IVL_EN?
+
+This is still present at the end of the series, where the family D info
+is wired up in "net: dsa: realtek: rtl8365mb: add support for
+RTL8367S-VB".
+
+>  
+>  	ret = fi->vlan_4k_write(priv, &vlan4k);
+>  	if (ret) {
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/d9da17af-f49e-4878-a8dd-59a8919e6930%40yahoo.com
