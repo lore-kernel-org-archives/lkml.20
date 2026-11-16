@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837678;
-	b=sbWRTnK04RMb0KtODseqZ3gol918YLKf1kpcusztY7RK4S5iPH4FATTAqR+yb5CnHMHm
-	 TQpkTOh2ImUl003wcLtQK3FX9p+vnfxu9zgVeG1XsYKkbMr5/eVxJyVVgNQFfMvf1cqZh
-	 WD2jjDxKQF+ZIc6gLww++BZVWybbovN/2mS3mrHLWPWMXn6RNsVZ+ey6bYTHGawemZbnp
-	 vDxG/LrNuWjPsToY0NPMA+IQWtDCY+UM8r1hXeMH4eCVej4KowhIwz5fF2LAWYeGuRQXx
-	 tpd9nESpL1KewDJ5GF+WctZBZT50wRRpIxyll8TlyaadFYYtw3di/8kvIm16YZh7sKA==
+	t=1794837689;
+	b=jQOgtA4u7Rk8Ci07SL+HFvhX2sNXvN3kPIlBLLo/1Urq5G7WUsTxeJCWcdcTvxWFAKoS
+	 6eNGyfyrxL5V8vkes1rtMQrO1uvaofwEjKKqDb5egbqo2NBXj341Snnguws6GbgntV0wn
+	 mLyngxN+XsxT9ZDxceoFw4kDBXJ8uJZ+/aCzvNTfOnDxThLhtG41IE0LcLl9iU5KEhHMH
+	 JtH/IdEFKduOi8pISzZ30rN0EZQmBKN9+CxMaRKsLgPTO5YCuNtiPp6KVNAsKJ/aL/1jQ
+	 2xPuJ+/E9hc5HZ80pI5U9tIvBa5jkF/0tv+KcpwbYSk3jRqrCuX6VKhb73E1khTjusg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837678;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=g+FMrZ2Yss7ffWu91xmKsLSGEfD2dTYbKly2DTAxGi0=;
-	b=e+wXMKa80oa5AIidEnyRbLZB94oWX5Kd1PUghBViplA2pq5S4gp1Jusa0fyPpmwyiMw+
-	 uTAVJlFrFnZP/DdKRcM+sNhNo9DA4Ik2yNIYb4u60lMRtarhM36BE/sAIicXJYn0PVUu9
-	 6lezR4WMdi7GYfIzfu77TCEQqZJmmvIikMz3TY5JS+UnW2WgDRvzplyxtG/uPgaXsiy2I
-	 UkvUQpzrcci95lZTA82m4WYxxDq/s4LORnbcGQM/zoEjb7Ui01tOWUH5EpV4+KziiF2ma
-	 b5KEoSNq1l3uvgWXWZrgI8FzjJs9GHvgB5GtLA3vGVrFyixAOE/4ZJuuVxf9h+ubZCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837689;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=AcI5O5MVmz/sMdzZjpcXmsQSI2YiMfU3J4R/RHPWjLk=;
+	b=icYvnxPr+AHOnrYUh7GOBr66lUwU8P3kGDg2nC0EcDbB7ABgvZDYCOYhAm7DZ+mZU4B5
+	 ppb0w4dybBS+JGsHbp2TaCW7LNLMZFpFUBo6Pot0gKbwJBaiCVnRycNrVuU9FoZ1p7kpy
+	 UqT9Kx9wqQuniTP4Xl7tszGRBV1uTtebL69ggHkhifev3EcaFS+0bz81dcnY4tnu1MEJO
+	 tKJTwfQ6zMxfvX4Oueqb0H295vyK+9hq8bKAMjST77T/bPPaUPmiP9MDSja9GQcNL4VG9
+	 ODz/ZhsY14Jf4r9taZKnNyj4/L5GTJ5j0FIhYUHSWnQUB5S4HD906DLd6rDBTWLC0Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OczjDRTI;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRowMdmR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A62A606A88E;
-	Mon, 16 Nov 2026 14:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A62A606A88E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542AF606A8AE;
+	Mon, 16 Nov 2026 14:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OczjDRTI
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 97A4F4BB;
-	Mon, 16 Nov 2026 14:58:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794837528;
-	bh=g9a5Nf9FQfAlb9mT2jHLg92T6EhG5dLjGgnKQk03YQk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OczjDRTIfk58NLlH97R5+6Bqea4nnFHly7hcMPqeXdP8KLqwTQlZgtmCINzNt0klF
-	 RLC1NJt2OmQ60UzZR4I45tatdkbsz7/+SUl99g26wYqlBImFy0ZuV+FFHVWsS2UBJK
-	 t4jBfxsbSQ1xENLMDGsbrO6vlS7Buia6zeLCEfag=
-Date: Mon, 16 Nov 2026 16:01:14 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: uvcvideo: Fix unaligned and OOB access
-Message-ID: <20261116140114.GC1714298@killaraus.ideasonboard.com>
-References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
- <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRowMdmR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A30E1F000C7;
+	Mon, 16 Nov 2026 14:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837689;
+	bh=AcI5O5MVmz/sMdzZjpcXmsQSI2YiMfU3J4R/RHPWjLk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SRowMdmRKr8bt0UEpVVKpzPHsooZjMsXJe387NrjH4YfbU1S9NOyc3XS2d9qhPsVe
+	 LVSh2mlGuM+enJFFeW/z9tYYc1xnmEgDEvcISNSUWFz2cLhToPG+8igZE73r948J8/
+	 jMOzB1NVzW135Cy5yMoAXrboWiWuI80TtQZwA8sRjevSTb5U6jIHxa1/n5aXMm9wCm
+	 kCpAIfuAT6h3+CK83Xjjr/b9AeySe0PYeHivvn1IYe8E4ycSQxK+1Y/Dhh/bWKX65S
+	 8E+QHrK2n8XFgqCCvH7Vz0Q9s/62NITzlaH9GnB0yOYTVLjfIzFhrlugwH1lqbu8mN
+	 btC/04tSUV3MA==
+Subject:
+ Re: [PATCH net] net: ethernet: mtk_eth_soc: Fix potential PPE hash table leak
+From: netdev-bot+sashiko@kernel.org
+To: liguangshuo@mail.sdu.edu.cn
+Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Date: Mon, 16 Nov 2026 14:01:27 +0000
+Message-ID: <179483768794.3136.13845952044990808928@kernel.org>
+In-Reply-To: <20261112-88a3a7ff32-net-mtk@mail.sdu.edu.cn>
+References: <20261112-88a3a7ff32-net-mtk@mail.sdu.edu.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,268 +65,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org>
 
-On Mon, Nov 16, 2026 at 11:56:39AM +0000, Ricardo Ribalda wrote:
-> meta->buf and scr point to packed metadata and USB packet memory that do
-> not need to be aligned to anything. Also, scr + 4 is a 16-bit field, so
-> reading it as a u32 reads 2 bytes out of bounds.
-> 
-> We use *_unaligned() in the rest of uvc_video_decode_meta(), but not in
-> the debug print.
-> 
-> Fix this.
-> 
-> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_video.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index e9be0a627033..3e3296ec5c65 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -1532,9 +1532,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
->  		"%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
->  		__func__, ktime_to_ns(time), meta->sof, meta->length,
->  		meta->flags,
-> -		has_pts ? *(u32 *)meta->buf : 0,
-> -		has_scr ? *(u32 *)scr : 0,
-> -		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
-> +		has_pts ? get_unaligned_le32(meta->buf) : 0,
-> +		has_scr ? get_unaligned_le32(scr) : 0,
-> +		has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-I wonder if things would look cleaner if we introduced a struct uvc_scr
-instead of fiddling with manual access to buffer offsets. What do you
-think N It would look like this:
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index ce99795cfea4..30c6516f0340 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -943,8 +943,7 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 	unsigned int header_size;
- 	bool has_pts = false;
- 	bool has_scr = false;
--	u16 scr_sof;
--	u32 scr_stc;
-+	struct uvc_scr scr;
- 	u32 pts;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
- 	if (stream->stats.stream.nb_frames == 0 &&
-@@ -981,8 +980,8 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 		pts = get_unaligned_le32(&data[2]);
+- [High] The fix is incomplete.
 
- 	if (has_scr) {
--		scr_stc = get_unaligned_le32(&data[header_size - 6]);
--		scr_sof = get_unaligned_le16(&data[header_size - 2]);
-+		scr.stc = get_unaligned_le32(&data[header_size - 6]);
-+		scr.sof = get_unaligned_le16(&data[header_size - 2]);
- 	}
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is a high-
+  severity use-after-free in the same PPE teardown.
+- [High] This problem wasn't introduced by this patch, but it is a high-
+  severity work-cancellation ordering race in the remove path the patch…
 
- 	/* Is PTS constant through the whole frame ? */
-@@ -1012,7 +1011,7 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+--
 
- 	/* Do the SCR.STC and SCR.SOF fields vary through the frame ? */
- 	if (has_scr && stream->stats.frame.nb_scr) {
--		if (stream->stats.frame.scr_stc != scr_stc)
-+		if (stream->stats.frame.scr.stc != scr.stc)
- 			stream->stats.frame.nb_scr_diffs++;
- 	}
+net: ethernet: mtk_eth_soc: Fix potential PPE hash table leak
 
-@@ -1021,17 +1020,16 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 		if (stream->stats.stream.nb_frames > 0 ||
- 		    stream->stats.frame.nb_scr > 0)
- 			stream->stats.stream.scr_sof_count +=
--				(scr_sof - stream->stats.stream.scr_sof) % 2048;
--		stream->stats.stream.scr_sof = scr_sof;
-+				(scr.sof - stream->stats.stream.scr_sof) % 2048;
-+		stream->stats.stream.scr_sof = scr.sof;
+This patch adds a call to mtk_ppe_deinit() in mtk_remove(). The goal is
+to destroy the PPE L2 flow rhashtables, whose bucket tables are not
+device-managed. This matches what the probe error path already does.
 
- 		stream->stats.frame.nb_scr++;
--		stream->stats.frame.scr_stc = scr_stc;
--		stream->stats.frame.scr_sof = scr_sof;
-+		stream->stats.frame.scr = scr;
+> diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> index ad0fdc4133fb6..08973b6f0711d 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> @@ -5426,6 +5426,7 @@ static void mtk_remove(struct platform_device *pdev)
+>  	netif_napi_del(&eth->rx_napi);
+>  	mtk_cleanup(eth);
 
--		if (scr_sof < stream->stats.stream.min_sof)
--			stream->stats.stream.min_sof = scr_sof;
--		if (scr_sof > stream->stats.stream.max_sof)
--			stream->stats.stream.max_sof = scr_sof;
-+		if (scr.sof < stream->stats.stream.min_sof)
-+			stream->stats.stream.min_sof = scr.sof;
-+		if (scr.sof > stream->stats.stream.max_sof)
-+			stream->stats.stream.max_sof = scr.sof;
- 	}
+[Severity: High]
+This is a pre-existing issue, but the commit message says
+mtk_ppe_deinit() runs "after unregistering the netdevs and cancelling
+the driver work". Is the driver work actually guaranteed to be stopped
+at this point?
 
- 	/* Record the first non-empty packet number. */
-@@ -1062,7 +1060,7 @@ static void uvc_video_stats_update(struct uvc_streaming *stream)
- 		frame->has_early_pts ? "" : "!",
- 		frame->has_initial_pts ? "" : "!",
- 		frame->nb_scr_diffs, frame->nb_scr,
--		frame->pts, frame->scr_stc, frame->scr_sof);
-+		frame->pts, frame->scr.stc, frame->scr.sof);
+mtk_cleanup() frees the netdevs before it cancels either work item. It
+also cancels pending_work before monitor_work:
 
- 	stream->stats.stream.nb_frames++;
- 	stream->stats.stream.nb_packets += stream->stats.frame.nb_packets;
-@@ -1468,8 +1466,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 	bool has_pts, has_scr;
- 	unsigned long flags;
- 	unsigned int sof;
-+	struct uvc_scr scr;
- 	ktime_t time;
--	const u8 *scr;
-+	const u8 *scr_data;
+drivers/net/ethernet/mediatek/mtk_eth_soc.c:mtk_cleanup() {
+	mtk_sgmii_destroy(eth);
+	mtk_unreg_dev(eth);
+	mtk_free_dev(eth);
+	cancel_work_sync(&eth->pending_work);
+	cancel_delayed_work_sync(&eth->reset.monitor_work);
+	...
+}
 
- 	if (length <= 2 || !meta_buf || meta_buf->state != UVC_BUF_STATE_ACTIVE)
- 		return;
-@@ -1479,9 +1478,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+monitor_work stays armed during all of mtk_remove(), and it can queue
+pending_work again:
 
- 	if (has_pts) {
- 		len_std += 4;
--		scr = mem + 6;
-+		scr_data = mem + 6;
- 	} else {
--		scr = mem + 2;
-+		scr_data = mem + 2;
- 	}
+mtk_hw_reset_monitor_work() {
+	...
+	if (mtk_hw_check_dma_hang(eth))
+		schedule_work(&eth->pending_work);
+out:
+	schedule_delayed_work(&eth->reset.monitor_work,
+			      MTK_DMA_MONITOR_TIMEOUT);
+}
 
- 	if (has_scr)
-@@ -1490,8 +1489,13 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 	if (stream->meta.format == V4L2_META_FMT_UVC)
- 		length = len_std;
+Say a monitor_work instance is running when
+cancel_work_sync(&eth->pending_work) returns. It can queue pending_work
+again. cancel_delayed_work_sync() waits for monitor_work but does not
+cancel that newly queued pending_work.
 
-+	if (has_scr) {
-+		scr.stc = get_unaligned_le32(scr_data);
-+		scr.sof = get_unaligned_le16(scr_data + 4);
-+	}
-+
- 	if (length == len_std && (!has_scr ||
--				  !memcmp(scr, stream->clock.last_scr, 6)))
-+				  !memcmp(&scr, &stream->clock.last_scr, sizeof(scr))))
- 		return;
+mtk_pending_work() would then run after mtk_remove() returns:
 
- 	if (meta_buf->length - meta_buf->bytesused <
-@@ -1509,7 +1513,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 	put_unaligned(sof, &meta->sof);
+	if (!eth->netdev[i] || !netif_running(eth->netdev[i]))
+		continue;
+	mtk_stop(eth->netdev[i]);
 
- 	if (has_scr)
--		memcpy(stream->clock.last_scr, scr, 6);
-+		stream->clock.last_scr = scr;
+Would that dereference the netdevs freed by mtk_free_dev()? The
+eth->netdev[] pointers are never cleared, and eth itself is
+devm-allocated, so it may already be freed too.
 
- 	meta->length = mem[0];
- 	meta->flags  = mem[1];
-@@ -1521,8 +1525,8 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 		__func__, ktime_to_ns(time), meta->sof, meta->length,
- 		meta->flags,
- 		has_pts ? *(u32 *)meta->buf : 0,
--		has_scr ? *(u32 *)scr : 0,
--		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
-+		has_scr ? scr.stc : 0,
-+		has_scr ? scr.sof & 0x7ff : 0);
- }
+pending_work queued during remove can hit the same problem. It waits
+for rtnl while unregister_netdev() holds it, and runs once rtnl is
+released.
 
- /* ------------------------------------------------------------------------
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index af8cef94ffff..a3e1c0fb129f 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -302,6 +302,11 @@ struct uvc_streaming_header {
- 	u8 bTriggerUsage;
- };
+Would it be safer to disable monitor_work first and then pending_work,
+for example with disable_delayed_work_sync() and disable_work_sync(),
+before the netdevs are unregistered and freed?
 
-+struct uvc_scr {
-+	u32 stc;
-+	u16 sof;
-+} __packed;
-+
- enum uvc_buffer_state {
- 	UVC_BUF_STATE_IDLE	= 0,
- 	UVC_BUF_STATE_QUEUED	= 1,
-@@ -383,8 +388,7 @@ struct uvc_stats_frame {
+>  	free_netdev(eth->dummy_dev);
+> +	mtk_ppe_deinit(eth);
 
- 	unsigned int nb_scr;		/* Number of packets with a SCR timestamp */
- 	unsigned int nb_scr_diffs;	/* Number of SCR.STC differences inside a frame */
--	u16 scr_sof;			/* SCR.SOF of the last packet */
--	u32 scr_stc;			/* SCR.STC of the last packet */
-+	struct uvc_scr scr;		/* SCR of the last packet */
- };
+[Severity: High]
+Does this cover all of the PPE offload hash tables? mtk_ppe_deinit()
+only destroys ppe->l2_flows. A second rhashtable that is not
+device-managed, eth->flow_table, is never destroyed anywhere in the
+driver:
 
- struct uvc_stats_stream {
-@@ -525,7 +529,7 @@ struct uvc_streaming {
- 		u16 last_sof_raw;
- 		u16 sof_offset;
+drivers/net/ethernet/mediatek/mtk_ppe_offload.c:mtk_eth_offload_init() {
+	if (!eth->ppe[id] || !eth->ppe[id]->foe_table)
+		return 0;
+	return rhashtable_init(&eth->flow_table, &mtk_flow_ht_params);
+}
 
--		u8 last_scr[6];
-+		struct uvc_scr last_scr;
+mtk_probe() calls this inside the per-PPE loop:
 
- 		spinlock_t lock;
- 	} clock;
+	for (i = 0; i < ppe_num; i++) {
+		...
+		eth->ppe[i] = mtk_ppe_init(eth, eth->base + ppe_addr, i);
+		...
+		err = mtk_eth_offload_init(eth, i);
 
+Some SoCs set .ppe_num to 2 (MT7981/MT7986) or 3 (MT7988). On those,
+does each loop iteration re-initialize the shared eth->flow_table and
+lose the bucket table allocated in the previous iteration? That would
+also repeat on every EPROBE_DEFER retry.
 
-Actually, thinking more about this, I think we can also simplify
-uvc_video_decode_meta() to only compare SCR.STC:
+The bucket table that remains also stays allocated after mtk_remove(),
+even with this patch. The same is true for the err_deinit_ppe unwind
+in mtk_probe().
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 30c6516f0340..7513083fadad 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1454,8 +1454,8 @@ static int uvc_video_encode_data(struct uvc_streaming *stream,
-  *
-  * Ideally we want to capture all payload headers for each frame. However, their
-  * number is unknown and unbound. We thus drop headers that contain no vendor
-- * data and that either contain no SCR value or an SCR value identical to the
-- * previous header.
-+ * data and that either contain no SCR value or an SCR.STC value identical to
-+ * the previous header.
-  */
- static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 				  struct uvc_buffer *meta_buf,
-@@ -1494,8 +1494,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 		scr.sof = get_unaligned_le16(scr_data + 4);
- 	}
- 
--	if (length == len_std && (!has_scr ||
--				  !memcmp(&scr, &stream->clock.last_scr, sizeof(scr))))
-+	if (length == len_std && (!has_scr || scr.stc == stream->clock.last_stc))
- 		return;
- 
- 	if (meta_buf->length - meta_buf->bytesused <
-@@ -1513,7 +1512,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 	put_unaligned(sof, &meta->sof);
- 
- 	if (has_scr)
--		stream->clock.last_scr = scr;
-+		stream->clock.last_stc = scr.stc;
- 
- 	meta->length = mem[0];
- 	meta->flags  = mem[1];
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index a3e1c0fb129f..b2d39c742e34 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -529,7 +529,7 @@ struct uvc_streaming {
- 		u16 last_sof_raw;
- 		u16 sof_offset;
- 
--		struct uvc_scr last_scr;
-+		u32 last_stc;
- 
- 		spinlock_t lock;
- 	} clock;
+There is also the deferred shrink work to consider. mtk_flow_ht_params
+sets .automatic_shrinking = true. That means rhashtable_remove_fast()
+called from mtk_flow_offload_destroy() can queue ht->run_irq_work, and
+then ht->run_work, when the table is lightly loaded.
 
+Without a rhashtable_destroy(&eth->flow_table), nothing syncs or
+cancels that work. Can rht_deferred_worker() then run on eth after
+devres has freed it?
 
-I can send patches with proper commit messages.
+Would it make sense to initialize eth->flow_table only once, and pair
+it with rhashtable_destroy() in both mtk_remove() and the probe unwind?
 
+[Severity: High]
+This isn't a bug introduced by this patch, but mtk_ppe_deinit() also
+leaves the per-PPE debugfs entries in place. mtk_ppe_init() calls
+mtk_ppe_debugfs_init(), which does this:
+
+drivers/net/ethernet/mediatek/mtk_ppe_debugfs.c:mtk_ppe_debugfs_init() {
+	...
+	root = debugfs_create_dir(ppe->dirname, NULL);
+	debugfs_create_file("entries", S_IRUGO, root, ppe, &mtk_ppe_debugfs_foe_all_fops);
+	debugfs_create_file("bind", S_IRUGO, root, ppe, &mtk_ppe_debugfs_foe_bind_fops);
+	...
+}
+
+The root dentry is thrown away, and debugfs_remove() is never called.
+That is true for mtk_remove(), mtk_ppe_deinit() and the probe error
+path.
+
+Unbinding, or a probe failure after mtk_ppe_init(), releases ppe,
+ppe->foe_table, ppe->acct_table and the MMIO mapping through devres.
+But /sys/kernel/debug/ppeN/entries and /sys/kernel/debug/ppeN/bind
+stay in place.
+
+Can reading those files after unbind use freed memory?
+mtk_ppe_debugfs_foe_show() dereferences the freed ppe and foe_table.
+It then calls mtk_foe_entry_get_mib(), which reads registers through
+the stale ppe->base and writes into the freed acct_table:
+
+	acct->bytes += bytes;
+	acct->packets += packets;
+
+On re-probe, debugfs_create_dir() fails because the directory already
+exists. The stale files would then keep pointing at the old ppe.
+
+Could the dentry be stored in struct mtk_ppe and removed in
+mtk_ppe_deinit() and the probe error path?
+
+>  	mtk_mdio_cleanup(eth);
 >  }
->  
->  /* ------------------------------------------------------------------------
 
 -- 
-Regards,
-
-Laurent Pinchart
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-88a3a7ff32-net-mtk%40mail.sdu.edu.cn
