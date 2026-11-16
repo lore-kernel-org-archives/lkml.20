@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814081;
-	b=DPVSUNrTbToGM8su5V2ApwwCv6pVtPU8jNaQdSKoTdHDzBPFOZlX3kD7QbSqlx3jVYvC
-	 B7n2ss5D8wDmoptwYXamNEYA9ZZXw56+ND217ZtnfluPTab0GAWKB+h3Wj+I5shOGVvq5
-	 X/B5nRxxTT5KuOzcZ4As/UM9bNUFnN1TxD9rSc17slmcKFRCNbShZNqvZoyFNXAeTIHPe
-	 7e61nhIu1o7XaGn3G9owe4FNw7p/bbx+mQdA1G2+K/qXYtSUx52CJBQVXprJFP3UNN5M6
-	 3ZE/dB+5bWuONdQvbjA8Pqhu1A0KwmMUE1rhQGV7sqJ0b3ZMJfzlYoTxK252Ymby35w==
+	t=1794814179;
+	b=4CRmdaNluZYVTicIq8VDhuSPvftkp9XYsdmyCTSgv7iAdiQBl66RtE7IkMTLER5f0YQB
+	 rjIr1UyVauuvXuc7Ndb/LLiPhg6cfOmonsLSC3uhsVmODvCHvs2N+NwW4LfjaH/Snao8+
+	 YsrlCnKp+oE7Zaz6ZFV/USVK15RPXo2trZvNe/KqrNX1RI6y+sHoUGKRBJFzXErb2OcsE
+	 yu39qDSHSinmghNd4Ed5aPgsK2vNf50twe93RlETwrbIVAgr1sFajur/CmdiB506I2RPA
+	 nIIUVENpvDj3TZDh5G5L7c6yyywFmVNFra67Jm+vWbzhQPBqg8X0gJM6ubnIhkHK+xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814081;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=99kz+PX37eJGQSDvwzUedrt772Wv4TF9acUD636bN6E=;
-	b=lUpexHrU9D+b0k/Nl7opPGiw75zl3D5YkMfqdk5QdLAHeWAXz9qILPtf98Xn+oDLMKY+
-	 8qXn1qXnggT/4gVSlgDB1J6LzqtseS0KjAyO1DzjwC5SQlYWQaWihKDcfS2CzJNtsXuKQ
-	 lzPbzv+yNrDUS75A0G2XTpwvMtw8KGFuNMsYC6pFoUgVAakFTKn3g7bfFZWsyLG8vvfyJ
-	 He7oyI+D1+4gLqoccdszEYMAVbAm7u+xCKWgi1JBFMtlatvvQ+eZylgR2ysTOwduxuXsV
-	 X8vBAzrIWkiwR/aeEYYiDhEN/EvRb3m3xZmXIwMzahXokNgbjg96ZUxEKBlDe6dgg6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814179;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gslwsSOHnTDJQMthG4yS+2Lt6ZuxgQnoAJ6oPGnvEDc=;
+	b=0fkR5x7+3PXxnpXHaIDrnptlp3EWnPrjJd/AgYY/NxizkVyrskAFvfgzo3otp/qcN096
+	 zRcFs2Dz/f+BoczA7uk6tqBs9oF3BOu5UzwAW0GYN/uJvy68bX9z3XVQUT5hQWEtGOv6o
+	 edl0fdSvs8u2QndVLUPuoORgJWR+yOLA8hPus8yVfy9MlGeCubJNW/K1tk22FQMAU3BVs
+	 LiPvBuJMCADWQ7o9FGhjDCKL6kYkf+sETct1Ac+saleSfA3oVATRL1vtFwDfLwzuxsy2L
+	 KlpGVlyW8ISiyJYePQvsToUV0wjJ3HP9Oti3yo3ckmbj6Qd1F5jmM547XgSeUdFUfQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=v7OfpD+H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=eHxVv26i;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC7D606A323;
-	Mon, 16 Nov 2026 07:28:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1FE606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=v7OfpD+H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E11C1F000C4;
-	Mon, 16 Nov 2026 07:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794814081;
-	bh=99kz+PX37eJGQSDvwzUedrt772Wv4TF9acUD636bN6E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=v7OfpD+HpSC9EYi6CzoynYi2P67jL2umTKfu20zN26GKRxFh8QhJFFATY1M41TN1d
-	 tlikG+j1mtV1vy5VNfQwhkfxFzKeug5eS7glhLfrdOtiHAN0BlfDIBPSbmsuV1tol/
-	 e3i/e3uiwm+Nh1vvaEZZNSUjGH0KkUNLeuUuVEuU=
-Date: Sun, 15 Nov 2026 23:28:01 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: syzbot ci <syzbot+ci04e7314748e3f6be@syzkaller.appspotmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- phillip@squashfs.org.uk, syzbot@lists.linux.dev,
- syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot ci] Re: Squashfs: fix a lot of AI issues and AI style
- issues
-Message-Id: <20261115232801.b4e3971be104f9cfade6ed01@linux-foundation.org>
-In-Reply-To: <6afaa788.3f8ef711.2cc87e.0002.GAE@google.com>
-References: <20261111234402.252354-1-phillip@squashfs.org.uk>
-	<6afaa788.3f8ef711.2cc87e.0002.GAE@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=eHxVv26i
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794814167; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=gslwsSOHnTDJQMthG4yS+2Lt6ZuxgQnoAJ6oPGnvEDc=;
+	b=eHxVv26iNdbWkQC5Cr4DnOTiL5jWxECShMBsDeTeh24szj0mhUZ7jOh7c99pSrILBqa7yafzGO9JoH1EKS7niUaO2CgPegCfqo37GHf3VeXSzRoyt2uCN0HRxkPGeW2j6IwTdYMFKafiVbB+JRUebcSua1prSCnQRuiScek2WuY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XEnonjq_1794814165;
+Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEnonjq_1794814165 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 16 Nov 2026 15:29:26 +0800
+Message-ID: <b6449fe5-a697-4fa4-8985-fff2e0b0ed76@linux.alibaba.com>
+Date: Mon, 16 Nov 2026 15:29:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,107 +52,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/mglru: use a smaller batch in
+ fill/drain_evictable()
+To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+References: <20261116061158.333826-1-hui.zhu@linux.dev>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261116061158.333826-1-hui.zhu@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun, 15 Nov 2026 22:49:44 -0800 syzbot ci <syzbot+ci04e7314748e3f6be@syzkaller.appspotmail.com> wrote:
 
-> syzbot ci has tested the following series
+
+On 11/16/26 2:11 PM, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
 > 
-> [v2] Squashfs: fix a lot of AI issues and AI style issues
-> https://lore.kernel.org/all/20261111234402.252354-1-phillip@squashfs.org.uk
-> * [PATCH v2 01/22] Squashfs: convert SQUASHFS_COMPRESSED_* to inline functions
-> * [PATCH v2 02/22] Squashfs: convert SQUASHFS_INODE_* and SQUASHFS_MKINODE to inline functions
-> * [PATCH v2 03/22] Squashfs: convert SQUASHFS_FRAGMENT_* to inline functions
-> * [PATCH v2 04/22] Squashfs: convert SQUASHFS_LOOKUP_* to inline functions
-> * [PATCH v2 05/22] Squashfs: convert SQUASHFS_ID_* to inline functions
-> * [PATCH v2 06/22] Squashfs: convert SQUASHFS_XATTR_* to inline functions
-> * [PATCH v2 07/22] Squashfs: fix offset in squashfs_read_inode() TRACE statements
-> * [PATCH v2 08/22] Squashfs: fix fragment bytes overflow on 32-bit architectures
-> * [PATCH v2 09/22] Squashfs: fix fragment index table length too large exploit
-> * [PATCH v2 10/22] Squashfs: sanity check inode metadata block location
-> * [PATCH v2 11/22] Squashfs: sanity check directory metadata block location
-> * [PATCH v2 12/22] Squashfs: widen xattr count variables and add sanity check
-> * [PATCH v2 13/22] Squashfs: very large files can exceed an int block count
-> * [PATCH v2 14/22] Squashfs: add more sanity checking to squashfs_block_size()
-> * [PATCH v2 15/22] Squashfs: sanity check fragment block location and range
-> * [PATCH v2 16/22] Squashfs: sanity check block list sizes and range
-> * [PATCH v2 17/22] Squashfs: don't store large export table indexes in memory
-> * [PATCH v2 18/22] Squashfs: don't store large fragment table indexes in memory
-> * [PATCH v2 19/22] Squashfs: don't store large xattr id table indexes in memory
-> * [PATCH v2 20/22] Squashfs: fix variables in directory code and add more sanity checks
-> * [PATCH v2 21/22] Squashfs: fix regression in squashfs_copy_cache()
-> * [PATCH v2 22/22] Squashfs: check index isn't greater than S64_MAX in squashfs_read_data()
+> lru_gen_change_state() migrates folios in batches of up to
+> MAX_LRU_BATCH (4096) folios under lruvec_lock_irq().  A full batch
+> keeps local interrupts off for up to about a millisecond, and CPUs
+> contending for the same lru_lock spin with interrupts disabled for
+> that long.
 > 
-> and found the following issues:
-> * general protection fault in __d_obtain_alias
-> * general protection fault in lookup_one_qstr_excl
-> * general protection fault in lookup_open
-> * general protection fault in security_d_instantiate
-> * general protection fault in step_into_slowpath
+> The caller already drops the lock and reschedules between batches,
+> and the restart protocol does not depend on the batch size: both
+> functions make monotone progress, so a smaller batch only shortens
+> the irq-off section.  Use MIN_LRU_BATCH (64) instead, bounding it to
+> about 15us.  This is a cold path that runs once per kill-switch
+> toggle; the extra unlock/resched/relock round trips cost a few
+> percent of wall time on an otherwise idle machine.
 > 
-> Full report is available here:
-> https://ci.syzbot.org/series/dc24cdf0-7531-440e-8970-9c83c975cd2f
+> Same change as commit 6e9be217a3ce ("mm/mglru: use a smaller batch
+> for reclaim") made for try_to_shrink_lruvec().
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> ---
 
-OK, thanks.
-
-I think I just fixed this thanks to a smatch report from Dan.  Below.
-
-
-<llm>
-Separately, "[PATCH v2 11/22] Squashfs: sanity check directory metadata
-block location" stores squashfs_dir_start() in a u64 in
-squashfs_lookup(), then checks block < 0.  That check cannot detect its
-negative error returns; block needs a signed type.
-</llm>
-
-OK.  I'll put a s64 cast in there for now.  So hopefully we're all good.
-Phillip, please check.
-
-
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: squashfs-fix-variables-in-directory-code-and-add-more-sanity-checks-fix
-Date: Sun Nov 15 09:54:43 PM PST 2026
-
-fix smatch warnings
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <error27@gmail.com>
-Closes: https://lore.kernel.org/r/202611131955.0Gd7ipSP-lkp@intel.com/
-Cc: Phillip Lougher <phillip.lougher@gmail.com>
-Cc: Phillip Lougher <phillip@squashfs.org.uk>
-
- fs/squashfs/namei.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
---- a/fs/squashfs/namei.c~squashfs-fix-variables-in-directory-code-and-add-more-sanity-checks-fix
-+++ a/fs/squashfs/namei.c
-@@ -221,8 +221,10 @@ static struct dentry *squashfs_lookup(st
- 			/*
- 			 * Read directory entry.
- 			 */
--			if (!squashfs_dir_space(dir, length, sizeof(*dire)))
-+			if (!squashfs_dir_space(dir, length, sizeof(*dire))) {
-+				err = -ENOSPC;
- 				goto read_failure;
-+			}
- 
- 			err = squashfs_read_metadata(dir->i_sb, dire, &block,
- 					&offset, sizeof(*dire));
-@@ -236,8 +238,10 @@ static struct dentry *squashfs_lookup(st
- 			if (size > SQUASHFS_NAME_LEN)
- 				goto data_error;
- 
--			if (!squashfs_dir_space(dir, length, size))
-+			if (!squashfs_dir_space(dir, length, size)) {
-+				err = -ENOSPC;
- 				goto read_failure;
-+			}
- 
- 			err = squashfs_read_metadata(dir->i_sb, dire->name,
- 					&block, &offset, size);
-_
-
+I'm fine if the small change can fix your issue in this cold path. Let's 
+also see others' input. Feel free to add:
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
