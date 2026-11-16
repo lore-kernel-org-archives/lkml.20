@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794847211;
-	b=kDl5/98xsQeBekEMTbs+uAISJRo0WqaFZkaSDKr/h6Wa7KRzQD3MSmuUCyBunHovudU2
-	 B/TvtAna5MfBnC2OKPy8KCD+IH+4hI498knLDrgDXFPVjgH7WhTruz8ks5vVt2mhxGA6+
-	 hG8/lk/NHawfcto7xVrO7BmvhR9cAxeCdHW+n7ukyaRwcHwJo28F2KUQT6GgWQcEoaIDl
-	 JOA7CA5q/5cRS9+oUKaliBckGaTEdr0hBQneyEARYKB/KbV6BuanXilicsvX0mU1aQlX3
-	 EoRNEHkGr7yqQcW+1eDKvd+5G54BowMTAbzm5cscUZzgo4Amdr/261y3/zhtiKyVEZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847211;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Gv5Ou0wt+2aHJXSeApK0Ht9ChzMC0IpYCvBuwmBztaE=;
-	b=JRauFEjDh7r6tvYyGoC/zUYr4OHxcdYJvytytvHNglGQeBDD+B4L7Nt6jLOMEDuM7iEE
-	 Ndy74ltmD1pXZ1I+/U+Djl+CrRbVXgkR3O7JoxFoxGpFCoAP2UAOz14eBqw+ggMsbCGT1
-	 r3TJviYye/hgaPsuxyXgDk3QOYpzMilM0Th4MeKJ5buRc0xtTwIbBhqyQJi+QqBQE6s4h
-	 4aH5EsAex7CDmZADmxE8hA1pnQQpc+3jZRqLxP+zW9tYIbfp0DlaIPDytv1ZkDzmkq+7m
-	 Qpm1UhsTOb1hK0qMtzqqRq7LPw33B8+KUFIA+0WgvB3hCj6JKp8id0iSTNp89L+WLbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4204E606A895;
-	Mon, 16 Nov 2026 16:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4204E606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Gv5Ou0wt+2
-	aHJXSeApK0Ht9ChzMC0IpYCvBuwmBztaE=; b=D38dkpdvXKxeOe7H9HYHeBd7/w
-	FT2PRFbfGRbdAIl4X1gtenc1MbOjbxuUjfQg0acRRX5Z+S8guz2PVcdM75xhxaG+
-	tYCX5vCu0XmTe4yDKhXgrbCWHtvZvF5zkwzeVqAm+r2Kwk1OMgeE+l0X1BXRs9fZ
-	RKea6EKwE57Htgjy0=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWHQPSMftqyZ+6AQ--.7152S2;
-	Tue, 17 Nov 2026 00:39:48 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] usb-storage: reject too small values in max_sectors_store()
-Date: Tue, 17 Nov 2026 00:39:46 +0800
-Message-Id: <20261116163946.2502-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794847202;
+	b=rODlFo6Ko9+DwgQpnXnL2wWC0sa1tGaOGkCIJ0IWResEI48tiri3cINWDgSGwbQJyck3
+	 Q8Ue2TeLmqbX+o89WXRXav9I5zz0PcH0fQ02lORKoir2hJA/aeVTu+WugYQhCVG0HPke9
+	 r36sAzcLfB1ir6ke3TFuiZs3lUXtqLttEpFd0HEGjXMz+PIaxEEDtdGFCoAOH9k0E9zrk
+	 Q0BrLewElz0FNwQXPZ6zxNuyI99O8qCc+cDJV6clTF6v2i85a1YVjtRTsRhz0Ff9tUuGy
+	 mBLmoRWHHWRNbahDi7lJTACN6lofVnPfr2rfSdyqjn7PAmghdmQBiGCn2uR7lrPVNkw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847202;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tspvrJnpoKFHb7HbQbrWvZ9PGJAK8DVOcpQAjMGTVTU=;
+	b=AfA12iirSYzFuB8ThP36e1NUI/6MxuddQcrR0QxQ1GOkrpVuJT6PdcxPG2fKwGV9gs/0
+	 n6dBNu7CzgBAxdkL3iG3LgLBhlXhFYc4uK5lU7FJ4cc2gvg71J4VMOXoY5RQjhfXy8/a7
+	 mRFJQGDi/Yo/RmhcjvCGPXkwZ890PZ5Tj6CKLWyaxsC0ZdZjDIhooxqi/6dBAj+r8m65h
+	 VfJZlO+Y5zTzKQUYEdKiZKY4w42MOPwslu9Ehs3s8lewgatMkuOUPVwY0i0s57EWa3G6c
+	 2Elr3t1VkpouqCs3OIya5fSSC+06EV1SaWXGV6fKCveda3VaMzVHI5w3E53xM+/h7Ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbZjfmZb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C249606A8B8;
+	Mon, 16 Nov 2026 16:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbZjfmZb
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794847202;
+	b=vosvZ5BepwCtkGU50YmYkrtBgk4DksF97iarJ1ffo20Z0RXS6qWCye4HmYADkpeb4oBS
+	 EpMLTi859e2TZ5QxfEXreNiA1TplIFIRl83y51MuvvlNZWjlw0Frbk3h6ENILJT639/zA
+	 0/Ep2+o4SoO6QOYI1bn+Urfoaw+RRNOq3F7Ww5epfQ/dNFP9jDYzCTkEgqI7ryAOjvu53
+	 3rJieZTzVkvDdTdIWPhxKtX3vjPpO2QlshlbFUd2ncUg7L3HX3y6kOqzRKOQoguL638JN
+	 oSM5d7UunYUBZQ4UrUW4n3jxFo1/ckRNKGpl6gIsOIUKxu+DTaX0nElraOKDV6sBmUQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794847202;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tspvrJnpoKFHb7HbQbrWvZ9PGJAK8DVOcpQAjMGTVTU=;
+	b=NIlf/pzWMuRI/w+Kcaf9m4/k0efOSLSwMTiezsKzjmb/M39JJzIyIibQH6xwlhxDVV52
+	 JR/PJj7YbUYPIEp74aQzNHvfi7PsQo684fWYE6jgBslyxblkFtaToo0IXq7NpVJVnVeEV
+	 9kK9boUqY8FKHR82LmPJi7Lu7uTPBJ0Eo+vUXni/t+SRvDe3bmxuJp/mDswpb47v/l4b7
+	 RWKwbskwZNiiYPOphAQrjiN5P23l/9AOx7FQEPd2yJCKDprpfcscXl66Zo8qoLxXvlqtn
+	 /8bhq0UOUYhTXOOsDTHC1k7daroZvy5mU3InVJX0PcTSlNHL/hHztYKBJn9w4tokB8Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 83CFE1F000CD;
+	Mon, 16 Nov 2026 16:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794847202;
+	bh=tspvrJnpoKFHb7HbQbrWvZ9PGJAK8DVOcpQAjMGTVTU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=QbZjfmZbBzAuZSDdELlKJf8yS6vz4KWkyqpKsNNAXT6tSs1KO/qbT/AZy84AT23kZ
+	 imTThWJ1vKBmjfInwAz2iRARHy7h736M4vEV92L6FH0iz9S0YzMoQSAZ2Gr+GFiR4t
+	 9Gl0IrBI6muEg5ZFthYlpv5y/TI6QEKuLrawqHqfldYp8/osz0arCOB85rL8h2CIdf
+	 H09jh957NvgjhDQ1zHn8zT1D0LVC7Fpv4kKyvJe9IAXoTplpUkixgv4+2bTHAmHXni
+	 g1oEk8avw7DEQaLigaGhxqRAk5ic53AX+0CzlpbBtBq44urDxie4z+aasYg+vvJvzn
+	 k1kwGOYc9gMcg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3BE734A52E;
+	Mon, 16 Nov 2026 16:39:59 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Mon, 16 Nov 2026 16:39:58 +0000
+Subject: [PATCH v4 06/12] dt-bindings: iio: frequency: ad9910: add
+ io-backends property
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,88 +83,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDWHQPSMftqyZ+6AQ--.7152S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFWxuw15uw15uFy8JF1kZrb_yoW5WFWDpF
-	W7WFyxKrWjga1xWan8Xw17uF9YkwsrGFWakrsxJwn5ur13Gas3KrnrKr9xXFy3Arn5Aa4U
-	tFWDtFyqkrW8uFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07j5ID7UUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytfv0wABsr
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-ad9910-backend-support-v4-6-fcf1ad364ed5@analog.com>
+References: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
+In-Reply-To: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
+To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, 
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=2580;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=j5dklZUTaCzTsmtRwls0MFDoIhZtjambNyK1FFjRxqs=;
+ b=tlu2PdHBcsP/jZkRQbqD74n4mvZvwhoZCJ95ooMYlIhKwlmwDSRbX4Tdj3zV+fNDYGoK8vf5q
+ qm6ZBMbSdABA/ZBdEgX4ua31FHNmdTmW0vNqKlccbTdnKlwE+EbgOTf
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 7bit
 
-Writing a value that is smaller than a page worth of sectors, or
-smaller than one logical block, to
-/sys/class/scsi_device/.../device/max_sectors passes an invalid
-max_hw_sectors to queue_limits_commit_update_frozen().  The block layer
-requires max_hw_sectors to cover at least one page and at least one
-logical block, and treats a smaller value as a driver bug:
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
- WARNING: block/blk-settings.c:389 at blk_validate_limits+0xeb9/0x14b0
- Call Trace:
-  queue_limits_commit_update
-  queue_limits_commit_update_frozen
-  max_sectors_store
-  dev_attr_store
-  sysfs_kf_write
+The AD9910 parallel data port allows high-speed modulation of the DDS
+core parameters, which requires a data source such as an FPGA IP core
+connected to the F[1:0] and D[15:0] pins. Add the io-backends property,
+so that an IIO backend providing such interface can be referenced.
 
-Before commit 70a7949335e5 ("scsi: usb-storage: Switch to using
-->device_configure") the store called blk_queue_max_hw_sectors(), which
-silently raised values below PAGE_SECTORS to that minimum.  The
-conversion to the queue_limits API lost the clamping, so a single sysfs
-write from user space can now trigger the warning.
+The property is optional as the parallel port is. The device remains
+functional through the SPI control interface only, as other modes can
+be used to drive the DDS core.
 
-Reject such values with -EINVAL on the limits snapshot returned by
-queue_limits_start_update(), cancelling the update.  This keeps the
-return value for values below a page unchanged, as the block layer
-already returned -EINVAL for them, and also rejects zero, which
-blk_validate_limits() would otherwise replace with BLK_SAFE_MAX_SECTORS
-without the user asking for it.  Checking the logical block size as
-well covers devices that report a block size larger than a page, where
-a value above PAGE_SECTORS can still be smaller than one logical block.
-
-Fixes: 70a7949335e5 ("scsi: usb-storage: Switch to using ->device_configure")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
-Changes in v2:
- - Also reject values below one logical block and cancel the limits
-   update; with a device reporting a logical block size larger than a
-   page, such a value reaches the second WARN_ON_ONCE() in
-   blk_validate_limits().
----
- drivers/usb/storage/scsiglue.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../bindings/iio/frequency/adi,ad9910.yaml         | 38 ++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/drivers/usb/storage/scsiglue.c b/drivers/usb/storage/scsiglue.c
-index 97de28e85562..7a55cfc18236 100644
---- a/drivers/usb/storage/scsiglue.c
-+++ b/drivers/usb/storage/scsiglue.c
-@@ -593,6 +593,10 @@ static ssize_t max_sectors_store(struct device *dev, struct device_attribute *at
- 		return -EINVAL;
+diff --git a/Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml b/Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
+index 4eebbd388b27..02fd49db93ff 100644
+--- a/Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
++++ b/Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
+@@ -120,6 +120,13 @@ properties:
+     items:
+       - const: drctl
  
- 	lim = queue_limits_start_update(sdev->request_queue);
-+	if (ms < PAGE_SECTORS || ms < lim.logical_block_size >> SECTOR_SHIFT) {
-+		queue_limits_cancel_update(sdev->request_queue);
-+		return -EINVAL;
-+	}
- 	lim.max_hw_sectors = ms;
- 	ret = queue_limits_commit_update_frozen(sdev->request_queue, &lim);
- 	if (ret)
++  io-backends:
++    maxItems: 1
++    description:
++      IIO backend that interfaces with the parallel data port, enabling data
++      streaming into the device. The backend may also drive the PROFILE[2:0]
++      and DRCTL pins, the latter being exposed as a PWM provider.
++
+   adi,pll-enable:
+     type: boolean
+     description:
+@@ -206,4 +213,35 @@ examples:
+             adi,refclk-out-drive-strength = "disabled";
+         };
+     };
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        dds@0 {
++            compatible = "adi,ad9910";
++            reg = <0>;
++            spi-max-frequency = <1000000>;
++
++            #clock-cells = <1>;
++            clock-output-names = "sync_clk", "pdclk", "sync_out";
++
++            clocks = <&ad9910_refclk>;
++            clock-names = "ref_clk";
++
++            dvdd-io33-supply = <&vdd_io33>;
++            avdd33-supply = <&vdd_a33>;
++            dvdd18-supply = <&vdd_d18>;
++            avdd18-supply = <&vdd_a18>;
++
++            reset-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
++            io-reset-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
++            powerdown-gpios = <&gpio 2 GPIO_ACTIVE_HIGH>;
++            update-gpios = <&gpio 3 GPIO_ACTIVE_HIGH>;
++
++            io-backends = <&ad9910_backend>;
++            pwms = <&ad9910_backend 0 1000000 0>;
++            pwm-names = "drctl";
++        };
++    };
+ ...
+
 -- 
-2.34.1
+2.43.0
+
 
