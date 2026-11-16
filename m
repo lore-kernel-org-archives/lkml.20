@@ -1,69 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851348;
-	b=qdvt+QICU2vheyc/C+402WYGynszq8DWaAE5olYdUVrvzNLs3hQZnJiyp0c3YWL2STxb
-	 rHSQpOLWmfIlHyXoHZymGMzmuT1A0aKVjrN4FO5t6Iq5h6aGhCcLCc9JtkA7UQ8QZsLyj
-	 nBEZ+Pbk1qoDNaFdNmJbgs8pw+kScRPZMpBB8Mo4tz3nWLzpT8sr4xHByLqtGpYLKVco7
-	 +EP9NV7X1czmHA4tAwjywDTlixDkzpIcNUXiJKZqhSL+nB/Yx5ny9iGfvYVXVebRikqPT
-	 5jtv3VZ27OiwWFxVjG9i7LxsclTNg/KG48EVcJKfJ49H2gcb163oIRNt2VK3AYwYZUA==
+	t=1794851363;
+	b=jEv83v+esef4xRHECBvjhqzOi6BM4E2ZbqPJa5ATDJAPtisxO/f0k1xZwwRTk5QgNO2j
+	 XueuQtNeBe5/AK4SFVaTjbzllCsufffryEa/GAjTEhwsR7V+6IgVyOQLVe2cuBt6EuD7A
+	 N5Z2LoZfUAXb0/zdKzfJxcqkB4UX/Piy8KtUOc/1cvEGrEpJN7V8S5FEp6Chq69zNLYyV
+	 pzFJzjj2O7LnT5aUCRUDW/KtZjIvV4/eMyGKjs7UpShCa3tVh2D890rkatBP5BXvYjrdz
+	 s/ibKLwb3Hl/AtwkAjb2+X4cOfT7ihRwaqcmKVdZNZBBVzws+ohcei+6U916qeyPbSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851348;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2IV0caWw5X57FnYB/7TWC5HUa1dH8csEfJ58yIfXqSw=;
-	b=0/MpLf/JUenfAdSKVrdLOoxnaZwmT1r+UBnAb0by4QbHIRyk7pprDokvo46qNwXBUdUS
-	 7Ql0JIs4LmqIv31NPGwrQuQOpA4PQu50LcAsSAquE+e4NdQXCSAStgqC9XNGpxk9xjX1X
-	 aOfuRpE6dsJGiUyjNOch+OqAvkC1YwPcNnI3FhP0y7XIQ/nwliRuVL9VT5Sc+Xbx0v5f7
-	 p+/IUKzq6d9es0dkXAfObK8LxGMgADQN4yPfRKoRAmU4C2XAPC0weNI364ye1Rpta8dT8
-	 9wFr8+632vhat6I8teuDU9ji2mXXjBS7IOTf7uAtBpImSl8EX7fBeSgZE15MK3Upgsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851363;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ED8m1EUNyZbVy60KlCH1nfmXFCVOvYy5WXRoQrkl9dY=;
+	b=Pxsm24yvp3ZM3Dhn/NkZuYB3x8IkX6EE44h//EKUvXXYOz/mhraya2Na1NfwBLT0yOvb
+	 CkxqBew1/nBrRGzimV8O+JjKEJgJY9CxCuKXwhjwKB5AX5JpLJB1C4OPoTPRFFLX4s45M
+	 8WvC9GihuT0uhKchkHTFVDAEENqEH8k9DVZF31PmiQACZivX1JaVgleiDocJemK5XID9x
+	 b4lvUauuK1G1YFZdp7SXapEe7Y+7FUOy9XA0eAfv2b3L8x12ft9PVPSUqMFDxSxZDHfxP
+	 savIqIulMuur9cuqN0yW6YUr725mCXCZPEmdLC3CyfR8Hq8c9tpjrvmHVr6ujj6+W8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phrozen.org;
-	spf=pass smtp.mailfrom=phrozen.org;
-	arc=none smtp.remote-ip=46.4.11.11
-Received: from nbd.name (nbd.name [46.4.11.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWj9kUC8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC013606A33F;
-	Mon, 16 Nov 2026 17:49:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC013606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
-Received: from [2a04:4540:1403:e6fc:5f71:2c1e:7d62:945f] (helo=bertha10..)
-	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <john@phrozen.org>)
-	id 1xT0pE-004GcH-01;
-	Mon, 16 Nov 2026 18:49:04 +0100
-From: John Crispin <john@phrozen.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Ahmed Naseef <naseefkm@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org,
-	lei.dong@airoha.com,
-	Linqi.zhang@airoha.com,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	mfd@lists.linux.dev,
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
-	Rajeev.kumar@airoha.com,
-	upstream@airoha.com,
-	Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com
-Subject: [PATCH v3 7/9] dt-bindings: mfd: airoha: add AN7589 GPIO system controller
-Date: Mon, 16 Nov 2026 18:48:52 +0100
-Message-Id: <20261116174854.342912-8-john@phrozen.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116174854.342912-1-john@phrozen.org>
-References: <20261116174854.342912-1-john@phrozen.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACC6606A32F;
+	Mon, 16 Nov 2026 17:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWj9kUC8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A261F02813;
+	Mon, 16 Nov 2026 17:49:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794851363;
+	bh=ED8m1EUNyZbVy60KlCH1nfmXFCVOvYy5WXRoQrkl9dY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LWj9kUC8kQFC5SfD1vjbud2HBFDNnZqFBwsM7D7EkixcrkbHslvvXUPplnT67OEDa
+	 Ojxvc/9bBfh+7M7IgMwLe0/MW3vEZ7MNK475jdjW9gzIKFiwKQYtp2o3epkEHr1OUY
+	 ut8wZMtQ6WwDI4R/4NjZmngdKNKdP+t6PoX5HnYwVJTKEbOQrvDnGzw7NTHVCoa2iV
+	 Az2pSjHFx32LhMnzCRrFLDjD1DXtR7qLBdQXkQEuVAl0z7iuGlB/eKvhfmNtzTqNut
+	 eiuM63/QtPtS1+8sCvNSNotSJGDSOZKb/xcO1WCvyJtafHJlrptV+MYpMU1CW9c9N/
+	 f6aB01Y3d7oMw==
+Date: Mon, 16 Nov 2026 18:49:14 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+	linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC v3 33/44] ovl: refuse data-only layers on pseudo
+ filesystems
+Message-ID: <20261116-kriterien-getoppt-kauern-5a0c1fba70cf@brauner>
+References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+ <20261116-work-loop-pseudo-v3-33-8cbbea1cf34f@kernel.org>
+ <CAOQ4uxgPerkkG4ie0SyHVXaBD9VZN2wYfQpEAEi4hytn=ara3A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,108 +69,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOQ4uxgPerkkG4ie0SyHVXaBD9VZN2wYfQpEAEi4hytn=ara3A@mail.gmail.com>
 
-Document the AN7589 GPIO system controller. It is a syscon with the
-pin controller as its child node. The block also holds the PWM
-controller, which a later series adds as a second child.
+On Mon, Nov 16, 2026 at 06:37:16PM +0100, Amir Goldstein wrote:
+> On Mon, Nov 16, 2026 at 12:10 PM Christian Brauner <brauner@kernel.org> wrote:
+> >
+> > The data of a metacopy file can live in a data-only layer. overlayfs
+> > doesn't look that data up when it looks up the file. It only remembers
+> > the absolute redirect and looks up the data lazily the first time
+> > someone needs it. So until then nothing can tell which filesystem holds
+> > the data of such a file.
+> >
+> > But a data-only layer has no business being a pseudo filesystem in the
+> > first place. All it does is hold the data of metacopy files and the
+> > regular files of a pseudo filesystem are kernel interfaces, not storage.
+> > So let's refuse data-only layers on superblocks with SB_I_PSEUDO at
+> > mount time.
+> >
+> > Data-only layers can be added via the "::" separator in "lowerdir=" and
+> > via "datadir+" by path or by file descriptor. All of them end up at the
+> > end of ctx->lower. So a single check in ovl_get_lowerstack() covers all
+> > of them.
+> >
+> > Note that regular lower layers on pseudo filesystems are left alone.
+> > Stacking overlayfs on top of sysfs keeps working.
+> >
+> > Suggested-by: Amir Goldstein <amir73il@gmail.com>
+> > Link: https://lore.kernel.org/all/CAOQ4uxhGxpBtMZ5kfuzR1tQAewiecoX7UjXQRo91QjJHH9T_Yw@mail.gmail.com
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > ---
+> >  fs/overlayfs/super.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> >
+> > diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+> > index 39d4d57dec230..719c2569dfeaf 100644
+> > --- a/fs/overlayfs/super.c
+> > +++ b/fs/overlayfs/super.c
+> > @@ -1237,6 +1237,14 @@ static struct ovl_entry *ovl_get_lowerstack(struct super_block *sb,
+> >         for (i = 0; i < ctx->nr; i++) {
+> >                 l = &ctx->lower[i];
+> >
+> > +               /* Pseudo filesystems don't hold data for metacopy files. */
+> > +               if (i >= ctx->nr - ctx->nr_data &&
+> > +                   (l->path.dentry->d_sb->s_iflags & SB_I_PSEUDO)) {
+> > +                       pr_err("filesystem on %s not supported as data-only layer\n",
+> > +                              l->name);
+> > +                       return ERR_PTR(-EINVAL);
+> > +               }
+> > +
+> 
+> How about we make this just a tad more restrictive:
+> 
+>                 /* Pseudo filesystems don't belong in composefs setup */
+>                 if (ctx->nr_data &&
+>                     (l->path.dentry->d_sb->s_iflags & SB_I_PSEUDO)) {
+>                         pr_err("filesystem on %s not supported along
+> with data-only layers\n",
+>                                l->name);
+>                         return ERR_PTR(-EINVAL);
+>                 }
+> 
+> I could send this as followup patch, but since this version is simpler
+> there is no real reason to have the intermediate "only ban datadir" step.
+> 
+> Only the commit message needs a little more flexing to justify this.
 
-Signed-off-by: John Crispin <john@phrozen.org>
----
-Changes in v3:
-- New patch, split out of the pinctrl binding (Lee, Conor).
-- Name the PWM controller, the second child of the block, in the
-  commit message (Conor).
-
- .../mfd/airoha,an7589-gpio-sysctl.yaml        | 66 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 2 files changed, 67 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
-
-diff --git a/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml b/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
-new file mode 100644
-index 000000000000..0785b61bdda3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/airoha,an7589-gpio-sysctl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Airoha AN7589 GPIO System Controller
-+
-+maintainers:
-+  - John Crispin <john@phrozen.org>
-+
-+description:
-+  Airoha AN7589 SoC GPIO system controller which provides a register map
-+  for controlling the GPIO and pins of the SoC.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: airoha,an7589-gpio-sysctl
-+      - const: syscon
-+      - const: simple-mfd
-+
-+  reg:
-+    maxItems: 1
-+
-+  pinctrl:
-+    type: object
-+    $ref: /schemas/pinctrl/airoha,an7589-pinctrl.yaml
-+    description:
-+      Child node definition for AN7589 Pin controller
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    system-controller@1fbf0200 {
-+      compatible = "airoha,an7589-gpio-sysctl", "syscon", "simple-mfd";
-+      reg = <0x1fbf0200 0x100>;
-+
-+      pinctrl {
-+        compatible = "airoha,an7589-pinctrl";
-+        airoha,iomux = <&iomux>;
-+
-+        interrupt-parent = <&gic>;
-+        interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
-+
-+        gpio-controller;
-+        #gpio-cells = <2>;
-+
-+        interrupt-controller;
-+        #interrupt-cells = <2>;
-+
-+        mmc-pins {
-+          mux {
-+            function = "emmc";
-+            groups = "emmc";
-+          };
-+        };
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9d67ef6b4531..2041a8aed28f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22137,6 +22137,7 @@ PIN CONTROLLER - AIROHA
- M:	Lorenzo Bianconi <lorenzo@kernel.org>
- L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
-+F:	Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
- F:	Documentation/devicetree/bindings/pinctrl/airoha,an7589-pinctrl.yaml
- F:	Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
- F:	drivers/pinctrl/airoha/pinctrl-airoha.c
--- 
-2.34.1
-
+Just sent me the diff on top of the series and I can fold it with the
+commit message you want and slap your Co-developed-by and SoB on it,
+please?
