@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837285;
-	b=a9f450THlCAyEA25vJb2gW+Uyzmb/dgPChC4KtNQhsz3Llv3ul6COgsKGx/5RzZuIhB2
-	 DqOuM72P8W7lRq8JoPc1ana+mHHQs9an6LEMrWb4CXYI3MAdQqfyLj4/Bx+fd36gWqGHP
-	 ifAsicdbDP50C7M/vpd3FUSsiD6coHC211ecxUo5Et73WO2zMqyrPRqo/EJdMwCefIU41
-	 77QppXh9JJtZdal61QQJnYL7aZLN3pXL6GqBxDT9393EI/8xRpYDTb/92LfdnKJyWo3+u
-	 GSL5IKkIlZvA/9Pa+JHRmEKm7sKyCLOc15XMMaOmKzxn1XKElz8v1p9zTjOqvDr453Q==
+	t=1794837286;
+	b=fjWYqgqFQsJhI+vzOJWI1O/S7J5eqjns2/x0LFJF0KEv8V74SE5VZoBHGdmpZwtfqbNZ
+	 tSKI0fj3YXfWp5v6/eTp2oBsvvbaiYxPgePzHKaHh/CBWnACU9DUz0JMZz3t+Z6ay9BAZ
+	 9Zz6XbsnKhWuo/0xWUYtwykFXQw22f+mHQeNIeYn+nBzEzA2Vp5qkKM2J8O1UZD8WqM3i
+	 Lc+kS8iqvxAwth9yjoUXKRp/OD8IS5ka2PQGgWFEPN6SlPgMxWvIL6bqxXfFcOKVTpIIe
+	 ZSTxgq3mDeWs4mrnH97Oibk3I553qvGb7QCxWqODd0D23t4m7R3xP9A7wbdYmgaJo9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837285;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837286;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=QEC5bH3mf6ppNxnqhZUIX9nYzf+HXa3xcTJXq8rdH+s=;
-	b=PdsFeoMxMKpC3jJNjGHxrwdCYtXO/l8LsoZmj4BN2n8Ncpn1FUfRuQnApzkPF8b0A0Mv
-	 xLv9E+QDcHSfxyfCOMpnYZBi8s+ZPmoL/7f9565/zFpfdckpPitiuxc73SsE5Y8JJGeWw
-	 1BRFlevM09IJJj40KaOniFkJ+MN4MgAsfVRNvlJD3437jzWjhUTvchNCTB6Rjj8I9mV7K
-	 6uHiOuu3y1W+V9Dvh1vsQmhA4/KM3gNtMx287Celvba9cJTfIyLKtXpRN2ryKsojvRcDC
-	 Ed4+bJ0jvncqpv0nqzeZFUER7X4CJB97PKfVwjTvCywDWLgkDKNAOrbVYANt9eOvG2g==
+	bh=0ymcIH4/zeaoSFfHc+RTS5YHw90qatTHdiwsb0U8zEM=;
+	b=kLSezkbA0PqfNqhUm8cY709GruhZAYRqBHPI5uROWG5ciBoZBayCwqYHoFscFmYqMYJ6
+	 mbt0x8EKQXnPG9Nh6wvbjIfOdxL1b4Vs6XY2jxvo9F8SYefjrLVPdp7sDd/Kwkt6X8MFy
+	 bGbRgKr/Jq5TanHPVR82zYgEobZayDeBARfW7j/jwrERhkgpPsaY2mw+GMPjiQ1oHIkxY
+	 +pSRRVZAha1vUvUaMIHAyO+DtiKnE7H084Qw/ju6qJvRqqisC29fwzbmT0nlxuQEqcix/
+	 +GGPXVZufWCwXoOtYJQ4PiFgiqSF/XK0wJ9C8PIlgLOos9D3QH+Gmd03QtUZnVaQzvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0u0iGlj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHUG3ZvB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1FF606A89B;
-	Mon, 16 Nov 2026 13:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD1C606A335;
+	Mon, 16 Nov 2026 13:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0u0iGlj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8D81F000CC;
-	Mon, 16 Nov 2026 13:54:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHUG3ZvB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A414F1F000C7;
+	Mon, 16 Nov 2026 13:54:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837285;
-	bh=QEC5bH3mf6ppNxnqhZUIX9nYzf+HXa3xcTJXq8rdH+s=;
+	s=k20260515; t=1794837286;
+	bh=0ymcIH4/zeaoSFfHc+RTS5YHw90qatTHdiwsb0U8zEM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=H0u0iGlj4EHuczofS5R02f1Rdk34Yf2EFRQtNGSS5GZ+jARa4hGVXydby/6CnEvgA
-	 ImopRT5uJkGjz6Z1oeibJP1PHh2umGu2Ekay8u0QyNkhWoItGd/CY9Z0sVTG7IQUm5
-	 p79JlrINdC20IWreuvZOK8auV5xCFqBZK7EBuploxG1yyVcVfylqXX0+ivg4nEs8SL
-	 DT4Zi+cylT4FmT+DVgcUoa8DlFYqpsxe3h0d69Uh/ac0j89xoFKg1pCEGDWYfJxGVg
-	 Gj4NxT2c7BFUYF59YwOfFR/juI0pzZUpA17j2yyQkdrKfNcYu4rktLnR2UYdVnDEPG
-	 zUXU3PNO6rsBQ==
-Subject: Re: [PATCH v34 net-next 4/8] net/nebula-matrix: add chip-wide
- hardware init/deinit implementation
+	b=QHUG3ZvBIrERejZfaQGJXaoty2jY0Ifn8nvHPJVzHsG/6RqqsQfNWImz/YuwD0mRy
+	 0vuDOTFGTkHfA3dwJhQSvcj27XJVGwEi09oXONYu12WgkhZAUf7tPrABa8relrXgvn
+	 T6iqpAj5klZjW889QN7bK/wbAm/nY/x44vjHhUp11r492t9/U1lQbI/NWDVJ+OARsm
+	 bpRkiyqVTZChrtP8bICJqEuPDk5YfsLENE1mN7gsfT2hA4gZjn/+NQo1w7wv5rpX94
+	 m2VuFu8FeP9n6fzFzkyW9LK66R+WGct5J+dsrV6v2zV/wGokrczNNGSEMzaArgjqiu
+	 jSW81ha783W0Q==
+Subject: Re: [PATCH v34 net-next 5/8] net/nebula-matrix: dispatch: add
+ control-level routing core infrastructure
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  andrew+netdev@lunn.ch, pabeni@redhat.com, edumazet@google.com,
  horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 13:54:43 +0000
-Message-ID: <179483728389.3136.12160393764038697386@kernel.org>
-In-Reply-To: <20261112094925.6098-5-illusion.wang@nebula-matrix.com>
-References: <20261112094925.6098-5-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: Medium
+Date: Mon, 16 Nov 2026 13:54:45 +0000
+Message-ID: <179483728519.3136.7292669814858371820@kernel.org>
+In-Reply-To: <20261112094925.6098-6-illusion.wang@nebula-matrix.com>
+References: <20261112094925.6098-6-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,196 +65,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The control-PF probe has no real handshake with the
-  asynchronous firmware cleanup pass; it relies only on a fixed 2-3 ms…
-- [Medium] nbl_hw_set_driver_status() changes bit16 of
-  NBL_DRIVER_STATUS_REG (0x1300444) with a read-modify-write:…
-- [Low] The patch adds a firmware ABI dependency with no version or
-  capability gate.
+- [Low] The -EOPNOTSUPP fallback in nbl_disp_init_module() can never run,
+  and the kernel-doc describes it as if it could.
 
 --
 
-net/nebula-matrix: add chip-wide hardware init/deinit implementation
+net/nebula-matrix: dispatch: add control-level routing core infrastructure
 
-This adds the Leonis chip-wide init_module() and deinit_module() hooks in
-the hw and resource layers. They run only on the control PF.
-init_module() programs the chip-wide datapath registers and sets the
-driver_status bit. deinit_module() clears the bit and sleeps 2-3 ms for
-the asynchronous firmware cleanup. A stale driver_status bit is also
-cleared at probe time in nbl_hw_init_leonis().
+This patch adds the dispatch layer. It allocates the dispatch management
+state and the ops table, and it wires the init_module and deinit_module
+wrappers to the resource ops. It also adds a ctrl_lvl bitmap, with only
+the MGT level defined, which is set only on the control PF.
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> index 75d6982ae1e83..371c317daaedd 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
+> new file mode 100644
+> index 0000000000000..966fee2dec8b0
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
+> @@ -0,0 +1,117 @@
 
 [ ... ]
 
-> @@ -150,6 +175,742 @@ static void nbl_hw_get_fw_eth_map(struct nbl_hw_mgt *hw_mgt, u32 *eth_map)
->  	*eth_map = FIELD_GET(NBL_FW_BOARD_DW6_ETH_BITMAP_MASK, data);
->  }
->  
-> +static u32 nbl_hw_get_quirks(struct nbl_hw_mgt *hw_mgt)
+> +static void nbl_disp_deinit_module(struct nbl_dispatch_mgt *disp_mgt)
 > +{
-> +	u32 quirks = 0;
+> +	struct nbl_resource_ops *res_ops = disp_mgt->res_ops_tbl->ops;
+> +	struct nbl_resource_mgt *p = disp_mgt->res_ops_tbl->priv;
 > +
-> +	/*
-> +	 * Read quirk bits from mailbox register.
-> +	 * All supported firmware implement the quirk ABI,
-> +	 * firmware always populates NBL_LEONIS_QUIRKS_OFFSET.
-> +	 * Value ~0U indicates no active quirks.
-> +	 */
-> +	nbl_hw_read_mbx_regs(hw_mgt, NBL_LEONIS_QUIRKS_OFFSET, &quirks,
-> +			     sizeof(u32));
+> +	if (res_ops->deinit_module)
+> +		res_ops->deinit_module(p);
+> +}
 > +
-> +	if (quirks == ~0u)
-> +		return 0;
+> +static int nbl_disp_init_module(struct nbl_dispatch_mgt *disp_mgt)
+> +{
+> +	struct nbl_resource_ops *res_ops = disp_mgt->res_ops_tbl->ops;
+> +	struct nbl_resource_mgt *p = disp_mgt->res_ops_tbl->priv;
 > +
-> +	return quirks;
+> +	if (res_ops->init_module)
+> +		return res_ops->init_module(p);
+> +	return -EOPNOTSUPP;
 > +}
 
 [Severity: Low]
-The comment says all supported firmware fills in NBL_LEONIS_QUIRKS_OFFSET.
-However, neither the code nor the commit message names a minimum firmware
-version. Nothing gates this read on a firmware version or capability
-either.
+This isn't a bug, but can the -EOPNOTSUPP fallback in
+nbl_disp_init_module() ever run? The same question applies to the NULL
+check in nbl_disp_deinit_module().
 
-nbl_uvn_init() then uses BIT(1) of this word to choose the UVN descriptor
-prefetch mode:
+nbl_res_setup_ops() in nbl_resource_leonis.c will not publish the
+resource ops table if either op is missing:
 
-    FIELD_PREP(NBL_UVN_DESC_PREFETCH_INIT_SEL_MASK,
-               (quirks & NBL_QUIRK_UVN_PREFETCH_ALIGN) ? 0 : 1);
-
-On firmware that does not fill in offset 0x140, any value with BIT(1) set
-other than ~0U would switch the RX prefetch mode to sel=0. No message is
-printed when that happens.
-
-Could the minimum firmware version be documented? Alternatively, could
-this read be gated on a firmware version or capability check?
-
-[ ... ]
-
-> +static void nbl_hw_set_driver_status(struct nbl_hw_mgt *hw_mgt, bool active)
-> +{
-> +	u32 status;
-> +
-> +	spin_lock(&hw_mgt->reg_lock);
-> +	status = nbl_hw_rd32(hw_mgt, NBL_DRIVER_STATUS_REG);
-> +
-> +	status &= ~BIT(NBL_DRIVER_STATUS_BIT);
-> +	status |= FIELD_PREP(BIT(NBL_DRIVER_STATUS_BIT), active);
-> +
-> +	nbl_hw_wr32(hw_mgt, NBL_DRIVER_STATUS_REG, status);
-> +	spin_unlock(&hw_mgt->reg_lock);
-> +}
-
-[Severity: Medium]
-NBL_DRIVER_STATUS_REG is documented as shared with firmware, and every
-bit except bit 16 belongs to firmware. reg_lock only serializes host
-CPUs.
-
-If firmware updates one of its bits between the nbl_hw_rd32() and the
-nbl_hw_wr32() here, won't that update be overwritten with the stale
-value?
-
-All three callers go through this read-modify-write:
-nbl_hw_clear_stale_status() at probe, nbl_hw_init_module() and
-nbl_hw_deinit_module().
-
-The header comment says no such firmware write is known. It also says
-that this is an observation about this hardware revision, not something
-the driver enforces. What happens to firmware if one of its bits is
-written back stale is not documented.
-
-Would a driver-owned register or a firmware-acknowledged mailbox command
-be a safer way to signal that the driver is present?
-
-[ ... ]
-
-> +static void nbl_hw_deinit_module(struct nbl_hw_mgt *hw_mgt)
-> +{
-> +	nbl_hw_set_driver_status(hw_mgt, false);
-> +	/* ensure driver_status reaches the chip */
-> +	nbl_flush_writes(hw_mgt);
-> +	/*
-> +	 * Give the asynchronous firmware cleanup pass time to settle
-> +	 * before returning; best-effort, see NBL_FW_CLEANUP_SYNC_MIN_US.
-> +	 */
-> +	usleep_range(NBL_FW_CLEANUP_SYNC_MIN_US, NBL_FW_CLEANUP_SYNC_MAX_US);
-> +}
-
-[ ... ]
-
-> +static void nbl_hw_clear_stale_status(struct nbl_hw_mgt *hw_mgt)
-> +{
-> +	u32 status;
-> +
-> +	if (!hw_mgt->common->has_ctrl)
-> +		return;
-> +
-
-[ ... ]
-
-> +	status = nbl_hw_rd32(hw_mgt, NBL_DRIVER_STATUS_REG);
-> +	if (!(status & BIT(NBL_DRIVER_STATUS_BIT)))
-> +		return;
-> +
-> +	dev_warn(hw_mgt->common->dev,
-> +		 "driver_status already set, stale cleanup forced\n");
-> +	nbl_hw_set_driver_status(hw_mgt, false);
-> +	nbl_flush_writes(hw_mgt);
-> +	usleep_range(NBL_FW_CLEANUP_SYNC_MIN_US, NBL_FW_CLEANUP_SYNC_MAX_US);
-> +}
-
-[Severity: Medium]
-Is the 2-3 ms sleep enough to order this probe after the firmware
-cleanup pass?
-
-Later in the series ("net/nebula-matrix: add common/ctrl dev init/remove
-operation"), nbl_dev_init() runs after this function. It programs exactly
-the state that the firmware pass reclaims:
-
-    if (common->has_ctrl)
-        nbl_dev_setup_chan_qinfo(dev_mgt, NBL_CHAN_TYPE_MAILBOX);
+nbl_res_setup_ops() {
     ...
-    ret = nbl_dev_setup_common_dev(adapter);
+	if (!res_ops.get_vsi_id || !res_ops.get_eth_id ||
+	    !res_ops.cfg_msix_map || !res_ops.destroy_msix_map ||
+	    !res_ops.set_mailbox_irq || !res_ops.init_module ||
+	    !res_ops.deinit_module)
+		return ERR_PTR(-EINVAL);
+    ...
+}
 
-The pass can run longer than the window. The commit message gives an
-ECPU still busy right after kexec as one example. Firmware would then
-wipe the mailbox QINFO routing and qinfo registers that probe has just
-programmed.
+nbl_core_init() calls nbl_res_init_leonis() before nbl_disp_init(), so a
+missing op fails probe before the dispatch wrappers are installed. The
+static res_ops table also always sets nbl_res_chip_init_module and
+nbl_res_chip_deinit_module.
 
-No error is reported. Sibling PFs' RPCs in nbl_dev_start() then time
-out, and their probes fail.
+Could these NULL branches be dropped? The kernel-doc below would then
+need updating too.
 
-The unbind/rebind path looks similar. nbl_hw_deinit_module() sleeps
-2-3 ms and returns. The next probe of the control PF reads bit 16 as 0.
-It then returns early from nbl_hw_clear_stale_status() without waiting
-and starts programming the routing right away.
+[ ... ]
 
-The device link orders the siblings against the control PF. Does
-anything order the control PF's next probe against its own previous
-cleanup pass?
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+> new file mode 100644
+> index 0000000000000..f52d8bd57cd2b
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+> @@ -0,0 +1,54 @@
 
-The nbl_hw_deinit_module() comment says "Both steps are far slower than
-the firmware pass". There doesn't seem to be a documented firmware
-latency behind that.
+[ ... ]
 
-Is there a firmware acknowledgement that could be waited on instead,
-such as a mailbox command or another register that firmware writes? If
-not, could a much larger margin be used on the stale-clear and teardown
-paths?
+> +/**
+> + * struct nbl_dispatch_ops - dispatch control plane operation callbacks
+> + * @init_module: chip-wide datapath init, forwarded to the resource layer
+> + *               (res_ops->init_module() and then hw_ops->init_module());
+> + *               on leonis it programs the chip-wide datapath registers and
+> + *               sets driver_status=true.  Returns -EOPNOTSUPP if the
+> + *               resource layer installs no init_module op.  Control-PF
+
+This sentence documents an error return that no caller can get. It also
+suggests the resource op is optional, while nbl_res_setup_ops() requires
+it. This text is still unchanged at the end of the series.
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112094925.6098-1-illusion.wang%40nebula-matrix.com
