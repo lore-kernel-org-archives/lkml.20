@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846736;
-	b=Zv95OvxbnezgXgmct4nVybPxKJWWKWYYTK5RKsEoUh7twmmrWhnojE4mj9Z3J9a3q8Ow
-	 toim2HgGA3wyCkB4qV42tUVwntaSKzKzGbIZxJHancdeGDd6eoD6nKY4HG75CS/PbF7rB
-	 dk5Dexf0/3SNc8n+dkQQj3Iw0r4cOuxd4n9erb9ld2UccRnarjGu51X/aaGfyn/nRoRjt
-	 Q1fEmcbdI6v/zmzcpQf6h7YVnjR/MOxrcqIkoaxv97rlP2tF5UqB8yPY9p1eHB66DBBp9
-	 XNX+lYWps/V38D9RVa+iJ1QCwqQe+XrOfca+5vFtgUsiRWsjWLCvMcI8Z7X4y1gbm6A==
+	t=1794846782;
+	b=FOsj4VZFVDDcuwdBwsIZmjBr2uiEGXVVQ0CUhHY4MtBE1PToAdSgQaPcjugVed2LJZm8
+	 mwW42NjTR1l9+kx3y97q+tPuH9D/zOMCP6HzJYxv3rGn8Qw88LPD9hwuB0MnKCwe2n8py
+	 KWZMd/XdDjCkklIFLKG1gA3SycfCc01XR31gUgYIharPep78ynKb6B/YyYlX3ANeousnf
+	 YMabw+9FWuXhot6j7L+CWMHMnDwxr//lUOInlKALXnWb6a3qWn8Q7ciOl9Qxz688ifAV0
+	 MqzgK2fOkipb0BhkVf6+vspgGku0wnukrxL8om5bdj7HTnXJOKhcwJO3vvX/E30/9vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846736;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Ps3dmenyy5Kz+Ld8FFyPnRbKN1BblcpmGxOsdgzLlkg=;
-	b=03qNMI3MmD/2DUVBaRFXhEdZQHQZ/x8kxq5KJXv33Jci8d4gUz0xLzmYIih+xbmvZlkO
-	 msz1w3h1k49y/u3m7NSCoOssL6UPaNylSpVqLucqHffrTu+YWcWXMhF3GqZrSAMEiPm+G
-	 oUlu5dEkzIP+k5AHiG+efTOFVEWphA3C0PY5geGFoihUWvD80iJ9K4jfeGkhJ5zU0kppW
-	 Wenk3fFZJHn4BwYIDfiP5KjEdy2pmXo2ti1da3c88e0HIeVBAS9zR5taGm7dLALB+ziRA
-	 wFnII+TkO1RNY45hZQJ5Q1UOuxyE1a7ZKsc8b73WZGeSCyuqT+aY76noB4HhBzhWTew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846782;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:
+	 X-Flowmailer-Platform:Feedback-ID;
+	bh=PTCezzwhXegCp0HN9dhFnxMs6Dv4psl9EH2T3b5OSj4=;
+	b=fce+cS+jHJSjLvIsh4gsuzsM1m54aoda3UjnQmfXSDDLSpn6lPJDhnB34AAGc1vZd2j5
+	 oSIRQ4pVK2YZzS73TcnveUhH1AKN1wp+6TcWk/l22N3rSLs4td6sVPYNSOpnu1wlF2F5i
+	 ljLe6UNa4S5eGe5U3TdFMdfZbFBCrDmuaS0Kw3JWAOYjTu5yHurrxihYMw5qSp3FMAs2j
+	 dpM/KQgZpb9FqbyAiKK4vq3a8rM0CFTS/vp9zCgPYsF8iwlfXsbz0Z4dHHom6YMasSrAF
+	 QqvYBEo2PSMhmuHVU560OWGZjZ2T64tw1ek23Z4e2KO4vTKm8pKETyfIZceZyxLI1Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpmCXKTV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=siemens.com;
+	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
+	dkim=pass header.d=siemens.com header.i=benedikt.niedermayr@siemens.com header.a=rsa-sha256 header.s=fm1 header.b="N/yTmj+M";
+	arc=none smtp.remote-ip=185.136.65.225
+Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFE7606A322;
-	Mon, 16 Nov 2026 16:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40DB606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D40DB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpmCXKTV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4E741F000C4;
-	Mon, 16 Nov 2026 16:32:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846736;
-	bh=Ps3dmenyy5Kz+Ld8FFyPnRbKN1BblcpmGxOsdgzLlkg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kpmCXKTVb2U/UCmQyM0jyQIiFiyBUtWa/rolPgC27x/6er/TMekcYO/bpqCJpbHjt
-	 BkarG5dim3+kqiPiQ0w7t+rinkAI4DkyphgVziWl+F4TCHPgwFCY9tFJUudJ/7JciD
-	 8s4zEhkG/2Imevh9Nep7OmbPGl3wITP18uNzVRq3TPIH6noxApXA3CTyhp1ORZtsJp
-	 CS36YoGl03ZWuFbI5R9Vd5iQvxebvOphOB+UxHjpQtjKvNvHEdiswiKt0Lff4owoVB
-	 c3UjF07b4DVsuGQBFusFmMCTCgzQkljYgQtxhWWvDZLa5MvPRw6pM6m1IsoXsVlQGi
-	 yj3uZDrouu1uQ==
-From: netdev-bot+sinfo@kernel.org
-To: Tianyi Gao <tianyi@cloudflare.com>
-Cc: netdev@vger.kernel.org, magnus.karlsson@intel.com,
- maciej.fijalkowski@intel.com, sdf@fomichev.me, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, yoong.siang.song@intel.com,
- kerneljasonxing@gmail.com, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@cloudflare.com, tianyi.gao@linux.dev,
- Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH net] xsk: reject TX checksum requests that overflow
- skb->csum_start
-Date: Mon, 16 Nov 2026 16:32:14 +0000
-Message-ID: <179484673444.3291.12899618485319674206@kernel.org>
-In-Reply-To: <20261116162834.30087-1-tianyi@cloudflare.com>
-References: <20261116162834.30087-1-tianyi@cloudflare.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=benedikt.niedermayr@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=N/yTmj+M
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 2026111616325778658a594d000207ff
+        for <linux-kernel@vger.kernel.org>;
+        Mon, 16 Nov 2026 17:32:58 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=benedikt.niedermayr@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=PTCezzwhXegCp0HN9dhFnxMs6Dv4psl9EH2T3b5OSj4=;
+ b=N/yTmj+MkPW56dBM/sVQUibhcIccnpYeh9j2wIYuxOkVUIzyX/xJRTUlHPNe/u1dL6uWc9
+ C5Z/HdD0d1vuwFTddmLq50SSnNEFd+t/loROR/4FoTKsV12mZpVkc3PujZWOACruvMTKvIg4
+ N79KDlE3gjy+eV7GsFY1BvMbU8i2o8Dka0qbcm8fN/zcGrhaqxZbscE9qioAS4Jg/Ih2H8lq
+ knHqqMaZrfSNIFMmTVAQEg6wKNDI7/OMyPynGzQCcA9icblFHjS3gGQ6kA4HexX4yzjZ4NHa
+ 4OxEzJo+8c2Cr3ugblOi0gIEptWKuxThc9tYsp9utIrsJ2PD11TFImwA==;
+From: Benedikt Niedermayr <benedikt.niedermayr@siemens.com>
+To: benedikt.niedermayr@siemens.com,
+	linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/1] hwmon: simatic-ipc-ec-sensors: add BX-54A EC driver
+Date: Mon, 16 Nov 2026 17:32:56 +0100
+Message-ID: <20261116163257.1303207-1-benedikt.niedermayr@siemens.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,22 +61,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1323861:519-21489:flowmailer
 
-Hi!
+Hi,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+this patch adds a hardware monitoring driver for the embedded controller on
+Siemens SIMATIC IPC BX-54A systems.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+The driver loads directly via ACPI "_HID" which is reserved for Siemens.
+See commit for more information.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+I'm not the original author of this driver but I reviewed it as carefully as
+possible and I would step in as maintainer for it.
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
--- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+This patch does not enable the hardware platform on which this controller is
+present.
+Instead I just routed the enablement through the i2c tree, which is currently
+in review [1].
+I wasn't expecting the review to take that long, so it's maybe better to route
+the platform enablements through this tree instead... I dont know...
+
+[1] https://patchwork.ozlabs.org/project/linux-i2c/patch/20261116142351.1228943-4-benedikt.niedermayr@siemens.com/
+
+Best regards,
+Benedikt
+
+Benedikt Niedermayr (1):
+  hwmon: simatic-ipc-ec-sensors: add BX-54A EC driver
+
+ MAINTAINERS                            |   6 +
+ drivers/hwmon/Kconfig                  |  11 +
+ drivers/hwmon/Makefile                 |   1 +
+ drivers/hwmon/simatic-ipc-ec-sensors.c | 568 +++++++++++++++++++++++++
+ 4 files changed, 586 insertions(+)
+ create mode 100644 drivers/hwmon/simatic-ipc-ec-sensors.c
+
+--
+2.43.0
