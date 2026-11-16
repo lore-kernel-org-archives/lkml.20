@@ -1,53 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819224;
-	b=J3dwdeAto8n7zJJGIBrJH4OePnHaaKfHQyd+1GbeW/BqI6Ome3LXRhMb8WRohSPLVpkA
-	 sSsyJNt5MsRg8l0TFZI3xznNEG5V2n9o4dK7W3g3BU/5KK4bhA9kI3LSZsfRbkEs8fEN2
-	 phk+K3vLO5NXgRt/bD+JQ/lC6mjvG38ZckrIGgAFwkOYMY/xQIQxxbF68HnAMnLmMS0zG
-	 GkQwkQbSH2eI/fEFAUlilC51DnBZNiBZsyb8CmaNdtQ/fg4yc8GGElPpHaelTQApEX6Dq
-	 CBLyabJvt6Ur/D1KQvM4ZyupHb49hyJCwYIjvRyukbgFWpJdOnpU6ffGN2KoVNt7rIw==
+	t=1794819232;
+	b=AZxA0Ps/2xZGmZhjNz7lPH5u6ZBJgEIA9l/VlhmL2TmG1b/3ZEbqk17pRgMvSCV+heCX
+	 CPSJ1z7I1G3KZj/ly5GiwInJz+CS/O3Z+8Sw1GOT9SPYzQ8g/wyTYXCAIncYXh2rrBSHH
+	 5hCZrZj0qIZeD3/DmQ73NlfuzitSZ43UQFDj/r9bP7i1Za/L6+vwTmDzR0W6NRmA/8+80
+	 boe2aw1dD21LrdBFBxdP5/gwMybuldmQE4kALKACpHBw04cM15N3339gZqckklFrEtNLA
+	 G+5WRT33ftRI6bzu/fXcjrI6A8NyYLeMICDX5aKMxtugnYJNt+8A94qI+7PfqxmnrcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819224;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=gsHe6c6lRbMYZcSq9KWEJivUoTmxsVWW6P/M/igGehA=;
-	b=hTu6I3Luoxomd5nzFp64J0k1NT7POG+DhNvHG16yEpK2hyM07yk/oQ/CXfY+NP9YXvWY
-	 pl1eYh+OJK/47GhQ2EDkrm+8AWvDeANAhNp5d/hAhGG5oFnmubvTRu91IWEFfbtzEAc4u
-	 Vbx2aA9EhL5Ud6YryFqafuTghgmvoGSBjJyVNfk+/PN7c/kHmPUQM7SuxXEV8Fql6lhcr
-	 MtnpVXgo+YrUMMoEluSo5x5mlLf55OQgxnar2kyWUXv1Uw1eEFtCK9R/DM+WTjA+1SGyO
-	 kazmudibRflDAdxaepW67UzOR8oNmANsQGHvH5QIO3uXlj4/lnoYYh87jnzllny8jGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819232;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=WJHptjq5aiJfdXZI3gT+b9duppbFkdL96tNofJMtcsc=;
+	b=0VB/KXMZS6p1rVdPpZ2EAaiGcS7Gp6op0JrAw+b53n0hRsqpTon5MKdhuWX3IsUQcTLL
+	 N/cVLEg0A9GtFp5X9CyDcH9AhAMQfdNxfpr5guh/cP895/1vxbwF8QbCjOXqy1Tr3oBLV
+	 sQeQZeoiOprJ+5rnlQxuU6l+5h9rtPp0BlK6LVlBiMuU+sEs87ohSffs/dG0MHQUiVGsX
+	 nQiYbMicMApQzLMXW8uMDrQ0MSxaW5DrhIz2Rj6aAZwaNgFQu/EHV4zCI0Ur8WT30gfem
+	 scxO87m1bBbO7lbrJ/BovyyADjnrusZFGPKbCLkBGc4JG0WbaZpXCu8Bvv+fr2dfjZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CA38606A32A;
-	Mon, 16 Nov 2026 08:53:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA38606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=gsHe6c6lRb
-	MYZcSq9KWEJivUoTmxsVWW6P/M/igGehA=; b=ID3o2F3frx1brUxS8TuEo/L/2x
-	Ofrd95cvHhL6dKSI+S2/v1VLOIaynAicOmYaP/uVXRjMmrwQaV38UY8IG0HyMN96
-	aJBCzRfySp69iTn3P+L9CWuv6C/rUxT9jGINCIEf3CK7CtiiX0eGMmCMivFtQm79
-	EmV7SvOsjtjIcDNAk=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2uv2JxPpqL2G1AQ--.43460S2;
-	Mon, 16 Nov 2026 16:53:31 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] comedi: defer freeing async areas that still have pollers
-Date: Mon, 16 Nov 2026 16:53:28 +0800
-Message-Id: <20261116085328.11090-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="J+2/szqW";
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39A7606A329;
+	Mon, 16 Nov 2026 08:53:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E39A7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J+2/szqW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794819233; x=1826355233;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4G4yGIqnrHxQl+5LajxFWIp2dJ6cElXZhM/BoJ9cdY4=;
+  b=J+2/szqWQxZLxusz+NAHwE62IP3wZWddOmF9nQWR5qIL5GjrbjmeD/NL
+   aTEv2qrqaKO3wKu6G3LJBSN1lXRgLPdtlhmR3l3b8CjREneynn6frsVM4
+   4xRFYVE8WcTvw9aOLg8Fw7LFPe+43EmNXFVHNtw00Qq3OxqjkQlq188so
+   PNzaqYqC5EtJpmOxDdTeHv05LPK7S3zwEwD1N0GMj/M0tP80Og/SkwwHl
+   aR9UZfV+WYRKLOuSsSz4ZFchETn7n41Sz/v2+1YAMxHOInOzbduVMN3o6
+   JMoAfIVobIqnmPnICp8zy61Y29WmiwEWXaBfyzuILe7IxpVMB6+z1tLvP
+   Q==;
+X-CSE-ConnectionGUID: klUIzpNaSb2vFuSvoteQCw==
+X-CSE-MsgGUID: MhM/0ajqTEGLAbFFlCIiNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3588429"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3588429"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:53:50 -0800
+X-CSE-ConnectionGUID: 2IZIwq5zRBa1Yz4XQCXOEA==
+X-CSE-MsgGUID: +HN8DcJpRSyF/9wpu5KGow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9507060"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:53:47 -0800
+Date: Mon, 16 Nov 2026 10:53:45 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] iio: proximity: sx9310/sx9360: reject
+ out-of-range hardware gain values
+Message-ID: <avrEmbZJSX5qtGS2@ashevche-desk.local>
+References: <20261111164041.341776-1-kapoorarnav43@gmail.com>
+ <avXeSbAEGhkMjMJa@ashevche-desk.local>
+ <20261115014333.120063-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,155 +86,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkC2uv2JxPpqL2G1AQ--.43460S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZw48KrWfJFW8Gw15Cw13twb_yoW7JFy8pF
-	s8AFy5KFZ5Gr4fuFs7Jw4jvF1fZws2ga43Kryxuw1j93sxtF9xtFyvyFy5tF4DAFZ2yF42
-	qr47XrWrCrZ8JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUgR6zDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytetsAABsK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115014333.120063-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-comedi_device_detach_cleanup() frees the async area of every subdevice.
-The async area contains the wait queue head that comedi_poll() queues
-pollers on, and a poller is not removed while comedi_poll() runs:
-comedi_poll() only holds dev->attach_lock while adding the wait queue
-entry, and the entry is removed later by poll_freewait() when the poll
-system call returns.
+On Sun, Nov 15, 2026 at 07:13:32AM +0530, Arnav Kapoor wrote:
+> On Thu, Nov 12, 2026 at 05:42:01PM +0200, Andy Shevchenko wrote:
+> > Now it looks better.
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+> Thanks, Andy.
 
-Detaching through the COMEDI_DEVCONFIG ioctl is guarded by
-is_device_busy(), which refuses to detach while the wait queue has
-sleepers.  Removing the hardware is not: comedi_release_hardware_device()
-calls comedi_free_board_dev(), which detaches unconditionally.  Unplugging
-a USB COMEDI device while a task is polling it therefore frees the async
-area from under that task, and the task hits a use-after-free when
-poll_freewait() locks the freed wait queue head:
+You're welcome!
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
-  Write of size 4 at addr ffff888004508498
-  Call Trace:
-   _raw_spin_lock_irqsave
-   remove_wait_queue
-   free_poll_entry
-   poll_freewait
-   do_sys_poll
+> Jonathan, a related question while this thread has the right people
+> on it: the Semtech SX9xxx proximity drivers (sx9310, sx9324, sx9360,
+> sx9500 and sx_common) have no MAINTAINERS entry, so get_maintainer.pl
+> only finds the IIO maintainers and reviewers for them.
+> 
+> I've been working through bugs in these drivers for the last few weeks
+> and would like to keep doing that. Would you be OK with a patch that
+> adds a "SEMTECH SX9XXX PROXIMITY SENSOR DRIVERS" entry with me as R:,
+> or M: if you'd prefer the drivers to have a maintainer?
+> Gwendal, as the author of most of this code, you'd be very welcome on
+> the entry too, if you want to be listed.
+> 
+> I don't have the hardware, so anything that needs a real device would
+> still need someone who has one.
 
-Every task that can have an entry queued on async->wait_head holds a
-reference to the COMEDI device file, and comedi_open() holds a reference
-to the COMEDI device for as long as the file is open.  The device
-therefore cannot be released until the poll system call is done with the
-wait queue, so move async areas that still have waiters to a list and
-free them from comedi_dev_kref_release() instead of freeing them at
-detach time.
+I believe for an M entry it's kinda implied that you get an HW to play with
+(at least one of the supported sensors by the driver in question).
 
-Fixes: 2f3fdcd7ce93 ("staging: comedi: add rw_semaphore to protect against device detachment")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/comedi/comedi_fops.c     |  8 ++++++++
- drivers/comedi/drivers.c         | 14 +++++++++++++-
- include/linux/comedi/comedidev.h |  8 ++++++++
- 3 files changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
-index 9a65dc5d62a4..932e35d7f68c 100644
---- a/drivers/comedi/comedi_fops.c
-+++ b/drivers/comedi/comedi_fops.c
-@@ -106,6 +106,7 @@ static struct cdev comedi_cdev;
- static void comedi_device_init(struct comedi_device *dev)
- {
- 	kref_init(&dev->refcount);
-+	INIT_LIST_HEAD(&dev->async_free_list);
- 	spin_lock_init(&dev->spinlock);
- 	mutex_init(&dev->mutex);
- 	init_rwsem(&dev->attach_lock);
-@@ -116,6 +117,13 @@ static void comedi_dev_kref_release(struct kref *kref)
- {
- 	struct comedi_device *dev =
- 		container_of(kref, struct comedi_device, refcount);
-+	struct comedi_async *async, *tmp;
-+
-+	list_for_each_entry_safe(async, tmp, &dev->async_free_list,
-+				 free_list) {
-+		list_del(&async->free_list);
-+		kfree(async);
-+	}
- 
- 	mutex_destroy(&dev->mutex);
- 	put_device(dev->class_dev);
-diff --git a/drivers/comedi/drivers.c b/drivers/comedi/drivers.c
-index 3f75485338a1..f91535fccd2b 100644
---- a/drivers/comedi/drivers.c
-+++ b/drivers/comedi/drivers.c
-@@ -168,7 +168,19 @@ static void comedi_device_detach_cleanup(struct comedi_device *dev)
- 			comedi_free_subdevice_minor(s);
- 			if (s->async) {
- 				comedi_buf_alloc(dev, s, 0);
--				kfree(s->async);
-+				/*
-+				 * A task that is polling the device file may still
-+				 * have an entry queued on the wait queue inside the
-+				 * async area.  Such a task holds a reference to the
-+				 * device file, which keeps the COMEDI device itself
-+				 * alive until the poll is done with it, so defer
-+				 * the release until the device is released.
-+				 */
-+				if (wq_has_sleeper(&s->async->wait_head))
-+					list_add_tail(&s->async->free_list,
-+						      &dev->async_free_list);
-+				else
-+					kfree(s->async);
- 			}
- 			kfree(s->readback);
- 		}
-diff --git a/include/linux/comedi/comedidev.h b/include/linux/comedi/comedidev.h
-index 577a08f37aee..54e324c0614f 100644
---- a/include/linux/comedi/comedidev.h
-+++ b/include/linux/comedi/comedidev.h
-@@ -15,6 +15,7 @@
- #include <linux/spinlock_types.h>
- #include <linux/rwsem.h>
- #include <linux/kref.h>
-+#include <linux/list.h>
- #include <linux/completion.h>
- #include <linux/comedi.h>
- 
-@@ -365,6 +366,11 @@ struct comedi_async {
- 	unsigned int cb_mask;
- 	int (*inttrig)(struct comedi_device *dev, struct comedi_subdevice *s,
- 		       unsigned int x);
-+	/*
-+	 * Link in &struct comedi_device.async_free_list when the async area
-+	 * cannot be freed at detach time because pollers may still use it.
-+	 */
-+	struct list_head free_list;
- };
- 
- /**
-@@ -558,6 +564,8 @@ struct comedi_device {
- 
- 	int n_subdevices;
- 	struct comedi_subdevice *subdevices;
-+	/* async areas waiting for the last user of the device */
-+	struct list_head async_free_list;
- 
- 	/* dumb */
- 	void __iomem *mmio;
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
