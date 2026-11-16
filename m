@@ -1,87 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794863499;
-	b=pB2FwlI9ic4MJZUpXHmbn8JPpqT85eDgWT3N1MC6LoDOoo4E7Y5kH+vOFuHUwDjklD0i
-	 MB1OKjLagwktXGVec1cTX/XqwPCA7bgl2m9GeTwKh5baXJd6xizxoIFHTXDhKCpB0Wn5E
-	 LTX+OqjtizUM1hRbKEB7xssLszMvUoeBVeI5Q6VWcXG8Yv88uZgSYwmcU9xyFNv1uFLsF
-	 3XXnehljrCHNxrNIsqgVS+WhGuOu2LGmZtBiozC8G+hfr0ek+PI96vfk5YSkUPaWUlFav
-	 aQJeelmb/k4T76o8MXH6DA2JdYnMiKSGU1X8AiQdwvt/zbTTOfZ+bIz76QJ2yuoehSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794863499;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794863578;
+	b=fC0pyqdJEN6NMA3uh7kqwSXIZ02bdjpCbxndmYyTKmp66OyG9CyQ3WVJnQxZKcc4skNt
+	 YneqHYEEnMfNm0DT+U1hVJh/Z6P9YkPNxPwC9OPkOXz+KPGRtBJAe15TOmQF2fYe67ZOt
+	 eDpJ969Ag7qO1nwZVsahGBt6H7GE8Y3ao0H7/ZyEaEwA6dRkDLl0fm++HmT4WWOCPyp5M
+	 OHEmBCsuOq4N3BHyMIlVdxibyWo9JLYSvb1NnbxjKkC+9KK3z1jPgLQicjtrPk2yUWOIR
+	 v/4o7ri5OyXlHqZLoPcajsV/zzunw1O9S+eVs9VetJEdVZJB2azEzFgz5wPXVDrnmzw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794863578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=/qwDjvPApzytwS/QOytLCoQjnxjw0j8Xmt/Cpr58S4k=;
-	b=VcgOdOl0BVh/iPqfbzJGbHHgcn2lc2F4h9k9BlkKUzrCrYSxds5E+ff7WEHWPiAveCGE
-	 7E3aZ/zCl9JCs/lqIaDiyhpS6/aGRsjI+AY1iGYpKcgwfJgpztUzmmn3S/Tv7izuDT+Uv
-	 gzshwYhFtgZ9vkXN81oys3c34qPOv4sLxWVtVr8wkR/aaL5L+zPrZUjzlqS3m2VPj89zj
-	 jZ2OGSpH0j3Qh92t5sMIjHmr68jeuuLLDGj+xrtf+zMSwjjxWkKiKl4wWF5nfcernLbHv
-	 Z/Ko8hU23/jGODcKBZGZavMWPZuSMdxOq7WnCMKGoUv6/efyrELh4qk7X0jw2yTDofw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kwiJRvNe;
-	arc=none smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vUMcYZu8lnBV4gY0KqIbv+nHEJCCLnO086QAfkL8hgo=;
+	b=N/+u13ZMbgq+S//ketE2hKZ+po9uiHdHwbyGVz6qQBFvwQP5d4DOC44e0GRFRxIl3aC7
+	 CQxTb6FAOxmZFfcMs3mtvH4RlITUuoRvPvN9yWokjEk7aGwoG3szaO8WYS75Wwr6dFDoT
+	 fZBy9u9ZdPBSnDq/jbUCQYqRBsK1u+SXBONArZpG7babCJjDS4pRnDDqPBX7dUdM2Hc3X
+	 SQ1rp4YIaY6cjg20q7BgQfDk1GAiGVsnmFqgZj5IOyp4Fmghl/yRMRi92GysOm52QmjtQ
+	 U3TvzMDV1HfN7yN/ynVLKNsTd7FeRtkvd7cQ+h0N/IGayS8/Mt7dI/g7GKfK1WSpxTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fMBYHCzd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD278606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD278606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0276606A881
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:12:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0276606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kwiJRvNe
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67db0791748so2001623d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:11:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fMBYHCzd
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so14640735e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:12:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794863569; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nG/c0SABDKuY8RycIp9rEO2/GJoHHHmNvFgW6CY9yzRfYzdKvDpKeigddPoLOE1mP+
+         8EdJi/o2tgymodsP+6dx/3l1SMyY+ip8326K/QxyxWAsicjReGFakmCBYDibi6y4l8L2
+         tXh+1LJZiv71PgMPsOaUnzKQuuRsi88NhwlmbpP+ObBAaO2EeTXUmBSAiuIhw1G2utGX
+         Qbot061Dhb6w5mJKMO/piGuLGD76mfidP9E5HpV9cS+gDU7KTha0/fUth1gitRLcokvK
+         41bdc8TfKDVrp7znt5umf9Otq1Q54/gnF5fHIsE4NxF6GTvrQTk73g0tBtDbHRbYrAiB
+         Ue7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vUMcYZu8lnBV4gY0KqIbv+nHEJCCLnO086QAfkL8hgo=;
+        fh=CmANLPuudkqIFqfsusnzRiOqziFK/E8GHOTr7mNSGKM=;
+        b=dVPDxmN7U3xcEEubkhGMOUWaYkCx8MoEqxjjRuXhhn0hgxc9zVG+8BXr8fe7KADfLs
+         Pa+MKyEIn8qPOlUCYK8A3cBi9mQWAEfR9/6GpYlW5Fv4Ju+se+vF1fWXoedzn3JUoDZT
+         LCLrynuNKXkrnMcN6vi5ki/j4ZjBTicauh4PPDE4GhKbXPdGONMsEv4BKR9J1meFMbGL
+         jH+rLWhfcOpIFVJUxW/R45M9TXojWT2Lm6RPYmG9q+ikIHXr581jn1UmzciHqs5Mz2z+
+         r/Kib+r/kwpK4TGVy/7S3uiTvpd0pzDSSqzOyi2Y9LQxWrynkbSei70S9m01RgrI0JNj
+         PNeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794863488; x=1795468288; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/qwDjvPApzytwS/QOytLCoQjnxjw0j8Xmt/Cpr58S4k=;
-        b=kwiJRvNev4471ye1RW9FpIzr3l1WG//BGK063QqcoHv/okw8i+7Ux0RBQKdyxzsqD2
-         15geBwdHn+pcgMOdb0O7mhywiWEWLxZKtCiR9VYpcf5YyfDZqJncDmpc0kyzJY8Lohok
-         VDKjzSzfZTKdHTQAp7q1Xu4CUyEd22q7/Hl83CqdsOR48JsT4rN25EIYS1Ew0rd2ci9f
-         JQdbrZ26kKyYRs30JzV8EwSu8vtekzMFzc7CEeR4O5qRkh4skBQVcIOA6Sigi5D3pR7S
-         gzIov3vKf2SDRKuwHApz0B5e4yJiiL5fSg6KtHY9Tdk3dJ3V8DBcc5H+xPz0795pLE87
-         q/RA==
+        d=google.com; s=20260707; t=1794863569; x=1795468369; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vUMcYZu8lnBV4gY0KqIbv+nHEJCCLnO086QAfkL8hgo=;
+        b=fMBYHCzd06LovLLME8aQkedzRHJ0gmu5w/QBtnPIt1dTWaNPaVtltJl8CUKAcz9FZt
+         71/dY3X1H/P2TJaKxoUUFJ69cAEK4+oO5A9Y0b2HuFWEwDzgj6f9PERh8G5TAPVDlqoP
+         O/nWM/NmlE57cMxf2ac9/GZ1wSqwL5FueF/KlWiUOK9EIt0OtSbaPX2g1Fl27HuvUZjB
+         ld1jpajZRLGfz1oiX301P87gDF+Ik7RnkYHw4hG8PiNsgl02KAn6c4mwLLpruTR9i/N3
+         Az5680TsGBWRdoqZoBns26Z7ySbt3WxwN9KLrzMrfVW6zCpmtjU1UiR5rZ0P8Sm9M3pJ
+         kQAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794863488; x=1795468288;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794863569; x=1795468369;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/qwDjvPApzytwS/QOytLCoQjnxjw0j8Xmt/Cpr58S4k=;
-        b=bQ8F8NXRmxg6JpK2pzyBxwvVgWsQe0yCX8sMiPi9C8HuMyNgmXMhgwNYzwAJh81K6u
-         oMteiiP7OKi0d/Q8yhmKVzR9cQPIrwupPDbi1ZTia+izUMOOdelja4NldiLC0xX4RK/1
-         IK11z0Y9XhQH/ZvrV4OBtX26rJOFfKPXoUnxbUpZxbtEczE8pidVuusCI3Df9CjTHPzV
-         SBvoQD5nrkYoEE6AsZsx2ZgBfbT6hlWT3gNEi1Br+ln8SlEe7gcLx7mbPxUXZWR3wfLs
-         qRVM0Kf60wLHvzlluheFRxsq4iFzEj8shtvd0PulGUYZtvUR6ABlJbna2E0sV3C/KPy0
-         wiCA==
-X-Gm-Message-State: APuU4Z/oHLFif0wsxxpGEdQtvTqc+HmKBZ9mqw6e2kPLcBDAM5GemGQ6
-	VLuB8UqN9iwbnKs3raVnP9Q2nL5VTjGs9R53F8/17TCXPbXhHuxrvRgk
-X-Gm-Gg: AZFdTZd1By8uv5uv6zjZCcVLte4I4AN2cwoXW6nGlLS3arnzsW9vw9C72TsuJrx7IOR
-	jgbUSQ4eP8zASbIpplbRN1d8On2ntIXR1c1vVtg9nNO48AGwgbUfp5Vxw+jxpfZIAInUocSW3yW
-	J5mRIZsEeV42SU609n+G+oZwFw33gCwMAUkt/+i9M5P//jq+FF9664sKZcDCvjpX5KA5y8soMUJ
-	Id1FCdovByG/dTHGLEQ73WMZcsy0082l4hhmZlX73Fcs3nWgRbnt3Cx3J1SsbtpJ4JPSpnRFiS1
-	g/rfqSv7axwXvzeneqfShviBpd1kh1mUEmHQriNhvRvYQBPwqwSXh6tJBDmMvI0H1hazjVR1VFt
-	BkIbfftwx3+goa7HURgKY/gNNd/0g6gZ4/WbJtRZAgkAeDTaXEFpkZbZ0rhaM3VzLZtREcqsuVS
-	NV8xjP//oWb57yo1lgwRmhMCmGBd8xLnFboaPILTfml83SasAOyO8vOFNxubh1uejMq/G5j+6R9
-	4Llz4DUBG0pYlxFr1kXe4hKYsJSgum6xdDi1NcxApVe/v6qBXyKttXfNIx1d29Vjq+7tRanOE9O
-	GxhtoC/DPVs+ePbQcGJeD3uPvfgY3x9ZdCw7CmLXjdJRa4XF
-X-Received: by 2002:a05:690e:150b:b0:679:afc8:9d2a with SMTP id 956f58d0204a3-67d896ab292mr5836269d50.54.1794863487763;
-        Mon, 16 Nov 2026 13:11:27 -0800 (PST)
-Received: from localhost ([2a03:2880:30ff:71::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a5b3b62sm10848957d50.13.2026.11.16.13.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:11:27 -0800 (PST)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Mon, 16 Nov 2026 13:11:20 -0800
-Subject: [PATCH net-next 2/4] eth: mpnic: add promiscuous and all-multicast
- filters
+        bh=vUMcYZu8lnBV4gY0KqIbv+nHEJCCLnO086QAfkL8hgo=;
+        b=XM9T79YOkDM1QZkGCJLcdgNGqGg2IG8cpIFZhy69FbsE7yDr3HRUywYLFk3rKFGreo
+         cP6dHFulWHaM6Ym57iLCS3TkkS5r6i0KC/vL2G2aXtJ6I9qxEnp803Ae8xfkEBoiJ0bg
+         CuoTjESakYPyLAzFugeSh6DKYaeCO5e3Mea9Qd+tBeaCdPLEffvDOYIw4YnXTvmRNcxJ
+         rcb5EZwLBwQFdCmelpwmAMRuSx7ocmIKYfit7fsYROtl2IKCMrnX3qsL6auV09+J5Ck3
+         HWyTKk/M2SPG2WG1/QFS/dilHXZ5t5UZq91iBlnKxNQIUpdZ/fmOsYWGGHqcKdIURE7d
+         vh6w==
+X-Forwarded-Encrypted: i=1; AL+hErG63j4qUe/4ZBidtOJIPRzElUokpiKLcTiEJHDz5CqL8CYzS7DBhbV9yIXJHGfMhVfEmFkeLBU+47+abdo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lC+V8eraFrDUPttJeTUiR1OEFBycgM8l81Mym1YhDp235wS55
+	NXnNV2JpHOUq/1T5+TkyntHe6ORWr1gutapmI+p/vFHPaw854XVw6UMI2Sh4nZvQPuhCQ29ZQuu
+	wq6vMrAGIqJmg4NA4mrLOWS30VqcjAH9G2tzEM4U=
+X-Gm-Gg: AYBFou0RS/uS0oqjzk5KyxE+a5i99WpWHxSI7sUT1kVE18QUTbitzpRsAUXZC3RJPxN
+	PDUOCMfovGDl1VZWoOZO9fipVWEMs0YpfJ06SxRV1LujD6ZJTkcuD7zrrTDg20Bv3XcZoGZ4WSN
+	6REli4t/OJ+gX7YLq2qJpTmzyN1ApFVMX2rMhcUmU50AgPxPtCuK9GyYF4p+VCLMyj34gE+YNUl
+	gMYcXjL33f1VGlq1l5W8LtkhvEDBGx9rIC7Wf3HE4F3NU4kFpfkfb9ZscyNQWTbjeSKwaxOEKBF
+	MFBjenbHF5IoR5VrjhCCDEBBIt4hUWU7bxP64mjXCs/UXlsaD7ol0+JxN61502ZYzE2w0wj/yPt
+	B17ubtCzGr2eFBdXPMbdRMoAoGchH5OWDAIR5qKgp8IFUleabY86Y6EEi1hF832zb++ETICBcO/
+	xBJhWoFKSybUc/3p01cEvDho8yTHSpFPHIQaORLzrrF9nZh/9JiUEZ9n9YoLEvJKkU0rGIbYI1l
+	FVYBNWN9Ws548wOYM03aPn8Lvbpg+eC4mdMzz2hVQdspc/EibaP3w==
+X-Received: by 2002:a05:600c:8b82:b0:4bb:6814:7391 with SMTP id
+ 5b1f17b1804b1-4bb681476a8mr151902015e9.25.1794863568642; Mon, 16 Nov 2026
+ 13:12:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,176 +106,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-mpnic-l2-oot-v1-2-8dc6eb3582b0@gmail.com>
-References: <20261116-mpnic-l2-oot-v1-0-8dc6eb3582b0@gmail.com>
-In-Reply-To: <20261116-mpnic-l2-oot-v1-0-8dc6eb3582b0@gmail.com>
-To: Alexander Duyck <alexanderduyck@fb.com>, 
- Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, 
- Mohsin Bashir <mohsin.bashr@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- Daniel Zahka <daniel.zahka@gmail.com>
-X-Mailer: b4 0.13.0
+References: <20261116192638.233125-1-mathieu.desnoyers@efficios.com> <20261116192638.233125-2-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20261116192638.233125-2-mathieu.desnoyers@efficios.com>
+From: John Stultz <jstultz@google.com>
+Date: Mon, 16 Nov 2026 13:12:35 -0800
+X-Gm-Features: Aa3M54pKctKGXB1zsDszLWVjgZbbqKABzvcHoB3xDMhImH51M6VYE6PyFT3QX8I
+Message-ID: <CANDhNCqmsDUC1hx6GnB_2ROQ2rYm3wKYfnbkVAuAjecducsSsQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 1/8] sched/proxy: Reschedule when a blocked task is
+ woken under a proxy
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	connoro@google.com, arighi@nvidia.com, akpm@linux-foundation.org, 
+	shuah@kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Implement IFF_PROMISC and IFF_ALLMULTI with the last TCAM entry, which
-matches either every address or only the multicast bit.
+On Mon, Nov 16, 2026 at 11:26=E2=80=AFAM Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>
+> With proxy execution, a task blocked on a mutex stays on its runqueue.
+> The scheduler can pick it as the donor and run the mutex owner in its
+> place. When the donor is woken, the CPU must stop running the owner on
+> the donor's context.
+>
+> Commit 7918cf369361 ("sched/proxy: Only return migrate when needed")
+> wakes a blocked task in place when it is still on its original CPU.
+> ttwu_runnable() then relies on wakeup_preempt() to preempt the running
+> task. But every class compares the woken task with rq->donor. When the
+> woken task is the donor, it compares the task with itself, and no
+> reschedule is requested. Only sched_ext handles this, with WF_TTWU_RQ.
+>
+> So the old owner keeps the donor's context after the mutex hand-off or
+> after a signal. With a SCHED_FIFO donor nothing bounds this: the owner
+> runs at the donor's priority until it blocks. With a SCHED_DEADLINE
+> donor the owner consumes the donor's runtime.
+>
+> In a test on one CPU, a SCHED_OTHER owner kept spinning in user space
+> after it released the mutex. A SCHED_FIFO waiter then ran 800ms late. A
+> SCHED_DEADLINE waiter ran one period late.
+>
+> The same would happen when a task in the middle of a chain is woken.
+> proxy_needs_return() resets the donor only when the woken task is the
+> donor.
+>
+> Fix this in ttwu_runnable(). When a blocked task is woken on a runqueue
+> that runs a proxy, reschedule. The next pick walks the chain again. A
+> blocked task outside the donor's chain causes a harmless reschedule
+> too.
+>
+> Fixes: 7918cf369361 ("sched/proxy: Only return migrate when needed")
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+>  kernel/sched/core.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index dc270a23179d..326026ba0b2b 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -4057,9 +4057,20 @@ static int ttwu_runnable(struct task_struct *p, in=
+t wake_flags)
+>
+>         update_rq_clock(rq);
+>         if (p->is_blocked) {
+> +               bool returned;
+> +
+>                 if (p->se.sched_delayed)
+>                         enqueue_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_DEL=
+AYED);
+> -               if (proxy_needs_return(rq, p))
+> +               returned =3D proxy_needs_return(rq, p);
+> +               /*
+> +                * @p was blocked and this CPU runs a proxy. If @p is the=
+ donor
+> +                * or a task of its chain, the donor no longer waits for =
+the
+> +                * task that runs. wakeup_preempt() compares @p with the =
+donor,
+> +                * so it does not see this. Pick again.
+> +                */
+> +               if (rq->donor !=3D rq->curr)
+> +                       resched_curr(rq);
+> +               if (returned)
+>                         return 0;
 
-Change the default action on TCAM misses to drop frames. With the
-device, broadcast and promiscuous entries in place, frames that miss the
-TCAM can be dropped instead of delivered to the stack to drop.
+I need to think on this some more, but my gut reaction is this feels a
+bit too subtle or possibly too broad. Particularly the check being
+done after proxy_needs_return, but before the exit, it feels like it's
+leaning too much on a non-obvious side-effect of proxy_needs_return().
 
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
----
- drivers/net/ethernet/meta/mpnic/mpnic_init.c   |  5 +----
- drivers/net/ethernet/meta/mpnic/mpnic_netdev.c | 21 +++++++++++++++++---
- drivers/net/ethernet/meta/mpnic/mpnic_rpc.c    | 27 ++++++++++++++++++++++++++
- drivers/net/ethernet/meta/mpnic/mpnic_rpc.h    |  3 +++
- 4 files changed, 49 insertions(+), 7 deletions(-)
+Both the comment and the commit message are also confusing, as if at
+the start of ttwu_runnable() if p is the donor, proxy_needs_return()
+will have called proxy_reset_donor(), setting rq->donor =3D rq->curr
+(and already calling resched_curr()).
 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_init.c b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-index 889555eb4790..0c2878c18c54 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-@@ -199,12 +199,9 @@ static void mpnic_txb_init(struct mpnic_dev *mpd)
- 
- static void mpnic_rxb_init(struct mpnic_dev *mpd)
- {
--	/* Accept all packets that miss dmac tcam, until l2 filtering is
--	 * implemented.
--	 */
- 	mpnic_wr64(mpd, MPNIC_RXB_PORT_CLASS_CFG(0),
- 		   FIELD_PREP(MPNIC_RXB_PORT_CLASS_CFG_DEFAULT_L2_ACTION,
--			      MPNIC_L2_ACTION_PASS));
-+			      MPNIC_L2_ACTION_DROP));
- 	mpnic_wr64(mpd, MPNIC_RXB_PORT_CFG(0),
- 		   FIELD_PREP(MPNIC_RXB_PORT_CFG_FCS_STRIP_MODE,
- 			      MPNIC_FCS_MODE_STRIP));
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-index 16611813db55..43547a7d6e5c 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-@@ -12,8 +12,10 @@
- #include "mpnic_netdev.h"
- #include "mpnic_txrx.h"
- 
--static void __mpnic_set_rx_mode(struct mpnic_dev *mpd)
-+static void __mpnic_set_rx_mode(struct mpnic_dev *mpd,
-+				struct netdev_hw_addr_list *mc)
- {
-+	bool uc_promisc = false, mc_promisc = false;
- 	struct net_device *netdev = mpd->netdev;
- 	struct mpnic_mac_addr *mac_addr;
- 
-@@ -33,6 +35,14 @@ static void __mpnic_set_rx_mode(struct mpnic_dev *mpd)
- 		mac_addr->state = MPNIC_TCAM_S_ADD;
- 	}
- 
-+	if (!netdev_hw_addr_list_empty(mc))
-+		mc_promisc = true;
-+
-+	uc_promisc |= netdev->flags & IFF_PROMISC;
-+	mc_promisc |= netdev->flags & IFF_ALLMULTI;
-+
-+	mpnic_promisc_sync(mpd, uc_promisc, mc_promisc);
-+
- 	mpnic_write_macda(mpd);
- }
- 
-@@ -43,7 +53,7 @@ static int mpnic_set_rx_mode(struct net_device *netdev,
- 	struct mpnic_net *mpn = netdev_priv(netdev);
- 
- 	if (netif_running(netdev))
--		__mpnic_set_rx_mode(mpn->mpd);
-+		__mpnic_set_rx_mode(mpn->mpd, mc);
- 
- 	return 0;
- }
-@@ -54,6 +64,7 @@ static void mpnic_clear_rx_mode(struct mpnic_dev *mpd)
- 
- 	mac_addr[MPNIC_TCAM_MACDA_BROADCAST_IDX].state = MPNIC_TCAM_S_DELETE;
- 	mac_addr[MPNIC_TCAM_MACDA_HOST_ADDR_IDX].state = MPNIC_TCAM_S_DELETE;
-+	mac_addr[MPNIC_TCAM_MACDA_PROMISC_IDX].state = MPNIC_TCAM_S_DELETE;
- 
- 	mpnic_write_macda(mpd);
- }
-@@ -79,7 +90,11 @@ static int mpnic_open(struct net_device *netdev)
- 
- 	mpnic_enable(mpn);
- 	mpnic_fill(mpn);
--	__mpnic_set_rx_mode(mpn->mpd);
-+
-+	netif_addr_lock_bh(netdev);
-+	__mpnic_set_rx_mode(mpn->mpd, &netdev->mc);
-+	netif_addr_unlock_bh(netdev);
-+
- 	mpnic_napi_enable(mpn);
- 
- 	netif_tx_wake_all_queues(netdev);
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_rpc.c b/drivers/net/ethernet/meta/mpnic/mpnic_rpc.c
-index c96aec4de3e4..ebbccf8ec723 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_rpc.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_rpc.c
-@@ -7,6 +7,33 @@
- #include "mpnic.h"
- #include "mpnic_rpc.h"
- 
-+void mpnic_promisc_sync(struct mpnic_dev *mpd, bool uc_promisc,
-+			bool mc_promisc)
-+{
-+	struct mpnic_mac_addr *mac_addr;
-+
-+	mac_addr = &mpd->mac_addr[MPNIC_TCAM_MACDA_PROMISC_IDX];
-+	if (uc_promisc) {
-+		if (!is_zero_ether_addr(mac_addr->value) ||
-+		    mac_addr->state != MPNIC_TCAM_S_VALID) {
-+			eth_zero_addr(mac_addr->value);
-+			eth_zero_addr(mac_addr->mask);
-+			mac_addr->state = MPNIC_TCAM_S_ADD;
-+		}
-+	} else if (mc_promisc) {
-+		if (!is_multicast_ether_addr(mac_addr->value) ||
-+		    mac_addr->state != MPNIC_TCAM_S_VALID) {
-+			eth_zero_addr(mac_addr->value);
-+			eth_zero_addr(mac_addr->mask);
-+			mac_addr->value[0] ^= 1;
-+			mac_addr->mask[0] ^= 1;
-+			mac_addr->state = MPNIC_TCAM_S_ADD;
-+		}
-+	} else if (mac_addr->state == MPNIC_TCAM_S_VALID) {
-+		mac_addr->state = MPNIC_TCAM_S_DELETE;
-+	}
-+}
-+
- static void mpnic_write_macda_entry(struct mpnic_dev *mpd, unsigned int idx,
- 				    struct mpnic_mac_addr *mac_addr)
- {
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_rpc.h b/drivers/net/ethernet/meta/mpnic/mpnic_rpc.h
-index f6e4f60180d6..0eec09df7642 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_rpc.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_rpc.h
-@@ -31,6 +31,7 @@ enum {
- 
- #define MPNIC_TCAM_MACDA_BROADCAST_IDX	0
- #define MPNIC_TCAM_MACDA_HOST_ADDR_IDX	(MPNIC_RXB_DMAC_TCAM_CNT - 2)
-+#define MPNIC_TCAM_MACDA_PROMISC_IDX	(MPNIC_RXB_DMAC_TCAM_CNT - 1)
- 
- struct mpnic_mac_addr {
- 	u8 mask[ETH_ALEN];
-@@ -38,6 +39,8 @@ struct mpnic_mac_addr {
- 	u8 state;
- } __aligned(2);
- 
-+void mpnic_promisc_sync(struct mpnic_dev *mpd, bool uc_promisc,
-+			bool mc_promisc);
- void mpnic_write_macda(struct mpnic_dev *mpd);
- 
- #endif /* _MPNIC_RPC_H_ */
+So it seems this patch is mainly trying to handle the case of a
+mid-chain wakeup, where p isn't the current donor, but is in the
+current chain? I agree that looks to be a problem, but the donor !=3D
+curr check just is testing that we are proxying, not that p is in the
+active chain. It could be previously blocked on a different unselected
+chain. That said, this may be a good enough approximation (especially
+as doing the donor->curr chain walk feels expensive).
 
--- 
-2.52.1
+Though it feels like maybe the check should be pushed into
+proxy_needs_return() instead so it can be more clearly aligned with
+the similar proxy_reset_donor() call?
 
+Or am I missing something more?
+
+thanks
+-john
