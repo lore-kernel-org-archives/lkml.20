@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921273;
-	b=U7Z+J0pyh0TfR8kQEzZhdF6GWqZ66ldi4f0JJYRPu/mReitdj70J+70dtsri2pIEnnzn
-	 qU1YfYfijLjvOpMNddmN50Lwhtc56kKyC3lu8XmKrxMWSe9p2E+spmm9JcZA9eoNcmU9E
-	 JoPbJvtWl0AgwUYwQOi7mymAti6d0VabDTAB+BnutTs7+C5htef2dzA/2POaKG5cPtiN1
-	 gSCwoYNulaQnzUuvroRRiQn5uxjKvnKkmuVL/vnay3Nj5L5fpCtWvITlc31rcedYTOtLX
-	 mG0z1C/ZlxO6OmkubthtyLStFzZ9AAxYROgC6S/9KBOjYSGjoOdLdBjHjfgUqxNij6A==
+	t=1794921283;
+	b=YEYlrCDy+irdWDbwnqEx7JD67KzOtj9FNxj/qoEK5p1kzvVZxaRrSiiTnR8UtNmEnz3j
+	 SjM7Vg6wgmRec4agYUi84X8bcEl1EOyTE9/vfTqWlKxIvXs4iKIq8hFc/5+Eu3M6g/6a/
+	 vdRnATL0yxXIwQh8HjVlREg0jWsxmiMlQuKFivGB95y7LTT7USgwcFbTW+ZT2ZMdvvicR
+	 7qKEQlZg1LoQs8WkzV9q+wXIIf0+dkwZCx/4oasfqY2+zkjPLmWwdV2WqMtakphczbYVl
+	 v3d0JFsNwQ1WTkk6b+gxFgDQhydbA9OeHg/9FhRmTXYwh9JyRzV57bBa4MbxLPS1rdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921283;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=looekHX6e4twtMbip1bgNp1IjZhQATWC2oHECjkf+og=;
-	b=TRVs61OCL6y1nf1hG+rHjs9Bn4zUjOmUeT0XKxrDNaCX9rbFewsh9xFnkbLlXCWujdSq
-	 hVlFei3a5nXzKGkd1TPoOMIuOR/mUSa5rY5jhpCik7nMOqna9hUZgtg8sKAPey+wqNDP2
-	 dcyAbmEieTBMuL2aAuGofaaPRLZC4VTdvuE2ZwC0dCLsv96vsm8MewXFZh9EUXRJNDwnB
-	 UrAFSqRivZZA39JWfMCecv/V4vzcZjzaFlaAEdEqE/OSP8tuKEviwayrfcidEcoNZipHr
-	 MuAsLGfjssROIjdEMv57T3wi0H/u20i364g4OiXhFRwOwTkQoBwTkSGRs1J68q+zCBA==
+	bh=xyPkutf+7u4MBeQWcEZC0BYLhd811Pqb+vA5vUZ5q7U=;
+	b=bWKjZBGFLG0QanCaNfaMkC904268UMO6QFetDqAILhA0zDzxupo//K5aqfGdkBpdLmZ/
+	 GH9UbrEm9XEz61cvJI93w+QgDjzJWspp2l9AkphIW1Pcg12Z2vOZUO+zydE2vd5fbWgK/
+	 gCse4S8Oi3KYa0rjw7+sA49jMnJ/i9QqbSXWXam0Iijvf3XdCBTjAKxzFsfNtDF6oX3x0
+	 XZ83ksZu5MzHw6n9st59iBklm3t56dbi8S6OMnr98fB/fhQoUjIv/6Yvxa/fvm0dJgeSz
+	 quH5FucfWmYpGH4lejJEX08SyhIMRJpX0iJEVugs4qS9fTVyw/mhjGpar8uM9S5lRsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XlK+Tqm/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVVA2TtO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9027A606A323;
-	Tue, 17 Nov 2026 13:14:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22464606A323;
+	Tue, 17 Nov 2026 13:14:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlK+Tqm/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892641F000C5;
-	Tue, 17 Nov 2026 13:14:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVVA2TtO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A131F000C6;
+	Tue, 17 Nov 2026 13:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921273;
-	bh=looekHX6e4twtMbip1bgNp1IjZhQATWC2oHECjkf+og=;
+	s=k20260515; t=1794921283;
+	bh=xyPkutf+7u4MBeQWcEZC0BYLhd811Pqb+vA5vUZ5q7U=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XlK+Tqm/K663qlZkdPbxZn4U3nXLQJMHlLNERHT2hrrE26QbfB4T8BAjvdmD+wUFG
-	 WqujEynx89dBb06dfG2iGIRJIYyqtOONfzlMSveNnEpleGExFUCQ/+W+Mokjc38xWo
-	 XM8YbKkrYWwEPK6KfGK84hKSRgqRdx0w4m07sL+LSna5cFntC3X3Fu8PsVWCnP1sh1
-	 Ow8xfdgqfLpNaSZ074ISy37f8M9BNY+zQ+d4++RpBdHp+StAq3ob5YWwScN2CNkL+H
-	 UlHcHOuGdjkQhZwsjb5DXwYL6UOz1alZcriDCRDH7r1oyVZtrDKr7CW0JGDCAe75n8
-	 FeS0G9j2BXcxg==
-Subject: Re: [PATCH net-next v3 1/3] ipv4: Only lower the pmtu of the other
- paths of a multipath route
+	b=GVVA2TtOKCATkUVgz44orb44F6ykiWv6QfYowOc81WmQ5JHbSJnuEIvtXX1eDP5x7
+	 +eaxtRfiU4i1bPhGayTJ+jpfq5sHebMIW0mVYD39Vb1hZnQm2tGbfGE5kXdeExBOBi
+	 UqQhcVTTS24CHnLWE7HVH6/WpFwwpCSG0W8i+X70EtBrNz1NPT3viafmBK5Xc6Ak+U
+	 0lfpu0s0ua0zUNDS08vjQfBILohX79k1XcEVe8ua5Kh3r4J2XrTsMeIFGwcUlfCIkA
+	 /XOvRGzAEIaBCoJ4TU1oF1KE2aZ9ayNraIrK9MPOPFBHgB6sNvnlAHYVnCO+pFop1D
+	 nIdz+1F2ROIrA==
+Subject: Re: [PATCH net-next v4 1/8] dt-bindings: net: add Xilinx TSN Endpoint
+ Ethernet MAC
 From: netdev-bot+sashiko@kernel.org
-To: deliran@verdict.gg
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- shuah@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Date: Tue, 17 Nov 2026 13:14:32 +0000
-Message-ID: <179492127205.3136.8000731978199996430@kernel.org>
-In-Reply-To: <20261113122237.88990-2-deliran@verdict.gg>
-References: <20261113122237.88990-2-deliran@verdict.gg>
-X-sashiko-severity: High
+To: srinivas.neeli@amd.com
+Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, richardcochran@gmail.com, michal.simek@amd.com,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
+ edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, git@amd.com, neelisrinivas18@gmail.com
+Date: Tue, 17 Nov 2026 13:14:41 +0000
+Message-ID: <179492128136.3136.2884088710304095071@kernel.org>
+In-Reply-To: <20261113-patches_v2_external-v4-1-56bb26f042a4@amd.com>
+References: <20261113-patches_v2_external-v4-1-56bb26f042a4@amd.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,224 +68,264 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 2 (1)
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] In __ip_rt_update_pmtu() (net/ipv4/route.c), the new per-path
-  check is written as `if (!lock && mtu > fib_nhc_mtu(...)) continue;`,…
-- [Low] The comment on fib_nhc_mtu() (net/ipv4/route.c) says it returns
-  the mtu 'as ipv4_mtu() would report it', but it treats an exception…
-- [Low] The commit message says the patch will 'Skip a path when the mtu
-  would not lower what that path uses now', but __ip_rt_update_pmtu()…
-
-Pre-existing issues:
-- [Medium] This patch adds a per-path check inside the multipath loop of
-  __ip_rt_update_pmtu(), but the gates before the loop still depend only…
-- [Low] The new skip check reads a path's current pmtu through
-  fib_nhc_mtu() under rcu_read_lock() only, using plain loads of…
+- [Low] The top-level schema never requires the '^ethernet@[0-9a-f]+$'
+  (xlnx,tsn-ep-mac) child or the '^switch@[0-9a-f]+$' (xlnx,tsn-switch)…
+- [Low] The per-xlnx,num-priorities allOf branches force tx-queues-config
+  to hold exactly queue0..queue(N-1).
+- [Low] The wrapper compatible is IP-version-specific ('xlnx,tsn-
+  endpoint-ethernet-mac-3.0').
+- [Low] The commit message says 'Each external port@N references its PHY
+  through a phy-handle in the matching mdio-<N> child.' Since v3, the…
+- [Low] ethernet-port@1 and ethernet-port@2 restrict phy-mode to gmii,
+  rgmii and rgmii-id, which excludes rgmii-txid and rgmii-rxid.
+- [Low] clocks/clock-names is a fixed list of six required entries (gtx,
+  gtx90, host_rxfifo, host_txfifo, ref, s_axi), with no conditional on…
 
 --
 
-ipv4: Only lower the pmtu of the other paths of a multipath route
+dt-bindings: net: add Xilinx TSN Endpoint Ethernet MAC
 
-This commit changes __ip_rt_update_pmtu() so that, on a multipath route,
-a nexthop is skipped when the reported mtu would not lower the mtu that
-nexthop uses now. A new helper, fib_nhc_mtu(), computes that mtu. An mtu
-that is locked because it is below ip_rt_min_pmtu is still written to
-every nexthop.
+This adds a YAML binding for the Xilinx TSN Endpoint Ethernet MAC IP in
+its Bridged Endpoint configuration. The top-level wrapper node owns the
+shared clocks and xlnx,num-priorities. It has an xlnx,tsn-ep-mac child for
+the host-side DMA channels and an xlnx,tsn-switch child for the three-port
+switch, its MDIO buses and its ports.
 
-> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> index d0a5f6d77094c..f0da009f41154 100644
-> --- a/net/ipv4/route.c
-> +++ b/net/ipv4/route.c
+> children and per-MAC interrupt-names entries. Each external
+> port@N references its PHY through a phy-handle in the matching
+> mdio-<N> child.
+
+[Severity: Low]
+Is this sentence still accurate after the v3 rename? The binding now only
+accepts ethernet-port@1 and ethernet-port@2 inside the ethernet-ports
+container. That container has additionalProperties: false, so the schema
+would reject a node named port@1.
+
+Should this say ethernet-port@N instead?
+
+> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+> new file mode 100644
+> index 0000000000000..2fd22bc0d0357
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+> @@ -0,0 +1,536 @@
 
 [ ... ]
 
-> @@ -1046,6 +1048,26 @@ out:	kfree_skb_reason(skb, reason);
->  	return 0;
->  }
->  
-> +#ifdef CONFIG_IP_ROUTE_MULTIPATH
-> +/* The mtu a path currently uses for daddr, as ipv4_mtu() would report it. */
-> +static u32 fib_nhc_mtu(struct fib_nh_common *nhc, const struct fib_info *fi,
-> +		       __be32 daddr)
-> +{
-> +	struct fib_nh_exception *fnhe = find_exception(nhc, daddr);
-> +	u32 mtu = 0;
+> +properties:
+> +  compatible:
+> +    const: xlnx,tsn-endpoint-ethernet-mac-3.0
 > +
-> +	if (fnhe && fnhe->fnhe_genid == fnhe_genid(dev_net(nhc->nhc_dev)))
-> +		mtu = fnhe->fnhe_pmtu;
+> +  clocks:
+> +    items:
+> +      - description: GTX clock for transmitter logic and RTC
+> +      - description: GTX 90-degree phase shifted clock for RGMII
+> +      - description: Host RX FIFO clock
+> +      - description: Host TX FIFO clock
+> +      - description: Reference clock for IDELAY control
+> +      - description: AXI-Lite register interface clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: gtx
+> +      - const: gtx90
+> +      - const: host_rxfifo
+> +      - const: host_txfifo
+> +      - const: ref
+> +      - const: s_axi
 
 [Severity: Low]
-Does this match what ipv4_mtu() reports when jiffies == fnhe_expires?
+Does the IP still have all six clock inputs when both external ports are
+GMII? The description says gtx90 is the phase shifted clock for RGMII.
+The list does not depend on the ports' phy-mode, so a GMII-only design
+still has to supply gtx90.
 
-find_exception() removes the exception only when
-time_after(jiffies, fnhe->fnhe_expires). At equality it still returns the
-fnhe, so fnhe_pmtu gets used here.
+The example already feeds the same clock to both gtx and gtx90:
 
-ipv4_mtu()->ip_dst_mtu_maybe_forward() uses rt_pmtu only while it has
-not expired:
+    clocks = <&misc_clk_2>, <&misc_clk_2>, <&misc_clk_1>, <&misc_clk_1>,
 
-	mtu = rt->rt_pmtu;
-	if (mtu && time_before(jiffies, READ_ONCE(rt->dst.expires)))
-		goto out;
+Later in the series, tsn_ip_probe() in xilinx_tsn_main.c requests all six
+clocks as mandatory:
 
-The existing ip_mtu_from_fib_result() handles this case:
+    ret = devm_clk_bulk_get(dev, TSN_NUM_CLOCKS, w->clks);
 
-	fnhe = find_exception(nhc, daddr);
-	if (fnhe && !time_after_eq(jiffies, fnhe->fnhe_expires))
-		mtu = fnhe->fnhe_pmtu;
+A DT without gtx90 would therefore fail to probe. The binding does not say
+which clock inputs exist in the GMII configuration. The ref (IDELAYCTRL)
+clock may still be needed for GMII.
 
-In that one-jiffy window, an expiring lower pmtu can cause a path to be
-skipped. That path then falls back to its device mtu. Should the same
-!time_after_eq() check be used here?
+If the GMII configuration has no gtx90 input, should that clock depend on
+the ports' phy-mode?
+
+> +
+> +  ranges: true
 
 [ ... ]
 
-> @@ -1085,6 +1107,14 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
->  				nhc = fib_info_nhc(res.fi, nhsel);
->  				if (!nhc)
->  					break;
-> +				/* old_mtu above is the mtu of the path dst
-> +				 * is on, don't raise what another path
-> +				 * uses. A locked mtu clears DF and goes
-> +				 * to every path.
-> +				 */
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. The
-checks that run before this loop still look only at the path of the dst
-that was looked up:
-
-	old_mtu = ipv4_mtu(dst);
-	if (old_mtu < mtu)
-		return;
-	...
-	if (rt->rt_pmtu == mtu && !lock &&
-	    time_before(jiffies, READ_ONCE(dst->expires) -
-				 net->ipv4.ip_rt_mtu_expires / 2))
-		goto out;
-
-ipv4_update_pmtu() and __ipv4_sk_update_pmtu() build fl4 with
-__build_flow_key(), which passes 0, 0 for the ports. With L4 multipath
-hashing, the lookup can land on a different nexthop than the one the
-flow uses.
-
-For example, path A has mtu 9000 and path B has mtu 1400. An ICMP
-reporting 1500 arrives for an unconnected UDP flow or a tunnel flow on
-A, and the portless lookup picks B. Is the update then dropped before
-any path is checked? If so, flows on A never learn their pmtu. TCP is
-not affected, because inet_csk_update_pmtu() passes the socket's own dst.
-
-Now that the loop checks each path, could the multipath case skip the
-old_mtu early return?
-
-> +				if (!lock &&
-> +				    mtu > fib_nhc_mtu(nhc, res.fi, fl4->daddr))
-> +					continue;
-
-[Severity: High]
-Can the locked branch still raise another path's mtu? When the reported
-mtu is below ip_rt_min_pmtu, earlier in __ip_rt_update_pmtu() we have:
-
-	if (mtu < net->ipv4.ip_rt_min_pmtu) {
-		lock = true;
-		mtu = min(old_mtu, net->ipv4.ip_rt_min_pmtu);
-	}
-
-old_mtu is ipv4_mtu(dst), so it only reflects the path of the dst that
-was looked up. Because !lock short-circuits the check, this locked value
-is written to every nexthop. It is never clamped to that nexthop's own
-mtu.
-
-A nexthop whose device mtu is below this value would get a locked pmtu
-it cannot carry. That happens when the device mtu is below the default
-min_pmtu of 552. It also happens when net.ipv4.route.min_pmtu has been
-raised above a slower path's device mtu, for example min_pmtu=1400 with
-a 1380 mtu tunnel nexthop. That sysctl has extra1 = &ip_min_valid_pmtu
-but no upper bound. The write also replaces a lower locked pmtu that the
-path learned earlier.
-
-Clearing DF doesn't seem to help. ip_dst_mtu_maybe_forward() uses a
-locked, unexpired rt_pmtu as is, with no cap at dev->mtu. It does this
-for both local output and forwarding:
-
-	if (READ_ONCE(net->ipv4.sysctl_ip_fwd_use_pmtu) ||
-	    ip_mtu_locked(dst) ||
-	    !forwarding) {
-		mtu = rt->rt_pmtu;
-		if (mtu && time_before(jiffies, READ_ONCE(rt->dst.expires)))
-			goto out;
-	}
-
-Flows on that path would then build or fragment packets to the raised
-size, and the fragments are still too big for the device. This lasts
-until the exception expires.
-
-The commit message describes exactly this failure:
-
-  A path whose device or route mtu is below it, or that already
-  learned a lower pmtu, ends up with a pmtu above what it can carry
-
-It still seems reachable through the locked branch. The behaviour is
-older than this patch, but the subject and the loop comment suggest it
-is now covered.
-
-Would passing min(mtu, fib_nhc_mtu(nhc, res.fi, fl4->daddr)) with lock
-still set reach every path and clear DF without raising any of them?
+> +patternProperties:
+> +  "^ethernet@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/net/ethernet-controller.yaml#
+> +    unevaluatedProperties: false
+> +    description:
+> +      Endpoint MAC sub-node. Provides the host-side data path through the
+> +      DMA channels described by its dmas / dma-names.
+> +    properties:
+> +      compatible:
+> +        const: xlnx,tsn-ep-mac
 
 [Severity: Low]
-The commit message says:
+The wrapper compatible is versioned (xlnx,tsn-endpoint-ethernet-mac-3.0).
+This child and the switch child (xlnx,tsn-switch) use unversioned names
+that cover the whole family.
 
-  Skip a path when the mtu would not lower what that path uses now
+Documentation/devicetree/bindings/writing-bindings.rst asks for specific
+compatibles and says not to use device-family names. For sub-blocks of a
+bigger device, it prefers a compatible derived from the parent device.
 
-The comparison is a strict >, so an mtu equal to the path's current mtu
-is not skipped. fib_nhc_mtu() also ignores fnhe_mtu_locked. Both
-ipv4_mtu() and the single-path code (if (ip_mtu_locked(dst)) return;)
-honour it.
+The MDIO and PTP blocks sit at fixed offsets in the per-MAC windows of
+this IP version. How would these child compatibles distinguish a later TSN
+IP revision with a different sub-block layout?
 
-Suppose path B has a locked exception at 552 from an earlier ICMP below
-min_pmtu. A non-locked update of exactly 552 then arrives for a flow on
-path A. B is not skipped, and update_or_create_fnhe() does:
+Should the child compatibles follow the parent IP version too? If not,
+could the commit message explain why they are generic?
 
-		if (pmtu) {
-			fnhe->fnhe_pmtu = pmtu;
-			fnhe->fnhe_mtu_locked = lock;
-		}
+[ ... ]
 
-Would this clear the lock on B? B would then send with DF set again, and
-forwarding on B would stop using the pmtu. Should the check be >=, and
-should a path with a locked exception be skipped?
+> +      dma-names:
+> +        minItems: 2
+> +        maxItems: 16
+> +        items:
+> +          pattern: "^(tx|rx)_chan[0-7]$"
+> +        allOf:
+> +          - contains:
+> +              pattern: "^tx_chan[0-7]$"
+> +          - contains:
+> +              pattern: "^rx_chan[0-7]$"
 
->  				update_or_create_fnhe(nhc, fl4->daddr, 0, mtu, lock,
->  						      jiffies + net->ipv4.ip_rt_mtu_expires);
+[ ... ]
+
+> +      tx-queues-config:
+> +        type: object
+> +        additionalProperties: false
+> +        description:
+> +          TX queue configuration node that maps IP priority queues to
+> +          DMA TX channels. The TSN IP supports multiple priority queues for
+> +          QoS scheduling. Each priority queue must be described exactly
+> +          once and map to a distinct TX channel listed in dma-names. Two
+> +          queues must not use the same TX channel. The mapping need not
+> +          follow the channel numbering. For example, queue0 with
+> +          xlnx,dma-channel-num set to 5 means priority queue 0 uses tx_chan5
+> +          for data transfer.
 
 [Severity: Low]
-This is a pre-existing pattern and was not introduced by this patch.
-fib_nhc_mtu() reads fnhe_pmtu under rcu_read_lock() only. Then
-update_or_create_fnhe() takes fnhe_lock and writes fnhe_pmtu without
-comparing it again.
+Should dma-names be tied to xlnx,num-priorities in the same way as the
+queueN children?
 
-Two concurrent updates for the same daddr could race. Say one CPU
-reports 1400 and another reports 1300, and both see path B at 1500.
-Neither skips B, and they can finish in either order. B could end up at
-1400 right after it learned 1300.
+The per-N allOf branches force tx-queues-config to hold exactly queue0 to
+queue(N-1). dma-names only needs one tx_chan entry and one rx_chan entry,
+and it has no uniqueItems. As far as I can tell, this would validate:
 
-The single-path code has the same lockless check before
-update_or_create_fnhe(). Is "don't raise what another path uses" meant
-to hold under concurrent updates?
+    xlnx,num-priorities = <8>;
+    dma-names = "tx_chan0", "rx_chan0";
+    tx-queues-config {
+        queue0 { xlnx,dma-channel-num = <0>; };
+        ...
+        queue7 { xlnx,dma-channel-num = <0>; };
+    };
 
->  			}
+That contradicts the description above, which says each queue maps to a
+distinct TX channel listed in dma-names.
+
+The driver added later in the series ("net: xilinx: tsn: parse endpoint
+DMA channel configuration") also requires an exact match in
+xlnx_tsn_ep_probe():
+
+    if (num_tx_dma_channels != num_prio)
+        return dev_err_probe(dev, -EINVAL,
+                     "TX channel count %u must equal num-priorities %u\n",
+
+The binding does not document this rule. A DT with more tx_chan entries
+than priorities passes dt_binding_check but fails probe. The driver
+rejects all of these cases at probe time with an error message.
+
+Could each per-N if/then block also limit the tx_chan entries to exactly
+N (contains with minContains/maxContains), and could dma-names get
+uniqueItems: true?
+
+The MAINTAINERS entry here lists only the binding file. The driver
+directory is added to it later in the series.
+
+[ ... ]
+
+> +          ethernet-port@1:
+> +            type: object
+> +            unevaluatedProperties: true
+> +            description:
+> +              External Ethernet port wired to MAC1, reached through the
+> +              mdio-1 bus.
+> +
+> +            properties:
+> +              reg:
+> +                const: 1
+> +
+> +              phy-mode:
+> +                enum:
+> +                  - gmii
+> +                  - rgmii
+> +                  - rgmii-id
+
+[Severity: Low]
+Why are rgmii-txid and rgmii-rxid left out here and on ethernet-port@2?
+
+phy-mode describes which RGMII delays the board does not provide. A board
+whose PCB adds only one of the two delays needs one of those modes. With
+this enum, the board author has to choose rgmii (one delay missing) or
+rgmii-id (one delay applied twice).
+
+The gtx90 clock is described as "GTX 90-degree phase shifted clock for
+RGMII", which suggests the MAC may shift TXC itself. Does the MAC add the
+TX delay? If it does, and the PHY also adds the TX delay for rgmii-id, the
+delay would be applied twice.
+
+Should the binding say whether the MAC applies this delay, or describe it
+with a property such as tx-internal-delay-ps?
+
+[ ... ]
+
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - clock-names
+> +  - xlnx,num-priorities
+> +  - ranges
+> +  - '#address-cells'
+> +  - '#size-cells'
+
+[Severity: Low]
+Should the ethernet@ and switch@ children be required here?
+
+The description and changelog say the binding covers only the fixed
+Bridged Endpoint configuration. ethernet-port@0/1/2 are required because
+a DT missing any of them "cannot describe working hardware". Even so, a
+wrapper with no switch@ child, or with no children at all, still passes
+dt_binding_check.
+
+A node with only an ethernet@ child already validates under
+xlnx,tsn-endpoint-ethernet-mac-3.0. That is the Endpoint-only layout the
+changelog says is not supported yet.
+
+If the two configurations are told apart later by which children are
+present, shouldn't this schema state that requirement now?
 
 [ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113122237.88990-1-deliran%40verdict.gg
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-patches_v2_external-v4-0-56bb26f042a4%40amd.com
