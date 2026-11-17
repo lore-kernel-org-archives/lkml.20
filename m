@@ -1,56 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904185;
-	b=2lcLCeDyZb0CivlPAg7DQFamAuZMLJu9+Tpg283JKVY+dZml0wCeJdX3HG0hTGgbMEGN
-	 t/r9Z7XrIeJdLCG7jSSlzEjn3aVRn+JNTwxmLdDQ0WtTkMPIVEbHrZ5Q4XwzXLPLkaXrn
-	 R4unPsC1GqupZdaz3uPbu67d1NvITb2Wu96T74ob+Va3ZQRS6oV6wYVDnQOnZgsVHPgeH
-	 70ZtqfICCeHOuDHLBSaciX5GIh3hbV+FFS089EooQAmMxa44wjzTFI1MA0CC1FC5jZIs5
-	 +spajpWrJOAmrYhg1cYO3M0CAlFK57RtgCJzxV6mIwFpWsMUfX+9jszYkyDIfmloTXg==
+	t=1794904189;
+	b=DlGxcgeKPwXiX6iGa1WZz47XTMLdXCVvqO5g6JXiaNmZQu+rDNhAb/Tw90AoOmxIQ4k+
+	 4xT8/ki0ptFOw/ZLvvcCRizwVmGBiN6gfuQzeNIRMoZHUd0ZpynL6ZLaDViTkadGb88D7
+	 x5HRC+ddRQ9WAHq8Tl5IZ2oRu7mnbBx7dPiUFCo5e14kTKXT2vdEYzqK6O7I4AxfW4Jru
+	 uG1UAv1hCgP+V7+nY8N6gDdyETlWsiwiOQM9NsgpmVuOoCfBaJa0WtWqu09c3/+5JJC3a
+	 gzKLspa1YBTFW+znDoGcUupENBXinUhkO96MGKcasgFXl2/LTG/2MgGbvnLnh5/7JWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904185;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oFYnf9rWIV7nuvHktcNWchTcAeise6OHwBzCHmWfzfU=;
-	b=tw46KUWVN//3P9tI8GL8UJlfRIDF7qxkVNr8Z36wb9ROQ0jSb+awiUxrLhO2Wa2nTK2x
-	 1g9DQmYBsT8Cc5C25mCD7Rxs1JDvgstJlUv32h8lFygNMolc6PT6OXhKnC0AtPIy5lifd
-	 v8Gfmb60akjWfEU3Uh4HvgjzwDHIEVhAi2ZDhS38gHyK4QOWMKucX90iJTBLzyDVpEKXl
-	 wEDJm7LnelA2tYku2cjn0Fsl1ppwJOF02iWFW0uBUj1JKOf+B5J5LvAeQaknJHHzEOFMl
-	 fsIkvc6RmkKm2Wn1hQkQciEJWsLTbZY6DecoT2IXes5vlkVfaU0AofmcvBCy2sFFZ4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904189;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ZUzJJDtkx8ZaYRA5grqqG2mwrrLwcQbjsBpMmpNBpIc=;
+	b=ciA+Jx2r5INSTogzlx8LtUkpdoGI/nYkEb1ep/Lx0fzTOrCf1KWTj7zgibcI5frIDOGj
+	 50W7ip17Kabao2GyKcafEnUH9WOdZPgAT133tE2xMKAsG6BmO0ieo3vni5ZVCzH4/+Vab
+	 6pzssNsvJVtFudTrvSc0td/mszD8pjR6Thm1wFrqdOeVYccARXYOB0keugnscAwo4sRkT
+	 4AGECc6EkUDkv340sCOK/cwPhhKS77cjZk4G0aIu00RssrhGaYO1+UVkT3ftLyOU1ukrI
+	 9bO6qqsdZvRQ6XSQs+BwcGpKELRp7CsKNvussoAypw2YT9u11N7urif/W+QWw1jrdqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTi2Jgpn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="g/40v4iR";
+	arc=none smtp.remote-ip=209.85.208.71
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4646A606A8A1;
-	Tue, 17 Nov 2026 08:29:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13667606A89B
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13667606A89B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTi2Jgpn
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EE77E1F000C5;
-	Tue, 17 Nov 2026 08:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794904184;
-	bh=oFYnf9rWIV7nuvHktcNWchTcAeise6OHwBzCHmWfzfU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BTi2JgpnWkMwq1Ej1zvMX6FGEqdcxEbaXzeTou9sYU552qluNjXrbIMBhK/eRy6OJ
-	 27kHuK/F2HaMRFvN8LIb0awh0Fmhpyv2L47ra1TU1DqRe1Xx6r87KqisKItLG2tlsB
-	 5U+Xb+EoOgMO/Uj8dF4ALfEdFE3uufnsJjZwNxMfsfg/ehBrx1UT4bOS2qR8XIl6O2
-	 t2BB+qd8EQJ2tjlNhkZxjd1dli358kuUGBvGGQmKGAT8RlDtvcjKj5lr2zusADq9Jb
-	 mjHPMpAKBGZSiiSSdbP4z9tAzejFS5hCTFz5WLajLqtrJgg3FCz0iW+wrondcDCJzv
-	 3RSY+FUxb8ffg==
-Date: Tue, 17 Nov 2026 09:29:40 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] soc: qcom: socinfo: Fix SA8797P and add IQ10800MD
- SoC IDs
-Message-ID: <osbkd43sxblbz2jk76oosfqlw7qxb6w6fzxflw7cwa7ibmmtat@xkji4brv6nxj>
-References: <20261114133304.989635-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g/40v4iR
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b570b713cbso6567936a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:29:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794904182; x=1795508982; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZUzJJDtkx8ZaYRA5grqqG2mwrrLwcQbjsBpMmpNBpIc=;
+        b=g/40v4iRuWwI5fUGgNeFddKvD6lR7SkzcbzzaKqUiz2wL6lb7UwNmZz+mbPRRZnLfu
+         +58nh0rf9C5g6LKkZflitpOi7sQyrBdkaMPtL+1aYm5pqh+lWba503aaEywfszr1qivO
+         u8wOp50SmK+zDTFyswVTMAIi4oGv6LyGeyqlsGbJjExfnUQWSJfo5Sw1a2WkwLzHiUas
+         Mkl9RfXrRQZWmg4S+DmWgs2Q1vIDsmMnJJFgg61dHfmG1JVu/DReyq0CxOMwGv344zFl
+         TjGRzlTze1ijG1DekJK+neRJ7sfZ6ij2YRdvPKH4jAEdfgs0WaJkRo8JCNwW2F2jf62v
+         vtvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794904182; x=1795508982;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZUzJJDtkx8ZaYRA5grqqG2mwrrLwcQbjsBpMmpNBpIc=;
+        b=jIggXjhtsjpI6SNFhy0tnPk0063xGVWK3j8pHWIcpFG/tbrKqdU9g9Y5Xp6N94LH6v
+         6WlQr/0bHCuyqrL4VyQtuirXBvPreStrzzmyItMOIauDfKdSYCCpzGS1CvpPcx9mowOd
+         yMjb+7zXmlkYKmWgv2aguVvZfOJfz92v90J7+aeIDfULxzJ+/FA8z8VuBiFIXm5idMI1
+         I8jxwTuZa2RFaHcHotF2YQtt+24QravZm35Y6bwjr68t6TZPhHAtEe+Q5XcsLPKbjkOU
+         W8TyrxEVi/wQORmPApzNkamogvQxdI5nYqn9rW3TIG94d2ONy6eZ5LoU/YVEfoSsupf/
+         JPXw==
+X-Forwarded-Encrypted: i=1; AL+hErGqSHIVXv0+pVWFSnYsnPlENqz71uLExKIinFH6rGAKPcyTzv7XN9X3itBZ+Ebb/NmwYVLpOW1GhpIJVUM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BOBLI4louXqstvflI7aBe8Eu9Gd+hFQBg8xe4PViYNDDH2sli
+	4mosDsd6t7/vOZeUE4vk11oPnssY1LNK6JCTDC+ElxbK3DNcwo9iIqcyXrGEQbDAAgA7GkdBKZ8
+	b06awdIoRAbqUZXwZqegmvA==
+X-Received: from edyg6.prod.google.com ([2002:a05:6402:1806:b0:6b8:7992:6727])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:42c9:b0:6b7:8b1:aa6c with SMTP id 4fb4d7f45d1cf-6b7c0bc4fcfmr10380043a12.10.1794904182145;
+ Tue, 17 Nov 2026 00:29:42 -0800 (PST)
+Date: Tue, 17 Nov 2026 08:29:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,28 +75,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114133304.989635-1-shengchao.guo@oss.qualcomm.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261117082932.3441173-1-vdonnefort@google.com>
+Subject: [PATCH] tracing: Take trace_access_lock() in tracing_buffers_ioctl()
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>, 
+	Kyuwon Cho <kyuwoncho18@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Nov 14, 2026 at 09:33:00PM +0800, Shawn Guo wrote:
-> The Qualcomm Nord (NordAU) SoC ships in several SKUs, each reporting
-> its own SoC ID through SMEM:
-> 
->   - SA8797P    648  default chip info variant of the family
->   - QAM8x97P   690  Snapdragon Ride modules (QAM8797P/QAM8397P)
->   - IQ10800MD  798  Dragonwing Robotics module, e.g. on IQ10 RRD
-> 
-> SoC ID 690 was added as SA8797P, but that ID actually belongs to the
-> QAM8797P/QAM8397P modules, while SA8797P is 648. As a result, boards
-> with these modules report a misleading "SA8797P" as machine in
-> /sys/devices/soc0.
-> 
-> Patches 1-2 correct QCOM_ID_SA8797P to 648 and add QCOM_ID_QAM8797P
-> for 690. As 690 is shared by QAM8797P and QAM8397P, socinfo names it
-> "QAM8x97P" to cover both. Note this changes the value of an existing
-> dt-bindings define; the socinfo driver is its only in-tree user.
-> 
+tracing_buffers_ioctl() calls ring_buffer_map_get_reader() without
+trace_access_lock, breaking concurrent readers. Take trace_access_lock()
+around ring_buffer_map_get_reader(), matching the other consuming
+readers.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Fixes: cf9f0f7c4c5b ("tracing: Allow user-space mapping of the ring-buffer")
+Reported-by: Kyuwon Cho <kyuwoncho18@gmail.com>
+Closes: https://lore.kernel.org/all/179485165154.2547186.6129837870360499372@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ kernel/trace/trace.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index e8c4efa8107b..456fc388a31f 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7404,8 +7404,12 @@ static long tracing_buffers_ioctl(struct file *file, unsigned int cmd, unsigned
+ 				return err;
+ 		}
+ 
+-		return ring_buffer_map_get_reader(iter->array_buffer->buffer,
+-						  iter->cpu_file);
++		trace_access_lock(iter->cpu_file);
++		err = ring_buffer_map_get_reader(iter->array_buffer->buffer,
++						 iter->cpu_file);
++		trace_access_unlock(iter->cpu_file);
++
++		return err;
+ 	} else if (cmd) {
+ 		return -ENOTTY;
+ 	}
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.1.703.gf848ed807c-goog
+
