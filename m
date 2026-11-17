@@ -1,84 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888992;
-	b=w/PLqq6vIUyRSlZ5jXnzmK+xnV0d/RMXwbdoklirii2BFu3EkHN0KI7+jyizlQX7Nk/9
-	 SmwEsPSPaLVv2MyAWvnpUZgUbLA5U88sK4eDBjG7/kEorcq9aaCrBmrSBQIhfynJhXyr5
-	 b+uiqfNbPz9DddCFxboSFeLXhySeug7c3Fq1puysww5iJfdTGerVM6rb58OQk143+IXYh
-	 yOhL8yyKwEwGRHtimomyrrIGftcfbe+GDdihXqBveBV5QtvXivjFGs7Lp5rKiCUtx8fEU
-	 sHB6n5wfhtuu6k2K737og53l0Grp9F3MKchS+dnMh0BrEJoNYlXC599jTbnIxl57O/A==
+	t=1794889015;
+	b=AJ6hAp9K616fLNSZwmOHSvb6lnBl8IFkRv4Rt126BKeo3/kzlM1aNQZpxLBkQl1FlIp4
+	 5JMJ24AARhFGvqKsoD50KSrvDHXTAvVVlb1UJsp4LSCKSIKQ25jU7Cgk9T8VJVJ7OqJKq
+	 aDuCgcp5nvVEOneoambwxchdR5uv14mu4hoGC9OWiG4GbDS+3IP9Plp4bre/BcmpuiEKu
+	 0LL1RwvaMfam1fdsl4O73dvzmjMIl3WgHec1WPHwdy+lkYC7BFR8oF2W8VCOX2ZfVG32k
+	 MA26U9YL7/TNveM7XaliP9Skan5w36q5QFAC+NPTEqv0p6NBh8Qf80ufs6/0aooQycg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888992;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=fpQtbcaphgDHApVs2K6tLMLRq+bdGD7u6Y/f7ATRts8=;
-	b=GIq5pH1DBTQWUD9i9/RSe/gynZWgT91m/71t00Yivifp5MdWnkq+Qd5TIu0OImifJNBK
-	 7PoLI039sRqg2aCbuFBWlrmZ8epXMPpIhw4FUqpIRUmhmPNwZvFdarcIByvK3mBSxWfjy
-	 IuYVGHIHrKiZLFcgxHD5/0lVK0Kq8GqV0oYGXSTLVRs7isIELhOnc4CxxGOs4Xc46JPMu
-	 6BqcoIa9lZ7LUJWJpcKuH2vTLm7J7OiNUww/nLJsEeC1dPLGBa6jgfQwf7Go3Vcvbnd9W
-	 CiE1tWMyFO9P0/mB/FxReSZTIFnEqoHNxSfbzcPCh59JdKg3aMQredZmK+82EA2EW/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794889015;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
+	b=auA1k2Mn0CRSLEk6cVZGJrX0kaNN09A3+A/aA2sKw5xY3Veiza4r8xhxq4EBSZfoEPvH
+	 XJmw+gp24tXD0dv5ww51WvlnqoytSDE16ADw4uezG/4YWnj+7JdYu5wWEdCytLoUTO/eT
+	 HBqxhQaR5J6SKQIzYJNB6DyP7t0FIYd+gho/fYaVKeyqoYgZ760mvPbUCYddzsEOxyuHl
+	 5QpnPuAsbCXhVUjk18WU/QM8HDhb1nxN61ZfzaIclE4G9uHGv8fzPXhpRgAVIGoKInwoD
+	 z3kUU8om0M0la2jPNMF5r54WsS+etio2w1M4sukHpVzUNhzBMishrMr6Pceub+OkRzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UDrMKPkQ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWDMCD75;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34851606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34851606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FED606A31C;
+	Tue, 17 Nov 2026 04:16:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UDrMKPkQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794888991;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=fpQtbcaphgDHApVs2K6tLMLRq+bdGD7u6Y/f7ATRts8=;
-	b=UDrMKPkQhFB3PIb/HkJZIga5+KEfj1LUEA0AWt6EaZLkfAxFxEfQhDtii90EyvPJOdJv4x
-	s0zbBn6RQgpetqYCZP42lOhF1lmyScZbka+YthHMfFZP2aiZeJCP/zD47nXrX8RjJjVvh3
-	UlJh6xXg4D/JBSKCXIe0OoZn0iYDFmA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-136-NLekSvFVMBW361yStebIxw-1; Mon,
- 16 Nov 2026 23:16:27 -0500
-X-MC-Unique: NLekSvFVMBW361yStebIxw-1
-X-Mimecast-MFC-AGG-ID: NLekSvFVMBW361yStebIxw_1794888985
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C3A811956088;
-	Tue, 17 Nov 2026 04:16:24 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A5A911956088;
-	Tue, 17 Nov 2026 04:16:21 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Tejun Heo <tj@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH] sched/isolation: Enable cpuset_mutex synchronization before freeing old housekeeping cpumask
-Date: Mon, 16 Nov 2026 23:15:55 -0500
-Message-ID: <20261117041555.2421505-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWDMCD75
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B65C1F000C4;
+	Tue, 17 Nov 2026 04:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794889015;
+	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jWDMCD75LisRcYGA0VpqHWZD3qV5OTxbso7y1ZePw51GdfGEZT33y9ViEuTOqr0uj
+	 /gOsoKvixXCa3y//OcHFyMaWFSlP5hgL7E8i/t6qi3Ho0E1HgjF4Oaz205ze6I8rL9
+	 YtAUq7w1vXCBkwxfJFib92ecKO+ZS/aiyI45UKTXby4gB0eqFamsL/iQo36XhMJ3E0
+	 JOaIMLkKPIsn9Ei0eRvXTSnQfUQkbF4qqdemNWBWGLl/tEGNkAxtZMfqhjGu5Z0d/U
+	 setLTGx81kUAmTcSf5snzRMizB054Uf5rHNLsrnu0vT7ZG6bPfmJQeAe/I6v2eybwP
+	 JS+zDMf5ShKJg==
+From: netdev-bot+sinfo@kernel.org
+To: Shirong Zhao <shxzhaosr@163.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: wan: farsync: reuse card slots after hot-unplug
+Date: Tue, 17 Nov 2026 04:16:54 +0000
+Message-ID: <179488901459.3291.9572765536095948605@kernel.org>
+In-Reply-To: <20261117121314.811514-1-shxzhaosr@163.com>
+References: <20261117121314.811514-1-shxzhaosr@163.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,60 +60,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Commit a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without
-holding cpus_read_lock") adds a new cpuset_top_mutex on top but drops
-cpus_read_lock and cpuset_mutex before calling housekeeping_update()
-which calls other functions that may acquire cpus_read_lock leading to
-to a possibility of deadlock if cpus_read_lock isn't dropped before
-calling housekeeping_update().
+Hi!
 
-This commit also changes lockdep_is_cpuset_held() to return true if
-either cpuset_mutex or cpuset_top_mutex is held. lockdep_is_cpuset_held()
-is used by housekeeping_dereference_check() as one of the conditions
-that rcu_read_lock() is not needed to access HK_TYPE_DOMAIN cpumask
-which can be changed by housekeeping_update() at run time. In reality,
-it isn't right to allow holding cpuset_mutex as a condition where
-rcu_read_lock isn't needed. It is certainly possible that there can be
-a parallel housekeeping_update() call going on if only cpuset_mutex is
-being held. This can lead to a potential use-after-free situation when
-HK_TYPE_DOMAIN housekeeping cpumask is being accessed.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-One possible solution is to hold rcu_read_lock for functions that may
-be called with only cpuset_mutex held. Beside some cpuset functions,
-several scheduler functions will also need to be changed. A far simpler
-solution is to synchronize with other cpuset_mutex critical sections
-before freeing the old housekeeping cpumask. This will ensure that code
-within cpuset_mutex critical sections will not have a UaF situation
-when accessing housekeeping cpumask. This commit implements the latter
-solution and make the conditions used by lockdep_is_cpuset_held() correct.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Fixes: a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without holding cpus_read_lock")
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/sched/isolation.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
-index 156025ef81b7..eb4ceeaf0f9d 100644
---- a/kernel/sched/isolation.c
-+++ b/kernel/sched/isolation.c
-@@ -159,6 +159,13 @@ int housekeeping_update(struct cpumask *isol_mask)
- 	err = kthreads_update_housekeeping();
- 	WARN_ON_ONCE(err < 0);
- 
-+	/*
-+	 * Synchronize with cpuset_mutex to make sure that its critical sections
-+	 * afterward will not have access to the old housekeeping cpumask.
-+	 */
-+	cpuset_lock();
-+	cpuset_unlock();
-+
- 	kfree(old);
- 
- 	return 0;
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
+
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
 -- 
-2.56.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
