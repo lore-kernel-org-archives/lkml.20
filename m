@@ -1,95 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883764;
-	b=eX96txs4hu/OOJlf4/yRMvjnYNnqRbmxeuecyLfIYGz1OdQ/ViqOd16CPqOzrD42Z/5m
-	 zh4Mp5MUwoY2HPNulKROOzmUXP+7RZpg64yJqJeR3l5DYbrBPoIJ4ncne787vpbDu/eJo
-	 bgwEC6+1r3hPPxFGeeGHQl6QFUJ96yeuactObcNYBzZ62mZp2n8oNh4cn+rd9J16Lrj2W
-	 RM1TN4fDgKzUyxa/uyMocZ6joHDF/RHlHVploVEcVP7hLJftXE+CNGQrI8JVTRYXYZX0F
-	 THw4vkvCFmFeX87tSMULlwR2I2rzLuF2Xkcdz/VVOObFkOzb25JMVZbr4hk+Aao+3Rg==
+	t=1794883806;
+	b=WaMsTWEkzwCRV/zYvq/v6SA9CdKmSXCM7ORH1JqkPNqcg/lgb9iIeqNhW4+sA0F1XOr/
+	 6xsQM3bi3a8vMTf9/2shPP19jqChP/ER68HyD+JM+L/EdQGslupLo6ghnIXhYWeMuXneG
+	 g33BGn8DGZnxjbw5G9dZx7z7ifahKOgXL6qvjH4syBebeUKdvFknBq9WDiJH8THB34Yrg
+	 SjiZD3AA0tfTDopjYXmGVG/KJBviKMqGelHKTwN5mi25KA7Go6uErP7JMe522klek6HcA
+	 ETEV3ildm70YveZPQcpxctROB0ItDSc9wFCrIvC67CGu2zjgo/wadsGBnc3noqBRdzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883764;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=gUJ/mTAIlGtpLVkM7Z4srYRjyZABwmfl8+lgRfY7VNQ=;
-	b=rhDQ/n70yTwpqiOqmom+bQNwmmhZuNg72wS0nIQuyWwehsY6cOTgxbhKyVoLuZRInwls
-	 g4pPlNsFSq1A45U5XZSDKOwAV/fYuzprQrG2w3Ez7qlDRnhf1T1nvGGT3yl0IYTvZwsVm
-	 7LFleD6Zc6+/27LEzbl9e8b4tVvCSSboKyEpnP31Q0qYA7JHIJk+oMjyFkRhS/VXHpQqR
-	 kl8fZJyiFmF3mqRFj6d2cEbBZWorgnIo1kwuL+/USDF62XrQI/cCUoVwY4JNgv6ql2rEY
-	 uogPAwAAvkgohE5ZqSEDvBAafQV5TmMuxcupMMEW1Gike5rw2/n2SqoPFuAbeQuBW4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883806;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=BL7jfL5RepDVHTpf571CMSvkP8AAhB1asrmNRQjeQpw=;
+	b=Gz76EYJRTj78gO3WnqGbrUGtLMfMRyOPGF8kDRsRSjY9ptdhFcvzlci+hV+PrU6TEJPS
+	 9suKnD5WqFBhsVH/1MqtSuTNLb5bkruThSmGfYes6zpiIG3HYDETFpn+KOPnACElJj8rn
+	 G8xwQ/z5PBqOKfK/QHU0m4sU0KFWv7UuLCYsxRTJHQI5kYFprtPwHGnppmmQ4dCZOXWr2
+	 MaSDxOwgg7crJmc6laBprbZuGKaJ5+suFxB7yV0ZWEJ4AtpL06QoSFHVl8pbhLuCdPele
+	 3u/kytSrqIwjw7T9VESTJMdLv3FAwIbsM37To4Kbz6REFuOE9Nxj1JwcSA+0zGVsoZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hjaLq9Vr;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKQL61tv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBFF606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:49:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CBFF606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95CA606A31C;
+	Tue, 17 Nov 2026 02:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hjaLq9Vr
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-380b40312e2so2450132eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:49:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794883764; x=1795488564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gUJ/mTAIlGtpLVkM7Z4srYRjyZABwmfl8+lgRfY7VNQ=;
-        b=hjaLq9VraRkmZ3WvbkBpbzvfl0aUS6cyn5IGTECbEcV5FGLXjTH2bbiPrB/i4nFdwI
-         9FJqg3WBywSqI0Qv3t0Lxk1L6zqArH+bH4alapmiKhdwVUGjRXPhfQy3brAfnNx02HAY
-         Q36iSD26wpjGgk4+1TduAmiu21VChpK2ysq6NoxhP2lPaElRZwD89TYFXU4kfF9Y5Fyv
-         NxfvLaLtcLORHwY7GGEm8dG5H0EbItGELMfEK8RoUlaPoNR7P4pzUChOEWtrZGCWpq2y
-         FzWcT45l6ZNOgVJOMnpnaPBi9Bef4eVViOjzX5g4yH48wMP6W0uz8rVzDpTokvuS8xr4
-         Eagg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794883764; x=1795488564;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gUJ/mTAIlGtpLVkM7Z4srYRjyZABwmfl8+lgRfY7VNQ=;
-        b=CYGMtlsk6Ob9D7wAnDL99EtDY2Ebp+mXgpf0AfMTX/bLOy79kjS5C9TGK/WG58WISW
-         o7DDL+uzknqCTXHO3tPIv/rl45toZOStAFXysvDWIh1rXwqnFkXKQXhInAr+jVFnTzPr
-         PXseI+97YN7EAMCnM4PYg2tmbuCmmDdUvDQn0PyEHFMSh/6NbO6wg2paHGf/4bd4PxN7
-         K0JAxWwwqWXRRXLGgK82oOGnXIjaAait829y3Cn8HtPlP8/ICe7R+hbP0e0/XrhkIDWx
-         8TyV/riae826W5pmXfavKk/GKyVaUr06ZfITw6FfVkPy+jG2UoNjJWC4qZxG+fWuIl2v
-         cnKA==
-X-Forwarded-Encrypted: i=1; AL+hErFx2YTF5yC09RpUjoiH/jS4Qr+5Rslj6xu+MG0fzHRMXIDcX83Yfsuv3QnvR9ZY8BecJW8A1O2Sj7tfIv8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mvwmzVJUUedNy7z2YqLLl+ZW4ibVQnqbiMa+I8IwoPXH+9E0O
-	oYgexPBiTfjKiHMfqRIM+GcYHArtfJgw0eKQB06UYvHV19gjVfC5Y8Hnn95AXOTsIdg=
-X-Gm-Gg: AYBFou2jOhLB6D4Y3McpaaTZRAhqdHChyYHtF6OO0zYOu74stt+oDZKn1oTq7AWTbuM
-	mPPfXD1BWFDTjdXHxOs8au2eSJbcH5P1TyYPs3zz6GnEZzap190WAfv6ZrD+x6xYwImSahbRmSn
-	s7j3Gku9GI+KZK36bRcOgtUopES2fnAYFmXOHbrJRDnfREvje8/LLl7JCxMXSNIqoM3MT1g87lj
-	8QdzKUtOfcgCMBKfiIetrXJb4OgpbdLG9iIUUs3qvulYymeaO4MF8a0R7rCjFo0F+/DTAV50jUk
-	O0OqAk9pNPAxwrlYwK8TTryG+uGN1IVkCixeXI5PM9m6OhwkhoOM32lo9w2JcQ0pmwj+UFN464G
-	BVXeVbTRdUbAN/UnFh135mAoM0RBIQ8tb24lYurUkEyDNbotTfWiHU3OtzRVR7pBxAXZ/XMaiO+
-	qHO+Ef8MPelScgVGdchPy4UWpIZqA9Yk3j0g7nmo2n/n6g3HCfwlKqOYYEahwuBUIszZb34eD5k
-	IkNdVaCSQ7hGkLVzcRFbEfxwr8xhtjcIi1keAlw5aXvYWLgbL9ikZqlryzyAXbGsKWcskSYVSqr
-	jv/e4nsky8/A+9MfnTULx5qwfUST+xdc3xzjTnyvzn4PW9g5e3C8EwyxT6Uj9D6patdVjtTfZ1v
-	NXQkw910i9Xg9
-X-Received: by 2002:a05:701b:4248:10b0:1b3:b455:93db with SMTP id a92af1059eb24-1b503131b06mr13141980c88.24.1794883763733;
-        Mon, 16 Nov 2026 18:49:23 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b2b5sm31493244c88.1.2026.11.16.18.49.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 18:49:23 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rachel Menge <rlmenge@gmail.com>, Hardik Garg <hargar@linux.microsoft.com>
-In-Reply-To: <20261116193146.65315-1-sidchintamaneni@gmail.com>
-References: <20261116193146.65315-1-sidchintamaneni@gmail.com>
-Subject: Re: [PATCH v1 1/1] io_uring/kbuf: initialize arg->out_len from
- arg->max_len in io_buffers_select()
-Message-Id: <179488376281.22588.16183512803050273616.b4-ty@b4>
-Date: Mon, 16 Nov 2026 19:49:22 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKQL61tv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E481F000C4;
+	Tue, 17 Nov 2026 02:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794883806;
+	bh=BL7jfL5RepDVHTpf571CMSvkP8AAhB1asrmNRQjeQpw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=DKQL61tve8PT9P9rXUR2i9O4iq9u5aphdt2xxWVTKpGJWj6bIwjtJ6SuDijXsvTdA
+	 XH10lPmrY+dhQk5tQUOqSwyzIPiVcMOoZ74PMGSiLKM0FwtxPztrqaNezJ5iGY3pvu
+	 fcjbABlaeIa+rZIZqddY+Kax/rTsofLR/I8OZ9YhGEdAEpjyAXNQ+CdlWJrfV9gTHq
+	 zRlOGPOSWmpW3ZA7h4IGHIyBayE2a4LFL4JtDiYh1sicGLPCc/uBOSgfut81tP72VL
+	 rQXazmDB+i+DQM+mDoDPexFIhYIWHBr+4nRdnZa0NAbeOirQwN+XGFbv6DD2SqFF7z
+	 TmHvJdKevj4Aw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773F8391B088;
+	Tue, 17 Nov 2026 02:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,31 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net/mlx5: IFC,
+ enlarge active_port field to support 8 port LAG
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179488380528.305876.11658073225104873930.git-patchwork-notify@kernel.org>
+Date: Tue, 17 Nov 2026 02:50:05 +0000
+References: <20261112182940.3655773-1-tariqt@nvidia.com>
+In-Reply-To: <20261112182940.3655773-1-tariqt@nvidia.com>
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ agoldberger@nvidia.com, gal@nvidia.com, leon@kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
+ saeedm@nvidia.com, shayd@nvidia.com, horms@kernel.org
 
+Hello:
 
-On Mon, 16 Nov 2026 19:31:46 +0000, Siddharth Chintamaneni wrote:
-> io_buffers_select() passes &arg->out_len to io_provided_buffers_select()
-> on the legacy provided-buffer path. Because callers initialize
-> arg->max_len (from sqe->len) while leaving arg->out_len as 0,
-> io_provided_buffers_select() sees *len == 0 and always selects the full
-> buffer size buf->len, ignoring the user-specified sqe->len limit.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 12 Nov 2026 20:29:40 +0200 you wrote:
+> From: Shay Drory <shayd@nvidia.com>
 > 
-> Initialize arg->out_len = arg->max_len before calling
-> io_provided_buffers_select().
+> active_port is a bitmask with a bit per LAG port. The cited commit
+> enabled 8 port LAG, but active_port remained 4 bits wide.
+> 
+> Enlarge active_port to 8 bits, as defined in the PRM.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [net] net/mlx5: IFC, enlarge active_port field to support 8 port LAG
+    https://git.kernel.org/netdev/net/c/a2239d5dbbda
 
-[1/1] io_uring/kbuf: initialize arg->out_len from arg->max_len in io_buffers_select()
-      (no commit info)
-
-Best regards,
+You are awesome, thank you!
 -- 
-Jens Axboe
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
