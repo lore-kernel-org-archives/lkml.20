@@ -1,92 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936810;
-	b=z4hlLT/fV9TebhEsXVKTzZJWJTjaoj29SRp3NCTCa0/zmF17dqULJf5GhdM23uMCUQlp
-	 FzrwCUTv0Ql7Xf4Aou6ChwCo60731NhUbOfZ4ZSAcY0QCAmSs4glhjdzgwqoGkNlHnlku
-	 10xws1iaB8pWcZ0DjezMza+K9V1QQE7x58BZV8uMLkOI1PQS/Dp2h2g+4SUTftcvswyct
-	 qFS8UC1U+1cF17KNxqDkRPqCkDFLdv19agNq6kj0/72q/EJo0MgjHPHYEinzoDjii8tTD
-	 FdmL/GQqK6lbg+V1cZwFgHq42ryBUZ7T2S4qwtY3KkPCgMq71TFqhyJTKNBmTCHtPPQ==
+	t=1794936817;
+	b=qYUtfptdHQyBo5SEcl63+8rL9Xg+aSHrYzezbtmM0zjYo3mEuKL7CkTFLIuOORfDx5PI
+	 u8KGOkT1kJJX8wy/Ce6QkjRrWf4d6PzgOErKSG70ytCXztev7twBWfk9ypEiWllvgJB2V
+	 09QS8B4vjQi19Thp66ee08hPwIxdoAcrvP7VgIdBWP6+ODHk3+Py9DInZXDFbejo/zR6Z
+	 qYB9p2ieMZYanuUdb50m5tCw/u2UJ+0TwHV/ioT3YiVqA8/Ti0G4ZX0R6MB2vsxj+k7as
+	 iUNrm7VWip+lQULfrsG/D6ytO2jtYL1eQEaEA1daID1SupJ9K8HaP6gfwUWQY31ihNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936817;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References:
-	 MIME-version:Content-type:Content-Transfer-Encoding;
-	bh=cG/RevFyBwamCzEOUkqHEPh0sTKsf/ViK8cvhO4n35k=;
-	b=tIJI1xoKgAtjd0hNumVz6m/dxxdKLOhPY0Ssf4Vektb62wjzMtNdvhqg+Te4HVf5HrQv
-	 F2SPLjNJ+0xPDrmNnfV9XDqw3KqNOnC0PSs8m7cThMJoqKY+JUHldgsoojuUpMXfG3P95
-	 eOvRpcC9WQKRr8PPA8mAiyL0IwK4Zl1PUT1/HlkAa9ypQJh+sZ6EyeZeN2wKw6deRAr7Q
-	 PiM+Jbs9f4dsZOJRQZYXuWV7sSmkHYA1VxhI87k00X+PYuIeQoiCNsfM7ftanhWVS/gIg
-	 +yEd01Cs0Zl2yvwxWDnqQr90CGYCGl4SlIiYk6/t/W6hYe8BU3ZyPNyKFQfzTraU1UQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=BrMcWd7pvu75CincI1DxjIJtK+iHHZhWACFR9OMESAw=;
+	b=smCv0t1ZkSHFjTL3XX51QtS/uLCc6N54hrzGbIL0KGScqD35r6UABj2/CJRCNbp1QkKY
+	 pDQliHDgWIvnZ+85RKLmwjgqaFp2wKYSis0bDwqGgRoN4kecm+BjzWFg2qzkZZdbjOfZO
+	 lTOjzjRaA3rRClu483krZtBTFmZC992XeLxuH592UV4Hrq3Z0a1cNgAjqy0eX6wfwM18j
+	 QJ7UJgui2Y/BhtYU0+VgLchxUHYqqN9UTFlq4cqtPhpaatMoVaODKeLBYchU5/oohTqw2
+	 JP4ryO//GvM7GebCRA3kPXnITvpoYilIPcGakTAyetS0QOEsgww1A7HHvuMjEXn3VSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHha2wyV;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qq9cWzZj;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66876606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66876606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A580606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A580606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHha2wyV
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b24f4b15c4so364417c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:33:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qq9cWzZj
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4a2f4ca0dcfso7712f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:33:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936809; x=1795541609; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794936815; x=1795541615; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
-         :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cG/RevFyBwamCzEOUkqHEPh0sTKsf/ViK8cvhO4n35k=;
-        b=YHha2wyV73dtE15bna9bxCHEoUbBcd/518uwN4YYpygD53J+F/ONaC2aL5BBG/OvMT
-         XCj2IHM/aFG2s2N3HhXAX3orMtuVa6h+seF6SAJglJ4Or9dun76aYPF+XSrkCxN+bPf3
-         Kp8VYF4JRLwZRpiKma2LVY/eBlVKISVAfoUOyHo1Yr2PYPWUU431jSyP+qu7PvvFFJ6j
-         O7Tpg9wxKQhm+J6D9dzJcHcPZ19nHfsy5ALP4GhRAMCBKpfeGlAJL64sYOqhCVHp92Dk
-         d8jndELlmvz3ooiZpWlOvPyFMVMNVphKB5CbYnrVLQJBFUirxse5LCePdcMDSeEEfq++
-         xk/Q==
+        bh=BrMcWd7pvu75CincI1DxjIJtK+iHHZhWACFR9OMESAw=;
+        b=Qq9cWzZjrgVRuhct9Bs3XWPLq2gc4ngF99znVrHxGFg29CgIdyg5bdv1KU+5GCR47Z
+         W/1CNTm0RFuyhIpOtfdFSDIYysMReXu9u5BkGqEZl1RqmCPbOIpv5apywR/27GszE4xG
+         sl08M+PNPYGAaFy52pn8LZWsyjKd17q0jvIWtgJXTmK7bvHJfJz86Ijb2NIXSk61GxXR
+         zBKdUn0p+UXoSd7HduOaTpXCQJXHXjJJ6Nw66bDPKeK3vhAgokzBUMH1YIrff1SLlMp7
+         NQ5jTq/wn1Mn4jvL+AluffZnEGf9Wm+FP/G/j+Inm9WVYi4S4dABC0428Tgjx2HmggXu
+         m7rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936809; x=1795541609;
+        d=1e100.net; s=20260707; t=1794936815; x=1795541615;
         h=content-transfer-encoding:content-type:mime-version:references
-         :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cG/RevFyBwamCzEOUkqHEPh0sTKsf/ViK8cvhO4n35k=;
-        b=csgRuBxaUjOlH+2ipjXS3LCVQHIWCpXYKv5PMiAiiVkS9+FQmnfPZ71m8xw6nnUxOm
-         YtOgWpbftnY67e6jIsERoO7NKpY8KOjAPKWSShoT39XEMBuct9SYn/Suaww2IZczGYM7
-         +n0uOnHIirQplmjMLoYkhrS75QXwj+tBMVqdUCuButK3PsjhvMBKiBPd6qUSHsT5Zgmv
-         aWzdx/LYB6DGEv9QUs95myXa48835U1u5b7Y4t8f812gTjFZtJUKrE3v2bCAN7XA3OoD
-         h7o2O6BpFUKXSnNanWb7L8iNFjS6LRTE8WIW98bPSY/slQDco1hsRGV9WN899OGBT22z
-         /34w==
-X-Forwarded-Encrypted: i=1; AL+hErH7oSVLozwjZEy89D+6ZHwEIxihRD0cuxYBoP+QQye5W0aOad5J4DNJonKcfxWjqOKghP/3yh/V0kG1hMc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Vpt7bo8igHuC8b68UZZGIuwyY+qRVz1zHxg6qk3fZRzchUj7r
-	5m60olHSiEmb0igSJD9vkCCIeMMN2xL32SUZMS9VpJrrW84oFiRb05mZ
-X-Gm-Gg: AYBFou0hU53sWj7MLpBXbkKXx8DTHDwLwnrJZrYKZXR2jptkZMt89+PGlN1KTFC4suI
-	SGTsGUGylL968hoVDMf14rblDnVuG0GJB/FNPyx3uZ/taFg5Bje0L9UQ8vHrT+YNKXhCnY6MONb
-	0C+9u5HXtboOgOVbnQJiosTz/H2Hp1bLIO+5yI6RZ7Uk+mSkXD0k09VYt59lvXvWR/iclM5xuzQ
-	OVC8UTCiFtR9MKd2cpbK6UhliIKQogRavrPBHFlxRs1cRiscfXeO60o7Haz7r1ZhFJlyX6tyGWS
-	Lbglr5FRbNi3PagPEZzLBtxOb4Q4aOWyg1z89IGANEdsczc4UQorzLHmHOZSZYqQQMp2RmBbEAL
-	C5p9aFJa1EI30Gpc/apt6WyNpuuZEfjQyj/2WWA6tDo7oiuqdGqGm+ZYH1PugVL2xk3ZU96CLKO
-	4pQoYTN5//qCaEylQPULWPenaz4WGwqxt5FrSJP4Zib3nnYtq6y3P0uGFuIYLhBM1MyHtSUpuHN
-	vYQz4LLZAUtX9WzVvMhBhJRA8W7ioWvtbVkecKCOMS79ODMfe5k6KK/gzJLbmEgB9Y3rsEIk9Wh
-	Yo9PdJhHeJvompfnGmc+m7dE028=
-X-Received: by 2002:a05:7022:408a:b0:19d:233:989d with SMTP id a92af1059eb24-1b543bdb320mr248657c88.14.1794936809265;
-        Tue, 17 Nov 2026 09:33:29 -0800 (PST)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm46314627c88.14.2026.11.17.09.33.25
+        bh=BrMcWd7pvu75CincI1DxjIJtK+iHHZhWACFR9OMESAw=;
+        b=p6NGmex5y30BbG8e0FF1KBWaasfdYTFc9st3Vx7r+QAzR8O4p/pr++nivEqSDQft7V
+         jrtU/Jfq/z6i7G87i7All5dJblTZed8qSZ+DT62i2QBh7KDoFN4CyjTt0Cus2lYIC33q
+         IzN2PVkQuyk5aIEU/vEDjQzGKwMNSnni5C78e8LrbguG+/6FAgdkx0u876YuKWJEL1Pr
+         49ODedf0TaAPnBAGFbT8MkRmp10sKs/rHvh1RkbY769K4zeON/7ONYaoplkxw1+r31Fl
+         Kqn4bG7fGguirs72ETakE+rVljqoeyyGuCupiuBz4JSYf8E7HD3zdS9O3ZWXxlTc8i8p
+         BCYw==
+X-Forwarded-Encrypted: i=1; AL+hErGRasJo1TgR5Ksd58YWekSRLphZuKekWLYJL9SlroNTYdK0EHT11LPINku1V4jc6YLB7hHf75qFIcPbBfI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uE9ToKuQA2mVj8hr1uaAKneR4z9/qMkhUDnqpfzHBOOucHbFw
+	CHipEMqAQxHzJNpco+wXwFr/cCzCLq1GcTMQIqqp6G7RcnhKIgYsAA5X
+X-Gm-Gg: AZFdTZcocRQDC/Xxq2UgmZ/Qe3NVT9BvreCJ4RvtvkkNs8bzA0gJVvp1MBIJ/uouqPF
+	9Zbu2kbUDSlI+ahUjzm+eO/gmeUgpmAuDMHbY7DWmWkPFKRtMcatjwpKJAlQC0BmmbOKBhJ7OOx
+	xb5/J7fy7ydSjH6quZXjnNLu1e52ddx7GQ+n/905i7trQp6im5imTic6RdKFJy7Oj6ysM8a8+TK
+	CJDo7t2Z+HZ2C/SmZ5TGHWrh1m4Eev5UQ8K7F0Vg3eFGWrt/SYkZFs0qzzmb/9OzT2oHgsu+uKH
+	9pcw1kgvbdB+qHMPcQTyf4d78zEm05bgz9DxpZ/FN9n+yzutovnCa0M+62LjKPEg+mmsQVAKwpX
+	fOq+NZ+bkSCIYZ5EO0/UGVlkZ2uAxehqUXJ+4fXp5jqU8GA1Lzp8OFP6sDmMI3qyOisRgATUObX
+	UKwwTFpTqGCWpmvpHtP0UT7gW3Cauof3hRrZN7hxcQ7EG2QnPZqvt87zZzADuTtcf/04CEhG45S
+	/L0CVb2TglnAcJm5gNflxiL0Zv0KjnWDFhgTLLK8DRbjUaTmUcpEKAzPR+ycCC3xMcK8vR+n5Ba
+	ATZlGEsHPa0=
+X-Received: by 2002:a5d:5e85:0:b0:490:f775:b00b with SMTP id ffacd0b85a97d-4a63f64de54mr255493f8f.52.1794936815359;
+        Tue, 17 Nov 2026 09:33:35 -0800 (PST)
+Received: from dl360p ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a2e6c765dfsm8165024f8f.33.2026.11.17.09.33.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:33:28 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Hari Bathini <hbathini@linux.ibm.com>
-Subject: Re: [PATCHv2 1/3] powerpc/execmem: Don't leave kprobes insn pages W+X when CONFIG_MODULES=n
-In-Reply-To: <9a7963a6-0033-45ab-90d5-b1f580a4882c@kernel.org>
-Date: Tue, 17 Nov 2026 22:45:05 +0530
-Message-ID: <v75v752e.ritesh.list@gmail.com>
-References: <cover.1794572365.git.ritesh.list@gmail.com> <f75f2cf97f44375fd2c8820e0caeab703cdb371c.1794572365.git.ritesh.list@gmail.com> <9a7963a6-0033-45ab-90d5-b1f580a4882c@kernel.org>
+        Tue, 17 Nov 2026 09:33:35 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: jic23@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v3 0/2] iio: proximity: add Imagis ISG5320A (Samsung Galaxy XCover5)
+Date: Tue, 17 Nov 2026 20:33:31 +0300
+Message-ID: <20261117173333.1853986-1-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116074013.355363-1-tadilhusrev@gmail.com>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,96 +105,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-"Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
+This series adds an IIO driver and its DT binding for the Imagis
+ISG5320A capacitive SAR/grip proximity sensor (I2C), as fitted on the
+Samsung Galaxy XCover5 (SM-G525F, Exynos850).
 
-> Le 13/11/2026 à 13:31, Ritesh Harjani (IBM) a écrit :
->> commit 2e83e2ce34ff ("arch, mm: promote DEBUG_WX to CHECK_WX"), made
->> CHECK_WX default STRICT_KERNEL_RWX.
->> 
->> Now on powerpc, when we boot with CONFIG_KPROBES=y and CONFIG_MODULES=n,
->> we can see the following warning splat at boot:
->> 
->>      powerpc/mm: Found insecure W+X mapping at address 000000002ea08992/0xc008000000000000
->>      WARNING: arch/powerpc/mm/ptdump/ptdump.c:194 at note_page+0x4dc/0x4fc, CPU#0: swapper/0/1
->>      NIP [c0000000000ac204] note_page+0x4dc/0x4fc
->>      LR [c0000000000ac200] note_page+0x4d8/0x4fc
->>      Call Trace:
->>       note_page+0x4d8/0x4fc (unreliable)
->>       ptdump_pte_entry+0x70/0x94
->>       walk_pte_range_inner+0x15c/0x260
->>       walk_pgd_range+0x6d8/0xd5c
->>       walk_page_range_debug+0xa4/0xf0
->>       ptdump_walk_pgd+0xec/0x304
->>       ptdump_check_wx+0xd8/0x154
->>       kernel_init+0x94/0x26c
->>       ret_from_kernel_user_thread+0x14/0x1c
->>      Checked W+X mappings: FAILED, 1 W+X pages found
->> 
->> This happens because CHECK_WX noted a writeable + executable mapping.
->> 
->> This happens because execmem_arch_setup(), checks for
->> struct_modules_rwx_enabled(), while kprobes depenency on modules was
->> earlier removed via commit:
->>      7582b7be16d0 ("kprobes: remove dependency on CONFIG_MODULES")
->> Since the insn slots are only written with patch_instruction(), which
->> does not need this mapping to be writable. This patch fixes it by
->> checking for strict_kernel_rwx_enabled() instead.
->> 
->> Fixes: 7582b7be16d0 ("kprobes: remove dependency on CONFIG_MODULES")
->> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->> ---
->>   arch/powerpc/mm/mem.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->> 
->> diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
->> index b617b69452cd..77b63b52d8f2 100644
->> --- a/arch/powerpc/mm/mem.c
->> +++ b/arch/powerpc/mm/mem.c
->> @@ -388,7 +388,7 @@ static void prealloc_execmem_pgtable(void) { }
->>   
->>   struct execmem_info __init *execmem_arch_setup(void)
->>   {
->> -	pgprot_t kprobes_prot = strict_module_rwx_enabled() ? PAGE_KERNEL_ROX : PAGE_KERNEL_EXEC;
->> +	pgprot_t kprobes_prot = strict_kernel_rwx_enabled() ? PAGE_KERNEL_ROX : PAGE_KERNEL_EXEC;
->>   	pgprot_t prot = strict_module_rwx_enabled() ? PAGE_KERNEL : PAGE_KERNEL_EXEC;
->
-> Looking at this, I'd use PAGE_KERNEL_X instead of PAGE_KERNEL_EXEC.
->
-> Then we could get rid of PAGE_KERNEL_EXEC completely for powerpc.
->
+  Patch 1  dt-bindings
+  Patch 2  the IIO driver
 
-I think it's best if we keep the definition of PAGE_KERNEL_EXEC on
-powerpc as PAGE_KERNEL_X, I think the core expects the arch to define
-this, if not, then it defaults to PAGE_KERNEL e.g. see this:
+v3 fixes the real review findings on v2: Sashiko AI caught a High-
+severity INT-polarity bug in the reset sequence (eliminated by
+dropping int-gpios from the driver and binding entirely, since the
+pin is already described by the required "interrupts" property) plus
+a Medium-severity devm unwind-order bug and a Low-severity unchecked
+enable_irq_wake(). Both are now live-tested, not just built. Per-patch
+details are below each patch's "---" line, as Andy Shevchenko asked.
 
-include/linux/pgtable.h:
-  #ifndef PAGE_KERNEL_EXEC
-  # define PAGE_KERNEL_EXEC PAGE_KERNEL
-  #endif
+Tested on a Samsung Galaxy XCover5 running 7.4-rc1 plus this series
+(2026-11-17, kernel 7.4.0-rc1-00023-gdcb8b91fb779+ #30): the driver
+binds, registers as iio:device4 "isg5320a", and in_proximity0_raw
+tracked a live hand-proximity test (baseline ~0, swinging to
+-12817/9748/10759 as a hand approached/withdrew the sensor).
+checkpatch.pl --strict and dt_binding_check are clean.
 
-Also mm/execmem references PAGE_KERNEL_EXEC in __execmem_init().
-Although it references only when execmem_arch_setup() is not defined by
-the arch (which is not true for powerpc).
+Based on v7.4-rc1.
 
+Tool usage
+----------
+This series was developed during XCover5 mainline bring-up with the
+help of an AI coding assistant (Claude Code, Anthropic), which drafted
+the IIO driver from the Samsung vendor driver's register map and
+drafted these changelogs. I reviewed every line, built it (arm64, 0
+warnings), ran checkpatch --strict (clean), and tested it on hardware
+as described above, and take full responsibility for the contribution.
+Review comments are welcome and I will answer them myself.
 
-However, even though nothing breaks today, but later if there are other
-users of PAGE_KERNEL_EXEC, then PAGE_KERNEL does not have X (execute) bit
-enabled, so it might break in future. Plus looking at above, I believe
-there is no harm in keeping it - since core expects the platform to
-define it's own definition - due to all the other references it has.
+Adil Hüsrev Tepe (2):
+  dt-bindings: iio: proximity: add Imagis ISG5320A
+  iio: proximity: add Imagis ISG5320A SAR sensor driver
 
-Thoughts?
+ .../bindings/iio/proximity/imagis,isg5320a.yaml   |  55 ++
+ drivers/iio/proximity/Kconfig                     |  11 +
+ drivers/iio/proximity/Makefile                    |   1 +
+ drivers/iio/proximity/isg5320a.c                  | 848 +++++++++++++++++++
+ 4 files changed, 915 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.yaml
+ create mode 100644 drivers/iio/proximity/isg5320a.c
 
-However, if you still think we should remove it (?) - then I feel let's
-do that as a separate cleanup patch. Since this keeps the usage of EXEC
-same between prot and kprobes_prot variables in patch-1, which we also
-need to backport.
-
-
-Thanks for the quick reviews!
-
--ritesh
+--
+2.53.0
