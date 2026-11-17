@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794907403;
-	b=XkjsGN/kuqY/OUKo/AgMm5DJiHiSJTi7zbtEBVcTfHDUJJZFgyj/ETywbY6lmRKLI18x
-	 y9BfYyE+F/lPZyzAaR1MwZXZy/QI53zOkWiNgDznCaF/C3FNwpkO5yrZlMbXj9qgsWcFX
-	 ICMYax89GKEb+9rTwi8JqjtMvuujSZW6gMZ6W/LA7KMFlOA4a7JpZcMUAfwl/D4t+I4fs
-	 g4BwEywdBinyEZ0v7U1VdAphjhUup8VmCHxm5NpIGnLB0LFHmy6UXuPHS+8cwqeEBIAyr
-	 R6kzVYHDtbdDNUiM5aSkVPR/wcGcqYxF1N+DiU4D2KVzM2AFs+Hjk0lq5PWinPMwDgw==
+	b=c8CqQfu03NMspKYpkrJEiNUFB17QdsAEfkeu6H2iPwU4gy3mj6akoRBVwxlGmffrLOGH
+	 RCZ9QgGoc8Cn8BPCCdv6g1tF9n4scRU4b+7e3oF5m5d3D8ZrCQZJMvQeWeJE/nbdw9UPc
+	 KZL1bNReaDLdRAe7h7rYWud5VHQg7UJzrFA8pCeWumcHUExnOqxqt6SeWxyVk9QB3D4k6
+	 hbzX1YXF03rqs5I2Y8UatDCBN7nbNRe6GhILAtMgaLAIDBoE60ehqOl++J+ZY4T0qy0xC
+	 JIRk6vDDyHXVvz3WLw9i8WdqJXGJSheCtXzwQ6wS5blE5UwVhvbHmzLi6Hbaj10MtOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794907403;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=ycD+WqtVck2EPb3+9V4gC9pqmO9qQPx4RLdHVnNu3HM=;
-	b=cxrbd4iKlicE/5k0KuPWvKlwyBj/9gu6OuJc5Cwd62HdPyjH23vFM3q2KsSi9p6bOICv
-	 t82KjcAz6EswDX4/BOZ+cTz3FTF5M9lr3k226O1yOduQa+/VkKBmMR+U9PW03HgTV/nYj
-	 oy7hM0XnT6ai4qZNZJrZN1bxwKuCpF3Cr6KhQhdA4pnNajyCdXm0wBDF0k9Bg6ZekKQx8
-	 1/HKlhGIHFF3z7NGf+W6M2iF4RsSBp7wn91RVdQe9g9jqGhJgoPCOjkRZ6slcRrHVtVQw
-	 Jrh35zh64ZtNqnbxcju/r881mQ97EYpN8s0zvxTRsfsTTLk+AkDHrefhPs9JBzsMnKA==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=fWfrKyD7qtYJoq6JoJHvtsBLIpLUMiVYweeb50Qnupo=;
+	b=JgwJkfhLZBRK4pCFp+DVyD2syDQqnugb5bzDqzJ873jrI4SXu37p1A6+kD+HAoeMdMmP
+	 bvyGSURuZU16ruOdy3rfvd8M7XDYOsqhcvSZrK37/L6IwtcSeVTXSjv1iKuCavdj5y+J7
+	 ftm6TRdQ+bFl4LHlo7E2yu7PV0Wlry85Ycc+VS3OuIfuAWDktMCTUEyiWOiuHB4hUgSfs
+	 Y9G2E+Hq6isrMs3CDBUl6eouP4RPLfmSzAPH3/SEdaaXak1R/sGVIwaqH1YwMGwfuoHp6
+	 S8FhD/C3AORiNIBDUuue56upiswAHoQ7k/7C1UvOWOAjsmyaPkwjBOASyIQz9/XUuTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mandelbit.com;
 	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b="p7/LIrz2";
-	arc=none smtp.remote-ip=195.10.208.46
-Received: from mout-b-106.mailbox.org (mout-b-106.mailbox.org [195.10.208.46])
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=YMCVe05h;
+	arc=none smtp.remote-ip=195.10.208.42
+Received: from mout-b-112.mailbox.org (mout-b-112.mailbox.org [195.10.208.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D8E606A323;
-	Tue, 17 Nov 2026 09:23:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D8E606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87260606A31C;
+	Tue, 17 Nov 2026 09:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87260606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=p7/LIrz2
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=YMCVe05h
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-106.mailbox.org (Postfix) with ESMTPS id 4jTK5y24GYzNlqM;
-	Tue, 17 Nov 2026 10:23:18 +0100 (CET)
+	by mout-b-112.mailbox.org (Postfix) with ESMTPS id 4jTK5x0qmxz5x1P;
+	Tue, 17 Nov 2026 10:23:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794907398;
+	s=MBO0001; t=1794907397;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ycD+WqtVck2EPb3+9V4gC9pqmO9qQPx4RLdHVnNu3HM=;
-	b=p7/LIrz2wirqRRCr7GhoyUYTEQkklzwPVQ+8X8vpISxVIyojW//d17s2JdUbdXFZnNcIcq
-	7bqjZ5d+2lhvrlCSoF+cVLosWCjNwIVxm8GYljv3K2+ffk6bj7ZKqw+mKwOdROv1xwCQU4
-	mJNU4/qpK4AiJHQIuTYYAH7AxixBHRBiXO4GMvMzhc6WXyQiylP+hnSptmf//fKsDlABr8
-	HeXPi0Y/PqjNXYPF6/ahQnX+Ra/SKEVDzD+GSLMDiZShrFTp+tJxgfAJeWf7ICKWJwKv5J
-	MJjgYoic7X0V6Iv/yFemlWz1Xsu0qMoIUAGkrUiEB4zfGMrfj7KuIJxPqKjx0A==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fWfrKyD7qtYJoq6JoJHvtsBLIpLUMiVYweeb50Qnupo=;
+	b=YMCVe05hGlIf/wh1cR+3rQ3dHyMWbXz6W4bm8U4HGL4Wraj4M0Zl1ydGrdDQ2CsXz0Jode
+	WGP4/fi88NuSKO9gwqrR/IZCQnlxXf8+n7lXLuhMUSrmwV6I1elkzQP8QIIGLEsM0n1TBv
+	gLW38p0RLer1XelKamx3eisLnM/LajLFJwvwtLGcAhD8z02QvttqvbVY5jStWeHlhiAZ5g
+	Eulnga6mXbPHF+TT3Ck35n+mLocdb6AAtDFt7UPbQocHCzMcBGmHeXapG1D31KRBGii0z9
+	4w2oeb5IMFt0xftJM/agUlcDjNECllfxMxGH0MKFf20cuGZKh3XTShP2DqQvVw==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
@@ -71,12 +70,10 @@ Cc: David Ahern <dsahern@kernel.org>,
 	Sabrina Dubroca <sd@queasysnail.net>,
 	Antonio Quartulli <antonio@mandelbit.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 1/3] ipv6: stamp the default route node with a fresh serial on link failure
-Date: Tue, 17 Nov 2026 10:21:24 +0100
-Message-ID: <5b59512a6c51c7a5d7c7b4e16728de3c522d9a1e.1794906743.git.ralf@mandelbit.com>
+Subject: [PATCH net-next v3 0/3] ipv6: tie the dst cookie to the lookup that returned the dst
+Date: Tue, 17 Nov 2026 10:21:23 +0100
+Message-ID: <cover.1794906743.git.ralf@mandelbit.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1794906743.git.ralf@mandelbit.com>
-References: <cover.1794906743.git.ralf@mandelbit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,63 +84,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jTK5y24GYzNlqM
+X-Rspamd-Queue-Id: 4jTK5x0qmxz5x1P
 
-ip6_link_failure invalidates the cached dsts of an RTF_DEFAULT route by
-writing -1 into the node's fn_sernum. Once the node already holds -1,
-another link failure leaves the serial unchanged, so dsts cached with
-that cookie can survive subsequent failures.
+Hi,
 
-The assignment also leaves net->ipv6.fib6_sernum unchanged, making the
-invalidation invisible to lookups watching the namespace generation.
+This series implements a first part of the model proposed in [1] to
+address the late cookie sampling race: a dst can be stored together with
+a cookie read after a FIB change that its lookup did not see, and then
+passes dst_check until the next change.
 
-Use fib6_update_sernum under tb6_lock to allocate and stamp a fresh
-serial. This makes repeated invalidations distinguishable and allows the
-lookup-cookie generation checks introduced later in this series to
-detect them.
+The case that made me post it as a series is xfrm. Adding a policy
+restamps every fib6 node, so a socket whose lookup ran just before the
+insertion keeps its plain dst and leaks plaintext although the policy
+matches. I reproduced it for TCP connect and connected UDP, and the same
+window lets a more specific blackhole route be bypassed for routes using
+nexthop objects. The ovpn patch [2] hit the same pattern in
+dst_cache_set_ip6.
 
-Advancing the namespace generation also invalidates unrelated dsts using
-nexthop objects, which are validated against that generation.
+The conversion is initially limited to tcp_v6_connect,
+ip6_datagram_dst_update and ip6_sk_dst_lookup_flow. Other TCP TX cache
+paths, including established-socket route refills, header rebuilds and
+accepted-socket setup, still use late cookie sampling. This gives the
+lookup-cookie API a small set of users and concrete fixes to review. If
+the approach is accepted, I plan to follow up with a broader conversion
+across the networking core and drivers.
 
-Found while reviewing the IPv6 routing code to address the dst-cache
-race.
+Compared to [1], the fallback cookie is 0 instead of the pre-lookup
+generation, so fib6_flush_trees is left alone, and nexthop-object dsts
+are checked in ip6_dst_check instead of passing the generation down to
+ip6_rt_pcpu_alloc. The other cache users (dst_cache, sctp, ipvs,
+flowtable, sk_rx_dst, the xfrm bundle cookies) are not converted and
+behave as before.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Ralf Lici <ralf@mandelbit.com>
+I tested it in a VM with lockdep, PROVE_RCU and DEBUG_ATOMIC_SLEEP,
+using a debug-only delay after the lookup to hit the window: no
+warnings, and the plaintext and blackhole bypass are gone in these test
+cases.
+
+I am targeting net-next to get feedback on the lookup-cookie API and its
+incremental adoption before extending the conversion across the
+remaining cache users. This series provides the writer-side
+prerequisites and converts three socket-cache paths; it does not
+complete the conversion. I am not requesting stable backports at this
+stage. Backport scope and dependencies can be assessed separately once
+the approach has been reviewed.
+
+[1] https://lore.kernel.org/netdev/20260901122501.482920-1-ralf@mandelbit.com/
+[2] https://lore.kernel.org/netdev/cover.1789639346.git.ralf@mandelbit.com/
+
+Thanks,
+
+Ralf Lici
+Mandelbit Srl
+
 ---
-Changes since v2 https://lore.kernel.org/all/143461e2c94a20060ff4c7d6e5eb46c47ac46aa0.1794384146.git.ralf@mandelbit.com/
-- Add a Fixes tag referencing the initial git import. (Sashiko)
-- Clarify that the nexthop-object invalidation is a harmless side
-  effect, rather than a deficiency being fixed. (Sashiko)
+Changes since v2 https://lore.kernel.org/all/cover.1794384146.git.ralf@mandelbit.com/
+- Rebase onto current net-next, preserving the connected-only cache
+  lookup introduced by f778e80b3daf ("ipv6: fix cached route reuse for
+  control messages"). (Jakub)
+- Move the serial update after rt6_multipath_rebalance in fib6_ifup and
+  fib6_ifdown. (Sashiko)
+- Add Fixes tags and improve wording. (Sashiko)
+- Clarify that this is the groundwork for fixing the race and a partial
+  conversion to the new API: other users will be covered in a follow-up
+  series.
 
-No changes since v1 https://lore.kernel.org/netdev/5b039a5a24808f2678eedd283c29f8dae514ef5e.1793806941.git.ralf@mandelbit.com/
+Changes since v1 https://lore.kernel.org/netdev/cover.1793806941.git.ralf@mandelbit.com/
+- Fix kdoc return statements in patch 2/3. (NIPA)
 
- net/ipv6/route.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Ralf Lici (3):
+  ipv6: stamp the default route node with a fresh serial on link failure
+  ipv6: add ip6_dst_lookup_flow_cookie
+  ipv6: use lookup cookies in selected socket dst cache paths
 
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 4a4c5ace63c5..cc505817399b 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -2873,13 +2873,13 @@ static void ip6_link_failure(struct sk_buff *skb)
- 			rt6_remove_exception_rt(rt);
- 		} else {
- 			struct fib6_info *from;
--			struct fib6_node *fn;
- 
- 			from = rcu_dereference(rt->from);
--			if (from) {
--				fn = rcu_dereference(from->fib6_node);
--				if (fn && (rt->rt6i_flags & RTF_DEFAULT))
--					WRITE_ONCE(fn->fn_sernum, -1);
-+			if (from && from->fib6_table &&
-+			    (rt->rt6i_flags & RTF_DEFAULT)) {
-+				spin_lock_bh(&from->fib6_table->tb6_lock);
-+				fib6_update_sernum(rt6_exception_net(rt), from);
-+				spin_unlock_bh(&from->fib6_table->tb6_lock);
- 			}
- 		}
- 		rcu_read_unlock();
+ include/net/ip6_route.h | 18 +++++++++----
+ include/net/ipv6.h      | 13 ++++++++++
+ net/ipv6/datagram.c     |  6 +++--
+ net/ipv6/ip6_output.c   | 57 ++++++++++++++++++++++++++++++++++++++---
+ net/ipv6/route.c        | 30 +++++++++++-----------
+ net/ipv6/tcp_ipv6.c     |  5 ++--
+ 6 files changed, 101 insertions(+), 28 deletions(-)
+
+
+base-commit: 6ff4c5942a301675eb12e5b49d53a81e604624a1
 -- 
 2.56.0
 
