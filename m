@@ -1,113 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907957;
-	b=ELdo9vgaDUlp+azVXhRGdbW8uwaVHfz1BDhlTr/QD5GVQi/B15+o59CFtJwgLtp71uGy
-	 GnuuUnUpYrOfjovaO5kmgbbL0V4CVdkjyT9+5Ff31Wowt2oSDVBBDoDLnSYc7sZjmJiMy
-	 mcBpLIxHzls3av/QhqhBtHu+/AH7T6GiicGV4djJEfqchynqPf5r/PjrJ8P2sq7toaKwC
-	 UgssMFbP90LT7Bs61zJp+Z826NL0cl2SR3kotBfPK1eG9SxSJdVPGHZ5iHu99q7Q7xlJ7
-	 qAHjjzscqx9TYONrdvardB56p12g8/nS4sNrofX3FpIb1VeuEUxwlyVyCvcUB7Cy5Pg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907957;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=TnflasjgAFjotaDQqEyA4/p8xi/qVGkxIP9nL0N6bYI=;
-	b=DerVtEJd0fDbS2sA+WTN17BvMc+ZI3eGVhZ39rurpMq0dsOAecW0SCRhj2I6Yuk4pxOs
-	 2cd7MRJi8UegS6x/vnwRIxx7ADzJjLwNOQoPXkd9xpFWcUzAu56YadS2gE5Xdq7swhhen
-	 tjxxAnNfeQ4Iik7YkEZm88qD78Nnn7Xokef2pwWOKF61QsGv8qf7Zz0FaJQoyxeWAH7ta
-	 aLIuadzYBMCSus6gVASsePHe6N3N4DG+Ze0zCOIA1fB9LiorypRSri+vyo4edyLNdzpXd
-	 IJZPCiRsP0W0hdk8uSrNiBPlIT7fR6qKZWPAYVzG0miOvRrsWGuJnMVhgEjpPKYCu9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Evso+/sJ";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hLr4iMd3;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.121
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794907952;
+	b=Le/4S9txRidDHWW0pQ7YWkOuR/QA7L1FuJ/AtNVaT/ZhCvAJRuDC3jsqt9algSfejelh
+	 NrEIL5y2igny5B6kWc7IgUlaX3ProwsrS6ZKreO8M3EsppkEo1el2Y9co+zYjtTqPi6sO
+	 SiKPm7bNyUWy3LujV41OuXb6ysxYmEzwvkZkDAR6L27rcxffjlxOZRwz00VChchZvL8th
+	 Gv96TV6JZjiITAYaVJ/g5bndHDesGGZtz4EPrmH7tNaJkJCnW6xqfshmVQHmvXXSFZomg
+	 Tpv2Jr0pdVkrS2SaZDfK09ykmhLXS5UNTa2/0wm8WaapGKRyKIMMvJVt/9BcGtOV66g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907952;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cAohnXRlhmTtbn5EarDJT/yhoqvFcXPLxV4lwVGoOWo=;
+	b=WUCSR+m90YLKQTh0X/RMUTlTTuH3Zr8c83D7NMR/HODD3p4zgt2Se1B2MHNMXDiHAtUu
+	 jfnUdQCLwM2EmG3rWU6yDYKVRg0hO3+zosQTBiOOFvJFC/SmyMVRLr7qeG6LJk2eYmXpq
+	 8WueWxKm9/HYaA9nGG5oPg+C492R9qWOEYb++8CqgRgPWcYJnGGdWKut5TXnCTxD7SWLv
+	 7iDdcRsZ4gAyn/N/EABl3HnV4aWuFYhImh9wkCHpeJpvGQ8vP02wdgV7wGnL+jifZIKKZ
+	 qYriQKJPLFYw7oLrAqcH2n4MHl8Ye4WNLvb7vlN8cNs1iy27K7KWZ5RhP+jGIzkwkhw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b="pNy/HNR2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.121
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023121.outbound.protection.outlook.com [52.101.72.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E0D606A888
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2E0D606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CD606A329;
+	Tue, 17 Nov 2026 09:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 813CD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Evso+/sJ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hLr4iMd3
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8e5fY844356
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:32:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TnflasjgAFjotaDQqEyA4/p8xi/qVGkxIP9nL0N6bYI=; b=Evso+/sJcdVYDmRw
-	Fr1FJhuFcUPL1gRGk6yRsPkXKo4aBEJz5laFGNPRVF97il4T0f4lKHxlzKP2MFGU
-	UQUYF0IJ4TDJP5qVGGKACqSOY6leY/m/cj/TH1uPpmmh5HOE9bbHuud3BJdbembn
-	mAt/PuymZWY5khHDh1udIIrPZS5pon5Kbpntk90gaThSkYheC1bWDGPlyB7uyH/O
-	SDIz6YIrBPAPlKQUEjORIz9OsqVZnMBkkAv2fILCr0QoLCG1BVP4X8xP83GUyDmi
-	sRT+sPXV3qSkF0GjHT6s5dBokg6pctHrJq1rrNJsgh2HVmEUHXWGCZQGxA/vtRRJ
-	hEhG7w==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0c7h1u08-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:32:35 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-71adbb7d16eso764554eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:32:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794907955; x=1795512755; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TnflasjgAFjotaDQqEyA4/p8xi/qVGkxIP9nL0N6bYI=;
-        b=hLr4iMd3D1duxtNOTbl1eJ3Tn6E20l0hFVK65GHe440Wu0R5pdg9Q0rDPSWPvbf+BW
-         OYF9sVpln6BajSqDo5IC/bPhI8hVcgQ5QDeuikcyXUciBrDRR1+Hig62HTfjemubXdTA
-         CWnSF2DjYvbiVCEYooq+OEUULXP6G+gONUcGMMvyleSz/9sxodvppJEcASclskfaFWUV
-         tlO6TcoGcDiRLNj5gs6PKqTAsnHpjypK3DQvH8wLEbp0UENuzYuttAPnDoOkXkq9Z71/
-         WVOcf+EntZs6p9c9B8kLJMSW00Lwe2kvB6sdMV5GKHJgqbOm96sskHDqgC7i8b4yRSQN
-         3XNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794907955; x=1795512755;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TnflasjgAFjotaDQqEyA4/p8xi/qVGkxIP9nL0N6bYI=;
-        b=HY8NGWTNmVGlV6JsgIJgV4lCQTt8hVTU/Ti2cHHbFgyQBkoAOo4HQ5cFjObz0lhla+
-         cPowSGuK8ucpXbyM4sSUzKmQohTshu4asuBOWjC8uw9kDkgOQ4veMSOswcNJXGHdytiR
-         SwalB2876V7VfK7w/Q7X422/E9ZFwvTIVSza2No+bw4+eO9k2bbpjU283MPp6NHbmRwX
-         u/ktXJxatzPIPlh3PaX5GJFFKAZSQYIda25FnsIZTQEqKw9pfCe/+vN676GciZnznWS4
-         3SjZMLazLAZ/D7XKXH+bw+g75rVEIh7qbFBvghLOZlKpCX/k2hNwU0g78NPfY9o3eqQo
-         2hqg==
-X-Forwarded-Encrypted: i=1; AL+hErGK68opHpXCDwAfddVG4G46cHQ/9OlJpPBx/eXJGXzW+iQBqzrzVkNfR4YpFz5xCRl4QQAqmQ3G9lPbij8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eCsAzziq043UxZUmY5qEFGY2pqRIt/C95yDN2WDREZq7bnuId
-	RlewkkjjaEU2Qg4woiMvbsRCfKKHL9Ol6hiCWbF+6Pd8PoVAXKc1Q/MwXh0CKSLadUR0+G52Xh6
-	jHqNgQaTi0oKwVxfBydGwtdKo4YX93xIv2Px0C2bBZAODQnF/Wbarp3BMZNVFBa2fujM=
-X-Gm-Gg: AYBFou1GUhMiDb5PN2XR2Q1GrSob9D/LwH8dDVARj/HRMwd3/6B4i4Kggsc/WxKa+nW
-	PWmXJZL8IbQ2ndqrHc9d4Pbxnt736QBNUGVQMWc0SRYDKHgeFJGyLJvH6r2bMZ+nzVD2sAfuAV/
-	v3ZGquFHng/zldh8VGc3mSNtteLY2PdhovT/LkzLThGd/Tcibjjsz6AmBkLZaREfHK9/b1Tu5c+
-	LKC21hv6CbPo4U6W0hejn++k+hNPGq99VxHh9bvgZHdrom5vWibMvs0yJ3nkmKubFd3HUwgMZ/+
-	vqPQQDz44Fk4YJwgvanOYNq0D3fVWqvEUrsuZx5ZPm12k6comfxuZmNPu+2Trk+pbcmoEIXmqmu
-	4M8QMl6gq+SCBLa34jPedUfQPqZCWmtNXiypSLJEcyEjeUTD/8HFi9eTGnJwvo1iwFQUz1zY9MT
-	a2LHB8/7n8t2nu1MAyOAlLmTQr
-X-Received: by 2002:a05:6820:1908:b0:71a:ed44:18b with SMTP id 006d021491bc7-71b024f1588mr1482564eaf.1.1794907954702;
-        Tue, 17 Nov 2026 01:32:34 -0800 (PST)
-X-Received: by 2002:a05:6820:1908:b0:71a:ed44:18b with SMTP id 006d021491bc7-71b024f1588mr1482550eaf.1.1794907954166;
-        Tue, 17 Nov 2026 01:32:34 -0800 (PST)
-Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe2206dc0sm8678928fac.5.2026.11.17.01.32.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:32:33 -0800 (PST)
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 01:31:35 -0800
-Subject: [PATCH 3/4] leds: rgb: leds-qcom-lpg: add mutex lock in
- lpg_pwm_get_state()
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=pNy/HNR2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tR1XVuH7ly1B+EkyVU0Jm8DgsRpRZkzxVtGCSL2KydRIS5kgY79fbl56sgIgibmw16Kh4QqHdO1WJf7vvRQWVxMT7QcSEt+C8QfVsZnXrBvMxujEIqWeTCC8fFTeLbQZibO0binl3b5oUNw5XMScqG5vggDG6DMDRxkzwaVaUuV1fWbCW6q+i9jYgQzSsFFKYvxTbuCQ5UMw86uBEsTDY1rsT9j+jPgqx3p8r278htuZ3ot3DDXsT3hN4AwCVcCAlV+6BHvZ6eUNtIxaVxKDCJCMj/1adSKS+ggRjvZLNF+M8ZZo0DydbDrJJkt9DRfM7/8DkMmVDkT2wyILy9rRSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cAohnXRlhmTtbn5EarDJT/yhoqvFcXPLxV4lwVGoOWo=;
+ b=y1YYozH+eQYK3aqIU9pd4mEASru09Uc/eQMlR4Z5SSvBhz9K5RboYXEhssHX0C0ZGDLp/INsZLwdBJgOsKQU5THXi5Izkp/dHgHac9ZhT7IQlMj4q5yCjiVRPEjjVJ/g259XWq4+bwXu9tMZqCkgagfP91SEjZW5XK444XDgdowQxxa2spnWtIxuz2jiVz/O7R16VAn1+N7fkpoTyu2ceKdhZxQj72k5it0kLg8eCDjoFCZRo3yCYJpedAOHbNPYzIXRnVqo+WsZNHRaVOOFzRO6SCDviSph5vNd/H3AgTZ6bafslnT09cbXt5pslcI/Y9sWlsrsFqFytvD8ZZ8HQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
+ dkim=pass header.d=phytec.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cAohnXRlhmTtbn5EarDJT/yhoqvFcXPLxV4lwVGoOWo=;
+ b=pNy/HNR2PHjjO6zElTwGzrsbasrxv/2vqh6Zl0Ffqhm4edWSHHZMQ78CI6kSf6qIhNbKPO8uSjEiHoo+ndULj1xKWsTGztit2cFiezVhgdQ+rWRgZnxY8XK5Xqou9diPICrrwjlw9Ob4cslWjcGjEd74XSQPAl3qnHrhxHjWUgdPYunh9uRbtli2NN3vHj///wZnWgWuEZQRYDyRTJf4g/OxOS9NUbZcIhCFtMGNNvPsmHTygLjl3u9dj9dapr1sJsW3s0SJ+ZJ3KjHTZpYDpTq/rEoFhL2JhlV++JtVayNUCmE35JT2Qa31EjDRtpFyzBm8/hNOBHBM0D8ccS7xxw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=phytec.de;
+Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:159::10)
+ by VI0P195MB2840.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:2ba::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 09:32:27 +0000
+Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ ([fe80::2f8:67bc:a785:6894]) by VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ ([fe80::2f8:67bc:a785:6894%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 09:32:27 +0000
+Message-ID: <06904f2c-379b-412a-a842-04d7898c56d4@phytec.de>
+Date: Tue, 17 Nov 2026 10:32:25 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] arm64: dts: imx95-phyflex-libra-rdk: Add overlays
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Yannic Moog <y.moog@phytec.de>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ upstream@lists.phytec.de
+References: <20261113-wip-bhahn-imx95_upstreaming-v2-0-3ef58af5e689@phytec.de>
+ <20261113-wip-bhahn-imx95_upstreaming-v2-3-3ef58af5e689@phytec.de>
+ <avc7o0T0-tSW_c0H@SMW015318>
+Content-Language: en-US
+From: Benjamin Hahn <B.Hahn@phytec.de>
+In-Reply-To: <avc7o0T0-tSW_c0H@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0291.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e7::17) To VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:800:159::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,84 +105,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-led-qcom-leds-multiple-fixes-and-pwm-fm-support-v1-3-7a862240683f@oss.qualcomm.com>
-References: <20261117-led-qcom-leds-multiple-fixes-and-pwm-fm-support-v1-0-7a862240683f@oss.qualcomm.com>
-In-Reply-To: <20261117-led-qcom-leds-multiple-fixes-and-pwm-fm-support-v1-0-7a862240683f@oss.qualcomm.com>
-To: linux-arm-msm@vger.kernel.org, Lee Jones <lee@kernel.org>,
-        Pavel Machek <pavel@kernel.org>,
-        Griffin Kroah-Hartman <griffin@kroah.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Anjelique Melendez <quic_amelende@quicinc.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907947; l=814;
- i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=5eJRVgibwxyaZg2NtEGplKeEYP5chIPBpI0Kdh3stDg=;
- b=Scy+zu91VxFdrh8IFbguc1SsFdfGNcpXXmuPo0ivwEPYow4yX2bP6irzC5dnDhIL85ixkDCMX
- qBFF/fayGYHCWMYRyWyRzhCcBzr3pKk/6L9iPPKxueOxy7oGNrxiQeU
-X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
- pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
-X-Proofpoint-GUID: BStzCCJpYgtE3OzHsDk-9boTtCdjfRDD
-X-Proofpoint-ORIG-GUID: BStzCCJpYgtE3OzHsDk-9boTtCdjfRDD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzNyBTYWx0ZWRfX4kNrWBOrEaiP
- 52Ay89trvdnwvCLfsCNMFdR/gS0rbuPQFl4bhBpayV6kiOSSnVsnnajCiIprfpk8aBQ44JZti3P
- ayfa+35sdxbEzbTh3IMu44XF672CL//WHG3sOuLqqcDGhksuPlKGOKyULUmUJzdKMmqBxxNlRgE
- 5DLQFMf8s6d9VeQnhCLJc2EDElJ13NHGCZRVp0AzY/RgYHia78aHq85bVFwhIGRthIieFrS04uk
- egvFrtle0v2DMddp/pinNf3EJBlbgiLPL+hmtsWwzkqh3D0dj05iiUwQFakB+O184/UXt0QA3MC
- DaQ9FETToPyPsYLSPxVDZhGYUGstrHOMLO3MwBILB5tdW4RT1t7Y0QGeOkghwYAcljLKfh9ui6B
- cL4RrRtzCnCwueV2yg/LyIsz4Y5QiYzUrcMocoB4zS9vNU6uXu8Wjuj7wjavkKFMTm0OfvyROn1
- 2Pgh3Y/8hzfxUPt5Bqg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzNyBTYWx0ZWRfX/UztKTMSeQNs
- 8n6FWe9512+r2j8B5iCWGZtX9Qhi9HphI1Tn6dYkBjuclyGWk73AvmOxdEBwJRpSYn2ZaL9O0oY
- OGLWb74DfyUKZrCuYtoiuIUccm3RPy0=
-X-Authority-Analysis: v=2.4 cv=bobZl0ai c=1 sm=1 tr=0 ts=6afc1f33 cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=_SGh9dyU8YcHfL2lJxYA:9 a=QEXdDO2ut3YA:10
- a=-UhsvdU3ccFDOXFxFb4l:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170037
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1P195MB0623:EE_|VI0P195MB2840:EE_
+X-MS-Office365-Filtering-Correlation-Id: 298d6687-9b6f-459c-f084-08df448db1bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10067099003|4143699003|11063799006|56012099006|261021121427099003|261021135927099003|261022075727099003|261009221227099003|261009223027099003|261026121527099003|261102123227099003|18002099003|22082099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	bRhtk6XDlaNFep9CNu+OO9LzoihvTt6yMEfINmMmEYMEAyUpY8YTdejKat/J4yU/kaHHVsBVLpVKAbcAHqN4wnyYcaH2MooBIrgByFPDclp3O3g34JwcHsaULtpu3m1J6cowrSkj6DK3FJ3XdouEGEC+iE6x/ilhLXpWGuOwKtcSKKwFrRcYApp4o2j7VRRFmpFSNj74nJD9Tj5ovmINtvUAKfEysch9PsJvPWz8/LfbQWBNp2gF/tALZ92tjO9igxZSfc1v83TkUXkNuiV+I4kIwVWZVcnWJkf9O8IQyUfNfMd3p/AZcCO/QxqF1HdZa6l53yHx/5d2ryFANxJ3tlNJfz7GjObVPSDryehMHKiQfsksPTjLZoYjwS/J4AnjWvQbmtaR4QSeTLGlIQnWYZNQcidiDSNcmW0QJf+B5Rcd+N3TZsf8LsBoF+u+BkfeYg1aFQzT6q3ZbLP7rBkV6JCmgwWC42MA3dn2edisrVTcBviczkKe6/jqsO/TyOAodirvvrxrp9WhSFV0yStsWSTp03IC0PFMEZzt9XRW9k/ZyCQYrWHWi2yfhDEfyO/3EgNgsaR2621WRV+TcXkZQCGdjqY4vRyJSytT+8KldL4Jl7lOUzBBQp4Ye3NIHAUe
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1P195MB0623.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261021135927099003)(261022075727099003)(261009221227099003)(261009223027099003)(261026121527099003)(261102123227099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Rnk0ZUdYRFhNWHVMM3c5Y3FWS1gva3lIM3JBd21SVWd5dHlEdEZmajlDcGsw?=
+ =?utf-8?B?R2lpU3RoWmtyanlucCt3VCtVN0YvUUc3SmdRZWx4REhmeE5OcUk5NDRRZFB2?=
+ =?utf-8?B?NDRid2hmb0w3YzNlM0xaS2w3cVptSzc0ZnV0U0lxa3FtV3I1NmFuL1lsaFpo?=
+ =?utf-8?B?QkMyK2RJOFJ6a0VHbUZsWHZhMmRsUUxpRW85UXNWN0F4bGR1Qm8xemlDSWR3?=
+ =?utf-8?B?dVM4ZkxoUjQ2ekdrUW1rb29jaFkxUlZNUk9LQUplb0gxM05zdDZzTHNVeWpG?=
+ =?utf-8?B?SUF0djN0cVJMRXVTYmpqWjhWYWxDUlVBNnNPS3V2T1VQdFBxQUZFdkFaYWRW?=
+ =?utf-8?B?RkJ3aVhRbU1XY2lxU2VhWlUzcUdPcDN5cmdEdWFiL2dLZm43OFJ3TkJIMzlo?=
+ =?utf-8?B?a0RlQ2h2ZitORHZzRHBobzIwTnlGTzM5NGF1VDhXNXRwR2RMb2I0b09zaDV6?=
+ =?utf-8?B?SGJXOU5oSmVvZ29LemlXM3NVOHBXWkgxUjFTM1BjcHd6bnQ5a3Fyb0J6Yi93?=
+ =?utf-8?B?K2h3RDVObXozdjZCbVFHY25UTGgrSVZ4WmlmRjlUaW02SnFPVDM5dHpuYWph?=
+ =?utf-8?B?V0NLa09LOXNPWWZYT2JLMTd6bkttVzlmb1BLRDVNcTVVM3RzT05MN3ZWejIz?=
+ =?utf-8?B?UFBmRnIwdGZPV09Hd1FQOXlOTU9Vb2JNWXZJN1lweDZncUx1R3JmTlFQRENQ?=
+ =?utf-8?B?bW9paGZFQUlDODNCQkRhTDBOZ0RGYXhCMkJzTjdkSlYyRFUwWTNrVXFnNDlt?=
+ =?utf-8?B?UVZOSm1jdG1jOGlTaGZIL1hRcFhGcktJdGNJaWF4TTAxTldYSDV3Vk0yVDB3?=
+ =?utf-8?B?amMyeWcyZzVpd2gycmJuaUFmTDB0RFZQaEFmNnhVQmNyT2QzUVU3SWlCcnh4?=
+ =?utf-8?B?VmdkWHJJYkN6dk1Jdk5rYVV6cm9RVmdOMXFRWGpubVd5VTZBZ2RHblo4Uktz?=
+ =?utf-8?B?U2pqbFc2SmlWaWk2QUF0a1E0T1N0dE1UanJWYUgrL3BaVW5jaXdtTXBaUzBp?=
+ =?utf-8?B?c3YzNVJXSTRFWHBiVk9EdHFKcTJOdmpoTUk5aWJSSUY2TEVzUGZPVVljWnp3?=
+ =?utf-8?B?RGY3eHFwenk3U1lqSFh4M21COFhMeFRjaStoLzFhdUJTeXNnUVpVUzBZNVMy?=
+ =?utf-8?B?Wmo3bHBWSjNSdnBmRmxLNjA4akZOWEJjSmM5eG05LzNIQjVIbjJQdi9vTitK?=
+ =?utf-8?B?OU1ZRzlqdVhRM2oxWUJydVRSNVM0RUpsMURBWE5LVXhSZ3JIUlpJQVRwbEIr?=
+ =?utf-8?B?VER5QjNqQWxUcXBDZ3dOZ3dYWGVmYnBVVEZHbWt3cmpzY3NmV2hwSXgyUHQ2?=
+ =?utf-8?B?QkFuWFcxSWpoZkdBZUFDaytrQ0U1cWdqUEk0d01sYTlSYVNzempoNnoxWXox?=
+ =?utf-8?B?ait1NWJLendhdmR0RExpb2ZXQWNEV044QUI1dUNMQlhidDNFRVlGV0QrbEpm?=
+ =?utf-8?B?cjFYSDZISjUvNDhmbWE2bjFzWEp3OENiZlo0d0tkV1ViUVJDLzBiVkhPOVlB?=
+ =?utf-8?B?MHdCcDBsR1dZQ3IvaDNBTjFBYm1HSCtaUnh1UHFuMjBqRmJNR2doVHlXZEtS?=
+ =?utf-8?B?emNIVXpManpJN00wSnF6YVJ3Z1dpa0R5NVphTFZjOTZQSjBkdzlqb2ptUUV5?=
+ =?utf-8?B?bDFwYmNiODlvYktTMm1LTWdINjdVeTNhdkxnMXR5NURJT2pzbzRhNUZjMTdF?=
+ =?utf-8?B?UUY3YW5vQTRJRFByU2F1QXdmc2Y0aFN2bUdZT1JYcXA0YU9qRWFNYWYrZFFq?=
+ =?utf-8?B?SUhZM0pWYUN6QjNLemsya2JUd1VvUFgxL2dFS2Mxb2lQbjN6Nk10QVBsSXNj?=
+ =?utf-8?B?d25GOGtJaytOdUJEaURNNzNkRWRRVU9RUDVmditwTnA0NFdSVGVwSjhjODFC?=
+ =?utf-8?B?aVowZG51OWU2eVU1Z2prUFp4TE1tbnVqeGlLTlZHM3R0b1FPNzFyYVBkWTlp?=
+ =?utf-8?B?QmVIQllMRUVYeU9WbWZZQ3p6QU5zN0VTbU9MSCtiT3llOHA2V3Z5dXlIc3Ji?=
+ =?utf-8?B?b2NBbzVsVmE5TnV4c29hb3ZjVll2aFhocjNTWGFhazF0T0ZNQ1dSV1BoWTBq?=
+ =?utf-8?B?cTY5M0J5NTZ0bUhaelVrN2wrU1hON2Y3b2p3NWIySG1USkw1Wk53c3g2Tlhl?=
+ =?utf-8?B?ZEtqTFJ1aUl2dUE1RG9BME1mQVMrQW96N3lTSkwyMnJ3OCtEMG1iRlZIMGNh?=
+ =?utf-8?B?R1JlemJkellTOGZlTVkwVWJRWVhZQVpDOTcyQklLV1hwYkljNEFUTzBJTGVM?=
+ =?utf-8?B?U0g4U0FNZC9aVFZtbHVqcFMxbWtPS3lYbWUyOElMVFJqNzVacDlNYlFzQ1dt?=
+ =?utf-8?Q?zmWcj6iu8zsgLTIBR9?=
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 298d6687-9b6f-459c-f084-08df448db1bd
+X-MS-Exchange-CrossTenant-AuthSource: VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:32:27.4431
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cs4/1PPfSfdIE0rVLqofWVHJ7SsyeVA6Pbb3QyvEc9rnlJrmkz1/0ksNRI2GoWzu/1Y0J6+1VpYkGTcD9afgiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0P195MB2840
 
-Guard mutex lock at the top of lpg_pwm_get_state(), to make the
-register read atomic against the register write in lpg_pwm_apply().
+Am 13.11.26 um 17:32 schrieb Frank Li:
+> On Fri, Nov 13, 2026 at 05:00:05PM +0100, Benjamin Hahn wrote:
+>
+> subject Add overlay for som temperature sensors and ...
+>
+>> Add overlays for SoM temperature sensors and M.2 Key-E WIFI/BT cards
+>> that need the nxp,88w8987-bt compatible in devicetree (tested on
+>> IW611/IW612).
+>>
+>> Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
+>> ---
+>>   arch/arm64/boot/dts/freescale/Makefile             |  9 ++++++++
+>>   .../imx95-phyflex-fpsc-g-som-temperature.dtso      | 23 +++++++++++++++++++++
+>>   .../imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso | 24 ++++++++++++++++++++++
+> which is independ, suggest use two patches to do that.
+Will do
+>
+>>   3 files changed, 56 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+>> index 4eb7508193e7..17b357f4886a 100644
+>> --- a/arch/arm64/boot/dts/freescale/Makefile
+>> +++ b/arch/arm64/boot/dts/freescale/Makefile
+>> @@ -739,7 +739,16 @@ imx95-19x19-evk-pcie1-ep-dtbs += imx95-19x19-evk.dtb imx-pcie1-ep.dtbo
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-pcie0-ep.dtb imx95-19x19-evk-pcie1-ep.dtb
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-libra-rdk-fpsc.dtb
+>>
+>> +imx95-phyflex-fpsc-g-som-temperature-dtbs := \
+>> +			  imx95-phyflex-libra-rdk.dtb \
+>> +			  imx95-phyflex-fpsc-g-som-temperature.dtbo
+>> +imx95-phyflex-libra-rdk-bluetooth-88w8987-dtbs := \
+>> +			  imx95-phyflex-libra-rdk.dtb \
+>> +			  imx95-phyflex-libra-rdk-bluetooth-88w8987.dtbo
+>> +
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-libra-rdk.dtb
+>> +dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-fpsc-g-som-temperature.dtb
+>> +dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-libra-rdk-bluetooth-88w8987.dtb
+>>
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-verdin-evk.dtb
+>>
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso
+>> new file mode 100644
+>> index 000000000000..84afe1ff9f06
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso
+>> @@ -0,0 +1,23 @@
+>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>> +/*
+>> + * Copyright (C) 2026 PHYTEC Messtechnik GmbH
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +&dram_sense {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&emmc_sense {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&ethphy_sense {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&pmic_sense {
+>> +	status = "okay";
+>> +};
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso
+>> new file mode 100644
+>> index 000000000000..1601e04b3940
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso
+>> @@ -0,0 +1,24 @@
+>> +// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
+>> +/*
+>> + * Copyright (C) 2026 PHYTEC Messtechnik GmbH
+>> + */
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +
+>> +&lpuart8 {
+>> +	bluetooth {
+> Can you add label for bluetooth at boards file, so this overlay can
+> reuse for other 88w8987-bt module.
+This would be technically possible, but I don't think it is the cleanest 
+solution.
+1. adding an empty bluetooth node into the base dts leads to DTBS_CHECK 
+errors:
 
-Fixes: 24e2d05d1b68 ("leds: Add driver for Qualcomm LPG")
-Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
----
- drivers/leds/rgb/leds-qcom-lpg.c | 2 ++
- 1 file changed, 2 insertions(+)
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dtb: 
+serial@426a0000 (fsl,imx95-lpuart): bluetooth: 'compatible' is a 
+required property
+         from schema $id: 
+http://devicetree.org/schemas/serial/fsl-lpuart.yaml
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dtb: 
+serial@426a0000 (fsl,imx95-lpuart): Unevaluated properties are not 
+allowed ('bluetooth', 'uart-has-rtscts' were unexpected)
+         from schema $id: 
+http://devicetree.org/schemas/serial/fsl-lpuart.yaml
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dtb: 
+serial@426a0000 (fsl,imx95-lpuart): bluetooth: 'compatible' is a 
+required property
+         from schema $id: http://devicetree.org/schemas/serial/serial.yaml
 
-diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qcom-lpg.c
-index 175b3680766f..971f92911606 100644
---- a/drivers/leds/rgb/leds-qcom-lpg.c
-+++ b/drivers/leds/rgb/leds-qcom-lpg.c
-@@ -1425,6 +1425,8 @@ static int lpg_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
- 	u16 pwm_value;
- 	int ret;
- 
-+	guard(mutex)(&lpg->lock);
-+
- 	ret = regmap_read(lpg->map, chan->base + LPG_SIZE_CLK_REG, &val);
- 	if (ret)
- 		return ret;
+2. I also think this is a bit missleading, as this UART is not used fix 
+for bluetooth on M.2 Key-E, but its default is RS232/RS485. It can be 
+switched to Key-E by the Multiplexer controlled by UART1_BT_RS_SEL GPIO.
 
--- 
-2.43.0
+The (default) state of this GPIO also needs to  be switched when 
+enabling this overlay. So this leads to the overlay not beeing generic 
+anyway.
 
+>
+>> +		compatible = "nxp,88w8987-bt";
+>> +		fw-init-baudrate = <115200>;
+>> +	};
+>> +};
+>> +
+>> +&gpio_expander1 {
+>> +	uart1_bt_rs_sel: bt-rs-hog {
+>> +		gpios = <14 GPIO_ACTIVE_HIGH>;
+>> +		gpio-hog;
+> Look like it is pinmux ref gpio-mux
+>
+> https://lore.kernel.org/imx/20261023-dxl_lcdif-v4-5-4ae8395a4b23@nxp.com/
+
+Looks like a good solution, will do.
+
+Benjamin
+
+>
+> Frank
+>> +		line-name = "UART1_BT_RS_SEL";
+>> +		output-high;
+>> +	};
+>> +};
+>>
+>> --
+>> 2.53.0
+>>
+>>
