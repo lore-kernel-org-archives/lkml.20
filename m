@@ -1,89 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905936;
-	b=yatNGwUHC7QdneqKTIV96Hs8tbkNUq2KIhQu9ELwJJq++I5XCe40e/m/lJbu6c8I8jFs
-	 66AzRrpnGDotMQL9mdG0QjDOH60C7qURGE1zHJnygRZzmdX+LnUZhTBKXhvdxVa4Uk+ZU
-	 9ffZBW/GcQomlsVHnCct7vk5YVL7MKpfP2qGQF0fdJRWy30lMNatMoZMJ3tYEaTAEQ+oA
-	 v8lEbixgF+fJRTNL0tgF+SujkWj3SyCm4Rbb3tVnN7FJ9yfqhGNHc6v0mHxpCIMUPr/xn
-	 itbSdJsN+iZj3Nc1LaRGD8QXkBjMiEC2NJOriu92vdkWmTSWg/l4N+9g8TgzE3+E8dA==
+	t=1794905949;
+	b=aFtrWLxlgCBm9QTkAdw34CcdcSwVDK7j4A3bdG2rNoR6/+M7q8AtD6T5mRP2mCXctnw0
+	 5STLHkP+CuhGPAaOdTT1IcFTSRM3wQVHFA1zeAQNzZaZyEMI2blw7mkzvrIQzzbZy+01F
+	 zQhpRMeqCPl/fR0b/lDU3c5w1BMPOgj81mXwzMAtC+z/XX5ZxmTjdSdy6QvB28aRDmgg6
+	 jDZ7hhEN2CzYnG8dWEczsaFYqK/llTXlDSsUPlP2cyOKhxOXsS5G4fqIkC170h6F6wBbj
+	 byyDjAk+1mStrgKD6MYsSTsdWUEt7Ix2O+6MDtAgusYt3Ot9lE3PnFombRkGpCnZ/Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905936;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=e41BvOyK0FOuqgQSEiVX6awwl7AS6KI0rR2za6EMRYs=;
-	b=i+RI0TzVDQ4Ih6VdIhMe4K/1JqO6faKlMF/NBCdYbtoGwOKNy0hNynTDzgtiwW4vvqZK
-	 3PdH080iGLPaoyOjn4vA8rW1NIXpHXRnPpQ4FVOOuz4ZUwIyTVrItmxrmW7Di3k6aT3xZ
-	 dkykMVmVsbQHjLuNcMiEAFGNBOjOpbvOvNLsUTQynAZ9e1qMh6dSyNZo3w6j9+Qbu5cGS
-	 PCfRvy4hJVG6sloGWz1UDLeqw+4pYHg2lHGMtN02ruO5Nir+bf2ZJWD4gyYROtG5CLpgC
-	 hN05PIOOrUFK7MTybFOm2QnK9r7e6ZTbEzuTapmBfNC8aLSJLdECQFcimnnKqBl6G/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905949;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=k6lkZWK0oA1Eo7EQbZcq2dK23BsFOFW90tKXgCMu5VY=;
+	b=eRI5twnDNzulfjz9rzR1zkxJtFakM50ESPvnvwpJVuuhB2qlgpOGi+AwMk19z4B57JhZ
+	 4crkDiCCn3OPvg/cLwCZz1f5+Lu7VJTbDCbLkorGWi2lqMb1stnafh7Y8/GHupMgwMrlm
+	 7f7jo6soZMTk3nzsZIQ4ImPiyMQOaC6GI9dOy31Clk/qBwaXdHHzckSgqmRwtLzgGxO4C
+	 Abpk8nuJfXCncvk+H4AHKArxpe0Shg5+7ELTNFDADdwdfTcQCoudm7xfSOwC48uoAHpPW
+	 dySTCsD62kQ/z/t6hBOpoJEQcVNYFsY5JQLo4KwGkWxNV4fL9A61joyE1FAFcBH4b7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=AKdZQ9v8;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iw6BSLEW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=o+SP36iv;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=W1RjdlXD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YjrKvF5L;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9901360A2624;
-	Tue, 17 Nov 2026 08:58:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9901360A2624
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD80A606A330;
+	Tue, 17 Nov 2026 08:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD80A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=AKdZQ9v8
-X-UUID: 1a1cd914e26511f1b1788b6acf885367-20261117
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=e41BvOyK0FOuqgQSEiVX6awwl7AS6KI0rR2za6EMRYs=;
-	b=AKdZQ9v8m2np9tRt9pZQPFvCrBD1EZX4HnohZ0TQjPDAIKNKT5SS4VJk+LV69zl1Bu5r+RLVzgE9SQz2ccy3sp8ZqBlGtatKEgyoOc58EJdTlTKQG68tCjVaWpp+FTuDJHQ4dKdP48qdH+PIFGjJKP8OFyYtaRP7JOpACUk+HBM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:ce845175-6877-4af0-b5e9-8873a5624970,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:ae38af19-ae4c-4a2b-b1c4-72e411efd0c9,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1a1cd914e26511f1b1788b6acf885367-20261117
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw01.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1262027214; Tue, 17 Nov 2026 16:58:48 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 17 Nov 2026 16:58:47 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 17 Nov 2026 16:58:45 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
- Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
-	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
-	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v12 07/10] media: mediatek: vcodec: add decoder compatible to support MT8189
-Date: Tue, 17 Nov 2026 16:58:30 +0800
-Message-ID: <20261117085834.1464723-8-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117085834.1464723-1-kyrie.wu@mediatek.com>
-References: <20261117085834.1464723-1-kyrie.wu@mediatek.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iw6BSLEW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=o+SP36iv;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=W1RjdlXD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YjrKvF5L
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E28601F787;
+	Tue, 17 Nov 2026 08:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794905947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k6lkZWK0oA1Eo7EQbZcq2dK23BsFOFW90tKXgCMu5VY=;
+	b=iw6BSLEWk943NuJi6LU15Y9kjK4NsXHHRZpIbdLO9o5Clq9FysQxtwUbyQmgZ5D5eu7tD/
+	QdMFl937wqjbxADo7kpUa7cbYPE0SSB1Wf6kmLywvqlqsMnxQVyGZ/w2oDAm1pKvf2HqwE
+	eoBbC+51Jgtw+BnRmJjaoAS1A2dFi1s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794905947;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k6lkZWK0oA1Eo7EQbZcq2dK23BsFOFW90tKXgCMu5VY=;
+	b=o+SP36ivUMFOzmkmo0yeCsexTB8RSj1COZhmM1TR8m5wduNR5e3EKcWHhmh64mDvvOVDo4
+	RtQZ3CsDyOmIygAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794905946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k6lkZWK0oA1Eo7EQbZcq2dK23BsFOFW90tKXgCMu5VY=;
+	b=W1RjdlXD5wRrQUBxLbEWqfF1el6HYvv1u8mDth/lWq1k8RSDs4TeTAlD1tCTQxQCXKjJOv
+	jxB4oYnNYWmovhMC2YDTmvPVtz485vzyIrcS4Oy+DNhPs/nUlOc1cqOBNTeEfjzWy7Ay3U
+	PFLAX8hFsg/yzumDHAezagQalgeXRaY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794905946;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k6lkZWK0oA1Eo7EQbZcq2dK23BsFOFW90tKXgCMu5VY=;
+	b=YjrKvF5L4+d95ab8dpNBzLyRaq/Yo7Dj0KcZKdUW0jnD08G9TK/3TBg53enCYHm6AXHg6W
+	cWQvo3xOidPcs+Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B0941334C;
+	Tue, 17 Nov 2026 08:59:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CnXSHFoX/GoPYAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 17 Nov 2026 08:59:06 +0000
+Date: Tue, 17 Nov 2026 09:59:06 +0100
+Message-ID: <87wlqbzvdx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Devin Christensen <dchristensen8@proton.me>
+Cc: tiwai@suse.de,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rafael@gexdigital.net
+Subject: Re: [PATCH 0/2] ALSA: hda/ca0132: Fix AE-5 strip color glitch and add on-card LEDs
+In-Reply-To: <20261116142542.4178770-1-dchristensen8@proton.me>
+References: <20261116140237.4137662-1-dchristensen8@proton.me>
+	<87qzgkyi5l.wl-tiwai@suse.de>
+	<20261116142542.4178770-1-dchristensen8@proton.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,78 +112,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
 
-MT8189 is pure single core architecture. Add its compatible to
-initialize platform data.
+On Mon, 16 Nov 2026 15:25:47 +0100,
+Devin Christensen wrote:
+> 
+> Split into a 2-patch series per Takashi's review:
+> 
+> - Patch 1 is a standalone fix for the external WS2812 strip color
+>   corruption glitch during rapid updates, targeted for 7.4-rc (carries
+>   the Fixes tag).
+> - Patch 2 adds ALSA card control support for the 5 on-board APA102
+>   RGB LEDs, targeted for 7.5.
+> 
+> Thanks,
+> Devin
+> 
+> Devin Christensen (2):
+>   ALSA: hda/ca0132: Fix AE-5 LED strip color corruption during animation
+>   ALSA: hda/ca0132: Add Sound BlasterX AE-5 on-card RGB LED support
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |  1 +
- .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  4 ++++
- .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 21 +++++++++++++++++++
- 3 files changed, 26 insertions(+)
+Applied both patches now.  The latter is in for-next branch.
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
-index 80cb46f1c..2bde871c0 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
-@@ -71,6 +71,7 @@ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata;
-+extern const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata;
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index b8f19c481..a052f4d95 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -540,6 +540,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
- 		.compatible = "mediatek,mt8196-vcodec-dec",
- 		.data = &mtk_vdec_8196_pdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8189-vcodec-dec",
-+		.data = &mtk_vdec_8189_pdata,
-+	},
- 	{},
- };
- 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-index 56656222d..5c9084731 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-@@ -1053,3 +1053,24 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
- 		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
-+
-+const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata = {
-+	MTK_STATELESS_DEC_DATA,
-+	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
-+	.fw_type = SCP,
-+	.fw_init = mtk_vcodec_fw_scp_init,
-+	.chip_model = 8189,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+		.prob_size = VP9_4K_PROB_BUF_SIZE,
-+	},
-+};
--- 
-2.51.0.windows.2
 
+thanks,
+
+Takashi
