@@ -1,52 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934623;
-	b=o1h/tG/l1DNvcyZ0aCoj52EjP2BnqiCJH3nhgZPHBS/oP5qfBDjHQ6Dty1R6dRZAzVi9
-	 TR4Cuiobb88StIe8UfsMmE/0DKt+NyzpAinjuUoEBR1g7EYXtQUNyN/L5FKgXTZtBSdK2
-	 ggU86ETrpN2DlX8qK0YlH5kZ2kw0J1vBTbAoy7xX+RdKrW8O5aYFBhceicLdTUK5N6ZlA
-	 5vZpFInpuapT1lh/p+noXc3jVRDhbxKIj7MG6dxzMCMIrkYpW0B9DVRnD1NOFK5Njgpuv
-	 TmRrJZ7RotFcItAOn8WyTEhBJtjle36NK/yKbzplILWMo+7OvdK9m1trnT66cGduYYA==
+	t=1794934643;
+	b=uwGxFIgxGItTL7h7zKzKejJ4/vrLLnxwkP0a7r33yAVRXXedglPzTqSE8fTaTz1z01RE
+	 m6S0U+OLC+YQg71fOF9S9S2Vn1s5MTXpLBSYBYHNHn8DZrfMs+aE2wiLxTDBQ6jzedG7R
+	 nOtgIX1Wgg7IfXntud9FaWGi3wYwOczXBTnAeecp27hkEcbUSW7gj7ALkbRkIZYfryAVA
+	 s8GuYVadQ6WU+r7JPaGbm0G8mhMZLUuHiH50tUhqnhc3j6e+OrDtQgj/PvIwyJpcuT7oU
+	 iiENG/JVRmn8MrB0L2iSRjCACuMD8VjK4RW3zN3TMDrBDCPP21te+yR/venEjTEMCDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934623;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=cqZZtnMDInWvWgjRYAOMxV6WBhlN2nkMRXYKcfds7/g=;
-	b=k3RwkwSsHucPE5SKjQhB5qojcGLB8G08voOM/76LgmUMSAFFvXVHAfCf2RVfAV3t53dU
-	 /a7yIO8rDnIBpxFf5T21ArvLV3fbTdS/uOsvfWTJRrT90eyVwVCEQBJLOU5+fZt41w3ZU
-	 Q8dXJamjr8rltlOBMGIj6RhpO/qbuVso93+sivkkNvcum+w59tamz9PNuffKi626xT6iE
-	 MyAoEjBnneBYQYglXAGXoiotNoaFRQ+spYWr5kAqCAm4sPtj8UFhhsfjuXNn62BW0Yzt1
-	 oWl91nRU9/tamKXMtb0ldKagWWzRzm7MNXfzR1sak3WZ+/+Ow75SIFJxh7cQnb26T0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934643;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=ufmv0ihdneYJGz/686P9PM+NVPVoVFx/Yd9ScCj5xII=;
+	b=nrhcxWPTCZcNlJ+RtrLPLcMNw1DgCUPLWQEDh+p1QYWEMnCN90DBJDJnHaPEjDgLr01Z
+	 LVa7Be+meyP8oO+dIDnTNBLtrLdyMnibifzmZxqG3WXK03GpQwm8ejyQlW1tT4w9If6Ig
+	 yJ0MI8Pqiab9p/KqmGh/MvThx8LJhuQsiszkSzmFd1l9WxaIwb5cxt8tCY8HxpTuewbEt
+	 pJKwOzWkBhwoDgsaaZ14MOcNeQTgcoNruWhPtADIiIQvM86Bp+i/sfUkAHAIZQkJo1Ret
+	 UhclqDJU7D1GFNLaEpPDZhwX0y9Am734HjsY8x40C0tq19KqX9bzVLsAgCjRvPKVuSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nu1WrRWK;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7AF606A31C;
-	Tue, 17 Nov 2026 16:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F7AF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <14dd237aa605bfa42d62a19047782f571618408b.camel@crapouillou.net>
-Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
- separately
-From: Paul Cercueil <paul@crapouillou.net>
-To: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org
-Cc: "H. Nikolaus Schaller" <hns@goldelico.com>, Paul Boddie
- <paul@boddie.org.uk>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann	 <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs"	
- <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"	
- <dri-devel@lists.freedesktop.org>
-Date: Tue, 17 Nov 2026 17:56:56 +0100
-In-Reply-To: <20261105203517.2293404-1-f.fainelli@gmail.com>
-References: <20261105203517.2293404-1-f.fainelli@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E011606A31C;
+	Tue, 17 Nov 2026 16:57:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E011606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nu1WrRWK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794934643; x=1826470643;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5gWosVAhJAIVh6xRABe7voxpNhWAwmAmt4iDoFdypbg=;
+  b=Nu1WrRWKnXEfG/CgFEXD6QEvRMTaOjNHmfuwLBZXESkNHg0qsrA67+TM
+   nM5ny7ZIdjlOKgAlHlDasqrCmBbJASAI0F52uniAFV5NpRXNo1Xzj4YPk
+   kuqIsQ7H0LrGz2yOCqP+CTosYJF991VGwoHRd9c2i70DVrs4NWndYBkGk
+   695u8ZdtmAHsSY5AZbFbKiJVrCKNI/0hwwdd83H+ePGn9kQotZ8LRDcMH
+   xBZjY2cE9omeJsGFsbjJ6EECL0JnByHs1xQw7JxhkECmegjMn9qGds3oI
+   zKHOfpEw02bTihpSEiu6DalWnkSNxh5qlROIQ5LZYrnoCXdAkGybO5yM4
+   Q==;
+X-CSE-ConnectionGUID: cR3prBFzQdqrLdtn/ZdotQ==
+X-CSE-MsgGUID: 3G2WTCFeT7K/Ku0KAVqd9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3705489"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3705489"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:57:22 -0800
+X-CSE-ConnectionGUID: Z8GSjn/mTjq6l+kVxzb/IQ==
+X-CSE-MsgGUID: YhXGeU4HTA2cQbVsXEWi0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9662055"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:57:17 -0800
+Date: Tue, 17 Nov 2026 18:57:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, linux-iio@vger.kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, nicolas.ferre@microchip.com,
+	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+	giorgitchankvetadze1997@gmail.com, amin.gattout@gmail.com,
+	antoniu.miclaus@analog.com, gregkh@linuxfoundation.org,
+	mripard@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] iio: adc: at91_adc: convert to device-managed
+ resources
+Message-ID: <avyHazy3LJwPSXPB@ashevche-desk.local>
+References: <20261117140510.391907-1-abdelnasserhussein11@gmail.com>
+ <20261117140510.391907-4-abdelnasserhussein11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,142 +85,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117140510.391907-4-abdelnasserhussein11@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Florian,
+On Tue, Nov 17, 2026 at 04:05:10PM +0200, Abdelnasser Hussein wrote:
+> Convert the driver to device-managed APIs so that all resources are
+> freed automatically on probe failure and on driver detach:
+> 
+>   - allocate and register the IIO triggers directly in at91_adc_probe()
+>     with devm_iio_trigger_alloc() and devm_iio_trigger_register(),
+>     dropping at91_adc_allocate_trigger(), at91_adc_trigger_init() and
+>     at91_adc_trigger_remove() along with their manual rollback paths
+>   - set up the triggered buffer with devm_iio_triggered_buffer_setup()
+>     directly in at91_adc_probe(), dropping at91_adc_buffer_init() and
+>     at91_adc_buffer_remove()
+>   - allocate the touchscreen input device with
+>     devm_input_allocate_device(), dropping at91_ts_unregister() and the
+>     manual input_free_device() error path in at91_ts_register()
+>   - register the IIO device with devm_iio_device_register()
+> 
+> at91_adc_probe() no longer needs any error unwinding labels and
+> at91_adc_remove() is removed together with the platform driver's
+> .remove callback.
 
-Le jeudi 05 novembre 2026 =C3=A0 12:35 -0800, Florian Fainelli a =C3=A9crit=
-=C2=A0:
-> The LCD controller's internal bridge is embedded in an object allocated
-> with drmm_encoder_alloc(). This initializes the encoder but leaves the
-> bridge's reference count at zero. Since drm_bridge_attach() takes a
-> reference, probing the CI20 display produces addition-on-zero and
-> underflow warnings and fails to attach the HDMI bridge chain.
->=20
-> Allocate the internal bridge with devm_drm_bridge_alloc() and register
-> it with devm_drm_bridge_add() before attaching it. Keep the encoder in a
-> separate DRM-managed allocation: encoder cleanup can drop the final
-> bridge reference before it has finished accessing the encoder. Find
-> the internal bridge through the encoder's bridge chain during mode
-> setting, and use the bridge argument directly in bridge callbacks.
->=20
-> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
-> drm_bridge_attach/detach()")
-> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+...
 
-You have a Fixes: tag but you didn't add a Cc: stable@vger.kernel.org
+> static int at91_ts_register(struct iio_dev *idev,
 
-Please re-send with the Cc.
+The pdev is not used in this function, which suggests to use 'struct device
+*dev' as a second parameter instead.
 
-Cheers,
--Paul
+Please, make that change before this one in a separate patch.
 
-> ---
-> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++-----=
----
-> =C2=A01 file changed, 21 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> index 625ec76cf04d..520912f9ed0d 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -121,16 +121,15 @@ struct ingenic_drm {
-> =C2=A0};
-> =C2=A0
-> =C2=A0struct ingenic_drm_bridge {
-> -	struct drm_encoder encoder;
-> =C2=A0	struct drm_bridge bridge, *next_bridge;
-> =C2=A0
-> =C2=A0	struct drm_bus_cfg bus_cfg;
-> =C2=A0};
-> =C2=A0
-> =C2=A0static inline struct ingenic_drm_bridge *
-> -to_ingenic_drm_bridge(struct drm_encoder *encoder)
-> +to_ingenic_drm_bridge(struct drm_bridge *bridge)
-> =C2=A0{
-> -	return container_of(encoder, struct ingenic_drm_bridge, encoder);
-> +	return container_of(bridge, struct ingenic_drm_bridge, bridge);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static inline struct ingenic_drm_private_state *
-> @@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(struc=
-t
-> drm_encoder *encoder,
-> =C2=A0{
-> =C2=A0	struct ingenic_drm *priv =3D drm_device_get_priv(encoder->dev);
-> =C2=A0	struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
-> -	struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(encoder);
-> +	struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
-> +		drm_bridge_chain_get_first_bridge(encoder);
-> +	struct ingenic_drm_bridge *bridge =3D
-> to_ingenic_drm_bridge(first_bridge);
-> =C2=A0	unsigned int cfg, rgbcfg =3D 0;
-> =C2=A0
-> =C2=A0	priv->panel_is_sharp =3D bridge->bus_cfg.flags &
-> DRM_BUS_FLAG_SHARP_SIGNALS;
-> @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridg=
-e
-> *bridge,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_encoder *encoder,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 enum drm_bridge_attach_flags flags)
-> =C2=A0{
-> -	struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(encoder);
-> +	struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
-> =C2=A0
-> =C2=A0	return drm_bridge_attach(encoder, ib->next_bridge,
-> =C2=A0				 &ib->bridge, flags);
-> @@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct
-> drm_bridge *bridge,
-> =C2=A0					=C2=A0=C2=A0 struct drm_connector_state
-> *conn_state)
-> =C2=A0{
-> =C2=A0	struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
-> -	struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge-
-> >encoder);
-> +	struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
-> =C2=A0
-> =C2=A0	ib->bus_cfg =3D bridge_state->output_bus_cfg;
-> =C2=A0
-> @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev, b=
-ool
-> has_components)
-> =C2=A0			drm_panel_put(panel);
-> =C2=A0		}
-> =C2=A0
-> -		ib =3D drmm_encoder_alloc(drm, struct ingenic_drm_bridge,
-> encoder,
-> -					NULL, DRM_MODE_ENCODER_DPI, NULL);
-> +		ib =3D devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge,
-> bridge,
-> +					=C2=A0=C2=A0 &ingenic_drm_bridge_funcs);
-> =C2=A0		if (IS_ERR(ib)) {
-> =C2=A0			ret =3D PTR_ERR(ib);
-> +			dev_err(dev, "Failed to allocate bridge: %d\n", ret);
-> +			goto err_drvdata;
-> +		}
-> +
-> +		encoder =3D drmm_plain_encoder_alloc(drm, NULL,
-> +						=C2=A0=C2=A0 DRM_MODE_ENCODER_DPI,
-> NULL);
-> +		if (IS_ERR(encoder)) {
-> +			ret =3D PTR_ERR(encoder);
-> =C2=A0			dev_err(dev, "Failed to init encoder: %d\n", ret);
-> =C2=A0			goto err_drvdata;
-> =C2=A0		}
-> =C2=A0
-> -		encoder =3D &ib->encoder;
-> =C2=A0		encoder->possible_crtcs =3D drm_crtc_mask(&priv->crtc);
-> =C2=A0
-> =C2=A0		drm_encoder_helper_add(encoder,
-> &ingenic_drm_encoder_helper_funcs);
-> =C2=A0
-> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
-> =C2=A0		ib->next_bridge =3D bridge;
-> =C2=A0
-> +		ret =3D devm_drm_bridge_add(dev, &ib->bridge);
-> +		if (ret)
-> +			goto err_drvdata;
-> +
-> =C2=A0		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
-> =C2=A0					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> =C2=A0		if (ret) {
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
