@@ -1,84 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917473;
-	b=er5aqqa3+v8GTw5GHDmvG9pzahd1wsTVD97ZVi7648BKrYHZ7UJU71WFz2vk63TTCGrl
-	 APpaJb0Q1au1zuZW5Z1KrqpJNMEauGnxqNJH27HbmP4zZYtcrYWAXkTet1cQJBfziUAHe
-	 hYLHMLlLHEw0QK98uX8qTW5Tz/5Ah2FO8WnPJGFduw9arNjvSmm8m2DaRw4uAxmoSAjIM
-	 vAS04B3JuYyQrQftWRKta/ZSbo/WFI0oIDN1ZUj+5623ByLQlxOLNKPBVXJkNj3dX1rAk
-	 ua/OG7lyaQKCllk2rttTKHM1L+X90B9ZunlNgF2kY4kvhOMVK0AUM5QH1hs+Mp/HIbg==
+	t=1794917528;
+	b=23A9LjTYDV3t/9sDkzl0mcWnKTiBTIvqsNUCFmDzApqo2FAgMB2ZpyGXQWiPsuO2b+qi
+	 g/tQL/ZxXMsD1Yoj2S+5iGtBr87v+mbSGtCSHSj0/2frsPctVd5WFroQFOUAfGYIeNv2U
+	 pGW4APVj2PrFbwVSorT5gtNVp0K9sO9TH/0U2eG7us2R5RT/byjt6BQcrChzJI/f1AiSo
+	 SfrfwQ+UatYE2WrbXAoquGDDgWYz851CLhPNueKKpxD4Ij2LOLpxummOU17cCRYvbO+ej
+	 f68J4pu7VhZbwQIEcn9GSClvwpGq37WbOMeJMa3d5iUGbfBe6AazU6M6sD2iPycfKLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917473;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To;
-	bh=cWtgHE8VVeVY+BSW9SOQbCd+UmjyRbtL0IM9idnQATQ=;
-	b=zCSV220D28+O7oneDDcUeAtzu630jOOnzlAUfMpe2pm8KkpxTTue4Aizwiq4w+syag4p
-	 O8s5pYlwaJ4gf5E9cWd/2/PwIH7rxhcbVhd+UXS74KI8A+uGVdRWDrAty/9lFGVuZhLur
-	 GoVhFeZD1VIVZ3su2m7nZ20ocUMhS1SzC9Y1aaJ34xoU3nJm6wuyR7FNyGkzm1hVtcH9b
-	 vneZ6UvpURP520qgvEwnpplCKpYaL1tnzy9AWRNwTt28SIHag9XC8x/n9dP6H/BqpaWkc
-	 uzG8d7Ucp4+sOnGFcCFcLvRODL7H3D3fIl3UH2HEJx+wl3b/vc+EgHcvkAgmo+ai3jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917528;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=lj9OagPSRJNvuPdGLWpYCPjIPPY/8eEyHeaFsrygvcA=;
+	b=MraFZQoGIuqDyh3S0Wnr/iYFzTm9onEg2pDyLkN9TI+p25dYR19bEDjnXCzDroVutVkT
+	 KheV0xQF6zr8D1PFQiWAU/xNZJCOQJiHlFBkFgWR8QRu0MWwz7NFtqeGvTegtLxD56wXf
+	 RvZHxV/pVt/vi08OkrzMRYEECo0tT+eAKBFDSniAgr0I9gnoZ75+dYWYRpTLOGWjzAl5s
+	 TW3hj2HNuDEOv6+avY7OqLn0JCOp8AoQpz18eq46taZQHRm6+Lg1dnqiS01kmSm8gNjuz
+	 JGTcMEJmAArHetfDBLVxVaVM3g4Vz3UwXi83QsR4LnIKQxa5krEgIxT1eHpRTE2d7vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=03gGhD1o;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=jlgRi2Cz;
+	arc=none smtp.remote-ip=212.77.101.9
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56728606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56728606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DC4606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:12:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1DC4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=03gGhD1o
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c50cc7540b7so368564366b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:11:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794917472; x=1795522272; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cWtgHE8VVeVY+BSW9SOQbCd+UmjyRbtL0IM9idnQATQ=;
-        b=03gGhD1oXvzdNQ6GMOGFyWvweh+BeNUIH1kjQoSj5t5WVt6fEShCorX5Ah2vxim8jl
-         HZaxxotQyQi12H9UafUZsOniourPI+skSJUdnXsxuxLgXXTgKNDvqDylE6HEaWDIL6/L
-         FYZ2ES5zcAVUbYujkR8v6B5sdVmJR7LNi+9jbHBYjytKkGzh2eVmTI2hmUlmXjMlN7aN
-         4uVGgaJb0pn1E7+Kn//5pEJi3l1fvxcASfG87z7AjBqx2uiS2WbdDl/+d1o5mro4aMv7
-         sOR9ro+k/qlVfbs9479IMojiXwNER+sdygJQwu8tMzKsAsNf231XkXmmq1u6qrDUGtgP
-         f/TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794917472; x=1795522272;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cWtgHE8VVeVY+BSW9SOQbCd+UmjyRbtL0IM9idnQATQ=;
-        b=lnFniS4qlogHDFUOT2K71DM+UBRHhfpd3DWnP69OtbgZmaH1wrS7EPfntZOIV9SMR7
-         Z28exoK7qkyyb/GP+2/H5BjTfUaGNBYeRDOnwJtNvfdWfye7QleUuoqGTjiG8i+zu1c1
-         G33CfxMRyfKD6xKEHqD+bov3VTbONJg6Eg7oM5Dn/j1ZzqmypIGIIfjgwnuhQnoBwov+
-         8pKeEGeBR/uLvyu44WeDPzI2DUWN36OSlj56TzjFvgKlzrziYHlgYXnPz1r9ujaSpz3U
-         Ot3vPRuAOrj7CtJ1RivmBgC0V/FPcjnW8YEkxHdgVE61H8lh/BTWhdE5VPtw8pyFYHsJ
-         SgmA==
-X-Gm-Message-State: APuU4Z/RZ1JltIBqRxR2KNs8uLS4cKbO6HTsg4eNT9LeA4G+7UKd6WmZ
-	wP7p/hn72KznvF6vNke++K9QICdAwM7XdBElIIyy/C+gGfYZxQtV6kAwJ6YeJwdGi2w=
-X-Gm-Gg: AYBFou0yH6MEof3ePGEfNsi/bjh9OXp0ShL+Cd3ZOnmRieYbskutXon83HlPlAQbfXF
-	WIVyvVTdvBpXQDKP1TdcTlt+C7lzfgxqPJd9yJcbhYDdkyv+ySW4wBBcHqj3+nG66L88ug5Kzxo
-	U4kCV+3DtfnLpa6Rgc1omtFa80LdqpXP95rCGIL3Y7NHpKNPER1Rg1qNFHCY+x55er9idy+9Bs5
-	6Vu4lfjtc9WzelNDOBf5NWMbdHEdNAT/964xo8qeSb772aIj3nvzQk/0Dg7bPhiR2ftOSmRIwMk
-	PitNqmEF9pu2DsDsWa3AKOUAZ7Nvecxh1b7F1kkrTgeREPU59lW6E/WO1SpjRjOOBrqUja0lVMv
-	v5k4MUr+g+62bTmmupKzhzYOStMYxPhda/0DKND5H2QxcNuMLUA1c6oBG/Qokqdp9Hm/xd8oO4a
-	quJXkeQDJJruvud3s0TOBuL9/Bivxn8Uj9Hh9s1w1Dnj4gCeWAnJ1DVCS7JTFLplRnsLqS45e75
-	VhmEazkR5UknJIU2BHevXCVTIFfsSkFIj69XVoADvq9u5kbx9HR/af4sAuQ7yiCzwto9rNyBgDa
-	PDZLYQ4qVNFT/Xy3uGFLzAk+CdgRUuLcswQZVmNBnFPbRuQ9FBzW7ut+Iis5m5du2/PajV8y5+2
-	uEpPGTKT5WgamYYQtQbs=
-X-Received: by 2002:a17:907:1b06:b0:c48:1977:e1c3 with SMTP id a640c23a62f3a-c509633f436mr1276035066b.21.1794917471802;
-        Tue, 17 Nov 2026 04:11:11 -0800 (PST)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c00fsm532002066b.3.2026.11.17.04.11.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 04:11:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=jlgRi2Cz
+Received: (wp-smtpd smtp.wp.pl 8210 invoked from network); 17 Nov 2026 13:12:05 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1794917525; bh=lj9OagPSRJNvuPdGLWpYCPjIPPY/8eEyHeaFsrygvcA=;
+          h=From:To:Cc:Subject;
+          b=jlgRi2Cz/vVIwgREakUwVS49sHWLB7aN7h7CfhjIj8hgRoJdvFDpuemdEJaaQWwiy
+           dv6H+g5JUTUe7bna0U+ZEuLGGD3ivvaHT5aYkCLA37aVE0naYwhKWc+fMGMbJqvn4n
+           OY3PoxhoDsCkSAYYOx9wcabMT+LCqb6fRUmuLcF0bgz7bhUcmZa39D2UcyEuFwKdBj
+           gnKIWHao6SFiQh4sbj97f1n7eF9nY1RfajMxe/2eXHHo4MfMt0g85h6FC4grEYgvBz
+           +MT/z8JqAEQJ7MKF8RGMb5Rb7h/bmkkGJjN+aLVkyklihZhinWd3LFhUgRN4GYKugV
+           GP2gKmLvNH+aw==
+Received: from localhost (77-236-5-223.static.play.pl [77.236.5.223])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <pmladek@suse.com>; 17 Nov 2026 13:12:05 +0100
+Date: Tue, 17 Nov 2026 13:12:04 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Petr Mladek <pmladek@suse.com>
+Cc: linux-modules@vger.kernel.org, Sami Tolvanen <samitolvanen@google.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, live-patching@vger.kernel.org,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Jordan Rome <linux@jordanrome.com>,
+	Viktor Malik <vmalik@redhat.com>, Miroslav Benes <mbenes@suse.cz>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Joe Lawrence <joe.lawrence@redhat.com>
+Subject: Re: [PATCH v2 2/2] module/kallsyms: sort function symbols and use
+ binary search
+Message-ID: <avxElFF4GY1Jhk02@wp.pl>
+References: <20260327110005.16499-1-stf_xl@wp.pl>
+ <20260327110005.16499-2-stf_xl@wp.pl>
+ <afnhidn7K7dZ_cPh@pathway.suse.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,83 +76,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 13:11:10 +0100
-Message-Id: <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
-Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <phone-devel@vger.kernel.org>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable
- remaining i2c busses
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
-In-Reply-To: <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <afnhidn7K7dZ_cPh@pathway.suse.cz>
+X-WP-MailID: 53ea68bc8316ef981b297076ee5d6f3b
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 000000A [sTNU]                               
 
-On Mon Nov 16, 2026 at 11:50 PM CET, erebion wrote:
-> Enable all i2c busses where something is connected on this phone. Add
-> comments as placeholders for which components are still missing.
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: erebion <erebion@erebion.eu>
-> ---
->  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts   | 18 ++++++++++++=
-++++++
->  1 file changed, 18 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
-b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> index b19e76b3c1a75..08647584af0ce 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> @@ -438,6 +438,13 @@ &gpi_dma1 {
->  	status =3D "okay";
->  };
-> =20
-> +&i2c0 {
-> +	clock-frequency =3D <400000>;
-> +	status =3D "okay";
+Hi
 
-If you resend, add a newline before 'status', also with i2c10
+On Tue, May 05, 2026 at 02:24:41PM +0200, Petr Mladek wrote:
+> 2. Livepatches _rely on the sorting_ of symbols in the module.
+>    The special relocation symbols might define a symbol position,
+>    see
+> 
+> 	.klp.sym.objname.symbol_name,sympos
+> 
+>    in the documentation. It defines the position of the symbol
+>    when there are more symbols of the same name, see
+>    klp_match_callback() in kernel/livepatch/core.c.
+> 
+>    I am afraid that _this patch might break_ this when it moves
+>    function symbols before non-funciton ones. I guess that
+>    the symbols of the same name will not longer be groupped.
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+Thanks for pointing this out. It took me quite a while to understand
+the issue, but I finally got it.
 
-> +
-> +	/* PN553 NFC @ 28 */
-> +};
-> +
->  &i2c8 {
->  	clock-frequency =3D <400000>;
->  	status =3D "okay";
-> @@ -455,6 +462,17 @@ touchscreen@48 {
->  	};
->  };
-> =20
-> +&i2c10 {
-> +	clock-frequency =3D <400000>;
-> +	status =3D "okay";
-> +
-> +	/* PM8008 PMIC @ 8 and 9 */
-> +	/* SMB1395 PMIC @ 34 and 35 */
-> +	/* AW882xx amplifier @ 34 */
-> +	/* Foursemi FS16xx amplifier @ 35 */
-> +	/* FSA4480 Analog Audio Switch @ 42 */
-> +};
-> +
->  &ipa {
->  	firmware-name =3D "qcom/sm6350/Sony/lena/ipa_fws.mbn";
-> =20
+> Idea: Is the shufling really important for the performance, please?
 
+One reason I wanted to shuffle the symbols was to also speed up
+name-based lookups, assuming that most lookups are for function
+symbols. Moving them to the beginning of the table reduces the
+number of entries that need to be scanned in the common case.
 
+In my benchmarks, this reduced the average time spent in
+__find_kallsyms_symbol_value() from 16 us to 6 us. 
+
+>    I would expect that binary search would have a good performance
+>    even without the shuffling. It puts aside half of the symbols in
+>    one cycle. 
+
+I'm now going with a separate sorted index table, leaving the original
+symtab untouched.
+
+I think the name lookup optimization could be revisited later by
+introducing a new function that uses the index table to search only
+text symbols, where appropriate.
+
+Regards
+Stanislaw
