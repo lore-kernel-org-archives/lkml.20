@@ -1,49 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924029;
-	b=ULq/2Eew0A9zhQMDUYNp6leKiWYE/yX6FydfwTCQwNeJgl6+A90fQSHUmKSzoMCY2bNe
-	 P9rhbRNPTrQmS6R+CxAQPGPfVRuQwRELqCsFaPA/ctUQYKqCZ2Wtge9RVgGPeSeHnaoqH
-	 e6O9zDsrNm3FIe+w5/TfAibyYF8yR7+wUKn/YNRg6Nrlipt1gviNJ5OzaCGtEQstUu9mz
-	 qYp716klOchUm5HLLIFM/PROuwagCPdYfsRqNB1qnuZOzsBkPbtOTzLfaVGKv3U7+1fdY
-	 MA7uuxUqb+mm8zTd3kI5oz5U5WdTpxxw528UN1srPaPT925gxHVNmFqNdAFxPoxMnPg==
+	t=1794924057;
+	b=CcnlTOfVVgXpp6uFiQJPod/s33uKNFos7Je6eqlbgv4I5hZXKYOHL++Z/1gxEYf8HGeL
+	 m17t56iqChHq3lUeEFG5348luhmJSTZmw4wOqnVM2aTb/njhSDUBfD9YzYrIpgM9WB4NF
+	 t/NdqI0s18MILXzG6exFy10nCEa2Ca5ar9Q7BPkbcvScPRP0PUw3IpRK1YKOK5mj4G514
+	 hF4fGO4U0r9/F+H8xVid8YyF3Y3bkCjiuEmssjxWrAaqH0TvMzwVch3co7gAF9k8JUCUn
+	 rh89cwOgul2+zO/RegHtmN/vEajlPfDeMyr07DrQctskGqBz9BuzeTETs5MxAjlBU4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924029;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=PaSpzfjLcp7igfDIyJz+8MA/pcT4rZXruabsNht94zM=;
-	b=w5e6oLhxBRX+mUt4K0GYatVHn1DJTAywrAG+yGHOqlw5KjEzmbrTzFODqFYa0hH497a6
-	 O0rfBWzqUa5MicgFmTjx0307cun1fAiqDIHtlYs9bdYkoUfkT5POgJltvIKVcVeFLWWSl
-	 K6F2ujIfOYz0WTAxNsAO1L+XySJCSr3ARjeONTkb1JF0ElVDYjqyazxEKQmLvCYsvfUso
-	 X7guQ5D18NH4LIHZp7hjadM85xy/4lMMrS0A4korur1kEQTTys7U5bgjOliS2+GZ/bJk0
-	 eDtbwXMLv8DeluUe4hY1NkmH6WwCuBfWhU3Z9TPV5b+PwxGYlQQm0ERgyDQHXFBFl0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924057;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1n4akinMU4Hf+AOUS7LX8ylkG85tkNf4WcZP+gMfH/E=;
+	b=UBUOK56ywcPU5x4uJyLdcOkcIpDdz9GnlnKLPEQRUtcfLRKFUUXh1PV33/DgBVep9aXw
+	 Y2EPMetQpaCtLX1Pq/PRfSLgkgqQlL+LlKuOueFEPh99PyxbvbN3E+dW9ieNZ40xMjQFm
+	 Js9P7pH494Y/RVUI62L8938X2TmJ/DQjCjiLdwhAeGKgMrPet30+N+cStClDnzWybh8I5
+	 hay0Sg8Dmh7rMszsL0e7xreNsRK1wUPuZbO1zWBgwlK8ggiT91YeyCMkWGwAebdri8Jei
+	 +x9gu7BHB1N2sYrcXJvvZQCt8GUOIt5Mack7k84VPAwUW5t/eR4WYk3zrjpi3/v98kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojjM4wVX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BBD606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2928C606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojjM4wVX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F8E1F000CD;
-	Tue, 17 Nov 2026 14:00:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0652B1F000CE
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924029;
-	bh=PaSpzfjLcp7igfDIyJz+8MA/pcT4rZXruabsNht94zM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ojjM4wVXpAlMLrEN7Hu87eessuJ/x7zF7MBF4cu2bozT3SheD/Rcr+UENuMH11SSk
-	 P7A8vQl/1JpQNWBekxNO/BH+wQLZxN2Y8kzw4hJe9fSnkrvNW3BiKngwy/VRsqzzSY
-	 w/Le2ftac9dSucqEQKUP3XhQMwGSImueD9cTdk1/PTMqBgN4/nU4nbpmi6guQtNLpU
-	 DqM/f7V28REpMPFCXw6kF3m8IDCZHQj+u5DtgErNCSVb/j7h2cvXDXWodErBolL5k/
-	 RLVrmIuFoQbw8xRW0t4Dm/5P7yTWIXoXPnh2NY09fy2VBsIeQCyuy0D1NesLebjGjm
-	 uk/a12o6fe9Hw==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Tue, 17 Nov 2026 16:00:21 +0200
-Subject: [PATCH v2 2/2] riscv: mm: check the valid bit in
- kernel_page_present()
+	s=k20260515; t=1794924057;
+	bh=1n4akinMU4Hf+AOUS7LX8ylkG85tkNf4WcZP+gMfH/E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=N0OEanukXS6Mm9KTxE7SL8DxyX/MI0H/vbjirpu+EOJm3uRyP10i10RM03japU4sd
+	 S8em5UDMgAqF3ZDHfpH1WJ+unNr8U4+QaoqU631+jFWK54v1LM1ZMXeiV+3S0oqAYd
+	 LCaR3EuXIefsHGzJVwgsxWlbY+u1B7zw4tZqe1Jyy984WmpJFaHWCIuqiA7guWxW+d
+	 U3r6OkBn2mbKRSCZZP28Fv37+ALd7EE9Pb39iIg1ccXfX13iaNM4AXULnC2Dfg9p4y
+	 E0Cfbhsu4NWDndPrdhr8EVT4aGUZaYTddUw3lAhPYPz0hBANOFSMBh2906frfV5dpm
+	 AYnohD2AseUuA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14f7768acso3800432e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:00:56 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE+CRggfdtrHRoenvCQ4gVXd3FJ2USQ6mcb75wIt5i+JHZNRWmZ5v7aSktD+qvsH+rwu76y8OZAFmh/4ao=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sdJ8R+k07j8njwPMEy3wixOIxGKUOdXNX1tkWjK/9JBsVBFGz
+	tWhCNjEUGlbSvGaMo8F4vT91Z5PysMi/a62n5rHjJmZbOLW7DUJnXqWGerLEFeQKTrZMD5xWPcv
+	fJp5mQljFIwc5AnfPgCkuuRjOjyRtyb0=
+X-Received: by 2002:a05:6512:3a96:b0:5c1:4e4c:359c with SMTP id
+ 2adb3069b0e04-5c1709c44cemr4959950e87.36.1794924055639; Tue, 17 Nov 2026
+ 06:00:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,65 +59,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-fixes-riscv-v2-2-5edc9bdc54fd@kernel.org>
-References: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
-In-Reply-To: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
-To: Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Paul Walmsley <pjw@kernel.org>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Jisheng Zhang <jszhang@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org
-X-Mailer: b4 0.16.1-dev
+References: <20261107012236.28069-1-prasanth.padarthi10@gmail.com> <20261109035633.93522-1-prasanth.padarthi10@gmail.com>
+In-Reply-To: <20261109035633.93522-1-prasanth.padarthi10@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 15:00:43 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmNSdgJPG_8dVKBLxN2ewvYJm99S+32SyKj_psa0DX53Q@mail.gmail.com>
+X-Gm-Features: Aa3M54pM4N8FrMarps7ie1VxRtJp-XfzSOJDJp1i6ICkP2NWqZ4utwFMO5THjsE
+Message-ID: <CAD++jLmNSdgJPG_8dVKBLxN2ewvYJm99S+32SyKj_psa0DX53Q@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: aspeed: Use managed pinctrl registration
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Cc: andrew@codeconstruct.com.au, joel@jms.id.au, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, linux-aspeed@lists.ozlabs.org, 
+	openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-set_direct_map_invalid_noflush() clears _PAGE_PRESENT, but the kernel
-mappings keep _PAGE_PROT_NONE set: it used to be _PAGE_READ and now it is
-the same bit as _PAGE_GLOBAL. pte_present() and pmd_present() still
-return true for the invalidated entry. kernel_page_present() then reports
-that an unmapped page is mapped, and hibernation copies it without
-remapping it first.
+On Mon, Nov 9, 2026 at 4:57=E2=80=AFAM Prasanth Kumar Padarthi
+<prasanth.padarthi10@gmail.com> wrote:
 
-Test _PAGE_PRESENT directly for PMD and PTE leaves.
+> The shared Aspeed probe helper registers its controller with
+> pinctrl_register(), but does not unregister it on device unbind.
+> The registration can therefore outlive device-managed data.
+>
+> Use devm_pinctrl_register() to ensure the controller is unregistered
+> during device teardown.
+>
+> Fixes: 4d3d0e4272d8 ("pinctrl: Add core support for Aspeed SoCs")
+> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+> Reviewed-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+> ---
+> Changes in v2:
+> - Add Fixes trailer.
+> - Add Reviewed-by trailer from Andrew Jeffery.
 
-Fixes: 32a0de886eb3 ("arch, mm: make kernel_page_present() always available")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- arch/riscv/mm/pageattr.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Patch applied as nonurgent fix.
 
-diff --git a/arch/riscv/mm/pageattr.c b/arch/riscv/mm/pageattr.c
-index b13811375535..5a1a3b4473c9 100644
---- a/arch/riscv/mm/pageattr.c
-+++ b/arch/riscv/mm/pageattr.c
-@@ -428,7 +428,7 @@ bool kernel_page_present(struct page *page)
- 	pgd_t *pgd;
- 	pud_t *pud;
- 	p4d_t *p4d;
--	pmd_t *pmd;
-+	pmd_t *pmd, pmdval;
- 	pte_t *pte;
- 
- 	pgd = pgd_offset_k(addr);
-@@ -450,11 +450,13 @@ bool kernel_page_present(struct page *page)
- 		return true;
- 
- 	pmd = pmd_offset(pud, addr);
--	if (!pmd_present(pmdp_get(pmd)))
-+	pmdval = pmdp_get(pmd);
-+	if (!pmd_present(pmdval))
- 		return false;
--	if (pmd_leaf(pmdp_get(pmd)))
--		return true;
-+	if (pmd_leaf(pmdval))
-+		return pmd_val(pmdval) & _PAGE_PRESENT;
- 
-+	/* pte_present() is true for PAGE_KERNEL with _PAGE_PRESENT cleared */
- 	pte = pte_offset_kernel(pmd, addr);
--	return pte_present(ptep_get(pte));
-+	return pte_val(ptep_get(pte)) & _PAGE_PRESENT;
- }
-
--- 
-2.53.0
-
+Yours,
+Linus Walleij
