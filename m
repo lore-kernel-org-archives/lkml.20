@@ -1,52 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919687;
-	b=QruwmnGUxQR3peFSdlcNj8zTmv4kLn+g8MajyHJ/+0JJGEVqMwW8+MK5aTXrteyXRm4q
-	 kx1SX9YwAq/PumKFzzAy1tbV5a+q9AlDAULBaBbJW3kcEQB3AG01uLbC7X9kq73bw3Uzx
-	 V6wsfjkofVBFpir7os4qiZDuXoEU6GiXN3PaejKp1FyCdXsuUu+qlCzmAu/99pFX25RMf
-	 PJWcOKjmFrFu9rw/d+uxtutcoBzua5tUPDteMZ4P2h50/ZZKbimQxlFmnPkVUuBP3HFVk
-	 r4wh8KxSAgwKq80t6Ck0iG8jWjDx2AP7ZtS9dPNoGgJ1Gw6Ik0DFnm/OrwGM0q5G2zA==
+	t=1794919696;
+	b=vMjqvDmAh77I2wCtMcS4GDJoCZAru3wwpgawUBxcD2JhmWOAmSAmg30bmIcj/44uAT7f
+	 fXyStFA0rEfVFj1jcxiy3phj/QCcSjON83jCIOizVwcO6IPgbjMvtNbySnJMfhYT2rZNG
+	 eRfGSVzgeG27seOrERuIaRNFdYjnTF4ResVWjVjpjstWtyXRwWQvPLS5ADwpIoAQMdAB9
+	 A2GayC2ZU/GZift/3E0RbKQ54lMq3RGg0vd0x+ar1QNJHREK15sACJMf7k0bVxaO2TH7S
+	 bc0BDEESC5m8WGy4G7/A6pNCDBubTgTNtPhVRizg5DcRcb5x3lopAXMiHqf5+JkpFuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919687;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h+LNhrt9j/b/RBbUIJw2rBJ8YAb7yE512bAtckM4qj8=;
-	b=Ie0JmaF3T0QS1hlarbB4s4VOYHddA+hLfZG1dIvQcmGv7NVpWR36oCww28BKzR77Ctqa
-	 fpqjpb6rxxWcPNVRmSij/c475+LOf3LolhDc5LdkFrNVArL5wug6LFgNmzsh3DcIXSY9y
-	 cDZPv0uMEy/QrztKELih1UAodwvLMz5s/vH6AYkRXS41Gzc6U5x0uuqPJSbfgt+wKjGza
-	 kHqa+iixoOczAYgm0D4zE9x7kyyxWH1Xm06xVjniY7HcTeY+4jNWxAZoQ/PX/UbZgKsnq
-	 4cj0tC3Vfq/I8Cg52FO1riVayBVPr9ky9pUl1V9w++/lYAUi1+apNjLiHOhLBcpOgqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919696;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=4XuDb+qxeFBFnV/6PkoMxQP9RUIi42YNBCqdf2K9N44=;
+	b=LAsSII5uPkSO4fewiEw5Rxx/xb13JAsAT0Av9/M2VZCOlEdgcqeMS/CKk5rHIhbgo++2
+	 G49gcOGAfZBxPMWKlQnw4qS9ZDrYaBeZDi32SxY6vVl79XAOgd2ybeYFVGQOfAeoa2Kt0
+	 nK8VPsNNJ4abD01V85Iut0z5CuhHBKmfod+jKOf9eqp9b0898ChYxrAza7NTVLHBjlE+a
+	 UnlFvs7Oy3GGoCymYRWrLZJXbhWZW8PB+r02Eqz1wAJ95XE2THkgQQkkv/yf7IJaZEEAm
+	 EkFNxTK+bFTZkc9FjD08hDG5So0box1Vek80Has50zc7OgVhEjMlk3u6N+XkpoGbDtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGMLG9M2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ZFIMG5VK;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C2B606A31C;
-	Tue, 17 Nov 2026 12:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73F7606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B73F7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGMLG9M2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE0B21F000C5;
-	Tue, 17 Nov 2026 12:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919686;
-	bh=h+LNhrt9j/b/RBbUIJw2rBJ8YAb7yE512bAtckM4qj8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oGMLG9M29TDqNoeM+yuPjKo5c4seh1igfIH9fgAYAGpOoHF+2aJgNXbh9vXAiyMuM
-	 AfmRvGTOA6liS3jHoUkorFO1IJDf6loVBLdA8cR1acVeSqc0RRyja8jk+rEKYaBWAJ
-	 q2wskywmb7FHcjm3j8rNDvT1xvvReG8aYtbCTCdKpdVfK7dU5h7rZiP8RL2z3T+IvC
-	 Ild3az7V+Iagp0CtQJsmhxZc2ymG/O8rm4qTA5E8+NUIrgIc6PdlSrKjsvQqrlA/X4
-	 hzEj6D0JkRX19QaRx1u48HD+eqj4wnYC2nvL3LOKeCDsPoQc46EdSB/mev/AQU/QDK
-	 rmFCD2svCgKzQ==
-Date: Tue, 17 Nov 2026 11:37:42 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, workflows@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH] btrfs: add a per-subsystem agent file
-Message-ID: <20261117093742.GC124972@unreal>
-References: <df1c1fa031ba7e66486348dc37d1a7be53c18e43.1794894953.git.wqu@suse.com>
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ZFIMG5VK
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so20566095e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:48:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794919694; x=1795524494; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4XuDb+qxeFBFnV/6PkoMxQP9RUIi42YNBCqdf2K9N44=;
+        b=ZFIMG5VKAvX8kvlqsMe23q2/ewlZ0qSBWjXneLZM7IZXcKpLY1UVzGyyarGWGJ9qRz
+         vXYxD4c6dcDZ2lQ6ZzIJmAMyZaRB2oJuT8tM3HQSi6PMGRoYWNEx9vuZfScvXqLFNuvb
+         9cdZfBIC2IW6LEV74Yy5WyOKhRL09Jpzss5W0LpDkRcTW3ydCGCv69mg0fsV18txO3sZ
+         L3pUl1JVEK9dPe2aTOOfXe49EmM3x4BRfTBM41XWVCvtHwmxhM2QZ0ZPt1BMocBOSGM+
+         TJUFNvKioo+gfuu3cI9sNqZk4pGO0//eM2A79ctu35hNPqgQgDO06enT67C19aMuqSHv
+         FNoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794919694; x=1795524494;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4XuDb+qxeFBFnV/6PkoMxQP9RUIi42YNBCqdf2K9N44=;
+        b=oNkFHYYlOhE6YU5xo3Y7tVQFkVZypdRPYXNReacTYCTwzNrbU4cKJKtiaqghMSz0Hs
+         otkbzC6mtuUZV+HqBkVCwPLir12Vwe+v0cFpmhXjLVxEljBGx+ZnQcKRYj6J68QuXSFa
+         DCyD1pIdHzoFx4ewzAz1x8gSMkHxtqGTkwhrDhLeYUe43ZL3LH1LJ6ModZeQvn83PqLb
+         xoxXOsArR0bPPAWNJ3cFNamC+OmX3nWUiJ69m/SkQRhhXkDho/Xu13nIHht8qozk8PRr
+         HCMK5p6xGK2EMx3zKZMmG45B1ClaGW2OQj0LrFKke0eoUFVlaoxGtAUyOpPmKxK1ST5M
+         thnQ==
+X-Forwarded-Encrypted: i=1; AL+hErHk8iGGNUARzIzbiBUWzpy/kFQFw54t0aFFFDtW5n9FxOMC2Rbp97xIXaTqOFzAOX1QBHkkct14xXdiPTs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bAG5S/okZrx22JjSVXMpKTmK07uTGa49EmXfawhIVYCFS8m5k
+	lpfLUfemfT+lIQRGPEy5uA/cTb9hqDZFgYx3cZ4EJofRYm+N8PGJIlvtAj/lAS00bZ8=
+X-Gm-Gg: AYBFou0Q+njRxM1JYqfGYYGj88+91SNWz7CBHXLM5ZkUnrnuf6ax3C0mI3DI/kJe1as
+	1MEQfqJweTKigmrTCxWPUEh5e+OyYVfGYSf2g5YQocRnR2TNqUhEqJmObX4pX1eSobBi/dxYR0g
+	R0f+bZhkaUaAd8RG2lAMrsZffmnUgpEZLLVxheLw9tcH689xzzApuoEL3PsMaI/rbPU1BOQMZEx
+	RbQtuJd3nHZ5c5NxJCSrjOSYnh4Fw8+lKxHsdo+fykz9NWcg3mnbxfJUyjsclVvFxNhQmFbugZ2
+	1lpJ+8RFNlaR8rhouXfGKc+/dih0klWxH7R0TwPSWfBmOrpgPZGeQ/dWZs/jEZDg2jgj5mneUmv
+	qObhd2KZBNDPTg/dPji6FMLGn93lEvPj5WebbPyCqSa8ZLDmL9HxGyi/JiX2dxDy+RBcXl6ydcM
+	1JOTdbHluarx8wp2k5DEM7qBCJPPKl8BjfbbolYXfcKxEVYNd61/HcEAgs3LvRSO9aPX3U5s+vQ
+	RiM6l9ChDL/4jWG9Mugq6n8VNsBFKVSUAbdPPxwn9Y0VqCePjdGjp+Omh/fanRoBMiokMa1F1rp
+	HTH7K9gMxn3cf8nGUxLVM2iuHz3JaElMO2XdcpAC02rgrLjpGXhFkGH0lCbNLqF0Uyu1iF9ceUx
+	kK/mPQxSt9g==
+X-Received: by 2002:a05:600c:8b82:b0:4bb:6814:738c with SMTP id 5b1f17b1804b1-4bb6814762dmr199356655e9.22.1794919693879;
+        Tue, 17 Nov 2026 04:48:13 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5f350d51sm124029135e9.4.2026.11.17.04.48.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:48:13 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v3 0/3] usb: gadget: udc: Rework when the gadget connects
+Date: Tue, 17 Nov 2026 16:48:06 +0400
+Message-Id: <20261117-udc-connect-v3-0-9413b491d213@flipper.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,188 +93,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <df1c1fa031ba7e66486348dc37d1a7be53c18e43.1794894953.git.wqu@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4X07JpuKyCe/A/jwZat1JhCWmg0h
+ H+3xYskHid5M29mgbylwE7FzDxFG2zvEshdwXR3c3cC2yZmgosKEQVMrQbdO0d6hAqJG0RtGql
+ YMgZPxr7W2uX65TCpR5rmRF50Noy9f693EfPufzkiIHCpaynKpjoIdTZPOwzk945GlttR/Npya
+ wvgYEpUiIbXpI5be1mWDwMiee34AAAA
+X-Change-ID: 20261112-udc-connect-61e0f11cf93b
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2763; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=MG7xswnJUFSiE/y0/iIlYT0Eru1GLfTlY0TVAdkhu5I=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWT98eV2/8do/2dr192c4wfd/6oI3nCxnf9cm8ktfsqeS
+ Stf3tpwtGMiC4MYF4OlmCLL3G9LbKca8c3a5eHxFWYOKxPIEGmRBgYgYGHgy03MKzXSMdIz1TbU
+ MzTSMdYxYuDiFICpVl/EyNBjzMNcdmnFPM7kecWV7e1ddVG3umfeOy1zIq2zWCs4npvhD/8Wwy/
+ vWXbfZTh6fIasvP/ZF97HLh+cr/DUevGG40xW1uwA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On Tue, Nov 17, 2026 at 04:28:18PM +1030, Qu Wenruo wrote:
-> I believe btrfs is not the most affected sub-system, but a lot of
-> newbies without common senses are doing more harm than help.
-> E.g. wasting a lot of human review time on very low value fixes, filled
-> with long paragraphs and useless test steps/results.
-> 
-> So it would be better to let those agents to stop being stupid and
-> follow the more common practices here, and hopefully those newbies can
-> build some common sense.
-> 
-> I hope the agent file is clear and short enough, that is not only
-> readable for LLMs, but also for humans who want to be long term
-> contributers.
-> 
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
-> ---
-> Reason for RFC:
-> 
-> Some practices are my personal preferences, like prefer ASCII charts
-> over long paragraphs, and short sentences/paragraphs.
+The UDC core decides whether to enable the gadget's pullup in several
+places: bind and unbind, VBUS events, usb_gadget_{de,}activate() and the
+soft_connect attribute. Each applies its own rules, and
+gadget->connected records both the pullup state and a request to connect
+later. Since commit 62911bc82b03 ("usb: gadget: udc: skip pullup() if
+already connected"), a VBUS event before bind leaves the gadget
+invisible to the host until it is rebound. That happens on every boot
+of an RK3576 board whose Type-C port controller sets the device role
+before userspace binds a configfs gadget.
 
-It looks like general descriptions to me and can fit other subsystems too.
+Patch 1 is the v1 fix, small enough for stable. Patches 2-3 implement
+Alan's scheme: the gadget connects only while a driver is bound, VBUS is
+present, the driver hasn't deactivated it and userspace hasn't
+disconnected it through soft_connect. One helper records that in
+udc->allow_connect under connect_lock and switches the pullup to match.
+The UDC starts and stops only at bind and unbind, and the deactivation
+and soft-disconnect requests are forgotten at unbind.
 
-Thanks
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Changes in v3:
+- Patch 1: collect Alan's Acked-by.
+- Squash v2 patch 3 (configfs) into patch 2 and clear the deactivation
+  inline rather than through a helper (Alan).
+- Patch 3: clear gadget->connected at unbind even if the pullup refuses
+  to switch off (Sashiko).
+- Patch 3: check the pullup state before the ->pullup operation, so that
+  a call which changes nothing succeeds (Alan).
+- Patch 3: warn when the pullup fails to switch, unless the UDC reports
+  -EOPNOTSUPP (Alan).
+- Patch 3: set udc->allow_connect inside the renamed
+  usb_udc_update_allow_connect() (Alan).
+- Patch 3: keep a soft_connect request even if the pullup fails to follow
+  it, so the next update retries it; the warning reports the failure.
+- Link to v2: https://patch.msgid.link/20261113-udc-connect-v2-0-f51b11f07eb8@flipper.net
 
-> 
-> But I guess some of btrfs developers may not even agree on my
-> preferences.
-> 
-> Thus feed back from well known btrfs developers are always appreciated.
-> ---
->  fs/btrfs/AGENTS.md | 136 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 136 insertions(+)
->  create mode 100644 fs/btrfs/AGENTS.md
-> 
-> diff --git a/fs/btrfs/AGENTS.md b/fs/btrfs/AGENTS.md
-> new file mode 100644
-> index 000000000000..d527b862d9bc
-> --- /dev/null
-> +++ b/fs/btrfs/AGENTS.md
-> @@ -0,0 +1,136 @@
-> +Btrfs patch guidelines
-> +======================
-> +
-> +These rules apply to any code, commit message or cover letter touching
-> +fs/btrfs. They come on top of the top-level AGENTS.md and
-> +Documentation/process/coding-assistants.rst.
-> +
-> +Code comments
-> +-------------
-> +
-> +* Add a comment only when the code is not obvious by itself, e.g. a locking
-> +  rule, an ordering requirement or a non-trivial reason for a workaround.
-> +* Keep it as short and simple as possible, but do not cut the reasoning a
-> +  reader needs, e.g. for locking rules or races.
-> +* Do not restate what the code does. Do not narrate the change, and do not
-> +  add comments like "fix for ..." or "new helper to ...".
-> +* Remove any comment that does not carry information, but only in the lines
-> +  being added or touched. Do not drop unrelated existing comments.
-> +* Add kernel-doc only for complex functions. Do not bother for simple helpers
-> +  whose function and parameter names are self-explaining.
-> +
-> +Commit messages and cover letters
-> +---------------------------------
-> +
-> +Human readability comes first. A reviewer should be able to understand the
-> +problem and the fix from the message.
-> +
-> +* Use short and simple sentences. One idea per sentence.
-> +* Skip filler and long background.
-> +* Prefer a small chart or call trace over a long paragraph, see "Visual aids"
-> +  below.
-> +* Drop any sentence the reviewer does not need to understand the change.
-> +* Do not use the [BUG], [CAUSE] and [FIX] section tags for simple bugs. Write
-> +  plain paragraphs instead. Keep the tags only for complex bugs, where the
-> +  symptom, the cause and the fix each need several paragraphs.
-> +* Follow the style of well-known btrfs developers:
-> +  * The subject starts with "btrfs: ", is lower case after that, and is
-> +    imperative and specific, e.g. "btrfs: fix use-after-free when ...".
-> +  * Keep lines within 75 columns. Quoted text (dmesg, error messages, stack
-> +    traces) has no limit and must not be folded.
-> +  * Check `git log -- fs/btrfs` for recent examples before drafting.
-> +
-> +Visual aids
-> +-----------
-> +
-> +Prefer anything that makes the message easier for a human to read. An ASCII
-> +chart is a good choice when it explains the problem faster than prose, e.g.:
-> +
-> +* A race. Show the race window, do not describe it in prose only.
-> +* An error handling bug in a function, seen from several call sites.
-> +* A call chain across layers, where the bug only shows on a certain path.
-> +* The order of steps in a transaction commit or a log replay.
-> +
-> +Chart rules:
-> +
-> +* Function names only, no file paths or line numbers.
-> +* Show only the functions that matter.
-> +* Describe a state or outcome with plain text under the function name.
-> +* For a race, use one column per racing context (CPU, task, endio), side by
-> +  side.
-> +
-> +Follow the style of the examples below.
-> +
-> +Example, a race:
-> +
-> +```
-> + CPU0 (endio)                       CPU1 (fsync)
-> + end_bbio_data_write()
-> + |-btrfs_folio_clear_writeback()
-> + |                                  btrfs_sync_file()
-> + |                                  |-filemap_fdatawait_range()
-> + |                                  | Returns after writeback finished
-> + |                                  |
-> + |                                  \-test_and_clear_bit(COW_WRITE_ERROR)
-> + |                                    Still 0, skips waiting
-> + \-set_bit(COW_WRITE_ERROR)
-> +   Too late.
-> +```
-> +
-> +Example, an error handling bug, from commit c9583ada8cc4. The callee cleans up
-> +on error, then the caller cleans up again:
-> +
-> +```
-> + btrfs_do_readpage()
-> + |-submit_extent_page()
-> + | \-submit_one_bio()
-> + |   \-btrfs_submit_data_bio()
-> + |     \-bio_endio()
-> + |       Calls end_page_read() and unlock_extent().
-> + |
-> + \-end_page_read() and unlock_extent()
-> +   Cleaned up again, the subpage reader count underflows.
-> +```
-> +
-> +Versioned patches
-> +-----------------
-> +
-> +* Always provide the full history, not only the changes of the last version.
-> +* List every version, newest first, e.g.:
-> +
-> +  ```
-> +  v3:
-> +  - Rename the helper to xxx()
-> +  - Add a missing lock in yyy()
-> +
-> +  v2:
-> +  - Fix the build failure on 32-bit
-> +  ```
-> +
-> +* Put the history in the cover letter, or after the "---" line for a single
-> +  patch. Do not put it in the commit message body.
-> +* For a series, keep the cover letter history complete. For a patch changed
-> +  in a later version, also keep that patch's own history after its "---" line.
-> +
-> +Sashiko review
-> +--------------
-> +
-> +Sashiko posts AI-generated review for patches sent to the mailing list. The
-> +btrfs list is at https://sashiko.dev/#/?list=org.kernel.vger.linux-btrfs
-> +
-> +* The submitter should check Sashiko for bug reports on the posted patches.
-> +* If a report is valid, address it in a newer version.
-> +* If a report is wrong, it can be ignored. A reply on the mailing list only
-> +  makes sense when the report is complex or the reason is not obvious.
-> +
-> +Testing steps
-> +-------------
-> +
-> +* For minor and simple bugs, there is no need to add any testing steps. This
-> +  applies to the commit message and to the text after the "---" line.
-> +* A minor bug is one that does not affect normal use cases, e.g. an
-> +  unlikely error path, a corner case that needs fault injection, a tracepoint
-> +  or a debug-only problem.
-> +* Testing steps are only appropriate for a complex bug that can be hit in
-> +  normal use or have a deep impact, and also when they help the reviewer to
-> +  reproduce it.
-> -- 
-> 2.56.0
-> 
-> 
+Changes in v2:
+- Add patches 2-4, reworking the connection control as Alan suggested.
+- Link to v1: https://patch.msgid.link/20261112-udc-connect-v1-1-03c73259642b@flipper.net
+
+---
+Alexey Charkov (3):
+      usb: gadget: udc: Clear a pending connection when starting the UDC
+      usb: gadget: udc: Forget a deactivation when the gadget driver unbinds
+      usb: gadget: udc: Decide on connecting in one place
+
+ drivers/usb/gadget/configfs.c |   1 -
+ drivers/usb/gadget/udc/core.c | 214 ++++++++++++++++++++++++------------------
+ include/linux/usb/gadget.h    |   4 +-
+ 3 files changed, 123 insertions(+), 96 deletions(-)
+---
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
+change-id: 20261112-udc-connect-61e0f11cf93b
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
+
