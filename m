@@ -1,56 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884997;
-	b=LnHofjv7l8jQjPS2kVRTNySp0B0N0YUCuMspypGma6mX7+ZZKY/lOr4nY+JE3uwCiRMg
-	 /4MpIKWPsu9clNZKe5hffrFUhUlggSnieCfVoGr1xx2j0V1UkyVHMonsqjWIsMd7FV7BV
-	 3tDj7wCvnk2Z8sImlY4Tk2m5flUaThAw5gdg6XvQUu6nX7AExOw1FDLxSt1CszazcS70N
-	 BOpEKZAFfG2diplQNj8MYWsk9KeO9i4pFEEZydcL3iM6RSgv9s7OI+IEBgX/k/g/4Sn7J
-	 FYNtxnMBihd6FArPGwnu3Su5MrM3Odj8DkFhcjYnwd4o7zs5CtplwJApB6rq45le9Gg==
+	t=1794885064;
+	b=z3dMCQ/MdxLpBlCIbTMqz9rQ12jwSlU+uN6kx+UtJXcKXzMMIXppQ6lepJYD4pjkQdxQ
+	 jl/GthcyiIzZb5cKchsCScll43BGlarTxeY18m8rqrsaWv/8Wr6x9+pOwNa3Z9AsYwwk5
+	 Fk8lMdoNIn92Cz8Kyit3LgphSjI3uP0sWq3u59dhHAl1T8bhWCMnv7NrKkKoKDKGfPa6h
+	 ZnUDpSxIDGx2CbOMdMp8ng7LUZ1LVcwaV81uWL73vZMrj6BhqDdqEtdLe/JiYVs7lforq
+	 uS/7sphGTE3byPG07MWMCZc8HJKH3fGBSdeJnIaMB3O6HCLy1W6V2BenYNJJruHnoNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884997;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885064;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=qkZnkw+5zBWFqI5K5yP+g+0eLto2V0Whflqb3Y7dqZI=;
-	b=3TnOp5GgFlK4QZom+CebIVeq6xxCz+Z6aud2EqvE+sRrSsdA9kAmu0I82Da5uuDJi/2L
-	 3Ce+rihFRlz6g096HotAyIBQ7e5lg7OrRLrkizIHh35VC/u+dkIM0C/9S3RdiJ+jFh5Kd
-	 RZGlJ2Ncy87ebzWkrUwOyxQB3eHuS2mO9xH5HS4c2ej6g5tbE4z0FMprMnyptaY2JDzBO
-	 6xEaRqTK2InszbyDLurNORQRbdz7F+D2YXF1PWSKJEEfnwoL00nuN32Fg/dC3cyPkwSn2
-	 ihewa6Qb0i7U6q7S4vTZTUsOTpWWTUAM+pL6ZQ69VaxaWlbB5Lg5OZqdPaoD+OK1Pxw==
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dSfXqLyo1DSgUCjb2gDQy+lRJPX2i3GEqXsEkxQ7JxM=;
+	b=p8dlzkU/k0tAqQNd1H+W7HX4lV/sEroDFWpujd/Bu1vs/Hr4vYqwGEzjownR82F1br0L
+	 3NcatngQysdOZOgURY63frTqT23Slu16VyPIEpGGWSgIgeGTSycOoNgGOTXolYB8gTsLZ
+	 GhHJXek2CEx9bnYDludaJ2FHDbB9odJFCSPN2k4SAtBTjA0KKlT06QQbGL9YHUZvks4QY
+	 9iuiENLDAFTZXStJB0L26jqINrMhzuG59nMEfkkF+2X2eouACU6Mw1hS7MAft7130Nlan
+	 u4oRqK9rG3KvyEvplo1we55wI2QPZkkvK9i2CwACL2TS4G/FvGRRUQTfZljVWcVeb8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n9NFT5pV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lHIhEXoT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1FB1E606A31C;
-	Tue, 17 Nov 2026 03:09:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FC4606A31C;
+	Tue, 17 Nov 2026 03:11:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n9NFT5pV
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6BE111F000C4;
-	Tue, 17 Nov 2026 03:09:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lHIhEXoT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1D21F000C4;
+	Tue, 17 Nov 2026 03:11:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794884997;
-	bh=qkZnkw+5zBWFqI5K5yP+g+0eLto2V0Whflqb3Y7dqZI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n9NFT5pVuRPCUM8ib39qQwpY7mzfKcZ46mlEWErdcHO0bs7rSNK1+TZ/kEfuKsSCz
-	 XvyccbJCcH/Uw3ekVoI1M84wEoaUyjV6OX7LuWD8Vs60HZAKT5SIsULUkn5SayonqZ
-	 vAAfot9T7AZk76I7eVvlVlHqgGXTMK92HPPSgoj113hRYUdGDVos0Z3vm8tdmIBVqF
-	 zShWMvhrmxkMWePQ7qSc2bcjbTI4W5eHxy4bVCmEoeC+JO22uZmanBQG9euci1QzAu
-	 2HpO+TxfsPPwNEJ67fo4Y6WYqpQWiwWnb6iGDw1k2RDsIGUa5aYvGQxtq1YiPssI3G
-	 B9uODPGyz/Kuw==
-Date: Tue, 17 Nov 2026 05:09:53 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: William =?utf-8?Q?Chuang=2C_Founder_=E2=80=93?= Logarcheon <founder@logarcheon.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] lib/asn1_decoder: add KUnit test suite
-Message-ID: <avvFgRqiYnBo9Q7c@kernel.org>
-References: <20261117001711.47722-1-founder@logarcheon.com>
- <avuumVbCS2YQi4cv@kernel.org>
- <wzMUBnLl6Z2s-eoaXFHCl92wV6voRbr7imPSy9hdJzHqoxg3869_lCqHtMa3G5N3H0G9XfrGCW9Nzw0Vm0HCJhvNKkTUtUFDXuM7S821AIU=@logarcheon.com>
+	s=k20260515; t=1794885064;
+	bh=dSfXqLyo1DSgUCjb2gDQy+lRJPX2i3GEqXsEkxQ7JxM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lHIhEXoTXimq2mntEZ8HmrSDDjnodkHPryB6SWInk6OUSwzyX2kI0mDvaKIsH3P33
+	 noZIUv6Z+HRkp7ynMEcIjFu530tLeuEt+Hlqk1kB5Ukjm2EzpHSSFFeOEq0UQcq015
+	 19GO8nsQQ1ZddSa4kzWhmElX7gqx3ufkLIoWo4Zlxe++8Kr1POyMF28eeQ5WY+fsRX
+	 Ako7KvZG8cNOahLRWcCS+4WGpxn03H4RRkP8lcS22fXyJOG0bF3leds3nKVytsLvCI
+	 lxP+XBqD/kdG7mXwDMgysBMvB3LlsXSfbnU9ThxSbltsNpm1GM01+qX+yUb0C1Rjsd
+	 oFY8AjiZyQiCA==
+Date: Tue, 17 Nov 2026 03:10:57 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Patrick Fischer via B4 Relay
+ <devnull+admin.tsv-stahl-riesa.de@kernel.org>, admin@tsv-stahl-riesa.de,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>, Svyatoslav Ryhel
+ <clamor95@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: light: Add Capella CM3217 ambient light
+ sensor driver
+Message-ID: <20261117031057.58cb5e7e@jic23-hlaptop>
+In-Reply-To: <avrLkP1IR449AwLy@ashevche-desk.local>
+References: <20261113-upstream-iio-cm3217-v3-0-c4d5b2485dff@tsv-stahl-riesa.de>
+	<20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
+	<20261114012906.6f66edce@jic23-hlaptop>
+	<avrLkP1IR449AwLy@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,30 +70,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <wzMUBnLl6Z2s-eoaXFHCl92wV6voRbr7imPSy9hdJzHqoxg3869_lCqHtMa3G5N3H0G9XfrGCW9Nzw0Vm0HCJhvNKkTUtUFDXuM7S821AIU=@logarcheon.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 02:39:37AM +0000, William Chuang, Founder – Logarcheon wrote:
-> Fair questions.
-> 
-> Why at all: asn1_ber_decoder() parses untrusted ASN.1 BER/DER input. X.509 certificates (keyrings) and PKCS#7 signatures (module signing) both go through it, and it has had a length-validation bug of this kind before — CVE-2016-0758, in asn1_find_indefinite_length(). 
-> Scope: the suite checks that malformed and truncated input is rejected rather than over-read, in the cases it exercises. It does not reproduce that CVE or prove the decoder memory-safe. That it isn’t vacuous: I weakened one bounds check in asn1_decoder.c to allow a short over-read. asn1_test_truncated_content then fails its return-value check — the decoder accepts a truncated SEQUENCE (returns 0 instead of -EBADMSG). The other 12 cases pass; reverting restores 13/13.
-> 
-> Why KUnit: it exercises the in-kernel decoder directly, with no
-> userspace harness, and the cases can also run under KASAN/UBSAN
-> (verified in my config). It is deterministic and is not built into production kernels.
-> 
-> Why in-kernel: the coverage travels with the code. An out-of-tree test does not run when someone changes lib/asn1_decoder.c.
-> 
-> I agree the maintenance has to be justified by the coverage. If the current cases are too thin to carry, I’m happy to strengthen or narrow them on your feedback.
-> 
-> Thanks,
-> William
+On Mon, 16 Nov 2026 11:23:28 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-I'd start by learning to use the email client properly at first:
+> On Sat, Nov 14, 2026 at 01:29:06AM +0000, Jonathan Cameron wrote:
+> > On Fri, 13 Nov 2026 20:59:00 +0100
+> > Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:  
+> 
+> ...
+> 
+> > > +static int cm3217_probe(struct i2c_client *client)
+> > > +{
+> > > +	struct device *dev = &client->dev;
+> > > +	struct cm3217_data *data;
+> > > +	struct iio_dev *indio_dev;
+> > > +	u16 addr_lsb = CM3217_ADDR_CMD2_LSB;
+> > > +	u32 reg[2];
+> > > +	u8 cmd1, cmd2;  
+> 
+> Keep reversed xmas tree order.
+> 
+> > > +	int ret;
+> > > +
+> > > +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> > > +	if (!indio_dev)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	data = iio_priv(indio_dev);
+> > > +	data->client = client;
+> > > +	i2c_set_clientdata(client, indio_dev);
+> > > +
+> > > +	ret = devm_mutex_init(dev, &data->lock);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	ret = devm_regulator_get_enable(dev, "vdd");
+> > > +	if (ret)
+> > > +		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
+> > > +
+> > > +	/* Without a firmware node (e.g. sysfs new_device) use the fixed one */  
+> > 
+> > I'd rather we handled that explicitly.
+> > 
+> > 	if (dev_fwmode(dev))
+> > 
+> > That way we can return an error if there is firmware but it's broken.  
+> 
+> I think here we want
+> 
+> 	if (device_property_present()) {
+> 		...
+> 	} else {
+> 		addr_lsb = CM3217_ADDR_CMD2_LSB;
+> 	}
+> 
+> I really discourage people to check for FW node presence with dev_fwnode(dev).
+> This is a corner case which is in most cases needs better granularity (like
+> distinguishing the fwnode by type). But in general ideally it has not to be
+> used at all.
+I agree though in this particular case a property presence check doesn't
+solve the same gap.  The intent was to pick up on the driver having been
+force loaded without firmware.  Normally we'd just fail that given it
+looks like it needs firmware. In practice it doesn't as the address this
+give is always one greater than the device address.
 
-https://docs.kernel.org/process/email-clients.html
+Thinking more on that, just don't read it from firmware at all.  It's
+fine that the binding wants to describe it, but we don't have to ask
+the firmware when we know the answer.
 
-Br, Jarkko
+Jonathan
+
+> 
+> > > +	if (!device_property_read_u32_array(dev, "reg", reg, ARRAY_SIZE(reg)))
+> > > +		addr_lsb = reg[1];  
+> 
+
