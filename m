@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912777;
-	b=kG6jcSEgUucnVTbVnQ3rYdshlMf7tvwqpVDTYgqAWMIneJ1EKb/PZHSp9XKntf00tWvy
-	 3POmieAwR02J4+g9kYVAsnE0ftMnEyUq7MgClNsvPjnZKM7UVamWMedwIgbBlonpVxRgE
-	 SaCZd0nXSOVW4jG9boJznH+f4kMIN0D+SPJ8ohcWeJtIPR0AYiAqyVTCDIf3+rJ21iZ+X
-	 23mVi2Qm2oGDHJJhEw3CskBZu1Jos98RSIgrON8k6H7DudZseAfh7pXGwrZafoqS4jBCS
-	 UiViOhwzwAit9fWxjoFL0tpgj/gqrvSA7DLnVb1DW+YxOFlTGJpwx4If7vCE6tyk7Bw==
+	t=1794912807;
+	b=5CYzZaK38bBv3Z0KxppJPHkDL1dlCsG46suOfid12Sx22f1a+FD+Mn5Dm+VQQ/ZF9JLS
+	 apdvIF5xiFlwQDysqCZQDsHICpxsRPUo5wKLHGMdUXkWfV2RTmO9hWuHCqR+NlIQNTb45
+	 WUjgAx9gMXNHGnsG/fSSMckx+asReunzHtj1Rw2XLxFVyvyit+xJ2r8h9AhyniPiWmMaY
+	 R8Hih4lrzwbbTykLGKc/+iTiVu88je8o4UBsxZ0yXFTvWflrh80VOg37LSpsvAN0gy1m4
+	 FkRfv2LLphakI0RH/raG5xIVVk9jkipa0TiDYAJx+dWIieyF5BA2eEKHb6vcJU7Po/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912777;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=U//Xc7wQnBNeFqSmWxuVmyQ7HhIYW6oU1E2DERMBTRc=;
-	b=ZnCAsiapVppc6O8W6QgRuQyNr2N2hgz+FciUHH4kW0PoGMH5plCZb9kpRufAMxuPF2Nk
-	 d4KKi9t/ZeyPEIP5FLIK6cgg12bBRcms/QocqxTN69CSkhuq9QF/uKvCWqWPD9xT5hSeQ
-	 41EVej2m3lbOVTqSZ7oMdrkFD6EEI7EUqeXhElEBRP8S4TtnDJSxK3F0BPXAEKD7fb3lA
-	 d1XwwaFP17aY0fqi/t5BnMkal4QK4i6n6/L8mlquGnLlXOZyf7I9CrO3P2OmGio8+aGXA
-	 EH5W2YeRsioQpm1lIb88p27uudPlRzgKtOV191bfKrmGqqcpXTpBHvIl/zd3+OPlKhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912807;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=HAGt6qzxx+w+fhbni5wKqfd6ztTkFtnAu2zDI7HIbt0=;
+	b=MrA+evZhw55EKk0zWQI6A1MeyTAYK51nUrv5HpMkSxpecsTBGjO+V/5lT6zwqr6DuV9a
+	 T9v9yaRAheiI78JR2yqEUQT2RFfnLdWX9R/oI+MMCFJjoBd994hBKXaZGzqhg9Gfz8vvL
+	 2Qp7CtDQ6nVUJdMEKM+lArYqH/ZdT+C7jgZbjfcQEWJiy09S1kGoHVakwwNefGs0H/EB9
+	 3HXREGPm9YBX/0PrcorwGUGJfbqAZxnIBByIZtAH/ku+7iR4axV2KyIXR82jiod+tshqI
+	 +GhJO1pivwe4joJxQR6rzedXfLPJpmu4WdbpfA7UUsFUAbS+BVwjyCqnx+evf437Ewg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AaMpjxlC;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MO0yzEhJ;
+	arc=none smtp.remote-ip=91.218.175.75
+Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96885606A329;
-	Tue, 17 Nov 2026 10:52:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96885606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8104E606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:53:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8104E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AaMpjxlC
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 09B4D1A15A6;
-	Tue, 17 Nov 2026 10:52:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D0E685FC81;
-	Tue, 17 Nov 2026 10:52:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5144511BC025C;
-	Tue, 17 Nov 2026 11:52:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794912770; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=U//Xc7wQnBNeFqSmWxuVmyQ7HhIYW6oU1E2DERMBTRc=;
-	b=AaMpjxlCrG0Nxm6JW6+aUy1lNJcIazaoHWqew5HkLnRb78Nb8+PrNvxKLZZ/OFc8HGTEZe
-	KebpDhZo7zp4hThzzhNkyb8RMfsO8sopd95p/8Vo2XASOIUYj6qb1LvvlP3TWPy0H6LDv4
-	4YVGXM6/MVWe0dLqYCTy1Hee1zRw5y7bYGnBwG1aw3Qk1aT6z5zDtwBuG5y3MqhqmYCUem
-	PLfm6PrbBqhjTNqFwholRhSvJw4RkVlv8l4cl8r6qmpkjToPWHLfGHzVm7G7FDnPJ2CIJn
-	iySpgFGVQBtnPURZieb8JNuEtFsrXJwpRzrnRXnqmf/pfcI+I9J3tjxbwUld8A==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org,  David Lechner <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,  Andy Shevchenko
- <andy@kernel.org>,
-  linux-kernel@vger.kernel.org,  Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH] iio: adc: max1027: complete the EOC wait when using an
- external trigger
-In-Reply-To: <20261115204551.2783884-1-jic23@kernel.org> (Jonathan Cameron's
-	message of "Sun, 15 Nov 2026 20:45:51 +0000")
-References: <20261115204551.2783884-1-jic23@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 17 Nov 2026 11:52:46 +0100
-Message-ID: <874idfn30h.fsf@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MO0yzEhJ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=T7WRqNFtG9jzZZ1hVnlsHUAqoqC/MPMVJHymMdDaapM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794912803; v=1; x=1795517603;
+ b=MO0yzEhJ7/LWnxZ/7Ww87e7kVdgPkwAV9gDuFa77F/Rpq0SJnhsozzN7jEsMQKDs8KgkiqSl
+ InQDxbk2sQIvKRMVOuO14iaDDS/cnK060dCpoxSvwa+PNLpQbyAt25nw8IKHOtcwbGbAcIIxxw+
+ iPiq62PRL/nnhC3fcgkXeirM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 121bdd006f390358;
+	Tue, 17 Nov 2026 10:53:23 +0000
+X-Mizu-Trace-ID: 121bdd006f390358
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Subject: [PATCH 0/2] mm/memfd: drop stale hugetlb allocation mask handling
+Date: Tue, 17 Nov 2026 18:53:10 +0800
+Message-Id: <20261117-for-memfd-v1-0-fa68f433171e@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,83 +60,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wpAQBRG4VfRvjZlK6O8ilww8w9bOTSDlLy7w
+ eVXq3VRgBcEqpKLPA4JsswRnCZkhnbuocRGU57lmplL5RavJkzOKjDrsoB10AXFfvVwcn6vuvk
+ d9m6E2d4B3fcDm4pbRG0AAAA=
+X-Change-ID: 20261117-for-memfd-e11675edfe65
+To: Hugh Dickins <hughd@google.com>, David Hildenbrand <david@kernel.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>
+Cc: hongfu.li@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Hongfu Li <lihongfu@kylinos.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794912797; l=1020;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=T7WRqNFtG9jzZZ1hVnlsHUAqoqC/MPMVJHymMdDaapM=;
+ b=SdohuePMWv/Fij6EOUmEMZdDwQm3KeZxjCEuyeJepEbiEekLkdPRPqAhplP1BCkZLJz7FN2gw
+ Aq7B479uToQDnLz556nkhs9zxJxDHu4sHUJjnFWBVciFCef7B7qU/c/
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-Hi Jonathan,
+The hugetlb allocation mask computed in memfd_alloc_folio() no longer has
+an effect. The call site only dequeues folios from the hugetlb pool, so
+the mask selects neither a zone nor a migratetype any more. Remove it,
+along with the gfp_mask argument it feeds into
+alloc_hugetlb_folio_reserve().
 
-On 15/11/2026 at 20:45:51 GMT, Jonathan Cameron <jic23@kernel.org> wrote:
+Patch 1 drops the redundant narrowing. Patch 2 drops the gfp_mask
+argument of alloc_hugetlb_folio_reserve(), whose only caller passes
+exactly htlb_alloc_mask(h), and derives that mask inside the helper
+instead.
 
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->
-> When an external trigger is in use, max1027_trigger_handler() starts the
-> conversion and then waits in max1027_wait_eoc() for the end of conversion
-> interrupt to complete(&st->complete). However max1027_handler() only
-> completes it when the buffer is disabled. With the buffer enabled it
-> instead polls the current trigger, which is the external trigger
-> that is still being handled, so the poll does nothing,
-> the wait times out and every sample fails with -ETIMEDOUT.
->
-> Complete the wait when the buffer is enabled but the device's own
-> trigger is not in use, as the comment above the check already
-> describes.
->
-> Fixes: 075d3280b4a1 ("iio: adc: max1027: Allow all kind of triggers to be=
- used")
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->
-> ---
->
-> The comment clearly states that we should just complete for
-> triggers other than the one provided by this device, but the
-> code doesn't do this. Ideal would be if someone has the part and
-> can test this.
+---
+Hongfu Li (2):
+      mm/memfd: drop redundant hugetlb allocation mask narrowing
+      mm/hugetlb: remove the gfp_mask argument from alloc_hugetlb_folio_reserve()
 
-I no longer have an easy way to run that code, but looking at it 5 years
-later, I agree with your description of the problem as well as your
-solution.
+ include/linux/hugetlb.h |  4 ++--
+ mm/hugetlb.c            |  3 ++-
+ mm/memfd.c              | 14 +-------------
+ 3 files changed, 5 insertions(+), 16 deletions(-)
+---
+base-commit: 0bce4c3c7589a80b09a4f21fcb41811cca5153a1
+change-id: 20261117-for-memfd-e11675edfe65
 
-> LLM spotted the issue whilst doing some other cleanup and
-> prepared the patch.
->
-> I think the reason this got past testing was that the code was
-> fixed to actually return an error on timeout whereas a bug
-> previously meant it always dropped through and carried on.
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
-Ah, right, intersting, I guess you talk about
-2021ef060900 ("iio: adc: max1027: fix error code in max1027_wait_eoc()")
-
-> ---
->  drivers/iio/adc/max1027.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/iio/adc/max1027.c b/drivers/iio/adc/max1027.c
-> index d475cc91108d..65a0e85faca9 100644
-> --- a/drivers/iio/adc/max1027.c
-> +++ b/drivers/iio/adc/max1027.c
-> @@ -478,7 +478,7 @@ static irqreturn_t max1027_handler(int irq, void *pri=
-vate)
->  	 * with another device. The core will then call the relevant handler to
->  	 * perform the data processing step.
->  	 */
-> -	if (!iio_buffer_enabled(indio_dev))
-> +	if (!iio_buffer_enabled(indio_dev) || !iio_trigger_using_own(indio_dev))
->  		complete(&st->complete);
->  	else
->  		iio_trigger_poll(st->trig);
-
-In case you want to make it closer to what other drivers do, you may
-invert the condition to simplify the reading:
-
-	if (iio_buffer_enabled(indio_dev) && iio_trigger_using_own(indio_dev))
-  		iio_trigger_poll(st->trig);
-  	else
-  		complete(&st->complete);
-
-Regardless of that change,
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
