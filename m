@@ -1,106 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936395;
-	b=qP+g+ARLYWxABSJvzAXBbglLtUDHgp5e70Or/IrsDDEOfEXlfUm1Krmblrjf87pDRUxT
-	 wPq6xUTex1TFHGhlnoKMD2lrl7Azu74K6B7zBG8sG++tEvi5wz5HAMIvyV22sKOnewAMZ
-	 G0CbPJ3fOn+rLZWo5y5V5U6NLMNr7upsjXmBH6DHD+WBeCp8N5aXzjVYg++KDFpxG7b2X
-	 DHBPAWK1vZL++XN+12NNsdzIn1bSdtfUvzDjqaEAPHEV4q0OZbohGsKWb7IjZ7qD9Tpyl
-	 xAv3+DT+Q4vRkHhwWEXDR56wNN0xSvvFE8kx+5hbj+I1kxY6Qyonpgmb5MoxP/hPF/w==
+	t=1794936405;
+	b=0b30gHzTfJwyRMTPHyu+IKTjUeYOwUBaavGvKU6bWXn5CHb8hlxC/PhfHGlHxzzo2MPL
+	 s916vUFbqykUogSqy7E+w2bfBpDGkCJ/d+2OfTBYPRkkqxyiqoPemEbMfbJxKfbdoo1t1
+	 huPNTeb+hBIhP2ueuB3qw0SYVDqYBIBLU4H7SI6i9gMI8e6zdtFx+c2eplp3ENYP2Z1oW
+	 xRYgNZqTqkx3U0oNlOrz/q0JX4P898UVymZOP9/I65EwY+f/UaNXg25mTELKedZRVfh+o
+	 QrBdYwLBji4axqIB5sRT0brrMjgnrCOjtCt0FH6CXlg8+zIZInRe4ZGgM2kwemGmGHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936395;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ilc5G8/+9aQdYBwvZEflFTD39tX1L4K1WEy9bWOEMNM=;
-	b=kKhDNonyiA1untUozr9EN6O/7btaFCJOXwspOQ3sJdNvu7d25wdAnkJhPLCXBTd/bxvW
-	 9+lQKo4TpL+34FRSQQtDftrmFyFpuLNc47HXeq//dECQmYmZL2uK68wPAXCqIVuBf1rDO
-	 C2za7ILFoVA0yvEeaYW8l7tI2IVfBAucb+uyEMWUd08s5AibmKHus7ee5ioMR7BVPxezs
-	 TnB7m3wO0tt8zwySoKEEy0tW4j7InsUKK2Tar3C3y7lLUNFQ3f1KI+FbJF6a9UMCAfvRv
-	 igrmDJgb17X42TUe1nFBf68H//pV1wzu8dT5vg0lZFXq8vMXR59JkI8IKcBe9v/Jqkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936405;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=7/xM8ng4BTtJfUJk0C8WxQ5t81uZNbz1ZRbT3JWX2V8=;
+	b=sZukyrW9T0Jy9l1134uXQomYeisQXvdVqW1zY8jdL1py0AZrFR9Sla5RdWjswcdageuz
+	 Dr0afH4tZfC/I6OTzHjlenP9qsKdLg62tkdASHxcfLms8w1ovvJR8ONY/EmSD/4Lysxjf
+	 QS2SNLtdKnNqXQq6ywmPpSuNUslrcXLKs8zNvqkgmvmeEFGraIvKvXX0hRtF03fvQFFfq
+	 ISuPJ6e8Ua0742uenHCEKeL2Tp5TKoUdFYYfsYgb4CULIGpo/MsVxKstPyowsXRY327bm
+	 ZcUuqz7BUS/FEweCnJx24Awdz5c2FxSQMtk3FK4GIWivArAqdeYrFuXSOpSyakJ0WFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B80da3Sk;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8TIAsJD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462D8606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:26:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 462D8606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B11606A31C;
+	Tue, 17 Nov 2026 17:26:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B80da3Sk
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-37198ed3727so1423191eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:26:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936394; x=1795541194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ilc5G8/+9aQdYBwvZEflFTD39tX1L4K1WEy9bWOEMNM=;
-        b=B80da3SkgBI11VadNDdAFufDegu8m3LbosxJ910Pb03+r/lraAIaeoWVSAyTuAKbU2
-         /XWZf2yp0sgkjPdPjoEhhXBcw6eU+x9qN4PbpyqMlPcydZM0g6kAvK1LrS5diujAmtIw
-         L/1aN6JoRkr22C+na+CwR4sI1dHML/+YZROfBtqQmD7+YuoDAd9fLAFTJqncqpcva6/U
-         HMIdo4hI3KL3ALTOIUAdiTVTIy9dG3OAw6FTMW6hoJY/DKISbzvV569JB2VJR8tiAz8g
-         rmDIebT1J3lhY9JQ1awTQ578oy6Ns2qnbPF4FQ0HlLzO7zq6l6xUQwlev9MXenEYi2Gm
-         Q6kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936394; x=1795541194;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ilc5G8/+9aQdYBwvZEflFTD39tX1L4K1WEy9bWOEMNM=;
-        b=rKeGNPGChUQf+6MGi4tW1a73bGvHGzEZtFlAuw9ND4IvQQW+N7GfUu27nTjh1QeJ7r
-         UAjU+UG3i/YWlvOjDILxXS20oM9E3p8r9oK8Z+PjlXu8kNdbjA0MoyNsanletdjDjYv5
-         soumHOB1FMQM7dFXKdTP04kf8Op08XmTq2dR2BgrMiqKjnv2LaGdLAxHSTGGFGUDsE69
-         naIq22a0gsNp0hw+gbahZwPqKVsVqyucI0BJCDCKVk6qfutDgBpVxVH50h4F1oeb7+pe
-         N7c7U7ir3Jv36hXzjE8XPn9YLo3QUnyzpm7bg26IHoF4wa/C26naGp7zRIba3+dkmZ/m
-         2T/Q==
-X-Forwarded-Encrypted: i=1; AL+hErHTtciVKQx6tkJIcghMbYHG4xdWTpR78sYeI9eXxrDrvvyyB7ai7OU9SgpPtK0n+qSr+v3/Vbvh95R2TTE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gFWBvo8o7Se0xxWE3xSlDZ9RkmLWWT4cJyKANqOBlBqIED2lV
-	04e1lsP7TsxKsPSo6gKGuQPg/tLc02U17OgmPTPzLpWTgrVIasSIWe/Y
-X-Gm-Gg: AYBFou0guh51E+Bp4KEpw2N/jngDM/fJuwzLTlgHUfhX15XHHUd1I9omjfB6EzsbIJm
-	kNWdVGAapHBkuMuBhoHwaPQOGgG2+mlA7rfT9uY8vnrFDY0nPx78K8JEjqRY68+gDGsQwg3trEP
-	glqv/YK/bYS+Ed8yIJa+ET0OG4uoJqgmGCHfV6HYIsZwFRZVVbPqDKmQyOVtlkxY7Yw4LEd6WqO
-	DF7Hz8M38S3VayTNU9KwF56nvji0xskvC9LQbEPyh77WxQjfmnQk37jp529+AIDiilAp+iJLrro
-	TO5YFzyB+RIrVZKO8EaV4wwUbrt42+4IAWCSHurbbEgle2WBWBDxlZsUzowoVhE+IDGkVnCHVs2
-	ldJa3sfdV2ZIMBC/F3wXN+t7IPrKth1oo4Jg4z9IElwVODNsn2m5XZtAdlVkYA81n0xD371rTG8
-	hJVVVvuRrKqq8yDDZQcTG0pDzZxArrCJeTX02keIn1h4dTyW/Hdj4p20eYd2AFjYpikL9/oMl01
-	XNXDsfMzjLqmA3XuBKVoVxObm5uoXcPpyRe8V7W+mpvcTM4IQU34A3rhLD4lYzF0Ev/XZxKIj13
-	O2vNF/iCrmy1hp40zRpKa5NiA5yQF4jWw+gv2ejYo/qw/Q3k+bcp66pqEqXJrwnx5ke03XH/LOo
-	XLjxnSzoxZ3lVgw46nWWgDapWrMu+3TBHOXEW09GRFtkB1UhnIry2sX5OsViLcRavyyJI9uP4Ew
-	mkKMbiYlfEN6OAOCTfhkT2LD7Q52u4766eRL1LsegYN9FEAhtkei6LH0U7uNPBYSE=
-X-Received: by 2002:a05:701a:cc90:20b0:1b5:32d6:6784 with SMTP id a92af1059eb24-1b53a470058mr2566794c88.20.1794936394335;
-        Tue, 17 Nov 2026 09:26:34 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm14263079c88.0.2026.11.17.09.26.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:26:33 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Gwendal Grignou <gwendal@chromium.org>,
-	Daniel Campello <campello@chromium.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v3 2/2] MAINTAINERS: add a reviewer entry for the Semtech SX9xxx proximity drivers
-Date: Tue, 17 Nov 2026 22:56:09 +0530
-Message-ID: <20261117172612.25535-3-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117172612.25535-1-kapoorarnav43@gmail.com>
-References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8TIAsJD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFF91F000C5;
+	Tue, 17 Nov 2026 17:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794936405;
+	bh=7/xM8ng4BTtJfUJk0C8WxQ5t81uZNbz1ZRbT3JWX2V8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=h8TIAsJDmw0YovpOgJEA2hayV84DfiMWsJmMTXkjUPwaBiqJNnMWPhooucFfOfkiI
+	 vEA8gZOdS8LFWs7n/VwA/DZ3p4J5b24OsMR3Fpp6tlCcJH8xCh/TAJH6ZE92LQq2xT
+	 eTbeg0lmz2/NGRxhLcaCyUXUjqDcjdfYYQR4MbCPY2aCumyID7ADIyg8BZ82H5Sg+D
+	 Rpyr6IkRTiqhYWdEsX1BVU9ztlX8O9cTgIgUKSvUNT65vV1IMIH7qgIxXIwwtnYi6V
+	 +dsHpAdBC2sZSOzBzlSmXZmGzUS02dMd2VeAbJOe92Rg/JVxbEbj/qw9mqTjCkK93x
+	 MoQmHhq21cv5A==
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar.Mukunda@amd.com, suso <gmsuso@gmail.com>
+Cc: jaehoon1744@dankook.ac.kr, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261112204325.4696-1-gmsuso@gmail.com>
+References: <20261112204325.4696-1-gmsuso@gmail.com>
+Subject: Re: [PATCH] ASoC: amd: acp: Add ACP70 ACPI flag override for LG
+ gram 16U55U
+Message-Id: <179492964436.77896.5360643683155636424.b4-ty@b4>
+Date: Tue, 17 Nov 2026 15:34:04 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,41 +59,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=xHp3Hn/2QsvrqS2qd0YjJXyB6pukp+Js8NVca/2QTpA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+9AVFK35UiAt+xKC05iqXU9urvyzPWhzaS4+4Pepem
+ /ZmkvmUjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEwksZnhf1BM0773+1u+vuzh
+ L0jcm6V6bdG90293vvH64v++cVGTnRUjQ7v0r26ROTye75VF8haLLoneuLXM4fSGLqH6Nz/af+i
+ E8gMA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-The Semtech SX9310, SX9324, SX9360 and SX9500 proximity sensor drivers
-and the shared sx_common code have no MAINTAINERS entry, so
-get_maintainer.pl only lists the IIO maintainers and reviewers for them.
+On Thu, 12 Nov 2026 21:43:25 +0100, suso wrote:
+> ASoC: amd: acp: Add ACP70 ACPI flag override for LG gram 16U55U
 
-Add an entry with me as reviewer. There is no M: or L: line: the IIO
-subsystem entry already covers these files, so maintenance and the
-mailing list come from there.
+Applied to
 
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0017755f593b..f1fd14dfa448 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25448,6 +25448,14 @@ F:	include/uapi/linux/selinux_netlink.h
- F:	scripts/selinux/
- F:	security/selinux/
- 
-+SEMTECH SX9XXX PROXIMITY SENSOR DRIVERS
-+R:	Arnav Kapoor <kapoorarnav43@gmail.com>
-+F:	drivers/iio/proximity/sx9310.c
-+F:	drivers/iio/proximity/sx9324.c
-+F:	drivers/iio/proximity/sx9360.c
-+F:	drivers/iio/proximity/sx9500.c
-+F:	drivers/iio/proximity/sx_common.*
-+
- SENSABLE PHANTOM
- M:	Jiri Slaby <jirislaby@kernel.org>
- S:	Maintained
--- 
-2.53.0
+Thanks!
+
+[1/1] ASoC: amd: acp: Add ACP70 ACPI flag override for LG gram 16U55U
+      https://git.kernel.org/broonie/sound/c/674605f05e0c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
