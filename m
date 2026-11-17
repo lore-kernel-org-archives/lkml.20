@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879860;
-	b=omOTQc95g8Bv/dx70Gv+3M3ME1pKAO0ah00n8dPamPftZSw2QyXKGOJfmo1yVEs8GA04
-	 XYVehGZViGoZY34xS6049Ej+HjptPwpw3rLbfdDU1BQEqlJyBTSCEb68r+Dp/zVjBZR3q
-	 C5QqJiwhSwXLDCE278A7C9lpQgiSI33Y64hYe6VQIjjDyLa5I2xAMcanFGj3MJGcHo+EY
-	 baVIcf+26UBaA6xOeSRCaScRjazdCDB4U781BodXs0snwtAHAIGurFpQRGJUD1rmMAnt1
-	 FUrkAabtvP9CQT7eKz2j5cg0IgSKCTIW5rvQqr9whkr8HBXz6d2PLpJI+yOAGODT+7Q==
+	t=1794879948;
+	b=aCH8F+g1YktyBH17Bree3Z68aPCqsai/ijzuy8lVf99URE0lBN+Vg4qFKdjJMXJGVAmt
+	 RKDawyp6Ui6ByPPbLvsmVRcqm7KZ1uJtKg1J4I9fy6+cJZFc9gYiC+vtkuYZ59cLaxDDR
+	 SiUF+BnkxAr9eo0ek7trXxNA6OpgETVfKxBdrqBkltDG03zJhl189lbE3HaEPzOmXwAP4
+	 e9bGUOAT+D9H/9uiHddDHqU7KpIpxc3RJ190J8TOmJxrBCbsoUI37c1jbH64mU9rORe3a
+	 z0eSXDuM3DgKjk8PQo0EoEHZ4CBVjrlhXKoDUvGzPFVPPMT/2kS6rEd1zuDXDvPiihw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879860;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=yVWHC5K23Yhcew1l+apNuZkuTR0KSgVD8dUt51rQE2A=;
-	b=EZoFFJvxbx6euF2mntGQ09coqwRqFRyEh3T9sSqHYeJ4xIGeBrqelOrkEYtEgy7HWLl1
-	 BAWYFbMsVSKT3OuCkWignNAoEbQiMwLeyPLkOH6svFdOU/ZVswQAmm6zjInJddrAcRtzh
-	 6CUFrGOrXda5cQOWpnp0AxAYmphuOoTDchK4KCfAwnZ3v8oGrNEK3lnCehR/4IdoNAUSz
-	 xly3usl19ehKZFOhPnvx9V0O8MVJ0U0Hoq2BQZh3mTPt7Ms3eVeQoAZ9KbL6gSyxYehOa
-	 NzZupWTAGM1D32ElMiYbdTcLHUOJ+dSfyv+smhW4W1RtThknfQNnZ50dnJYCMGRuorQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879948;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=7qaJ3fe2dzUyKG37n67fAn3WUGgV3mPgfZlrc2dCXdo=;
+	b=3ENI3FosNLcubFmAiCUuN5uiU2dz2BkmKxBqGsY/Gm21BIZrrnAEdwsBLIja0eHM5Zzx
+	 xceCJ8aPEdoBwbiJC9Z+9TzyyoTTF13uShXjvLf5kI+xDLQLqF60RF97eE2MfOtkLxj/P
+	 bFnzGQRY4DN7YGn/Td673HFTGzgtyCHeok3twr1iaOAqX+zrCSjk0KfTOWKsLOJzlKjNr
+	 WbEuL52+94ypnrNed8Fj5y+Bw9OA6Czf1fMtOzs0CYzzl9MWMHRpGfxU6R3tb0cvMcoo3
+	 GuU8ep6YEMIO5CaO9t/1UCApM8HW3/asTyDSVJFpMK6FmIm697LrfnEJX/ZKUzCeo3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NNmrYTu8;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=LFobUxar;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69CB606A31C;
-	Tue, 17 Nov 2026 01:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E69CB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B353606A31C;
+	Tue, 17 Nov 2026 01:45:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B353606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NNmrYTu8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=yVWHC5K23Yhcew1l+apNuZkuTR0KSgVD8dUt51rQE2A=; b=NNmrYTu8x4z5+/iGn/sd0w4VTG
-	FxLD3aWGB51FyflhetWzT2mzXSzkq1eO0Dxz0+gyPuaBOddtkQKGZ6u5RC8DWF8bQtsJjklYBAHFO
-	87Wt1Ld968TSdq7Q8Emm2LmuvcRuod9MFpB34YH5JGnA+oFTCjufr0QSvBiLPIKij2GQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xT8Er-00H31c-44; Tue, 17 Nov 2026 02:44:01 +0100
-Date: Tue, 17 Nov 2026 02:44:01 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Piergiorgio Beruto <piergiorgio.beruto@gmail.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	Jerry Ray <jerry.ray@microchip.com>,
-	Ciprian Regus <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next v11 10/14] net: ethernet: onsemi: s2500: Add
- driver support for S2500
-Message-ID: <b98d498e-0574-4a6d-913b-739896b0065a@lunn.ch>
-References: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
- <20261113-s2500-mac-phy-support-v11-10-7a186141952c@onsemi.com>
- <CH0PR02MB7867CE1D45CBC874F8E5FE2E837C2@CH0PR02MB7867.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=LFobUxar
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH1jh6833950700, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794879943; bh=7qaJ3fe2dzUyKG37n67fAn3WUGgV3mPgfZlrc2dCXdo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=LFobUxarcaKiNOZ2LkXmCRB3/2mZ3nbYS1G2bZ16zKbbBQil8QhWEdGx0o4pV3ZB6
+	 OsRvkINcd9hDLtehk97eNCiyHOceWWlkQLZHftGGSIkkNGMA8ob1CtinJj++zXwjaj
+	 kO/Hoj+Fp2b8tV3RdoMS/8tjN5i0N4TUeBqyuGR2KFjnAemEPctaeUIYTW/gznq53V
+	 Y3+biWVdQN64+ub6GHqR/wCZhCqf9OCBdt+O5aCeqaq32c60nbHrAzYCmI2IDaNz2M
+	 HCb+wbipNZcFQTHyzBcdQFzSBnGGcCwovG3tZKPuMsQn19/5RlIyyu5UfRxqWQWsy1
+	 n3bCJQD1+UuXg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH1jh6833950700
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 09:45:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 09:45:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 09:45:43 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v2 2/5] wifi: rtlwifi: rtl8192d: report no signal
+ for frames without PHY status
+Thread-Topic: [PATCH rtw-next v2 2/5] wifi: rtlwifi: rtl8192d: report no
+ signal for frames without PHY status
+Thread-Index: AQHdcOnFEmq3xrlyu06qWwzoRRcxWbcxiLsQ
+Date: Tue, 17 Nov 2026 01:45:43 +0000
+Message-ID: <54e7f43994054d8c8fb1c561d1a9d1f7@realtek.com>
+References: <20261110080143.1362021-1-hjf3108@gmail.com>
+ <20261110080143.1362021-3-hjf3108@gmail.com>
+In-Reply-To: <20261110080143.1362021-3-hjf3108@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,29 +84,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CH0PR02MB7867CE1D45CBC874F8E5FE2E837C2@CH0PR02MB7867.namprd02.prod.outlook.com>
 
-On Mon, Nov 16, 2026 at 10:34:22PM +0000, Selvamani Rajagopal wrote:
-> Andrew/Paolo,
-> 
-> I am asking this because I have a concern/question about the state of my submission.
-> 
-> I realized I messed up the title (empty subject line for the cover letter) of the recent submission. I am wondering if Sashiko review is affected due to this mess up.
-> My recent submission: https://patchwork.kernel.org/series/1210784/
-> 
-> Why I suspect is that I got couple of AI review emails from AI review two days ago. 
-> 1) As you could see, not everyone is copied. See immediately below this email.
+Ho Jie Feng <hjf3108@gmail.com> wrote:
+> Only the first frame of an A-MPDU comes with the PHY status.
+> This makes mac80211 report the correct value when queried from iw.
+>=20
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 
-There are two different bots. The bot you got a reply from is the
-general kernel bot. It does odd things with email addresses, and it is
-not as good as the netdev specific bot, it has more false positives
-etc. Hence we generally ignore it.
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-The netdev bot will reply to everybody. It is also deliberately
-slower, to stop developers throwing patches at it as fast as they can,
-without engaging human brain, and burning through other peoples
-tokens.
 
-	Andrew
