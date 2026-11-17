@@ -1,67 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794899222;
-	b=qaw1jm8E//MBIeicBJf2jrfoO+d08O6sIlhS0D2jTPOhuixfIKgIBLKZXTB9hRt9hDuC
-	 /YI8qSnk8a4H3AjSRxjEJ7wa8o7T4YAqOSuS8wxe3rwan0FdOdsk5K3SSxg4l2NsNaetX
-	 AjmDPE379MG0USWHC8E9UEUZy63zS2aoLEk5hy/oApbQdcAmbPUU8iWPMGLqm6YajP75E
-	 bLSiXyz3vxqa9gWeX2HrRGcVlTF7ZehA5k4lMWlclHQR3GTgyYBqj683qq6WzV+ncpHUl
-	 zWo8sRQmK/AuOIgZsGsMuwWM7Lin6+h716FtYyiBKzo3G7u1MYIG+AexcUGwVjNtRNA==
+	b=f1KZmNbFRjDYmNmJeaF1XBjUH4iAPCWj2sAg//7vQ8CwTA7hAgb+s9KpeEJv3nYUljdF
+	 TWnqPhCPmLRknEsAmtDjHl7wFSbWmoAtaMtuwjrGxVo+hgCbGPsNQ5rLz13a3AVl+JZaQ
+	 tTYKhhmXKweFiRact+m0jQwQN4Gzbx7ilSdqZP1PfvQ0dmTFB3MJhfRm4R4VeGyGNqCpo
+	 kR8xhQeZIFKpsPqkszzUoAoHjfI9+Xtwq629bjDd7sGx3clZfpKrBg6gTg0kethNgAfsu
+	 PELflAGMTdEuKmxSgrb48BgS+tqEwlaLp3okh/DHoABbvkRoQG2BJwsbynjbaYeDKsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794899222;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9XHNTvsxvTs29hz6BcMFjPlN/wv+sbJF4QuCIXu6oQQ=;
-	b=F4SNDIk56oeAiBiZaqbXeEyx8S7rgid8pZUbMRyNHt/RYhdoKNy013mqksGk/mEKJ52V
-	 t0B8FdsYxnTXGL90NrlbHUADkC9U0QoMeZImF9Es3TSfgE0bkp7BI+QsiX4yRycOBF81r
-	 PbxKFPSL9osbJhhQITgVonogsUmjGaQryRllaXrYdfTJwRhj97MDkPAYEAkE7N4+xParU
-	 rVosbf2/szg5sugcU9ny9Ln3F8q2eU3EyxOAfctKhrMi2pWoOIyMEhitnOxJJmwHYd5sA
-	 i3yvsVt0PMLS/pwAHVdYzz936YwYK5JDrraDPNjhrPNzaCYe+7ox7TsVIkxfnzJdp7g==
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=nACrQh/lUVEXvo7aMroISkZXlxFvhkHh8kUoWLWdwD8=;
+	b=1YvZPb/jcCXDyf/ARWLugDMrclmswtHtAM+HebVbsagqHBBwRD0Sx3iMD9OwmWrw6bSK
+	 3J6QSVsD1Sr06aG5kq4u6hEEFjaaoAxBLfVkzrzZlnaoKAwTlKpynSAFvdp74bOFTrVuR
+	 RD6qi8SwQYtsA8cYghNFJuClb9wsm7dK6JtBIp4Mn14N8cERJKFmMF2Rem0gZaal+WkZ+
+	 U4MgHU8PNbkMxgZboJxKh0Onbvt4PrrGlG0Fp75gwYEAUCOFenorxCYtqsFCgrRS3JISW
+	 6p/3KOH9hbaImz3xWH5njHgVZiDYBMvAYwinjKJeyzb2C9rCPO3sv3CNt9qsES0oj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vW35PPri;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8A500606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:07:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A500606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pudUAiSd;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BBB606A885
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8BBB606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vW35PPri
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 07FBD1BD0;
-	Mon, 16 Nov 2026 23:06:58 -0800 (PST)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3DC053F763;
-	Mon, 16 Nov 2026 23:07:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794899221; bh=hn3PA/FHiJccaTPVEin+J5IcUo1zFJdOxKnT8wtz+xI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=vW35PPriYm7NahrJU5oPMNGIRSEKeVAmNAUxuWBxWFPUWYAMtihBpIg3yzJaKagb/
-	 hQM249eT2uubKC73o+LX/+Jqtjlz+53e8UAcU7O4EbNPhc3qvDh/MiH4Ru9HVaPnME
-	 I/FcwBN/1c/Y8OukF6ZX1zitFJMADP88nzkPO/5U=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pudUAiSd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=nA
+	CrQh/lUVEXvo7aMroISkZXlxFvhkHh8kUoWLWdwD8=; b=pudUAiSd5oX/OLw4ex
+	VeoK60dUDySIAPvAu7d4Sy6ZUnsWfSmEmQtodQZNRB6rzdwaIazW8R2dsRJwkGJy
+	ieb9xIqWPIB5RIjifpgZWww+nuTrNV6ArTbjTXfQXNqSkH/jUshagJbyclZj3dK5
+	hpP260TcddnNlldDXJjcI0bmA=
+Received: from 5219-2604 (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDn79ri_Ptqb6D_Hg--.51983S2;
+	Tue, 17 Nov 2026 15:06:20 +0800 (CST)
+From: Xionggui Chen <evers_chen@163.com>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	shuah@kernel.org,
+	ljs@kernel.org,
 	linux-mm@kvack.org,
-	Linu Cherian <linu.cherian@arm.com>
-Subject: [PATCH V3 10/14] arm64/mm: Add an abstraction level for tlbi_op
-Date: Tue, 17 Nov 2026 12:36:09 +0530
-Message-ID: <20261117070613.1183243-11-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117070613.1183243-1-anshuman.khandual@arm.com>
-References: <20261117070613.1183243-1-anshuman.khandual@arm.com>
+	linux-kernel@vger.kernel.org,
+	Xionggui Chen <chenxionggui@lanxincomputing.com>
+Subject: [PATCH v2] selftests/mm: handle implicit read permissions in madv_populate
+Date: Tue, 17 Nov 2026 07:06:06 +0000
+Message-ID: <20261117070606.3752-1-evers_chen@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112031811.56500-1-evers_chen@163.com>
+References: <20261112031811.56500-1-evers_chen@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,151 +67,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDn79ri_Ptqb6D_Hg--.51983S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrykWw1UXw4UKr17AFWrZrb_yoW8ZrWkpa
+	48Jw1YvF4rJF17Aa97GF1xXrZY9Fn2yF48Zw1rWr9IvwnxKFy8Xr47KayjkryktFZ5X3Z5
+	Zas8ur9Iva4DJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2_M3UUUUU=
+X-CM-SenderInfo: xhyh22pbfkv0i6rwjhhfrp/xtbC7A4UHmr7-O7iJAAA3t
 
-From: Linu Cherian <linu.cherian@arm.com>
+From: Xionggui Chen <chenxionggui@lanxincomputing.com>
 
-With FEAT_D128, a new instruction aka TLBIP is being introduced for the TLB
--by-range operations which has an argument size of 128 bit.
+The madv_populate selftest assumes that mmap(PROT_WRITE) creates a VMA
+without VM_READ and expects MADV_POPULATE_READ to fail with EINVAL.
 
-Add an abstraction level to void (*tlbi_op)(u64 arg) helpers to support the
-D128 variations when applicable.
+On RISC-V, commit 6c7559f22b6f ("riscv/mm: ensure PROT_WRITE leads to
+VM_READ | VM_WRITE") makes the kernel set VM_READ for mappings requested
+with PROT_WRITE. MADV_POPULATE_READ checks this VMA permission, so it
+succeeds and the test fails incorrectly.
 
-No functional changes are introduced with this patch.
+Adjust the expected result for RISC-V using an architecture-specific
+conditional, while preserving the existing behavior on other
+architectures.
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Linu Cherian <linu.cherian@arm.com>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+On RISC-V with Linux 7.2.0, the original test fails 1 out of 16 tests,
+while the updated test passes all 16 tests.
+
+Link: https://lore.kernel.org/20261112031811.56500-1-evers_chen@163.com
+Fixes: e5bfac53e310 ("selftests/vm: add test for MADV_POPULATE_(READ|WRITE)")
+Signed-off-by: Xionggui Chen <chenxionggui@lanxincomputing.com>
 ---
- arch/arm64/include/asm/tlbflush.h | 70 ++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 33 deletions(-)
+Changes in v2:
+- Use an architecture-specific conditional for RISC-V.
+- Remove /proc/self/maps parsing.
+- Remove the additional PROT_NONE test.
 
-diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
-index a05520d3a0131..e46bebeb230d6 100644
---- a/arch/arm64/include/asm/tlbflush.h
-+++ b/arch/arm64/include/asm/tlbflush.h
-@@ -130,49 +130,53 @@ static inline void sme_dvmsync_batch(void)
+ tools/testing/selftests/mm/madv_populate.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/tools/testing/selftests/mm/madv_populate.c b/tools/testing/selftests/mm/madv_populate.c
+index 7fce5d0b622b..fa26ca2d8cf6 100644
+--- a/tools/testing/selftests/mm/madv_populate.c
++++ b/tools/testing/selftests/mm/madv_populate.c
+@@ -81,8 +81,13 @@ static void test_prot_write(void)
+ 		ksft_exit_fail_msg("mmap failed\n");
  
- #define TLBI_TTL_UNKNOWN	INT_MAX
+ 	ret = madvise(addr, SIZE, MADV_POPULATE_READ);
++#ifdef __riscv
++	ksft_test_result(ret == 0,
++			 "MADV_POPULATE_READ with PROT_WRITE\n");
++#else
+ 	ksft_test_result(ret == -1 && errno == EINVAL,
+ 			 "MADV_POPULATE_READ with PROT_WRITE\n");
++#endif
  
--typedef void (*tlbi_op)(u64 arg);
-+typedef u64 tlbi_arg_t;
-+#define __tlbi_wrapper(op, arg)		__tlbi(op, arg)
-+#define __tlbi_user_wrapper(op, arg)	__tlbi_user(op, arg)
- 
--static __always_inline void vae1is(u64 arg)
-+typedef void (*tlbi_op)(tlbi_arg_t arg);
-+
-+static __always_inline void vae1is(tlbi_arg_t arg)
- {
--	__tlbi(vae1is, arg);
--	__tlbi_user(vae1is, arg);
-+	__tlbi_wrapper(vae1is, arg);
-+	__tlbi_user_wrapper(vae1is, arg);
- }
- 
--static __always_inline void vae2is(u64 arg)
-+static __always_inline void vae2is(tlbi_arg_t arg)
- {
--	__tlbi(vae2is, arg);
-+	__tlbi_wrapper(vae2is, arg);
- }
- 
--static __always_inline void vale1(u64 arg)
-+static __always_inline void vale1(tlbi_arg_t arg)
- {
--	__tlbi(vale1, arg);
--	__tlbi_user(vale1, arg);
-+	__tlbi_wrapper(vale1, arg);
-+	__tlbi_user_wrapper(vale1, arg);
- }
- 
--static __always_inline void vale1is(u64 arg)
-+static __always_inline void vale1is(tlbi_arg_t arg)
- {
--	__tlbi(vale1is, arg);
--	__tlbi_user(vale1is, arg);
-+	__tlbi_wrapper(vale1is, arg);
-+	__tlbi_user_wrapper(vale1is, arg);
- }
- 
--static __always_inline void vale2is(u64 arg)
-+static __always_inline void vale2is(tlbi_arg_t arg)
- {
--	__tlbi(vale2is, arg);
-+	__tlbi_wrapper(vale2is, arg);
- }
- 
--static __always_inline void vaale1is(u64 arg)
-+static __always_inline void vaale1is(tlbi_arg_t arg)
- {
--	__tlbi(vaale1is, arg);
-+	__tlbi_wrapper(vaale1is, arg);
- }
- 
--static __always_inline void ipas2e1(u64 arg)
-+static __always_inline void ipas2e1(tlbi_arg_t arg)
- {
--	__tlbi(ipas2e1, arg);
-+	__tlbi_wrapper(ipas2e1, arg);
- }
- 
--static __always_inline void ipas2e1is(u64 arg)
-+static __always_inline void ipas2e1is(tlbi_arg_t arg)
- {
--	__tlbi(ipas2e1is, arg);
-+	__tlbi_wrapper(ipas2e1is, arg);
- }
- 
- static __always_inline void __tlbi_level_asid(tlbi_op op, u64 addr, u32 level,
-@@ -447,32 +451,32 @@ static inline void arch_tlbbatch_flush(struct arch_tlbflush_unmap_batch *batch)
-  *    operations can only span an even number of pages. We save this for last to
-  *    ensure 64KB start alignment is maintained for the LPA2 case.
-  */
--static __always_inline void rvae1is(u64 arg)
-+static __always_inline void rvae1is(tlbi_arg_t arg)
- {
--	__tlbi(rvae1is, arg);
--	__tlbi_user(rvae1is, arg);
-+	__tlbi_wrapper(rvae1is, arg);
-+	__tlbi_user_wrapper(rvae1is, arg);
- }
- 
--static __always_inline void rvale1(u64 arg)
-+static __always_inline void rvale1(tlbi_arg_t arg)
- {
--	__tlbi(rvale1, arg);
--	__tlbi_user(rvale1, arg);
-+	__tlbi_wrapper(rvale1, arg);
-+	__tlbi_user_wrapper(rvale1, arg);
- }
- 
--static __always_inline void rvale1is(u64 arg)
-+static __always_inline void rvale1is(tlbi_arg_t arg)
- {
--	__tlbi(rvale1is, arg);
--	__tlbi_user(rvale1is, arg);
-+	__tlbi_wrapper(rvale1is, arg);
-+	__tlbi_user_wrapper(rvale1is, arg);
- }
- 
--static __always_inline void rvaale1is(u64 arg)
-+static __always_inline void rvaale1is(tlbi_arg_t arg)
- {
--	__tlbi(rvaale1is, arg);
-+	__tlbi_wrapper(rvaale1is, arg);
- }
- 
--static __always_inline void ripas2e1is(u64 arg)
-+static __always_inline void ripas2e1is(tlbi_arg_t arg)
- {
--	__tlbi(ripas2e1is, arg);
-+	__tlbi_wrapper(ripas2e1is, arg);
- }
- 
- static __always_inline void __tlbi_range(tlbi_op op, u64 addr,
--- 
-2.43.0
+ 	ret = madvise(addr, SIZE, MADV_POPULATE_WRITE);
+ 	ksft_test_result(!ret, "MADV_POPULATE_WRITE with PROT_WRITE\n");
 
