@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892233;
-	b=5UM9+KnQ56cKCwr4v97QbuLkrBSR1skqQ33i49zeZdw7ofc+Ee3qY92APA33ujrW1Wds
-	 HbZ7L6lr5ldrovkOzUAjHttRlRGzGFTmnh3f69PLHaeD4f9pctKVXsAHAAFGpnQ6W3afz
-	 Kxi09sBnLrXGuT133X4zJrxVx2DNycOB9l4A9K6OPWN85nxI9Wo/ZN7DDrtRdSynEZxBS
-	 Pyro6ma361qJqS/h36rQ6I15UPA8pszi61ZXEIES9EiWzeDwrbBkjugz0tvuVypivOdLW
-	 8lIfyagKokDOMAOZOmj5GeZIXk+mVSKvlNFvkIjWpN1dSDYP0jdwB3ylAVf25ezoAUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892233;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794892253;
+	b=bdQzYprgPESqlLPmfnZfvuJJWd2qkmr+JrQOBRirxy8dPlCptPJ7DyW5WQ4EVqYiUaJd
+	 edHLqeLnHVcU+E0YpyROX36SApka0f22VaKVIcZkVIvDazCVb96uaCUXTNsZ5pgRg3xxY
+	 XOjSY4cUiIzFY4h4LrKxGFQeP4Ct0UAVZxL82c17xMnLwKevoK1YL+1VCUpRJbzl8gFHj
+	 Fn5eskDD6a3pPiTUchgbf2sFKIZTguvNKQA9+XAGA5qvkjg70WB0ITGMGz6hEwEUNTDKM
+	 D0KYH/DLfauEhbzhdCEwQkPQJ/iY7C9s0HyDEhBecf7wjNrXCzHTJAD9bfGmHBquzYg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892253;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=TIi30UMnkbCM4UtGXQM9HLD1fy4eaWCJLQHah5nV8Gg=;
-	b=wqnYV7DvSdEYOOflJQKsemd7d+JZbegkNXp2Hd23sGoliiWDOm9lXHaZ4/nsuyPPrV2g
-	 5Sw8Swc/N2be8piopI290RNfPl0ZA3UdcBrF8Nnfqk8O5XvEbcTqZP2ueVMp+kmuI4E9R
-	 Xrg4Toyx9Gf33XBk5xbqZFN4zQ54d28dtmMBeGF1W0469loepHWWIN77MuOQROsyqtl1S
-	 UiaXrxzj7ijMWz4F/jHu08AooutU+HvTspB7IX3mcR0YaPuzs7gX5dxNJlc+7kM6x6uKq
-	 SC245/l8xpSH1DUVwcqdx2VDWGW/rtB6IPaDX1Rw95op/rFodUv1rcEm5Y8OQzIDYEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=np1YlEKo;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type;
+	bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
+	b=gNqGAf+OPuBBvkQMzCj7Y4D9r0azE4XW3Br8M44J6/i1r4GuP77THqZv3E0r+gDlRpm+
+	 xiQiVsNUMCJyDPNWd9iaqyXUr2bb3g5JoQZHjOEI8n9ykkb1r9x2fvx/Mb9cNoud8aAPJ
+	 CIpcRt+9GLYFqBxJ7DtA5Asd+qbmlk3hIt0+C6ii9O0pvMZy08hQ+pVbzsenEgYFn38AX
+	 tcBl8UM3WM1C0fOKQGsFH1ioWF54H5rLk6ouEesM/I6+ld6vYNeYI76xA+nVfRThD66c2
+	 EbHNPwXZBtBMF1AvnR37fAasC/3IdwNpYHX4/7kaspdvJT4h90vcT/yzdc1cLBPS4xg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7SF4Mdy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0585606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0585606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65FE606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C65FE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=np1YlEKo
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2761c69fbso494691c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:10:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7SF4Mdy
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso9426993a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:10:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794892251; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YTkzLwW58v7XcdukvzMrRc0//KwmqBvHA07OUMdHE1dS64Dt5/UHlezyTVAGnrmEMF
+         sfP7W6cyYAV93/6nZnHoOSlZxIyqSSL2rojMKutm9se6IjU8sE3GGHhfteXFLuqLepcp
+         ot46XcdgqlHX2MITPZewj/OfQ1pOvqN8RhIWsZ7O1IleaT8sAhFRChGprt9Si+M5cSbW
+         doUoRTX/i1sak0Wc/kQgAXiCDAciHKwu2k+9uW4VrG8rWQVX+3cbDWlL1AN77FlU9vHn
+         7pEhBPByemyvCUyVpwzQ/OwH1zgqj54Vz7XVmWdUWWg8G8jJJV6pPDZGGjScGEiMcnCW
+         JQZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
+        fh=ruqygnSv+EsuzcjjopSWxx0x/HeQkpeXkNNTx0rdRBg=;
+        b=S30HstIfemSRIdqKeSVp04syM7bSjRuj8qWM0Kzyd8128ROwOvFmblx8Wi1ZvpfQjH
+         Xji+uJDaGGZOqOQ8RTqdmcuQGB99Up2ZI130U9b3U65Tqra6hIDErkLSZqWUVCNBwN/n
+         b3rT4soRsqMLnLzHmdwOg1KaoZs/xprTaog960cHJimfXrPo7xUj2zlIbqF8WshaW+xa
+         oFeNu8jf+q6TE8yE5AlE3AjWrCOtcZ7Rbybk8kGlIXCGAVKeiUVczAG0yrPrbakrwnrM
+         V/1i7OlQ5wxWTsFeZGdlnFAjLdoU4vw65XUnmwy9zYBYQ411UlxDCd2n2XQYM/b/PkZH
+         T5KQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794892232; x=1795497032; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TIi30UMnkbCM4UtGXQM9HLD1fy4eaWCJLQHah5nV8Gg=;
-        b=np1YlEKoqz11tuK/UlAujFNKf0kDw59jGJP6oEJ1lgXt37/I7ZqS4ZyK70VQkMDfDB
-         uZn+fAk+F4J4RGlvTRV6kNa7HkxJZSUhj7gIrUpZ3Pzg4+n14GhtUwAOiWukL3fuVyZ0
-         7Mw5l03qET0/oxnAhh3eU8XHYRxC3mFlcw58hIlA0OXtk8Wt5C69cDtaVf6Rur9RpeOG
-         dRlILS7/NTXsfuueFi1Sov2EVw0PTdK52fNvrGFVwjLz6X1+/mi8V1RuspEoZSiewRNE
-         Xc8sQ8K5TcloAI37Thtl4Z9m62fHcdYM0UWzbXLZuz21n6FSuL7OeLKVuhAu3wLxttSD
-         hzWA==
+        d=gmail.com; s=20260707; t=1794892251; x=1795497051; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
+        b=X7SF4MdyFUZjSVUII0FpvH941a9DfKvv+JQls1TkDtWNO6eGd/g4SRzsT81b4Qwmol
+         ZuGUmWVIrjw5JoyfVeIj9n8zOUoVNPMU9n2nRZChoR6OjyU2aSGE4mVhF/Eng2QbxJpG
+         c3LZMmboc1HWLf3fNIGLhGAvx8G0RLBNGoS7K/qdL0gpUR6l5sCF3LzmotBNFgxtkDU4
+         7zZ+Z2JNHHbFThp+Sd8bRTC2WG/4hxQ+0nOsHk/T5SUuDuBjRpgx9kyOPOnM4xuPNmog
+         5DRuSj0MtoXqw2zBo3MGF4wOPWFV8aieY5pukCCeF/WyrgUS4kIUZqJnERYwUgvGHoj0
+         YDsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794892232; x=1795497032;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794892251; x=1795497051;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TIi30UMnkbCM4UtGXQM9HLD1fy4eaWCJLQHah5nV8Gg=;
-        b=oE+NKL4/Wq0oDj1BP1fpvGqqbVVtbMWQaGclc8vL0TheMal4x9UPN6ut0KUe5hAnPk
-         Cyw3NmhtSHorIxrS4R7W0kuXz5fNXTWDN2tq9dXynTlXzoIorHl7en7F5eQ57TtzWDHY
-         z1Uh1OJ0m5tpUdgVTdPmF2MEeAEI7fPXxDMu/BWyXELdQ19t8nv3KZKC4k8Tw9hXbltj
-         LfJzoeyZkdf1FqDM8dKKQXvutuLn15jbnWQPR7qsZ3Mi+oODolVjDrBJ9i8AMO92nCI7
-         laqRAoqXc11gAw6fN1aBqgeAlihIyMBccHWZ6Hzuy2Gwr/JIl45RcuoGVIuXiG0tUOpP
-         hPxA==
-X-Forwarded-Encrypted: i=1; AL+hErGE+lQuIgp2aPkvrHU9ff64XKJIxB7G6+Kj4BC78s3KjGyXxM0rMvfEjDwhT8ovIXPFZ6HAJFMp61kXuBM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8szHeHUIqH0YQ/ZuBdNLKQVYZ+pfFyToHZAPcQqBaCrEpDY+bJ
-	oq+5Q0mmZS6CkhHcG/VpGOKK30+0E8DwZYQ6xogpZuAPUUCwVL4JCpPi4oRS3vTmyiQ=
-X-Gm-Gg: AYBFou3XwvTnpNtwmYy8tDXecrwnSm6b/0fQq4xiXZaYkzQl4NuC1hlW2N3QpOkBpYE
-	sALVEW82BMPgilu//z+7R86XIy5TBqnwF7k1xAmMWey8fcq2OIMN5UNH05jVjVKSf1oH/vjppt0
-	vKcLsd2qC4wY0KwhzeB9+lJFv8r5L6bui05SUfCD6JdqhiufT0wYvvSDO641FruRRNKfR1pVDjJ
-	fiWTgqlVpqdApQ3Q6kvmIkcEUPIIR0HwD3XruDB2SPcbKO2u9yaJnGtXQr46ayVzd2lSv6sj5IB
-	++0gHmOP8ny37NMsyYjFaqC2aN581XpGfM60r+WV8sTlezVpRfy0bnerL0xVBbLCGaywCZy4Tzd
-	BYqtd0yeUVc4pDJmQfVs7r9qdM3My8N9Zru22uMORdFaBdrJzt0Xbq20B0Jrs7I5vSZxqWv83ND
-	zVT14QMtr/rD5cKxk/ZErAPOJmlmHYdDTr8/XLy4cem0O0xV+siqEQEi6nvQb2pCjNnRKOtnGLv
-	f5pKeILIV/4h9IpJyeUxguh9PKqMEkDLKm7pNaC6MK+7st6sHpUM1kLu0fldLybFepp4OUyGjWL
-	ZRh/XXIaSAsH8Y+DsEHMgIlLGsX6e6M=
-X-Received: by 2002:a05:701b:251b:b0:144:f089:b189 with SMTP id a92af1059eb24-1b50319ce4bmr12633287c88.36.1794892231696;
-        Mon, 16 Nov 2026 21:10:31 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm38745543eec.26.2026.11.16.21.10.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:10:30 -0800 (PST)
-Date: Tue, 17 Nov 2026 10:40:28 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
-Cc: "Enrico Weigelt, metux IT consult" <info@metux.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] gpio: virtio: compute the line names size in a size_t
-Message-ID: <avvhxNXQ3fI73QgD@vireshk-B250M-D3H>
-References: <20261104195632.1702765-1-lian@is.s.u-tokyo.ac.jp>
- <20261104195632.1702765-2-lian@is.s.u-tokyo.ac.jp>
+        bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
+        b=rhdxghRCj+aLlcDCFcOReLlBkl4hHz54pg/dZ5t6sh8JW4L0WdjBlBk4teMGm5dFfu
+         OhZE9PvzBQLXd6MybyLN/3tXylRDsZitf/g/Tn0ECl4M0LmlV9PWD3hw4x7yLH2uZBcL
+         ofDnrYK8n+fBZ7hi/cVzWAz14m0VQTwuYGlo1Mx7Raf04rbAM/B0tgQLYm3m4kT32wMq
+         fVqfbJYAbYPX7tR79kJOyJigCNMIsebODBsn+9kruxS69byCg4N8VGFEvkMWLYi0NzED
+         qQ7JbmAfKdCHem5bvF3rUKAIiXK5XQbZ8CuFw0HWFpswUCeEWOj2aO5gMc+clSCJ4fTL
+         m/NQ==
+X-Forwarded-Encrypted: i=1; AL+hErF8m3oTJ5cDLWuE/0JwHEoX+uYxWwqBpE/xv5Oo+0p0YX5rId7V4pT9s6iDsg+8zmH5NHR620ATbiNtizI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98H3LN5+pZzo3aWqj9EXee4JByV2fDxp+tkgCweHRkuBrOC26I
+	Jannv+DApNLWP5a0UVbLNcvOXRNW79us+SuHkW/ttB/MOYA7zXhOfi++06eK4EIHNyGJgn/2a31
+	lKwPaY9DHmbP6HJ9ZieoGXNRUKaWCyOo=
+X-Gm-Gg: AYBFou0RSH7D7ZfuOkFf/D5kLhKJ9wdEmFcPTfV1VdSk7YovS/XadeTUxObkzjy+Cc7
+	6hSi1dkbbbLLSR0d1P0HYT9be0JEgarCTvQSKzxkdsbJgyoIY3XvTwXp5oB/tf/vVUY8UCT63SU
+	7hCxZ3bx2ADnmvpHMPN1pZVpXfaZ/P7vlrJUPjsvS66G5esgNVmSLwwGXfj+2yCFxRj1qjdC4KJ
+	bsuVDbrT2S1cddW/JuVOUdrWcfMK+9k8uJpIgfCyV7k8K0wyK7WuvEKlS00XEboyPJIp+kLOVUx
+	koZ/k+EiQ+OoV2czlDCiXt74ktCG488ee42R6RsXDt/qPbPqW9Dekhn0A4g9WYpA5Ed6fDoYOEl
+	UVpbJzk4vaBERVdRO2Y47DQi/n8F/2h2yr1gHLIGKdE4g/mHDwwquEJBqTCJkK6+wRKCfahpvCn
+	mVXVVPVJIkn6OB
+X-Received: by 2002:a05:6402:90a:b0:6b7:83a4:415b with SMTP id
+ 4fb4d7f45d1cf-6b7c0c19637mr10843175a12.21.1794892251030; Mon, 16 Nov 2026
+ 21:10:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,57 +102,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104195632.1702765-2-lian@is.s.u-tokyo.ac.jp>
+From: Herman Semenoff <germanaizek0@gmail.com>
+Date: Tue, 17 Nov 2026 08:11:06 +0300
+X-Gm-Features: AclHuK9BgHM4X6QwlTTmSvN_88WWLGWKbZdruwkqCJEgkEw10pUY_FO_jZmlL4I
+Message-ID: <CAMnMt5ZdwbOrSeCbP2j-+pVk-3JvEpfuzyJRJOnCLs6VqbHeXg@mail.gmail.com>
+Subject: [PATCH] wifi: mt7601u: add monitor mode and packet injection support
+To: kuba@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 05-11-26, 04:56, Lianjie Wang wrote:
-> virtio_gpio_get_names() computes the size of the GET_LINE_NAMES response
-> as sizeof(*res) + gpio_names_size in an int, where gpio_names_size is a
-> u32 from the config space. A gpio_names_size of 0xffffffff makes the
-> size 0, devm_kzalloc() returns ZERO_SIZE_PTR, and reading the status
-> byte of the response through it oopses:
-> 
->   Oops: general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] SMP KASAN PTI
->   KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
->   RIP: 0010:_virtio_gpio_req+0x2b8/0x550
->   Call Trace:
->    virtio_gpio_probe+0xc2a/0xfc0
->    virtio_dev_probe+0xa7a/0xc50
-> 
-> Compute the size with struct_size() into a size_t.
-> 
-> This patch is assisted by Claude Opus 5.5.
-> 
-> Fixes: 3a29355a22c0 ("gpio: Add virtio-gpio driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
-> ---
->  drivers/gpio/gpio-virtio.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
-> index 32326d91f33d6..fb7b40eff37dd 100644
-> --- a/drivers/gpio/gpio-virtio.c
-> +++ b/drivers/gpio/gpio-virtio.c
-> @@ -494,12 +494,13 @@ static const char **virtio_gpio_get_names(struct virtio_gpio *vgpio,
->  	struct device *dev = &vgpio->vdev->dev;
->  	u8 *gpio_names, *str;
->  	const char **names;
-> -	int i, ret, len;
-> +	size_t len;
-> +	int i, ret;
->  
->  	if (!gpio_names_size)
->  		return NULL;
->  
-> -	len = sizeof(*res) + gpio_names_size;
-> +	len = struct_size(res, value, gpio_names_size);
->  	res = devm_kzalloc(dev, len, GFP_KERNEL);
->  	if (!res)
->  		return NULL;
+From: Herman Semenoff <GermanAizek@aizekgroup.ru>
+Date: Tue, 17 Nov 2026 07:55:00 +0300
+Subject: [PATCH wireless-next] wifi: mt7601u: add monitor mode and
+packet injection support
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+The mt7601u driver currently only advertises NL80211_IFTYPE_STATION
+and lacks proper monitor mode and raw frame transmission (packet
+injection) support.
 
+Specifically:
+1. When switching to monitor mode, mac80211 raises
+   IEEE80211_CONF_CHANGE_MONITOR in ops->config(), but mt7601u ignores
+   it. As a result, MT_RX_FILTR_CFG_PROMISC remains set in the hardware
+   RX filter, causing the MAC to drop third-party frames.
+2. In mt7601u_add_interface(), adding a monitor interface (e.g. via
+   airmon-ng) allocates a GROUP_WCID and overwrites dev->macaddr.
+   If a station interface already exists, add_interface() fails with
+   -ENOSPC. For monitor interfaces, do not allocate a group WCID and
+   do not override the device MAC address.
+3. In mt7601u_mac_start(), ensure MT_RX_FILTR_CFG_PROMISC is cleared if
+   IEEE80211_CONF_MONITOR is active.
+4. In mt76_configure_filter(), include MT_RX_FILTR_CFG_RTS and
+   MT_RX_FILTR_CFG_BAR in the control frame filter so RTS and BAR frames
+   can be captured in monitor mode.
+5. In mt7601u_register_device(), allocate dev->mon_wcid with
+   devm_kzalloc() instead of uninitialized devm_kmalloc() to ensure
+   rate control fields start in a clean state, and add
+   NL80211_IFTYPE_MONITOR to interface_modes.
+6. In mt7601u_tx(), transmit packets via dev->mon_wcid when transmitting
+   on a monitor interface (vif->type == NL80211_IFTYPE_MONITOR).
+
+Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
+---
+ drivers/net/wireless/mediatek/mt7601u/init.c |  7 ++++---
+ drivers/net/wireless/mediatek/mt7601u/main.c | 20 ++++++++++++++++++++
+ drivers/net/wireless/mediatek/mt7601u/tx.c   |  2 +-
+ 3 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt7601u/init.c
+b/drivers/net/wireless/mediatek/mt7601u/init.c
+index 5d9e952b2966..c01bb3fc4a7f 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/init.c
++++ b/drivers/net/wireless/mediatek/mt7601u/init.c
+@@ -242,6 +242,8 @@ int mt7601u_mac_start(struct mt7601u_dev *dev)
+  MT_RX_FILTR_CFG_ACK | MT_RX_FILTR_CFG_CTS |
+  MT_RX_FILTR_CFG_RTS | MT_RX_FILTR_CFG_PSPOLL |
+  MT_RX_FILTR_CFG_BA | MT_RX_FILTR_CFG_CTRL_RSV;
++ if (dev->hw->conf.flags & IEEE80211_CONF_MONITOR)
++ dev->rxfilter &= ~MT_RX_FILTR_CFG_PROMISC;
+  mt7601u_wr(dev, MT_RX_FILTR_CFG, dev->rxfilter);
+
+  mt7601u_wr(dev, MT_MAC_SYS_CTRL,
+@@ -583,8 +585,8 @@ int mt7601u_register_device(struct mt7601u_dev *dev)
+  dev->wcid_mask[0] |= 1;
+
+  /* init fake wcid for monitor interfaces */
+- dev->mon_wcid = devm_kmalloc(dev->dev, sizeof(*dev->mon_wcid),
+-     GFP_KERNEL);
++ dev->mon_wcid = devm_kzalloc(dev->dev, sizeof(*dev->mon_wcid),
++     GFP_KERNEL);
+  if (!dev->mon_wcid)
+  return -ENOMEM;
+  dev->mon_wcid->idx = 0xff;
+@@ -609,7 +611,8 @@ int mt7601u_register_device(struct mt7601u_dev *dev)
+  SET_IEEE80211_PERM_ADDR(hw, dev->macaddr);
+
+  wiphy->features |= NL80211_FEATURE_ACTIVE_MONITOR;
+- wiphy->interface_modes = BIT(NL80211_IFTYPE_STATION);
++ wiphy->interface_modes = BIT(NL80211_IFTYPE_STATION) |
++ BIT(NL80211_IFTYPE_MONITOR);
+  wiphy->flags |= WIPHY_FLAG_SUPPORTS_TDLS;
+
+  wiphy_ext_feature_set(wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
+diff --git a/drivers/net/wireless/mediatek/mt7601u/main.c
+b/drivers/net/wireless/mediatek/mt7601u/main.c
+index 05ba43e1985c..29486c4767e3 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/main.c
++++ b/drivers/net/wireless/mediatek/mt7601u/main.c
+@@ -56,6 +56,12 @@ static int mt7601u_add_interface(struct ieee80211_hw *hw,
+  */
+  mvif->idx = idx;
+
++ if (vif->type == NL80211_IFTYPE_MONITOR) {
++ mvif->group_wcid.idx = 0xff;
++ mvif->group_wcid.hw_key_idx = -1;
++ return 0;
++ }
++
+  if (!ether_addr_equal(dev->macaddr, vif->addr))
+  mt7601u_set_macaddr(dev, vif->addr);
+
+@@ -75,6 +81,9 @@ static void mt7601u_remove_interface(struct ieee80211_hw *hw,
+  struct mt76_vif *mvif = (struct mt76_vif *) vif->drv_priv;
+  unsigned int wcid = mvif->group_wcid.idx;
+
++ if (vif->type == NL80211_IFTYPE_MONITOR)
++ return;
++
+  dev->wcid_mask[wcid / BITS_PER_LONG] &= ~BIT(wcid % BITS_PER_LONG);
+ }
+
+@@ -91,6 +100,15 @@ static int mt7601u_config(struct ieee80211_hw *hw,
+int radio_idx, u32 changed)
+  ieee80211_wake_queues(hw);
+  }
+
++ if (changed & IEEE80211_CONF_CHANGE_MONITOR) {
++ if (!(hw->conf.flags & IEEE80211_CONF_MONITOR))
++ dev->rxfilter |= MT_RX_FILTR_CFG_PROMISC;
++ else
++ dev->rxfilter &= ~MT_RX_FILTR_CFG_PROMISC;
++
++ mt76_wr(dev, MT_RX_FILTR_CFG, dev->rxfilter);
++ }
++
+  mutex_unlock(&dev->mutex);
+
+  return ret;
+@@ -118,6 +136,8 @@ mt76_configure_filter(struct ieee80211_hw *hw,
+unsigned int changed_flags,
+  MT76_FILTER(PLCPFAIL, MT_RX_FILTR_CFG_PHY_ERR);
+  MT76_FILTER(CONTROL, MT_RX_FILTR_CFG_ACK |
+      MT_RX_FILTR_CFG_CTS |
++     MT_RX_FILTR_CFG_RTS |
++     MT_RX_FILTR_CFG_BAR |
+      MT_RX_FILTR_CFG_CFEND |
+      MT_RX_FILTR_CFG_CFACK |
+      MT_RX_FILTR_CFG_BA |
+diff --git a/drivers/net/wireless/mediatek/mt7601u/tx.c
+b/drivers/net/wireless/mediatek/mt7601u/tx.c
+index 5aeeac0dd9fe..d3328181f961 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/tx.c
++++ b/drivers/net/wireless/mediatek/mt7601u/tx.c
+@@ -211,7 +211,7 @@ void mt7601u_tx(struct ieee80211_hw *hw, struct
+ieee80211_tx_control *control,
+  if (sta) {
+  msta = (struct mt76_sta *) sta->drv_priv;
+  wcid = &msta->wcid;
+- } else if (vif) {
++ } else if (vif && vif->type != NL80211_IFTYPE_MONITOR) {
+  struct mt76_vif *mvif = (struct mt76_vif *)vif->drv_priv;
+
+  wcid = &mvif->group_wcid;
 -- 
-viresh
+2.55.0
