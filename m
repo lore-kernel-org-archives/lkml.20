@@ -1,57 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931105;
-	b=C058qGyckZJbz/vOsEhlTJS6oX+yWFqwmrd1Ps75RHrWPZTkKFpn7UIRTuNgiAngT8rg
-	 rJqE+SVth6xbEHrHcVVkMFaFFiFLbq4ry1bp3YfKf9C1DofA5Dcxu6PyYFmAtfKb+lApr
-	 DiFZB2G3LT6cPJiRsjdtQTy6JNWOTzawPfAXPXDyPZMn3z5qHd/0DP93AW1J7OyffHylI
-	 E0Ld03QpNK2Eh3eZLuHvbFacl53cxOGBxvhtAcezmo3GeJ9WFYF+r0P1p2KJhaHwHM/6N
-	 iRqff9Dl/05WwUlHO/KSVS23xAogbEbKD6bKhJAN62okHc9VFXVeDcJAg4e0iCwI0RA==
+	t=1794931119;
+	b=D4LDrQRspVIh5QxF7L/TAcn7YIb7PJyfCcUxDFvigau7QZfzo1YtwwVyNA9znmeRwu5G
+	 Eivuy/qqdp9KQpmMO8TYRBXvu5VMB59UZHURUTHcOe4cxZ/MLKEETPiqZ+DbUOru1PgUr
+	 UMZdOIx/OjcXUxHCeb5obRtwz4ERTI3mDvY+uR/9EPdIXWiqEELNOeAGz0dM6XeVmLvuj
+	 VzaLM3ciN1vsIN69KSI2bmfoQAz2ZVL5QStWtnTHUh+YQ4K2mhbJB1JO+8qSVVEffJ9sx
+	 rXMt76O2WBpL5TLKLnnNSlzRHu63GcMoE2TiPHaUa6GqW8WjzPukG3d/aSjm7502xYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931105;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=aCpl/gwZ9pA2lFvW6F4A3IwkXPu9MrJE3LgToB0jW/M=;
-	b=ykdn8JQRAr2PfWQBi1zUxkoPUB00PYNQpellyU7fEg/FDuSAIc9VcBis2RM0ht0waYJ5
-	 7p7GFiovr/z/sWiUt6doh2z188I1me5u4rXAdcsjhE6T9FkkbxCIr/16HJNohnx2AVX7g
-	 Gymw1OBxQ1dZF1n8GRKLi5BODDE3L+rQAgodV2yjZI3IiulW2yhZp7449TRKMrA+uxhJj
-	 s8vVN0PpXbDZUqq2CLugR5z3ZDH1yYfZT4yBZHu8Qexd6W61+K97VtEb3K2RoY1Ywxo+9
-	 zxdrBbOYIxSoHJ0xRNx7wdvaxV2qXed7S2pljzSKQqN4u77NlfOG5c4XIhyNfqoOGNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931119;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=cS72ij2d9ni29XRJBjpUF55VVESM9MZfzucjV2dsBEU=;
+	b=2zgv9MFIISYwy61KWmEYwozI+oJ8RdNOjg/U0XFDGN12UFPgnb7S/tpjv+JPmidF/Vei
+	 797rYookILmghRMtte7itg7LPgfbNAm9s3oYKQBLqKkBdUHYqsPVwnWquaysiilnXjbVt
+	 8TRA4EkeqOWpHCSrr2JUtkKHcenXo+ZYfm6w3s45cKnVHozb6Ye7SPGj18B5D+vHhr5/Z
+	 JEVClnmbpGgLgaGMrPTyXbaRkuPj7FMLxsvGMmoDLS1zFEZ1z1MuZ1/FOqQtkuchfe7n6
+	 1t1KxlPxdPkZFOQiFHN4A7Y9lMo/6ToFd/Hs7oPEEC/TDNYmOGFkk3jH/ZDIu3mDhLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEmn4Eo+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrRAPDeL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0505E606A32C;
-	Tue, 17 Nov 2026 15:58:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01B3606A32F;
+	Tue, 17 Nov 2026 15:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEmn4Eo+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9171F000C4;
-	Tue, 17 Nov 2026 15:58:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrRAPDeL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2030C1F000C7;
+	Tue, 17 Nov 2026 15:58:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794931104;
-	bh=aCpl/gwZ9pA2lFvW6F4A3IwkXPu9MrJE3LgToB0jW/M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=aEmn4Eo+bkZxGaV+lsSCVHtdjJdho+25ibHcvAR5KacETiRdjmmBlZcyPh5SVEmso
-	 iAAojLwE018WQTC6zWnXNnm3BjUP+Qj16PVzEEgqJ2OGXteeOW3/Fbft6sEvcWaOO+
-	 J0A3kjT2y7dgyru/OBf4QfDCU6FiKMZ6MNESL0ZAF0ykDnUcac/ZIHRyxDx7/aFyfD
-	 rIAges5AafkwvzPrJbsqnwpbKsyG5BzCjVLXndDhNmA4OVGvlgm/453GnenVXk0DbO
-	 Go4nxAi/GSiKP5NBHo6kxd381znY35h+HOl/cscqEILWflsS6iFDa5LnJDqU/VbLn3
-	 0kyJes6IlY0vQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Tejun Heo <tj@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
- Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org, 
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261111215058.1837351-1-shakeel.butt@linux.dev>
-References: <20261111215058.1837351-1-shakeel.butt@linux.dev>
-Subject: Re: [PATCH v4] kernfs: allocate inodes and dentry outside
- kernfs_rwsem
-Message-Id: <20261117-osten-renitent-gasheizung-276fafa42fab@brauner>
-Date: Tue, 17 Nov 2026 16:58:20 +0100
+	s=k20260515; t=1794931119;
+	bh=cS72ij2d9ni29XRJBjpUF55VVESM9MZfzucjV2dsBEU=;
+	h=From:Subject:Date:To:Cc;
+	b=YrRAPDeLFHufyNicmII5GYATuKsD/SPRYLYHTeXp3o6xEXHIz+mmEK+LatGEsgBWw
+	 hvx+/QMwz/AcIKp8qKIN53vGa4AjPEzf/3Pr6sGe23UyRDlOIQNXAsoFCEGCoEiBug
+	 5G5Dv5Dmm/m8VWPQGPuzuu8KgtI0EJ4AKquNyyzEqglCrl/rvrEmZZwA6jeChZsPjV
+	 S85MPiwldb2xOZnkUGQHJcJtli7FYEAwSwwwrhFNsRvxsEoc5P5h656QI6AxoJAAAN
+	 jNdY644iCqf7+Abe8BsGMdKrwLQ0Kb7JFJUYx7a+y72JHQ+54shoiVh+DoeZR/Hb3R
+	 mgwGo00kRlJAA==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Subject: [PATCH 0/3] mm/memory: fix handling of PTE markers in
+ insert_page_into_pte_locked()
+Date: Tue, 17 Nov 2026 17:58:31 +0200
+Message-Id: <20261117-uffd-dax-async-wp-fix-v1-0-c9a30f27f452@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,33 +56,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-04696
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBBFr0Jm7UTLAohXMS6m06nU2EI6gBjC3
+ S26fC//vw1UchCFa7VBliVoGFIBc6qAe0oPweAKQ32pG2NMi7P3Dh2tSPpJjO8RfVixa1pi7hy
+ 3nYfyHbMU/eve7n/W2T6FpyN2LCypoM2UuD9UjMMUzzHinHQi+xLY9y/bS+rxnQAAAA==
+X-Change-ID: 20261117-uffd-dax-async-wp-fix-867acc8dc78f
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Jingyi Sun <1045704958@qq.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@suse.com>, 
+ Mike Rapoport <rppt@kernel.org>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ Peter Xu <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, nvdimm@lists.linux.dev
+X-Mailer: b4 0.16.1-dev
 
-On Wed, 11 Nov 2026 13:50:57 -0800, Shakeel Butt wrote:
-> In the Meta fleet, on 6.16 with the kernfs changes from 7.4 backported,
-> we still see long cgroupfs stalls:
-> 
-> - oomd and below waited 72 seconds in kernfs_fop_readdir() while an out
->   of memory container created cgroups.  They resumed when the kernel OOM
->   killer killed the container's workload.
-> 
-> [...]
+Jingyi reported that a uffd-wp marker in a DAX mapping causes endless
+refaults on reads and SIGBUS on writes [1].
 
-Applied to the vfs-7.5.directory branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.directory branch should appear in linux-next soon.
+The root cause is that insert_page_into_pte_locked() treats every PTE that
+is not none as a present mapping. Besides uffd-wp markers, this also
+affects guard markers that MADV_GUARD_INSTALL can put into a DAX mapping
+concurrently with a write fault.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+The first patch restructures insert_page_into_pte_locked() to make room
+for the fixes, the second patch fixes the reported issue and the third
+makes write faults back off on non-present PTEs.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Both issues were reproduced on ext4 with dax=always on emulated pmem, and
+the fixes were verified with these reproducers.
+selftests.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+[1] https://lore.kernel.org/all/tencent_1874C71D4177A1624528043E008DB1A5EF05@qq.com
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.directory
+---
+Mike Rapoport (Microsoft) (3):
+      mm/memory: install new PTEs first in insert_page_into_pte_locked()
+      mm/memory: replace uffd-wp markers in insert_page_into_pte_locked()
+      mm/memory: don't upgrade non-present PTEs in insert_page_into_pte_locked()
 
-[1/1] kernfs: allocate inodes and dentry outside kernfs_rwsem
-      https://git.kernel.org/vfs/vfs/c/5c1ca763748b
+ mm/memory.c | 68 +++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 35 insertions(+), 33 deletions(-)
+---
+base-commit: 93d7a816a2df3e907e2719bd12b0073f1285fc5c
+change-id: 20261117-uffd-dax-async-wp-fix-867acc8dc78f
+
+--
+Sincerely yours,
+Mike.
 
