@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908298;
-	b=N1vf/NCL1n89YjvJcv18e3Yfmpy4g/P9r1XJibhIRqO4SzfXIFfM1qZD/26N5MAiXX1g
-	 SVK38fHZDqq5x6bdPFQ198A0KZbRI7PuaD5Mmbg3XyGm+oFEN26xR3jlhUx2FOw3EAcOx
-	 XBJ6kruUeHw8BByxw5RbUP/YpGdZyhiQYt6LxX6EOa6UQ3h0He+8wDwrRhL4598W/QIg8
-	 uQAPUMZQonyK3jdf2/upuI7c9AiwBWyBvcUxxSge9lB+VGmM+mwZhxpvhxkudpRweqsis
-	 HD7su/2GCcqMOEfRA+xk9c4w+bTqJUZVPAaVMvGMYIPdPhOT8pj7mL6UGv4V6PAzhOQ==
+	t=1794908300;
+	b=JKp6+QC3dYi5Fti21syW/fq1FjFikG0vCXKqQGr8ZoJ68Pp8WGa1tf/3G47ULp87tY4I
+	 zmTKMlh/TRiQ+qkvWZTGww8/7wAgG0Hg/tSqDIA7bX5FDpCzucqN2EqHzLX8uevvOIOus
+	 E91R1KlUsjG46/8Hqb+cpEludEEqNNN/LKzmaYWJ8DnUFdKS5BdYMNzDT1Btn8n79CNB6
+	 Apbv2nYanCl/bTeb+aLKEd1SCVaY8wfCVGBNRx6DOvYpLpKxAgo5m0ors3QlMpgSIuhz+
+	 wGHZgh4IyvNF2mEsexcRePz7Aft2l5Lh8cl0wXa5GgB3rDRlCLdmgMZnzqiH01y5j8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908300;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=G7ZGUNKDKBiHHSlHeQ8b7D1bEj8qPHL+frKQT5rOdyY=;
-	b=jd7ukAO8FTtrNf8uUO1hwRyDyXGs5fSTllrnJMNtXbbT4cYIIPTZSWeqh8T6etniOlSb
-	 7b55E97S8XV4HupjlK5zHUb0fa0eA+7jV7gIoXg1ljDbQS/UqX4y5Ajxuz9nicMes/oWA
-	 ezOGjhhZGiqHjYHio4tj6tNKqo/1TiwN6OvK8HO33aWxw07am2cf+4togZm1hB2jWHKN1
-	 s9ES/70JJrR/1MIEeq26H+QDZIoVXhJdE6hgR54HzIFlhgFpb20+y6RMuldge5RHJ5LIt
-	 y9C+gwLRQhy2yf0yWHHHS9pUuSJX4P3aycrUI3XFGDOcf9kdj4PhS953lRV1GUgf9Bg==
+	bh=niJD0njQ1UDwvr3T+XYsWPwrBy0c6qlXpaKDdhLmAMk=;
+	b=p/RuHhOUa0UmrRkraEldZXYSnAJek289RMmslhch3N2QffeeYpA5a6v+n7jvfZap9joo
+	 bvrtmoejCAU2V4TsznXHJSjHt6erF/nBYUf6Htj/3htcB9Yi45UWHeLOGDP3UwC/7FJtM
+	 W7Ix6WA+TuB5hNWMChHWCbeb+1UPShvGERyyRi0IT0uIYWadK51IMyRI91iwla5qSrBaD
+	 u2WZmG69l86X4gCN9k2erw779lUnkb20QkqjTA3LOcPmHhWv+TaNlsug7D8+xK8vhSuts
+	 xcXZWef3QFmCbJrUQoW6UCq2tPo9JpKOocARyC16tEJ0dkbToWuGYsyB0LxpqPKSI1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lcbRxdJZ;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gV4ssBiq;
 	arc=none smtp.remote-ip=185.246.84.56
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFC5606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFFC5606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663C5606A888
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 663C5606A888
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lcbRxdJZ
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gV4ssBiq
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 849EE1A159D;
-	Tue, 17 Nov 2026 09:38:16 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 21F001A158C;
+	Tue, 17 Nov 2026 09:38:19 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 545475FC81;
-	Tue, 17 Nov 2026 09:38:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F1F6C11BC0DE4;
-	Tue, 17 Nov 2026 10:38:14 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E52805FC81;
+	Tue, 17 Nov 2026 09:38:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2BAA811BC1129;
+	Tue, 17 Nov 2026 10:38:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908295; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794908298; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=G7ZGUNKDKBiHHSlHeQ8b7D1bEj8qPHL+frKQT5rOdyY=;
-	b=lcbRxdJZk7QgZUQrOcUg2TNdNWHo8QpPQTTSOA+dGllOz0LefxrY63/FKfPcdCuwddcyBO
-	tSjLG32FwGYiPMdmzUKPBXWqvJyf9lxnS4/zQmJIGThHFfFYze483/j8CKcZCnJ4sKB8V7
-	CSsOKohuA4FfqOVX3ojxkOKY3q14mYEOell7FimRKbsQvlGU3EI18rvbgIrsRY3RnAB9OZ
-	FuPO32nwywkoszk9VY3PHtVUczj6tYbnXDLVJhTPMAJe4EPvi7CHMq4r0CHm7nJqPgnoIj
-	iVSBjrq6nGmBpPjJKuaq6u0tg9BUBbwJUwh9hLI5JIajk7Qw9DquqSHeqEbrSw==
+	bh=niJD0njQ1UDwvr3T+XYsWPwrBy0c6qlXpaKDdhLmAMk=;
+	b=gV4ssBiqLDmoCoXe4SIe/bAL9n9hYqos8FqYkltwMlaPBbOoBoKvKweKGq4kJIk2LPrHoS
+	QxTq4Tr7BQxbOt+1EWq72l/wdppm1KPu5tcgsipDdfYBTrTRt/cWPVs1JBYqon11EreHAa
+	s6CcWSvxAbB80MaBHKcXOEqQUJTZYrD40/070WgMNEPIpE+D/ktouXwY0HpeDpBe3VhedC
+	/eewolPwxLk6j840izkWrephiqyu6o/5Wx5yCm5B6fYW4WjGW8unTw3xY44q4GiAPbCEHO
+	5VfYMCgAtietMz0v1JSIdMLNdukBXq67F1BpOR2aN8OWIUzDVot+m+IERxcX6Q==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -57,10 +57,14 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 08/12] mtd: rawnand: hisi504: Remove #ifdef guards for PM related functions
-Date: Tue, 17 Nov 2026 10:37:46 +0100
-Message-ID: <20261117093751.14988-9-paul.cercueil@bootlin.com>
+	Paul Cercueil <paul.cercueil@bootlin.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v2 09/12] mtd: rawnand: mtk: Remove #ifdef guards for PM related functions
+Date: Tue, 17 Nov 2026 10:37:47 +0100
+Message-ID: <20261117093751.14988-10-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
 References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
@@ -86,44 +90,49 @@ regressions are subsequently easier to catch.
 
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-mediatek@lists.infradead.org
 
 v2: No change
 ---
- drivers/mtd/nand/raw/hisi504_nand.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/mtd/nand/raw/mtk_nand.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/hisi504_nand.c b/drivers/mtd/nand/raw/hisi504_nand.c
-index d97270ec1185..511d133ea936 100644
---- a/drivers/mtd/nand/raw/hisi504_nand.c
-+++ b/drivers/mtd/nand/raw/hisi504_nand.c
-@@ -809,7 +809,6 @@ static void hisi_nfc_remove(struct platform_device *pdev)
- 	nand_cleanup(chip);
+diff --git a/drivers/mtd/nand/raw/mtk_nand.c b/drivers/mtd/nand/raw/mtk_nand.c
+index c439b7814ebb..4b8451772f9b 100644
+--- a/drivers/mtd/nand/raw/mtk_nand.c
++++ b/drivers/mtd/nand/raw/mtk_nand.c
+@@ -1591,7 +1591,6 @@ static void mtk_nfc_remove(struct platform_device *pdev)
+ 	mtk_ecc_release(nfc->ecc);
  }
  
 -#ifdef CONFIG_PM_SLEEP
- static int hisi_nfc_suspend(struct device *dev)
+ static int mtk_nfc_suspend(struct device *dev)
  {
- 	struct hinfc_host *host = dev_get_drvdata(dev);
-@@ -842,8 +841,8 @@ static int hisi_nfc_resume(struct device *dev)
- 
+ 	struct mtk_nfc *nfc = dev_get_drvdata(dev);
+@@ -1635,8 +1634,7 @@ static int mtk_nfc_resume(struct device *dev)
  	return 0;
  }
--#endif
--static SIMPLE_DEV_PM_OPS(hisi_nfc_pm_ops, hisi_nfc_suspend, hisi_nfc_resume);
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(hisi_nfc_pm_ops, hisi_nfc_suspend, hisi_nfc_resume);
  
- static const struct of_device_id nfc_id_table[] = {
- 	{ .compatible = "hisilicon,504-nfc" },
-@@ -855,7 +854,7 @@ static struct platform_driver hisi_nfc_driver = {
+-static SIMPLE_DEV_PM_OPS(mtk_nfc_pm_ops, mtk_nfc_suspend, mtk_nfc_resume);
+-#endif
++static DEFINE_SIMPLE_DEV_PM_OPS(mtk_nfc_pm_ops, mtk_nfc_suspend, mtk_nfc_resume);
+ 
+ static struct platform_driver mtk_nfc_driver = {
+ 	.probe  = mtk_nfc_probe,
+@@ -1644,9 +1642,7 @@ static struct platform_driver mtk_nfc_driver = {
  	.driver = {
- 		.name  = "hisi_nand",
- 		.of_match_table = nfc_id_table,
--		.pm = &hisi_nfc_pm_ops,
-+		.pm = pm_sleep_ptr(&hisi_nfc_pm_ops),
+ 		.name  = MTK_NAME,
+ 		.of_match_table = mtk_nfc_id_table,
+-#ifdef CONFIG_PM_SLEEP
+-		.pm = &mtk_nfc_pm_ops,
+-#endif
++		.pm = pm_sleep_ptr(&mtk_nfc_pm_ops),
  	},
- 	.probe		= hisi_nfc_probe,
- 	.remove		= hisi_nfc_remove,
+ };
+ 
 -- 
 2.47.3
 
