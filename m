@@ -1,55 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.25.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910727;
-	b=AIrtyLNAPDZ3hsVXRSrgb7vB3uny7w7LLR5a0d/8HOfqMwrq2eszJujAJ330o7UiPYhw
-	 OW+1oJbEgz6HnG/rfR8svm0tT2fbuvEPJIk9PuOzVWkUmQkwBs5ekJij6hmlcgi90JQal
-	 ZvRXiVQNISq1qp1WdKHhf4OmPt+fRdxJRM6xXqkDQ474FWeOzxuC8z5AtIulga8pscI1p
-	 e3AgXeqNCE5s5hcVoyW4MOKmmp8IflfOihxAPx94ucAk1DHoU2+R0qd3TPgjbrhQxKtR4
-	 ww/H//FnyPjqMXTcJS0Q6IxCGvRcjuyRA6A6q1w5qLu/L7VuxHbJyJJ82cH8z82q02A==
+	t=1794910732;
+	b=S42doV/WVADbzMkcSP7h1lVMkE3Do1+15orNKf76N6XlLYHDPRfYg+CkdxxookODfD49
+	 PFx+2pUR/vIfWD91KHqUbWERgN25JqPTNDsjj2ptmnqh00zxJXMfxgODQs11XEpWfACVE
+	 RHtM8FDGqx/G0ZwEAOFNkAla/5SIwrhUEJJgucR/6+MklaKDUz+xmZxvpkZTu8tlNv0DR
+	 owbDA+TgD7+IyrwCAXR0eHsLq6h1lGjDB2Nkn3vIaVy/uWqNcPBLBaGpa+dif94j1rGTz
+	 WEZYjLfwI7P21MRJGguIH5e0qKsA6uaYTJWmi1R2dSGQRLBZtmWZLtW9l5/idLKRSpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910727;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O/o3wnK6Vqf/0SWEfyvD3x+u+U38GqH4RPIdBLOwj2w=;
-	b=PmNHfILBUEFF7sVIl8k1OjZP0lv0wOJsbAsRu3CREy6MJOu3hpeOyt6ots4j389sy4Sx
-	 kbSBuD/4d7znvW+gjB6zoAHBTD3Gg+ogtIMhJcOjBE5jBfGd2J+PyayCFYKCQoCAJIvH4
-	 vE6Vzw5uQgmLKyMrSy2HsgQQ11sUIu6L+KTJ3+ovJXV4NYufkTV1L2eOzCc0ogWhl196l
-	 qdMZ8FTMQBE76HuLlD3HgMm0RhSvuk28mNKYxj+hvFsMtujU9E0fjScCAz4wAGBdll/wl
-	 X1UYf76gu/nmUcquBqA3VECLt0ijcgl/oYqvnz21TfB2BsC1LjuI94HPZuK8oxyEkEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910732;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=rol3At8KU/jDNp9m4kI6DJPjKkKj82D0nOJ0+LPdoVg=;
+	b=1gfW8PiX71nbj7ADQ+D1W3cvFcOeJp4xKTFEtXHOnQQPMcmVineS7sRoatCgAqN6tTBC
+	 yYr71k4F+HN7lDEI4F5vtZH977c88NqsFubkfceSAH6HMIFqVvbjOMZSvzP81NMYnZtNF
+	 CiaMozeN1+e+AoXTwiX3KJu/WMqP6lLLfCwqOHmw1XwIsmVwpgz6rsbCvr7N8K8NGHerF
+	 IervUkzQ4J/6Av4Ivw9IFh4HJgvp4zSAHfZQZDRSbrZcjqokw+FAQhwKUbN2Gq+1tybko
+	 FWKU9tVem9NkbP7HhN3Q6Qh2c0JIq8LLuWHjnAdXm2NYDbyYVQYzuFfiYCDgvDdsQOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN37U+Ak;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=Q+bPwBLo;
+	arc=none smtp.remote-ip=185.125.25.8
+Received: from smtp-1908.mail.infomaniak.ch (smtp-1908.mail.infomaniak.ch [185.125.25.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F866606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266A2606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:18:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266A2606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN37U+Ak
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9A61F000CA
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794910727;
-	bh=O/o3wnK6Vqf/0SWEfyvD3x+u+U38GqH4RPIdBLOwj2w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PN37U+AknC+CF2p6Nad6wmfD4rsnTV9WhRARmVDKmrMDGAO64UHQ30knB7Tye1DgI
-	 VMb2fBdbmchidiG8LffZ5ObMRmoqeQ+nkh0a6lhDQ2APn+5NsKlNSiTP0dQWkknIQJ
-	 0NVNFHAgIEk0MlMn+bI6DdxpJhHJ8M0ZkA8hjq8rQUOmqpdpSOAg0Mcigo2Zf2iUNH
-	 /kOFXjLam9/fQCGAcscWgPbmL0dPh+oByo8oORUWZvggJ+maAUTlLgWOETEk9T8oaQ
-	 mFRWxHyEtL+HIvwXcTwqv1kQtPoDM2Ng0S0LCXFkP9UxoH1CqLDigt4+WOQsOOC/k7
-	 MZzcDdkwc+Vkg==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ad0102edd4so47902351fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:18:47 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEqwUk1aojkn94BSkO5Di1ov5tcnTepSnhuhYVLbp7QYQr5on6mKpqMTMqoUitm/xERygjXSz4XF0lmRvI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PiRHE/Oi3Vr6eHqHohwBzKV2linCOVMc0it0jDXxZGFhZfmMQ
-	oSt/C/bXckv3PmrhLJee2TruaygqrwyWBJEPZxOUmPzkDcY7Oc5yhdwLknuluVAA1eq/sXBXNeb
-	yoCQvvDOQ823K7Irr0X5guM0npOfgi1I=
-X-Received: by 2002:a05:6512:1322:b0:5c0:a57:2cc5 with SMTP id
- 2adb3069b0e04-5c170746417mr4425379e87.3.1794910726036; Tue, 17 Nov 2026
- 02:18:46 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=Q+bPwBLo
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jTLL22V73z3R8;
+	Tue, 17 Nov 2026 11:18:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1794910730;
+	bh=rol3At8KU/jDNp9m4kI6DJPjKkKj82D0nOJ0+LPdoVg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Q+bPwBLozqUc0jVZI5QS/RzU3PpVa/V/j6GRdt3/LNJdqK6Oncn+BVz3S0PkffJuu
+	 LBeJZ9g9ZKI71dUGmyltYW2joYtH2YcdsOuKShqmQHxANveEIRm0Py45ZVGtsNRZ5b
+	 Hc2dtwJ4sBJwEUl6yTG7/oItTyAg6MaBOXJm5b04=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jTLL05xLXzKG6;
+	Tue, 17 Nov 2026 11:18:48 +0100 (CET)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: Casey Schaufler <casey@schaufler-ca.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	James Morris <jmorris@namei.org>,
+	John Johansen <john.johansen@canonical.com>,
+	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Serge Hallyn <serge@hallyn.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Christian Brauner <brauner@kernel.org>,
+	KP Singh <kpsingh@kernel.org>,
+	Matt Bobrowski <matt@bobrowski.net>,
+	apparmor@lists.ubuntu.com,
+	bpf@vger.kernel.org,
+	kernel-team@cloudflare.com,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org
+Subject: [PATCH v2 1/6] lsm: Add a capable_lsm hook for capabilities guarding an LSM's policy
+Date: Tue, 17 Nov 2026 11:18:38 +0100
+Message-ID: <20261117101845.2523770-2-mic@digikod.net>
+In-Reply-To: <20261117101845.2523770-1-mic@digikod.net>
+References: <20261117101845.2523770-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,42 +79,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com>
- <20261105-b4-gpiolib-free-v3-6-bb47ad58642d@gmail.com> <CAD++jLk+EfkLsHCyY+O6Om_xTEe2dJX+cscDLqW+TVM2f_V8qw@mail.gmail.com>
- <CAHp75Vf8dd7N-9QvciUQ7Wug_JY=Ru4_CGvhSpA+-icx3z64tw@mail.gmail.com>
-In-Reply-To: <CAHp75Vf8dd7N-9QvciUQ7Wug_JY=Ru4_CGvhSpA+-icx3z64tw@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 11:18:33 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=+O2yzQJsww7-cXah+PVKDHCkcTHMq8ivkD0Y-8A=GGw@mail.gmail.com>
-X-Gm-Features: Aa3M54qw5HK-Mjc7JeNhdPC4ZsVhWbeohA8fFSEt3KlGLXmli9eahmWQPmYa2g0
-Message-ID: <CAD++jL=+O2yzQJsww7-cXah+PVKDHCkcTHMq8ivkD0Y-8A=GGw@mail.gmail.com>
-Subject: Re: [PATCH v3 6/8] gpiolib: avoid krealloc() in gpiod_get_array()
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Sat, Nov 7, 2026 at 12:13=E2=80=AFPM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
-> On Fri, Nov 6, 2026 at 3:56=E2=80=AFPM Linus Walleij <linusw@kernel.org> =
-wrote:
+AppArmor, Smack and SELinux check the capabilities that guard their own
+policy (e.g. CAP_MAC_ADMIN, CAP_MAC_OVERRIDE, or CAP_SYS_PTRACE for
+Smack's ptrace rule) with cap_capable(), usually followed by their own
+internal check.  They use cap_capable() instead of capable() on purpose:
+other stacked LSMs should not have to authorize these capabilities,
+which may mean something else for their security model.  This also hides
+these capability uses from LSMs that restrict capability use in general:
+a Landlock domain that denies CAP_MAC_ADMIN does not prevent a process
+from managing AppArmor policy.
 
-> > > +       descs_size =3D struct_size(descs, desc, count);
-> > > +       bitmap_size =3D BITS_TO_LONGS(max(gdev->ngpio, count));
-> > > +       alloc_size =3D descs_size + struct_size(array_info, invert_ma=
-sk, 3 * bitmap_size);
-> >
-> > Nitpick:
-> > I know this is not your code, but if you respin try to add a comment
-> > here explaining this 3 * bitmap_size.
->
-> And the very next patch will remove that as it makes obvious what's
-> going on. Since it's not a fix, I don't think we need such a
-> short-live comment.
+Add security_capable_lsm() for these checks, and a capable_lsm hook that
+it calls after cap_capable().  Only LSMs that implement this new hook
+see these checks, so LSMs that only implement the capable hook are still
+not asked about another LSM's policy, and the calling LSM's own capable
+hook is not called.  The hook gets the LSM_ID_* of the LSM whose policy
+the capability guards, so that BPF LSM programs can tell these checks
+apart, and so that an LSM calling the helper can recognize its own
+checks.  Landlock implements this hook in the next commit.
 
-Ah you're right.
+The new hook changes nothing for current users of the capable hook, and
+only adds a new BPF LSM attach point.  Calling every capable hook except
+the caller's would not keep this property: BPF LSM programs attached to
+the capable hook would start seeing, and could deny, these checks after
+a kernel update, and the other MAC LSMs would be asked about another
+LSM's policy again.  A new CAP_OPT_* flag for these checks would have
+the same effect on BPF LSM programs, and would require every MAC LSM to
+explicitly ignore the flagged checks.
 
-Yours,
-Linus Walleij
+Cc: Casey Schaufler <casey@schaufler-ca.com>
+Cc: Günther Noack <gnoack@google.com>
+Cc: John Johansen <john.johansen@canonical.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Cc: Matt Bobrowski <matt@bobrowski.net>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Serge Hallyn <serge@hallyn.com>
+Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+---
+ include/linux/lsm_hook_defs.h |  2 ++
+ include/linux/security.h      |  9 +++++++
+ security/security.c           | 47 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 58 insertions(+)
+
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 87d9d06710cb..dc24e19f7eea 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -43,6 +43,8 @@ LSM_HOOK(int, 0, capset, struct cred *new, const struct cred *old,
+ 	 const kernel_cap_t *permitted)
+ LSM_HOOK(int, 0, capable, const struct cred *cred, struct user_namespace *ns,
+ 	 int cap, unsigned int opts)
++LSM_HOOK(int, 0, capable_lsm, const struct cred *cred,
++	 struct user_namespace *ns, int cap, unsigned int opts, u64 lsm_id)
+ LSM_HOOK(int, 0, quotactl, int cmds, int type, int id, const struct super_block *sb)
+ LSM_HOOK(int, 0, quota_on, struct dentry *dentry)
+ LSM_HOOK(int, 0, syslog, int type)
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 40831fab5470..1e89bc1fec17 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -352,6 +352,8 @@ int security_capable(const struct cred *cred,
+ 		       struct user_namespace *ns,
+ 		       int cap,
+ 		       unsigned int opts);
++int security_capable_lsm(const struct cred *cred, struct user_namespace *ns,
++			 int cap, unsigned int opts, u64 lsm_id);
+ int security_quotactl(int cmds, int type, int id, const struct super_block *sb);
+ int security_quota_on(struct dentry *dentry);
+ int security_syslog(int type);
+@@ -710,6 +712,13 @@ static inline int security_capable(const struct cred *cred,
+ 	return cap_capable(cred, ns, cap, opts);
+ }
+ 
++static inline int security_capable_lsm(const struct cred *cred,
++				       struct user_namespace *ns, int cap,
++				       unsigned int opts, u64 lsm_id)
++{
++	return cap_capable(cred, ns, cap, opts);
++}
++
+ static inline int security_quotactl(int cmds, int type, int id,
+ 				     const struct super_block *sb)
+ {
+diff --git a/security/security.c b/security/security.c
+index 4727b8347fc4..36365fac5801 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -664,6 +664,9 @@ int security_capset(struct cred *new, const struct cred *old,
+  * credentials.  @cap contains the capability <include/linux/capability.h>.
+  * @opts contains options for the capable check <include/linux/security.h>.
+  *
++ * An LSM checking a capability that guards its own policy uses
++ * security_capable_lsm() instead.
++ *
+  * Return: Returns 0 if the capability is granted.
+  */
+ int security_capable(const struct cred *cred,
+@@ -674,6 +677,50 @@ int security_capable(const struct cred *cred,
+ 	return call_int_hook(capable, cred, ns, cap, opts);
+ }
+ 
++/**
++ * security_capable_lsm() - Check a capability that guards an LSM's policy
++ * @cred: credentials to examine
++ * @ns: user namespace
++ * @cap: capability requested
++ * @opts: capability check options
++ * @lsm_id: LSM_ID_* of the LSM whose policy the capability guards
++ *
++ * Check whether @cred has the @cap capability, when @cap guards the policy of
++ * the LSM identified by @lsm_id (e.g. CAP_MAC_ADMIN to manage this policy).
++ * @cap is first checked with commoncap, and then the LSMs implementing the
++ * capable_lsm hook may restrict this use of @cap.  LSMs that only implement the
++ * capable hook are not asked, so they do not have to authorize capabilities
++ * that guard another LSM's policy.
++ *
++ * Callers: An LSM uses this function instead of cap_capable() or capable() for
++ * a capability that guards its own policy, with its own LSM_ID_* as @lsm_id,
++ * and then makes its own decision, without calling its own capable hook.  This
++ * function must not be used for other capability checks.
++ *
++ * Implementations: A capable_lsm hook can only deny a capability that commoncap
++ * granted.  It may be called in atomic context, including with interrupts
++ * disabled or from an interrupt handler (e.g. Smack's SIGIO check), and @cred
++ * might be another task's credentials (e.g. a ptrace tracer or a SIGIO
++ * recipient).  An LSM that restricts capability use in general should implement
++ * both the capable and the capable_lsm hooks.  This function calls every
++ * capable_lsm hook, so an LSM implementing this hook and calling this function
++ * should ignore checks for its own @lsm_id.
++ *
++ * Return: Returns 0 if the capability is granted, or a negative error code
++ * (e.g. -EPERM) otherwise.
++ */
++int security_capable_lsm(const struct cred *cred, struct user_namespace *ns,
++			 int cap, unsigned int opts, u64 lsm_id)
++{
++	int rc;
++
++	rc = cap_capable(cred, ns, cap, opts);
++	if (rc)
++		return rc;
++
++	return call_int_hook(capable_lsm, cred, ns, cap, opts, lsm_id);
++}
++
+ /**
+  * security_quotactl() - Check if a quotactl() syscall is allowed for this fs
+  * @cmds: commands
+-- 
+2.56.0
+
