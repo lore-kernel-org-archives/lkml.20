@@ -1,45 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918014;
-	b=fzqgc7AgFTc2Bc0ZflsOlSDvLnHv/iHjaKwnyPwsSAyKYmTGqU8RbJ/+Fi14mQbgkGvY
-	 R/gE8BvWKClzCkvbaD+0kndkWAiRzg7L0vN46/3t9ymDt1jQJ/RkS9Kj1kfeubMVLUfAy
-	 tfSWH0h9QUcywS1ow3tyr/0uYJQCR8EBCW0FuRkczwOphmroG+YMnal7h74n38CG9N4Wb
-	 IXRQIKtZgGd5NkezIxLfitcClxfgadARw39oHbiRUGaLbbKjT8UEWBq8yk8PvmXJnyiZP
-	 G607REziBX0Sbu0CkVYeol5yBFj7OgawA7Jr+EcJdKsrTTD2+I8o+N4NZAGOgDu8DNQ==
+	t=1794918089;
+	b=EuKjcWvEo9PF/yWHtkH8czDYntviTTZsTZM6yg/e0wLKDox9TIItMuCpkvytHlL4yqaP
+	 NZ2uTP8cLZ8lecmbLoaHr3HMcQyMkaSzto2iAz32p9Fp3R0FpfsfXBeiJc/ZXZ0DZl/X7
+	 0LkklsMO+WBJnsZIk6C1JjsCEUaMdNc1E6ldgx6vRqp7I06R0TBDM9dWPyTwwEN9csBjz
+	 RpvrV5YxudLlm4CH2kY0fb3KG5aXzQKWueVkN4WlMPHjkQ7FokNBGiZhw8ux7+wowfxDK
+	 LggWy+nYyAF6jr84+7AV7rq4UAZNwJlMVZjfIx3iV/MJJbxjaz+ka4/psMVJJNzb0yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918014;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=itS94mPURDHQuTgfMaOaJrPnv0UhhYADw1GfXqxCZ8U=;
-	b=3rCPS+z6lurTuH/80cOizMgYd1UHdjHFLk+W7kU64hxyI5ebFm7BZxiiLf3dYRgG0pLG
-	 PVJhswNx6nZsFuKFhlGPKlNV3wApaJPYkeIHoZjtgt6969HfnEEmRW152OoOleVXBE+ne
-	 /X72Rsgn+duRrIDEY9LuCtrrf4RCcFwDsXNdmz9oBxhAow4oKqWuUV41OMHaNMm5dt9+a
-	 w54CPuw4oVfaUL/mIpUopkuQijbl+jp+RNbs/OCFVjFANaohkwfGo0oemPFu+h698wXTG
-	 6GgTw5rEE1Y2Lwo+ft8iSmbCA5YwtykVRuMriN83Q6h2ggHVxWKK6ylzMR9txAcWnKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918089;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=h8pgwT7/LO23i619Y0UAnqja3IksVLcqKsSokGT7RtI=;
+	b=TiwRUwXhfGROLp41j1WCKvfX7oKQm1kX0AsNkfCwFf1oyJoCzN38SdryFW7t+xV961xE
+	 IhL0rKhcmzTI8EavKW0xRbyag9eBCWTfIZSuOyqivOpA2yuRsszcsldNirz2Tx2lpEp97
+	 4DGDrEjHsDcwWk6ZrP+U65OoUqSdGPfiUoG/bH1EKIUaxOZPs84PcqB06lPtGmP+YMPkL
+	 4HzNtrIUL0pDTVfaweu1Od4dxaxZss63l00CA9QkZ+9ODXH19MEkOsLwCXZNmWgY6qSw6
+	 FhW9iSx0yP1P3ewxzZnHuTEPxrFcIu3s8uIiydVcLvU68zCLPyK5xuw0YozeO1JeFQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2OKohOS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=w3AiHftS;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1911606A33A;
-	Tue, 17 Nov 2026 12:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4602C606A31C;
+	Tue, 17 Nov 2026 12:21:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4602C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2OKohOS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591CD1F000C6;
-	Tue, 17 Nov 2026 12:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918013;
-	bh=itS94mPURDHQuTgfMaOaJrPnv0UhhYADw1GfXqxCZ8U=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Z2OKohOSwtd5zMUEsHNR2U6BXCrVWD0SljcAPX4n85fTuiIEdyK9zZnxamd+Ttu7b
-	 qLA9U6LuJnvXV5ierKxnLDrRZDLWbHPoe4Q5JnBS2wyPbvRJyVlz6m+qtHW7ArxLBJ
-	 iR9U/KQRk5r+KS/9knuwmOWOHu0Z+v2WyMGSfi/1AxItZkQZBTajh0kBzIL8VUPEyp
-	 bQeJJPCpl5t7ZtYo8KesyOTOC+6zoto+7V4w1fdEEZx1XHMkWOxIrn69Hx13QgHqOH
-	 zoyl/PyrNc11Ls7i6Z39mcAnsvadAluOpWxlxcGQBDl1UgRIRw7Ll2gMqmU9vzBzSD
-	 SPrgeCWdYY+Sg==
-Content-Type: multipart/mixed; boundary="===============1081829159996909370=="
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=w3AiHftS
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=h8pgwT7/LO23i619Y0UAnqja3IksVLcqKsSokGT7RtI=;
+	b=w3AiHftS3/udF+xmmZ1FLvfES3xWYex2cK4+fWFMZcl29zgDh7nEqTkI+0Fg0B7PEJUxtbg5B
+	XULBwWWQSGPncSPhprBeKXNRmnSrD8vxUJq64j374OIYCo8Vx+23pWWh9omL4ES5VtcLEjWTbAl
+	0EzY4eIOd6aw5zqtJxk9Etc=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jTP393njBzKm5K;
+	Tue, 17 Nov 2026 20:21:09 +0800 (CST)
+Received: from kwepemr200004.china.huawei.com (unknown [7.202.195.241])
+	by mail.maildlp.com (Postfix) with ESMTPS id 571B64057A;
+	Tue, 17 Nov 2026 20:21:23 +0800 (CST)
+Received: from [10.67.121.62] (10.67.121.62) by kwepemr200004.china.huawei.com
+ (7.202.195.241) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 20:21:22 +0800
+Message-ID: <eb615885-2756-4750-9e8f-411308c77a42@huawei.com>
+Date: Tue, 17 Nov 2026 20:21:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,113 +62,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <846b0937d121e4e7537851e6dd045c8045b721cbe06e8a22a66686e94b51006b@mail.kernel.org>
-In-Reply-To: <20261117-bpf-preempt-v2-r2-v3-3-586376ec3672@sentinelone.com>
-References: <20261117-bpf-preempt-v2-r2-v3-3-586376ec3672@sentinelone.com>
-Subject: Re: [PATCH bpf-next v3 3/4] bpf: Check program recursion per task via bpf_ctx
-From: bot+bpf-ci@kernel.org
-To: mikeba@sentinelone.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org
-Cc: martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,john.fastabend@gmail.com,emil@etsalapatis.com,ihor.solodrai@linux.dev,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,jp.kobryn@linux.dev,linux-trace-kernel@vger.kernel.org,linux-kernel@vger.kernel.org,mikeba@sentinelone.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 17 Nov 2026 12:20:11 +0000 (UTC)
-
---===============1081829159996909370==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] cpufreq: CPPC: Enable boost by default
+To: Christian Loehle <christian.loehle@arm.com>, <rafael@kernel.org>,
+	<viresh.kumar@linaro.org>
+CC: <linuxarm@huawei.com>, <zhanjie9@hisilicon.com>,
+	<prime.zeng@hisilicon.com>, <wanghuiqiang@huawei.com>, <xuwei5@huawei.com>,
+	<zhenglifeng1@huawei.com>, <yubowen8@huawei.com>, <pierre.gondois@arm.com>,
+	<sumitg@nvidia.com>, <linux-pm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <mojunjun4@huawei.com>
+References: <20261117105240.1113405-1-zhangpengjie2@huawei.com>
+ <47ef2005-97ff-4841-8a87-5093323e1914@arm.com>
+From: Pengjie Zhang <zhangpengjie2@huawei.com>
+In-Reply-To: <47ef2005-97ff-4841-8a87-5093323e1914@arm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemr200004.china.huawei.com (7.202.195.241)
 
-> bpf: Check program recursion per task via bpf_ctx
 
-TL;DR: Commit message only: the trade-off list omits that attaching a marked
-freplace extension to an fmod_ret target now also fails with -EINVAL, a
-userspace-visible change.
-
-> bpf: Check program recursion per task via bpf_ctx
+On 11/17/2026 7:06 PM, Christian Loehle wrote:
+> On 11/17/26 10:52, Pengjie Zhang wrote:
+>> The CPPC driver leaves boost disabled by default when Highest Performance
+>> exceeds Nominal Performance. Userspace must explicitly enable boost
+>> before governors can use the full advertised performance range.
+>>
+>> For user convenience, set .boost_enabled = true in cppc_cpufreq_driver.
+>> Since cppc_cpufreq_cpu_init() sets policy->boost_supported when
+>> highest_perf > nominal_perf, the cpufreq core will enable boost by
+>> default only for policies that support it.
+>>
+>> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
+> Reviewed-by: Christian Loehle <christian.loehle@arm.com>
 >
-> Trampoline programs (fentry, fexit, fsession, fmod_ret and their
-> sleepable variants), raw tracepoint programs (raw_tp, raw_tp.s, tp_btf)
-> and tracepoint programs on syscall tracepoints run preemptibly, but
-> their recursion check is a per-CPU, per-program counter. When a task is
-> preempted inside a program, the counter stays raised, and every other
-> task that enters the program on that CPU is dropped and counted as a
-> recursion miss, although nothing recursed. A program can't avoid that:
-> the counter is checked before its first insn.
+> That being said it doesn't apply cleanly on bleeding-edge, so you might
+> wanna rebase to make Rafael's life a little easier.
+Yes, cppc_cpufreq seems to have merged a lot of content into linux-next.
+>> ---
+>> Changes in v3:
+>> - Drop cppc_cpufreq_default_boost_init() and set .boost_enabled = true
+>>    statically in cppc_cpufreq_driver (Christian).
+>> - Link to v2: https://lore.kernel.org/all/20261022075901.3436021-1-zhangpengjie2@huawei.com/
+>>
+>> Changes in v2:
+>> - Drop "even" from the commit message (Christian).
+>> - Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zhangpengjie2@huawei.com/
+>> ---
+>>   drivers/cpufreq/cppc_cpufreq.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+>> index 957fa7775260..1ea16e95c0e9 100644
+>> --- a/drivers/cpufreq/cppc_cpufreq.c
+>> +++ b/drivers/cpufreq/cppc_cpufreq.c
+>> @@ -1059,6 +1059,7 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
+>>   	.fast_switch = cppc_cpufreq_fast_switch,
+>>   	.init = cppc_cpufreq_cpu_init,
+>>   	.exit = cppc_cpufreq_cpu_exit,
+>> +	.boost_enabled = true,
+>>   	.set_boost = cppc_cpufreq_set_boost,
+>>   	.attr = cppc_cpufreq_attr,
+>>   	.name = "cppc_cpufreq",
 >
-> Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-> modes") x86 and arm64 have only lazy and full preemption, so this
-> happens in normal operation. A security agent that pairs fentry and
-> fexit programs on inet_sendmsg() and inet_recvmsg() loses one half of a
-> pair with every drop. With 200,000 HTTP requests and four CPU-bound
-> tasks on a 4-CPU VM, 9,254 of 7,966,760 runs of these programs were
-> dropped on bpf-next, and none of 7,975,426 with this series.
 >
-> Check recursion per task instead. The runners already link a
-> stack-allocated bpf_run_ctx into current->bpf_ctx. Move saved_run_ctx
-> into struct bpf_run_ctx, so every frame links to the outer one, and
-> record in each frame the program it runs. A program is recursing if a
-> frame in the current task's chain already runs it. Interrupts and NMIs
-> run on top of the interrupted task's chain, so recursion through them
-> is still caught.
->
-> bpf_prog_enter_run_ctx() and bpf_prog_exit_run_ctx() do the check for
-> all runners. The syscall tracepoint runner linked one frame around its
-> program array and now links one per program. bpf_set_run_ctx() accepts
-> a NULL ctx, which io_uring passes to hide the BPF context; the frames
-> below are not walked while it is hidden.
->
-> Programs marked by the previous patch keep the per-CPU counter and
-> behave exactly as before, so no counted drop is traded for corrupted
-> per-CPU data or a renewed may_goto budget. An extension (freplace) runs
-> under the check of its target, so a marked one can't be attached to a
-> target that is checked per task.
->
-> Trade-offs:
->
-> - An unmarked program that keeps per-CPU slots of its own, see the
->   previous patch, can have two runs use one slot, and nothing counts
->   that.
-> - Marked programs lose runs to preemption as before.
-> - bench trig-rawtp is about 2% slower: 42.6 and 42.1 M/s on bpf-next,
->   41.3 and 41.5 M/s with the series. trig-fentry and trig-fexit are
->   not slower.
-> - Attaching a marked extension to an unmarked raw_tp, tp_btf or
->   tracepoint program now fails with -EINVAL.
->
-> Signed-off-by: Mike Bazov <mikeba@sentinelone.com>
->
-
-The trade-off list says a marked extension fails with -EINVAL when
-attached to an unmarked raw_tp, tp_btf or tracepoint program.  Is the list
-complete?
-
-bpf_prog_recur_per_task() returns bpf_prog_check_recur(prog) for
-BPF_PROG_TYPE_TRACING:
-
-	case BPF_PROG_TYPE_TRACING:
-		return bpf_prog_check_recur(prog);
-
-That is true for every expected_attach_type except BPF_TRACE_ITER, so it
-is also true for BPF_MODIFY_RETURN.  bpf_check_attach_target() only rejects
-an extension when the target is fentry, fexit, fsession or one of their
-_MULTI variants, so a non-sleepable fmod_ret program with a global subprog
-is a valid freplace target.
-
-An extension that uses a per-CPU map, a tail call, timed may_goto or
-bpf_this_cpu_ptr()/bpf_per_cpu_ptr() could be attached to such a target
-before this patch.  It now hits the new check in bpf_tracing_prog_attach():
-
-	if (prog->type == BPF_PROG_TYPE_EXT && prog->recur_per_cpu &&
-	    bpf_prog_recur_per_task(tgt_prog)) {
-		err = -EINVAL;
-		goto out_unlock;
-	}
-
-Should the commit message list fmod_ret targets next to raw_tp, tp_btf and
-tracepoint, since this is a userspace-visible attach failure?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44076814540
---===============1081829159996909370==--
