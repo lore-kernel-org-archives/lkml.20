@@ -1,57 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927048;
-	b=GbH1fPsq/mHKvjPo9Jc0kWZplqdN8EYWkU+aBXjuVuXhhNCZjx5X3+nQDnlmY7JdXJEL
-	 p5q8MCWWmGpjT2gQ1iZf+RcKsuSG94UoLv2Us26oaMWtPR5AvxTss+xM13YvGrqia9KGi
-	 ePMFRa6ED704spDtzBhaZsLVX8zi1lm5vQC7bHU7WTuOQ4oEQW3zLcro7vZ5RR50hzH0s
-	 KQ/ZidWTMWjxj6WIIqicPtwowm749s2uBPQ+lXpP6S2fzzMLYn0cF1T5WAbN7gKkYp+TT
-	 RwIMz/axpD0xZlsffFBzPBHFj4aC0ppgDU5UKu9+ruWbj8bAOdv3RxH1b1EySPk5J/g==
+	t=1794927090;
+	b=vWA/DzZcaLibFUAVBpPrWKxBBH4Pxu/5htsi514Zr5BBDTAVo8CcUnjQsuiWRI6x/Y2I
+	 iMV57dEJhwHW7gubtXgZV0UkgokHDa+tD5DLayYw9wlsNE7nCuYnam/v95iX9HcJEMJzn
+	 D51pCon0aEHOhc/rYvIw4BZ1lOTFx5Xe6cabWCQN24lBnz2jKAOIUFm1/a1VQ2mInl89z
+	 DPSng3aM46lQZE0NmbSkoAAl4Y3W1l8wDn9jEBpo6Bn6kiqxFXdA96kXGWW3142nQ7q5V
+	 yC/S/qTvJVahcpp0XjKyAyYld+Y+XegJ2S5TWBdsEirHsuN4lVaN9I28GaxZcdO9SqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927048;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=39owESljnRbXAYAVd0yLP4cFyCePXzA2/ghuswqngSQ=;
-	b=fabcK64N3K6fuosMxRFSxO1PM1Hzpm8GmXDjZphX+gZ8Qi8wv9w1LUZeqDS6YzXImqC8
-	 u9ue3mNfht7q38wEY4VdOTpvkFkaiJ1pHZ82kCd0tL6JTGlfv77ObUF5fnYaDHc+1eo+x
-	 HCKsma37qIK5nN1SEp2yZqFhCVBuRqh2udbJm/g1+PPlNwPDRErZz6hJuex/YkL3FMhyM
-	 Sf+PAgaIvdLHwiSxswH7B4GlygimfxpEPmEUAZOIo62c6uRbS+LHIz4nzukBoH0eqHGFR
-	 EoSIg6dhb15Br43BfwYvQWNkNj3jXe+a3rFazJQAB5aWXWqz8sAcT0hzyVnhQU+Y6wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927090;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=GJZQLR6mwp7b314RltwFULXw871Y8jBCZY1gD9pQC+c=;
+	b=F0dwznk5GPHenxN9f9JqBfUcuvAuL5wExNTafGnpzer9SgocvfZsSOnojH0bv6/eUu/K
+	 mANWaEE3IWF/8oypnvpfato9bIOlYuvlwFz0DAs+NhunSzp1yMygJs1iq3+UU0PCKBMus
+	 FXSizfKB45lLhOETYDpZNZ1Zb8zbWBlXQCYavA1lJJCUBM7D1Mz7BR06nFYotZHgojAlQ
+	 5ahVvX0vme4Cob7d5ZaFfreOpgCMBwN9espkzzHwVGJ2/0bsTx8vOPLQyskYbWriLKtAT
+	 vlQGZDyZKaOakVNKhy/XjKlSVqeZ8ZpAHc2y25274uOjU7VgdezwzCeh0qc6cLOehHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfvhI0qL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=KlDHYMBD;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4834606A31C;
-	Tue, 17 Nov 2026 14:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19B9606A31C;
+	Tue, 17 Nov 2026 14:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfvhI0qL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5D31F000C4;
-	Tue, 17 Nov 2026 14:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794927048;
-	bh=39owESljnRbXAYAVd0yLP4cFyCePXzA2/ghuswqngSQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jfvhI0qLknjhPKqKSC1LxhVM4jFiB6L2N4ko8BYOFj+zJoBsuAq1ouM3vTePzepgE
-	 C9ZfQ8tirAweymva8a0x/Dh7cQwKp3qqrm6HB97KFMQ6bLDzpcN88fvmvoCRglux0b
-	 aHVNikQHvYI8OHqRSv/ezH8ibnIVGppWcLVeRU2UmOhOLBt/SlaOyPqmFatqk0iuMY
-	 TQG1Xhiya+Q6T69G0lxp0n50Wgwjk1x7OKCC4E7QSIybdEt6O2WNxn2ZVeepV0sgKS
-	 Mx26q49U8e4u4HLEUSvfNPX1FWOyKnkpfx7drSZmfYH9AsxsNhD81P0BLPUp2OnfnT
-	 d8TJsdQYhCMOw==
-Message-ID: <sashiko-outbox-218990@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/40] rtmutex: Continue the chain walk when a
- waiter's deadline donor changes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <c8b228501d8981454f63843b394019fefd4002f3.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <c8b228501d8981454f63843b394019fefd4002f3.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 14:50:47 +0000
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=KlDHYMBD
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 55020e829;
+	Tue, 17 Nov 2026 22:51:24 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: arcmsr: Fix potential DMA leaks on XOR allocation failure
+Date: Tue, 17 Nov 2026 22:51:23 +0800
+Message-ID: <20261117-571e631490-scsi-arcmsr-0@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,80 +53,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e9fdc39e03a1kunm516bdf19156608
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGkIZVk0ZHUpLSUpCGEtLHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=KlDHYMBDb3atWX1pLZbfRxVeWoOHhF8+j1I0Z6pBnNaUxDpDUzmUz2ynyc3giNeSPew+lTkhakzqNIKc0Z/+gljc7A5sPGi087qtpcMD2MSxq9t9gYBYSO9TOh8cuBcjI//XM92dWJilWiZVT5l4vA7Vycw+5Fwrlev9YYiegnU=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=GJZQLR6mwp7b314RltwFULXw871Y8jBCZY1gD9pQC+c=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] rtmutex: premature chain walk stop in
-  rt_mutex_adjust_prio_chain()
---
+XOR allocation failure is returned after the CCB pool has been allocated,
+but probe skips pool cleanup on this error. Free the pool before returning
+and handle a failed XOR header allocation without dereferencing it.
 
-commit 9c99e3811a419d96fcdd59dd7a4617c1edc67678
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+This issue was found by our static analysis tool under development.
 
-rtmutex: Continue the chain walk when a waiter's deadline donor changes
+Fixes: 14ef4b001ae7 ("scsi: arcmsr: Support new RAID controller ARC-1688")
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+ drivers/scsi/arcmsr/arcmsr_hba.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-This commit records the task's deadline donor in struct rt_mutex_waiter
-and checks it in rt_waiter_up_to_date() so that priority inheritance chain
-walks continue when a blocked task's deadline donor changes without
-changing its sort keys.
+diff --git a/drivers/scsi/arcmsr/arcmsr_hba.c b/drivers/scsi/arcmsr/arcmsr_hba.c
+index 8aa948f06cac..52caa800397e 100644
+--- a/drivers/scsi/arcmsr/arcmsr_hba.c
++++ b/drivers/scsi/arcmsr/arcmsr_hba.c
+@@ -771,6 +771,10 @@ static int arcmsr_alloc_xor_buffer(struct AdapterControlBlock *acb)
+ 		(sizeof(struct XorHandle) * acb->xor_mega);
+ 	dma_coherent = dma_alloc_coherent(&pdev->dev, acb->init2cfg_size,
+ 		&dma_coherent_handle, GFP_KERNEL);
++	if (!dma_coherent) {
++		acb->xor_mega = 0;
++		return -ENOMEM;
++	}
+ 	acb->xorVirt = dma_coherent;
+ 	acb->xorPhys = dma_coherent_handle;
+ 	pXorPhys = (struct Xor_sg *)((unsigned long)dma_coherent +
+@@ -895,8 +899,10 @@ static int arcmsr_alloc_ccb_pool(struct AdapterControlBlock *acb)
+ 		break;
+ 	}
+ 	if ((acb->firm_PicStatus >> 24) & 0x0f) {
+-		if (arcmsr_alloc_xor_buffer(acb))
++		if (arcmsr_alloc_xor_buffer(acb)) {
++			arcmsr_free_ccb_pool(acb);
+ 			return -ENOMEM;
++		}
+ 	}
+ 	return 0;
+ }
 
-> diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-> index 5a9534c715b84..c78dfe9c93fc5 100644
-> --- a/kernel/locking/rtmutex.c
-> +++ b/kernel/locking/rtmutex.c
-
-[ ... ]
-
-> @@ -824,12 +841,13 @@ static int __sched rt_mutex_adjust_prio_chain(struc=
-t task_struct *task,
-> =20
->  	/*
->  	 * If the waiter priority is the same as the task priority
-> -	 * then there is no further priority adjustment necessary.  If
-> +	 * then there is no further priority adjustment necessary. The
-> +	 * task must also pass on the same deadline donor.  If
->  	 * deadlock detection is off, we stop the chain walk. If its
->  	 * enabled we continue, but stop the requeueing in the chain
->  	 * walk.
->  	 */
-> -	if (rt_waiter_node_equal(&waiter->tree, task_to_waiter_node(task))) {
-> +	if (rt_waiter_up_to_date(waiter, task)) {
->  		if (!detect_deadlock)
->  			goto out_unlock_pi;
->  		else
-
-[Severity: High]
-Can rt_mutex_adjust_prio_chain() still stop one lock too early at the
-preceding top_waiter !=3D task_top_pi_waiter(task) check when a task holds
-two locks and its top PI waiter switches from one lock to the other?
-
-Consider the commit message setup where O (SCHED_OTHER) holds L2, M
-(SCHED_OTHER) holds L1 and L1' and blocks on L2, W (SCHED_DEADLINE,
-earlier deadline) blocks on L1', and Z (SCHED_DEADLINE, later deadline)
-blocks on L1, so both M and O have dl.pi_se =3D &W->dl.  If W switches to
-SCHED_OTHER via sched_setscheduler() -> rt_mutex_adjust_pi(W), the first
-iteration of rt_mutex_adjust_prio_chain() demotes W's waiter on L1' in
-M->pi_waiters, making Z's waiter on L1 the new task_top_pi_waiter(M) and
-updating M->dl.pi_se =3D &Z->dl, while step [12] records L1's top waiter:
-
-kernel/locking/rtmutex.c:rt_mutex_adjust_prio_chain() {
-    ...
-	if (top_waiter) {
-		if (!task_has_pi_waiters(task))
-			goto out_unlock_pi;
-		if (top_waiter !=3D task_top_pi_waiter(task)) {
-			if (!detect_deadlock)
-				goto out_unlock_pi;
-    ...
-	top_waiter =3D rt_mutex_top_waiter(lock);
-}
-
-On the next iteration at M, top_waiter is still W's waiter on L1' while
-task_top_pi_waiter(M) is Z's waiter on L1, so the walk exits at
-goto out_unlock_pi before reaching rt_waiter_up_to_date(waiter, task).
-O->dl.pi_se remains &W->dl, and once W unblocks and exits, O's next
-replenish_dl_entity() reads W's freed task_struct (use-after-free).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D9
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
