@@ -1,88 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874432;
-	b=jOC1fn1Opg6r01TFYyP4nc0m3OgqYB3V1zzJOPrFbj3rOKUm6lwsF7kuawbKMMK9QZ/I
-	 PydUxFH2CQtjFPpjatuwieQld/I2D/mWHtjc9URbt6utnmriAocPmEA4vnm9OqWAzwKnN
-	 6fOz6W/cEJ/R37EE7sT0l3Yt4+IMkKeaT9qZRi5fc7GJo0bGu0qoScL2pn75bpI+dFgv0
-	 +EEY/Oc/8TxXg/SOSQkRqv7RX/cisc5sO7fp39RsYGsnQYfLLnPCAFegI9G6pKjIVqfgl
-	 JelD1FbzykBEDVsG5ufRmdoux35Xoat+3UTzYQUlD13MlTQ405tI3wbNSXIyEUeqjTQ==
+	t=1794874514;
+	b=Lfubvcu+vbluRX7pEehev8Q+sglaDO48Bl09K7DGeHeXi3elz8AxpN0n78LPSqQ1xhkG
+	 +RlVnfmR4uho1g205X0IhtDueXiz63Xqq3jx7aNfdNQKaW1J+eg4oyrU1ewmtvhhbSSsk
+	 9rsVYWTcNiiNZjEKfflQIij+KFTxfImtBmkDa/CHfndUeYFrTGsQLj15yRaaU/04QmnXX
+	 UavcUA/lmmo2PIYq7DP4Q0rP9SP+gw8kJ7vVtkLtGRRDj6C+HPTHFI+OVnb0Fqkwg918Z
+	 wg2wLWbICtSkBtijrAwUeyNz4wDsO9fHv6IS/VyP5IZ/nDahYQp+08MBLuZtGkQ4V3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874432;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=XVo09sxxh0tBmx3yVVO/fyACtpMXW/ZeTIbSkdS9UIE=;
-	b=4w3MgPCkuMZnMOKS8solUpAt7zp3z//zSp3+TtFYhYVKnHyxXKt4Dc4F2dt7HkVIAi4c
-	 guhhYS+oPmSUNPJXz/FY01yAGcKqEY6Z2WFZEFkJc1y17WdzPYCKdkVB9S+HcSI9pubGk
-	 F89ojgAsQfNbWs94SgtRj/ZoF6P/RNT4jrfahRp5tkuUYvAI88mLv0BAorna5sXxXP5KD
-	 1ULiQBHr3pWiotmVDwuNQAxZce3T12WXU2ETAlXKRPJQELj0L2CkeCUWrB/+QzMQXqalp
-	 9WLn4iqTYHybs7sfHgqsB/P+v0FuVMfk5W/nQTd4xZIKUBDztOQCaw+reKbrevq5Z2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794874514;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0D2MCe7zbqRn24q/Va+D8USPT9eZ3KVgUg8Y5omzbWg=;
+	b=NiIODLwwLXqx+yLKDMragEki5/oeykFmkxSDUNaOAmeKXcukTwGE8WO6hvRDEqe6aoP2
+	 gULJt3vMbJrUnRsKYITeONJooJqJPGb9b0O1VeTqZEUq45Bl3UDO9rwlTL8HKaMJ8OpXt
+	 kLNEMDL24/a9PxeeSt8j2eg5IY3LKzW8kHyJfP4KoeJYCriQCJccqK+giOzp8joFaFBRC
+	 wMN16aBqBofYyAGU3As4dX40NlqjbEAwt6Hm0SxuAlw9tI9yJDNnmDDvfTljhsjDHqvS6
+	 qa3T7ouhOByhhc9wRUOxXSyjYkJMjPD+qjF4yVJoKIONqylK4u1vwXxv2NNNXb5Q5cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOb0mbyJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cK3LxXUs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B88F606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:13:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC680606A323;
+	Tue, 17 Nov 2026 00:15:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOb0mbyJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9CED1F000C7;
-	Tue, 17 Nov 2026 00:13:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cK3LxXUs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1141F000C4;
+	Tue, 17 Nov 2026 00:15:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794874432;
-	bh=XVo09sxxh0tBmx3yVVO/fyACtpMXW/ZeTIbSkdS9UIE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IOb0mbyJ6Zpf3675Bki3SsVd9pKF08EYuXfo6Gl6PZMLltTgKfYQWgfHpp5EsopJA
-	 6PujDHeLd2jPoc9NhnPes4e0tjdGfxyV/p0SjAY4F+BTwe4wnB+sAX+1r2joJDTOz/
-	 d/m+wuVV37GdnXjbLGSGk9wEvBM1EoEH7Wn/km7acfrCxTrHasyaWxmbPDgXHbKMAb
-	 x2AlA0QcHphxtOVXIawnwZNpt++w2teVdhT0+HkxZDW+WgfcX882dlCxXMpY6Jmvki
-	 c02crd9qBkZ8+QfmN5b2hU7A/vKBUUAKTGS1SBuH6DigQrTkcGzmPJaY0kgwtgy1lo
-	 G0vSEdOSXfs/w==
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfauth.phl.internal (Postfix) with ESMTP id D83DEF40067;
-	Mon, 16 Nov 2026 19:13:50 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Mon, 16 Nov 2026 19:13:50 -0500
-X-ME-Sender: <xms:Ppz7aonjL6K1uJk77U_8yLq6vjTcFnWlXCDpq-UrFESlHENYFSBs5w>
-    <xme:Ppz7alBOVbtl_hZOm1XsVAmlRpml051VibDNGQDSeFdVJktam8-b2Ya1RvBTsRRcQ
-    yOJr70OxDrFlFg_Yebv7Ek3qn_tH6fh98ATrmTF52Wi8yfeWgUWdQ>
-X-ME-Received: <xmr:Ppz7arKwJfFJ4Cr055e-KoBn5kgEamgvpIosfFkrx7SLnw8k0QmU2om67J9nqWAoCYT4CCED9QjLhDuxK1lyP05LNihT3bXr>
-X-ME-Proxy-Cause: dmFkZTGPCh64XdAD5hVH7IS3FJe9LUYF5q7vq0TeCrpvkwesw13usMNbSu2kdx4d+j+BCl
-    /+UD2NXBMqVDoGANLMH+B0uuNW7rzokbr9aO5izKddQZOs6wEvRKlNwYAk1gTHFq8/rAAl
-    7ZfZGiR9MBAZX015fB34lXfCtqEw3uDmqwkGdTjeUoNLDNHlQKgEnMVW+0CMV6PnpW2UVi
-    NTkmf/i0fe4oJF2juBmRov6yxUFfTfVCx4OvF5G7eRBKDrSHogHeTTZcBbUlMn4UpeLliC
-    ypXQUrjS/jP7L2JzDaflfpvnP0zI8eT6CRa369BzNy9e0VtxfuzcKFOBVBbYdQQ5bE7QGC
-    GTwhhDxDQpcKMyAE47LrbtMpFe6QbJsiEXU6RgF2F0ZFuNYnBrF8WSNvVvwwtC3BivNEGf
-    ZY8BtrvB5h19rMfsHYMo3zO9rkZKMRwLuhEXSop6xRdtbWbpZeAYjP4mwsLAGl++AoaI97
-    Ugp55LUtIYoDLSkdyRUgPo2KpOGbac/I19/Z459QSfpiPPYOYDQjMRlfmJlXl7SlONEN5T
-    0eMAJ0lwfbLraKggwiEORKcCBjpptEperBsmV17mKzcqV0ScxCUri2FovbXu1XaR+0g2oJ
-    x3U+Tvq+7lgboP8IO4dK4GIvOLigDlbbJLnALCFcZWdrzrnMgcFksdXUXYWQ
-X-ME-Proxy: <xmx:Ppz7agwvrd8TyouWUVv_NgBFug8Ka4qzAguWtgTko6utgq4eLAHq9A>
-    <xmx:Ppz7any10wKw0qpjHH8VzbRMJUXBsh8fgzWVrBRqYnbzdUgl_qtrFg>
-    <xmx:Ppz7aq1UkwXKwL4J5BJyziLoai2A15SumovdHkYJFjxg7J7LK_SNCQ>
-    <xmx:Ppz7ahUYRaH9InQmREwiHWLvigeXErQjQPjwnDUq41aJRKpn1FpXkw>
-    <xmx:Ppz7amcSuykigTGubtL4Xa9ZELfE3voVs70abwGvo4Z472QaurF1AK78>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 19:13:50 -0500 (EST)
-Date: Mon, 16 Nov 2026 16:13:48 -0800
-From: Boqun Feng <boqun@kernel.org>
-To: FUJITA Tomonori <tomo@flapping.org>
-Cc: aliceryhl@google.com, arve@android.com, brauner@kernel.org,
-	cmllamas@google.com, gary@garyguo.net, gregkh@linuxfoundation.org,
-	ojeda@kernel.org, tkjos@android.com, a.hindborg@kernel.org,
-	acourbot@nvidia.com, bjorn3_gh@protonmail.com, dakr@kernel.org,
-	daniel.almeida@collabora.com, lossin@kernel.org, lyude@redhat.com,
-	tamird@kernel.org, tmgross@umich.edu, work@onurozkan.dev,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>
-Subject: Re: [PATCH v10] rust: sync: condvar: use Delta<Jiffy> for timeout
- and result
-Message-ID: <avucPFPNm5jAkM6j@tardis.local>
-References: <20261104235929.1282640-1-tomo@flapping.org>
+	s=k20260515; t=1794874514;
+	bh=0D2MCe7zbqRn24q/Va+D8USPT9eZ3KVgUg8Y5omzbWg=;
+	h=From:To:Cc:Subject:Date;
+	b=cK3LxXUsleJD7UBp2N4WCjKhXGxU1c8KtyZTGyxyZjYwGbrzGs/t5pdNg5zoWCeOs
+	 q6ebHIddVmF479r4EWhiCJ9iEH6RBh6QslJslrci7lqvpAOQiC/r9VORnOuTuXNLeq
+	 rIudgd7WjXOmwNj3L9Z6ViAEUPuiGVqNueYguE4iT5LYOLsox8tgUSz/6uu5lUplru
+	 Hp24ughTcE199IUBXEDjrTjq9GOU9Q2lvIMQG+MCTOnjVdBH4Dc8UAYjqOKkaaSvge
+	 HVDldEOFIPfvoVvV0oZutL0L0GCXZl2oVuSqzErbIdnNITL7wZYDoKNZ47r6FBYlJr
+	 2Up/orXJdvLWA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: boqun@kernel.org,
+	gary@garyguo.net,
+	aliceryhl@google.com,
+	lyude@redhat.com,
+	daniel.almeida@collabora.com,
+	work@onurozkan.dev,
+	ojeda@kernel.org,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	jack@suse.cz
+Cc: linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH v3 0/5] rust: sync: add WaitQueue infrastructure
+Date: Tue, 17 Nov 2026 01:14:41 +0100
+Message-ID: <20261117001507.1611984-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,179 +73,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104235929.1282640-1-tomo@flapping.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 08:59:29AM +0900, FUJITA Tomonori wrote:
-> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
-> 
-> wait_interruptible_timeout() takes the timeout as a raw Jiffies, and
-> CondVarTimeoutResult reports the remaining time as a raw Jiffies. The
-> type does not show the unit.
-> 
-> Switch the parameter and the result fields to Delta<Jiffy>.
-> 
-> Delta<Jiffy> is signed, but schedule_timeout() prints an error and a
-> stack dump for a negative timeout. Clamp a negative timeout to zero, so
-> it means an immediate timeout.
-> 
-> Update the only user, binder. It now converts the freeze timeout with
-> Delta::to_jiffies_timeout() instead of msecs_to_jiffies(). Both round
-> up, so a short timeout does not become zero. They differ only for a
-> very long timeout. msecs_to_jiffies() returns MAX_JIFFY_OFFSET for
-> 2^31 ms (about 24.9 days) or more, which means an infinite
-> timeout. to_jiffies_timeout() has no such special case. It converts
-> such a value to the matching number of jiffies, so the wait is long
-> but finite.
-> 
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Add a WaitQueue abstraction wrapping struct wait_queue_head, providing
+wait_event()-style methods that take a condition closure directly.
 
-Acked-by: Boqun Feng <boqun@kernel.org>
+This is needed for a (subsequent) DRM patch series to wait for in-flight file
+close operations during driver unbind. The Tyr driver also needs it for "CSF
+firmware responses and other GPU-driven events" [1].
 
-Danilo, feel free to take it from your tree if you need it as a
-dependency for the WaitQueue series. I'm also going to queue it myself
-just in case it needs to go via tip. Thank you all.
+Convert CondVar (and PollCondVar) to use WaitQueue internally, removing
+duplicate code using WaitQueue as the base primitive and add
+wait_interruptible_freezable_nonexclusive() for subsequent binder usage.
 
-Regards,
-Boqun
+This series is based on FUJITA Tomonori's CondVar timeout conversion [2].
 
-> ---
-> v10:
-> - Rename variables and fields to describe their role, since the type now
->   shows the unit (suggested by Boqun):
->   - binder: the local variable `jiffies` to `timeout`
->   - wait_interruptible_timeout(): the parameter `delta` to `timeout`
->   - the `jiffies` match bindings and the `jiffies` field of
->     CondVarTimeoutResult::{Woken, Signal} to `remainder`
-> - Add Alice's Reviewed-by
-> v9: https://lore.kernel.org/rust-for-linux/20261102035934.711973-1-tomo@flapping.org/
-> - Send as a single patch. Patches 1/4 and 2/4 of v8 are in v7.4-rc1,
->   and the workqueue patch will be sent separately
-> - Rebase on v7.4-rc1
-> - Drop the comparison with enqueue_delayed() from the commit message
-> v8: https://lore.kernel.org/rust-for-linux/20261002050428.2746277-1-tomo@flapping.org/
-> 
-> Boqun, would you take this through the rust-sync tree?
-> ---
->  drivers/android/binder/process.rs | 13 +++++++------
->  rust/kernel/sync/condvar.rs       | 31 ++++++++++++++++++++++---------
->  2 files changed, 29 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
-> index 1f4cb43f1de6..0ed6a4b1c74b 100644
-> --- a/drivers/android/binder/process.rs
-> +++ b/drivers/android/binder/process.rs
-> @@ -35,6 +35,7 @@
->          Arc, ArcBorrow, CondVar, CondVarTimeoutResult, SetOnce, SpinLock, UniqueArc,
->      },
->      task::{Pid, Task},
-> +    time::Delta,
->      uaccess::{UserSlice, UserSliceReader},
->      uapi,
->      workqueue::{self, Work},
-> @@ -1552,25 +1553,25 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
->          inner.is_frozen = IsFrozen::InProgress;
->  
->          if info.timeout_ms > 0 {
-> -            let mut jiffies = kernel::time::msecs_to_jiffies(info.timeout_ms);
-> -            while jiffies > 0 {
-> +            let mut timeout = Delta::from_millis(info.timeout_ms.into()).to_jiffies_timeout();
-> +            while timeout.as_jiffies() > 0 {
->                  if inner.outstanding_txns == 0 {
->                      break;
->                  }
->  
->                  match self
->                      .freeze_wait
-> -                    .wait_interruptible_timeout(&mut inner, jiffies)
-> +                    .wait_interruptible_timeout(&mut inner, timeout)
->                  {
->                      CondVarTimeoutResult::Signal { .. } => {
->                          inner.is_frozen = IsFrozen::No;
->                          return Err(ERESTARTSYS);
->                      }
-> -                    CondVarTimeoutResult::Woken { jiffies: remaining } => {
-> -                        jiffies = remaining;
-> +                    CondVarTimeoutResult::Woken { remainder } => {
-> +                        timeout = remainder;
->                      }
->                      CondVarTimeoutResult::Timeout => {
-> -                        jiffies = 0;
-> +                        timeout = Delta::ZERO;
->                      }
->                  }
->              }
-> diff --git a/rust/kernel/sync/condvar.rs b/rust/kernel/sync/condvar.rs
-> index 69d58dfbad7b..4be2c3bf8802 100644
-> --- a/rust/kernel/sync/condvar.rs
-> +++ b/rust/kernel/sync/condvar.rs
-> @@ -12,7 +12,10 @@
->      task::{
->          MAX_SCHEDULE_TIMEOUT, TASK_FREEZABLE, TASK_INTERRUPTIBLE, TASK_NORMAL, TASK_UNINTERRUPTIBLE,
->      },
-> -    time::Jiffies,
-> +    time::{
-> +        Delta,
-> +        Jiffy, //
-> +    },
->      types::Opaque,
->  };
->  use core::{marker::PhantomPinned, pin::Pin, ptr};
-> @@ -182,19 +185,29 @@ pub fn wait_interruptible_freezable<T: ?Sized, B: Backend>(
->      /// Atomically releases the given lock (whose ownership is proven by the guard) and puts the
->      /// thread to sleep. It wakes up when notified by [`CondVar::notify_one`] or
->      /// [`CondVar::notify_all`], or when a timeout occurs, or when the thread receives a signal.
-> +    ///
-> +    /// A negative timeout is treated as zero.
->      #[must_use = "wait_interruptible_timeout returns if a signal is pending, so the caller must check the return value"]
->      pub fn wait_interruptible_timeout<T: ?Sized, B: Backend>(
->          &self,
->          guard: &mut Guard<'_, T, B>,
-> -        jiffies: Jiffies,
-> +        timeout: Delta<Jiffy>,
->      ) -> CondVarTimeoutResult {
-> -        let jiffies = jiffies.try_into().unwrap_or(MAX_SCHEDULE_TIMEOUT);
-> -        let res = self.wait_internal(TASK_INTERRUPTIBLE, guard, jiffies);
-> +        let jiffies = timeout.as_jiffies();
-> +        let res = self.wait_internal(
-> +            TASK_INTERRUPTIBLE,
-> +            guard,
-> +            jiffies.clamp(0, MAX_SCHEDULE_TIMEOUT),
-> +        );
->  
-> -        match (res as Jiffies, crate::current!().signal_pending()) {
-> -            (jiffies, true) => CondVarTimeoutResult::Signal { jiffies },
-> +        match (res, crate::current!().signal_pending()) {
-> +            (remainder, true) => CondVarTimeoutResult::Signal {
-> +                remainder: Delta::from_jiffies(remainder),
-> +            },
->              (0, false) => CondVarTimeoutResult::Timeout,
-> -            (jiffies, false) => CondVarTimeoutResult::Woken { jiffies },
-> +            (remainder, false) => CondVarTimeoutResult::Woken {
-> +                remainder: Delta::from_jiffies(remainder),
-> +            },
->          }
->      }
->  
-> @@ -248,11 +261,11 @@ pub enum CondVarTimeoutResult {
->      /// Somebody woke us up.
->      Woken {
->          /// Remaining sleep duration.
-> -        jiffies: Jiffies,
-> +        remainder: Delta<Jiffy>,
->      },
->      /// A signal occurred.
->      Signal {
->          /// Remaining sleep duration.
-> -        jiffies: Jiffies,
-> +        remainder: Delta<Jiffy>,
->      },
->  }
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.43.0
-> 
+Changes in v3:
+- Use Delta<Jiffy> for timeouts and treat negative durations as zero.
+- Add might_sleep() and caller tracking to the wait_event() methods.
+- Gate the WaitQueue KUnit tests behind a dedicated Kconfig option.
+
+Changes in v2:
+- Drop the already merged workqueue patch.
+- Make as_raw() public.
+- Split error types and use bindings constants for direct C calls.
+- Avoid condition rechecks after success.
+- Check the condition before preparing a waiter.
+- Add non-exclusive wait support, including a CondVar method for subsequent
+  Binder conversion.
+- Handle zero and expired timeouts before interruption; extend KUnit coverage.
+
+[1] https://lore.kernel.org/dri-devel/20260721151423.444175-2-laura.nao@collabora.com/
+[2] https://lore.kernel.org/rust-for-linux/20261104235929.1282640-1-tomo@flapping.org/
+
+Danilo Krummrich (5):
+  rust: task: add safe schedule_timeout() wrapper
+  rust: sync: add WaitQueue infrastructure
+  rust: sync: convert CondVar and PollCondVar to use WaitQueue
+  rust: sync: condvar: use task::schedule_timeout()
+  rust: sync: condvar: add non-exclusive freezable waiting
+
+ rust/kernel/Kconfig.test    |  10 +
+ rust/kernel/sync.rs         |   8 +
+ rust/kernel/sync/condvar.rs | 154 +++++-----
+ rust/kernel/sync/poll.rs    |  19 +-
+ rust/kernel/sync/wait.rs    | 546 ++++++++++++++++++++++++++++++++++++
+ rust/kernel/task.rs         |  23 ++
+ 6 files changed, 664 insertions(+), 96 deletions(-)
+ create mode 100644 rust/kernel/sync/wait.rs
+
+
+base-commit: 60fff02883397e17439c16f0e72b2f8c5f6eb791
+-- 
+2.56.1
+
