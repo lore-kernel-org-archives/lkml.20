@@ -1,71 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910663;
-	b=pSr99457A+vDkW6RI0VWzymfr7ZinQi6JbsDzLSWDf5esConqyiF1AbX28ATdy28y7p+
-	 UPEWHoY4f0jb6SSizsFBLEOuPaceZTqpcIccYDAUjLFx7hjB1q7wV1oZoc3XPlAAXs5sr
-	 pHDVlSMuBofdYtOMkBn+v1qL0LlHz7SJhcvdZScVU01GFNArawacZyi3cb62UXm6gQTkd
-	 SzW9gH2clY3qd7netAiszoZXv8kW8dgunIHrQ6Ilcp+l0EiRMtPV1aj5jUOGqV4PiPsAq
-	 V5nx76yGNFGHHCqtPOgUAtjf2oPeEOWpuuu2gC+QUJBZDz/U+RVN07B/a1UDdFpbwKw==
+	t=1794910664;
+	b=3cv3KcfU3XcLcUrkRrTV0oc5BqiwpDOEaSTjPwTmZN/cTj5RouEJOip2sG2KNQacK8Vb
+	 8skaxX1PHtZAV0/VzaNGLZVnaNHwqAAHHIUK+iLLIJShszuwug5c7Yt6raOQJMazPLWY1
+	 i64DElHFyAUx6U15gFhAiCaGWgi3/f1uWB+UT7sIzoP/HY0zCKUKbDTx2bbYZJc/3IDGz
+	 Qfq8CDdToj3Ces+pbqfFCaidrSSeL5pi2FfkecwCkmi5WUbbg+V1XZrr1fhx+4RlfadnC
+	 hreU6T03rWWUl9+3PrUNHoytfqyWR2vKW1Lbdk1W6HQEjhVMuep22Wwjr4YzEXZhKZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910663;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=Fq85iTWFfbMs/DK60Cpbgjse8R+dFtJQtKRypS89pjg=;
-	b=qqJtfdeYZtZkai62xkd7I7zDd4RUUqhKOU+rzNpKrSo0YM5kyd2CQJY6K1F8imEPspsH
-	 T1INoFNQj4RgdbSrEHLdJ3tgSSzdOmr98Srvobp6eR4XJvNv9ian3fZ7oIrQRBTN9YWN+
-	 /+E8bn++7uPn9g6snNO39BZXkiq3s28/99L/LOt9a9zyNdx24/LP/ovT0lHdKzV72uULd
-	 Tf1f65pMwvvpJDn5nTvtrq953hRpOkBlSRkVqLvX47sP4bPyl7dfQ4tS3hLj/b+8PXiiK
-	 LHQpakD/691PJnOGUaIl64jEkPf1gyM8PxNa5sl8i5puxjikKk3e00eV1j555XZRNmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910664;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Infomaniak-Routing;
+	bh=CjEYOMn7s2iP08mjBQD8eE6pg/Zhs1AQoF4Jq89bkWI=;
+	b=GAoNnuJvSjj/TglTDdGYVl7pb5aG6Occ5UaFPGHT06D0vUXTPb59CfCotrqwwYlMV6bU
+	 uq0p95GLqYKQHSy1japZFKfgqQD0zVB/xYTdfZPu3ROJwI8LaXr2tqTUQZGA0fD1zfrZb
+	 M7VbkNpUmFm+cQVWyAy2ykI884vk3DRH5VJRgspUT7pTRKo3EBxznxJW/9KJwECE7WUcQ
+	 /uy9tyUvZpq6xKQwdLYCtdwTobn2xRV3pYEEPQ28R7moTusSY9pORlnjLBm+wbBp2Hdpb
+	 LWw+ViURdp7ReojYmN0zn6h9os0cWWn617vRsUTCsTA/jdXlyu5VEa9EKbF/SFaWDkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Nibjfu/B";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=Iic7KIp4;
+	arc=none smtp.remote-ip=45.157.188.8
+Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABDA606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C321E606A329
 	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:17:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ABDA606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C321E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Nibjfu/B
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B50A64E41471;
-	Tue, 17 Nov 2026 10:17:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 892C45FC81;
-	Tue, 17 Nov 2026 10:17:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E536D11BC0493;
-	Tue, 17 Nov 2026 11:17:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794910660; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Fq85iTWFfbMs/DK60Cpbgjse8R+dFtJQtKRypS89pjg=;
-	b=Nibjfu/BFR0rUZvUSF0Qk1wo79A9T8WheSo7UXfG6Pr0SA04cg97+NKYMwjOlmJIjipK7F
-	LLvvjRGlGZuCQQLfRjARYRbK/rieXnEaAy5sL7pgZYalBgdw15XaYt1emRJL5fYV/9oXps
-	1RuVGUii4zZZ5fQP6pZPABax+RbchrEFXMGtwZ6jOuTJAppv2RSMkPUrZV3esGA/uszTdO
-	l1xB38BYFpB8M1KR+QWqFW+VHKQ4Ogh2Icwhe/UnOvtDhO4zpdfVUHywHlgSqjmF2AZttC
-	XOz8Kr+jS/sCbp1W1ZG5FKcId2ZlG7RLa7vut4vysAo1C9re5A/5LkwXFsXJjQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Yichong Chen <chenyichong@uniontech.com>
-Cc: Alexander Aring <alex.aring@gmail.com>,  Stefan Schmidt
- <stefan@datenfreihafen.org>,  linux-wpan@vger.kernel.org,
-  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,  Zhan Jun
- <zhanjun@uniontech.com>,
-  syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com,
-  stable@vger.kernel.org
-Subject: Re: [PATCH net] ieee802154: hwsim: free PIB after hardware unregister
-In-Reply-To: <0D7C088B45E7283A+20261113134141.2626113-1-chenyichong@uniontech.com>
-	(Yichong Chen's message of "Fri, 13 Nov 2026 21:41:41 +0800")
-References: <0D7C088B45E7283A+20261113134141.2626113-1-chenyichong@uniontech.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 17 Nov 2026 11:17:36 +0100
-Message-ID: <87ld6rn4n3.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=Iic7KIp4
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jTLJh55dvz2kY;
+	Tue, 17 Nov 2026 11:17:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1794910660;
+	bh=CjEYOMn7s2iP08mjBQD8eE6pg/Zhs1AQoF4Jq89bkWI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Iic7KIp4Wr4+ClB9QUgXC0Hsr9GxBqLKiJ1bWSEDtLqt9YavaYTav3QUymLY/de8w
+	 rMeOwLvKjAlKyDP1a7Jioc/knJPaBou8THSaSp5XBvi9oU3+W+uN9rItovvsr8fbEq
+	 QiW1x+V1Kj/7qUTWwaCmT72ZRdpcMSqSc/6G3iYY=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jTLJf6yVkzF7p;
+	Tue, 17 Nov 2026 11:17:38 +0100 (CET)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: Paul Moore <paul@paul-moore.com>,
+	Serge Hallyn <sergeh@kernel.org>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Ada Smith <adasmithgt@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	John Johansen <john.johansen@canonical.com>,
+	KP Singh <kpsingh@kernel.org>,
+	Matt Bobrowski <matt@bobrowski.net>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	apparmor@lists.ubuntu.com,
+	bpf@vger.kernel.org,
+	kernel-team@cloudflare.com,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org
+Subject: [PATCH v2 0/2] Fix LSM mediation of PR_SET_SECUREBITS
+Date: Tue, 17 Nov 2026 11:17:35 +0100
+Message-ID: <20261117101738.2523492-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,39 +74,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On 13/11/2026 at 21:41:41 +08, Yichong Chen <chenyichong@uniontech.com> wro=
-te:
+Hi,
 
-> From: Zhan Jun <zhanjun@uniontech.com>
->
-> hwsim_del() queued the current PIB for RCU freeing before calling
-> ieee802154_unregister_hw(). Unregistering the hardware closes its
-> interfaces and aborts an in-progress scan; scan cleanup calls
-> set_channel(), which replaces the same phy->pib and queues the old object
-> for RCU freeing again. KASAN then reports an invalid free in
-> hwsim_update_pib().
->
-> Unregister the hardware first, then atomically detach the final PIB under
-> pib_lock and queue only that current object for RCU freeing. This lets all
-> driver callbacks finish before the PIB is reclaimed and avoids freeing a
-> PIB that was already replaced during teardown.
->
-> Reported-by: syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6af5f575.b350cda4.2b6a63.0000.GAE@goo=
-gle.com/T/
-> Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Jun <zhanjun@uniontech.com>
-> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+This is series 2 of 3:
 
-This is a duplicate of:
-https://lore.kernel.org/all/20260627235805.17310-1-alhouseenyousef@gmail.co=
-m/
-https://lore.kernel.org/all/20260709221858.158063-1-devnexen@gmail.com/
-https://lore.kernel.org/all/20260919223434.3882824-1-benquike@gmail.com/
+  1. fix Landlock mediation of commoncap's capability checks;
+* 2. fix PR_SET_SECUREBITS mediation and add focused Landlock tests;
+  3. fix Landlock mediation of capabilities guarding LSM policies.
 
-Miqu=C3=A8l
+This series applies on top of series 1:
+https://patch.msgid.link/20261117101157.2520463-1-mic@digikod.net
+
+Since per-process securebits were introduced, PR_SET_SECUREBITS checks
+CAP_SETPCAP with cap_capable() instead of ns_capable(), so LSMs
+restricting capabilities through the capable hook (SELinux, AppArmor,
+Landlock and BPF LSM programs) cannot deny it.  A task with CAP_SETPCAP
+can therefore change privileged securebits, and thus how its
+capabilities evolve across UID changes and execve(), without the
+expected denial or audit record.
+
+Patch 1 uses ns_capable(), as PR_CAPBSET_DROP already does, for the
+changes that require CAP_SETPCAP; changes limited to the unprivileged
+securebits still do not check a capability.  It applies cleanly to the
+6.18 and 7.2 stable branches; older ones need a simpler adapted
+backport.  Patch 2 adds a Landlock audit test that fails without patch
+1.  It shares cap_test.c with series 1, which is the only reason for the
+ordering.
+
+Paul, John, Stephen, KP and Matt, please check the AppArmor, SELinux and
+BPF LSM implications of exposing this CAP_SETPCAP check to the capable
+hook.
+
+Changes since v1:
+https://patch.msgid.link/20261110202811.2409395-1-mic@digikod.net
+- Shorten the commit message of patch 1 and check the non-change case
+  separately (suggested by Serge Hallyn).
+- Add Serge Hallyn's Reviewed-by.
+
+Regards,
+
+Mickaël Salaün (2):
+  capabilities: Check PR_SET_SECUREBITS with ns_capable()
+  selftests/landlock: Test PR_SET_SECUREBITS mediation
+
+ security/commoncap.c                        | 45 +++++++-------
+ tools/testing/selftests/landlock/cap_test.c | 69 +++++++++++++++++++++
+ 2 files changed, 92 insertions(+), 22 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+prerequisite-patch-id: 365071039dd2be439f67707944d12edbe1422d60
+prerequisite-patch-id: 021705fb5147cdc8edcac9dbe53c06b854cf976a
+prerequisite-patch-id: 1dfd782b28feeac47423e702764778031b850d6c
+prerequisite-patch-id: 0bf745b08b99168d266461ef5b0b943a2b71eceb
+prerequisite-patch-id: ad96449ac2b66342bdc171582d400276372ce386
+prerequisite-patch-id: 39d6ce2bdfc170b545eb2d275ab781e15c9e887a
+-- 
+2.56.0
+
