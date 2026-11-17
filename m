@@ -1,76 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897069;
-	b=iZ4VjZTeGZLK754tbjkkFYIBKCHm0gKk/28j/JC9AynTR0pZMM8Nwf1YpY7IbqtjZdCm
-	 Cm87m/BWZFKZp0X1rbkMgJeEfhSv0E/xIF7SJOHBtpr9lV9yrh4Lx07k9JCyID0ognh/B
-	 F8mXK4ULZ9Xp3Zv374dVJTvKjJSO07UPYB74E2T82sB1P1y5kJott1akZuD8Biqm/2aoQ
-	 ImjWC8skppnP7/xw/pscxe4wtO3CbdS+XMSMOGgk7P9eFgEDv0UixxUNCA/wCKZLH04h7
-	 W1n5hp+IKINnfubgpEr8rV7n33y+uPWgRZbbogRwY2Qm62sAGrDr5CQ9JRY0SkrxnTg==
+	t=1794897119;
+	b=cTIy8g1qn7YCA6/NFUg2V28vwslZR1LGQCjJfk2eHmvQOrFEs1A2hi1qu7ngFrnH0Ck5
+	 +y/TuduVmX+D+z6ergEIndlu1xNxwk0klXO2UO6K52GE1Xp06t0rE5B/hX/XeDb9Fv+7J
+	 SSvIOypk9VyH3siJm4xqBNH0B+lBZPR25fWV4ZGUH1qQy01b6DjToc5fkuk3a3ibesXiI
+	 NUCKdOBJS50ohe65vIvXkXwQlI1R0SEq9HG4jngEjMDsvTnOLMa9KUGhP2B3EvYOBF9VI
+	 yF2aoQ+jNOSPh+Y5lD/MFB23GUQN2z/OEG7PsyvWqb0/KTJiRclzvJQnixOQ5iPusZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897069;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eIl02sFeg/HdcCOnjAF4dR6Ki4InqJhsRRcDiPV3dRw=;
-	b=veBLzRrxhl06JzIDzEdZRYLtBz/Ft6ASgEQb+5JsoHyVlARozp+O7UDwHCqKgI4OMM2z
-	 GOBWh+m3UFJ2OwJvGIQ01hHcgmTZUnVmta6R8xcykN8N1KjJRNR8gR6l8VeIKw9GgmKc6
-	 eKfwaXCFuqT52CcCLsHgP0z/7sqxJHTKBb30+NDpHc0Yq5IefaQUVXXSQgjKHQjR8aUsp
-	 AKazBjZQ3dJVedVuP9OC6nF91R7txSP5E6niRu1H9jBGByAceeS57d3UH0Qb1gc2vkY3o
-	 1gH2X3IiUvvc86xoXZUHB9Pyia5br9AgumwfxxQ5rbI1Pmb0zuzXKkWqOY2ZUuGVpzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897119;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=2gJeu9lz3FypG3Skb0xDHUuQAQkZLfZt0HTmDptUfys=;
+	b=vCAhqHllhx/VA6vqYU5R8YxBf4b9kjBCa1GjkHz+iFFWCTi/ZNOnPE3lnhUE65xzBq9f
+	 yFv4AVtLAOrNZx51K78NvhsGKm9uXCgdqZzoeZ3Wu+RF0FA0HE2pxjagQivDPbLPkAc5n
+	 Vtk1cUONbtn75DZ6rEvkWKTb5I0SoYkiW/FxNO3U4ntWz6rU1MOP0QrQ4qCBsFSC0UNg6
+	 fGO9UxjRau5yA4hhNP1E/2gh0hbF9M/M3B9FoCW5SDrWHLwUGVe+0QWbqrdsZs8ucvhAY
+	 WDlMUnT1dYH7YKRKE+by63yNN1kXK/b0sDTf2N98BUd/Sp5amGzbB9nR7hXi6m+Z0qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=A8XBF+Au;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rflYPwwL;
+	arc=none smtp.remote-ip=74.125.227.134
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0DE606A31C;
-	Tue, 17 Nov 2026 06:31:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E0DE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5F606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AE5F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=A8XBF+Au
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794897062; bh=eIl02sFeg/HdcCOnjAF4dR6Ki4InqJhsRRcDiPV3dRw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A8XBF+AuOXu/OlZOM0GSLMXQEejSTyFW7UvXGK/E2ZvNZ8ZOpaiBrC9s2IrD3HMqI
-	 T4m7Cz5Lgs6zVtxYb0eGXb/M3BSRf+u26YcnHjQ8NFBEM3hZezNM9d5AFN5eMlLAAK
-	 tvq1ERW3vNd81dnu0fG6koBrHDisEWbRUYoqmQfs=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 7C094836; Tue, 17 Nov 2026 14:31:00 +0800
-X-QQ-mid: xmsmtpt1794897060tqp7f3i2f
-Message-ID: <tencent_E038DD9BFA4429F88047A5A4367D578DB80A@qq.com>
-X-QQ-XMAILINFO: N/WmRbclY25GL9JzXXpiC7azFNOkDpUo3/vpjdlF4rKkk08frouJPI9PVkBbwi
-	 bqqy6N4lnb/qXJVAhhemt46o3E0nDPq3eyEUNeIhttIcuRH0bHMlOggB70bCwFJUrPuIMlfyp3mO
-	 F11RzHHxEnAANvNAD6am9RjfGqGDHX5lwZG6zyiEewYlF7m19wUmxRu+kWqPwPyhi/5kRYpyUx0u
-	 POphp1wlewIrauVYLNRUEOrS82qnyi/HUdtQO+WiWSTIiWhg9hJexvOcaqYqKjn2+eD9yumF8TI9
-	 9U1AdEXd5SoqZxWyEn8V2b+VRCZ/tQO4pVEtcdd/FX8OxWRkcejHWecVHUrR6IqdxwMADCVUsUAo
-	 nBcZ3fuj5sJKV0rwZPVSPEtaegu2oCRKv4grbEExLE+HGbqswhZ9UkpDHr9z24RPE//X5NmBfw3u
-	 LhUadZTk4vGTv4yZvnlyyAJ/FKof0aDrVac902wPeVJz7c4HSHmOvri0UaO2Pdk6PNqv56/IpRB4
-	 4KFFEpkczxYOsrMTV0N2rP526MBB97zVq9Va30exKkgsgV2JPxGKOPju6FXuJkVdzgzLjVyRF9ab
-	 UR0O9BvoEw7rKHBz1wwdJupAYUfjA4fw4/O6iajIpPxmq3CJJRmyce8D/4d88s8pD+GO4hFwVCQN
-	 jRltQSR/XOj1ocLQ+EzxZ0WW8z9eICRVbpXLNDvCKXmLsx6liWCR/J13+z+ER3NWncg5sN5GwsDp
-	 t/G4aTTDzwBgsaF9FQhTQHPlsMzv4lCRBcO2HySo8oMFtrkr3n3uDcP3qAFDW1c5G/++PtxE7fOF
-	 bBXWgiAFDomdn2cxTlzf3IB9kw+qnW3BxgsqDcO4zVe9GdChYDv8PZsdThVMvXEi2I8sg/9WZqTR
-	 5MvELSSRxq11OJY4OqgTyOIJgblsNk7X8UPMRwI3cw3ITzeX3c3LO4Cj0GjLK3HN2j1OeXN0m8h6
-	 a++aa5SNtKyxJewepQbQ7QXiIVrRVFXWQy33RK8MEQeLJ73j9F6Uycf5I06jAk4QF0MaVFywNKU3
-	 +kNazF4NjnfaFBG0Zb6F9J2OQIDz4VbOvInXlJlPzYRHLteVCJ5BnTi0L+ywQDz1BTHtQsL+adcu
-	 QYO6A6
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- [PATCH] srcu: Validate ___srcu_struct_ptrs entries against the module range
-Date: Tue, 17 Nov 2026 10:00:00 +0800
-X-OQ-MSGID: <patch-srcu-within-module-20261117@qq.com>
-In-Reply-To: <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
-References: <srcu-struct-ptrs-wildwrite-20261114@qq.com>
- <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rflYPwwL
+Received: by mail-pj2-f6.google.com with SMTP id d9443c01a7336-2e987949882so29849735ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:31:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794897117; x=1795501917; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2gJeu9lz3FypG3Skb0xDHUuQAQkZLfZt0HTmDptUfys=;
+        b=rflYPwwLg517ZWGxWOumRF3ees1MTXwr5b/HV2rmh6ebq0H4+l80WIY3gONZYdJQhp
+         RGyl9gDurcGW8Oh6HFVjLvdnRfIzQ2IdFAAAR6H2/ftaNS+OTSDkP6jGDlNNXd6traH2
+         7GaRDaOaDpZnAcTXhqfFeGuFuJRCRJTfORo2ny0CNZoQh1KSCAvwiDyJl7ZqNCMkPCp+
+         m/4Cu+3r0Pv7yXt0DLd4owsvL2PvIySR3HS8flXNiVICYLJ0hLVE1Yt03jbNlNO8C7dG
+         QvU2gey374WTI9bkp/mL9JGLLo7xj5ajwvuv8ze50Bp7ekmJW24Aht4FRWvuHZv0tvqq
+         WcuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794897117; x=1795501917;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2gJeu9lz3FypG3Skb0xDHUuQAQkZLfZt0HTmDptUfys=;
+        b=HmuSn7McZJnEzAWkxt/d264DzJnDHYmW6qJ47x1JotpN0V70n+sge4kPlUs6DjaoDv
+         TUtM5dFHBM6alMdts/9LYD8p9psq2x8VRBB0LY1/S+VQxMNc2hWvhhF1uh7Fys1iNHSI
+         5sN1/6J0qYVAqVZp5IWgfkZrOaAEkmCTO8NJ7LzZX8qFnxu2HxTiJjLMYOfm6eVR+OFJ
+         QATQu53k04wFJIjkNVmKzDbnaxWKQGhZYGkRumMDoQMbakhIsHWMm6LtgEmI9/yRBii5
+         84rKVMKhEgGy6mr8rUKX9fe0fs6gAwPW9etIFXh/oM/NcrgpH+iC6i2W8TjG0/T9zwma
+         IOIA==
+X-Forwarded-Encrypted: i=1; AL+hErFo/wMMiL8reruCbHGtahtQNCJHCmSOEjhBE+BTQtvkeCjjY6lMovONg1GKgQ4R705XLZf5Vdi4PnrfS+8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ghHKBqXuZfvie6j1C0YMQY0vIKdUypftIrOIbgV4ryovCoyIv
+	WbilJRnNRWP0B/IzgOoHDGr6PngMyPK/M2RIzo4lBA9pAxoIRMGdiSO/
+X-Gm-Gg: AYBFou2BzzDTg00Kez9bty3RP69H8hf9uRGI3kKpiFiIA/VyPBdzx5l2AnBcU7YOYpE
+	HLqvRnChdyB5h5m+pyFnqthx61Cu59VPe/CnvP4OXRHOu1dOJd/bArz9X/8DY9Tfb3ztCsPpwjc
+	9Kj32fepY89b+U78O+AJIJgNktONLtxgMrp0j+EaJglJWpqYJek8FsU0QrOo+E4dlcRMu3M57NY
+	+6lN9HQC96/ydX98z534RJ0lSqdZn2HXaGXzNz9p0KhxSfev2yYqi3iM9sdaSP9ujw6IodQ/OBd
+	Yu5LBBkyYIjZAru192A8GoiaTv4XM3zonNORTKmo65vSKrIDFt4QXP3fn9AyuF58sDo2fLAE2uH
+	7PORfN+YcxhEjpAYnSLWQyJEcmlVGjFnJMaB9bmv8wY/bVPERh+BPk6VZNKBSU8zOYvWdodK8Z4
+	DNTCZQDZDW8ql3LRM2HNeS8pRMtKd7HHOJJnm2xFbCBaEN7jAx2vp6vACJs5BpKIA3qUU0DFkwh
+	PWRFpD2EBnRj7eLaYOhWM0J0e6GRI32kZgBDmLzytOQTI8RAYm8WglEd3ZI2P6/boLpfxja4xwF
+	46sJAPOMXxXtyIq0Uwf5BBPXf8diMIVb3xsochzcJswGodSC2PlC1H/CzE05qvOAcsp80Bob5Yu
+	TjKTk62IzgZ3ZUY8G4EGzf2kqUBpTFOk44MDoh//woyvGgUQCgjWJJoxxVhBONZE=
+X-Received: by 2002:a17:903:988:b0:2ed:3e3d:f0ea with SMTP id d9443c01a7336-2ee0dd2bb4emr122131505ad.20.1794897117285;
+        Mon, 16 Nov 2026 22:31:57 -0800 (PST)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a364f6sm8477105ad.27.2026.11.16.22.31.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 22:31:56 -0800 (PST)
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Tue, 17 Nov 2026 17:25:36 +1100
+Subject: [PATCH] selftests/damon/damos_quota: skip the last sample when
+ counting exceeds
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,67 +93,65 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-fix-damon-quota-selftest-20261117-v1-1-c65d687d3def@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NwQ7CIBBEf6XZsxsLMSX6K8YD0MViLChLrUnTf
+ xds0uObzLxZgCl5Yrg0CyT6ePYxFBCHBuygw53Q94VBtrITQih0/ou9HmPA9xSzRqany8QZ94a
+ ynVCmPTl7llA8r0Rl9P+43jbmyTzI5iquDaOZ0CQd7FCjTZ/nuDuP44iBZljXH36dM/OxAAAA
+X-Change-ID: 20261117-fix-damon-quota-selftest-20261117-7c617b04fc92
+To: SJ Park <sj@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+ damon@lists.linux.dev, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-As discussed, here is the formal patch. Exactly as you presumed:
-srcu_module_going() needs the same check, because a module whose
-coming() fails the validation still gets a MODULE_STATE_GOING
-notification via the robust call in prepare_coming_module().
+damos_quota.py expects qt_exceeds to be increased for every sample whose
+tried_bytes equals the quota.  The kernel increases it only when the next
+quota window starts, so the last full window may still be pending when
+the workload exits.  The test then fails with an expected count one
+higher than the actual one, e.g., 15 < 16.
 
+Do not count the last sample.  Also drop the sorting of the samples, so
+that the last one is the latest.
+
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
-
-The entries of the ___srcu_struct_ptrs section are absolute pointers
-emitted by DEFINE_SRCU() in module .data. load_info() hands the raw
-section to RCU (kernel/module/main.c), and srcu_module_coming()
-dereferences each entry and writes through it:
-
-	ssp = *(sspp++);
-	ssp->sda = alloc_percpu(struct srcu_data);
-	ssp->srcu_ctrp = &ssp->sda->srcu_ctrs[0];
-
-A malicious or corrupted module image can point an entry anywhere in
-the kernel address space; nothing on the load path validates it, so
-this is an arbitrary-address write primitive (an 8-byte percpu
-pointer at offset 8 of the target).
-
-The static-key loader already handles the same shape of section with
-a range check (kernel/jump_label.c):
-
-	if (within_module((unsigned long)key, mod))
-
-Apply the same check to both module-notification paths. coming()
-rejects the module load outright; going() skips the entry, because
-going() runs even for modules that never passed coming(), and those
-entries never got per-CPU data allocated.
-
-Signed-off-by: Guikun Yang <yangguikun19@qq.com>
+Tested in x86-64 KVM guests.  damos_quota.py failed in every run before
+this patch and passed in every run after it.
 ---
- kernel/rcu/srcutree.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/testing/selftests/damon/damos_quota.py | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 2b0e2b2d2..412265757 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -2498,6 +2498,8 @@ static int srcu_module_coming(struct module *mod)
+diff --git a/tools/testing/selftests/damon/damos_quota.py b/tools/testing/selftests/damon/damos_quota.py
+index 879115a499bf..bdfd22f00079 100755
+--- a/tools/testing/selftests/damon/damos_quota.py
++++ b/tools/testing/selftests/damon/damos_quota.py
+@@ -53,15 +53,16 @@ def main():
+         wss_collected.append(scheme.tried_bytes)
+         nr_quota_exceeds = scheme.stats.qt_exceeds
  
- 	for (i = 0; i < mod->num_srcu_structs; i++) {
- 		ssp = *(sspp++);
-+		if (WARN_ON_ONCE(!within_module((unsigned long)ssp, mod)))
-+			return -EINVAL;
- 		ssp->sda = alloc_percpu(struct srcu_data);
- 		if (WARN_ON_ONCE(!ssp->sda))
- 			return -ENOMEM;
-@@ -2521,6 +2523,8 @@ static void srcu_module_going(struct module *mod)
- 	srcu_defer_flush();
- 	for (i = 0; i < mod->num_srcu_structs; i++) {
- 		ssp = *(sspp++);
-+		if (WARN_ON_ONCE(!within_module((unsigned long)ssp, mod)))
-+			continue;
- 		if (!rcu_seq_state(smp_load_acquire(&ssp->srcu_sup->srcu_gp_seq_needed)) &&
- 		    !WARN_ON_ONCE(!ssp->srcu_sup->sda_is_static))
- 			cleanup_srcu_struct(ssp);
+-    wss_collected.sort()
+     nr_expected_quota_exceeds = 0
+-    for wss in wss_collected:
++    for idx, wss in enumerate(wss_collected):
+         if wss > sz_quota:
+             print('quota is not kept: %s > %s' % (wss, sz_quota))
+             print('collected samples are as below')
+             print('\n'.join(['%d' % wss for wss in wss_collected]))
+             exit(1)
+-        if wss == sz_quota:
++        # qt_exceeds is updated when the next quota window starts, so skip
++        # the last sample, whose window may still be pending.
++        if wss == sz_quota and idx < len(wss_collected) - 1:
+             nr_expected_quota_exceeds += 1
+ 
+     if nr_quota_exceeds < nr_expected_quota_exceeds:
 
--- 
-2.34.1
+---
+base-commit: 67f3b04b277373438f17300e056306adbd9edf7b
+change-id: 20261117-fix-damon-quota-selftest-20261117-7c617b04fc92
+
+Best regards,
+--  
+Aveline Noir <jm5905938@gmail.com>
 
