@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794896432;
-	b=xqyggOQH/IQkbFJwZr0dpriLfCzspcM6AvZ54DtYwEz2bWTeB73g233nJ8iQfAVafDzA
-	 qHUSq47B4IPjvIXiRm7GFl5ksw6sM50JKnvilCCDrinaxNS1NKjQuJ1xSMpxyoKmX8MXB
-	 s4F37cQsLqpShOz2kwucUN/xf3K5UCJvhMjM2NxM9ac7eONK0qGfsmoqYRkWvRMlPSuVd
-	 Vq9Dhn/4yUyMDJBSvVzkXKQOT3bGycdUbsHGmkk67GXVUcB+bIFy202akIOSBQJaLX/sJ
-	 4akZFxKazdL4f2g3N7yphwqwzPTgHLOTf63GUvxkc+mi9DSwETXIaNHX/BxMQTJLEZQ==
+	t=1794896431;
+	b=UvymDND/L/O0QupjDxXwigXVnbwUu7Yf166t7P2jssAr8OUWC1L9ztGNR+ZUJPw5hZgy
+	 5w4hY0XIgGZ+lEA/NACXWKh5/z+lCo9RnODgoUKNRvFh71Aka6VJDA5KJHtiL6fLF2aOr
+	 U0RqvB+eCOSUtDWy7HI+CRDwDDQIK/ktV5O/JFcPAYVKHkRovrTIoIjDAZWcnzA9Ljr3W
+	 HWQ1m0X3rWZe61up9bP7fmlnrHoR/+Zk/XsJLzn7cU00DSC4LG/Rt4aaVaCMnWja7+4id
+	 LHQdJggxJhHVvy54r667wnmIoxE7It3ozYHKvj3DWNQhP92p/Ne25s0Gjrm0uy7VHlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896432;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=1DDRt7N0cPxO/KFQj7wkx+g70GiGI/WkpRraj+SxGOY=;
-	b=piiK4/fN1T5G6hWNOrVFsgp4PG2ONa3MGnpELHXw2RlPNdxF79nKn6VdqimHpb5D/3R8
-	 JA8ePK04IPtYeiq9Mh7G1UySqw5ZfC6/phHU07vhq/o8nXY/SxWe0YkkE9J4opzkLhlwy
-	 6W5S1b6B++mec8JIkW02V+KgP8xkDQYfi5Seuudhz1Z16/A+BEK56kFUa2wwKYRg1Foau
-	 Xz+2muqz8oJ1mxATT63eMJHQE92E2IAUzR+JK62/kul/8ihBClOrIy5NZaRw9M3HpQqjm
-	 Yqs1AKiOdwU5l8S3L2tfxcpH3mGXrMX9ctJ2ZwBkUfpP7SDz7YQqjKKosg4GVL2WCgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896431;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=/AyZwE0z8xzNTzh3g28ee5O0JSeolxvnrecjyY62ztA=;
+	b=eO7k9IizPKhBSvOQmdbZRmbvloMHvHkiirVTcW8qcJTz5RhMv0kmqQHvLaLb9WJF+DFf
+	 Gt/CENt71XeYI0+UDY/wgSA9ZK7ACxq4SHzom1iHY6P9xK2JBpQnXJIb9JqazP2FWyVEQ
+	 4abprRRthg+FbMOL/DkMjW14zxs1PlT7NZkrbU1chmuiQZiJKvjwRnvY/lXpOCY7FS5d9
+	 9dNjOPtaxN+tmSZz6y4EpYW8ytkX8/87tenTpOW/ihfOXkOpsMGq8zX9y/LRB3meVnTV8
+	 0kL3+/jKT4ycZU3bRR1bBv4TeylPag74e23mvFXHDejyvFFf3CnlxPFs8Yk4BZKqRJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLGIP8KR;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=sDwBkkOe;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29045606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:20:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29045606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23666606A31C;
+	Tue, 17 Nov 2026 06:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23666606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLGIP8KR
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ea19bc317dso29302545ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:20:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794896431; x=1795501231; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1DDRt7N0cPxO/KFQj7wkx+g70GiGI/WkpRraj+SxGOY=;
-        b=ZLGIP8KRJ4eGdA8Ew7Vv03D4DI+I3fT8GcFNmCX458UqxKmJ5evA+ZkwGVE0UFJ0jp
-         9hzDy3ejiTDR6GSQSvaL8v0X4SHR/nG3HsP7KsQb2+j4EBeAKU3Sjqkkw2Jo+pGlj0iw
-         70eBMu01hlA1hkSZ08uB1/u4qKfrMV1ZccYeALIvIePB2rg+1BPwJCEts37nQVslE8Sz
-         5Gk6VIJwZu3yWD/FLmvNU3bonF2IGfXLjfGyjVpzOzkK5hKobySELUACBT9gl/FtLrv6
-         JDe+XcO+kjmDQgpVRYcChFK9f53Y2dAY3W286HcYrDHPGbgbMkro9kPQK1N68s1qor0r
-         yMMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794896431; x=1795501231;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1DDRt7N0cPxO/KFQj7wkx+g70GiGI/WkpRraj+SxGOY=;
-        b=1UTQ+8dkK45R3BXbhMHheQBjBrQrse2zc2gkNiYd92sTkzddpHKrZMmgsDnX0fOQR7
-         FA/OjKmDEDy8z1LvDG7KMzb2YTr4aSs4kcmAFPeojUVVX8guapfxIgSvdDtR6iLk2sIG
-         ezbqdzANikF4xCx/C23AxyJVW/rC4+Fy+3ofkey9Tj4mg2rnOdn2DHPD8Zse2k58RBPy
-         6J3qxDyQMTmdTVNCQN9sYgQzG0q6ZepxwyzOFBHRTSfNuBjuCPrnTIQcGOED/SK0fLAL
-         DzrNGQWlJ5DO6YPQD5213Im/DirVJoK9gb1fFVDjLvatOCXGv83X8SXp+5cP+pfaUL2Z
-         /mNw==
-X-Forwarded-Encrypted: i=1; AL+hErEBIzSbQf/+VERQtAiqShEmWA2NLcgQbAYeAicwduPYcNfx4SZkSBkuVFooLL0D89/6WHQeAj77NE72tl4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OZejsRSHzO31gxQfoZZkNQViusCMMBmPOBEoR1Eny0/2BTc4M
-	kVUQSeaTEkligKnLBEv0mL3n38lqHo6b1+V11hSDZT3P4ph/13Vs9w06
-X-Gm-Gg: AZFdTZeD70stMpVmHXBZxKSLhy79nMBWs3bk8LuMbGOtg7a9Wdjk1ezz/WXNoUTDUGn
-	TT7buFFI+9xULE5SoEzgDOwJkLqjju1YwOSY7WZ8uEfy2HgN/5coWARkKX388hk/gKhRZaJmqZ4
-	7Jif0cM5gSsqzOh3yyDFp9UtU7bKlZOYWc1gaWD/hN6D69djka0Z/C32bPi4GbWW4eGx1Rebfd1
-	Z5PGTJ4L9NbtdX9LHvSqI4kiEDHW9uZjZqUeekCtELCMhGyit7kuYPLOtxrzNvVm3cbnnRZ7RuR
-	sGfhbuaE0MjOtLtdesLP5FAA4bbgbKdOgMY+oYkUOZm1oXFOV46CxQMgMTMBv1U5CSs8QndSm1o
-	0GxiEBp2zut/hs+o4Zk7El1SZjFBC190EOtlbrfjrn9sBH2C168HabhOgnn4lwnNc6mWmyHJuLF
-	PXS4CxpXsdN3QWZb4AOC7vodUbRP+ld19BSjzXbfexSYzXjuU7FkPn/QUaq7iH+Z9UvbGdSVHB1
-	3eVAtwVxZ7Lq4+IvSM49xz/ewTNa84/iddvTBzjnTI3l0rnLyQPfF5KcstNnCXA+N55Qb1hj5up
-	k7e8euT8ncBO9p4dBECNl977QKy3o+1fWbpNUlE6heHKgsdBGoiXryRNGaAekx5U0L3F+ilrg9v
-	MW3ldxgGOWb/Bo98X3OmcbG/FUVTIqj4auvbRt60BGsg1pnQCVyWD8lPVBwiELk8=
-X-Received: by 2002:a17:903:22c3:b0:2e9:6788:9369 with SMTP id d9443c01a7336-2ee0dad1a75mr127580975ad.34.1794896431357;
-        Mon, 16 Nov 2026 22:20:31 -0800 (PST)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a5f754sm8776345ad.52.2026.11.16.22.20.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:20:30 -0800 (PST)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Tue, 17 Nov 2026 17:06:54 +1100
-Subject: [PATCH] mm/damon/paddr: skip hugetlb folios as a whole in pageout
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=sDwBkkOe
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH6K6sF44178464, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794896406; bh=/AyZwE0z8xzNTzh3g28ee5O0JSeolxvnrecjyY62ztA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=sDwBkkOeDqvjkF6h8i/HSEwcV7lVUHMir7fOodeWUWvH7WB3aoDopj+QvgFEOIyiM
+	 luGdcMRsZgvcfAh/PTw/mTu6EZVVuRMX34ae2nKN2dA/xMVZhuaRu66ckG9EuH3Bof
+	 U9nPP/n0rPxE+T84R4VRbz9mmTMDUpuaEbHkXS/iZ95ENKCHaABPnD/LfXpfd1Qm0w
+	 WVjwU4oEm8yxqUBExXMILt9nsV7C9AFhH0rBDV0DyawojEHMtroD1zRYSgOQ46f1xH
+	 WK4ic21MHgtgsOnhhnFrUXk8g5eIhR7C8hpaKmMAxytrGgP/Uemn5hlZQnGU/gk1SF
+	 v2AgSbe+bRDxA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH6K6sF44178464
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 14:20:06 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 14:20:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 14:20:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 14:20:05 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Alastair D'Silva <alastair@d-silva.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, Kalle Valo <kvalo@kernel.org>
+CC: Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Jernej Skrabec
+	<jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v10 3/4] wifi: rtw88: sdio: Fix unhandled RX
+ request interrupt storm
+Thread-Topic: [PATCH rtw-next v10 3/4] wifi: rtw88: sdio: Fix unhandled RX
+ request interrupt storm
+Thread-Index: AQHdc0hVp2N6+ZRlk0SKJddwWOckkrcx0KLA
+Date: Tue, 17 Nov 2026 06:20:05 +0000
+Message-ID: <2e70b353e2584643a278100a5d64b6ae@realtek.com>
+References: <20261113082242.2773369-1-alastair@d-silva.org>
+ <20261113082242.2773369-4-alastair@d-silva.org>
+In-Reply-To: <20261113082242.2773369-4-alastair@d-silva.org>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,63 +91,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-fix-damon-hugetlb-pageout-20261117-v1-1-054ef8760a92@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NwQ6CMBBEf4Xs2Y0URaO/Qjxs27WtkZa0RUwI/
- 26RhOObzLyZIXF0nOBezRD545ILvoA4VKAsecPodGFo6uYihLji031RUx882tFwfkscyHAYM+4
- VOnN90jfdUiuhiIbIZfU/6R4bp1G+WOXVvDYkJUYZySu7Rps/T2F3HvsePU+wLD8rFfSysgAAA
- A==
-X-Change-ID: 20261117-fix-damon-hugetlb-pageout-20261117-a4e03d9d5a5b
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
 
-damon_pa_pageout() uses damon_get_folio(), which rejects hugetlb folios
-because they are not on the LRU.  The loop then advances by PAGE_SIZE and
-looks up every base page of a hugetlb folio that cannot be reclaimed.
+Alastair D'Silva <alastair@d-silva.org> wrote:
+> On 3081-based SDIO chips (observed on RTL8821CS; RTL8822BS and RTL8822CS
+> are inferred to be affected as they share the 3081 architecture), clearin=
+g
+> REG_SDIO_HISR_RX_REQUEST requires both a software W1C acknowledge and an
+> empty RX FIFO. Masking this bit out before writing back to HISR prevents
+> the software acknowledge from happening, leaving the bit asserted even
+> after the FIFO is drained and causing an infinite interrupt storm loop
+> that locks up the system.
+>=20
+> 8051-based chips instead clear this bit in hardware once the RX buffer is
+> empty without a W1C writeback, and software must not clear it.
+>=20
+> Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
+> For 3081, disable interrupts via HIMR, acknowledge all pending status
+> bits via W1C writeback (preserving the existing full status word
+> writeback used on non-RTL8723BS chips, now including
+> REG_SDIO_HISR_RX_REQUEST), service pending events, and re-enable
+> interrupts under irq_lock if still running.
+>=20
+> If unread packets remain in the FIFO when interrupts are re-enabled (or
+> if new packets arrived), REG_SDIO_HISR_RX_REQUEST remains asserted and
+> re-triggers the IRQ line. For 8051 chips, preserve the existing behavior.
+>=20
+> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO =
+based chipsets")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
 
-Use damon_get_monitor_folio() and skip a hugetlb folio as a whole by
-advancing to its end.  Do this before the filters, the accounting and the
-last_applied check, so that adjacent regions within the same hugetlb
-folio are not walked by base page either.  Test the LRU flag first to keep
-the hugetlb check off the path of ordinary LRU folios.
+Remove this tag across patchset.=20
 
-In a pageout microbenchmark in an x86-64 KVM guest, traversal time
-dropped by about 99.7% for regions covering whole 2 MiB hugetlb folios.
-As a side note, there is a small overhead of about 1 ns per region when
-each region is a single 4 KiB page.
+> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
----
-Tested in x86-64 KVM guests.  KUnit passes.  The damos_quota.py selftest
-can also fail without this patch; I will send a separate fix for it.
----
- mm/damon/paddr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 5b773012a876..aca48bf752c8 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -268,7 +268,9 @@ static unsigned long damon_pa_pageout(struct damon_region *r,
- 
- 	addr = damon_pa_phys_addr(r->ar.start, addr_unit);
- 	while (addr < damon_pa_phys_addr(r->ar.end, addr_unit)) {
--		folio = damon_get_folio(PHYS_PFN(addr));
-+		folio = damon_get_monitor_folio(PHYS_PFN(addr));
-+		if (folio && !folio_test_lru(folio) && folio_test_hugetlb(folio))
-+			goto put_folio;
- 		if (damon_pa_invalid_damos_folio(folio, s)) {
- 			addr += PAGE_SIZE;
- 			continue;
 
----
-base-commit: 67f3b04b277373438f17300e056306adbd9edf7b
-change-id: 20261117-fix-damon-hugetlb-pageout-20261117-a4e03d9d5a5b
-
-Best regards,
---  
-Aveline Noir <jm5905938@gmail.com>
 
