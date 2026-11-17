@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912479;
-	b=vHUBj8veriVoxKtT1GGntrUi1IX4s9vtaQ1gooAI40J9FPbuv8yqqPiEnfGe9Ga1xNlz
-	 50ooVPAwiDBmVl+Mwt4SdZlTIqcBACdeBm4qUqmSo+4CqUcGHhiTCssRoTXSRuhKgbZCR
-	 tk8pz2Z9zmtmaoHFzAJGiifWbM1CPuZnPk0n1ODfGJO0lOuaPbHRSA8WRo1glNsXMeI9t
-	 RJQ3lYMqAyEjGejGlEbI28hDP9GawbpBIZ4hu2gl+iHbnWLEBFnEZvLw22eQ2w76Aqawy
-	 jPOW09DNTMBKlhsbsB4p2UCzHpWmO9qaWmOCaNzNu4BzwoaeLawaoBpIJNnFyQlCTog==
+	t=1794912480;
+	b=Wc/cLFdOw0MhaRoIDAJnLj53xDlzwhlgIqA36LkJYpah1NOGpdW+pNxvB0Zpu6d/cLmN
+	 0gTJ6EDer1Uk/yDpo7B/XJudyIcOh4NdGPJSlRz43ZyVF/femE0jSCx2Y9iV3O7kNKpI/
+	 amfZZl4R7THGDfeI/XU8k8aoPD/lm2ZSv9aHP7GxO2n+OiQXJgAji6Gvrz3yxY1+/PqxJ
+	 TTXMHwgPjQg/Mok12jC39KLGvQ2cr8Q/vg00C1p/ubdzImtZjuZJalkhqwafiR1XeQsZp
+	 oDn33EnWHndY0W4jbUqK0Cm1CkZMMGqccrTBDyCiIGW4NvuHzdzg4KV4Eiitpa2AihA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912479;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ahdmS1KGJrdLiqNWtNVgWJXHsq/MxagFsO1X6Q0WazY=;
-	b=DbFVwdt46rsVCikSGBSVsjdWW02ezYV1fp/oZA+vgBfNE9N/pWDvlCi2xpPtBxC3e2uq
-	 Vw8eMwnbt+GuMNSAhH3BHbfvCX+RALsn3CHQjAUWwyEUpf93Vjm7YN5uypgfh96sySp1F
-	 9UvnX7io0gRt8apoaYz72e8itRku+70pxICZhBytDweAaguO5sqU0aI4Ev9hPhA34Nu0i
-	 Q7TC85idu88Z5Dl+FzBrGxAvAPQd6TdYBc36PcraipH09DEIuC0UnULPw1wZNf257yudu
-	 S3YGAVxGI6U7asplyAY2p7WUMfxbkpBDPqax/3/C2emdj3eRK1KEbT1mV3tl4nwfrKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912480;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=JIxCmE/jn2GPb4zKjgDed23TAonlzb2lFWRnVD2IiAQ=;
+	b=QsW1r2d7aGpj+XhuBjPz4Qn0PUnoHA4H9KE++ErKA4qSmhHmwFujcv8TPNm2qbRC0PnD
+	 WcN1lJQo4pXU6g31/ePiEHUBWtYDGU06AjF15W8uYv86YaRbATO2fpbDDArVOSk/9UA1g
+	 EL2OeU65yuETE5gHXH6YlGO1sjBDThXtyBsxw9qetcolnpzuVh8mWmTVlr06xV4NxFqXr
+	 dPHB4iSOypV9tKZyIQ6RjRWOVmg2/u0xWnzsIm+n10jaL+JY7HtLNsyf6wD2BDQxwXhLa
+	 5LaRId5XA5VikF1B13emYybjEf/7fw+01oEFuGfgz8+oZMrcxLTOGmq6/GVxwXVRj2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/j/M6oB";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RmnUNSlS;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F60F606A323;
-	Tue, 17 Nov 2026 10:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82F8606A331;
+	Tue, 17 Nov 2026 10:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82F8606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/j/M6oB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921671F000C6;
-	Tue, 17 Nov 2026 10:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794912478;
-	bh=ahdmS1KGJrdLiqNWtNVgWJXHsq/MxagFsO1X6Q0WazY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=L/j/M6oBc5qM/ZMVfZsSWlX1T5uJK3rCC3uKEgp7dQUFPWnlbPYx6dUOYzo+BwX0l
-	 lFajQDGy6auns7GMFAi3mRcRXWHcTdRx2EoPG7+r1cz0q5DPAGWrkWGPYCnVpWIZk9
-	 Znqw3xhU6RofgCyQau3hrZgoqMMxYHZQsL06tBdBPlgeTGf9lNnkKEVBPa5jHN0xEi
-	 QaDxrTtQ9xAApopRA+V03s5hOX7LTAQXq63gqnX9bY1roDmdY9RxTh5lUQKgIddc79
-	 HoioaLrxxFm+CckkROFTALPWmB3YHhgj5ti8UDdIpHj/iYkD/sEocSVIdIo4gDD2qT
-	 u5xnS8ILofHig==
-Message-ID: <af565a17-f7a1-4c24-bf2a-130a025c68e3@kernel.org>
-Date: Tue, 17 Nov 2026 11:47:53 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RmnUNSlS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794912480; x=1826448480;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Xz22oPpsqmWIXwAra7whKiWI16mTZm7bN2zqd/8pMCQ=;
+  b=RmnUNSlSlu/8TNtwEG9W/B7Mu1f1FsBkUjr4y26H3jgFFwod/AuJz+Bw
+   Awaa28VtQ7EtDh7ib2oWx4P9M7o2I1gN0YjiPe9ILnMWaJ/vkF4AeFGJj
+   A8SQW+Tmr+9RLKko+xLAUN9YpkpMwX/s9DYYLlv11opvK0CucygncGLkk
+   i73yI/OeALh0qb+9thvio1sWr+RkK9M/RFbuKpua3YR2md3J7QygeNRsN
+   jqfwCOZKfPiPU7XWEsal61o2lGhWC7mWrUxr5CR6iBvlfAimxFJEOCpad
+   wXcZuz5FXe/gRO2FRatVBv0pK45h69+3du/HWZbEmmWjns9U6bu9DNbf9
+   g==;
+X-CSE-ConnectionGUID: 4zwIxiIDS3Wjwm5bkAN59g==
+X-CSE-MsgGUID: /+zjZ4WLRa+egNtK5yCZ3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3760362"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3760362"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:48:00 -0800
+X-CSE-ConnectionGUID: 8V5XDOljRDWjxd83tWvriA==
+X-CSE-MsgGUID: N/6wuTEfS5ODpe9KyL7V5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9888454"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:47:57 -0800
+Date: Tue, 17 Nov 2026 12:47:54 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: add a reviewer entry for the Semtech SX9xxx
+ proximity drivers
+Message-ID: <avww2kChMteEjGnV@ashevche-desk.local>
+References: <20261117094737.15253-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,82 +83,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/panel: novatek-nt36525: fix v1 review issues
-To: =?UTF-8?Q?Adil_H=C3=BCsrev_Tepe?= <tadilhusrev@gmail.com>,
- neil.armstrong@linaro.org, jesszhan0024@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261116070212.314228-1-tadilhusrev@gmail.com>
- <20261117104353.1180634-1-tadilhusrev@gmail.com>
- <20261117104353.1180634-2-tadilhusrev@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261117104353.1180634-2-tadilhusrev@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117094737.15253-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 17/11/2026 11:43, Adil Hüsrev Tepe wrote:
-> Addresses the issues Sashiko AI flagged on v1
-> (https://sashiko.dev/#/patchset/20261116070212.314228-1-tadilhusrev@gmail.com?part=2):
+On Tue, Nov 17, 2026 at 03:17:35PM +0530, Arnav Kapoor wrote:
+> The Semtech SX9310, SX9324, SX9360 and SX9500 proximity sensor drivers
+> and the shared sx_common code have no MAINTAINERS entry, so
+> get_maintainer.pl only lists the IIO maintainers and reviewers for them.
 > 
-> - Set prepare_prev_first = true before drm_panel_add(). Without it,
->   drm_atomic_bridge_chain_pre_enable()/post_disable() call this panel's
->   prepare()/unprepare() on the wrong side of the DSI host bridge's own
->   enable/disable, which host_transfer() rejects on bridge-based hosts
->   (e.g. samsung-dsim).
+> Add an entry with me as reviewer. There is no M: line, so maintenance
+> falls back to the IIO subsystem entry, as Jonathan suggested.
 
-v2 is the next version of patchset, not patch on top of v1. Please use
-git to manage your work correctly and b4 to send it, which also would
-solve it. Linaro had excellent guide, so please read it to avoid trivial
-mistakes like this one:
-https://www.linaro.org/blog/becoming-a-kernel-developer-part1-posting-your-first-patch/
+> Link: https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
 
-Best regards,
-Krzysztof
+This is unreferred in the text above, so orphaned Link tag.
+Make it Link: $URL [1] and refer in the text, so we will understand why it's
+here.
+
+...
+
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
+
+These have maintainer field inside each of the file (it's a requirement
+by DT AFAIR). So, if you want, you probably need to add yourself inside
+each of that as maintainer.
+
+...
+
+> +F:	drivers/iio/proximity/sx_common.c
+> +F:	drivers/iio/proximity/sx_common.h
+
+.* ?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
