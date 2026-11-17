@@ -1,66 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909959;
-	b=49VZC5RsMITVVA3S4nGFiXj8ID4SUu+/eSJZkDQl2h9nDUMXOlWbOK8125vLMlfCoN+k
-	 5sduPxA38pvu7YbQ4pDBX1TyndBYBBp4GLsl+ovGYy7D0fyytY99YSaOmdcXLVCP2vpKZ
-	 UvtozZD0QtmdhIgKshjkiYcBBHrp8jIreWWcvuMgATHfCvOAqaOt63K8M2F7CtI1h8l+f
-	 efxMtmuRJakTpe2ozQ5UUqA+OhYpimw9Je9jeHYx2AE1lY1n1mav60aDYnl1VJV/Ba3LT
-	 SiVDTDHCGAd40XPR56RoT0wFSNDAbKEgOVru1q1pTtz7GIcV5oDq4EZJAXI3N+l+nYw==
+	t=1794909983;
+	b=aMBTztG6fpjuKsl6hAV03zsr52cL9bdztbI55oUZt51auf8dUOQQncSZnbioST6gptmx
+	 WCrUl9BkFXDUEW2lvJpMcqyPTIiHI+hrQ61vLBh4BcHJn0UTqfVGdozc8BS4wtrMuPUnQ
+	 mY6WkDAIzSc2FkBorpD432fBOAd888aCdI5UA8B2dyFjjA9/vsCWEYwxaI02M/LDgu7Fb
+	 7RN0HV4jN4Vlrpz1rEh/SwP2P/cv3jidD9FSNsY7I9p4t+650fWrVvWzkEJcpxD8NceO+
+	 JvbrFJ9OoLFeuZ5b2qaxJ3AoE1WqSv/DduWpj6yQFkcHWUtogBGpI2VyUvw3bXgjIfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909959;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909983;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=8O1zkaZWzhtKSzJk1fSuQhfVjzskekn4l1522NhIvNg=;
-	b=zbpIzXWEmJZfGeJ8I8pgLstj624/poljyf9jWdxayUpgMdWHXVxfQpIBP6NKp4sM4dFs
-	 Gb/QQnZvytRTxHXc/anFEKnqCiKvgXAr8a4WhpvLVc2N/mEE9/nXThmpNESoaDGUJZWj5
-	 sJv+rDD+0Ndgk0pE4+mcYaFOdOSh+iS8dGFgf5+MEbyLVF23LjEb4AXuG9/BB3vPyHtrE
-	 SqgbE2kfA9yL0RHy7hyk9ybFYpjTlsiTfSwENVPL7orrGkQ63LWC+ZS3vaTb/4stQfBCo
-	 8/EXiRuST3Ah9ejZ/O5o/u39Vg6qijN0b/DlKBWAC6+mvNJ4O+/AUHJdOoSNIRkS5aQ==
+	bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
+	b=dtM94uhpDkCzNSVo/yRZm8reXXYVYKbfT8tXCgZ4VXQoG1BtCc9CjLgC87BzjU7UOf2Y
+	 nVodaHO8cjOn5lBoq72s7jsJ77Om8L308T5on2ysqaiAR0EhnkP31boV1WLG15Az2NYY+
+	 oxYlPx0JUs0Uz7vqLeb2TRODMexKpuy7/5WJegyO7Xaq4cqHMJ3PmZzgKCDM+kOsHRuDT
+	 Wc41tZe65MECvUXCaBUPVdAtwEJ64jowshjdaYRICVlDYv0H6SsdgIXovbB6sapNGLatO
+	 54wgzT9TeLhaxWsy/GqapQy3IRrESkcfxztHdsgmht1vY7LH1Mwom0C9xQshUPZE0qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=O1Bq5lUh;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 763EB606A31C;
-	Tue, 17 Nov 2026 10:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 763EB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxv9jBgr;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020CC606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 020CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=O1Bq5lUh
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxv9jBgr
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b66d1a08ccso4152709b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:06:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=O1Bq5lUhuB06uxT5kdD81D68EJTUjPHd860+paIHX+Tqq7Hv0W8F4b2p7ag5/cKHYPnld3+LGjlcY
-	 JCHMVskpW/MLn+cr1Ve2or03Qs8GaR+GGwxmeHG9OiAXMLRHSXCStO0BEr11fpL5DxSO7DOGLwtOAx
-	 YG2R+kW3UO0lX1Pk=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66afc270556a-d6628;
-	Tue, 17 Nov 2026 18:05:57 +0800 (CST)
-X-RM-TRANSID:2ee66afc270556a-d6628
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96afc2703c3e-ad44f;
-	Tue, 17 Nov 2026 18:05:56 +0800 (CST)
-X-RM-TRANSID:2ee96afc2703c3e-ad44f
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
-	linux-usb@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1794909982; x=1795514782; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
+        b=qxv9jBgrMfukboKyv7rMfU0CRJtV7gusvERDhwg5BfQidZfaSNFmoCgVDYV5+KawKG
+         A+g9wnY8xkRgzR8DfqKm1NUUgy4dW5ZvMv9Swp+lsbmwof3PDIO5WNc5xNX3Yc+RZj2f
+         LIek1j276h4dfUO8eWmtCxwxgq/rzQGWEPtgUrKKfcKMJS+JoCxutWpyoPOgiDew2p4q
+         GMtIrO/Nd83auNzlmLnbH2tBOb9T5ADDVO3R/eS0FcDYiB/alU0NTh6PRI6fqWuErplY
+         oi7RigbC+vvQ6godEP3zSZ3YSsKCsfTX1rcImmxv+4/EaKThBRN2B9q2xRkcXtCYbp/3
+         L9SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794909982; x=1795514782;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
+        b=BcppUpENYSx7sz5qIyx6cNDHTudX7KcSYjU3nOLL9e2tkWFb47U7dZB/gA/CQVKQAF
+         m6VlfXY6r5o0tHhuA3anJdAYwmM6Sng+Ldinib3S0eFMPNWCCi7x9Usev2Eb7wHr3TaV
+         aexhlow20j58rpObkBhKAze4NQCwSz810TDS1nwqkQ8ktcVXFCbnn7UmvGOteqYbs0aa
+         OZhhaFM6ux1iuvdGHr1Vb5tGCFeJb5IYn52jkAB0FP/04hjx/H5GVCV2x/mK7quEgXKl
+         7B3BXEfs1rhGzTa72J3TBmpeY9b6jxH7eRAa8KcTegYkeu8ZN4h9p8tSvN4z/bvZNtqc
+         VKQA==
+X-Forwarded-Encrypted: i=1; AL+hErF2luMmwI3FA78r02gJI1vv7QtX3P12MYCYNXlSQA8xkV/7jgoTYhrCsdP6LMYrsdoIi3hzi1Q2H0R0DEg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/N+TDaa6JzIqpndbVhW7zvIl5xgLuTdyeWa5E7O0lSdkSZmWva
+	iKfAsGbFcbQ+Elqo28KlTrp90XxGQ+GwnSC3NQ0iCBr1JcBkIbh5t2Y1
+X-Gm-Gg: AYBFou1S/ePh8rbOt0lTVMFlTjE5LDsCEtX67k/VeIOKN94rUJvq4eFsV7BjfbdzCzw
+	krN9FBL3imvQjUquNFDq7OTAlmokVsBGLRP66sM8YZzcdztWFubHY3/Be9dhj6M2KyEWXR5YIqP
+	MEKdhCunLI4oNOrMF+JCxz/kfrRXCUR3oqYcR1tDLATl1tmV7XqphSu8kWqAzwlO/b9xvBeGnsq
+	9JH5GFBSml6QB1i9bPJY/1QKVDWAnLFMoBJcbqJJWD4D4j+j+QfeyAwg0VcfHndRqIwKdSkhiJA
+	1cdUIBV11j0IBrxCtGdK5ovMK/s/nx4GJ2J17d1BQhJNl08AAvxlFpLoOR/ls1Yv1/aNAK7ddcf
+	pYTHVwdWsfqrAKT/pEZBY+9i1mbpPWNlOYMJuUs3Phx85EQTaQX3EqyVl4xLGFP9BXQ5xTcYNbf
+	5+R6NW+Uh35F8rqK3MmUfoU45rrPf8MV2VvKJYGCgZorwZ5DI4vluJ22MaKAttR3BhPJhgSYt36
+	soMMaVJ4CIR2yw6vt/m3rz789GIEAePFPthvvcCFY978wbZAPOhw0aI2VDS7PKy/QUdMVECApKn
+	pvDLm4fZg7ZlVCBirbuwpnVDsGUnzBL+BKUizTsyFhpuThOiQYSDs4vj817wbi594UIL1mKNUtg
+	mTtSlZO89wVOzK8Ia7iqP1AngKhAN9Y7bC+rZM4CYZRVPgU7vquJvwsYqoNvweYmn9z2Y+WxPa5
+	8nRfwzBj9XaEHjkSSs7vfVAFv7tCUqPQYr+3DWN1Gc9zNaGeSOvQXAorM+iTS0r1q3YWHH4FVQD
+	+dAMJCIOUfXhPPZnsyKSfFU3I7lnW/QgGOAJDTCfJD6M+XlkkBNCs3K3NpLK2p0
+X-Received: by 2002:aa7:9ec2:0:b0:8bf:e028:7864 with SMTP id d2e1a72fcca58-8bfe02879c7mr6741005b3a.0.1794909982190;
+        Tue, 17 Nov 2026 02:06:22 -0800 (PST)
+Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263b354sm4752612b3a.47.2026.11.17.02.06.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:06:21 -0800 (PST)
+From: Daniel Wade <danjwade95@gmail.com>
+To: David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	stable@vger.kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: r8a66597-hcd: Fix clock leak and unchecked clk_prepare_enable()
-Date: Tue, 17 Nov 2026 18:05:54 +0800
-Message-ID: <20261117100555.71-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <2026111752-planner-uproot-4a2d@gregkh>
-References: <2026111752-planner-uproot-4a2d@gregkh>
+Subject: Re: [PATCH] mm/memory: mark unshare copies dirty to fix MADV_FREE data loss
+Date: Tue, 17 Nov 2026 20:36:02 +1030
+Message-Id: <20261117100602.797-1-danjwade95@gmail.com>
+X-Mailer: git-send-email 2.39.0.windows.2
+In-Reply-To: <c7c8ba0f-49ff-4b22-bd24-20fc394b1e36@kernel.org>
+References: <c7c8ba0f-49ff-4b22-bd24-20fc394b1e36@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,49 +110,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+On Tue, 17 Nov 2026 09:55:24 +0100
+"David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-sorry, my previous reply was missing the quoted context.  Let me
-try again.
+> We should always prefer setting the pte dirty, not the folio, as the latter
+> needs atomics.
 
-On Mon, Nov 16, 2026 at 10:34:15AM +0100, Greg Kroah-Hartman wrote:
-> And are you hitting this in a real system, or is this just a theoretical
-> issue?
+Will do a v2 with your version, thanks.
 
-That was about this patch of mine:
+> numa_maps does not show any such data. Did you mean smaps_rollup ?
 
-  usb: r8a66597-hcd: Fix clock leak and unchecked clk_prepare_enable()
-  https://lore.kernel.org/all/20261102100455.600-1-laixiangwu@cmss.chinamobile.com/
+It does, gather_stats() ors the pte bit with folio_test_dirty(). So I
+kept it.
 
-No, I'm not hitting this on a real system.  It was found by code
-inspection while auditing error paths in USB host drivers, and I
-don't have hardware with this controller.
+> A more future proof solution would be to only allow MADV_FREE if we are the
+> exclusive folio owner, checked under folio lock.
 
-The affected path does have in-tree users: several arch/sh SoC and
-board setups (sh7723/sh7366/sh7264/sh7269 and the ecovec24,
-ms7724se, kfr2r09 boards) register this driver with on_chip = 1,
-and the clock handling only runs for those.  It is old SuperH
-platform code, so the practical population is small.
+Makes sense to me, it kills the whole class instead of one producer at a
+time.
 
-The failure it fixes is the driver's own hardware init failure
-handling: when the register access poll times out because the
-device does not respond, r8a66597_clock_enable() returns -ENXIO
-with the clock still prepared and enabled, and the probe cleanup
-only does clk_put(), so nothing disables it for the remaining
-uptime.  The same helper also runs from the resume path, whose
-return value is ignored there as well.  Not checking
-clk_prepare_enable() separately turns a failed clock enable into
-a bogus -ENXIO from the unclocked register poll.
-
-I have not seen this reported anywhere, so it is fair to call it
-a robustness fix rather than a fix for an observed failure.  If
-you would like to keep it, I'm happy to note the "found by code
-inspection, not observed on hardware" context in the commit
-message and/or drop the Fixes tag so it does not go to stable.
-If you consider it too theoretical for the tree, dropping the
-patch is fine by me.
-
-Best regards,
-Xiangwu Lai
-
-
+One thing though, that takes the folio lock on every folio. Right now a
+clean exclusive one doesn't take it at all. If the lock is busy you skip
+the folio, so jemalloc freeing a big range would leave some of it
+behind.
