@@ -1,62 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908799;
-	b=m3n+Oer0k/mq5OgH+K276FJ0ycIjli5kmNzi7oHH0Gql9jLt5t5YAO8An2QoP+Mpfkkc
-	 7oQ7MxPkQKBoQ/4LKrcTyOHBaJxvSfZnZ+JiOiHXMkBiPkjqmRUK0sn2djl7WIsyW7M9O
-	 gHQ4+tzpnXsSxyFz51DFEZ2MINlsG2fZjhyN2HnPVpn8BaKRp1KAZ/r5MgXLITgZyOdgx
-	 KHkMbcbsV1kgQrvYH9isOPC5sWhoc6L6Wq9lYG/jmHPVsNxLpiw48sU0k6/4+9SfwxcIT
-	 1v2Yl1KTo2+9f8tA2ivchkLUzVWoIYp4YH/hTtIfMdcgWF9ylfeVpn9dQeXUyrN7C7Q==
+	t=1794908867;
+	b=LTZfP6Lmwbzigc5tJWLH2nYBmjCD0da6bw9Em95eUHnrEg/JioBhMdrhcDntt6hmwM1r
+	 7uF4oARIiEk2MY0UTAcM21ohUD8FaVZkk48yqAv6JtxLOud2sNevyA5eIrUagtdRFWYKB
+	 grNigcoOuoRZO9CiPUfjh/86aSVaaTvmg7ixQMfAFHqjdreE51d+SbGxroYOUj3QXKURh
+	 Db14/R9pm+IgNRTsZjxlwWNy29nAoTVsX/V8AOwD/5nqHgBygVQ/JG/2nLTVuM6lqIZ4V
+	 W/G6RFeVEkIbYmkVys+9HRBZVut29ifwUYFqDR4xHGoIJj56OlqoYSflnNGMUOZ6M9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908799;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=gsr7/IYfcSeGTQy76dVkG2pG06B1UPnep2DEc8I2vuc=;
-	b=suRnfwdqPM9+qcC6DwcyI31ru8n2QNOL4oGTBZcpZDnSgNwSFiQCzDCnByn82WKUqry5
-	 InajS7DSWHMq4rem44PWHzvt2YSkaOT0arfy8f55lx5LLC0uHk26frJlCT8G+vQ4x4ilI
-	 NAAfwZdupDdprXUgp6L4d3e1M2t/VZ/3ZaPVp4SMyH4qq3/Xby/i46q+3cIJrqzRZRSCc
-	 H3woWXCaU99XoW/ZigYgpMi8nc2rZaSmeLpGNdS6edrOeYW/kebzpxAiwJbXPyJz4L/Ez
-	 0jAmkSGb3TGun64+DUUsxPjPkXU9u2VWQHCpZuZNzb9uVIh3bY7tYnthuuLEbAyiNSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908867;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RaHMnEwLyGtFm3duWMYl9s2TO4AG17GQCBnv9kTRqT8=;
+	b=5YCJblD2vHUJ00DGpQKF2a9U/N7LJ+wEN5pOnPW8n6V0bVZ5fUuUhSXGFqjhPKWmKmSf
+	 F/+nna3yJV0ljU23znpDXLNBjqtcz31yNbjrEzjSK2vNgdmzNwB+h2sf49erO1EBrJlAa
+	 k92IND37FlPdWeaiO0VfIXcA9+2vWYnV+4YzHd3gn7kSbxL/yIutcGPDmkFbr2Y9ZZ4C4
+	 Rm5SM8YopOskiCMqU3LEm0vVpQuqQQCIzAi2CihnDyKwMiogThHUuurzoDcwts5SeSQ3e
+	 vrMP3WjZUCewC2bJ895gy93s6Rkyd4cQjcYONe/R2vr5C4g/OGwWcxFufAlez7ArUQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hJbIwtc1;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pk0ck0Wl;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03234606A32C;
-	Tue, 17 Nov 2026 09:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03234606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351BE606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:47:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351BE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hJbIwtc1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gs
-	r7/IYfcSeGTQy76dVkG2pG06B1UPnep2DEc8I2vuc=; b=hJbIwtc1tbNC56jZvr
-	digXOxnk6vAVqdEMIKoQCFyRP2RQtKcz3NftbyVvpPFnkXzPhEOIVrTp4b/vRctk
-	zhKqz/RylvhnZQOA9GPI1uVPN7TmkhtjdrG0b+zaAlTaojzbmMDy/dvfzD5wlTmL
-	gI+JTXBg/NDmgDBw9XcBxVeFo=
-Received: from SYPC (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgAHhDpaIvxqyachGg--.34767S2;
-	Tue, 17 Nov 2026 17:46:03 +0800 (CST)
-From: Yang Siyuan <hsyysy@163.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: allwinner: rg35xx: keep RTL8821CS powered during suspend
-Date: Tue, 17 Nov 2026 17:45:51 +0800
-Message-ID: <20261117094551.13555-1-hsyysy@163.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117092024.12163-1-hsyysy@163.com>
-References: <20261117092024.12163-1-hsyysy@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pk0ck0Wl
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-380b40319bdso1884399eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:47:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794908865; x=1795513665; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RaHMnEwLyGtFm3duWMYl9s2TO4AG17GQCBnv9kTRqT8=;
+        b=pk0ck0WlBblluLIuxABA4I5X1xp+ISFNRpptKwSMRbz7Jia2pAhFrQfdxYrtHug79M
+         lQuF1Js2VMcuLyn4X7D2fjZOMvXhw+zyOJIfZvn5X4YZY87aZfjMM2RlNjXK1rMd0wX4
+         itRVLtu3xco6gwwJqKxGUflSPQA2gihwgFeO9y4Ugb7eQMeYujTem5sgyIEWBCmGuaRg
+         XnwMR/5U5RvTXDEz4/Wrsnc09H/gyJorl22Cjnod77PtQ+TmAqx+swWRV9SE36/z4azg
+         GmeeIWxRlLUyLa4/9D/rl7Zg6eQX5g7iq3CP8MrmhVn/LQRI2nurRWTT/1ELZpkzZLcV
+         xBSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794908865; x=1795513665;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RaHMnEwLyGtFm3duWMYl9s2TO4AG17GQCBnv9kTRqT8=;
+        b=q+9YwpLyi15rqxRc/q/o230rbn/Ksiaf5a/N3yceDoEEbPkFUo/39Wwu92lr8aZB2a
+         8nJtOHPawjDVIImI8S4ynOKGWLRpqBu9h48aPpP03l35cDKPKPVnPcttYuFeapGfYoLF
+         ECcia/YM1Z1WAJA3PqYEC34zMlU/4CH9FzCjyYlQ1SQ20ixafoCjAWfXmDV/PeOfjyA+
+         Bl40cqX/bJoBmsQjz79qTit03dplqfbfpDAqKGDBhRz63hyoeG6/Pp/TNkzUb9GSp+fA
+         1Z1lumYnhbW9UHYjNj+abng5vzhyKpj75ir3zaQg2+VZRDFVZodAWbizbMrcAjRiOXYk
+         mJ/w==
+X-Forwarded-Encrypted: i=1; AL+hErE6ZMqCaHJC7rwV4HRLtOX9GeGR7OKIcAKjgHrljU5rohJri8mJQEATQJ8Mp8ni5is4kPVk1s7CghffZwo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//HF6JlhB5rA3kQJKQVnwKC02HGxlf1fva1yMETf7tm0zY8q3j
+	zoQUeJ6Eegdz0Guxv63GgykABvI9sVbrGtx8cWJGQwY4ZIdr7a7ZnPMx
+X-Gm-Gg: AYBFou3TIn9BHiUXmLXwj+O6Wdjv3W2M1tAlHCV+WDqYDLDNiSlgYBCu7Q/dqcyCn6J
+	Imwk68eAywYMnemE+021p44krgxU4frd+8/NoWE495FqnrfGO3DJKA6FcpJMptsUWR4zOXQy0dO
+	urjDYhPJv2P3JT1QMN9/cgp426reJQ31FKnL3NksjIX+47Xufdh4BlZRYP+TpY2rgxYT1EPZe9t
+	zvl2oUfPTySt5O84fW1AtKP/YwkbrJCq3A3imvDYSaDnPGzyvumI0IbeTkAx5w1ut0GUNL9CJ5S
+	W5GPOjvJiYs1JgfuHD7TOLSOAxczlqwh5EjQ1uGRuo4dylbuTHVPLu5ASMg/LbZLI0MbLMosL4w
+	Un+q+777BBPEfgPt0Su420wYThU461jRxtDWYx4ei3xGQlIX+CBMkVOGcPvmcVgLN6od3MHr9HA
+	2jbIL4BoKUWzHjab6zAVxniq8P2X8d9PCJM6pYXJe3CpuILvBBeG/TrQ5HYSoLrgmTK4driJ0nq
+	6PEaWKm/qWH6Yg5Ql+qD+XfuPUp7Pux5qcJ1u8glbXLBeX6ZebN2ZD7Kp8izfJJrCA07NvZnpqL
+	XQp2g0wfmvSCz6zn7GQ5TuAxdmTjw0Add10+OYoEpfyQbQcElGMiF7+I4yMjh5LGbTONvXm2A2g
+	nuoWuOsFPJqOrhzocCeFU/7clSru90Ui+6+l6K6pw6mwODqj3VkPwFAp9sa4Fq5zFkkn4EvmVVN
+	kAy7DQby4X6nqOK0XRslP5zfokzoKyY/fTh6EhJwG9Gw==
+X-Received: by 2002:a05:693c:6383:20b0:37a:c882:994f with SMTP id 5a478bee46e88-37ac891df02mr10019522eec.9.1794908865256;
+        Tue, 17 Nov 2026 01:47:45 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955a1c5c2sm42259413eec.14.2026.11.17.01.47.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:47:44 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH] MAINTAINERS: add a reviewer entry for the Semtech SX9xxx proximity drivers
+Date: Tue, 17 Nov 2026 15:17:35 +0530
+Message-ID: <20261117094737.15253-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,53 +103,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgAHhDpaIvxqyachGg--.34767S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7urWfGF47Wry7ZF1rJrWrZrb_yoW8Ww13pa
-	y29w48Kwn8uw1jyr4kKF18Kr48Zr95KF45ZrykJ347Kw17ZFsYgr4akF1Y9rWjvrW8Jw42
-	yF4rX3W7Zr9I93JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UWq2iUUUUU=
-X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7Rt4rGr8IluYmQAA3M
 
-The RTL8821CS SDIO WiFi on the RG35XX Plus/SP is soldered and powered by
-CLDO4.  rtw88's SDIO suspend callback asks the MMC host to keep power
-during system suspend:
+The Semtech SX9310, SX9324, SX9360 and SX9500 proximity sensor drivers
+and the shared sx_common code have no MAINTAINERS entry, so
+get_maintainer.pl only lists the IIO maintainers and reviewers for them.
 
-    rtw88_8821cs mmc1:0001:1: Failed to host PM flag MMC_PM_KEEP_POWER
+Add an entry with me as reviewer. There is no M: line, so maintenance
+falls back to the IIO subsystem entry, as Jonathan suggested.
 
-sdio_set_host_pm_flags() only accepts MMC_PM_KEEP_POWER when the host's
-pm_caps contains it, and mmc_of_parse() sets that flag from the
-"keep-power-in-suspend" DT property.  Without it, the first s2idle
-suspend aborts with -EINVAL before the system can enter suspend.
-
-Add keep-power-in-suspend to &mmc1 so the WiFi stays powered and s2idle
-works.  Tested on an Anbernic RG35XX-SP: the board suspends and resumes
-from the lid switch, and the WiFi reconnects after resume.
-
-Fixes: 398e5fdf60ed ("arm64: dts: allwinner: h700: Add RG35XX-Plus DTS")
-
-Signed-off-by: Yang Siyuan <hsyysy@163.com>
+Link: https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
-Changes in v2:
-- Add the Fixes tag suggested by Sashiko.
+As discussed on the SX9310/SX9360 gain series:
+https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
+Gwendal, if you'd like to be listed too, I'm happy to add you in a v2.
 
- .../boot/dts/allwinner/sun50i-h700-anbernic-rg35xx-plus.dts     | 2 ++
- 1 file changed, 2 insertions(+)
+ MAINTAINERS | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h700-anbernic-rg35xx-plus.dts b/arch/arm64/boot/dts/allwinner/sun50i-h700-anbernic-rg35xx-plus.dts
-index 60a8e49..ceb25a3 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h700-anbernic-rg35xx-plus.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h700-anbernic-rg35xx-plus.dts
-@@ -27,6 +27,8 @@
- 	mmc-pwrseq = <&wifi_pwrseq>;
- 	bus-width = <4>;
- 	non-removable;
-+	/* rtw88's SDIO suspend requires MMC_PM_KEEP_POWER. */
-+	keep-power-in-suspend;
- 	status = "okay";
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0017755f593b..fdc5004df348 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25448,6 +25448,20 @@ F:	include/uapi/linux/selinux_netlink.h
+ F:	scripts/selinux/
+ F:	security/selinux/
  
- 	sdio_wifi: wifi@1 {
++SEMTECH SX9XXX PROXIMITY SENSOR DRIVERS
++R:	Arnav Kapoor <kapoorarnav43@gmail.com>
++L:	linux-iio@vger.kernel.org
++F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
++F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
++F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
++F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
++F:	drivers/iio/proximity/sx9310.c
++F:	drivers/iio/proximity/sx9324.c
++F:	drivers/iio/proximity/sx9360.c
++F:	drivers/iio/proximity/sx9500.c
++F:	drivers/iio/proximity/sx_common.c
++F:	drivers/iio/proximity/sx_common.h
++
+ SENSABLE PHANTOM
+ M:	Jiri Slaby <jirislaby@kernel.org>
+ S:	Maintained
 
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
 -- 
-2.56.1
+2.53.0
 
