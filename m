@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907410;
-	b=xRLxZwykUcklS2BtqGnIzQ+j4R+O1OSOzxqTxbZdq3h70wNn9t6+t9Ogb2p1ZWBXDtvQ
-	 kcpPgl3UDdZO164OKRg8V6eM+LjJidDr6mJON4obPGzBzyhMpf0XYZe7k3aUYfvHRUZVS
-	 5YY+DX9kyDMtpRAQ0Smd/7APFI4ONrXNwZrhHosF2p8Dl6uEIBCBcHa9MsMIOsgjbEH3I
-	 avE+H/Q4/DA6JR8rcWYCL0m5StzSEJKlKIPZTjYNCmXSJBqFbtmmgjEqeIlUlOT3M05z7
-	 r1oRIBCoJwLKflF1MM50jBoQyOq+4dwqPSLhGVyKxivUQTjUfDraElwRSwULnvnYRGQ==
+	t=1794907474;
+	b=c31KnBy8xreuZVXeP5zYBrMLqf2DmTxFsd9Um/nSvYLWlaQXiz2MM2KQeoK4TiWZ/K80
+	 lsxoygINR0b9GVqRVMpIndelP0TY2xfJourLRMYGnWqpDWo9tJkJdDOKMd1iMAJb6NQ3U
+	 2WY/z0OXxgwPxsAXDkX8oq+C2x35WLRD3c5QUmIYvaRy3ytqMN8Y9Y+1meKk2M4uIbRyL
+	 B26xmSA9sq4YBrKOJX/89r1hiKQCY4IXxnXF9KIjkOcYMOPhDzqw6GqKb6kWZgjq9PrBq
+	 PjhG/eyHFdUAas5ASadyvBsl9Yw9Mt/R2KQdhX637j2ZwYTak3X6rdf5HZfAgb9Tl5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907410;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=qOiVIMf0/x3m1w5f2iTYwi+mVMcrW+OUvHiTNkRCMYY=;
-	b=v6qPmv7CorKQBv0/DjyysdNkL07rjuex7L9S+trtM32dBqr6sEBnC3RhPoQemsxTyVPr
-	 vGE+G8BAHW87yUN/m0Gcaz1RslNGfOy/n1CkNqBOu05WuG50dXLOplo/b/byAzIycxmnn
-	 UpGIKVrit8c+9t61pUnHUQJJhaO/Ihld2YEKDK6xi2PzO/4CjaP7eaZUGXR6x6j+/s7V+
-	 +1gDTCrGee3g5DjMCDGQCnfge1k9se0MQqFtbPe+xrWtCHqgrCcd/yBMNSbKs6LjbX4Tb
-	 Bpc6rJsdw9epUxj9mMns2mor4j+p6IgPfQczfw/S5reCNYALYZpi/FEQUm5XJfTBEGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907474;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=SXzizJh/I1z751B/WWLKsF4keqjuniSUyB3NsIxFwnE=;
+	b=xokBDFMbeLPrQA1so+cLfsbtU622erc+CvOneDarmRdCM8gKVWQr8EUvYI8mo668LJqr
+	 AMSWhg9beTDwelDt3rOWGwheGm5b2Q+lQuf2/vNFpbx7LYyhg/T1dQIhImSalr1cQWwn5
+	 7lzBN8kyAOl3c9h3c2Thb2SWX3l5NqksAKWdOv9qLRXPJ+3OB7WL6X0AIOFuh3Z8U+wL3
+	 EAOwBGIrFKstvj4h2KBJxuAfLSG0z9gFWJA+vgMCtSazzh72t35fMYEQVazafEbQAXt1l
+	 1IjudkMOtNZv80pyte1qFGgdM7JTfnTJ6ZDZpTSqMFJlUsEqF1/1RtTEEwm64mMJvqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=AftgPuha;
-	arc=none smtp.remote-ip=195.10.208.50
-Received: from mout-b-105.mailbox.org (mout-b-105.mailbox.org [195.10.208.50])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mdzett+m;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4BF606A32A;
-	Tue, 17 Nov 2026 09:23:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE4BF606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE888606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE888606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=AftgPuha
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-105.mailbox.org (Postfix) with ESMTPS id 4jTK5z3gD4z9tK0;
-	Tue, 17 Nov 2026 10:23:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794907399;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qOiVIMf0/x3m1w5f2iTYwi+mVMcrW+OUvHiTNkRCMYY=;
-	b=AftgPuhaGgw5x9I0MK6rNT1m25SLrF9yrT6CxsO2PoyhUEZ7bSM51rdCAZsOUlziH3Q0XQ
-	SeNJLZnSWo7uZb84plUI+0dSRSHEPfOImVGoL+FVji/lK6PxIR4myb9HEvRD6iPR/55rnX
-	obNruUBwzOZnPpGXK2wZY14Qg+yFYO8TdWqXQQ+Lk/FcWFin23ZEKkoa8ESZRNo7fRswO1
-	oTn5Do7JavjI9ARkWKtCrNiteXnabN0j9rNMXU4WGPHARQVbHlgm6GjkeEpgZkLvIVzGmW
-	k8P9h+UT19/c+VovaP6+EROVsCp55Nbsdl2fmfzlJ8ytfabjMkx1UWLe22Icgg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
-From: Ralf Lici <ralf@mandelbit.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Florian Westphal <fw@strlen.de>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Antonio Quartulli <antonio@mandelbit.com>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mdzett+m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=SX
+	zizJh/I1z751B/WWLKsF4keqjuniSUyB3NsIxFwnE=; b=mdzett+mmztmgU3zIg
+	ZPISE9LCttyKWPVrwTkKzUOF6+9dggo7GtRt8qzl8oNRJ9iJAONibAulthW1uGEd
+	M/U+pPgKA1Zo0oB3aBsEISyQF74G3TADLn2WfcwZtPihuP3IZnBvz13pI14sTynF
+	2mzGvQ3MzxZ7B2arvU17HKMhY=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3fyIIHfxqgOjrIA--.26565S2;
+	Tue, 17 Nov 2026 17:23:22 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: ksinyuk@kernel.org,
+	elbaz.koby@gmail.com,
+	ogabbay@kernel.org,
+	kees+treewide@kernel.org,
+	haoxiang_li2024@163.com,
+	oshpigelman@habana.ai
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 2/3] ipv6: add ip6_dst_lookup_flow_cookie
-Date: Tue, 17 Nov 2026 10:21:25 +0100
-Message-ID: <7af19082325ce83699c5fd82de4925e52ed7dff2.1794906743.git.ralf@mandelbit.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1794906743.git.ralf@mandelbit.com>
-References: <cover.1794906743.git.ralf@mandelbit.com>
+Subject: [PATCH] accel/habanalabs: add missing unmap in map_device_va()
+Date: Tue, 17 Nov 2026 17:23:20 +0800
+Message-Id: <20261117092320.1267136-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,199 +65,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jTK5z3gD4z9tK0
+X-CM-TRANSID:_____wD3fyIIHfxqgOjrIA--.26565S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ArWUKFWfJw1fAF15Cw1xZrb_yoW8Zr1xpr
+	WFga9rKw47WrZrXFWUJw48Z34rJ39YgrWxCFy7CasI9as3X342vF10yFWjqrW7CFyxC3Zx
+	ArWUJw1kWayrAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEJPE7UUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7gojkWr8HQqU9gAA31
 
-Persistent dst caches read the validation cookie with rt6_get_cookie
-after route lookup has returned. For routes without their own sernum,
-this reads the current fn_sernum of the associated node. A concurrent
-FIB change or xfrm policy insertion can therefore pair an old dst with a
-new serial, allowing subsequent dst_check calls to accept the stale
-result until another relevant change.
+If MMU cache invalidation or prefetch setup fails after
+map_phys_pg_pack() succeeds, map_device_va() returns the VA range
+to the free list without removing the device page table entries.
 
-Add ip6_dst_lookup_flow_cookie to return the dst together with its
-validation cookie. Sample the cookie between two reads of the IPv6
-generation and return cookie 0 if the generation changed. This lets the
-route dst serve the current packet while preventing its subsequent reuse
-through cache validation. xfrm bundles retain their existing validation
-through their own route and path cookies.
+Unmap the page pack and invalidate the MMU cache under mmu_lock
+before continuing with the existing cleanup.
 
-For nexthop-object dsts, return the pre-lookup generation and require
-the supplied cookie to match rt->sernum in ip6_dst_check. This also
-rejects a dst allocated with a newer serial after route selection.
-Existing callers passing rt6_get_cookie retain their validation
-behavior.
-
-The generation checks require writers to publish routing changes before
-advancing the serial. Move the serial updates in fib6_ifup and
-fib6_ifdown after rt6_multipath_rebalance, preserving their existing
-invalidation scope. Otherwise, a lookup can observe the new serial while
-selecting a nexthop using the old ECMP bounds, without detecting a
-generation change.
-
-This establishes the API and writer ordering needed to address late
-cookie sampling. The following patch converts selected socket cache
-users while other persistent caches are left for follow-up conversions.
-
-Signed-off-by: Ralf Lici <ralf@mandelbit.com>
+Fixes: 8ff5f4fd40df ("habanalabs: handle MMU cache invalidation timeout")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 ---
-Changes since v2 https://lore.kernel.org/all/e48cac0cdf9f3adcedecbbfff4a314a98bc22d01.1794384146.git.ralf@mandelbit.com/
-- Move the serial update after rt6_multipath_rebalance in fib6_ifup and
-  fib6_ifdown. (Sashiko)
-- Clarify that this introduces the new API while the following patch
-  converts *some* users to it while leaving the rest as follow-up.
+ drivers/accel/habanalabs/common/memory.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Changes since v1 https://lore.kernel.org/netdev/e40f48e925a0950eac99a3f084e485e82cabe88f.1793806941.git.ralf@mandelbit.com/
-- Fix kdoc return statement in ip6_dst_lookup_flow and
-  ip6_dst_lookup_flow_cookie. (NIPA)
-
- include/net/ipv6.h    | 13 +++++++++++
- net/ipv6/ip6_output.c | 51 +++++++++++++++++++++++++++++++++++++++++--
- net/ipv6/route.c      |  8 +++----
- 3 files changed, 66 insertions(+), 6 deletions(-)
-
-diff --git a/include/net/ipv6.h b/include/net/ipv6.h
-index 579df1516d25..5a6c66504056 100644
---- a/include/net/ipv6.h
-+++ b/include/net/ipv6.h
-@@ -1062,6 +1062,11 @@ int ip6_dst_lookup(struct net *net, struct sock *sk, struct dst_entry **dst,
- #if IS_ENABLED(CONFIG_IPV6)
- struct dst_entry *ip6_dst_lookup_flow(struct net *net, const struct sock *sk, struct flowi6 *fl6,
- 				      const struct in6_addr *final_dst);
-+struct dst_entry *ip6_dst_lookup_flow_cookie(struct net *net,
-+					     const struct sock *sk,
-+					     struct flowi6 *fl6,
-+					     const struct in6_addr *final_dst,
-+					     u32 *cookie);
- #else
- static inline struct dst_entry *ip6_dst_lookup_flow(struct net *net, const struct sock *sk,
- 						    struct flowi6 *fl6,
-@@ -1069,6 +1074,14 @@ static inline struct dst_entry *ip6_dst_lookup_flow(struct net *net, const struc
- {
- 	return ERR_PTR(-EAFNOSUPPORT);
- }
-+
-+static inline struct dst_entry *
-+ip6_dst_lookup_flow_cookie(struct net *net, const struct sock *sk,
-+			   struct flowi6 *fl6, const struct in6_addr *final_dst,
-+			   u32 *cookie)
-+{
-+	return ERR_PTR(-EAFNOSUPPORT);
-+}
- #endif
+diff --git a/drivers/accel/habanalabs/common/memory.c b/drivers/accel/habanalabs/common/memory.c
+index 2f76776b4039..6269f9371426 100644
+--- a/drivers/accel/habanalabs/common/memory.c
++++ b/drivers/accel/habanalabs/common/memory.c
+@@ -1195,7 +1195,7 @@ static int map_device_va(struct hl_ctx *ctx, struct hl_mem_in *args, u64 *device
+ 				ctx->asid, ret_vaddr, phys_pg_pack->total_size);
+ 	mutex_unlock(&hdev->mmu_lock);
+ 	if (rc)
+-		goto map_err;
++		goto range_err;
  
- struct dst_entry *ip6_sk_dst_lookup_flow(struct sock *sk, struct flowi6 *fl6,
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 3cc911f6618e..b87ccb5586cf 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1279,8 +1279,7 @@ EXPORT_SYMBOL_GPL(ip6_dst_lookup);
-  *
-  *	This function performs a route lookup on the given flow.
-  *
-- *	It returns a valid dst pointer on success, or a pointer encoded
-- *	error code.
-+ *	Return: a valid dst pointer on success or a pointer encoded error code.
-  */
- struct dst_entry *ip6_dst_lookup_flow(struct net *net, const struct sock *sk, struct flowi6 *fl6,
- 				      const struct in6_addr *final_dst)
-@@ -1300,6 +1299,54 @@ struct dst_entry *ip6_dst_lookup_flow(struct net *net, const struct sock *sk, st
- }
- EXPORT_SYMBOL_GPL(ip6_dst_lookup_flow);
- 
-+/**
-+ *	ip6_dst_lookup_flow_cookie - perform route lookup on flow with ipsec
-+ *				     and return the matching dst cookie
-+ *	@net: Network namespace to perform lookup in
-+ *	@sk: socket which provides route info
-+ *	@fl6: flow to lookup
-+ *	@final_dst: final destination address for ipsec lookup
-+ *	@cookie: where to store the cookie for the returned dst
-+ *
-+ *	Same as ip6_dst_lookup_flow, but also returns the cookie describing
-+ *	the routing state the dst was obtained from. A caller caching the dst
-+ *	should use this cookie when validating it with dst_check. If the
-+ *	IPv6 FIB changed during the lookup, a route dst no longer validates
-+ *	with it. An xfrm bundle is validated by xfrm and ignores the cookie.
-+ *
-+ *	Return: a valid dst pointer on success or a pointer encoded error code.
-+ */
-+struct dst_entry *ip6_dst_lookup_flow_cookie(struct net *net,
-+					     const struct sock *sk,
-+					     struct flowi6 *fl6,
-+					     const struct in6_addr *final_dst,
-+					     u32 *cookie)
-+{
-+	const struct rt6_info *rt;
-+	struct dst_entry *dst;
-+	int gen0, gen1;
-+
-+	gen0 = rt_genid_ipv6(net);
-+	/* read the generation before looking at the FIB or xfrm policies */
-+	smp_rmb();
-+
-+	dst = ip6_dst_lookup_flow(net, sk, fl6, final_dst);
-+	if (IS_ERR(dst))
-+		return dst;
-+
-+	rt = dst_rt6_info(dst);
-+	*cookie = rt->sernum ? gen0 : rt6_get_cookie(rt);
-+
-+	/* keep the FIB and cookie reads before the final generation read */
-+	smp_rmb();
-+	gen1 = rt_genid_ipv6(net);
-+	if (unlikely(gen0 != gen1))
-+		*cookie = 0;
-+
-+	return dst;
-+}
-+EXPORT_SYMBOL_GPL(ip6_dst_lookup_flow_cookie);
-+
- /**
-  *	ip6_sk_dst_lookup_flow - perform socket cached route lookup on flow
-  *	@sk: socket which provides the dst cache and route info
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index cc505817399b..c54844b83828 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -2817,7 +2817,7 @@ INDIRECT_CALLABLE_SCOPE struct dst_entry *ip6_dst_check(struct dst_entry *dst,
- 	rt = dst_rt6_info(dst);
- 
- 	if (rt->sernum)
--		return rt6_is_valid(rt) ? dst : NULL;
-+		return (rt6_is_valid(rt) && cookie == rt->sernum) ? dst : NULL;
- 
- 	rcu_read_lock();
- 
-@@ -4911,8 +4911,8 @@ static int fib6_ifup(struct fib6_info *rt, void *p_arg)
- 	if (rt != net->ipv6.fib6_null_entry && !rt->nh &&
- 	    rt->fib6_nh->fib_nh_dev == arg->dev) {
- 		rt->fib6_nh->fib_nh_flags &= ~arg->nh_flags;
--		fib6_update_sernum_upto_root(net, rt);
- 		rt6_multipath_rebalance(rt);
-+		fib6_update_sernum_upto_root(net, rt);
+ 	/*
+ 	 * prefetch is done upon user's request. it is performed in WQ as and so can
+@@ -1205,7 +1205,7 @@ static int map_device_va(struct hl_ctx *ctx, struct hl_mem_in *args, u64 *device
+ 		rc = hl_mmu_prefetch_cache_range(ctx, *vm_type, ctx->asid, ret_vaddr,
+ 							phys_pg_pack->total_size);
+ 		if (rc)
+-			goto map_err;
++			goto range_err;
  	}
  
- 	return 0;
-@@ -5015,8 +5015,8 @@ static int fib6_ifdown(struct fib6_info *rt, void *p_arg)
- 			}
- 			rt6_multipath_nh_flags_set(rt, dev, RTNH_F_DEAD |
- 						   RTNH_F_LINKDOWN);
--			fib6_update_sernum(net, rt);
- 			rt6_multipath_rebalance(rt);
-+			fib6_update_sernum(net, rt);
- 		}
- 		return -2;
- 	case NETDEV_CHANGE:
-@@ -5024,8 +5024,8 @@ static int fib6_ifdown(struct fib6_info *rt, void *p_arg)
- 		    rt->fib6_flags & (RTF_LOCAL | RTF_ANYCAST))
- 			break;
- 		rt->fib6_nh->fib_nh_flags |= RTNH_F_LINKDOWN;
--		fib6_update_sernum(net, rt);
- 		rt6_multipath_rebalance(rt);
-+		fib6_update_sernum(net, rt);
- 		break;
- 	}
+ 	ret_vaddr += phys_pg_pack->offset;
+@@ -1225,6 +1225,14 @@ static int map_device_va(struct hl_ctx *ctx, struct hl_mem_in *args, u64 *device
  
+ 	return rc;
+ 
++range_err:
++	mutex_lock(&hdev->mmu_lock);
++
++	unmap_phys_pg_pack(ctx, ret_vaddr, phys_pg_pack);
++	hl_mmu_invalidate_cache_range(hdev, true, *vm_type,
++			ctx->asid, ret_vaddr, phys_pg_pack->total_size);
++
++	mutex_unlock(&hdev->mmu_lock);
+ map_err:
+ 	if (add_va_block(hdev, va_range, ret_vaddr,
+ 				ret_vaddr + phys_pg_pack->total_size - 1))
 -- 
-2.56.0
+2.25.1
 
