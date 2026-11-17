@@ -1,62 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936536;
-	b=WF63gzLdXnozXhQnSek05NTT8dXPYd0M8DQkzBkYwT1b6UtsTj00OKL6VIBY7XOmWov3
-	 q4E1N1FjEJABwHAdUhKZq1s/+L7S/PRQWkefDKE7BWyT6uxeCZAy35BlathUXuqikOjVo
-	 eKV3oXDhyyRz02aWjPC+pDmIqfXFykFp5Rt6AkSknXBg1Vw3zXFmYWi3PYbWWXDUPNWYk
-	 4NT9XFTupst/BDtQutC9BBnw7f/CIU2Oou3AxZrCVZsp+j/LRKhFjiAbMgWVXp6gnEGME
-	 0qu9RDZg1J6WYVMZhRo8UUIibBHyTinWX7or1lfQtws1AdqAHXDEVkuXKFV1+IrHhHQ==
+	t=1794936577;
+	b=T+CkgE9LfKfNOKKVZRWp0niANo1iMGATAepwdsYWCKUsRY0bY3/BscjhIJIrZ1lIivoG
+	 NxDk+7vQxyC1cGm7daBTLxNDARVMvnMAIwotizXyCnWUqN5nD/FcSqNCNgALM/36Gn5tG
+	 8kjcIWSAq4CtgwP35X0bHXgfk277fsTN+tCoG9upLq+Pu7+xHd772/TQws5/ORoc7H44k
+	 gqeyoGCop5pnDX5uJ/vkXL9qr5Vyq2uLCGU3AW+aoOKpkPKUwButuYF+MX+pOkxUkXa3L
+	 wYKSRE+ldyIMSERPJKz/Xbhaa6PuyMY33bGm3FUKIGdBoJdBY6z5jCYKU1MVzxiTc0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936536;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wQcSUYQL3Pq5KKkb7/1z2kjXyCgi6wTpcgrI6k/1zug=;
-	b=0Cr3K7HlLxIuFPPpNuJEOl+YwzrrDZDWwhDXrbQK/pSCR/NiOWmG5rOay8JyfcZ14VQX
-	 KGGnKDHIR8XZ9SF3ULaPKlBLo2uGx1mMZob9UEvf3Meb1arKzYntic3Kf3fgeZukENe8E
-	 /GYJ9uKabNb+UEKEsn2OQTQccoxer2Bg02jIBxLOius2MXiwL4CYYqEU4y76CChRSZw4X
-	 lsjrBzeq88ykkH0IaMW3SHa/eK+rWkCYGQ9/+EdRIlnR1K3eQrxRM56UnZoPMjsAARCS+
-	 J4agBd8JAVY7M5pLRA/NiaQeYgvj0/68a8dhjUBwqHJh6rYmw3ciR8SBcAY5SmULkuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936577;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=JHWpGOTp8ITv5cctf6TSThxhxXqYa8XzuutCrYWNpkQ=;
+	b=W20DJaWKwXALAtqifUAIu9tp9UVtIxGALgalkEDzOXNspkoaMJ9NeMxxaLo9sEM20w5H
+	 A/ZeyWAGijoumnIMKXpoXcNXhXTT7wGXC7fOmSI81Ut0gVpVZomeKih5I4Gsy5Q8ffd8G
+	 FsXYicxIPzJHtMPDYLME/H6449NJ1gwIJ93YzfKbfWjhBuDo+TN3wmLJSpSBLr2ApDdO8
+	 EW/LoSfDM/yzYZ/Lu6OpruLyPM6hukmBFTyNexzRMvPEVD9skIRHFK1Lh/x3ijvv1mle3
+	 T/LdLFFbSnlbbf0BDFH6fomY/CrsDZ5LNq20Z70jntfXp3vfPnV+eSJMQDcmYIspfWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nohL5RVb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFAlhZaf;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A73606A31C;
-	Tue, 17 Nov 2026 17:28:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064C0606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 064C0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nohL5RVb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509DE1F000CC;
-	Tue, 17 Nov 2026 17:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936535;
-	bh=wQcSUYQL3Pq5KKkb7/1z2kjXyCgi6wTpcgrI6k/1zug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nohL5RVb23MA05VdY6Ds9sRm+y8bwpMFts8Ytzb5Mm4oA7RgSmNC8B7FVKCjLrgtW
-	 bLP9Jx7rlXfe36QapiLVlrfpwkKtwgWLXTr3JXNtHNrpJ8StdWpCS/YnstgF6mZErC
-	 oZ7bFwxA0miMFFX4qLJEB5pNllUbEktG0BI7ZlHvj5MTofLh9FInnThH4R06canHLr
-	 q5F/asXaheKGALKxM27g1eZ98P0PvEOODD3vNS0RDEHt8gjEb/90g20QsuW9eSe4yA
-	 wrFBEtVeMhQ50OqEAmgk2w2ocFsLgTwt+FiP6A/SvnflGGWuSbLc2WIrPFj8e6hA5b
-	 M881GSI46N8JQ==
-Date: Tue, 17 Nov 2026 17:28:50 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Hiago De Franco <hfranco@baylibre.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>,
-	Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Chen Wang <unicorn_wang@outlook.com>, linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org, sophgo@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 1/3] dt-bindings: pwm: sophgo: add PWM controller for
- CV1800B
-Message-ID: <20261117-impish-dipped-3177675d9ea8@spud>
-References: <20261117-milkv-duo-pwm-v1-0-3f1786ea57b7@baylibre.com>
- <20261117-milkv-duo-pwm-v1-1-3f1786ea57b7@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFAlhZaf
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3282db206d3so211758eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:29:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794936576; x=1795541376; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JHWpGOTp8ITv5cctf6TSThxhxXqYa8XzuutCrYWNpkQ=;
+        b=QFAlhZaf6mH704TXlWZwc+wJGhbOYi3lFSuYjnaYSHXTWKToweJxWHp30TN9w8AeyP
+         UyfCGfZF5sqzRXYHprcaxgpOKn6Whq8uSMgLz8hBchchgIBKoMgIVr0/yISUg0vZMj5X
+         uWtA04TGPGhkylR1HxZmQGEn0Vb5tm7wKFEQkCmH8kaPQ1hRs+b4yj9sQnX2HftYGG79
+         CSl7d4LctBXOdtxKePJRzN9vKaUvDAy2d+B0ROcDfzYJAeG1IwXLw9+QdiIlDgDqv8D6
+         AbRfr9fhsDQRM4/HHGD88Sn5UjVIMW9yhbQzKXubit2YjbXU2dX/wmSk6TBGO+8P6HvY
+         K2Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936576; x=1795541376;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JHWpGOTp8ITv5cctf6TSThxhxXqYa8XzuutCrYWNpkQ=;
+        b=gVC4kGajBP29O+3nGWITuDJsqg3J6srNsLCpZOrfE8TaHMD3bTbdvW10u9cnASQiUo
+         rhvCg+iv7N734Tq/ASCA+ycU/3UOqhJLtBrgBBdz73aqH8mcD+JbATXnddwUfY337k3Z
+         JfUzfHvlJw9743YyjxKGgYkrcSH+/dh9YxAVcjXr9LI3NX6VQQOXkGPAku0F32KNFwM5
+         ngbIMQZSAIk2y1lKQZzE3lbmxHYCS3C3hgZjxMbdnbAfo6qrNmJZnfS5FMlgU1uzxHlm
+         LetZrRCKyfFA2tCUfEa71F/EncdG+oS7GM2gevpXqlsZFwtcJhsmiVRSpKaMJc0LLL3V
+         5Wvg==
+X-Gm-Message-State: APuU4Z/YQ3u2TjL0R7IJ3EKYKlExuiBm9A6VSfsv1JVo5CripXvQHl64
+	a+6y+pESq6sPEfPNRttCEDgsUL4LUy4INunslveNO1ik7qBiKoZkpsUl
+X-Gm-Gg: AYBFou1TRL62FiReRRr9JXYNXELWllIFHJIcoZIzAZbBF+XNsZ7WsQCddBCin3qnKAi
+	HSxNP20RwW0UG2eciVtsSIshl9KhXOM2kpbEsa19Ov7I1BOeBRMDcswG1i0vapnKAcl8OWLVS8e
+	CtE32ynbEOEDGDvr8WHSaNfLBW0ia+7mhxeJ+RpF8Z3gs/ywWS8PCt/4Ib3UKICSdXwA549MRsS
+	A1Ioh2dZp74rp7Xo6tteZ89AnNpqCiUTPzIfEVW3ADpOfw4t8VQ7wLKQf3AueMfESNOfc5I3poz
+	p1XdaPA22PwoJlvJzvZz4/Fp49u2DkyBHBDhpBnTcrajKiaINQ+S6thzoI5io9gUCib7/2PzbTH
+	gqH12160Ixz9gISr0A4b6wFlECV3CcPA06BDe7oukzPMy6qLkcqAAqj3zeMM5E10KW4sDQcvF0O
+	ju6kkqWoDZ8emVNERA0XmPfdGhdUwmQ2Z+eUMPRbfApZgKp6vVTENjPLAH+5yzrxIdiwGDdzAal
+	gJxX0NooLmMopp+kJvR8+bKg87pTDtZpvRQhxlwbiRQcQWb3YUiGKFYejTNtceQOGc6i/sbHe+6
+	mrEPJOcux7pl81Rgae0ff4+hI5OpnpQrFVgRaMzUR4PMlaeJ0uyKBDG5FcBDhibp9kVpsar4dg=
+	=
+X-Received: by 2002:a05:7301:4d07:b0:369:21a:dcca with SMTP id 5a478bee46e88-3827f5972d9mr113314eec.10.1794936575989;
+        Tue, 17 Nov 2026 09:29:35 -0800 (PST)
+Received: from ubuntu ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm44163997eec.16.2026.11.17.09.29.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:29:34 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	WANG Xuerui <kernel@xen0n.name>,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: Online memory-only NUMA nodes
+Date: Wed, 18 Nov 2026 02:29:23 +0900
+Message-ID: <20261117172924.3768845-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,27 +95,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TNXTGBunDxcfULCz"
-Content-Disposition: inline
-In-Reply-To: <20261117-milkv-duo-pwm-v1-1-3f1786ea57b7@baylibre.com>
+Content-Transfer-Encoding: 8bit
 
---TNXTGBunDxcfULCz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+init_numa_memory() does not online a memory-only node, because it
+onlines a node only if it has CPUs.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+So online a node if it has any memory or CPUs.
 
---TNXTGBunDxcfULCz
-Content-Type: application/pgp-signature; name=signature.asc
+Fixes: 87c6d144bc7b ("LoongArch: Don't init & online empty nodes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ arch/loongarch/kernel/numa.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
+index 7dedc134ddfe..595cc15203a3 100644
+--- a/arch/loongarch/kernel/numa.c
++++ b/arch/loongarch/kernel/numa.c
+@@ -140,20 +140,25 @@ void numa_remove_cpu(unsigned int cpu)
+ 	cpumask_clear_cpu(cpu, &cpus_on_node[nid]);
+ }
+ 
+-static void __init node_mem_init(unsigned int node)
++static bool __init node_mem_init(unsigned int node)
+ {
+ 	unsigned long start_pfn, end_pfn;
+ 	unsigned long node_addrspace_offset;
+ 
++	get_pfn_range_for_nid(node, &start_pfn, &end_pfn);
++	if (start_pfn == end_pfn)
++		return false;
++
+ 	node_addrspace_offset = nid_to_addrbase(node);
+ 	pr_info("Node%d's addrspace_offset is 0x%lx\n",
+ 			node, node_addrspace_offset);
+ 
+-	get_pfn_range_for_nid(node, &start_pfn, &end_pfn);
+ 	pr_info("Node%d: start_pfn=0x%lx, end_pfn=0x%lx\n",
+ 		node, start_pfn, end_pfn);
+ 
+ 	alloc_node_data(node);
++
++	return true;
+ }
+ 
+ #ifdef CONFIG_ACPI_NUMA
+@@ -246,10 +251,8 @@ int __init init_numa_memory(void)
+ 		return -EINVAL;
+ 
+ 	for_each_node_mask(node, node_possible_map) {
+-		if (!cpumask_empty(&cpus_on_node[node])) {
+-			node_mem_init(node);
++		if (node_mem_init(node) || !cpumask_empty(&cpus_on_node[node]))
+ 			node_set_online(node);
+-		}
+ 	}
+ 	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+ 	max_low_pfn = min(PFN_DOWN(HIGHMEM_START), max_pfn);
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyO0gAKCRB4tDGHoIJi
-0gZ7AP9wGtq7rXQpu9xAty+Q78SmrK8DVsrvCJiTqcE24Y/G6gD/QsdJayxk263D
-NDXQSKT4jV9QQiI3mvXrFjXlGy5zdAQ=
-=+4yC
------END PGP SIGNATURE-----
+base-commit: 422e532809572ba1043192bf6a0c653bc68b3140
+-- 
+2.53.0
 
---TNXTGBunDxcfULCz--
