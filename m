@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794900311;
-	b=iBwiRbjGthAthI/uVQVHnLknso0ysWRI90YAOUQTOmAB+dSQ10fsIlIEC/gv0lpd248Y
-	 /T3+iuev0rIdV8OOD0ZCKiRDkIJkP1WVi/an9Vn604cGwthnVMvj06dL5HQ7K6lg8Q8hM
-	 DkSdYWohFAseNBxT/64pp75ZWqdOIZkY6f7cLT950hGKUQKEoB3y6FU8cJFl9ABon0ARW
-	 I4cWgNhFKqcC/pXnid3MvbTQ3kFrgqcAEnw9qR3wfWpBZAR0SqvfN2flgRwMU1+jM133k
-	 ntgrU1oyQswRpquIJ2Ek+5XJy0RU2S8XOEqD97N4KCtpBKJiP3buZm6xc9IhiSD0izw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794900311;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=FNXepqh9JdZhE9EcvMeKfVeYD+3mbZeYYqcw1j7/1MY=;
-	b=AEnqoHs0ZTS6I9We4IFZz4xeSo/T+Y0Yh0YEcOo6v3cwA/EHpkoTvG6Vh3ntsteOta6d
-	 qI7B0GeryECHKrIT50st9BRPMM1wdsomz5lIunjSqAPGJv8UvVZMmKLAGzi6aDQeyOncc
-	 lESqqglDgxpP2/OIgosIlveWcI+qWnlktFlUODHqJJNmt47JsvKYunrJqYY6PAsEnXMmo
-	 dLINHjz7CmHSntlVYuHRWklWLbtTeuxMgFrQsYj+Lo8nIhj09kFKdFqovO/KniiQ2Av6q
-	 1iH32qz4QP5yRWfYiHAXWtFgEy5iRygFmRYWB57GtQLo78evFHzCajSACfJoU97uyHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="FgyifT/H";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VRwK3SEO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=BulXAFGk;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JXDl1KRK;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794900334;
+	b=rl48byphlHD5ZSjuTJAdIAQeIE7L861DjuEIDRsn7GgFBMOBYh/mtn4LBKGCgU1Bwq+8
+	 taua8/QrE3vJ8s1jBATqRkIfMPNCZqVeJ1TwmBG7t6OHMfKZP4qHPhO3nEb3DFe+262rV
+	 Nm310iHPRYs+UxNw0dAFbHj8hGB838E+scCoLblZZVEHZKiPK1/9wCUt9BLQjvPTRdYC9
+	 JyAOqvSlOUtMLAHF0/V0hociV6+Bmimjp6D1jel/ZH4US+Ci7Halg9NegKrdhXFXmdu+z
+	 pxJRfwrokwZGsLxDgKXghrl4cYSRsMXp0hYDxv5eiOZsCabm2smu5kxszby44rdKnoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794900334;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KRx6HHZFMN916V0dprcQvG6/STP443OYep9LaExbmjo=;
+	b=OfzIFQq/rugQphGMnRm0/leQx7KxMUfv+8k5lkcVcbxQEr/+QrCpcr7cc2c6KJbF+1RR
+	 C3zsVImnlUu0ULWn9oJzSbLhxSwM3eKhF6L9gilU29M0bcMEeKHdgp8+fl3AUleIRHJAc
+	 BU9ZINRZFME7fl7kKjQNUYPaWW2zpNjVLLihRB1rA+QK2IbrL1Ch3aDZd8zVcn0kaqb2D
+	 UZNNPTb4pLI13ubL7FfPQkWcvkUmC2QLP/11MtDGgOmH71oj0zq4Zuun8EjbHE/F0077I
+	 LZ6TOxumOSWOUTQxWm7QhXY8p7eANa/ID8+oHA5sjrkL4ArFsr7jh3+vD1zsG2huUZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=By5UqhBX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.7
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010007.outbound.protection.outlook.com [52.101.56.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35AC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C35AC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2D3606A31C;
+	Tue, 17 Nov 2026 07:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D2D3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FgyifT/H;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VRwK3SEO;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=BulXAFGk;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JXDl1KRK
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CA15122351;
-	Tue, 17 Nov 2026 07:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794900309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FNXepqh9JdZhE9EcvMeKfVeYD+3mbZeYYqcw1j7/1MY=;
-	b=FgyifT/HhKR2tcWdav5hQno/evyImYZTELegCq/fUhEld2rCx9glMzX6L10Skr+ndrX8zJ
-	VbrMtd0QYZS9bH93IOewdxbl4cn/npY5T8IKyiKmBoqq3CULyoPfAnYc002068sWHasTp4
-	sy9DW+oo+lML7I+lMOFiluEheMoekGk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794900309;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FNXepqh9JdZhE9EcvMeKfVeYD+3mbZeYYqcw1j7/1MY=;
-	b=VRwK3SEOsYWtgUUtuc0LRZPgbep9JST4qixE5BBGl7Dcz/TTddFP9r62UL4nIWEH2at4gx
-	xUcDSMbUTSeU0VCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=BulXAFGk;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JXDl1KRK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794900308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FNXepqh9JdZhE9EcvMeKfVeYD+3mbZeYYqcw1j7/1MY=;
-	b=BulXAFGkgXbJMEAJan28yxNOXpR71wKn4MtkqeuxQqS181+Hkxw30HszbIW21HKjuoU472
-	YwnPRzCc1RFUPQlLM5kZic3WJzv4fS/scHqQzdfx6YbrT0bD9pBTZRhVRGSADNtidUq/zD
-	XDgIS+ga8+RM1keLEYQQz5g2X3wzK5A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794900308;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FNXepqh9JdZhE9EcvMeKfVeYD+3mbZeYYqcw1j7/1MY=;
-	b=JXDl1KRK6hhzZHsuTwEmyieuWe4Ai82Cg4v+5DWQeaLvdKOSIRQ/pDRcVBL3PbkzyKHbrc
-	7mrwW7Djb05MY0Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FAD41334C;
-	Tue, 17 Nov 2026 07:25:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bydRBVQB/GpffwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 07:25:08 +0000
-Message-ID: <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
-Date: Tue, 17 Nov 2026 08:25:07 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=By5UqhBX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YUvhC80Lx+T1NhxNGcFVCnqDAAqr8ssTnAskSkUNQiHovikjdg/xizLkuu9H1zs/9YImIoLyHO18xL+Mh+JGllJn/ukgyfCnm5QGZ4ioZJMdAdVic422QXSjLsXa2wfRAS61e/mmDW1P4CNVAEnHktS7SMQe1+uvlokq7+ebn4YpW6KzZzW4u/5RZvc7v3tusOAbn3lxVaemjGlSkixG3dwdDbpnAF9uz80r+ZEpI4xdUCdo6XXo0y+TKbgUMYfEjo6CnPjkqzlc6mUw6xraJ8/MVCB0jV0/097eQV+/ntabwTwyGzRpUCUbYE/6DjoNGxwMEqbosqqzs9+AfiQUhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KRx6HHZFMN916V0dprcQvG6/STP443OYep9LaExbmjo=;
+ b=txgohodByEki1UCF88Jtsmfg3qkTLh7xJKaUsNH6EEJwU2VVaAQLaX+Q8+Eb8uipy0SccoOSjgkzaYepe6ByDe+RwKcOsX62Sok0fvY1OxJras0LuHgnWKsTmZgELAxsVbILgiVSLQzSA4GyYQZsAQqniw9dUZj5OYSQV9FvKpwpDkiqhgVF9DELqY/uNo/JtUXz01UO8PrtUXeV7x+z9uHTy0V3ptGqx2Xqbe4yN9iFSe7ciT4Smsj7iNRjdaqBaUqii9+x+SqscItwah3JsrDD78B+jFwjeIy1NjgkQcTYl4ovEn7/aVX4vCrGcP0EUno4R5FQVvuSWL/wWk9F9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KRx6HHZFMN916V0dprcQvG6/STP443OYep9LaExbmjo=;
+ b=By5UqhBXFlx0lv57DGpVIHofE5yvJtmAG1QTHVXQBTj5T9RkYfngw0dLbteZVuoUYlqoJLkT3P+tsWMndayYOYNFwj9SUjKUxmAZokwSr4VuTak9YgZw1NqrPPuSsFLXqOWiSJ2lHUntEtfD4RE+RryP3kP7F26tjGZea6AV9o8=
+Received: from BN0PR02CA0019.namprd02.prod.outlook.com (2603:10b6:408:e4::24)
+ by MN0PR12MB5763.namprd12.prod.outlook.com (2603:10b6:208:376::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Tue, 17 Nov
+ 2026 07:25:28 +0000
+Received: from BN3PEPF00022BCE.namprd03.prod.outlook.com
+ (2603:10b6:408:e4:cafe::1e) by BN0PR02CA0019.outlook.office365.com
+ (2603:10b6:408:e4::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 07:25:28 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BCE.mail.protection.outlook.com (10.167.248.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 07:25:28 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 01:25:28 -0600
+Received: from [192.168.29.217] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Tue, 17 Nov 2026 01:25:23 -0600
+Message-ID: <41a0fa08-9787-4a7f-85ee-46941c296070@amd.com>
+Date: Tue, 17 Nov 2026 12:55:17 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,254 +102,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Joey Lu <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
- <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
- <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
- <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
- <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
- <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
- <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2] KVM: nSVM: Check full nested state size before writing
+ to user buffer
+To: Priyanka Mani <priyankamani2100@gmail.com>
+CC: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, Dan Carpenter <dan@pereq.eu>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H . Peter Anvin"
+	<hpa@zytor.com>
+References: <75b8ccd5e278ce8f13bedeceb196f5b4ee9c5256.1794545500.git.priyankamani2100@gmail.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.com:url,bootlin.com:url,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,oss.qualcomm.com,iscas.ac.cn,lists.freedesktop.org,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: CA15122351
+From: Shivansh Dhiman <shivansh.dhiman@amd.com>
+In-Reply-To: <75b8ccd5e278ce8f13bedeceb196f5b4ee9c5256.1794545500.git.priyankamani2100@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCE:EE_|MN0PR12MB5763:EE_
+X-MS-Office365-Filtering-Correlation-Id: 139cbd0c-3e03-4571-88ef-08df447bf4bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|82310400026|1800799024|36860700016|376014|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261102123227099003|56012099006|11063799006|10067099003|22082099003|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	k1weGREViFg/NJBzWULB2S/RTXf831H7Eef7t7hqrmG6HjWbxl1avBjhQK98stqZrzjtx+DAY1LeCacgoPsMyNVofEIj1JiQtYAMiw8SmI//49ufLYEp/GGAg25vLn0GpetE9cgsOlRLlCipsFZ8JcrLETo7zhpX+0XVyXRNd9VBrpldOw6LIRKx17WbC95I+m45CDPRkZTrUEiO9aLPUawj9mn79nOwELaxAYCNkfq1AUdTJxpRqhqKrZ4XqcNKg+pA7qcPGPgQImIkjLTGex5Y0KmuBnQiy8G69RAh9N+pLfRGXDEXRTKXakVH8rl1+sdtzMUQHINX7N2pIYVrry9gzDcH/HLw+cnzYjnFMA+m7etpfOU/57LIShnO41PoJWZdUPzBwX8LWfL3bqx3dP44lvLOfITrY7OFHbKO+tpQEPQC1zzeHGkRo7SqMXhJSB2BGU0xghE02F2uZFGMhWS/tX5gNg5u1VCpyTR6Xc+JLORfqUVO7zrxG3xfXBbqvGxv4UQecvNPH7/2uZUwmnzDba0ENK3CSIWQydnTaWgKDRj0SWA9agtMIt3c5xeRS9Zj885T3hxV8lS7kAbttaz28/tEq4Kz4KelFhcCkDSB9XyviHk0G4lJD9gpQ2uLveVpydgbwVb9hChJXFewWCYVwdJih3EUXJgtcaobM797rEu8OvGZu9AlBqvKYkHgYKGAU1XMUwkNcvYI6KdKOA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(82310400026)(1800799024)(36860700016)(376014)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261102123227099003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gqZiz3YzkoMxY7/B/oIUukMU1zteuLE16VKtgkIvpzgQk6k7SaitCM3dnRWq4s7tiSUZ8cLZ1LtIadP3uW5qy7hmTFHCDQQBmtvyYhL8HKZe3yN4UpP5zDHM2kvcPrhh1z0/MBVnUiZORz7oL6FU2fuohzdCH7Q2MxpldH0foq5Trx6/Cs8WrWilcja3+UgtBDTyw8qGAXO4M6C0ijovDGx/OJ8oSY+bOJZqc5T8/ROzcKM72skOoAbsucGdCaWdLF6g6sH/N/2i9Ty2+U6q43LfwCUVdXrp3UeIymHlCLt5YQUIILq23ijJ7Y/zKHQjAYHSSTsa5fB2Hgj6f5C56hEuXTykK06XozdYu4FGsBePlpZmQQ14lq+WdVWnQLmgH01GZI+pw8WxXae0WHggbjRIZwh1gG2Tkh132yEOYpnknJrzjQQmnbvH8xJjdtGE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 07:25:28.7143
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 139cbd0c-3e03-4571-88ef-08df447bf4bc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BCE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5763
 
-Hi
+On 13-11-26 10:31, Priyanka Mani wrote:
+> svm_get_nested_state() compares the userspace-provided buffer size against
+> kvm_state.size before adding KVM_STATE_NESTED_SVM_VMCB_SIZE for a vCPU that
+> is in guest mode.  When L2 is active and userspace passes a size that is
+> large enough for the header but too small for the vmcb12 payload, KVM thus
+> skips the early exit, copies out the header, clears and fills the full 4KiB
+> vmcb12 area past the end of the buffer described by userspace, and only
+> then does the caller notice that the returned size is larger than the
+> provided one and fail with -E2BIG.
+> 
+> As a result, KVM writes up to 4KiB beyond the buffer userspace said it
+> has, and if that memory isn't mapped, the ioctl fails with -EFAULT instead
+> of the documented -E2BIG without reporting the required size.
+> 
+> Move the size check to immediately before the first copy_to_user(), after
+> the header, including kvm_state.size, has been fully filled in, so that a
+> too-small buffer is rejected without writing anything to it, and so that
+> any future additions to the size are automatically covered by the check.
 
-Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
-[...]
->>> Sure, but is that a problem for this hardware?
->> For the cursor plane, the unchecked coordinate might be improper for
->> the registers.
->>
->> For the primary plane, if the plane is found to be totally off by
->> drm_atomic_helper_check_plane_state(), the check for can_position,
->> which is below the code snippet I referenced, would be bypassed, and
->> such plane would be programmed to be visible by the atomic_update
->> hook
->> even if it shouldn't be visible.
-> Well I am now thinking that bound-but-invisible situation is commonly
-> ignored by drivers.
->
-> For drm/verisilicon, maybe I'd remove both atomic_disable and
-> atomic_enable; however I think the atomic helpers may need some flag to
-> consider bound-but-invisible planes when calling atomic_{dis,en}able.
+Tested the patch by passing various values in user_data_size (0, 127,
+128, 129, 4223 and 4224) while L2 is active. Now it only updates the
+size field and returns -E2BIG for every too-small buffer, and succeeds
+with the full 4224 bytes.
 
-I don't think I really understand what you're up to, but it seems you're 
-overthinking the whole thing. Other drivers only care about plane on/off 
-and the contained image. That's also what the 3 callbacks are for. It 
-usually works nicely. Hence me asking. But maybe verisilicon is 
-different, IDK.
+Tested-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
 
-My suggestion is therefore to remove _enable and _disable and keep all 
-logic in _update.
-
-atomic_update()
-{
-     if (plane_state->visible) {
-         // do update
-         // enable hw plane
-     } else {
-         // disable hw plane
-     }
-}
-
-If you have any special cases where you want visible to be false (or 
-true), detect them in atomic_check and set the flags accordingly.
-
-atomic_check()
-{
-drm_atomic_helper_check_plane_state()     if (awkward coords)
-          plane_state->visible = false;
-}
-
-Best regards
-Thomas
-
->
-> Thanks,
-> Icenowy
->
->> Thanks,
->> Icenowy
->>
->>> Best regards
->>> Thomas
->>>
->>>> The end of drm_atomic_helper_check_plane_state() says:
->>>>
->>>> ```
->>>> 	if (!plane_state->visible)
->>>> 		/*
->>>> 		 * Plane isn't visible; some drivers can handle
->>>> this
->>>> 		 * so we just return success here.  Drivers that
->>>> can't
->>>> 		 * (including those that use the primary plane
->>>> helper's
->>>> 		 * update function) will return an error from
->>>> their
->>>> 		 * update_plane handler.
->>>> 		 */
->>>> 		return 0;
->>>> ```
->>>>
->>>> Thanks,
->>>> Icenowy
->>>>
->>>>> [1]
->>>>> https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_atomic_helper.c#L3030
->>>>>
->>>>> Best regards
->>>>> Thomas
->>>>>
->>>>>>     };
->>>>>>     
->>>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> index 8e94491693019..fca692f4f7d5c 100644
->>>>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> @@ -59,25 +59,6 @@ static void vs_primary_plane_commit(struct
->>>>>> vs_dc
->>>>>> *dc, unsigned int output)
->>>>>>     			VSDC_FB_CONFIG_EX_COMMIT);
->>>>>>     }
->>>>>>     
->>>>>> -static void vs_primary_plane_atomic_enable(struct drm_plane
->>>>>> *plane,
->>>>>> -					   struct
->>>>>> drm_atomic_commit *atomic_state)
->>>>>> -{
->>>>>> -	struct drm_plane_state *state =
->>>>>> drm_atomic_get_new_plane_state(atomic_state,
->>>>>> -
->>>>>> 							
->>>>>> 	       plane);
->>>>>> -	struct drm_crtc *crtc = state->crtc;
->>>>>> -	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
->>>>>> -	unsigned int output = vcrtc->id;
->>>>>> -	struct vs_dc *dc = vcrtc->dc;
->>>>>> -
->>>>>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->>>>>> -			VSDC_FB_CONFIG_EX_FB_EN);
->>>>>> -	regmap_update_bits(dc->regs,
->>>>>> VSDC_FB_CONFIG_EX(output),
->>>>>> -			
->>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
->>>>>> -			
->>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
->>>>>> -
->>>>>> -	vs_primary_plane_commit(dc, output);
->>>>>> -}
->>>>>> -
->>>>>>     static void vs_primary_plane_atomic_disable(struct
->>>>>> drm_plane
->>>>>> *plane,
->>>>>>     					    struct
->>>>>> drm_atomic_commit *atomic_state)
->>>>>>     {
->>>>>> @@ -144,13 +125,18 @@ static void
->>>>>> vs_primary_plane_atomic_update(struct drm_plane *plane,
->>>>>>     	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
->>>>>>     		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
->>>>>>     
->>>>>> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->>>>>> +			VSDC_FB_CONFIG_EX_FB_EN);
->>>>>> +	regmap_update_bits(dc->regs,
->>>>>> VSDC_FB_CONFIG_EX(output),
->>>>>> +			
->>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
->>>>>> +			
->>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
->>>>>> +
->>>>>>     	vs_primary_plane_commit(dc, output);
->>>>>>     }
->>>>>>     
->>>>>>     static const struct drm_plane_helper_funcs
->>>>>> vs_primary_plane_helper_funcs = {
->>>>>>     	.atomic_check	= vs_primary_plane_atomic_check,
->>>>>>     	.atomic_update	= vs_primary_plane_atomic_update,
->>>>>> -	.atomic_enable	= vs_primary_plane_atomic_enable,
->>>>>>     	.atomic_disable	=
->>>>>> vs_primary_plane_atomic_disable,
->>>>>>     };
->>>>>>     
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Shivansh
