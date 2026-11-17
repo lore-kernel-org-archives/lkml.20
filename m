@@ -1,112 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898625;
-	b=K8iNQBf7DldkRtxVxk8vEj/DeA3Z2aqDsqJ8CY1PkqIKJWJyODDzmRckbPKckUt2dpFF
-	 7DPD4g8wP6JlUFzvOenhWDqVkaysHLk+YZ2sP6bEKDO4RReSQmYthFsGlJh2F6NYYaGx0
-	 b8XCmYbmWW2/s1LxaMslHe+tRRbfV96PLOe/7yD4W32ISCTeTnFjbyLjxqAnCiWM9djj+
-	 /Y3v31U6SWfN0n3Aq4x90YwUhW4qyfKzkUQESh0gT0DPdf9OwtByecIV0YHxY0NUEd4ne
-	 dXxEaBjlBBV0UDfIhVqRnVU1CcVb7ZgIgKgQ/PIJcWSfwlA40WutVe/bQ1snIVtDl3Q==
+	t=1794898833;
+	b=iq6F7J3yEij229tRqpkmxjYPRlljbA1LF7W7MEGpu7alXwMeZuSmnqmpJqsjjPrSO9pL
+	 wzSf8ptzr1PdaCJZFKkGMvRsDno1e4W9a8/gKzdQYBEJ0tPmotDiB+FKc+mA0FIA+etN+
+	 PzczEk1uu0/bHb4M2OpMXj2e8yQsz5cJBx27XpFHIkD6YrewMSwX0JNJ+gj1Z7MY/z1fs
+	 NVe+t933XP3qgDwnHmD4ppvTHF7TkXDUbK2PDTUXWgcYgJlCQadfrcP1V8aFsxtFcKjOp
+	 i2xZeWtJnnzbBoGvnPjwgFoeQ80LpofbWz2o6wkn7WTZGky99lyqe0+cRleGvqxeINA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898625;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=fR0H6dCyIChpNu61Z5VNXLB+u6i8sY7DInoW15P9yYI=;
-	b=l17AtEXP6gOeD8R/UH2ggfCAiaDNybNkjoIkiT97K2VTLJhR65bsTczYuoUnb/qoU9V6
-	 mMpD3XFqPPNpjoDOBcdE6YwLJQPgiShszL1UfYRAqZGuXyTMTGCYapqAHWvMCb4mM845z
-	 vQO1PuaGfryxVK4oJzJxflzfI8XoWlf+3Gik1s7FGQiW6OPjNT3d002YdrD1+GT+FdpPl
-	 gFWGkw653USqd6S1d0SIeLwdllAhZeDYKSUhZ1itFvx3Dbc2ghRYZVtoC2a46fNu3+sfS
-	 mtIoxEeekWdxFdgSBqfY3fLZNlxu+gJqu6u/ojZbC6QGJZL7+cO46DoNF1XnNo1DtrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898833;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=U3P0AtUP4KhdIQUUOen9w3NNVWGFvqPKse8JMMmbPrs=;
+	b=xzpmRJFtO3pQnNE5yX833rgpfL2nvMKGXYE4TqqOVCGlcQEV3928DlFbJmWvFqUyPjwk
+	 f/kunxNV1ZgZUwvfTSMRy7/GbbeIivRNTNQrymxWsb5beo5zelBBb1Njg6t0TR3jE0BDm
+	 DV/iwtA0O4gZYPTdRV4+OhYzJmedoaAJxi7jbOnny2ZTs1GKaCyLqJHkinb3OM/LFLB17
+	 FBHkqKtnMlExx6Q74VHMYpjL0swkuK7exjMA6tzH9bTODAt2hVZc5xDUVQAuMSBPV/oQO
+	 Lcb2AkaBG6W2reZcWtxZeNl6Et0O6c49cY2x959oumkqZc2SgtbQj5eMMbSeb/85uqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Yuiyv202;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=oi78VYep;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyJIe8xr;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3067C606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:57:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3067C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138B1606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 138B1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Yuiyv202;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=oi78VYep
-Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH5XmsR761151
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:57:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=fR0H
-	6dCyIChpNu61Z5VNXLB+u6i8sY7DInoW15P9yYI=; b=Yuiyv202xRkEnNSbQo1c
-	IEq43u5gfqJYeWj+haa7BlWO1SOJ9vud77Kfa9FqndlpvgCHT50+z32weoWU2auN
-	Q4wO0yeHDpIRGGRpRcoUjyZexMOuEqrND6v1pgyLWNz1WXYQyncCXcoshIRWjGJ0
-	TeWj4QqCmeO+TPKGcwPAuKK+NmdGeGWRw4komPYrcLqnyAnIYSJCjrEhtqo4FDkO
-	nWoE75y6wIfQhQ98egrc+k5WgKdbxZJa9q5ec/1IRc60/Ckey6zsuimL5M5nVn9/
-	z5okXI5OahoY7uza4c5gi/DIBTqa3usugfkLGFb9VPYJn6KOx811tJOdgwszkdAM
-	tA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j059cng0f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:57:04 -0500 (EST)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-55ca34548f5so79128061cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:57:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyJIe8xr
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b094e649d3so3598466a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794898623; x=1795503423; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fR0H6dCyIChpNu61Z5VNXLB+u6i8sY7DInoW15P9yYI=;
-        b=oi78VYepvp78VaL6VzVJ3qlLTcPH0Gml9D9hTIVjX3tvUVwyySjTavOaMMjdnwgZ8l
-         LRzAkMf4h/6K/wbBYI304JavA4m5Uj/U2BesNjFPVAtWkT5s9/1AhqN3hjZRRSyRg2p4
-         ZeIS0B37ONxzitIMbxLRqNf0NLc1zB60et1lWMo+Sv21Y6Zeu09CYZCYY0Peo96xLRkV
-         QmEDIxBvEGvgdNtKREov/0TsrgFl2YDHizIDdFnQ0Jy9DcmtN1PtTAXHqXZtOjgtreFi
-         KQfYMDLKcl0sGIgDZBdy5FwUN1K2IGuFM4CcbRuRUZ13oUWTZ3M3RC4jbix4F4RWa0mB
-         YavQ==
+        d=gmail.com; s=20260707; t=1794898832; x=1795503632; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U3P0AtUP4KhdIQUUOen9w3NNVWGFvqPKse8JMMmbPrs=;
+        b=JyJIe8xrk8xiPUcvsHsEcRidnCdGZFjXxFdcxtG9o/wo/7nJen4lULHEYLucXN892I
+         brfSu6eMC3cvnBddRolr9i9OaBVwWnKHwjS+MGhD+4BS/0IgLpqf+e/PUnvtdB0ZVExf
+         fjTe/a2Ryz5+eu3H8kO7D24iao8U1xUZW3YgNLpGfwS3CY7/Ug6fOffhKeLK+QXydZgl
+         UQMdGanFjm88jDaG91628TPNrjrCguTiZEVSjIYkZ7yvpv8fNhNNLDRVF58fUURAxa03
+         wNuf3M+CVZD7JKbQGGS8ATay8rWNbUzcQRqHgaIZEHKJiDlB/uHL/gkCGDHi4Q2vq4Yv
+         5ilw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794898623; x=1795503423;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fR0H6dCyIChpNu61Z5VNXLB+u6i8sY7DInoW15P9yYI=;
-        b=aAsa6FMO9E4ePSFEIeLMQQrLOWkikLsYueeFMLVCSnPHyNKx3lyN2t3CeSjH/xXNLN
-         4bnCl6a0Ff+5al95H7AO1o5Cm8rcrQZRn+NG0TiKKYCW2LPVhTofFKy7o8YEdglHWRx7
-         avpjWneZXyOhhnxt8Oq6id21+wA0VCqW43iLU75yNvUZ+BhxOLzvCqgp/4aRLQ7YKxDh
-         BwOj6wgVj+U9yi1baVzpEpMTS81N/YqSjk10w8qkpxS8Tvmok4kCTlMSRSEa/zhQJXC6
-         fUofM+ZSsOvzhXf4GfNoGoWqYwCeXrAZwsFeGUN2LmyViu6rxiC7w2uaG/mIxdaTQuDm
-         n4Ug==
-X-Forwarded-Encrypted: i=1; AL+hErHlELxL7NLJ2pNxWyJXSMHuXWNSYj1uCX+OBhOXqwyAEGWl789Rjj2NXS5vZ80LAbhVNlM79xqBE5hgvow=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99GvlaFv3UrCngXNg+UEtdNAowRp+NqJTAO+GAyuPLrT1DEQPV
-	iVHik/toAGJJ/0Trfvl613JjLOCgsPSxfRaH4zwHPees6DnxUfegC+iavQGR0TVBwyzc/Ci0+zt
-	uqFVlKprzOhQX3qV9F3Hy9fZcTyXmtlbnxtxaC7U0Ezg0Q0y9QUat4SVFQ6mKkQ==
-X-Gm-Gg: AYBFou2WcKcxTnuNOU9kKEOILXCYVSCKlkUimZ3zz+AeE2erZ9FpPTvURmE6sOBHCM0
-	nSmoxGLNUUi6u11SXJri/EHK5rwFejI7nJrdo+NWeDqqxIyTJrctyjzjg2die6mOydf91lh3L40
-	fvINB2Z0K8HUY4z3EyQFDWcH5KhrQ71wEqcscdQvV8Ie8uLsdHFIqrtDFXVSoAt/MxvqxeK2s9y
-	TMcE9+H8zYtIVgq+dO9xac5UKkE8gOcvT1ygPlVO7+gPU09lBP3USNmmBW7ujOicmZ59EgPbMtV
-	KPOcCbDrlxpAJ6kKG9d/yl1xtZzRGWdgErpquJp8IfFhDBNaOm+iUTVi7p1XWksSFeqb3pa8VJR
-	kCVFICk2q/QCDpvqYUNKZziFATLRG2dtcmJJKtLi48LAI/n2u2MpqbPgR6OucJDf4aT42SQEckS
-	7bwVgNnq+kmJJowButpA==
-X-Received: by 2002:a05:622a:514d:b0:55d:3350:d260 with SMTP id d75a77b69052e-55d3350d482mr101909861cf.22.1794898623044;
-        Mon, 16 Nov 2026 22:57:03 -0800 (PST)
-X-Received: by 2002:a05:622a:514d:b0:55d:3350:d260 with SMTP id d75a77b69052e-55d3350d482mr101908011cf.22.1794898616569;
-        Mon, 16 Nov 2026 22:56:56 -0800 (PST)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0a2006csm98408871cf.10.2026.11.16.22.56.56
+        d=1e100.net; s=20260707; t=1794898832; x=1795503632;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U3P0AtUP4KhdIQUUOen9w3NNVWGFvqPKse8JMMmbPrs=;
+        b=kXZir7xW3RBaRxrh881x/90fgSSGEgknVZZLM+gYUHUdOzC7fjbVPBbJUz6e0rQL5Q
+         nfmqHv7+RGThpJ9pFxqiCMxM8z64UdhgZ+xgsTvvZxsQUhRJpPt4LFbLlIE6FgYkVD++
+         MsgX965af5GEQGsGXIVatxDnvOuiiUbs2iecypsc3qhBG51Ofjnvz5RYnRoBa86a3m4x
+         z9KMfDSaicntomJPY5OMf9/tTYc39iDfPg5y1sSWnD6tBKgct+iywPuBw8Q69AvZCpgd
+         gjI+6EmHp1Nd8dlmkawd3cYZfl8qNDM+n4qwUrCBFrqMA5L4flqeQnVaXAX4aKe9BZEy
+         B7pw==
+X-Forwarded-Encrypted: i=1; AL+hErGS8TyN8k8euvNIjNoRNvaYdJTAXOowOgOvqjT9tKQRSkHxWSq/c7msPg1mU1e9wlo5A9mtASKUZNnSr1Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ywRZoGax+ddwveQ04gQd0gIl5TSKsG3MXQh7SqYpJ0qipUEvZ
+	WeQ+x3yAREHsmLRwe/7QRiR59MjE2fSmqsFvyYepTMJ6n3ItHBdNTVDj
+X-Gm-Gg: AZFdTZewYTfSjPSiKvPeHtu8eTna/nIlYyJ64+h0vVlEJzhMkCEeMXrJLxPHkSQVSF7
+	bSMRvmbsc0o+wCfGmF4TEmxay7xOPqg2/YFn3qAyVXU8PhaV9HNGOWSwKq9S1bNSHSIPX3NGie0
+	BkvVYeDJiBV7YOt93zvj2jBf6kAgJ0RmkK10i8+i8WWNqXFBsvbT4ngUbCAbe9xrwPsoA59eva4
+	jlO3iK1/0EHijem5jWA29IhMR0p1c9ljjLhrK2uGMq53B+MQOm/4Y1EiNDvthxm4tvuczEaX+f3
+	7RZHavghr1fBGE1nWpiqsJiEtkYmdPNnSSq2mYs0lPqUH8Ha+soH8oOauxyGFI0/o4bJtXbpCeD
+	qaKjoMK0LIkCue//WIZYYMo38OHotE8FVc82ppFi8LL/pyWGJtxZSJqQxpZQfiXwrjN2kzI0ITZ
+	ogIBTw8izjASg8Qf01Xt1gCGW0SE5KA1hPh4fg+7egSwU+kT+r7m7+v4uYlSEO5A/5CBpQ4kOMW
+	V3K1CFkEVJx7IWyWswlnOK7fuO7EAwqGiw80cqtSVW3mM/1cwidJA5sLeYVnvZOag4+SK3GGHai
+	KN94DMBz6ZnsxPEj80hhaOx8iKpXctBijurJzQ==
+X-Received: by 2002:a17:90b:3c4e:b0:3ae:c413:c07e with SMTP id 98e67ed59e1d1-3b1b0b667bfmr11646462a91.14.1794898832250;
+        Mon, 16 Nov 2026 23:00:32 -0800 (PST)
+Received: from hp.mioffice.cn ([2408:8607:1b00:8:401e:3331:e6b7:ac3a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac4d98b8sm2492672a91.13.2026.11.16.23.00.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:56:56 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 17 Nov 2026 01:56:17 -0500
-Subject: [PATCH 2/3] jfs: allocate the log buffers with kmalloc()
+        Mon, 16 Nov 2026 23:00:31 -0800 (PST)
+From: huang zheng <huangzheng9869@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	huangzheng1@xiaomi.com,
+	Huang Zheng <huangzheng9869@gmail.com>
+Subject: [PATCH v3] f2fs: add checkpoint step timing statistics to debugfs
+Date: Tue, 17 Nov 2026 15:00:16 +0800
+Message-ID: <20261117070016.3457670-1-huangzheng9869@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,165 +97,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-jfs-page-leftovers-v1-2-2722918aacdb@columbia.edu>
-References: <20261117-jfs-page-leftovers-v1-0-2722918aacdb@columbia.edu>
-In-Reply-To: <20261117-jfs-page-leftovers-v1-0-2722918aacdb@columbia.edu>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Christian Brauner <brauner@kernel.org>,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794898606; l=3939;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=k78p+LfUD+v5kL3SQb35zpTe+B0cspWb+IcaTC5jO7w=;
- b=P0gnBJEWtOqHwvvVdxsX7IVB81N6LzrEu3opWBSyU8JTruRr3wbLek6paJzj74l7PvGzg3/kE
- BdPIPh15z/0DssGN5sGGw6dMaILVriZSRLxBu4XLwkCQSsA/CLtM8v9
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyNyBTYWx0ZWRfXyjLwXJhDXdNk
- TUjfzlKL2RcZRfO2CcSWJTZ3eMOOlBVdjhQyKI1Zz1h8ARTPqyk2vSWDeiToh97Gz1+cRWGakWL
- LY16Pr5sDomTOzLe+q7RNOrdbYfkEQdppafzSuMyHAekceJNEaki
-X-Authority-Analysis: v=2.4 cv=MsPHeGae c=1 sm=1 tr=0 ts=6afbfac0 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
- a=bV8h02UIR3vtRmO60MoA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: 23i7CvfiSDGGKruA8jjaGzvSbo0IhnBt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyNyBTYWx0ZWRfX07iCKdwGVDdK
- 7tTz8ts8TNI9ppSgTCY7mmesTCV9AodPR15LpRQj9OUlQ9qHhowYq2lNweKrI9UW+m9xo6CGNTp
- 39yAggTV+lM8TnKUsi6wm6aGip1kx6im2Z3CWNS6H50cTeEaSnBKC7nQhe5roMp3q/G8YrHR381
- zSag75GfpeAIWDGCqpjrqz4WfTRHTwlO+Pl4rDvY16JisN0P2fjlB/EtIZDptMwC/ZDfqVUAH5k
- s9woBziQUNc1or2laxNua5iK5x8NJJyck3AoGYfVHxbu6OsaFik6efLTXd/G3xip7qwsiYjRBfG
- Ye6VCN+XydGAPgpItyF/jC+4jknI6UMHiUe7AArItKyCOeuFja+mMwqUvbmL+fcUcrPK5YmBvuM
- cCMTNr+2BKoN+hOuPZs81Bf8hXEE5K+KmyG9aj+PTg50pETDzrGooq7/QP/fGHHZQaRuP80BpCv
- +o0iKR98EjCe4qiNXOQ==
-X-Proofpoint-ORIG-GUID: 23i7CvfiSDGGKruA8jjaGzvSbo0IhnBt
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=10 clxscore=1015 impostorscore=10
- malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
- bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170027
+Content-Transfer-Encoding: 8bit
 
-The log buffers aren't in the page cache, so they don't need a struct
-page. lbmLogInit() currently allocates whole pages, splits each one into
-LOGPSIZE lbufs and takes a page reference for each.
+From: Huang Zheng <huangzheng9869@gmail.com>
 
-Allocate each lbuf's buffer with kzalloc() instead and add it to the bio
-with bio_add_virt_nofail(). LOGPSIZE is a power of two, so the buffer is
-naturally aligned. This removes l_page and l_offset from struct lbuf.
+This patch adds detailed timing statistics for each checkpoint step
+to the debugfs stat_show interface. It displays the time taken by
+each phase of the checkpoint process, including:
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+- lock acquisition
+- block operations
+- flushing data/node/meta pages
+- flushing NAT/SIT
+- syncing metadata
+- waiting for dirty meta/checkpoint data
+- device flushing
+- waiting for last checkpoint
+
+This information is valuable for debugging checkpoint performance
+issues and identifying which steps are taking the most time during
+the checkpoint process.
+
+The statistics show the longest recorded time for each step, helping
+developers and users understand where checkpoint bottlenecks occur.
+
+Signed-off-by: Huang Zheng <huangzheng1@xiaomi.com>
 ---
- fs/jfs/jfs_logmgr.c | 45 ++++++++++++++++-----------------------------
- fs/jfs/jfs_logmgr.h |  2 --
- 2 files changed, 16 insertions(+), 31 deletions(-)
+v2:
+- Use the global lock f2fs_stat_lock to keep statistics consistent 
+when updating cp stat data in the super block
+- The qualify test result as follow:
 
-diff --git a/fs/jfs/jfs_logmgr.c b/fs/jfs/jfs_logmgr.c
-index 306165e61438..ad77fdf56149 100644
---- a/fs/jfs/jfs_logmgr.c
-+++ b/fs/jfs/jfs_logmgr.c
-@@ -1795,7 +1795,7 @@ static int lbmLogInit(struct jfs_log * log)
- 	log->wqueue = NULL;
+#cat /sys/kernel/debug/f2fs/status
+
+CP steps (longest):
+  - Total : 524(ms)
+  - lock : 0(ms)
+  - block_operation : 13(ms)
+  - flush_data_node_meta : 0(ms)
+  - flush_nat : 93(ms)
+  - flush_sit : 56(ms)
+  - sync_meta : 32(ms)
+  - sync_cp_meta : 0(ms)
+  - wait_dirty_meta : 0(ms)
+  - wait_cp_data : 0(ms)
+  - flush_device : 0(ms)
+  - wait_last_cp : 0(ms)
+  - unblock_operation : 327(ms)
+
+v3:
+- As `f2fs_stat_lock` depends on `CONFIG_DEBUG_FS`, `check_cp_time` updates stats even when `CONFIG_DEBUG_FS` is disabled. 
+  Revise the stat concurrency protection using `stat_lock` resides in `f2fs_sb_info`. 
+---
+ fs/f2fs/checkpoint.c |  2 ++
+ fs/f2fs/debug.c      | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 32 insertions(+)
+
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 5c5b45d3c67b..bbf8bc9a9f34 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -1738,7 +1738,9 @@ static inline void check_cp_time(struct f2fs_sb_info *sbi, struct cp_control *cp
+ 					cpc->stats.times[CP_TIME_START]);
  
- 	/*
--	 * Each log has its own buffer pages allocated to it.  These are
-+	 * Each log has its own buffers allocated to it.  These are
- 	 * not managed by the page cache.  This ensures that a transaction
- 	 * writing to the log does not block trying to allocate a page from
- 	 * the page cache (for the log).  This would be bad, since page
-@@ -1807,33 +1807,20 @@ static int lbmLogInit(struct jfs_log * log)
+ 	if (cur_diff > sb_diff) {
++		spin_lock(&sbi->stat_lock);
+ 		sbi->cp_stats = cpc->stats;
++		spin_unlock(&sbi->stat_lock);
+ 		if (cur_diff < CP_LONG_LATENCY_THRESHOLD)
+ 			return;
  
- 	log->lbuf_free = NULL;
- 
--	for (i = 0; i < LOGPAGES;) {
--		char *buffer;
--		uint offset;
--		struct page *page = alloc_page(GFP_KERNEL | __GFP_ZERO);
--
--		if (!page)
-+	for (i = 0; i < LOGPAGES; i++) {
-+		lbuf = kmalloc_obj(struct lbuf);
-+		if (lbuf == NULL)
-+			goto error;
-+		lbuf->l_ldata = kzalloc(LOGPSIZE, GFP_KERNEL);
-+		if (lbuf->l_ldata == NULL) {
-+			kfree(lbuf);
- 			goto error;
--		buffer = page_address(page);
--		for (offset = 0; offset < PAGE_SIZE; offset += LOGPSIZE) {
--			lbuf = kmalloc_obj(struct lbuf);
--			if (lbuf == NULL) {
--				if (offset == 0)
--					__free_page(page);
--				goto error;
--			}
--			if (offset) /* we already have one reference */
--				get_page(page);
--			lbuf->l_offset = offset;
--			lbuf->l_ldata = buffer + offset;
--			lbuf->l_page = page;
--			lbuf->l_log = log;
--			init_waitqueue_head(&lbuf->l_ioevent);
--
--			lbuf->l_freelist = log->lbuf_free;
--			log->lbuf_free = lbuf;
--			i++;
- 		}
-+		lbuf->l_log = log;
-+		init_waitqueue_head(&lbuf->l_ioevent);
-+
-+		lbuf->l_freelist = log->lbuf_free;
-+		log->lbuf_free = lbuf;
- 	}
- 
- 	return (0);
-@@ -1858,7 +1845,7 @@ static void lbmLogShutdown(struct jfs_log * log)
- 	lbuf = log->lbuf_free;
- 	while (lbuf) {
- 		struct lbuf *next = lbuf->l_freelist;
--		__free_page(lbuf->l_page);
-+		kfree(lbuf->l_ldata);
- 		kfree(lbuf);
- 		lbuf = next;
- 	}
-@@ -1971,7 +1958,7 @@ static int lbmRead(struct jfs_log * log, int pn, struct lbuf ** bpp)
- 
- 	bio = bio_alloc(file_bdev(log->bdev_file), 1, REQ_OP_READ, GFP_NOFS);
- 	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
--	__bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
-+	bio_add_virt_nofail(bio, bp->l_ldata, LOGPSIZE);
- 	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
- 
- 	bio->bi_end_io = lbmIODone;
-@@ -2117,7 +2104,7 @@ static void lbmStartIO(struct lbuf * bp)
- 	bio = bio_alloc(bdev, 1, REQ_OP_WRITE | REQ_SYNC,
- 			GFP_NOFS);
- 	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
--	__bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
-+	bio_add_virt_nofail(bio, bp->l_ldata, LOGPSIZE);
- 	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
- 
- 	bio->bi_end_io = lbmIODone;
-diff --git a/fs/jfs/jfs_logmgr.h b/fs/jfs/jfs_logmgr.h
-index 09e0ef6aecce..e8f43c25deb6 100644
---- a/fs/jfs/jfs_logmgr.h
-+++ b/fs/jfs/jfs_logmgr.h
-@@ -455,8 +455,6 @@ struct lbuf {
- 
- 	s64 l_blkno;		/* 8: log page block number */
- 	caddr_t l_ldata;	/* 4: data page */
--	struct page *l_page;	/* The page itself */
--	uint l_offset;		/* Offset of l_ldata within the page */
- 
- 	wait_queue_head_t l_ioevent;	/* 4: i/o done event */
+diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
+index 6fe606e2c70d..4fa44eb38bc8 100644
+--- a/fs/f2fs/debug.c
++++ b/fs/f2fs/debug.c
+@@ -445,9 +445,26 @@ static const char *ipu_mode_names[F2FS_IPU_MAX] = {
+ 	[F2FS_IPU_HONOR_OPU_WRITE]	= "HONOR_OPU_WRITE",
  };
-
+ 
++static const char *cp_time_names[CP_TIME_MAX] = {
++	[CP_TIME_START]		= "begin",
++	[CP_TIME_LOCK]		= "lock",
++	[CP_TIME_OP_LOCK]	= "block_operation",
++	[CP_TIME_MERGE_WRITE]	= "flush_data_node_meta",
++	[CP_TIME_FLUSH_NAT]	= "flush_nat",
++	[CP_TIME_FLUSH_SIT]	= "flush_sit",
++	[CP_TIME_SYNC_META]	= "sync_meta",
++	[CP_TIME_SYNC_CP_META]	= "sync_cp_meta",
++	[CP_TIME_WAIT_DIRTY_META] = "wait_dirty_meta",
++	[CP_TIME_WAIT_CP_DATA]	= "wait_cp_data",
++	[CP_TIME_FLUSH_DEVICE]	= "flush_device",
++	[CP_TIME_WAIT_LAST_CP]	= "wait_last_cp",
++	[CP_TIME_END]		= "unblock_operation",
++};
++
+ static int stat_show(struct seq_file *s, void *v)
+ {
+ 	struct f2fs_stat_info *si;
++	struct cp_stats ct;
+ 	int i = 0, j = 0;
+ 
+ 	spin_lock(&f2fs_stat_lock);
+@@ -631,6 +648,19 @@ static int stat_show(struct seq_file *s, void *v)
+ 		seq_printf(s, "  - Total : %4d\n", si->nr_total_ckpt);
+ 		seq_printf(s, "  - Cur time : %4d(ms)\n", si->cur_ckpt_time);
+ 		seq_printf(s, "  - Peak time : %4d(ms)\n", si->peak_ckpt_time);
++
++		spin_lock(&sbi->stat_lock);
++		ct = sbi->cp_stats;
++		spin_unlock(&sbi->stat_lock);
++
++		seq_puts(s, "CP steps (longest):\n");
++		seq_printf(s, "  - Total : %llu(ms)\n",
++			   (u64)ktime_ms_delta(ct.times[CP_TIME_END],
++					ct.times[CP_TIME_START]));
++		for (j = 0; j < CP_TIME_MAX - 1; j++)
++			seq_printf(s, "  - %s : %llu(ms)\n", cp_time_names[j + 1],
++				   (u64)ktime_ms_delta(ct.times[j + 1], ct.times[j]));
++
+ 		seq_printf(s, "GC calls: %d (gc_thread: %d)\n",
+ 			   si->gc_call_count[BACKGROUND] +
+ 			   si->gc_call_count[FOREGROUND],
 -- 
-2.39.5
+2.43.0
 
