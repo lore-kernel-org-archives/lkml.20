@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899681;
-	b=dePyo8h1i3KkNZDoQIy/8v74Fg8vBn3BY0V8AhUvMb5Rj+tu6aPE6vAcnuvdLvvwQ7m5
-	 0I3FVd02xkYtlPRFmaZW51vaxjkZXjXm1puFNe9JkR11l/b73lCLKsoXMXPCS6wFHAqrx
-	 Z7D81s7tlK4b1LfyRHdMOE3LwGvyz7EvrXLy4iy6hdnn3RSVWrT/VWy+b0bL7+pN/8efF
-	 ByhXvJhvICrk2KqwxUNPlC08NEDyAOvitvNWwaGlIqIwYEj+ZOoJn1Gu9fxQ37SAYafGb
-	 a7Ge0T7iDAZMyXkfJ+q3mit5vzxm5q6JXilYd/udchXkQZk1LooPxxDOMZ3yKraysaw==
+	t=1794899686;
+	b=tXJ7GUWojGkT7iPms2jv8yRUV6qTM5h3zitP6ru8IDV1ZQu1LDpdMdszZJSpR9aPVK//
+	 wixb90WyCMfF63NEgHXJoz6ScgstR3Z3EwXK9TWIpVUO9OuKQpa3X+fjttf0wTfbQ8vsD
+	 Jz/calqADFlBrmNy5Bwtaqi1LP3l+nbGX+FLLJQm5T331UqTWTaNMu/81eJACALUfc3/v
+	 knf/4UxOkmCHJopgdwRWJu77kcaTpxl0tPnmBRcdMZpFjjeXNNZyasVnr1UrjEt+XzAbo
+	 6sCD45/LX9kblh9+uqxOw4+e4u/IV2sxgEobsmf4hl5ZLlUsAhfnEPtj/la3gZsVmBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899681;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=/uMuPe5mgi1Eu4yEWFJYCwVsaSE/AArChxvbCEr7Peg=;
-	b=ye5COWxoTSoP45V62MBX6HGZGbIrAhCnJ1ynQ4JcEyWqcOE2suZC8JrlXaJyUzwtGoRY
-	 WnRAkkZSp1WO+f6ZvMQ6/Ore/sKF1Ec+pC34q0HHUOuz3mRmgttm1zBHgxgV4L5iElarp
-	 cgEBwFW/HTPxqmUJdhmAMwFNWa0oF3Aercrtmvas8PoXqvPGqTRHQsnsxik2ZKYh/RjQy
-	 vJwPbeLo9z2SvCrLnD/DK1+imFKB1KtYbB1B4tzR/JOk3kwv+b7FSVnNh4gS1ODIys2ik
-	 vufeUy+HyTnpEDRK5XdXu+ZFt1b8M/CTWxLCozzKg0zS4FaadYWVdpyeONgdL+V4qYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899686;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=wvWGb0nlFITZI2PDNMPy58T/hNYeeGHJZcywmvOHuXU=;
+	b=ZQiiv3Wcyqvx1izd2s/e7s0U2BlgaUKGPWjSro+P0tcOheSQdzVlVUPQ79RI0qaOpCsk
+	 dgGBhJesMVFy5j3xK4dFFnUpNlCpsB54JXVDqA6U2AEt3oVxZyRA1XQWWLtiswjBdwqxv
+	 Ly8uX/BcenNffj6l4B10IeNDHy7l/rqI8X97DZVlwy2LOw+c1zEoVLxghLWllSLlXMt8w
+	 fJfMhUgK/VoGxSlXOoQiykj6M7do566oOKiBaN86CtCNIrFC62gSI6uOCJyTfs/p8RMjF
+	 z/ejNMu4SJQRng05Goj/UfAM2E5DQgtrMGW5d7AHB6eUlymcqxe/6FXy7Dc999zmprw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RH5qvwVa;
-	arc=none smtp.remote-ip=95.215.58.71
-Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=McQtsodz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7B8606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:14:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7B8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED2606A323;
+	Tue, 17 Nov 2026 07:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RH5qvwVa
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IR9VcHeYSsHfv5ifLvABSgrY6uC1+UTctHpRZU8BkOk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794899678; v=1; x=1795504478;
- b=RH5qvwVa96F/+auHiHXI1EJA1N/dFmngsMV3MqYOX3sqouaIrnXCI+ZMJGzg/ULlCQhgOBFQ
- SPKQKDmOHFckjHysxuEC7o39+TnGJBNmsOV2NSEBPfVXQ/TGRWxTV8eTPwYQg/WrpgyvJegeIm1
- DHTrvH6WaYuAzT6EwLQ7J+rQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0e5d159210048f24;
-	Tue, 17 Nov 2026 07:14:38 +0000
-X-Mizu-Trace-ID: 0e5d159210048f24
-X-Migadu-Flow: FLOW_OUT
-From: Peng Fan <peng.fan@linux.dev>
-Date: Tue, 17 Nov 2026 15:14:07 +0800
-Subject: [PATCH 3/8] irqchip/imx-intmux: Handle platform_irq_count() errors
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=McQtsodz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4091F000C4;
+	Tue, 17 Nov 2026 07:14:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794899686;
+	bh=wvWGb0nlFITZI2PDNMPy58T/hNYeeGHJZcywmvOHuXU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=McQtsodzuHg5aBEbJlzCaAMucmgaAE3EHhLw7xs6yC6tgscoUF25N52FPjxadDAuu
+	 45HzRmI69P1OyKFkYqTJK6VyYbl7Hd28JYWlEqbHGZK+4G8SzZess7+RfqZbeB3Jaa
+	 x4T8p6FoJQ/qP11rs1G+HaaX3TP3Wn8+Pi3pMZuEp1FquK4zXxDQ6bjZq9aWw/66Zr
+	 mqGM+NYTa/Zah2j00bzTEMABEBybgrX2MF8Pf48RhN/dKsYYF0YYiI1TN1o6VA9rl+
+	 QxS5JWUwl3TVtVulkzFdNjM3+LJaOLHXvyBRBmiPpvTCtUE/zG/bpYuizKq/lWWkmX
+	 YVLggW+9zVMTA==
+Subject: Re: [PATCH net-next v3] ip6_gre: fix changelink conflict checks for
+ L2 tunnels
+From: netdev-bot+sashiko@kernel.org
+To: yanxia@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org, kuniyu@google.com,
+ xeb@mail.ru, yana06070@163.com, netdev-bot+sashiko@kernel.org
+Date: Tue, 17 Nov 2026 07:14:44 +0000
+Message-ID: <179489968486.3136.18372818760197436344@kernel.org>
+In-Reply-To: <179455350258.84965.17518172977020586093.ip6gre-v3@cmss.chinamobile.com>
+References: <179455350258.84965.17518172977020586093.ip6gre-v3@cmss.chinamobile.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,58 +64,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-imx-intmux-v1-3-189e7e0ad98d@nxp.com>
-References: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
-In-Reply-To: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Marc Zyngier <maz@kernel.org>
-Cc: linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.14.3
 
-From: Peng Fan <peng.fan@nxp.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-platform_irq_count() returns a negative errno on failure, but the driver
-only special-cased -EPROBE_DEFER. For any other negative value probe
-continued with a negative channel count and passed it to
-devm_kzalloc_flex(), which is broken.
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-Propagate every negative return value and also reject a zero channel
-count, which would otherwise register a controller without any channels.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 2fbb13961e74 ("irqchip: Add NXP INTMUX interrupt multiplexer support")
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/irqchip/irq-imx-intmux.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+- [Medium] In ip6gre_changelink_common() (net/ipv6/ip6_gre.c), the new
+  `if (!nt->parms.collect_md)` guard (line 2051) skips the duplicate…
+- [Medium] After this patch, ip6gre_changelink_common() treats any
+  ip6gre_tunnel_find(net, p_p, dev->type) hit on another device as…
+- [Low] The patch fixes a user-visible bug in ip6gre_changelink_common()
+  (net/ipv6/ip6_gre.c).
 
-diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
-index 644282228f1a..c7b6b475bfb9 100644
---- a/drivers/irqchip/irq-imx-intmux.c
-+++ b/drivers/irqchip/irq-imx-intmux.c
-@@ -207,11 +207,11 @@ static int imx_intmux_probe(struct platform_device *pdev)
- 	int i, ret;
- 
- 	channum = platform_irq_count(pdev);
--	if (channum == -EPROBE_DEFER) {
--		return -EPROBE_DEFER;
--	} else if (channum > CHAN_MAX_NUM) {
--		dev_err(&pdev->dev, "supports up to %d multiplex channels\n",
--			CHAN_MAX_NUM);
-+	if (channum < 0)
-+		return channum;
-+	if (!channum || channum > CHAN_MAX_NUM) {
-+		dev_err(&pdev->dev, "invalid number of channels: %d\n",
-+			channum);
- 		return -EINVAL;
- 	}
- 
+--
+
+ip6_gre: fix changelink conflict checks for L2 tunnels
+
+This patch changes ip6gre_changelink_common(). Ordinary devices are now
+checked with ip6gre_tunnel_find() using dev->type, replacing
+ip6gre_tunnel_locate(), which only searched ARPHRD_IP6GRE devices.
+Metadata devices skip the duplicate search entirely. The encapsulation
+setup now runs after the conflict and unregistering checks.
+
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+
+[Severity: Low]
+This fixes a user-visible bug: received frames go to the wrong tunnel.
+Could it carry a Fixes: tag?
+
+The L2 changelink path has used ip6gre_tunnel_locate(net, &p, 0) since
+the ip6gretap kind was added. That function hardcodes ARPHRD_IP6GRE:
+
+	t = ip6gre_tunnel_find(net, parms, ARPHRD_IP6GRE);
+
+That looks like it would be:
+
+Fixes: c12b395a4664 ("gre: Support GRE over IPv6")
+
+The notes say this was tested on net-next. Whether it should go through
+net instead is for the maintainers to decide, since the fix also makes
+some previously accepted configurations fail.
+
+> diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+> index b5d6ed8f0c369..0a113bc8def95 100644
+> --- a/net/ipv6/ip6_gre.c
+> +++ b/net/ipv6/ip6_gre.c
+> @@ -2046,28 +2046,25 @@ ip6gre_changelink_common(struct net_device *dev, struct nlattr *tb[],
+>  	if (dev == ign->fb_tunnel_dev)
+>  		return ERR_PTR(-EINVAL);
+>  
+
+[ ... ]
+
+>  	ip6gre_netlink_parms(data, p_p);
+>  
+> -	t = ip6gre_tunnel_locate(net, p_p, 0);
+> -
+> -	if (t) {
+> -		if (t->dev != dev)
+> +	if (!nt->parms.collect_md) {
+
+[Severity: Medium]
+Does this guard also remove the existing duplicate check for L3 ip6gre
+metadata devices?
+
+Before this patch, every changelink went through
+ip6gre_tunnel_locate(net, p_p, 0), which searched ARPHRD_IP6GRE devices.
+So an ip6gre external device could not be moved onto the parameters of
+an existing ip6gre tunnel:
+
+  ip link add g1 type ip6gre local A remote B key 5
+  ip link add md0 type ip6gre external
+  ip link set md0 type ip6gre external local A remote B key 5
+
+The last command used to fail with EEXIST. With this guard the search is
+skipped and the command succeeds. ip6gre_changelink() then does:
+
+	ip6gre_tnl_change(t, &p, !tb[IFLA_MTU]);
+	ip6gre_tunnel_link_md(ign, t);
+	ip6gre_tunnel_link(ign, t);
+
+ip6gre_tunnel_link() puts md0 at the head of g1's bucket with
+hlist_add_head_rcu(). ip6gre_tunnel_lookup() ignores collect_md and
+returns the first score-0 match.
+
+Would md0 then receive the traffic meant for g1?
+
+The commit message gives "A duplicate can receive traffic intended for
+the original tunnel" as the reason for the fix. The subject only
+mentions L2 tunnels. The message does say metadata devices skip the
+search "as newlink does", but it doesn't say this relaxes a check that
+L3 ip6gre already had.
+
+Was that intended? If so, could the commit message say so?
+
+The same applies to L2: an ip6gretap or ip6erspan metadata device can
+still be changed into a duplicate of an ordinary tunnel of the same type
+and take its traffic. So changelink can still create duplicates; the
+check only covers ordinary devices.
+
+> +		t = ip6gre_tunnel_find(net, p_p, dev->type);
+> +		if (t && t->dev != dev)
+>  			return ERR_PTR(-EEXIST);
+
+[Severity: Medium]
+Can this reject an update to an ordinary L2 tunnel that doesn't change
+its hash parameters, when a metadata device with the same parameters
+exists?
+
+For metadata devices, ip6gre_newlink() and ip6erspan_newlink() never
+call ip6gre_tunnel_find():
+
+	if (nt->parms.collect_md) {
+		if (rtnl_dereference(ign->collect_md_tun))
+			err = -EEXIST;
+	} else {
+		if (ip6gre_tunnel_find(net, &nt->parms, dev->type))
+			err = -EEXIST;
+	}
+
+So a metadata device can be linked at the head of the same bucket as an
+existing ordinary device with identical parms. For example:
+
+  ip link add tap0 type ip6gretap
+  ip link add tapmd type ip6gretap external
+  ip link set tap0 type ip6gretap ttl 10
+
+In the last command, ip6gre_netlink_parms() zeroes p_p, so laddr, raddr,
+key and link all match tapmd. ip6gre_tunnel_find(net, p_p, ARPHRD_ETHER)
+stops at the first match in the bucket, which is tapmd. So t->dev != dev
+and this returns -EEXIST, even though tap0's hash parameters are
+unchanged.
+
+Before the patch the search used ARPHRD_IP6GRE. tapmd didn't match, and
+the update succeeded.
+
+The commit message says a match on a metadata device remains a
+conflict. Is that meant to cover this case too, where the result
+depends on bucket insertion order?
+
+Returning the first match works for newlink, because the new device is
+never in the table yet. Changelink needs "any match other than dev"
+instead.
+
+> -	} else {
+> -		t = nt;
+>  	}
+
+[ ... ]
 
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179455350258.84965.17518172977020586093.ip6gre-v3%40cmss.chinamobile.com
