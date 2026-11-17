@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882271;
-	b=CWCfrfDlz5jqlZ85fkCaeWp2fNAeHkIFQzCrSXBS3qLDY5ilRMQ/6RAkoFJ3WsWOUPmN
-	 mu0B7FSYosYZy+JrxjO2BMLYd90LYvUWLkh7M18IhO2P8t73eZ+PmRfbpL/0xEKisN4bX
-	 2nny8KfpjN5aS1FMOIeXOv3i0Gu8Rdx+R20oOLruR92xRphgLNj9507pT20u8lWTKHNca
-	 FYV3FX7ewdiW+hmgShaqfCs5lpRHXnQGrE9//kGbrAMrjVqio69BLfTsYnNn7fylu9H7w
-	 IhGgtoKpBHyv6kOtCJKOLsecV1b2mWA496HhcpIhtCJZeiH40ZB2EoIS4eBgZ4fTsrQ==
+	t=1794882289;
+	b=OtHKRTeEvLEnjZnnh01PJaCWXdusI+ty/3EIRI8ylBGFD9INjiXq0h6+701+e/nL9vho
+	 W4PsKcWK8xwZmxu1/Gxl/5bydqjj6EYgXxq+pZTVb4MrGUP5rT03UPODHSZsiDoH3UZJV
+	 mNNe4qLZTiQumXeaoPoVVRAKou67WeQCZmlrsqt/1Xt+xPdskhFD3RcNXBhLW6wItcoOS
+	 n0qMv3IZQ1PkGkC3cqi9y4j0W0EGoCqSc2VR68x/OseFWjGksu7cbqD+0yr2LadRJHXYD
+	 Bq4Gh43LrXqn/SO2B12dGeBodxdc0wLCI69I8ST8Ygf0zNwlkPbhPsVtnWFE0AOxkXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882289;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=01IGULUu8K1iyOvpVFwG1UrKHNiQ++Ld6mpinjw7ge8=;
-	b=jB5jbfBzNEDYMKlD54YvMpskxTQbK/WltscIsN0K7odJoff3kDqf+YC8CBMRTg7ghDiR
-	 NgMSILHbRHMRTa/TPED8hBNUOAa4ENNe/SB27NHFHgJnaQ6n9D1JDLPFHx0OMForwVRqy
-	 rUjkc4WLMqER0Z4ZuraRc33NPTOjTZdLddIq3YZgEz5zjslwpWAgaO84CNy15Fiv8KB7n
-	 b/CxOaFyqAo4YDPJ7VHVG6IMB+77otW0/RKSgofdkfRZMi/A10ETadS3t45jB/7NDImee
-	 5FgyYMAcwoT0STmLPyfW5Hla9ZHkaLFIxhobOvutITQMmHtcT5LkIek8v3p6jX05B2Q==
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=uH3MDMdyopIaZKpkqviboo/EDVOtwx9+xVXP04gf/kQ=;
+	b=DMuStezUXEymF5GigY6AhrSIvN10O8TDuTZAlJl4LdqDlo34Lf4qiIpU7prPFoyKuurg
+	 IlditIiC9q1F4ARGd6Rmv45BLCDQlZPnc59Si1m9C2n6iE8xutE//YuwD3jcO2KsAb6fw
+	 7l2XT9B0mtD5axsIaOiMk6wKVVt3sGVmwC1DfET2V261AHWwnAPkOU5C03S8dIyMezqag
+	 twPmPsAJwbgQFZr0Z7DalvoPbiWBY7wBfZVb6s3DsNe4+3V6SuxYhUr2uwAR3hYuskX6W
+	 3EMa3I0EPPDc3Y+aTzUuMXPWAVirEqbYgLFZHO190Ns79glZbWO/FYwCvAIgKuJSgjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fmR77tJk;
-	arc=none smtp.remote-ip=95.215.58.139
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uMMHrjwT;
+	arc=none smtp.remote-ip=91.218.175.246
+Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243D3606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:24:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243D3606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB30606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB30606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fmR77tJk
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uMMHrjwT
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=01IGULUu8K1iyOvpVFwG1UrKHNiQ++Ld6mpinjw7ge8=;
+DKIM-Signature: a=rsa-sha256; bh=XlJ2O//VHMV2e2UIlnUsqIv/jZtPQwlwZWUCdtzd9gE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794882268; v=1; x=1795487068;
- b=fmR77tJkABHZLJQYMRgthpaJFBCYIDL/W/X6XdFmwKpZGU62qfijNEZI0vgkunURWH+tm6qq
- NSHwVTvWk4mF4Kq2hT3lFmlV9+nJe4H8ivgjIl/h/cK6dwN0w4zERCCh6nAApGSkzZsTtyDGAfz
- 3WNXmsy03QdbIMKX5klEKWA4=
+ t=1794882286; v=1; x=1795487086;
+ b=uMMHrjwTXS/H6vLdgTrW/0YFFUuh2wEJW4+BXmUO1GmJKRH47ULhDKgQByIwQxAjxii3RBHe
+ rABany8dHTlATKPPl/vwdpKP/WsG1Hp7xQFJv+iws09+Fuh4214gdavvUBAbTeM9iU940n8/FwG
+ f1Ci6b5dTJCUx+s/pHImEVp0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 60f46d3006f9954f;
-	Tue, 17 Nov 2026 02:24:28 +0000
-X-Mizu-Trace-ID: 60f46d3006f9954f
+Received: by smtp.migadu.com with ESMTPS id dfa9f4e3e3e5b607;
+	Tue, 17 Nov 2026 02:24:46 +0000
+X-Mizu-Trace-ID: dfa9f4e3e3e5b607
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <efce8f30-33f9-451a-b2a8-89ca0a39917c@linux.dev>
-Date: Tue, 17 Nov 2026 03:24:27 +0100
+Message-ID: <300d6954-0470-4ac4-8602-67f428b12534@linux.dev>
+Date: Tue, 17 Nov 2026 10:24:38 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,74 +59,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
- readback support
-To: bartu alev <bartualev@gmail.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
- <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
- platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
-References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com>
- <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
- <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
- <228df241-da5e-49cb-b29f-6b9158557f55@gmail.com>
- <def9fb29-3212-4d1f-8041-4bbb1c18e89e@linux.dev>
- <068991e6-ca31-41b5-b9ed-f0902eae8368@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <068991e6-ca31-41b5-b9ed-f0902eae8368@gmail.com>
+Cc: cui.tao@linux.dev, WANG Xuerui <kernel@xen0n.name>,
+ Song Gao <gaosong@loongson.cn>, kvm@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] LoongArch: KVM: Fix uninitialized stack read in
+ dmsintc_inject_irq()
+To: Daolong Zhang <dlzhangak@isoftstone.com>,
+ Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>
+References: <1794880990.6AFBB5DE.001.4jT7L63YwBz23sl@fangwg01>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <1794880990.6AFBB5DE.001.4jT7L63YwBz23sl@fangwg01>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Hello，Daolong,
 
-On 11/17/26 01:07, bartu alev wrote:
-> On 11/17/26 2:53 AM, Denis Benato wrote:
->
->> Yes, it's absolutely reasonable. If the return either doesn't have the
->> presence bit set or is 0xFFF..... it is to be counted as "not implemented".
->>
->> And also yes, we should respect ABIs whenever possible...
->>
->> However... now that I think about it asus_wmi_evaluate_method_buf() can
->> be used on setters and those don't have the presence bit, do we have that
->> covered?
-> yes that wont break setters:
->
-> 1. asus_wmi_evaluate_method_buf() is strictly a buffer-getter helper (its
->    comment states it returns an error whenever the ACPI output is not a
->    buffer).  Integer-returning DEVS setters use
-> asus_wmi_evaluate_method*() /
->    asus_wmi_set_devstate() instead; even today, passing an integer `1`
->    from DEVS through _buf() returns 1 as an error.
+在 2026/11/17 10:03, Daolong Zhang 写道:
+> In dmsintc_inject_irq(), the local array 'vector[4]' is declared on the
+> stack without initialization, and each element 'vector[i]' is only
+> assigned when atomic64_read(&ds->vector_map[i]) is non-zero.
+> 
+> Whenever any of the four 64-bit words in ds->vector_map[] is zero (for
+> example, when an MSI interrupt targets a single word, or when INT_AVEC
+> is injected via KVM_INTERRUPT with an empty vector_map), the remaining
+> elements of 'vector[]' retain uninitialized kernel stack contents. The
+> subsequent checks on vector[0..3] then OR those uninitialized stack
+> values into the guest's hardware LOONGARCH_CSR_ISR0..3 registers,
+> injecting spurious interrupt vectors into the guest and leaking host
+> kernel stack data into guest-visible CSRs.
+> 
+> Zero-initialize 'vector[4]' on declaration to prevent reading
+> uninitialized stack memory.
+> 
 
-Yeah I checked: only one caller. Make it check for known -ENODEV:
-0xff...fe.
+This was already fixed by commit 81aa3a58b542 ("LoongArch: KVM: Fix
+uninitialized stack variable issue with dmsintc"). The loop now reads
+vector[i] = old ? atomic64_xchg(&ds->vector_map[i], 0) : 0, so every
+element is assigned and no uninitialized stack read is left.
 
-The only reference (as far as I can tell) to ~0 being "absent" is this:
-absent=(l==0xffffffff);
-inside asus_rfkill_hotplug, maybe you can exclude checking for that,
-albeit it's not going to harm.
-
-Perhaps add proper kernel-doc to that function where possible
-errors are documented as well as input parameters.
-
-> 2. We wouldn't check ASUS_WMI_DSTS_PRESENCE_BIT in _buf() at all.  A
->    buffer-returning call (getter or setter) still hits `case
->    ACPI_TYPE_BUFFER` and returns 0 unchanged.  Only `case ACPI_TYPE_INTEGER`
->    changes to decode via `u32 retval`:
->    - 0xfffffffe or (u32)~0 (0xffffffff) -> -ENODEV
->    - 0 or any other integer               -> -ENODATA (matching `default:`)
-
-Sorry I am a bit spoiled by the past work of Marco where he reorganized
-the whole thing.
-
-We should really revive that, but it's a long work that touches quite a bit of
-very old code...
-
-> Then only kbd_rgb_read_status() maps -ENODATA -> -ENODEV so FX505DT /
-> 0-returning firmware matches the ABI without altering setter or legacy
-> buffer semantics.
-
-Good. Very good.
+Thanks,
+Tao
+> Fixes: 03de5eecb0f0 ("LoongArch: KVM: Add DMSINTC inject msi to vCPU")
+> Signed-off-by: Daolong Zhang <dlzhangak@isoftstone.com>
+> ---
+>  arch/loongarch/kvm/intc/dmsintc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
+> index de25735ce039..ef6c064e52f1 100644
+> --- a/arch/loongarch/kvm/intc/dmsintc.c
+> +++ b/arch/loongarch/kvm/intc/dmsintc.c
+> @@ -11,7 +11,7 @@
+>  void dmsintc_inject_irq(struct kvm_vcpu *vcpu)
+>  {
+>  	unsigned int i;
+> -	unsigned long vector[4], old;
+> +	unsigned long vector[4] = {}, old;
+>  	struct dmsintc_state *ds = &vcpu->arch.dmsintc_state;
+>  
+>  	if (!ds)
 
