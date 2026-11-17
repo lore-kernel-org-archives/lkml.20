@@ -1,62 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884198;
-	b=J86KXZj3NBtfx5GV2eW3c41BvdmpxQmkG2ftECq740Rq0TyrlWITOJpGYNxlapB1IYEh
-	 MOnMCLMmpXYcpRPXU4BANQE4cwAr+Uumd7Bq9lVWSTlg2nye9LKey6fvLkektWsYEp38R
-	 9rf7Cez4zyIkVSxhMz5neJaaiZuPaP03fGTnTg48bGcFz42AlLi69lh07tCkFhgMRrHA3
-	 u4AB+vkJLQaERgwNJtyidGApRkhahUxvHRWApUWUknQ9cRkv+pX7lBdHI+2BB2DjhiyPC
-	 YJe3gWKl/TECIam+fzusF6QaXz/bpfULQL4KpG+PQzedsomPSIeslElyNJBiU8msWVA==
+	t=1794884226;
+	b=RgQ0dW29mZ457vUCPxYcSPMyg4AmqWMytJeXJsERxtFd7AJ1pJmen7YxdX7zo++Z6qIs
+	 YS+Sg/zXx4qTuQ+A2OJ9WNDY5HWyDKaR+b05XvMexNSCasRrbHAzbgGdpP1M8GjOycfz9
+	 0bgIWQHuc0J7YJt2GZgEuxw9aFJF9XWxT3J0elGv4jeweOIbscOIewINmOyAdKiYnDprO
+	 xm6O7NgbcQ+jn0K4gpv9fM9X0+gATTgjLovkv3VtzdMTSsIxw7B/D/9iQavuN9OI2cgPg
+	 xgoUJK9uJnmFUHpaGJvK/ctrvSctP7LqxBcKMoIGYKQx2MbLtbrNWUwmfF8XTEkR1CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884198;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=OJRWJeXrvQmODYAExg7m4mDpe5p58dqYM/Hnn4LmFfE=;
-	b=zci3q73G1mDUQ1A3uh6Xuy8nK0IFx8Rv9igKmF9/5ZL2DZLGiaARnRnnZtRpn2fjEIC0
-	 EKBtOgynhSJ45ADbuaCvEOgLzS3SGmeJPWywpq/4IVHM2yNQ2Cxqkl0TqvT3Sl+sQ5L/w
-	 kynhF39gqnE74J0TTQHxYK63MvBWWmE4ovIjkF3QyS5lYj/LxNbiQUzHCLU2xQGv4HkcB
-	 OBzKEGuN66jzHgT0SqxOayYTBiwxo5gXW0UFrBku+BjS4yR60Uj+qYBu9M+Vu+bxMcWx4
-	 JqAWw4YBXTm3HKxAbYO5GZkfcQ5K/V4YOLAGBsdVA4fUSqpM/jvbcLUM1ejvIl8S3qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884226;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer;
+	bh=H+W8VLD35JYBchsjwLqIneI/2/pBJGvyqvo7Y3mgx4s=;
+	b=cfVNsPE9rAWOhjCUYDWf4jZ3ViYxNSxUM5pMKv9QBZA8MHB9eKdAJQjESeA1u4LoZgfI
+	 I7GDJjUgfKsdmCG56DqnROisCfMHESVc7x94LXf9Slgkmv4waZocXh+PemuN47v2+8+T/
+	 pK8ojIwtAzBQXtFiZe98+ins+IZqT7uTglYauSpMK2vTmetQV7NWF0b40/aRC1F0ICoQO
+	 qi2AkA06QrDrzDS3z5R9ToI/R7cctj/DT9Jk2ePLixQxLVkmV8C3jIzbxKKRWEi2raHGL
+	 3N+MBZC8q7DpxKNOELkzBvHpKUCgKzWcvAQDaQYlDjccFDdFNeUjxUS/bNSRirKjcgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mucse.com;
-	spf=pass smtp.mailfrom=mucse.com;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=orLaJ21c;
+	arc=none smtp.remote-ip=95.215.58.37
+Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971F8606A31C;
-	Tue, 17 Nov 2026 02:56:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 971F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
-X-QQ-mid: zesmtpsz7t1794884128td16f0902
-X-QQ-Originating-IP: tKITFu9fk6+0Q5Dh8wVGUM32Tg2lPtWsb2gOC8zAMLo=
-Received: from localhost ( [203.174.112.180])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 10:55:26 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1497016459313032982
-EX-QQ-RecipientCnt: 10
-Date: Tue, 17 Nov 2026 10:55:26 +0800
-From: Yibo Dong <dong100@mucse.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	yaojun@mucse.com
-Subject: Re: [PATCH net-next v2 2/5] net: rnpgbe: Report link settings
- through ethtool
-Message-ID: <72676011073A7040+20261117025526.GA214154@nic-Precision-5820-Tower>
-References: <BD205A7832D36E7D+20261116030917.1329989-1-dong100@mucse.com>
- <66AFF2810AB647C8+20261116031020.1330219-1-dong100@mucse.com>
- <d7351f56-d4fa-4ba0-a0c6-c7bdf7aac460@lunn.ch>
- <2207C8DCDD49F5EE+20261116044737.GA1342898@nic-Precision-5820-Tower>
- <cf674063-6c6f-43f6-a18a-d7ed5bef8a5c@lunn.ch>
- <236B4E2337BC768E+20261117014902.GA205295@nic-Precision-5820-Tower>
- <2ddca58c-608f-4a0f-a26d-df92c2c34c69@lunn.ch>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3733606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3733606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=orLaJ21c
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pjmw2DXdHjzYOG43hIsqQG79giXui/V+G7YocSUZJKg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794884223; v=1; x=1795489023;
+ b=orLaJ21cPqSABAN0uzdThRdVKQv8D8ujNrnsj8bpb1Ej6+Ds1sbJlcTDQP/nPM5rOEpYccad
+ Gd263W8sV/PvSO3EwkFEHCq5QISH9pC22SqvBfR0v3NkddGXm3b7O7wMvatjaqFW7hxOzwfXeU4
+ mLth8m7gKlriKyeHXIrhp928=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3c523f9f826b9f15;
+	Tue, 17 Nov 2026 02:57:03 +0000
+X-Mizu-Trace-ID: 3c523f9f826b9f15
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Subject: [PATCH v3 0/2] block: make changing to the current I/O scheduler
+ cheap again
+Date: Mon, 16 Nov 2026 21:56:53 -0500
+Message-Id: <20261116-bug-block-elevator-unchanged-v3-0-cb4dda2dadf4@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,83 +61,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2ddca58c-608f-4a0f-a26d-df92c2c34c69@lunn.ch>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: NF3tN0JyXxqWu7NjtIcYXK8bcIOdmVHhxYIC0zpg+h8MhENMz3GA6d/e
-	ISSuw6hgkhILUTfdAeIosI6AOMwmwAjbLsyyJpaDJWt4LS5xhzg+aBUMSygj6ECVSVIoEtw
-	Ni2zIpGBMHZtftRe2poBPivrArlvSZ/LirzXMNIiLdzf+KRF9gfp4zSoOly3p/4ZW3aAgk4
-	j3U9UPketSdGy6FZbxj1oTtiSLEVci2sdgSsu66AsA47cfNzD5zNVnb55sT3yfKqo59KPPB
-	gqALQgPANDTWMWwp4Lj3DztnGvpVq9Irw5I7rE+l2PliEzVZHNjUEJNjWZwQ5l32BKNyzj8
-	JBUglHSODeUv7E1ygJDV4yXjL92xUMR2mRdnN8wOjTIg8zaarXw5nEXZqJukA9b3ulVtcLH
-	52zP2YRFaL5xd59OBeTrt6Z+5MnumVgD4UO3w6SHALBgfIzjaKZLyajgtog7OWksc7oTXSx
-	sDUA0DDV1LbpPeqkFsORAor1iMZuREGSelbw3iuPlMyXntlpMKMkHoyrIQDEW8rEY6ztMv+
-	9ld6ghfIlPXwFGGTcDS8WtZeX8jM6xd55dKF+pJGMTzsshmF/igdZQ6lZPl+fVp6VIsF6c5
-	ohsLfEcUPomfEZlfss3/pkdwZGh/87yAcpdI3AULlEq5dVGgvVq6bTHgw82MlwfoNpFT/pI
-	mesG0NMkN7jhqmfxgn/5NqsWP7GrkDuuUQCwz9nUUHCKtktNAgdPToJRiCmtO5UoL0XKQ0w
-	bSPS+XPOvyU097BqMMVvlW6Kqw/n9359PxwOj5ZFfGbinzakc3VHMTWul4e1RaNtBu44Tr9
-	oNWKo8rPoN2DiW1TmKIJb/suwbS/Cm53BP7atjrJfkfl9cRLYIPegfaaYwSZuuIYSpSpOYQ
-	/VvxIglYQlybbspkKVBrBvNFk8wgZaafOLMAp4yYaJZEL6xGIgSNFeL8Hlv+aSJYwEd1rCA
-	s+Tkzcp/h+5AC2bAmK1KCCB40yIHapufqr/S9J/9D5wtBNMw/bNf5hiKZaVKZXAz+/gnybh
-	/Kosc41Elp0ViYpW1iFa2dkEG44WuOX1XPjObQwNNyKKh7isATQ7Cn6QnpX+g=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHbC+2oC/43NwQ6CMAwG4FchO1vDCgJ68j2Mh0ELLJLNbLJgC
+ O/uwAs37e1v/n6dhWen2YtLMgvHQXttTQzZIRFNr0zHoClmgSkWMg7UYwf1YJsH8MBBvayD0Xy
+ rBKpoCKksJGWViMTTcaunjb/dY+61jwfv7VuQ6/ZPOEhI4VRl8lzVlDPK66DNOB2Jg1jhgHss/
+ 4HhiinZckkltirdY8uyfAC4d341FQEAAA==
+To: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>, 
+ Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>, 
+ Hannes Reinecke <hare@suse.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <qiliang.yuan@linux.dev>, Christoph Hellwig <hch@lst.de>
+X-Mailer: b4 0.13.0
 
-On Tue, Nov 17, 2026 at 02:54:45AM +0100, Andrew Lunn wrote:
-> On Tue, Nov 17, 2026 at 09:49:02AM +0800, Yibo Dong wrote:
-> > On Mon, Nov 16, 2026 at 02:18:28PM +0100, Andrew Lunn wrote:
-> > > > link, speed, duplex and mdix are updated asynchronously by
-> > > > the mailbox event handler, outside RTNL. link_lock protects these updates
-> > > > and provides a consistent snapshot in the getter.
-> > > 
-> > > O.K, thanks for the explanation.
-> > > 
-> > > I removed too much context, so i cannot see here. What about
-> > > lp_advertising? That also comes from the firmware, reported on link up
-> > > when autoneg completes.
-> > > 
-> > The firmware manages autonegotiation and reports the negotiated speed
-> > and duplex through mailbox link events. However, the current mailbox
-> > interface does not expose the link partner's advertisement bitmap.
-> > 
-> > Therefore, lp_advertising is currently left zero to indicate that this
-> > information is unknown to the driver.
-> > 
-> > If reporting lp_advertising is must, we would need to add a new
-> > firmware mailbox command to retrieve the link partner's advertisement,
-> > or add lp_advertising to link-event mbx alongwith link, speed and
-> > duplex.
-> 
-> It is not a must, but it is useful.
-> 
-> Or you can just throw away your firmware, expose the MDIO bus, and let
-> phylink drive the hardware. Less code, less bugs, more functionality
-> for free.
-The GMAC provides MDIO register access, so exposing an MDIO bus is
-technically possible. However, the firmware currently manages the PHY,
-and its interface does not provide a PHY ownership handover mechanism.
-Introducing host-side PHY management would require coordinated firmware
-and driver changes to avoid independently configuring the same PHY.
+Writing the scheduler a queue already uses to queue/scheduler takes
+about 10 ms and freezes the queue, which stalls I/O on live disks every
+time a udev rule or tuning tool sets the scheduler unconditionally.
 
-In addition, on this SoC, the firmware configures MDI/MDI-X through
-AXI-mapped control registers driving the PHY's pi_force_mdix_en and
-pi_force_mdix_mode inputs. This control path is outside the PHY's MDIO
-register interface.
+Patch 1 stops requesting a "none-iosched" module on every write of
+"none". Patch 2 returns before freezing the queue when the elevator
+wouldn't change.
 
-The firmware also supports link management before the host driver is
-loaded and while the host is shut down, including wake-up handling.
-On OCP platforms, it supports preserving the PHY link across driver
-reloads and host shutdown. These capabilities are already implemented
-in firmware, although driver support for them is not included in this
-series. Any future ownership handover would need to preserve them.
+On a null_blk disk (median of 20 writes, all kernels measured in the
+same run):
 
-Would it be acceptable for this series to retain the firmware-managed
-PHY design without registering an MDIO bus, and leave lp_advertising
-zero for now? If a mailbox command is added to expose the link partner's
-advertisement, we can populate lp_advertising in a follow-up patch.
-> 
-> 	Andrew
->
-Thanks for your feedback.
+  operation                   base (ms)  patch 1 (ms)  patch 1+2 (ms)
+  none -> none                    13.10          9.11            0.08
+  mq-deadline -> mq-deadline      10.95          9.05            0.08
+  mq-deadline -> none             13.00          7.97            6.03
+
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+---
+V2 -> V3:
+- Point Fixes in patch 2 at the commit that added the freeze, as
+  Christoph pointed out
+- Add Christoph's Reviewed-by to patch 2
+- Rebase onto v7.4-rc2-1025-g666539eecdf4
+
+V1 -> V2:
+- Keep the elevator check under the freeze and note the race in the
+  comment, as Christoph suggested
+- Say "change" instead of "rewrite" in the cover letter subject
+- Rebase onto v7.4-rc2-470-g7e1392a42ea2 and update the numbers from a
+  new run
+
+v2: https://lore.kernel.org/r/20261114-bug-block-elevator-unchanged-v2-0-5a1fe7d72fa0@linux.dev
+v1: https://lore.kernel.org/r/20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev
+
+---
+Qiliang Yuan (2):
+      block: don't request a module for the none elevator
+      block: return early when the elevator doesn't change
+
+ block/elevator.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+---
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+change-id: 20261111-bug-block-elevator-unchanged-a6cd2d761d38
+
+Best regards,
+-- 
+Qiliang Yuan <qiliang.yuan@linux.dev>
+
