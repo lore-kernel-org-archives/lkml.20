@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794902959;
-	b=Iq3FSIQG+SbQ6jSly2tcoyb84lCKcTEetkQNsoRnOS3slv6H7XjgRXsS3bX21eO5hHBf
-	 Iz/HJJgFRnypQDzQNSll0KdB6K8MbuHqSxwyIH1a+Kr+vPdU7Cb7XvjMFBVIACLJmMa90
-	 YG2m6skpM16n9bvWDGFPoJiY4TCbygSuW0b2sI9uuE6gx2Om66nF58JgQHGhhzXjf0rQo
-	 hYTHo3GJWIW0sPJQXLwUTOTmHrx78SuUO3qN0hqOAedpH8Wf4SpB9v24cwsd/1aD2vo1L
-	 PQOQOpi84pFnMzRld7xwsRafNtHXybjEDo0bp7UPAl2y4Gor81NV5JNTyT4/BOmhUrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794902959;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2AsFSmPkJrfcSU2iokgB2aDPRWQeYmtyi73lpLnFe7k=;
-	b=Cna5jxsCQt1rResN7O27Qo9vNVTygckmrKvfmuZ2Bz3N5NBuVO9Ayd53ed10cU6tB9y6
-	 AZmjz8UJObwIA82Y+DxVJUGyKhs4UNrn6QwtmEdPEwXoWOrybhCPZrp6Ql/iFwtNmJxIL
-	 sUhe1LYZ7+dWe3b/GE6O+XimXnuIe/HriQgl4qsIKH1l5WaCbIYUj5wPPyK0r9LI0yZFz
-	 T8V0xW6hELXVLzocJddD0Tc/IxeLxuHQc6nV5/bl0vkTODgRm/ZtQTTic9MYIfrjequRb
-	 qzw0kcsTsCGN/9hh08vF/i/pSVoQe+0J5SaXbJS5n+qpKV0VWPfrV11GoV9zSntCQWw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oRrKgAzH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF74F606A323;
-	Tue, 17 Nov 2026 08:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oRrKgAzH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794902958;
-	b=K0lJdGFsKqxiNzhZWDFG198RLjJn0xrJKBchxWuRdtnByzO6VPdtnIZIX4N45t2n8pB+
-	 kMiKw51WhSZ+ENMb/q1AGA0broTMDq6UkHAnAHxG/jOuw8xNm/7jDZ+AgUsxvDlRKrBvf
-	 u2iIs55y4xT/yJrENuXELW62BGaQKR+VTwWqaKQcACsmtSGUP54cTakAxbnB5f2Atz62I
-	 V6XrTxcDgVxqS2pLsgMRwnz96IzxwxsFBawxoEVpne6faEUwHf/th1w0W3VkqNN6cev9W
-	 Ollf1JSY8pCp/idmn4+jT0qSxCbzMTCfQ5Tel4oBKuMBpRKmbPZReB/UOmBKpF39Ufg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794902958;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2AsFSmPkJrfcSU2iokgB2aDPRWQeYmtyi73lpLnFe7k=;
-	b=HBG3XeKIuVrhjwKTt45u1yjUyLyNmlgbJqaJQ8oSl4tuvBEOy+f9r4KN+wxJDSu0/klW
-	 unNv4+m9SuCJFo+hZIvOOYvGCru2Uya/iDMZ9ful6DvlsMejFFGGKibrcd908xZdAlA/C
-	 4XjsgEv7HMHtYgYa6ZL338A/dLuqvNVjT9QNkCNu4VrgjH+Pw9WYylroFsWXiQxiJ+1sj
-	 F4HAtwokppwqdYbzB2t3XyaTIy+ZdeJyBtbx+JYTJ8oTgpjz5FZ2bqZbA5KMGi5l6JvMO
-	 A2mlF3cHdlnnigmnCAyI7PY5M+F9XbmjJm6USRpXsYIZ493Yw64QtsBOQq1dd613bew==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794903022;
+	b=R+xGCbPWHUXs9Pkak84jPjrgrMboYn7T3eAGJ8lcr79bB2JtNs+l8zYY1nPjKjtisTaP
+	 RkAkOVqQKnGlieAk/cmRy4R5C27UlSje+oRsWcm7fiaD/KTabcGkDQh/zu54zswJdkauc
+	 3dCtTNL1F+omtPK9inRTTrmeqYoCfRZAhlFvDE4DOq02zsv6H3HxyXgzBpzMQ3GKUkI0H
+	 /0ymGieFAibnPV6ywX1WKhpj2U14BXCM2BW4E4FT6xP9JNAqARO271iBo4QbgciyJ/LMH
+	 UZpCCtqwAKwYbd6M6IrTyeoAj9VGust3PQrO7etHsavjaKVwqYFAZkNqJTisWUPTizA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903022;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LmGROQ8j6ssfXVbTrRZUW1rS5G1Xj+GI9rns6J0VgQk=;
+	b=GonbT3drgr5zdLdNvnOf25ekJ86UaAhRolUZJhamZnUnasV09D1XUF9qCWnc4KX2UzlD
+	 LWVnGgf2MrL6FW4kSFk5wkmgSw9GAIk6M75o2V31JBapxaTNrvZfZOR3gswlYngxTrE30
+	 9ygmoyh/nJrHpqrwbFeR/8zMnc2/CFULVoniyMExZTJfbNJg/4eVwps1KFjllZOAUu3vs
+	 XkoN5oqK1ot882RRk2FLBhxWbGPCajmnmlOcbku0Ss7hX0oIMmHd5o1zfcZyPOq0ZnQBM
+	 8BycZ033zeoAAUkQiVFioQbX0xWjgXmkFavtpQHdTz2FVe04G7xgUBZFCTL3PNif6Pg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=T8C2zjZX;
+	arc=none smtp.remote-ip=95.215.58.64
+Received: from mta1.migadu.com (out-64.mta1.migadu.com [95.215.58.64])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0D5A61F000C4;
-	Tue, 17 Nov 2026 08:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794902958;
-	bh=2AsFSmPkJrfcSU2iokgB2aDPRWQeYmtyi73lpLnFe7k=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=oRrKgAzHDxmScWMEsZU6cbXEBwrbgsQkA63+xe+9dYB9ru+fq664nJGGJZoxTwDpU
-	 EPftifQEr9vkFLCFUaIXE2seVbn05yn7HtSdzzV9yGU6ZJC+62eyj/cK6DUmSKpx7w
-	 ixzPFUdzxcc5Hv42OaU/EE21LG93+BwTmApW3R/AhgFJlfS/o+EPlBOECkk6p2rTsW
-	 6NFmt3/aUn5+6GU7MOpztzl7t1owS+M4SxnT7oGi1S3ZIrYQ5//reZ4zUmQFc5oRjI
-	 x2xQylkFY9EBs232dIsPT6x7H778dpge0UeXETobUSyE1MCFSe2BtBkNTVfQpZXeLM
-	 GSRtOTSez3crg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 622A64A747;
-	Tue, 17 Nov 2026 08:09:17 +0000 (UTC)
-From: Yongjian Wang via B4 Relay <devnull+echoowall.gmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 16:09:16 +0800
-Subject: [PATCH net-next] tcp: document black hole detection for
- tcp_mtu_probing
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B71606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B71606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=T8C2zjZX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cn6tymwrhooG82BjdGKkfjlm33e7584SzGicUSgvQKM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794903019; v=1; x=1795507819;
+ b=T8C2zjZX6lY7Kta2Llo6OcdUZ4LqOjd09HISFHVvV454h87DzX8MbPJaEkClE9lEopW31d2u
+ y3HbbIsjespdAcQNJ0GFTjrPboRP1myBSU73x46TtmY67hUbAZbQjGCvrkEkIm6w1Oowf8GjQOQ
+ 8bQ+phUxk90CiXSqGCwcbEGI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d49511be82a76482;
+	Tue, 17 Nov 2026 08:10:18 +0000
+X-Mizu-Trace-ID: d49511be82a76482
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <64588236-7ab4-4d63-8ab5-8a1658eb15b0@linux.dev>
+Date: Tue, 17 Nov 2026 16:10:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,92 +58,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-tcp-mtu-probing-doc-v1-v1-1-552ae04de4ef@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAKsL/GoC/yWM0QrCMAwAf2Xk2YDZnAV/RXxYs2xGsC1tNgZj/
- 27Vx+O426FIVilwa3bIsmrRGCrQqQF+DmEW1LEytOf2SkQOjRO+bcGUo9cw4xgZV8KuJ/auv0y
- D81DjlGXS7Te+QxDDIJvB42/K4l/C9v3CcXwAl7FO74QAAAA=
-X-Change-ID: 20261117-tcp-mtu-probing-doc-v1-351cb754fa7b
-To: corbet@lwn.net, pabeni@redhat.com, edumazet@kernel.org, 
- davem@davemloft.net, kuba@kernel.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kuniyu@google.com, 
- rdunlap@infradead.org, horms@kernel.org, ncardwell@google.com, 
- linux-doc@vger.kernel.org, skhan@linuxfoundation.org, 
- Yongjian Wang <echoowall@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794902956; l=2370;
- i=echoowall@gmail.com; s=20261026; h=from:subject:message-id;
- bh=uFO+5f2+BsqKYlZQnC2908gTApJQjYev79CULLrFyVs=;
- b=CTFRsXj4zsCMBDDo033TASmfOhkpWF8sCLe3jBnz3Qrz0p1qrRih9+UYwaftb9K38pxZJd4/f
- c15nntriJSoAe9rckuW1XmJPrcLXwr80ROaq2bwkr9FY2/TxNZncrLI
-X-Developer-Key: i=echoowall@gmail.com; a=ed25519;
- pk=9XP6JhqjjPsHCF6UZZZTeqTRnXIa4+ufggnxXtTJ+no=
-X-Endpoint-Received: by B4 Relay for echoowall@gmail.com/20261026 with
- auth_id=1323
-X-Original-From: Yongjian Wang <echoowall@gmail.com>
-Reply-To: echoowall@gmail.com
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ alexei.starovoitov@gmail.com, cgroups@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org,
+ daniel@iogearbox.net, linux-kselftest@vger.kernel.org, cuitao@kylinos.cn,
+ ameryhung@gmail.com
+Subject: Re: [RFC PATCH v13 1/4] blk-iocost: add BPF struct_ops cost model
+ support
+To: Tejun Heo <tj@kernel.org>
+References: <20261106122356.3224638-1-cui.tao@linux.dev>
+ <20261106122356.3224638-2-cui.tao@linux.dev>
+ <e6062944917f1c9a87ab084bae9352a9@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <e6062944917f1c9a87ab084bae9352a9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Yongjian Wang <echoowall@gmail.com>
+Hello, Tejun.
 
-ip-sysctl.rst says that tcp_mtu_probing=1 enables MTU probing once an
-ICMP black hole is detected, but not when that happens or what TCP
-does then.
+在 2026/11/17 01:27, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Fri, Nov 06, 2026 at 08:23:53PM +0800, Tao Cui wrote:
+>> Attaching an iocost_model_ops struct_ops binds the model to one
+>> device: the target is set in the dev member from userspace and
+>> .reg creates the ioc if needed like an io.cost.model write and
+>> ...
+> 
+> From here on, the description mostly walks through what the code does.
+> Can it instead explain why it works this way and what it guarantees, and
+> leave the mechanics to the code?
+> 
+Rewritten. The commit message now describes what the attachment
+guarantees: one attached model per device, pricing follows the
+model across io.cost.model writes, attaching doesn't enable the
+controller, and the model can't go away while it's pricing. The
+freeze ordering and the detach mechanics are left to the code.
 
-Describe both, as implemented in tcp_write_timeout() and
-tcp_mtu_probing(). Also add the missing defaults of tcp_mtu_probing
-and tcp_base_mss.
+>> +enum {
+>> +	IOCOST_COST_F_MERGE	= 1 << 0,	/* called from the merge path */
+>> +};
+> 
+> Maybe name the flags after the callback they're passed to, e.g. enum
+> iocost_calc_flags, IOCOST_CALC_MERGE and a calc_flags parameter, the way
+> sched_ext pairs ops.enqueue()'s enq_flags with enum scx_enq_flags and
+> SCX_ENQ_*? An unnamed enum type can't be looked up by name through BTF,
+> so BPF programs can't test whether a flag exists.
+> 
+Renamed. The enum is now iocost_calc_flags with
+IOCOST_CALC_MERGE and the calc_cost parameter is calc_flags.
+The named enum is used for the kernel-side definition; the BPF
+callback argument remains u64, matching the existing struct_ops
+interface style.
 
-Signed-off-by: Yongjian Wang <echoowall@gmail.com>
----
-This describes the behavior checked by the black hole detection tests
-added in commit 8a83f21ad75d ("selftests/net: packetdrill: add TCP black
-hole detection tests").
----
- Documentation/networking/ip-sysctl.rst | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+> Also, can the comment say what the flag means to the model rather than
+> where the call comes from? The bio is being merged into an IO which was
+> already charged its base cost.
+> 
+Updated accordingly.
+>> +	/* holds a reference on the struct_ops map, NULL if none is attached */
+>> +	const struct iocost_model_ops	*attached;
+>> +	struct bpf_link			*attached_link;
+>> +	/* either NULL (linear) or ->attached */
+>> +	const struct iocost_model_ops __rcu *model;
+> 
+> Can the comment say why iocost holds its own reference on the map? If the
+> link is destroyed after del_gendisk() has unhashed the bdev but before
+> rq_qos_exit(), .unreg can't look up the disk and returns without
+> detaching, and the link drops its reference. iocost's reference keeps the
+> map alive until ioc_rqos_exit() detaches the model.
+> 
+The field comment now says exactly this.
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 0b7bfbd98a92..a11baf04758c 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -412,6 +412,8 @@ tcp_base_mss - INTEGER
- 	Path MTU discovery (MTU probing).  If MTU probing is enabled,
- 	this is the initial MSS used by the connection.
- 
-+	Default: 1024
-+
- tcp_mtu_probe_floor - INTEGER
- 	If MTU probing is enabled this caps the minimum MSS used for search_low
- 	for the connection.
-@@ -711,6 +713,20 @@ tcp_mtu_probing - INTEGER
- 	- 1 - Disabled by default, enabled when an ICMP black hole detected
- 	- 2 - Always enabled, use initial MSS of tcp_base_mss.
- 
-+	A black hole is detected when the retransmission timer fires after
-+	the handshake and retransmissions have stayed unacknowledged for as
-+	long as tcp_retries1 retransmissions would take with the minimum
-+	RTO, which is 3 seconds with the default tcp_retries1.
-+
-+	With value 1, the first detection enables MTU probing and the MSS
-+	falls back to tcp_base_mss. Each later detection, or any detection
-+	with value 2, lowers search_low to half its MSS, keeping it at most
-+	tcp_base_mss and at least tcp_mtu_probe_floor and tcp_min_snd_mss.
-+	Once MTU probing is enabled, the connection also probes for a larger
-+	MSS, as with value 2.
-+
-+	Default: 0
-+
- tcp_probe_interval - UNSIGNED INTEGER
- 	Controls how often to start TCP Packetization-Layer Path MTU
- 	Discovery reprobe. The default is reprobing every 10 minutes as
+> Also, why are attached and attached_link updated under ioc->lock in
+> ioc_bpf_reg() and ioc_detach_model()? Everything which reads the two
+> holds rq_qos_mutex: .reg, .unreg, ioc_detach_model() and
+> ioc_cost_model_write(), which gets it from blkg_conf_open_bdev(). Only
+> model is read under ioc->lock alone, by ioc_autop_idx() from the timer
+> and the io.cost.model show path, besides the RCU readers. What is
+> ioc->lock protecting for the two? Can you document the locking on the
+> fields?
+> 
+attached and attached_link themselves are protected by
+rq_qos_mutex. The ioc->lock coverage is only needed for bpf_model,
+which is read under ioc->lock by the timer and io.cost.model show
+paths. The field comments now document the locking rules.
 
----
-base-commit: 6ff4c5942a301675eb12e5b49d53a81e604624a1
-change-id: 20261117-tcp-mtu-probing-doc-v1-351cb754fa7b
+>> +static const struct iocost_model_ops *ioc_model(struct ioc *ioc)
+>> +{
+>> +	if (!IS_ENABLED(CONFIG_BLK_CGROUP_IOCOST_BPF))
+>> +		return NULL;
+>> +	return rcu_dereference_check(ioc->model, lockdep_is_held(&ioc->lock));
+>> +}
+> 
+> ioc_model() returns NULL while the builtin linear model is in use, which
+> is a model too. Maybe rename the accessor and the field together, e.g.
+> ioc_bpf_model() and bpf_model, or ioc_model_bpf() and model_bpf?
+> 
+Renamed to ioc_bpf_model() and bpf_model.
 
-Best regards,
---  
-Yongjian Wang <echoowall@gmail.com>
+>> +	spin_lock_irq(&ioc->lock);
+>> +	rcu_assign_pointer(ioc->model, NULL);
+>> ...
+>> +	ioc->autop_too_fast_at = 0;
+>> +	ioc->autop_too_slow_at = 0;
+> 
+> Resetting to 0 is right, but maybe ioc_bpf_reg() is a better place for
+> it? .reg is the only path which switches pricing to the BPF model without
+> a forced ioc_refresh_params(), which is what zeroes the timestamps for
+> io.cost.qos and io.cost.model writes. If ioc_bpf_reg() zeroes them, they
+> stay zero while the BPF model is in use, which covers both detach and the
+> "model=linear" switch sashiko reported on this posting.
+> 
+Moved. ioc_bpf_reg() zeroes the timestamps inside the ioc->lock
+section together with the settle, and the zero in ioc_detach_model()
+is dropped; as you say, they stay zero for the whole BPF period,
+which covers both the detach and the model=linear switch.
 
+Besides your comments, p1 also picked up two fixes from testing:
+calc_cost() now matches the builtin pricing scope, and a dead owning
+map now reports -ENODEV instead of -EBUSY.
+
+Thanks,
+Tao
+
+> Thanks.
+> 
+> --
+> tejun
 
