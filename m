@@ -1,66 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936078;
-	b=Lqa6FNKy493cMxgxlVRZAeudsQlGS9x6CBO5s8qIvM7oa2yaVZcpx3nQIE+0bnjWTtUU
-	 GxosfxWswrkyHwTgk6aUqirPP5WBnuH3yae5BXSdtu+Ya3rM3Vw79+/JRhY/ac0FJ7sSA
-	 NtRZ5RoXCjm2Pht3qsVpjqV53zbHBU0a0FVEQpVNma4ECm6CcuAvUDVCUhrxRbeCXBTgQ
-	 S64Uvj747Wn8YRmuYLmtdBl6ql22FJgN3+NMEwlyGXEZ+a830rIkGYSK3TDgvNVbmf0po
-	 qbLwKu9RYc0YrrAQyMSO4TYQwmg7WIjue5dAUFbaGBlwxuLOqYvT5AKmHHTFXznM7Ow==
+	t=1794936084;
+	b=WSxAbadYPO5u5FJm67pU/Ah9puN0WWzCnys33SP+q+UI2rDYJNOH8xsRMgVNeFM7yfPy
+	 ZIRWgP/TZ+TKZA8K7UVledSe7aJOuLfazj66217kjkQ/ATsckiKvoQjv1EqFp9hQZxpOs
+	 1Iu1z4sGYorlEWVpwEpl73s95K2C/OnGI5BlkRGsDc93o+F7kB0QSVUQvGGouJNyy/S+U
+	 ZdpOF9IQWdbFn6BTVFQwiLr4TirJi9WbXV+ciofMXesLwP9ZA5zohl3Hd/Cezrx1P/TfY
+	 spEs/9Bzf6Tn3Lze+bxBX2rKsO7rwFuDygt09Q7J/PLrhUxQxIdwdGRBKWPA4tIKBgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936078;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=j49FQqF/5AAaYAE+Xw+IyqdKqNIf0oE/qvi3zUpU3es=;
-	b=hDtxsZnH0oIfQ5krGw/2BUWdR5cZCHqyf6YS6GoeyiaXYqD2iMdaHp9KfVfXz0RGP86Z
-	 gfnLIibUDQ6HwydAbfx9uNovCKk/G6tThO4co7XRNjqroxjW2ZisJv04MuCiRVGNDOeBW
-	 YkykzUU1Cki7xo+dX5DvbTSCvjPEHx6IvTN3kvfe07bF7BHWBS5nxKpd3oZyN9qyfelLA
-	 vg4Vt/EvxFaGM6ZMrabw6Gmkz7RF1c0tY+gK6JlBqXqV1KzV9KFx83uqpC2bgMoi5OImw
-	 gH0a0A1hxqi9cDNVoCw+p2dzs0XDR7FN9Nefxe5k+F+zF7PLoUlPzirKsxD+X+G/KUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936084;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=ZUkx4OaXOF6YZXsR0sLEGuaFMGKluKkbp9xVjv6nwmI=;
+	b=zSR9ginCD8tbUJyWayolUFfjD4rHuGBtdaQ4v952WLf3HINY1Ssb3/WhCy9svE9Zpr4o
+	 whXFd0ur300Cij0RTvLKJ+V56kLFD6U7CIzNxQqr6PKUSmvcEazz7m/dU93vns/up9d2n
+	 WCnpIg5MIXCaA6f6GuyVe5nxNru7q796f8Rp2pbopVwXVfvYaCXHApyHqIJmaYtilE9k+
+	 aGOa0vPHpIqQNA2CmU+mvABfmzBm815+iRSY801Ngau1YHNa2SliLheqIwCtfO+WmJRxz
+	 EA3qQFxowz2BV2Dg+smjrdjZacz0+CcANDnTt6DSbWbApFav4m3GK/kFh5xz6LdHg5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XISAVZ4i;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13973606A884;
-	Tue, 17 Nov 2026 17:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13973606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=D1BBWW9I;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D58160A381F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D58160A381F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XISAVZ4i
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5DAC11A00;
-	Tue, 17 Nov 2026 09:21:14 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B426A3F632;
-	Tue, 17 Nov 2026 09:21:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794936077; bh=UF4/WZWpnvhVbjnhm5Fhiug3i+G9AJ9V+I3bAy37IEw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XISAVZ4i0KKFtENmf4YZAeVOf0w1jBZnBhSZ+hU3sV8p6PBglO0PqWm9emUhFpc9a
-	 5P4dH5Z+qPk/6NH+bBWt69XFuo+en5u+hsdgjg5xg3eFIcViu1jN33qiwD5BXvWKzf
-	 ywluq+Q2pDqzs9KM9otMDaTb7/VRQ8XTyeE450SQ=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Colton Lewis <coltonlewis@google.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] KVM: arm64: Fix inverted E2H0 check for HCR_EL2.NV1
-Date: Tue, 17 Nov 2026 17:21:10 +0000
-Message-ID: <avyNBn24sLjxrfgR@LeoBrasDK>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116200418.3535619-2-coltonlewis@google.com>
-References: <20261116200418.3535619-1-coltonlewis@google.com> <20261116200418.3535619-2-coltonlewis@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=D1BBWW9I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794936083;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZUkx4OaXOF6YZXsR0sLEGuaFMGKluKkbp9xVjv6nwmI=;
+	b=D1BBWW9I5j1g3g31c2SB+cRxvVHiJw/aiT6PVgYWz3Ao3E48pTuFVZnNbEcMIxnNeG0eSe
+	zwEPuoApzenHjijAfweNqiOeFEmh7l3n64kpPtWOFy11TIyBjHdE1uJ+EzHDCrmiLxE6YN
+	/Qt1kcqjIcv/6W6AqJM3XjcGYSjHvOQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-637-Nl19TvFoOcqegg0-tONHWw-1; Tue,
+ 17 Nov 2026 12:21:17 -0500
+X-MC-Unique: Nl19TvFoOcqegg0-tONHWw-1
+X-Mimecast-MFC-AGG-ID: Nl19TvFoOcqegg0-tONHWw_1794936075
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 32BFD180055C;
+	Tue, 17 Nov 2026 17:21:15 +0000 (UTC)
+Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 189F8195B3C5;
+	Tue, 17 Nov 2026 17:21:10 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@infradead.org>,
+	linux-block@vger.kernel.org
+Subject: [PATCH v18 10/17] netfs: Pass the write length to request creation where appropriate
+Date: Tue, 17 Nov 2026 17:19:08 +0000
+Message-ID: <20261117171958.2982801-11-dhowells@redhat.com>
+In-Reply-To: <20261117171958.2982801-1-dhowells@redhat.com>
+References: <20261117171958.2982801-1-dhowells@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,73 +96,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Mon, Nov 16, 2026 at 08:04:17PM +0000, Colton Lewis wrote:
-> ID_AA64MMFR4_EL1.E2H0 is a signed 4-bit field where:
->   - 0b0000 (IMP, 0): FEAT_E2H0 is implemented.
->   - 0b1111 (NI, -1): FEAT_E2H0 is not implemented, except HCR_EL2.NV1
->     is implemented.
->   - 0b1110 (NI_NV1, -2): Neither HCR_EL2.E2H == 0 nor HCR_EL2.NV1 is
->     implemented, and HCR_EL2.NV1 is RES0.
-> 
-> Prior to commit b2a324ff01fe ("KVM: arm64: Use HCR_EL2 feature map to
-> drive fixed-value bits"), kvm_init_nv_sysregs() marked HCR_EL2.NV1 as
-> RES0 when !kvm_has_feat(kvm, ID_AA64MMFR4_EL1, E2H0, NI), i.e., when the
-> signed E2H0 field is less than NI (-1), which matches NI_NV1 (-2).
-> 
-> When converting HCR_EL2 to the feature map, feat_nv2_e2h0_ni() was
-> written as !kvm_has_feat(kvm, FEAT_E2H0), where FEAT_E2H0 checks
-> E2H0 >= IMP (0). This inverted the condition: feat_nv2_e2h0_ni()
-> evaluates to true when E2H0 < 0 (including NI_NV1), leaving HCR_EL2.NV1
-> writable instead of RES0 for VHE-only nested guests where KVM advertises
-> ID_AA64MMFR4_EL1.E2H0 = NI_NV1.
-> 
-> Check kvm_has_feat(kvm, ID_AA64MMFR4_EL1, E2H0, NI) in
-> feat_nv2_e2h0_ni() so that HCR_EL2.NV1 is treated as implemented only
-> when E2H0 is IMP or NI, and forced to RES0 when E2H0 is NI_NV1.
-> 
-> Fixes: b2a324ff01fe ("KVM: arm64: Use HCR_EL2 feature map to drive fixed-value bits")
-> Signed-off-by: Colton Lewis <coltonlewis@google.com>
-> ---
->  arch/arm64/kvm/config.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-> index adaf26ab93b85..b4f555d39f54a 100644
-> --- a/arch/arm64/kvm/config.c
-> +++ b/arch/arm64/kvm/config.c
-> @@ -258,7 +258,8 @@ static bool feat_nv2(struct kvm *kvm)
->  
->  static bool feat_nv2_e2h0_ni(struct kvm *kvm)
->  {
-> -	return feat_nv2(kvm) && !kvm_has_feat(kvm, FEAT_E2H0);
-> +	return feat_nv2(kvm) &&
-> +	       kvm_has_feat(kvm, ID_AA64MMFR4_EL1, E2H0, NI);
->  }
->  
->  static bool feat_rasv1p1(struct kvm *kvm)
-> -- 
-> 2.56.1.750.gf70dc682cf-goog
-> 
+For unbuffered/DIO writes and writes to single-type objects, pass the
+length down into the request creation function so that wreq->len gets set
+correctly.  For buffered writeback and pgpriv2 copying, this remains 0 as
+we don't know in advance how big the request will be.
 
-Hi Colton,
+A subsequent patch will use this to set as the i_size on single-type
+objects (e.g. afs directories) as we don't care what the old i_size was and
+we don't want to see inode->i_size in the netfs file changing due to
+third-party invalidation before we update fscache to say how big the object
+is going to be.
 
-I just read the code that uses feat_nv2_e2h0_ni(). IIUC if it returns 
-false, we get HCR_EL2.NV1 to be RES0. Otherwise it's writable.
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: Jens Axboe <axboe@kernel.dk>
+cc: Christoph Hellwig <hch@infradead.org>
+cc: linux-block@vger.kernel.org
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/netfs/direct_write.c | 4 ++--
+ fs/netfs/internal.h     | 2 +-
+ fs/netfs/read_pgpriv2.c | 2 +-
+ fs/netfs/write_issue.c  | 9 +++++----
+ 4 files changed, 9 insertions(+), 8 deletions(-)
 
-The change you suggest is returning (ID_AA64MMFR4_EL1.E2H0 >= -1), which 
-would return false in the case of NI_NV1 (-2), and make the field RES0 only 
-in that case.
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index cc46b7d9321f..ff1795e1f0cb 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -222,7 +222,7 @@ static void netfs_unbuffered_write_async(struct work_struct *work)
+  * encrypted file.  This can also be used for direct I/O writes.
+  */
+ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *iter,
+-						  struct netfs_group *netfs_group)
++					   struct netfs_group *netfs_group)
+ {
+ 	struct netfs_io_request *wreq;
+ 	ssize_t ret, n;
+@@ -241,7 +241,7 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+ 
+ 	_debug("uw %llx-%llx", start, end);
+ 
+-	wreq = netfs_create_write_req(iocb->ki_filp->f_mapping, iocb->ki_filp, start,
++	wreq = netfs_create_write_req(iocb->ki_filp->f_mapping, iocb->ki_filp, start, len,
+ 				      iocb->ki_flags & IOCB_DIRECT ?
+ 				      NETFS_DIO_WRITE : NETFS_UNBUFFERED_WRITE);
+ 	if (IS_ERR(wreq))
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 10688314660f..3a2fd263946e 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -240,7 +240,7 @@ void netfs_write_collection_worker(struct work_struct *work);
+  */
+ struct netfs_io_request *netfs_create_write_req(struct address_space *mapping,
+ 						struct file *file,
+-						uoff_t start,
++						uoff_t start, size_t len,
+ 						enum netfs_io_origin origin);
+ void netfs_prepare_write(struct netfs_io_request *wreq,
+ 			 struct netfs_io_stream *stream,
+diff --git a/fs/netfs/read_pgpriv2.c b/fs/netfs/read_pgpriv2.c
+index 5280b606fda4..85084aad9e31 100644
+--- a/fs/netfs/read_pgpriv2.c
++++ b/fs/netfs/read_pgpriv2.c
+@@ -103,7 +103,7 @@ static struct netfs_io_request *netfs_pgpriv2_begin_copy_to_cache(
+ 	if (!fscache_resources_valid(&rreq->cache_resources))
+ 		goto cancel;
+ 
+-	creq = netfs_create_write_req(rreq->mapping, NULL, folio_pos(folio),
++	creq = netfs_create_write_req(rreq->mapping, NULL, folio_pos(folio), 0,
+ 				      NETFS_PGPRIV2_COPY_TO_CACHE);
+ 	if (IS_ERR(creq))
+ 		goto cancel;
+diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
+index 0fcfb5ab49bd..7787ecdbcd39 100644
+--- a/fs/netfs/write_issue.c
++++ b/fs/netfs/write_issue.c
+@@ -89,7 +89,7 @@ static void netfs_kill_dirty_pages(struct address_space *mapping,
+  */
+ struct netfs_io_request *netfs_create_write_req(struct address_space *mapping,
+ 						struct file *file,
+-						uoff_t start,
++						uoff_t start, size_t len,
+ 						enum netfs_io_origin origin)
+ {
+ 	struct netfs_io_request *wreq;
+@@ -98,7 +98,7 @@ struct netfs_io_request *netfs_create_write_req(struct address_space *mapping,
+ 			     origin == NETFS_WRITEBACK_SINGLE ||
+ 			     origin == NETFS_PGPRIV2_COPY_TO_CACHE);
+ 
+-	wreq = netfs_alloc_request(mapping, file, start, 0, origin);
++	wreq = netfs_alloc_request(mapping, file, start, len, origin);
+ 	if (IS_ERR(wreq))
+ 		return wreq;
+ 
+@@ -575,7 +575,8 @@ int netfs_writepages(struct address_space *mapping,
+ 	if (!folio)
+ 		goto out;
+ 
+-	wreq = netfs_create_write_req(mapping, NULL, folio_pos(folio), NETFS_WRITEBACK);
++	wreq = netfs_create_write_req(mapping, NULL, folio_pos(folio), 0,
++				      NETFS_WRITEBACK);
+ 	if (IS_ERR(wreq)) {
+ 		error = PTR_ERR(wreq);
+ 		goto couldnt_start;
+@@ -661,7 +662,7 @@ int netfs_writeback_single(struct address_space *mapping,
+ 		return 1;
+ 	}
+ 
+-	wreq = netfs_create_write_req(mapping, NULL, 0, NETFS_WRITEBACK_SINGLE);
++	wreq = netfs_create_write_req(mapping, NULL, 0, len, NETFS_WRITEBACK_SINGLE);
+ 	if (IS_ERR(wreq)) {
+ 		ret = PTR_ERR(wreq);
+ 		goto couldnt_start;
 
-I think it does make sense, but maybe we should also change the name of the 
-helper from feat_nv2_e2h0_ni() to something that reflects what is being 
-tested now. feat_nv2_e2h0_imp_or_ni() would be confuse, and maybe 
-feat_nv2_e2h0_not_ni_nv1() would be as well. 
-
-Maybe feat_nv2_e2h0_not_res0(). What do you think?
-
-Thanks!
-Leo
