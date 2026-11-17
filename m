@@ -1,90 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914042;
-	b=q816WZ41QG++bVd7Atu3hYdgY8UcioieNRtWiwIEseqIWXtXo0acaq22ph3VCybS8p08
-	 GW4eDRaklP3j+mPwYlXhcOI2OX2/dJ9CyKpdvWoyG3o1ff8i477DXKE/yb0tP2Un1PCuB
-	 lcCWQ+/38brN3f8t07cFmLjIDDv60p+03fb/tVyYEj/L6u62gms7j1xH4tJkiJis3Hlr+
-	 iqySHRiTa+1iLBRrt6bBUZvMJpxRHCBbYLkFKMcC5HCz0tKFY6F8c4UV55iFdVWa5/LOg
-	 CMQRBpzqTs3EsO7Q7A5iIItoeTIG0BUMhd3hvqfd7iv9CNK4TXzCzYcv1/y736W576Q==
+	t=1794914074;
+	b=bn8nfOhNMtSosZ2SwaPqsNzAe17vDOO6NyIp7C8A3veDYsE2nJIDs4CXheODkJf/zFgQ
+	 RYeLhpewgZhuxhlEZVIlz5/V1N9RPR965Moa/wgDaRqaZ40+AcHhgq6oZBnuvbcjS8DF6
+	 leUn6+BC2tdGeuF2x1NqmWGBhux5v8rPgW4SQH5G6QjB5dHS5r4fsDLrzG1RqsGWBplJb
+	 6M+M69PTN5rhiUdQmoMZwtNodEms93UZAj1cz/25cvUhGRcln5YL21hrko153Hic5Iotd
+	 j/z7oVGIePv/44c83/7eCeq464SqPMXB/Ixv92vYGUnqwAZuHezrNb9BQ7rKiwK33xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914042;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=9H04yuSe4iuUyFfUm6ir/Pk1kCN7uCCpIfbwJZv1Sk4=;
-	b=ESjyy5SRFKYbHQlRVrk7UEfbDgdP4mRcJNIP++BoFKk1PbNWDPo7rtgczYdtEj3Nz//I
-	 ni3JWebIht7CTLuEKDyRcNKf+puE51i3ibv7YFMxqWSRaS8gp3MHUyhxH0jih8Ex4bI8U
-	 BR0jqRaBEIMkyD19Brtr3/7Gj4c0dFEDDV4+UZ0+vANHWECyOdVdysHROhkW2Dtv3WID7
-	 UHhluUqozjjwB1hTl5N74+vqIcjidtiCOi24szaChSarm6vgTQezIgEbjCerS0Vz4fLMA
-	 iSxfVIg9N00xsSWx2eYTZxs0bKxcfQ/3yYHTn51VdQiAF5GdR11LV88n+QqVT4vBszA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914074;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=nyrUSLjckhnk71y6oQ5XcHqO6QktwoFMhNW+C3YVinE=;
+	b=qss8NU+ZZyTT39IsdkApQUfEf52coWtVewjwrxR9Csahh5wgwm2dfGvrYiKj3Wm2QuQs
+	 20R1lYA1wPOajwDAO9vmdqA5TOk1JqfMy+i5iSzUTVI90QDQG+AAViTu+Tz3iRM+MXkaN
+	 N3Bsv9S7e2Z9WMnHDgwOfPBcKRwBiXMX+5/kQShsf5xDTwXYd0NukQWG5RToX0XEGPJmL
+	 haKah5geHjGj0KR0iN2By/Jkf1kBXno1oTrvF5f7fbjmkM7yf4TFnGgVIVMRqE6xEnTjO
+	 KFiaT5OwngNktnBZUUJ+9FxzuquRijG3uck26jXUyZTL+b3uBEtzSVVZTYN88QWYMGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dywW+YKN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=KLj5R+9Q;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ruVZknMn;
+	arc=none smtp.remote-ip=202.12.124.145
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAC9606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:14:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C97C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:14:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C97C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dywW+YKN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189481F000C6;
-	Tue, 17 Nov 2026 11:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914042;
-	bh=9H04yuSe4iuUyFfUm6ir/Pk1kCN7uCCpIfbwJZv1Sk4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dywW+YKN6iJyQppnuJmCfBzF0LdqirAKoczgl5PvqKoHHoaL661RXS+DxDEnvakOZ
-	 tWNpIiRvPOKmY8jsrsVTueqzkapr32vz1f/iC4HwgIHrUw8CnQ3zAJXokrOopQRcjY
-	 xnTbhh0sOCpBrz+BDxs4e9T+0EZcN+2lQv54cxWjMZ4nWlp7O/JRYx0VMVnsYJXqi5
-	 gB2iRGo0XM1oGw38o6vTr8O/8Qnam65eUY3jH0vvneQxSJw/gHHJErvVnfZwJgx/E2
-	 d6pTtTL+qqzM48yE5GZARbm6WgsA2BIeiaaTICcz9efG/Y/jm6aWVjmJhngFp71niI
-	 t1ZwJhqeT3Jzw==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 6D2AC198004A;
-	Tue, 17 Nov 2026 06:13:53 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 17 Nov 2026 06:13:58 -0500
-X-ME-Sender: <xms:8Db8av7h_UOsysMwvcP86csyLI0_L-Y0fG1zP_Y696MEVpVoGSo6pA>
-    <xme:8Db8ag_C-YcksC8UEt5JqwVrNrFqw7N4ayelai8n5bDdR44rqlcW-oj-dq30kswsm
-    TurKg_DLy8QPcQC18_IVy7cAgSuPNo0ucUTMY8f6Nf3JrRhjkCyWZux>
-X-ME-Received: <xmr:8Db8ajJpxWRgU6AnCZfhG1HOiM4eiQeGdPrQuQmTXehknwhbVc9wyuTJqDc>
-X-ME-Proxy-Cause: dmFkZTF+JKJTFhO7l5xRceP24AuGfujUQYiZxnoeyK5tA83zfmMRcw5/8FhiWDYeqCSpC6
-    T6IC9ySjUHbOB+fpES9ocjUyQ76AHREBXteYhc/tTYbmY+NhXgoz5EC9qWmtA/bgfx1HcQ
-    G3d0KvtgMZf8Ub9RJZlly0ltGkym3kClsfEB1T7YifuIlnuXXZdlnKkViCO3FwoDnOOoNU
-    fnC07yqnaRgq+GBlBbKihyppy/cbRRiQR+t3z+FOPNU+/WP4gEOzuHSdR4pA8vgm07oi2g
-    D3/E4LFSDXcLeLK/W8zOGBJMyubGd8PdT3AVGSvP39vq5QvTlAf9/kSmgnbhnuaJbtvetr
-    QZIlkZrx7vANum40gg4v0gwpBxHKHqEL+fAh/bqzhJNG0FBXdi9gYVPQv7BV+zxuXkiHFx
-    P9td+ZlRXFYdDU4DOehwuQZzkfrT5O4hw9eNghGseaPrMxtOOlyqszK/SsGikF0QYZdFuI
-    ULcq/QuFEs6cf00KI/A6/Bvr+f1CfBwzCXierY4ahyW6eSdqVyCzpz6dFMaQV/LqCuPMtd
-    k5OGuumM1Gv1yTxagC6J7H7NVrKyRWfZxMOGd5YwkFsimiV5aStmtxkyBAyFahfVVFV+Uv
-    VHwuJSGk7buXeLxgT9ESlFGJXKATIALexZo+JJBnJbrq7qBblldkdK45j4MQ
-X-ME-Proxy: <xmx:8Db8amfk0bunvDgiA6VEpYeOjqUloHypf2omjhvAtlcxCPmRt6ku3w>
-    <xmx:8Db8aiqEz6AHO-G1dIo6Cxt0yxpSiwmh59qHZ_AOWG-Fbk10sRnv5Q>
-    <xmx:8Db8anvHdUtnZwFV0GXcOVB8a_cROsYdtUX45OOlP2nTmQ2wKh4j-A>
-    <xmx:8Db8arci-RC-UdiaB5yKwSiLiY2Db1UCTL5QN-r_ic6fok36Lv83IA>
-    <xmx:8Db8akoOfVKWmLDdEFAHbFQrDXgCaRW25TF24W6hN7Ryn2vZzkFQ0TXE>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Nov 2026 06:13:52 -0500 (EST)
-Date: Tue, 17 Nov 2026 11:13:51 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
-	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
-	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, matthew.brost@intel.com, 
-	mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
-	vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com, hannes@cmpxchg.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] fs/proc/task_mmu: account device-private PMDs as
- present in smaps
-Message-ID: <avw25cL2uCsbuPpC@shutemov.name>
-References: <20261116063624.1382944-1-usama.arif@linux.dev>
- <20261116063624.1382944-5-usama.arif@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=KLj5R+9Q;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ruVZknMn
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id BCF441D0018C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:14:31 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:14:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794914068;
+	 x=1795000468; bh=nyrUSLjckhnk71y6oQ5XcHqO6QktwoFMhNW+C3YVinE=; b=
+	KLj5R+9QXt6bs4gxiWjxnsiG3H1/LxfTei2NJzMk2A+/zNofzDUf2TpSDz5TbA4J
+	BcZoRR5Dnq2I76bJrmREmlouqM4af12jCA+z6SeO/h9tvW+8TIhf0Etz/mEvL4Ai
+	gIidMbKyDJZ0nEKh8OwAjuK2gs9j/mTPMwk/R/RR7ycH2gR8oIMuuhLVnZBvNb61
+	2lx0T/iVuJTzi+1QE3BVun5TcPRu4qj6fY4buWU2tSX97jpPPGzEYxubspcYSmjB
+	5cZA18pnMrdDyIQ0rMNlPtjtRwrHYNJqh3t8d9Q/8DlK5rGCqf7pRhBraoDya4fz
+	UPKVWFBCyWLAHVmXBPjMmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794914068; x=
+	1795000468; bh=nyrUSLjckhnk71y6oQ5XcHqO6QktwoFMhNW+C3YVinE=; b=r
+	uVZknMnnPmy6QET5Bb2/X+lw4AVy/ibMwhZs9I7IyBpyQg8FoKLhheitm/Qq5W+e
+	bYTJhLRGtDhORQet7cWELUvPxbMRbcb5OySWd4G723gZXFgHi7xoSk6Fx/XlsuKr
+	QTEyADtCTJWNooNKp+6wcNWUfaRQJ8/JI0HPE9N2bA2Vu2z4jrVz9w32BgRryBei
+	NOLc/v44N8fBSqGf5wu5nRUsp2ZHUz6bJPZEggxnaNQGEDfVSIBbDltb1O3sC1HI
+	mR6JtlDeOziGVmp91H1oHY1ULNFLKEjNnCc1m+qw3/2lJaEUC70pkLCow/peFsOR
+	uG20ml1Z7DUzmhr8b3DbQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794914068; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:HwSS9ZV8XsRqF53FPagK5WwvmZ2SX3kUmgpUr/dsnV00+Pm
+	LqXpHg1ok2ycYhoEBaYQ0Swoy7M+R9jlQTlm+qBeDYsBziSaeZqqqEcqjt5hC2EJ
+	gm9bAQxowkLOpsb0XD0I3A3y17PB4qYxNMDiwmW6R8oKLQWirzdnmt738XbHX0NH
+	eEwy5XkbGtL91ykjZSF+T7TWo2SJEuptd7zJKNMN7IgLRa6gedol9I1VmeU6WOks
+	D9xDfhXHUym5IlXrbRzLFwA6P4yXR8mkxihpJDxcQRduyWVOuLmta29Nwr4b8nyH
+	Enbb75xwwO1RFXcfmYhRrF5DqODFda4BikZUB9w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:7v4/986iFER5S6s7ld8hRw7bcqY7IaHnDM702TwBsw8=:LxReB3JN7kSgWoSI90nSdmU2kCe5+tDQe4dSG3msCoQ=;
+X-ME-Sender: <xms:ETf8aqUiqOQborDtjiFIJr82Lm3cVtOxo1qmrQ8X5c_LY-G8-ep2Xg>
+    <xme:ETf8ahbSYUxE9JWwXZN1U_62sGrSP0t7-_Mog6_-d9mnIWG9Pe2Cj2F7gqlXpsZcp
+    2DGfnEh_eNF5aXT50-zKcxR2eUxLtU-HCT3XOJNWrEluxcJtXWamjE0>
+X-ME-Proxy-Cause: dmFkZTGXKZ4HeiXVXWIq8P0hv8Ey1J8wMcJYfou/phUQCugD5tQpnrapvVyBtTNtvnU0T2
+    Zs/7v60gPN+42RlzAZ4gRA9IBbx0fYCt0Pu4WPd5hBED2NAKnVSP6xakAJtMYojz0hf7WV
+    J9gg3/EDJTV0zGMACRseOVpKVZciDdJBoz1yb864pknbX24NwqLZZte9CH7Zm8uZ9CDt7y
+    I1FPVTrMgvhQYI9Q9qDcnoLkc48Xf6VIWL3Rwz9Au47AlBj8Guz22NDJAic7FHug5gr/ft
+    hW5wS+iyLEHo3FWHdXd2/7waSuqYbM0XRkDhoJ/mrL0IYwpnlM4yZqT6Koan7Pct31EWNj
+    vuWgnhPQQEVAPh74PrIpAEfowhQK/afV+2M5T/zMuPm4ErNFi/tZNvU8WLqEv0oT1z38e/
+    N+0r9mOmSS3V3G+bs9sBgg1fj7UGXxbGv6nfgcnomvSdJ/zpDhloXsVYGYNq8rlBONbR2x
+    o7W3iCpqFif1vKmRIbrYy58JxfV+JeM+EVb3khdPjguPo/E5epNelaNEJcHKxSiWYTpAgB
+    KQZyY6YWZJEq6M3RrQSQk/Ph4o144Ugb8HrxCOwWM2ai7+ZgXhPojlyGOP3RDKue77El2N
+    06JoxfYLjl/E55CsSDntbavY9koYwgQA7G8BarKtSCHPV2anUQCTFzMcfVIw
+X-ME-Proxy: <xmx:Ezf8ahozCqriLkWg3x69SV36Gif3S7HNYcq2mtPqkd-Ph7619w_CVQ>
+    <xmx:Ezf8anVfqi-7oJTKTwn_S3UdNGLTvQSxf3zO1kQHCaPj1rRpEoCYpg>
+    <xmx:Ezf8aoAd7RtR3C-XdWouhrtQkt98Ngs0kHhNgRVTw9PGuzMNzUYX3g>
+    <xmx:Ezf8aj3_YwLg4d21b0ZDTnbUY1jMIIqjw7Wj1PLGYuvlnIjTax-GNg>
+    <xmx:FDf8arPCbJzGVEgK7AJ9z-LLKVGz5Rb-W4k4GEoro8FPNlms2En7smce>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C57A532A009F; Tue, 17 Nov 2026 06:14:25 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,27 +115,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116063624.1382944-5-usama.arif@linux.dev>
+X-ThreadId: AXUpA_0H0_pg
+Date: Tue, 17 Nov 2026 12:14:05 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>,
+ "Biju Das" <biju.das.jz@bp.renesas.com>
+Cc: Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <44587a7a-e9d1-45bd-a698-69b6bc1389ce@app.fastmail.com>
+In-Reply-To: 
+ <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
+References: 
+ <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
+Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: Permit disabling POWER_SEQUENCING again
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 15, 2026 at 10:34:58PM -0800, Usama Arif wrote:
-> Device-private PMDs represent mapped pages, but smaps_pmd_entry()
-> passes present=false to smaps_account(). That treats them like migration
-> entries: mapcounts are ignored, PSS is charged in full, and exclusive
-> mappings are accounted as shared.
-> 
-> Match smaps_pte_entry() and mark device-private PMDs as present so
-> smaps_account() uses mapcounts for PSS and private/shared accounting.
-> 
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+On Tue, Nov 17, 2026, at 12:13, Geert Uytterhoeven wrote:
+> The power sequencing part is optional, and only needed on RZ/G3L
+> (SYSC_R9A08G046 selects POWER_SEQUENCING).  Users of other members in
+> the RZ/G2L family may want to enable this driver built-in, while keeping
+> POWER_SEQUENCING disabled.
+>
+> Fixes: eac3b292a26e2210 ("reset: rzg2l-usbphy-ctrl: add power 
+> sequencing dependency")
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Acked-by: Arnd Bergmann <arnd@arndb.de>
