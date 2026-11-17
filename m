@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874425;
-	b=VP+2TrTynbizbInTepmHld3uky1QQkLRvjnbxvRzXTMlYqcgmW6lLce1eip90HrTDqNr
-	 IBgbBnGtGhiFkfEl/Hj2f68rPcKcRf06K85idc/9EzZvcxykaE4q8U7AG9WuClx+iMDFX
-	 Qjlv+vgB9C/joNht8ub95hOFvPd2Y+dUEBEiWMX/4I/Ke+Gb7u1AgoSgLEQGsitduySL8
-	 UO594kKogQ+h7UD9wMUZq8MVmJsvr/F84N4h9DlmNgtSW/eLGpuMYjbcb+IhdPBCoGLqw
-	 fXIgUgyJj2O94vjKj1a3lSa9ZTHA/jqmDdWGPu+wbEQ2/ZpoFHByC1FPMEpdYlQuOlQ==
+	t=1794874432;
+	b=jOC1fn1Opg6r01TFYyP4nc0m3OgqYB3V1zzJOPrFbj3rOKUm6lwsF7kuawbKMMK9QZ/I
+	 PydUxFH2CQtjFPpjatuwieQld/I2D/mWHtjc9URbt6utnmriAocPmEA4vnm9OqWAzwKnN
+	 6fOz6W/cEJ/R37EE7sT0l3Yt4+IMkKeaT9qZRi5fc7GJo0bGu0qoScL2pn75bpI+dFgv0
+	 +EEY/Oc/8TxXg/SOSQkRqv7RX/cisc5sO7fp39RsYGsnQYfLLnPCAFegI9G6pKjIVqfgl
+	 JelD1FbzykBEDVsG5ufRmdoux35Xoat+3UTzYQUlD13MlTQ405tI3wbNSXIyEUeqjTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874425;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=h/gdacrfTiLelWq/exWpeXojbuqsCH08OJQEuYg8YBw=;
-	b=m7NHxoJ67ovPVjKaF9Zt5YGG3Gr48tuc1mnspq3POi/NdmeZ8h72m8RjP9o+UAK+5Rrm
-	 cksnQuknXSWqtsjOQk84VR0oNiJ+sg4uEMHMuXQpi7yynjrJ4mmMYXubYhFmyh3/eqsez
-	 ha6qbuw7Cp8wFU6McNfeSZ9nCTb7hH9aaUbMH7h+k5OExUtjZjWtG0tzsjzzs6uww9+TU
-	 hVqcdbyDd4ZMJ7b2P6WtVvWyxh6/0csqV2iGuwWx46bW1Rbbn2uFQfyVVl2hlrrvzGZC9
-	 kHudbPEVBK+KcGKVDZp7sdwfbnN7ofPCyJmx77vTTBUXj+yGB5PZqMeZeEuObvASN4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794874432;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XVo09sxxh0tBmx3yVVO/fyACtpMXW/ZeTIbSkdS9UIE=;
+	b=4w3MgPCkuMZnMOKS8solUpAt7zp3z//zSp3+TtFYhYVKnHyxXKt4Dc4F2dt7HkVIAi4c
+	 guhhYS+oPmSUNPJXz/FY01yAGcKqEY6Z2WFZEFkJc1y17WdzPYCKdkVB9S+HcSI9pubGk
+	 F89ojgAsQfNbWs94SgtRj/ZoF6P/RNT4jrfahRp5tkuUYvAI88mLv0BAorna5sXxXP5KD
+	 1ULiQBHr3pWiotmVDwuNQAxZce3T12WXU2ETAlXKRPJQELj0L2CkeCUWrB/+QzMQXqalp
+	 9WLn4iqTYHybs7sfHgqsB/P+v0FuVMfk5W/nQTd4xZIKUBDztOQCaw+reKbrevq5Z2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOb0mbyJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77866606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77866606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b08a162d4bso2249092a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:13:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794874424; x=1795479224;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h/gdacrfTiLelWq/exWpeXojbuqsCH08OJQEuYg8YBw=;
-        b=WPN9LPHa1iJXuKqs92cfmu8yjvGlz6kAMOj9Nv5xeFDhGP2/Vc+Nkn5B9PDV3oSwAr
-         sm7dnd2d4OC5yOtCZMJdVW69s4kM7w1nqqaukzpnaK6yRVLgvM8Q/SUDo9jwUM1M5brO
-         xWchpHNKl2Bd1P9hg09jDDzCQ1ffUIePNCOhSE+XjyL6QyuiI7/0w8OZb+Z4SoBcf19S
-         VapDiRRSlFbuNtK0mZjV8d7CAkBL7rhk1l8YItntiIMLKdTngJ6hFgNk2S6K3zQuXmA5
-         XAafrCmX9o5HnQ8JfnTMYAfbN3JxwLZMsd4ioGy9sqImcUqqU43cBB4t0k0dAXIxUd1t
-         N3nQ==
-X-Forwarded-Encrypted: i=1; AL+hErEz21g9WP1hzpUZgPm1cZ2DLI4qVkMaWkdLqXhlynJaaDyp+Evgh8dHJNXNL6DIDPMfgDLvxDkrNd2OmIc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sT1Plu+KmIvIYqO7xezO/+xaROHxmWaU05rFrnHYbGBAdbRVB
-	cje93dfEjabM1k55ADMgCXfevblvaZEPkWRKrlMjeLjSVzAwHck9Xaw8hQUy5Cnp
-X-Gm-Gg: AZFdTZdiNZN9SGqsoZzU9RVDEgTjL6pIOzjKzKo59LKF/XUkKUgAKOCOwaNeMLdp5aE
-	E3mdYHgvi7ezbXge2N3jortHRey+4+zM2YGLNxNQO7TTXAZX8kTdtq5W4YEGpacLOiq2JocypJv
-	l3YAr+dYkyRXML0Kcme5Tasdx4KJz6qkplLP6RYwjo3rCOOmg7e39XxckHKWu9ks4K761je1mUb
-	Rwgnm7+vEFZc/YDP3rd9Xr+WuMGo6t1uoXPDXn3Dc+rpt+pq58EmrS8yNxngRhlZ9jfTQ0gm0eI
-	/2IRY6pI8Fs6uhLgDeU+98CaWn+GnACQcE3V8gFJD/JHIg0BfBgqhe+Oka70lmrfqE4RdimRkKQ
-	jTXSOOqzTzthIOuH6QWvzEy9nles1hLP8tIJXqYNGNd1UTcZf2F1i4hfTiIWxFPIWPiMUv8Bxlt
-	TJhNswnQ2OAjeYVd2cFoQI6obOXzhBDtFIMn/C14E8Nv+NnNNUbVPDdNvMOaL62rOtnPxTLZuun
-	qmsic+u7dnTcoC+WY3FpJUS3qN+dse/sufUsBEUc3BPpauYU1rT/VGjRjKHZZsKYV7HMKMLVgr+
-	aDH1zj0cxGIJd9kOEuKbqOjX8rSIdIccJBT52svdZBwfp3peXj+pixfZ0/o4z0QG9Xl23rzSGPS
-	/pGM2/+6cchyW1vmNBAN+p3u4RnUAs165i37HhL2v8fnR
-X-Received: by 2002:a17:90b:3890:b0:3ad:1b0b:1246 with SMTP id 98e67ed59e1d1-3b1b0a4c362mr10100578a91.32.1794874423613;
-        Mon, 16 Nov 2026 16:13:43 -0800 (PST)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com. [74.125.82.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abebf1aesm1226762a91.16.2026.11.16.16.13.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 16:13:43 -0800 (PST)
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3712b6d9843so3361220eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:13:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHYw5/fWAp6W1FY5S21lZ5/l9/FZ7R6tPWArXYUV+HVuw//xOx1hnbApY0sAPJueSUhgT07BEZy3bunCTs=@vger.kernel.org
-X-Received: by 2002:a05:693c:8852:b0:36a:1452:8dad with SMTP id
- 5a478bee46e88-37966f32039mr11934066eec.20.1794874422435; Mon, 16 Nov 2026
- 16:13:42 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B88F606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOb0mbyJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9CED1F000C7;
+	Tue, 17 Nov 2026 00:13:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794874432;
+	bh=XVo09sxxh0tBmx3yVVO/fyACtpMXW/ZeTIbSkdS9UIE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IOb0mbyJ6Zpf3675Bki3SsVd9pKF08EYuXfo6Gl6PZMLltTgKfYQWgfHpp5EsopJA
+	 6PujDHeLd2jPoc9NhnPes4e0tjdGfxyV/p0SjAY4F+BTwe4wnB+sAX+1r2joJDTOz/
+	 d/m+wuVV37GdnXjbLGSGk9wEvBM1EoEH7Wn/km7acfrCxTrHasyaWxmbPDgXHbKMAb
+	 x2AlA0QcHphxtOVXIawnwZNpt++w2teVdhT0+HkxZDW+WgfcX882dlCxXMpY6Jmvki
+	 c02crd9qBkZ8+QfmN5b2hU7A/vKBUUAKTGS1SBuH6DigQrTkcGzmPJaY0kgwtgy1lo
+	 G0vSEdOSXfs/w==
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfauth.phl.internal (Postfix) with ESMTP id D83DEF40067;
+	Mon, 16 Nov 2026 19:13:50 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-07.internal (MEProxy); Mon, 16 Nov 2026 19:13:50 -0500
+X-ME-Sender: <xms:Ppz7aonjL6K1uJk77U_8yLq6vjTcFnWlXCDpq-UrFESlHENYFSBs5w>
+    <xme:Ppz7alBOVbtl_hZOm1XsVAmlRpml051VibDNGQDSeFdVJktam8-b2Ya1RvBTsRRcQ
+    yOJr70OxDrFlFg_Yebv7Ek3qn_tH6fh98ATrmTF52Wi8yfeWgUWdQ>
+X-ME-Received: <xmr:Ppz7arKwJfFJ4Cr055e-KoBn5kgEamgvpIosfFkrx7SLnw8k0QmU2om67J9nqWAoCYT4CCED9QjLhDuxK1lyP05LNihT3bXr>
+X-ME-Proxy-Cause: dmFkZTGPCh64XdAD5hVH7IS3FJe9LUYF5q7vq0TeCrpvkwesw13usMNbSu2kdx4d+j+BCl
+    /+UD2NXBMqVDoGANLMH+B0uuNW7rzokbr9aO5izKddQZOs6wEvRKlNwYAk1gTHFq8/rAAl
+    7ZfZGiR9MBAZX015fB34lXfCtqEw3uDmqwkGdTjeUoNLDNHlQKgEnMVW+0CMV6PnpW2UVi
+    NTkmf/i0fe4oJF2juBmRov6yxUFfTfVCx4OvF5G7eRBKDrSHogHeTTZcBbUlMn4UpeLliC
+    ypXQUrjS/jP7L2JzDaflfpvnP0zI8eT6CRa369BzNy9e0VtxfuzcKFOBVBbYdQQ5bE7QGC
+    GTwhhDxDQpcKMyAE47LrbtMpFe6QbJsiEXU6RgF2F0ZFuNYnBrF8WSNvVvwwtC3BivNEGf
+    ZY8BtrvB5h19rMfsHYMo3zO9rkZKMRwLuhEXSop6xRdtbWbpZeAYjP4mwsLAGl++AoaI97
+    Ugp55LUtIYoDLSkdyRUgPo2KpOGbac/I19/Z459QSfpiPPYOYDQjMRlfmJlXl7SlONEN5T
+    0eMAJ0lwfbLraKggwiEORKcCBjpptEperBsmV17mKzcqV0ScxCUri2FovbXu1XaR+0g2oJ
+    x3U+Tvq+7lgboP8IO4dK4GIvOLigDlbbJLnALCFcZWdrzrnMgcFksdXUXYWQ
+X-ME-Proxy: <xmx:Ppz7agwvrd8TyouWUVv_NgBFug8Ka4qzAguWtgTko6utgq4eLAHq9A>
+    <xmx:Ppz7any10wKw0qpjHH8VzbRMJUXBsh8fgzWVrBRqYnbzdUgl_qtrFg>
+    <xmx:Ppz7aq1UkwXKwL4J5BJyziLoai2A15SumovdHkYJFjxg7J7LK_SNCQ>
+    <xmx:Ppz7ahUYRaH9InQmREwiHWLvigeXErQjQPjwnDUq41aJRKpn1FpXkw>
+    <xmx:Ppz7amcSuykigTGubtL4Xa9ZELfE3voVs70abwGvo4Z472QaurF1AK78>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Nov 2026 19:13:50 -0500 (EST)
+Date: Mon, 16 Nov 2026 16:13:48 -0800
+From: Boqun Feng <boqun@kernel.org>
+To: FUJITA Tomonori <tomo@flapping.org>
+Cc: aliceryhl@google.com, arve@android.com, brauner@kernel.org,
+	cmllamas@google.com, gary@garyguo.net, gregkh@linuxfoundation.org,
+	ojeda@kernel.org, tkjos@android.com, a.hindborg@kernel.org,
+	acourbot@nvidia.com, bjorn3_gh@protonmail.com, dakr@kernel.org,
+	daniel.almeida@collabora.com, lossin@kernel.org, lyude@redhat.com,
+	tamird@kernel.org, tmgross@umich.edu, work@onurozkan.dev,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>
+Subject: Re: [PATCH v10] rust: sync: condvar: use Delta<Jiffy> for timeout
+ and result
+Message-ID: <avucPFPNm5jAkM6j@tardis.local>
+References: <20261104235929.1282640-1-tomo@flapping.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,29 +92,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-b53-bpdu-mirror-v1-1-f9f32e9d25db@telaak.dev> <179472506475.2199510.697226978948266850@kernel.org>
-In-Reply-To: <179472506475.2199510.697226978948266850@kernel.org>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 16 Nov 2026 19:13:30 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ7BJZcPdnYQu6aivUsbrofVSEbs4W5fZqV-cO9iTdQ=0Q@mail.gmail.com>
-X-Gm-Features: Aa3M54ofcAZjY_xnWHNA845PgMGAu4WiQ21uf2gdh6--4iLizzUdSyAzlZq7n94
-Message-ID: <CAPY4CJ7BJZcPdnYQu6aivUsbrofVSEbs4W5fZqV-cO9iTdQ=0Q@mail.gmail.com>
-Subject: Re: [PATCH net-next] net: dsa: b53: mirror BPDUs to CPU port 5 when
- port 8 is not a CPU port
-To: netdev-bot+sashiko@kernel.org
-Cc: florian.fainelli@broadcom.com, jonas.gorski@gmail.com, andrew@lunn.ch, 
-	olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104235929.1282640-1-tomo@flapping.org>
 
-On Sun, Nov 15, 2026, netdev-bot+sashiko@kernel.org wrote:
-> - [High] The new condition in b53_brcm_hdr_setup() calls
->   `!dsa_is_cpu_port(ds, B53_CPU_PORT)` (port 8) without checking that=E2=
-=80=A6
-> - [Low] The commit fixes a user-visible bug but has no Fixes: tag.
+On Thu, Nov 05, 2026 at 08:59:29AM +0900, FUJITA Tomonori wrote:
+> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+> 
+> wait_interruptible_timeout() takes the timeout as a raw Jiffies, and
+> CondVarTimeoutResult reports the remaining time as a raw Jiffies. The
+> type does not show the unit.
+> 
+> Switch the parameter and the result fields to Delta<Jiffy>.
+> 
+> Delta<Jiffy> is signed, but schedule_timeout() prints an error and a
+> stack dump for a negative timeout. Clamp a negative timeout to zero, so
+> it means an immediate timeout.
+> 
+> Update the only user, binder. It now converts the freeze timeout with
+> Delta::to_jiffies_timeout() instead of msecs_to_jiffies(). Both round
+> up, so a short timeout does not become zero. They differ only for a
+> very long timeout. msecs_to_jiffies() returns MAX_JIFFY_OFFSET for
+> 2^31 ms (about 24.9 days) or more, which means an infinite
+> timeout. to_jiffies_timeout() has no such special case. It converts
+> such a value to the matching number of jiffies, so the wait is long
+> but finite.
+> 
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-Both are right. v2 will check that port 8 exists before calling
-dsa_is_cpu_port() on it, and will carry the Fixes: tag.
+Acked-by: Boqun Feng <boqun@kernel.org>
 
-pw-bot: cr
+Danilo, feel free to take it from your tree if you need it as a
+dependency for the WaitQueue series. I'm also going to queue it myself
+just in case it needs to go via tip. Thank you all.
+
+Regards,
+Boqun
+
+> ---
+> v10:
+> - Rename variables and fields to describe their role, since the type now
+>   shows the unit (suggested by Boqun):
+>   - binder: the local variable `jiffies` to `timeout`
+>   - wait_interruptible_timeout(): the parameter `delta` to `timeout`
+>   - the `jiffies` match bindings and the `jiffies` field of
+>     CondVarTimeoutResult::{Woken, Signal} to `remainder`
+> - Add Alice's Reviewed-by
+> v9: https://lore.kernel.org/rust-for-linux/20261102035934.711973-1-tomo@flapping.org/
+> - Send as a single patch. Patches 1/4 and 2/4 of v8 are in v7.4-rc1,
+>   and the workqueue patch will be sent separately
+> - Rebase on v7.4-rc1
+> - Drop the comparison with enqueue_delayed() from the commit message
+> v8: https://lore.kernel.org/rust-for-linux/20261002050428.2746277-1-tomo@flapping.org/
+> 
+> Boqun, would you take this through the rust-sync tree?
+> ---
+>  drivers/android/binder/process.rs | 13 +++++++------
+>  rust/kernel/sync/condvar.rs       | 31 ++++++++++++++++++++++---------
+>  2 files changed, 29 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+> index 1f4cb43f1de6..0ed6a4b1c74b 100644
+> --- a/drivers/android/binder/process.rs
+> +++ b/drivers/android/binder/process.rs
+> @@ -35,6 +35,7 @@
+>          Arc, ArcBorrow, CondVar, CondVarTimeoutResult, SetOnce, SpinLock, UniqueArc,
+>      },
+>      task::{Pid, Task},
+> +    time::Delta,
+>      uaccess::{UserSlice, UserSliceReader},
+>      uapi,
+>      workqueue::{self, Work},
+> @@ -1552,25 +1553,25 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
+>          inner.is_frozen = IsFrozen::InProgress;
+>  
+>          if info.timeout_ms > 0 {
+> -            let mut jiffies = kernel::time::msecs_to_jiffies(info.timeout_ms);
+> -            while jiffies > 0 {
+> +            let mut timeout = Delta::from_millis(info.timeout_ms.into()).to_jiffies_timeout();
+> +            while timeout.as_jiffies() > 0 {
+>                  if inner.outstanding_txns == 0 {
+>                      break;
+>                  }
+>  
+>                  match self
+>                      .freeze_wait
+> -                    .wait_interruptible_timeout(&mut inner, jiffies)
+> +                    .wait_interruptible_timeout(&mut inner, timeout)
+>                  {
+>                      CondVarTimeoutResult::Signal { .. } => {
+>                          inner.is_frozen = IsFrozen::No;
+>                          return Err(ERESTARTSYS);
+>                      }
+> -                    CondVarTimeoutResult::Woken { jiffies: remaining } => {
+> -                        jiffies = remaining;
+> +                    CondVarTimeoutResult::Woken { remainder } => {
+> +                        timeout = remainder;
+>                      }
+>                      CondVarTimeoutResult::Timeout => {
+> -                        jiffies = 0;
+> +                        timeout = Delta::ZERO;
+>                      }
+>                  }
+>              }
+> diff --git a/rust/kernel/sync/condvar.rs b/rust/kernel/sync/condvar.rs
+> index 69d58dfbad7b..4be2c3bf8802 100644
+> --- a/rust/kernel/sync/condvar.rs
+> +++ b/rust/kernel/sync/condvar.rs
+> @@ -12,7 +12,10 @@
+>      task::{
+>          MAX_SCHEDULE_TIMEOUT, TASK_FREEZABLE, TASK_INTERRUPTIBLE, TASK_NORMAL, TASK_UNINTERRUPTIBLE,
+>      },
+> -    time::Jiffies,
+> +    time::{
+> +        Delta,
+> +        Jiffy, //
+> +    },
+>      types::Opaque,
+>  };
+>  use core::{marker::PhantomPinned, pin::Pin, ptr};
+> @@ -182,19 +185,29 @@ pub fn wait_interruptible_freezable<T: ?Sized, B: Backend>(
+>      /// Atomically releases the given lock (whose ownership is proven by the guard) and puts the
+>      /// thread to sleep. It wakes up when notified by [`CondVar::notify_one`] or
+>      /// [`CondVar::notify_all`], or when a timeout occurs, or when the thread receives a signal.
+> +    ///
+> +    /// A negative timeout is treated as zero.
+>      #[must_use = "wait_interruptible_timeout returns if a signal is pending, so the caller must check the return value"]
+>      pub fn wait_interruptible_timeout<T: ?Sized, B: Backend>(
+>          &self,
+>          guard: &mut Guard<'_, T, B>,
+> -        jiffies: Jiffies,
+> +        timeout: Delta<Jiffy>,
+>      ) -> CondVarTimeoutResult {
+> -        let jiffies = jiffies.try_into().unwrap_or(MAX_SCHEDULE_TIMEOUT);
+> -        let res = self.wait_internal(TASK_INTERRUPTIBLE, guard, jiffies);
+> +        let jiffies = timeout.as_jiffies();
+> +        let res = self.wait_internal(
+> +            TASK_INTERRUPTIBLE,
+> +            guard,
+> +            jiffies.clamp(0, MAX_SCHEDULE_TIMEOUT),
+> +        );
+>  
+> -        match (res as Jiffies, crate::current!().signal_pending()) {
+> -            (jiffies, true) => CondVarTimeoutResult::Signal { jiffies },
+> +        match (res, crate::current!().signal_pending()) {
+> +            (remainder, true) => CondVarTimeoutResult::Signal {
+> +                remainder: Delta::from_jiffies(remainder),
+> +            },
+>              (0, false) => CondVarTimeoutResult::Timeout,
+> -            (jiffies, false) => CondVarTimeoutResult::Woken { jiffies },
+> +            (remainder, false) => CondVarTimeoutResult::Woken {
+> +                remainder: Delta::from_jiffies(remainder),
+> +            },
+>          }
+>      }
+>  
+> @@ -248,11 +261,11 @@ pub enum CondVarTimeoutResult {
+>      /// Somebody woke us up.
+>      Woken {
+>          /// Remaining sleep duration.
+> -        jiffies: Jiffies,
+> +        remainder: Delta<Jiffy>,
+>      },
+>      /// A signal occurred.
+>      Signal {
+>          /// Remaining sleep duration.
+> -        jiffies: Jiffies,
+> +        remainder: Delta<Jiffy>,
+>      },
+>  }
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.43.0
+> 
