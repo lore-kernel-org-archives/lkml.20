@@ -1,98 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794913709;
-	b=mOVQf8A3Do3ILswoaCXwswJf2KYXHxZ2WdgMW9nNrQqNGcAoPJVNpRGhYeQ2vCWERHLZ
-	 9lTCTfSRBvvfvlR+4HivUp7v5CvTCGaV2Vv69qHhGLZr/xHHsJvk8PxhI46rmlfOg/6rL
-	 0+7dLavKvIb0SayMRGMEOIkbI4BCVx8gTCLJb6zVXHDT3+2/4J5GSEAtVeDK/jGxyogk4
-	 aZJpZUfeqpP/grdV/e3Rem+JXv4iVvM9nePQRr3S64ccYVF8VeY7fm7S5Rf7/lPSl6SH5
-	 B9BEcSMfsTeTQLbvtVqvey5+Gc4WFwFi1BFGaxnAbhMs1DYruiZd1f+qsEAjLE8fN0g==
+	b=w65V9esDXxpztFT4simh5JADPkcMc+fewQWsmE2PJGKEgnzrs4xqPifA0ekxUNaTBnoH
+	 PiO+qIC8rdapzFsFf5ti+T/HRneH34OhKTyuScgfX9rcyfsK9FG0teP45iogg9CDGd0eG
+	 0NkT1i/ammJWzL65BVXDvEL2WGDlVdodtRWMaa4jK9LTcPJxkmM0hWCXwv+E1Cs6LFzEH
+	 9Wnk82HKQPYIiz4i4+UphbRgHmNtOCfo0GmE5nPmgu17El43SEHwv8hZtt4+KuyUo3zVV
+	 LOievYgNZMHJ++BLNj95qjT/vBZH0muOdU1tOmZT5cq2lX47vju1xOsLtVbj/YZXLzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794913709;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=kLI25bkyEOpFVWxpFGa0Dc97choniDCAakGqUy11xdk=;
-	b=Qm0NtL9nSD4DD0y9nXWePILPRJn6EGxFmfLj/NkDIabSjZNcZ7zgjNMCF2cT791rocdj
-	 Es3B0h3svYA5HYVgQ4VVA92OKn9M7Iil9XF2JqCYgelTuJ8FrAutK6hKo+ERiYHNYmimX
-	 EnCLvOkTsscDJYQTyBwoLuU9PPh2En4B3ubdC75KuZkdYFc3MWIxuiGIDW1NJHa2xBsr/
-	 KZtXbvAecTZiTH1egzBcbIKU4cAuYzf10UlUNwg4US+KD+0U8RNCFoUj3lSo/rgblIxhQ
-	 HUlP4WitZB6smHptfr1rtZx9PQxWBtTM7Rebhjqi0499UZR0Ksu3RWPoGAjOSiy4qDg==
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
+	bh=bElf91F0TDGB0uVW6EDy7Ea2SeZyP2p1hq68BB9tv3M=;
+	b=r0vH+CrdkAKmg84oGrg6rVigtsjALWU4Xi2xf0QEbSkoB8r8o/+IiMlSZaujnGBYKDdH
+	 33uhfA2EbB4LMy7bf2Mk6rXbVY1yb0GCWMslqpXz8Ut30+GhkHXNk3b9rZbRWXWqyTC2/
+	 8RPkv4sSycF/gIwEXyNyKtMOZQCbknKSHu21CnijzVJCfhOKvdajhmxuHLBg0LXNH9QB8
+	 6uUhMX7wCT5zRWIOQrFEQSj1UKyYVg8w758tidDI+YNQ5Rm13Wn7jzvJsJUcBSjwiE+Cp
+	 gNW35zeuunRvM6V7tymMmzemLtqIHwExDE7eTvOVGLBs0t+OabQQ70Yy5an6vfnjYlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=heECBdo3;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=DowB7CRb;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0288606A31C;
-	Tue, 17 Nov 2026 11:08:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0288606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C4A606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:08:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31C4A606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=heECBdo3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794913706;
-	bh=oxvQViMU6UamivpQ1Wc/wZITpefIgLczFvQSjzV78bI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=heECBdo3wDplXuRnvnV0cnRaSqjQC4O0371jNkrw0g5rtXP6vayb2jwPbg7pQdpRH
-	 3Vvw81nX9fJ6wJuaiqoeOd5P7z+W+vEbktu2seaSXFJZu9UNCocZWUCyM9lHEeQYcC
-	 Fuc8ApGGeSkVKTKP7sCG6nIATe5hy2YxvnB2d011Ra1R7JlprbB239UAOlncHQxqfi
-	 dBDOvt2u2lkX29e+3YSBozN3N4/ovp4OAr4+cbdOXoLQZGxdb6S08HrjQLi+ebc9T+
-	 oUACaS1MV6Pn5LJz9IK9jgDE5iY+wbv80Ps1aLUmG75uGKQGj5NwGEu8UM/OdbHJIO
-	 7V/XYFh3lWc4w==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 409A117E04B2;
-	Tue, 17 Nov 2026 12:08:25 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Marc Zyngier <maz@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Ge Gordon <gordon.ge@bst.ai>, 
- BST Linux Kernel Upstream Group <bst-upstream@bstai.top>, 
- Jesper Nilsson <jesper.nilsson@axis.com>, 
- Lars Persson <lars.persson@axis.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- =?utf-8?q?Yu-Chun_Lin_=5B=E6=9E=97=E7=A5=90=E5=90=9B=5D?= <eleanor.lin@realtek.com>, 
- Heiko Stuebner <heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, 
- Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Michal Simek <michal.simek@amd.com>
-In-Reply-To: <20260523140242.586031-1-maz@kernel.org>
-References: <20260523140242.586031-1-maz@kernel.org>
-Subject: Re: (subset) [PATCH v3 00/17] arm64: Use EL2 virtual timer when
- running VHE
-Message-Id: <179491370519.165314.8991090307928183984.b4-ty@b4>
-Date: Tue, 17 Nov 2026 12:08:25 +0100
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=DowB7CRb
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id CFA9360DD4
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:08:25 +0100 (CET)
+Received: (qmail 22106 invoked by uid 990); 17 Nov 2026 11:08:25 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Tue, 17 Nov 2026 12:08:25 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: netdev@vger.kernel.org
+Cc: leonard@lausen.nl,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Shuah Khan <shuah@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in fib6_lookup()
+Date: Tue, 17 Nov 2026 11:08:10 +0000
+Message-ID: <20261117110813.9894-2-leonard@lausen.nl>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,27 +73,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -
+X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.99937) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -1.59937
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=vUMxaJE9CM9kOao/0IjJwCXP/HS6Q7+W3oTGXUJmYz8=;
+	b=DowB7CRbKriw+t/ovbD0hD6xHVK6kHKoydTbuiw+JtVrRiEO7RoQSuCHTRTjyeLmWiPVEEKrdn
+	1AmYSI5+3PBr8gamW3DC7C1q4Zp6VplsCrg9Ei/56dm/m0VmipQSBhBGtwlOVsG50gQDLKF79ENT
+	MyHgSXBRDKm+86/IaVpG56Wu0tgGyd7j6tjcaz8Pr+bhsOTcp0Zh5Gc99AxGgdge8hWAf4aP4yO4
+	8mRvLTPGqmOjNM75avlIGDJ9QkzJphHofFklTV8L/jxuXwImpQDDU2y4sB86dgPKjO1Lv4vOoEsf
+	EDks3TqS90ZrO1/MDe/E2MDHdiHV6DEx88L65biexhuOY8KzCw5Xd2vFidnU3b4bVvaJlYR5ZpUz
+	D/eXtEOWeqyvKIBJRCsQq7Iayzxf93lxd9vE6TDqP9ZbZQ5UOfHafrW6rvn1VKXBqXuYK5UKhJJ8
+	dkJw0fGFvjdtNnI9o/e5oasWtZ3sBiayBqUSKdnrSCDlxmWi4O+sNj0bMFhFsZ7UrRxmhflnuOKo
+	bnllFfKQ5vB70AqC0ystk0DqkaedX0ScNL4Lafre09XoDjm2ynRubaVu5Vs0WbDBOKOLojfkOWsi
+	lhnp5B5YWpFEPL3sCrXkWLtw13mAjnCUE4JH8Eo9JkLKvqtLLviuEDGWD16VtN33yvcQ5TzxKnER
+	k=
 
-On Sat, 23 May 2026 15:02:25 +0100, Marc Zyngier wrote:
-> This is the third version of the series initially posted at [1],
-> which
-> 
-> - updates the ACPI GTDT parsing to deal the v3 layout and the EL2
->   virtual timer,
-> - moves the architected timer driver to use it when running VHE,
-> - fixes a number of DTs to reflect the reality of the HW.
-> 
-> [...]
+This revision removes the cached-exception patch and its PMTU test, as
+requested. The series fixes the nftables regression introduced by
+1c32b24c234b and leaves dst-based prefix suppression unchanged. The
+cached-exception work is deferred to net-next after the fib6_lookup()
+fix is present there. Interface-group suppression also remains deferred.
 
-Applied to v7.4-next/dts64, thanks!
+Patch 1 makes fib6_lookup() honor suppress_prefixlength while preserving
+terminal reject results, including blackhole nexthop objects. Patch 2
+adds six checks to nft_fib.sh using its existing fixture.
 
-[11/17] arm64: dts: mediatek: Add EL2 virtual timer interrupt
-        commit: 0b3f2f7ff214827043a13549e1af6bd73f192768
+Changes since v3:
+- Drop the cached-exception fix and its PMTU regression case.
+- Remove the PMTU-only gateway and peer setup from the test fixture.
+- Renumber the remaining fix and test patches as a two-patch series.
 
-Cheers,
-Angelo
+V3 review:
+https://lore.kernel.org/netdev/20261117091340.GA581197@shredder/T/#t
 
+The rebuilt v7.4-rc2-based laptop kernel now contains the v4 series,
+without the deferred cached-exception fix. All six added selftest checks
+pass in normal and eight-second-delayed runs; both full runs exit 0.
+Twelve separate reject-route controls also pass. The changed source
+compiles without warnings and passes 17 focused ASan/UBSan callback
+checks. Automated kernel-log checks were unavailable. Target-net runtime
+and full W=1 config builds remain unchecked.
+
+OpenAI Codex assisted with investigation, reproduction, implementation,
+tests and descriptions. Prompts asked it to investigate VPN failures,
+simplify the series and address review feedback.
+
+Leonard Lausen (2):
+  ipv6: Honor suppress_prefixlength in fib6_lookup()
+  selftests: netfilter: cover IPv6 FIB prefix suppression
+
+ net/ipv6/fib6_rules.c                         |  6 ++
+ .../selftests/net/netfilter/nft_fib.sh        | 90 +++++++++++++++++++
+ 2 files changed, 96 insertions(+)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.55.0
 
