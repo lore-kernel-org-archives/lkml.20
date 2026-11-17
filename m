@@ -1,77 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.64.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916448;
-	b=xPArWpDhF32hyg4HuPkjIjx3eiHyLDgNezWicGKXz70uNAkZVDWobRzBVCyU81CEm/io
-	 yGUK1zBc1v80CA2By0dtk/0kfY5ZdxUPRqmZq6lS3BxTTPdRixjop07VNw54GrFoyn3if
-	 d6yuRqdmw2D62KiVYXK9K4mL1mDSXn9zHLTSa8sLu460w/UEkn+j6g8fqF3afExjYQ92m
-	 YfUSgmw9wUlkDKSY7BpkPVhYyA3SXT4wysGNSBA+TPVCxcYzMGNMEEo65xbgs4iBSsSFA
-	 u28tAnkI1FxgfI7Zr2Y72EqXyli+Y+sU+pASzeqAnKltnsErEtCPqatPQcre2oGHOVg==
+	t=1794916487;
+	b=5RYlkWAZ2xU/DNT/IMKvQ0URK/u+CiZBUcsf6x9TNq+0YKEtHGbQ01qQAsPRCzG3Lnpi
+	 R5zxBKLLU93Xlp8GgQzEZhd782Wg3jtzLBaGwq7RdIaSZNun21L3oH5LtBsE8ApnNPZAq
+	 PoZ6Py+2mcE2vFVSVHHQfSf9qRWQoju3p5gSqrDjK/j+V4ZlVMFFRsc6EYTcvJMxnfJwF
+	 j60YZX1swA9ankhrTVUhOMaDpRv1Y8/ZN0fbu17X7Mc91dq7xrXi25S0sfyG8dM51rYvx
+	 tp+J+dDA4iUg89QucmhgdzgDFteCIRF6Wfr8LbG8n5h8Zg+1cbXPRx3BuT1PdVvfflQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916448;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Info-Out:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:X-JNJ;
-	bh=P0xxoUs9j0P1CWGaxnGX6Bo+wyuRqKebG/yVs9MJHlY=;
-	b=sdKHjoNhfpaHQ5Ow+46pBe3T83TxgA91FWNbKlqNLtwYsIrAcF7Az6wS8VOd0GvTBRs3
-	 culL9nU8j6CQES3XZA1+mVyngxyu6Kaa+YUSPNZX6duJESo6yDsyzJJa8VTgIob7RxuCw
-	 IED3hoOMDgvCUVGtiZWqlGGs/xpZbj6ZHBTdWMRXbzber4KFiE8X2R9YmtOpkrBFmZHiU
-	 wJgLtV3IIm7dVuxTnPIJEScHh7o5h/lDq4UIQcpbgUwqHh0EUJb5Y9lArANOX5aYngyMm
-	 /l7xDsmFWn5oVOhB0drFTkpprAqNkg1gKT9uDQjDOvUsTajkMZvpwWotfmRvZAgRWng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916487;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=n9HR0jteZ7i3l47CGbAAeoGccO/M6Cb8YzdaapwoXGw=;
+	b=JvT4Wg3uJK5oEXOEMpbXhVY1M6cMOfzS/Je7O7X7YhU717Tvsv0rruiq1nIgRL/XE4D7
+	 Cyhe42UGakNQ9n2g54nP2S+4fSRnKdXPL93vhSUXcKoejEdTBMAtDoaC5/Iak6FyWBqWb
+	 utJn7rFRSn5SsyWMKEKFKQlZ/j3M/V2FFA3XczjzdkBZ/G3nJSzUT6VUA7amG3c3z8oRM
+	 VlY/AOSmojAn78IRli2JPrYd+Q9s30n8VOzRDoeUuEZc8yCx/A3PuI1C944rrdlKoRZla
+	 Uv1TMIDiQvq0STMNkRyE3gh8rtNdZyx0+lbYbrtyadZmEn3WtzFNNlR+F83ZPvr979g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=verdict.gg;
-	spf=pass smtp.mailfrom=verdict.gg;
-	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=IO4c26DH;
-	arc=none smtp.remote-ip=57.103.64.7
-Received: from outbound.pv.icloud.com (pv-2001k-snip4-4.eps.apple.com [57.103.64.7])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpRgQvSl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9D0606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:54:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F9D0606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44112606A330;
+	Tue, 17 Nov 2026 11:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=IO4c26DH
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id BED0F18003BA;
-	Tue, 17 Nov 2026 11:54:04 +0000 (UTC)
-X-ICL-RepId: 01a1e95b-6a21-7453-8695-5d61e638757a
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794916448; x=1826452448; bh=P0xxoUs9j0P1CWGaxnGX6Bo+wyuRqKebG/yVs9MJHlY=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=IO4c26DHkOV23xyXp+/IXaiWu6OJcUi03SUgaqpWGwAh5kYv2hf9hR5qWH3kB41sFjnvS+FRpuFnqk6g30BkuLX80j0eDRYDA79ehNZNq8bMoUcx7HzPCPXXzs24pY/GwtP0XEzBPP264jro+6rc7Ww2V36D0411dCOThJ2PPFpzyYld4/zvnkIO7VMcD0KuwPYoJ/dEPcslfbYILwdgDxgyPnoLVnEDIwNf3NFn1rNbQgLL0eJSXiVcAcQUKSIMkSLg4ONMZ4OuYLwttqevRsIi2Ib8G7boXHV7YyYTaIikeajH/1zP1aUixtwUKZFoLrFY5wn1TA1z5ojPwmfwEA==
-mail-alias-created-date: 1621344842221
-Received: from DelNac.mail.msk (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id 2C9A018000B8;
-	Tue, 17 Nov 2026 11:54:00 +0000 (UTC)
-From: Vladimir Vdovin <deliran@verdict.gg>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Aaron Conole <aconole@redhat.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
-	Ilya Maximets <i.maximets@ovn.org>
-Cc: Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dev@openvswitch.org,
-	linux-hardening@vger.kernel.org,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Vladimir Vdovin <deliran@verdict.gg>
-Subject: [PATCH nf-next v1 5/5] openvswitch: conntrack: warn about a zone above its limit without a lock
-Date: Tue, 17 Nov 2026 14:53:08 +0300
-Message-ID: <20261117115308.95134-6-deliran@verdict.gg>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261117115308.95134-1-deliran@verdict.gg>
-References: <20261117115308.95134-1-deliran@verdict.gg>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpRgQvSl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381281F000C4;
+	Tue, 17 Nov 2026 11:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794916486;
+	bh=n9HR0jteZ7i3l47CGbAAeoGccO/M6Cb8YzdaapwoXGw=;
+	h=Date:From:To:Cc:Subject;
+	b=OpRgQvSlXTSaSMjmxAFnas5BF1gXYcb77pO3YOboprkAVyMcVsSZ218Wc5dj5sav2
+	 vflQKPJckNGgGjt1pQAcK4ssPgTo3X5r3itqdaLitWm9tPbFuyznS2jzqR+VWw5ilI
+	 7Zbru7m/Xoj2TcMg5vnLBqDGvQiND5chH0Kvzu9pr7fGfEID3r5j8MJJPoESeYqwXa
+	 Cizu6lX5OTr7Yjzs0gG36zTsFxjdDPCx0O/QzuixKxdhyxOHZ+1LSP6+yoR08VV8YO
+	 GrfbNyioR+EyXOMmcY+bQkJR0dGS8Q2MSMhdSx/3Z5ri1Au/vu+t0GSA530AS0YpVW
+	 LSRfeesYYHMCA==
+Date: Tue, 17 Nov 2026 11:54:42 +0000
+From: Mark Brown <broonie@kernel.org>
+To: David Chinner <david@fromorbit.com>, Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org
+Cc: Chris Mason <mason@kernel.org>, Christian Brauner <brauner@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the xfs tree with the origin tree
+Message-ID: <avxAggF2dYl8eMSx@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,107 +58,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=JJQ2csKb c=1 sm=1 tr=0 ts=6afc405e
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=TH7meFVQux7_ahsOFuAA:9
-X-Proofpoint-GUID: tlQ7z3Qdkz-utRS8JQ5irt5Uum3hKtv6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfX6GilhJKgNguZ
- igc44ZHids+OApCaZbfrORCvrayqTTvSLL1osoyuHv/XmJGTz/TdnkcmbV0ZAre1KmBpTnVz2PW
- wKvl07bw8fbnYFFPDbJOKClTj9s0ZTK/3mIeTaWNa1IhcKBwdXEhMYkoxlh7tv/D5PcOzwnT1uc
- c0gk6THnT67R/0mQ2/cI59Pj67CTzCR9kVbNTWjCmR0F1SAza/NhjgBkziQXe0WV77EvtnTDatk
- jTLPj1HoH/au2VZEhj1t3AiixUjyTkzQkzgzUTrxPYXVzPfei24Jh7hJmDhfmaA2Nbiqa/afSgg
- J9QOOMPvteomTO8h1XXnShsQxObGsqcCJFZwp9IQmthcPRPtUQgRpBELZr4fco=
-X-Proofpoint-ORIG-GUID: tlQ7z3Qdkz-utRS8JQ5irt5Uum3hKtv6
-X-JNJ: AAAAAAABChmYh3zpw/IMiSEunOG8IUvP3o7hQ1CNIIe0ZowKDuRcc5rsyM72gkg/lsKI/G
- 9b+XzCieL1jVha5hyEl7Gjv5PJLPSXmKRXWOELkYGflu8IGY2uuRZCcSdgI4hy/1vXdv1+
- O2CffnQD91UygBXqQgHzdeGIG+bmOu/yoU1lE8Jf573gpj7T1OwF/GbmE6/3jK1En1PuXA
- xMk9zmPwtSTtwyCWsJKsGnpacADeomFtqgNEzZArY1tY+rj92boNR00kU5zgLjHu8xZ+b6
- ODL+871T3Y8QEzEQAXghbKXGmiZ62anKRYJFu4reE76mkDpVcTFssP0TDja4xeA1vR//ix
- POzYw/knuRrSt+B0wDiJ1dPj1oo8C0boQAlBCJqy1h3RxIy1D8aEm0rUeZYKwgdvmFGEmq
- LjUPmxLZASWaWtFUyAq3ZYKUwjX/ye3alHX0Nj5S9dlfGdKTWgVpXBRrrwVwEKZ+4EHGK9
- RV5VYyqd+znA49lsxSPhnwhXqmh4a0vjcCVgH0VcUQi1TdJBER/zjbszZC7C0RKNxkr4Nd
- 2L+g59yUuRRwzrlRwCxs008On12IojI55MxfCUPfFi6S9aH4Kti1NfDSpZwr4pC7JaqEhP
- R9jch6W1KK59v6oiAJ76oWuxHveikOgGOk8RY90RruutGjJzjago941/dgU3T0SWG+At+V
- 2o7faSd70JMURAzh6sowIbjQ+A3DSOyVwAzkUyeKwLlKd/pSsPROTEb+iKcXHVLvGlkGYt
- bsGOcqlJbppm9t7xQR/zP8/xKaIBBNcmgKZWyI7YXoCPTqaSH8dR6reXN34sKQwSSfnSyf
- XXD7WoM7AKas3CK0S2Yg0tVR0uPSbEPG/Fw/VrXroZ09v/VIvgd1WSlSEgj4r2GY7G4qDi
- Vd3NUnjUaKRghcoWj4v2BXMNfhW0FYejemJJ7/yQ==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2MrhXHFioS1OTaqV"
+Content-Disposition: inline
 
-ovs_ct_commit() warns through net_warn_ratelimited() for every new
-connection a zone above its limit refuses. The rate limiting itself
-costs: every call serializes on the shared ratelimit state, and with
-a zone at its limit under flood that is every rx cpu for every packet.
 
-Keep one timestamp per netns instead: a caller that finds it in the
-future returns at once, the first one past it moves it a second ahead
-and warns. Two cpus racing past it in the same jiffy may both warn,
-which is harmless, and nothing is serialized.
+--2MrhXHFioS1OTaqV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
----
- net/openvswitch/conntrack.c | 20 +++++++++++++++++---
- net/openvswitch/datapath.h  |  1 +
- 2 files changed, 18 insertions(+), 3 deletions(-)
+Hi all,
 
-diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index e78a62cec051..ee90af14ac81 100644
---- a/net/openvswitch/conntrack.c
-+++ b/net/openvswitch/conntrack.c
-@@ -936,6 +936,21 @@ static u32 ct_limit_get(const struct ovs_ct_limit_info *info, u16 zone)
- 	return info->default_limit;
- }
- 
-+/* At most one warning per second. net_warn_ratelimited() would do, but it
-+ * serializes its callers on the ratelimit state, and when a zone is above
-+ * its limit every rx cpu is a caller for every packet.
-+ */
-+static void ovs_ct_limit_warn(struct net *net, u16 zone)
-+{
-+	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
-+
-+	if (time_before(jiffies, READ_ONCE(ovs_net->ct_limit_warn_next)))
-+		return;
-+
-+	WRITE_ONCE(ovs_net->ct_limit_warn_next, jiffies + HZ);
-+	pr_warn("openvswitch: zone: %u exceeds conntrack limit\n", zone);
-+}
-+
- static int ovs_ct_check_limit(struct net *net,
- 			      const struct sk_buff *skb,
- 			      const struct ovs_conntrack_info *info)
-@@ -999,9 +1014,7 @@ static int ovs_ct_commit(struct net *net, struct sw_flow_key *key,
- 		if (!nf_ct_is_confirmed(ct)) {
- 			err = ovs_ct_check_limit(net, skb, info);
- 			if (err) {
--				net_warn_ratelimited("openvswitch: zone: %u "
--					"exceeds conntrack limit\n",
--					info->zone.id);
-+				ovs_ct_limit_warn(net, info->zone.id);
- 				return err;
- 			}
- 		}
-@@ -1638,6 +1651,7 @@ static int ovs_ct_limit_init(struct net *net, struct ovs_net *ovs_net)
- 		pr_err("openvswitch: failed to init nf_conncount %d\n", err);
- 		return err;
- 	}
-+	ovs_net->ct_limit_warn_next = jiffies;
- 	rcu_assign_pointer(ovs_net->ct_limit_info, info);
- 	return 0;
- }
-diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
-index 7a7afaeceee5..9c6a5b5a8939 100644
---- a/net/openvswitch/datapath.h
-+++ b/net/openvswitch/datapath.h
-@@ -177,6 +177,7 @@ struct ovs_net {
- #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
- 	struct ovs_ct_limit_info __rcu *ct_limit_info;
- 	struct ovs_ct_limit_info *ct_limit_exit_data;
-+	unsigned long ct_limit_warn_next;
- #endif
- 	bool xt_label;
- };
--- 
-2.56.0
+Today's linux-next merge of the xfs tree got a conflict in:
 
+  fs/xfs/xfs_file.c
+
+between commit:
+
+  9e8fc16dc6b47 ("iomap: pass iomap_iter_next_fn directly instead of struct=
+ iomap_ops")
+
+=66rom the origin tree and commit:
+
+  03cbbd80a3e70 ("xfs: restart faults racing with realtime flag changes")
+
+=66rom the xfs tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc fs/xfs/xfs_file.c
+index d61ea8e2c8e40,8070a07e601f5..0000000000000
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@@ -1980,11 -2039,22 +2040,22 @@@ __xfs_write_fault
+  		lock_mode =3D XFS_MMAPLOCK_EXCL;
+  	}
+ =20
+- 	if (IS_DAX(inode))
++ 	/*
++ 	 * The caller picked the zoned or the regular path with no lock held.
++ 	 * The realtime flag cannot change under the MMAPLOCK, so look at it
++ 	 * again, and start over if it has changed.
++ 	 */
++ 	if (xfs_is_zoned_inode(ip) !=3D !!ac) {
++ 		xfs_warn_ratelimited(ip->i_mount,
++ 			"RT flag modifying during page fault for inode 0x%llx.",
++ 			inode->i_ino);
++ 		ret =3D VM_FAULT_NOPAGE;
++ 	} else if (IS_DAX(inode)) {
+  		ret =3D xfs_dax_fault_locked(vmf, order, true);
+- 	else
++ 	} else {
+ -		ret =3D iomap_page_mkwrite(vmf, &xfs_buffered_write_iomap_ops,
+ +		ret =3D iomap_page_mkwrite(vmf, xfs_buffered_write_iomap_next,
+  				ac);
++ 	}
+  	xfs_iunlock(ip, lock_mode);
+ =20
+  	sb_end_pagefault(inode->i_sb);
+
+--2MrhXHFioS1OTaqV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8QIEACgkQJNaLcl1U
+h9CSbQf3QB4RrbZT+Eo+3S5JndWSXTiha+TRbQ9Y3ftMgqAskjcWjjR0WFAi1+Q0
+x+huY6ndgJVRNrdE5dFx3/Q07H73A+++RPyECs+SDOP0sSOOQeBxst+CS9VM3Bi+
+gLdM26dEgbQNuv41H3WmByazoKzCF61VUGPeRmMiSEE+SmscXxeplF9DdTV/zfCh
+VcZnhODwAOnwDRKA5Yt1uoqdrq8j2qp3/CRNFcImcE1oqI5PGsBJ4Di1Gu7XRTGf
+yXNcWMVtcfSLu3YJZMpB0t0WOZg1XfNrL4GUmKn6SiepdlRffUTIE6im1PIjZrNs
+39xN1ZixR72em8pIxzy8313nKOAV
+=V56E
+-----END PGP SIGNATURE-----
+
+--2MrhXHFioS1OTaqV--
