@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931068;
-	b=VbAglL+sEy8bvmHJaEi3kgWHIwS3TiaC3jkYzn8ack7Wd/3+rFVbiI5jb18YvoW599Zc
-	 rV8T+s1JSXAJ78cl5nI4j3wZ5BrB+4jZHIIU+1tGIWNGiriam21hVDouBQ9sMDRWtkqLM
-	 +YXmtYi49hLT7spoveqyAyy+b8qDAGrmUK2KRqu76kB3kIbAErQSCfpPm6X3zGEAk9mJB
-	 1gchuYpJiCoJqgdQoNjaO0EABH42q8dJb+86fYWmaAMj2GDLr6Lct73XeQ9DOiqdZ0kya
-	 dDgD6RDPGL0Tq/uLDI/xFMnDogwpsRX5JhcNgSdqjRZSVQ3GhMW39tydKv5joSoYNbw==
+	t=1794931105;
+	b=C058qGyckZJbz/vOsEhlTJS6oX+yWFqwmrd1Ps75RHrWPZTkKFpn7UIRTuNgiAngT8rg
+	 rJqE+SVth6xbEHrHcVVkMFaFFiFLbq4ry1bp3YfKf9C1DofA5Dcxu6PyYFmAtfKb+lApr
+	 DiFZB2G3LT6cPJiRsjdtQTy6JNWOTzawPfAXPXDyPZMn3z5qHd/0DP93AW1J7OyffHylI
+	 E0Ld03QpNK2Eh3eZLuHvbFacl53cxOGBxvhtAcezmo3GeJ9WFYF+r0P1p2KJhaHwHM/6N
+	 iRqff9Dl/05WwUlHO/KSVS23xAogbEbKD6bKhJAN62okHc9VFXVeDcJAg4e0iCwI0RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931068;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Uwqp7Bz8a5D3/B2xkBHbhP2Bh4hQYQFs0RxyAqY1Gn8=;
-	b=tptiplgsDTOETAHBNaOLXsBguh+Iuv8cOmn+/symZAsvPe8wClf8/AUsco+mm937xEE7
-	 cSu8t0vzgTaHFclqr8GBnwL/ziQyilnPdaFF0k57OzRFITx4F5KhJ05p8HcGRApETYqi9
-	 rqMU/c5D8MtiGUB1qwskzElDPg65U4h5a+9guzi0xcqzmZ+qI7koCynqk2GOMJ/bGQDld
-	 McwHT5zAXgNfgo8Sxkj5yCFpiiD1ZDeKdbXThs/XkDF+m9m+O3nG/t/iiCvf90cC+6kOV
-	 Jwc+mg0+qvM9bnmiwFKjUs78v7FcK4+bTScOKjqGvDhDFJvQVEhRq8XfVam4LkiJB2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931105;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=aCpl/gwZ9pA2lFvW6F4A3IwkXPu9MrJE3LgToB0jW/M=;
+	b=ykdn8JQRAr2PfWQBi1zUxkoPUB00PYNQpellyU7fEg/FDuSAIc9VcBis2RM0ht0waYJ5
+	 7p7GFiovr/z/sWiUt6doh2z188I1me5u4rXAdcsjhE6T9FkkbxCIr/16HJNohnx2AVX7g
+	 Gymw1OBxQ1dZF1n8GRKLi5BODDE3L+rQAgodV2yjZI3IiulW2yhZp7449TRKMrA+uxhJj
+	 s8vVN0PpXbDZUqq2CLugR5z3ZDH1yYfZT4yBZHu8Qexd6W61+K97VtEb3K2RoY1Ywxo+9
+	 zxdrBbOYIxSoHJ0xRNx7wdvaxV2qXed7S2pljzSKQqN4u77NlfOG5c4XIhyNfqoOGNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbPN6lW5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEmn4Eo+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4AB606A333;
-	Tue, 17 Nov 2026 15:57:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0505E606A32C;
+	Tue, 17 Nov 2026 15:58:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbPN6lW5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AB91F000CD;
-	Tue, 17 Nov 2026 15:57:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEmn4Eo+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9171F000C4;
+	Tue, 17 Nov 2026 15:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794931068;
-	bh=Uwqp7Bz8a5D3/B2xkBHbhP2Bh4hQYQFs0RxyAqY1Gn8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mbPN6lW5pPEr4cJXZEtjlFj60bN5jIgtTlutNzTQ1zegHmrDymI0BNP4mi7+9R4mc
-	 sasc76g3RoAGWQHT2KsHJMcRqJsK4sSOjgyS/XjUWe9RaRzlHvuaIXD6pdxh10Fknm
-	 /P7Bk82WMlpjJJskoIO8BCK3OsN4Tuy8VUesIM4sUDiPiQY/5ySP4Dgns4S1RGqdGu
-	 pi2fKRMad1FIGXmw/DnnsAFujrA1z0XxqmVfK2sOKqc1ft0anDzZdtR56dJsugYLfo
-	 mwo+ah7cRbuWR+86ZUfIA+D5+Ke+9LLnx492RLoLcXWRGLdpkyMntiz+aUrU/935Uz
-	 ZfC+AwK9T71SQ==
-From: netdev-bot+sinfo@kernel.org
-To: Joe Damato <joe@dama.to>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-kernel@vger.kernel.org, daniel.machon@microchip.com
-Subject: 
- Re: [PATCH net-next v2 0/5] net/mlx4: TX helpers and deferred doorbell fix
-Date: Tue, 17 Nov 2026 15:57:47 +0000
-Message-ID: <179493106742.3291.11434436383058043225@kernel.org>
-In-Reply-To: <20261117155353.2250540-1-joe@dama.to>
-References: <20261117155353.2250540-1-joe@dama.to>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1794931104;
+	bh=aCpl/gwZ9pA2lFvW6F4A3IwkXPu9MrJE3LgToB0jW/M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=aEmn4Eo+bkZxGaV+lsSCVHtdjJdho+25ibHcvAR5KacETiRdjmmBlZcyPh5SVEmso
+	 iAAojLwE018WQTC6zWnXNnm3BjUP+Qj16PVzEEgqJ2OGXteeOW3/Fbft6sEvcWaOO+
+	 J0A3kjT2y7dgyru/OBf4QfDCU6FiKMZ6MNESL0ZAF0ykDnUcac/ZIHRyxDx7/aFyfD
+	 rIAges5AafkwvzPrJbsqnwpbKsyG5BzCjVLXndDhNmA4OVGvlgm/453GnenVXk0DbO
+	 Go4nxAi/GSiKP5NBHo6kxd381znY35h+HOl/cscqEILWflsS6iFDa5LnJDqU/VbLn3
+	 0kyJes6IlY0vQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Tejun Heo <tj@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+ Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org, 
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261111215058.1837351-1-shakeel.butt@linux.dev>
+References: <20261111215058.1837351-1-shakeel.butt@linux.dev>
+Subject: Re: [PATCH v4] kernfs: allocate inodes and dentry outside
+ kernfs_rwsem
+Message-Id: <20261117-osten-renitent-gasheizung-276fafa42fab@brauner>
+Date: Tue, 17 Nov 2026 16:58:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,22 +61,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-04696
 
-Hi!
+On Wed, 11 Nov 2026 13:50:57 -0800, Shakeel Butt wrote:
+> In the Meta fleet, on 6.16 with the kernfs changes from 7.4 backported,
+> we still see long cgroupfs stalls:
+> 
+> - oomd and below waited 72 seconds in kernfs_fop_readdir() while an out
+>   of memory container created cgroups.  They resumed when the kernel OOM
+>   killer killed the container's workload.
+> 
+> [...]
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Applied to the vfs-7.5.directory branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.directory branch should appear in linux-next soon.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
--- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.directory
+
+[1/1] kernfs: allocate inodes and dentry outside kernfs_rwsem
+      https://git.kernel.org/vfs/vfs/c/5c1ca763748b
+
