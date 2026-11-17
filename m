@@ -1,93 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887390;
-	b=EVgbTft9UXB24JxOFx4/s0fqq9l0/ZZzBcwzv3DIEUI/TWewypApUp2bUjLYZxy/tfaN
-	 pKdDBSpsw4T9briFKC0JRAHMbiIaCU5VZkzIqwL0Tk/CQmmc//KH7OZ1DQO2eficOi2ms
-	 D2EhcQALABHwEebKWaPdFBwHhj/7wvjpyo0CrIj3ja+zwZtA0N9H9lKXlWNg93eu/5Gj0
-	 /NrPhLpzCsoo4ZtCHcl/HEZYY2cFMUmxJH5bH6FD+MpWVVrPbnvtUfiC75nuf2wHN5wjH
-	 zUG/AT2uvcVsx/EDCXbQ4XtYE5ZbliDnhsSFz+CoSMLW49C20k2fRY6EH6bxKIWg89A==
+	t=1794887402;
+	b=zCip3SgVo9ikmujNQE1hVjfI5MwvoMuUVGJJ8aNVGDU/0Z0fjtrhaaIZj4yWlbUToLxZ
+	 SOB6MltIzoEVkYqG8+EYs2mvzLadP7teJLK++rr+vzAuJhyfcoyufUzp0qVdAdxX+1Ucx
+	 SAIrNtPfvvKM5yUkTXN5MZd2p6vOD/y8ybm2OqKFZ9Y4kfOTZ9LeZWy8mif+iGJaCo2RJ
+	 S45VvYwP1aQ0eMIBQAVVUGhbaLvfE+vRrquAzCMTQHz+ljPJwdPRS0ppk89vzO9G6Ij30
+	 Jspf4W0Jl3zLsh+W30o3IBK9Bw/HmTommZilQDVAOtfVfQcyYTQHOO7rhFoQVGy6haA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887390;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=RRfNWo7QpY2x+rpM47udJSSCiW+Ce4+mjWwNqpYTpZQ=;
-	b=kkbXeVd67BFsf0QdN1xJ9qOdCdXAW7cruzd30sMWan/SeORoifsqBnNGXMPzjvywsRC1
-	 DseBEFml6gUEvFyvvoFQU45sdWEOAKCfbUQ1M6K0Gr96EzDnk8K57npaWhd/hGuY+DQ2K
-	 fKuTdlZrhoykewWzfi03ao82uA1nkER3IjTtpeNaboyoxKQZ/++JtES3pnp83NR7K0Mk9
-	 AVf0a/kriWk92S99gBcLqmYLpCm7P3/zmVKPcgNzlzK26gfB/8BjntASPFrh2zJvnJN36
-	 WWG1R2+7HTKplTbtCoYg3Z+ouPRE6h+4PjOBgtR9UrgNfs04QCtwTMPKyumxcj5uXpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887402;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VjhI9txFfRTko2BSCtlm1pUp3KaQ41pWXwKSOhoN710=;
+	b=TDhnVPL/Ye2nc+Nlx0qD6DgXrGI+3WTRu0krQU0ycs4w45YcoBbbmVTUkniQaVVZY/S1
+	 3a+BSX4ytWgH6/WML3d/R1ZgGQwfgAD5AlpkiaRbKFMjxr6Y6QcfEzbHzxwCk1Ese1rRY
+	 iiljUJoCShy6Wa3+JHHQZAFECwAqB6uuuNUaVHSA4lAkXG7R1Lfj/9zKcdkEuyvvruhB9
+	 k8dvhMFkGV0T6/AipxpzdNjTntMZlLHkU5nmudKaZ6k4Wu20KAjbgCyRu5qRlGCuwZczK
+	 p9H+pPmrivlTZE+sN+nHTXAuRuLJ9ENaZskDcCKcwM8RmDdZmCYK29cxc6vu/ACWzGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=McDxFBhB;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L9qflDvY;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lKWnOCzl;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78051606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78051606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E48606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:50:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E48606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=McDxFBhB
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67db0791748so2265317d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:49:50 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L9qflDvY;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lKWnOCzl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794887400;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VjhI9txFfRTko2BSCtlm1pUp3KaQ41pWXwKSOhoN710=;
+	b=L9qflDvYoqsC+GEzWadd+dnqFzmoBOodJA5qmZuzbUKY3rUb7au5RNi4ydF7H3TdDBBPLR
+	+d8G18dnfwG/jTNN+OU6HuYBlYHiznGlgmI2QVzluSaWVW74G1vRRn7grRiPXlvUjFjKea
+	PyOEsNkDTffWtqS1mT3Y0hf3lgM0E0s=
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-359-03TwfCLaMmqMgh64C3d-9g-1; Mon, 16 Nov 2026 22:49:59 -0500
+X-MC-Unique: 03TwfCLaMmqMgh64C3d-9g-1
+X-Mimecast-MFC-AGG-ID: 03TwfCLaMmqMgh64C3d-9g_1794887398
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a0522cdaf3so2932710b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:49:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794887389; x=1795492189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RRfNWo7QpY2x+rpM47udJSSCiW+Ce4+mjWwNqpYTpZQ=;
-        b=McDxFBhB6Log5D5VyjNDBUQFQ4SUCCG6L0Uc1yzkukzzhDtE3m9iEwIuh182cb8hKG
-         p7ufeb57SrxlCttBBNFhkP3ia4e2o+rGrMNv8tsSJaD0X0RYUIKNjy/KtJVccbV1B2BT
-         V2s728GkipBMEYF78J2/tsgxmbFx32stZUae6P5uxLNhZhlYudP0SgIo1ExyRpV3lAFu
-         +YaVgkISbgQ+oyXdJTmd+XZ4NrKbv+NiwnBff9XUi11n6btgX0HDN6mLrVPGmnCm0tXp
-         BKtAiFZYF+/zhBZebn5oYwDPW1EqKYhQuQg++Dl5dYItQtltmwEHoR+4SRy+m+e0i7SJ
-         VvWA==
+        d=redhat.com; s=google; t=1794887398; x=1795492198; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VjhI9txFfRTko2BSCtlm1pUp3KaQ41pWXwKSOhoN710=;
+        b=lKWnOCzltOzTyi+B8xeT4fz208Yu7Wpr6UEoVGtsahp/MoRpS58E6g1CcL1Ryu7wCJ
+         VaD12Ptj5knpDIWos+grkfZfFgA1G8CfGorToQYqyIJZbAf+uyuCS5gMKIcwL5z1g66k
+         bsK0O92n6PPtTJhJpa1LOLULz47MXG1S9V/8Km140VqIRYQb2X7yGWw3filOZbf/ylwH
+         b0tjGMzuVhjPmSJXtQ1QfPp26sKD030sfhag/k1CtdZlP8XLSvqTfYLqvpohZmD5VTbe
+         lCY9vTO28/eD/0pWGNL5vF7f3GGclR/hVNU5emKHZthF7Lt7pVfB8LLjx1pACwerKpO3
+         gFWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794887389; x=1795492189;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794887398; x=1795492198;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RRfNWo7QpY2x+rpM47udJSSCiW+Ce4+mjWwNqpYTpZQ=;
-        b=ctGW0b8t5NvYndhROj/q55KVa3N2LtIglWkLT1bGB0nXc1jRNpW0sXu8DAAJCOnfD0
-         lJ184V7ea51cUr+6qsIkuG3o5gArhT0ObzURu+NwjFLzT+KjkU9pv3aFXz0kT+xw7AoZ
-         U4AX08LQ9uM22OB5ISQT0eJvWpGIek+4zG3SBRRod+5oT+RXqjqqfVg6sDymjuHoEkpJ
-         LwsxaKwGv6rclZQyTRX45OaespiV/xMeMhERL8cs8Mku+tBaoYZuq0AvyLqtwVHbZcXz
-         SdoiwRwprjt6iPxcgUxO0/U1ovoQYi9th7R9BU1pR6LJjKxwjT6KuFOYwqgotUZaehml
-         aCsg==
-X-Gm-Message-State: APuU4Z+bfAozJsWMct545bey5TQWGcDsjMIvVGD8Pvj/24UnAY1BhZdk
-	McMl1SodQeSMw8K+yUOxF32DvZdR1QhWy8maZhu9Px9uWmyPnpzxIaJ3
-X-Gm-Gg: AZFdTZfIe5qvltobu2mb3OQi+foB67MZ+BispeCXCN/mrP0icpxeIIw17igbgLntSS0
-	sF4jPAIyOsURgPCAVlMPGLC8B4DkW/lCH1XCRo1x7jJ5XGXgIn8ofcKE3x5jYOk3Etrrv8B2fmi
-	ZcYDQ4oX1Mpvumo/eKAk++XVf7AnIclqiDsNFzH/2E91Oa7dZNAjvWa3I48Vb/vuzZwGavCpJPE
-	qvLQJ6Ab4PtpH4vvnyS/2Cok44TjvFGYOgl2VTFffazQrPaq4k+muABa37KrFKnXcEHokwikGng
-	4JJ1vvCFvd/UohBxaIGLHYZ+RuNhYa1mDUmuH+GSrtdjkoADZU6/QalK6zJUek8/FIJkP1BnTyR
-	ei/WNw+7V4EN7IToZXOOvaNZtyvrmssTS84aNJTwiM9emtLG/cC5plqZ3BQmFFA5mXIKZ4h/r1Z
-	0c7yLuQsmrWIfqqowEEwhg71gCfguRdlaGJfkkSh9EYWQIscBUarEaUU5AelZYWzpjfokJe8bLS
-	zofiFHsD0xiy7aqA1aq3aL8xP/GrpbgBXXTJHfjccI69Em4QaDtbgZ/KNBo4SoXYwZ+An7gJ0BN
-	31wf8H6hr7I5onXKrf9dFxXZEzHvsTgt9zolQZT5iMHd2SizlAo94Z9JJ0oYAiHpYNvS7KyYw13
-	LhblMyTYJKPJqnPwYl+8bqkTRkdOB4I73RPRt1NH0wgJqkU9Q2vLx/GQP0bWYWJu84LmS69gjVM
-	L76qdOFLvghXIgsMU78oIqs5IAHvqys4zPy/7sPuaATmgS3m11aBKkiDUvfCY6jj9D6YPhJQB9X
-	kpSqrqsI5PVcCIhW58=
-X-Received: by 2002:a53:c0c6:0:b0:679:b50e:9a with SMTP id 956f58d0204a3-67d897d8ed6mr5566347d50.108.1794887389272;
-        Mon, 16 Nov 2026 19:49:49 -0800 (PST)
-Received: from localhost.localdomain (104-12-105-135.lightspeed.miamfl.sbcglobal.net. [104.12.105.135])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec306904sm15108597b3.43.2026.11.16.19.49.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 19:49:48 -0800 (PST)
-From: Jason Perlow <jperlow@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Jason Perlow <jperlow@gmail.com>
-Subject: [PATCH RESEND] Bluetooth: btbcm: Add entries for BCM4364B3 UART Bluetooth
-Date: Mon, 16 Nov 2026 22:49:47 -0500
-Message-ID: <20261117034947.14803-1-jperlow@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=VjhI9txFfRTko2BSCtlm1pUp3KaQ41pWXwKSOhoN710=;
+        b=ZJbrWbACPEwvzaKOQO5/rf9LEjY/bIZhoyeZwHUsc7woF2jOixaUkF4h1HzOt/tBT4
+         GOQljYu88fWH4Wz706zwEX2xAX6ff5ckntauhldsZV34Bk7GJUIEJx3//WQOoG6RY930
+         icInlnVCVHhuJ1Cemzqgd4jdTaCBxLO8zjDrhLIwGuwa2ucDVix6PGc2BwrbO0VDzMC2
+         eRzfnbXPJKIt/COCAs8R2tiYKR75TEwcGLlNpkD+Gh0gb/TdtkFdJ0TMYV9ibCu6Sdq/
+         XOyAVQ3UjCdgQ+pL65NF/gOQpwnvgYGKeO7BizkgMUIGrAamnbdGW5kWEfYBhUJNyWOo
+         DNMQ==
+X-Forwarded-Encrypted: i=1; AL+hErGYWB6KfGerNz3bXuydwfVlglPi7iZVoG2IMFOH9R+8BkEYFWQFYtoaiOT3R6/T6bDyl90p01tRR+2udnI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8v2FMp8xW6XC5Ap2+0SCO7VAvi7IA19Abqd9X8Z/sVY+pCcUO
+	MZvuqtnIOo4iPATso4jvAVXYhY1xbs7R4jEQIbrJKxWUeKE37+JKED7Th+J13R8v6U9wuf0GvYS
+	7lKaZike2COVib/DBToKNJ/pxpsnTWBUftxmxJrvecYwje/a6uUgQ3ocSdkc9mFbG3Q==
+X-Gm-Gg: AYBFou3d0jZx3HOkk5lyG6/ty+hlUToCkpT4nswtWFnOEsud95Dk5t6gXBMCVcD78JB
+	ZSZVp4deFXE+xHDGyGTup/fCnySzPrUx8yn/nIFsxI2BuZdpym4eAKZwkN3Rw67QAapZEKmlfWD
+	Bjdp8G9A1W4n9ZIndMPuZFjnAWt9k99x0Pv8eJEw6OkgLsdOsAZBc0o6TlMh7mmxCnQAwr5nob7
+	jJIQqMps0Ee8KHK+u//G3hYxPNQbVsSihJWZbhLkEQjZq3Fukcs1uwXJhz2a+u7Qd4U6xCxUIwI
+	Vqb5FMXBUGFJMiNaZ+SjH8LoMnIqgKmtqVxQcBwgZBOUGTIQfckYXlNIZMsATxyAC9NHoLfgVW5
+	lfW9M17knNtcOsejald22mRAG7stAiUfp7sqiakOJj9yZiSa1q0R+ITydqAGx85trvwKhURrhIw
+	SXolhk7SMVvucs/Kg=
+X-Received: by 2002:a05:6a00:340f:b0:857:7317:cff5 with SMTP id d2e1a72fcca58-8beb6197550mr10516411b3a.22.1794887397487;
+        Mon, 16 Nov 2026 19:49:57 -0800 (PST)
+X-Received: by 2002:a05:6a00:340f:b0:857:7317:cff5 with SMTP id d2e1a72fcca58-8beb6197550mr10516380b3a.22.1794887396928;
+        Mon, 16 Nov 2026 19:49:56 -0800 (PST)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcc68csm4430596b3a.8.2026.11.16.19.49.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 19:49:56 -0800 (PST)
+Message-ID: <cc2d1a43-d8be-4ed0-ac96-30b326b67280@redhat.com>
+Date: Tue, 17 Nov 2026 13:49:48 +1000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,47 +111,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource
+ that supports it
+To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
+ ben.horgan@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
+ zengheng4@huawei.com, tan.shaopeng@jp.fujitsu.com, jic23@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
+ <20261111081316.3828283-3-ruanjinjie@huawei.com>
+ <a783b375-7c27-4c91-b40e-7e615d33bc5b@redhat.com>
+ <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The BCM4364B3 combo chip on Apple T2 Macs, e.g. the MacBookPro16,1, has a
-UART Bluetooth controller that reports LMP subversion 0x3032 (001.016.050)
-on some units and 0x305b (001.016.091) on others.  Neither has an entry in
-bcm_uart_subver_table, so the controller is logged without a name:
+Hi Jinjie,
 
-  Bluetooth: hci0: BCM4364B3 Trinidad Olympic GEN (MFG)
-  Bluetooth: hci0: BCM (001.016.091) build 0115
+On 11/17/26 1:31 PM, Jinjie Ruan wrote:
+> 在 2026/11/13 7:42, Gavin Shan 写道:
+>> On 11/11/26 6:13 PM, Jinjie Ruan wrote:
+>>> resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
+>>> requested, even one that has no MPAM cache controls. Mounting resctrl
+>>> with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
+>>> the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
+>>> its CLOSID count at the number of PARTIDs. Control groups in the upper
+>>> half then map to PARTIDs beyond mpam_partid_max, which index past the
+>>> configuration and monitor arrays and program out of range PARTIDs into
+>>> the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
+>>> 2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
+>>> disabled.
+>>>
+>>> Do not enable CDP when a resource cannot allocate or is not CDP capable,
+>>> as x86 does, so the mount fails instead. Only the enable path is checked,
+>>> since unmount disables CDP on both cache levels to restore the MBA
+>>> control.
+>>>
+>>> A system where only MBA can allocate, or that only has monitors, now
+>>> fails a mount with CDP as well: CDP hides the MBA control because
+>>> mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
+>>>
+>>> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
+>>> Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-
+>>> aa2c-3c90fab5853d
+>>> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>>> Cc: <stable@vger.kernel.org> # 7.1+
+>>> ---
+>>>    drivers/resctrl/mpam_resctrl.c | 4 ++++
+>>>    1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/
+>>> mpam_resctrl.c
+>>> index 573617ba09df..afa3c084c475 100644
+>>> --- a/drivers/resctrl/mpam_resctrl.c
+>>> +++ b/drivers/resctrl/mpam_resctrl.c
+>>> @@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum
+>>> resctrl_res_level rid, bool enable)
+>>>        if (enable && mpam_partid_max < 1)
+>>>            return -EINVAL;
+>>>    +    if (enable && (!
+>>> mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
+>>> +               !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
+>>> +        return -EINVAL;
+>>> +
+>>
+>> x86 only checks 'cdp_capable', so this check isn't exactly same as to
+>> what's
+>> done on x86, as claimed in the commit log?
+> 
+> Sorry, the commit message is somewhat misleading and need updated.
+> 
+> In my opinion, CDP is a feature related to resource allocation, and it
+> is always reasonable to check alloc_capable.
 
-and the firmware lookup only tries the generic "brcm/BCM.hcd".
+Making sense, with the commit log improved:
 
-Add both subversions so the controller is named and its firmware is looked
-up as "brcm/BCM4364B3.hcd" first.  Tested on two MacBookPro16,1 with a
-v7.4-rc3 based kernel carrying an equivalent change, one reporting 0x3032
-and one reporting 0x305b.  They now log:
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
-  Bluetooth: hci0: BCM4364B3 (001.016.050) build 0082
-  Bluetooth: hci0: BCM4364B3 (001.016.091) build 0115
+> 
+> Best regards,
+> Jinjie
+> 
+>>
+>> int resctrl_arch_set_cdp_enabled(enum resctrl_res_level l, bool enable)
+>> {
+>>          struct rdt_hw_resource *hw_res = &rdt_resources_all[l];
+>>
+>>          if (!hw_res->r_resctrl.cdp_capable)
+>>                  return -EINVAL;
+>>
+>>          :
+>> }
+>>
+>>
+>>>        /*
+>>>         * resctrl_arch_set_cdp_enabled() is only called with enable set to
+>>>         * false on error and unmount.
+>>
 
-Signed-off-by: Jason Perlow <jperlow@gmail.com>
----
-Resend: the first copy was line-wrapped by my mail client and did not apply.
-This one is sent with git send-email. No other changes.
-
- drivers/bluetooth/btbcm.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 065536d4ec..92ba7aeac3 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -519,6 +519,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
- 	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
- 	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
- 	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
-+	{ 0x3032, "BCM4364B3"	},	/* 001.016.050 */
-+	{ 0x305b, "BCM4364B3"	},	/* 001.016.091 */
- 	{ }
- };
- 
--- 
-2.56.0
+Thanks,
+Gavin
 
