@@ -1,49 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873608;
-	b=Ylt+m4tdzC36t2vW53Tah8pipAtP59/eT1CwTOV2kF1Ixbmb5oWg4iLjH+mdHT+us+0g
-	 dJEvJSDEhCaqhMf2cVD8YwjYjJEHBxrE4fuvtDflhqJP9rOIdQ5wW2gac56zg+4hiRB22
-	 EMJaAsIPiocnA4gGIE54/8PdVbjI750t1Isg7HrBwiCHsyOLlbglQ+08DJETLjK5bvaG+
-	 +fc+DkzTNvX+P1N4zkhBXnkow7tc7eExk5L8MNayTKsqIXsIqunJpFHw1DfKGWo+KFRJc
-	 AgWNGObDXkU1jzhMj0wjsW0uc/N3J/n2eKcEpL2uEIrQ26hxHq+Ks/ixNtAtENkE12A==
+	t=1794873642;
+	b=1+k/gsmvwst4leco56Eux+Gj2AWBKZfFxtpZKfd18/hTTKAfEyTVXu85EcnFAXibvaFA
+	 qAwhRBDQFdQe0qJsgFrXotLtTv86nEGUynBtj9xoBswEmLI93I7HK0Rrikr6AGhJKJAhx
+	 V7pPrXXSdK0mPMw/FoLQBbhH0KFJEMCQgr7EM22k7RjOwA0hfblC+lH12ansQxB/s1RUE
+	 gCZFHL6Kn7QYg0zcTdZ9LpSRimbUKXA2j8T6IzmHJLo3fkVeMV/ZGiKQmNzGBWo9MlPcP
+	 fA0wmZPhkzhzX1bPmYdwDGNiScC1UqIOexBN8dvPTWyf+jmrjsYmgnlfARj5wCo/jcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873608;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=Dq7TfMW/kTMuS8oCBTkJpQVA3goDLDWa4OsUOEaTQco=;
-	b=Xdc+QGAk1Va2TCyKBb+9eMITkYaaqiBs1Rxv2ETIsGdtkUPLHa12wXdEp8V06aQugi7p
-	 cKXFZp46g2IMS1MiCR5nFD08fzxRpwqTQ2ckQqDnGo2tDyQQhLDC7Jo03zD2L/34kNyYI
-	 hUXYr02STBuuilWIuRhzqK4Fx56krI4iPKUWnRf6Zkqviydu08iEzb2a8yQpv1tIOpaWE
-	 13GPd9Xd6UHJxYbbynYY9qEgiSHE0X/Vg6ZtF1gi40fEo9TJbe12ipt6aDvqu7/f84+3y
-	 cLEWvELTcW78VRajCvLWgWVzApY0C3GWrhtQC7HhzijmSLSGZS+lP8DQpdJv22agtHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873642;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8/84fIsnYNevTgT8Tyj3fXtgY4rv5SdcHrjwauikJg0=;
+	b=Fumbe/4neaUJ143EAP0Wj36M6oYCR62SM3HXOV7Hgr9Fu6GsFbygw8yGs7Yp/9up18DY
+	 aLZJNCYvamdmI5+HwVc9HrltkdxGMWD+LqJ1d92puekgOR3Tn94T4/8M9Igv6a3AM8WHc
+	 BDgL3elbWzzFBA/ZDZOvGkNzYEwQ4R/z2CFoTDdv7eii1YaJyfpmx9MWY4NNDdMbLcF9C
+	 ksMB5hnlm0v9K7gfffoDt6bZ9P/JqhDv1inwrL5+Al0Ss2AgMYRXeCDfugfuHbS+MDqIW
+	 1B2y68asSSRY6qGc/rTATSULb5n2FH829GQiGbuTsefJZafGpN04pjDsKwOBR2GldWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVwSCm4h;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DVjHUOSH;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FA5606A33E;
-	Tue, 17 Nov 2026 00:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AC9606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:00:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4AC9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVwSCm4h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895E71F000C6;
-	Tue, 17 Nov 2026 00:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794873608;
-	bh=Dq7TfMW/kTMuS8oCBTkJpQVA3goDLDWa4OsUOEaTQco=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dVwSCm4hh8ESVga6NfzJuaB1Q/4uaT1n2QfKYEs9UpjNNlNmNrKlVW0oczcPChqcv
-	 8MTOkG8htzY/QlbHZyUDyYAE/1cBUw5r0GP2LQzkJzNstj3C0l8deHcFaqSF/Da7aN
-	 IBbBMMIQ+GvEJMiGiAbhongTndxegbJMotrl81WSjhccoZ4MG/AmQ9bldtbghOeUN5
-	 6zr/xYlyJ5VAYCpc7vwv5/7XLaPDGCFcn3IveMn5IJQKqT6JVKYbYHWT4FaliK6R6b
-	 mQ7zHbDC3Y7lctC9F98Jw/26jfV/ChYrvmAUZiNdJuvXFzMLpUCCzhsTeE0hFeUN7e
-	 HoU1BAHEfP8ew==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773A5391B061;
-	Tue, 17 Nov 2026 00:00:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DVjHUOSH
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so4896535c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:00:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794873641; x=1795478441; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8/84fIsnYNevTgT8Tyj3fXtgY4rv5SdcHrjwauikJg0=;
+        b=DVjHUOSH7KOs9wtDV7NDv6hTj0w600gwishdrCZ12ZLMkcHEtn0cTAAPoueNJe284F
+         msTNBOggHrbkHsTlX6XC6ZHeCebifdfS5KNU5HUUK/UyN3mf77e7kmki2QUcUg/VKSwm
+         SEo4QGPNg8mjjhnHX9AlCX/l8BOCRJgKR9wCxdNWpF/MAmHOQnQ9wh4WUrztwqN5bcMW
+         HQ+D7JSpH1ufQ5x4P5YD0XcvRYBOxXmfuUhQtn5GqJhXzgG4KmNDZUurtdLgSpSlDtle
+         jTOJRC3nTnmsHGKSiVUlfGn9S9Dzp14ahVY8wMKmFihnKwQE7mUbA9bXuh9WMcy9beY0
+         kSJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794873641; x=1795478441;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8/84fIsnYNevTgT8Tyj3fXtgY4rv5SdcHrjwauikJg0=;
+        b=tVU2n47/IXkzOV49MUgyXKtkiriBLuCfRCgU+hV/nLM88Ob8YjZvUCsQVCpFAcmY5N
+         xvQjlOc2DX0mmAxDZTyls3/JwAUKcYp8zEIKcj43OUqGz9lan8oZCshexubGsamRRCHi
+         AAkCyumP+rokkNnx090MxjmozAt+plMi3jdUDEx+G2B2R8Y8khi5gsl94QUmiw1P1Y94
+         mfXEeHv2ub/flt+auDWLPLkJ1CWXQ46feoNQyrlx1ZLhbLJLY6UgkopblDHoySNVmzeV
+         OMMnEFO+7zQc3yZ5oATAV5WYh6TmTBemNH/4EWG7RXIopo+5r7+r/NI8WtVHBzw2Coj1
+         lyzw==
+X-Forwarded-Encrypted: i=1; AL+hErGu0zFg7PVXaTgwQjwE1kXi2xw3FtdLGDMj/eUj1Fq2qFG3Np6KzFBFPMglXG8ZiD+87xvFK60ICaHCB0s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ujtPkov0ZHzi1C5NGVrc7siLAfPi+m5N3MEFT5W4h/puGWdCH
+	hJ6OXWaMnS/Ep56XCfGQMvxe1uakL3KNQxC2X7ZWA+drVHVohbecLUg=
+X-Gm-Gg: AZFdTZf7+inQFXd97dz6lK6MHnFuU4ocqXguKAMAFbXg/jpGBQxETqImeByDzVoxS/H
+	TwQMS/MqZ0SI9qroRnXg00PkCYFvn7XW0JX2yvcSMHAvAH1M47jIKuiYlEz8m11BnEQCWnUErJA
+	bbVTbuIiGOgifqDZe7NbrVtp4rPmFi94+UfEyGgJZ0oX3ePoDMm8Ga7iKOasyr8Z4s1G4YBDl8Y
+	qd2PXlSSaqZJ/6Yp88E+YP+gkXIIPhl22MyyfKfDFdXfEwFkQhin2v9e7s86rgG4kh42BeJJvHS
+	vb/Grl8yyqgZnzoJge9p+/5kG9F9yqZCMquV4XWDsXhpQVplzyKAyM8MpBhP45vanfGp7ZulGYG
+	fa+0sO5OGX32jA8cmOyVcmdGI/bXrGr3dC2tv/kZm6Md1KxbKfHqN9TcaFAPPg2Z93TxLEtsFdd
+	DjRxUc9HFWDAyneI6KlK7d39tvmU2c/QqBZCL8pa3VT9eKFRUDg5BftqE3QvetYKbUvDWg3xVP5
+	KNrZlOTEYNk4zeoFFYs0A/sS9T+m4hBhyPx3AB9EDPrB4DwnrlFRDTRkEHIWfnDc2+wZ/WgA517
+	28bJvL9dM5lFqOo/x7l9N1YQPmoz8gwRB4K43HRMY6l6y4ASi+FSmi0/FCwGOtkwDg==
+X-Received: by 2002:a05:693c:8206:b0:36f:f3b7:6dee with SMTP id 5a478bee46e88-37966e3ab88mr13204369eec.7.1794873640677;
+        Mon, 16 Nov 2026 16:00:40 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.190])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3815045b90esm854224eec.13.2026.11.16.16.00.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 16:00:40 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org (open list:USB XHCI DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] usb: xhci-pci: Add Power handling for Card readers on Apple systems
+Date: Mon, 16 Nov 2026 19:00:32 -0500
+Message-ID: <20261117000034.7641-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,45 +98,113 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2] net: dcb: flush rewrite table on device
- unregister
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179487360703.250117.8797539923887130473.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Nov 2026 00:00:07 +0000
-References: <20261112033622.40333-1-sunwenbo@cmss.chinamobile.com>
-In-Reply-To: <20261112033622.40333-1-sunwenbo@cmss.chinamobile.com>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: daniel.machon@microchip.com, petrm@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- alazar@nvidia.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- 1342116488@qq.com
 
-Hello:
+Add Power handling for Card readers on Apple systems using SPWR
+ACPI method, SPWR(1) turns on the card reader, SPWR(0) turns off
+the card reader, on newer systems SPWR just writes a variable in EC.
+On previous systems it writes to GPIO pins.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Its also used by the macOS driver with the function
+AppleUSB30XHCICardReaderPort::setDevicePower in AppleUSBXHCIPCI.kext.
 
-On Thu, 12 Nov 2026 11:36:22 +0800 you wrote:
-> In dcbnl_flush_dev(), which is called upon NETDEV_UNREGISTER for net
-> devices with dcbnl_ops, only entries in dcb_app_list matching
-> dev->ifindex are freed. The entries in dcb_rewr_list added via
-> dcb_setrewr() are not flushed.
-> 
-> This causes a memory leak of struct dcb_app_type nodes in dcb_rewr_list
-> when a DCB-capable net device is unregistered, and leaves stale entries
-> in the global rewrite table that could inappropriately match if another
-> net device later reuses the same ifindex.
-> 
-> [...]
+(This should fix https://bugzilla.kernel.org/show_bug.cgi?id=111201
+ But thats not confirmed)
 
-Here is the summary with links:
-  - [net-next,v2] net: dcb: flush rewrite table on device unregister
-    https://git.kernel.org/netdev/net/c/6836fa400109
+(Tested on iMac20,1)
 
-You are awesome, thank you!
+Changes in v2:
+- Fixed grammatical errors.
+- Added CONFIG_ACPI check
+- Checked for xhci_suspend success before turning off power
+
+Link to v1:
+https://lore.kernel.org/all/20261116231926.5891-1-atharvatiwarilinuxdev@gmail.com/
+
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/usb/host/xhci-pci.c | 25 ++++++++++++++++++++++++-
+ drivers/usb/host/xhci.h     |  1 +
+ 2 files changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index e278db940..31961de97 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -15,6 +15,7 @@
+ #include <linux/reset.h>
+ #include <linux/suspend.h>
+ #include <linux/bitfield.h>
++#include <linux/platform_data/x86/apple.h>
+ 
+ #include "xhci.h"
+ #include "xhci-trace.h"
+@@ -517,6 +518,18 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+ 	if (xhci->hci_version >= 0x120)
+ 		xhci->quirks |= XHCI_DEFAULT_PM_RUNTIME_ALLOW;
+ 
++#ifdef CONFIG_ACPI
++	/* On Apple Machine with Card readers, we have to use SPWR(0/1) to turn
++	 * off/on the card reader, And on boot the card reader is off, so we turn
++	 * it on.
++	 */
++	if (x86_apple_machine && ACPI_HANDLE(&pdev->dev) &&
++			acpi_has_method(ACPI_HANDLE(&pdev->dev), "SPWR")) {
++		acpi_execute_simple_method(ACPI_HANDLE(&pdev->dev), "SPWR", 1);
++		xhci->quirks |= XHCI_APPLE_CARD_READER_POWER;
++	}
++#endif /* CONFIG_ACPI */
++
+ 	if (xhci->quirks & XHCI_RESET_ON_RESUME)
+ 		xhci_dbg_trace(xhci, trace_xhci_dbg_quirks,
+ 				"QUIRK: Resetting on resume");
+@@ -562,10 +575,14 @@ static void xhci_find_lpm_incapable_ports(struct usb_hcd *hcd, struct usb_device
+ 		}
+ 	}
+ }
+-
++static void xhci_apple_card_reader_power(struct pci_dev *pdev, u64 on)
++{
++	acpi_execute_simple_method(ACPI_HANDLE(&pdev->dev), "SPWR", on);
++}
+ #else
+ static void xhci_pme_acpi_rtd3_enable(struct pci_dev *dev) { }
+ static void xhci_find_lpm_incapable_ports(struct usb_hcd *hcd, struct usb_device *hdev) { }
++static void xhci_apple_card_reader_power(struct pci_dev *pdev, u64 on) { }
+ #endif /* CONFIG_ACPI */
+ 
+ /* called during probe() after chip reset completes */
+@@ -853,6 +870,9 @@ static int xhci_pci_suspend(struct usb_hcd *hcd, bool do_wakeup)
+ 	/* synchronize irq when using MSI-X */
+ 	xhci_msix_sync_irqs(xhci);
+ 
++	if (!ret && (xhci->quirks & XHCI_APPLE_CARD_READER_POWER))
++		xhci_apple_card_reader_power(pdev, 0);
++
+ 	if (ret && (xhci->quirks & XHCI_SSIC_PORT_UNUSED))
+ 		xhci_ssic_port_unused_quirk(hcd, false);
+ 
+@@ -895,6 +915,9 @@ static int xhci_pci_resume(struct usb_hcd *hcd, pm_message_t msg)
+ 	if (xhci->quirks & XHCI_PME_STUCK_QUIRK)
+ 		xhci_pme_quirk(hcd);
+ 
++	if (xhci->quirks & XHCI_APPLE_CARD_READER_POWER)
++		xhci_apple_card_reader_power(pdev, 1);
++
+ 	return xhci_resume(xhci, power_lost, is_auto_resume);
+ }
+ 
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index ec4bfeb48..579ddea52 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -1652,6 +1652,7 @@ struct xhci_hcd {
+ #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
+ #define XHCI_ETRON_HOST	BIT_ULL(49)
+ #define XHCI_LIMIT_ENDPOINT_INTERVAL_9 BIT_ULL(50)
++#define XHCI_APPLE_CARD_READER_POWER	BIT_ULL(51)
+ 
+ 	unsigned int		num_active_eps;
+ 	unsigned int		limit_active_eps;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
