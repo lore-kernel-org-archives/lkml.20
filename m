@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794935411;
-	b=DibNp/5ogZoeaKyMVs7joKvJUZltiMi7JpaL2uX0Vd/5WobKoqwXGQl/xI4/hPU9VvwR
-	 +Ir3FsIaQM+go6Eq7z1CDgtNnl8ydCXi3+5GgchU2nbGgOWaGOjzo1ZIyP+4BAP23smev
-	 1O+HgbeAxdGRSVyqR4bDoLaK5/2gx+h7KNevH4JQORQyWa7jI24oscvWYMD10MNWqdLj7
-	 FnbemNEn7elz64i5uZhGZmIz7qX2+U6IVqeHi4FCQGCBe1YAWOhrQXSf1KTULOvBwv4Y1
-	 B1V5BIOUZk+8YGjpMO6tl+7dQME+IRwXkkn9Z8ATawDpVVH3jT4kNTQ+hb7ho+haCiQ==
+	t=1794935441;
+	b=nh4ZAMZQ3Y9yLaKSyHL2Lu1XshBWgBogr55BJF7JIFsGIggQ2YSAzexQP5i3NWCMZiwm
+	 Bxfflt6IjazKpaGACqFRvXX72NPMt1biOZtWLsiKuf4LmfG7LGtGBLqTRTBXLxTjNVmEJ
+	 c/SmGQo5Vt+4kPVGNJvYfpj2mRTTyZangPgYeyM9UxTQBtGnL0ut4+jCOvYHIBgMbjDtf
+	 HkComFkZum0l95jD9mzbUiYr1sgGMs/KmWPjhzatvUQ6buNqolXPKa7S/1mkSQdWOp76P
+	 nSJKeqLqTU+S066SewyxGyr+h+mHePSyXZYWEggRLQrRtDHR3mqLKfofkpSfPv2haKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=E8LqwbU5CIbHYRLcBtBSaO+X14uxeX0JS1SkbfjW5Qk=;
-	b=LvTXtSjqr3o7IIhnOkYKQAwOkKTVIAi7awz/pajkBDcaqP2LcAPyQJbsFFpfyit1ejvA
-	 7r3LJfxsXsxAf0o/xYpER7wnqPsg/1OGkJmIwJAmkN8Ac1mY8HbQ5gYUSaAefi7bIWNW9
-	 9xEWgMzxDIGkjosuoxTfe6liN34WxfVHxhf7nVpTeONRhifVDggehZ5+UnhYyApgGKMyi
-	 nk1VOXGtDtM8xoP9l1LwHkDE9jcxXKag7lOA+iRpWA7cZ/w89WXrzp424uXboq2N+h27Q
-	 1xE3PM5O3gdQ+oiy2ov4C2MpSn8L3TK3c9StA37le5SvVSCEU51eEQFWRHA7drzY9og==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=i88WEJdRAzSrZ0XFqkiPRY32+2W0cYtqx6CNsJcFnvY=;
+	b=vOQDP1GoShStQEqbdaTwiLRlA5TmpUzd5U3fm9R6qbwG4/gZ063dz3lDfVdqmxXTzJUM
+	 LoDvSJDB0fjoynMnierepz+Oi2kAEBMjhLDBiUWFAY36NmozsgdW279mKiFvhW8ZFMHMf
+	 laZ3HdbiwXuKxzm2szxywvJIUDFVeAafXpuE7eksfB3IgIUGBP3mxo4f74Zdm8lzMEP8z
+	 iORfk1Zp/4MXXAP36leOA8ZCPmdbeR3tg8A4NXBaopo9+3QOeaN+OJzJLin9hEw7ddp6b
+	 SFkrmDvAd0d71foo558RZ391r0vb3+N5M+EGl1aIM3pXoYpVsoNNF36kRSfO6P+0Sfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YPdubFYz;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o9acTAjc;
+	arc=none smtp.remote-ip=74.125.224.45
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C2A60A2624
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:10:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C2A60A2624
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90A160A261A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90A160A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YPdubFYz
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb77a462c6so7949685e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:10:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o9acTAjc
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67be9601f31so4944330d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:10:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794935410; x=1795540210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E8LqwbU5CIbHYRLcBtBSaO+X14uxeX0JS1SkbfjW5Qk=;
-        b=YPdubFYzA/tTmkH69DRZMfaSp+RDopWGeS4BcvXlHTMDuP/oq1F4siDZnbfQrrmzxz
-         Fl2njo8c+R0rCS87N19HsRYgzPm6Mr3Jfn31cCF6+ckc+lvchbmTwuk6iwjFboJXFnq9
-         xQrSeojBfU8GwqL9oarhqV4dWDHtpR7Px7O2LEeC3wH50sMZK/qrVm7SOLe9m+10wQhl
-         +fKlTsY5cCyqmCqKKRYgxVDAM0ZCNJ5HGStreWagmHV5HXpIVnhgUgWFG+5410jU3HeG
-         v24ojRW9Hc+UEz+Z6Vh4/dy4h4J3QQkSLZUfox2o8nunbunvJR3cWyaHPO4nSVxH+39g
-         xofw==
+        d=gmail.com; s=20260707; t=1794935439; x=1795540239; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i88WEJdRAzSrZ0XFqkiPRY32+2W0cYtqx6CNsJcFnvY=;
+        b=o9acTAjcUanHAy/C+WB73wmCBUI6hRcPkYR7/vpE+5ud+wuAcWcEPCZKxLq1ZqtuFQ
+         nfUJA1fuszl7vAAdxcnLHQCnvJObrlxxJ+zB4OVquxQrnhOrUdLQ8jVrOnali9ejMcN7
+         JKwssh5uh9Nr8Nnsza2ouwM5xVJpc0WdfIiBqzXj6FdXptr/1l9iJZ1oypMveQ7mJcBX
+         Irn3xcn2O6HGpZuWbrwUByWrnxNcXl4JkKZmPk8Pd52y0nhxVON0CwyinZ7Yu+jiWKq5
+         kpzONrNo/3PAhAjMa/0/e4CAgxvzSS6rTuMz/q+tVXgy7U93jJNVeYang8Jy7eHhhvb2
+         eubw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794935410; x=1795540210;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E8LqwbU5CIbHYRLcBtBSaO+X14uxeX0JS1SkbfjW5Qk=;
-        b=fSxbtumfv7rBtCip/qWpAD02oxbGMJChgOaWVo6OqiG2aMar8/FhCc08ONCDs1SGca
-         8a/9ewWB5ILSWikLuifVFc0C+igALhf6TP7d1hPWHd0cOSDj3qYEe4BwJkIfVVrocOvk
-         x8+EViig06ET8zWo8LoKGbT1NoX6UQ/Q1cO2o3StPyBc2hq6Op3OIiuG1Uc05ey2/c5i
-         q2pxFIJGmc8z4RYMzXtkBuGjYVqZDbvtYyDyzbJNiDHehVYAC0oIFwMO8lfX2NP/IZt8
-         MqQWp/NHHa6/kfZi10kDn4OmGsNxS0Dtt9g/IjNMB0LlEfBbQ4gPJDD8zrBrVCF1bh8b
-         x0wA==
-X-Forwarded-Encrypted: i=1; AL+hErEqE155vfLdhRjajvxmO5ON46ufLVfr0UZpgb815KAfS4znfm4lMV340+1CI6FYwDbmbvBmQDWrDw3ODKs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Sxj4zGLCkHPtRe5BjutYGmg6pD7cn6iRcGcbJ4k/HcpTbzaQZ
-	QtmqmZTKO89jiXmMVo427KnBYssSfhuC+ZqpfJuXV2E4Ew1cKKAqQU/A
-X-Gm-Gg: AYBFou1wUP9nwuuzmUfM041fAIfrQLM+dghBdT1guqdv6wtKfnRUIaWLCg6/uUXf4hn
-	CHwa7kwSW3ccwoCgwsLS4S9Iuoz1n5QzBFJ5NV7+mYHUa90pSmR3Ib2hVc1aMwk7xTrsUOeMiK9
-	YnZQ8LMTagz7ZVy54ey0LXxmfYdOWibjpkvFJ8NZqsImy9hi2/OalKSq3rmLN8Ksq7b+fQsKBW3
-	itTV4TqHkkC0pV37n2B6kSWzfmu6B27t8XnmIc8/1pWG/Q71eVn0Q7rzjxr8zbHkvj2sskqO+Tc
-	S2iDjOfWrTu3BYWh2rieCiILi7pzhEwumGDG2wmuHxd4M8tkQS5fqeE1/e0bqrCSNo5Q45YdclX
-	MZbRfDyeMea8CAYRI+5GQvcOP6a8+t+m/GRKxrmXiOuMIh9qjtVgxcn0BY9OLKM0T3c4Mg0btdt
-	Plt6HU1WcCvLNoDattrb1ESaqlCziyrQ+tf0yVew5QV2kW3MxSduHNLFFUSLlIYP+Fm00XTEXSu
-	F2QcjXt9wknRdfcAC13a2zYVQhiug4sGl1de551lYF6wJHcvU5O2iK+VXhmgPOhqYVLOEqQnCty
-	a9+YUwZUxintqy5HKZId5Q3UtMPC5ZbV4dE45HShNrXVMkxCPnjIulHo
-X-Received: by 2002:a05:600c:b99:b0:4bb:5d38:259f with SMTP id 5b1f17b1804b1-4bb7838bdaamr71396715e9.12.1794935409804;
-        Tue, 17 Nov 2026 09:10:09 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6d079a2asm26828762f8f.16.2026.11.17.09.10.08
+        d=1e100.net; s=20260707; t=1794935439; x=1795540239;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i88WEJdRAzSrZ0XFqkiPRY32+2W0cYtqx6CNsJcFnvY=;
+        b=VNvqcY4uvb+bqULjn5IDHN4KScappKiYRmINYPXIXfHUxjtyDdMz7w7CWIhfNKrvIU
+         dOpL/mrvd35hin0A0pYt+P0nf8K+ooBJmtizdN3KU003dAvw27A4dQh6XP5fovdbFvQa
+         V9k8LLsW/y8V0SHc+lT8Cc1fSXJvDIK+41uz9ByIQUM0o/qpEBAiHO+jKvqq5loFWh6A
+         U4PHX5KGIPwNErCIhhSquHQzTfXPljNbQ5QCIfeccv1xvrdscTfAeOw9R3qSQCxeTELA
+         fqL5NUCnVTTGdcQbni+d7ebELC0enPoa2YcTIF/gwVGWX+wSPV1nBDhSwHrcuoNzX/vv
+         GorA==
+X-Forwarded-Encrypted: i=1; AL+hErHoAQUC9sfOwcuTZjuUa1qjWuFUwAryNHG/hGnL+s/VfIPsk/yW7CPj5SEPaqDjglI5Na0j54HYP9AFj24=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MpznVAlfW31cjDmQ5vmItIMvReo+9eVCNjCHuPPEW38Jz48Zk
+	0Ut6i2IU2nhaCt4DLyYVYhnWwV5pWBwWAw+Ok4irdreOgdNeTRKS/8z1
+X-Gm-Gg: AZFdTZe0a4HyvaDcWB2JYQ+KH6jpMnWdeijpCpvjzfVyZzx3Ko/LcxOya4BBS0j1OMt
+	1p8FUKcAdvkUPPYibIZCdyhkrZk7yMJbA+3rawpnYGSwUfER3vjHPDSARqVuMHeJQnn6qp8A9gu
+	g64zh20V7r/+8ZkhWER2hCM7gAKzWW6QTz+Ayf+ZLeemZZEF/18wzTrC9idaNvpmxEHjDl/WtcV
+	4/LUAcDSTr9IZ2OY59J8wIQ+llpSfEawktVmjVaTaV0eKKpBPmN1uB80/tiQC3xgyjdH29fJPYe
+	MzsSldhTHwXXbK6IlYOyISVZ9bLAY2xwcPiWP7vk6R+mQdKMTPA2r8aIuWNf5uC0MmxwjLahal3
+	yijo4famaffwQT8fq/2lYL+Q92jNDVmXD5AStBI5Fyl5l98DYgVY6vHAVjVhzWbK4D/g3A7S7l7
+	Z0xv9rItbVTz9hT9hafLkd0JhIn/ME+bs/jJr8r/HwxFQNNOn+7S+tB7Viq4rTrqRc1MpHzP+DZ
+	ua2mn9OgFpuX9/98WOhX1TTAh/nD2vVIaeOEVbOXBtv/gfXG9Ye95yaR90CqbHlTZRiUV92i7c7
+	Ev1Cd4RCccPrgveYGJ/sR075IIQUjFjvl1lUp8WXvZ2NVTd1inR1j1/DxL23XSv8wRRxzH3U8ny
+	pEP3doWHxQOAeNhI93FP5+eFXukON1SA=
+X-Received: by 2002:a05:690e:128a:b0:67c:1268:ca92 with SMTP id 956f58d0204a3-67dd3d4bb0bmr121166d50.2.1794935439287;
+        Tue, 17 Nov 2026 09:10:39 -0800 (PST)
+Received: from Alone ([2407:1400:aa0f:8050:aae2:91ff:fe57:5e15])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67dd404a37asm115116d50.20.2026.11.17.09.10.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:10:09 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Zong-Zhe Yang <kevin_yang@realtek.com>,
-	Tzu-En Huang <tehuang@realtek.com>,
-	Yan-Hsuan Chuang <yhchuang@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Stanislaw Gruszka <sgruszka@redhat.com>,
-	Brian Norris <briannorris@chromium.org>,
-	linux-wireless@vger.kernel.org,
+        Tue, 17 Nov 2026 09:10:38 -0800 (PST)
+From: Chhabilal Dangal <yogeshdangal66@gmail.com>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>
+Cc: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH rtw-next v3 5/5] wifi: rtw88: clear the restart flag when the device is stopped
-Date: Tue, 17 Nov 2026 18:10:03 +0100
-Message-ID: <20261117171003.1840491-6-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261117171003.1840491-1-mehmet.fide@gmail.com>
-References: <20261117171003.1840491-1-mehmet.fide@gmail.com>
+	Chhabilal Dangal <yogeshdangal66@gmail.com>
+Subject: [PATCH] staging: greybus: audio_manager_module: add terminating newlines to sysfs output
+Date: Tue, 17 Nov 2026 22:55:15 +0545
+Message-ID: <20261117171015.218177-1-yogeshdangal66@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,43 +103,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+The sysfs show callbacks for name, vid, pid, intf_id, ip_devices and
+op_devices print their value without a trailing newline, so a read
+from userspace runs into the next line.  Other sysfs attributes end
+with a newline.
 
-The firmware recovery sets RTW_FLAG_RESTARTING, and rtw_reconfig_complete()
-clears it once mac80211 has restarted the hardware. If the last interface
-goes down before the restart work runs, ieee80211_reconfig() finds no open
-interface and does not call reconfig_complete(), so the flag is still set
-when an interface comes up again. rtw_fw_recovery() then ignores every
-later firmware crash, and writing the fw_crash debugfs file returns
--EINPROGRESS.
+Add the missing newlines.  No functional change beyond the output
+format.
 
-Clear the flag in rtw_ops_stop(). mac80211 does not stop the device while
-it restarts it, so a stop leaves no restart to wait for.
-
-Reported-by: Luka Gejak <luka.gejak@linux.dev>
-Closes: https://lore.kernel.org/linux-wireless/5285DA11-651F-4286-A0FD-52A6051B3A88@linux.dev/
-Fixes: 5c831644e1f4 ("rtw88: handle and recover when firmware crash")
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Signed-off-by: Chhabilal Dangal <yogeshdangal66@gmail.com>
 ---
+ drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Notes:
-    v3: new (Luka Gejak)
-
- drivers/net/wireless/realtek/rtw88/mac80211.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
-index 5e40cf06a9e3..10f1ae08f383 100644
---- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-@@ -68,6 +68,7 @@ static void rtw_ops_stop(struct ieee80211_hw *hw, bool suspend)
- 
- 	mutex_lock(&rtwdev->mutex);
- 	rtw_core_stop(rtwdev);
-+	clear_bit(RTW_FLAG_RESTARTING, rtwdev->flags);
- 	mutex_unlock(&rtwdev->mutex);
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index dc90cc2d2..5737f2a32 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
+ static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
+ 					 struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%s", module->desc.name);
++	return sysfs_emit(buf, "%s\n", module->desc.name);
  }
  
+ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+ static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.vid);
++	return sysfs_emit(buf, "%d\n", module->desc.vid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+ static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.pid);
++	return sysfs_emit(buf, "%d\n", module->desc.pid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
+@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
+ 					    struct gb_audio_manager_module_attribute *attr,
+ 					    char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.intf_id);
++	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
 -- 
-2.56.0
+2.56.1
 
