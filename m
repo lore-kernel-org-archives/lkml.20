@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.136
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794915445;
-	b=OH+bOst3zGKog29AFFQqAGUrN/LVs52JoEicv0lxnFjQHR+TvBIBy+2D4NHYVa3F1p5s
-	 11coHUMwdWGY/8kJHeL9rCn2BdHT3NelnKldfwFNbMBxYwaxq61aMAa8jTZL37S1rhDVt
-	 Gs3bGxYfv9DLeYOgDMv5SIDqbgGqvav8Ycatcg4v3usfyVK6g0OWP3KdOTojNubHIQ85f
-	 wwCx2XPnO6PwcEP6RixWFBw0s5m7uN4kJODj3lbflULOyYvW8mOa0ITIacG+DIE3sh/Pr
-	 3EDbLCuEYgjjrib9w0KFy4X+k+VsDzlK829PU4vk5CYBbhfqSczZAYYoYjJ6n7r4RaQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915445;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iXhVXfPtEs9icALvlNVn9AdJWGkLxW94GT9KM7ZHA3c=;
-	b=atcdigJKBzMsWABdkWg0vBGdBjwXHQMrebDWu22wwl7FdarOSfHIMXhNTKBrL+r0Vz93
-	 1A7L5AEbOa9WynSVuUQ+ZMpuNTZF3wZPLQ9ESDU2cbvyeX4FcKm5BrBWoPpZQAbnzr4pH
-	 leWbXePwBTPIXsy0mKsNgwXfe0wkBqTs2vq13hqdrOGsyDIszxi9T64js5jUmDAr+56z+
-	 /I7fLQjoMRXxjVji6aB0GmpIUXChq6jnitlEtPh7SqS6sWi1flfQhmW7PSqzRhJH62VoU
-	 HaM4BfgETXjcFnke6XEF79ESwGg8L81AnEX6wE5mK36TNFTBtTPcMLBWllfrEUZg7gA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=FM46rZyY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.136
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022136.outbound.protection.outlook.com [52.101.96.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA56F606A329;
-	Tue, 17 Nov 2026 11:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA56F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794915484;
+	b=ZbsUNOFdGR84s2LZWtyKQprwfUGs18/ASzhXoj44itZi/OluWv2yg9Czt2JAx3KABFXa
+	 teQDw4lKDL9LoqtxzHPsBVb0VQOy/3I7ARX6oVjkOE04IKqRj/PbC3YUUjyRi3AVCfsnG
+	 yjI0tCQRWecJp4vGOsBN0CUQhB9qnKfeFa9EHfbD7S5XLMtqd/KDIY34lEg5fkuT+dDd7
+	 +J6AZJFpafzAbHkrTG9qfDROm9I7llbDbiIkp8S5PGBOJudpZ3r01PpZbIjqc15yQS7u2
+	 7Ur1kAXnjLtkAXwF9PpvD+AjWXGOULH2NK2Ut01FK7uqWd/662a5XKnBPpeJ2SusmnA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915484;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=eIYBOu8NOjBweHBBxJRRDa0T52jYDT0KDxk8L0BX5C8=;
+	b=VXrWv8oXT09lZJvj0UVP0OWaj2S/DsWjwoKbu3KX0HfaFUUmh5obnNHpGI+Yc6fQQk0W
+	 9RItFOuxY9YBmIe6BDUUC5xM463YgNih/ExkHHstj+Xb19AzTjyBakWxLsyOa6iVTkNjJ
+	 fnqjFNmXcE6oySkTS93e81d1usZDFStelAUvcGw6Tj+go7Ww7VGQa65wE/vCchcKjXuCt
+	 zeT4HYqoommKRd67N9DbPAc5T+R0K0TXOfRSgR5c+bQr/wi/mLG0us/Tu+LcgpQpzYIqt
+	 mKN0bz0uGudq2fPronzyupWBrbjqn0r4HLDNcAn52aMZAp6rzPgqxH0iHYm6Lld/BOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=V6EarTva;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4489C606A31C;
+	Tue, 17 Nov 2026 11:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4489C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=FM46rZyY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DQj78LItp07Dn343NGWEmfF5v6ZtPXhcBkgmIAfgD39Dk9Z8JJCkarvoW6Lnr/J+3f3fFB/JZlncbiXEPTvpPjXJ96g0/w9ZnMUYxGNEJoETHkNeYntA3REUKgpPsyN8fZZMh20UhQRYSn4U8NfpokNhqf4nHUCkCLT0zZ0viLfxx37O1Il0C+0rb54h3nuW0dS0gEeIr2oJlQB9J4Sg9FWj6pXoWRwZ9CtsIRDGstVw81r7ezVav/f3psanC3w3hKWBws9ZOStPbInnDkHc61Ey6AhkV/gPSjyCIZgTMqv28qHNB6aLjUmVlbgefPNxg/FIrrCgyf3RbqXhlnyJsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iXhVXfPtEs9icALvlNVn9AdJWGkLxW94GT9KM7ZHA3c=;
- b=SDDGXqLljp4GuBnB1TFvrXgaJPgZ9sfKIivlqd9OwTRB2BiPbWTbicgfBDYMbusa1wgO1ZOE0mUYuMWs1aP9VvlsDFKYOyurdG3soQfm8qlEcMHvVdp22KHUNDq3tchN9XFr3b/U8bZ595C9+nGCMEnwJsbBROKhdhYPm8F0HUulEdIFTrJGx8SaL5W+h2cB0yrLNPZenYk3qfqYGomat1S1+iBFv7gQ6RbMYgYk+5SiwHSr+5J41nN1AFmao2cndTnivODBbwilIa47Zu9btya1gl2nJ31gZqQ23mHG+N0fTAcuzn58VvEOgm/YG5voBdVqxU/VizQJTUs8fK3PdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iXhVXfPtEs9icALvlNVn9AdJWGkLxW94GT9KM7ZHA3c=;
- b=FM46rZyY1AHN5YcxJJrLgG/a1CAwG65Lv/3qYzvabyfpHEtEAVWo4SlbU0APwifYUWyrM/LvsVTz4FQZkHSctTKa2F6xmky+MzgfG1wBislziyhccl2IH4RiZWwB6pCGafK0Z60Fr045r0FjKaTo8w920EAdYEU00rMYv4EWEYg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO8P265MB7871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 11:37:20 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 11:37:20 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 11:37:19 +0000
-Message-Id: <DMXGF5NG8WYB.188PXG822AN59@garyguo.net>
-Cc: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2] rust: i2c: Remove use of bindings::i2c_match_id
-From: "Gary Guo" <gary@garyguo.net>
-To: "Andrew Davis" <afd@ti.com>, "Igor Korotin" <igor.korotin@linux.dev>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Tamir
- Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: aerc 0.22.0
-References: <20261111205204.481923-1-afd@ti.com>
- <20261111231053.529616-1-afd@ti.com>
-In-Reply-To: <20261111231053.529616-1-afd@ti.com>
-X-ClientProxiedBy: LO4P123CA0682.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:351::7) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=V6EarTva
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 730EE1476;
+	Tue, 17 Nov 2026 03:38:00 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.17.180])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6C27C3F763;
+	Tue, 17 Nov 2026 03:37:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794915483; bh=BgAOTNAkBrQ6qkPH8d+k2fV/l3kdC26sO5jr0Y5R7A0=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=V6EarTvaETOeLdQZd+aqGjlopQk+supKhGblViLgC0Wct0yYAcfhhYEVYxXZTyMKZ
+	 akbmRoUdV2LV2RPvBuuelXC1MoEZhy9rqCuh5f18KmmM7ev0P0I3cPrQu8+hf9QHHm
+	 3fxZZ8kCbomjDCvqRuT32if0Kw8P/Ms9ClYqrvOo=
+Message-ID: <1defc561-e7bc-4864-90ad-6aa3fb6be7da@arm.com>
+Date: Tue, 17 Nov 2026 11:37:57 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,95 +53,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO8P265MB7871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60821948-d811-418a-41c9-08df449f2404
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|10070799003|18002099003|22082099003|261009223027099003|921020|56012099006|10067099003|4143699003|261102123227099003|261021123027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	6p+7KYqR5I5YbTVggrPo+hlR1jEM9isLyErT23JevM0h552YlKQR3jCx2wrFjjUVS2DmHudlnGTMFzxiDEl9agNuLSG7bZy1/SmIqaH0DEMjJlH/z2XwFgdVtO1HBogRRstVAcBFBgqM4S5C5lfdS18KgkYOuFpcczdpeFrwHJSZDd5ltXBVmbLmolxKaO8YueuvNYiuewTjXCOSeJyWqVEUuMSvpEo0UFiETMZSFo3CIwXwTAJbi4gw8+wwp0jl9IXMpOEz67xUFZ76EOEakICJoOA6X9eHoxxAavnP/fGq+iZATRyWLU/YES83aek7YMaZd4a38BKJKt5/ZQg7iBc/of/sLujbN4oQd9F5dfX1BxKedyomwV61CJg5QbFWwdgG9XAJOWXF5hzDioLa5m/94n2ln7wZfFe3pehEuG6NbbMtwbbIwKZ19Ih8CqGgI2FTsNFjRpeB68h+X+UWf+iFalPB+kwlHnR9SWScuYt8vj7Cjs5Xq7DUxVwIOWCyh798ZyJ8xCBmMe2/0LO35R3etYWj5Cmz5iswdX8mTE9S+vPDHuVIlycI2qYToJwgpe3XmO9XTIjt6JDq5Tkiqbn3YOqd5hvKdV+su7myYpk99eyACo9uGxNzH5BCVcOSltsY/eRIKSP6+yqRvtwDRd1yrRY/Tqt5W4KEVVc9s7M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(10070799003)(18002099003)(22082099003)(261009223027099003)(921020)(56012099006)(10067099003)(4143699003)(261102123227099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Zk1yMlh1Q3RrazMweklHbXB4ZklxZ2E0WnNVTzZhd2U5T2JHSStYS28vY2lJ?=
- =?utf-8?B?MWttc2NoT0tMTGZMN0gyakpmU2xpZlkyWTU3RWdqZFZGU0Frekt4VnduSVBU?=
- =?utf-8?B?Z3ZBZWRUZWZKTjM1NFhJS05NWS9VK3NZUmlFdENIUnNDcnFsbVpIZ2RNNU9v?=
- =?utf-8?B?QThnUGJwV2xrZ3MxdjVrNllHclZDV0k3a3ZyQVRzZ1pZUnBReE95M01XeU9Q?=
- =?utf-8?B?WmNxK1AyYmJONlcwRDNRUzdrU1RUbkJCSlM5cGhuNllVY3NkUmJFcTg0UDdz?=
- =?utf-8?B?ZUFLdGY1RjFxOTU5OGdrYXptekxJbGdueE1PTVJxc0EraEFOR3NQWjQ3d0VP?=
- =?utf-8?B?b2kyQVpZQmtheG5GcE5sZ0h1VWdtbklsdkxqQWhFZW5USGF1M09wUHN3cU5W?=
- =?utf-8?B?cTNNOEdCVklJRy9wK1o5M3ZlU2tpNG4xTzZPNlZRSzc1MjBtNlhKd0tlcWlw?=
- =?utf-8?B?Z0FLbmg2WjNMTGd2aURrTW1ueTNyMXYyQjBoUGwxYllPdGRVa1AwV0t1NWpr?=
- =?utf-8?B?Q3JqN1JtbVdCV0l0R1FGbmtjdmdSOUdXSVduVmVYQTlXdVJjclM3dHp2bkRt?=
- =?utf-8?B?MStMRlVnVWIvMmU4QmtxZDZyZVRCaFBNdUlBUWVDbi9nUVJWa3E4bG85Q01Q?=
- =?utf-8?B?d0ZUV1lwVHZFL2tGdTVMOGZpekRSNlZyMzM1di96NytucGg3NTcvK21UeFFx?=
- =?utf-8?B?eFdwVkkyQWVxeG1mZEd5VmNpcW9MOGJORmM2NkJCZDNqR2F1ZS95Q2JLSmpD?=
- =?utf-8?B?MFFSWThTRmE3UVlSN2R1WVYrMVlFd1NGRnJZSlZSUURsWHJFV2F1N1VvYjV0?=
- =?utf-8?B?U0VjRU1LNzRCUGJkaytMT0tYcmpYMzRpb203NkszdnJWUXVkR1IxRk11b21U?=
- =?utf-8?B?YzNBc2ZLdlR2ak1RN1lkczlBWWNYV3dxQnFabWpiRmp0NEk4ZDJFTnNiODNW?=
- =?utf-8?B?QkdUNkl5RU1QRS9oemlZeXRtT1RhSWs2NHc3ZkxmQWpiQVVUQ0lKamJuZEdV?=
- =?utf-8?B?QmtCSXpuQzE2Q3U1VDFrejdNTG45NFlhRGViTzlKKzFZK2wxS2FsUFdyL2pI?=
- =?utf-8?B?OUREM3hnQ1dqckRDc2xHUDlJdjYyVGxNZ2dDOEtFTkdvQ3NUNHBpZ3Q1L21p?=
- =?utf-8?B?V3grRGRUVm44VjVJOVVRL1h5cnZvaFZ0QUQzWk11Zm40c0dZa1NtYUdjYStN?=
- =?utf-8?B?dHhXYURvengxcTg2eWxENE43aGxsRkJ1eFF0ZngxTW85eTZQcE93TmV5RzFY?=
- =?utf-8?B?a2Z0UW9yTWJWckxQY2NxQ2RMN0xRWTVyQ1VnaXEvKytIYXVVZjFHUi9iY3lO?=
- =?utf-8?B?bjIyWmpMOWUyeXNhTHhqM1Z0QVg5Y2s2ZTNCbUNtek5wa1kraFBaK1JYdWlP?=
- =?utf-8?B?dmpxbE1ZRTdTUWlrTUl5T0JSUXF0WDFCTXNydXJuT3dONDhmRWV0UVNwKzA4?=
- =?utf-8?B?N0x2RXl0RWFkemhNVWhKSHNnR1ZKVVVkcCt5RkUwMkNPYjdwcGt6c05FSkp0?=
- =?utf-8?B?cUNVSkcxdkh0MElrU1owZU5oZktabTdTOVhGZVpZMjJJZzR6WTg3b1JaU1FG?=
- =?utf-8?B?SDFDcUZhWENmSlkwV093R0FIQ3k4ZlVFUjBWYk81RXBuanlnVXRteU9HeHZT?=
- =?utf-8?B?aEdUNnl0NE1JUjIydDVUTEw5KzFpSE5vZHluNmNqTTFKVlRUQ3dwb2JMZTRn?=
- =?utf-8?B?TjlncGU2VnRiYnl2SEU1RVR5endFZkhXMjR6UmphcFZwVlJWVjdYVUgrTjRT?=
- =?utf-8?B?UmQ4SUVtby9IclBiUmpGVWxVMHpNL3RNTXpqdEUrSzNXWHVFYjJWb0o2TWE3?=
- =?utf-8?B?QU9hQXBRT1o3d0ZWU2xoMU9zelovN3FET3g5QlRRayt3VS9ndUh4bDh4d2Vr?=
- =?utf-8?B?MEJEVkVrU3Z4WDl1Y25IcUtYblBBNkQvZ0MwbjZGSEVLbGNWSXdwR0Y4RFNx?=
- =?utf-8?B?bVpjNytBZWFPaHVBaEVrUGdTeWNtcGxHZEJLT0Q3T2dDNmsxanJkeGpzMW9a?=
- =?utf-8?B?ZTB2UHc4QzQyQ2hKbzluLzBjQVg0aDVRR0lHcG9iaDg4UjlDcFB6cWtvOTlr?=
- =?utf-8?B?ZUFod1krVUh6TGNWbGxoNXJPU0cxQnlQWHdkSlJScXNscDBiT0NNS0p4ZEEz?=
- =?utf-8?B?REx3dnVvWU9UeURpR1NsZzJQK2VPR0cxa2lBb2NLQTlxNjY3L0NJUVhGR2Y4?=
- =?utf-8?B?TlN6aHlFcllMSnpJc21zOFRjbE1DOE44Tk5HNU9jM0xiMHgvUjNpOXROQVhS?=
- =?utf-8?B?ZDJZZE5hU0VzZmhleWNaZzR0cHAxTjZHYW90MWhxaHVLdWQ2U3NERjZXVE0z?=
- =?utf-8?B?R1ZRSHBMdTVjSlAweGtRODlRQ29YakcvYkEyTVJKdlZNMi9BVjlxZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60821948-d811-418a-41c9-08df449f2404
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 11:37:20.6162
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eZRkgeqF5qbQCVxNSkevhusY/nAjgHitCh+TcTpFokXp+7PasqGQgDml1lD+5PQUuA/5SMzZxgdZehLf+aef7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7871
+User-Agent: Thunderbird Daily
+Subject: Re: [RFC PATCH v2 5/9] fs/resctrl: Allow mba_MBps with assignable MBM
+ counters
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
+ tan.shaopeng@fujitsu.com, quic_jiles@quicinc.com, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261112131255.4043381-1-ruanjinjie@huawei.com>
+ <20261112131255.4043381-6-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261112131255.4043381-6-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed Nov 11, 2026 at 11:10 PM GMT, Andrew Davis wrote:
-> The C function i2c_match_id() is slated for removal, remove use of this
-> from Rust I2C by switching to bindings::i2c_get_match_data().
->
-> Signed-off-by: Andrew Davis <afd@ti.com>
+Hi Jinjie,
+
+On 12/11/2026 13:12, Jinjie Ruan wrote:
+> The controller needs a counter for the event selected by mba_MBps_event
+> in every monitoring group, so mba_MBps is refused when MBM counters are
+> assignable. On MPAM a group's monitor is assigned from a fixed pool
+> when the group is created, and users can otherwise only pick a
+> percentage of a maximum that firmware does not report.
+> 
+> Allow the controller when the architecture has a fixed assignment mode
+> and assigns counters when a group is created. Keep mbm_assign_on_mkdir
+> enabled while the controller is in use, restore its previous value
+> when the controller is disabled, and refuse to unassign the
+> controller's counter meanwhile.
+
+I'm afraid there has been some miscommunication here. What I was trying
+to suggest is that MPAM could when using the software controller use the
+default mbm_assign_mode as is used in intel systems. All the counters
+are allocated up front and there is one of each supported type per
+monitor group. Using mbm_assign_on_mkdir doesn't always give you
+guaranteed assigned counters as you point out in your
+patch "arm_mpam: resctrl: Use the domain's counter ID". I haven't
+thought through all the abi consideration but it seems plausible, what
+do you think?
+
+Thanks,
+
+Ben
+
+> 
+> Only MPAM has this mode; other systems keep the previous behavior.
+> 
+> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 > ---
->
-> Well Sashiko suggested I take the easy way and just re-use a different C
-> function instead of trying to open-code the loop in Rust. The C function
-> implements the same lookup as i2c_id_info did so we can drop that out and
-> its i2c_id_table helper. Still would like some help on checking if this
-> is actually correct though..
-
-We historically use open-coded matching in Rust as integer indices are used
-instead of pointers, but we have cleaned it up since
-https://lore.kernel.org/driver-core/20260629-id_info-v2-0-56fccbe9c5ef@gary=
-guo.net
-So open-coded logic should be all removable now.
-
-Reviewed-by: Gary Guo <gary@garyguo.net>
-
->
-> Thanks,
-> Andrew
->
->  rust/kernel/i2c.rs | 39 +++++++--------------------------------
->  1 file changed, 7 insertions(+), 32 deletions(-)
+>  Documentation/filesystems/resctrl.rst |  7 +++++--
+>  fs/resctrl/monitor.c                  | 25 ++++++++++++++++++++++
+>  fs/resctrl/rdtgroup.c                 | 30 +++++++++++++++++++++------
+>  3 files changed, 54 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+> index b52795e03303..d70aec6f7096 100644
+> --- a/Documentation/filesystems/resctrl.rst
+> +++ b/Documentation/filesystems/resctrl.rst
+> @@ -471,7 +471,8 @@ with the following files:
+>  	Determines if a counter will automatically be assigned to an RMID, MBM event
+>  	pair when its associated monitor group is created via mkdir. Enabled by default
+>  	on boot, also when switched from "default" mode to "mbm_event" counter assignment
+> -	mode. Users can disable this capability by writing to the interface.
+> +	mode. Users can disable this capability by writing to the interface. While the
+> +	MBA software controller is enabled, auto assignment cannot be disabled.
+>  
+>  	"0":
+>  		Auto assignment is disabled.
+> @@ -704,7 +705,9 @@ When monitoring is enabled all MON groups may also contain:
+>  	   mbm_total_bytes:0=e;1=e
+>  	   mbm_local_bytes:0=e;1=e
+>  
+> -	Assignments can be modified by writing to the interface.
+> +	Assignments can be modified by writing to the interface. While the
+> +	MBA software controller is enabled, the counter of the event the
+> +	controller uses cannot be unassigned.
+>  
+>  	Examples:
+>  
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index 8f3b8c3e3010..5a67c8089615 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -1210,6 +1210,12 @@ ssize_t resctrl_mbm_assign_on_mkdir_write(struct kernfs_open_file *of, char *buf
+>  		goto out_unlock;
+>  	}
+>  
+> +	if (!value && is_mba_sc(NULL)) {
+> +		rdt_last_cmd_puts("mbm_assign_on_mkdir is required by the software controller\n");
+> +		ret = -EBUSY;
+> +		goto out_unlock;
+> +	}
+> +
+>  	r->mon.mbm_assign_on_mkdir = value;
+>  
+>  out_unlock:
+> @@ -1776,6 +1782,19 @@ static struct mon_evt *mbm_get_mon_event_by_name(struct rdt_resource *r, char *n
+>  	return NULL;
+>  }
+>  
+> +/*
+> + * Return the event the MBA software controller uses as its input for @rdtgrp.
+> + * A monitor group has no event of its own: its bandwidth is summed into the
+> + * parent control group, which is the group with the mba_MBps_event setting.
+> + */
+> +static enum resctrl_event_id rdtgrp_mba_mbps_event(struct rdtgroup *rdtgrp)
+> +{
+> +	if (rdtgrp->type == RDTMON_GROUP)
+> +		return rdtgrp->mon.parent->mba_mbps_event;
+> +
+> +	return rdtgrp->mba_mbps_event;
+> +}
+> +
+>  static int rdtgroup_modify_assign_state(char *assign, struct rdt_l3_mon_domain *d,
+>  					struct rdtgroup *rdtgrp, struct mon_evt *mevt)
+>  {
+> @@ -1789,6 +1808,12 @@ static int rdtgroup_modify_assign_state(char *assign, struct rdt_l3_mon_domain *
+>  		ret = rdtgroup_assign_cntr_event(d, rdtgrp, mevt);
+>  		break;
+>  	case '_':
+> +		if (is_mba_sc(NULL) &&
+> +		    mevt->evtid == rdtgrp_mba_mbps_event(rdtgrp)) {
+> +			rdt_last_cmd_puts("Counter is in use by the software controller\n");
+> +			ret = -EBUSY;
+> +			break;
+> +		}
+>  		rdtgroup_unassign_cntr_event(d, rdtgrp, mevt);
+>  		break;
+>  	default:
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index b32831871f70..518d89b0c67d 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -2610,10 +2610,9 @@ static void mba_sc_domain_destroy(struct rdt_resource *r,
+>   * The MBA software controller is supported only if MBM is supported and MBA is
+>   * in linear scale, and the MBM monitor scope is the same as MBA control scope.
+>   *
+> - * The software controller cannot be supported when the MBM counters are
+> - * assignable.  There is no guarantee that MBM counters are assigned to the
+> - * event backing the software controller in all monitoring domains of all
+> - * monitoring groups.
+> + * The controller needs a counter for its event in every monitoring group.
+> + * With assignable counters that requires a fixed assignment mode, with
+> + * counters assigned automatically while the controller is in use.
+>   */
+>  static bool supports_mba_mbps(void)
+>  {
+> @@ -2623,9 +2622,13 @@ static bool supports_mba_mbps(void)
+>  	return (resctrl_is_mbm_enabled() &&
+>  		r->alloc_capable && is_mba_linear() &&
+>  		r->ctrl_scope == rmbm->mon_scope &&
+> -		!rmbm->mon.mbm_cntr_assignable);
+> +		(!rmbm->mon.mbm_cntr_assignable ||
+> +		 rmbm->mon.mbm_cntr_assign_fixed));
+>  }
+>  
+> +/* mbm_assign_on_mkdir before the software controller forced it on. */
+> +static bool mba_sc_saved_assign_on_mkdir;
+> +
+>  /*
+>   * Enable or disable the MBA software controller
+>   * which helps user specify bandwidth in MBps.
+> @@ -2633,6 +2636,7 @@ static bool supports_mba_mbps(void)
+>  static int set_mba_sc(bool mba_sc)
+>  {
+>  	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
+> +	struct rdt_resource *rmbm = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+>  	u32 num_closid = resctrl_arch_get_num_closid(r);
+>  	struct rdt_ctrl_domain *d;
+>  	unsigned long fflags;
+> @@ -2643,6 +2647,20 @@ static int set_mba_sc(bool mba_sc)
+>  
+>  	r->membw.mba_sc = mba_sc;
+>  
+> +	/*
+> +	 * The controller needs its event counted in every monitoring group:
+> +	 * force automatic assignment on, and restore the user's setting when
+> +	 * the controller is disabled.
+> +	 */
+> +	if (rmbm->mon.mbm_cntr_assignable) {
+> +		if (mba_sc) {
+> +			mba_sc_saved_assign_on_mkdir = rmbm->mon.mbm_assign_on_mkdir;
+> +			rmbm->mon.mbm_assign_on_mkdir = true;
+> +		} else {
+> +			rmbm->mon.mbm_assign_on_mkdir = mba_sc_saved_assign_on_mkdir;
+> +		}
+> +	}
+> +
+>  	rdtgroup_default.mba_mbps_event = mba_mbps_default_event;
+>  
+>  	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
+> @@ -3352,7 +3370,7 @@ static int rdt_parse_param(struct fs_context *fc, struct fs_parameter *param)
+>  		ctx->enable_cdpl2 = true;
+>  		return 0;
+>  	case Opt_mba_mbps:
+> -		msg = "mba_MBps requires MBM (mbm_event mode not supported) and linear scale MBA at L3 scope";
+> +		msg = "mba_MBps requires MBM and linear scale MBA at L3 scope";
+>  		if (!supports_mba_mbps())
+>  			return invalfc(fc, msg);
+>  		ctx->enable_mba_mbps = true;
 
