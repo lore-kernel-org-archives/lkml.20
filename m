@@ -1,46 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911125;
-	b=Tob2oWWrva2T3wDbr7i7IVgtX+qfa+NRcV8g+RT8eELXQO/xBecC3/bLHpcLKhXeCRe1
-	 tY/1noZurtCI9y6A3ShcmqB4c36LrfnJNYz/NRK3rjzU3CtU/7IXmkWe92dDk0oDWyQCW
-	 DHy7is8VdTILJBD0zLUFCNDDbfuk4iIhVcYy6bb2mC8X+BzReEHEP7jUWtBxDyD1Of5Qr
-	 wTJbctM6d5MXoL0+zLQLeDB3Hs8upR0Dhj4woEfTTOd4PevtZQ/qQJqkG2vqTXM6HaoZo
-	 wwxNo75A9fyg9btwsCu8XfAG/u3tHUbA5mXAzQsTR3nki7KzdNNbBCLQjt2ZhMEoiaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911125;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
-	bh=Um5CS4DWBBrUH6jR7Nw25CFMYmy9leGAKLeb8NaQSdU=;
-	b=I3OXvXACEBjISuGw/qmDNkU0A31fv5wvg3ppklto22w5CeBLO6H4n+OllR0rHkm7ovOM
-	 1i48xkUPGu77rfhLShDPJu9Z/Czh26Byr1jq5QGRJmaYn2fEuZPaxpfWhzYKbLxQqFAZV
-	 TmI7kM+p0aulYgLw0gS0cg9l3ox93sEKdXVaTQNhaa0y1yd4rWwHkdLg4iE++OAZJQi+2
-	 fUXMJL0muGxUHVBqgGjELQcwXnkdXXt8VLRrz8myx6pUIrZvzZ84vs468X1/qV0Mr3ilg
-	 vcOUSgRfvoGdnZCjH6WR8cjCvtQhj3mIeWLI+CXWf8OFtFh7HQmBmmfpFabRcrl8CNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794911238;
+	b=MbMYsW22M/ZgHg18O5dq8cEjDyoKZIJJSWwHqHjxnWUJdxGRmWQiHL89VDKnhc0AO2xu
+	 rE9hQFOPMl0OZUcm2UvThe5p8iYSb11Cw/B7UL7traIr9DppyK3uB2ToMINsvbKyYnPt+
+	 h+9UZzKZZqCOzNvOU5CPemsWVITg95+SmrbrZypX0CkGMhXCR7VNH5B355C029vejou2v
+	 FlQcrXkdRo2ia4PnVRUTxVzy20/z2RlJqsE0q2D6Jjd4we76HywnDv3GTSp0z7JEe+Lw8
+	 lnG/2bvL0u5+feivF9aObgxNNRJTjU/tEeIkf+rwMOmM2k0tyGSVx15UDzuK91wvHVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911238;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OCQwWhKssa23quxneFhMO0jXB1L1QX3ygVtQj7Vkg7c=;
+	b=z5gpufJf/CgZwwP61FI4z/7mkQcKAyp2NZN2E+HBEYjSTdqRp1XEOG2cyXA1q0s3izuT
+	 b2HhZryBH3C5h0ShR067jfvolOk7BoAjFodVjY3HuZ6nxofSKeHny9lGcbvhHbkadPE5O
+	 biTU3u7K/F7hvZTIZ65+ryDZY+7usSb9BBrp6hO0Ry5W2t1Hu7tkv2o50vWhJQEjt5imr
+	 N5ekkFr902milQPRHIjQcJwgjXl6CMrZF4HV/ZjytpdEVeRUCnqdlrxASJn0WyNlwj8DC
+	 XNrZqbepKrpp4oA0s2TZgStDlNFNI5ct+ZKyjhTVfao4Pn2znt9t2PPhE9Cd/2gY0Pg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=AyBuFzDz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.45
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011045.outbound.protection.outlook.com [52.101.125.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B043606A31C;
-	Tue, 17 Nov 2026 10:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B043606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-Cc: Chun-Yeow Yeoh <yeohchunyeow@gmail.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH ath-next] wifi: ath9k_htc: do not fetch the beacon of a
- finished countdown
-In-Reply-To: <20261102123430.1136741-1-mehmet.fide@gmail.com>
-References: <20261102123430.1136741-1-mehmet.fide@gmail.com>
-Date: Tue, 17 Nov 2026 11:25:21 +0100
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87fqwzu54e.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E8A606A31C;
+	Tue, 17 Nov 2026 10:27:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E8A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=AyBuFzDz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ss8JGcG7M+35TCZX+aDDk9nIyOeeGF4ZOY8bra/eIPanIBeCQhZMheO20b8KzzXrpcEXqs4RZGuIGdpZmU4zYLzlhS9TetYUG/KaHh73SayiPTUd/PiXoMPgSzyHISIlBvh5iO153LVWN3fplPZZEpEMlhGAKTKTStv1KzlqB2ffOH78QOwrSdBj9kZnKmm45kUV64aGfqz82AJWu2ymI+3jkff1ZRUl1AuGQ+VrX4adwhvI/PRvuGHN7lYb2wHQjF39w2mZVAhiGrCJJxJt2zaCZVafa4x5sKiewyGGxRwtzNOAjglCfrtbeOiKdu0GIcA2ORXwkTZmtyKluY0ibg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OCQwWhKssa23quxneFhMO0jXB1L1QX3ygVtQj7Vkg7c=;
+ b=YL5N+c5NJVAY7x47yRCJQD/vHePQFt3+bThW6A0K59cJBDjDtwd3n6xPur+vzmbI/lKfV6vsowuLOv2lSA5qtYZiX0YlZSNnUxxo1ks4TyKmti/iBhXItJBEFQ/nLvFWokmOxiUxrv/PGQuJ98ftS8V7xQKMviu9t+WRW/P6kk38q2gpvAKaW34lPzq1bfDbBbJC+Q3tIsbxy5npaEME7JS2cdisJBaTYexhtlnYDcRq6sPNO12H4CJsBMeeG7GmnhaMXyauEJeEkbuPxVKSkvZON1PAE/4ayVtIV9nMK+oSs7ijReqOlQwHQcrUayzutGmq6ry1OXxwN/THPlHqFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OCQwWhKssa23quxneFhMO0jXB1L1QX3ygVtQj7Vkg7c=;
+ b=AyBuFzDz5FRRHsc0wsuSvuFgmR9adoqn4Dj+itira3qts9k1tO33rqukUtRyENFJ66DncCJfTVu21mbzmuq9WvptjSY08iY+roLqflXziBEfcOGb3wTwEvFQhwNza/WMUafzhmVfsutYt8HfI6jGqrwLMXNgMRucm5z6s9sPcU0=
+Received: from TYCP286CA0028.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:263::15)
+ by TY6PR01MB697463.jpnprd01.prod.outlook.com (2603:1096:403:613::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 10:27:12 +0000
+Received: from TY1PEPF00046B4F.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:263:cafe::5c) by TYCP286CA0028.outlook.office365.com
+ (2603:1096:400:263::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
+ 17 Nov 2026 10:27:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
+Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
+ TY1PEPF00046B4F.mail.protection.outlook.com (10.167.253.39) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Tue, 17 Nov 2026 10:27:12 +0000
+Received: from demon-pc.tailc3dc73.ts.net (DEU-5CG5050QD0.adwin.renesas.com [10.226.92.253])
+	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id ABCB73000255;
+	Tue, 17 Nov 2026 19:27:10 +0900 (JST)
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+	William Breathitt Gray <wbg@kernel.org>
+Cc: linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Subject: [PATCH v3 00/14] MTU3 counter fixes and improvements
+Date: Tue, 17 Nov 2026 12:25:53 +0200
+Message-ID: <20261117102607.2504551-1-cosmin-gabriel.tanislav.xa@renesas.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,84 +106,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY1PEPF00046B4F:EE_|TY6PR01MB697463:EE_
 Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 409b16fe-0119-41d7-97b7-08df44955804
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|10067099003|11063799006|56012099006|261026140227099003|261021121427099003|261026121527099003|261021123027099003|261022105027099003|261102123227099003|261028144727099003|261009223027099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	zhRZiwXVYt6iGNOUoDg93/SveYjAt7I2inAilQwDtwKoth518dWYe4aoLjc6/AIFNmMDfGnorUJIXmVGK80LdE6QDP60f1v+MQA4cm8eqzH0v1hwpvtQTiC+MK/My5rH6OSEivKfAhY9ykCApXLl4WK60vk8zq2RICl9iYcJZv5q+FyetQe7O8cQ423jOlXmaVkFNN4PE4VyxH88/vdpYvDbR+BvsK/yGsZGquuHmgF1mrHWEwwANRNdajWHcMj0AifuCjZoEPQsSoZvbkgexzl5hPNN+2OlQ7sChYw46pYYMUZjzZhH3X21+/obFAWiYPN5fr6k5Qy3JVdHCGxynkKGFDR74W3s6COyTof7HeCP7gMBO9YOWMA2TdgTuK0bKHOsO9+F3pU+U2z8D56FZH5WOfiSBVxOfQLuQtqMCcVo6vWXRm5K9R/CO1UqX1c49a6nDb5tdCynW2Xc5AXD4qR0GBjXitpN7m8O514K3DGd3TTWDfwbduyzhOWIH4euYc1PwmPDu4NRNdr/YSTEjb0mQL4PvfAssWmuarbncjUiyoXXjegqnzal2rda33lK7eFYNN8HflGiXGAfOY2cJ0hx8q20fbmQ6s8qoZG5XPvh94X4hSJyqaQF7VL58R+VnpM8I+CWpPRaSeoz0q7E+TEOQi046gE9+ocuBBkTizRolzEJNHqcB5movH1OwuHZLJ024CNkADpq9963vD39mg==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(10067099003)(11063799006)(56012099006)(261026140227099003)(261021121427099003)(261026121527099003)(261021123027099003)(261022105027099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OPVJca5thd7agoC7BbVBfTUzaOwTyyitr5RRM5hxmRUmaJitM4TxCMI5BCnKSm4gd74eTDOgKyfWNgxSt8oHrC5CrL58K75dGn2eoiK4gbh71u2aCP78qQLR6l2Lr9WJhBEiRCuL6SHySGL5naJFtkpuoQeHyORUqDLeeWH0o+0BJKEB59H1MsfWTSMi+eYcCquxrsgGyxIymHlXFse4G6scMylK3HM6KP/bljC3K+tIbLTlPkDxxLT3R/rVARSClZFTmSM8dc+4KR4Npj7oD+jRXjyJQDU4KGF9O3Phc9issE0mN+Zjv04WFBr2Y3Zl3cPMdoA+klKDngE4c4L1n1sST5t9meazaoUYyNAN0beV+wdOatBnqMCXns3sbwXwJJxLWy5ZSwWEPXfc7/9Rh5NidrtrL6b8NjB70bSpArJewv1rvf1m31qSm4KITXEW
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 10:27:12.6908
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 409b16fe-0119-41d7-97b7-08df44955804
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY1PEPF00046B4F.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6PR01MB697463
 
-Mehmet Fide <mehmet.fide@gmail.com> writes:
+This series does some code quality improvements to the MTU3 counter
+subdriver, while also fixing bugs and adding caching support so that
+registers are not touched when the counter is disabled, as there is no
+request API.
 
-> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
->
-> ath9k_htc_send_beacon() checks the channel switch countdown only after
-> ieee80211_beacon_get(). mac80211 replaces the CSA beacon only after the
-> channel change, and ath9k_htc_set_channel() re-enables beaconing before
-> that, so an SWBA event can fetch the CSA beacon again on the new channel
-> and mac80211 reports "beacon TX faster than countdown".
->
-> Skip the beacon while the countdown is complete and finish the switch
-> from there, as ath9k does for non-EDMA chips. Finishing from the skip
-> also covers a count of 2, where the first fetch can complete the
-> countdown before csa_vif is set.
->
-> Tested on 6.12 with an AR9271 AP and hostapd chan_switch: the CSA beacon
-> was fetched again in 3 of 40 switches with a count of 5 before and in
-> none after, and all 60 switches with a count of 2 completed.
->
-> Fixes: f0e449627e4a ("ath9k_htc: add support of channel switch")
-> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-> ---
->  drivers/net/wireless/ath/ath9k/htc_drv_beacon.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-> index 81fa7cbad892..2b5bf07511bb 100644
-> --- a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-> +++ b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-> @@ -214,6 +214,13 @@ static void ath9k_htc_send_beacon(struct ath9k_htc_priv *priv,
->  		return;
->  	}
->  
-> +	if (vif->bss_conf.csa_active &&
-> +	    ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
-> +		spin_unlock_bh(&priv->beacon_lock);
-> +		ath9k_htc_csa_is_finished(priv);
-> +		return;
-> +	}
-> +
+V3:
+ * drop superseded "put runtime PM on initialization error path" patch
+ * adapt "drop conditional locks" patch to the contents of the accepted
+   "put runtime PM ref if counter init fails" patch
 
-Hmm, there's something odd going on with the locking / vif selection
-here. In the snippet above, you're basically replicating the checks
-inside ath9k_htc_csa_is_finished(), before then calling
-ath9k_htc_csa_is_finished() itself. Which presumably then repeats the
-same checks, and does the ieee80211_csa_finish()? Or at least that's
-the logic for why this is correct, AFAIU, no?
+V2:
+ * remove clk.h include
+ * remove struct rz_mtu3_cnt::clk documentation
+ * fix struct rz_mtu3_cnt::ceiling documentation
+ * add struct rz_mtu3_cnt::count documentation
+ * add struct rz_mtu3_cnt::timer_mode documentation
+ * add struct rz_mtu3_cnt::mtclkc_mtclkd documentation
+ * add struct rz_mtu3_cnt::direction documentation
+ * add struct rz_mtu3_cnt::cascade_counts_enable documentation
+ * remove now-unused RZ_MTU3_MAX_HW_CNTR_CHANNELS macro
+ * move rz_mtu3_set_lwa() call after rz_mtu3_disable()
+ * mention the removed busy check
+ * mask 16-bit counter value to preserve behavior
 
-But ath9k_htc_csa_is_finished() doesn't take the 'vif' from the beacon
-slot, it takes the 'priv' pointer that was passed to the function. Which
-implies that either:
+Cosmin Tanislav (14):
+  counter: rz-mtu3-cnt: do not assign struct rz_mtu3_channel::dev
+  counter: rz-mtu3-cnt: remove manual runtime PM handling
+  counter: rz-mtu3-cnt: use device-managed pm_runtime_enable()
+  counter: rz-mtu3-cnt: read enable value from cache
+  counter: rz-mtu3-cnt: disable channel before releasing
+  counter: rz-mtu3-cnt: unify ceiling values
+  counter: rz-mtu3-cnt: cache ceiling values
+  counter: rz-mtu3-cnt: cache count values
+  counter: rz-mtu3-cnt: cache function values
+  counter: rz-mtu3-cnt: cache external input phase clock value
+  counter: rz-mtu3-cnt: cache direction values
+  counter: rz-mtu3-cnt: keep cascade_counts_enable in sync with usage
+  counter: rz-mtu3-cnt: drop conditional locks
+  counter: rz-mtu3-cnt: use pm_runtime_resume_and_get()
 
-(1) priv->csa_vif is guaranteed to be the same whenever csa_active is
-set, and thus this doesn't matter, or
+ drivers/counter/rz-mtu3-cnt.c | 452 +++++++++++-----------------------
+ 1 file changed, 144 insertions(+), 308 deletions(-)
 
-(2) there's a bug here and things can get mixed up.
+-- 
+2.56.0
 
-Since there's already a call to ath9k_htc_csa_is_finished(priv) at the
-end of that same function, I'm assuming it's case (1) that holds. In
-which case, I don't see any reason why we can't just do an early return
-before taking the lock as:
-
-if (ath9k_htc_csa_is_finished(priv))
-   return;
-
-The priv->csa_vif pointer is not protected by the beacon lock anyway[0], so
-I don't think this would lead to trouble?
-
-Thoughts?
-
--Toke
-
-[0] Side note - the priv->csa_vif pointer seems to be quite
-inconsistently lock-protected: it's set under priv->mutex in the driver
-setup paths, under the mac80211 wiphy lock by the
-channel_switch_beacon() callback, and under the wmi lock by
-ath9k_htc_csa_is_finished() itself. Not quite sure if there's some other
-dependency between these locks that ensures this works, or if that's
-just a total coincidence...
