@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794897629;
-	b=ynCiwM3n/gdqhi77ZVewWmVRIu1JRwNz/BS09SmgAf5uMa/a6fci4W3pVyCOAUZQwku0
-	 rviu4JR4gy0F/2QE4NIxVAQMjipBNBO7Aetjd1Vu0EhgaGLe6qn4blpRc1pJAUhdYGn5G
-	 Lz4XaddzE5deqcSr03gKokmv0jNc8y3dC5zQ7kmy/fq0Alnoj9NdxprxV/ab5BBbVeqSf
-	 TEL7mpRB2XgeYZVh668Bx5XfqmQIIyh784SUIJCAXi+j2GuAi9Cw2mmX85JHeMePzuaam
-	 2tNrEhE0FImynPfili6UQRqruKYyQb/++VSPWSkW2QQUn2eTk3FGs1VqYwYFAOvB9CA==
+	t=1794897693;
+	b=YaiG0VtRW4p3U9Rscizm834FBmy7HzjJpm7qOP+GETTiSIbLsbM1BsBJGbaKvq39pO++
+	 QEN84A1lMw45Ata2t9kmaQ8oqHLiM2o/MZ8DQkrPQ1CX/7f7koAMtLAv1xP3UHt6msEz7
+	 zin2Nu0JufwWO4lXhH+rzQA9rreP1SNgAB1q8mXz7TFAe+UMFN0/CBf9yyE8BFDq2jYng
+	 TbvrxQhjo1XHd+XU2TeHWPifcohJ5qQNwPiQAY5mJ/fBncZec/ubpfRryX5tNMyf7VvmV
+	 Oo3nlVCrMKHi2ipfHQqjm2VHCHYrvRq6gH16qTVMCV2abM1U3sgZvygkxoXTdh7PqWA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897693;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=v1qDtE1UkI1Z3ZIzAl9oangANFq3PebjU3wsoGmWws4=;
-	b=FbcbMi4vgvCz1DBcVutQaYBXdy/QiL3+ZQviBnTVRIFNjx33u4SY3558gDM0HygMuHsm
-	 ZxN/M+hljRnr8vbi0jtpAEWifOV5Qxhi2IxfUi9L2tYUR/ZIu1o0Fpz/j+SJK+zxFcVxn
-	 fjcOpzHdqUh0S4ug43PimDkL+TlIPIuWsOawvMfC00y5A2UgLs+ZW6FxkJw/AwyammL4r
-	 oSsWXigl2n5MaqMm5GAwnqv9kfPYOAVJ73QqZK1LupctJapXw55r6jutYeOr9eww1RdeW
-	 T+sODEzxi6ectEZtKSvCaDcQVQxng1MC7ca58WwiWHwSfWhGkI5b7Cv1TzeCTQKobcw==
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JPZhpWtYo4NPJA/y8/DpauPYh9eE6q0SsStIMNvIRZg=;
+	b=WSA1wMj5kpfSQyQhdjH7P2Psj0c2YTGr4EMcdq6s+/hJF6/SNfl7Swa7p2VQFMVU/ext
+	 iS7dBqq+49X2bTPqgC5eVholFtZOmfARVyeqXJKhiVnt9Lh/ZF/Ji1z06QY/3p96yYaJ0
+	 Hy6TFKMuQyQ5hwSyARdE9V/YYQs7OQxiV0PdlzD9iXXJ2U9IVipx+H1PZr7JHsLsywqXS
+	 /n3d0X5Tmp704c1ZSTanwI6wGuPK7DXkETbRRaKC6I5ut5CcKphNsSeBTmfH6pdHmcpMd
+	 WTRgyZauha1Cidwch88wL2L6bBUid6Eq1eh6bPIRictb+BkYFFG6Yp+p/jIoNA/NIhg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pIRFwOCY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZwtH6Nvl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3749F606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:40:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3749F606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE42606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:41:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CE42606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pIRFwOCY
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ab3cb83f54so5103431fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:40:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794897627; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZwtH6Nvl
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b5869223e9so737132a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:41:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794897692; cv=none;
         d=google.com; s=arc-20260327;
-        b=mTQC7n6Zv20hxxSIfA28bXvAGaO1yX+i9F9NP+5KLwjM69PzJcwSa3nHYRrtvwG8xJ
-         YKUzZgtwz92PI9bq+AK8pxcn19YkF8n2cfmTzvaBXlaxdwF62XdnJwGJD3Mtcb7mdemS
-         /aj1p2vrZqfVGVukBFK9xF9Cz44PENBIVvyqrWiaBnAv9ahmN4YJ5fd8JXle0mZOZ8Bb
-         E4uRdpey9HVxjqTIfsSz3GmC1g/F0vFIuL412mpsbcM79CJDFi2kIRxD3Xl6GSKATtgh
-         ivSjgKwvgYaPZ5YjDnVVP0fk1c5/ympeULTMSutiP6J6HpDe/QChmw5wormxMiB6fuiC
-         XTjg==
+        b=MwLaaWSBXFh+MamHj70e9EuX1mKOEd7yK0vd1gt560wVsHYJMVBEjtm5ZyEInNWMTB
+         al/hg4rIADo0hHWkiBM8BJxgK2GzGI1UpuhkGuFqF0fEqsdyU3LYL+MnjESDVc+PNb0w
+         NunjGdR5fBPpssaUiuGyHE5Kfnwro3maqSc6790e56dHZZmQ3vSRb8b7jBOiz6AfXxcz
+         PGrvaFo0bdkSWOF1g69e2r8YCJ9/xfAU2+8nPSd8lRZ27cJlmz2rBC6gSsUB7AD9cr9+
+         9UiVJllHAHmWXwp0Z0/LtJOc8N0Yz+rNAK/++vuN0K5aHu5IrX5h7zCtbo8NodSXWjcs
+         cZew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v1qDtE1UkI1Z3ZIzAl9oangANFq3PebjU3wsoGmWws4=;
-        fh=B7bhtZ32PHNqa0FQo/ZnXHPR4lhHwF3zcA1Ds9WW4Ww=;
-        b=nimK62Oksd4Nm47ICmR2596TJjFGBZ9h9AeoWqmb1Gi1M9dmIr3HO40HeJ00iGkQ8U
-         4gqFmot6cnX+LbZXsgyY7SUXZz4hp3MqlYnvmvuJJ1xo/tV6dFATx3M50VJtiVEle+DM
-         jZVToGKDTISAgdVNp5CD49u93J06Ihzk4fKgnPxLd64ZBhm8Jv25jS/KhMQtbaCUhUZl
-         ajhv0COHDr+LRngHUvJEK4HyO00eWM5cPI+4W3xOYcaPk/tiDy0IEDVSvm8+2dQ4oizB
-         aSyuBcqpNbrq7B0GMChKrm1Hgkg8Wxx7c+grEJhNk5p5Oao/lwoiU9E6qW0S425CEYQb
-         xxVg==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JPZhpWtYo4NPJA/y8/DpauPYh9eE6q0SsStIMNvIRZg=;
+        fh=V4r1Wf6J6Y2EG9KM7OS5HOBJr829JEVw2zkwggpsu+I=;
+        b=mlhPYHdhCuLw1ZQDN+5P6G9/ROqV1kOMCDF+X1v/n9grt8NpglVpokC9KBiCmJ7o+5
+         h+IBro+GS46Pv2tWeO9UNx9bTWNfeqs8FoLwVKT9sYqeJJzJfEe9pFE94v9PWGqTE3gA
+         2rzLgTNblHicANO+7fbDwWPR0Y5j1sOZT1SGmum+ISxOrTZzQpJdGJW/Y0smae5Cek8u
+         1Z3CoZQIQTwd6A6KnhxQQhp6OTDP1mxHhg4x7+rjKw6S+KnpNEPdQdRqqrELslpnH0Yv
+         MgEBIt0x5kNLdt+702ZYrvEM9c9J8Ao73UFYrIJFvd30gRE9Af4oOIsVkhcPkplI0PwO
+         sKYg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794897627; x=1795502427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v1qDtE1UkI1Z3ZIzAl9oangANFq3PebjU3wsoGmWws4=;
-        b=pIRFwOCYQRg6aJGJnOiyKnNG9c6YYSN6o85ZYYxXAIBG+nkneS57BTLS0ZMhGdx7gt
-         73Pq8Jq1zMZq4BGnCGApMta46cRhvKL6hZ7GMCFL1ffulVvZGT6ZBw6pIE5aUhsdRlZL
-         OEcXNdqV+A8SKlHD7NA+p4PqnharGSeqxPddVFJsiemwD+c01kHRki8Io/3Nujn4rPIk
-         3N+tSkGGsatVDuNCgallXLT0T4kowy0ldDFrPVxbONr+LrPuZuo1p4IAubjb7JrpzLEc
-         rlUWAI+7x0KhGGY6xxKjbvUTHCyYVjJST58F877wciel9dPplKwDTy85ZzsuvJJlA4y2
-         61Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794897627; x=1795502427;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794897692; x=1795502492; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v1qDtE1UkI1Z3ZIzAl9oangANFq3PebjU3wsoGmWws4=;
-        b=bASnWhblHYAzmTNj/xrFrsMUACMOECG9sfKfLsyzSyeWKoKAAG/4XLyyPFVuwz+b57
-         YkQzUN3+0K70mLeN1/oLonI7p4OH3NTnzqQmgF5Dh+MuQi4ASR/xe/irEpPdLVyLqgRA
-         fVad03p3mgDkhyUp6qB3amOx8rH4DvOKwKyMxaOtbVK2yw9tbF+oR/SoaS1wUlulA7V7
-         CUxF46bBwYZJMJvCKCM/lGYMnF6ua3QjIn/uVv8jWQt87FsxpuR/abE3FVf6Cbe3M9r2
-         zWLJ3/n6PyF4SpiBErzkFaODql5qcqvydqivLo4U0sq7KwU3ciYhY1BQRf8RY+EnqQrt
-         6Iig==
-X-Forwarded-Encrypted: i=1; AL+hErFHUWwfGFlQR6PZwiDOdFAu6bHOhnrXXkW0DhscOFQ7pqmm49oPXAF+mGUfLMxvmn+JsxASKtzdO6mNFiA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9guCrfzkXEZmjsZBxvqiJAxVxtrYBBqzJ3RYdsSC9Nr5EbGwAY
-	gACk9DmElwXVQj+Q1rhb7uPLSfpbuNDvc2XMFVVKGjfltwS83YwD6F4b3FE/NoTTwN1qLqxRrW9
-	0S6kWSxtGxikcqGGJXILhG2joRE0rz7w=
-X-Gm-Gg: AYBFou35WrYGkLf6tpiFaRgI5ZHaUgrNaHmgBNGC+8FCIwPM8iy3rrRjFwdLqvlie76
-	4Xw84tim4xRWXwuRe9olcmTIL7u4bkc+tRQ5FecX2NJBozHWKQGs1L4QCQtAWwaqRv8NPMkAozT
-	cxLUYXxmGEkEMG9hW1R71P1NgzjxA9owCV/C5gK8XSHwksFNgblwr4U49Rvv88v0yJYeEnskKO4
-	mXeDgL4By2J2uNaqFDToKKE+aIT89GUVX8ve9txkfJyKnG4OQjw01km7n0CYty6jHvPuLpNmuRD
-	kW/VCpjn9B7SDYUf+aECFZiNP11USNDyYBtfrHja3AnxcijxTTNUaRO73/cIMAzcj2H+DzFFm7V
-	t9gOyUCO5WrKPjhBO5XjceTn0eiFcYU9GPWM2aEFMDQoY7FcvWYoQ3mH72+fhViuOTfoeKRIG0F
-	mHK3Q8lXVDn/uiSyo5J+fP1pM1gqQpKq25jaOZqRqVIQjuo0fHDV39uZfOsnHqHTJBAmuYv5cLO
-	ngXCEc2BWVlVVjmOUmD/WaixSFI0JCIWuesO2NqHLVTqYRgr9vK176Qion9AxmGuC35aEwo2w==
-X-Received: by 2002:a05:6512:3d0f:b0:5bf:e6a1:3115 with SMTP id
- 2adb3069b0e04-5c170771fabmr5745484e87.2.1794897627214; Mon, 16 Nov 2026
- 22:40:27 -0800 (PST)
+        bh=JPZhpWtYo4NPJA/y8/DpauPYh9eE6q0SsStIMNvIRZg=;
+        b=ZwtH6NvlFH+reQeUwmv7ZyE7ux3rBWYYiAbBw5fHJ20jIql00C5yxzh3slRgi+5t5j
+         BYnivMmvhtboJ+FCyCvz0rMFpj0YtCPchM/G1bpXQ7reRYowOjVeNTUqgN4SjT+WX7Pb
+         qnIB9RB0wdD7ZMq/OcM5oZDb2m1y6ZD4SlFah+bZ+a31T6wTJmhwA7sfhtmyeRnPKSaz
+         C6/kSNCvxslOvPsMfSCHkIB3FRjnZPFxljRy/E2/GFk/Li1zZeEyI7eQFTsPHR1Bl+mD
+         +2Ny3VDtFOOa8dEd2KhBW/f+RVpJAm/fvKNBd4PmMqZN3HpOnOSdn8rMF0fUcOd5O24C
+         83VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794897692; x=1795502492;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JPZhpWtYo4NPJA/y8/DpauPYh9eE6q0SsStIMNvIRZg=;
+        b=jv5XErBNEpJb4QMOmcuAYojOHAWxcrMQGqoPYsf2gbJtLtHMzHXJeZddrULZjas4/z
+         hfkK55reGrvzSEPcEaEbIJbRKG1wYLKOq4E8BvO+o59qrQDWZeYKVUZzXZRN/hZLDwH6
+         yFvGo2oSJwwLi3oOH/F/3FwxYolaThEYRut+We5+ZBFP0hY7ApsQ2jX3tYEU0CP0nnNG
+         vS79iYIK3vwvPk9zi5RrfbqCEeqqOg2Hia+fYqX4plICPdIUeqJTZafUkr6iVuTx3/OU
+         0YuupHCTQgfk2pWqA0oE5wNQ8w+4O8MTLoIYsVehgXw0r0nmg3kc3c9f0JA38NZchxS+
+         yfCA==
+X-Forwarded-Encrypted: i=1; AL+hErHF8XM50aGJn3ul0uKwUQ3xnY5LzlhJXprBx7EFzVdODBZtLApxRu25+jKNg7fmO6/qFUmSutbmj9PxomM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mXFDEI+y7+t8yXCNVCxDLEbOit/OfyYfqVTN6KY9luC5FBPi8
+	W/KX/pvOBWpleqPB00PpJz6Nhbk5U+X4CHX05nDakRFJYIPDYUJ9GuI3gIgHglfsoAAyxPDkIne
+	8hZe53KirtGB4YlwQ0QcfyWAJybY3VWs=
+X-Gm-Gg: AYBFou2VhycS/pWPGybckxuNJYZtkdi6/fqQXThB4/FS2CjEK1ykEe/J2VvPwCB+sBi
+	+ml8vWrUAszuy09rcp/H9+AeRfYDJE7u1qzKcLZ2P+MNXmytZpKpbr3C8IEFJJi1cUNGAsg5elU
+	05fEY/hwuh6nZMj24kk2LEPKDrADLkOGU4McH5lv/VCc8C7xy+R/11fMGnzZtfRNB+9juT9rNN/
+	d2H/9sm+VxzeOoFcOPcN81ZFLUfgRpjNfBmRNM35AzsjMssFX2uaznaIe+rCHjpx9jTdhHSF3ij
+	21+uF+hSfRR/NmVM616tnSMCa/iKoDIjoUz1mE9Yfa1ighf8r+IGTl1mVt/CxJ2vHNBofqh6hPT
+	eK+2THYZAg404dAa0Wx+Wut6GVZR0dar1KkxT1uIgNYBBquCZmqjXTbwkvs0ONHwEr/hs1LI=
+X-Received: by 2002:aa7:dcc8:0:b0:6b1:b5b8:b695 with SMTP id
+ 4fb4d7f45d1cf-6b7c05c2ab6mr10001732a12.0.1794897691319; Mon, 16 Nov 2026
+ 22:41:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,42 +103,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CANiq72mnB8cMmaMWaC-7pJj29JqqumBOSygnM9zA+8eHikm1Kg@mail.gmail.com>
- <20261114132156.49243-1-marawanzein222@gmail.com>
-In-Reply-To: <20261114132156.49243-1-marawanzein222@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 17 Nov 2026 07:40:14 +0100
-X-Gm-Features: Aa3M54oHxETgvJbOaBj3UfHn1YJEXV_kuITRJF35qSCPKbs92-uDgz2TS-kt2rE
-Message-ID: <CANiq72knPfBVzEA3kiHOWXuDo0QAUh0mWQnWR6og0hqYwK2PNQ@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: kernel: fix lifetime of copy_from_iter_raw
-To: Marwan Mohamed Zein <marawanzein222@gmail.com>
-Cc: ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, boqun@kernel.org, 
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu, 
-	dakr@kernel.org, daniel.almeida@collabora.com, tamir@kernel.org, 
-	acourbot@nvidia.com, work@onurozkan.dev, spidermana <xuyiwen14@gmail.com>
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+ <20261110-dcphy-rx-v1-v6-3-d681ba20b36a@gmail.com> <3ab93996-7e37-4143-aa4c-b4b4b0e025d8@collabora.com>
+ <CAPwA33JHxsd=nr9F9_KFKWPx+HGaR8P3ee7hxMc8XCS6QY46gw@mail.gmail.com> <0d837fe2-e192-4fc6-a2e5-c23df40684ab@collabora.com>
+In-Reply-To: <0d837fe2-e192-4fc6-a2e5-c23df40684ab@collabora.com>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Tue, 17 Nov 2026 14:41:19 +0800
+X-Gm-Features: AclHuK9K0tynceSVuGQK7zRApbKLpPj305E_NQui8VbqIokOScWH3FFiT-Y5p9Q
+Message-ID: <CAPwA33LgQqQSnn3vUOQF2wTUiqP2QROKfUpsASJZqjJP6WDi7A@mail.gmail.com>
+Subject: Re: [PATCH v6 3/9] phy: rockchip-samsung-dcphy: Unwind power-on on
+ PLL lock failure
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 14, 2026 at 2:22=E2=80=AFPM Marwan Mohamed Zein
-<marawanzein222@gmail.com> wrote:
->
-> The returned slice is derived from `out`, but lifetime elision
-> ties it to `self` because this is a method. Explicitly bind the
-> return lifetime to `out` so the returned slice cannot outlive
-> its backing buffer.
->
-> Fixes: 06cb58b310ea ("rust: iov: add iov_iter abstractions for ITER_SOURC=
-E")
-> Cc: stable@vger.kernel.org
-> Reported-by: spidermana <xuyiwen14@gmail.com>
-> Closes: https://github.com/Rust-for-Linux/linux/issues/1265
-> Signed-off-by: Marwan Mohamed Zein <marawanzein222@gmail.com>
+Hi Michael,
 
-Applied to `rust-fixes` -- tags still welcome for a day or so!
+On 11/16/26 11:00, Michael Riesch wrote:
+> Still what we discussed makes sense, so let us do some refactoring in a
+> later series.
 
-[ Reworded title. - Miguel ]
+As discussed, I plan to add the tx_ prefix to the PLL helpers in 6/9.
 
-Cheers,
-Miguel
+I also noticed that struct samsung_mipi_phy holds phy and lanes, which
+TX and RX both use, but also the RX-only hs* fields added in 8/9, while
+the TX-only PLL state stays in struct samsung_mipi_dcphy.
+
+I am thinking about the following:
+
+1) One struct per direction:
+
+struct samsung_mipi_phy_tx {
+  struct phy *phy;
+  unsigned int lanes;
+  struct reset_control *m_phy_rst;
+  bool legacy_mismatch;
+  struct { ... } pll;
+};
+
+struct samsung_mipi_phy_rx {
+  struct phy *phy;
+  unsigned int lanes;
+  struct reset_control *s_phy_rst;
+  unsigned long long hs_clk_rate;
+  u16 hsfreq_cfg;
+};
+
+2) Keep only phy and lanes in struct samsung_mipi_phy, and move the hs*
+fields to struct samsung_mipi_dcphy, next to the PLL state:
+
+struct samsung_mipi_dcphy {
+  ...
+  struct samsung_mipi_phy tx;
+  struct samsung_mipi_phy rx;
+  ...
+  struct { ... } pll;
+  unsigned long long rx_hs_clk_rate;
+  u16 rx_hsfreq_cfg;
+};
+
+Option 1 changes 6/9 to 8/9, option 2 only 8/9. Which one would be more
+convenient for your future work?
+
+Thanks,
+Jason
