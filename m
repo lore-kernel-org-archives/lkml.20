@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794887380;
-	b=LnGMoDqP1VzDspVbuN/8cWd+nqsEh06+M6WlWRbRtkl0eGtBE+IeFbsO1TLBThzwDElE
-	 i2qAbRTfBeemR1TwrsZvgaqMTLvcx7yCRSkDBbVJPcG9DME2TcXhKWFWhCnl6chGGqsEL
-	 +pisKqkxuzQo3lhloldNsO/TlVvwM//F32LloyfWWeM/QZhF4b8iEdy7AnlQCfcdc8Rq7
-	 qR7kNRDmSWgLVmBDTuLxKvaLLTCIJWJGuDoAs/edjRFOx3AkbIpCGtoP6uuwKveZWvGR9
-	 5WcyN/bliuYwxMIj0x8RX6BYy0l5fp02UeZQ6AqUah36H3RGkEdyIGnBx2JNfc9D6ew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887380;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MN3C3MGCf8Imu8QLEA+7sVBZ3ldYiqOZRhR0QkEwU2Q=;
-	b=qBj88mDS/o6MrpV29MCJXL6sPA2Zvjp6dad5d7QD0BjkMPWvn55AXfXoDp3A01oR+lXD
-	 UFwFCyrm5sO2baomCwDLR3x1/2QGFdwFkwoFuiUfqA5/pFD8tAudQICiwlW+NIz0kQ0oT
-	 gnDvWRuQOWofHJH+bXRWkoLDns80AyJVF6DGQxLrfpC46MiqFOybjCVQ8r1QdVC3e7LpA
-	 x80Nt01+glnXou0Bw6ymlA2UpCdijtjXcjMkHtxx6luRoGBgjJgSBHl3o1JVq5CMwAQxp
-	 hU7ofbvbXa6LLlm5AoFxE3R9fvoEkqVLJKjKChALvtmyY9TL0B1vX4MqNybm/GSvnvQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItfBG9SK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADB6606A31C;
-	Tue, 17 Nov 2026 03:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItfBG9SK
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794887379;
-	b=qTocz3N1g+BGG3kKYWva9/onA7YmziyMiX7QTpRsj8wk8HVVBxgQgKFa0P09M9cbnYLc
-	 brBD/jfThUl8B0uoDrAqO5/QLIGx4132HcBS8kqu+ZkhfHOO4b+gP2KIPptndJ8qGmA1C
-	 h/jLcz8aMYU1tW/dneYyBQ9uYdWMWN181qlEjQ1My/rwuglHg6td5vdF7Q6/vw7fCREbO
-	 o3UGy8mi74yh7kBQ/k7zWKWwQ5WP2ePIa5iLKqSazk/g0c3aWX+Zmza+o2TO5SCT3bA4S
-	 0YedLphcvUBzAZRA8RlKpm7MEkyMDddhyW2L0rJFhELZ7qYzZn1veIzaoRNRMgsR/HQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794887379;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MN3C3MGCf8Imu8QLEA+7sVBZ3ldYiqOZRhR0QkEwU2Q=;
-	b=PzzxxiBl9PU6QGgiQe5froXy6HIpiblNiij8hvtUF1rJL2jZv412qF6H9tlF47+88Quc
-	 vv9qNsGSHvRNEwt1arsuxyA5ubj6DICM2vYATY7x3xfeI/gE2W4SXLyXvI2+80Rf6Dbfn
-	 UaSZjzi0N6CsMv4K+rknmIxPjJp6N8TIEnS69zFT4m2oxnebxRc6knyP07JM2EM4T/rBd
-	 Dy/cr4ikWbIfCw0H0VAQjReRO3TadY83/QYoPZec0GcmMdMs2eiujWclAMDiKHl2A26Bi
-	 dikjh1p8qjyQTULQkadpwVHc7lvp4XSvdgL4srjJOq0ouMq7oAQol/8YEavOBRVjI3Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794887390;
+	b=EVgbTft9UXB24JxOFx4/s0fqq9l0/ZZzBcwzv3DIEUI/TWewypApUp2bUjLYZxy/tfaN
+	 pKdDBSpsw4T9briFKC0JRAHMbiIaCU5VZkzIqwL0Tk/CQmmc//KH7OZ1DQO2eficOi2ms
+	 D2EhcQALABHwEebKWaPdFBwHhj/7wvjpyo0CrIj3ja+zwZtA0N9H9lKXlWNg93eu/5Gj0
+	 /NrPhLpzCsoo4ZtCHcl/HEZYY2cFMUmxJH5bH6FD+MpWVVrPbnvtUfiC75nuf2wHN5wjH
+	 zUG/AT2uvcVsx/EDCXbQ4XtYE5ZbliDnhsSFz+CoSMLW49C20k2fRY6EH6bxKIWg89A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887390;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=RRfNWo7QpY2x+rpM47udJSSCiW+Ce4+mjWwNqpYTpZQ=;
+	b=kkbXeVd67BFsf0QdN1xJ9qOdCdXAW7cruzd30sMWan/SeORoifsqBnNGXMPzjvywsRC1
+	 DseBEFml6gUEvFyvvoFQU45sdWEOAKCfbUQ1M6K0Gr96EzDnk8K57npaWhd/hGuY+DQ2K
+	 fKuTdlZrhoykewWzfi03ao82uA1nkER3IjTtpeNaboyoxKQZ/++JtES3pnp83NR7K0Mk9
+	 AVf0a/kriWk92S99gBcLqmYLpCm7P3/zmVKPcgNzlzK26gfB/8BjntASPFrh2zJvnJN36
+	 WWG1R2+7HTKplTbtCoYg3Z+ouPRE6h+4PjOBgtR9UrgNfs04QCtwTMPKyumxcj5uXpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=McDxFBhB;
+	arc=none smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3F6031F000C4;
-	Tue, 17 Nov 2026 03:49:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794887379;
-	bh=MN3C3MGCf8Imu8QLEA+7sVBZ3ldYiqOZRhR0QkEwU2Q=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ItfBG9SKk8ZnV8XtlD3i6HWovB902rbC8pQ4bOG2hCV5GRxAP4BZ9/1Ptv+nUd6xy
-	 Vtkao+8FWHP6wZ8W8XIEsSSJcxVD+kI7e24dvycOQgNJWxdBjpAP10SCk+YELVzmJ1
-	 dsRmGG+FNfXaMGW1+S7ZptN8OXB81JeAfWIgs2p5uT/aFFeP1YkTkQrMINGeMpFchl
-	 sbSm1qIRjebs9GvFaGE9HwORZmRAh2MyuOMbz9zvkOkblyVnu3S1s8JGxqAyCAqDOs
-	 qtNc0NIyS/ADPfzakJFb0/AJoxiPeW0VkVUdUcN02ksTMoTNEyAeMJBlnrlkca9mmk
-	 Vg5FuN51y8Xfg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9614E4A6AB;
-	Tue, 17 Nov 2026 03:49:38 +0000 (UTC)
-From: Ricky Sorrell via B4 Relay <devnull+rmsorrell.gmail.com@kernel.org>
-Date: Mon, 16 Nov 2026 20:49:39 -0700
-Subject: [PATCH] power: supply: surface_battery: Defer AC-triggered update
- across suspend
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78051606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78051606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=McDxFBhB
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67db0791748so2265317d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:49:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794887389; x=1795492189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RRfNWo7QpY2x+rpM47udJSSCiW+Ce4+mjWwNqpYTpZQ=;
+        b=McDxFBhB6Log5D5VyjNDBUQFQ4SUCCG6L0Uc1yzkukzzhDtE3m9iEwIuh182cb8hKG
+         p7ufeb57SrxlCttBBNFhkP3ia4e2o+rGrMNv8tsSJaD0X0RYUIKNjy/KtJVccbV1B2BT
+         V2s728GkipBMEYF78J2/tsgxmbFx32stZUae6P5uxLNhZhlYudP0SgIo1ExyRpV3lAFu
+         +YaVgkISbgQ+oyXdJTmd+XZ4NrKbv+NiwnBff9XUi11n6btgX0HDN6mLrVPGmnCm0tXp
+         BKtAiFZYF+/zhBZebn5oYwDPW1EqKYhQuQg++Dl5dYItQtltmwEHoR+4SRy+m+e0i7SJ
+         VvWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794887389; x=1795492189;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RRfNWo7QpY2x+rpM47udJSSCiW+Ce4+mjWwNqpYTpZQ=;
+        b=ctGW0b8t5NvYndhROj/q55KVa3N2LtIglWkLT1bGB0nXc1jRNpW0sXu8DAAJCOnfD0
+         lJ184V7ea51cUr+6qsIkuG3o5gArhT0ObzURu+NwjFLzT+KjkU9pv3aFXz0kT+xw7AoZ
+         U4AX08LQ9uM22OB5ISQT0eJvWpGIek+4zG3SBRRod+5oT+RXqjqqfVg6sDymjuHoEkpJ
+         LwsxaKwGv6rclZQyTRX45OaespiV/xMeMhERL8cs8Mku+tBaoYZuq0AvyLqtwVHbZcXz
+         SdoiwRwprjt6iPxcgUxO0/U1ovoQYi9th7R9BU1pR6LJjKxwjT6KuFOYwqgotUZaehml
+         aCsg==
+X-Gm-Message-State: APuU4Z+bfAozJsWMct545bey5TQWGcDsjMIvVGD8Pvj/24UnAY1BhZdk
+	McMl1SodQeSMw8K+yUOxF32DvZdR1QhWy8maZhu9Px9uWmyPnpzxIaJ3
+X-Gm-Gg: AZFdTZfIe5qvltobu2mb3OQi+foB67MZ+BispeCXCN/mrP0icpxeIIw17igbgLntSS0
+	sF4jPAIyOsURgPCAVlMPGLC8B4DkW/lCH1XCRo1x7jJ5XGXgIn8ofcKE3x5jYOk3Etrrv8B2fmi
+	ZcYDQ4oX1Mpvumo/eKAk++XVf7AnIclqiDsNFzH/2E91Oa7dZNAjvWa3I48Vb/vuzZwGavCpJPE
+	qvLQJ6Ab4PtpH4vvnyS/2Cok44TjvFGYOgl2VTFffazQrPaq4k+muABa37KrFKnXcEHokwikGng
+	4JJ1vvCFvd/UohBxaIGLHYZ+RuNhYa1mDUmuH+GSrtdjkoADZU6/QalK6zJUek8/FIJkP1BnTyR
+	ei/WNw+7V4EN7IToZXOOvaNZtyvrmssTS84aNJTwiM9emtLG/cC5plqZ3BQmFFA5mXIKZ4h/r1Z
+	0c7yLuQsmrWIfqqowEEwhg71gCfguRdlaGJfkkSh9EYWQIscBUarEaUU5AelZYWzpjfokJe8bLS
+	zofiFHsD0xiy7aqA1aq3aL8xP/GrpbgBXXTJHfjccI69Em4QaDtbgZ/KNBo4SoXYwZ+An7gJ0BN
+	31wf8H6hr7I5onXKrf9dFxXZEzHvsTgt9zolQZT5iMHd2SizlAo94Z9JJ0oYAiHpYNvS7KyYw13
+	LhblMyTYJKPJqnPwYl+8bqkTRkdOB4I73RPRt1NH0wgJqkU9Q2vLx/GQP0bWYWJu84LmS69gjVM
+	L76qdOFLvghXIgsMU78oIqs5IAHvqys4zPy/7sPuaATmgS3m11aBKkiDUvfCY6jj9D6YPhJQB9X
+	kpSqrqsI5PVcCIhW58=
+X-Received: by 2002:a53:c0c6:0:b0:679:b50e:9a with SMTP id 956f58d0204a3-67d897d8ed6mr5566347d50.108.1794887389272;
+        Mon, 16 Nov 2026 19:49:49 -0800 (PST)
+Received: from localhost.localdomain (104-12-105-135.lightspeed.miamfl.sbcglobal.net. [104.12.105.135])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec306904sm15108597b3.43.2026.11.16.19.49.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 19:49:48 -0800 (PST)
+From: Jason Perlow <jperlow@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Jason Perlow <jperlow@gmail.com>
+Subject: [PATCH RESEND] Bluetooth: btbcm: Add entries for BCM4364B3 UART Bluetooth
+Date: Mon, 16 Nov 2026 22:49:47 -0500
+Message-ID: <20261117034947.14803-1-jperlow@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,96 +97,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-surface-battery-suspend-v1-1-71862c94435f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIANLO+2oC/yXMQQrCMBBG4auUWRtoChbxKuJikvzRcRHLTCqV0
- rs31eW3eG8lgwqMrt1Kio+YvEuDP3UUn1wecJKaaeiH0Xs/Ops1c4QLXCv022wTSnLhzCmEjEv
- PmVo9KbIsv/Pt/rfN4YVYjx1t2w5aWWcpewAAAA==
-X-Change-ID: 20261116-surface-battery-suspend-b5adbbfe80af
-To: Maximilian Luz <luzmaximilian@gmail.com>, 
- Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ricky Sorrell <rmsorrell@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794887378; l=3169;
- i=rmsorrell@gmail.com; s=20261117; h=from:subject:message-id;
- bh=Nm4oDrkT9c+zgZKLqwTPIM9uMxM/qKmEf83Eim2ZI+A=;
- b=Y/O3bQAP6wvKxqeZvxMj+O34ZAGKVr0Z9f4ZHmbJSD4q8f09awao2RXW0CsywUS10qWtfOPRh
- JXPLjkuhkpuA/ySi39H12X22FcsudwpHfdfxAS2dK2BdKJ3Ghv2iU29
-X-Developer-Key: i=rmsorrell@gmail.com; a=ed25519;
- pk=iB5I4ZV9deYinB0dHWz2x12lFRsMIymvzUMBcvlbAKs=
-X-Endpoint-Received: by B4 Relay for rmsorrell@gmail.com/20261117 with
- auth_id=1546
-X-Original-From: Ricky Sorrell <rmsorrell@gmail.com>
-Reply-To: rmsorrell@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Ricky Sorrell <rmsorrell@gmail.com>
+The BCM4364B3 combo chip on Apple T2 Macs, e.g. the MacBookPro16,1, has a
+UART Bluetooth controller that reports LMP subversion 0x3032 (001.016.050)
+on some units and 0x305b (001.016.091) on others.  Neither has an entry in
+bcm_uart_subver_table, so the controller is logged without a name:
 
-When the AC adapter is plugged in or removed, spwr_external_power_changed()
-schedules a battery state update after five seconds, on system_wq. That
-workqueue is not frozen for system suspend. If the system starts to
-suspend within those five seconds, for example when the charger is
-unplugged and the lid closed straight away, the work runs after the
-Surface Aggregator controller has been suspended. The request then trips
-the WARN_ON() in ssam_request_do_sync_with_buffer() and fails:
+  Bluetooth: hci0: BCM4364B3 Trinidad Olympic GEN (MFG)
+  Bluetooth: hci0: BCM (001.016.091) build 0115
 
-  WARNING: drivers/platform/surface/aggregator/controller.c:1703 at ssam_request_do_sync_with_buffer+0x15a/0x180 [surface_aggregator]
-  Workqueue: events spwr_battery_update_bst_workfn [surface_battery]
-  surface_battery 01:02:02:01:00: failed to update battery state: -19
+and the firmware lookup only tries the generic "brcm/BCM.hcd".
 
-Queue the work on system_freezable_wq instead. Freezable workqueues are
-frozen before devices are suspended and thawed after they have resumed,
-so a pending update now runs only once the controller is reachable again.
-Nothing is lost by the delay: surface_battery_resume() already rechecks
-the full battery state.
+Add both subversions so the controller is named and its firmware is looked
+up as "brcm/BCM4364B3.hcd" first.  Tested on two MacBookPro16,1 with a
+v7.4-rc3 based kernel carrying an equivalent change, one reporting 0x3032
+and one reporting 0x305b.  They now log:
 
-The problem was found, and this change written and tested, with the help
-of an AI coding assistant (Claude Opus 5.5 in Claude Code). It was found
-by reading the kernel log after suspend tests on a Surface Book 3, then
-confirmed in the source. Reproduced and tested on a Surface Book 3 with
-Linux 7.3.4: unplug the charger and close the lid within five seconds.
-Before the change the warning above appeared; after it, the same test
-gave no warning and correct battery state after resume.
+  Bluetooth: hci0: BCM4364B3 (001.016.050) build 0082
+  Bluetooth: hci0: BCM4364B3 (001.016.091) build 0115
 
-Fixes: 167f77f7d0b3 ("power: supply: Add battery driver for Surface Aggregator Module")
-Signed-off-by: Ricky Sorrell <rmsorrell@gmail.com>
+Signed-off-by: Jason Perlow <jperlow@gmail.com>
 ---
-Not done, so reviewers know: the change was built and tested against
-Linux 7.3.4 only. Mainline's surface_battery.c differs from 7.3.4 only in
-an unrelated devm_kzalloc_obj() line, and the patch applies to mainline,
-but it was not built or run there.
----
- drivers/power/supply/surface_battery.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Resend: the first copy was line-wrapped by my mail client and did not apply.
+This one is sent with git send-email. No other changes.
 
-diff --git a/drivers/power/supply/surface_battery.c b/drivers/power/supply/surface_battery.c
-index dac19932c..a9b0cdfe3 100644
---- a/drivers/power/supply/surface_battery.c
-+++ b/drivers/power/supply/surface_battery.c
-@@ -417,9 +417,14 @@ static void spwr_external_power_changed(struct power_supply *psy)
- 	 * event for the state (charging/discharging) change. Furthermore it
- 	 * may take some time until the state is updated on the battery.
- 	 * Schedule an update to solve this.
-+	 *
-+	 * Use the freezable workqueue so that the update does not run while
-+	 * the system is suspending, when the EC can no longer be reached.
-+	 * surface_battery_resume() rechecks the full state anyway.
- 	 */
+ drivers/bluetooth/btbcm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
+index 065536d4ec..92ba7aeac3 100644
+--- a/drivers/bluetooth/btbcm.c
++++ b/drivers/bluetooth/btbcm.c
+@@ -519,6 +519,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
+ 	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
+ 	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
+ 	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
++	{ 0x3032, "BCM4364B3"	},	/* 001.016.050 */
++	{ 0x305b, "BCM4364B3"	},	/* 001.016.091 */
+ 	{ }
+ };
  
--	schedule_delayed_work(&bat->update_work, SPWR_AC_BAT_UPDATE_DELAY);
-+	queue_delayed_work(system_freezable_wq, &bat->update_work,
-+			   SPWR_AC_BAT_UPDATE_DELAY);
- }
- 
- 
-
----
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
-change-id: 20261116-surface-battery-suspend-b5adbbfe80af
-
-Best regards,
---  
-Ricky Sorrell <rmsorrell@gmail.com>
-
+-- 
+2.56.0
 
