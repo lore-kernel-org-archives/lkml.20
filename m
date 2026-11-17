@@ -1,70 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887351;
-	b=e3owymF/ble2Cke4nf0nCfUOlmk2057hc7Ow43qEAaLu3ZlbK2Ue1gjMbpkH94w95b59
-	 ICSpudQdFX497t6MUsXeuQGi08S/lU0iWL6lfsDJrV7paSdj6T3sXXkvsUpIF+nk7B77g
-	 AVncg8IE9Xmd/sZwGtMYnc1ogrDtebJiDIUQOpRi9O0i54RAvDw6IUz74Lqn73HVykrEr
-	 ivLLrIzatgWm0kEzHIy3ELjPZUkai3IyfXPCLi6+AO5ybIVW5fs1Lxcmu/3TvQ4r3/Dfg
-	 25aDhF//fdxkJU5isyHlhhy4lEmtTegejN7oDgz2D+DmVnB+CeUQ5Jx9HGAG44R8gnw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887351;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=kz9eQ61Ajq43uxmlFTJjwTmcAGgP+PmpRb4bS50Xo0k=;
-	b=dnuvXyb3i18sa1gB+hniT4Ut3MI5nlIkTmp7ZoYVUYpQSxcuruI48Ojx24XXcKSFzDh1
-	 FW+E+BzQ3+80Y52rQK3l8p9PqwQ7fsHjHIP9ilg0sB9ERGYdOF29qyuG26VQWeEHqC4+m
-	 rm10k739isqrbivL+MKNob1Lt4LLxbr8k4+f16rRnMfT6Zo8svOI8ooGAhp5KrnB8ku3D
-	 5BIO21WOlrheV4sPCeqoIaV8ACaXMi8gCQsYCA+8oxgxgoO8pbNhjjn1cesW5EF2A6rYq
-	 HRJaCxYTiOsu04wxiUg5PbiIvgIXfzl8TufT9OzoQPfn6RcVoYJNYAI15MuT6aX8D+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=dBDwfsaC;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794887380;
+	b=LnGMoDqP1VzDspVbuN/8cWd+nqsEh06+M6WlWRbRtkl0eGtBE+IeFbsO1TLBThzwDElE
+	 i2qAbRTfBeemR1TwrsZvgaqMTLvcx7yCRSkDBbVJPcG9DME2TcXhKWFWhCnl6chGGqsEL
+	 +pisKqkxuzQo3lhloldNsO/TlVvwM//F32LloyfWWeM/QZhF4b8iEdy7AnlQCfcdc8Rq7
+	 qR7kNRDmSWgLVmBDTuLxKvaLLTCIJWJGuDoAs/edjRFOx3AkbIpCGtoP6uuwKveZWvGR9
+	 5WcyN/bliuYwxMIj0x8RX6BYy0l5fp02UeZQ6AqUah36H3RGkEdyIGnBx2JNfc9D6ew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887380;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MN3C3MGCf8Imu8QLEA+7sVBZ3ldYiqOZRhR0QkEwU2Q=;
+	b=qBj88mDS/o6MrpV29MCJXL6sPA2Zvjp6dad5d7QD0BjkMPWvn55AXfXoDp3A01oR+lXD
+	 UFwFCyrm5sO2baomCwDLR3x1/2QGFdwFkwoFuiUfqA5/pFD8tAudQICiwlW+NIz0kQ0oT
+	 gnDvWRuQOWofHJH+bXRWkoLDns80AyJVF6DGQxLrfpC46MiqFOybjCVQ8r1QdVC3e7LpA
+	 x80Nt01+glnXou0Bw6ymlA2UpCdijtjXcjMkHtxx6luRoGBgjJgSBHl3o1JVq5CMwAQxp
+	 hU7ofbvbXa6LLlm5AoFxE3R9fvoEkqVLJKjKChALvtmyY9TL0B1vX4MqNybm/GSvnvQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItfBG9SK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADB6606A31C;
+	Tue, 17 Nov 2026 03:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItfBG9SK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794887379;
+	b=qTocz3N1g+BGG3kKYWva9/onA7YmziyMiX7QTpRsj8wk8HVVBxgQgKFa0P09M9cbnYLc
+	 brBD/jfThUl8B0uoDrAqO5/QLIGx4132HcBS8kqu+ZkhfHOO4b+gP2KIPptndJ8qGmA1C
+	 h/jLcz8aMYU1tW/dneYyBQ9uYdWMWN181qlEjQ1My/rwuglHg6td5vdF7Q6/vw7fCREbO
+	 o3UGy8mi74yh7kBQ/k7zWKWwQ5WP2ePIa5iLKqSazk/g0c3aWX+Zmza+o2TO5SCT3bA4S
+	 0YedLphcvUBzAZRA8RlKpm7MEkyMDddhyW2L0rJFhELZ7qYzZn1veIzaoRNRMgsR/HQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794887379;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MN3C3MGCf8Imu8QLEA+7sVBZ3ldYiqOZRhR0QkEwU2Q=;
+	b=PzzxxiBl9PU6QGgiQe5froXy6HIpiblNiij8hvtUF1rJL2jZv412qF6H9tlF47+88Quc
+	 vv9qNsGSHvRNEwt1arsuxyA5ubj6DICM2vYATY7x3xfeI/gE2W4SXLyXvI2+80Rf6Dbfn
+	 UaSZjzi0N6CsMv4K+rknmIxPjJp6N8TIEnS69zFT4m2oxnebxRc6knyP07JM2EM4T/rBd
+	 Dy/cr4ikWbIfCw0H0VAQjReRO3TadY83/QYoPZec0GcmMdMs2eiujWclAMDiKHl2A26Bi
+	 dikjh1p8qjyQTULQkadpwVHc7lvp4XSvdgL4srjJOq0ouMq7oAQol/8YEavOBRVjI3Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7750606A323;
-	Tue, 17 Nov 2026 03:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7750606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=dBDwfsaC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1794887347;
-	bh=kz9eQ61Ajq43uxmlFTJjwTmcAGgP+PmpRb4bS50Xo0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dBDwfsaCPvpMXrlQRxkZGdSpNft02CmLvrosxD6kyii1kvb3C/glBHzWY90XQdbCw
-	 TzEs+cc5scanTabCQfbZ1nR4j6740CAN57h1h5/K158JFqfekORlk/v4IEHGaf2NXK
-	 rjTAy5IvTemngIVNWNQsl9+bMlNwdYR12hB2+1KcZzyddiiah7EGFwlZjJy5FHIKSY
-	 q5cbFnXkm8nsXEBmc7fbpFCjyixoRrIcgb/nX99RaB3yVbji2o/+OZe7VYGmfyK4m9
-	 WE9vo4GY084109BEHBUp9gGFsfzrlbAOF8AWLxYHEN+CFgXAmx7bACnRYk4d7ofgXT
-	 pFCj8cUzCqmGQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jT9hM4jJYz4wSq; Tue, 17 Nov 2026 14:49:07 +1100 (AEDT)
-Date: Tue, 17 Nov 2026 14:47:29 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>
-Subject: Re: [PATCH v4 06/14] pylibfdt: Speed up FdtRo.properties() with a C
- helper
-Message-ID: <avvOUIIn9t00XqY_@gractus.seuss>
-References: <20261116205320.1621386-1-dianders@chromium.org>
- <20261116205320.1621386-7-dianders@chromium.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3F6031F000C4;
+	Tue, 17 Nov 2026 03:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794887379;
+	bh=MN3C3MGCf8Imu8QLEA+7sVBZ3ldYiqOZRhR0QkEwU2Q=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ItfBG9SKk8ZnV8XtlD3i6HWovB902rbC8pQ4bOG2hCV5GRxAP4BZ9/1Ptv+nUd6xy
+	 Vtkao+8FWHP6wZ8W8XIEsSSJcxVD+kI7e24dvycOQgNJWxdBjpAP10SCk+YELVzmJ1
+	 dsRmGG+FNfXaMGW1+S7ZptN8OXB81JeAfWIgs2p5uT/aFFeP1YkTkQrMINGeMpFchl
+	 sbSm1qIRjebs9GvFaGE9HwORZmRAh2MyuOMbz9zvkOkblyVnu3S1s8JGxqAyCAqDOs
+	 qtNc0NIyS/ADPfzakJFb0/AJoxiPeW0VkVUdUcN02ksTMoTNEyAeMJBlnrlkca9mmk
+	 Vg5FuN51y8Xfg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9614E4A6AB;
+	Tue, 17 Nov 2026 03:49:38 +0000 (UTC)
+From: Ricky Sorrell via B4 Relay <devnull+rmsorrell.gmail.com@kernel.org>
+Date: Mon, 16 Nov 2026 20:49:39 -0700
+Subject: [PATCH] power: supply: surface_battery: Defer AC-triggered update
+ across suspend
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,72 +83,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fn2kyC0KazwbIRxa"
-Content-Disposition: inline
-In-Reply-To: <20261116205320.1621386-7-dianders@chromium.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-surface-battery-suspend-v1-1-71862c94435f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIANLO+2oC/yXMQQrCMBBG4auUWRtoChbxKuJikvzRcRHLTCqV0
+ rs31eW3eG8lgwqMrt1Kio+YvEuDP3UUn1wecJKaaeiH0Xs/Ops1c4QLXCv022wTSnLhzCmEjEv
+ PmVo9KbIsv/Pt/rfN4YVYjx1t2w5aWWcpewAAAA==
+X-Change-ID: 20261116-surface-battery-suspend-b5adbbfe80af
+To: Maximilian Luz <luzmaximilian@gmail.com>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ricky Sorrell <rmsorrell@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794887378; l=3169;
+ i=rmsorrell@gmail.com; s=20261117; h=from:subject:message-id;
+ bh=Nm4oDrkT9c+zgZKLqwTPIM9uMxM/qKmEf83Eim2ZI+A=;
+ b=Y/O3bQAP6wvKxqeZvxMj+O34ZAGKVr0Z9f4ZHmbJSD4q8f09awao2RXW0CsywUS10qWtfOPRh
+ JXPLjkuhkpuA/ySi39H12X22FcsudwpHfdfxAS2dK2BdKJ3Ghv2iU29
+X-Developer-Key: i=rmsorrell@gmail.com; a=ed25519;
+ pk=iB5I4ZV9deYinB0dHWz2x12lFRsMIymvzUMBcvlbAKs=
+X-Endpoint-Received: by B4 Relay for rmsorrell@gmail.com/20261117 with
+ auth_id=1546
+X-Original-From: Ricky Sorrell <rmsorrell@gmail.com>
+Reply-To: rmsorrell@gmail.com
+Content-Transfer-Encoding: 7bit
 
---fn2kyC0KazwbIRxa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Ricky Sorrell <rmsorrell@gmail.com>
 
-On Mon, Nov 16, 2026 at 12:53:03PM -0800, Douglas Anderson wrote:
-> Iterating over a node's properties via `FdtRo.properties()` currently
-> crosses the Python/SWIG boundary `1 + 2 * num_props` times per node
-> (`first_property_offset()`, `get_property_by_offset()`, and
-> `next_property_offset()`, along with their Python `check_err()` and
-> `check_err_null()` wrappers). When walking every property across large
-> device trees from Python, those per-property SWIG round-trips dominate
-> runtime.
->=20
-> Add a C helper `fdt_node_properties_stub()` in `pylibfdt/libfdt.i`
-> backing `FdtRo.properties()` so all `Property` objects for a node are
-> collected in a single C call per node, interning property name strings
-> via `PyUnicode_InternFromString()`. Also add an invalid-offset exception
-> check to `testPropertiesIterator` in `tests/pylibfdt_tests.py`.
->=20
-> On one stress test (walking all ~573k nodes and ~2.06M properties across
-> 438 arm64 Qualcomm DTBs) this reduced `FdtRo.properties()` time by
-> ~1.8x.
->=20
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+When the AC adapter is plugged in or removed, spwr_external_power_changed()
+schedules a battery state update after five seconds, on system_wq. That
+workqueue is not frozen for system suspend. If the system starts to
+suspend within those five seconds, for example when the charger is
+unplugged and the lid closed straight away, the work runs after the
+Surface Aggregator controller has been suspended. The request then trips
+the WARN_ON() in ssam_request_do_sync_with_buffer() and fails:
 
-Hm, optimizing pylibfdt has never been a focus, on the general
-assumption that if speed is really important to you, you shouldn't be
-using Python.  I'm happy enough with patch 4, because it's a speed win
-with a very small and simple change.  This optimization is a much
-larger chunk of code, so I'm not so convinced this is worth the source
-complexity we pay for it.
+  WARNING: drivers/platform/surface/aggregator/controller.c:1703 at ssam_request_do_sync_with_buffer+0x15a/0x180 [surface_aggregator]
+  Workqueue: events spwr_battery_update_bst_workfn [surface_battery]
+  surface_battery 01:02:02:01:00: failed to update battery state: -19
 
-That's not an outright rejection, but I'd need convincing this is
-worth it.
+Queue the work on system_freezable_wq instead. Freezable workqueues are
+frozen before devices are suspended and thawed after they have resumed,
+so a pending update now runs only once the controller is reachable again.
+Nothing is lost by the delay: surface_battery_resume() already rechecks
+the full battery state.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+The problem was found, and this change written and tested, with the help
+of an AI coding assistant (Claude Opus 5.5 in Claude Code). It was found
+by reading the kernel log after suspend tests on a Surface Book 3, then
+confirmed in the source. Reproduced and tested on a Surface Book 3 with
+Linux 7.3.4: unplug the charger and close the lid within five seconds.
+Before the change the warning above appeared; after it, the same test
+gave no warning and correct battery state after resume.
 
---fn2kyC0KazwbIRxa
-Content-Type: application/pgp-signature; name=signature.asc
+Fixes: 167f77f7d0b3 ("power: supply: Add battery driver for Surface Aggregator Module")
+Signed-off-by: Ricky Sorrell <rmsorrell@gmail.com>
+---
+Not done, so reviewers know: the change was built and tested against
+Linux 7.3.4 only. Mainline's surface_battery.c differs from 7.3.4 only in
+an unrelated devm_kzalloc_obj() line, and the patch applies to mainline,
+but it was not built or run there.
+---
+ drivers/power/supply/surface_battery.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/power/supply/surface_battery.c b/drivers/power/supply/surface_battery.c
+index dac19932c..a9b0cdfe3 100644
+--- a/drivers/power/supply/surface_battery.c
++++ b/drivers/power/supply/surface_battery.c
+@@ -417,9 +417,14 @@ static void spwr_external_power_changed(struct power_supply *psy)
+ 	 * event for the state (charging/discharging) change. Furthermore it
+ 	 * may take some time until the state is updated on the battery.
+ 	 * Schedule an update to solve this.
++	 *
++	 * Use the freezable workqueue so that the update does not run while
++	 * the system is suspending, when the EC can no longer be reached.
++	 * surface_battery_resume() rechecks the full state anyway.
+ 	 */
+ 
+-	schedule_delayed_work(&bat->update_work, SPWR_AC_BAT_UPDATE_DELAY);
++	queue_delayed_work(system_freezable_wq, &bat->update_work,
++			   SPWR_AC_BAT_UPDATE_DELAY);
+ }
+ 
+ 
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr7zlAACgkQzQJF27ox
-2Gf+Kg/+LJCwJBC6cG4MVgEbPtcl8NpOc43ohCmSJXfubmq0lxg72NF6kL3jsR2T
-I9WZfGWNhSCYAV54mFO2prRGyAQp7FGm2bZ3XqZm+BBdx1TWuR1izX+LCMxqQCOd
-ozXyu8CmRzyocLUujjrHv2PEE+cmm+6cQYlJDTuACPdVoIcF0Cp50VGyNB7Xi+0v
-cime+4o0Tx4ekNNUhJDV27d/vWomoXHTlzULYUO+YWDTgDVb89go8yLPa0oOhM/T
-VmI3ExWjhK5ixnhG6pyw59VLiI/gKz3hBC0ywRUYCKENsCeyafeeiSP6G4K02Cuj
-xRXM7cdCX+vuzNDb2SMbosbaNJ+EP7sRnXeadEUlSA/AzMWYsjCuwKRDWvZNlCPl
-rmtYo7qDS/ctPnEfk1ykJHJacE4aRRszAFA98ImKc9TQp1o9Jz52QD3pv5Dijjsj
-m/O661i4th4dWs9mFDsk28M0HYmXDnaudYaBx1S+T6Z3u7bh25ttYi2yqLSX694u
-UD61YkyF5mD5SMi+4UDZQhK8AqFOT5IPkyEFuZUP93WRtYZbcWSF+DqGfFdWuBxr
-GLmCY/4o/TIg2ew4YKgH2XTTJ87ZonmTUvGpNFUYbyyC496vG3Lm8urZ4epAIMwo
-zCPvBR7M4qWxjtU//o3C56o7LuImLFxRECxFMM8uhuiuR4iMvHc=
-=j/gM
------END PGP SIGNATURE-----
+---
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+change-id: 20261116-surface-battery-suspend-b5adbbfe80af
 
---fn2kyC0KazwbIRxa--
+Best regards,
+--  
+Ricky Sorrell <rmsorrell@gmail.com>
+
+
