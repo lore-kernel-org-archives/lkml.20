@@ -1,139 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873726;
-	b=BD6a+oun15yqA6UkPRaZNOrOpkylDyHD0sJv7nK7s9VxiEN+MeO+/n479bRwT1TVKCHF
-	 t2XgjHfaZyhTJ6Z/lKb3I/mJnJ5/ldEcZ3C7DTk1liN7qjLDCyX+jI/Qowf/GYcor/50Q
-	 fiQcowWQBYMpgnvchguefzGn6hCHUtBnYqdVTaSmupQq8TSJxcP44Oz47Lph5kiwgKBKj
-	 cgH9pmLM4/53BXm3dko+1ZlYHcvRLO30txts0f9RQGlW6MXBH1T3uAUPOL3vjiX6H5Xl1
-	 afrbGLFsdm3Q//GHix6xdaIsWjkTlViviEQuBhJJhZxcn9RwJP4xWc+fYeK2L12tN/A==
+	t=1794873834;
+	b=qYWmPYfQxfE4f5fGS07crSyTn1+5U1H5NE3y6H1KqpPmHPV93/NAb7mSXCwXyg6BH7Nt
+	 kEIvYx2tWWyLbNz+zPqL5NXdF/i8us2Q7gcbwqt45KfPmsAuFQZxSsH9LtVs8/InuLD/x
+	 1ASpIP7t+XejOVpSzwwUjnSe8s5VhSVgZK+7VVOV9C/n+NtH0dntmsb7Nxygj/BS8yM7l
+	 ii8293Xyu9768yobDJiEvcNoVHWimSl+OwjNUyU6gZqwfe7jcUZ8NE2if8ePZs190t0Se
+	 mIOWI6RO/YozX3xo8DC3DRChg98iCAY4e5Qgobk+GkoYQ97NOjh+o1L8DGMQXQWHEjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873726;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:Reply-To:MIME-Version:Content-Transfer-Encoding;
-	bh=YDOCxCJWDJqJIkf3L73TGXB4ljsEc/eId8XIHFekXOM=;
-	b=Abz4nHiM8/XmaOsxBp9s2oJVzJhwlD5CFkvm64E4gzokpmxUKgJxgrp2JXWA40Q25MyJ
-	 KndNEG717g+l5XdhRirN1+tfPFuBtqdwYjgsP9e8c+F8It0KylW0uBhn8aRtxIKgCClnw
-	 yIosWI1Ple/5BfOzpnTXrxX2SDW2AEnUxXf9a5vApT06gMg9PnvHNbylZtOiffHbn75zG
-	 fzV26mPRAK0u7fIkjmQpo6A7447YJ+xHIWQ13k8R3u4hAaItQTEnvn/g9iAZlGH9kr4jj
-	 YZLONy8gfzJcZ4Sw/2DxvddHGcqeFXWI7XCN8BZM9POJKiCw/B42sReWfemNSpVcUcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873834;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SvJ49BQDsT4BUOiui0pHG00KCPFsMBlGlawc8+RP7J4=;
+	b=NXQxAbJpnDFA7QLTg7b+Vw5o7exoKwugbS4tIYA9J+nMst6H2XhtepxAzGAMj10o6SRa
+	 UK22EGo+Lp2tIeMpMwTdzPrq287xoNeBvhhoRLUCOtfOXveKFDL/cLZc9A6NhdxUgDtkr
+	 AnW9RtCwzEA6scdxvDn3CZczmWO22/EQIHGN2L+zjWOOwmeZU5LlhpAUTScG5xVVENiUQ
+	 Vh+ESR2/xPE+VqkjDsofazOuKV5Dsj2IHFc06Pie7UOuxhdrPJJwYBK8LA7p9DpRSHSjl
+	 vdevRCkLkylugc5IRV1+cFE5c3bh4NneUoc7QYbrGnr3QFmJc1VgQJXc78tmCIHpRzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm3 header.b=LrAEGOut;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="G/991CMp";
-	arc=none smtp.remote-ip=103.168.172.154
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DHd2Jjnq;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30794606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30794606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A52606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:03:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A52606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm3 header.b=LrAEGOut;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=G/991CMp
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6183A14000BF
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:02:04 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Mon, 16 Nov 2026 19:02:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to; s=fm3; t=1794873724;
-	 x=1794960124; bh=YDOCxCJWDJqJIkf3L73TGXB4ljsEc/eId8XIHFekXOM=; b=
-	LrAEGOutj/fEDpkherYfjRcba5B+qwjNIX2drnjuqOtUadqAK1cDPbFLXAqOx00Y
-	idok/AqqHTHgFjHfbnf/FzaqzP5kpQ3jzNtcHB9MAXFxnB5Q7MTxEaDk4bVonOHD
-	SLono/S+WXJvu7MwRg6c47KWdWozhbVL0+o4kHkf6HTfk/rMyKnEYjPtBxZaYGeL
-	b2Cu9TZIDG872wBM/ynuT0Rb4UAh/24wQtkzacRXYys3qxSCFCb2k/xZdPmISXp5
-	SD60CXAqF1W6HllT+joIBc+IQHrv3jMnXTEeczCypO07By/x9MgpH69ZVNI06Kx1
-	OWvGwq93bFb5kMQoyQex7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794873724; x=1794960124; bh=Y
-	DOCxCJWDJqJIkf3L73TGXB4ljsEc/eId8XIHFekXOM=; b=G/991CMpe+rkygEPv
-	MzBLcBAxp89foSKY6imaihFdopM+YoOlI8vapd2ikcySIzej5TT0jU/XrCKcY3nC
-	IecimzCfU/hADs05eyRzz778hdulFjC2J0XcybPLi94cAxFx3l5ji5U/NEshO++c
-	BPUuOQDnNkKNCgCnwwEiY5sygPnbIhleSuxc4/n1k/CyacCvPFOoogMa35jVw+R5
-	CddE5syW7LzK8suIq2U5zqvZSEt67IJQy3qKLCHOQJysBeWLIzVUuwJ69V8nmy5s
-	M/ymPSNIn3ilXBhn+CyvtS0uR+qh2J6pUZmZyzlngD+bqvmKNcs51kpGa8niGya2
-	Q2l+A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794873724; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:ksB4Eo2cq74ofUuEQ5CPXr8eQuFkHqydW3RL6P7m1O5YCLi
-	x0eKN3RQSM3pG0Rn603qsAsjSRQ9wmv9wKCqqQeK96TCtLSQqT6nzlzJARkHNSkV
-	ojcmZjPcKa6e/lr3gpbAX//HoxBe2HTFaeSH3oFuTl2JJ6ikKxvgFdX4uYfrirzr
-	iB4LK7GrtSP+d+Mh9llQ/t0Er9W9dmyPEx4gJjyFrjYg4srebbYjfca/PWUwWdYD
-	eAErRIcZwHUjDoDIi0n2EMQn+ToynOdO2qDGWOZlGor+/wPfUYztQsVuha0Z7s/4
-	JMLuOnEOaearhH0VOWHfGwgNsrj9bdeYhAUMNPw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,reply-to,subject,
-	to;
-Message-Instance: m=1; h=sha256:KLb+aNcrlCIzLw/CrX8F1zNBPXZ5qht9VWLPhGN8oVg=:TyEeQ2WbtApDIcpylAufMXXQHBaC+fnd6qv+WPqAU0M=;
-X-ME-Sender: <xms:fJn7auNoB9aStyQlcCU6RoN9U-DdGXVZ1n93vdG5uq07_wfQvu3ZLw>
-    <xme:fJn7auRLefInTwjA3wFbimASFMoL41sP0mPHO-sxdH4dJWKRZdWLH-0xpliSbYIx7
-    RViZ2hzSQCZ2YrcwLEDkXtWwO_h6yoes1T1LeuJttGruxb1BAE>
-X-ME-Received: <xmr:fJn7ap4sM4HNuH6GdI0b7bBmg8qVyEuvRxCohTUS7ayNEzEsuD2kj6RgIrS8gM2Kkn71ACf8PBjNTnpduRNpBelNE909fTQ>
-X-ME-Proxy-Cause: dmFkZTGGotaiYc6jX+Efo7FfH08Alfcyz1yUAKcrzpQNrmoLgcPafsnobnYOqLvo4mJtkF
-    PYFI+SEpdh6P6uJ+JBWsOFa4gkOXDxkMIr9MIVoGI0JvO5Zg4EqqsXXVOn/H6RRUtAxq+1
-    EVKpzTt5GIhYHN6h/oiWbLGUPZ9O05HUQ+tFi7QXtPgWqIYl0AEcRTZ7l/mSUrqw7P2PD7
-    qXZfb0N/6DeU6oDLwgqeTlBA3LYqFMc69tkvLyKY6jqun48ZMJ6rvkihuv0ULaVS3/m5JS
-    LQN08anR90iFPJyFSW1N/GjCCGU7kBbZsYhkA5zqcEOlthCtJYhrqQZ8vIn9hbHykUS8Si
-    HeIVp0lzHFs11mmIwCUiGCECrwD+nd1NUkgH+tOtfevEBaZ9mU68TdMm9b/DlGo0CuDwpU
-    33ig+oGYmX/htL/AqJlM25rCxRk4WY0QDq/Z/fgzfvFFlG6vUH8L7nV0PWBNuL3cjK6qui
-    RDncO/6czdSPKVdr1Ajr37jjTBQJNJSvel57zUpGPjhcl+YyBjgB68lJz75xXyJ2S3jLIA
-    wwiMS7Q+qnx8/cnCtMJU58JatfEde/YRVW2/E4YYB2xbs9fghhDIR1Mitqy7JFpo+vTx4Y
-    QgnTzvxQLkbTx9AfEeDxgZACCTrjUN732qQj9IXNfvtGMWrfaVgc18xt08qA
-X-ME-Proxy: <xmx:fJn7ahabQ82jeeIorTwdBX8YVpjDp_QTYZb7X_ZanEM69ro2BDUUPQ>
-    <xmx:fJn7atZpjHXIeXly0Uqh18LpOQfh1nCOMILdDG0CPl0WhzCIE4UpSQ>
-    <xmx:fJn7ak0blHTZNwJAb7hE3FYUq-gIoz_onlYvy5Wj21ixoIzjPDVGnQ>
-    <xmx:fJn7alYRUXmC0-Y2gytkaK2JPhjmEt6exOGPEphogTswy3CDURFg5g>
-    <xmx:fJn7ajUC_-ipU59tz3CSKSSVMYJCKImAVv7_HlH7FyhpBw3pLkpO3Ebu>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 19:01:58 -0500 (EST)
-From: NeilBrown <neilb@ownmail.net>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Harkes <jaharkes@cs.cmu.edu>,
-	coda@cs.cmu.edu,
-	Jan Kara <jack@suse.cz>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	codalist@coda.cs.cmu.edu,
-	linux-fsdevel@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	ntfs@lists.linux.dev,
-	linux-xfs@vger.kernel.org
-Subject: [PATCH v2 4/4] procfs: drop parent lock for d_alloc_parallel() in iterate_shared()
-Date: Tue, 17 Nov 2026 10:55:01 +1100
-Message-ID: <20261117000115.1433875-5-neilb@ownmail.net>
-X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
-In-Reply-To: <20261117000115.1433875-1-neilb@ownmail.net>
-References: <20261117000115.1433875-1-neilb@ownmail.net>
-Reply-To: NeilBrown <neil@brown.name>
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DHd2Jjnq
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so11217568eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1794873833; x=1795478633; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SvJ49BQDsT4BUOiui0pHG00KCPFsMBlGlawc8+RP7J4=;
+        b=DHd2JjnqXApBpJzo0ZveQjqnxo3+KhrdRZ7s7mb+OJblNYf2HS+HRlTwdy5gmoylGO
+         d1W13tUjVMfHUWSdUIu0O/xifTorRMlIFeq3DOOIqEJn/laXkgXOaS9SMbCG8OgOPnCV
+         PShQjufniQZbbUAWaEYhMtU7FiZf10PeJutOIqg2PfNn9+nyH69JvpNw2e4b2yaOvBuw
+         /1XZLSBKvuMjUlsQt0dXAf1xM9tQcc5LpoFiRDKEa8+Q1blu8a3o1wDwMMkCQS+x2ej7
+         UtsN5ECHTxpQUKOZ5kXTrM+X1in+OR4QKEGXZXaKVKmLH4AsIxCW1Bjv59AK1GwChzQ3
+         SocQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794873833; x=1795478633;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SvJ49BQDsT4BUOiui0pHG00KCPFsMBlGlawc8+RP7J4=;
+        b=DzP1QTkl0b4JWImHz/NslJWnS/FZyB8ILFd3a/fNP31dqWDGh80P53YtnPxYTdoNi8
+         8QC3Y16s8D7iJqUk/eytZxdsDAjgj+VTUtnVWlHf+3vzPAVFsj9VeayNsWkPVcvkY14y
+         cNYyIbpBU1F+9j3COSqpZRIlKD1sF4mZR20npeDyEc/A83yseg89x3bQdtF08os45UOv
+         iLfM4Ip2qLU8Jh3uLLIV98WkIVoUeXXTNt96u4JCMKbhXgSlyRk+M9UEmPbCa/PG626A
+         vUk/q1/8VV0+zIHM3rPLk4JeApPZSAbeKwBXOVIz2dM6caLJUkqO1lHVu9V/hVIeUS/O
+         uBNQ==
+X-Forwarded-Encrypted: i=1; AL+hErH9SFm+3zyyyuoJ+nE+5PiIhWOB8OZKd4IB9ObvKryFeC5x6ZdP/PQqUbHBTP/0rHtoOv3NU7hayLyr158=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aAUF/tJbJvfZqdCXquqvusB2XviBgpwZbBaUZIykaP+RpnRzi
+	e9kf+HvNgIY4JqHduhmdOt+0l7f14+lZUN5tL5v5ZHRLE7w2sUN7IVPUoMhnDBToTPE=
+X-Gm-Gg: AZFdTZdSxqppm23h+P6NfD/aBDQ/L9n5KlvzAjj/rOEKXqiI98YwuCdqDoXZS6WJIJO
+	reCarvDDrIWb/PtN5LGPD48elnKGtyiXxN5Nmox/NwR0+9W9z9iqQRQskn/3y0iTKy+dGcCWSEx
+	tXwC5fSvlL1fnNa8RSxoqc1mPUfgfsJOyMOfvl9dorzcHuR7RzJybgFjapkAn8YugPLgDN4ni6h
+	Ae8o7x8Y9gL1fNAKfpFRZI1yZnQR8fly1Nm3FDdivqZHBGqAymUwCaKP7gBAuGn4HVXxCBK6TVE
+	ISlLWev5/K9wrJzYUPFKK817hat7v0UpUYkC6mA0v3KDrDfRFsTqNNQ1/2DTsrw11NJtQnBJYhp
+	MAWHNfiAKAN5GUbMLqoNeGrRtsak0UDgqXNpjZANyNaVYMe5YDCSy2wGuQzKgXAosR5jHVE5yU8
+	F61mdvw3ogHJMphIklvvGH42GrAkfqJ97lRZJOk0YtHrFmN/5y1AKZmIXyLS9k6CvBCVeg6krfg
+	6vQC0ru2km+okOZMpMLFUzSnbFokqNuruagvCxlWmirD0XpRUO0Yt7/KCvp5l2h6W+Y9oxasyjN
+	AmVHnQpqR8JjMnVrt7xjnNB9KkOv/Q+snSyUA6kF94Z53ocWzw==
+X-Received: by 2002:a05:693c:414c:10b0:369:9062:c392 with SMTP id 5a478bee46e88-379680cf511mr13649785eec.37.1794873832487;
+        Mon, 16 Nov 2026 16:03:52 -0800 (PST)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm68688756eec.21.2026.11.16.16.03.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 16:03:51 -0800 (PST)
+Date: Mon, 16 Nov 2026 16:03:48 -0800
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Dmitry Bogdanov <d.bogdanov@yadro.com>
+Cc: Mohamed Khalfella <linux-nvme-bounces@lists.infradead.org>,
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	Daniel Wagner <dwagner@suse.de>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
+Subject: Re: [PATCH v7 03/17] nvmet: Implement CCR nvme command
+Message-ID: <20261117000348.GD1670230-mkhalfella@purestorage.com>
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-4-mkhalfella@purestorage.com>
+ <20261116084540.GA3655@yadro.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,153 +107,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116084540.GA3655@yadro.com>
 
-From: NeilBrown <neil@brown.name>
+On Mon 2026-11-16 11:45:40 +0300, Dmitry Bogdanov wrote:
+> On Fri, Nov 13, 2026 at 07:04:17PM -0800, Mohamed Khalfella wrote:
+> > 
+> > Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
+> > Reset) command is an nvme command issued to source controller by
+> > initiator to reset impacted controller. Implement CCR command for linux
+> > nvme target.
+> > 
+> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> > Reviewed-by: Hannes Reinecke <hare@suse.de>
+> > Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+> > ---
+> >  drivers/nvme/target/admin-cmd.c | 76 ++++++++++++++++++++++++++++++
+> >  drivers/nvme/target/core.c      | 83 +++++++++++++++++++++++++++++++++
+> >  drivers/nvme/target/nvmet.h     | 13 ++++++
+> >  include/linux/nvme.h            | 23 +++++++++
+> >  4 files changed, 195 insertions(+)
+> > 
+> > diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+> > index 5710ae53eb83..3df9db454db9 100644
+> > --- a/drivers/nvme/target/admin-cmd.c
+> > +++ b/drivers/nvme/target/admin-cmd.c
+> > @@ -378,6 +378,7 @@ static void nvmet_get_cmd_effects_admin(struct nvmet_ctrl *ctrl,
+> >         log->acs[nvme_admin_get_features] =
+> >         log->acs[nvme_admin_async_event] =
+> >         log->acs[nvme_admin_keep_alive] =
+> > +       log->acs[nvme_admin_cross_ctrl_reset] =
+> >                 cpu_to_le32(NVME_CMD_EFFECTS_CSUPP);
+> >  }
+> > 
+> > @@ -1629,6 +1630,78 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
+> >         nvmet_req_complete(req, status);
+> >  }
+> > 
+> > +void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
+> > +{
+> > +       struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
+> > +       struct nvme_command *cmd = req->cmd;
+> > +       struct nvmet_ccr *ccr, *new_ccr;
+> > +       int ccr_active, ccr_total;
+> > +       u16 cntlid, status = NVME_SC_SUCCESS;
+> > +
+> > +       if (!nvmet_check_transfer_len(req, 0))
+> > +               return;
+> > +
+> > +       cntlid = le16_to_cpu(cmd->ccr.icid);
+> > +       if (sctrl->cntlid == cntlid) {
+> > +               req->error_loc =
+> > +                       offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
+> > +               status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+> > +               goto out;
+> > +       }
+> 
+> cntlid has to be validated against the configured range of the controller
+> ids (subsys->cntlid_min <= cntlid <= subsys->cntlid_max).
+> That will allow CCR to work correctly on a distributed target.
+> 
 
-When procfs finds a name in iterate_shared() that isn't in the dcache it
-*must* add it so that it can have a stable inode number to report
-(inodes are only accessible from the dcache in procfs).
+Thanks for the review. nvmet_ctrl_find_get_ccr() below will verify
+ictrl->dntlid == cntlid before proceeding with the reset. Is this not
+enough?
 
-It uses d_alloc_parallel().  A planned change to locking will make it
-unsafe to call d_alloc_parallel() while holding the directory lock.
+Adding this check here means if either cntlid_min or cntlid_max change
+after ictrl has been created, CCR will fail saying the controller was not
+found. Why do we want to CCR to fail in this case when ictrl might
+actually be there?
 
-Other filesystems which prime the dcache in iterate_shared() use
-d_alloc_trylock() which is safe but can fail if it races with ->lookup.
-As procfs cannot handle failure we need something better.
-
-procfs doesn't *need* the parent to be locked.  There are no shared data
-structures accessed that don't have their own locking.  So it is safe to
-drop and re-take the parent lock.  We could do this around the whole
-iteration, but as failure of d_alloc_trylock() is rare it is more
-efficient to drop and retake it just around a call of d_alloc_parallel()
-when d_alloc_trylock does fail.
-
-Other code that drops and retakes the lock in iterate_shared needs to
-be careful to check S_DEAD which could be set while the lock is
-dropped.  This is not needed in procfs as the flag is never set.
-
-As d_alloc_trylock() calls try_lookup_noperm(), we can skip that call
-and simplify the code.
-
-Signed-off-by: NeilBrown <neil@brown.name>
----
- fs/proc/base.c        | 38 +++++++++++++++++++--------------
- fs/proc/proc_sysctl.c | 49 ++++++++++++++++++++++++-------------------
- 2 files changed, 49 insertions(+), 38 deletions(-)
-
-diff --git a/fs/proc/base.c b/fs/proc/base.c
-index 7685660c3624..5f9ec524ae2a 100644
---- a/fs/proc/base.c
-+++ b/fs/proc/base.c
-@@ -2106,24 +2106,30 @@ bool proc_fill_cache(struct file *file, struct dir_context *ctx,
- 	unsigned type = DT_UNKNOWN;
- 	ino_t ino = 1;
- 
--	child = try_lookup_noperm(&qname, dir);
--	if (IS_ERR(child))
--		goto end_instantiate;
-+	child = d_alloc_trylock(dir, &qname);
- 
--	if (!child) {
-+	if (child == ERR_PTR(-EWOULDBLOCK)) {
-+		/*
-+		 * Need to drop directory lock, which isn't really
-+		 * needed here anyway.  As rmdir never happens in procfs
-+		 * we don't need to be concerned about S_DEAD being set
-+		 * while unlocked.
-+		 */
-+		inode_unlock_shared(dir->d_inode);
- 		child = d_alloc_parallel(dir, &qname);
--		if (IS_ERR(child))
--			goto end_instantiate;
--		if (d_in_lookup(child)) {
--			struct dentry *res;
--			res = instantiate(child, task, ptr);
--			d_lookup_done(child);
--			if (unlikely(res)) {
--				dput(child);
--				child = res;
--				if (IS_ERR(child))
--					goto end_instantiate;
--			}
-+		inode_lock_shared(dir->d_inode);
-+	}
-+	if (IS_ERR(child))
-+		goto end_instantiate;
-+	if (d_in_lookup(child)) {
-+		struct dentry *res;
-+		res = instantiate(child, task, ptr);
-+		d_lookup_done(child);
-+		if (unlikely(res)) {
-+			dput(child);
-+			child = res;
-+			if (IS_ERR(child))
-+				goto end_instantiate;
- 		}
- 	}
- 	inode = d_inode(child);
-diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-index 6c0859c66563..08bcda3bbc59 100644
---- a/fs/proc/proc_sysctl.c
-+++ b/fs/proc/proc_sysctl.c
-@@ -686,29 +686,34 @@ static bool proc_sys_fill_cache(struct file *file,
- 	ino_t ino = 0;
- 	unsigned type = DT_UNKNOWN;
- 
--	qname.name = table->procname;
--	qname.len  = strlen(table->procname);
--	qname.hash = full_name_hash(dir, qname.name, qname.len);
--
--	child = d_lookup(dir, &qname);
--	if (!child) {
-+	qname = QSTR(table->procname);
-+	child = d_alloc_trylock(dir, &qname);
-+	if (child == ERR_PTR(-EWOULDBLOCK)) {
-+		/*
-+		 * Need to drop directory lock, which isn't really
-+		 * needed here anyway.  As rmdir never happens in procfs
-+		 * we don't need to be concerned about S_DEAD being set
-+		 * while unlocked.
-+		 */
-+		inode_unlock_shared(dir->d_inode);
- 		child = d_alloc_parallel(dir, &qname);
--		if (IS_ERR(child))
--			return false;
--		if (d_in_lookup(child)) {
--			struct dentry *res;
--			inode = proc_sys_make_inode(dir->d_sb, head, table);
--			res = d_splice_alias_ops(inode, child,
--						 &proc_sys_dentry_operations);
--			d_lookup_done(child);
--			if (unlikely(res)) {
--				dput(child);
--
--				if (IS_ERR(res))
--					return false;
--
--				child = res;
--			}
-+		inode_lock_shared(dir->d_inode);
-+	}
-+	if (IS_ERR(child))
-+		return false;
-+	if (d_in_lookup(child)) {
-+		struct dentry *res;
-+		inode = proc_sys_make_inode(dir->d_sb, head, table);
-+		res = d_splice_alias_ops(inode, child,
-+					 &proc_sys_dentry_operations);
-+		d_lookup_done(child);
-+		if (unlikely(res)) {
-+			dput(child);
-+
-+			if (IS_ERR(res))
-+				return false;
-+
-+			child = res;
- 		}
- 	}
- 	inode = d_inode(child);
--- 
-2.50.0.107.gf914562f5916.dirty
-
+> > +
+> > +       /* Find and get impacted controller */
+> > +       ictrl = nvmet_ctrl_find_get_ccr(sctrl->subsys, sctrl->hostnqn,
+> > +                                       cmd->ccr.ciu, cntlid,
+> > +                                       le64_to_cpu(cmd->ccr.cirn));
+> > +       if (!ictrl) {
+> > +               /* Immediate Reset Successful */
+> > +               nvmet_set_result(req, 1);
+> > +               status = NVME_SC_SUCCESS;
+> > +               goto out;
+> > +       }
+> > +
