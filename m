@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881179;
-	b=IXmKnKrMzrUeYGDvEnLKoSzqgQTkFhamXCFY1c/LEzcBmTVVLZMBqvIEIxcWySX+UOPz
-	 bHQ52j9kgHGLwPHdtEUfKlltCGFduE1BMLEsRaDSXzODiYsXoxC2WZXv6rfn//Om7Guf3
-	 UxWV0e9pkE3QnML7dzR1CV6OsMvWU8Bohc2RbUv8R4BSjkHy1+2kmDsYwoKOQJ50cmtKY
-	 IuINjNdHQ577o/7nSA+95MrrA+td17WNOeTiHFy8mJ6+c/2B0pspY+UMBqbL4TOK0t94Q
-	 Hfukw3TSB9oWXXE3w4nM6snm8xU3tMCGNb7e4EzSi4hkQ0MdmLBakclPifZ7vGID4aA==
+	t=1794881213;
+	b=l88tDfeZLhAPpZ3IrUKj/mWeGZ25na6Ztef/8cUmMlwy7VDjR7Al4CaeZbT38ZTAzAa3
+	 cFQc728dbS/VEUnVRQ6TIOdkI879oS/HeaeDnwH6bURCwGfN2iwgZZVj+DUDz2waWUOvY
+	 eZb6NU3DAmbYBbg8WYMx2TKUyKFUuTQWRnS0otiNKRgR1qwhB2w4PdSuEoVpIXBdidYTl
+	 TS8NamTqo0fClWIzaYfoMosTNE6P0JNiEMuLZtMOU08BOgbl2aKwRtNroS3aRb+sbm559
+	 5eBBiansfsQXM6LF0kl9e322ApPpkbBAUDDg+ylMMOfKl8UMXaFOO+g12Xy2mFIZ5KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881179;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=btRGuzjJ/g6J9xQkRo+LeSjkAB3m5T+OgnK3c0kCtHM=;
-	b=ZifPle2Bu3oTufx3sOmwP0gTn6te61tymXr8Pq2UIf9iUYKLtMfDtcjiHVZ6AMs9aN8Q
-	 3yxg2QAXOFCVGL6zpLX9uDRozSYv+9udTqsQt5ohWyapH2VpnNZaBQ8yzFQdgvPkqLZ9w
-	 3t41W8V52Rb2hyJxaRLRbskRb82SYVgSSB91ppzVQx/7ouCtLhoOsrTsqTg3BnWOgvIDN
-	 VdjCvI1yUTwLx0Bwk1ehYF+hsQSbpgeDi73B9529SBmKuk776Gz+O/9Q6drZpKEkpwXfh
-	 mH/LntgW8ovGRMQDDwtCnTX+VNYQquOTYdN1YRT0QEOupQV7O2Rf+1w9mjdVa5FJoKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794881213;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=3EMWJDhBBek59xKnIdxxZDsZ4a9Lk1PMfcEjUKx7BtQ=;
+	b=0mG1kIDFEE6SrxH9Db6j5BhKS81wZgMKzoXM6mAMPiWhn6iHI9lR3kYRmxE4UfJSpwXb
+	 bQ2rhPHdNo3D2451MgqPJd9m+jeWp3OZgrQCVoKbvRiYeMdFlfgBbngBQ2TAYtKAegGgi
+	 HUZPnSpdVGSY5y20xwqpxg/2gN7iqwl88dpYZWGxSvDuTcxDn9s5rB+bfdCf9aEAVbvXM
+	 fEfX3Wg/Odrfoq/BYSeBTEnYlBPxNDgyTAATTS+/bLh+BkX0OjVkoexVMHmF7M1NmQmJ5
+	 Ri4bSeOGJ/AzhLRwvo1LVwrlHNSLpoEN9Z2ljIEKWq73kiO8lc8pGtwhNbBdiU1uElQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=zu5q9ADK;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8677606A31C;
-	Tue, 17 Nov 2026 02:06:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8677606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Zhqw/tcn";
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FEE606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:06:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8FEE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=zu5q9ADK
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zhqw/tcn
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b18165dc53so5940811a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:06:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=zu5q9ADKIsaEq2UDpwRmtzwJ+uRnOnuee/psBh8HaZDxRF6egptwv8y2vy9P/d+ZlpKWPHAOecLx/
-	 +3t2DBXsRSrDNaFZ79Yb6SBgBrKAVwie/ZgCWgQ4ZDrn83TWt/4qX5CzDqcsrLg928VZIV+o1quDcW
-	 mYvBwFCeQPw1JQHw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36afbb69724b-cff62;
-	Tue, 17 Nov 2026 10:06:16 +0800 (CST)
-X-RM-TRANSID:2ee36afbb69724b-cff62
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16afbb696b6d-9ee17;
-	Tue, 17 Nov 2026 10:06:16 +0800 (CST)
-X-RM-TRANSID:2ee16afbb696b6d-9ee17
-From: Luo Yifan <luoyifan@cmss.chinamobile.com>
-To: Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: adc: at91_adc: handle clk_prepare_enable() failure on resume
-Date: Tue, 17 Nov 2026 10:06:19 +0800
-Message-Id: <20261117020619.20065-1-luoyifan@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.24.4
+        d=google.com; s=20260707; t=1794881212; x=1795486012; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3EMWJDhBBek59xKnIdxxZDsZ4a9Lk1PMfcEjUKx7BtQ=;
+        b=Zhqw/tcndtGNDBpZsbT2CEVslLTKh9NwaywRlkF4fWG31ucZ9srscJ7UOWN0nOgBbE
+         xq//UG2re8OpcqEEnO9fV9ZLCepO7ZZOAiOfbfTspZD3aXhFOmEaQQOU02FeLS2G5v4t
+         aUCRQwXVrQ3Pv6++PWeqNJqEI4O5Pgv5zIG5SWaqPWQERjQTjwy4py+8YpLq6nPoIS4P
+         sHS2IJuC2hRUKhWLJ+aYMPK/fGm7f4etpjJxmI/8fBge8rKW4S09UKgM1c5znNqR1Qqp
+         hOtaUVjrHg05O14QGQeA8suq2IgvkxHbmA7qFkKKsIFYJEXCzNn/FULw1RcC0TjVqniE
+         yYyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794881212; x=1795486012;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3EMWJDhBBek59xKnIdxxZDsZ4a9Lk1PMfcEjUKx7BtQ=;
+        b=ii5tP7UptCwmGiDTKL1huPslZH4uHbLYR7E05BmK/JbWfbT1flDWe25DuLTuKgnRHW
+         SpceMydHJqzjuVchYtW1GNC8FoMyi0yhh5MbW1JxeJIkojy6SHhNwD9gpFaBclKSw5P4
+         BscVmU619rdPWymBtkZ5btrkbJVj3IQQtL0WARET8KOqNTueRdwB4ar2YzcileDiMccX
+         9qCtGZ4BpIfEMPrnI7brjUfGygZu5ygemMGDP/DXLFRYEnWoIX2e9mi8tda2qCynLCR4
+         jUULupPmLG40O8aAuP51H/uYuzcr7G6plhYYPyGInwqlUAccFZUinIKhBP1OivXoVTAF
+         pIMA==
+X-Forwarded-Encrypted: i=1; AL+hErHz4pgxz3E+GAkIGPmkNXV1y6dHveV0e/+aZlY6Ed9rqHjXTFfI6dMVM/XLKRU1w/3CiQDlBMOsqizfGwg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/d/bAe5r4ful52/bGTDSTp9igQIuVdHNb8xAgrugiBsldv7VzV
+	kNovfZ1YlJxx93YcQMwYX47h13H4WceauDuGQrx0oz1Ch0KLE0M3uPVqXTkaA9KBOguQvVa7tMA
+	tXSFGYifYDpt02evnofnD0ndZ2A==
+X-Received: from pjbei2.prod.google.com ([2002:a17:90a:e542:b0:3b3:aa49:9102])
+ (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:3890:b0:3b1:6f2:a188 with SMTP id 98e67ed59e1d1-3b1b0a4e441mr13189767a91.55.1794881211439;
+ Mon, 16 Nov 2026 18:06:51 -0800 (PST)
+Date: Tue, 17 Nov 2026 02:06:37 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,40 +75,191 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261117020648.323464-1-dylanbhatch@google.com>
+Subject: [PATCH v9 00/11] unwind, arm64: add sframe unwinder for kernel
+From: Dylan Hatch <dylanbhatch@google.com>
+To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
+	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Indu Bhagat <ibhagatgnu@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Jiri Kosina <jikos@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Jens Remus <jremus@linux.ibm.com>
+Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.microsoft.com>, 
+	Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>, joe.lawrence@redhat.com, 
+	linux-toolchains@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	live-patching@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Randy Dunlap <rdunlap@infradead.org>, Mostafa Saleh <smostafa@google.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="UTF-8"
 
-at91_adc_resume() ignores the return value of clk_prepare_enable(), so a
-failed resume still returns 0 and the ADC registers are used with the
-clock off.
+Implement a generic kernel sframe-based [1] unwinder. The main goal is
+to improve reliable stacktrace on arm64 by unwinding across exception
+boundaries.
 
-Return the error instead.
+On x86, the ORC unwinder provides reliable stacktrace through similar
+methodology, but arm64 lacks the necessary support from objtool to
+create ORC unwind tables.
 
-Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
+Currently, there is a sframe unwinder proposed for userspace [2], along
+with an RFC for an .eh_frame unwinder [5]. This patch series implements
+a similar SFrame lookup library to [2], but with many simplifications to
+account for the fact that user access is not necessary. The intent here
+is to continue to leave the door open for common usage of definitions
+and algorithms between kernel and user unwind in the future, while at
+the same time keeping these patches strictly constrained the minimal set
+of features necessary for arm64 kernel unwind.
+
+Unlike past versions of this series, these patches apply directly to
+v7.4-rc1 rather than depending upon [2]. To make this possible, I've
+adopted a number of patches from [2] with significant squashes and
+changes made in order to coherently suit the kernel unwind use case.
+I've done my best to maintain appropriate authorship on these changes,
+and have added 'Co-developed-by' trailers to attribute shared authorship
+as accurately as possible. Please let me know if you see any
+discrepencies in my work here.
+
+Currently, only GNU Binutils support sframe. This series relies on the
+Sframe V3 format, which is supported in binutils 2.46.
+
+This full series is available on github: [4].
+
+Ref:
+[1]: https://sourceware.org/binutils/docs/sframe-spec.html
+[2]: https://lore.kernel.org/all/20260505121718.3572346-1-jremus@linux.ibm.com/
+[3]: https://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-trace.git/log/?h=sframe/core
+[4]: https://github.com/dylanbhatch/linux/tree/sframe-v9
+[5]: https://lore.kernel.org/all/20260821195259.2688377-1-jremus@linux.ibm.com/
+
 ---
- drivers/iio/adc/at91_adc.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
-index 433f81cbf4..7bfb827f5d 100644
---- a/drivers/iio/adc/at91_adc.c
-+++ b/drivers/iio/adc/at91_adc.c
-@@ -1200,8 +1200,12 @@ static int at91_adc_resume(struct device *dev)
- {
- 	struct iio_dev *idev = dev_get_drvdata(dev);
- 	struct at91_adc_state *st = iio_priv(idev);
-+	int ret;
-+
-+	ret = clk_prepare_enable(st->clk);
-+	if (ret)
-+		return ret;
- 
--	clk_prepare_enable(st->clk);
- 	pinctrl_pm_select_default_state(dev);
- 
- 	return 0;
+Summary of changes since v8:
+ - Rebase onto v7.4-rc1, resolving merge conflicts in Makefile and
+   arch/arm64/lib/strncmp.S and dropping arch/arm64/lib/clear_page.S
+   (removed upstream).
+ - (sashiko) Add 'depends on !RUST' to HAVE_UNWIND_KERNEL_SFRAME and keep
+   KBUILD_RUSTFLAGS conditioned only on CONFIG_UNWIND_TABLES.
+ - (sashiko) Move STACK UNWINDING entry in MAINTAINERS to alphabetical
+   order and add unwind_sframe.h patterns in the patch introducing them.
+ - (sashiko) Filter out $(CC_FLAGS_SFRAME) in efi/libstub, arm64 pi, and
+   arm64 kvm/hyp/nvhe Makefiles where unwind tables are disabled.
+ - (sashiko) Guard SFrame header, FDE, and FRE bounds calculations
+   against integer overflow.
+ - (sashiko) Preserve KASAN, KCSAN, and ftrace exclusions on sframe.o in
+   kernel/unwind/Makefile, and clean up header includes across sframe.h,
+   sframe_debug.h, module.h, and kernel/module/main.c.
+ - (sashiko) Mark is_kernel_inittext(), __is_kernel_text(), and
+   within_module_mem_type() as __always_inline for noinstr sframe_find().
+ - (sashiko) Provide generic include/asm-generic/unwind_sframe.h fallback
+   and move <asm/unwind_sframe.h> include to the IP validation patch.
+ - (sashiko) Update CONFIG_SFRAME_VALIDATION help text and commit log for
+   in-kernel vmlinux and module .sframe validation.
+ - (sashiko) Place .cfi_startproc before 'bti c' in call_on_irq_stack()
+   using SYM_START().
+ - (sashiko) Move out-of-line blocks in pmull_gcm_ghash_4x() and
+   pmull_gcm_enc_4x() out of '.subsection 1' and annotate __pi_strrchr
+   with SYM_LEAF_FUNC_START / SYM_LEAF_FUNC_END.
+ - (sashiko) Restrict SFrame unwinding at KUNWIND_SOURCE_REGS_PC to real
+   on-stack FRAME_META_TYPE_PT_REGS exception frames, drop invalid
+   cross-stack 'fp < sp' check in UNWIND_CFA_RULE_FP_OFFSET, enforce
+   8-byte alignment in get_word(), and propagate state->unreliable on
+   -ENOENT in do_kunwind().
+
+Summary of changes since v7:
+ - (sashiko): Put .cfi_startproc right after SYM_START to account for
+   potential alignment bytes ahead of the actual function symbol.
+ - (sashiko) Use __always_inline for IP validation helper.
+ - (sashiko) Move .sframe module init and sframe section fields to arch
+   generic code.
+ - (sashiko) Make sframe_find() noinstr.
+ - (sashiko) Add preempt_notrace and instrumentation to
+   __sframe_module_find() code path.
+ - (sashiko) Block tracing and kprobe on the sframe_find code path.
+ - (shashiko) remove KCOV, KCSAN, and KASAN instrumentation from
+   sframe.o (copying over ORC's shoulder).
+
+Dylan Hatch (6):
+  arm64, unwind: build kernel with sframe V3 info
+  module, sframe: Add sframe support for modules
+  arm64/sframe: Validate IP addresses
+  sframe: Add debug helpers with object name
+  arm64, crypto/lib: Annotate leaf functions with CFI info
+  unwind: arm64: Use sframe to unwind interrupt frames
+
+Jens Remus (1):
+  sframe: Separate reading of FRE from reading of FRE data words
+
+Josh Poimboeuf (3):
+  arm64/sframe: Read vmlinux .sframe header
+  sframe: Add support for reading vmlinux .sframe contents
+  sframe: Add .sframe validation option
+
+Weinan Liu (1):
+  arm64: entry: add unwind info for call_on_irq_stack()
+
+ MAINTAINERS                            |  17 +-
+ Makefile                               |   8 +
+ arch/Kconfig                           |  51 ++
+ arch/arm64/Kconfig                     |   1 +
+ arch/arm64/Makefile                    |   8 +-
+ arch/arm64/crypto/aes-ce-ccm-core.S    |  12 +-
+ arch/arm64/crypto/aes-neonbs-core.S    |  16 +-
+ arch/arm64/crypto/ghash-ce-core.S      |  76 ++-
+ arch/arm64/crypto/sm4-ce-ccm-core.S    |  16 +-
+ arch/arm64/crypto/sm4-ce-cipher-core.S |   4 +-
+ arch/arm64/crypto/sm4-ce-core.S        |  44 +-
+ arch/arm64/crypto/sm4-ce-gcm-core.S    |  16 +-
+ arch/arm64/crypto/sm4-neon-core.S      |  12 +-
+ arch/arm64/include/asm/linkage.h       |  32 ++
+ arch/arm64/include/asm/module.lds.h    |   2 +
+ arch/arm64/include/asm/sections.h      |   1 +
+ arch/arm64/include/asm/unwind_sframe.h |  32 ++
+ arch/arm64/kernel/entry.S              |  17 +-
+ arch/arm64/kernel/pi/Makefile          |   3 +
+ arch/arm64/kernel/setup.c              |   2 +
+ arch/arm64/kernel/stacktrace.c         | 211 +++++++-
+ arch/arm64/kernel/vdso/Makefile        |   2 +-
+ arch/arm64/kernel/vmlinux.lds.S        |  14 +
+ arch/arm64/kvm/hyp/nvhe/Makefile       |   5 +-
+ arch/arm64/lib/clear_user.S            |   4 +-
+ arch/arm64/lib/copy_from_user.S        |   4 +-
+ arch/arm64/lib/copy_page.S             |   4 +-
+ arch/arm64/lib/copy_to_user.S          |   4 +-
+ arch/arm64/lib/memchr.S                |   4 +-
+ arch/arm64/lib/memcmp.S                |   4 +-
+ arch/arm64/lib/memcpy.S                |   8 +-
+ arch/arm64/lib/memset.S                |   8 +-
+ arch/arm64/lib/mte.S                   |  28 +-
+ arch/arm64/lib/strchr.S                |   4 +-
+ arch/arm64/lib/strcmp.S                |   4 +-
+ arch/arm64/lib/strlen.S                |   4 +-
+ arch/arm64/lib/strncmp.S               |   4 +-
+ arch/arm64/lib/strnlen.S               |   4 +-
+ arch/arm64/lib/strrchr.S               |   4 +-
+ arch/arm64/lib/tishift.S               |  12 +-
+ drivers/firmware/efi/libstub/Makefile  |   2 +
+ include/asm-generic/Kbuild             |   1 +
+ include/asm-generic/sections.h         |   8 +-
+ include/asm-generic/unwind_sframe.h    |   5 +
+ include/asm-generic/vmlinux.lds.h      |  15 +
+ include/linux/module.h                 |  11 +-
+ include/linux/sframe.h                 |  42 ++
+ include/linux/unwind_types.h           |  34 ++
+ kernel/module/main.c                   |  20 +
+ kernel/unwind/Makefile                 |   9 +-
+ kernel/unwind/sframe.c                 | 714 +++++++++++++++++++++++++
+ kernel/unwind/sframe.h                 |  79 +++
+ kernel/unwind/sframe_debug.h           |  38 ++
+ 53 files changed, 1501 insertions(+), 183 deletions(-)
+ create mode 100644 arch/arm64/include/asm/unwind_sframe.h
+ create mode 100644 include/asm-generic/unwind_sframe.h
+ create mode 100644 include/linux/sframe.h
+ create mode 100644 include/linux/unwind_types.h
+ create mode 100644 kernel/unwind/sframe.c
+ create mode 100644 kernel/unwind/sframe.h
+ create mode 100644 kernel/unwind/sframe_debug.h
+
 -- 
-2.24.4
-
-
+2.56.0.679.gc527c65306-goog
 
