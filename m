@@ -1,47 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930757;
-	b=ooKVtVadSYV2jLmeu1awy/SZb9gil5qzcHNx/sbd+LXqVD96yxIyllQvxQyhwzS4llyQ
-	 HUZNDKp89QYibq70+TUwdLaCGZawz4puVQkAdN1CaHRquBBg2ZtcXWRf6o2GOuIIQemBa
-	 9isgL8905eVZk9K4B/QxNdKHcRQ7nnmfdvMCz5H4FDDpa41wsIkBo23JEXoWkkh5wUy+9
-	 86ixhsbunLG72HVeQWXFBZ7oYP6Vowo0MhYw5aQTO9Xe5IbZ2Qcl10G5Aw452ejPnMhjl
-	 Xr7GifcROdINSJ/+/zq6SlvwWYAfnE5MDaGc8PQUuQA8qLC7936Kmbkwe16ZZENmGBw==
+	t=1794930801;
+	b=EoewmYXRCbNp4cfMCLwBkVd6vVf4EBHKjBfd1yLWsZo597FmDctRxXT24z0JpReL7TBX
+	 9W5SCGcUfl0JJGgOWolTgw18Mq8Ma/86FYfanO/KLVnX6ZWz1zKmvZIBr4wMGfSyulAu0
+	 AZomad5O8x2HMbvbsu9vOGO+Ajlae3g/XiC5Z5NzDfNPAb94o1rrdtgnO5rVxE8nk8UPE
+	 p4lgGOx09ulxvAL1k7uOaboPo8Ym78kTLSNUW/rrrTHS15G0SyPPW7bMh5HJpwuv9h3Rl
+	 ckK9eZGiI7P2JywbeKdSu/H32Evff4NuaBMVRBPQXNaekIjBl3PKzEVJEBVI46jUQDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930757;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rWQ3LCKx81yVb4ZPYmvkuNFKtOFNJfTl68Lxuk3875w=;
-	b=t4yX0Q+k0GMHMhO2FxBcWEae6N7n+fUulJSagmpAOMB0cNDrGYTJf2mC+Pw9Qv5+1jK8
-	 LB1mSW81BBENWWqNIqHVECuPCP4VuANDV2XVoTe0Opws5Zu9tGHWy+tfPcFqA7MCRQ0jM
-	 9pGbFhEuXBnxgLXzrR67FZldRU9tWEVH7QeimgwmWiU3kuEVL4Nni2eTkC0nfdN71anOq
-	 sOJQv62LtwUYZ5KDS/Q+b/2/uh6qg4OvUXoPQuRcI9SBYCxrIJ0fW3XcjSJcnc9CkoBsJ
-	 VKHnVxn4HMoa0olI35bjmDL8ZAGKsG9hlwi1GQj5ExK2gLDQpaO8kAwUn1HRLCWCH+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930801;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PVUnWOY1oKAdh7awUlXndIJpcVDctN7Sa1qH+dqbMJg=;
+	b=17/Turcb7AX1j4HVJKYYO/SwWf7frKMFCrwot2FI6byeV9HQVclVfUcw1gKEq3z4PtCp
+	 54ryYSV/2tpxePW3Sqe9Kdc3KWNytCBlaEcDGlu0H+1xAD2xMUxpEpju7+e3jfFv85p94
+	 U5dEUa2W8XxVt4r6mO0nwYMVDu5WF5RAfYkhRKnBg65d8kchgVh0cTSCnOFdUNYTgWhNP
+	 Oa+Uj9EbjoQ0ssRljJAKv9aHkA1UE8yvLFS5J77W/CBQEfM7eE6U1zGXaki8v+z2yfLq3
+	 IjcR/rKn6WPVWCl2TvbVaVW4YwVHVuITTtB0Mdvxz+8caZQiNT4ACsRqf0Esvb8yLbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URGWjLaz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2Q6Xvl2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DF3606A32F;
-	Tue, 17 Nov 2026 15:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6681606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:53:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URGWjLaz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7A01F000C7;
-	Tue, 17 Nov 2026 15:52:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2Q6Xvl2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE801F000C6;
+	Tue, 17 Nov 2026 15:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930757;
-	bh=rWQ3LCKx81yVb4ZPYmvkuNFKtOFNJfTl68Lxuk3875w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=URGWjLazzCNyXLQoIZq8i+Ieeqm5wCpQGJa3a+x8rIKCdnXEJkzUl48TG7es5hN1t
-	 aP23+qbwX5cDttOoJpIdRG2DNigYRritwoUMwYe5KGFybBNRKJT2cKLlO6S2VHwCX5
-	 nTq11yf1pXMzhm3FpbRLshfnXfHG+9AUmH7xVqNnVZ3Sda/vcLAuqVhRPy1kCVnLNq
-	 hWS+pU8vcqeNP/Jb3fhA2XXC1mHLAylbRZb8a+8164OusWf81YmV756sceh5ysQ1X1
-	 yHPP7ilExlBiJ1uEbvfmlw5YbLkfvdHAmr3phQzeESesk8U2rDraLjNjIe++54oCc+
-	 XRu+Xb4FIPsRw==
-Message-ID: <07b9bd2b-19da-4e3c-9b01-552364a82269@kernel.org>
-Date: Tue, 17 Nov 2026 16:52:31 +0100
+	s=k20260515; t=1794930801;
+	bh=PVUnWOY1oKAdh7awUlXndIJpcVDctN7Sa1qH+dqbMJg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=H2Q6Xvl2S2NMKZp/x9XT592HqCz3b7BRDK2Xb+ACvXR0lB6Z6v5mG2f1K876KlPlo
+	 4zNj4pX2DVPlW+zkVn2fYE+I5GWg6MYw3qGNU5etfK0a3kvgzZlbG1bBhqA8qGBch7
+	 ANOs8HEt8gdA/Hv2UnQ/X2J9+QhnR5EN708bGPNIuMvc0XPyYYnBZ9CGf9BKUJ9e4Y
+	 sfkbSoafnOhNjzS1/Hosy3ehqKKOBZR5qE00GRrbFj8AVmiBV+dIH4LKElb836C7Qg
+	 OReMSVgLwVUkZz8brIJaWEdbLm2NtgLF8ztVc5O+UZOOgvY3wtc3umymRTu5/08sTG
+	 wPRDZJMSD0mcQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Martin Botka <martin.botka@somainline.org>, 
+ Andre Przywara <andre.przywara@arm.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+In-Reply-To: <20261115150758.16650-1-jernej.skrabec@gmail.com>
+References: <20261115150758.16650-1-jernej.skrabec@gmail.com>
+Subject: Re: [PATCH] regulator: axp20x: AXP313A: set ramp_delay
+Message-Id: <179492700257.77896.18073194159004452821.b4-ty@b4>
+Date: Tue, 17 Nov 2026 14:50:02 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,149 +60,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/4] powerpc/64: Leave lockdep hardirq context around
- replayed interrupts
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, stable@vger.kernel.org
-References: <cover.1794924821.git.ritesh.list@gmail.com>
- <cfdac7c3508cf0eb1cbf063e7f6331dccb128796.1794924821.git.ritesh.list@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <cfdac7c3508cf0eb1cbf063e7f6331dccb128796.1794924821.git.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1112; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=sKhsbVaTT0l/Abw+q815vyjpQfHOS758n94UzhXT1Lw=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+VOQd0/XmPJnwdUPi974f65saJtndTXiQr2d75txs1
+ UXFnU8MO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRH9KMDG8i96el3dy7Sfsw
+ Qwr3D/9ujbb+HZMW8IZIHGt7uf+O8xlGhvO7T81gjPTlO9WvtT7P2Tjy16aYX5Y32R8LTn6qwbQ
+ uhwsA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Sun, 15 Nov 2026 16:07:58 +0100, Jernej Skrabec wrote:
+> regulator: axp20x: AXP313A: set ramp_delay
 
+Applied to
 
-Le 17/11/2026 à 15:25, Ritesh Harjani (IBM) a écrit :
-> With PROVE_LOCKING, boot warns once and lockdep turns itself off:
->    DEBUG_LOCKS_WARN_ON(lockdep_hardirq_context())
->    WARNING: kernel/locking/lockdep.c:4448 at lockdep_hardirqs_on_prepare+0x22c/0x2d4, CPU#0: swapper/0/0
->    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-00027-g074831f06e18-dirty #123 PREEMPT
->    NIP:  c0000000002b2f2c LR: c0000000002b2f28 CTR: c000000002426f90
->    REGS: c000000004f075c0 TRAP: 0700   Not tainted  (7.4.0-rc2-00027-g074831f06e18-dirty)
->    MSR:  8000000002021033 <SF,VEC,ME,IR,DR,RI,LE>  CR: 48022221  XER: 20040000
->    NIP [c0000000002b2f2c] lockdep_hardirqs_on_prepare+0x22c/0x2d4
->    LR [c0000000002b2f28] lockdep_hardirqs_on_prepare+0x228/0x2d4
->    Call Trace:
->      lockdep_hardirqs_on_prepare+0x228/0x2d4 (unreliable)
->      trace_hardirqs_on+0x98/0x11c
->      irqentry_exit+0x64c/0x1064
->      timer_interrupt+0x274/0x6bc
->      __replay_soft_interrupts+0x158/0x380
->      arch_local_irq_restore+0x1cc/0x244
->      console_flush_one_record+0x438/0x654
->      console_unlock+0xb8/0x1e0
->      vprintk_emit+0x300/0x56c
->      vprintk+0x20/0x34
->      _printk+0x40/0x54
->      lockdep_init+0xdc/0x104
->      start_kernel+0xa24/0xc68
->      start_here_common+0x1c/0x20
-> 
-> Since commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") a
-> replayed handler always returns via irqentry_exit(), which traces hardirqs
-> on while the replay is still inside irq_enter():
->    arch_local_irq_restore()
->      irq_enter()                        hardirq_context = 1
->      __replay_soft_interrupts()
->        timer_interrupt(&regs)
->          irq_enter_rcu()                hardirq_context = 2
->          irq_exit_rcu()                 hardirq_context = 1
->          irqentry_exit()
->            trace_hardirqs_on()          hardirq_context != 0 -> WARN
->        next_interrupt()
->          lockdep_hardirq_exit()         too late
-> 
-> Leave the hardirq context before each replayed handler instead of
-> after it:
->    arch_local_irq_restore()
->      irq_enter()                        hardirq_context = 1
->      __replay_soft_interrupts()
->        lockdep_hardirq_exit()           hardirq_context = 0 // fix
->        timer_interrupt(&regs)
->          irq_enter_rcu()                hardirq_context = 1
->          irq_exit_rcu()                 hardirq_context = 0
->          irqentry_exit()
->            trace_hardirqs_on()          ok
->        next_interrupt()
->          trace_hardirqs_off()
->          lockdep_hardirq_enter()        hardirq_context = 1
->      irq_exit()                         hardirq_context = 0
-> 
-> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> ---
->   arch/powerpc/kernel/irq_64.c | 11 +++++------
->   1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/powerpc/kernel/irq_64.c b/arch/powerpc/kernel/irq_64.c
-> index d5c48d1b0a31..b189e796eb34 100644
-> --- a/arch/powerpc/kernel/irq_64.c
-> +++ b/arch/powerpc/kernel/irq_64.c
-> @@ -75,12 +75,6 @@ static inline void next_interrupt(struct pt_regs *regs)
->   		WARN_ON(irq_soft_mask_return() != IRQS_ALL_DISABLED);
->   	}
-> 
-> -	/*
-> -	 * We are responding to the next interrupt, so interrupt-off
-> -	 * latencies should be reset here.
-> -	 */
-> -	lockdep_hardirq_exit();
-> -	trace_hardirqs_on();
->   	trace_hardirqs_off();
->   	lockdep_hardirq_enter();
->   }
-> @@ -137,18 +131,21 @@ static __no_kcsan void __replay_soft_interrupts(void)
->   	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
->   	    irq_happened_test_and_clear(PACA_IRQ_HMI)) {
->   		regs.trap = INTERRUPT_HMI;
-> +		lockdep_hardirq_exit();
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
 
-Can we include that in irq_happened_test_and_clear() instead of 
-duplicating it 5 times ?
+Thanks!
 
->   		handle_hmi_exception(&regs);
->   		next_interrupt(&regs);
->   	}
-> 
->   	if (irq_happened_test_and_clear(PACA_IRQ_DEC)) {
->   		regs.trap = INTERRUPT_DECREMENTER;
-> +		lockdep_hardirq_exit();
->   		timer_interrupt(&regs);
->   		next_interrupt(&regs);
->   	}
-> 
->   	if (irq_happened_test_and_clear(PACA_IRQ_EE)) {
->   		regs.trap = INTERRUPT_EXTERNAL;
-> +		lockdep_hardirq_exit();
->   		do_IRQ(&regs);
->   		next_interrupt(&regs);
->   	}
-> @@ -156,6 +153,7 @@ static __no_kcsan void __replay_soft_interrupts(void)
->   	if (IS_ENABLED(CONFIG_PPC_DOORBELL) &&
->   	    irq_happened_test_and_clear(PACA_IRQ_DBELL)) {
->   		regs.trap = INTERRUPT_DOORBELL;
-> +		lockdep_hardirq_exit();
->   		doorbell_exception(&regs);
->   		next_interrupt(&regs);
->   	}
-> @@ -164,6 +162,7 @@ static __no_kcsan void __replay_soft_interrupts(void)
->   	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
->   	    irq_happened_test_and_clear(PACA_IRQ_PMI)) {
->   		regs.trap = INTERRUPT_PERFMON;
-> +		lockdep_hardirq_exit();
->   		performance_monitor_exception(&regs);
->   		next_interrupt(&regs);
->   	}
-> --
-> 2.39.5
-> 
+[1/1] regulator: axp20x: AXP313A: set ramp_delay
+      https://git.kernel.org/broonie/regulator/c/29219e5254ab
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
