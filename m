@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918130;
-	b=AxQxxwoHuaP9TExjJDsqlX05crRYlwZ9pj0lo8yhBluZ66H1dzBO8GyA0oNPLX5zRleo
-	 AHpcfqqcMK7w1tuvHk4ZsjqiVsYJZTun4/43XM/rZNzt8VHK//GIMEShU54ehhDn9yNn3
-	 4ztFmmwpog8fv7rjZcazCemkzouYJhecnWeXhBxMxDRn2Y1xVgX1xJ31CG+5i/LkUd4Cs
-	 mHj3uWAgTtl1OEKwhgLtPRai8R03FrFuMa5fMU3Z4k5CGDaANjEmYXsq2TsM8qv5QcKF3
-	 A9G6AdNFS+MXo8aoAGwf+mC+VDywqJQhHaSepeQSxnIRJHoux4Nbou6c67XTUHdupBg==
+	t=1794918138;
+	b=Pd3C53nVNiRpBOaQ0Yi263J0AGX2BLEQao9uNkLawQob5tcBYpSvsEQut5XCuJfyOYuJ
+	 RghZ6Iwdq4Pj/dKX4ddsb66kk7fu/cIGL75r0tEj4YmssZ48M57s1gmATZxnghQChBRvt
+	 V4ZFCrsVuyS9Mz09Gow53VYz3zztZUnk8EPCcy6k0FLw/rCxzXZV0fhxyxwX6RGkQlp3/
+	 eG19SBhStZpTFk8dXxItI60J5fEWZa2CCjC/ya0oqv6PeBaf4gwUC5O0wqFk04bQWw+ax
+	 mRCBXOsO4NmYEbomiRgauj9CkPuetsqN6Gfqftbi/tFMTzYIDR613G1UXU19y5kp5Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918130;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5dU036u9J5ChMGaHb9RB5xZYrWadr4KxpK+WZRfB+g0=;
-	b=qlihzGD3yCpRHUT1VVle+eSiAdOmFk35ZLrrA6QwYoas20M4zMzRE3eTMAvdal+nejOA
-	 kxKxig0Ov+jqL1eUoT9jK5lnfJwGIu+8R+M0HKMUOvHLGqLEZJUQ483AzoQMiKOJZW2Kc
-	 dduwll5UMNYb1dj5iQKmO2UmrvjwJMDQUO2Zn/e7JfxqL9ped1q+jEeqV1kOsitbEaCZQ
-	 FtOBkN+SFwz/pcpQGqIU/2ey/etqBXKE/cRj+hYsKsTPXpKkOciPHBpG8kyl+VOgFT2BX
-	 iDw0qw9WyVwkfjJZ8fNTQYCBgAH5r1VC3l1InGUJB6R0CX+2WQBNM6zEEW2mkB0RgGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918138;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=EYOpW2xyp4wYDs/95GrYDxNW739hVA53XI7RSeqe3Ss=;
+	b=pERwdcivKlOKAyeuYjfA2Ku+/TXv9F4qpUxuaUOH7b6hdZsBfw4fLOempxmg8ERxoz46
+	 Q7ux9P6XtzC06hr1Dr/bDMtF0xVsioZBiM92laQGHwNjW0L4FdKjLDYtRrct7rkJbuFEb
+	 cN5KNmnlul4zGf9mxpG8oXPjhl5PxF73Nq9K96TiZGANIVAbKd+jYkHsEgGCP9UPTSftb
+	 rxqARSu+PlRmGHqg+ksoLo0YzgsPeK8Afc4aSd/ZnWLBa+DJdURPhRQKC9wmH31BUQ9ti
+	 nw+u+uWhBTfrarfnDtJ8ewDEMxqLYLEhavwFX2AvQA1PIOP2xGt3Thl8sMdt3rj8Z9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KA5k7YDl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ktwb49I3;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C458606A31C;
-	Tue, 17 Nov 2026 12:22:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4E2606A31C;
+	Tue, 17 Nov 2026 12:22:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA4E2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KA5k7YDl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17B481F000C4;
-	Tue, 17 Nov 2026 12:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918129;
-	bh=5dU036u9J5ChMGaHb9RB5xZYrWadr4KxpK+WZRfB+g0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KA5k7YDlTN/loOdKyoP6k13vortRVZqxhoL77dZ0kTcbDM6c/vf7/1k/9T+4ujhsB
-	 eHAzAi5+MuMoTOW5hRDDiK6CY1hsFBbKAzNHST8S82FL0JgViNwhRVhr+ki1Croy/7
-	 /rpEp9MxxIFpIMCfIwECjTlcHW/OddJlVsbzf7XNcXqghhZOoF50ZIhkoyqfRHdTdi
-	 KjD5eaWL+y4Xm9+MptsewRdKXsMKyibOUPhSxSePhHPZ2zF3Q/d0mCCYZs3L5Ehfzj
-	 uDD+2A0lp2NiGqYUeb4F6iIABSW6gdi3xjXH6wT1bNkZZlTjorI5AFQ71qVC2AW/bn
-	 BrPogZjwFSd1g==
-Date: Tue, 17 Nov 2026 12:22:05 +0000
-From: Lee Jones <lee@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Aaron Kling <webgeek1234@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 02/10] pinctrl: tegra186: Fix out-of-bounds register bank
- index for AON drive groups
-Message-ID: <20261117122205.GB84168@joneslee-macbookpro.roam.internal>
-References: <20261103213002.1673560-1-lee@kernel.org>
- <20261103213002.1673560-3-lee@kernel.org>
- <avw8tOcBNMPwS_z5@orome>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ktwb49I3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794918136;
+	bh=tlK4X7iJfVxdWbikBhdNu8DWcD6//ek2zxb6rtNVeRM=;
+	h=From:Date:Subject:To:Cc:From;
+	b=ktwb49I38KXsD31YAQ5oqisSeLavEGHwgLnMRYO88DMuRMwl0NMgkJUnWLtnsmHfF
+	 6pl79lmyQhXanj9yThuk3Nb1P9WnGdxcZcIFJBs+uSk8usohffQoUwwHGcgYl6K7Q5
+	 QCgBlex+LTS14DQKdczCHopYymtGzJRIRF/QOEuYUVYIAEuG3U69oLm7HzTTaztS4j
+	 XTLzM8yb6jZw2xA8GKkTPz8b3FpgmmdINnP/yNPGwhj/idGbB8/8rQDGp0laZdFJD2
+	 /vDTHqdrgoyq3kwxwX7fNkNoO+teuS01bEGHq7OfUVyIgyCWe2J262/Zum5c6MPlQH
+	 WnLFcZepAUmaA==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 93EF917E0311;
+	Tue, 17 Nov 2026 13:22:15 +0100 (CET)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Tue, 17 Nov 2026 13:22:07 +0100
+Subject: [PATCH] arm64: dts: mediatek: mt8370: fix CPU map core ordering
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,37 +62,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avw8tOcBNMPwS_z5@orome>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-mt8370-fix-cpu-map-core-order-v1-1-00c6c74c7629@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NywrDIBBFfyXMugOa0mjyKyULq9PWhY+OJgRC/
+ r3SdHkul3N2KMSeCkzdDkyrLz7FBvLSgX2b+CL0rjH0oh+klApD1Vcl8Ok3tHnBYDLaxISJHTE
+ KM97cSFpp0UNzZKb2/Pnv88lMn6Vl6jnCwxRqhhB8nbpIW8V/aoD5OL6djYh7oAAAAA==
+X-Change-ID: 20261117-mt8370-fix-cpu-map-core-order-0a95d9e87802
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794918135; l=1923;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=tlK4X7iJfVxdWbikBhdNu8DWcD6//ek2zxb6rtNVeRM=;
+ b=bL2y8Jmr77VlkoCdxT67HLHwyaSTFwIsIIP1lFZfF8tqFleRe+xGtbOjhaGfCjiP38Cl2l7nf
+ JBlw9sT3KRmBPIZllUFFTEl347UC3xHH11osVMDc3LKoLUg8KE97bTu
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-On Tue, 17 Nov 2026, Thierry Reding wrote:
+In mt8370.dtsi, the child list for the cluster0 node of cpu-map is
+overridden, to reflect that the MT8370 SoC, as being less powerful
+variant of MT8188 and MT8390 SoCs, has less ARM Cortex-A55 cores
+number than MT8188 and MT8390 (4 vs 6) but the same Cortex-A78 cores
+number.
 
-> On Tue, Nov 03, 2026 at 09:29:07PM +0000, Lee Jones wrote:
-> > The Tegra186 AON pinmux controller has only a single register bank
-> > (nbanks = 1, indexed at 0), and all PINGROUP entries in tegra186_aon_groups
-> > accordingly specify bank 0.  However, all 51 AON drive_* macro definitions
-> > pass drv_bank = 1 as the final argument to DRV_PINGROUP_ENTRY_Y, causing
-> > any drive configuration read or write on an AON drive group to index
-> > pmx->regs[1] out-of-bounds.
-> > 
-> > Update the AON drive_* macro definitions to use register bank 0.
-> > 
-> > Fixes: 542baf77f092 ("pinctrl: tegra: Add Tegra186 pinmux driver")
-> > Closes: https://sashiko.dev/#/bug/linux-a9a7165c-c5eb-463a-b7b1-24a30416b33b
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> > ---
-> >  drivers/pinctrl/tegra/pinctrl-tegra186.c | 102 +++++++++++------------
-> >  1 file changed, 51 insertions(+), 51 deletions(-)
-> 
-> Yeah, looks correct. It looks like this wasn't tested at all since the
-> time this was merged. I'll add this to the list of things that need to
-> have a test added.
-> 
-> Reviewed-by: Thierry Reding <treding@nvidia.com>
+How the cluster0 node override is done makes the core child nodes to be
+named in a non sequential way (core0 to core3, then core6 to core7).
+First, it breaks the cpu-map child nodes naming convention in the
+cpu-topology bindings. It also causes the arch_topology driver to skip
+the A78 core nodes during its devicetree parsing, leading to at least
+incorrect CPU capacity computation for them.
 
-Super.  Thanks bud.
+So, modify the override so the A78 cores are seen as core4 and core5
+in the cluster0 node.
 
+Fixes: 49b07ed22e37 ("arm64: dts: mediatek: add support for MT8370 SoC")
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+The patch has been tested on Mediatek Genio 510-EVK board, that
+integrates a MT8379 SoC with a kernel based on linux-next tree
+(tag: next-20261116)
+---
+ arch/arm64/boot/dts/mediatek/mt8370.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/mediatek/mt8370.dtsi b/arch/arm64/boot/dts/mediatek/mt8370.dtsi
+index 7ac8b8d03494..3fa48f2e6a6a 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8370.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8370.dtsi
+@@ -16,8 +16,16 @@ cpus {
+ 
+ 		cpu-map {
+ 			cluster0 {
+-				/delete-node/ core4;
+-				/delete-node/ core5;
++				core4 {
++					cpu = <&cpu6>;
++				};
++
++				core5 {
++					cpu = <&cpu7>;
++				};
++
++				/delete-node/ core6;
++				/delete-node/ core7;
+ 			};
+ 		};
+ 	};
+
+---
+base-commit: 38c8be16846f10f3a710351357e4f4ace7254c8e
+change-id: 20261117-mt8370-fix-cpu-map-core-order-0a95d9e87802
+
+Best regards,
 -- 
-Lee Jones
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+
