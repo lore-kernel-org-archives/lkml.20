@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.105.35.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919853;
-	b=hJwhGVOhtI2SuO6y2Ck0HQW1Zf7XmNYeRBYRHtIUxL2etrbR8VcFMqQjyAyf5yDtmT+q
-	 hdmNCFKsllQP5Ue7JrRZqWrUgEibVOY10P3OlfENyTdphigy4m0hi9IqX7oJllgZP4hoZ
-	 fRUB/vk8xR2bxXYPdGxgVtPQXjq993GHRLnfFXKpNEarG2sl90PGMe1DvJZ6oxC6DvHox
-	 NEGEUj8sEZmVllPIJNiJpOwBcNAcJyhSBbfMqjbUQMWV6dsF3I7Q6bsendGpvavvklYlA
-	 cui9LsZ16OPQazNiQooxu3IqpLVWYp6x/M77qyRjOABCKQwL5juUj+jaCuVshb9G1Nw==
+	t=1794919850;
+	b=i1AOWSZWGchvCSWWV95+rDY697QmUEJlI8QFHRcu6gdCx7GDJUn57mZZOVMhAyK426n5
+	 iFTdtfEcBjjNRoy3FJqdbz/VO5E6y/ByYE7VL8NcMC1ageAEV7LPPbDfzH8YbZI2P7jwu
+	 zwTmAt1KnPOHEw8M3OXtBYGNm5Wzrhsu+z1zBDVxc4AIO/m76yF5soeGto1o5nnVZPl5K
+	 5F1X9Y8fsEpjRkREVHPJcW/Jt7F7WkCsYudXV/Vw/qYuTZsfhLW8FAAHWi8mh0zX1k+F3
+	 yGtU/3YsSe/moOLxRpOllujCrA7DmavU8P+QV3u1HqHH7Ava0j3Sm6dDil7BJVlXZ/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919850;
 	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
 	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:x-ovh-tracer-id:
 	 X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=OitqE5fs+toNhCDhUPRzKw5sdlQryxw1egGAlNc26kA=;
-	b=LL7LEC7pL/W0Q0wK1NmmNMKApZ96I9IslP/bEnkjq6OuaLkPK5m9ms+bocHfpzCmFJLW
-	 zwalMEdC0eowGDjwQyigoeVspla7hDhILO5LtKDGDCLhHJqGwLHzm+x6hTiAz6lryhDH0
-	 HKFPNMXOqoQyEqrrrm1jg8L0CehGm3qRLt+CpmyGQEp7+w+7FQMpapxdkzalDkPKDN/v/
-	 qjpC17VmTEpgGS+sk/2Flv6ml3PL1qA7wLUoW+sdITzEYs+3tvsNlzxbfe1zuC3SEVJDv
-	 WS7CUsMB/l6rL7IkxchkwzfUrgXtSuRYqVvOKApHd+jTdCzONWTu4JYY+w0IZ7PJlHw==
+	bh=oKG8bZbPJkZqBB4dDTMC1BMdSM/9p9YYhbNghdpN2KI=;
+	b=Xw26NdqKcZrlHOXMQl5kUZhPb5nDg+GKVaUgUn8ahtf0DsIWrdpUMb7np0UVAm967k2u
+	 NumvsyOzpZxRAxjoD4vb+HpWGrE2nciTBHL1t8jccR3HCq+AM5IZ/aUp7axlmutDH+2r3
+	 56mC/6j6whqIMcFBiFxfP9iadVk5wljXEMerqSr233989OhD1TuKqlSnqZ9jRaP3nsP7I
+	 zbsCyOmyD718VtqKDD0ChFlcH8Nv59M+lFoLYKhMPEg/YDqvk825LXXBN58tifr6ng8Yx
+	 zMMur5iWew0CVPcEnp3kYiffKa19+BoMILgZriPO22AWOqZ9fj8SRrt9LyVXwITYH9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pixelcluster.dev;
 	spf=pass smtp.mailfrom=pixelcluster.dev;
-	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=JHsFwdSx;
-	arc=none smtp.remote-ip=46.105.35.181
-Received: from 9.mo2.mail-out.ovh.net (9.mo2.mail-out.ovh.net [46.105.35.181])
+	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b="e/AoHiFX";
+	arc=none smtp.remote-ip=51.210.91.59
+Received: from smtpout10.mo540.mail-out.ovh.net (smtpout10.mo540.mail-out.ovh.net [51.210.91.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5D7606A898
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A5D7606A898
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F4660A2613
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F4660A2613
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=JHsFwdSx
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net [79.137.60.37])
-	by mo2.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjH2Wdkz44N9;
-	Tue, 17 Nov 2026 12:50:43 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net. [127.0.0.1])
-        by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=e/AoHiFX
+Received: from director1.derp.mail-out.ovh.net (director1.derp.mail-out.ovh.net [79.137.60.221])
+	by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjF642Yz458C;
+	Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
+Received: from director1.derp.mail-out.ovh.net (director1.derp.mail-out.ovh.net. [127.0.0.1])
+        by director1.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
 Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.164.208])
-	by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjG6jPwz21fD;
-	Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
+	by director1.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjF5CRvz6Mcl;
+	Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.7])
 	(Authenticated sender: nat@pixelcluster.dev)
-	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 92A978E2108;
-	Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-98R002d623240b-6686-4fdb-abce-ee1f3fc8c1a6,
+	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 37F278E2104;
+	Tue, 17 Nov 2026 12:50:40 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-98R002e72ce295-6303-4761-9ac8-396144a4a0d9,
                     00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp:141.95.41.139
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:15 +0100
-Subject: [PATCH v2 09/10] drm/amdgpu: Add new AMDGPU_GEM_VA2 ioctl
+Date: Tue, 17 Nov 2026 13:50:14 +0100
+Subject: [PATCH v2 08/10] drm/amdgpu: Only reject conflicting mappings if
+ they are not cleared
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-9-bb3851cb6a0c@pixelcluster.dev>
+Message-Id: <20261117-prt-explicit-sync-v2-8-bb3851cb6a0c@pixelcluster.dev>
 References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
@@ -77,540 +78,42 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5594033690946330940
+x-ovh-tracer-id: 5593752213594399036
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTERuWf9niPU17M4cejTha5MvWh9zMWA4KllIMlbKPwQ8zT8Kc9+GODy+7C3jqbNOQEofWfqAunvaaeJYKie28HeReze4mtF00BIF/RXYJrbtCHuFX+AaZGkIQA49vUR9FWNrNXyGLZIgGZn/YEvRvysg9ZQv4QfqhD4orQKhp5zIBF5HoOGvroNmN2xRgRDxuwczAob+DdGBjj793yYNyL1KtYokDM4LvXpAUHd16mGS9/D+A5oBTu2bYFeRwCZrjMwWWL8TWQ4XfKh/oi1xWyO+UA5dSDoSooS4aB1LVoZbKeaH4vzd8bWntwr+HuiZRg+VvID9DCJFLazom3lehDIBrzC+HP1OPTbJA39xuSgB8nv9Q+fB6TZuMPKkeujW2RRDDOuHGYwEgHxryEp93oFZd2fruL3inFNKzJ4B5T3VoVRbENo3tLYZnaDn4EePDvNYIrqiOGAMSb7RRNEk+bYA4qheC73H+eHT46sizMGyxmwoWcVz50e9MQ2E/v+p5No7WTcYKLkrekkpZk8PW0wmuVsT61+wcYHEWQ9r7seq25azTNSGSlifpf7GJa19bdUD26F8SF/zGCQoz+aFVWByNSH8MZQSd6hADFxaSn48PV8gHjNdxyWwl6mZZgze56GXrfnHMfoAnQbSgTQv1sg28oB67dcN1vX7ZFN1tSnPg
-DKIM-Signature: a=rsa-sha256; bh=OitqE5fs+toNhCDhUPRzKw5sdlQryxw1egGAlNc26kA=;
+X-VR-SPAMCAUSE: dmFkZTFzrqAtohLkNGuEsTTEjYMhBXNnnBHtHlXr82nHvl74y1Ds4tD6gdWQIaN6znA7Kc2nICootiOIoSAJoKcVZ8rp5U8FkQRKMJum8l1ZxWsZwER5yGYoBenENgWUQWXXug7JLluPG10KRnjqE0Kl5lyuRTL9VhZuq0e3C3svIXTECxKlIwNHUYB90fgRdOu4jmnRBd7K89RJpSkmSRbgHrKuLzypMaeM+5cWGVoEQ6oTTWmE0xsU1QcbwOiOtQDCa9y79/2I+WiEsDNrVYvE13m5UVyUDABHZc4Hc/c4Jw8MovzmfFeZ3jJoX2OJg+vRzVsjxv9Bo6Lkb7OTIXt6tahruBKSJXd1frBCMIUtoQCy+C7504Jy32p+6lzhWbfMdskv3EcOtwx7pv2ZuAbVwEKrtp3lLzlmcdfWCXL+s0Wsov8JUbBWyNFm5BENBh5zzCUCUqBMp66At9dJEPpil4+I9kr3JOlAoKavRNj/zDiny3xUiESkrZMk8ZGilLmHFXLPF9j3cVIQ6jcPJz+mfeVEiNKYhdHFYKNhnZoloCLrwzxolT1bmYc3fkUCVF+N4n3+n/ZPrF0ZYaCf4Uk8nNaUpBxxssLk7sh51aMp6kIV096rw/8hgcz3pogLUG6R74AptXZrBUDOJtkmlC8KX2HNMC8a2IA12wvOzRg0/QkA/w
+DKIM-Signature: a=rsa-sha256; bh=oKG8bZbPJkZqBB4dDTMC1BMdSM/9p9YYhbNghdpN2KI=;
  c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1794919844; v=1;
- b=JHsFwdSxCWmIxinrpq4VzJiX5JWzGNocp3uxpZ/ex1FydG9T/uwBkNXb3WI5EUnX8nh3+QrX
- 08QgQ8uL08JeSCkJRDhxR9bVVh+qIqAqyPQRJOPXcYwErYBGKXdifo7RL9Q8Ak96pifu6w1nmbF
- tZbhNa2rrfsivoMv+G5+nQIoc7yRpeM/lGf5T7D6Jtrhn1j9jxrKp+pJjTgdrVATSHfgrwZCIfq
- 7FzSUtz9HHTqmZRTV716ypvV3YAdANyr0SdtJu4l+OjGmF+dV3EdCCXuOmbE+jvCnk5kSg/Wgg8
- 8dIlLPdw3sxm5kxAFJQTY3uMmUPyI7WGnTXwghWyJCJBA==
+ t=1794919841; v=1;
+ b=e/AoHiFXGZpzcdjJ76XVs4FBFFWRFEVI+sDCpAIvVgzycjmVBOR1l54f6rMRJO6CGDywUpdS
+ e43l13Ahpb8iA91VYFCgOq8mJcmrJLAdqCwrSZ9Y0KCkR906JpescoTq7agESVyarJst8SGv4GF
+ 0KqfzVMYSFslFnoS+IICkfjsPoqA9l9gHDyXCCZzJVvUDbH0jWOct/4c9I3FK59g5EOm+7ov8dE
+ dGbSL3NW+3nC/AaUG3BY3d2jPvzW4U2Mk9DJfaOcpCLohC390H8N3UjTF0hdnU3Aiv318pThtk/
+ BxSSHl0+xfYTFQOBZac5FJ1JLHRQMoQ3tHD3CQzB89lVQ==
 
-This new ioctl is a modernized version of AMDGPU_GEM_VA, with the
-main changes being support for many operations batched in one ioctl,
-and a better sync model that allows passing multiple syncobjs for
-both wait and signal. Timeline syncobj are now properly supported in
-both wait and signal cases.
-
-One breaking change compared to AMDGPU_GEM_VA is that
-synchronization is now explicit (where possible), meaning that
-previous submissions are not necessarily waited on.
-
-Using this ioctl allows applications that hammer lots of sparse
-operations, particularly some games running under Proton, to see
-significant reductions in stuttering.
+Cleared mappings will not immediately disappear from the VM interval
+tree, instead they will be in a pending list. For the REPLACE_MAPPING
+op to work correctly, skip rejecting these conflicts as they will be
+properly resolved later.
 
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 348 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   2 +
- include/uapi/drm/amdgpu_drm.h           |  46 +++++
- 4 files changed, 396 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 72b3710462824..188c8ec234c02 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3124,7 +3124,8 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
--	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
-+	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA2, amdgpu_gem_va2_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index ac4a1ed9b1196..491f4b50f7602 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2241,7 +2241,7 @@ int amdgpu_vm_bo_map(struct amdgpu_vm_update_ctx *ctx,
+ 	eaddr = saddr + (size - 1) / AMDGPU_GPU_PAGE_SIZE;
  
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index fb7abb095b8ec..0d77103b0a973 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -53,10 +53,13 @@ static int
- amdgpu_gem_add_input_fence(struct drm_file *filp,
- 			   struct amdgpu_vm_update_ctx *update_ctx,
- 			   uint64_t syncobj_handles_array,
-+			   uint64_t syncobj_points_array,
- 			   uint32_t num_syncobj_handles)
- {
- 	struct dma_fence *fence;
- 	uint32_t *syncobj_handles;
-+	uint64_t *syncobj_points;
-+	uint64_t point;
- 	int ret, i;
- 
- 	if (!num_syncobj_handles)
-@@ -67,6 +70,17 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
- 	if (IS_ERR(syncobj_handles))
- 		return PTR_ERR(syncobj_handles);
- 
-+	if (syncobj_points_array) {
-+		syncobj_points = memdup_user(u64_to_user_ptr(syncobj_points_array),
-+					      size_mul(sizeof(uint64_t), num_syncobj_handles));
-+		if (IS_ERR(syncobj_points)) {
-+			kfree(syncobj_handles);
-+			return PTR_ERR(syncobj_handles);
-+		}
-+	} else {
-+		syncobj_points = NULL;
-+	}
-+
- 	for (i = 0; i < num_syncobj_handles; i++) {
- 
- 		if (!syncobj_handles[i]) {
-@@ -74,7 +88,9 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
- 			goto free_memdup;
- 		}
- 
--		ret = drm_syncobj_find_fence(filp, syncobj_handles[i], 0, 0, &fence);
-+		point = syncobj_points ? syncobj_points[i] : 0;
-+
-+		ret = drm_syncobj_find_fence(filp, syncobj_handles[i], point, 0, &fence);
- 		if (ret)
- 			goto free_memdup;
- 
-@@ -87,9 +103,111 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
- 
- free_memdup:
- 	kfree(syncobj_handles);
-+	kfree(syncobj_points);
- 	return ret;
- }
- 
-+struct amdgpu_gem_timeline_out {
-+	struct drm_syncobj **syncobjs;
-+	struct dma_fence_chain **chains;
-+	uint64_t *timeline_points;
-+};
-+
-+static int amdgpu_gem_prepare_timeline_nodes(
-+	struct drm_file *filp, uint64_t syncobj_handles_array,
-+	uint64_t syncobj_points_array, uint32_t num_syncobjs,
-+	struct amdgpu_gem_timeline_out *out)
-+{
-+	uint32_t *syncobj_handles;
-+	uint32_t i;
-+	int r;
-+
-+	syncobj_handles = memdup_user(u64_to_user_ptr(syncobj_handles_array),
-+				      size_mul(sizeof(uint32_t), num_syncobjs));
-+	if (IS_ERR(syncobj_handles))
-+		return PTR_ERR(syncobj_handles);
-+
-+	out->timeline_points =
-+		memdup_user(u64_to_user_ptr(syncobj_points_array),
-+			    size_mul(sizeof(uint64_t), num_syncobjs));
-+	if (IS_ERR(out->timeline_points)) {
-+		r = PTR_ERR(out->timeline_points);
-+		goto err_free_handles;
-+	}
-+
-+	out->chains = kzalloc_objs(*out->chains, num_syncobjs);
-+	if (!out->chains) {
-+		r = -ENOMEM;
-+		goto err_free_points;
-+	}
-+
-+	out->syncobjs = kzalloc_objs(*out->syncobjs, num_syncobjs);
-+	if (!out->syncobjs) {
-+		r = -ENOMEM;
-+		goto err_free_chains;
-+	}
-+
-+	for (i = 0; i < num_syncobjs; i++) {
-+		out->syncobjs[i] = drm_syncobj_find(filp, syncobj_handles[i]);
-+		if (!out->syncobjs[i]) {
-+			r = -ENOENT;
-+			goto err_loop_rollback;
-+		}
-+
-+		if (!out->timeline_points[i])
-+			continue;
-+
-+		out->chains[i] = dma_fence_chain_alloc();
-+		if (!out->chains[i]) {
-+			r = -ENOMEM;
-+			goto err_loop_rollback;
-+		}
-+
-+		continue;
-+err_loop_rollback:
-+		for (;;) {
-+			if (out->syncobjs[i])
-+				drm_syncobj_put(out->syncobjs[i]);
-+			if (out->chains[i])
-+				dma_fence_chain_free(out->chains[i]);
-+			if (i-- == 0)
-+				goto err_free_sync;
-+		}
-+	}
-+
-+	return 0;
-+
-+err_free_sync:
-+	kfree(out->syncobjs);
-+	out->syncobjs = NULL;
-+err_free_chains:
-+	kfree(out->chains);
-+	out->chains = NULL;
-+err_free_points:
-+	kfree(out->timeline_points);
-+	out->timeline_points = NULL;
-+err_free_handles:
-+	kfree(syncobj_handles);
-+	return r;
-+}
-+
-+static void amdgpu_gem_timeline_out_fini(struct amdgpu_gem_timeline_out *tl_out,
-+					 uint32_t num_syncobjs)
-+{
-+	uint32_t i;
-+
-+	for (i = 0; i < num_syncobjs; i++) {
-+		if (tl_out->syncobjs)
-+			drm_syncobj_put(tl_out->syncobjs[i]);
-+		if (tl_out->chains)
-+			dma_fence_chain_free(tl_out->chains[i]);
-+	}
-+
-+	kfree(tl_out->timeline_points);
-+	kfree(tl_out->syncobjs);
-+	kfree(tl_out->chains);
-+}
-+
- static int
- amdgpu_gem_update_timeline_node(struct drm_file *filp,
- 				uint32_t syncobj_handle,
-@@ -982,7 +1100,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 
- 	/* Add input syncobj fences (if any) for synchronization. */
- 	r = amdgpu_gem_add_input_fence(filp, &update_ctx,
--				       args->input_fence_syncobj_handles,
-+				       args->input_fence_syncobj_handles, 0,
- 				       args->num_syncobj_handles);
- 	if (r)
- 		goto error_put_gobj;
-@@ -1100,6 +1218,232 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
- 
-+int amdgpu_gem_va2_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *filp)
-+{
-+	struct drm_amdgpu_gem_va2 *args = data;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
-+	struct drm_amdgpu_gem_va_mapping *mappings;
-+	struct amdgpu_gem_timeline_out tl_out;
-+	struct amdgpu_vm_update_ctx update_ctx;
-+	struct drm_gem_object *gobj;
-+	struct amdgpu_bo_va *bo_va;
-+	struct drm_exec exec;
-+	bool delay = false;
-+	u32 i;
-+	int r;
-+
-+	mappings = vmemdup_array_user(u64_to_user_ptr(args->mappings),
-+				      args->num_mappings,
-+				      sizeof(struct drm_amdgpu_gem_va_mapping));
-+	if (IS_ERR(mappings))
-+		return PTR_ERR(mappings);
-+
-+	r = amdgpu_gem_prepare_timeline_nodes(filp, args->syncobjs_out,
-+					      args->timeline_points_out,
-+					      args->num_syncobjs_out, &tl_out);
-+	if (r)
-+		goto out_free_mappings;
-+
-+	drm_exec_init(&exec,
-+		      DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES,
-+		      0);
-+	amdgpu_vm_update_ctx_init(&update_ctx, adev, &fpriv->vm);
-+	update_ctx.explicit_sync_unmap = true;
-+
-+	r = amdgpu_gem_add_input_fence(filp, &update_ctx, args->syncobjs_in,
-+				       args->timeline_points_in,
-+				       args->num_syncobjs_in);
-+	if (r)
-+		goto out;
-+
-+	drm_exec_until_all_locked(&exec)
-+	{
-+		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-+		drm_exec_retry_on_contention(&exec);
-+		if (unlikely(r))
-+			goto out;
-+
-+		for (i = 0; i < args->num_mappings; ++i) {
-+			r = amdgpu_gem_va_validate_args(adev, mappings[i].va,
-+							mappings[i].map_size,
-+							mappings[i].flags);
-+			if (r)
-+				goto out;
-+
-+			mappings[i].va &= AMDGPU_GMC_HOLE_MASK;
-+
-+			if (mappings[i].flags & AMDGPU_VM_DELAY_UPDATE) {
-+				/* Can't delay if we're supposed to signal fences */
-+				if (args->num_syncobjs_out) {
-+					r = -EINVAL;
-+					goto out;
-+				}
-+				/* If one mapping is delayed, all mappings must be delayed */
-+				if (i && !delay) {
-+					r = -EINVAL;
-+					goto out;
-+				}
-+			} else if (delay) {
-+				/* If one mapping is not delayed, no mappings may be delayed */
-+				r = -EINVAL;
-+				goto out;
-+			}
-+
-+			if ((mappings[i].operation != AMDGPU_VA_OP_CLEAR) &&
-+			    !(mappings[i].flags & AMDGPU_VM_PAGE_PRT)) {
-+				gobj = drm_gem_object_lookup(
-+					filp, mappings[i].handle);
-+				if (gobj == NULL) {
-+					r = -ENOENT;
-+					goto out;
-+				}
-+				bo_va = amdgpu_vm_bo_find(
-+					&fpriv->vm, gem_to_amdgpu_bo(gobj));
-+				if (!bo_va) {
-+					drm_gem_object_put(gobj);
-+					r = -ENOENT;
-+					goto out;
-+				}
-+			} else {
-+				gobj = NULL;
-+				bo_va = mappings[i].operation !=
-+							AMDGPU_VA_OP_CLEAR ?
-+						fpriv->prt_va :
-+						NULL;
-+			}
-+
-+			if (gobj) {
-+				r = drm_exec_lock_obj(&exec, gobj);
-+				if (drm_exec_is_contended(&exec))
-+					amdgpu_vm_update_ctx_rollback(
-+						&update_ctx);
-+				drm_exec_retry_on_contention(&exec);
-+				if (unlikely(r))
-+					goto out;
-+			}
-+
-+			switch (mappings[i].operation) {
-+			case AMDGPU_VA_OP_MAP:
-+				r = amdgpu_vm_bo_map(&update_ctx, bo_va,
-+						     mappings[i].va,
-+						     mappings[i].offset_in_bo,
-+						     mappings[i].map_size,
-+						     mappings[i].flags);
-+				break;
-+			case AMDGPU_VA_OP_UNMAP:
-+				r = amdgpu_vm_bo_unmap(&update_ctx, bo_va,
-+						       mappings[i].flags);
-+				break;
-+
-+			case AMDGPU_VA_OP_CLEAR:
-+				r = amdgpu_vm_bo_clear_mappings(
-+					&update_ctx, mappings[i].va,
-+					mappings[i].map_size);
-+				break;
-+			case AMDGPU_VA_OP_REPLACE:
-+				r = amdgpu_vm_bo_replace_map(
-+					&update_ctx, bo_va, mappings[i].va,
-+					mappings[i].offset_in_bo,
-+					mappings[i].map_size,
-+					mappings[i].flags);
-+				break;
-+			default:
-+				r = -EINVAL;
-+				break;
-+			}
-+
-+			/* It's fine to put our reference here, exec still holds one */
-+			drm_gem_object_put(gobj);
-+
-+			if (r)
-+				goto out;
-+		}
-+	}
-+
-+	r = amdgpu_vm_update_ctx_execute_replace(&update_ctx);
-+	if (r)
-+		goto out;
-+
-+	amdgpu_vm_update_ctx_commit(&update_ctx);
-+
-+	if (!delay && (!adev->debug_vm || args->num_syncobjs_out)) {
-+		struct dma_fence *fence, *merged;
-+
-+		if (!amdgpu_vm_ready(&fpriv->vm)) {
-+			fence = dma_fence_get_stub();
-+			goto insert_fence;
-+		}
-+
-+		r = amdgpu_vm_clear_freed(&update_ctx, &fpriv->vm.last_update);
-+		if (r) {
-+			drm_err(adev_to_drm(adev),
-+				"Could not clear freed PT entries: %d\n", r);
-+			goto insert_fence;
-+		}
-+
-+		fence = dma_fence_get(fpriv->vm.last_update);
-+
-+		list_for_each_entry(bo_va, &update_ctx.dirty_bo_vas,
-+				    update_link) {
-+			r = amdgpu_vm_bo_update(&update_ctx, bo_va, false);
-+			if (r) {
-+				drm_err(adev_to_drm(adev),
-+					"Could not update BO PT entries: %d\n", r);
-+				goto insert_fence;
-+			}
-+		}
-+
-+		list_for_each_entry(bo_va, &update_ctx.dirty_bo_vas,
-+				    update_link) {
-+			if (!amdgpu_vm_is_bo_always_valid(&fpriv->vm,
-+							  bo_va->base.bo)) {
-+				dma_fence_put(bo_va->last_pt_update);
-+				bo_va->last_pt_update = dma_fence_get(fence);
-+			}
-+		}
-+
-+		/* Always update PDEs after we touched the mappings. */
-+		r = amdgpu_vm_update_pdes(adev, &fpriv->vm, false);
-+		if (r)
-+			goto insert_fence;
-+
-+		merged = dma_fence_unwrap_merge(fence, fpriv->vm.last_update);
-+		if (!merged) {
-+			/* As fallback in OOM situations */
-+			dma_fence_wait(fpriv->vm.last_update, false);
-+			dma_fence_wait(fence, false);
-+			merged = dma_fence_get_stub();
-+		}
-+		fence = merged;
-+
-+insert_fence:
-+		for (i = 0; i < args->num_syncobjs_out; ++i) {
-+			if (!tl_out.timeline_points[i]) {
-+				/* Replace the existing fence when no point is given. */
-+				drm_syncobj_replace_fence(tl_out.syncobjs[i],
-+							  fence);
-+			} else {
-+				/* Attach the last-update fence at a specific point. */
-+				drm_syncobj_add_point(
-+					tl_out.syncobjs[i], tl_out.chains[i],
-+					fence, tl_out.timeline_points[i]);
-+				tl_out.chains[i] = NULL;
-+			}
-+		}
-+		dma_fence_put(fence);
-+	}
-+
-+out:
-+	amdgpu_vm_update_ctx_fini(&update_ctx);
-+	drm_exec_fini(&exec);
-+	amdgpu_gem_timeline_out_fini(&tl_out, args->num_syncobjs_out);
-+out_free_mappings:
-+	kvfree(mappings);
-+	return r;
-+}
-+
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-index b558336bc4c6c..38fafc978c834 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-@@ -65,6 +65,8 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
- 			      struct drm_file *filp);
- int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 			  struct drm_file *filp);
-+int amdgpu_gem_va2_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *filp);
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp);
- int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 29009f6aabde9..c9e52bfa7d028 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -60,6 +60,7 @@ extern "C" {
- #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_PROC_OPTIONS		0x1A
- #define DRM_AMDGPU_UALINK_HANDLE	0x1B
-+#define DRM_AMDGPU_GEM_VA2		0x1C
- 
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -83,6 +84,7 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
- #define DRM_IOCTL_AMDGPU_UALINK_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_UALINK_HANDLE, union drm_amdgpu_ualink_handle)
-+#define DRM_IOCTL_AMDGPU_GEM_VA2	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_VA2, struct drm_amdgpu_gem_va)
- 
- /**
-  * DOC: memory domains
-@@ -945,6 +947,50 @@ struct drm_amdgpu_gem_va {
- 	__u64 input_fence_syncobj_handles;
- };
- 
-+struct drm_amdgpu_gem_va_mapping {
-+	/** GEM object handle */
-+	__u32 handle;
-+	/** AMDGPU_VA_OP_* */
-+	__u32 operation;
-+	/** AMDGPU_VM_PAGE_* */
-+	__u32 flags;
-+	__u32 _pad;
-+
-+	/** virtual address to assign . Must be correctly aligned.*/
-+	__u64 va;
-+	/** Specify offset inside of BO to assign. Must be correctly aligned.*/
-+	__u64 offset_in_bo;
-+	/** Specify mapping size. Must be correctly aligned. */
-+	__u64 map_size;
-+};
-+
-+struct drm_amdgpu_gem_va2 {
-+	/** Number of mapping ops in @mappings */
-+	__u32 num_mappings;
-+	__u32 _pad;
-+	/** Pointer to array of struct drm_amdgpu_gem_va_mapping */
-+	__u64 mappings;
-+
-+	/** Number of elements in @syncobjs_in and @timeline_points_in */
-+	__u32 num_syncobjs_in;
-+	/** Number of elements in @syncobjs_out and @timeline_points_out */
-+	__u32 num_syncobjs_out;
-+	/** Array of u32 syncobj handles to wait for before mapping */
-+	__u64 syncobjs_in;
-+	/**
-+	 * Array of timeline points, one for each object in @syncobjs_in.
-+	 * If the syncobj is binary, its corrensponding timeline point must be 0.
-+	 */
-+	__u64 timeline_points_in;
-+	/** Array of u32 syncobj handles to signal after mapping */
-+	__u64 syncobjs_out;
-+	/**
-+	 * Array of timeline points, one for each object in @syncobjs_out.
-+	 * If the syncobj is binary, its corrensponding timeline point must be 0.
-+	 */
-+	__u64 timeline_points_out;
-+};
-+
- #define AMDGPU_HW_IP_GFX          0
- #define AMDGPU_HW_IP_COMPUTE      1
- #define AMDGPU_HW_IP_DMA          2
+ 	tmp = amdgpu_vm_it_iter_first(&vm->va, saddr, eaddr);
+-	if (tmp) {
++	if (tmp && list_empty(&tmp->pending_list)) {
+ 		/* bo and tmp overlap, invalid addr */
+ 		dev_err(ctx->adev->dev,
+ 			"bo %p va 0x%010Lx-0x%010Lx conflict with "
 
 -- 
 2.56.1
