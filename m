@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899672;
-	b=lrnDfe16rqtmDiAzXIqKWRWNnO8n5jJ0atX3c3iGf8dn+pLzyMWPXxKS3yrBqa8dSEPs
-	 lye77lNgO7QBj8HE6G3PyjM1LeRDGI+7x9Kxd0LGFc9BheAwz2vNAMSRnxIPTOGOWmTMc
-	 qIhaCiEE80f43zfGyJO2vPLTil0QBMO3kttKEuQkeKMM0LjvuTbLSi03GG5xlzWBC21AI
-	 bOuMGmmcspe9qlHbb4L/2hRGwK85I1DASn6bKQK7N0rh4oS8VtnUvCNEI5kbpOKFtIoXV
-	 qIJGZvFqmG9vD2sQcxFOeNgU/aqXGdxJx9HCoovD+eabxbV6pwXtH9F9A1X4oDBS4vQ==
+	t=1794899681;
+	b=dePyo8h1i3KkNZDoQIy/8v74Fg8vBn3BY0V8AhUvMb5Rj+tu6aPE6vAcnuvdLvvwQ7m5
+	 0I3FVd02xkYtlPRFmaZW51vaxjkZXjXm1puFNe9JkR11l/b73lCLKsoXMXPCS6wFHAqrx
+	 Z7D81s7tlK4b1LfyRHdMOE3LwGvyz7EvrXLy4iy6hdnn3RSVWrT/VWy+b0bL7+pN/8efF
+	 ByhXvJhvICrk2KqwxUNPlC08NEDyAOvitvNWwaGlIqIwYEj+ZOoJn1Gu9fxQ37SAYafGb
+	 a7Ge0T7iDAZMyXkfJ+q3mit5vzxm5q6JXilYd/udchXkQZk1LooPxxDOMZ3yKraysaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899681;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=M/WdrMEavsqH0hS/EUDB3nkK/xjCmst2SoRbgl+9Ebc=;
-	b=diYVOA9ZTKdYnYzWS43tcU7Hj64Wf3kHronnNeo5VL4cYQRHcy8SUv3oJ9XO9P6lf70o
-	 LCH+ywamO/EwWrGnt/1rB0lZxy8LSVJkXI2EfuvXX7WvvXDWQn5+00uWPn11BqE3UqysK
-	 5+ggGPncjdrf4/ogbeR00H1RBiG5Tgh36rgBark99jU6Au4q/SnmavnUJOoB6L5pu4s1H
-	 QT9AGtZDqTzvhgLOp4yVBoP8542BhdY6mhsmHFH7DGZLLSamiFTY6urCElFIhqIaCsJBZ
-	 IwprOgGUPtO6Frh97RBRPZp8MJmMFx65RHVzvFYvPZfHDpZgVpaKP1FfI0jwYBzfNcQ==
+	bh=/uMuPe5mgi1Eu4yEWFJYCwVsaSE/AArChxvbCEr7Peg=;
+	b=ye5COWxoTSoP45V62MBX6HGZGbIrAhCnJ1ynQ4JcEyWqcOE2suZC8JrlXaJyUzwtGoRY
+	 WnRAkkZSp1WO+f6ZvMQ6/Ore/sKF1Ec+pC34q0HHUOuz3mRmgttm1zBHgxgV4L5iElarp
+	 cgEBwFW/HTPxqmUJdhmAMwFNWa0oF3Aercrtmvas8PoXqvPGqTRHQsnsxik2ZKYh/RjQy
+	 vJwPbeLo9z2SvCrLnD/DK1+imFKB1KtYbB1B4tzR/JOk3kwv+b7FSVnNh4gS1ODIys2ik
+	 vufeUy+HyTnpEDRK5XdXu+ZFt1b8M/CTWxLCozzKg0zS4FaadYWVdpyeONgdL+V4qYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CfRKj918;
-	arc=none smtp.remote-ip=91.218.175.151
-Received: from mta0.migadu.com (out-151.mta0.migadu.com [91.218.175.151])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RH5qvwVa;
+	arc=none smtp.remote-ip=95.215.58.71
+Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610F9606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:14:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 610F9606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7B8606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7B8606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CfRKj918
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RH5qvwVa
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zwbhnDtt3vpTEzSOmj+MMGszUoWlFbw/XBu9eV7HxV0=;
+DKIM-Signature: a=rsa-sha256; bh=IR9VcHeYSsHfv5ifLvABSgrY6uC1+UTctHpRZU8BkOk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794899669; v=1; x=1795504469;
- b=CfRKj918Dz9PvQ0E8PYSnikHSmKszbQ3SAZ1UnYFSk3DczxTn14ZalGZ8QTp/VXhz5xrkszm
- PKZEzXd59g5WEILHVb8rXCP1oa4/hD4XDQFuDjSVd9iDjttJUl/oxktjBYEVrNuqLkzp1907Bmc
- Dy7anJSVtIQjCm1hwBCFtmGs=
+ t=1794899678; v=1; x=1795504478;
+ b=RH5qvwVa96F/+auHiHXI1EJA1N/dFmngsMV3MqYOX3sqouaIrnXCI+ZMJGzg/ULlCQhgOBFQ
+ SPKQKDmOHFckjHysxuEC7o39+TnGJBNmsOV2NSEBPfVXQ/TGRWxTV8eTPwYQg/WrpgyvJegeIm1
+ DHTrvH6WaYuAzT6EwLQ7J+rQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4256e9d7da406d0d;
-	Tue, 17 Nov 2026 07:14:29 +0000
-X-Mizu-Trace-ID: 4256e9d7da406d0d
+Received: by smtp.migadu.com with ESMTPS id 0e5d159210048f24;
+	Tue, 17 Nov 2026 07:14:38 +0000
+X-Mizu-Trace-ID: 0e5d159210048f24
 X-Migadu-Flow: FLOW_OUT
 From: Peng Fan <peng.fan@linux.dev>
-Date: Tue, 17 Nov 2026 15:14:06 +0800
-Subject: [PATCH 2/8] irqchip/imx-intmux: Dispose IRQ mappings on remove
+Date: Tue, 17 Nov 2026 15:14:07 +0800
+Subject: [PATCH 3/8] irqchip/imx-intmux: Handle platform_irq_count() errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-imx-intmux-v1-2-189e7e0ad98d@nxp.com>
+Message-Id: <20261117-imx-intmux-v1-3-189e7e0ad98d@nxp.com>
 References: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
 In-Reply-To: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
@@ -75,38 +75,41 @@ X-Mailer: b4 0.14.3
 
 From: Peng Fan <peng.fan@nxp.com>
 
-The driver removes its IRQ domains without disposing the mappings
-created for their 32 input lines, and it never releases the parent
-IRQ mappings obtained with irq_of_parse_and_map(). Removing a domain
-while mappings are still present leaves those descriptors pointing at
-a freed domain, and the parent mappings leak on every unbind.
+platform_irq_count() returns a negative errno on failure, but the driver
+only special-cased -EPROBE_DEFER. For any other negative value probe
+continued with a negative channel count and passed it to
+devm_kzalloc_flex(), which is broken.
 
-Unchain each output interrupt, dispose the child mappings and the
-parent mapping, and only then remove the domain.
+Propagate every negative return value and also reject a zero channel
+count, which would otherwise register a controller without any channels.
 
 Fixes: 2fbb13961e74 ("irqchip: Add NXP INTMUX interrupt multiplexer support")
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/irqchip/irq-imx-intmux.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/irqchip/irq-imx-intmux.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
-index a9eda7646e2f..644282228f1a 100644
+index 644282228f1a..c7b6b475bfb9 100644
 --- a/drivers/irqchip/irq-imx-intmux.c
 +++ b/drivers/irqchip/irq-imx-intmux.c
-@@ -312,8 +312,11 @@ static void imx_intmux_remove(struct platform_device *pdev)
- 			writel_relaxed(0, data->regs + CHANIER(i));
- 		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
- 						 NULL, NULL);
--
-+		for (unsigned int hwirq = 0; hwirq < 32; hwirq++)
-+			irq_dispose_mapping(irq_find_mapping(data->irqchip_data[i].domain,
-+							     hwirq));
- 		irq_domain_remove(data->irqchip_data[i].domain);
-+		irq_dispose_mapping(data->irqchip_data[i].irq);
+@@ -207,11 +207,11 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ 	int i, ret;
+ 
+ 	channum = platform_irq_count(pdev);
+-	if (channum == -EPROBE_DEFER) {
+-		return -EPROBE_DEFER;
+-	} else if (channum > CHAN_MAX_NUM) {
+-		dev_err(&pdev->dev, "supports up to %d multiplex channels\n",
+-			CHAN_MAX_NUM);
++	if (channum < 0)
++		return channum;
++	if (!channum || channum > CHAN_MAX_NUM) {
++		dev_err(&pdev->dev, "invalid number of channels: %d\n",
++			channum);
+ 		return -EINVAL;
  	}
  
- 	pm_runtime_disable(&pdev->dev);
 
 -- 
 2.56.0
