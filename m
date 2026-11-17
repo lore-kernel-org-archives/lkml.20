@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794920821;
-	b=LI+TnnGHwd7j5/rIjJ0SxedXwhRxuS/O8XRaJwM3/ClQu+VpTCkCGr+Plu/vVpZiencX
-	 8aVIJGs7dvTd1xCULjNwdFFyLKmRBdDAg+F0O+J338VuyPGxPoEIShs7tHXd8N22PhLJE
-	 EhdaP07qL6ZmL/ZI9dfnl7mZ5TEUHS+IZFqYqwnnBff7v0UfqFztvcaaBV5klJAGS9Sqk
-	 Edqvn1IsySizmuh/5TMPxXFSeS4NilzQIbcPHcVEv3Ek6dhO5QUFT5sURCxWyOo79YOAP
-	 iGQ2TfpW+nb/r53ucnZqXupHLHfHPguLDO+tCbg4eX49J5jnnKwz/HFs3V956JS0R1A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920821;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nf3fn+myjMBG8LoaA4KjbdQr6OzjSMjhPMXD3rPLoGE=;
-	b=1EYgJCAQFXP/LkX+aBdqB9IkmB9OsIzRkYY8Q2er2njUsWNuBbrtl7Ea/aiFbU/qHaAE
-	 D17zCJzkW2pJ7F+jmIkct8wPnOY+bVT/tn/v2R2e8N9v8MzyjXV15oOVIJN9VRFG3jIlC
-	 7VDdaTHimMd3Zd3BK9WSfjBKvRK0mfm/jVdcs7K7QPEpDsfE2uxnCajEhaMz6hBvl12wt
-	 E9bcLLi5PNZNXhEzRHdHL4JseXJqWKQ+EYAtx7dQcuKIi8aqNhG9dvJN4XfGzffW4AK84
-	 Low3EMq1R6zyudjU/E6Xs8otmDlPma4gT/niI8YUCBiu2eXd15fYdxl+ZEoZEbKdrYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxTxJCJJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794920826;
+	b=jdQuceaBg8I5sb2nwuRwtd60UMewfktS6mmDfwjhfeONIZxB4hbHfrtW1h1lR6gGHc8V
+	 kc2Q3DiaDeucrprSgniUTykv7iY3PF/ifLSaEbPexqMhspwQulWBWcGttNeYBTDmwVccm
+	 Q2x4N9VdZe9pT+vy9GWMefOPrU3BdKxTShsWQp98sU8FfF1uLQjzfqt1IsUJPKjQvCz28
+	 CcgfUkJOCI/wNuj+CJ5yQP4z9tXXZHi8YQTaWOfq2mChXcu71bXPTGDldChUZIGwa//aI
+	 vqTWDcHzk3N6ToIzm+DPplDuPZkEeOPPP428A7mnzZIMfbP+D5jUO3c6iI5J7DfFQVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920826;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=uys2UBDVsuwnr9rkivnHsjzKN4wH7PF/d/BG6IyiUZs=;
+	b=MNilpkgVs9wA3AukCvuZswOVHVu67J2RMDnumCuAU+IhiDIuvs4QQdADzemWvYKHsJLA
+	 CDDwd1LSynLp3GBZDFSwoKUHGC32F5MizNYxCObJVIBDhNrLPQ483EDl4AGMhPM+eKb+/
+	 MMr59g5UalrSruzItGZYGS0aqI0MOxHCFlaiAZvVEB1rxw47MY332VjtAKu9Y/66Pjepp
+	 Lz3QsrmD1Lvqi+AA64N1BfpjMWdtTt42a1K6h9jz7QcVk2JZAXoRHcp5Utyylt7ZQnDvm
+	 c+6JJ/ETMdY4+NIDth9at91jC35clDkOLON46PeM1XADgBlZcakzOkSrLW3BkVkqaSA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iwl9SP5i;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CA0606A88F;
-	Tue, 17 Nov 2026 13:07:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12E1606A8B5;
+	Tue, 17 Nov 2026 13:07:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxTxJCJJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794920821;
-	b=cjGPWaIFoxrz7B2dUYOIT3Ux0+vNdgmi2PAf8ThHhC86bTc0HV8TTJL3o4aNo8XevrJp
-	 VvX+DA4RNeTWW5gCUg7JnqU8cDZafrhVWABlKrZmvPW/iV3nw7fGDJpZt7ECwt5cSxfFp
-	 +InW+Pc5ebW/Psm1/N530qI6G4XUHzXyDUVTGerUm5T8+E7UXr8686uta4Gi6OVrMhzkX
-	 4EaJBp/ZuIl/buzbvWS+GCw/CALnaM5hOOp/nG78CyiyexTyon0w1Xz7t6VoxaRjc6Sjo
-	 Itt6urX/sG/RZU3Sq5u/p4+XDNXfPcVdHAr/PnYE1WWY+ltKQ0arDpuc9eULCXQFctw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794920821;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nf3fn+myjMBG8LoaA4KjbdQr6OzjSMjhPMXD3rPLoGE=;
-	b=pIZLbrRXY9zitBWeGJvc3A2q9Al1DVsOWUcG+HayHAC6bJhCCJosX5TibuWwCcGDfCI5
-	 Cz2Lac0PSJ2Fq9MBQ8ARgEFC1aUKGIiFve8nQszVd3tE4ZA3wPsth5im7VHUtxi3DRfn3
-	 rSPGvqMiqISfohp/p2R3tK7p98pxH5DJYPhNmIXQ38HowoT4CHJcOSi1E4oqol2729mSo
-	 4F5ywOhTypjFczHQe2iShCXaMAkb9z9TfOGSs4VZMlFep6OgnY+7+ziYDe/3MHaAMiLig
-	 DBpIiFbGMIIpeeqVVOYN5EUjULy2GThftQjpK30CugNbVDw4LBRvby8bSojgttIDOYw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 753571F000C9;
-	Tue, 17 Nov 2026 13:06:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iwl9SP5i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1449D1F00926;
+	Tue, 17 Nov 2026 13:07:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920821;
-	bh=nf3fn+myjMBG8LoaA4KjbdQr6OzjSMjhPMXD3rPLoGE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YxTxJCJJETKqDuuMLO/JDIY2xPwepH2vrkBB8l2v292ukBOhIdO6khzAYpdWmXehJ
-	 AVNrarWAbO3b7ETuWsXTIbN6Fj6HMlu9pybv5R+5BQp2YoMvzHa/AnwbaaUKmfxu0G
-	 aK4DqHgR3ihpnUCDqOBmfURu4c04W9eoFwuVEuSvMQwTl08riN9Img7hKZpUSlBI3M
-	 FqdGZVC33lIszlE/dQYRQTu3CuTEmSbDRqcvdlpTPXFUBa+9QoOJG0+9tiTOEWtxIy
-	 +Tq6xZNoBvnopXmXyDzPmfMfo3c/lbwwJX60D3Uf/f283ksJEzVOf5ad08doAZh5Gx
-	 EdM3oNw+jDt6g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0031C4A98B;
-	Tue, 17 Nov 2026 13:06:59 +0000 (UTC)
-From: yy-Local-LLM via B4 Relay <devnull+yogo.0917.sabu.gmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 22:06:54 +0900
-Subject: [PATCH RFC 4/6] Input: add polled SiRF AT550 resistive touch
- support
+	s=k20260515; t=1794920826;
+	bh=uys2UBDVsuwnr9rkivnHsjzKN4wH7PF/d/BG6IyiUZs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Iwl9SP5iBv+dmCOjDRreWUCiUR08o8DWwfDthI/7iPKXhyIvvt/2CaaKeEvXucIib
+	 fuqsPEqvTdp4gTiNXaRKp23Ew7PY1bmEem/yxi62xjG7M3BeFdYadlQxei6rssC8or
+	 bQUy5YprG6FuHQHlPQPQFMLTJRr/jbvr1XydY7IbvkV7X7zmqfXAfmhV41JUVIdH2P
+	 y6tDY0q+ygE204WQOqZlVh9HEt0eY/jlk6R9t6V/B9aQamw3DAbleYluQUtJZzA5R9
+	 xi6MNEutu5tZGkPmpVGZ1vvbOtRrZfSn/kqgL/l0grbVLJ/1OxnIeR3VtXxlfPjpnV
+	 r3JvmJ62+FO8w==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Tue, 17 Nov 2026 15:06:54 +0200
+Subject: [PATCH v2 02/14] s390/sclp_config: Replace get_zeroed_page() with
+ kzalloc()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,210 +54,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-at550-rfc-v1-v1-4-5879573cb825@gmail.com>
-References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
-In-Reply-To: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
-To: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Ulf Hansson <ulfh@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-mmc@vger.kernel.org, linux-doc@vger.kernel.org, soc@lists.linux.dev
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794920817; l=6122;
- i=yogo.0917.sabu@gmail.com; s=ypl514-20261117; h=from:subject:message-id;
- bh=4S1aTi+unk74MXK+J63dLTnVcbz6m2tdAaKPHjtbsec=;
- b=ez1fyL3NeM0iCsiIeh4TpbfqIc7q0PKL8bu8dxVHuzeK9UKlDw5OD6PetT571k20Dcp1naRHN
- bHSjreB2/0WC+xK5JOGdlBzwToAFihkTCUni3KlOTSq2/lOzWQwLMDh
-X-Developer-Key: i=yogo.0917.sabu@gmail.com; a=ed25519;
- pk=TIQ8Tk4xQrxyn8rmk3GI2f5qg/kO6g2KZm7YOOyBHeg=
-X-Endpoint-Received: by B4 Relay for
- yogo.0917.sabu@gmail.com/ypl514-20261117 with auth_id=1550
-X-Original-From: yy-Local-LLM <yogo.0917.sabu@gmail.com>
-Reply-To: yogo.0917.sabu@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-s390-sclp-ready-v2-2-e518c99622c6@kernel.org>
+References: <20261117-s390-sclp-ready-v2-0-e518c99622c6@kernel.org>
+In-Reply-To: <20261117-s390-sclp-ready-v2-0-e518c99622c6@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Sven Schnelle <svens@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org
+X-Mailer: b4 0.16.1-dev
 
-From: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+sclp_ofb_send_req() allocates the SCCB used to send an
+"Open For Business" event notification to the SCLP.
 
-Report raw ABS_X/ABS_Y and BTN_TOUCH using the input polling framework.
-Preserve the firmware settling settings and reject streaming/AUX
-ownership. Use standard touchscreen axis properties; keep affine
-calibration in userspace. Polling is the initial supported acquisition
-mode.
+This buffer can be allocated with kmalloc() as there's nothing special
+about it to go directly to the page allocator.
 
-Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+kmalloc() provides a better API that does not require ugly casts and
+kfree() does not need to know the size of the freed object.
+
+Performance difference between kmalloc() and __get_free_pages() is not
+measurable as both allocators take an object/page from a per-CPU list for
+fast path allocations.
+
+For the slow path the performance is anyway determined by the amount of
+reclaim involved rather than by what allocator is used.
+
+Replace use of get_zeroed_page() with kzalloc() and free_page() with
+kfree().
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- MAINTAINERS                          |   1 +
- drivers/input/touchscreen/Kconfig    |  10 ++++
- drivers/input/touchscreen/Makefile   |   2 +
- drivers/input/touchscreen/at550-ts.c | 108 +++++++++++++++++++++++++++++++++++
- 4 files changed, 121 insertions(+)
+ drivers/s390/char/sclp_config.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3fea2160a..441492230 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25856,6 +25856,7 @@ F:	Documentation/devicetree/bindings/interrupt-controller/sirf,at550-intc.yaml
- F:	Documentation/devicetree/bindings/mmc/sirf,at550-sdhci.yaml
- F:	Documentation/devicetree/bindings/timer/sirf,at550-timer.yaml
- F:	drivers/clocksource/timer-at550.c
-+F:	drivers/input/touchscreen/at550-ts.c
- F:	drivers/irqchip/irq-at550.c
+diff --git a/drivers/s390/char/sclp_config.c b/drivers/s390/char/sclp_config.c
+index 8c77e8c44fc2..16617a679366 100644
+--- a/drivers/s390/char/sclp_config.c
++++ b/drivers/s390/char/sclp_config.c
+@@ -93,7 +93,7 @@ static int sclp_ofb_send_req(char *ev_data, size_t len)
  
- SIS 190 ETHERNET DRIVER
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3..e68af1dd6 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -1414,4 +1414,14 @@ config TOUCHSCREEN_HIMAX_HX83112B
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called himax_hx83112b.
+ 	if (len > OFB_DATA_MAX)
+ 		return -EINVAL;
+-	sccb = (struct sclp_ofb_sccb *) get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	sccb = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sccb)
+ 		return -ENOMEM;
+ 	/* Setup SCCB for Control-Program Identification */
+@@ -119,7 +119,7 @@ static int sclp_ofb_send_req(char *ev_data, size_t len)
+ 		rc = -EIO;
+ 	}
+ out:
+-	free_page((unsigned long)sccb);
++	kfree(sccb);
+ 	return rc;
+ }
  
-+config TOUCHSCREEN_AT550
-+	tristate "SiRF AT550 resistive touchscreen"
-+	depends on OF && HAS_IOMEM
-+	help
-+	  Say Y to enable polled coordinate acquisition on the AT550.
-+	  Coordinates and pen state are exposed through the input subsystem.
-+	  Firmware must initialize the touchscreen peripheral clock.
-+	  Board-specific affine calibration belongs in userspace.
-+	  To build as a module, choose M; it will be called at550-ts.
-+
- endif
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de833..6b8d09601 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -119,3 +119,5 @@ obj-$(CONFIG_TOUCHSCREEN_IQS5XX)	+= iqs5xx.o
- obj-$(CONFIG_TOUCHSCREEN_IQS7211)	+= iqs7211.o
- obj-$(CONFIG_TOUCHSCREEN_ZINITIX)	+= zinitix.o
- obj-$(CONFIG_TOUCHSCREEN_HIMAX_HX83112B)	+= himax_hx83112b.o
-+
-+obj-$(CONFIG_TOUCHSCREEN_AT550) += at550-ts.o
-diff --git a/drivers/input/touchscreen/at550-ts.c b/drivers/input/touchscreen/at550-ts.c
-new file mode 100644
-index 000000000..0a208f4a9
---- /dev/null
-+++ b/drivers/input/touchscreen/at550-ts.c
-@@ -0,0 +1,108 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* SiRF AT550 coordinate acquisition. Layout cross-checked with AT551 draft. */
-+#include <linux/bitfield.h>
-+#include <linux/input.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#define AT550_CTRL1 0x00
-+#define AT550_CTRL2 0x04
-+#define AT550_INTR 0x08
-+#define AT550_COORD 0x0c
-+#define AT550_STREAM 0x44
-+#define AT550_DOWN BIT(31)
-+#define AT550_VALID (BIT(29) | BIT(30))
-+struct at550_ts {
-+	void __iomem *base;
-+	struct touchscreen_properties prop;
-+	u32 ctrl1;
-+	u32 ctrl2;
-+};
-+static void at550_ts_poll(struct input_dev *input)
-+{
-+	struct at550_ts *ts = input_get_drvdata(input);
-+	u32 data = readl(ts->base + AT550_COORD);
-+
-+	if (!(data & AT550_DOWN)) {
-+		input_report_key(input, BTN_TOUCH, 0);
-+		input_sync(input);
-+		return;
-+	}
-+	if ((data & AT550_VALID) != AT550_VALID)
-+		return;
-+	touchscreen_report_pos(input, &ts->prop, data & GENMASK(11, 0),
-+			       (data >> 12) & GENMASK(11, 0), false);
-+	input_report_key(input, BTN_TOUCH, 1);
-+	input_sync(input);
-+}
-+static int at550_ts_open(struct input_dev *input)
-+{
-+	struct at550_ts *ts = input_get_drvdata(input);
-+
-+	/* Polling keeps the interrupt sources disabled. Preserve CE settling. */
-+	writel(3, ts->base + AT550_INTR);
-+	writel(ts->ctrl2 | GENMASK(15, 14), ts->base + AT550_CTRL2);
-+	writel((ts->ctrl1 & GENMASK(7, 4)) | BIT(11) | BIT(10),
-+	       ts->base + AT550_CTRL1);
-+	return 0;
-+}
-+static void at550_ts_close(struct input_dev *input)
-+{
-+	struct at550_ts *ts = input_get_drvdata(input);
-+
-+	writel(3, ts->base + AT550_INTR);
-+	writel(ts->ctrl1, ts->base + AT550_CTRL1);
-+	writel(ts->ctrl2, ts->base + AT550_CTRL2);
-+}
-+static int at550_ts_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct at550_ts *ts;
-+	struct input_dev *input;
-+	int ret;
-+
-+	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-+	if (!ts)
-+		return -ENOMEM;
-+	ts->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(ts->base))
-+		return PTR_ERR(ts->base);
-+	ts->ctrl1 = readl(ts->base + AT550_CTRL1);
-+	ts->ctrl2 = readl(ts->base + AT550_CTRL2);
-+	if ((ts->ctrl1 & ~0xffffU) || (ts->ctrl2 & ~0xc2ffU) ||
-+	    readl(ts->base + AT550_STREAM))
-+		return dev_err_probe(dev, -ENODEV, "unexpected TSC state\n");
-+	input = devm_input_allocate_device(dev);
-+	if (!input)
-+		return -ENOMEM;
-+	input->name = "SiRF AT550 touchscreen";
-+	input->id.bustype = BUS_HOST;
-+	input->open = at550_ts_open;
-+	input->close = at550_ts_close;
-+	input_set_drvdata(input, ts);
-+	input_set_capability(input, EV_KEY, BTN_TOUCH);
-+	input_set_abs_params(input, ABS_X, 0, 4095, 2, 0);
-+	input_set_abs_params(input, ABS_Y, 0, 4095, 2, 0);
-+	touchscreen_parse_properties(input, false, &ts->prop);
-+	ret = input_setup_polling(input, at550_ts_poll);
-+	if (ret)
-+		return ret;
-+	input_set_poll_interval(input, 10);
-+	return input_register_device(input);
-+}
-+static const struct of_device_id at550_ts_of_match[] = {
-+	{ .compatible = "sirf,at550-ts" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, at550_ts_of_match);
-+static struct platform_driver at550_ts_driver = {
-+	.probe = at550_ts_probe,
-+	.driver = {
-+		.name = "at550-ts",
-+		.of_match_table = at550_ts_of_match,
-+	},
-+};
-+module_platform_driver(at550_ts_driver);
-+MODULE_DESCRIPTION("SiRF AT550 resistive touchscreen");
-+MODULE_LICENSE("GPL");
 
 -- 
-2.56.0
-
+2.53.0
 
