@@ -1,96 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910843;
-	b=Qww/qnifkVK7e3EugOO5exclmTIvaEspyfJCz91UmxJW0++GVbpr0cimH0yRnk4SwSnA
-	 dWyhyWBwBTeuA4YbZHNnYf0dzGfJXPRWkXhBlmZ2gmAjF82ucHh0gIhTGdAr9SncdmZr7
-	 vAj1+xga2UAIvVy+e7a9OU9ADXXZ1nwCpJXX4W1SDJJHmYkM08d7YCwHYLYkPf/1LxMBS
-	 l/U9WXqhHJuORR4I9apWbe6nLtQjo6g85aX1xKqkx0Mghgic5lAFX4w80Y1XbJ6qYKOZB
-	 K85w2zbegF9S5i3z7bNSFQ740nK5GawNPxe775JM4c6uy9opmRFTBVvBmf3RUg185Ug==
+	t=1794910854;
+	b=Rr5D85C+k8cOk8EWmft2UlxoVDmF0UGFnGZKzpKafl0NvU07SjjzCdATPgoLOq5BFTpD
+	 TPF/NqwDZ+2cgWeoD70vw02foN6SKFN6ZZZcd5ciTwLth6p+vto5hNXtOzOYz4GOjYWZn
+	 TO3sKshn+JzGoyK2XjWIWGyFuRVUJIIuS1AyGbmNyoavKFDZ0MuZ8qCyXYtwNVaTb2yT/
+	 fKYZMbctuhZfM8F2XAlEsV1O0Wh2zVybeZhQy3ynCktAJXwEdE0InGI5i6WC/dQr8Ng1p
+	 WtkjlEqRLLG0imjOnHAAPD36+T1uTKuvmX+G84ElnLg3L4GSQ+R6q/rtPacY/749ouQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:Subject:To:Cc:MIME-Version:Content-Type:
-	 Content-Disposition:User-Agent;
-	bh=wUKnxB9Hkf5UlddOBau8h4TCwsj7ZxWVW5uuyUNe2fU=;
-	b=0abHlMp9sJ/2QXcliUnu1tYHhcU4dbSC6LH3VpKGcRQuERgaMCOwqoMUn6yqUY/XSVj4
-	 /PxMVbNOGpPAH1iqxBsBZFCqfr7keOnDAlQJytV/8MgY7yWacbK343v4oa4HduAKx0yFt
-	 8zZJCwN+yxu6JTQ+jvOrUdw/dDuLrQZ/C9bc1QIGttNLj/pGeWYseok7vFEdCz2JP/MrS
-	 nRKP/FpeA6m1ZD2NsjWnkNJ7Vz5TzDA+15z9GofBOHnNCGwS0o1RChxNrSMEWZOy+mpa+
-	 tfEgyhuYzm7t2dxLlqzZ+dSKsGJQwmpWOwjBVkZ9NvvKf/8Xk7sj2ySooPHgKit1wfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910854;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=;
+	b=s+HlOlAF5xrpBKrb7gIPhhUuldK352iIZaCogkKAyCuEJrth8i8cWPVLlpijMnrR53pj
+	 wOTUKUPTdgSfZqOthaR2d0xf1BqBgByYGLlqNLVAcDrMYwDEa4THNuY7lkZiUbYRSVBfK
+	 hnf0aH0hEHW5oX/qVMDMFqgbfCXOwAsuHIhONsk4F3rmL9MEtf2250MgqkZxO8q1WR+i2
+	 NuvXZf/rfwqe4GKD9/YO4xFudA1OCG+YLnXdg4/8OJPOEBZxlqJ7TAwtPpIo8n0djHJ1o
+	 8FMnc1IvbDH3dgm+9O812p2hB82V7Z+ot8OtIK+VuO+P7xWf7Ar6dp7ddO4yvlKt+mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=E7RLDg11;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g94MOWNz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XjODMonJ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5EF606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:20:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5EF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2F6606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:20:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E2F6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=E7RLDg11
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso4185134a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:20:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g94MOWNz;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XjODMonJ
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8i4tT2935297
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:20:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=; b=g94MOWNzth+xBunp
+	hOmkSpvC0JgQ6l3J4MLRkj++1Aj3Iob5oQovsEtW/rMKc+iynR1k56o2ngfn1sH3
+	vFQA08z5vD9negODGIgxfl+5WF3jA1PGgCUYTX+nSAmfit/62phKuKqcC6P7GE4e
+	+MtQjH+dvKjOLYUUSLcKrkJsCXWEduS5SL+ZS4L2llzptj2ReP1OmQsCptlWS/54
+	4q6Jz12yReAngkZgMpRZfEOsZPIp8KSJSYRAegwpWG371C9fooXkxEvbWqKJTwG4
+	+CLaNS4Dra+DQm7j2s+3LVgeJsHDfFmAm1RG0T9ZVZVf+2yA1mp7+iHDPPrce5/b
+	8vCRxQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0akj5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:20:53 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-947a607ec40so429240685a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:20:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794910842; x=1795515642; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:cc:to
-         :subject:from:message-id:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wUKnxB9Hkf5UlddOBau8h4TCwsj7ZxWVW5uuyUNe2fU=;
-        b=E7RLDg11WOEqbE8nOBbR9Wi21WCPxa6PZYpNS33bFEgcNRLlGLk8GZJ+wMBUE8RniO
-         YuDug5jx+4b4Sd6W1bevIMgmHpvzco0R8u3w/EF89vuX/C8uQK7pbooAuV7TKqc5ncp7
-         e7D3mQFs3aygUuhaHL/JYlQASpdLPnu6wCzh0=
+        d=oss.qualcomm.com; s=google; t=1794910852; x=1795515652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=;
+        b=XjODMonJHXxpwmhfHq4jCOgmc+C0k0FJ/3tCgftZn7xoWqq5O7W1TMTD9y3lktpiHb
+         qrqbkg66GQ/69oU7KRmgsTxj3zPEB7v3Coe/hL1h6Q6QvkOTNeSmfq34hmJR1BqT9URR
+         d4qWJO7oZqPbqZkX03vUekMTwneoMpXkW1WyBHlOsDKwQQMR9eCiSGhwNQ5aO/gtLKgm
+         XqJyy0salEvlvGVWTy6xaKmwYnQSOAzwDpTJRe7RDvrfb/vcMaQ1qkH2U7pe/1a3XjPg
+         APZskAdmn7AM1+J/yJ6pqTs5CePLMQ65fY5FWE+QnLhMTImzMjVoI6FM1NQzY/6NB4Mb
+         bDfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794910842; x=1795515642;
-        h=user-agent:content-disposition:content-type:mime-version:cc:to
-         :subject:from:message-id:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wUKnxB9Hkf5UlddOBau8h4TCwsj7ZxWVW5uuyUNe2fU=;
-        b=llqapag6jWtg5+l0BkYpzWgGcQh4Ps1ytEFG5fmDNMIEtfdoXkmRlpUPGUb71kD/2L
-         lwLv5J0Ez3N/LhPJfATZToeJrtTjQKOcIsPWRvVYyzrfhW+D6qF5rVd3h4eqRH59f+wd
-         Zj99ntrFgcekyiNocsAmb6eU7XQQ742Iv94qHmpkHrTCXF+TCqN6hMDlW8Gc7FPQHPQN
-         gP7aZEzd82MkM+qBIUhLojKkhy3HV0sFSe94QFBy8MTRzW39rTDfr6XN0PVhTAGIqXwY
-         RQDAomTnm06mICtXaNGAmdI0AK9sCgj0almiYx+JKs7xsQcatXaZyLfEZMwG/TBcUt6A
-         pUTg==
-X-Forwarded-Encrypted: i=1; AL+hErHLhrqItYWOcHoR62i4brPFNfx3+/UjkrGSMTp3qe6wNlpBOQmmmpSMUhaG+hIJqsn8LtT9QoJBk4GX2Ec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rigph4YXrbfJa8MZ98U5fnogNVpn/3s5meuJMlKOAtHxHoj64
-	dvddJUfp9NJYpu0D0Kq0zoJ1cc3TeG+1xFDp5m2ICQfgqX4lDFRGdzGm5rQ+3iSIxWg=
-X-Gm-Gg: AZFdTZfjib4xpJaiFIGHlMDPdLRjEmcaX3cM98e87RYmd9aRLPw8BpsRSqghH0Q6YF0
-	TVPDHpHdwQRUmy4uxgSPjtfNxzME4pGKMlHk0gobMVHK2x0yqO4vD0BX3puD1qWVqQK3KpmGk9k
-	tBPT6BplhNm0q5bLYcXByYUR8JqMhgjlAR8XrG8EvQNIDcYIfwfsD5m1LxMOHUp24obKT0LBStV
-	ZX4zuPV+n7V2QUcXecC0NfWGY4ErHUqvtC8YXWmK+MZhTb6ZGMkcUc9RuthINhOcVfMcBs0AzII
-	S08JwDXMjz2WXUfFTMNszI7M2OLNfDMx8WbmDAikwO1HD/NY6UOghgnD9z2nK4T6SDaXcc6XubU
-	TPkDcdkXv3KpxOiop8Fs197iG//0TFKe6MI/pU2WEfbcuCA5Ue5lqz2AkjoYaDAbceg7ipgouCw
-	KhN2UDPw3v2NlUGUDsx8dJnU9K2XSJRhvhNGs0fyXa6HumsUagBiyouBj2uN1JZZJiQm4+4sjf3
-	XkvpAfwmLb4Prv5KdrVE0H4SDjHLXnshBgjtLKAjfj7Pj5unF4BoSMlJptDO+lgmS3eq0yw1a8V
-	X3RjaOUS1jzFDWLmuVedWV9tGKLIu77Ku/+2JDgFC33Q732WcNh7itarFAEo74Vk0K8N9gTFr7j
-	yhato5Btym2t1/3W3xkJkg+mEaZUAS/BsqLaY00QW0M9ediM35avaaun5w+EFpTeVawmYVTg+DZ
-	YA5+H4cgapToCjQKxfXgCAa6q8ekXVbz7MqcP7E7RSqsDEspBGbZWZVVU1hitXRoZy
-X-Received: by 2002:a17:90b:5112:b0:3a8:10e2:ad08 with SMTP id 98e67ed59e1d1-3b1b0cf4395mr13922231a91.48.1794910842256;
-        Tue, 17 Nov 2026 02:20:42 -0800 (PST)
-Received: from [172.20.0.2] ([172.56.235.113])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3a7657585sm1927180a91.2.2026.11.17.02.20.40
+        d=1e100.net; s=20260707; t=1794910852; x=1795515652;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=;
+        b=XUun3qEK6jpJzSt2uoFM+CrFnJhtRNuN6gadXAVCKpOxF+5nzZJHBeRBHhSY57k+Lh
+         bgR6KieIFP1LXGplSFYqeJ1naFgbMv2W3OfNRFT8IuayaQBrwpY+LvoveWGDc8p+AFjG
+         2R60rm1S/BtaCllzkxRmdHrvJ7y51+AEMMQXv8F0B0ZtWGrpGB4ImAfy6Ea0jggz86ZU
+         qL/KN+91zYTAJ7XnXp72U25YKliPAzdEGPTSBvg9ivAQxY59GQeoQkNiSZSMK6CWXUBY
+         p8vX9Z++e1BZn7qaZHJevyV/G+vjzRpiz6lTIKU9IhhQ+ga7etb2gRPotRY7EXKL/HW6
+         ARVg==
+X-Forwarded-Encrypted: i=1; AL+hErHMTgl5Z7A/kMq+k6GjahyK1HQNUMTo7Q8nFf835XIEx6YfBZm5z3ln0jLl+pHMeZ6wB1gGDAbmcHmaMm8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8yHkP+FSysWVRLqvOaRgL1iEt9q0cvPb7qzx5kREwKKBtFnmQ
+	3Qim+15hHpdkoEn7ADUDsTSevhGhpnvtblbufajNM7hvWtCmy1k0rhhnt8UyE7BHgkXoD1fP4wb
+	Fy9XCETFiLTJi6Iz2jYd+lnCpbor/X0dKMUfkOjOK+yCnZEFq78TvQo/IcnW6a/M099c=
+X-Gm-Gg: AYBFou3ECMttPXNLVWPrZX1SR53D1mnvZ+ZbCPVNJTa6d/wlzgYW/WNl1Qa721pYr5x
+	m2HeOaYlDC5QICtaGDDuj4sdTjlyAce7I6gn2gKylr9N+bMDoyUisrqQoRad1L7c0N+XqowVdbM
+	bCOoye3jcpV+nkfi0qoWWoErRCJCSRW0JH9Edxs9t22fGpFYsHxYkfVuIVHvP8UPx9DY1SFqXYO
+	qFTyRPPGIyxYkSlRtiTdzgr9CcBHCYbHgUuThZ5AylOvPXicLCqQ7s2bUe63SsRGJRneQABv+9E
+	tjjHKgF7aLGBa74ExYzZ89/MnL0y2kouIETFYxCxgkrV6cGw7s/vbiksHN3Zg8o+nMJdEzu/MRB
+	GD5u8//2efiP17VAWL+uUXybHPZsSwWrUYyI4bGGKf19vioJN40BQFRPYJkv/pnoYyfJrEMsuC3
+	s=
+X-Received: by 2002:a05:620a:4592:b0:93e:e2ec:3bf with SMTP id af79cd13be357-9494bcc9ef9mr2151887985a.78.1794910852108;
+        Tue, 17 Nov 2026 02:20:52 -0800 (PST)
+X-Received: by 2002:a05:620a:4592:b0:93e:e2ec:3bf with SMTP id af79cd13be357-9494bcc9ef9mr2151884985a.78.1794910851460;
+        Tue, 17 Nov 2026 02:20:51 -0800 (PST)
+Received: from brgl-qcom.local ([195.50.164.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783854cesm90386485e9.1.2026.11.17.02.20.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:20:41 -0800 (PST)
-Date: Tue, 17 Nov 2026 02:20:38 -0800
-Message-ID: <7c10f2e01b6f19229c83e81d887a87f5d1151841.1794904698.git.chris@chrisdown.name>
-From: Chris Down <chris@chrisdown.name>
-Subject: [PATCH v3] proc/kcore: allow disabling /proc/kcore at boot
-To: Omar Sandoval <osandov@osandov.com>,
-    Andrew Morton <akpm@linux-foundation.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-    Shuah Khan <skhan@linuxfoundation.org>,
-    Randy Dunlap <rdunlap@infradead.org>,
-    linux-debuggers@vger.kernel.org,
-    linux-fsdevel@vger.kernel.org,
-    linux-doc@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    kernel-team@meta.com
+        Tue, 17 Nov 2026 02:20:50 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Lixu Zhang <lixu.zhang@intel.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Haotian Zhang <vulab@iscas.ac.cn>,
+        Alexandre Becholey <alex@becholey.ch>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: ljca: Validate the pin index of interrupt events
+Date: Tue, 17 Nov 2026 11:20:48 +0100
+Message-ID: <179491079451.28213.15188778805240746031.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113144432.1354180-1-alex@becholey.ch>
+References: <20261113144432.1354180-1-alex@becholey.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,97 +128,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfX08LjjTKzlALf
+ l5DiuLY9GMuO2zySUocHZHBhYp2+xY/IJqDqm+NVICRLSom6xqeVi1n0T6Af49skh85YVE1U33v
+ Jdb8lJXFoBiRlAdp+QoVypky1ediaUU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfXxF+vM0c5SUeZ
+ hor8In3PWWGwoCJ/6JVLYfizn+MEGo5+1JdZ8EpVivncVv78yxTJoBs2iSmLleRdxTotQf6A6O0
+ mSm2t3/RI79ukG7a/vQZZ1Vms3eaeuP5dPCb5waE1OJ1oCTzn/euh50OH6QEE618Ht9oJo8aifT
+ 9nIwXbKnrV1Ah1TelYaY8+AKeUm110MyTp5e/W/xQxA+QBaTK7KaWuTmw1SJ5H7NwVAV2ZU2Cwu
+ uL4HcxKuDoDmu/WhqFpvq3UeLTj6K9N+U85OgZ3hCmc+/lwfsXKkG2tEprZmUe1cr7chf3859A/
+ yb2ltwgWTTOrwevwXzC0NVS1sYrTPLAlCWbuEVhDK5K3xTU7pQkVDNkNsMl/x2+KCL1Ih0yNE2B
+ 6m6VRy5uE/9j1FCstp54+GESr64FctG9iPisdqSejQd0UUK2DrIsBVuISitoPipTGPiHR7JXZvM
+ To9Da4BnW82fA0gw61w==
+X-Proofpoint-GUID: KD55cRqZVMi91ml5kawdKQzqoXECzrrk
+X-Proofpoint-ORIG-GUID: KD55cRqZVMi91ml5kawdKQzqoXECzrrk
+X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc2a85 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tYqXyjVJoe5DErGjTNgA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170041
 
-/proc/kcore lets any process with CAP_SYS_RAWIO read all of kernel
-memory. That's a pretty large read primitive for anyone who obtains
-CAP_SYS_RAWIO (and it also gives away the KASLR layout).
 
-For this reason on some hosts we want to turn /proc/kcore off. In terms
-of what it can read, /proc/kcore isn't any more concerning than other
-ways to read kernel memory, like BPF with CAP_BPF and CAP_PERFMON. The
-distinction is that a process with CAP_SYS_RAWIO doesn't necessarily
-have CAP_BPF and CAP_PERFMON, because CAP_SYS_RAWIO may be needed for
-hardware access without necessarily wanting to grant general RAM access.
-CONFIG_STRICT_DEVMEM already makes that possible for /dev/mem, but
-/proc/kcore gives the same capability to do general purpose RAM reading
-anyway.
+On Fri, 13 Nov 2026 14:44:58 +0000, Alexandre Becholey wrote:
+> ljca_gpio_event_cb() takes the pin index of every item in a GPIO
+> interrupt event from the device and passes it to set_bit() on the
+> reenable_irqs bitmap, which is only LJCA_MAX_GPIO_NUM (64) bits long.
+> The index is a u8, so a malfunctioning or malicious device can set
+> bits past the end of the bitmap, in the members that follow it in
+> struct ljca_gpio_dev: the output_enabled bitmap, the connect_mode
+> pointer and the irq_lock mutex. connect_mode is later dereferenced and
+> written to by ljca_gpio_set_config() and ljca_irq_set_type(), so the
+> device can flip bits of a kernel pointer that is then used for a write.
+> 
+> [...]
 
-However, on a kernel built with CONFIG_PROC_KCORE=y the only ways to
-block it today are lockdown=confidentiality (which also disables many
-other things we perhaps don't want to disable, like kprobes and
-bpf_probe_read_kernel()), or an LSM. That's annoying, because on the
-majority of hosts we do want it on for things like drgn/crash, so today
-we build two separate kernels.
+If you have an LLM write the commit messages, please ask it to be more concise,
+half the stuff in this commit message is just slop.
 
-Let's add a "kcore=" boot parameter so that this can be disabled at
-boot, which lets us preserve those choices while using the same kernel
-image.
+Applied, thanks!
 
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
-v2 at https://lore.kernel.org/r/a8474f0e2d0ef5ea9d53aa6649c7e9c9ea6f15c2.1794800574.git.chris@chrisdown.name
+[1/1] gpio: ljca: Validate the pin index of interrupt events
+      https://git.kernel.org/brgl/c/e6e2181c6920ff59ded349a100f80cf85d074601
 
-v3: Make kcore_enabled __ro_after_init (Kees)
-v2: Give more justification in changelog (Omar)
-
- Documentation/admin-guide/kernel-parameters.txt |  6 ++++++
- fs/proc/kcore.c                                 | 12 ++++++++++++
- 2 files changed, 18 insertions(+)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 176648941aec..205228294fc2 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -2902,6 +2902,12 @@ Kernel parameters
- 			parameter KASAN will print report only for the first
- 			invalid access.
- 
-+	kcore=		[KNL,EARLY]
-+			Enable or disable /proc/kcore on kernels built with
-+			CONFIG_PROC_KCORE=y.
-+			Format: <bool>
-+			Default: on
-+
- 	keep_bootcon	[KNL,EARLY]
- 			Do not unregister boot console at start. This is only
- 			useful for debugging when something happens in the window
-diff --git a/fs/proc/kcore.c b/fs/proc/kcore.c
-index 3264c99bd68a..786c1209e224 100644
---- a/fs/proc/kcore.c
-+++ b/fs/proc/kcore.c
-@@ -69,6 +69,7 @@ static size_t kcore_notes_len;
- static size_t kcore_data_offset;
- DEFINE_STATIC_PERCPU_RWSEM(kclist_lock);
- static int kcore_need_update = 1;
-+static bool kcore_enabled __ro_after_init = true;
- 
- /*
-  * Returns > 0 for RAM pages, 0 for non-RAM pages, < 0 on error
-@@ -722,8 +723,19 @@ static void __init add_modules_range(void)
- }
- #endif
- 
-+static int __init parse_kcore(char *str)
-+{
-+	return kstrtobool(str, &kcore_enabled);
-+}
-+early_param("kcore", parse_kcore);
-+
- static int __init proc_kcore_init(void)
- {
-+	if (!kcore_enabled) {
-+		pr_info("/proc/kcore disabled on command line\n");
-+		return 0;
-+	}
-+
- 	proc_root_kcore = proc_create("kcore", S_IRUSR, NULL, &kcore_proc_ops);
- 	if (!proc_root_kcore) {
- 		pr_err("couldn't create /proc/kcore\n");
-
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+Best regards,
 -- 
-2.56.1
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
