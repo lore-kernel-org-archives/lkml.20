@@ -1,71 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794896550;
-	b=AvS3YTbY7L/5IeLuMFIJuBWEDFPNS5CEnTlMOWFZ5FHDM6H+qdhyOjeHxdQhHYWm0mQQ
-	 i4ftEDb2jMJz5CVgtrsc1PiM/7u5+EyJM8TFT8/K2fN7hROM0bA8MMJ7csG8KyJ7fV9Tb
-	 iUD/iuKC7BPsiulJ6TzVI+vTAb0u6EG7F3dUrjoNLS/dyBD0q+xeor/XzgJhoeM7Jo3Pu
-	 el9z+u0bFwdgdjPPwE/Hq4PDLx56SDi8/FeGW/+uS6TTorW+76hGXD0MsgrkxuXsBPgQZ
-	 jA5jqXS/MeuOCJ+5/oTi6nAEadWT68XtvPY57vbz8SnNnceZJ5PNzdi6lky1tKj+e6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896550;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=trvDkV6vvUmb0PBXlBu21SjsOugrgLJkdgdnA7x9QNA=;
-	b=1NXdpEaAGY5RIc7656Gr/QMFG6TNCI+MpZJx0ORGNWxOo0db0Wr/uK0FWSlBworpfggQ
-	 pDNZ65zaBuH8roClW+dLe7Ml2opbCsrkQI/iraHyW5dcaKCddy9L6vytPkGaSjxGQs9N5
-	 Hsut73DwSbkifADz/1i5I3Mr3xSIV7n/BA79fOnNSltdgCeWsnoe+215xwtHqsh5qpDLK
-	 6njF3+3iz+1IknpufpPNWkog52dsXHz3P71aOpW2rJwV8zh3C1jBRx0zPKhkDEynm40tg
-	 A4BsutIN+wLqIigQu5kv9OMZIW3bC3vJHjOdVHQfZT/5Kd0C5JgEDmJfZh13z3dpruQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=nGP3zQ1m;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794896651;
+	b=yKNfIaPevAni+UzVF+0LxHAUQA3azN2LoqAg9SPWs7pr+tyuyOtp9HogCYRFKJ1CnrQ7
+	 VGR/Jqh+0QzEZTT7zLWQ/g6a4lKEYK/E56pY3CQvWukNRESX9iY35KvrLntckVe3OTu1f
+	 ewzCsZ01O4M7omb9q0PkYmo9BMYaPy21i3ltm09kHJwXeSB1RjcoHg1aLe3ckE0GmT1WQ
+	 fFvToCVgL4cwpzXv2YR838KxsPJUY6ZMg9T6kLXByfifyhHQl5RQvlSV3gcPjKeBy01oH
+	 tE7mZUMqYEHoUmBH6invcjNzfpudjtbfYQ0YKIgBhRMm8XsjCuyjbDe5VuBP5gcEAQw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896651;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Bv8z5Io8RhbyyeuDISboM7YRSTMS03SBG0kjxtz0W9A=;
+	b=pXGcSTGZmNIDiqexUYbm8YddyGKKj4XAKeO5d8Dt8H5beCDGIIb6y3vaCrBukEBp/cdK
+	 P5WBoWssdX4z2dnAaY5nC+qIgnbZyEigdGx5WuLhMrL7aCdnxGF824TTbOwmcAFtex89u
+	 9X8wBMhPXgsJbkxCsRCkrWyfvvIPHVQHl3PQ88jpXh5kCZIBf6ZiLXSAdatvKE7J+R2dh
+	 28btHoxNqU6moLPmNEK206kYauX1KVMrEkYz0ltcq0C2QdA3eLJth8yIArcuDuphkdZhg
+	 8Iw2xUpdtprltTtmtvzcAI0YcBjcuHg/NMf1M/ONZCzGhYiv1X7mqExZ/zB+uNLLvuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MGOoJYc/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.139
+Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6F3606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:22:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6F3606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90607606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90607606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=nGP3zQ1m
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id TBgcxQY9iRiNxTCaGxUL3l; Tue, 17 Nov 2026 06:22:24 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id TCaFxGfNrdRrRTCaFxHYt3; Tue, 17 Nov 2026 06:22:23 +0000
-X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6afbf29f
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=BSQcJpztpYULdWzIOREA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=trvDkV6vvUmb0PBXlBu21SjsOugrgLJkdgdnA7x9QNA=; b=nGP3zQ1m1y+D
-	36JExZJSgLs/LCuuSzZ9Ncd7FVmQOSYxlWghINdPMYPsHScYl2SZR1STwA8ZekBWAoQ5pyWRcqDdO
-	3Dg9ggWLmKfivr7y4CJFBw/5OIL4ReHCT69AVePgtMbjJ5SkdARvuN/gq+ckul7pVddf+X+R+iVpV
-	jUkZNNcQHpVGr2GD2WnivXEZ+N4BqpbUhlvYJ4h8S8iPH9T/I8OPhG1EATzfcEJ79tqdITv6LbWnj
-	vZ7r8ZsbsBtQJZTHPzXObx+D+dC7qwVo9bYVo6pHl09ksH8ysG34yOSkWo2wet+3Gyvu8ESoq4TrJ
-	c0R6MFCIDFwDtEnnma0tJQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48780)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xTCaE-00000002TXJ-3Xz2;
-	Tue, 17 Nov 2026 11:52:22 +0530
-Message-ID: <982b217f-eb02-4d87-8e7c-0cb7e7c3a387@roeck-us.net>
-Date: Mon, 16 Nov 2026 22:22:21 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MGOoJYc/
+Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c50489cdf7eso158535866b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:24:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794896649; cv=none;
+        d=google.com; s=arc-20260327;
+        b=H72EVArtLMOuFysqJOVKRmW9558yxcl7+hEdm6i2k0HByPwypWTsteKJKe6cLtsaZc
+         Gc6CsqRp0zAvVHGTLC1BUo36Wn6a174f7Etfk3sEfVxncHNGXiOfA5WR7DP0ZdxoyK6e
+         KbDolU+1Sk18KIxGF8er6sNuO51JmTlH4kdiH93CtmOyyqkOz6GHjlomUgK00blq5bkT
+         Ftpb0JSWxhne+02MuLN7gtjUTTuSksBEm3AlOcOT081lEtPiJV66lGBe2Q0hgDz/IN5Z
+         e2oRScol9W4h7ENvFflgGGmkyyufF1d2yO6OLHqWomfvYP87kRoLq1y2yWn4X9C0leKt
+         JysQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Bv8z5Io8RhbyyeuDISboM7YRSTMS03SBG0kjxtz0W9A=;
+        fh=hJXXqN/r56UBLA44mCnZCbB70cwPSMPZemor9hTPVvc=;
+        b=HI2MzbFQFl6XO0w58dh9KQ86vAUvOpWvqO66reQHuAZqX7+bdGvwkGEWScvvV7tjq1
+         HjSPhfLYhM1svI4mWQLAahJSJ2v/LvtHTKaNcYd/jW0SN+wSYWo4eEibmV9m5xxuoLSr
+         uxyBQ5enp1mWvs5hng93hIEazBO4SPKfzJAhiiXXghOAnAZeqbwDmM+S9YKkN1S8zL2E
+         SVqf15F0rx81U9cVe+diEYmj60koH174Qx+wo/11jt2uOi0cqUlS+HZiXLii+Io2LdKh
+         PSgn8HssDLyZiA5sCBYqT02t38SD1mGbWYV6OzXO3n1y7ecZsqncxSxL+Y5wcYMXuct0
+         vI4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794896649; x=1795501449; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bv8z5Io8RhbyyeuDISboM7YRSTMS03SBG0kjxtz0W9A=;
+        b=MGOoJYc/vMPkJIk5+hgWI61vPC8mDN2EPmKg7a3+DdKw8J8CmAtLpBlLhYvXNoLYNQ
+         wcceMykdIvsbZ3xU8KwTyHb2jj2CPbE5tRRKMTvKPFSHUkjYE9sBvRf9Q/phY6yXdvMU
+         LwePJR15bLB+OUdBbZ/a4zXsQUO0A6R2ZKA47fJheUhzPw8tkqQRw6VC5CmkDGtywVvK
+         tx2byuS8jFwYvEu1YS6f7SojUXBTmI/MOlDp2hY78Yw9oqqLXvQpXP0AgAN0Q/eD5790
+         a2US/5FXUoW7jbW9wuZyAYaDpKecZOWv0Y6YXuluWv7VRB4QorkS/K2McQ/qVT6AzFss
+         fExQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794896649; x=1795501449;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bv8z5Io8RhbyyeuDISboM7YRSTMS03SBG0kjxtz0W9A=;
+        b=zGABVgxlllV5Y+Wdt0NAAgeibwarevv5okw59fsq7JDi2XsevmOiY1P27jyZDFHUH5
+         9NRlhWvKxvKbr4NeImlz7m2QqafBxULwUlS7fD+ZeorbMr+oczgapeiAXDMXCo5yQ4lv
+         xZyVd0GvCZSeodob4gEzu4h4bJ962DtW/4G3olCNpOqiNtbGyL7a0fu9MKidXugBAKBb
+         sfmgDK1okq4Q5V9NynAJfnw2VWHGRgnqmLllgUdAyB4Z090qcZmOMKYiSuINbxMrwhNx
+         sf+VygmO7pijtmG/XTTFjN1io2j1JiSXWoIDJh8aJ1CfpnxkQJR6vImPdeoXN4tpf7yR
+         I8wg==
+X-Forwarded-Encrypted: i=1; AL+hErFHa9uive9/mn3OfDyEwLS0gqZFtbX1OaSavV97sYbgJ4VdGqHfMYaeXnMP810b6Pel3bBrwaI3XmUMKyo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9E9SS8o8wuVo4tsHIFBuxFKJc18K+sG86vj4p1hz94DbDDQeRU
+	ko9OQDwFh61Jq0G8EA458lVKgdGHCNnK8OyIPCrTuFOhKLGwgItXOfmOBqDrEvh7Bpt6uUwWmzp
+	wg7p3v5beF01NX3gAYZsZe7+EhsY/AmM=
+X-Gm-Gg: AYBFou3ud1tAmt1hwiPyd2npldX6ukz/ufIokQsI0Np9FFFjnmnE8SVKGFAtVqzZDdI
+	YgxExdsABZquLXdlI83Qy0P41h4fC+BfO2LtcJm6ErfmP4hKQxLUUdQe6jVPWnJzHMc7yIZahwE
+	HwFxpq9ikKZO7soScZ/zJ2DGqrGrK0TCNa6F8AhOd53mzNby65tFtKgdQ8tPEZNXElo6NF6Kvs6
+	uZ3OXcgkzo+wkCRleDWhiA+8gmcEF2tt3ABd443LS3TLW1hEtjL6wzgwp7eshHgecC4ICzkKECF
+	vgFOejjRNPLUq4/Mh22RFTQ3V1ICUa8uxpXk82qHSSAN7/DEM1V5bJejn6ma+hSI5y79afOl30B
+	Ib92yMfkNSxPQpfK8y2hnhXVoGP3HB1rBeQO5MFkLWaZuHqv1tgLM/Ex9RVCVgQ3wYNoCwAVMKJ
+	RSyTmVvfdzDkk=
+X-Received: by 2002:a17:907:7ba3:b0:c25:91bc:ff55 with SMTP id
+ a640c23a62f3a-c509636a832mr966830466b.23.1794896648621; Mon, 16 Nov 2026
+ 22:24:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,107 +105,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (nct6683) Make pwmN_auto_channels_temp of
- NCT6687D-R writable
-To: Tomasz Bojanowski <tomasz@bojanowski.me>
-Cc: linux-hwmon@vger.kernel.org, Hamza Mahfooz <someguy@effective-light.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261116232612.501586-1-tomasz@bojanowski.me>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261116232612.501586-1-tomasz@bojanowski.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xTCaE-00000002TXJ-3Xz2
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:48780
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDQsoEh9higjAC239PPk57AmUtu1VyMezxrX5VVOgvYHqKFEs5+68gRrikpTcrpWgdUkkZgQqjtFrDIc278WP7GH6KQBzGNJ/50ZWlzeGA48f8YwjutK
- fbAiLke6bOknrqEoo3HDG5VJm4X3TNI8AQs/acKx0JgEXLP8XwjPbFVCSLswUZI28j94HyfUI8XL/BguMdd+wcTYAUhmOEph1EYU7vkACP2NBdKuZvU6x3e2
+References: <20261110160554.918652-1-coiaprant@gmail.com> <20261110160554.918652-2-coiaprant@gmail.com>
+ <20261116183012.11a7ba72@kernel.org>
+In-Reply-To: <20261116183012.11a7ba72@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 17 Nov 2026 14:23:56 +0800
+X-Gm-Features: AclHuK_nLO104gw1yCZjvRwQLJzYX6sO8gDm56OtDyoqEcCmc11J_KEsaJmWM1U
+Message-ID: <CALj3r0gTuJEDd==WzAQ+cK3Og-2zMqvmBrhrd2ARbKJctG5ZAQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 1/2] net: phy: move DECLARE_PHY_INTERFACE_MASK_ZERO
+ to core
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Paolo Abeni <pabeni@redhat.com>, 
+	Jiawen Wu <jiawenwu@trustnetic.com>, Mengyuan Lou <mengyuanlou@net-swift.com>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Heiko Stuebner <heiko@sntech.de>, Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+	Fabio Baltieri <fabio.baltieri@gmail.com>, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/26 15:26, Tomasz Bojanowski wrote:
-> Allow selecting the temperature used by a fan curve on MSI boards with
-> an NCT6687D-R (customer ID 0x20d), in manual and in automatic mode.
-> 
-> On an MSI MAG B850M MORTAR WIFI, the BIOS setup offers four temperature
-> sources for the fans: CPU Core, System, MOS and Chipset A. Reading the EC
-> before and after selecting them shows that each sets a single bit in the
-> lowest byte of the fan's source register, the bit of the monitoring
-> channel of temp1, temp2, temp3 and temp4 respectively, and that nothing
-> else in the fan curve registers changes. The other bytes were never seen
-> in use, and how the EC would combine several bits is not known, so only
-> a single temperature reported by the driver on the first eight monitoring
-> channels can be selected; other values return -EINVAL. The range can be
-> extended if a board needs it.
-> 
-> The attribute is writable if, when the driver is loaded, the curve uses
-> one such temperature. Before each write the driver checks that this is
-> still the case and returns -EIO otherwise, so that it does not overwrite
-> a source which could not be selected again.
-> 
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B411=E6=9C=8817=E6=97=
+=A5=E5=91=A8=E4=BA=8C 10:30=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, 11 Nov 2026 00:05:53 +0800 Coia Prant wrote:
+> > --- a/include/linux/phy.h
+> > +++ b/include/linux/phy.h
+> > @@ -159,6 +159,9 @@ typedef enum {
+> >  #define DECLARE_PHY_INTERFACE_MASK(name) \
+> >       DECLARE_BITMAP(name, PHY_INTERFACE_MODE_MAX)
+> >
+> > +#define DECLARE_PHY_INTERFACE_MASK_ZERO(name) \
+> > +     DECLARE_PHY_INTERFACE_MASK(name) =3D { 0, }
+>
+> I wonder who suggested this, hiding the init inside the macro seems
+> a bit subjective. I see no such defines today. We'll need an Andrew
+> ack for sure.
+>
+> Please try to add lore links to previous versions of the patchset
+> in the cover letter.
 
-Why -EIO (I/O error) ? I could imagine -EBUSY or maybe -EINVAL, but I don't
-see why this could be considered to be be an I/O error.
+Hi Jakub,
 
-Guenter
+Thanks for the review.
 
+The macro was originally introduced locally in the Wangxun (txgbe)
+driver (commit 47f848aac4e7) to handle the uninitialized stack variable.
+However, their local version incorrectly uses PHY_INTERFACE_MODE_MAX as
+the array length instead of BITS_TO_LONGS(), which allocates far more
+stack space than necessary.
+
+I was just trying to fix that bug and move it to the core header so
+both txgbe and XPCS can use a properly sized, zero-initialized bitmap.
+
+I understand your concern that hiding the init inside the macro seems
+subjective. Since you mentioned an Andrew ack is needed, and he is the
+net PHY maintainer (who also looks after the WX driver), I'll keep it
+as-is for now so he can review it in context.
+
+If Andrew also feels this doesn't belong in the core, I will drop the
+macro entirely and switch to explicit manual initialization using
+phy_interface_zero() in both drivers.
+
+I'll also make sure to add the lore links to the cover letter in the
+next version.
+
+
+Coia
