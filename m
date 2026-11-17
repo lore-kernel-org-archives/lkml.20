@@ -1,91 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914349;
-	b=uxPEwuQpeD+TDlMJOeR5IjpldNJHCuJKh/Kc1sfeCqdUAGK5BetsaKJMNL8xRb3d+e3o
-	 4RUTBSv5+TiMgVRtjY6IwBc38f3Btquqlb6n0Elo+A/riDuIf3vc5ydZd0GITixgnL1kp
-	 Qg9XVZaXIOPifpYpKr1nISZD0fMPYQfJlRQRX3f3fRzy0HXwqzo54mEewPjY3ZCnLhMgd
-	 PbHI3FD0Sg57uqcj31Zfhrs8b2r/Ddm6DgN98lAOS/rlrPWu9T7m/K2yWq8VVv3dHZ42s
-	 3Fy25W1TQtpqYVLAKiIDSUYnQqobU/t/14k5XGlS/VBeIr6XyoeF5aefuE/5Fhz5r1A==
+	t=1794914367;
+	b=hnyVAEs0JkhGfhhxmSohWo+gzzhOFJpR25CxkecwOX63020GOGQHpIFexZzNLob/L6Fd
+	 95ll+aaI+vs6C0XRlXaB/j7utEVJdGHJe/JbZZgRMmjXeNn1XonoTgc786tK0QHrPEOw2
+	 7suLQ/cDpd7wjHSFxdP8l5jdvdJkIAgiR2XFKRm7rPGwIhNgiKfFgP2whjomRyYNYT+c6
+	 44wsH+A66ZILTvXWREIi9HC1Rg6F8u7aE0fpeWohY4h5Ft8A7eQzGIEs2fhqK/uDoUmkJ
+	 9PH+xipYTO4nSVLTkB9j35hH77lL6dK2wemkcLnvHwKpYjJ1Nlp/f2Bw/vue4HY2IgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914349;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RYSQ5kLa3H9TG5xUvnHteU+yhk15bteC+s8cksoZucI=;
-	b=BoBSXCwZGAF47wvjiwC4bXtLcetn+j6bknzoXxN20DbMGK7zDqtsHx4+1q6txKG2k8Wb
-	 39OpNkYzOHf/AzYyNeN5PGJZeGIr9FNZR/yiMSyKB8d9aYFzmQleRw6a/gaDojtqYmykH
-	 AFdPh+9OvC/vuNU7oDsiyIeIGuloe6OHiMI0BHq5X4SsDCpWHL6JCHkdF7g/5mWoBEG7h
-	 WzqL78oebGujVoCV3FGOswRSJDRuoiDMRBluyKThDPj0xHxHhnaLe5AFJTfC+KJ8RfIRw
-	 gwBbCOgfC9acrftvmi88eElfEIT4hc4iDSgaiHdC/q5mumNLuAZyDJLTzodtDs/tN9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914367;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jmRxQPVUK3jeDTIVGHnBZg9JSxo3fE9mQz3Nh8K4I5U=;
+	b=hTjE0TKr4eqluaR9TapX6AdfEK11QqL8Ca4+ax6UkW1PldNBcNXnjcymShg0QoXlrvZf
+	 FnPLEXMlBb+2FTJpRu2STMwA93FSGUTxbnHfs8lQCVBpOEVaIZtDm48Xo/fiJDuszoJ/9
+	 EL1v2fF5f1OaGvrMrVYPvC3L3x7lnKH4FG4QZHfiAivzcvZapcIlu0jp2NAnlb2/1vDFE
+	 hVu2/sqVr2jVvynzwNtLf2zKwV9pZjzHrxKFvENFFQgtXWHAQDylaXkRwpU5SXfHvS7qv
+	 hlAB5UolOT1tifpYIwLBCkfJ/NirMjGnK7vPuAxvds+iZ18oK9ceHbPsCN0J0r6aAMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KIilknYp;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C064B606A31C;
-	Tue, 17 Nov 2026 11:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C064B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EE5y8BbO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F91606A31C;
+	Tue, 17 Nov 2026 11:19:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KIilknYp
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36FC11BF3;
-	Tue, 17 Nov 2026 03:19:05 -0800 (PST)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7D3B23F763;
-	Tue, 17 Nov 2026 03:19:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794914348; bh=VdWsKyGxR5ZeDlLk4op5RqTNUGJF8BnYRHcAvnh4Am4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KIilknYp8+I1cTjeiTHP1GTtDiTp4mHC9hqjewZSm0iB4PaisNIudYj4+XfprI/k1
-	 vOv4ttJW2ITxrTrKKdc0PSgVO2K5gGB9AQaUN+UammfdEOhmHjKg/MkXE3yEodqteg
-	 9SOdha/CFNR4QZy6gBJZC52RbPRv8FnqlnSduUqY=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Avadhut Naik <avadhut.naik@amd.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Dan Williams <djbw@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v1 11/19] RAS: Remove unused ras_userspace_consumers()
-Date: Tue, 17 Nov 2026 12:10:21 +0100
-Message-ID: <20261117111444.4185512-12-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
-References: <20261117111444.4185512-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EE5y8BbO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633921F000C4;
+	Tue, 17 Nov 2026 11:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794914366;
+	bh=jmRxQPVUK3jeDTIVGHnBZg9JSxo3fE9mQz3Nh8K4I5U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EE5y8BbOm8OvZCB0Dah2qA1gwILUqNYMmrizrbU1YH9mbsRr8Tluhiz3XAfeVEpfl
+	 TC+VkLiFOOftBWtpkiJylymZkbg8zMJXjdvrgXVmJu5NAZ2CwVTIfbHQ/E9dH03rR8
+	 heYzjpTRv4lcel0NgF0Y66YhPt+0dp3LevYRHVMZ+HujsjwFez7YARUziMXHOpRwa1
+	 YHuhdm+rUPHZ669DeNRLezXZOs3mfux53dWjtxwn2ssxWZo/gXbUaDqmlMKUwu/f3P
+	 6sWcKYaWp+eZGub8XNsfsKzsRVbjxSAlc2zQ2eSMp8jIjG7BpTxihF2Wvt85vvDGvw
+	 GwdISJ6ylbWvA==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7DE3D198004A;
+	Tue, 17 Nov 2026 06:19:21 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:19:23 -0500
+X-ME-Sender: <xms:ODj8asmjZARLlX3WpTJJuVqsPob6BMBBoFDeyMr_4vl6iQXvaDClBA>
+    <xme:ODj8ajlG0kRVxiXQZPQ590s70WvKtqzqusjwyZz96ZUMU2A741QhbqFBrgaD7Px1G
+    jcdVJNDxNP09I9EcWql0uEajLj7TiI32bb-IPYigLq0XMpLwmjms4fy>
+X-ME-Received: <xmr:ODj8apNCnUYvlo-8rdzb5No25ufJ_nmNlfUCIvbretlYp1zmfopiQTdPSSM>
+X-ME-Proxy-Cause: dmFkZTFUPiINActD0mDIlZFNb+WeDPVf8Y0W59PjGpKdeovC1oExoWyA7gCtP4JbTeIA1q
+    +22xWFGwJcPngXKrCApIQ2f8vk3rGH9HSFNq4esX30kP89EjM27GtzUYiW1B3kU3Y1fyuG
+    X9qiWQH9BmDOSudlhjd9tPIRZYCBXG2Rh/l09ZqHR7gz6sJv9eg4j4KMMXUDrJQaPdDpj1
+    +JTsoTCvbnfwodM5GhfGE0jEUfvdcNmLHB6euiUvH07IObIDhPq8MOYCYfHrUDEBFjxLZs
+    /uy9Yo3FaoZN1mopb9H1+8QNWXHtZUurIGBbMwOmjwAvyIT87LF0X7jBEDiQwTgisY1fmT
+    5gUswFuCj1QdGKf+AarXgZnFTVchUh5I6J9xbPswT4c8f1HE7EvbmJeEjjs+Y4O7rL3iZN
+    wFu4LLr5G672SSV49Tfke4Z2lyE8wdFSttiGeHj6GVlnolnwjV3dGal8Rricmtx8+uMc3P
+    AKabHWZTxt6BtWMp+rUN8dxqW1Gnp15VxHT2QmfpauEKENl/7Ka6ePGarayix6VrVHs12i
+    gWjRst9LVYotb4FpOriAyCaLpAUy74KEO2iq5pm3HTD15otJzrVIeVudAG0OKySi8b6Ayi
+    Ykc/zdHeHUYs6gx6wU5gP7zDwVg6Oh50mbvQJObQkMp3cOmC2frM3+h9hnVQ
+X-ME-Proxy: <xmx:ODj8ai5s3C1EvoiVSPnRF_dzviMywBC6wuPhpvk1bCbKxYmeqomtfw>
+    <xmx:OTj8ausONLptqI0PNztWPZDRBSwyXfG6RfEZVXuIxbQHbUecl2dzpw>
+    <xmx:OTj8akOFqNm3O7GRfCu56cEQxlIQRSWoms3BjSJ1HfbPv8a8tKt3oQ>
+    <xmx:OTj8aiofBDZ6Y7EgzpJFz98dYo6InaP3PFWg5ISTFIzPPBDoTeekJA>
+    <xmx:OTj8ahGXFyAkbGMD2MRtCEHEFa1bnGHoyYVGREuF1MaCRcM9ja-pUT-u>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Nov 2026 06:19:20 -0500 (EST)
+Date: Tue, 17 Nov 2026 11:19:19 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Nico Pache <nico.pache@linux.dev>, Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	Daniel Wade <danjwade95@gmail.com>
+Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
+ collapse
+Message-ID: <avw4J0mBLJQMzdMc@shutemov.name>
+References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,73 +91,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
 
-Remove the unused ras_userspace_consumers() and atomic
-trace_count as the previous patch made extlog select
-CPER console output by severity.
+On Tue, Nov 17, 2026 at 10:28:18AM +0100, David Hildenbrand (Arm) wrote:
+> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
+> the VMA was then made read-only, and not setting the PTE dirty in
+> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
+> page such that all processes lose the data even though a single process
+> MADV_FREE'ed it.
+> 
+> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
+> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
+> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
+> 
+> Further, after CoW-sharing such collapsed folios later, all PTEs will be
+> clean and the folios will be clean. One process doing a MADV_FREE can mark
+> the folios as lazyfree and result in all processes sharing it losing the
+> data once memory reclaim zaps it.
+> 
+> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
+> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
+> 
+> Consequently, we always mark these PTEs dirty (including soft-dirty) but
+> only set them writable if the VMA has VM_WRITE.
+> 
+> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
+> dirtying") that back then touched do_anonymous_page() to avoid forcing
+> clean anonymous pages through swap instead of discarding them. This no
+> longer applies as shrink_folio_list() allocates swap for ordinary
+> anonymous folios and unconditionally marks them dirty before unmapping,
+> regardless of PTE dirty state. Keeping their PTEs clean does not make
+> them discardable.
+> 
+> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
+> VMAs when page faults allocate real pages.
+> 
+> This has low urgency.
+> 
+> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reported-by: Daniel Wade <danjwade95@gmail.com>
+> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
+> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- drivers/ras/debugfs.c | 10 ----------
- include/linux/ras.h   |  2 --
- 2 files changed, 12 deletions(-)
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-diff --git a/drivers/ras/debugfs.c b/drivers/ras/debugfs.c
-index 42afd3de68b22..838cc689b9989 100644
---- a/drivers/ras/debugfs.c
-+++ b/drivers/ras/debugfs.c
-@@ -5,20 +5,12 @@
- 
- static struct dentry *ras_debugfs_dir;
- 
--static atomic_t trace_count = ATOMIC_INIT(0);
--
- struct dentry *ras_get_debugfs_root(void)
- {
- 	return ras_debugfs_dir;
- }
- EXPORT_SYMBOL_GPL(ras_get_debugfs_root);
- 
--int ras_userspace_consumers(void)
--{
--	return atomic_read(&trace_count);
--}
--EXPORT_SYMBOL_GPL(ras_userspace_consumers);
--
- static int trace_show(struct seq_file *m, void *v)
- {
- 	return 0;
-@@ -26,13 +18,11 @@ static int trace_show(struct seq_file *m, void *v)
- 
- static int trace_open(struct inode *inode, struct file *file)
- {
--	atomic_inc(&trace_count);
- 	return single_open(file, trace_show, NULL);
- }
- 
- static int trace_release(struct inode *inode, struct file *file)
- {
--	atomic_dec(&trace_count);
- 	return single_release(inode, file);
- }
- 
-diff --git a/include/linux/ras.h b/include/linux/ras.h
-index 468941bfe855f..3159f9a0877ed 100644
---- a/include/linux/ras.h
-+++ b/include/linux/ras.h
-@@ -7,11 +7,9 @@
- #include <linux/cper.h>
- 
- #ifdef CONFIG_DEBUG_FS
--int ras_userspace_consumers(void);
- void ras_debugfs_init(void);
- int ras_add_daemon_trace(void);
- #else
--static inline int ras_userspace_consumers(void) { return 0; }
- static inline void ras_debugfs_init(void) { }
- static inline int ras_add_daemon_trace(void) { return 0; }
- #endif
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
