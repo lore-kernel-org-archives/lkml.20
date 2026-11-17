@@ -1,98 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794892253;
-	b=bdQzYprgPESqlLPmfnZfvuJJWd2qkmr+JrQOBRirxy8dPlCptPJ7DyW5WQ4EVqYiUaJd
-	 edHLqeLnHVcU+E0YpyROX36SApka0f22VaKVIcZkVIvDazCVb96uaCUXTNsZ5pgRg3xxY
-	 XOjSY4cUiIzFY4h4LrKxGFQeP4Ct0UAVZxL82c17xMnLwKevoK1YL+1VCUpRJbzl8gFHj
-	 Fn5eskDD6a3pPiTUchgbf2sFKIZTguvNKQA9+XAGA5qvkjg70WB0ITGMGz6hEwEUNTDKM
-	 D0KYH/DLfauEhbzhdCEwQkPQJ/iY7C9s0HyDEhBecf7wjNrXCzHTJAD9bfGmHBquzYg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892253;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794892311;
+	b=soEwARwS4b2KPc9PnCbpOxFWQmZuDvbA4Yq2PgZsapoU/8dZrcf71y4dNKlhGYLb7ZLS
+	 q2HekgFZZNN6f+Ch0/j93ExqKxSXtZOAcy0CqsbEbDmKbWvK0fdNmOGp8RT43iqm+ZYfa
+	 WQiwrL9wG8SOEMsJYFcKBc+UcAqp6kBEmAQ8gymx/L010xXWyZN93szCQ7rp2adsW5vPh
+	 1bXPgLSpKPAG24nbVVZyDSJ0ewRp9I8jGJsKQno3TlRsoCEpA3jEkw5UhzF06mGxeZyxJ
+	 rVek2vKudoTqfDeCEYj+3tRJt5MTkgGGDVH4N1A4UXpGqV0mGoUnPRFv4Zwc/GotuTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892311;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Content-Type;
-	bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
-	b=gNqGAf+OPuBBvkQMzCj7Y4D9r0azE4XW3Br8M44J6/i1r4GuP77THqZv3E0r+gDlRpm+
-	 xiQiVsNUMCJyDPNWd9iaqyXUr2bb3g5JoQZHjOEI8n9ykkb1r9x2fvx/Mb9cNoud8aAPJ
-	 CIpcRt+9GLYFqBxJ7DtA5Asd+qbmlk3hIt0+C6ii9O0pvMZy08hQ+pVbzsenEgYFn38AX
-	 tcBl8UM3WM1C0fOKQGsFH1ioWF54H5rLk6ouEesM/I6+ld6vYNeYI76xA+nVfRThD66c2
-	 EbHNPwXZBtBMF1AvnR37fAasC/3IdwNpYHX4/7kaspdvJT4h90vcT/yzdc1cLBPS4xg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7SF4Mdy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=cFIGFgrqmh7vJ8p05TfgpCv8oubT+IqY4VjNLXb1IxQ=;
+	b=eqKwSJkgnjy4R45SJmm9aEY8xa2c6fobfLmWaUmkLt8wkBYHm3J1SlQjP7O4w37cCN1Q
+	 REqWZInD9lM2oD/7I/PitALcLxY+1c/1JRtbnmdKM5Faxr8zDM7eQZpBJpkIXQYeFAfjp
+	 a6iJ/AzaBplpkg/0hbRe2D4rg3Ycl/NC7dh58H4ZiG7Brc11OR2E8w2qLYId6wdD6u7Rj
+	 iyxUOqyUfqz1duBcWF46/tf6VHjqtDEY1t15auW89/7q0XgoTsrdnYLU1jFsDoAJrVETr
+	 PWRfQ2j7KPZtymm77H6sfXRHWRoUGhisuehnsGyr5R7BMqFkf8uDbQ60pB8Ke8lrEAg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KUkwjxqY;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65FE606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C65FE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB371606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:11:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB371606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7SF4Mdy
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso9426993a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:10:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794892251; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YTkzLwW58v7XcdukvzMrRc0//KwmqBvHA07OUMdHE1dS64Dt5/UHlezyTVAGnrmEMF
-         sfP7W6cyYAV93/6nZnHoOSlZxIyqSSL2rojMKutm9se6IjU8sE3GGHhfteXFLuqLepcp
-         ot46XcdgqlHX2MITPZewj/OfQ1pOvqN8RhIWsZ7O1IleaT8sAhFRChGprt9Si+M5cSbW
-         doUoRTX/i1sak0Wc/kQgAXiCDAciHKwu2k+9uW4VrG8rWQVX+3cbDWlL1AN77FlU9vHn
-         7pEhBPByemyvCUyVpwzQ/OwH1zgqj54Vz7XVmWdUWWg8G8jJJV6pPDZGGjScGEiMcnCW
-         JQZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
-        fh=ruqygnSv+EsuzcjjopSWxx0x/HeQkpeXkNNTx0rdRBg=;
-        b=S30HstIfemSRIdqKeSVp04syM7bSjRuj8qWM0Kzyd8128ROwOvFmblx8Wi1ZvpfQjH
-         Xji+uJDaGGZOqOQ8RTqdmcuQGB99Up2ZI130U9b3U65Tqra6hIDErkLSZqWUVCNBwN/n
-         b3rT4soRsqMLnLzHmdwOg1KaoZs/xprTaog960cHJimfXrPo7xUj2zlIbqF8WshaW+xa
-         oFeNu8jf+q6TE8yE5AlE3AjWrCOtcZ7Rbybk8kGlIXCGAVKeiUVczAG0yrPrbakrwnrM
-         V/1i7OlQ5wxWTsFeZGdlnFAjLdoU4vw65XUnmwy9zYBYQ411UlxDCd2n2XQYM/b/PkZH
-         T5KQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KUkwjxqY
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a2af4c8d00so8824734c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:11:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794892251; x=1795497051; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
-        b=X7SF4MdyFUZjSVUII0FpvH941a9DfKvv+JQls1TkDtWNO6eGd/g4SRzsT81b4Qwmol
-         ZuGUmWVIrjw5JoyfVeIj9n8zOUoVNPMU9n2nRZChoR6OjyU2aSGE4mVhF/Eng2QbxJpG
-         c3LZMmboc1HWLf3fNIGLhGAvx8G0RLBNGoS7K/qdL0gpUR6l5sCF3LzmotBNFgxtkDU4
-         7zZ+Z2JNHHbFThp+Sd8bRTC2WG/4hxQ+0nOsHk/T5SUuDuBjRpgx9kyOPOnM4xuPNmog
-         5DRuSj0MtoXqw2zBo3MGF4wOPWFV8aieY5pukCCeF/WyrgUS4kIUZqJnERYwUgvGHoj0
-         YDsA==
+        d=linaro.org; s=google; t=1794892310; x=1795497110; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cFIGFgrqmh7vJ8p05TfgpCv8oubT+IqY4VjNLXb1IxQ=;
+        b=KUkwjxqY2sX91TEyDbP1VuzvxqZymLLpQ+APbi/GqefwJjM/dcMbwXeu6DoGvVCCKO
+         rZ252LO3XGO1Ih5y0zh54MGbH9ApJIXFv6JPpO5TycX8ykPqIRy7cLnAOa7ZeF5nvqzL
+         Vlof9WZBSz9XtVoxSnA0W13OMOQ2M30DKveLTBIytt97q+PQqAQCcuroQVKT+9AiI8is
+         qfKjdips5pOpfuJGVXPxZ0eEfYSO87ZWe1nAdNSHE3RMyvcL5ZNZkFPPNH0NdIfLlNRT
+         ZZ4etEKl6xRaYYdM9Z9ZdzxS0kDRCRxYOsxV0MWBTsTzLPIHRjf7+xjXQlUhoVGNvXqk
+         u07Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794892251; x=1795497051;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794892310; x=1795497110;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vgUGLshxhHRt0ChpdfNJyERoAh6XMg743YjhS/aQ+II=;
-        b=rhdxghRCj+aLlcDCFcOReLlBkl4hHz54pg/dZ5t6sh8JW4L0WdjBlBk4teMGm5dFfu
-         OhZE9PvzBQLXd6MybyLN/3tXylRDsZitf/g/Tn0ECl4M0LmlV9PWD3hw4x7yLH2uZBcL
-         ofDnrYK8n+fBZ7hi/cVzWAz14m0VQTwuYGlo1Mx7Raf04rbAM/B0tgQLYm3m4kT32wMq
-         fVqfbJYAbYPX7tR79kJOyJigCNMIsebODBsn+9kruxS69byCg4N8VGFEvkMWLYi0NzED
-         qQ7JbmAfKdCHem5bvF3rUKAIiXK5XQbZ8CuFw0HWFpswUCeEWOj2aO5gMc+clSCJ4fTL
-         m/NQ==
-X-Forwarded-Encrypted: i=1; AL+hErF8m3oTJ5cDLWuE/0JwHEoX+uYxWwqBpE/xv5Oo+0p0YX5rId7V4pT9s6iDsg+8zmH5NHR620ATbiNtizI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98H3LN5+pZzo3aWqj9EXee4JByV2fDxp+tkgCweHRkuBrOC26I
-	Jannv+DApNLWP5a0UVbLNcvOXRNW79us+SuHkW/ttB/MOYA7zXhOfi++06eK4EIHNyGJgn/2a31
-	lKwPaY9DHmbP6HJ9ZieoGXNRUKaWCyOo=
-X-Gm-Gg: AYBFou0RSH7D7ZfuOkFf/D5kLhKJ9wdEmFcPTfV1VdSk7YovS/XadeTUxObkzjy+Cc7
-	6hSi1dkbbbLLSR0d1P0HYT9be0JEgarCTvQSKzxkdsbJgyoIY3XvTwXp5oB/tf/vVUY8UCT63SU
-	7hCxZ3bx2ADnmvpHMPN1pZVpXfaZ/P7vlrJUPjsvS66G5esgNVmSLwwGXfj+2yCFxRj1qjdC4KJ
-	bsuVDbrT2S1cddW/JuVOUdrWcfMK+9k8uJpIgfCyV7k8K0wyK7WuvEKlS00XEboyPJIp+kLOVUx
-	koZ/k+EiQ+OoV2czlDCiXt74ktCG488ee42R6RsXDt/qPbPqW9Dekhn0A4g9WYpA5Ed6fDoYOEl
-	UVpbJzk4vaBERVdRO2Y47DQi/n8F/2h2yr1gHLIGKdE4g/mHDwwquEJBqTCJkK6+wRKCfahpvCn
-	mVXVVPVJIkn6OB
-X-Received: by 2002:a05:6402:90a:b0:6b7:83a4:415b with SMTP id
- 4fb4d7f45d1cf-6b7c0c19637mr10843175a12.21.1794892251030; Mon, 16 Nov 2026
- 21:10:51 -0800 (PST)
+        bh=cFIGFgrqmh7vJ8p05TfgpCv8oubT+IqY4VjNLXb1IxQ=;
+        b=urKE4H6bP4a7QMEXu0Zw0YI11sstJjektc5ISP5YgNRJyDYdPqpMnhDa6V3NKf9XiV
+         jVXCb+JCKqxAWR5o0/l30D2aZd7WZTOcKU0yeTjwSvtiQsJlKTtMNQPjCs3arybnOtyD
+         VH5FbTg4wDngYaiAB8S9es5wvX36ZsXY/8uA3f6gO6x+vpDhrwk8GqKY3xsCDNHTEcp9
+         Q4nMrtsmdcDpSQauMn2PjgCb5yRbhfeczoJhTeVL/ON7CXS8Ah8sRifqPR4t0CW7g1i9
+         /4y90AUdA6Nm8GakBFLZue6aJevfogvKDc5jQkb4fK0b6ySGYTar223ynReZwQ7czX8y
+         pOcA==
+X-Forwarded-Encrypted: i=1; AL+hErGnjT9LveunwSI9x/qU43tCehk8sS75BcSWyvV7HNoqaobWMgHAlfdv3ZfSKtOdqFlOwJIYfOvSxX0AH28=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Jls5pE1pWUIJCS9X2lPLtuJfsJlbGaI7AsVeDC262b/YXvEH7
+	tLuPrE0UH1UPdXFya6JoVX281CjXKhWNouD7N4rLU6ggOGWZy0aGe+5y4cnoP1ZqrP6fZlSXaWA
+	Ko2Ov
+X-Gm-Gg: AYBFou2QIEMmUXs0iyQMwAnKR2rCCGg1Pt0YqRNdGMglQAQfrTxmwlmQYif5WAeqnGu
+	WWZfTV2IpQgZkIiuYXmz57Jsi/8CmfSor3E7DKlDL/gTHsG/S9+Q8fI63iyBwan5Mg7XgswIDAx
+	ypia09rFVbEfUChjpabY49qqtbEpnpSyaPpSGHp69i4BHfUq7ijqCwAKfHZr8xsEGym9TvU1Ror
+	39RHyfuwlOeNWGR7Xv/xpzYnoEjokWbitJURuEOPiDg6K7di2+9QobRtdZxH+Z6mX2+5EjR8+5k
+	DFUF0sypQdseoTMtpmvDLc4BE8U5QT9bOHDitd2fFbjtvcSP7D64FEVHjppgnkbnTrficivUOY/
+	vQ5Eqay3NJ1GbegC7Tzy+uyu/CwKN954p+GNVxtpCLo0uHpOXzIhOolF0NNvSiTws2dJq6lHM9o
+	aspsq+iETwKHLhAsBx3XCz2QFh/iT7+L1lx3qzvVIkxMxeeuEXPyTwzppcyhdbatLZAOnR5KxDl
+	w04b0IivyAKtRc17tS9HMSokPJ5E22cY0isT2TDGyPgHY4VljaWudO00FDgOfyOWvx722ZDs3OS
+	TF6wPDo/97esg+C8DyiBaya1kKnX3A==
+X-Received: by 2002:a05:701a:cc87:20b0:1b5:3878:aa29 with SMTP id a92af1059eb24-1b53878b8c1mr2057482c88.38.1794892309617;
+        Mon, 16 Nov 2026 21:11:49 -0800 (PST)
+Received: from localhost ([122.172.83.36])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm53754284c88.9.2026.11.16.21.11.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 21:11:48 -0800 (PST)
+Date: Tue, 17 Nov 2026 10:41:45 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: rajanyadav0307@gmail.com
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Yangtao Li <tiny.windzz@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH] cpufreq: sun50i: Handle boards with the
+ allwinner,sun50i-a133 compatible
+Message-ID: <avviEW1-h495D0B5@vireshk-B250M-D3H>
+References: <20261104-a133-fix-v1-1-d0b5ad3d4c5d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,158 +103,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Herman Semenoff <germanaizek0@gmail.com>
-Date: Tue, 17 Nov 2026 08:11:06 +0300
-X-Gm-Features: AclHuK9BgHM4X6QwlTTmSvN_88WWLGWKbZdruwkqCJEgkEw10pUY_FO_jZmlL4I
-Message-ID: <CAMnMt5ZdwbOrSeCbP2j-+pVk-3JvEpfuzyJRJOnCLs6VqbHeXg@mail.gmail.com>
-Subject: [PATCH] wifi: mt7601u: add monitor mode and packet injection support
-To: kuba@kernel.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-a133-fix-v1-1-d0b5ad3d4c5d@gmail.com>
 
-From: Herman Semenoff <GermanAizek@aizekgroup.ru>
-Date: Tue, 17 Nov 2026 07:55:00 +0300
-Subject: [PATCH wireless-next] wifi: mt7601u: add monitor mode and
-packet injection support
+On 04-11-26, 22:07, Rajan Yadav via B4 Relay wrote:
+> From: Rajan Yadav <rajanyadav0307@gmail.com>
+> 
+> The Teclast P80 uses "allwinner,sun50i-a133" as its only SoC
+> compatible, as documented in the arm/sunxi.yaml binding. Neither the
+> sun50i cpufreq driver nor the cpufreq-dt-platdev blocklist lists it.
+> cpufreq-dt then probes on its own, finds only opp-microvolt-speedN
+> properties and fails:
+> 
+>   cpu cpu0: opp_parse_microvolt: opp-microvolt missing although OPP managing regulators
+>   cpu cpu0: _of_add_opp_table_v2: Failed to add OPP, -22
+>   cpu cpu0: OPP table can't be empty
+> 
+> so the board runs without CPU frequency scaling.
+> 
+> Add the compatible to both lists.
+> 
+> Tested on a KickPi K5C (A133) with its root compatible changed to
+> "allwinner,sun50i-a133" only: on v7.4-rc1 cpufreq fails as above, with
+> this change the sun50i driver probes and the A100 speed1 OPPs are used.
+> v6.18 fails the same way, also with "kickpi,k5c" listed first.
+> 
+> Claude Code (Anthropic) drafted this change and its message from my test
+> logs; I reviewed and tested it.
+> 
+> Fixes: 60b064eb82e6 ("arm64: dts: allwinner: A133: add basic support for Teclast P80 tablet")
+> Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
+> ---
+> This fixes the Teclast P80 support added in v7.4-rc1, so I think it can
+> go in as a fix for 7.4. I do not have a Teclast P80; I reproduced the
+> failure on a KickPi K5C as described above. A series with A133 speed
+> grade support, which Andre asked for, follows separately.
+> ---
+>  drivers/cpufreq/cpufreq-dt-platdev.c   | 1 +
+>  drivers/cpufreq/sun50i-cpufreq-nvmem.c | 1 +
+>  2 files changed, 2 insertions(+)
+> 
+> diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
+> index bce4c87573a..6bdeba47749 100644
+> --- a/drivers/cpufreq/cpufreq-dt-platdev.c
+> +++ b/drivers/cpufreq/cpufreq-dt-platdev.c
+> @@ -110,6 +110,7 @@ static const struct of_device_id blocklist[] __initconst = {
+>  	{ .compatible = "airoha,en7581", },
+>  
+>  	{ .compatible = "allwinner,sun50i-a100" },
+> +	{ .compatible = "allwinner,sun50i-a133", },
+>  	{ .compatible = "allwinner,sun50i-h6", },
+>  	{ .compatible = "allwinner,sun50i-h616", },
+>  	{ .compatible = "allwinner,sun50i-h618", },
+> diff --git a/drivers/cpufreq/sun50i-cpufreq-nvmem.c b/drivers/cpufreq/sun50i-cpufreq-nvmem.c
+> index 9261d148a16..5d4ff192e99 100644
+> --- a/drivers/cpufreq/sun50i-cpufreq-nvmem.c
+> +++ b/drivers/cpufreq/sun50i-cpufreq-nvmem.c
+> @@ -324,6 +324,7 @@ static struct platform_driver sun50i_cpufreq_driver = {
+>  static const struct of_device_id sun50i_cpufreq_match_list[] = {
+>  	{ .compatible = "allwinner,sun50i-h6" },
+>  	{ .compatible = "allwinner,sun50i-a100" },
+> +	{ .compatible = "allwinner,sun50i-a133" },
+>  	{ .compatible = "allwinner,sun50i-h616" },
+>  	{ .compatible = "allwinner,sun50i-h618" },
+>  	{ .compatible = "allwinner,sun50i-h700" },
+> 
 
-The mt7601u driver currently only advertises NL80211_IFTYPE_STATION
-and lacks proper monitor mode and raw frame transmission (packet
-injection) support.
+Applied. Thanks.
 
-Specifically:
-1. When switching to monitor mode, mac80211 raises
-   IEEE80211_CONF_CHANGE_MONITOR in ops->config(), but mt7601u ignores
-   it. As a result, MT_RX_FILTR_CFG_PROMISC remains set in the hardware
-   RX filter, causing the MAC to drop third-party frames.
-2. In mt7601u_add_interface(), adding a monitor interface (e.g. via
-   airmon-ng) allocates a GROUP_WCID and overwrites dev->macaddr.
-   If a station interface already exists, add_interface() fails with
-   -ENOSPC. For monitor interfaces, do not allocate a group WCID and
-   do not override the device MAC address.
-3. In mt7601u_mac_start(), ensure MT_RX_FILTR_CFG_PROMISC is cleared if
-   IEEE80211_CONF_MONITOR is active.
-4. In mt76_configure_filter(), include MT_RX_FILTR_CFG_RTS and
-   MT_RX_FILTR_CFG_BAR in the control frame filter so RTS and BAR frames
-   can be captured in monitor mode.
-5. In mt7601u_register_device(), allocate dev->mon_wcid with
-   devm_kzalloc() instead of uninitialized devm_kmalloc() to ensure
-   rate control fields start in a clean state, and add
-   NL80211_IFTYPE_MONITOR to interface_modes.
-6. In mt7601u_tx(), transmit packets via dev->mon_wcid when transmitting
-   on a monitor interface (vif->type == NL80211_IFTYPE_MONITOR).
-
-Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
-Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
----
- drivers/net/wireless/mediatek/mt7601u/init.c |  7 ++++---
- drivers/net/wireless/mediatek/mt7601u/main.c | 20 ++++++++++++++++++++
- drivers/net/wireless/mediatek/mt7601u/tx.c   |  2 +-
- 3 files changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt7601u/init.c
-b/drivers/net/wireless/mediatek/mt7601u/init.c
-index 5d9e952b2966..c01bb3fc4a7f 100644
---- a/drivers/net/wireless/mediatek/mt7601u/init.c
-+++ b/drivers/net/wireless/mediatek/mt7601u/init.c
-@@ -242,6 +242,8 @@ int mt7601u_mac_start(struct mt7601u_dev *dev)
-  MT_RX_FILTR_CFG_ACK | MT_RX_FILTR_CFG_CTS |
-  MT_RX_FILTR_CFG_RTS | MT_RX_FILTR_CFG_PSPOLL |
-  MT_RX_FILTR_CFG_BA | MT_RX_FILTR_CFG_CTRL_RSV;
-+ if (dev->hw->conf.flags & IEEE80211_CONF_MONITOR)
-+ dev->rxfilter &= ~MT_RX_FILTR_CFG_PROMISC;
-  mt7601u_wr(dev, MT_RX_FILTR_CFG, dev->rxfilter);
-
-  mt7601u_wr(dev, MT_MAC_SYS_CTRL,
-@@ -583,8 +585,8 @@ int mt7601u_register_device(struct mt7601u_dev *dev)
-  dev->wcid_mask[0] |= 1;
-
-  /* init fake wcid for monitor interfaces */
-- dev->mon_wcid = devm_kmalloc(dev->dev, sizeof(*dev->mon_wcid),
--     GFP_KERNEL);
-+ dev->mon_wcid = devm_kzalloc(dev->dev, sizeof(*dev->mon_wcid),
-+     GFP_KERNEL);
-  if (!dev->mon_wcid)
-  return -ENOMEM;
-  dev->mon_wcid->idx = 0xff;
-@@ -609,7 +611,8 @@ int mt7601u_register_device(struct mt7601u_dev *dev)
-  SET_IEEE80211_PERM_ADDR(hw, dev->macaddr);
-
-  wiphy->features |= NL80211_FEATURE_ACTIVE_MONITOR;
-- wiphy->interface_modes = BIT(NL80211_IFTYPE_STATION);
-+ wiphy->interface_modes = BIT(NL80211_IFTYPE_STATION) |
-+ BIT(NL80211_IFTYPE_MONITOR);
-  wiphy->flags |= WIPHY_FLAG_SUPPORTS_TDLS;
-
-  wiphy_ext_feature_set(wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
-diff --git a/drivers/net/wireless/mediatek/mt7601u/main.c
-b/drivers/net/wireless/mediatek/mt7601u/main.c
-index 05ba43e1985c..29486c4767e3 100644
---- a/drivers/net/wireless/mediatek/mt7601u/main.c
-+++ b/drivers/net/wireless/mediatek/mt7601u/main.c
-@@ -56,6 +56,12 @@ static int mt7601u_add_interface(struct ieee80211_hw *hw,
-  */
-  mvif->idx = idx;
-
-+ if (vif->type == NL80211_IFTYPE_MONITOR) {
-+ mvif->group_wcid.idx = 0xff;
-+ mvif->group_wcid.hw_key_idx = -1;
-+ return 0;
-+ }
-+
-  if (!ether_addr_equal(dev->macaddr, vif->addr))
-  mt7601u_set_macaddr(dev, vif->addr);
-
-@@ -75,6 +81,9 @@ static void mt7601u_remove_interface(struct ieee80211_hw *hw,
-  struct mt76_vif *mvif = (struct mt76_vif *) vif->drv_priv;
-  unsigned int wcid = mvif->group_wcid.idx;
-
-+ if (vif->type == NL80211_IFTYPE_MONITOR)
-+ return;
-+
-  dev->wcid_mask[wcid / BITS_PER_LONG] &= ~BIT(wcid % BITS_PER_LONG);
- }
-
-@@ -91,6 +100,15 @@ static int mt7601u_config(struct ieee80211_hw *hw,
-int radio_idx, u32 changed)
-  ieee80211_wake_queues(hw);
-  }
-
-+ if (changed & IEEE80211_CONF_CHANGE_MONITOR) {
-+ if (!(hw->conf.flags & IEEE80211_CONF_MONITOR))
-+ dev->rxfilter |= MT_RX_FILTR_CFG_PROMISC;
-+ else
-+ dev->rxfilter &= ~MT_RX_FILTR_CFG_PROMISC;
-+
-+ mt76_wr(dev, MT_RX_FILTR_CFG, dev->rxfilter);
-+ }
-+
-  mutex_unlock(&dev->mutex);
-
-  return ret;
-@@ -118,6 +136,8 @@ mt76_configure_filter(struct ieee80211_hw *hw,
-unsigned int changed_flags,
-  MT76_FILTER(PLCPFAIL, MT_RX_FILTR_CFG_PHY_ERR);
-  MT76_FILTER(CONTROL, MT_RX_FILTR_CFG_ACK |
-      MT_RX_FILTR_CFG_CTS |
-+     MT_RX_FILTR_CFG_RTS |
-+     MT_RX_FILTR_CFG_BAR |
-      MT_RX_FILTR_CFG_CFEND |
-      MT_RX_FILTR_CFG_CFACK |
-      MT_RX_FILTR_CFG_BA |
-diff --git a/drivers/net/wireless/mediatek/mt7601u/tx.c
-b/drivers/net/wireless/mediatek/mt7601u/tx.c
-index 5aeeac0dd9fe..d3328181f961 100644
---- a/drivers/net/wireless/mediatek/mt7601u/tx.c
-+++ b/drivers/net/wireless/mediatek/mt7601u/tx.c
-@@ -211,7 +211,7 @@ void mt7601u_tx(struct ieee80211_hw *hw, struct
-ieee80211_tx_control *control,
-  if (sta) {
-  msta = (struct mt76_sta *) sta->drv_priv;
-  wcid = &msta->wcid;
-- } else if (vif) {
-+ } else if (vif && vif->type != NL80211_IFTYPE_MONITOR) {
-  struct mt76_vif *mvif = (struct mt76_vif *)vif->drv_priv;
-
-  wcid = &mvif->group_wcid;
 -- 
-2.55.0
+viresh
