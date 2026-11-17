@@ -1,61 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892982;
-	b=nT5LWYih0BNefgdZuI8wkXrSRCrsP3VwwvTjj+v0N8SphnMZF8+j7n5kIIzte6Kt6p8f
-	 OY3LjhLVgK3SacbJwova8KTHZm5gfnQEz+bxuYNy74geaq1mxDsAj5FCeRTTohRUTfVNI
-	 BTeA50kt7wLL/kJ8Aq/+CiDVW38BX9xfVNcIBgp1FPgQfC+9/IYBRaQGnEJRfAaiAk9n0
-	 yYkwUbHuf4M6//gZFGGm49r/XDLw8zy5s5hqISeeuJZBTiLaFH8lY+h2UO2Asn9/JiC1J
-	 /lZE9CB+5MSvgElsg5tSk3DtwGA2GIesRGm0BvqYFxBOA0SjON2n/bKubtvfxx1Npig==
+	t=1794893077;
+	b=Cph6pK3Nu+Ug18ItVZTvhAmBnF1pHYvNhGwCg18fFXMz08TLvwpAHCaBwRpvtIi/U8Yz
+	 7X5VWN50AK9zHxoVgDXbL3U5t7nsXVZ6NS2/+T4oENKh1nzC0IgdxIrZZVfQg7BdUWEll
+	 f/blDsaEXNu+xfLoEEMFBhDwGSNFAi/JucJZ/fP/iVT3nF474n5D5WUX5hMRfKN6qZi1f
+	 8FywOYAn8ksl8+mCUT3XcyAknexPHFqrnk8a0pt+2Gzrf+2nvIXbAD42Y/DKThMaJWOHW
+	 6nZ2eW/DJo4OjeAmfjyMIZ19S8U1Ollxj+GZOxONl+oOLKF1Tvck4Wdcg2Blo8ca3gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892982;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=31b9JNt65Yxrug1LN8vG9BjZbzLc7SOgE34Mxiobvik=;
-	b=PcPMVponCZyzZ1EHLQIMxa1cbR5XbxE3Sm0UDOKfqqw/ELFEMoHALbDcrntoOk6735mw
-	 tjzwWlJQhez9BmvVGBfZNCmkss0eOgVOnhAxHLIqp62OSKBmWKB0Kf3NoESqM2vsLsanM
-	 8lXXDdCq1rYWaMw4b3pRsIX9Wc7oJpOZMJTVNqoO6BfVmkPvRXLJ509MhRtRISxpHFIA7
-	 MyTvks9dI4UHfplv2/JIITbuNgWemNho/+ipGQfSs6/9Cnqdva9YEb0kBq1loAg9lcAsH
-	 8SmQtGaJVIRWesg5YDUey/rJKMS8uhcHVizZEbNW/wQW+6kfH3nmYNI9pxaz5so8O0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794893077;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=92iLM9PE3+0NUQh9S/WcBgYVX45/LD+uF4QmzjutD40=;
+	b=1/38RCoIXk5C6R6Ylg5Y1UePMS37Z19Uv1BpTJtiQYgFwAa4dUxkwrPWhwJsIEF5TCIM
+	 uYBFL1gl77YkulYPajpJ2EDL1OmmYnT0nK1bwkjaAFOMDOutZcikhbvj+aJS4qP1RnZTu
+	 VjZIrKCYh+M4/yBrRKtSEQIAw35tZdSbfnC/5ygQ3r6+hWHjiJdSAcVZZfveHdkLk9qNm
+	 GQlFWecHyNJhxkiVMaJuuQH3aS86dN4i8dn9oViw4BShTQIdMN455/NejXZUsgIUl1zw0
+	 bect2D21zAC19BAyVkfephYEZ9IKNf3KsK8msnIu1/lXpeBjkC44fImvQd1RM9ML2bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Wos2GmYz;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7875A606A31C;
-	Tue, 17 Nov 2026 05:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7875A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZN5eayI2;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6D4606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:24:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C6D4606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Wos2GmYz
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZN5eayI2
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b3bbe7925eso29860a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:24:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=31b9JNt65Yxrug1LN8vG9BjZbzLc7SOgE3
-	4Mxiobvik=; b=Wos2GmYz4wT1yqHDfX3UepwLqNl69xsD2isOLA16G34OFlX14l
-	nl3qjvh+0WC9wz3UHoG7bNNeO5WP25JxVUEf3kwUYoDDJWvhoZ4dsqiuZ0xtSF24
-	XJYgzxjVwj+6cQNkJU9p5E4XE908OWhozXhhJv4g6RHvSPXlhkjlHSI0k=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHxTmx5PtqLkTLAA--.216S3;
-	Tue, 17 Nov 2026 13:22:58 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v12 1/2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Tue, 17 Nov 2026 13:22:56 +0800
-Message-ID: <20261117052257.34849-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117052257.34849-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261117052257.34849-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=gmail.com; s=20260707; t=1794893076; x=1795497876; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=92iLM9PE3+0NUQh9S/WcBgYVX45/LD+uF4QmzjutD40=;
+        b=ZN5eayI2Xlw1biAy43IblBYsfXrWirhPgtWguYGIMxCMTNw2ar3F3eICDg66bXGkfz
+         a5T/JO97wWmOSgRwl/L0B8y4UmeM16L6Kz38SEZ+pMzD1M9z1XxYrqHWcIolZGMVDzEc
+         CMYOnCWlxIRfoJ+ltZWf1qZ+h3JM/69OxOLPylJCnIY0Tjos7bBfhx3yPyA0+uRZKD+1
+         JZFyY2PF0ppO4QTrSN5tCV/4jHfhzi5dng7zrqShksCEwvV7lfEwqZS0x0O9nBnwQLMZ
+         q4LSIkg/9IGTJrnlclNkB7n6BE+r9jjOLizBx6xn2ouv7drX+j3feBkz+51rnKDw1/Hq
+         gOPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794893076; x=1795497876;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=92iLM9PE3+0NUQh9S/WcBgYVX45/LD+uF4QmzjutD40=;
+        b=tLlVBisprw9Lhq0Sf3Ac3vBBn9nU3Ksl1Nn0WYxth0ap7JzFzCvAVI/fB34Uk9FGAO
+         vAISzC4nL2WVt43U0YliNHiESpaClahX0TNuof3Ifky5s/a4gwyIt/NL7t1FlG6bBMYB
+         HNDlcgkiYF0tK1AE8JPND4loVj8C43NUr6t0VmdR8h9ZCORH3/Yg0MU4Hb6fJRB1wHbD
+         jYh0CVP6IcriI7wB+2IJ6xFQi7zfQzIs1i0MT1OwO+xLHBR1c1Oh5XDhTYwWESf1uRDU
+         3G/TaO7+PM7W2X8EGbrohuaHoRWCqrofDMqnui9VaDJ8uONQeFrF03SQC3pV9N5ANAJ1
+         dOIg==
+X-Forwarded-Encrypted: i=1; AL+hErEYfZf3OO2/j5lwVi54aUr+hqpbXrrHSrsyp4C/UcmnMohiUXKs6GnzalU+gx2vsjQaQVN7vNpjIVGxjvY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2LopjGTXegr/l7epLXe0QpVi/yoxKhHk0zXfSgOdAyQ8jwbFG
+	6EjjV7pyuTVI23Mny5l+IOy0Eyuq3m9vMdX0mAj/ylH4qoc3+pIte4pL
+X-Gm-Gg: AZFdTZcMWHdz2sM6tXV49diWwdJB8miAIdKc8Ax4nMcH3QDHeA58SIb0+99+nOFOaSf
+	MYQkjDRnCEInuLr28UZw/S3QDwn8NzDArbP4jtsFfgtRU3MZjYH0hHzP3+FEFqi7OTJPVgn7NEa
+	MLSxDUsMuToXvSw5w3lll1ujlfnIVcdCZ8tu+iiXfRgArF6TzP6W9YxvICB0XJCN12YVVuMtK/O
+	q72RJaxSUbjZF53RdlE0NZs45/LcziLLtZxs0Od949hdNyBwJh0zkAEsNviHNs23SVQk1+h+PoE
+	vXP9eBf3/4Pz+1Un6JzCGGPVblB1gtSxdPwsUFQ0/hSurgeRtFiuzLH4d4X1I+aOJJ4W5lZtXD1
+	JvovGRSwTZsh3HLqS6w08oLtqnmC9YhLiD4S+wMv7RD/vvzbyNkxsVg2emOC4IboYEvms+rl9PI
+	0g+6qPNBmxAajRxbzCjs8of6wWNsL4DyWDaIMoqm6N4fU2O+mEB9ZMsohDgVvr0xdf1HaGkRDhR
+	PY00THWuZqtE1PtHTpdgp9KwINZbiArRRmSwidPKx/603Hvj7/rIR31CGMAwUXdJ+6rr+z3GjqC
+	DTBvCjPZevQKK0VqZ0o6NaDQXKoyWFGjdFJ4F49avTjuRlgLCo4GVjscTxgCb0Q3DTYSS1gVXm/
+	3a+cIaxZXaixTIlWUiJBZqthk8yZ64NWQDyQ=
+X-Received: by 2002:a17:90b:1dc8:b0:3a8:9d0d:ca50 with SMTP id 98e67ed59e1d1-3b1b0b5b89dmr12632432a91.10.1794893075609;
+        Mon, 16 Nov 2026 21:24:35 -0800 (PST)
+Received: from localhost ([153.61.198.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac29a846sm2093493a91.9.2026.11.16.21.24.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 21:24:35 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Nov 2026 05:24:34 +0000
+Message-Id: <DMX8HR7NDP9V.CDDWGLZ98C0K@gmail.com>
+Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
+ <john.fastabend@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
+ Solodrai" <ihor.solodrai@linux.dev>, "Steven Rostedt"
+ <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Mathieu
+ Desnoyers" <mathieu.desnoyers@efficios.com>, "KP Singh"
+ <kpsingh@kernel.org>, "Matt Bobrowski" <matt@bobrowski.net>, "Shuah Khan"
+ <shuah@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-trace-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <netdev@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 2/9] bpf: Add log support for tracing_multi
+ link_create
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Leon Hwang" <leon.hwang@linux.dev>, <bpf@vger.kernel.org>
+In-Reply-To: <20261114150610.84507-3-leon.hwang@linux.dev>
+References: <20261114150610.84507-1-leon.hwang@linux.dev> <20261114150610.84507-3-leon.hwang@linux.dev>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,175 +112,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBHxTmx5PtqLkTLAA--.216S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrZw4rpF
-	Z8GrsFkFs5Cr1xG3yxK3W8u3W3KF1rArn5Ar1UC348Kan0qFnaqr9Iyw15Za4Yyw48GFW2
-	yryqvF47J3WrZrJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
-	AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
-	W8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7I
-	U5l2MUUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAvsQ
 
-The WL2868C is an I2C-controlled camera power management IC from Will
-Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
-from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 share
-VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
-3.544 V. All outputs are programmable in 8 mV steps and are gated by
-per-output enable bits with a chip-wide SYS_EN master. The chip also
-exposes an optional active-low RST_N input.
+On Sat, Nov 14, 2026 at 07:06 AM Leon Hwang <leon.hwang@linux.dev> wrote:
+> -	if (!cnt || !uids)
+> +	if (!cnt) {
+> +		bpf_log(log, "tracing_multi.cnt cannot be zero.\n");
+>  		return -EINVAL;
 
-VIN7 and VSYS are both inputs of the internal control logic, which is
-powered from the higher of the two voltages, so a device tree has to
-describe at least one of them. The remaining inputs only feed LDOs, so
-they stay optional: an input can be left unconnected when the outputs it
-feeds are unused on a given board.
+The user sees cnt == 0 in his own code.
+He can't see which of up to 1 << 20 ids the kernel refuses.
+That part stays silent:
 
-The example enables ldo1, which is fed from VIN12, so it also describes
-vin12-supply; the binding says an input may only be left out when the
-outputs it feeds are unused on a given board.
+  bpf_tracing_multi_attach()
+    check_dup_ids()                      -EINVAL
+    bpf_trampoline_multi_attach()
+      bpf_check_attach_btf_id_multi()    -EINVAL, -ENOENT, -EOPNOTSUPP
+        btf_attach_func_proto(NULL, btf, btf_id)
+        btf_distill_func_proto(NULL, btf, t, tname, &tgt_info->fmodel)
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../bindings/regulator/willsemi,wl2868c.yaml  | 99 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 105 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+The last two have messages. They get NULL.
+That loop runs before trampoline_lock_all(), so bpf_log() is fine there.
+can we pass the log down and name the id ?
 
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 000000000..972813fbd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,99 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Will Semiconductor WL2868C camera power management IC
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description: >
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
-+
-+  VIN7 and VSYS feed the internal control logic, which is powered from the
-+  higher of the two, so at least one of them has to be connected. The other
-+  inputs only feed LDOs, so an input may be left unconnected on a board that
-+  does not use the outputs it feeds, which is why they are not mandatory.
-+
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
-+
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
-+
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
-+
-+  vin5-supply:
-+    description: Input supply for LDO5.
-+
-+  vin6-supply:
-+    description: Input supply for LDO6.
-+
-+  vin7-supply:
-+    description: >
-+      Input supply for LDO7 and one of the two supplies of the internal
-+      control logic.
-+
-+  vsys-supply:
-+    description: >
-+      System supply, the other supply of the internal control logic. The
-+      control logic is powered from the higher of VIN7 and VSYS.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - regulators
-+
-+anyOf:
-+  - required:
-+      - vin7-supply
-+  - required:
-+      - vsys-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
-+            vsys-supply = <&vreg_vsys>;
-+            vin12-supply = <&vreg_vin12>;
-+
-+            regulators {
-+                ldo1 {
-+                    regulator-max-microvolt = <1128000>;
-+                    regulator-min-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f82..435beaf95 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29058,6 +29058,12 @@ L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-wiimote*
+> +	if (cnt > MAX_TRACING_MULTI_CNT) {
+> +		bpf_log(log, "tracing_multi.cnt is too large.\n");
+>  		return -E2BIG;
+
+that's not a helpful message. -E2BIG says the same.
+
+> +	if (attr->link_create.flags) {
+> +		bpf_log(log, "Invalid flags.\n");
+>  		return -EINVAL;
+
+Each value but zero is refused. "flags must be zero." would make it clear.
+
+> -int bpf_tracing_multi_attach(struct bpf_prog *prog, const union bpf_attr *attr)
+> +int bpf_tracing_multi_attach(struct bpf_prog *prog, const union bpf_attr *attr,
+> +			     struct bpf_verifier_log *log)
+>  {
+>  	return -EOPNOTSUPP;
+
+The stub has the log now and knows the reason.
+
+Consider something like:
+
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index c3f6364..efff0fa 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -1646,7 +1646,8 @@ void bpf_trampoline_put(struct bpf_trampoline *tr);
+ int arch_prepare_bpf_dispatcher(void *image, void *buf, s64 *funcs, int num_funcs);
  
-+WILLSEMI WL2868C CAMERA PMIC
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
--- 
-2.53.0
-
+ int bpf_trampoline_multi_attach(struct bpf_prog *prog, u32 *ids,
+-				struct bpf_tracing_multi_link *link);
++				struct bpf_tracing_multi_link *link,
++				struct bpf_verifier_log *log);
+ void bpf_trampoline_multi_detach(struct bpf_prog *prog,
+ 				 struct bpf_tracing_multi_link *link);
+ void bpf_trampoline_set_flags(struct bpf_trampoline *tr, u32 flags);
+@@ -1764,7 +1765,8 @@ static inline bool bpf_prog_has_trampoline(const struct bpf_prog *prog)
+ 	return false;
+ }
+ static inline int bpf_trampoline_multi_attach(struct bpf_prog *prog, u32 *ids,
+-					      struct bpf_tracing_multi_link *link)
++					      struct bpf_tracing_multi_link *link,
++					      struct bpf_verifier_log *log)
+ {
+ 	return -ENOTSUPP;
+ }
+diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+index 716330b..bf2aef5 100644
+--- a/include/linux/bpf_verifier.h
++++ b/include/linux/bpf_verifier.h
+@@ -2183,7 +2183,8 @@ int bpf_fixup_kfunc_call(struct bpf_verifier_env *env, struct bpf_insn *insn,
+ 			 struct bpf_insn *insn_buf, int insn_idx, int *cnt);
+ 
+ /* Functions exported from verifier.c, used by trampoline.c */
+-int bpf_check_attach_btf_id_multi(struct btf *btf, struct bpf_prog *prog, u32 btf_id,
++int bpf_check_attach_btf_id_multi(struct bpf_verifier_log *log, struct btf *btf,
++				  struct bpf_prog *prog, u32 btf_id,
+ 				  struct bpf_attach_target_info *tgt_info);
+ 
+ /* Functions in fixups.c, called from bpf_check() */
+diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
+index 21d4608..93fead8 100644
+--- a/kernel/bpf/trampoline.c
++++ b/kernel/bpf/trampoline.c
+@@ -1724,7 +1724,8 @@ static void bpf_trampoline_multi_attach_rollback(struct bpf_trampoline *tr)
+ 	for_each_mnode_cnt(mnode, link, link->nodes_cnt)
+ 
+ int bpf_trampoline_multi_attach(struct bpf_prog *prog, u32 *ids,
+-				struct bpf_tracing_multi_link *link)
++				struct bpf_tracing_multi_link *link,
++				struct bpf_verifier_log *log)
+ {
+ 	struct bpf_tracing_multi_data *data = &link->data;
+ 	struct bpf_attach_target_info tgt_info = {};
+@@ -1737,9 +1738,11 @@ int bpf_trampoline_multi_attach(struct bpf_prog *prog, u32 *ids,
+ 	for_each_mnode(mnode, link) {
+ 		rollback_cnt = i;
+ 
+-		err = bpf_check_attach_btf_id_multi(btf, prog, ids[i], &tgt_info);
+-		if (err)
++		err = bpf_check_attach_btf_id_multi(log, btf, prog, ids[i], &tgt_info);
++		if (err) {
++			bpf_log(log, "Cannot attach to btf_id %u.\n", ids[i]);
+ 			goto rollback_put;
++		}
+ 
+ 		key = bpf_trampoline_compute_key(NULL, btf, ids[i]);
+ 
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index ce11e78..ce7f530 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -24420,7 +24422,8 @@ static int check_attach_btf_id(struct bpf_verifier_env *env)
+ 	return 0;
+ }
+ 
+-int bpf_check_attach_btf_id_multi(struct btf *btf, struct bpf_prog *prog, u32 btf_id,
++int bpf_check_attach_btf_id_multi(struct bpf_verifier_log *log, struct btf *btf,
++				  struct bpf_prog *prog, u32 btf_id,
+ 				  struct bpf_attach_target_info *tgt_info)
+ {
+ 	const struct btf_type *t;
+@@ -24447,10 +24450,10 @@ int bpf_check_attach_btf_id_multi(struct btf *btf, struct bpf_prog *prog, u32 bt
+ 	tname = btf_name_by_offset(btf, t->name_off);
+ 	if (!tname)
+ 		return -EINVAL;
+-	t = btf_attach_func_proto(NULL, btf, btf_id);
++	t = btf_attach_func_proto(log, btf, btf_id);
+ 	if (!t || !btf_type_is_func_proto(t))
+ 		return -EINVAL;
+-	err = btf_distill_func_proto(NULL, btf, t, tname, &tgt_info->fmodel);
++	err = btf_distill_func_proto(log, btf, t, tname, &tgt_info->fmodel);
+ 	if (err < 0)
+ 		return err;
+ 	if (tgt_info->fmodel.ret_size > 8 &&
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index a3964d7..a7954e0 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -3890,7 +3890,7 @@ static void ids_swap_r(void *a, void *b, int size __maybe_unused,
+ 	swap(*id_a, *id_b);
+ }
+ 
+-static int check_dup_ids(u32 *ids, u64 *cookies, u32 cnt)
++static int check_dup_ids(u32 *ids, u64 *cookies, u32 cnt, struct bpf_verifier_log *log)
+ {
+ 	void *data[2] = { ids, cookies };
+ 	int err = 0;
+@@ -3904,6 +3904,7 @@ static int check_dup_ids(u32 *ids, u64 *cookies, u32 cnt)
+ 
+ 	for (int i = 1; i < cnt; i++) {
+ 		if (ids[i] == ids[i - 1]) {
++			bpf_log(log, "btf_id %u is in tracing_multi.ids twice.\n", ids[i]);
+ 			err = -EINVAL;
+ 			break;
+ 		}
+@@ -3935,15 +3936,16 @@ int bpf_tracing_multi_attach(struct bpf_prog *prog, const union bpf_attr *attr,
+ 		return -EINVAL;
+ 	}
+ 	if (cnt > MAX_TRACING_MULTI_CNT) {
+-		bpf_log(log, "tracing_multi.cnt is too large.\n");
++		bpf_log(log, "tracing_multi.cnt %u is above the limit %u.\n",
++			cnt, MAX_TRACING_MULTI_CNT);
+ 		return -E2BIG;
+ 	}
+ 	if (attr->link_create.flags) {
+-		bpf_log(log, "Invalid flags.\n");
++		bpf_log(log, "flags must be zero.\n");
+ 		return -EINVAL;
+ 	}
+ 	if (attr->link_create.target_fd) {
+-		bpf_log(log, "Invalid target_fd.\n");
++		bpf_log(log, "target_fd must be zero.\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -3969,7 +3971,7 @@ int bpf_tracing_multi_attach(struct bpf_prog *prog, const union bpf_attr *attr,
+ 		}
+ 	}
+ 
+-	err = check_dup_ids(ids, cookies, cnt);
++	err = check_dup_ids(ids, cookies, cnt, log);
+ 	if (err)
+ 		goto error;
+ 
+@@ -3998,7 +4000,7 @@ int bpf_tracing_multi_attach(struct bpf_prog *prog, const union bpf_attr *attr,
+ 	link->cookies = cookies;
+ 	link->fexits = fexits;
+ 
+-	err = bpf_trampoline_multi_attach(prog, ids, link);
++	err = bpf_trampoline_multi_attach(prog, ids, link, log);
+ 	kvfree(ids);
+ 	if (err) {
+ 		bpf_link_cleanup(&link_primer);
+@@ -4019,6 +4021,7 @@ error:
+ int bpf_tracing_multi_attach(struct bpf_prog *prog, const union bpf_attr *attr,
+ 			     struct bpf_verifier_log *log)
+ {
++	bpf_log(log, "This kernel does not support tracing_multi.\n");
+ 	return -EOPNOTSUPP;
+ }
+ 
