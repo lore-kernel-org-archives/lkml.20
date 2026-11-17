@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.33.109.247
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919852;
-	b=wjeo5ABCsZ4vYzleM0k9A6RdekIccZJcU8KQZ4i2gm3efyEIr0BnnxN2MKrAjEiaFeJu
-	 YAOQWXyJNqzcqsmbODK2bKeFngdnh7SnvDMmC46x4BYKQomvK8JlK0uCwAIRzEZX0UjLJ
-	 MMssVkdEzxAbobpSEfNHxmWdxFFK5bLLmUUOQusNdGskPWW/KdjPnhpDk0BwKgRbf2+/l
-	 BcqJ8uO1Z/+ZL1STeAiSIxHTAXKGZFcvqJVy/kPjR8zCGem0x1KB8P6G2E25lk6UdvxtW
-	 Z3oywEOOzb07cY2302/GiTwn6wAhO1vJEC+j37dB+mm3DwH0CG49kDZjStOHXrw8EfQ==
+	t=1794919842;
+	b=S3mZhNfqx9fFkoXSR+SVmZaDT1MAuciXmNGLwtoNmkpvGo4aKBBDcJMp86XpLHNS7XFZ
+	 kPWpikJe1YNOxiSOZiZC74BnIINSOFlWwPmp82AVvZacUXJqIcEZWXJQUB3PzcnOTRefp
+	 zSgfZLpnhAqVqt1O5W1xOHT/2yUnOxXnT0bXJAVwJ/qF+Af17K0GflVbHIKZzDh0C+CzQ
+	 KtJw8DpgJnxJziV4lX9lJ5Qn1Z72TIIyd7I0zMn8jdx/Mwah3UqU0Uoe3G6TfN9mzac14
+	 6eHTT9r1s5wrof2QFHwb8L8hxD/AW5LM3XwmMrGHTJf8or9Ek4x3nL74L4AHhABTHXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919842;
 	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:x-ovh-tracer-id:
-	 X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=NmRVqvgA6LQRfVb3+xw0hm11h1ZXb2VqypRcp6l/2Uw=;
-	b=Iqw3Qg0Ahv7hCNK1wP1AcUNtIHgtdJdpC+bKF+IFRbfwR3XeqjlChhSMH/88bsYxjQ4k
-	 yYhkl41pdVWUkJvlS874VY2t/gq1QDj0uYJr0CJYyNfljQzMcjW2FPe3UKg8RoXoqJkRD
-	 5HsIxRD+htv97NmMAB0bOJW3olxXIjmSf+QCCHRpweeTdKiC3bNx+V3zpxQow1Q23ck2m
-	 6zM1XXq3ETKZU1uGnulAX6lbLuQr7HLctAwnZ5M0RZvlQn9DajWNMqrZ93PguYGLsPjSq
-	 6kAetrvPv8+t2IIWPIF6Wlb5U94Aj3nxNHJNqcPS+rttoDGklJkyn9rmtB4Bxo1hj+w==
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 x-ovh-tracer-id:X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:
+	 DKIM-Signature;
+	bh=T1fo11ryOcvRUuQCrIAoWwsH3IF4QmN8ZLQhyisTeEU=;
+	b=IogczopijueNx8dPKLoQ8KF84jAj788tYXfDxwNXM/4ZuVV1RXtshenT87Z7ngbmwK21
+	 XkAeHWYcvh3qmhZ1qmkk2XIXbggnYHJm6WUBKXqcFz40Kb3H8BdZOWf7aNs5hNElrB1QQ
+	 nvDh/DtTf7MgfmrGLeynK7WxP73DrWRrCyitCyt7zuWS7jfyq2idaeknYYs4YQhLvizz4
+	 4VRbaxWjou3YCUYeWdslYpjbM0FsTkESq09DqxQNrz2pRaoDpwBIitj2AGCXyov2+fsVu
+	 yt1YBnAkUgVpkECWpES+ohUdkTG/Shx6iAgYVNXkZ3DnKdDIDjQJnYoEb+t081/yGug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pixelcluster.dev;
 	spf=pass smtp.mailfrom=pixelcluster.dev;
-	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IhHVfrGP;
-	arc=none smtp.remote-ip=51.210.91.51
-Received: from smtpout2.mo540.mail-out.ovh.net (smtpout2.mo540.mail-out.ovh.net [51.210.91.51])
+	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IQwBHvJ+;
+	arc=none smtp.remote-ip=178.33.109.247
+Received: from 5.mo528.mail-out.ovh.net (5.mo528.mail-out.ovh.net [178.33.109.247])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769B360A262D
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 769B360A262D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2D5606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F2D5606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IhHVfrGP
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net [79.137.60.37])
-	by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjJ2zbpz455y;
-	Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net. [127.0.0.1])
-        by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.96.99])
-	by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjJ1Y8yz1yXC;
-	Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IQwBHvJ+
+Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net [79.137.60.223])
+	by mo528.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj36sYjz67FT;
+	Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
+Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net. [127.0.0.1])
+        by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.184])
+	by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj33vhCz1xqd;
+	Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.7])
 	(Authenticated sender: nat@pixelcluster.dev)
-	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id BF5878E2101;
-	Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-98R0028db774df-3351-4ee4-850f-8694323585ce,
+	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id AD7368E2103;
+	Tue, 17 Nov 2026 12:50:29 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-98R00261387e59-c792-4975-b455-eba492b4718e,
                     00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp:141.95.41.139
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:16 +0100
-Subject: [PATCH v2 10/10] drm/amdgpu: Bump minor version
+Subject: [PATCH v2 00/10] drm/amdgpu: Rework VM update ops for batching and
+ explicit sync
+Date: Tue, 17 Nov 2026 13:50:06 +0100
+Message-Id: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,9 +67,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-10-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7ZhSAVNX3sOwgOkAYxSathII4
+ e4C7l2+5P33FwjshQPckgU8jxJk6DfQpwSoq/qWUezGoJUuVK4NOh+RJ/cSkohh7gkv9prVxtp
+ MK4Jt5zw3Mh3NR/nj8KmfTHEP7UYnIQ5+Pk7HdPf+9ccUFZompUKZPKeqvrfv6WwZynVdv7CNT
+ MvBAAAA
+X-Change-ID: 20260529-prt-explicit-sync-3d74b9dd420c
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -77,43 +82,91 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5594596638179156284
+x-ovh-tracer-id: 5590937466612572476
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGsrjNRgW72yCqkGsXCnOvH7Q6+rWSTt0QN8D7NsOnSRWHW0a1UZ4YzwG3PfGhk2CpDQZK3YXmisSLYwZztr4rBMwMPXW7T3V/AOBPzHqgdP8gAtZmRSmFwzhTkWYmyZ/ZDp71KSx/CkbaMRhkClvUYNnGrD1PzweJNkj3z5YHhSlWNc9ry/1K04Ol0fBWNhEL66oxzy/AkUSTRdOPfSv1iAMFatuXPZ4igKw3QIc3MgFbd7EmFmYSHglT6XHKAJXimVe8T8Fqv0mPC+Q1p7iYCKLwWZoNUbd7LT8X0mEGw6E+B5EkhOIFNfODtMUftuzqYdLPtOdruAs2418yTTya6sqzn70iwvealvmaqO4anQOfF0wyMRadUwLGMt4ZUTHfBGEvltLlw/9AcjUUkuL0EG7JdVBqy2JfP6TZfo9buMqWSnGpxlGstaxjaKBDrftHvEqpH33VxEkxue/twETVtfkDKVbgPUUQEn48HuzYFFTyPiGQx/tNfI9v4b/cCzszYtvngNmRTmQyy4hx2ipsoPVr2yKem3XVROXv/KzHj18OKOW0RUvhKkCwjH7j1TIpqGkUDWsIwM7NuirMJPFiooCNCb6eUHV+wGPcWZWti64U6MFKk7asAf1jAROkkwwLMeZqa4m7ZPMQxmFGr/JnW6teXfeI93yp1LfHh0emsDQ
-DKIM-Signature: a=rsa-sha256; bh=NmRVqvgA6LQRfVb3+xw0hm11h1ZXb2VqypRcp6l/2Uw=;
+X-VR-SPAMCAUSE: dmFkZTE9CL42WbiiNjq62Y3EgWHYd+nZJRL04fx2AcfGf8qEm7aLcS9VU3O+ooLpNIw7Vb9knZJb7z+RhMav0r2PLmN/1VB/wTyayn4tlK8dlv4kFOSNbudmd5vque5m1zJKlBx1VFGXZMS4qRBIByhJdUO5Y6waDHDKA/dAZfjhh+GoySOrnD36KzYgb4tqQm9t82pxc6ZV2EVYAeIZhfOiSJxv/7AANKUhfiI12lmsSQCbkY6v4XiOIkdW7gpDalpttV+Ye1MGrXgd8xK2XXRHGiqyMVOMqejbLLJ9lR2DYjVwoSDSYwLiftbY9LNIrax1xpXvL4Pt/MY2Aoqh4AuIqPcTfT2UFYDqyn/i3n3fcnqslCw4DZhcyUtBnau9Zb47RCvm8m0QMEwBmztRJA54TZQlhnUHRESQ5Cjw5+dbjtVyCx9eNcVrq0QW16k5jkKDlPKhrXC9g+IzZx3G818dlynO2gHb0kEPXwlJGiV10xrDoOBnSZl5rZggP46kGYG4IxkycIo2Y2323CzBTYPfHSO1741SNKOw6gNAEZZOtDX91YxP8mj4DloB3OiMbAWbEO/vOFNJ7Z6HlSQb2R+5DlfWuWvZdJzyEvUBtiKJlo1uxt3cTBxXCzjEMeh1sllCLV453ivT2XIbCN0MHkMlq9TcEJDD0uKCOuA5PYxbcxAp/g
+DKIM-Signature: a=rsa-sha256; bh=T1fo11ryOcvRUuQCrIAoWwsH3IF4QmN8ZLQhyisTeEU=;
  c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1794919844; v=1;
- b=IhHVfrGPVz4jxFCa/EIJa5yDhr86zA2cKFQezqSho7Ja9xa/n+YivJ7mssW80C/ZnNBbMS22
- Rzf0IZYYg3ZNzicPHKQq6tXOuiJF9uTnipYxoqFoVi/EUTZANKLXFxkZf6rggWEWuoFFcLRe9oE
- SA+foZpLhbCy1QgS24nDC4AhYve6Dcce6xioEWxsD8+dhjAkdRQO60aYB51B+qLxz06tLS432lK
- cggaj7/t6y4lUcdtejR4+Vu6dSLn2E8b5HyY64OuAC7tjEqkIPO/fDXHxw/md0Q4PNH/Mz7Tewo
- GSqu9TMvqLh3aHZUfV7gqyJwNKSEHVf3deQPfEisDGLBQ==
+ t=1794919832; v=1;
+ b=IQwBHvJ+TsAmk4IsmcI9Pk1zw8RN3GCTMDbm4LCiOr7gZsogXyrgzx8kIwUmFuCCWzSU9J+v
+ WhJsuw05ER5jttuRKDufsONN7UncO0Y5Qa2vN68oV0aWHGlugjXod3cSpDVMQQG8m7rcK8TvRTU
+ cPWIirLuWMO/gDG7m9BMCNewU3jBPaWWAA0X9hQvAtuxfkggU6KBO7HMa6fE6aL2eJn+uRBXr1B
+ De/LIhdrAZ+XZWVlgyLOwbs0ZFIu5GJUU5YqBAA153JIDJrtLPdNd5Zl3783ll3BPXLobRzP60A
+ +HVwNT9DT3vuqT1H417w6QF+7HJwBSHP+Kd5IScfnNeXQ==
 
-To signal availability of the new AMDGPU_GEM_VA2 ioctl to userspace.
+Hi,
+
+this is v2 of my attempt at improving sparse binding perf.
+
+The motivator is that many games have come to heavily use sparse
+bindings, and they often rely on being able to overlap frame work on
+gfx/compute queues with sparse binding work on sdma. If PRT mappings
+are synced to every other submissions like they are right now, heavy
+sparse binding load can stall the gfx/compute submissions for quite a
+long while, leading to very noticeable stutters and hitches.
+
+Another problem is that each sparse binding update requires a separate
+ioctl, so the CPU will also spend significant time constantly switching
+between user and kernel mode to execute the binding changes one at a
+time.
+
+To remedy this, this patchset introduces a "VM update context" structure.
+This context encapsulates some state that is carried around different VM
+update functions, in patch 1 this is the mappings that were freed along
+the way. amdgpu_vm_clear_freed then only clears the mappings that were
+actually freed in the update operation, which is a requirement for being
+able to explicitly sync that unmap.
+
+In later patches, the update context is expanded to hold a set of
+pending mapping changes, so that a future ioctl that changes many
+mappings at a time has a place to keep pending changes while every
+change is validated, before applying everything atomically if things
+look okay.
+
+Best,
+Natalie
 
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v2:
+- Added pending change structures to update context in order to batch changes
+- Link to v1: https://patch.msgid.link/20260529-prt-explicit-sync-v1-0-9f1c60955cab@gmx.de
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 188c8ec234c02..5b0c373102068 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -129,9 +129,10 @@
-  * - 3.64.0 - Userq IP support query
-  * - 3.65.0 - Add userq syncobj timeline signaling support
-  * - 3.66.0 - Allow jpeg type 4 packets and VCE SEI command
-+ * - 3.67.0 - Add AMDGPU_GEM_VA2 ioctl
-  */
- #define KMS_DRIVER_MAJOR	3
--#define KMS_DRIVER_MINOR	66
-+#define KMS_DRIVER_MINOR	67
- #define KMS_DRIVER_PATCHLEVEL	0
- 
- /*
+---
+Natalie Vock (10):
+      drm/amdgpu: Remove unused parameter from amdgpu_vm_pte_fragment
+      drm/amdgpu: Add and use vm_update_ctx struct
+      drm/amdgpu: Make VM maps pending per update context
+      drm/amdgpu: Make removed/cleared mappings pending per update context
+      drm/amdgpu: Track dirty bo_va structures in update ctx
+      drm/amdgpu: Add function to roll back a VM update ctx
+      drm/amdgpu: Move some VA op validation to a helper
+      drm/amdgpu: Only reject conflicting mappings if they are not cleared
+      drm/amdgpu: Add new AMDGPU_GEM_VA2 ioctl
+      drm/amdgpu: Bump minor version
 
--- 
-2.56.1
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  33 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  31 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c          |  21 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c          |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 477 ++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h          |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h       |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c        |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c        |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 660 +++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           | 100 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c        |   8 +-
+ include/uapi/drm/amdgpu_drm.h                    |  46 ++
+ 15 files changed, 1099 insertions(+), 311 deletions(-)
+---
+base-commit: 65b7b0d2cf8c3cba99d599493ac96f3ab32c0a06
+change-id: 20260529-prt-explicit-sync-3d74b9dd420c
+
+Best regards,
+--  
+Natalie Vock <nat@pixelcluster.dev>
 
