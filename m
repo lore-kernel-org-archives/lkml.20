@@ -1,69 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929310;
-	b=5W58SnkD7rr5TaRJbC0SkVP8d+OKdwJPYF0+82kl/WXUYrFVaY7hzvU/XpyMQzUhD8Si
-	 P9NI3AGSNmFPfvSXQUPjfOe2HkfxnsdWTj8OXr0Fu1t7D+TWfH2Q7GZh+wxQGSRI51f8N
-	 hy5WGNT96+FqJupTtsAlGVrhgPnuePgSqPo+EbI+34x903Ul6zpkKFgUleFc1WXQ7kpNr
-	 grPupR3uhe4pshUMLKRrzjkF60BezCPD0Qo6HkrQpOngb9209ny5VN7DKWflKj+a4zqja
-	 3fe42qdeyBN52RGicrO3fIg6ze7OzEr5Q2OPeXWeN3MPLBolEsDGqIXh8AS5Lbs2YLQ==
+	t=1794929326;
+	b=drqXruH8mynbR5RwPydv8FruobqB0cR7TRdSdaLfCe3dklCyO3I6GvrLEXZ9iLHoLwWn
+	 HKEB3VFZxJ0WpxW2nVzM+tI+1Qq7sXQKwRxTNHfMXj3D6D4U7ZAHgUj7Kr/j/YuvPrlHQ
+	 B+fQBcFgq80S8TFKA1YKH2c10sbOCi0brlEJrfIt5TBmkqcWlovCxFkjwG8JFHq8ZXT8f
+	 ub097m00uALbUgNRAuG/prKCAVN9FT/Iuvl2tpYW+XUZUIComc3dHgIE+RgNpeHiHhXLk
+	 CmrKPqkGQxREAi5QM1XuXyJfHYVWgiAlKM3GJ91pLN9Tk6iJZ5eD35862mkSPInxTDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929310;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=eabcSSyR8dinR+klZl3/g1Fw10Duq9Lg/6T5SwUMuWY=;
-	b=N2WsTFXVPBHoltKNn9jfrW5tnk8M1t4L2gqUpEV0lP0Mv9ojxCY3S9e2i+lP1G1WskY/
-	 5eUO0vM2U/howQjTnyw3y3tDssVWk2kDs6lGsvkP5yyD6KP0COXbxsMoMb6/9XtNN52jK
-	 EAoR7F65yO9HSdB1mb4kyXY/wXlhWXPMyyOrq/5cLShp3/bdutfppvxcb33yAkbKYuI89
-	 V4NjNG0TzoD8Zk8sQAWgtbxyDqE1/qpJYVBGgZTcUJZ1Ub8XwKpex4FEXLSnaIwxFEgK2
-	 JtUBXft5yURC1xvZcqA39ca/clj7p3Gb658hb78EneYmfkH5+v1pTeDlD+p0aBNqIQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929326;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=q6pyCr0GkLU3KUX4qf5YaMe8wc/vHjeUENbzf1v2mk8=;
+	b=aa4teIL9sXiF/9+HmFO3gptTCCU++IFKkZL7zTyw/kRVzwgzXvROgw7NrdaC3HvkR3UX
+	 wMauYY2Hio45D5w4IQGXsx/CgKULhkk2I9876Da2XTo5s369UBxSITSOvIajRr/XKTvys
+	 3ce7n4WEYlNDGKjUSQ5ar79nSSIYY1Ep+e50p2+5wiHKTLLXu97bX7nO54207jE8TFVAa
+	 W73PHk1h+RLFXFJEz7p93tMYc1xpzKD5H1E8UBNZg+DOct1qh18kJXxG+5fbOvXFU1+v7
+	 WUUcT9peQwnS9pUB3VZrGzFVPBpg6eB8X9ptyHnYoQwHjtcWeRw9P1hdqLfUmn0a4EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SptBZ+49;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=V9FWSG7K;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FhNMVdAr;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B167B606A31C;
-	Tue, 17 Nov 2026 15:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D118606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:28:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D118606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SptBZ+49
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44711F000C4;
-	Tue, 17 Nov 2026 15:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929310;
-	bh=eabcSSyR8dinR+klZl3/g1Fw10Duq9Lg/6T5SwUMuWY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=SptBZ+49ZOIkxFB04dM1CXWSnEFLFmyyRgTzudB0TYtbzjO6UjAk1s/fFk1zbwel+
-	 OC5NmWdNbTUVbBGwLAiA5GBxSwadyrnVZ43vzoIeUK/HM1zRS+C9n40vSwEcL3RJnA
-	 qRNMQvUCkt05yw5Ta6Tn8gusgAPRy8TDhbEPdmWMWUqxYByTM6dLKi0LWS6doxMDlb
-	 tH5Wr+iYFybXMvmsChF+zvDtui/7y/ZZzv7+VFj8oqKZQwen7LdUDaUtkUDGZG9zY5
-	 yJBV/PaeEOfBPYg5aaDU/vTD1tSMUhEi/H9Xvhk/ZutbqDLWIdIEiIRRYSsUrLiXNs
-	 l5qQuBZ8z6F4g==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Tamir Duberstein
- <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
- Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>,
- Matthew Wilcox <willy@infradead.org>, Andrew Morton
- <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, Harry Yoo <harry@kernel.org>, Hao Li
- <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, David Rientjes
- <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v5 09/12] rust: mm: sheaf: allow use of C initialized
- static caches
-In-Reply-To: <0082d06b-381d-4001-9ea6-cd3217e437dd@kernel.org>
-References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
- <20260902-xarray-entry-send-v5-9-d18adae40708@kernel.org>
- <0082d06b-381d-4001-9ea6-cd3217e437dd@kernel.org>
-Date: Tue, 17 Nov 2026 16:28:15 +0100
-Message-ID: <87fqwzv5o0.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=V9FWSG7K;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FhNMVdAr
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 57826EC05DC
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:28:44 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 10:28:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794929317;
+	 x=1795015717; bh=q6pyCr0GkLU3KUX4qf5YaMe8wc/vHjeUENbzf1v2mk8=; b=
+	V9FWSG7KanChbguql1pGqVTYgsdbLO1OHzoGg0ROQEmhmowoYZ+lzYk6Zx1bt7bG
+	Iho+o4laZKPQW3h1rWhM3pIH6rH0ZvmrIoC2Y5/HCY9vGTFzbZNz80Qv3tMWBYIj
+	JBGNJTcGSDkvfRHl9P8w0lJl5DzKndXikm6/WeKukHUCIR3G+K9+d0dzGaL2GjbD
+	t+thYQm2X2tNr0XRdaV/TJUEilGvRbUWBwfdiINMrFHKl0gc8swyHj1URI9LNFPb
+	z9+bAbrIzt0u5YAROyv4ZzVXJ59yZD/PGt/4T8zyQbQdLiqPyDECLJX/M7vEiL/q
+	DvqyjAdfFfBVxvwR5AXsVQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794929317; x=
+	1795015717; bh=q6pyCr0GkLU3KUX4qf5YaMe8wc/vHjeUENbzf1v2mk8=; b=F
+	hNMVdArSi1j2Edq114cYAtkzv0SHGyv3MeNUEb/U86X44P1Fj0H0v2F8H0U0ZU5P
+	ms1EpD/UugrFLJ1H53UIqNPPdBHzewSalQ9qNIInM/FppxMKUIw3Q/wQpotVwRd6
+	UZ+iJUmDjmpj8DJ6WBNUkyPRaqnqEI1BOmfcKEIOZwoPrC+HFmqzOgBaPKWmc3lw
+	PhRSfBGtV0lKOs9NzW/yJJ/IRQr0PDmomaIjCC+GlzLGRg+GetIv9tZjJsHDHEsV
+	jX2Eui3Tgq4D3SmSIY7uE1AEIyOjap4iXi+SKJuF4dZW0VYUoP+V7mVcIwNbigD2
+	2g6JScK2kv74Sa7NrqBiQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794929317; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:nGilHk/BeopjYDGv7hGK/ZGm6pbUekGce9lZ6c2KlMmnjdu
+	ho8GzH8LtVe51XRt073eFvk1rL+sPp4JXB6BSUgVsnM6Eag5ygM0E9klgQn/gktE
+	jpu+TX0FGkn2eVkNaPmKQxz5CiyASxYbl/A/XJNRDlJ8wS9lUkwd6iL74Wxhw5F+
+	7BM6hILB2kTWGoivYRxJwAa+7JldpsMOyLfZxfg8/srIGG7XRMG0MVsh5y2ji51D
+	keRfgiG3cj9KROFoG7wk82JotJs1LQKDcAVn6QUcnkJiAVmBbSKqsV3xYMt6KW02
+	E3ym7+zPqP1+Jz8m7xFcFMr9LYgh/OuxmfjklTQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:wFlr+fT8EushZmCi/A62q7w2Btos2NKAwyaUzeqjiLk=:H9WGOLfPjUk/h+N3lN1a6Jp7duIUy/dutpF8qeTu8z8=;
+X-ME-Sender: <xms:nXL8an35Jmtlsuk8surVwkqw1hxD9jGwHParnPrZczExG-fY4Jb-rA>
+    <xme:nXL8ag5cieQ8MbNSxREODQc322J7zjuPLZbZK25MKuS3fZ3Zgq7ndYcdgebsGhQIg
+    e7-f-h0PJLMyI2MOzAnDpIMtgQrXGAtKGqsJ5e_hyoGspiUe9kNVtHr3w>
+X-ME-Proxy-Cause: dmFkZTGX7EIyx6vqTiIUSojs4OE9UyzzF5IPpKLC/H9pXDy5+hYRXbaHgdTstjLDjvMmhO
+    qbAYAlIvMiVnHtDqch6S2ijYZkkekrM3/ArR9PA/spuF4E7hrOTr5s7AGdWBRYjLtYVhFZ
+    A6zQUQvadLqOVzG5RPjUPTyokUGYMG5nIB5IQBmTJh8LLE8uIysOkjdAhH1cwXx4/lteMH
+    Q2G/gqTAlRw03FumW41oadDeDqE8aeWzRuerjySLAFiGaMp3medyEgVUkw5HGWMwbFmRBC
+    eP2NL21nvxUmL6fC11LJLiDrfUMdSDJs3PkUB6e4FL9JZsYANauAdJDIqVpCTNiqEsMQtX
+    h+1us8HsYJJpAgERTWHljsadE0gqJ2WyPwytwdsRTlMRhKTZPOYPvzafDSIqFNbthNEhxJ
+    y4hlVwbMMGI8OV34xeMlhhk6GSLEDjBsjLKXwjuplylLAT6rr7Sz/jWTtCC/JIsIhyWkHI
+    gZiGDu4NpF0s4XpTimoCT315Qm421C4MTmCw8OKLinN99yTDsKqBMn20n//eM5906bj1IY
+    JLzWlNh2TH2Hx+UcwJCmtbgasdyecTYy9XBgA86AFdUr72j5PcvFCMpDkiQDao/x8716ZX
+    /fyUXSP6/otBnjqFgNqlWrtH8QfkIYXV6UQ9y4hHoGZaSMiNzPlLdPDuek2g
+X-ME-Proxy: <xmx:n3L8anibFLfxet3kbA_7wgEMyzg7sa0frsq0EcErQF5egzbGaXUwgA>
+    <xmx:oHL8aihAmrkaGYtvOzXx7l-iDJaePyEh76yA5xOTqDnSAu_qqbDTQg>
+    <xmx:oHL8at5cLefG1GGlYhYLzqYMQa99S-3Dvib5WDe9xk4ejoT-mKnEgg>
+    <xmx:oHL8akRKziG_meZAeRPYAezd2quBKbcNSaHu1TFvkPRBQhAYucwsGA>
+    <xmx:pXL8aqta1EgWS4SY7AgRo9hTPnwfA2h8IKUvmRhEVacjyn1epzT-wpbL>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 2D8D432A0099; Tue, 17 Nov 2026 10:28:29 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,53 +115,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-ThreadId: AXxIX-uOARoc
+Date: Tue, 17 Nov 2026 16:26:48 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Lorenzo Stoakes" <ljs@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
+Cc: "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Gregory Price" <gourry@gourry.net>,
+ "Andrew Morton" <akpm@linux-foundation.org>, larips <larips950@gmail.com>,
+ stable@vger.kernel.org, "Zi Yan" <ziy@nvidia.com>,
+ "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>,
+ "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Brendan Jackman" <brendan.jackman@linux.dev>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Jackie Liu" <liuyun01@kylinos.cn>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Message-Id: <541a67af-3b45-4d5d-ac4b-c741850f92e1@app.fastmail.com>
+In-Reply-To: <avxnIQTcFni9G4IN@gremlin>
+References: <20261117142628.3931151-1-arnd@kernel.org>
+ <avxnIQTcFni9G4IN@gremlin>
+Subject: Re: [PATCH] mm/mempolicy: fix copy_nodes_to_user() for odd inputs
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-"Vlastimil Babka (SUSE)" <vbabka@kernel.org> writes:
-
-> On 9/2/26 15:26, Andreas Hindborg wrote:
->> Extend the sheaf abstraction to support caches initialized by C at kernel
->> boot time, in addition to dynamically created Rust caches.
+On Tue, Nov 17, 2026, at 15:59, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Nov 17, 2026 at 03:25:53PM +0100, Arnd Bergmann wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>> For compat syscalls, the effect is worse, as the actual calculation f=
+or
+>> the size does include the extra word, but the check for the input size
+>> does not take it into account and can leak a word of stack data.
+>>
+>> In addition, the size calculation rounds up to multiples of 64 bits
+>> instead of multiples of word size as documented in the man page and
+>> expected by numactl.
+>>
+>> Fortunately numactl always passes multiples of 64 here, so none of
 >
-> Nit: in C code caches can be also dynamically created :)
+> (Claude) went looking at numactl source (e.g. via libnuma) and it seem=
+s it
+> passes size + 1 matching the convention?
 
-Right. But the Rust abstractions do not support interacting with those. Only
-dynamic caches created through the Rust API or static ones created in C
-are supported.
+Ok, I see it now as well. The man page again says "maxnode specifies
+the number of node IDs that can be stored into  nodemask=E2=80=94=E2=80=94=
+that is,
+the maximum node ID plus one.", which I'd na=C3=AFvely interpret as mean=
+ing
+that a system with 64 nodes would have a "maximum node ID" of 63 and
+require passing one more (64), but clearly the implementation on
+both sides expects a 65 here.
 
+>> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+>> index 6d662a9a8c74..f318e1155770 100644
+>> --- a/mm/mempolicy.c
+>> +++ b/mm/mempolicy.c
+>> @@ -1749,12 +1749,12 @@ static int get_nodes(nodemask_t *nodes, const=
+ unsigned long __user *nmask,
+>>  static int copy_nodes_to_user(unsigned long __user *mask, unsigned l=
+ong maxnode,
+>>  			      nodemask_t *nodes)
+>>  {
+>> -	unsigned long copy =3D ALIGN(maxnode-1, 64) / 8;
+>> +	unsigned long copy =3D ALIGN(maxnode, BITS_PER_LONG) / 8;
 >
->> Introduce `KMemCache<T>` as a transparent wrapper around `kmem_cache` for
->> static caches with `'static` lifetime. Rename the previous `KMemCache<T>`
->> to `KMemCacheHandle<T>` to represent dynamically created, reference-counted
->> caches.
->> 
->> Add `Static` and `Dynamic` marker types along with `StaticSheaf` and
->> `DynamicSheaf` type aliases to distinguish sheaves from each cache type.
->> The `Sheaf` type now carries lifetime and allocation mode type parameters.
->> 
->> Add `SBox::into_ptr()` and `SBox::static_from_ptr()` methods for passing
->> allocations through C code via raw pointers.
->> 
->> Add `KMemCache::from_raw()` for wrapping C-initialized static caches and
->> `Sheaf::refill()` for replenishing a sheaf to a minimum size.
->> 
->> Export `kmem_cache_prefill_sheaf`, `kmem_cache_return_sheaf`,
->> `kmem_cache_refill_sheaf`, and `kmem_cache_alloc_from_sheaf_noprof` to
->> allow Rust module code to use the sheaf API.
->> 
->> Cc: Vlastimil Babka <vbabka@suse.cz>
->> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
->> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
->> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
->> Cc: linux-mm@kvack.org
->> Assisted-by: LLM
->> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> This looks like it'll be broken given the convention of passing bits +=
+ 1,
+> e.g. ALIGN(1025, 64) / 8 !=3D ALIGN(1024, 64) / 8.
 >
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Then later that could case a buffer overflow potentially?
 
-Thanks!
+Right, this would then overflow the user buffer.
 
-Best regards,
-Andreas Hindborg
+> Overall it seems the issue is that e130242dc351 (understandably!) pass=
+es maxnode
+> rather than maxnode-1.
+>
+> So a really small fixup would be something like:
+>
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index fb627b37afcb..051d411c04ee 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -1733,12 +1733,12 @@ static int copy_nodes_to_user(unsigned long=20
+> __user *mask, unsigned long maxnode,
+>  		if (clear_user((char __user *)mask + nbytes, copy - nbytes))
+>  			return -EFAULT;
+>  		copy =3D nbytes;
+> -		maxnode =3D nr_node_ids;
+> +		maxnode =3D nr_node_ids + 1;
+>  	}
+>
+>  	if (compat)
+>  		return compat_put_bitmap((compat_ulong_t __user *)mask,
+> -					 nodes_addr(*nodes), maxnode);
+> +					 nodes_addr(*nodes), maxnode - 1);
+>
+>  	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
+>  }
+>
+> Maybe doing that's the easiest route for this?
 
+I would still try to fix the other mistakes (aligning to 64 instead
+of BITS_PER_LONG/BITS_PER_COMPAT_LONG and the incorrect nbytes).
+Maybe it's clearer to just pass the adjusted maxnode into the
+function directly and keep that extra '-1' in one place?
 
+     Arnd
+
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 6d662a9a8c74..931194421c4f 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -1749,12 +1749,12 @@ static int get_nodes(nodemask_t *nodes, const un=
+signed long __user *nmask,
+ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long=
+ maxnode,
+ 			      nodemask_t *nodes)
+ {
+-	unsigned long copy =3D ALIGN(maxnode-1, 64) / 8;
++	unsigned long copy =3D ALIGN(maxnode, BITS_PER_LONG) / 8;
+ 	unsigned int nbytes =3D BITS_TO_LONGS(nr_node_ids) * sizeof(long);
+ 	bool compat =3D in_compat_syscall();
+=20
+ 	if (compat)
+-		nbytes =3D BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
++		copy =3D ALIGN(maxnode, BITS_PER_COMPAT_LONG) / 8;
+=20
+ 	if (copy > nbytes) {
+ 		if (copy > PAGE_SIZE)
+@@ -2030,7 +2030,7 @@ static int kernel_get_mempolicy(int __user *policy,
+ 		return -EFAULT;
+=20
+ 	if (nmask)
+-		err =3D copy_nodes_to_user(nmask, maxnode, &nodes);
++		err =3D copy_nodes_to_user(nmask, maxnode-1, &nodes);
+=20
+ 	return err;
+ }
