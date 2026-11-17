@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910908;
-	b=khQUVSgn7Ht7bcvBheVvw//yEzo8On2fTRHxzUgg2hkjl/fiVZ3BIMUrts00x89IV2dP
-	 e3ju0XILn1l0gPT2M+b0q7mzy6Ewk4mF3mU5pTuYaJg5vr6B+CsjRJXxjQFQNJ3Ibl1rP
-	 rUlkeiI7xhb++Bj0jo22gfws2idluKzXt7j7YqUYcBwuGBHc06oJzoHJNUX0hVtONlLki
-	 d9nK4Y7OXnim1QZpxFRT8cGOmIre36ccsmbWnu1u3CbwxP95jT2sleEGPJ+6FZctI54fO
-	 8HQUphaERDJ6aHv8Ik3ES55Sm16NN7r1JEBoLx2o1SGbyYOcvcOzjgZJBY7xlfEQ7zg==
+	t=1794910950;
+	b=XhiVo4APL3KNW9vrsqMdais/VEU9RtBWnIA+/xyzjeX5tbcApGRqQsrhDoKBaRtAVWPg
+	 jZpFT+EEZZJAc3qAPXMYtAyZE2FHFbk3x5KQbkYYPSWoy/MuETHf/xy1k+uDrBZBbR0sO
+	 9SH1aqF4mRUmzfbl6V/08TKzwqW9DlRT15pca+fN3zdjKvU+o4ruVe1n+14YczCOGN2UR
+	 E15oPWysLN5k5RLhW6RkAZjgtOaoGireMRFRKLPl5+UdiSYO8InUU8Uyi+fBmV8OKk7C9
+	 IJSQl0i7FHyxtyGaNuIhYYf0U4uTZQy+u5pziHQ/0doL6SYaolpF0qvtS9gAG3RCsBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910908;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910950;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=EaOV9WO5qtb2YHPP46vOg4EtZLM1r5qyyr6pytop72I=;
-	b=pqsWoe+d1G2nnA/9VtEmO4IuOPvb1hFPYZQxgyrtztJQPGFoBhLEZ46dNbDq+n+tS4EW
-	 BzXet7LdXX1G3UYAXXNyJri2rZTjaVA+J9RbaQZ41LJzPVRT68prwUcoIduWkQHCB4zD6
-	 KiqK2DBA8XeXxRIq2epY4Lr6N5EhtMbPmYv0udXyToctU3ZpIxq8/rsOZnxv/xaoIxFA/
-	 MZuk+CUBNgHBVAfhCqMewHgRQ7NSVH2dI48hoFRjeVqJ4axq7yQYhBRAKi2veZJREHFy8
-	 dMsupYM7sm5lVEb289aKEydhhy2AVim0QuE4HkjTHUdACpKot20Yh2erz+Ik8ZkpkXw==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=sf5Sh65zq2acGOrMjamVGnM7ymgHN2EwSdw/7NNkbB8=;
+	b=g4J7q3qPzaYscLj5UOv760xbXpFb+utWFr1uIG9U9qZk5krGlHt6QgPSAzfMWDccv+rx
+	 l5gxY2VznfgUynjI58DKv8+tZhIZwBILLjtS1FPkWy/LQtvDqlKqI4GDa+PfSoZZQAYUx
+	 OVU0sz5jDKJ2b4SbsaiAsNTfZDOsyLWc/ldTmdhAjY8ji+aHJAn3f+iDvhu0Fj8jwTr75
+	 zZSjk1UYKuEgeojKeTqnQVblImos6HBDsy7L6jlUggHjxlwd8U3m600k4/5khYiOTIY/w
+	 tFC1PyaMwooytRkxBri8NGK7yQIz8m4KeM9gI4jOSNSofGb4HWHT/L+4doe1j/3rWmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fzJq5mfD;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VuZz1tUB;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1B5606A32C;
-	Tue, 17 Nov 2026 10:21:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1B5606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03E0606A31C;
+	Tue, 17 Nov 2026 10:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03E0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fzJq5mfD
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VuZz1tUB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794910907; x=1826446907;
+  t=1794910950; x=1826446950;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=+uTMWuT6D/iKk+Oboc3PMt2EYstxhtXrE3u2XNyl6zs=;
-  b=fzJq5mfDzvcx0XPYdaVQcMArEmJD3EynavIRP849FuxOpmP5Jci5nFHm
-   W9+fMlK6y0KSL/0gOzsHnlEM9EmFMvLilLx5gHR5mAj4SjyMNZyAwd3RW
-   8h2an1MyC2uj/MZeNB3Eeo1tYED6jTp/bn3y55/z/JivWLO5E0V977Z2m
-   yUCIf9gFsrgS8nJVfTiP9P4OhcBYdp4t5XUPnbUtcZRKOFbMtNn9lf55H
-   9fBLNFnCiXz+dCaCkm2XBBscYKRDfix4+AFg2fTRLuHfFlCMAZ6kzbCnN
-   gBciuEIx7e1AFJuboAD3aFmLghThIaGCeac8TsqyXr461oxpTH9EGmh8C
-   g==;
-X-CSE-ConnectionGUID: +sOr7SvHS/mj/u3j4bSScQ==
-X-CSE-MsgGUID: M9uhb7rZRqe4k577HdREBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3668145"
+  bh=hkHQpO+CLu7A2P5tBnRfhW7K2EIYel+F14HpvaLCAFk=;
+  b=VuZz1tUBufjkPXX/maueruN+y4ZwPBmkBWNM/XZ3iG8WRWhxPGKZDJql
+   MdlkM90PTSV1kr+5hIwMkCoTibxY1xEx0MFBQopnjIXxM0uWLxVGjQ9D0
+   3AT2/srKUI1Xz5VFUogNeD/ERHCEC75Duzr8Wt93joqNWCYgk8EvaPrD9
+   Q+UO3yCkbBwBUY3I+hRi/hLRILHcxwT37F/QbXMBRFg3J+bP4ZKD5/Low
+   yZb1Ivbz9Wu5oj6PE++ntRZCvobIcr+IoHv6JyqZDnJvTaeEVegTQ1uHb
+   ITTLBweEwf1Z3/c1hBaKX6PBSCO8HotRmBceJrypOLALL3Z57nMIP4tzB
+   w==;
+X-CSE-ConnectionGUID: vRBH0e1/SQGRWssW1tZEDg==
+X-CSE-MsgGUID: cLRKqzdeTuCq6CFY8evklQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3559519"
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3668145"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:21:46 -0800
-X-CSE-ConnectionGUID: LrMiaeS3SLixjVVL2Vw09w==
-X-CSE-MsgGUID: BrXfmnB9StKvEQZHkNoaNA==
+   d="scan'208";a="3559519"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:22:28 -0800
+X-CSE-ConnectionGUID: 7GjPDgIISHOXKABYY5OO8Q==
+X-CSE-MsgGUID: Ewm78kIoSeODcDTEQE2elA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9754083"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:21:44 -0800
-Date: Tue, 17 Nov 2026 12:21:42 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Mudit Sharma <muditsharma.info@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: bh1745: fix 16-bit register accesses
-Message-ID: <avwqtvhrxmgLe8np@ashevche-desk.local>
-References: <20261116194214.45174-1-kapoorarnav43@gmail.com>
+   d="scan'208";a="10164062"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 17 Nov 2026 02:22:25 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 3FC5D99; Tue, 17 Nov 2026 11:22:24 +0100 (CET)
+Date: Tue, 17 Nov 2026 11:22:24 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: stusb160x: disable the interrupt before
+ tearing down
+Message-ID: <avwq4Iau0iA_TmQ7@black.igk.intel.com>
+References: <20261112065620.34269-1-mhun512@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,41 +85,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116194214.45174-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261112065620.34269-1-mhun512@gmail.com>
 
-On Tue, Nov 17, 2026 at 01:12:10AM +0530, Arnav Kapoor wrote:
-> The 16-bit colour data and threshold registers are little-endian
-> LSB/MSB pairs, but the driver accesses them through regmap_bulk_read()
-> and regmap_bulk_write() with an int or u16 buffer and no byte-order
-> conversion:
+On Thu, Nov 12, 2026 at 01:56:20AM -0500, Myeonghun Pak wrote:
+> The devm-managed IRQ remains active while stusb160x_remove() tears down
+> the partner, VBUS, role switch and Type-C port. An attach or detach event
+> can race with partner removal or access the port and role switch after
+> they are released.
 > 
-> - bh1745_read_raw() reads 2 bytes into an uninitialised int, so the
->   upper 16 bits returned to user space are stack contents.
-> - bh1745_read_thresh() reads 2 bytes straight into *val, which the IIO
->   core leaves uninitialised, with the same result for the event
->   threshold attributes.
-> - bh1745_write_thresh() writes the first 2 bytes of an int, which are
->   the upper (zero) bytes on big-endian.
+> Disable and synchronize the IRQ at the start of remove(), before any of
+> these resources are torn down.
+> 
+> Found by a static analysis tool under development.
+> Not tested on hardware.
 
-> - bh1745_trigger_handler() stores the raw bytes in a u16 although the
->   scan type is IIO_CPU.
+The same question here. Why still use the devm_* to request the irq?
 
-I didn't get this, what's the problem here?
+Thanks,
 
-> Use an __le16 buffer for all of them and convert with le16_to_cpu() /
-> cpu_to_le16().
-
-Otherwise seems legit to me.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-And you also need to add
-
-asm/byteorder.h.
+> Fixes: da0cb6310094 ("usb: typec: add support for STUSB160x Type-C controller family")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> 
+>  drivers/usb/typec/stusb160x.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/stusb160x.c b/drivers/usb/typec/stusb160x.c
+> index a2ec0565bd85..ec2f4d7f7ed3 100644
+> --- a/drivers/usb/typec/stusb160x.c
+> +++ b/drivers/usb/typec/stusb160x.c
+> @@ -801,6 +801,9 @@ static void stusb160x_remove(struct i2c_client *client)
+>  {
+>  	struct stusb160x *chip = i2c_get_clientdata(client);
+>  
+> +	if (client->irq)
+> +		disable_irq(client->irq);
+> +
+>  	if (chip->partner) {
+>  		typec_unregister_partner(chip->partner);
+>  		chip->partner = NULL;
+> 
+> base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+> -- 
+> 2.43.0
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+heikki
