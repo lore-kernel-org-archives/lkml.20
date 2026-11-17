@@ -1,88 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.189.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897119;
-	b=cTIy8g1qn7YCA6/NFUg2V28vwslZR1LGQCjJfk2eHmvQOrFEs1A2hi1qu7ngFrnH0Ck5
-	 +y/TuduVmX+D+z6ergEIndlu1xNxwk0klXO2UO6K52GE1Xp06t0rE5B/hX/XeDb9Fv+7J
-	 SSvIOypk9VyH3siJm4xqBNH0B+lBZPR25fWV4ZGUH1qQy01b6DjToc5fkuk3a3ibesXiI
-	 NUCKdOBJS50ohe65vIvXkXwQlI1R0SEq9HG4jngEjMDsvTnOLMa9KUGhP2B3EvYOBF9VI
-	 yF2aoQ+jNOSPh+Y5lD/MFB23GUQN2z/OEG7PsyvWqb0/KTJiRclzvJQnixOQ5iPusZQ==
+	t=1794897190;
+	b=In6s0kPaKNMVILDHK8oOLmFEFGyo1G/QkbajJUVMH/RK6Wwqss20Dz2doN0OPCoU5Oi3
+	 +t5KH3p2WR4S6H4uvCGbsgNAuumBFrR3h4LvaOVo6Jl/XGZZr1lIh8ZtjNRhvN8CpyYL8
+	 MSI8lFD4GBY2GyMBEJk5Ze4yzxPZ+6d5BAVzjhLrL+5UeSqr5HQ+F4jKdrpA1B3mkZrb0
+	 Q4Ux2LJhD+AjCu5yc+LrmeVrOY2zU6Y0KExtQs9mjUUS8JRbj9lKLBkRkx1mUmOCYFMyr
+	 T4C0l5HJqMOMb1YDbTejzTWvLMpLcasCJJdlSroJUP9qYB8rta9G/ZQRXEFnvSO91rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897119;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=2gJeu9lz3FypG3Skb0xDHUuQAQkZLfZt0HTmDptUfys=;
-	b=vCAhqHllhx/VA6vqYU5R8YxBf4b9kjBCa1GjkHz+iFFWCTi/ZNOnPE3lnhUE65xzBq9f
-	 yFv4AVtLAOrNZx51K78NvhsGKm9uXCgdqZzoeZ3Wu+RF0FA0HE2pxjagQivDPbLPkAc5n
-	 Vtk1cUONbtn75DZ6rEvkWKTb5I0SoYkiW/FxNO3U4ntWz6rU1MOP0QrQ4qCBsFSC0UNg6
-	 fGO9UxjRau5yA4hhNP1E/2gh0hbF9M/M3B9FoCW5SDrWHLwUGVe+0QWbqrdsZs8ucvhAY
-	 WDlMUnT1dYH7YKRKE+by63yNN1kXK/b0sDTf2N98BUd/Sp5amGzbB9nR7hXi6m+Z0qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897190;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=huuV3Cek60wDjO/LJ5DHE9f0XbXxISUlvaq1UMIUgS4=;
+	b=fPRFlZfoteE1jFCg45tJ92DFAZRCADmLepyGzmm3VxMVN6LxXFLCny5LOlUmltmMEI5p
+	 XghLyb041E1d6Dn3MYRvNSQMgr3HDwZ87DCveNcrmP82R6WY0p+LBItwAVgflwwZ5BeRD
+	 qgeHQ7sR8aiCPaodFTavEaXyfLR+flzahDCFcNnIO+rIOjmAud5ZGgGLk2g7+zgzQTZNp
+	 CmBAypJurMds4T//zNNY1dH4mFPfX2wHPxjFP1AyYVbznF9rUB72RGG9+bOEtEMGUumQt
+	 jdhhrfAVWYUqO+8519rUXWnTUjZx5fb4+IVQRFkhUeWAgUudsHt76UjGpBV6c1e7Y6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rflYPwwL;
-	arc=none smtp.remote-ip=74.125.227.134
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="gGQ/R6bi";
+	arc=none smtp.remote-ip=66.163.189.148
+Received: from sonic314-22.consmr.mail.ne1.yahoo.com (sonic314-22.consmr.mail.ne1.yahoo.com [66.163.189.148])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5F606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:31:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AE5F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649EB606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:33:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649EB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rflYPwwL
-Received: by mail-pj2-f6.google.com with SMTP id d9443c01a7336-2e987949882so29849735ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:31:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794897117; x=1795501917; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2gJeu9lz3FypG3Skb0xDHUuQAQkZLfZt0HTmDptUfys=;
-        b=rflYPwwLg517ZWGxWOumRF3ees1MTXwr5b/HV2rmh6ebq0H4+l80WIY3gONZYdJQhp
-         RGyl9gDurcGW8Oh6HFVjLvdnRfIzQ2IdFAAAR6H2/ftaNS+OTSDkP6jGDlNNXd6traH2
-         7GaRDaOaDpZnAcTXhqfFeGuFuJRCRJTfORo2ny0CNZoQh1KSCAvwiDyJl7ZqNCMkPCp+
-         m/4Cu+3r0Pv7yXt0DLd4owsvL2PvIySR3HS8flXNiVICYLJ0hLVE1Yt03jbNlNO8C7dG
-         QvU2gey374WTI9bkp/mL9JGLLo7xj5ajwvuv8ze50Bp7ekmJW24Aht4FRWvuHZv0tvqq
-         WcuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794897117; x=1795501917;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2gJeu9lz3FypG3Skb0xDHUuQAQkZLfZt0HTmDptUfys=;
-        b=HmuSn7McZJnEzAWkxt/d264DzJnDHYmW6qJ47x1JotpN0V70n+sge4kPlUs6DjaoDv
-         TUtM5dFHBM6alMdts/9LYD8p9psq2x8VRBB0LY1/S+VQxMNc2hWvhhF1uh7Fys1iNHSI
-         5sN1/6J0qYVAqVZp5IWgfkZrOaAEkmCTO8NJ7LzZX8qFnxu2HxTiJjLMYOfm6eVR+OFJ
-         QATQu53k04wFJIjkNVmKzDbnaxWKQGhZYGkRumMDoQMbakhIsHWMm6LtgEmI9/yRBii5
-         84rKVMKhEgGy6mr8rUKX9fe0fs6gAwPW9etIFXh/oM/NcrgpH+iC6i2W8TjG0/T9zwma
-         IOIA==
-X-Forwarded-Encrypted: i=1; AL+hErFo/wMMiL8reruCbHGtahtQNCJHCmSOEjhBE+BTQtvkeCjjY6lMovONg1GKgQ4R705XLZf5Vdi4PnrfS+8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ghHKBqXuZfvie6j1C0YMQY0vIKdUypftIrOIbgV4ryovCoyIv
-	WbilJRnNRWP0B/IzgOoHDGr6PngMyPK/M2RIzo4lBA9pAxoIRMGdiSO/
-X-Gm-Gg: AYBFou2BzzDTg00Kez9bty3RP69H8hf9uRGI3kKpiFiIA/VyPBdzx5l2AnBcU7YOYpE
-	HLqvRnChdyB5h5m+pyFnqthx61Cu59VPe/CnvP4OXRHOu1dOJd/bArz9X/8DY9Tfb3ztCsPpwjc
-	9Kj32fepY89b+U78O+AJIJgNktONLtxgMrp0j+EaJglJWpqYJek8FsU0QrOo+E4dlcRMu3M57NY
-	+6lN9HQC96/ydX98z534RJ0lSqdZn2HXaGXzNz9p0KhxSfev2yYqi3iM9sdaSP9ujw6IodQ/OBd
-	Yu5LBBkyYIjZAru192A8GoiaTv4XM3zonNORTKmo65vSKrIDFt4QXP3fn9AyuF58sDo2fLAE2uH
-	7PORfN+YcxhEjpAYnSLWQyJEcmlVGjFnJMaB9bmv8wY/bVPERh+BPk6VZNKBSU8zOYvWdodK8Z4
-	DNTCZQDZDW8ql3LRM2HNeS8pRMtKd7HHOJJnm2xFbCBaEN7jAx2vp6vACJs5BpKIA3qUU0DFkwh
-	PWRFpD2EBnRj7eLaYOhWM0J0e6GRI32kZgBDmLzytOQTI8RAYm8WglEd3ZI2P6/boLpfxja4xwF
-	46sJAPOMXxXtyIq0Uwf5BBPXf8diMIVb3xsochzcJswGodSC2PlC1H/CzE05qvOAcsp80Bob5Yu
-	TjKTk62IzgZ3ZUY8G4EGzf2kqUBpTFOk44MDoh//woyvGgUQCgjWJJoxxVhBONZE=
-X-Received: by 2002:a17:903:988:b0:2ed:3e3d:f0ea with SMTP id d9443c01a7336-2ee0dd2bb4emr122131505ad.20.1794897117285;
-        Mon, 16 Nov 2026 22:31:57 -0800 (PST)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a364f6sm8477105ad.27.2026.11.16.22.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:31:56 -0800 (PST)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Tue, 17 Nov 2026 17:25:36 +1100
-Subject: [PATCH] selftests/damon/damos_quota: skip the last sample when
- counting exceeds
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=gGQ/R6bi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794897189; bh=huuV3Cek60wDjO/LJ5DHE9f0XbXxISUlvaq1UMIUgS4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=gGQ/R6biH3MpAUgvETVkdxV53VOLZfTAoEiuiyvDp+rfONzSrRNgRPPAiNLYhWEG/ETBUynFzBgbdBBWk5wVe7R028gNMcncFoeGRGmNAX1eE3hyhiB3MP885tGMgPykOPSSFOXvYZxj7keA0EWf72KX6tZfrNTW0kAaRXLpJShdwwE/T45Qb9ONvulkdkgtxbwYfWtH/SyVkuiWpBF3izbpVH0kJ4x7Qi7xMvDiCU1XBrNfdp74I+O60XTLnIUlu1wmBIRP9k1SQifZASuY26c3YkaVyy3uXmaH+YpRyrzb09W7fF3O8TH15D/Nh5Rsp73YNsG2KhgqgXR3akBpeQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794897189; bh=N4B0VzXavUb5wbgzONKywbP3D33xfVpuz1E4Njf8Mly=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=DYthAqWcdhvVqYQT3SkrcsJx3UWKpK3wRTwJMfjjTETeuxz+imLKg5e1jizeq1Sn4E0EUnU8gByu+Pp168LdzYzJwIS0xmwJk6B7lXuVmW4MDZgOn+UwztFPrDKHPbewZFOVoo+NY06sFo/0oQIplvymgZfliWAB8TeOhk8LBNZThP6QKtUnJwYZoGDvrmRcRdmwZletATci8UY8YI1xW0da4p/CtZoqjInG8bKTQz1rE51FOcw6KWLEqeSly1pL+UEcqSme2gceXPzSjQQzl3mT5TEo+buUONf6QRnI0SnLCgTGlz177e9h+SiwoFclhIHklY4uwAhcMdCRDI9ipw==
+X-YMail-OSG: XUifmEUVM1mP1LuyhNURsPjpdDsPZipHvVWg740tFKWKvmNvMNLBituUEiESJEo
+ 9yUsKXNtC9xKYVpTytrM6kQpTUJ0Re_kXiVT3BpDRsXZF4JMI65J2NzSzgs5ZFj.URmV2oVSZPSS
+ V1Y1EbvAJZdWtT82s8mFypz0jFtGRvnAL6JU113Q2b3Wk_FqMiiK1PgU6dTahIHHMkJOYFuNfsmm
+ EFG1GQb5JyViiC_p8KdI7V_NFwbZckYWL30qcvEN3Dky5DByvIq19C6vI4IejFOM7lvCrqIaJUr_
+ gxvpuReKgXIHL0Rh8yJEhS8DjwrgAerRTEg3mr06mSXa.olpXLcfV2j0DKOzaDLpJv9C.6rBpp3i
+ KyNgfHlRw8HAb5dnbKR_7AC7kvZCqBcvMz4pxh02L2RvC5GVlLmZigTibWLRHoV1VE9lH7p71Kdo
+ sWFCGZdHxATlN44A6g.c_yLvTK6F0Pevl0YaBoPkFYir.n3YiqO68eHjAUaVCH2VjY1r_I9N6Lvb
+ PvoDSfRKi.t5cJIARYgvgLV2NOOoliN.Sd0BIEwEudiI6HtqRzg9nQ2LRcp0d8.lOPV3xbzD8NED
+ QvaeBmOWvB_bmourSNvxjU3z3FL194ANhYC6IJDeHrmMqmz5n3E.OF0Pnzrdh_RjwL8gURc_74l.
+ TJ4tQmkdUbZmnvtKp3pGWJslCL4bRpa3OA21J1X8fkhgBU2Ut2mZpUIBfKpRcXtYoHbB.przdQ68
+ LRTyKwpVI3f54SV1oxEm2c9uVkhD5cZAgIXiVZT8YU6RvAWDPdnnWm5afMBvJmptl4f6nAjVrWoI
+ pB2MagWbG10Ocad8apubb5_kCoQqPhcMjK6qt2eyWdVW6rkwXdNEwWKSVuvJZAjKWzbOxs7ofEa1
+ jJDqwDjD_7u5ynHf6SaEwGdMJn08Uqg3op7a5y7aiTzWi4AI1V3cJr0f3NnIW_EBbowZ8RoHX0mL
+ y8YnV.B9L4vtecCJC1vWfeFtiZJib0JEM0AzpaOVHgNudli0Gxvc7Wj.JcMozYevuxTt52v78hkr
+ Gra7U5qcQW2IR2cXVucaYoQimpnzI8n98qhZq0ZR4ZGyd_eGJh8HJvNAzmu9q.1LmFvOo1KCyNNv
+ kX7YM7HSXpF1M_tGbg27B9YfSMfvrXNn4870asXyMqDN_mOz7ohcrE_HiQfKYs35Q6s9jeuXV75H
+ syKVqN6raVNQN.d9115wXmtnKQXZwdbfUU0IUetWMWByfNJh4iW2lWqIc4Dr2cRewKbEpMg8pnLu
+ wC0_jrPZo1oG1gF1oTxoednitiMh.stazYKNbZ0MsIVI7dSrfa.EQPUCM1xx2yCpqbYP.i1GEu8V
+ tXFmwDABEUCw.CebVZSyYMpHpdkj_hDy0mVC9QLa2sdrxzNXpBcCitDq6CU7.eV.O8lT4IXoQMmI
+ CRDdmt7FB33jtNGQFmJVRs0ekKG5C8tD1PD8ccER3OL4COLJUgVH85u830V_XtVpuoqcnBL578aL
+ Er10f.pBmLEgF7xjToMYmSWXVlULjWzSRxjaDERW6Ih4x9xcWfY3RavDNEY1UCLqAeHunYmNUPBi
+ wq3UJRoXhpjloJV_CUMUDvLOpsma9YLE5UDezATrZsRedhHm1pT5OEQ54.InrCxrV711IJVmHhEY
+ 6PrBuAE5OSGVMZ8O1YED4BN9kFJw74NbglSCKcg7Lw38e5ckesBT2BiDzNa8NYq5wkJPjgkhhj2L
+ B5i2eHJrD.YW3yD2ySxi6RHPsm4c7MaW8iWrrFhtTo4SkmNeMJlhKJblN0l_PpTqOkqZ_Eh6lKuY
+ Sp35UVsgaW77cl_WsbxdPuJHaCtpawrxo6XxBbfIWI6WS3a3jzYHYECx6MkhEPbh76KL9Z.c6W17
+ 7GLMQ3j25ntVrT67ktkNMKTzG0iQv_kINlx0N9ndFiu4zPqYA2S1d8iq5TJjs16EP8neQxWqTiCa
+ Ox052opnFFLAN9fp0Hg3JgqByNq.IVUZ15fgzjGm62l7nh7KdmErv7k3seHXPHmT1we7KRpITpPa
+ V2HGzXX5u1SWwmPXIWWRO9CriZ3SDbvNCS4URVVk.Fq7aGzLic0KYKYd7ryRzHIfkiGn9zksDniz
+ pVGcIg72whQnFAWE4rDsp5E_AzlEVQbPLw10Kiq6LcuvlWeSVSY3rm8IUiW1kC56oJfchcDzA7Qm
+ S2DgPPlZV5r3rMzHHAeCGdpvLJagTz08aeFPUsyf.bs7IITzp9odwkwhDqSuSP1WBfpjFLwrgmxq
+ SDVR1.oDW7XzSAnF9vN3V0BvwM0_yjRVht5Q4XNgnp..yEYUkRON3TcjrMeEQK9geLBgrwHqqL8v
+ HNHwq54joqcfPPewq32uiKGnePizKXm6Q96Dn
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: c1f5f5d3-c0fa-48c8-802a-2c7d7cee8edc
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ne1.yahoo.com with HTTP; Tue, 17 Nov 2026 06:33:09 +0000
+Received: by hermes--production-ir2-5dd9bf4598-lsjm6 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 177cef5cbe56eaa830746ab18b49c612;
+          Tue, 17 Nov 2026 06:33:07 +0000 (UTC)
+Message-ID: <8aa852f3-86b4-49c9-95a0-e8c51ef0d521@yahoo.com>
+Date: Tue, 17 Nov 2026 07:33:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,66 +84,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v10 11/12] net: dsa: realtek: rtl8365mb: make
+ L2/LUT access work on family D
+To: netdev-bot+sashiko@kernel.org
+Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
+ fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
+References: <ddc3b324-fe93-4c1d-a4da-558c0d6e88f1@yahoo.com>
+ <179485535983.3136.18038505829775887634@kernel.org>
+Content-Language: pl
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+In-Reply-To: <179485535983.3136.18038505829775887634@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-fix-damon-quota-selftest-20261117-v1-1-c65d687d3def@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NwQ7CIBBEf6XZsxsLMSX6K8YD0MViLChLrUnTf
- xds0uObzLxZgCl5Yrg0CyT6ePYxFBCHBuygw53Q94VBtrITQih0/ou9HmPA9xSzRqany8QZ94a
- ynVCmPTl7llA8r0Rl9P+43jbmyTzI5iquDaOZ0CQd7FCjTZ/nuDuP44iBZljXH36dM/OxAAAA
-X-Change-ID: 20261117-fix-damon-quota-selftest-20261117-7c617b04fc92
-To: SJ Park <sj@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
- damon@lists.linux.dev, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
+X-Mailer: WebService/1.1.27017 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-damos_quota.py expects qt_exceeds to be increased for every sample whose
-tried_bytes equals the quota.  The kernel increases it only when the next
-quota window starts, so the last full window may still be pending when
-the workload exits.  The test then fails with an expected count one
-higher than the actual one, e.g., 15 < 16.
+Subject: Re: [PATCH net-next v10 11/12] net: dsa: realtek: rtl8365mb: make L2/LUT access work on family D
 
-Do not count the last sample.  Also drop the sorting of the samples, so
-that the last one is the latest.
+Hi,
 
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
----
-Tested in x86-64 KVM guests.  damos_quota.py failed in every run before
-this patch and passed in every run after it.
----
- tools/testing/selftests/damon/damos_quota.py | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Thanks for the review. Replying to the point about a MAC learned in FID 0 on an offloaded bridge port taking over lookups for frames entering a standalone port.
 
-diff --git a/tools/testing/selftests/damon/damos_quota.py b/tools/testing/selftests/damon/damos_quota.py
-index 879115a499bf..bdfd22f00079 100755
---- a/tools/testing/selftests/damon/damos_quota.py
-+++ b/tools/testing/selftests/damon/damos_quota.py
-@@ -53,15 +53,16 @@ def main():
-         wss_collected.append(scheme.tried_bytes)
-         nr_quota_exceeds = scheme.stats.qt_exceeds
- 
--    wss_collected.sort()
-     nr_expected_quota_exceeds = 0
--    for wss in wss_collected:
-+    for idx, wss in enumerate(wss_collected):
-         if wss > sz_quota:
-             print('quota is not kept: %s > %s' % (wss, sz_quota))
-             print('collected samples are as below')
-             print('\n'.join(['%d' % wss for wss in wss_collected]))
-             exit(1)
--        if wss == sz_quota:
-+        # qt_exceeds is updated when the next quota window starts, so skip
-+        # the last sample, whose window may still be pending.
-+        if wss == sz_quota and idx < len(wss_collected) - 1:
-             nr_expected_quota_exceeds += 1
- 
-     if nr_quota_exceeds < nr_expected_quota_exceeds:
+The mechanism is as described, and the commit message already documents it as a known limitation, including the case of a host on an offloaded port refreshing a forged entry. I would like to keep it as a documented limitation in this series, for these reasons:
 
----
-base-commit: 67f3b04b277373438f17300e056306adbd9edf7b
-change-id: 20261117-fix-damon-quota-selftest-20261117-7c617b04fc92
+1. Private FID for the offloaded bridge. The family D VLAN4K entry has a FID field, but it is only 2 bits wide, and I cannot confirm from the vendor API alone which FID the chip uses for learning when a standalone port or a VLAN-unaware bridge classifies traffic into a VLAN. Without fdb_isolation DSA also zeroes db.bridge.num, so fdb_add/del cannot tell bridge entries from port entries by EFID. Doing this properly needs hardware experiments that I cannot do reliably, and a wrong FID would break the VLAN-unaware case that was tested.
+
+2. Disabling hardware learning on bridge ports. This does avoid the problem (it was the workaround in the report), but it turns all unicast on the offloaded bridge into flooding, which defeats the point of offloading.
+
+3. Not offloading VLAN-unaware bridges. This removes the offload for the default OpenWrt br-lan configuration, which is the main use of the boards this series was tested on.
+
+The impact is limited: an attacker needs a host on the local L2 segment of an offloaded port, and the effect is dropping traffic for one MAC on a standalone port until the entry ages out. Given max_num_bridges = 1 and no EFID, I think a documented limitation is the right trade-off for now. If someone with datasheet access can confirm how FID is used for learning on this chip, a per-bridge FID would be a reasonable follow-up.
 
 Best regards,
---  
-Aveline Noir <jm5905938@gmail.com>
-
+Mieczyslaw Nalewaj
