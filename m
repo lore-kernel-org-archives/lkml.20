@@ -1,47 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910498;
-	b=y1qpkkCrHpXxyNF6tFNY7ySKzThzVdrece9HEWQPtCnzr2udYpZUB6SVP58M4gzZiAUd
-	 peMpJwzgLkIJKxVmV7k2qEA3/RRB2/ih8m3VCqm/tstzPZh4NAQF4x2BSLM9yErOudsr8
-	 gIDO/3LXUOvDAZ9Nrn8Guvqq9t7ML2ntrz+oSElnkua4tUcBVqRPAZ25cbkGcdXf1j5mD
-	 6Eio27PfcuQavd/kvmG7tjMMTWqTj8GVWgHnXHkKLliboRZgR0oIpLFjYAV47VRzoegY7
-	 QkSfO/xXc2yXx458Wj/V6l9Qj5x4isgwvJYyEnauHbIKr1OQ7RWZsiy8Y2muHpqc+Vg==
+	t=1794910511;
+	b=owwE7OAebF5Hf5zX1sk0OYCTZsjUtdgOJGnpfTSsJho1i4e7UaxtcUexE2U2nFPfPdoK
+	 /R96LYP5X8vDyv0rypHjyjXh5zHJJWRDHl8PmVU6Xnb2p930nGoBoFeNa/KyuQR/A35Nl
+	 A0i7MUMKlzxTkv8+X7RW4Khea9cJTMcf+5AtEjnVVDtGX5UdIJDZPwcjXGOqqx4sXPnzK
+	 x0y567LExK+6eL655nk9o87a8ycNH7Pr/iAAPJKNJJfmExvFXAD/y2m2/Ow/R9Ew4Xkw1
+	 7ATtsDa33SgG7j5MiuWGUV2mDVhUVJ3J9bxG7nW8gYfHTQj08kG49iZBC6DJ1KOpULg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910498;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YEoIVQrsnMK03GXZ9yaNEeHSXN3ZzTQo9mxTUCAf4G8=;
-	b=jRpKHdLybFSXXDOUGUvkvRLpgPeKtdq/EPpuwnAZAiiuwoDQnI669cwofIDwVnjHZXNZ
-	 R/qt970vTyO9N+74Zism0hi6goHuUhJ6mqVx++GFF91By9rOOTEoe5Ps68eK9prQuNT8C
-	 DM3HbWZCWy8tlM2/wY34mmoSI/KbYzL2MY0rFI/34upksIltrnU94M6y+ZTBTHNZnHz8Q
-	 90PPKRAPGcjWVQCGSCiPzs3YjVTDoiUyNTQp0FUWd3TS2WfLkxFvc3dTGLz3iEeo7Mf8+
-	 kSihsm6mQMYBVi2MZehFZneexdGtPKuz6MLcQGttWTmmmOfVqT9qEzqE4/lAstfVOFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910511;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hIRaxxo4elhQ/z0xroM1fiMsS70aRe7w7f8k/jc1eTg=;
+	b=qvWD7eUUAQ36m2w6DuXKjcfY/BSKtOrfKQ+ac46fWn8rMbIoxR8buqiFaKS5itntS2s3
+	 SHL/EySTy8/LBQt58Qqoo/yhfaUIZe+GG1fG3oQqMGFPwoVGbf2g9R0gZVK6ZUdEhLk+5
+	 iKuanv2E2cEy1or4SMTZ3aOYgYqpf1bdU+ACyOgWd8XK+bDwQW5gk+btTfaFErgK+bKsb
+	 TNwccd4mgLuOQu8C+gxWEEApa7XschD7ol+dBVT1LcYr4PbZX76kvE5ozE3IMJfwDQBrA
+	 X9Gpuo8VqGBSn/UASjMWHiT3yNxQVMeETLT+UGccFS2/Hay7XfZmw4xlSX+eCyhO1zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jk10xqb7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ZSRbgBbL;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FE7606A88E;
-	Tue, 17 Nov 2026 10:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A425A606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A425A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jk10xqb7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD5F71F000C6;
-	Tue, 17 Nov 2026 10:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794910497;
-	bh=YEoIVQrsnMK03GXZ9yaNEeHSXN3ZzTQo9mxTUCAf4G8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Jk10xqb73ij4wE1zD0h3giueyrs/bZ3osUM2i3FdxjGtaL7a25NqRKM8Oad0Pt8wK
-	 rE6ps/Q6MwB4RdkfqlI5kOOPViuhfIY1NYjwI1evG+kE/2E5vB5Kh+1H8NqPxPsEHe
-	 oGY5cokpHphOasjHfkwALeadR2rNzwN2ZL8rXH+zybpl/Lye9MOTVe+UHmGhhiXcOs
-	 4HpVAGtChL9/aUOc9aKv0E0q/vKe6Y4LLUNJkKTQmO6dO2fjJyW7u13T9tTMDzyr6y
-	 vJ++CXFROBdZO1hOJSrR9Yx263ccLouL2JjZbux2N+h8cbImOev8WPlNsaXKZpcdvU
-	 L63i6SA2NA1Xw==
-Message-ID: <46e7b998-ffad-4401-b90b-862b05dd668d@kernel.org>
-Date: Tue, 17 Nov 2026 11:14:52 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ZSRbgBbL
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a8cc11ac42so4675349c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:15:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794910509; x=1795515309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hIRaxxo4elhQ/z0xroM1fiMsS70aRe7w7f8k/jc1eTg=;
+        b=ZSRbgBbLh9xlpv74RLRKRVOgeWV6gTyyUx18BJTQuUQUfpesN6GoQmLLAGmz97x9zz
+         QXc1LAZjemPTTZauTzxRMXBE7PVe+IfBDE7zF4vzb0C/RSRIwQW21Ne0DpJp0Xs+03Ws
+         UHI/IZU62eCIpvWofst2/GDuMRbbESXE+KxXIzAAStojm1UrNmbuwFuTCq6y/ah4S/mx
+         3h/idv0+hrsqhIwRtIq5hgiDuJDiE1WrbDlbQS9Eem4YJAAG2Hxco2LPHEVH20/sPgsL
+         zWd6DiXWlpzkrDqXnZNUNwrGYfX6XAhahof6Knv0ZX5PO9Kvtj25sUcQiE3Rq0DlXTc/
+         rruw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794910509; x=1795515309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hIRaxxo4elhQ/z0xroM1fiMsS70aRe7w7f8k/jc1eTg=;
+        b=iTqGAbJK8XMniawKiQ2cGE/Nx0hkHx55lNoCnKT1IXxr6AkKLpDRrknY1qklktLKbI
+         /saKZTDJJ0wqIzL4VGNTzBruwBZgQiGxXaitxXeND3sh8QdkZ68wcvzKFcXGwc8vAkq8
+         cTuixNYtTSbzh+EQIhlPYHBL1HodLalWQjpuXHk0IVY+W8yeC/bY9vJVUUKDSeSBA4AV
+         0QViCQK9zpQ60ypFXWb1xfnhNP8v4bEHAc/yTUONGzWvgaNpwKPFQlvGJXCg2sDXJSqP
+         Aatg/mDglmo0NDxq8Ncfk2x/HTq5oRICdUlBJwI5bnajtT4Jni+Q4d9CvvobvvQghOi/
+         WmsQ==
+X-Forwarded-Encrypted: i=1; AL+hErG1RD0miZAaJyRy+/UTRYYk+bCJDidq+gAZOhClCDRi6qIFSOCwqvPpu8R0DhK8PNUxtsVkTITgB4w8NgM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KYMsLVoaew1svLI0HcPZ1y16xmmN10fgF1aKPVONpO/59shP8
+	AdRUudzlUhjUoMm8RHCYxbbkCcQPgVn316+m74xFVJd33SGh4A5pLNIR8ipN5n9gRxM=
+X-Gm-Gg: AYBFou3n3FvY4IXwRiCIIqKnbkjdPZoCqmOA3IU91KubxerPVzN0acRS6dZxbLlGtM6
+	jhGBk7ZY34Gf5B0tu6PcdvUx6/Uw4BxAebsVBvuRKz2bu9ctd+J5F3YVvC4rNaJnnRBowXaTHC9
+	7V5NYS6JLbtai5U8o3fvHTvptj/8e8JxoUGMADySEY55wjiM2dyTpreSl5pF0cEcwBmOadxvgXq
+	8Awu1NY4vff/nHJLgTG332YR2Zq52PR8Fkay99RADFhq62hhdfd5tE64P202jYF7525f9rck8Io
+	mgs9RghQcqAZcUCBeBA9enDuiCM1NxdFRzjcFU3emSf0ImncQ7mOOz3OpWDbVvaH+84SFj72HZs
+	LpAOQ+JaJIiCAUie5jzjz4p8hAfQuFkBjq43bhBNPVKuZqf/0eu79QLkjHqbN1uSP27uJPwIGfQ
+	x5ZgO6Y94hyQhc3yc299kLheQjlSw/DtfBDlFO2MaD2Mx6lbCUrsCuNB/Wy9/h5ddJmVFHcXCCw
+	lnjQH0K2e469kOtl7uFMP4PRVQGVVnF4HxBlprF0i48Qdz5Yd8gKguVov6cIrD0ILN5bzFndTSW
+	5gIJxROcTKlF9bMj/jDh5utLshhHdBFyksq6/nd3i2s5Hvrb3BlA7leZVFBvCllk1qHAbid6M2o
+	7MmzNuh5jx4LhsMUO42tg9IZJX18laaK916P6pg==
+X-Received: by 2002:a05:701b:4651:20b0:14c:8461:b3ef with SMTP id a92af1059eb24-1b50310039amr12607345c88.24.1794910509130;
+        Tue, 17 Nov 2026 02:15:09 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:cd44:de10:449c:756c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e008sm39965539c88.6.2026.11.17.02.15.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:15:08 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: lduncan@suse.com,
+	cleech@redhat.com,
+	michael.christie@oracle.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/4] scsi: libiscsi: tighten task completion
+Date: Tue, 17 Nov 2026 19:14:56 +0900
+Message-ID: <20261117101500.1894608-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,92 +99,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] pinctrl: qcom: Add qcs615 lpass lpi pinctrl driver
-To: Karthik S <karthik.s@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson
- <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261117075100.272535-1-karthik.s@oss.qualcomm.com>
- <20261117075100.272535-3-karthik.s@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261117075100.272535-3-karthik.s@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/11/2026 08:50, Karthik S wrote:
-> diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-> index 707067b9251f..abe7155f209f 100644
-> --- a/drivers/pinctrl/qcom/Kconfig
-> +++ b/drivers/pinctrl/qcom/Kconfig
-> @@ -72,6 +72,16 @@ config PINCTRL_HAWI_LPASS_LPI
->  	  (Low Power Island) found on the Qualcomm Technologies Inc Hawi
->  	  platform.
->  
-> +config PINCTRL_QCS615_LPASS_LPI
+1/4 stops the receive path from completing a management task that is still
+queued or still being filled in, so a slot cannot be returned to the task
+pool while the transmit path still owns it.  2/4 stops it from completing a
+NOP-Out sent with RESERVED_ITT, whose single reference belongs to the
+transport, so that reference cannot be dropped twice.  3/4 makes the
+transmit path hold a reference before it publishes the state the other two
+test, and makes the SCSI command lookup honour that state at all.  4/4
+stops the receive path copying a Data-In into a command that has been
+handed back.
 
-Why breaking the alphabetical order? It's not really difficult to spot
-the next entry after this one.
+v3 -> v4:
+ - 1/4 and 2/4 are unchanged.
+ - 4/4 is new.
+ - 3/4 drops the two hunks that kept iscsi_xmit_task() from handing a task
+   to the transport once the receive path had completed it: the early
+   return in the conn->task branch, and the ISCSI_TASK_RUNNING test around
+   storing the task in conn->task.  Both release the last reference to a
+   task whose PDU the transport has only half sent, and for iscsi_tcp
+   tcp_sw_conn->out.segment then still points into the sg list that
+   scsi_done() has handed back, which the next task's
+   iscsi_tcp_task_xmit() flushes first.  Mainline holds the task until the
+   transport reports the PDU done, and 3/4 now leaves that alone.  The
+   second hunk also re-added the test that commit 533ac412fdb4 ("scsi:
+   iscsi: Remove unneeded task state check") removed, so that Fixes tag
+   goes with it.
+ - 3/4's SCSI lookup refuses ISCSI_TASK_FREE as well as
+   ISCSI_TASK_PENDING, because iscsi_alloc_task() stores the state before
+   ->sc and under frwd_lock only, so a slot being handed out can be seen
+   with its new ->sc and the state it was freed with.
+ - 3/4's changelog follows.
 
-> +       tristate "Qualcomm Technologies Inc QCS615 LPASS LPI pin controller driver"
-> +       depends on ARM64 || COMPILE_TEST
-> +       depends on PINCTRL_LPASS_LPI
-> +       help
-> +         This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-> +         Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
-> +         (Low Power Island) found on the Qualcomm Technologies Inc QCS615
-> +         platform.
-> +
->  config PINCTRL_MILOS_LPASS_LPI
->  	tristate "Qualcomm Milos LPASS LPI pin controller driver"
->  	depends on ARM64 || COMPILE_TEST
+One older problem is left alone, because it is not a completion condition.
+iscsi_xmit_task() still sends one Data-Out for a command the target has
+answered, from conn->task and from conn->requeue alike; nothing is freed
+there, because the reference is taken before the queue's one is dropped,
+and skipping the send is what the two dropped hunks show to be unsafe.
+
+3/4 needs 1/4 underneath, and is marked for stable for the same reason.
+4/4 is independent of the first three.
+
+v1 of 1/4:
+  https://lore.kernel.org/all/20261113145140.282504-1-yhlee@isslab.korea.ac.kr/
+v1 of 2/4:
+  https://lore.kernel.org/all/20261113232322.395246-1-yhlee@isslab.korea.ac.kr/
+v2:
+  https://lore.kernel.org/all/20261113233938.397415-1-yhlee@isslab.korea.ac.kr/
+v3:
+  https://lore.kernel.org/all/20261115122122.1446791-1-yhlee@isslab.korea.ac.kr/
 
 Best regards,
-Krzysztof
+Yehyeong Lee
+
+Yehyeong Lee (4):
+  scsi: libiscsi: only complete a task that has been sent
+  scsi: libiscsi: do not complete a task sent with a reserved ITT
+  scsi: libiscsi: take a transmit reference before a task is published
+  scsi: libiscsi_tcp: do not accept a Data-In for a finished command
+
+ drivers/scsi/libiscsi.c     | 56 +++++++++++++++++++++++++++++++------
+ drivers/scsi/libiscsi_tcp.c |  3 +-
+ 2 files changed, 50 insertions(+), 9 deletions(-)
+
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+-- 
+2.43.0
+
