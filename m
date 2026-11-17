@@ -1,89 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794922763;
-	b=Hu5R7fy65ECDN3jh9bT7DtGu9r3+C+yGmjv93fPyS5Y4scL/XmPVCdpIT9H9KzR4nfyt
-	 EaeYmcDYK2qb5DURQGYiS5LPbX/nUd+AsIX1T3lBROFQJXPFee5R/umkEyL8l8DejBVfY
-	 Cz9wHDKAEsGcg8IlUZ4ahB3mNyKgyEDD+FxpmJVzLneJa7DF92bYj75fuDLehrTPw/zAg
-	 VmRLexEOK4gmyLHhnHQZpZSHKiMVpQL5ecIrIN18jvASs6Y1/YqE4SZaZjlaUdjGsNJ0b
-	 uU/i5Y722uDq/ixVY23XXoVdYr2S1WObKuGWFGlTk5O0A77NBTRxXBynmLLNHTFoAEw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922763;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=IdU7fuJp/dnH1scvf0X8x0Mvko0FNwn41ZqWFPzN3WA=;
-	b=EodGr0qENCrQjx6bklbwzkZQ82Xo9K61Q8ySwfhAeUXO1UeFyo7K3Iw+OGtawB4Mq6qr
-	 9LXtU/mXWn+5Ag5BscJZdfYrtH0aArUTbnLWyRG6qx393XaMHCI0/YkDEfF7M8YINuMc1
-	 9N6DAlrsCCnfQ79UJcIBbxINCi+n+4hY5xae3F3UKzpzeUvNtmLWpdsQ2QdhSiXpE+vcJ
-	 BRsC7E7KPyXjY9vdoWuyyaUBppqCNRyFpTNiNb0/jFuRgTwfnuElZr6ceBCJwrWskOEZ2
-	 xZErhRBl5qOd7D8ZRweLl3pfftc91CEQE81GWGs1wsupVd1QF1BIxP5bL0ZZYBbSKJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=IqrJ52Ec;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794922772;
+	b=EyWErOsSgJ3JQKChFJXz79aL8z3QbzwEFfiuxd8VvSkguEublWW+Elt6RlSpRtDuW9Nq
+	 7NPpu/9eYnWedLmRlAYbm/jNmev/Fo5f2Rro4PobTNzZ2DZDrEhCUe6bUbuCtwJzHrSPz
+	 Ttr5hIkhSDCNQFLHOgqJ3r0FPPM//i+LUkEaHgOOWP/vLsbxnMfppKHNkPVrwoKjYgzO9
+	 VQnsbpLNxJ12GqcfS+TKAZ/QS918+fkRzvoXK4wFwaIti+82f36XEmKLTWs7gw02UPULb
+	 g9ndmoOST4IGH9HVUzAdFGuQrMGk6QxKJWJoJJs+sd9ZLrOGzyO9mAuVZHG84iurgSA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922772;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+vj5WHBOpvfWIdOOU2vveRF7fJbLzDa1R2TQY8Zim/M=;
+	b=jSHRAOSqIiAtvUD5XQC/h5jEdp0COveFlyRde52/ikWWb9WbcSIJLazZR0UGKyzzq01d
+	 rYT5NhtWYTygBFUZdTbEGzvsdEbPhYWpf2t/ZcH7iXXCMMmrCdrrZzjKI9fYCQWv/CW8i
+	 L73I8EFQAHi4WA6aPc4SKYolsN23gTrdDINOPJf2xs70x+gVHWose7GcrQtUl+3+NWM8h
+	 Jx09KLybOI27g7T8vQRcmRcR+kE2UNLUUJoZKJp9qBj3CltP8hDxbAdCp40wgtyMSzW3W
+	 gghuKUzeIIn5kGqxIrpR1ijgXVlRl3r4oXEHHGYLv5w2h+en3jaBDd0uxCq+PaPB4Kg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E73qLr6x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED371606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:39:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED371606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6A815606A323;
+	Tue, 17 Nov 2026 13:39:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=IqrJ52Ec
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3B278205A39;
-	Tue, 17 Nov 2026 14:39:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794922761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IdU7fuJp/dnH1scvf0X8x0Mvko0FNwn41ZqWFPzN3WA=;
-	b=IqrJ52EcQB7KtKd4Q+4hL6i4QV1xPruULZAZRg/p5huJD8t+AJ9bfqYZQlJMZfmaBAQ4Rx
-	xhhQekpg4YdOUqXTuDMyU2/2MilRIXXNNxeohkQJX/qnug+Z+cONpHAOq0EISxowRect+H
-	AHjfan9k6csElalxS5BfrHwjtxdu/BE6sSpgFEvxoUTTN23EkbkKoL54g/KdoifOWg0erA
-	pi1nX2wqk9y7TD7Vn86YHzTEgeIU2BPq5oBQ28K45Lv/OLBCkRj3HZ+IVa4RyUWRbRKKTY
-	ElBFveTKjq/vncXHJ6MjC18hxJi+H6qMpDy50v+CUnzUCylvLPFW5tduV/DS4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794922761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IdU7fuJp/dnH1scvf0X8x0Mvko0FNwn41ZqWFPzN3WA=;
-	b=Kq5I1MuJfKh6Azmvb7Ey8yQAkfAnfOChz1CjjFuJFxG6irvcQD5QIsRBgUm0slx5QYLc/3
-	JfRIclKbIixutIASX6WMDX7S+vVobcVC50GEY2BRQaL+o77FcZ9xCfAw8THCUH9Ka+Gz+7
-	7IL8IwK1tOyEEqeJhAkslm6NOZxpUXFLaE2Mx9yYSjxjIak+qXTvxnAJEy3u5KnuqCz2zR
-	DiO5ud3cPMLq7I5tDuGeluowHe02caRJjHHXwxCy0SbIprlKk5KCRbyCaO90Qq5R8AlzEp
-	PdROgqsrcV3ibWRxlz7aIcwR+Pz4d2c00BccZ8yobLP3WZvwvwGD34tLoxqS1A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794922761; a=rsa-sha256;
-	cv=none;
-	b=DLqcwKvPtrnnSk1aNsfKX7Lj4L1BOfpCPaaI7y2GfQnl3UBnGhtmKDtIRFCcnIWfvOWrX4
-	gJ+ZYS+tYUKFFVjwu3uHB5u3oQq0NXMGlqoogP6zEOi8B+vnCzTsJMZFDrH39ZtRSAT6+6
-	58RLi28+c1BHjFvaxiOqa9zYZcj64XzTKVxMuwXXpaFByYUf+MX4e0GMuAGkHWqC/82raI
-	x1YLiQHGp6BKGCecTeq83hAbZUmWUDvWgBlUJ4YfkfSpKlLGmow9WKmp/zFSYw99nUwusm
-	qH/pPDA2NLHZYUGUPgVxHBIH40+Vb+a/mibcuZi+/vJXReyMezroE1Sb0C+7sw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <9f67320a8b2629ce9010ed597a925c3919f3ad7e.camel@pengutronix.de>
-Subject: Re: [PATCH v3] reset: core: honour optional resets when the GPIO
- fallback returns -ENOENT
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yang Siyuan <hsyysy@163.com>
-Cc: linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 14:39:21 +0100
-In-Reply-To: <20261117110812.20371-1-hsyysy@163.com>
-References: <20261117095503.14115-1-hsyysy@163.com>
-	 <20261117110812.20371-1-hsyysy@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E73qLr6x
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 80F1C1F000C6;
+	Tue, 17 Nov 2026 13:39:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794922772;
+	bh=+vj5WHBOpvfWIdOOU2vveRF7fJbLzDa1R2TQY8Zim/M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E73qLr6x4QJlH+ZxnhmrkQJto+Ns5sNs9PEbdG8bFdZQRtJZ1mLnMOwFlchXSD706
+	 J35gWl4S5vLgMs8JVTtEXrOndY+iUIwdNoRawFbdvxNcSDZw8KJ2qmURrd6UcQGli7
+	 r93/AUDBq8DsAP84kQh9zIv6u2chrFfY3/RP3krXtq4zUjQj+Xu8iLm2ZUxG7iN32h
+	 QLpevIgpU6+0AXJu/aq5cia+zeAwLfzYkDNAYsXbXNcN9XzRLKbeM8UFVEJ7jNmP/I
+	 r4uhNbxnvfEMZlAFgP2YWjX0TT1vrUO2CU++gRvgo29TywvOEjxaPy60dZafPbo/pL
+	 HT9qt2O9bD5hw==
+Date: Tue, 17 Nov 2026 14:39:27 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] software node: make swnodes hold their own references on
+ parents
+Message-ID: <k3yo7tpvb33prcuuw2a2qthvuww2edb7tsszj5hxlkcfaurt7k@m2czeig46clb>
+References: <20261106-swnode-kobject-parent-ref-v1-1-77dbd7213dd0@oss.qualcomm.com>
+ <avxEGiacULc2eciv@hovoldconsulting.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,22 +63,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avxEGiacULc2eciv@hovoldconsulting.com>
 
-On Di, 2026-11-17 at 19:08 +0800, Yang Siyuan wrote:
-> __fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL by
-> returning NULL when the requested reset is not described in the device
-> tree.  The reset-gpio fallback breaks this: when
-> __reset_add_reset_gpio_device() fails with -ENOENT, the error is returned
-> even for an optional reset.
->=20
-> [...]
+On Tue, Nov 17, 2026 at 01:10:02PM +0100, Johan Hovold wrote:
+> On Fri, Nov 06, 2026 at 12:13:28PM +0100, Bartosz Golaszewski wrote:
+> > In swnode_register(), swnode->parent is assigned before calling
+> > kobject_init_and_add(), which normally acquires a reference on
+> > parent->kobj via kobject_add_internal() that is held until after
+> > software_node_release() completes. However, if kobject_init_and_add()
+> > fails before acquiring the parent reference or drops it on error in
+> > kobject_add_internal(), swnode->kobj holds no reference on parent->kobj
+> > while swnode->parent remains set.
+> > 
+> > With CONFIG_DEBUG_KOBJECT_RELEASE enabled, the random delay in
+> > kobject_delayed_cleanup() may create a situation where - when
+> > unregistering the child node and then the parent - the parent object
+> > gets released before the child who's left with a dangling pointer.
+> > 
+> > Acquire a refernce to the parent swnode when registering the child and
+> > drop it on child's release.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Fixes: 59abd83672f7 ("drivers: base: Introducing software nodes to the firmware node framework")
+> > Closes: https://sashiko.dev/#/bug/linux-82933c14-d212-49f1-bd2f-d4ab1e16fed7
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > ---
+> >  drivers/base/swnode.c | 10 +++++++---
+> >  1 file changed, 7 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
+> > index 84a77ffa3dc4bbcca62bbe67c3390693500b01ea..986dcb933d2c9274e9000968f115d7fccc2d103f 100644
+> > --- a/drivers/base/swnode.c
+> > +++ b/drivers/base/swnode.c
+> > @@ -843,11 +843,12 @@ static void software_node_free(const struct software_node *node)
+> >  static void software_node_release(struct kobject *kobj)
+> >  {
+> >  	struct swnode *swnode = kobj_to_swnode(kobj);
+> > +	struct swnode *parent = swnode->parent;
+> >  
+> >  	fwnode_links_purge(&swnode->fwnode);
+> >  
+> > -	if (swnode->parent) {
+> > -		ida_free(&swnode->parent->child_ids, swnode->id);
+> > +	if (parent) {
+> > +		ida_free(&parent->child_ids, swnode->id);
+> >  		list_del(&swnode->entry);
+> 
+> Why not simply
+> 
+> 		swnode_put(swnode->parent);
+> 
+> here?
+>
 
-Applied to reset/fixes, thanks!
+Because swnode_put() doesn't accept NULL. I have it on my TODO list to
+add it but this is a fix, so I want to keep it minimal.
 
-[1/1] reset: core: honour optional resets when the GPIO fallback returns -E=
-NOENT
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D586a87701101
-
-regards
-Philipp
+Bart
