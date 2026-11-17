@@ -1,81 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910399;
-	b=e+TdFRfYkRyjPVYzbWnzNc9NGDlYh1Hc0IkuxOryXgMOj3I0B1GymmHGqeESM3NgJDLO
-	 Gn+XsaV0MAi2mtuEbte51tpn813RjcTytNxQ7nHKFpPAvW7W1j3gOawzZYVChol3sp8QS
-	 kwPo2t8KD8VHPurrBdtrv2WxGaUwWWdagq0B5bRGEBSO+oL0FuGkFLrOGGXAKbgY/NqDO
-	 cVLif+LSLakxTAbP4fzqkalLh4RJYT+8RhVKIdY23T8aQSx+mp4125D0kXc9P0/rxCc4p
-	 fGGfCl1sPK1VTWPCIlYwHN1l1Zyzr6rjP+kIjbltwvhF79cS03Yj6B9i2wTuxcnOasg==
+	t=1794910435;
+	b=XJvRIqDQlMCihdgriqyMGhnSHRd5waAD70+Uk0ax9W533iPG80QIYdHwiF0hy9qO5Up3
+	 01+zow6E2g8zHJQHmSF5twCQiYplARjVSwkd0DttxYscHbIHJqxZlew7c5MfJaTWUz42o
+	 XUyMMldmzYYTrzOAMIbyzjORkOMHI6deFaDqULapx7xUYgAZhr5jfiq6YV8KYgBhf70x5
+	 jggJqXqkR19OuYmFrqp9ljjq4zNcMC0cQdPt2JTfKFk/Wh+teAxVzuQYWquMdxboEGzWK
+	 s3YeBliIkv9Zw1y++45WkDw99002JoZmVA7eijYaflUpvWina5Ljhms6VStjl2DDmuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910399;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bjegpoisEbZi471m0jCHyTug5TPNI/ZEHYUEeklKtvE=;
-	b=lo3wAZyf/uVUpz54SkzJyU2OEjek9nOyxr6AdP6vZTPzUrkHZshoM1p6f4PwX2xEsfOv
-	 7K9uK9BaTAuWbi9+YH1hP5hstNAIBpkDfMT0J7Jjg1ESRwpR0e/pJgUjqCHBogG+koGNk
-	 tER7cJwuKFUQrmvzHEQdATiJhEuCVS0Zf+U43Ca0oV8QyKdAAQAL7KVfKeZCtoDj3gzEE
-	 HhDfTRtkYM6lE2+X4XeHiZzgssCncapz9ykgGLnC6Qvvg30gp2NWiY6NLvtSokS6ioEh/
-	 SZv2hamVxkEZ2n5DOIozgTlczMwFC7ltAC3EhGIeefx2xuMPT8O9XzpURA9FH4WstjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910435;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QjDGLtqha/cHdnXW5I0ZL32wkEI+9zARmUCyRqpihY0=;
+	b=f4Q7QwTSqMO7QUNnybCac6r7NVARyo9Mf22i8xrjROktZWFYkASGhYvaDU49h3XyCZgk
+	 nmIKXF6axQg0vRw6vtOiG/Nv7OAkcTAomzDqRUQkC9Tu07ru+HW/TMn81LI4btGGCIBCb
+	 gO0XWFU4m8V19TGTQg8GxnzTZ5g1Alb//+kIFx6+INeahW6ufxq+JbWSN/ibbWm7LG0E0
+	 REPtXDRZ7i7NK/VK6e4GGq6MyTfB9TiEX4IjJNBhqTL3+HTnUwsYMJGaimCzD912+jTuu
+	 1B7d1SarJBAHuK0YLb+XwfG1baY7EUZjwdjHuvdPq5i0bNv0PBd9GpXPpIZwGMaEW+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCWhJkXx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrfsZQnQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F7D606A323;
-	Tue, 17 Nov 2026 10:13:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1E7606A31C;
+	Tue, 17 Nov 2026 10:13:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCWhJkXx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E4161F000C4;
-	Tue, 17 Nov 2026 10:13:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrfsZQnQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6F81F000C7;
+	Tue, 17 Nov 2026 10:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794910399;
-	bh=bjegpoisEbZi471m0jCHyTug5TPNI/ZEHYUEeklKtvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lCWhJkXxe0cd+l/aKM456yX2OjBqh13wZLpZEuhQM2jbS+ys2teSairW1BLSqz39H
-	 P4f1JlzNK1bP5fmVazLr6E5YpPmsAcCQWyZ+aMjk3YRRoY9x2c1kd2Xy11NmZPQZZ/
-	 nBLIKujMVtHAYFMKk4FRiUcSm4e9uJ2iths/rBov6xl3NUUlHEfIktYnFJkS1dsS63
-	 HpxgCf6kyYS8Gexowd2VVgg8+fLYPehQU6LUGZLe8sajy32NEX0nTKUuHyLs93tyxk
-	 991CZ2XvEZcZiNJbKxs96PsQHM3YRz2jd1+SL1g1rShIJFNzja9UdHZSDWpX+4v+Rj
-	 U++7nPWw4FK5g==
-Date: Tue, 17 Nov 2026 11:13:07 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mel Gorman <mgorman@suse.de>, Andy Whitcroft <apw@canonical.com>,
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
-	Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>,
-	Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH v2 03/15] mm/hugetlb: preserve reservations when
- shrinking on HIGHMEM
-Message-ID: <avwos-qF9ADmdHIT@localhost.localdomain>
-References: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
- <20261116-fixes_hugetlb-v2-3-4dd9e94ea9ac@kernel.org>
+	s=k20260515; t=1794910434;
+	bh=QjDGLtqha/cHdnXW5I0ZL32wkEI+9zARmUCyRqpihY0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SrfsZQnQM0pDXE13ETnnK92O6M4fhhjmkDWSdzv9Mt7TB1COZ6ysr/Qy+NzN3ch7x
+	 ofybs/5XfaQ0w0WVSLoYseCwra4/ZRwX96nPpX7UND/09qJAJR0aDJBL6kqBzAO6Qy
+	 CjQ3be2+txUdWcrBKZSQC8YXc3TDG19gPZSdvFraFgMDpKg8CP3/ZwtQXGh9LFGX/1
+	 /kPgCWOM7lImiQFg+xiStMWRw/V9hqiCQqk+GVD6aQhneMPHR4BLc0pnmziJAj+dxx
+	 LmvH/ZKoiyOraSk9I+/+WlA+CmjnwCSicmnpLjd2AFPOM2DrfTvHjEd2xMeIqRD61t
+	 TND6W2YMrZuMw==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xTGCG-0000000470b-14mI;
+	Tue, 17 Nov 2026 11:13:52 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 3/8] software node: fix device_add_software_node() kernel doc
+Date: Tue, 17 Nov 2026 11:13:31 +0100
+Message-ID: <20261117101336.980216-4-johan@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261117101336.980216-1-johan@kernel.org>
+References: <20261117101336.980216-1-johan@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,30 +75,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-fixes_hugetlb-v2-3-4dd9e94ea9ac@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 07:29:24PM +0100, David Hildenbrand (Arm) wrote:
-> try_to_free_low() drops the hugetlb_lock while freeing lowmem folios.
-> set_max_huge_pages() then resumes freeing folios using the
-> min_count computed before that unlock. Reservations created in between
-> can consequently lose their backing.
-> 
-> Collect lowmem folios on the caller's existing page_list instead. Keep
-> the hugetlb_lock held through both selection passes, and free the combined
-> list at the caller's existing unlock point.
-> 
-> Likely not stable-worthy.
-> 
-> Fixes: 1121828a0c21 ("hugetlb: call update_and_free_page without hugetlb_lock")
-> Acked-by: Muchun Song <muchun.song@linux.dev>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Software nodes added to a device by device_add_software_node() are
+always secondary firmware nodes even if they may be stored in the
+dev->fwnode pointer.
 
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Fix the kernel doc which incorrectly claims that a software node added
+using this interface "could become the primary node".
 
- 
+Also clarify that device_remove_software_node() should only be used to
+remove software nodes added by device_add_software_node().
 
+Fixes: e68d0119e328 ("software node: Introduce device_add_software_node()")
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/base/swnode.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
+index ce4efc506b9c..b2593b2fcada 100644
+--- a/drivers/base/swnode.c
++++ b/drivers/base/swnode.c
+@@ -1048,9 +1048,8 @@ EXPORT_SYMBOL_GPL(fwnode_remove_software_node);
+  * @dev: The device the software node is meant for.
+  * @node: The software node.
+  *
+- * This function will make @node the secondary firmware node pointer of @dev. If
+- * @dev has no primary node, then @node will become the primary node. The
+- * function will register @node automatically if it wasn't already registered.
++ * Register @node if it was not already registered and make it the secondary
++ * firmware node of @dev.
+  */
+ int device_add_software_node(struct device *dev, const struct software_node *node)
+ {
+@@ -1091,7 +1090,8 @@ EXPORT_SYMBOL_GPL(device_add_software_node);
+  * device_remove_software_node - Remove device's software node
+  * @dev: The device with the software node.
+  *
+- * This function will unregister the software node of @dev.
++ * Remove a software node added by device_add_software_node() and
++ * deregister it if this is the last reference.
+  */
+ void device_remove_software_node(struct device *dev)
+ {
 -- 
-Oscar Salvador
-SUSE Labs
+2.56.1
+
