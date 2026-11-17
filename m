@@ -1,64 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880880;
-	b=c+gx4dPoxgGIFVrCrBHJnoIpiYMbaxcf2k/24kn8fctEEcmROa4a9/ir3GA6xbOfIbee
-	 VUvwXwJ004cd0tpPiRcjnUvHbg3ipXVo9SmwpyWHtsDTvrPXONXdbzXblmgY9NhfQ6awI
-	 SQVfjQhZkkbtiQ3oItgMIaD0UHMS/OTfQYYFCbY5HdbDVqpMMBbh0zDzz8l0sf7ag36jc
-	 t5ZArCbnyILWV7SuO4X4g08gackiqpuJuQOHvLtrfMx8NkVWHLmGMxfns691P2yyOu1cs
-	 F+oIQ8V9D60g5u1zo8ntqxSP2aZzRwNiWjOAbtHPiCC52ytH82YzxGg5swl3hFq4eKA==
+	t=1794880919;
+	b=htFCQfbybUDFZnNxTnxTZHVQPSFjC4tQoIY42eScJcwEiUuH8tnfdBoF5XIV1ulu10v8
+	 IQz/ff56onra4LJolMyNGsnlBqeca7mgYB7h2YihAi6ShCgjqc9VBnpQ2svl4a7+bxPg6
+	 Ee7G0qUVrbpZIuXK9USP2UYxWWeDgiLbtvA9YeN8a0fRCIL+5zstM1dvF+8ijsy0AhEP4
+	 sbCWpkWvkMMewaWlIzm6maQycS9grzWyVcoO2oXxULW4NZt8tEQmkJI5sH5udHiZqA+f7
+	 5rJFO+ieuxBwInkSCD/TvC2DrS7WjhzCVTgCgOlZFkPrj2juJ3owGevxYTihrlglmFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880880;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uOsHFAtogT/MrzfNUERoWDcF2GRA3UI2D+Hhin/pE7c=;
-	b=msTj39BXoKdQ3t+yAHYcyc/yWn98ge+s58dnNs+TQb9MXifiQsuF7oused+uP/PLdPcO
-	 U6Npa6UVqs+TFSBs0ilSbDIsJ6v00t7oiSKLiJAojue5st3AnORazpC4z213KXMB5sADT
-	 0MHrk2lJXs4TW07vLvmSNVqkcKEvwHgf7FJ25VLpXOJxKxpQxBjv75tx+2GlLi5giADk6
-	 aCNXrUxVVfbR4CkHCo9uayvrvAMSJrVbUhD0TmOXg1vRQDuZG4CdTuZt8ZQCQ7wDI5tHl
-	 J3encv5XhsCYxJEgmi9E5/wZmfLvHEyVoMe91d8BpNTA3ahSWSn6Hg1fOi5BNKusJfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880919;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=Ku0j2RSSECTD5D5F5xIHoIOwMMHflp1GoH9WYHEowKI=;
+	b=X7yPZdOCgYVrI63BQRxEgAbmpk2mWfTvaMUuZm/yBjEF4xKN0J0vN58SjibG9L1HX6zI
+	 61by9ZfKDzP/+RbHtZ+J4WxFPYnnxz8Pjj10MfP8POwl8LvTxKKatN4wyfkGO6DPViKKc
+	 hWOQOc32p5UNy6AWvC1woSB83A/LXYkAHQhzdz0UNSZX/65XLLm3/Kb/WS8/NyhKhXO9U
+	 SrIVgK5DTBbjk8qeu1fXOMDrGXD3KbXPAzYMc1Ev61xXlV5j9ZzjGuobxIvLPjjZzxBTR
+	 63rBpATRLc6TLPCGITjLSHhzykf2TXZz/sv9hT65Kiu2m2GyHiORobW8cCfOsdrRm7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=qCO4mJZT;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61FAA606A31C;
-	Tue, 17 Nov 2026 02:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61FAA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=gMgLOzw9;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17A7606A31C;
+	Tue, 17 Nov 2026 02:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C17A7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=qCO4mJZT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=qCO4mJZTMDd0Kz8fFDtxZGi3prdj2CsONaUObuHjJNrsB5AuP180X8kL/pmxZzUnVUDtBEm/3oGG/
-	 gp1sLeVMf5uWr0z9NpQ0oUhpgskut5Q5ub+zemwe8beJUgfOOMMsYhZXK7jqb88Zq418/daOd+QOL4
-	 1ffnHN3dwGt/23Ac=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96afbb56cbc0-09369;
-	Tue, 17 Nov 2026 10:01:16 +0800 (CST)
-X-RM-TRANSID:2ee96afbb56cbc0-09369
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86afbb56a481-07544;
-	Tue, 17 Nov 2026 10:01:16 +0800 (CST)
-X-RM-TRANSID:2ee86afbb56a481-07544
-From: Luo Yifan <luoyifan@cmss.chinamobile.com>
-To: Chaotian Jing <chaotian.jing@mediatek.com>,
-	linux-mmc@vger.kernel.org
-Cc: Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mmc: mtk-sd: roll back clocks when msdc_ungate_clock() fails
-Date: Tue, 17 Nov 2026 10:01:19 +0800
-Message-Id: <20261117020119.19847-1-luoyifan@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.24.4
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=gMgLOzw9
+Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGNP9wq2501538;
+	Mon, 16 Nov 2026 18:01:48 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=Ku0j2RSSECT
+	D5D5F5xIHoIOwMMHflp1GoH9WYHEowKI=; b=gMgLOzw9LmZW/RuyYjOzGznNtyW
+	BPovHIqvU89vqC1dxAvGlNO8uw32EhP78GI5Pfr6cxQOdsvv+x7UbS/PpjafVi8w
+	JApvhOvR93mrpXJ/PMsy2AcdygKUacYfLDvpqJl8YNfB4SxL0pvEUJPavqwjfJAQ
+	yJ05S64GGHDRBFm3cq4r+oZZn6ihwXuFegscoSLbAsNEsXTK0JP1P16/a27EKEmy
+	A+SjsHZAJzJBnQXPTTYHGLkvBqyKyWPTRmVqfgHB8Za7Miw8FvPZlegYSt/uHc0L
+	sht/gfA4Vytf5IXOHeyEWGEr6B2vLtf7gijgqtAjLcqj2qi7fBs6IzHpB6A==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hy95pb7ek-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 16 Nov 2026 18:01:48 -0800 (PST)
+Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 17 Nov
+ 2026 02:01:47 +0000
+Date: Mon, 16 Nov 2026 18:01:46 -0800
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+To: Stefano Garzarella <sgarzare@redhat.com>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>,
+        George Zhang <georgezhang@vmware.com>, Andy King
+	<acking@vmware.com>,
+        Dmitry Torokhov <dtor@vmware.com>
+CC: <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Kyle Zeng <kylebot@openai.com>,
+        Michal Luczaj
+	<mhal@rbox.co>
+Subject: Re: [PATCH net] vsock: only undo SS_CONNECTING when connect() fails
+Message-ID: <avu1igVm0ZpwRuWB@devvm29614.prn0.facebook.com>
+References: <20261116-vsock-connect-close-v1-1-43fb125973dd@meta.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,117 +84,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261116-vsock-connect-close-v1-1-43fb125973dd@meta.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAwNyBTYWx0ZWRfX9UTifV07RlfW
+ slr0AuCt/kRd2KZsuyTloN/zNF4zT3hqKGBGPer70FXnkQgEJptDU3x1sYhIwaOlDIXDxGSn8HR
+ 9r6/vHQaoeryzgv81wIV7P6ISfor3h78T4l9p2eM15CZZhaVqx2iaPPWAJvbQHMqjXFHrjz7Elg
+ SLUaeDz3TSUW1h/Q3QSz1+rla1HPSKXH1Ng0IOCyjuz/J0AYNtsM4UuSg7DFtw8vvCnqvflDAk8
+ Cu/AIfVPQhIobfiJEItUkzWGkQkcZZJrWGT/iTv3S/nXZEEoioy2mvowze0RQ/dOFzF7Gd1tngQ
+ c4Xq+cj4P7JaxxktCfGH9MHaSHmbi8AN0Rn6XkzRxq+cl7nVF0WwVflMofOO9b5FKlygy/Axsgg
+ nydTkYYYLjnNgmMW+7eht1RWdhsqkOylYAqS3xygI108uZl2uzlBRiNbW4YhK3EnppCsL5VDZpY
+ 4lH5ReWNbwGLMrXrnWA==
+X-Proofpoint-GUID: 0JjRKIriMoQB9BLde1FIFIMcAIDj5FOg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAwNyBTYWx0ZWRfX53Ayfa6u3Cnb
+ xsgUk8LJMF183vp9ZXV96IRlF2CQnd+FQ6J9HiXqtMSjUvXNEHxk5zU10CTmHgRALRdlYdxNcLr
+ 4OySwOPDsNNyEv3cT5Hleuj9mWcobes=
+X-Authority-Analysis: v=2.4 cv=Yuea1IYX c=1 sm=1 tr=0 ts=6afbb58c cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=kkcUborcUVj0H7zxAXTl:22 a=VwQbUJbxAAAA:8
+ a=LG5T7v2SAAAA:8 a=VabnemYjAAAA:8 a=X65phdXsX5pB4qzOv-sA:9 a=CjuIK1q_8ugA:10
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-ORIG-GUID: 0JjRKIriMoQB9BLde1FIFIMcAIDj5FOg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_07,2026-11-16_01,2025-10-01_01
 
-msdc_ungate_clock() enables h_clk, bus_clk, src_clk, src_clk_cg and
-crypto_clk before enabling the bulk clocks, but ignores the return values
-of those clk_prepare_enable() calls.  If one of them fails, the function
-keeps going and returns the result of clk_bulk_prepare_enable() or
-readl_poll_timeout() instead, leaving the clocks enabled so far on.
+On Mon, Nov 16, 2026 at 05:57:53PM -0800, Bobby Eshleman wrote:
+> vsock_connect() sleeps with the socket unlocked. Meanwhile the transport
+> can complete the handshake, setting sock->state to SS_CONNECTED, and then
+> reset the connection, e.g. in vhost_vsock_reset_orphans(),
+> virtio_vsock_reset_sock() or vmci_transport_handle_detach(). When
+> connect() gets the lock back, it finds sk_err set and moves the socket
+> back to SS_UNCONNECTED. Userspace can then connect() the socket again,
+> and a connect() to a CID on another transport makes
+> vsock_assign_transport() release the transport the socket was connected
+> on.
+> 
+> Only move the socket back to SS_UNCONNECTED if it is still
+> SS_CONNECTING. A socket that got connected stays SS_CONNECTED, and
+> another connect() fails with -EISCONN.
+> 
+> Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Link: https://lore.kernel.org/netdev/20260909-vsock-connect-reset-closing-v1-1-50298b9ccfbf@rbox.co/
+> Suggested-by: Michal Luczaj <mhal@rbox.co>
+> Reviewed-by: Michal Luczaj <mhal@rbox.co>
+> Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> ---
+>  net/vmw_vsock/af_vsock.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+> 
+> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+> index 1d7d53542724..6395c6a7b0b1 100644
+> --- a/net/vmw_vsock/af_vsock.c
+> +++ b/net/vmw_vsock/af_vsock.c
+> @@ -1704,6 +1704,16 @@ static void vsock_connect_timeout(struct work_struct *work)
+>  	sock_put(sk);
+>  }
+>  
+> +/* Avoid breaking the socket when another thread has changed its sock->state
+> + * while we were asleep.
+> + */
+> +static void vsock_connect_close(struct socket *sock)
+> +{
+> +	sock->sk->sk_state = TCP_CLOSE;
+> +	if (sock->state == SS_CONNECTING)
+> +		sock->state = SS_UNCONNECTED;
+> +}
+> +
 
-The probe error path then calls msdc_gate_clock(), which also disables the
-clocks that were never enabled.  The runtime resume path only propagates
-the error, so the clocks stay on and the next suspend or resume works on
-an inconsistent clock state.
+Actually there is an issue in the guest netns series that I think would
+be fixed by moving TCP_CLOSE within the conditional block here. Will
+respin tomorrow.
 
-Check every clk_prepare_enable() and unwind the clocks in reverse order
-when one fails, including the controller clock stabilization timeout.
-Since msdc_ungate_clock() now cleans up after itself, a failure from it in
-the probe path can go directly to release_mem, without disabling the
-clocks a second time.  The other probe error paths still gate the clocks
-through release.
+pw-bot: cr
 
-Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
----
- drivers/mmc/host/mtk-sd.c | 54 +++++++++++++++++++++++++++++++--------
- 1 file changed, 44 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/mmc/host/mtk-sd.c b/drivers/mmc/host/mtk-sd.c
-index c9c6367553..49238acedb 100644
---- a/drivers/mmc/host/mtk-sd.c
-+++ b/drivers/mmc/host/mtk-sd.c
-@@ -957,19 +957,53 @@ static int msdc_ungate_clock(struct msdc_host *host)
- 	u32 val;
- 	int ret;
- 
--	clk_prepare_enable(host->h_clk);
--	clk_prepare_enable(host->bus_clk);
--	clk_prepare_enable(host->src_clk);
--	clk_prepare_enable(host->src_clk_cg);
--	clk_prepare_enable(host->crypto_clk);
-+	ret = clk_prepare_enable(host->h_clk);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(host->bus_clk);
-+	if (ret)
-+		goto err_h_clk;
-+
-+	ret = clk_prepare_enable(host->src_clk);
-+	if (ret)
-+		goto err_bus_clk;
-+
-+	ret = clk_prepare_enable(host->src_clk_cg);
-+	if (ret)
-+		goto err_src_clk;
-+
-+	ret = clk_prepare_enable(host->crypto_clk);
-+	if (ret)
-+		goto err_src_clk_cg;
-+
- 	ret = clk_bulk_prepare_enable(MSDC_NR_CLOCKS, host->bulk_clks);
- 	if (ret) {
- 		dev_err(host->dev, "Cannot enable pclk/axi/ahb clock gates\n");
--		return ret;
-+		goto err_crypto_clk;
- 	}
- 
--	return readl_poll_timeout(host->base + MSDC_CFG, val,
--				  (val & MSDC_CFG_CKSTB), 1, 20000);
-+	ret = readl_poll_timeout(host->base + MSDC_CFG, val,
-+				 (val & MSDC_CFG_CKSTB), 1, 20000);
-+	if (ret)
-+		goto err_bulk_clks;
-+
-+	return 0;
-+
-+err_bulk_clks:
-+	clk_bulk_disable_unprepare(MSDC_NR_CLOCKS, host->bulk_clks);
-+err_crypto_clk:
-+	clk_disable_unprepare(host->crypto_clk);
-+err_src_clk_cg:
-+	clk_disable_unprepare(host->src_clk_cg);
-+err_src_clk:
-+	clk_disable_unprepare(host->src_clk);
-+err_bus_clk:
-+	clk_disable_unprepare(host->bus_clk);
-+err_h_clk:
-+	clk_disable_unprepare(host->h_clk);
-+
-+	return ret;
- }
- 
- static void msdc_new_tx_setting(struct msdc_host *host)
-@@ -3130,7 +3164,8 @@ static int msdc_drv_probe(struct platform_device *pdev)
- 	ret = msdc_ungate_clock(host);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Cannot ungate clocks!\n");
--		goto release_clk;
-+		platform_set_drvdata(pdev, NULL);
-+		goto release_mem;
- 	}
- 	msdc_init_hw(host);
- 
-@@ -3186,7 +3221,6 @@ static int msdc_drv_probe(struct platform_device *pdev)
- 	pm_runtime_disable(host->dev);
- release:
- 	msdc_deinit_hw(host);
--release_clk:
- 	msdc_gate_clock(host);
- 	platform_set_drvdata(pdev, NULL);
- release_mem:
--- 
-2.24.4
+Best,
+Bobby
 
 
-
+>  static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+>  			 int addr_len, int flags)
+>  {
+> @@ -1862,8 +1872,7 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+>  			 * sk_state == TCP_SYN_SENT, which hereby we break.
+>  			 * In such case VIRTIO_VSOCK_OP_RST will follow.
+>  			 */
+> -			sk->sk_state = TCP_CLOSE;
+> -			sock->state = SS_UNCONNECTED;
+> +			vsock_connect_close(sock);
+>  
+>  			/* Try to cancel VIRTIO_VSOCK_OP_REQUEST skb sent out by
+>  			 * transport->connect().
+> @@ -1877,10 +1886,8 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+>  	}
+>  
+>  	err = sock_error(sk);
+> -	if (err) {
+> -		sk->sk_state = TCP_CLOSE;
+> -		sock->state = SS_UNCONNECTED;
+> -	}
+> +	if (err)
+> +		vsock_connect_close(sock);
+>  
+>  out_wait:
+>  	finish_wait(sk_sleep(sk), &wait);
+> 
+> ---
+> base-commit: 533ec433efdc11196f438da90d683053a57257ff
+> change-id: 20261116-vsock-connect-close-1beb7cb51e7a
+> 
+> Best regards,
+> -- 
+> Bobby Eshleman <bobbyeshleman@meta.com>
+> 
