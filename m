@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928487;
-	b=WkSdmKerecQHFe2b3f8mkx4kf5bKi5Ov3Nt4saGLJFz9J97IIeyh7AuxcxSrUvPWa5UI
-	 gJ0Ltn5H+u8w9BMp88+sWjWagL1OTafVTxsLaj9vT1Q78xZkYHcQx/WYdG+B2VHcqF1Gl
-	 M2ZWoPJYK1mFsVWuejujXlmO/mUXWSBIBCjeHSvlHh00Ke6JeXjTNpg7czJcplJv9AU8S
-	 N9HaY0x8hsFLGqwSFqo5DNvkPsmpCoXA9UPuvz5wUiy00vSXjjcdzJs/tW26WS+0cB6Nb
-	 uciDOxVeXbhBubsRNXXxlSXh2SIu+NdA5LLI8oA86/pOv04OcK2mtL5XERqBg1GMmJQ==
+	t=1794928498;
+	b=476YBB16E9Q5FudrYEqrO/9Qtl/5LLlYo4tZ8mGfioj1rXJNCpMqMGpd23odV7H2QhI+
+	 /L6SblSI/fTDCdlUbEM6kZOiQhqdL1Mp1z9pY5mXpJ/+ON6YJFv4H3+RUwhjKWhOpk3xd
+	 JOnaNSFrbBMUGHJo8MVh7GZ12p0P6kkg2CRJKcfOKsG0nfWlBE7mlpUWp8pH6utPBqDVg
+	 O/aReghDbMPDDkzyDKSlsC7XwFC06nNkOCVZUA+q/XT1PQ+KBOvZGeaiJf1odu/MLsh3E
+	 /K/jMSAlhj2KCMDJAx4S9yBFVH9Of3+4qZEkz28AyiV6SAfFqvhzVxDyU/sfWvrJyHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928487;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=FlqNaTQ1KSYXtEicQmukvAIbCh1ZGMk91UvUei3msgo=;
-	b=lzdHms/w+9UxvEFYwv2jq0WCgsgPpwpUObxh4s687FA+YzmqJjO7Y5nIMh/aZdUQucGU
-	 BH8er6IUThNsDZP1mRKfFMSJXAOm01HjfhaTxeiFSL0IYNfOtRxJdgQfjIfrku4UgnVGM
-	 zep768uxOBmBQ6DRM0QWzqIKJ/kx9Bv8CSURRMEN7Pd41gRxh01y7E59kzG05BDR9GsBw
-	 X/FtuHnKcSiU0NfymMjsTsEAUyUhYcb7l/z1MmV28nbyrsow6hsw67r7VByfp9aEErAot
-	 udGYoilNffjyeCuGFcSY7wZfwUhRopFvJ8kK2GQNbaX8Z2794gS2MsrMdJ8Kws8QNyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928498;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=O9xAKWwBB7u9FKZ3TGuNVV0f8tMOj2I6ZH8LKxjW0FY=;
+	b=r5NEGhUinG73ySvslntloTpdKC/v00En6Hhn1lY71DLeWUvqxd5ZoeG6pRxn5xosupbY
+	 iC6GNaWrWNxk57whh/iHWCeROLKZFotte5X2POEihG3YLcLSgKXiETZEEk5XZqFrCq6i1
+	 u8m43Uwy1FKUBK/fADDhCLvs5h0yH2gQyqvOjK+uTboowvP6NpadUNDPQsMa2S5SaD0NT
+	 EQ1aG3Vkhqpa9UqcBW5pLUMfZufUyGiL3ah3jvNHW+BxGUehp8hdezNNnR/GjnyBQly+4
+	 tHkh0x14pngTlUqobWUPZCxmOsJsIo3Q9aQzvGS+2SHQodqGQapwDrNCBHyvv0ffU0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfgVPEJY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9Shf1KY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E2B606A31C;
-	Tue, 17 Nov 2026 15:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCC5606A31C;
+	Tue, 17 Nov 2026 15:14:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfgVPEJY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E071F000C5;
-	Tue, 17 Nov 2026 15:14:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9Shf1KY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9DE1F000C5;
+	Tue, 17 Nov 2026 15:14:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794928486;
-	bh=FlqNaTQ1KSYXtEicQmukvAIbCh1ZGMk91UvUei3msgo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XfgVPEJY04fEMFmXFk+QMQel56ssvYReJAs0ShT5v7Jq5IWhFLJKSKDQAxUn1CVIW
-	 URxH4sY7Pq4RECmhKwXOlbUuulbUbLgeMl0PZOgonmVhpWSV8RZINs9PAo2mT51Zrz
-	 pnz2yjlRUNHBaEYo4fK/oOowpw0+3ih/s2TJtlClTTGZpWD/9BWgyN+g6MSzuy+gvE
-	 q8TfIeaicDFLB4GAN6KsX2YsvBym/BkzG96zsSrJVyYP3bvagoGh/YZbPwOBgysoaT
-	 NFa2jZiZk06j/f+FLWEUzojSCsix/Fe3cJ5W/IPqW1HmLfzDmjXK8FiY05YjXPF5oF
-	 GpnblAUE1uVPg==
-Message-ID: <sashiko-outbox-219040@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 18/40] sched/deadline: Record the root domain holding
- a task's bandwidth
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <81044090393551a0c264a8f3a7d1c3c22321c395.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <81044090393551a0c264a8f3a7d1c3c22321c395.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:14:46 +0000
+	s=k20260515; t=1794928498;
+	bh=O9xAKWwBB7u9FKZ3TGuNVV0f8tMOj2I6ZH8LKxjW0FY=;
+	h=Date:From:To:Cc:Subject;
+	b=b9Shf1KY/a3fy+Jqg/5hTSPi5h3cjvmI+TiUWZF5zxzV6N+GW9t4yHO3hlaF9pnS4
+	 GJTngcyjdzLwyXy7EjMEYGW+g9NErsM0/KTKwkdRn22xEkv2OU3eZ/ZlhHAly8Q6Zz
+	 Q92suuQZOHu3FiKx6T4zH+0bMBB3pAemRMb2+sc/WM1dWRLuUX2i3i+2Po/A5z1NSt
+	 94/4ny2QJdlEhrLbZeQf0fKARqwqGo3M7NHh0B1FR4G0oGw2vkmpKt5ZZuf95pWp5m
+	 lo8tuH5FU4t4emLw0LQSagbgPqI+XDO5+TrLiXbVzwCcdXnP8SuBpb8Jli2gboLnfI
+	 KTgSasnWHJY8w==
+Date: Tue, 17 Nov 2026 15:14:53 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+	Intel Graphics <intel-gfx@lists.freedesktop.org>,
+	DRI <dri-devel@lists.freedesktop.org>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Fei Yu <fei.yu@intel.com>, Kees Cook <kees@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the drm-misc-fixes tree with the origin
+ tree
+Message-ID: <avxvbWBvcToSp_t4@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,117 +60,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/t8F7wjVNMCsMgCV"
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] sched/deadline: __sched_setscheduler() checks task_rq(p) root
-  domain
---
 
-commit 889f3e0f3403117f479bd558c00411593ac35a7e
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+--/t8F7wjVNMCsMgCV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-sched/deadline: Record the root domain holding a task's bandwidth
+Hi all,
 
-This commit replaces dl_departed_cpu with dl_bw_cpu in struct sched_dl_enti=
-ty
-to record a CPU of the root domain that accounts for a deadline task's
-bandwidth across admissions, moves, rebuilds, and releases.
+Today's linux-next merge of the drm-misc-fixes tree got a conflict in:
 
-Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-1-dd761f=
-e005b4@redhat.com/
+  drivers/gpu/drm/drm_syncobj.c
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 8e8c62c574d55..01fbbd02cf8d0 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-[ ... ]
-> @@ -4213,6 +4280,23 @@ int sched_dl_overflow(struct task_struct *p, int p=
-olicy,
->  	if (new_bw =3D=3D p->dl.dl_bw && task_has_dl_policy(p))
->  		return 0;
-> =20
-> +	/*
-> +	 * Change the bandwidth of a deadline task where it is counted: in
-> +	 * the root domain of the CPU recorded with it. A task moved asleep
-> +	 * has not run there yet, so the CPU it is on can be elsewhere. No
-> +	 * bandwidth is counted if a rebuild dropped it, or if the task
-> +	 * enters the class. A runtime below about a millionth of the period
-> +	 * gives a bandwidth of 0. It counts for nothing, and no move updates
-> +	 * its record. In these three cases, the root domain of the CPU the
-> +	 * task is on takes the new bandwidth. The caller holds cpuset_mutex,
-> +	 * or dl_accounting_mutex without cpusets, so no rebuild runs
-> +	 * meanwhile.
-> +	 */
-> +	counted =3D task_has_dl_policy(p) && p->dl.dl_bw_cpu >=3D 0 &&
-> +		  p->dl.dl_bw_gen =3D=3D dl_bw_gen;
-> +	cpu =3D counted && p->dl.dl_bw ? p->dl.dl_bw_cpu : task_cpu(p);
-> +	dl_b =3D dl_bw_of(cpu);
-[ ... ]
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index 4c013caa24713..306cd8d32173b 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -1185,6 +1185,8 @@ SYSCALL_DEFINE4(sched_getattr, pid_t, pid, struct s=
-ched_attr __user *, uattr,
-> =20
->  int dl_task_check_affinity(struct task_struct *p, const struct cpumask *=
-mask)
->  {
-> +	unsigned int cpu;
-> +
->  	/*
->  	 * If the task isn't a deadline task or admission control is
->  	 * disabled then we don't care about affinity changes.
-> @@ -1204,9 +1206,16 @@ int dl_task_check_affinity(struct task_struct *p, =
-const struct cpumask *mask)
->  	 * if admission test is enabled, we only admit -deadline
->  	 * tasks allowed to run on all the CPUs in the task's
->  	 * root_domain.
-> +	 *
-> +	 * That is the root domain that counts the bandwidth of the task:
-> +	 * the one of the CPU recorded with it. A task moved asleep to
-> +	 * another cpuset is still on a CPU of the root domain it left. A
-> +	 * bandwidth of 0 is counted nowhere, and no move updates its
-> +	 * record: use the CPU the task is on.
->  	 */
-> +	cpu =3D READ_ONCE(p->dl.dl_bw) ? dl_task_root_domain_cpu(p) : task_cpu(=
-p);
->  	guard(rcu)();
-> -	if (!cpumask_subset(task_rq(p)->rd->span, mask))
-> +	if (!cpumask_subset(cpu_rq(cpu)->rd->span, mask))
->  		return -EBUSY;
-> =20
->  	return 0;
+between commit:
 
-[Severity: Medium]
-Should __sched_setscheduler() also use the root domain recorded in
-p->dl.dl_bw_cpu rather than rq->rd when validating a deadline task's
-root domain span and dl_bw.bw?
+  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
 
-kernel/sched/syscalls.c:__sched_setscheduler() {
-	...
-		if (dl_bandwidth_enabled() && dl_policy(policy) &&
-				!(attr->sched_flags & SCHED_FLAG_SUGOV)) {
-			cpumask_t *span =3D rq->rd->span;
+=66rom the origin tree and commit:
 
-			if (!cpumask_subset(span, &p->cpus_mask) ||
-			    rq->rd->dl_bw.bw =3D=3D 0) {
-				retval =3D -EPERM;
-				goto unlock;
-			}
-		}
-	...
-}
+  6ca87397aeebc ("drm/syncobj: Limit the number of handles and use kvmalloc=
+ for user-sized arrays")
 
-When a sleeping SCHED_DEADLINE task is moved to another exclusive cpuset
-partition (or its CPU goes offline into the default root domain),
-p->cpus_mask and p->dl.dl_bw_cpu reflect the root domain holding its
-bandwidth, while rq (task_rq(p)) remains in the old root domain. Because
-rq->rd->span is not a subset of p->cpus_mask, __sched_setscheduler()
-rejects sched_setattr() parameter updates on that task with -EPERM before
-reaching the moved-sleeper handling in sched_dl_overflow().
+=66rom the drm-misc-fixes tree.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D18
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/drm_syncobj.c
+index 137397972a98a,c8a8c49d12fb2..0000000000000
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@@ -1051,7 -1062,7 +1062,7 @@@ static signed long drm_syncobj_array_wa
+  		lockdep_assert_none_held_once();
+  	}
+ =20
+- 	points =3D kmalloc_objs(*points, count);
+ -	points =3D kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
+++	points =3D kvmalloc_objs(*points, count);
+  	if (points =3D=3D NULL)
+  		return -ENOMEM;
+ =20
+@@@ -1238,7 -1249,10 +1249,10 @@@ static int drm_syncobj_array_find(struc
+  	struct drm_syncobj **syncobjs;
+  	int ret;
+ =20
+- 	handles =3D kmalloc_objs(*handles, count_handles);
++ 	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
++ 		return -EINVAL;
++=20
+ -	handles =3D kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+++	handles =3D kvmalloc_objs(*handles, count_handles);
+  	if (handles =3D=3D NULL)
+  		return -ENOMEM;
+ =20
+@@@ -1572,7 -1586,8 +1586,7 @@@ drm_syncobj_timeline_signal_ioctl(struc
+  	if (ret < 0)
+  		return ret;
+ =20
+- 	points =3D kmalloc_objs(*points, args->count_handles);
+ -	points =3D kvmalloc_array(args->count_handles, sizeof(*points),
+ -				GFP_KERNEL);
+++	points =3D kvmalloc_objs(*points, args->count_handles);
+  	if (!points) {
+  		ret =3D -ENOMEM;
+  		goto out;
+
+--/t8F7wjVNMCsMgCV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8b20ACgkQJNaLcl1U
+h9BEMQf/UETYc/GVfeKWjN70UYgneG1M5PaaR5xgxRmr1Igtg1qSNC5wTqsDsWNq
+KaxZ97lg1C8Ji9qUrNHyAphP2gu6jekd82ULMaPQ/WvIbRFs/v6P6yJN3ztdN/SV
+VnL6Q+oAdntNFALJEJvcYPtpcQenF5NkTH/j7BjEzfYT6L5a3DTrCtVgTzRw55li
+BnLhGlVAeWrzGkrHKl7J5A7ImWKEzzTO4ljzcFCOQb5WK5XJgOXva7ed8c94cgvT
++fvch0krinQf5BNljg5yUnsSMxCnJP1cXCbFSBiZkjIxHJs583ubmO1BZ7y1ymur
+Kxc+1LqzXjn5w+cSYRTawVs+GlyG9A==
+=LSLI
+-----END PGP SIGNATURE-----
+
+--/t8F7wjVNMCsMgCV--
