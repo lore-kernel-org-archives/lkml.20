@@ -1,72 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928539;
-	b=ZisuDlV9pvdUdlCKJ/Nv2FhIMjgF7khHolDZLGWj+6qXgnsTGLpUpfLtFYizGqokgZu5
-	 8+IBuzX+zPXTziBjBP/9El89V6HjYHbF4Hj/iFHHBYceZxBTzmTbevOr34PEH0nJyb5zV
-	 AuH205GjZOrQWRYY3zINks03PLuA8U5/beLROS8GWQjynMbrUjJ9Fnm/xraAN1o4Tgbep
-	 kM5A8ogmUeLOGr7LmbNJF7VSIs+2B6/tGe9mlhgX0FmALY3p9dAsRGGgusOUFg3zOjcL3
-	 cn/NqImmr03AYXiuYrXzrhF9ggTna1Eb4wqDn8N1VIPyVM9e8x+hSqlFlAQAjddkyaQ==
+	t=1794928540;
+	b=3J6amdkJWjzUly4B836z96X/mOSromUlVK/OrPr4wzkgzqPSKDaEM9Gmiy/cRcixzUKu
+	 dRiAvDxuNcAciYCJMGQIIHcVr8zjG7M1YkVktK/LEZsnzLwRhQD+HxxJVLO485+Z4A02L
+	 PBzclTR5OM2QUGTY+ZKFe8wg6eol9dVxCiuSRfpasnRqakNz/K0yrY5AMcAxHm6MdmWwK
+	 8a2W26CAbpbW+ylcSkeEHwvZV3OuNPPwmgUFXt2bn53sLOyIWR2bL7njPHN6vs31dcuoa
+	 iTdEWsRbbkrF+isafE5sM46W0STyokxk+LRANPonZzLKdqNfImQd/CLo6SJQEyoxQEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928539;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Dvb/uhBRLlieD3DxnBsDgJCSszczVxiDnHK5Gq+WxBM=;
-	b=wXCbyRuZDB11d8VJehFTlIxQDbPLqT5pY0xXTIuqtVKhLRs0otv4XD/qQE1jdzLPNuEy
-	 AAEp61SPwsaPpZAuqiDG4+Z+McIdb+AxHd0BW2gdswJjbvz+do6IXfpWbknLjGyW8eGR+
-	 NIWjltBsYvhtU5dEl0LJosRTUBTxBB5F86DkcwTL6MuCSedbjgC4LX9G/0PAljjG6q1p/
-	 2n4CvGyWqmKKPDK2OGPwCtpOug0zXHWp7OBKawzXsJ7rbT8Cifb3OSvxCM9mFVjkHfS9i
-	 HPqpCegsT/59AjILuCbb4CdpVD+jMCsG3UjER6K86teFqhEc7KCEamtG3i+WEHOxsbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928540;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Yl1Tl7A6GTDHzu7swYybx3NWBnAXAgNBiJXglcocm34=;
+	b=Fr5bLvoW+0I2BHU3oJjqq97Z/fynPExnhrN4s/9uF6V0bqibwBFPHLlBJBLZnNVlpEjA
+	 QBAkHHSiEcEhZr2pH40qbL0QlJ6ddAbh0mqMEFev7sWzTNqc1WS15A9YnH6w7mDoCqy28
+	 +NGroadKFLPXTosiCR/K4GG8k3CjKyS6JDll1Plq35+713RXz5gaAK6PomJVuERhLg6DG
+	 qR5ILALn49NGxAWw9iXrbzX9EuZeNjTASP3GPY+lB2TautZoOIndOZkWNVIv/vyLEipqF
+	 TrCax+2A58ekApFxI1Sje0l/N0slMpsj6O0qcBRuSd5+POu5566caJKMxtpNDgMxLPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gZ7LyHkW;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=hallyn.com;
+	spf=pass smtp.mailfrom=hallyn.com;
+	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=RRNss6VV;
+	arc=none smtp.remote-ip=178.63.66.53
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AE0606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:15:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2AE0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14995606A32F;
+	Tue, 17 Nov 2026 15:15:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14995606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gZ7LyHkW
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4ba078abd70so33219555e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:15:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794928537; x=1795533337; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dvb/uhBRLlieD3DxnBsDgJCSszczVxiDnHK5Gq+WxBM=;
-        b=gZ7LyHkWCMegg4n/ftFMALR0gv4RAhOwmXgxUt9tftmwLqxIQnVGempw5bAeO3tUbg
-         N/ZhvYb6ZjqUSHeM7Vo42L/ICA+zZ7b8DN1K/JdykT+0CajA9cTkavV6jl5HGXREjMZ7
-         kLyf9h/Kw2JfKUTkmk0GUM0oaXLY+GjoFrDq9ovSpufU9dnCp0kxjNKM9UcL8ZdLWgYb
-         ZDjcVczOeDwTV629wZgZanG1LoEJBdWFgkDIOBTp0qI58SKETNz5DP+3bqnXek6hgFgK
-         yCr8DNDln17CfQ+AIqa09HS0BhRPtIuXniEtRbcfnL3KJ1+BxtJUgjYThmnQBzNywpQk
-         Opmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794928537; x=1795533337;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dvb/uhBRLlieD3DxnBsDgJCSszczVxiDnHK5Gq+WxBM=;
-        b=MJvyIUAmiQyst2PIX1FyXKqQsr+8cC7iwcm/sob4UCmCc0EQMD1AaXuVUyFTtGWVy1
-         R5wlrR8sdsM4Tho6zUjBEcqtPGUzSWhFiqpLuyNbBXDP7ilsTYkqfwfk3PVyZ98Lx0Xa
-         lmJrZdbGI7g4j5QMGl0XhsZRaE69OZzOqJKGBYC54AXJX1zY4GJc+ZYUSoHFqJRB65Gs
-         IbCOdwwTYlfeHOcf8cEfsy0lcE0K0IvO9DPDED0/Fmzcv45LwtDRFurMWd0W9uUnT0ch
-         ozBpOfbOe9XP43kDHm+Dh+0QnQlLHUIAmKgsFdpwrLqly9S1eiuemleIQ4xtsX3AqdU+
-         yXhA==
-X-Forwarded-Encrypted: i=1; AL+hErFUH7Vzs2XhtZe+g1EOmCVxBfC6/UnDs8BfALnDvWGMYWxEiCzq00Uj45lTJdB6gXIYKVS9jRgmYqUoD14=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eVTUTkDK5jOl6PB0rIFd37cFtwNJl8SFL4ZGMxb2tFWr1Jugu
-	+/hS/baY2NNSVtQtOTYH3ds0ylE4ucGzoGXbwwCM9Munlfn5F82n3+CKs9xjqsDwSPtoiMerV7h
-	0F/ZBCP/YAVK8bY9oNZg0rA==
-X-Received: from wmox16.prod.google.com ([2002:a05:600c:1790:b0:4a2:11fa:1981])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6097:b0:4bb:6626:5a25 with SMTP id 5b1f17b1804b1-4bb66265d0bmr200655825e9.20.1794928536708;
- Tue, 17 Nov 2026 07:15:36 -0800 (PST)
-Date: Tue, 17 Nov 2026 15:15:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=RRNss6VV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1794928530; bh=EqbQ4qvrW/tMs8Zz0DUrZrAxrmjNOY/UJxUTy3OzqRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RRNss6VV/7OASxvaFY9gGvn6OUrsxBSj57GwA8e6OBO+KwPMz87QxPKIfi6yOmidT
+	 6AfuI7jk/C1B8DkLAAttzldPv69ik2oTFz1XMYJWxhhTRc6fZwWDn1lGhDLmEKE3/l
+	 MHEtjinE4IVr6JVIuY5hqSupQLh27+iD9HXPikDgfB8LA5I9M8vCxj4WCGftt9gWIL
+	 JSrUslocyT60eID1OMYXaxn29rkMlMmbF7fHmM6hbxndRwvvU0nKI0JL2wtp3fgmDy
+	 18BW8yfsvXCNqNAf76reRbNXK6UAuXI7xWak48lBj43XkN91yUtZ+LsH1A8CqQ06jH
+	 YqeiK5skA1gWg==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id B760734F; Tue, 17 Nov 2026 09:15:30 -0600 (CST)
+Date: Tue, 17 Nov 2026 09:15:30 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Bradley Morgan <bradley.morgan@linux.dev>
+Cc: Christian Brauner <brauner@kernel.org>,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] userns: security: Inform LSMs of capability check during
+ userns creation
+Message-ID: <avxvkuC5SP/0c+wr@hallyn.com>
+References: <20261111205814.3282968-1-bradley.morgan@linux.dev>
+ <aveDlb6PlPSVoLD9@hallyn.com>
+ <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev>
+ <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com>
+ <5862E641-C0F8-45B2-B340-DF4506AC9FAF@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,48 +68,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261117151520.3972146-1-vdonnefort@google.com>
-Subject: [PATCH] ring-buffer: Add missing cnt increment for remote ring buffers
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5862E641-C0F8-45B2-B340-DF4506AC9FAF@linux.dev>
 
-The ring_buffer_per_cpu::cnt member tracks modifications to the ring
-buffer links. It was introduced for rb_check_pages() to avoid locking
-the ring buffer for the entire duration of the check. The reader page
-swap function for remote ring buffers does not update it. If a
-concurrent rb_check_pages() recorded a page as head before dropping the
-reader lock, it misses the list update and loops indefinitely. Add the
-missing increment.
+On Sat, Nov 14, 2026 at 02:44:24PM +0000, Bradley Morgan wrote:
+> On 14 November 2026 14:34:07 GMT, Serge Hallyn <serge@hallyn.com> wrote:
+> >Nov 13, 2026 15:54:37 Bradley Morgan <bradley.morgan@linux.dev>:
+> >
+> >> On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn" <serge@hallyn.com>
+> >> wrote:
+> >>> On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
+> >>>> Right now security_capable() gets called in create_user_ns() to
+> >snapshot
+> >>>> whether the parent could setfcap, but the LSM gets zero context on
+> >where
+> >>>> the check actually came from. It is the same story as setid: without a
+> >>>> dedicated flag, security modules cannot tell this apart from regular
+> >>>> capability checks.
+> >>>>
+> >>>> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
+> >>>
+> >>> This should be patch 1/N in a set that introduces a user of it
+> >>> in some lsm.
+> >>
+> >> hmm. Did you read Christians suggestion?
+> >
+> >I did, when he first sent it. Actually it seems to me that what the lsm
+> >would really like to know is that this is not for an immediate use of
+> >setfcap, but possible future use. But that doesn't really matter. I wasn't
+> >judging the patch. I was just going by what i believe is general lsm
+> >subsystem policy.
+> 
+> ( my word wrapping client did not like that message :( )
 
-Fixes: fbd1743ecba1 ("ring-buffer: Add non-consuming read for ring-buffer remotes")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- kernel/trace/ring_buffer.c | 1 +
- 1 file changed, 1 insertion(+)
+Hm. yeah.  (Do you mean word-wrapping or non-word-wrapping?)  I see my
+phone mailer made it all one line.  I'll see if there's a setting for that.
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 1fd28a72e6ee..d386da1414ed 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -5878,6 +5878,7 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
- 	cpu_buffer->pages = &new_head->list;
- 	cpu_buffer->read_stamp = new_reader->page->time_stamp;
- 	cpu_buffer->lost_events = cpu_buffer->meta_page->reader.lost_events;
-+	cpu_buffer->cnt++;
- 
- 	return rb_page_size(cpu_buffer->reader_page) ? cpu_buffer->reader_page : NULL;
- }
+> hmm, it's pre-reqed over the patch as on the lore link, so Christian may
+> want to have a look at this obe
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.1.703.gf848ed807c-goog
+Did this line get cut off?
 
+> >> Let's see if Christian or anyone
+> >> else could suggest a nice little lsm user for this.
+>
+> >> If nobody responds, in coming days, I'll go and find and do a user for
+> >it.
+> >>
+> >>>
+> >>>> Suggested-by: Christian Brauner <brauner@kernel.org>
+> >>>> Link:
+> >>>
+> >https://lore.kernel.org/all/20261111-kommt-gischt-ohnedies-469998d2f219@brauner/
+> >>>> Signed-off-by: Bradley Morgan <bradley.morgan@linux.dev>
+> >>>> ---
+> >>>> Thanks Christian for the suggestion :).
+> >>>> ---
+> >>>> include/linux/security.h | 2 ++
+> >>>> kernel/user_namespace.c  | 3 ++-
+> >>>> 2 files changed, 4 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/include/linux/security.h b/include/linux/security.h
+> >>>> index 40831fab54709..d24666a0b4833 100644
+> >>>> --- a/include/linux/security.h
+> >>>> +++ b/include/linux/security.h
+> >>>> @@ -75,6 +75,8 @@ struct nsset;
+> >>>> #define CAP_OPT_NOAUDIT BIT(1)
+> >>>> /* If capable is being called by a setid function */
+> >>>> #define CAP_OPT_INSETID BIT(2)
+> >>>> +/* Is capable being called from the user namespace creation path? */
+> >>>> +#define CAP_OPT_USERNS_CREATE BIT(3)
+> >>>>
+> >>>> /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
+> >>>> #define SECURITY_LSM_NATIVE_LABELS 1
+> >>>> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> >>>> index 57b7f10be74e1..37480f6d8369f 100644
+> >>>> --- a/kernel/user_namespace.c
+> >>>> +++ b/kernel/user_namespace.c
+> >>>> @@ -134,7 +134,8 @@ int create_user_ns(struct cred *new)
+> >>>>      * audit: the creator may never map uid 0.
+> >>>>      */
+> >>>>     ns->parent_could_setfcap =
+> >>>> -       !security_capable(new, parent_ns, CAP_SETFCAP,
+> >CAP_OPT_NOAUDIT);
+> >>>> +       !security_capable(new, parent_ns, CAP_SETFCAP,
+> >>>> +                 CAP_OPT_NOAUDIT | CAP_OPT_USERNS_CREATE);
+> >>>>
+> >>>>     ret = ns_common_init(ns);
+> >>>>     if (ret)
+> >>>> --
+> >>>> 2.53.0
+> >>>
+> >>
+> >> --- Thanks!
+> >
+> >
+> 
+> --- Thanks!
