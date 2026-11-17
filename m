@@ -1,49 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920835;
-	b=KpQRoKzRQdv3pLnVc/PN+Ut9k/j68W8CVtl/6jk6bgsOpx0Hy7oGFIlINsz8sqLft30M
-	 /amT1O2NVlxfX1wvsYBQakAjgdX2vI7D8eKMzw3H2qCtHz8bIiqBw8hNZg2ag3asgpiHO
-	 GZtjdKAb5OGiCXHIiNQxHwXi5ZQBgODXUSqf5vd/iMQjETWUAW+6OokuksT397zQbfEDr
-	 8Jh4CU2uH/VBqbrmRHLSaSKz6OEZfPr/3P0I47XCf9tylD9GlkIKgNN3RgiG0Bpx39uKP
-	 mQ8EDHaH6dpFvoFfb/3/T5N8aG+cX+vz4IwL4tE1Twcqzj2lIClbHnGEosdmldaAAPw==
+	t=1794920836;
+	b=3CxUASKvEOBAOurC6qkcdJiWcK2bp8XChQX/UU3MpybIOZYSClDEIhcex5a6uyH5BzA5
+	 zdiEK/guKogM9p9ElBVEq6BY1B7CLn7D+9HMpwATfWrFETgUNh+OszWfbecDgUegT+XCO
+	 benAM92h4ihttbZ1ADbeijN0k3iGyDZhuM2iRdHkAiLdv60L/Okvclp7L2OdFjbJXZtw7
+	 eOJFHb4HYhNhDICApkVNeQq1f3oq7m+3HVljXnuYsGMbn+lfGi7ek1CqwyC2Kg+Oe3ShL
+	 AJC9awPr9bAowj2smoDZ2AMo6G9g6+GumPZ6DVp7zA5YJVtNxJlrLkr4b6TsVe0SUOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920835;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=dN106rk8Vda8DnkqLVSw3/dUsMv4evAL87wVFveXVvU=;
-	b=vIJuVmeNCv7v24lKSGyskUQRfJ2z00lINsrwFGo3wDhPt7x/wHknaaZC2am6QjNPuzWO
-	 fZkjNOKh/OzpfgxMzvTU8u7NcD6VTLa0oyHWISVegOWzCs3sy8rgXdISPBtVjVnhqS7Rm
-	 GyQTT5S1uAn1FsQJI1ifQ3IfJg6Er65oHi1S9mMIMYENIIJAqlAMvi59B2MeCOUHiOibs
-	 UJV0MB5lSlkKG42r3F3wMFMSXybzXn3Yzv+q/G4JDUibhlXE5RQWjVEwAzuIa1DDSoWGF
-	 fgexpX15FdnyurOlPb+mdk8NMoae/yppsQdCA+5Q5R1v9zb3Ve5nTjZGVUzZyWOE++w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920836;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=VTvJ8fbm85HVfJBXziSqvjffZDc8MVssUmhYbctDJqg=;
+	b=Czcr+O5tHr49OCp4VJ1A9MoLt2JMQ4B83cE8SAIQLukUDMFuKgz6XM1PWPrv0DyjiNlj
+	 0i6ptFRbaltAOX+8IvEhE8K/zhlJqaLzLsN76Zohi+IijL3Et78Eylu5uQ0UeeCHbhBhI
+	 t0me3igBzYPV/KEsYjiSqU3c5ScwCVfTuYKDeN4KZ1isp6UQcPb8NkluRN0XSBdqP65WR
+	 9KAxa3h7mwSOhmgmhBbsXM4SEw2S6/93uHl+K1tq5snvI/Q1iaZwCYmg/0uu1slwdUX6n
+	 mTy/ZchfoW4JhqEHX4E5urqgzBvFYAQEszs+E0R34MbVVv50M/G31psa3aznjxGIp5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+q6aiil;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=ZKa+Q8ZP;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36C660A261D;
-	Tue, 17 Nov 2026 13:07:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 67C7760A262D;
+	Tue, 17 Nov 2026 13:07:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67C7760A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+q6aiil
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE0D1F000D4;
-	Tue, 17 Nov 2026 13:07:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920835;
-	bh=dN106rk8Vda8DnkqLVSw3/dUsMv4evAL87wVFveXVvU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=G+q6aiilbCrJFplxMnAJ4ox9tGFe2v6WCRwfe/GAzx9B/vXRwxgva9X41ZySvPIXL
-	 spq8zdgFwNFFSC6ql8lExGA+vhl3r8cYdu7bwv80ZyQYjQdANfrJNT83gfAMYkZmYf
-	 IhgJ1vjFd6XRsKs/+OVnrwUK21h42O+gTpHFHRyE1lc4bd++PuIH26QW/xhWG1U+50
-	 rEMx++GA2wc5XTnItlcHUs/NJM01DmPVTrgKUbAWuT5ji8oV2W8MegdQ8maha1lVqk
-	 /DXq0t062EFzcG7m7JCWIQLvXpIQC66dd/1bbIm3nn0GIxIHD+ha8F9Bwbs4oea5Ij
-	 vL6ZgzGauQpJg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Tue, 17 Nov 2026 15:06:57 +0200
-Subject: [PATCH v2 05/14] s390/sclp_con: Replace get_zeroed_page() with
- kzalloc()
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=ZKa+Q8ZP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1794920833;
+	bh=VTvJ8fbm85HVfJBXziSqvjffZDc8MVssUmhYbctDJqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZKa+Q8ZPx/fRC7mdKXVGA3p0z3nXTnk8dSedZQdXYzDwsvI1ih2q6DrfrfM0Gr1HS
+	 Mfyq/cMpym76A1fZYAIAExJCOzhMvTtVMBIhc13XPlz/qG8i4ktuyRslQI9Vl1bYTH
+	 smxg84WMIhqbOi43CEvSvxGQlRaA7ZJ5r6eiX05yOD7h/7pAObH0+sVGBGFphth5YF
+	 Dgj07RcTA2ENAo5FJjFOtHS22lXICsp2B6dPGAIXA4L9WcOw9MqmsQKydaV8p4z2RY
+	 9QUcwcbrNA+QXYvqAZU2hyQRYncH1TTOoGq8ucIjvsGoV4Xpyw58c8UKRjT7al73hV
+	 wEFWTG+iNpLDA==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id CCC5660058;
+	Tue, 17 Nov 2026 14:07:13 +0100 (CET)
+Date: Tue, 17 Nov 2026 14:07:11 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Leonard Lausen <leonard@lausen.nl>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>, Shuah Khan <shuah@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in
+ fib6_lookup()
+Message-ID: <avxRfzsnke7VJq_w@chamomile>
+References: <20261117110813.9894-2-leonard@lausen.nl>
+ <avxPFYfEirXzTup8@chamomile>
+ <94f4ea0e-c1bf-467c-94be-b65963410d30@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,77 +74,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-s390-sclp-ready-v2-5-e518c99622c6@kernel.org>
-References: <20261117-s390-sclp-ready-v2-0-e518c99622c6@kernel.org>
-In-Reply-To: <20261117-s390-sclp-ready-v2-0-e518c99622c6@kernel.org>
-To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Sven Schnelle <svens@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>, 
- linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org
-X-Mailer: b4 0.16.1-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <94f4ea0e-c1bf-467c-94be-b65963410d30@lausen.nl>
 
-sclp_console_init() allocates the SCCBs that are used as the output
-buffers of the SCLP line mode console.
+On Tue, Nov 17, 2026 at 02:01:24PM +0100, Leonard Lausen wrote:
+> Am 17.11.26 um 13:56 schrieb Pablo Neira Ayuso:
+> > On Tue, Nov 17, 2026 at 11:08:10AM +0000, Leonard Lausen wrote:
+> > > This revision removes the cached-exception patch and its PMTU test, as
+> > > requested. The series fixes the nftables regression introduced by
+> > > 1c32b24c234b and leaves dst-based prefix suppression unchanged.
+> > 
+> > Is this a LLM finding? Or a real issue in production?
+> 
+> This is a real issue. Without the fix, Wireguard VPN does not work with
+> IPv6_rpfilter=strict firewalld setting (default setting). See
+> https://github.com/firewalld/firewalld/issues/1600
 
-These buffers can be allocated with kmalloc() as there's nothing special
-about them to go directly to the page allocator.
+OK.
 
-kmalloc() provides a better API that does not require ugly casts and
-kfree() does not need to know the size of the freed object.
+As Paolo suggests you explore fixing this from nft_fib itself,
+please keep this link in the cover letter.
 
-Performance difference between kmalloc() and __get_free_pages() is not
-measurable as both allocators take an object/page from a per-CPU list for
-fast path allocations.
-
-For the slow path the performance is anyway determined by the amount of
-reclaim involved rather than by what allocator is used.
-
-Replace use of get_zeroed_page() with kzalloc() and free_page() with
-kfree().
-
-Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- drivers/s390/char/sclp_con.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/s390/char/sclp_con.c b/drivers/s390/char/sclp_con.c
-index d8544c485808..9d096d7b5968 100644
---- a/drivers/s390/char/sclp_con.c
-+++ b/drivers/s390/char/sclp_con.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/kmod.h>
-+#include <linux/slab.h>
- #include <linux/console.h>
- #include <linux/init.h>
- #include <linux/panic_notifier.h>
-@@ -272,7 +273,7 @@ static void __init __sclp_console_free_pages(void)
- 
- 	list_for_each_safe(page, p, &sclp_con_pages) {
- 		list_del(page);
--		free_page((unsigned long)page);
-+		kfree(page);
- 	}
- }
- 
-@@ -294,7 +295,7 @@ sclp_console_init(void)
- 		return rc;
- 	/* Allocate pages for output buffering */
- 	for (i = 0; i < sclp_console_pages; i++) {
--		page = (void *) get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+		page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 		if (!page) {
- 			__sclp_console_free_pages();
- 			return -ENOMEM;
-
--- 
-2.53.0
-
+Thanks.
