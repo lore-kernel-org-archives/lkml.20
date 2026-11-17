@@ -1,61 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908260;
-	b=r+28T/IjHJ+Q4+PR1qbp6ioszoSCRvw8iRy6Wh2BxCYE93jAYw/5C2PuAPMKdEbiZkMs
-	 BNHWWQKwEXuxxNkHgGd/ohvOk9R39K5Adc2ag3hxtAWOeWU4yBsXxRf2yWbVRlPke81ne
-	 UyS21FxqpR5oF8RYsEtv0F45anooVBMYZgEY/a9EAdOeqGVqGIvoiXOpXfUVwp8ew8q7X
-	 pdMtHbbj+PTg0XozX+s7SIRXDPrn7Uj6Ebbk4hzf6VmZKdK+TJqxCDIcuVAXttgl18dAh
-	 p63E4vK4OybWOAROGvAEfI/+SQqIg8fTnXaZepshA4NMtSThUpeLjtMeQvg6M1jQIuw==
+	t=1794908288;
+	b=Kl/dUnyD6DGaJ/DvygKBNI7t6hJU50Hnq2X/7/2E10pO5gqhQ3eZjMvKctWKLn6aXB1c
+	 yhCkiIWV4UhNHqF8e0XVBpen8DifvD2X1lZLR45Q2oM7wbpRfQMdo24SDwrNEwNntScN0
+	 f6jLPDy21miNQQBuQ1uCq0ye+z0cY/CbwdLrY2jhnoktC6cqvgvDLU2t9GMs++hjE2bzC
+	 ZG0+pMMpZoDEMaMRCashUkRgqFruSFmtVYcIJSYSdoYgaLjYt2ULrtXL3CqzijPtmtoOW
+	 Mt3m7mJNLTkSjPXvipCnCloMz62+Aosf00wq1RtIuCKZfoGMssta1zTn0bKFSXfWj5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908260;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sYsejNEMULh2lKIx2yILKbg2OeJOUfENCYPm27432Lc=;
-	b=a75brt9ZnWsz/S+cGheL3rKHDU6ZVfnqMHQqIjHGZshbAe3spNEXvAMyw4ex94H9t7hE
-	 e9NImTAdSp+6knbNFHVTROMJ5azJq+UyM76Y6oIEqpfeHJbyaNAnB5DWvXFPMHd6MjJ8z
-	 JjmO0RhBu3f7nNAT3x00vjNL2swF2zP6T6orsFBuEdV6Bki9wbQCvgiWicjpKYU8UJVvz
-	 lo44Ey10LoZuAPrrG0AKvr6iNhgvd5J9gNgsluEbFKuAtWBW9ce+GS46uW+Wia4HXmxRu
-	 5mn6LCZkxQ1161YCjAPAVmltAcBie7ssHt0ALxkO81p3bGAO19AslAvqEluUgA7Pl+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908288;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=tlBoKmorBtcIb4QQ2wVoA2joobZWJYIm4KpVprAp2zE=;
+	b=s8W152YC3RV6qlxqhrvk/lneHhQWx465iFhbbqgWUHHJXc4dsm2T2xcZ1gD1yW4cRebs
+	 o1QcmE0IuSXHjXqTS/my6Srs0fq7Oze6zhP1bgp/HXPSrhsOUgGr816ePCbmv3E4QRSFR
+	 XOhhMux+VJ2i0K4+ONUROSqQzBmv07vAhk/YX5taEIoSOPuz3tNSydJqtp4bfQmYyGpkc
+	 d9K/cd/JKwoyIeqqYBJ4B85cUZ2xCdr7NxFHXkmJ2fDfqN4YBbvQ1aqGVo/WGzS0G7S1+
+	 rOtOige3VjSYy09aAZLa4MnFdB72rEv2YIN4IFFfHP7rZsSky7CVXZFazHJCGrICkIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoDIexIJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="yM/x3CPs";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E400606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B7D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B7D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoDIexIJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF501F000C6;
-	Tue, 17 Nov 2026 09:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908259;
-	bh=sYsejNEMULh2lKIx2yILKbg2OeJOUfENCYPm27432Lc=;
-	h=From:To:Cc:Subject:Date;
-	b=UoDIexIJG7Z2g8JHrBHM+uRE8Gf/5jJcgqP38JNGPYK29sH3Hjg2iKmhucMs3l/uu
-	 /d5wYg0Uz3lP6hz+hajg2qDPFXiinsuMha+dUwyEu1Hr7BUOdla1a/RhzlZTQ+SAEw
-	 Ol6Mkm03OIC//7RYZBZtExrp40PPt5L62Hlpw1lG4Y3Kb18+G9ChdiwN2GoXek9xza
-	 vdZLbxVwOHMV0Q4vQNIOA5SzMX9Zd9/L6WnO3JHykfYpoDtAv/jK04hiSFxTSrpQp3
-	 fl07tz3V2adVX/sIE0tKwCbDJI+rTT5jyTC8d5OLFFOGu7YkqMZdxpWAQJvWwRPWRL
-	 j4ED0Y7MOraaw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Philipp Stanner <phasta@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/sched: Extend locking in drm_sched_entity_select_rq()
-Date: Tue, 17 Nov 2026 10:37:09 +0100
-Message-ID: <20261117093708.647488-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yM/x3CPs
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 83134C4EDB9;
+	Tue, 17 Nov 2026 09:38:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 25FBB5FC81;
+	Tue, 17 Nov 2026 09:38:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C408411BC0493;
+	Tue, 17 Nov 2026 10:37:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794908284; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=tlBoKmorBtcIb4QQ2wVoA2joobZWJYIm4KpVprAp2zE=;
+	b=yM/x3CPsv371lnsTibypMg+dMRNFgQIbfFoDeD2qBsDdboH+kKUZyk7mY5kgvDHH8C5oTI
+	n4FDAxEsuHU3so03bQpVcUf7zKewxSD8wups1A/67cAfBFJZNKXhKbeB/wHEClsHq9zDdQ
+	u2rk1fhyyoKKShNeiv7FIuwi9yqdEalIqOhHs9pdZM9c57U8AYHyUEZx3Yqu/n0ybxQ/kx
+	QxWqG/OiSKDJXe8izCYtt0EIIYhIIEJv5/8x1PfofgPPvv59fpGIWoca81f6dEXSWvLn0P
+	BZXOizTJT1HwU3zTq9Ahau3OnzWLrXfQyoJYy7nFGHRKmxM4dDYqqKEgnPxs/g==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>,
+	Stefan Agner <stefan@agner.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Maxim Levitsky <maximlevitsky@gmail.com>
+Subject: [PATCH v2 00/12] mtd: Remove #ifdef guards for PM functions
+Date: Tue, 17 Nov 2026 10:37:38 +0100
+Message-ID: <20261117093751.14988-1-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,61 +77,69 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-drm_sched_entity_select_rq() evaluates entity->sched_list locklessly,
-which is elsewhere always lock-protected. Another lockless check regards
-spsc_queue_count(). spsc_queue is evaluated under lock protection at
-many places already and the plan is to replace it with fully locked
-infrastructure anyways.
+Hi,
 
-Move the spin_lock() in drm_sched_entity_select_rq() upwards.
+This is the v2 of my patchset that updates the MTD core / NAND core as
+well as several drivers to get rid of the #ifdef CONFIG_PM guards.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Instead, the code that depends on PM or runtime PM will be
+garbage-collected by the compiler automatically if this config option is
+not set.
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 03e68b4102d5..3856d5e507d7 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -577,22 +577,21 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_rq *rq;
- 
-+	spin_lock(&entity->lock);
-+
- 	/* single possible engine and already selected */
- 	if (!entity->sched_list)
--		return;
-+		goto unlock;
- 
- 	/* queue non-empty, stay on the same engine */
- 	if (spsc_queue_count(&entity->job_queue))
--		return;
-+		goto unlock;
- 
--	spin_lock(&entity->lock);
- 	fence = entity->last_scheduled;
- 
- 	/* stay on the same engine if the previous job hasn't finished */
--	if (fence && !dma_fence_is_signaled(fence)) {
--		spin_unlock(&entity->lock);
--		return;
--	}
-+	if (fence && !dma_fence_is_signaled(fence))
-+		goto unlock;
- 
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
-@@ -604,6 +603,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (entity->num_sched_list == 1)
- 		entity->sched_list = NULL;
- 
-+unlock:
- 	spin_unlock(&entity->lock);
- }
- 
+The rationale behind this change is that in general conditionally
+compiled code is a bad choice, as code behind a rarely-used config can
+get broken without anybody noticing.
+
+In this v2, I removed the pm_ptr() use on shutdown callbacks, as neither
+platform_driver.shutdown() nor the mtd_suspend() / mtd_resume() that the
+shutdown callbacks call are related to CONFIG_PM.
+
+Changelog:
+
+v2:
+- [04/12]: Don't use pm_ptr(), and rewrite commit message
+- [05/12]: Don't use pm_ptr(), and rewrite commit message
+
+Cheers,
+-Paul
+
+Paul Cercueil (12):
+  mtd: Remove #ifdef guards for PM related functions
+  mtd: rawnand: vf610: Remove #ifdef guards for PM related functions
+  mtd: spear_smi: Remove #ifdef guards for PM related functions
+  mtd: physmap: Remove #ifdef guards around shutdown callback
+  mtd: maps: pxa2xx: Remove #ifdef guards around shutdown callback
+  mtd: nand: mtk: Remove #ifdef guards for PM related functions
+  mtd: rawnand: fsmc: Remove #ifdef guards for PM related functions
+  mtd: rawnand: hisi504: Remove #ifdef guards for PM related functions
+  mtd: rawnand: mtk: Remove #ifdef guards for PM related functions
+  mtd: rawnand: omap_elm: Remove #ifdef guards for PM related functions
+  mtd: rawnand: r852: Remove #ifdef guards for PM related functions
+  mtd: rawnand: txx9ndfmc: Remove #ifdef guards for PM related functions
+
+ drivers/mtd/devices/spear_smi.c     |  6 ++----
+ drivers/mtd/maps/physmap-core.c     |  4 ----
+ drivers/mtd/maps/pxa2xx-flash.c     |  4 ----
+ drivers/mtd/mtdcore.c               | 10 ++--------
+ drivers/mtd/nand/ecc-mtk.c          |  8 ++------
+ drivers/mtd/nand/raw/fsmc_nand.c    |  6 ++----
+ drivers/mtd/nand/raw/hisi504_nand.c |  7 +++----
+ drivers/mtd/nand/raw/mtk_nand.c     |  8 ++------
+ drivers/mtd/nand/raw/omap_elm.c     |  6 ++----
+ drivers/mtd/nand/raw/r852.c         |  6 ++----
+ drivers/mtd/nand/raw/txx9ndfmc.c    |  6 +-----
+ drivers/mtd/nand/raw/vf610_nfc.c    |  6 ++----
+ 12 files changed, 20 insertions(+), 57 deletions(-)
+
+Cc: Stefan Agner <stefan@agner.ch>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: Maxim Levitsky <maximlevitsky@gmail.com>
+
 -- 
-2.56.0
+2.47.3
 
