@@ -1,93 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928626;
-	b=y3UG/3qZCA6hg0f3X/6DsjssBUjxHBPuXrtF9aZgM2k1ujsF68VD41Ww3bsvTdUqYJFv
-	 nALfdtOD+un8O7gJtFqwhYqk1zYGtK7VyecLSznXnrJYQpKzovkfApqggPG83p36PMy1O
-	 53Sk+p/TR+iDTekIlw8p4yAC10g9/XEQ3jmrknf9EUreBvjOx1Cr4TCSLZdP2+QFVPXwx
-	 H80HpFux/DdsQIHpvV8/IJ7ULZ4JqxUhuI4ay8t+IZDNyew5eyXL+1oyRlk59VvCcziuu
-	 6faph8LpCM/lTfQhfR6L2Z6OOKEkf6T1rB33Ux6rcAXBOgcUJOx24W5y5/D8H5VlC5Q==
+	t=1794928660;
+	b=F0G9Gv6yaghhviz76fXHxE1mCO7y4fRwuRplck/rkFseynXLAM69fVLi6h12joJUVSsa
+	 3gw2EJ8BCLRsypCrGJ9Wf25oBfXwwpuK4UXaGwinPXSmWldQ1GYJQADZSj8+SPrdlaOuY
+	 PJO3HJQHw6+1aTF6G4MMt9+AeiRlqJSy7mMdCNLUcDFd9HB9TLQEZAbOMSMpe7AkwNa/R
+	 uZahuQFfs5lRSUfcOs+om8U/lgau3NamFmw0ZJkJkV8VvYVt9ugFZxUQ/8KWBaZ01yhMo
+	 wuwqlROG4CRGJmhE1f4F+yAw/FeDc+aYgOGdWkRQtkaqJlrtOhoJ7in6GFe/n2JO8+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928626;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Q1+aSrenySb7/K/4KADrSG42hPPqau3X8HKjekq9KZU=;
-	b=eCtZ8GQ5OyGLV8Ghm4ryXQE5SAR8v216vj556F8HJDVrCj5zLK/29lho7pKTKy+MYMKZ
-	 ZA4VxF8zxnOshlHIvOVGZU8Q41UQ4w+9skcqMoxR64dDIy5CwtB5HdxYRSxAlWDn3AsFO
-	 DNKIIhgcxq4hC5laLcvaoqYgA7jUkvatJzsTLQAQU4q++1km5Gn5Xjg6upl54ympl/sfM
-	 kfBFVMnYd0Ge8OVdhjKnruShyFT+iMNvU/f0uSZKtHucmw5GinspgicuG9cPPX43iDE7/
-	 rqEEsjCo05/vt2Z2sE0fYbKMBjmicNYFvCLT2vftyXmPmHpBhj7FuXwwK61KnCvFW6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928660;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=tNBzpuk7kY7sMCyewGn6ehi2za2Xs4aSfw8c83qLZOU=;
+	b=W+iY4OndxHYYhAb3mwGLw9+K7i4V7Co/vCGPGXA3XagpKsPcc23UeOvppLI2yCndj1UE
+	 zkaV7vghEM9qi8momGyxnR/MBBUvwIoDxBA9yWm7gaKolyukwnuBDufXT4XQFZ0JvdgDC
+	 lepdGe/XVRCTpO0+C3pPDFkVvhO/vlVEvmIjgUayd/Hj4txz8n6f8Y1LXsDQfrs5hBei7
+	 iH2blN9zg1NdHQWslh5n09UOTajTIlYB1kC2viCDCkTdgAgjt8BcFci78VEAZFrShkEKh
+	 HWXquIrsY4f/gEFq9qf9DaAnRKO9Dq4mhh+faRBMlSxU5RU3AYCafGe/VXi2/1FPmSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wCB2HZMb;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DEc0f2at;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="U1GeiK/Y";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44207606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:17:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44207606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E39606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:17:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E39606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wCB2HZMb
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so20875345e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:17:06 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DEc0f2at;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=U1GeiK/Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794928659;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=tNBzpuk7kY7sMCyewGn6ehi2za2Xs4aSfw8c83qLZOU=;
+	b=DEc0f2atpf6XZPjBGbMEUGe+ZupwUObcvZYBi23+uz1gWnJb3VxE9pTGqvp5G7lj4Y/dBZ
+	Z8+lgQrnw5uIw3FCU1FAj9rYRfmor30MbXBZOWonHCNrSaZ1gVdSlMYBV66bQKejrDH2ZP
+	1nDSnKbgmWT+pXOmg1pncLVTfghf/r4=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-554-5FKn3fwiNCyDZeN6yx416g-1; Tue, 17 Nov 2026 10:17:35 -0500
+X-MC-Unique: 5FKn3fwiNCyDZeN6yx416g-1
+X-Mimecast-MFC-AGG-ID: 5FKn3fwiNCyDZeN6yx416g_1794928653
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4901562b819so4507151f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:17:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794928624; x=1795533424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q1+aSrenySb7/K/4KADrSG42hPPqau3X8HKjekq9KZU=;
-        b=wCB2HZMbwJo99BUTH8q0T+du9sVsbyrCt6V+eJHgWNPVC5YY2zFK/D77eb+hyVsLBn
-         Cp9+V/m2GekEhQkaksnfLEtHU4lZQLnO3LtEdLm1y8IFyMNHag+Uji1eh/sd0F58qW6R
-         lvlFvZjdYNUGPp/HjfFkMr8WzMyg3E+JrPzOD5gCqvr7ur64rBvPXZqEyFlJzIMXcFPU
-         YAlVs6+7cVn8r6Q3gf3vewI/Pwf2nL/z8fepADoB/Kn8+pPAcvIA4FO1RyrKj6PrVT4k
-         Vhi6KkEnWN6TW/FAQMs8qrWjlK+axA8VXbUkZgkrEjUk7GKP3biufOYZ+3g0iKMBQVOG
-         3G/Q==
+        d=redhat.com; s=google; t=1794928653; x=1795533453; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tNBzpuk7kY7sMCyewGn6ehi2za2Xs4aSfw8c83qLZOU=;
+        b=U1GeiK/YFcSiDcD/1DmUsEKEg0Gs/QNz+55Nyrmcbf5HxvZA+vTyHgs4h3sJ8h74Fe
+         GrFQSxibf+giTuh0UroLV6zPjv/gDPt7/V54gMzjMfDU1FjgAKQQQOgZ4ixZfVnbrnDh
+         STGztGNc5oGJGNan+4wpuyfulL4A5pnd5TEBFnWAvLt43RiMhLwEQWsUX6IrCK6jiR9a
+         tuDBP2htmI0tIR61553K0o5sNW/p2Q0XCwa5rr6rYp+LRY3R8r+GqyqnjRPb2LzqIY6L
+         QW0FxNK022dokKqS+JXhrlkNkIsgR8a5UZGnejieoLHs/YfyiRBSXKzXq716Qx3Onzel
+         HazA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794928624; x=1795533424;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q1+aSrenySb7/K/4KADrSG42hPPqau3X8HKjekq9KZU=;
-        b=K8Xr5XJQLr23igbk3GFJ9LE7QZ6+yc2JTHHeiJFwoxS6bkY2Fjhfh2Eqy1X609zRcD
-         +Rbqmec/4TbEyMSDqr+l3C60oLpL/UaBMao41gEBW999qPaqBxQZvCfm9XCB+JfssB9U
-         HUmYV7dDMSYQpie+UxkGvy16P6SgTIX+kbJLC9X5QqNZe1klmd2TCTwj4Bc5L3/Mb5Xe
-         79hNSMNy1M1a32pKxiGFsXeSC9PNUC1sR/UQiCP1B+9gpTeTcf3M7PE4BrdzNe2yodCT
-         wfHAbXIRSYvaJOE0oa7dLgKY8dpkeYECxByeRXH2KW/OFTjZIqk9519AodO/R3PlTWR2
-         /p9A==
-X-Forwarded-Encrypted: i=1; AL+hErEuJWYYlTWKl9a+6h2t/n67W2U/hAIwgBiowkCh4rxWxv9kmxrO3LOl9o075lo7KooPS/k0hZ09Iqwaja8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hRhfUZ9VqqJxqHgwpHCSkEZhVUs49ytqsPLIsApmZKIeFG5GV
-	B/H0RQdccEtgefCdqOxHGiaX5qMTY6NNm3W+JTT9Wtw3hVp3vR958Kc5
-X-Gm-Gg: AYBFou0Si4VWfzHJH3R0IRlUAozR4e2izRBDUmuVnU9pyCzB53hthD35Or96LRVIqAf
-	Vk4j+r+bgvUabt2hOfSkpn5rK/+B9nL+0Ozuv0jbYsbJBZ96XFZDCuoO5E/7JKEJnRO9Fdav/RS
-	SgCp9HkQLAVhlWfhRERyUfsIvzrrudbSMhuIJ4Ocivg0EI96of0CHK4qfcKpPTT92ZH44TNBOON
-	bXDVpMy0Z71o+9uLDXaWSB1efAhMDLS+onbmFGpuMs/UxVDhIRU8tB0lftv8Y3YQkcGuedyJJHk
-	TQQVA88n3iHMs1Ch2EK9OUHKPcLWKkNGwZ6Jo4Uv6fXY1nQ4YzYu4G9EYXdDXMLopByqhhc5K2h
-	ueTLIqO8ddk87vNaS9l7aFamahiawFcsxV8EM3c8kN5Pox8zsXoozYT17lK1baHEUfA7+ZBxcbO
-	jsEHXsYmhwRoxyyJeeoBxvbozHBcgIZZhA4xfFL5e1TSIjfL2cvXBs1b6LP5QkMPRkmYycecusb
-	5hztXRJIZJwrKzgiFccmtCobTG2klee3MsXkzQfYlHtdVpwaOZxUTKMixepKwTUonmpuBCXJR0o
-	p8dczRHzvW8lKsC1AspgeYu1HFQ4/S4fTEk=
-X-Received: by 2002:a05:600c:8905:b0:4bb:781f:6067 with SMTP id 5b1f17b1804b1-4bb781f6085mr45664955e9.1.1794928624394;
-        Tue, 17 Nov 2026 07:17:04 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783e9288sm76088175e9.15.2026.11.17.07.17.03
+        d=1e100.net; s=20260707; t=1794928653; x=1795533453;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tNBzpuk7kY7sMCyewGn6ehi2za2Xs4aSfw8c83qLZOU=;
+        b=U+YQswoiei+MZiUOzfAzx8RgSY5C1tml0xv4/FKqP2MazMcNoR0EfWCjQRaGm17pJK
+         6xSJANsaTwO9fcQd2j1OpCsVvenTjvstAfssDHIHciZZi5qKfPcfNVMdPxMj/DxZ8i7L
+         BoEsAisr40SEm/d0wcobg5r6oZOk7Y44ApmZdGR6X6mQRJIDbDlp7+OFev9kBhLPVaIv
+         zStOzpmYnvDBcKxHDpqiG1Db1ZKxiBdWFRLsS0b1uLcopo+/nOVSJeigr4KUFiIt7P6W
+         CPwwRTM9iQ5P6iHyrTil2lLchCJaBumUvgsI91M7KI4aRT0Gc9HA4OxsJ+S/KTVVC6La
+         ecPQ==
+X-Forwarded-Encrypted: i=1; AL+hErHzBExkIf9CQaUobCge3ToUkXIJNn4axKVRudpL1Ur+FrobqJmmuw2kfjVjCyUt/Pp+M++4aWzU9FTRC2o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qqTFwF5dfVPtOomP49M22GTt6OSiemVQrhf+UhMW1TfyQcAHH
+	wvlNJWAnKsDv6bCygQN634gbYF3BvrpWjT+U6c7fuhC4Pr8C+p0NwQRxsn9rgnQuGcjR7ICqUhm
+	J3HwOz8aviMKHgr7NBlumUeacerNBtcERuULsV6B9CR8G98Q71mrg0falu2nyt17Bkg==
+X-Gm-Gg: AZFdTZc7VfqAHetqFeGxutsGwPlDHiD+pQqiU6ZFqC8hVu17jI7wnOhi/rhXaGHz7Yc
+	LcUkpu40nt14V6R6niy2qVbo3tdWcKr8d2TXBKzP6I/FtUhqDQfZmG05iY/UF6U8boAw4S6WBNR
+	+he36On2LY1pEeGbLpNUmhJxg8lzOnFWKTQvm946aUpIf4DV/TsMTX7rhPfSIvZvYJVJ+5XTtwF
+	UZEIGgaOXCrFdEci8ksx6NCcLFrUnPWSuoSjwI4bJMrZsnvYJy0c4xNfpIpQHD3BozEsSdRfCmp
+	/Za9m7glhAWA1XH4fgtzw/KH9lQ4lkAOmcYW89hxzBks8xKIJdG51B3wcLTJWaw1plJxzGxW4mL
+	tDf+GSa38ZuDPm2xMHv5kx3vmutRvSu7heBWA/lTh9f5YLtsBozRjOFXYW9QG3a0ikjkwDWe6Gt
+	G8Abxrhn3a2Q+2gnU8oNpCG/q/Noi5sKGeGpk=
+X-Received: by 2002:a5d:6f19:0:b0:48d:facb:5937 with SMTP id ffacd0b85a97d-49c6d453a54mr27920987f8f.7.1794928653213;
+        Tue, 17 Nov 2026 07:17:33 -0800 (PST)
+X-Received: by 2002:a5d:6f19:0:b0:48d:facb:5937 with SMTP id ffacd0b85a97d-49c6d453a54mr27920908f8f.7.1794928652732;
+        Tue, 17 Nov 2026 07:17:32 -0800 (PST)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb (43.pool85-60-233.dynamic.orange.es. [85.60.233.43])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm31817198f8f.1.2026.11.17.07.17.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:17:03 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: Chun-Yeow Yeoh <yeohchunyeow@gmail.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH ath-next v2] wifi: ath9k_htc: do not fetch the beacon of a finished countdown
-Date: Tue, 17 Nov 2026 16:17:03 +0100
-Message-ID: <20261117151703.1802556-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 17 Nov 2026 07:17:30 -0800 (PST)
+Message-ID: <eb08b0075a686d0f1907160c4e4880ed779e02d8.camel@redhat.com>
+Subject: Re: [PATCH v3 2/4] rv: add per-edge dwell-time statistics
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
+	 <rostedt@goodmis.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <shuah@kernel.org>, Randy
+ Dunlap <rdunlap@infradead.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers	 <mathieu.desnoyers@efficios.com>,
+ linux-trace-kernel@vger.kernel.org, 	linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ rpm@xenomai.org, jan.kiszka@siemens.com
+Date: Tue, 17 Nov 2026 16:17:29 +0100
+In-Reply-To: <20261020095512.863754-3-tobias.schaffner@siemens.com>
+References: <20261020095512.863754-1-tobias.schaffner@siemens.com>
+	 <20261020095512.863754-3-tobias.schaffner@siemens.com>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,194 +136,358 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Tue, 2026-10-20 at 11:55 +0200, Tobias Schaffner wrote:
+> Add CONFIG_RV_EDGE_STAT, an optional facility that records how long a
+> monitor's automaton dwells in a state before leaving it and accounts that
+> dwell to the edge it leaves by.
+>=20
+> Keep the state and its entry timestamp in one word so a transition commit=
+s
+> both with a single cmpxchg and nested transitions cannot charge a dwell t=
+o
+> the wrong edge. This requires a native 64-bit cmpxchg.
+>=20
+> The counters are per-CPU and lock-free, so a monitor's hot path can updat=
+e
+> them without disabling interrupts and without perturbing the latency bein=
+g
+> measured. Only the owning CPU writes them, so a reader snapshots them wit=
+h
+> local64_read() with no IPI and no locking on the accounting path.
+>=20
+> Storage is a static per-CPU array of STATE_MAX * EVENT_MAX edges per
+> monitor, exposed through a per-monitor "stats" tracefs file. Report wheth=
+er
+> the model defines each edge, so a count on an edge that should never be
+> taken is visible. Nothing uses the facility yet.
+>=20
+> Signed-off-by: Tobias Schaffner <tobias.schaffner@siemens.com>
 
-ath9k_htc_send_beacon() checks the channel switch countdown only after
-ieee80211_beacon_get(). mac80211 replaces the CSA beacon only after the
-channel change, and ath9k_htc_set_channel() re-enables beaconing before
-that, so an SWBA event can fetch the CSA beacon again on the new channel
-and mac80211 reports "beacon TX faster than countdown".
+I took too long to finally review this. It looks good, just a few minor
+comments.
 
-Check the vif of the beacon slot before the fetch, as ath9k does since
-commit 4effc6fda7ab ("ath9k: prepare for multi-interface CSA support"):
-skip the beacon while its countdown is complete and finish the switch
-from there. The check reads vif->bss_conf.csa_active instead of
-priv->csa_vif, which ath9k_htc_csa_is_finished() cleared at the first
-ieee80211_csa_finish() and which was set and cleared without a common
-lock, so drop csa_vif and the channel_switch_beacon callback that set
-it. Calling ieee80211_csa_finish() more than once is fine.
+> ---
+> =C2=A0include/linux/rv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 ++
+> =C2=A0include/rv/edge_stat.h=C2=A0 | 211 ++++++++++++++++++++++++++++++++=
+++++++++
+> =C2=A0kernel/trace/rv/Kconfig |=C2=A0 12 +++
+> =C2=A03 files changed, 230 insertions(+)
+> =C2=A0create mode 100644 include/rv/edge_stat.h
+>=20
+> diff --git a/include/linux/rv.h b/include/linux/rv.h
+> index 541ba404926a..1dc7c45f476c 100644
+> --- a/include/linux/rv.h
+> +++ b/include/linux/rv.h
+> @@ -21,6 +21,13 @@
+> =C2=A0#include <linux/list.h>
+> =C2=A0#include <linux/types.h>
+> =C2=A0
+> +/* Edge statistics pack the state and its entry timestamp into one word.=
+ */
+> +#ifdef CONFIG_RV_EDGE_STAT
+> +#define da_state_t=09unsigned long
+> +#else
+> +#define da_state_t=09unsigned int
+> +#endif
+> +
 
-Fixes: f0e449627e4a ("ath9k_htc: add support of channel switch")
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
+I presume here you are using a define instead of a typedef just to avoid
+checkpatch and friends to complain. Right?
 
-Notes:
-    v2:
-    - check the vif of the beacon slot as ath9k does, and drop csa_vif and
-      channel_switch_beacon (Toke)
-    - based on ath9k-pending main, where "wifi: ath9k_htc: clear csa_vif
-      when a switch is aborted" is applied; its csa_vif lines go with
-      csa_vif
-    
-    Tested on rtw-next on an i.MX8MP board with an AR9271 as AP, hostapd
-    switching between channel 1 and 6, one sniffer on each channel counting
-    CSA beacons heard on the new channel: 3 in 80 switches with a count of
-    5 without the patch; with it 3 in 200 with a count of 5 and none in 40
-    with a count of 2. The 3 left are fetched between mac80211 clearing
-    csa_active and replacing the CSA beacon (a print in the driver showed
-    the same 3); a mac80211 patch for that follows. With both, none in 200
-    switches with a count of 5 and 80 with a count of 2. 150 back-to-back
-    switches and 65 AP stops in and out of a countdown gave no kernel
-    report, lockdep on.
-    
-    v1: https://lore.kernel.org/r/20261102123430.1136741-1-mehmet.fide@gmail.com/
+I'm not sure this is any better to be fair. Typedef is what you want here a=
+nd I
+would argue it's the right tool for the job.
 
- drivers/net/wireless/ath/ath9k/htc.h          |  2 --
- .../net/wireless/ath/ath9k/htc_drv_beacon.c   | 36 +++++++++----------
- drivers/net/wireless/ath/ath9k/htc_drv_main.c | 20 -----------
- 3 files changed, 18 insertions(+), 40 deletions(-)
+This exact use is mentioned as an exception (b) to the no typedefs rule [1]=
+.
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc.h b/drivers/net/wireless/ath/ath9k/htc.h
-index 59e0b3cf7f0f..fd128426b6fe 100644
---- a/drivers/net/wireless/ath/ath9k/htc.h
-+++ b/drivers/net/wireless/ath/ath9k/htc.h
-@@ -534,7 +534,6 @@ struct ath9k_htc_priv {
- 	struct ath9k_debug debug;
- #endif
- 	struct mutex mutex;
--	struct ieee80211_vif *csa_vif;
- };
- 
- static inline void ath_read_cachesize(struct ath_common *common, int *csz)
-@@ -588,7 +587,6 @@ void ath9k_htc_tx_drain(struct ath9k_htc_priv *priv);
- void ath9k_htc_txstatus(struct ath9k_htc_priv *priv, void *wmi_event);
- void ath9k_tx_failed_tasklet(struct tasklet_struct *t);
- void ath9k_htc_tx_cleanup_timer(struct timer_list *t);
--bool ath9k_htc_csa_is_finished(struct ath9k_htc_priv *priv);
- 
- int ath9k_rx_init(struct ath9k_htc_priv *priv);
- void ath9k_rx_cleanup(struct ath9k_htc_priv *priv);
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-index b478af1502f2..7e49ab8181f3 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-@@ -188,6 +188,18 @@ static void ath9k_htc_send_buffered(struct ath9k_htc_priv *priv,
- 	spin_unlock_bh(&priv->beacon_lock);
- }
- 
-+static bool ath9k_htc_csa_is_finished(struct ieee80211_vif *vif)
-+{
-+	if (!vif->bss_conf.csa_active)
-+		return false;
-+
-+	if (!ieee80211_beacon_cntdwn_is_complete(vif, 0))
-+		return false;
-+
-+	ieee80211_csa_finish(vif, 0);
-+	return true;
-+}
-+
- static void ath9k_htc_send_beacon(struct ath9k_htc_priv *priv,
- 				  int slot)
- {
-@@ -214,6 +226,11 @@ static void ath9k_htc_send_beacon(struct ath9k_htc_priv *priv,
- 		return;
- 	}
- 
-+	if (ath9k_htc_csa_is_finished(vif)) {
-+		spin_unlock_bh(&priv->beacon_lock);
-+		return;
-+	}
-+
- 	/* Get a new beacon */
- 	beacon = ieee80211_beacon_get(priv->hw, vif, 0);
- 	if (!beacon) {
-@@ -258,7 +275,7 @@ static void ath9k_htc_send_beacon(struct ath9k_htc_priv *priv,
- 
- 	spin_unlock_bh(&priv->beacon_lock);
- 
--	ath9k_htc_csa_is_finished(priv);
-+	ath9k_htc_csa_is_finished(vif);
- }
- 
- static int ath9k_htc_choose_bslot(struct ath9k_htc_priv *priv,
-@@ -508,20 +525,3 @@ void ath9k_htc_beacon_reconfig(struct ath9k_htc_priv *priv)
- 		return;
- 	}
- }
--
--bool ath9k_htc_csa_is_finished(struct ath9k_htc_priv *priv)
--{
--	struct ieee80211_vif *vif;
--
--	vif = priv->csa_vif;
--	if (!vif || !vif->bss_conf.csa_active)
--		return false;
--
--	if (!ieee80211_beacon_cntdwn_is_complete(vif, 0))
--		return false;
--
--	ieee80211_csa_finish(vif, 0);
--
--	priv->csa_vif = NULL;
--	return true;
--}
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-index b46be3682f21..320deb6c3630 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-@@ -1135,9 +1135,6 @@ static void ath9k_htc_remove_interface(struct ieee80211_hw *hw,
- 	priv->nvifs--;
- 	priv->vif_slot &= ~(1 << avp->index);
- 
--	if (priv->csa_vif == vif)
--		priv->csa_vif = NULL;
--
- 	ath9k_htc_remove_station(priv, vif, NULL);
- 
- 	DEC_VIF(priv, vif->type);
-@@ -1569,9 +1566,6 @@ static void ath9k_htc_bss_info_changed(struct ieee80211_hw *hw,
- 			priv->cur_beacon_conf.enable_beacon = 0;
- 			ath9k_htc_beacon_config(priv, vif);
- 		}
--
--		if (priv->csa_vif == vif && !bss_conf->csa_active)
--			priv->csa_vif = NULL;
- 	}
- 
- 	if (changed & BSS_CHANGED_BEACON_INT) {
-@@ -1861,19 +1855,6 @@ static int ath9k_htc_get_antenna(struct ieee80211_hw *hw, int radio_idx,
- 	return 0;
- }
- 
--static void ath9k_htc_channel_switch_beacon(struct ieee80211_hw *hw,
--					    struct ieee80211_vif *vif,
--					    struct cfg80211_chan_def *chandef)
--{
--	struct ath9k_htc_priv *priv = hw->priv;
--
--	/* mac80211 does not support CSA in multi-if cases (yet) */
--	if (WARN_ON(priv->csa_vif))
--		return;
--
--	priv->csa_vif = vif;
--}
--
- struct ieee80211_ops ath9k_htc_ops = {
- 	.add_chanctx = ieee80211_emulate_add_chanctx,
- 	.remove_chanctx = ieee80211_emulate_remove_chanctx,
-@@ -1905,7 +1886,6 @@ struct ieee80211_ops ath9k_htc_ops = {
- 	.set_bitrate_mask   = ath9k_htc_set_bitrate_mask,
- 	.get_stats	    = ath9k_htc_get_stats,
- 	.get_antenna	    = ath9k_htc_get_antenna,
--	.channel_switch_beacon	= ath9k_htc_channel_switch_beacon,
- 
- #ifdef CONFIG_ATH9K_HTC_DEBUGFS
- 	.get_et_sset_count  = ath9k_htc_get_et_sset_count,
+[1] - https://www.kernel.org/doc/html/latest/process/coding-style.html#type=
+defs
 
-base-commit: 465fcc982a221f774594aa7d7351fde8c03a3deb
--- 
-2.56.0
+> =C2=A0/*
+> =C2=A0 * Deterministic automaton per-object variables.
+> =C2=A0 */
+> diff --git a/include/rv/edge_stat.h b/include/rv/edge_stat.h
+> new file mode 100644
+> index 000000000000..8b99e8520e1e
+> --- /dev/null
+> +++ b/include/rv/edge_stat.h
+> @@ -0,0 +1,211 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Per-edge dwell-time statistics for RV monitors.
+> + *
+> + * Copyright (C) 2026 Siemens AG
+> + * Author: Tobias Schaffner <tobias.schaffner@siemens.com>
+> + */
+> +#ifndef _RV_EDGE_STAT_H
+> +#define _RV_EDGE_STAT_H
+> +
+> +#include <linux/rv.h>
+> +
+> +#ifdef CONFIG_RV_EDGE_STAT
+> +
+> +#include <linux/args.h>
+> +#include <linux/atomic.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bug.h>
+> +#include <linux/compiler.h>
+> +#include <linux/percpu.h>
+> +#include <linux/sched/clock.h>
+> +#include <linux/seq_file.h>
+> +#include <linux/types.h>
+> +#include <asm/local64.h>
+> +#include <rv/automata.h>
+> +#include "rv.h"
+
+Including this apparently opened a can of worms and BTF infos no longer bui=
+ld.
+I'll send a fix separately, it isn't really related to your change.
+
+> +
+> +/*
+> + * Per-CPU counters kept in local64_t so accounting is safe against inte=
+rrupt
+> + * and NMI nesting on the owning CPU without disabling interrupts. Only =
+the
+> + * owning CPU writes.
+> + */
+> +struct rv_edge_stat {
+> +=09local64_t=09count;
+> +=09local64_t=09sum_ns;
+> +=09local64_t=09max_ns;
+> +};
+> +
+> +/*
+> + * State and entry timestamp share one word so a transition commits both=
+ with
+> + * one cmpxchg. Comparing the timestamp also detects nested transitions =
+that
+> + * return to the same state.
+> + */
+> +#define RV_STATE_BITS=09=098
+> +#define RV_STATE_MASK=09=09GENMASK(RV_STATE_BITS - 1, 0)
+> +#define RV_TS_MASK=09=09GENMASK(BITS_PER_LONG - 1, RV_STATE_BITS)
+> +
+> +#define da_state_of(w)=09=09FIELD_GET(RV_STATE_MASK, w)
+> +#define da_ts_of(w)=09=09FIELD_GET(RV_TS_MASK, w)
+> +#define da_state_pack(s, ts)=09(FIELD_PREP(RV_TS_MASK, ts) | \
+> +=09=09=09=09 FIELD_PREP(RV_STATE_MASK, s))
+> +
+> +static __always_inline
+> +void rv_edge_stat_account(struct rv_edge_stat *s, u64 dwell_ns)
+> +{
+> +=09s64 max;
+> +=09int i;
+> +
+> +=09local64_inc(&s->count);
+> +=09local64_add(dwell_ns, &s->sum_ns);
+> +
+> +=09/* Keep the largest dwell; bound retries if a nested update races us.
+> */
+> +=09max =3D local64_read(&s->max_ns);
+> +=09for (i =3D 0; dwell_ns > (u64)max; i++) {
+> +=09=09if (i =3D=3D MAX_DA_RETRY_RACING_EVENTS) {
+> +=09=09=09WARN_ONCE(1, "rv: edge-stat max update exceeded %d
+> retries\n",
+> +=09=09=09=09=C2=A0 MAX_DA_RETRY_RACING_EVENTS);
+> +=09=09=09break;
+> +=09=09}
+> +=09=09if (local64_try_cmpxchg(&s->max_ns, &max, dwell_ns))
+> +=09=09=09break;
+> +=09}
+> +}
+> +
+> +static_assert(STATE_MAX <=3D (1U << RV_STATE_BITS),
+> +=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "automaton has more states than the pa=
+cked state word can
+> hold");
+> +
+> +#if RV_MON_TYPE =3D=3D RV_MON_PER_CPU
+> +
+> +/*
+> + * One edge per (state, event) pair. Static storage avoids allocation
+> lifetime
+> + * races. Only the owning CPU writes, so readers can snapshot counters w=
+ith
+> + * local64_read().
+> + */
+> +#define RV_THIS_NR_EDGES=09(STATE_MAX * EVENT_MAX)
+> +
+> +#define DA_EDGE(state, event)=09((state) * EVENT_MAX + (event))
+> +#define DA_EDGE_STATE(edge)=09((edge) / EVENT_MAX)
+> +#define DA_EDGE_EVENT(edge)=09((edge) % EVENT_MAX)
+> +
+> +#define DA_MON_EDGES=09=09CONCATENATE(da_mon_edges_, MONITOR_NAME)
+> +
+> +static DEFINE_PER_CPU(struct rv_edge_stat[RV_THIS_NR_EDGES], DA_MON_EDGE=
+S);
+> +static struct dentry *rv_this_stats_file;
+> +
+> +/* Called before tracepoints are registered, so memset cannot race an up=
+date.
+> */
+> +static void rv_edge_stats_reset(void)
+> +{
+> +=09int cpu;
+> +
+> +=09for_each_possible_cpu(cpu)
+> +=09=09memset(per_cpu_ptr(DA_MON_EDGES, cpu), 0,
+> sizeof(DA_MON_EDGES));
+> +}
+> +
+> +static int rv_edge_stats_show(struct seq_file *seq, void *v)
+> +{
+> +=09unsigned int e;
+> +=09int cpu;
+> +
+> +=09seq_puts(seq, "# cpu edge label valid count sum_ns max_ns\n");
+> +=09/* Include offline CPUs and keep output stable across CPU hotplug. */
+> +=09for_each_possible_cpu(cpu) {
+> +=09=09struct rv_edge_stat *edges =3D per_cpu_ptr(DA_MON_EDGES, cpu);
+> +
+> +=09=09for (e =3D 0; e < RV_THIS_NR_EDGES; e++) {
+> +=09=09=09enum states state =3D DA_EDGE_STATE(e);
+> +=09=09=09enum events event =3D DA_EDGE_EVENT(e);
+> +
+> +=09=09=09/* Edges the model does not define must stay at zero.
+> */
+> +=09=09=09seq_printf(seq, "%d %u %s:%s %d %llu %llu %llu\n",
+> +=09=09=09=09=C2=A0=C2=A0 cpu, e,
+> +=09=09=09=09=C2=A0=C2=A0 model_get_state_name(state),
+> +=09=09=09=09=C2=A0=C2=A0 model_get_event_name(event),
+> +=09=09=09=09=C2=A0=C2=A0 model_get_next_state(state, event) !=3D
+> INVALID_STATE,
+> +=09=09=09=09=C2=A0=C2=A0 (u64)local64_read(&edges[e].count),
+> +=09=09=09=09=C2=A0=C2=A0 (u64)local64_read(&edges[e].sum_ns),
+> +=09=09=09=09=C2=A0=C2=A0 (u64)local64_read(&edges[e].max_ns));
+> +=09=09}
+> +=09}
+> +=09return 0;
+> +}
+> +DEFINE_SHOW_ATTRIBUTE(rv_edge_stats);
+> +
+> +static int rv_edge_stats_create(struct dentry *parent)
+> +{
+> +=09rv_edge_stats_reset();
+> +=09rv_this_stats_file =3D rv_create_file("stats", RV_MODE_READ, parent,
+> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0 NULL, &rv_edge_stats_fops);
+> +=09return rv_this_stats_file ? 0 : -ENOMEM;
+> +}
+> +
+> +static void rv_edge_stats_remove(void)
+> +{
+> +=09rv_remove(rv_this_stats_file);
+> +=09rv_this_stats_file =3D NULL;
+> +}
+> +
+> +/* A zero timestamp marks resets, which can run on a different CPU. */
+> +#define da_state_entered(s)=09da_state_pack((s), local_clock())
+> +
+> +static __always_inline void
+> +rv_edge_account(da_state_t old, da_state_t new, enum states curr, enum e=
+vents
+> ev)
+> +{
+> +=09struct rv_edge_stat *edges;
+> +=09u64 prev =3D da_ts_of(old);
+> +
+> +=09if (unlikely(!prev))
+> +=09=09return;
+> +
+> +=09edges =3D this_cpu_ptr(DA_MON_EDGES);
+> +=09rv_edge_stat_account(&edges[DA_EDGE(curr, ev)],
+> +=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 (da_ts_of(new) - prev) & FIELD_MAX(RV_=
+TS_MASK));
+> +}
+> +
+> +#else /* per-cpu accounting off for this monitor type */
+> +
+> +#define da_state_entered(s)=09((da_state_t)(s))
+> +
+> +static __always_inline void
+> +rv_edge_account(da_state_t old, da_state_t new, enum states curr, enum e=
+vents
+> ev) { }
+> +
+> +#endif /* RV_MON_TYPE =3D=3D RV_MON_PER_CPU */
+> +
+> +static __always_inline bool
+> +da_state_try_commit(da_state_t *word, da_state_t *old, enum states next,
+> +=09=09=C2=A0=C2=A0=C2=A0 enum events event)
+> +{
+> +=09da_state_t prev =3D *old;
+> +=09da_state_t new =3D da_state_entered(next);
+> +
+> +=09if (!try_cmpxchg(word, old, new))
+> +=09=09return false;
+> +
+> +=09rv_edge_account(prev, new, da_state_of(prev), event);
+> +=09return true;
+> +}
+> +
+> +#else /* !CONFIG_RV_EDGE_STAT */
+> +
+> +/*
+> + * Feature off: only the hooks the DA/HA layer calls are provided, as tr=
+ivial
+> + * pass-throughs. da_state_t is a plain state word with no packed timest=
+amp.
+> + */
+> +#define da_state_of(w)=09=09(w)
+> +#define da_state_entered(s)=09(s)
+> +
+> +static __always_inline bool
+> +da_state_try_commit(da_state_t *word, da_state_t *old, enum states next,
+> +=09=09=C2=A0=C2=A0=C2=A0 enum events event)
+> +{
+> +=09return try_cmpxchg(word, old, next);
+> +}
+> +
+> +#if RV_MON_TYPE =3D=3D RV_MON_PER_CPU
+> +static inline int rv_edge_stats_create(struct dentry *parent) { return 0=
+; }
+> +static inline void rv_edge_stats_remove(void) { }
+> +#endif
+> +
+> +#endif /* CONFIG_RV_EDGE_STAT */
+> +
+> +#endif /* _RV_EDGE_STAT_H */
+> diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
+> index efa930f94ea4..54f7c50a74a8 100644
+> --- a/kernel/trace/rv/Kconfig
+> +++ b/kernel/trace/rv/Kconfig
+> @@ -59,6 +59,18 @@ config RV_PER_TASK_MONITORS
+> =C2=A0=09=C2=A0 This option configures the maximum number of per-task RV =
+monitors
+> that can run
+> =C2=A0=09=C2=A0 simultaneously.
+> =C2=A0
+> +config RV_EDGE_STAT
+> +=09bool "Per-edge dwell-time statistics"
+> +=09depends on RV && 64BIT && DA_MON_EVENTS_IMPLICIT
+> +=09help
+> +=09=C2=A0 Record per-edge dwell-time statistics for per-cpu deterministi=
+c and
+> +=09=C2=A0 hybrid automaton monitors and expose them through a per-monito=
+r
+> +=09=C2=A0 "stats" tracefs file. This times each monitored automaton
+> transition
+> +=09=C2=A0 with local_clock(), so leave it off if you do not need the
+> +=09=C2=A0 statistics.
+> +
+> +=09=C2=A0 If unsure, say N.
+> +
+
+Mostly personal preference, but I would add new configs at the end of the f=
+ile
+(e.g. after reactors and KUnit).
+
+Thanks,
+Gabriele
+
+> =C2=A0source "kernel/trace/rv/monitors/wip/Kconfig"
+> =C2=A0source "kernel/trace/rv/monitors/wwnr/Kconfig"
+> =C2=A0
 
