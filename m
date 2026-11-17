@@ -1,66 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794886130;
-	b=cUUMpRqICYSmhnv/2gS+m1O2NGIuse4b9FbsRlwqyNiMtk6RQrSnCkYy7mR31gTTJek2
-	 nhelDpjgIGqWMVypk2mt5PIpS+EiEgzuYLyVNegBxNdAhCYjtc2KdTXw+WrNtY6ijymeX
-	 llSREdmIcJp+wNhokbPg9emIY9g3ViQhz9gs1JrgKKvVrg2e23ke+UQ3H1wC2MXadZ34m
-	 Edm5ga0SIpUdEt/nFiftJ0cVkyINKCsO6E3Vb2FUiCFkhAsgKLPA+tFkMmiODiX3jegGp
-	 WUJHycJguGItgOjKkQIHoy6YVrKfPrFnFxfvnCTin5D+C0MIN79RQfkBzbB7HGTvGJQ==
+	t=1794886186;
+	b=R8NV2Efr26sucAcst4ec2LXTpzSTU8IV9/UxKU2XJmy4qqcZNyMIdVThQbA4BY8PNMjw
+	 qZdnpmFuWPNBDmAoKHUT7S/8NbZypeYTFzEDk+Py+fLve4B7eoMJCnLy/v0G6/Be1RQpQ
+	 cmRQSWRcYW2NUYJgEMs1P0bQT2cxkF7fldYeE9gCVZWLcSI8AB9fKdy1DwLB14LlYNS71
+	 gVdAmbYo7LxcsE02JZhG/8wUi69Erzyf4o/ox+GsbzezCpy4aYhtjQLQF3ArcFtR7AWry
+	 eCJt1ULPiyxEcXykfHa60+CKbiJQ6HGw/UZAslNpuFR7g8GhYY7Kc6sc8/I2TY4iSsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794886130;
-	h=DMARC-Filter:Received:Received:Received:Date:From:To:CC:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent:X-Originating-IP:X-ClientProxiedBy:
-	 X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
-	bh=X3ka1UWCQgHr7wAYA9U0lvn/SMltga41VCk5FtudeCg=;
-	b=tmZeaREbm0v9WpXn06/BRf68DPlTmzS6UCau1eMLh2peoZwpQUNcsjGLgADuzPwZ3+CW
-	 WXmR3GUJdiwDH26t6e1gpmSagPZLT4rWIfK2unDDnh9TE19X9QOekXMJfu1BXcARbou87
-	 lt4Kjd2e78SiGmnXX0u9xQ6drPi3/l7j0H1DFSLtegbhR0LI6bwzk7tsZXazJPQoK9DYa
-	 449E3vUgvSbYSRhuEGix/VMoWrFSoP2GDP1ai+eHmH2Mdtqtic7aXhOXWbxZTVCSefJ6w
-	 ykb4I1zWv7neCPFUHNaRiY020aAyo3IsUFzu4UUE7U9o0x3jWcflZWJFFAtpxw8cJyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794886186;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VlgS4kPQ1tkST4DxH/0zqX7QYY95b8QOwNrfulz9Nqg=;
+	b=hecQ9nE3iLVB/1ZsnTTe8XGZOxgnMU6y6w2zxCOcUN1YoUSpG70Y6jPE0VFAx+vEHAk5
+	 NLuRaljKtAJi7vk2Frml5j17cWY1dIE4uNwsmQ88WyeYzJmSkcHNscOwcZ9ZblSeSANuT
+	 AB4HRC6SGqn2gk4JJcpjNsJDoEStx4EEuzOHpQ57yHs+GvLsfKqYOTe78+tfEJBQFejkz
+	 hahYLauoOKF91FpxmffzrBXofzhfqxzISKaaie+gWpVr34iIDxx61ldJaI2cGLdTJPeRM
+	 i+EO/wbYvDoyibCbYwagdlRKv9iLXdYq7sWoHASZOsDh3ag/esax3s6w7S05/YaQV5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andestech.com;
-	spf=pass smtp.mailfrom=andestech.com;
-	arc=none smtp.remote-ip=220.128.198.184
-Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB01D606A31C;
-	Tue, 17 Nov 2026 03:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB01D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
-	by Atcsqr.andestech.com with ESMTPS id 6AH3SFac027414
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 11:28:15 +0800 (+08)
-	(envelope-from minachou@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
- (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 17 Nov
- 2026 11:28:15 +0800
-Received: from atcsi01.andestech.com (10.0.15.32) by ATCPCS34.andestech.com
- (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Nov
- 2026 11:28:15 +0800
-Date: Tue, 17 Nov 2026 11:28:15 +0800
-From: Mina Chou <minachou@andestech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
-        <alex@ghiti.fr>, <jic23@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <geert+renesas@glider.be>,
-        <magnus.damm@gmail.com>, <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-        <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <randolph@andestech.com>, <cyyang772@andestech.com>,
-        <tim609@andestech.com>, <az70021@gmail.com>
-Subject: Re: [PATCH v2 16/19] riscv: errata: andes: allow ERRATA_ANDES_CMO on
- all Andes SoCs
-Message-ID: <avvJz262LYxrlaXU@atcsi01.andestech.com>
-References: <20261113071143.1446167-1-minachou@andestech.com>
- <20261113071143.1446167-17-minachou@andestech.com>
- <20261113-upon-unmarked-8f4a186bb656@spud>
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VSGG30xy;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF2B6606A32C;
+	Tue, 17 Nov 2026 03:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF2B6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VSGG30xy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=VSGG30xywvYNxyhwD7DhlCZzA6S/Hc3I13cUsSTpev6N4fHvZPjuawyOuoOpxegDZJjZCfnM5X4Ub
+	 dux9gOsPPRZvNk84Wwjm06X1DJV9xMiE3f9rumGU8wLpowTTnnNNeGgejtPpQKnnyMk8phH8GqwE1Y
+	 tlYH+gxpUcWmmWT4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66afbca237a0-d183c;
+	Tue, 17 Nov 2026 11:29:39 +0800 (CST)
+X-RM-TRANSID:2ee66afbca237a0-d183c
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[223.112.32.189])
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26afbca214b2-a19d2;
+	Tue, 17 Nov 2026 11:29:39 +0800 (CST)
+X-RM-TRANSID:2ee26afbca214b2-a19d2
+From: guohongyu <guohongyu@cmss.chinamobile.com>
+To: lachlan.hodges@morsemicro.com,
+	dan.callaghan@morsemicro.com,
+	arien.judge@morsemicro.com,
+	johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	13057616121@163.com
+Subject: [PATCH 2/2] wifi: mm81x: bound disabled-channel loop to the allocated response
+Date: Tue, 17 Nov 2026 11:22:27 +0800
+Message-ID: <20261117032227.154874-2-guohongyu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117032227.154874-1-guohongyu@cmss.chinamobile.com>
+References: <20261117032227.154874-1-guohongyu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,80 +74,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261113-upon-unmarked-8f4a186bb656@spud>
-User-Agent: Mutt/2.1.4 (2021-12-11)
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6AH3SFac027414
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 02:00:46PM +0000, Conor Dooley wrote:
-> [EXTERNAL MAIL]
+mm81x_mac_check_fw_disabled_chans() allocates a response buffer sized
+for ARRAY_SIZE(mors_s1ghz_channels) (26) channel entries plus the
+fixed header, but then iterates the entries with the firmware-provided
+count alone:
 
-> Date: Fri, 13 Nov 2026 14:00:46 +0000
-> From: Conor Dooley <conor@kernel.org>
-> To: Mina Hui-Min Chou <minachou@andestech.com>
-> Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
->  alex@ghiti.fr, jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
->  conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
->  prabhakar.mahadev-lad.rj@bp.renesas.com, linux-riscv@lists.infradead.org,
->  devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
->  linux-kernel@vger.kernel.org, randolph@andestech.com,
->  cyyang772@andestech.com, tim609@andestech.com, az70021@gmail.com
-> Subject: Re: [PATCH v2 16/19] riscv: errata: andes: allow ERRATA_ANDES_CMO
->  on all Andes SoCs
-> 
-> On Fri, Nov 13, 2026 at 03:11:40PM +0800, Mina Hui-Min Chou wrote:
-> > ERRATA_ANDES_CMO depends on ARCH_R9A07G043, so it can only be enabled
-> > for the Renesas RZ/Five, although other Andes SoCs such as those built
-> > on the A27L2 need it too. Drop the dependency, and select
-> > ANDES_LLCACHE and CACHEMAINT_FOR_DMA so that the errata always comes
-> > with its cache driver, which ARCH_R9A07G043 used to guarantee.
-> > 
-> > As ERRATA_ANDES_CMO is default y, it is now also enabled in the generic
-> > riscv defconfig. The errata only acts on Andes cores at boot, so other
-> > platforms are not affected.
-> > 
-> > RZ/Five still gets uncached memory for coherent DMA allocations from the
-> > DMA_GLOBAL_POOL that ARCH_R9A07G043 selects. This patch only covers
-> > cache maintenance for streaming DMA; how other platforms provide uncached
-> > memory stays platform specific.
-> > 
-> > Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
-> > ---
-> >  arch/riscv/Kconfig.errata | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
-> > index 4f77b3c6d7fd..3c43e065aa01 100644
-> > --- a/arch/riscv/Kconfig.errata
-> > +++ b/arch/riscv/Kconfig.errata
-> > @@ -12,7 +12,9 @@ config ERRATA_ANDES
-> >  
-> >  config ERRATA_ANDES_CMO
-> >  	bool "Apply Andes cache management errata"
-> > -	depends on ERRATA_ANDES && ARCH_R9A07G043
-> > +	depends on ERRATA_ANDES
-> > +	select ANDES_LLCACHE
-> > +	select CACHEMAINT_FOR_DMA
-> 
-> If you're selecting it here, can you not drop it from the renesas soc
-> Kconfig file?
-> 
+	for (i = 0; i < le32_to_cpu(resp->n_channels); i++) {
+		struct host_cmd_disabled_channel_entry *entry =
+			&resp->channels[i];
 
-Thanks for catching that! ARCH_R9A07G043 selects ERRATA_ANDES_CMO,
-so the selects there are redundant now. I will drop them in v3, something like:
+n_channels is a __le32 filled by the firmware response and is not
+validated against the buffer size in any way.  A firmware that reports
+more than 26 channels makes the loop read past the end of the
+kzalloc()ed buffer into adjacent heap memory and interpret it as
+channel entries.
 
-diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
-@@ -465,8 +465,6 @@ config ARCH_R9A07G043
-...
-        select ARCH_RZG2L
--       select ANDES_LLCACHE
--       select CACHEMAINT_FOR_DMA
+Bound the loop to the number of entries the buffer was actually
+allocated for.
 
-Thanks,
-Mina
+Fixes: b1906cea00b0 ("wifi: mm81x: add mm81x Wi-Fi HaLow driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: guohongyu <guohongyu@cmss.chinamobile.com>
+---
+ drivers/net/wireless/morsemicro/mm81x/mac.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/morsemicro/mm81x/mac.c b/drivers/net/wireless/morsemicro/mm81x/mac.c
+index 0fa80b1488aa..953958bf1241 100644
+--- a/drivers/net/wireless/morsemicro/mm81x/mac.c
++++ b/drivers/net/wireless/morsemicro/mm81x/mac.c
+@@ -288,7 +288,8 @@ static void mm81x_mac_check_fw_disabled_chans(struct ieee80211_hw *hw)
+ 		ch->flags &= ~IEEE80211_CHAN_S1G_NO_PRIMARY;
+ 	}
+ 
+-	for (i = 0; i < le32_to_cpu(resp->n_channels); i++) {
++	for (i = 0; i < le32_to_cpu(resp->n_channels) &&
++		   i < ARRAY_SIZE(mors_s1ghz_channels); i++) {
+ 		struct ieee80211_channel *ch;
+ 		struct host_cmd_disabled_channel_entry *entry =
+ 			&resp->channels[i];
+-- 
+2.43.0
+
+
+
