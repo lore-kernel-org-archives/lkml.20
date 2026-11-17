@@ -1,75 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918272;
-	b=cSYm5UTp/7XRyF5nvWwljNxT4RKcSbAZ4cHPXGhMnAvc2BATly3Evl3KA8ybT5DGgvC6
-	 b7Q2qfVKqPUslavHif9d3ML1I+GwUsVjBYhoSrw0NuAR0P+u2dKNXf0VVUFoDRCIyS2V+
-	 guxvQKyCAhIGB7feVQyly9yEKbeD2nCzKmsI+4McVNJPltNb4FGp3OympOzNpXjOsCave
-	 Fbs48ZVtbmK16Lhb25lQ0PbkK8+KCPHZ+cxVBEEhJpLWpPQ4XF87c36TnzwDSsQeCBxBq
-	 /FcolmTIJR2+jotaCokAkPjSYdpFnpJ7KzIBiSMFtLm+CyCXNSN7qR3JcWyVTiKtC7w==
+	t=1794918304;
+	b=2ws7rnFsU848zXK4HkmwtxTR2kd0rQbFu7yeqPO6OGJX9ft1Y5KMYDlHL/exIGyp2rRk
+	 ZK6PH9Ro2cXGnvS7X7Wje3NpymA0+kl6/ZkRVfN3elOgXTTO3EK9mCeThdhr8+hsPbFGv
+	 3jlKs0rda6MZHmWjBkXoKFXYIg5a5YZTuev7kZqCwB1vNeK1VKN0Bay/AsfFjhOKSkJf0
+	 WgvZafVzZb7wZfLkZdEnIwtekCTwl3x6rw3s7b2i9UVTDaniOgfeux5c7RlNH7tDiKPlh
+	 j2GFD+PXzd7lO6bU5DiMcvGn1VRbe0qQd6YVqKqiQfqaTXMukhqAexlJEj/nRf6wcGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918272;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=DCpu+Hq5xQeJszgIeoHmZoIg86kcDoEMxUxHmN2abjs=;
-	b=w4L8DZY9QZzLVmHmkHYU7LzDoKQxiBEgRd4zkUQkYCnWfX3UPBo88vpkqF/RYajyubPh
-	 /UhNVO/rt9B5ZMGjtCBniwQINDy4sDPHNrkF1a/yh4S8SVGnrMU2zstcjpAXevvpqYpF1
-	 EliINJlqQMFiihsRNMqIAPHw38y+dl0xAOcUBLiniTtA7GD3uZxFj1i12STLGtSCgkk/p
-	 iiYQlBL0Wf0gTVEZ9cDEVml9j5wfsWar66rJKBE857QlXfFYBK3PGFI2+c4OJuI7og/ts
-	 D+4rLMBIm7sfBOSQ6sS3sm4lKTmVd5h4pN+es4nQICpzkB3Fqh3I+vJ/LrekkiOR4lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=597o+fzVRa6upEiwDp/AfddNGeB1lk6wR6CKlinIETU=;
+	b=4mg/g/6puHEH2HUHi5aRHQXi11WYr380IQ95f5p4l8s6v2iLbvJ3wW7Hrd+9zWoA2Nq9
+	 7GVoH5PNtiJrTbVP3vsGndGAVo8JSmqTHiWQ7Ry1vqZxkCa9jelKghjDJSampupHPwMQY
+	 spwDUG+zDXTHVz+W2LDBYHqk0afYdlGWs4cpsK8Q+6+uhbyAkp1oJEBKvi1wfp3+7SMOc
+	 /PhUBL5gu7KG++8ido1tOERNn4LMKY7vQLboqjc1oWo3b39qQsEi1k/9/V2H3jo0inwrV
+	 9/ZBJRE2hDnO9ohvg/q7YNfFcwTzlEsnYDk1mtTxOI5AxRb/rQm0JCEXqEWDAkhnESQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ugVJQVtE;
-	arc=none smtp.remote-ip=95.215.58.81
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G+ycRSf2;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A6C606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:24:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A6C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7469B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:25:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7469B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ugVJQVtE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3vM0O1dJswiN9N8gqBgAgWRmPD44k2JkjuKN6dhc+5s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794918269; v=1; x=1795523069;
- b=ugVJQVtEFegxsdAPplHrLvIIMoLGDHtWyhnX6a7Ry7Hl/47jxjo4G8h/ItdzXkqbEhhLYSdZ
- hzWVSncUUtM4pm8ye0UyxQHwIO9gf8cNXyJ15GxFKsxjg98MT6DWzuN+WmmRAyA6VtvZ6gAvp6u
- hBEY7xESuScRyr/ZvKW4Aw8E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 953c64e80f13473e;
-	Tue, 17 Nov 2026 12:24:29 +0000
-X-Mizu-Trace-ID: 953c64e80f13473e
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org,
-	ast@kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Sechang Lim <rhkrqnwk98@gmail.com>,
-	Michal Luczaj <mhal@rbox.co>,
-	John Fastabend <john.fastabend@gmail.com>,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G+ycRSf2
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b155f50c24so5380501a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:25:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794918304; x=1795523104; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=597o+fzVRa6upEiwDp/AfddNGeB1lk6wR6CKlinIETU=;
+        b=G+ycRSf2Ula43Yh/kEvsvmD4oWnif+OT//3vYs9KhggfF79vBUPXqhykPZIX/AaNJT
+         Vk/vIaK0AbsgLH9n9j7vBOHXz8NrtPRKtFd8vSgyL/DnCzXnlarteIV8C4kBFWkl9nzF
+         V74lpXC+9Fdn35+ZsdKTT7SszTJe5kv2RzYkqQ0WBPlCY9/mXqYGKqtPDsLQoyD01Hcp
+         guFG4os5ptKp97uzmcvZYVgfMrXG3lwvNw/LXz75J8m4yBa0NIErZh0nUafK5QgWQ8PF
+         mQyL6ZJZv1AG8p9p0+7+q3KW/sINMBnQQGSJsI8ddL3+No4KIN+zDIlQOWvjkjk2ayRU
+         TMsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794918304; x=1795523104;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=597o+fzVRa6upEiwDp/AfddNGeB1lk6wR6CKlinIETU=;
+        b=mBUMYP5lCBdCTwjMpbPuF/i1asoxZReqnBecvTueQ3ZgmxhqmgD4AKmv46SSqx7xI2
+         mAKqRwHT4lqDL9cLXVdDZ4+Hn6WL8mTX5tyVzd21BRqnloU8PxxB4oY8dqcs1+NRWf4q
+         eLqEVLWHSB5EQp/SZ9+uCV1b6QYpWh5807fslnWcAEZrV3uk9NsMHprxqY0KrEqMVgUl
+         7AXNxXbZhPGNIoU3iAxe0AumfeR3YQLsVfLg/mF34sfDRR78bRdvg7Al8eqWmBPcFQam
+         yAf7yw6d0EUbEem/N0y1YGAgqz+mcvHgO+Ve83DvMPGdZQLrecggshe2+1S6dMmTJ/Ig
+         2OOg==
+X-Forwarded-Encrypted: i=1; AL+hErH3yBXjoehR+6GcKgsoStVw6UD9c3aCSUCLq+Av2mkH0D5EqdWZ8daIOLr/gXUFjBJJq42gwFgawZY3yoc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qqM8h97Y+kQrxLsrrdKug3B677/3rcOwC4PIejs+K1xXPAUvl
+	Q7nTr28Cs9VEn0lmN55Js5JsfIQ+HXkWa6uU0z3IbKAUg64NxRLSwr1x
+X-Gm-Gg: AZFdTZfOYA6OT/A1lCaTLtP6Arv50s4eQ/ytQNxyKQJgh8bs5bL0L1VFcVj+oKhYnL8
+	/UJU3cmm68WPvwVARRmhNa3hd1A+USyjIOiqXFcGxg7puLa/gXKKaNED5XUlVZ84AtVpm8VsyBb
+	VTFbZ6uke5/bPdx6YDPDXeQIfpGz7R8AxeeTMZ9+6kn2Rrt0W9U0jdrdvwkFVJYpF9kAuxS1391
+	zxFuBDCoK3cUEoDXGet96jYpby3zoe8kpLiJiYEkeS/VSrA77AqCaZ61VUpVgNHliCIwUk17Jcj
+	DOzFRgGxLUuiAiGkUcoZpj4gNCOAJsK8gev2yw4T9+dqFfo2z/i0cRzT6lKyqTL+aCg47gqkLNt
+	QB73QMWwe4esenDJ02Wrh/XLzR9gm5ymUm1pN/1FMJnOh6zHcltPxwt74kmNgupKSjTkzaMxTIU
+	LAXfG0fUG0bie994sYFa6AqaNTDqCBk3zy6wOIRtR5d9boz8k9qYkiS9aEuaL80w9SsQqNIp+GO
+	aidDDGcT4KFUrpeUJz7bqG5WR8OmCdqQR4/xg0mOxD7fyqX0qpzP6whZCs0xxEgRV1ul5QnVoO4
+	SfKvJQGeK6vuzh+63e4M3eAfhslF65jrcyywu+2d/ilS0YtkXevDmK33WM1nXy7akZ3hfDza3q1
+	WF4FzhYjXKM+SUP7Deo7dDrStgtD5XBP1h9/55qJ2
+X-Received: by 2002:a17:90b:54cb:b0:3ac:a139:1b14 with SMTP id 98e67ed59e1d1-3b1b0d39a69mr13351435a91.57.1794918303790;
+        Tue, 17 Nov 2026 04:25:03 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac606d8csm4226371a91.16.2026.11.17.04.25.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:25:03 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: HyeongJun An <sammiee5311@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v2] selftests/bpf: Fix bpf-gcc CO-RE relocation in verifier_sockmap_mutate
-Date: Tue, 17 Nov 2026 20:24:13 +0800
-Message-ID: <20261117122417.340562-1-jiayuan.chen@linux.dev>
+Subject: Re: [PATCH 0/4] ASoC: SOF: control: fix volume, switch and enum value handling
+Date: Tue, 17 Nov 2026 21:24:54 +0900
+Message-ID: <20261117122454.2448997-1-sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117105953.188645-1-kapoorarnav43@gmail.com>
+References: <20261117105953.188645-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,67 +112,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bpf-gcc fails to load test_trace_iter_unix:
+Hello Arnav,
 
-  Error: #766/6 verifier_sockmap_mutate/test_trace_iter_unix
-  libbpf: elf: skipping section(3) .data (size 0)
-  libbpf: elf: skipping unrecognized data section(18) .comment
-  run_subtest:PASS:obj_open_mem 0 nsec
-  libbpf: prog 'test_trace_iter_unix': relo #0: insn #0 (LDX/ST/STX) accesses field incorrectly. ...
-  libbpf: prog 'test_trace_iter_unix': BPF program load failed: -EINVAL
-  libbpf: prog 'test_trace_iter_unix': failed to load: -EINVAL
-  libbpf: failed to load object 'verifier_sockmap_mutate'
-  run_subtest:PASS:unexpected_load_success 0 nsec
-  validate_msgs:FAIL:1014 expect_msg
-  VERIFIER LOG:
-  =============
-  0: R1=ctx() R10=fp0
-  ;  @ verifier_sockmap_mutate.c:124
-  0: <invalid CO-RE relocation>
-  failed to resolve CO-RE relocation <byte_off> [4] struct bpf_iter__unix (0:0 @ offset 0)
-  processed 1 insns (limit 1000000) max_states_per_insn 0 total_states 0 peak_states 0 mark_read 0
-  =============
-  EXPECTED   SUBSTR: 'cannot update sockmap in this context'
+Patches 1 and 2 overlap with a patch I sent on 2026-11-14:
+https://lore.kernel.org/all/20261114021730.2349347-1-sammiee5311@gmail.com/
 
-GCC only applies preserve_access_index to types that carry the attribute
-themselves. The anonymous union holding the sock pointer doesn't, so the
-CO-RE access stops at the union ("0:0") instead of reaching the pointer
-("0:0:0"), and libbpf rejects the relocation.
+Mark, I am fine with whichever version you prefer for those two.
+Patches 3 and 4 are not covered by mine. I have a Tiger Lake laptop
+with SOF and will test the series.
 
-Fixes: e16c83fa764f ("selftests/bpf: Add negative test for sockmap update from non-sockmap iter")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-v1 : https://lore.kernel.org/bpf/20261117094544.148437-1-jiayuan.chen@linux.dev/
----
- .../selftests/bpf/progs/verifier_sockmap_mutate.c     | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-index 1516fe1524bb..0dbbc5ad1de9 100644
---- a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-@@ -10,19 +10,12 @@
- 
- char _license[] SEC("license") = "GPL";
- 
--struct sock {
--} __attribute__((preserve_access_index));
--
- struct bpf_iter__sockmap {
--	union {
--		struct sock *sk;
--	};
-+	struct sock *sk;
- } __attribute__((preserve_access_index));
- 
- struct bpf_iter__unix {
--	union {
--		struct sock *unix_sk;
--	};
-+	struct sock *unix_sk;
- } __attribute__((preserve_access_index));
- 
- struct {
--- 
-2.43.0
-
+Best regards,
+HyeongJun An
