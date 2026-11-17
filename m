@@ -1,63 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919491;
-	b=GNC9VNGvphLxvvUTQqJKpaWy8fPYjrVv1VAmuDa0chlfAW1qyQMpYQlNEeLku9Csmj/Q
-	 uoHobUw6Ty9zYbPguUPgtE9RUhau5Qftfd+85DQNqo7ZIA7S0n4T1MmNm+/cEcrUgO6EX
-	 1+WXotWrjjKKV9cT95CNzp/0H5/EQr9Si0yL7dOsup3D9LD3kJpleJ8Q6XT1cEtscIsey
-	 z7xEDx/n0Fxb7PK4RaHyAtddCBggu+VHl/goOpeXtXiztCAXuteZKLtNe1KKAwFUzuWQN
-	 PTRJkX/1YxyK6pthscZwbILMLMRwSPVbN6mFqgPp1/uyRaB+xDAsDBQGwWzwgujQ3xA==
+	t=1794919494;
+	b=KeBWxAyfNOMoXnLjXrkQu1xbnw16u3S3M2u/O+qRkCt8q3ijpJojdbGoYziWpAfWl6pu
+	 +QlolZV3JiWDjohJGwEZdCtc/sVpp/SKw1anlMB6zFgysCX5mRuKFeevpH/zwDo7aZCet
+	 8/m6wK3hUUfqkHVc7yWi7JWxRcsSul19lmAghmz898vz7r7CXVMjdTGm7/caLgX84CHff
+	 uHw/CGblMQEgViy1xSJUIgzYNoctOo+kZGgAy1X9Igfl6KP/NveUfV7MvNJqYG7YnydnS
+	 3bkRcjJIDV0wCfu9T8i6G+JGqmdHJ4XFfVAk2sJZcTdiNPjtoz/hyTadkHFwrm8dxxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919491;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=w951ovg3w2Vsfylh3ccdzN6FDyrcXZTYdvPxHdlj9QY=;
-	b=cTLC89k6GmjUQ8UofEwe8MkbBpPJunWgH6ot6ckaD5/apvqAjY+YKLbR3WwBH6kvrNNt
-	 KeAzv1iDu8hGyCo49nx9GO/MVW7k39E7cLK86IWOOc0GOPx2eSGYmtvjskO6o8Io25iV8
-	 EaRHBP4LSkBWjqOSu+O0nIirIw4qbczIo+LQD0/GeFcGkHCWaQ0WsLtxa4rJVJLxxz4UI
-	 PCue/MtOWmQEWBSS6nQSEvT9csEmQgi9Wh4iA9hgu/8wpOlW6O5k2U32+cujgQ4waNtyo
-	 gZ+zw0CXIQtrefUXjsBv6Czt7HG37fb9XNrA/xH7NnRtXZDByQj/knHJu2IfpT4CQFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919494;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=ioTQSBNyFu5FG64fJJQ7wrnnkB4xsmHATDHe8Yz9hOc=;
+	b=oZlz/Ka5+Par55R/CeSWoHRyJv1rSjzv8CN9VM5i3IjS+y0Iz8XylAzptFxKOyu+Bhqu
+	 D/x74bI2CsmWezv4dVZ6zXqW9Uc5k8xBMyGHuwl22UnUNU40oIMvrt+rtXpTF92VV9iGJ
+	 BmuVIvRenzDtlPmwWhBUTAsdlT8S2SEedYXT3B8THfTW5CJfgz8r1XxBOA9dMDEbZvlFw
+	 CB2r06V5GVWhKP+tt1DgSnRcQu1GP+pAHoj9yOV6S2AwlZnyBWYPh4RuTEUdvUlMU9sAc
+	 EJUTXrbVeblc5bexu9MjNWufwjobKCr+tOp0Vv0/6iyjJ/bsTv6K61KJRGRPwVyt8pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBwzihIj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Be0LeIe1;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79095606A335;
-	Tue, 17 Nov 2026 12:44:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E736E606A88C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E736E606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBwzihIj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9431F000C4;
-	Tue, 17 Nov 2026 12:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919491;
-	bh=w951ovg3w2Vsfylh3ccdzN6FDyrcXZTYdvPxHdlj9QY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YBwzihIj9Shh17NXGQFTAEvDovM8+5df3UglwbIP4LhlDO72jMNqyPF0WYqaMxoE5
-	 l5OzmmQDWs6bndpK3tF6rQ3lBt1zG/W2Vr4hLKm0xMK5Q3tuGJG1nrSyzrUsBppXaW
-	 SGkiwCNY7E+RlbeAppGntzan52lAp84hU06UHxtci+ahGbgAeTdRtu45d26OC8ja6O
-	 3fEkU5hLUtqSGA/TZDUwg1RsB15zGb0qJLGToS4ZL8Ufc4PY4HfNys3VnAcnlDfQwK
-	 nJPevvKsk4LSoOAzEx/JixDM6Bfp0Lr62Bqpj8jf8A4v/ui+HRG2kw8vE7zZM/LEt8
-	 9JwP4xNMylkVQ==
-Date: Tue, 17 Nov 2026 14:44:42 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 5/5] s390/hmcdrv: Replace page allocator calls with
- k[mz]alloc()
-Message-ID: <avxMOsbgkaC_kQA_@kernel.org>
-References: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
- <20261108-s390-char-ready-v1-5-3db507722530@kernel.org>
- <20261116134656.125125Fdc-hca@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Be0LeIe1
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2efe0e3bdceso2423845ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:44:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794919493; x=1795524293; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ioTQSBNyFu5FG64fJJQ7wrnnkB4xsmHATDHe8Yz9hOc=;
+        b=Be0LeIe1s+DPxfbZt19Ni7JzRCL/ZUq8og51OB5IPvEe/npjrIVf2knICyHg9DiqfT
+         vsO+6h5KbSfVFqMjTY0OmDWijZ714YE4QNKtCNsZeUVGEfhjaVYoqDv1qrH/+4eKu6tZ
+         2xDg9DQH68qDnAOZnU/3m26m3eIQV4pCp8w8+rS7YBb7uj5JY7Rj0BUI1LaLeNHXFf7D
+         wDvZNYTUR82Kr/Gt4JHtk8pfS9dDDgoW4FYwvdApNXhD0nmSZ+/RRlTZYlNORzI+ZnoC
+         4lSlMwpgtD5DktPoEgNj8Qf9os/6LBT48mGzASc+3q0u/pdLiseyNkCeH9KKuFizHSWb
+         IUIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794919493; x=1795524293;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ioTQSBNyFu5FG64fJJQ7wrnnkB4xsmHATDHe8Yz9hOc=;
+        b=MpHcECFlx5LMCdqnDmAfRq6nRMemzmLAJ9nvNSrXxlbliNPU4qH/oeImqWWzKSTbyL
+         KWEBDKErGjt+0uCzRr58ketdIwHBeO8/Z61Z+IEKSMkAZsXic3Ba2KUYdA47082MqXrN
+         tcq/xG0iaTS/7Y1asoGEJbYaMrdsorNMy3mZ7xmhjg3RYsMuAxPBHrbwDC7XzHB1j5wY
+         vWJIwbI/9rDpjDFxBIgq/pmthLhDkTKhjRQUCaLWbMB+4cta0ps1u4CWKnkYLFjNdyk2
+         EvX/5owq5nZtEsSGROydm6jhi2TsdCSy/eREoH4cwPUD3SqB8wVYXCkW423Xyk873+kf
+         ffBw==
+X-Forwarded-Encrypted: i=1; AL+hErGCn0RNq4tJajSUn1OSUEFp7b3jYwWnodZc4z6bzPPDjLZjOGrtgJQiIpr9m6j4sL1Sr4Wh+FTgxDV+QL4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1lS9rtN106FuMRfsc7pYdfTlTvnsm/mzfqOF7nIaxmppktx8E
+	ynjNCCNwQ3CUahdYWx01nv0xFhbwKI1B3MtnwZ2+7tuYZW2o+K/ln8Ck
+X-Gm-Gg: AZFdTZclJjTTcaIc3QCa/NgcGwZWOOo8+8X7Zde/i8lUwxJtkj1UN/6Idc/nVmfUJMq
+	+7ETeRwR8A633/1pHWVzYE0kSwGqLT4wiHWPL7Oqo9wfpEjHJvZsODrY0OYjFKc92kOThooemES
+	p4YVqL9tVOkfvx02xn57jWVf8MB9ub9hgCjNN2vH4ZlemIgAX91A/7DNwxXqtZwkhzgzoR3EK6v
+	LZFLnoJFlBug3M851GutsVDcbB4JxP1IoMS60T2373w50DwS6Q5YR7vmlrVyVQxd5qnSmY4J0Hk
+	5ot6dMsQYZ0tarQzVlnMrITGzIoA1NMWvZeE2+qng9thFti5pTc77N11bzOGagL0JjkubLfP4b7
+	ypaqd6L28lgxlbh5TrLLr+4NPAekHvHMP0ogNxW0TS+vt/aKA2f9YHOODvoU/D9hlRUtnIpFc9r
+	DMNKnkdDSLCGJy0Iv2tyJi+7pZXVRM9uWAKm6Mvh548zCL7euFK3eFrY7HFPxVGCfDIz+H4HY0T
+	yVfMzvBMX8FLV+D/GRsBQtnPJ+1bzhsDVS4nLrIICKOC4/IAU+2wA0eBqFeHsfCul4iJJmW9O6x
+	2RaBa6mN4Bk4omM4zXHLGSGJQbuxomuSAQ==
+X-Received: by 2002:a17:903:1aa7:b0:2dd:b6e7:ac1b with SMTP id d9443c01a7336-2ee0da31f96mr148127665ad.2.1794919493062;
+        Tue, 17 Nov 2026 04:44:53 -0800 (PST)
+Received: from [127.0.1.1] ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a85f1dsm14585725ad.59.2026.11.17.04.44.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:44:52 -0800 (PST)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Date: Tue, 17 Nov 2026 09:44:13 -0300
+Subject: [PATCH v2 1/2] arm64: dts: freescale: imx8mm-verdin: Rename
+ Toradex display overlays
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,119 +93,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116134656.125125Fdc-hca@linux.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-v2-imx8mm-verdin-add-lvds-v2-v2-1-ecfd237cf7ee@toradex.com>
+References: <20261117-v2-imx8mm-verdin-add-lvds-v2-v2-0-ecfd237cf7ee@toradex.com>
+In-Reply-To: <20261117-v2-imx8mm-verdin-add-lvds-v2-v2-0-ecfd237cf7ee@toradex.com>
+To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794919484; l=7204;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=BwcIZ/VlbJg2I+2C67AXmg/i3dqu1nwSQOaQPkMofeE=;
+ b=zTGHKRUj6+QU9NIEurqGNxE6+qIs8D/4pyarGxXDtGYWJ8gLa20jm7Ox+50i3lhQqvZTfyk4b
+ I0EhtdF3zMjBAvrXHc5G1QeRcEQMgywvvyeCp+gsfFii5KIqDDoSZ2k
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-On Mon, Nov 16, 2026 at 02:46:56PM +0100, Heiko Carstens wrote:
-> On Sun, Nov 08, 2026 at 10:49:02AM +0200, Mike Rapoport (Microsoft) wrote:
-> > diag_ftp_cmd() allocates the DIAGNOSE 0x2C4 parameter list used for HMC
-> > file transfers under z/VM, hmcdrv_ftp_probe() and hmcdrv_ftp_cmd()
-> > allocate the data buffers used for the transfers and
-> > hmcdrv_cache_startup() allocates the buffer that caches the contents of
-> > the last file read from the HMC drive.
-> > 
-> > These buffers can be allocated with kmalloc() as there's nothing special
-> > about them to go directly to the page allocator.
-> > 
-> > kmalloc() provides a better API that does not require ugly casts and
-> > kfree() does not need to know the size of the freed object.
-> > 
-> > Performance difference between kmalloc() and __get_free_pages() is not
-> > measurable as both allocators take an object/page from a per-CPU list for
-> > fast path allocations.
-> > 
-> > For the slow path the performance is anyway determined by the amount of
-> > reclaim involved rather than by what allocator is used.
-> > 
-> > Replace use of get_zeroed_page() and __get_free_pages() with kzalloc()
-> > and kmalloc() and free_page[s]() with kfree().
-> > 
-> > Round transfer and cache buffers up to a page for the required 4K
-> > alignment, without rounding to a power-of-two number of pages. Reject
-> > unsupported sizes before rounding.
-> > 
-> > Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  drivers/s390/char/diag_ftp.c     |  5 +++--
-> >  drivers/s390/char/hmcdrv_cache.c | 18 +++++++++---------
-> >  drivers/s390/char/hmcdrv_ftp.c   | 14 +++++++-------
-> >  3 files changed, 19 insertions(+), 18 deletions(-)
-> 
-> ...
-> 
-> >  int hmcdrv_cache_startup(size_t cachesize)
-> >  {
-> > +	if (cachesize > KMALLOC_MAX_SIZE)
-> > +		return -ENOMEM;
-> 
-> What is the reason for this check? I can see that this seems to be a
-> common pattern, however the buddy allocator would warn as well for
-> allocations larger than MAX_PAGE_ORDER if I'm not mistaken.
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-Since cachesize is a module parameter there's a very corner case when it
-could have value within a page of ULONG_MAX. Then round_up() wraps to 0 and
-kmalloc(0) returns ZERO_SIZE_PTR rather than NULL and does not warn.
+The Toradex Capacitive Touch Display 10.1" LVDS, Toradex Capacitive
+Touch Display 10.1" DSI and 7" DSI are Toradex accessories, and the
+overlay names are their product names. The naming pattern
+"panel-cap-touch-<N>inch-<interface>" reads as a generic panel
+description and could just as well name another vendor's display.
 
-The module would load with a bogus cache instead of failing as it does now.
+Prefix the accessory overlays with their vendor, "tdx", as is already
+done for third-party accessories on Toradex boards (e.g. "rpi" in
+k3-am625-verdin-rpi-display-2-7in.dtso). The combined DTBs are renamed
+accordingly.
 
-While it's really unlikely to happen in practice I'm sure Sashiko will be
-unhappy without this check :)
+Additionally, the Toradex Capacitive Touch Display 10.1" LVDS has a
+correspondent V2 that is meant to be its successor. Encode the major
+version number by adding a "-v1" suffix in this overlay's name as well.
 
-> > +
-> >  	if (cachesize > 0) { /* perform caching ? */
-> > -		hmcdrv_cache_order = get_order(cachesize);
-> > +		/* the buffer must be 4k aligned, hence round up to page size */
-> >  		hmcdrv_cache_file.content =
-> > -			(void *) __get_free_pages(GFP_KERNEL | GFP_DMA,
-> > -						  hmcdrv_cache_order);
-> > +			kmalloc(round_up(cachesize, PAGE_SIZE),
-> > +				GFP_KERNEL | GFP_DMA);
-> 
-> ...and that check wasn't here before.
-> 
-> > diff --git a/drivers/s390/char/hmcdrv_ftp.c b/drivers/s390/char/hmcdrv_ftp.c
-> > index 3312b2ac00a9d..e22789b532de2 100644
-> > --- a/drivers/s390/char/hmcdrv_ftp.c
-> > +++ b/drivers/s390/char/hmcdrv_ftp.c
-> > @@ -238,16 +238,16 @@ EXPORT_SYMBOL(hmcdrv_ftp_probe);
-> >  ssize_t hmcdrv_ftp_cmd(char __kernel *cmd, loff_t offset,
-> >  		       char __user *buf, size_t len)
-> >  {
-> > -	int order;
-> > -
-> >  	struct hmcdrv_ftp_cmdspec ftp = {.len = len, .ofs = offset};
-> >  	ssize_t retlen = hmcdrv_ftp_parse(cmd, &ftp);
-> >  
-> >  	if (retlen)
-> >  		return retlen;
-> >  
-> > -	order = get_order(ftp.len);
-> > -	ftp.buf = (void *) __get_free_pages(GFP_KERNEL | GFP_DMA, order);
-> > +	if (!ftp.len || ftp.len > KMALLOC_MAX_SIZE)
-> > +		return -ENOMEM;
-> 
-> Same here, and as far as I can tell the Sashiko finding seems to be
-> valid as well, even though it looks to me as if this worked only by
-> accident. Also, as far as I can see, the reported "delete" command is
-> currently not used at all from the only existing user space
-> application that I'm aware of. But let's not change this, please.
+Link: https://lore.kernel.org/all/20261026111149.GA46946@francesco-nb/
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+---
+ arch/arm64/boot/dts/freescale/Makefile             | 30 +++++++++++-----------
+ ...dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso} |  0
+ ...8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtso} |  0
+ ...x8mm-verdin-tdx-panel-cap-touch-7inch-dsi.dtso} |  0
+ 4 files changed, 15 insertions(+), 15 deletions(-)
 
-Sashiko is wrong about get_order(0) returning 0, it actually returns 52, so
-__get_free_pages() returns NULL and we end up with -ENOMEM anyway :)
-
-So it's either keep if (!ftp.len) and let it fail for "delete" like it does
-today or have
-
-	size = round_up(ftp.len, PAGE_SIZE) ? : PAGE_SIZE;
-
-and allocate at least a page for ftp.len == 0.
-
-What's your preference?
-
-The ftp.len > KMALLOC_MAX_SIZE check seems bogus indeed.
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index cfd5482843586..0bbc4b6a6b537 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -257,9 +257,9 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw7902.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw7903.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw7904.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-dsi-to-hdmi.dtbo
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-dahlia-tdx-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-dev-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-dev.dtb
+@@ -268,15 +268,15 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-mallow.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-yavia-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-yavia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-zinnia.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-10inch-dsi.dtbo
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-tdx-panel-cap-touch-7inch-dsi.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-dsi-to-hdmi.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-tdx-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-dsi-to-hdmi.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-nau8822-btl.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-tdx-panel-cap-touch-7inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-uart4-mcu.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-ivy.dtb
+@@ -286,19 +286,19 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-yavia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-zinnia.dtb
+ 
+ imx8mm-verdin-nonwifi-dahlia-dsi-to-hdmi-dtbs := imx8mm-verdin-nonwifi-dahlia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
+-imx8mm-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mm-verdin-nonwifi-dahlia.dtb \
+-	imx8mm-verdin-panel-cap-touch-10inch-dsi.dtbo
++imx8mm-verdin-nonwifi-dahlia-tdx-panel-cap-touch-10inch-dsi-dtbs := imx8mm-verdin-nonwifi-dahlia.dtb \
++	imx8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtbo
+ imx8mm-verdin-nonwifi-dev-dsi-to-hdmi-dtbs := imx8mm-verdin-nonwifi-dev.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
+ imx8mm-verdin-nonwifi-yavia-dsi-to-hdmi-dtbs := imx8mm-verdin-nonwifi-yavia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
+ imx8mm-verdin-wifi-dahlia-dsi-to-hdmi-dtbs := imx8mm-verdin-wifi-dahlia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
+-imx8mm-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mm-verdin-wifi-dahlia.dtb \
+-	imx8mm-verdin-panel-cap-touch-10inch-dsi.dtbo
++imx8mm-verdin-wifi-dahlia-tdx-panel-cap-touch-10inch-dsi-dtbs := imx8mm-verdin-wifi-dahlia.dtb \
++	imx8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtbo
+ imx8mm-verdin-wifi-dev-dsi-to-hdmi-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
+-imx8mm-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := imx8mm-verdin-wifi-dev.dtb \
+-	imx8mm-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
++imx8mm-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1-dtbs := imx8mm-verdin-wifi-dev.dtb \
++	imx8mm-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtbo
+ imx8mm-verdin-wifi-dev-nau8822-btl-dtbs := imx8mm-verdin-wifi-dev.dtb imx-tdx-nau8822-btl.dtbo
+-imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := imx8mm-verdin-wifi-dev.dtb \
+-	imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
++imx8mm-verdin-wifi-dev-tdx-panel-cap-touch-7inch-dsi-dtbs := imx8mm-verdin-wifi-dev.dtb \
++	imx8mm-verdin-tdx-panel-cap-touch-7inch-dsi.dtbo
+ imx8mm-verdin-wifi-dev-uart4-mcu-dtbs := imx8mm-verdin-wifi-dev.dtb imx-tdx-uart-mcu.dtbo
+ imx8mm-verdin-wifi-yavia-dsi-to-hdmi-dtbs := imx8mm-verdin-wifi-yavia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/freescale/imx8mm-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/freescale/imx8mm-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso
+rename to arch/arm64/boot/dts/freescale/imx8mm-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/freescale/imx8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/freescale/imx8mm-verdin-panel-cap-touch-10inch-dsi.dtso
+rename to arch/arm64/boot/dts/freescale/imx8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtso
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-panel-cap-touch-7inch-dsi.dtso b/arch/arm64/boot/dts/freescale/imx8mm-verdin-tdx-panel-cap-touch-7inch-dsi.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/freescale/imx8mm-verdin-panel-cap-touch-7inch-dsi.dtso
+rename to arch/arm64/boot/dts/freescale/imx8mm-verdin-tdx-panel-cap-touch-7inch-dsi.dtso
 
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
