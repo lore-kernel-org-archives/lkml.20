@@ -1,66 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919861;
-	b=HYrn5aPHRtr8XOxOOcZ2OyPWKnWy/FnNj1Hwk440aNdcnXiZb+2xgjc8GsYZKyTttNNT
-	 bFrMa5vF0dHK3MBgrvAWSSMVHjSQy9xZIh7HXjuW3AtD9bDKDjfnUaXWo1sAXSEWIVD/o
-	 +PfPyLfWr3xdSb8hLpJH4v/TBfRE8UY0Xj74Ptr5r8oufW2mcU8P7MftEs/j1ZkGOUhlG
-	 SwwtewAMOl9utFODtqCR9cfjVLw+saD901EHunHvZ1s4rJYLPdw8UkwaYlLUnV2U01jYx
-	 sQ7g3mQw8cSRgZO0M5hfnrXrKE3I74ONFSIr9RQzq0oTV5EVXyysB4CM75mWxFEsBbw==
+	t=1794919854;
+	b=dpNwGFVtGnosIdN1sP771iDK8Jar2fqGx2D2P2Ybq7uMjL02gfobDVnrwhyarq6kUtI1
+	 oxjPY2iv5YKgPnIvA2//ClTj/XGvmHzKIo8TmBDOhpb+vaWL6KvJ3wz/oaxcC/31U8NN6
+	 EGSonmMpEY84uVI5/fI6M9qgSQseDGxBLHPF5YkSrp9xRLt5odwu3DtBXViDA6f+pcgQ2
+	 3y9FpQGLgz/NiRnX16WZM1Kkl+HCCkUuDaTssH5w5J9m1StedB96pZdLBz5byD2YehgaN
+	 unFXGYMMkI7pEsFxVCxDV3pQW8lQHMghd1p/Wfb00UPKemxVSBtEFXFPcGScLXSFiyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919861;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QtamuS0YltAetZPlLXNxUbQrgTbuGQGdLQ9mnxmiNw4=;
-	b=bKhRQzI92twUvRTUgB1etGEUzlWGvDMsJo7rvvLzTJmVjNpbxZO+ImJqDa80OWqTQWYM
-	 Ei1Z4AjeUEVwQ+HcStbRlivi7GUdVd65ULA+Whceh4Z/KlEX+SqJ/CtjtAsyvaPSBj9NQ
-	 7sbMDSEikDBKNiec+uQIRcfvSxjRTZC8Tp4RYEPsxjgdXthA6MJZHOMyVTA0+iv26qmJo
-	 yUGexhpl45ICVOBv1GK/bDeuAI7i5BmsSyOayJA9dc7zTXac5AAPS3m1XNDC7blGu+/rV
-	 WHdG0IfFTu2XZ1QmrznBIU6fQYDXsADMKw2fIFrdyNSo9jxd6LXuGL/ir/q/QmZzveA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919854;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=m//akQsPn9JtkIDkyJkoy5a2KvGmB9mNZhCGPYriT9M=;
+	b=lfylLLnUw6o2bFkKWrEByx9vWEs2tHtpNNUazH/Vi+PAZs8kndPD3g/jcVggoQZW9y7t
+	 ES/MCK1TnImemwCLqqIy8SmKHL7xUOY8FCDSAVxtqzKjAl8i1GU+VRmAsjRR9KCBr4EU0
+	 uteM7bzGGQQfYDIQpvGKnTZqhCVy5xMgXaDQrhlYupXUcskzJaGxgUub1KuqTEVWslsuf
+	 NbqhWplHXe5SMZcPvZIWQfDzSJ9Ykop1RCIfs5FTI7PK7TEajM3KDPFrEhPfacX4k0hl/
+	 XnyXH+dHSylv1jEQuHlbo6hKUavcOMLXW5bFwZM9CNuRYlQMibyeBXHmastvwOZjULQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="Nh9Z/9vj";
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9927606A8AB;
-	Tue, 17 Nov 2026 12:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9927606A8AB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QAQUUQk2;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B824F606A89D;
+	Tue, 17 Nov 2026 12:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B824F606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Nh9Z/9vj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Nh9Z/9vjWw3kQcJ7AM3BknE+O3JBBnylgq5QYAjdqINCo+K73KvMWfp18yqL+tFzC6BIwBY3e1hjf
-	 OgjwpIzXC6SCxMfBpdcAwD+SxQ2emHE1SlBJDAHC1ib4sDgkiJdodVNCANQMALXLjXpQfBQAAH7vJE
-	 AqPvonveVyJIjOzs=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66afc4dac60a-d76cb;
-	Tue, 17 Nov 2026 20:50:56 +0800 (CST)
-X-RM-TRANSID:2ee66afc4dac60a-d76cb
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from utest (unknown[123.121.1.242])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afc4dad71e-b1c0c;
-	Tue, 17 Nov 2026 20:50:55 +0800 (CST)
-X-RM-TRANSID:2ee66afc4dad71e-b1c0c
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: nkapron@google.com
-Cc: gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH v4 0/3] usb: gadget: f_hid: GET_REPORT fixes
-Date: Tue, 17 Nov 2026 12:50:48 +0000
-Message-ID: <20261117125051.5646-1-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179486710796.2938203.13522037990167268712.b4-review@b4>
-References: <179486710796.2938203.13522037990167268712.b4-review@b4>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QAQUUQk2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794919852;
+	bh=/NNQdnvNk7fbdVxY6HWPt8tiESYBlaF64MyDZxk6kR0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=QAQUUQk2XnKGQnU7PdVPFu1sH89zSlyTMWLLxn0vnY9qL2Y88IyD3G4pQgZI/aeVn
+	 B4OvT0d49SQKGJlc5ZCZ6Y1PW1zXSR3nMlcc82y/xht5aWLwUNTTipNpCAMs8bn3On
+	 hrNLLc78iMilcMrfo7ofuWulPedX3ONL5tr/OB/3c9HmTMBlUvXD3KcnSIPuC5eBMQ
+	 dSSNmah1e6qkDxReXzxsaAeVgzTSdgBcegcMVSGu/zjUbJuU4aKt2tu4Mtr9axVRO7
+	 TTyS9yHCjitgjo8iQWiT06HOiCtpSxdpP0Q9611dXatIKLX51j6WpQGJczDF+Z51eD
+	 r5XHm26IhcGnA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E61417E0311;
+	Tue, 17 Nov 2026 13:50:51 +0100 (CET)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ David Lechner <dlechner@baylibre.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
+References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
+Subject: Re: (subset) [PATCH 0/4] drm/panel: himax-hx8279: add VDDP supply
+ for Startek KD070FHFID078
+Message-Id: <179491985132.188092.5906284430538056975.b4-ty@b4>
+Date: Tue, 17 Nov 2026 13:50:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,44 +78,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Cover-letter:
+On Tue, 06 Oct 2026 15:25:00 -0500, David Lechner wrote:
+> The Startek KD070FHFID078 panel has a VDDP power input, which feeds its
+> DC-DC converter in addition to VDD and IOVCC. On the MediaTek Genio 520
+> and 720 EVKs, VDDP is switched by its own regulator, and on the Genio
+> 1200 EVK it comes from its own PMIC LDO, so it needs to be described and
+> enabled. The existing Genio 1200 EVK device tree also turned out to
+> describe the panel supplies incorrectly, so this series fixes that too.
+> 
+> [...]
 
-Hi Greg, Neill,
+Applied to v7.4-next/dts64, thanks!
 
-v4 of this series.  Changes from v3, per Neill's review:
+[3/4] arm64: dts: mediatek: mt8390-genio-common: add the panel vddp-supply
+      commit: 949fe0bd3a3a6ff0e4451ef38ef780f596d0089d
+[4/4] arm64: dts: mediatek: mt8395-genio-common: fix the panel supplies
+      commit: 036ce7562bef9a85d46ed6ba5b83ef4f5e60ad8b
 
-  - patch 1 (sleep-in-atomic-context fix) is dropped: it
-    duplicates Yu Zhang's previously reviewed patch [1].
-
-  - patch 3: Just copy req->length bytes to keep the existing
-    UAPI behavior suggested by Neill. Thanks!
-
-Remaining patches (unchanged from v3 except for the race fix):
-
-  1. memory leak: report_list entries allocated by the ioctl
-     are never freed in hidg_release().
-
-  2. data race: the GET_REPORT response is served from a
-     dedicated buffer instead of borrowing a report_list
-     entry that userspace may update concurrently.
-
-  3. memory leak: get_req is leaked when usb_gstrings_attach()
-     fails in hidg_bind().
-
-[1] https://lore.kernel.org/all/20261020051446.92179-1-yuz08559@gmail.com/
-
-Shunbo Shi (3):
-  usb: gadget: f_hid: fix report_list entries leak
-  usb: gadget: f_hid: fix race between userspace report update and
-  GET_REPORT response
-  usb: gadget: f_hid: fix get_req leak when usb_gstrings_attach() fails
-
- drivers/usb/gadget/function/f_hid.c | 34 +++++++++++++++++-----
- 1 file changed, 35 insertions(+), 6 deletions(-)
-
---
-2.53.0
+Cheers,
+Angelo
 
 
