@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884079;
-	b=bw2Zb9GC5DEqcaBN8XuelGfvMKtlH7iDPi8lAYFm8elWSODfn7jwXQIbvCbdw0HoHxPO
-	 pJsW6zw9W9mSZZL1jOCfy27NlPRiDC8GxHs3VVLM9/clZcjFAXxMmFznWA2EiX33iLt8D
-	 MpAbYRG60rsXmd2MYcjEmWKsfVLy5OC7McYRBIyr6e5EM2w6Hj3w+/4IR0356aYHbNKPd
-	 tw5SyPdXtcaJhcnc9DN5i3XrN8ZFRDLms5nIiiyA9lOJadkX7wyGIpx6WCnI1Mm+MtVv7
-	 8gvsw/4H7nNxuRyURzeY6LOANHkOregqaBUSXKWV0P7MX8OuiXq02s9lQqK9Sv6gnCw==
+	t=1794884198;
+	b=J86KXZj3NBtfx5GV2eW3c41BvdmpxQmkG2ftECq740Rq0TyrlWITOJpGYNxlapB1IYEh
+	 MOnMCLMmpXYcpRPXU4BANQE4cwAr+Uumd7Bq9lVWSTlg2nye9LKey6fvLkektWsYEp38R
+	 9rf7Cez4zyIkVSxhMz5neJaaiZuPaP03fGTnTg48bGcFz42AlLi69lh07tCkFhgMRrHA3
+	 u4AB+vkJLQaERgwNJtyidGApRkhahUxvHRWApUWUknQ9cRkv+pX7lBdHI+2BB2DjhiyPC
+	 YJe3gWKl/TECIam+fzusF6QaXz/bpfULQL4KpG+PQzedsomPSIeslElyNJBiU8msWVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884079;
-	h=DMARC-Filter:DKIM-Signature:To:Content-Transfer-Encoding:
-	 Content-Language:In-Reply-To:Cc:Message-Id:References:User-Agent:
-	 X-Lms-Return-Path:Subject:X-Original-From:From:Date:Mime-Version:
-	 Received:Content-Type;
-	bh=B6o0YTG1q+hlC1dIwJ8MRViNtPcn8I2cwDIc51AfJlU=;
-	b=r6CIK8QXxmWBLBGFbm5tEFBY1lTe6nE651MM+ctHug7NaNFkRSNOOl7uWBy5iePXDFP0
-	 YNf6QaGoq9XV3fR8y7BihO1GRJxv9RNMCkQUKOiEwht4LqTiVHIO7HIOWAmrGlIrZO9EU
-	 8mL1yYWuF+LcMccjV4NYq9hfhLYORyvQSRon2g2S5XAJ8HqNcd2gUFafpUs45UHfnN/YW
-	 VRSz7+UDocpgLtrg9J+owNTWWdhYm6o0DyUIgRbLdgJRnjfUiQ6vJA5dspfXWMU1DH5eX
-	 pGXJn95vhcvdkN9MSke1tMCltJduUsJ3EGPCaCcKu7TfDPf3otNJA9QgdTdFIiiNUuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884198;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=OJRWJeXrvQmODYAExg7m4mDpe5p58dqYM/Hnn4LmFfE=;
+	b=zci3q73G1mDUQ1A3uh6Xuy8nK0IFx8Rv9igKmF9/5ZL2DZLGiaARnRnnZtRpn2fjEIC0
+	 EKBtOgynhSJ45ADbuaCvEOgLzS3SGmeJPWywpq/4IVHM2yNQ2Cxqkl0TqvT3Sl+sQ5L/w
+	 kynhF39gqnE74J0TTQHxYK63MvBWWmE4ovIjkF3QyS5lYj/LxNbiQUzHCLU2xQGv4HkcB
+	 OBzKEGuN66jzHgT0SqxOayYTBiwxo5gXW0UFrBku+BjS4yR60Uj+qYBu9M+Vu+bxMcWx4
+	 JqAWw4YBXTm3HKxAbYO5GZkfcQ5K/V4YOLAGBsdVA4fUSqpM/jvbcLUM1ejvIl8S3qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=lanxincomputing.com;
-	spf=pass smtp.mailfrom=lanxincomputing.com;
-	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=NAU6GYya;
-	arc=none smtp.remote-ip=209.127.231.27
-Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=mucse.com;
+	spf=pass smtp.mailfrom=mucse.com;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5080606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5080606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=NAU6GYya
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1794884072;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=B6o0YTG1q+hlC1dIwJ8MRViNtPcn8I2cwDIc51AfJlU=;
- b=NAU6GYyaq4Wb0QHlXhFg7ATfwc/YgfdyT2kNCbZIUZyKk9tcTSMOUVoDiGs1MPG0IQLv4/
- 8zqfZ6NmjLZcOgrYbFiwDC6W3bzyzK3v2aq4ZRRWfUfgxCLZ3ovoRB2EtUnGbIZ5I5R0fY
- zOugUACONXcaEweSoP3NwK7zahW9fP9lt58v6r1wcqf9PA+858ggNofyAa0IR8VfC6znSJ
- OQbr4iQDLyAyOP1V0r8B2SHdAz6uaKbGLk96z8yJb78yO0H3SMUYmtxjs0Gb5SzGlKqrXm
- kdNbaaFk/h5R0nB7A9kH5MCUoI1JUVyTMDkNYIRh+e8fBYv4qtzMvOwco6RETg==
-To: "Anup Patel" <anup@brainfault.org>
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-In-Reply-To: <CAAhSdy0Fp5R9v1O7gEoVriBBfnSapTgQ52ZLn5+QJOMxnn1z3w@mail.gmail.com>
-Cc: <xb@ultrarisc.com>, <atish.patra@linux.dev>, <pjw@kernel.org>, 
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, 
-	<pbonzini@redhat.com>, <graf@amazon.com>, 
-	<kvm-riscv@lists.infradead.org>, <kvm@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Message-Id: <e26b8c0e-f5d1-4d43-96a9-e4adb46da8ef@lanxincomputing.com>
-References: <20260923091658.1421475-1-xiangwencheng@lanxincomputing.com> <CAAhSdy0Fp5R9v1O7gEoVriBBfnSapTgQ52ZLn5+QJOMxnn1z3w@mail.gmail.com>
-User-Agent: Mozilla Thunderbird
-X-Lms-Return-Path: <lba+26afbc1e6+0bdfe2+vger.kernel.org+xiangwencheng@lanxincomputing.com>
-Subject: Re: [PATCH v3] RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
-X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
-From: "BillXiang" <xiangwencheng@lanxincomputing.com>
-Date: Tue, 17 Nov 2026 10:54:26 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971F8606A31C;
+	Tue, 17 Nov 2026 02:56:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 971F8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: zesmtpsz7t1794884128td16f0902
+X-QQ-Originating-IP: tKITFu9fk6+0Q5Dh8wVGUM32Tg2lPtWsb2gOC8zAMLo=
+Received: from localhost ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 10:55:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1497016459313032982
+EX-QQ-RecipientCnt: 10
+Date: Tue, 17 Nov 2026 10:55:26 +0800
+From: Yibo Dong <dong100@mucse.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	yaojun@mucse.com
+Subject: Re: [PATCH net-next v2 2/5] net: rnpgbe: Report link settings
+ through ethtool
+Message-ID: <72676011073A7040+20261117025526.GA214154@nic-Precision-5820-Tower>
+References: <BD205A7832D36E7D+20261116030917.1329989-1-dong100@mucse.com>
+ <66AFF2810AB647C8+20261116031020.1330219-1-dong100@mucse.com>
+ <d7351f56-d4fa-4ba0-a0c6-c7bdf7aac460@lunn.ch>
+ <2207C8DCDD49F5EE+20261116044737.GA1342898@nic-Precision-5820-Tower>
+ <cf674063-6c6f-43f6-a18a-d7ed5bef8a5c@lunn.ch>
+ <236B4E2337BC768E+20261117014902.GA205295@nic-Precision-5820-Tower>
+ <2ddca58c-608f-4a0f-a26d-df92c2c34c69@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,194 +65,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Received: from [127.0.0.1] ([123.120.4.67]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 10:54:29 +0800
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2ddca58c-608f-4a0f-a26d-df92c2c34c69@lunn.ch>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: NF3tN0JyXxqWu7NjtIcYXK8bcIOdmVHhxYIC0zpg+h8MhENMz3GA6d/e
+	ISSuw6hgkhILUTfdAeIosI6AOMwmwAjbLsyyJpaDJWt4LS5xhzg+aBUMSygj6ECVSVIoEtw
+	Ni2zIpGBMHZtftRe2poBPivrArlvSZ/LirzXMNIiLdzf+KRF9gfp4zSoOly3p/4ZW3aAgk4
+	j3U9UPketSdGy6FZbxj1oTtiSLEVci2sdgSsu66AsA47cfNzD5zNVnb55sT3yfKqo59KPPB
+	gqALQgPANDTWMWwp4Lj3DztnGvpVq9Irw5I7rE+l2PliEzVZHNjUEJNjWZwQ5l32BKNyzj8
+	JBUglHSODeUv7E1ygJDV4yXjL92xUMR2mRdnN8wOjTIg8zaarXw5nEXZqJukA9b3ulVtcLH
+	52zP2YRFaL5xd59OBeTrt6Z+5MnumVgD4UO3w6SHALBgfIzjaKZLyajgtog7OWksc7oTXSx
+	sDUA0DDV1LbpPeqkFsORAor1iMZuREGSelbw3iuPlMyXntlpMKMkHoyrIQDEW8rEY6ztMv+
+	9ld6ghfIlPXwFGGTcDS8WtZeX8jM6xd55dKF+pJGMTzsshmF/igdZQ6lZPl+fVp6VIsF6c5
+	ohsLfEcUPomfEZlfss3/pkdwZGh/87yAcpdI3AULlEq5dVGgvVq6bTHgw82MlwfoNpFT/pI
+	mesG0NMkN7jhqmfxgn/5NqsWP7GrkDuuUQCwz9nUUHCKtktNAgdPToJRiCmtO5UoL0XKQ0w
+	bSPS+XPOvyU097BqMMVvlW6Kqw/n9359PxwOj5ZFfGbinzakc3VHMTWul4e1RaNtBu44Tr9
+	oNWKo8rPoN2DiW1TmKIJb/suwbS/Cm53BP7atjrJfkfl9cRLYIPegfaaYwSZuuIYSpSpOYQ
+	/VvxIglYQlybbspkKVBrBvNFk8wgZaafOLMAp4yYaJZEL6xGIgSNFeL8Hlv+aSJYwEd1rCA
+	s+Tkzcp/h+5AC2bAmK1KCCB40yIHapufqr/S9J/9D5wtBNMw/bNf5hiKZaVKZXAz+/gnybh
+	/Kosc41Elp0ViYpW1iFa2dkEG44WuOX1XPjObQwNNyKKh7isATQ7Cn6QnpX+g=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On 11/13/2026 1:36 PM, Anup Patel wrote:
-> On Wed, Sep 23, 2026 at 2:47=E2=80=AFPM BillXiang
-> <xiangwencheng@lanxincomputing.com> wrote:
->>
->> The TOPEI read-and-clear must be atomic with respect to
->> interrupt injection (set_bit in EIP). Otherwise an
->> interrupt injected between the topei read and the
->> clear_bit could be silently dropped.
->>
->> v3:
->>   - fix undefined eflags
->>
->> v2:
->>   - fix patch file curruption
->>
->> v1: https://lore.kernel.org/kvm-riscv/20260923070332.1376132-1-xiangwenc=
-heng@lanxincomputing.com/
->>
->> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
->> ---
->>   arch/riscv/kvm/aia_imsic.c | 42 +++++++++++++++++++++++++-------------
->>   1 file changed, 28 insertions(+), 14 deletions(-)
->>
->> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
->> index c1af23e79ae0..c440088651ec 100644
->> --- a/arch/riscv/kvm/aia_imsic.c
->> +++ b/arch/riscv/kvm/aia_imsic.c
->> @@ -607,26 +607,25 @@ static void imsic_vsfile_cleanup(struct imsic *ims=
-ic)
->>                  kvm_riscv_aia_free_hgei(old_vsfile_cpu, old_vsfile_hgei=
-);
->>   }
->>
->> -static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->> +static void __imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->>   {
->>          struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
->>          struct imsic_mrif *mrif =3D imsic->swfile;
->> -       unsigned long flags;
->> -
->> -       /*
->> -        * The critical section is necessary during external interrupt
->> -        * updates to avoid the risk of losing interrupts due to potenti=
-al
->> -        * interruptions between reading topei and updating pending stat=
-us.
->> -        */
->> -
->> -       raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->>
->>          if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) &&
->>              imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis))
->>                  kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT);
->>          else
->>                  kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
->> +}
->> +
->> +static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->> +{
->> +       struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
->> +       unsigned long flags;
->>
->> +       raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->> +       __imsic_swfile_extirq_update(vcpu);
->>          raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
->>   }
->>
->> @@ -912,12 +911,15 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *=
-vcpu, unsigned long isel,
->>          struct imsic_mrif_eix *eix;
->>          int r, rc =3D KVM_INSN_CONTINUE_NEXT_SEPC;
->>          struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
->> +       unsigned long flags;
->>
->>          /* If IMSIC vCPU state not initialized then forward to user spa=
-ce */
->>          if (!imsic)
->>                  return KVM_INSN_EXIT_TO_USER_SPACE;
->>
->>          if (isel =3D=3D KVM_RISCV_AIA_IMSIC_TOPEI) {
->> +               raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags)=
-;
->> +
->>                  /* Read pending and enabled interrupt with highest prio=
-rity */
->>                  topei =3D imsic_mrif_topei(imsic->swfile, imsic->nr_eix=
-,
->>                                           imsic->nr_msis);
->> @@ -934,16 +936,20 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *=
-vcpu, unsigned long isel,
->>                                            eix->eip);
->>                          }
->>                  }
->> +               if (wr_mask)
->> +                       __imsic_swfile_extirq_update(vcpu);
->=20
-> The __imsic_swfile_extirq_update() also calls imsic_mrif_topei() so it is
-> better to pass topei value to __imsic_swfile_extirq_update().=20
+On Tue, Nov 17, 2026 at 02:54:45AM +0100, Andrew Lunn wrote:
+> On Tue, Nov 17, 2026 at 09:49:02AM +0800, Yibo Dong wrote:
+> > On Mon, Nov 16, 2026 at 02:18:28PM +0100, Andrew Lunn wrote:
+> > > > link, speed, duplex and mdix are updated asynchronously by
+> > > > the mailbox event handler, outside RTNL. link_lock protects these updates
+> > > > and provides a consistent snapshot in the getter.
+> > > 
+> > > O.K, thanks for the explanation.
+> > > 
+> > > I removed too much context, so i cannot see here. What about
+> > > lp_advertising? That also comes from the firmware, reported on link up
+> > > when autoneg completes.
+> > > 
+> > The firmware manages autonegotiation and reports the negotiated speed
+> > and duplex through mailbox link events. However, the current mailbox
+> > interface does not expose the link partner's advertisement bitmap.
+> > 
+> > Therefore, lp_advertising is currently left zero to indicate that this
+> > information is unknown to the driver.
+> > 
+> > If reporting lp_advertising is must, we would need to add a new
+> > firmware mailbox command to retrieve the link partner's advertisement,
+> > or add lp_advertising to link-event mbx alongwith link, speed and
+> > duplex.
+> 
+> It is not a must, but it is useful.
+> 
+> Or you can just throw away your firmware, expose the MDIO bus, and let
+> phylink drive the hardware. Less code, less bugs, more functionality
+> for free.
+The GMAC provides MDIO register access, so exposing an MDIO bus is
+technically possible. However, the firmware currently manages the PHY,
+and its interface does not provide a PHY ownership handover mechanism.
+Introducing host-side PHY management would require coordinated firmware
+and driver changes to avoid independently configuring the same PHY.
 
-Hi Anup,
+In addition, on this SoC, the firmware configures MDI/MDI-X through
+AXI-mapped control registers driving the PHY's pi_force_mdix_en and
+pi_force_mdix_mode inputs. This control path is outside the PHY's MDIO
+register interface.
 
-The topei value may have been changed before this=20
-__imsic_swfile_extirq_update() is called. Would it be better to re-read=20
-it in __imsic_swfile_extirq_update() as before rather than pass it in?
+The firmware also supports link management before the host driver is
+loaded and while the host is shut down, including wake-up handling.
+On OCP platforms, it supports preserving the PHY link across driver
+reloads and host shutdown. These capabilities are already implemented
+in firmware, although driver support for them is not included in this
+series. Any future ownership handover would need to preserve them.
 
-Here is the relevant code:
-
-int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
-				 unsigned long *val, unsigned long new_val,
-				 unsigned long wr_mask)
-{
-...
-
-		/* Read pending and enabled interrupt with highest priority */
-		topei =3D imsic_mrif_topei(imsic->swfile, imsic->nr_eix,
-					 imsic->nr_msis);
-		if (val)
-			*val =3D topei;
-
-		/* Writes ignore value and clear top pending interrupt */
-		if (topei && wr_mask) {
-			topei >>=3D TOPEI_ID_SHIFT;
-			if (topei) {
-				eix =3D &imsic->swfile->eix[topei /
-							  BITS_PER_TYPE(u64)];
-				clear_bit(topei & (BITS_PER_TYPE(u64) - 1),
-					  eix->eip);
-			}
-		}
-		if (wr_mask)
-			__imsic_swfile_extirq_update(vcpu);
-
-...
-}
-
-Regards,
-Bill
-
->=20
->> +
->> +               raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, f=
-lags);
->>          } else {
->>                  r =3D imsic_mrif_rmw(imsic->swfile, imsic->nr_eix, isel=
-,
->>                                     val, new_val, wr_mask);
->>                  /* Forward unknown IMSIC register to user-space */
->>                  if (r)
->>                          rc =3D (r =3D=3D -ENOENT) ? 0 : KVM_INSN_ILLEGA=
-L_TRAP;
->> -       }
->>
->> -       if (wr_mask)
->> -               imsic_swfile_extirq_update(vcpu);
->> +               if (wr_mask)
->> +                       imsic_swfile_extirq_update(vcpu);
->> +       }
->>
->>          return rc;
->>   }
->> @@ -1050,9 +1056,17 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vc=
-pu *vcpu,
->>          if (imsic->vsfile_cpu >=3D 0) {
->>                  writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
->>          } else {
->> +               /*
->> +                * Serialize the EIP set + external-irq update against t=
-he
->> +                * TOPEI read-and-clear path so that an injected interru=
-pt
->> +                * cannot be silently lost when the guest acknowledges a
->> +                * different (or the same) interrupt concurrently.
->> +                */
->> +               raw_spin_lock(&imsic->swfile_extirq_lock);
->>                  eix =3D &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
->>                  set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
->> -               imsic_swfile_extirq_update(vcpu);
->> +               __imsic_swfile_extirq_update(vcpu);
->> +               raw_spin_unlock(&imsic->swfile_extirq_lock);
->>          }
->>
->>          read_unlock_irqrestore(&imsic->vsfile_lock, flags);
->> --
->> 2.53.0
->=20
-> Regards,
-> Anup
+Would it be acceptable for this series to retain the firmware-managed
+PHY design without registering an MDIO bus, and leave lp_advertising
+zero for now? If a mailbox command is added to expose the link partner's
+advertisement, we can populate lp_advertising in a follow-up patch.
+> 
+> 	Andrew
+>
+Thanks for your feedback.
