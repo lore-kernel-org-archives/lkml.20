@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.3.219.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908306;
-	b=KOm0P+9y50Vg7DTusAF5ZkYI2eVeGkCp5Gve5MujPr66/qLaJ333Gs2Yk1J61/P0XaVv
-	 CBMoOpE5RdKnhDqUtVNPipU13F4dTdV/ttDUvJx9DuF3ZtfLhEURIMaQYKNUbdvxQRWYH
-	 f7anTm55htJsVIcfcaQQdz/KR9DYP4I7otS28kAXFvw1chNkHqZpXQnN0NvuISOTaq2Ml
-	 GN60rndsoZ06EozedpGrUIToWMvAzWRm3fCHaYcpe1OrwFE/nDLuqWP2RaVWkVcWFVWD/
-	 fHkpmjQPVltZxvXoYeinqqfEU6btksUdwgHCodgm8/IO3XUmZXUkLFu4V1d9eRM7YdQ==
+	t=1794908312;
+	b=CvaekSUBqyr6h4WOGiTFoi5kba0P+Ib7jVdPJkqNYHnFNj/n1d97UQX1hN7DAoaHHZqp
+	 9+uYdR/WsPLcRCydUZhmvfdj6Xfgy9DUujZ7BCcOhaG8Lm4Y+ZFlUe2qPtdRoJF54bWew
+	 we1SMyVHo2Im2xp2tbp4jwTkvyfXaUNes87FgBOY78HPZyRb8Kr3+h5rHSj9lasNVIs6V
+	 uJQXnKym9Ul8bTngWpvgLrJAEQ4m+DTKiOBlRerurhs8yjtORg1ipNbHvNwAx6y6hdaPL
+	 bdEh214DjtHbqImyBEXw3FtjUu21hEBRvo1qZxL2lTNb8bTkXQ2QK0J3IXeglH2Or4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908306;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=doiWoBjdny1ljjzKEq5yZ9l1HgmsVW3my1hbvOjJh0A=;
-	b=DKhR0WAWYznvJSKE9bhCKduDlw5mMeMxsVYgAj3inh5nPZUdt+RtuhpG8uBSes4OtfZc
-	 MYAxCUt5ujRlQJxIdh05F57bHdterjVVlFXQIChFsn1IjnrxR39ug8CWSuHnLXXoATZ9d
-	 qetzir9QOhfQaU/VXXt+QxnyO8oKppKGnFPZoBlrZ4ToziYEHHVNFrXJCMjoFl7yenlLA
-	 6VmFT+FQZqfY5gpRfoMsrgytnJvGS61UAQACSd4Y3q17YpR8BvaASDuI23ci2iTFaw57c
-	 0H+D6A7WbR/0hirrnWXYUF0gg86UH5JZJlOQJ8fH5zU+aEZ2Xj+FX/20aum27lgjTLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908312;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:DKIM-Signature:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Originating-IP:X-ClientProxiedBy:X-KSMG-AntiPhishing:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:X-KSMG-KATA-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=RqLYSNANlPC6yUjwGdt+TugyKeEWBo8NGXBnS5NA17M=;
+	b=0mGc2bh2mURBo94XWdUbY7UyDdXazvdgfJWch4Tp/9SzB7UxlZbh+APIi9hAQrD1Qalr
+	 1IeS7R6R//wsrDlqAu89/13CEj7efg6xDFOZWP01JBHDXBaH5nyDoKCLXB/9oQAfT11JO
+	 oLOG01fb4mH2dlqvmHnH0SxvHgsGvB6RaxCZWx/FuVRzx/3WaxT60dzUwtb6BVC5YO1kc
+	 b3O50OCf0ePHTOM7IEDtorogoKWdeuFyNkFBnKSpOcvxiHqSv5rnazw7g31LtIjJjA944
+	 dCqyZZPf/ux2Wskq9YjDliGX6rI+oOUvZGn6aK+XW6i7QUtn/kek0OPUZ6cBE4K0syw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oshs2VVF;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=yadro.com;
+	spf=pass smtp.mailfrom=yadro.com;
+	dkim=pass header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-02 header.b=CO+MOJQe;
+	dkim=pass header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-03 header.b=gb059MYL;
+	arc=none smtp.remote-ip=195.3.219.148
+Received: from mta-01.yadro.com (mta-01.yadro.com [195.3.219.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC79606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC79606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4D9606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D4D9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yadro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yadro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oshs2VVF
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7207EC4EDBC
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2365F5FC81;
-	Tue, 17 Nov 2026 09:38:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5206C11BC0B8F;
-	Tue, 17 Nov 2026 10:38:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908303; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=doiWoBjdny1ljjzKEq5yZ9l1HgmsVW3my1hbvOjJh0A=;
-	b=oshs2VVFbKko1cnziwCjIxtOgZGmi/40wvJzVJJkEj5I5QvMJZspa9WvlXh1lrkH5F45lF
-	UramDTADpThRZhivCv7uQrerTnoTI9nNCJVEw5LnJXwAOjs/bil8yMJZN3FgrAmtQNgU/c
-	RmVO6sRlZZu2ppPlnIOX7H/X7EpOUDV9teht2BUN1XN7SUQL3UYP4qpLalI2gYZ6Y7kb2Y
-	d/sR8CzSOrGOAnvElTa8uCtIRnZVYunSdY8fBbxXAM3qYqrsnao7CebCtooRvGnuv++pdb
-	Zj4fhQu6jMHOLnuxUZRNd9KNtNNHCCatnaLYw72KOCTF4UdUA8dHbAUZsRSwJg==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 12/12] mtd: rawnand: txx9ndfmc: Remove #ifdef guards for PM related functions
-Date: Tue, 17 Nov 2026 10:37:50 +0100
-Message-ID: <20261117093751.14988-13-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
-References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-02 header.b=CO+MOJQe;
+	dkim=pass (2048-bit key, unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-03 header.b=gb059MYL
+Received: from mta-01.yadro.com (localhost [127.0.0.1])
+	by mta-01.yadro.com (Postfix) with ESMTP id 0114B2001B;
+	Tue, 17 Nov 2026 12:38:21 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mta-01.yadro.com 0114B2001B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yadro.com; s=mta-02;
+	t=1794908301; bh=RqLYSNANlPC6yUjwGdt+TugyKeEWBo8NGXBnS5NA17M=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:From;
+	b=CO+MOJQe+gEQYxnZPR+ahaEZyfNNshysPD6S/sN7tFA5BPc1KA2O4oVLZN0J+xAF9
+	 jOqikCw6FrH0ubil3CtUfR0l/9EovzDvkvTCfSo2wQOqi2TI1T88czeNIOTCTtENI0
+	 tz7TuC7KUaDz9MKHdeUtV/2yCrB5D7bgBgD7SkNCVgODI3oDV/hnFrTkPMGv851+HM
+	 BXwX/ulbQNTL3QxwmfgEg/cg9VmgC7gBKkCRQ7KV/pnbKqHycPmOmYT0RqrUd8fs9x
+	 SM0AwykxJkSziYmSDENyBqy2k3J6di/cFdWgF6THVrHb0qK0mTLsnpfqQr9RwDN1nJ
+	 WvrFbze8VkXjw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yadro.com; s=mta-03;
+	t=1794908301; bh=RqLYSNANlPC6yUjwGdt+TugyKeEWBo8NGXBnS5NA17M=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:From;
+	b=gb059MYLEeg15Nof/ZH9WWjUKpo1E+QdzXPwwf69AQ1qzApDkl3oU9/r7h/GcUqIJ
+	 rnWN1NfdydncSka5ZJkQkFYgrBO4rL0dkl57/HpITLTifshL3cebmKx2JTIxtegeRX
+	 qoaAsx5Xmr+tBI+URNH1qW7DbvGG0d8SrUXhpzroaBZlTsr0n7BQeAQS5Miw73R8I9
+	 xUg6JMixndDSKkmhElbW2VvqTBLUzyXC+AhPZIZYUCl/PlDUkHVrvOcVzFP4ONbDaK
+	 QQ8N9e2pi/votUDVE0PlyIgZahft4AyjBUsA8EvVQ0UvFrsMJnaxCPD2IsT9RblPpU
+	 tLlc0vbWO7tIw==
+Received: from RTM-EXCH-06.corp.yadro.com (unknown [10.34.9.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mta-01.yadro.com (Postfix) with ESMTPS;
+	Tue, 17 Nov 2026 12:38:18 +0300 (MSK)
+Received: from yadro.com (10.34.9.247) by RTM-EXCH-06.corp.yadro.com
+ (10.34.9.206) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
+ 2026 12:38:20 +0300
+Date: Tue, 17 Nov 2026 12:38:19 +0300
+From: Dmitry Bogdanov <d.bogdanov@yadro.com>
+To: Mohamed Khalfella <linux-nvme-bounces@lists.infradead.org>
+CC: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph
+ Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Justin Tee
+	<justin.tee@broadcom.com>, Naresh Gottumukkala
+	<nareshgottumukkala83@gmail.com>, Paul Ely <paul.ely@broadcom.com>, Hannes
+ Reinecke <hare@kernel.org>, Chaitanya Kulkarni <kch@nvidia.com>, James Smart
+	<jsmart833426@gmail.com>, Randy Jennings <randyj@purestorage.com>, Daniel
+ Wagner <dwagner@suse.de>, <linux-nvme@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Hannes Reinecke <hare@suse.de>
+Subject: Re: [PATCH v7 03/17] nvmet: Implement CCR nvme command
+Message-ID: <20261117093819.GA15533@yadro.com>
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-4-mkhalfella@purestorage.com>
+ <20261116084540.GA3655@yadro.com>
+ <20261117000348.GD1670230-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,52 +96,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261117000348.GD1670230-mkhalfella@purestorage.com>
+X-ClientProxiedBy: RTM-EXCH-02.corp.yadro.com (10.34.9.202) To
+ RTM-EXCH-06.corp.yadro.com (10.34.9.206)
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Interceptor-Info: not scanned
+X-KSMG-AntiSpam-Status: not scanned, disabled by settings
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310, bases: 2026/11/17 07:23:00 #28902765
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-KATA-Status: Not Scanned
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 5
 
-Use the new PM macros for the suspend and resume functions to be
-automatically dropped by the compiler when CONFIG_PM or
-CONFIG_PM_SLEEP are disabled, without having to use #ifdef guards.
+On Mon, Nov 16, 2026 at 04:03:48PM -0800, Mohamed Khalfella wrote:
+> On Mon 2026-11-16 11:45:40 +0300, Dmitry Bogdanov wrote:
+> > On Fri, Nov 13, 2026 at 07:04:17PM -0800, Mohamed Khalfella wrote:
+> > >
+> > > Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
+> > > Reset) command is an nvme command issued to source controller by
+> > > initiator to reset impacted controller. Implement CCR command for linux
+> > > nvme target.
+> > >
+> > > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> > > Reviewed-by: Hannes Reinecke <hare@suse.de>
+> > > Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+> > > ---
+> > >  drivers/nvme/target/admin-cmd.c | 76 ++++++++++++++++++++++++++++++
+> > >  drivers/nvme/target/core.c      | 83 +++++++++++++++++++++++++++++++++
+> > >  drivers/nvme/target/nvmet.h     | 13 ++++++
+> > >  include/linux/nvme.h            | 23 +++++++++
+> > >  4 files changed, 195 insertions(+)
+> > >
+> > > diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+> > > index 5710ae53eb83..3df9db454db9 100644
+> > > --- a/drivers/nvme/target/admin-cmd.c
+> > > +++ b/drivers/nvme/target/admin-cmd.c
+> > > @@ -378,6 +378,7 @@ static void nvmet_get_cmd_effects_admin(struct nvmet_ctrl *ctrl,
+> > >         log->acs[nvme_admin_get_features] =
+> > >         log->acs[nvme_admin_async_event] =
+> > >         log->acs[nvme_admin_keep_alive] =
+> > > +       log->acs[nvme_admin_cross_ctrl_reset] =
+> > >                 cpu_to_le32(NVME_CMD_EFFECTS_CSUPP);
+> > >  }
+> > >
+> > > @@ -1629,6 +1630,78 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
+> > >         nvmet_req_complete(req, status);
+> > >  }
+> > >
+> > > +void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
+> > > +{
+> > > +       struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
+> > > +       struct nvme_command *cmd = req->cmd;
+> > > +       struct nvmet_ccr *ccr, *new_ccr;
+> > > +       int ccr_active, ccr_total;
+> > > +       u16 cntlid, status = NVME_SC_SUCCESS;
+> > > +
+> > > +       if (!nvmet_check_transfer_len(req, 0))
+> > > +               return;
+> > > +
+> > > +       cntlid = le16_to_cpu(cmd->ccr.icid);
+> > > +       if (sctrl->cntlid == cntlid) {
+> > > +               req->error_loc =
+> > > +                       offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
+> > > +               status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+> > > +               goto out;
+> > > +       }
+> >
+> > cntlid has to be validated against the configured range of the controller
+> > ids (subsys->cntlid_min <= cntlid <= subsys->cntlid_max).
+> > That will allow CCR to work correctly on a distributed target.
+> >
+> 
+> Thanks for the review. nvmet_ctrl_find_get_ccr() below will verify
+> ictrl->dntlid == cntlid before proceeding with the reset. Is this not
+> enough?
 
-This has the advantage of always compiling these functions in,
-independently of any Kconfig option. Thanks to that, bugs and other
-regressions are subsequently easier to catch.
+No, I am talking about something completely different.
+On a distributed subsystem the controller id is allocated within each
+own range on its node. The controller on one node does not know about
+controllers's state on other nodes, the host also does not know where which
+controller, it just send CCR  on every live controller to get a positive
+response. So the controller should fail CCR for the out of ranged impacted
+controller id to make the host send other CCR to other controller which
+probably know(knew) the impacted controller. Otherwise the host will
+complete the outstanding IO too early.
 
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
 
-v2: No change
----
- drivers/mtd/nand/raw/txx9ndfmc.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+> Adding this check here means if either cntlid_min or cntlid_max change
+> after ictrl has been created, CCR will fail saying the controller was not
+> found. Why do we want to CCR to fail in this case when ictrl might
+> actually be there?
 
-diff --git a/drivers/mtd/nand/raw/txx9ndfmc.c b/drivers/mtd/nand/raw/txx9ndfmc.c
-index 4cc6e91dbc23..9dc624957a3c 100644
---- a/drivers/mtd/nand/raw/txx9ndfmc.c
-+++ b/drivers/mtd/nand/raw/txx9ndfmc.c
-@@ -391,21 +391,17 @@ static void txx9ndfmc_remove(struct platform_device *dev)
- 	}
- }
- 
--#ifdef CONFIG_PM
- static int txx9ndfmc_resume(struct platform_device *dev)
- {
- 	if (platform_get_drvdata(dev))
- 		txx9ndfmc_initialize(dev);
- 	return 0;
- }
--#else
--#define txx9ndfmc_resume NULL
--#endif
- 
- static struct platform_driver txx9ndfmc_driver = {
- 	.probe		= txx9ndfmc_probe,
- 	.remove		= txx9ndfmc_remove,
--	.resume		= txx9ndfmc_resume,
-+	.resume		= pm_ptr(txx9ndfmc_resume),
- 	.driver		= {
- 		.name	= "txx9ndfmc",
- 	},
--- 
-2.47.3
+Makes sense to forbid changing cntlid_min and cntlid_max for already discovered
+subsystem. It is a static configruation. Or is there a scenario when
+they may be changed?
 
+> > > +
+> > > +       /* Find and get impacted controller */
+> > > +       ictrl = nvmet_ctrl_find_get_ccr(sctrl->subsys, sctrl->hostnqn,
+> > > +                                       cmd->ccr.ciu, cntlid,
+> > > +                                       le64_to_cpu(cmd->ccr.cirn));
+> > > +       if (!ictrl) {
+> > > +               /* Immediate Reset Successful */
+> > > +               nvmet_set_result(req, 1);
+> > > +               status = NVME_SC_SUCCESS;
+> > > +               goto out;
+> > > +       }
+> > > +
+> 
