@@ -1,63 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882157;
-	b=34Su7qSLqsFrgWOm9AVwr50cy3G9Yx2+/8WoRwpi7wzDJp9tqfEJoQijT4qkH7b3ShPI
-	 rRJRd/g06c33GEQ5xYA7dW4P4lDqhWAPO2C8l/jZbFWvpj/BVZxHqigfxvy26DWtJvJyi
-	 vQLlCaqjbu4phUNkSOCjvCaql/6JA4ZRmbpmiUCLXjw8J0WUsQs0E9v/EjtVYoqyFG29M
-	 CXkPrffjpL8f7ZeHHcZfkac5DMn6OTxSFRhK2oMS1/LEjdY3m6y37hXDuppJMTH5gMyla
-	 bKyJthQaSHoQ2suo1OwkU92635F0UmF7EklupSHt+TJRNcVeOqC49UedzzIS4E1Y/ow==
+	t=1794882167;
+	b=4QhPUm3CDwlyV5FLdjd7QZ/IxVyqsDEfUu+MbfxAYoStobVZlMzMrHP2iapWrZBsWMn6
+	 B1oGWeHTEsosk1flHQkXVPao3zsV6zuGoxx5rmwVeUDfK3ExGMgfCodcx4B5KpCKQMRwY
+	 k3dqhaJOYZSQ7FB1kWdBVb2ENqE4BjMdk2upEl+fOttgm3h3N/9ChXrkxF2kBOMpD+jqX
+	 2LWexcl7FUofRVOWmFltlEmGljDd9mUWFrY4fqxxhzUeoJ7B8RKZtf4Pe158m5k4b2mP3
+	 ECq6eC6kKv/GAtZRjYe+3p8CCrKX+rhBv+VBAe0Q4Jxbn/rwx2Bj1fTufaff9VxJ4oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882157;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vhQMbf/9QOBK7STkWUtf7NSQ2paMplC/n0grkTn19So=;
-	b=qnZAo24GI78WrCeVdoWXyhqmhsrd6uZ98+ox5VUNLWtOUi6Z17m6EQdrIcz4eWzZ4Ml0
-	 NLRlfMVK+LFOiPz2pzmWze7VbONUIJyjckLOoVW3hWKL5Wwu1o6axRBYtN0+KXTavPsqI
-	 VprmzW3y8twS1LuBC3RXIBpdvcvMrnLUZ//LnSeCf+VR0Wi0DsHIpKhmR34cVvX9oZRgU
-	 kb+FSzUkTuDnEuXjqu+vI0Yz7H4qmbjEGUXEbgbNdLUkx0/bxWD5509qKwb0k9w09ekIf
-	 5Lg7i9TwAyLdroAaVUsCvZTmDQXLinS8SGZGdS4yIv8DOqsgDHx5yKPD8nVYPQui8mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882167;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=YFEMt68OTUAuLc8xbBf8qhNhrtZH4z9jKejIQ0be8PA=;
+	b=pKS1/slI5Eq/iA856y/ftIVvPtVf4NOH8hs++yq9iyrZNIj1kqF1sDXjrUy35R7QtU4I
+	 bZN+JYH+l4oPI9b3kHtZ+A4m1urcuMN6ic+6cnVrqzLsIjHQE/sqXANRj/4C4N7jCOJMj
+	 yRdHwPwpWlYz3Tu/5JPfIjAfCgwylDJ19gf5XH2JL7aHAd1nbKTZCKDqrPodPgTN3HKtg
+	 yH6T8Dp5tHecT5+BPfZgZ4ERsnUJpHg4dORq9VHARDnJAmHLlrBZFZ1NWh/+a191DP1x3
+	 VsmLuSLxezvRRSJVANhDA6dMQTu2b4+cYUpFW5pfXy3yJYsp/2DXtP6RZSjicTElU8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7AN4EeH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=WtvC0lCv;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D06606A31C;
-	Tue, 17 Nov 2026 02:22:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2203F606A335;
+	Tue, 17 Nov 2026 02:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2203F606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7AN4EeH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF201F000C4;
-	Tue, 17 Nov 2026 02:22:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794882156;
-	bh=vhQMbf/9QOBK7STkWUtf7NSQ2paMplC/n0grkTn19So=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=d7AN4EeHmlvOJjRV45jWR6YuUi6Il8n0G0jWiAGdvtH1QKSQJPbn/BusqHeV9B+he
-	 ANmXvXUmIi/KNWK32/shUijmrtiBZSHWfqH1hKDU8ROOuPwJkCDchf56VjhomFDNYe
-	 KasJfOrV+UgOIXGJwCrQq3Vtk5U2XvllCNhLsi7F/mGrUIKaSfWdIx5RSrh3hfxiN4
-	 4mMJ9ZGzTi5maOLVLkk20n+eXu8CpB2ze9u87CkAjI+0iBfPs7yejzMUw7Aobp10QR
-	 odHjwgtpTw60yNa3XCuE9QC6NoYuJWYU1wLcnozGOQrxd6XXeBSkEq/3mZoL1ghl4Q
-	 o/PupYQE2Z+jQ==
-Date: Tue, 17 Nov 2026 02:22:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Alison
- Schofield <alison.schofield@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>, Li Ming
- <ming.li@zohomail.com>, Benjamin Cheatham <benjamin.cheatham@amd.com>,
- Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>, Anisa
- Su <anisa.su@samsung.com>
-Subject: Re: [PATCH v1 02/14] cxl/port: Add dynamic capacity options to
- endpoint decoder mode
-Message-ID: <20261117022228.43725ce7@jic23-hlaptop>
-In-Reply-To: <20261104230445.66625-3-anisa.su@samsung.com>
-References: <20261104230445.66625-1-anisa.su@samsung.com>
-	<20261104230445.66625-3-anisa.su@samsung.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=WtvC0lCv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794882129;
+	bh=YFEMt68OTUAuLc8xbBf8qhNhrtZH4z9jKejIQ0be8PA=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=WtvC0lCvdz+ozCGLRNRQ43WF5h73ah/IcSFA2T7pditxkLHV0E3N9RW8PX/qPC4KF
+	 U8321eTgdshv4JvyWX/+VoeQ66jmI38MeO/p+5APZsk7nVWw1ZdYq4yVgTve9TKHTp
+	 iPovXmA3cxgVJ+TFeIfpLxIQSLwglEnyRKcTWNi0=
+X-QQ-mid: zesmtpgz6t1794882123t8dfc0e95
+X-QQ-Originating-IP: sQqB+ujerewejO2er3hRMdg9WLwDzslkW/qZ6voe2Yc=
+Received: from localhost.localdomain ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 10:20:42 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4569123318179278308
+From: Xue Haolin <xuehaolin@uniontech.com>
+To: deller@gmx.de
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: sstfb: Error out if pixclock equals zero
+Date: Tue, 17 Nov 2026 10:20:31 +0800
+Message-Id: <20261117022031.252357-1-xuehaolin@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,146 +67,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OE2SNMSfMbmOkbcXtbV6xEXhgffGg4Q6JEDvh2xvbnjUCoAQJRu9zYX/
+	slXsqg46L7AOvOhu/Wd6LqcjwlSObMfkM96Zg7sbL7GqWZYQDDUL/+0AgL7yeSMq0Kw9qjI
+	xZldi5hM4ODMHlCTDJ05IqN7RSbv3eB+gwp2/crzE/aZvFrd7rcOLgLWhOAO09GDNAPNCql
+	TRhJGmKLXfJ99JK9TzROCK39G35FqoSZ2CbrkS9C9vm5ETopPAWD59CL6PtZvzIIvn89IAn
+	MCh2ToWnMhZVFQXOizzq8tLm8ywGjL7z/Jc8N4o6FsCPDCJuNtE+mrNhNVyEYVEDmnBKpau
+	0pDbw0IS7V/VGLYaVrKqr4BHuSve2DmMbXjB5Lt7ll4CJz7GUuG41SnKt9W7k38u2MWErL+
+	Qz1rxHd66FslN9Ry2I6TFSaH71JkCU5JM4vuokxZrokbHbcH3CetvZN5rLLU+5YIjgj/xH+
+	00HtH9VglGojgUjxLaTcwXpm15DjgxwXjWHD9gX+VRz+rFbDaYZInRJFKyt6iFdzGj8eqiM
+	Fc84ayzivAC73O2ArQ6Csr6QKYpB9D+k11b3dEQzPWJpjwSuttdR4XnV0IgIYXbhIp2tp1J
+	dEdSZxmXPDUoLsjWfPhRAfzwyWjQS/8hP+xWTR9IyEHlz4KMO67ylIYhuprlbl8+9/g0ATM
+	gX/e5PwTvKk3Ea+rj+Tm3FLE/ttTP6A+Y8wmTIqHgACUYKto9JltECaeHSBFsp7ULgLdBtL
+	cuGN+uicz4r+SSYuaEcOMtyPskEPgHI9kiFSPXaYdO+MZJpz8kWGZGyh+SYhHW8BZ++irTS
+	0pTVckcpPeAmEpJpwVa8+VxpIfdnj7DSX7M/4aQc+C7DatkgQHxlaReoWaUlSmacQYd8MRs
+	YQGAK1uY+I/D/q+gSgX9O7kaYv9ZQcemL/RYELkyKf+99Z3HlQZlE3uwoixBpzjddsJqfTz
+	ISSHan7jJDzv9edlPdqeFIqYFXayeEVEwzxDwMC7P/Js0+ltwZOQQFXGv2wHMjVD5yl/ly+
+	g0dE3OvHTnn0gCgxUtKhp2OBk3hQgUq15vgu3evQ==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Thu,  5 Nov 2026 08:02:26 +0900
-Anisa Su <anisa.su887@gmail.com> wrote:
+From: xuehaolin <xuehaolin@uniontech.com>
 
-> Endpoints can now carry a dynamic ram partition following the
-> persistent memory partition. A DC partition is further described by
-> two properties reported in its CDAT DSMAS entry: shareable and
-> read-only.
-> 
-> Expand the decoder mode to accept 'dynamic_ram', 'dynamic_ram_shared',
-Time to argue about bikeshed colors.
+The userspace program could pass any values to the driver through
+ioctl() interface. If the driver doesn't check the value of pixclock,
+it may cause divide-by-zero error.
 
-So we want the subtle distinction between shared and shareable?
-Shared implies it is happening, shareable that it might.
+sstfb_check_var() calls PICOS2KHZ(var->pixclock) which expands to
+1000000000UL / var->pixclock. If var->pixclock is zero, this causes
+a divide-by-zero exception.
 
-I don't really care either way.
+Fix this by checking whether pixclock is zero at the beginning of
+sstfb_check_var(), before it is used as a divisor.
 
-> 'dynamic_ram_ro' and 'dynamic_ram_shared_ro'. cxl_dpa_set_part()
-> selects the first dynamic ram partition whose properties match exactly.
-> 
-> DCD may be disabled during validation after the DC partition(s) were
-> added to the DPA layout, so a decoder may only be assigned to a DC
-> partition while DCD is enabled for its memdev. Add a helper,
-> cxled_dcd_enabled(), to check cxl_dcd_supported().
-> 
-> Signed-off-by: Anisa Su <anisa.su@samsung.com>
-> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
-> Tested-by: Junhee Park <jh9934.park@samsung.com>
-> Tested-by: Heesoo Kim <habil.kim@samsung.com>
-> ---
->  Documentation/ABI/testing/sysfs-bus-cxl | 25 +++++++----
->  drivers/cxl/core/core.h                 | 23 ++++++++++-
->  drivers/cxl/core/hdm.c                  | 21 ++++++++--
->  drivers/cxl/core/port.c                 | 55 ++++++++++++++++++++++---
->  4 files changed, 105 insertions(+), 19 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-cxl b/Documentation/ABI/testing/sysfs-bus-cxl
-> index 7352dbd70bc7..bcbc44fea6db 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-cxl
-> +++ b/Documentation/ABI/testing/sysfs-bus-cxl
-> @@ -339,22 +339,29 @@ Description:
->  
->  
->  What:		/sys/bus/cxl/devices/decoderX.Y/mode
-> -Date:		May, 2022
-> -KernelVersion:	v6.0
-> +Date:		May, 2022, November, 2026
-> +KernelVersion:	v6.0, v7.5 (dynamic_ram)
->  Contact:	linux-cxl@vger.kernel.org
->  Description:
->  		(RW) When a CXL decoder is of devtype "cxl_decoder_endpoint" it
->  		translates from a host physical address range, to a device
->  		local address range. Device-local address ranges are further
-> -		split into a 'ram' (volatile memory) range and 'pmem'
-> -		(persistent memory) range. The 'mode' attribute emits one of
-> -		'ram', 'pmem', or 'none'. The 'none' indicates the decoder is
-> -		not actively decoding, or no DPA allocation policy has been
-> -		set.
-> +		split into a 'ram' (volatile memory) range, 'pmem' (persistent
-> +		memory) range, and dynamic capacity ranges. The 'mode'
-> +		attribute emits one of 'ram', 'pmem', 'none', or a dynamic
-> +		capacity selector: 'dynamic_ram', 'dynamic_ram_shared',
-> +		'dynamic_ram_ro' or 'dynamic_ram_shared_ro', composed from the
-> +		shareable and read-only properties of the partition the decoder
-> +		points at. The 'none' indicates the decoder is not actively
-> +		decoding, or no DPA allocation policy has been set.
->  
->  		'mode' can be written, when the decoder is in the 'disabled'
-> -		state, with either 'ram' or 'pmem' to set the boundaries for the
-> -		next allocation.
-> +		state, with 'ram', 'pmem', or one of the dynamic capacity
-> +		selectors to set the boundaries for the next allocation. A
-> +		selector picks the first dynamic capacity partition whose
-> +		shareable and read-only properties match it exactly, and is
-> +		accepted only while the driver has dynamic capacity enabled
-> +		for the device.
->  
->  
->  What:		/sys/bus/cxl/devices/decoderX.Y/dpa_resource
-> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-> index 8a81be004d00..24fbb5718abc 100644
-> --- a/drivers/cxl/core/core.h
-> +++ b/drivers/cxl/core/core.h
-> @@ -6,6 +6,7 @@
->  
->  #include <cxl/mailbox.h>
->  #include <linux/rwsem.h>
-> +#include <cxlmem.h>
->  
->  extern const struct device_type cxl_nvdimm_bridge_type;
->  extern const struct device_type cxl_nvdimm_type;
-> @@ -18,6 +19,25 @@ enum cxl_detach_mode {
->  	DETACH_INVALIDATE,
->  };
->  
-> +static inline struct cxl_memdev_state *
-> +cxled_to_mds(struct cxl_endpoint_decoder *cxled)
-> +{
-> +	struct cxl_memdev *cxlmd = cxled_to_memdev(cxled);
-> +
-> +	return to_cxl_memdev_state(cxlmd->cxlds);
-> +}
-> +
-> +/* Type-2 devices have no memdev state; nothing else leaves @cxlds NULL here */
+This is similar to CVE-2022-3061 in i740fb which was fixed by
+commit 15cf0b82271b ("video: fbdev: i740fb: Error out if
+'pixclock' equals zero"), and the fix in savagefb by
+commit 04e5eac8f3ab ("fbdev: savage: Error out if pixclock equals zero").
 
-Seems like an odd comment given cxlds isn't visibly used in here.
-Perhaps needs to refer to it via a specific path?
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: xuehaolin <xuehaolin@uniontech.com>
+---
+ drivers/video/fbdev/sstfb.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> +static inline bool cxled_dcd_enabled(struct cxl_endpoint_decoder *cxled)
-> +{
-> +	struct cxl_memdev_state *mds = cxled_to_mds(cxled);
-> +
-> +	return mds && cxl_dcd_supported(mds);
-> +}
-
-
-> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-> index f3705ea44db7..9b71b58d4e36 100644
-> --- a/drivers/cxl/core/port.c
-> +++ b/drivers/cxl/core/port.c
-> @@ -203,6 +203,40 @@ static ssize_t target_list_show(struct device *dev,
->  }
->  static DEVICE_ATTR_RO(target_list);
->  
-> +/* Dynamic capacity selectors: the flags name one kind of DC partition */
-> +static const struct {
-> +	const char *name;
-> +	bool shareable;
-> +	bool read_only;
-> +} cxl_dc_modes[] = {
-> +	{ "dynamic_ram",		false,	false },
-> +	{ "dynamic_ram_shared",		true,	false },
-
-This rather highlights the disconnect in naming. 
-
-> +	{ "dynamic_ram_ro",		false,	true },
-> +	{ "dynamic_ram_shared_ro",	true,	true },
-> +};
-> +
-
-
+diff --git a/drivers/video/fbdev/sstfb.c b/drivers/video/fbdev/sstfb.c
+index 8e2c2421028d..de0769eb4a2f 100644
+--- a/drivers/video/fbdev/sstfb.c
++++ b/drivers/video/fbdev/sstfb.c
+@@ -359,6 +359,9 @@ static int sstfb_check_var(struct fb_var_screeninfo *var,
+ 	int tiles_in_X, real_length;
+ 	unsigned int freq;
+ 
++	if (!var->pixclock)
++		return -EINVAL;
++
+ 	if (sst_calc_pll(PICOS2KHZ(var->pixclock), &freq, &par->pll)) {
+ 		printk(KERN_ERR "sstfb: Pixclock at %ld KHZ out of range\n",
+ 				PICOS2KHZ(var->pixclock));
+-- 
+2.43.0
