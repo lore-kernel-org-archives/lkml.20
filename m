@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925573;
-	b=s2XYmSwtq+SahTJsD7GkZ3Jr9P3pfnID+PBCR/NLdtNWCxrv5cria0ifSyIe5QHrWWQw
-	 IXeXpvhVln6C3N6vgz2CNc1CwlVGRq1EohooWuEJVvhg+NrbxFayfYtMPNZe3VHTd6hgJ
-	 GLrIXD0IvxxrCb4hFYlsvpCKIEnpjDZyU6XzlClpos83+1flVQ6wqB1zNQShd8Ma6lJP6
-	 qEQRJjrpKF4VoWFO88BDIVOn/0EpUhXwbXbeop7VW7Ye2+D8YS12YB/1xIcRosGpozmBF
-	 IUSMyZ29jmilA5lLA/fEuT+FlX7gatE4XNdt16KzalN+Kkf9VVWnGFKLwRCDBaZ5wfA==
+	t=1794925574;
+	b=XUgxmcsgiqLTLY8OwmDnHvgq68Uqc5/ZrFm0jiYcusA376TwH63rjhrFjqmGhgPDDYZB
+	 oVoEBJLzwoWZwodD80tJH4F5z/G99lxdPChpX1dwQ9GSwBJ9FmZQFD2wBexIpkx2F0qMw
+	 BIbg67pHGF45UIF3AgZVuw1fbvmre2lycHfWdTidpxOh5AQKuD+TdmJKpqSvmAuLpwKjR
+	 uLSUB3LyAeExck3QO9wh+qX8PSYf3/G2W7ll4V/LhiBCnYhayZPUOYRrc6P131fpE68bW
+	 zZk80vflQK5lbSMSpjq44fYPFVtJC118QbpswE3mmlw82A88pGU/oYVxZToEzrUPKFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925573;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MeZXy8q2Ih+PhsE8XTbG3dzHJIOEGKbRkjxXjSuBUGY=;
-	b=vj2sDD2Pz1H5EARdHBUQa0ct3QhOqfH5tI4oYB/CwHN3ChEvGzOi4wADnLA2ty+s9Tgk
-	 hxMi11XlHOty2oOvakvOM8huAeP0D7qD9ai0m3g8dKeZ+7rORjWZJbaestsbJf/773k5j
-	 N/LuwW4+x8SAG7fPvPFIBhkyza3oeQmsKX9EtytpLyDQpLyLNcxCMNUwN6B86ZSYrfxAk
-	 ZCUE6Cjuc50FJPTPwhl4BDdfdd/IwvES0ooH4R3wzpJNHhITDd44EVQScgdHErMJDpb8i
-	 ZLeNRWzeiU75HV8BopsV2caKL45EcC3Yjrf6fsCY3NDBavO+T+A7LthxXWv5rF+nU0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925574;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Qr2nUABmn5h/YBOq4rfdc5mzXb4rIjc5Q4wwfmjeF/o=;
+	b=MbsHegOcKbfmZqKruXWsPOoFnYBWPm0/IWRubWbKvHK+3X6IoB1FOAIhabuKsZpYcKT9
+	 G8ksapS216p9vq7EeX8XYkXBhh2ySGfomxn0q1uSF0VbkDpeyWpfJp9xX0BzRLc9WG4WI
+	 PLTxEiojZOdw8wVhkEUvWKovbvfVYhkQhgcCIqXg4dK8YbzhWx2ZBe9UXsdvrAYbaKnEB
+	 VuRRy/YPsCvf3TQsfziB/NdHye5UOT6DUL01KPxYhw6yhBFW98P42569EQkrj3hF+gG9G
+	 RzbzytuCYBRJr4mAfInJpqiqxJYyrrX8wXTY3rTLQOJ5S2NXP67h2n+Ct/yAW9BOu9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I3aD/hMR";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qD6dL8zB;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F7D606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:26:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DAF606A338;
+	Tue, 17 Nov 2026 14:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12DAF606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3aD/hMR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11631F000C7
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:26:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794925572;
-	bh=MeZXy8q2Ih+PhsE8XTbG3dzHJIOEGKbRkjxXjSuBUGY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=I3aD/hMRmCXrk/MUDFMtHtgXk1YjfbHU/R5hB2erHIQqeEKgnYs93v9rkRznQRdxg
-	 Q1YAKG/I9hjrgq39Z6abSt1P0LmkAzOdLy9rbVWuJVXD+kDwGYE9IAu5SHl/Omr6aR
-	 DMURgRLPyvdwYJV5/cZyXOMS4zWSeghJik1jjyme//HlbSOtaU3weczE03ZZvqCQ18
-	 KkaHXyf7mdxTJCZ787tsn8GpybeEoZ9IYJGALKhYlNlGvfuu/WLNOgyXK+cPU2DnRk
-	 JmDQx/EOZ1fO5uWF2aqbY5MRxaFQQsn24dCbSvwDJoTh/58mkOVO77AjCeYEs8psoK
-	 I+lrIfnIgpdMQ==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d21051042so304125866b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:26:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE/x+B5epqQANEwptBEjZi4v/vEnXKnbZRw+MOTZuUmuJdUvwM5NxmdORB5Ci1jEMYpFH8UT+89405xpO0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HD1DJKysdM1fUacHEV1GsfTSdSnWshLvVf7Z4YJTP/JEFHw68
-	nX0M3+exEG/jsL7pyhCu0LtA6C7tyyKBECOInS7AbcBkGxfrUD1/egKgij6xq0A/c/7S/mOAiB7
-	mcserlme/oN5/0NN+7uN+d0Z9Tu0dBgs=
-X-Received: by 2002:a17:907:84b:b0:c35:3880:773b with SMTP id
- a640c23a62f3a-c50963f11f7mr1262630166b.45.1794925571278; Tue, 17 Nov 2026
- 06:26:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qD6dL8zB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794925572;
+	bh=Y8zZspvVCHyV544/HTl+z4+atP6mcZ4w51n6InGt6FA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qD6dL8zBJa/8aKYElbLg/C0j/T6uzmQiUwv9Iy/FwdtkoZMnRPA0tR1Tr7NkEtQZF
+	 3qPsvf3dTZ87+6HVFrpI8vn/0ROgE3DUG9o44xFLzzvIUsXLdaKAt7NbHToKtZezCu
+	 tnMvXEVNW2MH4VsnJwiUqmyU5r4moZO028h//j0nFVzNAS5I0JI9xRPvcd1GkeY9xM
+	 /7KM2ZGjVl7TPs+O1tfBdO8F10XELQ6cjiChADQHpvvyTip+UZBQboIH7PMUuJ7TFN
+	 Y3XZzLSqBQheTb1R7G1KW9Kl4f9t6QMQMhGeKXie8onu/6g6ftQ++Zds96uukdP2Ce
+	 LPwvM1iRzmA1g==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D90C117E0069;
+	Tue, 17 Nov 2026 15:26:11 +0100 (CET)
+Message-ID: <a7d13845-5f9e-4337-a7d5-f01988c03f87@collabora.com>
+Date: Tue, 17 Nov 2026 15:26:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,75 +61,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116074849.475815-1-stefan.chulski@broadcom.com>
- <CAKYAXd9KT=1vLYsnRKxmiM6pLJQNACXuodD8wNQzb8S5apiuRQ@mail.gmail.com>
- <CA+Fu+LPL7xqpV_vjjjehedOFtuuBqgZHZTSqJ+FgweUpYo2uBw@mail.gmail.com>
- <CAKYAXd--x9UajLQwzRUwxRZ7PFW5T02xyHdSAnThAo326p_kxw@mail.gmail.com> <CA+Fu+LPnXMd9rMtywkZL77XzLq8n+8AiBW2T8Cau10YnVbofiQ@mail.gmail.com>
-In-Reply-To: <CA+Fu+LPnXMd9rMtywkZL77XzLq8n+8AiBW2T8Cau10YnVbofiQ@mail.gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 17 Nov 2026 23:25:59 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-xM=gmpjz7g0+n+ZBA4Vb0Sz2i7B89Cs7XdHUY7U6WdA@mail.gmail.com>
-X-Gm-Features: AclHuK9JTQa9SIWmjqwwfpK78wDn5ohzB29NrsN34utRaMM5yFJc2lxS4MQQN1I
-Message-ID: <CAKYAXd-xM=gmpjz7g0+n+ZBA4Vb0Sz2i7B89Cs7XdHUY7U6WdA@mail.gmail.com>
-Subject: Re: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the
- ksmbd-io workqueue
-To: Stefan Chulski <stefan.chulski@broadcom.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ilya Lifshits <ilya.lifshits@broadcom.com>, Huiwen He <hehuiwen@kylinos.cn>, 
-	Gil Benamar <gil.benamar@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	bcm-kernel-feedback-list@broadcom.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
+ aliases
+To: Akari Tsuyukusa <akkun11.open@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <avxXNp5xEbczbb1y@buffalo-ssd>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <avxXNp5xEbczbb1y@buffalo-ssd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 5:51=E2=80=AFPM Stefan Chulski
-<stefan.chulski@broadcom.com> wrote:
->
-> On Tue, Nov 17, 2026 at 3:34=E2=80=AFAM Namjae Jeon <linkinjeon@kernel.or=
-g> wrote:
-> >
-> > On Mon, Nov 16, 2026 at 9:52=E2=80=AFPM Stefan Chulski
-> > <stefan.chulski@broadcom.com> wrote:
-> > >
-> > > On Mon, Nov 16, 2026 at 2:10=E2=80=AFPM Namjae Jeon <linkinjeon@kerne=
-l.org> wrote:
-> > >
-> > > While both address the underlying scheduling limitations of per-CPU
-> > > workqueues for ksmbd, my patch introduces the `use_unbound_wq` module
-> > > parameter rather than changing the behavior unconditionally. Because
-> > > the optimal behavior (cache locality vs. load balancing) heavily
-> > > depends on the specific workload and platform, this approach keeps th=
-e
-> > > existing per-CPU behavior as the default while allowing platforms to
-> > > easily opt-in to the unbound workqueue when it yields better
-> > > performance.
-> > Could you provide the benchmark setup and actual results? If
-> > WQ_UNBOUND generally performs better across representative workloads,
-> > We could make it the default and provide a module parameter to opt
-> > into WQ_PERCPU instead.
->
-> These are the results from our embedded systems featuring dual-core ARM C=
-PUs.
-> The benchmark setup is fairly simple: writing to a USB disk over the
-> network. Because the network traffic is a single 5-tuple TCP stream,
-> it is pinned to one of the CPUs (depending on the 5-tuple hash).
->
-> We tested this on two different platforms and saw the following
-> throughput improvements:
-> Platform 1: Improved from 178 MB/s to 210 MB/s
-> Platform 2: Improved from 215 MB/s to 263 MB/s
-Okay.
+On 11/17/26 15:16, Akari Tsuyukusa wrote:
+> Hi Krzysztof,
+> 
+> On Tue, Nov 17, 2026 at 02:05:57PM +0100, Krzysztof Kozlowski wrote:
+>> The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
+>> approved by Devicetree maintainers, because they were never documented
+>> as actual ABI.  Drop them, because no new custom aliases are allowed for
+>> years now.
+>>
+>> This might break users of this undocumented ABI, so these should be
+>> updated to use only documented and approved ABI.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> You mentioned 64-bit MediaTek SoCs, but the same class of issues also
+> exists in 32-bit MediaTek SoCs under arch/arm/boot/dts/mediatek/.
+> For example, mt7623n.dtsi has rdma0/rdma1 aliases, while mt6589.dtsi,
+> mt8127.dtsi and mt8135.dtsi misuse "simple-bus" for the "clocks" node.
+> 
+> I hope this push for correctness doesn't lead to any regressions.
+> 
 
-https://lore.kernel.org/linux-cifs/20261022092514.2590010-1-huiwen.he@linux=
-.dev/
+As I said, picking this right now would break all MediaTek SoCs, but that patch is
+just a way to get a discussion started - don't worry, noone is crazy here, this
+will not get merged until a decent solution that avoids regressions is found.
 
-Huiwen=E2=80=99s RFC also provides a write_wq module parameter, disabled by
-default, so both approaches keep per-CPU request processing as the
-default. The main difference is that Huiwen=E2=80=99s patch routes eligible
-single-channel WRITEs to a separate unbound queue, while your patch
-switches the entire ksmbd-io queue to unbound.
-So, Could you test Huiwen=E2=80=99s patch series with write_wq=3D1 on your
-platform and compare the results with your patch ?
+Cheers,
+Angelo
 
-Thanks.
+> Best regards,
+> Akari
+
