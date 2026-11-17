@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907327;
-	b=WnTiXPB4kheSZFP4Kg5r4j8cyex/DI1xVp2O9+LUACbDmmBv28WJYnywMZCTfinO1NCc
-	 yoQUxNdN5WNE1XfskrVXcE9mjLzdXC1CJ5RRLPBX3SwCmVQmS+sWiBfBKslXlkdPqRJNq
-	 YFhrzVSqapgK6SbOrUPyhmdmILW95zwrHmtNexvek95GKqrJokj0lU5DwTyJOcZaGk2f+
-	 3OIjeL9pi9mRChRax+PXa5oGf/lDIkU7YthIb3W6YOJnXfgnRZtMJQBUw5+++Ay4vMkWL
-	 6F8KAIIqm7dnil9NhDosBhG3zTiQaSg1XYVNT4FZthpFpGnDa2mnCUYy0zmTrB+gEjQ==
+	t=1794907335;
+	b=F1jTp5LB9QPzfiPU/9yzYuvHxHXsfzV928zY0sPdm5mG9YIs9WkqMuBVJ69iMxqB/UlF
+	 DNkuo8xZoo1TZmwcCZnp5UE5Um8v4PdOLSz1LCTArHQu2XXKip5hrIjoj8/JgdYa7oonz
+	 UZPqSrCiSL2FyLtMK+3r0ua6BM0Bfl3OBZWA5k6MWO4WLz7m53nofiS3Ogip71NCwHaAj
+	 QtbzFTY+wfvYfM3XTouI1ttNO0qX1NBJSoX18D6GA0WaphoSfVKUUoS/8GokjgSGxReeH
+	 8fyNnfeGUo6atbuRqEw4Q7p1pH2BlLAbJ8dWVH/A39mOXJC9849Q2akN4XzyaLcDUfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907327;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=/g9AewCRH5AzZ1WihxLZHJwjpR3BmtCYU3NtfZedlqQ=;
-	b=BnGpYMHobRrHfDJ8tVHIQTWm+mMOBBUwVymAOHJhG3lGzVw9oqcWPt0OnlbS9AesC95O
-	 WKY/r/El8Xc8z7/rT1YlDLrMr4DjVigXIAJwexy9uOuK5vbLoKviZcBTinIN7+3vUlZzO
-	 e523GAhjESv+VjcdeqBJZemCHzzSwvCXcg5Q/TD5GabVs76fIS08raRQXozh7Q36gz3aU
-	 jRrhl5v34v++adofJyGe6Q4lQwV4ql5Ufh/Qk7kNyQasj7Z1MvSgBmZKCWFCPVNyfx5vt
-	 byQEDxooDwRPXXyM5Xxm+EGr7UYa/bUkCtj2iaoyj9Xn4XKXMApI+b1vfYFRi55Idbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907335;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yb6u44XvrqgEBzrXu63168C9irhvj3KwyZom9iAK0aI=;
+	b=qFxPxAeu7PKodRRqvV8G2y4aOsHRdtKjRYc+tq1uVtpEyI6AlENfnYabbn1fff5mTDzW
+	 j1Y28tPn6y3iLE8zBYM05ekkZCJdmXkJn7hfxseOHZJ1VmEH1q9a2f06SmcRG2indPkUg
+	 h0fnyuSpaIFF+9A2tCNUqp9FskDeAii9EHE50D4NKFDppoMwxUSCPkBOSoHcMJ95i/nCs
+	 WDs4XIoNrZ58DVse8A7qn4JH//80z7njwrs92IHFNqAB3hLeYK9vrCS7YPk/DaecrzpyM
+	 oICrw0OicYjr4XaTFlyDGD70qCdHtCiH9CTIuTuIB0uJeTYyMCU781GLF20jOmNWX4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ERsPlNrj;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qCqxw8Rf;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FC3606A32A;
-	Tue, 17 Nov 2026 09:22:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01FC3606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6B5606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:22:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B6B5606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ERsPlNrj
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=/g9AewCRH5AzZ1WihxLZHJwjpR3BmtCYU3NtfZedlqQ=;
-	b=ERsPlNrjN36Q17RXpU+ORRYxqFYD52+CRQ22PB7m8DvdwdHP01XVOxF6iv2Ak+TKCcB2sKiAy
-	y025yuUFVj/T+bEmyJNOj1nzoQu1V53lRuW2141maFaOzxhqD6TInffrjQM1aUD3Joq1G6BSK4M
-	YAxcgmyQ/9DWxvK7N5ma4UI=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jTK4G6Z0pz1prk0;
-	Tue, 17 Nov 2026 17:21:50 +0800 (CST)
-Received: from kwepemr200004.china.huawei.com (unknown [7.202.195.241])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3DB744056E;
-	Tue, 17 Nov 2026 17:22:03 +0800 (CST)
-Received: from [10.67.121.62] (10.67.121.62) by kwepemr200004.china.huawei.com
- (7.202.195.241) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
- 2026 17:22:02 +0800
-Message-ID: <977b71ab-a639-40bc-95fb-6965f79d7a4d@huawei.com>
-Date: Tue, 17 Nov 2026 17:22:01 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qCqxw8Rf
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e977109392so26350775ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:22:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794907335; x=1795512135; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yb6u44XvrqgEBzrXu63168C9irhvj3KwyZom9iAK0aI=;
+        b=qCqxw8RfWo7pZ9gZK2/OOFzdFnddnZWU3F8BdPnBphFDfCGs101taaaQSeD5rdBBQ+
+         WWOi72ECg/Vz8lwExssQ8I9wwrpTsbL6T0W91ZIJkuauFQrs4hoIz4SyWgmLdVlbkal8
+         JPn7ufWZtXBn1YHNOtUMgNIOlXm5ylVPZfMQdbBwEumwBsCZplh8v7nwu9wDmva+hitz
+         eAq4JXD+CQpg4za/tmnX0MJ3lxc7MibjysE9p+OvAWmxAjbF1+ljOcVwceuV1jZ/fqS7
+         zYMYn8jxxFzrNOv35JyxMfkp1u8VrVnaEUNLG5MUYMVxddjzRTexmQbypcs7K2X+MkcD
+         /Flg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794907335; x=1795512135;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yb6u44XvrqgEBzrXu63168C9irhvj3KwyZom9iAK0aI=;
+        b=hUgJA+hGcUnz0jsvFJ85eW0Y1Gvo0WwU8fWNNS0b4e6vQaCEBHaI39TMQBGgjCJ2nS
+         dNk++2L3LvV0mJXFxbWQ7FTe6pKbfhNtxxjeC7yXIhVmWvxcz2LdqocZOO78UBH7ExsD
+         wcEItl0xlHcy3z3dV7B1ngIF/Zp1ZYe57PnRYitJAgJdpFjSlZxl5L+Jm8bXUObQH2Hr
+         bR7ZFmlhFwd5Oxk4wEfUXpintkF8wg7QcDXkZvhtU179ECvNc8cUlNWaXEwPTjvCgFEz
+         7t2I0DFFLKtNRRG3qe7g5JbtYVBAVH/evo9Y35aQvFv4/2haqkkZHOQQ7ZcwePVHXyQt
+         766w==
+X-Forwarded-Encrypted: i=1; AL+hErFqvv33sFqX7LdblEU1LhgcAKGGt7QUcwWNh2d/DUny0zMVQSkt4S78ZUAvYEVo5r3Rfp3E5wvSi6wQ+xU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lZwZAxHTqGBzcMrR1VRz+qU1vUh5Wyo1MJbtvZcfBAmKgEidE
+	+YuqB+qU/mPwVPYWeWmuhECkcN0Kzv4EvUAG8xZF52xafi1XeDUDXDKK
+X-Gm-Gg: AZFdTZcqJQywvAiPK5Q92tIql+Xnu5cehRK3+pgywFJWG0GVt+fjhzVdKM2ONhTWSlj
+	+8fKo0i0t6TRivHow5968vgYrZ80di0V93NOipWL+VBd2oDQ5jEiOvUyhBLgK2o9+Yq/2JORf9v
+	3mvmPBE/iaF3YAu7M6ZRnt0szEh/tZixilK5r8le4tmJCQy4WM0zRhx/zSIN66yBZncnj2Q742r
+	vCwwJQmxYrj8kuFLb1NBIVQoiE4enatLeAkCec4hjJCfAzZGKsL9sUrsVlvqONM+Y1Nqo8omXSZ
+	gOT83Fy2CgUAKkloE7/r+hnh34a8FcMn7rwcTZXbjG0FPBMX2xGMCqtUkcIQRD1B5/FertzxbXb
+	fLA12fynGAgunHcdAK/ljNmf9TIk9Jtp2VNwROa/aJHLI1RUy8V5L0IgFiaMjonmwrdxFkxZsa9
+	nyA71Rox6oLtd+4xstdiTA0ZR0XaIXzHgCXgORSIOStNQNxBR8nPljmHkK4a6087qCS8ThM4imZ
+	w1prjPYJOPGrxIP/qwFkQWts94yEjHaMo+FwIMdBiuOUjWFsesh/N7hW7bCnVH364rEB0qko20r
+	YC14UrLw5QW7y4CthqbpEArB+bZyM3Mn75shxVH/cwtgE7Qx
+X-Received: by 2002:a17:902:e801:b0:2ed:1ca2:ea5a with SMTP id d9443c01a7336-2ee0dca839cmr135269225ad.51.1794907334563;
+        Tue, 17 Nov 2026 01:22:14 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efe98cff9fsm1783345ad.33.2026.11.17.01.22.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:22:14 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: James Chapman <jchapman@katalix.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Chris Elston <celston@katalix.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH net] l2tp: reject short IPv6 address attributes
+Date: Tue, 17 Nov 2026 18:21:57 +0900
+Message-ID: <20261117092157.85513-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,175 +102,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cpufreq: CPPC: Enable boost by default when supported
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-CC: Christian Loehle <christian.loehle@arm.com>, <viresh.kumar@linaro.org>,
-	<linuxarm@huawei.com>, <zhanjie9@hisilicon.com>, <prime.zeng@hisilicon.com>,
-	<wanghuiqiang@huawei.com>, <xuwei5@huawei.com>, <zhenglifeng1@huawei.com>,
-	<yubowen8@huawei.com>, <pierre.gondois@arm.com>, <sumitg@nvidia.com>,
-	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<mojunjun4@huawei.com>
-References: <20261022075901.3436021-1-zhangpengjie2@huawei.com>
- <d9fa8052-f562-4867-9e9f-1fd2a66fa794@arm.com>
- <940a9a70-71fb-491d-a1a7-1a7b4d6dc089@huawei.com>
- <f688c3fc-1375-4803-9775-9b4da78536c9@arm.com>
- <02dd34f0-c9fb-4dc5-bc1d-af83ae080724@huawei.com>
- <CAJZ5v0j1YpOu9SnjAF4VFVOVFEr6bLzRWaqCJ3jmFP4-01s1LQ@mail.gmail.com>
-From: Pengjie Zhang <zhangpengjie2@huawei.com>
-In-Reply-To: <CAJZ5v0j1YpOu9SnjAF4VFVOVFEr6bLzRWaqCJ3jmFP4-01s1LQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemr200004.china.huawei.com (7.202.195.241)
 
+L2TP_ATTR_IP6_SADDR and L2TP_ATTR_IP6_DADDR are NLA_BINARY with .len set
+to sizeof(struct in6_addr), which only bounds the attribute from above.
+l2tp_tunnel_sock_create() then copies a full in6_addr out of each one,
+so a shorter attribute makes it read past the payload. If the attribute
+is the last one in the message this picks up whatever lies behind the
+skb tail (stale heap data unless init_on_alloc is set), which ends up
+in the socket address and can be read back with L2TP_CMD_TUNNEL_GET.
 
-On 11/5/2026 8:21 PM, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Nov 5, 2026 at 8:04 AM Pengjie Zhang <zhangpengjie2@huawei.com> wrote:
->>
->> On 11/5/2026 12:12 AM, Christian Loehle wrote:
->>> On 11/4/26 07:43, Pengjie Zhang wrote:
->>>> On 10/29/2026 4:51 AM, Christian Loehle wrote:
->>>>> On 10/22/26 08:59, Pengjie Zhang wrote:
->>>>>> The CPPC driver leaves boost disabled by default when Highest Performance
->>>>>> exceeds Nominal Performance. Userspace must explicitly enable boost
->>>>>> before governors can use the full advertised performance range.
->>>>>>
->>>>>> Enable boost by default when at least one possible CPU reports support,
->>>>>> while users who prefer to stay within the sustained nominal limit can
->>>>>> still disable it via the boost knob without determining scaling_max_freq
->>>>>> for each policy.
->>>>>>
->>>>>> Check the performance capabilities before registering the driver so that
->>>>>> the cpufreq core enables boost for each policy that supports it.
->>>>>>
->>>>>> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
->>>>> Just to be clear I'm not blocking this per se, but continuing my comments:
->>>>>
->>>>> I just wonder if this is a configuration worth keeping.
->>>>> You mentioned your platforms have a BIOS to set nominal==highest or not.
->>>>> If we removed interpreting highest - nominal as boost entirely that
->>>>> would also make that BIOS setting obsolete. Userspace could still
->>>>> query nominal and restrict cpufreq to that if it wishes to do that,
->>>>> we could add that to cpupower for convenience (i.e. set all policies'
->>>>> max to nominal).
->>>>>
->>>>> With the changes that are coming with CPCv4 we would save ourselves
->>>>> some headache (like keeping track of boost status when ospm_nominal_perf
->>>>> is being written).
->>>>>
->>>>> The question is also how often the combination of "enable nominal < highest"
->>>>> and then explicitly toggling boost at runtime actually happens...
->>>>>
->>>>>> ---
->>>>>> Changes in v2:
->>>>>> - Drop "even" and clarify the commit message (Christian).
->>>>>> - Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zhangpengjie2@huawei.com/
->>>>>>
->>>>>>     drivers/cpufreq/cppc_cpufreq.c | 20 ++++++++++++++++++++
->>>>>>     1 file changed, 20 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
->>>>>> index 80893844353c..0a4255a36f60 100644
->>>>>> --- a/drivers/cpufreq/cppc_cpufreq.c
->>>>>> +++ b/drivers/cpufreq/cppc_cpufreq.c
->>>>>> @@ -1052,6 +1052,25 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
->>>>>>         .name = "cppc_cpufreq",
->>>>>>     };
->>>>>>     +static void __init cppc_cpufreq_default_boost_init(void)
->>>>>> +{
->>>>>> +    struct cppc_perf_caps caps;
->>>>>> +    bool enable = false;
->>>>>> +    int cpu;
->>>>>> +
->>>>>> +    for_each_possible_cpu(cpu) {
->>>>>> +        if (cppc_get_perf_caps(cpu, &caps))
->>>>>> +            continue;
->>>>>> +
->>>>>> +        if (caps.highest_perf > caps.nominal_perf) {
->>>>>> +            enable = true;
->>>>>> +            break;
->>>>>> +        }
->>>>>> +    }
->>>>>> +
->>>>>> +    cppc_cpufreq_driver.boost_enabled = enable;
->>>>> Any reason for the scan instead of just setting
->>>>> boost_enabled = true? Platforms without boost would
->>>>> also expose the toggle, but that's mostly in line with
->>>>> the other drivers? (also again the ospm_nominal_perf
->>>>> angle)
->>>> The reason for scanning here is to keep the initial sysfs state
->>>> consistent on platforms where highest_perf == nominal_perf on all CPUs
->>>> (i.e. policy->boost_supported is false everywhere). If we just set
->>>> boost_enabled = true unconditionally, the global cpufreq/boost file will
->>>> read 1 on boot while every policyX/boost reads 0 (and rejects writes
->>>> with -EINVAL).
->>> FWIW, amd-pstate can already expose global boost=1 while all per-policy
->>> boost knobs read 0 and writes to either knob then fail with -EINVAL AFAICS?
->>>
->>> AFAIU the global sysfs knob represents permission to boost where
->>> supported, rather than meaning boost is supported, too?
->> Yes, Documentation/admin-guide/pm/cpufreq.rst also states that 1 in the
->> global boost file "only means a permission to use the frequency boost
->> mechanism (which still may never be used for other reasons)", while 0
->> means it "is disabled and cannot be used at all".
->>
->>> PS:
->>> Also another fun one I discovered...
->>> power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
->>> 0
->>> power-orion-o6-01# echo 1 > /sys/devices/system/cpu/cpufreq/boost
->>> echo: write error: invalid argument
->>> power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
->>> 0
->>> power-orion-o6-01# echo 0 > /sys/devices/system/cpu/cpufreq/boost
->>> echo: write error: invalid argument
->>> power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
->>> 1
->>>
->>> I'll go and fix that...
->>>
->>>> Also, since ospm_nominal_perf has a valid range of [lowest_perf,
->>>> nominal_perf], it actually pairs quite well with the boost knob: on
->>>> platforms with highest_perf > nominal_perf, ospm_nominal_perf will
->>>> always stay below highest_perf, and even on platforms with
->>>> nominal_perf == highest_perf, lowering ospm_nominal_perf could
->>>> dynamically define a nominal ceiling for when boost is disabled.
->>> I don't think I agree with the latter. OSPM nominal has its own (platform)
->>> semantics, but making boost=0 impose that value as a frequency ceiling
->>> is just another way of setting scaling_max_freq.
->>> I don't see why these two need to be coupled?
->>>
->>> Also I think the fact that caps.highest_perf == caps.nominal_perf
->>> but ospm_nominal_perf can change boost supported later is a reason
->>> against the boot-time scan? (which would need to exclude
->>> ospm_nominal_perf platforms?)
->> Fair enough, ospm_nominal_perf doesn't need to be coupled with boost.
->>
->> Viresh, Rafael, any preference here? Should we keep the boot-time check
->> in v2 (so global boost stays 0 on platforms without boost support), or
->> drop the scan and just set .boost_enabled = true statically in
->> cppc_cpufreq_driver?
-Hi Rafael,
-> I have no specific opinions regarding boost support other than it's
-> better be made consistent across all drivers and the core.
-Thanks. I agree with Christian's reading of the global boost knob as
-permission for policies that support boost.
+The commands are GENL_UNS_ADMIN_PERM, so this is reachable from a user
+namespace.
 
-For v3, I'd set .boost_enabled = true in cppc_cpufreq_driver and rely on
-the existing highest_perf > nominal_perf check in cppc_cpufreq_cpu_init().
-That would avoid the extra scan before driver registration.
+Require the exact length.
 
-On a system with no boost-capable policy, the global file would start
-at 1 while the per-policy files remain at 0 (and reject writes with
--EINVAL), similar to what amd-pstate already does.
+Fixes: f9bac8df908d ("l2tp: netlink api for l2tpv3 ipv6 unmanaged tunnels")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ net/l2tp/l2tp_netlink.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-As Christian pointed out, defaulting to .boost_enabled = true also fits
-the OSPM Nominal Performance series. If OSPM lowers the nominal
-performance after boot and creates a boost range, boost permission is
-already enabled globally by default.
-
-
-Thanks,
-     Pengjie
+diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
+index 89ef04c78787..a07009d4cb00 100644
+--- a/net/l2tp/l2tp_netlink.c
++++ b/net/l2tp/l2tp_netlink.c
+@@ -910,14 +910,8 @@ static const struct nla_policy l2tp_nl_policy[L2TP_ATTR_MAX + 1] = {
+ 	[L2TP_ATTR_MTU]			= { .type = NLA_U16, },
+ 	[L2TP_ATTR_MRU]			= { .type = NLA_U16, },
+ 	[L2TP_ATTR_STATS]		= { .type = NLA_NESTED, },
+-	[L2TP_ATTR_IP6_SADDR] = {
+-		.type = NLA_BINARY,
+-		.len = sizeof(struct in6_addr),
+-	},
+-	[L2TP_ATTR_IP6_DADDR] = {
+-		.type = NLA_BINARY,
+-		.len = sizeof(struct in6_addr),
+-	},
++	[L2TP_ATTR_IP6_SADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
++	[L2TP_ATTR_IP6_DADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+ 	[L2TP_ATTR_IFNAME] = {
+ 		.type = NLA_NUL_STRING,
+ 		.len = IFNAMSIZ - 1,
+-- 
+2.43.0
 
