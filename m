@@ -1,86 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.79
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930315;
-	b=YhHwqydTB6FpgnEUh8INVYcgKMk2O2+gJ981KunElgjFLPD8VF8dqISJK5QYI7iaYLmG
-	 bnL0m1iLT9VXVmgOsu4NSWsBtor4jYA35cNZGLw8vTslbQIYENH2GpuFR9awJ2r2FztNR
-	 357AhjzXYOCz2F2iwP19Utm19eFGI1aGHAWO0HlSNdPGpy53IUW1MOXCBvP6QjjgpmFWd
-	 xtCXzX9/Yzehts3YcbumIXfvOrADqd5Aw/36r+2/y8PfatMc4aU2/QZ4iJ0BovVgvk7mC
-	 VeM0Vznkn/vQHyhL6E4X4izfKJcp6KUoaZKr7HjvtnD2x+egqJUiNLVGMFikgE0rk/Q==
+	t=1794930382;
+	b=fu03Os4QeovRnKPIhpv2yg8/R0JKR25VBzg8awEqACMVe+9qWCGxFd0kBh1Y9eE8CcFH
+	 uGHGqD8Zvn/5b5EU+O2ORU+4gPfM2JzP0WlnuY41vlU+XfJtao2FuXceYdk/Leoy5LhuA
+	 8yNvPh4FixLrUrDL1fnDVeB+aoDA+dGXwPyk0JsfA8xlg9QbSolASOYoi35U/xhXdVmdt
+	 tp63NZehPKcpG3O4Cldx7/vjFGIsSSUX2SRkICvFh0d/bKWvQHjxHZ1M/zhxQQ5z8U+Ne
+	 ktk9hrB8kGJZtFRz4qHXLbzB8y12Obpb0vRm9XEcA2froaeCGnQ45saO1Iss/wlibeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930315;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=yx0f3Yir639syvYfkg79O7Kpd9xzBO9aaexbdF9atUs=;
-	b=izB1FUCNGMrwxHcIZjpnwC1s2oUedyCZZITd0m7/wgMoerXdp2hkp1yzWyqUo7z+hlFw
-	 y6uvXq22q+w3ubakcRXyXcSweedHNdhWvQr2zN/zcOu9qrwxegdLLq08VjZxvd+tR43cF
-	 sCq31I8NeImohJdFYBvqzvSbl1k8VvEGkOSOnJMX8GEuwFGzabaZ4ZZkxQsK+Ni2eISMh
-	 +EK9xWu5RrXS7jLpITGyrSM51epQaapmMHGMqIAZYlDjHZAxr7aQYxSHCKMmFWkNasMdY
-	 EqPqJdvKYp0lhduxM8YCUTF15wYq19B5HtzG3c0z7LOD5RbtXK6ydJCxn11VInEbyWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930382;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=V2AA0d9AapQUlVr5l6gQa93xHMo8bcAyq5VmqdwWGEA=;
+	b=cD7addXUU/2W/FTussJmk34lC5/jbAiolzT7m2p4MGOd26JgAxfxL77aULEEXTlgfqtX
+	 8xYOP9TK2GA08+VEEz6FyNS9++aKLWpI+FInfZafHs9MyO579nfsQ326Wwl9H3TO9k+wY
+	 Dguq5ZuyfBWi92heh37gPnS/uXpkrzrJx8d8PS6UBrCTXdgA63dKQCqqYaX2TZIWeU4d7
+	 4fjxfdJlQ9idzyJrpun4FR6ieK7JdfdYWZw46wRvAwnEcx1gqf+2KhkSALkrurpqimfec
+	 P5OkFuY3ulttYR3WmrVsdB1TazQB29RM7xwIg1b/biBxUnggwvOFYPZkzEB2f3fNGEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUFEc8xz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="u2di2a/X";
+	arc=none smtp.remote-ip=91.218.175.79
+Received: from mta0.migadu.com (out-79.mta0.migadu.com [91.218.175.79])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A514606A32C;
-	Tue, 17 Nov 2026 15:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89B7606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C89B7606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUFEc8xz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5285A1F000C4;
-	Tue, 17 Nov 2026 15:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930315;
-	bh=yx0f3Yir639syvYfkg79O7Kpd9xzBO9aaexbdF9atUs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FUFEc8xz6COW3EN33vCksYZgW8fYeid15xpqnE6bkjYb8ds8GnfyBq3Jbse/StGin
-	 aFc60FNTgNgw3W7d5QemIGS0no4qXZ1Y57Q9TPuawziXH2c0TuhNEaoDdCicQt1eXO
-	 mLINKQJOly7zZT9EFWEI89QXybe9XKEKLynkfDPWAdsbnbF1QJFyvbCGaJTiW5m1kG
-	 XV+aUd9kYT4zdS55zGYU4rzkdTaIqOWm/F3pmctvLM4fIiS4R5++zvkDuE/N2nVRgc
-	 xtB6/ntvlXr7/lq7RG0/fxX7qf/mQPblvAEk0mrhKHaLqmggThe5uOeR1czsdpOvVx
-	 mwyhL/Fo9nomA==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Rajendra Nayak <quic_rjendra@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
-References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
-Subject: Re: (subset) [PATCH v8 00/11] Add Initial Support For MSM8952, Add
- General Mobile Shamrock
-Message-Id: <179493030479.124445.18019484431206678491.b4-ty@kernel.org>
-Date: Tue, 17 Nov 2026 15:45:04 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u2di2a/X
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GP4eRgS9mLzEhiTyfcPm1vddtCMZq44xNGzZVqKEmCA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794930378; v=1; x=1795535178;
+ b=u2di2a/XoMm+xBvuSZBXKHZ+D44OKdhjquP8knUGZAWf0YHgw7rrlCrcYhndxFn1QOywHByz
+ fAjFZjMaZA+LLg1myUEvCpmpn2QAyJ25PNnC+i+egdUOXMNfiOZLp2oMkIIb2DrAKiMeI7locvB
+ PWoQ1dpdUHLTZa2OIKOYjLQU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4e9d4560bd6cb360;
+	Tue, 17 Nov 2026 15:46:18 +0000
+X-Mizu-Trace-ID: 4e9d4560bd6cb360
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 17 Nov 2026 15:46:19 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>, Renzo Davoli <renzo@cs.unibo.it>
+CC: linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
+ "Dmitry V . Levin" <ldv@strace.io>, Alexey Gladkov <legion@kernel.org>,
+ Eugene Syromyatnikov <evgsyr@gmail.com>,
+ Charlie Jenkins <thecharlesjenkins@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ strace-devel@lists.strace.io, linux-api@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_2/2=5D_selftests/ptrace=3A_check_that_PT?=
+ =?US-ASCII?Q?RACE=5FSET=5FSYSCALL=5FINFO_rejects_invalid_error_values?=
+In-Reply-To: <20261116153642.a8dddc43f53fed0402283dfa@linux-foundation.org>
+References: <20261116134050.505355-1-renzo@cs.unibo.it> <20261116134050.505355-3-renzo@cs.unibo.it> <20261116153642.a8dddc43f53fed0402283dfa@linux-foundation.org>
+Message-ID: <7ABEC58C-5AAE-4FE2-9DBE-F068194A7406@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,28 +70,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
+On 16 November 2026 23:36:42 GMT, Andrew Morton <akpm@linux-foundation.org>
+wrote:
+>On Mon, 16 Nov 2026 14:40:46 +0100 Renzo Davoli <renzo@cs.unibo.it> wrote:
+>
+>> At every exit stop of the set_syscall_info test, try to set with
+>> is_error set a few values outside [-MAX_ERRNO, -1], check that
+>> PTRACE_SET_SYSCALL_INFO fails with ERANGE and that the return value
+>> of the system call is left untouched.
+>
+>Thanks.
+>
+>LLM suggested a little fixup here, please check.
+>
+>
+>
+>From: Andrew Morton <akpm@linux-foundation.org>
+>Subject: selftests/ptrace: test the lowest valid syscall error
+>Date: Mon, 16 Nov 2026 22:27:14 +0000
+>
+>PTRACE_SET_SYSCALL_INFO must reject values below -MAX_ERRNO while
+>accepting -MAX_ERRNO itself. Name the bound locally for this userspace
+>selftest, and add a successful exit-stop case at that boundary. Retain
+>the existing -EISDIR case. The tracee checks the resulting errno.
+>
+>Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-On Thu, 05 Nov 2026 13:54:04 +0300, Muzaffer Kadir wrote:
-> MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
+Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+
+>Cc: Renzo Davoli <renzo@cs.unibo.it>
+>
+> tools/testing/selftests/ptrace/set_syscall_info.c |   25 +++++++++++-
+> 1 file changed, 24 insertions(+), 1 deletion(-)
+>
+>--- a/tools/testing/selftests/ptrace/set_syscall_info.c~selftests-ptrace-check-that-ptrace_set_syscall_info-rejects-invalid-error-values-fix
+>+++ a/tools/testing/selftests/ptrace/set_syscall_info.c
+>@@ -15,6 +15,8 @@
+> #include <linux/types.h>
+> #include <linux/ptrace.h>
 > 
-> Ported without uart connection. ramoops and usb
-> mainly used to debug.
-> USB is not enabled in this series because it
-> depends on the not yet upstreamed (and not developed by me)
-> pmi8950_smbcharger.
+>+#define MAX_ERRNO 4095
+>+
+> #if defined(_MIPS_SIM) && _MIPS_SIM == _MIPS_SIM_NABI32
+> /*
+>  * MIPS N32 is the only architecture where __kernel_ulong_t
+>@@ -131,7 +133,7 @@ static const long long bad_error_rval[]
+> 	0,
+> 	1,
+> 	ESRCH,
+>-	-4095 - 1,	/* -MAX_ERRNO - 1 */
+>+	-MAX_ERRNO - 1,
+> 	-2147483647LL - 1,
+> #if __SIZEOF_LONG__ > 4
+> 	0x100000000LL,
+>@@ -325,6 +327,27 @@ TEST(set_syscall_info)
+> 			}
+> 		},
 > 
-> [...]
+>+		/* change scno, change non-error rval to -MAX_ERRNO */
+>+		{
+>+			{
+>+				{
+>+					__NR_chdir,
+>+					{
+>+						dummy[0], dummy[1], dummy[2],
+>+						dummy[3], dummy[4], dummy[5]
+>+					}
+>+				}, {
+>+					__NR_getppid,
+>+					{
+>+						dummy[0], dummy[1], dummy[2],
+>+						dummy[3], dummy[4], dummy[5]
+>+					}
+>+				}
+>+			}, {
+>+				{ 0, tracer_pid }, { 1, -MAX_ERRNO }
+>+			}
+>+		},
+>+
+> 		/* change scno and all args, change non-error rval */
+> 		{
+> 			{
+>_
+>
+>
 
-Applied, thanks!
 
-[01/11] dt-bindings: nvmem: Add compatible for MSM8952
-        commit: a3543a8b163f1edb45f0e631ea0f5905256a3684
-
-Best regards,
--- 
-Srinivas Kandagatla <srini@kernel.org>
-
+--- Thanks!
