@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892809;
-	b=xrC//5sIyjYdrKcR1nhxd90EkR1g7AB7dnwQ+s6m8nuRr2osWHHJ3XoPnLbw7Mt4x5h4
-	 ZATO9NRDva0VcUE/Y1xXanDLu7e+PpvAetfzw7SRf7UcQDfMp+OheUBdTwZiWu9xQ49qQ
-	 JNu/8R9ng38QTfd/8f10FE/+zYpeB0jiQHZ7/Enaug78hq0Aj6X7s/Zh/bqrHE+blb6lv
-	 S5+CRakmQtoEC/T+gC2swg8u0RRCRMVJKLZMdt1Nkd3zWHWcUR49CFnUik5/zpsR4EwSC
-	 VGX2lIlwRPVK64teu/9RmFqOJBni6Dl9QF6DV6T3sqTotEP8i5J5A4iEBCgb83SvSYw==
+	t=1794892838;
+	b=pn91iwQgOXcOvNBd417wIKGMLwWXbyx6AxGzeKKjD6KGwYrEQPUppmJ3zAx3Z0RCFGH1
+	 LriFS/sw42MDKxv6u82p61V6c5soXoiBbDe9W7ROok9arIJT+nWwoyw6cbn4/DbqE+FWc
+	 u8IOOa0k62sdsE/d1YLdET0TS+/S6MIF2wd/cqoXTRUCJrS+HRxGX32fCXmiuCPHRjApR
+	 /P8IIqDr8AjNOolzoykeEdOP20oB2+EgpQNh/3ASxH9faa6A4yMt+k9viqZvi+7lbVe0v
+	 81fT+QusEYasNrzfeCbxp9nNaim2EN3P12BJ6ZFG8HgrXVCsnZcnAzwQv0b2049jEtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892809;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=ZIp3g82wsrrCE3iNiF5N7S8nYqm5PwA4QmACrXhpWqo=;
-	b=XSwMKYHlPL/27BOgaL9l/m6GrBPyQx+fE8pv7+XfFmxrq9UZMKsUEW+u7Y5klrFVfiET
-	 GlWaw27Ss5GxfrdY4NMdVz2mV+hdl0CJw9GohGjB3wn1nyfSK2PppTKDsVJ4m8jFS/Ukn
-	 ehLiPVQ1fPvHVhzYY5h6NSv2pQFavsT8MhPFwUsaqsstD6kXTKwdGw+1GUg/Sm44nAh7a
-	 xjrX/iiwGaRrao5ddaySGZOmGpuLeSxzM2iMUjqdUUqrPGVWh5dMdX/sHY69+T9pw3MX3
-	 yuR4G43wuUaheZOrYtF62dFVWTrcNc1bOEHWug/1d/a9240kqs/g8yO/kZA56gqYdRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892838;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=MeX2wCG25+ulppvKacVi2s6680KmILyRd3QMQUPZHL8=;
+	b=USPPHVE9hmllSlf5sX7JASkT9XfpfGeIFq1nDmUtcxo+ACwc9BiZowLx1vZ1rcLYIjmN
+	 A5HjG4S7xdAUHcrQ9tdoTxkfNDvqooiZ8xLP6VuTRtw/WU64Ys9wgZZrZa+mSVXqgoiCo
+	 wGqhOL46Q2QR//UuqnX8alb1QRdj1btI/mx60Qzs6JJ05P87Ss/B8hsVshzafG9vD63GA
+	 fM23L8Wn2BA2wgU3m//p75Tgak0avHxuLgnx/Q/wEvFl+dX6SwCFKPSr1w9aTbbe7rmVE
+	 yDmrtJQIF2AsPR2aQEycE+l4r+TtOXjUsji+yvhfCqGphkIdwfzJSnzCdGLEXhOpR+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21714606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21714606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
-	by APP-03 (Coremail) with SMTP id rQCowADn9pfy4_tqLK81AQ--.11782S2;
-	Tue, 17 Nov 2026 13:19:48 +0800 (CST)
-Message-ID: <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
-	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
- <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 13:19:46 +0800
-In-Reply-To: <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
-		 <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
-		 <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
-		 <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
-		 <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
-	 <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FsmQ+aK1;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A32C606A31C;
+	Tue, 17 Nov 2026 05:20:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A32C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FsmQ+aK1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=MeX2wCG25+
+	ulppvKacVi2s6680KmILyRd3QMQUPZHL8=; b=FsmQ+aK155KNZ2pHQGugblgDBh
+	nPK6R0QoRcMUb5ZO/0Gp6/VjPMgV1AgiMfAYzTdidSVp45XFYo4YNOEJecWLefQ4
+	kxNh+ePOLVy6/j2CamctNBtzkSks9i+/vwiFhW+9Gu7pTvd5b9j3mMnsPzZyw2q0
+	RZWg2MZplSfH0qOs8=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3rTEd5PtqzEHLAA--.1648S2;
+	Tue, 17 Nov 2026 13:20:29 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v7] arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a Qualcomm SM8750-based tablet
+Date: Tue, 17 Nov 2026 13:20:28 +0800
+Message-ID: <20261117052029.31900-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,286 +63,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowADn9pfy4_tqLK81AQ--.11782S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Xr4kJFW7Gw4UCF4xKryfJFb_yoW3Kw1Upr
-	4vyFy8Kw45XFykJr9rtw4Dtay3Kw4Ut3s7Xr1DGa40qrnrtrnrWa18Xr93uF4kJrW8G3Wf
-	Jr42yFZxZr18AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgA3rTEd5PtqzEHLAA--.1648S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtw45Kr47AryrAF4kAr4fZrb_yoW7Ar17pF
+	srZrs3Gr95uF1rtws8W3yIva95Wan5Gayvkr1qkFWrC3yYkFykGFsFyF1rAF18Jr4kZw4S
+	yFZxZr92yFn2v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY
+	02Avz4vE14v_GrWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
+	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q
+	6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
+	kF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
+	xUg73vDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAKs1
 
-=E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 23:25 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 16:20 +0100=EF=BC=8CThomas Zimmerm=
-ann=E5=86=99=E9=81=93=EF=BC=9A
-> > Hi
-> >=20
-> > Am 16.11.26 um 16:11 schrieb Icenowy Zheng:
-> > > =E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 14:37 +0100=EF=BC=8CThomas Zim=
-mermann=E5=86=99=E9=81=93=EF=BC=9A
-> > > > Hi
-> > > >=20
-> > > > Am 02.11.26 um 08:57 schrieb Icenowy Zheng:
-> > > > > The atomic_update hooks of both planes are just bailing out
-> > > > > early
-> > > > > when
-> > > > > the planes are invisible, so it's reasonable to just remove
-> > > > > these
-> > > > > hooks
-> > > > > and update the enabled state in atomic_update.
-> > > > >=20
-> > > > > This fixes the problem that invisible but enabled planes
-> > > > > won't
-> > > > > be
-> > > > > shown when made visible, as pointed by Sashiko.
-> > > > >=20
-> > > > > Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for
-> > > > > Verisilicon display controllers")
-> > > > > Fixes: 8c4ae2189125 ("drm: verisilicon: add support for
-> > > > > cursor
-> > > > > planes")
-> > > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > > ---
-> > > > > =C2=A0=C2=A0 drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 22 +=
-++----
-> > > > > --
-> > > > > -----
-> > > > > --
-> > > > > =C2=A0=C2=A0 .../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=
-=A0=C2=A0 | 26 +++++--
-> > > > > --
-> > > > > -----
-> > > > > -----
-> > > > > =C2=A0=C2=A0 2 files changed, 10 insertions(+), 38 deletions(-)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > > > > b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > > > > index da456dced88aa..5295dc2f9ee2e 100644
-> > > > > --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > > > > +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > > > > @@ -98,23 +98,6 @@ static void vs_cursor_plane_commit(struct
-> > > > > vs_dc
-> > > > > *dc, unsigned int output)
-> > > > > =C2=A0=C2=A0=C2=A0			VSDC_CURSOR_CONFIG_IMG_UPDATE);
-> > > > > =C2=A0=C2=A0 }
-> > > > > =C2=A0=C2=A0=20
-> > > > > -static void vs_cursor_plane_atomic_enable(struct drm_plane
-> > > > > *plane,
-> > > > > -					=C2=A0=C2=A0 struct
-> > > > > drm_atomic_commit *atomic_state)
-> > > > > -{
-> > > > > -	struct drm_plane_state *state =3D
-> > > > > drm_atomic_get_new_plane_state(atomic_state,
-> > > > > -
-> > > > > 						=09
-> > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > > > > -	struct drm_crtc *crtc =3D state->crtc;
-> > > > > -	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > > > > -	unsigned int output =3D vcrtc->id;
-> > > > > -	struct vs_dc *dc =3D vcrtc->dc;
-> > > > > -
-> > > > > -	regmap_update_bits(dc->regs,
-> > > > > VSDC_CURSOR_CONFIG(output),
-> > > > > -			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
-> > > > > -			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> > > > > -
-> > > > > -	vs_cursor_plane_commit(dc, output);
-> > > > > -}
-> > > > > -
-> > > > > =C2=A0=C2=A0 static void vs_cursor_plane_atomic_disable(struct
-> > > > > drm_plane
-> > > > > *plane,
-> > > > > =C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
-> > > > > drm_atomic_commit *atomic_state)
-> > > > > =C2=A0=C2=A0 {
-> > > > > @@ -153,6 +136,10 @@ static void
-> > > > > vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> > > > > =C2=A0=C2=A0=C2=A0	output =3D vcrtc->id;
-> > > > > =C2=A0=C2=A0=C2=A0	dc =3D vcrtc->dc;
-> > > > > =C2=A0=C2=A0=20
-> > > > > +	regmap_update_bits(dc->regs,
-> > > > > VSDC_CURSOR_CONFIG(output),
-> > > > > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
-> > > > > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> > > > > +
-> > > > > =C2=A0=C2=A0=C2=A0	/* Other sizes should be rejected by atomic_ch=
-eck */
-> > > > > =C2=A0=C2=A0=C2=A0	switch (state->crtc_w) {
-> > > > > =C2=A0=C2=A0=C2=A0	case 32:
-> > > > > @@ -225,7 +212,6 @@ static void
-> > > > > vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> > > > > =C2=A0=C2=A0 static const struct drm_plane_helper_funcs
-> > > > > vs_cursor_plane_helper_funcs =3D {
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_check	=3D vs_cursor_plane_atomic_check=
-,
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_update	=3D vs_cursor_plane_atomic_upda=
-te,
-> > > > > -	.atomic_enable	=3D vs_cursor_plane_atomic_enable,
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
-> > > > > vs_cursor_plane_atomic_disable,
-> > > > But now you have the worst of both worlds: atomic_disable is
-> > > > still
-> > > > around but also done by atomic_update. And atomic_update always
-> > > > sets
-> > > > these registers even if the plane is already visible.
-> > > >=20
-> > > > I'd instead remove the disable calls from atomic_update [1] . I
-> > > > think
-> > > > you should never reach this is you have an atomic_disable
-> > > > installed.
-> > > > See
-> > > > [1] for the logic.
-> > > The drm_atomic_plane_disabling() function only checks whether a
-> > > CRTC is
-> > > bound -- I think it could be possible that a plane is bound to a
-> > > CRTC
-> > > but with an invisible coordinate (especially for the cursor
-> > > plane).
-> >=20
-> > Sure, but is that a problem for this hardware?
->=20
-> For the cursor plane, the unchecked coordinate might be improper for
-> the registers.
->=20
-> For the primary plane, if the plane is found to be totally off by
-> drm_atomic_helper_check_plane_state(), the check for can_position,
-> which is below the code snippet I referenced, would be bypassed, and
-> such plane would be programmed to be visible by the atomic_update
-> hook
-> even if it shouldn't be visible.
+The Lenovo Legion Y700 Gen4 (TB322FC) is an SM8750 tablet.  Add its
+devicetree with the board compatible, the chassis type, the GPIOs the boot
+firmware reserves and the board clocks, which the SM8750 dtsi consumes: the
+XO and sleep clocks and the two divided CXO derivatives, as on the other
+SM8750 boards.
 
-Well I am now thinking that bound-but-invisible situation is commonly
-ignored by drivers.
+The camera devices are powered by a WL2868C camera PMIC on i2c10: LDO1
+feeds the rear sensor DVDD, LDO2 the front sensor DVDD, LDO3 the front
+sensor AVDD, LDO4 the rear sensor AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of
+both sensors and the VCM VDDIO, all at fixed voltages including the offsets
+programmed by the stock firmware.  LDO6 is not wired out on this board.
 
-For drm/verisilicon, maybe I'd remove both atomic_disable and
-atomic_enable; however I think the atomic helpers may need some flag to
-consider bound-but-invisible planes when calling atomic_{dis,en}able.
+This is one logical action - "add this new hardware" - so the board and the
+regulators it carries are described in a single commit.
 
-Thanks,
-Icenowy
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+Changes in v7:
+- Fold the two devicetree patches of v6 (4/5 "add the Lenovo Legion Y700
+  Gen4" and 5/5 "describe the WL2868C regulators") into a single commit, as
+  asked in <20261104-elfish-booby-of-awe-27d2b6@quoll>: this is one logical
+  action, adding this new hardware, so it is one commit.  The resulting tree
+  is identical to applying both v6 patches in order; nothing was dropped.
+- No other change.  The compatible, the reserved GPIO ranges, the board
+  clocks and the WL2868C regulator voltages are exactly as in v6.
 
->=20
-> Thanks,
-> Icenowy
->=20
-> >=20
-> > Best regards
-> > Thomas
-> >=20
-> > >=20
-> > > The end of drm_atomic_helper_check_plane_state() says:
-> > >=20
-> > > ```
-> > > 	if (!plane_state->visible)
-> > > 		/*
-> > > 		 * Plane isn't visible; some drivers can handle
-> > > this
-> > > 		 * so we just return success here.=C2=A0 Drivers that
-> > > can't
-> > > 		 * (including those that use the primary plane
-> > > helper's
-> > > 		 * update function) will return an error from
-> > > their
-> > > 		 * update_plane handler.
-> > > 		 */
-> > > 		return 0;
-> > > ```
-> > >=20
-> > > Thanks,
-> > > Icenowy
-> > >=20
-> > > > [1]
-> > > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_=
-atomic_helper.c#L3030
-> > > >=20
-> > > > Best regards
-> > > > Thomas
-> > > >=20
-> > > > > =C2=A0=C2=A0 };
-> > > > > =C2=A0=C2=A0=20
-> > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > index 8e94491693019..fca692f4f7d5c 100644
-> > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > @@ -59,25 +59,6 @@ static void vs_primary_plane_commit(struct
-> > > > > vs_dc
-> > > > > *dc, unsigned int output)
-> > > > > =C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT);
-> > > > > =C2=A0=C2=A0 }
-> > > > > =C2=A0=C2=A0=20
-> > > > > -static void vs_primary_plane_atomic_enable(struct drm_plane
-> > > > > *plane,
-> > > > > -					=C2=A0=C2=A0 struct
-> > > > > drm_atomic_commit *atomic_state)
-> > > > > -{
-> > > > > -	struct drm_plane_state *state =3D
-> > > > > drm_atomic_get_new_plane_state(atomic_state,
-> > > > > -
-> > > > > 						=09
-> > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > > > > -	struct drm_crtc *crtc =3D state->crtc;
-> > > > > -	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > > > > -	unsigned int output =3D vcrtc->id;
-> > > > > -	struct vs_dc *dc =3D vcrtc->dc;
-> > > > > -
-> > > > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > > > -	regmap_update_bits(dc->regs,
-> > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > -			=C2=A0=C2=A0
-> > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > > > -			=C2=A0=C2=A0
-> > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > > > -
-> > > > > -	vs_primary_plane_commit(dc, output);
-> > > > > -}
-> > > > > -
-> > > > > =C2=A0=C2=A0 static void vs_primary_plane_atomic_disable(struct
-> > > > > drm_plane
-> > > > > *plane,
-> > > > > =C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
-> > > > > drm_atomic_commit *atomic_state)
-> > > > > =C2=A0=C2=A0 {
-> > > > > @@ -144,13 +125,18 @@ static void
-> > > > > vs_primary_plane_atomic_update(struct drm_plane *plane,
-> > > > > =C2=A0=C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(ou=
-tput),
-> > > > > =C2=A0=C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG=
-_BLEND_DISABLE);
-> > > > > =C2=A0=C2=A0=20
-> > > > > +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > > > +			VSDC_FB_CONFIG_EX_FB_EN);
-> > > > > +	regmap_update_bits(dc->regs,
-> > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > +			=C2=A0=C2=A0
-> > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > > > +			=C2=A0=C2=A0
-> > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > > > +
-> > > > > =C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc, output);
-> > > > > =C2=A0=C2=A0 }
-> > > > > =C2=A0=C2=A0=20
-> > > > > =C2=A0=C2=A0 static const struct drm_plane_helper_funcs
-> > > > > vs_primary_plane_helper_funcs =3D {
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_check	=3D vs_primary_plane_atomic_chec=
-k,
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_update	=3D vs_primary_plane_atomic_upd=
-ate,
-> > > > > -	.atomic_enable	=3D vs_primary_plane_atomic_enable,
-> > > > > =C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
-> > > > > vs_primary_plane_atomic_disable,
-> > > > > =C2=A0=C2=A0 };
-> > > > > =C2=A0=C2=A0=20
+Still open from the v6 thread (unchanged here, no way to validate them):
+SPMI PMIC, RPMh regulators and console are not described, so this is still
+the boot-infrastructure-less skeleton the v6 review commented on.
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00..e0b65a36c5 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -453,6 +453,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+new file mode 100644
+index 0000000000..73f4452f46
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+@@ -0,0 +1,129 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include "sm8750.dtsi"
++
++/ {
++	model = "Lenovo Legion Y700 Gen4";
++	compatible = "lenovo,elden", "qcom,sm8750";
++	chassis-type = "tablet";
++
++	clocks {
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <76800000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
++
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++
++		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++	};
++
++	/*
++	 * VSYS of the camera PMIC is the always-on system rail of the tablet.
++	 * The SPMI PMICs that generate it are not described yet, so it is
++	 * modelled as a fixed regulator without a voltage constraint.
++	 */
++	wl2868c_vsys: regulator-vsys {
++		compatible = "regulator-fixed";
++		regulator-name = "wl2868c_vsys";
++		regulator-always-on;
++	};
++};
++
++&gpi_dma2 {
++	status = "okay";
++};
++
++&qupv3_2 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++
++	pmic@2f {
++		compatible = "willsemi,wl2868c";
++		reg = <0x2f>;
++		reset-gpios = <&tlmm 126 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&camera_pmic_default>;
++		vsys-supply = <&wl2868c_vsys>;
++
++		regulators {
++			/* Voltages include the offsets programmed by stock firmware. */
++			camera_ldo1: ldo1 {
++				regulator-name = "camera_ldo1";
++				regulator-min-microvolt = <1128000>;
++				regulator-max-microvolt = <1128000>;
++			};
++
++			camera_ldo2: ldo2 {
++				regulator-name = "camera_ldo2";
++				regulator-min-microvolt = <1288000>;
++				regulator-max-microvolt = <1288000>;
++			};
++
++			camera_ldo3: ldo3 {
++				regulator-name = "camera_ldo3";
++				regulator-min-microvolt = <2816000>;
++				regulator-max-microvolt = <2816000>;
++			};
++
++			camera_ldo4: ldo4 {
++				regulator-name = "camera_ldo4";
++				regulator-min-microvolt = <2824000>;
++				regulator-max-microvolt = <2824000>;
++			};
++
++			camera_ldo5: ldo5 {
++				regulator-name = "camera_ldo5";
++				regulator-min-microvolt = <2808000>;
++				regulator-max-microvolt = <2808000>;
++			};
++
++			/* LDO6 is not wired out on this board. */
++			camera_ldo7: ldo7 {
++				regulator-name = "camera_ldo7";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <39 1>, <74 1>;
++
++	camera_pmic_default: camera-pmic-default-state {
++		pins = "gpio126";
++		function = "gpio";
++		bias-disable;
++	};
++};
 
