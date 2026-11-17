@@ -1,90 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903872;
-	b=AraVZ78eYyXJRUVtYnFw1BK6YpseW4ixem4SouyLq48Pr06MHteNt0bM6sIz4BabqRAj
-	 tlRyYsu6lyELGx3xv2VBhyyvnl8qzVd875d/Owv1c+Vvi559eyf4+BzSd2wO08pXR3duF
-	 tggb8Y2nn+2QZBVbLBCNvmlBchA3zt+TSuqWWp5XoWIBCfrle2NA1d5CpFbC9/bzMmcgR
-	 WwQm0UM3EFyOsNdwUSV0BadNr4pF+3b2jb/GYLrCAr8rprw2Xlhw4we5c5+/kUrjYBAwY
-	 yyrguTh30sHK2GZ8HLVmkdHm9QUENCfTkSnHTL7WCUGlT7EDvi24bdrEqkK0qDosRRw==
+	t=1794903870;
+	b=H2xulDNeXMOarguckJLYR3ngzTWez2M6YmDwp24lZ1GvFzP6A0Lo0qSw0ihamAwpCYqC
+	 cRPcBvWpaXecBOSBqUcOjZ0G7REOQlbkKYwonbc9zBkI+JhMS8VxhgzqXarmL48VvbR7k
+	 lU1tWci5HCKv4A6S12xzjhGsoFe61uM6WMswB9oB6tWJT2Yet5xnbBL70EGpIeKiYKpjI
+	 GOBA+BK4taKtea7NNjEa/DExdO+suESsLhftTq5zss7RtPGxniG+0VrG+/m4cKl1KDAQq
+	 PPsLfNtZIdJAj2uHUkEqBmakBShpkUspmdjx8Ok8Q4mPx28b4qH8UNs9InI1uhcN6zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903872;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=FIAdVkEWa+YKpNqjyEpkUHZm+KoAzH84s76F1+g9tmo=;
-	b=F1qyVxIJsqfobhBS4V0VIZoGzitCk/KIUVslSPXUufLDbCDZ0P6qo2tXJE7zlTSG2Fos
-	 ukN3udxNvFEiB3jbJZUTygg75yJq+0WPoZkySBUtwSxSC0LqQpqW0cqfmYlZu04L/Wm3d
-	 5HAMhiBiaDOEYIzA0myLFOwB7y3q4m9r3S/P4CevqvopiI2QEElHVpSBw6QF5gU8IE0rC
-	 nGS1UcUEA2iQzL8dJ66VRsI7FKRvYKsrQ+aM6I+1fDOSnVJnPGg/+flp5JkND+FK5C3P6
-	 ItWvr/U1Fvtq5w0ZxaaeWIjVeeqAzHzQVMChcDZqG3rItQLXcqwq9xU5cEzyHRJnl3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903870;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	bh=w7OTxenFT6A8JYevnH8NQBfKgcuFik3UXOa/tHwcT6o=;
+	b=hGpM+418bSHI0xyMLqPuUEGaOytln+14jKptqt3ptXOpAo+Y2CCnYyF3uoFwEJ8Y6N53
+	 SjyVgv4K9hQsjPvATFbwsRdZSymA6c6NaheHA1Gt1pJPXQENC+Kgxjm+B5UIGbZnoUb7p
+	 lOqFL2rBh++C/noqzbpEbx8JY1hiIw8ll+lc8ZIGBfoGxK4oa1lp+eq7HDvIwmZqXIow2
+	 IhuPZyofMgug+KKyBEAnTMnHIRLtBE5c0vp5KY2gzprlmfpL4+xe7q5+RzxKP1jxxS5km
+	 Bbs2K2vtJCYdp4e6uedZGDd0o5sH5KAiji9tACguirG+4VeetmhIFQ2IgwFsxdfcLog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b="m5rd/aHW";
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=nq8QtScd;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E7D60A2625
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:24:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50E7D60A2625
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C803E606A8BD;
+	Tue, 17 Nov 2026 08:24:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C803E606A8BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=m5rd/aHW
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b87408c797so313336a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:24:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794903870; x=1795508670; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FIAdVkEWa+YKpNqjyEpkUHZm+KoAzH84s76F1+g9tmo=;
-        b=m5rd/aHW4x8+LC4Hoff/y+voqA2dzKC/QkkgsLWsQFHr+HtEIpj0YzM8GS/0DT4I4/
-         gwV4XFvMdtCFyCncu1foTtxnDag3pLIodRg9GKg4EOvngWrgE7sZf/xsl6V+6Ap5bEyj
-         IfqsLVRwRZ3PRMZAO15NX/asAngzwzq9p1KuCe5/mpybyPr7EGhUvziZOlA73MmTyKbC
-         C0w+7/iASWvgEdcoZAcQ+u0CcLjvDSlVePv0LRLBtM4mwr3FChD8MUkxDKZFSxIvNkyy
-         vVEs8Kiu6GDR0RjpRDwnNpojC2/T6aoCDk0SEKATRH5nXRiR+Xqd4hY0eQczVQSmDFra
-         uDPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794903870; x=1795508670;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FIAdVkEWa+YKpNqjyEpkUHZm+KoAzH84s76F1+g9tmo=;
-        b=0rbjEzAwhDm/hfklKnT1RHXWfRSSnMTmx3OUZ6z3LNfuDxv8L1f4zZhEa0jQNThAvp
-         PuCSG7R+7iFFlTwWdrBy8Vi8z5d7qcCto/kq1PxolKlFHbC+fSdAth4JGuKVd5Q9OMm4
-         pfboe/1KFjjBibCN6a1OpCbp1PHbvBKNBXpRhuQqAEQ7/eKxeUac2zlnT/VUoOYR+DFp
-         RwlfUjxZFNRC3frh0AVFiSqRZfLfMh0YjRCRPN2If5L6Sf7gzGfS4jMqJHzg8uhl9psf
-         rRF5s0jx9BLIxWuLzd9K/BdlcYMxZHmxDseFIhWWUQ4QmyTesLIiea9vDfNkSsItL43Y
-         lgjw==
-X-Forwarded-Encrypted: i=1; AL+hErEz3ZtrBzM61JqXHWYTiaKR8llbN27MJTuiGv5qmMQi66IVKhsFQfl9HybQ7GsG8FVwy1S/J0Swg9+1dec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ked8VqRqoA69fp1fCCSfw4kU0PaTuhIn/K5FviTcjnbOO5I51
-	LGDb8LFeAh0GIXq0Jkm4v7RkZIDJ6u8ZrY5Mp+JIr6o/yfqiDcIEMAMd7KOMcbFpSJU=
-X-Gm-Gg: AYBFou0LVl8r4rZj0iU9nJ8IKYr8+X5ZDm+6UoHAaA8Mx/J1jRQLJ9v/HjoUB99Y7UI
-	ir3pI6BPqXs3CxlUZEY19uaXnHGeIiDAguuBTI3sPVrX6K3piyFOex0WZr0/UPmHzZ5qHbliTEL
-	+phjEkYTS5giEZtjWxoSm7hhsr0Aqvt/QgaPVAUrW/UbmzIhKXYthj6io60FehTZMHCbJbz9afY
-	0KJL7G507nH8h5bdHiCC27dhi7RtZOMZL3GUvOM9RnX8wu5iVRIyTRLmHKGwkF9v0KDWGlml7WO
-	LX9m+x3kCjJSx8xKTFiwNuSs6B14cNGvwWAxxP8HvjxUjZMhpqvwgWow3s6VODS46c5hX5ZRubv
-	7HmDBiZUI/tlHR+AcRbnazPUy46EkrVcTUveA8Gz6ynw+05WK3IP6VsUq6wEM3NN773w1wEe8Qz
-	6k4aNrMCOzeJOn93hmYenGlz3ysj8qRfqB79CsTQ9W/Poj3ri3+IVmb3JsrP8T7raSsiwkKeP56
-	XArC3Wh0HtabJpZL2HdYGLMP+EjAOwTURdQiRs59y5SGNOb2OQS1YJRsMnLMFHtLkFMn4XLcIJI
-	WRJat6C70pFc/T8AxGc0MdWe3w6114ai3xsOoZMGI9HicAmlG5BJ2Zvohfx3HZIDuu5lByDymFt
-	q8Cz9QekFwG4Sl7GSpBMq5rmRs5YREKvN8OfKk5KKd/xuWo/T
-X-Received: by 2002:a05:6402:4349:b0:6b7:cad6:a020 with SMTP id 4fb4d7f45d1cf-6b7cad6a0cdmr8624241a12.8.1794903869734;
-        Tue, 17 Nov 2026 00:24:29 -0800 (PST)
-Received: from [192.168.101.179] (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl. [2001:1c04:504:7401:4b2e:1820:6d24:b264])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23611casm5616953a12.9.2026.11.17.00.24.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 00:24:29 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 17 Nov 2026 09:23:15 +0100
-Subject: [PATCH v4 5/5] arm64: dts: qcom: sm7225-fairphone-fp4: Add battery
- temperature node
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=nq8QtScd
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH8O9Am8085203, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794903849; bh=w7OTxenFT6A8JYevnH8NQBfKgcuFik3UXOa/tHwcT6o=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=nq8QtScdKoGCetjKtrmu0oUh/WHqPY95XaE7qrOgLqFunCAfszGhVCFm37TQA0wmW
+	 EnvmeBjKZbiFof8jOlMMZYAqSKuOA7kJ0zFtTST1o4pch4c49DcuL5T7LTJzL0CU47
+	 sE7w6qdNFS+7VfzB1Q/mxVwqbkqmd3oZy7x+OG81aa72RFBI05V07u8G0jcpr1PV2p
+	 8HplxMN7G3SBjXex8OLgqpse4PmUpQX6fNEEjxo5fDwOnAG+cxMaHSh4/21B7rz1VN
+	 Mj7xyJTTPMjq7NKjeeGqcl2od1oxl8VPt35kwNs1pAPM4s+7+yp5ui5RK6R/3bc0Wz
+	 43uo5kXXQmPXQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH8O9Am8085203
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 16:24:09 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 16:24:09 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Tue, 17 Nov 2026 16:24:04 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Mauricio Faria de Oliveira <mfo@igalia.com>,
+	<linux-wireless@vger.kernel.org>
+CC: Ping-Ke Shih <pkshih@realtek.com>, Po-Hao Huang <phhuang@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>, <kernel-dev@igalia.com>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Mauricio Faria de
+ Oliveira <mfo@igalia.com>, Luka Gejak <luka.gejak@linux.dev>
+Subject: Re: [PATCH v2] wifi: rtw88: fix skb leak in hw_scan probe request length check
+In-Reply-To: <20261116-rtw88-hw-scan-skb-leak-v2-1-cc9644774fff@igalia.com>
+References: <20261116-rtw88-hw-scan-skb-leak-v2-1-cc9644774fff@igalia.com>
+Message-ID: <4f05b7e9-211f-458a-a73a-8b4708317f9e@RTKEXHMBS05.realtek.com.tw>
+Date: Tue, 17 Nov 2026 16:24:04 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,146 +77,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261117-bat-temp-adc-v4-5-14d5d309ebfa@fairphone.com>
-References: <20261117-bat-temp-adc-v4-0-14d5d309ebfa@fairphone.com>
-In-Reply-To: <20261117-bat-temp-adc-v4-0-14d5d309ebfa@fairphone.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Jens Reidel <adrian@mainlining.org>, 
- Casey Connolly <casey.connolly@linaro.org>, Val Packett <val@packett.cool>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794903862; l=2686;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=UM7jmORMPxSdPO1xNc3zcibihjU+NS+ZaaeZNpYbWE8=;
- b=bSCoKLweeKiJ1WF6rrWxDJ5PvVPJnM1jcFj2jNkvwbajxykkdKa/8c/FNqE+qSnRKKtFDBFZe
- 6H+h7QU7eoJBq1AUVzYpXMfKx8YKghowLXcfI8OqIxgz9zMVaz1nDYE
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Type: text/plain
 
-Add a generic-adc-thermal node to convert the voltage (in millivolt)
-read by the battery temperature ADC into degree Celsius (in
-millicelsius) using the provided lookup table.
+Mauricio Faria de Oliveira <mfo@igalia.com> wrote:
 
-This will later be used as input for the fuel gauge node (QGauge on the
-PM7250B).
+> In _rtw_hw_scan_update_probe_req(), if the first loop fails (goto out;) the
+> skb is leaked. It does not reach kfree_skb() at the end of the loop body or
+> in the second loop (out:) since it is unlinked from probe_req_list.
+> 
+> Fix the leak by calling kfree_skb() if the first loop fails.
+> 
+> In /sys/kernel/debug/kmemleak, after simulating the failure:
+> 
+>   unreferenced object 0xffff88810965a000 (size 232):
+>     comm "iw", pid 4729, jiffies 4345008185
+>     hex dump (first 32 bytes):
+>       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>     backtrace (crc 20f7de11):
+>       kmem_cache_alloc_node_noprof+0x302/0x380
+>       __alloc_skb+0x74/0x2f0
+>       skb_copy+0x57/0xe0
+>       rtw_hw_scan_update_probe_req+0xff/0x230
+>       rtw_hw_scan_prehandle+0x4e/0x180
+>       rtw_hw_scan_offload+0x186/0x1d0
+>       rtw_ops_hw_scan+0x61/0xb0
+>       drv_hw_scan+0x81/0x130
+>       __ieee80211_start_scan+0x2e0/0x760
+>       rdev_scan+0x42/0x100
+>       nl80211_trigger_scan+0x53b/0x730
+>       genl_family_rcv_msg_doit+0x103/0x160
+>       genl_rcv_msg+0x1b5/0x2c0
+>       netlink_rcv_skb+0x52/0x100
+>       genl_rcv+0x28/0x40
+>       netlink_unicast+0x26d/0x3b0
+> 
+> This leak exists in the first loop since the function was introduced, and
+> still happened with the addition of the second loop, in these two commits:
+> 
+> Fixes: 10d162b2ed39 ("rtw88: 8822c: add ieee80211_ops::hw_scan")
+> Fixes: d95984b5580d ("rtw88: fix memory overrun and memory leak during hw_scan")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
 
-The lookup table is generated using a Python script:
-https://codeberg.org/lucaweiss/batt-ntc-calc
+1 patch(es) applied to rtw-next branch of rtw.git, thanks.
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+432441d951ca wifi: rtw88: fix skb leak in hw_scan probe request length check
+
 ---
- arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 83 +++++++++++++++++++++++
- 1 file changed, 83 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-index 37aa272019cc..0b8c6f353f96 100644
---- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-@@ -96,6 +96,89 @@ memory@efe01000 {
- 		};
- 	};
- 
-+	bat_therm_sensor: thermal-sensor-bat-therm {
-+		compatible = "generic-adc-thermal";
-+		#thermal-sensor-cells = <0>;
-+		#io-channel-cells = <0>;
-+		io-channels = <&pm7250b_adc ADC5_BAT_THERM_30K_PU>;
-+		io-channel-names = "sensor-channel";
-+		/*
-+		 * Voltage to temperature table for 10kΩ (B=3435K) NTC with a
-+		 * 1.875V reference and 30kΩ pull-up.
-+		 */
-+		temperature-lookup-table = <
-+			(-40000) 1673
-+			(-38000) 1649
-+			(-36000) 1623
-+			(-34000) 1596
-+			(-32000) 1566
-+			(-30000) 1535
-+			(-28000) 1502
-+			(-26000) 1467
-+			(-24000) 1430
-+			(-22000) 1392
-+			(-20000) 1352
-+			(-18000) 1311
-+			(-16000) 1269
-+			(-14000) 1226
-+			(-12000) 1182
-+			(-10000) 1138
-+			 (-8000) 1093
-+			 (-6000) 1049
-+			 (-4000) 1004
-+			 (-2000) 960
-+			       0 917
-+			    2000 874
-+			    4000 832
-+			    6000 791
-+			    8000 752
-+			   10000 713
-+			   12000 676
-+			   14000 640
-+			   16000 606
-+			   18000 573
-+			   20000 541
-+			   22000 511
-+			   24000 483
-+			   26000 455
-+			   28000 430
-+			   30000 405
-+			   32000 382
-+			   34000 360
-+			   36000 340
-+			   38000 320
-+			   40000 302
-+			   42000 285
-+			   44000 269
-+			   46000 253
-+			   48000 239
-+			   50000 225
-+			   52000 213
-+			   54000 201
-+			   56000 190
-+			   58000 179
-+			   60000 169
-+			   62000 160
-+			   64000 152
-+			   66000 143
-+			   68000 136
-+			   70000 128
-+			   72000 122
-+			   74000 115
-+			   76000 109
-+			   78000 104
-+			   80000 98
-+			   82000 93
-+			   84000 89
-+			   86000 84
-+			   88000 80
-+			   90000 76
-+			   92000 73
-+			   94000 69
-+			   96000 66
-+			   98000 63>;
-+	};
-+
- 	msm_therm_sensor: thermal-sensor-msm {
- 		compatible = "generic-adc-thermal";
- 		#thermal-sensor-cells = <0>;
-
--- 
-2.56.1
+https://github.com/pkshih/rtw.git
 
