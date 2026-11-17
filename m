@@ -1,80 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921232;
-	b=orjX94dofjA7GrSG7m35PAOiSe8/0BPje0yjJLe5sZmB+BNrJAiP0ESvHyeSQ5X463EH
-	 2abePMVVUdqmSFtpbXgV3Bf/Pu+7uEWbrPj83N7VZ65oAv9Q5uCVArSWkGcRGJQ46fabv
-	 /SF7jo1uzrBnjDtIEia0ABwc9hjid6JuDlpc8GV3sxfx5KCgzYs62F+Vs1qUEt0BnEzHh
-	 o1twNFfiZf2hXzPqfzEJ26RRY6t7lLzDJN0s89VZMLOlWSce5MBOMZ8UsnHbAseL1WdHd
-	 BGNw4UT+4OEoTE4Zev3rars3lRixZ9tFLeMVoZ/H3vH9r/JTFuCdWcHllhNgf9CqouQ==
+	t=1794921256;
+	b=bzHRAUMhN7f6vTFAo6wMeILszjYlc+9ZnaK5hLp50/sSma7jz646HUSmhxDBhND0cTBY
+	 jPeKTUTkfSQN9qfsOQt4cp45gF3pQRpgZTWCBDoxtAeQzfaKnFxWqUwrIiVcfk7vV/oC7
+	 LaMPSfDe3vIrO7ZfaMeg2c3DCkm/YttRhak7pX0DZZcjoQDhMZHrG91yq6r/qZHLyfQVJ
+	 T6YlIgigS4JyJWlRLVno9CiIxVZ6RQGVw+FsSVyAQkk32XLP+ekgqLwChYebgmI9KXAIM
+	 1ePqhNQsYmih5evFh4DcY9/i3axpZphJ+1EOH+SlwTF5CbajLSkXNyjdp78MPmSt5cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921232;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0V6Hn6Bzy9lL0q161tKd2Kz567msE8dbDMP1VHYg+7M=;
-	b=MytaWYuvCxVtqn3qFCbDF5qC3ej99tpeMSLwE9gV232ErIAqkKjLpIW8GO4YjuO8T5yU
-	 xMPOKRWOCfE4vyQ9pHyGeeIxu00/Tc72ma2taULTvLqsbva/VHUGmd4RH+6UMH9KBE0Yr
-	 +EgQFEnQYXTHcrwuJghYvXk0InSNOw4ooYREzvpAGoFQhiThleDFUDYuGm4WnCDH4wlch
-	 Q8t5DSwui5sIBIul7QZmJbcGathz7/PhB9fo2PXkAt+p4A+vxaEQRIqi2ekl7o48JgqMY
-	 sFJ2q1RkTByxVUUpzMOqBkBt4XS80TGxUisHStrSM3/y3TxFBwSizriOhdr3NOGADxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921256;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To;
+	bh=esDAPkgPyi097rGtu2NlFyj83v6KBu1QCQkoO5elA4A=;
+	b=04uMG550xZ5e0pp/SNlWiUvibuuZqCqu0GP+TJmborfnxm+3CkXBoMIgNrH9fiZJDKzk
+	 9at135f/r21KHpsxNTEdgW0ncKN9U+WYx/++4ABK/HG0QBSclQqwesGD8QiuZ5uHRzhHE
+	 D4ZttM8uM5pMlKDWN3X9IRZpkiEGoFU23rpBQNexFTp1mw6jxkU9hutv4qwUw2muGARfS
+	 kmpP93L7g/bxi0FrdB9Yd3u4OvnENiIvrehlRAd99J0Fp75b6g2Bid0ItfR/jlr+UDjrt
+	 RmFcINKR+yW+PpP3C2CVb82bA39SKbq6CHudP7Z3AmfLxOkM+0t27i/zGXD3OKtqmkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ykheu33k;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o0qy6k+C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2F6606A31C;
-	Tue, 17 Nov 2026 13:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E2F6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32459606A31C;
+	Tue, 17 Nov 2026 13:14:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ykheu33k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794921231; x=1826457231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gGBVdmYhKcN8lVHFGD4v7uz42UJ0d7Axml0auQE91Uw=;
-  b=Ykheu33k/g8FSWc/OfYnY8oc+LetEqw0+zA46k4oAh21M+BOQFTff/9T
-   UJHK+lImiL5lA902H3a5TEC/kFtRdsKLx9ykSyPAcw6r/L2RvRnnbowX5
-   zNsa+qgrazXoU0l5Oz3SIjGKjlwSB6rq5cvqH67Rv5Foe0IMmiG0RPNpx
-   wLJNcOnSoNSa3uHNERTly1nkSLh/BsCb9+r5Sgru2o9N7vHR2BbTtnsnj
-   Qgd4ueItqk+ELsrFdjGdZ40dfgjfpJe83eLt7/fvPvIebcnHGt7xMKiKw
-   P0zN5uvoiv9vG6WwpQG8N7rMqHX74FGjCU+7LIqAU44IlwbHOfshwpo7L
-   g==;
-X-CSE-ConnectionGUID: GGFdxVNbTbyuUuRU2yLvFg==
-X-CSE-MsgGUID: c1/zBo43S3eTR5gsTzz6MA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3692980"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3692980"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:12:37 -0800
-X-CSE-ConnectionGUID: 7FRvp3HuTyu9zQ6iVdEGGA==
-X-CSE-MsgGUID: BVcJhLL8RmmW264/t2GT+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9737508"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 17 Nov 2026 05:12:36 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xTIzB-00000001BbT-1q3a;
-	Tue, 17 Nov 2026 13:12:33 +0000
-Date: Tue, 17 Nov 2026 21:10:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ismael Luceno <ismael@iodev.co.uk>, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Ismael Luceno <ismael@iodev.co.uk>, David Sterba <dsterba@suse.com>,
-	Chris Mason <chris.mason@fusionio.com>,
-	"open list:BTRFS FILE SYSTEM" <linux-btrfs@vger.kernel.org>
-Subject: Re: [PATCH 4/8] btrfs: add a helper to scan all block devices
-Message-ID: <202611172034.2xFLZZpu-lkp@intel.com>
-References: <20261116224316.11237-14-ismael@iodev.co.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o0qy6k+C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED801F000C4;
+	Tue, 17 Nov 2026 13:14:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794921255;
+	bh=esDAPkgPyi097rGtu2NlFyj83v6KBu1QCQkoO5elA4A=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=o0qy6k+ClRxsVrNeII8VK2DxW0z7RF1lJUs96JG4m4PgPtHClFXc3F14FySKl15DS
+	 6sqJ32GlxjNcbngtKtvZi7YWV98XOGBefybmoePtQ8jwZQprIlWJxVTC1dmFXMFQTe
+	 /yc7UaVvcuOJ9hvc1pj3WkUpuyFGwJ8TJpjPS1kr1uy1dZlNt4ojWzH4haflBOg9Lw
+	 OZNQrhCf3UfCn30J6QPwOdfB6e/T5bGIcKoOfmGGVt6tW2Q9AAo3xR8XYvy4Gre24U
+	 X+nRoH1C3xx5TnpdVYuGTqc6WNrmGiY4Vl+Brp8QepsiIVZyJfyFeBOVcCXndaTPLD
+	 WnaH0/zkegZsw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,38 +48,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116224316.11237-14-ismael@iodev.co.uk>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Nov 2026 14:14:10 +0100
+Message-Id: <DMXIHAWC8YGT.33OH5RY5OPPBE@kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v3 1/5] rust: task: add safe schedule_timeout() wrapper
+Cc: "FUJITA Tomonori" <tomo@flapping.org>, <boqun@kernel.org>,
+ <aliceryhl@google.com>, <lyude@redhat.com>, <daniel.almeida@collabora.com>,
+ <work@onurozkan.dev>, <ojeda@kernel.org>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <tamird@kernel.org>, <acourbot@nvidia.com>, <viro@zeniv.linux.org.uk>,
+ <brauner@kernel.org>, <jack@suse.cz>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>
+References: <20261117001507.1611984-1-dakr@kernel.org>
+ <20261117001507.1611984-2-dakr@kernel.org>
+ <20261117.094531.2139684707820199268.tomo@flapping.org>
+ <DMXGHLYADENS.14LHK34JTZTRX@garyguo.net>
+ <DMXGTVTETSCB.2AG2E0Z05QT03@kernel.org>
+ <DMXGYAQZB33R.4BWEI96XQXL6@garyguo.net>
+In-Reply-To: <DMXGYAQZB33R.4BWEI96XQXL6@garyguo.net>
 
-Hi Ismael,
+On Tue Nov 17, 2026 at 1:02 PM CET, Gary Guo wrote:
+> On Tue Nov 17, 2026 at 11:56 AM GMT, Danilo Krummrich wrote:
+>> On Tue Nov 17, 2026 at 12:40 PM CET, Gary Guo wrote:
+>>> On Tue Nov 17, 2026 at 12:45 AM GMT, FUJITA Tomonori wrote:
+>>>> On Tue, 17 Nov 2026 01:14:42 +0100
+>>>> Danilo Krummrich <dakr@kernel.org> wrote:
+>>>>
+>>>>> +pub fn schedule_timeout(timeout: Delta<Jiffy>) -> Delta<Jiffy> {
+>>>>> +    let timeout =3D timeout.as_jiffies().max(0);
+>>>>
+>>>> In earlier reviews of my patches, Gary asked me to use the function
+>>>> syntax or clamp() for this instead of the method syntax [1][2]:
+>>>>
+>>>>     let timeout =3D isize::max(timeout.as_jiffies(), 0);
+>>>
+>>> Yes, please do. I'm okay with either `isize::max` or `cmp::max`.
+>>
+>> The examples in [1][2] both seemed to be able to avoid a cast with this,=
+ which
+>> isn't the case for this patch. There also doesn't seem to be any ambigui=
+ty in
+>> the extression used in this patch. So I don't see why changing it would =
+be
+>> better.
+>
+> The ambiguity is "the maximum value returned will be 0" and "the minimum =
+value
+> returned will be 0". The answer is always the latter but I'd avoid the me=
+ntal
+> gymnastics.
 
-kernel test robot noticed the following build errors:
+To me clearly both
 
-[auto build test ERROR on kdave/for-next]
-[also build test ERROR on btrfs/for-next brauner-vfs/vfs.all linus/master v7.4-rc3 next-20261116]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+	a.max(b)	(1)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ismael-Luceno/btrfs-add-config-options-for-the-root-device-scan/20261116-234317
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git for-next
-patch link:    https://lore.kernel.org/r/20261116224316.11237-14-ismael%40iodev.co.uk
-patch subject: [PATCH 4/8] btrfs: add a helper to scan all block devices
-config: x86_64-kexec (https://download.01.org/0day-ci/archive/20261117/202611172034.2xFLZZpu-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611172034.2xFLZZpu-lkp@intel.com/reproduce)
+	max(a, b)	(2)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611172034.2xFLZZpu-lkp@intel.com/
+read as the maximum of a and b.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+IIUC, what you are saying is that people may read (1) as
 
->> ERROR: modpost: fs/btrfs/btrfs.ko: symbol 'block_class' undefined!
+	a.at_max(b)
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+which would indeed be equivalent to min(a, b).
+
+If this is indeed commonly the case I'd suggest to raise this to become a c=
+ommon
+rule (ideally with a lint), such that we avoid this to be discussed in revi=
+ews.
+
+Personally, I prefer (1) for the expression above, but I don't care too muc=
+h, so
+I'm fine to change it. (In case I don't need to respin I'll change it on ap=
+ply.)
+
+Thanks,
+Danilo
