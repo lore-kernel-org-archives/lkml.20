@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794895570;
-	b=1FjtKRSCMaFQobh96/nVULglqyRWS6hinHXcp6kTD2eTjo39xiZr8aN2bU/8URFTYxLO
-	 xhHH8h40eKw0UPRvw1JSnQdhae5y9enjBKSG/Tk273bK4fUKQhRaaNZ4GIUsa6TZUt/Qt
-	 NgQAQjA5xxPpG1LUgVecfsyKlayVnK/ppB3amY2rITbLuS6CXCB9rWqSSrdoAns00yFnJ
-	 put7bYhkr3YSmVWqDTlvOTY4CGGkgzr+m0p+4IRRj002wgnEY8JHh9GyQnuqENM1vuakc
-	 BVWBj2IpFLRFrz2zEjwTQZBRRK4WQQD+crZSYov+WPGUqOfiHXGvR1sE4ngYbftdo4g==
+	t=1794895574;
+	b=Lo1sTx+0vaDIh6g2QPbx22wqjkV85Rr4IIfS8JUVAk0KTXWwiajSMoKomfgoTqkpTr6F
+	 ya1oyn/UKSTO3Qu+ms0OnT030Bn1W1vHheAhPJaDROG7fG0znfN0Xt4nkmYcus2XyH7gW
+	 uWLwRcTKH0RHInn73PF3PCxSA4aMNHesrjoykk/yXEC64GJTnCaLnrbfvYwi8FofCvluP
+	 IoE2GPX4xi3NONLIs/cUp70WuAaz/TI8sEja7EhTScczqVzJ7Immij6rUKLfIZHosTEJn
+	 79N5vPw1SLe8ZcXquO2lA1qdScMWi5XJDTbf8Qd1A705smbW9G3AGKdgQuM6tGuC8XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895574;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tl9vm/5oN7PPPGTUSOoXHW2ARgY0Relof58jU72z34E=;
-	b=c+SP7NQskpfTqdCPHc2bkeh7ER1Xw3gM9TFl+qv/OuVE0R7SgczWrcCH325jgJeFwnOe
-	 u2OUPM2Q3I93Xotcwt6SsMg9i3zLeBf6lIoEKXBqdLdMqLZnvp1iG1ethueqB5gqjdL5v
-	 KeF9c1fI+IZCHNUxk9R7yy+hDOmzoXoKAF96pLwjCcihf4gGXAoPD1GK5C9GoRm4Bs2b6
-	 iOJJe/qfm1x1E5ozg6Z/ZfGIrVEs7n4V5lkZ1FwBFU9ZZ3aaGW7k50HMWom906UARl7r2
-	 6MgU7qllMHIEXCpsSdXZSSWwM4fxi5IRcluiU2z2uIenPzK91Mlui3FYXasLpSMKglg==
+	bh=EsIPTfnBcTrltn2jh6R8X7D3E7FmUiavoDyvK703b+g=;
+	b=s32agZHWXdGRjlm8r9f5thabpHmoJvekDbgjxXQtxWLJTX1GT0i/y0ZUo1SxfTLvzVDa
+	 cUGzYJtSssIpDSbyn7g+r+tjCqC+bGY+OeRzUuP2Dr9BwiTjUM8eCSKen4b9lFYvDhQ7X
+	 wIXGfxCIVitIHsqli16f63NWKYOhfZ4EgoIntCIwWxRuPKKoxi4VYPAVghkGXysG1njFx
+	 i2+WlYH3ipBmu2L0BAS3AweDz+xingPxPC2e9S3V7jcxLL4RM/davJIEYI8Pj1vENlWbl
+	 EVNmlsthil+Ja5N5UQSTa5glx+xEnhoyqyp5zvufZf9iyZiEiMHXlrt7XTEuWdhtX6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MxHopM0;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nwPNjv87;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C65606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:06:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C65606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD22606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD22606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MxHopM0
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so3627189b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:06:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nwPNjv87
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b66d1a08ccso4003185b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:06:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794895569; x=1795500369; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794895573; x=1795500373; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tl9vm/5oN7PPPGTUSOoXHW2ARgY0Relof58jU72z34E=;
-        b=0MxHopM0RoBSrxdcP0gh7Wtc+00aT+pe1XFBwhR++vrkRR9p3A4+zNGV9iJYHboU6L
-         hEyHUZ6hG2q/BZfuPXKczNao6M/nT9VoyuPZRju9iHOFdTbCAXI6yaVlNAKM2DAlCA3E
-         OvE3WqiZxLgN6mXNYVe81Uor8ozSE245dBZONxyE2SX7Rb+NbSEbCM+kEOdpCououT3z
-         QndBh9pTKIjQnK78uVltO8m0LZmGTnR7UPZQM8j0UtO3zNDWS1GSHCKcS4GSjMZE7hAq
-         Hsc1I6obwUAVhlGHgy9S02gEJj9DoWIzLb/+H+qp5dMJ0ApHw+/as+AzEtny2xus6+rp
-         f5iA==
+        bh=EsIPTfnBcTrltn2jh6R8X7D3E7FmUiavoDyvK703b+g=;
+        b=nwPNjv87IxPhk52sXtDpVQuxOTIGCMadvKtfw433+vGm1a9XB+N5cYVBFVSxuC1+QZ
+         Gs+xLTJVFQoZWTA/zwOkvohv5Pv8kf7tUtQ+z7MIqvtB6Qp1RgHMXQD+n/JZ+DpNPWRj
+         LitkiUADtFoR9j0ktN09xJSg4BmAn29e2P166EJsK2s25uuz1KPlPm5S1WyDhsVrRtqG
+         DdFYg173jjYLS7OQQGj2njlx8XEgASRbkg1LfB8ENAhT/nxeErDNBPwSlDTxolzdBUJv
+         cF7M5cLzAKWUBGjwl07CaDeFLOVW9mo7EprTmoIgpk1ksbZm1+pYjnk/MCgN5lhiaUid
+         ybeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794895569; x=1795500369;
+        d=1e100.net; s=20260707; t=1794895573; x=1795500373;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tl9vm/5oN7PPPGTUSOoXHW2ARgY0Relof58jU72z34E=;
-        b=fFZozSII39BRVjKB2helkNM8gjemH+M4yR6sMFTzZXpcvq+hT58awH5z+XizS9Ucf3
-         iyZ3pMEbGAaKx7iWh9/AZkzKsCNDxnSaPv74/gxpfDdpEEfgn9Cec6v982WH24dW8Gjo
-         C+BhPgAPZ+0ZLvy9qy4zmFxXn5nPmnJMQDOPOxN1zl8u1ouFkW6KCELHVYpoTl+6RH3G
-         Sg+m8ITNwTkHcRSZdDmfkXZ6igHARzYxCijKSKPLtmKla1OmbC3Ohg9mzSo4OeDEasup
-         o4095h0VUC0/2/xfgTKGsytdycg77LsTIZaq5chw1jVGPQUPSEg81XckfaE4ozJQhSG+
-         y8Wg==
-X-Forwarded-Encrypted: i=1; AL+hErHJa9nLaBZGnv4Pr/KR/9IdogtXo7qADipZ0COtqpLs4/XxVv3fIVsSg9fSpgUCz3Y/8D79kQf2z1/fIwk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NGRJsUqHGqQOyDloMwgrM9bri7oN6lGU63jt1vEMATpJJ9XI6
-	ghEFWGseSRqCrvJTWdPPd9MdczkphZon8pMvNtwYcGhCkyUGPUuxKzjCWat0+Q==
-X-Gm-Gg: AYBFou0fQ68Yue6oDOjmSWK6+aZSfWO97bF+kxKGAlLF6QKgmC+mo6g4x4KwLaoIu4T
-	CSqNTjHlxPSXdCvc9ibrHCsIH1uXGOxk9GE/DandtbcgWeR7fhj0hn2hr30AYlxv8EOxwY4rZ9G
-	B26xXIldW09DxLM6tx1sO9dUBfQltRsl8TmLpLx2d6T0Z2ttTF1wCTvm4YE1pnQk0lQN19z8i5L
-	nsaoSjBHdSpTs/WgF+su3NQRPEsxs3jdTpUgKIus9SpnjTLn4XxhSe2T9QhOPmtTfAj+75TRzvh
-	sgMkjtQZqw24vLVT+a6DeRqQgtofOUIMvMgsJelxcgO8hOeeUXHn5uADcx4GnOrgAh8po1bRiq+
-	iZbLaS1/EiJzU3zVr/U0aAzPtSU6HW26V8POwbaRf+p9meGIpDLq6X42MsBJjfYRI/tkamsNiZI
-	aKZcxWjoIgQVjv8LHlJzbOjIPlCxRBjh9wLuEqyxj44kHVHVKB9ER9QTnbAHONhnXi+0iYk1VWt
-	no6Pc0DZFKBDj2uGGPUxes3CCrXNL99a4x0i0V+u0Xw84M/tbR7J7Vmwb0mcx8pA6ERQESUfUa1
-	9DobclwpumMJPultBGWXidGwc3ZKBwIbQSZdrpnnkK9f2Yr1EGNLAPuOPBcTrtL/nOGdsK41PFC
-	A2dog5MhF97s=
-X-Received: by 2002:a05:6a20:a79a:b0:3f9:3f64:9bad with SMTP id adf61e73a8af0-3f93f649df2mr5801702637.4.1794895568851;
-        Mon, 16 Nov 2026 22:06:08 -0800 (PST)
+        bh=EsIPTfnBcTrltn2jh6R8X7D3E7FmUiavoDyvK703b+g=;
+        b=hjjSuBMVCZmgNwFCS0HvkXhxGctnu6/4wpBLg/UBmHHiKOi5myWMjz6PbMfkQu06Pl
+         gdcjjtjxl4eJ+MeWFUE5QIuCAQ8Bq8Z5BWzfG0lzFjB2WDGskRQCK3otojw3ysPzllRp
+         YTeZdX+2OUk4ZsJXlAWJLIbmbCN8K0qGMFUgKyehSr/KB8NJwVIzhaEJ3hTZRPZReFL3
+         f2UfzwEYjG0IZwg5BotFAGLWRIN5U4vZRbTuF2QkuHmCZByuWgXFKJRTccRJ71bzE/mf
+         po1rY+5Q+RZZA0+4bIBjaHonwXZQnlqXedF6zBZTxaob1DbAqJePXXZdrc0CLpvjd/cF
+         cTGA==
+X-Forwarded-Encrypted: i=1; AL+hErFlp/LfrSMrWzVY07Jf4cJ53Z5eqjytszIjIT2sfrU7rroGR52YGALB4ZenQGPnOi+4rsKFzdkuqPcNRUg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+D5dpNy0VPUOiwVOl0472d2pQbHwfvQriywfz3cn/axfIcriEx
+	ktWcLc1/Q6phUA3m9KZCKMTW7x/aSozlyd2YgPVRd4orvud6pYgCGxTxYCykvQ==
+X-Gm-Gg: AYBFou36EF03ACAd1dPq3Qpm9v2936/6vamPM0x4nnaF0eKeiQr8HRUU2h5l7ukK6xd
+	mZTVD2PrtUKuVDnE+psy1jnG2xSfss992QKM7e/6g0ZpgR5PmgjWCyZgH6a+4QZaamncgC0aFsj
+	A3RoiR4S23etJsShsFEt2odl3LgKxMMJStTB4X2BmggA2pp1Ks19y9PmC2S3NBOtM5tMpYSPyx0
+	diJ3+/mQoc5KsQVnZVeWj70dGEsRma54YUQWSmrDJzpLdp8+7P8rncBfFXX/csnaP+PboRMTTtV
+	koH6QCOtDtZfThCqUD9Lrti4SjXuu7/kERWKqM7e9W8VxJ7g0Tth3uB6o8IqyO9UcVaIWngPR7K
+	wawoqfBmr/IFrjUs96rM9myzsbQovioFBjNN/I2lsZWQV35EqT5a6JDvHS7oJBTcYXPg1ck31fR
+	Aiow80AsMJy4RQ9idQcCG3HHUoVSVK+3Q9dUiS8tOpf7vm2Djt1bcC2WuLnRzf7z4h4CTNepFN0
+	c/axHchzhkSukCtiPxt9Xx7nQVPW1W74k4PAVpTONSd+zOYUthQ6TMVOx1/mU7PZJIjjqaPMwXt
+	dvW/zA3xDkstDKIDpkuFH0nw3SFZofhxU6TFGd7HW3svCrHEYXB7gFju1zegUw7WgOrj+qwG11d
+	Hs+2BmZY0dJ0GVkUOWqmLGXxI1zeZplar
+X-Received: by 2002:a05:6a00:bc04:b0:893:8a6:3801 with SMTP id d2e1a72fcca58-8beb6a763bcmr13607230b3a.24.1794895572807;
+        Mon, 16 Nov 2026 22:06:12 -0800 (PST)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8172sm4464623b3a.13.2026.11.16.22.06.05
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8172sm4464623b3a.13.2026.11.16.22.06.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:06:08 -0800 (PST)
+        Mon, 16 Nov 2026 22:06:12 -0800 (PST)
 From: Zi-Yu Chen <zychennvt@gmail.com>
 To: rafael@kernel.org,
 	daniel.lezcano@kernel.org
@@ -95,9 +95,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH 2/4] reset: ma35d1: Register auxiliary device for the temperature sensor
-Date: Tue, 17 Nov 2026 14:04:59 +0800
-Message-Id: <20261117060501.2611071-3-zychennvt@gmail.com>
+Subject: [PATCH 3/4] thermal/drivers/ma35d1: Add Nuvoton MA35D1 thermal sensor driver
+Date: Tue, 17 Nov 2026 14:05:00 +0800
+Message-Id: <20261117060501.2611071-4-zychennvt@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261117060501.2611071-1-zychennvt@gmail.com>
 References: <20261117060501.2611071-1-zychennvt@gmail.com>
@@ -112,61 +112,207 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The on-chip temperature sensor is controlled through a register of the
-SYS block, which is already bound to this driver. Create an auxiliary
-device so that a thermal driver can bind to it without a separate
-devicetree node.
+Add a driver for the on-chip temperature sensor of the Nuvoton MA35D1
+SoC. The sensor is controlled through a register in the system
+management (SYS) block and is instantiated as an auxiliary device by
+the MA35D1 reset driver.
 
-Failing to create the auxiliary device only affects temperature
-reporting, so warn and continue.
+The sensor converts continuously while powered on. The 12-bit result
+is converted to millidegrees Celsius using a linear fit of the
+temperature table from the sensor datasheet.
 
 Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 ---
- drivers/reset/Kconfig        |  1 +
- drivers/reset/reset-ma35d1.c | 11 ++++++++++-
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/thermal/Kconfig          |  11 +++
+ drivers/thermal/Makefile         |   1 +
+ drivers/thermal/ma35d1_thermal.c | 149 +++++++++++++++++++++++++++++++
+ 3 files changed, 161 insertions(+)
+ create mode 100644 drivers/thermal/ma35d1_thermal.c
 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index eda9c698a95f..cf42fd6f7a3c 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -220,6 +220,7 @@ config RESET_NUVOTON_MA35D1
- 	bool "Nuvoton MA35D1 Reset Driver"
- 	depends on ARCH_MA35 || COMPILE_TEST
- 	default ARCH_MA35
-+	select AUXILIARY_BUS
- 	help
- 	  This enables the reset controller driver for Nuvoton MA35D1 SoC.
+diff --git a/drivers/thermal/Kconfig b/drivers/thermal/Kconfig
+index 810eeccedfba..571b2c026311 100644
+--- a/drivers/thermal/Kconfig
++++ b/drivers/thermal/Kconfig
+@@ -530,4 +530,15 @@ config LOONGSON2_THERMAL
+ 	  is higher than the high temperature threshold or lower than the low
+ 	  temperature threshold, the interrupt will occur.
  
-diff --git a/drivers/reset/reset-ma35d1.c b/drivers/reset/reset-ma35d1.c
-index d2962c0c80be..8c82175d7466 100644
---- a/drivers/reset/reset-ma35d1.c
-+++ b/drivers/reset/reset-ma35d1.c
-@@ -4,6 +4,7 @@
-  * Author: Chi-Fang Li <cfli0@nuvoton.com>
-  */
- 
-+#include <linux/auxiliary_bus.h>
- #include <linux/bits.h>
- #include <linux/container_of.h>
- #include <linux/device.h>
-@@ -218,7 +219,15 @@ static int ma35d1_reset_probe(struct platform_device *pdev)
- 	if (err)
- 		dev_warn(&pdev->dev, "failed to register restart handler\n");
- 
--	return devm_reset_controller_register(dev, &reset_data->rcdev);
-+	err = devm_reset_controller_register(dev, &reset_data->rcdev);
-+	if (err)
-+		return err;
++config MA35D1_THERMAL
++	tristate "Nuvoton MA35D1 thermal sensor"
++	depends on RESET_NUVOTON_MA35D1
++	depends on THERMAL_OF
++	select MFD_SYSCON
++	help
++	  Support for the on-chip temperature sensor found on Nuvoton
++	  MA35D1 SoCs. The driver provides temperature readings through the
++	  Linux thermal framework. The sensor registers are accessed through
++	  the system register block.
 +
-+	/* The temperature sensor is also controlled through the SYS block */
-+	if (!devm_auxiliary_device_create(dev, "thermal", NULL))
-+		dev_warn(dev, "failed to create thermal auxiliary device\n");
+ endif
+diff --git a/drivers/thermal/Makefile b/drivers/thermal/Makefile
+index 3b249195c088..bf2796e3dd3f 100644
+--- a/drivers/thermal/Makefile
++++ b/drivers/thermal/Makefile
+@@ -70,3 +70,4 @@ obj-$(CONFIG_SPRD_THERMAL)	+= sprd_thermal.o
+ obj-$(CONFIG_KHADAS_MCU_FAN_THERMAL)	+= khadas_mcu_fan.o
+ obj-$(CONFIG_LOONGSON2_THERMAL)	+= loongson2_thermal.o
+ obj-$(CONFIG_THERMAL_CORE_TESTING)	+= testing/
++obj-$(CONFIG_MA35D1_THERMAL)	+= ma35d1_thermal.o
+diff --git a/drivers/thermal/ma35d1_thermal.c b/drivers/thermal/ma35d1_thermal.c
+new file mode 100644
+index 000000000000..453f57d236ec
+--- /dev/null
++++ b/drivers/thermal/ma35d1_thermal.c
+@@ -0,0 +1,149 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Nuvoton Technology Corp.
++ *
++ * Author: Zi-Yu Chen <zychennvt@gmail.com>
++ */
++
++#include <linux/auxiliary_bus.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/mfd/syscon.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/thermal.h>
++
++#include "thermal_hwmon.h"
++
++#define MA35_SYS_TSENSRFCR		0x104
++#define MA35_TSEN_DATA_VALID	BIT(31)
++#define MA35_TSEN_POWER_DOWN	BIT(28)
++#define MA35_TSEN_DATA			GENMASK(27, 16)
++
++/*
++ * Conversion from the 12-bit sensor data to millidegrees Celsius:
++ *   temp (mC) = data * MA35_TS_CAL_A / 4096 - MA35_TS_CAL_B
++ * A and B come from a linear fit of the S40LLV33_TEMPSENSOR temperature table.
++ */
++#define MA35_TS_CAL_A			274350
++#define MA35_TS_CAL_B			93330
++
++struct ma35d1_thermal {
++	struct device *dev;
++	struct regmap *regmap;
++};
++
++static int ma35d1_thermal_get_temp(struct thermal_zone_device *tzd, int *temp)
++{
++	struct ma35d1_thermal *sensor = thermal_zone_device_priv(tzd);
++	unsigned int reg;
++	int data, ret;
++
++	ret = regmap_read(sensor->regmap, MA35_SYS_TSENSRFCR, &reg);
++	if (ret)
++		return ret;
++
++	if (!(reg & MA35_TSEN_DATA_VALID))
++		return -EAGAIN;
++
++	data = FIELD_GET(MA35_TSEN_DATA, reg);
++	*temp = data * MA35_TS_CAL_A / 4096 - MA35_TS_CAL_B;
 +
 +	return 0;
- }
- 
- static struct platform_driver ma35d1_reset_driver = {
++}
++
++static int ma35d1_thermal_power_on(struct ma35d1_thermal *sensor)
++{
++	return regmap_clear_bits(sensor->regmap, MA35_SYS_TSENSRFCR,
++				 MA35_TSEN_POWER_DOWN);
++}
++
++static int ma35d1_thermal_power_off(struct ma35d1_thermal *sensor)
++{
++	return regmap_set_bits(sensor->regmap, MA35_SYS_TSENSRFCR,
++			       MA35_TSEN_POWER_DOWN);
++}
++
++static int ma35d1_thermal_change_mode(struct thermal_zone_device *tzd,
++				      enum thermal_device_mode mode)
++{
++	struct ma35d1_thermal *sensor = thermal_zone_device_priv(tzd);
++
++	if (mode == THERMAL_DEVICE_ENABLED)
++		return ma35d1_thermal_power_on(sensor);
++
++	return ma35d1_thermal_power_off(sensor);
++}
++
++static void ma35d1_thermal_power_off_action(void *data)
++{
++	struct ma35d1_thermal *sensor = data;
++
++	if (ma35d1_thermal_power_off(sensor))
++		dev_warn(sensor->dev, "failed to power off sensor\n");
++}
++
++static const struct thermal_zone_device_ops ma35d1_tz_ops = {
++	.get_temp = ma35d1_thermal_get_temp,
++	.change_mode = ma35d1_thermal_change_mode,
++};
++
++static int ma35d1_thermal_probe(struct auxiliary_device *adev,
++				const struct auxiliary_device_id *id)
++{
++	struct device *dev = &adev->dev;
++	struct thermal_zone_device *tzd;
++	struct ma35d1_thermal *sensor;
++	int ret;
++
++	sensor = devm_kzalloc_obj(dev, *sensor);
++	if (!sensor)
++		return -ENOMEM;
++
++	sensor->dev = dev;
++
++	sensor->regmap = syscon_node_to_regmap(dev->parent->of_node);
++	if (IS_ERR(sensor->regmap))
++		return dev_err_probe(dev, PTR_ERR(sensor->regmap),
++				     "failed to get SYS regmap\n");
++
++	/*
++	 * Registered before the thermal zone so that the sensor is powered
++	 * off only after the zone has been unregistered.
++	 */
++	ret = devm_add_action_or_reset(dev, ma35d1_thermal_power_off_action,
++				       sensor);
++	if (ret)
++		return ret;
++
++	tzd = devm_thermal_of_zone_register(dev, 0, sensor, &ma35d1_tz_ops);
++	if (IS_ERR(tzd))
++		return dev_err_probe(dev, PTR_ERR(tzd),
++				     "failed to register thermal zone\n");
++
++	/* thermal_of disables hwmon by default */
++	ret = devm_thermal_add_hwmon_sysfs(dev, tzd);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to add hwmon sysfs\n");
++
++	return 0;
++}
++
++static const struct auxiliary_device_id ma35d1_thermal_id_table[] = {
++	{ .name = "reset_ma35d1.thermal" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(auxiliary, ma35d1_thermal_id_table);
++
++static struct auxiliary_driver ma35d1_thermal_driver = {
++	.probe		= ma35d1_thermal_probe,
++	.id_table	= ma35d1_thermal_id_table,
++};
++module_auxiliary_driver(ma35d1_thermal_driver);
++
++MODULE_AUTHOR("Zi-Yu Chen <zychennvt@gmail.com>");
++MODULE_DESCRIPTION("Nuvoton MA35D1 Temperature Sensor Driver");
++MODULE_LICENSE("GPL");
 -- 
 2.34.1
 
