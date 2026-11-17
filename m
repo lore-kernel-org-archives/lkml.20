@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909088;
-	b=mFhHbwWipjQqA6iwfvG6nXBm/ALEZqupfCMJdOQv0owvZw/x13qLNoQFyPIsV04PiRyY
-	 gay83+KRrHBRbIi+uasGf/GI6SK9qVF2FoZUI2ciZJqrrxBdXMDFffSwKizZLFOUC1a3q
-	 yM5ZjmTROHC/DpfBBJUNfgprVSoPx4cCDAq9RIan8e/xEfOKnMI4Kd5k71Ev8mXVQLOn+
-	 DEfb9OOdDR13GRDqkWc5Je8/P77TzQEdWB6YtjgEXYpc6661enLIu370hCL2VBW9cDexS
-	 Nij/4ytcvubXAS5KcdiczhKMR0FhB4kbO2vPh3vkmXuRVzWRSdDeAA1ODBvhxrRSA0Q==
+	t=1794909085;
+	b=psur8lSVgwcimu+09EmbcI6mKdfTq6lnmDs+Q1Mk5/2fbyWkbzfKbXe4Lf9gKz2coYlW
+	 CgeMFOGpRYgtopnf7iwUEpu8UKrOIhLGIzeaAcQ9ZOefghjcR45d2ZCAWQUzqoLoBG/fl
+	 zgpO4gXWZKlUeThiiyCHQZKCwnRVQzBVOUZ51u2Y7SPxLV0YCRlKTjc2CAvZeMuC8Sw7T
+	 U93U2VwmucpQlmZuoG+YfhgjDo7116kzrHCy/zSYGLpWFm1POqUg656zalLtKRAzmN5es
+	 v09guc6zAt2G5sjBeZ36vXEHD1M7aUs6lnP5ERurBHo644HOKUr7hzKwpeB0/2Wa6UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909085;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-Id:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=B1OV7lBJrmDaac8ePy8dHk2DEYoP6HJXQm0PFK+z8S0=;
-	b=QInkxrV8uVPguJWnOgLm+CbpdViNt5YBAqkpMVtHqsQ/pSRWGfiURXnGAU6gqGuiZqj+
-	 pEKGjUoPsUnar4G3Xcoud9OFyPFUVLHgjVbhQ1Zw985jWhgJG5u+TnZkrp5A0PMcWWhdt
-	 +wlcv5LTMTNEX4RekEDHpwUWJY6Z7x0jEa/psD8asQIjo44INQvQ/vK+3Mw5cembgA1je
-	 Ewus26ZMrzSfJZwe5FTZUkmg2J1VjyDPMLCpEgrFqtjbyY/tZZFuwZFwpl3zgaFEU9GLQ
-	 TdmgUtabqKwcg6ZYbDUEX/onDyFBnv4XGGnQ0GUNDfMt9Eax7Ir8+GRn2fnsdMy/cwQ==
+	 Message-Id:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=8QGRrjtcy7R8vfKCbp56fKR8ZrLT6epmRKadFazehRA=;
+	b=BInPFUbAmQzdGvRvm2omN0RdPT0jBDPTZbOUaWMYXLX7tZBkgVlab7gPKTv1oM1XWF4P
+	 FLugcm/nsxCj03bBamRbNr2K+YyP0sT9bS/QO5geZOIbYaoXK4E9mJRXKo1gOkg60km5w
+	 8i5DkPbMQy9PcG975j7PS6wTb86ON5EddO/oErJZ8DHsBUHx0vcUKOFG3NEFdDH4KGjZK
+	 pVESJ9HZF4YFbHnny6fGlk39RDjgrQa7/hBVvYUyob6IeOEQAyf9oh3Fzq5QkRodq/B1v
+	 /jrKhDsBy9cGUDb/biGkHHCiCOfde01eLTLQOwRfRMBR27m67k4nK2prv6I5JPmnScw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cjdns.fr;
 	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=vvTPR7ab;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=a+ZMPlz2;
 	arc=none smtp.remote-ip=5.135.140.105
 Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59E8606A88B;
-	Tue, 17 Nov 2026 09:51:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C59E8606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341D7606A31C;
+	Tue, 17 Nov 2026 09:51:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 341D7606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=vvTPR7ab
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B794E517A37;
-	Tue, 17 Nov 2026 10:51:24 +0100 (CET)
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=a+ZMPlz2
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61254518ACC;
+	Tue, 17 Nov 2026 10:51:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1794909085; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=B1OV7lBJrmDaac8ePy8dHk2DEYoP6HJXQm0PFK+z8S0=;
-	b=vvTPR7abls+yq8/44019o7VhwHBBOWhYfCd8LphcZi4ElL4LeHHp+CF4RpsmVfKYaqj/WU
-	pCCf60LVzgqHeDGs7uyqhsMuagR37dCma18zpCSen3ipsAhTRygBw+noFVYak1Etdd+2LA
-	Qwn0NvdazmS3osV3SZeQEeFzmJpJvJ5c2arg0Uj5zXuPAISzL/dDQqvwAxKBpMoMPEGooj
-	EblFdadnLa2e54gzTpHpjE9Mpyy8op5cZPYVIL5DWGHoSh66AUFycRTXZCD1y7Kb1jlCkb
-	Ik8DNYLIWc4HhKhP0sV6Sk3BpM0ERxFSxqjMw93UZdXU8uA/d5A/bNA5k7LRPQ==
+	t=1794909082; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=8QGRrjtcy7R8vfKCbp56fKR8ZrLT6epmRKadFazehRA=;
+	b=a+ZMPlz2loQmIdRt40DR2Mo4KxW1D4Ol8rS+LL8GH1DoWKtLYBob++YZQ+FGatUdAFBGoy
+	JqCkSgcTUmeS2SH2cuzbkZfSfYt/p7oSWtQ9GS6Og84wztxv52Ih+KNmcvMYQMlFSP9/nT
+	uIRkJK1x5ZuiU16B9tGW5nrEW2/uECy7p75tzACr1LvBvF+7kjUoAqXUPUBrkKLlak0ZzH
+	iuYlZuud6+TnVCxWFskzlGYCRd0j1Sw3s6TPEHpodBBCKsCAzx52MDDkF4LwO1L9rib5Y0
+	aQ4kU7Vt0My0ETwPwk2xUHxciKLn4mKAbyInbrmYRH5iC9s89G8Tx7lRKfdghA==
 From: Caleb James DeLisle <cjd@cjdns.fr>
 To: linux-mips@vger.kernel.org
 Cc: conor+dt@kernel.org,
@@ -56,11 +55,9 @@ Cc: conor+dt@kernel.org,
 	tglx@kernel.org,
 	grandmaster@al2klimov.de,
 	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v12 2/5] clocksource/timer-econet-en751221: Init teardown on error if possible
-Date: Tue, 17 Nov 2026 09:51:14 +0000
-Message-Id: <20261117095117.173316-3-cjd@cjdns.fr>
-In-Reply-To: <20261117095117.173316-1-cjd@cjdns.fr>
-References: <20261117095117.173316-1-cjd@cjdns.fr>
+Subject: [PATCH v12 0/5] clocksource/timer-econet-en751221: Support irq number per timer
+Date: Tue, 17 Nov 2026 09:51:12 +0000
+Message-Id: <20261117095117.173316-1-cjd@cjdns.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,159 +70,91 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-As a clocksource, much of the initialization process is irreversible
-and the impact of a failure to initialize is a failure to boot.
-That said, good practice is to attempt a clean exit if probing fails,
-and supporting this pattern will reduce the likelihood that future
-contributions introduce a bug by trying to teardown after it is no
-longer possible to do so.
+This timer appears on both the EcoNet EN751221 (34Kc) and on the
+EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
+uses a percpu interrupt while on the others it uses an individual
+IRQ number for each CPU timer. Add support for EN751627 and EN7528.
+Add support for IRQ number for each CPU timer under the
+econet,en751627-timer compatible.
 
-Convert the init process into two clearly delineated phases, one
-which is reverted in case of error, and the other which can't be.
-Move all IRQ and address resource mapping before that point, and add
-teardown logic in case of error before the point of no return.
+Changes since v11:
+* Update to tip/timers/core Nov 1, see base-commit.
 
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/clocksource/timer-econet-en751221.c | 84 ++++++++++++---------
- 1 file changed, 50 insertions(+), 34 deletions(-)
+Changes since v10:
+* Unconditionally setup clock_event_device for all possible CPUs so
+that error log will not access uninitialized data. Identified by:
+Link: https://sashiko.dev/#/patchset/20261015145331.453837-1-cjd@cjdns.fr?part=4
 
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-index 1859335345b5..714702b9ef12 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -24,6 +24,7 @@
- 
- static struct {
- 	void __iomem	*membase[ECONET_NUM_BLOCKS];
-+	int		irq;
- 	u32		freq_hz;
- } econet_timer __ro_after_init;
- 
-@@ -126,22 +127,9 @@ static void __init cevt_dev_init(uint cpu)
- 	iowrite32(U32_MAX, reg_compare(cpu));
- }
- 
--static int __init cevt_init(struct device_node *np)
-+static void __init cevt_init(struct device_node *np)
- {
--	int i, irq, ret;
--
--	irq = irq_of_parse_and_map(np, 0);
--	if (irq <= 0) {
--		pr_err("%pOFn: irq_of_parse_and_map failed", np);
--		return -EINVAL;
--	}
--
--	ret = request_percpu_irq(irq, cevt_interrupt, np->name, &econet_timer_pcpu);
--
--	if (ret < 0) {
--		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np, irq, ret);
--		goto err_unmap_irq;
--	}
-+	int i;
- 
- 	for_each_possible_cpu(i) {
- 		struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, i);
-@@ -151,21 +139,12 @@ static int __init cevt_init(struct device_node *np)
- 					  CLOCK_EVT_FEAT_C3STOP |
- 					  CLOCK_EVT_FEAT_PERCPU;
- 		cd->set_next_event	= cevt_set_next_event;
--		cd->irq			= irq;
-+		cd->irq			= econet_timer.irq;
- 		cd->cpumask		= cpumask_of(i);
- 		cd->name		= np->name;
- 
- 		cevt_dev_init(i);
- 	}
--
--	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
--			  "clockevents/econet/timer:starting",
--			  cevt_init_cpu, NULL);
--	return 0;
--
--err_unmap_irq:
--	irq_dispose_mapping(irq);
--	return ret;
- }
- 
- static int __init timer_init(struct device_node *np)
-@@ -187,22 +166,45 @@ static int __init timer_init(struct device_node *np)
- 		econet_timer.membase[i] = of_iomap(np, i);
- 		if (!econet_timer.membase[i]) {
- 			pr_err("%pOFn: failed to map register [%d]\n", np, i);
--			return -ENXIO;
-+			ret = -ENXIO;
-+			goto out_membase;
- 		}
- 	}
- 
-+	econet_timer.irq = irq_of_parse_and_map(np, 0);
-+	if (econet_timer.irq <= 0) {
-+		pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
-+		ret = -EINVAL;
-+		goto out_membase;
-+	}
-+
-+	ret = request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
-+				 &econet_timer_pcpu);
-+
-+	if (ret < 0) {
-+		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
-+		       econet_timer.irq, ret);
-+		goto out_irq_mapping;
-+	}
-+
-+	cevt_init(np);
-+
-+	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-+				"clockevents/econet/timer:starting",
-+				cevt_init_cpu, NULL);
-+	if (ret < 0) {
-+		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
-+		goto out_irq_free;
-+	}
-+
-+	/* Point of no return, do not attempt to tear down after this. */
-+
- 	/* For clocksource purposes always read clock zero, whatever the CPU */
- 	ret = clocksource_mmio_init(reg_count(0), np->name,
- 				    econet_timer.freq_hz, 301, ECONET_BITS,
- 				    clocksource_mmio_readl_up);
--	if (ret) {
--		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
--		return ret;
--	}
--
--	ret = cevt_init(np);
--	if (ret < 0)
--		return ret;
-+	if (ret)
-+		pr_err("%pOFn: clocksource_mmio_init failed: %d\n", np, ret);
- 
- 	sched_clock_register(sched_clock_read, ECONET_BITS,
- 			     econet_timer.freq_hz);
-@@ -212,6 +214,20 @@ static int __init timer_init(struct device_node *np)
- 		(econet_timer.freq_hz / 1000) % 1000);
- 
- 	return 0;
-+
-+out_irq_free:
-+	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-+out_irq_mapping:
-+	irq_dispose_mapping(econet_timer.irq);
-+out_membase:
-+	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
-+		if (econet_timer.membase[i]) {
-+			iounmap(econet_timer.membase[i]);
-+			econet_timer.membase[i] = NULL;
-+		}
-+	}
-+
-+	return ret;
- }
- 
- TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", timer_init);
+Changes since v9:
+* Use dynamic size irq and iomem block arrays based on DT
+* Update commit message explicating that CPU hotplug is intentionally
+not supported
+
+Changes since v8:
+* Actually git commit changes from v7. Guys, I sincerely apologize for
+the spam.
+
+Changes since v7:
+* Use %zd for logging with ARRAY_SIZE to avoid compiler errors if
+test-compiling on 64 bit.
+
+Changes since v6:
+* Rebase to tip/timers/core (base-commit below)
+
+Changes since v5:
+* Integrate patch fix refcount leak from:
+Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
+* NULL econet_timer.membase after unmapping
+* NULL check dev->event_handler in case clockevents_config_and_register
+  failed to fully register.
+* v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
+
+Changes from v4:
+* Fixed incorrect compatible in DT schema
+* Bracing in out_irq_free if statement
+* I did not move cpuhp_setup_state past the point of no return
+* v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
+
+Changes from v3:
+* off-by-one in out_irq_free
+* Gracefully fail if too many address resources are provided in the DT
+* Allow fewer actual timers than num_possible_cpus, as long as they
+never start
+* v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
+
+v3 note:
+
+I decided to take this patchset in a slightly different direction from
+v2. There is a certain amount of initialization that once it has run,
+it cannot be reverted in case of error. The original driver init was a
+mixture of revertible and non-revertible code which made it too easy
+for code which is designed with best practices in mind to in fact
+introduce a bug. Therefore I start by making the init process more
+legible but without any business logic changes, then fix a race
+condition by keeping IRQ disabled until after cevt is setup, then
+finally add non-percpu IRQ support.
+
+* v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
+
+Changes from v1:
+* Split changes over 3 refactoring patches + main patch
+* Remove driver discussion from dt commit message
+* v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
+
+Caleb James DeLisle (5):
+  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+  clocksource/timer-econet-en751221: Init teardown on error if possible
+  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+  clocksource/timer-econet-en751221: Do not use NR_CPUS for resource
+    array size
+
+ .../bindings/timer/econet,en751221-timer.yaml |  31 ++-
+ drivers/clocksource/timer-econet-en751221.c   | 206 ++++++++++++++----
+ 2 files changed, 181 insertions(+), 56 deletions(-)
+
+
+base-commit: 0359ecff58853a491dd0f09792fea8e87235ae06
 -- 
 2.39.5
 
