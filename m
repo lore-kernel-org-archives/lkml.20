@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913842;
-	b=0kiY1vttYlhmShkodZQi0Esgelusbfxekop651VgahqCk28zNnKIonTcFeSawCqkNJRd
-	 v1mzrAsXwRNpw5eejF3/lPbq/rMT4eg77lqUWQZRXqttKEevQ5kj7f2I2AcdkXzVCaGOk
-	 ogrfxlIQsAWHNrUiy8jx7wM9hMIZnDwauW3O4UsK7hbaHlGPPTP9UbxZq2+6ggckHIVW3
-	 CBqlgMe10VwDEjVgJPjB6P0MoqpR8uBo7+I7vUPf6Tal+cLVWsesYPRLffKeFolyI6I84
-	 CKGy3kEXm85n/PfaM3uIpFUITZJ0du9bFixK0bT3dUP3e7ABzpIbahy2TvYOClJHQfw==
+	t=1794913854;
+	b=EiVurZVCbzPhrI5WEPoOArgouqhHljU29kYovhoSEAawLIBRz4uthhU0PbpmnavnzKTI
+	 TeE23BbHKa72cCd6EVPGKAi2OAi6ioNBHUWRHxMk4G9zW++jB0V5pG3MJIj1dvKiirWBq
+	 Pn/GkX6bHdz6hQkJmCj7xBL/WHsoG69t9CJQA8Zhb6+RDJPrPFDnHAGuDiuiojDOqkUpZ
+	 wx/Tsn/HtszAgBrssml99oJShgE4GKRxIkHl9Xoxb/ktNsjEQIYdkRuLRWh86HuODQIra
+	 oUG7FNw6otKBao+Xb6kJSL7m6bRG2IUYU9/dw3069vRwlFzYxNp4y+UMhoVWEb2pGlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913842;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ahM/P/idi1IClfIdMjJVwjzYB76O8a82NQvzY5p1FKI=;
-	b=ZfAy5piNhw5Tqm4F4RfYhI0kxqYWGRFS0ZF4DCoBKif6gUtZ0ddgsYXdjhri1A8iDo89
-	 iD6WClk0AM+bfjnbwmWZXQAkSDt1l9Xj6GPO1B46WnEUi2jIFZ46XKpKsCEUr5uD2DPG7
-	 IjrWxmjujNtx6Dq14nun9KNHwCw6Okzjc1ImSVVpdkUCQBWunjNNt6ZgkExovtibvCvAH
-	 S/IZRO4ZbfhNXOgUBLWaGy7+wlNtzXCyVt6SR+R6YoOomXKV9iC63sfYNxiqRZFnC5P8m
-	 4cQi5ry2AjL05ztvJ4OXCfLLXuBBf8FyL9AMf0vAWZEoqbC0jdJtnbZPghnJhRkuyoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913854;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:
+	 X-Rspamd-Score:DKIM-Signature;
+	bh=XBlaEP+ZZalLn+AMLvWxVAh3MLL2GxgeVb07XFzJTew=;
+	b=l3VLw0f0O88+jhpaDVLijlw7bssRCwRUY/isdxzbigmABdXNf69pEuZ2FCfY+MpbHONC
+	 zwJumHrAPxtal43zrcoa0Lr2zlehpmFFx7APnR9VD+WwqFtZ5i3hYBdX8mvpZSx5PiuBo
+	 VA0dZ9p+7WLZDsparXWNgvC18FpRhz1Duh6+o4jOSeyi2oGzzdlAGW08nyrCH/ySQnt58
+	 mFy5jeDmyox0Xgxha1GQN/BCGbSg6yXpID3IMC9cDnQwett+M4JzpMx/McY1yHG6AkioP
+	 clep2BmS1wugVbM1ogv283Mm/+YX4vUgp8UoEnCxU0SVJpC3iOBH8+h8d7aANIR2bJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=lcoA3U+t;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=GcmRvluN;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6C3606A31C;
-	Tue, 17 Nov 2026 11:10:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E6C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D821F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D821F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=lcoA3U+t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794913840;
-	bh=TsYVa8isDVataCZgNzSJYbWDvnoB0Lq+O1qTliUZPco=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lcoA3U+teuYzs2jPvFXgWSwLi96f5Dn7/ylXITEs6Lo19EEPT+wJt6/uztcAR22BG
-	 +KI+EEyoncZOoAzhnny98sf+OBaCvyHLEvuam5WS3VjCUK5aira2qhdv4LmhGgUnkc
-	 UOcwJsFofIScApVAlIrsaCeA4HHvqEUomYvvl1VQTWcidsmKkBRc413NkyP64HSPro
-	 UP7qhzP6LRoI7iVyIkxCzXrx9NFaZ0jU7ho7Lgba2E5s2gEuzbrEN0w7k5cDX/RGmA
-	 rlHB3DvCpLg0s4LT7WdQ0zf27JWbBvXIbF5KQSuC5Zpy2cuZw68nmWqcjuCUUL9qmz
-	 Mt42friiwnmwA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A3F5717E07F6;
-	Tue, 17 Nov 2026 12:10:39 +0100 (CET)
-Message-ID: <7bde7e86-3b4f-4f76-9d6e-0a98216ce740@collabora.com>
-Date: Tue, 17 Nov 2026 12:10:39 +0100
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=GcmRvluN
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 789EB60CA1
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:10:52 +0100 (CET)
+Received: (qmail 10627 invoked by uid 990); 17 Nov 2026 11:10:52 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Tue, 17 Nov 2026 12:10:52 +0100
+Message-ID: <dd6010d1-c076-44b2-9f2d-b532a0981699@lausen.nl>
+Date: Tue, 17 Nov 2026 12:10:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,38 +54,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: dts: mediatek: Use DP AltMode defines
-To: Sebastian Reichel <sre@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, kernel@collabora.com,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
- <20261017-dp-altmode-dt-defines-v2-3-7ab3d93553dd@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH net v3 0/3] ipv6: Honor prefix suppression for FIB lookups
+ and cached routes
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+ Shuah Khan <shuah@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261116150132.9594-1-leonard@lausen.nl>
+ <20261117091340.GA581197@shredder>
 Content-Language: en-US
-In-Reply-To: <20261017-dp-altmode-dt-defines-v2-3-7ab3d93553dd@collabora.com>
+From: Leonard Lausen <leonard@lausen.nl>
+In-Reply-To: <20261117091340.GA581197@shredder>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Rspamd-Bar: ---
+X-Rspamd-Report: BAYES_HAM(-2.999967) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -3.089967
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=eNHCyMzMjuTxFdiDys0ATKEpEOHWN3JbqfwqPu9B3g4=;
+	b=GcmRvluNpm4yG+//tqMK3Dv5u4jTtT7PT4TzuyzAT3iQvi4Gm/bfjxiEPVINkZf7DbYR9BZrUc
+	U6qaCOrJD8GyQDzlv3yuJDtNUtqi863BL0wSY3GrHaxu206a+4nig+GpGGzWYc86/oHr1ra46vSW
+	EU4YRyUkVe1n6kx2ZZBDUXWfJFBDjJoLCoL8mzzSnHThcoE9zIUatyaHmpYOmNW+rW1cPOyuf219
+	/89S7/9rZOftBpkpN3MuXzw7S4aDS2A8BaUN1dttP6Sl6+/sgvRfYhqz02PEghySC65cGrpHiGDu
+	HO8qAWOr7toDFdA1TRrmZsyQu4KJpIlAVMcwucb/5LZnj9LuBPAiHec862cfAxwHkRD0+2dsw6/Y
+	EJlDnCmme3bwZq10N+NqYGbKMmYucNbTMSg/O1xq2+ykovonWwQW87Ec+TNt6AERxVLX7OMPXnOw
+	/HpgFYlUG5wI15i4FFZZ2WTI+hmTycfbOPrFqA2f3AzqamuwIrbR8o5UB0py2sokrS7dBPFJ1DHj
+	435qEKSypspEnoHzVOWXRVsxbl/1pA+OIkL1kN77U7+mYbL2Xc0cszP3C7Mb+u28Pv9moT0/LCmE
+	TMLjBnFUxO8qy+rEFVf8GsBg+nDt3LPa41Vj/BnIy6+oChpWBpwzWPkesk/MNfxB9jJpM65lvtEb
+	8=
 
-On 10/17/26 21:59, Sebastian Reichel wrote:
-> From: Sebastian Reichel <sebastian.reichel@collabora.com>
-> 
-> Use the new USB-C DP AltMode defines for the SVID and the capabilities
-> VDO to make the DTs more readable. This also fixes up mt8390 Genio
-> platform incorrectly announcing UFP_D (upwards facing) support. This
-> feature is unfortunately not supported by the SoC.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Hi Ido,
 
-Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+didn't realize it needs to be separated due to net-next and had included 
+it in v3 as it seemed straightforward enough. Will resend to net-next 
+after this series made it there. Apologies.
+
+Best regards
+Leonard
+
+Am 17.11.26 um 10:13 schrieb Ido Schimmel:
+> On Mon, Nov 16, 2026 at 03:01:27PM +0000, Leonard Lausen wrote:
+>> Changes since v2:
+>> - Add the separate cached-exception fix and PMTU regression case.
+> 
+> Why?
+> 
+> I said (twice) that I will take care of it. It's not net material
+> (always broken) and should be routed via net-next. Please send v4
+> without the exception "fix" and the related test case.
+> 
+> Given you already have a patch for this, send it to net-next *after* the
+> fix is present there.
 
