@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927304;
-	b=KGunzpXgDiTBjyiaRZK8kA11eEfAscjGD72lRBLIKfOBIpe5bm3GL2RGKpS5o9vfOmAd
-	 rrise44+T7wQLJ80M5TNORlx/Iavyy+wPRbT/wPQjvmjCl+8wBun3qrAN/JYhWkLSyLEa
-	 s1QtcCrET6PlcSl1EgLcgMQjT9I4jX7G5uJglU2UdZFnOLae+ktInRvPnMeBcXYxtJonZ
-	 KRYEmhLY6X0nsAl6fV5Gf3zmY8EmUr967ZjLDLyTH0K4P0juPH6gIxlJ4gkN/XA25wvcT
-	 A/XKbRoDvv/j+j+e+xaVeVEEUft6paw5XmRuOxoUH2+6asVYWrBnJRV8rVlK9zJV/Xw==
+	t=1794927316;
+	b=hGtCFvHBG7U5ptjimsXH+7vf3RlVFE/L7aNtA9ocaA6tKAamndDYFdQ9jTh1On6Re7Pg
+	 rtUt4134dCORqOOWk6eheUL/3KVPi1IttTc0ALswymUGkHH5fc7sPV1jDX3GJ6XKyVMbs
+	 vUenIo/HMRza2s+IKjt3td+7D0TkQmD0X0nJUxxJl4zZiz56rLZFHipqapplWnysLDFyj
+	 17D0Izo5x8MVRoRO4dU5SB1/L0ntcObMIMiZCNLtbPTMHL764nPdVIB4/PlBR/woBDYWN
+	 IrVKMMM+C0gKB+bwGsiQXlLGVj5Mc9QHi5JV/da5aRcF0dgRIRPI/ms20medzSkGd6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927304;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=JZ67Ln6ziaBPsKaIzdqErWNCSGgvnSYlqc/yhQf9HX0=;
-	b=UiUpjOV324/krXLbkNr9iZsjfRIwlZOWvjRsRKmHEFGtCkjKBSZy3R2SuFnvZFQa/eBI
-	 /35KGVgP24CDhpHG+Da6CFA/kMCSoIrUL/Ummg/uUoBnOEb5sjE0v7EiCNEOitZDCs0DQ
-	 mnDdRrykfbmXNM2glOBVNwXE2EWodRhzjuqoQWaxAxObkYjZ/ggdsxv1WMeX9Jk9ugee+
-	 q/ePqUqYs0D3L/RO6t+54G6IZf3Oy/rhs+PXFU+hvzY/FN+7zgUliaOvzDCHAXV9ESrBF
-	 MdOmTiKro6eMQWRBG2m27e1UPaHIbv5d1U+AZC7qPLaTVd8XD8kDm0fqXGHXTSKGFqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927316;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=TD4unzIkvrOq6TRq1/+CgCb71DJUPC8dz67V6tVj8eI=;
+	b=43BAHUB32vjqBuGfGLHxOu3LbohXEeevnzDpXbegjV0hz9zzUKCu3BHy6kqTEnPbhPSC
+	 nIQH76QSIx1OFs7XN9whhVdYy4LAVnWRFFPBrdsb9sfsHclbvsStr9EkB7q5fD+KpayiW
+	 NXDwCwc38KkxBLCVG27QRHixqgHVDDEg4hiz9cvbDpagrLtWyeZMDYh7atxz3O0db2dsN
+	 AeVXd+nbuI1i5CG5dE5UFZgvi+sPilICU3Olcj7boxWWrTDBdiG1uU9CF8IZTCtxAnWdk
+	 YbbbyoMki62iHNIksd4NkxU/rqlGMpubM44LAwacq7HubWpDF2Di17k4r11htsGYURw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=cxPrl4Mm;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RFBHk48C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA66606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEA66606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B15606A31C;
+	Tue, 17 Nov 2026 14:55:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=cxPrl4Mm
-Received: from macsyma.thunk.org (c-73-9-28-129.hsd1.il.comcast.net [73.9.28.129])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6AHEsWAV025356
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 09:54:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794927277; bh=JZ67Ln6ziaBPsKaIzdqErWNCSGgvnSYlqc/yhQf9HX0=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=cxPrl4Mm1T30CBSddcZy5wnEp6gC/wd8ru0R7LA87M2l8dJaIPqQsiEnyxIe2ZUCU
-	 eygzAr76BDUzp/18d24nDpDp54kiP9TiW4gx5pRs2JjFcjPA2j8s0FhAxU1sBKC/Ns
-	 2wYcU39Se3OKsn0M4KHgbKq8MaZ9WrdqgSJ8RVv/BGGfvXOLpNvakevm0PinCI5Lqq
-	 160eXk9lwAXj4dwMpeqCKzXwGRdgDLChvNGzx5Zs/A3xWNx0h5c43cHAOednZoLbE4
-	 mItAna7bt2OFZ55xE4AomDkNmIffUWVZKGnCZE56UOJ0rloMcwNFABBHIPxd8yFtoN
-	 95wDlCS2Zo9hQ==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id A03EE27D8EC8; Tue, 17 Nov 2026 09:54:32 -0500 (EST)
-Date: Tue, 17 Nov 2026 09:54:32 -0500
-From: "Theodore Tso" <tytso@mit.edu>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Gabriel Krisman Bertazi <krisman@suse.de>,
-        Sarthak Kukreti <sarthakkukreti@google.com>,
-        Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <brauner@kernel.org>,
-        Gabriel Krisman Bertazi <krisman@collabora.co.uk>,
-        Eric Biggers <ebiggers@google.com>, Dmitry Torokhov <dtor@google.com>,
-        linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] libfs: reject casefolded names that fold to ".",
- "..", or empty
-Message-ID: <avxe5v6r1C7ZG7E2@mit.edu>
-References: <20261113065332.929085-1-sarthakkukreti@google.com>
- <20261113065332.929085-2-sarthakkukreti@google.com>
- <878q2swoxp.fsf@cartola>
- <avu0X5E298dHRBHY@mit.edu>
- <20261117084727.0cfa196a@pumpkin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RFBHk48C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1541F000C4;
+	Tue, 17 Nov 2026 14:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794927315;
+	bh=TD4unzIkvrOq6TRq1/+CgCb71DJUPC8dz67V6tVj8eI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RFBHk48CpBjsJzzO3GSxKfCBercZdP248X51KLSsbkRNqEo1sygCqWh8sHfTACtiz
+	 Eunu9JbkrOkbQEfJHH4wMxhIzhDZEI4cTf/MO2RsdAsbDd9j6UiVKtMFIpR6W5xAr/
+	 8DAlqiywOoVc7A9/p+IVeTIfSergUTFj+/NgNe+1ZnMq4SFWj2IsMQBDCB++/1Szv7
+	 awGi75rsYvsJIUBCH2YdfR5idaIVy8AEuIXVIvJXI7pnJgU8APm22seOWXza+QKtax
+	 5dr4/wQ4rRXbv6ht+nYk2mjmssNMOhtTxGN+GB7J+9X2AwTIVHY2medbdmLwPa3Zoh
+	 VySF3bUQZgryA==
+Message-ID: <sashiko-outbox-218998@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 12/40] sched/deadline: Replenish a throttled task
+ boosted while asleep
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <7bb821fa298ce41c9f6e49b5b6f5e462b41db8d5.1794922146.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+ <7bb821fa298ce41c9f6e49b5b6f5e462b41db8d5.1794922146.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 14:55:15 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,30 +60,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117084727.0cfa196a@pumpkin>
 
-On Tue, Nov 17, 2026 at 08:47:27AM -0500, David Laight wrote:
-> > Sigh... I really think these characters are *evil*.  I wonder if we
-> > should simply drop those code points unconditionally when they are fed
-> > to the kernel --- not only folding to themselves, but *not* preserving
-> > them when a misguided application tries to create a file with one of
-> > these misbegotten Unicode charactesr.
-> 
-> Doesn't that assume that filenames are UTF8 rather than just sequences
-> of bytes with everything except '\0' and '/' being valid.
-> Casefolding is itself so evil/impossible it shouldn't have been allowed.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] sched/deadline: dl_task_timer() refills sleeping boosted task
+  from donor
+--
 
-We would only do this if casefolding is enabled.  For better or for
-worse, it's better than what it replaced which was this terrible
-wrapfs hack that was a trivial to trigger deadlocks using fsstress ---
-which was even more evil.
+commit 2a5083dbbf5a615c669ceffa5d4cba59162262f3
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-The other way we can deal with this is that if case folding is
-enabled, we change the VFS to call the case-folding for incoming
-filename *before* it does its special case checking for '.' and '..'
-if casefolding is enabled.
+sched/deadline: Replenish a throttled task boosted while asleep
 
-					- Ted
+This commit changes dl_task_timer() to return early for a boosted task only
+when it is queued on the runqueue, allowing a sleeping boosted task to fall
+through and be replenished when its deadline timer fires.
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 989e7e7d3f8f1..2b5a2a43addfd 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -1319,10 +1319,13 @@ static enum hrtimer_restart dl_task_timer(struct =
+hrtimer *timer)
+>  	}
+> =20
+>  	/*
+> -	 * The task might have been boosted by someone else and might be in the
+> -	 * boosting/deboosting path, its not throttled.
+> +	 * A boost overrides the throttle. enqueue_task_dl() lifts it when the
+> +	 * boost enqueues the task, or when the task wakes up boosted. So a
+> +	 * queued task needs nothing here. A boost of a sleeping task does not
+> +	 * enqueue it, and it can end before the wakeup. Nothing would lift the
+> +	 * throttle then. So let a sleeping task reach the !queued case below.
+>  	 */
+> -	if (is_dl_boosted(dl_se))
+> +	if (is_dl_boosted(dl_se) && task_on_rq_queued(p))
+>  		goto unlock;
+> =20
+>  	/*
+
+[Severity: Medium]
+Does letting a sleeping boosted task fall through to replenish_dl_entity()
+corrupt its CBS accounting by refilling its pre-boost deficit from the
+donor's reservation parameters?
+
+A task only sets dl_throttled and arms dl_timer while unboosted, so when
+dl_task_timer() fires while p is still asleep, p has never executed under
+the boost and dl_se->runtime and dl_se->deadline still reflect p's own
+pre-sleep reservation.  However, replenish_dl_entity() reads runtime,
+deadline, and period from pi_of(dl_se):
+
+kernel/sched/deadline.c:replenish_dl_entity() {
+	...
+	if (dl_se->runtime <=3D 0)
+		dl_note_donor_refill(dl_se);
+
+	while (dl_se->runtime <=3D 0) {
+		dl_se->deadline +=3D period;
+		dl_se->runtime +=3D runtime;
+	}
+	...
+}
+
+Because dl_note_donor_refill() sets dl_se->dl_donor_refill, if the donor
+times out and deboosts p before wakeup, dl_deboost() resets dl_se->deadline
+and dl_se->runtime to a full new period, forgiving any runtime overrun p
+owed before going to sleep.
+
+If p instead wakes up while still boosted after overrunning its own budget,
+the while loop above pays off p's overrun in multiples of the donor's
+smaller runtime and period, which can push p's boosted deadline several
+donor periods into the future.  For a constrained-deadline task whose
+dl_timer fires at dl_next_period(dl_se), adding a donor's shorter dl_period
+to p's earlier dl_se->deadline can leave dl_se->deadline behind rq_clock(rq)
+and falsely trigger the "sched: DL replenish lagged too much" warning.  If
+the donor left SCHED_DEADLINE and had its parameters cleared before
+dl_task_timer() runs, the !runtime branch in replenish_dl_entity() skips
+dl_note_donor_refill() and the deadline update because dl_se->dl_deadline is
+non-zero, leaving p's expired deadline in the past after dl_deboost().
+Finally, if p changed policy while sleeping and boosted, refilling from the
+donor before 0-lag time leaves donor-derived runtime and deadline on p when
+rt_mutex_setprio() drops the boost via dl_drop_boost().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
+t.mathieu.desnoyers@efficios.com?part=3D12
