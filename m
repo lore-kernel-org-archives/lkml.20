@@ -1,107 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905126;
-	b=mi5VsEosL/iaezvFXS3sFcPk1Xi8WOnhpeWagKofC/3MSMGw1ec7dJzrJpXHA+rSPsNp
-	 688HbHuSobHP1mkFWntgtWm1I5/yMp+fopT8paXAIEVH8MAnrJ0JqXTOEAuaLHGmcyP8w
-	 BXZU6ggg1RYn43CnD7zYGVJk27oHAn9cNOacB635mkpGgxEnHjEpyGZNLxF0mWJdBzjEU
-	 9rjWEZ5GXuQ1zi/dGirPJMCDO7wJDfUz0kpXBMMj/I3NjS3LkIPVI9jdgGRj7RB0d34Do
-	 9buEVgxXkIweQO85z5U67BSColB3aUhVZnRg58Fspxkmi0ltyu8EWiezFoD1nOLXrXw==
+	t=1794905140;
+	b=b8XOIqUZV5jKpTWOIHJ4LHDW8zNqdHQWQMuIKvcZ9rELaJTMe5cfPIhMo6RclxQXoZye
+	 /LG5PBj+9r6IEypyn33N9nvDjjHaKccYodckQXKo6I2SzNw8a6Mpt2rZFH+7XCeA31f7X
+	 vGa++wLisa+lro3D7xb/fJBBiWRdb2ApagXdYuYBjk3flEKsDVCBJra7ucA9xkyKDx72i
+	 aQaRdfsJRUJzbcsifnahFRceV8SJxloNQtbRRU8Uljf5TGs65l1NmjyvDR6BIU/V7SBtr
+	 blj3G9XVkrK8OAeC4N+HN/ixhjuFcr1lak1MH1tV8c4I8Hl3LHZYR9kbmOp1Vw+j5Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905126;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
-	b=3OLnvOn6K4DniO2aA2E4flcoM4s8blHbaC8L96+RxsoMB0qwDB3rZOrRzJqbchmQVEn2
-	 Qp1jYx+TkVIzcWI9hURomFWKu3WsGpC8GaCZQseFsXBHxsQjC6T7Ce8qpWrJkZGKDRcFH
-	 7fyOaNvT0XeeFbBgdsVgQY3h55awVvfwmKQ3QTZ6LI0ybzyyRrSyTptpl83nEygxBxxZW
-	 Ez3Hz7A4VZNU9apwrFKU+krA+l+6odNof8AlGQeCb8cujRWqdO5rVxD1hUqjIVp4Gotvd
-	 FlS8/mfQnGubjdOGURkplLuiPkpFTZ9vUEEfD71+p8/XcUbJJ1rcL1YZqr6VAdN6Psw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905140;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=DezbHtCd3hypT1eHDNwCunwup1tFxqb9i/BJNZQvL3k=;
+	b=wal432cXKDL9eW9DyDAXBA7Z/CN/ieYh7NIozFrWtbi0ogYHhVCITeY6cMlrjZIphfDQ
+	 LtydONEKg3CaBqxhEdKtbwSFZEjyVZpBMnY4XgmL2gUOC6+31XbCovZ1Elxhnjg8lMvqz
+	 gyvL+qINacazfqz5WCds/X9XoKQsKoM3JziBuHLMYn8feMD81kAXpS9ysFgIiDpb2lA8l
+	 OQCGqRAV5jOeR/rnTdXVjMtF97pKHVgGxoXlAV8CsKCBTuShMmHA9O6gl9KInZQrwXI2W
+	 OoT0cB/er0lKFBufMyBsdYr6NJdVgJLMjWGZPMwo5vLND9ajSaPQoWBoBqX0MOCn2bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="RTH1Mo2/";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="RTH1Mo2/";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="GO50dc6/";
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81235606A88C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81235606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5DD606A337;
+	Tue, 17 Nov 2026 08:45:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C5DD606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RTH1Mo2/;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RTH1Mo2/;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GO50dc6/
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3F1EB1F6E6;
-	Tue, 17 Nov 2026 08:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794905119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
-	b=RTH1Mo2/pGsyMVQ6MZkmn8Sne7L3PSATKzVEjORb85vQE4ASWcLdtZVlJMiBn1KbpzqSON
-	EkO2cy9gnNWfiE5qYy3pi/drG3qXTVDOvziiCvavMnf2xd8ySHT+UBNmwPSqDHiCYX1/1f
-	oVSl8S1Vhl34YEp7dtcwj28Rm8F2IEA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794905119;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
-	b=W7mv2tzXxk/39zBlHT9iI910ZFYYrOnP1dYw3039aBTdW26qrLIFpRk3LI2qYJ0ivI0ov/
-	90yh40VC+HmVviAw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="RTH1Mo2/";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=W7mv2tzX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794905119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
-	b=RTH1Mo2/pGsyMVQ6MZkmn8Sne7L3PSATKzVEjORb85vQE4ASWcLdtZVlJMiBn1KbpzqSON
-	EkO2cy9gnNWfiE5qYy3pi/drG3qXTVDOvziiCvavMnf2xd8ySHT+UBNmwPSqDHiCYX1/1f
-	oVSl8S1Vhl34YEp7dtcwj28Rm8F2IEA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794905119;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
-	b=W7mv2tzXxk/39zBlHT9iI910ZFYYrOnP1dYw3039aBTdW26qrLIFpRk3LI2qYJ0ivI0ov/
-	90yh40VC+HmVviAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D0BCC1334C;
-	Tue, 17 Nov 2026 08:45:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jcr5JR4U/GrjUQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 08:45:18 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: javierm@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jTJGK3mhYzKnh3;
+	Tue, 17 Nov 2026 09:45:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794905129;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DezbHtCd3hypT1eHDNwCunwup1tFxqb9i/BJNZQvL3k=;
+	b=GO50dc6/HVjeV41229FKdWwES4NpxJJhDlDZigkZ3+vM29imYgmk90hxAjJeH93i73BSH+
+	8y7RPFasxVbOKg5+zYF1b3WPdOZIQ30nU/JRGxHW3qXGsWEbh6mPjfBR2lxoLN9A53snN5
+	Kmx24gb08ySNfOtBnwMS3gqUMGgbptePByNUwnmZPGhRwCjmKLtsUh3J4UoOu0C9NMKFR4
+	gBq74VDdGpfHSExtPn9UaTTnUfBYOnseqMNMY8tGOKkIpdril77Xpyg10cunUnF9YkKn+e
+	Uux1WarCFtKCiqIWbos5DwfFOBWYdNgji+sfA2u7tp9ewbCicQQ9o8PHcoIvwA==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Breno Leitao <leitao@debian.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Edward Adam Davis <eadavis@sina.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	arm-scmi@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH] firmware: sysfb: Remove CONFIG_SYSFB_SIMPLEFB
-Date: Tue, 17 Nov 2026 09:44:57 +0100
-Message-ID: <20261117084514.367399-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.0
+	systemd-devel@lists.freedesktop.org
+Subject: [PATCH] [RFC] kernel/reboot: Add orderly_suspend() via /sbin/suspend user mode helper
+Date: Tue, 17 Nov 2026 09:44:19 +0100
+Message-ID: <20261117084523.50711-1-marek.vasut+renesas@mailbox.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,377 +87,208 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 3F1EB1F6E6
+X-MBO-RS-ID: f8999e5d1c94626d345
+X-MBO-RS-META: rnnwiz1qpbuo1m538wigdx8oazjoq1un
 
-Enabling SYSFB_SIMPLEFB creates a system-framebuffer device on top of
-a firmware-provided UEFI or VESA framebuffer. It is inflexible and lacks
-support for various features, such as EDID and color LUTs. Therefore
-commit cc79eaf8ee25 ("firmware: sysfb: Mark CONFIG_SYSFB_SIMPLEFB as
-deprecated") marked CONFIG_SYSFB_SIMPLEFB as deprecated.
+Currently, Linux responds to firmware-issued poweroff and reboot requests
+by invoking user mode helpers /sbin/poweroff and /sbin/reboot, which give
+userspace the ability to perform orderly poweroff and reboot according to
+policy set by userspace.
 
-Remove CONFIG_SYSFB_SIMPLEFB and the related code. Remaining users are
-advised to upgrade to efi-framebuffer and vesa-framebuffer with efidrm
-and vesadrm on top. Also remove the outdated comment from sysfb.c.
+This is not the case for firmware-issued suspend request, which directly
+invokes pm_suspend(PM_SUSPEND_MEM), without giving userspace any way to
+determine the suspend policy. This is problematic, because the userspace
+might not be quite ready to suspend right the instant when the suspend
+request from firmware arrives, e.g. because the user is interacting with
+the device and the userspace knows that interaction will end in the near
+future, at which point the system can be suspended perfectly well.
 
-Note that this change does not affect DeviceTree simple-framebuffer.
-The kernel still parses them and creates a simple-framebuffer device
-for each.
+Introduce a user mode helper, /sbin/suspend, which acts the same way as
+the other user mode helpers, and which is invoked when firmware-issued
+suspend request arrives. Userspace can use the helper to apply suspend
+policy, most likely by invoking init system suspend target. In case the
+helper is not present, retain current behavior and suspend immediately.
 
-The MIPS architecture code creates a simple-framebuffer device for the
-display output on the Nintendo N64. Removing CONFIG_SYSFB_SIMPLEFB does
-not affect this code either.
+Note that /sbin/suspend is non-standard. I also considered registering
+an input device and sending KEY_SUSPEND via such a device, but that does
+not seems nice. I also had a look at wake locks, but I don't think this
+is the right tool either. I am sending this as an RFC, because I would
+like to get input on this. I am including change for two platforms, SCMI
+and ZynqMP, which could benefit from this. Thank you for your input !
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
- drivers/firmware/Kconfig          |  16 ----
- drivers/firmware/Makefile         |   1 -
- drivers/firmware/sysfb.c          |  33 -------
- drivers/firmware/sysfb_simplefb.c | 140 ------------------------------
- drivers/gpu/drm/sysfb/Kconfig     |   4 +-
- include/linux/sysfb.h             |  25 ------
- 6 files changed, 2 insertions(+), 217 deletions(-)
- delete mode 100644 drivers/firmware/sysfb_simplefb.c
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Edward Adam Davis <eadavis@sina.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Kees Cook <kees+treewide@kernel.org>
+Cc: Marco Crivellari <marco.crivellari@suse.com>
+Cc: Michal Simek <michal.simek@amd.com>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Pan Chuang <panchuang@vivo.com>
+Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+Cc: Petr Mladek <pmladek@suse.com>
+Cc: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: arm-scmi@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: systemd-devel@lists.freedesktop.org
+---
+ .../firmware/arm/scmi/scmi_power_control.c    | 11 +-----
+ drivers/soc/xilinx/zynqmp_power.c             |  4 +--
+ include/linux/reboot.h                        |  1 +
+ kernel/reboot.c                               | 34 +++++++++++++++++++
+ 4 files changed, 38 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-index 43e2e2a64594..ab76a6f7f0ab 100644
---- a/drivers/firmware/Kconfig
-+++ b/drivers/firmware/Kconfig
-@@ -210,22 +210,6 @@ config SYSFB
- 	select BOOT_VESA_SUPPORT
- 	select SCREEN_INFO
- 
--config SYSFB_SIMPLEFB
--	bool "Mark VGA/VBE/EFI FB as generic system framebuffer (deprecated)"
--	depends on X86 || EFI
--	select SYSFB
--	help
--	  Firmware often provides initial graphics framebuffers so the BIOS,
--	  bootloader or kernel can show basic video-output during boot for
--	  user-guidance and debugging.
--
--	  This option, if enabled, marks VBE/EFI framebuffers as system
--	  framebuffers so the generic simpledrm driver can be used.
--
--	  This option is deprecated and will be removed in the near future. If
--	  unsure, say N and select efidrm, vesadrm instead. The dedicated DRM
--	  drivers provide the same functionality plus additional features.
--
- config TH1520_AON_PROTOCOL
- 	tristate "Always-On firmware protocol"
- 	depends on ARCH_THEAD || COMPILE_TEST
-diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-index 50b338313152..6a9413454d10 100644
---- a/drivers/firmware/Makefile
-+++ b/drivers/firmware/Makefile
-@@ -19,7 +19,6 @@ obj-$(CONFIG_RASPBERRYPI_FIRMWARE) += raspberrypi.o
- obj-$(CONFIG_FW_CFG_SYSFS)	+= qemu_fw_cfg.o
- obj-$(CONFIG_FW_ATTR_CLASS)	+= firmware_attributes_class.o
- obj-$(CONFIG_SYSFB)		+= sysfb.o
--obj-$(CONFIG_SYSFB_SIMPLEFB)	+= sysfb_simplefb.o
- obj-$(CONFIG_TH1520_AON_PROTOCOL) += thead,th1520-aon.o
- obj-$(CONFIG_TI_SCI_PROTOCOL)	+= ti_sci.o
- obj-$(CONFIG_TRUSTED_FOUNDATIONS) += trusted_foundations.o
-diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 8833582c1883..07738b9e89c5 100644
---- a/drivers/firmware/sysfb.c
-+++ b/drivers/firmware/sysfb.c
-@@ -4,33 +4,11 @@
-  * Copyright (c) 2012-2013 David Herrmann <dh.herrmann@gmail.com>
+diff --git a/drivers/firmware/arm/scmi/scmi_power_control.c b/drivers/firmware/arm/scmi/scmi_power_control.c
+index e791a206768c2..b61afb46ca7ef 100644
+--- a/drivers/firmware/arm/scmi/scmi_power_control.c
++++ b/drivers/firmware/arm/scmi/scmi_power_control.c
+@@ -80,7 +80,6 @@ enum scmi_syspower_state {
+  * @reboot_nb: A notifier_block optionally used to track reboot progress
+  * @forceful_work: A worker used to trigger a forceful transition once a
+  *		   graceful has timed out.
+- * @suspend_work: A worker used to trigger system suspend
   */
+ struct scmi_syspower_conf {
+ 	struct device *dev;
+@@ -93,7 +92,6 @@ struct scmi_syspower_conf {
+ 	struct notifier_block reboot_nb;
  
--/*
-- * Simple-Framebuffer support
-- * Create a platform-device for any available boot framebuffer. The
-- * simple-framebuffer platform device is already available on DT systems, so
-- * this module parses the global "screen_info" object and creates a suitable
-- * platform device compatible with the "simple-framebuffer" DT object. If
-- * the framebuffer is incompatible, we instead create a legacy
-- * "vesa-framebuffer", "efi-framebuffer" or "platform-framebuffer" device and
-- * pass the screen_info as platform_data. This allows legacy drivers
-- * to pick these devices up without messing with simple-framebuffer drivers.
-- * The global "screen_info" is still valid at all times.
-- *
-- * If CONFIG_SYSFB_SIMPLEFB is not selected, never register "simple-framebuffer"
-- * platform devices, but only use legacy framebuffer devices for
-- * backwards compatibility.
-- *
-- * TODO: We set the dev_id field of all platform-devices to 0. This allows
-- * other OF/DT parsers to create such devices, too. However, they must
-- * start at offset 1 for this to work.
-- */
--
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/mm.h>
- #include <linux/pci.h>
--#include <linux/platform_data/simplefb.h>
- #include <linux/platform_device.h>
- #include <linux/screen_info.h>
- #include <linux/sysfb.h>
-@@ -145,9 +123,7 @@ static __init int sysfb_init(void)
- 	struct screen_info *si = &dpy->screen;
- 	struct device *parent;
- 	unsigned int type;
--	struct simplefb_platform_data mode;
- 	const char *name;
--	bool compatible;
- 	int ret = 0;
+ 	struct delayed_work forceful_work;
+-	struct work_struct suspend_work;
+ };
  
- 	screen_info_apply_fixups();
-@@ -164,17 +140,8 @@ static __init int sysfb_init(void)
- 		goto unlock_mutex;
- 	}
+ #define userspace_nb_to_sconf(x)	\
+@@ -254,7 +252,7 @@ static void scmi_request_graceful_transition(struct scmi_syspower_conf *sc,
+ 		orderly_reboot();
+ 		break;
+ 	case SCMI_SYSTEM_SUSPEND:
+-		schedule_work(&sc->suspend_work);
++		orderly_suspend();
+ 		break;
+ 	default:
+ 		break;
+@@ -323,11 +321,6 @@ static int scmi_userspace_notifier(struct notifier_block *nb,
+ 	return NOTIFY_OK;
+ }
  
--	/* try to create a simple-framebuffer device */
--	compatible = sysfb_parse_mode(si, &mode);
--	if (compatible) {
--		pd = sysfb_create_simplefb(si, &mode, parent);
--		if (!IS_ERR(pd))
--			goto put_device;
--	}
--
- 	type = screen_info_video_type(si);
- 
--	/* if the FB is incompatible, create a legacy framebuffer device */
- 	switch (type) {
- 	case VIDEO_TYPE_EGAC:
- 		name = "ega-framebuffer";
-diff --git a/drivers/firmware/sysfb_simplefb.c b/drivers/firmware/sysfb_simplefb.c
-deleted file mode 100644
-index 71f542e37732..000000000000
---- a/drivers/firmware/sysfb_simplefb.c
-+++ /dev/null
-@@ -1,140 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * Generic System Framebuffers
-- * Copyright (c) 2012-2013 David Herrmann <dh.herrmann@gmail.com>
-- */
--
--/*
-- * simple-framebuffer probing
-- * Try to convert "screen_info" into a "simple-framebuffer" compatible mode.
-- * If the mode is incompatible, we return "false" and let the caller create
-- * legacy nodes instead.
-- */
--
--#include <linux/err.h>
--#include <linux/init.h>
--#include <linux/kernel.h>
--#include <linux/mm.h>
--#include <linux/platform_data/simplefb.h>
--#include <linux/platform_device.h>
--#include <linux/screen_info.h>
--#include <linux/sysfb.h>
--
--static const char simplefb_resname[] = "BOOTFB";
--static const struct simplefb_format formats[] = SIMPLEFB_FORMATS;
--
--/* try parsing screen_info into a simple-framebuffer mode struct */
--__init bool sysfb_parse_mode(const struct screen_info *si,
--			     struct simplefb_platform_data *mode)
+-static void scmi_suspend_work_func(struct work_struct *work)
 -{
--	__u8 type;
--	u32 bits_per_pixel;
--	unsigned int i;
--
--	type = si->orig_video_isVGA;
--	if (type != VIDEO_TYPE_VLFB && type != VIDEO_TYPE_EFI)
--		return false;
--
--	bits_per_pixel = __screen_info_lfb_bits_per_pixel(si);
--
--	for (i = 0; i < ARRAY_SIZE(formats); ++i) {
--		const struct simplefb_format *f = &formats[i];
--
--		if (f->transp.length)
--			continue; /* transparent formats are unsupported by VESA/EFI */
--
--		if (bits_per_pixel == f->bits_per_pixel &&
--		    si->red_size == f->red.length &&
--		    si->red_pos == f->red.offset &&
--		    si->green_size == f->green.length &&
--		    si->green_pos == f->green.offset &&
--		    si->blue_size == f->blue.length &&
--		    si->blue_pos == f->blue.offset) {
--			mode->format = f->name;
--			mode->width = si->lfb_width;
--			mode->height = si->lfb_height;
--			mode->stride = si->lfb_linelength;
--			return true;
--		}
--	}
--
--	return false;
+-	pm_suspend(PM_SUSPEND_MEM);
 -}
 -
--__init struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
--						     const struct simplefb_platform_data *mode,
--						     struct device *parent)
--{
--	struct platform_device *pd;
--	struct resource res;
--	u64 base, size;
--	u32 length;
--	int ret;
--
--	/*
--	 * If the 64BIT_BASE capability is set, ext_lfb_base will contain the
--	 * upper half of the base address. Assemble the address, then make sure
--	 * it is valid and we can actually access it.
--	 */
--	base = si->lfb_base;
--	if (si->capabilities & VIDEO_CAPABILITY_64BIT_BASE)
--		base |= (u64)si->ext_lfb_base << 32;
--	if (!base || (u64)(resource_size_t)base != base) {
--		printk(KERN_DEBUG "sysfb: inaccessible VRAM base\n");
--		return ERR_PTR(-EINVAL);
--	}
--
--	/*
--	 * Don't use lfb_size as IORESOURCE size, since it may contain the
--	 * entire VMEM, and thus require huge mappings. Use just the part we
--	 * need, that is, the part where the framebuffer is located. But verify
--	 * that it does not exceed the advertised VMEM.
--	 * Note that in case of VBE, the lfb_size is shifted by 16 bits for
--	 * historical reasons.
--	 */
--	size = si->lfb_size;
--	if (si->orig_video_isVGA == VIDEO_TYPE_VLFB)
--		size <<= 16;
--	length = mode->height * mode->stride;
--	if (length > size) {
--		printk(KERN_WARNING "sysfb: VRAM smaller than advertised\n");
--		return ERR_PTR(-EINVAL);
--	}
--	length = PAGE_ALIGN(length);
--
--	/* setup IORESOURCE_MEM as framebuffer memory */
--	memset(&res, 0, sizeof(res));
--	res.flags = IORESOURCE_MEM;
--	res.name = simplefb_resname;
--	res.start = base;
--	res.end = res.start + length - 1;
--	if (res.end <= res.start)
--		return ERR_PTR(-EINVAL);
--
--	pd = platform_device_alloc("simple-framebuffer", 0);
--	if (!pd)
--		return ERR_PTR(-ENOMEM);
--
--	pd->dev.parent = parent;
--
--	sysfb_set_efifb_fwnode(si, pd);
--
--	ret = platform_device_add_resources(pd, &res, 1);
--	if (ret)
--		goto err_put_device;
--
--	ret = platform_device_add_data(pd, mode, sizeof(*mode));
--	if (ret)
--		goto err_put_device;
--
--	ret = platform_device_add(pd);
--	if (ret)
--		goto err_put_device;
--
--	return pd;
--
--err_put_device:
--	platform_device_put(pd);
--
--	return ERR_PTR(ret);
--}
-diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
-index f7e48178885e..05d4b3ab4d08 100644
---- a/drivers/gpu/drm/sysfb/Kconfig
-+++ b/drivers/gpu/drm/sysfb/Kconfig
-@@ -25,7 +25,7 @@ config DRM_COREBOOTDRM
+ static int scmi_syspower_probe(struct scmi_device *sdev)
+ {
+ 	int ret;
+@@ -352,8 +345,6 @@ static int scmi_syspower_probe(struct scmi_device *sdev)
+ 	sc->dev = &sdev->dev;
+ 	dev_set_drvdata(&sdev->dev, sc);
  
- config DRM_EFIDRM
- 	tristate "EFI framebuffer driver"
--	depends on DRM && MMU && EFI && (!SYSFB_SIMPLEFB || COMPILE_TEST)
-+	depends on DRM && MMU && EFI
- 	select APERTURE_HELPERS
- 	select DRM_CLIENT_SELECTION
- 	select DRM_GEM_SHMEM_HELPER
-@@ -72,7 +72,7 @@ config DRM_SIMPLEDRM
+-	INIT_WORK(&sc->suspend_work, scmi_suspend_work_func);
+-
+ 	return handle->notify_ops->devm_event_notifier_register(sdev,
+ 							   SCMI_PROTOCOL_SYSTEM,
+ 					 SCMI_EVENT_SYSTEM_POWER_STATE_NOTIFIER,
+diff --git a/drivers/soc/xilinx/zynqmp_power.c b/drivers/soc/xilinx/zynqmp_power.c
+index ce75bc5ca9633..cd1cab58e84ca 100644
+--- a/drivers/soc/xilinx/zynqmp_power.c
++++ b/drivers/soc/xilinx/zynqmp_power.c
+@@ -112,7 +112,7 @@ static irqreturn_t zynqmp_pm_isr(int irq, void *data)
+ 			orderly_poweroff(true);
+ 			break;
+ 		case SUSPEND_POWER_REQUEST:
+-			pm_suspend(PM_SUSPEND_MEM);
++			orderly_suspend();
+ 			break;
+ 		default:
+ 			pr_err("%s Unsupported InitSuspendCb reason code %d\n",
+@@ -196,7 +196,7 @@ static void zynqmp_pm_init_suspend_work_fn(struct work_struct *work)
+ 	if (pm_work->args[0] == SUSPEND_SYSTEM_SHUTDOWN) {
+ 		orderly_poweroff(true);
+ 	} else if (pm_work->args[0] == SUSPEND_POWER_REQUEST) {
+-		pm_suspend(PM_SUSPEND_MEM);
++		orderly_suspend();
+ 	} else {
+ 		pr_err("%s Unsupported InitSuspendCb reason code %d.\n",
+ 		       __func__, pm_work->args[0]);
+diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+index aa08c3bbbf59a..c009deb3eb2b6 100644
+--- a/include/linux/reboot.h
++++ b/include/linux/reboot.h
+@@ -177,6 +177,7 @@ void ctrl_alt_del(void);
  
- config DRM_VESADRM
- 	tristate "VESA framebuffer driver"
--	depends on DRM && MMU && X86 && (!SYSFB_SIMPLEFB || COMPILE_TEST)
-+	depends on DRM && MMU && X86
- 	select APERTURE_HELPERS
- 	select DRM_CLIENT_SELECTION
- 	select DRM_GEM_SHMEM_HELPER
-diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
-index ed23d6516223..611c8f0d13da 100644
---- a/include/linux/sysfb.h
-+++ b/include/linux/sysfb.h
-@@ -110,29 +110,4 @@ static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
+ extern void orderly_poweroff(bool force);
+ extern void orderly_reboot(void);
++extern void orderly_suspend(void);
  
- #endif /* CONFIG_EFI */
+ /**
+  * enum hw_protection_action - Hardware protection action
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index bc71183d4ad87..1d830051dc920 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -851,6 +851,7 @@ void ctrl_alt_del(void)
+ #define POWEROFF_CMD_PATH_LEN  256
+ static char poweroff_cmd[POWEROFF_CMD_PATH_LEN] = "/sbin/poweroff";
+ static const char reboot_cmd[] = "/sbin/reboot";
++static const char suspend_cmd[] = "/sbin/suspend";
  
--#ifdef CONFIG_SYSFB_SIMPLEFB
--
--bool sysfb_parse_mode(const struct screen_info *si,
--		      struct simplefb_platform_data *mode);
--struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
--					      const struct simplefb_platform_data *mode,
--					      struct device *parent);
--
--#else /* CONFIG_SYSFB_SIMPLEFB */
--
--static inline bool sysfb_parse_mode(const struct screen_info *si,
--				    struct simplefb_platform_data *mode)
--{
--	return false;
--}
--
--static inline struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
--							    const struct simplefb_platform_data *mode,
--							    struct device *parent)
--{
--	return ERR_PTR(-EINVAL);
--}
--
--#endif /* CONFIG_SYSFB_SIMPLEFB */
--
- #endif /* _LINUX_SYSFB_H */
+ static int run_cmd(const char *cmd)
+ {
+@@ -872,6 +873,20 @@ static int run_cmd(const char *cmd)
+ 	return ret;
+ }
+ 
++static int __orderly_suspend(void)
++{
++	int ret;
++
++	ret = run_cmd(suspend_cmd);
++
++	if (ret) {
++		pr_info("Failed to start orderly suspend: fall back to suspend-to-mem\n");
++		pm_suspend(PM_SUSPEND_MEM);
++	}
++
++	return ret;
++}
++
+ static int __orderly_reboot(void)
+ {
+ 	int ret;
+@@ -951,6 +966,25 @@ void orderly_reboot(void)
+ }
+ EXPORT_SYMBOL_GPL(orderly_reboot);
+ 
++static void suspend_work_func(struct work_struct *work)
++{
++	__orderly_suspend();
++}
++
++static DECLARE_WORK(suspend_work, suspend_work_func);
++
++/**
++ * orderly_suspend - Trigger an orderly system suspend
++ *
++ * This may be called from any context to trigger a system suspend.
++ * If the orderly suspend fails, it will force an immediate suspend.
++ */
++void orderly_suspend(void)
++{
++	schedule_work(&suspend_work);
++}
++EXPORT_SYMBOL_GPL(orderly_suspend);
++
+ static const char *hw_protection_action_str(enum hw_protection_action action)
+ {
+ 	switch (action) {
 -- 
-2.56.0
+2.53.0
 
