@@ -1,93 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884638;
-	b=1X7Se+pNcD4AJCa1jNM3fjwmRwEPjc9DpP+c3W4LwCLXor01M5w4//7IVT4cnrgmWhs3
-	 iBkDa+KKjrPllGHxXyzQMMcIpbm6kVoCBOVcjebZEAbjnr2lStyehw3rTsZlHNtBvLbIY
-	 BxV2WxFAtYfJJVhTbTh6buMCOolNf+hfJHiZSzArgzuNX6dVzMlfX7d9C3iI/va2nwqq0
-	 FnDrB4vJrEkZKh4Oz9tKDwSnS/9KwtmWpInwG6Y+UE6POS/Exa+KUo35YFd+YTVxH8Vfm
-	 GTk59BFHQFsqson+x8XW8Pz3Bv2N2ZePXF3FGY0qXQSbxUitjcZnnbyIfA2iOJg9RZA==
+	t=1794884716;
+	b=SRl9zmzc/OtaL4Z/zszVVSQZn4tCXsaZBptsL191SpAiUbsR/YGkTT+PaDudYMzaRJNA
+	 iqEP14QIeohE/fh86FVirvGXKGE3Qbj+njR0vF1zlKak2E3jRXl+codgJ1NhrLd3K7Mbc
+	 HAGTMcFYcEOrpNTU1oUH1cnU4gz/7vjlQ5vauc+FgbXFVUGDlsAkNzHdDfFZwrOxQmDHn
+	 uaFgrM+NpX2mpd5xHpjbB2RfxorcJlexAFKlx+AFTOXimjKxSVQkYS3Gf0tJ19yigRL/T
+	 ILaJcNFkCfNzXONOwVZ1N0XKLJ5AH/BGrDdDxT/nt3IPFPj7ixQsg1UOmIpnDl0NiOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884716;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=59i9qNCywloB8yPnm+LVlMAqghoUzCqvi5ucPAFlF4U=;
-	b=kkOCx/8ty3WmdBS7s8w4wyDpSYzARGRcCUG3Fn7V/qzObJPGYEUcwXH+CQvjB2ZpLPVF
-	 uGAlNCml5EAD3WT58ztreCT36N5Vjhbk+eutaTJe7W3/Fxm9ZE0uKhWyhi560PJuF6j7r
-	 147nAlvN0MKGM3OF7F15sIte/Sp6u7S7WTvxoM26thTJ4/RjkBdhvAX7zRWKKaV2XxBxF
-	 XrZL2q/EhROJvW6ELS1DEI3bzpXz9eyT2JGbICowbHHgv1roIaLD9VeMC7X4RkFFbDUss
-	 /9GE881GzPke8HYR3kgmghmoF1vlUn7dwgXV6ZPL1bSe7MOR2i7K56iFX8SxjepbfDQ==
+	bh=mCoALzMhu5q7+FAJc0HEyB8F4qmrYW3UsJsZLcqOZX4=;
+	b=zT3g9FjZvGsNdczWG4vEg5oxE05NhfTtWOQXPK3UIRFYXslx1RIuhF7ugz+dIptSwZtL
+	 wMJUPo29Q9iod3RHeXbksG876ZomOQH6AmbniS5VdoJM4MVTa0Q58loiovGjkmOituQW7
+	 /U2fQZT67SAuT4Z2tHbcwkUoCuvcJTc+x+N5sJ8QnqEU24fTeBGx3WLfEy/jxSoeap58M
+	 wiZ6k+VjgGi7z7UwNYnhv16mWygfjFAXOJJO6fbw63Cm4gMeFfbYX2DairiHeC9YG0FPI
+	 mYDQmRG+bq5qBVQZfpoRJOBcp0QnLVrVXOu205n4Nl3P1Iw/seCngYyZ+dRiKjJXeaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=UPWM48sC;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xjR7/BNc";
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467B7606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 467B7606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F693606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:05:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F693606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=UPWM48sC
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b30cbfa628so33454467b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:03:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xjR7/BNc
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5365d26ccbdso27730861cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:05:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1794884637; x=1795489437; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794884714; x=1795489514; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=59i9qNCywloB8yPnm+LVlMAqghoUzCqvi5ucPAFlF4U=;
-        b=UPWM48sC5oymWjtmL5e4xI7owhXfoZezZn2RXAp8qjflD0A7ZVgU7zD8z/gcqRdyIk
-         9W9D4HtslpZaadRDTQF9HMVEixl+DEE3B4spBL01R1Lz7K6STQqqwzBgxbu9LWKYcAt2
-         GpU2IKgBbMC02NJGJDSngkfls5q1+6YGGkhAb/3/uPNWKa2xij4TT/3D0prYRM0Dd2c4
-         xJ1l7wkP9ARxvbIgHnv2fsRcSL1IWhPrLcByhtSbdfamnY6J5K4+uvM8iPFk7jbA87gW
-         R5QU0p6Nk5ZSKUiLVJayzcbAJgzS539HWZp+ubhCywupnOA/bLJ4yhyHlTmGBzcAC9q4
-         Es4A==
+        bh=mCoALzMhu5q7+FAJc0HEyB8F4qmrYW3UsJsZLcqOZX4=;
+        b=xjR7/BNcxJw6s62M/s+PdhaTGRoIONz4etd8ABsWI4I9NKfSdNlDj0TddCPf02hnZz
+         lD3LxUVkgZ3r6ulmA/U4G4bxkKqafcPQ8yj4+UCUruC3FGh644jW9RrAWX5Hwr/lhzcT
+         Qarvkt/O1ecdlybAFOS90B/d5oTWMeSh7opB+CcxUg+9mKmUPSYqdtHZEWtW22MkxIVS
+         ehPOd7Ml0WXYSWllhmH10Q27i23Y8YlOnIolDHUVl5pZV1SbCBAaCPRIsS00m4As8QrC
+         So8fEpJxSXKuSI5t5CJK088L7VOOjUXfcL9uRuHiWa9xIAo7lZq/fSUoUTUi+zFY+n5f
+         FZNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884637; x=1795489437;
+        d=1e100.net; s=20260707; t=1794884714; x=1795489514;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=59i9qNCywloB8yPnm+LVlMAqghoUzCqvi5ucPAFlF4U=;
-        b=2bCU4pEy0Ad/eg/ElPHY0fnYQqbGT2VFuspySVyT2x+iM7vLthNg6KwjUtFP1N4+ko
-         pWMROEKug5Vj1TsKbiAqvaJY0GLDDVWZfyoNgHznXveeSCEBZZlEss73Gt16uJsY7SgB
-         1ypKuN1uFLbB58Bw6mN7AaFj6AcWC3tMVgettibj/AKkEa/xXsKKi5HBp/6V0xYaQM04
-         CY8/OND4Y+lHNWHkTyeojQofuNpuDXN9e5CfxvPXqU9GQ8nakmif7c8DDc8wq3xHJqTo
-         F0cRDVQgSRwFJi/UvEsEy5800u3oLeF4x1iWx6U+tpCajv2uEtmP7ewSmirC6sCawDbL
-         EP1w==
-X-Forwarded-Encrypted: i=1; AL+hErEz1EIJk2q/l05AxrYd5aiy6ubqdmbtcv5LhN3HzsAlxtTEBUDN4KmYFTHymyRUArAwOMea7RkvhD6kOEM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tJLmMHgrklcmwCi4f4S/V5eJCCSxR0rz/BtcCcKbGHkSnHJI8
-	KjDpPO4SVxsbyXZMyE8q6l4zIxVYtqArkQg8EiYeFdw5jseps/1kpzCGlTRhaM3RVg==
-X-Gm-Gg: AZFdTZeLCRiIjr7ERbIml8VV2r9Eox1c6/xzh00uRiVwezD+kfmr4euW/NpPgnsi2y9
-	C7wuX+p6beoPTI1A2yge4YxlYVsBkaseb+8TSo009vIhZZXB/pR2XLI4bFUKetnEKEACPsmXEAe
-	nAwSI0CPZ3cNyf7Z+rgQ6L6QS7yCbYmYDgh95Oo0BhvMUcey5Y4wWFw8Q4pgkC3AQpXQJjAmq20
-	g1tIXyJSfUfWws2E9qfJHK2fW7ua0s6qFLnfE8KNkHXrbIx/r4zpuAnFG8t/DdmhuNNOu0qvwiU
-	lmYeX/sd0i0bhO+MXZOsWR3tJ5DeTtk5F5H3X+86ey7hjandJvFI3fRDxazPYjMaNlQ0BVdgpLe
-	14K2SdtWe7Js4dIVNwCWthHfFT6LYj0RiPZIdouM4EmdWBUYtzLNpYkfzmxbYf/9lAIW8pQQls/
-	E9sSRWS8WVNiEerNuAQDDEdy/nNSsnX3R/492AlCWEnebWHdQz0mLRK7QzTpftihEVMZXSNyJ4M
-	WI5BnvditryGvFnIwR040Y5T1YcWR7CpCMSe9JBHz6MipYLU9PZfhUmcoZ3Nd/RIEWq99Xw4bWG
-	G3fXxRm5rRNRkHsrpvkeJnbLEFBuW3ZnfR0zYZVUv/kc/ss7UBk=
-X-Received: by 2002:a05:690c:7488:b0:8b4:c615:62fa with SMTP id 00721157ae682-8b4c6156634mr56285737b3.61.1794884637083;
-        Mon, 16 Nov 2026 19:03:57 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec29d0b5sm14482677b3.35.2026.11.16.19.03.56
+        bh=mCoALzMhu5q7+FAJc0HEyB8F4qmrYW3UsJsZLcqOZX4=;
+        b=S65L3S0hVcnh1X9KmQswzqbZlsGuXzyQdb9dhc+s4iDfPhmuR0WTtxbKuELipkti1Z
+         dyEGWMJUOHt8XxsinRAQa7dL1VHrw9cmNoBr3dK+QkNSRlL04MNTyNrrreFOdhpUjDKV
+         feqnoAkR5sn9xx0jgfG/4t4eBE8PPfxvkwNRsRgOs1kqvrRjoscNyhZ820/Re8+YVeDx
+         +aE8QQPzS53+P0mrE6ZE9nRNJjYb4P3mdjCequ//zlkQeM5vf6do0tJ6GarscHoSCfPD
+         7OeGxkKJpmqX028swLiHAd4l9xvAzyiJog+7fdDuL6pS7us57LAriaGRHmdgcWfVtUik
+         oCGg==
+X-Forwarded-Encrypted: i=1; AL+hErHUhHXGN8LJoTN5Q9QFAjuXfa/e6erluUIvAwDSO07zHr17rrrgPux1LkE+ETfFRb4vdT+lYVvm7oRt7rE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sUnwafiFedxwI+jVMLy7qI/V9vL6HUwofEOsmxPHg9e3ZMC82
+	3lS/6gDerOsWIeHiiNemFxN71C26QaNgKx4/G73txf5kx3ldgRfeLVOyNK72uJFM
+X-Gm-Gg: AYBFou3tYZ0U0EQkyOx7Ij/F0Dj9nO4iUAUYlAhT7iXFz0diEuLs6JDMa8U8NInOGBt
+	HDZvy2AB6CgBNotCWVXNuqBcfpRtuxawoJNI+Vtwi4gxKXmPprKkxs4KPWS1cFFql11D/tvVev9
+	5h4obbd3BHgxmgE//IqpzXFCAwCyqW9wdihGDuCfV358pJ+5cjdiTwIssySHPlEPsSheH+7jDZA
+	PJKKRJYOvqiQDcsMdYsiNjDfKvH8QPv5CHejCK+l/gE3sX6Y6w06cj5p9D62LpL8M8N2qKD2I/O
+	ssjY/bbu2W6bCqSvi1ZCt9++c7TI8GdMoUJNPND21mclsjJt3oP4f+6vimmt/jnhQBVmMZnC6t2
+	PsrcmjuJyw+a/y5G+u4AdMVwOikF8usVJcfR4oM6gEJxMswlsxkL218KpUS4SsgFARM3gbpIsaa
+	NVJTk18dvjeJ6Hw6BVw17eSbvRUlopQic23JGMQuu2TRtJ6fOhhiSMe2YEjNf8Y9JQzDpf325ZZ
+	l1Zrs4nW3B0ErTMTU+ID8UQMrpjzAnxZ75Sd+8vWjeQstagmBahvIBccGCJqwjOgiHWzRxak7k5
+	TuU//t/aOyI/RKGO6Sql7ao1E3uUusYmr7mHmHSnzhtuC6W/OC7ZvnX+6+/7vONCg8bX5YNqoEo
+	=
+X-Received: by 2002:a05:622a:c8c:b0:55d:3695:c1b8 with SMTP id d75a77b69052e-55d3695c801mr97933321cf.11.1794884714307;
+        Mon, 16 Nov 2026 19:05:14 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d453casm100066256d6.10.2026.11.16.19.05.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 19:03:56 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: linux-btrfs@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Boris Burkov <boris@bur.io>,
-	David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] btrfs: remove "rescue=usebackuproot" from "rescue=all" shortcut
-Date: Mon, 16 Nov 2026 22:03:53 -0500
-Message-ID: <20261117030353.1738805-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Mon, 16 Nov 2026 19:05:13 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-remoteproc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] rpmsg: glink: hold idr_lock while completing open_ack
+Date: Mon, 16 Nov 2026 22:05:09 -0500
+Message-ID: <20261117030509.1708983-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,81 +100,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[BUG]
-Since commit c73eb6f72741 ("btrfs: always use the second newest slot for
-rescue=usebackuproot"), "mount -o ro,rescue=all" mounts the second
-newest backup root even when the newest roots are fine. As of now, the
-changes of the last transaction are not visible with "rescue=all".
+qcom_glink_rx_open_ack() looks up the channel in lcids under idr_lock,
+drops the lock and then completes channel->open_ack.
+qcom_glink_create_local() waits for that completion for five seconds.
+If the wait times out at the same moment, it removes the lcid under
+idr_lock and drops the last two references, which frees the channel.
+The OPEN_ACK handler then reads channel->name for the trace event and
+calls complete_all() on freed memory.
 
-The issue can be reproduced with a healthy filesystem:
+Keep idr_lock held until complete_all() returns. The timeout path
+removes the lcid under the same lock before dropping its references,
+so the channel cannot be freed while the lock is held. Taking a
+channel reference instead would not work here, because the handler
+runs in interrupt context and the final put may call
+cancel_work_sync() from qcom_glink_channel_release().
 
-    mkfs.btrfs -q -f /dev/vda
-    mount /dev/vda /mnt
-    echo old > /mnt/A
-    echo old > /mnt/C
-    sync
-    echo new > /mnt/A
-    echo new > /mnt/B
-    rm /mnt/C
-    umount /mnt
-    mount -o ro,rescue=all /dev/vda /mnt
-    ls /mnt
-    cat /mnt/A
-
-Before that commit, the result is "A B" and "new". After that commit,
-the result is "A C" and "old".
-
-[CAUSE]
-Commit 2fd3f6a2711b ("btrfs: add "rescue=usebackuproot" into
-"rescue=all" shortcut") added USEBACKUPROOT to "rescue=all". At that
-time the option only fell back to a backup root when the newest roots
-failed to load. Now btrfs_parse_param() sets USEBACKUPROOT and
-use_backup_slot = 1 for "rescue=all", and init_tree_roots() calls
-read_backup_root(fs_info, 1) before it loads the tree root.
-
-[FIX]
-"rescue=usebackuproot" now selects a root instead of tolerating an
-error, so remove it from "rescue=all". With this change "rescue=all"
-never uses a backup root by itself. When the newest roots are damaged,
-"rescue=usebackuproot" has to be given in addition.
-
-Fixes: c73eb6f72741 ("btrfs: always use the second newest slot for rescue=usebackuproot")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Fixes: b4f8e52b89f6 ("rpmsg: Introduce Qualcomm RPM glink driver")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
-This is new in 7.4-rc (v7.3 mounts the newest roots with "rescue=all"),
-so it can be judged before the release.
+Found with a static analysis tool we are developing.
 
-On a copy of a disk taken while the next transaction was running,
-"rescue=all" on v7.4-rc2 showed 30 of 60 files with the data of other
-files and no read error, as the space freed by the newest transaction
-was reused and data checksums are ignored.
+Compile-tested only, with x86_64_defconfig plus MAILBOX, RPMSG_QCOM_GLINK_RPM
+and W=1.
 
-If "rescue=all" should keep every rescue option, as btrfs-progs
-documents it, using slot 0 for it also shows the newest state, and I
-can send that instead.
+ drivers/rpmsg/qcom_glink_native.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Tested on btrfs for-next (26eb4d70f96d) with clean mkfs.btrfs images:
-healthy, a damaged data block, a damaged extent, csum, fs or tree root
-block, and the disk copy above.
+diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
+index f848ab46161d..862565bf965d 100644
+--- a/drivers/rpmsg/qcom_glink_native.c
++++ b/drivers/rpmsg/qcom_glink_native.c
+@@ -1101,16 +1101,17 @@ static int qcom_glink_rx_open_ack(struct qcom_glink *glink, unsigned int lcid)
+ 
+ 	spin_lock(&glink->idr_lock);
+ 	channel = idr_find(&glink->lcids, lcid);
+-	spin_unlock(&glink->idr_lock);
+ 
+ 	trace_qcom_glink_cmd_open_ack_rx(glink->label, channel ? channel->name : NULL,
+ 					 lcid, channel ? channel->rcid : 0);
+ 	if (!channel) {
++		spin_unlock(&glink->idr_lock);
+ 		dev_err(glink->dev, "Invalid open ack packet\n");
+ 		return -EINVAL;
+ 	}
+ 
+ 	complete_all(&channel->open_ack);
++	spin_unlock(&glink->idr_lock);
+ 
+ 	return 0;
+ }
 
- fs/btrfs/super.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-index b424cc836bd4..d67d678451f6 100644
---- a/fs/btrfs/super.c
-+++ b/fs/btrfs/super.c
-@@ -624,8 +624,6 @@ static int btrfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 			btrfs_set_opt(ctx->mount_opt, IGNORESUPERFLAGS);
- 			btrfs_set_opt(ctx->mount_opt, IGNOREBADROOTS);
- 			btrfs_set_opt(ctx->mount_opt, NOLOGREPLAY);
--			btrfs_set_opt(ctx->mount_opt, USEBACKUPROOT);
--			ctx->use_backup_slot = 1;
- 			break;
- 		default:
- 			btrfs_info(NULL, "unrecognized rescue option '%s'",
-
-base-commit: 26eb4d70f96d9bf99e87c2565d6234eb652f9c26
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.53.0
+2.43.0
 
