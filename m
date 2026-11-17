@@ -1,59 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919205;
-	b=ThhcCZCJhTsYqwRt2INybp6h0OlkOItIXUUUCUBUMUsTXnUH5++HDv2tCE2s5L3VVBSk
-	 PebWDzxgpLG+C8waBLc9ugj2fp6LSJCLDEsf8txI7+sBVST8mfesW3rAl6MFvxYdSrv6x
-	 Agm/yCASNVL1rEpi4lU3dOt7fOj55nMNt9A0p5Mo2cZIiemrdNKCc/wcmtdsAUqcxQJKO
-	 DniNE4jWM6E3sUUP2FOCzZ1H0ChNnVORJBUrwHHSQwQJ0Hs+31RKZJ+hI8B9LL0rWDcbB
-	 cPosSQGIEbJ42elKPOjNsZInJL77dO2Y6RbJWx7IhCEhw3mmk0nqOKqeOug2H6TfMPQ==
+	t=1794919210;
+	b=aTPS8QlTSVbdXXcRF1Rg/CfHVImwxI1U+EEN+S+/zMltb+zJVdDWHnnG6vqH7Cuz/taz
+	 hpTZMxH1ZSANqPW5fiORU+mniClGlhKlkQJYqvNehGjtZgj8AH/rjkV9pZuCZiwEb1mdD
+	 ZATi2kBP9sFMNFDwoqQ7pnx2rSuiBtD3tMCGqXMkvFVFQXX1GmaOsYNNvDacsGziRiMO8
+	 RfF6f0Y7wyM7ZkgkJNfGIUWClzIKhTaMAq+SKGC8E1z55qhbo6Q7B7fzG0+17q91xnHnR
+	 npjiwv11/2IuW6pz/icmshkBbdbaGDRK1QI5DJXFrGU8rTTXDMjaHOBkBn6DnnWIhpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919205;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=nP2xuNQZsH8znbKVANuCMDP5J5Ifn7WHvFF25qlOkpM=;
-	b=vrqwVqsm/uLOENQz2VxpoEuxgrUl21Md5ajOjVp6chq2Ob8iWVrZ5VyTucVLZC8xkaEJ
-	 eDyVKDomJhy1ITqazN/rL4R6vlS7dCAfNqsswWnzyTerT/RM3oyHosvCrH+T6bvUTKOzt
-	 9yMmQ72EHCkN+3zsnJ4bI/LaknsY8oycnIkBZHDP/PRuG+zcurULVOv+1FSSRF7NzmmNt
-	 OlalcZ4PiJ940T+mDNYqYdFBOmH8qif94xPnwyhO6Cv1bquHCeFGuJTArMondlNlMZVO3
-	 5zLvoPg0pUc9ZozbHd2JkiF8M1AiGBcvwEMOR/0CHuk5vaZ3FsBrV7EUY+gfQuS/nGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919210;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C1C/5YLEZhF2q2t0u30/sRnCOtjRiNYQ8d7TMqadfAc=;
+	b=vs0Jxfz8VO7g7Ne36zEsMIwA9pjrUMeZMFfFVMpKRI6OCpPNZY8nLD2HQkNcjMcmslEI
+	 OwG0bQumyA7ui75Ah3Vwo1f7J01Vg7of4NAqD80FCOiUj+h7FvrQbQlxdPPgs/56G2oA7
+	 G+PrtdWeg8QgncXeonf3WItX/DWAx8WyqGpf0EY9pvq/ksx+qcoAmeZsXoMTR4DWk5950
+	 azy9qNSq3VhDV6L9NZgIWfDMPrJDYnQ39erN7gm8aXJi91Rd+0caGBXxgCrMt2DERDcO8
+	 OlIOZxhH9p4LouKtpQo7b3d0g70pRul9dnp8v1Qlp9q5Sy72399hv1W6qGI/sjhyakw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=SIT75eef;
-	arc=none smtp.remote-ip=54.204.34.129
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xq9yNCLx;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A78606A33E;
-	Tue, 17 Nov 2026 12:40:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74A78606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95592606A8AF
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95592606A8AF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=SIT75eef
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794919150;
-	bh=nP2xuNQZsH8znbKVANuCMDP5J5Ifn7WHvFF25qlOkpM=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=SIT75eefwQuoIcH2lZ9wzRuD9ACgU6cOyOBe3BUb3aZtKgHydvADn5mbnFl9Vodj8
-	 wj66bFh1T8PNgosKLSCsxf2nOJKPhXbh25ph6FbG9E7Xe+sxjEP0gAV4rxPrmFkc49
-	 nz7EyUMTl0QhIBz7NAVet/IfzJUoeLecnOcmKvrg=
-X-QQ-mid: zesmtpsz6t1794919143tee230107
-X-QQ-Originating-IP: +BVJx5tARnl0BqjS170OdDgH8xd/Hh14Uc1kFj+P5hU=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 20:39:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14536568104907117582
-EX-QQ-RecipientCnt: 21
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Tue, 17 Nov 2026 20:38:46 +0800
-Subject: [PATCH v5 4/9] usb: chipidea: usb2: add optional reset support
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xq9yNCLx
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso29955795e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:40:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794919208; x=1795524008; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C1C/5YLEZhF2q2t0u30/sRnCOtjRiNYQ8d7TMqadfAc=;
+        b=xq9yNCLxRhYtW3KdABtsxTmfAZRi96fA2qqzP0LXF/TL43X56bUFtf6x1SZ4JS72Lm
+         UGJhCtwVKLlmuT5FNcU3V9UdqENerEbDn8qbk13jXNGCnKknQlWGF1P3Q0n1DM2RfYAR
+         lpaev22UrMxWx3SukxcWM7GwEJNkkszJ2FKFAFPyIxI6/SvhZ5g84Ym6hHTcD4uyYeiP
+         ERL0rWHUATWvJmgM4MREC2OOcglrUwoQO4GX/psb/tdkDXPfF6aqQRlSyB17UXGWs+hB
+         hiAxPFHGGbsVlJayegKXVD+rh+F0t0x+Ggh/dZEBV0IrVBj/EhY0QTSkbRjoFVUCSwkH
+         s/Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794919208; x=1795524008;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C1C/5YLEZhF2q2t0u30/sRnCOtjRiNYQ8d7TMqadfAc=;
+        b=nZyzdzA7tVLJfWWpdI7wqV6eNwFuqT1ythpGiIcGgowovtj1/5R/7+SpIVZbiYFDd8
+         Yxq1Y8aku+vRnulaI/9Eqqo2vkBL9nSo/xsio0wiQ5Y/FlWndAn9bb2gLJH0q7SvCRkn
+         3jYtZ++hcuALABTJY07qhkHcGo1zGkje4a8esp/xwV1cYaCRKy+XGT7sse6EP5XsqYxU
+         smICKJsX0+3m/U+/UsOlpQW4Fecf5L6pvUN2MlhloWG3d20+o8fSkWYBUmQ2zjWX5+qd
+         T60S+niJaq4FxXf0OPMRe1m7FBYgXUIi/aU0HE6iK+uuqAvO0Tl1uhOYpPgQvPudlcSF
+         o8Bg==
+X-Forwarded-Encrypted: i=1; AL+hErH21Vz908Osl4tzE3ibkCFSw8PFeqh4gksFKWLdvw/eDvN3isU5TlqiDNox5gq8pGKqFHfjiqWPq1divvM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LlVIuSFkXBXIsUcFWfn1wK0zQeu9uDiOp3SwwyUxQ2Llc2M5d
+	hIdXVS5G2mmUIPAgWnI5xDfdHc3K3WNfmJvDy5gYFeCfo7gNhNHnNLP3
+X-Gm-Gg: AYBFou33UKwKu56N5ZR18jmti02nSEWQof0ALXzi1256v4H+tq819+Ra3pQrki+VbdH
+	WBnTY0Uy6o7uBpn3GH756aAhD3HPZ9ft7UXIURzWfW4Cf7d+nSw3/UhxuvYfS/r1n9+ihN5mWOf
+	kStqSJLW7llwazsNfxKg1u1QfklN0QHexTQYvHVR1CecYuakKyOxlEX/sFXHJNxdL0pI1NlZsz4
+	EjxPZneYtghq9kqkbn+NoQRhIOHW4S6JqGtD3UiCZ2cLgIQFQ1VJ/WpxUa0DltH+TLLICmoe8p4
+	kWGqdU5r/TGGocF3M2U0DjKHDWmAnusVQYFdj/CcZGbAdbRO+6lCOYi8hOx+sIxtJYVUi/yk37h
+	YA8xzMJJ5V1vsUb3mBfdNSeu0wlaqWtGasNp5tOzML+eFtSSswy3lwesTbQ5paPcmfCggSWW7OQ
+	/39u+EmMjFA738WzdK25euxRtiBaVxLTDOAfiUpNPv/JJNbOobkOVXG101KsF6neQr4V5BAZ0CS
+	ZQ4G7iCRR5dLp3UCULMHTLh+B+SucFCYYx2/ZRcvIH+kaNWlkNA0y/bA1bMRTCx23VAdmSL0aB4
+	BsRmC84ty/7mtc3y+p36/1WmEDOXgIyDPvEXP0xBsSbNfgfvSd7Vk7hX+m/BEXkdYiTpFLD5yiS
+	d+5b3qnOUj2CABJk5dxRVt05DwfS1d+DDyKiRwpW7Fw5Izc6krhps3G4=
+X-Received: by 2002:a05:600c:4e02:b0:4bb:6994:abf0 with SMTP id 5b1f17b1804b1-4bb6994b88dmr165334205e9.23.1794919207690;
+        Tue, 17 Nov 2026 04:40:07 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb78386902sm73367065e9.1.2026.11.17.04.40.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:40:06 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	llvm@lists.linux.dev
+Subject: [PATCH net-next v22 00/15] net: pcs: Introduce support for fwnode PCS
+Date: Tue, 17 Nov 2026 13:39:40 +0100
+Message-ID: <20261117123956.11981-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,99 +122,333 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-b4-spacemit-k1-usb2-v5-4-52c3829cca69@linux.spacemit.com>
-References: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
-In-Reply-To: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
- Ze Huang <huang.ze@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794919127; l=1684;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=xWCWiL6/aGh6DLTIfhzIR/GNKV2px/LS4AbhROpoUhA=;
- b=2jGoPSJ7yUHk/T3cldAxJZpdWWKkHruqfp1FhzNEgrwv5rf3O37M3S+EcE2izbeMhOfX2YFfv
- CQCj/3+KGs5AAo5kxa4MEyu3e8QZNn3Af0sOExB2YxYIOTP66KDE873
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MzOrCbSXFQdfaqAXeJwpOrKuQPcWuCqNqoyA0ASodfjXaz58mvjBcs5v
-	JG6LeC6kASXZMzJVqwWZicChn+50HHKnwCeiaqHw2TxC5DlZTi/pr3easlNCWwujFCtcgFD
-	5qYlKdevVFDuuAdiOYaFT7WflluG4OrNxwlH9NCevysmysqv2XFAPLC72V693+lfbWY60eU
-	AWQuWjaEzTnik67TLxGPPh56VdzPk8sOUHW4RUbvjgtiRgCgaLJ5OHM8+4qXNwXCxO8kMEi
-	JBF5jniEewir3Y38vekVAckhh1aK7SjHCng/DN5Ulw4R8FRk2dxpDfAkwpYW5aIT71j9G8d
-	vqi3aKgShU0kOTJeJiA9PiunbcgnfEiaFGsR+/BNCl7r/DIxlP75Me/5qWfhWyAZOXMAtX6
-	yVclH47QAjCaqoIua5iAym8Pa2ijHCcDgiF9ivHp9Hf1Uohw4SJti1Fohmb8WNNoiE1m2Wv
-	MImdfOxGSiIg9QcFUdXvPes6drRuZKF2/BZUhypIASKOcW64fBWUwScPQ0cnK7m9zywzxLH
-	Mw0enDSJJLhrB+esgWY5bzkyTGYMrjgktjXtcvfu3x9RmvuSPPYfPdcIepMcnlD2QuzC715
-	nPuKrQRbMidhBJ9rYaJsZ90aujhwT+StVDLRToWnk7jGSizjNa0IPaJFfhDsB5sLc80VF7d
-	jJhiw+hc3UGMeX/l7tu1xBqSx/cyy060p849rgku5kf5aKfaJ9ZCmc5Mcb8AeEgjN+ZSsZk
-	acjXkTrKKcBtbClq8EHuwKMqjupLFRCmHJwli0Ng+xeyr38FwPFEHxNnTsLSOyLS3dlotDo
-	d8hVdNr/6YuvH3KzfEB+hxH0MIE4QOn3U7SjhV6shvt7zstVry/L+ui/ljCdEPxB8B/pm3K
-	nqnx7XHwnUOvIntdZHwPsM1yERuIFLSNfUPPqTms5NS/b5o68nejk4TiyaiVccuHYqniAK3
-	PphIAHXLyd3ox0QAbWg45zUSKDDZiYkOzFUd8Ux/cpnKSQBiQbiCAwCi0fWsTUTzl0pbOWs
-	wV43mb5naE/gPTjQKd06VnOLwhgP9YGajKZ7BfONzIy4j+rpcPclYSzobW7agOJGcB6RtcX
-	Hoh6OkpPFA0XOvJZtg8Yesd8sUbf7eWYwJbcQ3MuLTFbrnVQoJ4eNEtoQZLs5Rt6sCPR3rp
-	LecdDgLQ5TF1avBVQC0xTZjR9dftiLo65YMWqdepGAyqMMw=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-The USB2 controller of SpacemiT K1 SoC requires reset support, to keep
-compatibility, add optional reset support.
+This series introduce a most awaited feature that is correctly
+provide PCS with fwnode without having to use specific export symbol
+and additional handling of PCS in phylink.
 
-Tested-by: Ze Huang <huang.ze@linux.dev>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-Acked-by: Peter Chen <peter.chen@kernel.org>
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+At times there were 2 different implementation (this and the one
+from Sean) but Sean agreed that this can be picked and used in favor
+of his implementation as long as his case with race condition is
+correctly handled.
+
 ---
- drivers/usb/chipidea/ci_hdrc_usb2.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+First the PCS fwnode:
 
-diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/ci_hdrc_usb2.c
-index a353281e4e37..8cf13f0bae3f 100644
---- a/drivers/usb/chipidea/ci_hdrc_usb2.c
-+++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
-@@ -12,6 +12,7 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-+#include <linux/reset.h>
- #include <linux/usb/chipidea.h>
- #include <linux/usb/hcd.h>
- #include <linux/usb/ulpi.h>
-@@ -48,6 +49,7 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 	struct ci_hdrc_platform_data *ci_pdata = dev_get_platdata(dev);
- 	const struct ci_hdrc_platform_data *data;
- 	struct clk *clk;
-+	struct reset_control *reset;
- 	int ret;
- 
- 	if (!ci_pdata) {
-@@ -67,6 +69,11 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(clk),
- 				     "failed to get or enable the clock\n");
- 
-+	reset = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(dev, PTR_ERR(reset),
-+				     "failed to get or deassert the reset control\n");
-+
- 	ci_pdata->name = dev_name(dev);
- 
- 	ci_pdev = ci_hdrc_add_device(dev, pdev->resource,
+The concept is to implement a producer-consumer API similar to other
+subsystem like clock or PHY.
+
+That seems to be the best solution to the problem as PCS driver needs
+to be detached from phylink and implement a simple way to provide a
+PCS while maintaining support for probe defer or driver removal.
+
+To keep the implementation simple, the PCS driver devs needs some
+collaboration to correctly implement this. This is O.K. as helper
+to correctly implement this are provided hence it's really a matter
+of following a pattern to correct follow removal of a PCS driver.
+
+A PCS provider have to implement and call fwnode_pcs_add_provider() in
+probe function and define an xlate function to define how the PCS
+should be provided based on the requested interface and phandle spec
+defined in fwnode (based on the #pcs-cells)
+
+fwnode_pcs_get() is provided to provide a specific PCS declared in
+fwnode at index.
+
+A simple xlate function is provided for simple single PCS
+implementation, fwnode_pcs_simple_xlate.
+
+A PCS provider on driver removal must call fwnode_pcs_del_provider()
+to delete itself as a provider.
+
+---
+Second PCS handling in phylink:
+
+We have the PCS problem for the only reason that in initial
+implementation, we permitted way too much flexibility to MAC driver
+and things started to deviate. At times we couldn't think SoC
+would start to put PCS outside the MAC hence it was OK to assume
+they would live in the same driver. With the introduction of
+10g in more consumer devices, we are observing a rapid growth
+of this pattern with multiple PCS external to MAC.
+
+To put a stop on this, the only solution is to give back to phylink
+control on PCS handling and enforce more robust supported interface
+definition from both MAC and PCS side.
+
+It's suggested to read patch 0003 of this series for more info, here
+a brief explaination of the idea:
+
+This series introduce handling of PCS in phylink and try to deprecate
+.mac_select_pcs.
+
+Phylink now might contain a linked list of available PCS and
+those will be used for PCS selection on phylink_major_config.
+
+MAC driver needs to define pcs_interfaces mask in phylink_config
+for every interface that needs a dedicated PCS.
+
+These PCS needs to be provided to phylink at phylink_create time
+by setting the .fill_available_pcs and .num_possible_pcs in phylink_config.
+Helpers to parse PCS from fwnode are provided
+fwnode_phylink_pcs_count() that will return the count of PCS entries
+described in the firmware node and fwnode_phylink_pcs_parse() that will
+fill a preallocated array of PCS pointer with the actual available PCS
+(ignoring the one that still needs to be probed).
+
+phylink_create() will fill the internal PCS list with the passed
+array of PCS. phylink_major_config and other user of .mac_select_pcs
+are adapted to make use of this new PCS list.
+
+The supported interface value is also moved internally to phylink
+struct. This is to handle late removal and addition of PCS.
+(the bonus effect to this is giving phylink a clear idea of what
+is actually supported by the MAC and his constraint with PCS)
+
+The supported interface mask in phylink is done by OR the
+supported_interfaces in phylink_config with every PCS in PCS list.
+
+PCS removal is supported by forcing a mac_config, refresh the
+supported interfaces and run a phy_resolve().
+
+PCS late addition is supported by introducing a global notifier
+for PCS provider. If a phylink have the pcs_interfaces mask not
+zero, it's registered to this notifier.
+
+PCS provider will emit a global PCS add event to signal any
+interface that a new PCS might be available.
+
+The function will then check if the PCS is related to the MAC
+fwnode and add it accordingly.
+
+A user for this new implementation is provided as an Airoha PCS
+driver. This was also tested downstream with the IPQ95xx QCOM SoC
+and with the help of Daniel also on the various Mediatek MT7988
+SoC with both SFP cage implementation and DSA attached.
+
+Lots of tests were done with driver unbind/bind and with interface
+up/down also by adding print to make sure major_config_fail gets
+correctly triggered and reset once the PCS comes back.
+
+The dedicated commits have longer description on the implementation
+so it's suggested to also check there for additional info.
+
+It's worth to mention that OpenWrt is currently using this on
+Mediatek SoC and QCOM ipq807x/ipq60xx/ipq50xx and Airoha are
+already ported in staging tree for testing.
+
+Also realtek is using this and proved to correctly work.
+
+---
+Due to the introduction of Sashiko and the introduction of
+the notifier, a major reorg of the different scenario and capabilities
+parsing was needed. This is to make the bot happy (in theory, but
+it never is) and try to improve the state of the code by
+moving the capabilitis parsing to a centralized place trying to
+address all the scenario in one place.
+
+---
+
+Changes v22:
+- Rebase on top of net-next (no idea why patchwork reported failed to apply...)
+Changes v21:
+- Add fixes tag for the RCU patch
+- Preserve user-disabled ethtool advertising during capability
+  updates and SFP interface selection.
+- Add additional kconfig select for Airoha PCS and Airoha Ethernet
+- Fix wrong rcu_assign_pointer NULL in RCU patch
+- Use "pcs-handle-names" as already defined (instead of "pcs-names")
+- Skip phylink_pcs_disable if already disabled
+- Skip phylink_major_config if phylink disabled
+- Better handle capabilites from phylink_parse_mode and phylink_parse_fixedlink
+- Set link_failed on late attach so that resolve is triggered 2 times
+- Improve description of fwnode_pcs_get_from_provider()
+- Improve capabilities tracking for PHY and SFP scenario
+- Add variant for __phy_get_rate_matching
+Changes v20:
+- Fix double declaration error in Documentation
+- Drop mutex from patch 8 for validate_mac_and_pcs
+- Correctly use non lock version in __phylink_validate
+Changes v19:
+- Rebase on top of net-next
+- RCU protect phylink from pcs struct
+- Fix dead-lock on phylink_validate
+- Handle possible PCS provider returning NULL (protective coding)
+- Improve capabilities handling refresh
+Changes v18:
+- Improve handling on late PCS addition
+- Fix wrong comment on airoha PCS driver
+- Rebase on top of net-next
+Changes v17:
+- Rebase on top of net-next
+- Add Review tag for DT patch
+- Recalculate capabilities on late removal/attach
+Changes v16:
+- Rebase on top of net-next
+- Add Tested-by tag
+- Add ACK for airoha ethernet patch + nit fix
+Changes v15:
+- Rebase on top of net-next
+- Fix Coccicheck  warning
+Changes v14:
+- Fix deadlock when fill_available_pcs fails
+- Move notifier and fill down after resolve disable bit is set
+- Fix kconfig description
+Changes v13:
+- Fix regression in fwnode_pcs_get_from_pcsspec from v12
+- Fix reverse lock for phy_lock and state_mutex
+- Better handle lock in phylink_validate_mac_and_pcs and inband
+- Fix wrong pointer to fwnode_pcs_add_provider notifier
+- Fix compilation error for new C type in pcs_provider_notify
+Changes v12:
+- Fix kdoc for function
+- Rework PCS provider add and delete to be provider driven (instead of
+  relaying on scan of fwnode every time) (this also handle
+  multi PCS scenario)
+- Even further rework state mutex locking for concurrent pcs list
+- Restore MAC supported_interfaces validation in phylink_create()
+  wrongly dropped.
+- Use get/put for fwnode reference
+- Fix possible unment depndency for FWNODE_PCS
+- Fix almost impossible problem for PCS calibration
+- Hold rtnl with PCS deletion
+Changes v11:
+- Rework PCS release to notifier way (fix race as pointed out by bot)
+- Add Ack from Lorenzo for Airoha Ethernet driver
+- Introduce devm variant for pcs_provider_add
+- Better support firmware node reference for PCS late attach
+- Better protect list iteration with state mutex
+- Minor fixup to airoha pcs driver (flow control fixup)
+- Rebase on top of net-next
+Changes v10:
+- Minor code cleanup and fixes as suggested by bot
+- Drop devlink patch
+- Add reviewed by tag
+- Configure old_link_state on PCS release
+- Unlink PCS on error in phylink_create()
+- Use list_add_tail
+- Fix typo in Airoha PCS driver
+- Update phylink migration guide
+- Better handle late PCS attach (idempotent function and
+  add unser state_mutex)
+- Use dedicated lock in Airoha ethernet driver
+Changes v9:
+- Rebase on top of net-next/main
+- Drop early verification of supported_interface
+  (it can also be provided by get_capabilites MAC OP)
+Changes v8:
+- Back to RFC (net-next closed)
+- Address additional bug reported by Sashiko bot
+  - Better handle priv interface for Airoha PCS driver
+  - Better handle locking for modifying the PCS list in
+    phylink code
+  - Improve fwnode_phylink_pcs_parse() parsing on -ENOENT
+  - Better handle error condition in phylink_create()
+  - Turn down the link when current PCS is released
+- Fix compilation warning caused by copy paste error
+Changes v7:
+- Address all the bug from the Sashiko bot
+- Rename .num_available_pcs to .num_possible_pcs
+- Link PCS in phylink_create()
+- Correctly unregister the notifier on phylink_destroy()
+- Introduce fwnode_phylink_pcs_count()
+- Better handle locking in phylink for PCS handling
+- Better handle unavailable PCS at phylink_create() time
+- Improve Documentation file
+- Other minor fixes to address suggestion from bot
+- Rebase on top of net-next
+Changes v6:
+- Rebase on top of net-next
+- Add Documentation files
+- Add fw_devlink patch
+- Fix some comments typo
+- Rework the airoha_eth.c implementation with new multi serdes code
+- Extend PCS code with PCIe and USB support
+- Align schema to new property
+Changes v5:
+- Rebase on top of net-next
+- Use the new force_major_config
+- Reword some comments and commit description
+- Return -ENODEV instead of -EPROBE_DEFER to perevent race condition
+- Drop phy_interface_copy patch (Russell pushed an equivalent version)
+Changes v4:
+- Move patch 0002 phy_interface_copy to 0002 (fix bisectability
+  problem)
+- Address review from Lorenzo for Airoha ethernet driver
+- Fix kdoc error with missing Return (actually missing : before Return)
+- Fix UNMET dependency reported error for CONFIG_FWNODE_PCS
+- Revert to pcs.c instead of core.c (due to name conflict with other kmod)
+- Fix clang compilation error for Airoha PCS driver
+- Add missing inline function to pcs.h function
+Changes v3:
+- Out of RFC
+- Fix various spelling mistake
+- Drop circular dependency patch
+- Complete Airoha Ethernet phylink integration
+- Introduce .pcs_link_down PCS OP
+Changes v2:
+- Switch to fwnode
+- Implement PCS provider notifier
+- Better split changes
+- Move supported_interfaces to phylink
+- Add circular dependency patch
+- Rework handling with indirect addition/removal and
+  trigger of phylink_resolve()
+
+Christian Marangi (15):
+  net: phylink: make PCS phylink instance access RCU protected
+  net: phylink: keep and use MAC supported_interfaces in phylink struct
+  net: phylink: introduce internal phylink PCS handling
+  net: pcs: implement Firmware node support for PCS driver
+  net: phylink: save phylink instance fwnode on phylink_create
+  net: phylink: make phylink_validate state locked
+  net: phylink: add capabilities helpers and track modified advertising
+  net: phylink: support PCS provider release
+  net: phylink: support late PCS provider attach
+  net: Document PCS subsystem
+  MAINTAINERS: add myself as PCS subsystem maintainer
+  net: phylink: add .pcs_link_down PCS OP
+  dt-bindings: net: pcs: Document support for Airoha Ethernet PCS
+  net: pcs: airoha: add PCS driver for Airoha AN7581 SoC
+  net: airoha: add phylink support
+
+ .../bindings/net/pcs/airoha,pcs.yaml          |  261 ++
+ Documentation/networking/index.rst            |    1 +
+ Documentation/networking/pcs.rst              |  231 ++
+ Documentation/networking/sfp-phylink.rst      |   35 +-
+ MAINTAINERS                                   |    9 +
+ drivers/net/ethernet/airoha/Kconfig           |    2 +
+ drivers/net/ethernet/airoha/airoha_eth.c      |  197 +-
+ drivers/net/ethernet/airoha/airoha_eth.h      |    5 +
+ drivers/net/ethernet/airoha/airoha_regs.h     |   12 +
+ drivers/net/pcs/Kconfig                       |    8 +
+ drivers/net/pcs/Makefile                      |    3 +
+ drivers/net/pcs/airoha/Kconfig                |   17 +
+ drivers/net/pcs/airoha/Makefile               |    7 +
+ drivers/net/pcs/airoha/pcs-airoha-common.c    | 1309 ++++++++++
+ drivers/net/pcs/airoha/pcs-airoha.h           | 1311 ++++++++++
+ drivers/net/pcs/airoha/pcs-an7581.c           | 2100 +++++++++++++++++
+ drivers/net/pcs/pcs.c                         |  314 +++
+ drivers/net/phy/phy-internal.h                |   22 +
+ drivers/net/phy/phy.c                         |   11 +-
+ drivers/net/phy/phylink.c                     | 1168 ++++++---
+ include/linux/pcs/pcs-provider.h              |   70 +
+ include/linux/pcs/pcs.h                       |  174 ++
+ include/linux/phylink.h                       |   30 +-
+ 23 files changed, 6994 insertions(+), 303 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+ create mode 100644 Documentation/networking/pcs.rst
+ create mode 100644 drivers/net/pcs/airoha/Kconfig
+ create mode 100644 drivers/net/pcs/airoha/Makefile
+ create mode 100644 drivers/net/pcs/airoha/pcs-airoha-common.c
+ create mode 100644 drivers/net/pcs/airoha/pcs-airoha.h
+ create mode 100644 drivers/net/pcs/airoha/pcs-an7581.c
+ create mode 100644 drivers/net/pcs/pcs.c
+ create mode 100644 drivers/net/phy/phy-internal.h
+ create mode 100644 include/linux/pcs/pcs-provider.h
+ create mode 100644 include/linux/pcs/pcs.h
 
 -- 
-2.34.1
+2.55.0
 
