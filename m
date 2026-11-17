@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929825;
-	b=qHPeASdElzQMFXGWZwlf1tykrKLxe9k7yb0bFycMDq2AKdxIfbPi+wwvEQPYVrtn5m8B
-	 x5j7RPmzIkdMh8LtLAa1/7+F9r4CD/+WYJsXRnWNBFqP4A7IScDz+DfR7EdZU5aHejE5R
-	 pJF/ud1Wrr+/RvyxkXT9HAKFoOsYfq4VUU465TEVbdX8Nnh1PPu3FfHFsZKvisQx2XDTT
-	 T2VSuudYJxw1am0BEn4DAcB3yUYgVILGmsAQf66cPnLZPg435NeQtNSgSFvVE1gdLABZ8
-	 NKoRVElaEVQibDaW2Mm3cXJNDZWz8T4kD5K09jqLbOQDpvrn2rgmTDWSCi5D52ZaKdw==
+	t=1794929834;
+	b=fTXIic+SE7B18jaDDny5OOv+uuylzcxEC28xHt78mKeZE2Y1rDy+NR1AStq4mdY8QEqy
+	 uI5VPRUeK2QWO1u1GGZu3lMy7GZS5L2eAdHmjEwo/s0qRmA3TeNxNG9AHJr7esXKGWIqT
+	 XiscC87iEHokvoz6l+xw0nErScXA23b0qOVjadQdrwelH7GRIoYgt47zpnDELgoT27Rc0
+	 wXEQidV82OnP0JpcbUtIrMSQH/pqT6HxS+XAX+bNSGBXkJLpKAHTZiT46CDZFL/4BOjwY
+	 8n9EGG7Tkigj0fJ+28mGbybOVLkAIuJE5Q8wUXYcP7zJXVTW6hdvQeSLZ9+K1JjETfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929825;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=+bALTgYPfIad1XZTuc45/MCR0LAeKGdtBKZv+egR7pQ=;
-	b=vPMku3QgPXGlPvxP7Z9i+F2NUNodE/eFFgr+22l3vJhem7prnoFeLlMidUCO38sd0BRU
-	 h0e+VlN4R2Iyf68wgNeqpvKqOhYdNO+mxCItY2xhz0k2HuvfajsWZZ5yQ702jTx5GyjLh
-	 nTENujcIlI4spDs4uTzreY8cpkpvRaFlWITnEMo64cZfw9sEUschNfP9P95T2LnuiMNgm
-	 RLv2habQJTxevcga1qbq0jSdA1hak43cwFlguiPD3joNUKZPYDu95e9OrK6LX9/VDaQTt
-	 tygU/2z9Db2NHaVsI772kPYZj/qb+Xor2kBIx/d1bfkMNWUl1+ZUzcLKKQBSlX4dSqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929834;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LKdLJQzk+hjbpuBIp8LKIvBrdSbWJhDuwBNnuQ3+E9Y=;
+	b=Dw6cGodA+aTqtU0uFOVYsAZHFlSGKowLnpEyCQAUPpYJHM7e+h1PIhR1WtHfT3GpaR2t
+	 WbiSznjC1F9fHYzK9YNb3juG01GcVqaDxAfVA/eztesM5MeS+tKcP2HUBUCcn/9qF9VQc
+	 rQ4iXccuHPqbGsMkWpmP7lBa7wWBTIzr65rdtulfjctOomndiIYFo7XCwjmJ65mfV0KuB
+	 VS66TfxXy9j+S+d4B7M46MdU4ub5uANyHnMnubxALLk8myUQTQGFQBeT/IGrij8PS4YJa
+	 qBRnZnx9b5vQgiZndNlz7eMgRqIwQEs46Mu6FcSLLSVwEts1gmGUcLchGi34AG7yAZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjlZo9Ub;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Cl3+cJ/R";
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D774606A33A;
-	Tue, 17 Nov 2026 15:37:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A24F606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A24F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjlZo9Ub
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1871F000C4;
-	Tue, 17 Nov 2026 15:37:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929825;
-	bh=+bALTgYPfIad1XZTuc45/MCR0LAeKGdtBKZv+egR7pQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZjlZo9Ubqff4c93mEcadpNICZynvRDGma8iq4qQhH5ZtClssDYYxMEJmhnIIMv7rH
-	 +tSvWJ3smeCCE6UvBQLXxwRZQhdu5Hi1cbrQHTnRwEGZtSvFb4/U9QIK2AAAmFw82+
-	 JzTufoKKAbf4PMRbnzKJYo2BOe1BAXvMQtY9UOEdhiAcyGqZbnlvaeFZDDhAFOa4Am
-	 h/LD58VRtaGPno2Tqat5p36Yv13S3DyHGucnqaXHJx6Ieq/v4CP4kWzwjawT+bC2zf
-	 q0jaQIEz/puFZBofPlJIaO2/YvofxD+7ItBTJaxs48Dd0C8LueDY8pBllWg8vjZZyD
-	 GB0kcW4vuRuvw==
-Date: Tue, 17 Nov 2026 15:36:58 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Arnd Bergmann <arnd@kernel.org>, 
-	"David Hildenbrand (Red Hat)" <david@kernel.org>, Gregory Price <gourry@gourry.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, larips <larips950@gmail.com>, stable@vger.kernel.org, 
-	Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jackie Liu <liuyun01@kylinos.cn>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: fix copy_nodes_to_user() for odd inputs
-Message-ID: <avx0Ci5uPW_hF0Jk@pazuzu>
-References: <20261117142628.3931151-1-arnd@kernel.org>
- <avxnIQTcFni9G4IN@gremlin>
- <541a67af-3b45-4d5d-ac4b-c741850f92e1@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Cl3+cJ/R
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c50933bdf4bso246121066b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:37:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794929832; x=1795534632; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LKdLJQzk+hjbpuBIp8LKIvBrdSbWJhDuwBNnuQ3+E9Y=;
+        b=Cl3+cJ/RdMLwMsHTsFXKq3E92HfrGSiunfW9rpYSxRvClZF0G/Umr9IzPAULUNCy/P
+         +xNS6v7g1ViZQ6BwbJgfN/cqwz6fr7Nrrox4B/wEr94+/VoFCmFBuC0EwBNHU1GmDBJz
+         MXeiPUk2PvMwrxaGNhclltfsKmhl+u55Ew35Pp3RfaeYesKgGmqZICzb5YkQPCdnaQlo
+         GSv5o8x6IElafkcKY7tfj2BvG61ba8brJaaatvP1Q866auavXqRxt1CTfwhDTAd+v0Gc
+         +nUTIsxAfZsBcBWm1x1httoFkvGdEomHcqcPOzWdlmI/KeaP7qn4yRwCv23Fgdu64YRz
+         9wFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794929832; x=1795534632;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LKdLJQzk+hjbpuBIp8LKIvBrdSbWJhDuwBNnuQ3+E9Y=;
+        b=2jsWJsSD2tI0qh6aLogW37d5hN02KbF6mFBU915bPTAiQdaJDreti9Q6RUyXWJHXCB
+         rOC0aC+4aiXvnhNBXvHpqSYmFjWOWMNfPtKzOX6lXq7p3SljjONfoSPKvaiYlkouc/Lx
+         0OomwT9krskc33zoukW6JOw+L35spihyovUHl+sQJEUe+YZ2BmB23C18E1c1jwjUdogg
+         DVgfO5DDpH/LDzLAX4ZCzGGzgzm3LinQ9K72AW/465x4Qs7jHdujGszBVqRv72iL2ahi
+         /YDRUMo6HcAGxOtCXmxHaX3Gv34EwEOkpPkGC4GzOIjBM6bf/QtkmGGGe8DvspWngeTC
+         LHKA==
+X-Forwarded-Encrypted: i=1; AL+hErFN4svDV2ykJHHtI51m99WOn6bvLdYYbgIpZVHv20Lv5HHCqg5M/sDdfSnFBN+SBdFvHwMHiThudlUScn0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Az2z12h3fO48ywkAXPiVAZbAu0P/+AanlMy6uy4S+6F+X/G8r
+	s679i0pJihB3oKYCJxkoPt77ZAWXbthl4/nBi91wRskYrRz7R5loifZabshI/xquoh8=
+X-Gm-Gg: AYBFou3eIs+iXf6JYW+OvU13zmTGazycUwFbnX/3OiXpWuRuiJyFmEj6dHxrosW2lVs
+	Qx2ca4szEe8ngFurx9ii1lLq/uxm+EKBPewWRhnf6hEN+9Lx2Lmuj2oRb9mev1FkLhHYEAaKOlm
+	a9R8Y1NFNOcaPpQ0qX8ON9wlk2jYuYrvcaW2D4+c38wWbgqvc/DkBQAipZPRpzjPhRmgBuhlZzt
+	L2B10xi23EqycvEYyI7ny4WM+Dmt3WMNh9K3Z04bsU/2gmxcXxTHSc6sufZmMnIGnLHRo2kAyqw
+	KrXXYQ1p9794X4rkudsDtt3mLoivvdjON3Rg4dqumZdmYlDZrVwDRGDS7R19Glq8An2tYz1Q/xx
+	uSDun8cSX+ClsDCVevxOaEGrCKSuiheVWLaILur2s0HnuwqJJPv1rRa6C+U48/0Z/1KAF4lhmeO
+	BePNMvHjcZEp0oE6Hm70L5RY5BcpB7BnjUebAbo64YfbXQHbRMVN/jxzQdpM5787Q8DI5Vja3JO
+	aMov2uoBZmgURYEsbuqpYxNBSyh92n4CT1LnyvE3dk8/KxDiZd4ainMhd/1LPU1gt2zWAmoKWvV
+	i+2aMJHVrV3pMAsRB2LkqpH/GVsFOBbBIfzI+u711222Ndv/g6YjtSrn2Tvl
+X-Received: by 2002:a17:907:18c3:b0:c2a:ac35:95fb with SMTP id a640c23a62f3a-c50f3781084mr288834466b.24.1794929831875;
+        Tue, 17 Nov 2026 07:37:11 -0800 (PST)
+Received: from [192.168.0.252] ([82.76.204.26])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a32155283bsm6407600f8f.37.2026.11.17.07.37.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 07:37:11 -0800 (PST)
+Message-ID: <3ea5d94b-6913-4534-816a-3935c689225b@linaro.org>
+Date: Tue, 17 Nov 2026 17:37:09 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,94 +92,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <541a67af-3b45-4d5d-ac4b-c741850f92e1@app.fastmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] thermal: samsung: acpm-tmu: Fix spurious CPU throttling
+To: Christian Loehle <christian.loehle@arm.com>, bzolnier@gmail.com
+Cc: krzk@kernel.org, rafael@kernel.org, daniel.lezcano@kernel.org,
+ lukasz.luba@arm.com, linux-kernel@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ Juan Yescas <jyescas@google.com>
+References: <20261117083442.830549-1-christian.loehle@arm.com>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20261117083442.830549-1-christian.loehle@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 04:26:48PM +0100, Arnd Bergmann wrote:
-> On Tue, Nov 17, 2026, at 15:59, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Nov 17, 2026 at 03:25:53PM +0100, Arnd Bergmann wrote:
-> >> From: Arnd Bergmann <arnd@arndb.de>
-> >> For compat syscalls, the effect is worse, as the actual calculation for
-> >> the size does include the extra word, but the check for the input size
-> >> does not take it into account and can leak a word of stack data.
-> >>
-> >> In addition, the size calculation rounds up to multiples of 64 bits
-> >> instead of multiples of word size as documented in the man page and
-> >> expected by numactl.
-> >>
-> >> Fortunately numactl always passes multiples of 64 here, so none of
-> >
-> > (Claude) went looking at numactl source (e.g. via libnuma) and it seems it
-> > passes size + 1 matching the convention?
->
-> Ok, I see it now as well. The man page again says "maxnode specifies
-> the number of node IDs that can be stored into  nodemask——that is,
-> the maximum node ID plus one.", which I'd naïvely interpret as meaning
-> that a system with 64 nodes would have a "maximum node ID" of 63 and
-> require passing one more (64), but clearly the implementation on
-> both sides expects a 65 here.
+Hi, Christian,
 
-Yeah which is... special isn't it? :))
+Thanks for the patch!
 
->
-> >> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> >> index 6d662a9a8c74..f318e1155770 100644
-> >> --- a/mm/mempolicy.c
-> >> +++ b/mm/mempolicy.c
-> >> @@ -1749,12 +1749,12 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
-> >>  static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
-> >>  			      nodemask_t *nodes)
-> >>  {
-> >> -	unsigned long copy = ALIGN(maxnode-1, 64) / 8;
-> >> +	unsigned long copy = ALIGN(maxnode, BITS_PER_LONG) / 8;
-> >
-> > This looks like it'll be broken given the convention of passing bits + 1,
-> > e.g. ALIGN(1025, 64) / 8 != ALIGN(1024, 64) / 8.
-> >
-> > Then later that could case a buffer overflow potentially?
->
-> Right, this would then overflow the user buffer.
->
-> > Overall it seems the issue is that e130242dc351 (understandably!) passes maxnode
-> > rather than maxnode-1.
-> >
-> > So a really small fixup would be something like:
-> >
-> > diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> > index fb627b37afcb..051d411c04ee 100644
-> > --- a/mm/mempolicy.c
-> > +++ b/mm/mempolicy.c
-> > @@ -1733,12 +1733,12 @@ static int copy_nodes_to_user(unsigned long
-> > __user *mask, unsigned long maxnode,
-> >  		if (clear_user((char __user *)mask + nbytes, copy - nbytes))
-> >  			return -EFAULT;
-> >  		copy = nbytes;
-> > -		maxnode = nr_node_ids;
-> > +		maxnode = nr_node_ids + 1;
-> >  	}
-> >
-> >  	if (compat)
-> >  		return compat_put_bitmap((compat_ulong_t __user *)mask,
-> > -					 nodes_addr(*nodes), maxnode);
-> > +					 nodes_addr(*nodes), maxnode - 1);
-> >
-> >  	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
-> >  }
-> >
-> > Maybe doing that's the easiest route for this?
->
-> I would still try to fix the other mistakes (aligning to 64 instead
-> of BITS_PER_LONG/BITS_PER_COMPAT_LONG and the incorrect nbytes).
-> Maybe it's clearer to just pass the adjusted maxnode into the
-> function directly and keep that extra '-1' in one place?
+On 11/17/26 10:34 AM, Christian Loehle wrote:
+> acpm_tmu_set_trips() supplies two thresholds, but the ACPM command
+> writes all eight slots, zero-filling the rest. On GS101, slot 7
+> controls autonomous CPU throttling even when its interrupt is masked.
+> Programming it to 0 C limits all three CPU clusters to about 200 MHz
+> on Pixel 6, while cpufreq continues to report the requested
+> frequencies.
 
-Yeah it'd be nice to get away from that convention which is... very
-confusing :) Especially as 'max' implies to me an inclusive bound.
+Could you share how you discovered this? I don't have access to the
+ACPM firmware sources, and the downstream driver doesn't state it
+either.
 
-You could have a wrapper get_nodes() that calls __get_nodes() that has a
-'lastnode' parameter for instance?
+How did you measure the actual CPU frequency, given that cpufreq
+keeps reporting the requested one?
 
---
-Cheers, Lorenzo
+Do you know whether slots 2-6 have any side effects as well?
+
+Also note that Daniel has already queued a set of acpm-tmu fixes in
+thermal/linux-next, so this patch will need to be reworked on top of
+them.
+
+> 
+> Program slot 7 from the zone's critical trip before enabling the
+> sensor and preserve it when updating the low/high interrupt window.
+> Cache the three temperatures so a writable critical trip can update
+> the hardware without changing that window.
+
+I think this can be handled with a smaller change: look up the
+critical trip in .set_trips() itself. The zone lock is held there, so
+for_each_thermal_trip() can be used. That avoids caching
+low/high/critical, the .set_trip_temp() callback and the probe changes.
+
+
+Cheers,
+ta
