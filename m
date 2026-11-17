@@ -1,96 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.98
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794924892;
-	b=NLQkOkEKpn/t3Pf7Cq0s4g+uYwgPmqQj/rF1R5DJrAuoFXgwrm+9trmrAQMV1kKHRydc
-	 gNvx3ZzFjRi+JWh399TEeHauqlpxrs8kUNJePxfjJEycRJtQNFfyiF8h908JInAk3rnVU
-	 74pZ0G8r3pXgscXxzDK12RuENQVR89N9Ukq0zMCAYauiGvCbGupbaXhPBRFrM91OWR/wK
-	 7bxw9x6tF6YACm7dwvc3Ag/QHAv2K/XPwME6aDU1uYSAla+ebw4E/2kTQj0BJRLKt67ko
-	 vtnyVIPYENs/9lC5QzWuC4XcVREmZZUhyAhLt2QwQcmd6o6WNeUexiAXj7aXYBN76ew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924892;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=coCo/Ks2kyomQqsIYg3JBdDbAix8IQoBtR/0WzCHQII=;
-	b=HzIWbsVzBSTgkI36MJn0uxp8tWvaq3mgSYjlKCJ+63R0VuoA/92UU9M6JEaapGoXzbER
-	 ousOAGFylh9rCgy7Jz415RZsr/ZMcd291LFKrPwS/ujWbY+cJdKSqpR76XXCjRN8RgVq6
-	 q2zsQYpWRoNav8/3mMtcsws57wsaqQVvcyUC2vs+h487SryvwlqhzRI96oUrPSmhv8XEK
-	 0N6y17BTYYQ+qFSDff9VwO4MOKA9qTdhzEEhBqPfZ5sYPrRaQXyMfBQQpOFskcksnMwR5
-	 TsnpNFYqvZ8g4esSS8Yrs/+q5R89CGymS/YU+xw0z7cfKSyWeOgP1NvV3HxUscsOalQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=eBMvu6UR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.98
-Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020098.outbound.protection.outlook.com [52.101.189.98])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794924923;
+	b=Abi9X3YXwM8DDcG7Fsgtxe6MfwdV8rEKSV+NOkSspo19V+kQgzwnkK6HXOzLT3T2PvZU
+	 48ZHStSbjRWDyxs1u4ip5CeZSWCbP+K9SbZzZyVS33J5gNRzb9X4xWtWuuuTHP/qhm2w9
+	 PsnwL/vum+HuqfJlHCnShhzs4i1ueQkT5LwRNNxYwXG3XEoQjf7vKT26A328NmWzwHQSf
+	 HJrxeruOqdlwZSr/4f8H+oqG8mIJqzaihE8JCK53KvKo2zz63NcCcF5JDe5IwDo1BSypV
+	 GRaaCpXQxiHFmYri8cG8/qStek+i4yMg/P0YQSPeINy4f91GgYiE63nbJjKT4EFI0UQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924923;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
+	b=2I7Q1i3Ob8q82aJC5L75qTBNzpQCmt1QWZ9GJ9wk271sBT6Y0UWgHobu/nmzr2LLNq7c
+	 ob6ZNDBq39YH8YAPlidcv0XASA9xglCYeug/9xweKNpjvNA1NQYsPtUWnuPq671Rh+HE/
+	 pk/0nw6+EOVm10u7JicZGSs0XHyxv/Gq2rsRJCYma9NqAy4Rog0WZYEAYGNtGDYk0+g+T
+	 CmvMqc3WzH3/IHEVblE58wXa9wp/a7mjgWO+AZzLgG6gVhiVl2AWimWmQs+77iUKt1qhc
+	 J1C0teAm/5c0FtEe2Q2N3FswJvmIj/6WVO8uMZjUJzsbhjcizpdSiyqpV528Ezg77+w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Z/IQjX1l";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Z/IQjX1l";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6810F606A882
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:14:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6810F606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DA4606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7DA4606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=eBMvu6UR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ook/sq9owU5Bw6MkC9n5hMtEhVfz/eutDRm1DR0yF0JSu/+4SyJL23g2nyA/GyGHlqkOclvs4zKB2acahCKzU//5XHam2r/37e9Es15HpScR9cVP9vgihQs55aDv5voWxW8KKjkMlfL0ME0qrGHHtbmzzCqL7VbBWDsNjJLyL9lnodwVtjviekTpmxumzCSY0F8HV3b754eVK9ivs3U7u74/k8f/p0O8zOg5/oNA6IRHVOMLhV0qPUMASqYnQ/85+MUcy3Zu17grJrC8ptaqmtQNPqtRkKb8lZTJuIZtiYe1xoXHcWxFamssqayPc8nmlWmRPKXQDFdRN3Gxa/4OtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=coCo/Ks2kyomQqsIYg3JBdDbAix8IQoBtR/0WzCHQII=;
- b=L2ErK+28CXPd1GB/biwM+lSHLNdAAg5se7dzWUo2/7ML93BughHp9Q7gUCucvXgo3GpsYkTwcnLDNEZhGrg7p5Xda5f8XG1XRsl3KokYjmt7Rfzu5hzqEgYtVo9St/hDX2ofZZWr6n7jnS3udF4SUU3vmObJcCN8+DfAqRIWRZj2VjRBF0rvwCi3UZ3bVU93JljqL0cWfqaAKKketYHjSsVHFUiL2z5OmQS2EUl9FadksxUoQjjM3Zv6P2SMnrlExwyZP3wg+MQrQOm0qui+mhfgoqDWutZzp5+xYPVUHnQctJfMSs7R0XwER3NZpvj22pnXogXPymOzUkxNBthjag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=coCo/Ks2kyomQqsIYg3JBdDbAix8IQoBtR/0WzCHQII=;
- b=eBMvu6URcuqordMVl3XtEsa4DOo1+vHC5EQ9IpZ4yaIp5iGbHVi/wJ7DsghNUR/SEKGz9yL0DUMZOki5SjzAylUjIBtT0OU6GBChVn6UvtW0/07wJ6Asq0C9wbg3SC43/TIIMT6EE2mQEvjICMim0qKT/79oVek/U7YMwccXT9bfm9zkCCnpq5oKqf/zEdxNvOEvvq0MsX/bdKpvLc8Ffzr3OIMEaNqbHOcHBN9+YMl1CNeFttL2D/gX5LpklTYd2ERZyufqPTQ872Y0FDY8xl7GYqjjjM14FQoaBfMwwEXEYzS8svHk+Nggt+PmTdMA+sFX4AJDu9XMmVRHXfK+bQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT2PR01MB9777.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:de::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 14:14:49 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 14:14:49 +0000
-Message-ID: <b975f96b-4811-4033-ab73-e819de1f4f7e@efficios.com>
-Date: Tue, 17 Nov 2026 09:14:47 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/37] sched/deadline: Refuse dl_server debugfs writes
- while the rq is offline
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-6-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-217565@kernel.org>
-Content-Language: en-US
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-In-Reply-To: <sashiko-outbox-217565@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0001.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::24) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Z/IQjX1l;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Z/IQjX1l
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E190F223FB;
+	Tue, 17 Nov 2026 14:15:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794924920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
+	b=0jW3mJhsZonTHow49PXrw/7X8xegWzg8hyvNe5jB8I5Qz76CE90xltQwj/qXkapOUzbseC
+	mv1BU69E0GMbcbBLVzAjOe1tIi2PZ+uMDwohSXt3Dx6SpQitxCi4G0hXDBYF9VBC8FcnwV
+	P5X9G3fZeq8W/OBGRPHnZ5QYAOc+z6Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794924920;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
+	b=Z/IQjX1l+elYc06SHHARaWBvoGDRz6mdgG4jUI5W4emYodV1O/kkB9JNTRaqRgx+47W0rV
+	ElfVxw1tcrkvWcAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794924920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
+	b=0jW3mJhsZonTHow49PXrw/7X8xegWzg8hyvNe5jB8I5Qz76CE90xltQwj/qXkapOUzbseC
+	mv1BU69E0GMbcbBLVzAjOe1tIi2PZ+uMDwohSXt3Dx6SpQitxCi4G0hXDBYF9VBC8FcnwV
+	P5X9G3fZeq8W/OBGRPHnZ5QYAOc+z6Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794924920;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
+	b=Z/IQjX1l+elYc06SHHARaWBvoGDRz6mdgG4jUI5W4emYodV1O/kkB9JNTRaqRgx+47W0rV
+	ElfVxw1tcrkvWcAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4772E13302;
+	Tue, 17 Nov 2026 14:15:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 15e3NHdh/GqxLQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:15:20 +0000
+Message-ID: <e113b27d-3065-43a2-a60f-aca3552f2002@suse.de>
+Date: Tue, 17 Nov 2026 15:15:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,101 +106,332 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB9777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9630c287-730e-403e-5081-08df44b523b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|56012099006|4143699003|261028144727099003|10067099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	c16oloGhMYoQ3mWQWoFjawFbABRMBiwddZ924PgyAQqowylaK0m+rmb/xjErZyiFq+XjTJY06YN+gcR1kiEjYIQ4hTJu6frZMrxD0juyw+l/PepXy5zYAtg/cxqaE9O3eTOGbOFwJpgnsk3ONcXAtlyFb2ssP1NKOkCC6r7LpyY/VJZ3KYO+9WhsMhjEeN5NU8xbtw1jP0PIOYnpaSsYe/jXR2tvewl+hscsnkjgdQXUY/rx+lp5bLyATNEh8eL8ZQHakB1HKpbj4Ft6VxUpojZUsAyKurKqOdZrWj5qASIMgzYt2xXhIpJYW7CEgxzRVrDMaOquZf0yP+cz8LQC8jlLDmR7e3RH/XC69te8VgJ/+u/37ynCzNjKu9TWUvOXm68y4iuLYFF2pI0u/EjmfMalRgLUYf/tVKyRhKnSAMssxAvcNb932XawrPJUJatsUUxgQFTFBO1355gvfsVaQGx1sDBgfPtPrPsj2gBW6xF0eu7EsoraT6WvaCaIutx6ULASowTW8DYtu8uWE3WLlk6PMB7HdZKPpvqu8thGRLQALm4LVBFjL9kmMerLs4LuK8UraSkYxhtQpszKNQcoJgUsFOymi0+ITq9o+ZYVMJM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(261028144727099003)(10067099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q1ZuK3VPaEFmMDhGRkNrMkpHVFovUlFiS2N4NUJPdTlyNkxWM0dLanhoZjhy?=
- =?utf-8?B?NC9uYVJGdjgzUlViYXRkTktZcUJVT20yNFNPSGxHUUxHV1Z1d1RraTdFRks5?=
- =?utf-8?B?bFFBZHlrSUZyYWpJVjhzQzQ1dVh1bWpUSGt2Z2tQOEdndURxZE5GU25Mem01?=
- =?utf-8?B?ZmUxWFNnUU50aEt1b0oyL3d0ZXkzV0tScnZ0Z2pwUk9idnFSQzZ4eVdwTnVr?=
- =?utf-8?B?elN1NmZmWXNFZ2IwZXhUWWhENG5jTEZBTEd2WlRkRERPN0FBSXA4amtyQUlN?=
- =?utf-8?B?VUNkQVpXUzBPSFZhY05wWDNqc0l1M2ZwNUo5eEMxU3YvYlFzUFNlbnJJR0Vl?=
- =?utf-8?B?cGhqSk9MNGZ4UmQrbGRYN1BudUJrTk40VUFYNXhqN3RlZlB6WW90azBPUVFI?=
- =?utf-8?B?eDlLY2V4WjZJUUwvRU9ERGtlMk5uZEhQUzNBMlJlaGpwRVpINkFLcTdYcGZ3?=
- =?utf-8?B?czVmLzcvc1UrbDdSSlRXY3FUekl0bnZjWTBJejFsMFhhWnQ5T05pbFJzSW5r?=
- =?utf-8?B?MDFMSUZOdlRTYTBmQzNwZ0xMNThpZ2MrY1V6RVJjek9ycUxvVXluWHZ0Y1F6?=
- =?utf-8?B?NXk2dWVCZnpOTVFzN2R0YXp4TVI3SnVSN2haTVdoYVJscjNVaUVoZ2dPdHVn?=
- =?utf-8?B?VXFFWGRYRk5IVFAzd0Nzc1dQWnRSY1lEYmhuaWZmZzlXblZXd2VQREhnYzJ6?=
- =?utf-8?B?ZEUrTWN3TDZhODUydkVIdUN3ZlJJcFdlRkoyZnpDWHhNSWJrdis2QWFpUEgy?=
- =?utf-8?B?Y2xmR2p2ZDdQZnM5M05hd2s4YkU3VFBHbUdkbmlOOGR4eUloak1LMEx5M3Vs?=
- =?utf-8?B?NUx1R3RvK2VVZUM4VXMwMXVUYnV4QlA2QjN6emhGWFVkbG9MY0ZucVgvK3Ir?=
- =?utf-8?B?U3dJTkRhMDdjNkdieEtTVkJXRExaWEp0S0lmOCsvWFJabXFWSWZFb3l1K1lS?=
- =?utf-8?B?L1NRcm1WdTRjSDVRSFpqczdYTjY3TVMrK2V0Unl4azZaM3F6dm1IRkJTY0FJ?=
- =?utf-8?B?VGhLa05TL0phaVFxbklrU21uTDQrVHppdkU1QVhsMWNtR0F2dlBmb3R6TTlK?=
- =?utf-8?B?dXJJUExSSVdqaDcvR3JEaUFOSXBNUUx4MGV3VTZyRmo3UkV2RmhJZmNnUld1?=
- =?utf-8?B?c0l0RDg1YVFYbVdUUU1QTVFSaUErV09pc2JjcCtyb1haZmZtQm82WUdacmZO?=
- =?utf-8?B?VTZ3T2lxL2grM2JIa1EzNjRidUo0bExhRjc0WE9WWWVTRGVKZTRNc1J1b2d2?=
- =?utf-8?B?QlV0Tk5lQkpudlpHMDdtNlRpbDR2Y0ZuU2dsMVZubmN6ZnY5bUR6Nkx5MFRT?=
- =?utf-8?B?Rml6OFRaN29LK25QbFo0RGRJUjlETGYwNFZVV3FHWU5tSzhMVzZWOU11b21N?=
- =?utf-8?B?c0VCL2pnTFZTUEJqNjVzWXB0NmhhVEs2V2RZY1ZYcHFHQU16RVNTWC9hcXB5?=
- =?utf-8?B?ZEhsU0VTdEY0UzJDOHRhb3ZEOWtQMG8zVFNLTFRHY0Rkd2RkNDFveHlJV3dK?=
- =?utf-8?B?dHV2WFl0WUl2OU5DQzJXT09PWG9ZRHhpN2ExOEtwOHBtTkhnbnB2UW5DQzZ6?=
- =?utf-8?B?U2FPSWlmZ2ZyNjAyN3hqT1pYeHpsV1FvR0dpNVcyWG5wRDdhMWgzYjlYbkIx?=
- =?utf-8?B?SmRqaGNGcmhRblFnVXdRUU1kR1hIa3hDVXhRTnVrMitNNElxRC9DLzFtd2pa?=
- =?utf-8?B?Mk03RE9LZHdualovbnpobE84VXN1TTBycHVyajVwSUc1bXMyek4vVlV4WVFq?=
- =?utf-8?B?Q3VCNG1wazZHVi9FZ0lQWU41a1lpaXVFWEVpcG5lNkhBOGRpaWMwQlJETDU1?=
- =?utf-8?B?Q0xqdDFTUHN4QllNZHdZZDVsZnZNYmE1c29CcEVJck5QYzdYb0RlRnF5eGkr?=
- =?utf-8?B?OVZ6M1ZuLzRSYW5hOVhrNThZRHErOEpLdU80b1d0YytkR0FhRVVRUGZZOWRy?=
- =?utf-8?B?ZHYwRXpRN2U3UHpVUy9lTE5MeTZlZGppSnJpbkQ4QlRkejUrd2tXOEd4WU5D?=
- =?utf-8?B?VkdGOXVKZmZJZk5IT3NDQ0N6WWdwZHBqM056cXJFakFYRjQ2RUpWdTdqeUNs?=
- =?utf-8?B?UytYZlh0UjJ3bVdHWW1GOTJSMnp5MzBDNmhXWXkyQ2dzazNwV0lnZUpqUlQz?=
- =?utf-8?B?V2ZkYi90dUM5THlWYXRMNC9Nbm54QWpHYVhxaWxZT252aS96UlhoOERtS3A3?=
- =?utf-8?B?SHU4UmY2OXdZR0dkTXpHUmdXZ2Y2d0Fzb2txclFDYVlDc1NuMHpsdGxuQXFV?=
- =?utf-8?B?cmtQYkRJUU5Ma3BUOUlCZnMyOHdKajhObFNJYzlzWmd5NzFZcElRSkt5Q2lW?=
- =?utf-8?B?ekdMenZWRVhRSngvc3lBc2ZmME9VbmJVZ0xnSTNPbzlweHJ0YUdtUVZaNGkv?=
- =?utf-8?Q?c9SsRQh9SjwEerks=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9630c287-730e-403e-5081-08df44b523b0
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:14:48.9425
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bW5mZZ0E/3+dhH3pcL46uawBGt8Qni92SFEs07X5PgnsN0SLQHii5bYL3J/Ke+DttO6j/tRuwWOBdW4xPafZg9jfPy/ne6HyO4TQedndv5E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB9777
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v5 2/2] drm/hisilicon/hibmc: Add a flag
+ to indicate whether the OS-side driver has been loaded
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com,
+ tiantao6@hisilicon.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
+ kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, shuliubin@huawei.com, chenjianmin@huawei.com,
+ fengsheng5@huawei.com, helin52@h-partners.com, shenjian15@huawei.com,
+ shaojijie@huawei.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261117130056.272609-1-shiyongbang@huawei.com>
+ <20261117130056.272609-3-shiyongbang@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261117130056.272609-3-shiyongbang@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[suse.com:url,huawei.com:email,imap1.dmz-prg2.suse.org:helo];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-> Can a debugfs write still slip through during sched_cpu_deactivate() after
-> cpu_active(cpu) is cleared?
+Hi
 
-Yes, it can pass in that window. It leaves no wrong state, though.
+Am 17.11.26 um 14:00 schrieb Yongbang Shi:
+> From: Lin He <helin52@huawei.com>
+>
+> Add a flag to indicate whether the OS-side driver has been loaded to
+> prevent the BMC from enabling DP if the driver is not loaded, which could
+> lead to system failure in handling interrupts and generate error messages
+> like:
+>
+> irq xx: nobody cared (try booting with the "irqpoll" option)
+> ...
+> Call Trace:
+> <TRQ>
+> ...
+>
+> The flag is set only after hibmc_dp_init() succeeded, so it also means
+> that the DP block is ready.  If DP initialization fails, only the vblank
+> MSI vector is requested, so the DP interrupt is not registered at all.
+>
+> Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
+> Signed-off-by: Lin He <helin52@huawei.com>
+> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+> ---
+> ChangeLog:
+> v4 -> v5:
+>    - Only set the enable flag when DP was initialized, clear it only when
+>      it was set, and do not request the DP interrupt if DP initialization
+>      failed. (sashiko-bot)
+> v2 -> v3:
+>    - Move hibmc_set_enable_flag() before drm_dev_register() and
+>      hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
+>      race window. (sashiko-bot)
+>    - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
+>      operations on 0x0802A4. (sashiko-bot)
+> v1 -> v2:
+>    - The call to `hibmc_set_enable_flag()` has been moved before
+>      `drm_client_setup()`, specifically before the connector detection
+>      triggers the I2C bit operation. (sashiko-bot)
+>    - A read-modify-write operation has been implemented instead of directly
+>      writing to prevent clearing the I2C mask bits. (sashiko-bot)
+> ---
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    |  1 +
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 45 ++++++++++++++++++-
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 ++++++--
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
+>   6 files changed, 66 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> index 84faa1a7439d..10772cddcfc8 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> @@ -57,6 +57,7 @@ struct hibmc_dp {
+>   	struct hibmc_dp_cbar_cfg cfg;
+>   	int hpd_status;
+>   	int phys_status;
+> +	bool initialized;
+>   };
+>   
+>   int hibmc_dp_hw_init(struct hibmc_dp *dp);
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> index 6ea70c31d1a9..9fa49a2ba093 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> @@ -256,6 +256,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>   	connector->polled = DRM_CONNECTOR_POLL_HPD;
+>   
+>   	dp->phys_status = connector_status_disconnected;
+> +	dp->initialized = true;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> index 7920f03895fe..7ea050e89005 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> @@ -174,6 +174,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
+>   	if (ret)
+>   		return ret;
+>   
+> +	spin_lock_init(&priv->gpio_lock);
+> +
+>   	dev->mode_config.min_width = 0;
+>   	dev->mode_config.min_height = 0;
+>   	dev->mode_config.max_width = 1920;
+> @@ -346,12 +348,17 @@ static void hibmc_unload(struct drm_device *dev)
+>   static int hibmc_msi_init(struct drm_device *dev)
+>   {
+>   	struct pci_dev *pdev = to_pci_dev(dev->dev);
+> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+> +	int max_vectors = HIBMC_MIN_VECTORS;
+>   	int valid_irq_num;
+>   	int irq;
+>   	int ret;
+>   
+> -	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS,
+> -				    HIBMC_MAX_VECTORS, PCI_IRQ_MSI);
+> +	if (priv->dp.initialized)
+> +		max_vectors = HIBMC_MAX_VECTORS;
+> +
+> +	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS, max_vectors,
+> +				    PCI_IRQ_MSI);
+>   	if (ret < 0) {
+>   		drm_err(dev, "enabling MSI failed: %d\n", ret);
+>   		return ret;
+> @@ -430,6 +437,36 @@ static int hibmc_load(struct drm_device *dev)
+>   	return ret;
+>   }
+>   
+> +static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
+> +{
+> +	unsigned long flags;
+> +	u32 value;
+> +
+> +	if (!priv->dp.initialized)
+> +		return;
+> +
+> +	spin_lock_irqsave(&priv->gpio_lock, flags);
 
-> if other active CPUs remain, __dl_overflow() checks N servers against
-> N - 1 CPUs' capacity and __dl_sub() / __dl_add() miscalculate extra_bw
-> across N - 1 CPUs.
+This is again a good place for a lock guard.
 
-The test against the N - 1 CPUs that remain is the safe side.
-dl_bw_deactivate() just made the same test. __dl_update() spreads
-extra_bw over the active CPUs only, so the divisor matches the CPUs it
-updates. With no active CPU left, any bandwidth above 0 is refused.
+Best regards
+Thomas
 
-The rebuild at the end of sched_cpu_deactivate() then resets total_bw
-and extra_bw. So the write lasts until the end of the same call.
-
-> dl_server_start() also re-enqueues the server on the
-> deactivating runqueue after balance_push_set(cpu, true).
-
-The rq is still online there. Any fair enqueue on that CPU starts the
-server in the same window.
-
-So the planned next version keeps the rq->online test as it is.
-
-Thanks,
-
-Mathieu
+> +	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
+> +	value |= HIBMC_ENABLE_STATE;
+> +	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
+> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
+> +}
+> +
+> +static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
+> +{
+> +	unsigned long flags;
+> +	u32 value;
+> +
+> +	if (!priv->dp.initialized)
+> +		return;
+> +
+> +	spin_lock_irqsave(&priv->gpio_lock, flags);
+> +	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
+> +	value &= ~HIBMC_ENABLE_STATE;
+> +	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
+> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
+> +}
+> +
+>   static int hibmc_pci_probe(struct pci_dev *pdev,
+>   			   const struct pci_device_id *ent)
+>   {
+> @@ -465,6 +502,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+>   		goto err_return;
+>   	}
+>   
+> +	hibmc_set_enable_flag(priv);
+> +
+>   	ret = drm_dev_register(dev, 0);
+>   	if (ret) {
+>   		drm_err(dev, "failed to register drv for userspace access: %d\n",
+> @@ -477,6 +516,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+>   	return 0;
+>   
+>   err_unload:
+> +	hibmc_set_disable_flag(priv);
+>   	hibmc_unload(dev);
+>   err_return:
+>   	return ret;
+> @@ -487,6 +527,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
+>   	struct drm_device *dev = pci_get_drvdata(pdev);
+>   
+>   	drm_dev_unregister(dev);
+> +	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
+>   	hibmc_unload(dev);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+> index dce8572bf63e..c2a82000ea7f 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+> @@ -49,6 +49,8 @@ struct hibmc_drm_private {
+>   	struct drm_crtc crtc;
+>   	struct hibmc_vdac vdac;
+>   	struct hibmc_dp dp;
+> +
+> +	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
+>   };
+>   
+>   static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+> index 44860011855e..4ceb87efec05 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+> @@ -27,7 +27,11 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
+>   {
+>   	struct hibmc_vdac *vdac = data;
+>   	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
+> -	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+> +	unsigned long flags;
+> +	u32 tmp_dir;
+> +
+> +	spin_lock_irqsave(&priv->gpio_lock, flags);
+> +	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+>   
+>   	if (value) {
+>   		tmp_dir &= ~mask;
+> @@ -41,20 +45,29 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
+>   		tmp_dir |= mask;
+>   		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
+>   	}
+> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
+>   }
+>   
+>   static int hibmc_get_i2c_signal(void *data, u32 mask)
+>   {
+>   	struct hibmc_vdac *vdac = data;
+>   	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
+> -	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+> +	unsigned long flags;
+> +	u32 tmp_dir;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&priv->gpio_lock, flags);
+> +	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+>   
+>   	if ((tmp_dir & mask) != mask) {
+>   		tmp_dir &= ~mask;
+>   		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
+>   	}
+>   
+> -	return (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
+> +	ret = (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
+> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
+> +
+> +	return ret;
+>   }
+>   
+>   static void hibmc_ddc_setsda(void *data, int state)
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+> index 17b30c393b10..b95add5b253c 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+> @@ -200,5 +200,8 @@
+>   
+>   #define HIBMC_CRT_PALETTE                       0x80C00
+>   
+> +#define HIBMC_ENABLE_FLAG			0x802A4
+> +#define HIBMC_ENABLE_STATE			BIT(2)
+> +
+>   #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
+>   #endif
 
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
