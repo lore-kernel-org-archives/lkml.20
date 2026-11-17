@@ -1,102 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794896949;
-	b=dG6mJs3XCbC79N9wkIN9C6CE5SW8sFRubXWbbbHHPv0sQ75EP9crlKDSePAitlcRYaXF
-	 Rt0QgBbJmyzC08IyAf48wtS4nawroxn91h1wnrXfWrVOBXfneXc9K1nCZmGvbGTZEpwBS
-	 BpbuJooIUDW4KfnEUcLUV3itwHkTJC7Zy7cSYTWKT43hFvzZluDxHjmJVju2zSsW8v4vq
-	 vOMYeBJZxgLghfi0NgfP3PUshk9hkpTdl9W83HeogoU5WsYyK3J9aBMBA6b3+N8vhICrj
-	 YQFKms6dZEekEBMUsrNB0a4aqeZ0Wq+KNhPjZvD+RM8etsPWKlzl8ylrsEWpXLJvq3w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896949;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=G0iDvC+B4B0fRKTR2Ol02uhhw6NV01CbR7lNEbBKZ3s=;
-	b=rQ8aowAMpKg0ROjjqtnitBqfejaHAxEH1msyPnzFTPwgd5mVD3dqKikCelQfszi9BKYl
-	 pNHPZeqj3rvobD8N2XwvtlQA2+IoxsIMrR/sN1djPWggpjFj0YZ9rEjErQwpAcRz8Zybe
-	 kFPu3XDVXCN85WQm6MqRDamSi8/vtun61J5axa+5vMgQ1uLF1oaDUp/jprHxq2nfqpbW5
-	 aG3pYN9/F6AuoCa7Bn4MgF0H1ja0NxizXtZ7YMCCBeBYeKatsLFpNMIMipzXIjHVSeLHg
-	 2Ma0TsYL3S0Kv5xUGq6BNjeunNHYqtPK5guJWnHMEKg9X4PW0FoQ1RxUoXipz7YMaCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b3uaHFKF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794897069;
+	b=iZ4VjZTeGZLK754tbjkkFYIBKCHm0gKk/28j/JC9AynTR0pZMM8Nwf1YpY7IbqtjZdCm
+	 Cm87m/BWZFKZp0X1rbkMgJeEfhSv0E/xIF7SJOHBtpr9lV9yrh4Lx07k9JCyID0ognh/B
+	 F8mXK4ULZ9Xp3Zv374dVJTvKjJSO07UPYB74E2T82sB1P1y5kJott1akZuD8Biqm/2aoQ
+	 ImjWC8skppnP7/xw/pscxe4wtO3CbdS+XMSMOGgk7P9eFgEDv0UixxUNCA/wCKZLH04h7
+	 W1n5hp+IKINnfubgpEr8rV7n33y+uPWgRZbbogRwY2Qm62sAGrDr5CQ9JRY0SkrxnTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897069;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eIl02sFeg/HdcCOnjAF4dR6Ki4InqJhsRRcDiPV3dRw=;
+	b=veBLzRrxhl06JzIDzEdZRYLtBz/Ft6ASgEQb+5JsoHyVlARozp+O7UDwHCqKgI4OMM2z
+	 GOBWh+m3UFJ2OwJvGIQ01hHcgmTZUnVmta6R8xcykN8N1KjJRNR8gR6l8VeIKw9GgmKc6
+	 eKfwaXCFuqT52CcCLsHgP0z/7sqxJHTKBb30+NDpHc0Yq5IefaQUVXXSQgjKHQjR8aUsp
+	 AKazBjZQ3dJVedVuP9OC6nF91R7txSP5E6niRu1H9jBGByAceeS57d3UH0Qb1gc2vkY3o
+	 1gH2X3IiUvvc86xoXZUHB9Pyia5br9AgumwfxxQ5rbI1Pmb0zuzXKkWqOY2ZUuGVpzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=A8XBF+Au;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAF2606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:29:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CAF2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0DE606A31C;
+	Tue, 17 Nov 2026 06:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E0DE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b3uaHFKF
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso24895745e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:29:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794896948; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TEZfi6yCy1U7QXsIMYSeb+GdJaLsD16rC5Ovs+QSdKpjJO4/GDu/1HHIn2sN+EUJQe
-         Av6TwmsUzKIiyXWVpfW4cfH2oRdL9GY2O95jxzy8XWrvXVDnw4kH7RFv5BmGeLIYmhPb
-         di86OkFR+zR9h0iZUS4yuq2HeNc7qzX75AhL60kxTHS5DhlHB//xwR29PXk6HFyBLA9L
-         iD8w4yqxOY4HBhXu6LdczGkC3Qu7Wfe+4jcvLsk8acd0/dwXcHRSCLT0NnyHZBFq+1oG
-         0yd3mZubvjhEw/MUnv7xAirHWsVxrPSkqcNQqDEbJLTXA6H9DHzTjKiMDbHvCnYMPlSC
-         VZNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G0iDvC+B4B0fRKTR2Ol02uhhw6NV01CbR7lNEbBKZ3s=;
-        fh=oTPPNDxqZjXWOgWsSyv2w86GfKSEdaU5iFqPkuFKuQs=;
-        b=M4m0SD9rCMwcSXOd98AZgfQSUc9LUCjzqrP/0GTfJXH0ICgB+W89ONEmKvqJomndYu
-         28b1BBWF5oDcs569N8qO047Lw88muGRgkjDWe0f6YvKEHRmZ5UipP9xNf6qOxqoxFuoq
-         nay0QSOHiA1CO13OB/gYutcUqbYkfTWyguuQAl9zJEamH+pH140suKmX8nkZhWziL8EQ
-         l6M6x2eoCkDW52VfEFVzoAtuLuBwjFfUFKZe2QkQ9b+sR77Wnwle26BM1XOvWTfQvkWU
-         PxVzNFf1xamQ8PAuvkU3UYdcwUTnyhbJutFIUKiO7vksf1I3Uknw+dZQvNL9OeOTgJZN
-         dkjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794896948; x=1795501748; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G0iDvC+B4B0fRKTR2Ol02uhhw6NV01CbR7lNEbBKZ3s=;
-        b=b3uaHFKFRmNqhgR4HFR08IC0FriEQ2Fm87S5nwb0GiRNXm4Mv2ykktFuKoqXe88p7E
-         EOlRr4WxCb1NQGTzgSujdzYz6gxyavsZt254VavABpnJdfFqijDlw0Xpmrfww/Z8yu5m
-         ah1034GnPxUBYajPQqRqvec0qo5LxSAswVwNXmHjrKT3eb1sK0vGspKCE7jnpEsKMnjw
-         7OueI+lCjem7RIvtTX6tH465zKabqZlrzxVxbyRdsoBmS2cBhuqI4LLZZL19r0On82rt
-         BtzfKduW9sT6BC2CjMTnYNt2uJ7+WO+Bm6alWy2hZM+sg4xjWw8dUhXpoWMzWtLz6vnj
-         KuQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794896948; x=1795501748;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G0iDvC+B4B0fRKTR2Ol02uhhw6NV01CbR7lNEbBKZ3s=;
-        b=DoL9LWfBe4NXWjAwsIoK1z6SNZhCZyW7vLr+HRSQ/qrKJHOlgOywVdOuRZKVOucwDR
-         p9TCO+k/yoTEeGq7rQ3NVnYBw8/V6wpFnwSidqAv28XtRwoivdx11pubZub4fJIOcPys
-         r39BX8I//GuAm2/u3xOywXfojd/hq9Lg9MFFea0epABEs9kGjYjfVa/vVwfI3o5K4uxt
-         sKMkV/kjdo9u0e4UVE57F3eD7lNLGv6sCV9GRKFGDvW1yFzBmKe5NiIy6y/U3QZ5xtka
-         ViyhVJXYR31YiGS2s6ak4W055Bae5gTGtZmhwWZyHMxvXC2m9PWXc1D4OE0p7izfgfML
-         pl/g==
-X-Forwarded-Encrypted: i=1; AL+hErHoRqxEYIxXHROc+mZ8doHJ3RAIduhrXen0S4/omPjSjHqwvSTmaz6jukuHfxlrrNCKwsYD/eN5hyCkpHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5N8Hettxsyr6ZaHYiPUoTE20ik6CrwOTQNNbKKov7ey/Np1wN
-	t7J/0YCxttklx13Rw8USfVF8BiRfHSQ6N6Fy0VVJqj/aZAkF19r/ucEIAwwUcNhWeSHoBSbJ9Mg
-	iY9SUufoxrzjLbF/csknLHqTVgStMimYHlGkWwP+Cj0TG1toALV6Y9KZUTg==
-X-Gm-Gg: AZFdTZdKrgBYxsElgskPsReu1/JcKKu0jT9Ymf9MxnPUcncqSf69DSu+gigej4On7Si
-	JitmUbSiIZF35OyNGZrn+kDdQNnL6oNevyHbho+7O5KdN7lHzU1f1j1YaxzKbNWVYH7Y8XTPPX0
-	Hz/V30AQ7FRe6X5UIq6T4hgX7xaJ/f0/aDjy12g0jtNJpTSqLr307sCKPV2gnSbTi5yH/Pg9KnH
-	klftHHcJMhVnOJF9JI+RWcWIsn8P2sSkWBE16DbCWbaxc/iSStvZyQL/2saC6ds/2bLp3LgswZn
-	vPV2WHPY18lB1+yr8cq1vIcFSciqD1IYeLLxWhnC8NF4PaUYfcEYO9DSup+mqp45SGr/WwZDcx6
-	GcmPOTmA90cEtVZDOUqAvAWK9PzJsObEqWEuS9Z9qPWZPFZDDiAqsUy8RsOfDzncPFiZab4qlxD
-	BlQ9r97SDYE6Zv/lTSXJB80NuhtWAe+i5k7y2bVD92HaX2levP7/mEfmFciJ/RHzmaRWK5pLOVE
-	vKDmTZvjxb0D61iC//XNQDxwc/kcA6vASImu27Rscrwj2AcHZPw0Q==
-X-Received: by 2002:a5d:588f:0:b0:48b:a4b:5a2c with SMTP id
- ffacd0b85a97d-49c6d4538fbmr30173022f8f.3.1794896947228; Mon, 16 Nov 2026
- 22:29:07 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=A8XBF+Au
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794897062; bh=eIl02sFeg/HdcCOnjAF4dR6Ki4InqJhsRRcDiPV3dRw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A8XBF+AuOXu/OlZOM0GSLMXQEejSTyFW7UvXGK/E2ZvNZ8ZOpaiBrC9s2IrD3HMqI
+	 T4m7Cz5Lgs6zVtxYb0eGXb/M3BSRf+u26YcnHjQ8NFBEM3hZezNM9d5AFN5eMlLAAK
+	 tvq1ERW3vNd81dnu0fG6koBrHDisEWbRUYoqmQfs=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 7C094836; Tue, 17 Nov 2026 14:31:00 +0800
+X-QQ-mid: xmsmtpt1794897060tqp7f3i2f
+Message-ID: <tencent_E038DD9BFA4429F88047A5A4367D578DB80A@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25GL9JzXXpiC7azFNOkDpUo3/vpjdlF4rKkk08frouJPI9PVkBbwi
+	 bqqy6N4lnb/qXJVAhhemt46o3E0nDPq3eyEUNeIhttIcuRH0bHMlOggB70bCwFJUrPuIMlfyp3mO
+	 F11RzHHxEnAANvNAD6am9RjfGqGDHX5lwZG6zyiEewYlF7m19wUmxRu+kWqPwPyhi/5kRYpyUx0u
+	 POphp1wlewIrauVYLNRUEOrS82qnyi/HUdtQO+WiWSTIiWhg9hJexvOcaqYqKjn2+eD9yumF8TI9
+	 9U1AdEXd5SoqZxWyEn8V2b+VRCZ/tQO4pVEtcdd/FX8OxWRkcejHWecVHUrR6IqdxwMADCVUsUAo
+	 nBcZ3fuj5sJKV0rwZPVSPEtaegu2oCRKv4grbEExLE+HGbqswhZ9UkpDHr9z24RPE//X5NmBfw3u
+	 LhUadZTk4vGTv4yZvnlyyAJ/FKof0aDrVac902wPeVJz7c4HSHmOvri0UaO2Pdk6PNqv56/IpRB4
+	 4KFFEpkczxYOsrMTV0N2rP526MBB97zVq9Va30exKkgsgV2JPxGKOPju6FXuJkVdzgzLjVyRF9ab
+	 UR0O9BvoEw7rKHBz1wwdJupAYUfjA4fw4/O6iajIpPxmq3CJJRmyce8D/4d88s8pD+GO4hFwVCQN
+	 jRltQSR/XOj1ocLQ+EzxZ0WW8z9eICRVbpXLNDvCKXmLsx6liWCR/J13+z+ER3NWncg5sN5GwsDp
+	 t/G4aTTDzwBgsaF9FQhTQHPlsMzv4lCRBcO2HySo8oMFtrkr3n3uDcP3qAFDW1c5G/++PtxE7fOF
+	 bBXWgiAFDomdn2cxTlzf3IB9kw+qnW3BxgsqDcO4zVe9GdChYDv8PZsdThVMvXEi2I8sg/9WZqTR
+	 5MvELSSRxq11OJY4OqgTyOIJgblsNk7X8UPMRwI3cw3ITzeX3c3LO4Cj0GjLK3HN2j1OeXN0m8h6
+	 a++aa5SNtKyxJewepQbQ7QXiIVrRVFXWQy33RK8MEQeLJ73j9F6Uycf5I06jAk4QF0MaVFywNKU3
+	 +kNazF4NjnfaFBG0Zb6F9J2OQIDz4VbOvInXlJlPzYRHLteVCJ5BnTi0L+ywQDz1BTHtQsL+adcu
+	 QYO6A6
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ [PATCH] srcu: Validate ___srcu_struct_ptrs entries against the module range
+Date: Tue, 17 Nov 2026 10:00:00 +0800
+X-OQ-MSGID: <patch-srcu-within-module-20261117@qq.com>
+In-Reply-To: <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
+References: <srcu-struct-ptrs-wildwrite-20261114@qq.com>
+ <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,128 +80,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116192638.233125-1-mathieu.desnoyers@efficios.com>
-In-Reply-To: <20261116192638.233125-1-mathieu.desnoyers@efficios.com>
-From: John Stultz <jstultz@google.com>
-Date: Mon, 16 Nov 2026 22:28:54 -0800
-X-Gm-Features: Aa3M54raYIy1g-9GeSnu5j_oFGcUIQnF4PF3c5nPsw_P6oUqhgerrCyZAxXvPIY
-Message-ID: <CANDhNCruzSQ3r3WKPz9J6J5-DEm+L4hC8g6PvnuYnx9SiBTKhA@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 0/8] sched/proxy: fixes for proxy execution, with selftests
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	connoro@google.com, arighi@nvidia.com, akpm@linux-foundation.org, 
-	shuah@kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 11:26=E2=80=AFAM Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->
-> Hi John, Peter,
->
-> This series fixes six problems of proxy execution, and adds a test
-> module and a selftest for them. I found them while I looked at how
-> SCHED_DEADLINE priority inheritance could move to proxy execution.
->
-> It applies on top of v6 of my deadline series (link below). Patches 4
-> and 6 need it: they change code that v6 adds to the deadline bandwidth
-> accounting. Patches 1, 2, 3 and 5 do not.
->
+As discussed, here is the formal patch. Exactly as you presumed:
+srcu_module_going() needs the same check, because a module whose
+coming() fails the validation still gets a MODULE_STATE_GOING
+notification via the robust call in prepare_coming_module().
 
-Just following up again after playing with your tests and patches:
+---
 
-So I picked up your test-driver and kselftest patches first. Initially
-with my tree, only tests 5 & 8 passed (with sched_proxy_exec enabled,
-with it disabled all but 6 pass).
+The entries of the ___srcu_struct_ptrs section are absolute pointers
+emitted by DEFINE_SRCU() in module .data. load_info() hands the raw
+section to RCU (kernel/module/main.c), and srcu_module_coming()
+dereferences each entry and writes through it:
 
-Now, I know this series is dependent on your deadline series, but I
-figured I'd try to pull the independent changes first.
+	ssp = *(sspp++);
+	ssp->sda = alloc_percpu(struct srcu_data);
+	ssp->srcu_ctrp = &ssp->sda->srcu_ctrs[0];
 
-> The fixes:
->
->  1  Reschedule when a blocked task is woken under a proxy, so that the
->     old owner stops running on the donor's context.
+A malicious or corrupted module image can point an entry anywhere in
+the kernel address space; nothing on the load path validates it, so
+this is an arbitrary-address write primitive (an 8-byte percpu
+pointer at offset 8 of the target).
 
-With a variation of this one, tests  1, 2, 3, 5 & 8 passed.
+The static-key loader already handles the same shape of section with
+a range check (kernel/jump_label.c):
 
->  2  Wake blocked RT and deadline tasks through the full wake-up path, so
->     that they are pushable and another CPU can take them.
+	if (within_module((unsigned long)key, mod))
 
-With a variation of this one (basically dropping the shortcut rather
-then special casing dl/rt tasks), tests 1-5 & 8 pass.
+Apply the same check to both module-notification paths. coming()
+rejects the module load outright; going() skips the entry, because
+going() runs even for modules that never passed coming(), and those
+entries never got per-CPU data allocated.
 
->  3  Stop the chain walk when the blocked_on chain is a cycle, so that a
->     mutex deadlock no longer locks up the CPU.
+Signed-off-by: Guikun Yang <yangguikun19@qq.com>
+---
+ kernel/rcu/srcutree.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Already have a fix for this.
+diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+index 2b0e2b2d2..412265757 100644
+--- a/kernel/rcu/srcutree.c
++++ b/kernel/rcu/srcutree.c
+@@ -2498,6 +2498,8 @@ static int srcu_module_coming(struct module *mod)
+ 
+ 	for (i = 0; i < mod->num_srcu_structs; i++) {
+ 		ssp = *(sspp++);
++		if (WARN_ON_ONCE(!within_module((unsigned long)ssp, mod)))
++			return -EINVAL;
+ 		ssp->sda = alloc_percpu(struct srcu_data);
+ 		if (WARN_ON_ONCE(!ssp->sda))
+ 			return -ENOMEM;
+@@ -2521,6 +2523,8 @@ static void srcu_module_going(struct module *mod)
+ 	srcu_defer_flush();
+ 	for (i = 0; i < mod->num_srcu_structs; i++) {
+ 		ssp = *(sspp++);
++		if (WARN_ON_ONCE(!within_module((unsigned long)ssp, mod)))
++			continue;
+ 		if (!rcu_seq_state(smp_load_acquire(&ssp->srcu_sup->srcu_gp_seq_needed)) &&
+ 		    !WARN_ON_ONCE(!ssp->srcu_sup->sda_is_static))
+ 			cleanup_srcu_struct(ssp);
 
->  4  Tell the class about a proxy migration, so that the load of a fair
->     donor is attached to the runqueue it moves to. The bandwidth of a
->     deadline donor stays in its root domain.
+-- 
+2.34.1
 
-Have a partial fix for this already, but the deadline donor bit is
-dependent on your other series.
-
->  5  Clear blocked_donor when the donor stops donating, so that the
->     unlock path does not use a task that can be freed.
-
-I've taken a varient of this (only clearing on proxy_needs_return() -
-happy to expand that but I want to understand your reasons more) and
-have some related changes to clearing blockd_donor in other cases, but
-as you mentioned there's no test case in your test for this logic.
-
->  6  Check and admit a proxy-migrated deadline task in its own root
->     domain, so that sched_setattr() no longer fails with EPERM.
-
-This one I couldn't take as it was dependent on your other series.
-
-Basically after the first two patches tests 6, and 7 continue to fail.
-Interestingly, 7 does pass with proxy-exec off, so I need to look
-closer to understand what is happening in that case that isn't
-dependent on your other DL patch series.
-
-
-> Points I would like your opinion on:
-> - Patch 2 sends RT and deadline tasks through the full wake-up again. Tha=
-t
->   undoes part of commit 7918cf369361 ("sched/proxy: Only return migrate
->   when needed") for these classes. Putting the woken task on the pushable
->   list in place would keep the optimization, but it needs a hook into
->   the classes.
-
-I'm not opposed to dropping the optimization for now, but Peter added
-it so he may feel more strongly and I'd defer to him :)
-
-> - Patch 1 reschedules for any blocked task woken on a runqueue that runs
->   a proxy. A fair task woken from a delayed dequeue there also triggers
->   it. That is harmless, but not free.
-
-Agreed.  Would adding the resched_curr() logic to an else statement
-for the if (p->se.sched_delayed) check avoid some of this? As I
-replied to the patch it also catches cases where the we're proxying
-but the woken task is not part of the current chain.
-
-> - Patch 3 also stops the donation on a ww_mutex cycle that the wound or
->   die path is about to break. The donor then sleeps on its mutex.
-
-Is this a concern or did you verify this occurs? I thought we
-wound/kill tasks before the cycle gets created (see
-__mutex_lock_common(), before we call set_task_blocked_on()). Maybe
-I'm forgetting something?
-
-> - Patch 4 repeats in proxy_set_task_cpu() what set_task_cpu() does
->   around __set_task_cpu(). A helper shared by both would keep them from
->   drifting apart. I left it out to keep the fix small.
-
-I've already done this in my version.
-
-Thanks again for the extra testing and sending these patches out. I'll
-include the one's I've picked up in my next patch series iteration on
-the list, and hopefully we can sort out the deadline bits once your DL
-series has landed.
-
-thanks
--john
