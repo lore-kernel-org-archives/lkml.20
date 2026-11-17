@@ -1,51 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922918;
-	b=KQsPD/I7MXNdkp2brfyKm+9qC9LysNqEqYaLGNZ7KrO3+9E/GPtrsPIx6l7NvNPD1zSV
-	 u9jsd5+MJTglmg2z2Z4MSmB45bYdulIP/zaCRvLvRDPHYscfPwqPjyUF1PQgrWzeDE+Ht
-	 Etr6AYtipLHcAJ+snIea8w4GnWZF/WXAD3LQl8agHBt9AVmocVM5taE5gLKKJuViyjIES
-	 mmuYHi9zREJcXRkm4iK6ZMO2hjwSZ3gBEwa/rJhOVNoDuI+QZ0O8RBxtcVOf3PRC1PSoE
-	 djYFl9XwVFvZfZigZfgLiwpEyVNoVGT/zWYWX7wpo8jNNc3Wmj/etHT8uSCW7S4QORA==
+	t=1794922971;
+	b=Wk9RTT95clnf2b/fAYYNQW7J1YJafO1XGCxXjV30XivhyBmrl7obHMpbF/bwW7/TzN5s
+	 qJZeatvVTVzTY3/LuBc5iY04RNzs67Pkwz6uhUSefKSdUBslMPPaF/k9c14deVLZZsY+w
+	 0IrFZ77mREI8BDhmLqRfu60QrMaCuwFyEuEj+zeUXOVE23kCbilBAqG4TzZxGw6g+pUkG
+	 2/H7VP2zIVjm63bEumi9Od/AVybHFAgM4WxVpF4pG5ZeHoI88+JPsXgly+KcYDWBPFmne
+	 imyesPUB+wYw77RsZEPwAeKGZSxmiNuxCUyoI9bAfzzTqqoH5pw14sJz+H7iLE2sn7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922918;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=b06WvxswBrT9inOTA73+vuSETFIJ937S5Ls5TCRecAs=;
-	b=0DgehOBmIGYff5mY9ZUXnaEniQdUvEC3IfLcPtdkttSc2VZJLHtv3DMPTWKPAkMpjM1C
-	 cz8kGoDPDuPryqQszLqNN3vJwgtQHq/sQD72qsR516/3CZBgctPgM/uwF0Xd07kLxDbQ7
-	 HQ/nbdYYK51ensfj54L/AotK7D562LIa146uyMYWFKhnGwPMHy4nynsAOjPj8W2nqBgdn
-	 t7A1BTrrk4CxIvfDrkgkOBV8nGDDlVOGzfYu+5EtQhNhs4gYzMoOqdWfcp5hYQrLB+Wtp
-	 cRxGhf6i0wLw4wXxUkIZ7Y2cNqYA1SJv/qht2YR9dGxFbIj6ez/mUThwzs+tXtPZgUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lYvyOgeDLhWRH71wL6BvrJmUkU6oMEvaRE2drZaf37U=;
+	b=EJZi0nJxNoz1pjN5+eLKhRE7gPu6+VPgHnehPgmaGlVjZZl6TiJUAprgiD/6UGyS2JfL
+	 gzC2KzwXCELVusaAULzcsDRWNv196uFy+g4aPh/nC2v4uKQ06iBQzJBVqaEBVoNXqadRL
+	 mubJq0edk79llZQViaimelZ8ct18/yeunqjmr2gWwWXZNtW5ROtC46Rb42cGf1LZg2V3M
+	 oR5xNDroPprgbHQ05aCm5YLBdILPDwhY7CRL/6q6n5gicKlUizK0n7qJ3aZys/Fi5weTJ
+	 KLVMGCCCwE/wOXjZkafz6DyXZTOeps1dzFQ8ymbhKlYXV2rOO9TVN/n1vDEUliPGaZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C5Qz2oVa;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="FJ/gNqVY";
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E703606A329;
-	Tue, 17 Nov 2026 13:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E703606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA296606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:42:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA296606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C5Qz2oVa
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C8D6810F579;
-	Tue, 17 Nov 2026 14:41:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794922911; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=b06WvxswBrT9inOTA73+vuSETFIJ937S5Ls5TCRecAs=;
-	b=C5Qz2oVad0GZ4Yu12p6RqGcVZxeD9I5PIK0QPek4aQwyKLi88SS5FAsLc4x7nBZBJZpsrB
-	1pWMR/cPTrnMHVc9VnsSuFi5Y0a0X3EPzx0NEOjuw8NGpU1tp+y04Ewn7SLkszXOb4fh9u
-	sv/aDXDs1aYiBLteizJDCXt28Kz+XAG/PV6+MgKcABp6ehOGD62dwCPWJiFBbSgwvtflYa
-	9ciGHKw9hvS2gqZr6EjXEWKxzjup6YbNuIv/VDhdppmTkyqY5TU8JXKUYr+tR7m1P+a6BI
-	hC6xK5az0xsUbrhT4ZbdeIoPVHFYkwd3YsjuQZKh3yNFY3UHzAd3TEhzek9G9A==
-Message-ID: <ac1a1214-98dd-48da-b8e1-bc8ef9f09316@nabladev.com>
-Date: Tue, 17 Nov 2026 14:41:48 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=FJ/gNqVY
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so2604611b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:42:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794922969; x=1795527769; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lYvyOgeDLhWRH71wL6BvrJmUkU6oMEvaRE2drZaf37U=;
+        b=FJ/gNqVYyrVQqVNQp24+Mvcm2/Fswm3iWpTCbYFvz0mLTfjWb2EkFBahcNFhIytZpX
+         oJ2NTGEZiLB9dJJLFGHQAIN3o2Z1XJ4tUDbFUrgXSGkcolgSv6x8WtsMygqbFfBJqvRs
+         hDjYyoV6SbCHBB2yHjUlRcOb6V2xDsi0HFIiWtE/vDP9RxC0QJTcZGIMHDVTWhDe7xoY
+         1h6b0OhZ1/kMSrYQshblurkr2FYZSUKSSvpwlUtovdiH9yjS9bG8/FRqqdHNf2SreFgh
+         Bxkd4jnPyupdvIw/hJ+oCaodZMmEILOkHTYkhySeDPbbPCBE9cFDIUiqgjLGrW5lZLPm
+         AmXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794922969; x=1795527769;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lYvyOgeDLhWRH71wL6BvrJmUkU6oMEvaRE2drZaf37U=;
+        b=BUGbxHvP5u0LLosIvnW+8O5PtLW5xJGxJIC8/TXLyDT0j6NJwaa1ew9xKWRwsKxVBW
+         LNkpcrIYWYwtnH+jpGmIhEMpFmRQI1ns8isfsMcSHch4SlFRB7rMOYo7SNIEws5Db5v0
+         deU3eR/wtKlalWgQhk7Y3xqO39OrtLxGWiEx7p97+pDiceepozHmTQ62++W3ArPsFmoo
+         xab9tBaV201985ZTDZ+3NEh+A5MfgYBX6OOGHZRE33E3X9lKqq+1MdyBQJkKfRZYvqPu
+         oSYOiAq2a2sVevHT7bytaRgGssEY1nbJteEsT/3Ein6UEulF1orhrHudFOGX+1n+sa0v
+         OzFw==
+X-Forwarded-Encrypted: i=1; AL+hErGPRt9EhEcT7zE4wAzBe32mIbdygDnqSicZBi1qqn+irEbBCs6HJJZoY9ZVS97Jf7csGYgrXOPUOSiMwKw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gPk+tnrJ875A7Ztvh9e/34mh0YvkeaF20UWqwNGMHG1jPQuUe
+	2NA0XijEB7LasR7ru9ggKIGtcXvBTQPUhSvvAIGh4OTutwetPATmvBhnF1UF0AvRnGLEmklO9BI
+	E2xXQqvw=
+X-Gm-Gg: AYBFou00utUJOUstWzlX3EZ9UNlw5pYg/ww8HNuZOWJ1m+Y6wyXKhdrqho05z1k2t1T
+	6lYZSWLaxCgr8GbzopIrrzhDwFOaTnmxF9oEWrxm5NNp1rvTKt8Z7seH6pGxsdx6kbbgVTCqlHF
+	IAOqN9R8dfT8Q1BNe7SR3tg7dxBJjD8W93OKYP4Xtx75RAWGIohUIvXE/AeIJO0/zL5lk75i3CB
+	8usRTeL7PviC+0Lyv5xZiem1il+Qvpry3zGGZ4I0dcy+9BBJCFmd2iDuQwKNzeop3kD2e0JH7oM
+	4bruPNtoIVYvufvh12QW0EqiQ9tR3E6l5cZ3W7tZUaDFLe3cBTclN6BFFdhQWtSD1E9aMA6xCMB
+	B6sgHSEGCTTfOBwe1R3m+aHi0lMxmWa7dTAkM/FuAN4EeJcaVmOy0E4Tf3YYMBqa07RskuHqG8u
+	m4FWwgwTb8K+gnWfFU/8cP98ns7ywZqSC2UXDffqnrVtUFRN4ZAtKRftcXSnLjpydSUdv1gdNqs
+	YdRzdfgfnOzFMWamSN1jU5CeA1c9J0KbNZMhMWr2vsrlKSHxQUgUPAJVlVujYJFfo/MqrsQSDJe
+	AIXzed+cFZX/Nd39vBI/G55+tuOrIDuVzWfA4IQ+Eg2j/t+QB/hh+TP8+Sp3cMQNRM5uGgxOgjp
+	E/KINuHOtbMnvKTcZ5+HBSlbc9KrgSi5D7fBDHg==
+X-Received: by 2002:a05:6a00:340f:b0:857:7317:cff5 with SMTP id d2e1a72fcca58-8beb6197550mr11801170b3a.22.1794922968711;
+        Tue, 17 Nov 2026 05:42:48 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:73df:c7da:8e76:82c5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8024sm5040714b3a.11.2026.11.17.05.42.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 05:42:47 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zilin@seu.edu.cn
+Subject: [PATCH v3 0/3] scsi: mvumi: do not free or reuse buffers a timed-out command left with the device
+Date: Tue, 17 Nov 2026 22:42:24 +0900
+Message-ID: <20261117134227.2077013-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,50 +98,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: st: stm32mp2xxx: Remove undocumented,
- unapproved eeprom0wl alias
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, kernel@dh-electronics.com,
- linux-kernel@vger.kernel.org
-References: <20261117133747.244933-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261117133747.244933-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 11/17/26 2:37 PM, Krzysztof Kozlowski wrote:
-> The eeprom0wl alias was never approved by Devicetree maintainers,
-> because it was never documented as actual ABI.  There is no in-kernel
-> user of it, although there might be U-Boot.  External DTS users cannot
-> rely on undocumented ABI, thus these are pretty safe to drop.
-> 
-> No new custom aliases are allowed for years now.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi b/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
-> index bcf63e2ea989..5795b352fccf 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
-> @@ -10,7 +10,6 @@ aliases {
->   		serial0 = &usart6;
->   		serial1 = &uart8;
->   		eeprom0 = &eeprom0;
-> -		eeprom0wl = &eeprom0wl;
->   		rtc0 = &rv3032;
->   		rtc1 = &rtc;
->   	};
+1/3 stops bus-mastering before mvumi_detach_one() frees the buffers the
+controller was given.  2/3 keeps a timed-out internal command's buffers
+until then and stops the probe loop from reusing them.  3/3 waits for
+the event work before the host is freed.
 
-U-Boot depends on the alias, so please don't drop this one.
+v2 -> v3, from the Sashiko review of v2:
+- 2/3: free the mhba_dev_list entries an aborted probe leaves behind.
+- 3/3: clear bus-mastering before mvumi_release_fw() on the probe error
+  path.
+
+Left for separate patches: the DMA address rebuilt in
+mvumi_delete_internal_cmd(), which 7/9 of the series below removes; the
+unlocked sync_cmd test in mvumi_issue_blocked_cmd(); and the same
+bus-mastering order in mvumi_init_fw()'s error path.
+  https://lore.kernel.org/all/20261015045213.3975845-1-yhlee@isslab.korea.ac.kr/
+
+This conflicts with that 7/9 only in 2/3; I will rebase whichever goes
+in second.  I have no mvumi hardware; this was checked with a KUnit
+model.
+
+v1:
+  https://lore.kernel.org/all/20261114014430.489668-1-yhlee@isslab.korea.ac.kr/
+v2:
+  https://lore.kernel.org/all/20261115122153.1446810-1-yhlee@isslab.korea.ac.kr/
+
+Best regards,
+Yehyeong Lee
+
+Yehyeong Lee (3):
+  scsi: mvumi: stop the controller bus-mastering before freeing its
+    buffers
+  scsi: mvumi: quarantine a timed-out internal command's buffers
+  scsi: mvumi: flush the event work before the host is freed
+
+ drivers/scsi/mvumi.c | 97 ++++++++++++++++++++++++++++++++++++--------
+ drivers/scsi/mvumi.h |  3 ++
+ 2 files changed, 84 insertions(+), 16 deletions(-)
+
+
+base-commit: 23c62304dde29abe92013d85910d03a77dada35d
+-- 
+2.43.0
+
