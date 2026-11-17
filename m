@@ -1,49 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911756;
-	b=fymxLyrOmPPrqybRudiLz2PRdoFq0h2+n44/JbgHbc+EHLL7i12H3yIX2sWsohyYhUUl
-	 kqYDDC/5fBloIWIEtZywAQBt+TQpEK8DsLlC8A3db/ntupA+H7fJnQbAD5VTi2DFPMo2n
-	 Euhm1Z81MF661ClN1AeT4hXVPoC8ejHlFZEOksfVEIzbrHnrZUxKxodNkmD974yqezK/6
-	 lxKKweWstC0maA3wQmybvSzEKqv/iMjSSlABrG/PTyJ55DyZp5m4fY8L9KVtoE8leZ1CG
-	 OdJZ3GbAFu0W5wxVBKonM4LwXmcrcbSvzeUoqhZa5s23I9S2VWTUdr7vrqL3DUC4bNA==
+	t=1794911782;
+	b=uCg/ieV9W6mys5b+OKjNawttwtEL7QoKGGvyrzuJ2otvpOQXkGNsqZIwyv1FCuHLx0oo
+	 mt5cF7dtFnG98xpPRtk5O33QlcmOYh0nmc2c245AyZdwcmzMJLPQct4RhS684pU+aFm51
+	 sHPwpkwtrnuTsfpwsIRF4XjXBH00mHi7A/uj1RS0tM87lB/xvPdB4FlZx1c2lxecEiDC2
+	 u6ikk7mRj5EsUQ5qO4HStZHNzLpUe4YCyWvFVpbYxUL34+8GMIgFD/qQbpYEJCDGgg0n8
+	 ABqYCTKUD7HmMGXDGUzp0vRBtHkrhxVwxe77fvSliJM+aUD7uFYa6uwd1bMxYRA8eAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911756;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=CUBa3JrKm9epugz/h6AhQXjaE++SEn+EIH8O82h1Ucg=;
-	b=sU7MN8CkG4WYL11DDA7u79kygAgkukY+TfSUgzEcYaf/y4e/o++evSkHWHsPu8OtWrsC
-	 WOAjs8wbyFF+/FDrkts3zwRB6Wy38KPXgB9d+8YBWJGwJ7luBvdE7bJg6E/Q1t0GkV9Jd
-	 iKCAFX1nD5O2m9FRj1MMZcdz3l8lqQtHTAzyUOiuAVixTzajGu7Ws01biHn1pT+J7jFaz
-	 MEwAK1OBqDNDRknNDk2rYm9DAHz8JytPLuYfa9L8LnX+Gjfdwgv8xe0/PxmvqAKE1o9On
-	 PYbkK3AEd+g39oMkFLvDQQqJFDYOlpJXkKFM0GtcV9F+wRmtAZuqbrZ4MQoeK5CxvIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911782;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
+	bh=9vdN6y1G2nELn9LraDSoLy0IYPDjkvIY23fxYzj6Ado=;
+	b=ba58LI0xx0A+3/NsunPuLXQg9bzKs7nQr51XhA8uDOOH3eBNC3q/ea29/Ta+xZPL8kaW
+	 mOpp2gXUuiY/oQWDPFtLgyZegw7TAkHX9AA2N/Y1hmIcC+GCosNnIkY/hpH8a+XFuoTSF
+	 nihmltXGJ0ffYRy8kWjIwPVTe78ZmZgYNyGy1jhW2Kz4QAdS473WdJvRa2ltl6SkkEdNJ
+	 ncgYYGOhxIaVQ6Ld5GMkurZtt1pH3VxwLI9VkrtJqUZe7f4iiYhcVzm98MxNYETo3mfck
+	 kOFr6hPNhZ38qWbgqvJVqG9yTjJUgcAoBK1MDbCI+a+z8FYp4RZ9US3ADOZJL919Epg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=swNs1Ok3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 807E6606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:35:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 807E6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=i6NcTrGo;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20C7606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:36:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D20C7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=swNs1Ok3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 845C41476;
-	Tue, 17 Nov 2026 02:35:51 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.17.180])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E69C3F763;
-	Tue, 17 Nov 2026 02:35:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794911754; bh=sGpkum0bjez5dkPBVcc56aaH2V4M3Z/8iWCyxbdcqTc=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=swNs1Ok3HM52gv4LK+pUD5QC0FAfKmdNAXJPkgcOotFJ2MjQfYfidCUeXHthlXj9L
-	 faVlRdxjzI5TEMMx9DTxa7TGMEPRRyFK2b8E5qjm5J1xTzmqhWpF+cozMhgov7uN0F
-	 3h3lykE2a3pQ0gElfqlX9VKEhH+kSYZRFZnrPGDk=
-Message-ID: <ce03205e-6405-4269-a061-266ef6d67e1d@arm.com>
-Date: Tue, 17 Nov 2026 10:35:50 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=i6NcTrGo
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id E3FEBC4CBCA;
+	Tue, 17 Nov 2026 10:36:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8D29D5FC81;
+	Tue, 17 Nov 2026 10:36:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C43E11BC025C;
+	Tue, 17 Nov 2026 11:36:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794911775; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=9vdN6y1G2nELn9LraDSoLy0IYPDjkvIY23fxYzj6Ado=;
+	b=i6NcTrGoY7UUepB//+4GFB09Y0oI5v7K8Byc0ZULOw9hUAq/sbQFEUXqiSKnjz1mW9+T+r
+	5rRf1wiTOS882jFl/tlWk3LHI58J82gY68m679bG32+DyiWWSIKy9TJ2i5iw8ULft5zRGp
+	pMXqKHDgCzlXrjSO5BhOvoy5+4ztJ5h/iIpEY77sE34kiqPztW9soyJQ0THBugomPY0b0Q
+	DbVwZ9YvpWUsUavNdi2sQ5KGmUcVTcX0rVfAsr4Sa5PITgnzSpcc09vP0NkI8imPLsNjZy
+	NAAnCQfQD7NbIHgRVxWo7nAUdw1Lzvthy/3r6b3dCrPwk64MpU7Ci6dPYqMiQw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Stefan Agner <stefan@agner.ch>,  Richard Weinberger <richard@nod.at>,
+  Vignesh Raghavendra <vigneshr@ti.com>,  Boris Brezillon
+ <bbrezillon@kernel.org>,  Brian Norris <computersforpeace@gmail.com>,
+  Alexey Klimov <alexey.klimov@linaro.org>,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH v2 3/3] mtd: rawnand: vf610_nfc: return an error when a
+ command times out
+In-Reply-To: <20261114201054.975225-1-mehmet.fide@gmail.com> (Mehmet Fide's
+	message of "Sat, 14 Nov 2026 21:10:54 +0100")
+References: <20261114201054.975225-1-mehmet.fide@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 17 Nov 2026 11:36:12 +0100
+Message-ID: <87a4n7n3s3.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,124 +73,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource
- that supports it
-To: Jinjie Ruan <ruanjinjie@huawei.com>, Gavin Shan <gshan@redhat.com>,
- james.morse@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
- zengheng4@huawei.com, tan.shaopeng@jp.fujitsu.com, jic23@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
- <20261111081316.3828283-3-ruanjinjie@huawei.com>
- <a783b375-7c27-4c91-b40e-7e615d33bc5b@redhat.com>
- <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Gavin, Jinjie,
+Hi Mehmet,
 
-On 17/11/2026 03:31, Jinjie Ruan wrote:
-> Hi Gavin,
-> 
-> 在 2026/11/13 7:42, Gavin Shan 写道:
->> On 11/11/26 6:13 PM, Jinjie Ruan wrote:
->>> resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
->>> requested, even one that has no MPAM cache controls. Mounting resctrl
->>> with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
->>> the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
->>> its CLOSID count at the number of PARTIDs. Control groups in the upper
->>> half then map to PARTIDs beyond mpam_partid_max, which index past the
->>> configuration and monitor arrays and program out of range PARTIDs into
->>> the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
->>> 2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
->>> disabled.
->>>
->>> Do not enable CDP when a resource cannot allocate or is not CDP capable,
->>> as x86 does, so the mount fails instead. Only the enable path is checked,
->>> since unmount disables CDP on both cache levels to restore the MBA
->>> control.
->>>
->>> A system where only MBA can allocate, or that only has monitors, now
->>> fails a mount with CDP as well: CDP hides the MBA control because
->>> mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
->>>
->>> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
->>> Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-
->>> aa2c-3c90fab5853d
->>> Suggested-by: Ben Horgan <ben.horgan@arm.com>
->>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>> Cc: <stable@vger.kernel.org> # 7.1+
->>> ---
->>>   drivers/resctrl/mpam_resctrl.c | 4 ++++
->>>   1 file changed, 4 insertions(+)
->>>
->>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/
->>> mpam_resctrl.c
->>> index 573617ba09df..afa3c084c475 100644
->>> --- a/drivers/resctrl/mpam_resctrl.c
->>> +++ b/drivers/resctrl/mpam_resctrl.c
->>> @@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum
->>> resctrl_res_level rid, bool enable)
->>>       if (enable && mpam_partid_max < 1)
->>>           return -EINVAL;
->>>   +    if (enable && (!
->>> mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
->>> +               !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
->>> +        return -EINVAL;
->>> +
->>
->> x86 only checks 'cdp_capable', so this check isn't exactly same as to
->> what's
->> done on x86, as claimed in the commit log?
-> 
-> Sorry, the commit message is somewhat misleading and need updated.
-> 
-> In my opinion, CDP is a feature related to resource allocation, and it
-> is always reasonable to check alloc_capable.
+On 14/11/2026 at 21:10:54 +01, Mehmet Fide <mehmet.fide@gmail.com> wrote:
 
-Hmm, I know the patch came from my suggestion but I think the reason
-that x86 only checks cdp_capable is that alloc_capable is that the
-alloc_capable flag is also used to indicate that the resource is fully
-setup and can be used.
+> Hi Miquel,
+>
+> Please do not apply this patch as it is. Sashiko is right: when the
+> timeout hits the raw re-read in vf610_nfc_correct_data(),
+> vf610_nfc_read_page() counts it as an ECC failure and returns 0 instead
+> of the error. I could reproduce it by forcing the timeout there.
+>
+> v3 will return it. Patches 1/3 and 2/3 are not affected.
 
-In resctrl_arch_set_cdp_enabled() we manipulate alloc_capable for
-re-enabling the MBA resource and the added !alloc_capable check would
-mean that we'd never be able to do that manipulation. resctrl doesn't
-call resctrl_arch_set_cdp_enabled() for the MBA resource but to be more
-resilient the MPAM interface allows it.
-
-In the future, once we start adding more controls for resources we'll
-have to be careful to do the cdp enabling and hiding of features at the
-control level rather than the feature level.
-
-Thanks,
-
-Ben
-
-> 
-> Best regards,
-> Jinjie
-> 
->>
->> int resctrl_arch_set_cdp_enabled(enum resctrl_res_level l, bool enable)
->> {
->>         struct rdt_hw_resource *hw_res = &rdt_resources_all[l];
->>
->>         if (!hw_res->r_resctrl.cdp_capable)
->>                 return -EINVAL;
->>
->>         :
->> }
->>
->>
->>>       /*
->>>        * resctrl_arch_set_cdp_enabled() is only called with enable set to
->>>        * false on error and unmount.
->>
->> Thanks,
->> Gavin
-> 
-
+Thanks for the feedback, waiting for v3.
