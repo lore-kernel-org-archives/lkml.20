@@ -1,70 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887543;
-	b=H3Yo2HjxDWuybA/XsPS4THO0Ai1hXwb8J7ZmaoGCtuOQzq6X529wExGxaSZNnH4bmHB0
-	 b1BRpdBhpe4Djo8XSV0WFdoqbO8UuGgaey0wO9HtZtJqPAzqXwpDKF9ygpSzvS8YMVUGd
-	 fbl2j//sQSoeWqCST/Sv60aB+YdC8sP9bd8dmKtqIkk2YUPYZ8qD3rWukhPw8ksubXxK3
-	 2PR78z3ynof0sTmGAVlDw7H6ncTFW0MBp4vR1ul3uBiJBI6hJcvMuLIsGwihtAUU1Hh7B
-	 KLSxjPWVEyb0cLE+iTAQOP2z1ZIPi8phEVVVtzP8bU5ZpxnGn6XcgaWGxfTTM4dw8ow==
+	t=1794887562;
+	b=XwWHFBcFl72AqvMeaMwibt13SEVQjejhXEzvClqJEanGx2fcTHOYyIMjcFL9t2GkN9Q/
+	 3jVq3IDymppMIcNVwUbocC9DuMbERA7b3xtmkdBdF6r8d/iW+sxScgVY0RKYoWMGQRGnf
+	 OIwIQyy9rnf9HjdKTjAR2ID9yDVdwxaNOyILcP1vC3bW/O7sP7mcw+CZ7il79IkxRUaeb
+	 EvLAOESbOYaCjgk+1IEwU25JmMyJK16A1wsAMJoKn7qoXcyrYThbaENXfIzl/2gfGiJpu
+	 JFBzMD+sKuTiwneo66m5ZTTFwhADiHBnOwBd2uolcFYl30VYJZFoMWJZh9IiB1oxyaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887543;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887562;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=kPbUU2pSkdSIyR6nxJNJ4pLUOdW5sNHpnFPYPN95g1Y=;
-	b=hsy6vbFxCvSddVTFCu8ogCczqhphcSmiZ7Ccek7gYyJEsMjCvk+r0QZVzI7GwagJ9COC
-	 +U3EQEumgCE6cINf8Xn9mtwwH3BBjLQzTGIlf1fb7IuopTNLJjer4eusB54/NxlSMRKRK
-	 bx1BLr+mDBwyirum8iWDXo4KN4PAND1cA8657lUbdXq5kd27f/BFYJ84MFZMDEYi/UWlj
-	 QCn/qMex534xOhHqXVaXvSiPsFYqe19PphY5pmn7d54Fk9lduOYpWQCBh9V+W70w8hOCC
-	 uG0nTk232KrtrPx40QXuVwi11cNzpmyhM3kMFoUj+5IhoXkexaTSAuhvMFJHOcifjIw==
+	bh=98ojD7Yqgp4+QWlLYJvCdz0SkGgcS1ZlQwaV98NWAJc=;
+	b=ovHuzcENZqSVrJsCWJjQT4+h74Pk/QRLxRxd2o9KUcu5RmFu4aKQ/M1qaS+dVU+wHobm
+	 ABLuyq7KRiC1a477X9wX312EdkzS9Ry8//Y36X5BB1dY57K5eG6qMiyiM/gKAiPPwecoV
+	 IODpuR4r28gsBmegQBuTXfA+FfdQdPaoWbpzJBJjN+iEW0ORFZzFI1BS90Ix4Q9U6UI3m
+	 ho7FpRUNtQH3mDZ2FVNHhN9nK6+cy8OnvzHaMG6uS+RO2Ppw0AAZhKX11gEN+drqWog8n
+	 qzdAOpXHnRFHvLRawz45nvW4XKepXNMBMVjx7Mr02kzJXyrjjN3EjSd8zRgmrgd5T6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAUMfgRT;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12731606A31C;
-	Tue, 17 Nov 2026 03:52:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12731606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 429694a0e23a11f19a56ed5b684f684d-20261117
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e56faa59-909d-4110-9eb5-9206bf254019,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:54d9638c31d6d837d37134dceeea875f,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 429694a0e23a11f19a56ed5b684f684d-20261117
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 671802626; Tue, 17 Nov 2026 11:52:07 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: brendan.higgins@linux.dev,
-	david@davidgow.net
-Cc: raemoar63@gmail.com,
-	skhan@linuxfoundation.org,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DCB606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:52:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5DCB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAUMfgRT
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-55d2d380f6aso24617151cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:52:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794887560; x=1795492360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=98ojD7Yqgp4+QWlLYJvCdz0SkGgcS1ZlQwaV98NWAJc=;
+        b=vAUMfgRTe5L+FRb473+XUFiri9OlSQzM3Fwq2mGAYI/xsd0MceiGGUJcQ9xOa5PjfV
+         MdSdmceyC8DFmiY/IDttc2iRbooc5gFbbe7uM2JHXUIiVem/1A53TjNfMj66fIf15WM3
+         uBCuqJ892sii2nySQsGBZrHATcWI+f364XmPYEN+cvDRdsAZ/eteketmDA5hbuKJI8L1
+         Y9AFSbHYVWyDhw7bE10JHga2gzr/Gv+VWJ/sUf1ZNlyznH4fdFJA6ul9wxOyh602Y5II
+         t59+Wr+O/iFuuAW68ItNnWw/AfCuLPwWMO2xOpGVsCYj7jQXkAlS7zlm9OxVDRVx3Lxw
+         K3rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794887560; x=1795492360;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=98ojD7Yqgp4+QWlLYJvCdz0SkGgcS1ZlQwaV98NWAJc=;
+        b=U3DMYwm+Ch7y0NP41Qli8sjUXJ2eaHdbpyWu/Km/BZPmaKUlSLbq0qFF41q6hIPVVM
+         dmI7ezCDEYi0cu1vb4mXJTvaciUC76Y5P+JBVZBO0fQgWfyA561X6DbokLAKB0S+WI9c
+         zow2ugG1T3GdmG4vKh8P4nI1Ac2v0RIrv0EyIA7NBLar9d4jEyj947zwPMzuvU+m4icK
+         nm0B68UbetTJGjUpMtDMrz35Jli9iiLxVESdvRC6S4CsS8wzcxMgEiSCzPmwdZvdx6KV
+         j661CH93vA4fmpfogY0lZvOJLACfYxJk0fDdT9pvfBEFn8hpE6fnThvOr9Slyr1nojLG
+         Vxng==
+X-Forwarded-Encrypted: i=1; AL+hErES5l7VpYvQdgGJlNaeYhAYOty1pav/cyM+j4I3g+ETSQuk2DtBf6i3Xn/krIbR5HVmmju3Jw1Gxn1uDWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KjChjvQaxi9LXefF0HcZCbESGZX3hmul4ZwbmMdJOJSx6ARdy
+	cbvDGkNidgbjls1S8HgjTQq2XWRnukb3MEk+zUsW9E29k3dhC42wemXH
+X-Gm-Gg: AYBFou1mPBk5TXUQSQ5H82TedTyOvXsiKwC6M4VOwaaeE5ehZqmBzz3grne+WR29Qqe
+	OJT7bYD669dF+MEa1FbYMAm98WmdltpYLtmICPR+oC8IZPcAREGwUH2iSr1jQmJHmHn9Na8peGc
+	LAipc02vDuRbsd6/iLUzpTcuWXT/vQiK+vPSJYy9MHIkZOr7VShWpQUJ5hehgDgfc1emGHjcNdu
+	Zmre1VVElxDPETkzuqVq+x3QPkAT9zOFlYfdWN+hkHyt/WZjecsNoazPU7yfK5izkvhWd6001/e
+	D08r76eEmXu/+eg9H6t1SLWpQlpOvPkWB0HNyp6EPhzuMLa/0gu8MvVIRz546y+Lr1orHd3z9xd
+	Hhvubz32EgxKmdJLgYt3jUmxtMFUDdKUXm6Ym7iWPPq9LT0hTTu6ajDI998FOAOo/w8VwoHdPi2
+	9au8ycZ8+e1a3rALe8kH99AeeNvvZ1RuVVmGe6kAFJMTwrTzmW+jZjNj9Gq1lmGfIMzlN0hhpmc
+	n5AhELLcaQo5ViBSfI3sf9LpKxfRQ12OVdSGo0Un34l/Z44NX4vPjkV0T0wpMVvlJ6he3dBn3Z3
+	gs1Yh9S2BKCkzUalYiuHMht3cEDxM7jsW77JKKATqG8Gp7n+zzcO/oDW0DJZyTqBaEDb5vKlQhh
+	Ilbpd82+ymY1tSYT3/sIm2M+ZgZ9hBbybWv5KoGtvpf9xj561G4mYeth/mgfif81LN+s+7dcy
+X-Received: by 2002:a05:620a:6f01:b0:93e:653e:6981 with SMTP id af79cd13be357-9494ba5556bmr1927137885a.11.1794887560598;
+        Mon, 16 Nov 2026 19:52:40 -0800 (PST)
+Received: from localhost.localdomain (c-107-3-155-154.hsd1.ca.comcast.net. [107.3.155.154])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d70489sm100944006d6.21.2026.11.16.19.52.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 19:52:40 -0800 (PST)
+From: Yifan Feng <evanfengff@gmail.com>
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Naohiro Aota <naohiro.aota@wdc.com>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] kunit: fix NULL dereference when glob filter matches no tests
-Date: Tue, 17 Nov 2026 11:52:02 +0800
-Message-Id: <20261117035202.251238-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	Yifan Feng <evanfengff@gmail.com>
+Subject: [PATCH] btrfs: tests: zoned: fix NULL check of the active bitmap
+Date: Mon, 16 Nov 2026 19:51:55 -0800
+Message-Id: <20261117035155.86323-1-evanfengff@gmail.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,36 +101,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a suite glob matches a suite but its test glob matches none of the
-suite's tests, kunit_filter_glob_tests() returns NULL.
-kunit_filter_suites() only checks IS_ERR(), so the NULL passes into
-kunit_filter_attr_tests() and is dereferenced by kmemdup() in memcpy().
+test_load_zone_info() allocates the active bitmap with bitmap_zalloc()
+but then tests zone_info, which was already checked a few lines above.
+A failed allocation is not detected, and the NULL bitmap is then used
+by __set_bit() and by btrfs_load_block_group_by_raid_type().
 
-Skip the suite when the glob filter returns NULL. Keep the existing NULL
-check after the attribute filter, which covers suites whose tests are all
-removed by attributes.
+Check the active bitmap instead.
 
-Fixes: 529534e8cba3 ("kunit: Add ability to filter attributes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Tested in QEMU with the bitmap size temporarily changed to UINT_MAX so
+that the allocation fails. Without this patch the kernel oopses in
+btrfs_test_zoned() with a NULL pointer dereference. With it the test
+prints "cannot allocate active bitmap" and fails cleanly.
+
+Found by searching for a NULL check that tests a different pointer than
+the one just allocated, with the help of an AI coding assistant
+(Claude).
+
+Fixes: 1ba19a6ea9f2 ("btrfs: tests: zoned: add tests cases for zoned code")
+Signed-off-by: Yifan Feng <evanfengff@gmail.com>
 ---
- lib/kunit/executor.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/btrfs/tests/zoned-tests.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/kunit/executor.c b/lib/kunit/executor.c
-index c798a02470d8..3a281af3cda8 100644
---- a/lib/kunit/executor.c
-+++ b/lib/kunit/executor.c
-@@ -226,6 +226,9 @@ kunit_filter_suites(const struct kunit_suite_set *suite_set,
- 				*err = PTR_ERR(filtered_suite);
- 				goto free_filtered_suite;
- 			}
-+			/* Skip this suite if the glob filter matched no tests. */
-+			if (!filtered_suite)
-+				continue;
- 		}
- 		if (filter_count > 0 && parsed_filters != NULL) {
- 			for (k = 0; k < filter_count; k++) {
+diff --git a/fs/btrfs/tests/zoned-tests.c b/fs/btrfs/tests/zoned-tests.c
+index 2bc3b14baa41..bb9969210444 100644
+--- a/fs/btrfs/tests/zoned-tests.c
++++ b/fs/btrfs/tests/zoned-tests.c
+@@ -65,7 +65,7 @@ static int test_load_zone_info(struct btrfs_fs_info *fs_info,
+ 	}
+ 
+ 	active = bitmap_zalloc(test->num_stripes, GFP_KERNEL);
+-	if (!zone_info) {
++	if (!active) {
+ 		test_err("cannot allocate active bitmap");
+ 		return -ENOMEM;
+ 	}
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
 -- 
-2.25.1
+2.39.3 (Apple Git-146)
 
