@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907648;
-	b=iWQRm2kQuf0Rnsk3249I0IjiMW9T+WGzVL6IpxN7fMOtjv+um9cyrAdisUdqnHG9sj9s
-	 CdXG1bCzw1PZWHJOS/TJzIdXkdDlQ0zlA5ShIHeEGmCxRG611667k9D8u85n3EX2Fjgs8
-	 oz3P2FeS68cr9iCjazZyDet1XV0SEP9UfmK2s88ZwI3ytTaf7ienZSig7ochQvgNb8DOt
-	 BvCh1A7TCNPLOk276PWf+eJsUNYAzCFw/agOuesPidCaw3jKku23qpRQyze2IPPUw+WX5
-	 PdKHicDX+59kyElvlsyyz54nozflZ4BgpGZvL5JHqb+uNkasYd78Ybc5M3ynE4gkElQ==
+	t=1794907662;
+	b=pCILnkvQAs4RkoukEstCdF8SQJKGJ6eWsHgpAPB7XDV6ftGLqjs/dRNa5rrFCP9sySEa
+	 +GCdocZGcVL1u2WJNhA8mArNtOGKoK4fKASAdfBdUojp4mTBrb4r8h5PtYN+yk6dNjj6F
+	 W92kkNaC2o0S8yu8oAemB84GtQDKVaZ2/D0AlFwC3l6D2M0qGSqAxCn97e8HDCtsZq3zU
+	 T0yHSQvPLBTscMnGyBYDwsqL79puKGvSAteMrpU8JS9lBhLtzqH5MTF0ipKdsT0JyBzQf
+	 4vhYXs3LFmGtbWiXJE5POwpL/ylKIzVNr/t1zwlAf+JKqCHQDu/EBbWSqn/6ben9AJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907648;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oTTb+Dn7nHMhxxnq5jmSly2jMvu8te5GnRCNd9YojcQ=;
-	b=v3EEKMLv1QGNtpwan4tcB9G9q3Rierx1fb9v6yHf6uLf8PgmkLS1qasroWuPx/+9a3UB
-	 QJRdJ5wbq/GLsjfH86XqkyLqdsSyzXn01nqMac+o10910marsGVJFIq+i2D5BgZzFwgxO
-	 URvEKVd/RryZOAYc4Dn2H1IN32qvBwW3V3yTcYPqOkiTAegpS8EFdq8m5BgrWXEuGTGAH
-	 29a5HFWBxxMoGCeg+Ayf7eRj7gzb5OCMs9KWd10nGfIGEIl8s0oz2kwM1nnyy7EBymYpS
-	 HN4eboPU/Cx8pPhV+PYd4XQbpe0RjF8dz3ciVuW7xHLFGU2jcRy+E5XIgE80qfINJMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907662;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aDSdHKsmTGGWkDOKCvZtMPEPFRR2Z2wRDeQx9ZQTN3o=;
+	b=EULzf1Y9nXvNz1AVv3hJ5DkNI+50tL26lBfYnuWv60TZU+hsStb2BIVsR8pyMpjL0gG0
+	 m5vtsPqT5joP952yLQuU782H5oBYaiXeqftx04dURNPTZQxxK8csO3+O/PLY9rnriEa3r
+	 sTo8gACkWogK1uSYfPUQYsIEZSXDIHXhD7LH2/p1tsf6FjTXljnTnsltHrkwK7y+Enr4h
+	 EVEdyFyyqBZhXZGyr5WjPOpHvnJInUkKifczbpzIPTyNmuyR0yh101XwjomJj2hBHaAkJ
+	 43zkkwZ4n3ppB468uIm4RpI6K8pbUqgecKJzgl0J52QP+q4y9FCFBpA5B76q5qGetAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i8/pydmq";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0SeRLO/C";
+	arc=none smtp.remote-ip=74.125.229.131
+Received: from mail-dl2-f3.google.com (mail-dl2-f3.google.com [74.125.229.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFC6606A330;
-	Tue, 17 Nov 2026 09:27:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4FA606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:27:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F4FA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8/pydmq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846961F000C4;
-	Tue, 17 Nov 2026 09:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794907648;
-	bh=oTTb+Dn7nHMhxxnq5jmSly2jMvu8te5GnRCNd9YojcQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i8/pydmqN7orR0XVHafLfjZZYlyjMJWjJpVoT1Iyw3gZnx11mrCK7E5yitfea+E2y
-	 lBgx6t0vxIi+J56RLzDtS1pxKQRaAiGsVRvY8Ru4uFphVseCQtCRt6F5BfRA6TfxUX
-	 yAgcE6zKEKo7Rpln1PSIOslgIpC7BAyIZhYBD3SMawByEMhrAtK6vZodz/iSyNzIC0
-	 VoV+SFbnW4fAvR6Fl8/hbRcQguga37+IH2TJwXGBbN5mPtzeS0+NDLVhIr03cbcosM
-	 ZZ3m2w4Q28nTXIAP0p2eWHqh4q/gZQO64VmJu6MwCzc0OE1YeDBGQV92l5B87G1Utm
-	 jDvxoI6g73pdw==
-Date: Tue, 17 Nov 2026 11:27:23 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Theodore Ts'o <tytso@mit.edu>, David Hildenbrand <david@kernel.org>,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] docs: submitting-patches: ask bug fixes for their
- user-visible impact
-Message-ID: <20261117092723.GA124972@unreal>
-References: <20261116200515.352387-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0SeRLO/C
+Received: by mail-dl2-f3.google.com with SMTP id a92af1059eb24-1521c45a248so3040301c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:27:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794907661; x=1795512461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aDSdHKsmTGGWkDOKCvZtMPEPFRR2Z2wRDeQx9ZQTN3o=;
+        b=0SeRLO/Cu/Z7fD38T1aAPibopqP6aQGUmhp1Bo9C+KNJ0zCPPS4ridEDVsmduTWVMB
+         IcSiChIYc5OtxT7LxawZZwt+I4vRJx+Vqq/qgo8Z8FQoveqYdA9YRJcwE/sXvxSDpMRr
+         xicb0QeRwgjZ9gDwefSkUvHASJVJQlsYzMLlQ4EAKa7se1CKQDlqSiZO4Xwi4Wnc/QC2
+         VNJwxXOQsdQW6+6QcfmItcKP+zjvb/hOjtnhCrZe6LlBjJf4dHf/HEeX6Tndo67/JG2A
+         sGSH6TS8rkRN0Xbzr2uiSUXWh7FLBkPXcSgHu7bfSdxyrlnkvQ/DQ6n04bjGVmj+umb1
+         eyZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794907661; x=1795512461;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aDSdHKsmTGGWkDOKCvZtMPEPFRR2Z2wRDeQx9ZQTN3o=;
+        b=K7RBb1AccZuRX/lLcIB99wPi4ZsxRK60s1j4TfMRe6p/28q+1ajOVzC3L10aCAegws
+         hiioVGP7plLEa8qRaY5qC7ayN+ruwOEiB/jD0QHGRZq8fd7LnrfH136Ez7Q3cWV+AMk/
+         7g6Vwk8aCNBx1v3skJmJ+xK1nRJfKxcxgBCAFbS4ACzgq0mkPzwflNM0ZF8SKNapOuXY
+         lb5cUz7flYp3J+gz2mBpVe4rYX8AcpndHug43JReJCUE0mvChexqV+pYoSMKj23zTbSS
+         JaUvV8MLXublzJaTHVwDJvzkb1j/smZaM10nIIb1Zf3BZS/2c5p7H14OvU/jltLd6wnd
+         6rRw==
+X-Forwarded-Encrypted: i=1; AL+hErHm7KgM37e4ODIKd7HU6iwxdJIkj2Cphn89ccth7p52PcFgg6JWpFI9rf2xztqYvwjS+Ea4ahgbLiK/Su4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PMh4QkhfzzDv08CiAQ2Xz172Z7csZCCk4suBothFgIx2zv6UD
+	WEBMBcu57paKfKyOmantKvXd3Nd0Q2aalQJDi41M21rbdXsxLgPndixQ
+X-Gm-Gg: AYBFou110FOO/oUZIonlSwuHLg/6LbnrjnST4SHVdkLep9IaG7cz+IKwDdzO+85MnGG
+	s5OrPJewg1se45IQ6ATgd7Yz3R8dBS9n/Lo1lFgZxOxprFaDF67Szy2pEEEwmiah4q3HTsgSsyO
+	j4mo5vbza2+9sr4klml2OdAgr8nDsR8c+RTuPNA00HyGm8cDYerw1SufN2yVdpJqYvI3ojthilD
+	5Ea0n9HPyym3ESkkklAt/UDlKcmNwTSoM8tv/Qvu1QKOeckXUwsH0a2847uXtWIERz4trybYhtR
+	h21MnUOKMjcV7A9/OrhQFwm+N98V5Ur+ysd35DSGdNAnp3XyY34J1hGSB3rPN2eXFu7M9wfUNFF
+	q642+22BzvdU3IEXDVYahU7aS3TNe36hFUF4b+dprscsTSjMmkLUBl5mDZmz8TGJzwPQtp4jsX0
+	4SLzA3CgDOjFvPhC/yvKvwG5e6/vZoE/qWCNj048ulB2jA0Lmlc/Zj9QDc0L4XTXft8V8bKHX5Z
+	DisXyj4oU5+ec0S9UUNRz69PE0pK+RP20fxIXw0GB/DVMK/rg67LIxpZaBNA/Hh81bLTzDEwZBe
+	oWSghJMVUjWCYSNRclXFrr5e7N0YIcIqdHoQpH/OKED9zrco4EywdihKSdLQTXkiQcMz9lMC5b/
+	dAQ==
+X-Received: by 2002:a05:7022:438e:b0:1b2:539b:496c with SMTP id a92af1059eb24-1b503175d03mr21231997c88.35.1794907661127;
+        Tue, 17 Nov 2026 01:27:41 -0800 (PST)
+Received: from DESKTOP-GSNRJ5L.tail4a8ad8.ts.net ([104.28.223.11])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b27dsm38381531c88.2.2026.11.17.01.27.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:27:40 -0800 (PST)
+From: onLeaf <onleaf322@gmail.com>
+To: pablo@netfilter.org,
+	fw@strlen.de
+Cc: phil@nwl.cc,
+	kadlec@netfilter.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	onLeaf <onleaf322@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] netfilter: ipset: exclude add-path GC during resize
+Date: Tue, 17 Nov 2026 18:27:31 +0900
+Message-ID: <20261117092731.14656-1-onleaf322@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,52 +107,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116200515.352387-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 03:05:15PM -0500, Sasha Levin wrote:
-> "Describe your changes" already asks for the user-visible impact of a
-> change, but changelogs for fixes still tend to say what the code does,
-> why that's wrong and what the patch changes, and stop there. Whoever
-> has to decide if the fix needs backporting is left to work out what
-> the bug does to a running system.
-> 
-> Say what that means for a bug fix, in two parts. For users who aren't
-> looking for the bug: what a normal workload is likely to run into, and
-> separately the worst case and what it takes to get there. For someone
-> triggering it on purpose: whether an unprivileged user could do it and
-> what that would take, since a race that no real workload loses can
-> still be won by a program written to win it. Give the paragraph a
-> label so people can be pointed at it.
-> 
-> Coding assistants are told to commit a fix with a message that
-> describes the problem and the solution. Add the user-visible impact to
-> that list and point them at the section.
-> 
-> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-> Link: https://lore.kernel.org/r/20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Acked-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: Willy Tarreau <w@1wt.eu>
-> ---
-> Changes since v1:
-> - Split the bug-fix paragraph into users who aren't looking for the bug
->   and someone triggering it on purpose (Andrew, Willy).
-> 
-> v1: https://lore.kernel.org/r/20261116191436.188098-1-sashal@kernel.org
-> 
->  Documentation/process/coding-assistants.rst  |  6 +++--
->  Documentation/process/submitting-patches.rst | 23 ++++++++++++++++++++
->  2 files changed, 27 insertions(+), 2 deletions(-)
+mtype_resize() copies elements to the new table including their extension
+pointers. Garbage collection of an expired element in the old table after
+the copy therefore frees an extension still referenced by the new table.
 
-Sasha,
+Commit cffcf57bf03c ("netfilter: ipset: exclude gc when resize is in
+progress") prevents the delayed-work collector from running during resize.
+However, mtype_add() also invokes mtype_gc_do() directly when its target
+region is full. The packet path can enter this call while a userspace
+resize is copying the old table. It then frees the old copy's comment, and
+collection of the published copy queues the same object for freeing again.
 
-Since you're already making changes in that area, could you add a sentence
-asking reporters to provide the full dmesg stack trace?
+An unprivileged process can reach packet-side ipset add with CAP_NET_ADMIN
+in newly created user and network namespaces. The resulting duplicate free
+was reproduced with KASAN on x86-64 and exploited from UID 1000 to UID 0 in
+the initial user namespace on a non-KASAN build.
 
-Many AI-generated patches reduce it to one or two lines, which gives no
-indication of whether the report is genuine or fabricated. Early in the AI
-era, I saw some completely fabricated stack traces.
+Serialize the direct collector with the same GC lock and honor the pinned
+table's resizing flag, just as the delayed-work collector does. The table
+remains pinned by uref while the lock is held.
 
-Thanks
+The issue was found through AI-assisted source review. On the fixed kernel,
+the same copy/old-GC/publish/new-GC ordering completed without producing a
+duplicate object; /etc/passwd remained unchanged and the test ended in
+LPE_FAIL.
+
+This change was prepared with assistance from OpenAI Codex.
+
+Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
+Cc: stable@vger.kernel.org
+Signed-off-by: onLeaf <onleaf322@gmail.com>
+---
+ net/netfilter/ipset/ip_set_hash_gen.h | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
+index 80ca523f304b..70f768ba7b44 100644
+--- a/net/netfilter/ipset/ip_set_hash_gen.h
++++ b/net/netfilter/ipset/ip_set_hash_gen.h
+@@ -1009,8 +1009,12 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
+ 	maxelem = t->maxelem;
+ 	if (elements >= maxelem) {
+ 		u32 e;
+-		if (SET_WITH_TIMEOUT(set))
+-			mtype_gc_do(set, h, t, r);
++		if (SET_WITH_TIMEOUT(set)) {
++			spin_lock_bh(&h->gc.lock);
++			if (!t->resizing)
++				mtype_gc_do(set, h, t, r);
++			spin_unlock_bh(&h->gc.lock);
++		}
+ 		maxelem = h->maxelem;
+ 		elements = 0;
+ 		for (e = 0; e < ahash_numof_locks(t->htable_bits); e++)
+-- 
+2.43.0
+
