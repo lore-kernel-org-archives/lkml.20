@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907609;
-	b=1uJpzcEe7FbT7Kk8mYWuNirdjkbxxOBW2VCZUUtc0nCZ/iOzljNcY59pNfx3U+boD1b5
-	 F6cv35lxu6rxN5pXcOqOmMKWemSJZ3tg7ZOqcjOJOBmh+8p/MXfyOAJD8CM/fqC6SQ22K
-	 XApJXRjNEoMbb5hBSICmiIVpGplIreFWeB5D+Ok5wjCHldSPBw+ghnsgiTxytBcU4ojy7
-	 pbZ5Wp6U+Ih2e38fdZ3dZUbGM13QEvfe5T+T43z+6pRmVSpWU8wMTYZ/YZbMau9Fci+RU
-	 snEijSxiXmX2Kty0mZGlynZ2NGvMoMdm84zrgQvUW8ikWMBBxrDLYvwOZAfrGMaqtYg==
+	t=1794907611;
+	b=Ru5ro0xjyvFNDu3qhMIsikR0ZlxBzdT/zq5QSBZiMwMQMoPujlHRqoQPTvYnwZvxMf6z
+	 q0epMMP/6kAKE9jHZVSoRTvPXkDSZdbsOzkTEKY7fO5IVyAVXGcpS8kXuzVV/k8nVBpI7
+	 FLy7ESTkgcaH7YNReYWK2sB8/Hq53T9LvWQY2bITOYgMfwwQ/kATpbP7Jr9vgginviZva
+	 OTI7k43O7r5BDxtlqY6IcUWs26IlFpPx5TQ2TwWnu3ArHYD6iybcwho6nRXddWGN29SAD
+	 DrwLXHfZudGFkj7TTiFwW7owNcynh7qAmlaaUZAeQhtHPrcL8gwRjEqbW8w0IYlV6Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907609;
-	h=DMARC-Filter:Received:Received:From:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=UU8LnXWi7SOAhTu8hL9ezXqRNkuSckzICbco40F7TEs=;
-	b=aq6I4fHvB9roKOYVzSJfzlSvxAqyvGDAPNNHalRbqFCqYWqFqKLlhT6QEbyiM1ii/fix
-	 3i1zCQb84eboeRDO896f+kKAM40TE5OIO0HPJHU4Y0qXduwmvel/ZjD5vG3NKRNVuIKLT
-	 OHklt6rkSXdQJPIgQVBL35Z/MF25QidcCBp7C9BUD4BT/Ectlu2bGjRmTgtWRKURhSXAJ
-	 7NO2ZqQ9O1UEZFlw7HtczgQbwKLN2CtGIWbPJvZcTP1vV7ndr5AlfhOhrtJd72DY+1ymw
-	 O06u9F8jlTLDHy/iOVDMybQ09X6V7mGydlnCp8iVIqpAPi87mOPx3ZYKBUR2ia/44zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907611;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=SJB1wbp4M72rX0uX1JUiX6RxERUdkwXMCgU30Qw+W1U=;
+	b=XhFy8dd3+uaS3qsB2CmEsVL4YWfbBuagVlslZI8voEEcnWk+MI4Oxp9iGhc8pAK91zpm
+	 NBeRdVywJ0skt1ywriWRnyiDpnosyo30UcN91K9/tIik9llBU4Cm2oSDnoTWyeODs+2EP
+	 hZcGtYp9Y2AosasXswwROvjq0WgPXaf++yFc+VZ65z7D9Q7KAbGQqhu6c+NRFxRYlpcBg
+	 qA/iypl3lvF8LHh2YZKLMavN7iEzPiHeGeuJZ11L++oU5EvboV4NeCtsGg6aweaVhRX6Z
+	 gXJhx51P/2Sb/ETLHlgL8VwN3ZhwGSeQKBjxqwXYvBH0s0V91zu8e3rn3rGFVBmglQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,22 +24,21 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546FF606A329;
-	Tue, 17 Nov 2026 09:26:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 546FF606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8D2606A883;
+	Tue, 17 Nov 2026 09:26:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF8D2606A883
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 17 Nov
- 2026 17:26:39 +0800
+ 2026 17:26:40 +0800
 Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Tue, 17 Nov 2026 17:26:39 +0800
+ Transport; Tue, 17 Nov 2026 17:26:40 +0800
 From: Ryan Chen <ryan_chen@aspeedtech.com>
-Subject: [PATCH v6 0/4] Add Aspeed AST2700 SDRAM EDAC support
-Date: Tue, 17 Nov 2026 17:26:37 +0800
-Message-ID: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
+Date: Tue, 17 Nov 2026 17:26:40 +0800
+Subject: [PATCH v6 3/4] EDAC/aspeed: Add AST2700 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,12 +50,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAM4d/GoC/23NTW7CMBCG4asgrzEaj+O/rnqPikXiGTdeQFCMo
- iKUu9eBqCA1y2/k5/VdFB4zF/Gxu4uRp1zycK7D7nci9u35m2WmugUCWrBoJFMbpedggQHZJSf
- q08vIKf88Ml/HuvtcrsN4e1QntVyfAa/wGZiUBAk6BGTiFoP7bMuFma4c+0McTmKpTPgmsVklV
- hk9+a6zQRtvN6V+yaDsKnWVqDkwYeoohU3ZvEkNq2yWP5EN2qSZ3LY0f1IBuFWaKk3UKkVDqYn
- pn5zn+RfnAueLhQEAAA==
-X-Change-ID: 20260625-edac-8e960e02e7f7
+Message-ID: <20261117-edac-v6-3-a2a747b95c3f@aspeedtech.com>
+References: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
+In-Reply-To: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
 To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
 	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
@@ -67,127 +63,351 @@ CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
 	<ryan_chen@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907599; l=5749;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907599; l=11992;
  i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=ST0L4QPW1A8R34qKK1TI0LPc6bCG1Beinf9ovjbd4cE=;
- b=0SRJVt7ZmBC3Kk48RuhvVrTUu8AjRUM3jdXjmq9yLv4Y3n1Ltz0AHac4F6ITY/Iews1TY8kpV
- LZmztnzXsUzC80YDO21bEqBnCHNUl0OaLyZAZi28DZqDZTrFpQ6IlMS
+ bh=fO9QGrRiui5XD80bvbzNXSZKfqrQfbtcQkYU0U7QOUI=;
+ b=GKVcS6IbYTXSrT37mZZQCaJyi7lJsaQ29oj9i7AWuFS6AyQWOZGnrXD/oNmpRh7rvsTFiSKWL
+ RqzUkfX2zhFBGHC4afNyVMOr1L67MArR1eT7su0UpkiD3xMcADP5bde
 X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
  pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Add ECC error reporting for the Aspeed AST2700 SoC to the existing
-aspeed_edac driver.
+Add SDRAM ECC reporting for the Aspeed AST2700. Its DRAMC has a different
+register layout, a split interrupt status/clear/mask scheme, DDR4/DDR5
+memory and interrupt registers that are not key-protected.
 
-The AST2700 memory controller keeps the same overall EDAC programming
-model as the earlier Aspeed BMC SoCs, but uses a different register
-layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
-Rather than fork the driver, the existing code is first generalised,
-then the AST2700 is added as one more per-SoC variant.
+Its interrupt status/clear and enable sequences differ from the earlier
+SoCs, so add per-chip isr() and set_irq() hooks and route the
+request_irq() and enable/disable paths through them, keeping the
+existing AST2400/2500/2600 behaviour under the shared
+aspeed_mcr_isr()/aspeed_set_irq().
 
-The bug fixes, cleanups and AST2700 binding from v5 (v5 patches 1-5)
-have been applied to the edac-drivers-aspeed branch of
-git://git.kernel.org/pub/scm/linux/kernel/git/bp/bp.git, and this
-series is based on that branch.
+Unlike the earlier SoCs it records a single failure address shared by
+both error types, so extend the shared count_rec()/count_un_rec()
+helpers with a have_addr flag to report an error without an address
+(existing SoCs pass have_addr = true, unchanged) and widen their address
+argument to phys_addr_t as the AST2700 address can exceed 32 bits.
 
-Patches 1 and 2 rework the implementation to accommodate the AST2700:
-patch 1 replaces the driver's private regmap with direct register
-access, and patch 2 moves the SoC-specific details behind per-SoC chip
-data. Patch 3 adds the AST2700 support itself. Patch 4 is Stefan's
-step-down patch, amended to leave the entry in place with me as its
-reviewer.
+Tested on an AST2700: A correctable error was injected from the console by
+unlocking the controller and writing its ECC error inject test register:
 
-Claude, an AI coding assistant, was used in developing patches 1-3.
-It drafted parts of the code and of the changelogs, and proposed the
-locking changes in this revision. I reviewed every change, and the
-AST2600 and AST2700 test results are in patches 2 and 3.
+  # mw 12c00000 1688a8a8
+  # mw 12c00080 31
+  EDAC MC0: 1 CE on mc#0csrow#0channel#0 (csrow:0 channel:0 page:0x40f6da offset:0xdb0 grain:16 syndrome:0x0)
 
 Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+
 ---
 Changes in v6:
-- Rebase onto the edac-drivers-aspeed branch of bp.git and drop the five
-  v5 patches applied there (v5 patches 1-5). v5 patches 6-9 are now
-  patches 1-4.
-- Patch 1: use a spinlock_t rather than a raw_spinlock_t for the
-  register lock, as regmap did; the interrupt handler is not
-  IRQF_NO_THREAD. Patches 2 and 3 follow.
-- Patch 1: drop the __guarded_by() annotations and the context analysis
-  opt-in, and assign the register base in probe without taking the
-  lock, so aspeed_probe() no longer mixes scoped_guard() with goto
-  unwinding.
-- Link to v5: https://lore.kernel.org/r/20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com
+- Follow patch 1 ("EDAC/aspeed: Replace regmap with direct register
+  access"): spinlock_t.
 
 Changes in v5:
-- v5 patch 2: register the ECC interrupt with request_irq() instead of
-  devm_request_irq() followed by an explicit free, and keep the
-  interrupt number alongside the driver's other state so
-  aspeed_remove() does not have to call platform_get_irq() again.
-- Link to v4: https://lore.kernel.org/r/20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com
-
-Changes in v4:
-- Put the bug fixes first: the two fixes became v4 patches 1 and 2, the
-  cleanups v4 patches 3 and 4, and the bindings patch moved to v4
-  patch 5 ahead of the AST2700 work.
-- Explain in v4 patch 1 where the grain value comes from, rather than
-  the warning it silences.
-- Drop the Cc: stable tags from the two fixes. Neither meets the bar in
-  Documentation/process/stable-kernel-rules.rst; the Fixes: tags stay.
-- Merge Stefan's step-down patch into v4 patch 9 (now patch 4),
-  keeping the MAINTAINERS entry alive with a reviewer instead of
-  removing it.
-- Link to v3: https://lore.kernel.org/r/20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com
+- Follow v5 patch 2 ("EDAC/aspeed: Free the interrupt before the
+  mem_ctl_info on remove", now applied) in using request_irq().
 
 Changes in v3:
-- Establish the AST2700 interrupt mask in the driver rather than
-  deriving it from the register's contents: ast2700_set_irq() now
-  writes the mask outright, masking every source and unmasking only
-  the ECC ones, and the mask is established before the interrupt is
-  requested.
-- New patch: add myself as a reviewer for the driver in MAINTAINERS.
-- Tested on an AST2600 with CONFIG_PROVE_LOCKING=y; injected correctable
-  errors are reported from the interrupt handler with no lockdep reports.
-- Link to v2: https://lore.kernel.org/r/20260824-edac-v2-0-c8d8bb693586@aspeedtech.com
+- Write the AST2700 interrupt mask register outright rather than
+  read-modify-write: mask every source and unmask only the ECC ones.
+  The driver owns the line exclusively, so it should establish the
+  mask itself instead of deriving it from the register's contents.
+- Mask the interrupts before requesting them rather than after, so the
+  mask is established before the handler can run.
 
 Changes in v2:
-- New patch (v5 patch 2, now applied): free the ECC interrupt before
-  the mem_ctl_info in aspeed_remove(). The interrupt is requested with
-  devm_request_irq() and is only released after .remove() has returned,
-  so edac_mc_free() could free the handler's context while the handler
-  was still running on another CPU.
-- Acquire the register lock with the irqsave variant in init_csrows() and
-  in aspeed_probe(). The interrupt handler takes the same lock in hardirq
-  context.
-- Move the dev_dbg() of the interrupt status register out of the
-  raw_spinlock critical section in the interrupt handler.
-- Opt aspeed_edac.o into context analysis in drivers/edac/Makefile. The
-  check is opt-in per object, so without it the __guarded_by() annotation
-  added by the same patch was never actually verified.
 - Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
-  bit is set; the handler clears only the ECC bits, so unconditionally
-  claiming the interrupt could livelock the level-triggered line.
-- Tested v2 on both AST2600 and AST2700 by injecting a correctable
-  error with the memory controller's ECC error injection; each is
-  reported as a CE with the expected failure address.
-- Link to v1: https://lore.kernel.org/r/20260812-edac-v1-0-03992edea297@aspeedtech.com
-
+  bit is set. The handler clears only the ECC bits, so unconditionally
+  claiming the interrupt could livelock the level-triggered line if
+  another DRAMC source was left unmasked.
+- Add AST2700_INT_ECC for the pair of ECC interrupt bits, now used by both
+  the handler and the enable path.
+- Expand the enable/disable ternary in ast2700_set_irq() into if/else,
+  matching the shape of aspeed_set_irq().
+- Pass struct aspeed_edac to the set_irq() hooks instead of
+  struct mem_ctl_info, which the callees only used to reach pvt_info.
 ---
-Ryan Chen (3):
-      EDAC/aspeed: Replace regmap with direct register access
-      EDAC/aspeed: Abstract SoC differences behind chip data
-      EDAC/aspeed: Add AST2700 support
+ drivers/edac/aspeed_edac.c | 161 +++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 135 insertions(+), 26 deletions(-)
 
-Stefan M Schaeckeler (1):
-      MAINTAINERS: Step down as Aspeed AST2500 EDAC driver maintainer
+diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
+index d56626821ce0..720daf77cfba 100644
+--- a/drivers/edac/aspeed_edac.c
++++ b/drivers/edac/aspeed_edac.c
+@@ -32,6 +32,24 @@
+ #define ASPEED_MCR_INTR_CTRL_CNT_UNREC  GENMASK(15, 12)
+ #define ASPEED_MCR_INTR_CTRL_ENABLE     (BIT(0) | BIT(1))
+ 
++#define AST2700_INT_STS			0x04
++#define AST2700_INT_CLR			0x08
++#define AST2700_INT_MASK		0x0c
++#define   AST2700_INT_ECC_RECOVERABLE	BIT(5)
++#define   AST2700_INT_ECC_UNRECOVERABLE	BIT(4)
++#define   AST2700_INT_ECC		(AST2700_INT_ECC_RECOVERABLE | \
++					 AST2700_INT_ECC_UNRECOVERABLE)
++#define   AST2700_INT_ALL		GENMASK(16, 0)
++#define AST2700_MCFG			0x10
++#define   AST2700_MCFG_ECC		BIT(6)
++#define   AST2700_MCFG_DRAM_TYPE	BIT(0) /* 0=DDR4, 1=DDR5 */
++#define AST2700_ECC_STS			0x78
++#define   AST2700_ECC_REC_CNT		GENMASK(15, 8)
++#define   AST2700_ECC_UNREC_CNT		GENMASK(7, 0)
++#define AST2700_ECC_FAIL_ADDR		0x7c
++
++struct aspeed_edac;
++
+ struct aspeed_edac_chip {
+ 	unsigned int conf_reg;
+ 	u32 conf_ecc;
+@@ -40,6 +58,8 @@ struct aspeed_edac_chip {
+ 	unsigned long mtype_cap;
+ 	unsigned int prot_reg;
+ 	u32 prot_key;
++	irqreturn_t (*isr)(int irq, void *arg);
++	void (*set_irq)(struct aspeed_edac *priv, bool enable);
+ };
+ 
+ struct aspeed_edac {
+@@ -50,26 +70,34 @@ struct aspeed_edac {
+ 	int irq;
+ };
+ 
+-static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
++static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, phys_addr_t rec_addr,
++		      bool have_addr)
+ {
+ 	struct csrow_info *csrow = mci->csrows[0];
+-	u32 page, offset, syndrome;
++	unsigned long page, offset, syndrome;
+ 
+ 	if (!rec_cnt)
+ 		return;
+ 
+-	/* report first few errors (if there are) */
+-	/* note: no addresses are recorded */
+-	if (rec_cnt > 1) {
++	/*
++	 * Report the errors whose address is not recorded: all of them when
++	 * no address is available, otherwise all but the last one (reported
++	 * with its address below).
++	 */
++	if (rec_cnt > 1 || !have_addr) {
+ 		/* page, offset and syndrome are not available */
+ 		page = 0;
+ 		offset = 0;
+ 		syndrome = 0;
+-		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, rec_cnt-1,
++		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
++				     have_addr ? rec_cnt - 1 : rec_cnt,
+ 				     page, offset, syndrome, 0, 0, -1,
+ 				     "address(es) not available", "");
+ 	}
+ 
++	if (!have_addr)
++		return;
++
+ 	/* report last error */
+ 	/* note: rec_addr is the last recoverable error addr */
+ 	page = rec_addr >> PAGE_SHIFT;
+@@ -82,32 +110,34 @@ static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
+ }
+ 
+ static void count_un_rec(struct mem_ctl_info *mci, u8 un_rec_cnt,
+-			 u32 un_rec_addr)
++			 phys_addr_t un_rec_addr, bool have_addr)
+ {
+ 	struct csrow_info *csrow = mci->csrows[0];
+-	u32 page, offset, syndrome;
++	unsigned long page, offset, syndrome;
+ 
+ 	if (!un_rec_cnt)
+ 		return;
+ 
+-	/* report 1. error */
+-	/* note: un_rec_addr is the first unrecoverable error addr */
+-	page = un_rec_addr >> PAGE_SHIFT;
+-	offset = un_rec_addr & ~PAGE_MASK;
+-	/* syndrome is not available */
+-	syndrome = 0;
+-	edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
+-			     csrow->first_page + page, offset, syndrome,
+-			     0, 0, -1, "", "");
++	/* report the first error with its address when one is available */
++	if (have_addr) {
++		/* note: un_rec_addr is the first unrecoverable error addr */
++		page = un_rec_addr >> PAGE_SHIFT;
++		offset = un_rec_addr & ~PAGE_MASK;
++		/* syndrome is not available */
++		syndrome = 0;
++		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
++				     csrow->first_page + page, offset, syndrome,
++				     0, 0, -1, "", "");
++	}
+ 
+-	/* report further errors (if there are) */
+-	/* note: no addresses are recorded */
+-	if (un_rec_cnt > 1) {
++	/* report the remaining errors without a recorded address */
++	if (un_rec_cnt > 1 || !have_addr) {
+ 		/* page, offset and syndrome are not available */
+ 		page = 0;
+ 		offset = 0;
+ 		syndrome = 0;
+-		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, un_rec_cnt-1,
++		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
++				     have_addr ? un_rec_cnt - 1 : un_rec_cnt,
+ 				     page, offset, syndrome, 0, 0, -1,
+ 				     "address(es) not available", "");
+ 	}
+@@ -164,8 +194,8 @@ static irqreturn_t aspeed_mcr_isr(int irq, void *arg)
+ 		rec_cnt, un_rec_cnt);
+ 
+ 	/* process recoverable and unrecoverable errors */
+-	count_rec(mci, rec_cnt, rec_addr);
+-	count_un_rec(mci, un_rec_cnt, un_rec_addr);
++	count_rec(mci, rec_cnt, rec_addr, true);
++	count_un_rec(mci, un_rec_cnt, un_rec_addr, true);
+ 
+ 	if (!rec_cnt && !un_rec_cnt)
+ 		dev_dbg_ratelimited(mci->pdev, "received edac interrupt, but did not find any ECC counters\n");
+@@ -178,6 +208,54 @@ static irqreturn_t aspeed_mcr_isr(int irq, void *arg)
+ 	return IRQ_HANDLED;
+ }
+ 
++static irqreturn_t ast2700_dramc_isr(int irq, void *arg)
++{
++	u32 int_sts, ecc_sts, fail_addr;
++	struct mem_ctl_info *mci = arg;
++	struct aspeed_edac *priv;
++	u8 rec_cnt, un_rec_cnt;
++	phys_addr_t addr;
++
++	priv = mci->pvt_info;
++
++	scoped_guard(spinlock, &priv->lock) {
++		int_sts = readl(priv->regs + AST2700_INT_STS);
++		if (!(int_sts & AST2700_INT_ECC))
++			return IRQ_NONE;
++
++		ecc_sts = readl(priv->regs + AST2700_ECC_STS);
++		fail_addr = readl(priv->regs + AST2700_ECC_FAIL_ADDR);
++
++		/* the interrupt registers are not key-protected; clear only ECC */
++		writel(int_sts & AST2700_INT_ECC, priv->regs + AST2700_INT_CLR);
++	}
++
++	rec_cnt = FIELD_GET(AST2700_ECC_REC_CNT, ecc_sts);
++	un_rec_cnt = FIELD_GET(AST2700_ECC_UNREC_CNT, ecc_sts);
++
++	/* the register holds address bits [35:4], in units of 16 bytes */
++	addr = (phys_addr_t)fail_addr << 4;
++
++	/*
++	 * The controller records only the address of the latest failure,
++	 * shared by both error types. When only one type occurred it owns
++	 * that address; when both occurred attribute it to the uncorrectable
++	 * error and report the corrected ones without an address.
++	 */
++	if (un_rec_cnt && !rec_cnt) {
++		count_un_rec(mci, un_rec_cnt, addr, true);
++	} else if (!un_rec_cnt && rec_cnt) {
++		count_rec(mci, rec_cnt, addr, true);
++	} else if (un_rec_cnt && rec_cnt) {
++		count_un_rec(mci, un_rec_cnt, addr, true);
++		count_rec(mci, rec_cnt, 0, false);
++	} else {
++		dev_dbg_ratelimited(mci->pdev, "received interrupt with no ECC counters set\n");
++	}
++
++	return IRQ_HANDLED;
++}
++
+ static void aspeed_set_irq(struct aspeed_edac *priv, bool enable)
+ {
+ 	u32 val;
+@@ -195,6 +273,19 @@ static void aspeed_set_irq(struct aspeed_edac *priv, bool enable)
+ 	aspeed_mcr_irq_update_exit(priv);
+ }
+ 
++static void ast2700_set_irq(struct aspeed_edac *priv, bool enable)
++{
++	u32 val = AST2700_INT_ALL;
++
++	guard(spinlock_irqsave)(&priv->lock);
++
++	/* interrupts are enabled by clearing their mask bits */
++	if (enable)
++		val &= ~AST2700_INT_ECC;
++
++	writel(val, priv->regs + AST2700_INT_MASK);
++}
++
+ static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
+ {
+ 	struct aspeed_edac *priv = mci->pvt_info;
+@@ -207,14 +298,16 @@ static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
+-	rc = request_irq(irq, aspeed_mcr_isr, IRQF_TRIGGER_HIGH, DRV_NAME, mci);
++	priv->chip->set_irq(priv, false);
++
++	rc = request_irq(irq, priv->chip->isr, IRQF_TRIGGER_HIGH, DRV_NAME, mci);
+ 	if (rc)
+ 		return rc;
+ 
+ 	priv->irq = irq;
+ 
+ 	/* enable interrupts */
+-	aspeed_set_irq(priv, true);
++	priv->chip->set_irq(priv, true);
+ 
+ 	return 0;
+ }
+@@ -362,7 +455,7 @@ static void aspeed_remove(struct platform_device *pdev)
+ 	struct aspeed_edac *priv = mci->pvt_info;
+ 
+ 	/* disable interrupts */
+-	aspeed_set_irq(priv, false);
++	priv->chip->set_irq(priv, false);
+ 
+ 	free_irq(priv->irq, mci);
+ 
+@@ -379,6 +472,8 @@ static const struct aspeed_edac_chip ast2400_edac = {
+ 	.mtype_cap = MEM_FLAG_DDR3 | MEM_FLAG_DDR4,
+ 	.prot_reg = ASPEED_MCR_PROT,
+ 	.prot_key = ASPEED_MCR_PROT_PASSWD,
++	.isr = aspeed_mcr_isr,
++	.set_irq = aspeed_set_irq,
+ };
+ 
+ /* The AST2600 does not key-protect the interrupt control register (MCR50). */
+@@ -388,12 +483,26 @@ static const struct aspeed_edac_chip ast2600_edac = {
+ 	.conf_dram_type = ASPEED_MCR_CONF_DRAM_TYPE,
+ 	.dram_type = { MEM_DDR3, MEM_DDR4 },
+ 	.mtype_cap = MEM_FLAG_DDR3 | MEM_FLAG_DDR4,
++	.isr = aspeed_mcr_isr,
++	.set_irq = aspeed_set_irq,
++};
++
++/* The AST2700 interrupt registers are not key-protected either. */
++static const struct aspeed_edac_chip ast2700_edac = {
++	.conf_reg = AST2700_MCFG,
++	.conf_ecc = AST2700_MCFG_ECC,
++	.conf_dram_type = AST2700_MCFG_DRAM_TYPE,
++	.dram_type = { MEM_DDR4, MEM_DDR5 },
++	.mtype_cap = MEM_FLAG_DDR4 | MEM_FLAG_DDR5,
++	.isr = ast2700_dramc_isr,
++	.set_irq = ast2700_set_irq,
+ };
+ 
+ static const struct of_device_id aspeed_of_match[] = {
+ 	{ .compatible = "aspeed,ast2400-sdram-edac", .data = &ast2400_edac },
+ 	{ .compatible = "aspeed,ast2500-sdram-edac", .data = &ast2400_edac },
+ 	{ .compatible = "aspeed,ast2600-sdram-edac", .data = &ast2600_edac },
++	{ .compatible = "aspeed,ast2700-sdram-edac", .data = &ast2700_edac },
+ 	{},
+ };
+ 
 
- CREDITS                                            |   8 +
- .../bindings/edac/aspeed,ast2400-sdram-edac.yaml   |   2 +-
- MAINTAINERS                                        |   2 +-
- drivers/edac/aspeed_edac.c                         | 385 ++++++++++++++-------
- 4 files changed, 273 insertions(+), 124 deletions(-)
----
-base-commit: 65d0a904696bae7e99a2c6eef61d4df03bac025f
-change-id: 20260625-edac-8e960e02e7f7
-
-Best regards,
 -- 
-Ryan Chen <ryan_chen@aspeedtech.com>
+2.34.1
 
